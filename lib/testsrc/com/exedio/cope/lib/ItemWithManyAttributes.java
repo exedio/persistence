@@ -39,6 +39,12 @@ public class ItemWithManyAttributes extends Item
 	 */
 	public static final ItemAttribute someItem = new ItemAttribute();
 
+	/**
+	 * A media attribute.
+	 * @persistent
+	 */
+	public static final MediaAttribute someMedia = new MediaAttribute();
+
 /**
 
 	 **
@@ -187,6 +193,58 @@ public class ItemWithManyAttributes extends Item
 	}/**
 
 	 **
+	 * Returns a URL pointing to the data of the persistent attribute {@link #someMedia}.
+	 * @generated
+	 *
+ */public final java.lang.String getSomeMediaURL()
+	{
+		return getMediaURL(this.someMedia,null);
+	}/**
+
+	 **
+	 * Returns the major mime type of the persistent media attribute {@link #someMedia}.
+	 * @generated
+	 *
+ */public final java.lang.String getSomeMediaMimeMajor()
+	{
+		return getMediaMimeMajor(this.someMedia);
+	}/**
+
+	 **
+	 * Returns the minor mime type of the persistent media attribute {@link #someMedia}.
+	 * @generated
+	 *
+ */public final java.lang.String getSomeMediaMimeMinor()
+	{
+		return getMediaMimeMinor(this.someMedia);
+	}/**
+
+	 **
+	 * Returns a stream for fetching the data of the persistent media attribute {@link #someMedia}.
+	 * @generated
+	 *
+ */public final java.io.InputStream getSomeMediaData()
+	{
+		return getMediaData(this.someMedia);
+	}/**
+
+	 **
+	 * Provides data for the persistent media attribute {@link #someMedia}.
+	 * @generated
+	 *
+ */public final void setSomeMediaData(final java.io.OutputStream data,final java.lang.String mimeMajor,final java.lang.String mimeMinor)throws java.io.IOException
+	{
+		try
+		{
+			setMediaData(this.someMedia,data,mimeMajor,mimeMinor);
+		}
+		catch(com.exedio.cope.lib.NotNullViolationException e)
+		{
+			throw new com.exedio.cope.lib.SystemException(e);
+		}
+	}/**
+
+	 **
 	 * The persistent type information for itemWithManyAttributes.
 	 * @generated
 	 *
@@ -198,6 +256,7 @@ public class ItemWithManyAttributes extends Item
 				someInteger,
 				someNotNullInteger,
 				someItem,
+				someMedia,
 			},
 			new com.exedio.cope.lib.UniqueConstraint[]{
 			},
@@ -209,6 +268,7 @@ public class ItemWithManyAttributes extends Item
 					someInteger.initialize("someInteger",false,false);
 					someNotNullInteger.initialize("someNotNullInteger",false,true);
 					someItem.initialize("someItem",false,false);
+					someMedia.initialize("someMedia",false,false);
 				}
 			}
 		)

@@ -2,6 +2,7 @@
 package com.exedio.cope.lib;
 
 import com.exedio.cope.lib.database.Database;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -191,6 +192,23 @@ public class LibTest extends TestCase
 			final ItemWithoutAttributes someItem = new ItemWithoutAttributes();
 			item.setSomeItem(null);
 			assertEquals(null/*someItem*/, item.getSomeItem());
+			
+			assertEquals(null, item.getSomeMediaURL());
+			assertEquals(null, item.getSomeMediaData());
+			assertEquals(null, item.getSomeMediaMimeMajor());
+			assertEquals(null, item.getSomeMediaMimeMinor());
+			try
+			{
+				item.setSomeMediaData(null, "someMimeMajor", "someMimeMinor");
+			}
+			catch(IOException e)
+			{
+				throw new SystemException(e);
+			}
+			assertEquals(null/*somehow gets the data*/, item.getSomeMediaURL());
+			assertEquals(null/*somehow gets the data*/, item.getSomeMediaData());
+			assertEquals(null/*"someMimeMajor"*/, item.getSomeMediaMimeMajor());
+			assertEquals(null/*"someMimeMinor"*/, item.getSomeMediaMimeMinor());
 		}
 	}
 
