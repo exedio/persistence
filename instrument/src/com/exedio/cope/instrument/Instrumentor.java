@@ -260,7 +260,9 @@ public final class Instrumentor implements InjectionConsumer
 	{
 		final List initialAttributes = javaClass.getInitialAttributes();
 		writeCommentHeader();
-		output.write("\t * This is a generated constructor.");
+		output.write("\t * Constructs a new ");
+		output.write(javaClass.getName());
+		output.write(" with all the attributes initially needed.");
 		for(Iterator i = initialAttributes.iterator(); i.hasNext(); )
 		{
 			final JavaAttribute initialAttribute = (JavaAttribute)i.next();
