@@ -5,9 +5,14 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.SortedSet;
 import java.util.TreeMap;
+import java.util.TreeSet;
+import persistence.ReadOnlyViolationException;
+import tools.ClassComparator;
 
 /**
  * Represents a class parsed by the java parser.
@@ -139,6 +144,50 @@ public class JavaClass extends JavaFeature
 		return buf.toString();
 	}
 	
+	private ArrayList initialAttributes = null;
+	private TreeSet contructorExceptions = null;
+	
+	private final void makeInitialAttributesAndContructorExceptions()
+	{
+		initialAttributes = new ArrayList();
+		contructorExceptions = new TreeSet(ClassComparator.newInstance());
+		for(Iterator i = getPersistentAttributes().iterator(); i.hasNext(); )
+		{
+			final JavaAttribute persistentAttribute = (JavaAttribute)i.next();
+			if(persistentAttribute.isReadOnly() || persistentAttribute.isNotNull())
+			{
+				initialAttributes.add(persistentAttribute);
+				contructorExceptions.addAll(persistentAttribute.getSetterExceptions());
+			}
+		}
+		contructorExceptions.remove(ReadOnlyViolationException.class);
+	}
+
+	/**
+	 * Return all initial attributes of this class.
+	 * Initial attributes are all attributes, which are read-only or not-null.
+	 */
+	public final List getInitialAttributes()
+	{
+		if(initialAttributes == null)
+			makeInitialAttributesAndContructorExceptions();
+		return initialAttributes;
+	}
+
+	/**
+	 * Returns all exceptions, the generated constructor of this class should throw.
+	 * This is the unification of throws clauses of all the setters of the
+	 * {@link #getInitialAttributes() initial attributes},
+	 * but without the ReadOnlyViolationException,
+	 * because read-only attributes can only be written in the constructor.
+	 */
+	public final SortedSet getContructorExceptions()
+	{
+		if(contructorExceptions == null)
+			makeInitialAttributesAndContructorExceptions();
+		return contructorExceptions;
+	}
+
 	public final boolean isInterface()
 	{
 		return (getModifiers() & Modifier.INTERFACE) > 0;

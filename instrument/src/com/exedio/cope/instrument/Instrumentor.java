@@ -221,24 +221,7 @@ public final class Instrumentor implements InjectionConsumer
 	public void writeConstructor(final JavaClass javaClass)
 	throws IOException
 	{
-		// Initial attributes are all attributes, which are read-only or not-null.
-		final ArrayList initialAttributes = new ArrayList();
-		// The constructor throws the exceptions, all the setters of the intitial
-		// attributes throw together (unify).
-		final TreeSet contructorExceptions = new TreeSet(ClassComparator.newInstance());
-		for(Iterator i = javaClass.getPersistentAttributes().iterator(); i.hasNext(); )
-		{
-			final JavaAttribute persistentAttribute = (JavaAttribute)i.next();
-			if(persistentAttribute.isReadOnly() || persistentAttribute.isNotNull())
-			{
-				initialAttributes.add(persistentAttribute);
-				contructorExceptions.addAll(persistentAttribute.getSetterExceptions());
-			}
-		}
-		// But constructor can never throw ReadOnlyViolationException,
-		// because read-only attributes can only be written in the constructor.
-		contructorExceptions.remove(ReadOnlyViolationException.class);
-
+		final List initialAttributes = javaClass.getInitialAttributes();
 		writeCommentHeader();
 		output.write("\t * This is a generated constructor.");
 		for(Iterator i = initialAttributes.iterator(); i.hasNext(); )
@@ -273,7 +256,7 @@ public final class Instrumentor implements InjectionConsumer
 		}
 		
 		output.write(')');
-		writeThrowsClause(contructorExceptions);
+		writeThrowsClause(javaClass.getContructorExceptions());
 		output.write(lineSeparator);
 		output.write("\t{");
 		output.write(lineSeparator);
