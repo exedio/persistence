@@ -25,14 +25,9 @@ import java.util.Map;
 
 public class OracleDatabase extends Database
 {
-	protected char getNameDelimiterStart()
+
+	public String protectName(final String name)
 	{
-		return '"';
+		return '"' + name + '"';
 	}
-	
-	protected char getNameDelimiterEnd()
-	{
-		return '"';
-	}
-	
 }

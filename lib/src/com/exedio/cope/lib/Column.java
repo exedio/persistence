@@ -8,21 +8,23 @@ import java.util.HashMap;
 abstract class Column
 {
 	final Type type;
-	final String name;
+	final String trimmedName;
+	final String protectedName;
 	final boolean notNull;
 	final String databaseType;
 	
-	Column(final Type type, final String name, final boolean notNull, final String databaseType)
+	Column(final Type type, final String trimmedName, final boolean notNull, final String databaseType)
 	{
 		this.type = type;
-		this.name = Database.theInstance.makePersistentQualifier(name);
+		this.trimmedName = trimmedName;
+		this.protectedName = Database.theInstance.protectName(trimmedName);
 		this.notNull = notNull;
 		this.databaseType = databaseType;
 	}
 	
 	public final String toString()
 	{
-		return name;
+		return trimmedName;
 	}
 	
 	abstract void load(ResultSet resultSet, int columnIndex, HashMap itemCache) throws SQLException;

@@ -25,7 +25,8 @@ public final class Type
 	private final UniqueConstraint[] uniqueConstraints;
 	private final List uniqueConstraintList;
 	
-	private final String persistentQualifier;
+	final String trimmedName;
+	final String protectedName;
 	private final List columns;
 	final Column primaryKey;
 
@@ -55,7 +56,8 @@ public final class Type
 		
 		typesModifyable.add(this);
 		typesByName.put(javaClass.getName(), this);
-		this.persistentQualifier = Database.theInstance.makePersistentQualifier(this);
+		this.trimmedName = Database.theInstance.trimName(this);
+		this.protectedName = Database.theInstance.protectName(this.trimmedName);
 
 		final ArrayList columns = new ArrayList();
 		for(int i = 0; i<attributes.length; i++)
@@ -87,12 +89,6 @@ public final class Type
 	public final List getUniqueConstraints()
 	{
 		return uniqueConstraintList;
-	}
-	
-	String getPersistentQualifier()
-	{
-		// TODO: remove method, make attribute package private
-		return persistentQualifier;
 	}
 	
 	List getColumns()

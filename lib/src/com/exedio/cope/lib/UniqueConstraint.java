@@ -22,15 +22,16 @@ public final class UniqueConstraint
 
 	private final Attribute[] uniqueAttributes;
 	private final List uniqueAttributeList;
-	final String name;
+	final String trimmedName;
+	final String protectedName;
 
 	public UniqueConstraint(final Attribute[] uniqueAttributes)
 	{
 		this.uniqueAttributes = uniqueAttributes;
 		this.uniqueAttributeList = Collections.unmodifiableList(Arrays.asList(uniqueAttributes));
-		final String name = "UC"+runningNumber++;
-		this.name = Database.theInstance.makePersistentQualifier(name);
-		uniqueConstraintsByName.put(name, this);
+		this.trimmedName = "UC"+runningNumber++;
+		this.protectedName = Database.theInstance.protectName(this.trimmedName);
+		uniqueConstraintsByName.put(trimmedName, this);
 	}
 	
 	public UniqueConstraint(final Attribute uniqueAttribute)

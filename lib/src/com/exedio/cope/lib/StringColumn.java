@@ -7,10 +7,10 @@ import java.util.HashMap;
 
 final class StringColumn extends Column
 {
-	StringColumn(final Type type, final String name, final boolean notNull)
+	StringColumn(final Type type, final String trimmedName, final boolean notNull)
 	{
 		// TODO: support min/max length
-		super(type, name, notNull, "varchar2(2000)"/* TODO: this is database specific */);
+		super(type, trimmedName, notNull, "varchar2(2000)"/* TODO: this is database specific */);
 	}
 	
 	void load(final ResultSet resultSet, final int columnIndex, final HashMap itemCache)

@@ -36,9 +36,6 @@ public abstract class Database
 	{
 	}
 	
-	protected abstract char getNameDelimiterStart();
-	protected abstract char getNameDelimiterEnd();
-	
 	public void createTables()
 	{
 		for(Iterator i = Type.getTypes().iterator(); i.hasNext(); )
@@ -113,7 +110,7 @@ public abstract class Database
 				this.text.append(mapping.sqlMappingEnd);
 			}
 			else
-				this.text.append(attribute.getMainColumn().name);
+				this.text.append(attribute.getMainColumn().protectedName);
 			
 			return this;
 		}
@@ -142,9 +139,9 @@ public abstract class Database
 	{
 		final Statement bf = new Statement();
 		bf.append("select ").
-			append(type.primaryKey.name).
+			append(type.primaryKey.protectedName).
 			append(" from ").
-			append(type.getPersistentQualifier()).
+			append(type.protectedName).
 			append(" where ");
 		condition.appendStatement(bf);
 		
@@ -169,12 +166,12 @@ public abstract class Database
 			else
 				bf.append(',');
 			final Column column = (Column)i.next();
-			bf.append(column.name);
+			bf.append(column.protectedName);
 		}
 		bf.append(" from ").
-			append(type.getPersistentQualifier()).
+			append(type.protectedName).
 			append(" where ").
-			append(type.primaryKey.name).
+			append(type.primaryKey.protectedName).
 			append('=').
 			append(pk);
 
@@ -194,7 +191,7 @@ public abstract class Database
 		if(present)
 		{
 			bf.append("update ").
-				append(type.getPersistentQualifier()).
+				append(type.protectedName).
 				append(" set ");
 
 			boolean first = true;
@@ -206,30 +203,30 @@ public abstract class Database
 					bf.append(',');
 
 				final Column column = (Column)i.next();
-				bf.append(column.name).
+				bf.append(column.protectedName).
 					append('=');
 
 				final Object value = itemCache.get(column);
 				bf.append(column.cacheToDatabase(value));
 			}
 			bf.append(" where ").
-				append(type.primaryKey.name).
+				append(type.primaryKey.protectedName).
 				append('=').
 				append(pk);
 		}
 		else
 		{
 			bf.append("insert into ").
-				append(type.getPersistentQualifier()).
+				append(type.protectedName).
 				append("(").
-				append(type.primaryKey.name);
+				append(type.primaryKey.protectedName);
 
 			boolean first = true;
 			for(Iterator i = columns.iterator(); i.hasNext(); )
 			{
 				bf.append(',');
 				final Column column = (Column)i.next();
-				bf.append(column.name);
+				bf.append(column.protectedName);
 			}
 
 			bf.append(")values(").
@@ -399,27 +396,33 @@ public abstract class Database
 			return null;
 	}
 	
-	String makePersistentQualifier(final Type type)
+	String trimName(final Type type)
 	{
 		final String className = type.getJavaClass().getName();
 		final int pos = className.lastIndexOf('.');
-		return getNameDelimiterStart() + className.substring(pos+1) + getNameDelimiterEnd();
+		return className.substring(pos+1);
 	}
 	
-	String makePersistentQualifier(final String name)
+	/**
+	 * Trims a name to length for being be a suitable qualifier for database entities,
+	 * such as tables, columns, indexes, constraints, partitions etc.
+	 */
+	String trimName(final String longName)
 	{
-		return getNameDelimiterStart() + name + getNameDelimiterEnd();
+		return longName; // TODO: we should actually do some shortening
 	}
-	
+
+	public abstract String protectName(final String name);
+
 	private void createTable(final Type type)
 	{
 		final Statement bf = new Statement();
 		bf.append("create table ").
-			append(type.getPersistentQualifier()).
+			append(type.protectedName).
 			append('(');
 
 		final Column primaryKey = type.primaryKey;
-		bf.append(primaryKey.name).
+		bf.append(primaryKey.protectedName).
 			append(' ').
 			append(primaryKey.databaseType).
 			append(" primary key");
@@ -429,7 +432,7 @@ public abstract class Database
 			final Column column = (Column)i.next();
 			//System.out.println("getCreateTableStatement:"+column);
 			bf.append(',').
-				append(column.name).
+				append(column.protectedName).
 				append(' ').
 				append(column.databaseType);
 			
@@ -441,7 +444,7 @@ public abstract class Database
 		{
 			final UniqueConstraint uniqueConstraint = (UniqueConstraint)i.next();
 			bf.append(",constraint ").
-				append(uniqueConstraint.name).
+				append(uniqueConstraint.protectedName).
 				append(" unique(");
 			boolean first = true;
 			for(Iterator j = uniqueConstraint.getUniqueAttributes().iterator(); j.hasNext(); )
@@ -451,7 +454,7 @@ public abstract class Database
 				else
 					bf.append(',');
 				final Attribute uniqueAttribute = (Attribute)j.next();
-				bf.append(uniqueAttribute.getMainColumn().name);
+				bf.append(uniqueAttribute.getMainColumn().protectedName);
 			}
 			bf.append(')');
 		}
@@ -473,7 +476,7 @@ public abstract class Database
 		// TODO: use Statement class
 		final StringBuffer bf = new StringBuffer();
 		bf.append("drop table ").
-			append(type.getPersistentQualifier());
+			append(type.protectedName);
 
 		try
 		{
