@@ -23,18 +23,6 @@
 			{
 				%><%=item.getMediaURL((MediaAttribute)attribute)%><%
 			}
-			else if(attribute instanceof ItemAttribute)
-			{
-				final Item value = (Item)item.getAttribute((ItemAttribute)attribute);
-				if(value==null)
-				{
-					%><%="leer"%><%
-				}
-				else
-				{
-					%><a href="<%=(cop.toItem(value))%>"><%=provider.getDisplayName(null, value)%></a><%
-				}
-			}
 			else if(attribute instanceof EnumerationAttribute)
 			{
 				final EnumerationAttribute enumAttribute = (EnumerationAttribute)attribute;
@@ -148,18 +136,32 @@
 			<%
 			}
 			else if(attribute instanceof StringAttribute
-						||attribute instanceof IntegerAttribute)
+						|| attribute instanceof IntegerAttribute
+						|| attribute instanceof ItemAttribute)
 			{
 				final ObjectAttribute objectAttribute = (ObjectAttribute)attribute;
 				final Form.Field field = form.getField(objectAttribute);
+				final String value = field.getValue();
 		
 				if(field.isReadOnly())
 				{
-					%><b><%=field.getValue()%></b><%
+					%><b><%=value%></b><%
 				}
 				else
 				{
-					%><input type="text" name="<%=field.getName()%>" value="<%=field.getValue()%>" /><%
+					%><input type="text" name="<%=field.getName()%>" value="<%=value%>" /><%
+					if(attribute instanceof ItemAttribute && value.length()>0)
+					{
+						try
+						{
+							final Item valueItem = Search.findByID(value);
+							%> <a href="<%=(cop.toItem(valueItem))%>"><%=provider.getDisplayName(null, valueItem)%></a><%
+						}
+						catch(NoSuchIDException e)
+						{
+							%> !!!<%
+						}
+					}
 					if(field.getError()!=null)
 					{
 						%> <b><%=field.getError()%></b><%

@@ -8,7 +8,10 @@ import com.exedio.cope.lib.Attribute;
 import com.exedio.cope.lib.ConstraintViolationException;
 import com.exedio.cope.lib.IntegerAttribute;
 import com.exedio.cope.lib.Item;
+import com.exedio.cope.lib.ItemAttribute;
+import com.exedio.cope.lib.NoSuchIDException;
 import com.exedio.cope.lib.ObjectAttribute;
+import com.exedio.cope.lib.Search;
 import com.exedio.cope.lib.StringAttribute;
 import com.exedio.cope.lib.Type;
 
@@ -64,6 +67,23 @@ public class Form
 					{
 						final Integer itemValue = (Integer)item.getAttribute(attribute);
 						value = (itemValue==null) ? "" : String.valueOf(itemValue);
+					}
+					if(!attribute.isReadOnly())
+						field = new Field(name, value);
+					else
+						field = new Field(value);
+				}
+				else if(attribute instanceof ItemAttribute)
+				{
+					final String value;
+	
+					final String requestValue = Cop.getParameter(parameters, name);
+					if(requestValue!=null)
+						value = requestValue;
+					else
+					{
+						final Item itemValue = (Item)item.getAttribute(attribute);
+						value = (itemValue==null) ? "" : itemValue.getID();
 					}
 					if(!attribute.isReadOnly())
 						field = new Field(name, value);
@@ -151,6 +171,14 @@ public class Form
 						else
 							value = null;
 					}
+					else if(attribute instanceof ItemAttribute)
+					{
+						final String valueString = field.value;
+						if(valueString.length()>0)
+							value = Search.findByID(valueString);
+						else
+							value = null;
+					}
 					else
 						throw new RuntimeException();
 				
@@ -163,6 +191,10 @@ public class Form
 				catch(ConstraintViolationException e)
 				{
 					field.error = e.getClass().getName();
+				}
+				catch(NoSuchIDException e)
+				{
+					field.error = e.getMessage();
 				}
 			}
 		}

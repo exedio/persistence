@@ -15,6 +15,7 @@ page import="com.exedio.cope.lib.ItemAttribute" %><%@
 page import="com.exedio.cope.lib.Type" %><%@
 page import="com.exedio.cope.lib.Item" %><%@
 page import="com.exedio.cope.lib.SystemException" %><%@
+page import="com.exedio.cope.lib.NoSuchIDException" %><%@
 page import="java.io.PrintWriter" %><%@
 page import="java.util.Iterator" %><%@
 page import="java.util.Collection" %><%@
