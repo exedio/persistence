@@ -13,6 +13,7 @@ public class WebTest extends WebTestCase
 	String someNotNullString;
 	String someNotNullInteger;
 	String someBoolean;
+	boolean someNotNullBoolean;
 
 	public void setUp() throws Exception
 	{
@@ -21,6 +22,7 @@ public class WebTest extends WebTestCase
 		someNotNullString = "running100";
 		someNotNullInteger = "107";
 		someBoolean = "NULL";
+		someNotNullBoolean = true;
 	}
 	
 	private void assertItemForm()
@@ -28,6 +30,10 @@ public class WebTest extends WebTestCase
 		assertFormElementEquals("someNotNullString", someNotNullString);
 		assertFormElementEquals("someNotNullInteger", someNotNullInteger);
 		assertFormElementEquals("someBoolean", someBoolean);
+		if(someNotNullBoolean)
+			assertCheckboxSelected("someNotNullBoolean");
+		else
+			assertCheckboxNotSelected("someNotNullBoolean");
 	}
 
 	public void testSearch()
@@ -69,9 +75,15 @@ public class WebTest extends WebTestCase
 		assertTitleEquals("AttributeItem.103");
 		assertItemForm();
 
+		uncheckCheckbox("someNotNullBoolean"); someNotNullBoolean = false;
+		submit("SAVE");
+		assertTitleEquals("AttributeItem.103");
+		assertItemForm();
+
 		setFormElement("someNotNullString", "running100"); someNotNullString = "running100";
 		setFormElement("someNotNullInteger", "107"); someNotNullInteger = "107";
 		setFormElement("someBoolean", "NULL"); someBoolean = "NULL";
+		setFormElement("someNotNullBoolean", "on"); someNotNullBoolean = true;
 		submit("SAVE");
 		assertTitleEquals("AttributeItem.103");
 		assertItemForm();
