@@ -4,24 +4,28 @@ package com.exedio.cope.lib;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.hsqldb.jdbcDriver;
+
 final class HsqldbDatabase
 		extends Database
 		implements
 			DatabaseTimestampCapable
 {
-
-	protected HsqldbDatabase(final Properties properties)
+	static
 	{
-		super(properties);
-
 		try
 		{
-			Class.forName("org.hsqldb.jdbcDriver");
+			Class.forName(jdbcDriver.class.getName());
 		}
 		catch(ClassNotFoundException e)
 		{
 			throw new NestingRuntimeException(e);
 		}
+	}
+
+	protected HsqldbDatabase(final Properties properties)
+	{
+		super(properties);
 	}
 
 	String getIntegerType(final int precision)

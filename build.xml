@@ -13,7 +13,7 @@
 		<mkdir dir="lib/build/classes" />
 	</target>
 
-	<target name="lib.compile" depends="lib.compile.mkdir">
+	<target name="lib.core.compile" depends="lib.compile.mkdir">
 		<javac srcdir="lib/src"
 				destdir="lib/build/classes"
 				deprecation="on"
@@ -25,7 +25,19 @@
 		</javac>
 	</target>
 
-	<target name="lib.oracle.compile" depends="lib.compile.mkdir, lib.compile">
+	<target name="lib.hsqldb.compile" depends="lib.compile.mkdir, lib.core.compile">
+		<javac srcdir= "lib/hsqldbsrc"
+				destdir="lib/build/classes"
+				deprecation="on"
+				debug="on"
+				optimize="off">
+			<classpath>
+				<pathelement location="../lib/hsqldb.jar" />
+			</classpath>
+		</javac>
+	</target>
+
+	<target name="lib.oracle.compile" depends="lib.compile.mkdir, lib.core.compile">
 		<javac srcdir= "lib/oraclesrc"
 				destdir="lib/build/classes"
 				deprecation="on"
@@ -37,6 +49,9 @@
 		</javac>
 	</target>
 
+	<target name="lib.compile"
+				depends="lib.core.compile, lib.hsqldb.compile, lib.oracle.compile" />
+	
 	<target name="instrument.compile" depends="lib.compile">
 		<mkdir dir="instrument/build/classes" />
 		<javac srcdir="instrument/src"
@@ -65,9 +80,12 @@
 		</javac>
 	</target>
 	
-	<target name="compile" depends="lib.compile, lib.oracle.compile, instrument.compile, copernica.compile, copernica.test.compile" />
+	<target name="compile"
+				depends="lib.compile,
+							instrument.compile,
+							copernica.compile, copernica.test.compile" />
 	
-	<target name="lib.jar" depends="lib.compile, lib.oracle.compile">
+	<target name="lib.jar" depends="lib.compile">
 		<jar jarfile="lib/build/cope.jar" basedir="lib/build/classes" />
 	</target>
 	
@@ -81,7 +99,7 @@
 	
 	<target name="jar" depends="lib.jar, instrument.jar, copernica.jar" />
 	
-	<target name="lib.testmodel.instrument" depends="lib.compile, lib.oracle.compile, instrument.compile">
+	<target name="lib.testmodel.instrument" depends="lib.compile, instrument.compile">
 		<echo message="Instrumenting lib/testmodelsrc" />
 		<java classname="com.exedio.cope.instrument.Main" failonerror="yes">
 			<classpath>
@@ -181,7 +199,7 @@
 
 	<target name="lib.test.run" depends="lib.test.run.hsqldb, lib.test.run.oracle" />
 
-	<target name="lib.test.teardown.database" depends="lib.compile, lib.oracle.compile, lib.test.compile">
+	<target name="lib.test.teardown.database" depends="lib.compile, lib.test.compile">
 		<java classname="com.exedio.cope.lib.DatabaseLibTest" taskname="tear down tables" fork="yes" failonerror="yes">
 			<classpath>
 				<pathelement location="lib/build/classes" />

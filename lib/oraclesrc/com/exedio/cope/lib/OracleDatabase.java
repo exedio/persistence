@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import oracle.jdbc.OracleStatement;
+import oracle.jdbc.driver.OracleDriver;
 
 final class OracleDatabase
 		extends Database
@@ -14,19 +15,21 @@ final class OracleDatabase
 			DatabaseColumnTypesDefinable,
 			DatabaseTimestampCapable
 {
-
-	protected OracleDatabase(final Properties properties)
+	static
 	{
-		super(properties);
-
 		try
 		{
-			Class.forName(oracle.jdbc.driver.OracleDriver.class.getName());
+			Class.forName(OracleDriver.class.getName());
 		}
 		catch(ClassNotFoundException e)
 		{
 			throw new NestingRuntimeException(e);
 		}
+	}
+
+	protected OracleDatabase(final Properties properties)
+	{
+		super(properties);
 	}
 	
 	String getIntegerType(final int precision)
