@@ -179,7 +179,8 @@ public class Database
 			append('(');
 
 		bf.append("\"PK\" ").
-			append(getSyntheticPrimaryKeyType());
+			append(getSyntheticPrimaryKeyType()).
+			append(" primary key");
 		
 		for(Iterator i = type.getAttributes().iterator(); i.hasNext(); )
 		{
