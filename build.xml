@@ -372,7 +372,7 @@
 			depends="copernica.testwebapp.hsqldb,
 						copernica.testwebapp.oracle" />
 	
-	<target name="copernica.webtest.compile">
+	<target name="copernica.webtest.compile" depends="copernica.compile.classes">
 		<mkdir dir="copernica/build/webtestclasses" />
 		<javac srcdir="copernica/webtestsrc"
 				destdir="copernica/build/webtestclasses"
@@ -383,6 +383,7 @@
 				<fileset dir="../lib/jwebunit"> 
 					<include name="*.jar" /> 
 				</fileset> 
+				<pathelement location="copernica/build/classes" />
 			</classpath>
 		</javac>
 	</target>

@@ -98,82 +98,82 @@ public class WebTest extends AbstractWebTest
 		assertItemForm();
 
 		setFormElement("someString", "yeah"); someString = "yeah";
-		submit("SAVE");
+		submit(ItemForm.SAVE_BUTTON);
 		assertTitleEquals("AttributeItem.103");
 		assertItemForm();
 
 		setFormElement("someNotNullString", "running100changed"); someNotNullString = "running100changed";
-		submit("SAVE");
+		submit(ItemForm.SAVE_BUTTON);
 		assertTitleEquals("AttributeItem.103");
 		assertItemForm();
 
 		setFormElement("someInteger", "99999"); someInteger = "99999";
-		submit("SAVE");
+		submit(ItemForm.SAVE_BUTTON);
 		assertTitleEquals("AttributeItem.103");
 		assertItemForm();
 
 		setFormElement("someNotNullInteger", "1077"); someNotNullInteger = "1077";
-		submit("SAVE");
+		submit(ItemForm.SAVE_BUTTON);
 		assertTitleEquals("AttributeItem.103");
 		assertItemForm();
 
 		setFormElement("someLong", "9999999999999"); someLong = "9999999999999";
-		submit("SAVE");
+		submit(ItemForm.SAVE_BUTTON);
 		assertTitleEquals("AttributeItem.103");
 		assertItemForm();
 
 		setFormElement("someNotNullLong", "-9999999999999"); someNotNullLong = "-9999999999999";
-		submit("SAVE");
+		submit(ItemForm.SAVE_BUTTON);
 		assertTitleEquals("AttributeItem.103");
 		assertItemForm();
 
 		setFormElement("someDouble", ""); someDouble = "";
-		submit("SAVE");
+		submit(ItemForm.SAVE_BUTTON);
 		assertTitleEquals("AttributeItem.103");
 		assertItemForm();
 
 		setFormElement("someNotNullDouble", "-75.9912"); someNotNullDouble = "-75.9912";
-		submit("SAVE");
+		submit(ItemForm.SAVE_BUTTON);
 		assertTitleEquals("AttributeItem.103");
 		assertItemForm();
 
 		setFormElement("someDate", "17.07.2005 09:44:59.215"); someDate = "17.07.2005 09:44:59.215";
-		submit("SAVE");
+		submit(ItemForm.SAVE_BUTTON);
 		assertTitleEquals("AttributeItem.103");
 		assertItemForm();
 
 		setFormElement("someBoolean", "on"); someBoolean = "on";
-		submit("SAVE");
+		submit(ItemForm.SAVE_BUTTON);
 		assertTitleEquals("AttributeItem.103");
 		assertItemForm();
 
 		setFormElement("someBoolean", "off"); someBoolean = "off";
-		submit("SAVE");
+		submit(ItemForm.SAVE_BUTTON);
 		assertTitleEquals("AttributeItem.103");
 		assertItemForm();
 
 		uncheckCheckbox("someNotNullBoolean"); someNotNullBoolean = false;
-		submit("SAVE");
+		submit(ItemForm.SAVE_BUTTON);
 		assertTitleEquals("AttributeItem.103");
 		assertItemForm();
 
 		setFormElement("someEnumeration", "enumValue2"); someEnumeration = "enumValue2";
-		submit("SAVE");
+		submit(ItemForm.SAVE_BUTTON);
 		assertTitleEquals("AttributeItem.103");
 		assertItemForm();
 
 		setFormElement("someNotNullEnumeration", "enumValue1"); someNotNullEnumeration = "enumValue1";
-		submit("SAVE");
+		submit(ItemForm.SAVE_BUTTON);
 		assertTitleEquals("AttributeItem.103");
 		assertItemForm();
 
 		setFormElement("someItem", "EmptyItem.1"); someItem = "EmptyItem.1";
-		submit("SAVE");
+		submit(ItemForm.SAVE_BUTTON);
 		assertTitleEquals("AttributeItem.103");
 		assertItemForm();
 
 		setFormElement("someNotNullItem", "EmptyItem.2"); someNotNullItem = "EmptyItem.2";
-		submit("SAVE");
+		submit(ItemForm.SAVE_BUTTON);
 		assertTitleEquals("AttributeItem.103");
 		assertItemForm();
 
@@ -215,7 +215,7 @@ public class WebTest extends AbstractWebTest
 		setFormElement("someNotNullEnumeration", "enumValue2"); someNotNullEnumeration = "enumValue2";
 		setFormElement("someItem", ""); someItem = "";
 		setFormElement("someNotNullItem", "EmptyItem.1"); someNotNullItem = "EmptyItem.1";
-		submit("SAVE");
+		submit(ItemForm.SAVE_BUTTON);
 		assertTitleEquals("AttributeItem.103");
 		assertItemForm();
 	}
