@@ -219,13 +219,13 @@ final class Instrumentor implements InjectionConsumer
 		final JavaClass jc = ja.parent;
 		final CopeClass copeClass = CopeClass.getCopeClass(jc);
 		final List initializerArguments = ja.getInitializerArguments();
-		if(initializerArguments.size()!=1)
+		if(initializerArguments.size()<1)
 			throw new InjectorParseException("attribute >"+ja.name+"< has invalid initializer arguments: "+initializerArguments);
 		//System.out.println("---------"+initializerArguments);
 		final String initializerArgument = (String)initializerArguments.get(0);
 		final CopeAttribute storageAttribute = (CopeAttribute)copeClass.getCopeAttribute(initializerArgument);
 		if(storageAttribute==null)
-			throw new InjectorParseException("attribute >"+initializerArgument+"< in media attribute variant "+ja.name+" not found.");
+			throw new InjectorParseException("attribute >"+initializerArgument+"< in hash "+ja.name+" not found.");
 		new CopeHash(ja, storageAttribute);
 	}
 
