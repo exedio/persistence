@@ -185,7 +185,7 @@ final class ItemForm extends Form
 				final Attribute anyAttribute = (Attribute)k.next();
 				for(Iterator l = values.iterator(); l.hasNext(); )
 				{
-					final Item value = (Item)l.next(); 
+					final Item value = (Item)l.next();
 					if(anyAttribute instanceof ObjectAttribute)
 					{
 						final ObjectAttribute attribute = (ObjectAttribute)anyAttribute;
