@@ -11,6 +11,10 @@ public class Item extends Search
 
 	final int pk;
 
+	/**
+	 * The row containing the item cache for this item, if this item is active.
+	 * If you want to be sure, that you get a row, use {@link #getRow()}.
+	 */
 	private Row rowWhenActive;
 
 	/**
