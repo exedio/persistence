@@ -9,6 +9,7 @@ import com.exedio.cope.testmodel.ItemWithSingleUniqueReadOnly;
 
 public class UniqueItemTest extends DatabaseLibTest
 {
+	private static final String EXTRA_WURST = "com.exedio.cope.lib.MysqlDatabase";
 
 	public void testItemWithSingleUnique()
 			throws IntegrityViolationException, UniqueViolationException
@@ -34,9 +35,16 @@ public class UniqueItemTest extends DatabaseLibTest
 			}
 			catch(UniqueViolationException e)
 			{
+				assertTrue(!EXTRA_WURST.equals(model.getDatabase().getClass().getName()));
 				assertEquals(item2.uniqueString.getSingleUniqueConstaint(), e.getConstraint());
+				assertEquals("uniqueString2", item2.getUniqueString());
 			}
-			assertEquals("uniqueString2", item2.getUniqueString());
+			catch(NestingRuntimeException e)
+			{
+				assertTrue(EXTRA_WURST.equals(model.getDatabase().getClass().getName()));
+				assertEquals("Duplicate entry 'uniqueString' for key 2", e.getNestedCause().getMessage());
+				assertEquals("uniqueString", item2.getUniqueString());
+			}
 			assertEquals(item2, ItemWithSingleUnique.findByUniqueString("uniqueString2"));
 
 			assertDelete(item2);
@@ -177,7 +185,13 @@ public class UniqueItemTest extends DatabaseLibTest
 		}
 		catch(UniqueViolationException e)
 		{
+			assertTrue(!EXTRA_WURST.equals(model.getDatabase().getClass().getName()));
 			assertEquals(a1.doubleUnique, e.getConstraint());
+		}
+		catch(NestingRuntimeException e)
+		{
+			assertTrue(EXTRA_WURST.equals(model.getDatabase().getClass().getName()));
+			assertEquals("Duplicate entry 'b-1' for key 2", e.getNestedCause().getMessage());
 		}
 		assertEquals(b1, ItemWithDoubleUnique.findByDoubleUnique("b", 1));
 		

@@ -17,6 +17,14 @@ database.url=jdbc:oracle:thin:@yourdatabase.yoursite.com:1521:yourSID
 database.user=youruser
 database.password=yourpassword
 
+# Example properties for MySQL
+#
+database=mysql
+database.url=jdbc:mysql://yourdatabase.yoursite.com/yourDB
+database.user=youruser
+database.password=yourpassword
+
+
 # Example properties for the media directory
 #
 media.directory=your/directory/for/media/files

@@ -50,6 +50,19 @@
 		</javac>
 	</target>
 
+	<target name="lib.mysql.compile" depends="lib.compile.mkdir, lib.core.compile">
+		<javac srcdir= "lib/mysqlsrc"
+				destdir="lib/build/classes"
+				deprecation="on"
+				debug="on"
+				optimize="off">
+			<classpath>
+				<pathelement location="../lib/pcj.jar" />
+				<pathelement location="../lib/mysql-connector-java-bin.jar" />
+			</classpath>
+		</javac>
+	</target>
+
 	<target name="lib.junit.compile" depends="lib.compile.mkdir, lib.core.compile">
 		<javac srcdir="lib/junitsrc"
 				destdir="lib/build/classes"
@@ -63,7 +76,10 @@
 	</target>
 	
 	<target name="lib.compile"
-				depends="lib.core.compile, lib.hsqldb.compile, lib.oracle.compile" />
+				depends="lib.core.compile,
+							lib.hsqldb.compile,
+							lib.oracle.compile,
+							lib.mysql.compile" />
 	
 	<target name="instrument.compile" depends="lib.compile">
 		<mkdir dir="instrument/build/classes" />
@@ -217,19 +233,38 @@
 		</antcall>
 	</target>
 
-	<target name="lib.test.run" depends="lib.test.run.hsqldb, lib.test.run.oracle" />
+	<target name="lib.test.run.mysql" depends="lib.test.compile">
+		<antcall target="lib.test.run.anydb">
+			<param name="database" value="mysql"/>
+			<param name="database-driver" value="mysql-connector-java-bin.jar"/>
+		</antcall>
+	</target>
+
+	<target name="lib.test.run"
+				depends="lib.test.run.hsqldb,
+							lib.test.run.oracle,
+							lib.test.run.mysql" />
 
 	<target name="lib.test.teardown.database" depends="lib.compile, lib.test.compile">
+		<mkdir dir="lib/build/teardown/media" />
+		<copy file="cope.properties.mysql"
+				tofile="lib/build/teardown/cope.properties">
+			<filterset>
+				<filter token="MEDIA_DIRECTORY" value="lib/build/teardown/media" />
+			</filterset>
+		</copy>
 		<java classname="com.exedio.cope.lib.DatabaseLibTest" taskname="tear down tables" fork="yes" failonerror="yes">
 			<classpath>
 				<pathelement location="lib/build/classes" />
 				<pathelement location="lib/build/testclasses" />
+				<pathelement location="lib/build/testmodelclasses" />
 				<pathelement location="../lib/pcj.jar" />
 				<pathelement location="../lib/junit.jar" />
 				<pathelement location="../lib/hsqldb.jar" />
 				<pathelement location="../lib/classes12.jar" />
+				<pathelement location="../lib/mysql-connector-java-bin.jar" />
 			</classpath>
-			<sysproperty key="com.exedio.cope.properties" file="cope.properties.oracle" />
+			<sysproperty key="com.exedio.cope.properties" file="lib/build/teardown/cope.properties" />
 		</java>
 	</target>
 
@@ -381,9 +416,18 @@
 		</antcall>
 	</target>
 	
+	<target name="copernica.testwebapp.mysql"
+			depends="copernica.compile, copernica.test.compile">
+		<antcall target="copernica.testwebapp.anydb">
+			<param name="database" value="mysql"/>
+			<param name="database-driver" value="mysql-connector-java-bin.jar"/>
+		</antcall>
+	</target>
+	
 	<target name="copernica.testwebapp"
 			depends="copernica.testwebapp.hsqldb,
-						copernica.testwebapp.oracle" />
+						copernica.testwebapp.oracle,
+						copernica.testwebapp.mysql" />
 	
 	<target name="copernica.webtest.compile">
 		<mkdir dir="copernica/build/webtestclasses" />

@@ -20,7 +20,7 @@ public class StatementInfoTest extends DatabaseLibTest
 		assertTrue(root.text, root.text.startsWith("select "));
 		
 		final String database = model.getDatabase().getClass().getName();
-		if(database.indexOf("HsqldbDatabase")>=0)
+		if(database.indexOf("HsqldbDatabase")>=0 || database.indexOf("MysqlDatabase")>=0)
 		{
 			assertEquals(list(), root.getChilds());
 		}

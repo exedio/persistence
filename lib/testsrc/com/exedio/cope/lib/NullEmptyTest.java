@@ -21,7 +21,9 @@ public class NullEmptyTest extends DatabaseLibTest
 		deleteOnTearDown(item = new AttributeItem("someString", 5, 6l, 2.2, true, someItem, AttributeItem.SomeEnumeration.enumValue1));
 		deleteOnTearDown(item2 = new AttributeItem("someString", 5, 6l, 2.2, false, someItem, AttributeItem.SomeEnumeration.enumValue2));
 		// TODO: database must hide this from the user
-		if("com.exedio.cope.lib.HsqldbDatabase".equals(model.getDatabase().getClass().getName()))
+		final String databaseName = model.getDatabase().getClass().getName();
+		if("com.exedio.cope.lib.HsqldbDatabase".equals(databaseName)||
+				"com.exedio.cope.lib.MysqlDatabase".equals(databaseName))
 			emptyString = "";
 		else
 			emptyString = null;

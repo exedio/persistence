@@ -253,7 +253,8 @@ final class OracleDatabase
 		}
 	}
 
-	Statement getRenameColumnStatement(final String tableName, final String oldColumnName, final String newColumnName)
+	Statement getRenameColumnStatement(final String tableName,
+			final String oldColumnName, final String newColumnName, final String columnType)
 	{
 		final Statement bf = createStatement();
 		bf.append("alter table ").

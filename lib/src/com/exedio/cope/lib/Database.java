@@ -1183,8 +1183,16 @@ abstract class Database
 	}
 
 
+	protected boolean supportsForeignKeyConstraints()
+	{
+		return true;
+	}
+	
 	private void dropForeignKeyConstraints(final Table table) 
 	{
+		if(!supportsForeignKeyConstraints())
+			return;
+		
 		for(Iterator i = table.getColumns().iterator(); i.hasNext(); )
 		{
 			final Column column = (Column)i.next();
@@ -1440,15 +1448,17 @@ abstract class Database
 		}
 	}
 	
-	abstract Statement getRenameColumnStatement(final String tableName, final String oldColumnName, final String newColumnName);
+	abstract Statement getRenameColumnStatement(String tableName, String oldColumnName, String newColumnName, String columnType);
 
-	final void renameColumn(final String tableName, final String oldColumnName, final String newColumnName)
+	final void renameColumn(final String tableName,
+			final String oldColumnName, final String newColumnName, final String columnType)
 	{
 		final Statement bf =
 			getRenameColumnStatement(
 				protectName(tableName),
 				protectName(oldColumnName),
-				protectName(newColumnName));
+				protectName(newColumnName),
+				columnType);
 
 		try
 		{

@@ -90,7 +90,7 @@ public final class ReportColumn extends ReportNode
 
 	public final void renameTo(final String newName)
 	{
-		table.report.database.renameColumn(table.name, name, newName);
+		table.report.database.renameColumn(table.name, name, newName, existingType);
 	}
 
 	public final void modify(final String newType)
