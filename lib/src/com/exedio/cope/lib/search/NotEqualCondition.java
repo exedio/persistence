@@ -80,9 +80,9 @@ public final class NotEqualCondition extends Condition
 				append(function).
 				append("<>").
 				appendValue(function, value).
-				append("or ").
+				append(" or ").
 				append(function).
-				append("is null)");
+				append(" is null)");
 		}
 		else
 			bf.append(function).
