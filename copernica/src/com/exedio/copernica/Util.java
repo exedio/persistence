@@ -9,6 +9,7 @@ import com.exedio.cope.lib.Model;
 import com.exedio.cope.lib.NestingRuntimeException;
 import com.exedio.cops.Cop;
 
+// TODO: move this class into CopernicaServlet
 final class Util
 {
 		

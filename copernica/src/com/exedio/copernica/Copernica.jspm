@@ -17,6 +17,7 @@ class Copernica_Jspm
 	static final void write(final PrintStream out, final HttpServletRequest request, final CopernicaProvider provider)
 		throws IOException, CopernicaAuthorizationFailedException
 	{
+		// TODO: move this in enclosing method
 		final CopernicaUser user = Util.checkAccess(provider, request);
 		final CopernicaCop cop = CopernicaCop.getCop(provider, request);
 		final CopernicaLanguage language = cop.language;

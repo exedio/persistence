@@ -36,6 +36,7 @@ class ItemCop_Jspm
 	{
 		final Item item = cop.item;
 		final Type type = item.getType();
+		// TODO: move this in enclosing method
 		final ItemForm form = new ItemForm(cop, request);
 		final CopernicaProvider provider = cop.provider;
 		final CopernicaLanguage language = cop.language;
