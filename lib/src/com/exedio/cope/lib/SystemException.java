@@ -6,6 +6,9 @@ import java.io.PrintWriter;
 
 /**
  * Is thrown, when a fatal unspecified error occurs.
+ * Can nests an inner exception.
+ * Is a replacement of the nesting functionality of RuntimeException
+ * in JDK 1.4.
  */
 public final class SystemException extends RuntimeException
 {
