@@ -108,13 +108,26 @@
 						<hr>
 						<table border="1">
 						<tr>
-							<td>Item</td>
+							<th>ID</th>
+						<%
+							for(Iterator i = type.getAttributes().iterator(); i.hasNext(); )
+							{
+								final Attribute attribute = (Attribute)i.next();
+								%><th><%=attribute.getName()%></th><%
+							}
+						%>
 						</tr>
 						<%
 							for(Iterator i = Search.search(type, null).iterator(); i.hasNext(); )
 							{
 								final Item item = (Item)i.next();
-								%><tr><td><%=item.getID()%></td></tr><%
+								%><tr><td><%=item.getID()%></td><%
+								for(Iterator j = type.getAttributes().iterator(); j.hasNext(); )
+								{
+									final Attribute attribute = (Attribute)j.next();
+									%><td><%=item.getAttribute(attribute)%></td><%
+								}
+								%></tr><%
 							}
 						%>
 						</table>
