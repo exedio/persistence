@@ -401,7 +401,7 @@ public final class Instrumentor implements InjectionConsumer
 		output.write(lineSeparator);
 		output.write("\treturn (");
 		output.write(attribute.getPersistentType());
-		output.write(")getAttribute(");
+		output.write(")getAttribute(this.");
 		output.write(attribute.getName());
 		final List qualifiers = attribute.getQualifiers();
 		if(qualifiers!=null)
