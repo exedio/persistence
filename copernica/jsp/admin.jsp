@@ -10,7 +10,7 @@ page import="com.exedio.cope.lib.SystemException" %><%@
 
 page import="java.util.Date" %><%@
 
-include file="copernica-provider.inc"
+include file="provider.inc"
 
 %><%
 final boolean doReport = 

@@ -24,7 +24,7 @@ page import="java.util.Iterator" %><%@
 page import="java.util.Collection" %><%@
 page import="java.util.Map" %><%@
 
-include file="copernica-provider.inc"
+include file="provider.inc"
 
 %><%
 	final CopernicaCop cop = CopernicaCop.getCop(
