@@ -108,6 +108,30 @@ public abstract class TransientCopernicaProvider implements CopernicaProvider
 		return result.toString();
 	}
 	
+	public String getDisplayNameNull(Language displayLanguage)
+	{
+		return
+			displayLanguage instanceof TransientLanguage
+			? ((TransientLanguage)displayLanguage).nullName
+			: "-";
+	}
+
+	public String getDisplayNameOn(Language displayLanguage)
+	{
+		return
+			displayLanguage instanceof TransientLanguage
+			? ((TransientLanguage)displayLanguage).onName
+			: "X";
+	}
+	
+	public String getDisplayNameOff(Language displayLanguage)
+	{
+		return
+			displayLanguage instanceof TransientLanguage
+			? ((TransientLanguage)displayLanguage).offName
+			: "/";
+	}
+
 	public String getDisplayName(final com.exedio.copernica.Language displayLanguage, final Type type)
 	{
 		final String className = type.getJavaClass().getName();

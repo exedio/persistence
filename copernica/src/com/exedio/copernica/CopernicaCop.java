@@ -26,7 +26,7 @@ abstract class CopernicaCop extends Cop implements RequestCache
 
 	CopernicaCop(final CopernicaProvider provider, final Language language)
 	{
-		super("copernica.jsp");
+		super("copernica.jsp"); // TODO: make the jsp name flexible or retrieve it automatically
 		this.language = language;
 		this.provider = provider;
 		if(language!=null)
@@ -67,11 +67,50 @@ abstract class CopernicaCop extends Cop implements RequestCache
 			return new EmptyCop(provider, language);
 	}
 	
+	private String nullName = null;
+	//private int nullNameMisses = 0;
+	public String getDisplayNameNull()
+	{
+		if(nullName==null)
+		{
+			//nullNameMisses++;
+			nullName = provider.getDisplayNameNull(language);
+		}
+		
+		return nullName;
+	}
+
+	private String onName = null;
+	//private int onNameMisses = 0;
+	public String getDisplayNameOn()
+	{
+		if(onName==null)
+		{
+			//onNameMisses++;
+			onName = provider.getDisplayNameOn(language);
+		}
+		
+		return onName;
+	}
+	
+	private String offName = null;
+	//private int offNameMisses = 0;
+	public String getDisplayNameOff()
+	{
+		if(offName==null)
+		{
+			//offNameMisses++;
+			offName = provider.getDisplayNameOff(language);
+		}
+		
+		return offName;
+	}
+
 	private HashMap itemDisplayNames = null;
 	//private int itemDisplayNamesHits = 0;
 	//private int itemDisplayNamesMisses = 0;
 	
-	public String getDisplayName(final Language displayLanguage, final Item item)
+	public String getDisplayName(final Language displayLanguage/* TODO: remove language */, final Item item)
 	{
 		if((language==null&&displayLanguage==null) || (language!=null&&language.equals(displayLanguage)))
 		{
@@ -103,10 +142,9 @@ abstract class CopernicaCop extends Cop implements RequestCache
 	
 	// TODO: the same for enumeration values
 	
-	// TODO: the same for "empty" (null) value
-	
 	void log()
 	{
 		//System.out.println("itemDisplayNames: ("+itemDisplayNamesMisses+"/"+itemDisplayNamesHits+")");
+		//System.out.println("nullNameMisses: "+nullNameMisses+", onNameMisses: "+onNameMisses+", offNameMisses: "+offNameMisses);
 	}
 }

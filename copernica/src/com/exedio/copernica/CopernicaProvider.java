@@ -34,6 +34,12 @@ public interface CopernicaProvider
 	 */
 	public Collection getSections(Type type);
 	
+	public String getDisplayNameNull(Language displayLanguage);
+
+	public String getDisplayNameOn(Language displayLanguage);
+	
+	public String getDisplayNameOff(Language displayLanguage);
+
 	public String getDisplayName(Language displayLanguage, Type type);
 
 	public String getDisplayName(Language displayLanguage, Feature feature);

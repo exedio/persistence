@@ -59,7 +59,7 @@
 								{
 									%> checked="checked"<%
 								}
-								%>><%="leer"%><br><%
+								%>><%=cop.getDisplayNameNull()%><br><%
 							}
 							for(Iterator k = enumAttribute.getValues().iterator(); k.hasNext(); )
 							{
@@ -100,19 +100,19 @@
 								{
 									%> checked="checked"<%
 								}
-								%>><%="leer"%><br>
+								%>><%=cop.getDisplayNameNull()%><br>
 								<input type="radio" name="<%=attributeName%>" value="<%=VALUE_ON%>"<%
 								if(value.equals(VALUE_ON))
 								{
 									%> checked="checked"<%
 								}
-								%>><%="ein"%><br>
+								%>><%=cop.getDisplayNameOn()%><br>
 								<input type="radio" name="<%=attributeName%>" value="<%=VALUE_OFF%>"<%
 								if(value.equals(VALUE_OFF))
 								{
 									%> checked="checked"<%
 								}
-								%>><%="aus"%><br><%
+								%>><%=cop.getDisplayNameOff()%><br><%
 							}
 							%>
 						<%

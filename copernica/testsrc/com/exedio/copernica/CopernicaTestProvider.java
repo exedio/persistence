@@ -11,8 +11,8 @@ public class CopernicaTestProvider extends TransientCopernicaProvider
 	public CopernicaTestProvider()
 	{
 		this.model = DatabaseLibTest.model;
-		final TransientLanguage de = new TransientLanguage("de");
-		final TransientLanguage en = new TransientLanguage("en");
+		final TransientLanguage de = new TransientLanguage("de", "leer", "ein", "aus");
+		final TransientLanguage en = new TransientLanguage("en", "empty", "on", "off");
 
 		de.putName(de, "Deutsch");
 		de.putName(en, "German");

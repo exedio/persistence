@@ -6,11 +6,19 @@ public class TransientLanguage implements Language
 {
 	private final String id;
 	private final HashMap names = new HashMap();
+	
+	final String nullName;
+	final String onName;
+	final String offName;
+
 	final HashMap enumerationValueNames = new HashMap();
 	
-	public TransientLanguage(final String id)
+	public TransientLanguage(final String id, final String nullName, final String onName, final String offName)
 	{
 		this.id = id;
+		this.nullName = nullName;
+		this.onName = onName;
+		this.offName = offName;
 	}
 	
 	public String getCopernicaID()

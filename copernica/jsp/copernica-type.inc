@@ -106,7 +106,7 @@
 							final Item value = (Item)item.getAttribute((ItemAttribute)feature);
 							if(value==null)
 							{
-								%><%="leer"%><%
+								%><%=cop.getDisplayNameNull()%><%
 							}
 							else
 							{
@@ -118,7 +118,7 @@
 							final Date value = (Date)item.getAttribute((DateAttribute)feature);
 							if(value==null)
 							{
-								%><%="leer"%><%
+								%><%=cop.getDisplayNameNull()%><%
 							}
 							else
 							{
@@ -132,11 +132,23 @@
 							final EnumerationValue value = (EnumerationValue)item.getAttribute((EnumerationAttribute)feature);
 							if(value==null)
 							{
-								%><%="leer"%><%
+								%><%=cop.getDisplayNameNull()%><%
 							}
 							else
 							{
 								%><%=provider.getDisplayName(language, value)%><%
+							}
+						}
+						else if(feature instanceof BooleanAttribute)
+						{
+							final Boolean value = (Boolean)item.getAttribute((BooleanAttribute)feature);
+							if(value==null)
+							{
+								%><%=cop.getDisplayNameNull()%><%
+							}
+							else
+							{
+								%><%=value.booleanValue()?cop.getDisplayNameOn():cop.getDisplayNameOff()%><%
 							}
 						}
 						else
