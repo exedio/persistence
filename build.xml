@@ -355,7 +355,8 @@
 	</target>
 	
 	<target name="copernica.webtest" depends="copernica.webtest.compile">
-		<java classname="junit.textui.TestRunner" taskname="jwebunit" failonerror="yes">
+		<java classname="junit.textui.TestRunner" taskname="jwebunit"
+				failonerror="yes" fork="yes">
 			<classpath>
 				<pathelement location="copernica/build/webtestclasses" />
 				<fileset dir="../lib/jwebunit"> 
