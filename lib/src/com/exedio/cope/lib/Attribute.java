@@ -1,6 +1,6 @@
 package persistence;
 
-public class Attribute
+public abstract class Attribute
 {
 	public final AttributeMapping mapping;
 
@@ -14,6 +14,7 @@ public class Attribute
 		this.mapping = mapping;
 	}
 	
+
 	private boolean initialized = false;
 	
 	private String name;
