@@ -8,14 +8,14 @@ import com.exedio.cope.lib.Type;
 
 abstract class CopernicaCop extends Cop
 {
-	static final String LANGUAGE = "lang";
+	static final String LANGUAGE = "l";
 
-	static final String TYPE = "type";
-	static final String ORDER = "order";
-	static final String START = "start";
-	static final String COUNT = "count";
+	static final String TYPE = "t";
+	static final String ORDER = "o";
+	static final String START = "st";
+	static final String COUNT = "ct";
 	
-	final static String ITEM = "item";
+	final static String ITEM = "i";
 
 
 	final Language language;
