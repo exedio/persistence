@@ -165,7 +165,8 @@ public final class Properties
 		final java.util.Properties properties = new java.util.Properties();
 		properties.setProperty("source", source);
 		properties.setProperty(DATABASE, database);
-		properties.setProperty(DATABASE_DRIVER, databaseDriver);
+		if(databaseDriver!=null)
+			properties.setProperty(DATABASE_DRIVER, databaseDriver);
 		properties.setProperty(DATABASE_URL, databaseUrl);
 		properties.setProperty(DATABASE_USER, databaseUser);
 		properties.setProperty(DATABASE_PASSWORD, databasePassword);
