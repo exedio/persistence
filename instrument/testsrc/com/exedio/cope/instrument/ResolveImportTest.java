@@ -21,7 +21,7 @@ public class ResolveImportTest extends InstrumentorTest
 		file.addImport("com.exedio.cope.instrument.findtype.subfindtype2.SubFindType2");
 		file.addImport(com.exedio.cope.instrument.findtype.subfindtype.BothFindType.class.getName());
 		
-		//assertEquals(FindType.class, file.findType("FindType"));
+		assertEquals(FindType.class, file.findType("FindType"));
 		assertEquals(FindType.class, file.findType(FindType.class.getName()));
 
 		assertEquals(SubFindType.class, file.findType("SubFindType"));
