@@ -1,5 +1,30 @@
-<%!
-	public void writeInfo(final JspWriter out, final StatementInfo info)
+<%
+package com.exedio.copernica;
+
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Collection;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+
+import javax.servlet.jsp.JspWriter;
+
+import com.exedio.cope.lib.BooleanAttribute;
+import com.exedio.cope.lib.DateAttribute;
+import com.exedio.cope.lib.EnumAttribute;
+import com.exedio.cope.lib.EnumValue;
+import com.exedio.cope.lib.Feature;
+import com.exedio.cope.lib.Function;
+import com.exedio.cope.lib.Item;
+import com.exedio.cope.lib.ItemAttribute;
+import com.exedio.cope.lib.MediaAttribute;
+import com.exedio.cope.lib.StatementInfo;
+import com.exedio.cope.lib.Type;
+
+public class TypeCop_Jspm
+{
+	private static void writeInfo(final JspWriter out, final StatementInfo info)
 		throws IOException
 	{
 		out.println(info.getText());
@@ -12,9 +37,15 @@
 		}
 		out.println("</ul>");
 	}
-%><%
-			final Type type = typeCop.type;
-			final Collection items = typeCop.getItems();
+
+	public static final void writeBody(final JspWriter out, final TypeCop typeCop)
+		throws IOException
+	{
+		final CopernicaCop cop = typeCop;
+		final CopernicaProvider provider = cop.provider;
+		final CopernicaLanguage language = cop.language;
+		final Type type = typeCop.type;
+		final Collection items = typeCop.getItems();
 			
 			%>
 			<h1>
@@ -203,4 +234,6 @@
 				writeInfo(out, info);
 				%></li></ul><%
 			}
-			%>
+	}
+}
+%>

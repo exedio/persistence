@@ -104,7 +104,7 @@ page import="java.text.SimpleDateFormat" %><%!
 		if(cop instanceof TypeCop)
 		{
 			final TypeCop typeCop = ((TypeCop)cop);
-			%><%@ include file="copernica-type.inc" %><%
+			TypeCop_Jspm.writeBody(out, typeCop);
 		}
 		else if(cop instanceof ItemCop)
 		{
