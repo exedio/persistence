@@ -328,7 +328,7 @@ final class Generator
 		output.write(lineSeparator);
 		output.write("\t{");
 		output.write(lineSeparator);
-		writeGetterBody(output, persistentAttribute);
+		writeGetterBody(persistentAttribute);
 		output.write("\t}");
 		
 		// setter
@@ -358,7 +358,7 @@ final class Generator
 			writeThrowsClause(persistentAttribute.getSetterExceptions());
 			output.write("\t{");
 			output.write(lineSeparator);
-			writeSetterBody(output, persistentAttribute);
+			writeSetterBody(persistentAttribute);
 			output.write("\t}");
 		}
 	}
@@ -520,7 +520,7 @@ final class Generator
 				output.write(lineSeparator);
 
 				for(Iterator i = exceptionsToCatch.iterator(); i.hasNext(); )
-					writeViolationExceptionCatchClause(output, (Class)i.next());
+					writeViolationExceptionCatchClause((Class)i.next());
 			}
 			output.write("\t}");
 		}
@@ -794,7 +794,7 @@ final class Generator
 	 * and it should return the output stream after immediatly after a line break.
 	 * This means, doing nothing fullfils the contract.
 	 */
-	private void writeGetterBody(final Writer output, final PersistentAttribute attribute)
+	private void writeGetterBody(final PersistentAttribute attribute)
 	throws IOException
 	{
 		output.write("\t\treturn ");
@@ -824,7 +824,7 @@ final class Generator
 	 * and it should return the output stream after immediatly after a line break.
 	 * This means, doing nothing fullfils the contract.
 	 */
-	private void writeSetterBody(final Writer output, final PersistentAttribute attribute)
+	private void writeSetterBody(final PersistentAttribute attribute)
 	throws IOException
 	{
 		final SortedSet exceptionsToCatch = attribute.getExceptionsToCatchInSetter();
@@ -860,11 +860,11 @@ final class Generator
 			output.write(lineSeparator);
 			
 			for(Iterator i = exceptionsToCatch.iterator(); i.hasNext(); )
-				writeViolationExceptionCatchClause(output, (Class)i.next());
+				writeViolationExceptionCatchClause((Class)i.next());
 		}
 	}
 	
-	private void writeViolationExceptionCatchClause(final Writer output, final Class exceptionClass)
+	private void writeViolationExceptionCatchClause(final Class exceptionClass)
 	throws IOException
 	{
 		output.write("\t\tcatch("+exceptionClass.getName()+" e)");
