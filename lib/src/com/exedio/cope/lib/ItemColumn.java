@@ -31,7 +31,7 @@ final class ItemColumn extends IntegerColumn
 		if(targetTypeClass==null)
 			throw new RuntimeException();
 		this.targetTypeClass = targetTypeClass;
-		this.integrityConstraintName = table.id+"SUP";
+		this.integrityConstraintName = table.id+"_Sup";
 		this.attribute = null;
 	}
 
