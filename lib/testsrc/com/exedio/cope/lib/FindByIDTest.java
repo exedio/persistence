@@ -37,6 +37,9 @@ public class FindByIDTest extends DatabaseLibTest
 
 		assertIDNotWithin(Long.MIN_VALUE);
 		assertIDNotWithin(Long.MAX_VALUE);
+		
+		assertIDNotFound(50);
+		assertIDNotFound(-50);
 
 		assertIDNotWithin(4294967295l); // 2^32 - 1 // TODO non-sense, should be assertIDNotFound
 		assertIDNotWithin(4294967296l); // 2^32
@@ -63,12 +66,12 @@ public class FindByIDTest extends DatabaseLibTest
 	{
 		try
 		{
-			Search.findByID("com.exedio.cope.lib.ItemWithManyAttributes."+id);
-			fail("should have thrown NoSuchIDException");
+			final Item item = Search.findByID("com.exedio.cope.lib.ItemWithManyAttributes."+id);
+			fail("should have thrown NoSuchIDException, but returned "+item.getID());
 		}
 		catch(NoSuchIDException e)
 		{
-			assertEquals("id not found: <"+id+">", e.getMessage());
+			assertEquals("no such id <com.exedio.cope.lib.ItemWithManyAttributes."+id+">, item does not exist", e.getMessage());
 		}
 	}
 

@@ -366,7 +366,7 @@ public abstract class Database
 		{
 			final Type type = row.type;
 			if(!resultSet.next())
-				return;
+				throw new RuntimeException("no such pk"); // TODO use some better exception
 			int columnIndex = 1;
 			for(Iterator i = type.getColumns().iterator(); i.hasNext(); )
 				((Column)i.next()).load(resultSet, columnIndex++, row);

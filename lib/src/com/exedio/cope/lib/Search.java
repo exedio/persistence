@@ -47,7 +47,6 @@ public class Search
 
 	/**
 	 * Returns the item with the given ID.
-	 * Returns null, if no such item exists.
 	 * Always returns {@link Item#activeItem() active} objects.
 	 * @see Item#getID()
 	 * @throws NoSuchIDException if there is no item with the given id.
@@ -79,7 +78,15 @@ public class Search
 		final Item result = type.getItem(id2pk(idNumber));
 		// Must be activated to make sure, that an item with
 		// such a pk really exists for that type.
-		result.activeItem();
+		try
+		{
+			result.activeItem();
+		}
+		catch(RuntimeException e)
+		{
+			if("no such pk".equals(e.getMessage()))
+				throw new NoSuchIDException(id, "item does not exist");
+		}
 		return result;
 	}
 	
