@@ -5,6 +5,7 @@ import com.exedio.cope.lib.Attribute;
 import com.exedio.cope.lib.Item;
 import com.exedio.cope.lib.ItemAttribute;
 import com.exedio.cope.lib.StringAttribute;
+import com.exedio.cope.lib.database.Database;
 
 public final class EqualCondition extends Condition
 {
@@ -23,6 +24,19 @@ public final class EqualCondition extends Condition
 		this.value = value;
 	}
 	
+	public final void appendSQL(final Database database, final StringBuffer bf)
+	{
+		bf.append(database.getNameDelimiterStart()).
+			append(database.getPersistentQualifier(attribute)).
+			append(database.getNameDelimiterEnd()).
+			append('=');
+		if(attribute instanceof StringAttribute)
+			bf.append('\'');
+		bf.append(value);
+		if(attribute instanceof StringAttribute)
+			bf.append('\'');
+	}
+
 	public final String toString()
 	{
 		return attribute.getName() + "='" + value + '\'';

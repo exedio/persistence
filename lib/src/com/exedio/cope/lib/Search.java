@@ -1,6 +1,7 @@
 
 package com.exedio.cope.lib;
 
+import com.exedio.cope.lib.database.Database;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
@@ -48,7 +49,8 @@ public class Search
 	
 	public static final Collection search(final Type type, final Condition condition)
 	{
-		System.out.println("select " + type.getJavaClass().getName() + " where " + condition);
+		//System.out.println("select " + type.getJavaClass().getName() + " where " + condition);
+		Database.theInstance.search(type, condition);
 		return Collections.EMPTY_LIST;
 	}
 	

@@ -10,6 +10,7 @@ import com.exedio.cope.lib.MediaAttribute;
 import com.exedio.cope.lib.StringAttribute;
 import com.exedio.cope.lib.SystemException;
 import com.exedio.cope.lib.Type;
+import com.exedio.cope.lib.search.Condition;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -18,17 +19,18 @@ import java.util.Iterator;
 
 public class Database
 {
+	public static final Database theInstance = new Database();
 	
-	public Database()
+	private Database()
 	{
 	}
 	
-	private char getNameDelimiterStart()
+	public char getNameDelimiterStart()
 	{
 		return '"';
 	}
 	
-	private char getNameDelimiterEnd()
+	public char getNameDelimiterEnd()
 	{
 		return '"';
 	}
@@ -60,6 +62,24 @@ public class Database
 		executeSQL(getDropTableStatement(type));
 	}
 	
+	public void search(final Type type, final Condition condition)
+	{
+		final char delimiterStart = getNameDelimiterStart();
+		final char delimiterEnd = getNameDelimiterEnd();
+
+		final StringBuffer bf = new StringBuffer();
+		bf.append("select \"PK\" from ").
+			append(delimiterStart).
+			append(getPersistentQualifier(type)).
+			append(delimiterEnd).
+			append(" where ");
+		condition.appendSQL(this, bf);
+		
+		System.out.println("searching "+bf.toString());
+
+		executeSQL(bf.toString());
+	}
+
 	private void executeSQL(final String sql)
 	{
 		final String driver = "oracle.jdbc.driver.OracleDriver";
@@ -122,7 +142,7 @@ public class Database
 		return className.substring(pos+1);
 	}
 	
-	private String getPersistentQualifier(final Attribute attribute)
+	public String getPersistentQualifier(final Attribute attribute)
 	{
 		return attribute.getName();
 	}
