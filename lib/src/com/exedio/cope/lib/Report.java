@@ -54,6 +54,7 @@ public final class Report extends Node
 		public final com.exedio.cope.lib.Table table;
 		private boolean exists = false;
 		private LastAnalyzed lastAnalyzed = null;
+		private final HashMap columns = new HashMap();
 		private final HashMap constraints = new HashMap();
 
 		private Table(final com.exedio.cope.lib.Table table)
@@ -78,8 +79,31 @@ public final class Report extends Node
 			this.lastAnalyzed = new LastAnalyzed(lastAnalyzed, this);
 		}
 		
+		final Column notifyRequiredColumn(final com.exedio.cope.lib.Column column)
+		{
+			final Column result = new Column(column);
+			if(columns.put(result.name, result)!=null)
+				throw new RuntimeException(column.toString());
+			return result;
+		}
+		
+		final Column notifyExistentColumn(final String columnName)
+		{
+			Column result = (Column)columns.get(columnName);
+			if(result==null)
+			{
+				result = new Column(columnName);
+				columns.put(columnName, result);
+			}
+			else
+				result.exists = true;
+
+			return result;
+		}
+	
 		final Constraint notifyRequiredConstraint(final String constraintName)
 		{
+			// TODO: this method must not cope with for previously created columns
 			Constraint result = (Constraint)constraints.get(constraintName);
 			if(result==null)
 			{
@@ -105,6 +129,11 @@ public final class Report extends Node
 		public final LastAnalyzed getLastAnalyzed()
 		{
 			return lastAnalyzed;
+		}
+		
+		public final Collection getColumns()
+		{
+			return columns.values();
 		}
 		
 		public final Collection getConstraints()
@@ -138,6 +167,13 @@ public final class Report extends Node
 				cumulativeColor = Math.max(cumulativeColor, lastAnalyzed.cumulativeColor);
 			}
 			
+			for(Iterator i = columns.values().iterator(); i.hasNext(); )
+			{
+				final Column column = (Column)i.next();
+				column.finish();
+				cumulativeColor = Math.max(cumulativeColor, column.cumulativeColor);
+			}
+
 			for(Iterator i = constraints.values().iterator(); i.hasNext(); )
 			{
 				final Constraint constraint = (Constraint)i.next();
@@ -177,6 +213,49 @@ public final class Report extends Node
 				
 			cumulativeColor = particularColor;
 		}
+	}
+	
+	public final class Column extends Node
+	{
+		public final String name;
+		public final com.exedio.cope.lib.Column column;
+		private boolean exists;
+		
+		private Column(final com.exedio.cope.lib.Column column)
+		{
+			this.name = column.id;
+			this.column = column;
+			exists = false;
+		}
+
+		private Column(final String name)
+		{
+			this.name = name;
+			this.column = null;
+			exists = true;
+		}
+
+		protected void finish()
+		{
+			if(cumulativeColor!=COLOR_NOT_YET_CALC || particularColor!=COLOR_NOT_YET_CALC)
+				throw new RuntimeException();
+
+			if(!exists)
+			{
+				error = "missing";
+				particularColor = COLOR_RED;
+			}
+			else if(column==null)
+			{
+				error = "not used";
+				particularColor = COLOR_YELLOW;
+			}
+			else
+				particularColor = COLOR_OK;
+				
+			cumulativeColor = particularColor;
+		}
+		
 	}
 	
 	public final class Constraint extends Node
@@ -232,7 +311,8 @@ public final class Report extends Node
 	
 			for(Iterator j = modelTable.getAllColumns().iterator(); j.hasNext(); )
 			{
-				final Column column = (Column)j.next();
+				final com.exedio.cope.lib.Column column = (com.exedio.cope.lib.Column)j.next();
+				final Column reportColumn = reportTable.notifyRequiredColumn(column);
 				
 				if(column.primaryKey)
 					reportTable.notifyRequiredConstraint(column.getPrimaryKeyConstraintID());

@@ -47,6 +47,23 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); )
 					%>">last analyzed: <%=date!=null?date.toString():"NEVER"%></li><%
 		}
 		
+		for(Iterator j = table.getColumns().iterator(); j.hasNext(); )
+		{
+			final Report.Column column = (Report.Column)j.next();
+			final String color = color(column.getCumulativeColor());
+			%>
+			<li class="<%=color%>"><%
+			%><small>column</small> <%=column.name%><%
+			final String error = column.getError();
+			if(error!=null)
+			{
+				%>
+					<span class="<%=color(column.getParticularColor())
+												%>"><%=error%></span><%
+			}
+			%></li><%
+		}
+		
 		for(Iterator j = table.getConstraints().iterator(); j.hasNext(); )
 		{
 			final Report.Constraint constraint = (Report.Constraint)j.next();

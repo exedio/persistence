@@ -93,6 +93,20 @@ final class OracleDatabase
 		}
 		{
 			final com.exedio.cope.lib.Statement bf = createStatement();
+			bf.append("select TABLE_NAME, COLUMN_NAME from user_tab_columns").
+				defineColumnString().
+				defineColumnString();
+			try
+			{
+				executeSQL(bf, new ReportColumnHandler(report));
+			}
+			catch(ConstraintViolationException e)
+			{
+				throw new SystemException(e);
+			}
+		}
+		{
+			final com.exedio.cope.lib.Statement bf = createStatement();
 			bf.append("select TABLE_NAME, CONSTRAINT_NAME, CONSTRAINT_TYPE  from user_constraints order by table_name").
 				defineColumnString().
 				defineColumnString().
@@ -129,6 +143,28 @@ final class OracleDatabase
 				final Date lastAnalyzed = (Date)resultSet.getObject(2);
 				final Report.Table table = report.notifyExistentTable(tableName);
 				table.setLastAnalyzed(lastAnalyzed);
+				//System.out.println("EXISTS:"+tableName);
+			}
+		}
+	}
+
+	private static class ReportColumnHandler implements ResultSetHandler
+	{
+		private final Report report;
+
+		ReportColumnHandler(final Report report)
+		{
+			this.report = report;
+		}
+
+		public void run(ResultSet resultSet) throws SQLException
+		{
+			while(resultSet.next())
+			{
+				final String tableName = resultSet.getString(1);
+				final String columnName = resultSet.getString(2);
+				final Report.Table table = report.notifyExistentTable(tableName);
+				final Report.Column column = table.notifyExistentColumn(columnName);
 				//System.out.println("EXISTS:"+tableName);
 			}
 		}
