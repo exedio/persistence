@@ -190,7 +190,54 @@ public class Item extends Search
 	 */
 	protected final String getMediaURL(final MediaAttribute attribute, final String variant)
 	{
-		return null;
+		activate();
+
+		final String mimeMajor = (String)getCache(attribute.mimeMajor);
+		if(mimeMajor==null)
+			return null;
+
+		final StringBuffer bf = new StringBuffer("/medias/");
+
+		bf.append(attribute.getType().getJavaClass().getName()).
+			append('/').
+			append(attribute.getName());
+		
+		if(variant!=null)
+		{
+			bf.append('/').
+				append(variant);
+		}
+
+		bf.append('/').
+			append(pk);
+
+		final String mimeMinor = (String)getCache(attribute.mimeMinor);
+		final String extension;
+		if("image".equals(mimeMajor))
+		{
+			if("jpeg".equals(mimeMinor) || "pjpeg".equals(mimeMinor))
+				extension = ".jpg";
+			else if("gif".equals(mimeMinor))
+				extension = ".gif";
+			else if("png".equals(mimeMinor))
+				extension = ".png";
+			else
+				extension = null;
+		}
+		else
+			extension = null;
+		
+		if(extension==null)
+		{
+			bf.append('.').
+				append(mimeMajor).
+				append('.').
+				append(mimeMinor);
+		}
+		else
+			bf.append(extension);
+		
+		return bf.toString();
 	}
 
 	/**

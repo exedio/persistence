@@ -341,18 +341,29 @@ public class LibTest extends TestCase
 			{
 				throw new SystemException(e);
 			}
-			assertEquals(null/*somehow gets the data*/, item.getSomeMediaURL());
-			assertEquals(null/*somehow gets the data*/, item.getSomeMediaURLSomeVariant());
+			final String prefix = "/medias/com.exedio.cope.lib.ItemWithManyAttributes/someMedia/";
+			final String expectedURL = prefix+item.pk+".someMimeMajor.someMimeMinor";
+			final String expectedURLSomeVariant = prefix+"SomeVariant/"+item.pk+".someMimeMajor.someMimeMinor";
+			//System.out.println(expectedURL);
+			//System.out.println(item.getSomeMediaURL());
+			assertEquals(expectedURL, item.getSomeMediaURL());
+			assertEquals(expectedURLSomeVariant, item.getSomeMediaURLSomeVariant());
 			assertEquals(null/*somehow gets the data*/, item.getSomeMediaData());
 			assertEquals("someMimeMajor", item.getSomeMediaMimeMajor());
 			assertEquals("someMimeMinor", item.getSomeMediaMimeMinor());
 
 			item.passivate();
-			assertEquals(null/*somehow gets the data*/, item.getSomeMediaURL());
-			assertEquals(null/*somehow gets the data*/, item.getSomeMediaURLSomeVariant());
+			assertEquals(expectedURL, item.getSomeMediaURL());
+			assertEquals(expectedURLSomeVariant, item.getSomeMediaURLSomeVariant());
 			assertEquals(null/*somehow gets the data*/, item.getSomeMediaData());
 			assertEquals("someMimeMajor", item.getSomeMediaMimeMajor());
 			assertEquals("someMimeMinor", item.getSomeMediaMimeMinor());
+			
+			assertMediaMime(item, "image", "jpeg",  "jpg");
+			assertMediaMime(item, "image", "pjpeg", "jpg");
+			assertMediaMime(item, "image", "gif",   "gif");
+			assertMediaMime(item, "image", "png",   "png");
+			assertMediaMime(item, "image", "someMinor", "image.someMinor");
 
 			try
 			{
@@ -385,6 +396,32 @@ public class LibTest extends TestCase
 		}
 	}
 
+	private void assertMediaMime(final ItemWithManyAttributes item,
+											final String mimeMajor,
+											final String mimeMinor,
+											final String url)
+	{
+		try
+		{
+			item.setSomeMediaData(null/*some data*/, mimeMajor, mimeMinor);
+		}
+		catch(IOException e)
+		{
+			throw new SystemException(e);
+		}
+		final String prefix = "/medias/com.exedio.cope.lib.ItemWithManyAttributes/someMedia/";
+		final String expectedURL = prefix+item.pk+'.'+url;
+		final String expectedURLSomeVariant = prefix+"SomeVariant/"+item.pk+'.'+url;
+		//System.out.println(expectedURL);
+		//System.out.println(item.getSomeMediaURL());
+		assertEquals(expectedURL, item.getSomeMediaURL());
+		assertEquals(expectedURLSomeVariant, item.getSomeMediaURLSomeVariant());
+		//System.out.println(expectedURLSomeVariant);
+		//System.out.println(item.getSomeMediaURL());
+		assertEquals(null/*somehow gets the data*/, item.getSomeMediaData());
+		assertEquals(mimeMajor, item.getSomeMediaMimeMajor());
+		assertEquals(mimeMinor, item.getSomeMediaMimeMinor());
+	}
 
 	protected void assertNotEquals(final Item item1, final Item item2)
 	{
