@@ -9,9 +9,6 @@ import com.exedio.cope.testmodel.ItemWithSingleUniqueReadOnly;
 
 public class UniqueItemTest extends DatabaseLibTest
 {
-	public UniqueItemTest()
-	{
-	}
 
 	public void testItemWithSingleUnique()
 			throws IntegrityViolationException

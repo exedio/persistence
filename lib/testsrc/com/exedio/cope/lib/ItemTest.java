@@ -10,9 +10,6 @@ import com.exedio.cope.testmodel.EmptyItem2;
 public class ItemTest extends DatabaseLibTest
 {
 	
-	public ItemTest()
-	{}
-	
 	/**
 	 * Test getType, ID, equals, hashCode etc.
 	 */
