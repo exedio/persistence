@@ -13,7 +13,7 @@ public class HashTest extends DatabaseLibTest
 		deleteOnTearDown(item = new StringItem());
 	}
 	
-	public void testEncoders()
+	public void testMD5()
 	{
 		assertNull(item.getEncoded1MD5());
 		assertTrue(item.checkEncoded1(null));
@@ -29,6 +29,24 @@ public class HashTest extends DatabaseLibTest
 		assertTrue(!item.checkEncoded1(null));
 		assertTrue(!item.checkEncoded1("bello"));
 		assertTrue(item.checkEncoded1("knollo"));
+	}
+
+	public void testWrap()
+	{
+		assertNull(item.getEncoded2Wrap());
+		assertTrue(item.checkEncoded2(null));
+		assertTrue(!item.checkEncoded2("bing"));
+		
+		item.setEncoded2Wrap("bello");
+		assertEquals("bello", item.getEncoded2Wrap());
+		assertTrue(!item.checkEncoded2(null));
+		assertTrue(!item.checkEncoded2("bello"));
+		
+		item.setEncoded2("knollo");
+		assertEquals("[knollo]", item.getEncoded2Wrap());
+		assertTrue(!item.checkEncoded2(null));
+		assertTrue(!item.checkEncoded2("bello"));
+		assertTrue(item.checkEncoded2("knollo"));
 	}
 
 }
