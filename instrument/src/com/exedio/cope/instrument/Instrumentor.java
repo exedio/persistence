@@ -9,6 +9,7 @@ import persistence.ConstraintViolationException;
 import persistence.NotNullViolationException;
 import persistence.ReadOnlyViolationException;
 import persistence.SystemException;
+import persistence.Type;
 import persistence.UniqueViolationException;
 import tools.ClassComparator;
 
@@ -359,6 +360,20 @@ public final class Instrumentor implements InjectionConsumer
 		output.write("\t}");
 	}
 	
+	private final void writeType(final JavaClass javaClass)
+	throws IOException
+	{
+		writeCommentHeader();
+		output.write("\t * The persistent type information for ");
+		output.write(lowerCamelCase(javaClass.getName()));
+		output.write(".");
+		output.write(lineSeparator);
+		writeCommentFooter();
+		output.write("public static final "+Type.class.getName()+" TYPE = new "+Type.class.getName()+"(");
+		output.write(javaClass.getName());
+		output.write(".class);");
+	}
+	
 	public void onClassEnd(JavaClass jc)
 	throws IOException, InjectorParseException
 	{
@@ -380,6 +395,7 @@ public final class Instrumentor implements InjectionConsumer
 				if(persistentAttribute.isUnique())
 					writeUniqueFinder(persistentAttribute);
 			}
+			writeType(jc);
 		}
 		
 		if(class_state!=jc)
