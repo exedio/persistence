@@ -7,25 +7,31 @@ import com.exedio.cope.lib.ReportTable;
 final class AdminCop extends Cop
 {
 	static final String REPORT = "report";
+	static final String SHOW = "show";
+	static final String SHOW_DROP_BOXES = "drop";
 
 	final boolean report;
 	final String reportTable;
+	final boolean showDropBoxes;
 
-	AdminCop(final boolean report, final String reportTable)
+	AdminCop(final boolean report, final String reportTable, final boolean showDropBoxes)
 	{
 		super("admin.jsp");
 		this.report = report;
 		this.reportTable = reportTable;
+		this.showDropBoxes = showDropBoxes;
 		if(!report && reportTable!=null)
 			throw new RuntimeException();
 		
 		if(report)
 			addParameter(REPORT, reportTable==null ? "" : reportTable);
+		if(showDropBoxes)
+			addParameter(SHOW, SHOW_DROP_BOXES);
 	}
 	
 	final AdminCop toggleReport()
 	{
-		return new AdminCop(!report, null);
+		return new AdminCop(!report, null, false);
 	}
 	
 	final AdminCop narrowReport(final ReportTable reportTable)
@@ -33,7 +39,7 @@ final class AdminCop extends Cop
 		if(!report)
 			throw new RuntimeException();
 			
-		return new AdminCop(true, reportTable.name);
+		return new AdminCop(true, reportTable.name, showDropBoxes);
 	}
 	
 	final AdminCop widenReport()
@@ -41,7 +47,15 @@ final class AdminCop extends Cop
 		if(!report)
 			throw new RuntimeException();
 			
-		return new AdminCop(true, null);
+		return new AdminCop(true, null, showDropBoxes);
+	}
+	
+	final AdminCop toggleDropBoxes()
+	{
+		if(!report)
+			throw new RuntimeException();
+
+		return new AdminCop(true, reportTable, !showDropBoxes);
 	}
 	
 	final boolean isNarrowReport()
@@ -59,14 +73,17 @@ final class AdminCop extends Cop
 		final String reportID = getParameter(parameterMap, REPORT);
 		if(reportID==null)
 		{
-			return new AdminCop(false, null);
+			return new AdminCop(false, null, false);
 		}
 		else
 		{
+			final String showID = getParameter(parameterMap, SHOW);
+			final boolean showDropBoxes = showID!=null;
+			
 			if(reportID.length()==0)
-				return new AdminCop(true, null);
+				return new AdminCop(true, null, showDropBoxes);
 			else
-				return new AdminCop(true, reportID);
+				return new AdminCop(true, reportID, showDropBoxes);
 		}
 	}
 

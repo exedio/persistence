@@ -40,6 +40,7 @@ final String reportColor = color(report.getCumulativeColor());
 final boolean narrowReport = cop.isNarrowReport();
 
 %>
+drop boxes: <a href="<%=cop.toggleDropBoxes()%>"><%=cop.showDropBoxes?"hide":"show"%></a><br>
 <span class="<%=reportColor%>"><%
 if(narrowReport)
 {
@@ -90,8 +91,11 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); )
 	}
 	if(table.exists())
 	{
-		%>,
+		if(cop.showDropBoxes)
+		{
+			%>,
 		<input type="checkbox" name="DROP_TABLE" value="<%=table.name%>"/>drop<%
+		}
 	}
 	else if(table.required())
 	{
@@ -139,8 +143,11 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); )
 			}
 			if(column.exists())
 			{
-				%>,
+				if(cop.showDropBoxes)
+				{
+					%>,
 				<input type="checkbox" name="DROP_COLUMN" value="<%=table.name%>#<%=column.name%>"/>drop<%
+				}
 			}
 			else if(column.required() &&
 						column.table.exists() )
@@ -167,8 +174,11 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); )
 			}
 			if(constraint.exists())
 			{
-				%>
+				if(cop.showDropBoxes)
+				{
+					%>
 				<input type="checkbox" name="DROP_CONSTRAINT" value="<%=constraint.name%>"/>drop<%
+				}
 			}
 			else if( constraint.required() &&
 						constraint.table.exists() )
