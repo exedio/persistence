@@ -7,10 +7,10 @@ public class AttributeLongTest extends AttributeTest
 	{
 		assertEquals(item.TYPE, item.someLong.getType());
 		assertEquals(null, item.getSomeLong());
-		assertEquals(set(item, item2), toSet(Search.search(item.TYPE, Search.equal(item.someLong, null))));
-		assertEquals(set(item, item2), toSet(Search.search(item.TYPE, Search.isNull(item.someLong))));
-		assertEquals(set(), toSet(Search.search(item.TYPE, Search.notEqual(item.someLong, null))));
-		assertEquals(set(), toSet(Search.search(item.TYPE, Search.isNotNull(item.someLong))));
+		assertEquals(set(item, item2), toSet(item.TYPE.search(Search.equal(item.someLong, null))));
+		assertEquals(set(item, item2), toSet(item.TYPE.search(Search.isNull(item.someLong))));
+		assertEquals(set(), toSet(item.TYPE.search(Search.notEqual(item.someLong, null))));
+		assertEquals(set(), toSet(item.TYPE.search(Search.isNotNull(item.someLong))));
 
 		item.setSomeLong(new Long(11));
 		assertEquals(new Long(11), item.getSomeLong());
@@ -19,15 +19,15 @@ public class AttributeLongTest extends AttributeTest
 		assertEquals(new Long(11), item.getSomeLong());
 		assertEquals(
 			list(item),
-			Search.search(item.TYPE, Search.equal(item.someLong, 11)));
+			item.TYPE.search(Search.equal(item.someLong, 11)));
 		assertEquals(
 			list(item2),
-			Search.search(item.TYPE, Search.notEqual(item.someLong, 11)));
+			item.TYPE.search(Search.notEqual(item.someLong, 11)));
 
-		assertEquals(list(item2), Search.search(item.TYPE, Search.equal(item.someLong, null)));
-		assertEquals(list(item2), Search.search(item.TYPE, Search.isNull(item.someLong)));
-		assertEquals(list(item), Search.search(item.TYPE, Search.notEqual(item.someLong, null)));
-		assertEquals(list(item), Search.search(item.TYPE, Search.isNotNull(item.someLong)));
+		assertEquals(list(item2), item.TYPE.search(Search.equal(item.someLong, null)));
+		assertEquals(list(item2), item.TYPE.search(Search.isNull(item.someLong)));
+		assertEquals(list(item), item.TYPE.search(Search.notEqual(item.someLong, null)));
+		assertEquals(list(item), item.TYPE.search(Search.isNotNull(item.someLong)));
 
 		item.setSomeLong(null);
 		assertEquals(null, item.getSomeLong());

@@ -7,10 +7,10 @@ public class AttributeIntegerTest extends AttributeTest
 	{
 		assertEquals(item.TYPE, item.someInteger.getType());
 		assertEquals(null, item.getSomeInteger());
-		assertEquals(set(item, item2), toSet(Search.search(item.TYPE, Search.equal(item.someInteger, null))));
-		assertEquals(set(item, item2), toSet(Search.search(item.TYPE, Search.isNull(item.someInteger))));
-		assertEquals(set(), toSet(Search.search(item.TYPE, Search.notEqual(item.someInteger, null))));
-		assertEquals(set(), toSet(Search.search(item.TYPE, Search.isNotNull(item.someInteger))));
+		assertEquals(set(item, item2), toSet(item.TYPE.search(Search.equal(item.someInteger, null))));
+		assertEquals(set(item, item2), toSet(item.TYPE.search(Search.isNull(item.someInteger))));
+		assertEquals(set(), toSet(item.TYPE.search(Search.notEqual(item.someInteger, null))));
+		assertEquals(set(), toSet(item.TYPE.search(Search.isNotNull(item.someInteger))));
 
 		item.setSomeInteger(new Integer(10));
 		assertEquals(new Integer(10), item.getSomeInteger());
@@ -19,14 +19,14 @@ public class AttributeIntegerTest extends AttributeTest
 		assertEquals(new Integer(10), item.getSomeInteger());
 		assertEquals(
 			list(item),
-			Search.search(item.TYPE, Search.equal(item.someInteger, 10)));
+			item.TYPE.search(Search.equal(item.someInteger, 10)));
 		assertEquals(
 			list(item2),
-			Search.search(item.TYPE, Search.notEqual(item.someInteger, 10)));
-		assertEquals(list(item2), Search.search(item.TYPE, Search.equal(item.someInteger, null)));
-		assertEquals(list(item2), Search.search(item.TYPE, Search.isNull(item.someInteger)));
-		assertEquals(list(item), Search.search(item.TYPE, Search.notEqual(item.someInteger, null)));
-		assertEquals(list(item), Search.search(item.TYPE, Search.isNotNull(item.someInteger)));
+			item.TYPE.search(Search.notEqual(item.someInteger, 10)));
+		assertEquals(list(item2), item.TYPE.search(Search.equal(item.someInteger, null)));
+		assertEquals(list(item2), item.TYPE.search(Search.isNull(item.someInteger)));
+		assertEquals(list(item), item.TYPE.search(Search.notEqual(item.someInteger, null)));
+		assertEquals(list(item), item.TYPE.search(Search.isNotNull(item.someInteger)));
 
 		item.setSomeInteger(null);
 		assertEquals(null, item.getSomeInteger());

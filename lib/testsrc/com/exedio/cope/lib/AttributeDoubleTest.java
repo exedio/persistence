@@ -7,10 +7,10 @@ public class AttributeDoubleTest extends AttributeTest
 	{
 		assertEquals(item.TYPE, item.someDouble.getType());
 		assertEquals(null, item.getSomeDouble());
-		assertEquals(set(item, item2), toSet(Search.search(item.TYPE, Search.equal(item.someDouble, null))));
-		assertEquals(set(item, item2), toSet(Search.search(item.TYPE, Search.isNull(item.someDouble))));
-		assertEquals(set(), toSet(Search.search(item.TYPE, Search.notEqual(item.someDouble, null))));
-		assertEquals(set(), toSet(Search.search(item.TYPE, Search.isNotNull(item.someDouble))));
+		assertEquals(set(item, item2), toSet(item.TYPE.search(Search.equal(item.someDouble, null))));
+		assertEquals(set(item, item2), toSet(item.TYPE.search(Search.isNull(item.someDouble))));
+		assertEquals(set(), toSet(item.TYPE.search(Search.notEqual(item.someDouble, null))));
+		assertEquals(set(), toSet(item.TYPE.search(Search.isNotNull(item.someDouble))));
 
 		item.setSomeDouble(new Double(22.22));
 		assertEquals(new Double(22.22), item.getSomeDouble());
@@ -19,14 +19,14 @@ public class AttributeDoubleTest extends AttributeTest
 		assertEquals(new Double(22.22), item.getSomeDouble());
 		assertEquals(
 			list(item),
-			Search.search(item.TYPE, Search.equal(item.someDouble, 22.22)));
+			item.TYPE.search(Search.equal(item.someDouble, 22.22)));
 		assertEquals(
 			list(item2),
-			Search.search(item.TYPE, Search.notEqual(item.someDouble, 22.22)));
-		assertEquals(list(item2), Search.search(item.TYPE, Search.equal(item.someDouble, null)));
-		assertEquals(list(item2), Search.search(item.TYPE, Search.isNull(item.someDouble)));
-		assertEquals(list(item), Search.search(item.TYPE, Search.notEqual(item.someDouble, null)));
-		assertEquals(list(item), Search.search(item.TYPE, Search.isNotNull(item.someDouble)));
+			item.TYPE.search(Search.notEqual(item.someDouble, 22.22)));
+		assertEquals(list(item2), item.TYPE.search(Search.equal(item.someDouble, null)));
+		assertEquals(list(item2), item.TYPE.search(Search.isNull(item.someDouble)));
+		assertEquals(list(item), item.TYPE.search(Search.notEqual(item.someDouble, null)));
+		assertEquals(list(item), item.TYPE.search(Search.isNotNull(item.someDouble)));
 
 		item.setSomeDouble(null);
 		assertEquals(null, item.getSomeDouble());

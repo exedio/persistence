@@ -20,11 +20,11 @@ public class SearchTest extends DatabaseLibTest
 			throw new SystemException(e);
 		}
 		item.setSomeNotNullInteger(0);
-		final Collection searchResult = Search.search(item.TYPE, Search.equal(item.someNotNullInteger, 0));
+		final Collection searchResult = item.TYPE.search(Search.equal(item.someNotNullInteger, 0));
 		assertEquals(set(item), toSet(searchResult));
 		assertUnmodifiable(searchResult);
 		
-		assertEquals(set(item, item2), toSet(Search.search(item.TYPE, null)));
+		assertEquals(set(item, item2), toSet(item.TYPE.search(null)));
 		assertEquals(set(item, item2), toSet(
 			Search.search(
 				item.TYPE,
@@ -47,7 +47,7 @@ public class SearchTest extends DatabaseLibTest
 	{
 		try
 		{
-			Search.search(EmptyItem.TYPE, Search.equal(AttributeItem.someInteger, 0));
+			EmptyItem.TYPE.search(Search.equal(AttributeItem.someInteger, 0));
 			fail("should have thrown RuntimeException");
 		}
 		catch(RuntimeException e)
