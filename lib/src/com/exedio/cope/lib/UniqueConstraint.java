@@ -1,29 +1,12 @@
 
 package com.exedio.cope.lib;
 
-import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 
 public final class UniqueConstraint
 {
-	private static final HashMap uniqueConstraintsByID = new HashMap();
-	
-	static final UniqueConstraint findByID(final String id, final SQLException e)
-	{
-		//System.out.println("UniqueConstraint.getUniqueConstraint:"+name);
-		final UniqueConstraint result =
-			(UniqueConstraint)uniqueConstraintsByID.get(id);
-
-		if(result==null)
-			throw new SystemException(e, "no unique constraint found for >"+id
-																	+"<, has only "+uniqueConstraintsByID.keySet());
-
-		return result;
-	}
-	
 	
 	private final Attribute[] uniqueAttributes;
 	private final List uniqueAttributeList;
@@ -62,10 +45,7 @@ public final class UniqueConstraint
 			throw new RuntimeException();
 
 		this.id = Database.theInstance.trimName(type.id+"_"+name+"Un");
-
-		final Object collision = uniqueConstraintsByID.put(id, this);
-		if(collision!=null)
-			throw new InitializerRuntimeException(null, "ambiguous unique constraint "+this+" trimmed to >"+this.id+"< colliding with "+collision);
+		Database.theInstance.addUniqueConstraint(id, this);
 	}
 
 	public final String getID()

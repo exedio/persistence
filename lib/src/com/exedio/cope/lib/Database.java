@@ -80,6 +80,7 @@ public abstract class Database
 	}
 	
 	private final List tables = new ArrayList();
+	private final HashMap uniqueConstraintsByID = new HashMap();
 	private final HashMap itemColumnsByIntegrityConstraintName = new HashMap();
 	private boolean buildStage = true;
 	private final boolean useDefineColumnTypes;
@@ -96,6 +97,16 @@ public abstract class Database
 		if(!buildStage)
 			throw new RuntimeException();
 		tables.add(table);
+	}
+	
+	final void addUniqueConstraint(final String constraintID, final UniqueConstraint constraint)
+	{
+		if(!buildStage)
+			throw new RuntimeException();
+
+		final Object collision = uniqueConstraintsByID.put(constraintID, constraint);
+		if(collision!=null)
+			throw new InitializerRuntimeException(null, "ambiguous unique constraint "+constraint+" trimmed to >"+constraintID+"< colliding with "+collision);
 	}
 	
 	final void addIntegrityConstraint(final ItemColumn column)
@@ -755,7 +766,12 @@ public abstract class Database
 			final String uniqueConstraintID = extractUniqueConstraintName(e);
 			if(uniqueConstraintID!=null)
 			{
-				final UniqueConstraint constraint = UniqueConstraint.findByID(uniqueConstraintID, e);
+				final UniqueConstraint constraint =
+					(UniqueConstraint)uniqueConstraintsByID.get(uniqueConstraintID);
+				if(constraint==null)
+					throw new SystemException(e, "no unique constraint found for >"+uniqueConstraintID
+																			+"<, has only "+uniqueConstraintsByID.keySet());
+
 				return new UniqueViolationException(e, null, constraint);
 			}
 		}
