@@ -189,7 +189,12 @@ public final class Type
 				columns.addAll(this.declaredAttributes[i].getColumns());
 			this.columns = Collections.unmodifiableList(columns);
 		}
-		this.primaryKey = new IntegerColumn(this);
+
+		this.primaryKey =
+			(supertype!=null)
+			? new ItemColumn(this, supertype.getJavaClass())
+			: new IntegerColumn(this);
+
 		{
 			final ArrayList allColumns = new ArrayList(columns.size()+1);
 			allColumns.add(primaryKey);

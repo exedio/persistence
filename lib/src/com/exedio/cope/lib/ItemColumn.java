@@ -21,6 +21,18 @@ final class ItemColumn extends IntegerColumn
 		this.integrityConstraintName = integrityConstraintName;
 	}
 
+	/**
+	 * Creates a primary key column with a foreign key contraint.
+	 */	
+	ItemColumn(final Type type, final Class targetTypeClass)
+	{
+		super(type);
+		if(targetTypeClass==null)
+			throw new RuntimeException();
+		this.targetTypeClass = targetTypeClass;
+		this.integrityConstraintName = type.id+"SUP";
+	}
+
 	String getForeignTableNameProtected()
 	{
 		if(targetTypeClass!=null)

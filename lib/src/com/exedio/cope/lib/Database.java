@@ -846,20 +846,6 @@ public abstract class Database
 			}
 		}
 		
-		final Type supertype = type.getSupertype();
-		if(supertype!=null)
-		{
-			bf.append(",constraint ").
-				append(protectName(type.id+"SUP")).
-				append(" foreign key(").
-				append(type.primaryKey.protectedID).
-				append(")references ").
-				append(supertype.protectedID).
-				append('(').
-				append(supertype.primaryKey.protectedID).
-				append(')');
-		}
-
 		// attribute constraints		
 		for(Iterator i = type.getColumns().iterator(); i.hasNext(); )
 		{
@@ -970,7 +956,7 @@ public abstract class Database
 	{
 		//System.out.println("createForeignKeyConstraints:"+bf);
 
-		for(Iterator i = type.getColumns().iterator(); i.hasNext(); )
+		for(Iterator i = type.getAllColumns().iterator(); i.hasNext(); )
 		{
 			final Column column = (Column)i.next();
 			//System.out.println("createForeignKeyConstraints("+column+"):"+bf);
@@ -987,9 +973,9 @@ public abstract class Database
 					append(") references ").
 					append(itemColumn.getForeignTableNameProtected());
 
-				//System.out.println("createForeignKeyConstraints:"+bf);
 				try
 				{
+					//System.out.println("createForeignKeyConstraints:"+bf);
 					executeSQL(bf, EMPTY_RESULT_SET_HANDLER);
 				}
 				catch(ConstraintViolationException e)
