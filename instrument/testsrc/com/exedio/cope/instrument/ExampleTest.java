@@ -64,6 +64,14 @@ public class ExampleTest extends InjectorTest
 		assertAttribute("commaSeparated2", "/**TestCommentCommaSeparated123*/");
 		assertAttribute("commaSeparated3", "/**TestCommentCommaSeparated123*/");
 		assertText(" \n  ");
+
+		assertDocComment("/**TestCommentCommaSeparated456*/");
+		assertText("\n  ");
+		assertAttributeHeader("commaSeparated4");
+		assertAttribute("commaSeparated4", "/**TestCommentCommaSeparated456*/");
+		assertAttribute("commaSeparated5", "/**TestCommentCommaSeparated456*/");
+		assertAttribute("commaSeparated6", "/**TestCommentCommaSeparated456*/");
+		assertText(" \n\n  // these attributes test the ability of the parser\n  // to skip more complex (ugly) attribute initializers\n  ");
 	}
 
 }
