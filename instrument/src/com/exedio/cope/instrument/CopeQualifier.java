@@ -5,7 +5,6 @@ import java.util.List;
 final class CopeQualifier
 {
 	final String name;
-	private final String uniqueConstraintString;
 	final String qualifierClassString;
 
 	final CopeClass qualifierClass;
@@ -19,7 +18,7 @@ final class CopeQualifier
 		this.name = name;
 		if(initializerArguments.size()!=1)
 			throw new InjectorParseException("Qualifier must have 1 argument, but has "+initializerArguments);
-		this.uniqueConstraintString = (String)initializerArguments.get(0);
+		final String uniqueConstraintString = (String)initializerArguments.get(0);
 
 		final int dot = uniqueConstraintString.lastIndexOf('.');
 		if(dot<0)
