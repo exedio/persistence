@@ -206,8 +206,6 @@ public final class Instrumentor implements InjectionConsumer
 				final List initializerArguments = ja.getInitializerArguments();
 				//System.out.println(initializerArguments);
 				
-				final String secondArgument = initializerArguments.size()>1 ? (String)initializerArguments.get(1) : null;
-	
 				final boolean mapped = containsTag(docComment, MAPPED_ATTRIBUTE);
 				
 				final String qualifier = Injector.findDocTag(docComment, ATTRIBUTE_QUALIFIER);
@@ -249,26 +247,16 @@ public final class Instrumentor implements InjectionConsumer
 				}
 				else if(EnumerationAttribute.class.equals(typeClass))
 				{
-					if(secondArgument==null)
-						throw new RuntimeException("second argument required");
-					if(!secondArgument.endsWith(".class"))
-						throw new RuntimeException("second argument must end with .class: \'"+secondArgument+'\'');
-					final String persistentType = secondArgument.substring(0, secondArgument.length()-".class".length());
 					persistentAttribute =
 						new PersistentEnumerationAttribute(
-							ja, persistentType,
+							ja,
 							initializerArguments, mapped, qualifiers);
 				}
 				else if(ItemAttribute.class.equals(typeClass))
 				{
-					if(secondArgument==null)
-						throw new RuntimeException("second argument required");
-					if(!secondArgument.endsWith(".class"))
-						throw new RuntimeException("second argument must end with .class: \'"+secondArgument+'\'');
-					final String persistentType = secondArgument.substring(0, secondArgument.length()-".class".length());
 					persistentAttribute =
 						new PersistentAttribute(
-							ja, persistentType,
+							ja, PersistentEnumerationAttribute.getPersistentType(initializerArguments),
 							initializerArguments, mapped, qualifiers);
 				}
 				else if(MediaAttribute.class.equals(typeClass))
