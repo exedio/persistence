@@ -72,4 +72,9 @@ public final class JavaAttribute extends JavaFeature
 		Modifier.FINAL;
 	}
 	
+	public final void makePersistent()
+	{
+		getParent().addPersistentAttribute(this);
+	}
+	
 }

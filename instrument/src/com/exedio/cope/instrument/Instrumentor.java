@@ -138,7 +138,7 @@ public final class Instrumentor implements InjectionConsumer
 			docComment!=null &&
 			docComment.indexOf('@'+PERSISTENT_ATTRIBUTE)>=0)
 			{
-				jf.getParent().addPersistentAttribute((JavaAttribute)jf);
+				((JavaAttribute)jf).makePersistent();
 			}
 		}
 		discardnextfeature=false;
