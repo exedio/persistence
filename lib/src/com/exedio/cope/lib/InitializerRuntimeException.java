@@ -60,7 +60,8 @@ public final class InitializerRuntimeException extends RuntimeException
 		super.printStackTrace();
 		if(message!=null)
 			System.out.println(message);
-		cause.printStackTrace();
+		if(cause!=null)
+			cause.printStackTrace();
 	}
 
 	public void printStackTrace(final PrintStream s)
