@@ -124,7 +124,7 @@
 							for(Iterator i = Search.search(type, null).iterator(); i.hasNext(); )
 							{
 								final Item item = (Item)i.next();
-								%><tr><td><a href="copernica.jsp?item=<%=item.getID()%>">[X]</a></td><%
+								%><tr><td><a href="<%=(new ItemCop(item))%>">[X]</a></td><%
 								for(Iterator j = type.getAttributes().iterator(); j.hasNext(); )
 								{
 									final Attribute attribute = (Attribute)j.next();
@@ -142,7 +142,7 @@
 										}
 										else
 										{
-											%><a href="copernica.jsp?item=<%=value.getID()%>">
+											%><a href="<%=(new ItemCop(value))%>">
 												<%=provider.getDisplayName(null, value)%>
 											</a><%
 										}
@@ -167,7 +167,7 @@
 						%>
 						<a href="<%=(new TypeCop(type)).url%>"><%=provider.getDisplayName(null, type)%></a>
 						<b><%=provider.getDisplayName(null, item)%></b><hr>
-						<form action="copernica.jsp?item=<%=item.getID()%>" method="POST">
+						<form action="<%=(new ItemCop(item))%>" method="POST">
 						<table border="1">
 						<%
 						for(Iterator j = type.getAttributes().iterator(); j.hasNext(); )
@@ -187,7 +187,7 @@
 								}
 								else
 								{
-									%><a href="copernica.jsp?item=<%=value.getID()%>">
+									%><a href="<%=(new ItemCop(value))%>">
 										<%=provider.getDisplayName(null, value)%>
 									</a><%
 								}
