@@ -1,8 +1,6 @@
 package com.exedio.cope.lib;
 
 import java.io.File;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -43,7 +41,7 @@ public final class Model
 			throw new RuntimeException();
 
 		this.properties = properties;
-		this.database = createDatabaseInstance();
+		this.database = properties.createDatabase();
 
 		for(int i = 0; i<types.length; i++)
 		{
@@ -53,65 +51,6 @@ public final class Model
 		}
 	}
 
-	private final Database createDatabaseInstance()
-	{
-		final String databaseName = properties.getDatabase();
-
-		final Class databaseClass;
-		try
-		{
-			databaseClass = Class.forName(databaseName);
-		}
-		catch(ClassNotFoundException e)
-		{
-			final String m = "ERROR: class "+databaseName+" from cope.properties not found.";
-			System.err.println(m);
-			throw new RuntimeException(m);
-		}
-		
-		if(!Database.class.isAssignableFrom(databaseClass))
-		{
-			final String m = "ERROR: class "+databaseName+" from cope.properties not a subclass of "+Database.class.getName()+".";
-			System.err.println(m);
-			throw new RuntimeException(m);
-		}
-
-		final Constructor constructor;
-		try
-		{
-			constructor = databaseClass.getDeclaredConstructor(new Class[]{Properties.class});
-		}
-		catch(NoSuchMethodException e)
-		{
-			final String m = "ERROR: class "+databaseName+" from cope.properties has no constructor with a single Properties argument.";
-			System.err.println(m);
-			throw new RuntimeException(m);
-		}
-
-		try
-		{
-			return (Database)constructor.newInstance(new Object[]{properties});
-		}
-		catch(InstantiationException e)
-		{
-			e.printStackTrace();
-			System.err.println(e.getMessage());
-			throw new NestingRuntimeException(e);
-		}
-		catch(IllegalAccessException e)
-		{
-			e.printStackTrace();
-			System.err.println(e.getMessage());
-			throw new NestingRuntimeException(e);
-		}
-		catch(InvocationTargetException e)
-		{
-			e.printStackTrace();
-			System.err.println(e.getMessage());
-			throw new NestingRuntimeException(e);
-		}
-	}
-	
 	public final List getTypes()
 	{
 		return typeList;

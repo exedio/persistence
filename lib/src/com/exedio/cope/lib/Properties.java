@@ -4,6 +4,8 @@ package com.exedio.cope.lib;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 
 public final class Properties
 {
@@ -21,7 +23,7 @@ public final class Properties
 
 	private final String source;
 
-	private final String database;
+	private final Constructor database;
 	private final String databaseDriver;
 	private final String databaseUrl;
 	private final String databaseUser;
@@ -84,7 +86,33 @@ public final class Properties
 	public Properties(final java.util.Properties properties, final String source)
 	{
 		this.source = source;
-		database = getPropertyNotNull(properties, DATABASE);
+
+		{
+			final String databaseName = getPropertyNotNull(properties, DATABASE);
+			final Class databaseClass;
+			try
+			{
+				databaseClass = Class.forName(databaseName);
+			}
+			catch(ClassNotFoundException e)
+			{
+				throw new RuntimeException("class "+databaseName+" from "+source+" not found.");
+			}
+			
+			if(!Database.class.isAssignableFrom(databaseClass))
+			{
+				throw new RuntimeException("class "+databaseName+" from "+source+" not a subclass of "+Database.class.getName()+".");
+			}
+			try
+			{
+				database = databaseClass.getDeclaredConstructor(new Class[]{Properties.class});
+			}
+			catch(NoSuchMethodException e)
+			{
+				throw new RuntimeException("class "+databaseName+" from "+source+" has no constructor with a single Properties argument.");
+			}
+		}
+
 		databaseDriver = properties.getProperty(DATABASE_DRIVER);
 		databaseUrl = getPropertyNotNull(properties, DATABASE_URL);
 		databaseUser = getPropertyNotNull(properties, DATABASE_USER);
@@ -129,11 +157,26 @@ public final class Properties
 		return result;
 	}
 
-	public String getDatabase()
+	Database createDatabase()
 	{
-		return database;
+		try
+		{
+			return (Database)database.newInstance(new Object[]{this});
+		}
+		catch(InstantiationException e)
+		{
+			throw new NestingRuntimeException(e);
+		}
+		catch(IllegalAccessException e)
+		{
+			throw new NestingRuntimeException(e);
+		}
+		catch(InvocationTargetException e)
+		{
+			throw new NestingRuntimeException(e);
+		}
 	}
-
+	
 	public String getDatabaseDriver()
 	{
 		return databaseDriver;
@@ -174,7 +217,7 @@ public final class Properties
 	{
 		final java.util.Properties properties = new java.util.Properties();
 		properties.setProperty("source", source);
-		properties.setProperty(DATABASE, database);
+		properties.setProperty(DATABASE, database.getClass().getName());
 		if(databaseDriver!=null)
 			properties.setProperty(DATABASE_DRIVER, databaseDriver);
 		properties.setProperty(DATABASE_URL, databaseUrl);
