@@ -6,6 +6,8 @@ package com.exedio.cope.lib;
  */
 public class NotNullViolationException extends ConstraintViolationException
 {
+	private final Item item;
+	private final Attribute notNullAttribute;
 	
 	/**
 	 * Creates a new NotNullViolationException with the neccessary information about the violation.
@@ -14,6 +16,8 @@ public class NotNullViolationException extends ConstraintViolationException
 	 */
 	public NotNullViolationException(final Item item, final Attribute notNullAttribute)
 	{
+		this.item = item;
+		this.notNullAttribute = notNullAttribute;
 	}
 	
 	/**
@@ -21,7 +25,7 @@ public class NotNullViolationException extends ConstraintViolationException
 	 */
 	public final Item getItem()
 	{
-		return null;
+		return item;
 	}
 
 	/**
@@ -29,7 +33,7 @@ public class NotNullViolationException extends ConstraintViolationException
 	 */
 	public Attribute getNotNullAttribute()
 	{
-		return null;
+		return notNullAttribute;
 	}
 
 }
