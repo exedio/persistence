@@ -35,7 +35,8 @@ public class Query
 	
 	void check()
 	{
-		condition.check(fromTypes);
+		if(condition!=null)
+			condition.check(fromTypes);
 	}
 
 }

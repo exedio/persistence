@@ -24,6 +24,8 @@ public class SearchTest extends DatabaseLibTest
 		assertEquals(set(item), toSet(searchResult));
 		assertUnmodifiable(searchResult);
 		
+		assertEquals(set(item, item2), toSet(Search.search(item.TYPE, null)));
+		
 		assertDelete(item);
 		assertDelete(item2);
 		assertDelete(someItem);

@@ -266,8 +266,11 @@ public abstract class Database
 			bf.append(((Type)i.next()).protectedName);
 		}
 
-		bf.append(" where ");
-		query.condition.appendStatement(bf);
+		if(query.condition!=null)
+		{
+			bf.append(" where ");
+			query.condition.appendStatement(bf);
+		}
 		
 		//System.out.println("searching "+bf.toString());
 		try
