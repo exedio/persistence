@@ -137,8 +137,8 @@ public abstract class Database
 			else
 				bf.append(',');
 
-			final Table type = (Table)i.next(); // TODO: rename to table
-			bf.append(type.protectedID);
+			final Table table = (Table)i.next();
+			bf.append(table.protectedID);
 		}
 		
 		final Long testDate = new Long(System.currentTimeMillis());
