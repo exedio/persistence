@@ -21,8 +21,8 @@ public final class Type
 	private final Class javaClass;
 	private final Type supertype;
 	
-	private final Attribute[] attributes;
-	private final List attributeList;
+	private final Attribute[] declaredAttributes;
+	private final List declaredAttributeList;
 
 	private final UniqueConstraint[] uniqueConstraints;
 	private final List uniqueConstraintList;
@@ -46,7 +46,7 @@ public final class Type
 		return (Type)typesByName.get(className);
 	}
 	
-	public Type(final Class javaClass, final Attribute[] attributes, final UniqueConstraint[] uniqueConstraints)
+	public Type(final Class javaClass, final Attribute[] declaredAttributes, final UniqueConstraint[] uniqueConstraints)
 	{
 		this.javaClass = javaClass;
 
@@ -60,17 +60,17 @@ public final class Type
 				throw new NullPointerException(superClass.getName());
 		}
 
-		if(attributes!=null)
+		if(declaredAttributes!=null)
 		{
-			this.attributes = attributes;
-			this.attributeList = Collections.unmodifiableList(Arrays.asList(attributes));
-			for(int i = 0; i<attributes.length; i++)
-				attributes[i].setType(this);
+			this.declaredAttributes = declaredAttributes;
+			this.declaredAttributeList = Collections.unmodifiableList(Arrays.asList(declaredAttributes));
+			for(int i = 0; i<declaredAttributes.length; i++)
+				declaredAttributes[i].setType(this);
 		}
 		else
 		{
-			this.attributes = new Attribute[]{};
-			this.attributeList = Collections.EMPTY_LIST;
+			this.declaredAttributes = new Attribute[]{};
+			this.declaredAttributeList = Collections.EMPTY_LIST;
 		}
 
 		if(uniqueConstraints!=null)
@@ -90,8 +90,8 @@ public final class Type
 		this.protectedName = Database.theInstance.protectName(this.trimmedName);
 
 		final ArrayList columns = new ArrayList();
-		for(int i = 0; i<this.attributes.length; i++)
-			columns.addAll(this.attributes[i].getColumns());
+		for(int i = 0; i<this.declaredAttributes.length; i++)
+			columns.addAll(this.declaredAttributes[i].getColumns());
 		this.columns = Collections.unmodifiableList(columns);
 		this.primaryKey = new IntegerColumn(this, "PK", true, ItemColumn.SYNTETIC_PRIMARY_KEY_PRECISION);
 
@@ -138,7 +138,7 @@ public final class Type
 	 */
 	public final List getDeclaredAttributes()
 	{
-		return attributeList;
+		return declaredAttributeList;
 	}
 	
 	/**
@@ -160,7 +160,7 @@ public final class Type
 		final ArrayList result = new ArrayList();
 		if(superType!=null)
 			result.addAll(superType.getAttributes());
-		result.addAll(attributeList);
+		result.addAll(declaredAttributeList);
 		return result;
 	}
 	
