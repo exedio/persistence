@@ -22,6 +22,7 @@ public class StatementInfoTest extends DatabaseLibTest
 		final String database = model.getDatabase().getClass().getName();
 		if(database.indexOf("HsqldbDatabase")>=0)
 		{
+			assertEquals(list(), root.getChilds());
 		}
 		else if(database.indexOf("OracleDatabase")>=0)
 		{
