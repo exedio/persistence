@@ -63,31 +63,6 @@
 	final Language language = cop.language;
 
 %>
-		<form action="copernica.jsp" method="POST">
-			Database:
-			<br>
-			<input type="submit" name="CREATE" value="create" />
-			<input type="submit" name="TEARDOWN" value="tear down"/>
-			<input type="submit" name="DROP" value="drop"/>
-			<%
-				if(request.getParameter("CREATE")!=null)
-				{
-					Database.theInstance.createDatabase();
-					provider.initializeExampleSystem();
-					%>Database successfully created!<%
-				}
-				else if(request.getParameter("TEARDOWN")!= null)
-				{
-					Database.theInstance.tearDownDatabase();
-					%>Database successfully torn down!<%
-				}
-				else if(request.getParameter("DROP")!=null)
-				{
-					Database.theInstance.dropDatabase();
-					%>Database successfully dropped!<%
-				}
-			%>
-		</form>
 		
 		<%
 		for(Iterator l = provider.getDisplayLanguages().iterator(); l.hasNext(); )
