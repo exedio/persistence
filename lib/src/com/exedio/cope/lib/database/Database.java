@@ -92,7 +92,7 @@ public class Database
 		}
 	}
 	
-	private String getTableName(final Type type)
+	private String getPersistentQualifier(final Type type)
 	{
 		final String className = type.getJavaClass().getName();
 		final int pos = className.lastIndexOf('.');
@@ -112,7 +112,7 @@ public class Database
 		final StringBuffer bf = new StringBuffer();
 		bf.append("create table ").
 			append(delimiterStart).
-			append(getTableName(type)).
+			append(getPersistentQualifier(type)).
 			append(delimiterEnd).
 			append('(');
 		
@@ -142,7 +142,7 @@ public class Database
 		final StringBuffer bf = new StringBuffer();
 		bf.append("drop table ").
 			append(delimiterStart).
-			append(getTableName(type)).
+			append(getPersistentQualifier(type)).
 			append(delimiterEnd);
 		return bf.toString();
 	}
