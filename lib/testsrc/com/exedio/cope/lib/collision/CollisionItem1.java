@@ -13,6 +13,9 @@ import com.exedio.cope.lib.ItemWithoutAttributes;
  */
 public class CollisionItem1 extends Item
 {
+	/**
+	 * @persistent
+	 */
 	public static final ItemAttribute collisionAttribute = new ItemAttribute(UNIQUE, ItemWithoutAttributes.class); 
 
 /**
@@ -38,12 +41,54 @@ public class CollisionItem1 extends Item
 	}/**
 
 	 **
+	 * Returns the value of the persistent attribute {@link #collisionAttribute}.
+	 * @author cope instrumentor
+	 *
+ */public final ItemWithoutAttributes getCollisionAttribute()
+	{
+		return (ItemWithoutAttributes)getAttribute(this.collisionAttribute);
+	}/**
+
+	 **
+	 * Sets a new value for the persistent attribute {@link #collisionAttribute}.
+	 * @author cope instrumentor
+	 *
+ */public final void setCollisionAttribute(final ItemWithoutAttributes collisionAttribute)
+			throws
+				com.exedio.cope.lib.UniqueViolationException
+	{
+		try
+		{
+			setAttribute(this.collisionAttribute,collisionAttribute);
+		}
+		catch(com.exedio.cope.lib.NotNullViolationException e)
+		{
+			throw new com.exedio.cope.lib.SystemException(e);
+		}
+		catch(com.exedio.cope.lib.ReadOnlyViolationException e)
+		{
+			throw new com.exedio.cope.lib.SystemException(e);
+		}
+	}/**
+
+	 **
+	 * Finds a collisionItem1 by it's unique attributes
+	 * @param searchedCollisionAttribute shall be equal to attribute {@link #collisionAttribute}.
+	 * @author cope instrumentor
+	 *
+ */public static final CollisionItem1 findByCollisionAttribute(final ItemWithoutAttributes searchedCollisionAttribute)
+	{
+		return (CollisionItem1)searchUnique(TYPE,equal(collisionAttribute,searchedCollisionAttribute));
+	}/**
+
+	 **
 	 * The persistent type information for collisionItem1.
 	 * @author cope instrumentor
 	 *
  */public static final com.exedio.cope.lib.Type TYPE = 
 		new com.exedio.cope.lib.Type(
 			CollisionItem1.class,
-			null
+			new com.exedio.cope.lib.UniqueConstraint[]{
+			}
 		)
 ;}
