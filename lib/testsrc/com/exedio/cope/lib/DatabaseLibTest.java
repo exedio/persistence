@@ -228,6 +228,7 @@ public abstract class DatabaseLibTest extends AbstractLibTest
 
 	public static void main(String[] args)
 	{
+		model.setProperties(new Properties());
 		model.tearDownDatabase();
 	}
 
