@@ -99,7 +99,7 @@
 			final Item item = (Item)i.next();
 			%>
 			<tr>
-				<td><a href="<%=(cop.toItem(item))%>">[X]</a></td><%
+				<td><a href="<%=(cop.toItem(item))%>"><%=provider.getDisplayName(null, item)%></a></td><%
 			for(Iterator j = type.getFeatures().iterator(); j.hasNext(); )
 			{
 				final Feature feature = (Feature)j.next();

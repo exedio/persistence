@@ -87,7 +87,15 @@ public class WebTest extends WebTestCase
 		assertTitleEquals("Attribute Item");
 		assertLinkNotPresentWithText("50");
 
-		clickLinkWithText("[X]");
+		assertLinkPresentWithText(">");
+		clickLinkWithText(">");
+		assertTitleEquals("Attribute Item");
+		assertLinkPresentWithText(">");
+		clickLinkWithText(">");
+		assertTitleEquals("Attribute Item");
+		assertLinkNotPresentWithText(">");
+
+		clickLinkWithText("AttributeItem.103");
 		assertTitleEquals("AttributeItem.103");
 		assertItemForm();
 
@@ -176,7 +184,21 @@ public class WebTest extends WebTestCase
 		clickLinkWithText("Attribute Item");
 		assertTitleEquals("Attribute Item");
 		assertTextPresent("Attribute Item");
-		clickLinkWithText("[X]");
+
+		assertLinkPresentWithText("50");
+		clickLinkWithText("50");
+		assertTitleEquals("Attribute Item");
+		assertLinkNotPresentWithText("50");
+
+		assertLinkPresentWithText(">");
+		clickLinkWithText(">");
+		assertTitleEquals("Attribute Item");
+		assertLinkPresentWithText(">");
+		clickLinkWithText(">");
+		assertTitleEquals("Attribute Item");
+		assertLinkNotPresentWithText(">");
+
+		clickLinkWithText("AttributeItem.103");
 		assertTitleEquals("AttributeItem.103");
 		assertItemForm();
 
