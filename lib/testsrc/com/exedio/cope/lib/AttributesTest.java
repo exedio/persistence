@@ -331,24 +331,22 @@ public class AttributesTest extends DatabaseLibTest
 		//System.out.println(item.getSomeMediaURL());
 		assertEquals(expectedURL, item.getSomeMediaURL());
 		assertEquals(expectedURLSomeVariant, item.getSomeMediaURLSomeVariant());
-		assertEquals(null /*somehow gets the data*/
-		, item.getSomeMediaData());
+		assertData(bytes, item.getSomeMediaData());
 		assertEquals("someMimeMajor", item.getSomeMediaMimeMajor());
 		assertEquals("someMimeMinor", item.getSomeMediaMimeMinor());
 
 		item.passivate();
 		assertEquals(expectedURL, item.getSomeMediaURL());
 		assertEquals(expectedURLSomeVariant, item.getSomeMediaURLSomeVariant());
-		assertEquals(null /*somehow gets the data*/
-		, item.getSomeMediaData());
+		assertData(bytes, item.getSomeMediaData());
 		assertEquals("someMimeMajor", item.getSomeMediaMimeMajor());
 		assertEquals("someMimeMinor", item.getSomeMediaMimeMinor());
 
-		assertMediaMime(item, "image", "jpeg", "jpg");
-		assertMediaMime(item, "image", "pjpeg", "jpg");
-		assertMediaMime(item, "image", "gif", "gif");
-		assertMediaMime(item, "image", "png", "png");
-		assertMediaMime(item, "image", "someMinor", "image.someMinor");
+		assertMediaMime(item, "image", "jpeg", bytes, "jpg");
+		assertMediaMime(item, "image", "pjpeg", bytes, "jpg");
+		assertMediaMime(item, "image", "gif", bytes, "gif");
+		assertMediaMime(item, "image", "png", bytes, "png");
+		assertMediaMime(item, "image", "someMinor", bytes, "image.someMinor");
 
 		try
 		{

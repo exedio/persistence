@@ -2,6 +2,8 @@
 package com.exedio.cope.lib;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -361,7 +363,25 @@ public abstract class Item extends Search
 	 */
 	public final InputStream getMediaData(final MediaAttribute attribute)
 	{
-		return null;
+		final Row row = getRow();
+		final String mimeMajor = (String)row.get(attribute.mimeMajor);
+		if(mimeMajor==null)
+			return null;
+
+		final String mimeMinor = (String)row.get(attribute.mimeMinor);
+
+		final File directory = Properties.getInstance().getMediaDirectory();
+		final StringBuffer buf = new StringBuffer();
+		appendMediaPath(attribute, null, buf, mimeMajor, mimeMinor);
+		final File file = new File(directory, buf.toString());
+		try
+		{
+			return new FileInputStream(file);
+		}
+		catch(FileNotFoundException e)
+		{
+			throw new SystemException(e);
+		}
 	}
 
 	/**

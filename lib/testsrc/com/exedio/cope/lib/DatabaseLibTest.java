@@ -1,7 +1,9 @@
 
 package com.exedio.cope.lib;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 import com.exedio.cope.lib.collision.CollisionItem1;
 import com.exedio.cope.lib.collision.CollisionItem2;
@@ -76,14 +78,31 @@ public abstract class DatabaseLibTest extends AbstractLibTest
 		super.tearDown();
 	}
 	
+	protected void assertData(final byte[] expectedData, final InputStream actualData)
+	{
+		try
+		{
+			final byte[] actualDataArray = new byte[2*expectedData.length];
+			final int actualLength = actualData.read(actualDataArray);
+			assertEquals(expectedData.length, actualLength);
+			for(int i = 0; i<actualLength; i++)
+				assertEquals(expectedData[i], actualDataArray[i]);
+		}
+		catch(IOException e)
+		{
+			throw new SystemException(e);
+		}
+	}
+	
 	protected void assertMediaMime(final ItemWithManyAttributes item,
 											final String mimeMajor,
 											final String mimeMinor,
+											final byte[] data,
 											final String url)
 	{
 		try
 		{
-			item.setSomeMediaData(null/*some data*/, mimeMajor, mimeMinor);
+			item.setSomeMediaData(new ByteArrayInputStream(data), mimeMajor, mimeMinor);
 		}
 		catch(IOException e)
 		{
@@ -99,7 +118,7 @@ public abstract class DatabaseLibTest extends AbstractLibTest
 		assertEquals(expectedURLSomeVariant, item.getSomeMediaURLSomeVariant());
 		//System.out.println(expectedURLSomeVariant);
 		//System.out.println(item.getSomeMediaURL());
-		assertEquals(null/*somehow gets the data*/, item.getSomeMediaData());
+		assertData(data, item.getSomeMediaData());
 		assertEquals(mimeMajor, item.getSomeMediaMimeMajor());
 		assertEquals(mimeMinor, item.getSomeMediaMimeMinor());
 	}
