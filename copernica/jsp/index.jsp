@@ -17,13 +17,11 @@
 		<h1>Copernica</h1>
 		<h2>Generic Backoffice for COPE</h2>
 <%
+	final CopernicaProvider provider;
 	try
 	{
-		Class.forName("com.exedio.demoshop.Language");
-		Class.forName("com.exedio.demoshop.Country");
-		Class.forName("com.exedio.demoshop.Product");
-		Class.forName("com.exedio.demoshop.ProductGroup");
-		Class.forName("com.exedio.demoshop.OrderConfirmationMail");
+		final Class providerClass = Class.forName("com.exedio.demoshop.CopernicaProvider");
+		provider = (CopernicaProvider)providerClass.newInstance();
 	}
 	catch(ClassNotFoundException e)
 	{
@@ -48,6 +46,7 @@
 				if(request.getParameter("CREATE")!=null)
 				{
 					Database.theInstance.createDatabase();
+					provider.initializeExampleSystem();
 					%>Database successfully created!<%
 				}
 				else if(request.getParameter("TEARDOWN")!= null)

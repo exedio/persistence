@@ -39,4 +39,6 @@ public interface CopernicaProvider
 	public Category findCategoryByUniqueID(String uniqueID);
 	
 	public Section findSectionByUniqueID(String uniqueID);
+
+	public void initializeExampleSystem();
 }
