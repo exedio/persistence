@@ -42,12 +42,12 @@ public final class Statement
 		if(function instanceof ObjectAttribute)
 			append((ObjectAttribute)function);
 		else
-			append((AttributeMapping)function);
+			append((ComputedFunction)function);
 			
 		return this;
 	}
 
-	public Statement append(final AttributeMapping function)
+	public Statement append(final ComputedFunction function)
 	{
 		this.text.append(function.sqlMappingStart);
 		append(function.sourceAttribute);
@@ -78,8 +78,8 @@ public final class Statement
 		
 	public Statement appendValue(Function function, final Object value)
 	{
-		while(function instanceof AttributeMapping)
-			function = ((AttributeMapping)function).sourceAttribute;
+		while(function instanceof ComputedFunction)
+			function = ((ComputedFunction)function).sourceAttribute;
 			
 		final ObjectAttribute attribute = (ObjectAttribute)function;
 		appendValue(attribute.getMainColumn(), attribute.surfaceToCache(value));

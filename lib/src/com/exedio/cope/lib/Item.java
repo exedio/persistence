@@ -230,7 +230,7 @@ public abstract class Item extends Search
 		if(attribute instanceof ObjectAttribute)
 			return getAttribute((ObjectAttribute)attribute);
 		else
-			return getFunction((AttributeMapping)attribute);
+			return getFunction((ComputedFunction)attribute);
 	}
 
 	public final Object getAttribute(final ObjectAttribute attribute)
@@ -238,7 +238,7 @@ public abstract class Item extends Search
 		return getRow().get((ObjectAttribute)attribute);
 	}
 	
-	public final Object getFunction(final AttributeMapping function)
+	public final Object getFunction(final ComputedFunction function)
 	{
 		return function.mapJava(getAttribute(function.sourceAttribute));
 	}
@@ -248,8 +248,7 @@ public abstract class Item extends Search
 	 *         if <code>value</code> is null and <code>attribute</code>
 	 *         is {@link Attribute#isNotNull() not-null}.
 	 * @throws ReadOnlyViolationException
-	 *         if <code>attribute</code> is {@link Attribute#isReadOnly() read-only}
-	 *         or a {@link AttributeMapping mapped attribute}.
+	 *         if <code>attribute</code> is {@link Attribute#isReadOnly() read-only}.
 	 * @throws ClassCastException
 	 *         if <code>value</code> is not compatible to <code>attribute</code>.
 	 */

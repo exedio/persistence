@@ -9,7 +9,7 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 import com.exedio.cope.lib.Attribute;
-import com.exedio.cope.lib.AttributeMapping;
+import com.exedio.cope.lib.ComputedFunction;
 import com.exedio.cope.lib.Item;
 import com.exedio.cope.lib.LengthViolationException;
 import com.exedio.cope.lib.NotNullViolationException;
@@ -50,7 +50,7 @@ public abstract class PersistentAttribute
 		this.accessModifier = javaAttribute.accessModifier;
 		this.persistentClass = PersistentClass.getPersistentClass(javaAttribute.getParent());
 		this.persistentType = persistentType;
-		this.mapped = AttributeMapping.class.isAssignableFrom(typeClass);
+		this.mapped = ComputedFunction.class.isAssignableFrom(typeClass);
 		
 		if(!mapped)
 		{

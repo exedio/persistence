@@ -6,11 +6,7 @@ package com.exedio.cope.lib;
  * because it cannot be written with any value.
  *
  * This exception will be thrown by {@link Item#setAttribute Item.setAttribute} methods
- * if that attribute is {@link Attribute#isReadOnly() read-only}
- * or a {@link AttributeMapping mapped attribute}.
- *
- * This exception will be thrown by item constructors
- * if that attribute is a {@link AttributeMapping mapped attribute}.
+ * if that attribute is {@link Attribute#isReadOnly() read-only}.
  */
 public final class ReadOnlyViolationException extends ConstraintViolationException
 {

@@ -1,15 +1,16 @@
 
 package com.exedio.cope.lib;
 
-public abstract class AttributeMapping implements Function // TODO rename class to MappedFunction
+public abstract class ComputedFunction implements Function 
 {
 	// TODO make it possible to have more than one source attribute, for arithmetic functions
+	// TODO use functions as source
 	public final ObjectAttribute sourceAttribute;
 	final String sqlMappingStart;
 	final String sqlMappingEnd;
 	private final String functionName;
 
-	public AttributeMapping(final ObjectAttribute sourceAttribute,
+	public ComputedFunction(final ObjectAttribute sourceAttribute,
 									final String sqlMappingStart,
 									final String sqlMappingEnd,
 									final String functionName)
