@@ -22,10 +22,11 @@ public class PersistentNativeAttribute extends PersistentAttribute
 			final JavaAttribute javaAttribute,
 			Class typeClass,
 			final List initializerArguments,
+			final String setterOptionString,
 			final List qualifiers)
 		throws InjectorParseException
 	{
-		super(javaAttribute, typeClass, getPersistentType(typeClass), initializerArguments, qualifiers);
+		super(javaAttribute, typeClass, getPersistentType(typeClass), initializerArguments, setterOptionString, qualifiers);
 
 		typeClass = normalizeTypeClass(typeClass);
 		final String nativeType = (String)toNativeTypeMapping.get(typeClass);

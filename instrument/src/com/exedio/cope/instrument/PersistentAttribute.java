@@ -3,6 +3,7 @@ package com.exedio.cope.instrument;
 
 import java.lang.reflect.Modifier;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.SortedSet;
@@ -36,6 +37,7 @@ public abstract class PersistentAttribute
 	public final boolean notNull;
 	public final boolean lengthConstrained;
 	public final boolean computed;
+	public final int setterOption;
 	public final List qualifiers;
 
 	public PersistentAttribute(
@@ -43,6 +45,7 @@ public abstract class PersistentAttribute
 			final Class typeClass,
 			final String persistentType,
 			final List initializerArguments,
+			final String setterOptionString,
 			final List qualifiers)
 		throws InjectorParseException
 	{
@@ -89,10 +92,30 @@ public abstract class PersistentAttribute
 			this.notNull = false;
 			this.lengthConstrained = false;
 		}
+		
+		if(setterOptionString==null)
+			setterOption = OPTION_AUTO;
+		else
+		{
+			final Integer setterOptionObject = (Integer)options.get(setterOptionString);
+			if(setterOptionObject==null)
+				throw new InjectorParseException("invalid @cope-setter value "+setterOptionString);
+			setterOption = setterOptionObject.intValue();
+		}
 
 		this.qualifiers = (qualifiers!=null) ? Collections.unmodifiableList(qualifiers) : null;
 
 		persistentClass.addPersistentAttribute(this);
+	}
+	
+	private static final HashMap options = new HashMap();
+	
+	public static int OPTION_NONE = 0;
+	public static int OPTION_AUTO = 1;
+	
+	static
+	{
+		options.put("none", new Integer(OPTION_NONE));
 	}
 	
 	public final String getName()
@@ -185,9 +208,14 @@ public abstract class PersistentAttribute
 		return (readOnly || notNull) && !computed;
 	}
 	
-	public final boolean hasSetter()
+	private final boolean isWriteable()
 	{
 		return !readOnly && !computed;
+	}
+	
+	public final boolean hasGeneratedSetter()
+	{
+		return isWriteable() && (setterOption!=OPTION_NONE);
 	}
 	
 	private SortedSet setterExceptions = null;

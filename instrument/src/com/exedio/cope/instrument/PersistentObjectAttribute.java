@@ -9,10 +9,11 @@ public final class PersistentObjectAttribute extends PersistentAttribute
 			final JavaAttribute javaAttribute,
 			final Class typeClass,
 			final List initializerArguments,
+			final String setterOptionString,
 			final List qualifiers)
 		throws InjectorParseException
 	{
-		super(javaAttribute, typeClass, getPersistentType(initializerArguments), initializerArguments, qualifiers);
+		super(javaAttribute, typeClass, getPersistentType(initializerArguments), initializerArguments, setterOptionString, qualifiers);
 	}
 	
 	private static final String getPersistentType(final List initializerArguments)

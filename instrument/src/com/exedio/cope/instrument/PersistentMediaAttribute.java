@@ -15,10 +15,11 @@ public final class PersistentMediaAttribute extends PersistentAttribute
 			final JavaAttribute javaAttribute,
 			final Class typeClass,
 			final List initializerArguments,
+			final String setterOptionString,
 			final List qualifiers)
 		throws InjectorParseException
 	{
-		super(javaAttribute, typeClass, MEDIA_TYPE, initializerArguments, qualifiers);
+		super(javaAttribute, typeClass, MEDIA_TYPE, initializerArguments, setterOptionString, qualifiers);
 		this.mediaVariants = new ArrayList();
 
 		this.mimeMajor = getString(initializerArguments, 1);

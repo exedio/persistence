@@ -319,7 +319,7 @@ final class Generator
 		o.write("\t}");
 		
 		// setter
-		if(persistentAttribute.hasSetter())
+		if(persistentAttribute.hasGeneratedSetter())
 		{
 			writeCommentHeader();
 			o.write("\t * Sets a new value for the persistent attribute {@link #");
@@ -430,7 +430,7 @@ final class Generator
 										"Returns a stream for fetching the data of the persistent media attribute");
 		
 		// setters
-		if(mediaAttribute.hasSetter())
+		if(mediaAttribute.hasGeneratedSetter())
 		{
 			writeCommentHeader();
 			o.write("\t * Provides data for the persistent media attribute {@link #");
