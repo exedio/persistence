@@ -11,7 +11,7 @@ public final class Properties
 	private static final String FILE_NAME_PROPERTY = "com.exedio.cope.properties";
 	private static final String DEFAULT_FILE_NAME = "cope.properties";
 	
-	private File file = null;
+	private final String source;
 
 	private final String database;
 	private final String databaseDriver;
@@ -26,6 +26,7 @@ public final class Properties
 	{
 		final java.util.Properties properties = new java.util.Properties();
 		FileInputStream stream = null;
+		File file = null;
 		try
 		{
 			String filename = System.getProperty(FILE_NAME_PROPERTY);
@@ -33,6 +34,7 @@ public final class Properties
 				filename = DEFAULT_FILE_NAME;
 			
 			file = new File(filename);
+			source = file.getAbsolutePath();
 			stream = new FileInputStream(file);
 			properties.load(stream);
 		}
@@ -91,7 +93,7 @@ public final class Properties
 	{
 		final String result = properties.getProperty(key);
 		if(result==null)
-			throw new InitializerRuntimeException("property "+key+" in "+file.getAbsolutePath()+" not set.");
+			throw new InitializerRuntimeException("property "+key+" in "+source+" not set.");
 
 		return result;
 	}
@@ -124,7 +126,7 @@ public final class Properties
 	public File getMediaDirectory()
 	{
 		if(mediaDirectory==null)
-			throw new InitializerRuntimeException("property media.directory in "+file.getAbsolutePath()+" not set.");
+			throw new InitializerRuntimeException("property media.directory in "+source+" not set.");
 
 		return mediaDirectory;
 	}
@@ -132,7 +134,7 @@ public final class Properties
 	public String getMediaUrl()
 	{
 		if(mediaDirectory==null)
-			throw new InitializerRuntimeException("property media.directory in "+file.getAbsolutePath()+" not set.");
+			throw new InitializerRuntimeException("property media.directory in "+source+" not set.");
 
 		return mediaUrl;
 	}
