@@ -27,6 +27,11 @@ public final class NestingRuntimeException extends RuntimeException
 		this.message = message;
 	}
 	
+	public Exception getNestedCause()
+	{
+		return cause;
+	}
+	
 	public String getMessage()
 	{
 		if(message!=null)
