@@ -70,31 +70,6 @@ public abstract class Database
 		executeSQL(getDropTableStatement(type));
 	}
 
-	/**
-	 * Converts a collection of primary keys to a collection of items of the given type.
-	 * @param pks the collection of primary keys, is expected not to be modified
-	 * @return an unmodifiable collection.
-	 */
-	private final Collection wrapPrimaryKeys(final Type type, final Collection pks)
-	{
-		// TODO: dont convert all items at once, but use some kind of wrapper collection
-		final ArrayList result = new ArrayList(pks.size());
-		for(Iterator i = pks.iterator(); i.hasNext(); )
-		{
-			final Integer pk = (Integer)i.next();
-			System.out.println("pk:"+pk);
-			final Item item = type.getActiveItem(pk.intValue());
-			if(item!=null)
-				result.add(item);
-			else
-			{
-				// TODO create inactive item with the given pk, if there is no active item
-				System.out.println("OOOOPS:"+type+" "+pk);
-			}
-		}
-		return Collections.unmodifiableList(result);
-	}
-	
 	Collection search(final Type type, final Condition condition)
 	{
 		final StringBuffer bf = new StringBuffer();
@@ -106,7 +81,7 @@ public abstract class Database
 		condition.appendSQL(this, bf);
 		
 		System.out.println("searching "+bf.toString());
-		return wrapPrimaryKeys(type, executeSQLQuery(bf.toString()));
+		return executeSQLQuery(bf.toString());
 	}
 
 	public String makeValue(final Object o)
