@@ -114,22 +114,22 @@ public abstract class PersistentAttribute
 	
 	public String getBoxingPrefix()
 	{
-		return null;
+		throw new RuntimeException();
 	}
 	
 	public String getBoxingPostfix()
 	{
-		return null;
+		throw new RuntimeException();
 	}
 	
 	public String getUnBoxingPrefix()
 	{
-		return null;
+		throw new RuntimeException();
 	}
 	
 	public String getUnBoxingPostfix()
 	{
-		return null;
+		throw new RuntimeException();
 	}
 	
 	public final boolean isPartOfUniqueConstraint()

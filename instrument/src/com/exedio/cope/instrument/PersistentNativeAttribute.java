@@ -92,21 +92,33 @@ public class PersistentNativeAttribute extends PersistentAttribute
 	
 	public final String getBoxingPrefix()
 	{
+		if(!boxed)
+			throw new RuntimeException();
+
 		return boxingPrefix;
 	}
 	
 	public final String getBoxingPostfix()
 	{
+		if(!boxed)
+			throw new RuntimeException();
+
 		return boxingPostfix;
 	}
 	
 	public final String getUnBoxingPrefix()
 	{
+		if(!boxed)
+			throw new RuntimeException();
+
 		return unboxingPrefix;
 	}
 	
 	public final String getUnBoxingPostfix()
 	{
+		if(!boxed)
+			throw new RuntimeException();
+
 		return unboxingPostfix;
 	}
 	
