@@ -28,7 +28,7 @@ include file="copernica-provider.inc"
 	for( final Iterator it = request.getParameterMap().entrySet().iterator(); it.hasNext(); )
 	{
 		Map.Entry entry = (Map.Entry)it.next();
-		System.out.println( "param: " + entry.getKey() + " value: " + entry.getValue() );
+		System.out.println( "param: " + entry.getKey() + " value: " + ((String[])entry.getValue())[0] );
 	}
 	*/
 	
