@@ -1259,7 +1259,7 @@ abstract class Database
 		}
 	}
 
-	final void createColumn(final Column column)
+	void createColumn(final Column column)
 	{
 		final Statement bf = createStatement();
 		bf.append("alter table ").

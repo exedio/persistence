@@ -199,4 +199,26 @@ final class HsqldbDatabase
 		}
 	}
 
+	// TODO: make getCreateColumnStatement function for override
+	final void createColumn(final Column column)
+	{
+		final Statement bf = createStatement();
+		bf.append("alter table ").
+			append(column.table.protectedID).
+			append(" add column ").
+			append(column.protectedID).
+			append(' ').
+			append(column.databaseType);
+
+		try
+		{
+			//System.out.println("createColumn:"+bf);
+			executeSQL(bf, EMPTY_RESULT_SET_HANDLER);
+		}
+		catch(ConstraintViolationException e)
+		{
+			throw new SystemException(e);
+		}
+	}
+
 }
