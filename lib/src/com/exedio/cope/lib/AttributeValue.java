@@ -29,6 +29,12 @@ public final class AttributeValue
 		this.value = value;
 	}
 	
+	public AttributeValue(final EnumerationAttribute attribute, final EnumerationValue value)
+	{
+		this.attribute = attribute;
+		this.value = value;
+	}
+	
 }
 	
 
