@@ -27,7 +27,32 @@ final class StringColumn extends Column
 		if(cache==null)
 			return "NULL";
 		else
-			return "'" + ((String)cache) + '\'';
+		{
+			final String taintedCache = (String)cache;
+
+			final String cleanCache;
+			if(taintedCache.indexOf('\'')>=0)
+			{
+				// TODO: sql injection just swallows apostrophes,
+				// should be escaped or wrapped into prepared statements
+				final StringBuffer buf = new StringBuffer(taintedCache.length());
+				int pos;
+				int lastpos = 0;
+				for(pos = taintedCache.indexOf('\''); pos>=0; pos = taintedCache.indexOf('\'', lastpos))
+				{
+					//System.out.println("---"+lastpos+"-"+pos+">"+taintedCache.substring(lastpos, pos)+"<");
+					buf.append(taintedCache.substring(lastpos, pos));
+					lastpos = pos+1;
+				}
+				//System.out.println("---"+lastpos+"-END>"+taintedCache.substring(lastpos)+"<");
+				buf.append(taintedCache.substring(lastpos));
+				cleanCache = buf.toString();
+			}
+			else
+				cleanCache = taintedCache;
+
+			return "'" + cleanCache + '\'';
+		}
 	}
 
 }

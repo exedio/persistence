@@ -36,13 +36,23 @@ public class StringTest extends DatabaseLibTest
 		assertEquals(true, item.min4Max8.isLengthConstrained());
 		
 		// TODO: test special unicode characters
-		// TODO: test special sql characters
 
 		// any
 		item.setAny("1234");
 		assertEquals("1234", item.getAny());
 		item.setAny("123");
 		assertEquals("123", item.getAny());
+		
+		// test SQL injection
+		// if SQL injection is not prevented properly,
+		// the following line will throw a SQLException
+		// due to column "hijackedColumn" not found
+		item.setAny("value',hijackedColumn='otherValue");
+		assertEquals("value',hijackedColumn='otherValue", item.getAny());
+		item.passivate();
+		// TODO: sql injection just swallows apostrophes,
+		// should be escaped or wrapped into prepared statements
+		assertEquals("value,hijackedColumn=otherValue", item.getAny());
 
 		// min4
 		try
