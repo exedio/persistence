@@ -19,7 +19,7 @@ public final class LengthViolationException extends ConstraintViolationException
 	/**
 	 * Creates a new NotNullViolationException with the neccessary information about the violation.
 	 * @param item initializes, what is returned by {@link #getItem()}.
-	 * @param notNullAttribute initializes, what is returned by {@link #getStringAttribute()}.
+	 * @param stringAttribute initializes, what is returned by {@link #getStringAttribute()}.
 	 * @param value initializes, what is returned by {@link #getValue()}.
 	 */
 	public LengthViolationException(final Item item, final Attribute stringAttribute, final String value, final boolean isTooShort)
