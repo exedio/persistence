@@ -48,10 +48,10 @@
 			Database.theInstance.dropDatabase();
 		%>
 		Database successfully dropped!
-		<%		
+		<%
 		}
 	}
-%>	
+%>
 		<form action="index.jsp" method="POST">
 			<table>
 				<tr>
@@ -68,7 +68,7 @@
 					<td>
 						<input type="submit" name="DROP" value="drop database"/>
 					</td>
-				</tr>								
+				</tr>
 			</table>
 		</form>
 	</body>
