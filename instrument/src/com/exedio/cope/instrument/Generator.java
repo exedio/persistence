@@ -402,21 +402,16 @@ final class Generator
 		final String mimeMinor = mediaAttribute.mimeMinor;
 
 		// getters
-		writeMediaGetterMethod(mediaAttribute, String.class, "URL", null,
-						GETTER_MEDIA_URL);
+		writeMediaGetterMethod(mediaAttribute, String.class, "URL", null, GETTER_MEDIA_URL);
 		final List mediaVariants = mediaAttribute.getVariants();
 		if(mediaVariants!=null)
 		{
 			for(Iterator i = mediaVariants.iterator(); i.hasNext(); )
-				writeMediaGetterMethod(mediaAttribute, String.class, "URL", (CopeMediaVariant)i.next(),
-						GETTER_MEDIA_VARIANT);
+				writeMediaGetterMethod(mediaAttribute, String.class, "URL", (CopeMediaVariant)i.next(), GETTER_MEDIA_VARIANT);
 		}
-		writeMediaGetterMethod(mediaAttribute, String.class, "MimeMajor", null,
-						GETTER_MEDIA_MAJOR);
-		writeMediaGetterMethod(mediaAttribute, String.class, "MimeMinor", null,
-						GETTER_MEDIA_MINOR);
-		writeMediaGetterMethod(mediaAttribute, InputStream.class, "Data", null,
-						GETTER_MEDIA_DATA);
+		writeMediaGetterMethod(mediaAttribute, String.class, "MimeMajor", null, GETTER_MEDIA_MAJOR);
+		writeMediaGetterMethod(mediaAttribute, String.class, "MimeMinor", null, GETTER_MEDIA_MINOR);
+		writeMediaGetterMethod(mediaAttribute, InputStream.class, "Data", null, GETTER_MEDIA_DATA);
 		
 		// setters
 		if(mediaAttribute.hasGeneratedSetter())
