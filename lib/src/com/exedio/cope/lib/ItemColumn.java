@@ -43,4 +43,12 @@ final class ItemColumn extends IntegerColumn
 			return null; 
 	}
 	
+	String getForeignTablePkNameProtected()
+	{
+		if(targetTypeClass!=null)
+			return Type.findByJavaClass(targetTypeClass).getTable().getPrimaryKey().protectedID;
+		else
+			return null; 
+	}
+	
 }

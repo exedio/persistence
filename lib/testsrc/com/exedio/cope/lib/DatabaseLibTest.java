@@ -12,6 +12,11 @@ import com.exedio.cope.testmodel.AttributeItem;
  */
 public abstract class DatabaseLibTest extends AbstractLibTest
 {
+	/**
+	 * TODO: mysql
+	 */
+	protected static final String EXTRA_WURST = "com.exedio.cope.lib.MysqlDatabase";
+
 	protected InputStream stream(byte[] data)
 	{
 		return new ByteArrayInputStream(data);

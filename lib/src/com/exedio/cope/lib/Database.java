@@ -226,7 +226,7 @@ abstract class Database
 					System.err.println("failed:"+e2.getMessage());
 				}
 			}
-			System.err.print("FINISH STAGE "+(run++));
+			System.err.println("FINISH STAGE "+(run++));
 		}
 		while(deleted);
 	}
@@ -1131,6 +1131,9 @@ abstract class Database
 		
 		bf.append(')');
 
+		if("com.exedio.cope.lib.MysqlDatabase".equals(getClass().getName())) // TODO mysql
+			bf.append(" engine=innodb");
+
 		try
 		{
 			//System.out.println("createTable:"+bf.toString());
@@ -1162,6 +1165,13 @@ abstract class Database
 					append(column.protectedID).
 					append(") references ").
 					append(itemColumn.getForeignTableNameProtected());
+
+				if("com.exedio.cope.lib.MysqlDatabase".equals(getClass().getName())) // TODO mysql
+				{
+					bf.append('(').
+						append(itemColumn.getForeignTablePkNameProtected()).
+						append(')');
+				}
 
 				try
 				{

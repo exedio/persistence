@@ -9,7 +9,6 @@ import com.exedio.cope.testmodel.ItemWithSingleUniqueReadOnly;
 
 public class UniqueItemTest extends DatabaseLibTest
 {
-	private static final String EXTRA_WURST = "com.exedio.cope.lib.MysqlDatabase";
 
 	public void testItemWithSingleUnique()
 			throws IntegrityViolationException, UniqueViolationException

@@ -5,6 +5,11 @@ import java.sql.SQLException;
 
 import com.mysql.jdbc.Driver;
 
+/**
+ * This MySQL driver requires the InnoDB engine.
+ * It makes no sense supporting older engines,
+ * since cope heavily depends on foreign key constraints.
+ */
 public final class MysqlDatabase extends Database
 
 // TODO
@@ -68,11 +73,14 @@ public final class MysqlDatabase extends Database
 	protected String extractUniqueConstraintName(final SQLException e)
 	{
 		// TODO: MySQL does not deliver constraint name in exception
+		//System.out.println("-u-"+e.getClass()+" "+e.getCause()+" "+e.getErrorCode()+" "+e.getLocalizedMessage()+" "+e.getSQLState()+" "+e.getNextException());
 		return null;
 	}
 
 	protected String extractIntegrityConstraintName(final SQLException e)
 	{
+		// TODO: MySQL does not deliver constraint name in exception
+		//System.out.println("-i-"+e.getClass()+" "+e.getCause()+" "+e.getErrorCode()+" "+e.getLocalizedMessage()+" "+e.getSQLState()+" "+e.getNextException());
 		return null;
 	}
 
