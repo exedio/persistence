@@ -213,20 +213,17 @@ public final class Type
 		this.featureList = Collections.unmodifiableList(Arrays.asList(features));
 
 
+		this.creationConstructor = getConstructor(javaClass, creationConstructorParams);
+		this.reactivationConstructor = getConstructor(javaClass, reactivationConstructorParams);
+	}
+	
+	private static final Constructor getConstructor(final Class javaClass, final Class[] params)
+	{
 		try
 		{
-			creationConstructor = javaClass.getDeclaredConstructor(creationConstructorParams);
-			creationConstructor.setAccessible(true);
-		}
-		catch(NoSuchMethodException e)
-		{
-			throw new NestingRuntimeException(e);
-		}
-
-		try
-		{
-			reactivationConstructor = javaClass.getDeclaredConstructor(reactivationConstructorParams);
-			reactivationConstructor.setAccessible(true);
+			final Constructor result = javaClass.getDeclaredConstructor(params);
+			result.setAccessible(true);
+			return result;
 		}
 		catch(NoSuchMethodException e)
 		{
