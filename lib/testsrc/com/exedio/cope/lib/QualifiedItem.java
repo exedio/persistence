@@ -10,7 +10,7 @@ public class QualifiedItem extends Item
 {
 	static final IntegerAttribute number = new IntegerAttribute(DEFAULT);
 	
-	static final Qualifier qualifier = new Qualifier(QualifierItem.parent, QualifierItem.key, QualifierItem.qualifyUnique);
+	static final Qualifier qualifier = new Qualifier(QualifiedEmptyQualifier.parent, QualifiedEmptyQualifier.key, QualifiedEmptyQualifier.qualifyUnique);
 
 /**
 
