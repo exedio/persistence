@@ -28,42 +28,47 @@ public abstract class AbstractLibTest extends TestCase
 		catch(UnsupportedOperationException e) {}
 		try
 		{
-			c.addAll(Collections.EMPTY_LIST);
+			c.addAll(Collections.singleton(new Object()));
 			fail("should have thrown UnsupportedOperationException");
 		}
 		catch(UnsupportedOperationException e) {}
-		try
+		
+		if(!c.isEmpty())
 		{
-			c.clear();
-			fail("should have thrown UnsupportedOperationException");
-		}
-		catch(UnsupportedOperationException e) {}
-		try
-		{
-			c.remove(new Object());
-			fail("should have thrown UnsupportedOperationException");
-		}
-		catch(UnsupportedOperationException e) {}
-		try
-		{
-			c.removeAll(Collections.EMPTY_LIST);
-			fail("should have thrown UnsupportedOperationException");
-		}
-		catch(UnsupportedOperationException e) {}
-		try
-		{
-			c.retainAll(Collections.EMPTY_LIST);
-			fail("should have thrown UnsupportedOperationException");
-		}
-		catch(UnsupportedOperationException e) {}
+			final Object o = c.iterator().next();
+			try
+			{
+				c.clear();
+				fail("should have thrown UnsupportedOperationException");
+			}
+			catch(UnsupportedOperationException e) {}
+			try
+			{
+				c.remove(o);
+				fail("should have thrown UnsupportedOperationException");
+			}
+			catch(UnsupportedOperationException e) {}
+			try
+			{
+				c.removeAll(Collections.singleton(o));
+				fail("should have thrown UnsupportedOperationException");
+			}
+			catch(UnsupportedOperationException e) {}
+			try
+			{
+				c.retainAll(Collections.EMPTY_LIST);
+				fail("should have thrown UnsupportedOperationException");
+			}
+			catch(UnsupportedOperationException e) {}
 
-		final Iterator iterator = c.iterator();
-		try
-		{
-			iterator.remove();
-			fail("should have thrown UnsupportedOperationException");
+			final Iterator iterator = c.iterator();
+			try
+			{
+				iterator.remove();
+				fail("should have thrown UnsupportedOperationException");
+			}
+			catch(UnsupportedOperationException e) {}
 		}
-		catch(UnsupportedOperationException e) {}
 	}
 	
 	protected Set toSet(final Collection collection)
