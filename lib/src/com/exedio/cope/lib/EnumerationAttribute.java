@@ -37,6 +37,10 @@ public final class EnumerationAttribute extends Attribute
 					if(value==null)
 						throw new NullPointerException("is null: "+field);
 					//System.out.println("-------------value:"+value);
+					if(!value.isInitialized())
+					{
+						value.initialize(enumerationClass, field.getName());
+					}
 					values.add(value);
 					numbersToValues.put(value.numberObject, value);
 				}
