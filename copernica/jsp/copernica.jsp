@@ -79,7 +79,7 @@
 								<%
 								final Type type = (Type)i.next();
 								%>
-								<a href="copernica.jsp?type=<%=type.getJavaClass().getName()%>">
+								<a href="<%=(new TypeCop(type)).url%>">
 									<%=provider.getDisplayName(null, type)%>
 								</a>
 							</td>
