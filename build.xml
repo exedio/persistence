@@ -210,7 +210,7 @@
 			package="com.exedio.copernica"
 			validateXml="false" 
 			uriroot="${basedir}/copernica/jsp" 
-			webXmlFragment="${basedir}/copernica/build/web.xml.fragment" 
+			webXmlFragment="${basedir}/copernica/build/copernica.web.xml.fragment" 
 			outputDir="${basedir}/copernica/build/jspsrc" /> 
 	</target>
 	
