@@ -257,7 +257,7 @@ public final class Instrumentor implements InjectionConsumer
 				output.write(',');
 			final JavaAttribute initialAttribute = (JavaAttribute)i.next();
 			output.write("final ");
-			output.write(initialAttribute.getPersistentType());
+			output.write(initialAttribute.getBoxedType());
 			output.write(" initial");
 			output.write(initialAttribute.getCamelCaseName());
 		}
@@ -274,8 +274,13 @@ public final class Instrumentor implements InjectionConsumer
 			final JavaAttribute initialAttribute = (JavaAttribute)i.next();
 			output.write("\t\t\tnew "+AttributeValue.class.getName()+"(");
 			output.write(initialAttribute.getName());
-			output.write(",initial");
+			output.write(',');
+			if(initialAttribute.isBoxed())
+				output.write(initialAttribute.getBoxingCode());
+			output.write("initial");
 			output.write(initialAttribute.getCamelCaseName());
+			if(initialAttribute.isBoxed())
+				output.write(')');
 			output.write("),");
 			output.write(lineSeparator);
 		}
@@ -288,7 +293,7 @@ public final class Instrumentor implements InjectionConsumer
 	throws IOException
 	{
 		final String methodModifiers = Modifier.toString(persistentAttribute.getMethodModifiers());
-		final String type = persistentAttribute.getPersistentType();
+		final String type = persistentAttribute.getBoxedType();
 		final List qualifiers = persistentAttribute.getQualifiers();
 
 		// getter
@@ -716,7 +721,10 @@ public final class Instrumentor implements InjectionConsumer
 	private void writeGetterBody(final Writer output, final JavaAttribute attribute)
 	throws IOException
 	{
-		output.write("\t\treturn (");
+		output.write("\t\treturn ");
+		if(attribute.isBoxed())
+			output.write('(');
+		output.write('(');
 		output.write(attribute.getPersistentType());
 		output.write(")getAttribute(this.");
 		output.write(attribute.getName());
@@ -727,7 +735,10 @@ public final class Instrumentor implements InjectionConsumer
 			writeParameterCallList(qualifiers);
 			output.write('}');
 		}
-		output.write(");");
+		output.write(')');
+		if(attribute.isBoxed())
+			output.write(attribute.getUnBoxingCode());
+		output.write(';');
 		output.write(lineSeparator);
 	}
 
@@ -740,8 +751,20 @@ public final class Instrumentor implements InjectionConsumer
 	private void writeSetterBody(final Writer output, final JavaAttribute attribute)
 	throws IOException
 	{
-		if(!attribute.isPartOfUniqueConstraint() 
-			|| (attribute.getQualifiers()==null && (!attribute.isReadOnly() || !attribute.isNotNull())))
+		// compute exceptions to be caught in the setter.
+		// Are just those thrown by Item.setAttribute,
+		// which are not in the setters throws clause (JavaAttribute.getSetterExceptions);
+		final TreeSet exceptionsToCatch = new TreeSet(ClassComparator.newInstance());
+		exceptionsToCatch.add(UniqueViolationException.class);
+		if(attribute.getQualifiers()==null)
+		{
+			// qualified setAttribute does not throw not-null/read-only
+			exceptionsToCatch.add(NotNullViolationException.class);
+			exceptionsToCatch.add(ReadOnlyViolationException.class);
+		}
+		exceptionsToCatch.removeAll(attribute.getSetterExceptions());
+
+		if(!exceptionsToCatch.isEmpty())
 		{
 			output.write("\t\ttry");
 			output.write(lineSeparator);
@@ -759,18 +782,26 @@ public final class Instrumentor implements InjectionConsumer
 			output.write('}');
 		}
 		output.write(',');
+		if(attribute.isBoxed())
+			output.write(attribute.getBoxingCode());
 		output.write(attribute.getName());
+		if(attribute.isBoxed())
+			output.write(')');
 		output.write(");");
 		output.write(lineSeparator);
-		if(!attribute.isPartOfUniqueConstraint() 
-			|| (attribute.getQualifiers()==null && (!attribute.isReadOnly() || !attribute.isNotNull())))
+		if(!exceptionsToCatch.isEmpty())
 		{
 			output.write("\t\t}");
 			output.write(lineSeparator);
 			
-			if(!attribute.isPartOfUniqueConstraint()) writeViolationExceptionCatchClause(output, UniqueViolationException.class);
-			if(attribute.getQualifiers()==null && !attribute.isReadOnly()) writeViolationExceptionCatchClause(output, ReadOnlyViolationException.class);
-			if(attribute.getQualifiers()==null && !attribute.isNotNull()) writeViolationExceptionCatchClause(output, NotNullViolationException.class);
+			// This could be a loop, but for this commit I want to preserve
+			// the order of catch clauses to simplify regression tests.
+			if(exceptionsToCatch.contains(UniqueViolationException.class))
+				writeViolationExceptionCatchClause(output, UniqueViolationException.class);
+			if(exceptionsToCatch.contains(ReadOnlyViolationException.class))
+				writeViolationExceptionCatchClause(output, ReadOnlyViolationException.class);
+			if(exceptionsToCatch.contains(NotNullViolationException.class))
+				writeViolationExceptionCatchClause(output, NotNullViolationException.class);
 		}
 	}
 	

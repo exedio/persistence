@@ -4,6 +4,7 @@ package injection;
 import java.lang.reflect.Modifier;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.SortedSet;
@@ -55,6 +56,101 @@ public final class JavaAttribute extends JavaFeature
 	public String getPersistentType()
 	{
 		return this.persistentType;
+	}
+
+	private static final HashMap toNativeTypeMapping = new HashMap(3);
+	private static final HashMap toBoxingCodeMapping = new HashMap(3);
+	private static final HashMap toUnboxingCodeMapping = new HashMap(3);
+	
+	private static final void fillNativeTypeMap(final String persistentType, final String nativeType,
+															  final String boxingCode, final String unboxingCode)
+	{
+		toNativeTypeMapping.put(persistentType, nativeType);
+		toBoxingCodeMapping.put(persistentType, boxingCode);
+		toUnboxingCodeMapping.put(persistentType, unboxingCode);
+	}
+	
+	static
+	{
+		fillNativeTypeMap("Integer", "int", "new Integer(", ").intValue()");
+	}
+
+
+	private String boxedType = null;
+	private boolean boxed;
+	private String boxingCode;
+	private String unboxingCode;
+
+	private final String makeBoxedTypeAndFlag()
+	{
+		if(boxedType!=null)
+			return boxedType;
+
+		final String accessorType;
+		if(notNull)
+		{
+			final String nativeType = (String)toNativeTypeMapping.get(persistentType);
+			if(nativeType!=null)
+			{
+				boxedType = nativeType;
+				boxed = true;
+				boxingCode = (String)toBoxingCodeMapping.get(persistentType);
+				unboxingCode = (String)toUnboxingCodeMapping.get(persistentType);
+			}
+			else
+			{
+				boxedType = persistentType;
+				boxed = false;
+			}
+		}
+		else
+			return boxedType = persistentType;
+		
+		this.boxedType = boxedType;
+		return boxedType;
+	}
+
+	/**
+	 * Returns the type of this attribute to be used in accessor (setter/getter) methods.
+	 * Differs from {@link #getPersistentType() the persistent type},
+	 * if and only if the attribute is {@link #isBoxed() boxed}.
+	 */
+	public final String getBoxedType()
+	{
+		if(boxedType==null)
+			makeBoxedTypeAndFlag();
+		
+		return boxedType;
+	}
+	
+	/**
+	 * Returns, whether the persistent type is &quot;boxed&quot; into a native type.
+	 * This happens if the attribute has a not-null constraint 
+	 * and the persistent type is convertable to a native types (int, double, boolean).
+	 * @see #getBoxedType()
+	 */
+	public final boolean isBoxed()
+	{
+		if(boxedType==null)
+			makeBoxedTypeAndFlag();
+		
+		return boxed;
+	}
+	
+	public final String getBoxingCode()
+	{
+		if(boxedType==null)
+			makeBoxedTypeAndFlag();
+		
+		return boxingCode;
+	}
+	
+	public final String getUnBoxingCode()
+	{
+		if(boxedType==null)
+			makeBoxedTypeAndFlag();
+		
+		return unboxingCode;
 	}
 	
 	public boolean isPartOfUniqueConstraint()
@@ -212,7 +308,7 @@ public final class JavaAttribute extends JavaFeature
 			modifyableSetterExceptions.add(UniqueViolationException.class);
 		if(readOnly)
 			modifyableSetterExceptions.add(ReadOnlyViolationException.class);
-		if(notNull)
+		if(notNull && !toNativeTypeMapping.containsKey(persistentType))
 			modifyableSetterExceptions.add(NotNullViolationException.class);
 
 		this.setterExceptions = Collections.unmodifiableSortedSet(modifyableSetterExceptions);
