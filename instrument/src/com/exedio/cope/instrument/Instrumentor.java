@@ -256,7 +256,8 @@ public final class Instrumentor implements InjectionConsumer
 	private void writeGetterBody(final Writer output, final JavaAttribute attribute)
 	throws IOException
 	{
-		output.write("return (");
+		output.write(lineSeparator);
+		output.write("\treturn (");
 		output.write(attribute.getPersistentType());
 		output.write(")getAttribute(");
 		output.write(attribute.getName());
@@ -267,16 +268,33 @@ public final class Instrumentor implements InjectionConsumer
 	private void writeSetterBody(final Writer output, final JavaAttribute attribute)
 	throws IOException
 	{
+		output.write(lineSeparator);
 		if(!attribute.isUnique())
-			output.write("try{");
-		output.write("setAttribute(this.");
+		{
+			output.write("\ttry");
+			output.write(lineSeparator);
+			output.write("\t{");
+			output.write(lineSeparator);
+		}
+		output.write("\t\tsetAttribute(this.");
 		output.write(attribute.getName());
 		output.write(',');
 		output.write(attribute.getName());
 		output.write(");");
-		if(!attribute.isUnique())
-			output.write("}catch("+UniqueViolationException.class.getName()+" e){throw new "+SystemException.class.getName()+"(e);}");
 		output.write(lineSeparator);
+		if(!attribute.isUnique())
+		{
+			output.write("\t}");
+			output.write(lineSeparator);
+			output.write("\tcatch("+UniqueViolationException.class.getName()+" e)");
+			output.write(lineSeparator);
+			output.write("\t{");
+			output.write(lineSeparator);
+			output.write("\t\tthrow new "+SystemException.class.getName()+"(e);");
+			output.write(lineSeparator);
+			output.write("\t}");
+			output.write(lineSeparator);
+		}
 	}
 }
 
