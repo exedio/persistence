@@ -9,9 +9,7 @@ import com.exedio.cope.lib.Item;
  */
 public abstract class Super extends Item
 {
-	/**
-	 * @persistent
-	 */
+
 	public static final IntegerAttribute superInt = new IntegerAttribute(NOT_NULL); 
 	
 /**

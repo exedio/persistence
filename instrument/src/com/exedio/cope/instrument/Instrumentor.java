@@ -10,6 +10,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import com.exedio.cope.lib.Attribute;
 import com.exedio.cope.lib.Item;
 import com.exedio.cope.lib.SystemException;
 
@@ -49,11 +50,6 @@ public final class Instrumentor implements InjectionConsumer
 	 * Tag name for persistent classes.
 	 */
 	private static final String PERSISTENT_CLASS = "persistent";
-
-	/**
-	 * Tag name for persistent attributes.
-	 */
-	private static final String PERSISTENT_ATTRIBUTE = PERSISTENT_CLASS;
 
 	/**
 	 * Tag name for unique attributes.
@@ -189,6 +185,26 @@ public final class Instrumentor implements InjectionConsumer
 			throw new SystemException(e, optionString);
 		}
 	}
+	
+	private boolean isPersistent(final JavaAttribute javaAttribute)
+	{
+		final int modifier = javaAttribute.getModifiers();
+
+		if(Modifier.isFinal(modifier) && Modifier.isStatic(modifier))
+		{
+			try
+			{
+				final Class type = javaAttribute.getFile().findType(javaAttribute.getType());
+				return Attribute.class.isAssignableFrom(type);
+			}
+			catch(InjectorParseException e)
+			{
+				return false;
+			}
+		}
+		else
+			return false;
+	}
 
 	public void onClassFeature(final JavaFeature jf, final String docComment)
 	throws IOException, InjectorParseException
@@ -197,10 +213,8 @@ public final class Instrumentor implements InjectionConsumer
 		if(!class_state.isInterface())
 		{
 			if(jf instanceof JavaAttribute &&
-			Modifier.isFinal(jf.getModifiers()) &&
-			Modifier.isStatic(jf.getModifiers()) &&
 			!discardnextfeature &&
-			containsTag(docComment, PERSISTENT_ATTRIBUTE))
+			isPersistent((JavaAttribute)jf))
 			{
 				final String type = jf.getType();
 				final JavaAttribute ja = (JavaAttribute)jf;

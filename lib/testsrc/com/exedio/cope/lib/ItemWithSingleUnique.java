@@ -9,7 +9,6 @@ public class ItemWithSingleUnique extends Item
 {
 	/**
 	 * An attribute that is unique.
-	 * @persistent
 	 */
 	public static final StringAttribute uniqueString = new StringAttribute(UNIQUE);
 

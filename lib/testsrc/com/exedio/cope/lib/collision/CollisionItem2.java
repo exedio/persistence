@@ -10,9 +10,7 @@ import com.exedio.cope.lib.ItemWithoutAttributes;
  */
 public class CollisionItem2 extends Item
 {
-	/**
-	 * @persistent
-	 */
+
 	public static final ItemAttribute collisionAttribute = new ItemAttribute(READ_ONLY_NOT_NULL_UNIQUE, ItemWithoutAttributes.class); 
 
 /**

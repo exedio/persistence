@@ -6,9 +6,7 @@ package com.exedio.cope.lib;
  */
 public class PointerItem2 extends Item
 {
-	/**
-	 * @persistent
-	 */
+
 	static final StringAttribute code = new StringAttribute(NOT_NULL);
 
 /**

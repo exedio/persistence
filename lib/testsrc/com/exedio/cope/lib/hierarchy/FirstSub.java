@@ -8,9 +8,7 @@ import com.exedio.cope.lib.StringAttribute;
  */
 public class FirstSub extends Super
 {
-	/**
-	 * @persistent
-	 */
+
 	public static final StringAttribute firstSubString = new StringAttribute(DEFAULT);
 	
 	public FirstSub(final int initialSuperInt)

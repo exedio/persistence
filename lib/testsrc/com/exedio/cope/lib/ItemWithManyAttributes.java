@@ -11,81 +11,68 @@ public class ItemWithManyAttributes extends Item
 {
 	/**
 	 * A string attribute.
-	 * @persistent
 	 */
 	public static final StringAttribute someString = new StringAttribute(DEFAULT);
 
 	/**
 	 * The code of the item in upper case.
-	 * @persistent
 	 * @mapped
 	 */
 	public static final StringAttribute someStringUpperCase = new StringAttribute(DEFAULT, new UppercaseMapping(someString));
 
 	/**
 	 * A not-null string attribute.
-	 * @persistent
 	 */
 	public static final StringAttribute someNotNullString = new StringAttribute(NOT_NULL);
 
 	/**
 	 * An integer attribute
-	 * @persistent
 	 */
 	public static final IntegerAttribute someInteger = new IntegerAttribute(DEFAULT);
 
 	/**
 	 * A not-null integer attribute
-	 * @persistent
 	 */
 	public static final IntegerAttribute someNotNullInteger = new IntegerAttribute(NOT_NULL);
 
 	/**
 	 * An boolean attribute
-	 * @persistent
 	 */
 	public static final BooleanAttribute someBoolean = new BooleanAttribute(DEFAULT);
 
 	/**
 	 * A not-null boolean attribute
-	 * @persistent
 	 */
 	public static final BooleanAttribute someNotNullBoolean = new BooleanAttribute(NOT_NULL);
 
 	/**
 	 * An attribute referencing another persistent item
-	 * @persistent
 	 */
 	public static final ItemAttribute someItem = new ItemAttribute(DEFAULT, ItemWithoutAttributes.class);
 
 	/**
 	 * An not-null attribute referencing another persistent item
-	 * @persistent
 	 */
 	public static final ItemAttribute someNotNullItem = new ItemAttribute(NOT_NULL, ItemWithoutAttributes.class);
 
 	/**
 	 * An enumeration attribute
-	 * @persistent
 	 */
 	public static final EnumerationAttribute someEnumeration = new EnumerationAttribute(DEFAULT, SomeEnumeration.class);
 
 	/**
 	 * A not-null enumeration attribute
-	 * @persistent
 	 */
 	public static final EnumerationAttribute someNotNullEnumeration = new EnumerationAttribute(NOT_NULL, SomeEnumeration.class);
 
 	/**
 	 * A media attribute.
-	 * @persistent
 	 * @variant SomeVariant
 	 */
 	public static final MediaAttribute someMedia = new MediaAttribute(DEFAULT);
 
 	/**
 	 * A qualified attribute.
-	 * @persistent
 	 * @qualifier ItemWithoutAttributes
 	 */
 	public static final StringAttribute someQualifiedString = new StringAttribute(DEFAULT);

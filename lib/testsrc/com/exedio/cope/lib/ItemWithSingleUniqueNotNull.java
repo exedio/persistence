@@ -9,7 +9,6 @@ public class ItemWithSingleUniqueNotNull extends Item
 {
 	/**
 	 * An attribute that is unique and read-only.
-	 * @persistent
 	 */
 	public static final StringAttribute uniqueNotNullString = new StringAttribute(NOT_NULL_UNIQUE);
 

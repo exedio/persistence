@@ -859,6 +859,9 @@ public final class Injector
 	 */
 	public final static String findDocTag(String doccomment, String tagname)
 	{
+		if(doccomment==null)
+			return null;
+
 		String s = '@' + tagname + ' ';
 		int start = doccomment.indexOf(s);
 		if (start < 0)

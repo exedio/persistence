@@ -6,20 +6,11 @@ package com.exedio.cope.lib;
  */
 public class PointerItem extends Item
 {
-	/**
-	 * @persistent
-	 */
+
 	static final StringAttribute code = new StringAttribute(NOT_NULL);
 	
-	
-	/**
-	 * @persistent
-	 */
 	static final ItemAttribute pointer = new ItemAttribute(NOT_NULL, PointerItem2.class);
 
-	/**
-	 * @persistent
-	 */
 	static final ItemAttribute self = new ItemAttribute(DEFAULT, PointerItem.class);
 
 /**
