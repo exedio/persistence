@@ -100,7 +100,7 @@
 		</javac>
 	</target>
 	
-	<target name="copernica.compile.classes" depends="lib.compile, copernica.jspm">
+	<target name="copernica.compile" depends="lib.compile, copernica.jspm">
 		<mkdir dir="copernica/build/classes" />
 		<javac srcdir="copernica/src"
 				destdir="copernica/build/classes"
@@ -341,8 +341,6 @@
 			<arg value="copernica/src/com/exedio/copernica/admin/Properties.jspm" />
 		</java>
 	</target>
-	
-	<target name="copernica.compile" depends="copernica.compile.classes" />
 	
 	<target name="copernica.test.compile" depends="lib.compile, lib.test.compile, copernica.compile">
 		<mkdir dir="copernica/build/testclasses" />
