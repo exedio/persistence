@@ -6,6 +6,9 @@ package com.exedio.cope.lib;
  */
 public class ReadOnlyViolationException extends ConstraintViolationException
 {
+
+	final Item item;
+	final Attribute readOnlyAttribute;
 	
 	/**
 	 * Creates a new ReadOnlyViolationException with the neccessary information about the violation.
@@ -14,6 +17,8 @@ public class ReadOnlyViolationException extends ConstraintViolationException
 	 */
 	public ReadOnlyViolationException(final Item item, final Attribute readOnlyAttribute)
 	{
+		this.item = item;
+		this.readOnlyAttribute = readOnlyAttribute;
 	}
 	
 	/**
@@ -21,7 +26,7 @@ public class ReadOnlyViolationException extends ConstraintViolationException
 	 */
 	public final Item getItem()
 	{
-		return null;
+		return item;
 	}
 
 	/**
@@ -29,7 +34,7 @@ public class ReadOnlyViolationException extends ConstraintViolationException
 	 */
 	public Attribute getReadOnlyAttribute()
 	{
-		return null;
+		return readOnlyAttribute;
 	}
 
 }
