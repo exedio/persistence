@@ -15,6 +15,11 @@ public final class Qualifier
 
 	public Qualifier(final UniqueConstraint qualifyUnique)
 	{
+		if(qualifyUnique==null)
+			throw new RuntimeException(
+				"argument of qualifier constructor is null, " +
+				"may happen due to bad class intialization order.");
+		
 		final List attributes = qualifyUnique.getUniqueAttributes();
 		if(attributes.size()!=2)
 			throw new RuntimeException(attributes.toString());
