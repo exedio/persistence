@@ -169,43 +169,4 @@ public final class UniqueConstraint
 		return getType().searchUnique(new AndCondition(conditions));
 	}
 	
-	public final Object getQualified(final Object[] values, final ObjectAttribute attribute)
-	{
-		final Item item = searchUnique(values);
-		if(item!=null)
-			return item.getAttribute(attribute);
-		else
-			return null;
-	}
-
-	public final void setQualified(final Object[] values, final ObjectAttribute attribute, Object value)
-		throws
-			NotNullViolationException,
-			LengthViolationException,
-			ReadOnlyViolationException,
-			ClassCastException
-	{
-		Item item = searchUnique(values);
-		if(item==null)
-		{
-			final AttributeValue[] initialAttributeValues = new AttributeValue[values.length];
-			int j = 0;
-			for(Iterator i = getUniqueAttributes().iterator(); i.hasNext(); j++)
-			{
-				final ObjectAttribute uniqueAttribute = (ObjectAttribute)i.next();
-				initialAttributeValues[j] = new AttributeValue(uniqueAttribute, values[j]);
-			}
-			item = getType().newItem(initialAttributeValues);
-		}
-
-		try
-		{
-			item.setAttribute(attribute, value);
-		}
-		catch(UniqueViolationException e)
-		{
-			throw new NestingRuntimeException(e);
-		}
-	}
-
 }

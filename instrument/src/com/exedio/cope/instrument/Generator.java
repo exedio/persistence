@@ -675,7 +675,7 @@ final class Generator
 		o.write("\t\treturn (");
 		o.write(resultType);
 		o.write(')');
-		o.write(qualifier.uniqueConstraintString);
+		o.write(qualifier.name);
 		o.write(".getQualified(new Object[]{this");
 		writeQualifierCall(qualifier);
 		o.write("},");
@@ -720,7 +720,7 @@ final class Generator
 		o.write(lineSeparator);
 
 		o.write("\t\t");
-		o.write(qualifier.uniqueConstraintString);
+		o.write(qualifier.name);
 		o.write(".setQualified(new Object[]{this");
 		writeQualifierCall(qualifier);
 		o.write("},");
