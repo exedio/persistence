@@ -101,6 +101,7 @@
 			<arg value="${basedir}/lib/testmodelsrc/com/exedio/cope/testmodel/PointerItem.java" />
 			<arg value="${basedir}/lib/testmodelsrc/com/exedio/cope/testmodel/PointerItem2.java" />
 			<arg value="${basedir}/lib/testmodelsrc/com/exedio/cope/testmodel/QualifiedEmptyQualifier.java" />
+			<arg value="${basedir}/lib/testmodelsrc/com/exedio/cope/testmodel/QualifiedStringQualifier.java" />
 			<arg value="${basedir}/lib/testmodelsrc/com/exedio/cope/testmodel/QualifiedItem.java" />
 			<arg value="${basedir}/lib/testmodelsrc/com/exedio/cope/testmodel/Super.java" />
 			<arg value="${basedir}/lib/testmodelsrc/com/exedio/cope/testmodel/FirstSub.java" />

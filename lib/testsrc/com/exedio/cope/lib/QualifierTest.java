@@ -4,6 +4,7 @@ package com.exedio.cope.lib;
 import com.exedio.cope.testmodel.EmptyItem;
 import com.exedio.cope.testmodel.QualifiedEmptyQualifier;
 import com.exedio.cope.testmodel.QualifiedItem;
+import com.exedio.cope.testmodel.QualifiedStringQualifier;
 
 public class QualifierTest extends DatabaseLibTest
 {
@@ -35,7 +36,7 @@ public class QualifierTest extends DatabaseLibTest
 		assertEquals(QualifiedItem.qualifier.getKey(), QualifiedEmptyQualifier.key);
 		assertEquals(QualifiedItem.qualifier.getQualifyUnique(), QualifiedEmptyQualifier.qualifyUnique);
 		assertEquals(QualifiedItem.qualifier, QualifiedEmptyQualifier.qualifyUnique.getQualifier());
-		assertEquals(list(QualifiedItem.qualifier), QualifiedItem.TYPE.getQualifiers());
+		assertEquals(list(QualifiedItem.qualifier, QualifiedItem.stringQualifier), QualifiedItem.TYPE.getQualifiers());
 		assertEquals(list(QualifiedEmptyQualifier.qualifiedA, QualifiedEmptyQualifier.qualifiedB),
 							QualifiedItem.qualifier.getAttributes());
 
@@ -93,6 +94,32 @@ public class QualifierTest extends DatabaseLibTest
 
 		qitem2.delete();
 		qitem1.delete();
+
+		assertEquals(null, item.getQualifiedA("key1"));
+		assertEquals(null, item.getQualifiedB("key1"));
+		assertEquals(null, item.getQualifiedA("key2"));
+		assertEquals(null, item.getQualifiedB("key2"));
+
+		item.setQualifiedB("key1", new Integer(4));
+		assertEquals(null, item.getQualifiedA("key1"));
+		assertEquals(new Integer(4), item.getQualifiedB("key1"));
+		assertEquals(null, item.getQualifiedA("key2"));
+		assertEquals(null, item.getQualifiedB("key2"));
+
+		item.setQualifiedA("key1", new Integer(8));
+		assertEquals(new Integer(8), item.getQualifiedA("key1"));
+		assertEquals(new Integer(4), item.getQualifiedB("key1"));
+		assertEquals(null, item.getQualifiedA("key2"));
+		assertEquals(null, item.getQualifiedB("key2"));
+
+		item.setQualifiedB("key2", new Integer(10));
+		assertEquals(new Integer(8), item.getQualifiedA("key1"));
+		assertEquals(new Integer(4), item.getQualifiedB("key1"));
+		assertEquals(null, item.getQualifiedA("key2"));
+		assertEquals(new Integer(10), item.getQualifiedB("key2"));
+		
+		QualifiedStringQualifier.findByQualifyUnique(item, "key1").delete();
+		QualifiedStringQualifier.findByQualifyUnique(item, "key2").delete();
 	}
 	
 }

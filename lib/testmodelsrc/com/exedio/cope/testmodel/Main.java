@@ -20,6 +20,7 @@ public class Main
 		SumItem.TYPE,
 		QualifiedItem.TYPE,
 		QualifiedEmptyQualifier.TYPE,
+		QualifiedStringQualifier.TYPE,
 		PointerItem2.TYPE,
 		PointerItem.TYPE,
 		Super.TYPE,

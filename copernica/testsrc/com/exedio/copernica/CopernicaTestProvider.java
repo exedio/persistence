@@ -137,6 +137,11 @@ public class CopernicaTestProvider extends TransientCopernicaProvider
 				qualifiedItem1.setQualifiedA(emptyItem1, "1A1");
 				qualifiedItem1.setQualifiedA(emptyItem2, "1A2");
 				qualifiedItem1.setQualifiedB(emptyItem1, "1B1");
+				qualifiedItem1.setQualifiedA("key1", new Integer(1));
+				qualifiedItem1.setQualifiedA("key2", new Integer(2));
+				qualifiedItem1.setQualifiedA("key3", new Integer(3));
+				qualifiedItem1.setQualifiedA("key4", new Integer(4));
+				qualifiedItem1.setQualifiedB("key4", new Integer(14));
 			}
 
 			{
