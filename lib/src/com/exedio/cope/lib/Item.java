@@ -457,7 +457,8 @@ public abstract class Item extends Search
 	{
 		if(data!=null)
 		{
-			if(mimeMajor==null||mimeMinor==null)
+			if((mimeMajor==null&&attribute.fixedMimeMajor==null) ||
+				(mimeMinor==null&&attribute.fixedMimeMinor==null))
 				throw new RuntimeException("if data is not null, mime types must also be not null");
 		}
 		else
@@ -470,8 +471,10 @@ public abstract class Item extends Search
 		final File previousFile = isNullPreviously ? null : getMediaFile(attribute);
 
 		final Row row = getRow();
-		row.put(attribute.mimeMajor, mimeMajor);
-		row.put(attribute.mimeMinor, mimeMinor);
+		if(attribute.fixedMimeMajor==null)
+			row.put(attribute.mimeMajor, mimeMajor);
+		if(attribute.fixedMimeMinor==null)
+			row.put(attribute.mimeMinor, mimeMinor);
 
 		try
 		{
