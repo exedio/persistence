@@ -227,7 +227,7 @@ public class LibTest extends TestCase
 			assertEquals("SOMESTRING", item.getSomeStringUpperCase());
 			assertEquals(set(item), toSet(Search.search(item.TYPE, Search.equal(item.someString, "someString"))));
 			assertEquals(set(),     toSet(Search.search(item.TYPE, Search.equal(item.someString, "SOMESTRING"))));
-			assertEquals(set(/*item*/), toSet(Search.search(item.TYPE, Search.equal(item.someStringUpperCase, "SOMESTRING"))));
+			assertEquals(set(item), toSet(Search.search(item.TYPE, Search.equal(item.someStringUpperCase, "SOMESTRING"))));
 			assertEquals(set(),     toSet(Search.search(item.TYPE, Search.equal(item.someStringUpperCase, "someString"))));
 			item.passivate();
 			assertEquals("someString", item.getSomeString());

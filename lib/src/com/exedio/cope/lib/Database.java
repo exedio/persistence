@@ -2,6 +2,7 @@
 package com.exedio.cope.lib;
 
 import com.exedio.cope.lib.Attribute;
+import com.exedio.cope.lib.AttributeMapping;
 import com.exedio.cope.lib.BooleanAttribute;
 import com.exedio.cope.lib.EnumerationAttribute;
 import com.exedio.cope.lib.EnumerationValue;
@@ -24,6 +25,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 
 public abstract class Database
@@ -86,6 +88,30 @@ public abstract class Database
 		public Statement append(final char text)
 		{
 			this.text.append(text);
+			return this;
+		}
+		
+		public Statement append(Attribute attribute)
+		{
+			ArrayList mappingEnds = null;
+			while(attribute.mapping!=null)
+			{
+				final AttributeMapping mapping = attribute.mapping;
+				this.text.append(mapping.sqlMappingStart);
+				if(mappingEnds==null)
+					mappingEnds = new ArrayList();
+				mappingEnds.add(mapping.sqlMappingEnd);
+				attribute = mapping.sourceAttribute;
+			}
+			
+			this.text.append(attribute.getPersistentQualifier());
+			
+			if(mappingEnds!=null)
+			{
+				for(ListIterator i = mappingEnds.listIterator(mappingEnds.size()); i.hasPrevious(); )
+					this.text.append((String)i.previous());
+			}
+			
 			return this;
 		}
 		
@@ -382,6 +408,7 @@ public abstract class Database
 		{
 			bf.append(',');
 			final Attribute attribute = (Attribute)i.next();
+			// TODO: do not create columns for mapped attributes
 			bf.append(attribute.getPersistentQualifier()).
 				append(' ').
 				append(getPersistentType(attribute));

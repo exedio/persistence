@@ -26,7 +26,7 @@ public final class EqualCondition extends Condition
 	
 	public final void appendStatement(final Database.Statement bf)
 	{
-		bf.append(attribute.getPersistentQualifier()).
+		bf.append(attribute).
 			append('=').
 			appendValue(attribute, value);
 	}

@@ -4,8 +4,8 @@ package com.exedio.cope.lib;
 public abstract class AttributeMapping
 {
 	public final Attribute sourceAttribute;
-	private final String sqlMappingStart;
-	private final String sqlMappingEnd;
+	final String sqlMappingStart;
+	final String sqlMappingEnd;
 	private final String functionName;
 
 	public AttributeMapping(final Attribute sourceAttribute,

@@ -66,7 +66,7 @@ public abstract class Attribute
 		return notNull;
 	}
 	
-	public String getPersistentQualifier()
+	String getPersistentQualifier()
 	{
 		return persistentQualifier;
 	}
