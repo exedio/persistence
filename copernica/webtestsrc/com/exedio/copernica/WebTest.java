@@ -10,10 +10,21 @@ public class WebTest extends WebTestCase
 		super(name);
 	}
 
+	String someNotNullString;
+	String someNotNullInteger;
+
 	public void setUp() throws Exception
 	{
 		super.setUp();
 		getTestContext().setBaseUrl("http://localhost:8080/copernicatest/");
+		someNotNullString = "running100";
+		someNotNullInteger = "107";
+	}
+	
+	private void assertItemForm()
+	{
+		assertFormElementEquals("someNotNullString", someNotNullString);
+		assertFormElementEquals("someNotNullInteger", someNotNullInteger);
 	}
 
 	public void testSearch()
@@ -33,26 +44,22 @@ public class WebTest extends WebTestCase
 
 		clickLinkWithText("[X]");
 		assertTitleEquals("AttributeItem.103");
-		assertFormElementEquals("someNotNullString", "running100");
-		assertFormElementEquals("someNotNullInteger", "107");
+		assertItemForm();
 
-		setFormElement("someNotNullString", "running100changed");
+		setFormElement("someNotNullString", "running100changed"); someNotNullString = "running100changed";
 		submit("SAVE");
 		assertTitleEquals("AttributeItem.103");
-		assertFormElementEquals("someNotNullString", "running100changed");
-		assertFormElementEquals("someNotNullInteger", "107");
+		assertItemForm();
 
-		setFormElement("someNotNullInteger", "1077");
+		setFormElement("someNotNullInteger", "1077"); someNotNullInteger = "1077";
 		submit("SAVE");
 		assertTitleEquals("AttributeItem.103");
-		assertFormElementEquals("someNotNullString", "running100changed");
-		assertFormElementEquals("someNotNullInteger", "1077");
+		assertItemForm();
 
-		setFormElement("someNotNullString", "running100");
-		setFormElement("someNotNullInteger", "107");
+		setFormElement("someNotNullString", "running100"); someNotNullString = "running100";
+		setFormElement("someNotNullInteger", "107"); someNotNullInteger = "107";
 		submit("SAVE");
 		assertTitleEquals("AttributeItem.103");
-		assertFormElementEquals("someNotNullString", "running100");
-		assertFormElementEquals("someNotNullInteger", "107");
+		assertItemForm();
 	}
 }
