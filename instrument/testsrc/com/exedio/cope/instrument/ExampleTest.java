@@ -74,6 +74,16 @@ public class ExampleTest extends InjectorTest
 		assertAttribute("commaSeparated5", "/**TestCommentCommaSeparated456*/");
 		assertAttribute("commaSeparated6", "/**TestCommentCommaSeparated456*/");
 		assertText(" \n\n  // these attributes test the ability of the parser\n  // to skip more complex (ugly) attribute initializers\n  ");
+
+		assertAttributeHeader("uglyAttribute1", "String", 0);
+		assertText("String   uglyAttribute1=\"some'Thing{some\\\"Thing;Else\";");
+		assertAttribute("uglyAttribute1", null);
+		assertText("\n  ");
+
+		assertAttributeHeader("uglyAttribute2", "char", 0);
+		assertText("char     uglyAttribute2=';';");
+		assertAttribute("uglyAttribute2", null);
+		assertText("\n  ");
 	}
 
 }
