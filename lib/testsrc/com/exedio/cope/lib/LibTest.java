@@ -43,11 +43,15 @@ public class LibTest extends TestCase
 		// instrumentor as well.
 		
 		
-		// ID, equals, hashCode
+		// type, ID, equals, hashCode
 		{
 			final ItemWithoutAttributes item1 = new ItemWithoutAttributes();
 			final ItemWithoutAttributes item2 = new ItemWithoutAttributes();
 			final ItemWithoutAttributes2 item3 = new ItemWithoutAttributes2();
+			
+			assertEquals(ItemWithoutAttributes.TYPE, item1.getType());
+			assertEquals(ItemWithoutAttributes.TYPE, item2.getType());
+			assertEquals(ItemWithoutAttributes2.TYPE, item3.getType());
 			
 			assertEquals(item1, item1);
 			assertEquals(item2, item2);
