@@ -31,13 +31,22 @@ public final class Report extends Node
 	public final class Table extends Node
 	{
 		public final String name;
-		private boolean required = false;
+		public final com.exedio.cope.lib.Table table;
 		private boolean exists = false;
 		private final HashMap constraints = new HashMap();
+
+		private Table(final com.exedio.cope.lib.Table table)
+		{
+			this.name = table.id;
+			this.table = table;
+			this.exists = false;
+		}
 
 		private Table(final String name)
 		{
 			this.name = name;
+			this.table = null;
+			this.exists = true;
 		}
 		
 		final Constraint notifyRequiredConstraint(final String constraintName)
@@ -76,7 +85,7 @@ public final class Report extends Node
 		
 		public final boolean isUnused()
 		{
-			return !required;
+			return table==null;
 		}
 
 		protected void finish()
@@ -141,15 +150,11 @@ public final class Report extends Node
 		
 	}
 
-	final Table notifyRequiredTable(final String tableName)
+	final Table notifyRequiredTable(final com.exedio.cope.lib.Table table)
 	{
-		Table result = (Table)tables.get(tableName);
-		if(result==null)
-		{
-			result = new Table(tableName);
-			tables.put(tableName, result);
-		}
-		result.required = true;
+		final Table result = new Table(table);
+		if(tables.put(table.id, result)!=null)
+			throw new RuntimeException();
 		return result;
 	}
 	
@@ -161,7 +166,9 @@ public final class Report extends Node
 			result = new Table(tableName);
 			tables.put(tableName, result);
 		}
-		result.exists = true;
+		else
+			result.exists = true;
+
 		return result;
 	}
 	

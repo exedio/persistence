@@ -242,7 +242,7 @@ public abstract class Database
 		for(Iterator i = tables.iterator(); i.hasNext(); )
 		{
 			final Table table = (Table)i.next();
-			final Report.Table reportTable = report.notifyRequiredTable(table.id);
+			final Report.Table reportTable = report.notifyRequiredTable(table);
 			for(Iterator j = table.getAllColumns().iterator(); j.hasNext(); )
 			{
 				final Column column = (Column)j.next();
