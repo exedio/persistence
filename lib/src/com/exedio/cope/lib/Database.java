@@ -194,8 +194,9 @@ public abstract class Database
 		}
 	}
 
-	void load(final Type type, final int pk, final HashMap itemCache)
+	void load(final Row row)
 	{
+		final Type type = row.type;
 		final List columns = type.getColumns();
 
 		final Statement bf = new Statement();
@@ -216,13 +217,13 @@ public abstract class Database
 			append(" where ").
 			append(type.primaryKey.protectedName).
 			append('=').
-			append(pk);
+			append(row.pk);
 
 		//System.out.println("loading "+bf.toString());
 
 		try
 		{
-			executeSQL(bf, new LoadResultSetHandler(columns, itemCache));
+			executeSQL(bf, new LoadResultSetHandler(row));
 		}
 		catch(UniqueViolationException e)
 		{
@@ -324,22 +325,21 @@ public abstract class Database
 	
 	private static class LoadResultSetHandler implements ResultSetHandler
 	{
-		private final List columns;
-		private final HashMap itemCache;
+		private final Row row;
 
-		LoadResultSetHandler(final List columns, final HashMap itemCache)
+		LoadResultSetHandler(final Row row)
 		{
-			this.columns = columns;
-			this.itemCache = itemCache;
+			this.row = row;
 		}
 
 		public void run(ResultSet resultSet) throws SQLException
 		{
+			final Type type = row.type;
 			if(!resultSet.next())
 				return;
 			int columnIndex = 1;
-			for(Iterator i = columns.iterator(); i.hasNext(); )
-				((Column)i.next()).load(resultSet, columnIndex++, itemCache);
+			for(Iterator i = type.getColumns().iterator(); i.hasNext(); )
+				((Column)i.next()).load(resultSet, columnIndex++, row);
 			return;
 		}
 	}
@@ -441,7 +441,10 @@ public abstract class Database
 		{
 			final int pos = m.indexOf('.', UNIQUE_VIOLATION_START.length());
 			final String name = m.substring(pos+1, m.length()-UNIQUE_VIOLATION_END.length());
-			return new UniqueViolationException(e, null, UniqueConstraint.getUniqueConstraint(name));
+			final UniqueConstraint constraint = UniqueConstraint.getUniqueConstraint(name);
+			if(constraint==null)
+				throw new SystemException(e, "no unique constraint found for >"+name+"<");
+			return new UniqueViolationException(e, null, constraint);
 		}
 		else
 			return null;

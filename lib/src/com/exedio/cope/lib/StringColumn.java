@@ -13,13 +13,13 @@ final class StringColumn extends Column
 		super(type, trimmedName, notNull, "varchar2(2000)"/* TODO: this is database specific */);
 	}
 	
-	void load(final ResultSet resultSet, final int columnIndex, final HashMap itemCache)
+	void load(final ResultSet resultSet, final int columnIndex, final Row row)
 			throws SQLException
 	{
 		final String loadedString = resultSet.getString(columnIndex);
 		//System.out.println("StringColumn.load:"+loadedString);
 		if(loadedString!=null)
-			itemCache.put(this, loadedString);
+			row.put(this, loadedString);
 	}
 
 	Object cacheToDatabase(final Object cache)

@@ -27,7 +27,7 @@ abstract class Column
 		return trimmedName;
 	}
 	
-	abstract void load(ResultSet resultSet, int columnIndex, HashMap itemCache) throws SQLException;
+	abstract void load(ResultSet resultSet, int columnIndex, Row row) throws SQLException;
 	abstract Object cacheToDatabase(Object cache);
 
 }

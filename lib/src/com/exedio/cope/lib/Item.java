@@ -15,6 +15,8 @@ public class Item extends Search
 
 	final int pk;
 
+	private Row row;
+
 	/**
 	 * Returns a string unique for this item in all other items of this application.
 	 * For any item <code>a</code> the following holds true:
@@ -68,7 +70,7 @@ public class Item extends Search
 	 */
 	public final Item activeItem()
 	{
-		if(itemCache!=null)
+		if(row!=null)
 			return this;
 		else
 		{
@@ -94,14 +96,15 @@ public class Item extends Search
 	protected Item(final Type type, final AttributeValue[] initialAttributeValues)
 		throws ClassCastException
 	{
-		itemCache = new HashMap(); // make active
-		putCache(initialAttributeValues);
 		this.type = type;
 		this.pk = type.nextPK();
+		this.row = new Row(type, pk, false); // make active
+		//System.out.println("create item "+type+" "+pk);
 		type.putActiveItem(this);
+		row.put(initialAttributeValues);
 		try
 		{
-			writeCache();
+			row.write();
 		}
 		catch(UniqueViolationException e)
 		{
@@ -119,7 +122,7 @@ public class Item extends Search
 	{
 		this.type = type;
 		this.pk = pk;
-		itemCache = null; // make passive
+		row = null; // make passive
 		//System.out.println("reactivate item:"+type+" "+pk);
 	}
 	
@@ -152,7 +155,7 @@ public class Item extends Search
 			return mapping.mapJava(getAttribute(mapping.sourceAttribute));
 
 		activate();
-		return getCache(attribute);
+		return row.get(attribute);
 	}
 	
 	public final Object getAttribute(final Attribute attribute, final Object[] qualifiers)
@@ -162,7 +165,7 @@ public class Item extends Search
 			return mapping.mapJava(getAttribute(mapping.sourceAttribute));
 
 		activate();
-		return getCache(attribute);
+		return row.get(attribute);
 	}
 
 	/**
@@ -188,15 +191,15 @@ public class Item extends Search
 			throw new NotNullViolationException(this, attribute);
 
 		activate();
-		final Object previousValue = getCache(attribute);
+		final Object previousValue = row.get(attribute);
+		row.put(attribute, value);
 		try
 		{
-			putCache(attribute, value);
-			writeCache();
+			row.write();
 		}
 		catch(UniqueViolationException e)
 		{
-			putCache(attribute, previousValue);
+			row.put(attribute, previousValue);
 			throw e;
 		}
 	}
@@ -211,15 +214,15 @@ public class Item extends Search
 			ClassCastException
 	{
 		activate();
-		final Object previousValue = getCache(attribute);
+		final Object previousValue = row.get(attribute);
+		row.put(attribute, value);
 		try
 		{
-			putCache(attribute, value);
-			writeCache();
+			row.write();
 		}
 		catch(UniqueViolationException e)
 		{
-			putCache(attribute, previousValue);
+			row.put(attribute, previousValue);
 			throw e;
 		}
 	}
@@ -232,7 +235,7 @@ public class Item extends Search
 	{
 		activate();
 
-		final String mimeMajor = (String)getCache(attribute.mimeMajor);
+		final String mimeMajor = (String)row.get(attribute.mimeMajor);
 		if(mimeMajor==null)
 			return null;
 
@@ -251,7 +254,7 @@ public class Item extends Search
 		bf.append('/').
 			append(pk);
 
-		final String mimeMinor = (String)getCache(attribute.mimeMinor);
+		final String mimeMinor = (String)row.get(attribute.mimeMinor);
 		final String extension;
 		if("image".equals(mimeMajor))
 		{
@@ -287,7 +290,7 @@ public class Item extends Search
 	public final String getMediaMimeMajor(final MediaAttribute attribute)
 	{
 		activate();
-		return (String)getCache(attribute.mimeMajor);
+		return (String)row.get(attribute.mimeMajor);
 	}
 
 	/**
@@ -297,7 +300,7 @@ public class Item extends Search
 	public final String getMediaMimeMinor(final MediaAttribute attribute)
 	{
 		activate();
-		return (String)getCache(attribute.mimeMinor);
+		return (String)row.get(attribute.mimeMinor);
 	}
 
 	/**
@@ -323,12 +326,12 @@ public class Item extends Search
 	throws NotNullViolationException, IOException
 	{
 		activate();
-		putCache(attribute.mimeMajor, mimeMajor);
-		putCache(attribute.mimeMinor, mimeMinor);
+		row.put(attribute.mimeMajor, mimeMajor);
+		row.put(attribute.mimeMinor, mimeMinor);
 
 		try
 		{
-			writeCache();
+			row.write();
 		}
 		catch(UniqueViolationException e)
 		{
@@ -343,85 +346,38 @@ public class Item extends Search
 	
 	public final boolean isActive()
 	{
-		return itemCache!=null;
+		return row!=null;
 	}
 
+	/**
+	 * Activates this item.
+	 * After this method, {link #row} is guaranteed to be not null.
+	 */
 	protected final void activate()
 	{
-		if(itemCache==null)
+		if(row==null)
 		{
-			itemCache = new HashMap();
-			Database.theInstance.load(type, pk, itemCache);
+			row = new Row(type, pk, true);
+			Database.theInstance.load(row);
 			type.putActiveItem(this);
 		}
 	}
 
 	public final void passivate()
 	{
-		if(itemCache!=null)
+		if(row!=null)
 		{
 			type.removeActiveItem(this);
 			try
 			{
-				writeCache();
+				row.write();
 			}
 			catch(UniqueViolationException e)
 			{
 				throw new SystemException(e);
 			}
-			itemCache = null;
+			row = null;
 		}
 	}
 
-	// item cache -------------------------------------------------------------------
-
-
-	private HashMap itemCache = null;
-	private boolean present = false;
-	private boolean dirty = false;
-	
-	private Object getCache(final Attribute attribute)
-	{
-		return attribute.cacheToSurface(itemCache.get(attribute.getMainColumn()));
-	}
-	
-	private Object getCache(final Column column)
-	{
-		return itemCache.get(column);
-	}
-	
-	private void putCache(final AttributeValue[] attributeValues)
-	{
-		for(int i = 0; i<attributeValues.length; i++)
-		{
-			final Attribute attribute = attributeValues[i].attribute;
-			itemCache.put(attribute.getMainColumn(), attribute.surfaceToCache(attributeValues[i].value));
-		}
-		dirty = true; // TODO: check, whether the written attribute got really a new value
-	}
-	
-	private void putCache(final Attribute attribute, final Object value)
-	{
-		itemCache.put(attribute.getMainColumn(), attribute.surfaceToCache(value));
-		dirty = true; // TODO: check, whether the written attribute got really a new value
-	}
-	
-	private void putCache(final Column column, final Object value)
-	{
-		itemCache.put(column, value);
-		dirty = true; // TODO: check, whether the written attribute got really a new value
-	}
-	
-	private void writeCache()
-			throws UniqueViolationException
-	{
-		if(!dirty)
-			return;
-		
-		Database.theInstance.store(type, pk, itemCache, present);
-
-		present = true;
-		dirty = false;
-	}
-	
 }

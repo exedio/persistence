@@ -18,14 +18,14 @@ final class IntegerColumn extends Column
 		this.foreignTable = foreignTable;
 	}
 	
-	void load(final ResultSet resultSet, final int columnIndex, final HashMap itemCache)
+	void load(final ResultSet resultSet, final int columnIndex, final Row row)
 			throws SQLException
 	{
 		final Object loadedInteger = resultSet.getObject(columnIndex);
 		if(loadedInteger!=null)
 		{
 			// TODO: somehow do without that BigDecimal
-			itemCache.put(this, new Integer(((BigDecimal)loadedInteger).intValue()));
+			row.put(this, new Integer(((BigDecimal)loadedInteger).intValue()));
 		}
 	}
 
