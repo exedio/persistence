@@ -277,6 +277,11 @@ public class ExampleTest extends InjectorTest
 		assertText("{\n\t\treturn null;\n\t}");
 		assertMethod("getIntegers", null, getIntegers);
 		assertText("\n\t\n\t");
+		
+		final JavaBehaviour getUnqualifiedType = assertBehaviourHeader("getUnqualifiedType", "Integer", Modifier.PUBLIC);
+		assertText("{\n\t\treturn null;\n\t}");
+		assertMethod("getUnqualifiedType", null, getUnqualifiedType);
+		assertText("\n\t\n\t");
 	}
 
 }
