@@ -53,7 +53,8 @@ if(narrowReport)
 	%></a><%
 }
 %></span>
-<input type="button" value="check all analyze" onClick="checkAllAnalyze()">
+<input type="button" value="check all analyze" onClick="checkAll(&quot;ANALYZE_TABLE&quot;)">
+<input type="button" value="check all drop" onClick="checkAll(&quot;DROP_TABLE&quot;)">
 <input type="submit" name="APPLY" value="apply"/>
 <ul class="<%=reportColor%>"><%
 
