@@ -66,10 +66,19 @@
 		</form>
 		
 		<%
+		final String langID = request.getParameter("lang");
+		final Language language = (langID!=null) ? provider.findLanguageByUniqueID(langID) : null;
 		for(Iterator l = provider.getDisplayLanguages().iterator(); l.hasNext(); )
 		{
-			final Language language = (Language)l.next();
-			%>[<a href="hello"><%=language.getCopernicaName(null)%></a>]<%
+			final Language currentLanguage = (Language)l.next();
+			if(language!=currentLanguage)
+			{
+				%>[<a href="copernica.jsp?lang=<%=currentLanguage.getCopernicaID()%>"><%=currentLanguage.getCopernicaName(null)%></a>]<%
+			}
+			else
+			{
+				%>[<b><%=currentLanguage.getCopernicaName(null)%></b>]<%
+			}
 		}
 		%>
 		
