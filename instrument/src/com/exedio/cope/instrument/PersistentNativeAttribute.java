@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.exedio.cope.lib.BooleanAttribute;
 import com.exedio.cope.lib.DoubleAttribute;
-import com.exedio.cope.lib.IntegerAttribute;
+import com.exedio.cope.lib.IntegerFunction;
 import com.exedio.cope.lib.LongAttribute;
 import com.exedio.cope.lib.StringFunction;
 
@@ -28,6 +28,8 @@ public class PersistentNativeAttribute extends PersistentAttribute
 		// TODO do this a bit more intelligent
 		if(StringFunction.class.isAssignableFrom(typeClass))
 			typeClass = StringFunction.class;
+		else if(IntegerFunction.class.isAssignableFrom(typeClass))
+			typeClass = IntegerFunction.class;
 
 		final String nativeType = (String)toNativeTypeMapping.get(typeClass);
 		if(notNull && nativeType!=null)
@@ -52,6 +54,8 @@ public class PersistentNativeAttribute extends PersistentAttribute
 		// TODO do this a bit more intelligent
 		if(StringFunction.class.isAssignableFrom(typeClass))
 			typeClass = StringFunction.class;
+		else if(IntegerFunction.class.isAssignableFrom(typeClass))
+			typeClass = IntegerFunction.class;
 
 		final String result = (String)toPersistentTypeMapping.get(typeClass);
 
@@ -84,7 +88,7 @@ public class PersistentNativeAttribute extends PersistentAttribute
 	{
 		fillNativeTypeMap(BooleanAttribute.class, "Boolean", "boolean", "(", "?Boolean.TRUE:Boolean.FALSE)", "(", ").booleanValue()");
 		fillNativeTypeMap(LongAttribute.class, "Long", "long", "new Long(", ")", "(", ").longValue()");
-		fillNativeTypeMap(IntegerAttribute.class, "Integer", "int", "new Integer(", ")", "(", ").intValue()");
+		fillNativeTypeMap(IntegerFunction.class, "Integer", "int", "new Integer(", ")", "(", ").intValue()");
 		fillNativeTypeMap(DoubleAttribute.class, "Double", "double", "new Double(", ")", "(", ").doubleValue()");
 		fillNativeTypeMap(StringFunction.class, "String", null, null, null, null, null);
 	}

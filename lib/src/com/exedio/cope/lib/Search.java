@@ -120,14 +120,14 @@ public abstract class Search
 		return new EqualAttributeCondition(attribute1, attribute2);
 	}
 	
-	public static final EqualCondition equal(final IntegerAttribute attribute, final Integer value)
+	public static final EqualCondition equal(final IntegerFunction function, final Integer value)
 	{
-		return new EqualCondition(attribute, value);
+		return new EqualCondition(function, value);
 	}
 	
-	public static final EqualCondition equal(final IntegerAttribute attribute, final int value)
+	public static final EqualCondition equal(final IntegerFunction function, final int value)
 	{
-		return new EqualCondition(attribute, new Integer(value));
+		return new EqualCondition(function, new Integer(value));
 	}
 	
 	public static final EqualCondition equal(final LongAttribute attribute, final Long value)

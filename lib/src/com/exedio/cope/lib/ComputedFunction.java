@@ -1,31 +1,63 @@
 
 package com.exedio.cope.lib;
 
+import java.util.List;
+import java.util.Collections;
+import java.util.Arrays;
+
 public abstract class ComputedFunction implements Function 
 {
-	// TODO make it possible to have more than one source attribute, for arithmetic functions
 	// TODO use functions as source
-	public final ObjectAttribute sourceAttribute;
-	final String sqlMappingStart;
-	final String sqlMappingEnd;
+	private final ObjectAttribute[] sourceAttributes;
+	final ObjectAttribute mainSourceAttribute;
+	private final List sourceAttributeList;
+	private final String[] sqlFragments;
 	private final String functionName;
 
-	public ComputedFunction(final ObjectAttribute sourceAttribute,
-									final String sqlMappingStart,
-									final String sqlMappingEnd,
+	public ComputedFunction(final ObjectAttribute[] sourceAttributes,
+									final ObjectAttribute mainSourceAttribute,
+									final String[] sqlFragments,
 									final String functionName)
 	{
-		this.sourceAttribute = sourceAttribute;
-		this.sqlMappingStart = sqlMappingStart;
-		this.sqlMappingEnd = sqlMappingEnd;
+		this.sourceAttributes = sourceAttributes;
+		this.mainSourceAttribute = mainSourceAttribute;
+		this.sourceAttributeList = Collections.unmodifiableList(Arrays.asList(sourceAttributes));
+		this.sqlFragments = sqlFragments;
+		if(sourceAttributes.length+1!=sqlFragments.length)
+			throw new RuntimeException("length "+sourceAttributes.length+" "+sqlFragments.length);
 		this.functionName = functionName;
 	}
+	
+	final List getSourceAttributes()
+	{
+		return sourceAttributeList;
+	}
 
-	public abstract Object mapJava(Object sourceValue);
+	public abstract Object mapJava(Object[] sourceValues);
+
+	public final void append(final Statement bf)
+	{
+		for(int i = 0; i<sourceAttributes.length; i++)
+		{
+			bf.append(sqlFragments[i]).
+				append(sourceAttributes[i]);
+		}
+		bf.append(sqlFragments[sqlFragments.length-1]);
+	}
 
 	public final String toString()
 	{
-		return functionName + '(' + sourceAttribute.getName() + ')';
+		final StringBuffer buf = new StringBuffer(functionName);
+		buf.append('(');
+		for(int i = 0; i<sourceAttributes.length; i++)
+		{
+			if(i>0)
+				buf.append(',');
+			buf.append(sourceAttributes[i].getName());
+		}
+		buf.append(')');
+		
+		return buf.toString();
 	}
 
 	// second initialization phase ---------------------------------------------------

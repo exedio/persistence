@@ -26,6 +26,7 @@ public abstract class DatabaseLibTest extends AbstractLibTest
 		ItemWithManyAttributes.TYPE,
 		StringItem.TYPE,
 		MediaItem.TYPE,
+		SumItem.TYPE,
 		QualifiedItem.TYPE,
 		QualifiedEmptyQualifier.TYPE,
 		PointerItem2.TYPE,

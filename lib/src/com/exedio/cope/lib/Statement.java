@@ -49,10 +49,7 @@ public final class Statement
 
 	public Statement append(final ComputedFunction function)
 	{
-		this.text.append(function.sqlMappingStart);
-		append(function.sourceAttribute);
-		this.text.append(function.sqlMappingEnd);
-			
+		function.append(this);
 		return this;
 	}
 
@@ -79,7 +76,7 @@ public final class Statement
 	public Statement appendValue(Function function, final Object value)
 	{
 		while(function instanceof ComputedFunction)
-			function = ((ComputedFunction)function).sourceAttribute;
+			function = ((ComputedFunction)function).mainSourceAttribute;
 			
 		final ObjectAttribute attribute = (ObjectAttribute)function;
 		appendValue(attribute.getMainColumn(), attribute.surfaceToCache(value));

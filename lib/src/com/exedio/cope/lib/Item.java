@@ -8,6 +8,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Iterator;
+import java.util.List;
 
 import com.exedio.cope.lib.util.ReactivationConstructorDummy;
 
@@ -240,7 +242,13 @@ public abstract class Item extends Search
 	
 	public final Object getFunction(final ComputedFunction function)
 	{
-		return function.mapJava(getAttribute(function.sourceAttribute));
+		final List sourceAttributes = function.getSourceAttributes();
+		final Object[] values = new Object[sourceAttributes.size()];
+		int pos = 0;
+		for(Iterator i = sourceAttributes.iterator(); i.hasNext(); )
+			values[pos++] = getAttribute((ObjectAttribute)i.next());
+	
+		return function.mapJava(values);
 	}
 	
 	/**

@@ -14,7 +14,7 @@ import com.exedio.cope.lib.BooleanAttribute;
 import com.exedio.cope.lib.DoubleAttribute;
 import com.exedio.cope.lib.EnumerationAttribute;
 import com.exedio.cope.lib.Function;
-import com.exedio.cope.lib.IntegerAttribute;
+import com.exedio.cope.lib.IntegerFunction;
 import com.exedio.cope.lib.ItemAttribute;
 import com.exedio.cope.lib.LongAttribute;
 import com.exedio.cope.lib.MediaAttribute;
@@ -130,7 +130,7 @@ public final class Instrumentor implements InjectionConsumer
 			qualifiers = null;
 	
 		if(
-			IntegerAttribute.class.equals(typeClass) ||
+			IntegerFunction.class.isAssignableFrom(typeClass) ||
 			LongAttribute.class.equals(typeClass) ||
 			DoubleAttribute.class.equals(typeClass) ||
 			BooleanAttribute.class.equals(typeClass) ||

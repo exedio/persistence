@@ -5,7 +5,7 @@ import java.util.TreeSet;
 
 import com.exedio.cope.lib.DoubleAttribute;
 import com.exedio.cope.lib.Function;
-import com.exedio.cope.lib.IntegerAttribute;
+import com.exedio.cope.lib.IntegerFunction;
 import com.exedio.cope.lib.Item;
 import com.exedio.cope.lib.ItemAttribute;
 import com.exedio.cope.lib.LongAttribute;
@@ -30,9 +30,9 @@ public final class EqualCondition extends Condition
 		this.value = value;
 	}
 	
-	public EqualCondition(final IntegerAttribute attribute, final Integer value)
+	public EqualCondition(final IntegerFunction function, final Integer value)
 	{
-		this.function = attribute;
+		this.function = function;
 		this.value = value;
 	}
 	
