@@ -116,7 +116,17 @@ public class CopeAssert extends TestCase
 		return Arrays.asList(new Object[]{o1, o2, o3, o4, o5});
 	}
 	
-	protected void assertUnmodifiable(final Collection c)
+	protected final static List list(final Object o1, final Object o2, final Object o3, final Object o4, final Object o5, final Object o6)
+	{
+		return Arrays.asList(new Object[]{o1, o2, o3, o4, o5, o6});
+	}
+	
+	protected final static List list(final Object o1, final Object o2, final Object o3, final Object o4, final Object o5, final Object o6, final Object o7)
+	{
+		return Arrays.asList(new Object[]{o1, o2, o3, o4, o5, o6, o7});
+	}
+	
+	protected final static void assertUnmodifiable(final Collection c)
 	{
 		try
 		{
