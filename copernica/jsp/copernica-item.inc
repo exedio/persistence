@@ -19,7 +19,7 @@
 						<td>
 							<h1>
 								<a href="<%=(cop.toType(type))%>"><%=provider.getDisplayName(language, type)%></a>
-								<b><%=provider.getDisplayName(language, item)%></b>
+								<b><%=cop.getDisplayName(language, item)%></b>
 							</h1>
 						</td>
 						<td align="right"><%
@@ -139,7 +139,7 @@
 									try
 									{
 										final Item valueItem = provider.getModel().findByID(value);
-										%> <a href="<%=(cop.toItem(valueItem))%>"><%=provider.getDisplayName(null, valueItem)%></a><%
+										%> <a href="<%=(cop.toItem(valueItem))%>"><%=cop.getDisplayName(null, valueItem)%></a><%
 									}
 									catch(NoSuchIDException e)
 									{

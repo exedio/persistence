@@ -1,5 +1,6 @@
 package com.exedio.copernica;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import com.exedio.cope.lib.Item;
@@ -7,7 +8,7 @@ import com.exedio.cope.lib.Model;
 import com.exedio.cope.lib.Type;
 
 
-abstract class CopernicaCop extends Cop
+abstract class CopernicaCop extends Cop implements RequestCache
 {
 	static final String LANGUAGE = "l";
 
@@ -66,5 +67,46 @@ abstract class CopernicaCop extends Cop
 			return new EmptyCop(provider, language);
 	}
 	
+	private HashMap itemDisplayNames = null;
+	//private int itemDisplayNamesHits = 0;
+	//private int itemDisplayNamesMisses = 0;
 	
+	public String getDisplayName(final Language displayLanguage, final Item item)
+	{
+		if((language==null&&displayLanguage==null) || (language!=null&&language.equals(displayLanguage)))
+		{
+			if(itemDisplayNames==null)
+			{
+				itemDisplayNames = new HashMap();
+			}
+			else
+			{
+				final String cachedResult = (String)itemDisplayNames.get(item);
+				if(cachedResult!=null)
+				{
+					//itemDisplayNamesHits++;
+					return cachedResult;
+				}
+			}
+
+			//itemDisplayNamesMisses++;
+			final String result = provider.getDisplayName(this, displayLanguage, item);
+			itemDisplayNames.put(item, result);
+			return result;
+		}
+		else
+		{
+			//itemDisplayNamesMisses++;
+			return provider.getDisplayName(this, displayLanguage, item);
+		}
+	}
+	
+	// TODO: the same for enumeration values
+	
+	// TODO: the same for "empty" (null) value
+	
+	void log()
+	{
+		//System.out.println("itemDisplayNames: ("+itemDisplayNamesMisses+"/"+itemDisplayNamesHits+")");
+	}
 }

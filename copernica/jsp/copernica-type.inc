@@ -91,7 +91,7 @@
 					final Item item = (Item)i.next();
 					%>
 				<tr>
-					<td><a href="<%=(cop.toItem(item))%>"><%=provider.getDisplayName(language, item)%></a></td><%
+					<td><a href="<%=(cop.toItem(item))%>"><%=cop.getDisplayName(language, item)%></a></td><%
 					for(Iterator j = features.iterator(); j.hasNext(); )
 					{
 						final Feature feature = (Feature)j.next();
@@ -110,7 +110,7 @@
 							}
 							else
 							{
-								%><a href="<%=(cop.toItem(value))%>"><%=provider.getDisplayName(language, value)%></a><%
+								%><a href="<%=(cop.toItem(value))%>"><%=cop.getDisplayName(language, value)%></a><%
 							}
 						}
 						else if(feature instanceof DateAttribute)

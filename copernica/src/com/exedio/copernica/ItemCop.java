@@ -28,7 +28,7 @@ final class ItemCop extends CopernicaCop
 
 	final String getTitle()
 	{
-		return provider.getDisplayName(language, item);
+		return provider.getDisplayName(this, language, item);
 	}
 
 	static final ItemCop getCop(final CopernicaProvider provider, final Language language, final String itemID)

@@ -121,7 +121,7 @@ public abstract class TransientCopernicaProvider implements CopernicaProvider
 		return breakupName(name);
 	}
 	
-	public String getDisplayName(final com.exedio.copernica.Language displayLanguage, final Item item)
+	public String getDisplayName(final RequestCache cache, final com.exedio.copernica.Language displayLanguage, final Item item)
 	{
 		final Type type = item.getType();
 		final List uniqueConstraints = type.getUniqueConstraints();
@@ -146,7 +146,7 @@ public abstract class TransientCopernicaProvider implements CopernicaProvider
 				if(value == null)
 					valueString = "NULL";
 				else if(value instanceof Item)
-					valueString = getDisplayName(displayLanguage, (Item)value);
+					valueString = cache.getDisplayName(displayLanguage, (Item)value);
 				else
 					valueString = value.toString();
 

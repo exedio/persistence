@@ -38,7 +38,7 @@ public interface CopernicaProvider
 
 	public String getDisplayName(Language displayLanguage, Feature feature);
 	
-	public String getDisplayName(Language displayLanguage, Item item);
+	public String getDisplayName(RequestCache cache, Language displayLanguage, Item item);
 
 	public String getDisplayName(Language displayLanguage, EnumerationValue value);
 

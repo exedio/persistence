@@ -123,6 +123,7 @@ include file="provider.inc"
 		}
 		else
 			throw new RuntimeException();
+		cop.log();
 		%>
 		</div>
 	</body>
