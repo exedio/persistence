@@ -17,7 +17,7 @@ final class StringColumn extends Column
 			final Type type, final String id, final boolean notNull,
 			final int minimumLength, final int maximumLength)
 	{
-		super(type, id, notNull, Database.theInstance.getStringType(maximumLength), JDBC_TYPE);
+		super(type, id, false, notNull, Database.theInstance.getStringType(maximumLength), JDBC_TYPE);
 		this.minimumLength = minimumLength;
 		this.maximumLength = maximumLength;
 		this.minimumLengthID = minimumLength==0 ? null : Database.theInstance.trimName(type.id+"_"+id+"Min");

@@ -18,10 +18,21 @@ class IntegerColumn extends Column
 					  final boolean notNull, final int precision,
 					  final boolean longInsteadOfInt, final int[] allowedValues)
 	{
-		super(type, id, notNull, Database.theInstance.getIntegerType(precision), longInsteadOfInt ? JDBC_TYPE_LONG : JDBC_TYPE_INT);
+		super(type, id, false, notNull, Database.theInstance.getIntegerType(precision), longInsteadOfInt ? JDBC_TYPE_LONG : JDBC_TYPE_INT);
 		this.longInsteadOfInt = longInsteadOfInt;
 		this.allowedValues = allowedValues;
 		this.allowedValuesID = allowedValues==null ? null : Database.theInstance.trimName(type.id+"_"+id+"Val");
+	}
+
+	/**
+	 * Creates a primary key column.
+	 */	
+	IntegerColumn(final Type type)
+	{
+		super(type, "PK", true, true, Database.theInstance.getIntegerType(ItemColumn.SYNTETIC_PRIMARY_KEY_PRECISION), JDBC_TYPE_INT);
+		this.longInsteadOfInt = false;
+		this.allowedValues = null;
+		this.allowedValuesID = null;
 	}
 	
 	final void load(final ResultSet resultSet, final int columnIndex, final Row row)

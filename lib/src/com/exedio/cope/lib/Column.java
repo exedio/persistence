@@ -8,15 +8,20 @@ abstract class Column
 	final Type type;
 	final String id;
 	final String protectedID;
+	final boolean primaryKey;
 	final boolean notNull;
 	final String databaseType;
 	final Integer jdbcType;
 	
-	Column(final Type type, final String id, final boolean notNull, final String databaseType, final Integer jdbcType)
+	Column(
+			final Type type, final String id, 
+			final boolean primaryKey, final boolean notNull,
+			final String databaseType, final Integer jdbcType)
 	{
 		this.type = type;
 		this.id = id;
 		this.protectedID = Database.theInstance.protectName(id);
+		this.primaryKey = primaryKey;
 		this.notNull = notNull;
 		this.databaseType = databaseType;
 		this.jdbcType = jdbcType;

@@ -822,22 +822,28 @@ public abstract class Database
 			append(type.protectedID).
 			append('(');
 
-		final Column primaryKey = type.primaryKey;
-		bf.append(primaryKey.protectedID).
-			append(' ').
-			append(primaryKey.databaseType).
-			append(" primary key");
-			
-		for(Iterator i = type.getColumns().iterator(); i.hasNext(); )
+		boolean firstColumn = true;
+		for(Iterator i = type.getAllColumns().iterator(); i.hasNext(); )
 		{
+			if(firstColumn)
+				firstColumn = false;
+			else
+				bf.append(',');
+			
 			final Column column = (Column)i.next();
-			bf.append(',').
-				append(column.protectedID).
+			bf.append(column.protectedID).
 				append(' ').
 				append(column.databaseType);
-			
-			if(column.notNull)
-				bf.append(" not null");
+
+			if(column.primaryKey)
+			{
+				bf.append(" primary key");
+			}
+			else
+			{
+				if(column.notNull)
+					bf.append(" not null");
+			}
 		}
 		
 		final Type supertype = type.getSupertype();

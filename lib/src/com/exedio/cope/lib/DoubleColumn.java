@@ -11,7 +11,7 @@ public class DoubleColumn extends Column
 	DoubleColumn(final Type type, final String id,
 					  final boolean notNull, final int precision)
 	{
-		super(type, id, notNull, Database.theInstance.getDoubleType(precision), JDBC_TYPE);
+		super(type, id, false, notNull, Database.theInstance.getDoubleType(precision), JDBC_TYPE);
 	}
 	
 	final void load(final ResultSet resultSet, final int columnIndex, final Row row)

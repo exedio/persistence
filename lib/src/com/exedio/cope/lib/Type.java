@@ -46,6 +46,7 @@ public final class Type
 	final String protectedID;
 	private final List columns;
 	final Column primaryKey;
+	private final List allColumns;
 
 	private final Constructor reactivationConstructor;
 	private static final Class[] reactivationConstructorParams =
@@ -182,11 +183,20 @@ public final class Type
 		this.attributeList = Collections.unmodifiableList(Arrays.asList(attributes));
 		this.featureList = Collections.unmodifiableList(Arrays.asList(features));
 
-		final ArrayList columns = new ArrayList();
-		for(int i = 0; i<this.declaredAttributes.length; i++)
-			columns.addAll(this.declaredAttributes[i].getColumns());
-		this.columns = Collections.unmodifiableList(columns);
-		this.primaryKey = new IntegerColumn(this, "PK", true, ItemColumn.SYNTETIC_PRIMARY_KEY_PRECISION, false, null);
+		{
+			final ArrayList columns = new ArrayList();
+			for(int i = 0; i<this.declaredAttributes.length; i++)
+				columns.addAll(this.declaredAttributes[i].getColumns());
+			this.columns = Collections.unmodifiableList(columns);
+		}
+		this.primaryKey = new IntegerColumn(this);
+		{
+			final ArrayList allColumns = new ArrayList(columns.size()+1);
+			allColumns.add(primaryKey);
+			allColumns.addAll(columns);
+			this.allColumns = Collections.unmodifiableList(allColumns);
+		}
+		
 
 		try
 		{
@@ -276,9 +286,24 @@ public final class Type
 		return uniqueConstraintList;
 	}
 	
+	/**
+	 * Returns &quot;payload&quot; columns of this type only,
+	 * excluding primary key column.
+	 * @see #getAllColumns()
+	 */
 	List getColumns()
 	{
 		return columns;
+	}
+	
+	/**
+	 * Returns all columns of this type,
+	 * including primary key column.
+	 * @see #getColumns()
+	 */
+	List getAllColumns()
+	{
+		return allColumns;
 	}
 	
 	private String toStringCache = null;

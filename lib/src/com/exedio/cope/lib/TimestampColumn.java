@@ -12,7 +12,7 @@ class TimestampColumn extends Column
 	
 	TimestampColumn(final Type type, final String id, final boolean notNull)
 	{
-		super(type, id, notNull, Database.theInstance.getDateTimestampType(), JDBC_TYPE);
+		super(type, id, false, notNull, Database.theInstance.getDateTimestampType(), JDBC_TYPE);
 	}
 	
 	/**
