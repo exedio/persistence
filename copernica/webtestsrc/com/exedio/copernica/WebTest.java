@@ -37,5 +37,12 @@ public class WebTest extends WebTestCase
 
 		setFormElement("someNotNullString", "running100changed");
 		submit("SAVE");
+		assertTitleEquals("AttributeItem.103");
+		assertFormElementEquals("someNotNullString", "running100changed");
+
+		setFormElement("someNotNullString", "running100");
+		submit("SAVE");
+		assertTitleEquals("AttributeItem.103");
+		assertFormElementEquals("someNotNullString", "running100");
 	}
 }
