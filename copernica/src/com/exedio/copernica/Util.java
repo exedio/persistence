@@ -2,7 +2,7 @@ package com.exedio.copernica;
 
 import com.exedio.cope.lib.NestingRuntimeException;
 
-public class Util
+final class Util
 {
 		
 	static final CopernicaProvider createProvider(final String providerName)
