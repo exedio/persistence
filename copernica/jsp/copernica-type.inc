@@ -27,9 +27,9 @@
 			<div id="pager">
 				<a href="<%=typeCop.firstPage()%>"<%
 					if(firstPage){%> id="disabled"<%}%>>&lt;&lt;</a>
-				<a href="<%=prev%>"<%
+				<a href="<%=typeCop.previousPage()%>"<%
 					if(firstPage){%> id="disabled"<%}%>>&lt;</a>
-				<a href="<%=next%>"<%
+				<a href="<%=typeCop.nextPage()%>"<%
 					if(lastPage) {%> id="disabled"<%}%>>&gt;</a>
 				<%=typeCop.start+1%> - <%=typeCop.start+itemsSize%>
 				(<%
