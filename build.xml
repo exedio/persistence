@@ -65,6 +65,16 @@
 	
 	<target name="compile" depends="lib.compile, lib.oracle.compile, instrument.compile, copernica.compile" />
 	
+	<target name="lib.jar" depends="lib.compile, lib.oracle.compile">
+		<jar jarfile="lib/build/cope.jar" basedir="lib/build/classes" />
+	</target>
+	
+	<target name="instrument.jar" depends="instrument.compile">
+		<jar jarfile="instrument/build/cope-instrument.jar" basedir="instrument/build/classes" />
+	</target>
+	
+	<target name="jar" depends="lib.jar, instrument.jar" />
+	
 	<target name="lib.test.instrument" depends="lib.compile, lib.oracle.compile, instrument.compile">
 		<echo message="Instrumenting lib/testsrc" />
 		<java classname="com.exedio.cope.instrument.Main" failonerror="yes">
