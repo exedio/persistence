@@ -493,7 +493,7 @@ public final class Injector
 
 		if (c == '(') // it's a method/constructor
 		{
-			JavaBehaviour jb =
+			final JavaBehaviour jb =
 				(featuretype == null)
 					? (JavaBehaviour)new JavaConstructor(parent,
 						modifiers,
@@ -504,8 +504,8 @@ public final class Injector
 			return jbarray;
 		}
 		else // it's an attribute
-			{
-			JavaAttribute ja =
+		{
+			final JavaAttribute ja =
 				new JavaAttribute(parent, modifiers, featuretype, featurename);
 			return parseAttribute(ja, c);
 		}
