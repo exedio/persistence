@@ -182,13 +182,13 @@ public class ModelTest extends AbstractLibTest
 	{
 		assertEquals(
 			list(ItemWithSingleUnique.uniqueString),
-			ItemWithSingleUnique.uniqueString.getSingleUniqueConstaint().getUniqueAttributes());
+			ItemWithSingleUnique.uniqueString.getSingleUniqueConstraint().getUniqueAttributes());
 		assertEquals(
 			list(ItemWithSingleUniqueReadOnly.uniqueReadOnlyString),
-			ItemWithSingleUniqueReadOnly.uniqueReadOnlyString.getSingleUniqueConstaint().getUniqueAttributes());
+			ItemWithSingleUniqueReadOnly.uniqueReadOnlyString.getSingleUniqueConstraint().getUniqueAttributes());
 		assertEquals(
 			list(ItemWithSingleUniqueNotNull.uniqueNotNullString),
-			ItemWithSingleUniqueNotNull.uniqueNotNullString.getSingleUniqueConstaint().getUniqueAttributes());
+			ItemWithSingleUniqueNotNull.uniqueNotNullString.getSingleUniqueConstraint().getUniqueAttributes());
 	}
 
 	public void testHierarchy()

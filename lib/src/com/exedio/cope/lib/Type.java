@@ -119,7 +119,7 @@ public final class Type
 							attributesTemp.add(attribute);
 							featuresTemp.add(attribute);
 							featuresByName.put(attribute.getName(), attribute);
-							final UniqueConstraint uniqueConstraint = attribute.getSingleUniqueConstaint();
+							final UniqueConstraint uniqueConstraint = attribute.getSingleUniqueConstraint();
 							if(uniqueConstraint!=null)
 								uniqueConstraintsTemp.add(uniqueConstraint);
 						}

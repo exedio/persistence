@@ -35,7 +35,7 @@ public class UniqueItemTest extends DatabaseLibTest
 			catch(UniqueViolationException e)
 			{
 				assertTrue(!mysql);
-				assertEquals(item2.uniqueString.getSingleUniqueConstaint(), e.getConstraint());
+				assertEquals(item2.uniqueString.getSingleUniqueConstraint(), e.getConstraint());
 				assertEquals("uniqueString2", item2.getUniqueString());
 			}
 			catch(NestingRuntimeException e)

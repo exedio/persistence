@@ -37,7 +37,7 @@ public abstract class Attribute extends TypeComponent implements Feature
 	 * or this attribute is covered by a unique constraint covering more
 	 * attributes than this attribute.
 	 */
-	public UniqueConstraint getSingleUniqueConstaint()
+	public UniqueConstraint getSingleUniqueConstraint()
 	{
 		return singleUniqueConstraint;
 	}
