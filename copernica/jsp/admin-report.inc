@@ -54,7 +54,9 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); )
 			final Date date = lastAnalyzed.lastAnalyzed;
 			%>
 			<li class="<%=color(lastAnalyzed.getCumulativeColor())
-					%>">last analyzed: <%=date!=null?date.toString():"NEVER"%></li><%
+				%>">last analyzed: <%=date!=null?date.toString():"NEVER"%>
+				<input type="checkbox" name="ANALYZE_TABLE_" value="analyze"/>analyze
+			</li><%
 		}
 		
 		for(Iterator j = table.getColumns().iterator(); j.hasNext(); )
