@@ -6,6 +6,7 @@ page import="com.exedio.cope.lib.Function" %><%@
 page import="com.exedio.cope.lib.Attribute" %><%@
 page import="com.exedio.cope.lib.ObjectAttribute" %><%@
 page import="com.exedio.cope.lib.StringAttribute" %><%@
+page import="com.exedio.cope.lib.BooleanAttribute" %><%@
 page import="com.exedio.cope.lib.MediaAttribute" %><%@
 page import="com.exedio.cope.lib.EnumerationAttribute" %><%@
 page import="com.exedio.cope.lib.EnumerationValue" %><%@

@@ -80,6 +80,69 @@
 				%>
 			<%
 			}
+			else if(attribute instanceof BooleanAttribute)
+			{
+				final BooleanAttribute boolAttribute = (BooleanAttribute)attribute;
+				final String attributeName = attribute.getName();
+				
+				final Boolean value;
+				if(save)
+				{
+					final String saveString = request.getParameter(attributeName);
+					if(saveString==null)
+						value = Boolean.FALSE;
+					else
+					{
+						if("NULL".equals(saveString))
+							value = null;
+						else if("TRUE".equals(saveString))
+							value = Boolean.TRUE;
+						else if("FALSE".equals(saveString))
+							value = Boolean.FALSE;
+						else
+							throw new RuntimeException(saveString);
+					}
+					item.setAttribute(boolAttribute, value);
+				}
+				else
+					value = (Boolean)item.getAttribute(boolAttribute);
+				
+				toSave = true;
+				if(boolAttribute.isNotNull())
+				{
+					%>
+					<input type="checkbox" name="<%=attributeName%>" value="TRUE"<%
+					if(Boolean.TRUE.equals(value))
+					{
+						%> checked="checked"<%
+					}
+					%>><br><%
+				}
+				else
+				{
+					%>
+					<input type="radio" name="<%=attributeName%>" value="NULL"<%
+					if(value==null)
+					{
+						%> checked="checked"<%
+					}
+					%>><%="leer"%><br>
+					<input type="radio" name="<%=attributeName%>" value="TRUE"<%
+					if(Boolean.TRUE.equals(value))
+					{
+						%> checked="checked"<%
+					}
+					%>><%="ein"%><br>
+					<input type="radio" name="<%=attributeName%>" value="FALSE"<%
+					if(Boolean.FALSE.equals(value))
+					{
+						%> checked="checked"<%
+					}
+					%>><%="aus"%><br><%
+				}
+				%>
+			<%
+			}
 			else if(attribute instanceof StringAttribute)
 			{
 				final StringAttribute stringAttribute = (StringAttribute)attribute;
