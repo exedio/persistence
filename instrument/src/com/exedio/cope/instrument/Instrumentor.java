@@ -112,10 +112,10 @@ public final class Instrumentor implements InjectionConsumer
 	throws IOException, InjectorParseException
 	{
 		//System.out.println("onClassEnd("+javaClass.getName()+")");
-		final CopeClass persistentClass = CopeClass.getCopeClass(javaClass);
+		final CopeClass copeClass = CopeClass.getCopeClass(javaClass);
 
-		if(persistentClass!=null)
-			(new Generator(output)).writeClassFeatures(persistentClass);
+		if(copeClass!=null)
+			(new Generator(output)).writeClassFeatures(copeClass);
 		
 		if(class_state!=javaClass)
 			throw new RuntimeException();
@@ -184,17 +184,17 @@ public final class Instrumentor implements InjectionConsumer
 		final JavaClass jc = ja.parent;
 		final List initializerArguments = ja.getInitializerArguments();
 		//System.out.println(initializerArguments);
-		final CopeClass persistentClass = CopeClass.getCopeClass(jc);
+		final CopeClass copeClass = CopeClass.getCopeClass(jc);
 		final ArrayList persistentAttributes = new ArrayList(initializerArguments.size());
 		for(Iterator i = initializerArguments.iterator(); i.hasNext(); )
 		{
 			final String initializerArgument = (String)i.next();
-			final CopeAttribute persistentAttribute = persistentClass.getCopeAttribute(initializerArgument);
+			final CopeAttribute persistentAttribute = copeClass.getCopeAttribute(initializerArgument);
 			if(persistentAttribute==null)
 				throw new InjectorParseException("attribute >"+initializerArgument+"< in unique constraint "+ja.name+" not found.");
 			persistentAttributes.add(persistentAttribute);
 		}
-		persistentClass.makeUnique(
+		copeClass.makeUnique(
 			new CopeUniqueConstraint(ja,
 				(CopeAttribute[])persistentAttributes.toArray(new CopeAttribute[persistentAttributes.size()])));
 	}
@@ -203,23 +203,23 @@ public final class Instrumentor implements InjectionConsumer
 		throws InjectorParseException
 	{
 		final JavaClass jc = ja.parent;
-		final CopeClass persistentClass = CopeClass.getCopeClass(jc);
+		final CopeClass copeClass = CopeClass.getCopeClass(jc);
 		final List initializerArguments = ja.getInitializerArguments();
 		//System.out.println("---------"+initializerArguments);
-		new CopeQualifier(persistentClass, initializerArguments);
+		new CopeQualifier(copeClass, initializerArguments);
 	}
 
 	private final void handleMediaVariant(final JavaAttribute ja, final Class typeClass)
 		throws InjectorParseException
 	{
 		final JavaClass jc = ja.parent;
-		final CopeClass persistentClass = CopeClass.getCopeClass(jc);
+		final CopeClass copeClass = CopeClass.getCopeClass(jc);
 		final List initializerArguments = ja.getInitializerArguments();
 		if(initializerArguments.size()!=1)
 			throw new InjectorParseException("attribute >"+ja.name+"< has invalid initializer arguments: "+initializerArguments);
 		//System.out.println("---------"+initializerArguments);
 		final String initializerArgument = (String)initializerArguments.get(0);
-		final CopeMediaAttribute mediaAttribute = (CopeMediaAttribute)persistentClass.getCopeAttribute(initializerArgument);
+		final CopeMediaAttribute mediaAttribute = (CopeMediaAttribute)copeClass.getCopeAttribute(initializerArgument);
 		if(mediaAttribute==null)
 			throw new InjectorParseException("attribute >"+initializerArgument+"< in media attribute variant "+ja.name+" not found.");
 		new CopeMediaVariant(ja, mediaAttribute);

@@ -9,7 +9,7 @@ final class CopeQualifier
 	final String key;
 	final String qualifyUnique;
 
-	public CopeQualifier(final CopeClass persistentClass, final List initializerArguments)
+	public CopeQualifier(final CopeClass copeClass, final List initializerArguments)
 		throws InjectorParseException
 	{
 		if(initializerArguments.size()!=3)
@@ -22,7 +22,7 @@ final class CopeQualifier
 			throw new InjectorParseException("Qualifier must have dot, but is "+this.parent);
 		this.qualifierClass = this.parent.substring(0, pos);
 		
-		persistentClass.addQualifier(this);
+		copeClass.addQualifier(this);
 	}
 
 }

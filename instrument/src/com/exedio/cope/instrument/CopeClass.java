@@ -17,11 +17,11 @@ import com.exedio.cope.lib.util.ClassComparator;
 
 final class CopeClass
 {
-	private static final HashMap persistentClassByJavaClass = new HashMap();
+	private static final HashMap copeClassByJavaClass = new HashMap();
 	
 	static final CopeClass getCopeClass(final JavaClass javaClass)
 	{
-		final CopeClass result = (CopeClass)persistentClassByJavaClass.get(javaClass);
+		final CopeClass result = (CopeClass)copeClassByJavaClass.get(javaClass);
 		//System.out.println("getCopeClass "+javaClass.getName()+" "+(result==null?"NULL":result.getName()));
 		return result;
 	}
@@ -43,9 +43,9 @@ final class CopeClass
 	{
 		this.javaClass = javaClass;
 		this.accessModifier = javaClass.accessModifier;
-		persistentClassByJavaClass.put(javaClass, this);	
+		copeClassByJavaClass.put(javaClass, this);	
 		constructorOption = Option.getOption(constructorOptionString);
-		//System.out.println("persistentClassByJavaClass "+javaClass.getName());
+		//System.out.println("copeClassByJavaClass "+javaClass.getName());
 	}
 	
 	public String getName()

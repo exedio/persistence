@@ -30,7 +30,7 @@ abstract class CopeAttribute
 	final JavaAttribute javaAttribute;
 	final int accessModifier;
 	
-	final CopeClass persistentClass;
+	final CopeClass copeClass;
 
 	/**
 	 * The persistent type of this attribute.
@@ -55,7 +55,7 @@ abstract class CopeAttribute
 	{
 		this.javaAttribute = javaAttribute;
 		this.accessModifier = javaAttribute.accessModifier;
-		this.persistentClass = CopeClass.getCopeClass(javaAttribute.parent);
+		this.copeClass = CopeClass.getCopeClass(javaAttribute.parent);
 		this.persistentType = persistentType;
 		this.computed = ComputedFunction.class.isAssignableFrom(typeClass);
 		
@@ -88,7 +88,7 @@ abstract class CopeAttribute
 				this.lengthConstrained = false;
 
 			if(option.unique)
-				persistentClass.makeUnique(new CopeUniqueConstraint(this));
+				copeClass.makeUnique(new CopeUniqueConstraint(this));
 		}
 		else
 		{
@@ -101,7 +101,7 @@ abstract class CopeAttribute
 
 		this.qualifiers = (qualifiers!=null) ? Collections.unmodifiableList(qualifiers) : null;
 
-		persistentClass.addCopeAttribute(this);
+		copeClass.addCopeAttribute(this);
 	}
 	
 	final String getName()
@@ -169,7 +169,7 @@ abstract class CopeAttribute
 	
 	final boolean isPartOfUniqueConstraint()
 	{
-		for( final Iterator i = persistentClass.getUniqueConstraints().iterator(); i.hasNext(); )
+		for( final Iterator i = copeClass.getUniqueConstraints().iterator(); i.hasNext(); )
 		{
 			final CopeAttribute[] uniqueConstraint = ((CopeUniqueConstraint)i.next()).persistentAttributes;
 			for(int j=0; j<uniqueConstraint.length; j++)

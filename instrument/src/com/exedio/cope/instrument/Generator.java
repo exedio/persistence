@@ -244,7 +244,7 @@ final class Generator
 		o.write("\t}");
 	}
 	
-	private void writeGenericConstructor(final CopeClass persistentClass)
+	private void writeGenericConstructor(final CopeClass copeClass)
 	throws IOException
 	{
 		writeCommentHeader();
@@ -253,7 +253,7 @@ final class Generator
 		writeCommentGenerated();
 		writeCommentFooter();
 		o.write("protected ");
-		o.write(persistentClass.getName());
+		o.write(copeClass.getName());
 		o.write("(final "+AttributeValue.class.getName()+"[] initialAttributes)");
 		o.write(lineSeparator);
 		o.write("\t{");
@@ -263,10 +263,10 @@ final class Generator
 		o.write("\t}");
 	}
 	
-	private void writeReactivationConstructor(final CopeClass persistentClass)
+	private void writeReactivationConstructor(final CopeClass copeClass)
 	throws IOException
 	{
-		final boolean abstractClass = persistentClass.isAbstract();
+		final boolean abstractClass = copeClass.isAbstract();
 		writeCommentHeader();
 		o.write("\t * Reactivation constructor. Used for internal purposes only.");
 		o.write(lineSeparator);
@@ -276,7 +276,7 @@ final class Generator
 		o.write(lineSeparator);
 		writeCommentFooter();
 		o.write( abstractClass ? "protected " : "private " );
-		o.write(persistentClass.getName());
+		o.write(copeClass.getName());
 		o.write("("+ReactivationConstructorDummy.class.getName()+" d,final int pk)");
 		o.write(lineSeparator);
 		o.write("\t{");
@@ -388,7 +388,7 @@ final class Generator
 		o.write("\t\treturn getMedia");
 		o.write(part);
 		o.write('(');
-		o.write(mediaAttribute.persistentClass.getName());
+		o.write(mediaAttribute.copeClass.getName());
 		o.write('.');
 		if(variant!=null)
 			o.write(variant.name);
@@ -470,7 +470,7 @@ final class Generator
 				o.write('\t');
 			}
 			o.write("\t\tsetMediaData(");
-			o.write(mediaAttribute.persistentClass.getName());
+			o.write(mediaAttribute.copeClass.getName());
 			o.write('.');
 			o.write(mediaAttribute.getName());
 			o.write(",data");
@@ -605,12 +605,12 @@ final class Generator
 		o.write("\t}");
 	}
 
-	private final void writeType(final CopeClass persistentClass)
+	private final void writeType(final CopeClass copeClass)
 	throws IOException
 	{
 		writeCommentHeader();
 		o.write("\t * The persistent type information for ");
-		o.write(lowerCamelCase(persistentClass.getName()));
+		o.write(lowerCamelCase(copeClass.getName()));
 		o.write(".");
 		o.write(lineSeparator);
 		writeCommentGenerated();
@@ -620,24 +620,24 @@ final class Generator
 		o.write(lineSeparator);
 
 		o.write("\t\tnew "+Type.class.getName()+"(");
-		o.write(persistentClass.getName());
+		o.write(copeClass.getName());
 		o.write(".class)");
 		o.write(lineSeparator);
 
 		o.write(";");
 	}
 
-	void writeClassFeatures(final CopeClass persistentClass)
+	void writeClassFeatures(final CopeClass copeClass)
 			throws IOException, InjectorParseException
 	{
-		if(!persistentClass.isInterface())
+		if(!copeClass.isInterface())
 		{
 			//System.out.println("onClassEnd("+jc.getName()+") writing");
-			writeConstructor(persistentClass);
-			if(persistentClass.isAbstract()) // TODO: create the constructor for all classes
-				writeGenericConstructor(persistentClass);
-			writeReactivationConstructor(persistentClass);
-			for(final Iterator i = persistentClass.getCopeAttributes().iterator(); i.hasNext(); )
+			writeConstructor(copeClass);
+			if(copeClass.isAbstract()) // TODO: create the constructor for all classes
+				writeGenericConstructor(copeClass);
+			writeReactivationConstructor(copeClass);
+			for(final Iterator i = copeClass.getCopeAttributes().iterator(); i.hasNext(); )
 			{
 				// write setter/getter methods
 				final CopeAttribute persistentAttribute = (CopeAttribute)i.next();
@@ -647,18 +647,18 @@ final class Generator
 				else
 					writeAccessMethods(persistentAttribute);
 			}
-			for(final Iterator i = persistentClass.getUniqueConstraints().iterator(); i.hasNext(); )
+			for(final Iterator i = copeClass.getUniqueConstraints().iterator(); i.hasNext(); )
 			{
 				// write unique finder methods
 				final CopeUniqueConstraint constraint = (CopeUniqueConstraint)i.next();
 				writeUniqueFinder(constraint);
 			}
-			for(final Iterator i = persistentClass.getQualifiers().iterator(); i.hasNext(); )
+			for(final Iterator i = copeClass.getQualifiers().iterator(); i.hasNext(); )
 			{
 				final CopeQualifier qualifier = (CopeQualifier)i.next();
 				writeQualifier(qualifier);
 			}
-			writeType(persistentClass);
+			writeType(copeClass);
 		}
 	}
 
@@ -680,7 +680,7 @@ final class Generator
 		o.write('(');
 		o.write(attribute.persistentType);
 		o.write(")getAttribute(");
-		o.write(attribute.persistentClass.getName());
+		o.write(attribute.copeClass.getName());
 		o.write('.');
 		o.write(attribute.getName());
 		o.write(')');
@@ -710,7 +710,7 @@ final class Generator
 			o.write('\t');
 		}
 		o.write("\t\tsetAttribute(");
-		o.write(attribute.persistentClass.getName());
+		o.write(attribute.copeClass.getName());
 		o.write('.');
 		o.write(attribute.getName());
 		o.write(',');
