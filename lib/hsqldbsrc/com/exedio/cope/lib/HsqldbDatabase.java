@@ -127,14 +127,8 @@ final class HsqldbDatabase
 				"from SYSTEM_CHECK_CONSTRAINTS").
 			defineColumnString().
 			defineColumnString();
-		try
-		{
-			executeSQLQuery(bf, new ReportConstraintHandler(report), false);
-		}
-		catch(ConstraintViolationException e)
-		{
-			throw new NestingRuntimeException(e);
-		}
+
+		executeSQLQuery(bf, new ReportConstraintHandler(report), false);
 	}
 
 	private static class ReportConstraintHandler implements ResultSetHandler

@@ -147,23 +147,17 @@ abstract class Database
 			}
 		}
 		
-		try
-		{
-			//System.out.println("checkDatabase:"+bf.toString());
-			executeSQLQuery(bf,
-				new ResultSetHandler()
+		//System.out.println("checkDatabase:"+bf.toString());
+		executeSQLQuery(bf,
+			new ResultSetHandler()
+			{
+				public void run(final ResultSet resultSet) throws SQLException
 				{
-					public void run(final ResultSet resultSet) throws SQLException
-					{
-					}
-				},
-				false
-			);
-		}
-		catch(ConstraintViolationException e)
-		{
-			throw new NestingRuntimeException(e);
-		}
+					if(resultSet.next())
+				}
+			},
+			false
+		);
 
 		//final long amount = (System.currentTimeMillis()-time);
 		//checkTableTime += amount;
@@ -369,17 +363,10 @@ abstract class Database
 		}
 
 		//System.out.println("searching "+bf.toString());
-		try
-		{
-			final SearchResultSetHandler handler =
-				new SearchResultSetHandler(query.start, query.count, selectables, selectColumns, selectTypes, query.model);
-			query.statementInfo = executeSQLQuery(bf, handler, query.makeStatementInfo);
-			return handler.result;
-		}
-		catch(ConstraintViolationException e)
-		{
-			throw new NestingRuntimeException(e);
-		}
+		final SearchResultSetHandler handler =
+			new SearchResultSetHandler(query.start, query.count, selectables, selectColumns, selectTypes, query.model);
+		query.statementInfo = executeSQLQuery(bf, handler, query.makeStatementInfo);
+		return handler.result;
 	}
 
 	private static class SearchResultSetHandler implements ResultSetHandler
@@ -540,14 +527,7 @@ abstract class Database
 		}
 
 		//System.out.println("loading "+bf.toString());
-		try
-		{
-			executeSQLQuery(bf, new LoadResultSetHandler(row), false);
-		}
-		catch(ConstraintViolationException e)
-		{
-			throw new NestingRuntimeException(e);
-		}
+		executeSQLQuery(bf, new LoadResultSetHandler(row), false);
 	}
 
 	private static class LoadResultSetHandler implements ResultSetHandler
@@ -598,16 +578,9 @@ abstract class Database
 			append(pk);
 
 		//System.out.println("loading "+bf.toString());
-		try
-		{
-			final CheckResultSetHandler handler = new CheckResultSetHandler();
-			executeSQLQuery(bf, handler, false);
-			return handler.result;
-		}
-		catch(ConstraintViolationException e)
-		{
-			throw new NestingRuntimeException(e);
-		}
+		final CheckResultSetHandler handler = new CheckResultSetHandler();
+		executeSQLQuery(bf, handler, false);
+		return handler.result;
 	}
 
 	private static class CheckResultSetHandler implements ResultSetHandler
@@ -779,9 +752,15 @@ abstract class Database
 		final Statement statement,
 		final ResultSetHandler resultSetHandler,
 		final boolean makeStatementInfo)
-			throws ConstraintViolationException
 	{
-		return executeSQL(statement, resultSetHandler, 0, makeStatementInfo);
+		try
+		{
+			return executeSQL(statement, resultSetHandler, 0, makeStatementInfo);
+		}
+		catch(ConstraintViolationException e)
+		{
+			throw new NestingRuntimeException(e);
+		}
 	}
 	
 	protected final void executeSQLUpdate(final Statement statement, final int expectedRows)
@@ -1179,16 +1158,9 @@ abstract class Database
 		bf.append("select count(*) from ").defineColumnInteger().
 			append(table.protectedID);
 
-		try
-		{
-			final CountResultSetHandler handler = new CountResultSetHandler();
-			executeSQLQuery(bf, handler, false);
-			return handler.result;
-		}
-		catch(ConstraintViolationException e)
-		{
-			throw new NestingRuntimeException(e);
-		}
+		final CountResultSetHandler handler = new CountResultSetHandler();
+		executeSQLQuery(bf, handler, false);
+		return handler.result;
 	}
 	
 	private static class CountResultSetHandler implements ResultSetHandler
@@ -1257,17 +1229,10 @@ abstract class Database
 			append(") from ").
 			append(table.protectedID);
 			
-		try
-		{
-			final NextPKResultSetHandler handler = new NextPKResultSetHandler();
-			executeSQLQuery(bf, handler, false);
-			//System.err.println("select max("+type.primaryKey.trimmedName+") from "+type.trimmedName+" : "+handler.result);
-			return handler.result;
-		}
-		catch(ConstraintViolationException e)
-		{
-			throw new NestingRuntimeException(e);
-		}
+		final NextPKResultSetHandler handler = new NextPKResultSetHandler();
+		executeSQLQuery(bf, handler, false);
+		//System.err.println("select max("+type.primaryKey.trimmedName+") from "+type.trimmedName+" : "+handler.result);
+		return handler.result;
 	}
 	
 	private static class NextPKResultSetHandler implements ResultSetHandler
@@ -1323,26 +1288,12 @@ abstract class Database
 		{
 			final com.exedio.cope.lib.Statement bf = createStatement();
 			bf.append(GET_TABLES);
-			try
-			{
-				executeSQLQuery(bf, new MetaDataTableHandler(report), false);
-			}
-			catch(ConstraintViolationException e)
-			{
-				throw new NestingRuntimeException(e);
-			}
+			executeSQLQuery(bf, new MetaDataTableHandler(report), false);
 		}
 		{
 			final com.exedio.cope.lib.Statement bf = createStatement();
 			bf.append(GET_COLUMNS);
-			try
-			{
-				executeSQLQuery(bf, new MetaDataColumnHandler(report), false);
-			}
-			catch(ConstraintViolationException e)
-			{
-				throw new NestingRuntimeException(e);
-			}
+			executeSQLQuery(bf, new MetaDataColumnHandler(report), false);
 		}
 	}
 

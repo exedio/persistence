@@ -104,14 +104,8 @@ final class OracleDatabase
 			bf.append("select TABLE_NAME, LAST_ANALYZED from user_tables").
 				defineColumnString().
 				defineColumnTimestamp();
-			try
-			{
-				executeSQLQuery(bf, new ReportTableHandler(report), false);
-			}
-			catch(ConstraintViolationException e)
-			{
-				throw new NestingRuntimeException(e);
-			}
+
+			executeSQLQuery(bf, new ReportTableHandler(report), false);
 		}
 		{
 			final Statement bf = createStatement();
@@ -122,14 +116,8 @@ final class OracleDatabase
 				defineColumnInteger().
 				defineColumnInteger().
 				defineColumnInteger();
-			try
-			{
-				executeSQLQuery(bf, new ReportColumnHandler(report), false);
-			}
-			catch(ConstraintViolationException e)
-			{
-				throw new NestingRuntimeException(e);
-			}
+
+			executeSQLQuery(bf, new ReportColumnHandler(report), false);
 		}
 		{
 			final Statement bf = createStatement();
@@ -144,14 +132,8 @@ final class OracleDatabase
 				defineColumnString().
 				defineColumnString().
 				defineColumnString();
-			try
-			{
-				executeSQLQuery(bf, new ReportConstraintHandler(report), false);
-			}
-			catch(ConstraintViolationException e)
-			{
-				throw new NestingRuntimeException(e);
-			}
+
+			executeSQLQuery(bf, new ReportConstraintHandler(report), false);
 		}
 	}
 
