@@ -51,12 +51,14 @@
 				maxmemory="60m"
 				private="on"
 				author="on"
+				use="on"
+				version="on"
 				windowtitle="COPE (Cooles Persistenzframework)"
 				doctitle=   "COPE (Cooles Persistenzframework)"
-				header="header text"
-				footer="footer text"
+				header='Welcome To A Better World,&lt;br>Where There Is &lt;a href="http://www.javageeks.com/SBJP/index.html" target="_top">No EJB&lt;/a>,&lt;br>&lt;a href="http://radio.weblogs.com/0112098/2002/11/26.html" target="_top">Really&lt;/a>.'
+				footer='Don&apos;t Make Things More&lt;br>Complicated They Have To Be.&lt;br>Don&apos;t Use EJB.'
 				splitindex="on"
-				bottom='bottom text'
+				bottom='&amp;copy; Copyright 2004 &lt;a href="http://www.exedio.com/" target="_top">exedio&lt;/a> Gesellschaft f&amp;uuml;r Softwareentwicklung mbH'
 			>
 			<package name="com.*" />
 		</javadoc>
