@@ -3,6 +3,7 @@ package com.exedio.cope.lib.hierarchy;
 
 import com.exedio.cope.lib.DatabaseLibTest;
 import com.exedio.cope.lib.IntegrityViolationException;
+import com.exedio.cope.lib.Search;
 
 public class HierarchyTest extends DatabaseLibTest
 {
@@ -36,6 +37,9 @@ public class HierarchyTest extends DatabaseLibTest
 
 		final FirstSub firstItem2 = new FirstSub(4);
 		assertID(3, firstItem2);
+		
+		assertEquals(list(firstItem), firstItem.TYPE.search(Search.equal(firstItem.firstSubString, "firstSubString")));
+		assertEquals(list(), firstItem.TYPE.search(Search.equal(firstItem.firstSubString, "firstSubStringX")));
 
 		firstItem2.delete();
 		secondItem2.delete();
