@@ -7,6 +7,7 @@ public class AttributesTest extends DatabaseLibTest
 
 	private EmptyItem someItem, someItem2;
 	private ItemWithManyAttributes item;
+	private ItemWithManyAttributes item2;
 
 	public void setUp() throws Exception
 	{
@@ -14,12 +15,15 @@ public class AttributesTest extends DatabaseLibTest
 		someItem = new EmptyItem();
 		someItem2 = new EmptyItem();
 		item = new ItemWithManyAttributes("someString", 5, 6l, 2.2, true, someItem, ItemWithManyAttributes.SomeEnumeration.enumValue1);
+		item2 = new ItemWithManyAttributes("someString2", 6, 7l, 2.3, false, someItem2, ItemWithManyAttributes.SomeEnumeration.enumValue2);
 	}
 	
 	public void tearDown() throws Exception
 	{
 		item.delete();
 		item = null;
+		item2.delete();
+		item2 = null;
 		someItem.delete();
 		someItem = null;
 		someItem2.delete();
@@ -43,6 +47,12 @@ public class AttributesTest extends DatabaseLibTest
 					item.TYPE,
 					Search.equal(item.someString, "someString"))));
 		assertEquals(
+			set(item2),
+			toSet(
+				Search.search(
+					item.TYPE,
+					Search.notEqual(item.someString, "someString"))));
+		assertEquals(
 			set(),
 			toSet(
 				Search.search(
@@ -54,6 +64,12 @@ public class AttributesTest extends DatabaseLibTest
 				Search.search(
 					item.TYPE,
 					Search.equal(item.someStringUpperCase, "SOMESTRING"))));
+		assertEquals(
+			set(item2),
+			toSet(
+				Search.search(
+					item.TYPE,
+					Search.notEqual(item.someStringUpperCase, "SOMESTRING"))));
 		assertEquals(
 			set(),
 			toSet(
@@ -104,8 +120,10 @@ public class AttributesTest extends DatabaseLibTest
 	{
 		assertEquals(item.TYPE, item.someInteger.getType());
 		assertEquals(null, item.getSomeInteger());
-		assertEquals(list(item), Search.search(item.TYPE, Search.equal(item.someInteger, null)));
-		assertEquals(list(item), Search.search(item.TYPE, Search.isNull(item.someInteger)));
+		assertEquals(set(item, item2), toSet(Search.search(item.TYPE, Search.equal(item.someInteger, null))));
+		assertEquals(set(item, item2), toSet(Search.search(item.TYPE, Search.isNull(item.someInteger))));
+		assertEquals(set(), toSet(Search.search(item.TYPE, Search.notEqual(item.someInteger, null))));
+		assertEquals(set(), toSet(Search.search(item.TYPE, Search.isNotNull(item.someInteger))));
 
 		item.setSomeInteger(new Integer(10));
 		assertEquals(new Integer(10), item.getSomeInteger());
@@ -115,8 +133,13 @@ public class AttributesTest extends DatabaseLibTest
 		assertEquals(
 			list(item),
 			Search.search(item.TYPE, Search.equal(item.someInteger, 10)));
-		assertEquals(list(), Search.search(item.TYPE, Search.equal(item.someInteger, null)));
-		assertEquals(list(), Search.search(item.TYPE, Search.isNull(item.someInteger)));
+		assertEquals(
+			list(item2),
+			Search.search(item.TYPE, Search.notEqual(item.someInteger, 10)));
+		assertEquals(list(item2), Search.search(item.TYPE, Search.equal(item.someInteger, null)));
+		assertEquals(list(item2), Search.search(item.TYPE, Search.isNull(item.someInteger)));
+		assertEquals(list(item), Search.search(item.TYPE, Search.notEqual(item.someInteger, null)));
+		assertEquals(list(item), Search.search(item.TYPE, Search.isNotNull(item.someInteger)));
 
 		item.setSomeInteger(null);
 		assertEquals(null, item.getSomeInteger());
@@ -173,8 +196,10 @@ public class AttributesTest extends DatabaseLibTest
 	{
 		assertEquals(item.TYPE, item.someLong.getType());
 		assertEquals(null, item.getSomeLong());
-		assertEquals(list(item), Search.search(item.TYPE, Search.equal(item.someLong, null)));
-		assertEquals(list(item), Search.search(item.TYPE, Search.isNull(item.someLong)));
+		assertEquals(set(item, item2), toSet(Search.search(item.TYPE, Search.equal(item.someLong, null))));
+		assertEquals(set(item, item2), toSet(Search.search(item.TYPE, Search.isNull(item.someLong))));
+		assertEquals(set(), toSet(Search.search(item.TYPE, Search.notEqual(item.someLong, null))));
+		assertEquals(set(), toSet(Search.search(item.TYPE, Search.isNotNull(item.someLong))));
 
 		item.setSomeLong(new Long(11));
 		assertEquals(new Long(11), item.getSomeLong());
@@ -184,8 +209,14 @@ public class AttributesTest extends DatabaseLibTest
 		assertEquals(
 			list(item),
 			Search.search(item.TYPE, Search.equal(item.someLong, 11)));
-		assertEquals(list(), Search.search(item.TYPE, Search.equal(item.someLong, null)));
-		assertEquals(list(), Search.search(item.TYPE, Search.isNull(item.someLong)));
+		assertEquals(
+			list(item2),
+			Search.search(item.TYPE, Search.notEqual(item.someLong, 11)));
+
+		assertEquals(list(item2), Search.search(item.TYPE, Search.equal(item.someLong, null)));
+		assertEquals(list(item2), Search.search(item.TYPE, Search.isNull(item.someLong)));
+		assertEquals(list(item), Search.search(item.TYPE, Search.notEqual(item.someLong, null)));
+		assertEquals(list(item), Search.search(item.TYPE, Search.isNotNull(item.someLong)));
 
 		item.setSomeLong(null);
 		assertEquals(null, item.getSomeLong());
@@ -242,8 +273,10 @@ public class AttributesTest extends DatabaseLibTest
 	{
 		assertEquals(item.TYPE, item.someDouble.getType());
 		assertEquals(null, item.getSomeDouble());
-		assertEquals(list(item), Search.search(item.TYPE, Search.equal(item.someDouble, null)));
-		assertEquals(list(item), Search.search(item.TYPE, Search.isNull(item.someDouble)));
+		assertEquals(set(item, item2), toSet(Search.search(item.TYPE, Search.equal(item.someDouble, null))));
+		assertEquals(set(item, item2), toSet(Search.search(item.TYPE, Search.isNull(item.someDouble))));
+		assertEquals(set(), toSet(Search.search(item.TYPE, Search.notEqual(item.someDouble, null))));
+		assertEquals(set(), toSet(Search.search(item.TYPE, Search.isNotNull(item.someDouble))));
 
 		item.setSomeDouble(new Double(22.22));
 		assertEquals(new Double(22.22), item.getSomeDouble());
@@ -253,8 +286,13 @@ public class AttributesTest extends DatabaseLibTest
 		assertEquals(
 			list(item),
 			Search.search(item.TYPE, Search.equal(item.someDouble, 22.22)));
-		assertEquals(list(), Search.search(item.TYPE, Search.equal(item.someDouble, null)));
-		assertEquals(list(), Search.search(item.TYPE, Search.isNull(item.someDouble)));
+		assertEquals(
+			list(item2),
+			Search.search(item.TYPE, Search.notEqual(item.someDouble, 22.22)));
+		assertEquals(list(item2), Search.search(item.TYPE, Search.equal(item.someDouble, null)));
+		assertEquals(list(item2), Search.search(item.TYPE, Search.isNull(item.someDouble)));
+		assertEquals(list(item), Search.search(item.TYPE, Search.notEqual(item.someDouble, null)));
+		assertEquals(list(item), Search.search(item.TYPE, Search.isNotNull(item.someDouble)));
 
 		item.setSomeDouble(null);
 		assertEquals(null, item.getSomeDouble());

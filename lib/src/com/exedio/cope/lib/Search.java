@@ -10,6 +10,7 @@ import com.exedio.cope.lib.search.AndCondition;
 import com.exedio.cope.lib.search.Condition;
 import com.exedio.cope.lib.search.EqualAttributeCondition;
 import com.exedio.cope.lib.search.EqualCondition;
+import com.exedio.cope.lib.search.NotEqualCondition;
 import com.exedio.cope.lib.search.GreaterCondition;
 import com.exedio.cope.lib.search.GreaterEqualCondition;
 import com.exedio.cope.lib.search.JoinCondition;
@@ -110,6 +111,11 @@ public abstract class Search
 		return new EqualCondition(attribute);
 	}
 	
+	public static final NotEqualCondition isNotNull(final ObjectAttribute attribute)
+	{
+		return new NotEqualCondition(attribute);
+	}
+	
 	public static final EqualCondition equal(final StringFunction function, final String value)
 	{
 		return new EqualCondition(function, value);
@@ -153,6 +159,46 @@ public abstract class Search
 	public static final EqualCondition equal(final ItemAttribute attribute, final Item value)
 	{
 		return new EqualCondition(attribute, value);
+	}
+	
+	public static final NotEqualCondition notEqual(final StringFunction function, final String value)
+	{
+		return new NotEqualCondition(function, value);
+	}
+	
+	public static final NotEqualCondition notEqual(final IntegerFunction function, final Integer value)
+	{
+		return new NotEqualCondition(function, value);
+	}
+	
+	public static final NotEqualCondition notEqual(final IntegerFunction function, final int value)
+	{
+		return new NotEqualCondition(function, new Integer(value));
+	}
+	
+	public static final NotEqualCondition notEqual(final LongAttribute attribute, final Long value)
+	{
+		return new NotEqualCondition(attribute, value);
+	}
+	
+	public static final NotEqualCondition notEqual(final LongAttribute attribute, final long value)
+	{
+		return new NotEqualCondition(attribute, new Long(value));
+	}
+	
+	public static final NotEqualCondition notEqual(final DoubleAttribute attribute, final Double value)
+	{
+		return new NotEqualCondition(attribute, value);
+	}
+	
+	public static final NotEqualCondition notEqual(final DoubleAttribute attribute, final double value)
+	{
+		return new NotEqualCondition(attribute, new Double(value));
+	}
+	
+	public static final NotEqualCondition notEqual(final ItemAttribute attribute, final Item value)
+	{
+		return new NotEqualCondition(attribute, value);
 	}
 	
 	public static final LessCondition less(final StringAttribute attribute, final String value)
