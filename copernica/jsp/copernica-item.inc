@@ -29,7 +29,29 @@
 						%>
 						</td>
 					</tr>
-				</table>
+				<%
+				final Collection mainAttributes;
+				final Collection sections = provider.getSections(type);
+				if(sections!=null)
+				{
+					%>
+					<tr><td><%
+					for(Iterator i = sections.iterator(); i.hasNext(); )
+					{
+						final CopernicaSection section = (CopernicaSection)i.next();
+						final String id = section.getCopernicaID();
+						final String name = section.getCopernicaName(language);
+						%><input type="submit" name="<%=id%>" value="<%=name%>" /><%
+					}
+					%>
+					</td></tr><%
+					mainAttributes = provider.getMainAttributes(type);
+				}
+				else
+				{
+					mainAttributes = null;
+				}
+				%></table>
 				<table border="1"><%
 				for(Iterator j = form.getFields().iterator(); j.hasNext(); )
 				{

@@ -1,8 +1,10 @@
 package com.exedio.copernica;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Date;
 
+import com.exedio.cope.lib.Attribute;
 import com.exedio.cope.lib.ConstraintViolationException;
 import com.exedio.cope.lib.Model;
 import com.exedio.cope.lib.NestingRuntimeException;
@@ -55,6 +57,34 @@ public class CopernicaTestProvider extends TransientCopernicaProvider
 				admin,
 				user,
 			}
+		);
+		
+		setSections(AttributeItem.TYPE,
+			Arrays.asList(new Attribute[]{AttributeItem.someString, AttributeItem.someNotNullString}),
+			Arrays.asList(new TransientSection[]
+			{
+				new TransientSection("numbers", new Attribute[] {
+						AttributeItem.someInteger,
+						AttributeItem.someLong,
+						AttributeItem.someDouble,
+						AttributeItem.someNotNullInteger,
+						AttributeItem.someNotNullLong,
+						AttributeItem.someNotNullDouble,
+						}),
+				new TransientSection("media", new Attribute[]{
+						AttributeItem.someEnumeration,
+						AttributeItem.someNotNullEnumeration,
+						AttributeItem.someMedia,
+						}),
+				new TransientSection("other", new Attribute[]{
+						AttributeItem.someDate,
+						AttributeItem.someLongDate,
+						AttributeItem.someBoolean,
+						AttributeItem.someNotNullBoolean,
+						AttributeItem.someItem,
+						AttributeItem.someNotNullItem,
+						}),
+			})
 		);
 	}
 
