@@ -278,6 +278,8 @@ public class LibTest extends TestCase
 			final ItemWithoutAttributes someItem = new ItemWithoutAttributes();
 			item.setSomeItem(someItem);
 			assertEquals(someItem, item.getSomeItem());
+			item.passivate();
+			assertEquals(someItem, item.getSomeItem());
 			item.setSomeItem(null);
 			assertEquals(null, item.getSomeItem());
 			

@@ -1,6 +1,8 @@
 
 package com.exedio.cope.lib;
 
+import java.math.BigDecimal;
+
 public final class ItemAttribute extends Attribute
 {
 	private Type type;
@@ -25,7 +27,7 @@ public final class ItemAttribute extends Attribute
 		if(cell==null)
 			return null;
 		else
-			return (Integer)cell;
+			return new Integer(((BigDecimal)cell).intValue()); // TODO: use ResultSet.getInt() somehow
 	}
 
 	Object cacheToDatabase(final Object cache)
