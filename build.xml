@@ -52,7 +52,7 @@
 	
 	<target name="copernica.compile.classes" depends="lib.compile">
 		<mkdir dir="copernica/build/classes" />
-		<javac srcdir= "copernica/src"
+		<javac srcdir="copernica/src"
 				destdir="copernica/build/classes"
 				deprecation="on"
 				debug="on"
