@@ -131,7 +131,7 @@ public class AttributeItem extends Item
 	 * @param initialSomeNotNullBoolean the initial value for attribute {@link #someNotNullBoolean}.
 	 * @param initialSomeNotNullItem the initial value for attribute {@link #someNotNullItem}.
 	 * @param initialSomeNotNullEnumeration the initial value for attribute {@link #someNotNullEnumeration}.
-	 * @throws com.exedio.cope.lib.NotNullViolationException if initialSomeNotNullString, initialSomeNotNullItem, initialSomeNotNullEnumeration is not null.
+	 * @throws com.exedio.cope.lib.NotNullViolationException if initialSomeNotNullString, initialSomeNotNullItem, initialSomeNotNullEnumeration is null.
 	 *
  */public AttributeItem(
 				final java.lang.String initialSomeNotNullString,

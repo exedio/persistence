@@ -123,7 +123,7 @@ final class Generator
 	
 	static
 	{
-		constraintViolationText.put(NotNullViolationException.class, "not null");
+		constraintViolationText.put(NotNullViolationException.class, "null");
 		constraintViolationText.put(ReadOnlyViolationException.class, "read only");
 		constraintViolationText.put(UniqueViolationException.class, "not unique");
 	}
