@@ -69,16 +69,6 @@ public abstract class Database
 			dropTable((Type)i.next());
 	}
 
-	private void createTable(final Type type)
-	{
-		executeSQL(getCreateTableStatement(type));
-	}
-	
-	private void dropTable(final Type type)
-	{
-		executeSQL(getDropTableStatement(type));
-	}
-	
 	public static final class Statement
 	{
 		final StringBuffer text = new StringBuffer();
@@ -370,7 +360,7 @@ public abstract class Database
 		return getNameDelimiterStart() + name + getNameDelimiterEnd();
 	}
 	
-	private String getCreateTableStatement(final Type type)
+	private void createTable(final Type type)
 	{
 		// TODO: use Statement class
 		final StringBuffer bf = new StringBuffer();
@@ -394,16 +384,18 @@ public abstract class Database
 				append(column.databaseType);
 		}
 		bf.append(')');
-		return bf.toString();
+
+		executeSQL(bf.toString());
 	}
 	
-	private String getDropTableStatement(final Type type)
+	private void dropTable(final Type type)
 	{
 		// TODO: use Statement class
 		final StringBuffer bf = new StringBuffer();
 		bf.append("drop table ").
 			append(type.getPersistentQualifier());
-		return bf.toString();
+
+		executeSQL(bf.toString());
 	}
 	
 }
