@@ -105,6 +105,11 @@ final class StringColumn extends Column
 
 	Object cacheToDatabase(final Object cache)
 	{
+		return cacheToDatabaseStatic(cache);
+	}
+	
+	static Object cacheToDatabaseStatic(final Object cache)
+	{
 		if(cache==null)
 			return "NULL";
 		else

@@ -1,6 +1,8 @@
 
 package com.exedio.cope.lib;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -8,18 +10,15 @@ import java.util.List;
 public abstract class ComputedFunction implements Function
 {
 	private final Function[] sources;
-	final Function mainSource;
 	private final List sourceList;
 	private final String[] sqlFragments;
 	private final String functionName;
 
 	public ComputedFunction(final Function[] sources,
-									final Function mainSource,
 									final String[] sqlFragments,
 									final String functionName)
 	{
 		this.sources = sources;
-		this.mainSource = mainSource;
 		this.sourceList = Collections.unmodifiableList(Arrays.asList(sources));
 		this.sqlFragments = sqlFragments;
 		if(sources.length+1!=sqlFragments.length)
@@ -34,6 +33,10 @@ public abstract class ComputedFunction implements Function
 
 	public abstract Object mapJava(Object[] sourceValues);
 
+	abstract Object load(ResultSet resultSet, int columnIndex) throws SQLException;
+
+	abstract Object surface2Database(Object value);
+	
 	public final void append(final Statement bf)
 	{
 		for(int i = 0; i<sources.length; i++)

@@ -1,9 +1,11 @@
 package com.exedio.cope.lib.function;
 
-import com.exedio.cope.lib.ComputedFunction;
+import com.exedio.cope.lib.ComputedIntegerFunction;
 import com.exedio.cope.lib.IntegerFunction;
 
-public final class SumFunction extends ComputedFunction implements IntegerFunction
+public final class SumFunction
+	extends ComputedIntegerFunction
+	implements IntegerFunction
 {
 
 	public SumFunction(final IntegerFunction addend1, final IntegerFunction addend2)
@@ -18,7 +20,7 @@ public final class SumFunction extends ComputedFunction implements IntegerFuncti
 
 	private SumFunction(final IntegerFunction[] addends)
 	{
-		super(addends, addends[0], makePlusses(addends.length), "sum");
+		super(addends, makePlusses(addends.length), "sum");
 	}
 	
 	private static final String[] makePlusses(final int length)

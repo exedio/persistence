@@ -51,6 +51,7 @@ public class ModelTest extends AbstractLibTest
 		final Feature[] features = new Feature[]{
 			item.someString,
 			item.someStringUpperCase,
+			item.someStringLength,
 			item.someNotNullString,
 			item.someInteger,
 			item.someNotNullInteger,

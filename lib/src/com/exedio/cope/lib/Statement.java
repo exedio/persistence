@@ -74,13 +74,17 @@ public final class Statement
 		return this;
 	}
 		
-	public Statement appendValue(Function function, final Object value)
+	public Statement appendValue(final Function function, final Object value)
 	{
-		while(function instanceof ComputedFunction)
-			function = ((ComputedFunction)function).mainSource;
-			
-		final ObjectAttribute attribute = (ObjectAttribute)function;
-		appendValue(attribute.getMainColumn(), attribute.surfaceToCache(value));
+		if(function instanceof ComputedFunction)
+		{
+			this.text.append(((ComputedFunction)function).surface2Database(value));
+		}
+		else
+		{
+			final ObjectAttribute attribute = (ObjectAttribute)function;
+			appendValue(attribute.getMainColumn(), attribute.surfaceToCache(value));
+		}
 		return this;
 	}
 	
