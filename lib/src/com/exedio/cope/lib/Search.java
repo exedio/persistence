@@ -21,7 +21,7 @@ public class Search
 	{}
 	
 	/**
-	 * Returns the item with the given id.
+	 * Returns the item with the given ID.
 	 * Returns null, if no such item exists.
 	 * @see Item#getID()
 	 */
