@@ -283,7 +283,11 @@ public abstract class Database
 						reportTable.notifyRequiredConstraint(intColumn.getAllowedValuesConstraintID());
 				}
 			}
-			//System.out.println("REQUIRED:"+table.id);
+			for(Iterator j = table.getUniqueConstraints().iterator(); j.hasNext(); )
+			{
+				final UniqueConstraint uniqueConstraint = (UniqueConstraint)j.next();
+				reportTable.notifyRequiredConstraint(uniqueConstraint.getID());
+			}
 		}
 
 		return report;
