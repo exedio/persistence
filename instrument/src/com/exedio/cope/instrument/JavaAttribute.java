@@ -13,6 +13,7 @@ import java.lang.reflect.Modifier;
 public final class JavaAttribute extends JavaFeature
 {
 	private String persistentType = null;
+	private boolean unique = false;
 
 	public JavaAttribute(JavaClass parent, int modifiers, String type, String name)
 	throws InjectorParseException
@@ -41,6 +42,11 @@ public final class JavaAttribute extends JavaFeature
 	public String getPersistentType()
 	{
 		return this.persistentType;
+	}
+	
+	public boolean isUnique()
+	{
+		return unique;
 	}
 	
 	/**
@@ -108,5 +114,9 @@ public final class JavaAttribute extends JavaFeature
 		getParent().addPersistentAttribute(this);
 		this.persistentType = persistentType;
 	}
-	
+
+	public final void makeUnique()
+	{
+		unique = true;
+	}
 }

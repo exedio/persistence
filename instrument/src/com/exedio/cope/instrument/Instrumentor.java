@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.*;
 import java.lang.reflect.Modifier;
+import persistence.UniqueViolationException;
 
 public final class Instrumentor implements InjectionConsumer
 {
@@ -65,6 +66,11 @@ public final class Instrumentor implements InjectionConsumer
 	 * Tag name for persistent attributes.
 	 */
 	private static final String PERSISTENT_ATTRIBUTE = PERSISTENT_CLASS;
+
+	/**
+	 * Tag name for unique attributes.
+	 */
+	private static final String UNIQUE_ATTRIBUTE = "unique";
 	
 	/**
 	 * All generated class features get this doccomment tag.
@@ -123,7 +129,10 @@ public final class Instrumentor implements InjectionConsumer
 		output.write(type);
 		output.write(' ');
 		output.write(persistentAttribute.getName());
-		output.write("){");
+		output.write(")");
+		if(persistentAttribute.isUnique())
+			output.write(" throws "+UniqueViolationException.class.getName()+' ');
+		output.write("{");
 		output.write(lineSeparator);
 		output.write('}');
 	}
@@ -185,6 +194,9 @@ public final class Instrumentor implements InjectionConsumer
 
 				final JavaAttribute ja = (JavaAttribute)jf;
 				ja.makePersistent(persistentType);
+
+				if(containsTag(docComment, UNIQUE_ATTRIBUTE))
+					ja.makeUnique();
 			}
 		}
 		discardnextfeature=false;
