@@ -300,7 +300,7 @@ public class AttributesTest extends DatabaseLibTest
 		}
 	}
 
-	public void testSomeMedia()
+	public void testSomeMedia() throws IOException
 	{
 		// TODO: dotestItemWithManyAttributesSomeNotNullMedia(item);
 		assertEquals(item.TYPE, item.someMedia.getType());
@@ -311,15 +311,8 @@ public class AttributesTest extends DatabaseLibTest
 		assertEquals(null, item.getSomeMediaMimeMinor());
 
 		final byte[] bytes = new byte[]{3,7,1,4};
-		try
-		{
-			item.setSomeMediaData(new ByteArrayInputStream(bytes),
-			"someMimeMajor", "someMimeMinor");
-		}
-		catch (IOException e)
-		{
-			throw new SystemException(e);
-		}
+		item.setSomeMediaData(new ByteArrayInputStream(bytes),"someMimeMajor", "someMimeMinor");
+
 		final String prefix =
 			"/medias/com.exedio.cope.lib.ItemWithManyAttributes/someMedia/";
 		final String pkString = (item.pk>=0) ? String.valueOf(item.pk) : "m"+(-item.pk);
@@ -348,14 +341,7 @@ public class AttributesTest extends DatabaseLibTest
 		assertMediaMime(item, "image", "png", bytes, "png");
 		assertMediaMime(item, "image", "someMinor", bytes, "image.someMinor");
 
-		try
-		{
-			item.setSomeMediaData(null, null, null);
-		}
-		catch (IOException e)
-		{
-			throw new SystemException(e);
-		}
+		item.setSomeMediaData(null, null, null);
 		assertEquals(null, item.getSomeMediaURL());
 		assertEquals(null, item.getSomeMediaURLSomeVariant());
 		assertEquals(null, item.getSomeMediaData());
