@@ -7,39 +7,39 @@ import java.util.Arrays;
 
 public abstract class ComputedFunction implements Function 
 {
-	private final Function[] sourceAttributes; // TODO rename field
-	final Function mainSourceAttribute; // TODO rename field
-	private final List sourceAttributeList; // TODO rename field
+	private final Function[] sources;
+	final Function mainSource;
+	private final List sourceList;
 	private final String[] sqlFragments;
 	private final String functionName;
 
-	public ComputedFunction(final Function[] sourceAttributes, // TODO rename argument
-									final Function mainSourceAttribute, // TODO rename argument
+	public ComputedFunction(final Function[] sources,
+									final Function mainSource,
 									final String[] sqlFragments,
 									final String functionName)
 	{
-		this.sourceAttributes = sourceAttributes;
-		this.mainSourceAttribute = mainSourceAttribute;
-		this.sourceAttributeList = Collections.unmodifiableList(Arrays.asList(sourceAttributes));
+		this.sources = sources;
+		this.mainSource = mainSource;
+		this.sourceList = Collections.unmodifiableList(Arrays.asList(sources));
 		this.sqlFragments = sqlFragments;
-		if(sourceAttributes.length+1!=sqlFragments.length)
-			throw new RuntimeException("length "+sourceAttributes.length+" "+sqlFragments.length);
+		if(sources.length+1!=sqlFragments.length)
+			throw new RuntimeException("length "+sources.length+" "+sqlFragments.length);
 		this.functionName = functionName;
 	}
 	
 	final List getSourceAttributes()
 	{
-		return sourceAttributeList;
+		return sourceList;
 	}
 
 	public abstract Object mapJava(Object[] sourceValues);
 
 	public final void append(final Statement bf)
 	{
-		for(int i = 0; i<sourceAttributes.length; i++)
+		for(int i = 0; i<sources.length; i++)
 		{
 			bf.append(sqlFragments[i]).
-				append(sourceAttributes[i]);
+				append(sources[i]);
 		}
 		bf.append(sqlFragments[sqlFragments.length-1]);
 	}
@@ -48,11 +48,11 @@ public abstract class ComputedFunction implements Function
 	{
 		final StringBuffer buf = new StringBuffer(functionName);
 		buf.append('(');
-		for(int i = 0; i<sourceAttributes.length; i++)
+		for(int i = 0; i<sources.length; i++)
 		{
 			if(i>0)
 				buf.append(',');
-			buf.append(sourceAttributes[i].getName());
+			buf.append(sources[i].getName());
 		}
 		buf.append(')');
 		

@@ -76,7 +76,7 @@ public final class Statement
 	public Statement appendValue(Function function, final Object value)
 	{
 		while(function instanceof ComputedFunction)
-			function = ((ComputedFunction)function).mainSourceAttribute;
+			function = ((ComputedFunction)function).mainSource;
 			
 		final ObjectAttribute attribute = (ObjectAttribute)function;
 		appendValue(attribute.getMainColumn(), attribute.surfaceToCache(value));
