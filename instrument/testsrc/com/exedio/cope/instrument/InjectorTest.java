@@ -171,6 +171,7 @@ public abstract class InjectorTest extends TestCase
 		if(expectedJavaAttribute==null)
 			throw new NullPointerException();
 		assertFeature(name, docComment, expectedJavaAttribute);
+		//System.out.println("---"+name+" >"+expectedJavaAttribute.getInitializerTokens()+"<");
 	}
 	
 	/**
