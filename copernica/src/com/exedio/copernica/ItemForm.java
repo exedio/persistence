@@ -143,16 +143,19 @@ final class ItemForm extends Form
 						if(attribute instanceof BooleanAttribute && attribute.isNotNull())
 							value = VALUE_OFF;
 						else
-							throw new NullPointerException(name);
+						{
+							if(attribute.isReadOnly())
+								value = valueToString(attribute, item.getAttribute(attribute));
+							else
+								throw new NullPointerException(name);
+						}
 					}
 					else
 						value = postValue;
 				}
 				else
-				{
-					final Object itemValue = item.getAttribute(attribute);
-					value = valueToString(attribute, itemValue);
-				}
+					value = valueToString(attribute, item.getAttribute(attribute));
+
 				if(!attribute.isReadOnly())
 					field = new Field(attribute, name, value, hiddenAttributes.contains(attribute));
 				else
