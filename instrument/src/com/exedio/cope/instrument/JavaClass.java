@@ -35,7 +35,7 @@ public class JavaClass extends JavaFeature
 			buf.append('.');
 		}
 		int pos=buf.length();
-		for(JavaClass i=this; i!=null; i=i.getParent())
+		for(JavaClass i=this; i!=null; i=i.parent)
 		{
 			if(i!=this)
 				buf.insert(pos, '$');
@@ -68,7 +68,7 @@ public class JavaClass extends JavaFeature
 			}
 		}
 		int pos=buf.length();
-		for(JavaClass i=this; i!=null; i=i.getParent())
+		for(JavaClass i=this; i!=null; i=i.parent)
 		{
 			buf.insert(pos, i.getName());
 			buf.insert(pos, '_');

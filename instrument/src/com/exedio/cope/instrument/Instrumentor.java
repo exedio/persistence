@@ -181,7 +181,7 @@ public final class Instrumentor implements InjectionConsumer
 		throws InjectorParseException
 	{
 		final String type = ja.getType();
-		final JavaClass jc = ja.getParent();
+		final JavaClass jc = ja.parent;
 		final List initializerArguments = ja.getInitializerArguments();
 		//System.out.println(initializerArguments);
 		final PersistentClass persistentClass = PersistentClass.getPersistentClass(jc);
@@ -202,7 +202,7 @@ public final class Instrumentor implements InjectionConsumer
 	private final void handleQualifier(final JavaAttribute ja, final Class typeClass)
 		throws InjectorParseException
 	{
-		final JavaClass jc = ja.getParent();
+		final JavaClass jc = ja.parent;
 		final PersistentClass persistentClass = PersistentClass.getPersistentClass(jc);
 		final List initializerArguments = ja.getInitializerArguments();
 		//System.out.println("---------"+initializerArguments);
@@ -212,7 +212,7 @@ public final class Instrumentor implements InjectionConsumer
 	private final void handleMediaVariant(final JavaAttribute ja, final Class typeClass)
 		throws InjectorParseException
 	{
-		final JavaClass jc = ja.getParent();
+		final JavaClass jc = ja.parent;
 		final PersistentClass persistentClass = PersistentClass.getPersistentClass(jc);
 		final List initializerArguments = ja.getInitializerArguments();
 		if(initializerArguments.size()!=1)

@@ -50,7 +50,7 @@ public abstract class PersistentAttribute
 	{
 		this.javaAttribute = javaAttribute;
 		this.accessModifier = javaAttribute.accessModifier;
-		this.persistentClass = PersistentClass.getPersistentClass(javaAttribute.getParent());
+		this.persistentClass = PersistentClass.getPersistentClass(javaAttribute.parent);
 		this.persistentType = persistentType;
 		this.computed = ComputedFunction.class.isAssignableFrom(typeClass);
 		
@@ -118,7 +118,7 @@ public abstract class PersistentAttribute
 
 	public final JavaClass getParent()
 	{
-		return javaAttribute.getParent();
+		return javaAttribute.parent;
 	}
 	
 	/**

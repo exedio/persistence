@@ -38,7 +38,7 @@ public final class JavaAttribute
 	public JavaAttribute(JavaAttribute ja, String name)
 		throws InjectorParseException
 	{
-		this(ja.getParent(), ja.getModifiers(), ja.type, name);
+		this(ja.parent, ja.getModifiers(), ja.type, name);
 	}
 
 	/**
@@ -52,7 +52,7 @@ public final class JavaAttribute
 	{
 		return file.getPackageName()
 			+ '.'
-			+ getParent().getName()
+			+ parent.getName()
 			+ '#'
 			+ getName();
 	}

@@ -27,7 +27,7 @@ public abstract class JavaFeature
 	 * The class, which contains this feature.
 	 * Is null for top-level (not inner) classes.
 	 */
-	private final JavaClass parent;
+	public final JavaClass parent;
 	
 	/**
 	 * The modifiers of this feature.
@@ -80,15 +80,6 @@ public abstract class JavaFeature
 	public final String getPackageName()
 	{
 		return file.getPackageName();
-	}
-	
-	/**
-	 * Returns the class, which contains this feature.
-	 * Is null for top-level (not inner) classes.
-	 */
-	public final JavaClass getParent()
-	{
-		return parent;
 	}
 	
 	/**
