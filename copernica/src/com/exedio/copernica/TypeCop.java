@@ -59,6 +59,11 @@ final class TypeCop extends CopernicaCop
 		return new TypeCop(language, type, newStart, count);
 	}
 	
+	final TypeCop switchCount(final int newCount)
+	{
+		return new TypeCop(language, type, start, newCount);
+	}
+	
 	final Collection search()
 	{
 		final Query query = new Query(type, null);

@@ -166,7 +166,19 @@ page import="java.util.Map"
 									[<a href="<%=typeCop.nextPage()%>">&gt;</a>]
 									<%
 								}
-								%><%=typeCop.start+1%> - <%=typeCop.start+items.size()%><%
+								%><%=typeCop.start+1%> - <%=typeCop.start+items.size()
+								%><br>Items per Page: <%
+								for(int i = 10; i<=50; i+=10)
+								{
+									if(i==typeCop.count)
+									{
+										%> <b><%=i%></b><%
+									}
+									else
+									{
+										%> <a href="<%=typeCop.switchCount(i)%>"><%=i%></a><%
+									}
+								}
 							}
 							%>
 							<table border="1">
