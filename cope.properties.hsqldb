@@ -1,4 +1,4 @@
-database=com.exedio.cope.lib.HsqldbDatabase
+database=hsqldb
 database.url=jdbc:hsqldb:.
 database.user=sa
 database.password=

@@ -86,7 +86,16 @@ public final class Properties
 		this.source = source;
 
 		{
-			final String databaseName = getPropertyNotNull(properties, DATABASE);
+			final String databaseCode = getPropertyNotNull(properties, DATABASE);
+			if(databaseCode.length()<=2)
+				throw new RuntimeException("database from "+source+" must have at least two characters, but was "+databaseCode);
+
+			final String databaseName =
+				"com.exedio.cope.lib." +
+				Character.toUpperCase(databaseCode.charAt(0)) +
+				databaseCode.substring(1) +
+				"Database";
+
 			final Class databaseClass;
 			try
 			{

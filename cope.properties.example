@@ -5,14 +5,14 @@
 # Example properties for hsqldb
 # see http://hsqldb.sourceforge.net/
 #
-database=com.exedio.cope.lib.HsqldbDatabase
+database=hsqldb
 database.url=jdbc:hsqldb:.
 database.user=sa
 database.password=
 
 # Example properties for Oracle
 #
-database=com.exedio.cope.lib.OracleDatabase
+database=oracle
 database.url=jdbc:oracle:thin:@yourdatabase.yoursite.com:1521:yourSID
 database.user=youruser
 database.password=yourpassword
