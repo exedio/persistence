@@ -3,9 +3,9 @@ package com.exedio.cope.instrument;
 
 import java.util.List;
 
-public final class PersistentEnumerationAttribute extends PersistentAttribute
+public final class PersistentObjectAttribute extends PersistentAttribute
 {
-	public PersistentEnumerationAttribute(
+	public PersistentObjectAttribute(
 			final JavaAttribute javaAttribute,
 			final List initializerArguments, final boolean mapped,
 			final List qualifiers)
