@@ -1,14 +1,15 @@
 
 package com.exedio.cope.lib;
 
-import com.exedio.cope.lib.Database;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+
 import junit.framework.TestCase;
 
 public class LibTest extends TestCase
@@ -390,6 +391,44 @@ public class LibTest extends TestCase
 		try
 		{
 			searchResult.add(new Object());
+			fail("should have thrown UnsupportedOperationException");
+		}
+		catch(UnsupportedOperationException e) {}
+		try
+		{
+			searchResult.addAll(Collections.EMPTY_LIST);
+			fail("should have thrown UnsupportedOperationException");
+		}
+		catch(UnsupportedOperationException e) {}
+		try
+		{
+			searchResult.clear();
+			fail("should have thrown UnsupportedOperationException");
+		}
+		catch(UnsupportedOperationException e) {}
+		try
+		{
+			searchResult.remove(new Object());
+			fail("should have thrown UnsupportedOperationException");
+		}
+		catch(UnsupportedOperationException e) {}
+		try
+		{
+			searchResult.removeAll(Collections.EMPTY_LIST);
+			fail("should have thrown UnsupportedOperationException");
+		}
+		catch(UnsupportedOperationException e) {}
+		try
+		{
+			searchResult.retainAll(Collections.EMPTY_LIST);
+			fail("should have thrown UnsupportedOperationException");
+		}
+		catch(UnsupportedOperationException e) {}
+
+		final Iterator iterator = searchResult.iterator();
+		try
+		{
+			iterator.remove();
 			fail("should have thrown UnsupportedOperationException");
 		}
 		catch(UnsupportedOperationException e) {}
