@@ -63,5 +63,24 @@
 				</tr>
 			</table>
 		</form>
+		
+			<table border="1">
+			<%
+			for(Iterator i = Type.getTypes().iterator(); i.hasNext(); )
+			{
+				%>
+				<tr>
+					<td>
+						<%
+						final Type type = (Type)i.next();
+						%>
+						<%=type.getJavaClass().getName()%>
+					</td>
+				</tr>
+				<%
+			}
+			%>
+			</table>
+	
 	</body>
 </html>
