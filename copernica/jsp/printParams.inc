@@ -9,7 +9,7 @@ for( final Iterator it = request.getParameterMap().entrySet().iterator(); it.has
 {
 	final Map.Entry entry = (Map.Entry)it.next();
 	%>
-	param &gt;<%=entry.getKey()%>&lt; :<%
+	<small>param</small> &gt;<%=entry.getKey()%>&lt; :<%
 	final String[] values = (String[])entry.getValue();
 	for(int jt=0; jt<values.length; jt++)
 	{
@@ -21,7 +21,7 @@ for( final Enumeration it = request.getHeaderNames(); it.hasMoreElements(); )
 {
 	final String name = (String)it.nextElement();
 	%>
-	header &gt;<%=name%>&lt; :<%
+	<small>header</small> &gt;<%=name%>&lt; :<%
 	%> &gt;<%=request.getHeader(name)%>&lt;<%
 	%><br><%
 	//System.out.println("header <"+name+">: <"+request.getHeader(name)+">");
