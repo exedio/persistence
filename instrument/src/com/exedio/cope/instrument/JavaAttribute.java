@@ -9,7 +9,9 @@ import java.lang.reflect.Modifier;
  * described in the doccomment of this attribute.
  * @see Injector
  */
-public final class JavaAttribute extends JavaFeature
+public final class JavaAttribute
+	extends JavaFeature
+	implements TokenConsumer
 {
 
 	public JavaAttribute(
@@ -82,6 +84,43 @@ public final class JavaAttribute extends JavaFeature
 			| Modifier.STATIC
 			| Modifier.TRANSIENT
 			| Modifier.VOLATILE;
+	}
+	
+	private final StringBuffer initializerTokens = new StringBuffer();
+	private boolean skipSpace = true;
+	
+	public void addToken(final char token)
+	{
+		switch(token)
+		{
+			case ' ':
+			case '\t':
+			case '\n':
+			case '\r':
+			{
+				if(!skipSpace)
+					initializerTokens.append(' ');
+				skipSpace = true;
+			}
+			break;
+			case ',':
+			{
+				initializerTokens.append(token);
+				skipSpace = true;
+			}
+			break;
+			default:
+			{
+				skipSpace = false;
+				initializerTokens.append(token);
+			}
+			break;
+		}
+	}
+	
+	String getInitializerTokens()
+	{
+		return initializerTokens.toString();
 	}
 
 }

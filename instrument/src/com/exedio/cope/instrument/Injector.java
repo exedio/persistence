@@ -285,12 +285,13 @@ public final class Injector
 	 * the delimiter, which terminated the attribute initializer
 	 * (';' or ',') or '}' for methods.
 	 */
-	private char parseBody(boolean attribute)
+	private char parseBody(final boolean attribute, final TokenConsumer tokenConsumer)
 		throws IOException, EndException, ParseException
 	{
 		//System.out.println("    body("+(attribute?"attribute":"method")+")");
 
 		int bracketdepth = (attribute ? 0 : 1);
+		int curlyBracketDepth = bracketdepth;
 		char c = read();
 		while (true)
 		{
@@ -304,12 +305,18 @@ public final class Injector
 						c = read();
 					break;
 				case '{' :
+					curlyBracketDepth++;
+					// FALL THROUGH
 				case '(' :
 					bracketdepth++;
 					//System.out.print("<("+bracketdepth+")>");
+					if(tokenConsumer!=null && curlyBracketDepth==0)
+						tokenConsumer.addToken(c);
 					c = read();
 					break;
 				case '}' :
+					curlyBracketDepth--;
+					// FALL THROUGH
 				case ')' :
 					bracketdepth--;
 					//System.out.print("<("+bracketdepth+")>");
@@ -317,6 +324,8 @@ public final class Injector
 						return '}';
 					if (bracketdepth < 0)
 						throw new ParseException("';' expected.");
+					if (tokenConsumer!=null && curlyBracketDepth==0)
+						tokenConsumer.addToken(c);
 					c = read();
 					break;
 				case ';' :
@@ -330,6 +339,8 @@ public final class Injector
 				case ',' :
 					if (bracketdepth == 0)
 						return ',';
+					if (tokenConsumer!=null && curlyBracketDepth==0)
+						tokenConsumer.addToken(c);
 					c = read();
 					break;
 					// ignore brackets inside of literal String's
@@ -363,6 +374,8 @@ public final class Injector
 					c = read();
 					break;
 				default :
+					if (tokenConsumer!=null && curlyBracketDepth==0)
+						tokenConsumer.addToken(c);
 					c = read();
 					break;
 			}
@@ -447,7 +460,7 @@ public final class Injector
 						if (collect_when_blocking)
 							write(getCollector());
 						flushOutbuf();
-						parseBody(false);
+						parseBody(false, null);
 						scheduleBlock(true);
 						doccomment = null;
 						return new JavaClass[0];
@@ -567,7 +580,7 @@ public final class Injector
 						output.write(getCollector());
 						consumer.onBehaviourHeader(jb);
 					}
-					parseBody(false);
+					parseBody(false, null);
 					flushOutbuf();
 					break ti;
 				case ';' :
@@ -643,7 +656,7 @@ public final class Injector
 				case '=' :
 					if (collect_when_blocking)
 						write(getCollector());
-					c = parseBody(true);
+					c = parseBody(true, ja);
 					flushOutbuf();
 					break;
 				default :
@@ -712,7 +725,7 @@ public final class Injector
 					if (collect_when_blocking)
 						write(getCollector());
 					flushOutbuf();
-					parseBody(false);
+					parseBody(false, null);
 					scheduleBlock(true);
 					break;
 				default :

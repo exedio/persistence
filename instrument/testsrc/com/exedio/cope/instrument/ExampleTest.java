@@ -53,6 +53,7 @@ public class ExampleTest extends InjectorTest
 			assertAttributeHeader("type", "Integer", Modifier.PRIVATE);
 		assertText("private Integer type=new Integer(5);");
 		assertAttribute("type", null, type);
+		assertEquals("new Integer(5)", type.getInitializerTokens());
 		assertText("\n  ");
 
 		final JavaAttribute qualifiers =
