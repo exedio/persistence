@@ -206,7 +206,7 @@ public final class Instrumentor implements InjectionConsumer
 		final CopeClass persistentClass = CopeClass.getCopeClass(jc);
 		final List initializerArguments = ja.getInitializerArguments();
 		//System.out.println("---------"+initializerArguments);
-		new PersistentQualifier(persistentClass, initializerArguments);
+		new CopeQualifier(persistentClass, initializerArguments);
 	}
 
 	private final void handleMediaVariant(final JavaAttribute ja, final Class typeClass)

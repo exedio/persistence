@@ -137,7 +137,7 @@ final class CopeClass
 			Collections.unmodifiableList(uniqueConstraints);
 	}
 	
-	public void addQualifier(final PersistentQualifier qualifier)
+	public void addQualifier(final CopeQualifier qualifier)
 	{
 		if(qualifiers==null)
 			qualifiers=new ArrayList();

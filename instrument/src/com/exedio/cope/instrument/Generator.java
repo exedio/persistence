@@ -580,7 +580,7 @@ final class Generator
 			o.write(attribute.getBoxingPostfix());
 	}
 	
-	private void writeQualifier(final PersistentQualifier qualifier)
+	private void writeQualifier(final CopeQualifier qualifier)
 	throws IOException
 	{
 		writeCommentHeader();
@@ -655,7 +655,7 @@ final class Generator
 			}
 			for(final Iterator i = persistentClass.getQualifiers().iterator(); i.hasNext(); )
 			{
-				final PersistentQualifier qualifier = (PersistentQualifier)i.next();
+				final CopeQualifier qualifier = (CopeQualifier)i.next();
 				writeQualifier(qualifier);
 			}
 			writeType(persistentClass);

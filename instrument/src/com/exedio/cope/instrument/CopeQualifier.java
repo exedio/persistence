@@ -2,14 +2,14 @@ package com.exedio.cope.instrument;
 
 import java.util.List;
 
-final class PersistentQualifier
+final class CopeQualifier
 {
 	final String qualifierClass;
 	final String parent;
 	final String key;
 	final String qualifyUnique;
 
-	public PersistentQualifier(final CopeClass persistentClass, final List initializerArguments)
+	public CopeQualifier(final CopeClass persistentClass, final List initializerArguments)
 		throws InjectorParseException
 	{
 		if(initializerArguments.size()!=3)
