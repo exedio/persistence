@@ -9,9 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import com.exedio.cope.lib.Model;
 import com.exedio.copernica.admin.AdminCop;
 
-public class Admin_Jspm
+final class Admin_Jspm
 {
-	public static void write(
+	static final void write(
 				final PrintStream out,
 				final HttpServletRequest request,
 				final Model model)

@@ -51,7 +51,7 @@ public final class AdminServlet extends HttpServlet
 	}
 
 
-	public void doGet(
+	protected final void doGet(
 			final HttpServletRequest request,
 			final HttpServletResponse response)
 		throws ServletException, IOException
@@ -59,7 +59,7 @@ public final class AdminServlet extends HttpServlet
 		doRequest(request, response);
 	}
 
-	public void doPost(
+	protected final void doPost(
 			final HttpServletRequest request,
 			final HttpServletResponse response)
 		throws ServletException, IOException

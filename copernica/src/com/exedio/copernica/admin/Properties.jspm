@@ -6,7 +6,7 @@ import java.io.PrintStream;
 
 import com.exedio.cope.lib.Properties;
 
-public class Properties_Jspm
+final class Properties_Jspm
 {
 	private static final String[] systemProperties = new String[]{
 			"java.runtime.version",
@@ -17,7 +17,7 @@ public class Properties_Jspm
 			"java.vm.version",
 		};
 	
-	public static void write(final PrintStream out, final Properties properties)
+	final static void write(final PrintStream out, final Properties properties)
 		throws IOException
 	{
 		%>
