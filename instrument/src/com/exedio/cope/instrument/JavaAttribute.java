@@ -45,14 +45,21 @@ public final class JavaAttribute extends JavaFeature
 		return getFile().getPackageName()+'.'+getParent().getName()+'#'+getName();
 	}
 	
+	private String camelCaseName = null;
+	
 	public final String getCamelCaseName()
 	{
+		if(camelCaseName!=null)
+			return camelCaseName;
+
 		final String name = getName();
 		final char first = name.charAt(0);
 		if(Character.isUpperCase(first))
-			return name;
+			camelCaseName = name;
 		else
-			return Character.toUpperCase(first) + name.substring(1);
+			camelCaseName = Character.toUpperCase(first) + name.substring(1);
+
+		return camelCaseName;
 	}
 	
 	/**
