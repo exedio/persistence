@@ -10,7 +10,9 @@ public class WebTest extends WebTestCase
 		super(name);
 	}
 
+	String someString;
 	String someNotNullString;
+	String someInteger;
 	String someNotNullInteger;
 	String someBoolean;
 	boolean someNotNullBoolean;
@@ -23,7 +25,9 @@ public class WebTest extends WebTestCase
 	{
 		super.setUp();
 		getTestContext().setBaseUrl("http://localhost:8080/copernicatest/");
+		someString = "";
 		someNotNullString = "running100";
+		someInteger = "";
 		someNotNullInteger = "107";
 		someBoolean = "null";
 		someNotNullBoolean = true;
@@ -35,7 +39,9 @@ public class WebTest extends WebTestCase
 	
 	private void assertItemForm()
 	{
+		assertFormElementEquals("someString", someString);
 		assertFormElementEquals("someNotNullString", someNotNullString);
+		assertFormElementEquals("someInteger", someInteger);
 		assertFormElementEquals("someNotNullInteger", someNotNullInteger);
 		assertFormElementEquals("someBoolean", someBoolean);
 		if(someNotNullBoolean)
@@ -67,7 +73,17 @@ public class WebTest extends WebTestCase
 		assertTitleEquals("AttributeItem.103");
 		assertItemForm();
 
+		setFormElement("someString", "yeah"); someString = "yeah";
+		submit("SAVE");
+		assertTitleEquals("AttributeItem.103");
+		assertItemForm();
+
 		setFormElement("someNotNullString", "running100changed"); someNotNullString = "running100changed";
+		submit("SAVE");
+		assertTitleEquals("AttributeItem.103");
+		assertItemForm();
+
+		setFormElement("someInteger", "99999"); someInteger = "99999";
 		submit("SAVE");
 		assertTitleEquals("AttributeItem.103");
 		assertItemForm();
@@ -112,7 +128,9 @@ public class WebTest extends WebTestCase
 		assertTitleEquals("AttributeItem.103");
 		assertItemForm();
 
+		setFormElement("someString", ""); someString = "";
 		setFormElement("someNotNullString", "running100"); someNotNullString = "running100";
+		setFormElement("someInteger", ""); someInteger = "";
 		setFormElement("someNotNullInteger", "107"); someNotNullInteger = "107";
 		setFormElement("someBoolean", "null"); someBoolean = "null";
 		setFormElement("someNotNullBoolean", "on"); someNotNullBoolean = true;
