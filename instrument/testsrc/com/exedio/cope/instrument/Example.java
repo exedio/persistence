@@ -134,6 +134,12 @@ public abstract class Example implements Runnable
 		return null;
 	}
 	
+	/** DO_DISCARD */
+	int discardAttribute = 0;
+	
+	/** DO_DISCARD */
+	void discardMethod() {}
+	
 	public Integer getUnqualifiedType() throws IllegalArgumentException
 	{
 		return null;

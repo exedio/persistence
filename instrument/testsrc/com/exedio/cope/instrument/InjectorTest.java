@@ -107,6 +107,8 @@ public abstract class InjectorTest extends TestCase
 	protected void assertDocComment(final String docComment)
 	{
 		final InjectionEvent event = fetchEvent();
+		if(!(event instanceof DocCommentEvent))
+			throw new AssertionFailedError("expected docComment event >"+docComment+"<, but was "+event);
 		assertEquals(replaceLineBreaks(docComment), ((DocCommentEvent)event).docComment);
 	}
 
@@ -135,6 +137,8 @@ public abstract class InjectorTest extends TestCase
 	protected JavaBehaviour assertBehaviourHeader(final String name, final String type, final int modifier)
 	{
 		final InjectionEvent event = fetchEvent();
+		if(!(event instanceof BehaviourHeaderEvent))
+			throw new AssertionFailedError("expected BehaviourHeader event >"+name+"<, but was "+event);
 		final JavaBehaviour javaBehaviour = ((BehaviourHeaderEvent)event).javaBehaviour;
 		assertEquals(name, javaBehaviour.getName());
 		assertEquals(type, javaBehaviour.getType());
@@ -187,6 +191,11 @@ public abstract class InjectorTest extends TestCase
 		if(jb==null)
 			throw new NullPointerException();
 		assertFeature(name, docComment, jb);
+	}
+
+	protected void assertMethodDiscarded(final String name, final String docComment)
+	{
+		assertFeature(name, docComment, null);
 	}
 
 
@@ -279,6 +288,11 @@ public abstract class InjectorTest extends TestCase
 		{
 			this.javaBehaviour = javaBehaviour;
 		}
+		
+		public String toString()
+		{
+			return "BehaviourHeaderEvent("+javaBehaviour+")";
+		}
 	}
 	
 	private static class AttributeHeaderEvent extends InjectionEvent
@@ -360,7 +374,7 @@ public abstract class InjectorTest extends TestCase
 		public boolean onDocComment(final String doccomment, final Writer output) throws java.io.IOException
 		{
 			addInjectionEvent(new DocCommentEvent(doccomment));
-			return true;
+			return doccomment.indexOf("DO_DISCARD")<0;
 		}
 
 		public void onFileDocComment(final String doccomment, final Writer output)
