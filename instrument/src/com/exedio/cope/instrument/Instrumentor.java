@@ -163,7 +163,7 @@ public final class Instrumentor implements InjectionConsumer
 			EnumerationAttribute.class.equals(typeClass)||
 			ItemAttribute.class.equals(typeClass))
 		{
-			new PersistentObjectAttribute(
+			new CopeObjectAttribute(
 				ja, typeClass,
 				initializerArguments, setterOptionString, qualifiers);
 		}

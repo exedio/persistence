@@ -3,9 +3,9 @@ package com.exedio.cope.instrument;
 
 import java.util.List;
 
-final class PersistentObjectAttribute extends CopeAttribute
+final class CopeObjectAttribute extends CopeAttribute
 {
-	public PersistentObjectAttribute(
+	public CopeObjectAttribute(
 			final JavaAttribute javaAttribute,
 			final Class typeClass,
 			final List initializerArguments,
