@@ -22,9 +22,13 @@ public class WebTest extends WebTestCase
 		assertTitleEquals("Copernica");
 		assertLinkPresentWithText("de");
 
-		assertLinkPresentWithText("Attribute Item");
 		clickLinkWithText("Attribute Item");
 		assertTitleEquals("Attribute Item");
 		assertTextPresent("Attribute Item");
+		
+		assertLinkPresentWithText("50");
+		clickLinkWithText("50");
+		assertTitleEquals("Attribute Item");
+		assertLinkNotPresentWithText("50");
 	}
 }
