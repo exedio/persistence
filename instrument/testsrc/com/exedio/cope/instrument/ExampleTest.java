@@ -227,7 +227,7 @@ public class ExampleTest extends InjectorTest
 
 		final JavaBehaviour emptyConstructor =
 			assertBehaviourHeader("Example", null, Modifier.PRIVATE);
-		assertText("{\n\t namedIntegers.put(\"5\", new Integer(5));\n  }");
+		assertText("{\n\t new Integer(5);\n  }");
 		assertMethod("Example", null, emptyConstructor);
 		assertText("\n  \n  ");
 
