@@ -37,7 +37,7 @@ public final class JavaConstructor extends JavaBehaviour
 	}
 	
 	/**
-	 * Sets {@link #last_param_start} to the given value.
+	 * Sets <code>last_param_start</code> to the given value.
 	 * @throws RuntimeException if pos is negative.
 	 */
 	public final void setLastParameterStart(int pos)
@@ -48,7 +48,7 @@ public final class JavaConstructor extends JavaBehaviour
 	}
 	
 	/**
-	 * Sets {@link #last_param_end} to the given value.
+	 * Sets <code>last_param_end</code> to the given value.
 	 * @throws RuntimeException if pos is negative.
 	 * @throws RuntimeException if called more than once.
 	 */

@@ -59,7 +59,7 @@ public final class JavaAttribute extends JavaFeature
 	
 	/**
 	 * Constructs a java attribute with the same
-	 * {@link #parent}, {@link #modifiers} and {@link #type}
+	 * <code>parent</code>, <code>modifiers</code> and <code>type</code>
 	 * but the given name.
 	 * Needed for comma separated attributes.
 	 */
