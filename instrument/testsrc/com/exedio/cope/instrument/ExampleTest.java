@@ -161,6 +161,9 @@ public class ExampleTest extends InjectorTest
 		
 		assertClass("Inner");
 		assertText("class Inner implements Runnable\n  {\n\t ");
+		
+		assertClass("Drinner");
+		assertText("class Drinner implements Runnable\n\t {\n\t\t");
 	}
 
 }
