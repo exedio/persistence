@@ -394,6 +394,15 @@ public abstract class Item extends Search
 	 * Returns a URL pointing to the data of this persistent media attribute.
 	 * Returns null, if there is no data for this attribute.
 	 */
+	public final String getMediaURL(final MediaAttribute attribute)
+	{
+		return getMediaURL(attribute, null);
+	}
+
+	/**
+	 * Returns a URL pointing to the data of this persistent media attribute.
+	 * Returns null, if there is no data for this attribute.
+	 */
 	public final String getMediaURL(final MediaAttribute attribute, final String variant)
 	{
 		if(isNull(attribute))
