@@ -135,11 +135,16 @@ final class Generator
 		o.write(lineSeparator);
 	}
 
+	private final void writeCommentGenerated()
+	throws IOException
+	{
+		o.write("\t * <p><small>"+Instrumentor.GENERATED+"</small>");
+		o.write(lineSeparator);
+	}
+	
 	private final void writeCommentFooter()
 	throws IOException
 	{
-		o.write("\t * "+Instrumentor.GENERATED_AUTHOR_TAG);
-		o.write(lineSeparator);
 		o.write("\t *");
 		o.write(lineSeparator);
 		o.write(" */");
@@ -166,15 +171,17 @@ final class Generator
 		o.write("\t * Constructs a new ");
 		o.write(javaClass.getName());
 		o.write(" with all the attributes initially needed.");
+		o.write(lineSeparator);
+		writeCommentGenerated();
 		for(Iterator i = initialAttributes.iterator(); i.hasNext(); )
 		{
 			final PersistentAttribute initialAttribute = (PersistentAttribute)i.next();
-			o.write(lineSeparator);
 			o.write("\t * @param initial");
 			o.write(initialAttribute.getCamelCaseName());
 			o.write(" the initial value for attribute {@link #");
 			o.write(initialAttribute.getName());
 			o.write("}.");
+			o.write(lineSeparator);
 			
 			final int attributeAccessModifier = initialAttribute.accessModifier;
 			if(constructorAccessModifier<attributeAccessModifier)
@@ -183,7 +190,6 @@ final class Generator
 		for(Iterator i = constructorExceptions.iterator(); i.hasNext(); )
 		{
 			final Class constructorException = (Class)i.next();
-			o.write(lineSeparator);
 			o.write("\t * @throws ");
 			o.write(constructorException.getName());
 			o.write(" if");
@@ -204,8 +210,8 @@ final class Generator
 			o.write(" is ");
 			o.write((String)constraintViolationText.get(constructorException));
 			o.write('.');
+			o.write(lineSeparator);
 		}
-		o.write(lineSeparator);
 		writeCommentFooter();
 		o.write(JavaFeature.toAccessModifierString(constructorAccessModifier));
 		o.write(javaClass.getName());
@@ -267,6 +273,7 @@ final class Generator
 		writeCommentHeader();
 		o.write("\t * Creates an item and sets the given attributes initially.");
 		o.write(lineSeparator);
+		writeCommentGenerated();
 		writeCommentFooter();
 		o.write("protected ");
 		o.write(persistentClass.getName());
@@ -286,6 +293,7 @@ final class Generator
 		writeCommentHeader();
 		o.write("\t * Reactivation constructor. Used for internal purposes only.");
 		o.write(lineSeparator);
+		writeCommentGenerated();
 		o.write("\t * @see Item#Item("
 			+ ReactivationConstructorDummy.class.getName() + ",int)");
 		o.write(lineSeparator);
@@ -314,6 +322,7 @@ final class Generator
 		o.write(persistentAttribute.getName());
 		o.write("}.");
 		o.write(lineSeparator);
+		writeCommentGenerated();
 		writeCommentFooter();
 		o.write(methodModifiers);
 		o.write(' ');
@@ -337,6 +346,7 @@ final class Generator
 			o.write(persistentAttribute.getName());
 			o.write("}.");
 			o.write(lineSeparator);
+			writeCommentGenerated();
 			writeCommentFooter();
 			o.write(methodModifiers);
 			o.write(" void set");
@@ -379,6 +389,7 @@ final class Generator
 		o.write(mediaAttribute.getName());
 		o.write("}.");
 		o.write(lineSeparator);
+		writeCommentGenerated();
 		writeCommentFooter();
 		o.write(methodModifiers);
 		o.write(' ');
@@ -463,6 +474,7 @@ final class Generator
 			o.write(mediaAttribute.getName());
 			o.write("}.");
 			o.write(lineSeparator);
+			writeCommentGenerated();
 			writeCommentFooter();
 			o.write(methodModifiers);
 			o.write(" void set");
@@ -550,16 +562,17 @@ final class Generator
 		o.write("\t * Finds a ");
 		o.write(lowerCamelCase(className));
 		o.write(" by it's unique attributes");
+		o.write(lineSeparator);
+		writeCommentGenerated();
 		for(int i=0; i<persistentAttributes.length; i++)
 		{
-			o.write(lineSeparator);
 			o.write("\t * @param searched");
 			o.write(persistentAttributes[i].getCamelCaseName());
 			o.write(" shall be equal to attribute {@link #");
 			o.write(persistentAttributes[i].getName());
 			o.write("}.");
+			o.write(lineSeparator);
 		}
-		o.write(lineSeparator);
 		writeCommentFooter();
 		o.write(JavaAttribute.toAccessModifierString(accessModifier));
 		o.write("static final ");
@@ -632,6 +645,7 @@ final class Generator
 		o.write(lowerCamelCase(persistentClass.getName()));
 		o.write(".");
 		o.write(lineSeparator);
+		writeCommentGenerated();
 		writeCommentFooter();
 		
 		// the TYPE variable
