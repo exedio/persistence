@@ -349,8 +349,8 @@ page import="java.util.Map"
 						}
 						else if(cop instanceof EmptyCop)
 							%>
-		<h1>Copernica</h1>
-		<h2>Generic Backoffice for COPE</h2>
+							<h1>Copernica</h1>
+							<h2>Generic Backoffice for COPE</h2>
 							<u>select a type on the left</u><%
 						else
 							throw new RuntimeException();
