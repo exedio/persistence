@@ -1,12 +1,14 @@
 
 package com.exedio.cope.lib.database;
 
+import com.exedio.cope.lib.Attribute;
 import com.exedio.cope.lib.SystemException;
 import com.exedio.cope.lib.Type;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Iterator;
 
 public class Database
 {
@@ -97,6 +99,11 @@ public class Database
 		return className.substring(pos+1);
 	}
 	
+	private String getPersistentQualifier(final Attribute attribute)
+	{
+		return attribute.getName();
+	}
+	
 	private String getCreateTableStatement(final Type type)
 	{
 		final char delimiterStart = getNameDelimiterStart();
@@ -108,8 +115,21 @@ public class Database
 			append(getTableName(type)).
 			append(delimiterEnd).
 			append('(');
-		bf.append("\"code\" varchar2(5),");
-		bf.append("\"name\" varchar2(20)");
+		
+		boolean first = true;
+		for(Iterator i = type.getAttributes().iterator(); i.hasNext(); )
+		{
+			if(first)
+				first = false;
+			else
+				bf.append(',');
+			final Attribute attribute = (Attribute)i.next();
+			bf.append(delimiterStart).
+				append(getPersistentQualifier(attribute)).
+				append(delimiterEnd).
+				append(" ").
+				append("varchar2(5)");
+		}
 		bf.append(')');
 		return bf.toString();
 	}
