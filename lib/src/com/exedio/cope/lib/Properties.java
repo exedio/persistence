@@ -75,7 +75,7 @@ public final class Properties
 			}
 		}
 		database = getPropertyNotNull(properties, DATABASE);
-		databaseDriver = getPropertyNotNull(properties, DATABASE_DRIVER);
+		databaseDriver = properties.getProperty(DATABASE_DRIVER);
 		databaseUrl = getPropertyNotNull(properties, DATABASE_URL);
 		databaseUser = getPropertyNotNull(properties, DATABASE_USER);
 		databasePassword = getPropertyNotNull(properties, DATABASE_PASSWORD);

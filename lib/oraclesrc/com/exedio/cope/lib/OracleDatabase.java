@@ -19,6 +19,11 @@ final class OracleDatabase
 	{
 		super(properties);
 	}
+	
+	String getDefaultDriver()
+	{
+		return "oracle.jdbc.driver.OracleDriver";
+	}
 
 	String getIntegerType(final int precision)
 	{

@@ -18,7 +18,7 @@ class ConnectionPool
 		this.properties = properties;
 	}
 
-	final Connection getConnection() throws SQLException
+	final Connection getConnection(final Database database) throws SQLException
 	{
 		synchronized(lock)
 		{
@@ -29,14 +29,21 @@ class ConnectionPool
 			}
 			else
 			{
-				return createConnection();
+				return createConnection(database);
 			}
 		}
 	}
 
-	final Connection createConnection() throws SQLException
+	final Connection createConnection(final Database database) throws SQLException
 	{
-		final String driver = properties.getDatabaseDriver();
+		final String driver;
+		{
+			final String explicitDriver = properties.getDatabaseDriver();
+			if(explicitDriver!=null)
+				driver = explicitDriver;
+			else
+				driver = database.getDefaultDriver();
+		}
 		final String url = properties.getDatabaseUrl();
 		final String user = properties.getDatabaseUser();
 		final String password = properties.getDatabasePassword();

@@ -631,7 +631,7 @@ abstract class Database
 		ResultSet resultSet = null;
 		try
 		{
-			connection = connectionPool.getConnection();
+			connection = connectionPool.getConnection(this);
 			// TODO: use prepared statements and reuse the statement.
 			final String sqlText = statement.getText();
 			if(GET_TABLES.equals(sqlText))
@@ -845,6 +845,7 @@ abstract class Database
 		return '"' + name + '"';
 	}
 
+	abstract String getDefaultDriver();
 	abstract String getIntegerType(int precision);
 	abstract String getDoubleType(int precision);
 	abstract String getStringType(int maxLength);

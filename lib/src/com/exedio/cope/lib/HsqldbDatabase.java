@@ -14,6 +14,11 @@ final class HsqldbDatabase
 		super(properties);
 	}
 
+	String getDefaultDriver()
+	{
+		return "org.hsqldb.jdbcDriver";
+	}
+
 	String getIntegerType(final int precision)
 	{
 		// TODO: use precision to select between TINYINT, SMALLINT, INTEGER, BIGINT, NUMBER
