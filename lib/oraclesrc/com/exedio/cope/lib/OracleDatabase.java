@@ -347,14 +347,15 @@ final class OracleDatabase
 			final Statement fetchStatement = createStatement();
 			fetchStatement.
 				append(
-						"select OPERATION,OPTIONS,OBJECT_NAME,ID,PARENT_ID " +
+						"select " +
+							"OPERATION,OPTIONS," +
+							"OBJECT_NAME,OBJECT_INSTANCE,OBJECT_TYPE," +
+							"ID,PARENT_ID " +
 						"from plan_table " +
 						"where "+STATEMENT_ID+"='cope").
-				defineColumnString().
-				defineColumnString().
-				defineColumnString().
-				defineColumnInteger().
-				defineColumnInteger().
+				defineColumnString().defineColumnString().
+				defineColumnString().defineColumnInteger().defineColumnString().
+				defineColumnInteger().defineColumnInteger().
 				append(statementID).
 				append("' order by ID");
 			java.sql.Statement sqlFetchStatement = null;
@@ -371,16 +372,26 @@ final class OracleDatabase
 					final String operation = sqlFetchResultSet.getString(columnIndex++);
 					final String options = sqlFetchResultSet.getString(columnIndex++);
 					final String objectName = sqlFetchResultSet.getString(columnIndex++);
+					final int objectInstance = sqlFetchResultSet.getInt(columnIndex++);
+					final String objectType = sqlFetchResultSet.getString(columnIndex++);
 					final int id = sqlFetchResultSet.getInt(columnIndex++);
 					final Integer parentID = (Integer)sqlFetchResultSet.getObject(columnIndex++);
 					
-					String text = operation;
-					if(options!=null)
-						text+=" ("+options+')';
-					if(objectName!=null)
-						text+=" on "+objectName;
+					final StringBuffer bf = new StringBuffer(operation);
 
-					final StatementInfo info = new StatementInfo(text);
+					if(options!=null)
+						bf.append(" (").append(options).append(')');
+
+					if(objectName!=null)
+						bf.append(" on ").append(objectName);
+					
+					if(objectInstance!=0)
+						bf.append('[').append(objectInstance).append(']');
+
+					if(objectType!=null)
+						bf.append('[').append(objectType).append(']');
+
+					final StatementInfo info = new StatementInfo(bf.toString());
 					if(parentID==null)
 					{
 						if(root!=null)
