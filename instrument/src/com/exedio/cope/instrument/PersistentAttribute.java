@@ -12,9 +12,9 @@ import com.exedio.cope.lib.Attribute;
 import com.exedio.cope.lib.ComputedFunction;
 import com.exedio.cope.lib.Item;
 import com.exedio.cope.lib.LengthViolationException;
+import com.exedio.cope.lib.NestingRuntimeException;
 import com.exedio.cope.lib.NotNullViolationException;
 import com.exedio.cope.lib.ReadOnlyViolationException;
-import com.exedio.cope.lib.SystemException;
 import com.exedio.cope.lib.UniqueViolationException;
 import com.exedio.cope.lib.util.ClassComparator;
 
@@ -285,11 +285,11 @@ abstract class PersistentAttribute
 		}
 		catch(NoSuchFieldException e)
 		{
-			throw new SystemException(e, optionString);
+			throw new NestingRuntimeException(e, optionString);
 		}
 		catch(IllegalAccessException e)
 		{
-			throw new SystemException(e, optionString);
+			throw new NestingRuntimeException(e, optionString);
 		}
 	}
 	

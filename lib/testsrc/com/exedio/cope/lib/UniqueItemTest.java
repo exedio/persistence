@@ -23,7 +23,7 @@ public class UniqueItemTest extends DatabaseLibTest
 		}
 		catch(UniqueViolationException e)
 		{
-			throw new SystemException(e);
+			throw new NestingRuntimeException(e);
 		}
 		assertEquals("uniqueString", item.getUniqueString());
 		assertEquals(item, ItemWithSingleUnique.findByUniqueString("uniqueString"));
@@ -37,7 +37,7 @@ public class UniqueItemTest extends DatabaseLibTest
 			}
 			catch(UniqueViolationException e)
 			{
-				throw new SystemException(e);
+				throw new NestingRuntimeException(e);
 			}
 			try
 			{
@@ -113,7 +113,7 @@ public class UniqueItemTest extends DatabaseLibTest
 		}
 		catch(UniqueViolationException e)
 		{
-			throw new SystemException(e);
+			throw new NestingRuntimeException(e);
 		}
 		assertEquals("uniqueString", item.getUniqueReadOnlyString());
 		assertEquals(item, ItemWithSingleUniqueReadOnly.findByUniqueReadOnlyString("uniqueString"));
@@ -130,7 +130,7 @@ public class UniqueItemTest extends DatabaseLibTest
 		}
 		catch(ConstraintViolationException e)
 		{
-			throw new SystemException(e);
+			throw new NestingRuntimeException(e);
 		}
 		assertEquals("uniqueString", item.getUniqueReadOnlyString());
 		assertEquals(item, ItemWithSingleUniqueReadOnly.findByUniqueReadOnlyString("uniqueString"));
@@ -151,11 +151,11 @@ public class UniqueItemTest extends DatabaseLibTest
 		}
 		catch(UniqueViolationException e)
 		{
-			throw new SystemException(e);
+			throw new NestingRuntimeException(e);
 		}
 		catch(NotNullViolationException e)
 		{
-			throw new SystemException(e);
+			throw new NestingRuntimeException(e);
 		}
 		assertEquals("uniqueString", item.getUniqueNotNullString());
 		assertEquals(item, ItemWithSingleUniqueNotNull.findByUniqueNotNullString("uniqueString"));
@@ -167,11 +167,11 @@ public class UniqueItemTest extends DatabaseLibTest
 		}
 		catch(UniqueViolationException e)
 		{
-			throw new SystemException(e);
+			throw new NestingRuntimeException(e);
 		}
 		catch(NotNullViolationException e)
 		{
-			throw new SystemException(e);
+			throw new NestingRuntimeException(e);
 		}
 		assertEquals("uniqueString2", item.getUniqueNotNullString());
 		assertEquals(null, ItemWithSingleUniqueNotNull.findByUniqueNotNullString("uniqueString"));
@@ -184,7 +184,7 @@ public class UniqueItemTest extends DatabaseLibTest
 		}
 		catch(UniqueViolationException e)
 		{
-			throw new SystemException(e);
+			throw new NestingRuntimeException(e);
 		}
 		catch(NotNullViolationException e)
 		{

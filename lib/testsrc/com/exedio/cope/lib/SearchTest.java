@@ -17,7 +17,7 @@ public class SearchTest extends DatabaseLibTest
 		}
 		catch(NotNullViolationException e)
 		{
-			throw new SystemException(e);
+			throw new NestingRuntimeException(e);
 		}
 		item.setSomeNotNullInteger(0);
 		final Collection searchResult = item.TYPE.search(Search.equal(item.someNotNullInteger, 0));

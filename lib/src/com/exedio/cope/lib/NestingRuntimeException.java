@@ -10,18 +10,18 @@ import java.io.PrintWriter;
  * Is a replacement of the nesting functionality of RuntimeException
  * in JDK 1.4.
  */
-public final class SystemException extends RuntimeException
+public final class NestingRuntimeException extends RuntimeException
 {
 	private final Exception cause;
 	private final String message;
 	
-	public SystemException(final Exception cause)
+	public NestingRuntimeException(final Exception cause)
 	{
 		this.cause = cause;
 		this.message = null;
 	}
 	
-	public SystemException(final Exception cause, final String message)
+	public NestingRuntimeException(final Exception cause, final String message)
 	{
 		this.cause = cause;
 		this.message = message;

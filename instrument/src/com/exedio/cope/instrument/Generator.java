@@ -21,9 +21,9 @@ import java.util.TreeSet;
 
 import com.exedio.cope.lib.AttributeValue;
 import com.exedio.cope.lib.LengthViolationException;
+import com.exedio.cope.lib.NestingRuntimeException;
 import com.exedio.cope.lib.NotNullViolationException;
 import com.exedio.cope.lib.ReadOnlyViolationException;
-import com.exedio.cope.lib.SystemException;
 import com.exedio.cope.lib.Type;
 import com.exedio.cope.lib.UniqueViolationException;
 import com.exedio.cope.lib.util.ReactivationConstructorDummy;
@@ -738,7 +738,7 @@ final class Generator
 		o.write(lineSeparator);
 		o.write("\t\t{");
 		o.write(lineSeparator);
-		o.write("\t\t\tthrow new "+SystemException.class.getName()+"(e);");
+		o.write("\t\t\tthrow new "+NestingRuntimeException.class.getName()+"(e);");
 		o.write(lineSeparator);
 		o.write("\t\t}");
 		o.write(lineSeparator);

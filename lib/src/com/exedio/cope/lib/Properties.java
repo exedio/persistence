@@ -61,7 +61,7 @@ public final class Properties
 		}
 		catch(IOException e)
 		{
-			throw new SystemException(e, "property file "+propertyFile.getAbsolutePath()+" not found.");
+			throw new NestingRuntimeException(e, "property file "+propertyFile.getAbsolutePath()+" not found.");
 		}
 		finally
 		{
@@ -99,7 +99,7 @@ public final class Properties
 			}
 			catch(IOException e)
 			{
-				throw new SystemException(e);
+				throw new NestingRuntimeException(e);
 			}
 			mediaUrl  = getPropertyNotNull(properties, MEDIA_URL);
 		}

@@ -67,19 +67,19 @@ public abstract class Super extends Item
 		}
 		catch(com.exedio.cope.lib.LengthViolationException e)
 		{
-			throw new com.exedio.cope.lib.SystemException(e);
+			throw new com.exedio.cope.lib.NestingRuntimeException(e);
 		}
 		catch(com.exedio.cope.lib.NotNullViolationException e)
 		{
-			throw new com.exedio.cope.lib.SystemException(e);
+			throw new com.exedio.cope.lib.NestingRuntimeException(e);
 		}
 		catch(com.exedio.cope.lib.ReadOnlyViolationException e)
 		{
-			throw new com.exedio.cope.lib.SystemException(e);
+			throw new com.exedio.cope.lib.NestingRuntimeException(e);
 		}
 		catch(com.exedio.cope.lib.UniqueViolationException e)
 		{
-			throw new com.exedio.cope.lib.SystemException(e);
+			throw new com.exedio.cope.lib.NestingRuntimeException(e);
 		}
 	}/**
 

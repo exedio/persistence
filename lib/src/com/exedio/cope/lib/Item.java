@@ -133,7 +133,7 @@ public abstract class Item extends Search
 		}
 		catch(ReadOnlyViolationException e)
 		{
-			throw new SystemException(e);
+			throw new NestingRuntimeException(e);
 		}
 		catch(NotNullViolationException e)
 		{
@@ -486,7 +486,7 @@ public abstract class Item extends Search
 		}
 		catch(FileNotFoundException e)
 		{
-			throw new SystemException(e);
+			throw new NestingRuntimeException(e);
 		}
 	}
 
@@ -531,7 +531,7 @@ public abstract class Item extends Search
 		}
 		catch(UniqueViolationException e)
 		{
-			new SystemException(e);
+			new NestingRuntimeException(e);
 		}
 
 		if(data!=null)

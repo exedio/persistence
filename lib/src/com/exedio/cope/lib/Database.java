@@ -12,6 +12,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
+import org.omg.CORBA.SystemException;
+
 import bak.pcj.list.IntArrayList;
 
 abstract class Database
@@ -154,7 +156,7 @@ abstract class Database
 		}
 		catch(ConstraintViolationException e)
 		{
-			throw new SystemException(e);
+			throw new NestingRuntimeException(e);
 		}
 
 		//final long amount = (System.currentTimeMillis()-time);
@@ -191,7 +193,7 @@ abstract class Database
 				dropForeignKeyConstraints(table);
 				System.err.println("done.");
 			}
-			catch(SystemException e2)
+			catch(NestingRuntimeException e2)
 			{
 				System.err.println("failed:"+e2.getMessage());
 			}
@@ -294,7 +296,7 @@ abstract class Database
 		}
 		catch(ConstraintViolationException e)
 		{
-			throw new SystemException(e);
+			throw new NestingRuntimeException(e);
 		}
 	}
 
@@ -399,7 +401,7 @@ abstract class Database
 		}
 		catch(ConstraintViolationException e)
 		{
-			throw new SystemException(e);
+			throw new NestingRuntimeException(e);
 		}
 	}
 
@@ -459,7 +461,7 @@ abstract class Database
 		}
 		catch(ConstraintViolationException e)
 		{
-			throw new SystemException(e);
+			throw new NestingRuntimeException(e);
 		}
 	}
 
@@ -557,7 +559,7 @@ abstract class Database
 		}
 		catch(ConstraintViolationException e)
 		{
-			throw new SystemException(e);
+			throw new NestingRuntimeException(e);
 		}
 	}
 
@@ -589,7 +591,7 @@ abstract class Database
 			}
 			catch(ConstraintViolationException e)
 			{
-				throw new SystemException(e);
+				throw new NestingRuntimeException(e);
 			}
 		}
 	}
@@ -671,7 +673,7 @@ abstract class Database
 			if(wrappedException!=null)
 				throw wrappedException;
 			else
-				throw new SystemException(e, statement.toString());
+				throw new NestingRuntimeException(e, statement.toString());
 		}
 		finally
 		{
@@ -723,7 +725,7 @@ abstract class Database
 				final UniqueConstraint constraint =
 					(UniqueConstraint)uniqueConstraintsByID.get(uniqueConstraintID);
 				if(constraint==null)
-					throw new SystemException(e, "no unique constraint found for >"+uniqueConstraintID
+					throw new NestingRuntimeException(e, "no unique constraint found for >"+uniqueConstraintID
 																			+"<, has only "+uniqueConstraintsByID.keySet());
 
 				return new UniqueViolationException(e, null, constraint);
@@ -736,12 +738,12 @@ abstract class Database
 				final ItemColumn column =
 					(ItemColumn)itemColumnsByIntegrityConstraintName.get(integrityConstraintName);
 				if(column==null)
-					throw new SystemException(e, "no column attribute found for >"+integrityConstraintName
+					throw new NestingRuntimeException(e, "no column attribute found for >"+integrityConstraintName
 																			+"<, has only "+itemColumnsByIntegrityConstraintName.keySet());
 
 				final ItemAttribute attribute = column.attribute;
 				if(attribute==null)
-					throw new SystemException(e, "no item attribute for column "+column);
+					throw new NestingRuntimeException(e, "no item attribute for column "+column);
 
 				return new IntegrityViolationException(e, null, attribute);
 			}
@@ -989,7 +991,7 @@ abstract class Database
 		}
 		catch(ConstraintViolationException e)
 		{
-			throw new SystemException(e);
+			throw new NestingRuntimeException(e);
 		}
 	}
 	
@@ -1021,7 +1023,7 @@ abstract class Database
 				}
 				catch(ConstraintViolationException e)
 				{
-					throw new SystemException(e);
+					throw new NestingRuntimeException(e);
 				}
 			}
 		}
@@ -1039,7 +1041,7 @@ abstract class Database
 		}
 		catch(ConstraintViolationException e)
 		{
-			throw new SystemException(e);
+			throw new NestingRuntimeException(e);
 		}
 	}
 	
@@ -1057,7 +1059,7 @@ abstract class Database
 		}
 		catch(ConstraintViolationException e)
 		{
-			throw new SystemException(e);
+			throw new NestingRuntimeException(e);
 		}
 	}
 	
@@ -1099,7 +1101,7 @@ abstract class Database
 				}
 				catch(ConstraintViolationException e)
 				{
-					throw new SystemException(e);
+					throw new NestingRuntimeException(e);
 				}
 			}
 		}
@@ -1128,7 +1130,7 @@ abstract class Database
 		}
 		catch(ConstraintViolationException e)
 		{
-			throw new SystemException(e);
+			throw new NestingRuntimeException(e);
 		}
 	}
 	
@@ -1196,7 +1198,7 @@ abstract class Database
 			}
 			catch(ConstraintViolationException e)
 			{
-				throw new SystemException(e);
+				throw new NestingRuntimeException(e);
 			}
 		}
 		{
@@ -1208,7 +1210,7 @@ abstract class Database
 			}
 			catch(ConstraintViolationException e)
 			{
-				throw new SystemException(e);
+				throw new NestingRuntimeException(e);
 			}
 		}
 	}
@@ -1279,7 +1281,7 @@ abstract class Database
 		}
 		catch(ConstraintViolationException e)
 		{
-			throw new SystemException(e);
+			throw new NestingRuntimeException(e);
 		}
 	}
 
@@ -1296,7 +1298,7 @@ abstract class Database
 		}
 		catch(ConstraintViolationException e)
 		{
-			throw new SystemException(e);
+			throw new NestingRuntimeException(e);
 		}
 	}
 
@@ -1314,7 +1316,7 @@ abstract class Database
 		}
 		catch(ConstraintViolationException e)
 		{
-			throw new SystemException(e);
+			throw new NestingRuntimeException(e);
 		}
 	}
 
@@ -1333,7 +1335,7 @@ abstract class Database
 		}
 		catch(ConstraintViolationException e)
 		{
-			throw new SystemException(e);
+			throw new NestingRuntimeException(e);
 		}
 	}
 	
@@ -1354,7 +1356,7 @@ abstract class Database
 		}
 		catch(ConstraintViolationException e)
 		{
-			throw new SystemException(e);
+			throw new NestingRuntimeException(e);
 		}
 	}
 	
@@ -1375,7 +1377,7 @@ abstract class Database
 		}
 		catch(ConstraintViolationException e)
 		{
-			throw new SystemException(e);
+			throw new NestingRuntimeException(e);
 		}
 	}
 
@@ -1396,7 +1398,7 @@ abstract class Database
 		}
 		catch(ConstraintViolationException e)
 		{
-			throw new SystemException(e);
+			throw new NestingRuntimeException(e);
 		}
 	}
 

@@ -148,7 +148,7 @@ final class Row
 		}
 		catch(UniqueViolationException e)
 		{
-			throw new SystemException(e);
+			throw new NestingRuntimeException(e);
 		}
 		closed = true;
 	}

@@ -16,7 +16,7 @@ page import="com.exedio.cope.lib.EnumerationValue" %><%@
 page import="com.exedio.cope.lib.ItemAttribute" %><%@
 page import="com.exedio.cope.lib.Type" %><%@
 page import="com.exedio.cope.lib.Item" %><%@
-page import="com.exedio.cope.lib.SystemException" %><%@
+page import="com.exedio.cope.lib.NestingRuntimeException" %><%@
 page import="com.exedio.cope.lib.NoSuchIDException" %><%@
 page import="java.io.PrintWriter" %><%@
 page import="java.util.Iterator" %><%@
@@ -42,7 +42,7 @@ include file="provider.inc"
 		provider.getModel().checkDatabase();
 		database = true;
 	}
-	catch(SystemException e)
+	catch(NestingRuntimeException e)
 	{
 		%><b>Database not initialized.</b><br>
 		<a href="admin.jsp">Administration</a>

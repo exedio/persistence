@@ -144,7 +144,7 @@ public final class Type
 		}
 		catch(IllegalAccessException e)
 		{
-			throw new SystemException(e);
+			throw new NestingRuntimeException(e);
 		}
 		this.declaredAttributes = (Attribute[])attributesTemp.toArray(new Attribute[attributesTemp.size()]);
 		this.declaredAttributeList = Collections.unmodifiableList(Arrays.asList(this.declaredAttributes));
@@ -185,7 +185,7 @@ public final class Type
 		}
 		catch(NoSuchMethodException e)
 		{
-			throw new SystemException(e);
+			throw new NestingRuntimeException(e);
 		}
 	}
 	
@@ -370,7 +370,7 @@ public final class Type
 		{
 			final Item result = (Item)searchResult.next();
 			if(searchResult.hasNext())
-				throw new SystemException(null);
+				throw new NestingRuntimeException(null);
 			else
 				return result;
 		}
@@ -454,15 +454,15 @@ public final class Type
 		}
 		catch(InstantiationException e)
 		{
-			throw new SystemException(e);
+			throw new NestingRuntimeException(e);
 		}
 		catch(IllegalAccessException e)
 		{
-			throw new SystemException(e);
+			throw new NestingRuntimeException(e);
 		}
 		catch(InvocationTargetException e)
 		{
-			throw new SystemException(e);
+			throw new NestingRuntimeException(e);
 		}
 	}
 

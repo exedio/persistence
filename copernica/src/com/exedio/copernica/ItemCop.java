@@ -2,8 +2,8 @@ package com.exedio.copernica;
 
 import com.exedio.cope.lib.Item;
 import com.exedio.cope.lib.Model;
+import com.exedio.cope.lib.NestingRuntimeException;
 import com.exedio.cope.lib.NoSuchIDException;
-import com.exedio.cope.lib.SystemException;
 import com.exedio.cope.lib.Type;
 
 final class ItemCop extends CopernicaCop
@@ -41,7 +41,7 @@ final class ItemCop extends CopernicaCop
 		}
 		catch(NoSuchIDException e)
 		{
-			throw new SystemException(e);
+			throw new NestingRuntimeException(e);
 		}
 	}
 

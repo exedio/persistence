@@ -96,19 +96,19 @@ public final class Model
 		{
 			e.printStackTrace();
 			System.err.println(e.getMessage());
-			throw new SystemException(e);
+			throw new NestingRuntimeException(e);
 		}
 		catch(IllegalAccessException e)
 		{
 			e.printStackTrace();
 			System.err.println(e.getMessage());
-			throw new SystemException(e);
+			throw new NestingRuntimeException(e);
 		}
 		catch(InvocationTargetException e)
 		{
 			e.printStackTrace();
 			System.err.println(e.getMessage());
-			throw new SystemException(e);
+			throw new NestingRuntimeException(e);
 		}
 	}
 	

@@ -4,7 +4,7 @@ page import="com.exedio.cope.lib.ReportTable" %><%@
 page import="com.exedio.cope.lib.ReportLastAnalyzed" %><%@
 page import="com.exedio.cope.lib.ReportColumn" %><%@
 page import="com.exedio.cope.lib.ReportConstraint" %><%@
-page import="com.exedio.cope.lib.SystemException" %><%@
+page import="com.exedio.cope.lib.NestingRuntimeException" %><%@
 
 page import="java.util.Date" %><%@
 page import="java.util.Properties" %><%@

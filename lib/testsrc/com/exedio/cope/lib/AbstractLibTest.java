@@ -192,7 +192,7 @@ public abstract class AbstractLibTest extends TestCase
 		}
 		catch(IOException e)
 		{
-			throw new SystemException(e);
+			throw new NestingRuntimeException(e);
 		}
 		return o;
 	}

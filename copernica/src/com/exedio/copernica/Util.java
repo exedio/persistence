@@ -1,6 +1,6 @@
 package com.exedio.copernica;
 
-import com.exedio.cope.lib.SystemException;
+import com.exedio.cope.lib.NestingRuntimeException;
 
 public class Util
 {
@@ -16,15 +16,15 @@ public class Util
 		}
 		catch(ClassNotFoundException e)
 		{
-			throw new SystemException(e);
+			throw new NestingRuntimeException(e);
 		}
 		catch(InstantiationException e)
 		{
-			throw new SystemException(e);
+			throw new NestingRuntimeException(e);
 		}
 		catch(IllegalAccessException e)
 		{
-			throw new SystemException(e);
+			throw new NestingRuntimeException(e);
 		}
 	}
 

@@ -47,7 +47,7 @@ class ConnectionPool
 		}
 		catch (ClassNotFoundException e)
 		{
-			throw new SystemException(e);
+			throw new NestingRuntimeException(e);
 		}
 
 		//System.out.println("connection pool: CREATE");

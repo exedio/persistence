@@ -89,7 +89,7 @@ final class OracleDatabase
 			}
 			catch(ConstraintViolationException e)
 			{
-				throw new SystemException(e);
+				throw new NestingRuntimeException(e);
 			}
 		}
 		{
@@ -107,7 +107,7 @@ final class OracleDatabase
 			}
 			catch(ConstraintViolationException e)
 			{
-				throw new SystemException(e);
+				throw new NestingRuntimeException(e);
 			}
 		}
 		{
@@ -122,7 +122,7 @@ final class OracleDatabase
 			}
 			catch(ConstraintViolationException e)
 			{
-				throw new SystemException(e);
+				throw new NestingRuntimeException(e);
 			}
 		}
 	}

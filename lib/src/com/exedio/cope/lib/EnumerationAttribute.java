@@ -77,7 +77,7 @@ public final class EnumerationAttribute extends ObjectAttribute
 		}
 		catch(IllegalAccessException e)
 		{
-			throw new SystemException(e);
+			throw new NestingRuntimeException(e);
 		}
 	}
 	

@@ -80,7 +80,7 @@ public abstract class DatabaseLibTest extends AbstractLibTest
 		}
 		catch(IOException e)
 		{
-			throw new SystemException(e);
+			throw new NestingRuntimeException(e);
 		}
 	}
 	
@@ -96,7 +96,7 @@ public abstract class DatabaseLibTest extends AbstractLibTest
 		}
 		catch(IOException e)
 		{
-			throw new SystemException(e);
+			throw new NestingRuntimeException(e);
 		}
 		final String prefix = "/medias/AttributeItem/someMedia/";
 		final String pkString = String.valueOf(Search.pk2id(item.pk));
@@ -222,7 +222,7 @@ public abstract class DatabaseLibTest extends AbstractLibTest
 		}
 		catch(ConstraintViolationException e)
 		{
-			throw new SystemException(e);
+			throw new NestingRuntimeException(e);
 		}
 	}
 
