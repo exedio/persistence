@@ -45,6 +45,28 @@ public abstract class TransientCopernicaProvider implements CopernicaProvider
 				: (TransientLanguage)transientLanguages.get(uniqueID);
 	}
 	
+	// Transient Users
+	
+	private HashMap transientUsers = null;
+	
+	protected void setTransientUsers(final TransientUser[] users)
+	{
+		final HashMap result = new HashMap(users.length);
+		
+		for(int i = 0; i<users.length; i++)
+			result.put(users[i].getCopernicaID(), users[i]);
+			
+		transientUsers = result;
+	}
+
+	public User findUserByCopernicaID(String copernicaID)
+	{
+		return
+			transientUsers == null
+				? null
+				: (TransientUser)transientUsers.get(copernicaID);
+	}
+	
 	public Collection getRootCategories()
 	{
 		return Collections.EMPTY_LIST;

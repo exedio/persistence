@@ -52,10 +52,29 @@ include file="provider.inc"
 <%
 		return;
 	}
+
+	final User user = Util.checkAccess(provider, request.getHeader("Authorization"));
+	if(user==null)
+	{
+		response.addHeader("WWW-Authenticate", "Basic realm=\"Copernica\"");
+		response.sendError(response.SC_UNAUTHORIZED, "Unauthorized");
+%><html>
+	<head>
+		<title>Copernica Unauthorized</title>
+	</head>
+	<body>
+		<b>Access not authorized.</b><br>
+	</body>
+</html>
+<%
+		return;
+	}
 	
 	final CopernicaCop cop = CopernicaCop.getCop(
 		provider, request.getParameterMap()
 	);
+	
+	
 	final Language language = cop.language;
 	
 %><html>
@@ -78,6 +97,9 @@ include file="provider.inc"
 				</li><%
 			}
 			%>
+			<li>
+				<%=user.getCopernicaName()%>
+			</li>
 			</ul>
 		</div><%@
 		include file="copernica-typelist.inc" %>

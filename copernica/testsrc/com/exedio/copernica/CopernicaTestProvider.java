@@ -25,6 +25,15 @@ public class CopernicaTestProvider extends TransientCopernicaProvider
 				en,
 			}
 		);
+		
+		final TransientUser admin = new TransientUser("admin", "nimda", "Sir Administrator");
+		final TransientUser user = new TransientUser("user", "resu", "Mister User");
+		setTransientUsers(
+			new TransientUser[]{
+				admin,
+				user,
+			}
+		);
 	}
 
 	public Model getModel()
