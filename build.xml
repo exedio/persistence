@@ -81,6 +81,8 @@
 			<arg value="${basedir}/lib/testsrc/com/exedio/cope/lib/ItemWithManyAttributes.java" />
 			<arg value="${basedir}/lib/testsrc/com/exedio/cope/lib/PointerItem.java" />
 			<arg value="${basedir}/lib/testsrc/com/exedio/cope/lib/PointerItem2.java" />
+			<arg value="${basedir}/lib/testsrc/com/exedio/cope/lib/contacts/Contact.java" />
+			<arg value="${basedir}/lib/testsrc/com/exedio/cope/lib/contacts/SMSContact.java" />
 		</java>
 	</target>
 	

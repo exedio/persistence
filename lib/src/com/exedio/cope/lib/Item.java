@@ -103,7 +103,7 @@ public class Item extends Search
 	 *         if one of the values in <code>initialAttributeValues</code>
 	 *         is not compatible to it's attribute.
 	 */
-	protected Item(final Type type, final AttributeValue[] initialAttributeValues)
+	protected Item(final Type type/*TODO: determine type automatically*/, final AttributeValue[] initialAttributeValues)
 		throws ClassCastException
 	{
 		this.type = type;
@@ -133,7 +133,7 @@ public class Item extends Search
 	 */
 	protected Item(
 		final ReactivationConstructorDummy reactivationDummy,
-		final Type type, final int pk)
+		final Type type/*TODO: determine type automatically*/, final int pk)
 	{
 		this.type = type;
 		this.pk = pk;

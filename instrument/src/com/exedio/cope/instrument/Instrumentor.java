@@ -386,9 +386,28 @@ public final class Instrumentor implements InjectionConsumer
 		output.write("\t}");
 	}
 	
+	public void writeGenericConstructor(final PersistentClass persistentClass)
+	throws IOException
+	{
+		writeCommentHeader();
+		output.write("\t * Creates an item and sets the given attributes initially.");
+		output.write(lineSeparator);
+		writeCommentFooter();
+		output.write("protected ");
+		output.write(persistentClass.getName());
+		output.write("(final "+Type.class.getName()+" type,final "+AttributeValue.class.getName()+"[] initialAttributes)");
+		output.write(lineSeparator);
+		output.write("\t{");
+		output.write(lineSeparator);
+		output.write("\t\tsuper(type,initialAttributes);");
+		output.write(lineSeparator);
+		output.write("\t}");
+	}
+	
 	public void writeReactivationConstructor(final PersistentClass persistentClass)
 	throws IOException
 	{
+		final boolean abstractClass = persistentClass.isAbstract();
 		writeCommentHeader();
 		output.write("\t * Reactivation constructor. Used for internal purposes only.");
 		output.write(lineSeparator);
@@ -397,13 +416,18 @@ public final class Instrumentor implements InjectionConsumer
 			+ Type.class.getName() + ",int)");
 		output.write(lineSeparator);
 		writeCommentFooter();
-		output.write("private ");
+		output.write( abstractClass ? "protected " : "private " );
 		output.write(persistentClass.getName());
-		output.write("("+ReactivationConstructorDummy.class.getName()+" d, final int pk)");
+		output.write("("+ReactivationConstructorDummy.class.getName()+" d, ");
+		if(abstractClass)
+			output.write("final "+Type.class.getName()+" type,");
+		output.write("final int pk)");
 		output.write(lineSeparator);
 		output.write("\t{");
 		output.write(lineSeparator);
-		output.write("\t\tsuper(d,TYPE,pk);");
+		output.write("\t\tsuper(d,");
+		output.write( abstractClass ? "type" : "TYPE");
+		output.write(",pk);");
 		output.write(lineSeparator);
 		output.write("\t}");
 	}
@@ -933,6 +957,8 @@ public final class Instrumentor implements InjectionConsumer
 		{
 			//System.out.println("onClassEnd("+jc.getName()+") writing");
 			writeConstructor(persistentClass);
+			if(persistentClass.isAbstract()) // TODO: create the cosntructor for all classes, but without type argument
+				writeGenericConstructor(persistentClass);
 			writeReactivationConstructor(persistentClass);
 			for(final Iterator i = persistentClass.getPersistentAttributes().iterator(); i.hasNext(); )
 			{

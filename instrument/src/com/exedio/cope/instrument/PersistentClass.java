@@ -46,6 +46,11 @@ public final class PersistentClass
 		return javaClass.getName();
 	}
 	
+	public boolean isAbstract()
+	{
+		return javaClass.isAbstract();
+	}
+
 	public boolean isInterface()
 	{
 		return javaClass.isInterface();
