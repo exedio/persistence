@@ -173,7 +173,6 @@ public final class Instrumentor implements InjectionConsumer
 					output.write(',');
 				output.write(((Class)i.next()).getName());
 			}
-			output.write(' ');
 		}
 	}
 
