@@ -78,7 +78,7 @@
 		
 		<table border="1">
 			<tr>
-				<td>
+				<td valign="top">
 					<table border="1">
 					<%
 					for(Iterator i = Type.getTypes().iterator(); i.hasNext(); )
@@ -99,7 +99,7 @@
 					%>
 					</table>
 				</td>
-				<td>
+				<td valign="top">
 				<%
 					final String typeName = request.getParameter("type");
 					if(typeName!=null)
