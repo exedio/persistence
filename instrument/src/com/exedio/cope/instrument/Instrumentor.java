@@ -134,7 +134,7 @@ public final class Instrumentor implements InjectionConsumer
 	private final void handleAttribute(final JavaAttribute ja, final Class typeClass, final String docComment)
 		throws InjectorParseException
 	{
-		final String type = ja.getType();
+		final String type = ja.type;
 		final List initializerArguments = ja.getInitializerArguments();
 		//System.out.println(initializerArguments);
 					
@@ -180,7 +180,7 @@ public final class Instrumentor implements InjectionConsumer
 	private final void handleUniqueConstraint(final JavaAttribute ja, final Class typeClass)
 		throws InjectorParseException
 	{
-		final String type = ja.getType();
+		final String type = ja.type;
 		final JavaClass jc = ja.parent;
 		final List initializerArguments = ja.getInitializerArguments();
 		//System.out.println(initializerArguments);
@@ -241,7 +241,7 @@ public final class Instrumentor implements InjectionConsumer
 				Class typeClass = null;
 				try
 				{
-					typeClass = ja.file.findType(ja.getType());
+					typeClass = ja.file.findType(ja.type);
 				}
 				catch(InjectorParseException e)
 				{

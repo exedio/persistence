@@ -140,7 +140,7 @@ public abstract class InjectorTest extends InstrumentorTest
 			throw new AssertionFailedError("expected BehaviourHeader event >"+name+"<, but was "+event);
 		final JavaBehaviour javaBehaviour = ((BehaviourHeaderEvent)event).javaBehaviour;
 		assertEquals(name, javaBehaviour.getName());
-		assertEquals(type, javaBehaviour.getType());
+		assertEquals(type, javaBehaviour.type);
 		assertEquals(modifier, javaBehaviour.modifier);
 		return javaBehaviour;
 	}
@@ -150,7 +150,7 @@ public abstract class InjectorTest extends InstrumentorTest
 		final InjectionEvent event = fetchEvent();
 		final JavaAttribute javaAttribute = ((AttributeHeaderEvent)event).javaAttribute;
 		assertEquals(name, javaAttribute.getName());
-		assertEquals(type, javaAttribute.getType());
+		assertEquals(type, javaAttribute.type);
 		assertEquals(modifier, javaAttribute.modifier);
 		return javaAttribute;
 	}

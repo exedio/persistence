@@ -9,7 +9,7 @@ import java.lang.reflect.Modifier;
  * May be a class (even an inner class), an attribute or
  * a method.
  */
-public abstract class JavaFeature
+abstract class JavaFeature
 {
 	public static final int ACCESS_PUBLIC = 0;
 	public static final int ACCESS_PACKAGE = 1;
@@ -41,7 +41,7 @@ public abstract class JavaFeature
 	 * The return type of the method.
 	 * Is null, if it is a constructor, or a class.
 	 */
-	protected final String type;
+	final String type;
 	
 	protected final String name;
 	
@@ -132,15 +132,6 @@ public abstract class JavaFeature
 			default:
 				throw new RuntimeException(Integer.toString(accessModifier));
 		}
-	}
-	
-	/**
-	 * The return type of the method.
-	 * Is null, if it is a constructor, or a class.
-	 */
-	public final String getType()
-	{
-		return type;
 	}
 	
 	public final String getName()
