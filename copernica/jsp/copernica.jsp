@@ -20,27 +20,8 @@ page import="java.io.PrintWriter" %><%@
 page import="java.util.Iterator" %><%@
 page import="java.util.Collection" %><%@
 page import="java.util.Map"
-%><%!
-	
-	private CopernicaProvider providerLazilyInitialized;
-	private final Object providerLock = new Object();
-	
-	private final CopernicaProvider getProvider()
-	{
-		synchronized(providerLock)
-		{
-			if(providerLazilyInitialized!=null)
-				return providerLazilyInitialized;
-			
-			providerLazilyInitialized = Util.createProvider(
-				getInitParameter("com.exedio.copernica.provider"));
-			return providerLazilyInitialized;
-		}
-	}
-	
+%><%@ include file="copernica-provider.inc"
 %><%
-	final CopernicaProvider provider = getProvider();
-	
 	/*
 	for( final Iterator it = request.getParameterMap().entrySet().iterator(); it.hasNext(); )
 	{
