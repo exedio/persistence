@@ -256,7 +256,7 @@ public abstract class Database
 				bf.append(column.protectedName).
 					append('=');
 
-				final Object value = row.get(column);
+				final Object value = row.store(column);
 				bf.append(column.cacheToDatabase(value));
 			}
 			bf.append(" where ").
@@ -285,7 +285,7 @@ public abstract class Database
 			{
 				bf.append(',');
 				final Column column = (Column)i.next();
-				final Object value = row.get(column);
+				final Object value = row.store(column);
 				bf.append(column.cacheToDatabase(value));
 			}
 			bf.append(')');

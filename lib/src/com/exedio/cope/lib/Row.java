@@ -78,4 +78,9 @@ final class Row
 		cache.put(column, value);
 	}
 	
+	Object store(final Column column)
+	{
+		return cache.get(column);
+	}
+	
 }
