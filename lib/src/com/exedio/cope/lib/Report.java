@@ -157,7 +157,12 @@ public final class Report extends Node
 			// check/not null constraint are yellow only if missing
 			// foreign key/unique constraint are red when missing or unused
 			if(isMissing() || isUnused())
-				particularColor = COLOR_RED;
+			{
+				if(table.table==null)
+					particularColor = COLOR_YELLOW;
+				else
+					particularColor = COLOR_RED;
+			}
 			else
 				particularColor = COLOR_OK;
 				
