@@ -14,7 +14,7 @@ public class AttributesTest extends DatabaseLibTest
 		super.setUp();
 		someItem = new ItemWithoutAttributes();
 		someItem2 = new ItemWithoutAttributes();
-		item = new ItemWithManyAttributes("someString", 5, true, someItem, ItemWithManyAttributes.SomeEnumeration.enumValue1);
+		item = new ItemWithManyAttributes("someString", 5, 2.2, true, someItem, ItemWithManyAttributes.SomeEnumeration.enumValue1);
 	}
 	
 	public void tearDown() throws Exception
@@ -96,7 +96,7 @@ public class AttributesTest extends DatabaseLibTest
 
 		try
 		{
-			new ItemWithManyAttributes(null, 5, true, someItem, ItemWithManyAttributes.SomeEnumeration.enumValue1);
+			new ItemWithManyAttributes(null, 5, 2.2, true, someItem, ItemWithManyAttributes.SomeEnumeration.enumValue1);
 			fail("should have thrown NotNullViolationException");
 		}
 		catch(NotNullViolationException e)
@@ -139,6 +139,45 @@ public class AttributesTest extends DatabaseLibTest
 		assertEquals(null, item.getSomeDouble());
 	}
 
+	public void testSomeNotNullDouble()
+	{
+		assertEquals(item.TYPE, item.someNotNullDouble.getType());
+		assertEquals(2.2, item.getSomeNotNullDouble(), 0.0);
+		item.setSomeNotNullDouble(2.5);
+		assertEquals(2.5, item.getSomeNotNullDouble(), 0.0);
+
+		item.setSomeNotNullDouble(0.0);
+		// TODO: passivate
+		assertEquals(0.0, item.getSomeNotNullDouble(), 0.0);
+		assertEquals(
+			set(item),
+			toSet(
+				Search.search(
+					item.TYPE,
+					Search.equal(item.someNotNullDouble, 0.0))));
+
+		// TODO: test with extreme values
+		/*item.setSomeNotNullDouble(Double.MIN_VALUE);
+		// TODO: passivate
+		assertEquals(Double.MIN_VALUE, item.getSomeNotNullDouble(), 0.0);
+		assertEquals(
+			set(item),
+			toSet(
+				Search.search(
+					item.TYPE,
+					Search.equal(item.someNotNullDouble, Double.MIN_VALUE))));
+
+		item.setSomeNotNullDouble(Double.MAX_VALUE);
+		// TODO: passivate
+		assertEquals(Double.MAX_VALUE, item.getSomeNotNullDouble(), 0.0);
+		assertEquals(
+			set(item),
+			toSet(
+				Search.search(
+					item.TYPE,
+					Search.equal(item.someNotNullDouble, Double.MAX_VALUE))));*/
+	}
+
 	public void testSomeNotNullInteger()
 	{
 		assertEquals(item.TYPE, item.someNotNullInteger.getType());
@@ -147,6 +186,7 @@ public class AttributesTest extends DatabaseLibTest
 		assertEquals(20, item.getSomeNotNullInteger());
 
 		item.setSomeNotNullInteger(0);
+		// TODO: passivate
 		assertEquals(0, item.getSomeNotNullInteger());
 		assertEquals(
 			set(item),
@@ -156,6 +196,7 @@ public class AttributesTest extends DatabaseLibTest
 					Search.equal(item.someNotNullInteger, 0))));
 
 		item.setSomeNotNullInteger(Integer.MIN_VALUE);
+		// TODO: passivate
 		assertEquals(Integer.MIN_VALUE, item.getSomeNotNullInteger());
 		assertEquals(
 			set(item),
@@ -165,6 +206,7 @@ public class AttributesTest extends DatabaseLibTest
 					Search.equal(item.someNotNullInteger, Integer.MIN_VALUE))));
 
 		item.setSomeNotNullInteger(Integer.MAX_VALUE);
+		// TODO: passivate
 		assertEquals(Integer.MAX_VALUE, item.getSomeNotNullInteger());
 		assertEquals(
 			set(item),
@@ -248,7 +290,7 @@ public class AttributesTest extends DatabaseLibTest
 
 		try
 		{
-			new ItemWithManyAttributes("someString", 5, true, null, ItemWithManyAttributes.SomeEnumeration.enumValue1);
+			new ItemWithManyAttributes("someString", 5, 2.2, true, null, ItemWithManyAttributes.SomeEnumeration.enumValue1);
 			fail("should have thrown NotNullViolationException");
 		}
 		catch(NotNullViolationException e)
@@ -308,7 +350,7 @@ public class AttributesTest extends DatabaseLibTest
 
 		try
 		{
-			new ItemWithManyAttributes("someString", 5, true, someItem, null);
+			new ItemWithManyAttributes("someString", 5, 2.2, true, someItem, null);
 			fail("should have thrown NotNullViolationException");
 		}
 		catch(NotNullViolationException e)

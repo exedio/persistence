@@ -125,6 +125,7 @@ public class PersistentAttribute
 	{
 		fillNativeTypeMap("Boolean", "boolean", "(",            "?Boolean.TRUE:Boolean.FALSE)","(", ").booleanValue()");
 		fillNativeTypeMap("Integer", "int",     "new Integer(", ")",                           "(", ").intValue()");
+		fillNativeTypeMap("Double", "double", "new Double(", ")",                       "(", ").doubleValue()");
 	}
 
 	/**

@@ -14,11 +14,11 @@ public class LiteralConditionTest extends DatabaseLibTest
 	{
 		super.setUp();
 		someItem = new ItemWithoutAttributes();
-		item1 = new ItemWithManyAttributes("string1", 1, true, someItem, ItemWithManyAttributes.SomeEnumeration.enumValue1);
-		item2 = new ItemWithManyAttributes("string2", 2, true, someItem, ItemWithManyAttributes.SomeEnumeration.enumValue1);
-		item3 = new ItemWithManyAttributes("string3", 3, true, someItem, ItemWithManyAttributes.SomeEnumeration.enumValue2);
-		item4 = new ItemWithManyAttributes("string4", 4, true, someItem, ItemWithManyAttributes.SomeEnumeration.enumValue3);
-		item5 = new ItemWithManyAttributes("string5", 5, true, someItem, ItemWithManyAttributes.SomeEnumeration.enumValue3);
+		item1 = new ItemWithManyAttributes("string1", 1, 2.1, true, someItem, ItemWithManyAttributes.SomeEnumeration.enumValue1);
+		item2 = new ItemWithManyAttributes("string2", 2, 2.2, true, someItem, ItemWithManyAttributes.SomeEnumeration.enumValue1);
+		item3 = new ItemWithManyAttributes("string3", 3, 2.3, true, someItem, ItemWithManyAttributes.SomeEnumeration.enumValue2);
+		item4 = new ItemWithManyAttributes("string4", 4, 2.4, true, someItem, ItemWithManyAttributes.SomeEnumeration.enumValue3);
+		item5 = new ItemWithManyAttributes("string5", 5, 2.5, true, someItem, ItemWithManyAttributes.SomeEnumeration.enumValue3);
 	}
 	
 	public void tearDown() throws Exception
