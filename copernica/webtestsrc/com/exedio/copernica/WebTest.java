@@ -16,6 +16,7 @@ public class WebTest extends WebTestCase
 	boolean someNotNullBoolean;
 	String someEnumeration;
 	String someNotNullEnumeration;
+	String someNotNullItem;
 
 	public void setUp() throws Exception
 	{
@@ -27,6 +28,7 @@ public class WebTest extends WebTestCase
 		someNotNullBoolean = true;
 		someEnumeration = "null";
 		someNotNullEnumeration = "enumValue2";
+		someNotNullItem = "EmptyItem.1";
 	}
 	
 	private void assertItemForm()
@@ -40,6 +42,7 @@ public class WebTest extends WebTestCase
 			assertCheckboxNotSelected("someNotNullBoolean");
 		assertFormElementEquals("someEnumeration", someEnumeration);
 		assertFormElementEquals("someNotNullEnumeration", someNotNullEnumeration);
+		assertFormElementEquals("someNotNullItem", someNotNullItem);
 	}
 
 	public void testSearch()
@@ -96,12 +99,18 @@ public class WebTest extends WebTestCase
 		assertTitleEquals("AttributeItem.103");
 		assertItemForm();
 
+		setFormElement("someNotNullItem", "EmptyItem.2"); someNotNullItem = "EmptyItem.2";
+		submit("SAVE");
+		assertTitleEquals("AttributeItem.103");
+		assertItemForm();
+
 		setFormElement("someNotNullString", "running100"); someNotNullString = "running100";
 		setFormElement("someNotNullInteger", "107"); someNotNullInteger = "107";
 		setFormElement("someBoolean", "null"); someBoolean = "null";
 		setFormElement("someNotNullBoolean", "on"); someNotNullBoolean = true;
 		setFormElement("someEnumeration", "null"); someEnumeration = "null";
 		setFormElement("someNotNullEnumeration", "enumValue2"); someNotNullEnumeration = "enumValue2";
+		setFormElement("someNotNullItem", "EmptyItem.1"); someNotNullItem = "EmptyItem.1";
 		submit("SAVE");
 		assertTitleEquals("AttributeItem.103");
 		assertItemForm();
