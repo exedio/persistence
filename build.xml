@@ -92,7 +92,9 @@
 			<arg value="com.exedio.cope.lib.LibTest" />
 		</java>
 	</target>
-	
+
+	<target name="lib.test" depends="lib.test.run" />
+
 	<target name="instrument.test.compile" depends="instrument.compile">
 		<mkdir dir="instrument/build/testclasses" />
 		<javac srcdir="instrument/testsrc"
@@ -124,7 +126,7 @@
 	
 	<target name="instrument.test" depends="instrument.test.run" />
 	
-	<target name="test" depends="lib.test.run, instrument.test.run" />
+	<target name="test" depends="lib.test, instrument.test" />
 	
 	<target name="lib.clean">
 		<delete dir="lib/build" />
