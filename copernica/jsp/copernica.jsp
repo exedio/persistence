@@ -25,8 +25,6 @@ page import="java.util.Map"
 		</title>
 	</head>
 	<body>
-		<h1>Copernica</h1>
-		<h2>Generic Backoffice for COPE</h2>
 <%
 	final CopernicaProvider provider;
 	try
@@ -350,7 +348,10 @@ page import="java.util.Map"
 							<%
 						}
 						else if(cop instanceof EmptyCop)
-							%><u>select a type on the left</u><%
+							%>
+		<h1>Copernica</h1>
+		<h2>Generic Backoffice for COPE</h2>
+							<u>select a type on the left</u><%
 						else
 							throw new RuntimeException();
 						%>
