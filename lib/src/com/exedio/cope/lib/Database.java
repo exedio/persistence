@@ -888,9 +888,9 @@ abstract class Database
 			{
 				bf.append(",constraint ").
 					append(protectName(column.getNotNullConstraintID())).
-					append(" check(").
-					append(column.protectedID).
-					append(" is not null)");
+					append(" check(");
+				appendNotNullCondition(bf, column);
+				bf.append(')');
 			}
 
 			if(column instanceof StringColumn)
@@ -992,6 +992,12 @@ abstract class Database
 		{
 			throw new NestingRuntimeException(e);
 		}
+	}
+	
+	final void appendNotNullCondition(final Statement bf, final Column column)
+	{
+		bf.append(column.protectedID).
+			append(" is not null");
 	}
 	
 	private void createForeignKeyConstraints(final Table table)

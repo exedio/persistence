@@ -6,13 +6,22 @@ public final class ReportConstraint extends ReportNode
 	public final String name;
 	public final ReportTable table;
 	private boolean required = false;
+	public final String requiredCondition;
 	private boolean exists = false;
-	public String existingCondition;
+	private String existingCondition;
 		
 	ReportConstraint(final String name, final ReportTable table)
 	{
 		this.name = name;
 		this.table = table; 
+		this.requiredCondition = null;
+	}
+
+	ReportConstraint(final String name, final ReportTable table, final String requiredCondition)
+	{
+		this.name = name;
+		this.table = table;
+		this.requiredCondition = requiredCondition;
 	}
 
 	final void notifyRequired()
@@ -56,7 +65,29 @@ public final class ReportConstraint extends ReportNode
 				particularColor = COLOR_RED;
 		}
 		else
-			particularColor = COLOR_OK;
+		{
+			if(requiredCondition!=null &&
+				existingCondition!=null &&
+				!requiredCondition.equals(existingCondition))
+			{
+				error = "different condition in database: >"+existingCondition+"<";
+				particularColor = COLOR_RED;
+			}
+			else if(requiredCondition==null &&
+					existingCondition!=null)
+			{
+				error = "surplus condition in database: >"+existingCondition+"<";
+				particularColor = COLOR_RED;
+			}
+			else if(requiredCondition!=null &&
+					existingCondition==null)
+			{
+				error = "missing condition in database";
+				particularColor = COLOR_RED;
+			}
+			else
+				particularColor = COLOR_OK;
+		}
 				
 		cumulativeColor = particularColor;
 	}

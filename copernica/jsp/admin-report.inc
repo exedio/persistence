@@ -181,7 +181,7 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); tableCount++)
 			<li class="<%=constraintColor%>">
 				<small>constraint<%=constraintCount%></small> <%=constraint.name%><%
 			
-			final String constraintCondition = constraint.existingCondition;
+			final String constraintCondition = constraint.requiredCondition;
 			if(constraintCondition!=null)
 			{
 				%> <small><%=constraintCondition%></small><%

@@ -31,7 +31,11 @@ public final class Report extends ReportNode
 				if(column.primaryKey)
 					reportTable.notifyRequiredConstraint(column.getPrimaryKeyConstraintID());
 				else if(column.notNull)
-					reportTable.notifyRequiredConstraint(column.getNotNullConstraintID());
+				{
+					final Statement bf = database.createStatement();
+					database.appendNotNullCondition(bf, column);
+					reportTable.notifyRequiredCheckConstraint(column.getNotNullConstraintID(), bf.getText());
+				}
 					
 				if(column instanceof StringColumn)
 				{
