@@ -152,6 +152,8 @@ page import="java.util.Map"
 							%>
 							</ul>
 							<hr>
+							[<a href="<%=typeCop.firstPage()%>">&lt;&lt;</a>]
+							|
 							[<a href="<%=typeCop.previousPage()%>">&lt;</a>]
 							|
 							[<a href="<%=typeCop.nextPage()%>">&gt;</a>]
