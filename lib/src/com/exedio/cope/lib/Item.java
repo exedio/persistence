@@ -121,7 +121,7 @@ public class Item extends Search
 	/**
 	 * Reactivation constructor.
 	 * Is used for internal purposes only.
-	 * Does not actually create a new item, but an passive item object for
+	 * Does not actually create a new item, but a passive item object for
 	 * an already existing item.
 	 */
 	protected Item(final Type type, final int pk)
