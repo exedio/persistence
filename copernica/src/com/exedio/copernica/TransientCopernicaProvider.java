@@ -2,10 +2,14 @@ package com.exedio.copernica;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
 
 import com.exedio.cope.lib.Attribute;
 import com.exedio.cope.lib.Item;
+import com.exedio.cope.lib.ObjectAttribute;
 import com.exedio.cope.lib.Type;
+import com.exedio.cope.lib.UniqueConstraint;
 
 
 public class TransientCopernicaProvider implements CopernicaProvider
@@ -71,7 +75,37 @@ public class TransientCopernicaProvider implements CopernicaProvider
 	
 	public String getDisplayName(final com.exedio.copernica.Language displayLanguage, final Item item)
 	{
-		return item.toString();
+		final Type type = item.getType();
+		final List uniqueConstraints = type.getUniqueConstraints();
+		if(uniqueConstraints.isEmpty())
+			return item.toString();
+		else
+		{
+			final StringBuffer result = new StringBuffer();
+			final UniqueConstraint uniqueConstraint = (UniqueConstraint)uniqueConstraints.iterator().next();
+			boolean first = true;
+			for(Iterator i = uniqueConstraint.getUniqueAttributes().iterator(); i.hasNext(); )
+			{
+				if(first)
+					first = false;
+				else
+					result.append(" - ");
+
+				final ObjectAttribute attribute = (ObjectAttribute)i.next();
+				final Object value = item.getAttribute(attribute);
+
+				final String valueString;
+				if(value == null)
+					valueString = "NULL";
+				else if(value instanceof Item)
+					valueString = getDisplayName(displayLanguage, (Item)value);
+				else
+					valueString = value.toString();
+
+				result.append(valueString);
+			}
+			return result.toString();
+		}
 	}
 	
 	public String getIconURL(final Type type)
