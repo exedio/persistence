@@ -272,6 +272,11 @@ public class ExampleTest extends InjectorTest
 		assertText("{\n\t\treturn true;\n\t}");
 		assertMethod("getBoolean", null, getBoolean);
 		assertText("\n\t\n\t");
+		
+		final JavaBehaviour getIntegers = assertBehaviourHeader("getIntegers", "Integer[]", Modifier.PUBLIC);
+		assertText("{\n\t\treturn null;\n\t}");
+		assertMethod("getIntegers", null, getIntegers);
+		assertText("\n\t\n\t");
 	}
 
 }
