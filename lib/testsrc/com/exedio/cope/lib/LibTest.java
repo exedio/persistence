@@ -17,6 +17,7 @@ public class LibTest extends TestCase
 		ItemWithSingleUniqueReadOnly.TYPE,
 		ItemWithSingleUniqueNotNull.TYPE,
 		ItemWithoutAttributes.TYPE,
+		ItemWithoutAttributes2.TYPE,
 	};
 	
 	public LibTest()
@@ -44,7 +45,7 @@ public class LibTest extends TestCase
 		{
 			final ItemWithoutAttributes item1 = new ItemWithoutAttributes();
 			final ItemWithoutAttributes item2 = new ItemWithoutAttributes();
-			final ItemWithoutAttributes item3 = new ItemWithoutAttributes();
+			final ItemWithoutAttributes2 item3 = new ItemWithoutAttributes2();
 			
 			assertEquals(item1, item1);
 			assertEquals(item2, item2);
