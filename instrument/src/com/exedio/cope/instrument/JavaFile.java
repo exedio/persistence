@@ -175,6 +175,7 @@ public final class JavaFile
 		{
 			try
 			{
+				//System.out.println("findType("+typename+"): try explicit :"+arrayBefore+typename+arrayAfter);
 				return Class.forName(arrayBefore+typename+arrayAfter, false, classLoader);
 			}
 			catch(ClassNotFoundException e)
@@ -211,6 +212,7 @@ public final class JavaFile
 		// implements items 1 and 2 of 6.5.4.1
 		try
 		{
+			//System.out.println("findType("+typename+"): try by package :"+arrayBefore + (packagename!=null ? packagename+'.'+typename : typename) + arrayAfter);
 			return Class.forName(
 			arrayBefore + (
 			packagename!=null ?
@@ -227,7 +229,10 @@ public final class JavaFile
 		{
 			String s=(String)(import_single.get(typename));
 			if(s!=null)
+			{
+				//System.out.println("findType("+typename+"): try by single :"+arrayBefore+s+arrayAfter);
 				return Class.forName(arrayBefore+s+arrayAfter, false, classLoader);
+			}
 		}
 		catch(ClassNotFoundException e)
 		{
@@ -243,6 +248,7 @@ public final class JavaFile
 			String full_element_type=arrayBefore+importString+typename+arrayAfter;
 			try
 			{
+				//System.out.println("findType("+typename+"): try by demand :"+full_element_type);
 				final Class x=Class.forName(full_element_type, false, classLoader);
 				if(result!=null)
 				{
