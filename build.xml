@@ -284,6 +284,33 @@
 	
 	</target>
 	
+	<target name="copernica.webtest.compile">
+		<mkdir dir="copernica/build/webtestclasses" />
+		<javac srcdir="copernica/webtestsrc"
+				destdir="copernica/build/webtestclasses"
+				deprecation="on"
+				debug="on"
+				optimize="off">
+			<classpath>
+				<fileset dir="../lib/jwebunit"> 
+					<include name="*.jar" /> 
+				</fileset> 
+			</classpath>
+		</javac>
+	</target>
+	
+	<target name="copernica.webtest" depends="copernica.webtest.compile">
+		<java classname="junit.textui.TestRunner" taskname="jwebunit" failonerror="yes">
+			<classpath>
+				<pathelement location="copernica/build/webtestclasses" />
+				<fileset dir="../lib/jwebunit"> 
+					<include name="*.jar" /> 
+				</fileset> 
+			</classpath>
+			<arg value="com.exedio.copernica.WebTest" />
+		</java>
+	</target>
+
 	<target name="copernica" depends="copernica.compile" />
 	
 	<target name="lib.clean">
