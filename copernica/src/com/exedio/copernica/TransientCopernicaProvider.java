@@ -71,7 +71,7 @@ public class TransientCopernicaProvider implements CopernicaProvider
 			if(Character.isUpperCase(c))
 			{
 				if(!wordStart)
-					result.append("&nbsp;");
+					result.append(' ');
 				wordStart = true;
 			}
 			else
