@@ -33,11 +33,13 @@ final class TypeCop_Jspm
 			%><ul><%
 			for(Iterator i = childs.iterator(); i.hasNext(); )
 			{
-				%><li><%
+				%>
+				<li><%
 				writeInfo(out, ((StatementInfo)i.next()));
 				%></li><%
 			}
-			%></ul><%
+			%>
+				</ul><%
 		}
 	}
 
@@ -232,9 +234,11 @@ final class TypeCop_Jspm
 			final StatementInfo info = cop.getStatementInfo();
 			if(info!=null)
 			{
-				%><ul style="background-color:#ccc"><li><%
+				%><ul style="background-color:#ccc">
+				<li><%
 				writeInfo(out, info);
-				%></li></ul><%
+				%></li>
+				</ul><%
 			}
 	}
 }
