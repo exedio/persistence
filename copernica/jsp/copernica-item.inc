@@ -147,10 +147,11 @@
 				%>
 			<%
 			}
-			else if(attribute instanceof StringAttribute)
+			else if(attribute instanceof StringAttribute
+						||attribute instanceof IntegerAttribute)
 			{
-				final StringAttribute stringAttribute = (StringAttribute)attribute;
-				final Form.Field field = form.getField(stringAttribute);
+				final ObjectAttribute objectAttribute = (ObjectAttribute)attribute;
+				final Form.Field field = form.getField(objectAttribute);
 		
 				if(field.isReadOnly())
 				{
@@ -159,49 +160,6 @@
 				else
 				{
 					%><input type="text" name="<%=field.getName()%>" value="<%=field.getValue()%>" /><%
-				}
-			}
-			else if(attribute instanceof IntegerAttribute)
-			{
-				final IntegerAttribute intAttribute = (IntegerAttribute)attribute;
-				final String attributeName = attribute.getName();
-		
-				if(attribute.isReadOnly())
-				{
-					%><b><%=(Integer)item.getAttribute(intAttribute)%></b><%
-				}
-				else
-				{
-					final Integer value;
-					if(save)
-					{
-						final String valueString = request.getParameter(attributeName);
-						if(valueString==null)
-							throw new NullPointerException(attributeName);
-						if(valueString.length()>0)
-						{
-							try
-							{
-								value = new Integer(Integer.parseInt(valueString));
-							}
-							catch(NumberFormatException e)
-							{
-								throw new SystemException(e);
-							}
-						}
-						else
-							value = null;
-
-						item.setAttribute(intAttribute, value);
-					}
-					else
-					{
-						value = (Integer)item.getAttribute(intAttribute);
-					}
-					final String output = (value==null) ? "" : String.valueOf(value);
-		
-					toSave = true;
-					%><input type="text" name="<%=attribute.getName()%>" value="<%=output%>" /><%
 				}
 			}
 			else

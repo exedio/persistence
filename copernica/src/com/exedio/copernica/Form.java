@@ -6,9 +6,11 @@ import java.util.Map;
 
 import com.exedio.cope.lib.Attribute;
 import com.exedio.cope.lib.ConstraintViolationException;
+import com.exedio.cope.lib.IntegerAttribute;
 import com.exedio.cope.lib.Item;
 import com.exedio.cope.lib.ObjectAttribute;
 import com.exedio.cope.lib.StringAttribute;
+import com.exedio.cope.lib.SystemException;
 import com.exedio.cope.lib.Type;
 
 public class Form
@@ -28,33 +30,56 @@ public class Form
 
 		for(Iterator j = type.getAttributes().iterator(); j.hasNext(); )
 		{
-			final Attribute attribute = (Attribute)j.next();
+			final Attribute anyAttribute = (Attribute)j.next();
 			final Field field;
-			if(attribute instanceof StringAttribute)
+			if(anyAttribute instanceof ObjectAttribute)
 			{
-				final StringAttribute stringAttribute = (StringAttribute)attribute;
+				final ObjectAttribute attribute = (ObjectAttribute)anyAttribute;
 				final String name = attribute.getName();
-				final String value;
 
-				final String requestValue = Cop.getParameter(parameters, name);
-				if(requestValue!=null)
-					value = requestValue;
-				else
+				if(attribute instanceof StringAttribute)
 				{
-					final String itemValue = (String)item.getAttribute(stringAttribute);
-					value = (itemValue==null) ? "" : itemValue;
+					final String value;
+	
+					final String requestValue = Cop.getParameter(parameters, name);
+					if(requestValue!=null)
+						value = requestValue;
+					else
+					{
+						final String itemValue = (String)item.getAttribute(attribute);
+						value = (itemValue==null) ? "" : itemValue;
+					}
+					if(!attribute.isReadOnly())
+						field = new Field(name, value);
+					else
+						field = new Field(value);
 				}
-				if(!attribute.isReadOnly())
-					field = new Field(name, value);
+				else if(attribute instanceof IntegerAttribute)
+				{
+					final String value;
+	
+					final String requestValue = Cop.getParameter(parameters, name);
+					if(requestValue!=null)
+						value = requestValue;
+					else
+					{
+						final Integer itemValue = (Integer)item.getAttribute(attribute);
+						value = (itemValue==null) ? "" : String.valueOf(itemValue);
+					}
+					if(!attribute.isReadOnly())
+						field = new Field(name, value);
+					else
+						field = new Field(value);
+				}
 				else
-					field = new Field(value);
+					continue;
 			}
 			else
 				continue;
 
 			if(!field.isReadOnly())
 				toSave = true;
-			fields.put(attribute, field);
+			fields.put(anyAttribute, field);
 		}
 	}
 	
@@ -106,7 +131,34 @@ public class Form
 			final ObjectAttribute attribute = (ObjectAttribute)i.next();
 			final Field field = (Field)fields.get(attribute);
 			if(!field.isReadOnly())
-				item.setAttribute(attribute, field.value);
+			{
+				final Object value;
+				if(attribute instanceof StringAttribute)
+				{
+					value = field.value;
+				}
+				else if(attribute instanceof IntegerAttribute)
+				{
+					final String valueString = field.value;
+					if(valueString.length()>0)
+					{
+						try
+						{
+							value = new Integer(Integer.parseInt(valueString));
+						}
+						catch(NumberFormatException e)
+						{
+							throw new SystemException(e);
+						}
+					}
+					else
+						value = null;
+				}
+				else
+					throw new RuntimeException();
+				
+				item.setAttribute(attribute, value);
+			}
 		}
 	}
 	
