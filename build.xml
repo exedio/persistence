@@ -245,12 +245,14 @@
 							lib.test.run.oracle,
 							lib.test.run.mysql" />
 
-	<target name="lib.test.teardown.database" depends="lib.compile, lib.test.compile">
-		<mkdir dir="lib/build/teardown/media" />
-		<copy file="cope.properties.mysql"
-				tofile="lib/build/teardown/cope.properties">
+	<target name="lib.test.teardown.anydb">
+		<echo message="Tearing down database for ${database}" />
+		<mkdir dir="lib/build/teardown.${database}/media" />
+		<copy file="cope.properties.${database}"
+				tofile="lib/build/teardown.${database}/cope.properties">
 			<filterset>
-				<filter token="MEDIA_DIRECTORY" value="lib/build/teardown/media" />
+				<filter token="MEDIA_DIRECTORY" 
+							value="lib/build/teardown.${database}/media" />
 			</filterset>
 		</copy>
 		<java classname="com.exedio.cope.lib.DatabaseLibTest" taskname="tear down" fork="yes" failonerror="yes">
@@ -260,15 +262,30 @@
 				<pathelement location="lib/build/testmodelclasses" />
 				<pathelement location="../lib/pcj.jar" />
 				<pathelement location="../lib/junit.jar" />
-				<pathelement location="../lib/hsqldb.jar" />
-				<pathelement location="../lib/classes12.jar" />
-				<pathelement location="../lib/mysql-connector-java-bin.jar" />
+				<pathelement location="../lib/${database-driver}" />
 			</classpath>
-			<sysproperty key="com.exedio.cope.properties" file="lib/build/teardown/cope.properties" />
+			<sysproperty key="com.exedio.cope.properties"
+							file="lib/build/teardown.${database}/cope.properties" />
 		</java>
 	</target>
 
-	<target name="teardown" depends="lib.test.teardown.database" />
+	<target name="lib.test.teardown.oracle" depends="lib.compile, lib.test.compile">
+		<antcall target="lib.test.teardown.anydb">
+			<param name="database" value="oracle"/>
+			<param name="database-driver" value="classes12.jar"/>
+		</antcall>
+	</target>
+
+	<target name="lib.test.teardown.mysql" depends="lib.compile, lib.test.compile">
+		<antcall target="lib.test.teardown.anydb">
+			<param name="database" value="mysql"/>
+			<param name="database-driver" value="mysql-connector-java-bin.jar"/>
+		</antcall>
+	</target>
+
+	<target name="teardown"
+			depends="lib.test.teardown.oracle,
+						lib.test.teardown.mysql" />
 
 
 	<target name="lib.test" depends="lib.test.run" />
