@@ -19,7 +19,7 @@ public class ExampleTest extends InjectorTest
 		super.tearDown();
 	}
 	
-	public void testExample()
+	public void assertInjection()
 	{
 		assertText("/*\nSome initial test comment.\n*/\n\npackage// hallo\n  com.exedio.cope.instrument");
 		assertPackage("com.exedio.cope.instrument");

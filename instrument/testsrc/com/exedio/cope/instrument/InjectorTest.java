@@ -3,6 +3,7 @@ package com.exedio.cope.instrument;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringWriter;
@@ -10,104 +11,73 @@ import java.util.LinkedList;
 
 import junit.framework.TestCase;
 
-/**
- * @author rw7
- *
- * To change the template for this generated type comment go to
- * Window&gt;Preferences&gt;Java&gt;Code Generation&gt;Code and Comments
- */
-public class InjectorTest extends TestCase
+public abstract class InjectorTest extends TestCase
 {
-	final String resourceName;
+	private final String resourceName;
 
-	public InjectorTest(String name, final String resourceName)
+	protected InjectorTest(String name, final String resourceName)
 	{
 		super(name);
 		this.resourceName = resourceName;
 	}
 
-	Reader input = null;
-	StringWriter output = null;
-	File outputfile;
 	private LinkedList injectionEvents;
-	TestInjectionConsumer testInjectionConsumer;
+	private TestInjectionConsumer testInjectionConsumer;
 
-	protected void setUp() throws Exception
-	{
-		super.setUp();
+	public abstract void assertInjection();
 
+	public void testInjection()
+		throws IOException, InjectorParseException
+	{	
+		Reader input = null;
+		StringWriter output = null;
 		String inputfile = InjectorTest.class.getResource(resourceName).getFile();
 		input = new InputStreamReader(new FileInputStream(inputfile));
 		output = new StringWriter();
 
 		injectionEvents = new LinkedList();
-		testInjectionConsumer = new TestInjectionConsumer();
+		testInjectionConsumer = new TestInjectionConsumer(output);
 		(new Injector(input, output, testInjectionConsumer)).parseFile();
-	}
-
-	protected void tearDown() throws Exception
-	{
 		input.close();
 		input = null;
 		output.close();
 		output = null;
 		injectionEvents = null;
-		super.tearDown();
 	}
 	
+	private InjectionEvent fetchEvent()
+	{
+		return (InjectionEvent)injectionEvents.removeFirst();
+	}
 
 	protected void assertText(final String text)
 	{
-		final StringBuffer buf = new StringBuffer();
-	
-		final InjectionEvent firstEvent = (InjectionEvent)injectionEvents.getFirst();
-		if(firstEvent instanceof TextEvent)
-		{
-			buf.append(((TextEvent)firstEvent).text);
-			injectionEvents.removeFirst();
-		}
-		final StringBuffer outputBuffer = output.getBuffer();
-		if(outputBuffer.length()>0)
-		{
-			buf.append(outputBuffer);
-			outputBuffer.setLength(0);
-		}
-		assertEquals(text, buf.toString());
-	}
-	
-	private InjectionEvent getEvent()
-	{
-		final StringBuffer outputBuffer = output.getBuffer();
-		if(outputBuffer.length()>0)
-		{
-			injectionEvents.add(new TextEvent(outputBuffer.toString()));
-			outputBuffer.setLength(0);
-		}
-
-		return (InjectionEvent)injectionEvents.removeFirst();
+		final InjectionEvent event = fetchEvent();
+		assertEquals(text, ((TextEvent)event).text);
 	}
 
 	protected void assertPackage(final String packageName)
 	{
-		final InjectionEvent event = getEvent();
+		final InjectionEvent event = fetchEvent();
 		assertEquals(packageName, ((PackageEvent)event).javafile.getPackageName());
 	}
 
-	static class InjectionEvent
+	private static class InjectionEvent
 	{
 	}
 
-	static class TextEvent extends InjectionEvent
+	private static class TextEvent extends InjectionEvent
 	{
 		final String text;
 
 		TextEvent(final String text)
 		{
 			this.text = text;
+			//System.out.println("new TextEvent("+text+")");
 		}
 	}
 	
-	static class PackageEvent extends InjectionEvent
+	private static class PackageEvent extends InjectionEvent
 	{
 		final JavaFile javafile;
 
@@ -117,17 +87,18 @@ public class InjectorTest extends TestCase
 		}
 	}
 	
-	private void addInjectionEvent(final InjectionEvent injectionEvent)
+	private class TestInjectionConsumer implements InjectionConsumer
 	{
-		injectionEvents.add(injectionEvent);
-	}
-
-	public class TestInjectionConsumer implements InjectionConsumer
-	{
+		final StringWriter output;
+		
+		TestInjectionConsumer(final StringWriter output)
+		{
+			this.output = output;
+		}
 
 		public void onPackage(final JavaFile javaFile) throws InjectorParseException
 		{
-			System.out.println("PACKAGE");
+			//System.out.println("PACKAGE"+javaFile.getPackageName()+"--------------"+output.getBuffer());
 			addInjectionEvent(new PackageEvent(javaFile));
 		}
 
@@ -173,5 +144,20 @@ public class InjectorTest extends TestCase
 		{
 		}
 
+		private void addInjectionEvent(final InjectionEvent injectionEvent)
+		{
+			flushOutput();
+			injectionEvents.add(injectionEvent);
+		}
+
+		private void flushOutput()
+		{
+			final StringBuffer outputBuffer = output.getBuffer();
+			if(outputBuffer.length()>0)
+			{
+				injectionEvents.add(new TextEvent(outputBuffer.toString()));
+				outputBuffer.setLength(0);
+			}
+		}
 	}
 }

@@ -124,7 +124,7 @@
 	
 	<target name="instrument.test" depends="instrument.test.run" />
 	
-	<target name="test" depends="libtest.run" />
+	<target name="test" depends="libtest.run, instrument.test.run" />
 	
 	<target name="lib.clean">
 		<delete dir="lib/build" />
