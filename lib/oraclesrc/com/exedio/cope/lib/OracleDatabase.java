@@ -284,10 +284,21 @@ final class OracleDatabase
 		return bf;
 	}
 	
+	protected StatementInfo makeStatementInfo(final Statement statement, final Connection connection)
+	{
+		final StatementInfo result = super.makeStatementInfo(statement, connection);
+
+		final StatementInfo planInfo = makePlanInfo(statement, connection);
+		if(planInfo!=null)
+			result.addChild(planInfo);
+		
+		return result;
+	}
+	
 	private static final Random statementIDCounter = new Random();
 	private static final String STATEMENT_ID = "STATEMENT_ID";
 
-	protected StatementInfo makeStatementInfo(final Statement statement, final Connection connection)
+	private StatementInfo makePlanInfo(final Statement statement, final Connection connection)
 	{
 		final String statementText = statement.getText();
 		if(statementText.startsWith("alter table "))

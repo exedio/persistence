@@ -865,7 +865,7 @@ abstract class Database
 	
 	protected StatementInfo makeStatementInfo(final Statement statement, final Connection connection)
 	{
-		return null;
+		return new StatementInfo(99, statement.getText());
 	}
 	
 	protected abstract String extractUniqueConstraintName(SQLException e);
