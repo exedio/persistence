@@ -43,8 +43,7 @@ public class JavaHash extends Hash
 			messageDigest.update(plainText.getBytes(encoding));
 			final byte[] resultBytes = messageDigest.digest();
 			final String result = encodeBytes(resultBytes);
-			//System.out.println("----------- encoded >"+plainText+"< to
-			// >"+result+"< ("+resultBytes.length+").");
+			//System.out.println("----------- encoded >"+plainText+"< to >"+result+"< ("+resultBytes.length+").");
 			return result;
 		}
 		catch(NoSuchAlgorithmException e)
