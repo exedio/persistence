@@ -6,6 +6,7 @@ import com.exedio.cope.lib.BooleanAttribute;
 import com.exedio.cope.lib.EnumerationAttribute;
 import com.exedio.cope.lib.IntegerAttribute;
 import com.exedio.cope.lib.ItemAttribute;
+import com.exedio.cope.lib.MediaAttribute;
 import com.exedio.cope.lib.StringAttribute;
 import com.exedio.cope.lib.SystemException;
 import com.exedio.cope.lib.Type;
@@ -126,6 +127,9 @@ public class Database
 			return "number(10,0)";
 		else if(attribute instanceof ItemAttribute)
 			return getSyntheticPrimaryKeyType();
+		else if(attribute instanceof MediaAttribute)
+			// TODO, separate major/minor mime type and introduce width/height for images
+			return "varchar(30)";
 		else
 			throw new RuntimeException(attribute.toString());
 	}
