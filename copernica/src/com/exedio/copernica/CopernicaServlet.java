@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.exedio.cope.lib.NestingRuntimeException;
+import com.exedio.cops.Cop;
 
 public final class CopernicaServlet extends HttpServlet
 {
@@ -87,7 +88,9 @@ public final class CopernicaServlet extends HttpServlet
 				checked = true;
 			}
 
-			Copernica_Jspm.write(out, request, provider);
+			final CopernicaUser user = checkAccess(request);
+			final CopernicaCop cop = CopernicaCop.getCop(provider, request);
+			Copernica_Jspm.write(out, request, user, cop);
 
 			out.close();
 		}
@@ -147,4 +150,24 @@ public final class CopernicaServlet extends HttpServlet
 		}
 	}
 	
+	private final CopernicaUser checkAccess(final HttpServletRequest request)
+		throws CopernicaAuthorizationFailedException
+	{
+		final String[] authorization = Cop.authorizeBasic(request);
+		if(authorization==null)
+			throw new CopernicaAuthorizationFailedException("noauth");
+
+		final String userid = authorization[0];
+		final String password = authorization[1];
+
+		final CopernicaUser user = provider.findUserByID(userid);
+		//System.out.println("user:"+user);
+		if(user==null)
+			throw new CopernicaAuthorizationFailedException("nouser", userid);
+		
+		if(!user.checkCopernicaPassword(password))
+			throw new CopernicaAuthorizationFailedException("badpass", userid);
+
+		return user;
+	}
 }

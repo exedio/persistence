@@ -14,12 +14,14 @@ import com.exedio.cope.lib.Type;
 
 class Copernica_Jspm
 {
-	static final void write(final PrintStream out, final HttpServletRequest request, final CopernicaProvider provider)
+	static final void write(
+			final PrintStream out,
+			final HttpServletRequest request,
+			final CopernicaUser user,
+			final CopernicaCop cop)
 		throws IOException, CopernicaAuthorizationFailedException
 	{
-		// TODO: move this in enclosing method
-		final CopernicaUser user = Util.checkAccess(provider, request);
-		final CopernicaCop cop = CopernicaCop.getCop(provider, request);
+		final CopernicaProvider provider = cop.provider;
 		final CopernicaLanguage language = cop.language;
 	
 %><html>
