@@ -190,8 +190,8 @@
 	<target name="test" depends="lib.test, instrument.test" />
 	
 	<target name="copernica.jspc"> 
-		<delete dir="jsp/WEB-INF/src" />
-		<mkdir dir="jsp/WEB-INF/src" />
+		<delete dir="copernica/jsp/WEB-INF/src" />
+		<mkdir dir="copernica/jsp/WEB-INF/src" />
 		<taskdef classname="org.apache.jasper.JspC" name="jasper2" > 
 			<classpath id="jspc.classpath"> 
 				<fileset dir="${basedir}/../tomcat/bin"> 
