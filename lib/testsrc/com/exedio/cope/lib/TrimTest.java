@@ -15,6 +15,10 @@ public class TrimTest extends AbstractLibTest
 
 	public void testTrim()
 	{
+		assertTrim("F", "FirstSecondThird", 1);
+		assertTrim("FS", "FirstSecondThird", 2);
+		assertTrim("FST", "FirstSecondThird", 3);
+		assertTrim("FiST", "FirstSecondThird", 4);
 		assertTrim("FiSeT", "FirstSecondThird", 5);
 		assertTrim("FirsSecThi", "FirstSecondThird", 10);
 		assertTrim("FirsSecoThi", "FirstSecondThird", 11);
