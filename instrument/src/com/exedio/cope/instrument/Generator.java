@@ -632,6 +632,7 @@ final class Generator
 			if(qualifierAttributes.contains(attribute))
 				continue;
 			writeQualifierGetter(qualifier, attribute);
+			writeQualifierSetter(qualifier, attribute);
 		}
 	}
 
@@ -661,13 +662,61 @@ final class Generator
 
 		o.write("\t\treturn (");
 		o.write(resultType);
-		o.write(")");
+		o.write(')');
 		o.write(qualifier.uniqueConstraintString);
 		o.write(".getQualified(new Object[]{this,");
 		o.write(qualifier.keyAttribute.javaAttribute.name);
 		o.write("},");
 		o.write(qualifier.qualifierClassString);
 		o.write('.');
+		o.write(attribute.getName());
+		o.write(");");
+		o.write(lineSeparator);
+
+		o.write("\t}");
+	}
+
+	private void writeQualifierSetter(final CopeQualifier qualifier, final CopeAttribute attribute)
+	throws IOException
+	{
+		writeCommentHeader();
+		o.write("\t * Sets the qualifier.");
+		o.write(lineSeparator);
+		writeCommentGenerated();
+		writeCommentFooter();
+
+		final String resultType = attribute.persistentType;
+		o.write("final void set");
+		o.write(toCamelCase(attribute.getName()));
+		o.write("(final ");
+		o.write(qualifier.keyAttribute.persistentType);
+		o.write(' ');
+		o.write(qualifier.keyAttribute.javaAttribute.name);
+		o.write(",final ");
+		o.write(resultType);
+		o.write(' ');
+		o.write(attribute.getName());
+		o.write(')');
+		o.write(lineSeparator);
+		
+		writeThrowsClause(Arrays.asList(new Class[]{
+			NotNullViolationException.class,
+			LengthViolationException.class,
+			ReadOnlyViolationException.class,
+			ClassCastException.class}));
+
+		o.write("\t{");
+		o.write(lineSeparator);
+
+		o.write("\t\t");
+		o.write(qualifier.uniqueConstraintString);
+		o.write(".setQualified(new Object[]{this,");
+		o.write(qualifier.keyAttribute.javaAttribute.name);
+		o.write("},");
+		o.write(qualifier.qualifierClassString);
+		o.write('.');
+		o.write(attribute.getName());
+		o.write(',');
 		o.write(attribute.getName());
 		o.write(");");
 		o.write(lineSeparator);

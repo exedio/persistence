@@ -24,7 +24,8 @@ public class QualifierTest extends DatabaseLibTest
 	}
 	
 	public void testQualified()
-		throws UniqueViolationException, NotNullViolationException, IntegrityViolationException
+		throws UniqueViolationException, NotNullViolationException, IntegrityViolationException,
+			LengthViolationException, ReadOnlyViolationException
 	{
 		assertEquals(QualifiedItem.qualifier.getParent(), QualifiedEmptyQualifier.parent);
 		assertEquals(QualifiedItem.qualifier.getKey(), QualifiedEmptyQualifier.key);
@@ -45,7 +46,8 @@ public class QualifierTest extends DatabaseLibTest
 		assertEquals(null, item.getQualifiedA(key2));
 		assertEquals(null, item.getQualifiedB(key2));
 
-		qitem1.setQualifiedA("value1A");
+		item.setQualifiedA(key1, "value1A");
+		assertEquals("value1A", qitem1.getQualifiedA());
 		assertEquals(qitem1, item.getQualifier(key1));
 		assertEquals("value1A", item.getQualifiedA(key1));
 		assertEquals(null, item.getQualifiedB(key1));
@@ -53,14 +55,15 @@ public class QualifierTest extends DatabaseLibTest
 		assertEquals(null, item.getQualifiedA(key2));
 		assertEquals(null, item.getQualifiedB(key2));
 		
-		qitem1.setQualifiedB("value1B");
+		item.setQualifiedB(key1, "value1B");
+		assertEquals("value1B", qitem1.getQualifiedB());
 		assertEquals(qitem1, item.getQualifier(key1));
 		assertEquals("value1A", item.getQualifiedA(key1));
 		assertEquals("value1B", item.getQualifiedB(key1));
 		assertEquals(null, item.getQualifier(key2));
 		assertEquals(null, item.getQualifiedA(key2));
 		assertEquals(null, item.getQualifiedB(key2));
-		
+
 		final QualifiedEmptyQualifier qitem2 = new QualifiedEmptyQualifier(item, key2);
 		assertEquals(qitem1, item.getQualifier(key1));
 		assertEquals("value1A", item.getQualifiedA(key1));
@@ -69,7 +72,8 @@ public class QualifierTest extends DatabaseLibTest
 		assertEquals(null, item.getQualifiedA(key2));
 		assertEquals(null, item.getQualifiedB(key2));
 
-		qitem2.setQualifiedB("value2B");
+		item.setQualifiedB(key2, "value2B");
+		assertEquals("value2B", qitem2.getQualifiedB());
 		assertEquals(qitem1, item.getQualifier(key1));
 		assertEquals("value1A", item.getQualifiedA(key1));
 		assertEquals("value1B", item.getQualifiedB(key1));
@@ -77,7 +81,8 @@ public class QualifierTest extends DatabaseLibTest
 		assertEquals(null, item.getQualifiedA(key2));
 		assertEquals("value2B", item.getQualifiedB(key2));
 
-		qitem1.setQualifiedB(null);
+		item.setQualifiedB(key1, null);
+		assertEquals(null, qitem1.getQualifiedB());
 		assertEquals(qitem1, item.getQualifier(key1));
 		assertEquals("value1A", item.getQualifiedA(key1));
 		assertEquals(null, item.getQualifiedB(key1));

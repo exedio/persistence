@@ -146,4 +146,25 @@ public final class UniqueConstraint
 			return null;
 	}
 
+	public final void setQualified(final Object[] values, final ObjectAttribute attribute, Object value)
+		throws
+			NotNullViolationException,
+			LengthViolationException,
+			ReadOnlyViolationException,
+			ClassCastException
+	{
+		Item item = searchUnique(values);
+		if(item==null)
+			throw new RuntimeException(); // TODO: implement creating item
+
+		try
+		{
+			item.setAttribute(attribute, value);
+		}
+		catch(UniqueViolationException e)
+		{
+			throw new NestingRuntimeException(e);
+		}
+	}
+
 }
