@@ -129,7 +129,7 @@ final class HsqldbDatabase
 			defineColumnString();
 		try
 		{
-			executeSQLQuery(bf, new ReportConstraintHandler(report));
+			executeSQLQuery(bf, new ReportConstraintHandler(report), false);
 		}
 		catch(ConstraintViolationException e)
 		{

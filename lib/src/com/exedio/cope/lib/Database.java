@@ -156,7 +156,8 @@ abstract class Database
 					public void run(final ResultSet resultSet) throws SQLException
 					{
 					}
-				}
+				},
+				false
 			);
 		}
 		catch(ConstraintViolationException e)
@@ -368,12 +369,11 @@ abstract class Database
 		}
 
 		//System.out.println("searching "+bf.toString());
-		bf.makeInfo = query.makeStatementInfo;
 		try
 		{
 			final SearchResultSetHandler handler =
 				new SearchResultSetHandler(query.start, query.count, selectables, selectColumns, selectTypes, query.model);
-			query.statementInfo = executeSQLQuery(bf, handler);
+			query.statementInfo = executeSQLQuery(bf, handler, query.makeStatementInfo);
 			return handler.result;
 		}
 		catch(ConstraintViolationException e)
@@ -542,7 +542,7 @@ abstract class Database
 		//System.out.println("loading "+bf.toString());
 		try
 		{
-			executeSQLQuery(bf, new LoadResultSetHandler(row));
+			executeSQLQuery(bf, new LoadResultSetHandler(row), false);
 		}
 		catch(ConstraintViolationException e)
 		{
@@ -601,7 +601,7 @@ abstract class Database
 		try
 		{
 			final CheckResultSetHandler handler = new CheckResultSetHandler();
-			executeSQLQuery(bf, handler);
+			executeSQLQuery(bf, handler, false);
 			return handler.result;
 		}
 		catch(ConstraintViolationException e)
@@ -775,23 +775,27 @@ abstract class Database
 
 	//private static int timeExecuteQuery = 0;
 
-	protected final StatementInfo executeSQLQuery(final Statement statement, final ResultSetHandler resultSetHandler)
+	protected final StatementInfo executeSQLQuery(
+		final Statement statement,
+		final ResultSetHandler resultSetHandler,
+		final boolean makeStatementInfo)
 			throws ConstraintViolationException
 	{
-		return executeSQL(statement, resultSetHandler, 0);
+		return executeSQL(statement, resultSetHandler, 0, makeStatementInfo);
 	}
 	
 	protected final void executeSQLUpdate(final Statement statement, final int expectedRows)
 			throws ConstraintViolationException
 	{
-		if(executeSQL(statement, null, expectedRows)!=null)
+		if(executeSQL(statement, null, expectedRows, false)!=null)
 			throw new RuntimeException(statement.toString());
 	}
 	
 	private final StatementInfo executeSQL(
 		final Statement statement,
 		final ResultSetHandler resultSetHandler,
-		final int expectedRows)
+		final int expectedRows,
+		final boolean makeStatementInfo)
 			throws ConstraintViolationException
 	{
 		Connection connection = null;
@@ -845,7 +849,7 @@ abstract class Database
 				sqlStatement = null;
 			}
 			
-			if(statement.makeInfo)
+			if(makeStatementInfo)
 				return makeStatementInfo(statement, connection);
 			else
 				return null;
@@ -1178,7 +1182,7 @@ abstract class Database
 		try
 		{
 			final CountResultSetHandler handler = new CountResultSetHandler();
-			executeSQLQuery(bf, handler);
+			executeSQLQuery(bf, handler, false);
 			return handler.result;
 		}
 		catch(ConstraintViolationException e)
@@ -1256,7 +1260,7 @@ abstract class Database
 		try
 		{
 			final NextPKResultSetHandler handler = new NextPKResultSetHandler();
-			executeSQLQuery(bf, handler);
+			executeSQLQuery(bf, handler, false);
 			//System.err.println("select max("+type.primaryKey.trimmedName+") from "+type.trimmedName+" : "+handler.result);
 			return handler.result;
 		}
@@ -1321,7 +1325,7 @@ abstract class Database
 			bf.append(GET_TABLES);
 			try
 			{
-				executeSQLQuery(bf, new MetaDataTableHandler(report));
+				executeSQLQuery(bf, new MetaDataTableHandler(report), false);
 			}
 			catch(ConstraintViolationException e)
 			{
@@ -1333,7 +1337,7 @@ abstract class Database
 			bf.append(GET_COLUMNS);
 			try
 			{
-				executeSQLQuery(bf, new MetaDataColumnHandler(report));
+				executeSQLQuery(bf, new MetaDataColumnHandler(report), false);
 			}
 			catch(ConstraintViolationException e)
 			{
