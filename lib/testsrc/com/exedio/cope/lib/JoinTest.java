@@ -21,42 +21,44 @@ public class JoinTest extends DatabaseLibTest
 
 	public void testJoin()
 	{
-		assertContains(
-				item2b, item2a, item2b, item2a,
-				Cope.search(new Query(PointerItem2.TYPE, PointerItem.TYPE, null)));
-
-		assertContains(
-				item2b, item2a,
-				Cope.search(new Query(PointerItem2.TYPE, PointerItem.TYPE, Cope.join(PointerItem.pointer))));
-		assertContains(
-				item2b, item2a,
-				Cope.search(new Query(PointerItem2.TYPE, new Type[]{PointerItem2.TYPE, PointerItem.TYPE}, Cope.join(PointerItem.pointer))));
-		assertContains(
-				item1b, item1a,
-				Cope.search(new Query(PointerItem.TYPE, new Type[]{PointerItem2.TYPE, PointerItem.TYPE}, Cope.join(PointerItem.pointer))));
-
-		assertContains(
-			item2b,
-			Cope.search(
-				new Query(
-					PointerItem2.TYPE,
-					PointerItem.TYPE,
-					Cope.equal(PointerItem.code, PointerItem2.code))));
-
-		assertContains(
-			item1a,
-			Cope.search(
-				new Query(
-					PointerItem.TYPE,
-					PointerItem2.TYPE,
-					Cope.and(
-						Cope.join(PointerItem.pointer),
-						Cope.equal(PointerItem2.code, "hallo")))));
-
-		assertContains(
-				list("bello", item1b, "collo"),
-				list("hallo", item1a, "bello"),
-				Cope.search(new Query(new Selectable[]{PointerItem2.code, PointerItem.TYPE, PointerItem.code}, new Type[]{PointerItem2.TYPE, PointerItem.TYPE}, Cope.join(PointerItem.pointer))));
+		{
+			final Query query = new Query(PointerItem2.TYPE, null);
+			query.join(PointerItem.TYPE, Cope.isNotNull(PointerItem.code));
+			assertContains(item2b, item2a, item2b, item2a, Cope.search(query));
+		}
+		{
+			final Query query = new Query(PointerItem2.TYPE, null);
+			query.join(PointerItem.TYPE, Cope.join(PointerItem.pointer));
+			assertContains(item2b, item2a, Cope.search(query));
+		}
+		{
+			final Query query = new Query(PointerItem2.TYPE, null);
+			query.join(PointerItem.TYPE, Cope.join(PointerItem.pointer));
+			assertContains(item2b, item2a, Cope.search(query));
+		}
+		{
+			final Query query = new Query(PointerItem.TYPE, PointerItem2.TYPE, null);
+			query.join(PointerItem.TYPE, Cope.join(PointerItem.pointer));
+			assertContains(item1b, item1a, Cope.search(query));
+		}
+		{
+			final Query query = new Query(PointerItem2.TYPE, null);
+			query.join(PointerItem.TYPE, Cope.equal(PointerItem.code, PointerItem2.code));
+			assertContains(item2b, Cope.search(query));
+		}
+		{
+			final Query query = new Query(PointerItem.TYPE, Cope.equal(PointerItem2.code, "hallo"));
+			query.join(PointerItem2.TYPE, Cope.join(PointerItem.pointer));
+			assertContains(item1a, Cope.search(query));
+		}
+		{
+			final Query query = new Query(new Selectable[]{PointerItem2.code, PointerItem.TYPE, PointerItem.code}, PointerItem2.TYPE, null);
+			query.join(PointerItem.TYPE, Cope.join(PointerItem.pointer));
+			assertContains(
+					list("bello", item1b, "collo"),
+					list("hallo", item1a, "bello"),
+					Cope.search(query));
+		}
 	}
 
 }

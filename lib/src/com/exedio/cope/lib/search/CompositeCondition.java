@@ -1,8 +1,7 @@
 
 package com.exedio.cope.lib.search;
 
-import java.util.TreeSet;
-
+import com.exedio.cope.lib.Query;
 import com.exedio.cope.lib.Statement;
 
 public abstract class CompositeCondition extends Condition
@@ -28,10 +27,10 @@ public abstract class CompositeCondition extends Condition
 		bf.append(')');
 	}
 
-	public final void check(final TreeSet fromTypes)
+	public final void check(final Query query)
 	{
 		for(int i = 0; i<conditions.length; i++)
-			conditions[i].check(fromTypes);
+			conditions[i].check(query);
 	}
 
 	public final String toString()

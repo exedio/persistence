@@ -54,7 +54,7 @@ public class FunctionTest extends DatabaseLibTest
 						item1.min4, item1.min4Upper, item1.min4UpperLength,
 						item1.max4, item1.max4Upper, item1.max4UpperLength,
 						item1.min4AndMax4UpperLength
-						}, new Type[]{item1.TYPE}, null))
+						}, item1.TYPE, null))
 				);
 	}
 

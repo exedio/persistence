@@ -54,7 +54,7 @@ public class SearchTest extends DatabaseLibTest
 		catch(RuntimeException e)
 		{
 			assertEquals(
-				"function someInteger{} belongs to type "+AttributeItem.class.getName()+", which is not a from-type of the query: ["+EmptyItem.class.getName()+"]",
+				"function someInteger{} belongs to type "+AttributeItem.class.getName()+", which is not a type of the query: "+EmptyItem.class.getName()+", null",
 				e.getMessage());
 		}
 	}

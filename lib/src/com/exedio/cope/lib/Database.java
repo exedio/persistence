@@ -306,17 +306,21 @@ abstract class Database
 			selectColumns[selectableIndex] = selectColumn;
 		}
 
-		bf.append(" from ");
+		bf.append(" from ").
+			append(query.type.getTable().protectedID);
 
-		boolean first = true;
-		for(Iterator i = query.fromTypes.iterator(); i.hasNext(); )
+		final ArrayList queryJoins = query.joins;
+		if(queryJoins!=null)
 		{
-			if(first)
-				first = false;
-			else
-				bf.append(',');
-
-			bf.append(((Type)i.next()).getTable().protectedID);
+			for(Iterator i = queryJoins.iterator(); i.hasNext(); )
+			{
+				final Join join = (Join)i.next();
+	
+				bf.append(" inner join ").
+					append(join.type.getTable().protectedID).
+					append(" on ");
+				join.condition.appendStatement(bf);
+			}
 		}
 
 		if(query.condition!=null)
@@ -343,7 +347,7 @@ abstract class Database
 			if(!firstOrderBy)
 				bf.append(',');
 			
-			final Table deterministicOrderTable = ((Type)query.fromTypes.first()).getTable();
+			final Table deterministicOrderTable = query.type.getTable();
 			bf.append("abs(").
 				append(deterministicOrderTable.protectedID).
 				append('.').

@@ -2,7 +2,6 @@
 package com.exedio.cope.lib.search;
 
 import java.util.Date;
-import java.util.TreeSet;
 
 import com.exedio.cope.lib.DateAttribute;
 import com.exedio.cope.lib.DoubleAttribute;
@@ -11,6 +10,7 @@ import com.exedio.cope.lib.EnumValue;
 import com.exedio.cope.lib.IntegerAttribute;
 import com.exedio.cope.lib.LongAttribute;
 import com.exedio.cope.lib.ObjectAttribute;
+import com.exedio.cope.lib.Query;
 import com.exedio.cope.lib.Statement;
 import com.exedio.cope.lib.StringAttribute;
 
@@ -74,9 +74,9 @@ public class LiteralCondition extends Condition
 			bf.append(" is null");
 	}
 
-	public final void check(final TreeSet fromTypes)
+	public final void check(final Query query)
 	{
-		check(attribute, fromTypes);
+		check(attribute, query);
 	}
 
 	public final String toString()

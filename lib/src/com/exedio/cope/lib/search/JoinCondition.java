@@ -1,8 +1,7 @@
 package com.exedio.cope.lib.search;
 
-import java.util.TreeSet;
-
 import com.exedio.cope.lib.ItemAttribute;
+import com.exedio.cope.lib.Query;
 import com.exedio.cope.lib.Statement;
 
 public final class JoinCondition extends Condition
@@ -21,10 +20,10 @@ public final class JoinCondition extends Condition
 			appendPK(attribute.getTargetType());
 	}
 
-	public final void check(final TreeSet fromTypes)
+	public final void check(final Query query)
 	{
-		check(attribute, fromTypes);
-		check(attribute.getTargetType(), fromTypes);
+		check(attribute, query);
+		check(attribute.getTargetType(), query);
 	}
 
 	public final String toString()

@@ -1,8 +1,7 @@
 package com.exedio.cope.lib.search;
 
-import java.util.TreeSet;
-
 import com.exedio.cope.lib.ObjectAttribute;
+import com.exedio.cope.lib.Query;
 import com.exedio.cope.lib.Statement;
 import com.exedio.cope.lib.StringAttribute;
 
@@ -26,10 +25,10 @@ public final class EqualAttributeCondition extends Condition
 			append(attribute2);
 	}
 
-	public final void check(final TreeSet fromTypes)
+	public final void check(final Query query)
 	{
-		check(attribute1, fromTypes);
-		check(attribute2, fromTypes);
+		check(attribute1, query);
+		check(attribute2, query);
 	}
 
 	public final String toString()

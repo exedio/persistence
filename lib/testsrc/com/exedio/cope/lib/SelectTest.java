@@ -53,7 +53,7 @@ public class SelectTest extends DatabaseLibTest
 						item.someString, item.someStringUpperCase, item.someStringLength, item.someNotNullString,
 						item.someNotNullInteger, item.someNotNullLong, item.someNotNullDouble,
 						item.someNotNullBoolean, item.someNotNullItem, item.someNotNullEnumeration},
-				new Type[]{item.TYPE},
+				item.TYPE,
 				null);
 		query.setOrderBy(item.someNotNullString, false);
 		final Collection result = Cope.search(query);

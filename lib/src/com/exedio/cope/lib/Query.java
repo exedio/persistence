@@ -1,6 +1,7 @@
 package com.exedio.cope.lib;
 
-import java.util.TreeSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.exedio.cope.lib.search.Condition;
 
@@ -8,7 +9,8 @@ public class Query
 {
 	final Model model;
 	final Selectable[] selectables;
-	final TreeSet fromTypes = new TreeSet(Type.COMPARATOR);
+	final Type type;
+	ArrayList joins = null;
 	final Condition condition;
 
 	Function orderBy = null;
@@ -26,35 +28,54 @@ public class Query
 	{
 		this.model = type.getModel();
 		this.selectables = new Type[]{type};
-		this.fromTypes.add(type);
+		this.type = type;
 		this.condition = condition;
 	}
 	
-	public Query(final Type selectType, final Type fromType2, final Condition condition)
+	public Query(final Selectable selectable, final Condition condition)
 	{
-		this.model = selectType.getModel();
-		this.selectables = new Type[]{selectType};
-		this.fromTypes.add(selectType);
-		this.fromTypes.add(fromType2);
-		this.condition = condition;
-	}
-	
-	public Query(final Selectable selectable, final Type[] fromTypes, final Condition condition)
-	{
-		this.model = fromTypes[0].getModel();
 		this.selectables = new Selectable[]{selectable};
-		for(int i = 0; i<fromTypes.length; i++)
-			this.fromTypes.add(fromTypes[i]);
+		if(selectable instanceof Function)
+			this.type = ((Function)selectable).getType();
+		else
+			this.type = (Type)selectable;
+
+		this.model = this.type.getModel();
 		this.condition = condition;
 	}
 	
-	public Query(final Selectable[] selectables, final Type[] fromTypes, final Condition condition)
+	public Query(final Selectable selectable, final Type type, final Condition condition)
 	{
-		this.model = fromTypes[0].getModel();
-		this.selectables = selectables;
-		for(int i = 0; i<fromTypes.length; i++)
-			this.fromTypes.add(fromTypes[i]);
+		this.model = type.getModel();
+		this.selectables = new Selectable[]{selectable};
+		this.type = type;
 		this.condition = condition;
+	}
+	
+	public Query(final Selectable[] selectables, final Type type, final Condition condition)
+	{
+		this.model = type.getModel();
+		this.selectables = selectables;
+		this.type = type;
+		this.condition = condition;
+	}
+	
+	public Type getType()
+	{
+		return type;
+	}
+	
+	public void join(final Type type, final Condition condition)
+	{
+		if(joins==null)
+			joins = new ArrayList();
+		
+		joins.add(new Join(type, condition));
+	}
+	
+	public List getJoins()
+	{
+		return joins;
 	}
 	
 	public void setOrderBy(final Function orderBy, final boolean ascending)
@@ -92,7 +113,7 @@ public class Query
 	void check()
 	{
 		if(condition!=null)
-			condition.check(fromTypes);
+			condition.check(this);
 	}
 
 }

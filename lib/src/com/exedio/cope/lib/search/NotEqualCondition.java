@@ -2,7 +2,6 @@
 package com.exedio.cope.lib.search;
 
 import java.util.Date;
-import java.util.TreeSet;
 
 import com.exedio.cope.lib.BooleanAttribute;
 import com.exedio.cope.lib.DateAttribute;
@@ -13,6 +12,7 @@ import com.exedio.cope.lib.Item;
 import com.exedio.cope.lib.ItemAttribute;
 import com.exedio.cope.lib.LongAttribute;
 import com.exedio.cope.lib.ObjectAttribute;
+import com.exedio.cope.lib.Query;
 import com.exedio.cope.lib.Statement;
 import com.exedio.cope.lib.StringFunction;
 
@@ -89,9 +89,9 @@ public final class NotEqualCondition extends Condition
 				append(" is not null");
 	}
 
-	public final void check(final TreeSet fromTypes)
+	public final void check(final Query query)
 	{
-		check(function, fromTypes);
+		check(function, query);
 	}
 
 	public final String toString()

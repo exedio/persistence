@@ -1,11 +1,10 @@
 
 package com.exedio.cope.lib.search;
 
-import java.util.TreeSet;
-
 import com.exedio.cope.lib.Function;
 import com.exedio.cope.lib.IntegerFunction;
 import com.exedio.cope.lib.ObjectAttribute;
+import com.exedio.cope.lib.Query;
 import com.exedio.cope.lib.Statement;
 import com.exedio.cope.lib.StringFunction;
 
@@ -48,9 +47,9 @@ public final class EqualCondition extends Condition
 			bf.append(" is null");
 	}
 
-	public final void check(final TreeSet fromTypes)
+	public final void check(final Query query)
 	{
-		check(function, fromTypes);
+		check(function, query);
 	}
 
 	public final String toString()
