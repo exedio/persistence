@@ -57,7 +57,8 @@ if(narrowReport)
 <input type="submit" name="APPLY" value="apply"/>
 <ul class="<%=reportColor%>"><%
 
-for(Iterator i = report.getTables().iterator(); i.hasNext(); )
+int tableCount = 1;
+for(Iterator i = report.getTables().iterator(); i.hasNext(); tableCount++)
 {
 	final ReportTable table = (ReportTable)i.next();
 	
@@ -68,7 +69,7 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); )
 	%>
 	<li class="<%=tableColor%>"><%
 	
-	%><small>table</small> <%
+	%><small>tab<%=tableCount%></small> <%
 	if(!narrowReport)
 	{
 		%><a href="<%=cop.narrowReport(table)%>"><%
