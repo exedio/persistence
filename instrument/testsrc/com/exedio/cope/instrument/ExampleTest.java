@@ -158,6 +158,9 @@ public class ExampleTest extends InjectorTest
 				+ "\n  };");
 		assertAttribute("uglyAttribute8", null);
 		assertText("\n  // end of ugly attributes\n  \n\n  ");
+		
+		assertClass("Inner");
+		assertText("class Inner implements Runnable\n  {\n\t ");
 	}
 
 }
