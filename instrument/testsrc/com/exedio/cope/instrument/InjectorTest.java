@@ -133,13 +133,14 @@ public abstract class InjectorTest extends TestCase
 		return javaBehaviour;
 	}
 	
-	protected void assertAttributeHeader(final String name, final String type, final int modifier)
+	protected JavaAttribute assertAttributeHeader(final String name, final String type, final int modifier)
 	{
 		final InjectionEvent event = fetchEvent();
 		final JavaAttribute javaAttribute = ((AttributeHeaderEvent)event).javaAttribute;
 		assertEquals(name, javaAttribute.getName());
 		assertEquals(type, javaAttribute.getType());
 		assertEquals(modifier, javaAttribute.getModifiers());
+		return javaAttribute;
 	}
 	
 	private void assertFeature(final String name, final String docComment, final JavaFeature expectedJavaFeature)
@@ -148,17 +149,34 @@ public abstract class InjectorTest extends TestCase
 		final JavaFeature javaFeature = ((ClassFeatureEvent)event).javaFeature;
 		assertEquals(name, javaFeature.getName());
 		assertEquals(replaceLineBreaks(docComment), ((ClassFeatureEvent)event).docComment);
-		if(expectedJavaFeature!=null) // TODO: remove condition when attributes are checked as well
+		if(expectedJavaFeature!=null)
 			assertSame(expectedJavaFeature, javaFeature);
 	}
 	
-	protected void assertAttribute(final String name, final String docComment)
+	protected void assertAttribute(final String name, final String docComment, final JavaAttribute expectedJavaAttribute)
+	{
+		if(expectedJavaAttribute==null)
+			throw new NullPointerException();
+		assertFeature(name, docComment, expectedJavaAttribute);
+	}
+	
+	/**
+	 * TODO: InnerClassAttribute is non-sense, and should not be reported by the injector
+	 */
+	protected void assertInnerClassAttribute(final String name, final String docComment)
+	{
+		assertFeature(name, docComment, null);
+	}
+
+	protected void assertAttributeCommaSeparated(final String name, final String docComment)
 	{
 		assertFeature(name, docComment, null);
 	}
 	
 	protected void assertMethod(final String name, final String docComment, final JavaBehaviour jb)
 	{
+		if(jb==null)
+			throw new NullPointerException();
 		assertFeature(name, docComment, jb);
 	}
 
