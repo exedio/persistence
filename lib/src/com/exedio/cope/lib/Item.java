@@ -21,8 +21,10 @@ public class Item extends Search
 	protected final void setAttribute(final Attribute attribute, final Object value)
 	throws UniqueViolationException, NotNullViolationException, ReadOnlyViolationException
 	{
-		if(value == null)
-			throw new NotNullViolationException();
+		if(attribute.isReadOnly())
+			throw new ReadOnlyViolationException(this, attribute);
+		if(attribute.isNotNull() && value == null)
+			throw new NotNullViolationException(this, attribute);
 	}
 	
 	protected final void setAttribute(final Attribute attribute, final Object[] qualifiers, final Object value)

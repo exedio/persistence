@@ -2,13 +2,13 @@
 package persistence;
 
 /**
- * Is thrown, when a persistent modification violates a unique-constraint.
+ * Is thrown, when a persistent modification tries to violate a unique-constraint.
  */
 public class UniqueViolationException extends ConstraintViolationException
 {
 	
 	/**
-	 * Creates a new UniqueViolationException with the neccessary information about the collision.
+	 * Creates a new UniqueViolationException with the neccessary information about the violation.
 	 * @param item initializes, what is returned by {@link #getItem()}.
 	 * @param constraint initializes, what is returned by {@link #getConstraint()}.
 	 */
