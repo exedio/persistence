@@ -6,7 +6,7 @@ import java.util.List;
 
 public final class BooleanAttribute extends Attribute
 {
-	public BooleanAttribute(final Search.Option option)
+	public BooleanAttribute(final Item.Option option)
 	{
 		super(option);
 	}

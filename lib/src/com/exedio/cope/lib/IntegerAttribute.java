@@ -6,7 +6,7 @@ import java.util.List;
 
 public final class IntegerAttribute extends Attribute
 {
-	public IntegerAttribute(final Search.Option option)
+	public IntegerAttribute(final Item.Option option)
 	{
 		super(option);
 	}

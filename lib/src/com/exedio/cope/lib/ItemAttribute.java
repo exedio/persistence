@@ -17,7 +17,7 @@ public final class ItemAttribute extends Attribute
 
 	private final Class targetTypeClass;
 
-	public ItemAttribute(final Search.Option option, final Class targetTypeClass)
+	public ItemAttribute(final Item.Option option, final Class targetTypeClass)
 	{
 		super(option);
 		this.targetTypeClass = targetTypeClass;

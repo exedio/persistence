@@ -208,20 +208,4 @@ public abstract class Search
 			return null;
 	}
 	
-	public static class Option
-	{
-		public final boolean readOnly;
-		public final boolean notNull;
-
-		private Option(final boolean readOnly, final boolean notNull)
-		{
-			this.readOnly = readOnly;
-			this.notNull = notNull;
-		}
-	}
-	
-	public static final Option READ_ONLY = new Option(true, false);
-	public static final Option NOT_NULL = new Option(false, true);
-	public static final Option READ_ONLY_NOT_NULL = new Option(true, true);
-	 
 }

@@ -9,12 +9,12 @@ public abstract class Attribute
 	private final boolean notNull;
 	public final AttributeMapping mapping;
 
-	protected Attribute(final Search.Option option)
+	protected Attribute(final Item.Option option)
 	{
 		this(option, null);
 	}
 	
-	protected Attribute(final Search.Option option, final AttributeMapping mapping)
+	protected Attribute(final Item.Option option, final AttributeMapping mapping)
 	{
 		this.readOnly = option==null ? false : option.readOnly;
 		this.notNull = option==null ? false : option.notNull;

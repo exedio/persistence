@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.exedio.cope.lib.Search;
+import com.exedio.cope.lib.Item;
 import com.exedio.cope.lib.SystemException;
 
 public final class Instrumentor implements InjectionConsumer
@@ -202,8 +202,8 @@ public final class Instrumentor implements InjectionConsumer
 						try
 						{
 							//System.out.println(optionString);
-							final Search.Option option = 
-								(Search.Option)Search.class.getDeclaredField(optionString).get(null);
+							final Item.Option option = 
+								(Item.Option)Item.class.getDeclaredField(optionString).get(null);
 							readOnly = option.readOnly;
 							notNull = option.notNull;
 						}

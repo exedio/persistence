@@ -6,12 +6,12 @@ import java.util.List;
 
 public final class StringAttribute extends Attribute
 {
-	public StringAttribute(final Search.Option option)
+	public StringAttribute(final Item.Option option)
 	{
 		super(option);
 	}
 	
-	public StringAttribute(final Search.Option option, final AttributeMapping mapping)
+	public StringAttribute(final Item.Option option, final AttributeMapping mapping)
 	{
 		super(option, mapping);
 	}
