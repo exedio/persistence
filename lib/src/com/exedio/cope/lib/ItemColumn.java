@@ -8,7 +8,7 @@ final class ItemColumn extends IntegerColumn
 	final Class targetTypeClass;
 	final String integrityConstraintName;
 
-	ItemColumn(final Type type, final String id,
+	ItemColumn(final Table type, final String id, // TODO: rename to table
 					  final boolean notNull,
 					  final Class targetTypeClass, final String integrityConstraintName)
 	{
@@ -24,7 +24,7 @@ final class ItemColumn extends IntegerColumn
 	/**
 	 * Creates a primary key column with a foreign key contraint.
 	 */	
-	ItemColumn(final Type type, final Class targetTypeClass)
+	ItemColumn(final Table type, final Class targetTypeClass) // TODO: rename to table
 	{
 		super(type);
 		if(targetTypeClass==null)
@@ -36,7 +36,7 @@ final class ItemColumn extends IntegerColumn
 	String getForeignTableNameProtected()
 	{
 		if(targetTypeClass!=null)
-			return Type.findByJavaClass(targetTypeClass).protectedID;
+			return Type.findByJavaClass(targetTypeClass).table.protectedID;
 		else
 			return null; 
 	}

@@ -14,7 +14,7 @@ class IntegerColumn extends Column
 	final int[] allowedValues;
 	final String allowedValuesID;
 
-	IntegerColumn(final Type type, final String id,
+	IntegerColumn(final Table type, final String id, // TODO: rename to table
 					  final boolean notNull, final int precision,
 					  final boolean longInsteadOfInt, final int[] allowedValues)
 	{
@@ -27,7 +27,7 @@ class IntegerColumn extends Column
 	/**
 	 * Creates a primary key column.
 	 */	
-	IntegerColumn(final Type type)
+	IntegerColumn(final Table type) // TODO: rename to table
 	{
 		super(type, "PK", true, true, Database.theInstance.getIntegerType(ItemColumn.SYNTETIC_PRIMARY_KEY_PRECISION), JDBC_TYPE_INT);
 		this.longInsteadOfInt = false;

@@ -46,24 +46,23 @@ public final class MediaAttribute extends Attribute
 	
 	// second initialization phase ---------------------------------------------------
 
-	protected List createColumns(final String name, final boolean notNull)
+	protected List createColumns(final Table table, final String name, final boolean notNull)
 	{
-		final Type type = getType();
 		final ArrayList result = new ArrayList(2);
 		if(fixedMimeMajor==null)
 		{
-			mimeMajor = new StringColumn(type, name + "Major", notNull, 1, 30);
+			mimeMajor = new StringColumn(table, name + "Major", notNull, 1, 30);
 			result.add(mimeMajor);
 		}
 		if(fixedMimeMinor==null)
 		{
-			mimeMinor = new StringColumn(type, name + "Minor", notNull, 1, 30);
+			mimeMinor = new StringColumn(table, name + "Minor", notNull, 1, 30);
 			result.add(mimeMinor);
 		}
 		if(fixedMimeMajor!=null && fixedMimeMinor!=null && !notNull)
 		{
 			// TODO: make that column not-null
-			exists = new IntegerColumn(type, name + "Exists", false, 1, false, BooleanAttribute.ALLOWED_VALUES);
+			exists = new IntegerColumn(table, name + "Exists", false, 1, false, BooleanAttribute.ALLOWED_VALUES);
 			result.add(exists);
 		}
 		return result;

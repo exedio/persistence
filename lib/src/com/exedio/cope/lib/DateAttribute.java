@@ -27,7 +27,7 @@ public final class DateAttribute extends ObjectAttribute
 		this.forbidTimestampColumn = forbidTimestampColumn;
 	}
 	
-	protected List createColumns(final String name, final boolean notNull)
+	protected List createColumns(final Table table, final String name, final boolean notNull)
 	{
 		final boolean useLong =
 			forbidTimestampColumn ||
@@ -36,8 +36,8 @@ public final class DateAttribute extends ObjectAttribute
 		return
 			Collections.singletonList(
 				useLong
-				? (Column)new IntegerColumn(getType(), name, notNull, 20, true, null)
-				: (Column)new TimestampColumn(getType(), name, notNull)
+				? (Column)new IntegerColumn(table, name, notNull, 20, true, null)
+				: (Column)new TimestampColumn(table, name, notNull)
 			);
 	}
 	

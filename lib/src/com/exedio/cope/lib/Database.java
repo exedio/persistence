@@ -96,14 +96,15 @@ public abstract class Database
 	public void createDatabase()
 	{
 		//final long time = System.currentTimeMillis();
+		for(Iterator i = Table.getTables().iterator(); i.hasNext(); )
+			createTable((Table)i.next());
+
 		for(Iterator i = Type.getTypes().iterator(); i.hasNext(); )
-		{
-			final Type type = (Type)i.next();
-			createTable(type);
-			createMediaDirectories(type);
-		}
-		for(Iterator i = Type.getTypes().iterator(); i.hasNext(); )
-			createForeignKeyConstraints((Type)i.next());
+			createMediaDirectories((Type)i.next());
+
+		for(Iterator i = Table.getTables().iterator(); i.hasNext(); )
+			createForeignKeyConstraints((Table)i.next());
+
 		//final long amount = (System.currentTimeMillis()-time);
 		//createTableTime += amount;
 		//System.out.println("CREATE TABLES "+amount+"ms  accumulated "+createTableTime);
@@ -129,14 +130,14 @@ public abstract class Database
 		bf.append("select count(*) from ").defineColumnInteger();
 		boolean first = true;
 
-		for(Iterator i = Type.getTypes().iterator(); i.hasNext(); )
+		for(Iterator i = Table.getTables().iterator(); i.hasNext(); )
 		{
 			if(first)
 				first = false;
 			else
 				bf.append(',');
 
-			final Type type = (Type)i.next();
+			final Table type = (Table)i.next(); // TODO: rename to table
 			bf.append(type.protectedID);
 		}
 		
@@ -144,14 +145,14 @@ public abstract class Database
 		
 		bf.append(" where ");
 		first = true;
-		for(Iterator i = Type.getTypes().iterator(); i.hasNext(); )
+		for(Iterator i = Table.getTables().iterator(); i.hasNext(); )
 		{
 			if(first)
 				first = false;
 			else
 				bf.append(" and ");
 
-			final Type type = (Type)i.next();
+			final Table type = (Table)i.next(); // TODO: rename to table
 
 			final Column primaryKey = type.primaryKey;
 			bf.append(type.protectedID).
@@ -200,12 +201,19 @@ public abstract class Database
 	public void dropDatabase()
 	{
 		//final long time = System.currentTimeMillis();
-		final List types = Type.getTypes();
-		// must delete in reverse order, to obey integrity constraints
-		for(ListIterator i = types.listIterator(types.size()); i.hasPrevious(); )
-			dropForeignKeyConstraints((Type)i.previous());
-		for(ListIterator i = types.listIterator(types.size()); i.hasPrevious(); )
-			dropTable((Type)i.previous());
+		{
+			final List types = Type.getTypes();
+			for(ListIterator i = types.listIterator(types.size()); i.hasPrevious(); )
+				((Type)i.previous()).onDropTable();
+		}
+		{
+			final List types = Table.getTables(); // TODO: rename to tables
+			// must delete in reverse order, to obey integrity constraints
+			for(ListIterator i = types.listIterator(types.size()); i.hasPrevious(); )
+				dropForeignKeyConstraints((Table)i.previous());
+			for(ListIterator i = types.listIterator(types.size()); i.hasPrevious(); )
+				dropTable((Table)i.previous());
+		}
 		//final long amount = (System.currentTimeMillis()-time);
 		//dropTableTime += amount;
 		//System.out.println("DROP TABLES "+amount+"ms  accumulated "+dropTableTime);
@@ -214,11 +222,11 @@ public abstract class Database
 	public void tearDownDatabase()
 	{
 		System.err.println("TEAR DOWN ALL DATABASE");
-		for(Iterator i = Type.getTypes().iterator(); i.hasNext(); )
+		for(Iterator i = Table.getTables().iterator(); i.hasNext(); )
 		{
 			try
 			{
-				final Type type = (Type)i.next();
+				final Table type = (Table)i.next(); // TODO: rename to table
 				System.err.print("DROPPING FOREIGN KEY CONSTRAINTS "+type+"... ");
 				dropForeignKeyConstraints(type);
 				System.err.println("done.");
@@ -228,11 +236,11 @@ public abstract class Database
 				System.err.println("failed:"+e2.getMessage());
 			}
 		}
-		for(Iterator i = Type.getTypes().iterator(); i.hasNext(); )
+		for(Iterator i = Table.getTables().iterator(); i.hasNext(); )
 		{
 			try
 			{
-				final Type type = (Type)i.next();
+				final Table type = (Table)i.next(); // TODO: rename to table
 				System.err.print("DROPPING TABLE "+type+" ... ");
 				dropTable(type);
 				System.err.println("done.");
@@ -261,7 +269,7 @@ public abstract class Database
 	
 	final IntArrayList search(final Query query)
 	{
-		final Type selectType = query.selectType;
+		final Table selectType = query.selectType.table; // TODO: rename to selectTable
 		final Statement bf = createStatement();
 
 		bf.append("select ").
@@ -278,7 +286,7 @@ public abstract class Database
 			else
 				bf.append(',');
 
-			bf.append(((Type)i.next()).protectedID);
+			bf.append(((Type)i.next()).table.protectedID);
 		}
 
 		if(query.condition!=null)
@@ -316,7 +324,8 @@ public abstract class Database
 		boolean first = true;
 		for(Type type = row.type; type!=null; type = type.getSupertype())
 		{
-			final List columns = type.getColumns();
+			final Table table = type.table;
+			final List columns = table.getColumns();
 			for(Iterator i = columns.iterator(); i.hasNext(); )
 			{
 				if(first)
@@ -325,7 +334,7 @@ public abstract class Database
 					bf.append(',');
 
 				final Column column = (Column)i.next();
-				bf.append(type.protectedID).
+				bf.append(table.protectedID).
 					append('.').
 					append(column.protectedID).defineColumn(column);
 			}
@@ -340,7 +349,7 @@ public abstract class Database
 			else
 				bf.append(',');
 
-			bf.append(type.protectedID);
+			bf.append(type.table.protectedID);
 		}
 			
 		bf.append(" where ");
@@ -352,9 +361,10 @@ public abstract class Database
 			else
 				bf.append(" and ");
 
-			bf.append(type.protectedID).
+			final Table table = type.table;
+			bf.append(table.protectedID).
 				append('.').
-				append(type.primaryKey.protectedID).
+				append(table.primaryKey.protectedID).
 				append('=').
 				append(row.pk);
 		}
@@ -376,12 +386,14 @@ public abstract class Database
 		store(row, row.type);
 	}
 
-	private void store(final Row row, final Type type)
+	private void store(final Row row, final Type theType) // TODO: rename to type
 			throws UniqueViolationException
 	{
-		final Type supertype = type.getSupertype();
+		final Type supertype = theType.getSupertype();
 		if(supertype!=null)
 			store(row, supertype);
+			
+		final Table type = theType.table; // TODO: rename to table
 
 		final List columns = type.getColumns();
 
@@ -459,11 +471,12 @@ public abstract class Database
 	{
 		for(Type currentType = type; currentType!=null; currentType = currentType.getSupertype())
 		{
+			final Table currentTable = currentType.table;
 			final Statement bf = createStatement();
 			bf.append("delete from ").
-				append(currentType.protectedID).
+				append(currentTable.protectedID).
 				append(" where ").
-				append(currentType.primaryKey.protectedID).
+				append(currentTable.primaryKey.protectedID).
 				append('=').
 				append(pk);
 
@@ -549,8 +562,10 @@ public abstract class Database
 				throw new RuntimeException("no such pk"); // TODO use some better exception
 			int columnIndex = 1;
 			for(Type type = row.type; type!=null; type = type.getSupertype())
-				for(Iterator i = type.getColumns().iterator(); i.hasNext(); )
+			{
+				for(Iterator i = type.table.getColumns().iterator(); i.hasNext(); )
 					((Column)i.next()).load(resultSet, columnIndex++, row);
+			}
 			return;
 		}
 	}
@@ -815,7 +830,7 @@ public abstract class Database
 	abstract String getStringType(int maxLength);
 	abstract String getDateTimestampType();
 	
-	private void createTable(final Type type)
+	private void createTable(final Table type) // TODO: rename to table
 	{
 		final Statement bf = createStatement();
 		bf.append("create table ").
@@ -952,7 +967,7 @@ public abstract class Database
 		}
 	}
 	
-	private void createForeignKeyConstraints(final Type type)
+	private void createForeignKeyConstraints(final Table type) // TODO: rename to table
 	{
 		//System.out.println("createForeignKeyConstraints:"+bf);
 
@@ -1007,10 +1022,8 @@ public abstract class Database
 		}
 	}
 
-	private void dropTable(final Type type)
+	private void dropTable(final Table type) // TODO: rename to table
 	{
-		type.onDropTable();
-
 		final Statement bf = createStatement();
 		bf.append("drop table ").
 			append(type.protectedID);
@@ -1029,7 +1042,7 @@ public abstract class Database
 	{
 		final Statement bf = createStatement();
 		bf.append("select count(*) from ").defineColumnInteger().
-			append(type.protectedID);
+			append(type.table.protectedID);
 
 		try
 		{
@@ -1043,7 +1056,7 @@ public abstract class Database
 		}
 	}
 	
-	private void dropForeignKeyConstraints(final Type type)
+	private void dropForeignKeyConstraints(final Table type) // TODO: rename to table
 	{
 		for(Iterator i = type.getColumns().iterator(); i.hasNext(); )
 		{
@@ -1076,13 +1089,14 @@ public abstract class Database
 	int[] getNextPK(final Type type)
 	{
 		final Statement bf = createStatement();
-		final String primaryKeyProtectedID = type.primaryKey.protectedID;
+		final Table table = type.table;
+		final String primaryKeyProtectedID = table.primaryKey.protectedID;
 		bf.append("select min(").
 			append(primaryKeyProtectedID).defineColumnInteger().
 			append("),max(").
 			append(primaryKeyProtectedID).defineColumnInteger().
 			append(") from ").
-			append(type.protectedID);
+			append(table.protectedID);
 			
 		try
 		{

@@ -46,12 +46,12 @@ public final class ItemAttribute extends ObjectAttribute
 		return result;
 	}
 	
-	protected List createColumns(final String name, final boolean notNull)
+	protected List createColumns(final Table table, final String name, final boolean notNull)
 	{
 		final String integrityConstraintName = Database.theInstance.trimName(getType().id+"_"+name+"Fk");
 		if(itemAttributesByIntegrityConstraintName.put(integrityConstraintName, this)!=null)
 			throw new InitializerRuntimeException("there is more than one integrity constraint with name "+integrityConstraintName);
-		return Collections.singletonList(new ItemColumn(getType(), name, notNull, targetTypeClass, integrityConstraintName));
+		return Collections.singletonList(new ItemColumn(table, name, notNull, targetTypeClass, integrityConstraintName));
 	}
 	
 	Object cacheToSurface(final Object cache)

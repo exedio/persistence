@@ -97,14 +97,14 @@ public final class EnumerationAttribute extends ObjectAttribute
 		return (EnumerationValue)codesToValues.get(code);
 	}
 
-	protected List createColumns(final String name, final boolean notNull)
+	protected List createColumns(final Table table, final String name, final boolean notNull)
 	{
 		final int[] allowedValues = new int[values.size()];
 		int in = 0;
 		for(Iterator i = values.iterator(); i.hasNext(); in++)
 			allowedValues[in] = ((EnumerationValue)i.next()).getNumber();
 
-		return Collections.singletonList(new IntegerColumn(getType(), name, notNull, 10, false, allowedValues));
+		return Collections.singletonList(new IntegerColumn(table, name, notNull, 10, false, allowedValues));
 	}
 	
 	Object cacheToSurface(final Object cache)

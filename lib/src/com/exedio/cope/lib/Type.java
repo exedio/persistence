@@ -43,10 +43,7 @@ public final class Type
 	private final List uniqueConstraintList;
 	
 	final String id;
-	final String protectedID;
-	private final List columns;
-	final Column primaryKey;
-	private final List allColumns;
+	final Table table;
 
 	private final Constructor reactivationConstructor;
 	private static final Class[] reactivationConstructorParams =
@@ -75,7 +72,6 @@ public final class Type
 		typesByName.put(javaClass, this);
 		this.id = Database.theInstance.trimName(this);
 		typesByID.put(this.id, this);
-		this.protectedID = Database.theInstance.protectName(this.id);
 
 		// supertype
 		final Class superClass = javaClass.getSuperclass();
@@ -87,6 +83,13 @@ public final class Type
 			if(supertype==null)
 				throw new NullPointerException(superClass.getName());
 		}
+
+		this.table = new Table(id);
+		if(supertype!=null)
+			new ItemColumn(table, supertype.getJavaClass());
+		else
+			new IntegerColumn(table);
+
 
 		// declaredAttributes
 		final Field[] fields = javaClass.getDeclaredFields();
@@ -107,7 +110,7 @@ public final class Type
 						final Attribute attribute = (Attribute)field.get(null);
 						if(attribute==null)
 							throw new InitializerRuntimeException(field.getName());
-						attribute.initialize(this, field.getName());
+						attribute.initialize(this, field.getName(), table);
 						attributesTemp.add(attribute);
 						featuresTemp.add(attribute);
 						featuresByName.put(attribute.getName(), attribute);
@@ -158,6 +161,8 @@ public final class Type
 		this.declaredFeatureList = Collections.unmodifiableList(Arrays.asList(this.declaredFeatures));
 		this.uniqueConstraints = (UniqueConstraint[])uniqueConstraintsTemp.toArray(new UniqueConstraint[uniqueConstraintsTemp.size()]);
 		this.uniqueConstraintList = Collections.unmodifiableList(Arrays.asList(this.uniqueConstraints));
+		
+		this.table.setUniqueConstraints(this.uniqueConstraintList);
 
 		// attributes
 		if(supertype==null)
@@ -183,25 +188,6 @@ public final class Type
 		this.attributeList = Collections.unmodifiableList(Arrays.asList(attributes));
 		this.featureList = Collections.unmodifiableList(Arrays.asList(features));
 
-		{
-			final ArrayList columns = new ArrayList();
-			for(int i = 0; i<this.declaredAttributes.length; i++)
-				columns.addAll(this.declaredAttributes[i].getColumns());
-			this.columns = Collections.unmodifiableList(columns);
-		}
-
-		this.primaryKey =
-			(supertype!=null)
-			? new ItemColumn(this, supertype.getJavaClass())
-			: new IntegerColumn(this);
-
-		{
-			final ArrayList allColumns = new ArrayList(columns.size()+1);
-			allColumns.add(primaryKey);
-			allColumns.addAll(columns);
-			this.allColumns = Collections.unmodifiableList(allColumns);
-		}
-		
 
 		try
 		{
@@ -289,26 +275,6 @@ public final class Type
 	public final List getUniqueConstraints()
 	{
 		return uniqueConstraintList;
-	}
-	
-	/**
-	 * Returns &quot;payload&quot; columns of this type only,
-	 * excluding primary key column.
-	 * @see #getAllColumns()
-	 */
-	List getColumns()
-	{
-		return columns;
-	}
-	
-	/**
-	 * Returns all columns of this type,
-	 * including primary key column.
-	 * @see #getColumns()
-	 */
-	List getAllColumns()
-	{
-		return allColumns;
 	}
 	
 	private String toStringCache = null;

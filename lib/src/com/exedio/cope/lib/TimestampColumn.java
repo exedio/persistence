@@ -10,7 +10,7 @@ class TimestampColumn extends Column
 {
 	static final Integer JDBC_TYPE = new Integer(Types.TIMESTAMP);
 	
-	TimestampColumn(final Type type, final String id, final boolean notNull)
+	TimestampColumn(final Table type, final String id, final boolean notNull) // TODO: rename to table
 	{
 		super(type, id, false, notNull, Database.theInstance.getDateTimestampType(), JDBC_TYPE);
 	}

@@ -11,9 +11,9 @@ public class DoubleAttribute extends ObjectAttribute
 		super(option);
 	}
 
-	protected List createColumns(final String name, final boolean notNull)
+	protected List createColumns(final Table table, final String name, final boolean notNull)
 	{
-		return Collections.singletonList(new DoubleColumn(getType(), name, notNull, 30));
+		return Collections.singletonList(new DoubleColumn(table, name, notNull, 30));
 	}
 
 	Object cacheToSurface(final Object cache)

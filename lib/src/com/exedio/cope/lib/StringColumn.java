@@ -14,7 +14,7 @@ final class StringColumn extends Column
 	final String maximumLengthID;
 
 	StringColumn(
-			final Type type, final String id, final boolean notNull,
+			final Table type, final String id, final boolean notNull, // TODO: rename to table
 			final int minimumLength, final int maximumLength)
 	{
 		super(type, id, false, notNull, Database.theInstance.getStringType(maximumLength), JDBC_TYPE);

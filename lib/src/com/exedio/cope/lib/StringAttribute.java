@@ -51,9 +51,9 @@ public final class StringAttribute extends ObjectAttribute implements StringFunc
 		return minimumLength!=0 || maximumLength!=Integer.MAX_VALUE;
 	}
 	
-	protected List createColumns(final String name, final boolean notNull)
+	protected List createColumns(final Table table, final String name, final boolean notNull)
 	{
-		return Collections.singletonList(new StringColumn(getType(), name, notNull, minimumLength, maximumLength));
+		return Collections.singletonList(new StringColumn(table, name, notNull, minimumLength, maximumLength));
 	}
 	
 	Object cacheToSurface(final Object cache)

@@ -49,7 +49,7 @@ public abstract class Attribute implements Feature
 	private List columns;
 	private Column mainColumn;
 	
-	final void initialize(final Type type, final String name)
+	final void initialize(final Type type, final String name, final Table table)
 	{
 		if(type==null)
 			throw new RuntimeException();
@@ -64,7 +64,7 @@ public abstract class Attribute implements Feature
 		this.type = type;
 		this.name = name;
 		this.columns =
-				Collections.unmodifiableList(createColumns(name, notNull));
+				Collections.unmodifiableList(createColumns(table, name, notNull));
 		this.mainColumn = this.columns.isEmpty() ? null : (Column)columns.iterator().next();
 		postInitialize();
 	}
@@ -133,7 +133,7 @@ public abstract class Attribute implements Feature
 		return buf.toString();
 	}
 	
-	protected abstract List createColumns(String name, boolean notNull);
+	protected abstract List createColumns(Table table, String name, boolean notNull);
 	
 	public static class Option
 	{
