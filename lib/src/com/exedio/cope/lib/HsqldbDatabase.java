@@ -31,9 +31,18 @@ class HsqldbDatabase extends Database
 			return null;
 	}
 	
+	private final String extractConstraintName(final SQLException e, final String start)
+	{
+		final String m = e.getMessage();
+		if(m.startsWith(start))
+			return m.substring(start.length());
+		else
+			return null;
+	}
+	
 	protected String extractUniqueConstraintName(final SQLException e)
 	{
-		return extractConstraintName(e, "Violation of unique index: SYS_IDX_", '_');
+		return extractConstraintName(e, "Unique constraint violation: ");
 	}
 
 	protected String extractIntegrityConstraintName(final SQLException e)
