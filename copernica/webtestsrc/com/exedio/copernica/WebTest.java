@@ -21,6 +21,10 @@ public class WebTest extends WebTestCase
 		beginAt("copernica.jsp");
 		assertTitleEquals("Copernica");
 		assertLinkPresentWithText("de");
+
 		assertLinkPresentWithText("Attribute Item");
+		clickLinkWithText("Attribute Item");
+		assertTitleEquals("Attribute Item");
+		assertTextPresent("Attribute Item");
 	}
 }
