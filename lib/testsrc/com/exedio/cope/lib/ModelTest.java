@@ -65,7 +65,10 @@ public class ModelTest extends AbstractLibTest
 	public void testHierarchy()
 	{
 		assertEquals(list(Super.superInt), Super.TYPE.getAttributes());
+		assertEquals(Super.TYPE, Super.superInt.getType());
+		
 		assertEquals(list(FirstSub.firstSubString), FirstSub.TYPE.getAttributes());
+		assertEquals(FirstSub.TYPE, FirstSub.firstSubString.getType());
 	}
 
 }
