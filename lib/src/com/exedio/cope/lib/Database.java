@@ -287,6 +287,12 @@ public abstract class Database
 			query.condition.appendStatement(bf);
 		}
 		
+		if(query.orderBy!=null)
+		{
+			bf.append(" order by ").
+				append(query.orderBy);
+		}
+		
 		//System.out.println("searching "+bf.toString());
 		try
 		{
