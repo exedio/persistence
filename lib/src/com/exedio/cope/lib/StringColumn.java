@@ -6,6 +6,7 @@ class StringColumn extends Column
 {
 	StringColumn(final Type type, final String name)
 	{
+		// TODO: support min/max length
 		super(type, name, "varchar2(4000)"/* TODO: this is database specific */);
 	}
 	
