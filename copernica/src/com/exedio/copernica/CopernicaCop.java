@@ -110,7 +110,7 @@ abstract class CopernicaCop extends Cop implements RequestCache
 	//private int itemDisplayNamesHits = 0;
 	//private int itemDisplayNamesMisses = 0;
 	
-	public String getDisplayName(final CopernicaLanguage displayLanguage/* TODO: remove language */, final Item item)
+	public String getDisplayName(final CopernicaLanguage displayLanguage, final Item item)
 	{
 		if((language==null&&displayLanguage==null) || (language!=null&&language.equals(displayLanguage)))
 		{
