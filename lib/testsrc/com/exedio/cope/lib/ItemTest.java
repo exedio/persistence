@@ -45,6 +45,11 @@ public class ItemTest extends AbstractLibTest
 		assertFalse(item1.equals("hello"));
 		assertFalse(item1.equals(new Integer(1)));
 		assertFalse(item1.equals(Boolean.TRUE));
+
+		final ItemWithoutAttributes item4 = new ItemWithoutAttributes();
+		item4.TYPE.flushPK();
+		final ItemWithoutAttributes item5 = new ItemWithoutAttributes();
+		assertNotEquals(item4, item5);
 	}
-		
+
 }
