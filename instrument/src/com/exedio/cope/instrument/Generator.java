@@ -38,6 +38,7 @@ final class Generator
 	private static final String CONSTRUCTOR_REACTIVATION = "Reactivation constructor. Used for internal purposes only.";
 	private static final String GETTER = "Returns the value of the persistent attribute {0}.";
 	private static final String SETTER = "Sets a new value for the persistent attribute {0}.";
+	private static final String SETTER_MEDIA = "Provides data for the persistent media attribute {0}.";
 	private static final String GETTER_MEDIA_URL = "Returns a URL pointing to the data of the persistent attribute {0}.";
 	private static final String GETTER_MEDIA_VARIANT = "Returns a URL pointing to the varied data of the persistent attribute {0}.";
 	private static final String GETTER_MEDIA_MAJOR = "Returns the major mime type of the persistent media attribute {0}.";
@@ -417,9 +418,8 @@ final class Generator
 		if(mediaAttribute.hasGeneratedSetter())
 		{
 			writeCommentHeader();
-			o.write("\t * Provides data for the persistent media attribute {@link #");
-			o.write(mediaAttribute.getName());
-			o.write("}.");
+			o.write("\t * ");
+			o.write(format(SETTER_MEDIA, link(mediaAttribute.getName())));
 			o.write(lineSeparator);
 			writeCommentGenerated();
 			writeCommentFooter();
