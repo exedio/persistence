@@ -19,6 +19,7 @@ public final class Type
 	private static final ArrayList typesModifyable = new ArrayList();
 	private static final List types = Collections.unmodifiableList(typesModifyable);
 	private static final HashMap typesByName = new HashMap();
+	private static final HashMap typesByID = new HashMap();
 	
 	private final Class javaClass;
 	private final Type supertype;
@@ -31,8 +32,8 @@ public final class Type
 	private final UniqueConstraint[] uniqueConstraints;
 	private final List uniqueConstraintList;
 	
-	final String trimmedName;
-	final String protectedName;
+	final String trimmedName; // TODO rename to id
+	final String protectedName; // TODO rename to protectedID
 	private final List columns;
 	final Column primaryKey;
 
@@ -46,8 +47,14 @@ public final class Type
 	}
 	
 	public static final Type getType(String className)
+	// TODO: change argument to type class and rename to findByJavaClass
 	{
 		return (Type)typesByName.get(className);
+	}
+	
+	public static final Type findByID(final String id)
+	{
+		return (Type)typesByID.get(id);
 	}
 	
 	public Type(final Class javaClass)
@@ -57,6 +64,7 @@ public final class Type
 		typesModifyable.add(this);
 		typesByName.put(javaClass.getName(), this);
 		this.trimmedName = Database.theInstance.trimName(this);
+		typesByID.put(this.trimmedName, this);
 		this.protectedName = Database.theInstance.protectName(this.trimmedName);
 
 		// supertype

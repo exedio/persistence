@@ -47,7 +47,7 @@
 		final Language language = (langID!=null) ? provider.findLanguageByUniqueID(langID) : null;
 		if(typeID!=null)
 		{
-			final Type type = Type.getType(typeID);
+			final Type type = Type.findByID(typeID);
 			if(type==null)
 				throw new RuntimeException("type "+typeID+" not available");
 			cop = new TypeCop(language, type);

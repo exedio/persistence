@@ -10,7 +10,7 @@ final class TypeCop extends CopernicaCop
 	{
 		super(language);
 		this.type = type;
-		addParameter("type", type.getJavaClass().getName());
+		addParameter("type", type.getID());
 	}
 	
 	final  CopernicaCop switchLanguage(final Language newLanguage)

@@ -9,6 +9,15 @@ import com.exedio.cope.lib.hierarchy.Super;
  */
 public class ModelTest extends AbstractLibTest
 {
+	public void testType()
+	{
+		final ItemWithManyAttributes item = null;
+
+		assertEquals(ItemWithManyAttributes.class, item.TYPE.getJavaClass());
+		assertEquals(item.TYPE, Type.getType(ItemWithManyAttributes.class.getName()));
+		assertEquals(item.TYPE, Type.findByID(item.TYPE.getID()));
+	}
+
 	public void testSomeEnumeration()
 	{
 		final ItemWithManyAttributes item = null;
