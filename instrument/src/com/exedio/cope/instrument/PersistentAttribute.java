@@ -1,6 +1,7 @@
 
 package com.exedio.cope.instrument;
 
+import java.lang.reflect.Modifier;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -94,9 +95,11 @@ public class PersistentAttribute
 	
 	public final int getMethodModifiers()
 	{
-		return javaAttribute.getMethodModifiers();
+		return javaAttribute.getModifiers()
+			& (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE)
+			| Modifier.FINAL;
 	}
-	
+
 	public final JavaClass getParent()
 	{
 		return javaAttribute.getParent();

@@ -84,11 +84,4 @@ public final class JavaAttribute extends JavaFeature
 			| Modifier.VOLATILE;
 	}
 
-	public final int getMethodModifiers()
-	{
-		return getModifiers()
-			& (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE)
-			| Modifier.FINAL;
-	}
-
 }
