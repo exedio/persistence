@@ -10,10 +10,39 @@ public final class Report
 	public class Table
 	{
 		public final String name;
+		private final HashMap constraints = new HashMap();
 
 		private Table(final String name)
 		{
 			this.name = name;
+		}
+		
+		final Constraint notifyExistentConstraint(final String constraintName)
+		{
+			Constraint result = (Constraint)constraints.get(constraintName);
+			if(result==null)
+			{
+				result = new Constraint(constraintName, this);
+				constraints.put(constraintName, result);
+			}
+			return result;
+		}
+		
+		public final Collection getConstraints()
+		{
+			return constraints.values();
+		}
+	}
+	
+	public class Constraint
+	{
+		public final String name;
+		public final Table table;
+		
+		private Constraint(final String name, final Table table)
+		{
+			this.name = name;
+			this.table = table; 
 		}
 	}
 

@@ -274,6 +274,7 @@ public abstract class Database
 				final String constraintName = resultSet.getString(2);
 				final String constraintType = resultSet.getString(3);
 				final Report.Table table = report.notifyExistentTable(tableName);
+				final Report.Constraint constraint = table.notifyExistentConstraint(constraintName);
 			}
 		}
 	}

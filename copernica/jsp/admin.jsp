@@ -53,7 +53,22 @@ include file="copernica-provider.inc"
 					for(Iterator i = report.getTables().iterator(); i.hasNext(); )
 					{
 						final Report.Table table = (Report.Table)i.next();
-						%><li><%=table.name%></li><%
+						if(table.getConstraints().isEmpty())
+						{
+							%><li><%=table.name%></li><%
+						}
+						else
+						{
+							%><li><%=table.name%>
+							<ul><%
+							for(Iterator j = table.getConstraints().iterator(); j.hasNext(); )
+							{
+								final Report.Constraint constraint = (Report.Constraint)j.next();
+								%><li><%=constraint.name%></li><%
+							}
+							%></ul>
+							</li><%
+						}
 					}
 					%>
 					</ul><%
