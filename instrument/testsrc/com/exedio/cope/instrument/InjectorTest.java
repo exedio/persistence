@@ -53,7 +53,7 @@ public abstract class InjectorTest extends TestCase
 
 	private String format(final String s)
 	{
-		return s.replace('\n', '=').replace(' ', '_');
+		return s.replace('\n', '#').replace(' ', '_').replace('\t', '~');
 	}
 
 	protected void assertText(final String text)
