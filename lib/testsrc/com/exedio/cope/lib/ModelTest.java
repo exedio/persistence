@@ -43,6 +43,16 @@ public class ModelTest extends AbstractLibTest
 			item.someEnumeration.getValue(
 				ItemWithManyAttributes.SomeEnumeration.enumValue3NUM));
 
+		assertEquals(
+			ItemWithManyAttributes.SomeEnumeration.enumValue1,
+			item.someEnumeration.getValue("enumValue1"));
+		assertEquals(
+			ItemWithManyAttributes.SomeEnumeration.enumValue2,
+			item.someEnumeration.getValue("enumValue2"));
+		assertEquals(
+			ItemWithManyAttributes.SomeEnumeration.enumValue3,
+			item.someEnumeration.getValue("enumValue3"));
+
 		assertEquals(ItemWithManyAttributes.SomeEnumeration.class,
 			ItemWithManyAttributes.SomeEnumeration.enumValue1.getEnumerationClass());
 		assertEquals(ItemWithManyAttributes.SomeEnumeration.class,

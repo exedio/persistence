@@ -13,6 +13,7 @@ public final class EnumerationAttribute extends ObjectAttribute
 	private final Class enumerationClass;
 	private final List values;
 	private final HashMap numbersToValues; // TODO: use special integer map
+	private final HashMap codesToValues;
 	
 	public EnumerationAttribute(final Option option, final Class enumerationClass)
 	{
@@ -25,6 +26,7 @@ public final class EnumerationAttribute extends ObjectAttribute
 		{
 			final ArrayList values = new ArrayList();
 			final HashMap numbersToValues = new HashMap();
+			final HashMap codesToValues = new HashMap();
 			final Field[] fields = enumerationClass.getDeclaredFields();
 			for(int j = 0; j<fields.length; j++)
 			{
@@ -63,10 +65,12 @@ public final class EnumerationAttribute extends ObjectAttribute
 					}
 					values.add(value);
 					numbersToValues.put(value.getNumberObject(), value);
+					codesToValues.put(value.getCode(), value);
 				}
 			}
 			this.values = Collections.unmodifiableList(values);
 			this.numbersToValues = numbersToValues;
+			this.codesToValues = codesToValues;
 		}
 		catch(IllegalAccessException e)
 		{
@@ -82,6 +86,11 @@ public final class EnumerationAttribute extends ObjectAttribute
 	public EnumerationValue getValue(final int number)
 	{
 		return (EnumerationValue)numbersToValues.get(new Integer(number));
+	}
+
+	public EnumerationValue getValue(final String code)
+	{
+		return (EnumerationValue)codesToValues.get(code);
 	}
 
 	protected List createColumns(final String name, final boolean notNull)
