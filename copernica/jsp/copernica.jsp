@@ -104,7 +104,7 @@
 							for(Iterator i = type.getAttributes().iterator(); i.hasNext(); )
 							{
 								final Attribute attribute = (Attribute)i.next();
-								%><li><%=attribute.getName()%></li><%
+								%><li><%=provider.getDisplayName(null, attribute)%></li><%
 							}
 						%>
 						</ul>
@@ -115,7 +115,7 @@
 							for(Iterator i = type.getAttributes().iterator(); i.hasNext(); )
 							{
 								final Attribute attribute = (Attribute)i.next();
-								%><th><%=attribute.getName()%></th><%
+								%><th><%=provider.getDisplayName(null, attribute)%></th><%
 							}
 						%>
 						</tr>
@@ -172,7 +172,7 @@
 						for(Iterator j = type.getAttributes().iterator(); j.hasNext(); )
 						{
 							final Attribute attribute = (Attribute)j.next();
-							%><tr><td><%=attribute.getName()%></td><td><%
+							%><tr><td><%=provider.getDisplayName(null, attribute)%></td><td><%
 							if(attribute instanceof MediaAttribute)
 							{
 								%><%=item.getMediaURL((MediaAttribute)attribute)%><%
