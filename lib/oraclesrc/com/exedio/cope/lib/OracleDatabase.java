@@ -106,7 +106,7 @@ final class OracleDatabase
 				defineColumnTimestamp();
 			try
 			{
-				executeSQL(bf, new ReportTableHandler(report));
+				executeSQLQuery(bf, new ReportTableHandler(report));
 			}
 			catch(ConstraintViolationException e)
 			{
@@ -124,7 +124,7 @@ final class OracleDatabase
 				defineColumnInteger();
 			try
 			{
-				executeSQL(bf, new ReportColumnHandler(report));
+				executeSQLQuery(bf, new ReportColumnHandler(report));
 			}
 			catch(ConstraintViolationException e)
 			{
@@ -146,7 +146,7 @@ final class OracleDatabase
 				defineColumnString();
 			try
 			{
-				executeSQL(bf, new ReportConstraintHandler(report));
+				executeSQLQuery(bf, new ReportConstraintHandler(report));
 			}
 			catch(ConstraintViolationException e)
 			{

@@ -150,7 +150,14 @@ abstract class Database
 		try
 		{
 			//System.out.println("checkDatabase:"+bf.toString());
-			executeSQL(bf, EMPTY_RESULT_SET_HANDLER);
+			executeSQLQuery(bf,
+				new ResultSetHandler()
+				{
+					public void run(final ResultSet resultSet) throws SQLException
+					{
+					}
+				}
+			);
 		}
 		catch(ConstraintViolationException e)
 		{
@@ -366,7 +373,7 @@ abstract class Database
 		{
 			final SearchResultSetHandler handler =
 				new SearchResultSetHandler(query.start, query.count, selectables, selectColumns, selectTypes, query.model);
-			query.statementInfo = executeSQL(bf, handler);
+			query.statementInfo = executeSQLQuery(bf, handler);
 			return handler.result;
 		}
 		catch(ConstraintViolationException e)
@@ -535,7 +542,7 @@ abstract class Database
 		//System.out.println("loading "+bf.toString());
 		try
 		{
-			executeSQL(bf, new LoadResultSetHandler(row));
+			executeSQLQuery(bf, new LoadResultSetHandler(row));
 		}
 		catch(ConstraintViolationException e)
 		{
@@ -594,7 +601,7 @@ abstract class Database
 		try
 		{
 			final CheckResultSetHandler handler = new CheckResultSetHandler();
-			executeSQL(bf, handler);
+			executeSQLQuery(bf, handler);
 			return handler.result;
 		}
 		catch(ConstraintViolationException e)
@@ -703,7 +710,7 @@ abstract class Database
 		try
 		{
 			//System.out.println("storing "+bf.toString());
-			executeSQL(bf, EMPTY_RESULT_SET_HANDLER);
+			executeSQLUpdate(bf);
 		}
 		catch(UniqueViolationException e)
 		{
@@ -735,7 +742,7 @@ abstract class Database
 
 			try
 			{
-				executeSQL(bf, EMPTY_RESULT_SET_HANDLER);
+				executeSQLUpdate(bf);
 			}
 			catch(IntegrityViolationException e)
 			{
@@ -753,13 +760,6 @@ abstract class Database
 		public void run(ResultSet resultSet) throws SQLException;
 	}
 
-	private static final ResultSetHandler EMPTY_RESULT_SET_HANDLER = new ResultSetHandler()
-	{
-		public void run(ResultSet resultSet)
-		{
-		}
-	};
-		
 	private final static int convertSQLResult(final Object sqlInteger)
 	{
 		// IMPLEMENTATION NOTE
@@ -775,7 +775,20 @@ abstract class Database
 
 	//private static int timeExecuteQuery = 0;
 
-	protected final StatementInfo executeSQL(final Statement statement, final ResultSetHandler resultSetHandler)
+	protected final StatementInfo executeSQLQuery(final Statement statement, final ResultSetHandler resultSetHandler)
+			throws ConstraintViolationException
+	{
+		return executeSQL(statement, resultSetHandler);
+	}
+	
+	protected final void executeSQLUpdate(final Statement statement)
+			throws ConstraintViolationException
+	{
+		if(executeSQL(statement, null)!=null)
+			throw new RuntimeException(statement.toString());
+	}
+	
+	private final StatementInfo executeSQL(final Statement statement, final ResultSetHandler resultSetHandler)
 			throws ConstraintViolationException
 	{
 		Connection connection = null;
@@ -1093,7 +1106,7 @@ abstract class Database
 		try
 		{
 			//System.out.println("createTable:"+bf.toString());
-			executeSQL(bf, EMPTY_RESULT_SET_HANDLER);
+			executeSQLUpdate(bf);
 		}
 		catch(ConstraintViolationException e)
 		{
@@ -1125,7 +1138,7 @@ abstract class Database
 				try
 				{
 					//System.out.println("createForeignKeyConstraints:"+bf);
-					executeSQL(bf, EMPTY_RESULT_SET_HANDLER);
+					executeSQLUpdate(bf);
 				}
 				catch(ConstraintViolationException e)
 				{
@@ -1143,7 +1156,7 @@ abstract class Database
 
 		try
 		{
-			executeSQL(bf, EMPTY_RESULT_SET_HANDLER);
+			executeSQLUpdate(bf);
 		}
 		catch(ConstraintViolationException e)
 		{
@@ -1160,7 +1173,7 @@ abstract class Database
 		try
 		{
 			final CountResultSetHandler handler = new CountResultSetHandler();
-			executeSQL(bf, handler);
+			executeSQLQuery(bf, handler);
 			return handler.result;
 		}
 		catch(ConstraintViolationException e)
@@ -1211,7 +1224,7 @@ abstract class Database
 				//System.out.println("dropForeignKeyConstraints:"+bf);
 				try
 				{
-					executeSQL(bf, EMPTY_RESULT_SET_HANDLER);
+					executeSQLUpdate(bf);
 				}
 				catch(ConstraintViolationException e)
 				{
@@ -1238,7 +1251,7 @@ abstract class Database
 		try
 		{
 			final NextPKResultSetHandler handler = new NextPKResultSetHandler();
-			executeSQL(bf, handler);
+			executeSQLQuery(bf, handler);
 			//System.err.println("select max("+type.primaryKey.trimmedName+") from "+type.trimmedName+" : "+handler.result);
 			return handler.result;
 		}
@@ -1303,7 +1316,7 @@ abstract class Database
 			bf.append(GET_TABLES);
 			try
 			{
-				executeSQL(bf, new MetaDataTableHandler(report));
+				executeSQLQuery(bf, new MetaDataTableHandler(report));
 			}
 			catch(ConstraintViolationException e)
 			{
@@ -1315,7 +1328,7 @@ abstract class Database
 			bf.append(GET_COLUMNS);
 			try
 			{
-				executeSQL(bf, new MetaDataColumnHandler(report));
+				executeSQLQuery(bf, new MetaDataColumnHandler(report));
 			}
 			catch(ConstraintViolationException e)
 			{
@@ -1386,7 +1399,7 @@ abstract class Database
 		try
 		{
 			//System.out.println("renameTable:"+bf);
-			executeSQL(bf, EMPTY_RESULT_SET_HANDLER);
+			executeSQLUpdate(bf);
 		}
 		catch(ConstraintViolationException e)
 		{
@@ -1403,7 +1416,7 @@ abstract class Database
 		try
 		{
 			//System.out.println("dropTable:"+bf);
-			executeSQL(bf, EMPTY_RESULT_SET_HANDLER);
+			executeSQLUpdate(bf);
 		}
 		catch(ConstraintViolationException e)
 		{
@@ -1421,7 +1434,7 @@ abstract class Database
 		try
 		{
 			//System.out.println("analyzeTable:"+bf);
-			executeSQL(bf, EMPTY_RESULT_SET_HANDLER);
+			executeSQLUpdate(bf);
 		}
 		catch(ConstraintViolationException e)
 		{
@@ -1440,7 +1453,7 @@ abstract class Database
 		try
 		{
 			//System.out.println("dropColumn:"+bf);
-			executeSQL(bf, EMPTY_RESULT_SET_HANDLER);
+			executeSQLUpdate(bf);
 		}
 		catch(ConstraintViolationException e)
 		{
@@ -1463,7 +1476,7 @@ abstract class Database
 		try
 		{
 			//System.err.println("renameColumn:"+bf);
-			executeSQL(bf, EMPTY_RESULT_SET_HANDLER);
+			executeSQLUpdate(bf);
 		}
 		catch(ConstraintViolationException e)
 		{
@@ -1484,7 +1497,7 @@ abstract class Database
 		try
 		{
 			//System.out.println("createColumn:"+bf);
-			executeSQL(bf, EMPTY_RESULT_SET_HANDLER);
+			executeSQLUpdate(bf);
 		}
 		catch(ConstraintViolationException e)
 		{
@@ -1505,7 +1518,7 @@ abstract class Database
 		try
 		{
 			//System.out.println("modifyColumn:"+bf);
-			executeSQL(bf, EMPTY_RESULT_SET_HANDLER);
+			executeSQLUpdate(bf);
 		}
 		catch(ConstraintViolationException e)
 		{
