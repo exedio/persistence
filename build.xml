@@ -203,6 +203,7 @@
 			</classpath> 
 		</taskdef> 
 		<jasper2 
+			package="com.exedio.copernica"
 			validateXml="false" 
 			uriroot="${basedir}/copernica/jsp" 
 			webXmlFragment="${basedir}/copernica/jsp/WEB-INF/generated_web.xml" 
