@@ -40,6 +40,8 @@ public class LiteralConditionTest extends DatabaseLibTest
 		assertEquals(set(item1, item2),
 			toSet(Search.search(item1.TYPE, Search.less(item1.someNotNullInteger, 3))));
 		assertEquals(set(item1, item2),
+			toSet(Search.search(item1.TYPE, Search.less(item1.someNotNullDouble, 2.3))));
+		assertEquals(set(item1, item2),
 			toSet(Search.search(item1.TYPE, Search.less(item1.someNotNullEnumeration, ItemWithManyAttributes.SomeEnumeration.enumValue2))));
 
 		// less or equal
@@ -47,6 +49,8 @@ public class LiteralConditionTest extends DatabaseLibTest
 			toSet(Search.search(item1.TYPE, Search.lessOrEqual(item1.someNotNullString, "string3"))));
 		assertEquals(set(item1, item2, item3),
 			toSet(Search.search(item1.TYPE, Search.lessOrEqual(item1.someNotNullInteger, 3))));
+		assertEquals(set(item1, item2, item3),
+			toSet(Search.search(item1.TYPE, Search.lessOrEqual(item1.someNotNullDouble, 2.3))));
 		assertEquals(set(item1, item2, item3),
 			toSet(Search.search(item1.TYPE, Search.lessOrEqual(item1.someNotNullEnumeration, ItemWithManyAttributes.SomeEnumeration.enumValue2))));
 
@@ -56,6 +60,8 @@ public class LiteralConditionTest extends DatabaseLibTest
 		assertEquals(set(item4, item5),
 			toSet(Search.search(item1.TYPE, Search.greater(item1.someNotNullInteger, 3))));
 		assertEquals(set(item4, item5),
+			toSet(Search.search(item1.TYPE, Search.greater(item1.someNotNullDouble, 2.3))));
+		assertEquals(set(item4, item5),
 			toSet(Search.search(item1.TYPE, Search.greater(item1.someNotNullEnumeration, ItemWithManyAttributes.SomeEnumeration.enumValue2))));
 
 		// greater or equal
@@ -63,6 +69,8 @@ public class LiteralConditionTest extends DatabaseLibTest
 			toSet(Search.search(item1.TYPE, Search.greaterOrEqual(item1.someNotNullString, "string3"))));
 		assertEquals(set(item3, item4, item5),
 			toSet(Search.search(item1.TYPE, Search.greaterOrEqual(item1.someNotNullInteger, 3))));
+		assertEquals(set(item3, item4, item5),
+			toSet(Search.search(item1.TYPE, Search.greaterOrEqual(item1.someNotNullDouble, 2.3))));
 		assertEquals(set(item3, item4, item5),
 			toSet(Search.search(item1.TYPE, Search.greaterOrEqual(item1.someNotNullEnumeration, ItemWithManyAttributes.SomeEnumeration.enumValue2))));
 

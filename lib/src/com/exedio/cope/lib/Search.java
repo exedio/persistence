@@ -155,6 +155,11 @@ public abstract class Search
 		return new LessCondition(attribute, value);
 	}
 	
+	public static final LessCondition less(final DoubleAttribute attribute, final double value)
+	{
+		return new LessCondition(attribute, value);
+	}
+	
 	public static final LessCondition less(final EnumerationAttribute attribute, final EnumerationValue value)
 	{
 		return new LessCondition(attribute, value);
@@ -166,6 +171,11 @@ public abstract class Search
 	}
 	
 	public static final LessEqualCondition lessOrEqual(final IntegerAttribute attribute, final int value)
+	{
+		return new LessEqualCondition(attribute, value);
+	}
+	
+	public static final LessEqualCondition lessOrEqual(final DoubleAttribute attribute, final double value)
 	{
 		return new LessEqualCondition(attribute, value);
 	}
@@ -185,6 +195,11 @@ public abstract class Search
 		return new GreaterCondition(attribute, value);
 	}
 	
+	public static final GreaterCondition greater(final DoubleAttribute attribute, final double value)
+	{
+		return new GreaterCondition(attribute, value);
+	}
+	
 	public static final GreaterCondition greater(final EnumerationAttribute attribute, final EnumerationValue value)
 	{
 		return new GreaterCondition(attribute, value);
@@ -196,6 +211,11 @@ public abstract class Search
 	}
 	
 	public static final GreaterEqualCondition greaterOrEqual(final IntegerAttribute attribute, final int value)
+	{
+		return new GreaterEqualCondition(attribute, value);
+	}
+	
+	public static final GreaterEqualCondition greaterOrEqual(final DoubleAttribute attribute, final double value)
 	{
 		return new GreaterEqualCondition(attribute, value);
 	}

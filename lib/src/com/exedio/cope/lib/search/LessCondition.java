@@ -1,6 +1,7 @@
 
 package com.exedio.cope.lib.search;
 
+import com.exedio.cope.lib.DoubleAttribute;
 import com.exedio.cope.lib.EnumerationAttribute;
 import com.exedio.cope.lib.EnumerationValue;
 import com.exedio.cope.lib.IntegerAttribute;
@@ -18,6 +19,11 @@ public class LessCondition extends LiteralCondition
 	public LessCondition(final IntegerAttribute attribute, final int value)
 	{
 		super(OPERATOR, attribute, new Integer(value));
+	}
+
+	public LessCondition(final DoubleAttribute attribute, final double value)
+	{
+		super(OPERATOR, attribute, new Double(value));
 	}
 
 	public LessCondition(final EnumerationAttribute attribute, final EnumerationValue value)

@@ -4,6 +4,7 @@ package com.exedio.cope.lib.search;
 import java.util.TreeSet;
 
 import com.exedio.cope.lib.Attribute;
+import com.exedio.cope.lib.DoubleAttribute;
 import com.exedio.cope.lib.EnumerationAttribute;
 import com.exedio.cope.lib.EnumerationValue;
 import com.exedio.cope.lib.IntegerAttribute;
@@ -36,6 +37,11 @@ public class LiteralCondition extends Condition
 	}
 	
 	LiteralCondition(final String operator, final IntegerAttribute attribute, final Integer value)
+	{
+		this(operator, (Attribute)attribute, (Object)value);
+	}
+	
+	LiteralCondition(final String operator, final DoubleAttribute attribute, final Double value)
 	{
 		this(operator, (Attribute)attribute, (Object)value);
 	}
