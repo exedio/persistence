@@ -12,10 +12,15 @@ import com.exedio.cope.testmodel.AttributeItem;
  */
 public abstract class DatabaseLibTest extends AbstractLibTest
 {
-	/**
-	 * TODO: mysql
-	 */
-	protected static final String EXTRA_WURST = "com.exedio.cope.lib.MysqlDatabase";
+	protected boolean hsqldb;
+	protected boolean mysql;
+	
+	protected void setUp() throws Exception
+	{
+		super.setUp();
+		hsqldb = model.getDatabase().hsqldb;
+		mysql  = model.getDatabase().mysql;
+	}
 
 	protected InputStream stream(byte[] data)
 	{

@@ -22,11 +22,15 @@ abstract class Database
 	private boolean buildStage = true;
 	private final boolean useDefineColumnTypes;
 	private final ConnectionPool connectionPool;
+	final boolean hsqldb; // TODO remove hsqldb-specific stuff
+	final boolean mysql; // TODO remove mysql-specific stuff
 	
 	protected Database(final Properties properties)
 	{
 		this.useDefineColumnTypes = this instanceof DatabaseColumnTypesDefinable;
 		this.connectionPool = new ConnectionPool(properties);
+		this.hsqldb = "com.exedio.cope.lib.HsqldbDatabase".equals(getClass().getName()); 
+		this.mysql = "com.exedio.cope.lib.MysqlDatabase".equals(getClass().getName()); 
 		//System.out.println("using database "+getClass());
 	}
 	
@@ -334,8 +338,7 @@ abstract class Database
 			{
 				final Join join = (Join)i.next();
 				
-				if("com.exedio.cope.lib.HsqldbDatabase".equals(getClass().getName()) &&
-						join.getKind()==Join.KIND_OUTER_RIGHT)
+				if(hsqldb && join.getKind()==Join.KIND_OUTER_RIGHT)
 					throw new RuntimeException("hsqldb not support right outer joins");
 	
 				bf.append(' ').
@@ -878,7 +881,7 @@ abstract class Database
 			//System.out.println("("+rows+"): "+statement.getText());
 			if(rows!=expectedRows)
 			{
-				if("com.exedio.cope.lib.MysqlDatabase".equals(getClass().getName())) // TODO
+				if(mysql)
 					System.err.println("expected "+expectedRows+" rows, but got "+rows+" on statement "+sqlText);
 				else
 					throw new RuntimeException("expected "+expectedRows+" rows, but got "+rows+" on statement "+sqlText);
@@ -1131,7 +1134,7 @@ abstract class Database
 		
 		bf.append(')');
 
-		if("com.exedio.cope.lib.MysqlDatabase".equals(getClass().getName())) // TODO mysql
+		if(mysql)
 			bf.append(" engine=innodb");
 
 		try
@@ -1166,7 +1169,7 @@ abstract class Database
 					append(") references ").
 					append(itemColumn.getForeignTableNameProtected());
 
-				if("com.exedio.cope.lib.MysqlDatabase".equals(getClass().getName())) // TODO mysql
+				if(mysql)
 				{
 					bf.append('(').
 						append(itemColumn.getForeignTablePkNameProtected()).

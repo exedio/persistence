@@ -60,13 +60,13 @@ public class AttributeItemTest extends AttributeTest
 		}
 		catch(IntegrityViolationException e)
 		{
-			assertTrue(!EXTRA_WURST.equals(model.getDatabase().getClass().getName()));
+			assertTrue(!mysql);
 			assertEquals(item.someNotNullItem, e.getAttribute());
 			assertEquals(null/*TODO someItem*/, e.getItem());
 		}
 		catch(NestingRuntimeException e)
 		{
-			assertTrue(EXTRA_WURST.equals(model.getDatabase().getClass().getName()));
+			assertTrue(mysql);
 			assertEquals("Cannot delete or update a parent row: a foreign key constraint fails", e.getNestedCause().getMessage());
 		}
 

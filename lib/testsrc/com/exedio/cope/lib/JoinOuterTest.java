@@ -32,7 +32,7 @@ public class JoinOuterTest extends DatabaseLibTest
 			assertContains(leftJoined, leftLonely, query.search());
 		}
 
-		if(model.getDatabase().getClass().getName().indexOf("Hsqldb")>=0)
+		if(hsqldb)
 		{
 			final Query query = new Query(PointerItem.TYPE, null);
 			query.joinOuterRight(PointerItem2.TYPE, Cope.equal(PointerItem.code, PointerItem2.code));
