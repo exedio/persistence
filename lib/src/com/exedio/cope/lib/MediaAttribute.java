@@ -9,12 +9,22 @@ public final class MediaAttribute extends Attribute
 	StringColumn mimeMajor;
 	StringColumn mimeMinor;
 
-	public MediaAttribute(final Option option)
+	public MediaAttribute(final Option option, final String fixedMimeMajor, final String fixedMimeMinor)
 	{
 		super(option);
 		
 		// make sure, media configuration properties are set
 		Properties.getInstance().getMediaDirectory();
+	}
+	
+	public MediaAttribute(final Option option, final String fixedMimeMajor)
+	{
+		this(option, fixedMimeMajor, null);
+	}
+	
+	public MediaAttribute(final Option option)
+	{
+		this(option, null, null);
 	}
 	
 	protected List createColumns(final String name, final boolean notNull)

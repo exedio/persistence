@@ -86,6 +86,7 @@
 			<arg value="${basedir}/lib/testsrc/com/exedio/cope/lib/ItemWithoutAttributes2.java" />
 			<arg value="${basedir}/lib/testsrc/com/exedio/cope/lib/ItemWithManyAttributes.java" />
 			<arg value="${basedir}/lib/testsrc/com/exedio/cope/lib/StringItem.java" />
+			<arg value="${basedir}/lib/testsrc/com/exedio/cope/lib/MediaItem.java" />
 			<arg value="${basedir}/lib/testsrc/com/exedio/cope/lib/PointerItem.java" />
 			<arg value="${basedir}/lib/testsrc/com/exedio/cope/lib/PointerItem2.java" />
 			<arg value="${basedir}/lib/testsrc/com/exedio/cope/lib/hierarchy/Super.java" />

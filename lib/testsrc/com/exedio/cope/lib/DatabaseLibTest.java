@@ -25,6 +25,7 @@ public abstract class DatabaseLibTest extends AbstractLibTest
 		ItemWithoutAttributes2.TYPE,
 		ItemWithManyAttributes.TYPE,
 		StringItem.TYPE,
+		MediaItem.TYPE,
 		PointerItem2.TYPE,
 		PointerItem.TYPE,
 		Super.TYPE,
@@ -78,6 +79,11 @@ public abstract class DatabaseLibTest extends AbstractLibTest
 		Database.theInstance.checkEmptyTables();
 		dropDatabase();
 		super.tearDown();
+	}
+	
+	protected InputStream stream(byte[] data)
+	{
+		return new ByteArrayInputStream(data);
 	}
 	
 	protected void assertData(final byte[] expectedData, final InputStream actualData)

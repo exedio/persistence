@@ -352,16 +352,22 @@ public final class Injector
 					break;
 					// ignore brackets inside of literal String's
 				case '"' :
+					if (tokenConsumer!=null && curlyBracketDepth==0)
+						tokenConsumer.addToken(c);
 					il : while (true)
 					{
-						switch (read())
+						switch (c=read())
 						{
 							case '"' :
+								if (tokenConsumer!=null && curlyBracketDepth==0)
+									tokenConsumer.addToken(c);
 								break il;
 							case '\\' :
 								read();
 								break; // ignore escaped characters
 						}
+						if (tokenConsumer!=null && curlyBracketDepth==0)
+							tokenConsumer.addToken(c);
 					}
 					c = read();
 					break;

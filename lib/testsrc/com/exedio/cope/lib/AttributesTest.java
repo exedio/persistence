@@ -1,6 +1,5 @@
 package com.exedio.cope.lib;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
 public class AttributesTest extends DatabaseLibTest
@@ -389,7 +388,7 @@ public class AttributesTest extends DatabaseLibTest
 		assertEquals(null, item.getSomeMediaMimeMinor());
 
 		final byte[] bytes = new byte[]{3,7,1,4};
-		item.setSomeMediaData(new ByteArrayInputStream(bytes),"someMimeMajor", "someMimeMinor");
+		item.setSomeMediaData(stream(bytes),"someMimeMajor", "someMimeMinor");
 
 		final String prefix =
 			"/medias/ItemWithManyAttributes/someMedia/";
@@ -425,7 +424,7 @@ public class AttributesTest extends DatabaseLibTest
 			manyBytes[i] = (byte)((121*i)%253);
 			//System.out.print(manyBytes[i]+", ");
 		}
-		item.setSomeMediaData(new ByteArrayInputStream(manyBytes),"someMimeMajor", "someMimeMinor");
+		item.setSomeMediaData(stream(manyBytes),"someMimeMajor", "someMimeMinor");
 		assertData(manyBytes, item.getSomeMediaData());
 
 		item.setSomeMediaData(null, null, null);
