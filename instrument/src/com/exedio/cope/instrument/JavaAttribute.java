@@ -18,6 +18,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 package injection;
 
+import java.lang.reflect.Modifier;
+
 /**
    Represents an attribute of a class parsed by the
    java parser.
@@ -123,13 +125,25 @@ public final class JavaAttribute extends JavaFeature
   public final int getAllowedModifiers()
   {
     return
-      java.lang.reflect.Modifier.PUBLIC |
-      java.lang.reflect.Modifier.PROTECTED |
-      java.lang.reflect.Modifier.PRIVATE |
-      java.lang.reflect.Modifier.FINAL |
-      java.lang.reflect.Modifier.STATIC |
-      java.lang.reflect.Modifier.TRANSIENT |
-      java.lang.reflect.Modifier.VOLATILE;
+      Modifier.PUBLIC |
+      Modifier.PROTECTED |
+      Modifier.PRIVATE |
+      Modifier.FINAL |
+      Modifier.STATIC |
+      Modifier.TRANSIENT |
+      Modifier.VOLATILE;
+  }
+
+  public final int getMethodModifiers()
+  {
+    return
+		getModifiers() &
+		(
+			Modifier.PUBLIC |
+			Modifier.PROTECTED |
+			Modifier.PRIVATE
+		) |
+      Modifier.FINAL;
   }
 
 }

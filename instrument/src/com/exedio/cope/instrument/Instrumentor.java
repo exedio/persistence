@@ -90,6 +90,12 @@ public final class Instrumentor implements InjectionConsumer
 	{
 		output.write("//");
 		output.write(persistentAttribute.getName());
+		output.write(" ");
+		output.write(Modifier.toString(persistentAttribute.getModifiers()));
+		output.write(" ");
+		output.write(persistentAttribute.getType());
+		output.write(" ");
+		output.write(Modifier.toString(persistentAttribute.getMethodModifiers()));
 		output.write(lineSeparator);
 	}
 	
