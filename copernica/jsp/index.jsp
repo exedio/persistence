@@ -98,6 +98,7 @@
 							throw new RuntimeException("type "+typeName+" not available");
 						%>
 						<u><%=type.getJavaClass().getName()%></u>
+						<hr>
 						<ul>
 						<%
 							for(Iterator i = type.getAttributes().iterator(); i.hasNext(); )
@@ -107,10 +108,11 @@
 							}
 						%>
 						</ul>
+						<hr>
 						<%
 					}
 					else
-						%><u>EMPTY</u>
+						%><u>select a type on the left</u>
 				</td>
 			</tr>
 		</table>
