@@ -48,7 +48,7 @@ public class StringTest extends DatabaseLibTest
 		item.setAny("value',hijackedColumn='otherValue");
 		assertEquals("value',hijackedColumn='otherValue", item.getAny());
 		item.passivate();
-		// TODO: sql injection just swallows apostrophes,
+		// TODO: sql injection protection just swallows apostrophes,
 		// should be escaped or wrapped into prepared statements
 		assertEquals("value,hijackedColumn=otherValue", item.getAny());
 
