@@ -298,7 +298,7 @@ public abstract class Cope
 	 * result in an <code>UnsupportedOperationException</code>.
 	 * @param query the query the searched items must match.
 	 */
-	public static final Collection search(final Query query)
+	public static final Collection search(final Query query) // TODO: put this method on query
 	{
 		//System.out.println("select " + type.getJavaClass().getName() + " where " + condition);
 		query.check();
