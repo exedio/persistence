@@ -72,6 +72,11 @@ public final class Instrumentor implements InjectionConsumer
 	 * Tag name for unique attributes.
 	 */
 	private static final String UNIQUE_ATTRIBUTE = "unique";
+
+	/**
+	 * Tag name for read-only attributes.
+	 */
+	private static final String READ_ONLY_ATTRIBUTE = "read-only";
 	
 	/**
 	 * All generated class features get this doccomment tag.
@@ -98,6 +103,50 @@ public final class Instrumentor implements InjectionConsumer
 			handleClassComment(jc, lastFileDocComment);
 			lastFileDocComment = null;
 		}
+	}
+	
+	public void writeConstructor(final JavaClass javaClass)
+	throws IOException
+	{
+		output.write("/** @"+GENERATED);
+		output.write(lineSeparator);
+		output.write("*/");
+		output.write(Modifier.toString(javaClass.getModifiers() & (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE)));
+		output.write(' ');
+		output.write(javaClass.getName());
+		output.write('(');
+		boolean first = true;
+		final ArrayList readOnlyAttributes = new ArrayList();
+		for(Iterator i = javaClass.getPersistentAttributes().iterator(); i.hasNext(); )
+		{
+			final JavaAttribute persistentAttribute = (JavaAttribute)i.next();
+			if(persistentAttribute.isReadOnly())
+			{
+				readOnlyAttributes.add(persistentAttribute);
+				if(first)
+					first = false;
+				else
+					output.write(',');
+				output.write(persistentAttribute.getPersistentType());
+				output.write(' ');
+				output.write(persistentAttribute.getName());
+			}
+		}
+		output.write("){");
+		output.write(lineSeparator);
+		output.write("\tsuper(1.0);");
+		output.write(lineSeparator);
+		for(Iterator i = readOnlyAttributes.iterator(); i.hasNext(); )
+		{
+			final JavaAttribute readOnlyAttribute = (JavaAttribute)i.next();
+			output.write("\tset");
+			output.write(readOnlyAttribute.getCamelCaseName());
+			output.write('(');
+			output.write(readOnlyAttribute.getName());
+			output.write(");");
+			output.write(lineSeparator);
+		}
+		output.write("}");
 	}
 	
 	private void writeAccessMethods(final JavaAttribute persistentAttribute)
@@ -145,6 +194,7 @@ public final class Instrumentor implements InjectionConsumer
 
 		if(!jc.isInterface() && jc.isPersistent())
 		{
+			writeConstructor(jc);
 			for(Iterator i = jc.getPersistentAttributes().iterator(); i.hasNext(); )
 			{
 				// write setter/getter methods
@@ -198,6 +248,9 @@ public final class Instrumentor implements InjectionConsumer
 
 				if(containsTag(docComment, UNIQUE_ATTRIBUTE))
 					ja.makeUnique();
+				
+				if(containsTag(docComment, READ_ONLY_ATTRIBUTE))
+					ja.makeReadOnly();
 			}
 		}
 		discardnextfeature=false;

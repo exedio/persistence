@@ -4,7 +4,10 @@ package persistence;
 public class Item
 {
 	
-	public Item()
+	/**
+	 * Du sollst mich nicht in handgeschriebenem Code aufrufen.
+	 */
+	protected Item(final double doNotCallMe)
 	{}
 	
 	protected final Object getAttribute(final Attribute attribute)

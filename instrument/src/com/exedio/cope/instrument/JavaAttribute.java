@@ -14,6 +14,7 @@ public final class JavaAttribute extends JavaFeature
 {
 	private String persistentType = null;
 	private boolean unique = false;
+	private boolean readOnly = false;
 
 	public JavaAttribute(JavaClass parent, int modifiers, String type, String name)
 	throws InjectorParseException
@@ -47,6 +48,11 @@ public final class JavaAttribute extends JavaFeature
 	public boolean isUnique()
 	{
 		return unique;
+	}
+	
+	public boolean isReadOnly()
+	{
+		return readOnly;
 	}
 	
 	/**
@@ -119,4 +125,10 @@ public final class JavaAttribute extends JavaFeature
 	{
 		unique = true;
 	}
+
+	public final void makeReadOnly()
+	{
+		readOnly = true;
+	}
+	
 }
