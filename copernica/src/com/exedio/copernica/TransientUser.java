@@ -19,7 +19,7 @@ public class TransientUser implements User
 		return name;
 	}
 	
-	public boolean checkPassword(final String actualPassword)
+	public boolean checkCopernicaPassword(final String actualPassword)
 	{
 		return this.password.equals(actualPassword);
 	}

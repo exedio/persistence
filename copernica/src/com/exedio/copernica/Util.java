@@ -56,7 +56,7 @@ public class Util
 		if(user==null)
 			return null;
 		
-		return user.checkPassword(password) ? user : null;
+		return user.checkCopernicaPassword(password) ? user : null;
 	}
 
 	private Util()
