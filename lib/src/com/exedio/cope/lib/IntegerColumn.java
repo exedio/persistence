@@ -12,10 +12,10 @@ class IntegerColumn extends Column
 	
 	final boolean longInsteadOfInt;
 
-	IntegerColumn(final Type type, final String trimmedName,
+	IntegerColumn(final Type type, final String id,
 					  final boolean notNull, final int precision, final boolean longInsteadOfInt)
 	{
-		super(type, trimmedName, notNull, Database.theInstance.getIntegerType(precision), longInsteadOfInt ? JDBC_TYPE_LONG : JDBC_TYPE_INT);
+		super(type, id, notNull, Database.theInstance.getIntegerType(precision), longInsteadOfInt ? JDBC_TYPE_LONG : JDBC_TYPE_INT);
 		this.longInsteadOfInt = longInsteadOfInt;
 	}
 	

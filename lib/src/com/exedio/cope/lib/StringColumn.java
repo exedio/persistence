@@ -8,9 +8,9 @@ final class StringColumn extends Column
 {
 	static final Integer JDBC_TYPE = new Integer(Types.VARCHAR);
 
-	StringColumn(final Type type, final String trimmedName, final boolean notNull, final int maxLength)
+	StringColumn(final Type type, final String id, final boolean notNull, final int maxLength)
 	{
-		super(type, trimmedName, notNull, Database.theInstance.getStringType(maxLength), JDBC_TYPE);
+		super(type, id, notNull, Database.theInstance.getStringType(maxLength), JDBC_TYPE);
 	}
 	
 	void load(final ResultSet resultSet, final int columnIndex, final Row row)
