@@ -306,7 +306,7 @@ public abstract class Database
 		//System.out.println("searching "+bf.toString());
 		try
 		{
-			final QueryResultSetHandler handler = new QueryResultSetHandler(query.start, query.count);
+			final SearchResultSetHandler handler = new SearchResultSetHandler(query.start, query.count);
 			executeSQL(bf, handler);
 			return handler.result;
 		}
@@ -315,6 +315,45 @@ public abstract class Database
 			throw new SystemException(e);
 		}
 	}
+
+	private static class SearchResultSetHandler implements ResultSetHandler
+	{
+		private final int start;
+		private final int count;
+		private final IntArrayList result = new IntArrayList();
+		
+		SearchResultSetHandler(final int start, final int count)
+		{
+			this.start = start;
+			this.count = count;
+			if(start<0)
+				throw new RuntimeException();
+		}
+
+		public void run(ResultSet resultSet) throws SQLException
+		{
+			if(start>0)
+			{
+				// TODO: ResultSet.relative
+				// Would like to use
+				//    resultSet.relative(start+1);
+				// but this throws a java.sql.SQLException:
+				// Invalid operation for forward only resultset : relative
+				for(int i = start; i>0; i--)
+					resultSet.next();
+			}
+				
+			int i = (count>=0 ? count : Integer.MAX_VALUE);
+
+			while(resultSet.next() && (--i)>=0)
+			{
+				final int pk = resultSet.getInt(1);
+				//System.out.println("pk:"+pk);
+				result.add(pk);
+			}
+		}
+	}
+	
 
 	void load(final Row row)
 	{
@@ -379,6 +418,30 @@ public abstract class Database
 			throw new SystemException(e);
 		}
 	}
+
+	private static class LoadResultSetHandler implements ResultSetHandler
+	{
+		private final Row row;
+
+		LoadResultSetHandler(final Row row)
+		{
+			this.row = row;
+		}
+
+		public void run(ResultSet resultSet) throws SQLException
+		{
+			if(!resultSet.next())
+				throw new RuntimeException("no such pk"); // TODO use a dedicated runtime exception
+			int columnIndex = 1;
+			for(Type type = row.type; type!=null; type = type.getSupertype())
+			{
+				for(Iterator i = type.table.getColumns().iterator(); i.hasNext(); )
+					((Column)i.next()).load(resultSet, columnIndex++, row);
+			}
+			return;
+		}
+	}
+	
 
 	boolean check(final Type type, final int pk)
 	{
@@ -553,67 +616,6 @@ public abstract class Database
 		}
 	};
 		
-	private static class QueryResultSetHandler implements ResultSetHandler
-	{
-		private final int start;
-		private final int count;
-		private final IntArrayList result = new IntArrayList();
-		
-		QueryResultSetHandler(final int start, final int count)
-		{
-			this.start = start;
-			this.count = count;
-			if(start<0)
-				throw new RuntimeException();
-		}
-
-		public void run(ResultSet resultSet) throws SQLException
-		{
-			if(start>0)
-			{
-				// TODO: ResultSet.relative
-				// Would like to use
-				//    resultSet.relative(start+1);
-				// but this throws a java.sql.SQLException:
-				// Invalid operation for forward only resultset : relative
-				for(int i = start; i>0; i--)
-					resultSet.next();
-			}
-				
-			int i = (count>=0 ? count : Integer.MAX_VALUE);
-
-			while(resultSet.next() && (--i)>=0)
-			{
-				final int pk = resultSet.getInt(1);
-				//System.out.println("pk:"+pk);
-				result.add(pk);
-			}
-		}
-	}
-	
-	private static class LoadResultSetHandler implements ResultSetHandler
-	{
-		private final Row row;
-
-		LoadResultSetHandler(final Row row)
-		{
-			this.row = row;
-		}
-
-		public void run(ResultSet resultSet) throws SQLException
-		{
-			if(!resultSet.next())
-				throw new RuntimeException("no such pk"); // TODO use a dedicated runtime exception
-			int columnIndex = 1;
-			for(Type type = row.type; type!=null; type = type.getSupertype())
-			{
-				for(Iterator i = type.table.getColumns().iterator(); i.hasNext(); )
-					((Column)i.next()).load(resultSet, columnIndex++, row);
-			}
-			return;
-		}
-	}
-	
 	private final static int convertSQLResult(final Object sqlInteger)
 	{
 		// IMPLEMENTATION NOTE for Oracle
@@ -626,43 +628,6 @@ public abstract class Database
 			return ((Integer)sqlInteger).intValue();
 	}
 
-	private static class IntegerResultSetHandler implements ResultSetHandler
-	{
-		int result;
-
-		public void run(ResultSet resultSet) throws SQLException
-		{
-			if(!resultSet.next())
-				throw new RuntimeException();
-
-			result = convertSQLResult(resultSet.getObject(1));
-		}
-	}
-
-	private static class NextPKResultSetHandler implements ResultSetHandler
-	{
-		int resultLo;
-		int resultHi;
-
-		public void run(ResultSet resultSet) throws SQLException
-		{
-			if(!resultSet.next())
-				throw new RuntimeException();
-			final Object oLo = resultSet.getObject(1);
-			if(oLo==null)
-			{
-				resultLo = -1;
-				resultHi = 0;
-			}
-			else
-			{
-				resultLo = convertSQLResult(oLo)-1;
-				final Object oHi = resultSet.getObject(2);
-				resultHi = convertSQLResult(oHi)+1;
-			}
-		}
-	}
-	
 	//private static int timeExecuteQuery = 0;
 
 	private void executeSQL(final Statement statement, final ResultSetHandler resultSetHandler)
@@ -1090,7 +1055,7 @@ public abstract class Database
 
 		try
 		{
-			final IntegerResultSetHandler handler = new IntegerResultSetHandler();
+			final CountResultSetHandler handler = new CountResultSetHandler();
 			executeSQL(bf, handler);
 			return handler.result;
 		}
@@ -1100,6 +1065,20 @@ public abstract class Database
 		}
 	}
 	
+	private static class CountResultSetHandler implements ResultSetHandler
+	{
+		int result;
+
+		public void run(ResultSet resultSet) throws SQLException
+		{
+			if(!resultSet.next())
+				throw new RuntimeException();
+
+			result = convertSQLResult(resultSet.getObject(1));
+		}
+	}
+
+
 	private void dropForeignKeyConstraints(final Table table) 
 	{
 		for(Iterator i = table.getColumns().iterator(); i.hasNext(); )
@@ -1130,6 +1109,7 @@ public abstract class Database
 		}
 	}
 	
+
 	int[] getNextPK(final Table table)
 	{
 		final Statement bf = createStatement();
@@ -1151,6 +1131,30 @@ public abstract class Database
 		catch(ConstraintViolationException e)
 		{
 			throw new SystemException(e);
+		}
+	}
+	
+	private static class NextPKResultSetHandler implements ResultSetHandler
+	{
+		int resultLo;
+		int resultHi;
+
+		public void run(ResultSet resultSet) throws SQLException
+		{
+			if(!resultSet.next())
+				throw new RuntimeException();
+			final Object oLo = resultSet.getObject(1);
+			if(oLo==null)
+			{
+				resultLo = -1;
+				resultHi = 0;
+			}
+			else
+			{
+				resultLo = convertSQLResult(oLo)-1;
+				final Object oHi = resultSet.getObject(2);
+				resultHi = convertSQLResult(oHi)+1;
+			}
 		}
 	}
 	
