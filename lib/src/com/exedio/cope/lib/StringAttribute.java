@@ -9,6 +9,7 @@ public class StringAttribute extends Attribute
 	
 	public StringAttribute(final AttributeMapping mapping)
 	{
+		super(mapping);
 	}
 	
 }

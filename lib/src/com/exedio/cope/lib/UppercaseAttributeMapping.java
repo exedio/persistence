@@ -10,14 +10,19 @@ public final class UppercaseAttributeMapping implements AttributeMapping
 		this.sourceAttribute = sourceAttribute;
 	}
 
-	public Object mapJava(final Item item, final Object[] qualifiers)
+	public final Object mapJava(final Item item, final Object[] qualifiers)
 	{
 		return ((String)item.getAttribute(sourceAttribute, qualifiers)).toUpperCase();
 	}
 	
-	public String mapSQL()
+	public final String mapSQL()
 	{
 		return "UPPER(" + sourceAttribute.getName() + ')';
+	}
+	
+	public final String toString()
+	{
+		return "upper(" + sourceAttribute.getName() + ')';
 	}
 	
 }

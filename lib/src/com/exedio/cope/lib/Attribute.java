@@ -2,8 +2,16 @@ package persistence;
 
 public class Attribute
 {
+	public final AttributeMapping mapping;
+
 	public Attribute()
 	{
+		this.mapping = null;
+	}
+	
+	public Attribute(final AttributeMapping mapping)
+	{
+		this.mapping = mapping;
 	}
 	
 	private boolean initialized = false;
@@ -63,6 +71,11 @@ public class Attribute
 			buf.append("not-null");
 		}
 		buf.append('}');
+		if(mapping!=null)
+		{
+			buf.append('=');
+			buf.append(mapping.toString());
+		}
 		return buf.toString();
 	}
 
