@@ -256,7 +256,9 @@ public final class Instrumentor implements InjectionConsumer
 
 		// getter
 		writeCommentHeader();
-		output.write("\t * This is a generated getter method.");
+		output.write("\t * Returns the value of the persistent attribute {@link #");
+		output.write(persistentAttribute.getName());
+		output.write("}.");
 		output.write(lineSeparator);
 		writeCommentFooter();
 		output.write(methodModifiers);
@@ -275,7 +277,9 @@ public final class Instrumentor implements InjectionConsumer
 		
 		// setter
 		writeCommentHeader();
-		output.write("\t * This is a generated setter method.");
+		output.write("\t * Sets a new value for the persistent attribute {@link #");
+		output.write(persistentAttribute.getName());
+		output.write("}.");
 		output.write(lineSeparator);
 		writeCommentFooter();
 		output.write(methodModifiers);
