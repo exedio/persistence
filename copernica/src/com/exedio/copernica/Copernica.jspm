@@ -187,7 +187,7 @@ public final class Copernica_Jspm
 			<img src="exedio.png" width="200" height="66"><%
 	}
 
-	static final void writeParameters(final PrintStream out, final HttpServletRequest request)
+	public static final void writeParameters(final PrintStream out, final HttpServletRequest request)
 		throws IOException
 	{
 		for( final Iterator it = request.getParameterMap().entrySet().iterator(); it.hasNext(); )
