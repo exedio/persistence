@@ -1186,11 +1186,17 @@ abstract class Database
 				return null;
 		}
 	}
-
-	public Report reportDatabase()
+	
+	public final Report reportDatabase()
 	{
 		final Report report = new Report(this, getTables());
+		fillReport(report);
+		report.finish();
+		return report;
+	}
 
+	void fillReport(final Report report)
+	{
 		{
 			final com.exedio.cope.lib.Statement bf = createStatement();
 			bf.append(GET_TABLES);
@@ -1215,10 +1221,6 @@ abstract class Database
 				throw new SystemException(e);
 			}
 		}
-		
-		report.finish();
-
-		return report;
 	}
 
 	private static class MetaDataTableHandler implements ResultSetHandler

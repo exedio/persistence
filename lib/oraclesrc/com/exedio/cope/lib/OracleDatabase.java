@@ -77,10 +77,8 @@ final class OracleDatabase
 	}
 
 
-	public Report reportDatabase()
+	void fillReport(final Report report)
 	{
-		final Report report = new Report(this, getTables());
-
 		{
 			final com.exedio.cope.lib.Statement bf = createStatement();
 			bf.append("select TABLE_NAME, LAST_ANALYZED from user_tables").
@@ -128,10 +126,6 @@ final class OracleDatabase
 				throw new SystemException(e);
 			}
 		}
-		
-		report.finish();
-
-		return report;
 	}
 
 	private static class ReportTableHandler implements ResultSetHandler
