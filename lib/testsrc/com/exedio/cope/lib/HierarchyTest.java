@@ -1,9 +1,8 @@
 package com.exedio.cope.lib;
 
-import com.exedio.cope.lib.IntegrityViolationException;
-import com.exedio.cope.lib.Cope;
 import com.exedio.cope.testmodel.FirstSub;
 import com.exedio.cope.testmodel.SecondSub;
+import com.exedio.cope.testmodel.Super;
 
 public class HierarchyTest extends DatabaseLibTest
 {
@@ -44,6 +43,7 @@ public class HierarchyTest extends DatabaseLibTest
 		
 		assertEquals(list(firstItem), firstItem.TYPE.search(Cope.equal(firstItem.firstSubString, "firstSubString")));
 		assertEquals(list(), firstItem.TYPE.search(Cope.equal(firstItem.firstSubString, "firstSubStringX")));
+		assertContains(firstItem, secondItem, firstItem2, secondItem2, Super.TYPE.search(null));
 	}
 
 }

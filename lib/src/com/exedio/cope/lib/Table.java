@@ -25,6 +25,7 @@ final class Table
 	private final List columns = Collections.unmodifiableList(columnsModifiable);
 	
 	private Column primaryKey;
+	private StringColumn typeColumn = null;
 	
 	private final List allColumnsModifiable = new ArrayList();
 	private final List allColumns = Collections.unmodifiableList(allColumnsModifiable);
@@ -42,13 +43,35 @@ final class Table
 				throw new RuntimeException(column.id);
 
 			primaryKey = column;
-			allColumnsModifiable.add(column);
+		}
+		else if("class".equals(column.id))
+		{
+			// do not add it to columnsModifiable
 		}
 		else
 		{
 			columnsModifiable.add(column);
-			allColumnsModifiable.add(column);
 		}
+		allColumnsModifiable.add(column);
+	}
+	
+	void addTypeColumn()
+	{
+		if(!buildStage)
+			throw new RuntimeException();
+		if(typeColumn!=null)
+			throw new RuntimeException();
+		
+		// IMPLEMENTATION NOTE
+		//
+		// The following line specifies the column name for the type information
+		// to be "class". This prevents name collisions with columns for cope 
+		// attributes, since "class" is a reserved java keyword, which cannot be
+		// used for java attributes.
+		//
+		// It's a string literal, since the string is not used anywhere else
+		// in the framework.
+		typeColumn = new StringColumn(this, "class", true, 1, 30); // TODO: allow values for each subtype only
 	}
 	
 	/**
@@ -67,6 +90,12 @@ final class Table
 	{
 		buildStage = false;
 		return primaryKey;
+	}
+	
+	StringColumn getTypeColumn()
+	{
+		buildStage = false;
+		return typeColumn;
 	}
 	
 	/**

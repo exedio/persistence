@@ -13,8 +13,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
-import bak.pcj.list.IntArrayList;
-
 abstract class Database
 {
 	private final List tables = new ArrayList();
@@ -230,19 +228,29 @@ abstract class Database
 		//System.out.println("CHECK EMPTY TABLES "+amount+"ms  accumulated "+checkEmptyTableTime);
 	}
 	
-	final IntArrayList search(final Query query)
+	final ArrayList search(final Query query)
 	{
 		buildStage = false;
 
-		final Table selectTable = query.selectType.getTable();
+		final Type selectType = query.selectType;
+		final Table selectTable = selectType.getTable();
 		final Column selectPrimaryKey = selectTable.getPrimaryKey();
 		final Statement bf = createStatement();
 
 		bf.append("select ").
 			append(selectTable.protectedID).
 			append('.').
-			append(selectPrimaryKey.protectedID).defineColumnInteger().
-			append(" from ");
+			append(selectPrimaryKey.protectedID).defineColumnInteger();
+
+		final StringColumn typeColumn = selectTable.getTypeColumn();
+		if(typeColumn!=null)
+		{
+			bf.append(',').
+				append(selectTable.protectedID).
+				append('.').
+				append(typeColumn.protectedID).defineColumn(typeColumn);
+		}
+		bf.append(" from ");
 
 		boolean first = true;
 		for(Iterator i = query.fromTypes.iterator(); i.hasNext(); )
@@ -289,7 +297,10 @@ abstract class Database
 		//System.out.println("searching "+bf.toString());
 		try
 		{
-			final SearchResultSetHandler handler = new SearchResultSetHandler(query.start, query.count);
+			final SearchResultSetHandler handler =
+				typeColumn!=null
+				? new SearchResultSetHandler(query.start, query.count, selectType.getModel())
+				: new SearchResultSetHandler(query.start, query.count, selectType);
 			executeSQL(bf, handler);
 			return handler.result;
 		}
@@ -303,12 +314,26 @@ abstract class Database
 	{
 		private final int start;
 		private final int count;
-		private final IntArrayList result = new IntArrayList();
+		private final Type type;
+		private final Model model;
+		private final ArrayList result = new ArrayList();
 		
-		SearchResultSetHandler(final int start, final int count)
+		SearchResultSetHandler(final int start, final int count, final Type type)
 		{
 			this.start = start;
 			this.count = count;
+			this.type = type;
+			this.model = null;
+			if(start<0)
+				throw new RuntimeException();
+		}
+
+		SearchResultSetHandler(final int start, final int count, final Model model)
+		{
+			this.start = start;
+			this.count = count;
+			this.type = null;
+			this.model = model;
 			if(start<0)
 				throw new RuntimeException();
 		}
@@ -332,7 +357,18 @@ abstract class Database
 			{
 				final int pk = resultSet.getInt(1);
 				//System.out.println("pk:"+pk);
-				result.add(pk);
+				final Type currentType;
+				if(this.type==null)
+				{
+					final String typeID = resultSet.getString(2);
+					currentType = model.findTypeByID(typeID);
+					if(currentType==null)
+						throw new RuntimeException("no type with type id "+typeID);
+				}
+				else
+					currentType = this.type;
+
+				result.add(currentType.getItem(pk));
 			}
 		}
 	}
@@ -526,8 +562,14 @@ abstract class Database
 				append(table.protectedID).
 				append("(").
 				append(table.getPrimaryKey().protectedID);
+			
+			final StringColumn typeColumn = table.getTypeColumn();
+			if(typeColumn!=null)
+			{
+				bf.append(',').
+					append(typeColumn.protectedID);
+			}
 
-			boolean first = true;
 			for(Iterator i = columns.iterator(); i.hasNext(); )
 			{
 				bf.append(',');
@@ -537,6 +579,14 @@ abstract class Database
 
 			bf.append(")values(").
 				append(row.pk);
+			
+			if(typeColumn!=null)
+			{
+				bf.append(",'").
+					append(row.type.getID()).
+					append('\'');
+			}
+
 			for(Iterator i = columns.iterator(); i.hasNext(); )
 			{
 				bf.append(',');

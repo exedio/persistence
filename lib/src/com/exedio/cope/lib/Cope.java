@@ -1,12 +1,8 @@
 package com.exedio.cope.lib;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
-
-import bak.pcj.IntIterator;
-import bak.pcj.list.IntArrayList;
 
 import com.exedio.cope.lib.search.AndCondition;
 import com.exedio.cope.lib.search.Condition;
@@ -290,24 +286,6 @@ public abstract class Cope
 	}
 	
 	/**
-	 * Converts a collection of primary keys to a collection of items of the given type.
-	 * @param pks the collection of primary keys, is expected not to be modified
-	 * @return an unmodifiable collection.
-	 */
-	private static final Collection wrapPrimaryKeys(final Type type, final IntArrayList pks)
-	{
-		// TODO: dont convert all items at once, but use some kind of wrapper collection
-		final ArrayList result = new ArrayList(pks.size());
-		for(IntIterator i = pks.iterator(); i.hasNext(); )
-		{
-			final int pk = i.next();
-			//System.out.println("pk:"+pk);
-			result.add(type.getItem(pk));
-		}
-		return Collections.unmodifiableList(result);
-	}
-	
-	/**
 	 * Searches for items matching the given query.
 	 * <p>
 	 * Returns an unmodifiable collection.
@@ -320,7 +298,7 @@ public abstract class Cope
 		//System.out.println("select " + type.getJavaClass().getName() + " where " + condition);
 		query.check();
 		final Type selectType = query.selectType;
-		return wrapPrimaryKeys(selectType, selectType.getModel().getDatabase().search(query));
+		return Collections.unmodifiableList(selectType.getModel().getDatabase().search(query));
 	}
 	
 }

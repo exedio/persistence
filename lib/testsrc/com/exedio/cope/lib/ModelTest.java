@@ -8,6 +8,7 @@ import com.exedio.cope.testmodel.FirstSub;
 import com.exedio.cope.testmodel.ItemWithSingleUnique;
 import com.exedio.cope.testmodel.ItemWithSingleUniqueNotNull;
 import com.exedio.cope.testmodel.ItemWithSingleUniqueReadOnly;
+import com.exedio.cope.testmodel.SecondSub;
 import com.exedio.cope.testmodel.Super;
 
 /**
@@ -193,12 +194,14 @@ public class ModelTest extends AbstractLibTest
 	{
 		// Super
 		assertEquals(null, Super.TYPE.getSupertype());
+		assertEquals(list(FirstSub.TYPE, SecondSub.TYPE), Super.TYPE.getSubTypes());
 
 		assertEquals(list(Super.superInt), Super.TYPE.getDeclaredAttributes());
 		assertEquals(list(Super.superInt), Super.TYPE.getAttributes());
 		assertEquals(list(Super.superInt), Super.TYPE.getDeclaredFeatures());
 		assertEquals(list(Super.superInt), Super.TYPE.getFeatures());
 
+		assertUnmodifiable(Super.TYPE.getSubTypes());
 		assertUnmodifiable(Super.TYPE.getDeclaredAttributes());
 		assertUnmodifiable(Super.TYPE.getAttributes());
 		assertUnmodifiable(Super.TYPE.getDeclaredFeatures());
@@ -208,12 +211,14 @@ public class ModelTest extends AbstractLibTest
 		
 		// FirstSub
 		assertEquals(Super.TYPE, FirstSub.TYPE.getSupertype());
+		assertEquals(list(), FirstSub.TYPE.getSubTypes());
 
 		assertEquals(list(FirstSub.firstSubString), FirstSub.TYPE.getDeclaredAttributes());
 		assertEquals(list(Super.superInt, FirstSub.firstSubString), FirstSub.TYPE.getAttributes());
 		assertEquals(list(FirstSub.firstSubString), FirstSub.TYPE.getDeclaredFeatures());
 		assertEquals(list(Super.superInt, FirstSub.firstSubString), FirstSub.TYPE.getFeatures());
 
+		assertUnmodifiable(FirstSub.TYPE.getSubTypes());
 		assertUnmodifiable(FirstSub.TYPE.getDeclaredAttributes());
 		assertUnmodifiable(FirstSub.TYPE.getAttributes());
 		assertUnmodifiable(FirstSub.TYPE.getDeclaredFeatures());

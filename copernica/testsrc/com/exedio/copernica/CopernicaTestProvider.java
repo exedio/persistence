@@ -24,6 +24,7 @@ import com.exedio.cope.testmodel.PointerItem;
 import com.exedio.cope.testmodel.PointerItem2;
 import com.exedio.cope.testmodel.QualifiedIntegerEnumQualifier;
 import com.exedio.cope.testmodel.QualifiedItem;
+import com.exedio.cope.testmodel.SecondSub;
 import com.exedio.cope.testmodel.StringItem;
 import com.exedio.cope.testmodel.SumItem;
 
@@ -203,6 +204,7 @@ public class CopernicaTestProvider extends TransientCopernicaProvider
 			
 			new FirstSub(1);
 			new FirstSub(2);
+			new SecondSub(11);
 			
 			new CollisionItem1(emptyItem1);
 			new CollisionItem1(emptyItem2);

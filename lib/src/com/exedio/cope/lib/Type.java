@@ -45,6 +45,8 @@ public final class Type
 	private final Qualifier[] qualifiers;
 	private final List qualifierList;
 	
+	private ArrayList subTypes = null;
+	
 	private Model model;
 
 	private Table table;
@@ -97,6 +99,7 @@ public final class Type
 			supertype = findByJavaClass(superClass);
 			if(supertype==null)
 				throw new NullPointerException(superClass.getName());
+			supertype.registerSubType(this);
 		}
 
 		// declaredAttributes
@@ -230,6 +233,16 @@ public final class Type
 		}
 	}
 	
+	final void registerSubType(final Type subType)
+	{
+		if(this.model!=null)
+			throw new RuntimeException();
+
+		if(subTypes==null)
+			subTypes = new ArrayList();
+		subTypes.add(subType);
+	}
+	
 	final void initialize(final Model model)
 	{
 		if(model==null)
@@ -269,6 +282,9 @@ public final class Type
 			primaryKeyIterator = new PrimaryKeyIterator(table);
 			new IntegerColumn(table);
 		}
+		
+		if(subTypes!=null)
+			table.addTypeColumn();
 
 		for(int i = 0; i<declaredAttributes.length; i++)
 			declaredAttributes[i].materialize(table);
@@ -313,6 +329,11 @@ public final class Type
 	public final Type getSupertype()
 	{
 		return supertype;
+	}
+	
+	public final List getSubTypes()
+	{
+		return subTypes==null ? Collections.EMPTY_LIST : Collections.unmodifiableList(subTypes);
 	}
 
 	/**
