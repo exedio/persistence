@@ -16,18 +16,28 @@ public class CollisionItem1 extends Item
 	/**
 	 * @persistent
 	 */
-	public static final ItemAttribute collisionAttribute = new ItemAttribute(UNIQUE, ItemWithoutAttributes.class); 
+	public static final ItemAttribute collisionAttribute = new ItemAttribute(NOT_NULL_UNIQUE, ItemWithoutAttributes.class); 
 
 /**
 
 	 **
 	 * Constructs a new CollisionItem1 with all the attributes initially needed.
+	 * @param initialCollisionAttribute the initial value for attribute {@link #collisionAttribute}.
+	 * @throws com.exedio.cope.lib.NotNullViolationException if initialCollisionAttribute is not null.
+	 * @throws com.exedio.cope.lib.UniqueViolationException if initialCollisionAttribute is not unique.
 	 * @author cope instrumentor
 	 *
- */public CollisionItem1()
+ */public CollisionItem1(
+				final ItemWithoutAttributes initialCollisionAttribute)
+			throws
+				com.exedio.cope.lib.NotNullViolationException,
+				com.exedio.cope.lib.UniqueViolationException
 	{
 		super(new com.exedio.cope.lib.AttributeValue[]{
+			new com.exedio.cope.lib.AttributeValue(collisionAttribute,initialCollisionAttribute),
 		});
+		throwInitialNotNullViolationException();
+		throwInitialUniqueViolationException();
 	}/**
 
 	 **
@@ -55,15 +65,12 @@ public class CollisionItem1 extends Item
 	 *
  */public final void setCollisionAttribute(final ItemWithoutAttributes collisionAttribute)
 			throws
+				com.exedio.cope.lib.NotNullViolationException,
 				com.exedio.cope.lib.UniqueViolationException
 	{
 		try
 		{
 			setAttribute(this.collisionAttribute,collisionAttribute);
-		}
-		catch(com.exedio.cope.lib.NotNullViolationException e)
-		{
-			throw new com.exedio.cope.lib.SystemException(e);
 		}
 		catch(com.exedio.cope.lib.ReadOnlyViolationException e)
 		{
