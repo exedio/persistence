@@ -35,6 +35,7 @@ final class Generator
 	private static final String GETTER = "Returns the value of the persistent attribute {0}.";
 	private static final String SETTER = "Sets a new value for the persistent attribute {0}.";
 	private static final String SETTER_MEDIA = "Sets the new data for the media attribute {0}.";
+	private static final String SETTER_MEDIA_IOEXCEPTION = "if accessing {0} throws an IOException.";
 	private static final String GETTER_MEDIA_URL =     "Returns a URL the data of the media attribute {0} is available under.";
 	private static final String GETTER_MEDIA_VARIANT = "Returns a URL the data of the {1} variant of the media attribute {0} is available under.";
 	private static final String GETTER_MEDIA_MAJOR = "Returns the major mime type of the media attribute {0}.";
@@ -428,6 +429,11 @@ final class Generator
 			o.write(format(SETTER_MEDIA, link(mediaAttribute.getName())));
 			o.write(lineSeparator);
 			writeCommentGenerated();
+			o.write("\t * @throws ");
+			o.write(IOException.class.getName());
+			o.write(' ');
+			o.write(format(SETTER_MEDIA_IOEXCEPTION, "<code>data</code>"));
+			o.write(lineSeparator);
 			writeCommentFooter();
 			o.write(Modifier.toString(mediaAttribute.getGeneratedSetterModifier()));
 			o.write(" void set");
