@@ -179,8 +179,8 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); )
 		{
 			final Date date = lastAnalyzed.lastAnalyzed;
 			%>
-			<li class="<%=color(lastAnalyzed.getCumulativeColor())
-				%>">last analyzed: <%=date!=null?date.toString():"NEVER"%>
+			<li class="<%=color(lastAnalyzed.getCumulativeColor())%>">
+				last analyzed: <%=date!=null?date.toString():"NEVER"%>
 				<input type="checkbox" name="ANALYZE_TABLE" value="<%=table.name%>"/>analyze
 			</li><%
 		}
@@ -190,14 +190,13 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); )
 			final ReportColumn column = (ReportColumn)j.next();
 			final String color = color(column.getCumulativeColor());
 			%>
-			<li class="<%=color%>"><%
-			%><small>column</small> <%=column.name%> <i><%=column.getDatabaseType()%></i><%
+			<li class="<%=color%>">
+				<small>column</small> <%=column.name%> <small><%=column.getDatabaseType()%></small><%
 			final String error = column.getError();
 			if(error!=null)
 			{
 				%>
-					<span class="<%=color(column.getParticularColor())
-												%>"><%=error%></span><%
+				<span class="<%=color(column.getParticularColor())%>"><%=error%></span><%
 			}
 			if(column.exists())
 			{
@@ -219,14 +218,13 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); )
 			final ReportConstraint constraint = (ReportConstraint)j.next();
 			final String constraintColor = color(constraint.getCumulativeColor());
 			%>
-			<li class="<%=constraintColor%>"><%
-			%><small>constraint</small> <%=constraint.name%><%
+			<li class="<%=constraintColor%>">
+				<small>constraint</small> <%=constraint.name%><%
 			final String constraintError = constraint.getError();
 			if(constraintError!=null)
 			{
 				%>
-					<span class="<%=color(constraint.getParticularColor())
-												%>"><%=constraintError%></span><%
+				<span class="<%=color(constraint.getParticularColor())%>"><%=constraintError%></span><%
 			}
 			if(constraint.exists())
 			{
