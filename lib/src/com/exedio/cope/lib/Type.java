@@ -45,6 +45,8 @@ public final class Type
 		this.javaClass = javaClass;
 		this.attributes = attributes;
 		this.attributeList = Collections.unmodifiableList(Arrays.asList(attributes));
+		for(int i = 0; i<attributes.length; i++)
+			attributes[i].setType(this);
 		this.uniqueConstraints = uniqueConstraints;
 		this.uniqueConstraintList = Collections.unmodifiableList(Arrays.asList(uniqueConstraints));
 		initializer.run();

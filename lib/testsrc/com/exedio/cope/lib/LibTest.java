@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import junit.framework.TestCase;
 
@@ -217,6 +218,7 @@ public class LibTest extends TestCase
 			}
 			
 			// someString
+			assertEquals(item.TYPE, item.someString.getType());
 			assertEquals(null, item.getSomeString());
 			item.setSomeString("someString");
 			assertEquals("someString", item.getSomeString());
@@ -226,6 +228,7 @@ public class LibTest extends TestCase
 			assertEquals(null, item.getSomeString());
 
 			// someNotNullString
+			assertEquals(item.TYPE, item.someNotNullString.getType());
 			assertEquals("someString", item.getSomeNotNullString());
 			try
 			{
@@ -247,6 +250,7 @@ public class LibTest extends TestCase
 			}
 
 			// someInteger
+			assertEquals(item.TYPE, item.someInteger.getType());
 			assertEquals(null, item.getSomeInteger());
 			item.setSomeInteger(new Integer(10));
 			assertEquals(new Integer(10), item.getSomeInteger());
@@ -254,11 +258,13 @@ public class LibTest extends TestCase
 			assertEquals(null, item.getSomeInteger());
 
 			// someNotNullInteger
+			assertEquals(item.TYPE, item.someNotNullInteger.getType());
 			assertEquals(5, item.getSomeNotNullInteger());
 			item.setSomeNotNullInteger(20);
 			assertEquals(20, item.getSomeNotNullInteger());
 			
 			// someBoolean
+			assertEquals(item.TYPE, item.someBoolean.getType());
 			assertEquals(null, item.getSomeBoolean());
 			item.setSomeBoolean(Boolean.TRUE);
 			assertEquals(Boolean.TRUE, item.getSomeBoolean());
@@ -268,11 +274,13 @@ public class LibTest extends TestCase
 			assertEquals(null, item.getSomeBoolean());
 
 			// someNotNullBoolean
+			assertEquals(item.TYPE, item.someNotNullBoolean.getType());
 			assertEquals(true, item.getSomeNotNullBoolean());
 			item.setSomeNotNullBoolean(false);
 			assertEquals(false, item.getSomeNotNullBoolean());
 			
 			// someItem
+			assertEquals(item.TYPE, item.someItem.getType());
 			assertEquals(ItemWithoutAttributes.TYPE, item.someItem.getTargetType());
 			assertEquals(null, item.getSomeItem());
 			final ItemWithoutAttributes someItem = new ItemWithoutAttributes();
@@ -284,6 +292,9 @@ public class LibTest extends TestCase
 			assertEquals(null, item.getSomeItem());
 			
 			// someEnumeration
+			assertEquals(item.TYPE, item.someEnumeration.getType());
+			assertEquals(list(ItemWithManyAttributes.SomeEnumeration.enumValue1), item.someEnumeration.getValues());
+			assertEquals(ItemWithManyAttributes.SomeEnumeration.enumValue1, item.someEnumeration.getValue(ItemWithManyAttributes.SomeEnumeration.enumValue1NUM));
 			ItemWithManyAttributes.SomeEnumeration someEnumeration = item.getSomeEnumeration();
 			assertEquals(null, someEnumeration);
 			if(someEnumeration!=ItemWithManyAttributes.SomeEnumeration.enumValue1)
@@ -306,6 +317,7 @@ public class LibTest extends TestCase
 			assertEquals(null, item.getSomeEnumeration());
 
 			// someMedia
+			assertEquals(item.TYPE, item.someMedia.getType());
 			assertEquals(null, item.getSomeMediaURL());
 			assertEquals(null, item.getSomeMediaURLSomeVariant());
 			assertEquals(null, item.getSomeMediaData());
@@ -339,6 +351,7 @@ public class LibTest extends TestCase
 			assertEquals(null, item.getSomeMediaMimeMinor());
 			
 			// someQualifiedAttribute
+			assertEquals(item.TYPE, item.someQualifiedString.getType());
 			final ItemWithoutAttributes someItem2 = new ItemWithoutAttributes();
 			assertEquals(null, item.getSomeQualifiedString(someItem));
 			assertEquals(null, item.getSomeQualifiedString(someItem2));
@@ -371,6 +384,11 @@ public class LibTest extends TestCase
 	protected Set set()
 	{
 		return Collections.EMPTY_SET;
+	}
+
+	protected List list(final Object o)
+	{
+		return Collections.singletonList(o);
 	}
 
 }

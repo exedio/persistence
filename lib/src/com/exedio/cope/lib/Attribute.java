@@ -18,11 +18,20 @@ public abstract class Attribute
 	
 
 	private boolean initialized = false;
-	
+
+	private Type type;
 	private String name;
 	private boolean readOnly;
 	private boolean notNull;
 	private String persistentQualifier;
+	
+	void setType(final Type type)
+	{
+		if(initialized)
+			throw new RuntimeException();
+
+		this.type = type;
+	}
 	
 	public void initialize(final String name, final boolean readOnly, final boolean notNull)
 	{
@@ -35,6 +44,11 @@ public abstract class Attribute
 
 		initialized = true;
 		this.persistentQualifier = Database.theInstance.makePersistentQualifier(this);
+	}
+	
+	public final Type getType()
+	{
+		return type;
 	}
 	
 	public final String getName()
