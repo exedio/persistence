@@ -214,7 +214,7 @@ public final class Type
 		if(this.primaryKeyIterator!=null)
 			throw new RuntimeException();
 
-		// TODO: seperate id and table name and initialize id in the constructor
+		// TODO: separate id and table name and initialize id in the constructor
 		this.id = database.trimName(this);
 		this.table = new Table(database, id);
 
