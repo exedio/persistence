@@ -34,7 +34,7 @@ public final class EqualAttributeCondition extends Condition
 
 	public final String toString()
 	{
-		return attribute1.getName() + "='" + attribute2.getName() + '\'';
+		return attribute1.getName() + "=" + attribute2.getName();
 	}
 
 }
