@@ -657,14 +657,9 @@ final class Generator
 			for(Iterator i = uniqueConstraints.iterator(); i.hasNext(); )
 			{
 				final PersistentAttribute[] uniqueConstraint = (PersistentAttribute[])i.next();
-				if(uniqueConstraint.length==1)
-				{
-					// shorter notation, if unique contraint does not cover multive attributes
-					o.write("\t\t\t\tnew "+UniqueConstraint.class.getName()+'(');
-					o.write(uniqueConstraint[0].getName());
-					o.write("),");
-				}
-				else
+				// don't write single unique constraints,
+				// they are established without transfer code
+				if(uniqueConstraint.length>1)
 				{
 					// longer notation otherwise
 					o.write("\t\t\t\tnew "+UniqueConstraint.class.getName()+"(new "+Attribute.class.getName()+"[]{");
@@ -674,8 +669,8 @@ final class Generator
 						o.write(',');
 					}
 					o.write("}),");
+					o.write(lineSeparator);
 				}
-				o.write(lineSeparator);
 			}
 			o.write("\t\t\t}");
 		}

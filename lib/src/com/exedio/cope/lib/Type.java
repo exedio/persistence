@@ -50,7 +50,7 @@ public final class Type
 		return (Type)typesByName.get(className);
 	}
 	
-	public Type(final Class javaClass, final UniqueConstraint[] uniqueConstraints)
+	public Type(final Class javaClass, final UniqueConstraint[] multipleUniqueConstraints)
 	{
 		this.javaClass = javaClass;
 
@@ -91,7 +91,7 @@ public final class Type
 			throw new SystemException(e);
 		}
 		this.declaredAttributes = (Attribute[])attributesTemp.toArray(new Attribute[attributesTemp.size()]);
-		this.declaredAttributeList = Collections.unmodifiableList(Arrays.asList(declaredAttributes));
+		this.declaredAttributeList = Collections.unmodifiableList(Arrays.asList(this.declaredAttributes));
 
 		// attributes
 		if(supertype==null)
@@ -105,16 +105,20 @@ public final class Type
 		}
 		this.attributeList = Collections.unmodifiableList(Arrays.asList(attributes));
 
-		if(uniqueConstraints!=null)
+		final ArrayList uniqueConstraintsTemp = new ArrayList();
+		for(int i = 0; i<this.declaredAttributes.length; i++)
 		{
-			this.uniqueConstraints = uniqueConstraints;
-			this.uniqueConstraintList = Collections.unmodifiableList(Arrays.asList(uniqueConstraints));
+			final UniqueConstraint suc = this.declaredAttributes[i].getSingleUniqueConstaint();
+			if(suc!=null)
+				uniqueConstraintsTemp.add(suc);
 		}
-		else
+		if(multipleUniqueConstraints!=null)
 		{
-			this.uniqueConstraints = new UniqueConstraint[]{};
-			this.uniqueConstraintList = Collections.EMPTY_LIST;
+			for(int i = 0; i<multipleUniqueConstraints.length; i++)
+				uniqueConstraintsTemp.add(multipleUniqueConstraints[i]);
 		}
+		this.uniqueConstraints = (UniqueConstraint[])uniqueConstraintsTemp.toArray(new UniqueConstraint[uniqueConstraintsTemp.size()]);
+		this.uniqueConstraintList = Collections.unmodifiableList(Arrays.asList(this.uniqueConstraints));
 		
 		typesModifyable.add(this);
 		typesByName.put(javaClass.getName(), this);

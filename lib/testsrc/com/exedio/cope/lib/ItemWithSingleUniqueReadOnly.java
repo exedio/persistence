@@ -10,9 +10,8 @@ public class ItemWithSingleUniqueReadOnly extends Item
 	/**
 	 * An attribute that is unique and read-only.
 	 * @persistent
-	 * @unique
 	 */
-	public static final StringAttribute uniqueReadOnlyString = new StringAttribute(READ_ONLY);
+	public static final StringAttribute uniqueReadOnlyString = new StringAttribute(READ_ONLY_UNIQUE);
 
 /**
 
@@ -70,7 +69,6 @@ public class ItemWithSingleUniqueReadOnly extends Item
 		new com.exedio.cope.lib.Type(
 			ItemWithSingleUniqueReadOnly.class,
 			new com.exedio.cope.lib.UniqueConstraint[]{
-				new com.exedio.cope.lib.UniqueConstraint(uniqueReadOnlyString),
 			}
 		)
 ;}

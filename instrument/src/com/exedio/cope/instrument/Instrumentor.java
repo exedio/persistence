@@ -186,6 +186,7 @@ public final class Instrumentor implements InjectionConsumer
 				
 				final boolean readOnly;
 				final boolean notNull;
+				final boolean unique;
 				final String secondArgument;
 				{
 					final String initializer = ja.getInitializerTokens();
@@ -223,6 +224,7 @@ public final class Instrumentor implements InjectionConsumer
 							(Item.Option)Item.class.getDeclaredField(optionString).get(null);
 						readOnly = option.readOnly;
 						notNull = option.notNull;
+						unique = option.unique;
 					}
 					catch(NoSuchFieldException e)
 					{
@@ -324,7 +326,7 @@ public final class Instrumentor implements InjectionConsumer
 						break;
 				}
 
-				if(containsTag(docComment, UNIQUE_ATTRIBUTE))
+				if(unique)
 					persistentAttribute.persistentClass.makeUnique(new PersistentAttribute[]{persistentAttribute});
 			}
 		}

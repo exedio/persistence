@@ -10,9 +10,8 @@ public class ItemWithSingleUnique extends Item
 	/**
 	 * An attribute that is unique.
 	 * @persistent
-	 * @unique
 	 */
-	public static final StringAttribute uniqueString = new StringAttribute(DEFAULT);
+	public static final StringAttribute uniqueString = new StringAttribute(UNIQUE);
 
 /**
 
@@ -85,7 +84,6 @@ public class ItemWithSingleUnique extends Item
 		new com.exedio.cope.lib.Type(
 			ItemWithSingleUnique.class,
 			new com.exedio.cope.lib.UniqueConstraint[]{
-				new com.exedio.cope.lib.UniqueConstraint(uniqueString),
 			}
 		)
 ;}

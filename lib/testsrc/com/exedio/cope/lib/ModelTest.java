@@ -98,6 +98,19 @@ public class ModelTest extends AbstractLibTest
 		{
 		}
 	}
+	
+	public void testUniqueConstraints()
+	{
+		assertEquals(
+			list(ItemWithSingleUnique.uniqueString),
+			ItemWithSingleUnique.uniqueString.getSingleUniqueConstaint().getUniqueAttributes());
+		assertEquals(
+			list(ItemWithSingleUniqueReadOnly.uniqueReadOnlyString),
+			ItemWithSingleUniqueReadOnly.uniqueReadOnlyString.getSingleUniqueConstaint().getUniqueAttributes());
+		assertEquals(
+			list(ItemWithSingleUniqueNotNull.uniqueNotNullString),
+			ItemWithSingleUniqueNotNull.uniqueNotNullString.getSingleUniqueConstaint().getUniqueAttributes());
+	}
 
 	public void testHierarchy()
 	{

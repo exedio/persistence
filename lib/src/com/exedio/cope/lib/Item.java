@@ -403,19 +403,28 @@ public abstract class Item extends Search
 	{
 		public final boolean readOnly;
 		public final boolean notNull;
+		public final boolean unique;
 
-		private Option(final boolean readOnly, final boolean notNull)
+		private Option(final boolean readOnly, final boolean notNull, final boolean unique)
 		{
 			this.readOnly = readOnly;
 			this.notNull = notNull;
+			this.unique = unique;
 		}
 	}
 	
-	public static final Option DEFAULT = new Option(false, false);
-	public static final Option READ_ONLY = new Option(true, false);
-	public static final Option NOT_NULL = new Option(false, true);
-	public static final Option READ_ONLY_NOT_NULL = new Option(true, true);
+	public static final Option DEFAULT = new Option(false, false, false);
+
+	public static final Option READ_ONLY = new Option(true, false, false);
+	public static final Option NOT_NULL = new Option(false, true, false);
+	public static final Option UNIQUE = new Option(false, false, true);
+
+	public static final Option READ_ONLY_NOT_NULL = new Option(true, true, false);
+	public static final Option READ_ONLY_UNIQUE = new Option(true, false, true);
+	public static final Option NOT_NULL_UNIQUE = new Option(false, true, true);
 	 
+	public static final Option READ_ONLY_NOT_NULL_UNIQUE = new Option(true, true, true);
+
 	// activation/deactivation -----------------------------------------------------
 	
 	/**

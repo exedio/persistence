@@ -8,6 +8,7 @@ public abstract class Attribute
 	private final boolean readOnly;
 	private final boolean notNull;
 	public final AttributeMapping mapping;
+	private final UniqueConstraint singleUniqueConstraint;
 
 	protected Attribute(final Item.Option option)
 	{
@@ -19,6 +20,10 @@ public abstract class Attribute
 		this.readOnly = option.readOnly;
 		this.notNull = option.notNull;
 		this.mapping = mapping;
+		this.singleUniqueConstraint =
+			option.unique ?
+				new UniqueConstraint(this) :
+				null;
 	}
 	
 	public final boolean isReadOnly()
@@ -29,6 +34,19 @@ public abstract class Attribute
 	public final boolean isNotNull()
 	{
 		return notNull;
+	}
+	
+	/**
+	 * Returns the unique constraint of this attribute,
+	 * if there is a unique constraint covering this attribute and this attribute only.
+	 * Does return null, if there is no such unique constraint,
+	 * i.e. this attribute is not covered by any unique constraint,
+	 * or this attribute is covered by a unique constraint covering more
+	 * attributes than this attribute.
+	 */
+	public UniqueConstraint getSingleUniqueConstaint()
+	{
+		return singleUniqueConstraint;
 	}
 	
 	// second initialization phase ---------------------------------------------------

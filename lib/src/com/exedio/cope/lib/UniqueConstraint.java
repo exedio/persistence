@@ -32,7 +32,7 @@ public final class UniqueConstraint
 		this.uniqueAttributeList = Collections.unmodifiableList(Arrays.asList(uniqueAttributes));
 	}
 	
-	public UniqueConstraint(final Attribute uniqueAttribute)
+	UniqueConstraint(final Attribute uniqueAttribute)
 	{
 		this(new Attribute[]{uniqueAttribute});
 	}
@@ -80,6 +80,7 @@ public final class UniqueConstraint
 		
 		final StringBuffer buf = new StringBuffer();
 		
+		//buf.append(super.toString());
 		buf.append("unique(");
 		buf.append(uniqueAttributes[0].getName());
 		for(int i = 1; i<uniqueAttributes.length; i++)

@@ -10,9 +10,8 @@ public class ItemWithSingleUniqueNotNull extends Item
 	/**
 	 * An attribute that is unique and read-only.
 	 * @persistent
-	 * @unique
 	 */
-	public static final StringAttribute uniqueNotNullString = new StringAttribute(NOT_NULL);
+	public static final StringAttribute uniqueNotNullString = new StringAttribute(NOT_NULL_UNIQUE);
 
 /**
 
@@ -92,7 +91,6 @@ public class ItemWithSingleUniqueNotNull extends Item
 		new com.exedio.cope.lib.Type(
 			ItemWithSingleUniqueNotNull.class,
 			new com.exedio.cope.lib.UniqueConstraint[]{
-				new com.exedio.cope.lib.UniqueConstraint(uniqueNotNullString),
 			}
 		)
 ;}
