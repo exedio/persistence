@@ -73,7 +73,6 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); )
 			{
 				%></span><%
 			}
-			%>
 			if(constraint.isMissing())
 			{
 				%> <span style="background-color:#ffff33">MISSING !!!</span><%

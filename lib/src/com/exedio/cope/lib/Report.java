@@ -116,7 +116,6 @@ public final class Report extends Node
 		public final Table table;
 		private boolean required = false;
 		private boolean exists = false;
-		private int color = COLOR_NOT_YET_CALC;
 		
 		private Constraint(final String name, final Table table)
 		{
@@ -181,6 +180,8 @@ public final class Report extends Node
 	{
 		if(color!=COLOR_NOT_YET_CALC)
 			throw new RuntimeException();
+		
+		color = COLOR_OK;
 
 		for(Iterator i = tables.values().iterator(); i.hasNext(); )
 		{
