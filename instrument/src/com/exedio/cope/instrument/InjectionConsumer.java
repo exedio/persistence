@@ -9,9 +9,6 @@ package injection;
  * java parser. Therefore, the interface of each method
  * specifies the position of the output stream, when
  * the method is called.
- *
- * To test these positions, use
- * {@link tudresden.ocl.injection.test.TestInjectionConsumer TestInjectionConsumer}.
  */
 public interface InjectionConsumer
 {

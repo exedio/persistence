@@ -32,9 +32,6 @@ public final class JavaConstructor extends JavaBehaviour
 	 * Is the index of the last comma, if there is more than one
 	 * parameter or otherwise the index after the opening parent.
 	 *
-	 * Needed for {@link #getWrappedLiteral()},
-	 * if this IS a constructor.
-	 *
 	 * Is initialized to -1.
 	 */
 	private int last_param_start=-1;
@@ -43,9 +40,6 @@ public final class JavaConstructor extends JavaBehaviour
 	 * The index of the end of the last parameter of the
 	 * parameter list in {@link #literal}.
 	 * Is the index of the closing bracket of the parameter list.
-	 *
-	 * Needed for {@link #getWrappedLiteral()},
-	 * if this IS a constructor.
 	 *
 	 * Is initialized to -1.
 	 */
