@@ -109,7 +109,7 @@
 						<hr>
 						<table border="1">
 						<tr>
-						<%
+						<th></th><%
 							for(Iterator i = type.getAttributes().iterator(); i.hasNext(); )
 							{
 								final Attribute attribute = (Attribute)i.next();
@@ -120,28 +120,19 @@
 						<%
 							for(Iterator i = Search.search(type, null).iterator(); i.hasNext(); )
 							{
-								boolean firstAttribute = true;
 								final Item item = (Item)i.next();
+								%><tr><td><a href="copernica.jsp?item=<%=item.getID()%>">[X]</a></td><%
 								for(Iterator j = type.getAttributes().iterator(); j.hasNext(); )
 								{
 									final Attribute attribute = (Attribute)j.next();
 									%><td><%
-									if(firstAttribute)
-									{
-										%><a href="copernica.jsp?item=<%=item.getID()%>"><%
-									}
 									if(attribute instanceof MediaAttribute)
 									{
-										%><%=item.getMediaURL((MediaAttribute)attribute)%></td><%
+										%><%=item.getMediaURL((MediaAttribute)attribute)%><%
 									}
 									else
 									{
-										%><%=item.getAttribute(attribute)%></td><%
-									}
-									if(firstAttribute)
-									{
-										%></a><%
-										firstAttribute=false;
+										%><%=item.getAttribute(attribute)%><%
 									}
 									%></td><%
 								}
