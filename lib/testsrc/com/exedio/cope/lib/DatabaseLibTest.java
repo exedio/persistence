@@ -16,6 +16,8 @@ public abstract class DatabaseLibTest extends AbstractLibTest
 		ItemWithoutAttributes.TYPE,
 		ItemWithoutAttributes2.TYPE,
 		ItemWithManyAttributes.TYPE,
+		PointerItem2.TYPE,
+		PointerItem.TYPE,
 	};
 	
 	private static boolean createdTables = false;
@@ -51,14 +53,14 @@ public abstract class DatabaseLibTest extends AbstractLibTest
 		}
 	}
 
-	public void setUp() throws Exception
+	protected void setUp() throws Exception
 	{
 		super.setUp();
 		createTables();
 		Database.theInstance.checkEmptyTables();
 	}
 	
-	public void tearDown() throws Exception
+	protected void tearDown() throws Exception
 	{
 		Database.theInstance.checkEmptyTables();
 		dropTables();

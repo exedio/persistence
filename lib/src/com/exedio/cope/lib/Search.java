@@ -1,14 +1,15 @@
 
 package com.exedio.cope.lib;
 
-import com.exedio.cope.lib.Database;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
+
 import com.exedio.cope.lib.search.AndCondition;
 import com.exedio.cope.lib.search.Condition;
+import com.exedio.cope.lib.search.EqualAttributeCondition;
 import com.exedio.cope.lib.search.EqualCondition;
-import java.util.ArrayList;
 
 /**
  * Utility class for searching persistent data.
@@ -106,6 +107,11 @@ public class Search
 		return new EqualCondition(attribute, value);
 	}
 	
+	public static final EqualAttributeCondition equal(final StringAttribute attribute1, final StringAttribute attribute2)
+	{
+		return new EqualAttributeCondition(attribute1, attribute2);
+	}
+	
 	public static final EqualCondition equal(final IntegerAttribute attribute, final Integer value)
 	{
 		return new EqualCondition(attribute, value);
@@ -169,8 +175,8 @@ public class Search
 	public static final Collection search(final Query query)
 	{
 		//System.out.println("select " + type.getJavaClass().getName() + " where " + condition);
-		query.check(query.type);
-		return wrapPrimaryKeys(query.type, Database.theInstance.search(query));
+		query.check();
+		return wrapPrimaryKeys(query.selectType, Database.theInstance.search(query));
 	}
 	
 	public static final Item searchUnique(final Type type, final Condition condition)

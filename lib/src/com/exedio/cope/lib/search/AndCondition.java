@@ -1,8 +1,9 @@
 
 package com.exedio.cope.lib.search;
 
+import java.util.TreeSet;
+
 import com.exedio.cope.lib.Statement;
-import com.exedio.cope.lib.Type;
 
 public final class AndCondition extends Condition
 {
@@ -25,10 +26,10 @@ public final class AndCondition extends Condition
 		bf.append(')');
 	}
 
-	public final void check(final Type type)
+	public final void check(final TreeSet fromTypes)
 	{
 		for(int i = 0; i<conditions.length; i++)
-			conditions[i].check(type);
+			conditions[i].check(fromTypes);
 	}
 
 	public final String toString()

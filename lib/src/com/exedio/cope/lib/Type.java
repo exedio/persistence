@@ -1,15 +1,16 @@
 
 package com.exedio.cope.lib;
 
-import com.exedio.cope.lib.Database;
-import com.exedio.cope.lib.util.ReactivationConstructorDummy;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+
+import com.exedio.cope.lib.util.ReactivationConstructorDummy;
 
 public final class Type
 {
@@ -206,6 +207,15 @@ public final class Type
 			return createItemObject(pk);
 	}
 	
+	static final Comparator COMPARATOR = new Comparator()
+	{
+		public int compare(Object o1, Object o2)
+		{
+			final Type t1 = (Type)o1;
+			final Type t2 = (Type)o2;
+			return t1.trimmedName.compareTo(t2.trimmedName);
+		}	
+	};
 
 	// pk generation ---------------------------------------------
 

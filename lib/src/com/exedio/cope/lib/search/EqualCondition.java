@@ -1,13 +1,14 @@
 
 package com.exedio.cope.lib.search;
 
+import java.util.TreeSet;
+
 import com.exedio.cope.lib.Attribute;
 import com.exedio.cope.lib.IntegerAttribute;
 import com.exedio.cope.lib.Item;
 import com.exedio.cope.lib.ItemAttribute;
 import com.exedio.cope.lib.Statement;
 import com.exedio.cope.lib.StringAttribute;
-import com.exedio.cope.lib.Type;
 
 public final class EqualCondition extends Condition
 {
@@ -39,10 +40,9 @@ public final class EqualCondition extends Condition
 			appendValue(attribute, value);
 	}
 
-	public final void check(final Type type)
+	public final void check(final TreeSet fromTypes)
 	{
-		if(attribute.getType()!=type)
-			throw new RuntimeException("attribute "+attribute+" belongs to type "+attribute.getType()+", which is the type of the query: "+type);
+		check(attribute, fromTypes);
 	}
 
 	public final String toString()

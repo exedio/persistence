@@ -162,13 +162,27 @@ public abstract class Database
 	
 	Collection search(final Query query)
 	{
-		final Type type = query.type;
+		final Type selectType = query.selectType;
 		final Statement bf = createStatement();
+
 		bf.append("select ").
-			append(type.primaryKey.protectedName).defineColumnInteger().
-			append(" from ").
-			append(type.protectedName).
-			append(" where ");
+			append(selectType.protectedName).
+			append('.').
+			append(selectType.primaryKey.protectedName).defineColumnInteger().
+			append(" from ");
+
+		boolean first = true;
+		for(Iterator i = query.fromTypes.iterator(); i.hasNext(); )
+		{
+			if(first)
+				first = false;
+			else
+				bf.append(',');
+
+			bf.append(((Type)i.next()).protectedName);
+		}
+
+		bf.append(" where ");
 		query.condition.appendStatement(bf);
 		
 		//System.out.println("searching "+bf.toString());

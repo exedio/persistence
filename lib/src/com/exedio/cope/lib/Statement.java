@@ -47,7 +47,10 @@ public final class Statement
 			this.text.append(mapping.sqlMappingEnd);
 		}
 		else
-			this.text.append(attribute.getMainColumn().protectedName);
+			this.text.
+				append(attribute.getType().protectedName).
+				append('.').
+				append(attribute.getMainColumn().protectedName);
 			
 		return this;
 	}
