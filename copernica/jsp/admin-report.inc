@@ -4,7 +4,7 @@ private String color(final int color)
 	switch(color)
 	{
 	case Report.COLOR_OK:
-		return null;
+		return "83ce7b";
 	case Report.COLOR_YELLOW:
 		return "ffff33";
 	case Report.COLOR_RED:
