@@ -11,6 +11,8 @@ public final class ItemAttribute extends Attribute
 	public ItemAttribute initialize(final String name, final boolean readOnly, final boolean notNull, final Type targetType)
 	{
 		super.initialize(name, readOnly, notNull);
+		if(targetType==null)
+			throw new NullPointerException("target type for attribute "+this+" must not be null");
 		this.targetType = targetType;
 		return this;
 	}
@@ -27,7 +29,7 @@ public final class ItemAttribute extends Attribute
 
 	protected List createColumns(final String name, final boolean notNull)
 	{
-		return Collections.singletonList(new IntegerColumn(getType(), name, notNull, SYNTETIC_PRIMARY_KEY_PRECISION));
+		return Collections.singletonList(new IntegerColumn(getType(), name, notNull, SYNTETIC_PRIMARY_KEY_PRECISION, targetType.trimmedName));
 	}
 	
 	Object cacheToSurface(final Object cache)

@@ -40,6 +40,8 @@ public abstract class Database
 	{
 		for(Iterator i = Type.getTypes().iterator(); i.hasNext(); )
 			createTable((Type)i.next());
+		for(Iterator i = Type.getTypes().iterator(); i.hasNext(); )
+			createForeignKeyConstraints((Type)i.next());
 	}
 
 	public void createTablesDesperatly()
@@ -51,6 +53,11 @@ public abstract class Database
 				final Type type = (Type)i.next();
 				createTable(type);
 			}
+			for(Iterator i = Type.getTypes().iterator(); i.hasNext(); )
+			{
+				final Type type = (Type)i.next();
+				createForeignKeyConstraints(type);
+			}
 		}
 		catch(SystemException e)
 		{
@@ -61,7 +68,21 @@ public abstract class Database
 				try
 				{
 					final Type type = (Type)i.next();
-					System.err.print("DROPPING "+type+" ... ");
+					System.err.print("DROPPING FOREIGN KEY CONSTRAINTS "+type+"... ");
+					dropForeignKeyConstraints(type);
+					System.err.println("done.");
+				}
+				catch(SystemException e2)
+				{
+					System.err.println("failed:"+e2.getMessage());
+				}
+			}
+			for(Iterator i = Type.getTypes().iterator(); i.hasNext(); )
+			{
+				try
+				{
+					final Type type = (Type)i.next();
+					System.err.print("DROPPING TABLE "+type+" ... ");
 					dropTable(type);
 					System.err.println("done.");
 				}
@@ -76,6 +97,8 @@ public abstract class Database
 
 	public void dropTables()
 	{
+		for(Iterator i = Type.getTypes().iterator(); i.hasNext(); )
+			dropForeignKeyConstraints((Type)i.next());
 		for(Iterator i = Type.getTypes().iterator(); i.hasNext(); )
 			dropTable((Type)i.next());
 	}
@@ -471,6 +494,50 @@ public abstract class Database
 		}
 	}
 	
+	private void createForeignKeyConstraints(final Type type)
+	{
+		final Statement bf = new Statement();
+		boolean hasOne = false;
+
+		//System.out.println("createForeignKeyConstraints:"+bf);
+		bf.append("alter table ").
+			append(type.protectedName).
+			append(" add ");
+
+		for(Iterator i = type.getColumns().iterator(); i.hasNext(); )
+		{
+			final Column column = (Column)i.next();
+			//System.out.println("createForeignKeyConstraints("+column+"):"+bf);
+			if(column instanceof IntegerColumn)
+			{
+				final IntegerColumn integerColumn = (IntegerColumn)column;
+				if(integerColumn.foreignTable!=null)
+				{
+					bf.append("constraint ").
+						append(Database.theInstance.protectName(column.trimmedName+"FK")).
+						append(" foreign key (").
+						append(column.protectedName).
+						append(") references ").
+						append(Database.theInstance.protectName(integerColumn.foreignTable));
+					hasOne = true;
+				}
+			}
+		}
+		
+		//System.out.println("createForeignKeyConstraints:"+bf);
+		if(hasOne)
+		{
+			try
+			{
+				executeSQL(bf.toString());
+			}
+			catch(UniqueViolationException e)
+			{
+				throw new SystemException(e);
+			}
+		}
+	}
+	
 	private void dropTable(final Type type)
 	{
 		// TODO: use Statement class
@@ -485,6 +552,39 @@ public abstract class Database
 		catch(UniqueViolationException e)
 		{
 			throw new SystemException(e);
+		}
+	}
+	
+	private void dropForeignKeyConstraints(final Type type)
+	{
+		for(Iterator i = type.getColumns().iterator(); i.hasNext(); )
+		{
+			final Column column = (Column)i.next();
+			//System.out.println("dropForeignKeyConstraints("+column+")");
+			if(column instanceof IntegerColumn)
+			{
+				final IntegerColumn integerColumn = (IntegerColumn)column;
+				if(integerColumn.foreignTable!=null)
+				{
+					final Statement bf = new Statement();
+					boolean hasOne = false;
+
+					bf.append("alter table ").
+						append(type.protectedName).
+						append(" drop constraint ").
+						append(Database.theInstance.protectName(column.trimmedName+"FK"));
+
+					//System.out.println("dropForeignKeyConstraints:"+bf);
+					try
+					{
+						executeSQL(bf.toString());
+					}
+					catch(UniqueViolationException e)
+					{
+						throw new SystemException(e);
+					}
+				}
+			}
 		}
 	}
 	

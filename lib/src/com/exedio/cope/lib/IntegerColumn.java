@@ -8,9 +8,14 @@ import java.util.HashMap;
 
 final class IntegerColumn extends Column
 {
-	IntegerColumn(final Type type, final String trimmedName, final boolean notNull, final int precision)
+	final String foreignTable;
+
+	IntegerColumn(final Type type, final String trimmedName,
+					  final boolean notNull, final int precision,
+					  final String foreignTable)
 	{
 		super(type, trimmedName, notNull, "number(" + precision + ",0)"/* TODO: this is database specific */);
+		this.foreignTable = foreignTable;
 	}
 	
 	void load(final ResultSet resultSet, final int columnIndex, final HashMap itemCache)

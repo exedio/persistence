@@ -8,7 +8,7 @@ public final class BooleanAttribute extends Attribute
 {
 	protected List createColumns(final String name, final boolean notNull)
 	{
-		return Collections.singletonList(new IntegerColumn(getType(), name, notNull, 1));
+		return Collections.singletonList(new IntegerColumn(getType(), name, notNull, 1, null));
 	}
 	
 	Object cacheToSurface(final Object cache)
