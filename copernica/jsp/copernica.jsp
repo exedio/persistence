@@ -69,7 +69,7 @@
 		for(Iterator l = provider.getDisplayLanguages().iterator(); l.hasNext(); )
 		{
 			final Language currentLanguage = (Language)l.next();
-			if(!language.equals(currentLanguage))
+			if(!currentLanguage.equals(language))
 			{
 				%>[<a href="<%=cop.switchLanguage(currentLanguage)%>"><%=currentLanguage.getCopernicaName(null)%></a>]<%
 			}
