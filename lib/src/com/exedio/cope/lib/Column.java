@@ -6,17 +6,17 @@ import java.sql.SQLException;
 abstract class Column
 {
 	final Type type;
-	final String trimmedName;
+	final String id;
 	final String protectedName;
 	final boolean notNull;
 	final String databaseType;
 	final Integer jdbcType;
 	
-	Column(final Type type, final String trimmedName, final boolean notNull, final String databaseType, final Integer jdbcType)
+	Column(final Type type, final String id, final boolean notNull, final String databaseType, final Integer jdbcType)
 	{
 		this.type = type;
-		this.trimmedName = trimmedName;
-		this.protectedName = Database.theInstance.protectName(trimmedName);
+		this.id = id;
+		this.protectedName = Database.theInstance.protectName(id);
 		this.notNull = notNull;
 		this.databaseType = databaseType;
 		this.jdbcType = jdbcType;
@@ -24,7 +24,7 @@ abstract class Column
 	
 	public final String toString()
 	{
-		return trimmedName;
+		return id;
 	}
 	
 	abstract void load(ResultSet resultSet, int columnIndex, Row row) throws SQLException;
