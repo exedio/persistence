@@ -311,12 +311,13 @@
 		<mkdir dir="copernica/build/jspsrc" />
 		<java classname="org.apache.jasper.JspC" taskname="jasper2" failonerror="yes" fork="yes">
 			<classpath>
-				<fileset dir="${basedir}/../tomcat/bin">
-					<include name="*.jar" />
-				</fileset>
-				<fileset dir="${basedir}/../tomcat/common/lib">
-					<include name="*.jar" />
-				</fileset>
+				<pathelement location="${basedir}/../tomcat/common/lib/jasper-compiler.jar" />
+				<pathelement location="${basedir}/../tomcat/common/lib/jasper-runtime.jar" />
+				<pathelement location="${basedir}/../tomcat/common/lib/servlet-api.jar" />
+				<pathelement location="${basedir}/../tomcat/common/lib/jsp-api.jar" />
+				<pathelement location="${basedir}/../tomcat/common/lib/ant.jar" />
+				<pathelement location="${basedir}/../tomcat/common/lib/commons-el.jar" />
+				<pathelement location="${basedir}/../tomcat/bin/commons-logging-api.jar" />
 			</classpath>
 			<arg value="-p" /><arg value="com.exedio.copernica" />
 			<arg value="-uriroot" /><arg value="${basedir}/copernica/jsp" />
