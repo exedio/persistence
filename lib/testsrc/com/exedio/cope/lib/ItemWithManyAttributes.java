@@ -15,6 +15,11 @@ public class ItemWithManyAttributes extends Item
 	public static final StringAttribute someString = new StringAttribute(DEFAULT);
 
 	/**
+	 * Test non-persistent static final attributes.
+	 */
+	public static final String someTransientString = "transientString";
+
+	/**
 	 * The code of the item in upper case.
 	 * @mapped
 	 */
