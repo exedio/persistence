@@ -2,7 +2,7 @@
 package com.exedio.cope.lib;
 
 
-public class UniqueItemTest extends AbstractLibTest
+public class UniqueItemTest extends DatabaseLibTest
 {
 	public UniqueItemTest()
 	{

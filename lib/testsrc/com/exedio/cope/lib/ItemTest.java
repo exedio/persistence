@@ -3,7 +3,7 @@ package com.exedio.cope.lib;
 
 import java.util.Arrays;
 
-public class ItemTest extends AbstractLibTest
+public class ItemTest extends DatabaseLibTest
 {
 	
 	public ItemTest()

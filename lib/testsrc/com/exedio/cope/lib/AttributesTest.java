@@ -2,7 +2,7 @@ package com.exedio.cope.lib;
 
 import java.io.IOException;
 
-public class AttributesTest extends AbstractLibTest
+public class AttributesTest extends DatabaseLibTest
 {
 
 	private ItemWithoutAttributes someItem, someItem2;
