@@ -56,18 +56,14 @@ include file="provider.inc"
 	final CopernicaCop cop = CopernicaCop.getCop(
 		provider, request.getParameterMap()
 	);
+	final Language language = cop.language;
+	
 %><html>
 	<head>
 		<title><%=cop.getTitle(provider)%></title>
 		<link rel="STYLESHEET" type="text/css" href="copernica.css">
 	</head>
-	<body><%
-	
-	
-	if(true)
-	{
-		final Language language = cop.language;
-		%>
+	<body>
 		<div id="langcontainer">
 			<ul id="langlist"><%
 			for(Iterator l = provider.getDisplayLanguages().iterator(); l.hasNext(); )
@@ -86,28 +82,26 @@ include file="provider.inc"
 		</div><%@
 		include file="copernica-typelist.inc" %>
 		<div id="main"><%
-			if(cop instanceof TypeCop)
-			{
-				final TypeCop typeCop = ((TypeCop)cop);
-				%><%@ include file="copernica-type.inc" %><%
-			}
-			else if(cop instanceof ItemCop)
-			{
-				final ItemCop itemCop = (ItemCop)cop;
-				%><%@ include file="copernica-item.inc" %><%
-			}
-			else if(cop instanceof EmptyCop)
-			{
+		if(cop instanceof TypeCop)
+		{
+			final TypeCop typeCop = ((TypeCop)cop);
+			%><%@ include file="copernica-type.inc" %><%
+		}
+		else if(cop instanceof ItemCop)
+		{
+			final ItemCop itemCop = (ItemCop)cop;
+			%><%@ include file="copernica-item.inc" %><%
+		}
+		else if(cop instanceof EmptyCop)
+		{
 			%>
 			<h1>Copernica</h1>
 			<h2>Generic Backoffice for COPE</h2>
 			<u>select a type on the left</u><%
-			}
-			else
-				throw new RuntimeException();
+		}
+		else
+			throw new RuntimeException();
 		%>
-		</div><%
-	}
-	%>
+		</div>
 	</body>
 </html>
