@@ -108,7 +108,6 @@
 						<hr>
 						<table border="1">
 						<tr>
-							<th>ID</th>
 						<%
 							for(Iterator i = type.getAttributes().iterator(); i.hasNext(); )
 							{
@@ -120,12 +119,23 @@
 						<%
 							for(Iterator i = Search.search(type, null).iterator(); i.hasNext(); )
 							{
+								boolean firstAttribute = true;
 								final Item item = (Item)i.next();
-								%><tr><td><%=item.getID()%></td><%
 								for(Iterator j = type.getAttributes().iterator(); j.hasNext(); )
 								{
 									final Attribute attribute = (Attribute)j.next();
-									%><td><%=item.getAttribute(attribute)%></td><%
+									%><td><%
+									if(firstAttribute)
+									{
+										%><a href="copernica.jsp?item=<%=item.getID()%>"><%
+									}
+									%><%=item.getAttribute(attribute)%></td><%
+									if(firstAttribute)
+									{
+										%></a><%
+										firstAttribute=false;
+									}
+									%></td><%
 								}
 								%></tr><%
 							}
