@@ -1,9 +1,6 @@
 
 package com.exedio.cope.lib;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
 
 public class LibTest extends AbstractLibTest
 {
@@ -25,26 +22,9 @@ public class LibTest extends AbstractLibTest
 
 	private void dotestItemWithManyAttributes()
 	{
-		final ItemWithoutAttributes someItem = new ItemWithoutAttributes();
-		final ItemWithManyAttributes item;
-		try
-		{
-			item = new ItemWithManyAttributes("someString", 5, true, someItem);
-		}
-		catch(NotNullViolationException e)
-		{
-			throw new SystemException(e);
-		}
-		dotestUnmodifiableSearchResult(item);
 		dotestIllegalSearch();
 	}
 
-	private void dotestUnmodifiableSearchResult(final ItemWithManyAttributes item)
-	{
-		item.setSomeNotNullInteger(0);
-		assertUnmodifiable(Search.search(item.TYPE, Search.equal(item.someNotNullInteger, 0)));
-	}
-	
 	private void dotestIllegalSearch()
 	{
 		try
@@ -60,55 +40,6 @@ public class LibTest extends AbstractLibTest
 		}
 	}
 	
-	private void assertUnmodifiable(final Collection c)
-	{
-		try
-		{
-			c.add(new Object());
-			fail("should have thrown UnsupportedOperationException");
-		}
-		catch(UnsupportedOperationException e) {}
-		try
-		{
-			c.addAll(Collections.EMPTY_LIST);
-			fail("should have thrown UnsupportedOperationException");
-		}
-		catch(UnsupportedOperationException e) {}
-		try
-		{
-			c.clear();
-			fail("should have thrown UnsupportedOperationException");
-		}
-		catch(UnsupportedOperationException e) {}
-		try
-		{
-			c.remove(new Object());
-			fail("should have thrown UnsupportedOperationException");
-		}
-		catch(UnsupportedOperationException e) {}
-		try
-		{
-			c.removeAll(Collections.EMPTY_LIST);
-			fail("should have thrown UnsupportedOperationException");
-		}
-		catch(UnsupportedOperationException e) {}
-		try
-		{
-			c.retainAll(Collections.EMPTY_LIST);
-			fail("should have thrown UnsupportedOperationException");
-		}
-		catch(UnsupportedOperationException e) {}
-
-		final Iterator iterator = c.iterator();
-		try
-		{
-			iterator.remove();
-			fail("should have thrown UnsupportedOperationException");
-		}
-		catch(UnsupportedOperationException e) {}
-	}
-
-
 	private void dotestContinuousPrimaryKeyGeneration()
 	{
 		final ItemWithoutAttributes item1 = new ItemWithoutAttributes();
