@@ -16,6 +16,7 @@ public class LibTest extends TestCase
 		ItemWithSingleUnique.TYPE,
 		ItemWithSingleUniqueReadOnly.TYPE,
 		ItemWithSingleUniqueNotNull.TYPE,
+		ItemWithoutAttributes.TYPE,
 	};
 	
 	public LibTest()
@@ -38,6 +39,30 @@ public class LibTest extends TestCase
 		// it may be an error in the 
 		// instrumentor as well.
 		
+		
+		// ID, equals, hashCode
+		{
+			final ItemWithoutAttributes item1 = new ItemWithoutAttributes();
+			final ItemWithoutAttributes item2 = new ItemWithoutAttributes();
+			final ItemWithoutAttributes item3 = new ItemWithoutAttributes();
+			
+			assertEquals(item1, item1);
+			assertEquals(item2, item2);
+			assertEquals(item3, item3);
+
+			assertFalse(item1.equals(null));
+			assertFalse(item2.equals(null));
+			assertFalse(item3.equals(null));
+			assertFalse(item1.equals(item2));
+			assertFalse(item1.equals(item3));
+			assertFalse(item2.equals(item1));
+			assertFalse(item2.equals(item3));
+			assertFalse(item3.equals(item1));
+			assertFalse(item3.equals(item2));
+			assertFalse(item1.equals("hello"));
+			assertFalse(item1.equals(new Integer(1)));
+			assertFalse(item1.equals(Boolean.TRUE));
+		}
 		
 		// ItemWithSingleUnique
 		{
