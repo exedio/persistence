@@ -32,63 +32,45 @@ public abstract class Database
 			createForeignKeyConstraints((Type)i.next());
 	}
 
-	public void createTablesDesperatly()
-	{
-		try
-		{
-			for(Iterator i = Type.getTypes().iterator(); i.hasNext(); )
-			{
-				final Type type = (Type)i.next();
-				createTable(type);
-			}
-			for(Iterator i = Type.getTypes().iterator(); i.hasNext(); )
-			{
-				final Type type = (Type)i.next();
-				createForeignKeyConstraints(type);
-			}
-		}
-		catch(SystemException e)
-		{
-			e.printStackTrace();
-			System.err.println("DROPPING ALL TABLES");
-			for(Iterator i = Type.getTypes().iterator(); i.hasNext(); )
-			{
-				try
-				{
-					final Type type = (Type)i.next();
-					System.err.print("DROPPING FOREIGN KEY CONSTRAINTS "+type+"... ");
-					dropForeignKeyConstraints(type);
-					System.err.println("done.");
-				}
-				catch(SystemException e2)
-				{
-					System.err.println("failed:"+e2.getMessage());
-				}
-			}
-			for(Iterator i = Type.getTypes().iterator(); i.hasNext(); )
-			{
-				try
-				{
-					final Type type = (Type)i.next();
-					System.err.print("DROPPING TABLE "+type+" ... ");
-					dropTable(type);
-					System.err.println("done.");
-				}
-				catch(SystemException e2)
-				{
-					System.err.println("failed:"+e2.getMessage());
-				}
-			}
-			throw e;
-		}
-	}
-
 	public void dropTables()
 	{
 		for(Iterator i = Type.getTypes().iterator(); i.hasNext(); )
 			dropForeignKeyConstraints((Type)i.next());
 		for(Iterator i = Type.getTypes().iterator(); i.hasNext(); )
 			dropTable((Type)i.next());
+	}
+	
+	public void tearDownTables()
+	{
+		System.err.println("TEAR DOWN ALL TABLES");
+		for(Iterator i = Type.getTypes().iterator(); i.hasNext(); )
+		{
+			try
+			{
+				final Type type = (Type)i.next();
+				System.err.print("DROPPING FOREIGN KEY CONSTRAINTS "+type+"... ");
+				dropForeignKeyConstraints(type);
+				System.err.println("done.");
+			}
+			catch(SystemException e2)
+			{
+				System.err.println("failed:"+e2.getMessage());
+			}
+		}
+		for(Iterator i = Type.getTypes().iterator(); i.hasNext(); )
+		{
+			try
+			{
+				final Type type = (Type)i.next();
+				System.err.print("DROPPING TABLE "+type+" ... ");
+				dropTable(type);
+				System.err.println("done.");
+			}
+			catch(SystemException e2)
+			{
+				System.err.println("failed:"+e2.getMessage());
+			}
+		}
 	}
 
 	Collection search(final Query query)
