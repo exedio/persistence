@@ -164,6 +164,10 @@ public class ExampleTest extends InjectorTest
 		
 		assertClass("Drinner");
 		assertText("class Drinner implements Runnable\n\t {\n\t\t");
+		
+		assertAttributeHeader("someDrinnerBoolean", "boolean", 0);
+		assertText("boolean someDrinnerBoolean=true;");
+		assertAttribute("someDrinnerBoolean", null);
 	}
 
 }
