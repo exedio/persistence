@@ -71,10 +71,10 @@ public abstract class Search
 		if(pos<=0)
 			throw new NoSuchIDException(id, "no dot in id");
 
-		final String typeName = id.substring(0, pos);
-		final Type type = Type.getType(typeName);
+		final String typeID = id.substring(0, pos);
+		final Type type = Type.findByID(typeID);
 		if(type==null)
-			throw new NoSuchIDException(id, "no such type "+typeName);
+			throw new NoSuchIDException(id, "no such type "+typeID);
 		
 		final String idString = id.substring(pos+1);
 
