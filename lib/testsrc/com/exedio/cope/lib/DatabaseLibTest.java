@@ -213,8 +213,10 @@ public abstract class DatabaseLibTest extends AbstractLibTest
 			{
 				final PointerItem2 item2a = new PointerItem2("hallo");
 				final PointerItem2 item2b = new PointerItem2("bello");
-				new PointerItem("bello", item2a);
-				new PointerItem("collo", item2b);
+				final PointerItem item1a = new PointerItem("bello", item2a);
+				final PointerItem item1b = new PointerItem("collo", item2b);
+				item1a.setSelf(item1a);
+				item1b.setSelf(item1a);
 			}
 			
 			new FirstSub(1);
