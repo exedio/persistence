@@ -69,7 +69,7 @@ public class ExampleTest extends InjectorTest
 		assertDocComment("/**TestCommentCommaSeparated123*/");
 		assertText("\n  ");
 		assertAttributeHeader("commaSeparated1", "int", 0);
-		//assertText("int commaSeparated1,commaSeparated2=0,commaSeparated3;"); TODO: where is the text of these attributes?
+		assertText("int commaSeparated1,commaSeparated2=0,commaSeparated3;");
 		assertAttribute("commaSeparated1", "/**TestCommentCommaSeparated123*/");
 		assertAttribute("commaSeparated2", "/**TestCommentCommaSeparated123*/");
 		assertAttribute("commaSeparated3", "/**TestCommentCommaSeparated123*/");
@@ -78,6 +78,7 @@ public class ExampleTest extends InjectorTest
 		assertDocComment("/**TestCommentCommaSeparated456*/");
 		assertText("\n  ");
 		assertAttributeHeader("commaSeparated4", "int", 0);
+		assertText("int commaSeparated4=80,commaSeparated5,commaSeparated6=200;");
 		assertAttribute("commaSeparated4", "/**TestCommentCommaSeparated456*/");
 		assertAttribute("commaSeparated5", "/**TestCommentCommaSeparated456*/");
 		assertAttribute("commaSeparated6", "/**TestCommentCommaSeparated456*/");

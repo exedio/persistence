@@ -303,7 +303,7 @@ public abstract class InjectorTest extends TestCase
 		public boolean onDocComment(final String doccomment) throws java.io.IOException
 		{
 			addInjectionEvent(new DocCommentEvent(doccomment));
-			return false;
+			return true;
 		}
 
 		public void onFileDocComment(final String doccomment)
