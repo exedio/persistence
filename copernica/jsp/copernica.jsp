@@ -20,15 +20,7 @@ page import="java.io.PrintWriter" %><%@
 page import="java.util.Iterator" %><%@
 page import="java.util.Collection" %><%@
 page import="java.util.Map"
-%>
-<html>
-	<head>
-		<title>
-			Copernica
-		</title>
-	</head>
-	<body>
-<%
+%><%
 	final CopernicaProvider provider;
 	try
 	{
@@ -49,6 +41,19 @@ page import="java.util.Map"
 		System.out.println( "param: " + entry.getKey() + " value: " + entry.getValue() );
 	}
 	
+	final CopernicaCop cop = CopernicaCop.getCop(
+		provider, request.getParameterMap()
+	);
+%>
+<html>
+	<head>
+		<title>
+			Copernica
+		</title>
+	</head>
+	<body>
+<%
+	
 	boolean database = false;
 	try
 	{
@@ -65,9 +70,6 @@ page import="java.util.Map"
 	
 	if(database)
 	{
-		final CopernicaCop cop = CopernicaCop.getCop(
-			provider, request.getParameterMap()
-		);
 		final Language language = cop.language;
 			
 		for(Iterator l = provider.getDisplayLanguages().iterator(); l.hasNext(); )
