@@ -22,13 +22,27 @@ public class JavaHash extends Hash
 		super(storage);
 		this.hash = hash;
 		this.encoding = encoding;
+
+		try
+		{
+			MessageDigest.getInstance(hash);
+			"test".getBytes(encoding);
+		}
+		catch(NoSuchAlgorithmException e)
+		{
+			throw new NestingRuntimeException(e);
+		}
+		catch(UnsupportedEncodingException e)
+		{
+			throw new NestingRuntimeException(e);
+		}
 	}
 
 	public JavaHash(final StringAttribute storage, final String hash)
 	{
 		this(storage, hash, "utf8");
 	}
-
+	
 	public final String hash(final String plainText)
 	{
 		if(plainText == null)

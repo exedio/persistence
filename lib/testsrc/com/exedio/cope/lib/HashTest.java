@@ -1,6 +1,11 @@
 
 package com.exedio.cope.lib;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
+
+import com.exedio.cope.lib.pattern.JavaHash;
+import com.exedio.cope.lib.pattern.MD5Hash;
 import com.exedio.cope.testmodel.StringItem;
 
 public class HashTest extends DatabaseLibTest
@@ -57,6 +62,25 @@ public class HashTest extends DatabaseLibTest
 		assertTrue(!item.checkHashed1Latin("bello"));
 		assertTrue(item.checkHashed1Latin(specialPlainText));
 		assertTrue(!item.checkHashed1(specialPlainText));
+		
+		try
+		{
+			new MD5Hash(item.hashed1MD5, "nixus");
+		}
+		catch(NestingRuntimeException e)
+		{
+			assertEquals("nixus", e.getMessage());
+			assertEquals(UnsupportedEncodingException.class, e.getNestedCause().getClass());
+		}
+		try
+		{
+			new JavaHash(item.hashed1MD5, "nixus");
+		}
+		catch(NestingRuntimeException e)
+		{
+			assertEquals("NIXUS MessageDigest not available", e.getMessage());
+			assertEquals(NoSuchAlgorithmException.class, e.getNestedCause().getClass());
+		}
 	}
 
 	public void testWrap()
