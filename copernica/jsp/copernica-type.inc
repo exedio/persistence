@@ -44,7 +44,7 @@
 	</div><%
 	}
 	%>
-	<table border="1">
+	<table id="item">
 	<tr>
 	<th></th><%
 		for(Iterator i = type.getFeatures().iterator(); i.hasNext(); )
