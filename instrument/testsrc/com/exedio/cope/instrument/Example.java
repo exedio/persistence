@@ -158,6 +158,9 @@ public abstract class Example implements Runnable
   
 	static public void main(String[] args)
 	{
+		// use imports
+		List l;
+		Format f;
 	}
 
 }
