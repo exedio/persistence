@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+
+<project name="cope" default="compile" basedir=".">
+
+	<target name="lib.compile">
+		<mkdir dir="lib/build/classes" />
+		<javac srcdir= "lib/src"
+				destdir="lib/build/classes"
+				deprecation="on"
+				debug="on"
+				optimize="off">
+			<include name="com/**" />
+		</javac>
+	</target>
+	
+	<target name="instrument.compile" depends="lib.compile">
+		<mkdir dir="instrument/build/classes" />
+		<javac srcdir= "instrument/src"
+				destdir="instrument/build/classes"
+				deprecation="on"
+				debug="on"
+				optimize="off">
+			<include name="com/**" />
+			<classpath>
+				<pathelement location="lib/build/classes" />
+			</classpath>
+		</javac>
+	</target>
+	
+	<target name="compile" depends="lib.compile, instrument.compile" />
+	
+	<target name="lib.clean">
+		<delete dir="lib/build" />
+	</target>
+
+</project>
