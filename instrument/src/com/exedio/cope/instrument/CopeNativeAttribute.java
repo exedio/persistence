@@ -96,14 +96,19 @@ final class CopeNativeAttribute extends CopeAttribute
 		toUnboxingPostfixMapping.put(typeClass, unboxingPostfix);
 	}
 	
+	private static final void fillNativeTypeMap(final Class typeClass, final Class persistentType)
+	{
+		fillNativeTypeMap(typeClass, persistentType, null, null, null, null, null);
+	}
+
 	static
 	{
 		fillNativeTypeMap(BooleanAttribute.class, Boolean.class, boolean.class, "(", "?"+Boolean.class.getName()+".TRUE:"+Boolean.class.getName()+".FALSE)", "(", ").booleanValue()");
 		fillNativeTypeMap(LongAttribute.class,    Long.class,    long.class,    "new "+Long.class.getName()+   "(", ")", "(", ").longValue()");
 		fillNativeTypeMap(IntegerFunction.class,  Integer.class, int.class,     "new "+Integer.class.getName()+"(", ")", "(", ").intValue()");
 		fillNativeTypeMap(DoubleAttribute.class,  Double.class,  double.class,  "new "+Double.class.getName()+ "(", ")", "(", ").doubleValue()");
-		fillNativeTypeMap(StringFunction.class,   String.class,  null, null, null, null, null);
-		fillNativeTypeMap(DateAttribute.class,    Date.class,    null, null, null, null, null);
+		fillNativeTypeMap(StringFunction.class,   String.class);
+		fillNativeTypeMap(DateAttribute.class,    Date.class);
 	}
 
 	public final String getBoxedType()
