@@ -1,6 +1,5 @@
 
 package persistence;
 
-public class IntegerAttribute extends Attribute
-{
-}
+public final class IntegerAttribute extends Attribute
+{}

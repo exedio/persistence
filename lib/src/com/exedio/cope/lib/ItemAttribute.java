@@ -1,5 +1,5 @@
 
 package persistence;
 
-public class ItemAttribute extends Attribute
+public final class ItemAttribute extends Attribute
 {}
