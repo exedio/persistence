@@ -188,7 +188,7 @@ public final class Model
 	 */
 	public void checkDatabase()
 	{
-		// TODO: check for media atribute directories
+		// TODO: check for media attribute directories
 		database.checkDatabase();
 	}
 
