@@ -1,7 +1,7 @@
 package com.exedio.cope.lib;
 
 
-public abstract class AttributesTest extends DatabaseLibTest
+public abstract class AttributeTest extends DatabaseLibTest
 {
 
 	protected EmptyItem someItem, someItem2;

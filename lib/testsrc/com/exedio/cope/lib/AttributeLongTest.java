@@ -1,7 +1,7 @@
 package com.exedio.cope.lib;
 
 
-public class AttributeLongTest extends AttributesTest
+public class AttributeLongTest extends AttributeTest
 {
 	public void testSomeLong()
 	{

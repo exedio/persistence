@@ -1,7 +1,7 @@
 package com.exedio.cope.lib;
 
 
-public class AttributeEnumerationTest extends AttributesTest
+public class AttributeEnumerationTest extends AttributeTest
 {
 	public void testSomeEnumeration()
 	{

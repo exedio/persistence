@@ -1,7 +1,7 @@
 package com.exedio.cope.lib;
 
 
-public class AttributeBooleanTest extends AttributesTest 
+public class AttributeBooleanTest extends AttributeTest 
 {
 	public void testSomeBoolean()
 	{

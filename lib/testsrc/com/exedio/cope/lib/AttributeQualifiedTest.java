@@ -1,7 +1,7 @@
 package com.exedio.cope.lib;
 
 
-public class AttributeQualifiedTest extends AttributesTest
+public class AttributeQualifiedTest extends AttributeTest
 {
 	public void testSomeQualifiedAttribute()
 			throws IntegrityViolationException
