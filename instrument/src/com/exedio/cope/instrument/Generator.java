@@ -142,10 +142,11 @@ final class Generator
 	private void writeConstructor(final PersistentClass javaClass)
 	throws IOException
 	{
+		if(!javaClass.hasGeneratedConstructor())
+			return;
+
 		final List initialAttributes = javaClass.getInitialAttributes();
 		final SortedSet constructorExceptions = javaClass.getConstructorExceptions();
-		
-		int constructorAccessModifier = javaClass.accessModifier;
 		
 		writeCommentHeader();
 		o.write("\t * Constructs a new ");
@@ -162,10 +163,6 @@ final class Generator
 			o.write(initialAttribute.getName());
 			o.write("}.");
 			o.write(lineSeparator);
-			
-			final int attributeAccessModifier = initialAttribute.accessModifier;
-			if(constructorAccessModifier<attributeAccessModifier)
-				constructorAccessModifier = attributeAccessModifier;
 		}
 		for(Iterator i = constructorExceptions.iterator(); i.hasNext(); )
 		{
@@ -193,7 +190,12 @@ final class Generator
 			o.write(lineSeparator);
 		}
 		writeCommentFooter();
-		o.write(JavaFeature.toAccessModifierString(constructorAccessModifier));
+		final String modifier = Modifier.toString(javaClass.getGeneratedConstructorModifier());
+		if(modifier.length()>0)
+		{
+			o.write(modifier);
+			o.write(' ');
+		}
 		o.write(javaClass.getName());
 		o.write('(');
 		

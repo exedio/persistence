@@ -33,7 +33,7 @@ public interface InjectionConsumer
 	 * Encountered a class header.
 	 * Is also called for inner classes.
 	 */
-	public void onClass(JavaClass cc);
+	public void onClass(JavaClass cc) throws InjectorParseException;
 	
 	/**
 	 * Encountered the end of a class.
@@ -95,6 +95,6 @@ public interface InjectionConsumer
 	 * i.e. outside of any classes.
 	 */
 	public void onFileDocComment(String doccomment, Writer output)
-	throws java.io.IOException;
+	throws java.io.IOException, InjectorParseException;
 	
 }

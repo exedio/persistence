@@ -126,9 +126,9 @@ public abstract class JavaFeature
 		return (modifiers & Modifier.ABSTRACT) > 0;
 	}
 	
-	public static final int toAccessModifier(final int modifier)
+	public static final int toAccessModifier(final int reflectionModifier)
 	{
-		switch(modifier & (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE))
+		switch(reflectionModifier & (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE))
 		{
 			case Modifier.PUBLIC:
 				return ACCESS_PUBLIC;
@@ -139,7 +139,24 @@ public abstract class JavaFeature
 			case Modifier.PRIVATE:
 				return ACCESS_PRIVATE;
 			default:
-				throw new RuntimeException(Integer.toString(modifier));
+				throw new RuntimeException(Integer.toString(reflectionModifier));
+		}
+	}
+	
+	public static final int toReflectionModifier(final int accessModifier)
+	{
+		switch(accessModifier)
+		{
+			case ACCESS_PUBLIC:
+				return Modifier.PUBLIC;
+			case ACCESS_PACKAGE:
+				return 0;
+			case ACCESS_PROTECTED:
+				return Modifier.PROTECTED;
+			case ACCESS_PRIVATE:
+				return Modifier.PRIVATE;
+			default:
+				throw new RuntimeException(Integer.toString(accessModifier));
 		}
 	}
 	

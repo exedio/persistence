@@ -1,6 +1,7 @@
 
 package com.exedio.cope.instrument;
 
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -33,12 +34,17 @@ public final class PersistentClass
 	private final Map persistentAttributeMap = new TreeMap();
 	private ArrayList uniqueConstraints = null;
 	private ArrayList qualifiers = null;
+	final int constructorOption;
 
-	public PersistentClass(final JavaClass javaClass)
+	public PersistentClass(
+			final JavaClass javaClass,
+			final String constructorOptionString)
+		throws InjectorParseException
 	{
 		this.javaClass = javaClass;
 		this.accessModifier = javaClass.accessModifier;
 		persistentClassByJavaClass.put(javaClass, this);	
+		constructorOption = Option.getOption(constructorOptionString);
 		//System.out.println("persistentClassByJavaClass "+javaClass.getName());
 	}
 	
@@ -74,6 +80,42 @@ public final class PersistentClass
 	public PersistentAttribute getPersistentAttribute(final String name)
 	{
 		return (PersistentAttribute)persistentAttributeMap.get(name);
+	}
+	
+	public boolean hasGeneratedConstructor()
+	{
+		return constructorOption != Option.NONE;
+	}
+	
+	public int getGeneratedConstructorModifier()
+	{
+		switch(constructorOption)
+		{
+			case Option.NONE:
+				throw new RuntimeException();
+			case Option.AUTO:
+			{
+				int result = javaClass.accessModifier;
+				for(Iterator i = getInitialAttributes().iterator(); i.hasNext(); )
+				{
+					final PersistentAttribute initialAttribute = (PersistentAttribute)i.next();
+					final int attributeAccessModifier = initialAttribute.accessModifier;
+					if(result<attributeAccessModifier)
+						result = attributeAccessModifier;
+				}
+				return JavaFeature.toReflectionModifier(result);
+			}
+			case Option.PRIVATE:
+				return Modifier.PRIVATE;
+			case Option.PROTECTED:
+				return Modifier.PROTECTED;
+			case Option.PACKAGE:
+				return 0;
+			case Option.PUBLIC:
+				return Modifier.PUBLIC;
+			default:
+				throw new RuntimeException(String.valueOf(constructorOption));
+		}
 	}
 	
 	public void makeUnique(final PersistentUniqueConstraint constraint)
