@@ -97,8 +97,4 @@ public interface InjectionConsumer
 	public void onFileDocComment(String doccomment, Writer output)
 	throws java.io.IOException;
 	
-	/**
-	 * Encountered the end of the input stream.
-	 */
-	public void onFileEnd();
 }

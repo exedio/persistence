@@ -384,10 +384,6 @@ public abstract class InjectorTest extends TestCase
 			addInjectionEvent(new FileDocCommentEvent(doccomment));
 		}
 
-		public void onFileEnd()
-		{
-		}
-
 		private void addInjectionEvent(final InjectionEvent injectionEvent)
 		{
 			flushOutput();

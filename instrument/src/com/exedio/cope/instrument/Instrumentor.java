@@ -369,12 +369,6 @@ public final class Instrumentor implements InjectionConsumer
 		}
 	}
 	
-	public void onFileEnd()
-	{
-		if(!class_state_stack.isEmpty())
-			throw new RuntimeException();
-	}
-	
 	private static final boolean containsTag(final String docComment, final String tagName)
 	{
 		return docComment!=null && docComment.indexOf('@'+tagName)>=0 ;
