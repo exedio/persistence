@@ -17,6 +17,7 @@ private String color(final int color)
 
 if(request.getParameter("APPLY")!=null)
 {
+	final Report report = ((DatabaseReportable)Database.theInstance).reportDatabase();
 	%>
 	<ol><%
 	final String[] analyzeTables = (String[])request.getParameterMap().get("ANALYZE_TABLE");
