@@ -2,20 +2,26 @@ package com.exedio.cope.lib;
 
 import com.exedio.cope.lib.Database;
 import java.math.BigDecimal;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.HashMap;
 
-class IntegerColumn extends Column
+final class IntegerColumn extends Column
 {
 	IntegerColumn(final Type type, final String name, final int precision)
 	{
 		super(type, name, "number(" + precision + ",0)"/* TODO: this is database specific */);
 	}
 	
-	Object databaseToCache(final Object cell)
+	void load(final ResultSet resultSet, final int columnIndex, final HashMap itemCache)
+			throws SQLException
 	{
-		if(cell==null)
-			return null;
-		else
-			return new Integer(((BigDecimal)cell).intValue()); // TODO: use ResultSet.getInt() somehow
+		final Object loadedInteger = resultSet.getObject(columnIndex);
+		if(loadedInteger!=null)
+		{
+			// TODO: somehow do without that BigDecimal
+			itemCache.put(this, new Integer(((BigDecimal)loadedInteger).intValue()));
+		}
 	}
 
 	Object cacheToDatabase(final Object cache)

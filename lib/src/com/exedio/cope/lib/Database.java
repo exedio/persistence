@@ -187,14 +187,7 @@ public abstract class Database
 
 		//System.out.println("loading "+bf.toString());
 
-		final ArrayList row = executeSQLLoad(bf.toString(), columns.size());
-		final Iterator ir = row.iterator();
-		for(Iterator i = columns.iterator(); i.hasNext(); )
-		{
-			final Column column = (Column)i.next();
-			final Object cell = ir.next();
-			itemCache.put(column, column.databaseToCache(cell));
-		}
+		executeSQLLoad(bf.toString(), columns, itemCache);
 	}
 
 	void store(final Type type, final int pk, final HashMap itemCache, final boolean present)
@@ -264,20 +257,20 @@ public abstract class Database
 
 	private void executeSQL(final String sql)
 	{
-		executeSQLInternal(sql, 0, 0);
+		executeSQLInternal(sql, 0, null, null);
 	}
 	
 	private ArrayList executeSQLQuery(final String sql)
 	{
-		return executeSQLInternal(sql, 1, 0);
+		return executeSQLInternal(sql, 1, null, null);
 	}
 		
-	private ArrayList executeSQLLoad(final String sql, final int columns)
+	private void executeSQLLoad(final String sql, final List columns, final HashMap itemCache)
 	{
-		return executeSQLInternal(sql, 2, columns);
+		executeSQLInternal(sql, 2, columns, itemCache);
 	}
 		
-	private ArrayList executeSQLInternal(final String sql, final int type, final int columns)
+	private ArrayList executeSQLInternal(final String sql, final int type, final List columns, final HashMap itemCache)
 	{
 		final String driver = "oracle.jdbc.driver.OracleDriver";
 		final String url = "jdbc:oracle:thin:@database3.exedio.com:1521:DB3";
@@ -323,12 +316,12 @@ public abstract class Database
 				case 2:
 				{
 					resultSet = statement.executeQuery(sql);
-					final ArrayList result = new ArrayList(columns);
 					if(!resultSet.next())
 						return null;
-					for(int i = 1; i<=columns; i++)
-						result.add(resultSet.getObject(i));
-					return result;
+					int columnIndex = 1;
+					for(Iterator i = columns.iterator(); i.hasNext(); )
+						((Column)i.next()).load(resultSet, columnIndex++, itemCache);
+					return null;
 				}
 				default:
 					throw new RuntimeException("type"+type);

@@ -1,6 +1,9 @@
 package com.exedio.cope.lib;
 
 import com.exedio.cope.lib.Database;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.HashMap;
 
 abstract class Column
 {
@@ -20,7 +23,7 @@ abstract class Column
 		return name;
 	}
 	
-	abstract Object databaseToCache(Object cell);
+	abstract void load(ResultSet resultSet, int columnIndex, HashMap itemCache) throws SQLException;
 	abstract Object cacheToDatabase(Object cache);
 
 }
