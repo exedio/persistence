@@ -37,6 +37,7 @@ private ReportColumn getColumn(final Report report, final String columnParameter
 
 final Report report = ((DatabaseReportable)Database.theInstance).reportDatabase();
 final String reportColor = color(report.getCumulativeColor());
+final boolean narrowReport = cop.isNarrowReport();
 
 %>
 <span class="<%=reportColor%>">Database Report</span>
@@ -55,7 +56,16 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); )
 	%>
 	<li class="<%=tableColor%>"><%
 	
-	%><small>table</small> <a href="<%=cop.narrowReport(table)%>"><%=table.name%></a><%
+	%><small>table</small> <%
+	if(!narrowReport)
+	{
+		%><a href="<%=cop.narrowReport(table)%>"><%
+	}
+	%><%=table.name%><%
+	if(!narrowReport)
+	{
+		%></a><%
+	}
 	
 	final String tableError = table.getError();
 	if(tableError!=null)

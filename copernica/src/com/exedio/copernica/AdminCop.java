@@ -36,6 +36,11 @@ final class AdminCop extends Cop
 		return new AdminCop(true, reportTable.name);
 	}
 	
+	final boolean isNarrowReport()
+	{
+		return reportTable!=null;
+	}
+	
 	final boolean skipTable(final ReportTable table)
 	{
 		return reportTable!=null && !reportTable.equals(table.name);
