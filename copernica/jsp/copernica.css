@@ -65,7 +65,7 @@ ul#typelist
 ul#typelist li
 {
 	display: block;
-	margin: 2;
+	margin: 0;
 	padding: 0;
 }
 
@@ -74,11 +74,10 @@ ul#typelist li a
 	display: block;
 	width: 100%;
 	padding: 0.5em 0 0.5em 1em;
-	border-width: 1px;
-	border-color: #4181d5;
+	border-width: 1px 1px 1px 10px;
+	border-color: #4181d5 #ffffff #ffffff #ffffff;
 	border-style: solid;
 	font-size: 0.6em;
-	font-weight: bold;
 	color: #000000;
 	text-decoration: none;
 	background: #ffffff;
@@ -86,10 +85,12 @@ ul#typelist li a
 
 ul#typelist li#active a
 {
+	color: #ffffff;
 	background: #4181d5;
+	border-color: #4181d5;
 }
 
 ul#typelist li a:hover, ul#typelist li#active a:hover
 {
-	border-color: #000000;
+	border-color: #4181d5 #ffffff #ffffff #4181d5;
 }
