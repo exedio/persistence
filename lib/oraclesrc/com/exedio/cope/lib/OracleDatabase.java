@@ -181,6 +181,11 @@ final class OracleDatabase
 					final int dataLength = resultSet.getInt(4);
 					columnType = "VARCHAR2("+dataLength+')';
 				}
+				else if(dataType.equals("NVARCHAR2"))
+				{
+					final int dataLength = resultSet.getInt(4);
+					columnType = "NVARCHAR2("+dataLength+')';
+				}
 				else
 					columnType = dataType;
 					
