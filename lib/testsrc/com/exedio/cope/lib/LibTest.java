@@ -102,6 +102,20 @@ public class LibTest extends TestCase
 			assertTrue(!item.isActive());
 			assertEquals("uniqueString", item.getUniqueString());
 			assertTrue(item.isActive());
+			
+			{
+				item.passivate();
+				assertTrue(!item.isActive());
+				final ItemWithSingleUnique foundItem = ItemWithSingleUnique.findByUniqueString("uniqueString");
+				assertEquals(item, foundItem);
+				assertEquals(item.getID(), foundItem.getID());
+				assertEquals(item.hashCode(), foundItem.hashCode());
+				assertNotSame(item, foundItem);
+				assertTrue(!item.isActive());
+				assertTrue(!foundItem.isActive());
+				assertSame(item, item.activeItem());
+				assertSame(foundItem, foundItem.activeItem());
+			}
 		}
 		
 
