@@ -50,11 +50,20 @@
 				{
 					final Feature feature = (Feature)i.next();
 					%>
-					<th>
-						<%=provider.getDisplayName(language, feature)%><%
+					<th><%=provider.getDisplayName(language, feature)%></th><%
+				}
+			%>
+				</tr>
+				<tr>
+					<th></th><%
+				for(Iterator i = type.getFeatures().iterator(); i.hasNext(); )
+				{
+					final Feature feature = (Feature)i.next();
+					%>
+					<th class="orderby"><%
 					if(feature instanceof Function)
 					{
-						%><br>
+					%>
 						<%
 						if(feature == typeCop.orderBy)
 						{
@@ -74,9 +83,10 @@
 							%><a href="<%=typeCop.orderBy((Function)feature, true)%>">a</a>
 							<a href="<%=typeCop.orderBy((Function)feature, false)%>">d</a><%
 						}
+						%>
+					<%
 					}
-					%>
-					</th><%
+					%></th><%
 				}
 			%>
 				</tr><%
