@@ -157,7 +157,7 @@ public class ExampleTest extends InjectorTest
 				+ "\t }\n\t // ugly ; { \" ' comment"
 				+ "\n  };");
 		assertAttribute("uglyAttribute8", null);
-		//assertText("\n  ");
+		assertText("\n  // end of ugly attributes\n  \n\n  ");
 	}
 
 }
