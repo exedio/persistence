@@ -12,6 +12,11 @@ public class SumFunction extends ComputedFunction implements IntegerFunction
 		this(new IntegerAttribute[]{addend1, addend2});
 	}
 
+	public SumFunction(final IntegerAttribute addend1, final IntegerAttribute addend2, final IntegerAttribute addend3)
+	{
+		this(new IntegerAttribute[]{addend1, addend2, addend3});
+	}
+
 	private SumFunction(final IntegerAttribute[] addends)
 	{
 		super(addends, addends[0], makePlusses(addends.length), "sum");
@@ -40,6 +45,5 @@ public class SumFunction extends ComputedFunction implements IntegerFunction
 		}
 		return new Integer(result);
 	}
-	
 
 }
