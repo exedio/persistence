@@ -19,6 +19,7 @@ class IntegerColumn extends Column
 			throws SQLException
 	{
 		final Object loadedInteger = resultSet.getObject(columnIndex);
+		//System.out.println("IntegerColumn.load "+trimmedName+" "+loadedInteger);
 		if(loadedInteger!=null)
 		{
 			row.load(this, convertSQLResult(loadedInteger));
