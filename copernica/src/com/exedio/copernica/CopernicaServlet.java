@@ -5,10 +5,13 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Random;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.exedio.cope.lib.NestingRuntimeException;
 
 public final class CopernicaServlet extends HttpServlet
 {
@@ -63,7 +66,7 @@ public final class CopernicaServlet extends HttpServlet
 			return;
 		}
 		
-		this.provider = Util.createProvider(getServletConfig());
+		this.provider = createProvider();
 		this.checked = false;
 	}
 
@@ -117,4 +120,31 @@ public final class CopernicaServlet extends HttpServlet
 		doRequest(request, response);
 	}
 
+	private final CopernicaProvider createProvider()
+	{
+		try
+		{
+			final ServletConfig config = getServletConfig();
+			final String providerName = config.getInitParameter("provider");
+			if(providerName==null)
+				throw new NullPointerException("init-param 'provider' missing");
+			final Class providerClass = Class.forName(providerName);
+			final CopernicaProvider provider = (CopernicaProvider)providerClass.newInstance();
+			provider.initialize(config);
+			return provider;
+		}
+		catch(ClassNotFoundException e)
+		{
+			throw new NestingRuntimeException(e);
+		}
+		catch(InstantiationException e)
+		{
+			throw new NestingRuntimeException(e);
+		}
+		catch(IllegalAccessException e)
+		{
+			throw new NestingRuntimeException(e);
+		}
+	}
+	
 }
