@@ -11,7 +11,7 @@ public class UniqueItemTest extends DatabaseLibTest
 {
 
 	public void testItemWithSingleUnique()
-			throws IntegrityViolationException
+			throws IntegrityViolationException, UniqueViolationException
 	{
 		assertEquals(null, ItemWithSingleUnique.findByUniqueString("uniqueString"));
 
@@ -19,28 +19,14 @@ public class UniqueItemTest extends DatabaseLibTest
 		assertEquals(null, item.getUniqueString());
 		assertEquals(null, item.findByUniqueString("uniqueString"));
 
-		try
-		{
-			item.setUniqueString("uniqueString");
-		}
-		catch(UniqueViolationException e)
-		{
-			throw new NestingRuntimeException(e);
-		}
+		item.setUniqueString("uniqueString");
 		assertEquals("uniqueString", item.getUniqueString());
 		assertEquals(item, ItemWithSingleUnique.findByUniqueString("uniqueString"));
 
 		// test unique violation
 		{
 			final ItemWithSingleUnique item2 = new ItemWithSingleUnique();
-			try
-			{
-				item2.setUniqueString("uniqueString2");
-			}
-			catch(UniqueViolationException e)
-			{
-				throw new NestingRuntimeException(e);
-			}
+			item2.setUniqueString("uniqueString2");
 			try
 			{
 				item2.setUniqueString("uniqueString");
@@ -104,19 +90,11 @@ public class UniqueItemTest extends DatabaseLibTest
 	}
 
 	public void testItemWithSingleUniqueReadOnly()
-			throws IntegrityViolationException
+			throws ConstraintViolationException
 	{
 		assertEquals(null, ItemWithSingleUniqueReadOnly.findByUniqueReadOnlyString("uniqueString"));
 
-		final ItemWithSingleUniqueReadOnly item;
-		try
-		{
-			item = new ItemWithSingleUniqueReadOnly("uniqueString");
-		}
-		catch(UniqueViolationException e)
-		{
-			throw new NestingRuntimeException(e);
-		}
+		final ItemWithSingleUniqueReadOnly item = new ItemWithSingleUniqueReadOnly("uniqueString");
 		assertEquals("uniqueString", item.getUniqueReadOnlyString());
 		assertEquals(item, ItemWithSingleUniqueReadOnly.findByUniqueReadOnlyString("uniqueString"));
 
@@ -130,10 +108,6 @@ public class UniqueItemTest extends DatabaseLibTest
 			assertEquals(item.uniqueReadOnlyString, e.getReadOnlyAttribute());
 			assertEquals(item, e.getItem());
 		}
-		catch(ConstraintViolationException e)
-		{
-			throw new NestingRuntimeException(e);
-		}
 		assertEquals("uniqueString", item.getUniqueReadOnlyString());
 		assertEquals(item, ItemWithSingleUniqueReadOnly.findByUniqueReadOnlyString("uniqueString"));
 
@@ -141,40 +115,17 @@ public class UniqueItemTest extends DatabaseLibTest
 	}
 
 	public void testItemWithSingleUniqueNotNull()
-			throws IntegrityViolationException
+			throws IntegrityViolationException, UniqueViolationException, NotNullViolationException
 	{
 		assertEquals(null, ItemWithSingleUniqueNotNull.findByUniqueNotNullString("uniqueString"));
 		assertEquals(null, ItemWithSingleUniqueNotNull.findByUniqueNotNullString("uniqueString2"));
 
-		final ItemWithSingleUniqueNotNull item;
-		try
-		{
-			item = new ItemWithSingleUniqueNotNull("uniqueString");
-		}
-		catch(UniqueViolationException e)
-		{
-			throw new NestingRuntimeException(e);
-		}
-		catch(NotNullViolationException e)
-		{
-			throw new NestingRuntimeException(e);
-		}
+		final ItemWithSingleUniqueNotNull item = new ItemWithSingleUniqueNotNull("uniqueString");
 		assertEquals("uniqueString", item.getUniqueNotNullString());
 		assertEquals(item, ItemWithSingleUniqueNotNull.findByUniqueNotNullString("uniqueString"));
 		assertEquals(null, ItemWithSingleUniqueNotNull.findByUniqueNotNullString("uniqueString2"));
 
-		try
-		{
-			item.setUniqueNotNullString("uniqueString2");
-		}
-		catch(UniqueViolationException e)
-		{
-			throw new NestingRuntimeException(e);
-		}
-		catch(NotNullViolationException e)
-		{
-			throw new NestingRuntimeException(e);
-		}
+		item.setUniqueNotNullString("uniqueString2");
 		assertEquals("uniqueString2", item.getUniqueNotNullString());
 		assertEquals(null, ItemWithSingleUniqueNotNull.findByUniqueNotNullString("uniqueString"));
 		assertEquals(item, ItemWithSingleUniqueNotNull.findByUniqueNotNullString("uniqueString2"));
@@ -183,10 +134,6 @@ public class UniqueItemTest extends DatabaseLibTest
 		{
 			item.setUniqueNotNullString(null);
 			fail("should have thrown NotNullViolationException");
-		}
-		catch(UniqueViolationException e)
-		{
-			throw new NestingRuntimeException(e);
 		}
 		catch(NotNullViolationException e)
 		{
