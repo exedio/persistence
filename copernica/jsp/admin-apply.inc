@@ -93,7 +93,10 @@
 				throw new RuntimeException(sourceName);
 			
 			%>
-			<li>modifying column <%=sourceName%> to <%=targetType%> ...</li><%
+			<li>report.getTable(&quot;<b><%=
+				column.table.name%></b>&quot;).getColumn(&quot;<b><%=
+				column.name%></b>&quot;).modify(&quot;<b><%=
+				targetType%></b>&quot;);</li><%
 			out.flush();
 			final long startTime = System.currentTimeMillis();
 			column.modify(targetType);
