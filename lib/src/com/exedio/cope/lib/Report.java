@@ -4,23 +4,36 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 
-public final class Report
+abstract class Node
 {
-	private static final int COLOR_NOT_YET_CALC = 0;
+	protected int color = Report.COLOR_NOT_YET_CALC;
+
+	abstract void finish();
+
+	public final int getColor()
+	{
+		if(color==Report.COLOR_NOT_YET_CALC)
+			throw new RuntimeException();
+
+		return color;
+	}
+}
+
+public final class Report extends Node
+{
+	static final int COLOR_NOT_YET_CALC = 0;
 	public static final int COLOR_OK = 1;
 	public static final int COLOR_YELLOW = 2;
 	public static final int COLOR_RED = 3;
 
 	private final HashMap tables = new HashMap();
-	private int color = COLOR_NOT_YET_CALC;
-
-	public final class Table
+	
+	public final class Table extends Node
 	{
 		public final String name;
 		private boolean required = false;
 		private boolean exists = false;
 		private final HashMap constraints = new HashMap();
-		private int color = COLOR_NOT_YET_CALC;
 
 		private Table(final String name)
 		{
@@ -66,7 +79,7 @@ public final class Report
 			return !required;
 		}
 
-		private void finish()
+		protected void finish()
 		{
 			if(color!=COLOR_NOT_YET_CALC)
 				throw new RuntimeException();
@@ -85,18 +98,10 @@ public final class Report
 				color = Math.max(color, constraint.color);
 			}
 		}
-		
-		public int getColor()
-		{
-			if(color==COLOR_NOT_YET_CALC)
-				throw new RuntimeException();
-
-			return color;
-		}
 
 	}
 	
-	public final class Constraint
+	public final class Constraint extends Node
 	{
 		public final String name;
 		public final Table table;
@@ -120,7 +125,7 @@ public final class Report
 			return !required;
 		}
 
-		private void finish()
+		protected void finish()
 		{
 			if(color!=COLOR_NOT_YET_CALC)
 				throw new RuntimeException();
@@ -134,13 +139,6 @@ public final class Report
 				color = COLOR_OK;
 		}
 		
-		public int getColor()
-		{
-			if(color==COLOR_NOT_YET_CALC)
-				throw new RuntimeException();
-
-			return color;
-		}
 	}
 
 	final Table notifyRequiredTable(final String tableName)
@@ -183,14 +181,6 @@ public final class Report
 			table.finish();
 			color = Math.max(color, table.color);
 		}
-	}
-
-	public int getColor()
-	{
-		if(color==COLOR_NOT_YET_CALC)
-			throw new RuntimeException();
-
-		return color;
 	}
 
 }
