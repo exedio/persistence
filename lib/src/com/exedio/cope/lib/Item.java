@@ -11,7 +11,7 @@ public class Item extends Search
 
 	final int pk;
 
-	private Row row;
+	private Row rowWhenActive;
 
 	/**
 	 * Returns a string unique for this item in all other items of this application.
@@ -55,7 +55,15 @@ public class Item extends Search
 	{
 		return getClass().hashCode() ^ pk;
 	}
-	
+
+	/**
+	 * Returns, whether this item is active.
+	 */	
+	public final boolean isActive()
+	{
+		return rowWhenActive!=null;
+	}
+
 	/**
 	 * Returns the active item object representing the same item as this item object.
 	 * For any two active item objects <code>a</code>, <code>b</code> the following holds true:
@@ -66,15 +74,20 @@ public class Item extends Search
 	 */
 	public final Item activeItem()
 	{
-		if(row!=null)
+		if(rowWhenActive!=null)
 			return this;
 		else
 		{
-			final Item activeItem = type.getActiveItem(pk);
-			if(activeItem!=null)
-				return activeItem;
-			else
+			getRow();
+			if(rowWhenActive!=null)
 				return this;
+			else
+			{
+				final Item result = type.getActiveItem(pk);
+				if(result==null)
+					throw new RuntimeException();
+				return result;
+			}
 		}
 	}
 
@@ -94,7 +107,7 @@ public class Item extends Search
 	{
 		this.type = type;
 		this.pk = type.nextPK();
-		this.row = new Row(type, pk, false); // make active
+		final Row row = new Row(type, pk, false);
 		//System.out.println("create item "+type+" "+pk);
 		type.putActiveItem(this);
 		row.put(initialAttributeValues);
@@ -106,6 +119,7 @@ public class Item extends Search
 		{
 			initialUniqueViolationException = e;
 		}
+		this.rowWhenActive = row; // make active
 	}
 	
 	/**
@@ -118,7 +132,7 @@ public class Item extends Search
 	{
 		this.type = type;
 		this.pk = pk;
-		row = null; // make passive
+		rowWhenActive = null; // make passive
 		//System.out.println("reactivate item:"+type+" "+pk);
 	}
 	
@@ -150,8 +164,7 @@ public class Item extends Search
 		if(mapping!=null)
 			return mapping.mapJava(getAttribute(mapping.sourceAttribute));
 
-		activate();
-		return row.get(attribute);
+		return getRow().get(attribute);
 	}
 	
 	public final Object getAttribute(final Attribute attribute, final Object[] qualifiers)
@@ -160,8 +173,7 @@ public class Item extends Search
 		if(mapping!=null)
 			return mapping.mapJava(getAttribute(mapping.sourceAttribute));
 
-		activate();
-		return row.get(attribute);
+		return getRow().get(attribute);
 	}
 
 	/**
@@ -186,7 +198,7 @@ public class Item extends Search
 		if(attribute.isNotNull() && value == null)
 			throw new NotNullViolationException(this, attribute);
 
-		activate();
+		final Row row = getRow();
 		final Object previousValue = row.get(attribute);
 		row.put(attribute, value);
 		try
@@ -209,7 +221,7 @@ public class Item extends Search
 			UniqueViolationException,
 			ClassCastException
 	{
-		activate();
+		final Row row = getRow();
 		final Object previousValue = row.get(attribute);
 		row.put(attribute, value);
 		try
@@ -229,7 +241,7 @@ public class Item extends Search
 	 */
 	public final String getMediaURL(final MediaAttribute attribute, final String variant)
 	{
-		activate();
+		final Row row = getRow();
 
 		final String mimeMajor = (String)row.get(attribute.mimeMajor);
 		if(mimeMajor==null)
@@ -285,8 +297,7 @@ public class Item extends Search
 	 */
 	public final String getMediaMimeMajor(final MediaAttribute attribute)
 	{
-		activate();
-		return (String)row.get(attribute.mimeMajor);
+		return (String)getRow().get(attribute.mimeMajor);
 	}
 
 	/**
@@ -295,8 +306,7 @@ public class Item extends Search
 	 */
 	public final String getMediaMimeMinor(final MediaAttribute attribute)
 	{
-		activate();
-		return (String)row.get(attribute.mimeMinor);
+		return (String)getRow().get(attribute.mimeMinor);
 	}
 
 	/**
@@ -321,7 +331,7 @@ public class Item extends Search
 												 final String mimeMajor, final String mimeMinor)
 	throws NotNullViolationException, IOException
 	{
-		activate();
+		final Row row = getRow();
 		row.put(attribute.mimeMajor, mimeMajor);
 		row.put(attribute.mimeMinor, mimeMinor);
 
@@ -340,39 +350,53 @@ public class Item extends Search
 
 	// activation/deactivation -----------------------------------------------------
 	
-	public final boolean isActive()
-	{
-		return row!=null;
-	}
-
 	/**
 	 * Activates this item.
 	 * After this method, {link #row} is guaranteed to be not null.
 	 */
-	protected final void activate()
+	protected final Row getRow()
 	{
-		if(row==null)
+		if(rowWhenActive!=null)
 		{
-			row = new Row(type, pk, true);
-			Database.theInstance.load(row);
-			type.putActiveItem(this);
+			if(type.getActiveItem(pk)!=this)
+				throw new RuntimeException();
+			return rowWhenActive;
+		}
+		else
+		{
+			final Item activeItem = type.getActiveItem(pk);
+			if(activeItem==null)
+			{
+				rowWhenActive = new Row(type, pk, true);
+				Database.theInstance.load(rowWhenActive);
+				type.putActiveItem(this);
+				return rowWhenActive;
+			}
+			else
+			{
+				if(activeItem==this)
+					throw new RuntimeException();
+				if(activeItem.rowWhenActive==null)
+					throw new RuntimeException();
+				return activeItem.rowWhenActive;
+			}
 		}
 	}
 
 	public final void passivate()
 	{
-		if(row!=null)
+		if(rowWhenActive!=null)
 		{
 			type.removeActiveItem(this);
 			try
 			{
-				row.write();
+				rowWhenActive.write();
 			}
 			catch(UniqueViolationException e)
 			{
 				throw new SystemException(e);
 			}
-			row = null;
+			rowWhenActive = null;
 		}
 	}
 

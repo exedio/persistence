@@ -138,6 +138,7 @@ public class LibTest extends TestCase
 		assertEquals("uniqueString", item.getUniqueString());
 		assertTrue(item.isActive());
 
+		final ItemWithSingleUnique firstFoundItem;
 		{
 			item.passivate();
 			assertTrue(!item.isActive());
@@ -148,18 +149,32 @@ public class LibTest extends TestCase
 			assertNotSame(item, foundItem);
 			assertTrue(!item.isActive());
 			assertTrue(!foundItem.isActive());
-			assertSame(item, item.activeItem());
-			assertSame(foundItem, foundItem.activeItem());
 
+			assertSame(item, item.activeItem());
+			assertTrue(item.isActive());
+			assertTrue(!foundItem.isActive());
+
+			assertSame(item, foundItem.activeItem());
+			assertTrue(item.isActive());
+			assertTrue(!foundItem.isActive());
+
+			firstFoundItem = foundItem;
+		}
+		{
+			item.passivate();
+			assertTrue(!item.isActive());
+			final ItemWithSingleUnique foundItem = ItemWithSingleUnique.findByUniqueString("uniqueString");
 			assertEquals("uniqueString", foundItem.getUniqueString());
 			assertEquals("uniqueString", item.getUniqueString());
 			assertEquals(item, foundItem);
 			assertEquals(item.getID(), foundItem.getID());
 			assertEquals(item.hashCode(), foundItem.hashCode());
 			assertNotSame(item, foundItem);
-			assertTrue(/*!*/item.isActive()); // TODO: create only one item object per item
+			assertNotSame(item, firstFoundItem);
+			assertNotSame(foundItem, firstFoundItem);
+			assertTrue(!item.isActive());
 			assertTrue(foundItem.isActive());
-			assertSame(item/*foundItem*/, item.activeItem()); // TODO: create only one item object per item
+			assertSame(foundItem, item.activeItem());
 			assertSame(foundItem, foundItem.activeItem());
 		}
 	}

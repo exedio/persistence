@@ -153,13 +153,14 @@ public final class Type
 	
 	void putActiveItem(final Item item)
 	{
-		// TODO: check whether there is only one item object per item
-		activeItems.put(new Integer(item.pk), item);
+		if(activeItems.put(new Integer(item.pk), item)!=null)
+			throw new RuntimeException();
 	}
 	
 	void removeActiveItem(final Item item)
 	{
-		activeItems.remove(new Integer(item.pk));
+		if(activeItems.remove(new Integer(item.pk))!=item)
+			throw new RuntimeException();
 	}
 	
 	private Item createItemObject(final int pk)

@@ -54,7 +54,7 @@ public class Search
 		final Item result = type.getItem(pk);
 		// Must be activated to make sure, that an item with
 		// such a pk really exists for that type.
-		result.activate();
+		result.activeItem();
 		return result;
 	}
 	
