@@ -7,10 +7,8 @@ public final class IntegerAttribute extends Attribute
 	{
 		if(cell==null)
 			return null;
-		else if(cell instanceof Integer)
-			return cell;
 		else
-			throw new RuntimeException("cellToCache:"+cell);
+			return (Integer)cell;
 	}
 
 	public Object cacheToDatabase(final Object cache)

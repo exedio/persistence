@@ -247,7 +247,7 @@ public class Item extends Search
 		return itemCache!=null;
 	}
 
-	private final void activate()
+	protected final void activate()
 	{
 		if(itemCache==null)
 		{

@@ -24,14 +24,8 @@ public final class ItemAttribute extends Attribute
 	{
 		if(cell==null)
 			return null;
-		else if(cell instanceof Integer)
-		{
-			// TODO: This is nonsense, must retrieve the correct Item, but first I need the Type here.
-			// TODO: Item objects should not go into item cache, use thier pks instead.
-			return cell;
-		}
 		else
-			throw new RuntimeException("cellToCache:"+cell);
+			return (Integer)cell;
 	}
 
 	public Object cacheToDatabase(final Object cache)
@@ -39,17 +33,17 @@ public final class ItemAttribute extends Attribute
 		if(cache==null)
 			return "NULL";
 		else
-			return Integer.toString(((Item)cache).pk);
+			return ((Integer)cache).toString();
 	}
 
 	Object cacheToSurface(final Object cache)
 	{
-		return (Item)cache;
+		return cache==null ? null : type.getItem(((Integer)cache).intValue());
 	}
 		
 	Object surfaceToCache(final Object surface)
 	{
-		return (Item)surface;
+		return surface==null ? null : new Integer(((Item)surface).pk);
 	}
 	
 }

@@ -129,7 +129,7 @@ public final class Type
 		activeItems.remove(new Integer(item.pk));
 	}
 	
-	Item createItemObject(final int pk)
+	private Item createItemObject(final int pk)
 	{
 		try
 		{
@@ -148,5 +148,14 @@ public final class Type
 			throw new SystemException(e);
 		}
 	}
-	
+
+	Item getItem(final int pk)
+	{
+		final Item activeItem = getActiveItem(pk);
+		if(activeItem!=null)
+			return activeItem;
+		else
+			return createItemObject(pk);
+	}
+
 }

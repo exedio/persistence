@@ -51,11 +51,11 @@ public class Search
 			throw new RuntimeException("not a number "+pkString);
 		}
 
-		final Item activeItem = type.getActiveItem(pk);
-		if(activeItem!=null)
-			return activeItem;
-		else
-			throw new RuntimeException("not yet implemented");
+		final Item result = type.getItem(pk);
+		// Must be activated to make sure, that an item with
+		// such a pk really exists for that type.
+		result.activate();
+		return result;
 	}
 	
 	public static final EqualCondition equal(final StringAttribute attribute, final String value)
@@ -86,11 +86,7 @@ public class Search
 		{
 			final int pk = ((Integer)i.next()).intValue();
 			System.out.println("pk:"+pk);
-			final Item activeItem = type.getActiveItem(pk);
-			if(activeItem!=null)
-				result.add(activeItem);
-			else
-				result.add(type.createItemObject(pk));
+			result.add(type.getItem(pk));
 		}
 		return Collections.unmodifiableList(result);
 	}
