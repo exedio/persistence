@@ -15,6 +15,7 @@ import com.exedio.cope.lib.SystemException;
 import com.exedio.cope.lib.Type;
 import com.exedio.cope.lib.database.OracleDatabase;
 import com.exedio.cope.lib.search.Condition;
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -325,6 +326,7 @@ public abstract class Database
 			statement = connection.createStatement();
 			switch(type)
 			{
+				// TODO introduce some kind of result set handler
 				case 0:
 				{
 					statement.execute(sql);
@@ -352,6 +354,16 @@ public abstract class Database
 					for(Iterator i = columns.iterator(); i.hasNext(); )
 						((Column)i.next()).load(resultSet, columnIndex++, itemCache);
 					return null;
+				}
+				case 3:
+				{
+					resultSet = statement.executeQuery(sql);
+					if(!resultSet.next())
+						throw new RuntimeException();
+					final ArrayList result = new ArrayList(1);
+					final BigDecimal o = (BigDecimal)resultSet.getObject(1);
+					result.add(o==null ? new Integer(0) : new Integer(o.intValue()+1));
+					return result;
 				}
 				default:
 					throw new RuntimeException("type"+type);
@@ -544,6 +556,7 @@ public abstract class Database
 	
 	private void dropTable(final Type type)
 	{
+		type.flushPK();
 		// TODO: use Statement class
 		final StringBuffer bf = new StringBuffer();
 		bf.append("drop table ").
@@ -590,6 +603,27 @@ public abstract class Database
 				}
 			}
 		}
+	}
+	
+	int getNextPK(final Type type)
+	{
+		final Statement bf = new Statement();
+		bf.append("select max(").
+			append(type.primaryKey.protectedName).
+			append(") from ").
+			append(type.protectedName);
+			
+		final ArrayList result;
+		try
+		{
+			result = executeSQLInternal(bf.toString(), 3, null, null);
+		}
+		catch(UniqueViolationException e)
+		{
+			throw new SystemException(e);
+		}
+		//System.err.println("select max("+type.primaryKey.trimmedName+") from "+type.trimmedName+" : "+((Integer)result.iterator().next()).intValue());
+		return ((Integer)result.iterator().next()).intValue();
 	}
 	
 }

@@ -418,6 +418,12 @@ public class LibTest extends TestCase
 			assertEquals(null, item.getSomeQualifiedString(someItem));
 			assertEquals(null, item.getSomeQualifiedString(someItem2));
 		}
+		{
+			final ItemWithoutAttributes item1 = new ItemWithoutAttributes();
+			item1.TYPE.flushPK();
+			final ItemWithoutAttributes item2 = new ItemWithoutAttributes();
+			assertNotEquals(item1, item2);
+		}
 	}
 
 	private void assertMediaMime(final ItemWithManyAttributes item,

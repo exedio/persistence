@@ -172,5 +172,21 @@ public final class Type
 		else
 			return createItemObject(pk);
 	}
+	
+
+	private int nextpk = -1;
+	
+	void flushPK()
+	{
+		nextpk=-1;
+	}
+
+	int nextPK()
+	{
+		if(nextpk<0)
+			nextpk = Database.theInstance.getNextPK(this);
+		
+		return nextpk++;
+	}
 
 }

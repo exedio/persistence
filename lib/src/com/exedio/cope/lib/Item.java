@@ -13,11 +13,6 @@ public class Item extends Search
 {
 	private final Type type;
 
-	/**
-	 * TODO: THIS IS A HACK
-	 */
-	private static int pkCounter = 10;
-	
 	final int pk;
 
 	/**
@@ -100,7 +95,7 @@ public class Item extends Search
 		itemCache = new HashMap(); // make active
 		putCache(initialAttributeValues);
 		this.type = type;
-		this.pk = pkCounter++; // TODO: THIS IS A HACK
+		this.pk = type.nextPK();
 		type.putActiveItem(this);
 		try
 		{
