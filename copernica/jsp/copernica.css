@@ -102,3 +102,22 @@ ul#typelist li a:hover, ul#typelist li#active a:hover
 {
 	border-color: #4a75d5 #ffffff #ffffff #4a75d5;
 }
+
+
+
+
+
+h1
+{
+	color: #ffffff;
+	background: #4a75d5;
+	padding-left: 0.5em;
+	padding-right: 0.5em;
+	font-size: 1em;
+}
+
+h1 a
+{
+	color: #ffffff;
+	text-decoration: none;
+}

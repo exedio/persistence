@@ -16,8 +16,10 @@
 	<table border="0" width="100%">
 		<tr>
 			<td>
-				<a href="<%=(cop.toType(type))%>"><%=provider.getDisplayName(null, type)%></a>
-				<b><%=provider.getDisplayName(null, item)%></b><hr>
+				<h1>
+					<a href="<%=(cop.toType(type))%>"><%=provider.getDisplayName(null, type)%></a>
+					<b><%=provider.getDisplayName(null, item)%></b>
+				</h1>
 			</td>
 			<td align="right"><%
 			if(form.toSave)

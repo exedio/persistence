@@ -3,8 +3,9 @@
 	final Collection items = typeCop.search();
 	
 	%>
-	<a href="<%=(cop.toType(type))%>"><%=provider.getDisplayName(null, type)%></a>
-	<hr>
+	<h1>
+		<a href="<%=(cop.toType(type))%>"><%=provider.getDisplayName(null, type)%></a>
+	</h1>
 	<ul><%
 	for(Iterator i = type.getFeatures().iterator(); i.hasNext(); )
 	{
