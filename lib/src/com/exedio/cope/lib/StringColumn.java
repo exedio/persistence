@@ -4,7 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 
-public final class StringColumn extends Column
+final class StringColumn extends Column
 {
 	static final Integer JDBC_TYPE = new Integer(Types.VARCHAR);
 

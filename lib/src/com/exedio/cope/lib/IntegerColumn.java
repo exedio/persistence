@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 
-public class IntegerColumn extends Column
+class IntegerColumn extends Column
 {
 	static final Integer JDBC_TYPE = new Integer(Types.INTEGER);
 

@@ -1,7 +1,7 @@
 
 package com.exedio.cope.lib;
 
-public final class ItemColumn extends IntegerColumn
+final class ItemColumn extends IntegerColumn
 {
 	static final int SYNTETIC_PRIMARY_KEY_PRECISION = 10;
 
