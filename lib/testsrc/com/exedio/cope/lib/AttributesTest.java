@@ -111,14 +111,22 @@ public class AttributesTest extends DatabaseLibTest
 		assertEquals(null, item.getSomeInteger());
 		assertEquals(list(item), Search.search(item.TYPE, Search.equal(item.someInteger, null)));
 		assertEquals(list(item), Search.search(item.TYPE, Search.isNull(item.someInteger)));
+
 		item.setSomeInteger(new Integer(10));
+		assertEquals(new Integer(10), item.getSomeInteger());
+
+		item.passivate();
 		assertEquals(new Integer(10), item.getSomeInteger());
 		assertEquals(
 			list(item),
 			Search.search(item.TYPE, Search.equal(item.someInteger, 10)));
 		assertEquals(list(), Search.search(item.TYPE, Search.equal(item.someInteger, null)));
 		assertEquals(list(), Search.search(item.TYPE, Search.isNull(item.someInteger)));
+
 		item.setSomeInteger(null);
+		assertEquals(null, item.getSomeInteger());
+		
+		item.passivate();
 		assertEquals(null, item.getSomeInteger());
 	}
 
@@ -128,14 +136,22 @@ public class AttributesTest extends DatabaseLibTest
 		assertEquals(null, item.getSomeDouble());
 		assertEquals(list(item), Search.search(item.TYPE, Search.equal(item.someDouble, null)));
 		assertEquals(list(item), Search.search(item.TYPE, Search.isNull(item.someDouble)));
+
 		item.setSomeDouble(new Double(22.22));
+		assertEquals(new Double(22.22), item.getSomeDouble());
+
+		item.passivate();
 		assertEquals(new Double(22.22), item.getSomeDouble());
 		assertEquals(
 			list(item),
 			Search.search(item.TYPE, Search.equal(item.someDouble, 22.22)));
 		assertEquals(list(), Search.search(item.TYPE, Search.equal(item.someDouble, null)));
 		assertEquals(list(), Search.search(item.TYPE, Search.isNull(item.someDouble)));
+
 		item.setSomeDouble(null);
+		assertEquals(null, item.getSomeDouble());
+
+		item.passivate();
 		assertEquals(null, item.getSomeDouble());
 	}
 
@@ -147,7 +163,9 @@ public class AttributesTest extends DatabaseLibTest
 		assertEquals(2.5, item.getSomeNotNullDouble(), 0.0);
 
 		item.setSomeNotNullDouble(0.0);
-		// TODO: passivate
+		assertEquals(0.0, item.getSomeNotNullDouble(), 0.0);
+
+		item.passivate();
 		assertEquals(0.0, item.getSomeNotNullDouble(), 0.0);
 		assertEquals(
 			set(item),
