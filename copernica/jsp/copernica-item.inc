@@ -100,7 +100,10 @@
 						item.setAttribute(stringAttribute, value);
 					}
 					else
-						value = (String)item.getAttribute(stringAttribute);
+					{
+						final String v = (String)item.getAttribute(stringAttribute);
+						value = (v==null) ? "" : v;
+					}
 		
 					toSave = true;
 					%><input type="text" name="<%=attribute.getName()%>" value="<%=value%>" /><%
