@@ -160,12 +160,72 @@ public abstract class DatabaseLibTest extends AbstractLibTest
 	{
 		try
 		{
-			final PointerItem2 item2a = new PointerItem2("hallo");
-			final PointerItem2 item2b = new PointerItem2("bello");
-			new PointerItem("bello", item2a);
-			new PointerItem("collo", item2b);
+			{
+				final ItemWithSingleUnique item1 = new ItemWithSingleUnique();
+				item1.setUniqueString("item1");
+				final ItemWithSingleUnique item2 = new ItemWithSingleUnique();
+				item2.setUniqueString("item2");
+			}
+			
+			new ItemWithSingleUniqueReadOnly("item1");
+			new ItemWithSingleUniqueReadOnly("item2");
+			
+			new ItemWithSingleUniqueNotNull("item1");
+			new ItemWithSingleUniqueNotNull("item2");
+			
+			new ItemWithDoubleUnique("string1", 1);
+			new ItemWithDoubleUnique("string1", 2);
+			new ItemWithDoubleUnique("string2", 1);
+			new ItemWithDoubleUnique("string2", 2);
+			
+			final EmptyItem emptyItem1 = new EmptyItem();
+			final EmptyItem emptyItem2 = new EmptyItem();
+			final EmptyItem emptyItem3 = new EmptyItem();
+			new EmptyItem2();
+			
+			new ItemWithManyAttributes("someString1", 5, 6l, 2.2, true, emptyItem1, ItemWithManyAttributes.SomeEnumeration.enumValue1);
+			new ItemWithManyAttributes("someString2", 6, 7l, 2.3, true, emptyItem2, ItemWithManyAttributes.SomeEnumeration.enumValue2);
+			new ItemWithManyAttributes("someString3", 7, 8l, 2.4, false, emptyItem2, ItemWithManyAttributes.SomeEnumeration.enumValue2);
+
+			{			
+				final StringItem item1 = new StringItem();
+				final StringItem item2 = new StringItem();
+				final StringItem item3 = new StringItem();
+				
+				item1.setAny("any1");
+				item1.setMin4("min4");
+				item1.setMax4("max4");
+				item1.setMin4Max8("min4max8");
+				
+				item2.setAny("any1");
+				item2.setMin4("min4");
+				item2.setMax4("max4");
+				item2.setMin4Max8("m4x8");
+			}
+			
+			new MediaItem();
+			new MediaItem();
+			new MediaItem();
+			
+			new SumItem(1, 2, 3);
+			new SumItem(4, 5, 6);
+
+			{
+				final PointerItem2 item2a = new PointerItem2("hallo");
+				final PointerItem2 item2b = new PointerItem2("bello");
+				new PointerItem("bello", item2a);
+				new PointerItem("collo", item2b);
+			}
+			
+			new FirstSub(1);
+			new FirstSub(2);
+			
+			new CollisionItem1(emptyItem1);
+			new CollisionItem1(emptyItem2);
+			new CollisionItem2(emptyItem1);
+			new CollisionItem2(emptyItem2);
 		}
-		catch(NotNullViolationException e)
+		catch(ConstraintViolationException e)
 		{
 			throw new SystemException(e);
 		}
