@@ -92,6 +92,7 @@ public final class Instrumentor implements InjectionConsumer
 		final String methodModifiers = Modifier.toString(persistentAttribute.getMethodModifiers());
 		final String type = "String";
 
+		// getter
 		output.write("/** @"+GENERATED);
 		output.write(lineSeparator);
 		output.write("*/");
@@ -103,6 +104,8 @@ public final class Instrumentor implements InjectionConsumer
 		output.write("(){");
 		output.write(lineSeparator);
 		output.write('}');
+		
+		// setter
 		output.write("/** @"+GENERATED);
 		output.write(lineSeparator);
 		output.write("*/");
