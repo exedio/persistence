@@ -20,6 +20,16 @@ public class Search
 	protected Search()
 	{}
 	
+	/**
+	 * Returns the item with the given id.
+	 * Returns null, if no such item exists.
+	 * @see Item#getID()
+	 */
+	public static final Item findByID(final String id)
+	{
+		return null;
+	}
+	
 	public static final EqualCondition equal(final StringAttribute attribute, final String value)
 	{
 		return new EqualCondition(attribute, value);

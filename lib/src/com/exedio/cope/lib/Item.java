@@ -9,6 +9,45 @@ public class Item extends Search
 {
 
 	/**
+	 * Returns a string unique for this item in all other items of this application.
+	 * For any item <code>a</code> the following holds true:
+	 * <code>a.equals(findByID(a.getID()).</code>
+	 * @see #findByID(String)
+	 */
+	public final String getID()
+	{
+		return null;
+	}
+	
+	/**
+	 * Returns true, if <code>o</code> represents the same item as this item.
+	 * Is equivalent to <code>(o instanceof Item) && getID().equals(((Item)o).getID())</code>.
+	 */
+	public final boolean equals(final Object o)
+	{
+		return (o instanceof Item) && getID().equals(((Item)o).getID());
+	}
+
+	/**
+	 * Returns a hash code, that is consistent with {@link #equals(Object)}.
+	 * Note, that this is not neccessarily equivalent to <code>getID().hashCode()</code>.
+	 */
+	public final int hashCode()
+	{
+		return getID().hashCode();
+	}
+	
+	/**
+	 * Returns the primary item object representing the same item as this item object.
+	 * For any two active item objects <code>a</code>, <code>b</code> the following holds true:
+	 * <code>If and only if a.equals(b) then a.primaryItem() == b.primaryItem().</code>
+	 */
+	public final Item primaryItem()
+	{
+		return null;
+	}
+
+	/**
 	 * Must never be public, since it does not throw exceptions for constraint violations.
 	 * Subclasses (usually generated) must care about throwing these exception by calling
 	 * {@link #throwInitialNotNullViolationException} and/or 
