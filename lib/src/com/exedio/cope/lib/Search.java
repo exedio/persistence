@@ -10,6 +10,7 @@ import com.exedio.cope.lib.search.AndCondition;
 import com.exedio.cope.lib.search.Condition;
 import com.exedio.cope.lib.search.EqualAttributeCondition;
 import com.exedio.cope.lib.search.EqualCondition;
+import com.exedio.cope.lib.search.GreaterCondition;
 import com.exedio.cope.lib.search.JoinCondition;
 import com.exedio.cope.lib.search.LessCondition;
 import com.exedio.cope.lib.search.LessEqualCondition;
@@ -161,6 +162,21 @@ public abstract class Search
 	public static final LessEqualCondition lessOrEqual(final EnumerationAttribute attribute, final EnumerationValue value)
 	{
 		return new LessEqualCondition(attribute, value);
+	}
+	
+	public static final GreaterCondition greater(final StringAttribute attribute, final String value)
+	{
+		return new GreaterCondition(attribute, value);
+	}
+	
+	public static final GreaterCondition greater(final IntegerAttribute attribute, final int value)
+	{
+		return new GreaterCondition(attribute, value);
+	}
+	
+	public static final GreaterCondition greater(final EnumerationAttribute attribute, final EnumerationValue value)
+	{
+		return new GreaterCondition(attribute, value);
 	}
 	
 	public static final JoinCondition join(final ItemAttribute attribute)
