@@ -119,29 +119,19 @@ public class Main
 		o.println("usage:");
 		o.print("java ");
 		o.print(getClass().getName());
-		o.println("[options] tobemodified1.java ...");
-		o.println("  -m  --modify");
-		o.println("      modify files");
+		o.println(" tobemodified1.java ...");
 	}
 	
 	protected int i;
 	protected String[] args;
 	protected final ArrayList taskConfigs = new ArrayList();
 	
-	private boolean modify=false;
 	private ArrayList sourcefiles=new ArrayList();
 	
 	protected void processParameter() throws IOException, IllegalParameterException
 	{
-		if("--modify".equals(args[i])||"-m".equals(args[i]))
-			modify=true;
-		else if(args[i].startsWith("-"))
-			throw new IllegalParameterException("unknown option: "+args[i]);
-		else
-		{
-			for(; i<args.length; i++)
-				expand(sourcefiles, args[i]);
-		}
+		for(; i<args.length; i++)
+			expand(sourcefiles, args[i]);
 	}
 	
 	protected final void run(final String[] args)
@@ -161,10 +151,7 @@ public class Main
 			for(Iterator i=sourcefiles.iterator(); i.hasNext(); )
 			{
 				String s=(String)i.next();
-				if(modify)
-					inject(new File(s), repository);
-				else
-					inject(new File(s), new File(s+".injected"), repository);
+				inject(new File(s), repository);
 			}
 		}
 		catch(IllegalParameterException e)
