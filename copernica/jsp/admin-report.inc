@@ -191,7 +191,7 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); )
 			final String color = color(column.getCumulativeColor());
 			%>
 			<li class="<%=color%>"><%
-			%><small>column</small> <%=column.name%><%
+			%><small>column</small> <%=column.name%> <i><%=column.getDatabaseType()%></i><%
 			final String error = column.getError();
 			if(error!=null)
 			{

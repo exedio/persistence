@@ -93,9 +93,13 @@ final class OracleDatabase
 		}
 		{
 			final com.exedio.cope.lib.Statement bf = createStatement();
-			bf.append("select TABLE_NAME, COLUMN_NAME from user_tab_columns").
+			bf.append("select TABLE_NAME, COLUMN_NAME, DATA_TYPE, DATA_LENGTH, DATA_PRECISION, DATA_SCALE from user_tab_columns").
 				defineColumnString().
-				defineColumnString();
+				defineColumnString().
+				defineColumnString().
+				defineColumnInteger().
+				defineColumnInteger().
+				defineColumnInteger();
 			try
 			{
 				executeSQL(bf, new ReportColumnHandler(report));
@@ -163,8 +167,25 @@ final class OracleDatabase
 			{
 				final String tableName = resultSet.getString(1);
 				final String columnName = resultSet.getString(2);
+				final String dataType = resultSet.getString(3);
+
+				final String columnType;
+				if(dataType.equals("NUMBER"))
+				{
+					final int dataPrecision = resultSet.getInt(5);
+					final int dataScale = resultSet.getInt(6);
+					columnType = "number("+dataPrecision+','+dataScale+')';
+				}
+				else if(dataType.equals("VARCHAR2"))
+				{
+					final int dataLength = resultSet.getInt(4);
+					columnType = "varchar2("+dataLength+')';
+				}
+				else
+					columnType = dataType.toLowerCase();
+					
 				final ReportTable table = report.notifyExistentTable(tableName);
-				final ReportColumn column = table.notifyExistentColumn(columnName);
+				final ReportColumn column = table.notifyExistentColumn(columnName, columnType);
 				//System.out.println("EXISTS:"+tableName);
 			}
 		}
