@@ -61,7 +61,7 @@ final class StringColumn extends Column
 			final String cleanCache;
 			if(taintedCache.indexOf('\'')>=0)
 			{
-				// TODO: sql injection just swallows apostrophes,
+				// TODO: sql injection protection just swallows apostrophes,
 				// should be escaped or wrapped into prepared statements
 				final StringBuffer buf = new StringBuffer(taintedCache.length());
 				int pos;
