@@ -23,7 +23,7 @@ public abstract class DatabaseLibTest extends AbstractLibTest
 		ItemWithDoubleUnique.TYPE,
 		EmptyItem.TYPE,
 		EmptyItem2.TYPE,
-		ItemWithManyAttributes.TYPE,
+		AttributeItem.TYPE,
 		StringItem.TYPE,
 		MediaItem.TYPE,
 		SumItem.TYPE,
@@ -106,7 +106,7 @@ public abstract class DatabaseLibTest extends AbstractLibTest
 		}
 	}
 	
-	protected void assertMediaMime(final ItemWithManyAttributes item,
+	protected void assertMediaMime(final AttributeItem item,
 											final String mimeMajor,
 											final String mimeMinor,
 											final byte[] data,
@@ -120,7 +120,7 @@ public abstract class DatabaseLibTest extends AbstractLibTest
 		{
 			throw new SystemException(e);
 		}
-		final String prefix = "/medias/ItemWithManyAttributes/someMedia/";
+		final String prefix = "/medias/AttributeItem/someMedia/";
 		final String pkString = String.valueOf(Search.pk2id(item.pk));
 		final String expectedURL = prefix+pkString+'.'+url;
 		final String expectedURLSomeVariant = prefix+"SomeVariant/"+pkString+'.'+url;
@@ -183,9 +183,9 @@ public abstract class DatabaseLibTest extends AbstractLibTest
 			final EmptyItem emptyItem3 = new EmptyItem();
 			new EmptyItem2();
 			
-			new ItemWithManyAttributes("someString1", 5, 6l, 2.2, true, emptyItem1, ItemWithManyAttributes.SomeEnumeration.enumValue1);
-			new ItemWithManyAttributes("someString2", 6, 7l, 2.3, true, emptyItem2, ItemWithManyAttributes.SomeEnumeration.enumValue2);
-			new ItemWithManyAttributes("someString3", 7, 8l, 2.4, false, emptyItem2, ItemWithManyAttributes.SomeEnumeration.enumValue2);
+			new AttributeItem("someString1", 5, 6l, 2.2, true, emptyItem1, AttributeItem.SomeEnumeration.enumValue1);
+			new AttributeItem("someString2", 6, 7l, 2.3, true, emptyItem2, AttributeItem.SomeEnumeration.enumValue2);
+			new AttributeItem("someString3", 7, 8l, 2.4, false, emptyItem2, AttributeItem.SomeEnumeration.enumValue2);
 
 			{			
 				final StringItem item1 = new StringItem();

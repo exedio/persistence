@@ -8,12 +8,12 @@ public class SearchTest extends DatabaseLibTest
 			throws IntegrityViolationException
 	{
 		final EmptyItem someItem = new EmptyItem();
-		final ItemWithManyAttributes item;
-		final ItemWithManyAttributes item2;
+		final AttributeItem item;
+		final AttributeItem item2;
 		try
 		{
-			item = new ItemWithManyAttributes("someString", 5, 6l, 2.2, true, someItem, ItemWithManyAttributes.SomeEnumeration.enumValue1);
-			item2 = new ItemWithManyAttributes("someString2", 5, 6l, 2.2, false, someItem, ItemWithManyAttributes.SomeEnumeration.enumValue2);
+			item = new AttributeItem("someString", 5, 6l, 2.2, true, someItem, AttributeItem.SomeEnumeration.enumValue1);
+			item2 = new AttributeItem("someString2", 5, 6l, 2.2, false, someItem, AttributeItem.SomeEnumeration.enumValue2);
 		}
 		catch(NotNullViolationException e)
 		{
@@ -47,13 +47,13 @@ public class SearchTest extends DatabaseLibTest
 	{
 		try
 		{
-			Search.search(EmptyItem.TYPE, Search.equal(ItemWithManyAttributes.someInteger, 0));
+			Search.search(EmptyItem.TYPE, Search.equal(AttributeItem.someInteger, 0));
 			fail("should have thrown RuntimeException");
 		}
 		catch(RuntimeException e)
 		{
 			assertEquals(
-				"function someInteger{} belongs to type com.exedio.cope.lib.ItemWithManyAttributes, which is not a from-type of the query: [com.exedio.cope.lib.EmptyItem]",
+				"function someInteger{} belongs to type com.exedio.cope.lib.AttributeItem, which is not a from-type of the query: [com.exedio.cope.lib.EmptyItem]",
 				e.getMessage());
 		}
 	}

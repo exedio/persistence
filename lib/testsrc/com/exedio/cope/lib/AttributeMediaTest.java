@@ -18,7 +18,7 @@ public class AttributeMediaTest extends AttributeTest
 		item.setSomeMediaData(stream(bytes),"someMimeMajor", "someMimeMinor");
 
 		final String prefix =
-			"/medias/ItemWithManyAttributes/someMedia/";
+			"/medias/AttributeItem/someMedia/";
 		final String pkString = String.valueOf(Search.pk2id(item.pk));
 		final String expectedURL =
 			prefix + pkString + ".someMimeMajor.someMimeMinor";

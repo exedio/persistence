@@ -6,18 +6,18 @@ public class AttributeEnumerationTest extends AttributeTest
 	public void testSomeEnumeration()
 	{
 		assertEquals(null, item.getSomeEnumeration());
-		item.setSomeEnumeration(ItemWithManyAttributes.SomeEnumeration.enumValue1);
+		item.setSomeEnumeration(AttributeItem.SomeEnumeration.enumValue1);
 		assertEquals(
-			ItemWithManyAttributes.SomeEnumeration.enumValue1,
+			AttributeItem.SomeEnumeration.enumValue1,
 			item.getSomeEnumeration());
 		item.setSomeEnumeration(
-			ItemWithManyAttributes.SomeEnumeration.enumValue2);
+			AttributeItem.SomeEnumeration.enumValue2);
 		assertEquals(
-			ItemWithManyAttributes.SomeEnumeration.enumValue2,
+			AttributeItem.SomeEnumeration.enumValue2,
 			item.getSomeEnumeration());
 		item.passivate();
 		assertEquals(
-			ItemWithManyAttributes.SomeEnumeration.enumValue2,
+			AttributeItem.SomeEnumeration.enumValue2,
 			item.getSomeEnumeration());
 		item.setSomeEnumeration(null);
 		assertEquals(null, item.getSomeEnumeration());
@@ -26,19 +26,19 @@ public class AttributeEnumerationTest extends AttributeTest
 	public void testNotNullSomeEnumeration()
 			throws NotNullViolationException
 	{
-		assertEquals(ItemWithManyAttributes.SomeEnumeration.enumValue1, item.getSomeNotNullEnumeration());
-		item.setSomeNotNullEnumeration(ItemWithManyAttributes.SomeEnumeration.enumValue2);
+		assertEquals(AttributeItem.SomeEnumeration.enumValue1, item.getSomeNotNullEnumeration());
+		item.setSomeNotNullEnumeration(AttributeItem.SomeEnumeration.enumValue2);
 		assertEquals(
-			ItemWithManyAttributes.SomeEnumeration.enumValue2,
+			AttributeItem.SomeEnumeration.enumValue2,
 			item.getSomeNotNullEnumeration());
 		item.setSomeNotNullEnumeration(
-			ItemWithManyAttributes.SomeEnumeration.enumValue3);
+			AttributeItem.SomeEnumeration.enumValue3);
 		assertEquals(
-			ItemWithManyAttributes.SomeEnumeration.enumValue3,
+			AttributeItem.SomeEnumeration.enumValue3,
 			item.getSomeNotNullEnumeration());
 		item.passivate();
 		assertEquals(
-			ItemWithManyAttributes.SomeEnumeration.enumValue3,
+			AttributeItem.SomeEnumeration.enumValue3,
 			item.getSomeNotNullEnumeration());
 		try
 		{
@@ -50,12 +50,12 @@ public class AttributeEnumerationTest extends AttributeTest
 			assertEquals(item.someNotNullEnumeration, e.getNotNullAttribute());
 		}
 		assertEquals(
-			ItemWithManyAttributes.SomeEnumeration.enumValue3,
+			AttributeItem.SomeEnumeration.enumValue3,
 			item.getSomeNotNullEnumeration());
 
 		try
 		{
-			new ItemWithManyAttributes("someString", 5, 6l, 2.2, true, someItem, null);
+			new AttributeItem("someString", 5, 6l, 2.2, true, someItem, null);
 			fail("should have thrown NotNullViolationException");
 		}
 		catch(NotNullViolationException e)

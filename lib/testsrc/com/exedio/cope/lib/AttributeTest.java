@@ -5,16 +5,16 @@ public abstract class AttributeTest extends DatabaseLibTest
 {
 
 	protected EmptyItem someItem, someItem2;
-	protected ItemWithManyAttributes item;
-	protected ItemWithManyAttributes item2;
+	protected AttributeItem item;
+	protected AttributeItem item2;
 
 	public void setUp() throws Exception
 	{
 		super.setUp();
 		someItem = new EmptyItem();
 		someItem2 = new EmptyItem();
-		item = new ItemWithManyAttributes("someString", 5, 6l, 2.2, true, someItem, ItemWithManyAttributes.SomeEnumeration.enumValue1);
-		item2 = new ItemWithManyAttributes("someString2", 6, 7l, 2.3, false, someItem2, ItemWithManyAttributes.SomeEnumeration.enumValue2);
+		item = new AttributeItem("someString", 5, 6l, 2.2, true, someItem, AttributeItem.SomeEnumeration.enumValue1);
+		item2 = new AttributeItem("someString2", 6, 7l, 2.3, false, someItem2, AttributeItem.SomeEnumeration.enumValue2);
 	}
 	
 	public void tearDown() throws Exception

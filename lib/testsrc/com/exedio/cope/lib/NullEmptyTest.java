@@ -7,16 +7,16 @@ package com.exedio.cope.lib;
 public class NullEmptyTest extends DatabaseLibTest
 {
 	EmptyItem someItem;
-	ItemWithManyAttributes item;
-	ItemWithManyAttributes item2;
+	AttributeItem item;
+	AttributeItem item2;
 	String emptyString;
 
 	public void setUp() throws Exception
 	{
 		super.setUp();
 		someItem = new EmptyItem();
-		item = new ItemWithManyAttributes("someString", 5, 6l, 2.2, true, someItem, ItemWithManyAttributes.SomeEnumeration.enumValue1);
-		item2 = new ItemWithManyAttributes("someString", 5, 6l, 2.2, false, someItem, ItemWithManyAttributes.SomeEnumeration.enumValue2);
+		item = new AttributeItem("someString", 5, 6l, 2.2, true, someItem, AttributeItem.SomeEnumeration.enumValue1);
+		item2 = new AttributeItem("someString", 5, 6l, 2.2, false, someItem, AttributeItem.SomeEnumeration.enumValue2);
 		// TODO: database must hide this from the user
 		if(HsqldbDatabase.class.equals(Database.theInstance.getClass()))
 			emptyString = "";
