@@ -1,9 +1,6 @@
 package com.exedio.copernica;
 
 import com.exedio.cope.lib.Item;
-import com.exedio.cope.lib.NoSuchIDException;
-import com.exedio.cope.lib.Search;
-import com.exedio.cope.lib.SystemException;
 import com.exedio.cope.lib.Type;
 
 
@@ -40,24 +37,11 @@ abstract class CopernicaCop extends Cop
 		final Language language = (langID!=null) ? provider.findLanguageByUniqueID(langID) : null;
 		if(typeID!=null)
 		{
-			final Type type = Type.findByID(typeID);
-			if(type==null)
-				throw new RuntimeException("type "+typeID+" not available");
-			final int start = (startString==null) ?  0 : Integer.parseInt(startString);
-			final int count = (countString==null) ? 10 : Integer.parseInt(countString);
-			return new TypeCop(language, type, start, count);
+			return TypeCop.getCop(language, typeID, startString, countString);
 		}
 		else if(itemID!=null)
 		{
-			try
-			{
-				final Item item = Search.findByID(itemID);
-				return new ItemCop(language, item);
-			}
-			catch(NoSuchIDException e)
-			{
-				throw new SystemException(e);
-			}
+			return ItemCop.getCop(language, itemID);
 		}
 		else
 			return new EmptyCop(language);

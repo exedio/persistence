@@ -66,4 +66,16 @@ final class TypeCop extends CopernicaCop
 		return Search.search(query);
 	}
 
+	static final TypeCop getCop(
+			final Language language,
+			final String typeID,
+			final String startString, final String countString)
+	{
+		final Type type = Type.findByID(typeID);
+		if(type==null)
+			throw new RuntimeException("type "+typeID+" not available");
+		final int start = (startString==null) ?  0 : Integer.parseInt(startString);
+		final int count = (countString==null) ? 10 : Integer.parseInt(countString);
+		return new TypeCop(language, type, start, count);
+	}
 }
