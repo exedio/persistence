@@ -165,14 +165,17 @@ public class LibTest extends TestCase
 			
 			// someString
 			assertEquals(null, item.getSomeString());
-
 			item.setSomeString("someString");
 			assertEquals(null/*"someString"*/, item.getSomeString());
+			item.setSomeString(null);
+			assertEquals(null, item.getSomeString());
 
 			// someInteger
 			assertEquals(null, item.getSomeInteger());
 			item.setSomeInteger(new Integer(10));
 			assertEquals(null/*new Integer(10)*/, item.getSomeInteger());
+			item.setSomeInteger(null);
+			assertEquals(null, item.getSomeInteger());
 
 			// someNotNullInteger
 			try
@@ -218,11 +221,12 @@ public class LibTest extends TestCase
 			{}
 			
 			// someItem
-			item.setSomeItem(null);
 			assertEquals(null, item.getSomeItem());
 			final ItemWithoutAttributes someItem = new ItemWithoutAttributes();
-			item.setSomeItem(null);
+			item.setSomeItem(someItem);
 			assertEquals(null/*someItem*/, item.getSomeItem());
+			item.setSomeItem(null);
+			assertEquals(null, item.getSomeItem());
 			
 			// someMedia
 			assertEquals(null, item.getSomeMediaURL());
