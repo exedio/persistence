@@ -95,9 +95,6 @@ public class TransientCopernicaProvider implements CopernicaProvider
 	public String getDisplayName(final com.exedio.copernica.Language displayLanguage, final Feature feature)
 	{
 		String name = feature.getName();
-		if(name.endsWith("Internal"))
-			name = name.substring(0, name.length()-"Internal".length());
-
 		return breakupName(name);
 	}
 	
