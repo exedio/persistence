@@ -148,6 +148,8 @@ public final class Type
 	{
 		try
 		{
+			// TODO: make sure, that this constructor is called from here only,
+			// maybe we use a secret instance of reactivation dummy for this.
 			return (Item)reactivationConstructor.newInstance(new Object[]{null, new Integer(pk)});
 		}
 		catch(InstantiationException e)
