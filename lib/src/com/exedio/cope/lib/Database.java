@@ -326,7 +326,6 @@ public abstract class Database
 
 		try
 		{
-			// TODO: catch and wrap foreign key constraint violations
 			executeSQL(bf, EMPTY_RESULT_SET_HANDLER);
 		}
 		catch(IntegrityViolationException e)
