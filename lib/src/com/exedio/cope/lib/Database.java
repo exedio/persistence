@@ -153,7 +153,8 @@ abstract class Database
 			{
 				public void run(final ResultSet resultSet) throws SQLException
 				{
-					if(resultSet.next())
+					if(!resultSet.next())
+						throw new RuntimeException();
 				}
 			},
 			false
