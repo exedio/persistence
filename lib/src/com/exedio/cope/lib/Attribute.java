@@ -24,6 +24,11 @@ public class Attribute
 		initialized = true;
 	}
 	
+	public final String getName()
+	{
+		return name;
+	}
+	
 	public final String toString()
 	{
 		// should be precomputed
