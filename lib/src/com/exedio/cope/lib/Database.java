@@ -754,70 +754,39 @@ abstract class Database
 		final ResultSetHandler resultSetHandler,
 		final boolean makeStatementInfo)
 	{
-		try
-		{
-			return executeSQL(statement, resultSetHandler, 0, makeStatementInfo);
-		}
-		catch(ConstraintViolationException e)
-		{
-			throw new NestingRuntimeException(e);
-		}
-	}
-	
-	protected final void executeSQLUpdate(final Statement statement, final int expectedRows)
-			throws ConstraintViolationException
-	{
-		if(executeSQL(statement, null, expectedRows, false)!=null)
-			throw new RuntimeException(statement.toString());
-	}
-	
-	private final StatementInfo executeSQL(
-		final Statement statement,
-		final ResultSetHandler resultSetHandler,
-		final int expectedRows,
-		final boolean makeStatementInfo)
-			throws ConstraintViolationException
-	{
 		Connection connection = null;
 		java.sql.Statement sqlStatement = null;
 		ResultSet resultSet = null;
 		try
 		{
 			connection = connectionPool.getConnection(this);
-			// TODO: use prepared statements and reuse the statement.
+
 			final String sqlText = statement.getText();
 			if(GET_TABLES.equals(sqlText))
 			{
 				resultSet = connection.getMetaData().getTables(null, null, null, new String[]{"TABLE"});
-				resultSetHandler.run(resultSet);
 			}
 			else if(GET_COLUMNS.equals(sqlText))
 			{
 				resultSet = connection.getMetaData().getColumns(null, null, null, null);
-				resultSetHandler.run(resultSet);
 			}
 			else
 			{
+				// TODO: use prepared statements and reuse the statement.
 				sqlStatement = connection.createStatement();
-				if(!sqlText.startsWith("select "))
-				{
-					final int rows = sqlStatement.executeUpdate(sqlText);
-					//System.out.println("("+rows+"): "+statement.getText());
-					//if(rows!=expectedRows) TODO
-						//throw new RuntimeException("expected "+expectedRows+" rows, but got "+rows);
-				}
-				else
-				{
-					//long time = System.currentTimeMillis();
-					if(useDefineColumnTypes)
-						((DatabaseColumnTypesDefinable)this).defineColumnTypes(statement.columnTypes, sqlStatement);
-					resultSet = sqlStatement.executeQuery(sqlText);
-					//long interval = System.currentTimeMillis() - time;
-					//timeExecuteQuery += interval;
-					//System.out.println("executeQuery: "+interval+"ms sum "+timeExecuteQuery+"ms");
-					resultSetHandler.run(resultSet);
-				}
+				
+				if(useDefineColumnTypes)
+					((DatabaseColumnTypesDefinable)this).defineColumnTypes(statement.columnTypes, sqlStatement);
+
+				//long time = System.currentTimeMillis();
+				resultSet = sqlStatement.executeQuery(sqlText);
+				//long interval = System.currentTimeMillis() - time;
+				//timeExecuteQuery += interval;
+				//System.out.println("executeQuery: "+interval+"ms sum "+timeExecuteQuery+"ms");
 			}
+
+			resultSetHandler.run(resultSet);
+			
 			if(resultSet!=null)
 			{
 				resultSet.close();
@@ -836,11 +805,7 @@ abstract class Database
 		}
 		catch(SQLException e)
 		{
-			final ConstraintViolationException wrappedException = wrapException(e);
-			if(wrappedException!=null)
-				throw wrappedException;
-			else
-				throw new NestingRuntimeException(e, statement.toString());
+			throw new NestingRuntimeException(e, statement.toString());
 		}
 		finally
 		{
@@ -855,6 +820,58 @@ abstract class Database
 					// exception is already thrown
 				}
 			}
+			if(sqlStatement!=null)
+			{
+				try
+				{
+					sqlStatement.close();
+				}
+				catch(SQLException e)
+				{
+					// exception is already thrown
+				}
+			}
+			if(connection!=null)
+			{
+				try
+				{
+					connectionPool.putConnection(connection);
+				}
+				catch(SQLException e)
+				{
+					// exception is already thrown
+				}
+			}
+		}
+	}
+	
+	protected final void executeSQLUpdate(final Statement statement, final int expectedRows)
+			throws ConstraintViolationException
+	{
+		Connection connection = null;
+		java.sql.Statement sqlStatement = null;
+		try
+		{
+			connection = connectionPool.getConnection(this);
+			// TODO: use prepared statements and reuse the statement.
+			final String sqlText = statement.getText();
+			sqlStatement = connection.createStatement();
+			final int rows = sqlStatement.executeUpdate(sqlText);
+
+			//System.out.println("("+rows+"): "+statement.getText());
+			//if(rows!=expectedRows) TODO
+				//throw new RuntimeException("expected "+expectedRows+" rows, but got "+rows);
+		}
+		catch(SQLException e)
+		{
+			final ConstraintViolationException wrappedException = wrapException(e);
+			if(wrappedException!=null)
+				throw wrappedException;
+			else
+				throw new NestingRuntimeException(e, statement.toString());
+		}
+		finally
+		{
 			if(sqlStatement!=null)
 			{
 				try
