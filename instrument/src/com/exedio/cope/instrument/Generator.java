@@ -281,7 +281,7 @@ final class Generator
 		o.write(lineSeparator);
 		writeCommentGenerated();
 		writeCommentFooter();
-		o.write("protected ");
+		o.write( copeClass.isAbstract() ? "protected " : "private " );
 		o.write(copeClass.getName());
 		o.write("(final "+AttributeValue.class.getName()+"[] initialAttributes)");
 		o.write(lineSeparator);
