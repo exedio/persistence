@@ -18,8 +18,8 @@ abstract class Column
 			final Integer jdbcType)
 	{
 		this.table = table;
-		this.id = id;
-		this.protectedID = table.database.protectName(id);
+		this.id = id.intern();
+		this.protectedID = table.database.protectName(id).intern();
 		this.primaryKey = primaryKey;
 		this.notNull = notNull;
 		this.jdbcType = jdbcType;

@@ -39,9 +39,9 @@ public final class MediaAttributeVariant
 		this.type = type;
 		final String prefix = attribute.getName();
 		if(name.startsWith(prefix))
-			this.name = name.substring(prefix.length());
+			this.name = name.substring(prefix.length()).intern();
 		else
-			this.name = name;
+			this.name = name.intern();
 	}
 	
 	public final Type getType()

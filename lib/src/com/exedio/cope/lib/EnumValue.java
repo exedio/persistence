@@ -26,7 +26,7 @@ public abstract class EnumValue
 			throw new NullPointerException();
 			
 		this.enumerationClass = enumerationClass;
-		this.code = code;
+		this.code = code.intern();
 		this.number = number;
 		this.numberObject = new Integer(number);
 		initialized = true;

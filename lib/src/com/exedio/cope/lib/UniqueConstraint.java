@@ -90,7 +90,7 @@ public final class UniqueConstraint
 			throw new RuntimeException();
 
 		this.type = type;
-		this.id = name;
+		this.id = name.intern();
 	}
 
 	final void materialize(final Database database)
@@ -102,7 +102,7 @@ public final class UniqueConstraint
 		if(this.databaseID!=null)
 			throw new RuntimeException();
 
-		this.databaseID = database.trimName(type.getID()+"_"+id+"_Unq");
+		this.databaseID = database.trimName(type.getID()+"_"+id+"_Unq").intern();
 		database.addUniqueConstraint(databaseID, this);
 	}
 

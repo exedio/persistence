@@ -87,7 +87,7 @@ public final class Type
 		{
 			final String className = javaClass.getName();
 			final int pos = className.lastIndexOf('.');
-			this.id = className.substring(pos+1);
+			this.id = className.substring(pos+1).intern();
 		}
 
 		// supertype

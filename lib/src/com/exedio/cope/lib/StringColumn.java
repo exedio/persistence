@@ -33,6 +33,8 @@ final class StringColumn extends Column
 
 		if(allowedValues.length<2)
 			throw new RuntimeException(id);
+		for(int i = 0; i<allowedValues.length; i++)
+			allowedValues[i] = allowedValues[i].intern();
 	}
 	
 	final String getDatabaseType()

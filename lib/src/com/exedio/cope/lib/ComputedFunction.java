@@ -77,7 +77,7 @@ public abstract class ComputedFunction implements Function
 			throw new RuntimeException();
 
 		this.type = type;
-		this.name = name;
+		this.name = name.intern();
 	}
 	
 	public final Type getType()

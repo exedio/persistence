@@ -62,7 +62,7 @@ public abstract class Attribute implements Feature
 			throw new RuntimeException();
 
 		this.type = type;
-		this.name = name;
+		this.name = name.intern();
 		postInitialize();
 	}
 	

@@ -14,8 +14,8 @@ final class Table
 	Table(final Database database, final String id)
 	{
 		this.database = database;
-		this.id = database.trimName(id);
-		this.protectedID = database.protectName(this.id);
+		this.id = database.trimName(id).intern();
+		this.protectedID = database.protectName(this.id).intern();
 		database.addTable(this);
 	}
 	
