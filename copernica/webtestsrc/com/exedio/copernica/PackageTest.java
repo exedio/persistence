@@ -16,6 +16,7 @@ public class PackageTest extends TestCase
 	{
 		TestSuite suite = new TestSuite();
 		suite.addTest(new TestSuite(WebTest.class));
+		suite.addTest(new TestSuite(SaveButtonExistTest.class));
 		return suite;
 	}
 
