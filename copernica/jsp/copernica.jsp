@@ -2,6 +2,8 @@
 <%@ page import="com.exedio.cope.lib.Database" %>
 <%@ page import="com.exedio.cope.lib.Attribute" %>
 <%@ page import="com.exedio.cope.lib.MediaAttribute" %>
+<%@ page import="com.exedio.cope.lib.EnumerationAttribute" %>
+<%@ page import="com.exedio.cope.lib.EnumerationValue" %>
 <%@ page import="com.exedio.cope.lib.ItemAttribute" %>
 <%@ page import="com.exedio.cope.lib.Type" %>
 <%@ page import="com.exedio.cope.lib.Item" %>
@@ -189,6 +191,26 @@
 									%><a href="copernica.jsp?item=<%=value.getID()%>">
 										<%=provider.getDisplayName(null, value)%>
 									</a><%
+								}
+							}
+							else if(attribute instanceof EnumerationAttribute)
+							{
+								final EnumerationAttribute enumAttribute = (EnumerationAttribute)attribute;
+								final EnumerationValue value = (EnumerationValue)item.getAttribute(attribute);
+								for(Iterator k = enumAttribute.getValues().iterator(); k.hasNext(); )
+								{
+									final EnumerationValue currentValue = (EnumerationValue)k.next();
+									%>
+									<input
+										type="radio" name="<%=attribute.getName()%>"
+										value="currentValue.getCode()"
+										<%
+											if(value==currentValue)
+											{
+												%>checked="checked"<%
+											}
+										%>
+										><%=currentValue.getCode()%><br><%
 								}
 							}
 							else
