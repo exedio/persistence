@@ -27,6 +27,7 @@ public final class Qualifier
 		this.parent = (ItemAttribute)attributes.get(0);
 		this.key = (ItemAttribute)attributes.get(1);
 		this.qualifyUnique = qualifyUnique;
+		qualifyUnique.setQualifier(this);
 	}
 	
 	public final ItemAttribute getParent()

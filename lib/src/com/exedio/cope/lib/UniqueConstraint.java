@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import com.exedio.cope.lib.pattern.Qualifier;
 import com.exedio.cope.lib.search.AndCondition;
 import com.exedio.cope.lib.search.Condition;
 import com.exedio.cope.lib.search.EqualCondition;
@@ -15,6 +16,7 @@ public final class UniqueConstraint
 	
 	private final ObjectAttribute[] uniqueAttributes;
 	private final List uniqueAttributeList;
+	private Qualifier qualifier;
 	private Type type;
 	private String id;
 	private String databaseID;
@@ -41,6 +43,20 @@ public final class UniqueConstraint
 	public final List getUniqueAttributes()
 	{
 		return uniqueAttributeList;
+	}
+	
+	public Qualifier getQualifier()
+	{
+		return qualifier;
+	}
+	
+	// TODO: must not be public
+	public void setQualifier(final Qualifier qualifier)
+	{
+		if(this.qualifier!=null)
+			throw new RuntimeException("unique constraint can have at most one qualifier");
+
+		this.qualifier = qualifier;
 	}
 	
 	final void initialize(final Type type, final String name)
