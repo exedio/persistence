@@ -201,7 +201,14 @@ public abstract class Database
 
 		//System.out.println("loading "+bf.toString());
 
-		executeSQLLoad(bf.toString(), columns, itemCache);
+		try
+		{
+			executeSQL(bf.toString(), new LoadResultSetHandler(columns, itemCache));
+		}
+		catch(UniqueViolationException e)
+		{
+			throw new SystemException(e);
+		}
 	}
 
 	void store(final Type type, final int pk, final HashMap itemCache, final boolean present)
@@ -267,40 +274,87 @@ public abstract class Database
 
 		//System.out.println("storing "+bf.toString());
 
-		executeSQL(bf.toString());
+		executeSQL(bf.toString(), EMPTY_RESULT_SET_HANDLER);
 	}
 
-	private void executeSQL(final String sql)
-			throws UniqueViolationException
+	private static interface ResultSetHandler
 	{
-		executeSQLInternal(sql, 0, null, null);
+		public void run(ResultSet resultSet) throws SQLException;
 	}
-	
+
+	private static final ResultSetHandler EMPTY_RESULT_SET_HANDLER = new ResultSetHandler()
+	{
+		public void run(ResultSet resultSet)
+		{
+		}
+	};
+		
 	private ArrayList executeSQLQuery(final String sql)
 	{
 		try
 		{
-			return executeSQLInternal(sql, 1, null, null);
+			final QueryResultSetHandler handler = new QueryResultSetHandler();
+			executeSQL(sql, handler);
+			return handler.result;
 		}
 		catch(UniqueViolationException e)
 		{
 			throw new SystemException(e);
 		}
 	}
-		
-	private void executeSQLLoad(final String sql, final List columns, final HashMap itemCache)
+	
+	private static class QueryResultSetHandler implements ResultSetHandler
 	{
-		try
+		private final ArrayList result = new ArrayList();
+
+		public void run(ResultSet resultSet) throws SQLException
 		{
-			executeSQLInternal(sql, 2, columns, itemCache);
-		}
-		catch(UniqueViolationException e)
-		{
-			throw new SystemException(e);
+			// TODO: use special list for integers
+			while(resultSet.next())
+			{
+				final Integer pk = new Integer(resultSet.getInt(1));
+				//System.out.println("pk:"+pk);
+				result.add(pk);
+			}
 		}
 	}
-		
-	private ArrayList executeSQLInternal(final String sql, final int type, final List columns, final HashMap itemCache)
+	
+	private static class LoadResultSetHandler implements ResultSetHandler
+	{
+		private final List columns;
+		private final HashMap itemCache;
+
+		LoadResultSetHandler(final List columns, final HashMap itemCache)
+		{
+			this.columns = columns;
+			this.itemCache = itemCache;
+		}
+
+		public void run(ResultSet resultSet) throws SQLException
+		{
+			if(!resultSet.next())
+				return;
+			int columnIndex = 1;
+			for(Iterator i = columns.iterator(); i.hasNext(); )
+				((Column)i.next()).load(resultSet, columnIndex++, itemCache);
+			return;
+		}
+	}
+
+	private static class MaxPKResultSetHandler implements ResultSetHandler
+	{
+		int result;
+
+		public void run(ResultSet resultSet) throws SQLException
+		{
+			if(!resultSet.next())
+				throw new RuntimeException();
+			final BigDecimal o = (BigDecimal)resultSet.getObject(1);
+			result =	(o==null) ? 0 : o.intValue()+1;
+		}
+	}
+
+	private void executeSQL(final String sql, final ResultSetHandler resultSetHandler)
 			throws UniqueViolationException
 	{
 		final String driver = "oracle.jdbc.driver.OracleDriver";
@@ -324,50 +378,8 @@ public abstract class Database
 		{
 			connection = DriverManager.getConnection(url, user, password);
 			statement = connection.createStatement();
-			switch(type)
-			{
-				// TODO introduce some kind of result set handler
-				case 0:
-				{
-					statement.execute(sql);
-					return null;
-				}
-				case 1:
-				{
-					resultSet = statement.executeQuery(sql);
-					// TODO: use special list for integers
-					final ArrayList result = new ArrayList();
-					while(resultSet.next())
-					{
-						final Integer pk = new Integer(resultSet.getInt(1));
-						//System.out.println("pk:"+pk);
-						result.add(pk);
-					}
-					return result;
-				}
-				case 2:
-				{
-					resultSet = statement.executeQuery(sql);
-					if(!resultSet.next())
-						return null;
-					int columnIndex = 1;
-					for(Iterator i = columns.iterator(); i.hasNext(); )
-						((Column)i.next()).load(resultSet, columnIndex++, itemCache);
-					return null;
-				}
-				case 3:
-				{
-					resultSet = statement.executeQuery(sql);
-					if(!resultSet.next())
-						throw new RuntimeException();
-					final ArrayList result = new ArrayList(1);
-					final BigDecimal o = (BigDecimal)resultSet.getObject(1);
-					result.add(o==null ? new Integer(0) : new Integer(o.intValue()+1));
-					return result;
-				}
-				default:
-					throw new RuntimeException("type"+type);
-			}
+			resultSet = statement.executeQuery(sql);
+			resultSetHandler.run(resultSet);
 		}
 		catch(SQLException e)
 		{
@@ -502,7 +514,7 @@ public abstract class Database
 
 		try
 		{
-			executeSQL(bf.toString());
+			executeSQL(bf.toString(), EMPTY_RESULT_SET_HANDLER);
 		}
 		catch(UniqueViolationException e)
 		{
@@ -545,7 +557,7 @@ public abstract class Database
 		{
 			try
 			{
-				executeSQL(bf.toString());
+				executeSQL(bf.toString(), EMPTY_RESULT_SET_HANDLER);
 			}
 			catch(UniqueViolationException e)
 			{
@@ -564,7 +576,7 @@ public abstract class Database
 
 		try
 		{
-			executeSQL(bf.toString());
+			executeSQL(bf.toString(), EMPTY_RESULT_SET_HANDLER);
 		}
 		catch(UniqueViolationException e)
 		{
@@ -594,7 +606,7 @@ public abstract class Database
 					//System.out.println("dropForeignKeyConstraints:"+bf);
 					try
 					{
-						executeSQL(bf.toString());
+						executeSQL(bf.toString(), EMPTY_RESULT_SET_HANDLER);
 					}
 					catch(UniqueViolationException e)
 					{
@@ -613,17 +625,17 @@ public abstract class Database
 			append(") from ").
 			append(type.protectedName);
 			
-		final ArrayList result;
 		try
 		{
-			result = executeSQLInternal(bf.toString(), 3, null, null);
+			final MaxPKResultSetHandler handler = new MaxPKResultSetHandler();
+			executeSQL(bf.toString(), handler);
+			//System.err.println("select max("+type.primaryKey.trimmedName+") from "+type.trimmedName+" : "+handler.result);
+			return handler.result;
 		}
 		catch(UniqueViolationException e)
 		{
 			throw new SystemException(e);
 		}
-		//System.err.println("select max("+type.primaryKey.trimmedName+") from "+type.trimmedName+" : "+((Integer)result.iterator().next()).intValue());
-		return ((Integer)result.iterator().next()).intValue();
 	}
 	
 }
