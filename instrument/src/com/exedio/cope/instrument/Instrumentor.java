@@ -79,6 +79,11 @@ public final class Instrumentor implements InjectionConsumer
 	private static final String READ_ONLY_ATTRIBUTE = "read-only";
 	
 	/**
+	 * Tag name for one qualifier of qualified attributes.
+	 */
+	private static final String ATTRIBUTE_QUALIFIER = "qualifier";
+	
+	/**
 	 * All generated class features get this doccomment tag.
 	 */
 	private static final String GENERATED = "generated";
@@ -104,7 +109,55 @@ public final class Instrumentor implements InjectionConsumer
 			lastFileDocComment = null;
 		}
 	}
-	
+
+	private static final String lowerCamelCase(final String s)
+	{
+		final char first = s.charAt(0);
+		if(Character.isLowerCase(first))
+			return s;
+		else
+			return Character.toLowerCase(first) + s.substring(1);
+	}
+
+	private void writeParameterDeclarationList(final Collection parameters)
+	throws IOException
+	{
+		if(parameters!=null)
+		{
+			boolean first = true;
+			for(Iterator i = parameters.iterator(); i.hasNext(); )
+			{
+				if(first)
+					first = false;
+				else
+					output.write(',');
+				final String parameter = (String)i.next();
+				output.write("final ");
+				output.write(parameter);
+				output.write(' ');
+				output.write(lowerCamelCase(parameter));
+			}
+		}
+	}
+
+	private void writeParameterCallList(final Collection parameters)
+	throws IOException
+	{
+		if(parameters!=null)
+		{
+			boolean first = true;
+			for(Iterator i = parameters.iterator(); i.hasNext(); )
+			{
+				if(first)
+					first = false;
+				else
+					output.write(',');
+				final String parameter = (String)i.next();
+				output.write(lowerCamelCase(parameter));
+			}
+		}
+	}
+
 	private void writeThrowsClause(final Collection exceptions)
 	throws IOException
 	{
@@ -178,6 +231,7 @@ public final class Instrumentor implements InjectionConsumer
 	{
 		final String methodModifiers = Modifier.toString(persistentAttribute.getMethodModifiers());
 		final String type = persistentAttribute.getPersistentType();
+		final List qualifiers = persistentAttribute.getQualifiers();
 
 		// getter
 		output.write("/** @"+GENERATED);
@@ -188,7 +242,9 @@ public final class Instrumentor implements InjectionConsumer
 		output.write(type);
 		output.write(" get");
 		output.write(persistentAttribute.getCamelCaseName());
-		output.write("(){");
+		output.write('(');
+		writeParameterDeclarationList(qualifiers);
+		output.write("){");
 		writeGetterBody(output, persistentAttribute);
 		output.write('}');
 		
@@ -199,7 +255,13 @@ public final class Instrumentor implements InjectionConsumer
 		output.write(methodModifiers);
 		output.write(" void set");
 		output.write(persistentAttribute.getCamelCaseName());
-		output.write("(final ");
+		output.write('(');
+		if(qualifiers!=null)
+		{
+			writeParameterDeclarationList(qualifiers);
+			output.write(',');
+		}
+		output.write("final ");
 		output.write(type);
 		output.write(' ');
 		output.write(persistentAttribute.getName());
@@ -274,6 +336,10 @@ public final class Instrumentor implements InjectionConsumer
 				
 				if(containsTag(docComment, READ_ONLY_ATTRIBUTE))
 					ja.makeReadOnly();
+				
+				final String qualifier = Injector.findDocTag(docComment, ATTRIBUTE_QUALIFIER);
+				if(qualifier!=null)
+					ja.makeQualified(Collections.singletonList(qualifier));
 			}
 		}
 		discardnextfeature=false;
@@ -337,6 +403,13 @@ public final class Instrumentor implements InjectionConsumer
 		output.write(attribute.getPersistentType());
 		output.write(")getAttribute(");
 		output.write(attribute.getName());
+		final List qualifiers = attribute.getQualifiers();
+		if(qualifiers!=null)
+		{
+			output.write(",new Object[]{");
+			writeParameterCallList(qualifiers);
+			output.write('}');
+		}
 		output.write(");");
 		output.write(lineSeparator);
 	}
@@ -354,6 +427,13 @@ public final class Instrumentor implements InjectionConsumer
 		}
 		output.write("\t\tsetAttribute(this.");
 		output.write(attribute.getName());
+		final List qualifiers = attribute.getQualifiers();
+		if(qualifiers!=null)
+		{
+			output.write(",new Object[]{");
+			writeParameterCallList(qualifiers);
+			output.write('}');
+		}
 		output.write(',');
 		output.write(attribute.getName());
 		output.write(");");

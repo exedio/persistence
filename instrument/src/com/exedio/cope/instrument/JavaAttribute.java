@@ -3,6 +3,7 @@ package injection;
 
 import java.lang.reflect.Modifier;
 import java.util.Collections;
+import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 import persistence.UniqueViolationException;
@@ -19,6 +20,7 @@ public final class JavaAttribute extends JavaFeature
 	private String persistentType = null;
 	private boolean unique = false;
 	private boolean readOnly = false;
+	private List qualifiers = null;
 
 	public JavaAttribute(JavaClass parent, int modifiers, String type, String name)
 	throws InjectorParseException
@@ -57,6 +59,11 @@ public final class JavaAttribute extends JavaFeature
 	public boolean isReadOnly()
 	{
 		return readOnly;
+	}
+	
+	public List getQualifiers()
+	{
+		return qualifiers;
 	}
 	
 	/**
@@ -118,7 +125,7 @@ public final class JavaAttribute extends JavaFeature
 	public final void makePersistent(final String persistentType)
 	{
 		if(persistentType==null)
-			throw new RuntimeException("Du Sau!");
+			throw new NullPointerException();
 		if(this.persistentType!=null)
 			throw new RuntimeException("Du Schwein!");
 		getParent().addPersistentAttribute(this);
@@ -127,12 +134,29 @@ public final class JavaAttribute extends JavaFeature
 
 	public final void makeUnique()
 	{
+		if(this.qualifiers!=null)
+			throw new RuntimeException();
 		unique = true;
 	}
 
 	public final void makeReadOnly()
 	{
+		if(this.qualifiers!=null)
+			throw new RuntimeException();
 		readOnly = true;
+	}
+	
+	public final void makeQualified(final List qualifiers)
+	{
+		if(qualifiers==null)
+			throw new NullPointerException();
+		if(this.qualifiers!=null)
+			throw new RuntimeException();
+		if(this.unique)
+			throw new RuntimeException();
+		if(this.readOnly)
+			throw new RuntimeException();
+		this.qualifiers = Collections.unmodifiableList(qualifiers);
 	}
 
 	private SortedSet setterExceptions = null;
