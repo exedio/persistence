@@ -30,7 +30,7 @@ public final class MediaAttribute extends Attribute
 		return cache;
 	}
 		
-	Object surfaceToCache(final Object surface)
+	public Object surfaceToCache(final Object surface)
 	{
 		return surface;
 	}

@@ -29,7 +29,7 @@ public final class EnumerationAttribute extends Attribute
 		return (EnumerationValue)cache;
 	}
 		
-	Object surfaceToCache(final Object surface)
+	public Object surfaceToCache(final Object surface)
 	{
 		return (EnumerationValue)surface;
 	}

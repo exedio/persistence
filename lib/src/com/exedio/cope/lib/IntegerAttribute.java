@@ -24,7 +24,7 @@ public final class IntegerAttribute extends Attribute
 		return (Integer)cache;
 	}
 		
-	Object surfaceToCache(final Object surface)
+	public Object surfaceToCache(final Object surface)
 	{
 		return (Integer)surface;
 	}

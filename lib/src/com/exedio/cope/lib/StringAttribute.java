@@ -35,7 +35,7 @@ public final class StringAttribute extends Attribute
 		return (String)cache;
 	}
 		
-	Object surfaceToCache(final Object surface)
+	public Object surfaceToCache(final Object surface)
 	{
 		return (String)surface;
 	}

@@ -36,7 +36,7 @@ public final class BooleanAttribute extends Attribute
 		return (Boolean)cache;
 	}
 		
-	Object surfaceToCache(final Object surface)
+	public Object surfaceToCache(final Object surface)
 	{
 		return (Boolean)surface;
 	}

@@ -41,7 +41,7 @@ public final class ItemAttribute extends Attribute
 		return cache==null ? null : type.getItem(((Integer)cache).intValue());
 	}
 		
-	Object surfaceToCache(final Object surface)
+	public Object surfaceToCache(final Object surface)
 	{
 		return surface==null ? null : new Integer(((Item)surface).pk);
 	}
