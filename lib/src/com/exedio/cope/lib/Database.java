@@ -969,18 +969,17 @@ abstract class Database
 			append(" is not null");
 	}
 	
-	final void appendMinimumLengthCondition(final Statement bf, final StringColumn stringColumn)
-	// TODO: rename to column
+	final void appendMinimumLengthCondition(final Statement bf, final StringColumn column)
 	{
 		bf.append("length(").
-			append(stringColumn.protectedID).
+			append(column.protectedID).
 			append(")>=").
-			append(stringColumn.minimumLength);
+			append(column.minimumLength);
 
-		if(!stringColumn.notNull)
+		if(!column.notNull)
 		{
 			bf.append(" or ").
-				append(stringColumn.protectedID).
+				append(column.protectedID).
 				append(" is null");
 		}
 	}
