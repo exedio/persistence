@@ -100,9 +100,62 @@ public final class Type
 		return javaClass;
 	}
 	
-	public final List getAttributes()
+	/**
+	 * Returns the type representing the {@link Class#getSuperclass() superclass}
+	 * of this type's {@link #getJavaClass() java class}.
+	 * If this type has no super type
+	 * (i.e. the superclass of this type's java class is {@link Item}),
+	 * then null is returned.
+	 */
+	public final Type getSupertype()
+	{
+		// TODO: compute in advance in constructor
+		final Class superClass = javaClass.getSuperclass();
+		if(superClass.equals(Item.class))
+			return null;
+		else
+			return getType(superClass.getName());
+	}
+
+	/**
+	 * Returns the list of persistent attributes declared by the this type.
+	 * This excludes inherited attributes.
+	 * The elements in the list returned are ordered by their occurance in the source code.
+	 * This method returns an empty list if the type declares no attributes.
+	 * <p>
+	 * If you want to get all persistent attributes of this type,
+	 * including attributes inherited from super types,
+	 * use {@link #getAttributes}.
+	 * <p> 
+	 * Naming of this method is inspired by Java Reflection API
+	 * method {@link Class#getDeclaredFields() getDeclaredFields}.
+	 */
+	public final List getDeclaredAttributes()
 	{
 		return attributeList;
+	}
+	
+	/**
+	 * Returns the list of accessible persistent attributes of this type.
+	 * This includes inherited attributes.
+	 * The elements in the list returned are ordered by their type,
+	 * with types higher in type hierarchy coming first,
+	 * and within each type by their occurance in the source code.
+	 * This method returns an empty list if the type has no accessible attributes.
+	 * <p>
+	 * If you want to get persistent attributes declared by this type only,
+	 * excluding attributes inherited from super types,
+	 * use {@link #getDeclaredAttributes}.
+	 */
+	public final List getAttributes()
+	{
+		// TODO: compute in advance in constructor
+		final Type superType = getSupertype();
+		final ArrayList result = new ArrayList();
+		if(superType!=null)
+			result.addAll(superType.getAttributes());
+		result.addAll(attributeList);
+		return result;
 	}
 	
 	public final List getUniqueConstraints()
@@ -114,7 +167,7 @@ public final class Type
 	{
 		return columns;
 	}
-
+	
 	private String toStringCache = null;
 	
 	public final String toString()
