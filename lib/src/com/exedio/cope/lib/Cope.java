@@ -1,7 +1,5 @@
 package com.exedio.cope.lib;
 
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Date;
 
 import com.exedio.cope.lib.search.AndCondition;
@@ -17,7 +15,7 @@ import com.exedio.cope.lib.search.NotEqualCondition;
 import com.exedio.cope.lib.search.OrCondition;
 
 /**
- * Utility class for searching persistent data.
+ * Utility class for creating conditions.
  * May be subclassed to access methods without class qualifier.
  */
 public abstract class Cope
@@ -288,21 +286,6 @@ public abstract class Cope
 	public static final OrCondition or(final Condition condition1, final Condition condition2)
 	{
 		return new OrCondition(new Condition[]{condition1, condition2});
-	}
-	
-	/**
-	 * Searches for items matching the given query.
-	 * <p>
-	 * Returns an unmodifiable collection.
-	 * Any attempts to modify the returned collection, whether direct or via its iterator,
-	 * result in an <code>UnsupportedOperationException</code>.
-	 * @param query the query the searched items must match.
-	 */
-	public static final Collection search(final Query query) // TODO: put this method on query
-	{
-		//System.out.println("select " + type.getJavaClass().getName() + " where " + condition);
-		query.check();
-		return Collections.unmodifiableList(query.model.getDatabase().search(query));
 	}
 	
 }

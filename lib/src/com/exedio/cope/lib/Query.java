@@ -1,6 +1,8 @@
 package com.exedio.cope.lib;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import com.exedio.cope.lib.search.Condition;
@@ -110,10 +112,19 @@ public class Query
 		return statementInfo;
 	}
 	
-	void check()
+	/**
+	 * Searches for items matching this query.
+	 * <p>
+	 * Returns an unmodifiable collection.
+	 * Any attempts to modify the returned collection, whether direct or via its iterator,
+	 * result in an <code>UnsupportedOperationException</code>.
+	 */
+	public final Collection search()
 	{
+		//System.out.println("select " + type.getJavaClass().getName() + " where " + condition);
 		if(condition!=null)
 			condition.check(this);
+		return Collections.unmodifiableList(model.getDatabase().search(this));
 	}
-
+	
 }

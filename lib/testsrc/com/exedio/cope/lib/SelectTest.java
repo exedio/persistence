@@ -56,7 +56,7 @@ public class SelectTest extends DatabaseLibTest
 				item.TYPE,
 				null);
 		query.setOrderBy(item.someNotNullString, false);
-		final Collection result = Cope.search(query);
+		final Collection result = query.search();
 		final Iterator i = result.iterator();
 		
 		assertRow(i, "1z",     "1Z",     2, "someString9", 1, 4l, 2.1, true, someItem, AttributeItem.SomeEnumeration.enumValue1);

@@ -30,13 +30,13 @@ public class OrderByTest extends DatabaseLibTest
 	public void testOrderBy()
 	{
 		// no order at all
-		assertContains(item4, item2, item1, item3, item5, Cope.search(new Query(item1.TYPE, null)));
+		assertContains(item4, item2, item1, item3, item5, new Query(item1.TYPE, null).search());
 
 		// deterministic order only
 		{
 			final Query query = new Query(item1.TYPE, null);
 			query.setDeterministicOrder(true);
-			assertEquals(list(item1, item2, item3, item4, item5), Cope.search(query));
+			assertEquals(list(item1, item2, item3, item4, item5), query.search());
 		}
 		
 		// simple order
@@ -77,10 +77,10 @@ public class OrderByTest extends DatabaseLibTest
 		query.setOrderBy(searchAttribute, true);
 		query.setDeterministicOrder(true);
 		query.setRange(start, count);
-		assertEquals(expectedOrder, Cope.search(query));
+		assertEquals(expectedOrder, query.search());
 
 		query.setOrderBy(searchAttribute, false);
-		assertEquals(expectedReverseOrder, Cope.search(query));
+		assertEquals(expectedReverseOrder, query.search());
 	}
 	
 }

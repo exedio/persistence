@@ -50,11 +50,11 @@ public class FunctionTest extends DatabaseLibTest
 		assertContains(
 				list("5ffff",  "5FFFF",  new Integer(5), "4ddd", "4DDD", new Integer(4), new Integer(9)),
 				list("6ggggg", "6GGGGG", new Integer(6), "2b",   "2B",   new Integer(2), new Integer(8)),
-				Cope.search(new Query(new Function[]{
+				new Query(new Function[]{
 						item1.min4, item1.min4Upper, item1.min4UpperLength,
 						item1.max4, item1.max4Upper, item1.max4UpperLength,
 						item1.min4AndMax4UpperLength
-						}, item1.TYPE, null))
+						}, item1.TYPE, null).search()
 				);
 	}
 

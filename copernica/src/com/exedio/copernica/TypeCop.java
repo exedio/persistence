@@ -4,7 +4,6 @@ import java.util.Collection;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.exedio.cope.lib.Cope;
 import com.exedio.cope.lib.Function;
 import com.exedio.cope.lib.Query;
 import com.exedio.cope.lib.StatementInfo;
@@ -143,7 +142,7 @@ final class TypeCop extends CopernicaCop
 		query.setRange(start, count);
 		query.enableMakeStatementInfo();
 		
-		items = Cope.search(query);
+		items = query.search();
 		lastPage = count>items.size();
 		statementInfo = query.getStatementInfo();
 	}

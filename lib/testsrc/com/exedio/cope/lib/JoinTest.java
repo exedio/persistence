@@ -24,32 +24,32 @@ public class JoinTest extends DatabaseLibTest
 		{
 			final Query query = new Query(PointerItem2.TYPE, null);
 			query.join(PointerItem.TYPE, Cope.isNotNull(PointerItem.code));
-			assertContains(item2b, item2a, item2b, item2a, Cope.search(query));
+			assertContains(item2b, item2a, item2b, item2a, query.search());
 		}
 		{
 			final Query query = new Query(PointerItem2.TYPE, null);
 			query.join(PointerItem.TYPE, Cope.join(PointerItem.pointer));
-			assertContains(item2b, item2a, Cope.search(query));
+			assertContains(item2b, item2a, query.search());
 		}
 		{
 			final Query query = new Query(PointerItem2.TYPE, null);
 			query.join(PointerItem.TYPE, Cope.join(PointerItem.pointer));
-			assertContains(item2b, item2a, Cope.search(query));
+			assertContains(item2b, item2a, query.search());
 		}
 		{
 			final Query query = new Query(PointerItem.TYPE, PointerItem2.TYPE, null);
 			query.join(PointerItem.TYPE, Cope.join(PointerItem.pointer));
-			assertContains(item1b, item1a, Cope.search(query));
+			assertContains(item1b, item1a, query.search());
 		}
 		{
 			final Query query = new Query(PointerItem2.TYPE, null);
 			query.join(PointerItem.TYPE, Cope.equal(PointerItem.code, PointerItem2.code));
-			assertContains(item2b, Cope.search(query));
+			assertContains(item2b, query.search());
 		}
 		{
 			final Query query = new Query(PointerItem.TYPE, Cope.equal(PointerItem2.code, "hallo"));
 			query.join(PointerItem2.TYPE, Cope.join(PointerItem.pointer));
-			assertContains(item1a, Cope.search(query));
+			assertContains(item1a, query.search());
 		}
 		{
 			final Query query = new Query(new Selectable[]{PointerItem2.code, PointerItem.TYPE, PointerItem.code}, PointerItem2.TYPE, null);
@@ -57,7 +57,7 @@ public class JoinTest extends DatabaseLibTest
 			assertContains(
 					list("bello", item1b, "collo"),
 					list("hallo", item1a, "bello"),
-					Cope.search(query));
+					query.search());
 		}
 	}
 

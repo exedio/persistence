@@ -30,7 +30,7 @@ public abstract class AttributeTest extends DatabaseLibTest
 	
 	protected static Collection search(final ObjectAttribute selectAttribute, final Condition condition)
 	{
-		return Cope.search(new Query(selectAttribute, condition));
+		return new Query(selectAttribute, condition).search();
 	}
 	
 }
