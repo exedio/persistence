@@ -62,38 +62,16 @@ page import="java.util.Map"
 	
 	if(database)
 	{
-
-		final CopernicaCop cop;
-		{	
-			final String typeID = request.getParameter("type");
-			final String itemID = request.getParameter("item");
-			final String langID = request.getParameter("lang");
-			final Language language = (langID!=null) ? provider.findLanguageByUniqueID(langID) : null;
-			if(typeID!=null)
-			{
-				final Type type = Type.findByID(typeID);
-				if(type==null)
-					throw new RuntimeException("type "+typeID+" not available");
-				final String startString = request.getParameter("start");
-				final String countString = request.getParameter("count");
-				final int start = (startString==null) ?  0 : Integer.parseInt(startString);
-				final int count = (countString==null) ? 10 : Integer.parseInt(countString);
-				cop = new TypeCop(language, type, start, count);
-			}
-			else if(itemID!=null)
-			{
-				final Item item = Search.findByID(itemID);
-				cop = new ItemCop(language, item);
-			}
-			else
-				cop = new EmptyCop(language);
-		}
-		
+		final CopernicaCop cop = CopernicaCop.getCop(
+			provider,
+			request.getParameter("type"),
+			request.getParameter("item"),
+			request.getParameter("lang"),
+			request.getParameter("start"),
+			request.getParameter("count")
+		);
 		final Language language = cop.language;
-	
-	%>
 			
-			<%
 			for(Iterator l = provider.getDisplayLanguages().iterator(); l.hasNext(); )
 			{
 				final Language currentLanguage = (Language)l.next();
