@@ -8,11 +8,11 @@ public final class ItemAttribute extends Attribute
 {
 	private Type targetType;
 
-	public void initialize(final String name, final boolean readOnly, final boolean notNull,
-								  final Type targetType)
+	public ItemAttribute initialize(final String name, final boolean readOnly, final boolean notNull, final Type targetType)
 	{
 		super.initialize(name, readOnly, notNull);
 		this.targetType = targetType;
+		return this;
 	}
 	
 	/**

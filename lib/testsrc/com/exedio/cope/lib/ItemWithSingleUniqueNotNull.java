@@ -100,17 +100,10 @@ public class ItemWithSingleUniqueNotNull extends Item
 		new com.exedio.cope.lib.Type(
 			ItemWithSingleUniqueNotNull.class,
 			new com.exedio.cope.lib.Attribute[]{
-				uniqueNotNullString,
+				uniqueNotNullString.initialize("uniqueNotNullString",false,true),
 			},
 			new com.exedio.cope.lib.UniqueConstraint[]{
 				new com.exedio.cope.lib.UniqueConstraint(uniqueNotNullString),
-			},
-			new Runnable()
-			{
-				public void run()
-				{
-					uniqueNotNullString.initialize("uniqueNotNullString",false,true);
-				}
 			}
 		)
 ;}

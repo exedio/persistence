@@ -13,10 +13,11 @@ public final class EnumerationAttribute extends Attribute
 	private List values;
 	private HashMap numbersToValues; // TODO: use special integer map
 
-	public void initialize(final String name, final boolean readOnly, final boolean notNull)
+	void setType(final Type type)
 	{
-		super.initialize(name, readOnly, notNull);
+		super.setType(type);
 		final Class javaClass = getType().getJavaClass();
+		final String name = getName();
 		final Class[] innerClasses = javaClass.getDeclaredClasses();
 		final String upperCaseName = javaClass.getName() + '$' + Character.toUpperCase(name.charAt(0)) + name.substring(1);
 

@@ -46,12 +46,6 @@ public class ItemWithoutAttributes2 extends Item
 			new com.exedio.cope.lib.Attribute[]{
 			},
 			new com.exedio.cope.lib.UniqueConstraint[]{
-			},
-			new Runnable()
-			{
-				public void run()
-				{
-				}
 			}
 		)
 ;}

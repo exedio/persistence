@@ -92,17 +92,10 @@ public class ItemWithSingleUnique extends Item
 		new com.exedio.cope.lib.Type(
 			ItemWithSingleUnique.class,
 			new com.exedio.cope.lib.Attribute[]{
-				uniqueString,
+				uniqueString.initialize("uniqueString",false,false),
 			},
 			new com.exedio.cope.lib.UniqueConstraint[]{
 				new com.exedio.cope.lib.UniqueConstraint(uniqueString),
-			},
-			new Runnable()
-			{
-				public void run()
-				{
-					uniqueString.initialize("uniqueString",false,false);
-				}
 			}
 		)
 ;}

@@ -816,7 +816,20 @@ public final class Instrumentor implements InjectionConsumer
 			final JavaAttribute persistentAttribute = (JavaAttribute)i.next();
 			output.write("\t\t\t\t");
 			output.write(persistentAttribute.getName());
+			output.write(".initialize(\"");
+			output.write(persistentAttribute.getName());
+			output.write("\",");
+			output.write(persistentAttribute.isReadOnly() ? "true": "false");
 			output.write(',');
+			output.write(persistentAttribute.isNotNull() ? "true": "false");
+			if(persistentAttribute.isItemPersistentType())
+			{
+				output.write(',');
+				output.write(persistentAttribute.getBoxedType());
+				output.write(".TYPE");
+			}
+			//private List qualifiers = null;
+			output.write("),");
 			output.write(lineSeparator);
 		}
 		output.write("\t\t\t},");
@@ -848,45 +861,9 @@ public final class Instrumentor implements InjectionConsumer
 			}
 			output.write(lineSeparator);
 		}
-		output.write("\t\t\t},");
-		output.write(lineSeparator);
-		
-		// the runnable initializing attributes
-		// TODO: call initialize in the attributes array literal
-		output.write("\t\t\tnew Runnable()");
-		output.write(lineSeparator);
-		output.write("\t\t\t{");
-		output.write(lineSeparator);
-		output.write("\t\t\t\tpublic void run()");
-		output.write(lineSeparator);
-		output.write("\t\t\t\t{");
-		output.write(lineSeparator);
-		for(Iterator i = javaClass.getPersistentAttributes().iterator(); i.hasNext(); )
-		{
-			final JavaAttribute persistentAttribute = (JavaAttribute)i.next();
-			output.write("\t\t\t\t\t");
-			output.write(persistentAttribute.getName());
-			output.write(".initialize(\"");
-			output.write(persistentAttribute.getName());
-			output.write("\",");
-			output.write(persistentAttribute.isReadOnly() ? "true": "false");
-			output.write(',');
-			output.write(persistentAttribute.isNotNull() ? "true": "false");
-			if(persistentAttribute.isItemPersistentType())
-			{
-				output.write(',');
-				output.write(persistentAttribute.getBoxedType());
-				output.write(".TYPE");
-			}
-			//private List qualifiers = null;
-			output.write(");");
-			output.write(lineSeparator);
-		}
-		output.write("\t\t\t\t}");
-		output.write(lineSeparator);
 		output.write("\t\t\t}");
 		output.write(lineSeparator);
-		
+
 		// close the constructor of Type
 		output.write("\t\t)");
 		output.write(lineSeparator);

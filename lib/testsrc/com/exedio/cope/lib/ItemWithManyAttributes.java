@@ -502,36 +502,19 @@ public class ItemWithManyAttributes extends Item
 		new com.exedio.cope.lib.Type(
 			ItemWithManyAttributes.class,
 			new com.exedio.cope.lib.Attribute[]{
-				someString,
-				someStringUpperCase,
-				someNotNullString,
-				someInteger,
-				someNotNullInteger,
-				someBoolean,
-				someNotNullBoolean,
-				someItem,
-				someEnumeration,
-				someMedia,
-				someQualifiedString,
+				someString.initialize("someString",false,false),
+				someStringUpperCase.initialize("someStringUpperCase",false,false),
+				someNotNullString.initialize("someNotNullString",false,true),
+				someInteger.initialize("someInteger",false,false),
+				someNotNullInteger.initialize("someNotNullInteger",false,true),
+				someBoolean.initialize("someBoolean",false,false),
+				someNotNullBoolean.initialize("someNotNullBoolean",false,true),
+				someItem.initialize("someItem",false,false,ItemWithoutAttributes.TYPE),
+				someEnumeration.initialize("someEnumeration",false,false),
+				someMedia.initialize("someMedia",false,false),
+				someQualifiedString.initialize("someQualifiedString",false,false),
 			},
 			new com.exedio.cope.lib.UniqueConstraint[]{
-			},
-			new Runnable()
-			{
-				public void run()
-				{
-					someString.initialize("someString",false,false);
-					someStringUpperCase.initialize("someStringUpperCase",false,false);
-					someNotNullString.initialize("someNotNullString",false,true);
-					someInteger.initialize("someInteger",false,false);
-					someNotNullInteger.initialize("someNotNullInteger",false,true);
-					someBoolean.initialize("someBoolean",false,false);
-					someNotNullBoolean.initialize("someNotNullBoolean",false,true);
-					someItem.initialize("someItem",false,false,ItemWithoutAttributes.TYPE);
-					someEnumeration.initialize("someEnumeration",false,false);
-					someMedia.initialize("someMedia",false,false);
-					someQualifiedString.initialize("someQualifiedString",false,false);
-				}
 			}
 		)
 ;}

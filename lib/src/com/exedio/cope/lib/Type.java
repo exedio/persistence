@@ -43,7 +43,7 @@ public final class Type
 		return (Type)typesByName.get(className);
 	}
 	
-	public Type(final Class javaClass, final Attribute[] attributes, final UniqueConstraint[] uniqueConstraints, final Runnable initializer)
+	public Type(final Class javaClass, final Attribute[] attributes, final UniqueConstraint[] uniqueConstraints)
 	{
 		this.javaClass = javaClass;
 		this.attributes = attributes;
@@ -52,7 +52,6 @@ public final class Type
 			attributes[i].setType(this);
 		this.uniqueConstraints = uniqueConstraints;
 		this.uniqueConstraintList = Collections.unmodifiableList(Arrays.asList(uniqueConstraints));
-		initializer.run();
 		
 		typesModifyable.add(this);
 		typesByName.put(javaClass.getName(), this);
