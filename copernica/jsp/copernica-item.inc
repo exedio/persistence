@@ -2,7 +2,6 @@
 	static final String SAVE_BUTTON = "SAVE";
 	static final String VALUE_NULL = "NULL";
 	static final String VALUE_ON = "on";
-	static final String VALUE_TRUE = VALUE_ON;
 	static final String VALUE_OFF = "FALSE";
 %><%
 	final Item item = itemCop.item;
@@ -95,7 +94,7 @@
 							value = null;
 						else if(VALUE_ON.equals(saveString))
 							value = Boolean.TRUE;
-						else if(VALUE_TRUE.equals(saveString))
+						else if(VALUE_ON.equals(saveString))
 							value = Boolean.TRUE;
 						else if(VALUE_OFF.equals(saveString))
 							value = Boolean.FALSE;
@@ -127,7 +126,7 @@
 						%> checked="checked"<%
 					}
 					%>><%="leer"%><br>
-					<input type="radio" name="<%=attributeName%>" value="<%=VALUE_TRUE%>"<%
+					<input type="radio" name="<%=attributeName%>" value="<%=VALUE_ON%>"<%
 					if(Boolean.TRUE.equals(value))
 					{
 						%> checked="checked"<%
