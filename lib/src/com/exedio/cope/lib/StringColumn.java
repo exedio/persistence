@@ -6,7 +6,7 @@ import java.sql.Types;
 
 final class StringColumn extends Column
 {
-	static final Integer JDBC_TYPE = new Integer(Types.VARCHAR);
+	static final int JDBC_TYPE = Types.VARCHAR;
 	
 	final int minimumLength;
 	final int maximumLength;

@@ -13,12 +13,12 @@ public abstract class ComputedFunction implements Function
 	private final List sourceList;
 	private final String[] sqlFragments;
 	private final String functionName;
-	final Integer jdbcType;
+	final int jdbcType;
 
 	public ComputedFunction(final Function[] sources,
 									final String[] sqlFragments,
 									final String functionName,
-									final Integer jdbcType)
+									final int jdbcType)
 	{
 		this.sources = sources;
 		this.sourceList = Collections.unmodifiableList(Arrays.asList(sources));

@@ -4,12 +4,12 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Random;
 
 import oracle.jdbc.OracleStatement;
 import oracle.jdbc.driver.OracleDriver;
+import bak.pcj.IntIterator;
+import bak.pcj.list.IntList;
 import bak.pcj.map.IntKeyChainedHashMap;
 
 final class OracleDatabase
@@ -77,16 +77,16 @@ final class OracleDatabase
 		return extractConstraintName(e, "ORA-02292: integrity constraint (", ") violated - child record found\n");
 	}
 
-	public void defineColumnTypes(final List columnTypes, final java.sql.Statement statement)
+	public void defineColumnTypes(final IntList columnTypes, final java.sql.Statement statement)
 			throws SQLException
 	{
 		//System.out.println("defineColumnTypes: "+columnTypes);
 		final OracleStatement s = (OracleStatement)statement;
 		int columnIndex = 1;
-		for(Iterator i = columnTypes.iterator(); i.hasNext(); columnIndex++)
+		for(IntIterator i = columnTypes.iterator(); i.hasNext(); columnIndex++)
 		{
-			final Integer columnType = (Integer)i.next();
-			s.defineColumnType(columnIndex, columnType.intValue());
+			final int columnType = i.next();
+			s.defineColumnType(columnIndex, columnType);
 		}
 	}
 

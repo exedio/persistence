@@ -3,11 +3,12 @@ package com.exedio.cope.lib;
 
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.List;
+
+import bak.pcj.list.IntList;
 
 interface DatabaseColumnTypesDefinable
 {
-	void defineColumnTypes(List columnTypes, Statement statement)
+	void defineColumnTypes(IntList columnTypes, Statement statement)
 			throws SQLException;
 
 }

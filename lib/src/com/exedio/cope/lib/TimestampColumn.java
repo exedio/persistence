@@ -8,7 +8,7 @@ import java.util.Date;
 
 final class TimestampColumn extends Column
 {
-	static final Integer JDBC_TYPE = new Integer(Types.TIMESTAMP);
+	static final int JDBC_TYPE = Types.TIMESTAMP;
 	
 	TimestampColumn(final Table table, final String id, final boolean notNull)
 	{

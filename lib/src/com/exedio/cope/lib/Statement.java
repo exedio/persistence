@@ -1,16 +1,16 @@
 
 package com.exedio.cope.lib;
 
-import java.util.ArrayList;
+import bak.pcj.list.IntArrayList;
 
 public final class Statement
 {
 	final StringBuffer text = new StringBuffer();
-	final ArrayList columnTypes; // TODO: use list of integer
+	final IntArrayList columnTypes;
 		
 	Statement(final boolean useDefineColumnTypes)
 	{
-		columnTypes = useDefineColumnTypes ? new ArrayList() : null;
+		columnTypes = useDefineColumnTypes ? new IntArrayList() : null;
 	}
 
 	public Statement append(final String text)

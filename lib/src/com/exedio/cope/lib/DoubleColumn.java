@@ -6,7 +6,7 @@ import java.sql.Types;
 
 final class DoubleColumn extends Column
 {
-	static final Integer JDBC_TYPE = new Integer(Types.DOUBLE);
+	static final int JDBC_TYPE = Types.DOUBLE;
 	
 	final int precision;
 

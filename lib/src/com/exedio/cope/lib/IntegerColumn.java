@@ -7,8 +7,8 @@ import java.sql.Types;
 
 class IntegerColumn extends Column
 {
-	static final Integer JDBC_TYPE_INT = new Integer(Types.INTEGER);
-	static final Integer JDBC_TYPE_LONG = new Integer(Types.BIGINT);
+	static final int JDBC_TYPE_INT = Types.INTEGER;
+	static final int JDBC_TYPE_LONG = Types.BIGINT;
 	
 	final int precision;
 	final boolean longInsteadOfInt;

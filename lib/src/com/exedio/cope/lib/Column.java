@@ -10,12 +10,12 @@ abstract class Column
 	final String protectedID;
 	final boolean primaryKey;
 	final boolean notNull;
-	final Integer jdbcType;
+	final int jdbcType;
 	
 	Column(
 			final Table table, final String id,
 			final boolean primaryKey, final boolean notNull,
-			final Integer jdbcType)
+			final int jdbcType)
 	{
 		this.table = table;
 		this.id = id.intern();
