@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.exedio.cope.lib.Type;
 
-class Copernica_Jspm
+import com.exedio.cops.CopsServlet;
+
+public final class Copernica_Jspm
 {
 	static final void write(
 			final PrintStream out,
@@ -106,9 +108,9 @@ class Copernica_Jspm
 <%
 	}
 	
-	static final void writeException(
+	public static final void writeException(
 				final PrintStream out,
-				final CopernicaServlet servlet,
+				final CopsServlet servlet,
 				final Exception exception,
 				final boolean onPage)
 		throws IOException
