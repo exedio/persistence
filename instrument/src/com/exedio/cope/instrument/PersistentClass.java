@@ -95,22 +95,22 @@ public final class PersistentClass
 	}
 	
 	private ArrayList initialAttributes = null;
-	private TreeSet contructorExceptions = null;
+	private TreeSet constructorExceptions = null;
 	
 	private final void makeInitialAttributesAndContructorExceptions()
 	{
 		initialAttributes = new ArrayList();
-		contructorExceptions = new TreeSet(ClassComparator.getInstance());
+		constructorExceptions = new TreeSet(ClassComparator.getInstance());
 		for(Iterator i = getPersistentAttributes().iterator(); i.hasNext(); )
 		{
 			final PersistentAttribute persistentAttribute = (PersistentAttribute)i.next();
 			if(persistentAttribute.isInitial())
 			{
 				initialAttributes.add(persistentAttribute);
-				contructorExceptions.addAll(persistentAttribute.getSetterExceptions());
+				constructorExceptions.addAll(persistentAttribute.getSetterExceptions());
 			}
 		}
-		contructorExceptions.remove(ReadOnlyViolationException.class);
+		constructorExceptions.remove(ReadOnlyViolationException.class);
 	}
 
 	/**
@@ -133,9 +133,9 @@ public final class PersistentClass
 	 */
 	public final SortedSet getContructorExceptions()
 	{
-		if(contructorExceptions == null)
+		if(constructorExceptions == null)
 			makeInitialAttributesAndContructorExceptions();
-		return contructorExceptions;
+		return constructorExceptions;
 	}
 
 }
