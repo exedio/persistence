@@ -1,5 +1,7 @@
 package com.exedio.copernica;
 
+import com.exedio.cope.lib.Type;
+
 
 final class EmptyCop extends CopernicaCop
 {
@@ -11,6 +13,11 @@ final class EmptyCop extends CopernicaCop
 	final  CopernicaCop switchLanguage(final Language newLanguage)
 	{
 		return new EmptyCop(newLanguage);
+	}
+
+	final boolean isType(final Type type)
+	{
+		return false;
 	}
 
 }

@@ -4,6 +4,7 @@ import com.exedio.cope.lib.Item;
 import com.exedio.cope.lib.NoSuchIDException;
 import com.exedio.cope.lib.Search;
 import com.exedio.cope.lib.SystemException;
+import com.exedio.cope.lib.Type;
 
 final class ItemCop extends CopernicaCop
 {
@@ -19,6 +20,11 @@ final class ItemCop extends CopernicaCop
 	final  CopernicaCop switchLanguage(final Language newLanguage)
 	{
 		return new ItemCop(newLanguage, item);
+	}
+
+	final boolean isType(final Type type)
+	{
+		return item.getType() == type;
 	}
 
 	static final ItemCop getCop(final Language language, final String itemID)

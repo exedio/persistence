@@ -30,7 +30,8 @@ abstract class CopernicaCop extends Cop
 	}
 	
 	abstract CopernicaCop switchLanguage(Language newLanguage);
-	
+	abstract boolean isType(final Type type);
+
 	final TypeCop toType(final Type newType)
 	{
 		return new TypeCop(language, newType);
@@ -40,7 +41,7 @@ abstract class CopernicaCop extends Cop
 	{
 		return new ItemCop(language, newItem);
 	}
-
+	
 	static final CopernicaCop getCop(final CopernicaProvider provider, final Map parameterMap)
 	{	
 		final String typeID = getParameter(parameterMap, TYPE);

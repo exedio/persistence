@@ -45,6 +45,11 @@ final class TypeCop extends CopernicaCop
 		return new TypeCop(newLanguage, type, orderBy, orderAscending, start, count);
 	}
 	
+	final boolean isType(final Type type)
+	{
+		return this.type == type;
+	}
+
 	final boolean isFirstPage()
 	{
 		return start == 0;
