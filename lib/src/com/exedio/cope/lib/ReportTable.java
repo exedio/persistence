@@ -79,6 +79,11 @@ public final class ReportTable extends ReportNode
 		result.exists = true;
 		return result;
 	}
+	
+	public final boolean exists()
+	{
+		return exists;
+	}
 		
 	public final ReportLastAnalyzed getLastAnalyzed()
 	{
