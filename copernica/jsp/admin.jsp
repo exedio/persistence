@@ -12,6 +12,10 @@ page import="java.util.Date" %><%@
 
 include file="copernica-provider.inc"
 
+%><%
+final boolean doReport = 
+	request.getParameter("REPORT")!=null ||
+	request.getParameter("APPLY")!=null ;
 %>
 <html>
 	<head>
@@ -28,8 +32,10 @@ include file="copernica-provider.inc"
 			ul.ok     { background-color:#ccffcc; }
 			ul.yellow { background-color:#ffff33; }
 			ul.red    { background-color:#ff3333; }
-		</style>
-		<!-- TODO: include only if reports are printed -->
+		</style><%
+		if(doReport)
+		{
+		%>
 		<script type="text/javascript">
 			function checkAllAnalyze()
 			{
@@ -44,7 +50,8 @@ include file="copernica-provider.inc"
 					}
 				}
 			}
-		</script>
+		</script><%
+		}%>
 	</head>
 	<body>
 		<h1>Copernica</h1>
@@ -81,8 +88,7 @@ include file="copernica-provider.inc"
 					Database.theInstance.dropDatabase();
 					%>Database successfully dropped!<%
 				}
-				else if(request.getParameter("REPORT")!=null ||
-							request.getParameter("APPLY")!=null)
+				else if(doReport)
 				{
 					%><hr><%@ include file="admin-report.inc" %><%
 				}
