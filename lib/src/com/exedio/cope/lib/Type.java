@@ -68,6 +68,8 @@ public final class Type
 	public Type(final Class javaClass)
 	{
 		this.javaClass = javaClass;
+		if(!Item.class.isAssignableFrom(javaClass))
+			throw new IllegalArgumentException(javaClass.toString()+" is not a subclass of Item");
 
 		typesModifyable.add(this);
 		typesByName.put(javaClass, this);
