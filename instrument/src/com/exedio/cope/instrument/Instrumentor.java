@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.*;
 import java.lang.reflect.Modifier;
+import persistence.SystemException;
 import persistence.UniqueViolationException;
 
 public final class Instrumentor implements InjectionConsumer
@@ -133,7 +134,7 @@ public final class Instrumentor implements InjectionConsumer
 		if(persistentAttribute.isUnique())
 			output.write(" throws "+UniqueViolationException.class.getName()+' ');
 		output.write("{");
-		output.write(lineSeparator);
+		writeSetterBody(output, persistentAttribute);
 		output.write('}');
 	}
 	
@@ -251,10 +252,30 @@ public final class Instrumentor implements InjectionConsumer
 
 	
 	// ----------------- methods for a new interface
+
 	private void writeGetterBody(final Writer output, final JavaAttribute attribute)
 	throws IOException
 	{
-		output.write("return null;");
+		output.write("return (");
+		output.write(attribute.getPersistentType());
+		output.write(")getAttribute(");
+		output.write(attribute.getName());
+		output.write(");");
+		output.write(lineSeparator);
+	}
+
+	private void writeSetterBody(final Writer output, final JavaAttribute attribute)
+	throws IOException
+	{
+		if(!attribute.isUnique())
+			output.write("try{");
+		output.write("setAttribute(this.");
+		output.write(attribute.getName());
+		output.write(',');
+		output.write(attribute.getName());
+		output.write(");");
+		if(!attribute.isUnique())
+			output.write("}catch("+UniqueViolationException.class.getName()+" e){throw new "+SystemException.class.getName()+"(e);}");
 		output.write(lineSeparator);
 	}
 }
