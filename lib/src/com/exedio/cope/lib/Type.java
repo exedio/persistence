@@ -284,13 +284,31 @@ public final class Type
 		}
 		
 		if(subTypes!=null)
-			table.addTypeColumn();
+		{
+			final ArrayList typeIDs = new ArrayList();
+			addRecursive(subTypes, typeIDs, 15);
+			table.addTypeColumn(typeIDs);
+		}
 
 		for(int i = 0; i<declaredAttributes.length; i++)
 			declaredAttributes[i].materialize(table);
 		for(int i = 0; i<uniqueConstraints.length; i++)
 			uniqueConstraints[i].materialize(database);
 		this.table.setUniqueConstraints(this.uniqueConstraintList);
+	}
+	
+	private static final void addRecursive(final List subTypes, final ArrayList typeIDs, int levelLimit)
+	{
+		if(levelLimit<=0)
+			throw new RuntimeException(typeIDs.toString());
+		levelLimit--;
+		
+		for(Iterator i = subTypes.iterator(); i.hasNext(); )
+		{
+			final Type type = (Type)i.next();
+			typeIDs.add(type.getID());
+			addRecursive(type.getSubTypes(), typeIDs, levelLimit);
+		}
 	}
 
 	public final Class getJavaClass()

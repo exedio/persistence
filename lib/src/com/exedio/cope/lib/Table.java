@@ -55,7 +55,7 @@ final class Table
 		allColumnsModifiable.add(column);
 	}
 	
-	void addTypeColumn()
+	void addTypeColumn(final ArrayList typeIDs)
 	{
 		if(!buildStage)
 			throw new RuntimeException();
@@ -71,7 +71,7 @@ final class Table
 		//
 		// It's a string literal, since the string is not used anywhere else
 		// in the framework.
-		typeColumn = new StringColumn(this, "class", true, 1, 30); // TODO: allow values for each subtype only
+		typeColumn = new StringColumn(this, "class", true, (String[])typeIDs.toArray(new String[typeIDs.size()]));
 	}
 	
 	/**

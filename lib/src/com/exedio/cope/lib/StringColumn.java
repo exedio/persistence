@@ -10,6 +10,7 @@ final class StringColumn extends Column
 	
 	final int minimumLength;
 	final int maximumLength;
+	final String[] allowedValues;
 
 	StringColumn(
 			final Table table, final String id, final boolean notNull,
@@ -18,6 +19,20 @@ final class StringColumn extends Column
 		super(table, id, false, notNull, JDBC_TYPE);
 		this.minimumLength = minimumLength;
 		this.maximumLength = maximumLength;
+		this.allowedValues = null;
+	}
+	
+	StringColumn(
+			final Table table, final String id, final boolean notNull,
+			final String[] allowedValues)
+	{
+		super(table, id, false, notNull, JDBC_TYPE);
+		this.minimumLength = 0;
+		this.maximumLength = Integer.MAX_VALUE;
+		this.allowedValues = allowedValues;
+
+		if(allowedValues.length<2)
+			throw new RuntimeException(id);
 	}
 	
 	final String getDatabaseType()
@@ -46,6 +61,28 @@ final class StringColumn extends Column
 			bf.append("(LENGTH(" + protectedID + ")<=" + maximumLength + ')');
 		}
 
+		if(allowedValues!=null)
+		{
+			if(first)
+				first = false;
+			else
+				bf.append(" AND ");
+
+			bf.append(protectedID + " IN (");
+
+			for(int j = 0; j<allowedValues.length; j++)
+			{
+				if(j>0)
+					bf.append(',');
+
+				bf.append('\'').
+					append(allowedValues[j]).
+					append('\'');
+			}
+			bf.append(')');
+			return bf.toString();
+		}
+		
 		return first ? null : bf.toString();
 	}
 
