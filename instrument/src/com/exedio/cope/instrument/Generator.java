@@ -567,6 +567,32 @@ final class Generator
 			o.write(attribute.getBoxingPostfix());
 	}
 	
+	private void writeQualifierParameters(final CopeQualifier qualifier)
+	throws IOException
+	{
+		final CopeAttribute[] keys = qualifier.keyAttributes;
+		for(int i = 0; i<keys.length; i++)
+		{
+			if(i>0)
+				o.write(',');
+			o.write("final ");
+			o.write(keys[i].persistentType);
+			o.write(' ');
+			o.write(keys[i].javaAttribute.name);
+		}
+	}
+	
+	private void writeQualifierCall(final CopeQualifier qualifier)
+	throws IOException
+	{
+		final CopeAttribute[] keys = qualifier.keyAttributes;
+		for(int i = 0; i<keys.length; i++)
+		{
+			o.write(',');
+			o.write(keys[i].javaAttribute.name);
+		}
+	}
+	
 	private void writeQualifier(final CopeQualifier qualifier)
 	throws IOException
 	{
@@ -581,10 +607,8 @@ final class Generator
 		o.write(qualifier.qualifierClassString);
 		o.write(" get");
 		o.write(toCamelCase(qualifier.name));
-		o.write("(final ");
-		o.write(qualifier.keyAttribute.persistentType);
-		o.write(' ');
-		o.write(qualifier.keyAttribute.javaAttribute.name);
+		o.write('(');
+		writeQualifierParameters(qualifier);
 		o.write(')');
 		o.write(lineSeparator);
 
@@ -595,8 +619,8 @@ final class Generator
 		o.write(qualifier.qualifierClassString);
 		o.write(")");
 		o.write(qualifier.uniqueConstraintString);
-		o.write(".searchUnique(new Object[]{this,");
-		o.write(qualifier.keyAttribute.javaAttribute.name);
+		o.write(".searchUnique(new Object[]{this");
+		writeQualifierCall(qualifier);
 		o.write("});");
 		o.write(lineSeparator);
 
@@ -628,10 +652,8 @@ final class Generator
 		o.write(resultType);
 		o.write(" get");
 		o.write(toCamelCase(attribute.getName()));
-		o.write("(final ");
-		o.write(qualifier.keyAttribute.persistentType);
-		o.write(' ');
-		o.write(qualifier.keyAttribute.javaAttribute.name);
+		o.write('(');
+		writeQualifierParameters(qualifier);
 		o.write(')');
 		o.write(lineSeparator);
 
@@ -642,8 +664,8 @@ final class Generator
 		o.write(resultType);
 		o.write(')');
 		o.write(qualifier.uniqueConstraintString);
-		o.write(".getQualified(new Object[]{this,");
-		o.write(qualifier.keyAttribute.javaAttribute.name);
+		o.write(".getQualified(new Object[]{this");
+		writeQualifierCall(qualifier);
 		o.write("},");
 		o.write(qualifier.qualifierClassString);
 		o.write('.');
@@ -667,10 +689,8 @@ final class Generator
 		final String resultType = attribute.persistentType;
 		o.write("public final void set"); // TODO: obey attribute visibility
 		o.write(toCamelCase(attribute.getName()));
-		o.write("(final ");
-		o.write(qualifier.keyAttribute.persistentType);
-		o.write(' ');
-		o.write(qualifier.keyAttribute.javaAttribute.name);
+		o.write('(');
+		writeQualifierParameters(qualifier);
 		o.write(",final ");
 		o.write(resultType);
 		o.write(' ');
@@ -689,8 +709,8 @@ final class Generator
 
 		o.write("\t\t");
 		o.write(qualifier.uniqueConstraintString);
-		o.write(".setQualified(new Object[]{this,");
-		o.write(qualifier.keyAttribute.javaAttribute.name);
+		o.write(".setQualified(new Object[]{this");
+		writeQualifierCall(qualifier);
 		o.write("},");
 		o.write(qualifier.qualifierClassString);
 		o.write('.');

@@ -19,6 +19,7 @@ import com.exedio.cope.testmodel.Main;
 import com.exedio.cope.testmodel.MediaItem;
 import com.exedio.cope.testmodel.PointerItem;
 import com.exedio.cope.testmodel.PointerItem2;
+import com.exedio.cope.testmodel.QualifiedIntegerEnumQualifier;
 import com.exedio.cope.testmodel.QualifiedItem;
 import com.exedio.cope.testmodel.StringItem;
 import com.exedio.cope.testmodel.SumItem;
@@ -142,6 +143,10 @@ public class CopernicaTestProvider extends TransientCopernicaProvider
 				qualifiedItem1.setQualifiedA("key3", new Integer(3));
 				qualifiedItem1.setQualifiedA("key4", new Integer(4));
 				qualifiedItem1.setQualifiedB("key4", new Integer(14));
+				qualifiedItem1.setQualifiedA(new Integer(8), QualifiedIntegerEnumQualifier.KeyEnum.key1, "1-A-8-key1");
+				qualifiedItem1.setQualifiedA(new Integer(6), QualifiedIntegerEnumQualifier.KeyEnum.key1, "1-A-6-key1");
+				qualifiedItem1.setQualifiedA(new Integer(8), QualifiedIntegerEnumQualifier.KeyEnum.key2, "1-A-8-key2");
+				qualifiedItem1.setQualifiedB(new Integer(8), QualifiedIntegerEnumQualifier.KeyEnum.key1, "1-B-8-key1");
 			}
 
 			{

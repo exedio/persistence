@@ -21,6 +21,7 @@ public class Main
 		QualifiedItem.TYPE,
 		QualifiedEmptyQualifier.TYPE,
 		QualifiedStringQualifier.TYPE,
+		QualifiedIntegerEnumQualifier.TYPE,
 		PointerItem2.TYPE,
 		PointerItem.TYPE,
 		Super.TYPE,

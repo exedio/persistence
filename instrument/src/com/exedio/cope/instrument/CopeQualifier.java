@@ -11,7 +11,7 @@ final class CopeQualifier
 	final CopeClass qualifierClass;
 	final CopeUniqueConstraint uniqueConstraint;
 
-	final CopeAttribute keyAttribute;
+	final CopeAttribute[] keyAttributes;
 
 	public CopeQualifier(final String name, final CopeClass copeClass, final List initializerArguments)
 		throws InjectorParseException
@@ -40,10 +40,12 @@ final class CopeQualifier
 			throw new InjectorParseException("unique constraint not found "+uniqueConstraintString);
 		
 		final CopeAttribute[] uniqueAttributes = uniqueConstraint.copeAttributes;
-		if(uniqueAttributes.length!=2)
+		if(uniqueAttributes.length<2)
 			throw new RuntimeException(uniqueAttributes.toString());
 		
-		this.keyAttribute = uniqueAttributes[1];
+		this.keyAttributes = new CopeAttribute[uniqueAttributes.length-1];
+		for(int i = 0; i<this.keyAttributes.length; i++)
+			this.keyAttributes[i] = uniqueAttributes[i+1];
 
 		copeClass.addQualifier(this);
 	}
