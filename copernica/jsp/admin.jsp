@@ -1,5 +1,6 @@
 <%@
 page import="com.exedio.cope.lib.Database" %><%@
+page import="com.exedio.cope.lib.DatabaseReportable" %><%@
 page import="com.exedio.cope.lib.Report" %><%@
 page import="com.exedio.cope.lib.SystemException" %><%@
 
@@ -36,7 +37,12 @@ include file="copernica-provider.inc"
 			<input type="submit" name="CREATE" value="create" />
 			<input type="submit" name="TEARDOWN" value="tear down"/>
 			<input type="submit" name="DROP" value="drop"/>
-			<input type="submit" name="REPORT" value="report"/>
+			<%
+			if(Database.theInstance instanceof DatabaseReportable)
+			{
+				%><input type="submit" name="REPORT" value="report"/><%
+			}
+			%>
 			<br>
 			<%
 				if(request.getParameter("CREATE")!=null)

@@ -117,7 +117,12 @@ public abstract class Database
 			throw new InitializerRuntimeException("there is more than one integrity constraint with name "+column.integrityConstraintName);
 	}
 	
-	private final Statement createStatement()
+	protected final List getTables()
+	{
+		return tables;
+	}
+	
+	protected final Statement createStatement()
 	{
 		return new Statement(useDefineColumnTypes);
 	}
@@ -231,91 +236,7 @@ public abstract class Database
 		//final long amount = (System.currentTimeMillis()-time);
 		//checkTableTime += amount;
 		//System.out.println("CHECK TABLES "+amount+"ms  accumulated "+checkTableTime);
-	}
-	
-	public Report reportDatabase()
-	{
-		buildStage = false;
-		
-		final Report report = new Report(tables);
-
-		{
-			final Statement bf = createStatement();
-			bf.append("select TABLE_NAME from user_tables").
-				defineColumnString();
-			try
-			{
-				executeSQL(bf, new ReportTableHandler(report));
-			}
-			catch(ConstraintViolationException e)
-			{
-				throw new SystemException(e);
-			}
-		}
-		{
-			final Statement bf = createStatement();
-			bf.append("select TABLE_NAME, CONSTRAINT_NAME, CONSTRAINT_TYPE  from user_constraints order by table_name").
-				defineColumnString().
-				defineColumnString().
-				defineColumnString();
-			try
-			{
-				executeSQL(bf, new ReportConstraintHandler(report));
-			}
-			catch(ConstraintViolationException e)
-			{
-				throw new SystemException(e);
-			}
-		}
-		
-		report.finish();
-
-		return report;
-	}
-
-	private static class ReportTableHandler implements ResultSetHandler
-	{
-		private final Report report;
-
-		ReportTableHandler(final Report report)
-		{
-			this.report = report;
-		}
-
-		public void run(ResultSet resultSet) throws SQLException
-		{
-			while(resultSet.next())
-			{
-				final String tableName = resultSet.getString(1);
-				final Report.Table table = report.notifyExistentTable(tableName);
-				//System.out.println("EXISTS:"+tableName);
-			}
-		}
-	}
-
-	private static class ReportConstraintHandler implements ResultSetHandler
-	{
-		private final Report report;
-
-		ReportConstraintHandler(final Report report)
-		{
-			this.report = report;
-		}
-
-		public void run(ResultSet resultSet) throws SQLException
-		{
-			while(resultSet.next())
-			{
-				final String tableName = resultSet.getString(1);
-				final String constraintName = resultSet.getString(2);
-				final String constraintType = resultSet.getString(3);
-				final Report.Table table = report.notifyExistentTable(tableName);
-				final Report.Constraint constraint = table.notifyExistentConstraint(constraintName);
-				//System.out.println("EXISTS:"+tableName);
-			}
-		}
-	}
-
+	}	
 
 	public void dropDatabase()
 	{
@@ -738,7 +659,7 @@ public abstract class Database
 		}
 	}
 
-	private static interface ResultSetHandler
+	protected static interface ResultSetHandler
 	{
 		public void run(ResultSet resultSet) throws SQLException;
 	}
@@ -764,7 +685,7 @@ public abstract class Database
 
 	//private static int timeExecuteQuery = 0;
 
-	private void executeSQL(final Statement statement, final ResultSetHandler resultSetHandler)
+	protected final void executeSQL(final Statement statement, final ResultSetHandler resultSetHandler)
 			throws ConstraintViolationException
 	{
 		final ConnectionPool connectionPool = ConnectionPool.getInstance();

@@ -14,7 +14,7 @@ private String color(final int color)
 	}
 }
 %><%
-final Report report = Database.theInstance.reportDatabase();
+final Report report = ((DatabaseReportable)Database.theInstance).reportDatabase();
 final String reportColor = color(report.getCumulativeColor());
 
 %><span class="<%=reportColor%>">Database Report</span>
