@@ -859,8 +859,8 @@ abstract class Database
 			final int rows = sqlStatement.executeUpdate(sqlText);
 
 			//System.out.println("("+rows+"): "+statement.getText());
-			//if(rows!=expectedRows) TODO
-				//throw new RuntimeException("expected "+expectedRows+" rows, but got "+rows);
+			if(rows!=expectedRows)
+				System.out.println("expected "+expectedRows+" rows, but got "+rows+" on statement "+sqlText); // TODO: throw exception
 		}
 		catch(SQLException e)
 		{
