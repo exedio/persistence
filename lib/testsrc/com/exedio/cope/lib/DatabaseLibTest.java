@@ -116,7 +116,7 @@ public abstract class DatabaseLibTest extends AbstractLibTest
 		{
 			throw new NestingRuntimeException(e);
 		}
-		final String prefix = "/medias/AttributeItem/someMedia/";
+		final String prefix = "media/AttributeItem/someMedia/";
 		final String pkString = pkString(item);
 		final String expectedURL = prefix+pkString+'.'+url;
 		final String expectedURLSomeVariant = prefix+"SomeVariant/"+pkString+'.'+url;

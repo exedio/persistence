@@ -141,7 +141,12 @@
 	</target>
 	
 	<target name="lib.test.run.hsqldb" depends="lib.test.compile">
-		<mkdir dir="lib/build/media" />
+		<mkdir dir="lib/build/test.hsqldb/media" />
+		<copy file="cope.properties.hsqldb" tofile="lib/build/test.hsqldb/cope.properties">
+			<filterset>
+				<filter token="MEDIA_DIRECTORY" value="lib/build/test.hsqldb/media" />
+			</filterset>
+		</copy>
 		<java classname="junit.textui.TestRunner" taskname="junit" fork="yes" failonerror="yes">
 			<classpath>
 				<pathelement location="lib/build/classes" />
@@ -152,12 +157,17 @@
 				<pathelement location="../lib/hsqldb.jar" />
 			</classpath>
 			<arg value="com.exedio.cope.lib.PackageTest" />
-			<sysproperty key="com.exedio.cope.properties" file="cope.properties.hsqldb" />
+			<sysproperty key="com.exedio.cope.properties" file="lib/build/test.hsqldb/cope.properties" />
 		</java>
 	</target>
 
 	<target name="lib.test.run.oracle" depends="lib.test.compile">
-		<mkdir dir="lib/build/media" />
+		<mkdir dir="lib/build/test.oracle/media" />
+		<copy file="cope.properties.oracle" tofile="lib/build/test.oracle/cope.properties">
+			<filterset>
+				<filter token="MEDIA_DIRECTORY" value="lib/build/test.oracle/media" />
+			</filterset>
+		</copy>
 		<java classname="junit.textui.TestRunner" taskname="junit" fork="yes" failonerror="yes">
 			<classpath>
 				<pathelement location="lib/build/classes" />
@@ -168,7 +178,7 @@
 				<pathelement location="../lib/classes12.zip" />
 			</classpath>
 			<arg value="com.exedio.cope.lib.PackageTest" />
-			<sysproperty key="com.exedio.cope.properties" file="cope.properties.oracle" />
+			<sysproperty key="com.exedio.cope.properties" file="lib/build/test.oracle/cope.properties" />
 		</java>
 	</target>
 
@@ -282,6 +292,9 @@
 				<pathelement location="../lib/junit.jar" />
 			</classpath>
 		</javac>
+		<copy todir="copernica/build/testclasses/com/exedio/copernica">
+			<fileset dir="copernica/testresources" />
+		</copy>
 	</target>
 	
 	<target name="copernica.testwebapp.hsqldb"
@@ -302,7 +315,11 @@
 		</copy>
 		
 		<copy tofile="copernica/build/testwebapp-hsqldb/WEB-INF/cope.properties"
-				file="cope.properties.hsqldb" />
+				file="cope.properties.hsqldb">
+			<filterset>
+				<filter token="MEDIA_DIRECTORY" value="//WEB-APP//" />
+			</filterset>
+		</copy>
 		<copy todir="copernica/build/testwebapp-hsqldb/WEB-INF/"
 				file="copernica/web.xml" />
 		<copy todir="copernica/build/testwebapp-hsqldb">
@@ -311,6 +328,7 @@
 				<exclude name="*.inc" />
 			</fileset>
 		</copy>
+		<mkdir dir="copernica/build/testwebapp-hsqldb/media" />
 		
 		<touch file="copernica/build/testwebapp-hsqldb/WEB-INF/web.xml" />
 	
@@ -335,7 +353,11 @@
 				tofile="copernica/build/testwebapp-oracle/WEB-INF/lib/classes12.jar" />
 		
 		<copy tofile="copernica/build/testwebapp-oracle/WEB-INF/cope.properties"
-				file="cope.properties.oracle" />
+				file="cope.properties.oracle">
+			<filterset>
+				<filter token="MEDIA_DIRECTORY" value="//WEB-APP//" />
+			</filterset>
+		</copy>
 		<copy todir="copernica/build/testwebapp-oracle/WEB-INF/"
 				file="copernica/web.xml" />
 		<copy todir="copernica/build/testwebapp-oracle">
@@ -344,6 +366,7 @@
 				<exclude name="*.inc" />
 			</fileset>
 		</copy>
+		<mkdir dir="copernica/build/testwebapp-oracle/media" />
 		
 		<touch file="copernica/build/testwebapp-oracle/WEB-INF/web.xml" />
 	

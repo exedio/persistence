@@ -99,7 +99,25 @@
 					<td><%
 						if(feature instanceof MediaAttribute)
 						{
-							%><%=item.getMediaURL((MediaAttribute)feature)%><%
+							final MediaAttribute mediaAttribute = (MediaAttribute)feature;
+							final String url = item.getMediaURL(mediaAttribute);
+							if(url==null)
+							{
+								%><%=cop.getDisplayNameNull()%><%
+							}
+							else
+							{
+								%><a href="<%=url%>"><%
+								if("image".equals(item.getMediaMimeMajor(mediaAttribute)))
+								{
+									%><img src="<%=url%>" width="50"><%
+								}
+								else
+								{
+									%>download<%
+								}
+								%></a><%
+							}
 						}
 						else if(feature instanceof ItemAttribute)
 						{

@@ -1,5 +1,6 @@
 package com.exedio.copernica;
 
+import java.io.IOException;
 import java.util.Date;
 
 import com.exedio.cope.lib.ConstraintViolationException;
@@ -89,9 +90,13 @@ public class CopernicaTestProvider extends TransientCopernicaProvider
 			final EmptyItem emptyItem3 = new EmptyItem();
 			new EmptyItem2();
 			
-			new AttributeItem("someString1", 5, 6l, 2.2, true, emptyItem1, AttributeItem.SomeEnumeration.enumValue1);
-			new AttributeItem("someString2", 6, 7l, 2.3, true, emptyItem2, AttributeItem.SomeEnumeration.enumValue2);
-			new AttributeItem("someString3", 7, 8l, 2.4, false, emptyItem2, AttributeItem.SomeEnumeration.enumValue2);
+			final AttributeItem attributeItem1 = new AttributeItem("someString1", 5, 6l, 2.2, true, emptyItem1, AttributeItem.SomeEnumeration.enumValue1);
+			final AttributeItem attributeItem2 = new AttributeItem("someString2", 6, 7l, 2.3, true, emptyItem2, AttributeItem.SomeEnumeration.enumValue2);
+			final AttributeItem attributeItem3 = new AttributeItem("someString3", 7, 8l, 2.4, false, emptyItem2, AttributeItem.SomeEnumeration.enumValue2);
+			attributeItem1.setSomeMediaData(this.getClass().getResourceAsStream("dummy.txt"), "text", "plain");
+			attributeItem2.setSomeMediaData(this.getClass().getResourceAsStream("osorno.png"), "image", "png");
+			attributeItem3.setSomeMediaData(this.getClass().getResourceAsStream("tree.jpg"), "image", "jpeg");
+			
 			final Date date = new Date(1087368238214l);
 			for(int i = 0; i<102; i++)
 			{
@@ -114,9 +119,17 @@ public class CopernicaTestProvider extends TransientCopernicaProvider
 				item2.setMin4Max8("m4x8");
 			}
 			
-			new MediaItem();
-			new MediaItem();
-			new MediaItem();
+			final MediaItem mediaItem1 = new MediaItem();
+			mediaItem1.setFileData(this.getClass().getResourceAsStream("dummy.txt"), "text", "plain");
+			mediaItem1.setImageData(this.getClass().getResourceAsStream("osorno.png"), "png");
+			mediaItem1.setPhotoData(this.getClass().getResourceAsStream("tree.jpg"));
+
+			final MediaItem mediaItem2 = new MediaItem();
+			mediaItem2.setFileData(this.getClass().getResourceAsStream("osorno.png"), "image", "png");
+			mediaItem2.setImageData(this.getClass().getResourceAsStream("tree.jpg"), "jpeg");
+
+			final MediaItem mediaItem3 = new MediaItem();
+			mediaItem3.setFileData(this.getClass().getResourceAsStream("dummy.txt"), "unknownma", "unknownmi");
 			
 			new SumItem(1, 2, 3);
 			new SumItem(4, 5, 4);
@@ -167,6 +180,10 @@ public class CopernicaTestProvider extends TransientCopernicaProvider
 			new CollisionItem2(emptyItem2);
 		}
 		catch(ConstraintViolationException e)
+		{
+			throw new NestingRuntimeException(e);
+		}
+		catch(IOException e)
 		{
 			throw new NestingRuntimeException(e);
 		}

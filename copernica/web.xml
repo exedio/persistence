@@ -12,6 +12,10 @@
 			<param-name>com.exedio.copernica.provider</param-name>
 			<param-value>com.exedio.copernica.CopernicaTestProvider</param-value>
 		</init-param>
+		<init-param>
+			<param-name>com.exedio.copernica.properties</param-name>
+			<param-value>WEB-INF/cope.properties</param-value>
+		</init-param>
 	</servlet>
 
 	<servlet>
@@ -20,6 +24,10 @@
 		<init-param>
 			<param-name>com.exedio.copernica.provider</param-name>
 			<param-value>com.exedio.copernica.CopernicaTestProvider</param-value>
+		</init-param>
+		<init-param>
+			<param-name>com.exedio.copernica.properties</param-name>
+			<param-value>WEB-INF/cope.properties</param-value>
 		</init-param>
 	</servlet>
 

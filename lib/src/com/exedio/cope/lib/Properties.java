@@ -48,16 +48,16 @@ public final class Properties
 	{
 		this(new File(propertyFileName));
 	}
-
-	public Properties(final File propertyFile)
+	
+	public static final java.util.Properties loadProperties(final File propertyFile)
 	{
 		final java.util.Properties properties = new java.util.Properties();
 		FileInputStream stream = null;
 		try
 		{
-			source = propertyFile.getAbsolutePath();
 			stream = new FileInputStream(propertyFile);
 			properties.load(stream);
+			return properties;
 		}
 		catch(IOException e)
 		{
@@ -74,6 +74,16 @@ public final class Properties
 				catch(IOException e) {}
 			}
 		}
+	}
+
+	public Properties(final File propertyFile)
+	{
+		this(loadProperties(propertyFile), propertyFile.getAbsolutePath());
+	}
+
+	public Properties(final java.util.Properties properties, final String source)
+	{
+		this.source = source;
 		database = getPropertyNotNull(properties, DATABASE);
 		databaseDriver = properties.getProperty(DATABASE_DRIVER);
 		databaseUrl = getPropertyNotNull(properties, DATABASE_URL);

@@ -18,7 +18,7 @@ public class AttributeMediaTest extends AttributeTest
 		item.setSomeMediaData(stream(bytes),"someMimeMajor", "someMimeMinor");
 
 		final String prefix =
-			"/medias/AttributeItem/someMedia/";
+			"media/AttributeItem/someMedia/";
 		final String pkString = pkString(item);
 		final String expectedURL =
 			prefix + pkString + ".someMimeMajor.someMimeMinor";
