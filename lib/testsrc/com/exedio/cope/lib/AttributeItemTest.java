@@ -1,5 +1,8 @@
 package com.exedio.cope.lib;
 
+import com.exedio.cope.testmodel.AttributeItem;
+import com.exedio.cope.testmodel.EmptyItem;
+
 
 public class AttributeItemTest extends AttributeTest
 {

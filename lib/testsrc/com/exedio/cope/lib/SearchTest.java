@@ -2,6 +2,9 @@ package com.exedio.cope.lib;
 
 import java.util.Collection;
 
+import com.exedio.cope.testmodel.AttributeItem;
+import com.exedio.cope.testmodel.EmptyItem;
+
 public class SearchTest extends DatabaseLibTest
 {
 	public void testUnmodifiableSearchResult()
@@ -51,7 +54,7 @@ public class SearchTest extends DatabaseLibTest
 		catch(RuntimeException e)
 		{
 			assertEquals(
-				"function someInteger{} belongs to type com.exedio.cope.lib.AttributeItem, which is not a from-type of the query: [com.exedio.cope.lib.EmptyItem]",
+				"function someInteger{} belongs to type "+AttributeItem.class.getName()+", which is not a from-type of the query: ["+EmptyItem.class.getName()+"]",
 				e.getMessage());
 		}
 	}

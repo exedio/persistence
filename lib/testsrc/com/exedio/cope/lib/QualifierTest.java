@@ -1,6 +1,10 @@
 
 package com.exedio.cope.lib;
 
+import com.exedio.cope.testmodel.EmptyItem;
+import com.exedio.cope.testmodel.QualifiedEmptyQualifier;
+import com.exedio.cope.testmodel.QualifiedItem;
+
 public class QualifierTest extends DatabaseLibTest
 {
 	QualifiedItem item;

@@ -577,7 +577,7 @@ final class Generator
 		writeCommentGenerated();
 		writeCommentFooter();
 
-		o.write("final ");
+		o.write("public final "); // TODO: obey attribute visibility
 		o.write(qualifier.qualifierClassString);
 		o.write(" get");
 		o.write(toCamelCase(qualifier.name));
@@ -624,7 +624,7 @@ final class Generator
 		writeCommentFooter();
 
 		final String resultType = attribute.persistentType;
-		o.write("final ");
+		o.write("public final "); // TODO: obey attribute visibility
 		o.write(resultType);
 		o.write(" get");
 		o.write(toCamelCase(attribute.getName()));
@@ -665,7 +665,7 @@ final class Generator
 		writeCommentFooter();
 
 		final String resultType = attribute.persistentType;
-		o.write("final void set");
+		o.write("public final void set"); // TODO: obey attribute visibility
 		o.write(toCamelCase(attribute.getName()));
 		o.write("(final ");
 		o.write(qualifier.keyAttribute.persistentType);

@@ -1,5 +1,7 @@
 package com.exedio.cope.lib;
 
+import com.exedio.cope.testmodel.AttributeItem;
+
 
 public class AttributeStringTest extends AttributeTest
 {

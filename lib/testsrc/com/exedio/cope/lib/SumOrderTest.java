@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.exedio.cope.testmodel.SumItem;
+
 
 public class SumOrderTest extends DatabaseLibTest
 {

@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.exedio.cope.testmodel.AttributeItem;
+import com.exedio.cope.testmodel.EmptyItem;
+
 
 public class OrderByTest extends DatabaseLibTest
 {

@@ -10,40 +10,14 @@ import java.util.List;
 
 import junit.framework.TestCase;
 
-import com.exedio.cope.lib.collision.CollisionItem1;
-import com.exedio.cope.lib.collision.CollisionItem2;
-import com.exedio.cope.lib.hierarchy.FirstSub;
-import com.exedio.cope.lib.hierarchy.SecondSub;
-import com.exedio.cope.lib.hierarchy.Super;
+import com.exedio.cope.testmodel.Main;
 
 public abstract class AbstractLibTest extends TestCase
 {
 	
-	public static final Type[] modelTypes = new Type[]
-	{
-		ItemWithSingleUnique.TYPE,
-		ItemWithSingleUniqueReadOnly.TYPE,
-		ItemWithSingleUniqueNotNull.TYPE,
-		ItemWithDoubleUnique.TYPE,
-		EmptyItem.TYPE,
-		EmptyItem2.TYPE,
-		AttributeItem.TYPE,
-		AttributeEmptyItem.TYPE,
-		StringItem.TYPE,
-		MediaItem.TYPE,
-		SumItem.TYPE,
-		QualifiedItem.TYPE,
-		QualifiedEmptyQualifier.TYPE,
-		PointerItem2.TYPE,
-		PointerItem.TYPE,
-		Super.TYPE,
-		FirstSub.TYPE,
-		SecondSub.TYPE,
-		CollisionItem1.TYPE,
-		CollisionItem2.TYPE,
-	};
+	public static final Type[] modelTypes = Main.modelTypes;
 
-	public static final Model model = new Model(modelTypes);
+	public static final Model model = Main.model;
 	
 	protected void setUp() throws Exception
 	{

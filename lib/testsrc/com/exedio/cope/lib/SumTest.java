@@ -1,5 +1,7 @@
 package com.exedio.cope.lib;
 
+import com.exedio.cope.testmodel.SumItem;
+
 
 public class SumTest extends DatabaseLibTest
 {

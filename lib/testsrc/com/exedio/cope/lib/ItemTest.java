@@ -3,6 +3,10 @@ package com.exedio.cope.lib;
 
 import java.util.Arrays;
 
+import com.exedio.cope.testmodel.AttributeItem;
+import com.exedio.cope.testmodel.EmptyItem;
+import com.exedio.cope.testmodel.EmptyItem2;
+
 public class ItemTest extends DatabaseLibTest
 {
 	

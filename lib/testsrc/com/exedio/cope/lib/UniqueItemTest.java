@@ -1,6 +1,11 @@
 
 package com.exedio.cope.lib;
 
+import com.exedio.cope.testmodel.ItemWithDoubleUnique;
+import com.exedio.cope.testmodel.ItemWithSingleUnique;
+import com.exedio.cope.testmodel.ItemWithSingleUniqueNotNull;
+import com.exedio.cope.testmodel.ItemWithSingleUniqueReadOnly;
+
 
 public class UniqueItemTest extends DatabaseLibTest
 {

@@ -1,6 +1,8 @@
 
 package com.exedio.cope.lib;
 
+import com.exedio.cope.testmodel.StringItem;
+
 public class StringTest extends DatabaseLibTest
 {
 	StringItem item;

@@ -1,5 +1,5 @@
 
-package com.exedio.cope.lib.hierarchy;
+package com.exedio.cope.testmodel;
 
 import com.exedio.cope.lib.Item;
 import com.exedio.cope.lib.StringAttribute;

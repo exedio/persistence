@@ -19,7 +19,7 @@ public class AttributeMediaTest extends AttributeTest
 
 		final String prefix =
 			"/medias/AttributeItem/someMedia/";
-		final String pkString = String.valueOf(Search.pk2id(item.pk));
+		final String pkString = String.valueOf(Search.pk2id(((Item)item).pk));
 		final String expectedURL =
 			prefix + pkString + ".someMimeMajor.someMimeMinor";
 		final String expectedURLSomeVariant =

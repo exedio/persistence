@@ -3,6 +3,8 @@ package com.exedio.cope.lib;
 
 import java.io.IOException;
 
+import com.exedio.cope.testmodel.MediaItem;
+
 public class MediaTest extends DatabaseLibTest
 {
 	private MediaItem item;

@@ -3,8 +3,12 @@ package com.exedio.cope.lib;
 
 import java.util.Arrays;
 
-import com.exedio.cope.lib.hierarchy.FirstSub;
-import com.exedio.cope.lib.hierarchy.Super;
+import com.exedio.cope.testmodel.AttributeItem;
+import com.exedio.cope.testmodel.FirstSub;
+import com.exedio.cope.testmodel.ItemWithSingleUnique;
+import com.exedio.cope.testmodel.ItemWithSingleUniqueNotNull;
+import com.exedio.cope.testmodel.ItemWithSingleUniqueReadOnly;
+import com.exedio.cope.testmodel.Super;
 
 /**
  * Tests the model itself, without creating/using any persistent data.

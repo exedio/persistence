@@ -3,6 +3,9 @@ package com.exedio.cope.lib;
 
 import java.util.Date;
 
+import com.exedio.cope.testmodel.AttributeItem;
+import com.exedio.cope.testmodel.EmptyItem;
+
 public class LiteralConditionTest extends DatabaseLibTest
 {
 	EmptyItem someItem;

@@ -1,4 +1,10 @@
-package com.exedio.cope.lib;
+
+package com.exedio.cope.testmodel;
+
+import com.exedio.cope.lib.Item;
+import com.exedio.cope.lib.ItemAttribute;
+import com.exedio.cope.lib.StringAttribute;
+import com.exedio.cope.lib.UniqueConstraint;
 
 
 /**

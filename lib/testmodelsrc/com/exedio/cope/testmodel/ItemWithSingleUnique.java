@@ -1,5 +1,8 @@
 
-package com.exedio.cope.lib;
+package com.exedio.cope.testmodel;
+
+import com.exedio.cope.lib.Item;
+import com.exedio.cope.lib.StringAttribute;
 
 /**
  * An item having a unique attribute.

@@ -1,5 +1,8 @@
 package com.exedio.cope.lib;
 
+import com.exedio.cope.testmodel.PointerItem;
+import com.exedio.cope.testmodel.PointerItem2;
+
 public class JoinTest extends DatabaseLibTest
 {
 	PointerItem item1a;

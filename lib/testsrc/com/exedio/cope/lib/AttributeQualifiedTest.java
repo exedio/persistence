@@ -2,6 +2,9 @@ package com.exedio.cope.lib;
 
 import java.util.Iterator;
 
+import com.exedio.cope.testmodel.AttributeEmptyItem;
+import com.exedio.cope.testmodel.EmptyItem;
+
 
 public class AttributeQualifiedTest extends AttributeTest
 {
