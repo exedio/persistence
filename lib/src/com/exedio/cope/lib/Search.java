@@ -142,6 +142,11 @@ public abstract class Search
 		return new LessCondition(attribute, value);
 	}
 	
+	public static final LessCondition less(final EnumerationAttribute attribute, final EnumerationValue value)
+	{
+		return new LessCondition(attribute, value);
+	}
+	
 	public static final JoinCondition join(final ItemAttribute attribute)
 	{
 		return new JoinCondition(attribute);
