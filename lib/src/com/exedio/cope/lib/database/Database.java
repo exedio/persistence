@@ -125,14 +125,12 @@ public class Database
 			append(getPersistentQualifier(type)).
 			append(delimiterEnd).
 			append('(');
+
+		bf.append("\"PK\" number(10,0)");
 		
-		boolean first = true;
 		for(Iterator i = type.getAttributes().iterator(); i.hasNext(); )
 		{
-			if(first)
-				first = false;
-			else
-				bf.append(',');
+			bf.append(',');
 			final Attribute attribute = (Attribute)i.next();
 			bf.append(delimiterStart).
 				append(getPersistentQualifier(attribute)).
