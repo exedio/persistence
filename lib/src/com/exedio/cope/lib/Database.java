@@ -203,7 +203,12 @@ public abstract class Database
 
 	void load(final Row row)
 	{
-		final Type type = row.type;
+		for(Type type = row.type; type!=null; type = type.getSupertype())
+			load(row, type);
+	}
+
+	private void load(final Row row, final Type type)
+	{
 		final List columns = type.getColumns();
 
 		final Statement bf = createStatement();
@@ -230,7 +235,7 @@ public abstract class Database
 
 		try
 		{
-			executeSQL(bf, new LoadResultSetHandler(row));
+			executeSQL(bf, new LoadResultSetHandler(row, type));
 		}
 		catch(ConstraintViolationException e)
 		{
@@ -349,6 +354,7 @@ public abstract class Database
 			throw new SystemException(e);
 		}
 
+		// TODO: dont use recursion
 		final Type supertype = type.getSupertype();
 		if(supertype!=null)
 			delete(supertype, pk);
@@ -385,15 +391,16 @@ public abstract class Database
 	private static class LoadResultSetHandler implements ResultSetHandler
 	{
 		private final Row row;
+		private final Type type;
 
-		LoadResultSetHandler(final Row row)
+		LoadResultSetHandler(final Row row, final Type type)
 		{
 			this.row = row;
+			this.type = type;
 		}
 
 		public void run(ResultSet resultSet) throws SQLException
 		{
-			final Type type = row.type;
 			if(!resultSet.next())
 				throw new RuntimeException("no such pk"); // TODO use some better exception
 			int columnIndex = 1;
