@@ -237,7 +237,7 @@ public class ExampleTest extends InjectorTest
 		assertMethod("Example", null, secondConstructor);
 		assertText("\n\n  ");
 
-		assertBehaviourHeader("set", "void", Modifier.PUBLIC);
+		final JavaBehaviour setter = assertBehaviourHeader("set", "void", Modifier.PUBLIC);
 		assertText(
 			"{\n"
 				+ "\t\t// ugly comment : { {\n"
@@ -252,6 +252,7 @@ public class ExampleTest extends InjectorTest
 				+ "\t\tint b=10;\n"
 				+ "\t\ta=a/(a+b); // ugly expression\n"
 				+ "\t}");
+		assertMethod("set", null, setter);
 	}
 
 }
