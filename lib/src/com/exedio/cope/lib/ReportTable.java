@@ -71,7 +71,7 @@ public final class ReportTable extends ReportNode
 		final ReportConstraint result = new ReportConstraint(constraintName, this);
 		if(constraints.put(result.name, result)!=null)
 			throw new RuntimeException(constraintName);
-		result.required = true;
+		result.notifyRequired();
 		return result;
 	}
 		
