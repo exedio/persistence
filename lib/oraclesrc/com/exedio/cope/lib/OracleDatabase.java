@@ -27,6 +27,11 @@ final class OracleDatabase
 		return "varchar2("+(maxLength!=Integer.MAX_VALUE ? maxLength : 2000)+")";
 	}
 	
+	String getDateTimestampType()
+	{
+		return "timestamp(3)";
+	}
+
 	private String extractConstraintName(final SQLException e, final String start, final String end)
 	{
 		final String m = e.getMessage();

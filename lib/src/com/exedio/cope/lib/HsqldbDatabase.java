@@ -22,6 +22,11 @@ class HsqldbDatabase extends Database
 		return "varchar("+maxLength+")";
 	}
 	
+	String getDateTimestampType()
+	{
+		return "timestamp";
+	}
+
 	private final String extractConstraintName(final SQLException e, final String start, final char end)
 	{
 		final String m = e.getMessage();

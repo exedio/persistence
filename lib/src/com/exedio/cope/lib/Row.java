@@ -119,6 +119,15 @@ final class Row
 		cache.put(column, new Double(value));
 	}
 	
+	void load(final TimestampColumn column, final long value)
+	{
+		if(closed)
+			throw new RuntimeException();
+
+		//System.out.println("Row.load TimestampColumn "+value);
+		cache.put(column, new Long(value));
+	}
+	
 	Object store(final Column column)
 	{
 		if(closed)

@@ -5,9 +5,10 @@ import java.util.Date;
 
 public class AttributeDateTest extends AttributeTest
 {
+
 	public void testSomeDate()
 	{
-		final Date date = new Date();
+		final Date date = new Date(1087365298214l);
 		final Date nextDate = new Date(date.getTime()+1l);
 
 		assertEquals(item.TYPE, item.someDate.getType());
@@ -42,6 +43,55 @@ public class AttributeDateTest extends AttributeTest
 		
 		item.passivate();
 		assertEquals(null, item.getSomeDate());
+	}
+	
+	public void testSomeLongDate()
+	{
+		final Date date = new Date(1087368298214l);
+		final Date nextDate = new Date(date.getTime()+1l);
+
+		assertEquals(item.TYPE, item.someLongDate.getType());
+		assertEquals(null, item.getSomeLongDate());
+		assertEquals(set(item, item2), toSet(Search.search(item.TYPE, Search.equal(item.someLongDate, (Date)null))));
+		assertEquals(set(item, item2), toSet(Search.search(item.TYPE, Search.isNull(item.someLongDate))));
+		assertEquals(set(), toSet(Search.search(item.TYPE, Search.notEqual(item.someLongDate, (Date)null))));
+		assertEquals(set(), toSet(Search.search(item.TYPE, Search.isNotNull(item.someLongDate))));
+
+		item.setSomeLongDate(date);
+		assertEquals(date, item.getSomeLongDate());
+
+		item.passivate();
+		assertEquals(date, item.getSomeLongDate());
+		assertEquals(
+			list(item),
+			Search.search(item.TYPE, Search.equal(item.someLongDate, date)));
+		assertEquals(
+			list(item2),
+			Search.search(item.TYPE, Search.notEqual(item.someLongDate, date)));
+		assertEquals(list(item2), Search.search(item.TYPE, Search.equal(item.someLongDate, (Date)null)));
+		assertEquals(list(item2), Search.search(item.TYPE, Search.isNull(item.someLongDate)));
+		assertEquals(list(item), Search.search(item.TYPE, Search.notEqual(item.someLongDate, (Date)null)));
+		assertEquals(list(item), Search.search(item.TYPE, Search.isNotNull(item.someLongDate)));
+
+		item.setSomeLongDate(nextDate);
+		item.passivate();
+		assertEquals(nextDate, item.getSomeLongDate());
+
+		item.setSomeLongDate(null);
+		assertEquals(null, item.getSomeLongDate());
+		
+		item.passivate();
+		assertEquals(null, item.getSomeLongDate());
+	}
+	
+	public static String toString(final Date date)
+	{
+		return date==null ? "NULL" : String.valueOf(date.getTime());
+	}
+	
+	public static void assertEquals(final Date expectedDate, final Date actualDate)
+	{
+		assertEquals("ts: "+toString(expectedDate)+" "+toString(actualDate), (Object)expectedDate, (Object)actualDate);
 	}
 
 }

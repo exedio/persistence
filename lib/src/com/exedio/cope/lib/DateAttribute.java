@@ -7,14 +7,38 @@ import java.util.List;
 
 public final class DateAttribute extends ObjectAttribute
 {
+	final boolean forbidTimestampColumn;
+
 	public DateAttribute(final Option option)
 	{
 		super(option);
+		this.forbidTimestampColumn = false;
+	}
+	
+	/**
+	 * @param forbidTimestampColumn
+	 * 		forces this date attribute to be implemented with an integer column
+	 * 		holding the time value of this date,
+	 * 		even if the database supports timestamp columns.
+	 */
+	public DateAttribute(final Option option, final boolean forbidTimestampColumn)
+	{
+		super(option);
+		this.forbidTimestampColumn = forbidTimestampColumn;
 	}
 	
 	protected List createColumns(final String name, final boolean notNull)
 	{
-		return Collections.singletonList(new IntegerColumn(getType(), name, notNull, 20, true, null));
+		final boolean useLong =
+			forbidTimestampColumn ||
+			(Database.theInstance.getDateTimestampType()==null);
+		
+		return
+			Collections.singletonList(
+				useLong
+				? (Column)new IntegerColumn(getType(), name, notNull, 20, true, null)
+				: (Column)new TimestampColumn(getType(), name, notNull)
+			);
 	}
 	
 	Object cacheToSurface(final Object cache)

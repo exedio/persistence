@@ -139,6 +139,8 @@ public abstract class Database
 			bf.append(type.protectedID);
 		}
 		
+		final Long testDate = new Long(System.currentTimeMillis());
+		
 		bf.append(" where ");
 		first = true;
 		for(Iterator i = Type.getTypes().iterator(); i.hasNext(); )
@@ -172,6 +174,8 @@ public abstract class Database
 					bf.appendValue(column, new Double(2.2));
 				else if(column instanceof StringColumn)
 					bf.appendValue(column, "z");
+				else if(column instanceof TimestampColumn)
+					bf.appendValue(column, testDate);
 				else
 					throw new RuntimeException(column.toString());
 			}
@@ -426,10 +430,9 @@ public abstract class Database
 			bf.append(')');
 		}
 
-		//System.out.println("storing "+bf.toString());
-
 		try
 		{
+			//System.out.println("storing "+bf.toString());
 			executeSQL(bf, EMPTY_RESULT_SET_HANDLER);
 		}
 		catch(UniqueViolationException e)
@@ -779,6 +782,7 @@ public abstract class Database
 	abstract String getIntegerType(int precision);
 	abstract String getDoubleType(int precision);
 	abstract String getStringType(int maxLength);
+	abstract String getDateTimestampType();
 	
 	private void createTable(final Type type)
 	{
