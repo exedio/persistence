@@ -146,28 +146,6 @@ public final class JavaFile
 		
 		buildStage=false;
 		
-		// ATTENTION!
-		// This is a hack!
-		// Assumes, that array types are given as
-		//   String[] x;
-		// and not as
-		//   String x[];
-		// or
-		//   String [] x;
-		// Also does not work for arrays of basic types.
-		// TODO
-		String arrayBefore="";
-		String arrayAfter="";
-		while(typename.endsWith("[]"))
-		{
-			if(arrayBefore=="")
-				arrayBefore="L";
-			arrayBefore="["+arrayBefore;
-			arrayAfter=";";
-			typename=typename.substring(0,typename.length()-"[]".length());
-			//System.out.println("modified typename to "+arrayBefore+typename+arrayAfter);
-		}
-
 		final ClassLoader classLoader = getClass().getClassLoader();
 
 		// implements Java Language Specification 6.5.4.2 "Qualified Type Names"
@@ -176,8 +154,8 @@ public final class JavaFile
 		{
 			try
 			{
-				//System.out.println("findType("+typename+"): try explicit :"+arrayBefore+typename+arrayAfter);
-				return Class.forName(arrayBefore+typename+arrayAfter, false, classLoader);
+				//System.out.println("findType("+typename+"): try explicit :"+typename);
+				return Class.forName(typename, false, classLoader);
 			}
 			catch(ClassNotFoundException e)
 			{
@@ -215,11 +193,11 @@ public final class JavaFile
 		{
 			//System.out.println("findType("+typename+"): try by package :"+arrayBefore + (packagename!=null ? packagename+'.'+typename : typename) + arrayAfter);
 			return Class.forName(
-			arrayBefore + (
-			packagename!=null ?
-			packagename+'.'+typename :
-				typename) +
-				arrayAfter,
+			(
+				packagename!=null ?
+					packagename+'.'+typename :
+					typename
+			),
 			false, classLoader);
 		}
 		catch(ClassNotFoundException e)
@@ -231,8 +209,8 @@ public final class JavaFile
 			String s=(String)(import_single.get(typename));
 			if(s!=null)
 			{
-				//System.out.println("findType("+typename+"): try by single :"+arrayBefore+s+arrayAfter);
-				return Class.forName(arrayBefore+s+arrayAfter, false, classLoader);
+				//System.out.println("findType("+typename+"): try by single :"+s);
+				return Class.forName(s, false, classLoader);
 			}
 		}
 		catch(ClassNotFoundException e)
@@ -246,7 +224,7 @@ public final class JavaFile
 		for(Iterator i=import_demand.iterator(); i.hasNext(); )
 		{
 			String importString=(String)i.next();
-			String full_element_type=arrayBefore+importString+typename+arrayAfter;
+			String full_element_type=importString+typename;
 			try
 			{
 				//System.out.println("findType("+typename+"): try by demand :"+full_element_type);
