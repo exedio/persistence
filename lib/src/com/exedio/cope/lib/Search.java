@@ -130,6 +130,16 @@ public abstract class Search
 		return new EqualCondition(attribute, new Integer(value));
 	}
 	
+	public static final EqualCondition equal(final LongAttribute attribute, final Long value)
+	{
+		return new EqualCondition(attribute, value);
+	}
+	
+	public static final EqualCondition equal(final LongAttribute attribute, final long value)
+	{
+		return new EqualCondition(attribute, new Long(value));
+	}
+	
 	public static final EqualCondition equal(final DoubleAttribute attribute, final Double value)
 	{
 		return new EqualCondition(attribute, value);
@@ -155,6 +165,11 @@ public abstract class Search
 		return new LessCondition(attribute, value);
 	}
 	
+	public static final LessCondition less(final LongAttribute attribute, final long value)
+	{
+		return new LessCondition(attribute, value);
+	}
+	
 	public static final LessCondition less(final DoubleAttribute attribute, final double value)
 	{
 		return new LessCondition(attribute, value);
@@ -171,6 +186,11 @@ public abstract class Search
 	}
 	
 	public static final LessEqualCondition lessOrEqual(final IntegerAttribute attribute, final int value)
+	{
+		return new LessEqualCondition(attribute, value);
+	}
+	
+	public static final LessEqualCondition lessOrEqual(final LongAttribute attribute, final long value)
 	{
 		return new LessEqualCondition(attribute, value);
 	}
@@ -195,6 +215,11 @@ public abstract class Search
 		return new GreaterCondition(attribute, value);
 	}
 	
+	public static final GreaterCondition greater(final LongAttribute attribute, final long value)
+	{
+		return new GreaterCondition(attribute, value);
+	}
+	
 	public static final GreaterCondition greater(final DoubleAttribute attribute, final double value)
 	{
 		return new GreaterCondition(attribute, value);
@@ -211,6 +236,11 @@ public abstract class Search
 	}
 	
 	public static final GreaterEqualCondition greaterOrEqual(final IntegerAttribute attribute, final int value)
+	{
+		return new GreaterEqualCondition(attribute, value);
+	}
+	
+	public static final GreaterEqualCondition greaterOrEqual(final LongAttribute attribute, final long value)
 	{
 		return new GreaterEqualCondition(attribute, value);
 	}

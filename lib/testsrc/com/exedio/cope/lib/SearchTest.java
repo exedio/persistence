@@ -12,8 +12,8 @@ public class SearchTest extends DatabaseLibTest
 		final ItemWithManyAttributes item2;
 		try
 		{
-			item = new ItemWithManyAttributes("someString", 5, 2.2, true, someItem, ItemWithManyAttributes.SomeEnumeration.enumValue1);
-			item2 = new ItemWithManyAttributes("someString2", 5, 2.2, false, someItem, ItemWithManyAttributes.SomeEnumeration.enumValue2);
+			item = new ItemWithManyAttributes("someString", 5, 6l, 2.2, true, someItem, ItemWithManyAttributes.SomeEnumeration.enumValue1);
+			item2 = new ItemWithManyAttributes("someString2", 5, 6l, 2.2, false, someItem, ItemWithManyAttributes.SomeEnumeration.enumValue2);
 		}
 		catch(NotNullViolationException e)
 		{

@@ -8,6 +8,7 @@ import com.exedio.cope.lib.DoubleAttribute;
 import com.exedio.cope.lib.EnumerationAttribute;
 import com.exedio.cope.lib.EnumerationValue;
 import com.exedio.cope.lib.IntegerAttribute;
+import com.exedio.cope.lib.LongAttribute;
 import com.exedio.cope.lib.Statement;
 import com.exedio.cope.lib.StringAttribute;
 
@@ -37,6 +38,11 @@ public class LiteralCondition extends Condition
 	}
 	
 	LiteralCondition(final String operator, final IntegerAttribute attribute, final Integer value)
+	{
+		this(operator, (Attribute)attribute, (Object)value);
+	}
+	
+	LiteralCondition(final String operator, final LongAttribute attribute, final Long value)
 	{
 		this(operator, (Attribute)attribute, (Object)value);
 	}

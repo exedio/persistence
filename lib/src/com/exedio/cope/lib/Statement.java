@@ -90,7 +90,7 @@ public final class Statement
 	public Statement defineColumnInteger()
 	{
 		if(columnTypes!=null)
-			columnTypes.add(IntegerColumn.JDBC_TYPE);
+			columnTypes.add(IntegerColumn.JDBC_TYPE_INT);
 		return this;
 	}
 		

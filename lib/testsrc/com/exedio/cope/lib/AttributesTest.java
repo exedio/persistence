@@ -13,7 +13,7 @@ public class AttributesTest extends DatabaseLibTest
 		super.setUp();
 		someItem = new EmptyItem();
 		someItem2 = new EmptyItem();
-		item = new ItemWithManyAttributes("someString", 5, 2.2, true, someItem, ItemWithManyAttributes.SomeEnumeration.enumValue1);
+		item = new ItemWithManyAttributes("someString", 5, 6l, 2.2, true, someItem, ItemWithManyAttributes.SomeEnumeration.enumValue1);
 	}
 	
 	public void tearDown() throws Exception
@@ -90,7 +90,7 @@ public class AttributesTest extends DatabaseLibTest
 
 		try
 		{
-			new ItemWithManyAttributes(null, 5, 2.2, true, someItem, ItemWithManyAttributes.SomeEnumeration.enumValue1);
+			new ItemWithManyAttributes(null, 5, 6l, 2.2, true, someItem, ItemWithManyAttributes.SomeEnumeration.enumValue1);
 			fail("should have thrown NotNullViolationException");
 		}
 		catch(NotNullViolationException e)
@@ -167,6 +167,75 @@ public class AttributesTest extends DatabaseLibTest
 				Search.search(
 					item.TYPE,
 					Search.equal(item.someNotNullInteger, Integer.MAX_VALUE))));
+	}
+
+	public void testSomeLong()
+	{
+		assertEquals(item.TYPE, item.someLong.getType());
+		assertEquals(null, item.getSomeLong());
+		assertEquals(list(item), Search.search(item.TYPE, Search.equal(item.someLong, null)));
+		assertEquals(list(item), Search.search(item.TYPE, Search.isNull(item.someLong)));
+
+		item.setSomeLong(new Long(11));
+		assertEquals(new Long(11), item.getSomeLong());
+
+		item.passivate();
+		assertEquals(new Long(11), item.getSomeLong());
+		assertEquals(
+			list(item),
+			Search.search(item.TYPE, Search.equal(item.someLong, 11)));
+		assertEquals(list(), Search.search(item.TYPE, Search.equal(item.someLong, null)));
+		assertEquals(list(), Search.search(item.TYPE, Search.isNull(item.someLong)));
+
+		item.setSomeLong(null);
+		assertEquals(null, item.getSomeLong());
+		
+		item.passivate();
+		assertEquals(null, item.getSomeLong());
+	}
+
+	public void testSomeNotNullLong()
+	{
+		assertEquals(item.TYPE, item.someNotNullLong.getType());
+		assertEquals(6l, item.getSomeNotNullLong());
+		item.setSomeNotNullLong(21l);
+		assertEquals(21l, item.getSomeNotNullLong());
+
+		item.setSomeNotNullLong(0l);
+		assertEquals(0l, item.getSomeNotNullLong());
+
+		item.passivate();
+		assertEquals(0l, item.getSomeNotNullLong());
+		assertEquals(
+			set(item),
+			toSet(
+				Search.search(
+					item.TYPE,
+					Search.equal(item.someNotNullLong, 0l))));
+
+		item.setSomeNotNullLong(Long.MIN_VALUE);
+		assertEquals(Long.MIN_VALUE, item.getSomeNotNullLong());
+
+		item.passivate();
+		assertEquals(Long.MIN_VALUE, item.getSomeNotNullLong());
+		assertEquals(
+			set(item),
+			toSet(
+				Search.search(
+					item.TYPE,
+					Search.equal(item.someNotNullLong, Long.MIN_VALUE))));
+
+		item.setSomeNotNullLong(Long.MAX_VALUE);
+		assertEquals(Long.MAX_VALUE, item.getSomeNotNullLong());
+
+		item.passivate();
+		assertEquals(Long.MAX_VALUE, item.getSomeNotNullLong());
+		assertEquals(
+			set(item),
+			toSet(
+				Search.search(
+					item.TYPE,
+					Search.equal(item.someNotNullLong, Long.MAX_VALUE))));
 	}
 
 	public void testSomeDouble()
@@ -305,7 +374,7 @@ public class AttributesTest extends DatabaseLibTest
 
 		try
 		{
-			new ItemWithManyAttributes("someString", 5, 2.2, true, null, ItemWithManyAttributes.SomeEnumeration.enumValue1);
+			new ItemWithManyAttributes("someString", 5, 6l, 2.2, true, null, ItemWithManyAttributes.SomeEnumeration.enumValue1);
 			fail("should have thrown NotNullViolationException");
 		}
 		catch(NotNullViolationException e)
@@ -367,7 +436,7 @@ public class AttributesTest extends DatabaseLibTest
 
 		try
 		{
-			new ItemWithManyAttributes("someString", 5, 2.2, true, someItem, null);
+			new ItemWithManyAttributes("someString", 5, 6l, 2.2, true, someItem, null);
 			fail("should have thrown NotNullViolationException");
 		}
 		catch(NotNullViolationException e)

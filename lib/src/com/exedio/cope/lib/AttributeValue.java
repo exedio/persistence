@@ -23,6 +23,12 @@ public final class AttributeValue
 		this.value = value;
 	}
 	
+	public AttributeValue(final LongAttribute attribute, final Long value)
+	{
+		this.attribute = attribute;
+		this.value = value;
+	}
+	
 	public AttributeValue(final DoubleAttribute attribute, final Double value)
 	{
 		this.attribute = attribute;

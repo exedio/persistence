@@ -5,6 +5,7 @@ import com.exedio.cope.lib.DoubleAttribute;
 import com.exedio.cope.lib.EnumerationAttribute;
 import com.exedio.cope.lib.EnumerationValue;
 import com.exedio.cope.lib.IntegerAttribute;
+import com.exedio.cope.lib.LongAttribute;
 import com.exedio.cope.lib.StringAttribute;
 
 public class GreaterCondition extends LiteralCondition
@@ -19,6 +20,11 @@ public class GreaterCondition extends LiteralCondition
 	public GreaterCondition(final IntegerAttribute attribute, final int value)
 	{
 		super(OPERATOR, attribute, new Integer(value));
+	}
+
+	public GreaterCondition(final LongAttribute attribute, final long value)
+	{
+		super(OPERATOR, attribute, new Long(value));
 	}
 
 	public GreaterCondition(final DoubleAttribute attribute, final double value)

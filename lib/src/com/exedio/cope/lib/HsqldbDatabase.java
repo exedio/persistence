@@ -9,7 +9,7 @@ class HsqldbDatabase extends Database
 	String getIntegerType(final int precision)
 	{
 		// TODO: use precision to select between TINYINT, SMALLINT, INTEGER, BIGINT, NUMBER
-		return "integer";
+		return (precision <= 10) ? "integer" : "bigint";
 	}
 
 	String getDoubleType(final int precision)

@@ -7,6 +7,7 @@ import java.util.List;
 import com.exedio.cope.lib.BooleanAttribute;
 import com.exedio.cope.lib.DoubleAttribute;
 import com.exedio.cope.lib.IntegerAttribute;
+import com.exedio.cope.lib.LongAttribute;
 import com.exedio.cope.lib.StringAttribute;
 
 public class PersistentNativeAttribute extends PersistentAttribute
@@ -73,6 +74,7 @@ public class PersistentNativeAttribute extends PersistentAttribute
 	static
 	{
 		fillNativeTypeMap(BooleanAttribute.class, "Boolean", "boolean", "(", "?Boolean.TRUE:Boolean.FALSE)", "(", ").booleanValue()");
+		fillNativeTypeMap(LongAttribute.class, "Long", "long", "new Long(", ")", "(", ").longValue()");
 		fillNativeTypeMap(IntegerAttribute.class, "Integer", "int", "new Integer(", ")", "(", ").intValue()");
 		fillNativeTypeMap(DoubleAttribute.class, "Double", "double", "new Double(", ")", "(", ").doubleValue()");
 		fillNativeTypeMap(StringAttribute.class, "String", null, null, null, null, null);

@@ -103,12 +103,12 @@ final class Row
 		cache.put(column, value);
 	}
 	
-	void load(final IntegerColumn column, final int value)
+	void load(final IntegerColumn column, final long value)
 	{
 		if(closed)
 			throw new RuntimeException();
 
-		cache.put(column, new Integer(value));
+		cache.put(column, column.longInsteadOfInt ? (Number)new Long(value) : new Integer((int)value));
 	}
 	
 	void load(final DoubleColumn column, final double value)

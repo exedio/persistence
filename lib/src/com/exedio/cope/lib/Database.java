@@ -4,6 +4,7 @@ package com.exedio.cope.lib;
 import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -166,7 +167,7 @@ public abstract class Database
 					append('=');
 
 				if(column instanceof IntegerColumn)
-					bf.appendValue(column, new Integer(1));
+					bf.appendValue(column, ((IntegerColumn)column).longInsteadOfInt ? (Number)new Long(1) : new Integer(1));
 				else if(column instanceof DoubleColumn)
 					bf.appendValue(column, new Double(2.2));
 				else if(column instanceof StringColumn)
@@ -519,6 +520,18 @@ public abstract class Database
 			return;
 		}
 	}
+	
+	private final static int convertSQLResult(final Object sqlInteger)
+	{
+		// IMPLEMENTATION NOTE for Oracle
+		// Whether the returned object is an Integer or a BigDecimal,
+		// depends on whether OracleStatement.defineColumnType is used or not,
+		// so we support both here.
+		if(sqlInteger instanceof BigDecimal)
+			return ((BigDecimal)sqlInteger).intValue();
+		else
+			return ((Integer)sqlInteger).intValue();
+	}
 
 	private static class IntegerResultSetHandler implements ResultSetHandler
 	{
@@ -528,7 +541,8 @@ public abstract class Database
 		{
 			if(!resultSet.next())
 				throw new RuntimeException();
-			result = IntegerColumn.convertSQLResult(resultSet.getObject(1));
+
+			result = convertSQLResult(resultSet.getObject(1));
 		}
 	}
 
@@ -549,9 +563,9 @@ public abstract class Database
 			}
 			else
 			{
-				resultLo = IntegerColumn.convertSQLResult(oLo)-1;
+				resultLo = convertSQLResult(oLo)-1;
 				final Object oHi = resultSet.getObject(2);
-				resultHi = IntegerColumn.convertSQLResult(oHi)+1;
+				resultHi = convertSQLResult(oHi)+1;
 			}
 		}
 	}

@@ -5,6 +5,7 @@ import com.exedio.cope.lib.DoubleAttribute;
 import com.exedio.cope.lib.EnumerationAttribute;
 import com.exedio.cope.lib.EnumerationValue;
 import com.exedio.cope.lib.IntegerAttribute;
+import com.exedio.cope.lib.LongAttribute;
 import com.exedio.cope.lib.StringAttribute;
 
 public class LessCondition extends LiteralCondition
@@ -19,6 +20,11 @@ public class LessCondition extends LiteralCondition
 	public LessCondition(final IntegerAttribute attribute, final int value)
 	{
 		super(OPERATOR, attribute, new Integer(value));
+	}
+
+	public LessCondition(final LongAttribute attribute, final long value)
+	{
+		super(OPERATOR, attribute, new Long(value));
 	}
 
 	public LessCondition(final DoubleAttribute attribute, final double value)

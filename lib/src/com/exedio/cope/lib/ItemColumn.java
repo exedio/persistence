@@ -12,7 +12,7 @@ final class ItemColumn extends IntegerColumn
 					  final boolean notNull,
 					  final Class targetTypeClass, final String integrityConstraintName)
 	{
-		super(type, trimmedName, notNull, SYNTETIC_PRIMARY_KEY_PRECISION);
+		super(type, trimmedName, notNull, SYNTETIC_PRIMARY_KEY_PRECISION, false);
 		if(targetTypeClass==null)
 			throw new RuntimeException();
 		if(integrityConstraintName==null)

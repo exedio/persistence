@@ -14,11 +14,11 @@ public class LiteralConditionTest extends DatabaseLibTest
 	{
 		super.setUp();
 		someItem = new EmptyItem();
-		item1 = new ItemWithManyAttributes("string1", 1, 2.1, true, someItem, ItemWithManyAttributes.SomeEnumeration.enumValue1);
-		item2 = new ItemWithManyAttributes("string2", 2, 2.2, true, someItem, ItemWithManyAttributes.SomeEnumeration.enumValue1);
-		item3 = new ItemWithManyAttributes("string3", 3, 2.3, true, someItem, ItemWithManyAttributes.SomeEnumeration.enumValue2);
-		item4 = new ItemWithManyAttributes("string4", 4, 2.4, true, someItem, ItemWithManyAttributes.SomeEnumeration.enumValue3);
-		item5 = new ItemWithManyAttributes("string5", 5, 2.5, true, someItem, ItemWithManyAttributes.SomeEnumeration.enumValue3);
+		item1 = new ItemWithManyAttributes("string1", 1, 11l, 2.1, true, someItem, ItemWithManyAttributes.SomeEnumeration.enumValue1);
+		item2 = new ItemWithManyAttributes("string2", 2, 12l, 2.2, true, someItem, ItemWithManyAttributes.SomeEnumeration.enumValue1);
+		item3 = new ItemWithManyAttributes("string3", 3, 13l, 2.3, true, someItem, ItemWithManyAttributes.SomeEnumeration.enumValue2);
+		item4 = new ItemWithManyAttributes("string4", 4, 14l, 2.4, true, someItem, ItemWithManyAttributes.SomeEnumeration.enumValue3);
+		item5 = new ItemWithManyAttributes("string5", 5, 15l, 2.5, true, someItem, ItemWithManyAttributes.SomeEnumeration.enumValue3);
 	}
 	
 	public void tearDown() throws Exception
@@ -40,6 +40,8 @@ public class LiteralConditionTest extends DatabaseLibTest
 		assertEquals(set(item1, item2),
 			toSet(Search.search(item1.TYPE, Search.less(item1.someNotNullInteger, 3))));
 		assertEquals(set(item1, item2),
+			toSet(Search.search(item1.TYPE, Search.less(item1.someNotNullLong, 13l))));
+		assertEquals(set(item1, item2),
 			toSet(Search.search(item1.TYPE, Search.less(item1.someNotNullDouble, 2.3))));
 		assertEquals(set(item1, item2),
 			toSet(Search.search(item1.TYPE, Search.less(item1.someNotNullEnumeration, ItemWithManyAttributes.SomeEnumeration.enumValue2))));
@@ -49,6 +51,8 @@ public class LiteralConditionTest extends DatabaseLibTest
 			toSet(Search.search(item1.TYPE, Search.lessOrEqual(item1.someNotNullString, "string3"))));
 		assertEquals(set(item1, item2, item3),
 			toSet(Search.search(item1.TYPE, Search.lessOrEqual(item1.someNotNullInteger, 3))));
+		assertEquals(set(item1, item2, item3),
+			toSet(Search.search(item1.TYPE, Search.lessOrEqual(item1.someNotNullLong, 13l))));
 		assertEquals(set(item1, item2, item3),
 			toSet(Search.search(item1.TYPE, Search.lessOrEqual(item1.someNotNullDouble, 2.3))));
 		assertEquals(set(item1, item2, item3),
@@ -60,6 +64,8 @@ public class LiteralConditionTest extends DatabaseLibTest
 		assertEquals(set(item4, item5),
 			toSet(Search.search(item1.TYPE, Search.greater(item1.someNotNullInteger, 3))));
 		assertEquals(set(item4, item5),
+			toSet(Search.search(item1.TYPE, Search.greater(item1.someNotNullLong, 13l))));
+		assertEquals(set(item4, item5),
 			toSet(Search.search(item1.TYPE, Search.greater(item1.someNotNullDouble, 2.3))));
 		assertEquals(set(item4, item5),
 			toSet(Search.search(item1.TYPE, Search.greater(item1.someNotNullEnumeration, ItemWithManyAttributes.SomeEnumeration.enumValue2))));
@@ -69,6 +75,8 @@ public class LiteralConditionTest extends DatabaseLibTest
 			toSet(Search.search(item1.TYPE, Search.greaterOrEqual(item1.someNotNullString, "string3"))));
 		assertEquals(set(item3, item4, item5),
 			toSet(Search.search(item1.TYPE, Search.greaterOrEqual(item1.someNotNullInteger, 3))));
+		assertEquals(set(item3, item4, item5),
+			toSet(Search.search(item1.TYPE, Search.greaterOrEqual(item1.someNotNullLong, 13l))));
 		assertEquals(set(item3, item4, item5),
 			toSet(Search.search(item1.TYPE, Search.greaterOrEqual(item1.someNotNullDouble, 2.3))));
 		assertEquals(set(item3, item4, item5),

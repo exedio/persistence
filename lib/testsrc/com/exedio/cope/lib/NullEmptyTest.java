@@ -15,8 +15,8 @@ public class NullEmptyTest extends DatabaseLibTest
 	{
 		super.setUp();
 		someItem = new EmptyItem();
-		item = new ItemWithManyAttributes("someString", 5, 2.2, true, someItem, ItemWithManyAttributes.SomeEnumeration.enumValue1);
-		item2 = new ItemWithManyAttributes("someString", 5, 2.2, false, someItem, ItemWithManyAttributes.SomeEnumeration.enumValue2);
+		item = new ItemWithManyAttributes("someString", 5, 6l, 2.2, true, someItem, ItemWithManyAttributes.SomeEnumeration.enumValue1);
+		item2 = new ItemWithManyAttributes("someString", 5, 6l, 2.2, false, someItem, ItemWithManyAttributes.SomeEnumeration.enumValue2);
 		// TODO: database must hide this from the user
 		if(HsqldbDatabase.class.equals(Database.theInstance.getClass()))
 			emptyString = "";
