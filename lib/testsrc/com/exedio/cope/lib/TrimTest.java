@@ -7,17 +7,26 @@ public class TrimTest extends AbstractLibTest
 	{
 		final String actual = Database.trimString(actualLongString, maxLength);
 		assertEquals(">"+expected+"< >"+actual+"<", expected, actual);
+		if(actualLongString.length()>maxLength)
+			assertEquals(maxLength, actual.length());
+		else
+			assertEquals(actualLongString.length(), actual.length());
 	}
 
 	public void testTrim()
 	{
-		assertTrim("FST", "FirstSecondThird", 5);
-		assertTrim("FirSecThi", "FirstSecondThird", 10);
+		assertTrim("FiSeT", "FirstSecondThird", 5);
+		assertTrim("FirsSecThi", "FirstSecondThird", 10);
+		assertTrim("FirsSecoThi", "FirstSecondThird", 11);
+		assertTrim("FirsSecoThir", "FirstSecondThird", 12);
+		assertTrim("FirstSecoThir", "FirstSecondThird", 13);
+		assertTrim("FirstSeconThir", "FirstSecondThird", 14);
 		assertTrim("FirstSeconThird", "FirstSecondThird", 15);
+		assertTrim("FirstSecondThird", "FirstSecondThird", 16);
 		assertTrim("FirstSecondThird", "FirstSecondThird", 18);
 
-		assertTrim("1ir2ec3hi", "1irst2econd3hird", 10);
-		assertTrim("_ir_ec_hi", "_irst_econd_hird", 10);
+		assertTrim("1irs2ec3hi", "1irst2econd3hird", 10);
+		assertTrim("_irs_ec_hi", "_irst_econd_hird", 10);
 	}
 
 }

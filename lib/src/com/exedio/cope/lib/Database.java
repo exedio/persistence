@@ -664,6 +664,8 @@ public abstract class Database
 		if(longString.length()<=maxLength)
 			return longString;
 
+		int longStringLength = longString.length();
+		final int[] trimPotential = new int[maxLength];
 		final ArrayList words = new ArrayList();
 		{
 			final StringBuffer buf = new StringBuffer();
@@ -673,30 +675,59 @@ public abstract class Database
 				if((c=='_' || Character.isUpperCase(c) || Character.isDigit(c)) && buf.length()>0)
 				{
 					words.add(buf.toString());
+					int potential = 1;
+					for(int j = buf.length()-1; j>=0; j--, potential++)
+						trimPotential[j] += potential; 
 					buf.setLength(0);
 				}
-				buf.append(c);
+				if(buf.length()<maxLength)
+					buf.append(c);
+				else
+					longStringLength--;
 			}
 			if(buf.length()>0)
 			{
 				words.add(buf.toString());
+				int potential = 1;
+				for(int j = buf.length()-1; j>=0; j--, potential++)
+					trimPotential[j] += potential; 
 				buf.setLength(0);
 			}
 		}
 		
-		// TODO: trim a bit more intelligently
-		final int wordLength = maxLength/words.size();
-		final StringBuffer result = new StringBuffer(longString.length());
+		final int expectedTrimPotential = longStringLength - maxLength;
+		//System.out.println("expected trim potential = "+expectedTrimPotential);
+
+		int wordLength;
+		int remainder = 0;
+		for(wordLength = trimPotential.length-1; wordLength>=0; wordLength--)
+		{
+			//System.out.println("trim potential ["+wordLength+"] = "+trimPotential[wordLength]);
+			remainder = trimPotential[wordLength] - expectedTrimPotential;
+			if(remainder>=0)
+				break;
+		}
 		
+		final StringBuffer result = new StringBuffer(longStringLength);
 		for(Iterator i = words.iterator(); i.hasNext(); )
 		{
 			final String word = (String)i.next();
-			if(word.length()>wordLength)
+			//System.out.println("word "+word+" remainder:"+remainder);
+			if((word.length()>wordLength) && remainder>0)
+			{
+				result.append(word.substring(0, wordLength+1));
+				remainder--;
+			}
+			else if(word.length()>wordLength)
 				result.append(word.substring(0, wordLength));
 			else
 				result.append(word);
 		}
 		//System.out.println("---- trimName("+longString+","+maxLength+") == "+result+"     --- "+words);
+
+		if(result.length()>maxLength)
+			throw new RuntimeException(result.toString()+maxLength);
+
 		return result.toString();
 	}
 	
