@@ -359,6 +359,16 @@ public class ExampleTest extends InjectorTest
 		assertText("{}");
 		assertMethod("accessifierPrivate", null, accessifierPrivate);
 		assertText("\n\t");
+
+		final JavaBehaviour accessifierProtected =
+			assertBehaviourHeader(
+				"accessifierProtected",
+				"void",
+				Modifier.PROTECTED,
+				"protected void accessifierProtected() ");
+		assertText("{}");
+		assertMethod("accessifierProtected", null, accessifierProtected);
+		assertText("\n\t");
 	}
 
 }
