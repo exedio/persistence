@@ -326,17 +326,28 @@ public abstract class Database
 		{
 			final Table table = type.table;
 			final List columns = table.getColumns();
-			for(Iterator i = columns.iterator(); i.hasNext(); )
+			final Iterator i = columns.iterator();
+			if(i.hasNext())
 			{
-				if(first)
-					first = false;
-				else
-					bf.append(',');
+				do
+				{
+					if(first)
+						first = false;
+					else
+						bf.append(',');
 
-				final Column column = (Column)i.next();
+					final Column column = (Column)i.next();
+					bf.append(table.protectedID).
+						append('.').
+						append(column.protectedID).defineColumn(column);
+				}
+				while(i.hasNext());
+			}
+			else
+			{
 				bf.append(table.protectedID).
 					append('.').
-					append(column.protectedID).defineColumn(column);
+					append(table.getPrimaryKey().protectedID).defineColumnInteger();
 			}
 		}
 
