@@ -645,24 +645,14 @@ final class Generator
 		writeCommentGenerated();
 		writeCommentFooter();
 		
-		// the TYPE variable
 		o.write("public static final "+Type.class.getName()+" TYPE = ");
 		o.write(lineSeparator);
-		
-		// open the constructor of type
+
 		o.write("\t\tnew "+Type.class.getName()+"(");
-		o.write(lineSeparator);
-		
-		// the class itself
-		// TODO: make less line breaks
-		o.write("\t\t\t");
 		o.write(persistentClass.getName());
-		o.write(".class");
+		o.write(".class)");
 		o.write(lineSeparator);
 
-		// close the constructor of Type
-		o.write("\t\t)");
-		o.write(lineSeparator);
 		o.write(";");
 	}
 
