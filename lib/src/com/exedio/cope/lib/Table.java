@@ -96,5 +96,10 @@ final class Table
 		buildStage = false;
 		return uniqueConstraints;
 	}
+	
+	public final String toString()
+	{
+		return id;
+	}
 
 }
