@@ -13,7 +13,7 @@ public abstract class ComputedStringFunction
 			final String[] sqlFragments,
 			final String functionName)
 	{
-		super(sources, sqlFragments, functionName);
+		super(sources, sqlFragments, functionName, StringColumn.JDBC_TYPE);
 	}
 
 	final Object load(final ResultSet resultSet, final int columnIndex)

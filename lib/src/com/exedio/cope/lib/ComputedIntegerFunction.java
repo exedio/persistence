@@ -14,7 +14,7 @@ public abstract class ComputedIntegerFunction
 			final String[] sqlFragments,
 			final String functionName)
 	{
-		super(sources, sqlFragments, functionName);
+		super(sources, sqlFragments, functionName, IntegerColumn.JDBC_TYPE_INT);
 	}
 
 	final Object load(final ResultSet resultSet, final int columnIndex)

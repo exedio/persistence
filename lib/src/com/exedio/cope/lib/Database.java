@@ -240,7 +240,6 @@ abstract class Database
 		final Selectable[] selectables = query.selectables;
 		final Column[] selectColumns = new Column[selectables.length];
 		final Type[] selectTypes = new Type[selectables.length];
-		Column deterministicOrderColumn = null;
 
 		for(int selectableIndex = 0; selectableIndex<selectables.length; selectableIndex++)
 		{
@@ -249,13 +248,29 @@ abstract class Database
 			final Type selectType;
 			final Table selectTable;
 			final Column selectPrimaryKey;
-			if(selectable instanceof ObjectAttribute)
+			if(selectable instanceof Function)
 			{
-				final ObjectAttribute selectAttribute = (ObjectAttribute)selectable;
+				final Function selectAttribute = (Function)selectable;
 				selectType = selectAttribute.getType();
-				selectColumn = selectAttribute.getMainColumn();
-				selectTable = selectColumn.table;
-				selectPrimaryKey = selectTable.getPrimaryKey();
+
+				if(selectableIndex>0)
+					bf.append(',');
+				
+				if(selectable instanceof ObjectAttribute)
+				{
+					selectColumn = ((ObjectAttribute)selectAttribute).getMainColumn();
+					selectTable = selectColumn.table;
+					selectPrimaryKey = selectTable.getPrimaryKey();
+					bf.append(selectColumn.table.protectedID).
+						append('.').
+						append(selectColumn.protectedID).defineColumn(selectColumn);
+				}
+				else
+				{
+					selectColumn = null;
+					final ComputedFunction computedFunction = (ComputedFunction)selectable;
+					bf.append(computedFunction).defineColumn(computedFunction);
+				}
 			}
 			else
 			{
@@ -263,34 +278,32 @@ abstract class Database
 				selectTable = selectType.getTable();
 				selectPrimaryKey = selectTable.getPrimaryKey();
 				selectColumn = selectPrimaryKey;
-			}
 
-			selectColumns[selectableIndex] = selectColumn;
-			if(deterministicOrderColumn==null)
-				deterministicOrderColumn = selectPrimaryKey;
-			
-			if(selectableIndex>0)
-				bf.append(',');
-			
-			bf.append(selectColumn.table.protectedID).
-				append('.').
-				append(selectColumn.protectedID).defineColumn(selectColumn);
-			
-			if(selectColumn.primaryKey)
-			{
-				final StringColumn selectTypeColumn = selectColumn.getTypeColumn();
-				if(selectTypeColumn!=null)
+				if(selectableIndex>0)
+					bf.append(',');
+				
+				bf.append(selectColumn.table.protectedID).
+					append('.').
+					append(selectColumn.protectedID).defineColumn(selectColumn);
+
+				if(selectColumn.primaryKey)
 				{
-					bf.append(',').
-						append(selectTable.protectedID).
-						append('.').
-						append(selectTypeColumn.protectedID).defineColumn(selectTypeColumn);
+					final StringColumn selectTypeColumn = selectColumn.getTypeColumn();
+					if(selectTypeColumn!=null)
+					{
+						bf.append(',').
+							append(selectTable.protectedID).
+							append('.').
+							append(selectTypeColumn.protectedID).defineColumn(selectTypeColumn);
+					}
+					else
+						selectTypes[selectableIndex] = selectType;
 				}
 				else
 					selectTypes[selectableIndex] = selectType;
 			}
-			else
-				selectTypes[selectableIndex] = selectType;
+
+			selectColumns[selectableIndex] = selectColumn;
 		}
 
 		bf.append(" from ");
@@ -329,11 +342,12 @@ abstract class Database
 		{
 			if(!firstOrderBy)
 				bf.append(',');
-
+			
+			final Table deterministicOrderTable = ((Type)query.fromTypes.first()).getTable();
 			bf.append("abs(").
-				append(deterministicOrderColumn.table.protectedID).
+				append(deterministicOrderTable.protectedID).
 				append('.').
-				append(deterministicOrderColumn.protectedID).
+				append(deterministicOrderTable.getPrimaryKey().protectedID).
 				append("*4+1)");
 		}
 
@@ -409,6 +423,11 @@ abstract class Database
 						final Object selectValue = selectColumns[selectableIndex].load(resultSet, columnIndex++);
 						final ObjectAttribute selectAttribute = (ObjectAttribute)selectable;
 						resultCell = selectAttribute.cacheToSurface(selectValue);
+					}
+					else if(selectable instanceof ComputedFunction)
+					{
+						final ComputedFunction selectFunction = (ComputedFunction)selectable;
+						resultCell = selectFunction.load(resultSet, columnIndex++);
 					}
 					else
 					{

@@ -13,10 +13,12 @@ public abstract class ComputedFunction implements Function
 	private final List sourceList;
 	private final String[] sqlFragments;
 	private final String functionName;
+	final Integer jdbcType;
 
 	public ComputedFunction(final Function[] sources,
 									final String[] sqlFragments,
-									final String functionName)
+									final String functionName,
+									final Integer jdbcType)
 	{
 		this.sources = sources;
 		this.sourceList = Collections.unmodifiableList(Arrays.asList(sources));
@@ -24,6 +26,7 @@ public abstract class ComputedFunction implements Function
 		if(sources.length+1!=sqlFragments.length)
 			throw new RuntimeException("length "+sources.length+" "+sqlFragments.length);
 		this.functionName = functionName;
+		this.jdbcType = jdbcType;
 	}
 	
 	public final List getSources()

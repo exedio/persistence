@@ -1,6 +1,6 @@
 package com.exedio.cope.lib;
 
 
-public interface Function extends Feature
+public interface Function extends Feature, Selectable
 {
 }

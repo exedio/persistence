@@ -94,6 +94,13 @@ public final class Statement
 		return this;
 	}
 	
+	public Statement defineColumn(final ComputedFunction function)
+	{
+		if(columnTypes!=null)
+			columnTypes.add(function.jdbcType);
+		return this;
+	}
+		
 	public Statement defineColumn(final Column column)
 	{
 		if(columnTypes!=null)

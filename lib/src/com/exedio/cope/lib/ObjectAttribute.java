@@ -5,7 +5,7 @@ import com.exedio.cope.lib.search.EqualCondition;
 
 public abstract class ObjectAttribute
 	extends Attribute
-	implements Function, Selectable
+	implements Function
 {
 	protected ObjectAttribute(final Option option)
 	{
