@@ -5,6 +5,12 @@ public final class AttributeValue
 	public final ObjectAttribute attribute;
 	public final Object value;
 	
+	public AttributeValue(final ObjectAttribute attribute, final Object value)
+	{
+		this.attribute = attribute;
+		this.value = value;
+	}
+	
 	public AttributeValue(final StringAttribute attribute, final String value)
 	{
 		this.attribute = attribute;

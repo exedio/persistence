@@ -155,7 +155,16 @@ public final class UniqueConstraint
 	{
 		Item item = searchUnique(values);
 		if(item==null)
-			throw new RuntimeException(); // TODO: implement creating item
+		{
+			final AttributeValue[] initialAttributeValues = new AttributeValue[values.length];
+			int j = 0;
+			for(Iterator i = getUniqueAttributes().iterator(); i.hasNext(); j++)
+			{
+				final ObjectAttribute uniqueAttribute = (ObjectAttribute)i.next();
+				initialAttributeValues[j] = new AttributeValue(uniqueAttribute, values[j]);
+			}
+			item = getType().newItem(initialAttributeValues);
+		}
 
 		try
 		{

@@ -64,15 +64,8 @@ public class QualifierTest extends DatabaseLibTest
 		assertEquals(null, item.getQualifiedA(key2));
 		assertEquals(null, item.getQualifiedB(key2));
 
-		final QualifiedEmptyQualifier qitem2 = new QualifiedEmptyQualifier(item, key2);
-		assertEquals(qitem1, item.getQualifier(key1));
-		assertEquals("value1A", item.getQualifiedA(key1));
-		assertEquals("value1B", item.getQualifiedB(key1));
-		assertEquals(qitem2, item.getQualifier(key2));
-		assertEquals(null, item.getQualifiedA(key2));
-		assertEquals(null, item.getQualifiedB(key2));
-
 		item.setQualifiedB(key2, "value2B");
+		final QualifiedEmptyQualifier qitem2 = QualifiedEmptyQualifier.findByQualifyUnique(item, key2);
 		assertEquals("value2B", qitem2.getQualifiedB());
 		assertEquals(qitem1, item.getQualifier(key1));
 		assertEquals("value1A", item.getQualifiedA(key1));
