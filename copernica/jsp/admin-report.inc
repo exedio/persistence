@@ -115,6 +115,24 @@ if(request.getParameter("APPLY")!=null)
 			}
 		}
 	}
+	{
+		final String[] createColums = (String[])request.getParameterMap().get("CREATE_COLUMN");
+		if(createColums!=null)
+		{
+			for(int i = 0; i<createColums.length; i++)
+			{
+				final String createColum = createColums[i];
+				final ReportColumn column = getColumn(report, createColum);
+				%>
+				<li>creating column <%=createColum%> ...</li><%
+				out.flush();
+				final long time = System.currentTimeMillis();
+				column.create();
+				%><li><b>ok</b>, <%=System.currentTimeMillis()-time%>ms.</li><%
+				out.flush();
+			}
+		}
+	}
 	%>
 	</ol>
 	<hr><%

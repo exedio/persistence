@@ -1280,7 +1280,29 @@ public abstract class Database
 
 		try
 		{
-			System.out.println("dropColumn:"+bf);
+			//System.out.println("dropColumn:"+bf);
+			executeSQL(bf, EMPTY_RESULT_SET_HANDLER);
+		}
+		catch(ConstraintViolationException e)
+		{
+			throw new SystemException(e);
+		}
+	}
+
+	final void createColumn(final Column column)
+	{
+		final Statement bf = createStatement();
+		bf.append("alter table ").
+			append(column.table.protectedID).
+			append(" add ("). // TODO: this syntax is probably oracle specific
+			append(column.protectedID).
+			append(' ').
+			append(column.databaseType).
+			append(')');
+
+		try
+		{
+			//System.out.println("createColumn:"+bf);
 			executeSQL(bf, EMPTY_RESULT_SET_HANDLER);
 		}
 		catch(ConstraintViolationException e)
