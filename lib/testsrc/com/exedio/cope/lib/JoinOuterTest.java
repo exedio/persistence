@@ -31,11 +31,7 @@ public class JoinOuterTest extends DatabaseLibTest
 			query.joinOuterLeft(PointerItem2.TYPE, Cope.equal(PointerItem.code, PointerItem2.code));
 			assertContains(leftJoined, leftLonely, query.search());
 		}
-		// TODO: why this does not work for hsqldb
-		// select "PointerItem"."this"
-		// from "PointerItem"
-		// right outer join "PointerItem2"
-		//   on "PointerItem"."code"="PointerItem2"."code"
+		// TODO: hsqldb does not support right outer joins
 		if(model.getDatabase().getClass().getName().indexOf("Hsqldb")<0)
 		{
 			final Query query = new Query(PointerItem.TYPE, null);
