@@ -7,5 +7,5 @@ import com.exedio.cope.lib.Database;
 
 public abstract class Condition
 {
-	public abstract void appendSQL(Database database, StringBuffer bf);
+	public abstract void appendStatement(Database.Statement statment);
 }

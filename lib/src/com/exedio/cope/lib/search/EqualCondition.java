@@ -24,11 +24,11 @@ public final class EqualCondition extends Condition
 		this.value = value;
 	}
 	
-	public final void appendSQL(final Database database, final StringBuffer bf)
+	public final void appendStatement(final Database.Statement bf)
 	{
 		bf.append(attribute.getPersistentQualifier()).
 			append('=').
-			append(attribute.cacheToDatabase(attribute.surfaceToCache(value)));
+			appendValue(attribute, value);
 	}
 
 	public final String toString()

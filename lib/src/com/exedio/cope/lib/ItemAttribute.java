@@ -28,7 +28,7 @@ public final class ItemAttribute extends Attribute
 			return (Integer)cell;
 	}
 
-	public Object cacheToDatabase(final Object cache)
+	Object cacheToDatabase(final Object cache)
 	{
 		if(cache==null)
 			return "NULL";
@@ -41,7 +41,7 @@ public final class ItemAttribute extends Attribute
 		return cache==null ? null : type.getItem(((Integer)cache).intValue());
 	}
 		
-	public Object surfaceToCache(final Object surface)
+	Object surfaceToCache(final Object surface)
 	{
 		return surface==null ? null : new Integer(((Item)surface).pk);
 	}

@@ -16,7 +16,7 @@ public final class EnumerationAttribute extends Attribute
 			throw new RuntimeException("cellToCache:"+cell);
 	}
 
-	public Object cacheToDatabase(final Object cache)
+	Object cacheToDatabase(final Object cache)
 	{
 		if(cache==null)
 			return "NULL";
@@ -29,7 +29,7 @@ public final class EnumerationAttribute extends Attribute
 		return (EnumerationValue)cache;
 	}
 		
-	public Object surfaceToCache(final Object surface)
+	Object surfaceToCache(final Object surface)
 	{
 		return (EnumerationValue)surface;
 	}

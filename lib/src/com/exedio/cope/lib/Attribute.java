@@ -90,10 +90,10 @@ public abstract class Attribute
 	}
 	
 	abstract Object databaseToCache(Object cell);
-	public abstract Object cacheToDatabase(Object cache);
+	abstract Object cacheToDatabase(Object cache);
 
 	abstract Object cacheToSurface(Object cache);
-	public abstract Object surfaceToCache(Object surface);
+	abstract Object surfaceToCache(Object surface);
 	
 }
 

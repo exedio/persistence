@@ -14,14 +14,14 @@ public final class AndCondition extends Condition
 		this.conditions = conditions;
 	}
 
-	public final void appendSQL(final Database database, final StringBuffer bf)
+	public final void appendStatement(final Database.Statement bf)
 	{
 		bf.append('(');
-		conditions[0].appendSQL(database, bf);
+		conditions[0].appendStatement(bf);
 		for(int i = 1; i<conditions.length; i++)
 		{
 			bf.append(" and ");
-			conditions[i].appendSQL(database, bf);
+			conditions[i].appendStatement(bf);
 		}
 		bf.append(')');
 	}

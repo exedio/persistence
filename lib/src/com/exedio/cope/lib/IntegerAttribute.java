@@ -11,7 +11,7 @@ public final class IntegerAttribute extends Attribute
 			return (Integer)cell;
 	}
 
-	public Object cacheToDatabase(final Object cache)
+	Object cacheToDatabase(final Object cache)
 	{
 		if(cache==null)
 			return "NULL";
@@ -24,7 +24,7 @@ public final class IntegerAttribute extends Attribute
 		return (Integer)cache;
 	}
 		
-	public Object surfaceToCache(final Object surface)
+	Object surfaceToCache(final Object surface)
 	{
 		return (Integer)surface;
 	}

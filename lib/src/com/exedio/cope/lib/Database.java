@@ -18,7 +18,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -69,19 +68,56 @@ public abstract class Database
 	{
 		executeSQL(getDropTableStatement(type));
 	}
+	
+	public static final class Statement
+	{
+		final StringBuffer text = new StringBuffer();
+		
+		private Statement()
+		{
+		}
+
+		public Statement append(final String text)
+		{
+			this.text.append(text);
+			return this;
+		}
+		
+		public Statement append(final char text)
+		{
+			this.text.append(text);
+			return this;
+		}
+		
+		public Statement appendValue(final Attribute attribute, final Object value)
+		{
+			this.text.append(attribute.cacheToDatabase(attribute.surfaceToCache(value)));
+			return this;
+		}
+		
+		public String getText()
+		{
+			return text.toString();
+		}
+
+		public String toString()
+		{
+			return text.toString();
+		}
+	}
 
 	Collection search(final Type type, final Condition condition)
 	{
-		final StringBuffer bf = new StringBuffer();
+		final Statement bf = new Statement();
 		bf.append("select ").
 			append(getSyntheticPrimaryKeyQualifier()).
 			append(" from ").
 			append(type.getPersistentQualifier()).
 			append(" where ");
-		condition.appendSQL(this, bf);
+		condition.appendStatement(bf);
 		
 		System.out.println("searching "+bf.toString());
-		return executeSQLQuery(bf.toString());
+		return executeSQLQuery(bf.getText());
 	}
 
 	void load(final Type type, final int pk, final HashMap itemCache)
@@ -217,7 +253,7 @@ public abstract class Database
 		}
 		
 		Connection connection = null;
-		Statement statement = null;
+		java.sql.Statement statement = null;
 		ResultSet resultSet = null;
 		try
 		{
