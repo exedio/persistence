@@ -35,6 +35,8 @@ final class Table
 	private final List allColumnsModifiable = new ArrayList();
 	private final List allColumns = Collections.unmodifiableList(allColumnsModifiable);
 
+	private List uniqueConstraints = null;
+
 	void addColumn(final Column column)
 	{
 		if(!buildStage)
@@ -85,15 +87,21 @@ final class Table
 		return allColumns;
 	}
 	
-	private List uniqueConstraints = null;
-
-	void setUniqueConstraints(final List uniqueConstraints) // TODO: remove method
+	void setUniqueConstraints(final List uniqueConstraints)
 	{
+		if(uniqueConstraints==null)
+			throw new IllegalArgumentException();
+		if(!buildStage)
+			throw new RuntimeException();
+		if(this.uniqueConstraints!=null)
+			throw new RuntimeException();
+
 		this.uniqueConstraints = uniqueConstraints;
 	}
 	
-	List getUniqueConstraints() // TODO: remove method
+	List getUniqueConstraints()
 	{
+		buildStage = false;
 		return uniqueConstraints;
 	}
 
