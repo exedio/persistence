@@ -271,7 +271,7 @@
 		
 		<copy todir="copernica/build/testwebapp/WEB-INF/"
 				file="copernica/web.xml" />
-		<touch file="copernica/web.xml" />
+		<touch file="copernica/build/testwebapp/WEB-INF/web.xml" />
 	
 	</target>
 	
