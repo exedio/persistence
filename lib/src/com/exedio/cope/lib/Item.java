@@ -277,16 +277,58 @@ public abstract class Item extends Search
 		}
 	}
 
+	private final boolean isNull(final MediaAttribute attribute)
+	{
+		if(attribute.isNotNull())
+			return false;
+
+		final Row row = getRow();
+
+		final String mimeMajorFixed = attribute.fixedMimeMajor;
+		if(mimeMajorFixed==null)
+			return row.get(attribute.mimeMajor)==null;
+		else
+		{
+			final String mimeMinorFixed = attribute.fixedMimeMinor;
+			if(mimeMinorFixed==null)
+				return row.get(attribute.mimeMinor)==null;
+			else
+				return row.get(attribute.exists)==null;
+		}
+	}
+
 	private final void appendMediaPath(
 									final MediaAttribute attribute, final String variant,
-									final StringBuffer bf,
-									final String mimeMajor, final String mimeMinor)
+									final StringBuffer bf)
 	{
-		if(mimeMajor==null)
-			throw new NullPointerException();
-		if(mimeMinor==null)
-			throw new NullPointerException();
-			
+		final String mimeMajor;
+		final String mimeMinor;
+		{
+			final String mimeMajorFixed = attribute.fixedMimeMajor;
+			if(mimeMajorFixed==null)
+			{
+				final Row row = getRow();
+				mimeMajor = (String)row.get(attribute.mimeMajor);
+				final String mimeMinorFixed = attribute.fixedMimeMinor;
+				if(mimeMinorFixed==null)
+					mimeMinor = (String)row.get(attribute.mimeMinor);
+				else
+					mimeMinor = mimeMinorFixed;
+			}
+			else
+			{
+				mimeMajor = mimeMajorFixed;
+				final String mimeMinorFixed = attribute.fixedMimeMinor;
+				if(mimeMinorFixed==null)
+				{
+					final Row row = getRow();
+					mimeMinor = (String)row.get(attribute.mimeMinor);
+				}
+				else
+					mimeMinor = mimeMinorFixed;
+			}
+		}
+
 		bf.append(attribute.getType().trimmedName).
 			append('/').
 			append(attribute.getName());
@@ -326,11 +368,11 @@ public abstract class Item extends Search
 			bf.append(compactExtension);
 	}
 	
-	private final File getMediaFile(final MediaAttribute attribute,	final String mimeMajor, final String mimeMinor)
+	private final File getMediaFile(final MediaAttribute attribute)
 	{
 		final File directory = Properties.getInstance().getMediaDirectory();
 		final StringBuffer buf = new StringBuffer();
-		appendMediaPath(attribute, null, buf, mimeMajor, mimeMinor);
+		appendMediaPath(attribute, null, buf);
 		return new File(directory, buf.toString());
 	}
 	
@@ -340,15 +382,11 @@ public abstract class Item extends Search
 	 */
 	public final String getMediaURL(final MediaAttribute attribute, final String variant)
 	{
-		final Row row = getRow();
-
-		final String mimeMajor = (String)row.get(attribute.mimeMajor);
-		if(mimeMajor==null)
+		if(isNull(attribute))
 			return null;
 
-		final String mimeMinor = (String)row.get(attribute.mimeMinor);
 		final StringBuffer bf = new StringBuffer(Properties.getInstance().getMediaUrl());
-		appendMediaPath(attribute, variant, bf, mimeMajor, mimeMinor);
+		appendMediaPath(attribute, variant, bf);
 		return bf.toString();
 	}
 
@@ -358,7 +396,14 @@ public abstract class Item extends Search
 	 */
 	public final String getMediaMimeMajor(final MediaAttribute attribute)
 	{
-		return (String)getRow().get(attribute.mimeMajor);
+		if(isNull(attribute))
+			return null;
+
+		final String fixed = attribute.fixedMimeMajor;
+		if(fixed==null)
+			return (String)getRow().get(attribute.mimeMajor);
+		else
+			return fixed;
 	}
 
 	/**
@@ -367,7 +412,14 @@ public abstract class Item extends Search
 	 */
 	public final String getMediaMimeMinor(final MediaAttribute attribute)
 	{
-		return (String)getRow().get(attribute.mimeMinor);
+		if(isNull(attribute))
+			return null;
+
+		final String fixed = attribute.fixedMimeMinor;
+		if(fixed==null)
+			return (String)getRow().get(attribute.mimeMinor);
+		else
+			return fixed;
 	}
 
 	/**
@@ -377,13 +429,10 @@ public abstract class Item extends Search
 	 */
 	public final InputStream getMediaData(final MediaAttribute attribute)
 	{
-		final Row row = getRow();
-		final String mimeMajor = (String)row.get(attribute.mimeMajor);
-		if(mimeMajor==null)
+		if(isNull(attribute))
 			return null;
 
-		final String mimeMinor = (String)row.get(attribute.mimeMinor);
-		final File file = getMediaFile(attribute, mimeMajor, mimeMinor);
+		final File file = getMediaFile(attribute);
 		try
 		{
 			return new FileInputStream(file);
@@ -417,9 +466,10 @@ public abstract class Item extends Search
 				throw new RuntimeException("if data is null, mime types must also be null");
 		}
 
+		final boolean isNullPreviously = isNull(attribute);
+		final File previousFile = isNullPreviously ? null : getMediaFile(attribute);
+
 		final Row row = getRow();
-		final String previousMimeMajor = (String)row.get(attribute.mimeMajor);
-		final String previousMimeMinor = (String)row.get(attribute.mimeMinor);
 		row.put(attribute.mimeMajor, mimeMajor);
 		row.put(attribute.mimeMinor, mimeMinor);
 
@@ -434,7 +484,7 @@ public abstract class Item extends Search
 
 		if(data!=null)
 		{
-			final File file = getMediaFile(attribute, mimeMajor, mimeMinor);
+			final File file = getMediaFile(attribute);
 			final OutputStream out = new FileOutputStream(file);
 			final byte[] b = new byte[20*1024];
 			for(int len = data.read(b); len>=0; len = data.read(b))
@@ -444,9 +494,8 @@ public abstract class Item extends Search
 
 			// This is done after the new file is written,
 			// to prevent loss of data, if writing the new file fails
-			if(previousMimeMajor!=null)
+			if(!isNullPreviously)
 			{
-				final File previousFile = getMediaFile(attribute, previousMimeMajor, previousMimeMinor);
 				if(!previousFile.equals(file))
 				{
 					if(!previousFile.delete())
@@ -456,11 +505,10 @@ public abstract class Item extends Search
 		}
 		else
 		{
-			if(previousMimeMajor!=null)
+			if(!isNullPreviously)
 			{
-				final File file = getMediaFile(attribute, previousMimeMajor, previousMimeMinor);
-				if(!file.delete())
-					throw new RuntimeException("deleting "+file+" failed.");
+				if(!previousFile.delete())
+					throw new RuntimeException("deleting "+previousFile+" failed.");
 			}
 		}
 	}

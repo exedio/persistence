@@ -1,17 +1,23 @@
 
 package com.exedio.cope.lib;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 public final class MediaAttribute extends Attribute
 {
-	StringColumn mimeMajor;
-	StringColumn mimeMinor;
+	final String fixedMimeMajor;
+	final String fixedMimeMinor;
+	
+	StringColumn mimeMajor = null;
+	StringColumn mimeMinor = null;
+	IntegerColumn exists = null;
 
 	public MediaAttribute(final Option option, final String fixedMimeMajor, final String fixedMimeMinor)
 	{
 		super(option);
+		this.fixedMimeMajor = fixedMimeMajor;
+		this.fixedMimeMinor = fixedMimeMinor;
 		
 		// make sure, media configuration properties are set
 		Properties.getInstance().getMediaDirectory();
@@ -29,11 +35,25 @@ public final class MediaAttribute extends Attribute
 	
 	protected List createColumns(final String name, final boolean notNull)
 	{
-		// TODO: create column only, if major mime type is not fixed
-		mimeMajor = new StringColumn(getType(), name + "Major", notNull, 30);
-		// TODO: create column only, if minor mime type is not fixed
-		mimeMinor = new StringColumn(getType(), name + "Minor", notNull, 30);
-		return Arrays.asList(new StringColumn[]{mimeMajor, mimeMinor});
+		final Type type = getType();
+		final ArrayList result = new ArrayList(2);
+		if(fixedMimeMajor==null)
+		{
+			mimeMajor = new StringColumn(type, name + "Major", notNull, 30);
+			result.add(mimeMajor);
+		}
+		if(fixedMimeMinor==null)
+		{
+			mimeMinor = new StringColumn(type, name + "Minor", notNull, 30);
+			result.add(mimeMinor);
+		}
+		if(fixedMimeMajor!=null && fixedMimeMinor!=null && !notNull)
+		{
+			// TODO: make that column not-null
+			exists = new IntegerColumn(type, name + "Exists", false, 1);
+			result.add(exists);
+		}
+		return result;
 	}
 	
 	Object cacheToSurface(final Object cache)
