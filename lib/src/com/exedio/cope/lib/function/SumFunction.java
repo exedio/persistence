@@ -3,7 +3,7 @@ package com.exedio.cope.lib.function;
 import com.exedio.cope.lib.ComputedFunction;
 import com.exedio.cope.lib.IntegerFunction;
 
-public class SumFunction extends ComputedFunction implements IntegerFunction
+public final class SumFunction extends ComputedFunction implements IntegerFunction
 {
 
 	public SumFunction(final IntegerFunction addend1, final IntegerFunction addend2)
