@@ -2,6 +2,11 @@
 
 <project name="cope" default="compile" basedir=".">
 
+	<target name="properties">
+		<property file="../local.properties" />
+		<property name="api.link.jdk" value="http://java.sun.com/j2se/1.4.2/docs/api" />
+	</target>
+
 	<target name="lib.compile">
 		<mkdir dir="lib/build/classes" />
 		<javac srcdir= "lib/src"
@@ -104,7 +109,7 @@
 	<target name="clean" depends="lib.clean, instrument.clean, copernica.clean" />
 	
 	
-	<target name="lib.api">
+	<target name="lib.api" depends="properties">
 
 		<delete dir="lib/api" />
 		<mkdir  dir="lib/api" />
@@ -125,11 +130,11 @@
 				bottom='&lt;small&gt;&amp;copy; Copyright 2004 &lt;a href="http://www.exedio.com/" target="_top"&gt;exedio&lt;/a&gt; Gesellschaft f&amp;uuml;r Softwareentwicklung mbH. All rights reserved.&lt;small&gt;'
 			>
 			<package name="com.*" />
-			<link href="http://java.sun.com/j2se/1.4.2/docs/api" />
+			<link href="${api.link.jdk}" />
 		</javadoc>
 	</target>
 
-	<target name="instrument.api">
+	<target name="instrument.api" depends="properties">
 
 		<delete dir="instrument/api" />
 		<mkdir  dir="instrument/api" />
@@ -151,14 +156,14 @@
 			>
 			<package name="com.*" />
 			<link offline="on" packagelistLoc="lib/api" href="../../lib/api" />
-			<link href="http://java.sun.com/j2se/1.4.2/docs/api" />
+			<link href="${api.link.jdk}" />
 			<classpath>
 				<pathelement location="lib/build/classes" />
 			</classpath>
 		</javadoc>
 	</target>
 
-	<target name="copernica.api">
+	<target name="copernica.api" depends="properties">
 
 		<delete dir="copernica/api" />
 		<mkdir  dir="copernica/api" />
@@ -180,7 +185,7 @@
 			>
 			<package name="com.*" />
 			<link offline="on" packagelistLoc="lib/api" href="../../lib/api" />
-			<link href="http://java.sun.com/j2se/1.4.2/docs/api" />
+			<link href="${api.link.jdk}" />
 			<classpath>
 				<pathelement location="lib/build/classes" />
 			</classpath>
