@@ -65,6 +65,14 @@
 			%>
 		</form>
 		
+		<%
+		for(Iterator l = provider.getDisplayLanguages().iterator(); l.hasNext(); )
+		{
+			final Language language = (Language)l.next();
+			%>[<a href="hello"><%=language.getDisplayName(null)%></a>]<%
+		}
+		%>
+		
 		<table border="1">
 			<tr>
 				<td valign="top">
