@@ -362,8 +362,7 @@ public abstract class Database
 	
 	private void createTable(final Type type)
 	{
-		// TODO: use Statement class
-		final StringBuffer bf = new StringBuffer();
+		final Statement bf = new Statement();
 		bf.append("create table ").
 			append(type.getPersistentQualifier()).
 			append('(');
