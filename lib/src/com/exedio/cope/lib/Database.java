@@ -203,39 +203,59 @@ public abstract class Database
 
 	void load(final Row row)
 	{
-		for(Type type = row.type; type!=null; type = type.getSupertype())
-			load(row, type);
-	}
-
-	private void load(final Row row, final Type type)
-	{
-		final List columns = type.getColumns();
-
 		final Statement bf = createStatement();
 		bf.append("select ");
 
 		boolean first = true;
-		for(Iterator i = columns.iterator(); i.hasNext(); )
+		for(Type type = row.type; type!=null; type = type.getSupertype())
+		{
+			final List columns = type.getColumns();
+			for(Iterator i = columns.iterator(); i.hasNext(); )
+			{
+				if(first)
+					first = false;
+				else
+					bf.append(',');
+
+				final Column column = (Column)i.next();
+				bf.append(type.protectedName).
+					append('.').
+					append(column.protectedName).defineColumn(column);
+			}
+		}
+
+		bf.append(" from ");
+		first = true;
+		for(Type type = row.type; type!=null; type = type.getSupertype())
 		{
 			if(first)
 				first = false;
 			else
 				bf.append(',');
-			final Column column = (Column)i.next();
-			bf.append(column.protectedName).defineColumn(column);
+
+			bf.append(type.protectedName);
 		}
-		bf.append(" from ").
-			append(type.protectedName).
-			append(" where ").
-			append(type.primaryKey.protectedName).
-			append('=').
-			append(row.pk);
+			
+		bf.append(" where ");
+		first = true;
+		for(Type type = row.type; type!=null; type = type.getSupertype())
+		{
+			if(first)
+				first = false;
+			else
+				bf.append(" and ");
+
+			bf.append(type.protectedName).
+				append('.').
+				append(type.primaryKey.protectedName).
+				append('=').
+				append(row.pk);
+		}
 
 		//System.out.println("loading "+bf.toString());
-
 		try
 		{
-			executeSQL(bf, new LoadResultSetHandler(row, type));
+			executeSQL(bf, new LoadResultSetHandler(row));
 		}
 		catch(ConstraintViolationException e)
 		{
@@ -389,12 +409,10 @@ public abstract class Database
 	private static class LoadResultSetHandler implements ResultSetHandler
 	{
 		private final Row row;
-		private final Type type;
 
-		LoadResultSetHandler(final Row row, final Type type)
+		LoadResultSetHandler(final Row row)
 		{
 			this.row = row;
-			this.type = type;
 		}
 
 		public void run(ResultSet resultSet) throws SQLException
@@ -402,8 +420,9 @@ public abstract class Database
 			if(!resultSet.next())
 				throw new RuntimeException("no such pk"); // TODO use some better exception
 			int columnIndex = 1;
-			for(Iterator i = type.getColumns().iterator(); i.hasNext(); )
-				((Column)i.next()).load(resultSet, columnIndex++, row);
+			for(Type type = row.type; type!=null; type = type.getSupertype())
+				for(Iterator i = type.getColumns().iterator(); i.hasNext(); )
+					((Column)i.next()).load(resultSet, columnIndex++, row);
 			return;
 		}
 	}
