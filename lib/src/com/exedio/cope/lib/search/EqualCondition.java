@@ -3,21 +3,21 @@ package com.exedio.cope.lib.search;
 
 import java.util.TreeSet;
 
-import com.exedio.cope.lib.Attribute;
 import com.exedio.cope.lib.DoubleAttribute;
 import com.exedio.cope.lib.IntegerAttribute;
 import com.exedio.cope.lib.Item;
 import com.exedio.cope.lib.ItemAttribute;
 import com.exedio.cope.lib.LongAttribute;
+import com.exedio.cope.lib.ObjectAttribute;
 import com.exedio.cope.lib.Statement;
 import com.exedio.cope.lib.StringAttribute;
 
 public final class EqualCondition extends Condition
 {
-	public final Attribute attribute;
+	public final ObjectAttribute attribute;
 	public final Object value;
 
-	public EqualCondition(final Attribute attribute)
+	public EqualCondition(final ObjectAttribute attribute)
 	{
 		this.attribute = attribute;
 		this.value = null;

@@ -4,7 +4,7 @@ package com.exedio.cope.lib;
 import java.util.Collections;
 import java.util.List;
 
-public final class StringAttribute extends Attribute
+public final class StringAttribute extends ObjectAttribute
 {
 	private final int minimumLength;
 	private final int maximumLength;

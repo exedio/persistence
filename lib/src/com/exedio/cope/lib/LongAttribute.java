@@ -4,7 +4,7 @@ package com.exedio.cope.lib;
 import java.util.Collections;
 import java.util.List;
 
-public final class LongAttribute extends Attribute
+public final class LongAttribute extends ObjectAttribute
 {
 	public LongAttribute(final Option option)
 	{

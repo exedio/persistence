@@ -225,7 +225,7 @@ public abstract class Item extends Search
 			throw initialUniqueViolationException;
 	}
 	
-	public final Object getAttribute(final Attribute attribute)
+	public final Object getAttribute(final ObjectAttribute attribute)
 	{
 		final AttributeMapping mapping = attribute.mapping;
 		if(mapping!=null)
@@ -234,15 +234,6 @@ public abstract class Item extends Search
 		return getRow().get(attribute);
 	}
 	
-	public final Object getAttribute(final Attribute attribute, final Object[] qualifiers)
-	{
-		final AttributeMapping mapping = attribute.mapping;
-		if(mapping!=null)
-			return mapping.mapJava(getAttribute(mapping.sourceAttribute));
-
-		return getRow().get(attribute);
-	}
-
 	/**
 	 * @throws NotNullViolationException
 	 *         if <code>value</code> is null and <code>attribute</code>
@@ -253,7 +244,7 @@ public abstract class Item extends Search
 	 * @throws ClassCastException
 	 *         if <code>value</code> is not compatible to <code>attribute</code>.
 	 */
-	public final void setAttribute(final Attribute attribute, final Object value)
+	public final void setAttribute(final ObjectAttribute attribute, final Object value)
 		throws
 			UniqueViolationException,
 			NotNullViolationException,

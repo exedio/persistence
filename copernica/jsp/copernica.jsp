@@ -1,6 +1,7 @@
 <%@ page import="com.exedio.cope.lib.Search" %>
 <%@ page import="com.exedio.cope.lib.Database" %>
 <%@ page import="com.exedio.cope.lib.Attribute" %>
+<%@ page import="com.exedio.cope.lib.ObjectAttribute" %>
 <%@ page import="com.exedio.cope.lib.MediaAttribute" %>
 <%@ page import="com.exedio.cope.lib.EnumerationAttribute" %>
 <%@ page import="com.exedio.cope.lib.EnumerationValue" %>
@@ -145,7 +146,7 @@
 									}
 									else if(attribute instanceof ItemAttribute)
 									{
-										final Item value = (Item)item.getAttribute(attribute);
+										final Item value = (Item)item.getAttribute((ItemAttribute)attribute);
 										if(value==null)
 										{
 											%><%="leer"%><%
@@ -159,7 +160,7 @@
 									}
 									else
 									{
-										%><%=item.getAttribute(attribute)%><%
+										%><%=item.getAttribute((ObjectAttribute)attribute)%><%
 									}
 									%></td><%
 								}
@@ -190,7 +191,7 @@
 							}
 							else if(attribute instanceof ItemAttribute)
 							{
-								final Item value = (Item)item.getAttribute(attribute);
+								final Item value = (Item)item.getAttribute((ItemAttribute)attribute);
 								if(value==null)
 								{
 									%><%="leer"%><%
@@ -205,7 +206,7 @@
 							else if(attribute instanceof EnumerationAttribute)
 							{
 								final EnumerationAttribute enumAttribute = (EnumerationAttribute)attribute;
-								final EnumerationValue value = (EnumerationValue)item.getAttribute(attribute);
+								final EnumerationValue value = (EnumerationValue)item.getAttribute((EnumerationAttribute)attribute);
 								for(Iterator k = enumAttribute.getValues().iterator(); k.hasNext(); )
 								{
 									final EnumerationValue currentValue = (EnumerationValue)k.next();
@@ -228,7 +229,7 @@
 								<input
 									type="text"
 									name="<%=attribute.getName()%>"
-									value="<%=item.getAttribute(attribute)%>" />
+									value="<%=item.getAttribute((ObjectAttribute)attribute)%>" />
 								<%
 							}
 							%></td></tr><%

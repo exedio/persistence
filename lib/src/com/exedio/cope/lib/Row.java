@@ -29,7 +29,7 @@ final class Row
 	}
 	
 	
-	Object get(final Attribute attribute)
+	Object get(final ObjectAttribute attribute)
 	{
 		if(closed)
 			throw new RuntimeException();
@@ -54,13 +54,13 @@ final class Row
 
 		for(int i = 0; i<attributeValues.length; i++)
 		{
-			final Attribute attribute = attributeValues[i].attribute;
+			final ObjectAttribute attribute = attributeValues[i].attribute;
 			cache.put(attribute.getMainColumn(), attribute.surfaceToCache(attributeValues[i].value));
 		}
 		dirty = true; // TODO: check, whether the written attribute got really a new value
 	}
 	
-	void put(final Attribute attribute, final Object value)
+	void put(final ObjectAttribute attribute, final Object value)
 	{
 		if(closed)
 			throw new RuntimeException();

@@ -203,7 +203,7 @@ public abstract class PersistentAttribute
 
 	/**
 	 * Compute exceptions to be caught in the setter.
-	 * These are just those thrown by {@link com.exedio.cope.lib.Item#setAttribute(Attribute,Object)}
+	 * These are just those thrown by {@link com.exedio.cope.lib.Item#setAttribute(ObjectAttribute,Object)}
 	 * which are not in the setters throws clause.
 	 * (see {@link #getSetterExceptions()})
 	 */

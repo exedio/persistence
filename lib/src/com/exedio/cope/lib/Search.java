@@ -105,7 +105,7 @@ public abstract class Search
 		return result;
 	}
 	
-	public static final EqualCondition isNull(final Attribute attribute)
+	public static final EqualCondition isNull(final ObjectAttribute attribute)
 	{
 		return new EqualCondition(attribute);
 	}

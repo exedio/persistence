@@ -8,7 +8,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-public final class EnumerationAttribute extends Attribute
+public final class EnumerationAttribute extends ObjectAttribute
 {
 	private final Class enumerationClass;
 	private final List values;

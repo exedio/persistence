@@ -4,7 +4,7 @@ package com.exedio.cope.lib;
 import java.util.Collections;
 import java.util.List;
 
-public final class BooleanAttribute extends Attribute
+public final class BooleanAttribute extends ObjectAttribute
 {
 	public BooleanAttribute(final Option option)
 	{

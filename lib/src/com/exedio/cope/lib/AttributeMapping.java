@@ -3,12 +3,12 @@ package com.exedio.cope.lib;
 
 public abstract class AttributeMapping
 {
-	public final Attribute sourceAttribute;
+	public final ObjectAttribute sourceAttribute;
 	final String sqlMappingStart;
 	final String sqlMappingEnd;
 	private final String functionName;
 
-	public AttributeMapping(final Attribute sourceAttribute,
+	public AttributeMapping(final ObjectAttribute sourceAttribute,
 									final String sqlMappingStart,
 									final String sqlMappingEnd,
 									final String functionName)

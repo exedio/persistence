@@ -4,7 +4,7 @@ package com.exedio.cope.lib;
 import java.util.List;
 import java.util.Collections;
 
-public class DoubleAttribute extends Attribute
+public class DoubleAttribute extends ObjectAttribute
 {
 	public DoubleAttribute(final Option option)
 	{

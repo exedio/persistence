@@ -4,7 +4,7 @@ package com.exedio.cope.lib;
 import java.util.Collections;
 import java.util.List;
 
-public final class IntegerAttribute extends Attribute
+public final class IntegerAttribute extends ObjectAttribute
 {
 	public IntegerAttribute(final Option option)
 	{

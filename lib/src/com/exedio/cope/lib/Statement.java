@@ -65,7 +65,7 @@ public final class Statement
 		return this;
 	}
 		
-	public Statement appendValue(Attribute attribute, final Object value)
+	public Statement appendValue(ObjectAttribute attribute, final Object value)
 	{
 		while(attribute.mapping!=null)
 			attribute = attribute.mapping.sourceAttribute;

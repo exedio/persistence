@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-public final class ItemAttribute extends Attribute
+public final class ItemAttribute extends ObjectAttribute
 {
 	private static final HashMap itemAttributesByIntegrityConstraintName = new HashMap();
 	

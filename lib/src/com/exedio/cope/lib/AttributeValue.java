@@ -2,7 +2,7 @@ package com.exedio.cope.lib;
 
 public final class AttributeValue
 {
-	public final Attribute attribute;
+	public final ObjectAttribute attribute;
 	public final Object value;
 	
 	public AttributeValue(final StringAttribute attribute, final String value)
