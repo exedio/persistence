@@ -44,6 +44,7 @@
 	<target name="compile" depends="lib.compile, instrument.compile, copernica.compile" />
 	
 	<target name="libtest.instrument" depends="lib.compile, instrument.compile">
+		<echo message="intrumenting lib/testsrc" />
 		<java classname="com.exedio.cope.instrument.Main">
 			<classpath>
 				<pathelement location="lib/build/classes" />
@@ -53,6 +54,22 @@
 			<arg value="lib/testsrc/com/exedio/cope/lib/ItemWithSingleUnique.java" />
 		</java>
 	</target>
+	
+	<target name="libtest.compile" depends="lib.compile, libtest.instrument">
+		<mkdir dir="lib/build/testclasses" />
+		<javac srcdir="lib/testsrc"
+				destdir="lib/build/testclasses"
+				deprecation="on"
+				debug="on"
+				optimize="off">
+			<include name="com/**" />
+			<classpath>
+				<pathelement location="lib/build/classes" />
+			</classpath>
+		</javac>
+	</target>
+	
+	<target name="test" depends="libtest.compile" />
 	
 	<target name="lib.clean">
 		<delete dir="lib/build" />
