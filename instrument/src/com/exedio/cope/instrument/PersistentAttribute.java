@@ -3,7 +3,6 @@ package com.exedio.cope.instrument;
 
 import java.lang.reflect.Modifier;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.SortedSet;
@@ -93,37 +92,11 @@ public abstract class PersistentAttribute
 			this.lengthConstrained = false;
 		}
 		
-		if(setterOptionString==null)
-			setterOption = OPTION_AUTO;
-		else
-		{
-			final Integer setterOptionObject = (Integer)options.get(setterOptionString);
-			if(setterOptionObject==null)
-				throw new InjectorParseException("invalid @cope-setter value "+setterOptionString);
-			setterOption = setterOptionObject.intValue();
-		}
+		setterOption = Option.getOption(setterOptionString);
 
 		this.qualifiers = (qualifiers!=null) ? Collections.unmodifiableList(qualifiers) : null;
 
 		persistentClass.addPersistentAttribute(this);
-	}
-	
-	private static final HashMap options = new HashMap();
-	
-	public static final int OPTION_NONE = 0;
-	public static final int OPTION_AUTO = 1;
-	public static final int OPTION_PRIVATE = 2;
-	public static final int OPTION_PROTECTED = 3;
-	public static final int OPTION_PACKAGE = 4;
-	public static final int OPTION_PUBLIC = 5;
-	
-	static
-	{
-		options.put("none", new Integer(OPTION_NONE));
-		options.put("private", new Integer(OPTION_PRIVATE));
-		options.put("protected", new Integer(OPTION_PROTECTED));
-		options.put("package", new Integer(OPTION_PACKAGE));
-		options.put("public", new Integer(OPTION_PUBLIC));
 	}
 	
 	public final String getName()
@@ -223,7 +196,7 @@ public abstract class PersistentAttribute
 	
 	public final boolean hasGeneratedSetter()
 	{
-		return isWriteable() && (setterOption!=OPTION_NONE);
+		return isWriteable() && (setterOption!=Option.NONE);
 	}
 	
 	public final int getGeneratedSetterModifier()
@@ -231,21 +204,21 @@ public abstract class PersistentAttribute
 		final int result;
 		switch(setterOption)
 		{
-			case OPTION_NONE:
+			case Option.NONE:
 				throw new RuntimeException();
-			case OPTION_AUTO:
+			case Option.AUTO:
 				result = javaAttribute.getModifiers() & (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE);
 				break;
-			case OPTION_PRIVATE:
+			case Option.PRIVATE:
 				result = Modifier.PRIVATE;
 				break;
-			case OPTION_PROTECTED:
+			case Option.PROTECTED:
 				result = Modifier.PROTECTED;
 				break;
-			case OPTION_PACKAGE:
+			case Option.PACKAGE:
 				result = 0;
 				break;
-			case OPTION_PUBLIC:
+			case Option.PUBLIC:
 				result = Modifier.PUBLIC;
 				break;
 			default:
