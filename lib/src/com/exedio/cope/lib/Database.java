@@ -281,6 +281,12 @@ public abstract class Database
 					final IntegerColumn intColumn = (IntegerColumn)column;
 					if(intColumn.allowedValues!=null)
 						reportTable.notifyRequiredConstraint(intColumn.getAllowedValuesConstraintID());
+
+					if(intColumn instanceof ItemColumn)
+					{
+						final ItemColumn itemColumn = (ItemColumn)intColumn;
+						reportTable.notifyRequiredConstraint(itemColumn.integrityConstraintName);
+					}
 				}
 			}
 			for(Iterator j = table.getUniqueConstraints().iterator(); j.hasNext(); )
