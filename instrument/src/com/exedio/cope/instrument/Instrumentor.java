@@ -11,7 +11,14 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 import com.exedio.cope.lib.Attribute;
+import com.exedio.cope.lib.BooleanAttribute;
+import com.exedio.cope.lib.DoubleAttribute;
+import com.exedio.cope.lib.EnumerationAttribute;
+import com.exedio.cope.lib.IntegerAttribute;
 import com.exedio.cope.lib.Item;
+import com.exedio.cope.lib.ItemAttribute;
+import com.exedio.cope.lib.MediaAttribute;
+import com.exedio.cope.lib.StringAttribute;
 import com.exedio.cope.lib.SystemException;
 
 public final class Instrumentor implements InjectionConsumer
@@ -218,6 +225,7 @@ public final class Instrumentor implements InjectionConsumer
 			{
 				final String type = jf.getType();
 				final JavaAttribute ja = (JavaAttribute)jf;
+				final Class typeClass = ja.getFile().findType(type);
 				final List initializerArguments = ja.getInitializerArguments();
 				//System.out.println(initializerArguments);
 				
@@ -242,35 +250,35 @@ public final class Instrumentor implements InjectionConsumer
 
 				final PersistentAttribute persistentAttribute;
 
-				if("IntegerAttribute".equals(type))
+				if(IntegerAttribute.class.equals(typeClass))
 				{
 					persistentAttribute =
 						new PersistentAttribute(
 							ja, "Integer",
 							readOnly, notNull, mapped, qualifiers);
 				}
-				else if("DoubleAttribute".equals(type))
+				else if(DoubleAttribute.class.equals(typeClass))
 				{
 					persistentAttribute =
 						new PersistentAttribute(
 							ja, "Double",
 							readOnly, notNull, mapped, qualifiers);
 				}
-				else if("BooleanAttribute".equals(type))
+				else if(BooleanAttribute.class.equals(typeClass))
 				{
 					persistentAttribute =
 						new PersistentAttribute(
 							ja, "Boolean",
 							readOnly, notNull, mapped, qualifiers);
 				}
-				else if("StringAttribute".equals(type))
+				else if(StringAttribute.class.equals(typeClass))
 				{
 					persistentAttribute =
 						new PersistentAttribute(
 							ja, "String",
 							readOnly, notNull, mapped, qualifiers);
 				}
-				else if("EnumerationAttribute".equals(type))
+				else if(EnumerationAttribute.class.equals(typeClass))
 				{
 					if(secondArgument==null)
 						throw new RuntimeException("second argument required");
@@ -282,7 +290,7 @@ public final class Instrumentor implements InjectionConsumer
 							ja, persistentType,
 							readOnly, notNull, mapped, qualifiers);
 				}
-				else if("ItemAttribute".equals(type))
+				else if(ItemAttribute.class.equals(typeClass))
 				{
 					if(secondArgument==null)
 						throw new RuntimeException("second argument required");
@@ -294,7 +302,7 @@ public final class Instrumentor implements InjectionConsumer
 							ja, persistentType,
 							readOnly, notNull, mapped, qualifiers);
 				}
-				else if("MediaAttribute".equals(type))
+				else if(MediaAttribute.class.equals(typeClass))
 				{
 					final String variant = Injector.findDocTag(docComment, VARIANT_MEDIA_ATTRIBUTE);
 					final List variants;
@@ -312,7 +320,7 @@ public final class Instrumentor implements InjectionConsumer
 							variants, mimeMajor, mimeMinor);
 				}
 				else
-					throw new RuntimeException();
+					throw new RuntimeException(typeClass.toString());
 
 				if(unique)
 					persistentAttribute.persistentClass.makeUnique(new PersistentAttribute[]{persistentAttribute});
