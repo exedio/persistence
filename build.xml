@@ -218,8 +218,6 @@
 			excludes="**/*.smap">
 			<classpath>
 				<pathelement location="lib/build/classes" />
-				<!-- TODO should compile without application -->
-				<pathelement location="../demoshop/build/classes" />
 				<pathelement location="${basedir}/../tomcat/common/classes"/>
 				<fileset dir="${basedir}/../tomcat/common/lib">
 					<include name="*.jar"/>

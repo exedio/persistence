@@ -1,7 +1,7 @@
-<%@ page import="com.exedio.demoshop.*" %>
 <%@ page import="com.exedio.cope.lib.Database" %>
 <%@ page import="com.exedio.cope.lib.Attribute" %>
 <%@ page import="com.exedio.cope.lib.Type" %>
+<%@ page import="com.exedio.cope.lib.SystemException" %>
 <%@ page import="java.util.Iterator" %>
 <%@ page import="java.util.Map" %>
 
@@ -15,7 +15,18 @@
 		<h1>Copernica</h1>
 		<h2>Generic Backoffice for COPE</h2>
 <%
-	final Type[] types = new Type[]{Language.TYPE, Country.TYPE, Product.TYPE, ProductGroup.TYPE, OrderConfirmationMail.TYPE};
+	try
+	{
+		Class.forName("com.exedio.demoshop.Language");
+		Class.forName("com.exedio.demoshop.Country");
+		Class.forName("com.exedio.demoshop.Product");
+		Class.forName("com.exedio.demoshop.ProductGroup");
+		Class.forName("com.exedio.demoshop.OrderConfirmationMail");
+	}
+	catch(ClassNotFoundException e)
+	{
+		throw new SystemException(e);
+	}
 
 	for( final Iterator it = request.getParameterMap().entrySet().iterator(); it.hasNext(); )
 	{
