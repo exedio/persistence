@@ -19,21 +19,17 @@ public abstract class Attribute
 	}
 	
 
-	private boolean initialized = false;
-
-	private Type type;
+	// phase 1: initialize ---------------------------------------------
 	private String name;
 	private boolean readOnly;
 	private boolean notNull;
-	private List columns;
-	private Column mainColumn;
-	
+
 	public final Attribute initialize(final String name, final boolean readOnly, final boolean notNull)
 	{
 		if(name==null)
 			throw new RuntimeException();
 
-		if(initialized)
+		if(this.name!=null)
 			throw new RuntimeException();
 		if(this.type!=null)
 			throw new RuntimeException();
@@ -42,16 +38,45 @@ public abstract class Attribute
 		this.readOnly = readOnly;
 		this.notNull = notNull;
 
-		initialized = true;
 		return this;
 	}
+	
+	public final String getName()
+	{
+		if(this.name==null)
+			throw new RuntimeException();
+
+		return name;
+	}
+	
+	public final boolean isReadOnly()
+	{
+		if(this.name==null)
+			throw new RuntimeException();
+
+		return readOnly;
+	}
+	
+	public final boolean isNotNull()
+	{
+		if(this.name==null)
+			throw new RuntimeException();
+
+		return notNull;
+	}
+	
+	// phase 2: setType ---------------------------------------------------
+
+	private Type type;
+	private List columns;
+	private Column mainColumn;
 	
 	void setType(final Type type)
 	{
 		if(type==null)
 			throw new RuntimeException();
 
-		if(!initialized)
+		if(this.name==null)
 			throw new RuntimeException();
 		if(this.type!=null)
 			throw new RuntimeException();
@@ -66,39 +91,15 @@ public abstract class Attribute
 	
 	public final Type getType()
 	{
-		if(type==null)
+		if(this.type==null)
 			throw new RuntimeException();
 
 		return type;
 	}
 	
-	public final String getName()
-	{
-		if(!initialized)
-			throw new RuntimeException();
-
-		return name;
-	}
-	
-	public final boolean isReadOnly()
-	{
-		if(!initialized)
-			throw new RuntimeException();
-
-		return readOnly;
-	}
-	
-	public final boolean isNotNull()
-	{
-		if(!initialized)
-			throw new RuntimeException();
-
-		return notNull;
-	}
-	
 	final List getColumns()
 	{
-		if(!initialized)
+		if(this.type==null)
 			throw new RuntimeException();
 
 		return columns;
@@ -106,6 +107,9 @@ public abstract class Attribute
 	
 	final Column getMainColumn()
 	{
+		if(this.type==null)
+			throw new RuntimeException();
+
 		return mainColumn;
 	}
 	
