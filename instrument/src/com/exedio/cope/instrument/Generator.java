@@ -561,7 +561,7 @@ final class Generator
 		writeCommentHeader();
 		o.write("\t * Finds a ");
 		o.write(lowerCamelCase(className));
-		o.write(" by it's unique attributes");
+		o.write(" by it's unique attributes.");
 		o.write(lineSeparator);
 		writeCommentGenerated();
 		for(int i=0; i<persistentAttributes.length; i++)
