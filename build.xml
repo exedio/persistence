@@ -68,7 +68,11 @@
 		<jar jarfile="instrument/build/cope-instrument.jar" basedir="instrument/build/classes" />
 	</target>
 	
-	<target name="jar" depends="lib.jar, instrument.jar" />
+	<target name="copernica.jar" depends="copernica.compile">
+		<jar jarfile="copernica/build/copernica.jar" basedir="copernica/build/classes" />
+	</target>
+	
+	<target name="jar" depends="lib.jar, instrument.jar, copernica.jar" />
 	
 	<target name="lib.test.instrument" depends="lib.compile, lib.oracle.compile, instrument.compile">
 		<echo message="Instrumenting lib/testsrc" />
