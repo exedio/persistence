@@ -225,6 +225,10 @@ public class LibTest extends TestCase
 			item.setSomeString("someString");
 			assertEquals("someString", item.getSomeString());
 			assertEquals("SOMESTRING", item.getSomeStringUpperCase());
+			assertEquals(set(item), toSet(Search.search(item.TYPE, Search.equal(item.someString, "someString"))));
+			assertEquals(set(),     toSet(Search.search(item.TYPE, Search.equal(item.someString, "SOMESTRING"))));
+			assertEquals(set(/*item*/), toSet(Search.search(item.TYPE, Search.equal(item.someStringUpperCase, "SOMESTRING"))));
+			assertEquals(set(),     toSet(Search.search(item.TYPE, Search.equal(item.someStringUpperCase, "someString"))));
 			item.passivate();
 			assertEquals("someString", item.getSomeString());
 			assertEquals("SOMESTRING", item.getSomeStringUpperCase());
@@ -389,6 +393,11 @@ public class LibTest extends TestCase
 	protected Set set()
 	{
 		return Collections.EMPTY_SET;
+	}
+
+	protected Set set(final Object o)
+	{
+		return Collections.singleton(o);
 	}
 
 	protected List list(final Object o)
