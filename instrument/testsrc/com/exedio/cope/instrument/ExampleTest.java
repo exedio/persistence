@@ -183,6 +183,11 @@ public class ExampleTest extends InjectorTest
 		assertText("boolean someInnerBoolean=true;");
 		assertAttribute("someInnerBoolean", null);
 		assertText("\n    \n\t ");
+
+		assertBehaviourHeader("run", "void", Modifier.PUBLIC);
+		assertText("{\n}");
+		assertMethod("run", null);
+		assertText("\n\t ");
 	}
 
 }
