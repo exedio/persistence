@@ -1,20 +1,21 @@
-<%@ page import="com.exedio.cope.lib.Search" %>
-<%@ page import="com.exedio.cope.lib.Database" %>
-<%@ page import="com.exedio.cope.lib.Attribute" %>
-<%@ page import="com.exedio.cope.lib.ObjectAttribute" %>
-<%@ page import="com.exedio.cope.lib.MediaAttribute" %>
-<%@ page import="com.exedio.cope.lib.EnumerationAttribute" %>
-<%@ page import="com.exedio.cope.lib.EnumerationValue" %>
-<%@ page import="com.exedio.cope.lib.ItemAttribute" %>
-<%@ page import="com.exedio.cope.lib.Type" %>
-<%@ page import="com.exedio.cope.lib.Item" %>
-<%@ page import="com.exedio.cope.lib.SystemException" %>
-<%@ page import="java.io.PrintWriter" %>
-<%@ page import="java.util.Iterator" %>
-<%@ page import="java.util.Map" %>
-
+<%@
+page import="com.exedio.cope.lib.Search" %><%@
+page import="com.exedio.cope.lib.Database" %><%@
+page import="com.exedio.cope.lib.Attribute" %><%@
+page import="com.exedio.cope.lib.ObjectAttribute" %><%@
+page import="com.exedio.cope.lib.MediaAttribute" %><%@
+page import="com.exedio.cope.lib.EnumerationAttribute" %><%@
+page import="com.exedio.cope.lib.EnumerationValue" %><%@
+page import="com.exedio.cope.lib.ItemAttribute" %><%@
+page import="com.exedio.cope.lib.Type" %><%@
+page import="com.exedio.cope.lib.Item" %><%@
+page import="com.exedio.cope.lib.SystemException" %><%@
+page import="java.io.PrintWriter" %><%@
+page import="java.util.Iterator" %><%@
+page import="java.util.Map"
+%>
 <html>
-	<head>	
+	<head>
 		<title>
 			Copernica
 		</title>
