@@ -207,11 +207,11 @@ public abstract class Database
 				((Type)i.previous()).onDropTable();
 		}
 		{
-			final List types = Table.getTables(); // TODO: rename to tables
+			final List tables = Table.getTables();
 			// must delete in reverse order, to obey integrity constraints
-			for(ListIterator i = types.listIterator(types.size()); i.hasPrevious(); )
+			for(ListIterator i = tables.listIterator(tables.size()); i.hasPrevious(); )
 				dropForeignKeyConstraints((Table)i.previous());
-			for(ListIterator i = types.listIterator(types.size()); i.hasPrevious(); )
+			for(ListIterator i = tables.listIterator(tables.size()); i.hasPrevious(); )
 				dropTable((Table)i.previous());
 		}
 		//final long amount = (System.currentTimeMillis()-time);
