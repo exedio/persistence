@@ -63,7 +63,7 @@ public class StringTest extends DatabaseLibTest
 			+ "szlig \u00df; "
 			+ "paragraph \u00a7; "
 			+ "kringel \u00b0";
-		System.out.println(unicodeString); 		
+		//System.out.println(unicodeString);
 		item.setAny(unicodeString);
 		assertEquals(unicodeString, item.getAny());
 		item.passivate();
