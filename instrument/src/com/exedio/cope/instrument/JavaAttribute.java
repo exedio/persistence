@@ -3,12 +3,12 @@ package com.exedio.cope.instrument;
 
 import java.lang.reflect.Modifier;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
+
 import com.exedio.cope.lib.NotNullViolationException;
 import com.exedio.cope.lib.ReadOnlyViolationException;
 import com.exedio.cope.lib.UniqueViolationException;
@@ -128,7 +128,6 @@ public final class JavaAttribute extends JavaFeature
 		if(boxedType!=null)
 			return boxedType;
 
-		final String accessorType;
 		if(notNull)
 		{
 			final String nativeType = (String)toNativeTypeMapping.get(persistentType);
@@ -150,7 +149,6 @@ public final class JavaAttribute extends JavaFeature
 		else
 			boxedType = persistentType;
 		
-		this.boxedType = boxedType;
 		return boxedType;
 	}
 
