@@ -47,6 +47,14 @@ public final class UniqueConstraint
 	}
 	
 	/**
+	 * @see Item#uniqueConstraint(ObjectAttribute, ObjectAttribute, ObjectAttribute)
+	 */
+	UniqueConstraint(final ObjectAttribute uniqueAttribute1, final ObjectAttribute uniqueAttribute2, final ObjectAttribute uniqueAttribute3)
+	{
+		this(new ObjectAttribute[]{uniqueAttribute1, uniqueAttribute2, uniqueAttribute3});
+	}
+	
+	/**
 	 * @return a list of {@link ObjectAttribute}s.
 	 */
 	public final List getUniqueAttributes()

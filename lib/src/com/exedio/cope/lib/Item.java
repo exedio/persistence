@@ -725,6 +725,11 @@ public abstract class Item extends Search
 		return new UniqueConstraint(uniqueAttribute1, uniqueAttribute2);
 	}
 	
+	protected static final UniqueConstraint uniqueConstraint(final ObjectAttribute uniqueAttribute1, final ObjectAttribute uniqueAttribute2, final ObjectAttribute uniqueAttribute3)
+	{
+		return new UniqueConstraint(uniqueAttribute1, uniqueAttribute2, uniqueAttribute3);
+	}
+	
 	protected static final DateAttribute dateAttribute(final Option option)
 	{
 		return new DateAttribute(option);
