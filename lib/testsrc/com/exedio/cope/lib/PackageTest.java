@@ -47,6 +47,7 @@ public class PackageTest extends TestCase
 		suite.addTest(new TestSuite(LiteralConditionTest.class));
 		suite.addTest(new TestSuite(JoinTest.class));
 		suite.addTest(new TestSuite(FindByIDTest.class));
+		suite.addTest(new TestSuite(ReportTest.class));
 		return suite;
 	}
 
