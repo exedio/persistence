@@ -1,8 +1,8 @@
 
 package com.exedio.cope.instrument;
 
-import java.util.*;
 import java.io.PrintStream;
+import java.util.Iterator;
 
 /**
  * Represents a method of a class parsed by the java parser.

@@ -1,9 +1,9 @@
 
 package com.exedio.cope.lib;
 
-import java.util.List;
+import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.SQLException;;
+import java.util.List;
 
 interface DatabaseColumnTypesDefinable
 {

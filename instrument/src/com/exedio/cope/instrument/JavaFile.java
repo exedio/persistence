@@ -1,7 +1,11 @@
 
 package com.exedio.cope.instrument;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.TreeSet;
 
 /**
  * Represents a parsed java file.

@@ -1,9 +1,10 @@
 
 package com.exedio.copernica;
 
+import java.util.Collection;
+
 import com.exedio.cope.lib.Attribute;
 import com.exedio.cope.lib.Type;
-import java.util.Collection;
 
 public interface CopernicaProvider
 {

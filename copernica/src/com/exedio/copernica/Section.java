@@ -1,8 +1,9 @@
 
 package com.exedio.copernica;
 
-import com.exedio.cope.lib.Type;
 import java.util.Collection;
+
+import com.exedio.cope.lib.Type;
 
 public interface Section extends Component
 {

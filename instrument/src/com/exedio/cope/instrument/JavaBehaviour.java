@@ -1,8 +1,11 @@
 
 package com.exedio.cope.instrument;
 
-import java.util.*;
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Represents a behavioral feature of a class parsed by the java parser.
