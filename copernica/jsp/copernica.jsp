@@ -20,26 +20,34 @@ page import="java.io.PrintWriter" %><%@
 page import="java.util.Iterator" %><%@
 page import="java.util.Collection" %><%@
 page import="java.util.Map"
+%><%!
+	
+	private CopernicaProvider providerLazilyInitialized;
+	private final Object providerLock = new Object();
+	
+	private final CopernicaProvider getProvider()
+	{
+		synchronized(providerLock)
+		{
+			if(providerLazilyInitialized!=null)
+				return providerLazilyInitialized;
+			
+			providerLazilyInitialized = Util.createProvider(
+				getInitParameter("com.exedio.copernica.provider"));
+			return providerLazilyInitialized;
+		}
+	}
+	
 %><%
-	final CopernicaProvider provider;
-	try
-	{
-		final String providerName = getInitParameter("com.exedio.copernica.provider");
-		if(providerName==null)
-			throw new NullPointerException("init-param com.exedio.copernica.provider missing");
-		final Class providerClass = Class.forName(providerName);
-		provider = (CopernicaProvider)providerClass.newInstance();
-	}
-	catch(ClassNotFoundException e)
-	{
-		throw new SystemException(e);
-	}
-
+	final CopernicaProvider provider = getProvider();
+	
+	/*
 	for( final Iterator it = request.getParameterMap().entrySet().iterator(); it.hasNext(); )
 	{
 		Map.Entry entry = (Map.Entry)it.next();
 		System.out.println( "param: " + entry.getKey() + " value: " + entry.getValue() );
 	}
+	*/
 	
 	final CopernicaCop cop = CopernicaCop.getCop(
 		provider, request.getParameterMap()
