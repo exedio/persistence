@@ -78,7 +78,7 @@
 								<%
 								final Type type = (Type)i.next();
 								%>
-								<a href="<%=(new TypeCop(type)).url%>">
+								<a href="<%=(new TypeCop(type))%>">
 									<%=provider.getDisplayName(null, type)%>
 								</a>
 							</td>
@@ -98,7 +98,7 @@
 						if(type==null)
 							throw new RuntimeException("type "+typeID+" not available");
 						%>
-						<a href="<%=(new TypeCop(type)).url%>"><%=provider.getDisplayName(null, type)%></a>
+						<a href="<%=(new TypeCop(type))%>"><%=provider.getDisplayName(null, type)%></a>
 						<hr>
 						<ul>
 						<%
@@ -165,7 +165,7 @@
 						final Type type = item.getType();
 						boolean toSave = false;
 						%>
-						<a href="<%=(new TypeCop(type)).url%>"><%=provider.getDisplayName(null, type)%></a>
+						<a href="<%=(new TypeCop(type))%>"><%=provider.getDisplayName(null, type)%></a>
 						<b><%=provider.getDisplayName(null, item)%></b><hr>
 						<form action="<%=(new ItemCop(item))%>" method="POST">
 						<table border="1">

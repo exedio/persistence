@@ -4,11 +4,16 @@ import com.exedio.cope.lib.Type;
 
 final class TypeCop
 {
-	final String url;
+	private final String url;
 	
 	TypeCop(final Type type)
 	{
 		this.url = "copernica.jsp?type="+type.getJavaClass().getName();
+	}
+	
+	public final String toString()
+	{
+		return url;
 	}
 	
 }

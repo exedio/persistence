@@ -4,7 +4,7 @@ import com.exedio.cope.lib.Item;
 
 final class ItemCop
 {
-	final String url;
+	private final String url;
 	
 	ItemCop(final Item item)
 	{
