@@ -21,7 +21,7 @@ abstract class Database
 	private boolean buildStage = true;
 	private final boolean useDefineColumnTypes;
 	private final ConnectionPool connectionPool;
-
+	
 	protected Database(final Properties properties)
 	{
 		this.useDefineColumnTypes = this instanceof DatabaseColumnTypesDefinable;
@@ -620,6 +620,8 @@ abstract class Database
 			return ((Integer)sqlInteger).intValue();
 	}
 
+	static final String GET_TABLES = "getTables";
+
 	//private static int timeExecuteQuery = 0;
 
 	protected final void executeSQL(final Statement statement, final ResultSetHandler resultSetHandler)
@@ -632,23 +634,31 @@ abstract class Database
 		{
 			connection = connectionPool.getConnection();
 			// TODO: use prepared statements and reuse the statement.
-			sqlStatement = connection.createStatement();
 			final String sqlText = statement.getText();
-			if(!sqlText.startsWith("select "))
+			if(GET_TABLES.equals(sqlText))
 			{
-				final int rows = sqlStatement.executeUpdate(sqlText);
-				//System.out.println("("+rows+"): "+statement.getText());
+				resultSet = connection.getMetaData().getTables(null, null, null, new String[]{"TABLE"});
+				resultSetHandler.run(resultSet);
 			}
 			else
 			{
-				//long time = System.currentTimeMillis();
-				if(useDefineColumnTypes)
-					((DatabaseColumnTypesDefinable)this).defineColumnTypes(statement.columnTypes, sqlStatement);
-				resultSet = sqlStatement.executeQuery(sqlText);
-				//long interval = System.currentTimeMillis() - time;
-				//timeExecuteQuery += interval;
-				//System.out.println("executeQuery: "+interval+"ms sum "+timeExecuteQuery+"ms");
-				resultSetHandler.run(resultSet);
+				sqlStatement = connection.createStatement();
+				if(!sqlText.startsWith("select "))
+				{
+					final int rows = sqlStatement.executeUpdate(sqlText);
+					//System.out.println("("+rows+"): "+statement.getText());
+				}
+				else
+				{
+					//long time = System.currentTimeMillis();
+					if(useDefineColumnTypes)
+						((DatabaseColumnTypesDefinable)this).defineColumnTypes(statement.columnTypes, sqlStatement);
+					resultSet = sqlStatement.executeQuery(sqlText);
+					//long interval = System.currentTimeMillis() - time;
+					//timeExecuteQuery += interval;
+					//System.out.println("executeQuery: "+interval+"ms sum "+timeExecuteQuery+"ms");
+					resultSetHandler.run(resultSet);
+				}
 			}
 		}
 		catch(SQLException e)

@@ -1,11 +1,14 @@
 
 package com.exedio.cope.lib;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 class HsqldbDatabase
 		extends Database
-		implements DatabaseTimestampCapable
+		implements
+			DatabaseReportable,
+			DatabaseTimestampCapable
 {
 
 	protected HsqldbDatabase(final Properties properties)
@@ -67,4 +70,45 @@ class HsqldbDatabase
 		return extractConstraintName(e, "Integrity constraint violation ", ' ');
 	}
 
+	public Report reportDatabase()
+	{
+		final Report report = new Report(this, getTables());
+
+		{
+			final com.exedio.cope.lib.Statement bf = createStatement();
+			bf.append(GET_TABLES);
+			try
+			{
+				executeSQL(bf, new MetaDataTableHandler(report));
+			}
+			catch(ConstraintViolationException e)
+			{
+				throw new SystemException(e);
+			}
+		}
+		
+		report.finish();
+
+		return report;
+	}
+
+	private static class MetaDataTableHandler implements ResultSetHandler
+	{
+		private final Report report;
+
+		MetaDataTableHandler(final Report report)
+		{
+			this.report = report;
+		}
+
+		public void run(ResultSet resultSet) throws SQLException
+		{
+			while(resultSet.next())
+			{
+				final String tableName = resultSet.getString("TABLE_NAME");
+				final ReportTable table = report.notifyExistentTable(tableName);
+				//System.out.println("EXISTS:"+tableName);
+			}
+		}
+	}
 }
