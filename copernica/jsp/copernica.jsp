@@ -162,9 +162,11 @@
 					{
 						final Item item = Search.findByID(itemID);
 						final Type type = item.getType();
+						boolean toSave = false;
 						%>
 						<u><%=provider.getDisplayName(null, type)%></u><br>
 						<b><%=provider.getDisplayName(null, item)%></b><hr>
+						<form action="copernica.jsp?item=<%=item.getID()%>" method="POST">
 						<table border="1">
 						<%
 						for(Iterator j = type.getAttributes().iterator(); j.hasNext(); )
@@ -191,11 +193,20 @@
 							}
 							else
 							{
-								%><%=item.getAttribute(attribute)%><%
+								%>
+								<input
+									type="text"
+									name="<%=attribute.getName()%>"
+									value="<%=item.getAttribute(attribute)%>" />
+								<%
 							}
 							%></td></tr><%
 						}
-						%></table><%
+						%>
+						</table>
+						<input type="submit" name="SAVE" value="Save" />
+						</form>
+						<%
 					}
 					else
 						%><u>select a type on the left</u>
