@@ -18,8 +18,10 @@ final class Properties
 		return theInstance;
 	}
 
-	private static final String FILE_NAME = "cope.properties";
+	private static final String FILE_NAME_PROPERTY = "com.exedio.cope.properties";
+	private static final String DEFAULT_FILE_NAME = "cope.properties";
 	
+	private File file = null;
 	private final String database;
 	private final String driver;
 	private final String url;
@@ -29,17 +31,22 @@ final class Properties
 	private Properties()
 	{
 		final java.util.Properties properties = new java.util.Properties();
-		File file = null;
 		FileInputStream stream = null;
 		try
 		{
-			file = new File(FILE_NAME);
+			String filename = System.getProperty(FILE_NAME_PROPERTY);
+			if(filename==null)
+				filename = DEFAULT_FILE_NAME;
+			
+			file = new File(filename);
 			stream = new FileInputStream(file);
 			properties.load(stream);
 		}
 		catch(IOException e)
 		{
-			throw new SystemException(e, file.getAbsolutePath().toString());
+			final String m = "ERROR: property file "+file.getAbsolutePath()+" not found.";
+			System.out.println(m);
+			throw new SystemException(e, m);
 		}
 		finally
 		{
@@ -59,12 +66,12 @@ final class Properties
 		password = getPropertyNotNull(properties, "database.password");
 	}
 	
-	private static String getPropertyNotNull(final java.util.Properties properties, final String key)
+	private String getPropertyNotNull(final java.util.Properties properties, final String key)
 	{
 		final String result = properties.getProperty(key);
 		if(result==null)
 		{
-			final String m = "ERROR: property "+key+" in "+FILE_NAME+" not set.";
+			final String m = "ERROR: property "+key+" in "+file.getAbsolutePath()+" not set.";
 			System.out.println(m);
 			throw new RuntimeException(m);
 		}
