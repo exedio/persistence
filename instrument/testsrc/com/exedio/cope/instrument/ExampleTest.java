@@ -282,6 +282,11 @@ public class ExampleTest extends InjectorTest
 		assertText("{\n\t\treturn null;\n\t}");
 		assertMethod("getUnqualifiedType", null, getUnqualifiedType);
 		assertText("\n\t\n\t");
+		
+		final JavaBehaviour setParent = assertBehaviourHeader("setParent", "void", Modifier.PUBLIC);
+		assertText("{\n\t}");
+		assertMethod("setParent", null, setParent);
+		assertText("\n\n\t");
 	}
 
 }
