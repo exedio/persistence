@@ -19,7 +19,12 @@ page import="java.util.Random"
 		<hr>
 		<font color="#ff0000">
 		<pre>
-<%exception.printStackTrace(new PrintWriter(out));%>
+<%
+			final PrintWriter outPrinter = new PrintWriter(out);
+			exception.printStackTrace(outPrinter);
+			if(exception instanceof ServletException)
+				((ServletException)exception).getRootCause().printStackTrace(outPrinter);
+		%>
 		</pre>
 		</font>
 		<hr><%
@@ -34,6 +39,8 @@ page import="java.util.Random"
 			final String id = String.valueOf(Math.abs(idLong));
 			System.out.println("--------I"+id+"-----");
 			exception.printStackTrace(System.out);
+			if(exception instanceof ServletException)
+				((ServletException)exception).getRootCause().printStackTrace(System.out);
 			System.out.println("--------O"+id+"-----");
 		%>
 		Please report the error code <i><%=id%></i> to the webmaster.<%
