@@ -40,6 +40,19 @@ public class SumTest extends DatabaseLibTest
 
 		assertEquals(i3, item.getSum12());
 		assertEquals(set(item), toSet(Search.search(item.TYPE, Search.equal(item.sum12, 3))));
+		
+		// test null propagation
+		item.setNum1(null);
+
+		assertEquals(null, item.getNum1());
+		assertEquals(i2, item.getNum2());
+		assertEquals(i3, item.getNum3());
+		assertEquals(set(item), toSet(Search.search(item.TYPE, Search.equal(item.num1, null))));
+		assertEquals(set(item), toSet(Search.search(item.TYPE, Search.equal(item.num2, 2))));
+		assertEquals(set(item), toSet(Search.search(item.TYPE, Search.equal(item.num3, 3))));
+
+		assertEquals(null, item.getSum12());
+		assertEquals(set(item), toSet(Search.search(item.TYPE, Search.equal(item.sum12, null))));
 	}
 
 }
