@@ -54,23 +54,7 @@ public final class Type
 	private PrimaryKeyIterator primaryKeyIterator;
 
 	private final Constructor creationConstructor;
-	private static final Class[] creationConstructorParams;
-	static
-	{
-		try
-		{
-			creationConstructorParams = new Class[]{Class.forName("[L"+AttributeValue.class.getName()+';')};
-		}
-		catch(ClassNotFoundException e)
-		{
-			e.printStackTrace();
-			throw new NestingRuntimeException(e);
-		}
-	}
-
 	private final Constructor reactivationConstructor;
-	private static final Class[] reactivationConstructorParams =
-		new Class[]{ReactivationConstructorDummy.class, int.class};
 
 	public static final Type findByJavaClass(final Class javaClass)
 	{
@@ -212,12 +196,25 @@ public final class Type
 		this.attributeList = Collections.unmodifiableList(Arrays.asList(attributes));
 		this.featureList = Collections.unmodifiableList(Arrays.asList(features));
 
-
-		this.creationConstructor = getConstructor(javaClass, creationConstructorParams);
-		this.reactivationConstructor = getConstructor(javaClass, reactivationConstructorParams);
+		// IMPLEMENTATION NOTE
+		// Here we don't precompute the constructor parameters
+		// because they are needed in the initialization phase
+		// only.
+		final Class attributeValueArrayClass;
+		try
+		{
+			attributeValueArrayClass = Class.forName("[L"+AttributeValue.class.getName()+';');
+		}
+		catch(ClassNotFoundException e)
+		{
+			e.printStackTrace();
+			throw new NestingRuntimeException(e);
+		}
+		this.creationConstructor = getConstructor(new Class[]{attributeValueArrayClass});
+		this.reactivationConstructor = getConstructor(new Class[]{ReactivationConstructorDummy.class, int.class});
 	}
 	
-	private static final Constructor getConstructor(final Class javaClass, final Class[] params)
+	private final Constructor getConstructor(final Class[] params)
 	{
 		try
 		{
