@@ -7,15 +7,6 @@ import java.sql.SQLException;
 
 class ConnectionPool
 {
-	private static ConnectionPool theInstance = null;
-
-	static final ConnectionPool getInstance()
-	{
-		if (theInstance == null)
-			theInstance = new ConnectionPool();
-
-		return theInstance;
-	}
 	
 	private Connection[] pool = new Connection[10];
 	private int size = 0;

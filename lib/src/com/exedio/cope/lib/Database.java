@@ -20,11 +20,12 @@ abstract class Database
 	private final HashMap itemColumnsByIntegrityConstraintName = new HashMap();
 	private boolean buildStage = true;
 	private final boolean useDefineColumnTypes;
-	
-	
+	private final ConnectionPool connectionPool;
+
 	protected Database()
 	{
 		this.useDefineColumnTypes = this instanceof DatabaseColumnTypesDefinable;
+		this.connectionPool = new ConnectionPool();
 		//System.out.println("using database "+getClass());
 	}
 	
@@ -624,8 +625,6 @@ abstract class Database
 	protected final void executeSQL(final Statement statement, final ResultSetHandler resultSetHandler)
 			throws ConstraintViolationException
 	{
-		final ConnectionPool connectionPool = ConnectionPool.getInstance();
-		
 		Connection connection = null;
 		java.sql.Statement sqlStatement = null;
 		ResultSet resultSet = null;
