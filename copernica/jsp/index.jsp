@@ -12,6 +12,7 @@
 	</head>
 	<body>
 		<h1>Copernica</h1>
+		<h2>Generic Backoffice for COPE</h2>
 <%
 	final Type[] types = new Type[]{Language.TYPE, Country.TYPE, Product.TYPE, ProductGroup.TYPE, OrderConfirmationMail.TYPE};
 
