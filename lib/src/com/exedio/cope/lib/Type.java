@@ -370,7 +370,7 @@ public final class Type
 		{
 			final Item result = (Item)searchResult.next();
 			if(searchResult.hasNext())
-				throw new NestingRuntimeException(null);
+				throw new RuntimeException(condition.toString());
 			else
 				return result;
 		}
