@@ -1,7 +1,8 @@
 package com.exedio.copernica;
 
 import java.util.HashMap;
-import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import com.exedio.cope.lib.EnumValue;
 import com.exedio.cope.lib.Item;
@@ -48,17 +49,17 @@ abstract class CopernicaCop extends Cop implements RequestCache
 		return new ItemCop(provider, language, newItem);
 	}
 	
-	static final CopernicaCop getCop(final CopernicaProvider provider, final Map parameterMap)
+	static final CopernicaCop getCop(final CopernicaProvider provider, final HttpServletRequest request)
 	{	
 		final Model model = provider.getModel();
-		final String typeID = getParameter(parameterMap, TYPE);
-		final String itemID = getParameter(parameterMap, ITEM);
-		final String langID = getParameter(parameterMap, LANGUAGE);
+		final String typeID = request.getParameter(TYPE);
+		final String itemID = request.getParameter(ITEM);
+		final String langID = request.getParameter(LANGUAGE);
 		
 		final CopernicaLanguage language = (langID!=null) ? provider.findLanguageByID(langID) : null;
 		if(typeID!=null)
 		{
-			return TypeCop.getCop(provider, language, typeID, parameterMap);
+			return TypeCop.getCop(provider, language, typeID, request);
 		}
 		else if(itemID!=null)
 		{

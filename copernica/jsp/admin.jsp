@@ -12,7 +12,7 @@ page import="java.util.Properties" %><%@
 include file="provider.inc"
 
 %><%
-final AdminCop cop = AdminCop.getCop(request.getParameterMap());
+final AdminCop cop = AdminCop.getCop(request);
 %>
 <html>
 	<head>

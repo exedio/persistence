@@ -70,10 +70,7 @@ include file="provider.inc"
 		return;
 	}
 	
-	final CopernicaCop cop = CopernicaCop.getCop(
-		provider, request.getParameterMap()
-	);
-	
+	final CopernicaCop cop = CopernicaCop.getCop(provider, request);
 	
 	final CopernicaLanguage language = cop.language;
 	

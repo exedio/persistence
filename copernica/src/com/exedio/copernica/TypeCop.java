@@ -1,7 +1,8 @@
 package com.exedio.copernica;
 
 import java.util.Collection;
-import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import com.exedio.cope.lib.Function;
 import com.exedio.cope.lib.Query;
@@ -103,20 +104,20 @@ final class TypeCop extends CopernicaCop
 			final CopernicaProvider provider,
 			final CopernicaLanguage language,
 			final String typeID,
-			final Map parameterMap)
+			final HttpServletRequest request)
 	{
 		final Type type = provider.getModel().findTypeByID(typeID);
 		if(type==null)
 			throw new RuntimeException("type "+typeID+" not available");
 
-		final String orderAscendingID = getParameter(parameterMap, ORDER_ASCENDING);
-		final String orderDescendingID = getParameter(parameterMap, ORDER_DESCENDING);
+		final String orderAscendingID = request.getParameter(ORDER_ASCENDING);
+		final String orderDescendingID = request.getParameter(ORDER_DESCENDING);
 		final boolean orderAscending = orderAscendingID!=null;
 		final String orderID = orderAscending ? orderAscendingID : orderDescendingID;
 		final Function orderBy = (orderID==null) ? null : (Function)type.getFeature(orderID);
 
-		final String startString = getParameter(parameterMap, START);
-		final String countString = getParameter(parameterMap, COUNT);
+		final String startString = request.getParameter(START);
+		final String countString = request.getParameter(COUNT);
 		final int start = (startString==null) ?  0 : Integer.parseInt(startString);
 		final int count = (countString==null) ? 10 : Integer.parseInt(countString);
 

@@ -1,6 +1,6 @@
 package com.exedio.copernica;
 
-import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
 
 import com.exedio.cope.lib.ReportTable;
 
@@ -86,9 +86,9 @@ final class AdminCop extends Cop
 		return reportTable!=null && !reportTable.equals(table.name);
 	}
 
-	static final AdminCop getCop(final Map parameterMap)
+	static final AdminCop getCop(final HttpServletRequest request)
 	{	
-		final String reportID = getParameter(parameterMap, REPORT);
+		final String reportID = request.getParameter(REPORT);
 		if(reportID==null)
 		{
 			return new AdminCop(false, null, false, false);
@@ -98,7 +98,7 @@ final class AdminCop extends Cop
 			boolean showDropBoxes = false;
 			boolean showRenameFields = false;
 
-			final String[] showIDs = (String[])parameterMap.get(SHOW);
+			final String[] showIDs = request.getParameterValues(SHOW);
 			if(showIDs!=null)
 			{
 				for(int i = 0; i<showIDs.length; i++)
