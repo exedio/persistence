@@ -181,9 +181,8 @@ public final class Instrumentor implements InjectionConsumer
 	{
 		output.write("/**");
 		output.write(lineSeparator);
-		output.write("\t **");
 		output.write(lineSeparator);
-		output.write("\t *");
+		output.write("\t **");
 		output.write(lineSeparator);
 	}
 
