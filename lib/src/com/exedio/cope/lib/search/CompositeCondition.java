@@ -10,7 +10,7 @@ public abstract class CompositeCondition extends Condition
 	private final String operator;
 	public final Condition[] conditions;
 
-	public CompositeCondition(final String operator, final Condition[] conditions)
+	CompositeCondition(final String operator, final Condition[] conditions)
 	{
 		this.operator = operator;
 		this.conditions = conditions;
