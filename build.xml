@@ -177,7 +177,7 @@
 				<pathelement location="instrument/build/testclasses" />
 				<pathelement location="../lib/junit.jar" />
 			</classpath>
-			<arg value="com.exedio.cope.instrument.ExampleTest" />
+			<arg value="com.exedio.cope.instrument.PackageTest" />
 		</java>
 	</target>
 	
