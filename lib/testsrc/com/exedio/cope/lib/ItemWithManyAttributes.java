@@ -34,6 +34,19 @@ public class ItemWithManyAttributes extends Item
 	public static final IntegerAttribute someNotNullInteger = new IntegerAttribute();
 
 	/**
+	 * An boolean attribute
+	 * @persistent
+	 */
+	public static final BooleanAttribute someBoolean = new BooleanAttribute();
+
+	/**
+	 * A not-null boolean attribute
+	 * @persistent
+	 * @not-null
+	 */
+	public static final BooleanAttribute someNotNullBoolean = new BooleanAttribute();
+
+	/**
 	 * An attribute referencing another persistent item
 	 * @persistent ItemWithoutAttributes
 	 */
@@ -58,13 +71,16 @@ public class ItemWithManyAttributes extends Item
 	 **
 	 * Constructs a new ItemWithManyAttributes with all the attributes initially needed.
 	 * @param initialSomeNotNullInteger the initial value for attribute {@link #someNotNullInteger}.
+	 * @param initialSomeNotNullBoolean the initial value for attribute {@link #someNotNullBoolean}.
 	 * @generated
 	 *
  */public ItemWithManyAttributes(
-				final int initialSomeNotNullInteger)
+				final int initialSomeNotNullInteger,
+				final boolean initialSomeNotNullBoolean)
 	{
 		super(new com.exedio.cope.lib.AttributeValue[]{
 			new com.exedio.cope.lib.AttributeValue(someNotNullInteger,new Integer(initialSomeNotNullInteger)),
+			new com.exedio.cope.lib.AttributeValue(someNotNullBoolean,(initialSomeNotNullBoolean?Boolean.TRUE:Boolean.TRUE)),
 		});
 	}/**
 
@@ -152,6 +168,72 @@ public class ItemWithManyAttributes extends Item
 		try
 		{
 			setAttribute(this.someNotNullInteger,new Integer(someNotNullInteger));
+		}
+		catch(com.exedio.cope.lib.NotNullViolationException e)
+		{
+			throw new com.exedio.cope.lib.SystemException(e);
+		}
+		catch(com.exedio.cope.lib.ReadOnlyViolationException e)
+		{
+			throw new com.exedio.cope.lib.SystemException(e);
+		}
+		catch(com.exedio.cope.lib.UniqueViolationException e)
+		{
+			throw new com.exedio.cope.lib.SystemException(e);
+		}
+	}/**
+
+	 **
+	 * Returns the value of the persistent attribute {@link #someBoolean}.
+	 * @generated
+	 *
+ */public final Boolean getSomeBoolean()
+	{
+		return (Boolean)getAttribute(this.someBoolean);
+	}/**
+
+	 **
+	 * Sets a new value for the persistent attribute {@link #someBoolean}.
+	 * @generated
+	 *
+ */public final void setSomeBoolean(final Boolean someBoolean)
+	{
+		try
+		{
+			setAttribute(this.someBoolean,someBoolean);
+		}
+		catch(com.exedio.cope.lib.NotNullViolationException e)
+		{
+			throw new com.exedio.cope.lib.SystemException(e);
+		}
+		catch(com.exedio.cope.lib.ReadOnlyViolationException e)
+		{
+			throw new com.exedio.cope.lib.SystemException(e);
+		}
+		catch(com.exedio.cope.lib.UniqueViolationException e)
+		{
+			throw new com.exedio.cope.lib.SystemException(e);
+		}
+	}/**
+
+	 **
+	 * Returns the value of the persistent attribute {@link #someNotNullBoolean}.
+	 * @generated
+	 *
+ */public final boolean getSomeNotNullBoolean()
+	{
+		return ((Boolean)getAttribute(this.someNotNullBoolean)).booleanValue();
+	}/**
+
+	 **
+	 * Sets a new value for the persistent attribute {@link #someNotNullBoolean}.
+	 * @generated
+	 *
+ */public final void setSomeNotNullBoolean(final boolean someNotNullBoolean)
+	{
+		try
+		{
+			setAttribute(this.someNotNullBoolean,(someNotNullBoolean?Boolean.TRUE:Boolean.TRUE));
 		}
 		catch(com.exedio.cope.lib.NotNullViolationException e)
 		{
@@ -297,6 +379,8 @@ public class ItemWithManyAttributes extends Item
 				someString,
 				someInteger,
 				someNotNullInteger,
+				someBoolean,
+				someNotNullBoolean,
 				someItem,
 				someMedia,
 				someQualifiedString,
@@ -310,6 +394,8 @@ public class ItemWithManyAttributes extends Item
 					someString.initialize("someString",false,false);
 					someInteger.initialize("someInteger",false,false);
 					someNotNullInteger.initialize("someNotNullInteger",false,true);
+					someBoolean.initialize("someBoolean",false,false);
+					someNotNullBoolean.initialize("someNotNullBoolean",false,true);
 					someItem.initialize("someItem",false,false);
 					someMedia.initialize("someMedia",false,false);
 					someQualifiedString.initialize("someQualifiedString",false,false);

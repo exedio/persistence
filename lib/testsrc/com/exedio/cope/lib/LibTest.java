@@ -161,9 +161,20 @@ public class LibTest extends TestCase
 		
 		// ItemWithManyAttributes
 		{
-			final ItemWithManyAttributes item = new ItemWithManyAttributes(5);
+			final ItemWithManyAttributes item = new ItemWithManyAttributes(5, true);
+			
+			// someString
 			assertEquals(null, item.getSomeString());
+
+			item.setSomeString("someString");
+			assertEquals(null/*"someString"*/, item.getSomeString());
+
+			// someInteger
 			assertEquals(null, item.getSomeInteger());
+			item.setSomeInteger(new Integer(10));
+			assertEquals(null/*new Integer(10)*/, item.getSomeInteger());
+
+			// someNotNullInteger
 			try
 			{
 				assertEquals(5, item.getSomeNotNullInteger());
@@ -171,13 +182,6 @@ public class LibTest extends TestCase
 			}
 			catch(NullPointerException e)
 			{}
-
-			item.setSomeString("someString");
-			assertEquals(null/*"someString"*/, item.getSomeString());
-
-			item.setSomeInteger(new Integer(10));
-			assertEquals(null/*new Integer(10)*/, item.getSomeInteger());
-
 			item.setSomeNotNullInteger(20);
 			try
 			{
@@ -187,12 +191,40 @@ public class LibTest extends TestCase
 			catch(NullPointerException e)
 			{}
 			
+			// someBoolean
+			assertEquals(null, item.getSomeBoolean());
+			item.setSomeBoolean(Boolean.TRUE);
+			assertEquals(null/*Boolean.TRUE*/, item.getSomeBoolean());
+			item.setSomeBoolean(Boolean.FALSE);
+			assertEquals(null/*Boolean.FALSE*/, item.getSomeBoolean());
+			item.setSomeBoolean(null);
+			assertEquals(null, item.getSomeBoolean());
+
+			// someNotNullBoolean
+			try
+			{
+				assertEquals(true, item.getSomeNotNullBoolean());
+				fail("should have thrown NullPointerException, until there is some persistence mechanism");
+			}
+			catch(NullPointerException e)
+			{}
+			item.setSomeNotNullBoolean(false);
+			try
+			{
+				assertEquals(false, item.getSomeNotNullBoolean());
+				fail("should have thrown NullPointerException, until there is some persistence mechanism");
+			}
+			catch(NullPointerException e)
+			{}
+			
+			// someItem
 			item.setSomeItem(null);
 			assertEquals(null, item.getSomeItem());
 			final ItemWithoutAttributes someItem = new ItemWithoutAttributes();
 			item.setSomeItem(null);
 			assertEquals(null/*someItem*/, item.getSomeItem());
 			
+			// someMedia
 			assertEquals(null, item.getSomeMediaURL());
 			assertEquals(null, item.getSomeMediaURLSomeVariant());
 			assertEquals(null, item.getSomeMediaData());
@@ -225,6 +257,7 @@ public class LibTest extends TestCase
 			assertEquals(null, item.getSomeMediaMimeMajor());
 			assertEquals(null, item.getSomeMediaMimeMinor());
 			
+			// someQualifiedAttribute
 			final ItemWithoutAttributes someItem2 = new ItemWithoutAttributes();
 			assertEquals(null, item.getSomeQualifiedString(someItem));
 			assertEquals(null, item.getSomeQualifiedString(someItem2));
