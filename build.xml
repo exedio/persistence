@@ -44,7 +44,7 @@
 				debug="on"
 				optimize="off">
 			<classpath>
-				<pathelement location="../lib/classes12.zip" />
+				<pathelement location="../lib/classes12.jar" />
 			</classpath>
 		</javac>
 	</target>
@@ -212,7 +212,7 @@
 	<target name="lib.test.run.oracle" depends="lib.test.compile">
 		<antcall target="lib.test.run.anydb">
 			<param name="database" value="oracle"/>
-			<param name="database-driver" value="classes12.zip"/>
+			<param name="database-driver" value="classes12.jar"/>
 		</antcall>
 	</target>
 
@@ -226,7 +226,7 @@
 				<pathelement location="../lib/pcj.jar" />
 				<pathelement location="../lib/junit.jar" />
 				<pathelement location="../lib/hsqldb.jar" />
-				<pathelement location="../lib/classes12.zip" />
+				<pathelement location="../lib/classes12.jar" />
 			</classpath>
 			<sysproperty key="com.exedio.cope.properties" file="cope.properties.oracle" />
 		</java>
@@ -339,9 +339,8 @@
 		
 		<copy todir="copernica/build/testwebapp-${database}/WEB-INF/lib">
 			<fileset file="../lib/pcj.jar" />
+			<fileset file="../lib/${database-driver}" />
 		</copy>
-		<copy file="../lib/${database-driver}"
-				tofile="copernica/build/testwebapp-${database}/WEB-INF/lib/${database-driver-name}" />
 		
 		<copy tofile="copernica/build/testwebapp-${database}/WEB-INF/cope.properties"
 				file="cope.properties.${database}">
@@ -368,7 +367,6 @@
 		<antcall target="copernica.testwebapp.anydb">
 			<param name="database" value="hsqldb"/>
 			<param name="database-driver" value="hsqldb.jar"/>
-			<param name="database-driver-name" value="hsqldb.jar"/>
 		</antcall>
 	</target>
 	
@@ -376,8 +374,7 @@
 			depends="copernica.compile, copernica.test.compile">
 		<antcall target="copernica.testwebapp.anydb">
 			<param name="database" value="oracle"/>
-			<param name="database-driver" value="classes12.zip"/>
-			<param name="database-driver-name" value="classes12.jar"/>
+			<param name="database-driver" value="classes12.jar"/>
 		</antcall>
 	</target>
 	
