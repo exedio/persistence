@@ -297,6 +297,7 @@ final class OracleDatabase
 	
 	private static final Random statementIDCounter = new Random();
 	private static final String STATEMENT_ID = "STATEMENT_ID";
+	private static final String STATEMENT_ID_PREFIX = "cope";
 
 	private StatementInfo makePlanInfo(final Statement statement, final Connection connection)
 	{
@@ -314,7 +315,7 @@ final class OracleDatabase
 		{
 			final Statement explainStatement = createStatement();
 			explainStatement.
-				append("explain plan set "+STATEMENT_ID+"='cope").
+				append("explain plan set "+STATEMENT_ID+"='"+STATEMENT_ID_PREFIX).
 				append(statementID).
 				append("' for ").
 				append(statementText);
@@ -352,7 +353,7 @@ final class OracleDatabase
 							"OBJECT_NAME,OBJECT_INSTANCE,OBJECT_TYPE," +
 							"ID,PARENT_ID " +
 						"from plan_table " +
-						"where "+STATEMENT_ID+"='cope").
+						"where "+STATEMENT_ID+"='"+STATEMENT_ID_PREFIX).
 				defineColumnString().defineColumnString().
 				defineColumnString().defineColumnInteger().defineColumnString().
 				defineColumnInteger().defineColumnInteger().
@@ -442,7 +443,7 @@ final class OracleDatabase
 		if(root==null)
 			throw new RuntimeException();
 		
-		final StatementInfo result = new StatementInfo("execution plan statement_id = cope" + statementID);
+		final StatementInfo result = new StatementInfo("execution plan statement_id = " + STATEMENT_ID_PREFIX + statementID);
 		result.addChild(root);
 		
 		//System.out.println("######################");
