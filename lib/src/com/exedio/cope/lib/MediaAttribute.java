@@ -1,30 +1,20 @@
 
 package com.exedio.cope.lib;
 
+import java.util.Collections;
+import java.util.List;
+
 public final class MediaAttribute extends Attribute
 {
 	public MediaAttribute()
 	{
 	}
 	
-	Object databaseToCache(final Object cell)
+	protected List createColumns(final String name)
 	{
-		if(cell==null)
-			return null;
-		else if(cell instanceof String)
-			return cell;
-		else
-			throw new RuntimeException("cellToCache:"+cell);
+		return Collections.EMPTY_LIST;
 	}
-
-	Object cacheToDatabase(final Object cache)
-	{
-		if(cache==null)
-			return "NULL";
-		else
-			throw new RuntimeException("not yet implemented");
-	}
-
+	
 	Object cacheToSurface(final Object cache)
 	{
 		return cache;

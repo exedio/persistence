@@ -276,7 +276,7 @@ public class Item extends Search
 	
 	private Object getCache(final Attribute attribute)
 	{
-		return attribute.cacheToSurface(itemCache.get(attribute));
+		return attribute.cacheToSurface(itemCache.get(attribute.getMainColumn()));
 	}
 	
 	private void putCache(final AttributeValue[] attributeValues)
@@ -284,14 +284,14 @@ public class Item extends Search
 		for(int i = 0; i<attributeValues.length; i++)
 		{
 			final Attribute attribute = attributeValues[i].attribute;
-			itemCache.put(attribute, attribute.surfaceToCache(attributeValues[i].value));
+			itemCache.put(attribute.getMainColumn(), attribute.surfaceToCache(attributeValues[i].value));
 		}
 		dirty = true; // TODO: check, whether the written attribute got really a new value
 	}
 	
 	private void putCache(final Attribute attribute, final Object value)
 	{
-		itemCache.put(attribute, attribute.surfaceToCache(value));
+		itemCache.put(attribute.getMainColumn(), attribute.surfaceToCache(value));
 		dirty = true; // TODO: check, whether the written attribute got really a new value
 	}
 	

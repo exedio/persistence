@@ -1,6 +1,8 @@
 package com.exedio.cope.lib;
 
 import com.exedio.cope.lib.Database;
+import java.util.Collections;
+import java.util.List;
 
 public abstract class Attribute
 {
@@ -23,7 +25,8 @@ public abstract class Attribute
 	private String name;
 	private boolean readOnly;
 	private boolean notNull;
-	private String persistentQualifier;
+	private List columns;
+	private Column mainColumn;
 	
 	void setType(final Type type)
 	{
@@ -41,36 +44,57 @@ public abstract class Attribute
 		this.name = name;
 		this.readOnly = readOnly;
 		this.notNull = notNull;
+		this.columns = (mapping==null) ? Collections.unmodifiableList(createColumns(name)) : Collections.EMPTY_LIST;
+		this.mainColumn = this.columns.isEmpty() ? null : (Column)columns.iterator().next();
 
 		initialized = true;
-		this.persistentQualifier = Database.theInstance.makePersistentQualifier(this);
 	}
 	
 	public final Type getType()
 	{
+		if(type==null)
+			throw new RuntimeException();
+
 		return type;
 	}
 	
 	public final String getName()
 	{
+		if(!initialized)
+			throw new RuntimeException();
+
 		return name;
 	}
 	
 	public final boolean isReadOnly()
 	{
+		if(!initialized)
+			throw new RuntimeException();
+
 		return readOnly;
 	}
 	
 	public final boolean isNotNull()
 	{
+		if(!initialized)
+			throw new RuntimeException();
+
 		return notNull;
 	}
 	
-	String getPersistentQualifier()
+	final List getColumns()
 	{
-		return persistentQualifier;
-	}
+		if(!initialized)
+			throw new RuntimeException();
 
+		return columns;
+	}
+	
+	final Column getMainColumn()
+	{
+		return mainColumn;
+	}
+	
 	public final String toString()
 	{
 		// should be precomputed
@@ -103,9 +127,8 @@ public abstract class Attribute
 		return buf.toString();
 	}
 	
-	abstract Object databaseToCache(Object cell);
-	abstract Object cacheToDatabase(Object cache);
-
+	protected abstract List createColumns(String name);
+	
 	abstract Object cacheToSurface(Object cache);
 	abstract Object surfaceToCache(Object surface);
 	

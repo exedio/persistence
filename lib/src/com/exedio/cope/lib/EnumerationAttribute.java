@@ -2,7 +2,6 @@
 package com.exedio.cope.lib;
 
 import java.lang.reflect.Field;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -66,30 +65,25 @@ public final class EnumerationAttribute extends Attribute
 		return (EnumerationValue)numbersToValues.get(new Integer(number));
 	}
 
-	Object databaseToCache(final Object cell)
+	protected List createColumns(final String name)
 	{
-		if(cell==null)
-			return null;
-		else
-			return getValue(((BigDecimal)cell).intValue()); // TODO: use ResultSet.getInt() somehow
+		return Collections.singletonList(new IntegerColumn(getType(), name, 10));
 	}
-
-	Object cacheToDatabase(final Object cache)
-	{
-		if(cache==null)
-			return "NULL";
-		else
-			return Integer.toString(((EnumerationValue)cache).number);
-	}
-
+	
 	Object cacheToSurface(final Object cache)
 	{
-		return (EnumerationValue)cache;
+		return
+			cache==null ?
+				null :
+				getValue(((Integer)cache).intValue());
 	}
 		
 	Object surfaceToCache(final Object surface)
 	{
-		return (EnumerationValue)surface;
+		return
+			surface==null ?
+				null :
+				((EnumerationValue)surface).numberObject;
 	}
 	
 }

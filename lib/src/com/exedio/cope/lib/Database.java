@@ -39,20 +39,28 @@ public abstract class Database
 	protected abstract char getNameDelimiterStart();
 	protected abstract char getNameDelimiterEnd();
 	
-	private String getSyntheticPrimaryKeyQualifier()
-	{
-		return "\"PK\"";
-	}
-	
-	private String getSyntheticPrimaryKeyType()
-	{
-		return "number(10,0)";
-	}
-	
 	public void createTables()
 	{
 		for(Iterator i = Type.getTypes().iterator(); i.hasNext(); )
 			createTable((Type)i.next());
+	}
+
+	public void createTablesX()
+	{
+		for(Iterator i = Type.getTypes().iterator(); i.hasNext(); )
+		{
+			final Type type = (Type)i.next();
+			try
+			{
+				createTable(type);
+			}
+			catch(SystemException e)
+			{
+				e.printStackTrace();
+				dropTable(type);
+				createTable(type);
+			}
+		}
 	}
 
 	public void dropTables()
@@ -105,7 +113,7 @@ public abstract class Database
 				attribute = mapping.sourceAttribute;
 			}
 			
-			this.text.append(attribute.getPersistentQualifier());
+			this.text.append(attribute.getMainColumn().name);
 			
 			if(mappingEnds!=null)
 			{
@@ -116,9 +124,13 @@ public abstract class Database
 			return this;
 		}
 		
-		public Statement appendValue(final Attribute attribute, final Object value)
+		public Statement appendValue(Attribute attribute, final Object value)
 		{
-			this.text.append(attribute.cacheToDatabase(attribute.surfaceToCache(value)));
+			// TODO: use some kind of recursion instead
+			while(attribute.mapping!=null)
+				attribute = attribute.mapping.sourceAttribute;
+
+			this.text.append(attribute.getMainColumn().cacheToDatabase(attribute.surfaceToCache(value)));
 			return this;
 		}
 		
@@ -137,7 +149,7 @@ public abstract class Database
 	{
 		final Statement bf = new Statement();
 		bf.append("select ").
-			append(getSyntheticPrimaryKeyQualifier()).
+			append(type.primaryKey.name).
 			append(" from ").
 			append(type.getPersistentQualifier()).
 			append(" where ");
@@ -149,7 +161,7 @@ public abstract class Database
 
 	void load(final Type type, final int pk, final HashMap itemCache)
 	{
-		final List attributes = type.getAttributes();
+		final List columns = type.getColumns();
 
 		// TODO: use prepared statements and reuse the statement.
 		// TODO: use Statement class
@@ -157,37 +169,37 @@ public abstract class Database
 		bf.append("select ");
 
 		boolean first = true;
-		for(Iterator i = attributes.iterator(); i.hasNext(); )
+		for(Iterator i = columns.iterator(); i.hasNext(); )
 		{
 			if(first)
 				first = false;
 			else
 				bf.append(',');
-			final Attribute attribute = (Attribute)i.next();
-			bf.append(attribute.getPersistentQualifier());
+			final Column column = (Column)i.next();
+			bf.append(column.name);
 		}
 		bf.append(" from ").
 			append(type.getPersistentQualifier()).
 			append(" where ").
-			append(getSyntheticPrimaryKeyQualifier()).
+			append(type.primaryKey.name).
 			append('=').
 			append(pk);
 
 		System.out.println("loading "+bf.toString());
 
-		final ArrayList row = executeSQLLoad(bf.toString(), attributes.size());
+		final ArrayList row = executeSQLLoad(bf.toString(), columns.size());
 		final Iterator ir = row.iterator();
-		for(Iterator i = attributes.iterator(); i.hasNext(); )
+		for(Iterator i = columns.iterator(); i.hasNext(); )
 		{
-			final Attribute attribute = (Attribute)i.next();
+			final Column column = (Column)i.next();
 			final Object cell = ir.next();
-			itemCache.put(attribute, attribute.databaseToCache(cell));
+			itemCache.put(column, column.databaseToCache(cell));
 		}
 	}
 
 	void store(final Type type, final int pk, final HashMap itemCache, final boolean present)
 	{
-		final List attributes = type.getAttributes();
+		final List columns = type.getColumns();
 
 		// TODO: use prepared statements and reuse the statement.
 		// TODO: use Statement class
@@ -199,22 +211,22 @@ public abstract class Database
 				append(" set ");
 
 			boolean first = true;
-			for(Iterator i = attributes.iterator(); i.hasNext(); )
+			for(Iterator i = columns.iterator(); i.hasNext(); )
 			{
 				if(first)
 					first = false;
 				else
 					bf.append(',');
 
-				final Attribute attribute = (Attribute)i.next();
-				bf.append(attribute.getPersistentQualifier()).
+				final Column column = (Column)i.next();
+				bf.append(column.name).
 					append('=');
 
-				final Object value = itemCache.get(attribute);
-				bf.append(attribute.cacheToDatabase(value));
+				final Object value = itemCache.get(column);
+				bf.append(column.cacheToDatabase(value));
 			}
 			bf.append(" where ").
-				append(getSyntheticPrimaryKeyQualifier()).
+				append(type.primaryKey.name).
 				append('=').
 				append(pk);
 		}
@@ -223,24 +235,24 @@ public abstract class Database
 			bf.append("insert into ").
 				append(type.getPersistentQualifier()).
 				append("(").
-				append(getSyntheticPrimaryKeyQualifier());
+				append(type.primaryKey.name);
 
 			boolean first = true;
-			for(Iterator i = attributes.iterator(); i.hasNext(); )
+			for(Iterator i = columns.iterator(); i.hasNext(); )
 			{
 				bf.append(',');
-				final Attribute attribute = (Attribute)i.next();
-				bf.append(attribute.getPersistentQualifier());
+				final Column column = (Column)i.next();
+				bf.append(column.name);
 			}
 
 			bf.append(")values(").
 				append(pk);
-			for(Iterator i = attributes.iterator(); i.hasNext(); )
+			for(Iterator i = columns.iterator(); i.hasNext(); )
 			{
 				bf.append(',');
-				final Attribute attribute = (Attribute)i.next();
-				final Object value = itemCache.get(attribute);
-				bf.append(attribute.cacheToDatabase(value));
+				final Column column = (Column)i.next();
+				final Object value = itemCache.get(column);
+				bf.append(column.cacheToDatabase(value));
 			}
 			bf.append(')');
 		}
@@ -371,28 +383,9 @@ public abstract class Database
 		return getNameDelimiterStart() + className.substring(pos+1) + getNameDelimiterEnd();
 	}
 	
-	String makePersistentQualifier(final Attribute attribute)
+	String makePersistentQualifier(final String name)
 	{
-		return getNameDelimiterStart() + attribute.getName() + getNameDelimiterEnd();
-	}
-	
-	private String getPersistentType(final Attribute attribute)
-	{
-		if(attribute instanceof StringAttribute)
-			return "varchar2(4000)";
-		else if(attribute instanceof BooleanAttribute)
-			return "number(1,0)";
-		else if(attribute instanceof IntegerAttribute)
-			return "number(20,0)";
-		else if(attribute instanceof EnumerationAttribute)
-			return "number(10,0)";
-		else if(attribute instanceof ItemAttribute)
-			return getSyntheticPrimaryKeyType();
-		else if(attribute instanceof MediaAttribute)
-			// TODO, separate major/minor mime type and introduce width/height for images
-			return "varchar(30)";
-		else
-			throw new RuntimeException(attribute.toString());
+		return getNameDelimiterStart() + name + getNameDelimiterEnd();
 	}
 	
 	private String getCreateTableStatement(final Type type)
@@ -403,19 +396,19 @@ public abstract class Database
 			append(type.getPersistentQualifier()).
 			append('(');
 
-		bf.append(getSyntheticPrimaryKeyQualifier()).
+		final Column primaryKey = type.primaryKey;
+		bf.append(primaryKey.name).
 			append(' ').
-			append(getSyntheticPrimaryKeyType()).
+			append(primaryKey.databaseType).
 			append(" primary key");
 		
-		for(Iterator i = type.getAttributes().iterator(); i.hasNext(); )
+		for(Iterator i = type.getColumns().iterator(); i.hasNext(); )
 		{
-			bf.append(',');
-			final Attribute attribute = (Attribute)i.next();
-			// TODO: do not create columns for mapped attributes
-			bf.append(attribute.getPersistentQualifier()).
+			final Column column = (Column)i.next();
+			bf.append(',').
+				append(column.name).
 				append(' ').
-				append(getPersistentType(attribute));
+				append(column.databaseType);
 		}
 		bf.append(')');
 		return bf.toString();

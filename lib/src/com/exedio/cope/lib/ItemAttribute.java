@@ -1,7 +1,8 @@
 
 package com.exedio.cope.lib;
 
-import java.math.BigDecimal;
+import java.util.Collections;
+import java.util.List;
 
 public final class ItemAttribute extends Attribute
 {
@@ -21,31 +22,28 @@ public final class ItemAttribute extends Attribute
 	{
 		return this.targetType;
 	}
+	
+	static final int SYNTETIC_PRIMARY_KEY_PRECISION = 10;
 
-	Object databaseToCache(final Object cell)
+	protected List createColumns(final String name)
 	{
-		if(cell==null)
-			return null;
-		else
-			return new Integer(((BigDecimal)cell).intValue()); // TODO: use ResultSet.getInt() somehow
+		return Collections.singletonList(new IntegerColumn(getType(), name, SYNTETIC_PRIMARY_KEY_PRECISION));
 	}
-
-	Object cacheToDatabase(final Object cache)
-	{
-		if(cache==null)
-			return "NULL";
-		else
-			return ((Integer)cache).toString();
-	}
-
+	
 	Object cacheToSurface(final Object cache)
 	{
-		return cache==null ? null : targetType.getItem(((Integer)cache).intValue());
+		return 
+			cache==null ? 
+				null : 
+				targetType.getItem(((Integer)cache).intValue());
 	}
 		
 	Object surfaceToCache(final Object surface)
 	{
-		return surface==null ? null : new Integer(((Item)surface).pk);
+		return
+			surface==null ? 
+				null : 
+				new Integer(((Item)surface).pk);
 	}
 	
 }

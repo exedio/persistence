@@ -1,26 +1,16 @@
 
 package com.exedio.cope.lib;
 
-import java.math.BigDecimal;
+import java.util.Collections;
+import java.util.List;
 
 public final class IntegerAttribute extends Attribute
 {
-	Object databaseToCache(final Object cell)
+	protected List createColumns(final String name)
 	{
-		if(cell==null)
-			return null;
-		else
-			return new Integer(((BigDecimal)cell).intValue()); // TODO: use ResultSet.getInt() somehow
+		return Collections.singletonList(new IntegerColumn(getType(), name, 20));
 	}
-
-	Object cacheToDatabase(final Object cache)
-	{
-		if(cache==null)
-			return "NULL";
-		else
-			return ((Integer)cache).toString();
-	}
-
+	
 	Object cacheToSurface(final Object cache)
 	{
 		return (Integer)cache;

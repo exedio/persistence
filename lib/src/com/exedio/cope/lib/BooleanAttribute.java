@@ -1,44 +1,43 @@
 
 package com.exedio.cope.lib;
 
-import java.math.BigDecimal;
+import java.util.Collections;
+import java.util.List;
 
 public final class BooleanAttribute extends Attribute
 {
-	Object databaseToCache(final Object cell)
+	protected List createColumns(final String name)
 	{
-		if(cell==null)
+		return Collections.singletonList(new IntegerColumn(getType(), name, 1));
+	}
+	
+	Object cacheToSurface(final Object cache)
+	{
+		if(cache==null)
 			return null;
 		else
 		{
-			switch(((BigDecimal)cell).intValue()) // TODO: use ResultSet.getInt() somehow
+			switch(((Integer)cache).intValue())
 			{
 				case 0:
 					return Boolean.FALSE;
 				case 1:
 					return Boolean.TRUE;
 				default:
-					throw new RuntimeException("cellToCache:"+cell);
+					throw new RuntimeException("cacheToSurface:"+cache);
 			}
 		}
 	}
 	
-	Object cacheToDatabase(final Object cache)
-	{
-		if(cache==null)
-			return "NULL";
-		else
-			return ((Boolean)cache).booleanValue() ? "1" : "0";
-	}
-
-	Object cacheToSurface(final Object cache)
-	{
-		return (Boolean)cache;
-	}
+	private static final Integer FALSE = new Integer(0);
+	private static final Integer TRUE = new Integer(1);
 		
 	Object surfaceToCache(final Object surface)
 	{
-		return (Boolean)surface;
+		return
+			surface==null ?
+				null :
+				((Boolean)surface).booleanValue() ? TRUE : FALSE;
 	}
 	
 }

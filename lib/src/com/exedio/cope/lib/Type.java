@@ -26,6 +26,9 @@ public final class Type
 	private final List uniqueConstraintList;
 	
 	private final String persistentQualifier;
+	private final List columns;
+	final Column primaryKey;
+
 	private final Constructor reactivationConstructor;
 	private static final Class[] reactivationConstructorParams =
 		new Class[]{ReactivationConstructorDummy.class, int.class};
@@ -50,9 +53,17 @@ public final class Type
 		this.uniqueConstraints = uniqueConstraints;
 		this.uniqueConstraintList = Collections.unmodifiableList(Arrays.asList(uniqueConstraints));
 		initializer.run();
+		
 		typesModifyable.add(this);
 		typesByName.put(javaClass.getName(), this);
 		this.persistentQualifier = Database.theInstance.makePersistentQualifier(this);
+
+		final ArrayList columns = new ArrayList();
+		for(int i = 0; i<attributes.length; i++)
+			columns.addAll(attributes[i].getColumns());
+		this.columns = Collections.unmodifiableList(columns);
+		this.primaryKey = new IntegerColumn(this, "PK", ItemAttribute.SYNTETIC_PRIMARY_KEY_PRECISION);
+
 		try
 		{
 			reactivationConstructor = javaClass.getDeclaredConstructor(reactivationConstructorParams);
@@ -83,7 +94,11 @@ public final class Type
 	{
 		return persistentQualifier;
 	}
-
+	
+	List getColumns()
+	{
+		return columns;
+	}
 
 	private String toStringCache = null;
 	

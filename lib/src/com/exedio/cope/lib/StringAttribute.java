@@ -1,6 +1,9 @@
 
 package com.exedio.cope.lib;
 
+import java.util.Collections;
+import java.util.List;
+
 public final class StringAttribute extends Attribute
 {
 	public StringAttribute()
@@ -12,24 +15,14 @@ public final class StringAttribute extends Attribute
 		super(mapping);
 	}
 	
-	Object databaseToCache(final Object cell)
+	protected List createColumns(final String name)
 	{
-		if(cell==null)
-			return null;
-		else if(cell instanceof String)
-			return cell;
+		if(mapping==null)
+			return Collections.singletonList(new StringColumn(getType(), name));
 		else
-			throw new RuntimeException("cellToCache:"+cell);
+			return Collections.EMPTY_LIST;
 	}
-
-	Object cacheToDatabase(final Object cache)
-	{
-		if(cache==null)
-			return "NULL";
-		else
-			return "'" + ((String)cache) + '\'';
-	}
-
+	
 	Object cacheToSurface(final Object cache)
 	{
 		return (String)cache;
