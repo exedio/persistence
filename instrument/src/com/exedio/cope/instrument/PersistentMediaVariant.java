@@ -1,7 +1,7 @@
 package com.exedio.cope.instrument;
 
 
-public final class PersistentMediaVariant
+final class PersistentMediaVariant
 {
 	final String name;
 	final PersistentMediaAttribute mediaAttribute;

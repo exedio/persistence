@@ -1,7 +1,7 @@
 
 package com.exedio.cope.instrument;
 
-public interface TokenConsumer
+interface TokenConsumer
 {
 	public void addToken(char token);
 }

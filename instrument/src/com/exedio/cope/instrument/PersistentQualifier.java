@@ -2,7 +2,7 @@ package com.exedio.cope.instrument;
 
 import java.util.List;
 
-public class PersistentQualifier
+final class PersistentQualifier
 {
 	final String qualifierClass;
 	final String parent;

@@ -15,7 +15,7 @@ import java.util.TreeSet;
 import com.exedio.cope.lib.ReadOnlyViolationException;
 import com.exedio.cope.lib.util.ClassComparator;
 
-public final class PersistentClass
+final class PersistentClass
 {
 	private static final HashMap persistentClassByJavaClass = new HashMap();
 	

@@ -1,7 +1,7 @@
 
 package com.exedio.cope.instrument;
 
-public final class PersistentUniqueConstraint
+final class PersistentUniqueConstraint
 {
 	final String name;
 	final String camelCaseName;

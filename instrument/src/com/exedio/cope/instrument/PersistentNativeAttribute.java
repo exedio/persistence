@@ -12,7 +12,7 @@ import com.exedio.cope.lib.IntegerFunction;
 import com.exedio.cope.lib.LongAttribute;
 import com.exedio.cope.lib.StringFunction;
 
-public class PersistentNativeAttribute extends PersistentAttribute
+final class PersistentNativeAttribute extends PersistentAttribute
 {
 	private final String boxedType;
 	private final boolean boxed;

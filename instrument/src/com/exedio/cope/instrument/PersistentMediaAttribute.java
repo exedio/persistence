@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public final class PersistentMediaAttribute extends PersistentAttribute
+final class PersistentMediaAttribute extends PersistentAttribute
 {
 	private final List mediaVariants;
 	public final String mimeMajor;
