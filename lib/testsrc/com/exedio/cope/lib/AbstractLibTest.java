@@ -157,6 +157,7 @@ public abstract class AbstractLibTest extends TestCase
 	}
 	
 	protected void assertDelete(final Item item)
+			throws IntegrityViolationException
 	{
 		assertTrue(!item.isDeleted());
 		item.delete();

@@ -9,6 +9,7 @@ public class UniqueItemTest extends AbstractLibTest
 	}
 
 	public void testItemWithSingleUnique()
+			throws IntegrityViolationException
 	{
 		assertEquals(null, ItemWithSingleUnique.findByUniqueString("uniqueString"));
 
@@ -101,6 +102,7 @@ public class UniqueItemTest extends AbstractLibTest
 	}
 
 	public void testItemWithSingleUniqueReadOnly()
+			throws IntegrityViolationException
 	{
 		assertEquals(null, ItemWithSingleUniqueReadOnly.findByUniqueReadOnlyString("uniqueString"));
 
@@ -137,6 +139,7 @@ public class UniqueItemTest extends AbstractLibTest
 	}
 
 	public void testItemWithSingleUniqueNotNull()
+			throws IntegrityViolationException
 	{
 		assertEquals(null, ItemWithSingleUniqueNotNull.findByUniqueNotNullString("uniqueString"));
 		assertEquals(null, ItemWithSingleUniqueNotNull.findByUniqueNotNullString("uniqueString2"));

@@ -1,8 +1,6 @@
 
 package com.exedio.cope.lib;
 
-import java.io.PrintStream;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 
 /**
@@ -16,7 +14,6 @@ import java.sql.SQLException;
  */
 public final class UniqueViolationException extends ConstraintViolationException
 {
-	private final SQLException cause;
 	private final UniqueConstraint constraint;
 	
 	/**
@@ -27,11 +24,11 @@ public final class UniqueViolationException extends ConstraintViolationException
 	 */
 	UniqueViolationException(final SQLException cause, final Item item, final UniqueConstraint constraint)
 	{
+		super(cause);
 		if(cause==null)
 			throw new NullPointerException();
 		if(constraint==null)
 			throw new NullPointerException();
-		this.cause = cause;
 		this.constraint = constraint;
 	}
 	
@@ -53,22 +50,4 @@ public final class UniqueViolationException extends ConstraintViolationException
 		return constraint;
 	}
 	
-	public void printStackTrace()
-	{
-		super.printStackTrace();
-		cause.printStackTrace();
-	}
-
-	public void printStackTrace(final PrintStream s)
-	{
-		super.printStackTrace(s);
-		cause.printStackTrace(s);
-	}
-
-	public void printStackTrace(final PrintWriter s)
-	{
-		super.printStackTrace(s);
-		cause.printStackTrace(s);
-	}
-
 }

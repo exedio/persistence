@@ -2,10 +2,18 @@
 package com.exedio.cope.lib;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 public final class ItemAttribute extends Attribute
 {
+	private static final HashMap itemAttributesByIntegrityConstraintName = new HashMap();
+	
+	static final ItemAttribute getItemAttributeByIntegrityConstraintName(final String integrityConstraintName)
+	{
+		return (ItemAttribute)itemAttributesByIntegrityConstraintName.get(integrityConstraintName);
+	}
+	
 	private Type targetType;
 
 	public ItemAttribute initialize(final String name, final boolean readOnly, final boolean notNull, final Type targetType)
@@ -29,7 +37,10 @@ public final class ItemAttribute extends Attribute
 
 	protected List createColumns(final String name, final boolean notNull)
 	{
-		return Collections.singletonList(new IntegerColumn(getType(), name, notNull, SYNTETIC_PRIMARY_KEY_PRECISION, targetType.trimmedName));
+		final String integrityConstraintName = name+"FK";
+		if(itemAttributesByIntegrityConstraintName.put(integrityConstraintName, this)!=null)
+			throw new RuntimeException("there is more than one integrity constraint with name "+integrityConstraintName);
+		return Collections.singletonList(new IntegerColumn(getType(), name, notNull, SYNTETIC_PRIMARY_KEY_PRECISION, targetType.trimmedName, integrityConstraintName));
 	}
 	
 	Object cacheToSurface(final Object cache)

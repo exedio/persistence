@@ -17,6 +17,7 @@ import java.util.Collection;
 public class SearchTest extends AbstractLibTest
 {
 	public void testUnmodifiableSearchResult()
+			throws IntegrityViolationException
 	{
 		final ItemWithoutAttributes someItem = new ItemWithoutAttributes();
 		final ItemWithManyAttributes item;

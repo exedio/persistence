@@ -203,6 +203,15 @@ public class AttributesTest extends AbstractLibTest
 			assertEquals(item.someNotNullItem, e.getNotNullAttribute());
 		}
 		assertEquals(someItem2, item.getSomeNotNullItem());
+		try
+		{
+			someItem2.delete();
+		}
+		catch(IntegrityViolationException e)
+		{
+			assertEquals(item.someNotNullItem, e.getAttribute());
+			assertEquals(null/*TODO someItem*/, e.getItem());
+		}
 	}
 
 	public void testSomeEnumeration()
@@ -310,6 +319,7 @@ public class AttributesTest extends AbstractLibTest
 	}
 
 	public void testSomeQualifiedAttribute()
+			throws IntegrityViolationException
 	{
 		assertEquals(item.TYPE, item.someQualifiedString.getType());
 		final ItemWithoutAttributes someItem2 = new ItemWithoutAttributes();

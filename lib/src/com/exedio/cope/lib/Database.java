@@ -112,7 +112,7 @@ public abstract class Database
 			executeSQL(bf, handler);
 			return handler.result;
 		}
-		catch(UniqueViolationException e)
+		catch(ConstraintViolationException e)
 		{
 			throw new SystemException(e);
 		}
@@ -149,7 +149,7 @@ public abstract class Database
 		{
 			executeSQL(bf, new LoadResultSetHandler(row));
 		}
-		catch(UniqueViolationException e)
+		catch(ConstraintViolationException e)
 		{
 			throw new SystemException(e);
 		}
@@ -217,10 +217,22 @@ public abstract class Database
 
 		//System.out.println("storing "+bf.toString());
 
-		executeSQL(bf, EMPTY_RESULT_SET_HANDLER);
+		try
+		{
+			executeSQL(bf, EMPTY_RESULT_SET_HANDLER);
+		}
+		catch(UniqueViolationException e)
+		{
+			throw e;
+		}
+		catch(ConstraintViolationException e)
+		{
+			throw new SystemException(e);
+		}
 	}
 
 	void delete(final Type type, final int pk)
+			throws IntegrityViolationException
 	{
 		final Statement bf = new Statement();
 		bf.append("delete from ").
@@ -237,7 +249,11 @@ public abstract class Database
 			// TODO: catch and wrap foreign key constraint violations
 			executeSQL(bf, EMPTY_RESULT_SET_HANDLER);
 		}
-		catch(UniqueViolationException e)
+		catch(IntegrityViolationException e)
+		{
+			throw e;
+		}
+		catch(ConstraintViolationException e)
 		{
 			throw new SystemException(e);
 		}
@@ -319,7 +335,7 @@ public abstract class Database
 	}
 
 	private void executeSQL(final Statement statement, final ResultSetHandler resultSetHandler)
-			throws UniqueViolationException
+			throws ConstraintViolationException
 	{
 		final ConnectionPool connectionPool = ConnectionPool.getInstance();
 		
@@ -336,7 +352,7 @@ public abstract class Database
 		}
 		catch(SQLException e)
 		{
-			final UniqueViolationException wrappedException = wrapException(e);
+			final ConstraintViolationException wrappedException = wrapException(e);
 			if(wrappedException!=null)
 				throw wrappedException;
 			else
@@ -380,23 +396,41 @@ public abstract class Database
 		}
 	}
 	
-	private static final String UNIQUE_VIOLATION_START = "ORA-00001: unique constraint (";
-	private static final String UNIQUE_VIOLATION_END   = ") violated\n";
-
-	private UniqueViolationException wrapException(final SQLException e)
+	private final String extractConstraintName(final String message, final String start, final String end)
 	{
-		final String m = e.getMessage();
-		if(m.startsWith(UNIQUE_VIOLATION_START) && m.endsWith(UNIQUE_VIOLATION_END))
+		if(message.startsWith(start) && message.endsWith(end))
 		{
-			final int pos = m.indexOf('.', UNIQUE_VIOLATION_START.length());
-			final String name = m.substring(pos+1, m.length()-UNIQUE_VIOLATION_END.length());
-			final UniqueConstraint constraint = UniqueConstraint.getUniqueConstraint(name);
-			if(constraint==null)
-				throw new SystemException(e, "no unique constraint found for >"+name+"<");
-			return new UniqueViolationException(e, null, constraint);
+			final int pos = message.indexOf('.', start.length());
+			return message.substring(pos+1, message.length()-end.length());
 		}
 		else
 			return null;
+	}
+
+	private ConstraintViolationException wrapException(final SQLException e)
+	{
+		final String m = e.getMessage();
+		{		
+			final String uniqueConstraintName = extractConstraintName(m, "ORA-00001: unique constraint (", ") violated\n");
+			if(uniqueConstraintName!=null)
+			{
+				final UniqueConstraint constraint = UniqueConstraint.getUniqueConstraint(uniqueConstraintName);
+				if(constraint==null)
+					throw new SystemException(e, "no unique constraint found for >"+uniqueConstraintName+"<");
+				return new UniqueViolationException(e, null, constraint);
+			}
+		}
+		{		
+			final String integrityConstraintName = extractConstraintName(m, "ORA-02292: integrity constraint (", ") violated - child record found\n");
+			if(integrityConstraintName!=null)
+			{
+				final ItemAttribute attribute = ItemAttribute.getItemAttributeByIntegrityConstraintName(integrityConstraintName);
+				if(attribute==null)
+					throw new SystemException(e, "no item attribute found for >"+integrityConstraintName+"<");
+				return new IntegrityViolationException(e, null, attribute);
+			}
+		}
+		return null;
 	}
 	
 	String trimName(final Type type)
@@ -472,7 +506,7 @@ public abstract class Database
 		{
 			executeSQL(bf, EMPTY_RESULT_SET_HANDLER);
 		}
-		catch(UniqueViolationException e)
+		catch(ConstraintViolationException e)
 		{
 			throw new SystemException(e);
 		}
@@ -495,7 +529,7 @@ public abstract class Database
 					bf.append("alter table ").
 						append(type.protectedName).
 						append(" add constraint ").
-						append(Database.theInstance.protectName(column.trimmedName+"FK")).
+						append(Database.theInstance.protectName(integerColumn.integrityConstraintName)).
 						append(" foreign key (").
 						append(column.protectedName).
 						append(") references ").
@@ -506,7 +540,7 @@ public abstract class Database
 					{
 						executeSQL(bf, EMPTY_RESULT_SET_HANDLER);
 					}
-					catch(UniqueViolationException e)
+					catch(ConstraintViolationException e)
 					{
 						throw new SystemException(e);
 					}
@@ -527,7 +561,7 @@ public abstract class Database
 		{
 			executeSQL(bf, EMPTY_RESULT_SET_HANDLER);
 		}
-		catch(UniqueViolationException e)
+		catch(ConstraintViolationException e)
 		{
 			throw new SystemException(e);
 		}
@@ -545,7 +579,7 @@ public abstract class Database
 			executeSQL(bf, handler);
 			return handler.result;
 		}
-		catch(UniqueViolationException e)
+		catch(ConstraintViolationException e)
 		{
 			throw new SystemException(e);
 		}
@@ -575,7 +609,7 @@ public abstract class Database
 					{
 						executeSQL(bf, EMPTY_RESULT_SET_HANDLER);
 					}
-					catch(UniqueViolationException e)
+					catch(ConstraintViolationException e)
 					{
 						throw new SystemException(e);
 					}
@@ -599,7 +633,7 @@ public abstract class Database
 			//System.err.println("select max("+type.primaryKey.trimmedName+") from "+type.trimmedName+" : "+handler.result);
 			return handler.result;
 		}
-		catch(UniqueViolationException e)
+		catch(ConstraintViolationException e)
 		{
 			throw new SystemException(e);
 		}

@@ -21,6 +21,7 @@ public final class NotNullViolationException extends ConstraintViolationExceptio
 	 */
 	public NotNullViolationException(final Item item, final Attribute notNullAttribute)
 	{
+		super(null);
 		this.item = item;
 		this.notNullAttribute = notNullAttribute;
 	}

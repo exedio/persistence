@@ -25,6 +25,7 @@ public final class ReadOnlyViolationException extends ConstraintViolationExcepti
 	 */
 	public ReadOnlyViolationException(final Item item, final Attribute readOnlyAttribute)
 	{
+		super(null);
 		this.item = item;
 		this.readOnlyAttribute = readOnlyAttribute;
 	}

@@ -13,6 +13,7 @@ public class ItemTest extends AbstractLibTest
 	 * Test getType, ID, equals, hashCode etc.
 	 */
 	public void testItemMethods()
+			throws IntegrityViolationException
 	{
 		assertEquals(ItemWithoutAttributes.TYPE, Type.getType(ItemWithoutAttributes.class.getName()));
 		assertEquals(ItemWithoutAttributes2.TYPE, Type.getType(ItemWithoutAttributes2.class.getName()));

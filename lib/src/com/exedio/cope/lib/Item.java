@@ -347,6 +347,7 @@ public class Item extends Search
 	}
 	
 	public final void delete()
+			throws IntegrityViolationException
 	{
 		// TODO: additionally we must ensure, that any passive item objects of this item
 		// are marked deleted when they are tried to be loaded.
