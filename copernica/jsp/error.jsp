@@ -1,11 +1,27 @@
 <%@
 page isErrorPage="true" %><%@
 page import="java.io.PrintWriter" %><%@
+page import="java.io.Writer" %><%@
+page import="java.io.OutputStreamWriter" %><%@
 page import="java.util.Random"
 
 %><%!
 
 	private final Random random = new Random();
+	
+	private void printException(final Throwable exception, final Writer out)
+	{
+		final PrintWriter outPrinter = new PrintWriter(out);
+		exception.printStackTrace(outPrinter);
+		if(exception instanceof ServletException)
+		{
+			final Throwable rootCause =
+				((ServletException)exception).getRootCause();
+			if(rootCause!=null)
+				rootCause.printStackTrace(outPrinter);
+		}
+		outPrinter.flush();
+	}
 
 %><html>
 	<head>
@@ -20,10 +36,7 @@ page import="java.util.Random"
 		<font color="#ff0000">
 		<pre>
 <%
-			final PrintWriter outPrinter = new PrintWriter(out);
-			exception.printStackTrace(outPrinter);
-			if(exception instanceof ServletException)
-				((ServletException)exception).getRootCause().printStackTrace(outPrinter);
+			printException(exception, out);
 		%>
 		</pre>
 		</font>
@@ -38,9 +51,7 @@ page import="java.util.Random"
 			}
 			final String id = String.valueOf(Math.abs(idLong));
 			System.out.println("--------I"+id+"-----");
-			exception.printStackTrace(System.out);
-			if(exception instanceof ServletException)
-				((ServletException)exception).getRootCause().printStackTrace(System.out);
+			printException(exception, new OutputStreamWriter(System.out));
 			System.out.println("--------O"+id+"-----");
 		%>
 		Please report the error code <i><%=id%></i> to the webmaster.<%
