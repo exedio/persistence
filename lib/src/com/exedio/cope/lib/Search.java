@@ -16,12 +16,9 @@ import com.exedio.cope.lib.search.JoinCondition;
  * Utility class for searching persistent data.
  * May be subclassed to access methods without class qualifier.
  */
-public class Search
+public abstract class Search
 {
-	/**
-	 * Search shall never be instantiated.
-	 */
-	protected Search()
+	Search()
 	{}
 
 	static final long pk2id(final int pk)

@@ -7,7 +7,7 @@ import java.io.OutputStream;
 
 import com.exedio.cope.lib.util.ReactivationConstructorDummy;
 
-public class Item extends Search
+public abstract class Item extends Search
 {
 	private final Type type;
 
