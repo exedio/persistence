@@ -1,6 +1,4 @@
 <%@
-page import="com.exedio.cope.lib.Database" %><%@
-page import="com.exedio.cope.lib.DatabaseReportable" %><%@
 page import="com.exedio.cope.lib.Report" %><%@
 page import="com.exedio.cope.lib.ReportTable" %><%@
 page import="com.exedio.cope.lib.ReportLastAnalyzed" %><%@

@@ -13,8 +13,7 @@ import java.util.ListIterator;
 
 import bak.pcj.list.IntArrayList;
 
-// TODO: make class package-private
-public abstract class Database
+abstract class Database
 {
 	private final List tables = new ArrayList();
 	private final HashMap uniqueConstraintsByID = new HashMap();

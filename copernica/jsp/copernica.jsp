@@ -1,6 +1,5 @@
 <%@
 page import="com.exedio.cope.lib.Search" %><%@
-page import="com.exedio.cope.lib.Database" %><%@
 page import="com.exedio.cope.lib.Feature" %><%@
 page import="com.exedio.cope.lib.Function" %><%@
 page import="com.exedio.cope.lib.Attribute" %><%@

@@ -1,6 +1,6 @@
 package com.exedio.cope.lib;
 
-public interface DatabaseReportable
+interface DatabaseReportable
 {
 	Report reportDatabase();
 }
