@@ -20,7 +20,6 @@ import java.util.TreeSet;
 
 import com.exedio.cope.lib.Attribute;
 import com.exedio.cope.lib.AttributeValue;
-import com.exedio.cope.lib.EnumerationValue;
 import com.exedio.cope.lib.NotNullViolationException;
 import com.exedio.cope.lib.ReadOnlyViolationException;
 import com.exedio.cope.lib.SystemException;
@@ -128,11 +127,6 @@ public final class Instrumentor implements InjectionConsumer
 	 * Tag name for media attributes with a constant minor mime type.
 	 */
 	private static final String MIME_MINOR = "mime-minor";
-	
-	/**
-	 * Tag name for enumeration values of enumeration attributes.
-	 */
-	private static final String ENUMERATION_VALUE = "value";
 	
 	/**
 	 * All generated class features get this doccomment tag.
@@ -426,75 +420,9 @@ public final class Instrumentor implements InjectionConsumer
 		output.write("\t}");
 	}
 	
-	private static final int ENUMERATION_NUMBER_AUTO_INCREMENT = 100;
-
-	private void writeEnumerationClass(final PersistentEnumerationAttribute enumerationAttribute)
-	throws IOException
-	{
-		// deactivated, since the parser cannot remove generated inner classes.
-		if(true)
-			return;
-
-		writeCommentHeader();
-		output.write("\t * A class representing the possible states of the persistent enumeration attribute {@link #");
-		output.write(enumerationAttribute.getName());
-		output.write("}.");
-		output.write(lineSeparator);
-		writeCommentFooter();
-		
-		output.write("public static final class ");
-		output.write(enumerationAttribute.getCamelCaseName());
-		output.write(" extends "+EnumerationValue.class.getName());
-		output.write(lineSeparator);
-		output.write("\t{");
-		output.write(lineSeparator);
-		int enumerationNumber = ENUMERATION_NUMBER_AUTO_INCREMENT;
-		for(Iterator i = enumerationAttribute.enumerationValues.iterator(); i.hasNext(); )
-		{
-			final String enumerationValue = (String)i.next();
-
-			output.write("\t\tpublic static final int ");
-			output.write(enumerationValue);
-			output.write("NUM = ");
-			output.write(Integer.toString(enumerationNumber));
-			output.write(';');
-			output.write(lineSeparator);
-
-			output.write("\t\tpublic static final ");
-			output.write(enumerationAttribute.getCamelCaseName());
-			output.write(' ');
-			output.write(enumerationValue);
-			output.write(" = new ");
-			output.write(enumerationAttribute.getCamelCaseName());
-			output.write('(');
-			output.write(Integer.toString(enumerationNumber));
-			output.write(", \"");
-			output.write(enumerationValue);
-			output.write("\");");
-			output.write(lineSeparator);
-			output.write(lineSeparator);
-			
-			enumerationNumber += ENUMERATION_NUMBER_AUTO_INCREMENT;
-		}
-		output.write("\t\tprivate ");
-		output.write(enumerationAttribute.getCamelCaseName());
-		output.write("(final int number, final String code)");
-		output.write(lineSeparator);
-		output.write("\t\t{");
-		output.write(lineSeparator);
-		output.write("\t\t\tsuper(number, code);");
-		output.write(lineSeparator);
-		output.write("\t\t}");
-		output.write(lineSeparator);
-		output.write("\t}");
-	}
-
 	private void writeAccessMethods(final PersistentAttribute persistentAttribute)
 	throws IOException
 	{
-		if(persistentAttribute instanceof PersistentEnumerationAttribute)
-			writeEnumerationClass((PersistentEnumerationAttribute)persistentAttribute);
-
 		final String methodModifiers = Modifier.toString(persistentAttribute.getMethodModifiers());
 		final String type = persistentAttribute.getBoxedType();
 		final List qualifiers = persistentAttribute.qualifiers;
@@ -1081,19 +1009,10 @@ public final class Instrumentor implements InjectionConsumer
 					}
 					case PersistentAttribute.TYPE_ENUMERATION:
 					{
-
-						final String enumerationValue = Injector.findDocTag(docComment, ENUMERATION_VALUE);
-						final List enumerationValues;
-						if(enumerationValue!=null)
-							enumerationValues = Collections.singletonList(enumerationValue);
-						else
-							enumerationValues = null;
-
 						persistentAttribute =
 							new PersistentEnumerationAttribute(
 								ja, persistentType,
-								readOnly, notNull, mapped, qualifiers,
-								enumerationValues);
+								readOnly, notNull, mapped, qualifiers);
 						break;
 					}
 					default:

@@ -2,6 +2,7 @@
 package com.exedio.cope.lib;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -9,46 +10,39 @@ import java.util.List;
 
 public final class EnumerationAttribute extends Attribute
 {
+	private final Class enumerationClass;
+	private final List values;
+	private final HashMap numbersToValues; // TODO: use special integer map
 	
-	private List values;
-	private HashMap numbersToValues; // TODO: use special integer map
-
-	void setType(final Type type)
+	public EnumerationAttribute(final Class enumerationClass)
 	{
-		super.setType(type);
-		final Class javaClass = getType().getJavaClass();
-		final String name = getName();
-		final Class[] innerClasses = javaClass.getDeclaredClasses();
-		final String upperCaseName = javaClass.getName() + '$' + Character.toUpperCase(name.charAt(0)) + name.substring(1);
+		this.enumerationClass = enumerationClass;
+		if(!EnumerationValue.class.isAssignableFrom(enumerationClass))
+			throw new RuntimeException("is not an enumeration value class: "+enumerationClass.getName());
 
 		try
 		{
-			innerClasses:for(int i = 0; i<innerClasses.length; i++)
+			final ArrayList values = new ArrayList();
+			final HashMap numbersToValues = new HashMap();
+			final Field[] fields = enumerationClass.getDeclaredFields();
+			for(int j = 0; j<fields.length; j++)
 			{
-				final Class innerClass = innerClasses[i];
-				//System.out.println("---------innerClass:"+innerClass.getName());
-				if(upperCaseName.equals(innerClass.getName()))
+				final Field field = fields[j];
+				final int mandatoryModifiers = Modifier.STATIC | Modifier.FINAL;
+				//System.out.println("-----------field:"+field.getName());
+				if(EnumerationValue.class.isAssignableFrom(field.getType()) &&
+					(field.getModifiers()&mandatoryModifiers) == mandatoryModifiers)
 				{
-					final ArrayList values = new ArrayList();
-					final HashMap numbersToValues = new HashMap();
-					final Field[] fields = innerClass.getDeclaredFields();
-					for(int j = 0; j<fields.length; j++)
-					{
-						final Field field = fields[j];
-						//System.out.println("-----------field:"+field.getName());
-						if(!field.getName().endsWith("NUM"))
-						{
-							final EnumerationValue value = (EnumerationValue)field.get(null);
-							//System.out.println("-------------value:"+value);
-							values.add(value);
-							numbersToValues.put(new Integer(value.number), value);
-						}
-					}
-					this.values = Collections.unmodifiableList(values);
-					this.numbersToValues = numbersToValues;
-					break innerClasses;
+					final EnumerationValue value = (EnumerationValue)field.get(null);
+					if(value==null)
+						throw new NullPointerException("is null: "+field);
+					//System.out.println("-------------value:"+value);
+					values.add(value);
+					numbersToValues.put(value.numberObject, value);
 				}
 			}
+			this.values = Collections.unmodifiableList(values);
+			this.numbersToValues = numbersToValues;
 		}
 		catch(IllegalAccessException e)
 		{

@@ -60,6 +60,15 @@ public class ModelTest extends AbstractLibTest
 				throw new RuntimeException("Ooooops");
 		}
 		assertEquals(someEnumeration, ItemWithManyAttributes.SomeEnumeration.enumValue2);
+		
+		try
+		{
+			new EnumerationAttribute(getClass());
+			fail("should have thrown RuntimeException");
+		}
+		catch(RuntimeException e)
+		{
+		}
 	}
 
 	public void testHierarchy()

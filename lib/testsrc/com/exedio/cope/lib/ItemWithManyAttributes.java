@@ -71,11 +71,8 @@ public class ItemWithManyAttributes extends Item
 	/**
 	 * An enumeration attribute
 	 * @persistent
-	 * @value enumValue1
-	 * @value enumValue2
-	 * @value enumValue3
 	 */
-	public static final EnumerationAttribute someEnumeration = new EnumerationAttribute();
+	public static final EnumerationAttribute someEnumeration = new EnumerationAttribute(SomeEnumeration.class);
 
 	/**
 	 * A media attribute.
