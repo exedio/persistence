@@ -146,7 +146,7 @@ public abstract class Database
 					append('=');
 
 				final Object value = itemCache.get(attribute);
-				bf.append(attribute.cache2Database(value));
+				bf.append(attribute.cacheToDatabase(value));
 			}
 			bf.append(" where ").
 				append(getSyntheticPrimaryKeyQualifier()).
@@ -175,7 +175,7 @@ public abstract class Database
 				bf.append(',');
 				final Attribute attribute = (Attribute)i.next();
 				final Object value = itemCache.get(attribute);
-				bf.append(attribute.cache2Database(value));
+				bf.append(attribute.cacheToDatabase(value));
 			}
 			bf.append(')');
 		}

@@ -90,7 +90,7 @@ public abstract class Attribute
 	}
 	
 	abstract Object databaseToCache(Object cell);
-	public abstract Object cache2Database(Object cache);
+	public abstract Object cacheToDatabase(Object cache);
 
 }
 

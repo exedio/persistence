@@ -23,7 +23,7 @@ public final class BooleanAttribute extends Attribute
 			throw new RuntimeException("cellToCache:"+cell);
 	}
 	
-	public Object cache2Database(final Object cache)
+	public Object cacheToDatabase(final Object cache)
 	{
 		if(cache==null)
 			return "NULL";
