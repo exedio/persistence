@@ -89,6 +89,8 @@
 					{
 						if("NULL".equals(saveString))
 							value = null;
+						else if("on".equals(saveString))
+							value = Boolean.TRUE;
 						else if("TRUE".equals(saveString))
 							value = Boolean.TRUE;
 						else if("FALSE".equals(saveString))
@@ -105,7 +107,7 @@
 				if(boolAttribute.isNotNull())
 				{
 					%>
-					<input type="checkbox" name="<%=attributeName%>" value="TRUE"<%
+					<input type="checkbox" name="<%=attributeName%>" value="on"<%
 					if(Boolean.TRUE.equals(value))
 					{
 						%> checked="checked"<%
