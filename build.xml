@@ -146,6 +146,7 @@
 				<pathelement location="../lib/hsqldb.jar" />
 				<pathelement location="../lib/classes12.zip" />
 			</classpath>
+			<sysproperty key="com.exedio.cope.properties" file="cope.properties.oracle" />
 		</java>
 	</target>
 
