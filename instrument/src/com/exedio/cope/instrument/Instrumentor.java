@@ -89,14 +89,17 @@ public final class Instrumentor implements InjectionConsumer
 	private void writeAccessMethods(final JavaAttribute persistentAttribute)
 	throws IOException
 	{
-		output.write("//");
-		output.write(persistentAttribute.getName());
-		output.write(" ");
-		output.write(Modifier.toString(persistentAttribute.getModifiers()));
-		output.write(" ");
-		output.write(persistentAttribute.getType());
-		output.write(" ");
-		output.write(Modifier.toString(persistentAttribute.getMethodModifiers()));
+		final String methodModifiers = Modifier.toString(persistentAttribute.getMethodModifiers());
+		final String type = "String";
+
+		output.write("/** @"+GENERATED+" */ ");
+		output.write(methodModifiers);
+		output.write(' ');
+		output.write(type);
+		output.write(" get");
+		output.write(persistentAttribute.getCamelCaseName());
+		output.write("(){");
+		output.write('}');
 		output.write(lineSeparator);
 	}
 	

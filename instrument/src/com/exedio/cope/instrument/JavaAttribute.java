@@ -45,6 +45,16 @@ public final class JavaAttribute extends JavaFeature
 		return getFile().getPackageName()+'.'+getParent().getName()+'#'+getName();
 	}
 	
+	public final String getCamelCaseName()
+	{
+		final String name = getName();
+		final char first = name.charAt(0);
+		if(Character.isUpperCase(first))
+			return name;
+		else
+			return Character.toUpperCase(first) + name.substring(1);
+	}
+	
 	/**
 	 * See Java Specification 8.3.1 &quot;Field Modifiers&quot;
 	 */
