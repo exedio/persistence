@@ -146,7 +146,8 @@
 				if(table==null)
 					throw new RuntimeException(createTable);
 				%>
-				<li>creating table <%=createTable%> ...</li><%
+				<li>report.getTable(&quot;<b><%=
+					table.name%></b>&quot;).create();</li><%
 				out.flush();
 				final long startTime = System.currentTimeMillis();
 				table.create();
