@@ -23,25 +23,13 @@ public final class UniqueConstraint
 	
 	private final Attribute[] uniqueAttributes;
 	private final List uniqueAttributeList;
-	final String trimmedName;
-	final String protectedName;
+	private String trimmedName;
+	private String protectedName;
 
 	public UniqueConstraint(final Attribute[] uniqueAttributes)
 	{
 		this.uniqueAttributes = uniqueAttributes;
 		this.uniqueAttributeList = Collections.unmodifiableList(Arrays.asList(uniqueAttributes));
-		
-		final StringBuffer nameBuffer = new StringBuffer();
-		for(int i = 0; i<uniqueAttributes.length; i++)
-			nameBuffer.append(uniqueAttributes[i].getName());
-		nameBuffer.append(runningNumber++);
-		
-		this.trimmedName = Database.theInstance.trimName(nameBuffer.toString());
-		this.protectedName = Database.theInstance.protectName(this.trimmedName);
-
-		final Object collision = uniqueConstraintsByName.put(trimmedName, this);
-		if(collision!=null)
-			throw new SystemException(null, "ambiguous unique constraint "+this+" trimmed to >"+this.trimmedName+"< colliding with "+collision);
 	}
 	
 	public UniqueConstraint(final Attribute uniqueAttribute)
@@ -52,6 +40,34 @@ public final class UniqueConstraint
 	public final List getUniqueAttributes()
 	{
 		return uniqueAttributeList;
+	}
+	
+	final String getTrimmedName()
+	{
+		if(trimmedName!=null)
+			return trimmedName;
+			
+		final StringBuffer nameBuffer = new StringBuffer();
+		for(int i = 0; i<uniqueAttributes.length; i++)
+			nameBuffer.append(uniqueAttributes[i].getName());
+		nameBuffer.append(runningNumber++);
+		
+		this.trimmedName = Database.theInstance.trimName(nameBuffer.toString());
+
+		final Object collision = uniqueConstraintsByName.put(trimmedName, this);
+		if(collision!=null)
+			throw new SystemException(null, "ambiguous unique constraint "+this+" trimmed to >"+this.trimmedName+"< colliding with "+collision);
+
+		return trimmedName;
+	}
+	
+	final String getProtectedName()
+	{
+		if(protectedName!=null)
+			return protectedName;
+
+		this.protectedName = Database.theInstance.protectName(getTrimmedName());
+		return protectedName;
 	}
 	
 

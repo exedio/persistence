@@ -2,7 +2,9 @@
 package com.exedio.cope.lib;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -48,7 +50,7 @@ public final class Type
 		return (Type)typesByName.get(className);
 	}
 	
-	public Type(final Class javaClass, final Attribute[] declaredAttributes, final UniqueConstraint[] uniqueConstraints)
+	public Type(final Class javaClass, final Attribute[] declaredAttributesNotToBeUsed, final UniqueConstraint[] uniqueConstraints)
 	{
 		this.javaClass = javaClass;
 
@@ -64,18 +66,32 @@ public final class Type
 		}
 
 		// declaredAttributes
-		if(declaredAttributes!=null)
+		final Field[] fields = javaClass.getDeclaredFields();
+		final ArrayList attributesTemp = new ArrayList(fields.length);
+		final int expectedModifier = Modifier.STATIC | Modifier.FINAL;
+		try
 		{
-			this.declaredAttributes = declaredAttributes;
-			this.declaredAttributeList = Collections.unmodifiableList(Arrays.asList(declaredAttributes));
-			for(int i = 0; i<declaredAttributes.length; i++)
-				declaredAttributes[i].setType(this);
+			for(int i = 0; i<fields.length; i++)
+			{
+				final Field field = fields[i];
+				if(Attribute.class.isAssignableFrom(field.getType()) &&
+					(field.getModifiers()&expectedModifier)==expectedModifier)
+				{
+					field.setAccessible(true);
+					final Attribute attribute = (Attribute)field.get(null);
+					if(attribute==null)
+						throw new NullPointerException(field.getName());
+					attribute.setType(this, field.getName());
+					attributesTemp.add(attribute);
+				}
+			}
 		}
-		else
+		catch(IllegalAccessException e)
 		{
-			this.declaredAttributes = new Attribute[]{};
-			this.declaredAttributeList = Collections.EMPTY_LIST;
+			throw new SystemException(e);
 		}
+		this.declaredAttributes = (Attribute[])attributesTemp.toArray(new Attribute[attributesTemp.size()]);
+		this.declaredAttributeList = Collections.unmodifiableList(Arrays.asList(declaredAttributes));
 
 		// attributes
 		if(supertype==null)

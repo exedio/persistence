@@ -19,38 +19,32 @@ public abstract class Attribute
 	
 
 	// phase 1: initialize ---------------------------------------------
-	private String name;
 	private boolean readOnly;
 	private boolean notNull;
+	private boolean initialized = false;
 
 	public final Attribute initialize(final String name, final boolean readOnly, final boolean notNull)
 	{
 		if(name==null)
 			throw new RuntimeException();
 
+		if(initialized)
+			throw new RuntimeException();
 		if(this.name!=null)
 			throw new RuntimeException();
 		if(this.type!=null)
 			throw new RuntimeException();
 
-		this.name = name;
 		this.readOnly = readOnly;
 		this.notNull = notNull;
+		initialized = true;
 
 		return this;
 	}
 	
-	public final String getName()
-	{
-		if(this.name==null)
-			throw new RuntimeException();
-
-		return name;
-	}
-	
 	public final boolean isReadOnly()
 	{
-		if(this.name==null)
+		if(!initialized)
 			throw new RuntimeException();
 
 		return readOnly;
@@ -58,7 +52,7 @@ public abstract class Attribute
 	
 	public final boolean isNotNull()
 	{
-		if(this.name==null)
+		if(!initialized)
 			throw new RuntimeException();
 
 		return notNull;
@@ -67,20 +61,24 @@ public abstract class Attribute
 	// phase 2: setType ---------------------------------------------------
 
 	private Type type;
+	private String name;
 	private List columns;
 	private Column mainColumn;
 	
-	void setType(final Type type)
+	final void setType(final Type type, final String name)
 	{
 		if(type==null)
 			throw new RuntimeException();
-
-		if(this.name==null)
+		if(name==null)
 			throw new RuntimeException();
+
 		if(this.type!=null)
+			throw new RuntimeException();
+		if(this.name!=null)
 			throw new RuntimeException();
 
 		this.type = type;
+		this.name = name;
 		this.columns =
 			(mapping==null) ?
 				Collections.unmodifiableList(createColumns(name, notNull)) :
@@ -94,6 +92,14 @@ public abstract class Attribute
 			throw new RuntimeException();
 
 		return type;
+	}
+	
+	public final String getName()
+	{
+		if(this.type==null)
+			throw new RuntimeException();
+
+		return name;
 	}
 	
 	final List getColumns()
