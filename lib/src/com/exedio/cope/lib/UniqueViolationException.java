@@ -26,7 +26,7 @@ public class UniqueViolationException extends ConstraintViolationException
 	}
 
 	/**
-	 * Return the violated constraint.
+	 * Returns the violated constraint.
 	 */
 	public UniqueConstraint getConstraint()
 	{
