@@ -7,7 +7,9 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.util.Collections;
 import java.util.LinkedList;
+import java.util.List;
 
 import junit.framework.AssertionFailedError;
 import junit.framework.TestCase;
@@ -400,4 +402,10 @@ public abstract class InjectorTest extends TestCase
 			}
 		}
 	}
+
+	protected List list(final Object o)
+	{
+		return Collections.singletonList(o);
+	}
+	
 }
