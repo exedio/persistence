@@ -13,7 +13,7 @@ public abstract class Super extends Item
 	 * @persistent
 	 * @not-null
 	 */
-	private static final IntegerAttribute superInt = new IntegerAttribute(); 
+	public static final IntegerAttribute superInt = new IntegerAttribute(); 
 	
 /**
 
@@ -22,7 +22,7 @@ public abstract class Super extends Item
 	 * @param initialSuperInt the initial value for attribute {@link #superInt}.
 	 * @generated
 	 *
- */private Super(
+ */public Super(
 				final int initialSuperInt)
 	{
 		super(new com.exedio.cope.lib.AttributeValue[]{
@@ -53,7 +53,7 @@ public abstract class Super extends Item
 	 * Returns the value of the persistent attribute {@link #superInt}.
 	 * @generated
 	 *
- */private final int getSuperInt()
+ */public final int getSuperInt()
 	{
 		return ((Integer)getAttribute(this.superInt)).intValue();
 	}/**
@@ -62,7 +62,7 @@ public abstract class Super extends Item
 	 * Sets a new value for the persistent attribute {@link #superInt}.
 	 * @generated
 	 *
- */private final void setSuperInt(final int superInt)
+ */public final void setSuperInt(final int superInt)
 	{
 		try
 		{
