@@ -404,6 +404,18 @@ public class ExampleTest extends InjectorTest
 		assertText("}\n\nclass SecondExample");
 		final JavaClass secondExampleClass = assertClass("SecondExample");
 		assertText(" extends Example{");
+		
+		final JavaBehaviour abstractMethod2 =
+			assertBehaviourHeader(
+				"abstractMethod",
+				"void",
+				0,
+				"void abstractMethod()");
+		assertText("{}");
+		assertMethod("abstractMethod", null, abstractMethod2);
+
+		assertClassEnd("SecondExample", secondExampleClass);
+		//assertText("}\n\n");
 	}
 
 }
