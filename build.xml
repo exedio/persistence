@@ -52,6 +52,7 @@
 			</classpath>
 			<arg value="--modify" />
 			<arg value="lib/testsrc/com/exedio/cope/lib/ItemWithSingleUnique.java" />
+			<arg value="lib/testsrc/com/exedio/cope/lib/ItemWithSingleUniqueReadOnly.java" />
 		</java>
 	</target>
 	

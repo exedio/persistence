@@ -14,6 +14,7 @@ public class LibTest extends TestCase
 	final Type[] types = new Type[]
 	{
 		ItemWithSingleUnique.TYPE,
+		ItemWithSingleUniqueReadOnly.TYPE,
 	};
 	
 	public LibTest()
@@ -32,6 +33,16 @@ public class LibTest extends TestCase
 	public void testLib()
 	{
 		assertEquals(null, ItemWithSingleUnique.findByUniqueString("searchedString"));
+		
+		new ItemWithSingleUnique();
+		try
+		{
+			new ItemWithSingleUniqueReadOnly("initialUniqueReadOnlyString");
+		}
+		catch(UniqueViolationException e)
+		{
+			throw new SystemException(e);
+		}
 	}
 
 	
