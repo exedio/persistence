@@ -32,9 +32,9 @@ import com.exedio.cope.lib.util.ReactivationConstructorDummy;
 
 final class Generator
 {
-	private static final String CONSTRUCTOR_NEW = "Constructs a new {0} with all the attributes initially needed.";
+	private static final String CONSTRUCTOR_NEW = "Creates a new {0} with all the attributes initially needed.";
 	private static final String CONSTRUCTOR_NEW_PARAMETER = "the initial value for attribute {0}.";
-	private static final String CONSTRUCTOR_GENERIC = "Creates an item and sets the given attributes initially.";
+	private static final String CONSTRUCTOR_GENERIC = "Creates a new {0} and sets the given attributes initially.";
 	private static final String CONSTRUCTOR_REACTIVATION = "Reactivation constructor. Used for internal purposes only.";
 	private static final String GETTER = "Returns the value of the persistent attribute {0}.";
 	private static final String SETTER = "Sets a new value for the persistent attribute {0}.";
@@ -157,7 +157,7 @@ final class Generator
 		return MessageFormat.format(pattern, new Object[]{ parameter1 });
 	}
 
-	private void writeConstructor(final CopeClass javaClass)
+	private void writeConstructor(final CopeClass javaClass) // TODO: rename to copeClass
 	throws IOException
 	{
 		if(!javaClass.hasGeneratedConstructor())
@@ -268,7 +268,7 @@ final class Generator
 	{
 		writeCommentHeader();
 		o.write("\t * ");
-		o.write(CONSTRUCTOR_GENERIC);
+		o.write(format(CONSTRUCTOR_GENERIC, copeClass.getName()));
 		o.write(lineSeparator);
 		writeCommentGenerated();
 		writeCommentFooter();
