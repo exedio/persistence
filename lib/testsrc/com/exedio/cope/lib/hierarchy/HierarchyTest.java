@@ -17,6 +17,10 @@ public class HierarchyTest extends DatabaseLibTest
 		assertEquals(2, firstItem.getSuperInt());
 		assertEquals(null, firstItem.getFirstSubString());
 		
+		firstItem.setFirstSubString("firstSubString");
+		assertEquals(2, firstItem.getSuperInt());
+		assertEquals("firstSubString", firstItem.getFirstSubString());
+		
 		firstItem.delete();
 	}
 
