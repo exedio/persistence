@@ -3,6 +3,7 @@ package com.exedio.cope.lib.database;
 
 import com.exedio.cope.lib.Attribute;
 import com.exedio.cope.lib.BooleanAttribute;
+import com.exedio.cope.lib.EnumerationAttribute;
 import com.exedio.cope.lib.ItemAttribute;
 import com.exedio.cope.lib.StringAttribute;
 import com.exedio.cope.lib.SystemException;
@@ -118,6 +119,8 @@ public class Database
 			return "varchar2(4000)";
 		else if(attribute instanceof BooleanAttribute)
 			return "number(1,0)";
+		else if(attribute instanceof EnumerationAttribute)
+			return "number(10,0)";
 		else if(attribute instanceof ItemAttribute)
 			return getSyntheticPrimaryKeyType();
 		else
