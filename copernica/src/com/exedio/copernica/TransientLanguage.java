@@ -6,6 +6,7 @@ public class TransientLanguage implements Language
 {
 	private final String id;
 	private final HashMap names = new HashMap();
+	final HashMap enumerationValueNames = new HashMap();
 	
 	public TransientLanguage(final String id)
 	{

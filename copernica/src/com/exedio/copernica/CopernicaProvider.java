@@ -3,6 +3,7 @@ package com.exedio.copernica;
 
 import java.util.Collection;
 
+import com.exedio.cope.lib.EnumerationValue;
 import com.exedio.cope.lib.Feature;
 import com.exedio.cope.lib.Item;
 import com.exedio.cope.lib.Model;
@@ -38,6 +39,8 @@ public interface CopernicaProvider
 	public String getDisplayName(Language displayLanguage, Feature feature);
 	
 	public String getDisplayName(Language displayLanguage, Item item);
+
+	public String getDisplayName(Language displayLanguage, EnumerationValue value);
 
 	public String getIconURL(Type type);
 

@@ -127,6 +127,18 @@
 								%><%=df.format(value)%><%
 							}
 						}
+						else if(feature instanceof EnumerationAttribute)
+						{
+							final EnumerationValue value = (EnumerationValue)item.getAttribute((EnumerationAttribute)feature);
+							if(value==null)
+							{
+								%><%="leer"%><%
+							}
+							else
+							{
+								%><%=provider.getDisplayName(language, value)%><%
+							}
+						}
 						else
 						{
 							%><%=item.getFunction((Function)feature)%><%

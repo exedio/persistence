@@ -65,13 +65,14 @@
 							{
 								final EnumerationValue currentValue = (EnumerationValue)k.next();
 								final String currentCode = currentValue.getCode();
+								final String currentName = provider.getDisplayName(language, currentValue);
 								%>
 								<input type="radio" name="<%=attributeName%>" value="<%=currentCode%>"<%
 								if(value.equals(currentCode))
 								{
 									%> checked="checked"<%
 								}
-								%>><%=currentCode%><br><%
+								%>><%=currentName%><br><%
 							}
 							%>
 						<%
