@@ -24,8 +24,17 @@ public class TransientLanguage implements Language
 	
 	public String getCopernicaName(final Language displayLanguage)
 	{
-		final String name = (String)names.get(displayLanguage);
-		return name != null ? name : id;
+		{
+			final String name = (String)names.get(displayLanguage);
+			if(name!=null)
+				return name;
+		}
+		{
+			final String name = (String)names.get(this);
+			if(name!=null)
+				return name;
+		}
+		return id;
 	}
 
 	public String getCopernicaIconURL()
