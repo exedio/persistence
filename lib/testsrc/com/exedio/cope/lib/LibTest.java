@@ -257,6 +257,21 @@ public class LibTest extends TestCase
 			item.setSomeItem(null);
 			assertEquals(null, item.getSomeItem());
 			
+			// someEnumeration
+			ItemWithManyAttributes.SomeEnumeration someEnumeration = item.getSomeEnumeration();
+			if(someEnumeration!=ItemWithManyAttributes.SomeEnumeration.enumValue1)
+				someEnumeration = ItemWithManyAttributes.SomeEnumeration.enumValue1;
+			switch(someEnumeration.number)
+			{
+				case ItemWithManyAttributes.SomeEnumeration.enumValue1NUM:
+					someEnumeration = ItemWithManyAttributes.SomeEnumeration.enumValue1;
+					break;
+				default:
+					throw new RuntimeException("Ooooops");
+			}
+			item.setSomeEnumeration(someEnumeration);
+			item.setSomeEnumeration(ItemWithManyAttributes.SomeEnumeration.enumValue1);
+
 			// someMedia
 			assertEquals(null, item.getSomeMediaURL());
 			assertEquals(null, item.getSomeMediaURLSomeVariant());

@@ -60,6 +60,13 @@ public class ItemWithManyAttributes extends Item
 	public static final ItemAttribute someItem = new ItemAttribute();
 
 	/**
+	 * An enumeration attribute
+	 * @persistent
+	 * @value enumValue1
+	 */
+	public static final EnumerationAttribute someEnumeration = new EnumerationAttribute();
+
+	/**
 	 * A media attribute.
 	 * @persistent
 	 * @variant SomeVariant
@@ -74,6 +81,20 @@ public class ItemWithManyAttributes extends Item
 	public static final StringAttribute someQualifiedString = new StringAttribute();
 
 /**
+
+	 **
+	 * A class representing the possible states of the persistent enumeration attribute {@link #someEnumeration}.
+	 *
+ */public static final class SomeEnumeration extends com.exedio.cope.lib.EnumerationValue
+	{
+		public static final int enumValue1NUM = 100;
+		public static final SomeEnumeration enumValue1 = new SomeEnumeration(100, "enumValue1");
+
+		private SomeEnumeration(final int number, final String code)
+		{
+			super(number, code);
+		}
+	}/**
 
 	 **
 	 * Constructs a new ItemWithManyAttributes with all the attributes initially needed.
@@ -328,6 +349,39 @@ public class ItemWithManyAttributes extends Item
 	}/**
 
 	 **
+	 * Returns the value of the persistent attribute {@link #someEnumeration}.
+	 * @generated
+	 *
+ */public final SomeEnumeration getSomeEnumeration()
+	{
+		return (SomeEnumeration)getAttribute(this.someEnumeration);
+	}/**
+
+	 **
+	 * Sets a new value for the persistent attribute {@link #someEnumeration}.
+	 * @generated
+	 *
+ */public final void setSomeEnumeration(final SomeEnumeration someEnumeration)
+	{
+		try
+		{
+			setAttribute(this.someEnumeration,someEnumeration);
+		}
+		catch(com.exedio.cope.lib.NotNullViolationException e)
+		{
+			throw new com.exedio.cope.lib.SystemException(e);
+		}
+		catch(com.exedio.cope.lib.ReadOnlyViolationException e)
+		{
+			throw new com.exedio.cope.lib.SystemException(e);
+		}
+		catch(com.exedio.cope.lib.UniqueViolationException e)
+		{
+			throw new com.exedio.cope.lib.SystemException(e);
+		}
+	}/**
+
+	 **
 	 * Returns a URL pointing to the data of the persistent attribute {@link #someMedia}.
 	 * @generated
 	 *
@@ -428,6 +482,7 @@ public class ItemWithManyAttributes extends Item
 				someBoolean,
 				someNotNullBoolean,
 				someItem,
+				someEnumeration,
 				someMedia,
 				someQualifiedString,
 			},
@@ -444,6 +499,7 @@ public class ItemWithManyAttributes extends Item
 					someBoolean.initialize("someBoolean",false,false);
 					someNotNullBoolean.initialize("someNotNullBoolean",false,true);
 					someItem.initialize("someItem",false,false);
+					someEnumeration.initialize("someEnumeration",false,false);
 					someMedia.initialize("someMedia",false,false);
 					someQualifiedString.initialize("someQualifiedString",false,false);
 				}
