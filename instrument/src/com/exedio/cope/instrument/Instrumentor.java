@@ -812,6 +812,8 @@ public final class Instrumentor implements InjectionConsumer
 				final String persistentType;
 				if("IntegerAttribute".equals(type))
 					persistentType = "Integer";
+				else if("BooleanAttribute".equals(type))
+					persistentType = "Boolean";
 				else if("StringAttribute".equals(type))
 					persistentType = "String";
 				else if("ItemAttribute".equals(type))

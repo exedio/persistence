@@ -88,7 +88,8 @@ public final class JavaAttribute extends JavaFeature
 	
 	static
 	{
-		fillNativeTypeMap("Integer", "int", "new Integer(", ").intValue()");
+		fillNativeTypeMap("Boolean", "boolean", "Boolean.valueOf(", ").booleanValue()");
+		fillNativeTypeMap("Integer", "int",     "new Integer(",     ").intValue()");
 	}
 
 
