@@ -1,7 +1,8 @@
 <%@
 page import="java.util.Iterator" %><%@
 page import="java.util.Enumeration" %><%@
-page import="java.util.Map"
+page import="java.util.Map" %><%@
+page import="java.io.BufferedReader"
 
 %><%
 
@@ -25,5 +26,13 @@ for( final Enumeration it = request.getHeaderNames(); it.hasMoreElements(); )
 	%> &gt;<%=request.getHeader(name)%>&lt;<%
 	%><br><%
 	//System.out.println("header <"+name+">: <"+request.getHeader(name)+">");
+}
+final BufferedReader body = new BufferedReader(request.getReader());
+int i = 0;
+for(String line = body.readLine(); line!=null; line = body.readLine())
+{
+	%>
+	<small><%=i%>:</small> &gt;<%=line%>&lt;<%
+	%><br><%
 }
 %>
