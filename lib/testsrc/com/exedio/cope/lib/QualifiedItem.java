@@ -87,7 +87,7 @@ public class QualifiedItem extends Item
 	 *
  */final String getQualifiedA(final EmptyItem key)
 	{
-		return (String)QualifiedEmptyQualifier.qualifyUnique.searchUnique(new Object[]{this,key}).getAttribute(QualifiedEmptyQualifier.qualifiedA);
+		return (String)QualifiedEmptyQualifier.qualifyUnique.getQualified(new Object[]{this,key},QualifiedEmptyQualifier.qualifiedA);
 	}/**
 
 	 **
@@ -96,7 +96,7 @@ public class QualifiedItem extends Item
 	 *
  */final String getQualifiedB(final EmptyItem key)
 	{
-		return (String)QualifiedEmptyQualifier.qualifyUnique.searchUnique(new Object[]{this,key}).getAttribute(QualifiedEmptyQualifier.qualifiedB);
+		return (String)QualifiedEmptyQualifier.qualifyUnique.getQualified(new Object[]{this,key},QualifiedEmptyQualifier.qualifiedB);
 	}/**
 
 	 **

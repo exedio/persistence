@@ -663,9 +663,9 @@ final class Generator
 		o.write(resultType);
 		o.write(")");
 		o.write(qualifier.uniqueConstraintString);
-		o.write(".searchUnique(new Object[]{this,");
+		o.write(".getQualified(new Object[]{this,");
 		o.write(qualifier.keyAttribute.javaAttribute.name);
-		o.write("}).getAttribute(");
+		o.write("},");
 		o.write(qualifier.qualifierClassString);
 		o.write('.');
 		o.write(attribute.getName());

@@ -136,4 +136,10 @@ public final class UniqueConstraint
 
 		return getType().searchUnique(new AndCondition(conditions));
 	}
+	
+	public final Object getQualified(final Object[] values, final ObjectAttribute attribute)
+	{
+		return searchUnique(values).getAttribute(attribute);
+	}
+
 }
