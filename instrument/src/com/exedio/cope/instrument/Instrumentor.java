@@ -289,6 +289,47 @@ public final class Instrumentor implements InjectionConsumer
 		output.write("\t}");
 	}
 	
+	private void writeUniqueFinder(final JavaAttribute[] persistentAttributes)
+	throws IOException
+	{
+		final JavaAttribute persistentAttribute = persistentAttributes[0];
+		
+		final String methodModifiers = Modifier.toString(persistentAttribute.getMethodModifiers()|Modifier.STATIC);
+		final String type = persistentAttribute.getPersistentType();
+		final List qualifiers = persistentAttribute.getQualifiers();
+		final String name = persistentAttribute.getCamelCaseName();
+		
+		output.write("/**");
+		output.write(lineSeparator);
+		output.write("\t * This is a generated unique finder method.");
+		output.write(lineSeparator);
+		output.write("\t * @"+GENERATED);
+		output.write(lineSeparator);
+		output.write("\t */");
+		output.write(methodModifiers);
+		output.write(' ');
+		output.write(persistentAttribute.getParent().getName());
+		output.write(" findBy");
+		output.write(name);
+		output.write('(');
+		if(qualifiers!=null)
+		{
+			writeParameterDeclarationList(qualifiers);
+			output.write(',');
+		}
+		output.write("final ");
+		output.write(type);
+		output.write(' ');
+		output.write(persistentAttribute.getName());
+		output.write(')');
+		output.write(lineSeparator);
+		output.write("\t{");
+		output.write(lineSeparator);
+		output.write("\t\treturn null;");
+		output.write(lineSeparator);
+		output.write("\t}");
+	}
+	
 	public void onClassEnd(JavaClass jc)
 	throws IOException, InjectorParseException
 	{
@@ -297,11 +338,18 @@ public final class Instrumentor implements InjectionConsumer
 		if(!jc.isInterface() && jc.isPersistent())
 		{
 			writeConstructor(jc);
-			for(Iterator i = jc.getPersistentAttributes().iterator(); i.hasNext(); )
+			for(final Iterator i = jc.getPersistentAttributes().iterator(); i.hasNext(); )
 			{
 				// write setter/getter methods
 				final JavaAttribute persistentAttribute = (JavaAttribute)i.next();
 				writeAccessMethods(persistentAttribute);
+			}
+			for(final Iterator i = jc.getPersistentAttributes().iterator(); i.hasNext(); )
+			{
+				// write unique finder methods
+				final JavaAttribute persistentAttribute = (JavaAttribute)i.next();
+				if(persistentAttribute.isUnique())
+					writeUniqueFinder(new JavaAttribute[]{persistentAttribute});
 			}
 		}
 		
