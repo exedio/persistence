@@ -27,14 +27,6 @@ page import="java.util.Map" %><%@
 include file="copernica-provider.inc"
 
 %><%
-	/*
-	for( final Iterator it = request.getParameterMap().entrySet().iterator(); it.hasNext(); )
-	{
-		Map.Entry entry = (Map.Entry)it.next();
-		System.out.println( "param: " + entry.getKey() + " value: " + ((String[])entry.getValue())[0] );
-	}
-	*/
-	
 	final CopernicaCop cop = CopernicaCop.getCop(
 		provider, request.getParameterMap()
 	);
