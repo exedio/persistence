@@ -97,12 +97,14 @@ public class AttributesTest extends DatabaseLibTest
 		assertEquals(item.TYPE, item.someInteger.getType());
 		assertEquals(null, item.getSomeInteger());
 		assertEquals(list(item), Search.search(item.TYPE, Search.equal(item.someInteger, null)));
+		assertEquals(list(item), Search.search(item.TYPE, Search.isNull(item.someInteger)));
 		item.setSomeInteger(new Integer(10));
 		assertEquals(new Integer(10), item.getSomeInteger());
 		assertEquals(
 			list(item),
 			Search.search(item.TYPE, Search.equal(item.someInteger, 10)));
 		assertEquals(list(), Search.search(item.TYPE, Search.equal(item.someInteger, null)));
+		assertEquals(list(), Search.search(item.TYPE, Search.isNull(item.someInteger)));
 		item.setSomeInteger(null);
 		assertEquals(null, item.getSomeInteger());
 	}

@@ -108,6 +108,11 @@ public class Search
 		return new EqualCondition(attribute, value);
 	}
 	
+	public static final EqualCondition isNull(final Attribute attribute)
+	{
+		return new EqualCondition(attribute);
+	}
+	
 	public static final EqualAttributeCondition equal(final StringAttribute attribute1, final StringAttribute attribute2)
 	{
 		return new EqualAttributeCondition(attribute1, attribute2);

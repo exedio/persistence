@@ -15,6 +15,12 @@ public final class EqualCondition extends Condition
 	public final Attribute attribute;
 	public final Object value;
 
+	public EqualCondition(final Attribute attribute)
+	{
+		this.attribute = attribute;
+		this.value = null;
+	}
+	
 	public EqualCondition(final StringAttribute attribute, final String value)
 	{
 		this.attribute = attribute;
