@@ -242,10 +242,10 @@ public abstract class Item extends Search
 	
 	public final Object getFunction(final ComputedFunction function)
 	{
-		final List sourceAttributes = function.getSources();
-		final Object[] values = new Object[sourceAttributes.size()];
+		final List sources = function.getSources();
+		final Object[] values = new Object[sources.size()];
 		int pos = 0;
-		for(Iterator i = sourceAttributes.iterator(); i.hasNext(); )
+		for(Iterator i = sources.iterator(); i.hasNext(); )
 			values[pos++] = getAttribute((ObjectAttribute)i.next());
 	
 		return function.mapJava(values);
