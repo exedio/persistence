@@ -2,7 +2,6 @@ package com.exedio.copernica;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import com.exedio.cope.lib.NestingRuntimeException;
 
@@ -35,30 +34,19 @@ final class Util
 		}
 	}
 	
-	static final CopernicaUser checkAccess(
-			final CopernicaProvider provider,
-			final HttpServletRequest request,
-			final HttpServletResponse response)
-	{
-		final CopernicaUser result = checkAccessPrivate(provider, request);
-		if(result==null)
-		{
-			response.addHeader("WWW-Authenticate", "Basic realm=\"Copernica\"");
-			response.setStatus(response.SC_UNAUTHORIZED);
-		}
-		return result;
-	}
-
 	private static final String BASIC = "Basic ";
 	
-	private static final CopernicaUser checkAccessPrivate(
+	static final CopernicaUser checkAccess(
 			final CopernicaProvider provider,
 			final HttpServletRequest request)
+		throws CopernicaAuthorizationFailedException
 	{
 		final String authorization = request.getHeader("Authorization");
 		//System.out.println("authorization:"+authorization);
-		if(authorization==null || !authorization.startsWith(BASIC))
-			return null;
+		if(authorization==null)
+			throw new CopernicaAuthorizationFailedException("noauth");
+		if(!authorization.startsWith(BASIC))
+			throw new CopernicaAuthorizationFailedException("nonbasic", authorization);
 		
 		final String basicCookie = authorization.substring(BASIC.length());
 		//System.out.println("basicCookie:"+basicCookie);
@@ -68,7 +56,7 @@ final class Util
 		
 		final int colon = basicCookiePlain.indexOf(':');
 		if(colon<=0 || colon+1>=basicCookiePlain.length())
-			return null;
+			throw new CopernicaAuthorizationFailedException("badcol", basicCookiePlain);
 		
 		final String userid = basicCookiePlain.substring(0, colon);
 		final String password = basicCookiePlain.substring(colon+1);
@@ -78,9 +66,12 @@ final class Util
 		final CopernicaUser user = provider.findUserByID(userid);
 		//System.out.println("user:"+user);
 		if(user==null)
-			return null;
+			throw new CopernicaAuthorizationFailedException("nouser", userid);
 		
-		return user.checkCopernicaPassword(password) ? user : null;
+		if(!user.checkCopernicaPassword(password))
+			throw new CopernicaAuthorizationFailedException("badpass", userid);
+
+		return user;
 	}
 	
 	private Util()

@@ -52,23 +52,8 @@ include file="provider.inc"
 		return;
 	}
 
-	final CopernicaUser user = Util.checkAccess(provider, request, response);
-	if(user==null)
-	{
-%><html>
-	<head>
-		<title>Copernica Unauthorized</title>
-	</head>
-	<body>
-		<b>Access not authorized.</b><br>
-	</body>
-</html>
-<%
-		return;
-	}
-	
+	final CopernicaUser user = Util.checkAccess(provider, request);
 	final CopernicaCop cop = CopernicaCop.getCop(provider, request);
-	
 	final CopernicaLanguage language = cop.language;
 	
 %><html>
