@@ -5,8 +5,8 @@ import java.util.Date;
 
 import com.exedio.cope.lib.DateAttribute;
 import com.exedio.cope.lib.DoubleAttribute;
-import com.exedio.cope.lib.EnumerationAttribute;
-import com.exedio.cope.lib.EnumerationValue;
+import com.exedio.cope.lib.EnumAttribute;
+import com.exedio.cope.lib.EnumValue;
 import com.exedio.cope.lib.IntegerAttribute;
 import com.exedio.cope.lib.LongAttribute;
 import com.exedio.cope.lib.StringAttribute;
@@ -40,7 +40,7 @@ public class LessEqualCondition extends LiteralCondition
 		super(OPERATOR, attribute, value);
 	}
 
-	public LessEqualCondition(final EnumerationAttribute attribute, final EnumerationValue value)
+	public LessEqualCondition(final EnumAttribute attribute, final EnumValue value)
 	{
 		super(OPERATOR, attribute, value);
 	}

@@ -12,8 +12,8 @@ import com.exedio.cope.lib.BooleanAttribute;
 import com.exedio.cope.lib.ConstraintViolationException;
 import com.exedio.cope.lib.DateAttribute;
 import com.exedio.cope.lib.DoubleAttribute;
-import com.exedio.cope.lib.EnumerationAttribute;
-import com.exedio.cope.lib.EnumerationValue;
+import com.exedio.cope.lib.EnumAttribute;
+import com.exedio.cope.lib.EnumValue;
 import com.exedio.cope.lib.IntegerAttribute;
 import com.exedio.cope.lib.Item;
 import com.exedio.cope.lib.ItemAttribute;
@@ -161,9 +161,9 @@ final class ItemForm extends Form
 		{
 			value = (itemValue==null) ? VALUE_NULL : ((Boolean)itemValue).booleanValue() ? VALUE_ON : VALUE_OFF;
 		}
-		else if(attribute instanceof EnumerationAttribute)
+		else if(attribute instanceof EnumAttribute)
 		{
-			value = (itemValue==null) ? VALUE_NULL : ((EnumerationValue)itemValue).getCode();
+			value = (itemValue==null) ? VALUE_NULL : ((EnumValue)itemValue).getCode();
 		}
 		else
 			throw new RuntimeException();
@@ -232,13 +232,13 @@ final class ItemForm extends Form
 				else
 					throw new RuntimeException(valueString);
 			}
-			else if(attribute instanceof EnumerationAttribute)
+			else if(attribute instanceof EnumAttribute)
 			{
 				if(VALUE_NULL.equals(valueString))
 					value = null;
 				else
 				{
-					final EnumerationAttribute enumAttribute = (EnumerationAttribute)attribute;
+					final EnumAttribute enumAttribute = (EnumAttribute)attribute;
 					value = enumAttribute.getValue(valueString);
 					if(value==null)
 						throw new NullPointerException(valueString);

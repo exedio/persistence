@@ -1,4 +1,3 @@
-
 package com.exedio.cope.lib;
 
 import java.lang.reflect.Field;
@@ -11,7 +10,7 @@ import java.util.List;
 
 import bak.pcj.map.IntKeyOpenHashMap;
 
-public final class EnumerationAttribute extends ObjectAttribute
+public final class EnumAttribute extends ObjectAttribute
 {
 	private final Class enumerationClass;
 	private final List values;
@@ -21,11 +20,11 @@ public final class EnumerationAttribute extends ObjectAttribute
 	/**
 	 * @see Item#enumerationAttribute(Option, Class)
 	 */
-	EnumerationAttribute(final Option option, final Class enumerationClass)
+	EnumAttribute(final Option option, final Class enumerationClass)
 	{
 		super(option);
 		this.enumerationClass = enumerationClass;
-		if(!EnumerationValue.class.isAssignableFrom(enumerationClass))
+		if(!EnumValue.class.isAssignableFrom(enumerationClass))
 			throw new RuntimeException("is not an enumeration value class: "+enumerationClass.getName());
 
 		try
@@ -39,10 +38,10 @@ public final class EnumerationAttribute extends ObjectAttribute
 				final Field field = fields[j];
 				final int mandatoryModifiers = Modifier.STATIC | Modifier.FINAL;
 				//System.out.println("-----------field:"+field.getName());
-				if(EnumerationValue.class.isAssignableFrom(field.getType()) &&
+				if(EnumValue.class.isAssignableFrom(field.getType()) &&
 					(field.getModifiers()&mandatoryModifiers) == mandatoryModifiers)
 				{
-					final EnumerationValue value = (EnumerationValue)field.get(null);
+					final EnumValue value = (EnumValue)field.get(null);
 					if(value==null)
 						throw new NullPointerException("is null: "+field);
 					//System.out.println("-------------value:"+value);
@@ -89,15 +88,15 @@ public final class EnumerationAttribute extends ObjectAttribute
 		return values;
 	}
 	
-	public EnumerationValue getValue(final int number)
+	public EnumValue getValue(final int number)
 	{
-		return (EnumerationValue)numbersToValues.get(number);
+		return (EnumValue)numbersToValues.get(number);
 	}
 
-	public EnumerationValue getValue(final String code)
+	public EnumValue getValue(final String code)
 	{
 		//System.out.println("EnumerationValue#getValue("+code+") from "+codesToValues);
-		return (EnumerationValue)codesToValues.get(code);
+		return (EnumValue)codesToValues.get(code);
 	}
 
 	protected List createColumns(final Table table, final String name, final boolean notNull)
@@ -105,7 +104,7 @@ public final class EnumerationAttribute extends ObjectAttribute
 		final int[] allowedValues = new int[values.size()];
 		int in = 0;
 		for(Iterator i = values.iterator(); i.hasNext(); in++)
-			allowedValues[in] = ((EnumerationValue)i.next()).getNumber();
+			allowedValues[in] = ((EnumValue)i.next()).getNumber();
 
 		return Collections.singletonList(new IntegerColumn(table, name, notNull, 10, false, allowedValues));
 	}
@@ -123,7 +122,7 @@ public final class EnumerationAttribute extends ObjectAttribute
 		return
 			surface==null ?
 				null :
-				((EnumerationValue)surface).getNumberObject();
+				((EnumValue)surface).getNumberObject();
 	}
 	
 }

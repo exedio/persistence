@@ -212,7 +212,7 @@ public abstract class Search
 		return new LessCondition(attribute, value);
 	}
 	
-	public static final LessCondition less(final EnumerationAttribute attribute, final EnumerationValue value)
+	public static final LessCondition less(final EnumAttribute attribute, final EnumValue value)
 	{
 		return new LessCondition(attribute, value);
 	}
@@ -242,7 +242,7 @@ public abstract class Search
 		return new LessEqualCondition(attribute, value);
 	}
 	
-	public static final LessEqualCondition lessOrEqual(final EnumerationAttribute attribute, final EnumerationValue value)
+	public static final LessEqualCondition lessOrEqual(final EnumAttribute attribute, final EnumValue value)
 	{
 		return new LessEqualCondition(attribute, value);
 	}
@@ -272,7 +272,7 @@ public abstract class Search
 		return new GreaterCondition(attribute, value);
 	}
 	
-	public static final GreaterCondition greater(final EnumerationAttribute attribute, final EnumerationValue value)
+	public static final GreaterCondition greater(final EnumAttribute attribute, final EnumValue value)
 	{
 		return new GreaterCondition(attribute, value);
 	}
@@ -302,7 +302,7 @@ public abstract class Search
 		return new GreaterEqualCondition(attribute, value);
 	}
 	
-	public static final GreaterEqualCondition greaterOrEqual(final EnumerationAttribute attribute, final EnumerationValue value)
+	public static final GreaterEqualCondition greaterOrEqual(final EnumAttribute attribute, final EnumValue value)
 	{
 		return new GreaterEqualCondition(attribute, value);
 	}

@@ -45,9 +45,9 @@
 						{
 							%><%=item.getMediaURL((MediaAttribute)attribute)%><%
 						}
-						else if(attribute instanceof EnumerationAttribute)
+						else if(attribute instanceof EnumAttribute)
 						{
-							final EnumerationAttribute enumAttribute = (EnumerationAttribute)attribute;
+							final EnumAttribute enumAttribute = (EnumAttribute)attribute;
 							final String attributeName = attribute.getName();
 							final String value = field.getValue();
 							
@@ -63,7 +63,7 @@
 							}
 							for(Iterator k = enumAttribute.getValues().iterator(); k.hasNext(); )
 							{
-								final EnumerationValue currentValue = (EnumerationValue)k.next();
+								final EnumValue currentValue = (EnumValue)k.next();
 								final String currentCode = currentValue.getCode();
 								final String currentName = cop.getDisplayName(currentValue);
 								%>

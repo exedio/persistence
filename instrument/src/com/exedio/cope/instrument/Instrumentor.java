@@ -12,7 +12,7 @@ import com.exedio.cope.lib.Attribute;
 import com.exedio.cope.lib.BooleanAttribute;
 import com.exedio.cope.lib.DateAttribute;
 import com.exedio.cope.lib.DoubleAttribute;
-import com.exedio.cope.lib.EnumerationAttribute;
+import com.exedio.cope.lib.EnumAttribute;
 import com.exedio.cope.lib.Function;
 import com.exedio.cope.lib.IntegerFunction;
 import com.exedio.cope.lib.ItemAttribute;
@@ -147,7 +147,7 @@ public final class Instrumentor implements InjectionConsumer
 				initializerArguments, setterOptionString);
 		}
 		else if(
-			EnumerationAttribute.class.equals(typeClass)||
+			EnumAttribute.class.equals(typeClass)||
 			ItemAttribute.class.equals(typeClass))
 		{
 			new CopeObjectAttribute(

@@ -3,7 +3,7 @@ package com.exedio.copernica;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.exedio.cope.lib.EnumerationValue;
+import com.exedio.cope.lib.EnumValue;
 import com.exedio.cope.lib.Item;
 import com.exedio.cope.lib.Model;
 import com.exedio.cope.lib.Type;
@@ -145,7 +145,7 @@ abstract class CopernicaCop extends Cop implements RequestCache
 	//private int enumDisplayNamesHits = 0;
 	//private int enumDisplayNamesMisses = 0;
 	
-	public String getDisplayName(final EnumerationValue enumerationValue)
+	public String getDisplayName(final EnumValue enumerationValue)
 	{
 		if(enumDisplayNames==null)
 		{

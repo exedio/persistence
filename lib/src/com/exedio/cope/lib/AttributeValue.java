@@ -71,7 +71,7 @@ public final class AttributeValue
 		this.value = value;
 	}
 	
-	public AttributeValue(final EnumerationAttribute attribute, final EnumerationValue value)
+	public AttributeValue(final EnumAttribute attribute, final EnumValue value)
 	{
 		this.attribute = attribute;
 		this.value = value;

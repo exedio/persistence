@@ -1,7 +1,6 @@
-
 package com.exedio.cope.lib;
 
-public abstract class EnumerationValue
+public abstract class EnumValue
 {
 
 	private boolean initialized = false;
@@ -21,7 +20,7 @@ public abstract class EnumerationValue
 			throw new RuntimeException("enumeration attribute "+this.enumerationClass+"#"+this.code+" has been already initialized");
 		if(enumerationClass==null)
 			throw new NullPointerException();
-		if(!EnumerationValue.class.isAssignableFrom(enumerationClass))
+		if(!EnumValue.class.isAssignableFrom(enumerationClass))
 			throw new RuntimeException();
 		if(code==null)
 			throw new NullPointerException();

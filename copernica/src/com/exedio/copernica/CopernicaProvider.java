@@ -3,7 +3,7 @@ package com.exedio.copernica;
 
 import java.util.Collection;
 
-import com.exedio.cope.lib.EnumerationValue;
+import com.exedio.cope.lib.EnumValue;
 import com.exedio.cope.lib.Feature;
 import com.exedio.cope.lib.Item;
 import com.exedio.cope.lib.Model;
@@ -46,7 +46,7 @@ public interface CopernicaProvider
 	
 	public String getDisplayName(RequestCache cache, CopernicaLanguage displayLanguage, Item item);
 
-	public String getDisplayName(CopernicaLanguage displayLanguage, EnumerationValue value);
+	public String getDisplayName(CopernicaLanguage displayLanguage, EnumValue value);
 
 	public String getIconURL(Type type);
 

@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
-import com.exedio.cope.lib.EnumerationValue;
+import com.exedio.cope.lib.EnumValue;
 import com.exedio.cope.lib.Feature;
 import com.exedio.cope.lib.Item;
 import com.exedio.cope.lib.ObjectAttribute;
@@ -180,12 +180,12 @@ public abstract class TransientCopernicaProvider implements CopernicaProvider
 		}
 	}
 	
-	protected final void putDisplayName(final TransientLanguage transientLanguage, final EnumerationValue value, final String name)
+	protected final void putDisplayName(final TransientLanguage transientLanguage, final EnumValue value, final String name)
 	{
 		transientLanguage.enumerationValueNames.put(value, name);
 	}
 	
-	public String getDisplayName(final CopernicaLanguage displayLanguage, final EnumerationValue value)
+	public String getDisplayName(final CopernicaLanguage displayLanguage, final EnumValue value)
 	{
 		if(displayLanguage instanceof TransientLanguage)
 		{

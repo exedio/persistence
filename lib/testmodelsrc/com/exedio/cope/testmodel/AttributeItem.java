@@ -4,8 +4,8 @@ package com.exedio.cope.testmodel;
 import com.exedio.cope.lib.BooleanAttribute;
 import com.exedio.cope.lib.DateAttribute;
 import com.exedio.cope.lib.DoubleAttribute;
-import com.exedio.cope.lib.EnumerationAttribute;
-import com.exedio.cope.lib.EnumerationValue;
+import com.exedio.cope.lib.EnumAttribute;
+import com.exedio.cope.lib.EnumValue;
 import com.exedio.cope.lib.IntegerAttribute;
 import com.exedio.cope.lib.Item;
 import com.exedio.cope.lib.ItemAttribute;
@@ -99,12 +99,12 @@ public class AttributeItem extends Item
 	/**
 	 * An enumeration attribute
 	 */
-	public static final EnumerationAttribute someEnumeration = enumerationAttribute(DEFAULT, SomeEnumeration.class);
+	public static final EnumAttribute someEnumeration = enumerationAttribute(DEFAULT, SomeEnumeration.class);
 
 	/**
 	 * A not-null enumeration attribute
 	 */
-	public static final EnumerationAttribute someNotNullEnumeration = enumerationAttribute(NOT_NULL, SomeEnumeration.class);
+	public static final EnumAttribute someNotNullEnumeration = enumerationAttribute(NOT_NULL, SomeEnumeration.class);
 
 	/**
 	 * A media attribute.
@@ -118,7 +118,7 @@ public class AttributeItem extends Item
 	/**
 	 * A class representing the possible states of the persistent enumeration attribute {@link #someEnumeration}.
 	 */
-	public static final class SomeEnumeration extends EnumerationValue
+	public static final class SomeEnumeration extends EnumValue
 	{
 		public static final int enumValue1NUM = 100;
 		public static final SomeEnumeration enumValue1 = new SomeEnumeration();

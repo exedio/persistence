@@ -127,9 +127,9 @@
 								%><%=df.format(value)%><%
 							}
 						}
-						else if(feature instanceof EnumerationAttribute)
+						else if(feature instanceof EnumAttribute)
 						{
-							final EnumerationValue value = (EnumerationValue)item.getAttribute((EnumerationAttribute)feature);
+							final EnumValue value = (EnumValue)item.getAttribute((EnumAttribute)feature);
 							if(value==null)
 							{
 								%><%=cop.getDisplayNameNull()%><%

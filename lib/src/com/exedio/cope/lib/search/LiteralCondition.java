@@ -6,8 +6,8 @@ import java.util.TreeSet;
 
 import com.exedio.cope.lib.DateAttribute;
 import com.exedio.cope.lib.DoubleAttribute;
-import com.exedio.cope.lib.EnumerationAttribute;
-import com.exedio.cope.lib.EnumerationValue;
+import com.exedio.cope.lib.EnumAttribute;
+import com.exedio.cope.lib.EnumValue;
 import com.exedio.cope.lib.IntegerAttribute;
 import com.exedio.cope.lib.LongAttribute;
 import com.exedio.cope.lib.ObjectAttribute;
@@ -59,7 +59,7 @@ public class LiteralCondition extends Condition
 		this(operator, (ObjectAttribute)attribute, (Object)value);
 	}
 	
-	LiteralCondition(final String operator, final EnumerationAttribute attribute, final EnumerationValue value)
+	LiteralCondition(final String operator, final EnumAttribute attribute, final EnumValue value)
 	{
 		this(operator, (ObjectAttribute)attribute, (Object)value);
 	}
