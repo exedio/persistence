@@ -852,6 +852,7 @@ public final class Instrumentor implements InjectionConsumer
 		output.write(lineSeparator);
 		
 		// the runnable initializing attributes
+		// TODO: call initialize in the attributes array literal
 		output.write("\t\t\tnew Runnable()");
 		output.write(lineSeparator);
 		output.write("\t\t\t{");
