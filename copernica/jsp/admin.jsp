@@ -85,7 +85,8 @@ include file="copernica-provider.inc"
 							%>
 							</ul><%
 						}
-						%></li><%
+						%>
+						</li><%
 					}
 					%>
 					</ul><%
