@@ -25,22 +25,30 @@ final class StringColumn extends Column
 		return table.database.getStringType(maximumLength);
 	}
 
-	final String getMinimumLengthConstraintID()
+	final String getCheckConstraintIfNotNull()
 	{
-		if(minimumLength<=0)
-			throw new RuntimeException(id);
+		final StringBuffer bf = new StringBuffer();
+		boolean first = true;
 
-		return table.database.trimName(table.id + "_" + id+ "_Min");
-	}
-	
-	final String getMaximumLengthConstraintID()
-	{
-		if(maximumLength==Integer.MAX_VALUE)
-			throw new RuntimeException(id);
+		if(minimumLength>0)
+		{
+			first = false;
+			bf.append("(LENGTH(" + protectedID + ")>=" + minimumLength + ')');
+		}
 
-		return table.database.trimName(table.id + "_" + id+ "_Max");
+		if(maximumLength!=Integer.MAX_VALUE)
+		{
+			if(first)
+				first = false;
+			else
+				bf.append(" AND ");
+			
+			bf.append("(LENGTH(" + protectedID + ")<=" + maximumLength + ')');
+		}
+
+		return first ? null : bf.toString();
 	}
-	
+
 	void load(final ResultSet resultSet, final int columnIndex, final Row row)
 			throws SQLException
 	{

@@ -22,6 +22,9 @@ class IntegerColumn extends Column
 		this.precision = precision;
 		this.longInsteadOfInt = longInsteadOfInt;
 		this.allowedValues = allowedValues;
+
+		if(allowedValues!=null && allowedValues.length<2)
+			throw new RuntimeException(id);
 	}
 
 	/**
@@ -56,12 +59,24 @@ class IntegerColumn extends Column
 		return table.database.getIntegerType(precision); 
 	}
 
-	final String getAllowedValuesConstraintID()
+	final String getCheckConstraintIfNotNull()
 	{
-		if(allowedValues==null)
-			throw new RuntimeException(id);
+		if(allowedValues!=null)
+		{
+			final StringBuffer bf = new StringBuffer();
+			bf.append(protectedID + " IN (");
 
-		return table.database.trimName(table.id + "_" + id+ "_Val");
+			for(int j = 0; j<allowedValues.length; j++)
+			{
+				if(j>0)
+					bf.append(',');
+				bf.append(allowedValues[j]);
+			}
+			bf.append(')');
+			return bf.toString();
+		}
+		else
+			return null;
 	}
 	
 	final void load(final ResultSet resultSet, final int columnIndex, final Row row)

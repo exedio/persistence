@@ -50,13 +50,33 @@ public final class ReportTable extends ReportNode
 		exists = true;
 	}
 		
-	final ReportColumn notifyRequiredColumn(final Column column)
+	final void notifyRequiredColumn(final Column column)
 	{
 		final ReportColumn result = new ReportColumn(column, this);
 		if(columnMap.put(result.name, result)!=null)
 			throw new RuntimeException(column.toString());
 		columnList.add(result);
-		return result;
+
+		if(column.primaryKey)
+		{
+			addRequiredConstraint(
+					new ReportConstraint(column.getPrimaryKeyConstraintID(), this));
+		}
+		else
+		{
+			final String checkConstraint = column.getCheckConstraint();
+			if(checkConstraint!=null)
+			{
+				addRequiredConstraint(
+						new ReportConstraint(column.getCheckConstraintID(), this, checkConstraint));
+			}
+		}
+		if(column instanceof ItemColumn)
+		{
+			final ItemColumn itemColumn = (ItemColumn)column;
+			addRequiredConstraint(
+					new ReportConstraint(itemColumn.integrityConstraintName, this));
+		}
 	}
 		
 	final ReportColumn notifyExistentColumn(final String columnName, final String existingType)
@@ -87,13 +107,6 @@ public final class ReportTable extends ReportNode
 	final ReportConstraint notifyRequiredConstraint(final String constraintName)
 	{
 		final ReportConstraint result = new ReportConstraint(constraintName, this);
-		addRequiredConstraint(result);
-		return result;
-	}
-	
-	final ReportConstraint notifyRequiredCheckConstraint(final String constraintName, final String condition)
-	{
-		final ReportConstraint result = new ReportConstraint(constraintName, this, condition);
 		addRequiredConstraint(result);
 		return result;
 	}

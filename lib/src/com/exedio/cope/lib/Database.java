@@ -934,49 +934,16 @@ abstract class Database
 					append(column.protectedID).
 					append(')');
 			}
-			else if(column.notNull)
+			else
 			{
-				bf.append(",constraint ").
-					append(protectName(column.getNotNullConstraintID())).
-					append(" check(");
-				appendNotNullCondition(bf, column);
-				bf.append(')');
-			}
-
-			if(column instanceof StringColumn)
-			{
-				final StringColumn stringColumn = (StringColumn)column;
-				if(stringColumn.minimumLength>0)
+				final String checkConstraint = column.getCheckConstraint();
+				if(checkConstraint!=null)
 				{
 					bf.append(",constraint ").
-						append(protectName(stringColumn.getMinimumLengthConstraintID())).
-						append(" check(");
-
-					appendMinimumLengthCondition(bf, stringColumn);
-					bf.append(')');
-				}
-				if(stringColumn.maximumLength!=Integer.MAX_VALUE)
-				{
-					bf.append(",constraint ").
-						append(protectName(stringColumn.getMaximumLengthConstraintID())).
-						append(" check(");
-
-					appendMaximumLengthCondition(bf, stringColumn);
-					bf.append(')');
-				}
-			}
-			else if(column instanceof IntegerColumn)
-			{
-				final IntegerColumn intColumn = (IntegerColumn)column;
-				final int[] allowedValues = intColumn.allowedValues;
-				if(allowedValues!=null)
-				{
-					bf.append(",constraint ").
-						append(protectName(intColumn.getAllowedValuesConstraintID())).
-						append(" check(");
-
-					appendAllowedValuesCondition(bf, intColumn);
-					bf.append(')');
+						append(protectName(column.getCheckConstraintID())).
+						append(" check(").
+						append(checkConstraint).
+						append(')');
 				}
 			}
 		}
@@ -1013,82 +980,6 @@ abstract class Database
 		}
 	}
 	
-	final void appendNotNullCondition(final Statement bf, final Column column)
-	{
-		bf.append(column.protectedID).
-			append(" IS NOT NULL");
-	}
-	
-	final void appendMinimumLengthCondition(final Statement bf, final StringColumn column)
-	{
-		if(!column.notNull)
-			bf.append('(');
-		
-		bf.append("LENGTH(").
-			append(column.protectedID).
-			append(")>=").
-			append(column.minimumLength);
-
-		if(!column.notNull)
-			bf.append(')');
-
-		if(!column.notNull)
-		{
-			bf.append(" OR (").
-				append(column.protectedID).
-				append(" IS NULL)");
-		}
-	}
-	
-	final void appendMaximumLengthCondition(final Statement bf, final StringColumn column)
-	{
-		if(!column.notNull)
-			bf.append('(');
-		
-		bf.append("LENGTH(").
-			append(column.protectedID).
-			append(")<=").
-			append(column.maximumLength);
-
-		if(!column.notNull)
-			bf.append(')');
-		
-		if(!column.notNull)
-		{
-			bf.append(" OR (").
-				append(column.protectedID).
-				append(" IS NULL)");
-		}
-	}
-	
-	final void appendAllowedValuesCondition(final Statement bf, final IntegerColumn column)
-	{
-		if(!column.notNull)
-			bf.append('(');
-
-		bf.append(column.protectedID).
-			append(" IN (");
-
-		final int[] allowedValues = column.allowedValues;
-		for(int j = 0; j<allowedValues.length; j++)
-		{
-			if(j>0)
-				bf.append(',');
-			bf.append(allowedValues[j]);
-		}
-		bf.append(')');
-
-		if(!column.notNull)
-			bf.append(')');
-
-		if(!column.notNull)
-		{
-			bf.append(" OR (").
-				append(column.protectedID).
-				append(" IS NULL)");
-		}
-	}
-
 	private void createForeignKeyConstraints(final Table table)
 	{
 		//System.out.println("createForeignKeyConstraints:"+bf);

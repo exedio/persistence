@@ -22,6 +22,11 @@ final class DoubleColumn extends Column
 		return table.database.getDoubleType(precision);
 	}
 
+	final String getCheckConstraintIfNotNull()
+	{
+		return null;
+	}
+
 	final void load(final ResultSet resultSet, final int columnIndex, final Row row)
 			throws SQLException
 	{

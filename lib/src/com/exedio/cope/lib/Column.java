@@ -36,13 +36,32 @@ abstract class Column
 		return table.database.trimName(table.id + "_" + "Pk");
 	}
 	
-	final String getNotNullConstraintID()
+	final String getCheckConstraintID()
 	{
-		if(!notNull)
-			throw new RuntimeException(id);
-
-		return table.database.trimName(table.id + "_" + id+ "_Nn");
+		return table.database.trimName(table.id + "_" + id + "_Ck");
 	}
+	
+	final String getCheckConstraint()
+	{
+		final String ccinn = getCheckConstraintIfNotNull();
+		
+		if(notNull)
+		{
+			if(ccinn!=null)
+				return "(" + protectedID + " IS NOT NULL) AND (" + ccinn + ')';
+			else
+				return protectedID + " IS NOT NULL";
+		}
+		else
+		{
+			if(ccinn!=null)
+				return "(" + ccinn + ") OR (" + protectedID + " IS NULL)";
+			else
+				return null;
+		}
+	}
+	
+	abstract String getCheckConstraintIfNotNull();
 	
 	public final String toString()
 	{

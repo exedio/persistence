@@ -20,6 +20,11 @@ final class TimestampColumn extends Column
 		return ((DatabaseTimestampCapable)table.database).getDateTimestampType(); 
 	}
 
+	final String getCheckConstraintIfNotNull()
+	{
+		return null;
+	}
+
 	/**
 	 * Returns what should be returned by
 	 * {@link Date#getTime()}.

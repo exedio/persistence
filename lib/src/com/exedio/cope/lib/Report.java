@@ -17,61 +17,15 @@ public final class Report extends ReportNode
 		this.database = database;
 		for(Iterator i = modelTables.iterator(); i.hasNext(); )
 		{
-			final com.exedio.cope.lib.Table modelTable = (com.exedio.cope.lib.Table)i.next();
+			final Table modelTable = (Table)i.next();
 			final ReportTable reportTable = new ReportTable(this, modelTable);
 			if(tableMap.put(modelTable.id, reportTable)!=null)
 				throw new RuntimeException();
 			tableList.add(reportTable);
 	
 			for(Iterator j = modelTable.getAllColumns().iterator(); j.hasNext(); )
-			{
-				final Column column = (com.exedio.cope.lib.Column)j.next();
-				final ReportColumn reportColumn = reportTable.notifyRequiredColumn(column);
-				
-				if(column.primaryKey)
-					reportTable.notifyRequiredConstraint(column.getPrimaryKeyConstraintID());
-				else if(column.notNull)
-				{
-					final Statement bf = database.createStatement();
-					database.appendNotNullCondition(bf, column);
-					reportTable.notifyRequiredCheckConstraint(column.getNotNullConstraintID(), bf.getText());
-				}
-					
-				if(column instanceof StringColumn)
-				{
-					final StringColumn stringColumn = (StringColumn)column;
+				reportTable.notifyRequiredColumn((Column)j.next());
 
-					if(stringColumn.minimumLength>0)
-					{
-						final Statement bf = database.createStatement();
-						database.appendMinimumLengthCondition(bf, stringColumn);
-						reportTable.notifyRequiredCheckConstraint(stringColumn.getMinimumLengthConstraintID(), bf.getText());
-					}
-
-					if(stringColumn.maximumLength!=Integer.MAX_VALUE)
-					{
-						final Statement bf = database.createStatement();
-						database.appendMaximumLengthCondition(bf, stringColumn);
-						reportTable.notifyRequiredCheckConstraint(stringColumn.getMaximumLengthConstraintID(), bf.getText());
-					}
-				}
-				else if(column instanceof IntegerColumn)
-				{
-					final IntegerColumn intColumn = (IntegerColumn)column;
-					if(intColumn.allowedValues!=null)
-					{
-						final Statement bf = database.createStatement();
-						database.appendAllowedValuesCondition(bf, intColumn);
-						reportTable.notifyRequiredCheckConstraint(intColumn.getAllowedValuesConstraintID(), bf.getText());
-					}
-
-					if(intColumn instanceof ItemColumn)
-					{
-						final ItemColumn itemColumn = (ItemColumn)intColumn;
-						reportTable.notifyRequiredConstraint(itemColumn.integrityConstraintName);
-					}
-				}
-			}
 			for(Iterator j = modelTable.getUniqueConstraints().iterator(); j.hasNext(); )
 			{
 				final UniqueConstraint uniqueConstraint = (UniqueConstraint)j.next();
