@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public abstract class ComputedFunction implements Function 
+public abstract class ComputedFunction implements Function
 {
 	private final Function[] sources;
 	final Function mainSource;
