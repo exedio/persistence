@@ -45,9 +45,7 @@ final class Properties
 		}
 		catch(IOException e)
 		{
-			final String m = "ERROR: property file "+file.getAbsolutePath()+" not found.";
-			System.out.println(m);
-			throw new SystemException(e, m);
+			throw new InitializerRuntimeException(e, "ERROR: property file "+file.getAbsolutePath()+" not found.");
 		}
 		finally
 		{
@@ -67,38 +65,22 @@ final class Properties
 		password = getPropertyNotNull(properties, "database.password");
 		final String mediaDirectoryString  = getPropertyNotNull(properties, "media.directory");
 		final File mediaDirectoryTest = new File(mediaDirectoryString);
+
 		if(!mediaDirectoryTest.exists())
-		{
-			final String m = "ERROR: media directory "+mediaDirectoryTest.getAbsolutePath()+" does not exist.";
-			System.out.println(m);
-			throw new RuntimeException(m);
-		}
+			throw new InitializerRuntimeException("ERROR: media directory "+mediaDirectoryTest.getAbsolutePath()+" does not exist.");
 		if(!mediaDirectoryTest.isDirectory())
-		{
-			final String m = "ERROR: media directory "+mediaDirectoryTest.getAbsolutePath()+" is not a directory.";
-			System.out.println(m);
-			throw new RuntimeException(m);
-		}
+			throw new InitializerRuntimeException("ERROR: media directory "+mediaDirectoryTest.getAbsolutePath()+" is not a directory.");
 		if(!mediaDirectoryTest.canRead())
-		{
-			final String m = "ERROR: media directory "+mediaDirectoryTest.getAbsolutePath()+" is not readable.";
-			System.out.println(m);
-			throw new RuntimeException(m);
-		}
+			throw new InitializerRuntimeException("ERROR: media directory "+mediaDirectoryTest.getAbsolutePath()+" is not readable.");
 		if(!mediaDirectoryTest.canWrite())
-		{
-			final String m = "ERROR: media directory "+mediaDirectoryTest.getAbsolutePath()+" is not writable.";
-			System.out.println(m);
-			throw new RuntimeException(m);
-		}
+			throw new InitializerRuntimeException("ERROR: media directory "+mediaDirectoryTest.getAbsolutePath()+" is not writable.");
 		try
 		{
 			mediaDirectory = mediaDirectoryTest.getCanonicalFile();
 		}
 		catch(IOException e)
 		{
-			e.printStackTrace();
-			throw new SystemException(e);
+			throw new InitializerRuntimeException(e);
 		}
 	}
 	
@@ -106,12 +88,8 @@ final class Properties
 	{
 		final String result = properties.getProperty(key);
 		if(result==null)
-		{
-			// TODO: make an initializer exception, that additionally prints the error message
-			final String m = "ERROR: property "+key+" in "+file.getAbsolutePath()+" not set.";
-			System.out.println(m);
-			throw new RuntimeException(m);
-		}
+			throw new InitializerRuntimeException("ERROR: property "+key+" in "+file.getAbsolutePath()+" not set.");
+
 		return result;
 	}
 
@@ -121,6 +99,7 @@ final class Properties
 	}
 
 	public String getDriver()
+	// TODO rename to DatabaseDriver
 	{
 		return driver;
 	}
