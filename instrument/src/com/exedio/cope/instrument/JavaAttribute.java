@@ -425,8 +425,8 @@ public final class JavaAttribute extends JavaFeature
 
 	/**
 	 * Compute exceptions to be caught in the setter.
-	 * These are just those thrown by {@link persistence.Item#setAttribute(Attribute,Object)}
-	 * (or {@link persistence.Item#setAttribute(Attribute,Object[],Object)} for qualified attributes)
+	 * These are just those thrown by {@link com.exedio.cope.lib.Item#setAttribute(Attribute,Object)}
+	 * (or {@link com.exedio.cope.lib.Item#setAttribute(Attribute,Object[],Object)} for qualified attributes)
 	 * which are not in the setters throws clause.
 	 * (see {@link #getSetterExceptions()})
 	 */
