@@ -46,6 +46,10 @@ final class Generator
 	private static final String GETTER_MEDIA_DATA = "Returns a stream for fetching the data of the persistent media attribute {0}.";
 	private static final String FINDER_UNIQUE = "Finds a {0} by it''s unique attributes.";
 	private static final String FINDER_UNIQUE_PARAMETER = "shall be equal to attribute {0}.";
+	private static final String QUALIFIER = "Returns the qualifier.";
+	private static final String QUALIFIER_GETTER = "Returns the qualifier.";
+	private static final String QUALIFIER_SETTER = "Sets the qualifier.";
+	private static final String TYPE = "The persistent type information for {0}.";
 
 	private final Writer o;
 	private final String lineSeparator;
@@ -561,7 +565,8 @@ final class Generator
 	throws IOException
 	{
 		writeCommentHeader();
-		o.write("\t * Returns the qualifier.");
+		o.write("\t * ");
+		o.write(QUALIFIER);
 		o.write(lineSeparator);
 		writeCommentGenerated();
 		writeCommentFooter();
@@ -606,7 +611,8 @@ final class Generator
 	throws IOException
 	{
 		writeCommentHeader();
-		o.write("\t * Returns the qualifier.");
+		o.write("\t * ");
+		o.write(QUALIFIER_GETTER);
 		o.write(lineSeparator);
 		writeCommentGenerated();
 		writeCommentFooter();
@@ -646,7 +652,8 @@ final class Generator
 	throws IOException
 	{
 		writeCommentHeader();
-		o.write("\t * Sets the qualifier.");
+		o.write("\t * ");
+		o.write(QUALIFIER_SETTER);
 		o.write(lineSeparator);
 		writeCommentGenerated();
 		writeCommentFooter();
@@ -694,9 +701,8 @@ final class Generator
 	throws IOException
 	{
 		writeCommentHeader();
-		o.write("\t * The persistent type information for ");
-		o.write(lowerCamelCase(copeClass.getName()));
-		o.write(".");
+		o.write("\t * ");
+		o.write(format(TYPE, lowerCamelCase(copeClass.getName())));
 		o.write(lineSeparator);
 		writeCommentGenerated();
 		writeCommentFooter();
