@@ -8,6 +8,10 @@
 <b><%=provider.getDisplayName(null, item)%></b><hr>
 <form action="<%=(cop.toItem(item))%>" method="POST">
 	<table border="1"><%
+	final Form form = new Form(item, request.getParameterMap());
+	if(save)
+		form.save();
+	
 	for(Iterator j = type.getAttributes().iterator(); j.hasNext(); )
 	{
 		final Attribute attribute = (Attribute)j.next();
@@ -146,7 +150,6 @@
 			else if(attribute instanceof StringAttribute)
 			{
 				final StringAttribute stringAttribute = (StringAttribute)attribute;
-				final String attributeName = attribute.getName();
 		
 				if(attribute.isReadOnly())
 				{
@@ -154,22 +157,9 @@
 				}
 				else
 				{
-					final String value;
-					if(save)
-					{
-						value = request.getParameter(attributeName);
-						if(value==null)
-							throw new NullPointerException(attributeName);
-						item.setAttribute(stringAttribute, value);
-					}
-					else
-					{
-						final String v = (String)item.getAttribute(stringAttribute);
-						value = (v==null) ? "" : v;
-					}
-		
-					toSave = true;
-					%><input type="text" name="<%=attribute.getName()%>" value="<%=value%>" /><%
+					final String name = form.getName(stringAttribute);
+					final String value = form.getValue(stringAttribute);
+					%><input type="text" name="<%=name%>" value="<%=value%>" /><%
 				}
 			}
 			else if(attribute instanceof IntegerAttribute)
@@ -224,7 +214,7 @@
 	}
 	%>
 	</table><%
-if(toSave)
+if(toSave||form.toSave)
 {
 	%>
 	<input type="submit" name="SAVE" value="Save" /><%
