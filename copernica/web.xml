@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+	version="2.4">
+
+	<servlet>
+		<servlet-name>com.exedio.copernica.admin_jsp</servlet-name>
+		<servlet-class>com.exedio.copernica.admin_jsp</servlet-class>
+		<init-param>
+			<param-name>com.exedio.copernica.provider</param-name>
+			<param-value>com.exedio.copernica.CopernicaTestProvider</param-value>
+		</init-param>
+	</servlet>
+
+	<servlet>
+		<servlet-name>com.exedio.copernica.copernica_jsp</servlet-name>
+		<servlet-class>com.exedio.copernica.copernica_jsp</servlet-class>
+		<init-param>
+			<param-name>com.exedio.copernica.provider</param-name>
+			<param-value>com.exedio.copernica.CopernicaTestProvider</param-value>
+		</init-param>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>com.exedio.copernica.admin_jsp</servlet-name>
+		<url-pattern>/admin.jsp</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>com.exedio.copernica.copernica_jsp</servlet-name>
+		<url-pattern>/copernica.jsp</url-pattern>
+	</servlet-mapping>
+
+	<description>
+		Copernica Test Application
+	</description>
+	<display-name>Copernica Test Application</display-name>
+	
+	<session-config>
+		<session-timeout>30</session-timeout>    <!-- 30 minutes -->
+	</session-config>
+
+</web-app>

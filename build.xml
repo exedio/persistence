@@ -237,6 +237,44 @@
 	
 	<target name="copernica.compile" depends="copernica.compile.classes, copernica.compile.jsp" />
 	
+	<target name="copernica.test.compile" depends="lib.compile, lib.test.compile, copernica.compile">
+		<mkdir dir="copernica/build/testclasses" />
+		<javac srcdir="copernica/testsrc"
+				destdir="copernica/build/testclasses"
+				deprecation="on"
+				debug="on"
+				optimize="off">
+			<classpath>
+				<pathelement location="lib/build/classes" />
+				<pathelement location="lib/build/testclasses" />
+				<pathelement location="copernica/build/classes" />
+				<pathelement location="../lib/junit.jar" />
+			</classpath>
+		</javac>
+	</target>
+	
+	<target name="copernica.testwebapp" depends="copernica.compile, copernica.test.compile">
+		
+		<mkdir dir="copernica/build/testwebapp" />
+		
+		<copy todir="copernica/build/testwebapp/WEB-INF/classes">
+			<fileset dir="lib/build/classes" />
+			<fileset dir="lib/build/testclasses" />
+			<fileset dir="copernica/build/classes" />
+			<fileset dir="copernica/build/testclasses" />
+		</copy>
+		
+		<copy todir="copernica/build/testwebapp/WEB-INF/lib">
+			<fileset file="../lib/hsqldb.jar" />
+			<fileset file="../lib/junit.jar" />
+		</copy>
+		
+		<copy todir="copernica/build/testwebapp/WEB-INF/"
+				file="copernica/web.xml" />
+		<touch file="copernica/web.xml" />
+	
+	</target>
+	
 	<target name="copernica" depends="copernica.compile" />
 	
 	<target name="lib.clean">

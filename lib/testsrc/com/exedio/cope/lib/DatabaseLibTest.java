@@ -15,7 +15,7 @@ import com.exedio.cope.lib.hierarchy.Super;
  */
 public abstract class DatabaseLibTest extends AbstractLibTest
 {
-	protected static final Type[] types = new Type[]
+	public static final Type[] types = new Type[]
 	{
 		ItemWithSingleUnique.TYPE,
 		ItemWithSingleUniqueReadOnly.TYPE,
@@ -154,6 +154,21 @@ public abstract class DatabaseLibTest extends AbstractLibTest
 		assertTrue(!item.isDeleted());
 		item.delete();
 		assertTrue(item.isDeleted());
+	}
+
+	public static void initializeExampleSystem()
+	{
+		try
+		{
+			final PointerItem2 item2a = new PointerItem2("hallo");
+			final PointerItem2 item2b = new PointerItem2("bello");
+			new PointerItem("bello", item2a);
+			new PointerItem("collo", item2b);
+		}
+		catch(NotNullViolationException e)
+		{
+			throw new SystemException(e);
+		}
 	}
 
 	public static void main(String[] args)
