@@ -35,6 +35,10 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); )
 		%> <span class="<%=color(table.getParticularColor())
 										%>"><%=tableError%></span><%
 	}
+	if(table.hasLastAnalyzed())
+	{
+		%> last analyzed: <%=table.getLastAnalyzed()%><%
+	}
 	
 	if(!table.getConstraints().isEmpty())
 	{

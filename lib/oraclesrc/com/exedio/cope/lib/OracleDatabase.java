@@ -3,6 +3,7 @@ package com.exedio.cope.lib;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -78,8 +79,9 @@ final class OracleDatabase
 
 		{
 			final com.exedio.cope.lib.Statement bf = createStatement();
-			bf.append("select TABLE_NAME from user_tables").
-				defineColumnString();
+			bf.append("select TABLE_NAME, LAST_ANALYZED from user_tables").
+				defineColumnString().
+				defineColumnTimestamp();
 			try
 			{
 				executeSQL(bf, new ReportTableHandler(report));
@@ -124,7 +126,8 @@ final class OracleDatabase
 			while(resultSet.next())
 			{
 				final String tableName = resultSet.getString(1);
-				final Report.Table table = report.notifyExistentTable(tableName);
+				final Date lastAnalyzed = (Date)resultSet.getObject(2);
+				final Report.Table table = report.notifyExistentTable(tableName, lastAnalyzed);
 				//System.out.println("EXISTS:"+tableName);
 			}
 		}

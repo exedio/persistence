@@ -1,6 +1,7 @@
 package com.exedio.cope.lib;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -52,6 +53,8 @@ public final class Report extends Node
 		public final String name;
 		public final com.exedio.cope.lib.Table table;
 		private boolean exists = false;
+		private Date lastAnalyzed;
+		private boolean hasLastAnalyzed = false;
 		private final HashMap constraints = new HashMap();
 
 		private Table(final com.exedio.cope.lib.Table table)
@@ -66,6 +69,15 @@ public final class Report extends Node
 			this.name = name;
 			this.table = null;
 			this.exists = true;
+		}
+		
+		final void setLastAnalyzed(final Date lastAnalyzed)
+		{
+			if(hasLastAnalyzed)
+				throw new RuntimeException();
+
+			hasLastAnalyzed = true;
+			this.lastAnalyzed = lastAnalyzed;
 		}
 		
 		final Constraint notifyRequiredConstraint(final String constraintName)
@@ -92,6 +104,24 @@ public final class Report extends Node
 			return result;
 		}
 		
+		public final boolean hasLastAnalyzed()
+		{
+			return hasLastAnalyzed;
+		}
+		
+		public final String getLastAnalyzed()
+		{
+			if(hasLastAnalyzed)
+			{
+				if(lastAnalyzed!=null)
+					return lastAnalyzed.toString();
+				else
+					return "NEVER";
+			}
+			else
+				return null;
+		}
+		
 		public final Collection getConstraints()
 		{
 			return constraints.values();
@@ -114,7 +144,7 @@ public final class Report extends Node
 			}
 			else
 				particularColor = COLOR_OK;
-			
+				
 			cumulativeColor = particularColor;
 			for(Iterator i = constraints.values().iterator(); i.hasNext(); )
 			{
@@ -228,6 +258,13 @@ public final class Report extends Node
 		else
 			result.exists = true;
 
+		return result;
+	}
+	
+	final Table notifyExistentTable(final String tableName, final Date lastAnalyzed)
+	{
+		final Table result = notifyExistentTable(tableName);
+		result.setLastAnalyzed(lastAnalyzed);
 		return result;
 	}
 	
