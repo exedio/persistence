@@ -101,6 +101,7 @@ public class AttributesTest extends DatabaseLibTest
 		}
 		catch(NotNullViolationException e)
 		{
+			assertEquals(null, e.getItem());
 			assertEquals(item.someNotNullString, e.getNotNullAttribute());
 		}
 	}
@@ -319,6 +320,7 @@ public class AttributesTest extends DatabaseLibTest
 		}
 		catch(NotNullViolationException e)
 		{
+			assertEquals(null, e.getItem());
 			assertEquals(item.someNotNullItem, e.getNotNullAttribute());
 		}
 	}
@@ -366,6 +368,7 @@ public class AttributesTest extends DatabaseLibTest
 		}
 		catch(NotNullViolationException e)
 		{
+			assertEquals(item, e.getItem());
 			assertEquals(item.someNotNullEnumeration, e.getNotNullAttribute());
 		}
 		assertEquals(
@@ -379,6 +382,7 @@ public class AttributesTest extends DatabaseLibTest
 		}
 		catch(NotNullViolationException e)
 		{
+			assertEquals(null, e.getItem());
 			assertEquals(item.someNotNullEnumeration, e.getNotNullAttribute());
 		}
 	}
