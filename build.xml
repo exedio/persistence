@@ -123,7 +123,7 @@
 							copernica.compile, copernica.test.compile" />
 	
 	<target name="lib.jar" depends="lib.compile">
-		<jar jarfile="lib/build/cope.jar" basedir="lib/build/classes">
+		<jar jarfile="lib/build/exedio-cope.jar" basedir="lib/build/classes">
 			<manifest>
 				<attribute name="Specification-Title" value="exedio cope"/>
 				<attribute name="Specification-Version" value="cruisecontrol ${label} ${cvstimestamp}"/>
@@ -136,7 +136,7 @@
 	</target>
 	
 	<target name="instrument.jar" depends="instrument.compile">
-		<jar jarfile="instrument/build/cope-instrument.jar" basedir="instrument/build/classes">
+		<jar jarfile="instrument/build/exedio-cope-instrument.jar" basedir="instrument/build/classes">
 			<manifest>
 				<attribute name="Specification-Title" value="exedio cope instrumentor"/>
 				<attribute name="Specification-Version" value="cruisecontrol ${label} ${cvstimestamp}"/>
@@ -149,7 +149,7 @@
 	</target>
 	
 	<target name="copernica.jar" depends="copernica.compile">
-		<jar jarfile="copernica/build/copernica.jar" basedir="copernica/build/classes">
+		<jar jarfile="copernica/build/exedio-copernica.jar" basedir="copernica/build/classes">
 			<manifest>
 				<attribute name="Specification-Title" value="exedio copernica"/>
 				<attribute name="Specification-Version" value="cruisecontrol ${label} ${cvstimestamp}"/>
@@ -159,7 +159,7 @@
 				<attribute name="Implementation-Vendor" value="exedio GmbH"/>
 			</manifest>
 		</jar>
-		<zip zipfile="copernica/build/copernica-static.zip">
+		<zip zipfile="copernica/build/exedio-copernica-static.zip">
 			<fileset dir="copernica/jsp">
 				<exclude name="*.jsp" />
 				<exclude name="*.inc" />
