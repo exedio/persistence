@@ -16,7 +16,7 @@ public interface Component
 	public String getCopernicaName(Language displayLanguage);
 
 	/**
-	 * Returns the url of an icon suitable to diplay with or instead of
+	 * Returns the url of an icon suitable to display with or instead of
 	 * the display name.
 	 */
 	public String getCopernicaIconURL();
