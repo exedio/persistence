@@ -267,7 +267,7 @@ public final class Instrumentor implements InjectionConsumer
 			output.write(lineSeparator);
 			output.write("\t * @param initial");
 			output.write(initialAttribute.getCamelCaseName());
-			output.write(" the intial value for attribute {@link #");
+			output.write(" the initial value for attribute {@link #");
 			output.write(initialAttribute.getName());
 			output.write("}.");
 		}
