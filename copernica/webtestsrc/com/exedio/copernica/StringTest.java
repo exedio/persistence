@@ -39,7 +39,7 @@ public class StringTest extends AbstractWebTest
 		assertFormElementEqualsWithLabel(MIN4MAX8, min4Max8);
 	}
 
-	public void testItemForm()
+	public void testItemForm() throws Exception
 	{
 		beginAt("copernica.jsp");
 		assertTitleEquals("Copernica");
@@ -53,13 +53,13 @@ public class StringTest extends AbstractWebTest
 		assertItemForm();
 
 		setFormElementWithLabel(ANY, "yeah"); any = "yeah";
-		submit(ItemForm.SAVE_BUTTON);
+		submitWithValue(SAVE_BUTTON);
 		assertTitleEquals("StringItem.0");
 		assertItemForm();
 
 		// take back all changes
 		setFormElementWithLabel(ANY, "any1"); any = "any1";
-		submit(ItemForm.SAVE_BUTTON);
+		submitWithValue(SAVE_BUTTON);
 		assertTitleEquals("StringItem.0");
 		assertItemForm();
 	}
