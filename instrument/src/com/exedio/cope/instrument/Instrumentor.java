@@ -14,6 +14,7 @@ import com.exedio.cope.lib.DateAttribute;
 import com.exedio.cope.lib.DoubleAttribute;
 import com.exedio.cope.lib.EnumAttribute;
 import com.exedio.cope.lib.Function;
+import com.exedio.cope.lib.Hash;
 import com.exedio.cope.lib.IntegerFunction;
 import com.exedio.cope.lib.ItemAttribute;
 import com.exedio.cope.lib.LongAttribute;
@@ -212,6 +213,22 @@ public final class Instrumentor implements InjectionConsumer
 		new CopeMediaVariant(ja, mediaAttribute);
 	}
 
+	private final void handleHash(final JavaAttribute ja, final Class typeClass)
+		throws InjectorParseException
+	{
+		final JavaClass jc = ja.parent;
+		final CopeClass copeClass = CopeClass.getCopeClass(jc);
+		final List initializerArguments = ja.getInitializerArguments();
+		if(initializerArguments.size()!=1)
+			throw new InjectorParseException("attribute >"+ja.name+"< has invalid initializer arguments: "+initializerArguments);
+		//System.out.println("---------"+initializerArguments);
+		final String initializerArgument = (String)initializerArguments.get(0);
+		final CopeAttribute storageAttribute = (CopeAttribute)copeClass.getCopeAttribute(initializerArgument);
+		if(storageAttribute==null)
+			throw new InjectorParseException("attribute >"+initializerArgument+"< in media attribute variant "+ja.name+" not found.");
+		new CopeHash(ja, storageAttribute);
+	}
+
 	public void onClassFeature(final JavaFeature jf, final String docComment)
 	throws IOException, InjectorParseException
 	{
@@ -244,6 +261,8 @@ public final class Instrumentor implements InjectionConsumer
 						handleQualifier(ja, typeClass);
 					else if(MediaAttributeVariant.class.isAssignableFrom(typeClass))
 						handleMediaVariant(ja, typeClass);
+					else if(Hash.class.isAssignableFrom(typeClass))
+						handleHash(ja, typeClass);
 				}
 			}
 		}

@@ -34,6 +34,7 @@ final class Generator
 	private static final String CONSTRUCTOR_GENERIC = "Creates a new {0} and sets the given attributes initially.";
 	private static final String CONSTRUCTOR_REACTIVATION = "Reactivation constructor. Used for internal purposes only.";
 	private static final String GETTER = "Returns the value of the persistent attribute {0}.";
+	private static final String CHECKER = "Returns whether the given value corresponds to the hash in {0}.";
 	private static final String SETTER = "Sets a new value for the persistent attribute {0}.";
 	private static final String SETTER_MEDIA = "Sets the new data for the media attribute {0}.";
 	private static final String SETTER_MEDIA_IOEXCEPTION = "if accessing {0} throws an IOException.";
@@ -385,6 +386,59 @@ final class Generator
 				o.write("\t}");
 			}
 		}
+		for(Iterator i = copeAttribute.getHashes().iterator(); i.hasNext(); )
+		{
+			final CopeHash hash = (CopeHash)i.next();
+			writeHash(hash);
+		}
+	}
+	
+	private void writeHash(final CopeHash hash)
+	throws IOException
+	{
+		// checker
+		writeCommentHeader();
+		o.write("\t * ");
+		o.write(format(CHECKER, link(hash.name)));
+		o.write(lineSeparator);
+		writeCommentGenerated();
+		writeCommentFooter();
+		o.write(Modifier.toString(hash.storageAttribute.getGeneratedGetterModifier()));
+		o.write(" boolean check");
+		o.write(toCamelCase(hash.name));
+		o.write("(final ");
+		o.write(hash.storageAttribute.getBoxedType());
+		o.write(' ');
+		o.write(hash.name);
+		o.write(')');
+		o.write(lineSeparator);
+		o.write("\t{");
+		o.write(lineSeparator);
+		writeCheckerBody(hash);
+		o.write("\t}");
+
+		// setter
+		final CopeAttribute storageAttribute = hash.storageAttribute;
+		writeCommentHeader();
+		o.write("\t * ");
+		o.write(format(SETTER, link(hash.name)));
+		o.write(lineSeparator);
+		writeCommentGenerated();
+		writeCommentFooter();
+		o.write(Modifier.toString(storageAttribute.getGeneratedSetterModifier()));
+		o.write(" void set");
+		o.write(toCamelCase(hash.name));
+		o.write("(final ");
+		o.write(storageAttribute.getBoxedType());
+		o.write(' ');
+		o.write(hash.name);
+		o.write(')');
+		o.write(lineSeparator);
+		writeThrowsClause(storageAttribute.getSetterExceptions());
+		o.write("\t{");
+		o.write(lineSeparator);
+		writeSetterBody(hash);
+		o.write("\t}");
 	}
 
 	private void writeMediaGetterMethod(final CopeAttribute mediaAttribute,
@@ -858,6 +912,49 @@ final class Generator
 		o.write(attribute.copeClass.getName());
 		o.write('.');
 		o.write(attribute.getName());
+		o.write(");");
+		o.write(lineSeparator);
+		writeTryCatchClausePostfix(exceptionsToCatch);
+	}
+	
+	/**
+	 * Identation contract:
+	 * This methods is called, when o stream is immediatly after a line break,
+	 * and it should return the o stream after immediatly after a line break.
+	 * This means, doing nothing fullfils the contract.
+	 */
+	private void writeCheckerBody(final CopeHash hash)
+	throws IOException
+	{
+		o.write("\t\treturn ");
+		o.write("checkHash(");
+		o.write(hash.storageAttribute.copeClass.getName());
+		o.write('.');
+		o.write(hash.name);
+		o.write(',');
+		o.write(hash.name);
+		o.write(");");
+		o.write(lineSeparator);
+	}
+
+	/**
+	 * Identation contract:
+	 * This methods is called, when o stream is immediatly after a line break,
+	 * and it should return the o stream after immediatly after a line break.
+	 * This means, doing nothing fullfils the contract.
+	 */
+	private void writeSetterBody(final CopeHash hash)
+	throws IOException
+	{
+		final CopeAttribute attribute = hash.storageAttribute;
+		final SortedSet exceptionsToCatch = attribute.getExceptionsToCatchInSetter();
+		writeTryCatchClausePrefix(exceptionsToCatch);
+		o.write("\t\tsetHash(");
+		o.write(attribute.copeClass.getName());
+		o.write('.');
+		o.write(hash.name);
+		o.write(',');
+		o.write(hash.name);
 		o.write(");");
 		o.write(lineSeparator);
 		writeTryCatchClausePostfix(exceptionsToCatch);

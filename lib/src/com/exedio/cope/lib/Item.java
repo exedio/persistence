@@ -645,6 +645,26 @@ public abstract class Item extends Cope
 	public static final Attribute.Option NOT_NULL_UNIQUE = new Attribute.Option(false, true, true);
 	 
 	public static final Attribute.Option READ_ONLY_NOT_NULL_UNIQUE = new Attribute.Option(true, true, true);
+	
+	public void setHash(final Hash hash, final String plainText)
+		throws
+			UniqueViolationException,
+			NotNullViolationException,
+			LengthViolationException,
+			ReadOnlyViolationException
+	{
+		setAttribute(hash.storage, hash.hash(plainText));
+	}
+
+	public boolean checkHash(final Hash hash, final String actualPlainText)
+	{
+		final String expectedHash = (String)getAttribute(hash.storage);
+		final String actualHash = hash.hash(actualPlainText);
+		if(expectedHash==null)
+			return actualHash==null;
+		else
+			return expectedHash.equals(actualHash);
+	}
 
 	// activation/deactivation -----------------------------------------------------
 	

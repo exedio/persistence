@@ -2,6 +2,7 @@
 package com.exedio.cope.instrument;
 
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.TreeSet;
 
 import com.exedio.cope.lib.Attribute;
 import com.exedio.cope.lib.ComputedFunction;
+import com.exedio.cope.lib.DateAttribute;
 import com.exedio.cope.lib.Item;
 import com.exedio.cope.lib.LengthViolationException;
 import com.exedio.cope.lib.NestingRuntimeException;
@@ -99,6 +101,23 @@ abstract class CopeAttribute
 		setterOption = Option.getOption(setterOptionString);
 
 		copeClass.addCopeAttribute(this);
+	}
+	
+	private ArrayList hashes;
+
+	final void addHash(final CopeHash hash)
+	{
+		if(hashes==null)
+			hashes = new ArrayList();
+		hashes.add(hash);
+	}
+	
+	final List getHashes()
+	{
+		if(hashes==null)
+			return Collections.EMPTY_LIST;
+		else
+			return hashes;
 	}
 	
 	final String getName()
