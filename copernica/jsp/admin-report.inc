@@ -35,15 +35,18 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); )
 		%> <span class="<%=color(table.getParticularColor())
 										%>"><%=tableError%></span><%
 	}
-	if(table.hasLastAnalyzed())
-	{
-		%> last analyzed: <%=table.getLastAnalyzed()%><%
-	}
 	
-	if(!table.getConstraints().isEmpty())
-	{
-		%>
+	%>
 		<ul><%
+		final Report.LastAnalyzed lastAnalyzed = table.getLastAnalyzed();
+		if(lastAnalyzed!=null)
+		{
+			final Date date = lastAnalyzed.lastAnalyzed;
+			%>
+			<li class="<%=color(lastAnalyzed.getCumulativeColor())
+					%>"> last analyzed: <%=date!=null?date.toString():"NEVER"%><%
+		}
+		
 		for(Iterator j = table.getConstraints().iterator(); j.hasNext(); )
 		{
 			final Report.Constraint constraint = (Report.Constraint)j.next();
@@ -62,7 +65,6 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); )
 		}
 		%>
 		</ul><%
-	}
 	%>
 	</li><%
 }

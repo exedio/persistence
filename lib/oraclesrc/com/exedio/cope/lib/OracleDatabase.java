@@ -127,7 +127,8 @@ final class OracleDatabase
 			{
 				final String tableName = resultSet.getString(1);
 				final Date lastAnalyzed = (Date)resultSet.getObject(2);
-				final Report.Table table = report.notifyExistentTable(tableName, lastAnalyzed);
+				final Report.Table table = report.notifyExistentTable(tableName);
+				table.setLastAnalyzed(lastAnalyzed);
 				//System.out.println("EXISTS:"+tableName);
 			}
 		}

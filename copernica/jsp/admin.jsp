@@ -5,6 +5,7 @@ page import="com.exedio.cope.lib.Report" %><%@
 page import="com.exedio.cope.lib.SystemException" %><%@
 
 page import="java.util.Iterator" %><%@
+page import="java.util.Date" %><%@
 
 include file="copernica-provider.inc"
 

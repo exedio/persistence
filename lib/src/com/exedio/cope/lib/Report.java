@@ -53,8 +53,7 @@ public final class Report extends Node
 		public final String name;
 		public final com.exedio.cope.lib.Table table;
 		private boolean exists = false;
-		private Date lastAnalyzed;
-		private boolean hasLastAnalyzed = false;
+		private LastAnalyzed lastAnalyzed = null;
 		private final HashMap constraints = new HashMap();
 
 		private Table(final com.exedio.cope.lib.Table table)
@@ -73,11 +72,10 @@ public final class Report extends Node
 		
 		final void setLastAnalyzed(final Date lastAnalyzed)
 		{
-			if(hasLastAnalyzed)
+			if(this.lastAnalyzed!=null)
 				throw new RuntimeException();
 
-			hasLastAnalyzed = true;
-			this.lastAnalyzed = lastAnalyzed;
+			this.lastAnalyzed = new LastAnalyzed(lastAnalyzed, this);
 		}
 		
 		final Constraint notifyRequiredConstraint(final String constraintName)
@@ -104,22 +102,9 @@ public final class Report extends Node
 			return result;
 		}
 		
-		public final boolean hasLastAnalyzed()
+		public final LastAnalyzed getLastAnalyzed()
 		{
-			return hasLastAnalyzed;
-		}
-		
-		public final String getLastAnalyzed()
-		{
-			if(hasLastAnalyzed)
-			{
-				if(lastAnalyzed!=null)
-					return lastAnalyzed.toString();
-				else
-					return "NEVER";
-			}
-			else
-				return null;
+			return lastAnalyzed;
 		}
 		
 		public final Collection getConstraints()
@@ -146,6 +131,13 @@ public final class Report extends Node
 				particularColor = COLOR_OK;
 				
 			cumulativeColor = particularColor;
+			
+			if(lastAnalyzed!=null)
+			{
+				lastAnalyzed.finish();
+				cumulativeColor = Math.max(cumulativeColor, lastAnalyzed.cumulativeColor);
+			}
+			
 			for(Iterator i = constraints.values().iterator(); i.hasNext(); )
 			{
 				final Constraint constraint = (Constraint)i.next();
@@ -154,6 +146,37 @@ public final class Report extends Node
 			}
 		}
 
+	}
+	
+	public final class LastAnalyzed extends Node
+	{
+		public final Date lastAnalyzed;
+		public final Table table;
+		
+		LastAnalyzed(final Date lastAnalyzed, final Table table)
+		{
+			this.lastAnalyzed = lastAnalyzed;
+			this.table = table;
+		}
+
+		protected void finish()
+		{
+			if(cumulativeColor!=COLOR_NOT_YET_CALC || particularColor!=COLOR_NOT_YET_CALC)
+				throw new RuntimeException();
+
+			if(lastAnalyzed==null)
+			{
+				error = "not analyzed !!!";
+				particularColor = COLOR_RED;
+			}
+			else
+				particularColor = COLOR_OK;
+
+			if(table.table==null)
+				particularColor = Math.min(particularColor, COLOR_YELLOW);
+				
+			cumulativeColor = particularColor;
+		}
 	}
 	
 	public final class Constraint extends Node
@@ -258,13 +281,6 @@ public final class Report extends Node
 		else
 			result.exists = true;
 
-		return result;
-	}
-	
-	final Table notifyExistentTable(final String tableName, final Date lastAnalyzed)
-	{
-		final Table result = notifyExistentTable(tableName);
-		result.setLastAnalyzed(lastAnalyzed);
 		return result;
 	}
 	
