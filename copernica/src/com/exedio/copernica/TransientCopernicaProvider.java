@@ -30,17 +30,8 @@ public class TransientCopernicaProvider implements CopernicaProvider
 		return Collections.EMPTY_LIST;
 	}
 	
-	public String getDisplayName(final com.exedio.copernica.Language displayLanguage, final Type type)
+	public static final String breakupName(final String name)
 	{
-		return type.getID();
-	}
-
-	public String getDisplayName(final com.exedio.copernica.Language displayLanguage, final Attribute attribute)
-	{
-		String name = attribute.getName();
-		if(name.endsWith("Internal"))
-			name = name.substring(0, name.length()-"Internal".length());
-
 		final StringBuffer result = new StringBuffer(name.length());
 		boolean wordStart = true;
 		for(int i=0; i<name.length(); i++)
@@ -61,8 +52,21 @@ public class TransientCopernicaProvider implements CopernicaProvider
 			else
 				result.append(c);
 		}
-
 		return result.toString();
+	}
+	
+	public String getDisplayName(final com.exedio.copernica.Language displayLanguage, final Type type)
+	{
+		return breakupName(type.getID());
+	}
+
+	public String getDisplayName(final com.exedio.copernica.Language displayLanguage, final Attribute attribute)
+	{
+		String name = attribute.getName();
+		if(name.endsWith("Internal"))
+			name = name.substring(0, name.length()-"Internal".length());
+
+		return breakupName(name);
 	}
 	
 	public String getDisplayName(final com.exedio.copernica.Language displayLanguage, final Item item)
