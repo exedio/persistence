@@ -783,14 +783,8 @@ public final class Instrumentor implements InjectionConsumer
 			output.write("\t\t}");
 			output.write(lineSeparator);
 			
-			// This could be a loop, but for this commit I want to preserve
-			// the order of catch clauses to simplify regression tests.
-			if(exceptionsToCatch.contains(UniqueViolationException.class))
-				writeViolationExceptionCatchClause(output, UniqueViolationException.class);
-			if(exceptionsToCatch.contains(ReadOnlyViolationException.class))
-				writeViolationExceptionCatchClause(output, ReadOnlyViolationException.class);
-			if(exceptionsToCatch.contains(NotNullViolationException.class))
-				writeViolationExceptionCatchClause(output, NotNullViolationException.class);
+			for(Iterator i = exceptionsToCatch.iterator(); i.hasNext(); )
+				writeViolationExceptionCatchClause(output, (Class)i.next());
 		}
 	}
 	
