@@ -28,6 +28,12 @@ public class JoinTest extends DatabaseLibTest
 		assertContains(
 				item2b, item2a,
 				Cope.search(new Query(PointerItem2.TYPE, PointerItem.TYPE, Cope.join(PointerItem.pointer))));
+		assertContains(
+				item2b, item2a,
+				Cope.search(new Query(PointerItem2.TYPE, new Type[]{PointerItem2.TYPE, PointerItem.TYPE}, Cope.join(PointerItem.pointer))));
+		assertContains(
+				item1b, item1a,
+				Cope.search(new Query(PointerItem.TYPE, new Type[]{PointerItem2.TYPE, PointerItem.TYPE}, Cope.join(PointerItem.pointer))));
 
 		assertContains(
 			item2b,
