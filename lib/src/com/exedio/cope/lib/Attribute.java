@@ -10,12 +10,12 @@ public abstract class Attribute
 	public final AttributeMapping mapping;
 	private final UniqueConstraint singleUniqueConstraint;
 
-	protected Attribute(final Item.Option option)
+	protected Attribute(final Option option)
 	{
 		this(option, null);
 	}
 	
-	protected Attribute(final Item.Option option, final AttributeMapping mapping)
+	protected Attribute(final Option option, final AttributeMapping mapping)
 	{
 		this.readOnly = option.readOnly;
 		this.notNull = option.notNull;
@@ -145,6 +145,20 @@ public abstract class Attribute
 	
 	abstract Object cacheToSurface(Object cache);
 	abstract Object surfaceToCache(Object surface);
+	
+	public static class Option
+	{
+		public final boolean readOnly;
+		public final boolean notNull;
+		public final boolean unique;
+
+		Option(final boolean readOnly, final boolean notNull, final boolean unique)
+		{
+			this.readOnly = readOnly;
+			this.notNull = notNull;
+			this.unique = unique;
+		}
+	}
 	
 }
 

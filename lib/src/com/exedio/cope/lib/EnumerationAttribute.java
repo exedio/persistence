@@ -14,7 +14,7 @@ public final class EnumerationAttribute extends Attribute
 	private final List values;
 	private final HashMap numbersToValues; // TODO: use special integer map
 	
-	public EnumerationAttribute(final Item.Option option, final Class enumerationClass)
+	public EnumerationAttribute(final Option option, final Class enumerationClass)
 	{
 		super(option);
 		this.enumerationClass = enumerationClass;

@@ -9,7 +9,7 @@ public final class MediaAttribute extends Attribute
 	StringColumn mimeMajor;
 	StringColumn mimeMinor;
 
-	public MediaAttribute(final Item.Option option)
+	public MediaAttribute(final Option option)
 	{
 		super(option);
 		

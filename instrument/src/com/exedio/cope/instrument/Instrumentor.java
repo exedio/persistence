@@ -165,13 +165,13 @@ public final class Instrumentor implements InjectionConsumer
 	{
 	}
 
-	private final static Item.Option getOption(final String optionString)	
+	private final static Attribute.Option getOption(final String optionString)	
 	{
 		try
 		{
 			//System.out.println(optionString);
-			final Item.Option result = 
-				(Item.Option)Item.class.getDeclaredField(optionString).get(null);
+			final Attribute.Option result = 
+				(Attribute.Option)Item.class.getDeclaredField(optionString).get(null);
 			if(result==null)
 				throw new NullPointerException(optionString);
 			return result;
@@ -223,7 +223,7 @@ public final class Instrumentor implements InjectionConsumer
 				
 				final String optionString = (String)initializerArguments.get(0);
 				//System.out.println(optionString);
-				final Item.Option option = getOption(optionString); 
+				final Attribute.Option option = getOption(optionString); 
 
 				final boolean readOnly = option.readOnly;
 				final boolean notNull = option.notNull;
