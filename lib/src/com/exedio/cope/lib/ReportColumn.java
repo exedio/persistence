@@ -3,12 +3,14 @@ package com.exedio.cope.lib;
 public final class ReportColumn extends ReportNode
 {
 	public final String name;
+	public final ReportTable table;
 	private final Column column;
 	boolean exists;
 		
-	ReportColumn(final Column column)
+	ReportColumn(final Column column, final ReportTable table)
 	{
 		this.name = column.id;
+		this.table = table;
 		this.column = column;
 		exists = false;
 	}
@@ -16,6 +18,7 @@ public final class ReportColumn extends ReportNode
 	ReportColumn(final String name)
 	{
 		this.name = name;
+		this.table = null;
 		this.column = null;
 		exists = true;
 	}

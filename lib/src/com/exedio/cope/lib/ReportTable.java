@@ -39,7 +39,7 @@ public final class ReportTable extends ReportNode
 		
 	final ReportColumn notifyRequiredColumn(final Column column)
 	{
-		final ReportColumn result = new ReportColumn(column);
+		final ReportColumn result = new ReportColumn(column, this);
 		if(columns.put(result.name, result)!=null)
 			throw new RuntimeException(column.toString());
 		return result;
