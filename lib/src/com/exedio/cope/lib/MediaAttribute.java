@@ -28,12 +28,14 @@ public final class MediaAttribute extends Attribute
 	
 	Object cacheToSurface(final Object cache)
 	{
-		return cache;
+		// shall never be called
+		throw new RuntimeException();
 	}
 		
 	Object surfaceToCache(final Object surface)
 	{
-		return surface;
+		// shall never be called
+		throw new RuntimeException();
 	}
 	
 }
