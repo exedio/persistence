@@ -31,6 +31,12 @@ class TimestampColumn extends Column
 		//System.out.println("TimeColumn.getTime");
 		
 		long result = date.getTime();
+		
+		final String version = System.getProperty("java.runtime.version");
+		//System.out.println("          version "+version);
+		if(!version.startsWith("1.3"))
+			return result;
+	
 		//System.out.println("          result "+result+" before");
 		if((result%1000)!=0)
 			throw new RuntimeException(String.valueOf(result));
