@@ -30,24 +30,42 @@ public final class Model
 	private Properties properties;
 	private Database database;
 
-	public final void setProperties(final Properties properties)
+	/**
+	 * Initially sets the properties for this model.
+	 * Can be called multiple times, but only the first time
+	 * takes effect.
+	 * Any subsequent calls must give properties equal to properties given
+	 * on the first call, otherwise a RuntimeException is thrown.
+	 * <p>
+	 * Usually you may want to use this method, if you want to initialize model
+	 * from different servlets with equal properties in an undefined order.
+	 * 
+	 * @throws RuntimeException if a subsequent call provides properties different
+	 * 									to the first call.
+	 */
+	public final void setPropertiesInitially(final Properties properties)
 	{
 		if(properties==null)
 			throw new NullPointerException();
 
 		if(this.properties!=null)
-			throw new RuntimeException();
-		if(this.database!=null)
-			throw new RuntimeException();
-
-		this.properties = properties;
-		this.database = properties.createDatabase();
-
-		for(int i = 0; i<types.length; i++)
 		{
-			final Type type = types[i];
-			type.materialize(database);
-			typesByID.put(type.getID(), type);
+			this.properties.ensureEquality(properties);
+		}
+		else
+		{
+			if(this.database!=null)
+				throw new RuntimeException();
+	
+			this.properties = properties;
+			this.database = properties.createDatabase();
+	
+			for(int i = 0; i<types.length; i++)
+			{
+				final Type type = types[i];
+				type.materialize(database);
+				typesByID.put(type.getID(), type);
+			}
 		}
 	}
 
@@ -62,11 +80,6 @@ public final class Model
 			throw new RuntimeException();
 
 		return (Type)typesByID.get(id);
-	}
-	
-	public final boolean hasProperties()
-	{
-		return properties!=null;
 	}
 	
 	public final Properties getProperties()

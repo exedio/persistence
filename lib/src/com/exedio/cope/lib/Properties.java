@@ -229,4 +229,43 @@ public final class Properties
 		return mediaUrl;
 	}
 	
+	final void ensureEquality(final Properties other)
+	{
+		if(!this.database.equals(other.database))
+			throw new RuntimeException(
+					"inconsistent initialization for "+DATABASE+"," +
+					" expected " + this.database.getDeclaringClass().getName() +
+					" but got " + other.database.getDeclaringClass().getName() + '.');
+
+		if(!this.databaseUrl.equals(other.databaseUrl))
+			throw new RuntimeException(
+					"inconsistent initialization for "+DATABASE_URL+"," +
+					" expected " + this.databaseUrl +
+					" but got " + other.databaseUrl + '.');
+		
+		if(!this.databaseUser.equals(other.databaseUser))
+			throw new RuntimeException(
+					"inconsistent initialization for "+DATABASE_USER+"," +
+					" expected " + this.databaseUser +
+					" but got " + other.databaseUser + '.');
+		
+		if(!this.databasePassword.equals(other.databasePassword))
+			throw new RuntimeException(
+					"inconsistent initialization for "+DATABASE_PASSWORD+".");
+		
+		if((this.mediaDirectory!=null && !this.mediaDirectory.equals(other.mediaDirectory)) ||
+				(this.mediaDirectory==null && other.mediaDirectory!=null))
+			throw new RuntimeException(
+					"inconsistent initialization for "+MEDIA_DIRECTORY+"," +
+					" expected " + this.mediaDirectory +
+					" but got " + other.mediaDirectory + '.');
+		
+		if((this.mediaUrl!=null && !this.mediaUrl.equals(other.mediaUrl)) ||
+				(this.mediaUrl==null && other.mediaUrl!=null))
+			throw new RuntimeException(
+					"inconsistent initialization for "+MEDIA_URL+"," +
+					" expected " + this.mediaUrl +
+					" but got " + other.mediaUrl + '.');
+	}
+	
 }

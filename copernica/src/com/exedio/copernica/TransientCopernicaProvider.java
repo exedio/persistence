@@ -45,17 +45,8 @@ public abstract class TransientCopernicaProvider implements CopernicaProvider
 			p.setProperty("media.directory", context.getRealPath(mediaUrl));
 		}
 			
-		if(!model.hasProperties())
-		{
-			// IMPLEMENTATION NOTE:
-			// One could put the whole method into this condition block,
-			// and have the same functionality.
-			// However, this can hide a wrong configuration of the servlet,
-			// if the wrongly-configured servlet is loaded after another servlet
-			// that is configured correctly.
-			model.setProperties(
-				new com.exedio.cope.lib.Properties(p, propertyFile.getAbsolutePath()));
-		}
+		model.setPropertiesInitially(
+			new com.exedio.cope.lib.Properties(p, propertyFile.getAbsolutePath()));
 	}
 
 	// Transient Languages

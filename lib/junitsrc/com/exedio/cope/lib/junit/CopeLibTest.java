@@ -48,8 +48,7 @@ public abstract class CopeLibTest extends CopeAssert
 
 	protected void setUp() throws Exception
 	{
-		if(!model.hasProperties())
-			model.setProperties(new Properties());
+		model.setPropertiesInitially(new Properties());
 
 		super.setUp();
 		createDatabase();
