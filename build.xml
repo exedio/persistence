@@ -39,4 +39,27 @@
 
 	<target name="clean" depends="lib.clean, instrument.clean" />
 	
+	
+	<target name="api" description="Builds Javadoc API documentation.">
+
+		<delete dir="lib/api" />
+		<mkdir  dir="lib/api" />
+
+		<javadoc
+				sourcepath="lib/src"
+				destdir="lib/api"
+				maxmemory="60m"
+				private="on"
+				author="on"
+				windowtitle="COPE (Cooles Persistenzframework)"
+				doctitle=   "COPE (Cooles Persistenzframework)"
+				header="header text"
+				footer="footer text"
+				splitindex="on"
+				bottom='bottom text'
+			>
+			<package name="com.*" />
+		</javadoc>
+	</target>
+
 </project>
