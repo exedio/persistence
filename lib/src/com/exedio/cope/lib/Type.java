@@ -92,6 +92,7 @@ public final class Type
 	
 	String getPersistentQualifier()
 	{
+		// TODO: remove method, make attribute package private
 		return persistentQualifier;
 	}
 	
