@@ -1,7 +1,7 @@
 
 <%
 {
-	final Report report = provider.getModel().reportDatabase();
+	final Report report = model.reportDatabase();
 	%>
 	<ol><%
 	{

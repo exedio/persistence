@@ -1,4 +1,5 @@
 <%@
+page import="com.exedio.cope.lib.Model" %><%@
 page import="com.exedio.cope.lib.Report" %><%@
 page import="com.exedio.cope.lib.ReportTable" %><%@
 page import="com.exedio.cope.lib.ReportLastAnalyzed" %><%@
@@ -11,6 +12,7 @@ page import="java.util.Date" %><%@
 include file="provider.inc"
 
 %><%
+final Model model = provider.getModel();
 final AdminCop cop = AdminCop.getCop(request);
 %>
 <html>
@@ -41,17 +43,17 @@ final AdminCop cop = AdminCop.getCop(request);
 			<%
 				if(request.getParameter("CREATE")!=null)
 				{
-					provider.getModel().createDatabase();
+					model.createDatabase();
 					%>Database successfully created!<%
 				}
 				else if(request.getParameter("TEARDOWN")!= null)
 				{
-					provider.getModel().tearDownDatabase();
+					model.tearDownDatabase();
 					%>Database successfully torn down!<%
 				}
 				else if(request.getParameter("DROP")!=null)
 				{
-					provider.getModel().dropDatabase();
+					model.dropDatabase();
 					%>Database successfully dropped!<%
 				}
 				else if(request.getParameter("APPLY")!=null)

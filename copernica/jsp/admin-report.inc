@@ -35,7 +35,7 @@ private ReportColumn getColumn(final Report report, final String columnParameter
 }
 %><%
 
-final Report report = provider.getModel().reportDatabase();
+final Report report = model.reportDatabase();
 final String reportColor = color(report.getCumulativeColor());
 final boolean narrowReport = cop.isNarrowReport();
 

@@ -1,7 +1,7 @@
 <%@
 page import="com.exedio.cope.lib.Properties"
 %><%
-		final Properties properties = provider.getModel().getProperties();
+		final Properties properties = model.getProperties();
 		%>
 		<table border="1">
 			<tr>
