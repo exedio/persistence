@@ -2,6 +2,7 @@ package com.exedio.copernica;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
@@ -22,6 +23,8 @@ import com.exedio.cope.lib.NotNullViolationException;
 import com.exedio.cope.lib.ObjectAttribute;
 import com.exedio.cope.lib.StringAttribute;
 import com.exedio.cope.lib.Type;
+import com.exedio.cope.lib.pattern.Qualifier;
+import com.exedio.cope.lib.search.EqualCondition;
 
 public class ItemForm extends Form
 {
@@ -67,6 +70,24 @@ public class ItemForm extends Form
 
 			if(!field.isReadOnly())
 				toSave = true;
+		}
+		for(Iterator j = type.getQualifiers().iterator(); j.hasNext(); )
+		{
+			final Qualifier qualifier = (Qualifier)j.next();
+			final Collection values = qualifier.getQualifyUnique().getType().search(new EqualCondition(qualifier.getParent(), item));
+			for(Iterator k = qualifier.getAttributes().iterator(); k.hasNext(); )
+			{
+				final Attribute anyAttribute = (Attribute)k.next();
+				for(Iterator l = values.iterator(); l.hasNext(); )
+				{
+					final Item value = (Item)l.next(); 
+					if(anyAttribute instanceof ObjectAttribute)
+					{
+						final ObjectAttribute attribute = (ObjectAttribute)anyAttribute;
+						new Field(attribute, valueToString(attribute, value.getAttribute(attribute)));
+					}
+				}
+			}
 		}
 	}
 	
