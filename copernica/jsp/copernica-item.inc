@@ -10,7 +10,12 @@
 				
 			%>
 			
-			<form action="<%=(cop.toItem(item))%>" method="POST" enctype="multipart/form-data">
+			<form action="<%=(cop.toItem(item))%>" method="POST"<%
+				if(form.hasFiles)
+				{
+					%> enctype="multipart/form-data"<%
+				}
+				%>>
 				<table border="0" width="100%">
 					<tr>
 						<td>

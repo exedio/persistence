@@ -45,6 +45,7 @@ final class ItemForm extends Form
 
 	final Item item;
 	final Type type;
+	final boolean hasFiles;
 	
 	ItemForm(final Item item, final HttpServletRequest request)
 	{
@@ -54,6 +55,8 @@ final class ItemForm extends Form
 		final boolean post = save || getParameter(CHECK_BUTTON)!=null;
 		this.item = item;
 		this.type = item.getType();
+		
+		boolean hasFilesTemp = false;
 
 		for(Iterator j = type.getAttributes().iterator(); j.hasNext(); )
 		{
@@ -82,7 +85,10 @@ final class ItemForm extends Form
 				final MediaAttribute attribute = (MediaAttribute)anyAttribute;
 				field = new Field(attribute, "");
 				if(!attribute.isReadOnly())
+				{
 					toSave = true;
+					hasFilesTemp = true;
+				}
 			}
 			else
 				continue;
@@ -90,6 +96,8 @@ final class ItemForm extends Form
 			if(!field.isReadOnly())
 				toSave = true;
 		}
+		this.hasFiles = hasFilesTemp;
+
 		for(Iterator j = type.getQualifiers().iterator(); j.hasNext(); )
 		{
 			final Qualifier qualifier = (Qualifier)j.next();
