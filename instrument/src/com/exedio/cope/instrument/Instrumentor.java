@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.exedio.cope.lib.Search;
+import com.exedio.cope.lib.SystemException;
+
 public final class Instrumentor implements InjectionConsumer
 {
 	/**
@@ -55,16 +58,6 @@ public final class Instrumentor implements InjectionConsumer
 	 */
 	private static final String UNIQUE_ATTRIBUTE = "unique";
 
-	/**
-	 * Tag name for read-only attributes.
-	 */
-	private static final String READ_ONLY_ATTRIBUTE = "read-only";
-	
-	/**
-	 * Tag name for not-null attributes.
-	 */
-	private static final String NOT_NULL_ATTRIBUTE = "not-null";
-	
 	/**
 	 * Tag name for mapped attributes.
 	 */
@@ -166,8 +159,68 @@ public final class Instrumentor implements InjectionConsumer
 			{
 				final String type = jf.getType();
 				final JavaAttribute ja = (JavaAttribute)jf;
+				
+				final boolean readOnly;
+				final boolean notNull;
+				final String secondArgument;
+				{
+					final String initializer = ja.getInitializerTokens();
+	
+					final int openBracketPos = initializer.indexOf('(');
+					if(openBracketPos<0)
+						throw new RuntimeException("attribute initializer must start must contain '(', but was "+initializer);
+	
+					final int closeBracketPos = initializer.indexOf(')', openBracketPos);
+					if(closeBracketPos<0)
+						throw new RuntimeException("attribute initializer must start must contain ')', but was "+initializer);
+
+					final int firstArgumentEnd;	
+					final int firstCommaPos = initializer.indexOf(',', openBracketPos+1);
+					if(firstCommaPos<0)
+					{
+						firstArgumentEnd = closeBracketPos;
+						secondArgument = null;
+					}
+					else
+					{
+						firstArgumentEnd = firstCommaPos;
+						final int secondCommaPos = initializer.indexOf(',', firstCommaPos+1);
+						if(secondCommaPos>0)
+							secondArgument = initializer.substring(firstCommaPos+1, secondCommaPos).trim();
+						else
+							secondArgument = initializer.substring(firstCommaPos+1, closeBracketPos).trim();
+					}
+
+					final String optionString = initializer.substring(openBracketPos+1, firstArgumentEnd).trim();
+					if("null".equals(optionString))
+					{
+						readOnly = false;
+						notNull = false;
+					}
+					else
+					{
+						try
+						{
+							//System.out.println(optionString);
+							final Search.Option option = 
+								(Search.Option)Search.class.getDeclaredField(optionString).get(null);
+							readOnly = option.readOnly;
+							notNull = option.notNull;
+						}
+						catch(NoSuchFieldException e)
+						{
+							throw new SystemException(e);
+						}
+						catch(IllegalAccessException e)
+						{
+							throw new SystemException(e);
+						}
+					}
+				}
+	
 				final String persistentType;
 				final int persistentTypeType;
+
 				if("IntegerAttribute".equals(type))
 				{
 					persistentType = "Integer";
@@ -185,26 +238,20 @@ public final class Instrumentor implements InjectionConsumer
 				}
 				else if("EnumerationAttribute".equals(type))
 				{
-					final String start = "new EnumerationAttribute(";
-					final String end = ".class)";
-					final String initializer = ja.getInitializerTokens();
-					if(!initializer.startsWith(start))
-						throw new RuntimeException("enumeration attribute initializer must start with \'"+start+'\'');
-					if(!initializer.endsWith(end))
-						throw new RuntimeException("enumeration attribute initializer must end with \'"+end+'\'');
-					persistentType = initializer.substring(start.length(), initializer.length()-end.length());
+					if(secondArgument==null)
+						throw new RuntimeException("second argument required");
+					if(!secondArgument.endsWith(".class"))
+						throw new RuntimeException("second argument must end with .class: \'"+secondArgument+'\'');
+					persistentType = secondArgument.substring(0, secondArgument.length()-".class".length());
 					persistentTypeType = PersistentAttribute.TYPE_ENUMERATION;
 				}
 				else if("ItemAttribute".equals(type))
 				{
-					final String start = "new ItemAttribute(";
-					final String end = ".class)";
-					final String initializer = ja.getInitializerTokens();
-					if(!initializer.startsWith(start))
-						throw new RuntimeException("item attribute initializer must start with \'"+start+'\'');
-					if(!initializer.endsWith(end))
-						throw new RuntimeException("item attribute initializer must end with \'"+end+'\'');
-					persistentType = initializer.substring(start.length(), initializer.length()-end.length());
+					if(secondArgument==null)
+						throw new RuntimeException("second argument required");
+					if(!secondArgument.endsWith(".class"))
+						throw new RuntimeException("second argument must end with .class: \'"+secondArgument+'\'');
+					persistentType = secondArgument.substring(0, secondArgument.length()-".class".length());
 					persistentTypeType = PersistentAttribute.TYPE_ITEM;
 				}
 				else if("MediaAttribute".equals(type))
@@ -215,8 +262,6 @@ public final class Instrumentor implements InjectionConsumer
 				else
 					throw new RuntimeException();
 
-				final boolean readOnly = containsTag(docComment, READ_ONLY_ATTRIBUTE);
-				final boolean notNull = containsTag(docComment, NOT_NULL_ATTRIBUTE);
 				final boolean mapped = containsTag(docComment, MAPPED_ATTRIBUTE);
 				
 				final String qualifier = Injector.findDocTag(docComment, ATTRIBUTE_QUALIFIER);

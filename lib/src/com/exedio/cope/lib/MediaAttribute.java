@@ -9,8 +9,9 @@ public final class MediaAttribute extends Attribute
 	StringColumn mimeMajor;
 	StringColumn mimeMinor;
 
-	public MediaAttribute()
+	public MediaAttribute(final Search.Option option)
 	{
+		super(option);
 	}
 	
 	protected List createColumns(final String name, final boolean notNull)

@@ -91,7 +91,7 @@ public class ModelTest extends AbstractLibTest
 		
 		try
 		{
-			new EnumerationAttribute(getClass());
+			new EnumerationAttribute(null, getClass());
 			fail("should have thrown RuntimeException");
 		}
 		catch(RuntimeException e)

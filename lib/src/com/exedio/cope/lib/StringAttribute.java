@@ -6,13 +6,14 @@ import java.util.List;
 
 public final class StringAttribute extends Attribute
 {
-	public StringAttribute()
+	public StringAttribute(final Search.Option option)
 	{
+		super(option);
 	}
 	
-	public StringAttribute(final AttributeMapping mapping)
+	public StringAttribute(final Search.Option option, final AttributeMapping mapping)
 	{
-		super(mapping);
+		super(option, mapping);
 	}
 	
 	protected List createColumns(final String name, final boolean notNull)

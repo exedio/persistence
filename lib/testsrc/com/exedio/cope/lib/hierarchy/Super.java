@@ -11,9 +11,8 @@ public abstract class Super extends Item
 {
 	/**
 	 * @persistent
-	 * @not-null
 	 */
-	public static final IntegerAttribute superInt = new IntegerAttribute(); 
+	public static final IntegerAttribute superInt = new IntegerAttribute(NOT_NULL); 
 	
 /**
 

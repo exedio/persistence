@@ -14,8 +14,9 @@ public final class EnumerationAttribute extends Attribute
 	private final List values;
 	private final HashMap numbersToValues; // TODO: use special integer map
 	
-	public EnumerationAttribute(final Class enumerationClass)
+	public EnumerationAttribute(final Search.Option option, final Class enumerationClass)
 	{
+		super(option);
 		this.enumerationClass = enumerationClass;
 		if(!EnumerationValue.class.isAssignableFrom(enumerationClass))
 			throw new RuntimeException("is not an enumeration value class: "+enumerationClass.getName());

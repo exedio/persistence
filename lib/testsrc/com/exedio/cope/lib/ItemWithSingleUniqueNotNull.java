@@ -11,9 +11,8 @@ public class ItemWithSingleUniqueNotNull extends Item
 	 * An attribute that is unique and read-only.
 	 * @persistent
 	 * @unique
-	 * @not-null
 	 */
-	public static final StringAttribute uniqueNotNullString = new StringAttribute();
+	public static final StringAttribute uniqueNotNullString = new StringAttribute(NOT_NULL);
 
 /**
 

@@ -13,87 +13,82 @@ public class ItemWithManyAttributes extends Item
 	 * A string attribute.
 	 * @persistent
 	 */
-	public static final StringAttribute someString = new StringAttribute();
+	public static final StringAttribute someString = new StringAttribute(null);
 
 	/**
 	 * The code of the item in upper case.
 	 * @persistent
 	 * @mapped
 	 */
-	public static final StringAttribute someStringUpperCase = new StringAttribute(new UppercaseMapping(someString));
+	public static final StringAttribute someStringUpperCase = new StringAttribute(null, new UppercaseMapping(someString));
 
 	/**
 	 * A not-null string attribute.
 	 * @persistent
-	 * @not-null
 	 */
-	public static final StringAttribute someNotNullString = new StringAttribute();
+	public static final StringAttribute someNotNullString = new StringAttribute(NOT_NULL);
 
 	/**
 	 * An integer attribute
 	 * @persistent
 	 */
-	public static final IntegerAttribute someInteger = new IntegerAttribute();
+	public static final IntegerAttribute someInteger = new IntegerAttribute(null);
 
 	/**
 	 * A not-null integer attribute
 	 * @persistent
-	 * @not-null
 	 */
-	public static final IntegerAttribute someNotNullInteger = new IntegerAttribute();
+	public static final IntegerAttribute someNotNullInteger = new IntegerAttribute(NOT_NULL);
 
 	/**
 	 * An boolean attribute
 	 * @persistent
 	 */
-	public static final BooleanAttribute someBoolean = new BooleanAttribute();
+	public static final BooleanAttribute someBoolean = new BooleanAttribute(null);
 
 	/**
 	 * A not-null boolean attribute
 	 * @persistent
-	 * @not-null
 	 */
-	public static final BooleanAttribute someNotNullBoolean = new BooleanAttribute();
+	public static final BooleanAttribute someNotNullBoolean = new BooleanAttribute(NOT_NULL);
 
 	/**
 	 * An attribute referencing another persistent item
 	 * @persistent
 	 */
-	public static final ItemAttribute someItem = new ItemAttribute(ItemWithoutAttributes.class);
+	public static final ItemAttribute someItem = new ItemAttribute(null, ItemWithoutAttributes.class);
 
 	/**
 	 * An not-null attribute referencing another persistent item
 	 * @persistent
-	 * @not-null
 	 */
-	public static final ItemAttribute someNotNullItem = new ItemAttribute(ItemWithoutAttributes.class);
+	public static final ItemAttribute someNotNullItem = new ItemAttribute(NOT_NULL, ItemWithoutAttributes.class);
 
 	/**
 	 * An enumeration attribute
 	 * @persistent
 	 */
-	public static final EnumerationAttribute someEnumeration = new EnumerationAttribute(SomeEnumeration.class);
+	public static final EnumerationAttribute someEnumeration = new EnumerationAttribute(null, SomeEnumeration.class);
 
 	/**
 	 * A not-null enumeration attribute
 	 * @persistent
-	 * @not-null
 	 */
-	public static final EnumerationAttribute someNotNullEnumeration = new EnumerationAttribute(SomeEnumeration.class);
+	public static final EnumerationAttribute someNotNullEnumeration = new EnumerationAttribute(NOT_NULL, SomeEnumeration.class);
 
 	/**
 	 * A media attribute.
 	 * @persistent
 	 * @variant SomeVariant
 	 */
-	public static final MediaAttribute someMedia = new MediaAttribute();
+	public static final MediaAttribute someMedia = new MediaAttribute(null);
 
 	/**
 	 * A qualified attribute.
 	 * @persistent
 	 * @qualifier ItemWithoutAttributes
 	 */
-	public static final StringAttribute someQualifiedString = new StringAttribute();
+	public static final StringAttribute someQualifiedString = new StringAttribute(null);
 
 	/**
 	 * A class representing the possible states of the persistent enumeration attribute {@link #someEnumeration}.

@@ -8,21 +8,19 @@ public class PointerItem extends Item
 {
 	/**
 	 * @persistent
-	 * @not-null
 	 */
-	static final StringAttribute code = new StringAttribute();
+	static final StringAttribute code = new StringAttribute(NOT_NULL);
 	
 	
 	/**
 	 * @persistent
-	 * @not-null
 	 */
-	static final ItemAttribute pointer = new ItemAttribute(PointerItem2.class);
+	static final ItemAttribute pointer = new ItemAttribute(NOT_NULL, PointerItem2.class);
 
 	/**
 	 * @persistent
 	 */
-	static final ItemAttribute self = new ItemAttribute(PointerItem.class);
+	static final ItemAttribute self = new ItemAttribute(null, PointerItem.class);
 
 /**
 

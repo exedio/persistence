@@ -6,6 +6,11 @@ import java.util.List;
 
 public final class BooleanAttribute extends Attribute
 {
+	public BooleanAttribute(final Search.Option option)
+	{
+		super(option);
+	}
+	
 	protected List createColumns(final String name, final boolean notNull)
 	{
 		return Collections.singletonList(new IntegerColumn(getType(), name, notNull, 1));

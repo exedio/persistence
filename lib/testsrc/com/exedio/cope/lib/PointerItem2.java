@@ -8,9 +8,8 @@ public class PointerItem2 extends Item
 {
 	/**
 	 * @persistent
-	 * @not-null
 	 */
-	static final StringAttribute code = new StringAttribute();
+	static final StringAttribute code = new StringAttribute(NOT_NULL);
 
 /**
 

@@ -5,25 +5,27 @@ import java.util.List;
 
 public abstract class Attribute
 {
+	private final boolean readOnly;
+	private final boolean notNull;
 	public final AttributeMapping mapping;
 
-	protected Attribute()
+	protected Attribute(final Search.Option option)
 	{
-		this.mapping = null;
+		this(option, null);
 	}
 	
-	protected Attribute(final AttributeMapping mapping)
+	protected Attribute(final Search.Option option, final AttributeMapping mapping)
 	{
+		this.readOnly = option==null ? false : option.readOnly;
+		this.notNull = option==null ? false : option.notNull;
 		this.mapping = mapping;
 	}
 	
 
 	// phase 1: initialize ---------------------------------------------
-	private boolean readOnly;
-	private boolean notNull;
 	private boolean initialized = false;
 
-	public final Attribute initialize(final boolean readOnly, final boolean notNull)
+	public final Attribute initialize(final boolean readOnlyNotUsed, final boolean notNullNotUsed)
 	{
 		if(initialized)
 			throw new RuntimeException();
@@ -32,8 +34,6 @@ public abstract class Attribute
 		if(this.type!=null)
 			throw new RuntimeException();
 
-		this.readOnly = readOnly;
-		this.notNull = notNull;
 		initialized = true;
 
 		return this;
@@ -41,17 +41,11 @@ public abstract class Attribute
 	
 	public final boolean isReadOnly()
 	{
-		if(!initialized)
-			throw new RuntimeException();
-
 		return readOnly;
 	}
 	
 	public final boolean isNotNull()
 	{
-		if(!initialized)
-			throw new RuntimeException();
-
 		return notNull;
 	}
 	

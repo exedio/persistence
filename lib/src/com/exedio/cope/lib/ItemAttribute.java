@@ -17,8 +17,9 @@ public final class ItemAttribute extends Attribute
 
 	private final Class targetTypeClass;
 
-	public ItemAttribute(final Class targetTypeClass)
+	public ItemAttribute(final Search.Option option, final Class targetTypeClass)
 	{
+		super(option);
 		this.targetTypeClass = targetTypeClass;
 		if(targetTypeClass==null)
 			throw new NullPointerException("target type class for attribute "+this+" must not be null");
