@@ -5,18 +5,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-final class Properties
+public final class Properties
 {
-	private static Properties theInstance = null;
-	
-	static Properties getInstance()
-	{
-		if(theInstance!=null)
-			return theInstance;
-		
-		theInstance = new Properties();
-		return theInstance;
-	}
 
 	private static final String FILE_NAME_PROPERTY = "com.exedio.cope.properties";
 	private static final String DEFAULT_FILE_NAME = "cope.properties";
@@ -32,7 +22,7 @@ final class Properties
 	private final File mediaDirectory;
 	private final String mediaUrl;
 
-	private Properties()
+	public Properties()
 	{
 		final java.util.Properties properties = new java.util.Properties();
 		FileInputStream stream = null;

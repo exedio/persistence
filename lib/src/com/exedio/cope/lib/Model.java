@@ -16,12 +16,14 @@ public final class Model
 	private final Type[] types;
 	private final List typeList;
 	private final HashMap typesByID = new HashMap();
+	final Properties properties;
 	final Database database;
 	
-	public Model(final Type[] types)
+	public Model(final Type[] types, final Properties properties)
 	{
 		this.types = types;
 		this.typeList = Collections.unmodifiableList(Arrays.asList(types));
+		this.properties = properties;
 		database = createDatabaseInstance();
 
 		for(int i = 0; i<types.length; i++)
@@ -34,7 +36,7 @@ public final class Model
 
 	private final Database createDatabaseInstance()
 	{
-		final String databaseName = Properties.getInstance().getDatabase();
+		final String databaseName = properties.getDatabase();
 
 		final Class databaseClass;
 		try
@@ -58,18 +60,18 @@ public final class Model
 		final Constructor constructor;
 		try
 		{
-			constructor = databaseClass.getDeclaredConstructor(new Class[]{});
+			constructor = databaseClass.getDeclaredConstructor(new Class[]{Properties.class});
 		}
 		catch(NoSuchMethodException e)
 		{
-			final String m = "ERROR: class "+databaseName+" from cope.properties has no default constructor.";
+			final String m = "ERROR: class "+databaseName+" from cope.properties has no constructor with a single Properties argument.";
 			System.err.println(m);
 			throw new RuntimeException(m);
 		}
 
 		try
 		{
-			return (Database)constructor.newInstance(new Object[]{});
+			return (Database)constructor.newInstance(new Object[]{properties});
 		}
 		catch(InstantiationException e)
 		{
@@ -120,7 +122,7 @@ public final class Model
 			{
 				if(typeDirectory==null)
 				{
-					final File directory = Properties.getInstance().getMediaDirectory();
+					final File directory = properties.getMediaDirectory();
 					typeDirectory = new File(directory, type.getID());
 					typeDirectory.mkdir();
 				}

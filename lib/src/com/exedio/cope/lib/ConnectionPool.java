@@ -8,9 +8,15 @@ import java.sql.SQLException;
 class ConnectionPool
 {
 	
-	private Connection[] pool = new Connection[10];
+	private final Connection[] pool = new Connection[10];
 	private int size = 0;
-	private Object lock = new Object();
+	private final Object lock = new Object();
+	private final Properties properties;
+
+	ConnectionPool(final Properties properties)
+	{
+		this.properties = properties;
+	}
 
 	final Connection getConnection() throws SQLException
 	{
@@ -30,7 +36,6 @@ class ConnectionPool
 
 	final Connection createConnection() throws SQLException
 	{
-		final Properties properties = Properties.getInstance();
 		final String driver = properties.getDatabaseDriver();
 		final String url = properties.getDatabaseUrl();
 		final String user = properties.getDatabaseUser();

@@ -8,6 +8,11 @@ class HsqldbDatabase
 		implements DatabaseTimestampCapable
 {
 
+	protected HsqldbDatabase(final Properties properties)
+	{
+		super(properties);
+	}
+
 	String getIntegerType(final int precision)
 	{
 		// TODO: use precision to select between TINYINT, SMALLINT, INTEGER, BIGINT, NUMBER

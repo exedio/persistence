@@ -22,10 +22,10 @@ abstract class Database
 	private final boolean useDefineColumnTypes;
 	private final ConnectionPool connectionPool;
 
-	protected Database()
+	protected Database(final Properties properties)
 	{
 		this.useDefineColumnTypes = this instanceof DatabaseColumnTypesDefinable;
-		this.connectionPool = new ConnectionPool();
+		this.connectionPool = new ConnectionPool(properties);
 		//System.out.println("using database "+getClass());
 	}
 	

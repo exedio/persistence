@@ -17,6 +17,11 @@ final class OracleDatabase
 			DatabaseReportable
 {
 
+	protected OracleDatabase(final Properties properties)
+	{
+		super(properties);
+	}
+
 	String getIntegerType(final int precision)
 	{
 		return "NUMBER(" + precision + ",0)";

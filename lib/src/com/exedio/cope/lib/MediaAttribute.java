@@ -19,9 +19,6 @@ public final class MediaAttribute extends Attribute
 		super(option);
 		this.fixedMimeMajor = fixedMimeMajor;
 		this.fixedMimeMinor = fixedMimeMinor;
-		
-		// make sure, media configuration properties are set
-		Properties.getInstance().getMediaDirectory();
 	}
 	
 	public MediaAttribute(final Option option, final String fixedMimeMajor)
@@ -48,6 +45,9 @@ public final class MediaAttribute extends Attribute
 
 	protected List createColumns(final Table table, final String name, final boolean notNull)
 	{
+		// make sure, media configuration properties are set
+		getType().getModel().properties.getMediaDirectory();
+
 		final ArrayList result = new ArrayList(2);
 		if(fixedMimeMajor==null)
 		{
