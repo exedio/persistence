@@ -7,10 +7,21 @@ import java.sql.Types;
 final class StringColumn extends Column
 {
 	static final Integer JDBC_TYPE = new Integer(Types.VARCHAR);
+	
+	final int minimumLength;
+	final int maximumLength;
+	final String minimumLengthID;
+	final String maximumLengthID;
 
-	StringColumn(final Type type, final String id, final boolean notNull, final int maxLength)
+	StringColumn(
+			final Type type, final String id, final boolean notNull,
+			final int minimumLength, final int maximumLength)
 	{
-		super(type, id, notNull, Database.theInstance.getStringType(maxLength), JDBC_TYPE);
+		super(type, id, notNull, Database.theInstance.getStringType(maximumLength), JDBC_TYPE);
+		this.minimumLength = minimumLength;
+		this.maximumLength = maximumLength;
+		this.minimumLengthID = minimumLength==0 ? null : Database.theInstance.trimName(type.id+"_"+id+"Min");
+		this.maximumLengthID = maximumLength==Integer.MAX_VALUE ? null : Database.theInstance.trimName(type.id+"_"+id+"Max");
 	}
 	
 	void load(final ResultSet resultSet, final int columnIndex, final Row row)

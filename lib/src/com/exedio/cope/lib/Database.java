@@ -818,7 +818,52 @@ public abstract class Database
 				append(supertype.primaryKey.protectedID).
 				append(')');
 		}
-		
+
+		// attribute constraints		
+		for(Iterator i = type.getColumns().iterator(); i.hasNext(); )
+		{
+			final Column column = (Column)i.next();
+
+			if(column instanceof StringColumn)
+			{
+				final StringColumn stringColumn = (StringColumn)column;
+				if(stringColumn.minimumLengthID!=null)
+				{
+					bf.append(",constraint ").
+						append(protectName(stringColumn.minimumLengthID)).
+						append(" check(length(").
+						append(column.protectedID).
+						append(")>=").
+						append(stringColumn.minimumLength);
+
+					if(!column.notNull)
+					{
+						bf.append(" or ").
+							append(column.protectedID).
+							append(" is null");
+					}
+					bf.append(')');
+				}
+				if(stringColumn.maximumLengthID!=null)
+				{
+					bf.append(",constraint ").
+						append(protectName(stringColumn.maximumLengthID)).
+						append(" check(length(").
+						append(column.protectedID).
+						append(")<=").
+						append(stringColumn.maximumLength);
+
+					if(!column.notNull)
+					{
+						bf.append(" or ").
+							append(column.protectedID).
+							append(" is null");
+					}
+					bf.append(')');
+				}
+			}
+		}
+
 		for(Iterator i = type.getUniqueConstraints().iterator(); i.hasNext(); )
 		{
 			final UniqueConstraint uniqueConstraint = (UniqueConstraint)i.next();

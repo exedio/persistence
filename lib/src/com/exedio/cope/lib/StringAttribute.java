@@ -53,7 +53,7 @@ public final class StringAttribute extends ObjectAttribute implements StringFunc
 	
 	protected List createColumns(final String name, final boolean notNull)
 	{
-		return Collections.singletonList(new StringColumn(getType(), name, notNull, maximumLength));
+		return Collections.singletonList(new StringColumn(getType(), name, notNull, minimumLength, maximumLength));
 	}
 	
 	Object cacheToSurface(final Object cache)

@@ -52,12 +52,12 @@ public final class MediaAttribute extends Attribute
 		final ArrayList result = new ArrayList(2);
 		if(fixedMimeMajor==null)
 		{
-			mimeMajor = new StringColumn(type, name + "Major", notNull, 30);
+			mimeMajor = new StringColumn(type, name + "Major", notNull, 1, 30);
 			result.add(mimeMajor);
 		}
 		if(fixedMimeMinor==null)
 		{
-			mimeMinor = new StringColumn(type, name + "Minor", notNull, 30);
+			mimeMinor = new StringColumn(type, name + "Minor", notNull, 1, 30);
 			result.add(mimeMinor);
 		}
 		if(fixedMimeMajor!=null && fixedMimeMinor!=null && !notNull)
