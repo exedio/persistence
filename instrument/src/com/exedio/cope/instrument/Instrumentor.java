@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.Writer;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -61,11 +60,6 @@ public final class Instrumentor implements InjectionConsumer
 	 */
 	private static final String PERSISTENT_CLASS = "persistent";
 
-	/**
-	 * Tag name for one qualifier of qualified attributes.
-	 */
-	private static final String ATTRIBUTE_QUALIFIER = "qualifier";
-	
 	/**
 	 * Tag name for the generated setter option.
 	 */
@@ -138,13 +132,6 @@ public final class Instrumentor implements InjectionConsumer
 		final List initializerArguments = ja.getInitializerArguments();
 		//System.out.println(initializerArguments);
 					
-		final String qualifier = Injector.findDocTag(docComment, ATTRIBUTE_QUALIFIER);
-		final List qualifiers;
-		if(qualifier!=null)
-			qualifiers = Collections.singletonList(qualifier);
-		else
-			qualifiers = null;
-	
 		final String setterOptionString = Injector.findDocTag(docComment, ATTRIBUTE_SETTER);
 
 		if(
@@ -157,7 +144,7 @@ public final class Instrumentor implements InjectionConsumer
 		{
 			new CopeNativeAttribute(
 				ja, typeClass,
-				initializerArguments, setterOptionString, qualifiers);
+				initializerArguments, setterOptionString);
 		}
 		else if(
 			EnumerationAttribute.class.equals(typeClass)||
@@ -165,13 +152,13 @@ public final class Instrumentor implements InjectionConsumer
 		{
 			new CopeObjectAttribute(
 				ja, typeClass,
-				initializerArguments, setterOptionString, qualifiers);
+				initializerArguments, setterOptionString);
 		}
 		else if(MediaAttribute.class.equals(typeClass))
 		{
 			new CopeMediaAttribute(
 				ja, typeClass,
-				initializerArguments, setterOptionString, qualifiers);
+				initializerArguments, setterOptionString);
 		}
 		else
 			throw new RuntimeException(typeClass.toString());

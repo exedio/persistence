@@ -22,11 +22,10 @@ final class CopeNativeAttribute extends CopeAttribute
 			final JavaAttribute javaAttribute,
 			Class typeClass,
 			final List initializerArguments,
-			final String setterOptionString,
-			final List qualifiers)
+			final String setterOptionString)
 		throws InjectorParseException
 	{
-		super(javaAttribute, typeClass, getPersistentType(typeClass), initializerArguments, setterOptionString, qualifiers);
+		super(javaAttribute, typeClass, getPersistentType(typeClass), initializerArguments, setterOptionString);
 
 		typeClass = normalizeTypeClass(typeClass);
 		final String nativeType = (String)toNativeTypeMapping.get(typeClass);

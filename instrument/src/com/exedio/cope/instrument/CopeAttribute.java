@@ -42,15 +42,13 @@ abstract class CopeAttribute
 	final boolean lengthConstrained;
 	final boolean computed;
 	final int setterOption;
-	final List qualifiers;
 
 	CopeAttribute(
 			final JavaAttribute javaAttribute,
 			final Class typeClass,
 			final String persistentType,
 			final List initializerArguments,
-			final String setterOptionString,
-			final List qualifiers)
+			final String setterOptionString)
 		throws InjectorParseException
 	{
 		this.javaAttribute = javaAttribute;
@@ -98,8 +96,6 @@ abstract class CopeAttribute
 		}
 		
 		setterOption = Option.getOption(setterOptionString);
-
-		this.qualifiers = (qualifiers!=null) ? Collections.unmodifiableList(qualifiers) : null;
 
 		copeClass.addCopeAttribute(this);
 	}

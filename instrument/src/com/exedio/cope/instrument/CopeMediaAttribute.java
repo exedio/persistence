@@ -15,11 +15,10 @@ final class CopeMediaAttribute extends CopeAttribute
 			final JavaAttribute javaAttribute,
 			final Class typeClass,
 			final List initializerArguments,
-			final String setterOptionString,
-			final List qualifiers)
+			final String setterOptionString)
 		throws InjectorParseException
 	{
-		super(javaAttribute, typeClass, MEDIA_TYPE, initializerArguments, setterOptionString, qualifiers);
+		super(javaAttribute, typeClass, MEDIA_TYPE, initializerArguments, setterOptionString);
 		this.mediaVariants = new ArrayList();
 
 		this.mimeMajor = getString(initializerArguments, 1);

@@ -73,27 +73,6 @@ final class Generator
 		return name.substring(pos+1);
 	}
 
-	private void writeParameterDeclarationList(final Collection parameters)
-	throws IOException
-	{
-		if(parameters!=null)
-		{
-			boolean first = true;
-			for(Iterator i = parameters.iterator(); i.hasNext(); )
-			{
-				if(first)
-					first = false;
-				else
-					o.write(',');
-				final String parameter = (String)i.next();
-				o.write("final ");
-				o.write(parameter);
-				o.write(' ');
-				o.write(lowerCamelCase(parameter));
-			}
-		}
-	}
-
 	private void writeThrowsClause(final Collection exceptions)
 	throws IOException
 	{
@@ -300,7 +279,6 @@ final class Generator
 	throws IOException
 	{
 		final String type = copeAttribute.getBoxedType();
-		final List qualifiers = copeAttribute.qualifiers;
 
 		// getter
 		writeCommentHeader();
@@ -315,9 +293,7 @@ final class Generator
 		o.write(type);
 		o.write(" get");
 		o.write(toCamelCase(copeAttribute.getName()));
-		o.write('(');
-		writeParameterDeclarationList(qualifiers);
-		o.write(')');
+		o.write("()");
 		o.write(lineSeparator);
 		o.write("\t{");
 		o.write(lineSeparator);
@@ -337,13 +313,7 @@ final class Generator
 			o.write(Modifier.toString(copeAttribute.getGeneratedSetterModifier()));
 			o.write(" void set");
 			o.write(toCamelCase(copeAttribute.getName()));
-			o.write('(');
-			if(qualifiers!=null)
-			{
-				writeParameterDeclarationList(qualifiers);
-				o.write(',');
-			}
-			o.write("final ");
+			o.write("(final ");
 			o.write(type);
 			o.write(' ');
 			o.write(copeAttribute.getName());
@@ -364,8 +334,6 @@ final class Generator
 													final String comment)
 	throws IOException
 	{
-		final List qualifiers = mediaAttribute.qualifiers;
-
 		writeCommentHeader();
 		o.write("\t * ");
 		o.write(comment);
@@ -389,9 +357,7 @@ final class Generator
 			else
 				o.write(variant.name);
 		}
-		o.write('(');
-		writeParameterDeclarationList(qualifiers);
-		o.write(')');
+		o.write("()");
 		o.write(lineSeparator);
 		o.write("\t{");
 		o.write(lineSeparator);
@@ -412,7 +378,6 @@ final class Generator
 	private void writeMediaAccessMethods(final CopeMediaAttribute mediaAttribute)
 	throws IOException
 	{
-		final List qualifiers = mediaAttribute.qualifiers;
 		final String mimeMajor = mediaAttribute.mimeMajor;
 		final String mimeMinor = mediaAttribute.mimeMinor;
 
@@ -446,13 +411,7 @@ final class Generator
 			o.write(Modifier.toString(mediaAttribute.getGeneratedSetterModifier()));
 			o.write(" void set");
 			o.write(toCamelCase(mediaAttribute.getName()));
-			o.write("Data(");
-			if(qualifiers!=null)
-			{
-				writeParameterDeclarationList(qualifiers);
-				o.write(',');
-			}
-			o.write("final " + InputStream.class.getName() + " data");
+			o.write("Data(final " + InputStream.class.getName() + " data");
 			if(mimeMajor==null)
 				o.write(",final "+String.class.getName()+" mimeMajor");
 			if(mimeMinor==null)
@@ -535,17 +494,10 @@ final class Generator
 			if(i>0)
 				o.write(',');
 			final CopeAttribute copeAttribute = copeAttributes[i];
-			if(copeAttribute.qualifiers != null)
-				qualifiers.addAll(copeAttribute.qualifiers);
 			o.write("final ");
 			o.write(copeAttribute.getBoxedType());
 			o.write(" searched");
 			o.write(toCamelCase(copeAttribute.getName()));
-		}
-		if(!qualifiers.isEmpty())
-		{
-			o.write(',');
-			writeParameterDeclarationList(qualifiers);
 		}
 		o.write(')');
 		o.write(lineSeparator);
