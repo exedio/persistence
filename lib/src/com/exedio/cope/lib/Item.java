@@ -751,7 +751,7 @@ public abstract class Item extends Search
 		return new BooleanAttribute(option);
 	}
 
-	protected static final EnumAttribute enumerationAttribute(final Option option, final Class enumerationClass)
+	protected static final EnumAttribute enumAttribute(final Option option, final Class enumerationClass)
 	{
 		return new EnumAttribute(option, enumerationClass);
 	}

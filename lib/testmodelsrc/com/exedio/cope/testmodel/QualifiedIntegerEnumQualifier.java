@@ -16,7 +16,7 @@ public class QualifiedIntegerEnumQualifier extends Item
 	public static final ItemAttribute up = itemAttribute(READ_ONLY_NOT_NULL, QualifiedItem.class);
 	
 	public static final IntegerAttribute keyX = integerAttribute(READ_ONLY_NOT_NULL);
-	public static final EnumAttribute keyY = enumerationAttribute(READ_ONLY_NOT_NULL, KeyEnum.class);
+	public static final EnumAttribute keyY = enumAttribute(READ_ONLY_NOT_NULL, KeyEnum.class);
 	
 	public static final UniqueConstraint qualifyUnique = uniqueConstraint(up, keyX, keyY);
 	

@@ -99,12 +99,12 @@ public class AttributeItem extends Item
 	/**
 	 * An enumeration attribute
 	 */
-	public static final EnumAttribute someEnumeration = enumerationAttribute(DEFAULT, SomeEnumeration.class);
+	public static final EnumAttribute someEnumeration = enumAttribute(DEFAULT, SomeEnumeration.class);
 
 	/**
 	 * A not-null enumeration attribute
 	 */
-	public static final EnumAttribute someNotNullEnumeration = enumerationAttribute(NOT_NULL, SomeEnumeration.class);
+	public static final EnumAttribute someNotNullEnumeration = enumAttribute(NOT_NULL, SomeEnumeration.class);
 
 	/**
 	 * A media attribute.
