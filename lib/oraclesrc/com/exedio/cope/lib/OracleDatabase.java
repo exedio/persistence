@@ -182,7 +182,7 @@ final class OracleDatabase
 					columnType = "varchar2("+dataLength+')';
 				}
 				else
-					columnType = dataType.toLowerCase();
+					columnType = dataType.toLowerCase(); // TODO: create upper case types
 					
 				final ReportTable table = report.notifyExistentTable(tableName);
 				final ReportColumn column = table.notifyExistentColumn(columnName, columnType);
