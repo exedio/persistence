@@ -44,7 +44,7 @@ public final class UniqueConstraint
 		if(name==null)
 			throw new RuntimeException();
 
-		this.id = Database.theInstance.trimName(type.id+"_"+name+"Un");
+		this.id = Database.theInstance.trimName(type.id+"_"+name+"_Unq");
 		Database.theInstance.addUniqueConstraint(id, this);
 	}
 

@@ -948,10 +948,10 @@ public abstract class Database
 			if(column instanceof StringColumn)
 			{
 				final StringColumn stringColumn = (StringColumn)column;
-				if(stringColumn.minimumLengthID!=null)
+				if(stringColumn.minimumLength>0)
 				{
 					bf.append(",constraint ").
-						append(protectName(stringColumn.minimumLengthID)).
+						append(protectName(stringColumn.getMinimumLengthConstraintID())).
 						append(" check(length(").
 						append(column.protectedID).
 						append(")>=").
@@ -965,10 +965,10 @@ public abstract class Database
 					}
 					bf.append(')');
 				}
-				if(stringColumn.maximumLengthID!=null)
+				if(stringColumn.maximumLength!=Integer.MAX_VALUE)
 				{
 					bf.append(",constraint ").
-						append(protectName(stringColumn.maximumLengthID)).
+						append(protectName(stringColumn.getMaximumLengthConstraintID())).
 						append(" check(length(").
 						append(column.protectedID).
 						append(")<=").
@@ -990,7 +990,7 @@ public abstract class Database
 				if(allowedValues!=null)
 				{
 					bf.append(",constraint ").
-						append(protectName(intColumn.allowedValuesID)).
+						append(protectName(intColumn.getAllowedValuesConstraintID())).
 						append(" check(").
 						append(column.protectedID).
 						append(" in (");
