@@ -206,7 +206,7 @@
 			package="com.exedio.copernica"
 			validateXml="false" 
 			uriroot="${basedir}/copernica/jsp" 
-			webXmlFragment="${basedir}/copernica/jsp/WEB-INF/generated_web.xml" 
+			webXmlFragment="${basedir}/copernica/build/web.xml.fragment" 
 			outputDir="${basedir}/copernica/jsp/WEB-INF/src" /> 
 	</target>
 	
@@ -245,7 +245,6 @@
 	<target name="copernica.clean">
 		<delete dir="copernica/build" />
 		<delete dir="copernica/jsp/WEB-INF/src" />
-		<delete file="copernica/jsp/WEB-INF/generated_web.xml" />
 	</target>
 
 	<target name="clean" depends="lib.clean, instrument.clean, copernica.clean" />
