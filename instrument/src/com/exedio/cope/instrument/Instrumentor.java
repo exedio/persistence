@@ -175,12 +175,11 @@ public final class Instrumentor implements InjectionConsumer
 	throws IOException, InjectorParseException
 	{
 		//System.out.println("onClassFeature("+jf.getName()+" "+docComment+")");
-		if(!class_state.isInterface())
+		if(!class_state.isInterface() &&
+			jf instanceof JavaAttribute &&
+			!discardnextfeature)
 		{
-			// TODO: put instanceof and discardnextfeature in outer IF
-			if(jf instanceof JavaAttribute &&
-				!discardnextfeature &&
-				isPersistent((JavaAttribute)jf))
+			if(isPersistent((JavaAttribute)jf))
 			{
 				final String type = jf.getType();
 				final JavaAttribute ja = (JavaAttribute)jf;
@@ -234,9 +233,7 @@ public final class Instrumentor implements InjectionConsumer
 				else
 					throw new RuntimeException(typeClass.toString());
 			}
-			else if(jf instanceof JavaAttribute &&
-				!discardnextfeature &&
-				isUniqueConstraint((JavaAttribute)jf))
+			else if(isUniqueConstraint((JavaAttribute)jf))
 			{
 				final String type = jf.getType();
 				final JavaAttribute ja = (JavaAttribute)jf;
