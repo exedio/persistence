@@ -4,10 +4,8 @@ package persistence;
 public class Item
 {
 	
-	/**
-	 * Du sollst mich nicht in handgeschriebenem Code aufrufen.
-	 */
-	protected Item(final double doNotCallMe)
+	protected Item(final AttributeValue[] initialAttributesValues)
+	throws UniqueViolationException, NotNullViolationException
 	{}
 	
 	protected final Object getAttribute(final Attribute attribute)

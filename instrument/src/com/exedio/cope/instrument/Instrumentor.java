@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.*;
 import java.lang.reflect.Modifier;
+import persistence.AttributeValue;
 import persistence.ConstraintViolationException;
 import persistence.NotNullViolationException;
 import persistence.ReadOnlyViolationException;
@@ -245,8 +246,8 @@ public final class Instrumentor implements InjectionConsumer
 					output.write(',');
 				output.write("final ");
 				output.write(persistentAttribute.getPersistentType());
-				output.write(' ');
-				output.write(persistentAttribute.getName());
+				output.write(" initial");
+				output.write(persistentAttribute.getCamelCaseName());
 			}
 		}
 		
@@ -255,18 +256,20 @@ public final class Instrumentor implements InjectionConsumer
 		output.write(lineSeparator);
 		output.write("\t{");
 		output.write(lineSeparator);
-		output.write("\t\tsuper(1.0);");
+		output.write("\t\tsuper(new "+AttributeValue.class.getName()+"[]{");
 		output.write(lineSeparator);
 		for(Iterator i = attributes.iterator(); i.hasNext(); )
 		{
 			final JavaAttribute attribute = (JavaAttribute)i.next();
-			output.write("\t\tset");
-			output.write(attribute.getCamelCaseName());
-			output.write('(');
+			output.write("\t\t\tnew "+AttributeValue.class.getName()+"(");
 			output.write(attribute.getName());
-			output.write(");");
+			output.write(",initial");
+			output.write(attribute.getCamelCaseName());
+			output.write("),");
 			output.write(lineSeparator);
 		}
+		output.write("\t\t});");
+		output.write(lineSeparator);
 		output.write("\t}");
 	}
 
