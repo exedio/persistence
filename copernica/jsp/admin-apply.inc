@@ -13,7 +13,9 @@
 				final String dropColumn = dropColumns[i];
 				final ReportColumn column = getColumn(report, dropColumn);
 				%>
-				<li>dropping column <%=dropColumn%> ...</li><%
+				<li>report.getTable(&quot;<b><%=
+					column.table.name%></b>&quot;).getColumn(&quot;<b><%=
+					column.name%></b>&quot;).drop();</li><%
 				out.flush();
 				final long startTime = System.currentTimeMillis();
 				column.drop();
