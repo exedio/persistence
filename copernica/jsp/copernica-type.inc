@@ -92,6 +92,8 @@
 				}
 			%>
 				</tr><%
+				SimpleDateFormat df = null;
+				
 				for(Iterator i = items.iterator(); i.hasNext(); )
 				{
 					final Item item = (Item)i.next();
@@ -117,6 +119,20 @@
 							else
 							{
 								%><a href="<%=(cop.toItem(value))%>"><%=provider.getDisplayName(language, value)%></a><%
+							}
+						}
+						else if(feature instanceof DateAttribute)
+						{
+							final Date value = (Date)item.getAttribute((DateAttribute)feature);
+							if(value==null)
+							{
+								%><%="leer"%><%
+							}
+							else
+							{
+								if(df==null)
+									df = new SimpleDateFormat(ItemForm.DATE_FORMAT_FULL);
+								%><%=df.format(value)%><%
 							}
 						}
 						else
