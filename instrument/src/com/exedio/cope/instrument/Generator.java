@@ -29,8 +29,8 @@ final class Generator
 	private static final String THROWS_NULL   = "if {0} is null.";
 	private static final String THROWS_UNIQUE = "if {0} is not unique.";
 	private static final String THROWS_LENGTH = "if {0} violates its length constraint.";
-	private static final String CONSTRUCTOR_NEW = "Creates a new {0} with all the attributes initially needed.";
-	private static final String CONSTRUCTOR_NEW_PARAMETER = "the initial value for attribute {0}.";
+	private static final String CONSTRUCTOR_INITIAL = "Creates a new {0} with all the attributes initially needed.";
+	private static final String CONSTRUCTOR_INITIAL_PARAMETER = "the initial value for attribute {0}.";
 	private static final String CONSTRUCTOR_GENERIC = "Creates a new {0} and sets the given attributes initially.";
 	private static final String CONSTRUCTOR_REACTIVATION = "Reactivation constructor. Used for internal purposes only.";
 	private static final String GETTER = "Returns the value of the persistent attribute {0}.";
@@ -169,7 +169,7 @@ final class Generator
 		
 		writeCommentHeader();
 		o.write("\t * ");
-		o.write(format(CONSTRUCTOR_NEW, copeClass.getName()));
+		o.write(format(CONSTRUCTOR_INITIAL, copeClass.getName()));
 		o.write(lineSeparator);
 		writeCommentGenerated();
 		for(Iterator i = initialAttributes.iterator(); i.hasNext(); )
@@ -178,7 +178,7 @@ final class Generator
 			o.write("\t * @param initial");
 			o.write(toCamelCase(initialAttribute.getName()));
 			o.write(' ');
-			o.write(format(CONSTRUCTOR_NEW_PARAMETER, link(initialAttribute.getName())));
+			o.write(format(CONSTRUCTOR_INITIAL_PARAMETER, link(initialAttribute.getName())));
 			o.write(lineSeparator);
 		}
 		for(Iterator i = constructorExceptions.iterator(); i.hasNext(); )
