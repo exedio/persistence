@@ -138,7 +138,9 @@ public class AttributesTest extends DatabaseLibTest
 		assertEquals(20, item.getSomeNotNullInteger());
 
 		item.setSomeNotNullInteger(0);
-		// TODO: passivate
+		assertEquals(0, item.getSomeNotNullInteger());
+
+		item.passivate();
 		assertEquals(0, item.getSomeNotNullInteger());
 		assertEquals(
 			set(item),
@@ -148,7 +150,9 @@ public class AttributesTest extends DatabaseLibTest
 					Search.equal(item.someNotNullInteger, 0))));
 
 		item.setSomeNotNullInteger(Integer.MIN_VALUE);
-		// TODO: passivate
+		assertEquals(Integer.MIN_VALUE, item.getSomeNotNullInteger());
+
+		item.passivate();
 		assertEquals(Integer.MIN_VALUE, item.getSomeNotNullInteger());
 		assertEquals(
 			set(item),
@@ -158,7 +162,9 @@ public class AttributesTest extends DatabaseLibTest
 					Search.equal(item.someNotNullInteger, Integer.MIN_VALUE))));
 
 		item.setSomeNotNullInteger(Integer.MAX_VALUE);
-		// TODO: passivate
+		assertEquals(Integer.MAX_VALUE, item.getSomeNotNullInteger());
+
+		item.passivate();
 		assertEquals(Integer.MAX_VALUE, item.getSomeNotNullInteger());
 		assertEquals(
 			set(item),
