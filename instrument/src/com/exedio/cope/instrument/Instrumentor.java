@@ -697,13 +697,13 @@ public final class Instrumentor implements InjectionConsumer
 		}
 	}
 	
-	private final void writeEquals(final PersistentAttribute attribute)
+	private final void writeEquals(final PersistentAttribute persistentAttribute)
 	throws IOException
 	{
 		output.write("equal(");
-		output.write(attribute.getName());
+		output.write(persistentAttribute.getName());
 		output.write(",searched");
-		output.write(attribute.getCamelCaseName());
+		output.write(persistentAttribute.getCamelCaseName());
 		output.write(')');
 	}
 	
