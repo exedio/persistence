@@ -161,7 +161,15 @@ public class LibTest extends TestCase
 		
 		// ItemWithManyAttributes
 		{
-			final ItemWithManyAttributes item = new ItemWithManyAttributes(5, true);
+			final ItemWithManyAttributes item;
+			try
+			{
+				item = new ItemWithManyAttributes("someString", 5, true);
+			}
+			catch(NotNullViolationException e)
+			{
+				throw new SystemException(e);
+			}
 			
 			// someString
 			assertEquals(null, item.getSomeString());
@@ -169,6 +177,27 @@ public class LibTest extends TestCase
 			assertEquals(null/*"someString"*/, item.getSomeString());
 			item.setSomeString(null);
 			assertEquals(null, item.getSomeString());
+
+			// someNotNullString
+			assertEquals(null/*"someString"*/, item.getSomeNotNullString());
+			try
+			{
+				item.setSomeNotNullString("someOtherString");
+			}
+			catch(NotNullViolationException e)
+			{
+				throw new SystemException(e);
+			}
+			assertEquals(null/*"someOtherString"*/, item.getSomeNotNullString());
+			try
+			{
+				item.setSomeNotNullString(null);
+			}
+			catch(NotNullViolationException e)
+			{
+				assertEquals(item.someNotNullString, e.getNotNullAttribute());
+				assertEquals(item, e.getItem());
+			}
 
 			// someInteger
 			assertEquals(null, item.getSomeInteger());

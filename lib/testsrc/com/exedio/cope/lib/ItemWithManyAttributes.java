@@ -15,10 +15,17 @@ import com.exedio.cope.lib.StringAttribute;
 public class ItemWithManyAttributes extends Item
 {
 	/**
-	 * An attribute that is unique.
+	 * A string attribute.
 	 * @persistent
 	 */
 	public static final StringAttribute someString = new StringAttribute();
+
+	/**
+	 * A not-null string attribute.
+	 * @persistent
+	 * @not-null
+	 */
+	public static final StringAttribute someNotNullString = new StringAttribute();
 
 	/**
 	 * An integer attribute
@@ -70,18 +77,25 @@ public class ItemWithManyAttributes extends Item
 
 	 **
 	 * Constructs a new ItemWithManyAttributes with all the attributes initially needed.
+	 * @param initialSomeNotNullString the initial value for attribute {@link #someNotNullString}.
 	 * @param initialSomeNotNullInteger the initial value for attribute {@link #someNotNullInteger}.
 	 * @param initialSomeNotNullBoolean the initial value for attribute {@link #someNotNullBoolean}.
+	 * @throws com.exedio.cope.lib.NotNullViolationException if initialSomeNotNullString is not null.
 	 * @generated
 	 *
  */public ItemWithManyAttributes(
+				final String initialSomeNotNullString,
 				final int initialSomeNotNullInteger,
 				final boolean initialSomeNotNullBoolean)
+			throws
+				com.exedio.cope.lib.NotNullViolationException
 	{
 		super(new com.exedio.cope.lib.AttributeValue[]{
+			new com.exedio.cope.lib.AttributeValue(someNotNullString,initialSomeNotNullString),
 			new com.exedio.cope.lib.AttributeValue(someNotNullInteger,new Integer(initialSomeNotNullInteger)),
 			new com.exedio.cope.lib.AttributeValue(someNotNullBoolean,(initialSomeNotNullBoolean?Boolean.TRUE:Boolean.TRUE)),
 		});
+		throwInitialNotNullViolationException();
 	}/**
 
 	 **
@@ -106,6 +120,37 @@ public class ItemWithManyAttributes extends Item
 		catch(com.exedio.cope.lib.NotNullViolationException e)
 		{
 			throw new com.exedio.cope.lib.SystemException(e);
+		}
+		catch(com.exedio.cope.lib.ReadOnlyViolationException e)
+		{
+			throw new com.exedio.cope.lib.SystemException(e);
+		}
+		catch(com.exedio.cope.lib.UniqueViolationException e)
+		{
+			throw new com.exedio.cope.lib.SystemException(e);
+		}
+	}/**
+
+	 **
+	 * Returns the value of the persistent attribute {@link #someNotNullString}.
+	 * @generated
+	 *
+ */public final String getSomeNotNullString()
+	{
+		return (String)getAttribute(this.someNotNullString);
+	}/**
+
+	 **
+	 * Sets a new value for the persistent attribute {@link #someNotNullString}.
+	 * @generated
+	 *
+ */public final void setSomeNotNullString(final String someNotNullString)
+			throws
+				com.exedio.cope.lib.NotNullViolationException
+	{
+		try
+		{
+			setAttribute(this.someNotNullString,someNotNullString);
 		}
 		catch(com.exedio.cope.lib.ReadOnlyViolationException e)
 		{
@@ -377,6 +422,7 @@ public class ItemWithManyAttributes extends Item
 			ItemWithManyAttributes.class,
 			new com.exedio.cope.lib.Attribute[]{
 				someString,
+				someNotNullString,
 				someInteger,
 				someNotNullInteger,
 				someBoolean,
@@ -392,6 +438,7 @@ public class ItemWithManyAttributes extends Item
 				public void run()
 				{
 					someString.initialize("someString",false,false);
+					someNotNullString.initialize("someNotNullString",false,true);
 					someInteger.initialize("someInteger",false,false);
 					someNotNullInteger.initialize("someNotNullInteger",false,true);
 					someBoolean.initialize("someBoolean",false,false);
