@@ -58,6 +58,10 @@ public class LibTest extends TestCase
 			assertEquals(ItemWithoutAttributes.TYPE, item2.getType());
 			assertEquals(ItemWithoutAttributes2.TYPE, item3.getType());
 			
+			assertEquals(item1, Search.findByID(item1.getID()));
+			assertEquals(item2, Search.findByID(item2.getID()));
+			assertEquals(item3, Search.findByID(item3.getID()));
+			
 			assertEquals(item1, item1);
 			assertEquals(item2, item2);
 			assertEquals(item3, item3);

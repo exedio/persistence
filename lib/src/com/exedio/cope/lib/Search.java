@@ -27,10 +27,35 @@ public class Search
 	 * Returns null, if no such item exists.
 	 * Always returns {@link Item#activeItem() active} objects.
 	 * @see Item#getID()
+	 * @throws RuntimeException if there is no item with the given id. TODO: use non-RuntimeException
 	 */
 	public static final Item findByID(final String id)
 	{
-		return null;
+		final int pos = id.lastIndexOf('.');
+		if(pos<=0)
+			throw new RuntimeException("no dot");
+
+		final String typeName = id.substring(0, pos);
+		final Type type = Type.getType(typeName);
+		if(type==null)
+			throw new RuntimeException("no type "+typeName);
+		
+		final String pkString = id.substring(pos+1);
+		final int pk;
+		try
+		{
+			pk = Integer.parseInt(pkString);
+		}
+		catch(NumberFormatException e)
+		{
+			throw new RuntimeException("not a number "+pkString);
+		}
+
+		final Item activeItem = type.getActiveItem(pk);
+		if(activeItem!=null)
+			return activeItem;
+		else
+			throw new RuntimeException("not yet implemented");
 	}
 	
 	public static final EqualCondition equal(final StringAttribute attribute, final String value)
