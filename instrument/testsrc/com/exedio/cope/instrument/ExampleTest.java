@@ -287,6 +287,11 @@ public class ExampleTest extends InjectorTest
 		assertText("{\n\t}");
 		assertMethod("setParent", null, setParent);
 		assertText("\n\n\t");
+		
+		final JavaBehaviour printData = assertBehaviourHeader("printData", "void", Modifier.PUBLIC);
+		assertText("{\n\t}");
+		assertMethod("printData", null, printData);
+		assertText("\n  \n\t");
 	}
 
 }
