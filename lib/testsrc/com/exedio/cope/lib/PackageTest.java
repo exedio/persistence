@@ -49,6 +49,7 @@ public class PackageTest extends TestCase
 		suite.addTest(new TestSuite(JoinTest.class));
 		suite.addTest(new TestSuite(FindByIDTest.class));
 		suite.addTest(new TestSuite(ReportTest.class));
+		suite.addTest(new TestSuite(StatementInfoTest.class));
 		return suite;
 	}
 
