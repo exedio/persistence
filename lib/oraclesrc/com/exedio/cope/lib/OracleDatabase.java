@@ -117,7 +117,7 @@ final class OracleDatabase
 		}
 		{
 			final Statement bf = createStatement();
-			bf.append("select TABLE_NAME, CONSTRAINT_NAME, CONSTRAINT_TYPE  from user_constraints order by table_name").
+			bf.append("select TABLE_NAME, CONSTRAINT_NAME, CONSTRAINT_TYPE from user_constraints order by table_name").
 				defineColumnString().
 				defineColumnString().
 				defineColumnString();
