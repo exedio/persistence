@@ -35,6 +35,7 @@ import com.exedio.cope.lib.StringAttribute;
 import com.exedio.cope.lib.Type;
 import com.exedio.cope.lib.pattern.Qualifier;
 import com.exedio.cope.lib.search.EqualCondition;
+import com.exedio.cops.Form;
 
 final class ItemForm extends Form
 {

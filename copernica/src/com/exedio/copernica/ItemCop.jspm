@@ -21,6 +21,7 @@ import com.exedio.cope.lib.NoSuchIDException;
 import com.exedio.cope.lib.ObjectAttribute;
 import com.exedio.cope.lib.StringAttribute;
 import com.exedio.cope.lib.Type;
+import com.exedio.cops.Form;
 
 class ItemCop_Jspm
 {
