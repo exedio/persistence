@@ -190,8 +190,8 @@
 	<target name="test" depends="lib.test, instrument.test" />
 	
 	<target name="copernica.jspc"> 
-		<delete dir="copernica/jsp/WEB-INF/src" />
-		<mkdir dir="copernica/jsp/WEB-INF/src" />
+		<delete dir="copernica/build/jspsrc" />
+		<mkdir dir="copernica/build/jspsrc" />
 		<taskdef classname="org.apache.jasper.JspC" name="jasper2" > 
 			<classpath id="jspc.classpath"> 
 				<fileset dir="${basedir}/../tomcat/bin"> 
@@ -207,7 +207,7 @@
 			validateXml="false" 
 			uriroot="${basedir}/copernica/jsp" 
 			webXmlFragment="${basedir}/copernica/build/web.xml.fragment" 
-			outputDir="${basedir}/copernica/jsp/WEB-INF/src" /> 
+			outputDir="${basedir}/copernica/build/jspsrc" /> 
 	</target>
 	
 	<target name="copernica.compile.jsp" depends="copernica.jspc">
@@ -215,7 +215,7 @@
 			optimize="off"
 			debug="on"
 			failonerror="true"
-			srcdir="copernica/jsp/WEB-INF/src"
+			srcdir="copernica/build/jspsrc"
 			excludes="**/*.smap">
 			<classpath>
 				<pathelement location="lib/build/classes" />
@@ -244,7 +244,6 @@
 
 	<target name="copernica.clean">
 		<delete dir="copernica/build" />
-		<delete dir="copernica/jsp/WEB-INF/src" />
 	</target>
 
 	<target name="clean" depends="lib.clean, instrument.clean, copernica.clean" />
