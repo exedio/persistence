@@ -35,8 +35,6 @@ public class StringTest extends DatabaseLibTest
 		assertEquals(8, item.min4Max8.getMaximumLength());
 		assertEquals(true, item.min4Max8.isLengthConstrained());
 		
-		// TODO: test special unicode characters
-
 		// any
 		item.setAny("1234");
 		assertEquals("1234", item.getAny());
@@ -54,6 +52,23 @@ public class StringTest extends DatabaseLibTest
 		// should be escaped or wrapped into prepared statements
 		assertEquals("value,hijackedColumn=otherValue", item.getAny());
 
+		// test full unicode support
+		final String unicodeString =
+			"Auml \u00c4; "
+			+ "Ouml \u00d6; "
+			+ "Uuml \u00dc; "
+			+ "auml \u00e4; "
+			+ "ouml \u00f6; "
+			+ "uuml \u00fc; "
+			+ "szlig \u00df; "
+			+ "paragraph \u00a7; "
+			+ "kringel \u00b0";
+		System.out.println(unicodeString); 		
+		item.setAny(unicodeString);
+		assertEquals(unicodeString, item.getAny());
+		item.passivate();
+		assertEquals(unicodeString, item.getAny());
+		
 		// min4
 		try
 		{
