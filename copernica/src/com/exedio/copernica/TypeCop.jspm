@@ -27,15 +27,14 @@ public class TypeCop_Jspm
 	private static void writeInfo(final JspWriter out, final StatementInfo info)
 		throws IOException
 	{
-		out.println(info.getText());
-		out.println("<ul>");
+		%><%=info.getText()%><ul><%
 		for(Iterator i = info.getChilds().iterator(); i.hasNext(); )
 		{
-			out.println("<li>");
+			%><li><%
 			writeInfo(out, ((StatementInfo)i.next()));
-			out.println("</li>");
+			%></li><%
 		}
-		out.println("</ul>");
+		%></ul><%
 	}
 
 	public static final void writeBody(final JspWriter out, final TypeCop cop)
