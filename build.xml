@@ -278,6 +278,8 @@
 			<fileset file="../lib/hsqldb.jar" />
 			<fileset file="../lib/junit.jar" />
 		</copy>
+		<copy file="../lib/classes12.zip"
+				tofile="copernica/build/testwebapp/WEB-INF/lib/classes12.jar" />
 		
 		<copy todir="copernica/build/testwebapp/WEB-INF/"
 				file="copernica/web.xml" />
