@@ -153,4 +153,14 @@ final class Row
 		closed = true;
 	}
 
+	void delete() throws IntegrityViolationException
+	{	
+		if(closed)
+			throw new RuntimeException();
+
+		type.getModel().getDatabase().delete(type, pk);
+		type.removeRow(this);
+		closed = true;
+	}
+
 }

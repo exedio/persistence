@@ -607,8 +607,7 @@ public abstract class Item extends Cope
 		{
 			if(type.getRow(pk)!=rowWhenActive)
 				throw new RuntimeException();
-			type.getModel().getDatabase().delete(type, pk);
-			rowWhenActive.close();
+			rowWhenActive.delete();
 			rowWhenActive = null;
 		}
 		else

@@ -871,12 +871,18 @@ abstract class Database
 			connection = connectionPool.getConnection(this);
 			// TODO: use prepared statements and reuse the statement.
 			final String sqlText = statement.getText();
+			//System.err.println(statement.getText());
 			sqlStatement = connection.createStatement();
 			final int rows = sqlStatement.executeUpdate(sqlText);
 
 			//System.out.println("("+rows+"): "+statement.getText());
 			if(rows!=expectedRows)
-				System.err.println("expected "+expectedRows+" rows, but got "+rows+" on statement "+sqlText); // TODO: throw exception
+			{
+				if("com.exedio.cope.lib.MysqlDatabase".equals(getClass().getName())) // TODO
+					System.err.println("expected "+expectedRows+" rows, but got "+rows+" on statement "+sqlText);
+				else
+					throw new RuntimeException("expected "+expectedRows+" rows, but got "+rows+" on statement "+sqlText);
+			}
 		}
 		catch(SQLException e)
 		{
