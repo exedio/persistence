@@ -296,6 +296,34 @@ public abstract class Item extends Search
 				return row.get(attribute.exists)==null;
 		}
 	}
+	
+	private static final String getCompactExtension(final String mimeMajor, final String mimeMinor)
+	{
+		if("image".equals(mimeMajor))
+		{
+			if("jpeg".equals(mimeMinor) || "pjpeg".equals(mimeMinor))
+				return ".jpg";
+			else if("gif".equals(mimeMinor))
+				return ".gif";
+			else if("png".equals(mimeMinor))
+				return ".png";
+			else
+				return null;
+		}
+		else if("text".equals(mimeMajor))
+		{
+			if("html".equals(mimeMinor))
+				return ".html";
+			else if("plain".equals(mimeMinor))
+				return ".txt";
+			else if("css".equals(mimeMinor))
+				return ".css";
+			else
+				return null;
+		}
+		else
+			return null;
+	}
 
 	private final void appendMediaPath(
 									final MediaAttribute attribute, final String variant,
@@ -342,32 +370,7 @@ public abstract class Item extends Search
 		bf.append('/').
 			append(pk2id(pk));
 
-		final String compactExtension;
-		if("image".equals(mimeMajor))
-		{
-			if("jpeg".equals(mimeMinor) || "pjpeg".equals(mimeMinor))
-				compactExtension = ".jpg";
-			else if("gif".equals(mimeMinor))
-				compactExtension = ".gif";
-			else if("png".equals(mimeMinor))
-				compactExtension = ".png";
-			else
-				compactExtension = null;
-		}
-		else if("text".equals(mimeMajor))
-		{
-			if("html".equals(mimeMinor))
-				compactExtension = ".html";
-			else if("plain".equals(mimeMinor))
-				compactExtension = ".txt";
-			else if("css".equals(mimeMinor))
-				compactExtension = ".css";
-			else
-				compactExtension = null;
-		}
-		else
-			compactExtension = null;
-		
+		final String compactExtension = getCompactExtension(mimeMajor, mimeMinor);
 		if(compactExtension==null)
 		{
 			bf.append('.').
