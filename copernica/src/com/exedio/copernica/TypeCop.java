@@ -59,6 +59,11 @@ final class TypeCop extends CopernicaCop
 		return provider.getDisplayName(language, type);
 	}
 
+	final CopernicaCop toPrev()
+	{
+		return start==0 ? null : previousPage();
+	}
+	
 	final CopernicaCop toNext()
 	{
 		computeItems();
