@@ -101,15 +101,14 @@ public final class JavaAttribute extends JavaFeature
 	
 	private static final String ATTRIBUTE_SUFFIX = "Attribute";
 
-	public final void makePersistent()
+	public final void makePersistent(final String persistentType)
 	{
-		if(persistentType!=null)
-			throw new RuntimeException("Du Schwein!");
-		final String type = getType();
-		if(!type.endsWith(ATTRIBUTE_SUFFIX))
+		if(persistentType==null)
 			throw new RuntimeException("Du Sau!");
+		if(this.persistentType!=null)
+			throw new RuntimeException("Du Schwein!");
 		getParent().addPersistentAttribute(this);
-		this.persistentType = type.substring(0, type.length()-ATTRIBUTE_SUFFIX.length());
+		this.persistentType = persistentType;
 	}
 	
 }

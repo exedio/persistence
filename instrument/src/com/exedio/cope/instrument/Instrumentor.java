@@ -170,7 +170,20 @@ public final class Instrumentor implements InjectionConsumer
 			!discardnextfeature &&
 			containsTag(docComment, PERSISTENT_ATTRIBUTE))
 			{
-				((JavaAttribute)jf).makePersistent();
+				final String type = jf.getType();
+				final String persistentType;
+				if("IntegerAttribute".equals(type))
+					persistentType = "Integer";
+				else if("StringAttribute".equals(type))
+					persistentType = "String";
+				else if("ItemAttribute".equals(type))
+				{
+					persistentType = Injector.findDocTag(docComment, PERSISTENT_ATTRIBUTE);
+				}
+				else
+					throw new RuntimeException();
+
+				((JavaAttribute)jf).makePersistent(persistentType);
 			}
 		}
 		discardnextfeature=false;
