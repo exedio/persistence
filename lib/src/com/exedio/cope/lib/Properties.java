@@ -1,6 +1,7 @@
 
 package com.exedio.cope.lib;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
@@ -28,15 +29,17 @@ final class Properties
 	private Properties()
 	{
 		final java.util.Properties properties = new java.util.Properties();
+		File file = null;
 		FileInputStream stream = null;
 		try
 		{
-			stream = new FileInputStream(FILE_NAME);
+			file = new File(FILE_NAME);
+			stream = new FileInputStream(file);
 			properties.load(stream);
 		}
 		catch(IOException e)
 		{
-			throw new SystemException(e);
+			throw new SystemException(e, file.getAbsolutePath().toString());
 		}
 		finally
 		{
