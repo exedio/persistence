@@ -316,7 +316,9 @@ abstract class Database
 			{
 				final Join join = (Join)i.next();
 	
-				bf.append(" inner join ").
+				bf.append(' ').
+					append(join.getKindString()).
+					append(" join ").
 					append(join.type.getTable().protectedID).
 					append(" on ");
 				join.condition.appendStatement(bf);
@@ -436,21 +438,29 @@ abstract class Database
 					}
 					else
 					{
-						final int pk = resultSet.getInt(columnIndex++);
+						final Number pk = (Number)resultSet.getObject(columnIndex++);
 						//System.out.println("pk:"+pk);
-						final Type type = types[selectableIndex];
-						final Type currentType;
-						if(type==null)
+						if(pk==null)
 						{
-							final String typeID = resultSet.getString(columnIndex++);
-							currentType = model.findTypeByID(typeID);
-							if(currentType==null)
-								throw new RuntimeException("no type with type id "+typeID);
+							// can happen when using right outer joins
+							resultCell = null;
 						}
 						else
-							currentType = type;
-		
-						resultCell = currentType.getItem(pk);
+						{
+							final Type type = types[selectableIndex];
+							final Type currentType;
+							if(type==null)
+							{
+								final String typeID = resultSet.getString(columnIndex++);
+								currentType = model.findTypeByID(typeID);
+								if(currentType==null)
+									throw new RuntimeException("no type with type id "+typeID);
+							}
+							else
+								currentType = type;
+			
+							resultCell = currentType.getItem(pk.intValue());
+						}
 					}
 					if(resultRow!=null)
 						resultRow[selectableIndex] = resultCell;

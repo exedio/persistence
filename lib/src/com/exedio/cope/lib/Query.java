@@ -7,7 +7,7 @@ import java.util.List;
 
 import com.exedio.cope.lib.search.Condition;
 
-public class Query
+public final class Query
 {
 	final Model model;
 	final Selectable[] selectables;
@@ -67,12 +67,30 @@ public class Query
 		return type;
 	}
 	
-	public void join(final Type type, final Condition condition)
+	final void join(final Join join)
 	{
 		if(joins==null)
 			joins = new ArrayList();
 		
-		joins.add(new Join(type, condition));
+		joins.add(join);
+	}
+	
+	/**
+	 * Does an inner join with the given type on the given join condition.
+	 */
+	public void join(final Type type, final Condition condition)
+	{
+		join(new Join(Join.KIND_INNER, type, condition));
+	}
+	
+	public void joinOuterLeft(final Type type, final Condition condition)
+	{
+		join(new Join(Join.KIND_OUTER_LEFT, type, condition));
+	}
+	
+	public void joinOuterRight(final Type type, final Condition condition)
+	{
+		join(new Join(Join.KIND_OUTER_RIGHT, type, condition));
 	}
 	
 	public List getJoins()
