@@ -7,6 +7,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -14,6 +15,7 @@ import java.util.List;
 
 import bak.pcj.map.IntKeyOpenHashMap;
 
+import com.exedio.cope.lib.search.Condition;
 import com.exedio.cope.lib.util.ReactivationConstructorDummy;
 
 public final class Type
@@ -289,6 +291,11 @@ public final class Type
 		
 		toStringCache = buf.toString();
 		return toStringCache;
+	}
+	
+	public final Collection search(final Condition condition)
+	{
+		return Search.search(this, condition);
 	}
 	
 	void onDropTable()
