@@ -1,14 +1,14 @@
 
 package com.exedio.cope.instrument;
 
+import java.util.Collections;
 import java.util.List;
 
 public final class PersistentMediaAttribute extends PersistentAttribute
 {
-
-	private final List mediaVariants;
-	private final String mimeMajor;
-	private final String mimeMinor;
+	public final List mediaVariants;
+	public final String mimeMajor;
+	public final String mimeMinor;
 
 	public PersistentMediaAttribute(
 			final JavaAttribute javaAttribute,
@@ -17,24 +17,9 @@ public final class PersistentMediaAttribute extends PersistentAttribute
 			final String mimeMajor, final String mimeMinor)
 	{
 		super(javaAttribute, MEDIA_TYPE, TYPE_MEDIA, readOnly, notNull, mapped, qualifiers);
-		this.mediaVariants = mediaVariants;
+		this.mediaVariants = Collections.unmodifiableList(mediaVariants);
 		this.mimeMajor = mimeMajor;
 		this.mimeMinor = mimeMinor;
 	}
 
-	public List getMediaVariants()
-	{
-		return mediaVariants;
-	}
-	
-	public String getMimeMajor()
-	{
-		return mimeMajor;
-	}
-	
-	public String getMimeMinor()
-	{
-		return mimeMinor;
-	}
-	
 }

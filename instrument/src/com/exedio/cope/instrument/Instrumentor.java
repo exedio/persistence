@@ -608,13 +608,13 @@ public final class Instrumentor implements InjectionConsumer
 	{
 		final String methodModifiers = Modifier.toString(mediaAttribute.getMethodModifiers());
 		final List qualifiers = mediaAttribute.getQualifiers();
-		final String mimeMajor = mediaAttribute.getMimeMajor();
-		final String mimeMinor = mediaAttribute.getMimeMinor();
+		final String mimeMajor = mediaAttribute.mimeMajor;
+		final String mimeMinor = mediaAttribute.mimeMinor;
 
 		// getters
 		writeMediaGetterMethod(mediaAttribute, String.class, "URL", "", null,
 										"Returns a URL pointing to the data of the persistent attribute");
-		final List mediaVariants = mediaAttribute.getMediaVariants();
+		final List mediaVariants = mediaAttribute.mediaVariants;
 		if(mediaVariants!=null)
 		{
 			for(Iterator i = mediaVariants.iterator(); i.hasNext(); )
