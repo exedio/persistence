@@ -69,7 +69,7 @@
 		for(Iterator l = provider.getDisplayLanguages().iterator(); l.hasNext(); )
 		{
 			final Language language = (Language)l.next();
-			%>[<a href="hello"><%=language.getDisplayName(null)%></a>]<%
+			%>[<a href="hello"><%=language.getCopernicaName(null)%></a>]<%
 		}
 		%>
 		
