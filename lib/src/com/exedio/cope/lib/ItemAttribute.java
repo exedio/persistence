@@ -10,13 +10,13 @@ public final class ItemAttribute extends Attribute
 {
 	private static final HashMap itemAttributesByIntegrityConstraintName = new HashMap();
 	
-	static final ItemAttribute getItemAttributeByIntegrityConstraintName(final String integrityConstraintName, final SQLException e)
+	static final ItemAttribute getItemAttributeByIntegrityConstraintName(final String name, final SQLException e)
 	{
 		final ItemAttribute result =
-			(ItemAttribute)itemAttributesByIntegrityConstraintName.get(integrityConstraintName);
+			(ItemAttribute)itemAttributesByIntegrityConstraintName.get(name);
 
 		if(result==null)
-			throw new SystemException(e, "no item attribute found for >"+integrityConstraintName
+			throw new SystemException(e, "no item attribute found for >"+name
 																	+"<, has only "+itemAttributesByIntegrityConstraintName.keySet());
 
 		return result;
