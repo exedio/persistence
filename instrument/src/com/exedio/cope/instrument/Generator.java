@@ -1,9 +1,4 @@
-/*
- * Created on 22.04.2004
- *
- * To change the template for this generated file go to
- * Window&gt;Preferences&gt;Java&gt;Code Generation&gt;Code and Comments
- */
+
 package com.exedio.cope.instrument;
 
 import java.io.IOException;
@@ -32,6 +27,8 @@ import com.exedio.cope.lib.util.ReactivationConstructorDummy;
 
 final class Generator
 {
+	private static final String THROWS_NULL   = "if {0} is null.";
+	private static final String THROWS_UNIQUE = "if {0} is not unique.";
 	private static final String CONSTRUCTOR_NEW = "Creates a new {0} with all the attributes initially needed.";
 	private static final String CONSTRUCTOR_NEW_PARAMETER = "the initial value for attribute {0}.";
 	private static final String CONSTRUCTOR_GENERIC = "Creates a new {0} and sets the given attributes initially.";
@@ -139,14 +136,6 @@ final class Generator
 		o.write(" */");
 	}
 	
-	private static final HashMap constraintViolationText = new HashMap(5);
-	
-	static
-	{
-		constraintViolationText.put(NotNullViolationException.class, "null");
-		constraintViolationText.put(UniqueViolationException.class, "not unique");
-	}
-	
 	private static final String link(final String target)
 	{
 		return "{@link #" + target + '}';
@@ -195,8 +184,10 @@ final class Generator
 			final Class constructorException = (Class)i.next();
 			o.write("\t * @throws ");
 			o.write(constructorException.getName());
-			o.write(" if");
+			o.write(' ');
+
 			boolean first = true;
+			final StringBuffer initialAttributesBuf = new StringBuffer();
 			for(Iterator j = initialAttributes.iterator(); j.hasNext(); )
 			{
 				final CopeAttribute initialAttribute = (CopeAttribute)j.next();
@@ -206,16 +197,20 @@ final class Generator
 				if(first)
 					first = false;
 				else
-					o.write(',');
-				o.write(" initial");
-				o.write(toCamelCase(initialAttribute.getName()));
+					initialAttributesBuf.append(", ");
+				initialAttributesBuf.append("initial");
+				initialAttributesBuf.append(toCamelCase(initialAttribute.getName()));
 			}
-			o.write(" is ");
-			final String violationText = (String)constraintViolationText.get(constructorException);
-			if(violationText==null)
+
+			final String pattern;
+			if(NotNullViolationException.class.equals(constructorException))
+				pattern = THROWS_NULL;
+			else if(UniqueViolationException.class.equals(constructorException))
+				pattern = THROWS_UNIQUE;
+			else
 				throw new RuntimeException(constructorException.getName());
-			o.write(violationText);
-			o.write('.');
+
+			o.write(format(pattern, initialAttributesBuf.toString()));
 			o.write(lineSeparator);
 		}
 		writeCommentFooter();
