@@ -45,6 +45,8 @@ public class Item extends Search
 	 * For any two active item objects <code>a</code>, <code>b</code> the following holds true:
 	 * <code>If and only if a.equals(b) then a.primaryItem() == b.primaryItem().</code>
 	 * Does not activate this item, if it's not already active.
+	 * Is guaranteed to be very cheap, if this item object is already primary, which means
+	 * this method returns <code>this</code>.
 	 */
 	public final Item primaryItem()
 	{
