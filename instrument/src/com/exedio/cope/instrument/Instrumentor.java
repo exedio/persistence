@@ -1038,40 +1038,44 @@ public final class Instrumentor implements InjectionConsumer
 				else
 					qualifiers = null;
 
-				final String variant = Injector.findDocTag(docComment, VARIANT_MEDIA_ATTRIBUTE);
-				final List variants;
-				if(variant!=null)
-					variants = Collections.singletonList(variant);
-				else
-					variants = null;
-
-				final String mimeMajor = Injector.findDocTag(docComment, MIME_MAJOR);
-				final String mimeMinor = Injector.findDocTag(docComment, MIME_MINOR);
-
-				final String enumerationValue = Injector.findDocTag(docComment, ENUMERATION_VALUE);
-				final List enumerationValues;
-				if(enumerationValue!=null)
-					enumerationValues = Collections.singletonList(enumerationValue);
-				else
-					enumerationValues = null;
-
 				final PersistentAttribute persistentAttribute;
 				switch(persistentTypeType)
 				{
 					case PersistentAttribute.TYPE_MEDIA:
+					{
+						final String variant = Injector.findDocTag(docComment, VARIANT_MEDIA_ATTRIBUTE);
+						final List variants;
+						if(variant!=null)
+							variants = Collections.singletonList(variant);
+						else
+							variants = null;
+	
+						final String mimeMajor = Injector.findDocTag(docComment, MIME_MAJOR);
+						final String mimeMinor = Injector.findDocTag(docComment, MIME_MINOR);
 						persistentAttribute =
 							new PersistentMediaAttribute(
 								ja,
 								readOnly, notNull, mapped, qualifiers,
 								variants, mimeMajor, mimeMinor);
 						break;
+					}
 					case PersistentAttribute.TYPE_ENUMERATION:
+					{
+
+						final String enumerationValue = Injector.findDocTag(docComment, ENUMERATION_VALUE);
+						final List enumerationValues;
+						if(enumerationValue!=null)
+							enumerationValues = Collections.singletonList(enumerationValue);
+						else
+							enumerationValues = null;
+
 						persistentAttribute =
 							new PersistentEnumerationAttribute(
 								ja, persistentType,
 								readOnly, notNull, mapped, qualifiers,
 								enumerationValues);
 						break;
+					}
 					default:
 						persistentAttribute =
 							new PersistentAttribute(
