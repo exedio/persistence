@@ -239,24 +239,58 @@ public abstract class Database
 		
 		final Report report = new Report(tables);
 
-		final Statement bf = createStatement();
-		bf.append("select TABLE_NAME, CONSTRAINT_NAME, CONSTRAINT_TYPE  from user_constraints order by table_name").
-			defineColumnString().
-			defineColumnString().
-			defineColumnString();
-		
-		try
 		{
-			executeSQL(bf, new ReportConstraintHandler(report));
+			final Statement bf = createStatement();
+			bf.append("select TABLE_NAME from user_tables").
+				defineColumnString();
+			try
+			{
+				executeSQL(bf, new ReportTableHandler(report));
+			}
+			catch(ConstraintViolationException e)
+			{
+				throw new SystemException(e);
+			}
 		}
-		catch(ConstraintViolationException e)
 		{
-			throw new SystemException(e);
+			final Statement bf = createStatement();
+			bf.append("select TABLE_NAME, CONSTRAINT_NAME, CONSTRAINT_TYPE  from user_constraints order by table_name").
+				defineColumnString().
+				defineColumnString().
+				defineColumnString();
+			try
+			{
+				executeSQL(bf, new ReportConstraintHandler(report));
+			}
+			catch(ConstraintViolationException e)
+			{
+				throw new SystemException(e);
+			}
 		}
 		
 		report.finish();
 
 		return report;
+	}
+
+	private static class ReportTableHandler implements ResultSetHandler
+	{
+		private final Report report;
+
+		ReportTableHandler(final Report report)
+		{
+			this.report = report;
+		}
+
+		public void run(ResultSet resultSet) throws SQLException
+		{
+			while(resultSet.next())
+			{
+				final String tableName = resultSet.getString(1);
+				final Report.Table table = report.notifyExistentTable(tableName);
+				//System.out.println("EXISTS:"+tableName);
+			}
+		}
 	}
 
 	private static class ReportConstraintHandler implements ResultSetHandler
