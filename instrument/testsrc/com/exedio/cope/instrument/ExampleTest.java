@@ -99,6 +99,12 @@ public class ExampleTest extends InjectorTest
 		assertText("char     uglyAttribute5='\\\'';");
 		assertAttribute("uglyAttribute5", null);
 		assertText("\n  ");
+
+		assertAttributeHeader("uglyAttribute6", "String[]", 0);
+		assertText("String[] uglyAttribute6=\n  {\n	 \"some'Thing{some\\\"Thing;Else\", // ugly ; { \" ' comment\n	 \"some'Thing{some\\\"Thing;Else\"\n  };");
+		assertAttribute("uglyAttribute6", null);
+		assertText("\n  ");
+
 	}
 
 }
