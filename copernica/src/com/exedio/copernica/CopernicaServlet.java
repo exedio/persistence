@@ -14,6 +14,28 @@ import javax.servlet.http.HttpServletResponse;
 import com.exedio.cope.lib.NestingRuntimeException;
 import com.exedio.cops.Cop;
 
+/**
+ * The servlet providing Copernica, the Generic Backoffice for COPE.
+ * 
+ * In order to use it, you have to deploy the servlet in your <code>web.xml</code>,
+ * providing the name of the copernica provider via an init-parameter.
+ * Typically, your <code>web.xml</code> would contain a snippet like this:  
+ *  
+ * <pre>
+ * &lt;servlet&gt;
+ *    &lt;servlet-name&gt;copernica&lt;/servlet-name&gt;
+ *    &lt;servlet-class&gt;com.exedio.copernica.CopernicaServlet&lt;/servlet-class&gt;
+ *    &lt;init-param&gt;
+ *       &lt;param-name&gt;provider&lt;/param-name&gt;
+ *       &lt;param-value&gt;com.bigbusiness.shop.ShopProvider&lt;/param-value&gt;
+ *    &lt;/init-param&gt;
+ * &lt;/servlet&gt;
+ * &lt;servlet-mapping&gt;
+ *    &lt;servlet-name&gt;copernica&lt;/servlet-name&gt;
+ *    &lt;url-pattern&gt;/copernica.jsp&lt;/url-pattern&gt;
+ * &lt;/servlet-mapping&gt;
+ * </pre>
+ */
 public final class CopernicaServlet extends HttpServlet
 {
 	CopernicaProvider provider = null;

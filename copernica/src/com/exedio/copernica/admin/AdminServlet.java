@@ -15,6 +15,28 @@ import com.exedio.cope.lib.Model;
 import com.exedio.cope.lib.NestingRuntimeException;
 import com.exedio.copernica.TransientCopernicaProvider;
 
+/**
+ * The servlet providing the COPE Database Administration application.
+ * 
+ * In order to use it, you have to deploy the servlet in your <code>web.xml</code>,
+ * providing the name of the cope model via an init-parameter.
+ * Typically, your <code>web.xml</code> would contain a snippet like this:  
+ *  
+ * <pre>
+ * &lt;servlet&gt;
+ *    &lt;servlet-name&gt;admin&lt;/servlet-name&gt;
+ *    &lt;servlet-class&gt;com.exedio.copernica.admin.AdminServlet&lt;/servlet-class&gt;
+ *    &lt;init-param&gt;
+ *       &lt;param-name&gt;model&lt;/param-name&gt;
+ *       &lt;param-value&gt;com.bigbusiness.shop.Main#model&lt;/param-value&gt;
+ *    &lt;/init-param&gt;
+ * &lt;/servlet&gt;
+ * &lt;servlet-mapping&gt;
+ *    &lt;servlet-name&gt;admin&lt;/servlet-name&gt;
+ *    &lt;url-pattern&gt;/admin.jsp&lt;/url-pattern&gt;
+ * &lt;/servlet-mapping&gt;
+ * </pre>
+ */
 public final class AdminServlet extends HttpServlet
 {
 
