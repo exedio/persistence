@@ -1,4 +1,7 @@
-<%@
+<%
+try
+{
+%><%@
 page import="com.exedio.cope.lib.Feature" %><%@
 page import="com.exedio.cope.lib.Function" %><%@
 page import="com.exedio.cope.lib.Attribute" %><%@
@@ -139,4 +142,39 @@ include file="provider.inc"
 		%>
 		</div>
 	</body>
-</html>
+</html><%
+}
+catch(Throwable e)
+{
+	response.setStatus(response.SC_INTERNAL_SERVER_ERROR);
+%><html>
+	<head>
+		<title>Copernica System Error</title>
+	</head>
+	<body>
+		<b>Sorry, an internal error occurred.</b><br><%
+		if("jo-man".equals(request.getParameter("display_error")))
+		{
+		%>
+		<hr>
+		<font color="#ff0000">
+		<pre>
+<%e.printStackTrace(new PrintWriter(out));%>
+		</pre>
+		</font>
+		<hr><%
+		}
+		else
+		{
+			final String id = Util.createErrorId();
+			System.out.println("--------I"+id+"-----");
+			e.printStackTrace();
+			System.out.println("--------O"+id+"-----");
+		%>
+		Please report the id <%=id%> to the webmaster.<%
+		}
+		%>
+	</body>
+</html><%
+}
+%>

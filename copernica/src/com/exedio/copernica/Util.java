@@ -2,6 +2,7 @@ package com.exedio.copernica;
 
 import java.io.File;
 import java.util.Properties;
+import java.util.Random;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
@@ -111,6 +112,16 @@ final class Util
 			return null;
 		
 		return user.checkCopernicaPassword(password) ? user : null;
+	}
+	
+	private static final Random random = new Random();
+	
+	static final String createErrorId()
+	{
+		synchronized(random)
+		{
+			return String.valueOf(Math.abs(random.nextLong()));
+		}
 	}
 
 	private Util()
