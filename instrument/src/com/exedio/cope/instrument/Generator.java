@@ -158,7 +158,7 @@ final class Generator
 		return MessageFormat.format(pattern, new Object[]{ parameter1, parameter2 });
 	}
 
-	private void writeConstructor(final CopeClass copeClass) 
+	private void writeInitialConstructor(final CopeClass copeClass) 
 	throws IOException
 	{
 		if(!copeClass.hasGeneratedConstructor())
@@ -762,7 +762,7 @@ final class Generator
 		if(!copeClass.isInterface())
 		{
 			//System.out.println("onClassEnd("+jc.getName()+") writing");
-			writeConstructor(copeClass);
+			writeInitialConstructor(copeClass);
 			writeGenericConstructor(copeClass);
 			writeReactivationConstructor(copeClass);
 			for(final Iterator i = copeClass.getCopeAttributes().iterator(); i.hasNext(); )
