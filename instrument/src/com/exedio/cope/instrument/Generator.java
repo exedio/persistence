@@ -384,13 +384,7 @@ final class Generator
 		o.write(toCamelCase(mediaAttribute.getName()));
 		o.write(part);
 		if(variant!=null)
-		{
-			final String prefix = mediaAttribute.getName();
-			if(variant.name.startsWith(prefix))
-				o.write(variant.name.substring(prefix.length()));
-			else
-				o.write(variant.name);
-		}
+			o.write(variant.shortName);
 		o.write("()");
 		o.write(lineSeparator);
 		o.write("\t{");
