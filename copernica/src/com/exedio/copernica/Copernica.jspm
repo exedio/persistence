@@ -104,6 +104,45 @@ class Copernica_Jspm
 <%
 	}
 	
+	static final void writeException(
+				final PrintStream out,
+				final CopernicaServlet servlet,
+				final Exception exception,
+				final boolean onPage)
+		throws IOException
+	{
+%><html>
+	<head>
+		<title>Copernica System Error</title>
+	</head>
+	<body>
+		<b>Sorry, an internal error occurred.</b><br><%
+		if(onPage)
+		{
+		%>
+		<hr>
+		<font color="#ff0000">
+		<pre>
+<%
+			servlet.printException(out, exception);
+		%>
+		</pre>
+		</font>
+		<hr><%
+		}
+		else
+		{
+		%>
+		Please report the error code <i><%=
+			servlet.reportException(exception)
+			%></i> to the webmaster.<%
+		}
+		%>
+	</body>
+</html>
+<%
+	}
+	
 	static final void writeTypeList(final PrintStream out, final CopernicaCop cop)
 		throws IOException
 	{
