@@ -89,7 +89,8 @@ public abstract class Attribute
 		return buf.toString();
 	}
 	
-	abstract Object databaseToCache(final Object cell);
+	abstract Object databaseToCache(Object cell);
+	public abstract Object cache2Database(Object cache);
 
 }
 

@@ -15,4 +15,12 @@ public final class EnumerationAttribute extends Attribute
 		else
 			throw new RuntimeException("cellToCache:"+cell);
 	}
+
+	public Object cache2Database(final Object cache)
+	{
+		if(cache==null)
+			return "NULL";
+		else
+			return Integer.toString(((EnumerationValue)cache).number);
+	}
 }

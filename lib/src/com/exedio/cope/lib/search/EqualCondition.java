@@ -28,7 +28,7 @@ public final class EqualCondition extends Condition
 	{
 		bf.append(attribute.getPersistentQualifier()).
 			append('=').
-			append(database.storeValue(value));
+			append(attribute.cache2Database(value));
 	}
 
 	public final String toString()

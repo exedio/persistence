@@ -121,25 +121,6 @@ public abstract class Database
 		}
 	}
 
-	public String storeValue(final Object o)
-	{
-		if(o==null)
-			return "NULL";
-		else
-		{
-			if(o instanceof String)
-				return "'" + o + '\'';
-			else if(o instanceof Boolean)
-				return ((Boolean)o).booleanValue() ? "1" : "0";
-			else if(o instanceof Item)
-				return Integer.toString(((Item)o).pk);
-			else if(o instanceof EnumerationValue)
-				return Integer.toString(((EnumerationValue)o).number);
-			else
-				return o.toString();
-		}
-	}
-
 	void store(final Type type, final int pk, final HashMap itemCache, final boolean present)
 	{
 		final List attributes = type.getAttributes();
@@ -165,7 +146,7 @@ public abstract class Database
 					append('=');
 
 				final Object value = itemCache.get(attribute);
-				bf.append(storeValue(value));
+				bf.append(attribute.cache2Database(value));
 			}
 			bf.append(" where ").
 				append(getSyntheticPrimaryKeyQualifier()).
@@ -194,7 +175,7 @@ public abstract class Database
 				bf.append(',');
 				final Attribute attribute = (Attribute)i.next();
 				final Object value = itemCache.get(attribute);
-				bf.append(storeValue(value));
+				bf.append(attribute.cache2Database(value));
 			}
 			bf.append(')');
 		}
