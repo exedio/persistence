@@ -101,5 +101,10 @@ public final class ReportConstraint extends ReportNode
 	{
 		return exists;
 	}
+	
+	public final String toString()
+	{
+		return name;
+	}
 
 }
