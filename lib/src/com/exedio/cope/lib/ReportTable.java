@@ -10,7 +10,7 @@ public final class ReportTable extends ReportNode
 {
 	public final String name;
 	private final Table table;
-	boolean exists = false; // TODO: make this private, introduce notifyExists as in ReportColumn
+	private boolean exists = false;
 	private ReportLastAnalyzed lastAnalyzed = null;
 	private final HashMap columns = new HashMap();
 	private final HashMap constraints = new HashMap();
@@ -35,6 +35,11 @@ public final class ReportTable extends ReportNode
 			throw new RuntimeException();
 
 		this.lastAnalyzed = new ReportLastAnalyzed(lastAnalyzed, this);
+	}
+	
+	final void notifyExists()
+	{
+		exists = true;
 	}
 		
 	final ReportColumn notifyRequiredColumn(final Column column)

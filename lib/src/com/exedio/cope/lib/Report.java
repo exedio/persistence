@@ -69,7 +69,7 @@ public final class Report extends ReportNode
 			tables.put(tableName, result);
 		}
 		else
-			result.exists = true;
+			result.notifyExists();
 
 		return result;
 	}
