@@ -27,6 +27,16 @@ public class ItemWithoutAttributes extends Item
 	}/**
 
 	 **
+	 * Reactivation constructor. Used for internal purposes only.
+	 * @see Item#Item(Type, int)
+	 * @generated
+	 *
+ */private ItemWithoutAttributes(com.exedio.cope.lib.util.ReactivationConstructorDummy d, final int pk)
+	{
+		super(TYPE, pk);
+	}/**
+
+	 **
 	 * The persistent type information for itemWithoutAttributes.
 	 * @generated
 	 *

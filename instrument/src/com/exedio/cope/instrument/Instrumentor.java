@@ -18,6 +18,7 @@ import com.exedio.cope.lib.Type;
 import com.exedio.cope.lib.UniqueConstraint;
 import com.exedio.cope.lib.UniqueViolationException;
 import com.exedio.cope.lib.util.ClassComparator;
+import com.exedio.cope.lib.util.ReactivationConstructorDummy;
 
 public final class Instrumentor implements InjectionConsumer
 {
@@ -366,6 +367,26 @@ public final class Instrumentor implements InjectionConsumer
 			output.write("();");
 			output.write(lineSeparator);
 		}
+		output.write("\t}");
+	}
+	
+	public void writeReactivationConstructor(final JavaClass javaClass)
+	throws IOException
+	{
+		writeCommentHeader();
+		output.write("\t * Reactivation constructor. Used for internal purposes only.");
+		output.write(lineSeparator);
+		output.write("\t * @see Item#Item(Type, int)");
+		output.write(lineSeparator);
+		writeCommentFooter();
+		output.write("private ");
+		output.write(javaClass.getName());
+		output.write("("+ReactivationConstructorDummy.class.getName()+" d, final int pk)");
+		output.write(lineSeparator);
+		output.write("\t{");
+		output.write(lineSeparator);
+		output.write("\t\tsuper(TYPE, pk);");
+		output.write(lineSeparator);
 		output.write("\t}");
 	}
 	
@@ -892,6 +913,7 @@ public final class Instrumentor implements InjectionConsumer
 		if(!jc.isInterface() && jc.isPersistent())
 		{
 			writeConstructor(jc);
+			writeReactivationConstructor(jc);
 			for(final Iterator i = jc.getPersistentAttributes().iterator(); i.hasNext(); )
 			{
 				// write setter/getter methods

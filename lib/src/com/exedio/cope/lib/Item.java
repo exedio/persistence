@@ -97,6 +97,19 @@ public class Item extends Search
 	}
 	
 	/**
+	 * Reactivation constructor.
+	 * Is used for internal purposes only.
+	 * Does not actually create a new item, but an deactivated item object for
+	 * an already existing item.
+	 */
+	protected Item(final Type type, final int pk)
+	{
+		this.type = type;
+		this.pk = pk;
+		throw new RuntimeException("not yet implemented");
+	}
+	
+	/**
 	 * Throws a {@link NotNullViolationException}, if a not-null violation occured in the constructor.
 	 */
 	protected final void throwInitialNotNullViolationException() throws NotNullViolationException
