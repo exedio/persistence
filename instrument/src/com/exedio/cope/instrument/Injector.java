@@ -887,12 +887,12 @@ public final class Injector
 			
 			Object o = result.get(tagname);
 			if(o==null)
-				result.put(tagname, buf.toString());
+				result.put(tagname, buf.toString().trim()); // TODO: trim should not be neccesasary
 			else if(o instanceof String)
 			{
 				final ArrayList list = new ArrayList();
 				list.add(o);
-				list.add(buf.toString());
+				list.add(buf.toString().trim()); // TODO: trim should not be neccesasary
 				result.put(tagname, list);
 			}
 			else
@@ -1088,6 +1088,31 @@ public final class Injector
 			}
 		}
 		
+	}
+	
+	public static final void main(final String[] args)
+	{
+		final String source = "/**\n" +
+		"\t *	Hallo Du!\n" +
+		"\t * @zapp zooppell mappel\n" +
+		"\t * @bipp flap\n" +
+		"\t * @bipp flöppp\n" +
+		"\t * @schnopp blubb\n" +
+		"\t */";
+		System.out.println(source);
+		final Map map = extractDocParagraphs(source);
+		for(Iterator i = map.keySet().iterator(); i.hasNext(); )
+		{
+			final String tag = (String)i.next();
+			final Object value = map.get(tag);
+			if(value instanceof String)
+				System.out.println("@>"+tag+"< >"+value+"<");
+			else
+			{
+				for(Iterator j = ((List)value).iterator(); j.hasNext(); )
+					System.out.println("@>"+tag+"< >"+((String)j.next())+"<");
+			}
+		}
 	}
 	
 	
