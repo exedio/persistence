@@ -232,7 +232,7 @@ final class TypeCop_Jspm
 			final StatementInfo info = cop.getStatementInfo();
 			if(info!=null)
 			{
-				%><ul><li><%
+				%><ul style="background-color:#ccc"><li><%
 				writeInfo(out, info);
 				%></li></ul><%
 			}
