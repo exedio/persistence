@@ -177,6 +177,28 @@ public class ReportTest extends DatabaseLibTest
 			assertEquals(Report.COLOR_OK, column.getParticularColor());
 			assertEquals(column1Type, column.getDatabaseType());
 		}
+		{
+			final Report report = model.reportDatabase();
+
+			final ReportTable attributeItem = report.getTable("AttributeItem");
+			assertNotNull(attributeItem);
+			assertEquals(null, attributeItem.getError());
+			assertEquals(Report.COLOR_OK, attributeItem.getParticularColor());
+			
+			assertConstraint(attributeItem, "AttrItem_somNotNullStr_Nn", "\"someNotNullString\" is not null");
+			assertConstraint(attributeItem, "AttribItem_someBoolea_Val", "\"someBoolean\" in (0,1) or \"someBoolean\" is null");
+			assertConstraint(attributeItem, "AttrItem_somNotNulBoo_Val", "\"someNotNullBoolean\" in (0,1)");
+			assertConstraint(attributeItem, "AttribItem_someEnumer_Val", "\"someEnumeration\" in (100,200,300) or \"someEnumeration\" is null");
+			assertConstraint(attributeItem, "AttrItem_somNotNullEnu_Nn", "\"someNotNullEnumeration\" is not null");
+			assertConstraint(attributeItem, "AttrItem_somNotNulEnu_Val", "\"someNotNullEnumeration\" in (100,200,300)");
+			assertConstraint(attributeItem, "AttriItem_somMediMajo_Min", "length(\"someMediaMajor\")>=1 or \"someMediaMajor\" is null");
+			assertConstraint(attributeItem, "AttriItem_somMediMajo_Max", "length(\"someMediaMajor\")<=30 or \"someMediaMajor\" is null");
+		}
+	}
+	
+	private void assertConstraint(final ReportTable table, final String constraintName, final String requiredCondition)
+	{
+		assertEquals(requiredCondition, table.getConstraint(constraintName).requiredCondition);
 	}
 	
 }
