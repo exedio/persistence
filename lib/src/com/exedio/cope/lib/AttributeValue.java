@@ -11,6 +11,12 @@ public class AttributeValue
 		this.value = value;
 	}
 	
+	public AttributeValue(final IntegerAttribute attribute, final Integer value)
+	{
+		this.attribute = attribute;
+		this.value = value;
+	}
+	
 	public AttributeValue(final ItemAttribute attribute, final Item value)
 	{
 		this.attribute = attribute;
