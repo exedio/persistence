@@ -54,7 +54,16 @@ public class ExampleTest extends InjectorTest
 		assertAttributeHeader("hallo");
 		assertText("String hallo=\"hallo\";");
 		assertAttribute("hallo", null);
-		assertText("\n  \n  \n  ");
+		assertText("\n  \n  ");
+
+		assertDocComment("/**TestCommentCommaSeparated123*/");
+		assertText("\n  ");
+		assertAttributeHeader("commaSeparated1");
+		//assertText("int commaSeparated1,commaSeparated2=0,commaSeparated3;"); TODO: where is the text of these attributes?
+		assertAttribute("commaSeparated1", "/**TestCommentCommaSeparated123*/");
+		assertAttribute("commaSeparated2", "/**TestCommentCommaSeparated123*/");
+		assertAttribute("commaSeparated3", "/**TestCommentCommaSeparated123*/");
+		assertText(" \n  ");
 	}
 
 }
