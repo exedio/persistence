@@ -124,6 +124,18 @@ public abstract class Database
 			return this;
 		}
 		
+		public Statement append(final int text)
+		{
+			this.text.append(text);
+			return this;
+		}
+		
+		public Statement append(final Object text)
+		{
+			this.text.append(text);
+			return this;
+		}
+		
 		public Statement append(final Attribute attribute)
 		{
 			final AttributeMapping mapping = attribute.mapping;
@@ -170,16 +182,23 @@ public abstract class Database
 		condition.appendStatement(bf);
 		
 		//System.out.println("searching "+bf.toString());
-		return executeSQLQuery(bf.getText());
+		try
+		{
+			final QueryResultSetHandler handler = new QueryResultSetHandler();
+			executeSQL(bf, handler);
+			return handler.result;
+		}
+		catch(UniqueViolationException e)
+		{
+			throw new SystemException(e);
+		}
 	}
 
 	void load(final Type type, final int pk, final HashMap itemCache)
 	{
 		final List columns = type.getColumns();
 
-		// TODO: use prepared statements and reuse the statement.
-		// TODO: use Statement class
-		final StringBuffer bf = new StringBuffer();
+		final Statement bf = new Statement();
 		bf.append("select ");
 
 		boolean first = true;
@@ -203,7 +222,7 @@ public abstract class Database
 
 		try
 		{
-			executeSQL(bf.toString(), new LoadResultSetHandler(columns, itemCache));
+			executeSQL(bf, new LoadResultSetHandler(columns, itemCache));
 		}
 		catch(UniqueViolationException e)
 		{
@@ -216,9 +235,7 @@ public abstract class Database
 	{
 		final List columns = type.getColumns();
 
-		// TODO: use prepared statements and reuse the statement.
-		// TODO: use Statement class
-		final StringBuffer bf = new StringBuffer();
+		final Statement bf = new Statement();
 		if(present)
 		{
 			bf.append("update ").
@@ -274,7 +291,7 @@ public abstract class Database
 
 		//System.out.println("storing "+bf.toString());
 
-		executeSQL(bf.toString(), EMPTY_RESULT_SET_HANDLER);
+		executeSQL(bf, EMPTY_RESULT_SET_HANDLER);
 	}
 
 	private static interface ResultSetHandler
@@ -289,20 +306,6 @@ public abstract class Database
 		}
 	};
 		
-	private ArrayList executeSQLQuery(final String sql)
-	{
-		try
-		{
-			final QueryResultSetHandler handler = new QueryResultSetHandler();
-			executeSQL(sql, handler);
-			return handler.result;
-		}
-		catch(UniqueViolationException e)
-		{
-			throw new SystemException(e);
-		}
-	}
-	
 	private static class QueryResultSetHandler implements ResultSetHandler
 	{
 		private final ArrayList result = new ArrayList();
@@ -354,7 +357,7 @@ public abstract class Database
 		}
 	}
 
-	private void executeSQL(final String sql, final ResultSetHandler resultSetHandler)
+	private void executeSQL(final Statement statement, final ResultSetHandler resultSetHandler)
 			throws UniqueViolationException
 	{
 		final String driver = "oracle.jdbc.driver.OracleDriver";
@@ -372,13 +375,14 @@ public abstract class Database
 		}
 		
 		Connection connection = null;
-		java.sql.Statement statement = null;
+		java.sql.Statement sqlStatement = null;
 		ResultSet resultSet = null;
 		try
 		{
 			connection = DriverManager.getConnection(url, user, password);
-			statement = connection.createStatement();
-			resultSet = statement.executeQuery(sql);
+			// TODO: use prepared statements and reuse the statement.
+			sqlStatement = connection.createStatement();
+			resultSet = sqlStatement.executeQuery(statement.getText());
 			resultSetHandler.run(resultSet);
 		}
 		catch(SQLException e)
@@ -387,7 +391,7 @@ public abstract class Database
 			if(wrappedException!=null)
 				throw wrappedException;
 			else
-				throw new SystemException(e, sql);
+				throw new SystemException(e, statement.toString());
 		}
 		finally
 		{
@@ -402,11 +406,11 @@ public abstract class Database
 					// exception is already thrown
 				}
 			}
-			if(statement!=null)
+			if(sqlStatement!=null)
 			{
 				try
 				{
-					statement.close();
+					sqlStatement.close();
 				}
 				catch(SQLException e)
 				{
@@ -514,7 +518,7 @@ public abstract class Database
 
 		try
 		{
-			executeSQL(bf.toString(), EMPTY_RESULT_SET_HANDLER);
+			executeSQL(bf, EMPTY_RESULT_SET_HANDLER);
 		}
 		catch(UniqueViolationException e)
 		{
@@ -557,7 +561,7 @@ public abstract class Database
 		{
 			try
 			{
-				executeSQL(bf.toString(), EMPTY_RESULT_SET_HANDLER);
+				executeSQL(bf, EMPTY_RESULT_SET_HANDLER);
 			}
 			catch(UniqueViolationException e)
 			{
@@ -569,14 +573,14 @@ public abstract class Database
 	private void dropTable(final Type type)
 	{
 		type.flushPK();
-		// TODO: use Statement class
-		final StringBuffer bf = new StringBuffer();
+
+		final Statement bf = new Statement();
 		bf.append("drop table ").
 			append(type.protectedName);
 
 		try
 		{
-			executeSQL(bf.toString(), EMPTY_RESULT_SET_HANDLER);
+			executeSQL(bf, EMPTY_RESULT_SET_HANDLER);
 		}
 		catch(UniqueViolationException e)
 		{
@@ -606,7 +610,7 @@ public abstract class Database
 					//System.out.println("dropForeignKeyConstraints:"+bf);
 					try
 					{
-						executeSQL(bf.toString(), EMPTY_RESULT_SET_HANDLER);
+						executeSQL(bf, EMPTY_RESULT_SET_HANDLER);
 					}
 					catch(UniqueViolationException e)
 					{
@@ -628,7 +632,7 @@ public abstract class Database
 		try
 		{
 			final MaxPKResultSetHandler handler = new MaxPKResultSetHandler();
-			executeSQL(bf.toString(), handler);
+			executeSQL(bf, handler);
 			//System.err.println("select max("+type.primaryKey.trimmedName+") from "+type.trimmedName+" : "+handler.result);
 			return handler.result;
 		}
