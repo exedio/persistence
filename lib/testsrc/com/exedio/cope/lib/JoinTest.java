@@ -31,23 +31,21 @@ public class JoinTest extends DatabaseLibTest
 	{
 		assertContains(
 			item2b,
-			toSet(
-				Search.search(
-					new Query(
-						PointerItem2.TYPE,
-						PointerItem.TYPE,
-						Search.equal(PointerItem.code, PointerItem2.code)))));
+			Search.search(
+				new Query(
+					PointerItem2.TYPE,
+					PointerItem.TYPE,
+					Search.equal(PointerItem.code, PointerItem2.code))));
 
 		assertContains(
 			item1a,
-			toSet(
-				Search.search(
-					new Query(
-						PointerItem.TYPE,
-						PointerItem2.TYPE,
-						Search.and(
-							Search.join(PointerItem.pointer),
-							Search.equal(PointerItem2.code, "hallo"))))));
+			Search.search(
+				new Query(
+					PointerItem.TYPE,
+					PointerItem2.TYPE,
+					Search.and(
+						Search.join(PointerItem.pointer),
+						Search.equal(PointerItem2.code, "hallo")))));
 	}
 
 }

@@ -27,7 +27,7 @@ public class OrderByTest extends DatabaseLibTest
 	public void testOrderBy()
 	{
 		// no order at all
-		assertContains(item4, item2, item1, item3, item5, toSet(Search.search(new Query(item1.TYPE, null))));
+		assertContains(item4, item2, item1, item3, item5, Search.search(new Query(item1.TYPE, null)));
 
 		// deterministic order only
 		{

@@ -117,12 +117,6 @@ public abstract class AbstractLibTest extends TestCase
 		}
 	}
 	
-	// TODO: remove this
-	protected Collection toSet(final Collection collection)
-	{
-		return collection;
-	}
-	
 	protected void assertContainsList(final List expected, final Collection actual)
 	{
 		assertEquals(expected.size(), actual.size());

@@ -7,10 +7,10 @@ public class AttributeDoubleTest extends AttributeTest
 	{
 		assertEquals(item.TYPE, item.someDouble.getType());
 		assertEquals(null, item.getSomeDouble());
-		assertContains(item, item2, toSet(item.TYPE.search(Search.equal(item.someDouble, null))));
-		assertContains(item, item2, toSet(item.TYPE.search(Search.isNull(item.someDouble))));
-		assertContains(toSet(item.TYPE.search(Search.notEqual(item.someDouble, null))));
-		assertContains(toSet(item.TYPE.search(Search.isNotNull(item.someDouble))));
+		assertContains(item, item2, item.TYPE.search(Search.equal(item.someDouble, null)));
+		assertContains(item, item2, item.TYPE.search(Search.isNull(item.someDouble)));
+		assertContains(item.TYPE.search(Search.notEqual(item.someDouble, null)));
+		assertContains(item.TYPE.search(Search.isNotNull(item.someDouble)));
 
 		item.setSomeDouble(new Double(22.22));
 		assertEquals(new Double(22.22), item.getSomeDouble());
@@ -49,29 +49,27 @@ public class AttributeDoubleTest extends AttributeTest
 		assertEquals(0.0, item.getSomeNotNullDouble(), 0.0);
 		assertContains(
 			item,
-			toSet(
+			
 				item.TYPE.search(
-					Search.equal(item.someNotNullDouble, 0.0))));
+					Search.equal(item.someNotNullDouble, 0.0)));
 
 		// TODO: test with extreme values
 		/*item.setSomeNotNullDouble(Double.MIN_VALUE);
 		// TODO: passivate
 		assertEquals(Double.MIN_VALUE, item.getSomeNotNullDouble(), 0.0);
-		assertEquals(
-			set(item),
-			toSet(
-				Search.search(
-					item.TYPE,
-					Search.equal(item.someNotNullDouble, Double.MIN_VALUE))));
+		assertContains(
+			item,
+			Search.search(
+				item.TYPE,
+				Search.equal(item.someNotNullDouble, Double.MIN_VALUE))));
 
 		item.setSomeNotNullDouble(Double.MAX_VALUE);
 		// TODO: passivate
 		assertEquals(Double.MAX_VALUE, item.getSomeNotNullDouble(), 0.0);
 		assertEquals(
-			set(item),
-			toSet(
-				Search.search(
-					item.TYPE,
-					Search.equal(item.someNotNullDouble, Double.MAX_VALUE))));*/
+			item,
+			Search.search(
+				item.TYPE,
+				Search.equal(item.someNotNullDouble, Double.MAX_VALUE))));*/
 	}
 }

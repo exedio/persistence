@@ -7,10 +7,10 @@ public class AttributeLongTest extends AttributeTest
 	{
 		assertEquals(item.TYPE, item.someLong.getType());
 		assertEquals(null, item.getSomeLong());
-		assertContains(item, item2, toSet(item.TYPE.search(Search.equal(item.someLong, null))));
-		assertContains(item, item2, toSet(item.TYPE.search(Search.isNull(item.someLong))));
-		assertContains(toSet(item.TYPE.search(Search.notEqual(item.someLong, null))));
-		assertContains(toSet(item.TYPE.search(Search.isNotNull(item.someLong))));
+		assertContains(item, item2, item.TYPE.search(Search.equal(item.someLong, null)));
+		assertContains(item, item2, item.TYPE.search(Search.isNull(item.someLong)));
+		assertContains(item.TYPE.search(Search.notEqual(item.someLong, null)));
+		assertContains(item.TYPE.search(Search.isNotNull(item.someLong)));
 
 		item.setSomeLong(new Long(11));
 		assertEquals(new Long(11), item.getSomeLong());
@@ -50,9 +50,9 @@ public class AttributeLongTest extends AttributeTest
 		assertEquals(0l, item.getSomeNotNullLong());
 		assertContains(
 			item,
-			toSet(
+			
 				item.TYPE.search(
-					Search.equal(item.someNotNullLong, 0l))));
+					Search.equal(item.someNotNullLong, 0l)));
 
 		item.setSomeNotNullLong(Long.MIN_VALUE);
 		assertEquals(Long.MIN_VALUE, item.getSomeNotNullLong());
@@ -61,9 +61,9 @@ public class AttributeLongTest extends AttributeTest
 		assertEquals(Long.MIN_VALUE, item.getSomeNotNullLong());
 		assertContains(
 			item,
-			toSet(
+			
 				item.TYPE.search(
-					Search.equal(item.someNotNullLong, Long.MIN_VALUE))));
+					Search.equal(item.someNotNullLong, Long.MIN_VALUE)));
 
 		item.setSomeNotNullLong(Long.MAX_VALUE);
 		assertEquals(Long.MAX_VALUE, item.getSomeNotNullLong());
@@ -72,8 +72,8 @@ public class AttributeLongTest extends AttributeTest
 		assertEquals(Long.MAX_VALUE, item.getSomeNotNullLong());
 		assertContains(
 			item,
-			toSet(
+			
 				item.TYPE.search(
-					Search.equal(item.someNotNullLong, Long.MAX_VALUE))));
+					Search.equal(item.someNotNullLong, Long.MAX_VALUE)));
 	}
 }
