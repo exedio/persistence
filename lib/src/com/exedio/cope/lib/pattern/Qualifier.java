@@ -89,6 +89,11 @@ public final class Qualifier
 		return attributes;
 	}
 
+	public final Item getQualifier(final Object[] values)
+	{
+		return qualifyUnique.searchUnique(values);
+	}
+	
 	public final Object getQualified(final Object[] values, final ObjectAttribute attribute)
 	{
 		final Item item = qualifyUnique.searchUnique(values);

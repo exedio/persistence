@@ -905,7 +905,7 @@ public class AttributeItem extends Item
 	 *
  */public final AttributeEmptyItem getEmptyItem(final EmptyItem key)
 	{
-		return (AttributeEmptyItem)AttributeEmptyItem.parentKey.searchUnique(new Object[]{this,key});
+		return (AttributeEmptyItem)emptyItem.getQualifier(new Object[]{this,key});
 	}/**
 
 	 **

@@ -5,7 +5,7 @@ import java.util.List;
 final class CopeQualifier
 {
 	final String name;
-	final String uniqueConstraintString;
+	private final String uniqueConstraintString;
 	final String qualifierClassString;
 
 	final CopeClass qualifierClass;

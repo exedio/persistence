@@ -92,7 +92,7 @@ public class QualifiedItem extends Item
 	 *
  */public final QualifiedEmptyQualifier getQualifier(final EmptyItem key)
 	{
-		return (QualifiedEmptyQualifier)QualifiedEmptyQualifier.qualifyUnique.searchUnique(new Object[]{this,key});
+		return (QualifiedEmptyQualifier)qualifier.getQualifier(new Object[]{this,key});
 	}/**
 
 	 **
@@ -147,7 +147,7 @@ public class QualifiedItem extends Item
 	 *
  */public final QualifiedStringQualifier getStringQualifier(final java.lang.String key)
 	{
-		return (QualifiedStringQualifier)QualifiedStringQualifier.qualifyUnique.searchUnique(new Object[]{this,key});
+		return (QualifiedStringQualifier)stringQualifier.getQualifier(new Object[]{this,key});
 	}/**
 
 	 **
@@ -202,7 +202,7 @@ public class QualifiedItem extends Item
 	 *
  */public final QualifiedIntegerEnumQualifier getIntEnumQualifier(final java.lang.Integer keyX,final KeyEnum keyY)
 	{
-		return (QualifiedIntegerEnumQualifier)QualifiedIntegerEnumQualifier.qualifyUnique.searchUnique(new Object[]{this,keyX,keyY});
+		return (QualifiedIntegerEnumQualifier)intEnumQualifier.getQualifier(new Object[]{this,keyX,keyY});
 	}/**
 
 	 **

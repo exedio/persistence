@@ -630,8 +630,8 @@ final class Generator
 		o.write("\t\treturn (");
 		o.write(qualifier.qualifierClassString);
 		o.write(")");
-		o.write(qualifier.uniqueConstraintString);
-		o.write(".searchUnique(new Object[]{this");
+		o.write(qualifier.name);
+		o.write(".getQualifier(new Object[]{this");
 		writeQualifierCall(qualifier);
 		o.write("});");
 		o.write(lineSeparator);
