@@ -418,6 +418,8 @@ public class LibTest extends TestCase
 			assertEquals(null, item.getSomeQualifiedString(someItem));
 			assertEquals(null, item.getSomeQualifiedString(someItem2));
 		}
+		
+		// test continuous pk generation
 		{
 			final ItemWithoutAttributes item1 = new ItemWithoutAttributes();
 			item1.TYPE.flushPK();
