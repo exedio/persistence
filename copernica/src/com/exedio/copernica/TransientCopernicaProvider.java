@@ -208,7 +208,7 @@ public abstract class TransientCopernicaProvider implements CopernicaProvider
 		return null;
 	}
 	
-	public Section findSectionByID(final String copernicaID)
+	public CopernicaSection findSectionByID(final String copernicaID)
 	{
 		return null;
 	}

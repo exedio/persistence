@@ -30,7 +30,7 @@ public interface CopernicaProvider
 	public Collection getMainAttributes(Type type);
 
 	/**
-	 * @return a collection of {@link Section sections}.
+	 * @return a collection of {@link CopernicaSection sections}.
 	 */
 	public Collection getSections(Type type);
 	
@@ -56,7 +56,7 @@ public interface CopernicaProvider
 
 	public CopernicaCategory findCategoryByID(String copernicaID);
 	
-	public Section findSectionByID(String copernicaID);
+	public CopernicaSection findSectionByID(String copernicaID);
 
 	public void initializeExampleSystem();
 }
