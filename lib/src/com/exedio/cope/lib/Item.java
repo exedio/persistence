@@ -119,7 +119,7 @@ public class Item extends Search
 		this.type = type;
 		this.pk = pk;
 		itemCache = null; // make passive
-		System.out.println("reactivate item:"+type+" "+pk);
+		//System.out.println("reactivate item:"+type+" "+pk);
 	}
 	
 	/**

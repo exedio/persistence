@@ -85,7 +85,7 @@ public class Search
 		for(Iterator i = pks.iterator(); i.hasNext(); )
 		{
 			final int pk = ((Integer)i.next()).intValue();
-			System.out.println("pk:"+pk);
+			//System.out.println("pk:"+pk);
 			result.add(type.getItem(pk));
 		}
 		return Collections.unmodifiableList(result);

@@ -155,7 +155,7 @@ public abstract class Database
 			append(" where ");
 		condition.appendStatement(bf);
 		
-		System.out.println("searching "+bf.toString());
+		//System.out.println("searching "+bf.toString());
 		return executeSQLQuery(bf.getText());
 	}
 
@@ -185,7 +185,7 @@ public abstract class Database
 			append('=').
 			append(pk);
 
-		System.out.println("loading "+bf.toString());
+		//System.out.println("loading "+bf.toString());
 
 		final ArrayList row = executeSQLLoad(bf.toString(), columns.size());
 		final Iterator ir = row.iterator();
@@ -257,7 +257,7 @@ public abstract class Database
 			bf.append(')');
 		}
 
-		System.out.println("storing "+bf.toString());
+		//System.out.println("storing "+bf.toString());
 
 		executeSQL(bf.toString());
 	}
