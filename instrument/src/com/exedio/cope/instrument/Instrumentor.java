@@ -845,7 +845,7 @@ public final class Instrumentor implements InjectionConsumer
 				{
 					output.write(',');
 					output.write(persistentAttribute.getBoxedType());
-					output.write(".TYPE");
+					output.write(".class");
 				}
 				//private List qualifiers = null;
 				output.write("),");

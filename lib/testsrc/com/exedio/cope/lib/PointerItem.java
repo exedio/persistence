@@ -16,6 +16,11 @@ public class PointerItem extends Item
 	 */
 	static final ItemAttribute pointer = new ItemAttribute();
 
+	/**
+	 * @persistent PointerItem
+	 */
+	static final ItemAttribute self = new ItemAttribute();
+
 /**
 
 	 **
@@ -111,6 +116,39 @@ public class PointerItem extends Item
 	}/**
 
 	 **
+	 * Returns the value of the persistent attribute {@link #self}.
+	 * @generated
+	 *
+ */final PointerItem getSelf()
+	{
+		return (PointerItem)getAttribute(this.self);
+	}/**
+
+	 **
+	 * Sets a new value for the persistent attribute {@link #self}.
+	 * @generated
+	 *
+ */final void setSelf(final PointerItem self)
+	{
+		try
+		{
+			setAttribute(this.self,self);
+		}
+		catch(com.exedio.cope.lib.NotNullViolationException e)
+		{
+			throw new com.exedio.cope.lib.SystemException(e);
+		}
+		catch(com.exedio.cope.lib.ReadOnlyViolationException e)
+		{
+			throw new com.exedio.cope.lib.SystemException(e);
+		}
+		catch(com.exedio.cope.lib.UniqueViolationException e)
+		{
+			throw new com.exedio.cope.lib.SystemException(e);
+		}
+	}/**
+
+	 **
 	 * The persistent type information for pointerItem.
 	 * @generated
 	 *
@@ -119,7 +157,8 @@ public class PointerItem extends Item
 			PointerItem.class,
 			new com.exedio.cope.lib.Attribute[]{
 				code.initialize("code",false,true),
-				pointer.initialize("pointer",false,true,PointerItem2.TYPE),
+				pointer.initialize("pointer",false,true,PointerItem2.class),
+				self.initialize("self",false,false,PointerItem.class),
 			},
 			null
 		)

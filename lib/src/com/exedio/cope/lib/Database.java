@@ -632,7 +632,7 @@ public abstract class Database
 			if(column instanceof IntegerColumn)
 			{
 				final IntegerColumn integerColumn = (IntegerColumn)column;
-				if(integerColumn.foreignTable!=null)
+				if(integerColumn.getForeignTableNameProtected()!=null)
 				{
 					final Statement bf = createStatement();
 					bf.append("alter table ").
@@ -642,7 +642,7 @@ public abstract class Database
 						append(" foreign key (").
 						append(column.protectedName).
 						append(") references ").
-						append(Database.theInstance.protectName(integerColumn.foreignTable));
+						append(integerColumn.getForeignTableNameProtected());
 
 					//System.out.println("createForeignKeyConstraints:"+bf);
 					try
@@ -703,7 +703,7 @@ public abstract class Database
 			if(column instanceof IntegerColumn)
 			{
 				final IntegerColumn integerColumn = (IntegerColumn)column;
-				if(integerColumn.foreignTable!=null)
+				if(integerColumn.getForeignTableNameProtected()!=null)
 				{
 					final Statement bf = createStatement();
 					boolean hasOne = false;

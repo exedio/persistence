@@ -14,14 +14,16 @@ public final class ItemAttribute extends Attribute
 		return (ItemAttribute)itemAttributesByIntegrityConstraintName.get(integrityConstraintName);
 	}
 	
-	private Type targetType;
+	private Class targetTypeClass;
 
-	public ItemAttribute initialize(final String name, final boolean readOnly, final boolean notNull, final Type targetType)
+	public ItemAttribute initialize(final String name, final boolean readOnly, final boolean notNull, final Class targetTypeClass)
 	{
 		super.initialize(name, readOnly, notNull);
-		if(targetType==null)
-			throw new NullPointerException("target type for attribute "+this+" must not be null");
-		this.targetType = targetType;
+		if(targetTypeClass==null)
+			throw new NullPointerException("target type class for attribute "+this+" must not be null");
+		if(!Item.class.isAssignableFrom(targetTypeClass))
+			throw new NullPointerException("target type class "+targetTypeClass+" for attribute "+this+" must be a sub class of item");
+		this.targetTypeClass = targetTypeClass;
 		return this;
 	}
 	
@@ -30,7 +32,10 @@ public final class ItemAttribute extends Attribute
 	 */
 	public Type getTargetType()
 	{
-		return this.targetType;
+		final Type result = Type.getType(targetTypeClass.getName());
+		if(result==null)
+			throw new NullPointerException("there is no type for class "+targetTypeClass);
+		return result;
 	}
 	
 	static final int SYNTETIC_PRIMARY_KEY_PRECISION = 10;
@@ -40,7 +45,7 @@ public final class ItemAttribute extends Attribute
 		final String integrityConstraintName = name+"FK";
 		if(itemAttributesByIntegrityConstraintName.put(integrityConstraintName, this)!=null)
 			throw new RuntimeException("there is more than one integrity constraint with name "+integrityConstraintName);
-		return Collections.singletonList(new IntegerColumn(getType(), name, notNull, SYNTETIC_PRIMARY_KEY_PRECISION, targetType.trimmedName, integrityConstraintName));
+		return Collections.singletonList(new IntegerColumn(getType(), name, notNull, SYNTETIC_PRIMARY_KEY_PRECISION, targetTypeClass, integrityConstraintName));
 	}
 	
 	Object cacheToSurface(final Object cache)
@@ -48,7 +53,7 @@ public final class ItemAttribute extends Attribute
 		return 
 			cache==null ? 
 				null : 
-				targetType.getItem(((Integer)cache).intValue());
+				getTargetType().getItem(((Integer)cache).intValue());
 	}
 		
 	Object surfaceToCache(final Object surface)

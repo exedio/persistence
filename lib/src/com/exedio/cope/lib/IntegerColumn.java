@@ -8,19 +8,28 @@ import java.sql.Types;
 public final class IntegerColumn extends Column
 {
 	static final Integer JDBC_TYPE = new Integer(Types.INTEGER);
-	 
-	final String foreignTable;
+
+	// TODO: make a sub class for foreign key columns	 
+	final Class targetTypeClass;
 	final String integrityConstraintName;
 
 	IntegerColumn(final Type type, final String trimmedName,
 					  final boolean notNull, final int precision,
-					  final String foreignTable, final String integrityConstraintName)
+					  final Class targetTypeClass, final String integrityConstraintName)
 	{
 		super(type, trimmedName, notNull, "number(" + precision + ",0)"/* TODO: this is database specific */, JDBC_TYPE);
-		if((foreignTable==null)!=(integrityConstraintName==null))
+		if((targetTypeClass==null)!=(integrityConstraintName==null))
 			throw new RuntimeException();
-		this.foreignTable = foreignTable;
+		this.targetTypeClass = targetTypeClass;
 		this.integrityConstraintName = integrityConstraintName;
+	}
+	
+	String getForeignTableNameProtected()
+	{
+		if(targetTypeClass!=null)
+			return Type.getType(targetTypeClass.getName()).protectedName;
+		else
+			return null; 
 	}
 	
 	void load(final ResultSet resultSet, final int columnIndex, final Row row)
