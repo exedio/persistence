@@ -651,11 +651,52 @@ public abstract class Database
 		return null;
 	}
 	
+	protected static final String trimString(final String longString, final int maxLength)
+	{
+		if(longString.length()<=maxLength)
+			return longString;
+
+		final ArrayList words = new ArrayList();
+		{
+			final StringBuffer buf = new StringBuffer();
+			for(int i=0; i<longString.length(); i++)
+			{
+				final char c = longString.charAt(i);
+				if((c=='_' || Character.isUpperCase(c) || Character.isDigit(c)) && buf.length()>0)
+				{
+					words.add(buf.toString());
+					buf.setLength(0);
+				}
+				buf.append(c);
+			}
+			if(buf.length()>0)
+			{
+				words.add(buf.toString());
+				buf.setLength(0);
+			}
+		}
+		
+		// TODO: trim a bit more intelligently
+		final int wordLength = maxLength/words.size();
+		final StringBuffer result = new StringBuffer(longString.length());
+		
+		for(Iterator i = words.iterator(); i.hasNext(); )
+		{
+			final String word = (String)i.next();
+			if(word.length()>wordLength)
+				result.append(word.substring(0, wordLength));
+			else
+				result.append(word);
+		}
+		//System.out.println("---- trimName("+longString+","+maxLength+") == "+result+"     --- "+words);
+		return result.toString();
+	}
+	
 	String trimName(final Type type)
 	{
 		final String className = type.getJavaClass().getName();
 		final int pos = className.lastIndexOf('.');
-		return className.substring(pos+1);
+		return trimString(className.substring(pos+1), 25);
 	}
 	
 	/**
@@ -664,7 +705,7 @@ public abstract class Database
 	 */
 	String trimName(final String longName)
 	{
-		return longName; // TODO: we should actually do some shortening
+		return trimString(longName, 25);
 	}
 
 	/**
@@ -829,13 +870,14 @@ public abstract class Database
 			//System.out.println("dropForeignKeyConstraints("+column+")");
 			if(column instanceof ItemColumn)
 			{
+				final ItemColumn itemColumn = (ItemColumn)column;
 				final Statement bf = createStatement();
 				boolean hasOne = false;
 
 				bf.append("alter table ").
 					append(type.protectedName).
 					append(" drop constraint ").
-					append(Database.theInstance.protectName(column.trimmedName+"FK"));
+					append(Database.theInstance.protectName(itemColumn.integrityConstraintName));
 
 				//System.out.println("dropForeignKeyConstraints:"+bf);
 				try

@@ -54,6 +54,11 @@ public final class Type
 	{
 		this.javaClass = javaClass;
 
+		typesModifyable.add(this);
+		typesByName.put(javaClass.getName(), this);
+		this.trimmedName = Database.theInstance.trimName(this);
+		this.protectedName = Database.theInstance.protectName(this.trimmedName);
+
 		// supertype
 		final Class superClass = javaClass.getSuperclass();
 		if(superClass.equals(Item.class))
@@ -125,11 +130,6 @@ public final class Type
 		}
 		this.uniqueConstraints = (UniqueConstraint[])uniqueConstraintsTemp.toArray(new UniqueConstraint[uniqueConstraintsTemp.size()]);
 		this.uniqueConstraintList = Collections.unmodifiableList(Arrays.asList(this.uniqueConstraints));
-		
-		typesModifyable.add(this);
-		typesByName.put(javaClass.getName(), this);
-		this.trimmedName = Database.theInstance.trimName(this);
-		this.protectedName = Database.theInstance.protectName(this.trimmedName);
 
 		final ArrayList columns = new ArrayList();
 		for(int i = 0; i<this.declaredAttributes.length; i++)

@@ -88,6 +88,8 @@
 			<arg value="${basedir}/lib/testsrc/com/exedio/cope/lib/PointerItem2.java" />
 			<arg value="${basedir}/lib/testsrc/com/exedio/cope/lib/hierarchy/Super.java" />
 			<arg value="${basedir}/lib/testsrc/com/exedio/cope/lib/hierarchy/FirstSub.java" />
+			<arg value="${basedir}/lib/testsrc/com/exedio/cope/lib/collision/CollisionItem1.java" />
+			<arg value="${basedir}/lib/testsrc/com/exedio/cope/lib/collision/CollisionItem2.java" />
 		</java>
 	</target>
 	
