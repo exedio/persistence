@@ -18,7 +18,14 @@ page import="java.util.Random"
 			final Throwable rootCause =
 				((ServletException)exception).getRootCause();
 			if(rootCause!=null)
+			{
+				outPrinter.println("root cause for ServletException:");
 				rootCause.printStackTrace(outPrinter);
+			}
+			else
+			{
+				outPrinter.println("no root cause for ServletException");
+			}
 		}
 		outPrinter.flush();
 	}
