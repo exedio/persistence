@@ -64,28 +64,20 @@
 					<th class="orderby"><%
 					if(feature instanceof Function)
 					{
-					%>
-						<%
 						final Function function = (Function)feature;
-						if(feature == typeCop.orderBy)
-						{
-							if(typeCop.orderAscending)
-							{
-								%><b>a</b>
-								<a href="<%=typeCop.orderBy(function, false)%>">d</a><%
-							}
-							else
-							{
-								%><a href="<%=typeCop.orderBy(function, true)%>">a</a>
-								<b>d</b><%
-							}
-						}
-						else
-						{
-							%><a href="<%=typeCop.orderBy(function, true)%>">a</a>
-							<a href="<%=typeCop.orderBy(function, false)%>">d</a><%
-						}
 						%>
+						<a href="<%=typeCop.orderBy(function, true)%>"<%
+						if(feature == typeCop.orderBy && typeCop.orderAscending)
+						{
+							%> class="disabled"<%
+						}
+						%>>a</a>
+						<a href="<%=typeCop.orderBy(function, false)%>"<%
+						if(feature == typeCop.orderBy && !typeCop.orderAscending)
+						{
+							%> class="disabled"<%
+						}
+						%>>d</a>
 					<%
 					}
 					%></th><%

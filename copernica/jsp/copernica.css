@@ -187,28 +187,42 @@ div#pager a#disabled
 
 table#item
 {
-	font-size: 0.7em;
-	border-style: solid;
-	border-width: 1px 0px 0px 0px;
-	border-color: silver;
+	font-size: 8pt;
+	border-width: 0px;
 	border-spacing: 0px 0px;
 	empty-cells: show;
 }
 table#item th
 {
-	color: #ffffff;
-	background: #4a75d5;
+	color: #000000;
+	background: #ffffff;
 	border-style: solid;
-	border-width: 1px 0px 0px 0px;
+	border-width: 1px 0px 0px 1px;
 	border-color: #4a75d5;
 	vertical-align: top;
-	font-size: 10pt;
+}
+table#item th.orderby
+{
+	font-size: 4pt;
+	background: #4a75d5;
+	border-width: 0px;
+	vertical-align: top;
+	padding: 0px;
+}
+table#item th.orderby a
+{
+	color: #ffffff;
+	text-decoration: none;
+}
+table#item th.orderby a.disabled
+{
+	color: #4a75d5;
 }
 table#item td
 {
-	border-style: solid;
-	border-width: 1px 0px 0px 0px;
-	border-color: silver;
+	border-style: dotted;
+	border-width: 1px 0px 0px 1px;
+	border-color: #4a75d5;
 	vertical-align: top;
 	font-size: 10pt;
 }
