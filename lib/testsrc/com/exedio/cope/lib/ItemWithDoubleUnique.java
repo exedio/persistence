@@ -12,7 +12,7 @@ public class ItemWithDoubleUnique extends Item
 	
 	public static final IntegerAttribute integer = new IntegerAttribute(NOT_NULL);
 	
-	public static final UniqueConstraint doubleUnique = new UniqueConstraint(string, integer);
+	static final UniqueConstraint doubleUnique = new UniqueConstraint(string, integer);
 
 /**
 
@@ -114,7 +114,7 @@ public class ItemWithDoubleUnique extends Item
 	 * @param searchedString shall be equal to attribute {@link #string}.
 	 * @param searchedInteger shall be equal to attribute {@link #integer}.
 	 *
- */public static final ItemWithDoubleUnique findByDoubleUnique(final String searchedString,final int searchedInteger)
+ */static final ItemWithDoubleUnique findByDoubleUnique(final String searchedString,final int searchedInteger)
 	{
 		return (ItemWithDoubleUnique)searchUnique(TYPE,and(equal(string,searchedString),equal(integer,searchedInteger)));
 	}/**
