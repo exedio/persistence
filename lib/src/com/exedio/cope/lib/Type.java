@@ -548,15 +548,15 @@ public final class Type
 		}
 		catch(InstantiationException e)
 		{
-			throw new NestingRuntimeException(e);
+			throw new NestingRuntimeException(e, id);
 		}
 		catch(IllegalAccessException e)
 		{
-			throw new NestingRuntimeException(e);
+			throw new NestingRuntimeException(e, id);
 		}
 		catch(InvocationTargetException e)
 		{
-			throw new NestingRuntimeException(e);
+			throw new NestingRuntimeException(e, id);
 		}
 	}
 
