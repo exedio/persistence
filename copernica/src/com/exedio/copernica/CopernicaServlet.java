@@ -7,12 +7,12 @@ import java.util.Random;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.exedio.cope.lib.NestingRuntimeException;
 import com.exedio.cops.Cop;
+import com.exedio.cops.CopsServlet;
 
 /**
  * The servlet providing Copernica, the Generic Backoffice for COPE.
@@ -36,7 +36,7 @@ import com.exedio.cops.Cop;
  * &lt;/servlet-mapping&gt;
  * </pre>
  */
-public final class CopernicaServlet extends HttpServlet
+public final class CopernicaServlet extends CopsServlet
 {
 	CopernicaProvider provider = null;
 	boolean checked;
@@ -93,7 +93,7 @@ public final class CopernicaServlet extends HttpServlet
 		this.checked = false;
 	}
 
-	private void doRequest(
+	protected void doRequest(
 			final HttpServletRequest request,
 			final HttpServletResponse response)
 		throws ServletException, IOException
@@ -128,22 +128,6 @@ public final class CopernicaServlet extends HttpServlet
 			final boolean onPage = "jo-man".equals(request.getParameter("display_error"));
 			Copernica_Jspm.writeException(out, this, e, onPage);
 		}
-	}
-
-	protected final void doGet(
-			final HttpServletRequest request,
-			final HttpServletResponse response)
-		throws ServletException, IOException
-	{
-		doRequest(request, response);
-	}
-
-	protected final void doPost(
-			final HttpServletRequest request,
-			final HttpServletResponse response)
-		throws ServletException, IOException
-	{
-		doRequest(request, response);
 	}
 
 	private final CopernicaProvider createProvider()

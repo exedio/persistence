@@ -7,13 +7,13 @@ import java.lang.reflect.Field;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.exedio.cope.lib.Model;
 import com.exedio.cope.lib.NestingRuntimeException;
 import com.exedio.copernica.TransientCopernicaProvider;
+import com.exedio.cops.CopsServlet;
 
 /**
  * The servlet providing the COPE Database Administration application.
@@ -37,7 +37,7 @@ import com.exedio.copernica.TransientCopernicaProvider;
  * &lt;/servlet-mapping&gt;
  * </pre>
  */
-public final class AdminServlet extends HttpServlet
+public final class AdminServlet extends CopsServlet
 {
 
 	Model model = null;
@@ -61,7 +61,7 @@ public final class AdminServlet extends HttpServlet
 		}
 	}
 
-	private void doRequest(
+	protected void doRequest(
 			final HttpServletRequest request,
 			final HttpServletResponse response)
 		throws ServletException, IOException
@@ -72,22 +72,6 @@ public final class AdminServlet extends HttpServlet
 		out.close();
 	}
 
-
-	protected final void doGet(
-			final HttpServletRequest request,
-			final HttpServletResponse response)
-		throws ServletException, IOException
-	{
-		doRequest(request, response);
-	}
-
-	protected final void doPost(
-			final HttpServletRequest request,
-			final HttpServletResponse response)
-		throws ServletException, IOException
-	{
-		doRequest(request, response);
-	}
 
 	private final Model getModel()
 	{
