@@ -84,6 +84,21 @@ public class ExampleTest extends InjectorTest
 		assertText("char     uglyAttribute2=';';");
 		assertAttribute("uglyAttribute2", null);
 		assertText("\n  ");
+
+		assertAttributeHeader("uglyAttribute3", "char", 0);
+		assertText("char     uglyAttribute3='{';");
+		assertAttribute("uglyAttribute3", null);
+		assertText("\n  ");
+
+		assertAttributeHeader("uglyAttribute4", "char", 0);
+		assertText("char     uglyAttribute4='\"';");
+		assertAttribute("uglyAttribute4", null);
+		assertText("\n  ");
+
+		assertAttributeHeader("uglyAttribute5", "char", 0);
+		assertText("char     uglyAttribute5='\\\'';");
+		assertAttribute("uglyAttribute5", null);
+		assertText("\n  ");
 	}
 
 }
