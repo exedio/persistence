@@ -72,12 +72,8 @@ include file="provider.inc"
 			</ul>
 		</div>
 
-		<table border="0">
-			<tr>
-				<td valign="top">
-					<%@ include file="copernica-typelist.inc" %>
-				</td>
-				<td valign="top">
+				<%@ include file="copernica-typelist.inc" %>
+			<div id="main">
 				<%
 					if(cop instanceof TypeCop)
 					{
@@ -99,9 +95,8 @@ include file="provider.inc"
 					else
 						throw new RuntimeException();
 					%>
-				</td>
-			</tr>
-		</table><%
+			</div>
+		<%
 		}
 	%>
 	</body>

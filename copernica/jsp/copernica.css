@@ -1,3 +1,34 @@
+body
+{
+  margin : 0px 0px 0px 0px;
+}
+
+div#langcontainer
+{
+  position: absolute;
+  height: 100px;
+  width: 100%;
+  top:0px;
+  border:0px none;
+}
+ul#typelist
+{
+  position: absolute;
+  height:100%;
+  width:200px;
+  top:115px;
+}
+div#main
+{
+  position: absolute;
+  top: 115px;
+  left: 215px;
+}
+
+
+
+
+
 #langlist
 {
 	border-bottom: 1px solid #4a75d5;
