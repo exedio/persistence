@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public final class Statement
 {
 	final StringBuffer text = new StringBuffer();
-	final ArrayList columnTypes;
+	final ArrayList columnTypes; // TODO: use list of integer
 		
 	Statement(final boolean useDefineColumnTypes)
 	{
