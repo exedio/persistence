@@ -288,7 +288,8 @@ public final class Instrumentor implements InjectionConsumer
 			else
 				output.write(',');
 			final JavaAttribute initialAttribute = (JavaAttribute)i.next();
-			output.write("final ");
+			output.write(lineSeparator);
+			output.write("\t\t\t\tfinal ");
 			output.write(initialAttribute.getBoxedType());
 			output.write(" initial");
 			output.write(initialAttribute.getCamelCaseName());
