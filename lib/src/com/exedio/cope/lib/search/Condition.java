@@ -20,7 +20,7 @@ public abstract class Condition
 					+ attribute
 					+ " belongs to type "
 					+ attribute.getType()
-					+ ", which is a from-type of the query: "
+					+ ", which is not a from-type of the query: "
 					+ fromTypes);
 	}
 }
