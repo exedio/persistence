@@ -666,7 +666,7 @@ public class ItemWithManyAttributes extends Item
 	 *
  */public final String getSomeQualifiedString(final ItemWithoutAttributes itemWithoutAttributes)
 	{
-		return (String)getAttribute(this.someQualifiedString,new Object[]{itemWithoutAttributes});
+		return (String)getAttribute(this.someQualifiedString);
 	}/**
 
 	 **
@@ -677,9 +677,17 @@ public class ItemWithManyAttributes extends Item
 	{
 		try
 		{
-			setAttribute(this.someQualifiedString,new Object[]{itemWithoutAttributes},someQualifiedString);
+			setAttribute(this.someQualifiedString,someQualifiedString);
 		}
 		catch(com.exedio.cope.lib.LengthViolationException e)
+		{
+			throw new com.exedio.cope.lib.SystemException(e);
+		}
+		catch(com.exedio.cope.lib.NotNullViolationException e)
+		{
+			throw new com.exedio.cope.lib.SystemException(e);
+		}
+		catch(com.exedio.cope.lib.ReadOnlyViolationException e)
 		{
 			throw new com.exedio.cope.lib.SystemException(e);
 		}

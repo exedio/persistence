@@ -204,7 +204,6 @@ public abstract class PersistentAttribute
 	/**
 	 * Compute exceptions to be caught in the setter.
 	 * These are just those thrown by {@link com.exedio.cope.lib.Item#setAttribute(Attribute,Object)}
-	 * (or {@link com.exedio.cope.lib.Item#setAttribute(Attribute,Object[],Object)} for qualified attributes)
 	 * which are not in the setters throws clause.
 	 * (see {@link #getSetterExceptions()})
 	 */
@@ -215,12 +214,8 @@ public abstract class PersistentAttribute
 
 		final TreeSet result = new TreeSet(ClassComparator.newInstance());
 		result.add(UniqueViolationException.class);
-		if(qualifiers==null)
-		{
-			// qualified setAttribute does not throw not-null/read-only
-			result.add(NotNullViolationException.class);
-			result.add(ReadOnlyViolationException.class);
-		}
+		result.add(NotNullViolationException.class);
+		result.add(ReadOnlyViolationException.class);
 		result.add(LengthViolationException.class);
 		result.removeAll(getSetterExceptions());
 		

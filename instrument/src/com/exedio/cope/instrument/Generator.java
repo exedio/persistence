@@ -84,24 +84,6 @@ final class Generator
 		}
 	}
 
-	private void writeParameterCallList(final Collection parameters)
-	throws IOException
-	{
-		if(parameters!=null)
-		{
-			boolean first = true;
-			for(Iterator i = parameters.iterator(); i.hasNext(); )
-			{
-				if(first)
-					first = false;
-				else
-					o.write(',');
-				final String parameter = (String)i.next();
-				o.write(lowerCamelCase(parameter));
-			}
-		}
-	}
-
 	private void writeThrowsClause(final Collection exceptions)
 	throws IOException
 	{
@@ -427,12 +409,6 @@ final class Generator
 				else
 					o.write(",null");
 			}
-			if(qualifiers!=null)
-			{
-				o.write(",new Object[]{");
-				writeParameterCallList(qualifiers);
-				o.write('}');
-			}
 			o.write(");");
 		}
 		o.write(lineSeparator);
@@ -512,12 +488,6 @@ final class Generator
 			}
 			o.write("\t\tsetMediaData(this.");
 			o.write(mediaAttribute.getName());
-			if(qualifiers!=null)
-			{
-				o.write(",new Object[]{");
-				writeParameterCallList(qualifiers);
-				o.write('}');
-			}
 			o.write(",data");
 			o.write(mimeMajor==null ? ",mimeMajor" : ",null");
 			o.write(mimeMinor==null ? ",mimeMinor" : ",null");
@@ -690,13 +660,6 @@ final class Generator
 		o.write(attribute.getPersistentType());
 		o.write(")getAttribute(this.");
 		o.write(attribute.getName());
-		final List qualifiers = attribute.qualifiers;
-		if(qualifiers!=null)
-		{
-			o.write(",new Object[]{");
-			writeParameterCallList(qualifiers);
-			o.write('}');
-		}
 		o.write(')');
 		if(attribute.isBoxed())
 			o.write(attribute.getUnBoxingPostfix());
@@ -725,13 +688,6 @@ final class Generator
 		}
 		o.write("\t\tsetAttribute(this.");
 		o.write(attribute.getName());
-		final List qualifiers = attribute.qualifiers;
-		if(qualifiers!=null)
-		{
-			o.write(",new Object[]{");
-			writeParameterCallList(qualifiers);
-			o.write('}');
-		}
 		o.write(',');
 		if(attribute.isBoxed())
 			o.write(attribute.getBoxingPrefix());

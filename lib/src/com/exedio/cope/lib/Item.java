@@ -277,43 +277,6 @@ public abstract class Item extends Search
 		}
 	}
 
-	/**
-	 * @throws ClassCastException
-	 *         if <code>value</code> is not compatible to <code>attribute</code>.
-	 */
-	public final void setAttribute(final Attribute attribute, final Object[] qualifiers, final Object value)
-		throws
-			LengthViolationException,
-			UniqueViolationException,
-			ClassCastException
-	{
-		try
-		{
-			attribute.checkValue(false, value, this);
-		}
-		catch(NotNullViolationException e)
-		{
-			throw new SystemException(e);
-		}
-		catch(ReadOnlyViolationException e)
-		{
-			throw new SystemException(e);
-		}
-
-		final Row row = getRow();
-		final Object previousValue = row.get(attribute);
-		row.put(attribute, value);
-		try
-		{
-			row.write();
-		}
-		catch(UniqueViolationException e)
-		{
-			row.put(attribute, previousValue);
-			throw e;
-		}
-	}
-	
 	private final void appendMediaPath(
 									final MediaAttribute attribute, final String variant,
 									final StringBuffer bf,
