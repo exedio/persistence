@@ -524,7 +524,7 @@ public abstract class Database
 	
 	private void dropTable(final Type type)
 	{
-		type.flushPK();
+		type.onDropTable();
 
 		final Statement bf = new Statement();
 		bf.append("drop table ").

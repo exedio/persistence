@@ -134,6 +134,12 @@ public final class Type
 		return toStringCache;
 	}
 	
+	void onDropTable()
+	{
+		rows.clear();
+		flushPK();
+	}
+
 	// active items of this type ---------------------------------------------
 	
 	/**

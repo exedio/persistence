@@ -16,6 +16,7 @@ public class PackageTest extends TestCase
 	public static Test suite()
 	{
 		TestSuite suite = new TestSuite();
+		suite.addTest(new TestSuite(ItemTest.class));
 		suite.addTest(new TestSuite(LibTest.class));
 		return suite;
 	}
