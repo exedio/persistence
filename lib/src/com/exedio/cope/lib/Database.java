@@ -1,7 +1,6 @@
 
 package com.exedio.cope.lib;
 
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,8 +15,16 @@ public abstract class Database
 {
 	public static final Database theInstance = new OracleDatabase();
 	
-	protected Database()
+	private final boolean useDefineColumnTypes;
+	
+	protected Database(final boolean useDefineColumnTypes)
 	{
+		this.useDefineColumnTypes = useDefineColumnTypes;
+	}
+	
+	private final Statement createStatement()
+	{
+		return new Statement(useDefineColumnTypes);
 	}
 	
 	//private static int createTableTime = 0, dropTableTime = 0, checkEmptyTableTime = 0;
@@ -97,9 +104,9 @@ public abstract class Database
 	Collection search(final Query query)
 	{
 		final Type type = query.type;
-		final Statement bf = new Statement();
+		final Statement bf = createStatement();
 		bf.append("select ").
-			append(type.primaryKey.protectedName).
+			append(type.primaryKey.protectedName).defineColumnInteger().
 			append(" from ").
 			append(type.protectedName).
 			append(" where ");
@@ -123,7 +130,7 @@ public abstract class Database
 		final Type type = row.type;
 		final List columns = type.getColumns();
 
-		final Statement bf = new Statement();
+		final Statement bf = createStatement();
 		bf.append("select ");
 
 		boolean first = true;
@@ -134,7 +141,7 @@ public abstract class Database
 			else
 				bf.append(',');
 			final Column column = (Column)i.next();
-			bf.append(column.protectedName);
+			bf.append(column.protectedName).defineColumn(column);
 		}
 		bf.append(" from ").
 			append(type.protectedName).
@@ -161,7 +168,7 @@ public abstract class Database
 		final Type type = row.type;
 		final List columns = type.getColumns();
 
-		final Statement bf = new Statement();
+		final Statement bf = createStatement();
 		if(row.present)
 		{
 			bf.append("update ").
@@ -234,7 +241,7 @@ public abstract class Database
 	void delete(final Type type, final int pk)
 			throws IntegrityViolationException
 	{
-		final Statement bf = new Statement();
+		final Statement bf = createStatement();
 		bf.append("delete from ").
 			append(type.protectedName).
 			append(" where ").
@@ -316,8 +323,7 @@ public abstract class Database
 		{
 			if(!resultSet.next())
 				throw new RuntimeException();
-			final BigDecimal o = (BigDecimal)resultSet.getObject(1);
-			result = o.intValue();
+			result = IntegerColumn.convertSQLResult(resultSet.getObject(1));
 		}
 	}
 
@@ -329,10 +335,15 @@ public abstract class Database
 		{
 			if(!resultSet.next())
 				throw new RuntimeException();
-			final BigDecimal o = (BigDecimal)resultSet.getObject(1);
-			result =	(o==null) ? 0 : o.intValue()+1;
+			final Object o = resultSet.getObject(1);
+			result = (o==null) ? 0 : IntegerColumn.convertSQLResult(o)+1;
 		}
 	}
+	
+	protected abstract void defineColumnTypes(List columnTypes, java.sql.Statement sqlStatement)
+			throws SQLException;
+
+	//private static int timeExecuteQuery = 0;
 
 	private void executeSQL(final Statement statement, final ResultSetHandler resultSetHandler)
 			throws ConstraintViolationException
@@ -347,8 +358,22 @@ public abstract class Database
 			connection = connectionPool.getConnection();
 			// TODO: use prepared statements and reuse the statement.
 			sqlStatement = connection.createStatement();
-			resultSet = sqlStatement.executeQuery(statement.getText());
-			resultSetHandler.run(resultSet);
+			if(resultSetHandler==EMPTY_RESULT_SET_HANDLER)
+			{
+				final int rows = sqlStatement.executeUpdate(statement.getText());
+				//System.out.println("("+rows+"): "+statement.getText());
+			}
+			else
+			{
+				//long time = System.currentTimeMillis();
+				if(useDefineColumnTypes)
+					defineColumnTypes(statement.columnTypes, sqlStatement);
+				resultSet = sqlStatement.executeQuery(statement.getText());
+				//long interval = System.currentTimeMillis() - time;
+				//timeExecuteQuery += interval;
+				//System.out.println("executeQuery: "+interval+"ms sum "+timeExecuteQuery+"ms");
+				resultSetHandler.run(resultSet);
+			}
 		}
 		catch(SQLException e)
 		{
@@ -457,7 +482,7 @@ public abstract class Database
 
 	private void createTable(final Type type)
 	{
-		final Statement bf = new Statement();
+		final Statement bf = createStatement();
 		bf.append("create table ").
 			append(type.protectedName).
 			append('(');
@@ -525,7 +550,7 @@ public abstract class Database
 				final IntegerColumn integerColumn = (IntegerColumn)column;
 				if(integerColumn.foreignTable!=null)
 				{
-					final Statement bf = new Statement();
+					final Statement bf = createStatement();
 					bf.append("alter table ").
 						append(type.protectedName).
 						append(" add constraint ").
@@ -553,7 +578,7 @@ public abstract class Database
 	{
 		type.onDropTable();
 
-		final Statement bf = new Statement();
+		final Statement bf = createStatement();
 		bf.append("drop table ").
 			append(type.protectedName);
 
@@ -569,9 +594,9 @@ public abstract class Database
 	
 	private int countTable(final Type type)
 	{
-		final Statement bf = new Statement();
+		final Statement bf = createStatement();
 		bf.append("select count(*) from ").
-			append(type.protectedName);
+			append(type.protectedName).defineColumnInteger();
 
 		try
 		{
@@ -596,7 +621,7 @@ public abstract class Database
 				final IntegerColumn integerColumn = (IntegerColumn)column;
 				if(integerColumn.foreignTable!=null)
 				{
-					final Statement bf = new Statement();
+					final Statement bf = createStatement();
 					boolean hasOne = false;
 
 					bf.append("alter table ").
@@ -620,9 +645,9 @@ public abstract class Database
 	
 	int getNextPK(final Type type)
 	{
-		final Statement bf = new Statement();
+		final Statement bf = createStatement();
 		bf.append("select max(").
-			append(type.primaryKey.protectedName).
+			append(type.primaryKey.protectedName).defineColumnInteger().
 			append(") from ").
 			append(type.protectedName);
 			

@@ -16,6 +16,11 @@
 				debug="on"
 				optimize="off">
 			<include name="com/**" />
+			<classpath>
+				<!-- TODO: move OracleDatabase into separate source directory
+						to remove this dependency -->
+				<pathelement location="../lib/classes12.zip" />
+			</classpath>
 		</javac>
 	</target>
 	

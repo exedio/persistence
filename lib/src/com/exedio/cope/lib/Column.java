@@ -10,14 +10,16 @@ abstract class Column
 	final String protectedName;
 	final boolean notNull;
 	final String databaseType;
+	final Integer jdbcType;
 	
-	Column(final Type type, final String trimmedName, final boolean notNull, final String databaseType)
+	Column(final Type type, final String trimmedName, final boolean notNull, final String databaseType, final Integer jdbcType)
 	{
 		this.type = type;
 		this.trimmedName = trimmedName;
 		this.protectedName = Database.theInstance.protectName(trimmedName);
 		this.notNull = notNull;
 		this.databaseType = databaseType;
+		this.jdbcType = jdbcType;
 	}
 	
 	public final String toString()
