@@ -34,12 +34,12 @@ import com.exedio.cope.lib.util.ReactivationConstructorDummy;
 
 final class Generator
 {
-	private final Writer output;
+	private final Writer o;
 	private final String lineSeparator;
 	
 	Generator(final Writer output)
 	{
-		this.output=output;
+		this.o=output;
 		
 		final String systemLineSeparator = System.getProperty("line.separator");
 		if(systemLineSeparator==null)
@@ -78,12 +78,12 @@ final class Generator
 				if(first)
 					first = false;
 				else
-					output.write(',');
+					o.write(',');
 				final String parameter = (String)i.next();
-				output.write("final ");
-				output.write(parameter);
-				output.write(' ');
-				output.write(lowerCamelCase(parameter));
+				o.write("final ");
+				o.write(parameter);
+				o.write(' ');
+				o.write(lowerCamelCase(parameter));
 			}
 		}
 	}
@@ -99,9 +99,9 @@ final class Generator
 				if(first)
 					first = false;
 				else
-					output.write(',');
+					o.write(',');
 				final String parameter = (String)i.next();
-				output.write(lowerCamelCase(parameter));
+				o.write(lowerCamelCase(parameter));
 			}
 		}
 	}
@@ -111,40 +111,40 @@ final class Generator
 	{
 		if(!exceptions.isEmpty())
 		{
-			output.write("\t\t\tthrows");
+			o.write("\t\t\tthrows");
 			boolean first = true;
 			for(final Iterator i = exceptions.iterator(); i.hasNext(); )
 			{
 				if(first)
 					first = false;
 				else
-					output.write(',');
-				output.write(lineSeparator);
-				output.write("\t\t\t\t");
-				output.write(((Class)i.next()).getName());
+					o.write(',');
+				o.write(lineSeparator);
+				o.write("\t\t\t\t");
+				o.write(((Class)i.next()).getName());
 			}
-			output.write(lineSeparator);
+			o.write(lineSeparator);
 		}
 	}
 
 	private final void writeCommentHeader()
 	throws IOException
 	{
-		output.write("/**");
-		output.write(lineSeparator);
-		output.write(lineSeparator);
-		output.write("\t **");
-		output.write(lineSeparator);
+		o.write("/**");
+		o.write(lineSeparator);
+		o.write(lineSeparator);
+		o.write("\t **");
+		o.write(lineSeparator);
 	}
 
 	private final void writeCommentFooter()
 	throws IOException
 	{
-		output.write("\t * "+Instrumentor.GENERATED_AUTHOR_TAG);
-		output.write(lineSeparator);
-		output.write("\t *");
-		output.write(lineSeparator);
-		output.write(" */");
+		o.write("\t * "+Instrumentor.GENERATED_AUTHOR_TAG);
+		o.write(lineSeparator);
+		o.write("\t *");
+		o.write(lineSeparator);
+		o.write(" */");
 	}
 	
 	private static final HashMap constraintViolationText = new HashMap(5);
@@ -165,18 +165,18 @@ final class Generator
 		int constructorAccessModifier = javaClass.accessModifier;
 		
 		writeCommentHeader();
-		output.write("\t * Constructs a new ");
-		output.write(javaClass.getName());
-		output.write(" with all the attributes initially needed.");
+		o.write("\t * Constructs a new ");
+		o.write(javaClass.getName());
+		o.write(" with all the attributes initially needed.");
 		for(Iterator i = initialAttributes.iterator(); i.hasNext(); )
 		{
 			final PersistentAttribute initialAttribute = (PersistentAttribute)i.next();
-			output.write(lineSeparator);
-			output.write("\t * @param initial");
-			output.write(initialAttribute.getCamelCaseName());
-			output.write(" the initial value for attribute {@link #");
-			output.write(initialAttribute.getName());
-			output.write("}.");
+			o.write(lineSeparator);
+			o.write("\t * @param initial");
+			o.write(initialAttribute.getCamelCaseName());
+			o.write(" the initial value for attribute {@link #");
+			o.write(initialAttribute.getName());
+			o.write("}.");
 			
 			final int attributeAccessModifier = initialAttribute.accessModifier;
 			if(constructorAccessModifier<attributeAccessModifier)
@@ -185,10 +185,10 @@ final class Generator
 		for(Iterator i = constructorExceptions.iterator(); i.hasNext(); )
 		{
 			final Class constructorException = (Class)i.next();
-			output.write(lineSeparator);
-			output.write("\t * @throws ");
-			output.write(constructorException.getName());
-			output.write(" if");
+			o.write(lineSeparator);
+			o.write("\t * @throws ");
+			o.write(constructorException.getName());
+			o.write(" if");
 			boolean first = true;
 			for(Iterator j = initialAttributes.iterator(); j.hasNext(); )
 			{
@@ -199,19 +199,19 @@ final class Generator
 				if(first)
 					first = false;
 				else
-					output.write(',');
-				output.write(" initial");
-				output.write(initialAttribute.getCamelCaseName());
+					o.write(',');
+				o.write(" initial");
+				o.write(initialAttribute.getCamelCaseName());
 			}
-			output.write(" is ");
-			output.write((String)constraintViolationText.get(constructorException));
-			output.write('.');
+			o.write(" is ");
+			o.write((String)constraintViolationText.get(constructorException));
+			o.write('.');
 		}
-		output.write(lineSeparator);
+		o.write(lineSeparator);
 		writeCommentFooter();
-		output.write(JavaFeature.toAccessModifierString(constructorAccessModifier));
-		output.write(javaClass.getName());
-		output.write('(');
+		o.write(JavaFeature.toAccessModifierString(constructorAccessModifier));
+		o.write(javaClass.getName());
+		o.write('(');
 		
 		boolean first = true;
 		for(Iterator i = initialAttributes.iterator(); i.hasNext(); )
@@ -219,66 +219,66 @@ final class Generator
 			if(first)
 				first = false;
 			else
-				output.write(',');
+				o.write(',');
 			final PersistentAttribute initialAttribute = (PersistentAttribute)i.next();
-			output.write(lineSeparator);
-			output.write("\t\t\t\tfinal ");
-			output.write(initialAttribute.getBoxedType());
-			output.write(" initial");
-			output.write(initialAttribute.getCamelCaseName());
+			o.write(lineSeparator);
+			o.write("\t\t\t\tfinal ");
+			o.write(initialAttribute.getBoxedType());
+			o.write(" initial");
+			o.write(initialAttribute.getCamelCaseName());
 		}
 		
-		output.write(')');
-		output.write(lineSeparator);
+		o.write(')');
+		o.write(lineSeparator);
 		writeThrowsClause(constructorExceptions);
-		output.write("\t{");
-		output.write(lineSeparator);
-		output.write("\t\tsuper(new "+AttributeValue.class.getName()+"[]{");
-		output.write(lineSeparator);
+		o.write("\t{");
+		o.write(lineSeparator);
+		o.write("\t\tsuper(new "+AttributeValue.class.getName()+"[]{");
+		o.write(lineSeparator);
 		for(Iterator i = initialAttributes.iterator(); i.hasNext(); )
 		{
 			final PersistentAttribute initialAttribute = (PersistentAttribute)i.next();
-			output.write("\t\t\tnew "+AttributeValue.class.getName()+"(");
-			output.write(initialAttribute.getName());
-			output.write(',');
+			o.write("\t\t\tnew "+AttributeValue.class.getName()+"(");
+			o.write(initialAttribute.getName());
+			o.write(',');
 			if(initialAttribute.isBoxed())
-				output.write(initialAttribute.getBoxingPrefix());
-			output.write("initial");
-			output.write(initialAttribute.getCamelCaseName());
+				o.write(initialAttribute.getBoxingPrefix());
+			o.write("initial");
+			o.write(initialAttribute.getCamelCaseName());
 			if(initialAttribute.isBoxed())
-				output.write(initialAttribute.getBoxingPostfix());
-			output.write("),");
-			output.write(lineSeparator);
+				o.write(initialAttribute.getBoxingPostfix());
+			o.write("),");
+			o.write(lineSeparator);
 		}
-		output.write("\t\t});");
-		output.write(lineSeparator);
+		o.write("\t\t});");
+		o.write(lineSeparator);
 		for(Iterator i = javaClass.getContructorExceptions().iterator(); i.hasNext(); )
 		{
 			final Class exception = (Class)i.next();
-			output.write("\t\tthrowInitial");
-			output.write(getShortName(exception));
-			output.write("();");
-			output.write(lineSeparator);
+			o.write("\t\tthrowInitial");
+			o.write(getShortName(exception));
+			o.write("();");
+			o.write(lineSeparator);
 		}
-		output.write("\t}");
+		o.write("\t}");
 	}
 	
 	private void writeGenericConstructor(final PersistentClass persistentClass)
 	throws IOException
 	{
 		writeCommentHeader();
-		output.write("\t * Creates an item and sets the given attributes initially.");
-		output.write(lineSeparator);
+		o.write("\t * Creates an item and sets the given attributes initially.");
+		o.write(lineSeparator);
 		writeCommentFooter();
-		output.write("protected ");
-		output.write(persistentClass.getName());
-		output.write("(final "+AttributeValue.class.getName()+"[] initialAttributes)");
-		output.write(lineSeparator);
-		output.write("\t{");
-		output.write(lineSeparator);
-		output.write("\t\tsuper(initialAttributes);");
-		output.write(lineSeparator);
-		output.write("\t}");
+		o.write("protected ");
+		o.write(persistentClass.getName());
+		o.write("(final "+AttributeValue.class.getName()+"[] initialAttributes)");
+		o.write(lineSeparator);
+		o.write("\t{");
+		o.write(lineSeparator);
+		o.write("\t\tsuper(initialAttributes);");
+		o.write(lineSeparator);
+		o.write("\t}");
 	}
 	
 	private void writeReactivationConstructor(final PersistentClass persistentClass)
@@ -286,21 +286,21 @@ final class Generator
 	{
 		final boolean abstractClass = persistentClass.isAbstract();
 		writeCommentHeader();
-		output.write("\t * Reactivation constructor. Used for internal purposes only.");
-		output.write(lineSeparator);
-		output.write("\t * @see Item#Item("
+		o.write("\t * Reactivation constructor. Used for internal purposes only.");
+		o.write(lineSeparator);
+		o.write("\t * @see Item#Item("
 			+ ReactivationConstructorDummy.class.getName() + ",int)");
-		output.write(lineSeparator);
+		o.write(lineSeparator);
 		writeCommentFooter();
-		output.write( abstractClass ? "protected " : "private " );
-		output.write(persistentClass.getName());
-		output.write("("+ReactivationConstructorDummy.class.getName()+" d,final int pk)");
-		output.write(lineSeparator);
-		output.write("\t{");
-		output.write(lineSeparator);
-		output.write("\t\tsuper(d,pk);");
-		output.write(lineSeparator);
-		output.write("\t}");
+		o.write( abstractClass ? "protected " : "private " );
+		o.write(persistentClass.getName());
+		o.write("("+ReactivationConstructorDummy.class.getName()+" d,final int pk)");
+		o.write(lineSeparator);
+		o.write("\t{");
+		o.write(lineSeparator);
+		o.write("\t\tsuper(d,pk);");
+		o.write(lineSeparator);
+		o.write("\t}");
 	}
 	
 	private void writeAccessMethods(final PersistentAttribute persistentAttribute)
@@ -312,54 +312,54 @@ final class Generator
 
 		// getter
 		writeCommentHeader();
-		output.write("\t * Returns the value of the persistent attribute {@link #");
-		output.write(persistentAttribute.getName());
-		output.write("}.");
-		output.write(lineSeparator);
+		o.write("\t * Returns the value of the persistent attribute {@link #");
+		o.write(persistentAttribute.getName());
+		o.write("}.");
+		o.write(lineSeparator);
 		writeCommentFooter();
-		output.write(methodModifiers);
-		output.write(' ');
-		output.write(type);
-		output.write(" get");
-		output.write(persistentAttribute.getCamelCaseName());
-		output.write('(');
+		o.write(methodModifiers);
+		o.write(' ');
+		o.write(type);
+		o.write(" get");
+		o.write(persistentAttribute.getCamelCaseName());
+		o.write('(');
 		writeParameterDeclarationList(qualifiers);
-		output.write(')');
-		output.write(lineSeparator);
-		output.write("\t{");
-		output.write(lineSeparator);
+		o.write(')');
+		o.write(lineSeparator);
+		o.write("\t{");
+		o.write(lineSeparator);
 		writeGetterBody(persistentAttribute);
-		output.write("\t}");
+		o.write("\t}");
 		
 		// setter
 		if(persistentAttribute.hasSetter())
 		{
 			writeCommentHeader();
-			output.write("\t * Sets a new value for the persistent attribute {@link #");
-			output.write(persistentAttribute.getName());
-			output.write("}.");
-			output.write(lineSeparator);
+			o.write("\t * Sets a new value for the persistent attribute {@link #");
+			o.write(persistentAttribute.getName());
+			o.write("}.");
+			o.write(lineSeparator);
 			writeCommentFooter();
-			output.write(methodModifiers);
-			output.write(" void set");
-			output.write(persistentAttribute.getCamelCaseName());
-			output.write('(');
+			o.write(methodModifiers);
+			o.write(" void set");
+			o.write(persistentAttribute.getCamelCaseName());
+			o.write('(');
 			if(qualifiers!=null)
 			{
 				writeParameterDeclarationList(qualifiers);
-				output.write(',');
+				o.write(',');
 			}
-			output.write("final ");
-			output.write(type);
-			output.write(' ');
-			output.write(persistentAttribute.getName());
-			output.write(')');
-			output.write(lineSeparator);
+			o.write("final ");
+			o.write(type);
+			o.write(' ');
+			o.write(persistentAttribute.getName());
+			o.write(')');
+			o.write(lineSeparator);
 			writeThrowsClause(persistentAttribute.getSetterExceptions());
-			output.write("\t{");
-			output.write(lineSeparator);
+			o.write("\t{");
+			o.write(lineSeparator);
 			writeSetterBody(persistentAttribute);
-			output.write("\t}");
+			o.write("\t}");
 		}
 	}
 
@@ -375,61 +375,61 @@ final class Generator
 		final List qualifiers = mediaAttribute.qualifiers;
 
 		writeCommentHeader();
-		output.write("\t * ");
-		output.write(comment);
-		output.write(" {@link #");
-		output.write(mediaAttribute.getName());
-		output.write("}.");
-		output.write(lineSeparator);
+		o.write("\t * ");
+		o.write(comment);
+		o.write(" {@link #");
+		o.write(mediaAttribute.getName());
+		o.write("}.");
+		o.write(lineSeparator);
 		writeCommentFooter();
-		output.write(methodModifiers);
-		output.write(' ');
-		output.write(returnType.getName());
-		output.write(" get");
-		output.write(mediaAttribute.getCamelCaseName());
-		output.write(part);
+		o.write(methodModifiers);
+		o.write(' ');
+		o.write(returnType.getName());
+		o.write(" get");
+		o.write(mediaAttribute.getCamelCaseName());
+		o.write(part);
 		if(variant!=null)
-			output.write(variant);
-		output.write('(');
+			o.write(variant);
+		o.write('(');
 		writeParameterDeclarationList(qualifiers);
-		output.write(')');
-		output.write(lineSeparator);
-		output.write("\t{");
-		output.write(lineSeparator);
-		output.write("\t\treturn ");
+		o.write(')');
+		o.write(lineSeparator);
+		o.write("\t{");
+		o.write(lineSeparator);
+		o.write("\t\treturn ");
 		if(literal!=null)
 		{
-			output.write('\"');
-			output.write(literal);
-			output.write("\";");
+			o.write('\"');
+			o.write(literal);
+			o.write("\";");
 		}
 		else
 		{
-			output.write("getMedia");
-			output.write(part);
-			output.write("(this.");
-			output.write(mediaAttribute.getName());
+			o.write("getMedia");
+			o.write(part);
+			o.write("(this.");
+			o.write(mediaAttribute.getName());
 			if(variant!=null)
 			{
 				if(variant.length()>0)
 				{
-					output.write(",\"");
-					output.write(variant);
-					output.write('\"');
+					o.write(",\"");
+					o.write(variant);
+					o.write('\"');
 				}
 				else
-					output.write(",null");
+					o.write(",null");
 			}
 			if(qualifiers!=null)
 			{
-				output.write(",new Object[]{");
+				o.write(",new Object[]{");
 				writeParameterCallList(qualifiers);
-				output.write('}');
+				o.write('}');
 			}
-			output.write(");");
+			o.write(");");
 		}
-		output.write(lineSeparator);
-		output.write("\t}");
+		o.write(lineSeparator);
+		o.write("\t}");
 	}
 	
 	private void writeMediaAccessMethods(final PersistentMediaAttribute mediaAttribute)
@@ -461,79 +461,79 @@ final class Generator
 		if(mediaAttribute.hasSetter())
 		{
 			writeCommentHeader();
-			output.write("\t * Provides data for the persistent media attribute {@link #");
-			output.write(mediaAttribute.getName());
-			output.write("}.");
-			output.write(lineSeparator);
+			o.write("\t * Provides data for the persistent media attribute {@link #");
+			o.write(mediaAttribute.getName());
+			o.write("}.");
+			o.write(lineSeparator);
 			writeCommentFooter();
-			output.write(methodModifiers);
-			output.write(" void set");
-			output.write(mediaAttribute.getCamelCaseName());
-			output.write("Data(");
+			o.write(methodModifiers);
+			o.write(" void set");
+			o.write(mediaAttribute.getCamelCaseName());
+			o.write("Data(");
 			if(qualifiers!=null)
 			{
 				writeParameterDeclarationList(qualifiers);
-				output.write(',');
+				o.write(',');
 			}
-			output.write("final " + OutputStream.class.getName() + " data");
+			o.write("final " + OutputStream.class.getName() + " data");
 			if(mimeMajor==null)
-				output.write(",final "+String.class.getName()+" mimeMajor");
+				o.write(",final "+String.class.getName()+" mimeMajor");
 			if(mimeMinor==null)
-				output.write(",final "+String.class.getName()+" mimeMinor");
-			output.write(')');
+				o.write(",final "+String.class.getName()+" mimeMinor");
+			o.write(')');
 			final SortedSet setterExceptions = mediaAttribute.getSetterExceptions();
 			writeThrowsClause(setterExceptions);
 			if(setterExceptions.isEmpty())
-				output.write("throws ");
-			output.write(IOException.class.getName());
-			output.write(lineSeparator);
-			output.write("\t{");
-			output.write(lineSeparator);
+				o.write("throws ");
+			o.write(IOException.class.getName());
+			o.write(lineSeparator);
+			o.write("\t{");
+			o.write(lineSeparator);
 			
 			final SortedSet exceptionsToCatch = new TreeSet(mediaAttribute.getExceptionsToCatchInSetter());
 			exceptionsToCatch.remove(ReadOnlyViolationException.class);
 			exceptionsToCatch.remove(UniqueViolationException.class);
 			if(!exceptionsToCatch.isEmpty())
 			{
-				output.write("\t\ttry");
-				output.write(lineSeparator);
-				output.write("\t\t{");
-				output.write(lineSeparator);
-				output.write('\t');
+				o.write("\t\ttry");
+				o.write(lineSeparator);
+				o.write("\t\t{");
+				o.write(lineSeparator);
+				o.write('\t');
 			}
-			output.write("\t\tsetMediaData(this.");
-			output.write(mediaAttribute.getName());
+			o.write("\t\tsetMediaData(this.");
+			o.write(mediaAttribute.getName());
 			if(qualifiers!=null)
 			{
-				output.write(",new Object[]{");
+				o.write(",new Object[]{");
 				writeParameterCallList(qualifiers);
-				output.write('}');
+				o.write('}');
 			}
-			output.write(",data");
-			output.write(mimeMajor==null ? ",mimeMajor" : ",null");
-			output.write(mimeMinor==null ? ",mimeMinor" : ",null");
-			output.write(");");
-			output.write(lineSeparator);
+			o.write(",data");
+			o.write(mimeMajor==null ? ",mimeMajor" : ",null");
+			o.write(mimeMinor==null ? ",mimeMinor" : ",null");
+			o.write(");");
+			o.write(lineSeparator);
 			if(!exceptionsToCatch.isEmpty())
 			{
-				output.write("\t\t}");
-				output.write(lineSeparator);
+				o.write("\t\t}");
+				o.write(lineSeparator);
 
 				for(Iterator i = exceptionsToCatch.iterator(); i.hasNext(); )
 					writeViolationExceptionCatchClause((Class)i.next());
 			}
-			output.write("\t}");
+			o.write("\t}");
 		}
 	}
 	
 	private final void writeEquals(final PersistentAttribute persistentAttribute)
 	throws IOException
 	{
-		output.write("equal(");
-		output.write(persistentAttribute.getName());
-		output.write(",searched");
-		output.write(persistentAttribute.getCamelCaseName());
-		output.write(')');
+		o.write("equal(");
+		o.write(persistentAttribute.getName());
+		o.write(",searched");
+		o.write(persistentAttribute.getCamelCaseName());
+		o.write(')');
 	}
 	
 	private void writeUniqueFinder(final PersistentAttribute[] persistentAttributes)
@@ -554,183 +554,183 @@ final class Generator
 		final String className = persistentAttributes[0].getParent().getName();
 		
 		writeCommentHeader();
-		output.write("\t * Finds a ");
-		output.write(lowerCamelCase(className));
-		output.write(" by it's unique attributes");
+		o.write("\t * Finds a ");
+		o.write(lowerCamelCase(className));
+		o.write(" by it's unique attributes");
 		for(int i=0; i<persistentAttributes.length; i++)
 		{
-			output.write(lineSeparator);
-			output.write("\t * @param searched");
-			output.write(persistentAttributes[i].getCamelCaseName());
-			output.write(" shall be equal to attribute {@link #");
-			output.write(persistentAttributes[i].getName());
-			output.write("}.");
+			o.write(lineSeparator);
+			o.write("\t * @param searched");
+			o.write(persistentAttributes[i].getCamelCaseName());
+			o.write(" shall be equal to attribute {@link #");
+			o.write(persistentAttributes[i].getName());
+			o.write("}.");
 		}
-		output.write(lineSeparator);
+		o.write(lineSeparator);
 		writeCommentFooter();
-		output.write(methodModifiers);
-		output.write(' ');
-		output.write(className);
+		o.write(methodModifiers);
+		o.write(' ');
+		o.write(className);
 		
 		boolean first=true;
 		for(int i=0; i<persistentAttributes.length; i++)
 		{
 			if(first)
 			{
-				output.write(" findBy");
+				o.write(" findBy");
 				first = false;
 			}
 			else
-				output.write("And");
-			output.write(persistentAttributes[i].getCamelCaseName());
+				o.write("And");
+			o.write(persistentAttributes[i].getCamelCaseName());
 		}
 		
-		output.write('(');
+		o.write('(');
 		final Set qualifiers = new HashSet();
 		for(int i=0; i<persistentAttributes.length; i++)
 		{
 			if(i>0)
-				output.write(',');
+				o.write(',');
 			final PersistentAttribute persistentAttribute = persistentAttributes[i];
 			if(persistentAttribute.qualifiers != null)
 				qualifiers.addAll(persistentAttribute.qualifiers);
-			output.write("final ");
-			output.write(persistentAttribute.getPersistentType());
-			output.write(" searched");
-			output.write(persistentAttribute.getCamelCaseName());
+			o.write("final ");
+			o.write(persistentAttribute.getPersistentType());
+			o.write(" searched");
+			o.write(persistentAttribute.getCamelCaseName());
 		}
 		if(!qualifiers.isEmpty())
 		{
-			output.write(',');
+			o.write(',');
 			writeParameterDeclarationList(qualifiers);
 		}
-		output.write(')');
-		output.write(lineSeparator);
-		output.write("\t{");
-		output.write(lineSeparator);
-		output.write("\t\treturn (");
-		output.write(className);
-		output.write(")searchUnique(TYPE,");
+		o.write(')');
+		o.write(lineSeparator);
+		o.write("\t{");
+		o.write(lineSeparator);
+		o.write("\t\treturn (");
+		o.write(className);
+		o.write(")searchUnique(TYPE,");
 
 		if(persistentAttributes.length==1)
 			writeEquals(persistentAttributes[0]);
 		else
 		{
-			output.write("and(");
+			o.write("and(");
 			writeEquals(persistentAttributes[0]);
 			for(int i = 1; i<persistentAttributes.length; i++)
 			{
-				output.write(',');
+				o.write(',');
 				writeEquals(persistentAttributes[i]);
 			}
-			output.write(')');
+			o.write(')');
 		}
 		
-		output.write(");");
-		output.write(lineSeparator);
-		output.write("\t}");
+		o.write(");");
+		o.write(lineSeparator);
+		o.write("\t}");
 	}
 	
 	private final void writeType(final PersistentClass persistentClass)
 	throws IOException
 	{
 		writeCommentHeader();
-		output.write("\t * The persistent type information for ");
-		output.write(lowerCamelCase(persistentClass.getName()));
-		output.write(".");
-		output.write(lineSeparator);
+		o.write("\t * The persistent type information for ");
+		o.write(lowerCamelCase(persistentClass.getName()));
+		o.write(".");
+		o.write(lineSeparator);
 		writeCommentFooter();
 		
 		// the TYPE variable
-		output.write("public static final "+Type.class.getName()+" TYPE = ");
-		output.write(lineSeparator);
+		o.write("public static final "+Type.class.getName()+" TYPE = ");
+		o.write(lineSeparator);
 		
 		// open the constructor of type
-		output.write("\t\tnew "+Type.class.getName()+"(");
-		output.write(lineSeparator);
+		o.write("\t\tnew "+Type.class.getName()+"(");
+		o.write(lineSeparator);
 		
 		// the class itself
-		output.write("\t\t\t");
-		output.write(persistentClass.getName());
-		output.write(".class,");
-		output.write(lineSeparator);
+		o.write("\t\t\t");
+		o.write(persistentClass.getName());
+		o.write(".class,");
+		o.write(lineSeparator);
 		
 		// the attributes of the class
 		final List persistentAttributes = persistentClass.getPersistentAttributes();
 		if(!persistentAttributes.isEmpty())
 		{
-			output.write("\t\t\tnew "+Attribute.class.getName()+"[]{");
-			output.write(lineSeparator);
+			o.write("\t\t\tnew "+Attribute.class.getName()+"[]{");
+			o.write(lineSeparator);
 			for(Iterator i = persistentAttributes.iterator(); i.hasNext(); )
 			{
 				final PersistentAttribute persistentAttribute = (PersistentAttribute)i.next();
-				output.write("\t\t\t\t");
-				output.write(persistentAttribute.getName());
-				output.write(".initialize(\"");
-				output.write(persistentAttribute.getName());
-				output.write("\",");
-				output.write(persistentAttribute.readOnly ? "true": "false");
-				output.write(',');
-				output.write(persistentAttribute.notNull ? "true": "false");
+				o.write("\t\t\t\t");
+				o.write(persistentAttribute.getName());
+				o.write(".initialize(\"");
+				o.write(persistentAttribute.getName());
+				o.write("\",");
+				o.write(persistentAttribute.readOnly ? "true": "false");
+				o.write(',');
+				o.write(persistentAttribute.notNull ? "true": "false");
 				if(persistentAttribute.isItemPersistentType())
 				{
-					output.write(',');
-					output.write(persistentAttribute.getBoxedType());
-					output.write(".class");
+					o.write(',');
+					o.write(persistentAttribute.getBoxedType());
+					o.write(".class");
 				}
 				//private List qualifiers = null;
-				output.write("),");
-				output.write(lineSeparator);
+				o.write("),");
+				o.write(lineSeparator);
 			}
-			output.write("\t\t\t},");
+			o.write("\t\t\t},");
 		}
 		else
 		{
-			output.write("\t\t\tnull,");
+			o.write("\t\t\tnull,");
 		}
-		output.write(lineSeparator);
+		o.write(lineSeparator);
 		
 		// the unique contraints of the class
 		final List uniqueConstraints = persistentClass.getUniqueConstraints();
 		if(!uniqueConstraints.isEmpty())
 		{
-			output.write("\t\t\tnew "+UniqueConstraint.class.getName()+"[]{");
-			output.write(lineSeparator);
+			o.write("\t\t\tnew "+UniqueConstraint.class.getName()+"[]{");
+			o.write(lineSeparator);
 			for(Iterator i = uniqueConstraints.iterator(); i.hasNext(); )
 			{
 				final PersistentAttribute[] uniqueConstraint = (PersistentAttribute[])i.next();
 				if(uniqueConstraint.length==1)
 				{
 					// shorter notation, if unique contraint does not cover multive attributes
-					output.write("\t\t\t\tnew "+UniqueConstraint.class.getName()+'(');
-					output.write(uniqueConstraint[0].getName());
-					output.write("),");
+					o.write("\t\t\t\tnew "+UniqueConstraint.class.getName()+'(');
+					o.write(uniqueConstraint[0].getName());
+					o.write("),");
 				}
 				else
 				{
 					// longer notation otherwise
-					output.write("\t\t\t\tnew "+UniqueConstraint.class.getName()+"(new "+Attribute.class.getName()+"[]{");
+					o.write("\t\t\t\tnew "+UniqueConstraint.class.getName()+"(new "+Attribute.class.getName()+"[]{");
 					for(int j = 0; j<uniqueConstraint.length; j++)
 					{
-						output.write(uniqueConstraint[j].getName());
-						output.write(',');
+						o.write(uniqueConstraint[j].getName());
+						o.write(',');
 					}
-					output.write("}),");
+					o.write("}),");
 				}
-				output.write(lineSeparator);
+				o.write(lineSeparator);
 			}
-			output.write("\t\t\t}");
+			o.write("\t\t\t}");
 		}
 		else
 		{
-			output.write("\t\t\tnull");
+			o.write("\t\t\tnull");
 		}
-		output.write(lineSeparator);
+		o.write(lineSeparator);
 
 		// close the constructor of Type
-		output.write("\t\t)");
-		output.write(lineSeparator);
-		output.write(";");
+		o.write("\t\t)");
+		o.write(lineSeparator);
+		o.write(";");
 	}
 
 	void writeClassFeatures(final PersistentClass persistentClass, final List uniqueConstraints)
@@ -790,38 +790,38 @@ final class Generator
 
 	/**
 	 * Identation contract:
-	 * This methods is called, when output stream is immediatly after a line break,
-	 * and it should return the output stream after immediatly after a line break.
+	 * This methods is called, when o stream is immediatly after a line break,
+	 * and it should return the o stream after immediatly after a line break.
 	 * This means, doing nothing fullfils the contract.
 	 */
 	private void writeGetterBody(final PersistentAttribute attribute)
 	throws IOException
 	{
-		output.write("\t\treturn ");
+		o.write("\t\treturn ");
 		if(attribute.isBoxed())
-			output.write(attribute.getUnBoxingPrefix());
-		output.write('(');
-		output.write(attribute.getPersistentType());
-		output.write(")getAttribute(this.");
-		output.write(attribute.getName());
+			o.write(attribute.getUnBoxingPrefix());
+		o.write('(');
+		o.write(attribute.getPersistentType());
+		o.write(")getAttribute(this.");
+		o.write(attribute.getName());
 		final List qualifiers = attribute.qualifiers;
 		if(qualifiers!=null)
 		{
-			output.write(",new Object[]{");
+			o.write(",new Object[]{");
 			writeParameterCallList(qualifiers);
-			output.write('}');
+			o.write('}');
 		}
-		output.write(')');
+		o.write(')');
 		if(attribute.isBoxed())
-			output.write(attribute.getUnBoxingPostfix());
-		output.write(';');
-		output.write(lineSeparator);
+			o.write(attribute.getUnBoxingPostfix());
+		o.write(';');
+		o.write(lineSeparator);
 	}
 
 	/**
 	 * Identation contract:
-	 * This methods is called, when output stream is immediatly after a line break,
-	 * and it should return the output stream after immediatly after a line break.
+	 * This methods is called, when o stream is immediatly after a line break,
+	 * and it should return the o stream after immediatly after a line break.
 	 * This means, doing nothing fullfils the contract.
 	 */
 	private void writeSetterBody(final PersistentAttribute attribute)
@@ -831,33 +831,33 @@ final class Generator
 
 		if(!exceptionsToCatch.isEmpty())
 		{
-			output.write("\t\ttry");
-			output.write(lineSeparator);
-			output.write("\t\t{");
-			output.write(lineSeparator);
-			output.write('\t');
+			o.write("\t\ttry");
+			o.write(lineSeparator);
+			o.write("\t\t{");
+			o.write(lineSeparator);
+			o.write('\t');
 		}
-		output.write("\t\tsetAttribute(this.");
-		output.write(attribute.getName());
+		o.write("\t\tsetAttribute(this.");
+		o.write(attribute.getName());
 		final List qualifiers = attribute.qualifiers;
 		if(qualifiers!=null)
 		{
-			output.write(",new Object[]{");
+			o.write(",new Object[]{");
 			writeParameterCallList(qualifiers);
-			output.write('}');
+			o.write('}');
 		}
-		output.write(',');
+		o.write(',');
 		if(attribute.isBoxed())
-			output.write(attribute.getBoxingPrefix());
-		output.write(attribute.getName());
+			o.write(attribute.getBoxingPrefix());
+		o.write(attribute.getName());
 		if(attribute.isBoxed())
-			output.write(attribute.getBoxingPostfix());
-		output.write(");");
-		output.write(lineSeparator);
+			o.write(attribute.getBoxingPostfix());
+		o.write(");");
+		o.write(lineSeparator);
 		if(!exceptionsToCatch.isEmpty())
 		{
-			output.write("\t\t}");
-			output.write(lineSeparator);
+			o.write("\t\t}");
+			o.write(lineSeparator);
 			
 			for(Iterator i = exceptionsToCatch.iterator(); i.hasNext(); )
 				writeViolationExceptionCatchClause((Class)i.next());
@@ -867,14 +867,14 @@ final class Generator
 	private void writeViolationExceptionCatchClause(final Class exceptionClass)
 	throws IOException
 	{
-		output.write("\t\tcatch("+exceptionClass.getName()+" e)");
-		output.write(lineSeparator);
-		output.write("\t\t{");
-		output.write(lineSeparator);
-		output.write("\t\t\tthrow new "+SystemException.class.getName()+"(e);");
-		output.write(lineSeparator);
-		output.write("\t\t}");
-		output.write(lineSeparator);
+		o.write("\t\tcatch("+exceptionClass.getName()+" e)");
+		o.write(lineSeparator);
+		o.write("\t\t{");
+		o.write(lineSeparator);
+		o.write("\t\t\tthrow new "+SystemException.class.getName()+"(e);");
+		o.write(lineSeparator);
+		o.write("\t\t}");
+		o.write(lineSeparator);
 	}
 
 }
