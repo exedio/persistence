@@ -7,8 +7,8 @@ package com.exedio.cope.lib;
 public class ReadOnlyViolationException extends ConstraintViolationException
 {
 
-	final Item item;
-	final Attribute readOnlyAttribute;
+	private final Item item;
+	private final Attribute readOnlyAttribute;
 	
 	/**
 	 * Creates a new ReadOnlyViolationException with the neccessary information about the violation.
