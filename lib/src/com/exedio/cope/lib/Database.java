@@ -579,7 +579,6 @@ public abstract class Database
 		for(Iterator i = type.getColumns().iterator(); i.hasNext(); )
 		{
 			final Column column = (Column)i.next();
-			//System.out.println("getCreateTableStatement:"+column);
 			bf.append(',').
 				append(column.protectedName).
 				append(' ').
@@ -612,6 +611,7 @@ public abstract class Database
 
 		try
 		{
+			//System.out.println("createTable:"+bf.toString());
 			executeSQL(bf, EMPTY_RESULT_SET_HANDLER);
 		}
 		catch(ConstraintViolationException e)
