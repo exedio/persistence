@@ -11,6 +11,7 @@ import java.lang.reflect.Modifier;
 import persistence.Attribute;
 import persistence.AttributeValue;
 import persistence.ConstraintViolationException;
+import persistence.EnumerationValue;
 import persistence.NotNullViolationException;
 import persistence.ReadOnlyViolationException;
 import persistence.SystemException;
@@ -118,6 +119,11 @@ public final class Instrumentor implements InjectionConsumer
 	 * Tag name for media attributes with a constant minor mime type.
 	 */
 	private static final String MIME_MINOR = "mime-minor";
+	
+	/**
+	 * Tag name for enumeration values of enumeration attributes.
+	 */
+	private static final String ENUMERATION_VALUE = "value";
 	
 	/**
 	 * All generated class features get this doccomment tag.
@@ -306,9 +312,69 @@ public final class Instrumentor implements InjectionConsumer
 		output.write("\t}");
 	}
 
+	private void writeEnumerationClass(final JavaAttribute enumerationAttribute)
+	throws IOException
+	{
+		// deactivated, since the parser cannot remove generated inner classes.
+		if(true)
+			return;
+
+		writeCommentHeader();
+		output.write("\t * A class representing the possible states of the persistent enumeration attribute {@link #");
+		output.write(enumerationAttribute.getName());
+		output.write("}.");
+		output.write(lineSeparator);
+		writeCommentFooter();
+		
+		output.write("public static final class ");
+		output.write(enumerationAttribute.getCamelCaseName());
+		output.write(" extends "+EnumerationValue.class.getName());
+		output.write(lineSeparator);
+		output.write("\t{");
+		output.write(lineSeparator);
+		int enumerationNumber = 0;
+		for(Iterator i = enumerationAttribute.getEnumerationValues().iterator(); i.hasNext(); enumerationNumber++)
+		{
+			final String enumerationValue = (String)i.next();
+
+			output.write("\t\tpublic static final int ");
+			output.write(enumerationValue);
+			output.write("NUM = ");
+			output.write(Integer.toString(enumerationNumber));
+			output.write(';');
+			output.write(lineSeparator);
+
+			output.write("\t\tpublic static final ");
+			output.write(enumerationAttribute.getCamelCaseName());
+			output.write(' ');
+			output.write(enumerationValue);
+			output.write(" = new ");
+			output.write(enumerationAttribute.getCamelCaseName());
+			output.write('(');
+			output.write(Integer.toString(enumerationNumber));
+			output.write(", \"");
+			output.write(enumerationValue);
+			output.write("\");");
+			output.write(lineSeparator);
+			output.write(lineSeparator);
+		}
+		output.write("\t\tprivate State(final int number, final String code)");
+		output.write(lineSeparator);
+		output.write("\t\t{");
+		output.write(lineSeparator);
+		output.write("\t\t\tsuper(number, code);");
+		output.write(lineSeparator);
+		output.write("\t\t}");
+		output.write(lineSeparator);
+		output.write("\t}");
+	}
+
 	private void writeAccessMethods(final JavaAttribute persistentAttribute)
 	throws IOException
 	{
+		if(persistentAttribute.isEnumerationAttribute())
+			writeEnumerationClass(persistentAttribute);
+
 		final String methodModifiers = Modifier.toString(persistentAttribute.getMethodModifiers());
 		final String type = persistentAttribute.getBoxedType();
 		final List qualifiers = persistentAttribute.getQualifiers();
@@ -809,6 +875,7 @@ public final class Instrumentor implements InjectionConsumer
 			containsTag(docComment, PERSISTENT_ATTRIBUTE))
 			{
 				final String type = jf.getType();
+				final JavaAttribute ja = (JavaAttribute)jf;
 				final String persistentType;
 				if("IntegerAttribute".equals(type))
 					persistentType = "Integer";
@@ -816,6 +883,10 @@ public final class Instrumentor implements InjectionConsumer
 					persistentType = "Boolean";
 				else if("StringAttribute".equals(type))
 					persistentType = "String";
+				else if("EnumerationAttribute".equals(type))
+				{
+					persistentType = ja.getCamelCaseName();
+				}
 				else if("ItemAttribute".equals(type))
 				{
 					persistentType = Injector.findDocTag(docComment, PERSISTENT_ATTRIBUTE);
@@ -827,7 +898,6 @@ public final class Instrumentor implements InjectionConsumer
 				else
 					throw new RuntimeException();
 
-				final JavaAttribute ja = (JavaAttribute)jf;
 				ja.makePersistent(persistentType);
 
 				if(containsTag(docComment, UNIQUE_ATTRIBUTE))
@@ -854,6 +924,10 @@ public final class Instrumentor implements InjectionConsumer
 				final String mimeMinor = Injector.findDocTag(docComment, MIME_MINOR);
 				if(mimeMajor!=null || mimeMinor!=null)
 					ja.contrainMediaMime(mimeMajor, mimeMinor);
+
+				final String enumerationValue = Injector.findDocTag(docComment, ENUMERATION_VALUE);
+				if(enumerationValue!=null)
+					ja.makeEnumerationAttribute(Collections.singletonList(enumerationValue));
 			}
 		}
 		discardnextfeature=false;

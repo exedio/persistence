@@ -39,6 +39,7 @@ public final class JavaAttribute extends JavaFeature
 	private List mediaVariants = null;
 	private String mimeMajor = null;
 	private String mimeMinor = null;
+	private List enumerationValues = null;
 
 	public JavaAttribute(JavaClass parent, int modifiers, String type, String name)
 	throws InjectorParseException
@@ -72,6 +73,11 @@ public final class JavaAttribute extends JavaFeature
 	public boolean isMediaPersistentType()
 	{
 		return this.persistentType.equals(MEDIA_TYPE);
+	}
+
+	public boolean isEnumerationAttribute()
+	{
+		return this.enumerationValues != null;
 	}
 
 	private static final HashMap toNativeTypeMapping = new HashMap(3);
@@ -121,7 +127,7 @@ public final class JavaAttribute extends JavaFeature
 			}
 		}
 		else
-			return boxedType = persistentType;
+			boxedType = persistentType;
 		
 		this.boxedType = boxedType;
 		return boxedType;
@@ -217,6 +223,11 @@ public final class JavaAttribute extends JavaFeature
 	public String getMimeMinor()
 	{
 		return mimeMinor;
+	}
+	
+	public List getEnumerationValues()
+	{
+		return enumerationValues;
 	}
 	
 	/**
@@ -318,6 +329,8 @@ public final class JavaAttribute extends JavaFeature
 	{
 		if(qualifiers==null)
 			throw new NullPointerException();
+		if(qualifiers.isEmpty())
+			throw new RuntimeException();
 		if(this.qualifiers!=null)
 			throw new RuntimeException();
 		if(this.readOnly)
@@ -331,6 +344,8 @@ public final class JavaAttribute extends JavaFeature
 	{
 		if(mediaVariants==null)
 			throw new NullPointerException();
+		if(mediaVariants.isEmpty())
+			throw new RuntimeException();
 		if(this.mediaVariants!=null)
 			throw new RuntimeException();
 		if(!isMediaPersistentType())
@@ -348,6 +363,17 @@ public final class JavaAttribute extends JavaFeature
 		this.mimeMinor = mimeMinor;
 	}
 
+	public final void makeEnumerationAttribute(final List enumerationValues)
+	{
+		if(enumerationValues==null)
+			throw new NullPointerException();
+		if(enumerationValues.isEmpty())
+			throw new RuntimeException();
+		if(this.enumerationValues!=null)
+			throw new RuntimeException();
+		this.enumerationValues = Collections.unmodifiableList(enumerationValues);
+	}
+	
 
 	private SortedSet setterExceptions = null;
 
