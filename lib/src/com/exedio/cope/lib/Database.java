@@ -386,22 +386,22 @@ public abstract class Database
 		store(row, row.type);
 	}
 
-	private void store(final Row row, final Type theType) // TODO: rename to type
+	private void store(final Row row, final Type type)
 			throws UniqueViolationException
 	{
-		final Type supertype = theType.getSupertype();
+		final Type supertype = type.getSupertype();
 		if(supertype!=null)
 			store(row, supertype);
 			
-		final Table type = theType.table; // TODO: rename to table
+		final Table table = type.table;
 
-		final List columns = type.getColumns();
+		final List columns = table.getColumns();
 
 		final Statement bf = createStatement();
 		if(row.present)
 		{
 			bf.append("update ").
-				append(type.protectedID).
+				append(table.protectedID).
 				append(" set ");
 
 			boolean first = true;
@@ -420,16 +420,16 @@ public abstract class Database
 				bf.append(column.cacheToDatabase(value));
 			}
 			bf.append(" where ").
-				append(type.primaryKey.protectedID).
+				append(table.primaryKey.protectedID).
 				append('=').
 				append(row.pk);
 		}
 		else
 		{
 			bf.append("insert into ").
-				append(type.protectedID).
+				append(table.protectedID).
 				append("(").
-				append(type.primaryKey.protectedID);
+				append(table.primaryKey.protectedID);
 
 			boolean first = true;
 			for(Iterator i = columns.iterator(); i.hasNext(); )
