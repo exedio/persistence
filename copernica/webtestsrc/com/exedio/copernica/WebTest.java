@@ -34,15 +34,25 @@ public class WebTest extends WebTestCase
 		clickLinkWithText("[X]");
 		assertTitleEquals("AttributeItem.103");
 		assertFormElementEquals("someNotNullString", "running100");
+		assertFormElementEquals("someNotNullInteger", "107");
 
 		setFormElement("someNotNullString", "running100changed");
 		submit("SAVE");
 		assertTitleEquals("AttributeItem.103");
 		assertFormElementEquals("someNotNullString", "running100changed");
+		assertFormElementEquals("someNotNullInteger", "107");
+
+		setFormElement("someNotNullInteger", "1077");
+		submit("SAVE");
+		assertTitleEquals("AttributeItem.103");
+		assertFormElementEquals("someNotNullString", "running100changed");
+		assertFormElementEquals("someNotNullInteger", "1077");
 
 		setFormElement("someNotNullString", "running100");
+		setFormElement("someNotNullInteger", "107");
 		submit("SAVE");
 		assertTitleEquals("AttributeItem.103");
 		assertFormElementEquals("someNotNullString", "running100");
+		assertFormElementEquals("someNotNullInteger", "107");
 	}
 }
