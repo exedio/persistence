@@ -20,35 +20,35 @@ public abstract class DatabaseLibTest extends AbstractLibTest
 		PointerItem.TYPE,
 	};
 	
-	private static boolean createdTables = false;
-	private static boolean registeredDropTableHook = false;
+	private static boolean createdDatabase = false;
+	private static boolean registeredDropDatabaseHook = false;
 	private static Object lock = new Object(); 
 	
-	private static void createTables()
+	private static void createDatabase()
 	{
 		synchronized(lock)
 		{
-			if(!createdTables)
+			if(!createdDatabase)
 			{
-				Database.theInstance.createTables();
-				createdTables = true;
+				Database.theInstance.createDatabase();
+				createdDatabase = true;
 			}
 		}
 	}
 	
-	private void dropTables()
+	private void dropDatabase()
 	{
 		synchronized(lock)
 		{
-			if(!registeredDropTableHook)
+			if(!registeredDropDatabaseHook)
 			{
 				Runtime.getRuntime().addShutdownHook(new Thread(new Runnable(){
 					public void run()
 					{
-						Database.theInstance.dropTables();
+						Database.theInstance.dropDatabase();
 					}
 				}));
-				registeredDropTableHook = true;
+				registeredDropDatabaseHook = true;
 			}
 		}
 	}
@@ -56,14 +56,14 @@ public abstract class DatabaseLibTest extends AbstractLibTest
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		createTables();
+		createDatabase();
 		Database.theInstance.checkEmptyTables();
 	}
 	
 	protected void tearDown() throws Exception
 	{
 		Database.theInstance.checkEmptyTables();
-		dropTables();
+		dropDatabase();
 		super.tearDown();
 	}
 	
@@ -117,7 +117,7 @@ public abstract class DatabaseLibTest extends AbstractLibTest
 
 	public static void main(String[] args)
 	{
-		Database.theInstance.tearDownTables();
+		Database.theInstance.tearDownDatabase();
 	}
 
 }

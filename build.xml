@@ -113,7 +113,7 @@
 		</java>
 	</target>
 
-	<target name="lib.test.teardowntables" depends="lib.compile, lib.oracle.compile, lib.test.compile">
+	<target name="lib.test.teardown.database" depends="lib.compile, lib.oracle.compile, lib.test.compile">
 		<java classname="com.exedio.cope.lib.DatabaseLibTest" taskname="tear down tables" fork="yes" failonerror="yes">
 			<classpath>
 				<pathelement location="lib/build/classes" />

@@ -13,9 +13,9 @@ import java.util.List;
 
 public abstract class Database
 {
-	public static final Database theInstance = createDatabase();
+	public static final Database theInstance = createInstance();
 	
-	private static final Database createDatabase()
+	private static final Database createInstance()
 	{
 		final String databaseName = Properties.getInstance().getDatabase();
 
@@ -88,7 +88,7 @@ public abstract class Database
 	
 	//private static int createTableTime = 0, dropTableTime = 0, checkEmptyTableTime = 0;
 	
-	public void createTables()
+	public void createDatabase()
 	{
 		//final long time = System.currentTimeMillis();
 		for(Iterator i = Type.getTypes().iterator(); i.hasNext(); )
@@ -100,7 +100,7 @@ public abstract class Database
 		//System.out.println("CREATE TABLES "+amount+"ms  accumulated "+createTableTime);
 	}
 
-	public void dropTables()
+	public void dropDatabase()
 	{
 		//final long time = System.currentTimeMillis();
 		for(Iterator i = Type.getTypes().iterator(); i.hasNext(); )
@@ -112,9 +112,9 @@ public abstract class Database
 		//System.out.println("DROP TABLES "+amount+"ms  accumulated "+dropTableTime);
 	}
 	
-	public void tearDownTables()
+	public void tearDownDatabase()
 	{
-		System.err.println("TEAR DOWN ALL TABLES");
+		System.err.println("TEAR DOWN ALL DATABASE");
 		for(Iterator i = Type.getTypes().iterator(); i.hasNext(); )
 		{
 			try
