@@ -172,6 +172,49 @@
 					%><input type="text" name="<%=attribute.getName()%>" value="<%=value%>" /><%
 				}
 			}
+			else if(attribute instanceof IntegerAttribute)
+			{
+				final IntegerAttribute intAttribute = (IntegerAttribute)attribute;
+				final String attributeName = attribute.getName();
+		
+				if(attribute.isReadOnly())
+				{
+					%><b><%=(Integer)item.getAttribute(intAttribute)%></b><%
+				}
+				else
+				{
+					final Integer value;
+					if(save)
+					{
+						final String valueString = request.getParameter(attributeName);
+						if(valueString==null)
+							throw new NullPointerException(attributeName);
+						if(valueString.length()>0)
+						{
+							try
+							{
+								value = new Integer(Integer.parseInt(valueString));
+							}
+							catch(NumberFormatException e)
+							{
+								throw new SystemException(e);
+							}
+						}
+						else
+							value = null;
+
+						item.setAttribute(intAttribute, value);
+					}
+					else
+					{
+						value = (Integer)item.getAttribute(intAttribute);
+					}
+					final String output = (value==null) ? "" : String.valueOf(value);
+		
+					toSave = true;
+					%><input type="text" name="<%=attribute.getName()%>" value="<%=output%>" /><%
+				}
+			}
 			else
 			{
 				%><%=item.getAttribute((ObjectAttribute)attribute)%><%
