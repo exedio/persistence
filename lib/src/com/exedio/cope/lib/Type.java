@@ -90,7 +90,7 @@ public final class Type
 		return uniqueConstraintList;
 	}
 	
-	public String getPersistentQualifier()
+	String getPersistentQualifier()
 	{
 		return persistentQualifier;
 	}
