@@ -60,13 +60,14 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); )
 		for(Iterator j = table.getConstraints().iterator(); j.hasNext(); )
 		{
 			final Report.Constraint constraint = (Report.Constraint)j.next();
+			%>
+			<li><%
 			final String constraintColor = color(constraint.getCumulativeColor());
 			if(constraintColor!=null)
 			{
 				%><span style="background-color:#<%=constraintColor%>"><%
 			}
-			%>
-			<li><small>constraint</small> <%=constraint.name%><%
+			%><small>constraint</small> <%=constraint.name%><%
 			if(constraintColor!=null)
 			{
 				%></span><%
