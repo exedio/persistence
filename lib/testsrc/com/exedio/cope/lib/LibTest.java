@@ -290,7 +290,7 @@ public class LibTest extends TestCase
 
 		dotestItemWithManyAttributesSomeInteger(item);
 		dotestItemWithManyAttributesSomeNotNullInteger(item);
-		dotestUnmodifieableSearchResult(item);
+		dotestUnmodifiableSearchResult(item);
 
 		dotestItemWithManyAttributesSomeBoolean(item);
 		dotestItemWithManyAttributesSomeNotNullBoolean(item);
@@ -384,48 +384,52 @@ public class LibTest extends TestCase
 		assertEquals(set(item), toSet(Search.search(item.TYPE, Search.equal(item.someNotNullInteger, Integer.MAX_VALUE))));
 	}
 		
-	private void dotestUnmodifieableSearchResult(final ItemWithManyAttributes item)
+	private void dotestUnmodifiableSearchResult(final ItemWithManyAttributes item)
 	{
 		item.setSomeNotNullInteger(0);
-		final Collection searchResult = Search.search(item.TYPE, Search.equal(item.someNotNullInteger, 0));
+		assertUnmodifiable(Search.search(item.TYPE, Search.equal(item.someNotNullInteger, 0)));
+	}
+	
+	private void assertUnmodifiable(final Collection c)
+	{
 		try
 		{
-			searchResult.add(new Object());
+			c.add(new Object());
 			fail("should have thrown UnsupportedOperationException");
 		}
 		catch(UnsupportedOperationException e) {}
 		try
 		{
-			searchResult.addAll(Collections.EMPTY_LIST);
+			c.addAll(Collections.EMPTY_LIST);
 			fail("should have thrown UnsupportedOperationException");
 		}
 		catch(UnsupportedOperationException e) {}
 		try
 		{
-			searchResult.clear();
+			c.clear();
 			fail("should have thrown UnsupportedOperationException");
 		}
 		catch(UnsupportedOperationException e) {}
 		try
 		{
-			searchResult.remove(new Object());
+			c.remove(new Object());
 			fail("should have thrown UnsupportedOperationException");
 		}
 		catch(UnsupportedOperationException e) {}
 		try
 		{
-			searchResult.removeAll(Collections.EMPTY_LIST);
+			c.removeAll(Collections.EMPTY_LIST);
 			fail("should have thrown UnsupportedOperationException");
 		}
 		catch(UnsupportedOperationException e) {}
 		try
 		{
-			searchResult.retainAll(Collections.EMPTY_LIST);
+			c.retainAll(Collections.EMPTY_LIST);
 			fail("should have thrown UnsupportedOperationException");
 		}
 		catch(UnsupportedOperationException e) {}
 
-		final Iterator iterator = searchResult.iterator();
+		final Iterator iterator = c.iterator();
 		try
 		{
 			iterator.remove();
