@@ -880,12 +880,7 @@ abstract class Database
 
 			//System.out.println("("+rows+"): "+statement.getText());
 			if(rows!=expectedRows)
-			{
-				if(mysql)
-					System.err.println("expected "+expectedRows+" rows, but got "+rows+" on statement "+sqlText);
-				else
-					throw new RuntimeException("expected "+expectedRows+" rows, but got "+rows+" on statement "+sqlText);
-			}
+				throw new RuntimeException("expected "+expectedRows+" rows, but got "+rows+" on statement "+sqlText);
 		}
 		catch(SQLException e)
 		{
