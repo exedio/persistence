@@ -18,6 +18,7 @@ import com.exedio.cope.lib.Item;
 import com.exedio.cope.lib.ItemAttribute;
 import com.exedio.cope.lib.LongAttribute;
 import com.exedio.cope.lib.NoSuchIDException;
+import com.exedio.cope.lib.NotNullViolationException;
 import com.exedio.cope.lib.ObjectAttribute;
 import com.exedio.cope.lib.Search;
 import com.exedio.cope.lib.StringAttribute;
@@ -82,93 +83,20 @@ public class ItemForm extends Form
 				{
 					final Object value;
 					final String valueString = field.value;
-					if(attribute instanceof StringAttribute)
-					{
-						value = field.value;
-					}
-					else if(attribute instanceof IntegerAttribute)
-					{
-						if(valueString.length()>0)
-							value = new Integer(Integer.parseInt(valueString));
-						else
-							value = null;
-					}
-					else if(attribute instanceof LongAttribute)
-					{
-						if(valueString.length()>0)
-							value = new Long(Long.parseLong(valueString));
-						else
-							value = null;
-					}
-					else if(attribute instanceof DoubleAttribute)
-					{
-						if(valueString.length()>0)
-							value = new Double(Double.parseDouble(valueString));
-						else
-							value = null;
-					}
-					else if(attribute instanceof DateAttribute)
-					{
-						if(valueString.length()>0)
-						{
-							final SimpleDateFormat df = new SimpleDateFormat(DATE_FORMAT_FULL);
-							value = df.parse(valueString);
-						}
-						else
-							value = null;
-					}
-					else if(attribute instanceof ItemAttribute)
-					{
-						if(valueString.length()>0)
-							value = Search.findByID(valueString);
-						else
-							value = null;
-					}
-					else if(attribute instanceof BooleanAttribute)
-					{
-						if(valueString==null)
-							value = Boolean.FALSE;
-						else if(VALUE_NULL.equals(valueString))
-							value = null;
-						else if(VALUE_ON.equals(valueString))
-							value = Boolean.TRUE;
-						else if(VALUE_OFF.equals(valueString))
-							value = Boolean.FALSE;
-						else
-							throw new RuntimeException(valueString);
-					}
-					else if(attribute instanceof EnumerationAttribute)
-					{
-						if(VALUE_NULL.equals(valueString))
-							value = null;
-						else
-						{
-							final EnumerationAttribute enumAttribute = (EnumerationAttribute)attribute;
-							value = enumAttribute.getValue(valueString);
-							if(value==null)
-								throw new NullPointerException(field.name);
-						}
-					}
-					else
-						throw new RuntimeException();
-				
+					value = stringToValue(attribute, valueString);
 					item.setAttribute(attribute, value);
 				}
-				catch(NumberFormatException e)
+				catch(MalformedFieldException e)
 				{
-					field.error = "bad number: "+e.getMessage();
+					field.error = e.getMessage();
 				}
-				catch(ParseException e)
+				catch(NotNullViolationException e)
 				{
-					field.error = "bad date: "+e.getMessage();
+					field.error = "error.notnull:"+e.getNotNullAttribute().toString();
 				}
 				catch(ConstraintViolationException e)
 				{
 					field.error = e.getClass().getName();
-				}
-				catch(NoSuchIDException e)
-				{
-					field.error = e.getMessage();
 				}
 			}
 		}
@@ -221,4 +149,95 @@ public class ItemForm extends Form
 		return value;
 	}
 	
+	final static Object stringToValue(final ObjectAttribute attribute, final String valueString)
+				throws MalformedFieldException
+	{
+		try
+		{
+			final Object value;
+			if(attribute instanceof StringAttribute)
+			{
+				value = valueString;
+			}
+			else if(attribute instanceof IntegerAttribute)
+			{
+				if(valueString.length()>0)
+					value = new Integer(Integer.parseInt(valueString));
+				else
+					value = null;
+			}
+			else if(attribute instanceof LongAttribute)
+			{
+				if(valueString.length()>0)
+					value = new Long(Long.parseLong(valueString));
+				else
+					value = null;
+			}
+			else if(attribute instanceof DoubleAttribute)
+			{
+				if(valueString.length()>0)
+					value = new Double(Double.parseDouble(valueString));
+				else
+					value = null;
+			}
+			else if(attribute instanceof DateAttribute)
+			{
+				if(valueString.length()>0)
+				{
+					final SimpleDateFormat df = new SimpleDateFormat(DATE_FORMAT_FULL);
+					value = df.parse(valueString);
+				}
+				else
+					value = null;
+			}
+			else if(attribute instanceof ItemAttribute)
+			{
+				if(valueString.length()>0)
+					value = Search.findByID(valueString);
+				else
+					value = null;
+			}
+			else if(attribute instanceof BooleanAttribute)
+			{
+				if(valueString==null)
+					value = Boolean.FALSE;
+				else if(VALUE_NULL.equals(valueString))
+					value = null;
+				else if(VALUE_ON.equals(valueString))
+					value = Boolean.TRUE;
+				else if(VALUE_OFF.equals(valueString))
+					value = Boolean.FALSE;
+				else
+					throw new RuntimeException(valueString);
+			}
+			else if(attribute instanceof EnumerationAttribute)
+			{
+				if(VALUE_NULL.equals(valueString))
+					value = null;
+				else
+				{
+					final EnumerationAttribute enumAttribute = (EnumerationAttribute)attribute;
+					value = enumAttribute.getValue(valueString);
+					if(value==null)
+						throw new NullPointerException(valueString);
+				}
+			}
+			else
+				throw new RuntimeException();
+	
+			return value;
+		}
+		catch(NumberFormatException e)
+		{
+			throw new MalformedFieldException("bad number: "+e.getMessage());
+		}
+		catch(ParseException e)
+		{
+			throw new MalformedFieldException("bad date: "+e.getMessage());
+		}
+		catch(NoSuchIDException e)
+		{
+			throw new MalformedFieldException(e.getMessage());
+		}
+	}
 }
