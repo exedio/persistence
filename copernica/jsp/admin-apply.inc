@@ -168,7 +168,8 @@
 				if(table==null)
 					throw new RuntimeException(analyzeTable);
 				%>
-				<li>analyzing table <%=analyzeTable%> ...</li><%
+				<li>report.getTable(&quot;<b><%=
+					table.name%></b>&quot;).analyze();</li><%
 				out.flush();
 				final long startTime = System.currentTimeMillis();
 				table.analyze();
