@@ -215,26 +215,23 @@ public final class Instrumentor implements InjectionConsumer
 				else
 					qualifiers = null;
 
-				final PersistentAttribute persistentAttribute;
 				if(
 					IntegerAttribute.class.equals(typeClass) ||
 					DoubleAttribute.class.equals(typeClass) ||
 					BooleanAttribute.class.equals(typeClass) ||
 					StringAttribute.class.equals(typeClass))
 				{
-					persistentAttribute =
-						new PersistentNativeAttribute(
-							ja, typeClass,
-							initializerArguments, mapped, qualifiers);
+					new PersistentNativeAttribute(
+						ja, typeClass,
+						initializerArguments, mapped, qualifiers);
 				}
 				else if(
 					EnumerationAttribute.class.equals(typeClass)||
 					ItemAttribute.class.equals(typeClass))
 				{
-					persistentAttribute =
-						new PersistentObjectAttribute(
-							ja,
-							initializerArguments, mapped, qualifiers);
+					new PersistentObjectAttribute(
+						ja,
+						initializerArguments, mapped, qualifiers);
 				}
 				else if(MediaAttribute.class.equals(typeClass))
 				{
@@ -247,11 +244,10 @@ public final class Instrumentor implements InjectionConsumer
 	
 					final String mimeMajor = Injector.findDocTag(docComment, MIME_MAJOR);
 					final String mimeMinor = Injector.findDocTag(docComment, MIME_MINOR);
-					persistentAttribute =
-						new PersistentMediaAttribute(
-							ja,
-							initializerArguments, mapped, qualifiers,
-							variants, mimeMajor, mimeMinor);
+					new PersistentMediaAttribute(
+						ja,
+						initializerArguments, mapped, qualifiers,
+						variants, mimeMajor, mimeMinor);
 				}
 				else
 					throw new RuntimeException(typeClass.toString());
