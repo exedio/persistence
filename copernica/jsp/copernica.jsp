@@ -29,6 +29,30 @@ page import="java.text.SimpleDateFormat" %><%@
 include file="provider.inc"
 
 %><%
+	try
+	{
+		provider.getModel().checkDatabase();
+	}
+	catch(NestingRuntimeException e)
+	{
+		%><html>
+	<head>
+		<title>Copernica Error</title>
+	</head>
+	<body>
+		<b>Database not initialized.</b><br>
+		<a href="<%=new AdminCop()%>">Administration</a>
+		<hr>
+		<pre>
+<%e.printStackTrace(new PrintWriter(out));%>
+		</pre>
+		<hr>
+	</body>
+</html>
+<%
+		return;
+	}
+	
 	final CopernicaCop cop = CopernicaCop.getCop(
 		provider, request.getParameterMap()
 	);
@@ -39,21 +63,8 @@ include file="provider.inc"
 	</head>
 	<body><%
 	
-	boolean database = false;
-	try
-	{
-		provider.getModel().checkDatabase();
-		database = true;
-	}
-	catch(NestingRuntimeException e)
-	{
-		%><b>Database not initialized.</b><br>
-		<a href="<%=new AdminCop()%>">Administration</a>
-		<hr>
-		<pre><%e.printStackTrace(new PrintWriter(out));%></pre><%
-	}
 	
-	if(database)
+	if(true)
 	{
 		final Language language = cop.language;
 		%>
