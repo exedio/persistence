@@ -37,7 +37,27 @@
 		Map.Entry entry = (Map.Entry)it.next();
 		System.out.println( "param: " + entry.getKey() + " value: " + entry.getValue() );
 	}
-	
+
+	final Cop cop;
+	{	
+		final String typeID = request.getParameter("type");
+		final String itemID = request.getParameter("item");
+		if(typeID!=null)
+		{
+			final Type type = Type.getType(typeID);
+			if(type==null)
+				throw new RuntimeException("type "+typeID+" not available");
+			cop = new TypeCop(type);
+		}
+		else if(itemID!=null)
+		{
+			final Item item = Search.findByID(itemID);
+			cop = new ItemCop(item);
+		}
+		else
+			cop = new EmptyCop();
+	}
+
 %>
 		<form action="copernica.jsp" method="POST">
 			Database:
@@ -107,13 +127,9 @@
 				</td>
 				<td valign="top">
 				<%
-					final String typeID = request.getParameter("type");
-					final String itemID = request.getParameter("item");
-					if(typeID!=null)
+					if(cop instanceof TypeCop)
 					{
-						final Type type = Type.getType(typeID);
-						if(type==null)
-							throw new RuntimeException("type "+typeID+" not available");
+						final Type type = ((TypeCop)cop).type;
 						%>
 						<a href="<%=(new TypeCop(type))%>"><%=provider.getDisplayName(null, type)%></a>
 						<hr>
@@ -176,9 +192,9 @@
 						</table>
 						<%
 					}
-					else if(itemID!=null)
+					else if(cop instanceof ItemCop)
 					{
-						final Item item = Search.findByID(itemID);
+						final Item item = ((ItemCop)cop).item;
 						final Type type = item.getType();
 						boolean toSave = false;
 						%>
@@ -246,8 +262,11 @@
 						</form>
 						<%
 					}
+					else if(cop instanceof EmptyCop)
+						%><u>select a type on the left</u><%
 					else
-						%><u>select a type on the left</u>
+						throw new RuntimeException();
+					%>
 				</td>
 			</tr>
 		</table>
