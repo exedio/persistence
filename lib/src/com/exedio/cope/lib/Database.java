@@ -921,9 +921,6 @@ public abstract class Database
 			bf.append(column.protectedID).
 				append(' ').
 				append(column.databaseType);
-
-			if(column.notNull && !column.primaryKey)
-				bf.append(" not null");
 		}
 		
 		// attribute constraints		
@@ -938,6 +935,14 @@ public abstract class Database
 					append(" primary key(").
 					append(column.protectedID).
 					append(')');
+			}
+			else if(column.notNull)
+			{
+				bf.append(",constraint ").
+					append(protectName(column.getNotNullConstraintID())).
+					append(" check(").
+					append(column.protectedID).
+					append(" is not null)");
 			}
 
 			if(column instanceof StringColumn)

@@ -36,6 +36,14 @@ abstract class Column
 		return Database.theInstance.trimName(table.id + "_" + "Pk");
 	}
 	
+	final String getNotNullConstraintID()
+	{
+		if(!notNull)
+			throw new RuntimeException(id);
+
+		return Database.theInstance.trimName(table.id + "_" + id+ "_Nn");
+	}
+	
 	public final String toString()
 	{
 		return id;
