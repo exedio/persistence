@@ -61,11 +61,10 @@
 			}
 			else if(attribute instanceof BooleanAttribute)
 			{
-				final BooleanAttribute boolAttribute = (BooleanAttribute)attribute;
 				final String attributeName = attribute.getName();
 				final String value = field.getValue();
 				
-				if(boolAttribute.isNotNull())
+				if(attribute.isNotNull())
 				{
 					%>
 					<input type="checkbox" name="<%=attributeName%>" value="<%=VALUE_ON%>"<%
