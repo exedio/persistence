@@ -589,7 +589,7 @@ final class Generator
 		writeCommentGenerated();
 		writeCommentFooter();
 
-		o.write("static final ");
+		o.write("final ");
 		o.write(qualifier.qualifierClass);
 		o.write(" get");
 		o.write(qualifier.qualifierClass);
