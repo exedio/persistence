@@ -185,12 +185,12 @@ public class ReportTest extends DatabaseLibTest
 			assertEquals(null, attributeItem.getError());
 			assertEquals(Report.COLOR_OK, attributeItem.getParticularColor());
 			
-			assertConstraint(attributeItem, "AttrItem_somNotNullStr_Ck", "\"someNotNullString\" IS NOT NULL");
-			assertConstraint(attributeItem, "AttribuItem_someBoolea_Ck", "(\"someBoolean\" IN (0,1)) OR (\"someBoolean\" IS NULL)");
-			assertConstraint(attributeItem, "AttrItem_somNotNullBoo_Ck", "(\"someNotNullBoolean\" IS NOT NULL) AND (\"someNotNullBoolean\" IN (0,1))");
-			assertConstraint(attributeItem, "AttribuItem_someEnumer_Ck", "(\"someEnumeration\" IN (100,200,300)) OR (\"someEnumeration\" IS NULL)");
-			assertConstraint(attributeItem, "AttrItem_somNotNullEnu_Ck", "(\"someNotNullEnumeration\" IS NOT NULL) AND (\"someNotNullEnumeration\" IN (100,200,300))");
-			assertConstraint(attributeItem, "AttriItem_someMediMajo_Ck", "((LENGTH(\"someMediaMajor\")>=1) AND (LENGTH(\"someMediaMajor\")<=30)) OR (\"someMediaMajor\" IS NULL)");
+			assertConstraint(attributeItem, "AttrItem_somNotNullStr_Ck", protect("someNotNullString")+" IS NOT NULL");
+			assertConstraint(attributeItem, "AttribuItem_someBoolea_Ck", "("+protect("someBoolean")+" IN (0,1)) OR ("+protect("someBoolean")+" IS NULL)");
+			assertConstraint(attributeItem, "AttrItem_somNotNullBoo_Ck", "("+protect("someNotNullBoolean")+" IS NOT NULL) AND ("+protect("someNotNullBoolean")+" IN (0,1))");
+			assertConstraint(attributeItem, "AttribuItem_someEnumer_Ck", "("+protect("someEnumeration")+" IN (100,200,300)) OR ("+protect("someEnumeration")+" IS NULL)");
+			assertConstraint(attributeItem, "AttrItem_somNotNullEnu_Ck", "("+protect("someNotNullEnumeration")+" IS NOT NULL) AND ("+protect("someNotNullEnumeration")+" IN (100,200,300))");
+			assertConstraint(attributeItem, "AttriItem_someMediMajo_Ck", "((LENGTH("+protect("someMediaMajor")+")>=1) AND (LENGTH("+protect("someMediaMajor")+")<=30)) OR ("+protect("someMediaMajor")+" IS NULL)");
 		}
 	}
 	
@@ -199,6 +199,11 @@ public class ReportTest extends DatabaseLibTest
 		final ReportConstraint constraint = table.getConstraint(constraintName);
 		assertNotNull("no such constraint "+constraintName+", but has "+table.getConstraints(), constraint);
 		assertEquals(requiredCondition, constraint.requiredCondition);
+	}
+	
+	private final String protect(final String name)
+	{
+		return model.getDatabase().protectName(name);
 	}
 	
 }
