@@ -566,6 +566,7 @@
 			<link href="${api.link.servlet}" />
 			<classpath>
 				<pathelement location="lib/build/classes" />
+				<pathelement location="../cops/build/classes" />
 				<pathelement location="../tomcat/common/lib/servlet-api.jar" />
 				<pathelement location="../tomcat/server/lib/commons-fileupload-1.0.jar" />
 			</classpath>
