@@ -22,12 +22,15 @@ final class Properties
 	private static final String DEFAULT_FILE_NAME = "cope.properties";
 	
 	private File file = null;
+
 	private final String database;
 	private final String driver;
 	private final String url;
 	private final String user;
 	private final String password;
+
 	private final File mediaDirectory;
+	private final String mediaUrl;
 
 	private Properties()
 	{
@@ -82,6 +85,7 @@ final class Properties
 		{
 			throw new InitializerRuntimeException(e);
 		}
+		mediaUrl  = getPropertyNotNull(properties, "media.url");
 	}
 	
 	private String getPropertyNotNull(final java.util.Properties properties, final String key)
@@ -121,6 +125,11 @@ final class Properties
 	public File getMediaDirectory()
 	{
 		return mediaDirectory;
+	}
+
+	public String getMediaUrl()
+	{
+		return mediaUrl;
 	}
 
 }

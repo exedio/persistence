@@ -342,7 +342,7 @@ public abstract class Item extends Search
 			return null;
 
 		final String mimeMinor = (String)row.get(attribute.mimeMinor);
-		final StringBuffer bf = new StringBuffer("/medias/");
+		final StringBuffer bf = new StringBuffer(Properties.getInstance().getMediaUrl());
 		appendMediaPath(attribute, variant, bf, mimeMajor, mimeMinor);
 		return bf.toString();
 	}

@@ -4,3 +4,4 @@ database.url=jdbc:hsqldb:.
 database.user=sa
 database.password=
 media.directory=lib/build/media
+media.url=/medias/

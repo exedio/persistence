@@ -22,4 +22,5 @@ database.password=yourpassword
 # Example properties for the media directory
 #
 media.directory=your/directory/for/media/files
+media.url=/url/prefix/of/your/media/
 
