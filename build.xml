@@ -17,9 +17,7 @@
 				destdir="lib/build/classes"
 				deprecation="on"
 				debug="on"
-				optimize="off">
-			<include name="com/**" />
-		</javac>
+				optimize="off" />
 	</target>
 
 	<target name="lib.oracle.compile" depends="lib.compile.mkdir, lib.compile">
@@ -28,7 +26,6 @@
 				deprecation="on"
 				debug="on"
 				optimize="off">
-			<include name="com/**" />
 			<classpath>
 				<pathelement location="../lib/classes12.zip" />
 			</classpath>
@@ -42,7 +39,6 @@
 				deprecation="on"
 				debug="on"
 				optimize="off">
-			<include name="com/**" />
 			<classpath>
 				<pathelement location="lib/build/classes" />
 			</classpath>
@@ -56,7 +52,6 @@
 				deprecation="on"
 				debug="on"
 				optimize="off">
-			<include name="com/**" />
 			<classpath>
 				<pathelement location="lib/build/classes" />
 			</classpath>
@@ -103,7 +98,6 @@
 				deprecation="on"
 				debug="on"
 				optimize="off">
-			<include name="com/**" />
 			<classpath>
 				<pathelement location="lib/build/classes" />
 				<pathelement location="../lib/junit.jar" />
@@ -143,7 +137,6 @@
 				deprecation="on"
 				debug="on"
 				optimize="off">
-			<include name="com/**" />
 			<classpath>
 				<pathelement location="instrument/build/classes" />
 				<pathelement location="../lib/junit.jar" />
