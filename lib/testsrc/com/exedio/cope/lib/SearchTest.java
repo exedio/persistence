@@ -21,9 +21,11 @@ public class SearchTest extends DatabaseLibTest
 	{
 		final ItemWithoutAttributes someItem = new ItemWithoutAttributes();
 		final ItemWithManyAttributes item;
+		final ItemWithManyAttributes item2;
 		try
 		{
 			item = new ItemWithManyAttributes("someString", 5, true, someItem, ItemWithManyAttributes.SomeEnumeration.enumValue1);
+			item2 = new ItemWithManyAttributes("someString", 5, false, someItem, ItemWithManyAttributes.SomeEnumeration.enumValue2);
 		}
 		catch(NotNullViolationException e)
 		{
@@ -35,6 +37,7 @@ public class SearchTest extends DatabaseLibTest
 		assertUnmodifiable(searchResult);
 		
 		assertDelete(item);
+		assertDelete(item2);
 		assertDelete(someItem);
 	}
 
