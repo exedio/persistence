@@ -4,6 +4,7 @@ package com.exedio.cope.lib;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Date;
 
 import com.exedio.cope.lib.collision.CollisionItem1;
 import com.exedio.cope.lib.collision.CollisionItem2;
@@ -188,8 +189,12 @@ public abstract class DatabaseLibTest extends AbstractLibTest
 			new AttributeItem("someString1", 5, 6l, 2.2, true, emptyItem1, AttributeItem.SomeEnumeration.enumValue1);
 			new AttributeItem("someString2", 6, 7l, 2.3, true, emptyItem2, AttributeItem.SomeEnumeration.enumValue2);
 			new AttributeItem("someString3", 7, 8l, 2.4, false, emptyItem2, AttributeItem.SomeEnumeration.enumValue2);
+			final Date date = new Date(1087368238214l);
 			for(int i = 0; i<102; i++)
-				new AttributeItem("running"+i, 7+i, 8l+i, 2.4+i, (i%2)==0, emptyItem2, AttributeItem.SomeEnumeration.enumValue2);
+			{
+				final AttributeItem attributeItem = new AttributeItem("running"+i, 7+i, 8l+i, 2.4+i, (i%2)==0, emptyItem2, AttributeItem.SomeEnumeration.enumValue2);
+				attributeItem.setSomeDate(date);
+			}
 
 			{			
 				final StringItem item1 = new StringItem();
