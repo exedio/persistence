@@ -31,6 +31,11 @@ public class SumTest extends DatabaseLibTest
 	
 	public void testSum()
 	{
+		// test model
+		assertEquals(item.TYPE, item.sum12.getType());
+		assertEquals("sum12", item.sum12.getName());
+
+		// test normal operation
 		assertEquals(i1, item.getNum1());
 		assertEquals(i2, item.getNum2());
 		assertEquals(i3, item.getNum3());
