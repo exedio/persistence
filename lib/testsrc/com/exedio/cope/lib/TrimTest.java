@@ -31,6 +31,15 @@ public class TrimTest extends AbstractLibTest
 
 		assertTrim("1irs2ec3hi", "1irst2econd3hird", 10);
 		assertTrim("_irs_ec_hi", "_irst_econd_hird", 10);
+
+		assertTrim("ShortVeryverylongShort", "ShortVeryverylongShort", 22);
+		assertTrim("ShortVeryverylonShort", "ShortVeryverylongShort", 21);
+		assertTrim("ShortVeryveryloShort", "ShortVeryverylongShort", 20);
+		assertTrim("ShortVeryvShort", "ShortVeryverylongShort",15);
+		assertTrim("ShortVeryvShor", "ShortVeryverylongShort",14);
+		assertTrim("ShortVeryShor", "ShortVeryverylongShort",13);
+		assertTrim("ShorVeryShor", "ShortVeryverylongShort",12);
+		assertTrim("ShorVerySho", "ShortVeryverylongShort",11);
 	}
 
 }
