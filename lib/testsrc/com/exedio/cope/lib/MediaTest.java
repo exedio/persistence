@@ -20,6 +20,15 @@ public class MediaTest extends DatabaseLibTest
 		item.delete();
 	}
 	
+	private void assertExtension(final String mimeMajor, final String mimeMinor, final String extension)
+		throws IOException
+	{
+		item.setFileData(stream(data2), mimeMajor, mimeMinor);
+		assertEquals(mimeMajor, item.getFileMimeMajor());
+		assertEquals(mimeMinor, item.getFileMimeMinor());
+		assertTrue(item.getFileURL().endsWith(extension));
+	}
+	
 	public void testMedia() throws IOException
 	{
 		// file
@@ -39,6 +48,14 @@ public class MediaTest extends DatabaseLibTest
 		assertEquals("fileMajor2", item.getFileMimeMajor());
 		assertEquals("fileMinor2", item.getFileMimeMinor());
 		assertTrue(item.getFileURL().endsWith(".fileMajor2.fileMinor2"));
+		
+		assertExtension("image", "jpeg", ".jpg");
+		assertExtension("image", "pjpeg", ".jpg");
+		assertExtension("image", "png", ".png");
+		assertExtension("image", "gif", ".gif");
+		assertExtension("text", "html", ".html");
+		assertExtension("text", "plain", ".txt");
+		assertExtension("text", "css", ".css");
 		
 		item.setFileData(null, null, null);
 		assertEquals(null, item.getFileData());
