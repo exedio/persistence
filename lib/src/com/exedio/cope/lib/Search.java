@@ -110,9 +110,9 @@ public abstract class Search
 		return new EqualCondition(attribute);
 	}
 	
-	public static final EqualCondition equal(final StringFunction attribute, final String value) // TODO rename argument
+	public static final EqualCondition equal(final StringFunction function, final String value)
 	{
-		return new EqualCondition(attribute, value);
+		return new EqualCondition(function, value);
 	}
 	
 	public static final EqualAttributeCondition equal(final StringAttribute attribute1, final StringAttribute attribute2)

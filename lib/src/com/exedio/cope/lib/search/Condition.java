@@ -13,14 +13,14 @@ public abstract class Condition
 	
 	public abstract void check(final TreeSet fromTypes);
 
-	public final void check(final Function attribute, final TreeSet fromTypes) // TODO rename argument
+	public final void check(final Function function, final TreeSet fromTypes)
 	{
-		if (!fromTypes.contains(attribute.getType()))
+		if (!fromTypes.contains(function.getType()))
 			throw new RuntimeException(
-				"attribute "
-					+ attribute
+				"function "
+					+ function
 					+ " belongs to type "
-					+ attribute.getType()
+					+ function.getType()
 					+ ", which is not a from-type of the query: "
 					+ fromTypes);
 	}

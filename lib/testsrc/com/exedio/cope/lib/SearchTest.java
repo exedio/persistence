@@ -53,7 +53,7 @@ public class SearchTest extends DatabaseLibTest
 		catch(RuntimeException e)
 		{
 			assertEquals(
-				"attribute someInteger{} belongs to type com.exedio.cope.lib.ItemWithManyAttributes, which is not a from-type of the query: [com.exedio.cope.lib.EmptyItem]",
+				"function someInteger{} belongs to type com.exedio.cope.lib.ItemWithManyAttributes, which is not a from-type of the query: [com.exedio.cope.lib.EmptyItem]",
 				e.getMessage());
 		}
 	}

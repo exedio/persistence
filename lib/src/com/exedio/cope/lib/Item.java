@@ -225,12 +225,12 @@ public abstract class Item extends Search
 			throw initialUniqueViolationException;
 	}
 	
-	public final Object getAttribute(final Function attribute) // TODO rename argument
+	public final Object getAttribute(final Function function)
 	{
-		if(attribute instanceof ObjectAttribute)
-			return getAttribute((ObjectAttribute)attribute);
+		if(function instanceof ObjectAttribute)
+			return getAttribute((ObjectAttribute)function);
 		else
-			return getFunction((ComputedFunction)attribute);
+			return getFunction((ComputedFunction)function);
 	}
 
 	public final Object getAttribute(final ObjectAttribute attribute)

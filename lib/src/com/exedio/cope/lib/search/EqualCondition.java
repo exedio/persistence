@@ -15,63 +15,63 @@ import com.exedio.cope.lib.StringFunction;
 
 public final class EqualCondition extends Condition
 {
-	public final Function attribute; // TODO rename attribute
+	public final Function function;
 	public final Object value;
 
-	public EqualCondition(final ObjectAttribute attribute)
+	public EqualCondition(final ObjectAttribute function)
 	{
-		this.attribute = attribute;
+		this.function = function;
 		this.value = null;
 	}
 	
-	public EqualCondition(final StringFunction attribute, final String value) // TODO rename argument
+	public EqualCondition(final StringFunction function, final String value)
 	{
-		this.attribute = attribute;
+		this.function = function;
 		this.value = value;
 	}
 	
 	public EqualCondition(final IntegerAttribute attribute, final Integer value)
 	{
-		this.attribute = attribute;
+		this.function = attribute;
 		this.value = value;
 	}
 	
 	public EqualCondition(final LongAttribute attribute, final Long value)
 	{
-		this.attribute = attribute;
+		this.function = attribute;
 		this.value = value;
 	}
 	
 	public EqualCondition(final DoubleAttribute attribute, final Double value)
 	{
-		this.attribute = attribute;
+		this.function = attribute;
 		this.value = value;
 	}
 	
 	public EqualCondition(final ItemAttribute attribute, final Item value)
 	{
-		this.attribute = attribute;
+		this.function = attribute;
 		this.value = value;
 	}
 	
 	public final void appendStatement(final Statement bf)
 	{
-		bf.append(attribute);
+		bf.append(function);
 		if(value!=null)
 			bf.append('=').
-				appendValue(attribute, value);
+				appendValue(function, value);
 		else
 			bf.append(" is null");
 	}
 
 	public final void check(final TreeSet fromTypes)
 	{
-		check(attribute, fromTypes);
+		check(function, fromTypes);
 	}
 
 	public final String toString()
 	{
-		return attribute.getName() + "='" + value + '\'';
+		return function.getName() + "='" + value + '\'';
 	}
 	
 }
