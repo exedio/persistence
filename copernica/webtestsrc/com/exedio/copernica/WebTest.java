@@ -12,6 +12,7 @@ public class WebTest extends WebTestCase
 
 	String someNotNullString;
 	String someNotNullInteger;
+	String someBoolean;
 
 	public void setUp() throws Exception
 	{
@@ -19,12 +20,14 @@ public class WebTest extends WebTestCase
 		getTestContext().setBaseUrl("http://localhost:8080/copernicatest/");
 		someNotNullString = "running100";
 		someNotNullInteger = "107";
+		someBoolean = "NULL";
 	}
 	
 	private void assertItemForm()
 	{
 		assertFormElementEquals("someNotNullString", someNotNullString);
 		assertFormElementEquals("someNotNullInteger", someNotNullInteger);
+		assertFormElementEquals("someBoolean", someBoolean);
 	}
 
 	public void testSearch()
@@ -56,8 +59,14 @@ public class WebTest extends WebTestCase
 		assertTitleEquals("AttributeItem.103");
 		assertItemForm();
 
+		setFormElement("someBoolean", "TRUE"); someBoolean = "TRUE";
+		submit("SAVE");
+		assertTitleEquals("AttributeItem.103");
+		assertItemForm();
+
 		setFormElement("someNotNullString", "running100"); someNotNullString = "running100";
 		setFormElement("someNotNullInteger", "107"); someNotNullInteger = "107";
+		setFormElement("someBoolean", "NULL"); someBoolean = "NULL";
 		submit("SAVE");
 		assertTitleEquals("AttributeItem.103");
 		assertItemForm();
