@@ -20,7 +20,6 @@ public class PackageTest extends TestCase
 		suite.addTest(new TestSuite(AttributesTest.class));
 		suite.addTest(new TestSuite(UniqueItemTest.class));
 		suite.addTest(new TestSuite(SearchTest.class));
-		suite.addTest(new TestSuite(LibTest.class));
 		return suite;
 	}
 
