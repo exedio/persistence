@@ -1,4 +1,12 @@
 package com.exedio.copernica;
+
+/*
+ * This class has been stripped from all components not used for copernica,
+ * and moved into the copernica package.
+ * 
+ * If you want to use the Base64 class, better get the original version.
+ */
+
 /**
  * Encodes and decodes to and from Base64 notation.
  *
