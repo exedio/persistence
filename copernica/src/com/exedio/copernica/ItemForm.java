@@ -18,6 +18,7 @@ import com.exedio.cope.lib.IntegerAttribute;
 import com.exedio.cope.lib.Item;
 import com.exedio.cope.lib.ItemAttribute;
 import com.exedio.cope.lib.LongAttribute;
+import com.exedio.cope.lib.MediaAttribute;
 import com.exedio.cope.lib.NoSuchIDException;
 import com.exedio.cope.lib.NotNullViolationException;
 import com.exedio.cope.lib.ObjectAttribute;
@@ -65,6 +66,11 @@ final class ItemForm extends Form
 				else
 					field = new Field(attribute, value);
 			}
+			else if(anyAttribute instanceof MediaAttribute)
+			{
+				final MediaAttribute attribute = (MediaAttribute)anyAttribute;
+				field = new Field(attribute, "");
+			}
 			else
 				continue;
 
@@ -98,9 +104,9 @@ final class ItemForm extends Form
 		for(Iterator i = getFields().iterator(); i.hasNext(); )
 		{
 			final Field field = (Field)i.next();
-			final ObjectAttribute attribute = (ObjectAttribute)field.key;
 			if(!field.isReadOnly())
 			{
+				final ObjectAttribute attribute = (ObjectAttribute)field.key;
 				try
 				{
 					final Object value;

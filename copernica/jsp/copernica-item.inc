@@ -43,7 +43,25 @@
 						<td><%
 						if(attribute instanceof MediaAttribute)
 						{
-							%><%=item.getMediaURL((MediaAttribute)attribute)%><%
+							final MediaAttribute mediaAttribute = (MediaAttribute)attribute;
+							final String url = item.getMediaURL(mediaAttribute);
+							if(url==null)
+							{
+								%><%=cop.getDisplayNameNull()%><%
+							}
+							else
+							{
+								%><a href="<%=url%>"><%
+								if("image".equals(item.getMediaMimeMajor(mediaAttribute)))
+								{
+									%><img src="<%=url%>" width="250"><%
+								}
+								else
+								{
+									%>download<%
+								}
+								%></a><%
+							}
 						}
 						else if(attribute instanceof EnumAttribute)
 						{
