@@ -245,18 +245,13 @@ public final class Instrumentor implements InjectionConsumer
 							ja, "String",
 							initializerArguments, mapped, qualifiers);
 				}
-				else if(EnumerationAttribute.class.equals(typeClass))
+				else if(
+					EnumerationAttribute.class.equals(typeClass)||
+					ItemAttribute.class.equals(typeClass))
 				{
 					persistentAttribute =
 						new PersistentEnumerationAttribute(
 							ja,
-							initializerArguments, mapped, qualifiers);
-				}
-				else if(ItemAttribute.class.equals(typeClass))
-				{
-					persistentAttribute =
-						new PersistentAttribute(
-							ja, PersistentEnumerationAttribute.getPersistentType(initializerArguments),
 							initializerArguments, mapped, qualifiers);
 				}
 				else if(MediaAttribute.class.equals(typeClass))
