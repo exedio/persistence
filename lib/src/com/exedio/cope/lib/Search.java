@@ -7,6 +7,9 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
 
+import bak.pcj.IntIterator;
+import bak.pcj.list.IntArrayList;
+
 import com.exedio.cope.lib.search.AndCondition;
 import com.exedio.cope.lib.search.Condition;
 import com.exedio.cope.lib.search.EqualAttributeCondition;
@@ -352,13 +355,13 @@ public abstract class Search
 	 * @param pks the collection of primary keys, is expected not to be modified
 	 * @return an unmodifiable collection.
 	 */
-	private static final Collection wrapPrimaryKeys(final Type type, final Collection pks)
+	private static final Collection wrapPrimaryKeys(final Type type, final IntArrayList pks)
 	{
 		// TODO: dont convert all items at once, but use some kind of wrapper collection
 		final ArrayList result = new ArrayList(pks.size());
-		for(Iterator i = pks.iterator(); i.hasNext(); )
+		for(IntIterator i = pks.iterator(); i.hasNext(); )
 		{
-			final int pk = ((Integer)i.next()).intValue();
+			final int pk = i.next();
 			//System.out.println("pk:"+pk);
 			result.add(type.getItem(pk));
 		}

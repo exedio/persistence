@@ -83,6 +83,7 @@
 		<echo message="Instrumenting lib/testsrc" />
 		<java classname="com.exedio.cope.instrument.Main" failonerror="yes">
 			<classpath>
+				<pathelement location="../lib/pcj.jar" />
 				<pathelement location="lib/build/classes" />
 				<pathelement location="instrument/build/classes" />
 			</classpath>

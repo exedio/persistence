@@ -9,10 +9,11 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+
+import bak.pcj.list.IntArrayList;
 
 public abstract class Database
 {
@@ -258,7 +259,7 @@ public abstract class Database
 		//System.out.println("CHECK EMPTY TABLES "+amount+"ms  accumulated "+checkEmptyTableTime);
 	}
 	
-	Collection search(final Query query)
+	final IntArrayList search(final Query query)
 	{
 		final Type selectType = query.selectType;
 		final Statement bf = createStatement();
@@ -489,14 +490,13 @@ public abstract class Database
 		
 	private static class QueryResultSetHandler implements ResultSetHandler
 	{
-		private final ArrayList result = new ArrayList();
+		private final IntArrayList result = new IntArrayList();
 
 		public void run(ResultSet resultSet) throws SQLException
 		{
-			// TODO: use special list for integers
 			while(resultSet.next())
 			{
-				final Integer pk = new Integer(resultSet.getInt(1));
+				final int pk = resultSet.getInt(1);
 				//System.out.println("pk:"+pk);
 				result.add(pk);
 			}
