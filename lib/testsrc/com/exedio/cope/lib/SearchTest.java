@@ -6,6 +6,8 @@
  */
 package com.exedio.cope.lib;
 
+import java.util.Collection;
+
 /**
  * @author rw7
  *
@@ -27,7 +29,9 @@ public class SearchTest extends AbstractLibTest
 			throw new SystemException(e);
 		}
 		item.setSomeNotNullInteger(0);
-		assertUnmodifiable(Search.search(item.TYPE, Search.equal(item.someNotNullInteger, 0)));
+		final Collection searchResult = Search.search(item.TYPE, Search.equal(item.someNotNullInteger, 0));
+		assertEquals(set(item), toSet(searchResult));
+		assertUnmodifiable(searchResult);
 	}
 
 	public void testIllegalSearch()
