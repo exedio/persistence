@@ -21,6 +21,7 @@ import com.exedio.cope.lib.search.Condition;
 import com.exedio.cope.lib.util.ReactivationConstructorDummy;
 
 public final class Type
+	implements Selectable
 {
 	private static final HashMap typesByClass = new HashMap();
 

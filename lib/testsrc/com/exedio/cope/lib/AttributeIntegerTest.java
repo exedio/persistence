@@ -28,6 +28,9 @@ public class AttributeIntegerTest extends AttributeTest
 		assertEquals(list(item), item.TYPE.search(Cope.notEqual(item.someInteger, null)));
 		assertEquals(list(item), item.TYPE.search(Cope.isNotNull(item.someInteger)));
 
+		assertContains(new Integer(10), null, search(item.someInteger));
+		assertContains(new Integer(10), search(item.someInteger, Cope.equal(item.someInteger, new Integer(10))));
+
 		item.setSomeInteger(null);
 		assertEquals(null, item.getSomeInteger());
 		

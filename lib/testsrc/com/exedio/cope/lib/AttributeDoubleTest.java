@@ -28,6 +28,9 @@ public class AttributeDoubleTest extends AttributeTest
 		assertEquals(list(item), item.TYPE.search(Cope.notEqual(item.someDouble, null)));
 		assertEquals(list(item), item.TYPE.search(Cope.isNotNull(item.someDouble)));
 
+		assertContains(new Double(22.22), null, search(item.someDouble));
+		assertContains(new Double(22.22), search(item.someDouble, Cope.equal(item.someDouble, new Double(22.22))));
+
 		item.setSomeDouble(null);
 		assertEquals(null, item.getSomeDouble());
 

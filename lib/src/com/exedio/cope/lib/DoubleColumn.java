@@ -38,6 +38,14 @@ final class DoubleColumn extends Column
 		}
 	}
 
+	final Object load(final ResultSet resultSet, final int columnIndex)
+			throws SQLException
+	{
+		final Object loadedDouble = resultSet.getObject(columnIndex);
+		//System.out.println("IntegerColumn.load "+trimmedName+" "+loadedInteger);
+		return (loadedDouble!=null) ? (Double)loadedDouble : null;
+	}
+
 	final Object cacheToDatabase(final Object cache)
 	{
 		if(cache==null)

@@ -3,7 +3,9 @@ package com.exedio.cope.lib;
 import com.exedio.cope.lib.search.EqualCondition;
 
 
-public abstract class ObjectAttribute extends Attribute implements Function
+public abstract class ObjectAttribute
+	extends Attribute
+	implements Function, Selectable
 {
 	protected ObjectAttribute(final Option option)
 	{

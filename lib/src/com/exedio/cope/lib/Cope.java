@@ -95,6 +95,11 @@ public abstract class Cope
 		return new EqualCondition(attribute, value);
 	}
 	
+	public static final EqualCondition equal(final EnumAttribute attribute, final EnumValue value)
+	{
+		return new EqualCondition(attribute, value);
+	}
+	
 	public static final NotEqualCondition notEqual(final StringFunction function, final String value)
 	{
 		return new NotEqualCondition(function, value);
@@ -297,8 +302,7 @@ public abstract class Cope
 	{
 		//System.out.println("select " + type.getJavaClass().getName() + " where " + condition);
 		query.check();
-		final Type selectType = query.selectType;
-		return Collections.unmodifiableList(selectType.getModel().getDatabase().search(query));
+		return Collections.unmodifiableList(query.model.getDatabase().search(query));
 	}
 	
 }

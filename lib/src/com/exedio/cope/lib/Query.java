@@ -6,11 +6,13 @@ import com.exedio.cope.lib.search.Condition;
 
 public class Query
 {
-	final Type selectType;
+	final Model model;
+	final Selectable selectable;
 	final TreeSet fromTypes = new TreeSet(Type.COMPARATOR);
 	final Condition condition;
 
 	Function orderBy = null;
+	
 	boolean orderAscending;
 	boolean deterministicOrder = false;
 
@@ -19,22 +21,25 @@ public class Query
 	
 	public Query(final Type type, final Condition condition)
 	{
-		this.selectType = type;
+		this.model = type.getModel();
+		this.selectable = type;
 		this.fromTypes.add(type);
 		this.condition = condition;
 	}
 	
 	public Query(final Type selectType, final Type fromType2, final Condition condition)
 	{
-		this.selectType = selectType;
+		this.model = selectType.getModel();
+		this.selectable = selectType;
 		this.fromTypes.add(selectType);
 		this.fromTypes.add(fromType2);
 		this.condition = condition;
 	}
 	
-	public Query(final Type selectType, final Type[] fromTypes, final Condition condition)
+	public Query(final Selectable selectable, final Type[] fromTypes, final Condition condition)
 	{
-		this.selectType = selectType;
+		this.model = fromTypes[0].getModel();
+		this.selectable = selectable;
 		for(int i = 0; i<fromTypes.length; i++)
 			this.fromTypes.add(fromTypes[i]);
 		this.condition = condition;

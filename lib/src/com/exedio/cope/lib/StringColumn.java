@@ -97,6 +97,12 @@ final class StringColumn extends Column
 			row.load(this, loadedString);
 	}
 
+	Object load(final ResultSet resultSet, final int columnIndex)
+			throws SQLException
+	{
+		return resultSet.getString(columnIndex);
+	}
+
 	Object cacheToDatabase(final Object cache)
 	{
 		if(cache==null)

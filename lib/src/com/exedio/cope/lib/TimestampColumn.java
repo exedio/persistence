@@ -44,6 +44,7 @@ final class TimestampColumn extends Column
 		
 		final String version = System.getProperty("java.runtime.version");
 		//System.out.println("          version "+version);
+		// TODO: compute that condition statically in advance 
 		if(!version.startsWith("1.3"))
 			return result;
 	
@@ -77,6 +78,14 @@ final class TimestampColumn extends Column
 		}
 	}
 	
+	final Object load(final ResultSet resultSet, final int columnIndex)
+			throws SQLException
+	{
+		final Object loadedTimestamp = resultSet.getObject(columnIndex);
+		//System.out.println("TimestampColumn.load "+columnIndex+" "+loadedTimestamp);
+		return (loadedTimestamp!=null) ? new Long(getTime(((Date)loadedTimestamp))) : null;
+	}
+
 	final Object cacheToDatabase(final Object cache)
 	{
 		// Don't use a static instance,

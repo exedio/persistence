@@ -90,6 +90,32 @@ class IntegerColumn extends Column
 		}
 	}
 
+	final Object load(final ResultSet resultSet, final int columnIndex)
+			throws SQLException
+	{
+		final Object loadedInteger = resultSet.getObject(columnIndex);
+		//System.out.println("IntegerColumn.load "+trimmedName+" "+loadedInteger);
+		if(loadedInteger!=null)
+		{
+			if(loadedInteger instanceof BigDecimal)
+			{
+				if (longInsteadOfInt)
+					return new Long(((BigDecimal)loadedInteger).longValue());
+				else
+					return new Integer(((BigDecimal)loadedInteger).intValue());
+			}
+			else
+			{
+				if (longInsteadOfInt)
+					return (Long)loadedInteger;
+				else
+					return (Integer)loadedInteger;
+			}
+		}
+		else
+			return null;
+	}
+
 	final Object cacheToDatabase(final Object cache)
 	{
 		if(cache==null)
@@ -103,7 +129,7 @@ class IntegerColumn extends Column
 		}
 	}
 	
-	final long convertSQLResult(final Object sqlInteger)
+	private final long convertSQLResult(final Object sqlInteger)
 	{
 		// IMPLEMENTATION NOTE for Oracle
 		// Whether the returned object is an Integer or a BigDecimal,

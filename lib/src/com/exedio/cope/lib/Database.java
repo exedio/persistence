@@ -232,24 +232,51 @@ abstract class Database
 	{
 		buildStage = false;
 
-		final Type selectType = query.selectType;
-		final Table selectTable = selectType.getTable();
-		final Column selectPrimaryKey = selectTable.getPrimaryKey();
 		final Statement bf = createStatement();
+		bf.append("select ");
 
-		bf.append("select ").
-			append(selectTable.protectedID).
-			append('.').
-			append(selectPrimaryKey.protectedID).defineColumnInteger();
-
-		final StringColumn typeColumn = selectTable.getTypeColumn();
-		if(typeColumn!=null)
+		final Selectable selectable = query.selectable;
+		final Type selectType;
+		final Column selectColumn;
+		final Table selectTable;
+		final Column selectPrimaryKey;
+		if(selectable instanceof ObjectAttribute)
 		{
-			bf.append(',').
-				append(selectTable.protectedID).
-				append('.').
-				append(typeColumn.protectedID).defineColumn(typeColumn);
+			final ObjectAttribute selectAttribute = (ObjectAttribute)selectable;
+			selectType = selectAttribute.getType();
+			selectColumn = selectAttribute.getMainColumn();
+			selectTable = selectColumn.table;
+			selectPrimaryKey = selectTable.getPrimaryKey();
 		}
+		else
+		{
+			selectType = (Type)selectable;
+			selectTable = selectType.getTable();
+			selectPrimaryKey = selectTable.getPrimaryKey();
+			selectColumn = selectPrimaryKey;
+		}
+		
+		bf.append(selectColumn.table.protectedID).
+			append('.').
+			append(selectColumn.protectedID).defineColumn(selectColumn);
+		
+		final StringColumn selectTypeColumn;
+		if(selectColumn.primaryKey)
+		{
+			selectTypeColumn = selectColumn.getTypeColumn();
+			if(selectTypeColumn!=null)
+			{
+				bf.append(',').
+					append(selectTable.protectedID).
+					append('.').
+					append(selectTypeColumn.protectedID).defineColumn(selectTypeColumn);
+			}
+		}
+		else
+		{
+			selectTypeColumn = null;
+		}
+
 		bf.append(" from ");
 
 		boolean first = true;
@@ -298,9 +325,9 @@ abstract class Database
 		try
 		{
 			final SearchResultSetHandler handler =
-				typeColumn!=null
-				? new SearchResultSetHandler(query.start, query.count, selectType.getModel())
-				: new SearchResultSetHandler(query.start, query.count, selectType);
+				selectTypeColumn!=null
+				? new SearchResultSetHandler(query.start, query.count, selectable, selectColumn, selectType.getModel())
+				: new SearchResultSetHandler(query.start, query.count, selectable, selectColumn, selectType);
 			executeSQL(bf, handler);
 			return handler.result;
 		}
@@ -314,31 +341,37 @@ abstract class Database
 	{
 		private final int start;
 		private final int count;
+		private final Selectable selectable;
+		private final Column selectColumn;
 		private final Type type;
 		private final Model model;
 		private final ArrayList result = new ArrayList();
 		
-		SearchResultSetHandler(final int start, final int count, final Type type)
+		SearchResultSetHandler(final int start, final int count, final Selectable selectable, final Column selectColumn, final Type type)
 		{
 			this.start = start;
 			this.count = count;
+			this.selectable = selectable;
+			this.selectColumn = selectColumn;
 			this.type = type;
 			this.model = null;
 			if(start<0)
 				throw new RuntimeException();
 		}
 
-		SearchResultSetHandler(final int start, final int count, final Model model)
+		SearchResultSetHandler(final int start, final int count, final Selectable selectable, final Column selectColumn, final Model model)
 		{
 			this.start = start;
 			this.count = count;
+			this.selectable = selectable;
+			this.selectColumn = selectColumn;
 			this.type = null;
 			this.model = model;
 			if(start<0)
 				throw new RuntimeException();
 		}
 
-		public void run(ResultSet resultSet) throws SQLException
+		public void run(final ResultSet resultSet) throws SQLException
 		{
 			if(start>0)
 			{
@@ -355,20 +388,29 @@ abstract class Database
 
 			while(resultSet.next() && (--i)>=0)
 			{
-				final int pk = resultSet.getInt(1);
-				//System.out.println("pk:"+pk);
-				final Type currentType;
-				if(this.type==null)
+				final Object selectValue = selectColumn.load(resultSet, 1);
+				if(selectable instanceof ObjectAttribute)
 				{
-					final String typeID = resultSet.getString(2);
-					currentType = model.findTypeByID(typeID);
-					if(currentType==null)
-						throw new RuntimeException("no type with type id "+typeID);
+					final ObjectAttribute selectAttribute = (ObjectAttribute)selectable;
+					result.add(selectAttribute.cacheToSurface(selectValue));
 				}
 				else
-					currentType = this.type;
-
-				result.add(currentType.getItem(pk));
+				{
+					final int pk = resultSet.getInt(1);
+					//System.out.println("pk:"+pk);
+					final Type currentType;
+					if(this.type==null)
+					{
+						final String typeID = resultSet.getString(2);
+						currentType = model.findTypeByID(typeID);
+						if(currentType==null)
+							throw new RuntimeException("no type with type id "+typeID);
+					}
+					else
+						currentType = this.type;
+	
+					result.add(currentType.getItem(pk));
+				}
 			}
 		}
 	}

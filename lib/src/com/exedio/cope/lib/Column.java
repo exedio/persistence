@@ -27,6 +27,14 @@ abstract class Column
 	}
 	
 	abstract String getDatabaseType();
+	
+	final StringColumn getTypeColumn()
+	{
+		if(!primaryKey)
+			throw new RuntimeException(id);
+		
+		return table.getTypeColumn();
+	}
 
 	final String getPrimaryKeyConstraintID()
 	{
@@ -67,8 +75,20 @@ abstract class Column
 	{
 		return id;
 	}
-	
+
+	/**
+	 * Loads the value of the column from a result set,
+	 * that loads the item into memory, and put the results into
+	 * a row.
+	 */
 	abstract void load(ResultSet resultSet, int columnIndex, Row row) throws SQLException;
+
+	/**
+	 * Loads the value of the column from a result set,
+	 * that selects that column in a search, and returns the results.
+	 */
+	abstract Object load(ResultSet resultSet, int columnIndex) throws SQLException;
+
 	abstract Object cacheToDatabase(Object cache);
 
 }

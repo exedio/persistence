@@ -21,6 +21,9 @@ public class AttributeDateTest extends AttributeTest
 		item.setSomeDate(date);
 		assertEquals(date, item.getSomeDate());
 
+		assertContains(date, null, search(item.someDate));
+		assertContains(date, search(item.someDate, Cope.equal(item.someDate, date)));
+
 		item.passivate();
 		assertEquals(date, item.getSomeDate());
 		assertEquals(
@@ -78,6 +81,9 @@ public class AttributeDateTest extends AttributeTest
 		assertEquals(list(item2), item.TYPE.search(Cope.isNull(item.someLongDate)));
 		assertEquals(list(item), item.TYPE.search(Cope.notEqual(item.someLongDate, (Date)null)));
 		assertEquals(list(item), item.TYPE.search(Cope.isNotNull(item.someLongDate)));
+
+		assertContains(date, null, search(item.someLongDate));
+		assertContains(date, search(item.someLongDate, Cope.equal(item.someLongDate, date)));
 
 		item.setSomeLongDate(nextDate);
 		item.passivate();

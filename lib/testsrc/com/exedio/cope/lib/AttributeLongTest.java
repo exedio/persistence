@@ -29,6 +29,9 @@ public class AttributeLongTest extends AttributeTest
 		assertEquals(list(item), item.TYPE.search(Cope.notEqual(item.someLong, null)));
 		assertEquals(list(item), item.TYPE.search(Cope.isNotNull(item.someLong)));
 
+		assertContains(new Long(11), null, search(item.someLong));
+		assertContains(new Long(11), search(item.someLong, Cope.equal(item.someLong, new Long(11))));
+
 		item.setSomeLong(null);
 		assertEquals(null, item.getSomeLong());
 		
