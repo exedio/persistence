@@ -50,8 +50,7 @@ public class AttributeIntegerTest extends AttributeTest
 		assertEquals(
 			set(item),
 			toSet(
-				Search.search(
-					item.TYPE,
+				item.TYPE.search(
 					Search.equal(item.someNotNullInteger, 0))));
 
 		item.setSomeNotNullInteger(Integer.MIN_VALUE);
@@ -62,8 +61,7 @@ public class AttributeIntegerTest extends AttributeTest
 		assertEquals(
 			set(item),
 			toSet(
-				Search.search(
-					item.TYPE,
+				item.TYPE.search(
 					Search.equal(item.someNotNullInteger, Integer.MIN_VALUE))));
 
 		item.setSomeNotNullInteger(Integer.MAX_VALUE);
@@ -74,8 +72,7 @@ public class AttributeIntegerTest extends AttributeTest
 		assertEquals(
 			set(item),
 			toSet(
-				Search.search(
-					item.TYPE,
+				item.TYPE.search(
 					Search.equal(item.someNotNullInteger, Integer.MAX_VALUE))));
 	}
 }

@@ -50,8 +50,7 @@ public class AttributeDoubleTest extends AttributeTest
 		assertEquals(
 			set(item),
 			toSet(
-				Search.search(
-					item.TYPE,
+				item.TYPE.search(
 					Search.equal(item.someNotNullDouble, 0.0))));
 
 		// TODO: test with extreme values

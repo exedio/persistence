@@ -331,6 +331,19 @@ public final class Type
 	}
 	
 	/**
+	 * Searches for items of this type, that match the given condition.
+	 * <p>
+	 * Returns an unmodifiable collection.
+	 * Any attempts to modify the returned collection, whether direct or via its iterator,
+	 * result in an <code>UnsupportedOperationException</code>.
+	 * @param condition the condition the searched items must match.
+	 */
+	public final Collection search(final Condition condition)
+	{
+		return Search.search(new Query(this, condition));
+	}
+	
+	/**
 	 * TODO: should throw a non-RuntimeException,
 	 * if there is more than one item found.
 	 * TODO: should have a unique constraint as parameter,
@@ -338,7 +351,7 @@ public final class Type
 	 */
 	public final Item searchUnique(final Condition condition)
 	{
-		final Iterator searchResult = Search.search(this, condition).iterator();
+		final Iterator searchResult = search(condition).iterator();
 		if(searchResult.hasNext())
 		{
 			final Item result = (Item)searchResult.next();
@@ -369,11 +382,6 @@ public final class Type
 		
 		toStringCache = buf.toString();
 		return toStringCache;
-	}
-	
-	public final Collection search(final Condition condition)
-	{
-		return Search.search(this, condition);
 	}
 	
 	PrimaryKeyIterator getPrimaryKeyIterator()

@@ -51,8 +51,7 @@ public class AttributeLongTest extends AttributeTest
 		assertEquals(
 			set(item),
 			toSet(
-				Search.search(
-					item.TYPE,
+				item.TYPE.search(
 					Search.equal(item.someNotNullLong, 0l))));
 
 		item.setSomeNotNullLong(Long.MIN_VALUE);
@@ -63,8 +62,7 @@ public class AttributeLongTest extends AttributeTest
 		assertEquals(
 			set(item),
 			toSet(
-				Search.search(
-					item.TYPE,
+				item.TYPE.search(
 					Search.equal(item.someNotNullLong, Long.MIN_VALUE))));
 
 		item.setSomeNotNullLong(Long.MAX_VALUE);
@@ -75,8 +73,7 @@ public class AttributeLongTest extends AttributeTest
 		assertEquals(
 			set(item),
 			toSet(
-				Search.search(
-					item.TYPE,
+				item.TYPE.search(
 					Search.equal(item.someNotNullLong, Long.MAX_VALUE))));
 	}
 }

@@ -15,38 +15,32 @@ public class AttributeStringTest extends AttributeTest
 		assertEquals(
 			set(item),
 			toSet(
-				Search.search(
-					item.TYPE,
+				item.TYPE.search(
 					Search.equal(item.someString, "someString"))));
 		assertEquals(
 			set(item2),
 			toSet(
-				Search.search(
-					item.TYPE,
+				item.TYPE.search(
 					Search.notEqual(item.someString, "someString"))));
 		assertEquals(
 			set(),
 			toSet(
-				Search.search(
-					item.TYPE,
+				item.TYPE.search(
 					Search.equal(item.someString, "SOMESTRING"))));
 		assertEquals(
 			set(item),
 			toSet(
-				Search.search(
-					item.TYPE,
+				item.TYPE.search(
 					Search.equal(item.someStringUpperCase, "SOMESTRING"))));
 		assertEquals(
 			set(item2),
 			toSet(
-				Search.search(
-					item.TYPE,
+				item.TYPE.search(
 					Search.notEqual(item.someStringUpperCase, "SOMESTRING"))));
 		assertEquals(
 			set(),
 			toSet(
-				Search.search(
-					item.TYPE,
+				item.TYPE.search(
 					Search.equal(item.someStringUpperCase, "someString"))));
 		item.passivate();
 		assertEquals("someString", item.getSomeString());

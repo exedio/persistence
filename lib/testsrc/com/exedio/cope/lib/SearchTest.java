@@ -26,14 +26,12 @@ public class SearchTest extends DatabaseLibTest
 		
 		assertEquals(set(item, item2), toSet(item.TYPE.search(null)));
 		assertEquals(set(item, item2), toSet(
-			Search.search(
-				item.TYPE,
+			item.TYPE.search(
 				Search.or(
 					Search.equal(item.someNotNullString, "someString"),
 					Search.equal(item.someNotNullString, "someString2")))));
 		assertEquals(set(), toSet(
-			Search.search(
-				item.TYPE,
+			item.TYPE.search(
 				Search.and(
 					Search.equal(item.someNotNullString, "someString"),
 					Search.equal(item.someNotNullString, "someString2")))));
