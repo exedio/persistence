@@ -64,7 +64,9 @@
 				throw new RuntimeException(sourceName);
 			
 			%>
-			<li>renaming table <%=sourceName%> to <%=targetName%> ...</li><%
+			<li>report.getTable(&quot;<b><%=
+				table.name%></b>&quot;).renameTo(&quot;<%=
+				targetName%>&quot;);</li><%
 			out.flush();
 			final long startTime = System.currentTimeMillis();
 			table.renameTo(targetName);
