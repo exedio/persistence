@@ -180,9 +180,13 @@ public final class Instrumentor implements InjectionConsumer
 	public void writeConstructor(final JavaClass javaClass)
 	throws IOException
 	{
-		output.write("/** @"+GENERATED);
+		output.write("/**");
 		output.write(lineSeparator);
-		output.write("*/");
+		output.write("\t * This is a generated constructor.");
+		output.write(lineSeparator);
+		output.write("\t * @"+GENERATED);
+		output.write(lineSeparator);
+		output.write("\t */");
 		output.write(Modifier.toString(javaClass.getModifiers() & (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE)));
 		output.write(' ');
 		output.write(javaClass.getName());
@@ -234,9 +238,13 @@ public final class Instrumentor implements InjectionConsumer
 		final List qualifiers = persistentAttribute.getQualifiers();
 
 		// getter
-		output.write("/** @"+GENERATED);
+		output.write("/**");
 		output.write(lineSeparator);
-		output.write("*/");
+		output.write("\t * This is a generated getter method.");
+		output.write(lineSeparator);
+		output.write("\t * @"+GENERATED);
+		output.write(lineSeparator);
+		output.write("\t */");
 		output.write(methodModifiers);
 		output.write(' ');
 		output.write(type);
@@ -249,9 +257,13 @@ public final class Instrumentor implements InjectionConsumer
 		output.write('}');
 		
 		// setter
-		output.write("/** @"+GENERATED);
+		output.write("/**");
 		output.write(lineSeparator);
-		output.write("*/");
+		output.write("\t * This is a generated setter method.");
+		output.write(lineSeparator);
+		output.write("\t * @"+GENERATED);
+		output.write(lineSeparator);
+		output.write("\t */");
 		output.write(methodModifiers);
 		output.write(" void set");
 		output.write(persistentAttribute.getCamelCaseName());
