@@ -50,6 +50,12 @@ public class ItemTest extends AbstractLibTest
 		item4.TYPE.flushPK();
 		final ItemWithoutAttributes item5 = new ItemWithoutAttributes();
 		assertNotEquals(item4, item5);
+		
+		assertDelete(item1);
+		assertDelete(item2);
+		assertDelete(item3);
+		assertDelete(item4);
+		assertDelete(item5);
 	}
 
 }

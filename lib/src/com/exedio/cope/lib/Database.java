@@ -205,6 +205,29 @@ public abstract class Database
 		executeSQL(bf, EMPTY_RESULT_SET_HANDLER);
 	}
 
+	void delete(final Type type, final int pk)
+	{
+		final Statement bf = new Statement();
+		bf.append("delete from ").
+			append(type.protectedName).
+			append(" where ").
+			append(type.primaryKey.protectedName).
+			append('=').
+			append(pk);
+
+		//System.out.println("deleting "+bf.toString());
+
+		try
+		{
+			// TODO: catch and wrap foreign key constraint violations
+			executeSQL(bf, EMPTY_RESULT_SET_HANDLER);
+		}
+		catch(UniqueViolationException e)
+		{
+			throw new SystemException(e);
+		}
+	}
+
 	private static interface ResultSetHandler
 	{
 		public void run(ResultSet resultSet) throws SQLException;

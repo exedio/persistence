@@ -10,6 +10,8 @@ public class Item extends Search
 	private final Type type;
 
 	final int pk;
+	
+	private boolean deleted = false;
 
 	/**
 	 * The row containing the item cache for this item, if this item is active.
@@ -342,6 +344,42 @@ public class Item extends Search
 
 		if(data!=null)
 			data.close();
+	}
+	
+	public final void delete()
+	{
+		// TODO: additionally we must ensure, that any passive item objects of this item
+		// are marked deleted when they are tried to be loaded.
+		if(rowWhenActive!=null)
+		{
+			if(type.getRow(pk)!=rowWhenActive)
+				throw new RuntimeException();
+			Database.theInstance.delete(type, pk);
+			rowWhenActive.close();
+			rowWhenActive = null;
+		}
+		else
+		{
+			final Row row = type.getRow(pk);
+			if(row==null)
+			{
+				Database.theInstance.delete(type, pk);
+			}
+			else
+			{
+				if(row.item==this)
+					throw new RuntimeException();
+				if(row.item.rowWhenActive!=row)
+					throw new RuntimeException();
+				row.item.delete();
+			}
+		}
+		deleted = true;
+	}
+	
+	public final boolean isDeleted()
+	{
+		return deleted;
 	}
 
 	// activation/deactivation -----------------------------------------------------

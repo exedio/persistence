@@ -153,6 +153,13 @@ public abstract class AbstractLibTest extends TestCase
 		}
 		catch(UnsupportedOperationException e) {}
 	}
+	
+	protected void assertDelete(final Item item)
+	{
+		assertTrue(!item.isDeleted());
+		item.delete();
+		assertTrue(item.isDeleted());
+	}
 
 	protected Set toSet(final Collection collection)
 	{
