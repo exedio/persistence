@@ -397,6 +397,14 @@ public final class Instrumentor implements InjectionConsumer
 		output.write(lineSeparator);
 		output.write("\t\t\t\t{");
 		output.write(lineSeparator);
+		for(Iterator i = javaClass.getPersistentAttributes().iterator(); i.hasNext(); )
+		{
+			final JavaAttribute persistentAttribute = (JavaAttribute)i.next();
+			output.write("\t\t\t\t\t");
+			output.write(persistentAttribute.getName());
+			output.write(".hashCode();");
+			output.write(lineSeparator);
+		}
 		output.write("\t\t\t\t}");
 		output.write(lineSeparator);
 		output.write("\t\t\t}");
