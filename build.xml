@@ -89,6 +89,10 @@
 		<jar jarfile="lib/build/cope.jar" basedir="lib/build/classes" />
 	</target>
 	
+	<target name="lib.junit.jar" depends="lib.junit.compile">
+		<jar jarfile="lib/build/cope-junit.jar" basedir="lib/build/junitclasses" />
+	</target>
+	
 	<target name="instrument.jar" depends="instrument.compile">
 		<jar jarfile="instrument/build/cope-instrument.jar" basedir="instrument/build/classes" />
 	</target>
@@ -103,7 +107,7 @@
 		</zip>
 	</target>
 	
-	<target name="jar" depends="lib.jar, instrument.jar, copernica.jar" />
+	<target name="jar" depends="lib.jar, lib.junit.jar, instrument.jar, copernica.jar" />
 	
 	<target name="lib.testmodel.instrument" depends="lib.compile, instrument.compile">
 		<echo message="Instrumenting lib/testmodelsrc" />
@@ -151,7 +155,22 @@
 		</javac>
 	</target>
 	
-	<target name="lib.test.compile" depends="lib.testmodel.compile">
+	<target name="lib.junit.compile" depends="lib.compile">
+		<mkdir dir="lib/build/junitclasses" />
+		<javac srcdir="lib/junitsrc"
+				destdir="lib/build/junitclasses"
+				deprecation="on"
+				debug="on"
+				optimize="off">
+			<classpath>
+				<pathelement location="lib/build/classes" />
+				<pathelement location="../lib/junit.jar" />
+			</classpath>
+		</javac>
+	</target>
+	
+	<target name="lib.test.compile"
+				depends="lib.testmodel.compile, lib.junit.compile">
 		<mkdir dir="lib/build/testclasses" />
 		<javac srcdir="lib/testsrc"
 				destdir="lib/build/testclasses"
@@ -161,6 +180,7 @@
 			<classpath>
 				<pathelement location="lib/build/classes" />
 				<pathelement location="lib/build/testmodelclasses" />
+				<pathelement location="lib/build/junitclasses" />
 				<pathelement location="../lib/junit.jar" />
 			</classpath>
 		</javac>
@@ -179,6 +199,7 @@
 			<classpath>
 				<pathelement location="lib/build/classes" />
 				<pathelement location="lib/build/testmodelclasses" />
+				<pathelement location="lib/build/junitclasses" />
 				<pathelement location="lib/build/testclasses" />
 				<pathelement location="../lib/junit.jar" />
 				<pathelement location="../lib/pcj.jar" />

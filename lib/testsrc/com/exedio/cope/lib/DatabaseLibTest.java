@@ -4,82 +4,15 @@ package com.exedio.cope.lib;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.ListIterator;
 
 import com.exedio.cope.testmodel.AttributeItem;
+import com.exedio.cope.testmodel.Main;
 
 /**
  * An abstract test class for tests creating/using some persistent data.
  */
 public abstract class DatabaseLibTest extends AbstractLibTest
 {
-	private static boolean createdDatabase = false;
-	private static boolean registeredDropDatabaseHook = false;
-	private static Object lock = new Object(); 
-	
-	private ArrayList deleteOnTearDown = null;
-
-	private static void createDatabase()
-	{
-		synchronized(lock)
-		{
-			if(!createdDatabase)
-			{
-				model.createDatabase();
-				createdDatabase = true;
-			}
-		}
-	}
-	
-	private void dropDatabase()
-	{
-		synchronized(lock)
-		{
-			if(!registeredDropDatabaseHook)
-			{
-				Runtime.getRuntime().addShutdownHook(new Thread(new Runnable(){
-					public void run()
-					{
-						model.dropDatabase();
-					}
-				}));
-				registeredDropDatabaseHook = true;
-			}
-		}
-	}
-
-	protected void setUp() throws Exception
-	{
-		super.setUp();
-		createDatabase();
-		model.checkEmptyDatabase();
-
-		// ensure, that last test did call tearDown()
-		assertEquals(null, deleteOnTearDown);
-		deleteOnTearDown = new ArrayList();
-	}
-	
-	protected void tearDown() throws Exception
-	{
-		if(!deleteOnTearDown.isEmpty())
-		{
-			for(ListIterator i = deleteOnTearDown.listIterator(deleteOnTearDown.size()); i.hasPrevious(); )
-				((Item)i.previous()).delete();
-			deleteOnTearDown.clear();
-		}
-		deleteOnTearDown = null;
-
-		model.checkEmptyDatabase();
-		dropDatabase();
-		super.tearDown();
-	}
-	
-	protected void deleteOnTearDown(final Item item)
-	{
-		deleteOnTearDown.add(item);
-	}
-	
 	protected InputStream stream(byte[] data)
 	{
 		return new ByteArrayInputStream(data);
@@ -154,8 +87,8 @@ public abstract class DatabaseLibTest extends AbstractLibTest
 
 	public static void main(String[] args)
 	{
-		model.setProperties(new Properties());
-		model.tearDownDatabase();
+		Main.model.setProperties(new Properties());
+		Main.model.tearDownDatabase();
 	}
 
 }
