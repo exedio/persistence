@@ -5,13 +5,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-final class PersistentMediaAttribute extends CopeAttribute
+final class CopeMediaAttribute extends CopeAttribute
 {
 	private final List mediaVariants;
 	public final String mimeMajor;
 	public final String mimeMinor;
 
-	public PersistentMediaAttribute(
+	public CopeMediaAttribute(
 			final JavaAttribute javaAttribute,
 			final Class typeClass,
 			final List initializerArguments,

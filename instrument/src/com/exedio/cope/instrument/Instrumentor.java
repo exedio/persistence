@@ -169,7 +169,7 @@ public final class Instrumentor implements InjectionConsumer
 		}
 		else if(MediaAttribute.class.equals(typeClass))
 		{
-			new PersistentMediaAttribute(
+			new CopeMediaAttribute(
 				ja, typeClass,
 				initializerArguments, setterOptionString, qualifiers);
 		}
@@ -219,7 +219,7 @@ public final class Instrumentor implements InjectionConsumer
 			throw new InjectorParseException("attribute >"+ja.name+"< has invalid initializer arguments: "+initializerArguments);
 		//System.out.println("---------"+initializerArguments);
 		final String initializerArgument = (String)initializerArguments.get(0);
-		final PersistentMediaAttribute mediaAttribute = (PersistentMediaAttribute)persistentClass.getCopeAttribute(initializerArgument);
+		final CopeMediaAttribute mediaAttribute = (CopeMediaAttribute)persistentClass.getCopeAttribute(initializerArgument);
 		if(mediaAttribute==null)
 			throw new InjectorParseException("attribute >"+initializerArgument+"< in media attribute variant "+ja.name+" not found.");
 		new PersistentMediaVariant(ja, mediaAttribute);

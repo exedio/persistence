@@ -399,7 +399,7 @@ final class Generator
 		o.write("\t}");
 	}
 	
-	private void writeMediaAccessMethods(final PersistentMediaAttribute mediaAttribute)
+	private void writeMediaAccessMethods(final CopeMediaAttribute mediaAttribute)
 	throws IOException
 	{
 		final List qualifiers = mediaAttribute.qualifiers;
@@ -642,8 +642,8 @@ final class Generator
 				// write setter/getter methods
 				final CopeAttribute persistentAttribute = (CopeAttribute)i.next();
 				//System.out.println("onClassEnd("+jc.getName()+") writing attribute "+persistentAttribute.getName());
-				if(persistentAttribute instanceof PersistentMediaAttribute)
-					writeMediaAccessMethods((PersistentMediaAttribute)persistentAttribute);
+				if(persistentAttribute instanceof CopeMediaAttribute)
+					writeMediaAccessMethods((CopeMediaAttribute)persistentAttribute);
 				else
 					writeAccessMethods(persistentAttribute);
 			}
