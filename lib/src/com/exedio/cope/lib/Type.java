@@ -19,6 +19,7 @@ public final class Type
 	private static final HashMap typesByName = new HashMap();
 	
 	private final Class javaClass;
+	private final Type supertype;
 	
 	private final Attribute[] attributes;
 	private final List attributeList;
@@ -48,6 +49,16 @@ public final class Type
 	public Type(final Class javaClass, final Attribute[] attributes, final UniqueConstraint[] uniqueConstraints)
 	{
 		this.javaClass = javaClass;
+
+		final Class superClass = javaClass.getSuperclass();
+		if(superClass.equals(Item.class))
+			supertype = null;
+		else
+		{
+			supertype = getType(superClass.getName());
+			if(supertype==null)
+				throw new NullPointerException(superClass.getName());
+		}
 
 		if(attributes!=null)
 		{
@@ -109,12 +120,7 @@ public final class Type
 	 */
 	public final Type getSupertype()
 	{
-		// TODO: compute in advance in constructor
-		final Class superClass = javaClass.getSuperclass();
-		if(superClass.equals(Item.class))
-			return null;
-		else
-			return getType(superClass.getName());
+		return supertype;
 	}
 
 	/**
