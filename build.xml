@@ -93,6 +93,37 @@
 		</java>
 	</target>
 	
+	<target name="instrument.test.compile" depends="instrument.compile">
+		<mkdir dir="instrument/build/testclasses" />
+		<javac srcdir="instrument/testsrc"
+				destdir="instrument/build/testclasses"
+				deprecation="on"
+				debug="on"
+				optimize="off">
+			<include name="com/**" />
+			<classpath>
+				<pathelement location="instrument/build/classes" />
+				<pathelement location="../lib/junit.jar" />
+			</classpath>
+		</javac>
+		<copy
+			file="instrument/testsrc/com/exedio/cope/instrument/Example.java"
+			todir="instrument/build/testclasses/com/exedio/cope/instrument" />
+	</target>
+	
+	<target name="instrument.test.run" depends="instrument.test.compile">
+		<java classname="junit.textui.TestRunner" taskname="junit" fork="yes" failonerror="yes">
+			<classpath>
+				<pathelement location="instrument/build/classes" />
+				<pathelement location="instrument/build/testclasses" />
+				<pathelement location="../lib/junit.jar" />
+			</classpath>
+			<arg value="com.exedio.cope.instrument.ExampleTest" />
+		</java>
+	</target>
+	
+	<target name="instrument.test" depends="instrument.test.run" />
+	
 	<target name="test" depends="libtest.run" />
 	
 	<target name="lib.clean">
