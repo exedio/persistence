@@ -14,10 +14,33 @@ private String color(final int color)
 	}
 }
 %><%
+
+if(request.getParameter("APPLY")!=null)
+{
+	%>
+	<ol><%
+	final String[] analyzeTables = (String[])request.getParameterMap().get("ANALYZE_TABLE");
+	
+	if(analyzeTables!=null)
+	{
+		for(int i = 0; i<analyzeTables.length; i++)
+		{
+			String analyzeTable = analyzeTables[i];
+			%>
+			<li>analyzing table <%=analyzeTable%></li><%
+		}
+	}
+	%>
+	</ol>
+	<hr><%
+}
+
 final Report report = ((DatabaseReportable)Database.theInstance).reportDatabase();
 final String reportColor = color(report.getCumulativeColor());
 
-%><span class="<%=reportColor%>">Database Report</span>
+%>
+<span class="<%=reportColor%>">Database Report</span>
+<input type="submit" name="APPLY" value="apply"/>
 <ul class="<%=reportColor%>"><%
 
 for(Iterator i = report.getTables().iterator(); i.hasNext(); )

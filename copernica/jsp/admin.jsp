@@ -66,10 +66,10 @@ include file="copernica-provider.inc"
 					Database.theInstance.dropDatabase();
 					%>Database successfully dropped!<%
 				}
-				else if(request.getParameter("REPORT")!=null)
+				else if(request.getParameter("REPORT")!=null ||
+							request.getParameter("APPLY")!=null)
 				{
-					%><hr><%@ include file="admin-report.inc"
-					%><%
+					%><hr><%@ include file="admin-report.inc" %><%
 				}
 			%>
 		</form>
