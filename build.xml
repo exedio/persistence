@@ -338,6 +338,7 @@
 			<arg value="copernica/src/com/exedio/copernica/Copernica.jspm" />
 			<arg value="copernica/src/com/exedio/copernica/TypeCop.jspm" />
 			<arg value="copernica/src/com/exedio/copernica/ItemCop.jspm" />
+			<arg value="copernica/src/com/exedio/copernica/admin/Report.jspm" />
 			<arg value="copernica/src/com/exedio/copernica/admin/Properties.jspm" />
 		</java>
 	</target>

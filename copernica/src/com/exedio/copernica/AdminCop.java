@@ -5,7 +5,8 @@ import javax.servlet.http.HttpServletRequest;
 import com.exedio.cope.lib.ReportTable;
 import com.exedio.cops.Cop;
 
-final class AdminCop extends Cop
+// TODO: should not be public
+public final class AdminCop extends Cop
 {
 	static final String REPORT = "report";
 	static final String SHOW = "show";
@@ -14,8 +15,10 @@ final class AdminCop extends Cop
 
 	final boolean report;
 	final String reportTable;
-	final boolean showDropBoxes;
-	final boolean showRenameFields;
+	// TODO: should not be public
+	public final boolean showDropBoxes;
+	// TODO: should not be public
+	public final boolean showRenameFields;
 
 	AdminCop()
 	{
@@ -40,12 +43,14 @@ final class AdminCop extends Cop
 			addParameter(SHOW, SHOW_RENAME_FIELDS);
 	}
 	
-	final AdminCop toggleReport()
+	// TODO: should not be public
+	public final AdminCop toggleReport()
 	{
 		return new AdminCop(!report, null, false, false);
 	}
 	
-	final AdminCop narrowReport(final ReportTable reportTable)
+	// TODO: should not be public
+	public final AdminCop narrowReport(final ReportTable reportTable)
 	{
 		if(!report)
 			throw new RuntimeException();
@@ -53,7 +58,8 @@ final class AdminCop extends Cop
 		return new AdminCop(true, reportTable.name, showDropBoxes, showRenameFields);
 	}
 	
-	final AdminCop widenReport()
+	// TODO: should not be public
+	public final AdminCop widenReport()
 	{
 		if(!report)
 			throw new RuntimeException();
@@ -61,7 +67,8 @@ final class AdminCop extends Cop
 		return new AdminCop(true, null, showDropBoxes, showRenameFields);
 	}
 	
-	final AdminCop toggleDropBoxes()
+	// TODO: should not be public
+	public final AdminCop toggleDropBoxes()
 	{
 		if(!report)
 			throw new RuntimeException();
@@ -69,7 +76,8 @@ final class AdminCop extends Cop
 		return new AdminCop(true, reportTable, !showDropBoxes, showRenameFields);
 	}
 	
-	final AdminCop toggleRenameFields()
+	// TODO: should not be public
+	public final AdminCop toggleRenameFields()
 	{
 		if(!report)
 			throw new RuntimeException();
@@ -77,12 +85,14 @@ final class AdminCop extends Cop
 		return new AdminCop(true, reportTable, showDropBoxes, !showRenameFields);
 	}
 	
-	final boolean isNarrowReport()
+	// TODO: should not be public
+	public final boolean isNarrowReport()
 	{
 		return reportTable!=null;
 	}
 	
-	final boolean skipTable(final ReportTable table)
+	// TODO: should not be public
+	public final boolean skipTable(final ReportTable table)
 	{
 		return reportTable!=null && !reportTable.equals(table.name);
 	}

@@ -9,6 +9,7 @@ page import="com.exedio.cope.lib.NestingRuntimeException" %><%@
 
 page import="java.util.Date" %><%@
 
+page import="com.exedio.copernica.admin.Report_Jspm" %><%@
 page import="com.exedio.copernica.admin.Properties_Jspm"
 
 %><%!
@@ -80,12 +81,14 @@ final AdminCop cop = AdminCop.getCop(request);
 				}
 				else if(request.getParameter("APPLY")!=null)
 				{
-					%><hr><%@ include file="admin-apply.inc" %><%
+					%><hr><%
+					Report_Jspm.writeApply(out, request, model);
 				}
 				
 				if(cop.report)
 				{
-					%><hr><%@ include file="admin-report.inc" %><%
+					%><hr><%
+					Report_Jspm.writeReport(out, model, cop);
 				}
 				
 				%><hr><%

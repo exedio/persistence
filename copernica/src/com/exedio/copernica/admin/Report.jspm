@@ -1,0 +1,466 @@
+<%
+package com.exedio.copernica.admin;
+
+import java.io.IOException;
+import java.util.Date;
+import java.util.Iterator;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.jsp.JspWriter;
+
+import com.exedio.cope.lib.Model;
+import com.exedio.cope.lib.Report;
+import com.exedio.cope.lib.ReportColumn;
+import com.exedio.cope.lib.ReportConstraint;
+import com.exedio.cope.lib.ReportLastAnalyzed;
+import com.exedio.cope.lib.ReportTable;
+import com.exedio.copernica.AdminCop;
+
+public class Report_Jspm
+{
+	private static final String color(final int color)
+	{
+		switch(color)
+		{
+		case Report.COLOR_OK:
+			return "ok";
+		case Report.COLOR_YELLOW:
+			return "yellow";
+		case Report.COLOR_RED:
+			return "red";
+		default:
+			throw new RuntimeException(String.valueOf(color));
+		}
+	}
+	
+	private static final ReportColumn getColumn(final Report report, final String columnParameter)
+	{
+		final int pos = columnParameter.indexOf('#');
+		if(pos<=0)
+			throw new RuntimeException(columnParameter);
+		
+		final ReportTable table = report.getTable(columnParameter.substring(0, pos));
+		if(table==null)
+			throw new RuntimeException(columnParameter);
+		
+		final ReportColumn column = table.getColumn(columnParameter.substring(pos+1));
+		if(column==null)
+			throw new RuntimeException(columnParameter);
+		
+		return column;
+	}
+	
+	public static void writeReport(final JspWriter out, final Model model, final AdminCop cop)
+		throws IOException
+	{
+		final Report report = model.reportDatabase();
+		final String reportColor = color(report.getCumulativeColor());
+		final boolean narrowReport = cop.isNarrowReport();
+
+%>
+drop boxes: <a href="<%=cop.toggleDropBoxes()%>"><%=cop.showDropBoxes?"hide":"show"%></a><br>
+rename fields: <a href="<%=cop.toggleRenameFields()%>"><%=cop.showRenameFields?"hide":"show"%></a><br>
+check all:
+<input type="button" value="analyze" onClick="checkAll(&quot;ANALYZE_TABLE&quot;)">
+<input type="button" value="drop table" onClick="checkAll(&quot;DROP_TABLE&quot;)">
+<input type="button" value="drop column" onClick="checkAll(&quot;DROP_COLUMN&quot;)">
+<br>
+<span class="<%=reportColor%>"><%
+if(narrowReport)
+{
+	%><a href="<%=cop.widenReport()%>"><%
+}
+%>Database Report<%
+if(narrowReport)
+{
+	%></a><%
+}
+%></span>
+<input type="submit" name="APPLY" value="apply"/>
+<ul class="<%=reportColor%>"><%
+
+int tableCount = 1;
+for(Iterator i = report.getTables().iterator(); i.hasNext(); tableCount++)
+{
+	final ReportTable table = (ReportTable)i.next();
+	
+	if(cop.skipTable(table))
+		continue;
+	
+	final String tableColor = color(table.getCumulativeColor());
+	%>
+	<li class="<%=tableColor%>"><%
+	
+	%><small>tab<%=tableCount%></small> <%
+	if(!narrowReport)
+	{
+		%><a href="<%=cop.narrowReport(table)%>"><%
+	}
+	%><%=table.name%><%
+	if(!narrowReport)
+	{
+		%></a><%
+	}
+	if(cop.showRenameFields && table.exists())
+	{
+		%>
+		<input name="RENAME_TABLE_<%=table.name%>" size="<%=table.name.length()%>"/><%
+	}
+	
+	final String tableError = table.getError();
+	if(tableError!=null)
+	{
+		%> <span class="<%=color(table.getParticularColor())
+										%>"><%=tableError%></span><%
+	}
+	if(table.exists())
+	{
+		if(cop.showDropBoxes)
+		{
+			%>,
+		<input type="checkbox" name="DROP_TABLE" value="<%=table.name%>"/>drop<%
+		}
+	}
+	else if(table.required())
+	{
+		%>,
+		<input type="checkbox" name="CREATE_TABLE" value="<%=table.name%>"/>create<%
+	}
+	
+	final ReportLastAnalyzed lastAnalyzed = table.getLastAnalyzed();
+
+	if(!narrowReport)
+	{
+		if(lastAnalyzed!=null)
+		{
+			final Date date = lastAnalyzed.lastAnalyzed;
+			final String lastAnalyzedString = date!=null ? date.toString() : "NEVER";
+			%>
+			<input type="checkbox" name="ANALYZE_TABLE" value="<%=table.name%>"/>analyze (<%=lastAnalyzedString%>)<%
+		}
+	}
+	else
+	{
+	%>
+		<ul><%
+		if(lastAnalyzed!=null)
+		{
+			final Date date = lastAnalyzed.lastAnalyzed;
+			final String lastAnalyzedString = date!=null ? date.toString() : "NEVER";
+			%>
+			<li class="<%=color(lastAnalyzed.getCumulativeColor())%>">
+				last analyzed: <%=lastAnalyzedString%>
+				<input type="checkbox" name="ANALYZE_TABLE" value="<%=table.name%>"/>analyze
+			</li><%
+		}
+		
+		int columnCount = 1;
+		for(Iterator j = table.getColumns().iterator(); j.hasNext(); columnCount++)
+		{
+			final ReportColumn column = (ReportColumn)j.next();
+			final String color = color(column.getCumulativeColor());
+			%>
+			<li class="<%=color%>">
+				<small>col<%=columnCount%></small> <%=column.name%><%
+			
+			if(cop.showRenameFields && column.exists())
+			{
+				%>
+				<input name="RENAME_COLUMN_<%=
+					table.name%>#<%=column.name%>" size="<%=
+					column.name.length()%>"/><%
+			}
+			
+			%>
+				<small><%=column.getDatabaseType()%></small><%
+			
+			if(cop.showRenameFields && column.exists())
+			{
+				%>
+				<input name="MODIFY_COLUMN_<%=
+					table.name%>#<%=column.name%>" size="<%=
+					column.getDatabaseType().length()%>"/><%
+			}
+			
+			final String error = column.getError();
+			if(error!=null)
+			{
+				%>
+				<span class="<%=color(column.getParticularColor())%>"><%=error%></span><%
+			}
+			if(column.exists())
+			{
+				if(cop.showDropBoxes)
+				{
+					%>,
+				<input type="checkbox" name="DROP_COLUMN" value="<%=table.name%>#<%=column.name%>"/>drop<%
+				}
+			}
+			else if(column.required() &&
+						column.table.exists() )
+			{
+				%>,
+				<input type="checkbox" name="CREATE_COLUMN" value="<%=table.name%>#<%=column.name%>"/>create<%
+			}
+			%>
+			</li><%
+		}
+		
+		int constraintCount = 1;
+		for(Iterator j = table.getConstraints().iterator(); j.hasNext(); constraintCount++)
+		{
+			final ReportConstraint constraint = (ReportConstraint)j.next();
+			final String constraintColor = color(constraint.getCumulativeColor());
+			%>
+			<li class="<%=constraintColor%>">
+				<small>constraint<%=constraintCount%></small> <%=constraint.name%><%
+			
+			final String constraintCondition = constraint.requiredCondition;
+			if(constraintCondition!=null)
+			{
+				%> <small><%=constraintCondition%></small><%
+			}
+			
+			final String constraintError = constraint.getError();
+			if(constraintError!=null)
+			{
+				%>
+				<span class="<%=color(constraint.getParticularColor())%>"><%=constraintError%></span><%
+			}
+			if(constraint.exists())
+			{
+				if(cop.showDropBoxes)
+				{
+					%>
+				<input type="checkbox" name="DROP_CONSTRAINT" value="<%=constraint.name%>"/>drop<%
+				}
+			}
+			else if( constraint.required() &&
+						constraint.table.exists() )
+			{
+				%>
+				<input type="checkbox" name="CREATE_CONSTRAINT" value="<%=constraint.name%>"/>create<%
+			}
+			%>
+			</li><%
+		}
+		%>
+		</ul><%
+	}
+	%>
+	</li><%
+}
+%>
+</ul><%
+
+	}
+	
+	public static void writeApply(final JspWriter out, final HttpServletRequest request, final Model model)
+		throws IOException
+	{
+		final Report report = model.reportDatabase();
+	%>
+	<ol><%
+	{
+		final String[] dropColumns = (String[])request.getParameterMap().get("DROP_COLUMN");
+		if(dropColumns!=null)
+		{
+			for(int i = 0; i<dropColumns.length; i++)
+			{
+				final String dropColumn = dropColumns[i];
+				final ReportColumn column = getColumn(report, dropColumn);
+				%>
+				<li>report.getTable(&quot;<b><%=
+					column.table.name%></b>&quot;).getColumn(&quot;<b><%=
+					column.name%></b>&quot;).drop();</li><%
+				out.flush();
+				final long startTime = System.currentTimeMillis();
+				column.drop();
+				final long endTime = System.currentTimeMillis();
+				%><li><b>ok</b>, <%=endTime-startTime%>ms.</li><%
+				out.flush();
+			}
+		}
+	}
+	{
+		final String[] dropTables = (String[])request.getParameterMap().get("DROP_TABLE");
+		if(dropTables!=null)
+		{
+			for(int i = 0; i<dropTables.length; i++)
+			{
+				final String dropTable = dropTables[i];
+				final ReportTable table = report.getTable(dropTable);
+				if(table==null)
+					throw new RuntimeException(dropTable);
+				%>
+				<li>report.getTable(&quot;<b><%=
+					table.name%></b>&quot;).drop();</li><%
+				out.flush();
+				final long startTime = System.currentTimeMillis();
+				table.drop();
+				final long endTime = System.currentTimeMillis();
+				%><li><b>ok</b>, <%=endTime-startTime%>ms.</li><%
+				out.flush();
+			}
+		}
+	}
+	{
+		for(Iterator i = request.getParameterMap().keySet().iterator(); i.hasNext(); )
+		{
+			final String parameterName = (String)i.next();
+			if(!parameterName.startsWith("RENAME_TABLE_"))
+				continue;
+			
+			final String targetName = request.getParameter(parameterName);
+			if(targetName.length()==0)
+				continue;
+			
+			final String sourceName = parameterName.substring("RENAME_TABLE_".length());
+			final ReportTable table = report.getTable(sourceName);
+			if(table==null)
+				throw new RuntimeException(sourceName);
+			
+			%>
+			<li>report.getTable(&quot;<b><%=
+				table.name%></b>&quot;).renameTo(&quot;<%=
+				targetName%>&quot;);</li><%
+			out.flush();
+			final long startTime = System.currentTimeMillis();
+			table.renameTo(targetName);
+			final long endTime = System.currentTimeMillis();
+			%><li><b>ok</b>, <%=endTime-startTime%>ms.</li><%
+			out.flush();
+		}
+	}
+	{
+		for(Iterator i = request.getParameterMap().keySet().iterator(); i.hasNext(); )
+		{
+			final String parameterName = (String)i.next();
+			if(!parameterName.startsWith("MODIFY_COLUMN_"))
+				continue;
+			
+			final String targetType = request.getParameter(parameterName);
+			if(targetType.length()==0)
+				continue;
+			
+			final String sourceName = parameterName.substring("MODIFY_COLUMN_".length());
+			
+			final ReportColumn column = getColumn(report, sourceName);
+			if(column==null)
+				throw new RuntimeException(sourceName);
+			
+			%>
+			<li>report.getTable(&quot;<b><%=
+				column.table.name%></b>&quot;).getColumn(&quot;<b><%=
+				column.name%></b>&quot;).modify(&quot;<b><%=
+				targetType%></b>&quot;);</li><%
+			out.flush();
+			final long startTime = System.currentTimeMillis();
+			column.modify(targetType);
+			final long endTime = System.currentTimeMillis();
+			%><li><b>ok</b>, <%=endTime-startTime%>ms.</li><%
+			out.flush();
+		}
+	}
+	{
+		for(Iterator i = request.getParameterMap().keySet().iterator(); i.hasNext(); )
+		{
+			final String parameterName = (String)i.next();
+			if(!parameterName.startsWith("RENAME_COLUMN_"))
+				continue;
+			
+			final String targetName = request.getParameter(parameterName);
+			if(targetName.length()==0)
+				continue;
+			
+			final String sourceName = parameterName.substring("RENAME_COLUMN_".length());
+			
+			final ReportColumn column = getColumn(report, sourceName);
+			if(column==null)
+				throw new RuntimeException(sourceName);
+			
+			%>
+			<li>report.getTable(&quot;<b><%=
+				column.table.name%></b>&quot;).getColumn(&quot;<b><%=
+				column.name%></b>&quot;).renameTo(&quot;<b><%=
+				targetName%></b>&quot;);</li><%
+			out.flush();
+			final long startTime = System.currentTimeMillis();
+			column.renameTo(targetName);
+			final long endTime = System.currentTimeMillis();
+			%><li><b>ok</b>, <%=endTime-startTime%>ms.</li><%
+			out.flush();
+		}
+	}
+	{
+		final String[] createTables = (String[])request.getParameterMap().get("CREATE_TABLE");
+		if(createTables!=null)
+		{
+			for(int i = 0; i<createTables.length; i++)
+			{
+				final String createTable = createTables[i];
+				final ReportTable table = report.getTable(createTable);
+				if(table==null)
+					throw new RuntimeException(createTable);
+				%>
+				<li>report.getTable(&quot;<b><%=
+					table.name%></b>&quot;).create();</li><%
+				out.flush();
+				final long startTime = System.currentTimeMillis();
+				table.create();
+				final long endTime = System.currentTimeMillis();
+				%><li><b>ok</b>, <%=endTime-startTime%>ms.</li><%
+				out.flush();
+			}
+		}
+	}
+	{
+		final String[] analyzeTables = (String[])request.getParameterMap().get("ANALYZE_TABLE");
+		if(analyzeTables!=null)
+		{
+			for(int i = 0; i<analyzeTables.length; i++)
+			{
+				final String analyzeTable = analyzeTables[i];
+				final ReportTable table = report.getTable(analyzeTable);
+				if(table==null)
+					throw new RuntimeException(analyzeTable);
+				%>
+				<li>report.getTable(&quot;<b><%=
+					table.name%></b>&quot;).analyze();</li><%
+				out.flush();
+				final long startTime = System.currentTimeMillis();
+				table.analyze();
+				final long endTime = System.currentTimeMillis();
+				%><li><b>ok</b>, <%=endTime-startTime%>ms.</li><%
+				out.flush();
+			}
+		}
+	}
+	{
+		final String[] createColums = (String[])request.getParameterMap().get("CREATE_COLUMN");
+		if(createColums!=null)
+		{
+			for(int i = 0; i<createColums.length; i++)
+			{
+				final String createColum = createColums[i];
+				final ReportColumn column = getColumn(report, createColum);
+				%>
+				<li>report.getTable(&quot;<b><%=
+					column.table.name%></b>&quot;).getColumn(&quot;<b><%=
+					column.name%></b>&quot;).create();</li><%
+				out.flush();
+				final long startTime = System.currentTimeMillis();
+				column.create();
+				final long endTime = System.currentTimeMillis();
+				%><li><b>ok</b>, <%=endTime-startTime%>ms.</li><%
+				out.flush();
+			}
+		}
+	}
+	%>
+	</ol>
+	<hr><%
+	}
+	
+}
+%>
