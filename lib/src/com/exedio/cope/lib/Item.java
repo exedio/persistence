@@ -67,16 +67,25 @@ public class Item extends Search
 	}
 	
 	/**
-	 * Returns the primary item object representing the same item as this item object.
+	 * Returns the active item object representing the same item as this item object.
 	 * For any two active item objects <code>a</code>, <code>b</code> the following holds true:
-	 * <code>If and only if a.equals(b) then a.primaryItem() == b.primaryItem().</code>
+	 * <code>If and only if a.equals(b) then a.activeItem() == b.activeItem().</code>
 	 * Does not activate this item, if it's not already active.
-	 * Is guaranteed to be very cheap, if this item object is already primary, which means
+	 * Is guaranteed to be very cheap, if this item object is already active, which means
 	 * this method returns <code>this</code>.
 	 */
-	public final Item primaryItem()
+	public final Item activeItem()
 	{
-		throw new RuntimeException("not yet implemented");
+		if(itemCache!=null)
+			return this;
+		else
+		{
+			final Item activeItem = type.getActiveItem(pk);
+			if(activeItem!=null)
+				return activeItem;
+			else
+				return this;
+		}
 	}
 
 	/**

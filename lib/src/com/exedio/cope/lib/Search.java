@@ -25,7 +25,7 @@ public class Search
 	/**
 	 * Returns the item with the given ID.
 	 * Returns null, if no such item exists.
-	 * Always returns {@link Item#primaryItem() primary} objects.
+	 * Always returns {@link Item#activeItem() active} objects.
 	 * @see Item#getID()
 	 */
 	public static final Item findByID(final String id)
@@ -61,9 +61,9 @@ public class Search
 		{
 			final int pk = ((Integer)i.next()).intValue();
 			System.out.println("pk:"+pk);
-			final Item item = type.getActiveItem(pk);
-			if(item!=null)
-				result.add(item);
+			final Item activeItem = type.getActiveItem(pk);
+			if(activeItem!=null)
+				result.add(activeItem);
 			else
 				result.add(type.createItemObject(pk));
 		}
