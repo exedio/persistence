@@ -923,24 +923,9 @@ abstract class Database
 				{
 					bf.append(",constraint ").
 						append(protectName(intColumn.getAllowedValuesConstraintID())).
-						append(" check(").
-						append(column.protectedID).
-						append(" in (");
+						append(" check(");
 
-					for(int j = 0; j<allowedValues.length; j++)
-					{
-						if(j>0)
-							bf.append(',');
-						bf.append(allowedValues[j]);
-					}
-					bf.append(')');
-
-					if(!column.notNull)
-					{
-						bf.append(" or ").
-							append(column.protectedID).
-							append(" is null");
-					}
+					appendAllowedValuesCondition(bf, intColumn);
 					bf.append(')');
 				}
 			}
@@ -985,6 +970,7 @@ abstract class Database
 	}
 	
 	final void appendMinimumLengthCondition(final Statement bf, final StringColumn stringColumn)
+	// TODO: rename to column
 	{
 		bf.append("length(").
 			append(stringColumn.protectedID).
@@ -1014,6 +1000,28 @@ abstract class Database
 		}
 	}
 	
+	final void appendAllowedValuesCondition(final Statement bf, final IntegerColumn column)
+	{
+		bf.append(column.protectedID).
+			append(" in (");
+
+		final int[] allowedValues = column.allowedValues;
+		for(int j = 0; j<allowedValues.length; j++)
+		{
+			if(j>0)
+				bf.append(',');
+			bf.append(allowedValues[j]);
+		}
+		bf.append(')');
+
+		if(!column.notNull)
+		{
+			bf.append(" or ").
+				append(column.protectedID).
+				append(" is null");
+		}
+	}
+
 	private void createForeignKeyConstraints(final Table table)
 	{
 		//System.out.println("createForeignKeyConstraints:"+bf);

@@ -59,7 +59,11 @@ public final class Report extends ReportNode
 				{
 					final IntegerColumn intColumn = (IntegerColumn)column;
 					if(intColumn.allowedValues!=null)
-						reportTable.notifyRequiredConstraint(intColumn.getAllowedValuesConstraintID());
+					{
+						final Statement bf = database.createStatement();
+						database.appendAllowedValuesCondition(bf, intColumn);
+						reportTable.notifyRequiredCheckConstraint(intColumn.getAllowedValuesConstraintID(), bf.getText());
+					}
 
 					if(intColumn instanceof ItemColumn)
 					{
