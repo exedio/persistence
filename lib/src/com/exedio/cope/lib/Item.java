@@ -225,13 +225,22 @@ public abstract class Item extends Search
 			throw initialUniqueViolationException;
 	}
 	
+	public final Object getAttribute(final Function attribute) // TODO rename argument
+	{
+		if(attribute instanceof ObjectAttribute)
+			return getAttribute((ObjectAttribute)attribute);
+		else
+			return getFunction((AttributeMapping)attribute);
+	}
+
 	public final Object getAttribute(final ObjectAttribute attribute)
 	{
-		final AttributeMapping mapping = attribute.mapping;
-		if(mapping!=null)
-			return mapping.mapJava(getAttribute(mapping.sourceAttribute));
-
-		return getRow().get(attribute);
+		return getRow().get((ObjectAttribute)attribute);
+	}
+	
+	public final Object getFunction(final AttributeMapping function)
+	{
+		return function.mapJava(getAttribute(function.sourceAttribute));
 	}
 	
 	/**

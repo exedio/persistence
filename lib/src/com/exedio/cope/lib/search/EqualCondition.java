@@ -4,17 +4,18 @@ package com.exedio.cope.lib.search;
 import java.util.TreeSet;
 
 import com.exedio.cope.lib.DoubleAttribute;
+import com.exedio.cope.lib.Function;
 import com.exedio.cope.lib.IntegerAttribute;
 import com.exedio.cope.lib.Item;
 import com.exedio.cope.lib.ItemAttribute;
 import com.exedio.cope.lib.LongAttribute;
 import com.exedio.cope.lib.ObjectAttribute;
 import com.exedio.cope.lib.Statement;
-import com.exedio.cope.lib.StringAttribute;
+import com.exedio.cope.lib.StringFunction;
 
 public final class EqualCondition extends Condition
 {
-	public final ObjectAttribute attribute;
+	public final Function attribute; // TODO rename attribute
 	public final Object value;
 
 	public EqualCondition(final ObjectAttribute attribute)
@@ -23,7 +24,7 @@ public final class EqualCondition extends Condition
 		this.value = null;
 	}
 	
-	public EqualCondition(final StringAttribute attribute, final String value)
+	public EqualCondition(final StringFunction attribute, final String value) // TODO rename argument
 	{
 		this.attribute = attribute;
 		this.value = value;

@@ -110,7 +110,7 @@ public abstract class Search
 		return new EqualCondition(attribute);
 	}
 	
-	public static final EqualCondition equal(final StringAttribute attribute, final String value)
+	public static final EqualCondition equal(final StringFunction attribute, final String value) // TODO rename argument
 	{
 		return new EqualCondition(attribute, value);
 	}

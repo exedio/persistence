@@ -2,14 +2,14 @@ package com.exedio.cope.lib.search;
 
 import java.util.TreeSet;
 
-import com.exedio.cope.lib.Attribute;
+import com.exedio.cope.lib.ObjectAttribute;
 import com.exedio.cope.lib.Statement;
 import com.exedio.cope.lib.StringAttribute;
 
 public final class EqualAttributeCondition extends Condition
 {
-	public final Attribute attribute1;
-	public final Attribute attribute2;
+	public final ObjectAttribute attribute1;
+	public final ObjectAttribute attribute2;
 
 	public EqualAttributeCondition(
 				final StringAttribute attribute1,

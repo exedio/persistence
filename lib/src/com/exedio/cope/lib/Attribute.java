@@ -7,19 +7,12 @@ public abstract class Attribute
 {
 	private final boolean readOnly;
 	private final boolean notNull;
-	public final AttributeMapping mapping;
 	private final UniqueConstraint singleUniqueConstraint;
 
 	protected Attribute(final Option option)
 	{
-		this(option, null);
-	}
-	
-	protected Attribute(final Option option, final AttributeMapping mapping)
-	{
 		this.readOnly = option.readOnly;
 		this.notNull = option.notNull;
-		this.mapping = mapping;
 		this.singleUniqueConstraint =
 			option.unique ?
 				new UniqueConstraint(this) :
@@ -71,9 +64,7 @@ public abstract class Attribute
 		this.type = type;
 		this.name = name;
 		this.columns =
-			(mapping==null) ?
-				Collections.unmodifiableList(createColumns(name, notNull)) :
-				Collections.EMPTY_LIST;
+				Collections.unmodifiableList(createColumns(name, notNull));
 		this.mainColumn = this.columns.isEmpty() ? null : (Column)columns.iterator().next();
 	}
 	
@@ -133,11 +124,7 @@ public abstract class Attribute
 			buf.append("not-null");
 		}
 		buf.append('}');
-		if(mapping!=null)
-		{
-			buf.append('=');
-			buf.append(mapping.toString());
-		}
+
 		return buf.toString();
 	}
 	

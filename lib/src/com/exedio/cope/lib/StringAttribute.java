@@ -4,7 +4,7 @@ package com.exedio.cope.lib;
 import java.util.Collections;
 import java.util.List;
 
-public final class StringAttribute extends ObjectAttribute
+public final class StringAttribute extends ObjectAttribute implements StringFunction
 {
 	private final int minimumLength;
 	private final int maximumLength;
@@ -36,13 +36,6 @@ public final class StringAttribute extends ObjectAttribute
 			throw new InitializerRuntimeException("maximum length must be greater or equal mimimum length.");
 	}
 	
-	public StringAttribute(final Option option, final AttributeMapping mapping)
-	{
-		super(option, mapping);
-		this.minimumLength = 0;
-		this.maximumLength = Integer.MAX_VALUE;
-	}
-	
 	public final int getMinimumLength()
 	{
 		return minimumLength;
@@ -60,10 +53,7 @@ public final class StringAttribute extends ObjectAttribute
 	
 	protected List createColumns(final String name, final boolean notNull)
 	{
-		if(mapping==null)
-			return Collections.singletonList(new StringColumn(getType(), name, notNull, maximumLength));
-		else
-			return Collections.EMPTY_LIST;
+		return Collections.singletonList(new StringColumn(getType(), name, notNull, maximumLength));
 	}
 	
 	Object cacheToSurface(final Object cache)

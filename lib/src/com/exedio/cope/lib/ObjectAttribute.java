@@ -1,18 +1,13 @@
 package com.exedio.cope.lib;
 
 
-public abstract class ObjectAttribute extends Attribute
+public abstract class ObjectAttribute extends Attribute implements Function
 {
 	protected ObjectAttribute(final Option option)
 	{
 		super(option);
 	}
 	
-	protected ObjectAttribute(final Option option, final AttributeMapping mapping)
-	{
-		super(option, mapping);
-	}
-
 	abstract Object cacheToSurface(Object cache);
 	abstract Object surfaceToCache(Object surface);
 	
@@ -22,7 +17,7 @@ public abstract class ObjectAttribute extends Attribute
 			NotNullViolationException,
 			LengthViolationException
 	{
-		if(!initial && (isReadOnly() || mapping!=null))
+		if(!initial && isReadOnly())
 			throw new ReadOnlyViolationException(item, this);
 		if(isNotNull() && value == null)
 			throw new NotNullViolationException(item, this);

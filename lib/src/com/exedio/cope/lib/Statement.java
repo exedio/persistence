@@ -37,20 +37,31 @@ public final class Statement
 		return this;
 	}
 		
-	public Statement append(final Attribute attribute)
+	public Statement append(final Function function)
 	{
-		final AttributeMapping mapping = attribute.mapping;
-		if(attribute.mapping!=null)
-		{
-			this.text.append(mapping.sqlMappingStart);
-			append(mapping.sourceAttribute);
-			this.text.append(mapping.sqlMappingEnd);
-		}
+		if(function instanceof ObjectAttribute)
+			append((ObjectAttribute)function);
 		else
-			this.text.
-				append(attribute.getType().protectedName).
-				append('.').
-				append(attribute.getMainColumn().protectedName);
+			append((AttributeMapping)function);
+			
+		return this;
+	}
+
+	public Statement append(final AttributeMapping function)
+	{
+		this.text.append(function.sqlMappingStart);
+		append(function.sourceAttribute);
+		this.text.append(function.sqlMappingEnd);
+			
+		return this;
+	}
+
+	public Statement append(final ObjectAttribute attribute)
+	{
+		this.text.
+			append(attribute.getType().protectedName).
+			append('.').
+			append(attribute.getMainColumn().protectedName);
 			
 		return this;
 	}
@@ -65,11 +76,12 @@ public final class Statement
 		return this;
 	}
 		
-	public Statement appendValue(ObjectAttribute attribute, final Object value)
+	public Statement appendValue(Function function, final Object value)
 	{
-		while(attribute.mapping!=null)
-			attribute = attribute.mapping.sourceAttribute;
-
+		while(function instanceof AttributeMapping)
+			function = ((AttributeMapping)function).sourceAttribute;
+			
+		final ObjectAttribute attribute = (ObjectAttribute)function;
 		appendValue(attribute.getMainColumn(), attribute.surfaceToCache(value));
 		return this;
 	}

@@ -97,6 +97,14 @@ public final class Type
 							uniqueConstraintsTemp.add(uniqueConstraint);
 						}
 					}
+					else if(AttributeMapping.class.isAssignableFrom(field.getType()))
+					{
+						field.setAccessible(true);
+						final AttributeMapping function = (AttributeMapping)field.get(null);
+						if(function==null)
+							throw new InitializerRuntimeException(field.getName());
+						function.initialize(this, field.getName());
+					}
 					else if(UniqueConstraint.class.isAssignableFrom(field.getType()))
 					{
 						field.setAccessible(true);

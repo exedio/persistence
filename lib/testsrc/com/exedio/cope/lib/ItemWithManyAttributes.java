@@ -21,9 +21,8 @@ public class ItemWithManyAttributes extends Item
 
 	/**
 	 * The code of the item in upper case.
-	 * @mapped
 	 */
-	public static final StringAttribute someStringUpperCase = new StringAttribute(DEFAULT, new UppercaseMapping(someString));
+	public static final UppercaseMapping someStringUpperCase = new UppercaseMapping(someString);
 
 	/**
 	 * A not-null string attribute.

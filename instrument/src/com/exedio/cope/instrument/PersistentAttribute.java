@@ -9,6 +9,7 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 import com.exedio.cope.lib.Attribute;
+import com.exedio.cope.lib.AttributeMapping;
 import com.exedio.cope.lib.Item;
 import com.exedio.cope.lib.LengthViolationException;
 import com.exedio.cope.lib.NotNullViolationException;
@@ -39,45 +40,59 @@ public abstract class PersistentAttribute
 
 	public PersistentAttribute(
 			final JavaAttribute javaAttribute,
+			final Class typeClass,
 			final String persistentType,
-			final List initializerArguments, final boolean mapped,
+			final List initializerArguments,
 			final List qualifiers)
+		throws InjectorParseException
 	{
 		this.javaAttribute = javaAttribute;
 		this.accessModifier = javaAttribute.accessModifier;
 		this.persistentClass = PersistentClass.getPersistentClass(javaAttribute.getParent());
 		this.persistentType = persistentType;
-
-		final String optionString = (String)initializerArguments.get(0);
-		//System.out.println(optionString);
-		final Attribute.Option option = getOption(optionString); 
-
-		this.readOnly = option.readOnly;
-		this.notNull = option.notNull;
+		this.mapped = AttributeMapping.class.isAssignableFrom(typeClass);
 		
-		if(initializerArguments.size()>1)
+		if(!mapped)
 		{
-			final String secondArgument = (String)initializerArguments.get(1);
-			boolean lengthConstrained = true;
-			try
+			if(initializerArguments.size()<1)
+				throw new InjectorParseException("attribute "+javaAttribute.name+" has no option.");
+			final String optionString = (String)initializerArguments.get(0);
+			//System.out.println(optionString);
+			final Attribute.Option option = getOption(optionString); 
+	
+			this.readOnly = option.readOnly;
+			this.notNull = option.notNull;
+			
+			if(initializerArguments.size()>1)
 			{
-				Integer.parseInt(secondArgument);
+				final String secondArgument = (String)initializerArguments.get(1);
+				boolean lengthConstrained = true;
+				try
+				{
+					Integer.parseInt(secondArgument);
+				}
+				catch(NumberFormatException e)
+				{
+					lengthConstrained = false;
+				}
+				this.lengthConstrained = lengthConstrained;
 			}
-			catch(NumberFormatException e)
-			{
-				lengthConstrained = false;
-			}
-			this.lengthConstrained = lengthConstrained;
+			else
+				this.lengthConstrained = false;
+
+			if(option.unique)
+				persistentClass.makeUnique(new PersistentUniqueConstraint(this));
 		}
 		else
+		{
+			this.readOnly = false;
+			this.notNull = false;
 			this.lengthConstrained = false;
+		}
 
-		this.mapped = mapped;
 		this.qualifiers = (qualifiers!=null) ? Collections.unmodifiableList(qualifiers) : null;
 
 		persistentClass.addPersistentAttribute(this);
-		if(option.unique)
-			persistentClass.makeUnique(new PersistentUniqueConstraint(this));
 	}
 	
 	public final String getName()

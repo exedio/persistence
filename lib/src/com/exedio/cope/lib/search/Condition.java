@@ -3,7 +3,7 @@ package com.exedio.cope.lib.search;
 
 import java.util.TreeSet;
 
-import com.exedio.cope.lib.Attribute;
+import com.exedio.cope.lib.Function;
 import com.exedio.cope.lib.Statement;
 import com.exedio.cope.lib.Type;
 
@@ -13,7 +13,7 @@ public abstract class Condition
 	
 	public abstract void check(final TreeSet fromTypes);
 
-	public final void check(final Attribute attribute, final TreeSet fromTypes)
+	public final void check(final Function attribute, final TreeSet fromTypes) // TODO rename argument
 	{
 		if (!fromTypes.contains(attribute.getType()))
 			throw new RuntimeException(

@@ -13,12 +13,13 @@ import com.exedio.cope.lib.Attribute;
 import com.exedio.cope.lib.BooleanAttribute;
 import com.exedio.cope.lib.DoubleAttribute;
 import com.exedio.cope.lib.EnumerationAttribute;
+import com.exedio.cope.lib.Function;
 import com.exedio.cope.lib.IntegerAttribute;
 import com.exedio.cope.lib.ItemAttribute;
 import com.exedio.cope.lib.LongAttribute;
 import com.exedio.cope.lib.MediaAttribute;
 import com.exedio.cope.lib.MediaAttributeVariant;
-import com.exedio.cope.lib.StringAttribute;
+import com.exedio.cope.lib.StringFunction;
 import com.exedio.cope.lib.UniqueConstraint;
 import com.exedio.cope.lib.pattern.Qualifier;
 
@@ -59,11 +60,6 @@ public final class Instrumentor implements InjectionConsumer
 	 */
 	private static final String PERSISTENT_CLASS = "persistent";
 
-	/**
-	 * Tag name for mapped attributes.
-	 */
-	private static final String MAPPED_ATTRIBUTE = "mapped";
-	
 	/**
 	 * Tag name for one qualifier of qualified attributes.
 	 */
@@ -126,8 +122,6 @@ public final class Instrumentor implements InjectionConsumer
 		final List initializerArguments = ja.getInitializerArguments();
 		//System.out.println(initializerArguments);
 					
-		final boolean mapped = containsTag(docComment, MAPPED_ATTRIBUTE);
-					
 		final String qualifier = Injector.findDocTag(docComment, ATTRIBUTE_QUALIFIER);
 		final List qualifiers;
 		if(qualifier!=null)
@@ -140,25 +134,25 @@ public final class Instrumentor implements InjectionConsumer
 			LongAttribute.class.equals(typeClass) ||
 			DoubleAttribute.class.equals(typeClass) ||
 			BooleanAttribute.class.equals(typeClass) ||
-			StringAttribute.class.equals(typeClass))
+			StringFunction.class.isAssignableFrom(typeClass))
 		{
 			new PersistentNativeAttribute(
 				ja, typeClass,
-				initializerArguments, mapped, qualifiers);
+				initializerArguments, qualifiers);
 		}
 		else if(
 			EnumerationAttribute.class.equals(typeClass)||
 			ItemAttribute.class.equals(typeClass))
 		{
 			new PersistentObjectAttribute(
-				ja,
-				initializerArguments, mapped, qualifiers);
+				ja, typeClass,
+				initializerArguments, qualifiers);
 		}
 		else if(MediaAttribute.class.equals(typeClass))
 		{
 			new PersistentMediaAttribute(
-				ja,
-				initializerArguments, mapped, qualifiers);
+				ja, typeClass,
+				initializerArguments, qualifiers);
 		}
 		else
 			throw new RuntimeException(typeClass.toString());
@@ -236,7 +230,7 @@ public final class Instrumentor implements InjectionConsumer
 
 				if(typeClass!=null)
 				{
-					if(Attribute.class.isAssignableFrom(typeClass))
+					if(Function.class.isAssignableFrom(typeClass)||Attribute.class.isAssignableFrom(typeClass))
 						handleAttribute(ja, typeClass, docComment);
 					else if(UniqueConstraint.class.isAssignableFrom(typeClass))
 						handleUniqueConstraint(ja, typeClass);

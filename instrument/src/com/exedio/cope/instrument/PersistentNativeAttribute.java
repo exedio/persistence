@@ -8,7 +8,7 @@ import com.exedio.cope.lib.BooleanAttribute;
 import com.exedio.cope.lib.DoubleAttribute;
 import com.exedio.cope.lib.IntegerAttribute;
 import com.exedio.cope.lib.LongAttribute;
-import com.exedio.cope.lib.StringAttribute;
+import com.exedio.cope.lib.StringFunction;
 
 public class PersistentNativeAttribute extends PersistentAttribute
 {
@@ -18,11 +18,16 @@ public class PersistentNativeAttribute extends PersistentAttribute
 
 	public PersistentNativeAttribute(
 			final JavaAttribute javaAttribute,
-			final Class typeClass,
-			final List initializerArguments, final boolean mapped,
+			Class typeClass,
+			final List initializerArguments,
 			final List qualifiers)
+		throws InjectorParseException
 	{
-		super(javaAttribute, getPersistentType(typeClass), initializerArguments, mapped, qualifiers);
+		super(javaAttribute, typeClass, getPersistentType(typeClass), initializerArguments, qualifiers);
+
+		// TODO do this a bit more intelligent
+		if(StringFunction.class.isAssignableFrom(typeClass))
+			typeClass = StringFunction.class;
 
 		final String nativeType = (String)toNativeTypeMapping.get(typeClass);
 		if(notNull && nativeType!=null)
@@ -42,8 +47,12 @@ public class PersistentNativeAttribute extends PersistentAttribute
 		}
 	}
 
-	private static final String getPersistentType(final Class typeClass)
+	private static final String getPersistentType(Class typeClass)
 	{
+		// TODO do this a bit more intelligent
+		if(StringFunction.class.isAssignableFrom(typeClass))
+			typeClass = StringFunction.class;
+
 		final String result = (String)toPersistentTypeMapping.get(typeClass);
 
 		if(result==null)
@@ -77,7 +86,7 @@ public class PersistentNativeAttribute extends PersistentAttribute
 		fillNativeTypeMap(LongAttribute.class, "Long", "long", "new Long(", ")", "(", ").longValue()");
 		fillNativeTypeMap(IntegerAttribute.class, "Integer", "int", "new Integer(", ")", "(", ").intValue()");
 		fillNativeTypeMap(DoubleAttribute.class, "Double", "double", "new Double(", ")", "(", ").doubleValue()");
-		fillNativeTypeMap(StringAttribute.class, "String", null, null, null, null, null);
+		fillNativeTypeMap(StringFunction.class, "String", null, null, null, null, null);
 	}
 
 	public final String getBoxedType()
