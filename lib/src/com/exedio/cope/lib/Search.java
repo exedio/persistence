@@ -112,8 +112,21 @@ public class Search
 	 */
 	public static final Collection search(final Type type, final Condition condition)
 	{
+		return search(new Query(type, condition));
+	}
+	
+	/**
+	 * Searches for items matching the given query.
+	 * <p>
+	 * Returns an unmodifiable collection.
+	 * Any attempts to modify the returned collection, whether direct or via its iterator,
+	 * result in an <code>UnsupportedOperationException</code>.
+	 * @param query the query the searched items must match.
+	 */
+	public static final Collection search(final Query query)
+	{
 		//System.out.println("select " + type.getJavaClass().getName() + " where " + condition);
-		return wrapPrimaryKeys(type, Database.theInstance.search(type, condition));
+		return wrapPrimaryKeys(query.type, Database.theInstance.search(query));
 	}
 	
 	public static final Item searchUnique(final Type type, final Condition condition)

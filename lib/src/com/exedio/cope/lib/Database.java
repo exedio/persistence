@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.Properties;
 
 import com.exedio.cope.lib.database.OracleDatabase;
-import com.exedio.cope.lib.search.Condition;
 
 public abstract class Database
 {
@@ -92,15 +91,16 @@ public abstract class Database
 			dropTable((Type)i.next());
 	}
 
-	Collection search(final Type type, final Condition condition)
+	Collection search(final Query query)
 	{
+		final Type type = query.type;
 		final Statement bf = new Statement();
 		bf.append("select ").
 			append(type.primaryKey.protectedName).
 			append(" from ").
 			append(type.protectedName).
 			append(" where ");
-		condition.appendStatement(bf);
+		query.condition.appendStatement(bf);
 		
 		//System.out.println("searching "+bf.toString());
 		try
