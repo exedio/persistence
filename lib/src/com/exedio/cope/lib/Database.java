@@ -846,7 +846,6 @@ abstract class Database
 		return '"' + name + '"';
 	}
 
-	abstract String getDefaultDriver();
 	abstract String getIntegerType(int precision);
 	abstract String getDoubleType(int precision);
 	abstract String getStringType(int maxLength);

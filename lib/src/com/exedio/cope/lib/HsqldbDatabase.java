@@ -13,11 +13,15 @@ final class HsqldbDatabase
 	protected HsqldbDatabase(final Properties properties)
 	{
 		super(properties);
-	}
 
-	String getDefaultDriver()
-	{
-		return "org.hsqldb.jdbcDriver";
+		try
+		{
+			Class.forName("org.hsqldb.jdbcDriver");
+		}
+		catch(ClassNotFoundException e)
+		{
+			throw new NestingRuntimeException(e);
+		}
 	}
 
 	String getIntegerType(final int precision)

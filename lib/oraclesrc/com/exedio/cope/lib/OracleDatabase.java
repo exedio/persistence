@@ -18,13 +18,17 @@ final class OracleDatabase
 	protected OracleDatabase(final Properties properties)
 	{
 		super(properties);
+
+		try
+		{
+			Class.forName(oracle.jdbc.driver.OracleDriver.class.getName());
+		}
+		catch(ClassNotFoundException e)
+		{
+			throw new NestingRuntimeException(e);
+		}
 	}
 	
-	String getDefaultDriver()
-	{
-		return "oracle.jdbc.driver.OracleDriver";
-	}
-
 	String getIntegerType(final int precision)
 	{
 		return "NUMBER(" + precision + ",0)";

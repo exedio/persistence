@@ -14,7 +14,6 @@ public final class Properties
 	private static final String DEFAULT_FILE_NAME = "cope.properties";
 	
 	private static final String DATABASE = "database";
-	private static final String DATABASE_DRIVER = "database.driver";
 	private static final String DATABASE_URL = "database.url";
 	private static final String DATABASE_USER = "database.user";
 	private static final String DATABASE_PASSWORD = "database.password";
@@ -24,7 +23,6 @@ public final class Properties
 	private final String source;
 
 	private final Constructor database;
-	private final String databaseDriver;
 	private final String databaseUrl;
 	private final String databaseUser;
 	private final String databasePassword;
@@ -113,7 +111,6 @@ public final class Properties
 			}
 		}
 
-		databaseDriver = properties.getProperty(DATABASE_DRIVER);
 		databaseUrl = getPropertyNotNull(properties, DATABASE_URL);
 		databaseUser = getPropertyNotNull(properties, DATABASE_USER);
 		databasePassword = getPropertyNotNull(properties, DATABASE_PASSWORD);
@@ -177,11 +174,6 @@ public final class Properties
 		}
 	}
 	
-	public String getDatabaseDriver()
-	{
-		return databaseDriver;
-	}
-
 	public String getDatabaseUrl()
 	{
 		return databaseUrl;
@@ -218,8 +210,6 @@ public final class Properties
 		final java.util.Properties properties = new java.util.Properties();
 		properties.setProperty("source", source);
 		properties.setProperty(DATABASE, database.getClass().getName());
-		if(databaseDriver!=null)
-			properties.setProperty(DATABASE_DRIVER, databaseDriver);
 		properties.setProperty(DATABASE_URL, databaseUrl);
 		properties.setProperty(DATABASE_USER, databaseUser);
 		properties.setProperty(DATABASE_PASSWORD, databasePassword);
