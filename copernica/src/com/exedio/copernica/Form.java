@@ -18,8 +18,7 @@ public class Form
 	final Map parameters;
 	boolean toSave = false;
 
-	private final HashMap names = new HashMap();
-	private final HashMap values = new HashMap();
+	private final HashMap fields = new HashMap();
 	
 	Form(final Item item, final Map parameters)
 	{
@@ -51,30 +50,46 @@ public class Form
 				else
 					continue;
 
-				names.put(attribute, name);
-				values.put(attribute, value);
+				fields.put(attribute, new Field(name, value));
 			}
 		}
 	}
 	
-	String getName(Attribute attribute)
+	class Field
 	{
-		return (String)names.get(attribute);
+		private final String name;
+		private final String value;
+		
+		Field(final String name, final String value)
+		{
+			this.name = name;
+			this.value = value;
+		}
+		
+		final String getName()
+		{
+			return name;
+		}
+		
+		final String getValue()
+		{
+			return value;
+		}
 	}
 	
-	String getValue(Attribute attribute)
+	Field getField(Attribute attribute)
 	{
-		return (String)values.get(attribute);
+		return (Field)fields.get(attribute);
 	}
 	
 	void save()
 		throws ConstraintViolationException
 	{
-		for(Iterator i = values.keySet().iterator(); i.hasNext(); )
+		for(Iterator i = fields.keySet().iterator(); i.hasNext(); )
 		{
 			final ObjectAttribute attribute = (ObjectAttribute)i.next();
-			final Object value = values.get(attribute);
-			item.setAttribute(attribute, value);
+			final Field field = (Field)fields.get(attribute);
+			item.setAttribute(attribute, field.value);
 		}
 	}
 	

@@ -157,9 +157,8 @@
 				}
 				else
 				{
-					final String name = form.getName(stringAttribute);
-					final String value = form.getValue(stringAttribute);
-					%><input type="text" name="<%=name%>" value="<%=value%>" /><%
+					final Form.Field field = form.getField(stringAttribute);
+					%><input type="text" name="<%=field.getName()%>" value="<%=field.getValue()%>" /><%
 				}
 			}
 			else if(attribute instanceof IntegerAttribute)
