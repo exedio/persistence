@@ -380,7 +380,7 @@ final class OracleDatabase
 					if(objectName!=null)
 						text+=" on "+objectName;
 
-					final StatementInfo info = new StatementInfo(id, text);
+					final StatementInfo info = new StatementInfo(text);
 					if(parentID==null)
 					{
 						if(root!=null)
