@@ -10,7 +10,7 @@ abstract class Column
 	final String protectedID;
 	final boolean primaryKey;
 	final boolean notNull;
-	final String databaseType;
+	final String databaseType; // TODO: remove databaseType and compute it on demand
 	final Integer jdbcType;
 	
 	Column(
