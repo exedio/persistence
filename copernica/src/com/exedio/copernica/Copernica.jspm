@@ -6,9 +6,9 @@ import java.util.Iterator;
 import javax.servlet.jsp.JspWriter;
 import com.exedio.cope.lib.Type;
 
-public class Copernica_Jspm
+class Copernica_Jspm
 {
-	public static final void writeTypeList(final JspWriter out, final CopernicaCop cop)
+	static final void writeTypeList(final JspWriter out, final CopernicaCop cop)
 		throws IOException
 	{
 		final CopernicaProvider provider = cop.provider;
@@ -38,5 +38,15 @@ public class Copernica_Jspm
 		</ul>
 <%
 	}
+	
+	static final void writeEmptyBody(final JspWriter out)
+		throws IOException
+	{
+			%>
+			<h1>Copernica</h1>
+			<h2>Generic Backoffice for COPE</h2>
+			<img src="exedio.png" width="200" height="66"><%
+	}
+
 }
 %>

@@ -113,10 +113,7 @@ page import="java.text.SimpleDateFormat" %><%!
 		}
 		else if(cop instanceof EmptyCop)
 		{
-			%>
-			<h1>Copernica</h1>
-			<h2>Generic Backoffice for COPE</h2>
-			<img src="exedio.png" width="200" height="66"><%
+			Copernica_Jspm.writeEmptyBody(out);
 		}
 		else
 			throw new RuntimeException();
