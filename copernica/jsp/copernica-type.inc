@@ -42,7 +42,7 @@
 			%>
 			[<a href="<%=typeCop.nextPage()%>">&gt;</a>]<%
 		}
-		%><%=typeCop.start+1%> - <%=typeCop.start+items.size()
+		%> <%=typeCop.start+1%> - <%=typeCop.start+items.size()
 		%><br>Items per Page: <%
 		for(int i = 10; i<=50; i+=10)
 		{
