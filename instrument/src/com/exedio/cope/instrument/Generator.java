@@ -677,7 +677,7 @@ final class Generator
 		if(attribute.isBoxed())
 			o.write(attribute.getUnBoxingPrefix());
 		o.write('(');
-		o.write(attribute.getPersistentType());
+		o.write(attribute.persistentType);
 		o.write(")getAttribute(");
 		o.write(attribute.persistentClass.getName());
 		o.write('.');

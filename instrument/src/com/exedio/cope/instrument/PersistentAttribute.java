@@ -18,7 +18,7 @@ import com.exedio.cope.lib.SystemException;
 import com.exedio.cope.lib.UniqueViolationException;
 import com.exedio.cope.lib.util.ClassComparator;
 
-public abstract class PersistentAttribute
+abstract class PersistentAttribute
 {
 	/**
 	 * Defines this attribute as a media attribute.
@@ -31,7 +31,12 @@ public abstract class PersistentAttribute
 	public final int accessModifier;
 	
 	final PersistentClass persistentClass;
-	private final String persistentType;
+
+	/**
+	 * The persistent type of this attribute.
+	 */
+	final String persistentType;
+
 	public final boolean readOnly;
 	public final boolean notNull;
 	public final boolean lengthConstrained;
@@ -119,14 +124,6 @@ public abstract class PersistentAttribute
 	public final JavaClass getParent()
 	{
 		return javaAttribute.parent;
-	}
-	
-	/**
-	 * Returns the persistent type of this attribute.
-	 */
-	public final String getPersistentType()
-	{
-		return this.persistentType;
 	}
 	
 	/**

@@ -41,7 +41,7 @@ public class PersistentNativeAttribute extends PersistentAttribute
 		}
 		else
 		{
-			boxedType = getPersistentType();
+			boxedType = persistentType;
 			boxed = false;
 			boxingPrefix = boxingPostfix = unboxingPrefix = unboxingPostfix = null;
 		}
