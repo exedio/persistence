@@ -24,7 +24,6 @@ abstract class Form
 	private final ArrayList fieldList = new ArrayList();
 	private final ArrayList hiddenFieldList = new ArrayList();
 	
-	private final HashMap sectionMap = new HashMap();
 	private final ArrayList sectionList = new ArrayList();
 	
 	Form(final HttpServletRequest request)
@@ -155,7 +154,6 @@ abstract class Form
 		{
 			this.id = id;
 			this.name = name;
-			sectionMap.put(id, this);
 			sectionList.add(this);
 		}
 	}
