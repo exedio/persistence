@@ -1,7 +1,6 @@
 
 package com.exedio.cope.instrument;
 
-import java.io.PrintStream;
 import java.lang.reflect.Modifier;
 
 /**
@@ -137,20 +136,6 @@ abstract class JavaFeature
 	public String toString()
 	{
 		return getClass().getName()+'('+name+')';
-	}
-	
-	public final void print(PrintStream o)
-	{
-		o.println("  "+JavaFile.extractClassName(getClass().getName())+
-		" ("+Modifier.toString(modifier)+
-		") >"+type+
-		"< >"+name+
-		"< in >"+(parent==null?"none":parent.name)+"<");
-		printMore(o);
-	}
-	
-	public void printMore(PrintStream o)
-	{
 	}
 	
 }

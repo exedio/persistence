@@ -1,7 +1,6 @@
 
 package com.exedio.cope.instrument;
 
-import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -56,14 +55,6 @@ public abstract class JavaBehaviour extends JavaFeature
 	public final Iterator getThrowables()
 	{
 		return throwables.iterator();
-	}
-	
-	public void printMore(PrintStream o)
-	{
-		for(Iterator i=parameters.iterator(); i.hasNext(); )
-			o.println("    parameter >"+i.next()+"< >"+i.next()+"<");
-		for(Iterator i=throwables.iterator(); i.hasNext(); )
-			o.println("    throwable >"+i.next()+"<");
 	}
 	
 }

@@ -1,9 +1,6 @@
 
 package com.exedio.cope.instrument;
 
-import java.io.PrintStream;
-import java.util.Iterator;
-
 /**
  * Represents a method of a class parsed by the java parser.
  * @see Injector
@@ -22,32 +19,6 @@ public final class JavaMethod extends JavaBehaviour
 	}
 	
 	/**
-	 * A cache for getSignature.
-	 * @see #getSignature
-	 */
-	private String signature;
-	
-	/**
-	 * Returns the signature of this method.
-	 */
-	private String getSignature()
-	{
-		if(signature!=null)
-			return signature;
-		StringBuffer buf=new StringBuffer();
-		buf.append(name);
-		buf.append('(');
-		for(Iterator i=parameters.iterator(); i.hasNext(); )
-		{
-			buf.append((String)i.next());
-			i.next();
-			if(i.hasNext()) buf.append(',');
-		}
-		buf.append(')');
-		return buf.toString();
-	}
-	
-	/**
 	 * See Java Specification 8.4.3 &quot;Method Modifiers&quot;
 	 */
 	public final int getAllowedModifiers()
@@ -61,12 +32,6 @@ public final class JavaMethod extends JavaBehaviour
 		java.lang.reflect.Modifier.ABSTRACT |
 		java.lang.reflect.Modifier.NATIVE |
 		java.lang.reflect.Modifier.SYNCHRONIZED;
-	}
-	
-	public final void printMore(PrintStream o)
-	{
-		super.printMore(o);
-		System.out.println("    signatr: >"+getSignature()+"<");
 	}
 	
 }

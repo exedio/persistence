@@ -93,10 +93,4 @@ public class JavaClass extends JavaFeature
 		Modifier.ABSTRACT;
 	}
 	
-	public final void printMore(java.io.PrintStream o)
-	{
-		o.println("    package: >"+getPackageName()+"<");
-		o.println("    fullnam: >"+getFullName()+"<");
-	}
-	
 }
