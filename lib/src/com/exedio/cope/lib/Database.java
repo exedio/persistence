@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 public abstract class Database
 {
@@ -103,10 +104,12 @@ public abstract class Database
 	public void dropDatabase()
 	{
 		//final long time = System.currentTimeMillis();
-		for(Iterator i = Type.getTypes().iterator(); i.hasNext(); )
-			dropForeignKeyConstraints((Type)i.next());
-		for(Iterator i = Type.getTypes().iterator(); i.hasNext(); )
-			dropTable((Type)i.next());
+		final List types = Type.getTypes();
+		// must delete in reverse order, to obey integrity constraints
+		for(ListIterator i = types.listIterator(types.size()); i.hasPrevious(); )
+			dropForeignKeyConstraints((Type)i.previous());
+		for(ListIterator i = types.listIterator(types.size()); i.hasPrevious(); )
+			dropTable((Type)i.previous());
 		//final long amount = (System.currentTimeMillis()-time);
 		//dropTableTime += amount;
 		//System.out.println("DROP TABLES "+amount+"ms  accumulated "+dropTableTime);
@@ -575,6 +578,18 @@ public abstract class Database
 			append(' ').
 			append(primaryKey.databaseType).
 			append(" primary key");
+			
+		final Type supertype = type.getSupertype();
+		if(supertype!=null)
+		{
+			bf.append(" constraint ").
+				append(protectName(type.trimmedName+"SUP")).
+				append(" references ").
+				append(supertype.protectedName).
+				append('(').
+				append(supertype.primaryKey.protectedName).
+				append(')');
+		}
 		
 		for(Iterator i = type.getColumns().iterator(); i.hasNext(); )
 		{
