@@ -78,7 +78,7 @@ public class QualifiedItem extends Item
 	 *
  */final QualifiedEmptyQualifier getQualifier(final EmptyItem key)
 	{
-		return null;
+		return (QualifiedEmptyQualifier)QualifiedEmptyQualifier.TYPE.searchUnique(QualifiedEmptyQualifier.qualifyUnique,new Object[]{this,key});
 	}/**
 
 	 **

@@ -598,8 +598,9 @@ final class Generator
 		writeCommentGenerated();
 		writeCommentFooter();
 
+		final String resultType = qualifier.qualifierClass.getName();
 		o.write("final ");
-		o.write(qualifier.qualifierClass.getName());
+		o.write(resultType);
 		o.write(" get");
 		o.write(toCamelCase(qualifier.name));
 		o.write("(final ");
@@ -612,7 +613,15 @@ final class Generator
 		o.write("\t{");
 		o.write(lineSeparator);
 
-		o.write("\t\treturn null;");
+		o.write("\t\treturn (");
+		o.write(resultType);
+		o.write(")");
+		o.write(resultType);
+		o.write(".TYPE.searchUnique(");
+		o.write(qualifier.qualifyUnique);
+		o.write(",new Object[]{this,");
+		o.write(qualifier.keyAttribute.javaAttribute.name);
+		o.write("});");
 		o.write(lineSeparator);
 
 		o.write("\t}");

@@ -35,6 +35,8 @@ public class QualifierTest extends DatabaseLibTest
 		assertEquals(null, QualifiedEmptyQualifier.findByQualifyUnique(item, key2));
 
 		final QualifiedEmptyQualifier qitem1 = new QualifiedEmptyQualifier(item, key1);
+		assertEquals(qitem1, item.getQualifier(key1));
+		assertEquals(null, item.getQualifier(key2));
 		assertEquals(null, QualifiedEmptyQualifier.findByQualifyUnique(item, key1).getQualifiedA());
 		assertEquals(null, QualifiedEmptyQualifier.findByQualifyUnique(item, key1).getQualifiedB());
 		assertEquals(null, QualifiedEmptyQualifier.findByQualifyUnique(item, key2));
@@ -50,6 +52,8 @@ public class QualifierTest extends DatabaseLibTest
 		assertEquals(null, QualifiedEmptyQualifier.findByQualifyUnique(item, key2));
 		
 		final QualifiedEmptyQualifier qitem2 = new QualifiedEmptyQualifier(item, key2);
+		assertEquals(qitem1, item.getQualifier(key1));
+		assertEquals(qitem2, item.getQualifier(key2));
 		assertEquals("value1A", QualifiedEmptyQualifier.findByQualifyUnique(item, key1).getQualifiedA());
 		assertEquals("value1B", QualifiedEmptyQualifier.findByQualifyUnique(item, key1).getQualifiedB());
 		assertEquals(null, QualifiedEmptyQualifier.findByQualifyUnique(item, key2).getQualifiedA());
