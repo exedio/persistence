@@ -34,7 +34,7 @@ public class StatementInfoTest extends DatabaseLibTest
 					final Iterator planIdChilds = planId.getChilds().iterator();
 					{
 						final StatementInfo planSelect = (StatementInfo)planIdChilds.next();
-						assertEquals("SELECT STATEMENT", planSelect.text);
+						assertEquals("SELECT STATEMENT optimizer=CHOOSE", planSelect.text);
 						{
 							final Iterator planSelectChilds = planSelect.getChilds().iterator();
 							{
@@ -44,7 +44,7 @@ public class StatementInfoTest extends DatabaseLibTest
 									final Iterator planTableAccessChilds = planTableAccess.getChilds().iterator();
 									{
 										final StatementInfo planUnique = (StatementInfo)planTableAccessChilds.next();
-										assertEquals("INDEX (UNIQUE SCAN) on ItemWithSingUni_unStr_Unq[UNIQUE]", planUnique.text);
+										assertEquals("INDEX (UNIQUE SCAN) on ItemWithSingUni_unStr_Unq[UNIQUE] search_columns=1", planUnique.text);
 										assertEquals(list(), planUnique.getChilds());
 									}
 									assertTrue(!planTableAccessChilds.hasNext());

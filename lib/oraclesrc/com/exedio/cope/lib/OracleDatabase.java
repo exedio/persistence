@@ -2,8 +2,11 @@ package com.exedio.cope.lib;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Random;
 
 import oracle.jdbc.OracleStatement;
@@ -299,6 +302,20 @@ final class OracleDatabase
 	private static final String STATEMENT_ID = "STATEMENT_ID";
 	private static final String STATEMENT_ID_PREFIX = "cope";
 
+	private static final HashSet skippedColumnNames = new HashSet(Arrays.asList(new String[]{
+			STATEMENT_ID,
+			"OPERATION",
+			"OPTIONS",
+			"TIMESTAMP",
+			"OBJECT_OWNER",
+			"OBJECT_NAME",
+			"OBJECT_INSTANCE",
+			"OBJECT_TYPE",
+			"ID",
+			"PARENT_ID",
+			"POSITION",
+		}));
+	
 	private StatementInfo makePlanInfo(final Statement statement, final Connection connection)
 	{
 		final String statementText = statement.getText();
@@ -360,6 +377,10 @@ final class OracleDatabase
 				defineColumnTypes(fetchStatement.columnTypes, sqlFetchStatement);
 				sqlFetchResultSet = sqlFetchStatement.executeQuery(fetchStatement.getText());
 				final IntKeyChainedHashMap infos = new IntKeyChainedHashMap();
+
+				final ResultSetMetaData metaData = sqlFetchResultSet.getMetaData();
+				final int columnCount = metaData.getColumnCount();
+
 				while(sqlFetchResultSet.next())
 				{
 					final String operation = sqlFetchResultSet.getString("OPERATION");
@@ -383,6 +404,23 @@ final class OracleDatabase
 
 					if(objectType!=null)
 						bf.append('[').append(objectType).append(']');
+					
+
+					for(int i = 1; i<=columnCount; i++)
+					{
+						final String columnName = metaData.getColumnName(i);
+						if(!skippedColumnNames.contains(columnName))
+						{
+							final Object value = sqlFetchResultSet.getObject(i);
+							if(value!=null)
+							{
+								bf.append(' ').
+									append(columnName.toLowerCase()).
+									append('=').
+									append(value.toString());
+							}
+						}
+					}
 
 					final StatementInfo info = new StatementInfo(bf.toString());
 					if(parentID==null)
