@@ -84,8 +84,7 @@ public class LibTest extends TestCase
 			catch(ReadOnlyViolationException e)
 			{
 				assertEquals(itemWithSingleUniqueReadOnly.uniqueReadOnlyString, e.getReadOnlyAttribute());
-				// TODO: use equals, once equals is working
-				assertTrue(itemWithSingleUniqueReadOnly==e.getItem());
+				assertEquals(itemWithSingleUniqueReadOnly, e.getItem());
 			}
 			catch(ConstraintViolationException e)
 			{

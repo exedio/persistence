@@ -17,7 +17,8 @@ public class Item extends Search
 	 */
 	public final String getID()
 	{
-		return null;
+		// TODO: should use the primary key and type somehow
+		return toString();
 	}
 	
 	/**
@@ -28,7 +29,8 @@ public class Item extends Search
 	 */
 	public final boolean equals(final Object o)
 	{
-		return (o != null) && (o instanceof Item) && getID().equals(((Item)o).getID());
+		// TODO: should use the primary key and type somehow
+		return this == o;
 	}
 
 	/**
@@ -38,7 +40,8 @@ public class Item extends Search
 	 */
 	public final int hashCode()
 	{
-		return getID().hashCode();
+		// TODO: should use the primary key and type somehow
+		return System.identityHashCode(this);
 	}
 	
 	/**
