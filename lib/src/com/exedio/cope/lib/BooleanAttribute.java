@@ -1,15 +1,17 @@
 
 package com.exedio.cope.lib;
 
+import java.math.BigDecimal;
+
 public final class BooleanAttribute extends Attribute
 {
 	Object databaseToCache(final Object cell)
 	{
 		if(cell==null)
 			return null;
-		else if(cell instanceof Integer)
+		else
 		{
-			switch(((Integer)cell).intValue())
+			switch(((BigDecimal)cell).intValue()) // TODO: use ResultSet.getInt() somehow
 			{
 				case 0:
 					return Boolean.FALSE;
@@ -19,8 +21,6 @@ public final class BooleanAttribute extends Attribute
 					throw new RuntimeException("cellToCache:"+cell);
 			}
 		}
-		else
-			throw new RuntimeException("cellToCache:"+cell);
 	}
 	
 	Object cacheToDatabase(final Object cache)

@@ -220,6 +220,8 @@ public class LibTest extends TestCase
 			assertEquals(null, item.getSomeString());
 			item.setSomeString("someString");
 			assertEquals("someString", item.getSomeString());
+			item.passivate();
+			assertEquals("someString", item.getSomeString());
 			item.setSomeString(null);
 			assertEquals(null, item.getSomeString());
 
