@@ -14,14 +14,14 @@ final class StringColumn extends Column
 	final String maximumLengthID;
 
 	StringColumn(
-			final Table type, final String id, final boolean notNull, // TODO: rename to table
+			final Table table, final String id, final boolean notNull,
 			final int minimumLength, final int maximumLength)
 	{
-		super(type, id, false, notNull, Database.theInstance.getStringType(maximumLength), JDBC_TYPE);
+		super(table, id, false, notNull, Database.theInstance.getStringType(maximumLength), JDBC_TYPE);
 		this.minimumLength = minimumLength;
 		this.maximumLength = maximumLength;
-		this.minimumLengthID = minimumLength==0 ? null : Database.theInstance.trimName(type.id+"_"+id+"Min");
-		this.maximumLengthID = maximumLength==Integer.MAX_VALUE ? null : Database.theInstance.trimName(type.id+"_"+id+"Max");
+		this.minimumLengthID = minimumLength==0 ? null : Database.theInstance.trimName(table.id+"_"+id+"Min");
+		this.maximumLengthID = maximumLength==Integer.MAX_VALUE ? null : Database.theInstance.trimName(table.id+"_"+id+"Max");
 	}
 	
 	void load(final ResultSet resultSet, final int columnIndex, final Row row)
