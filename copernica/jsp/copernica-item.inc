@@ -1,8 +1,10 @@
-<%
+<%!
+	static final String SAVE_BUTTON = "SAVE";
+%><%
 	final Item item = itemCop.item;
 	final Type type = item.getType();
 	boolean toSave = false;
-	final boolean save = request.getParameter("SAVE")!=null;
+	final boolean save = request.getParameter(SAVE_BUTTON)!=null;
 %>
 <a href="<%=(cop.toType(type))%>"><%=provider.getDisplayName(null, type)%></a>
 <b><%=provider.getDisplayName(null, item)%></b><hr>
@@ -180,7 +182,7 @@
 if(toSave||form.toSave)
 {
 	%>
-	<input type="submit" name="SAVE" value="Save" /><%
+	<input type="submit" name="<%=SAVE_BUTTON%>" value="Save" /><%
 }
 %>
 </form>
