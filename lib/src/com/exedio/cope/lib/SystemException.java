@@ -24,6 +24,24 @@ public final class SystemException extends RuntimeException
 		this.message = message;
 	}
 	
+	public String getMessage()
+	{
+		if(message!=null)
+		{
+			if(cause!=null)
+				return message + ":" + cause.getMessage();
+			else
+				return message;
+		}
+		else
+		{
+			if(cause!=null)
+				return cause.getMessage();
+			else
+				return "";
+		}
+	}
+	
 	public void printStackTrace()
 	{
 		super.printStackTrace();
