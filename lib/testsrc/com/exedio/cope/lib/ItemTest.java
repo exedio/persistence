@@ -76,5 +76,30 @@ public class ItemTest extends DatabaseLibTest
 	{
 		model.checkDatabase();
 	}
+	
+	public void testItemCreation()
+			throws IntegrityViolationException
+	{
+		final EmptyItem item1 = (EmptyItem)EmptyItem.TYPE.newItem(null);
+		final AttributeItem item2 = (AttributeItem)AttributeItem.TYPE.newItem(new AttributeValue[]{
+			new AttributeValue(AttributeItem.someNotNullString, "someGenericString"),
+			new AttributeValue(AttributeItem.someNotNullInteger, 50),
+			new AttributeValue(AttributeItem.someNotNullLong, 60l),
+			new AttributeValue(AttributeItem.someNotNullDouble, 20.2),
+			new AttributeValue(AttributeItem.someNotNullBoolean, false),
+			new AttributeValue(AttributeItem.someNotNullItem, item1), 
+			new AttributeValue(AttributeItem.someNotNullEnumeration, AttributeItem.SomeEnumeration.enumValue3)});
+		
+		assertEquals("someGenericString", item2.getSomeNotNullString());
+		assertEquals(50, item2.getSomeNotNullInteger());
+		assertEquals(60l, item2.getSomeNotNullLong());
+		assertEquals(20.2, item2.getSomeNotNullDouble(), 0.0);
+		assertEquals(false, item2.getSomeNotNullBoolean());
+		assertEquals(item1, item2.getSomeNotNullItem());
+		assertEquals(AttributeItem.SomeEnumeration.enumValue3, item2.getSomeNotNullEnumeration());
+
+		assertDelete(item2);
+		assertDelete(item1);
+	}
 
 }

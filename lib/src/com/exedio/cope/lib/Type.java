@@ -46,6 +46,21 @@ public final class Type
 	private Table table;
 	private PrimaryKeyIterator primaryKeyIterator;
 
+	private final Constructor creationConstructor;
+	private static final Class[] creationConstructorParams;
+	static
+	{
+		try
+		{
+			creationConstructorParams = new Class[]{Class.forName("[L"+AttributeValue.class.getName()+';')};
+		}
+		catch(ClassNotFoundException e)
+		{
+			e.printStackTrace();
+			throw new NestingRuntimeException(e);
+		}
+	}
+
 	private final Constructor reactivationConstructor;
 	private static final Class[] reactivationConstructorParams =
 		new Class[]{ReactivationConstructorDummy.class, int.class};
@@ -175,6 +190,16 @@ public final class Type
 		this.attributeList = Collections.unmodifiableList(Arrays.asList(attributes));
 		this.featureList = Collections.unmodifiableList(Arrays.asList(features));
 
+
+		try
+		{
+			creationConstructor = javaClass.getDeclaredConstructor(creationConstructorParams);
+			creationConstructor.setAccessible(true);
+		}
+		catch(NoSuchMethodException e)
+		{
+			throw new NestingRuntimeException(e);
+		}
 
 		try
 		{
@@ -327,6 +352,35 @@ public final class Type
 		return uniqueConstraintList;
 	}
 	
+	private static final AttributeValue[] EMPTY_ATTRIBUTE_VALUES = new AttributeValue[]{};
+	
+	public final Item newItem(final AttributeValue[] initialAttributeValues)
+	{
+		try
+		{
+			return 
+				(Item)creationConstructor.newInstance(
+					new Object[]{
+						initialAttributeValues!=null
+						? initialAttributeValues
+						: EMPTY_ATTRIBUTE_VALUES
+					}
+				);
+		}
+		catch(InstantiationException e)
+		{
+			throw new NestingRuntimeException(e);
+		}
+		catch(IllegalAccessException e)
+		{
+			throw new NestingRuntimeException(e);
+		}
+		catch(InvocationTargetException e)
+		{
+			throw new NestingRuntimeException(e);
+		}
+	}
+
 	/**
 	 * Searches for items of this type, that match the given condition.
 	 * <p>
