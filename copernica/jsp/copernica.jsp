@@ -3,6 +3,7 @@ page import="com.exedio.cope.lib.Search" %><%@
 page import="com.exedio.cope.lib.Database" %><%@
 page import="com.exedio.cope.lib.Attribute" %><%@
 page import="com.exedio.cope.lib.ObjectAttribute" %><%@
+page import="com.exedio.cope.lib.StringAttribute" %><%@
 page import="com.exedio.cope.lib.MediaAttribute" %><%@
 page import="com.exedio.cope.lib.EnumerationAttribute" %><%@
 page import="com.exedio.cope.lib.EnumerationValue" %><%@
@@ -258,14 +259,31 @@ page import="java.util.Map"
 											><%=currentValue.getCode()%><br><%
 									}
 								}
-								else
+								else if(attribute instanceof StringAttribute)
 								{
+									final StringAttribute stringAttribute = (StringAttribute)attribute;
+									final String attributeName = attribute.getName();
+									
+									final String value;
+									if(save)
+									{
+										value = request.getParameter(attributeName);
+										if(value==null)
+											throw new NullPointerException(attributeName);
+										item.setAttribute(stringAttribute, value);
+									}
+									else
+										value = (String)item.getAttribute(stringAttribute);
 									%>
 									<input
 										type="text"
 										name="<%=attribute.getName()%>"
-										value="<%=item.getAttribute((ObjectAttribute)attribute)%>" />
+										value="<%=value%>" />
 									<%
+								}
+								else
+								{
+									%><%=item.getAttribute((ObjectAttribute)attribute)%><%
 								}
 								%></td></tr><%
 							}
