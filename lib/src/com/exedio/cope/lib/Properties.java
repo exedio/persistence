@@ -66,26 +66,35 @@ final class Properties
 		databaseUrl = getPropertyNotNull(properties, "database.url");
 		databaseUser = getPropertyNotNull(properties, "database.user");
 		databasePassword = getPropertyNotNull(properties, "database.password");
-		final String mediaDirectoryString  = getPropertyNotNull(properties, "media.directory");
-		final File mediaDirectoryTest = new File(mediaDirectoryString);
 
-		if(!mediaDirectoryTest.exists())
-			throw new InitializerRuntimeException("ERROR: media directory "+mediaDirectoryTest.getAbsolutePath()+" does not exist.");
-		if(!mediaDirectoryTest.isDirectory())
-			throw new InitializerRuntimeException("ERROR: media directory "+mediaDirectoryTest.getAbsolutePath()+" is not a directory.");
-		if(!mediaDirectoryTest.canRead())
-			throw new InitializerRuntimeException("ERROR: media directory "+mediaDirectoryTest.getAbsolutePath()+" is not readable.");
-		if(!mediaDirectoryTest.canWrite())
-			throw new InitializerRuntimeException("ERROR: media directory "+mediaDirectoryTest.getAbsolutePath()+" is not writable.");
-		try
+		final String mediaDirectoryString  = properties.getProperty("media.directory");
+		if(mediaDirectoryString!=null)
 		{
-			mediaDirectory = mediaDirectoryTest.getCanonicalFile();
+			final File mediaDirectoryTest = new File(mediaDirectoryString);
+
+			if(!mediaDirectoryTest.exists())
+				throw new InitializerRuntimeException("ERROR: media directory "+mediaDirectoryTest.getAbsolutePath()+" does not exist.");
+			if(!mediaDirectoryTest.isDirectory())
+				throw new InitializerRuntimeException("ERROR: media directory "+mediaDirectoryTest.getAbsolutePath()+" is not a directory.");
+			if(!mediaDirectoryTest.canRead())
+				throw new InitializerRuntimeException("ERROR: media directory "+mediaDirectoryTest.getAbsolutePath()+" is not readable.");
+			if(!mediaDirectoryTest.canWrite())
+				throw new InitializerRuntimeException("ERROR: media directory "+mediaDirectoryTest.getAbsolutePath()+" is not writable.");
+			try
+			{
+				mediaDirectory = mediaDirectoryTest.getCanonicalFile();
+			}
+			catch(IOException e)
+			{
+				throw new InitializerRuntimeException(e);
+			}
+			mediaUrl  = getPropertyNotNull(properties, "media.url");
 		}
-		catch(IOException e)
+		else
 		{
-			throw new InitializerRuntimeException(e);
+			mediaDirectory = null;
+			mediaUrl  = null;
 		}
-		mediaUrl  = getPropertyNotNull(properties, "media.url");
 	}
 	
 	private String getPropertyNotNull(final java.util.Properties properties, final String key)
@@ -124,11 +133,17 @@ final class Properties
 	
 	public File getMediaDirectory()
 	{
+		if(mediaDirectory==null)
+			throw new InitializerRuntimeException("ERROR: property media.directory in "+file.getAbsolutePath()+" not set.");
+
 		return mediaDirectory;
 	}
 
 	public String getMediaUrl()
 	{
+		if(mediaDirectory==null)
+			throw new InitializerRuntimeException("ERROR: property media.directory in "+file.getAbsolutePath()+" not set.");
+
 		return mediaUrl;
 	}
 

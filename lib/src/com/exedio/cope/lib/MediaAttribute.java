@@ -12,6 +12,9 @@ public final class MediaAttribute extends Attribute
 	public MediaAttribute(final Item.Option option)
 	{
 		super(option);
+		
+		// make sure, media configuration properties are set
+		Properties.getInstance().getMediaDirectory();
 	}
 	
 	protected List createColumns(final String name, final boolean notNull)
