@@ -6,12 +6,14 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.*;
 import java.lang.reflect.Modifier;
+import persistence.Attribute;
 import persistence.AttributeValue;
 import persistence.ConstraintViolationException;
 import persistence.NotNullViolationException;
 import persistence.ReadOnlyViolationException;
 import persistence.SystemException;
 import persistence.Type;
+import persistence.UniqueConstraint;
 import persistence.UniqueViolationException;
 import tools.ClassComparator;
 
@@ -451,15 +453,23 @@ public final class Instrumentor implements InjectionConsumer
 		output.write(".");
 		output.write(lineSeparator);
 		writeCommentFooter();
+		
+		// the TYPE variable
 		output.write("public static final "+Type.class.getName()+" TYPE = ");
 		output.write(lineSeparator);
+		
+		// open the constructor of type
 		output.write("\t\tnew "+Type.class.getName()+"(");
 		output.write(lineSeparator);
+		
+		// the class itself
 		output.write("\t\t\t");
 		output.write(javaClass.getName());
 		output.write(".class,");
 		output.write(lineSeparator);
-		output.write("\t\t\tnew Attribute[]{");
+		
+		// the attributes of the class
+		output.write("\t\t\tnew "+Attribute.class.getName()+"[]{");
 		output.write(lineSeparator);
 		for(Iterator i = javaClass.getPersistentAttributes().iterator(); i.hasNext(); )
 		{
@@ -471,6 +481,37 @@ public final class Instrumentor implements InjectionConsumer
 		}
 		output.write("\t\t\t},");
 		output.write(lineSeparator);
+		
+		// the unique contraints of the class
+		output.write("\t\t\tnew "+UniqueConstraint.class.getName()+"[]{");
+		output.write(lineSeparator);
+		for(Iterator i = javaClass.getUniqueConstraints().iterator(); i.hasNext(); )
+		{
+			final JavaAttribute[] uniqueConstraint = (JavaAttribute[])i.next();
+			if(uniqueConstraint.length==1)
+			{
+				// shorter notation, if unique contraint does not cover multive attributes
+				output.write("\t\t\t\tnew "+UniqueConstraint.class.getName()+'(');
+				output.write(uniqueConstraint[0].getName());
+				output.write("),");
+			}
+			else
+			{
+				// longer notation otherwise
+				output.write("\t\t\t\tnew "+UniqueConstraint.class.getName()+"(new "+Attribute.class.getName()+"[]{");
+				for(int j = 0; j<uniqueConstraint.length; j++)
+				{
+					output.write(uniqueConstraint[j].getName());
+					output.write(',');
+				}
+				output.write("}),");
+			}
+			output.write(lineSeparator);
+		}
+		output.write("\t\t\t},");
+		output.write(lineSeparator);
+		
+		// the runnable initializing attributes
 		output.write("\t\t\tnew Runnable()");
 		output.write(lineSeparator);
 		output.write("\t\t\t{");
@@ -498,6 +539,8 @@ public final class Instrumentor implements InjectionConsumer
 		output.write(lineSeparator);
 		output.write("\t\t\t}");
 		output.write(lineSeparator);
+		
+		// close the constructor of Type
 		output.write("\t\t)");
 		output.write(lineSeparator);
 		output.write(";");
