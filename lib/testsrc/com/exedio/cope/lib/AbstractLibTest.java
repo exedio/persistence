@@ -46,9 +46,11 @@ public abstract class AbstractLibTest extends TestCase
 
 	public static final Model model = new Model(modelTypes);
 	
-	static
+	protected void setUp() throws Exception
 	{
-		model.setProperties(new Properties());
+		super.setUp();
+		if(!model.hasProperties())
+			model.setProperties(new Properties());
 	}
 
 	public AbstractLibTest()

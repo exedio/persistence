@@ -32,23 +32,36 @@ public final class Properties
 
 	public Properties()
 	{
+		this(getDefaultPropertyFile());
+	}
+	
+	private static final File getDefaultPropertyFile()
+	{
+		String filename = System.getProperty(FILE_NAME_PROPERTY);
+		if(filename==null)
+			filename = DEFAULT_FILE_NAME;
+
+		return new File(filename);
+	}
+
+	public Properties(final String propertyFileName)
+	{
+		this(new File(propertyFileName));
+	}
+
+	public Properties(final File propertyFile)
+	{
 		final java.util.Properties properties = new java.util.Properties();
 		FileInputStream stream = null;
-		File file = null;
 		try
 		{
-			String filename = System.getProperty(FILE_NAME_PROPERTY);
-			if(filename==null)
-				filename = DEFAULT_FILE_NAME;
-			
-			file = new File(filename);
-			source = file.getAbsolutePath();
-			stream = new FileInputStream(file);
+			source = propertyFile.getAbsolutePath();
+			stream = new FileInputStream(propertyFile);
 			properties.load(stream);
 		}
 		catch(IOException e)
 		{
-			throw new InitializerRuntimeException(e, "property file "+file.getAbsolutePath()+" not found.");
+			throw new InitializerRuntimeException(e, "property file "+propertyFile.getAbsolutePath()+" not found.");
 		}
 		finally
 		{

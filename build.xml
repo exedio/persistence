@@ -276,11 +276,14 @@
 		<copy todir="copernica/build/testwebapp/WEB-INF/lib">
 			<fileset file="../lib/pcj.jar" />
 			<fileset file="../lib/hsqldb.jar" />
+			<!-- TODO: removed, when the test model gets it own model class independent of junit -->
 			<fileset file="../lib/junit.jar" />
 		</copy>
 		<copy file="../lib/classes12.zip"
 				tofile="copernica/build/testwebapp/WEB-INF/lib/classes12.jar" />
 		
+		<copy tofile="copernica/build/testwebapp/WEB-INF/cope.properties"
+				file="cope.properties.oracle" />
 		<copy todir="copernica/build/testwebapp/WEB-INF/"
 				file="copernica/web.xml" />
 		<touch file="copernica/build/testwebapp/WEB-INF/web.xml" />

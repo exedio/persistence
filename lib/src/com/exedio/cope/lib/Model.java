@@ -125,6 +125,11 @@ public final class Model
 		return (Type)typesByID.get(id);
 	}
 	
+	public final boolean hasProperties()
+	{
+		return properties!=null;
+	}
+	
 	public final Properties getProperties()
 	{
 		if(properties==null)
