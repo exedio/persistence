@@ -413,8 +413,12 @@
 				<filter token="MEDIA_DIRECTORY" value="//WEB-APP//" />
 			</filterset>
 		</copy>
-		<copy todir="copernica/build/testwebapp-${database}/WEB-INF/"
-				file="copernica/web.xml" />
+		<copy todir="copernica/build/testwebapp-${database}/WEB-INF/">
+			<fileset dir="copernica">
+				<include name="web.xml" />
+				<include name="context.xml" />
+			</fileset>
+		</copy>
 		<copy todir="copernica/build/testwebapp-${database}">
 			<fileset dir="copernica/jsp">
 				<exclude name="*.jsp" />

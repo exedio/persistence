@@ -1,0 +1,6 @@
+<Context>
+	<!-- Disables session persistence in SESSIONS.ser -->
+	<Manager
+			className="org.apache.catalina.session.StandardManager"
+			pathname="" />
+</Context>
