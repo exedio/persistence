@@ -18,9 +18,11 @@ public class AttributesTest extends AbstractLibTest
 	
 	public void tearDown() throws Exception
 	{
-		// TODO: delete these items
+		item.delete();
 		item = null;
+		someItem.delete();
 		someItem = null;
+		someItem2.delete();
 		someItem2 = null;
 		super.tearDown();
 	}

@@ -32,6 +32,9 @@ public class SearchTest extends AbstractLibTest
 		final Collection searchResult = Search.search(item.TYPE, Search.equal(item.someNotNullInteger, 0));
 		assertEquals(set(item), toSet(searchResult));
 		assertUnmodifiable(searchResult);
+		
+		assertDelete(item);
+		assertDelete(someItem);
 	}
 
 	public void testIllegalSearch()

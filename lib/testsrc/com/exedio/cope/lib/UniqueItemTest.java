@@ -1,17 +1,7 @@
-/*
- * Created on 02.04.2004
- *
- * To change the template for this generated file go to
- * Window&gt;Preferences&gt;Java&gt;Code Generation&gt;Code and Comments
- */
+
 package com.exedio.cope.lib;
 
-/**
- * @author rw7
- *
- * To change the template for this generated type comment go to
- * Window&gt;Preferences&gt;Java&gt;Code Generation&gt;Code and Comments
- */
+
 public class UniqueItemTest extends AbstractLibTest
 {
 	public UniqueItemTest()
@@ -59,6 +49,8 @@ public class UniqueItemTest extends AbstractLibTest
 			}
 			assertEquals("uniqueString2", item2.getUniqueString());
 			assertEquals(item2, ItemWithSingleUnique.findByUniqueString("uniqueString2"));
+
+			assertDelete(item2);
 		}
 
 		item.passivate();
@@ -105,6 +97,7 @@ public class UniqueItemTest extends AbstractLibTest
 			assertSame(foundItem, item.activeItem());
 			assertSame(foundItem, foundItem.activeItem());
 		}
+		assertDelete(item);
 	}
 
 	public void testItemWithSingleUniqueReadOnly()
@@ -139,6 +132,8 @@ public class UniqueItemTest extends AbstractLibTest
 		}
 		assertEquals("uniqueString", item.getUniqueReadOnlyString());
 		assertEquals(item, ItemWithSingleUniqueReadOnly.findByUniqueReadOnlyString("uniqueString"));
+
+		assertDelete(item);
 	}
 
 	public void testItemWithSingleUniqueNotNull()
@@ -196,6 +191,8 @@ public class UniqueItemTest extends AbstractLibTest
 		assertEquals("uniqueString2", item.getUniqueNotNullString());
 		assertEquals(null, ItemWithSingleUniqueNotNull.findByUniqueNotNullString("uniqueString"));
 		assertEquals(item, ItemWithSingleUniqueNotNull.findByUniqueNotNullString("uniqueString2"));
+
+		assertDelete(item);
 	}
 
 }
