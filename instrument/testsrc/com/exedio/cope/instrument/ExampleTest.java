@@ -196,6 +196,7 @@ public class ExampleTest extends InjectorTest
 		
 		assertBehaviourHeader("Example", null, Modifier.PRIVATE);
 		assertText("{\n\t namedIntegers.put(\"5\", new Integer(5));\n  }");
+		assertMethod("Example", null);
 	}
 
 }
