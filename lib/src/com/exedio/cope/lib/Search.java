@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
-import java.util.Iterator;
 
 import bak.pcj.IntIterator;
 import bak.pcj.list.IntArrayList;
@@ -369,27 +368,6 @@ public abstract class Search
 		query.check();
 		final Type selectType = query.selectType;
 		return wrapPrimaryKeys(selectType, selectType.getModel().getDatabase().search(query));
-	}
-	
-	/**
-	 * TODO: should throw a non-RuntimeException,
-	 * if there is more than one item found.
-	 * TODO: should have a unique constraint as parameter,
-	 * instead of the condition, then the previous todo is obsolete. 
-	 */
-	public static final Item searchUnique(final Type type, final Condition condition)
-	{
-		final Iterator searchResult = search(type, condition).iterator();
-		if(searchResult.hasNext())
-		{
-			final Item result = (Item)searchResult.next();
-			if(searchResult.hasNext())
-				throw new SystemException(null);
-			else
-				return result;
-		}
-		else
-			return null;
 	}
 	
 }

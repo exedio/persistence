@@ -558,7 +558,7 @@ final class Generator
 		o.write(lineSeparator);
 		o.write("\t\treturn (");
 		o.write(className);
-		o.write(")searchUnique(TYPE,");
+		o.write(")TYPE.searchUnique(");
 
 		if(persistentAttributes.length==1)
 			writeEquals(persistentAttributes[0]);

@@ -11,6 +11,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import bak.pcj.map.IntKeyOpenHashMap;
@@ -327,6 +328,27 @@ public final class Type
 	public final List getUniqueConstraints()
 	{
 		return uniqueConstraintList;
+	}
+	
+	/**
+	 * TODO: should throw a non-RuntimeException,
+	 * if there is more than one item found.
+	 * TODO: should have a unique constraint as parameter,
+	 * instead of the condition, then the previous todo is obsolete. 
+	 */
+	public final Item searchUnique(final Condition condition)
+	{
+		final Iterator searchResult = Search.search(this, condition).iterator();
+		if(searchResult.hasNext())
+		{
+			final Item result = (Item)searchResult.next();
+			if(searchResult.hasNext())
+				throw new SystemException(null);
+			else
+				return result;
+		}
+		else
+			return null;
 	}
 	
 	private String toStringCache = null;
