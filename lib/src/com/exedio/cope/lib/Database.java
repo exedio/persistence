@@ -1,6 +1,8 @@
 
 package com.exedio.cope.lib;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Properties;
 
 import com.exedio.cope.lib.database.OracleDatabase;
 import com.exedio.cope.lib.search.Condition;
@@ -276,13 +279,47 @@ public abstract class Database
 		}
 	}
 
+	private static Properties copePropertiesLazilyLoaded = null;
+	
+	private static Properties getCopeProperties()
+	{
+		if(copePropertiesLazilyLoaded!=null)
+			return copePropertiesLazilyLoaded;
+		
+		copePropertiesLazilyLoaded = new Properties();
+		FileInputStream stream = null;
+		try
+		{
+			stream = new FileInputStream("cope.properties");
+			copePropertiesLazilyLoaded.load(stream);
+		}
+		catch(IOException e)
+		{
+			throw new SystemException(e);
+		}
+		finally
+		{
+			if(stream!=null)
+			{
+				try
+				{
+					stream.close();
+				}
+				catch(IOException e) {}
+			}
+		}
+		
+		return copePropertiesLazilyLoaded;
+	}
+
 	private void executeSQL(final Statement statement, final ResultSetHandler resultSetHandler)
 			throws UniqueViolationException
 	{
-		final String driver = "oracle.jdbc.driver.OracleDriver";
-		final String url = "jdbc:oracle:thin:@database3.exedio.com:1521:DB3";
-		final String user = "wiebicke2";
-		final String password = "wiebicke1234";
+		final Properties copeProperties = getCopeProperties();
+		final String driver = copeProperties.getProperty("database.driver");
+		final String url = copeProperties.getProperty("database.url");
+		final String user = copeProperties.getProperty("database.user");
+		final String password = copeProperties.getProperty("database.password");
 		
 		try
 		{
