@@ -401,6 +401,9 @@ public class ExampleTest extends InjectorTest
 		assertText("\n\n");
 		
 		assertClassEnd("Example", exampleClass);
+		assertText("}\n\nclass SecondExample");
+		final JavaClass secondExampleClass = assertClass("SecondExample");
+		assertText(" extends Example{");
 	}
 
 }
