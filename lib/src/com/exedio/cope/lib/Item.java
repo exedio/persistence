@@ -139,7 +139,7 @@ public class Item extends Search
 			throw initialUniqueViolationException;
 	}
 	
-	protected final Object getAttribute(final Attribute attribute)
+	public final Object getAttribute(final Attribute attribute)
 	{
 		final AttributeMapping mapping = attribute.mapping;
 		if(mapping!=null)
@@ -149,7 +149,7 @@ public class Item extends Search
 		return getCache(attribute);
 	}
 	
-	protected final Object getAttribute(final Attribute attribute, final Object[] qualifiers)
+	public final Object getAttribute(final Attribute attribute, final Object[] qualifiers)
 	{
 		final AttributeMapping mapping = attribute.mapping;
 		if(mapping!=null)
@@ -166,7 +166,7 @@ public class Item extends Search
 	 *         if attribute is {@link Attribute#isReadOnly() read-only}.
 	 * @throws ClassCastException if <code>value</code> is not compatible to <code>attribute</code>.
 	 */
-	protected final void setAttribute(final Attribute attribute, final Object value)
+	public final void setAttribute(final Attribute attribute, final Object value)
 	throws UniqueViolationException, NotNullViolationException, ReadOnlyViolationException
 	{
 		if(attribute.isReadOnly() || attribute.mapping!=null)
@@ -191,7 +191,7 @@ public class Item extends Search
 	/**
 	 * @throws ClassCastException if <code>value</code> is not compatible to <code>attribute</code>.
 	 */
-	protected final void setAttribute(final Attribute attribute, final Object[] qualifiers, final Object value)
+	public final void setAttribute(final Attribute attribute, final Object[] qualifiers, final Object value)
 	throws UniqueViolationException
 	{
 		activate();
@@ -212,7 +212,7 @@ public class Item extends Search
 	 * Returns a URL pointing to the data of this persistent media attribute.
 	 * Returns null, if there is no data for this attribute.
 	 */
-	protected final String getMediaURL(final MediaAttribute attribute, final String variant)
+	public final String getMediaURL(final MediaAttribute attribute, final String variant)
 	{
 		activate();
 
@@ -268,7 +268,7 @@ public class Item extends Search
 	 * Returns the major mime type of this persistent media attribute.
 	 * Returns null, if there is no data for this attribute.
 	 */
-	protected final String getMediaMimeMajor(final MediaAttribute attribute)
+	public final String getMediaMimeMajor(final MediaAttribute attribute)
 	{
 		activate();
 		return (String)getCache(attribute.mimeMajor);
@@ -278,7 +278,7 @@ public class Item extends Search
 	 * Returns the minor mime type of this persistent media attribute.
 	 * Returns null, if there is no data for this attribute.
 	 */
-	protected final String getMediaMimeMinor(final MediaAttribute attribute)
+	public final String getMediaMimeMinor(final MediaAttribute attribute)
 	{
 		activate();
 		return (String)getCache(attribute.mimeMinor);
@@ -289,7 +289,7 @@ public class Item extends Search
 	 * <b>You are responsible for closing the stream, when you are finished!</b>
 	 * Returns null, if there is no data for this attribute.
 	 */
-	protected final InputStream getMediaData(final MediaAttribute attribute)
+	public final InputStream getMediaData(final MediaAttribute attribute)
 	{
 		return null;
 	}
@@ -302,7 +302,7 @@ public class Item extends Search
 	 *         if data is null and attribute is {@link Attribute#isNotNull() not-null}.
 	 * @throws IOException if reading data throws an IOException.
 	 */
-	protected final void setMediaData(final MediaAttribute attribute, final OutputStream data,
+	public final void setMediaData(final MediaAttribute attribute, final OutputStream data,
 												 final String mimeMajor, final String mimeMinor)
 	throws NotNullViolationException, IOException
 	{
