@@ -52,17 +52,16 @@
 								%><a href="<%=url%>"><%
 								if("image".equals(item.getMediaMimeMajor(mediaAttribute)))
 								{
-									%><img src="<%=url%>" width="250"><%
+									%><img src="<%=url%>" width="250"><small>(<%=item.getMediaMimeMinor(mediaAttribute)%>)</small><%
 								}
 								else
 								{
-									%>download<%
+									%>download <small>(<%=item.getMediaMimeMajor(mediaAttribute)%>/<%=item.getMediaMimeMinor(mediaAttribute)%>)</small><%
 								}
 								%></a><%
 							}
 							%>
-							<input type="file" name="data<%=attributeName%>" size="20">
-							<input type="submit" name="UPLOAD<%=attributeName%>" value="Upload"><%
+							<input type="file" name="<%=attributeName%>" size="20"><%
 						}
 						else if(attribute instanceof EnumAttribute)
 						{

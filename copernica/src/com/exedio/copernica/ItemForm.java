@@ -1,5 +1,7 @@
 package com.exedio.copernica;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
@@ -7,6 +9,8 @@ import java.util.Date;
 import java.util.Iterator;
 
 import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.fileupload.FileItem;
 
 import com.exedio.cope.lib.Attribute;
 import com.exedio.cope.lib.BooleanAttribute;
@@ -20,6 +24,7 @@ import com.exedio.cope.lib.Item;
 import com.exedio.cope.lib.ItemAttribute;
 import com.exedio.cope.lib.LongAttribute;
 import com.exedio.cope.lib.MediaAttribute;
+import com.exedio.cope.lib.NestingRuntimeException;
 import com.exedio.cope.lib.NoSuchIDException;
 import com.exedio.cope.lib.NotNullViolationException;
 import com.exedio.cope.lib.ObjectAttribute;
@@ -74,6 +79,8 @@ final class ItemForm extends Form
 			{
 				final MediaAttribute attribute = (MediaAttribute)anyAttribute;
 				field = new Field(attribute, "");
+				if(!attribute.isReadOnly())
+					toSave = true;
 			}
 			else
 				continue;
@@ -113,6 +120,38 @@ final class ItemForm extends Form
 		for(Iterator i = getFields().iterator(); i.hasNext(); )
 		{
 			final Field field = (Field)i.next();
+			if(field.key instanceof MediaAttribute)
+			{
+				final MediaAttribute attribute = (MediaAttribute)field.key;
+				final FileItem fileItem = getParameterFile(attribute.getName());
+				if(fileItem!=null)
+				{
+					final String contentType = fileItem.getContentType();
+					final int pos = contentType.indexOf('/');
+					if(pos<=0)
+						throw new RuntimeException("invalid content type "+contentType);
+					final String mimeMajor = contentType.substring(0, pos);
+					String mimeMinor = contentType.substring(pos+1);
+					
+					// fix for MSIE behaviour
+					if("image".equals(mimeMajor) && "pjpeg".equals(mimeMinor))
+						mimeMinor = "jpeg";
+					
+					try
+					{
+						final InputStream data = fileItem.getInputStream();
+						item.setMediaData(attribute, data, mimeMajor, mimeMinor);
+					}
+					catch(IOException e)
+					{
+						throw new NestingRuntimeException(e);
+					}
+					catch(NotNullViolationException e)
+					{
+						throw new NestingRuntimeException(e);
+					}
+				}
+			}
 			if(!field.isReadOnly())
 			{
 				final ObjectAttribute attribute = (ObjectAttribute)field.key;
