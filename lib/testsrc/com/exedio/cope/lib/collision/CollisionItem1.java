@@ -1,9 +1,9 @@
 
 package com.exedio.cope.lib.collision;
 
+import com.exedio.cope.lib.EmptyItem;
 import com.exedio.cope.lib.Item;
 import com.exedio.cope.lib.ItemAttribute;
-import com.exedio.cope.lib.EmptyItem;
 
 /**
  * Test for database name collisions

@@ -1,9 +1,9 @@
 
 package com.exedio.cope.lib;
 
-import java.util.List;
-import java.util.Collections;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public abstract class ComputedFunction implements Function 
 {
