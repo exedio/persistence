@@ -14,13 +14,10 @@ public class Item extends Search
 	private final Type type;
 
 	/**
-	 * THIS IS A HACK
+	 * TODO: THIS IS A HACK
 	 */
 	private static int pkCounter = 10;
 	
-	/**
-	 * TODO: must be at least package private
-	 */
 	final int pk;
 
 	/**
