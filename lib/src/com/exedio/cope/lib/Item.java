@@ -51,7 +51,7 @@ public class Item extends Search
 	 */
 	public final Item primaryItem()
 	{
-		return null;
+		throw new RuntimeException("not yet implemented");
 	}
 
 	/**
