@@ -285,8 +285,10 @@ public class LibTest extends TestCase
 			// someInteger
 			assertEquals(item.TYPE, item.someInteger.getType());
 			assertEquals(null, item.getSomeInteger());
+			// TODO: assertEquals(list(item), Search.search(item.TYPE, Search.equal(item.someInteger, null)));
 			item.setSomeInteger(new Integer(10));
 			assertEquals(new Integer(10), item.getSomeInteger());
+			assertEquals(list(item), Search.search(item.TYPE, Search.equal(item.someInteger, 10)));
 			item.setSomeInteger(null);
 			assertEquals(null, item.getSomeInteger());
 

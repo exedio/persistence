@@ -6,6 +6,7 @@ import com.exedio.cope.lib.Item;
 import com.exedio.cope.lib.ItemAttribute;
 import com.exedio.cope.lib.StringAttribute;
 import com.exedio.cope.lib.Database;
+import com.exedio.cope.lib.IntegerAttribute;
 
 public final class EqualCondition extends Condition
 {
@@ -13,6 +14,12 @@ public final class EqualCondition extends Condition
 	public final Object value;
 
 	public EqualCondition(final StringAttribute attribute, final String value)
+	{
+		this.attribute = attribute;
+		this.value = value;
+	}
+	
+	public EqualCondition(final IntegerAttribute attribute, final Integer value)
 	{
 		this.attribute = attribute;
 		this.value = value;

@@ -63,6 +63,16 @@ public class Search
 		return new EqualCondition(attribute, value);
 	}
 	
+	public static final EqualCondition equal(final IntegerAttribute attribute, final Integer value)
+	{
+		return new EqualCondition(attribute, value);
+	}
+	
+	public static final EqualCondition equal(final IntegerAttribute attribute, final int value)
+	{
+		return new EqualCondition(attribute, new Integer(value));
+	}
+	
 	public static final EqualCondition equal(final ItemAttribute attribute, final Item value)
 	{
 		return new EqualCondition(attribute, value);
