@@ -431,7 +431,7 @@ public final class Instrumentor implements InjectionConsumer
 		output.write("\t{");
 		output.write(lineSeparator);
 		int enumerationNumber = ENUMERATION_NUMBER_AUTO_INCREMENT;
-		for(Iterator i = enumerationAttribute.getEnumerationValues().iterator(); i.hasNext(); )
+		for(Iterator i = enumerationAttribute.enumerationValues.iterator(); i.hasNext(); )
 		{
 			final String enumerationValue = (String)i.next();
 

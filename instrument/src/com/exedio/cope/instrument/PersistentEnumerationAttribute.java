@@ -1,11 +1,12 @@
 
 package com.exedio.cope.instrument;
 
+import java.util.Collections;
 import java.util.List;
 
 public final class PersistentEnumerationAttribute extends PersistentAttribute
 {
-	private final List enumerationValues;
+	public final List enumerationValues;
 
 	public PersistentEnumerationAttribute(
 			final JavaAttribute javaAttribute,
@@ -15,12 +16,7 @@ public final class PersistentEnumerationAttribute extends PersistentAttribute
 			final List enumerationValues)
 	{
 		super(javaAttribute, persistentType, PersistentAttribute.TYPE_ENUMERATION, readOnly, notNull, mapped, qualifiers);
-		this.enumerationValues = enumerationValues;
+		this.enumerationValues = Collections.unmodifiableList(enumerationValues);
 	}
 
-	public final List getEnumerationValues()
-	{
-		return enumerationValues;
-	}
-	
 }
