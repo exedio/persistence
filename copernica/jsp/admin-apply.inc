@@ -68,6 +68,32 @@
 		}
 	}
 	{
+		for(Iterator i = request.getParameterMap().keySet().iterator(); i.hasNext(); )
+		{
+			final String parameterName = (String)i.next();
+			if(!parameterName.startsWith("RENAME_COLUMN_"))
+				continue;
+			
+			final String targetName = request.getParameter(parameterName);
+			if(targetName.length()==0)
+				continue;
+			
+			final String sourceName = parameterName.substring("RENAME_COLUMN_".length());
+			
+			final ReportColumn column = getColumn(report, sourceName);
+			if(column==null)
+				throw new RuntimeException(sourceName);
+			
+			%>
+			<li>renaming column <%=sourceName%> to <%=targetName%> ...</li><%
+			out.flush();
+			final long time = System.currentTimeMillis();
+			column.renameTo(targetName);
+			%><li><b>ok</b>, <%=System.currentTimeMillis()-time%>ms.</li><%
+			out.flush();
+		}
+	}
+	{
 		final String[] createTables = (String[])request.getParameterMap().get("CREATE_TABLE");
 		if(createTables!=null)
 		{

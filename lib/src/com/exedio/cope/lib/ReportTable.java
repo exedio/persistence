@@ -55,7 +55,7 @@ public final class ReportTable extends ReportNode
 		ReportColumn result = (ReportColumn)columns.get(columnName);
 		if(result==null)
 		{
-			result = new ReportColumn(columnName, existingType);
+			result = new ReportColumn(columnName, existingType, this);
 			columns.put(columnName, result);
 		}
 		else
@@ -177,5 +177,5 @@ public final class ReportTable extends ReportNode
 	{
 		Database.theInstance.analyzeTable(name);
 	}
-
+	
 }

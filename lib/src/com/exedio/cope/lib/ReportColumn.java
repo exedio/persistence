@@ -16,10 +16,10 @@ public final class ReportColumn extends ReportNode
 		exists = false;
 	}
 
-	ReportColumn(final String name, final String existingType)
+	ReportColumn(final String name, final String existingType, final ReportTable table)
 	{
 		this.name = name;
-		this.table = null;
+		this.table = table;
 		this.column = null;
 		this.existingType = existingType;
 		exists = true;
@@ -86,6 +86,11 @@ public final class ReportColumn extends ReportNode
 	public final void create()
 	{
 		Database.theInstance.createColumn(column);
+	}
+
+	public final void renameTo(final String newName)
+	{
+		Database.theInstance.renameColumn(table.name, name, newName);
 	}
 
 	public final void drop()

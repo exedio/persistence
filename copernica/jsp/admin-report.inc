@@ -127,13 +127,18 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); )
 			}
 			if(column.exists())
 			{
-				%>
+				if(narrowReport)
+				{
+					%>,
+				rename to <input name="RENAME_COLUMN_<%=table.name%>#<%=column.name%>"/><%
+				}
+				%>,
 				<input type="checkbox" name="DROP_COLUMN" value="<%=table.name%>#<%=column.name%>"/>drop<%
 			}
 			else if(column.required() &&
 						column.table.exists() )
 			{
-				%>
+				%>,
 				<input type="checkbox" name="CREATE_COLUMN" value="<%=table.name%>#<%=column.name%>"/>create<%
 			}
 			%>

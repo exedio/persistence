@@ -1308,6 +1308,27 @@ public abstract class Database
 		}
 	}
 
+	final void renameColumn(final String tableName, final String oldColumnName, final String newColumnName)
+	{
+		final Statement bf = createStatement();
+		bf.append("alter table ").
+			append(protectName(tableName)).
+			append(" rename column "). // TODO: this syntax is probably oracle specific
+			append(protectName(oldColumnName)).
+			append(" to ").
+			append(protectName(newColumnName));
+
+		try
+		{
+			//System.err.println("renameColumn:"+bf);
+			executeSQL(bf, EMPTY_RESULT_SET_HANDLER);
+		}
+		catch(ConstraintViolationException e)
+		{
+			throw new SystemException(e);
+		}
+	}
+
 	final void createColumn(final Column column)
 	{
 		final Statement bf = createStatement();
