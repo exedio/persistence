@@ -12,7 +12,7 @@ public class ItemWithDoubleUnique extends Item
 	
 	public static final IntegerAttribute integer = new IntegerAttribute(NOT_NULL);
 	
-	public static final UniqueConstraint stringAndInteger = new UniqueConstraint(string, integer);
+	public static final UniqueConstraint doubleUnique = new UniqueConstraint(string, integer);
 
 /**
 

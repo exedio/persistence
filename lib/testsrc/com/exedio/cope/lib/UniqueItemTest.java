@@ -203,7 +203,7 @@ public class UniqueItemTest extends DatabaseLibTest
 	{
 		assertEquals(
 			list(ItemWithDoubleUnique.string, ItemWithDoubleUnique.integer),
-			ItemWithDoubleUnique.stringAndInteger.getUniqueAttributes());
+			ItemWithDoubleUnique.doubleUnique.getUniqueAttributes());
 
 		assertEquals(null, ItemWithDoubleUnique.findByStringAndInteger("a", 1));
 		
@@ -226,7 +226,7 @@ public class UniqueItemTest extends DatabaseLibTest
 		}
 		catch(UniqueViolationException e)
 		{
-			assertEquals(a1.stringAndInteger, e.getConstraint());
+			assertEquals(a1.doubleUnique, e.getConstraint());
 		}
 		assertEquals(b1, ItemWithDoubleUnique.findByStringAndInteger("b", 1));
 		
