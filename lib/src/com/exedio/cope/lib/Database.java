@@ -1165,6 +1165,8 @@ abstract class Database
 		}
 	}
 	
+	abstract Report reportDatabase();
+
 	final void renameTable(final String oldTableName, final String newTableName)
 	{
 		final Statement bf = createStatement();

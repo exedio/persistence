@@ -35,12 +35,7 @@ final AdminCop cop = AdminCop.getCop(request.getParameterMap());
 			<input type="submit" name="CREATE" value="create" />
 			<input type="submit" name="TEARDOWN" value="tear down"/>
 			<input type="submit" name="DROP" value="drop"/>
-			<%
-			if(provider.getModel().isReportDatabaseSupported())
-			{
-				%><a href="<%=cop.toggleReport()%>"><%=cop.report?"disable":"enable"%> reports</a><%
-			}
-			%>
+			<a href="<%=cop.toggleReport()%>"><%=cop.report?"disable":"enable"%> reports</a>
 			<br>
 			<%
 				if(request.getParameter("CREATE")!=null)

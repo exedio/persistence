@@ -212,14 +212,9 @@ public final class Model
 		database.tearDownDatabase();
 	}
 
-	public boolean isReportDatabaseSupported()
-	{
-		return database instanceof DatabaseReportable;
-	}
-
 	public Report reportDatabase()
 	{
-		return ((DatabaseReportable)database).reportDatabase();
+		return database.reportDatabase();
 	}
 
 	/**

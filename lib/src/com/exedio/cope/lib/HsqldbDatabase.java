@@ -8,7 +8,6 @@ import java.sql.Types;
 final class HsqldbDatabase
 		extends Database
 		implements
-			DatabaseReportable,
 			DatabaseTimestampCapable
 {
 

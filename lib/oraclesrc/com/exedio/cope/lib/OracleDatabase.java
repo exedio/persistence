@@ -13,8 +13,7 @@ final class OracleDatabase
 		extends Database
 		implements
 			DatabaseColumnTypesDefinable,
-			DatabaseTimestampCapable,
-			DatabaseReportable
+			DatabaseTimestampCapable
 {
 
 	protected OracleDatabase(final Properties properties)
