@@ -257,7 +257,6 @@ public abstract class Database
 		
 	private static class QueryResultSetHandler implements ResultSetHandler
 	{
-		// TODO: make this a inner class
 		private final ArrayList result = new ArrayList();
 
 		public void run(ResultSet resultSet) throws SQLException
@@ -295,7 +294,6 @@ public abstract class Database
 
 	private static class IntegerResultSetHandler implements ResultSetHandler
 	{
-		// TODO: make this a inner class
 		int result;
 
 		public void run(ResultSet resultSet) throws SQLException
@@ -309,7 +307,6 @@ public abstract class Database
 
 	private static class MaxPKResultSetHandler implements ResultSetHandler
 	{
-		// TODO: make this a inner class
 		int result;
 
 		public void run(ResultSet resultSet) throws SQLException
