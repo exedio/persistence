@@ -84,6 +84,7 @@ public abstract class DatabaseLibTest extends AbstractLibTest
 		{
 			final byte[] actualDataArray = new byte[2*expectedData.length];
 			final int actualLength = actualData.read(actualDataArray);
+			actualData.close();
 			assertEquals(expectedData.length, actualLength);
 			for(int i = 0; i<actualLength; i++)
 				assertEquals(expectedData[i], actualDataArray[i]);
