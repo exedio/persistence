@@ -12,6 +12,8 @@ import java.lang.reflect.Modifier;
  */
 public final class JavaAttribute extends JavaFeature
 {
+	private String persistentType = null;
+
 	public JavaAttribute(JavaClass parent, int modifiers, String type, String name)
 	throws InjectorParseException
 	{
@@ -31,6 +33,14 @@ public final class JavaAttribute extends JavaFeature
 	throws InjectorParseException
 	{
 		this(ja.getParent(), ja.getModifiers(), ja.type, name);
+	}
+	
+	/**
+	 * Returns the persistent type of this attribute.
+	 */
+	public String getPersistentType()
+	{
+		return this.persistentType;
 	}
 	
 	/**
@@ -89,9 +99,17 @@ public final class JavaAttribute extends JavaFeature
 		Modifier.FINAL;
 	}
 	
+	private static final String ATTRIBUTE_SUFFIX = "Attribute";
+
 	public final void makePersistent()
 	{
+		if(persistentType!=null)
+			throw new RuntimeException("Du Schwein!");
+		final String type = getType();
+		if(!type.endsWith(ATTRIBUTE_SUFFIX))
+			throw new RuntimeException("Du Sau!");
 		getParent().addPersistentAttribute(this);
+		this.persistentType = type.substring(0, type.length()-ATTRIBUTE_SUFFIX.length());
 	}
 	
 }

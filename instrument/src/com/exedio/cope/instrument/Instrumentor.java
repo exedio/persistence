@@ -97,7 +97,7 @@ public final class Instrumentor implements InjectionConsumer
 	throws IOException
 	{
 		final String methodModifiers = Modifier.toString(persistentAttribute.getMethodModifiers());
-		final String type = "String";
+		final String type = persistentAttribute.getPersistentType();
 
 		// getter
 		output.write("/** @"+GENERATED);
