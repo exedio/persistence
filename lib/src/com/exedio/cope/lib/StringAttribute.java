@@ -15,10 +15,10 @@ public final class StringAttribute extends Attribute
 		super(mapping);
 	}
 	
-	protected List createColumns(final String name)
+	protected List createColumns(final String name, final boolean notNull)
 	{
 		if(mapping==null)
-			return Collections.singletonList(new StringColumn(getType(), name));
+			return Collections.singletonList(new StringColumn(getType(), name, notNull));
 		else
 			return Collections.EMPTY_LIST;
 	}

@@ -9,12 +9,14 @@ abstract class Column
 {
 	final Type type;
 	final String name;
+	final boolean notNull;
 	final String databaseType;
 	
-	Column(final Type type, final String name, final String databaseType)
+	Column(final Type type, final String name, final boolean notNull, final String databaseType)
 	{
 		this.type = type;
 		this.name = Database.theInstance.makePersistentQualifier(name);
+		this.notNull = notNull;
 		this.databaseType = databaseType;
 	}
 	

@@ -65,9 +65,9 @@ public final class EnumerationAttribute extends Attribute
 		return (EnumerationValue)numbersToValues.get(new Integer(number));
 	}
 
-	protected List createColumns(final String name)
+	protected List createColumns(final String name, final boolean notNull)
 	{
-		return Collections.singletonList(new IntegerColumn(getType(), name, 10));
+		return Collections.singletonList(new IntegerColumn(getType(), name, notNull, 10));
 	}
 	
 	Object cacheToSurface(final Object cache)

@@ -8,9 +8,9 @@ import java.util.HashMap;
 
 final class IntegerColumn extends Column
 {
-	IntegerColumn(final Type type, final String name, final int precision)
+	IntegerColumn(final Type type, final String name, final boolean notNull, final int precision)
 	{
-		super(type, name, "number(" + precision + ",0)"/* TODO: this is database specific */);
+		super(type, name, notNull, "number(" + precision + ",0)"/* TODO: this is database specific */);
 	}
 	
 	void load(final ResultSet resultSet, final int columnIndex, final HashMap itemCache)

@@ -381,6 +381,9 @@ public abstract class Database
 				append(column.name).
 				append(' ').
 				append(column.databaseType);
+			
+			if(column.notNull)
+				bf.append(" not null");
 		}
 		bf.append(')');
 

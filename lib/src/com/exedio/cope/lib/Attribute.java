@@ -44,7 +44,10 @@ public abstract class Attribute
 		this.name = name;
 		this.readOnly = readOnly;
 		this.notNull = notNull;
-		this.columns = (mapping==null) ? Collections.unmodifiableList(createColumns(name)) : Collections.EMPTY_LIST;
+		this.columns =
+			(mapping==null) ?
+				Collections.unmodifiableList(createColumns(name, notNull)) :
+				Collections.EMPTY_LIST;
 		this.mainColumn = this.columns.isEmpty() ? null : (Column)columns.iterator().next();
 
 		initialized = true;
@@ -127,7 +130,7 @@ public abstract class Attribute
 		return buf.toString();
 	}
 	
-	protected abstract List createColumns(String name);
+	protected abstract List createColumns(String name, boolean notNull);
 	
 	abstract Object cacheToSurface(Object cache);
 	abstract Object surfaceToCache(Object surface);

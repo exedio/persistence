@@ -14,10 +14,10 @@ public final class MediaAttribute extends Attribute
 	{
 	}
 	
-	protected List createColumns(final String name)
+	protected List createColumns(final String name, final boolean notNull)
 	{
-		mimeMajor = new StringColumn(getType(), name + "Major");
-		mimeMinor = new StringColumn(getType(), name + "Minor");
+		mimeMajor = new StringColumn(getType(), name + "Major", notNull);
+		mimeMinor = new StringColumn(getType(), name + "Minor", notNull);
 		return Arrays.asList(new StringColumn[]{mimeMajor, mimeMinor});
 	}
 	

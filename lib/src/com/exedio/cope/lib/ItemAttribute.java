@@ -25,9 +25,9 @@ public final class ItemAttribute extends Attribute
 	
 	static final int SYNTETIC_PRIMARY_KEY_PRECISION = 10;
 
-	protected List createColumns(final String name)
+	protected List createColumns(final String name, final boolean notNull)
 	{
-		return Collections.singletonList(new IntegerColumn(getType(), name, SYNTETIC_PRIMARY_KEY_PRECISION));
+		return Collections.singletonList(new IntegerColumn(getType(), name, notNull, SYNTETIC_PRIMARY_KEY_PRECISION));
 	}
 	
 	Object cacheToSurface(final Object cache)
