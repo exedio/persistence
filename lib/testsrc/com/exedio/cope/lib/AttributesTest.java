@@ -216,40 +216,69 @@ public class AttributesTest extends DatabaseLibTest
 
 	public void testSomeEnumeration()
 	{
-		// TODO: dotestItemWithManyAttributesSomeNotNullEnumeration(item);
 		assertEquals(item.TYPE, item.someEnumeration.getType());
 		assertEquals(
-			list(ItemWithManyAttributes.SomeEnumeration.enumValue1),
+			list(
+				ItemWithManyAttributes.SomeEnumeration.enumValue1,
+				ItemWithManyAttributes.SomeEnumeration.enumValue2,
+				ItemWithManyAttributes.SomeEnumeration.enumValue3),
 			item.someEnumeration.getValues());
+
 		assertEquals(
 			ItemWithManyAttributes.SomeEnumeration.enumValue1,
 			item.someEnumeration.getValue(
 				ItemWithManyAttributes.SomeEnumeration.enumValue1NUM));
-		ItemWithManyAttributes.SomeEnumeration someEnumeration =
-			item.getSomeEnumeration();
-		assertEquals(null, someEnumeration);
-		if (someEnumeration != ItemWithManyAttributes.SomeEnumeration.enumValue1)
-			someEnumeration = ItemWithManyAttributes.SomeEnumeration.enumValue1;
+		assertEquals(
+			ItemWithManyAttributes.SomeEnumeration.enumValue2,
+			item.someEnumeration.getValue(
+				ItemWithManyAttributes.SomeEnumeration.enumValue2NUM));
+		assertEquals(
+			ItemWithManyAttributes.SomeEnumeration.enumValue3,
+			item.someEnumeration.getValue(
+				ItemWithManyAttributes.SomeEnumeration.enumValue3NUM));
+
+		assertTrue(!
+			ItemWithManyAttributes.SomeEnumeration.enumValue1.equals(
+			ItemWithManyAttributes.SomeEnumeration.enumValue2));
+		assertTrue(!
+			ItemWithManyAttributes.SomeEnumeration.enumValue2.equals(
+			ItemWithManyAttributes.SomeEnumeration.enumValue3));
+		assertTrue(!
+			ItemWithManyAttributes.SomeEnumeration.enumValue3.equals(
+			ItemWithManyAttributes.SomeEnumeration.enumValue1));
+
+		ItemWithManyAttributes.SomeEnumeration someEnumeration = ItemWithManyAttributes.SomeEnumeration.enumValue1;
 		switch (someEnumeration.number)
 		{
 			case ItemWithManyAttributes.SomeEnumeration.enumValue1NUM :
+				someEnumeration = ItemWithManyAttributes.SomeEnumeration.enumValue2;
+				break;
+			case ItemWithManyAttributes.SomeEnumeration.enumValue2NUM :
+				someEnumeration = ItemWithManyAttributes.SomeEnumeration.enumValue3;
+				break;
+			case ItemWithManyAttributes.SomeEnumeration.enumValue3NUM :
 				someEnumeration = ItemWithManyAttributes.SomeEnumeration.enumValue1;
 				break;
 			default :
 				throw new RuntimeException("Ooooops");
 		}
-		item.setSomeEnumeration(someEnumeration);
+		assertEquals(someEnumeration, ItemWithManyAttributes.SomeEnumeration.enumValue2);
+		// TODO: put the above into some model test 
+
+		// TODO: dotestItemWithManyAttributesSomeNotNullEnumeration(item);
+		assertEquals(null, item.getSomeEnumeration());
+		item.setSomeEnumeration(ItemWithManyAttributes.SomeEnumeration.enumValue1);
 		assertEquals(
 			ItemWithManyAttributes.SomeEnumeration.enumValue1,
 			item.getSomeEnumeration());
 		item.setSomeEnumeration(
-			ItemWithManyAttributes.SomeEnumeration.enumValue1);
+			ItemWithManyAttributes.SomeEnumeration.enumValue2);
 		assertEquals(
-			ItemWithManyAttributes.SomeEnumeration.enumValue1,
+			ItemWithManyAttributes.SomeEnumeration.enumValue2,
 			item.getSomeEnumeration());
 		item.passivate();
 		assertEquals(
-			ItemWithManyAttributes.SomeEnumeration.enumValue1,
+			ItemWithManyAttributes.SomeEnumeration.enumValue2,
 			item.getSomeEnumeration());
 		item.setSomeEnumeration(null);
 		assertEquals(null, item.getSomeEnumeration());

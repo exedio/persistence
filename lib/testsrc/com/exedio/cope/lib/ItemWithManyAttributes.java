@@ -72,6 +72,8 @@ public class ItemWithManyAttributes extends Item
 	 * An enumeration attribute
 	 * @persistent
 	 * @value enumValue1
+	 * @value enumValue2
+	 * @value enumValue3
 	 */
 	public static final EnumerationAttribute someEnumeration = new EnumerationAttribute();
 
@@ -98,6 +100,12 @@ public class ItemWithManyAttributes extends Item
 	{
 		public static final int enumValue1NUM = 100;
 		public static final SomeEnumeration enumValue1 = new SomeEnumeration(100, "enumValue1");
+
+		public static final int enumValue2NUM = 200;
+		public static final SomeEnumeration enumValue2 = new SomeEnumeration(200, "enumValue2");
+
+		public static final int enumValue3NUM = 300;
+		public static final SomeEnumeration enumValue3 = new SomeEnumeration(300, "enumValue3");
 
 		private SomeEnumeration(final int number, final String code)
 		{
