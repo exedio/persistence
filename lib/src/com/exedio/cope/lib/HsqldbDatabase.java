@@ -3,7 +3,9 @@ package com.exedio.cope.lib;
 
 import java.sql.SQLException;
 
-class HsqldbDatabase extends Database
+class HsqldbDatabase
+		extends Database
+		implements DatabaseTimestampCapable
 {
 
 	String getIntegerType(final int precision)
@@ -22,7 +24,7 @@ class HsqldbDatabase extends Database
 		return "varchar("+maxLength+")";
 	}
 	
-	String getDateTimestampType()
+	public String getDateTimestampType()
 	{
 		return "timestamp";
 	}

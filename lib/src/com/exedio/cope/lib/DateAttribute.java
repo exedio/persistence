@@ -31,7 +31,7 @@ public final class DateAttribute extends ObjectAttribute
 	{
 		final boolean useLong =
 			forbidTimestampColumn ||
-			(Database.theInstance.getDateTimestampType()==null);
+			!(Database.theInstance instanceof DatabaseTimestampCapable);
 		
 		return
 			Collections.singletonList(

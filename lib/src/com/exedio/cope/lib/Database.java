@@ -901,7 +901,6 @@ public abstract class Database
 	abstract String getIntegerType(int precision);
 	abstract String getDoubleType(int precision);
 	abstract String getStringType(int maxLength);
-	abstract String getDateTimestampType();
 	
 	private void createTable(final Table table)
 	{

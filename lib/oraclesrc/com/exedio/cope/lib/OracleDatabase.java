@@ -9,7 +9,7 @@ import oracle.jdbc.OracleStatement;
 
 final class OracleDatabase
 		extends Database
-		implements DatabaseColumnTypesDefinable
+		implements DatabaseColumnTypesDefinable, DatabaseTimestampCapable
 {
 
 	String getIntegerType(final int precision)
@@ -27,7 +27,7 @@ final class OracleDatabase
 		return "varchar2("+(maxLength!=Integer.MAX_VALUE ? maxLength : 2000)+")";
 	}
 	
-	String getDateTimestampType()
+	public String getDateTimestampType()
 	{
 		return "timestamp(3)";
 	}
