@@ -125,7 +125,7 @@ class HsqldbDatabase
 		}
 	}
 
-	private static class MetaDataColumnHandler implements ResultSetHandler
+	private class MetaDataColumnHandler implements ResultSetHandler
 	{
 		private final Report report;
 
@@ -141,36 +141,40 @@ class HsqldbDatabase
 				final String tableName = resultSet.getString("TABLE_NAME");
 				final String columnName = resultSet.getString("COLUMN_NAME");
 				final int dataType = resultSet.getInt("DATA_TYPE");
-
-				final String columnType;
-				switch(dataType)
-				{
-					case Types.INTEGER:
-						columnType = "integer";
-						break;
-					case Types.BIGINT:
-						columnType = "bigint";
-						break;
-					case Types.DOUBLE:
-						columnType = "double";
-						break;
-					case Types.TIMESTAMP:
-						columnType = "timestamp";
-						break;
-					case Types.VARCHAR:
-						final int dataLength = resultSet.getInt("COLUMN_SIZE");
-						columnType = "varchar("+dataLength+')';
-						break;
-					default:
-						columnType = String.valueOf(dataType);
-						break;
-				}
-					
+				
 				final ReportTable table = report.getTable(tableName);
 				if(table!=null)
+				{
+					String columnType = getColumnType(dataType, resultSet);
+					if(columnType==null)
+						columnType = String.valueOf(dataType);
+
 					table.notifyExistentColumn(columnName, columnType);
+				}
 				//System.out.println("EXISTS:"+tableName);
 			}
 		}
 	}
+	
+	final String getColumnType(final int dataType, final ResultSet resultSet)
+			throws SQLException
+	{
+		switch(dataType)
+		{
+			case Types.INTEGER:
+				return "integer";
+			case Types.BIGINT:
+				return "bigint";
+			case Types.DOUBLE:
+				return "double";
+			case Types.TIMESTAMP:
+				return "timestamp";
+			case Types.VARCHAR:
+				final int dataLength = resultSet.getInt("COLUMN_SIZE");
+				return "varchar("+dataLength+')';
+			default:
+				return null;
+		}
+	}
+
 }
