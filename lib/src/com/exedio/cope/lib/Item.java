@@ -354,6 +354,17 @@ public abstract class Item extends Search
 			else
 				compactExtension = null;
 		}
+		else if("text".equals(mimeMajor))
+		{
+			if("html".equals(mimeMinor))
+				compactExtension = ".html";
+			else if("plain".equals(mimeMinor))
+				compactExtension = ".txt";
+			else if("css".equals(mimeMinor))
+				compactExtension = ".css";
+			else
+				compactExtension = null;
+		}
 		else
 			compactExtension = null;
 		
