@@ -1,19 +1,19 @@
 
 package com.exedio.cope.lib;
 
+import java.math.BigDecimal;
+
 public final class EnumerationAttribute extends Attribute
 {
 	Object databaseToCache(final Object cell)
 	{
 		if(cell==null)
 			return null;
-		else if(cell instanceof Integer)
+		else
 		{
 			// TODO: This is nonsense, must retrieve the correct EnumerationValue
-			return cell;
+			return new Integer(((BigDecimal)cell).intValue()); // TODO: use ResultSet.getInt() somehow
 		}
-		else
-			throw new RuntimeException("cellToCache:"+cell);
 	}
 
 	Object cacheToDatabase(final Object cache)
