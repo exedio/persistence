@@ -6,9 +6,9 @@ import java.io.PrintWriter;
 
 /**
  * Replacement for {@link RuntimeException},
- * but prints the stack trace at constructtion time.
+ * but prints the stack trace at construction time.
  * Useful for exceptions in static initializers,
- * because stacktrace of such exception are often hidden
+ * because the stacktrace of such exceptions is often hidden
  * by the JVM.  
  */
 public final class InitializerRuntimeException extends RuntimeException
