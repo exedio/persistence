@@ -222,7 +222,7 @@ public final class Instrumentor implements InjectionConsumer
 		final CopeMediaAttribute mediaAttribute = (CopeMediaAttribute)persistentClass.getCopeAttribute(initializerArgument);
 		if(mediaAttribute==null)
 			throw new InjectorParseException("attribute >"+initializerArgument+"< in media attribute variant "+ja.name+" not found.");
-		new PersistentMediaVariant(ja, mediaAttribute);
+		new CopeMediaVariant(ja, mediaAttribute);
 	}
 
 	public void onClassFeature(final JavaFeature jf, final String docComment)

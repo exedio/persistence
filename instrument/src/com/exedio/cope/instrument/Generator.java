@@ -350,7 +350,7 @@ final class Generator
 	private void writeMediaGetterMethod(final CopeAttribute mediaAttribute,
 													final Class returnType,
 													final String part,
-													final PersistentMediaVariant variant,
+													final CopeMediaVariant variant,
 													final String comment)
 	throws IOException
 	{
@@ -413,7 +413,7 @@ final class Generator
 		if(mediaVariants!=null)
 		{
 			for(Iterator i = mediaVariants.iterator(); i.hasNext(); )
-				writeMediaGetterMethod(mediaAttribute, String.class, "URL", (PersistentMediaVariant)i.next(),
+				writeMediaGetterMethod(mediaAttribute, String.class, "URL", (CopeMediaVariant)i.next(),
 												"Returns a URL pointing to the varied data of the persistent attribute");
 		}
 		writeMediaGetterMethod(mediaAttribute, String.class, "MimeMajor", null,
