@@ -179,6 +179,11 @@ public abstract class JavaFeature
 		return name;
 	}
 	
+	public String toString()
+	{
+		return getClass().getName()+'('+name+')';
+	}
+	
 	public final void print(PrintStream o)
 	{
 		o.println("  "+JavaFile.extractClassName(getClass().getName())+
