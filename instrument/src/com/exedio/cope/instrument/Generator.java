@@ -28,6 +28,7 @@ final class Generator
 {
 	private static final String THROWS_NULL   = "if {0} is null.";
 	private static final String THROWS_UNIQUE = "if {0} is not unique.";
+	private static final String THROWS_LENGTH = "if {0} violates its length constraint.";
 	private static final String CONSTRUCTOR_NEW = "Creates a new {0} with all the attributes initially needed.";
 	private static final String CONSTRUCTOR_NEW_PARAMETER = "the initial value for attribute {0}.";
 	private static final String CONSTRUCTOR_GENERIC = "Creates a new {0} and sets the given attributes initially.";
@@ -208,6 +209,8 @@ final class Generator
 				pattern = THROWS_NULL;
 			else if(UniqueViolationException.class.equals(constructorException))
 				pattern = THROWS_UNIQUE;
+			else if(LengthViolationException.class.equals(constructorException))
+				pattern = THROWS_LENGTH;
 			else
 				throw new RuntimeException(constructorException.getName());
 
