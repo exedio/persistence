@@ -4,7 +4,10 @@ import java.util.Iterator;
 import java.util.Map;
 
 import com.exedio.cope.lib.Attribute;
+import com.exedio.cope.lib.BooleanAttribute;
 import com.exedio.cope.lib.ConstraintViolationException;
+import com.exedio.cope.lib.EnumerationAttribute;
+import com.exedio.cope.lib.EnumerationValue;
 import com.exedio.cope.lib.IntegerAttribute;
 import com.exedio.cope.lib.Item;
 import com.exedio.cope.lib.ItemAttribute;
@@ -16,10 +19,14 @@ import com.exedio.cope.lib.Type;
 
 public class ItemForm extends Form
 {
+	static final String VALUE_NULL = "null";
+	static final String VALUE_ON = "on";
+	static final String VALUE_OFF = "off";
+
 	final Item item;
 	final Type type;
 	
-	ItemForm(final Item item, final Map parameters)
+	ItemForm(final Item item, final Map parameters, final boolean save)
 	{
 		super(parameters);
 		this.item = item;
@@ -36,13 +43,14 @@ public class ItemForm extends Form
 
 				if(attribute instanceof StringAttribute
 					|| attribute instanceof IntegerAttribute
-					|| attribute instanceof ItemAttribute)
+					|| attribute instanceof ItemAttribute
+					|| attribute instanceof BooleanAttribute
+					|| attribute instanceof EnumerationAttribute)
 				{
 					final String value;
 	
-					final String requestValue = Cop.getParameter(parameters, name);
-					if(requestValue!=null)
-						value = requestValue;
+					if(save)
+						value = Cop.getParameter(parameters, name);
 					else
 					{
 						final Object itemValue = item.getAttribute(attribute);
@@ -58,13 +66,21 @@ public class ItemForm extends Form
 						{
 							value = (itemValue==null) ? "" : ((Item)itemValue).getID();
 						}
+						else if(attribute instanceof BooleanAttribute)
+						{
+							value = (itemValue==null) ? VALUE_NULL : ((Boolean)itemValue).booleanValue() ? VALUE_ON : VALUE_OFF;
+						}
+						else if(attribute instanceof EnumerationAttribute)
+						{
+							value = (itemValue==null) ? VALUE_NULL : ((EnumerationValue)itemValue).getCode();
+						}
 						else
 							throw new RuntimeException();
 					}
 					if(!attribute.isReadOnly())
-						field = new Field(name, value);
+						field = new Field(attribute, name, value);
 					else
-						field = new Field(value);
+						field = new Field(attribute, value);
 				}
 				else
 					continue;
@@ -74,28 +90,27 @@ public class ItemForm extends Form
 
 			if(!field.isReadOnly())
 				toSave = true;
-			fields.put(anyAttribute, field);
 		}
 	}
 	
 	void save()
 	{
-		for(Iterator i = fields.keySet().iterator(); i.hasNext(); )
+		for(Iterator i = getFields().iterator(); i.hasNext(); )
 		{
-			final ObjectAttribute attribute = (ObjectAttribute)i.next();
-			final Field field = (Field)fields.get(attribute);
+			final Field field = (Field)i.next();
+			final ObjectAttribute attribute = (ObjectAttribute)field.key;
 			if(!field.isReadOnly())
 			{
 				try
 				{
 					final Object value;
+					final String valueString = field.value;
 					if(attribute instanceof StringAttribute)
 					{
 						value = field.value;
 					}
 					else if(attribute instanceof IntegerAttribute)
 					{
-						final String valueString = field.value;
 						if(valueString.length()>0)
 							value = new Integer(Integer.parseInt(valueString));
 						else
@@ -103,11 +118,35 @@ public class ItemForm extends Form
 					}
 					else if(attribute instanceof ItemAttribute)
 					{
-						final String valueString = field.value;
 						if(valueString.length()>0)
 							value = Search.findByID(valueString);
 						else
 							value = null;
+					}
+					else if(attribute instanceof BooleanAttribute)
+					{
+						if(valueString==null)
+							value = Boolean.FALSE;
+						else if(VALUE_NULL.equals(valueString))
+							value = null;
+						else if(VALUE_ON.equals(valueString))
+							value = Boolean.TRUE;
+						else if(VALUE_OFF.equals(valueString))
+							value = Boolean.FALSE;
+						else
+							throw new RuntimeException(valueString);
+					}
+					else if(attribute instanceof EnumerationAttribute)
+					{
+						if(VALUE_NULL.equals(valueString))
+							value = null;
+						else
+						{
+							final EnumerationAttribute enumAttribute = (EnumerationAttribute)attribute;
+							value = enumAttribute.getValue(valueString);
+							if(value==null)
+								throw new NullPointerException(field.name);
+						}
 					}
 					else
 						throw new RuntimeException();

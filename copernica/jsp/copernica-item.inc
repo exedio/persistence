@@ -6,20 +6,20 @@
 %><%
 	final Item item = itemCop.item;
 	final Type type = item.getType();
-	boolean toSave = false;
 	final boolean save = request.getParameter(SAVE_BUTTON)!=null;
 %>
 <a href="<%=(cop.toType(type))%>"><%=provider.getDisplayName(null, type)%></a>
 <b><%=provider.getDisplayName(null, item)%></b><hr>
 <form action="<%=(cop.toItem(item))%>" method="POST">
 	<table border="1"><%
-	final ItemForm form = new ItemForm(item, request.getParameterMap());
+	final ItemForm form = new ItemForm(item, request.getParameterMap(), save);
 	if(save)
 		form.save();
 	
-	for(Iterator j = type.getAttributes().iterator(); j.hasNext(); )
+	for(Iterator j = form.getFields().iterator(); j.hasNext(); )
 	{
-		final Attribute attribute = (Attribute)j.next();
+		final Form.Field field = (Form.Field)j.next();
+		final Attribute attribute = (Attribute)field.key;
 		%>
 		<tr>
 			<td><%=provider.getDisplayName(null, attribute)%></td>
@@ -32,32 +32,13 @@
 			{
 				final EnumerationAttribute enumAttribute = (EnumerationAttribute)attribute;
 				final String attributeName = attribute.getName();
+				final String value = field.getValue();
 				
-				final EnumerationValue value;
-				if(save)
-				{
-					final String saveString = request.getParameter(attributeName);
-					if(saveString==null)
-						throw new NullPointerException(attributeName);
-					if(VALUE_NULL.equals(saveString))
-						value = null;
-					else
-					{
-						value = enumAttribute.getValue(saveString);
-						if(value==null)
-							throw new NullPointerException(attributeName);
-					}
-					item.setAttribute(enumAttribute, value);
-				}
-				else
-					value = (EnumerationValue)item.getAttribute(enumAttribute);
-				
-				toSave = true;
 				if(!enumAttribute.isNotNull())
 				{
 					%>
 					<input type="radio" name="<%=attributeName%>" value="<%=VALUE_NULL%>"<%
-					if(value==null)
+					if(value.equals(VALUE_NULL))
 					{
 						%> checked="checked"<%
 					}
@@ -66,13 +47,14 @@
 				for(Iterator k = enumAttribute.getValues().iterator(); k.hasNext(); )
 				{
 					final EnumerationValue currentValue = (EnumerationValue)k.next();
+					final String currentCode = currentValue.getCode();
 					%>
-					<input type="radio" name="<%=attributeName%>" value="<%=currentValue.getCode()%>"<%
-					if(value==currentValue)
+					<input type="radio" name="<%=attributeName%>" value="<%=currentCode%>"<%
+					if(value.equals(currentCode))
 					{
 						%> checked="checked"<%
 					}
-					%>><%=currentValue.getCode()%><br><%
+					%>><%=currentCode%><br><%
 				}
 				%>
 			<%
@@ -81,37 +63,13 @@
 			{
 				final BooleanAttribute boolAttribute = (BooleanAttribute)attribute;
 				final String attributeName = attribute.getName();
+				final String value = field.getValue();
 				
-				final Boolean value;
-				if(save)
-				{
-					final String saveString = request.getParameter(attributeName);
-					if(saveString==null)
-						value = Boolean.FALSE;
-					else
-					{
-						if(VALUE_NULL.equals(saveString))
-							value = null;
-						else if(VALUE_ON.equals(saveString))
-							value = Boolean.TRUE;
-						else if(VALUE_ON.equals(saveString))
-							value = Boolean.TRUE;
-						else if(VALUE_OFF.equals(saveString))
-							value = Boolean.FALSE;
-						else
-							throw new RuntimeException(saveString);
-					}
-					item.setAttribute(boolAttribute, value);
-				}
-				else
-					value = (Boolean)item.getAttribute(boolAttribute);
-				
-				toSave = true;
 				if(boolAttribute.isNotNull())
 				{
 					%>
 					<input type="checkbox" name="<%=attributeName%>" value="<%=VALUE_ON%>"<%
-					if(Boolean.TRUE.equals(value))
+					if(VALUE_ON.equals(value))
 					{
 						%> checked="checked"<%
 					}
@@ -121,19 +79,19 @@
 				{
 					%>
 					<input type="radio" name="<%=attributeName%>" value="<%=VALUE_NULL%>"<%
-					if(value==null)
+					if(value.equals(VALUE_NULL))
 					{
 						%> checked="checked"<%
 					}
 					%>><%="leer"%><br>
 					<input type="radio" name="<%=attributeName%>" value="<%=VALUE_ON%>"<%
-					if(Boolean.TRUE.equals(value))
+					if(value.equals(VALUE_ON))
 					{
 						%> checked="checked"<%
 					}
 					%>><%="ein"%><br>
 					<input type="radio" name="<%=attributeName%>" value="<%=VALUE_OFF%>"<%
-					if(Boolean.FALSE.equals(value))
+					if(value.equals(VALUE_OFF))
 					{
 						%> checked="checked"<%
 					}
@@ -147,7 +105,6 @@
 						|| attribute instanceof ItemAttribute)
 			{
 				final ObjectAttribute objectAttribute = (ObjectAttribute)attribute;
-				final Form.Field field = form.getField(objectAttribute);
 				final String value = field.getValue();
 		
 				if(field.isReadOnly())
@@ -184,7 +141,7 @@
 	}
 	%>
 	</table><%
-if(toSave||form.toSave)
+if(form.toSave)
 {
 	%>
 	<input type="submit" name="<%=SAVE_BUTTON%>" value="Save" /><%
