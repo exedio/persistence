@@ -74,7 +74,9 @@
 						<%
 						final Type type = (Type)i.next();
 						%>
-						<%=type.getJavaClass().getName()%>
+						<a href="type.jsp?type=<%=type.getJavaClass().getName()%>">
+							<%=type.getJavaClass().getName()%>
+						</a>
 					</td>
 				</tr>
 				<%
