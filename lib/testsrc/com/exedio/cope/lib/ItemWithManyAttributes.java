@@ -1,7 +1,7 @@
 
 package com.exedio.cope.lib;
 
-import com.exedio.cope.lib.mapping.UppercaseMapping;
+import com.exedio.cope.lib.function.UppercaseFunction;
 
 /**
  * An item having many attributes.
@@ -22,7 +22,7 @@ public class ItemWithManyAttributes extends Item
 	/**
 	 * The code of the item in upper case.
 	 */
-	public static final UppercaseMapping someStringUpperCase = new UppercaseMapping(someString);
+	public static final UppercaseFunction someStringUpperCase = new UppercaseFunction(someString);
 
 	/**
 	 * A not-null string attribute.

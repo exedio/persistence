@@ -1,15 +1,14 @@
 
-package com.exedio.cope.lib.mapping;
+package com.exedio.cope.lib.function;
 
 import com.exedio.cope.lib.ComputedFunction;
 import com.exedio.cope.lib.StringAttribute;
 import com.exedio.cope.lib.StringFunction;
 
-public final class UppercaseMapping extends ComputedFunction implements StringFunction
-// TODO rename class to UppercaseFunction and move to package function
+public final class UppercaseFunction extends ComputedFunction implements StringFunction
 {
 
-	public UppercaseMapping(final StringAttribute sourceAttribute)
+	public UppercaseFunction(final StringAttribute sourceAttribute)
 	{
 		super(sourceAttribute, "UPPER(", ")", "upper");
 	}
