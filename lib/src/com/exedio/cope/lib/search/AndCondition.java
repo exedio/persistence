@@ -1,7 +1,7 @@
 
 package com.exedio.cope.lib.search;
 
-import com.exedio.cope.lib.Database;
+import com.exedio.cope.lib.Statement;
 
 public final class AndCondition extends Condition
 {
@@ -12,7 +12,7 @@ public final class AndCondition extends Condition
 		this.conditions = conditions;
 	}
 
-	public final void appendStatement(final Database.Statement bf)
+	public final void appendStatement(final Statement bf)
 	{
 		bf.append('(');
 		conditions[0].appendStatement(bf);
