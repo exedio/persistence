@@ -951,7 +951,7 @@ public final class Instrumentor implements InjectionConsumer
 		{
 			//System.out.println("onClassEnd("+jc.getName()+") writing");
 			writeConstructor(persistentClass);
-			if(persistentClass.isAbstract()) // TODO: create the cosntructor for all classes, but without type argument
+			if(persistentClass.isAbstract()) // TODO: create the constructor for all classes, but without type argument
 				writeGenericConstructor(persistentClass);
 			writeReactivationConstructor(persistentClass);
 			for(final Iterator i = persistentClass.getPersistentAttributes().iterator(); i.hasNext(); )
