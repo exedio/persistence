@@ -15,20 +15,20 @@ public class HashTest extends DatabaseLibTest
 	
 	public void testEncoders()
 	{
-		assertNull(item.getAny());
-		assertTrue(item.checkAnyMD5(null));
-		assertTrue(!item.checkAnyMD5("bing"));
+		assertNull(item.getEncoded1MD5());
+		assertTrue(item.checkEncoded1(null));
+		assertTrue(!item.checkEncoded1("bing"));
 		
-		item.setAny("bello");
-		assertEquals("bello", item.getAny());
-		assertTrue(!item.checkAnyMD5(null));
-		assertTrue(!item.checkAnyMD5("bello"));
+		item.setEncoded1MD5("bello");
+		assertEquals("bello", item.getEncoded1MD5());
+		assertTrue(!item.checkEncoded1(null));
+		assertTrue(!item.checkEncoded1("bello"));
 		
-		item.setAnyMD5("knollo");
-		assertNotNull(item.getAny());
-		assertTrue(!item.checkAnyMD5(null));
-		assertTrue(!item.checkAnyMD5("bello"));
-		assertTrue(item.checkAnyMD5("knollo"));
+		item.setEncoded1("knollo");
+		assertNotNull(item.getEncoded1MD5());
+		assertTrue(!item.checkEncoded1(null));
+		assertTrue(!item.checkEncoded1("bello"));
+		assertTrue(item.checkEncoded1("knollo"));
 	}
 
 }
