@@ -1,4 +1,3 @@
-
 package com.exedio.cope.instrument;
 
 import java.lang.reflect.Modifier;
@@ -20,7 +19,7 @@ public class ExampleTest extends InjectorTest
 	{
 		super.tearDown();
 	}
-	
+
 	public void assertInjection()
 	{
 		assertText("/*\nSome initial test comment. \n*/\n\npackage// hallo\n  com.exedio.cope.instrument");
@@ -48,7 +47,10 @@ public class ExampleTest extends InjectorTest
 		assertAttribute("type", null);
 		assertText("\n  ");
 
-		assertAttributeHeader("qualifiers", "Integer[]", Modifier.PRIVATE|Modifier.VOLATILE);
+		assertAttributeHeader(
+			"qualifiers",
+			"Integer[]",
+			Modifier.PRIVATE | Modifier.VOLATILE);
 		assertText("private volatile Integer[] qualifiers;");
 		assertAttribute("qualifiers", null);
 		assertText("\n  ");
@@ -112,35 +114,35 @@ public class ExampleTest extends InjectorTest
 
 		assertAttributeHeader("uglyAttribute8", "Runnable", 0);
 		assertText(
-"Runnable uglyAttribute8=new Runnable()\n"+
-"  {\n"+
-"\t // ugly ; { \" ' comment\n"+
-"\t String   uglyInnerAttribute1=\"some'Thing{some\\\"Thing;Else\";\n"+
-"\t char     uglyInnerAttribute2=';';\n"+
-"\t char     uglyInnerAttribute3='{';\n"+
-"\t char     uglyInnerAttribute4='\"';\n"+
-"\t char     uglyInnerAttribute5='\\\'';\n"+
-"\t String[] uglyInnerAttribute6=\n"+
-"\t {\n\t\t\"some'Thing{some\\\"Thing;Else\", // ugly ; { \" ' comment\n"+
-"\t\t\"some'Thing{some\\\"Thing;Else\"\n"+
-"\t };\n"+
-"\t char[]   uglyInnerAttribute7={';','{','\"','\\\''};\n"+
-"\t public void run()\n"+
-"\t {\n"+
-"\t\t// ugly ; { \" ' comment\n"+
-"\t\tString   uglyVariable1=\"some'Thing{some\\\"Thing;Else\";\n"+
-"\t\tchar     uglyVariable2=';';\n"+
-"\t\tchar     uglyVariable3='{';\n"+
-"\t\tchar     uglyVariable4='\"';\n"+
-"\t\tchar     uglyVariable5='\\\'';\n"+
-"\t\tString[] uglyVariable6=\n"+
-"\t\t{\n"+
-"\t\t  \"some'Thing{some\\\"Thing;Else\", // ugly ; { \" ' comment\n"+
-"\t\t  \"some'Thing{some\\\"Thing;Else\"\n"+
-"\t\t};\n"+
-"\t\tchar[]   uglyAttribute7={';','{','\"','\\\''};\n"+
-"\t }\n\t // ugly ; { \" ' comment"+
-"\n  };");
+			"Runnable uglyAttribute8=new Runnable()\n"
+				+ "  {\n"
+				+ "\t // ugly ; { \" ' comment\n"
+				+ "\t String   uglyInnerAttribute1=\"some'Thing{some\\\"Thing;Else\";\n"
+				+ "\t char     uglyInnerAttribute2=';';\n"
+				+ "\t char     uglyInnerAttribute3='{';\n"
+				+ "\t char     uglyInnerAttribute4='\"';\n"
+				+ "\t char     uglyInnerAttribute5='\\\'';\n"
+				+ "\t String[] uglyInnerAttribute6=\n"
+				+ "\t {\n\t\t\"some'Thing{some\\\"Thing;Else\", // ugly ; { \" ' comment\n"
+				+ "\t\t\"some'Thing{some\\\"Thing;Else\"\n"
+				+ "\t };\n"
+				+ "\t char[]   uglyInnerAttribute7={';','{','\"','\\\''};\n"
+				+ "\t public void run()\n"
+				+ "\t {\n"
+				+ "\t\t// ugly ; { \" ' comment\n"
+				+ "\t\tString   uglyVariable1=\"some'Thing{some\\\"Thing;Else\";\n"
+				+ "\t\tchar     uglyVariable2=';';\n"
+				+ "\t\tchar     uglyVariable3='{';\n"
+				+ "\t\tchar     uglyVariable4='\"';\n"
+				+ "\t\tchar     uglyVariable5='\\\'';\n"
+				+ "\t\tString[] uglyVariable6=\n"
+				+ "\t\t{\n"
+				+ "\t\t  \"some'Thing{some\\\"Thing;Else\", // ugly ; { \" ' comment\n"
+				+ "\t\t  \"some'Thing{some\\\"Thing;Else\"\n"
+				+ "\t\t};\n"
+				+ "\t\tchar[]   uglyAttribute7={';','{','\"','\\\''};\n"
+				+ "\t }\n\t // ugly ; { \" ' comment"
+				+ "\n  };");
 		assertAttribute("uglyAttribute8", null);
 		//assertText("\n  ");
 	}
