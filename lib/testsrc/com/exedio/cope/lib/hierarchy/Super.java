@@ -23,7 +23,7 @@ public abstract class Super extends Item
 				final int initialSuperInt)
 	{
 		super(new com.exedio.cope.lib.AttributeValue[]{
-			new com.exedio.cope.lib.AttributeValue(superInt,new Integer(initialSuperInt)),
+			new com.exedio.cope.lib.AttributeValue(superInt,new java.lang.Integer(initialSuperInt)),
 		});
 	}/**
 
@@ -52,7 +52,7 @@ public abstract class Super extends Item
 	 *
  */public final int getSuperInt()
 	{
-		return ((Integer)getAttribute(Super.superInt)).intValue();
+		return ((java.lang.Integer)getAttribute(Super.superInt)).intValue();
 	}/**
 
 	 **
@@ -63,7 +63,7 @@ public abstract class Super extends Item
 	{
 		try
 		{
-			setAttribute(Super.superInt,new Integer(superInt));
+			setAttribute(Super.superInt,new java.lang.Integer(superInt));
 		}
 		catch(com.exedio.cope.lib.LengthViolationException e)
 		{
