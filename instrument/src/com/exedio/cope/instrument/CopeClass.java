@@ -27,7 +27,7 @@ final class CopeClass
 	}
 
 
-	private final JavaClass javaClass;
+	final JavaClass javaClass;
 	final int accessModifier;
 
 	private final ArrayList copeAttributes = new ArrayList();
@@ -46,6 +46,7 @@ final class CopeClass
 		copeClassByJavaClass.put(javaClass, this);	
 		constructorOption = Option.getOption(constructorOptionString);
 		//System.out.println("copeClassByJavaClass "+javaClass.getName());
+		javaClass.file.repository.add(this);
 	}
 	
 	public String getName()

@@ -59,11 +59,13 @@ public final class JavaFile
 	 */
 	private boolean buildStage=true;
 	
-	
+	final JavaRepository repository;
+
 	public JavaFile(final JavaRepository repository)
 	{
 		// implements Java Language Specification 7.5.3. "Automatic Imports"
 		import_demand.add("java.lang.");
+		this.repository = repository;
 		repository.add(this);
 	}
 	

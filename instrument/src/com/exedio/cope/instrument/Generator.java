@@ -590,10 +590,14 @@ final class Generator
 		writeCommentFooter();
 
 		o.write("final ");
-		o.write(qualifier.qualifierClass);
+		o.write(qualifier.qualifierClass.getName());
 		o.write(" get");
-		o.write(qualifier.qualifierClass);
-		o.write("(final Object key)");
+		o.write(qualifier.getCamelCaseName());
+		o.write("(final ");
+		o.write(qualifier.keyAttribute.persistentType);
+		o.write(' ');
+		o.write(qualifier.keyAttribute.javaAttribute.name);
+		o.write(')');
 		o.write(lineSeparator);
 
 		o.write("\t{");
