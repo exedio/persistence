@@ -4,6 +4,7 @@
 
 	<target name="properties">
 		<property file="../local.properties" />
+		<property name="api.private" value="off" />
 		<property name="api.link.jdk" value="http://java.sun.com/j2se/1.4.2/docs/api" />
 	</target>
 
@@ -118,7 +119,7 @@
 				sourcepath="lib/src"
 				destdir="lib/api"
 				maxmemory="60m"
-				private="on"
+				private="${api.private}"
 				author="on"
 				use="on"
 				version="on"
@@ -143,7 +144,7 @@
 				sourcepath="instrument/src"
 				destdir="instrument/api"
 				maxmemory="60m"
-				private="on"
+				private="${api.private}"
 				author="on"
 				use="on"
 				version="on"
@@ -172,7 +173,7 @@
 				sourcepath="copernica/src"
 				destdir="copernica/api"
 				maxmemory="60m"
-				private="on"
+				private="${api.private}"
 				author="on"
 				use="on"
 				version="on"
