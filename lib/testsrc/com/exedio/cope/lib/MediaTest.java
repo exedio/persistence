@@ -69,24 +69,34 @@ public class MediaTest extends DatabaseLibTest
 		assertEquals(null, item.getImageMimeMajor());
 		assertEquals(null, item.getImageMimeMinor());
 		assertEquals(null, item.getImageURL());
+		assertEquals(null, item.getImageURLBB240());
 
 		item.setImageData(stream(data), "imageMinor");
 		assertData(data, item.getImageData());
 		assertEquals("image", item.getImageMimeMajor());
 		assertEquals("imageMinor", item.getImageMimeMinor());
+		//System.out.println(item.getImageURL());
 		assertTrue(item.getImageURL().endsWith(".image.imageMinor"));
+		//System.out.println(item.getImageURLBB240());
+		assertTrue(item.getImageURLBB240().endsWith(".image.imageMinor"));
+		assertTrue(item.getImageURLBB240().indexOf("/BB240/")>=0);
 
 		item.setImageData(stream(data2), "jpeg");
 		assertData(data2, item.getImageData());
 		assertEquals("image", item.getImageMimeMajor());
 		assertEquals("jpeg", item.getImageMimeMinor());
+		//System.out.println(item.getImageURL());
 		assertTrue(item.getImageURL().endsWith(".jpg"));
+		//System.out.println(item.getImageURLBB240());
+		assertTrue(item.getImageURLBB240().endsWith(".jpg"));
+		assertTrue(item.getImageURLBB240().indexOf("/BB240/")>=0);
 
 		item.setImageData(null, null);
 		assertEquals(null, item.getImageData());
 		assertEquals(null, item.getImageMimeMajor());
 		assertEquals(null, item.getImageMimeMinor());
 		assertEquals(null, item.getImageURL());
+		assertEquals(null, item.getImageURLBB240());
 		
 		
 		// photo
@@ -94,24 +104,34 @@ public class MediaTest extends DatabaseLibTest
 		assertEquals(null, item.getPhotoMimeMajor());
 		assertEquals(null, item.getPhotoMimeMinor());
 		assertEquals(null, item.getPhotoURL());
+		assertEquals(null, item.getPhotoURLProgressive());
 
 		item.setPhotoData(stream(data));
 		assertData(data, item.getPhotoData());
 		assertEquals("image", item.getPhotoMimeMajor());
 		assertEquals("jpeg", item.getPhotoMimeMinor());
+		//System.out.println(item.getPhotoURL());
 		assertTrue(item.getPhotoURL().endsWith(".jpg"));
+		//System.out.println(item.getPhotoURLProgressive());
+		assertTrue(item.getPhotoURLProgressive().endsWith(".jpg"));
+		assertTrue(item.getPhotoURLProgressive().indexOf("/Progressive/")>=0);
 
 		item.setPhotoData(stream(data2));
 		assertData(data2, item.getPhotoData());
 		assertEquals("image", item.getPhotoMimeMajor());
 		assertEquals("jpeg", item.getPhotoMimeMinor());
+		//System.out.println(item.getPhotoURL());
 		assertTrue(item.getPhotoURL().endsWith(".jpg"));
+		//System.out.println(item.getPhotoURLProgressive());
+		assertTrue(item.getPhotoURLProgressive().endsWith(".jpg"));
+		assertTrue(item.getPhotoURLProgressive().indexOf("/Progressive/")>=0);
 
 		item.setPhotoData(null);
 		assertEquals(null, item.getPhotoData());
 		assertEquals(null, item.getPhotoMimeMajor());
 		assertEquals(null, item.getPhotoMimeMinor());
 		assertEquals(null, item.getPhotoURL());
+		assertEquals(null, item.getPhotoURLProgressive());
 	}
 
 }
