@@ -90,6 +90,7 @@ public final class EnumerationAttribute extends ObjectAttribute
 
 	public EnumerationValue getValue(final String code)
 	{
+		//System.out.println("EnumerationValue#getValue("+code+") from "+codesToValues);
 		return (EnumerationValue)codesToValues.get(code);
 	}
 
