@@ -111,6 +111,13 @@ public final class Statement
 		return this;
 	}
 		
+	public Statement defineColumnTimestamp()
+	{
+		if(columnTypes!=null)
+			columnTypes.add(TimestampColumn.JDBC_TYPE);
+		return this;
+	}
+		
 	public String getText()
 	{
 		return text.toString();
