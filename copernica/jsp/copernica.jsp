@@ -113,7 +113,7 @@ include file="provider.inc"
 			%>
 			<h1>Copernica</h1>
 			<h2>Generic Backoffice for COPE</h2>
-			<u>select a type on the left</u><%
+			<img src="exedio.png" width="200" height="66"><%
 		}
 		else
 			throw new RuntimeException();
