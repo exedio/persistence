@@ -100,7 +100,7 @@
 		</javac>
 	</target>
 	
-	<target name="copernica.compile.classes" depends="lib.compile">
+	<target name="copernica.compile.classes" depends="lib.compile, copernica.jspm">
 		<mkdir dir="copernica/build/classes" />
 		<javac srcdir="copernica/src"
 				destdir="copernica/build/classes"
@@ -110,6 +110,8 @@
 			<classpath>
 				<pathelement location="lib/build/classes" />
 				<pathelement location="../tomcat/common/lib/servlet-api.jar" />
+				<!-- TODO: to be removed, once support for jsp is dropped -->
+				<pathelement location="../tomcat/common/lib/jsp-api.jar" />
 				<pathelement location="../tomcat/server/lib/commons-fileupload-1.0.jar" />
 			</classpath>
 		</javac>
@@ -328,6 +330,15 @@
 	<target name="test" depends="lib.test, instrument.test" />
 	
 	
+	<target name="copernica.jspm">
+		<java classname="com.exedio.jspm.Main" taskname="jspm" fork="yes" failonerror="yes">
+			<classpath>
+				<pathelement location="../jspm/build/classes" />
+			</classpath>
+			<arg value="copernica/src/com/exedio/copernica/CopernicaTypeList.jspm" />
+		</java>
+	</target>
+	
 	<target name="copernica.jspc">
 		<delete dir="copernica/build/jspsrc" />
 		<mkdir dir="copernica/build/jspsrc" />
@@ -494,6 +505,11 @@
 
 	<target name="copernica.clean">
 		<delete dir="copernica/build" />
+		<delete>
+			<fileset dir="copernica/src">
+				<include name="**/*_Jspm.java" />
+			</fileset>
+		</delete>
 	</target>
 
 	<target name="clean" depends="lib.clean, instrument.clean, copernica.clean" />

@@ -1,4 +1,19 @@
+<%
+package com.exedio.copernica;
 
+import java.io.IOException;
+import java.util.Iterator;
+import javax.servlet.jsp.JspWriter;
+import com.exedio.cope.lib.Type;
+
+public class CopernicaTypeList_Jspm
+{
+	public static final void write(final JspWriter out, final CopernicaCop cop)
+		throws IOException
+	{
+		final CopernicaProvider provider = cop.provider; 
+		final CopernicaLanguage language = cop.language; 
+%>
 		<ul id="typelist"><%
 		for(Iterator i = provider.getModel().getTypes().iterator(); i.hasNext(); )
 		{
@@ -21,3 +36,7 @@
 		}
 		%>
 		</ul>
+<%
+	}
+}
+%>

@@ -97,8 +97,9 @@ page import="java.text.SimpleDateFormat" %><%!
 				<%=user.getCopernicaName()%>
 			</li>
 			</ul>
-		</div><%@
-		include file="copernica-typelist.inc" %>
+		</div><%
+		CopernicaTypeList_Jspm.write(out, cop);
+		%>
 		<div id="main"><%
 		if(cop instanceof TypeCop)
 		{
