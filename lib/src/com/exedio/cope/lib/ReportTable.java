@@ -21,7 +21,7 @@ public final class ReportTable extends ReportNode
 	private final HashMap constraintMap = new HashMap();
 	private final ArrayList constraintList = new ArrayList();
 
-	ReportTable(final Report report, final com.exedio.cope.lib.Table table)
+	ReportTable(final Report report, final Table table)
 	{
 		this.report = report;
 		this.name = table.id;
