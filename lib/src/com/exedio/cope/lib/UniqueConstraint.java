@@ -42,11 +42,8 @@ public final class UniqueConstraint
 		return uniqueAttributeList;
 	}
 	
-	final String getTrimmedName()
+	final void initialize()
 	{
-		if(trimmedName!=null)
-			return trimmedName;
-			
 		final StringBuffer nameBuffer = new StringBuffer();
 		for(int i = 0; i<uniqueAttributes.length; i++)
 			nameBuffer.append(uniqueAttributes[i].getName());
@@ -57,7 +54,13 @@ public final class UniqueConstraint
 		final Object collision = uniqueConstraintsByName.put(trimmedName, this);
 		if(collision!=null)
 			throw new SystemException(null, "ambiguous unique constraint "+this+" trimmed to >"+this.trimmedName+"< colliding with "+collision);
-
+	}
+	
+	final String getTrimmedName()
+	{
+		if(trimmedName==null)
+			throw new RuntimeException();
+			
 		return trimmedName;
 	}
 	

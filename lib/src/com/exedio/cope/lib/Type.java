@@ -110,12 +110,18 @@ public final class Type
 		{
 			final UniqueConstraint suc = this.declaredAttributes[i].getSingleUniqueConstaint();
 			if(suc!=null)
+			{
+				suc.initialize();
 				uniqueConstraintsTemp.add(suc);
+			}
 		}
 		if(multipleUniqueConstraints!=null)
 		{
 			for(int i = 0; i<multipleUniqueConstraints.length; i++)
+			{
+				multipleUniqueConstraints[i].initialize();
 				uniqueConstraintsTemp.add(multipleUniqueConstraints[i]);
+			}
 		}
 		this.uniqueConstraints = (UniqueConstraint[])uniqueConstraintsTemp.toArray(new UniqueConstraint[uniqueConstraintsTemp.size()]);
 		this.uniqueConstraintList = Collections.unmodifiableList(Arrays.asList(this.uniqueConstraints));
