@@ -1,29 +1,40 @@
 
 package com.exedio.cope.instrument;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public final class PersistentMediaAttribute extends PersistentAttribute
 {
-	public final List mediaVariants;
+	private final List mediaVariants;
 	public final String mimeMajor;
 	public final String mimeMinor;
 
 	public PersistentMediaAttribute(
 			final JavaAttribute javaAttribute,
 			final List initializerArguments, final boolean mapped,
-			final List qualifiers, final List mediaVariants)
+			final List qualifiers)
 		throws InjectorParseException
 	{
 		super(javaAttribute, MEDIA_TYPE, initializerArguments, mapped, qualifiers);
-		this.mediaVariants = (mediaVariants!=null) ? Collections.unmodifiableList(mediaVariants) : null;
+		this.mediaVariants = new ArrayList();
 
 		this.mimeMajor = getString(initializerArguments, 1);
 		this.mimeMinor = getString(initializerArguments, 2);
 	}
+	
+	void addVariant(final PersistentMediaVariant variant)
+	{
+		mediaVariants.add(variant);
+	}
+	
+	List getVariants()
+	{
+		return Collections.unmodifiableList(mediaVariants);
+	}
 
-	public static String getString(final List initializerArguments, final int pos)
+	private static String getString(final List initializerArguments, final int pos)
 		throws InjectorParseException
 	{
 		if(initializerArguments.size()>pos)

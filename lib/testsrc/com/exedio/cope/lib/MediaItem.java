@@ -8,15 +8,13 @@ public class MediaItem extends Item
 {
 	static final MediaAttribute file = new MediaAttribute(DEFAULT);
 
-	/**
-	 * @variant BB240
-	 */
 	static final MediaAttribute image = new MediaAttribute(DEFAULT, "image");
+	
+	static final MediaAttributeVariant BB240 = new MediaAttributeVariant(image);
 
-	/**
-	 * @variant Progressive
-	 */
 	static final MediaAttribute photo = new MediaAttribute(DEFAULT, "image", "jpeg");
+	
+	static final MediaAttributeVariant Progressive = new MediaAttributeVariant(photo);
 	
 /**
 

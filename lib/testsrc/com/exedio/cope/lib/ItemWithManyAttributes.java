@@ -92,9 +92,10 @@ public class ItemWithManyAttributes extends Item
 
 	/**
 	 * A media attribute.
-	 * @variant SomeVariant
 	 */
 	public static final MediaAttribute someMedia = new MediaAttribute(DEFAULT);
+	
+	public static final MediaAttributeVariant SomeVariant = new MediaAttributeVariant(someMedia);
 
 	/**
 	 * A qualified attribute.

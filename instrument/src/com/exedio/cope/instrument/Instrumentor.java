@@ -17,6 +17,7 @@ import com.exedio.cope.lib.IntegerAttribute;
 import com.exedio.cope.lib.ItemAttribute;
 import com.exedio.cope.lib.LongAttribute;
 import com.exedio.cope.lib.MediaAttribute;
+import com.exedio.cope.lib.MediaAttributeVariant;
 import com.exedio.cope.lib.StringAttribute;
 import com.exedio.cope.lib.UniqueConstraint;
 import com.exedio.cope.lib.pattern.Qualifier;
@@ -67,11 +68,6 @@ public final class Instrumentor implements InjectionConsumer
 	 * Tag name for one qualifier of qualified attributes.
 	 */
 	private static final String ATTRIBUTE_QUALIFIER = "qualifier";
-	
-	/**
-	 * Tag name for one variant of media attributes.
-	 */
-	private static final String VARIANT_MEDIA_ATTRIBUTE = "variant";
 	
 	/**
 	 * All generated class features get this doccomment tag.
@@ -160,17 +156,9 @@ public final class Instrumentor implements InjectionConsumer
 		}
 		else if(MediaAttribute.class.equals(typeClass))
 		{
-			final String variant = Injector.findDocTag(docComment, VARIANT_MEDIA_ATTRIBUTE);
-			final List variants;
-			if(variant!=null)
-				variants = Collections.singletonList(variant);
-			else
-				variants = null;
-		
 			new PersistentMediaAttribute(
 				ja,
-				initializerArguments, mapped, qualifiers,
-				variants);
+				initializerArguments, mapped, qualifiers);
 		}
 		else
 			throw new RuntimeException(typeClass.toString());
@@ -208,6 +196,22 @@ public final class Instrumentor implements InjectionConsumer
 		new PersistentQualifier(persistentClass, initializerArguments);
 	}
 
+	private final void handleMediaVariant(final JavaAttribute ja, final Class typeClass)
+		throws InjectorParseException
+	{
+		final JavaClass jc = ja.getParent();
+		final PersistentClass persistentClass = PersistentClass.getPersistentClass(jc);
+		final List initializerArguments = ja.getInitializerArguments();
+		if(initializerArguments.size()!=1)
+			throw new InjectorParseException("attribute >"+ja.name+"< has invalid initializer arguments: "+initializerArguments);
+		//System.out.println("---------"+initializerArguments);
+		final String initializerArgument = (String)initializerArguments.get(0);
+		final PersistentMediaAttribute mediaAttribute = (PersistentMediaAttribute)persistentClass.getPersistentAttribute(initializerArgument);
+		if(mediaAttribute==null)
+			throw new InjectorParseException("attribute >"+initializerArgument+"< in media attribute variant "+ja.getName()+" not found.");
+		new PersistentMediaVariant(ja, mediaAttribute);
+	}
+
 	public void onClassFeature(final JavaFeature jf, final String docComment)
 	throws IOException, InjectorParseException
 	{
@@ -238,6 +242,8 @@ public final class Instrumentor implements InjectionConsumer
 						handleUniqueConstraint(ja, typeClass);
 					else if(Qualifier.class.isAssignableFrom(typeClass))
 						handleQualifier(ja, typeClass);
+					else if(MediaAttributeVariant.class.isAssignableFrom(typeClass))
+						handleMediaVariant(ja, typeClass);
 				}
 			}
 		}

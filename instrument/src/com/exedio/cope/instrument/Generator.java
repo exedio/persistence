@@ -415,11 +415,11 @@ final class Generator
 		// getters
 		writeMediaGetterMethod(mediaAttribute, String.class, "URL", "",
 										"Returns a URL pointing to the data of the persistent attribute");
-		final List mediaVariants = mediaAttribute.mediaVariants;
+		final List mediaVariants = mediaAttribute.getVariants();
 		if(mediaVariants!=null)
 		{
 			for(Iterator i = mediaVariants.iterator(); i.hasNext(); )
-				writeMediaGetterMethod(mediaAttribute, String.class, "URL", (String)i.next(),
+				writeMediaGetterMethod(mediaAttribute, String.class, "URL", ((PersistentMediaVariant)i.next()).name,
 												"Returns a URL pointing to the varied data of the persistent attribute");
 		}
 		writeMediaGetterMethod(mediaAttribute, String.class, "MimeMajor", null,
