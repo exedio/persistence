@@ -200,7 +200,7 @@ public class ExampleTest extends InjectorTest
 		assertText("\n    \n\t\t");
 
 		final JavaBehaviour drinnerRunMethod =
-			assertBehaviourHeader("run", "void", Modifier.PUBLIC);
+			assertBehaviourHeader("run", "void", Modifier.PUBLIC, "public void run()\n\t\t");
 		assertText("{\n\t\t}");
 		assertMethod("run", null, drinnerRunMethod);
 		assertText("\n\t ");
@@ -216,7 +216,7 @@ public class ExampleTest extends InjectorTest
 		assertText("\n    \n\t ");
 
 		final JavaBehaviour innerRunMethod =
-			assertBehaviourHeader("run", "void", Modifier.PUBLIC);
+			assertBehaviourHeader("run", "void", Modifier.PUBLIC, "public void run()\n\t ");
 		assertText("{\n\t }");
 		assertMethod("run", null, innerRunMethod);
 		assertText("\n  ");
@@ -226,18 +226,18 @@ public class ExampleTest extends InjectorTest
 		assertText("}  \n\n  ");
 
 		final JavaBehaviour emptyConstructor =
-			assertBehaviourHeader("Example", null, Modifier.PRIVATE);
+			assertBehaviourHeader("Example", null, Modifier.PRIVATE, "private Example()\n  ");
 		assertText("{\n\t new Integer(5);\n  }");
 		assertMethod("Example", null, emptyConstructor);
 		assertText("\n  \n  ");
 
 		final JavaBehaviour secondConstructor =
-			assertBehaviourHeader("Example", null, Modifier.PUBLIC);
+			assertBehaviourHeader("Example", null, Modifier.PUBLIC, "public Example(String name, Integer type)\n  ");
 		assertText("{\n\t super();\n  }");
 		assertMethod("Example", null, secondConstructor);
 		assertText("\n\n  ");
 
-		final JavaBehaviour setter = assertBehaviourHeader("set", "void", Modifier.PUBLIC);
+		final JavaBehaviour setter = assertBehaviourHeader("set", "void", Modifier.PUBLIC, "public void set(String name, Integer type,// what a cool parameter\n"+"\tfinal Integer[] qualifiers)\n\t");
 		assertText(
 			"{\n"
 				+ "\t\t// ugly comment : { {\n"
@@ -255,7 +255,7 @@ public class ExampleTest extends InjectorTest
 		assertMethod("set", null, setter);
 		assertText("\n\n  ");
 		
-		final JavaBehaviour abstractMethod = assertBehaviourHeader("abstractMethod", "void", Modifier.ABSTRACT);
+		final JavaBehaviour abstractMethod = assertBehaviourHeader("abstractMethod", "void", Modifier.ABSTRACT, "abstract void abstractMethod()");
 		assertText(";");
 		assertMethod("abstractMethod", null, abstractMethod);
 		assertText("\n\n  ");
@@ -263,32 +263,32 @@ public class ExampleTest extends InjectorTest
 		final String runComment ="/**\n\t  Some example doc-comment.\n  */";
 		assertDocComment(runComment);
 		assertText("\n  ");
-		final JavaBehaviour emptyMethod = assertBehaviourHeader("run", "void", Modifier.PUBLIC);
+		final JavaBehaviour emptyMethod = assertBehaviourHeader("run", "void", Modifier.PUBLIC, "public void run()\n  ");
 		assertText("{}");
 		assertMethod("run", runComment, emptyMethod);
 		assertText("\n\n\t");
 		
-		final JavaBehaviour getBoolean = assertBehaviourHeader("getBoolean", "boolean", Modifier.PUBLIC);
+		final JavaBehaviour getBoolean = assertBehaviourHeader("getBoolean", "boolean", Modifier.PUBLIC, "public boolean getBoolean(Interface someInterface)\n\t");
 		assertText("{\n\t\treturn true;\n\t}");
 		assertMethod("getBoolean", null, getBoolean);
 		assertText("\n\t\n\t");
 		
-		final JavaBehaviour getIntegers = assertBehaviourHeader("getIntegers", "Integer[]", Modifier.PUBLIC);
+		final JavaBehaviour getIntegers = assertBehaviourHeader("getIntegers", "Integer[]", Modifier.PUBLIC, "public Integer[] getIntegers()\n\t");
 		assertText("{\n\t\treturn null;\n\t}");
 		assertMethod("getIntegers", null, getIntegers);
 		assertText("\n\t\n\t");
 		
-		final JavaBehaviour getUnqualifiedType = assertBehaviourHeader("getUnqualifiedType", "Integer", Modifier.PUBLIC);
+		final JavaBehaviour getUnqualifiedType = assertBehaviourHeader("getUnqualifiedType", "Integer", Modifier.PUBLIC, "public Integer getUnqualifiedType() throws IllegalArgumentException\n\t");
 		assertText("{\n\t\treturn null;\n\t}");
 		assertMethod("getUnqualifiedType", null, getUnqualifiedType);
 		assertText("\n\t\n\t");
 		
-		final JavaBehaviour setParent = assertBehaviourHeader("setParent", "void", Modifier.PUBLIC);
+		final JavaBehaviour setParent = assertBehaviourHeader("setParent", "void", Modifier.PUBLIC, "public void setParent  (Object parent)\n\t\tthrows\n\t\t\tIllegalArgumentException,\n\t\t\tNullPointerException\n\t");
 		assertText("{\n\t}");
 		assertMethod("setParent", null, setParent);
 		assertText("\n\n\t");
 		
-		final JavaBehaviour printData = assertBehaviourHeader("printData", "void", Modifier.PUBLIC);
+		final JavaBehaviour printData = assertBehaviourHeader("printData", "void", Modifier.PUBLIC, "public void printData\n"+"\t\t(java.io.PrintStream o)\n\t");
 		assertText("{\n\t}");
 		assertMethod("printData", null, printData);
 		assertText("\n  \n\t");

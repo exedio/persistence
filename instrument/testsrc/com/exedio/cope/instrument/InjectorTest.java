@@ -76,11 +76,16 @@ public abstract class InjectorTest extends TestCase
 		return result.toString();
 	}
 
+	protected void assertEqualsText(final String expectedText, final String actualText)
+	{
+		assertEquals("ZAPP \n>"+format(expectedText)+"<\n>"+format(actualText)+"<\n", replaceLineBreaks(expectedText), actualText);
+	}
+
 	protected void assertText(final String text)
 	{
 		final InjectionEvent event = fetchEvent();
 		final String actualText = ((TextEvent)event).text;
-		assertEquals("ZAPP \n>"+format(text)+"<\n>"+format(actualText)+"<\n", replaceLineBreaks(text), actualText);
+		assertEqualsText(text, actualText);
 	}
 
 	protected void assertPackage(final String packageName)
@@ -123,13 +128,14 @@ public abstract class InjectorTest extends TestCase
 		assertSame(expectedJavaClass, javaClass);
 	}
 	
-	protected JavaBehaviour assertBehaviourHeader(final String name, final String type, final int modifier)
+	protected JavaBehaviour assertBehaviourHeader(final String name, final String type, final int modifier, final String literal)
 	{
 		final InjectionEvent event = fetchEvent();
 		final JavaBehaviour javaBehaviour = ((BehaviourHeaderEvent)event).javaBehaviour;
 		assertEquals(name, javaBehaviour.getName());
 		assertEquals(type, javaBehaviour.getType());
 		assertEquals(modifier, javaBehaviour.getModifiers());
+		assertEqualsText(literal, javaBehaviour.getLiteral());
 		return javaBehaviour;
 	}
 	
