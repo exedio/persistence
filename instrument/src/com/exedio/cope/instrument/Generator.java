@@ -149,7 +149,12 @@ final class Generator
 	
 	private static final String link(final String target)
 	{
-		return "{@link #" + target + "}";
+		return "{@link #" + target + '}';
+	}
+	
+	private static final String link(final String target, final String name)
+	{
+		return "{@link #" + target + ' ' + name + '}';
 	}
 	
 	private static final String format(final String pattern, final String parameter1)
@@ -373,7 +378,7 @@ final class Generator
 		o.write("\t * ");
 		o.write(variant==null
 				? format(commentPattern, link(mediaAttribute.getName()))
-				: format(commentPattern, link(mediaAttribute.getName()), variant.name)); // TODO: use short name, make link
+				: format(commentPattern, link(mediaAttribute.getName()), link(variant.name, variant.shortName)));
 		o.write(lineSeparator);
 		writeCommentGenerated();
 		writeCommentFooter();
