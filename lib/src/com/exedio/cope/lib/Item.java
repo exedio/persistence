@@ -255,22 +255,22 @@ public class Item extends Search
 			append(pk);
 
 		final String mimeMinor = (String)row.get(attribute.mimeMinor);
-		final String extension;
+		final String compactExtension;
 		if("image".equals(mimeMajor))
 		{
 			if("jpeg".equals(mimeMinor) || "pjpeg".equals(mimeMinor))
-				extension = ".jpg";
+				compactExtension = ".jpg";
 			else if("gif".equals(mimeMinor))
-				extension = ".gif";
+				compactExtension = ".gif";
 			else if("png".equals(mimeMinor))
-				extension = ".png";
+				compactExtension = ".png";
 			else
-				extension = null;
+				compactExtension = null;
 		}
 		else
-			extension = null;
+			compactExtension = null;
 		
-		if(extension==null)
+		if(compactExtension==null)
 		{
 			bf.append('.').
 				append(mimeMajor).
@@ -278,7 +278,7 @@ public class Item extends Search
 				append(mimeMinor);
 		}
 		else
-			bf.append(extension);
+			bf.append(compactExtension);
 		
 		return bf.toString();
 	}
