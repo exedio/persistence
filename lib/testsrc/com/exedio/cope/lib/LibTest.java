@@ -368,6 +368,15 @@ public class LibTest extends TestCase
 		assertEquals(5, item.getSomeNotNullInteger());
 		item.setSomeNotNullInteger(20);
 		assertEquals(20, item.getSomeNotNullInteger());
+
+		item.setSomeNotNullInteger(0);
+		assertEquals(0, item.getSomeNotNullInteger());
+
+		item.setSomeNotNullInteger(Integer.MIN_VALUE);
+		assertEquals(Integer.MIN_VALUE, item.getSomeNotNullInteger());
+
+		item.setSomeNotNullInteger(Integer.MAX_VALUE);
+		assertEquals(Integer.MAX_VALUE, item.getSomeNotNullInteger());
 	}
 
 	private void dotestItemWithManyAttributesSomeBoolean(final ItemWithManyAttributes item)
