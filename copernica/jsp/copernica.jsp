@@ -17,17 +17,30 @@ page import="com.exedio.cope.lib.Type" %><%@
 page import="com.exedio.cope.lib.Item" %><%@
 page import="com.exedio.cope.lib.NestingRuntimeException" %><%@
 page import="com.exedio.cope.lib.NoSuchIDException" %><%@
+page import="com.exedio.copernica.CopernicaProvider" %><%@
 page import="java.io.PrintWriter" %><%@
 page import="java.util.Date" %><%@
 page import="java.util.Iterator" %><%@
 page import="java.util.Collection" %><%@
 page import="java.util.List" %><%@
 page import="java.util.Map" %><%@
-page import="java.text.SimpleDateFormat" %><%@
-
-include file="provider.inc"
-
+page import="java.text.SimpleDateFormat" %><%!
+	
+	CopernicaProvider provider = null;
+	
+	public final void jspInit()
+	{
+		if(this.provider!=null)
+		{
+			System.out.println("reinvokation of jspInit");
+			return;
+		}
+		
+		this.provider = Util.createProvider(getServletConfig());
+	}
 %><%
+	final CopernicaProvider provider = this.provider;
+	
 	try
 	{
 		provider.getModel().checkDatabase();
