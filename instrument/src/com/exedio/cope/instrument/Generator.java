@@ -41,6 +41,7 @@ final class Generator
 	private static final String GETTER_MEDIA_MAJOR = "Returns the major mime type of the media attribute {0}.";
 	private static final String GETTER_MEDIA_MINOR = "Returns the minor mime type of the media attribute {0}.";
 	private static final String GETTER_MEDIA_DATA = "Returns the data of the media attribute {0}.";
+	private static final String TOUCHER = "Sets the current date for the date attribute {0}.";
 	private static final String FINDER_UNIQUE = "Finds a {0} by it''s unique attributes.";
 	private static final String FINDER_UNIQUE_PARAMETER = "shall be equal to attribute {0}.";
 	private static final String QUALIFIER = "Returns the qualifier.";
@@ -359,6 +360,28 @@ final class Generator
 			o.write(lineSeparator);
 			writeSetterBody(copeAttribute);
 			o.write("\t}");
+			
+			// touch for date attributes
+			if(copeAttribute instanceof CopeNativeAttribute &&
+				((CopeNativeAttribute)copeAttribute).touchable)
+			{
+				writeCommentHeader();
+				o.write("\t * ");
+				o.write(format(TOUCHER, link(copeAttribute.getName())));
+				o.write(lineSeparator);
+				writeCommentGenerated();
+				writeCommentFooter();
+				o.write(Modifier.toString(copeAttribute.getGeneratedSetterModifier()));
+				o.write(" void touch");
+				o.write(toCamelCase(copeAttribute.getName()));
+				o.write("()");
+				o.write(lineSeparator);
+				writeThrowsClause(copeAttribute.getToucherExceptions());
+				o.write("\t{");
+				o.write(lineSeparator);
+				writeToucherBody(copeAttribute);
+				o.write("\t}");
+			}
 		}
 	}
 
@@ -457,14 +480,7 @@ final class Generator
 			exceptionsToCatch.remove(ReadOnlyViolationException.class);
 			exceptionsToCatch.remove(LengthViolationException.class);
 			exceptionsToCatch.remove(UniqueViolationException.class);
-			if(!exceptionsToCatch.isEmpty())
-			{
-				o.write("\t\ttry");
-				o.write(lineSeparator);
-				o.write("\t\t{");
-				o.write(lineSeparator);
-				o.write('\t');
-			}
+			writeTryCatchClausePrefix(exceptionsToCatch);
 			o.write("\t\tsetMediaData(");
 			o.write(mediaAttribute.copeClass.getName());
 			o.write('.');
@@ -474,14 +490,7 @@ final class Generator
 			o.write(mimeMinor==null ? ",mimeMinor" : ",null");
 			o.write(");");
 			o.write(lineSeparator);
-			if(!exceptionsToCatch.isEmpty())
-			{
-				o.write("\t\t}");
-				o.write(lineSeparator);
-
-				for(Iterator i = exceptionsToCatch.iterator(); i.hasNext(); )
-					writeViolationExceptionCatchClause((Class)i.next());
-			}
+			writeTryCatchClausePostfix(exceptionsToCatch);
 			o.write("\t}");
 		}
 	}
@@ -816,15 +825,7 @@ final class Generator
 	throws IOException
 	{
 		final SortedSet exceptionsToCatch = attribute.getExceptionsToCatchInSetter();
-
-		if(!exceptionsToCatch.isEmpty())
-		{
-			o.write("\t\ttry");
-			o.write(lineSeparator);
-			o.write("\t\t{");
-			o.write(lineSeparator);
-			o.write('\t');
-		}
+		writeTryCatchClausePrefix(exceptionsToCatch);
 		o.write("\t\tsetAttribute(");
 		o.write(attribute.copeClass.getName());
 		o.write('.');
@@ -837,27 +838,63 @@ final class Generator
 			o.write(attribute.getBoxingPostfix());
 		o.write(");");
 		o.write(lineSeparator);
+		writeTryCatchClausePostfix(exceptionsToCatch);
+	}
+	
+	/**
+	 * Identation contract:
+	 * This methods is called, when o stream is immediatly after a line break,
+	 * and it should return the o stream after immediatly after a line break.
+	 * This means, doing nothing fullfils the contract.
+	 */
+	private void writeToucherBody(final CopeAttribute attribute)
+	throws IOException
+	{
+		final SortedSet exceptionsToCatch = attribute.getExceptionsToCatchInToucher();
+		writeTryCatchClausePrefix(exceptionsToCatch);
+		o.write("\t\ttouchAttribute(");
+		o.write(attribute.copeClass.getName());
+		o.write('.');
+		o.write(attribute.getName());
+		o.write(");");
+		o.write(lineSeparator);
+		writeTryCatchClausePostfix(exceptionsToCatch);
+	}
+	
+	private void writeTryCatchClausePrefix(final SortedSet exceptionsToCatch)
+	throws IOException
+	{
+		if(!exceptionsToCatch.isEmpty())
+		{
+			o.write("\t\ttry");
+			o.write(lineSeparator);
+			o.write("\t\t{");
+			o.write(lineSeparator);
+			o.write('\t');
+		}
+	}
+	
+	private void writeTryCatchClausePostfix(final SortedSet exceptionsToCatch)
+	throws IOException
+	{
 		if(!exceptionsToCatch.isEmpty())
 		{
 			o.write("\t\t}");
 			o.write(lineSeparator);
 			
 			for(Iterator i = exceptionsToCatch.iterator(); i.hasNext(); )
-				writeViolationExceptionCatchClause((Class)i.next());
+			{
+				final Class exceptionClass = (Class)i.next();
+				o.write("\t\tcatch("+exceptionClass.getName()+" e)");
+				o.write(lineSeparator);
+				o.write("\t\t{");
+				o.write(lineSeparator);
+				o.write("\t\t\tthrow new "+NestingRuntimeException.class.getName()+"(e);");
+				o.write(lineSeparator);
+				o.write("\t\t}");
+				o.write(lineSeparator);
+			}
 		}
 	}
 	
-	private void writeViolationExceptionCatchClause(final Class exceptionClass)
-	throws IOException
-	{
-		o.write("\t\tcatch("+exceptionClass.getName()+" e)");
-		o.write(lineSeparator);
-		o.write("\t\t{");
-		o.write(lineSeparator);
-		o.write("\t\t\tthrow new "+NestingRuntimeException.class.getName()+"(e);");
-		o.write(lineSeparator);
-		o.write("\t\t}");
-		o.write(lineSeparator);
-	}
-
 }

@@ -14,6 +14,7 @@ import com.exedio.cope.lib.StringFunction;
 
 final class CopeNativeAttribute extends CopeAttribute
 {
+	final boolean touchable;
 	private final String boxedType;
 	private final boolean boxed;
 	private final String boxingPrefix, boxingPostfix, unboxingPrefix, unboxingPostfix;
@@ -26,6 +27,8 @@ final class CopeNativeAttribute extends CopeAttribute
 		throws InjectorParseException
 	{
 		super(javaAttribute, typeClass, getPersistentType(typeClass), initializerArguments, setterOptionString);
+		
+		this.touchable = DateAttribute.class.isAssignableFrom(typeClass);
 
 		typeClass = normalizeTypeClass(typeClass);
 		final String nativeType = (String)toNativeTypeMapping.get(typeClass);

@@ -264,6 +264,46 @@ abstract class CopeAttribute
 		return this.exceptionsToCatchInSetter;
 	}
 
+	private SortedSet toucherExceptions = null;
+
+	final SortedSet getToucherExceptions()
+	{
+		if(toucherExceptions!=null)
+			return toucherExceptions;
+		
+		final TreeSet modifyableToucherExceptions = new TreeSet(ClassComparator.getInstance());
+		
+		if(isPartOfUniqueConstraint())
+			modifyableToucherExceptions.add(UniqueViolationException.class);
+		if(readOnly)
+			modifyableToucherExceptions.add(ReadOnlyViolationException.class);
+
+		this.toucherExceptions = Collections.unmodifiableSortedSet(modifyableToucherExceptions);
+		return this.toucherExceptions;
+	}
+
+	private SortedSet exceptionsToCatchInToucher = null;
+
+	/**
+	 * Compute exceptions to be caught in the toucher.
+	 * These are just those thrown by {@link com.exedio.cope.lib.Item#touchAttribute(DateAttribute)}
+	 * which are not in the touchers throws clause.
+	 * (see {@link #getToucherExceptions()})
+	 */
+	final SortedSet getExceptionsToCatchInToucher()
+	{
+		if(exceptionsToCatchInToucher!=null)
+			return exceptionsToCatchInToucher;
+
+		final TreeSet result = new TreeSet(ClassComparator.getInstance());
+		result.add(UniqueViolationException.class);
+		result.add(ReadOnlyViolationException.class);
+		result.removeAll(getSetterExceptions());
+		
+		this.exceptionsToCatchInToucher = Collections.unmodifiableSortedSet(result);
+		return this.exceptionsToCatchInToucher;
+	}
+
 	private final static Attribute.Option getOption(final String optionString)	
 	{
 		try

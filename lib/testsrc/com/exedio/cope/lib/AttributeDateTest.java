@@ -43,6 +43,12 @@ public class AttributeDateTest extends AttributeTest
 		
 		item.passivate();
 		assertEquals(null, item.getSomeDate());
+		
+		final Date beforeTouch = new Date();
+		item.touchSomeDate();
+		final Date afterTouch = new Date();
+		assertTrue(!beforeTouch.after(item.getSomeDate()));
+		assertTrue(!afterTouch.before(item.getSomeDate()));
 	}
 	
 	public void testSomeLongDate()
