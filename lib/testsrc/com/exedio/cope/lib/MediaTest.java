@@ -64,6 +64,12 @@ public class MediaTest extends DatabaseLibTest
 		assertEquals("image", item.getImageMimeMajor());
 		assertEquals("jpeg", item.getImageMimeMinor());
 		assertTrue(item.getImageURL().endsWith(".jpg"));
+
+		item.setImageData(null, null);
+		assertEquals(null, item.getImageData());
+		assertEquals(null, item.getImageMimeMajor());
+		assertEquals(null, item.getImageMimeMinor());
+		assertEquals(null, item.getImageURL());
 	}
 
 }
