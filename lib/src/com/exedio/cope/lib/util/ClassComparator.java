@@ -2,7 +2,7 @@ package com.exedio.cope.lib.util;
 
 import java.util.Comparator;
 
-public class ClassComparator implements Comparator
+public final class ClassComparator implements Comparator
 {
 	private static final ClassComparator instance=new ClassComparator();
 

@@ -1,6 +1,6 @@
 package com.exedio.cope.lib;
 
-public class AttributeValue
+public final class AttributeValue
 {
 	public final Attribute attribute;
 	public final Object value;

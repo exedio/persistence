@@ -7,7 +7,7 @@ import java.io.PrintWriter;
 /**
  * Is thrown, when a fatal unspecified error occurs.
  */
-public class SystemException extends RuntimeException
+public final class SystemException extends RuntimeException
 {
 	private final Exception cause;
 	private final String message;

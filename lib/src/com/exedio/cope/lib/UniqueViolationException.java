@@ -4,7 +4,7 @@ package com.exedio.cope.lib;
 /**
  * Is thrown, when a persistent modification tries to violate a unique-constraint.
  */
-public class UniqueViolationException extends ConstraintViolationException
+public final class UniqueViolationException extends ConstraintViolationException
 {
 	
 	/**

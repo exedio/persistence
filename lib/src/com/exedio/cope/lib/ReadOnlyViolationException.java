@@ -4,7 +4,7 @@ package com.exedio.cope.lib;
 /**
  * Is thrown, when a persistent modification tries to write a read-only attribute.
  */
-public class ReadOnlyViolationException extends ConstraintViolationException
+public final class ReadOnlyViolationException extends ConstraintViolationException
 {
 
 	private final Item item;

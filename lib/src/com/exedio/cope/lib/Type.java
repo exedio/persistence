@@ -8,7 +8,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-public class Type
+public final class Type
 {
 	private static final ArrayList typesModifyable = new ArrayList();
 	private static final List types = Collections.unmodifiableList(typesModifyable);

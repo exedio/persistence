@@ -4,7 +4,7 @@ package com.exedio.cope.lib;
 /**
  * Is thrown, when a persistent modification tries to set a not-null attribute to null.
  */
-public class NotNullViolationException extends ConstraintViolationException
+public final class NotNullViolationException extends ConstraintViolationException
 {
 	private final Item item;
 	private final Attribute notNullAttribute;
