@@ -296,7 +296,7 @@ public abstract class Database
 		//System.out.println("searching "+bf.toString());
 		try
 		{
-			final QueryResultSetHandler handler = new QueryResultSetHandler();
+			final QueryResultSetHandler handler = new QueryResultSetHandler(query.start, query.count);
 			executeSQL(bf, handler);
 			return handler.result;
 		}
@@ -496,11 +496,30 @@ public abstract class Database
 		
 	private static class QueryResultSetHandler implements ResultSetHandler
 	{
+		private final int start;
+		private final int count;
 		private final IntArrayList result = new IntArrayList();
+		
+		QueryResultSetHandler(final int start, final int count)
+		{
+			this.start = start;
+			this.count = count;
+			if(start<0)
+				throw new RuntimeException();
+		}
 
 		public void run(ResultSet resultSet) throws SQLException
 		{
-			while(resultSet.next())
+			if(start>0)
+			{
+				//resultSet.relative(start+1);
+				for(int i = start; i>0; i--)
+					resultSet.next();
+			}
+				
+			int i = (count>=0 ? count : Integer.MAX_VALUE);
+
+			while(resultSet.next() && (--i)>=0)
 			{
 				final int pk = resultSet.getInt(1);
 				//System.out.println("pk:"+pk);

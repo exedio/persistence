@@ -24,16 +24,40 @@ public class OrderByTest extends DatabaseLibTest
 	
 	public void testOrderBy()
 	{
+		// simple order
 		assertOrder(list(item5, item4, item3, item2, item1), item.someNotNullString);
 		assertOrder(list(item1, item5, item2, item4, item3), item.someNotNullInteger);
 		assertOrder(list(item1, item5, item2, item4, item3), item.someNotNullInteger);
 		assertOrder(list(item1, item3, item5, item2, item4), item.someNotNullDouble);
+
+		// range
+		assertOrder(list(item1, item5, item2, item4, item3), item.someNotNullInteger, 0, -1);
+		assertOrder(list(item1, item5), item.someNotNullInteger, 0, 2);
+		assertOrder(list(), item.someNotNullInteger, 0, 0);
+		assertOrder(list(item1, item5, item2, item4, item3), item.someNotNullInteger, 0, 5);
+		assertOrder(list(item1, item5, item2, item4, item3), item.someNotNullInteger, 0, 2000);
+
+		assertOrder(list(item5, item2, item4, item3), item.someNotNullInteger, 1, -1);
+		assertOrder(list(item5, item2), item.someNotNullInteger, 1, 2);
+		assertOrder(list(), item.someNotNullInteger, 1, 0);
+		assertOrder(list(item5, item2, item4, item3), item.someNotNullInteger, 1, 4);
+		assertOrder(list(item5, item2, item4, item3), item.someNotNullInteger, 1, 2000);
+
+		assertOrder(list(), item.someNotNullInteger, 5, -1);
+		assertOrder(list(), item.someNotNullInteger, 5, 2);
+		assertOrder(list(), item.someNotNullInteger, 5, 0);
 	}
 	
 	private void assertOrder(final List expectedOrder, final ObjectAttribute searchAttribute)
 	{
+		assertOrder(expectedOrder, searchAttribute, 0, -1);
+	}
+	
+	private void assertOrder(final List expectedOrder, final ObjectAttribute searchAttribute, final int start, final int count)
+	{
 		final Query query = new Query(item1.TYPE, null);
 		query.setOrderBy(searchAttribute);
+		query.setRange(start, count);
 		assertEquals(expectedOrder, Search.search(query));
 	}
 	

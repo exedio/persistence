@@ -10,6 +10,8 @@ public class Query
 	final TreeSet fromTypes = new TreeSet(Type.COMPARATOR);
 	final Condition condition;
 	ObjectAttribute orderBy;
+	int start = 0;
+	int count = -1;
 	
 	public Query(final Type type, final Condition condition)
 	{
@@ -37,6 +39,17 @@ public class Query
 	public void setOrderBy(final ObjectAttribute orderBy)
 	{
 		this.orderBy = orderBy;
+	}
+
+	/**
+	 * @throws RuntimeException if start < 0
+	 */	
+	public void setRange(final int start, final int count)
+	{
+		this.start = start;
+		this.count = count;
+		if(start<0)
+			throw new RuntimeException();
 	}
 	
 	void check()
