@@ -120,13 +120,14 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); tableCount++)
 			</li><%
 		}
 		
-		for(Iterator j = table.getColumns().iterator(); j.hasNext(); )
+		int columnCount = 1;
+		for(Iterator j = table.getColumns().iterator(); j.hasNext(); columnCount++)
 		{
 			final ReportColumn column = (ReportColumn)j.next();
 			final String color = color(column.getCumulativeColor());
 			%>
 			<li class="<%=color%>">
-				<small>column</small> <%=column.name%><%
+				<small>col<%=columnCount%></small> <%=column.name%><%
 			
 			if(cop.showRenameFields && column.exists())
 			{
