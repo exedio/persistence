@@ -131,7 +131,7 @@ public final class PersistentClass
 	 * but without the ReadOnlyViolationException,
 	 * because read-only attributes can only be written in the constructor.
 	 */
-	public final SortedSet getContructorExceptions()
+	public final SortedSet getConstructorExceptions()
 	{
 		if(constructorExceptions == null)
 			makeInitialAttributesAndConstructorExceptions();

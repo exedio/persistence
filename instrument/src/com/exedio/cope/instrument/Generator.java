@@ -143,7 +143,7 @@ final class Generator
 	throws IOException
 	{
 		final List initialAttributes = javaClass.getInitialAttributes();
-		final SortedSet constructorExceptions = javaClass.getContructorExceptions();
+		final SortedSet constructorExceptions = javaClass.getConstructorExceptions();
 		
 		int constructorAccessModifier = javaClass.accessModifier;
 		
@@ -236,7 +236,7 @@ final class Generator
 		}
 		o.write("\t\t});");
 		o.write(lineSeparator);
-		for(Iterator i = javaClass.getContructorExceptions().iterator(); i.hasNext(); )
+		for(Iterator i = javaClass.getConstructorExceptions().iterator(); i.hasNext(); )
 		{
 			final Class exception = (Class)i.next();
 			o.write("\t\tthrowInitial");
