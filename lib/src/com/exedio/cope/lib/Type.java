@@ -290,7 +290,7 @@ public final class Type
 	public final Model getModel()
 	{
 		if(model==null)
-			throw new RuntimeException();
+			throw new RuntimeException("model not set for type "+id+", probably you forgot to put this type into the model.");
 
 		return model;
 	}
