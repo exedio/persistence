@@ -37,6 +37,17 @@ public class JoinTest extends DatabaseLibTest
 						PointerItem2.TYPE,
 						PointerItem.TYPE,
 						Search.equal(PointerItem.code, PointerItem2.code)))));
+
+		assertEquals(
+			set(item1a),
+			toSet(
+				Search.search(
+					new Query(
+						PointerItem.TYPE,
+						PointerItem2.TYPE,
+						Search.and(
+							Search.join(PointerItem.pointer),
+							Search.equal(PointerItem2.code, "hallo"))))));
 	}
 
 }

@@ -55,6 +55,16 @@ public final class Statement
 		return this;
 	}
 		
+	public Statement appendPK(final Type type)
+	{
+		this.text.
+			append(type.protectedName).
+			append('.').
+			append(type.primaryKey.protectedName);
+			
+		return this;
+	}
+		
 	public Statement appendValue(Attribute attribute, final Object value)
 	{
 		while(attribute.mapping!=null)

@@ -10,6 +10,7 @@ import com.exedio.cope.lib.search.AndCondition;
 import com.exedio.cope.lib.search.Condition;
 import com.exedio.cope.lib.search.EqualAttributeCondition;
 import com.exedio.cope.lib.search.EqualCondition;
+import com.exedio.cope.lib.search.JoinCondition;
 
 /**
  * Utility class for searching persistent data.
@@ -125,6 +126,11 @@ public class Search
 	public static final EqualCondition equal(final ItemAttribute attribute, final Item value)
 	{
 		return new EqualCondition(attribute, value);
+	}
+	
+	public static final JoinCondition join(final ItemAttribute attribute)
+	{
+		return new JoinCondition(attribute);
 	}
 	
 	public static final AndCondition and(final Condition condition1, final Condition condition2)
