@@ -101,7 +101,19 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); )
 					<span class="<%=color(constraint.getParticularColor())
 												%>"><%=constraintError%></span><%
 			}
-			%></li><%
+			if(constraint.exists())
+			{
+				%>
+				<input type="checkbox" name="DROP_CONSTRAINT_" value="drop"/>drop<%
+			}
+			else if( constraint.required() &&
+						constraint.table.exists() )
+			{
+				%>
+				<input type="checkbox" name="CREATE_CONSTRAINT_" value="create"/>create<%
+			}
+			%>
+			</li><%
 		}
 		%>
 		</ul><%

@@ -40,5 +40,15 @@ public final class ReportConstraint extends ReportNode
 				
 		cumulativeColor = particularColor;
 	}
-		
+
+	public final boolean required()
+	{
+		return required;
+	}
+
+	public final boolean exists()
+	{
+		return exists;
+	}
+
 }
