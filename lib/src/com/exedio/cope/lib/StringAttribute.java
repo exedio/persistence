@@ -61,7 +61,7 @@ public final class StringAttribute extends Attribute
 	protected List createColumns(final String name, final boolean notNull)
 	{
 		if(mapping==null)
-			return Collections.singletonList(new StringColumn(getType(), name, notNull));
+			return Collections.singletonList(new StringColumn(getType(), name, notNull, maximumLength));
 		else
 			return Collections.EMPTY_LIST;
 	}

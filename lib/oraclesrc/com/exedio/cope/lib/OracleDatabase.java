@@ -24,7 +24,7 @@ final class OracleDatabase
 
 	String getStringType(final int maxLength)
 	{
-		return "varchar2("+maxLength+")";
+		return "varchar2("+(maxLength!=Integer.MAX_VALUE ? maxLength : 2000)+")";
 	}
 	
 	private String extractConstraintName(final SQLException e, final String start, final String end)
