@@ -37,7 +37,7 @@ final AdminCop cop = AdminCop.getCop(request.getParameterMap());
 			<input type="submit" name="TEARDOWN" value="tear down"/>
 			<input type="submit" name="DROP" value="drop"/>
 			<%
-			if(Database.theInstance instanceof DatabaseReportable)
+			if(provider.getModel().isReportDatabaseSupported())
 			{
 				%><a href="<%=cop.toggleReport()%>"><%=cop.report?"disable":"enable"%> reports</a><%
 			}

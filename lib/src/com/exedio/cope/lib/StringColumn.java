@@ -15,7 +15,7 @@ final class StringColumn extends Column
 			final Table table, final String id, final boolean notNull,
 			final int minimumLength, final int maximumLength)
 	{
-		super(table, id, false, notNull, Database.theInstance.getStringType(maximumLength), JDBC_TYPE);
+		super(table, id, false, notNull, table.database.getStringType(maximumLength), JDBC_TYPE);
 		this.minimumLength = minimumLength;
 		this.maximumLength = maximumLength;
 	}
@@ -25,7 +25,7 @@ final class StringColumn extends Column
 		if(minimumLength<=0)
 			throw new RuntimeException(id);
 
-		return Database.theInstance.trimName(table.id + "_" + id+ "_Min");
+		return table.database.trimName(table.id + "_" + id+ "_Min");
 	}
 	
 	final String getMaximumLengthConstraintID()
@@ -33,7 +33,7 @@ final class StringColumn extends Column
 		if(maximumLength==Integer.MAX_VALUE)
 			throw new RuntimeException(id);
 
-		return Database.theInstance.trimName(table.id + "_" + id+ "_Max");
+		return table.database.trimName(table.id + "_" + id+ "_Max");
 	}
 	
 	void load(final ResultSet resultSet, final int columnIndex, final Row row)

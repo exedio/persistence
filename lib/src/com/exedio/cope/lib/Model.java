@@ -1,6 +1,8 @@
 package com.exedio.cope.lib;
 
 import java.io.File;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -14,19 +16,81 @@ public final class Model
 	private final Type[] types;
 	private final List typeList;
 	private final HashMap typesByID = new HashMap();
+	final Database database;
 	
 	public Model(final Type[] types)
 	{
 		this.types = types;
 		this.typeList = Collections.unmodifiableList(Arrays.asList(types));
+		database = createDatabaseInstance();
+
 		for(int i = 0; i<types.length; i++)
 		{
 			final Type type = types[i];
-			type.setModel (this);
-			typesByID.put(type.id, type);
+			type.initialize(this);
+			typesByID.put(type.getID(), type);
 		}
 	}
 
+	private final Database createDatabaseInstance()
+	{
+		final String databaseName = Properties.getInstance().getDatabase();
+
+		final Class databaseClass;
+		try
+		{
+			databaseClass = Class.forName(databaseName);
+		}
+		catch(ClassNotFoundException e)
+		{
+			final String m = "ERROR: class "+databaseName+" from cope.properties not found.";
+			System.err.println(m);
+			throw new RuntimeException(m);
+		}
+		
+		if(!Database.class.isAssignableFrom(databaseClass))
+		{
+			final String m = "ERROR: class "+databaseName+" from cope.properties not a subclass of "+Database.class.getName()+".";
+			System.err.println(m);
+			throw new RuntimeException(m);
+		}
+
+		final Constructor constructor;
+		try
+		{
+			constructor = databaseClass.getDeclaredConstructor(new Class[]{});
+		}
+		catch(NoSuchMethodException e)
+		{
+			final String m = "ERROR: class "+databaseName+" from cope.properties has no default constructor.";
+			System.err.println(m);
+			throw new RuntimeException(m);
+		}
+
+		try
+		{
+			return (Database)constructor.newInstance(new Object[]{});
+		}
+		catch(InstantiationException e)
+		{
+			e.printStackTrace();
+			System.err.println(e.getMessage());
+			throw new SystemException(e);
+		}
+		catch(IllegalAccessException e)
+		{
+			e.printStackTrace();
+			System.err.println(e.getMessage());
+			throw new SystemException(e);
+		}
+		catch(InvocationTargetException e)
+		{
+			e.printStackTrace();
+			System.err.println(e.getMessage());
+			throw new SystemException(e);
+		}
+	}
+	
 	public final List getTypes()
 	{
 		return typeList;
@@ -42,7 +106,7 @@ public final class Model
 		for(int i = 0; i<types.length; i++)
 			createMediaDirectories(types[i]);
 
-		Database.theInstance.createDatabase();
+		database.createDatabase();
 	}
 
 	private void createMediaDirectories(final Type type)
@@ -57,7 +121,7 @@ public final class Model
 				if(typeDirectory==null)
 				{
 					final File directory = Properties.getInstance().getMediaDirectory();
-					typeDirectory = new File(directory, type.id);
+					typeDirectory = new File(directory, type.getID());
 					typeDirectory.mkdir();
 				}
 				final File attributeDirectory = new File(typeDirectory, attribute.getName());
@@ -80,7 +144,12 @@ public final class Model
 	public void checkDatabase()
 	{
 		// TODO: check for media atribute directories
-		Database.theInstance.checkDatabase();
+		database.checkDatabase();
+	}
+
+	public void checkEmptyDatabase()
+	{
+		database.checkEmptyDatabase();
 	}
 
 	public void dropDatabase()
@@ -90,12 +159,22 @@ public final class Model
 		for(ListIterator i = types.listIterator(types.size()); i.hasPrevious(); )
 			((Type)i.previous()).onDropTable();
 
-		Database.theInstance.dropDatabase();
+		database.dropDatabase();
 	}
 
 	public void tearDownDatabase()
 	{
-		Database.theInstance.tearDownDatabase();
+		database.tearDownDatabase();
+	}
+
+	public boolean isReportDatabaseSupported()
+	{
+		return database instanceof DatabaseReportable;
+	}
+
+	public Report reportDatabase()
+	{
+		return ((DatabaseReportable)database).reportDatabase();
 	}
 
 	/**
@@ -130,7 +209,7 @@ public final class Model
 
 		final int pk = Search.id2pk(idNumber);
 		
-		if(!Database.theInstance.check(type, pk))
+		if(!database.check(type, pk))
 			throw new NoSuchIDException(id, "item <"+idNumber+"> does not exist");
 
 		final Item result = type.getItem(pk);

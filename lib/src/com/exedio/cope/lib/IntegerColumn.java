@@ -17,7 +17,7 @@ class IntegerColumn extends Column
 					  final boolean notNull, final int precision,
 					  final boolean longInsteadOfInt, final int[] allowedValues)
 	{
-		super(table, id, false, notNull, Database.theInstance.getIntegerType(precision), longInsteadOfInt ? JDBC_TYPE_LONG : JDBC_TYPE_INT);
+		super(table, id, false, notNull, table.database.getIntegerType(precision), longInsteadOfInt ? JDBC_TYPE_LONG : JDBC_TYPE_INT);
 		this.longInsteadOfInt = longInsteadOfInt;
 		this.allowedValues = allowedValues;
 	}
@@ -27,7 +27,7 @@ class IntegerColumn extends Column
 	 */	
 	IntegerColumn(final Table table) 
 	{
-		super(table, "PK", true, true, Database.theInstance.getIntegerType(ItemColumn.SYNTETIC_PRIMARY_KEY_PRECISION), JDBC_TYPE_INT);
+		super(table, "PK", true, true, table.database.getIntegerType(ItemColumn.SYNTETIC_PRIMARY_KEY_PRECISION), JDBC_TYPE_INT);
 		this.longInsteadOfInt = false;
 		this.allowedValues = null;
 	}
@@ -37,7 +37,7 @@ class IntegerColumn extends Column
 		if(allowedValues==null)
 			throw new RuntimeException(id);
 
-		return Database.theInstance.trimName(table.id + "_" + id+ "_Val");
+		return table.database.trimName(table.id + "_" + id+ "_Val");
 	}
 	
 	final void load(final ResultSet resultSet, final int columnIndex, final Row row)

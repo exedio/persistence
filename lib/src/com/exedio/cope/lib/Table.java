@@ -7,14 +7,16 @@ import java.util.List;
 
 final class Table
 {
+	final Database database;
 	final String id;
 	final String protectedID;
 
-	Table(final String id)
+	Table(final Database database, final String id)
 	{
+		this.database = database;
 		this.id = id;
-		this.protectedID = Database.theInstance.protectName(this.id);
-		Database.theInstance.addTable(this);
+		this.protectedID = database.protectName(this.id);
+		database.addTable(this);
 	}
 	
 	private boolean buildStage = true;

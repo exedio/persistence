@@ -17,9 +17,9 @@ final class ItemColumn extends IntegerColumn
 		if(targetTypeClass==null)
 			throw new RuntimeException();
 		this.targetTypeClass = targetTypeClass;
-		this.integrityConstraintName = Database.theInstance.trimName(table.id+"_"+id+"_Fk");
+		this.integrityConstraintName = table.database.trimName(table.id+"_"+id+"_Fk");
 		this.attribute = attribute;
-		Database.theInstance.addIntegrityConstraint(this);
+		table.database.addIntegrityConstraint(this);
 	}
 
 	/**
@@ -38,7 +38,7 @@ final class ItemColumn extends IntegerColumn
 	String getForeignTableNameProtected()
 	{
 		if(targetTypeClass!=null)
-			return Type.findByJavaClass(targetTypeClass).table.protectedID;
+			return Type.findByJavaClass(targetTypeClass).getTable().protectedID;
 		else
 			return null; 
 	}

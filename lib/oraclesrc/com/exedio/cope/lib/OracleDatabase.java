@@ -75,7 +75,7 @@ final class OracleDatabase
 
 	public Report reportDatabase()
 	{
-		final Report report = new Report(getTables());
+		final Report report = new Report(this, getTables());
 
 		{
 			final com.exedio.cope.lib.Statement bf = createStatement();

@@ -25,8 +25,6 @@ public final class Type
 
 	final Class javaClass;
 	private final Type supertype;
-	private Model model;
-	final PrimaryKeyIterator primaryKeyIterator;
 	
 	private final Attribute[] declaredAttributes;
 	private final List declaredAttributeList;
@@ -42,8 +40,11 @@ public final class Type
 	private final UniqueConstraint[] uniqueConstraints;
 	private final List uniqueConstraintList;
 	
-	final String id;
-	final Table table;
+	private Model model;
+	private String id;
+
+	private Table table;
+	private PrimaryKeyIterator primaryKeyIterator;
 
 	private final Constructor reactivationConstructor;
 	private static final Class[] reactivationConstructorParams =
@@ -61,7 +62,6 @@ public final class Type
 			throw new IllegalArgumentException(javaClass.toString()+" is not a subclass of Item");
 
 		typesByName.put(javaClass, this);
-		this.id = Database.theInstance.trimName(this);
 
 		// supertype
 		final Class superClass = javaClass.getSuperclass();
@@ -73,19 +73,6 @@ public final class Type
 			if(supertype==null)
 				throw new NullPointerException(superClass.getName());
 		}
-
-		this.table = new Table(id);
-		if(supertype!=null)
-		{
-			primaryKeyIterator = supertype.primaryKeyIterator;
-			new ItemColumn(table, supertype.getJavaClass());
-		}
-		else
-		{
-			primaryKeyIterator = new PrimaryKeyIterator(table);
-			new IntegerColumn(table);
-		}
-
 
 		// declaredAttributes
 		final Field[] fields = javaClass.getDeclaredFields();
@@ -106,7 +93,7 @@ public final class Type
 						final Attribute attribute = (Attribute)field.get(null);
 						if(attribute==null)
 							throw new InitializerRuntimeException(field.getName());
-						attribute.initialize(this, field.getName(), table);
+						attribute.initialize(this, field.getName());
 						attributesTemp.add(attribute);
 						featuresTemp.add(attribute);
 						featuresByName.put(attribute.getName(), attribute);
@@ -158,8 +145,6 @@ public final class Type
 		this.uniqueConstraints = (UniqueConstraint[])uniqueConstraintsTemp.toArray(new UniqueConstraint[uniqueConstraintsTemp.size()]);
 		this.uniqueConstraintList = Collections.unmodifiableList(Arrays.asList(this.uniqueConstraints));
 		
-		this.table.setUniqueConstraints(this.uniqueConstraintList);
-
 		// attributes
 		if(supertype==null)
 		{
@@ -196,6 +181,43 @@ public final class Type
 		}
 	}
 	
+	public final void initialize(final Model model)
+	{
+		if(model==null)
+			throw new RuntimeException();
+
+		if(this.model!=null)
+			throw new RuntimeException();
+		if(this.id!=null)
+			throw new RuntimeException();
+		if(this.table!=null)
+			throw new RuntimeException();
+		if(this.primaryKeyIterator!=null)
+			throw new RuntimeException();
+		
+		this.model = model;
+		final Database database = model.database;
+		this.id = database.trimName(this);
+		this.table = new Table(database, id);
+
+		if(supertype!=null)
+		{
+			primaryKeyIterator = supertype.getPrimaryKeyIterator();
+			new ItemColumn(table, supertype.getJavaClass());
+		}
+		else
+		{
+			primaryKeyIterator = new PrimaryKeyIterator(table);
+			new IntegerColumn(table);
+		}
+
+		for(int i = 0; i<declaredAttributes.length; i++)
+			declaredAttributes[i].materialize(table);
+		for(int i = 0; i<uniqueConstraints.length; i++)
+			uniqueConstraints[i].materialize(database);
+		this.table.setUniqueConstraints(this.uniqueConstraintList);
+	}
+	
 	public final Class getJavaClass()
 	{
 		return javaClass;
@@ -203,15 +225,10 @@ public final class Type
 	
 	public final String getID()
 	{
-		return id;
-	}
-	
-	public final void setModel(final Model model)
-	{
-		if(this.model!=null)
+		if(model==null)
 			throw new RuntimeException();
 
-		this.model = model;
+		return id;
 	}
 	
 	public final Model getModel()
@@ -220,6 +237,14 @@ public final class Type
 			throw new RuntimeException();
 
 		return model;
+	}
+	
+	final Table getTable()
+	{
+		if(model==null)
+			throw new RuntimeException();
+
+		return table;
 	}
 	
 	/**
@@ -312,6 +337,14 @@ public final class Type
 	public final Collection search(final Condition condition)
 	{
 		return Search.search(this, condition);
+	}
+	
+	PrimaryKeyIterator getPrimaryKeyIterator()
+	{
+		if(primaryKeyIterator==null)
+			throw new RuntimeException();
+		
+		return primaryKeyIterator;
 	}
 	
 	void onDropTable()

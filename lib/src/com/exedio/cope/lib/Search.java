@@ -367,7 +367,8 @@ public abstract class Search
 	{
 		//System.out.println("select " + type.getJavaClass().getName() + " where " + condition);
 		query.check();
-		return wrapPrimaryKeys(query.selectType, Database.theInstance.search(query));
+		final Type selectType = query.selectType;
+		return wrapPrimaryKeys(selectType, selectType.getModel().database.search(query));
 	}
 	
 	/**

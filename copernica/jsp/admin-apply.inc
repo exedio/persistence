@@ -1,7 +1,7 @@
 
 <%
 {
-	final Report report = ((DatabaseReportable)Database.theInstance).reportDatabase();
+	final Report report = provider.getModel().reportDatabase();
 	%>
 	<ol><%
 	{

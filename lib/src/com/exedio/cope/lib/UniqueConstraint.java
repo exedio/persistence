@@ -10,8 +10,9 @@ public final class UniqueConstraint
 	
 	private final Attribute[] uniqueAttributes;
 	private final List uniqueAttributeList;
+	private Type type;
 	private String id;
-	private String protectedID;
+	private String databaseID;
 
 	private UniqueConstraint(final Attribute[] uniqueAttributes)
 	{
@@ -44,8 +45,28 @@ public final class UniqueConstraint
 		if(name==null)
 			throw new RuntimeException();
 
-		this.id = Database.theInstance.trimName(type.id+"_"+name+"_Unq");
-		Database.theInstance.addUniqueConstraint(id, this);
+		if(this.type!=null)
+			throw new RuntimeException();
+		if(this.id!=null)
+			throw new RuntimeException();
+		if(databaseID!=null)
+			throw new RuntimeException();
+
+		this.type = type;
+		this.id = name;
+	}
+
+	final void materialize(final Database database)
+	{
+		if(this.type==null)
+			throw new RuntimeException();
+		if(this.id==null)
+			throw new RuntimeException();
+		if(this.databaseID!=null)
+			throw new RuntimeException();
+
+		this.databaseID = database.trimName(type.getID()+"_"+id+"_Unq");
+		database.addUniqueConstraint(databaseID, this);
 	}
 
 	public final String getID()
@@ -56,13 +77,12 @@ public final class UniqueConstraint
 		return id;
 	}
 	
-	final String getProtectedID()
+	public final String getDatabaseID()
 	{
-		if(protectedID!=null)
-			return protectedID;
-
-		this.protectedID = Database.theInstance.protectName(getID());
-		return protectedID;
+		if(databaseID==null)
+			throw new RuntimeException();
+			
+		return databaseID;
 	}
 	
 

@@ -56,7 +56,7 @@ public final class Statement
 	public Statement append(final ObjectAttribute attribute)
 	{
 		this.text.
-			append(attribute.getType().table.protectedID).
+			append(attribute.getType().getTable().protectedID).
 			append('.').
 			append(attribute.getMainColumn().protectedID);
 			
@@ -65,7 +65,7 @@ public final class Statement
 		
 	public Statement appendPK(final Type type)
 	{
-		final Table table = type.table;
+		final Table table = type.getTable();
 		this.text.
 			append(table.protectedID).
 			append('.').

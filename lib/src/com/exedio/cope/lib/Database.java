@@ -1,8 +1,6 @@
 
 package com.exedio.cope.lib;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -18,68 +16,6 @@ import bak.pcj.list.IntArrayList;
 // TODO: make class package-private
 public abstract class Database
 {
-	// TODO: theInstance to be Model#database
-	public static final Database theInstance = createInstance();
-	
-	private static final Database createInstance()
-	{
-		final String databaseName = Properties.getInstance().getDatabase();
-
-		final Class databaseClass;
-		try
-		{
-			databaseClass = Class.forName(databaseName);
-		}
-		catch(ClassNotFoundException e)
-		{
-			final String m = "ERROR: class "+databaseName+" from cope.properties not found.";
-			System.err.println(m);
-			throw new RuntimeException(m);
-		}
-		
-		if(!Database.class.isAssignableFrom(databaseClass))
-		{
-			final String m = "ERROR: class "+databaseName+" from cope.properties not a subclass of "+Database.class.getName()+".";
-			System.err.println(m);
-			throw new RuntimeException(m);
-		}
-
-		final Constructor constructor;
-		try
-		{
-			constructor = databaseClass.getDeclaredConstructor(new Class[]{});
-		}
-		catch(NoSuchMethodException e)
-		{
-			final String m = "ERROR: class "+databaseName+" from cope.properties has no default constructor.";
-			System.err.println(m);
-			throw new RuntimeException(m);
-		}
-
-		try
-		{
-			return (Database)constructor.newInstance(new Object[]{});
-		}
-		catch(InstantiationException e)
-		{
-			e.printStackTrace();
-			System.err.println(e.getMessage());
-			throw new SystemException(e);
-		}
-		catch(IllegalAccessException e)
-		{
-			e.printStackTrace();
-			System.err.println(e.getMessage());
-			throw new SystemException(e);
-		}
-		catch(InvocationTargetException e)
-		{
-			e.printStackTrace();
-			System.err.println(e.getMessage());
-			throw new SystemException(e);
-		}
-	}
-	
 	private final List tables = new ArrayList();
 	private final HashMap uniqueConstraintsByID = new HashMap();
 	private final HashMap itemColumnsByIntegrityConstraintName = new HashMap();
@@ -278,7 +214,7 @@ public abstract class Database
 		}
 	}
 
-	public void checkEmptyTables()
+	public void checkEmptyDatabase()
 	{
 		buildStage = false;
 
@@ -299,7 +235,7 @@ public abstract class Database
 	{
 		buildStage = false;
 
-		final Table selectTable = query.selectType.table;
+		final Table selectTable = query.selectType.getTable();
 		final Column selectPrimaryKey = selectTable.getPrimaryKey();
 		final Statement bf = createStatement();
 
@@ -317,7 +253,7 @@ public abstract class Database
 			else
 				bf.append(',');
 
-			bf.append(((Type)i.next()).table.protectedID);
+			bf.append(((Type)i.next()).getTable().protectedID);
 		}
 
 		if(query.condition!=null)
@@ -413,7 +349,7 @@ public abstract class Database
 		boolean first = true;
 		for(Type type = row.type; type!=null; type = type.getSupertype())
 		{
-			final Table table = type.table;
+			final Table table = type.getTable();
 			final List columns = table.getColumns();
 			for(Iterator i = columns.iterator(); i.hasNext(); )
 			{
@@ -438,7 +374,7 @@ public abstract class Database
 			else
 				bf.append(',');
 
-			bf.append(type.table.protectedID);
+			bf.append(type.getTable().protectedID);
 		}
 			
 		bf.append(" where ");
@@ -450,7 +386,7 @@ public abstract class Database
 			else
 				bf.append(" and ");
 
-			final Table table = type.table;
+			final Table table = type.getTable();
 			bf.append(table.protectedID).
 				append('.').
 				append(table.getPrimaryKey().protectedID).
@@ -485,7 +421,7 @@ public abstract class Database
 			int columnIndex = 1;
 			for(Type type = row.type; type!=null; type = type.getSupertype())
 			{
-				for(Iterator i = type.table.getColumns().iterator(); i.hasNext(); )
+				for(Iterator i = type.getTable().getColumns().iterator(); i.hasNext(); )
 					((Column)i.next()).load(resultSet, columnIndex++, row);
 			}
 			return;
@@ -498,7 +434,7 @@ public abstract class Database
 		buildStage = false;
 
 		final Statement bf = createStatement();
-		final Table table = type.table;
+		final Table table = type.getTable();
 		final Column primaryKey = table.getPrimaryKey();
 		final String tableProtectedID = table.protectedID;
 		final String primaryKeyProtectedID = primaryKey.protectedID;
@@ -554,7 +490,7 @@ public abstract class Database
 		if(supertype!=null)
 			store(row, supertype);
 			
-		final Table table = type.table;
+		final Table table = type.getTable();
 
 		final List columns = table.getColumns();
 
@@ -634,7 +570,7 @@ public abstract class Database
 
 		for(Type currentType = type; currentType!=null; currentType = currentType.getSupertype())
 		{
-			final Table currentTable = currentType.table;
+			final Table currentTable = currentType.getTable();
 			final Statement bf = createStatement();
 			bf.append("delete from ").
 				append(currentTable.protectedID).
@@ -1024,7 +960,7 @@ public abstract class Database
 		{
 			final UniqueConstraint uniqueConstraint = (UniqueConstraint)i.next();
 			bf.append(",constraint ").
-				append(uniqueConstraint.getProtectedID()).
+				append(protectName(uniqueConstraint.getDatabaseID())).
 				append(" unique(");
 			boolean first = true;
 			for(Iterator j = uniqueConstraint.getUniqueAttributes().iterator(); j.hasNext(); )
@@ -1067,7 +1003,7 @@ public abstract class Database
 				bf.append("alter table ").
 					append(table.protectedID).
 					append(" add constraint ").
-					append(Database.theInstance.protectName(itemColumn.integrityConstraintName)).
+					append(protectName(itemColumn.integrityConstraintName)).
 					append(" foreign key (").
 					append(column.protectedID).
 					append(") references ").
@@ -1149,7 +1085,7 @@ public abstract class Database
 				bf.append("alter table ").
 					append(table.protectedID).
 					append(" drop constraint ").
-					append(Database.theInstance.protectName(itemColumn.integrityConstraintName));
+					append(protectName(itemColumn.integrityConstraintName));
 
 				//System.out.println("dropForeignKeyConstraints:"+bf);
 				try

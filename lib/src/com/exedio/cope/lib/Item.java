@@ -38,7 +38,7 @@ public abstract class Item extends Search
 	 */
 	public final String getID()
 	{
-		return type.id + '.' + pk2id(pk);
+		return type.getID() + '.' + pk2id(pk);
 	}
 	
 	/**
@@ -119,7 +119,7 @@ public abstract class Item extends Search
 		throws ClassCastException
 	{
 		this.type = Type.findByJavaClass(getClass());
-		this.pk = type.primaryKeyIterator.nextPK();
+		this.pk = type.getPrimaryKeyIterator().nextPK();
 		final Row row = new Row(this, false);
 		//System.out.println("create item "+type+" "+pk);
 
@@ -373,7 +373,7 @@ public abstract class Item extends Search
 			}
 		}
 
-		bf.append(attribute.getType().id).
+		bf.append(attribute.getType().getID()).
 			append('/').
 			append(attribute.getName());
 		
@@ -574,7 +574,7 @@ public abstract class Item extends Search
 		{
 			if(type.getRow(pk)!=rowWhenActive)
 				throw new RuntimeException();
-			Database.theInstance.delete(type, pk);
+			type.getModel().database.delete(type, pk);
 			rowWhenActive.close();
 			rowWhenActive = null;
 		}
@@ -583,7 +583,7 @@ public abstract class Item extends Search
 			final Row row = type.getRow(pk);
 			if(row==null)
 			{
-				Database.theInstance.delete(type, pk);
+				type.getModel().database.delete(type, pk);
 			}
 			else
 			{
@@ -634,7 +634,7 @@ public abstract class Item extends Search
 			if(row==null)
 			{
 				rowWhenActive = new Row(this, true);
-				Database.theInstance.load(rowWhenActive);
+				type.getModel().database.load(rowWhenActive);
 				return rowWhenActive;
 			}
 			else

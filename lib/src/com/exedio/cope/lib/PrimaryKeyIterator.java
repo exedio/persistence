@@ -24,7 +24,7 @@ final class PrimaryKeyIterator
 	{
 		if(nextPkLo==Type.NOT_A_PK)
 		{
-			final int[] nextPks = Database.theInstance.getNextPK(table);
+			final int[] nextPks = table.database.getNextPK(table);
 			if(nextPks.length!=2)
 				throw new RuntimeException(String.valueOf(nextPks.length));
 			nextPkLo = nextPks[0];

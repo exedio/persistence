@@ -9,6 +9,7 @@ import java.util.Iterator;
 
 public final class ReportTable extends ReportNode
 {
+	public final Report report;
 	public final String name;
 	private final Table table;
 	private boolean exists = false;
@@ -20,15 +21,17 @@ public final class ReportTable extends ReportNode
 	private final HashMap constraintMap = new HashMap();
 	private final ArrayList constraintList = new ArrayList();
 
-	ReportTable(final com.exedio.cope.lib.Table table)
+	ReportTable(final Report report, final com.exedio.cope.lib.Table table)
 	{
+		this.report = report;
 		this.name = table.id;
 		this.table = table;
 		this.exists = false;
 	}
 
-	ReportTable(final String name)
+	ReportTable(final Report report, final String name)
 	{
+		this.report = report;
 		this.name = name;
 		this.table = null;
 		this.exists = true;
@@ -169,22 +172,22 @@ public final class ReportTable extends ReportNode
 	
 	public final void create()
 	{
-		Database.theInstance.createTable(table);
+		report.database.createTable(table);
 	}
 	
 	public final void renameTo(final String newName)
 	{
-		Database.theInstance.renameTable(name, newName);
+		report.database.renameTable(name, newName);
 	}
 
 	public final void drop()
 	{
-		Database.theInstance.dropTable(name);
+		report.database.dropTable(name);
 	}
 
 	public final void analyze()
 	{
-		Database.theInstance.analyzeTable(name);
+		report.database.analyzeTable(name);
 	}
 	
 }

@@ -8,16 +8,17 @@ import java.util.List;
 
 public final class Report extends ReportNode
 {
-
+	final Database database;
 	private final HashMap tableMap = new HashMap();
 	private final ArrayList tableList = new ArrayList();
 	
-	Report(final List modelTables)
+	Report(final Database database, final List modelTables)
 	{
+		this.database = database;
 		for(Iterator i = modelTables.iterator(); i.hasNext(); )
 		{
 			final com.exedio.cope.lib.Table modelTable = (com.exedio.cope.lib.Table)i.next();
-			final ReportTable reportTable = new ReportTable(modelTable);
+			final ReportTable reportTable = new ReportTable(this, modelTable);
 			if(tableMap.put(modelTable.id, reportTable)!=null)
 				throw new RuntimeException();
 			tableList.add(reportTable);
@@ -68,7 +69,7 @@ public final class Report extends ReportNode
 		ReportTable result = (ReportTable)tableMap.get(tableName);
 		if(result==null)
 		{
-			result = new ReportTable(tableName);
+			result = new ReportTable(this, tableName);
 			tableMap.put(tableName, result);
 			tableList.add(result);
 		}

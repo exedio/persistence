@@ -85,17 +85,17 @@ public final class ReportColumn extends ReportNode
 		
 	public final void create()
 	{
-		Database.theInstance.createColumn(column);
+		table.report.database.createColumn(column);
 	}
 
 	public final void renameTo(final String newName)
 	{
-		Database.theInstance.renameColumn(table.name, name, newName);
+		table.report.database.renameColumn(table.name, name, newName);
 	}
 
 	public final void drop()
 	{
-		Database.theInstance.dropColumn(table.name, name);
+		table.report.database.dropColumn(table.name, name);
 	}
 
 }

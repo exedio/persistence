@@ -52,12 +52,12 @@ public abstract class DatabaseLibTest extends AbstractLibTest
 	{
 		super.setUp();
 		createDatabase();
-		Database.theInstance.checkEmptyTables();
+		model.checkEmptyDatabase();
 	}
 	
 	protected void tearDown() throws Exception
 	{
-		Database.theInstance.checkEmptyTables();
+		model.checkEmptyDatabase();
 		dropDatabase();
 		super.tearDown();
 	}
@@ -228,7 +228,7 @@ public abstract class DatabaseLibTest extends AbstractLibTest
 
 	public static void main(String[] args)
 	{
-		Database.theInstance.tearDownDatabase();
+		model.tearDownDatabase();
 	}
 
 }

@@ -20,7 +20,7 @@ abstract class Column
 	{
 		this.table = table;
 		this.id = id;
-		this.protectedID = Database.theInstance.protectName(id);
+		this.protectedID = table.database.protectName(id);
 		this.primaryKey = primaryKey;
 		this.notNull = notNull;
 		this.databaseType = databaseType;
@@ -33,7 +33,7 @@ abstract class Column
 		if(!primaryKey)
 			throw new RuntimeException(id);
 
-		return Database.theInstance.trimName(table.id + "_" + "Pk");
+		return table.database.trimName(table.id + "_" + "Pk");
 	}
 	
 	final String getNotNullConstraintID()
@@ -41,7 +41,7 @@ abstract class Column
 		if(!notNull)
 			throw new RuntimeException(id);
 
-		return Database.theInstance.trimName(table.id + "_" + id+ "_Nn");
+		return table.database.trimName(table.id + "_" + id+ "_Nn");
 	}
 	
 	public final String toString()
