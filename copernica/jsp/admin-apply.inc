@@ -115,7 +115,10 @@
 				throw new RuntimeException(sourceName);
 			
 			%>
-			<li>renaming column <%=sourceName%> to <%=targetName%> ...</li><%
+			<li>report.getTable(&quot;<b><%=
+				column.table.name%></b>&quot;).getColumn(&quot;<b><%=
+				column.name%></b>&quot;).renameTo(&quot;<b><%=
+				targetName%></b>&quot;);</li><%
 			out.flush();
 			final long startTime = System.currentTimeMillis();
 			column.renameTo(targetName);
