@@ -16,10 +16,11 @@ public final class UniqueConstraint
 		return (UniqueConstraint)uniqueConstraintsByName.get(name);
 	}
 	
+	
 	// TODO: create a speaking name from the attributes
-	private static int runningNumber = 5;
+	private static int runningNumber = 0;
 
-
+	
 	private final Attribute[] uniqueAttributes;
 	private final List uniqueAttributeList;
 	final String trimmedName;
@@ -29,9 +30,18 @@ public final class UniqueConstraint
 	{
 		this.uniqueAttributes = uniqueAttributes;
 		this.uniqueAttributeList = Collections.unmodifiableList(Arrays.asList(uniqueAttributes));
-		this.trimmedName = "UC"+runningNumber++;
+		
+		final StringBuffer nameBuffer = new StringBuffer();
+		for(int i = 0; i<uniqueAttributes.length; i++)
+			nameBuffer.append(uniqueAttributes[i].getName());
+		nameBuffer.append(runningNumber++);
+		
+		this.trimmedName = Database.theInstance.trimName(nameBuffer.toString());
 		this.protectedName = Database.theInstance.protectName(this.trimmedName);
-		uniqueConstraintsByName.put(trimmedName, this);
+
+		final Object collision = uniqueConstraintsByName.put(trimmedName, this);
+		if(collision!=null)
+			throw new SystemException(null, "ambiguous unique constraint "+this+" trimmed to >"+this.trimmedName+"< colliding with "+collision);
 	}
 	
 	public UniqueConstraint(final Attribute uniqueAttribute)
