@@ -9,6 +9,7 @@ page import="com.exedio.cope.lib.StringAttribute" %><%@
 page import="com.exedio.cope.lib.BooleanAttribute" %><%@
 page import="com.exedio.cope.lib.IntegerAttribute" %><%@
 page import="com.exedio.cope.lib.LongAttribute" %><%@
+page import="com.exedio.cope.lib.DoubleAttribute" %><%@
 page import="com.exedio.cope.lib.DateAttribute" %><%@
 page import="com.exedio.cope.lib.MediaAttribute" %><%@
 page import="com.exedio.cope.lib.EnumerationAttribute" %><%@

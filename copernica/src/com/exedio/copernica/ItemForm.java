@@ -10,6 +10,7 @@ import com.exedio.cope.lib.Attribute;
 import com.exedio.cope.lib.BooleanAttribute;
 import com.exedio.cope.lib.ConstraintViolationException;
 import com.exedio.cope.lib.DateAttribute;
+import com.exedio.cope.lib.DoubleAttribute;
 import com.exedio.cope.lib.EnumerationAttribute;
 import com.exedio.cope.lib.EnumerationValue;
 import com.exedio.cope.lib.IntegerAttribute;
@@ -51,6 +52,7 @@ public class ItemForm extends Form
 				if(attribute instanceof StringAttribute
 					|| attribute instanceof IntegerAttribute
 					|| attribute instanceof LongAttribute
+					|| attribute instanceof DoubleAttribute
 					|| attribute instanceof DateAttribute
 					|| attribute instanceof ItemAttribute
 					|| attribute instanceof BooleanAttribute
@@ -74,6 +76,10 @@ public class ItemForm extends Form
 						else if(attribute instanceof LongAttribute)
 						{
 							value = (itemValue==null) ? "" : String.valueOf((Long)itemValue);
+						}
+						else if(attribute instanceof DoubleAttribute)
+						{
+							value = (itemValue==null) ? "" : String.valueOf((Double)itemValue);
 						}
 						else if(attribute instanceof DateAttribute)
 						{
@@ -146,6 +152,13 @@ public class ItemForm extends Form
 					{
 						if(valueString.length()>0)
 							value = new Long(Long.parseLong(valueString));
+						else
+							value = null;
+					}
+					else if(attribute instanceof DoubleAttribute)
+					{
+						if(valueString.length()>0)
+							value = new Double(Double.parseDouble(valueString));
 						else
 							value = null;
 					}

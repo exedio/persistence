@@ -16,6 +16,8 @@ public class WebTest extends WebTestCase
 	String someNotNullInteger;
 	String someLong;
 	String someNotNullLong;
+	String someDouble;
+	String someNotNullDouble;
 	String someDate;
 	String someBoolean;
 	boolean someNotNullBoolean;
@@ -34,6 +36,8 @@ public class WebTest extends WebTestCase
 		someNotNullInteger = "107";
 		someLong = "";
 		someNotNullLong = "108";
+		someDouble = "";
+		someNotNullDouble = "102.4";
 		someDate = "16.06.2004 08:43:58.214";
 		someBoolean = "null";
 		someNotNullBoolean = true;
@@ -51,6 +55,8 @@ public class WebTest extends WebTestCase
 		assertFormElementEquals("someNotNullInteger", someNotNullInteger);
 		assertFormElementEquals("someLong", someLong);
 		assertFormElementEquals("someNotNullLong", someNotNullLong);
+		assertFormElementEquals("someDouble", someDouble);
+		assertFormElementEquals("someNotNullDouble", someNotNullDouble);
 		assertFormElementEquals("someDate", someDate);
 		assertFormElementEquals("someBoolean", someBoolean);
 		if(someNotNullBoolean)
@@ -115,6 +121,16 @@ public class WebTest extends WebTestCase
 		assertTitleEquals("AttributeItem.103");
 		assertItemForm();
 
+		setFormElement("someDouble", ""); someDouble = "";
+		submit("SAVE");
+		assertTitleEquals("AttributeItem.103");
+		assertItemForm();
+
+		setFormElement("someNotNullDouble", "-75.9912"); someNotNullDouble = "-75.9912";
+		submit("SAVE");
+		assertTitleEquals("AttributeItem.103");
+		assertItemForm();
+
 		setFormElement("someDate", "17.07.2005 09:44:59.215"); someDate = "17.07.2005 09:44:59.215";
 		submit("SAVE");
 		assertTitleEquals("AttributeItem.103");
@@ -170,6 +186,8 @@ public class WebTest extends WebTestCase
 		setFormElement("someNotNullInteger", "107"); someNotNullInteger = "107";
 		setFormElement("someLong", ""); someLong = "";
 		setFormElement("someNotNullLong", "108"); someNotNullLong = "108";
+		setFormElement("someDouble", ""); someDouble = "";
+		setFormElement("someNotNullDouble", "102.4"); someNotNullDouble = "102.4";
 		setFormElement("someDate", "16.06.2004 08:43:58.214"); someDate = "16.06.2004 08:43:58.214";
 		setFormElement("someBoolean", "null"); someBoolean = "null";
 		setFormElement("someNotNullBoolean", "on"); someNotNullBoolean = true;

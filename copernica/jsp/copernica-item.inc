@@ -102,6 +102,7 @@
 			else if(attribute instanceof StringAttribute
 						|| attribute instanceof IntegerAttribute
 						|| attribute instanceof LongAttribute
+						|| attribute instanceof DoubleAttribute
 						|| attribute instanceof DateAttribute
 						|| attribute instanceof ItemAttribute)
 			{
