@@ -170,7 +170,6 @@ public abstract class DatabaseLibTest extends AbstractLibTest
 				final AttributeItem attributeItem = new AttributeItem("running"+i, 7+i, 8l+i, 2.4+i, (i%2)==0, emptyItem2, AttributeItem.SomeEnumeration.enumValue2);
 				attributeItem.setSomeDate(date);
 			}
-
 			{			
 				final StringItem item1 = new StringItem();
 				final StringItem item2 = new StringItem();
@@ -202,6 +201,16 @@ public abstract class DatabaseLibTest extends AbstractLibTest
 			new SumItem(2, 9, 7);
 			new SumItem(5, 2, 0);
 			new SumItem(6, 7, 6);
+
+			{
+				final QualifiedItem qualifiedItem1 = new QualifiedItem();
+				final QualifiedItem qualifiedItem2 = new QualifiedItem();
+				qualifiedItem1.setNumber(new Integer(1));
+				qualifiedItem2.setNumber(new Integer(2));
+				qualifiedItem1.setQualifiedA(emptyItem1, "1A1");
+				qualifiedItem1.setQualifiedA(emptyItem2, "1A2");
+				qualifiedItem1.setQualifiedB(emptyItem1, "1B1");
+			}
 
 			{
 				final PointerItem2 item2a = new PointerItem2("hallo");
