@@ -86,6 +86,11 @@ public abstract class AbstractLibTest extends TestCase
 		return new HashSet(Arrays.asList(new Object[]{o1, o2}));
 	}
 
+	protected Set set(final Object o1, final Object o2, final Object o3)
+	{
+		return new HashSet(Arrays.asList(new Object[]{o1, o2, o3}));
+	}
+
 	protected List list()
 	{
 		return Collections.EMPTY_LIST;
