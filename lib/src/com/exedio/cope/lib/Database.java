@@ -512,7 +512,11 @@ public abstract class Database
 		{
 			if(start>0)
 			{
-				//resultSet.relative(start+1);
+				// TODO: ResultSet.relative
+				// Would like to use
+				//    resultSet.relative(start+1);
+				// but this throws a java.sql.SQLException:
+				// Invalid operation for forward only resultset : relative
 				for(int i = start; i>0; i--)
 					resultSet.next();
 			}
