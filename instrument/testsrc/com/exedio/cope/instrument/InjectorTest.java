@@ -8,6 +8,7 @@ import java.io.Reader;
 import java.io.StringWriter;
 import java.util.LinkedList;
 
+import junit.framework.AssertionFailedError;
 import junit.framework.TestCase;
 
 public abstract class InjectorTest extends TestCase
@@ -84,6 +85,8 @@ public abstract class InjectorTest extends TestCase
 	protected void assertText(final String text)
 	{
 		final InjectionEvent event = fetchEvent();
+		if(!(event instanceof TextEvent))
+			throw new AssertionFailedError("expected text event >"+text+"<, but was "+event);
 		final String actualText = ((TextEvent)event).text;
 		assertEqualsText(text, actualText);
 	}
@@ -128,14 +131,13 @@ public abstract class InjectorTest extends TestCase
 		assertSame(expectedJavaClass, javaClass);
 	}
 	
-	protected JavaBehaviour assertBehaviourHeader(final String name, final String type, final int modifier, final String literal)
+	protected JavaBehaviour assertBehaviourHeader(final String name, final String type, final int modifier)
 	{
 		final InjectionEvent event = fetchEvent();
 		final JavaBehaviour javaBehaviour = ((BehaviourHeaderEvent)event).javaBehaviour;
 		assertEquals(name, javaBehaviour.getName());
 		assertEquals(type, javaBehaviour.getType());
 		assertEquals(modifier, javaBehaviour.getModifiers());
-		assertEqualsText(literal, javaBehaviour.getLiteral());
 		return javaBehaviour;
 	}
 	
@@ -297,6 +299,11 @@ public abstract class InjectorTest extends TestCase
 		{
 			this.javaFeature = javaFeature;
 			this.docComment = docComment;
+		}
+		
+		public String toString()
+		{
+			return "ClassFeatureEvent("+javaFeature+")";
 		}
 	}
 	

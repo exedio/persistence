@@ -919,7 +919,6 @@ public final class Instrumentor implements InjectionConsumer
 	public void onBehaviourHeader(JavaBehaviour jb)
 	throws java.io.IOException
 	{
-		output.write(jb.getLiteral());
 	}
 	
 	public void onAttributeHeader(JavaAttribute ja)

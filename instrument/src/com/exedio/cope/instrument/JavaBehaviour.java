@@ -24,13 +24,6 @@ public abstract class JavaBehaviour extends JavaFeature
 	 */
 	private final ArrayList throwables=new ArrayList();
 	
-	/**
-	 * The method header of this method,
-	 * exactly as in the input stream,
-	 * including all typographic extra's (line breaks, comments).
-	 */
-	protected String literal;
-	
 	public JavaBehaviour(JavaClass parent,
 	int modifiers,
 	String type,
@@ -62,41 +55,12 @@ public abstract class JavaBehaviour extends JavaFeature
 		return throwables.iterator();
 	}
 	
-	public void setLiteral(String literal)
-	{
-		if( this.literal!=null || literal==null )
-			throw new IllegalArgumentException();
-		this.literal=literal;
-	}
-	
-	public final String getLiteral()
-	{
-		return literal;
-	}
-	
-	/**
-	 * Ignores this information.
-	 * To be overridden by classes needing this information.
-	 * @see JavaConstructor#setLastParameterStart(int)
-	 */
-	public void setLastParameterStart(int pos)
-	{}
-	
-	/**
-	 * Ignores this information.
-	 * To be overridden by classes needing this information.
-	 * @see JavaConstructor#setLastParameterEnd(int)
-	 */
-	public void setLastParameterEnd(int pos)
-	{}
-	
 	public void printMore(PrintStream o)
 	{
 		for(Iterator i=parameters.iterator(); i.hasNext(); )
 			o.println("    parameter >"+i.next()+"< >"+i.next()+"<");
 		for(Iterator i=throwables.iterator(); i.hasNext(); )
 			o.println("    throwable >"+i.next()+"<");
-		System.out.println("    literal: >"+literal+"<");
 	}
 	
 }

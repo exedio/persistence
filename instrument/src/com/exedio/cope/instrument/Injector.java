@@ -499,7 +499,6 @@ public final class Injector
 						modifiers,
 						featurename)
 					: new JavaMethod(parent, modifiers, featuretype, featurename);
-			jb.setLastParameterStart(collector.length() + 1);
 			parseBehaviour(jb);
 			JavaFeature[] jbarray = { jb };
 			return jbarray;
@@ -522,7 +521,6 @@ public final class Injector
 			String parametertype;
 			if (c == ')')
 			{
-				jb.setLastParameterEnd(collector.length());
 				break;
 			}
 			else if (c == '\0')
@@ -547,13 +545,11 @@ public final class Injector
 			c = readToken();
 			if (c == ',')
 			{
-				jb.setLastParameterStart(collector.length());
 				c = readToken();
 				continue;
 			}
 			else if (c == ')')
 			{
-				jb.setLastParameterEnd(collector.length());
 				break;
 			}
 			else
@@ -568,7 +564,7 @@ public final class Injector
 				case '{' :
 					if (collect_when_blocking)
 					{
-						jb.setLiteral(getCollector());
+						output.write(getCollector());
 						consumer.onBehaviourHeader(jb);
 					}
 					parseBody(false);
@@ -577,7 +573,7 @@ public final class Injector
 				case ';' :
 					if (collect_when_blocking)
 					{
-						jb.setLiteral(getCollector());
+						output.write(getCollector());
 						consumer.onBehaviourHeader(jb);
 					}
 					flushOutbuf();
