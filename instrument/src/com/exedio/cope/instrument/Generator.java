@@ -537,20 +537,15 @@ final class Generator
 	}
 	
 	private void writeUniqueFinder(final PersistentAttribute[] persistentAttributes)
-	throws IOException, InjectorParseException
+	throws IOException
 	{
-		int modifiers = -1;
+		int accessModifier = JavaFeature.ACCESS_PUBLIC;
 		for(int i=0; i<persistentAttributes.length; i++)
 		{
-			if(modifiers==-1)
-				modifiers = persistentAttributes[i].getMethodModifiers();
-			else 
-			{
-				if(modifiers!=persistentAttributes[i].getMethodModifiers())
-					throw new InjectorParseException("Tried to write unique finder and found attribues with different modifiers");
-			}
+			final int attributeAccessModifier = persistentAttributes[i].accessModifier;
+			if(accessModifier<attributeAccessModifier)
+				accessModifier=attributeAccessModifier;
 		}
-		final String methodModifiers = Modifier.toString(modifiers|Modifier.STATIC);
 		final String className = persistentAttributes[0].getParent().getName();
 		
 		writeCommentHeader();
@@ -568,8 +563,8 @@ final class Generator
 		}
 		o.write(lineSeparator);
 		writeCommentFooter();
-		o.write(methodModifiers);
-		o.write(' ');
+		o.write(JavaAttribute.toAccessModifierString(accessModifier));
+		o.write("static final ");
 		o.write(className);
 		
 		boolean first=true;
