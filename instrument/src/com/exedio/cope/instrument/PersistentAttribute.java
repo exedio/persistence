@@ -17,7 +17,7 @@ import com.exedio.cope.lib.SystemException;
 import com.exedio.cope.lib.UniqueViolationException;
 import com.exedio.cope.lib.util.ClassComparator;
 
-public class PersistentAttribute
+public abstract class PersistentAttribute
 {
 	/**
 	 * Defines this attribute as a media attribute.

@@ -216,33 +216,15 @@ public final class Instrumentor implements InjectionConsumer
 					qualifiers = null;
 
 				final PersistentAttribute persistentAttribute;
-
-				if(IntegerAttribute.class.equals(typeClass))
+				if(
+					IntegerAttribute.class.equals(typeClass) ||
+					DoubleAttribute.class.equals(typeClass) ||
+					BooleanAttribute.class.equals(typeClass) ||
+					StringAttribute.class.equals(typeClass))
 				{
 					persistentAttribute =
-						new PersistentAttribute(
-							ja, "Integer",
-							initializerArguments, mapped, qualifiers);
-				}
-				else if(DoubleAttribute.class.equals(typeClass))
-				{
-					persistentAttribute =
-						new PersistentAttribute(
-							ja, "Double",
-							initializerArguments, mapped, qualifiers);
-				}
-				else if(BooleanAttribute.class.equals(typeClass))
-				{
-					persistentAttribute =
-						new PersistentAttribute(
-							ja, "Boolean",
-							initializerArguments, mapped, qualifiers);
-				}
-				else if(StringAttribute.class.equals(typeClass))
-				{
-					persistentAttribute =
-						new PersistentAttribute(
-							ja, "String",
+						new PersistentNativeAttribute(
+							ja, typeClass,
 							initializerArguments, mapped, qualifiers);
 				}
 				else if(
