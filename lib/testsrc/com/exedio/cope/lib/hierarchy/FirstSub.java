@@ -1,6 +1,7 @@
 
 package com.exedio.cope.lib.hierarchy;
 
+import com.exedio.cope.lib.Item;
 import com.exedio.cope.lib.StringAttribute;
 
 /**

@@ -14,6 +14,7 @@ import com.exedio.cope.lib.Item;
 import com.exedio.cope.lib.LengthViolationException;
 import com.exedio.cope.lib.NestingRuntimeException;
 import com.exedio.cope.lib.NotNullViolationException;
+import com.exedio.cope.lib.ObjectAttribute;
 import com.exedio.cope.lib.ReadOnlyViolationException;
 import com.exedio.cope.lib.UniqueViolationException;
 import com.exedio.cope.lib.util.ClassComparator;
