@@ -3,7 +3,7 @@ package com.exedio.cope.lib.search;
 
 import com.exedio.cope.lib.Attribute;
 import com.exedio.cope.lib.StringAttribute;
-import com.exedio.cope.lib.database.Database;
+import com.exedio.cope.lib.Database;
 
 public final class AndCondition extends Condition
 {

@@ -1,6 +1,6 @@
 package com.exedio.cope.lib;
 
-import com.exedio.cope.lib.database.Database;
+import com.exedio.cope.lib.Database;
 
 public abstract class Attribute
 {

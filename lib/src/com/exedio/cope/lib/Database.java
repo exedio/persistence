@@ -1,5 +1,5 @@
 
-package com.exedio.cope.lib.database;
+package com.exedio.cope.lib;
 
 import com.exedio.cope.lib.Attribute;
 import com.exedio.cope.lib.BooleanAttribute;
@@ -12,6 +12,7 @@ import com.exedio.cope.lib.MediaAttribute;
 import com.exedio.cope.lib.StringAttribute;
 import com.exedio.cope.lib.SystemException;
 import com.exedio.cope.lib.Type;
+import com.exedio.cope.lib.database.OracleDatabase;
 import com.exedio.cope.lib.search.Condition;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -22,27 +23,16 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-/**
- * TODO: This (sometime to make abstract) class should be in the parent package,
- * to allow classes there to access methods with default access modifier.
- */
-public class Database
+public abstract class Database
 {
-	public static final Database theInstance = new Database();
+	public static final Database theInstance = new OracleDatabase();
 	
-	private Database()
+	protected Database()
 	{
 	}
 	
-	private char getNameDelimiterStart()
-	{
-		return '"';
-	}
-	
-	private char getNameDelimiterEnd()
-	{
-		return '"';
-	}
+	protected abstract char getNameDelimiterStart();
+	protected abstract char getNameDelimiterEnd();
 	
 	private String getSyntheticPrimaryKeyQualifier()
 	{
@@ -76,7 +66,7 @@ public class Database
 		executeSQL(getDropTableStatement(type));
 	}
 	
-	public void search(final Type type, final Condition condition)
+	void search(final Type type, final Condition condition)
 	{
 		final StringBuffer bf = new StringBuffer();
 		bf.append("select ").
@@ -110,7 +100,7 @@ public class Database
 		}
 	}
 
-	public void write(final Type type, final int pk, final HashMap itemCache, final boolean present)
+	void write(final Type type, final int pk, final HashMap itemCache, final boolean present)
 	{
 		final List attributes = type.getAttributes();
 
@@ -229,14 +219,14 @@ public class Database
 		}
 	}
 	
-	public String makePersistentQualifier(final Type type)
+	String makePersistentQualifier(final Type type)
 	{
 		final String className = type.getJavaClass().getName();
 		final int pos = className.lastIndexOf('.');
 		return getNameDelimiterStart() + className.substring(pos+1) + getNameDelimiterEnd();
 	}
 	
-	public String makePersistentQualifier(final Attribute attribute)
+	String makePersistentQualifier(final Attribute attribute)
 	{
 		return getNameDelimiterStart() + attribute.getName() + getNameDelimiterEnd();
 	}

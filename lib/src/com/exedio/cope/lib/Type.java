@@ -1,7 +1,7 @@
 
 package com.exedio.cope.lib;
 
-import com.exedio.cope.lib.database.Database;
+import com.exedio.cope.lib.Database;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
