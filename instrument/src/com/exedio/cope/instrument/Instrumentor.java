@@ -102,7 +102,7 @@ public final class Instrumentor implements InjectionConsumer
 		output.write(" get");
 		output.write(persistentAttribute.getCamelCaseName());
 		output.write("(){");
-		output.write(lineSeparator);
+		writeGetterBody(output, persistentAttribute);
 		output.write('}');
 		
 		// setter
@@ -216,6 +216,14 @@ public final class Instrumentor implements InjectionConsumer
 		return docComment!=null && docComment.indexOf('@'+tagName)>=0 ;
 	}
 
+	
+	// ----------------- methods for a new interface
+	private void writeGetterBody(final Writer output, final JavaAttribute attribute)
+	throws IOException
+	{
+		output.write("return null;");
+		output.write(lineSeparator);
+	}
 }
 
 
