@@ -967,11 +967,11 @@ public abstract class Database
 		}
 	}
 	
-	private void createForeignKeyConstraints(final Table type) // TODO: rename to table
+	private void createForeignKeyConstraints(final Table table)
 	{
 		//System.out.println("createForeignKeyConstraints:"+bf);
 
-		for(Iterator i = type.getAllColumns().iterator(); i.hasNext(); )
+		for(Iterator i = table.getAllColumns().iterator(); i.hasNext(); )
 		{
 			final Column column = (Column)i.next();
 			//System.out.println("createForeignKeyConstraints("+column+"):"+bf);
@@ -980,7 +980,7 @@ public abstract class Database
 				final ItemColumn itemColumn = (ItemColumn)column;
 				final Statement bf = createStatement();
 				bf.append("alter table ").
-					append(type.protectedID).
+					append(table.protectedID).
 					append(" add constraint ").
 					append(Database.theInstance.protectName(itemColumn.integrityConstraintName)).
 					append(" foreign key (").
