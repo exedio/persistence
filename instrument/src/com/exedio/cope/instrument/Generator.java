@@ -927,11 +927,10 @@ final class Generator
 	throws IOException
 	{
 		o.write("\t\treturn ");
-		o.write("checkHash(");
 		o.write(hash.storageAttribute.copeClass.getName());
 		o.write('.');
 		o.write(hash.name);
-		o.write(',');
+		o.write(".checkHash(this,");
 		o.write(hash.name);
 		o.write(");");
 		o.write(lineSeparator);
@@ -949,11 +948,11 @@ final class Generator
 		final CopeAttribute attribute = hash.storageAttribute;
 		final SortedSet exceptionsToCatch = attribute.getExceptionsToCatchInSetter();
 		writeTryCatchClausePrefix(exceptionsToCatch);
-		o.write("\t\tsetHash(");
+		o.write("\t\t");
 		o.write(attribute.copeClass.getName());
 		o.write('.');
 		o.write(hash.name);
-		o.write(',');
+		o.write(".setHash(this,");
 		o.write(hash.name);
 		o.write(");");
 		o.write(lineSeparator);

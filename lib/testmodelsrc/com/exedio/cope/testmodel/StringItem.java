@@ -299,7 +299,7 @@ public class StringItem extends Item
 	 *
  */public final boolean checkHashed1(final java.lang.String hashed1)
 	{
-		return checkHash(StringItem.hashed1,hashed1);
+		return StringItem.hashed1.checkHash(this,hashed1);
 	}/**
 
 	 **
@@ -310,7 +310,7 @@ public class StringItem extends Item
 	{
 		try
 		{
-			setHash(StringItem.hashed1,hashed1);
+			StringItem.hashed1.setHash(this,hashed1);
 		}
 		catch(com.exedio.cope.lib.LengthViolationException e)
 		{
@@ -336,7 +336,7 @@ public class StringItem extends Item
 	 *
  */public final boolean checkHashed1Latin(final java.lang.String hashed1Latin)
 	{
-		return checkHash(StringItem.hashed1Latin,hashed1Latin);
+		return StringItem.hashed1Latin.checkHash(this,hashed1Latin);
 	}/**
 
 	 **
@@ -347,7 +347,7 @@ public class StringItem extends Item
 	{
 		try
 		{
-			setHash(StringItem.hashed1Latin,hashed1Latin);
+			StringItem.hashed1Latin.setHash(this,hashed1Latin);
 		}
 		catch(com.exedio.cope.lib.LengthViolationException e)
 		{
@@ -410,7 +410,7 @@ public class StringItem extends Item
 	 *
  */public final boolean checkHashed2(final java.lang.String hashed2)
 	{
-		return checkHash(StringItem.hashed2,hashed2);
+		return StringItem.hashed2.checkHash(this,hashed2);
 	}/**
 
 	 **
@@ -421,7 +421,7 @@ public class StringItem extends Item
 	{
 		try
 		{
-			setHash(StringItem.hashed2,hashed2);
+			StringItem.hashed2.setHash(this,hashed2);
 		}
 		catch(com.exedio.cope.lib.LengthViolationException e)
 		{
