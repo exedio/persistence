@@ -46,6 +46,9 @@ public final class UniqueConstraint
 		this(new ObjectAttribute[]{uniqueAttribute1, uniqueAttribute2});
 	}
 	
+	/**
+	 * @return a list of {@link ObjectAttribute}s.
+	 */
 	public final List getUniqueAttributes()
 	{
 		return uniqueAttributeList;
