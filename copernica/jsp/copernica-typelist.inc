@@ -1,11 +1,10 @@
-<table border="1">
-<%
+
+<table border="1"><%
 for(Iterator i = Type.getTypes().iterator(); i.hasNext(); )
 {
 	%>
 	<tr>
-		<td>
-			<%
+		<td><%
 			final Type type = (Type)i.next();
 			if(cop.isType(type))
 			{
@@ -13,16 +12,10 @@ for(Iterator i = Type.getTypes().iterator(); i.hasNext(); )
 			}
 			else
 			{
-				%>
-				<a href="<%=(cop.toType(type))%>">
-					<%=provider.getDisplayName(null, type)%>
-				</a>
-				<%
+				%><a href="<%=(cop.toType(type))%>"><%=provider.getDisplayName(null, type)%></a><%
 			}
-			%>
-		</td>
-	</tr>
-	<%
+		%></td>
+	</tr><%
 }
 %>
 </table>
