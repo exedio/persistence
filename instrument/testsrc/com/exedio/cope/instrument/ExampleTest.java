@@ -253,6 +253,9 @@ public class ExampleTest extends InjectorTest
 				+ "\t\ta=a/(a+b); // ugly expression\n"
 				+ "\t}");
 		assertMethod("set", null, setter);
+		assertText("\n\n  ");
+		
+		final JavaBehaviour abstractMethod = assertBehaviourHeader("abstractMethod", "void", Modifier.ABSTRACT);
 	}
 
 }
