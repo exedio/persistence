@@ -10,16 +10,18 @@ public class Item extends Search
 	
 	protected final Object getAttribute(final Attribute attribute)
 	{
-		if(attribute.mapping!=null)
-			return attribute.mapping.mapJava(this, null);
+		final AttributeMapping mapping = attribute.mapping;;
+		if(mapping!=null)
+			return mapping.mapJava(getAttribute(mapping.sourceAttribute));
 
 		return null;
 	}
 	
 	protected final Object getAttribute(final Attribute attribute, final Object[] qualifiers)
 	{
-		if(attribute.mapping!=null)
-			return attribute.mapping.mapJava(this, qualifiers);
+		final AttributeMapping mapping = attribute.mapping;;
+		if(mapping!=null)
+			return mapping.mapJava(getAttribute(mapping.sourceAttribute));
 
 		return null;
 	}

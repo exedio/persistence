@@ -1,28 +1,17 @@
 
 package persistence;
 
-public final class UppercaseAttributeMapping implements AttributeMapping
+public final class UppercaseAttributeMapping extends AttributeMapping
 {
-	private final StringAttribute sourceAttribute;
 
 	public UppercaseAttributeMapping(final StringAttribute sourceAttribute)
 	{
-		this.sourceAttribute = sourceAttribute;
+		super(sourceAttribute, "UPPER(", ")", "upper");
 	}
 
-	public final Object mapJava(final Item item, final Object[] qualifiers)
+	public final Object mapJava(final Object sourceValue)
 	{
-		return ((String)item.getAttribute(sourceAttribute, qualifiers)).toUpperCase();
-	}
-	
-	public final String mapSQL()
-	{
-		return "UPPER(" + sourceAttribute.getName() + ')';
-	}
-	
-	public final String toString()
-	{
-		return "upper(" + sourceAttribute.getName() + ')';
+		return ((String)sourceValue).toUpperCase();
 	}
 	
 }
