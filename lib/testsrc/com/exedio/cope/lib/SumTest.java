@@ -46,6 +46,7 @@ public class SumTest extends DatabaseLibTest
 		assertEquals(set(item), toSet(Search.search(item.TYPE, Search.equal(item.sum13, 4))));
 		assertEquals(set(item), toSet(Search.search(item.TYPE, Search.equal(item.sum23, 5))));
 		assertEquals(set(item), toSet(Search.search(item.TYPE, Search.equal(item.sum123, 6))));
+		assertEquals(set(item), toSet(Search.search(item.TYPE, Search.equal(item.sum12a3, 6))));
 		
 		// test null propagation
 		item.setNum1(null);
@@ -65,6 +66,7 @@ public class SumTest extends DatabaseLibTest
 		assertEquals(set(item), toSet(Search.search(item.TYPE, Search.equal(item.sum13, null))));
 		assertEquals(set(item), toSet(Search.search(item.TYPE, Search.equal(item.sum23, 5))));
 		assertEquals(set(item), toSet(Search.search(item.TYPE, Search.equal(item.sum123, null))));
+		assertEquals(set(item), toSet(Search.search(item.TYPE, Search.equal(item.sum12a3, null))));
 	}
 
 }

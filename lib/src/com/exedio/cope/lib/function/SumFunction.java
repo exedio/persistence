@@ -1,23 +1,22 @@
 package com.exedio.cope.lib.function;
 
 import com.exedio.cope.lib.ComputedFunction;
-import com.exedio.cope.lib.IntegerAttribute;
 import com.exedio.cope.lib.IntegerFunction;
 
 public class SumFunction extends ComputedFunction implements IntegerFunction
 {
 
-	public SumFunction(final IntegerAttribute addend1, final IntegerAttribute addend2)
+	public SumFunction(final IntegerFunction addend1, final IntegerFunction addend2)
 	{
-		this(new IntegerAttribute[]{addend1, addend2});
+		this(new IntegerFunction[]{addend1, addend2});
 	}
 
-	public SumFunction(final IntegerAttribute addend1, final IntegerAttribute addend2, final IntegerAttribute addend3)
+	public SumFunction(final IntegerFunction addend1, final IntegerFunction addend2, final IntegerFunction addend3)
 	{
-		this(new IntegerAttribute[]{addend1, addend2, addend3});
+		this(new IntegerFunction[]{addend1, addend2, addend3});
 	}
 
-	private SumFunction(final IntegerAttribute[] addends)
+	private SumFunction(final IntegerFunction[] addends)
 	{
 		super(addends, addends[0], makePlusses(addends.length), "sum");
 	}

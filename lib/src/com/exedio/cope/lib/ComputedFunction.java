@@ -7,15 +7,14 @@ import java.util.Arrays;
 
 public abstract class ComputedFunction implements Function 
 {
-	// TODO use functions as source
-	private final ObjectAttribute[] sourceAttributes;
-	final ObjectAttribute mainSourceAttribute;
-	private final List sourceAttributeList;
+	private final Function[] sourceAttributes; // TODO rename field
+	final Function mainSourceAttribute; // TODO rename field
+	private final List sourceAttributeList; // TODO rename field
 	private final String[] sqlFragments;
 	private final String functionName;
 
-	public ComputedFunction(final ObjectAttribute[] sourceAttributes,
-									final ObjectAttribute mainSourceAttribute,
+	public ComputedFunction(final Function[] sourceAttributes, // TODO rename argument
+									final Function mainSourceAttribute, // TODO rename argument
 									final String[] sqlFragments,
 									final String functionName)
 	{
