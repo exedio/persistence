@@ -5,8 +5,12 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.*;
 import java.lang.reflect.Modifier;
+import persistence.ConstraintViolationException;
+import persistence.NotNullViolationException;
+import persistence.ReadOnlyViolationException;
 import persistence.SystemException;
 import persistence.UniqueViolationException;
+import tools.ClassComparator;
 
 public final class Instrumentor implements InjectionConsumer
 {
@@ -77,6 +81,11 @@ public final class Instrumentor implements InjectionConsumer
 	 * Tag name for read-only attributes.
 	 */
 	private static final String READ_ONLY_ATTRIBUTE = "read-only";
+	
+	/**
+	 * Tag name for not-null attributes.
+	 */
+	private static final String NOT_NULL_ATTRIBUTE = "not-null";
 	
 	/**
 	 * Tag name for one qualifier of qualified attributes.
@@ -207,15 +216,16 @@ public final class Instrumentor implements InjectionConsumer
 		output.write(' ');
 		output.write(javaClass.getName());
 		output.write('(');
+		
 		boolean first = true;
-		final ArrayList readOnlyAttributes = new ArrayList();
-		final TreeSet setterExceptions = new TreeSet();
+		final ArrayList attributes = new ArrayList();
+		final TreeSet setterExceptions = new TreeSet(ClassComparator.newInstance());
 		for(Iterator i = javaClass.getPersistentAttributes().iterator(); i.hasNext(); )
 		{
 			final JavaAttribute persistentAttribute = (JavaAttribute)i.next();
-			if(persistentAttribute.isReadOnly())
+			if(persistentAttribute.isReadOnly() || persistentAttribute.isNotNull())
 			{
-				readOnlyAttributes.add(persistentAttribute);
+				attributes.add(persistentAttribute);
 				setterExceptions.addAll(persistentAttribute.getSetterExceptions());
 				if(first)
 					first = false;
@@ -227,6 +237,7 @@ public final class Instrumentor implements InjectionConsumer
 				output.write(persistentAttribute.getName());
 			}
 		}
+		
 		output.write(')');
 		writeThrowsClause(setterExceptions);
 		output.write(lineSeparator);
@@ -234,13 +245,13 @@ public final class Instrumentor implements InjectionConsumer
 		output.write(lineSeparator);
 		output.write("\t\tsuper(1.0);");
 		output.write(lineSeparator);
-		for(Iterator i = readOnlyAttributes.iterator(); i.hasNext(); )
+		for(Iterator i = attributes.iterator(); i.hasNext(); )
 		{
-			final JavaAttribute readOnlyAttribute = (JavaAttribute)i.next();
+			final JavaAttribute attribute = (JavaAttribute)i.next();
 			output.write("\t\tset");
-			output.write(readOnlyAttribute.getCamelCaseName());
+			output.write(attribute.getCamelCaseName());
 			output.write('(');
-			output.write(readOnlyAttribute.getName());
+			output.write(attribute.getName());
 			output.write(");");
 			output.write(lineSeparator);
 		}
@@ -420,6 +431,9 @@ public final class Instrumentor implements InjectionConsumer
 				if(containsTag(docComment, READ_ONLY_ATTRIBUTE))
 					ja.makeReadOnly();
 				
+				if(containsTag(docComment, NOT_NULL_ATTRIBUTE))
+					ja.makeNotNull();
+				
 				final String qualifier = Injector.findDocTag(docComment, ATTRIBUTE_QUALIFIER);
 				if(qualifier!=null)
 					ja.makeQualified(Collections.singletonList(qualifier));
@@ -512,7 +526,8 @@ public final class Instrumentor implements InjectionConsumer
 	private void writeSetterBody(final Writer output, final JavaAttribute attribute)
 	throws IOException
 	{
-		if(!attribute.isUnique())
+		if(!attribute.isUnique() 
+			|| (attribute.getQualifiers()==null && (!attribute.isReadOnly() || !attribute.isNotNull())))
 		{
 			output.write("\t\ttry");
 			output.write(lineSeparator);
@@ -533,19 +548,29 @@ public final class Instrumentor implements InjectionConsumer
 		output.write(attribute.getName());
 		output.write(");");
 		output.write(lineSeparator);
-		if(!attribute.isUnique())
+		if(!attribute.isUnique() 
+			|| (attribute.getQualifiers()==null && (!attribute.isReadOnly() || !attribute.isNotNull())))
 		{
 			output.write("\t\t}");
 			output.write(lineSeparator);
-			output.write("\t\tcatch("+UniqueViolationException.class.getName()+" e)");
-			output.write(lineSeparator);
-			output.write("\t\t{");
-			output.write(lineSeparator);
-			output.write("\t\t\tthrow new "+SystemException.class.getName()+"(e);");
-			output.write(lineSeparator);
-			output.write("\t\t}");
-			output.write(lineSeparator);
+			
+			if(!attribute.isUnique()) writeViolationExceptionCatchClause(output, UniqueViolationException.class);
+			if(attribute.getQualifiers()==null && !attribute.isReadOnly()) writeViolationExceptionCatchClause(output, ReadOnlyViolationException.class);
+			if(attribute.getQualifiers()==null && !attribute.isNotNull()) writeViolationExceptionCatchClause(output, NotNullViolationException.class);
 		}
+	}
+	
+	private void writeViolationExceptionCatchClause(final Writer output, final Class exceptionClass)
+	throws IOException
+	{
+		output.write("\t\tcatch("+exceptionClass.getName()+" e)");
+		output.write(lineSeparator);
+		output.write("\t\t{");
+		output.write(lineSeparator);
+		output.write("\t\t\tthrow new "+SystemException.class.getName()+"(e);");
+		output.write(lineSeparator);
+		output.write("\t\t}");
+		output.write(lineSeparator);
 	}
 }
 

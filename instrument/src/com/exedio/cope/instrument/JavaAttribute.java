@@ -3,10 +3,14 @@ package injection;
 
 import java.lang.reflect.Modifier;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import persistence.NotNullViolationException;
+import persistence.ReadOnlyViolationException;
 import persistence.UniqueViolationException;
+import tools.ClassComparator;
 
 /**
  * Represents an attribute of a class parsed by the
@@ -20,6 +24,7 @@ public final class JavaAttribute extends JavaFeature
 	private String persistentType = null;
 	private boolean unique = false;
 	private boolean readOnly = false;
+	private boolean notNull = false;
 	private List qualifiers = null;
 
 	public JavaAttribute(JavaClass parent, int modifiers, String type, String name)
@@ -59,6 +64,11 @@ public final class JavaAttribute extends JavaFeature
 	public boolean isReadOnly()
 	{
 		return readOnly;
+	}
+	
+	public boolean isNotNull()
+	{
+		return notNull;
 	}
 	
 	public List getQualifiers()
@@ -144,6 +154,13 @@ public final class JavaAttribute extends JavaFeature
 		readOnly = true;
 	}
 	
+	public final void makeNotNull()
+	{
+		if(this.qualifiers!=null)
+			throw new RuntimeException();
+		notNull = true;
+	}
+	
 	public final void makeQualified(final List qualifiers)
 	{
 		if(qualifiers==null)
@@ -151,6 +168,8 @@ public final class JavaAttribute extends JavaFeature
 		if(this.qualifiers!=null)
 			throw new RuntimeException();
 		if(this.readOnly)
+			throw new RuntimeException();
+		if(this.notNull)
 			throw new RuntimeException();
 		this.qualifiers = Collections.unmodifiableList(qualifiers);
 	}
@@ -162,13 +181,18 @@ public final class JavaAttribute extends JavaFeature
 		if(setterExceptions!=null)
 			return setterExceptions;
 		
-		final TreeSet modifyableSetterExceptions = new TreeSet();
+		final TreeSet modifyableSetterExceptions = new TreeSet(ClassComparator.newInstance());
 		
 		if(unique)
 			modifyableSetterExceptions.add(UniqueViolationException.class);
+		if(readOnly)
+			modifyableSetterExceptions.add(ReadOnlyViolationException.class);
+		if(notNull)
+			modifyableSetterExceptions.add(NotNullViolationException.class);
 
 		this.setterExceptions = Collections.unmodifiableSortedSet(modifyableSetterExceptions);
 		return this.setterExceptions;
 	}
+
 
 }

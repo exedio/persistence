@@ -21,8 +21,10 @@ public class Item
 	}
 	
 	protected final void setAttribute(final Attribute attribute, final Object value)
-	throws UniqueViolationException
+	throws UniqueViolationException, NotNullViolationException, ReadOnlyViolationException
 	{
+		if(value == null)
+			throw new NotNullViolationException();
 	}
 	
 	protected final void setAttribute(final Attribute attribute, final Object[] qualifiers, final Object value)
