@@ -16,6 +16,7 @@ import java.util.List;
 
 import bak.pcj.map.IntKeyOpenHashMap;
 
+import com.exedio.cope.lib.pattern.Qualifier;
 import com.exedio.cope.lib.search.Condition;
 import com.exedio.cope.lib.util.ReactivationConstructorDummy;
 
@@ -108,7 +109,8 @@ public final class Type
 				final Field field = fields[i];
 				if((field.getModifiers()&expectedModifier)==expectedModifier)
 				{
-					if(Attribute.class.isAssignableFrom(field.getType()))
+					final Class fieldType = field.getType();
+					if(Attribute.class.isAssignableFrom(fieldType))
 					{
 						field.setAccessible(true);
 						final Attribute attribute = (Attribute)field.get(null);
@@ -125,7 +127,7 @@ public final class Type
 							uniqueConstraintsTemp.add(uniqueConstraint);
 						}
 					}
-					else if(ComputedFunction.class.isAssignableFrom(field.getType()))
+					else if(ComputedFunction.class.isAssignableFrom(fieldType))
 					{
 						field.setAccessible(true);
 						final ComputedFunction function = (ComputedFunction)field.get(null);
@@ -135,7 +137,7 @@ public final class Type
 						featuresTemp.add(function);
 						featuresByName.put(function.getName(), function);
 					}
-					else if(UniqueConstraint.class.isAssignableFrom(field.getType()))
+					else if(UniqueConstraint.class.isAssignableFrom(fieldType))
 					{
 						field.setAccessible(true);
 						final UniqueConstraint uniqueConstraint = (UniqueConstraint)field.get(null);
@@ -144,13 +146,22 @@ public final class Type
 						uniqueConstraint.initialize(this, field.getName());
 						uniqueConstraintsTemp.add(uniqueConstraint);
 					}
-					else if(MediaAttributeVariant.class.isAssignableFrom(field.getType()))
+					else if(MediaAttributeVariant.class.isAssignableFrom(fieldType))
 					{
 						field.setAccessible(true);
 						final MediaAttributeVariant variant = (MediaAttributeVariant)field.get(null);
 						if(variant==null)
 							throw new RuntimeException(field.getName());
 						variant.initialize(this, field.getName());
+					}
+					else if(Qualifier.class.isAssignableFrom(fieldType))
+					{
+						field.setAccessible(true);
+						final Qualifier qualifier = (Qualifier)field.get(null);
+						if(qualifier==null)
+							throw new RuntimeException(field.getName());
+						qualifier.getQualifyUnique().setQualifier(qualifier);
+						//qualifier.initialize(this, field.getName());
 					}
 				}
 			}

@@ -50,8 +50,7 @@ public final class UniqueConstraint
 		return qualifier;
 	}
 	
-	// TODO: must not be public
-	public void setQualifier(final Qualifier qualifier)
+	void setQualifier(final Qualifier qualifier)
 	{
 		if(this.qualifier!=null)
 			throw new RuntimeException("unique constraint can have at most one qualifier");
