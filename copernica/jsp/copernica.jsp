@@ -194,6 +194,7 @@ page import="java.util.Map"
 							final Item item = ((ItemCop)cop).item;
 							final Type type = item.getType();
 							boolean toSave = false;
+							final boolean save = request.getParameter("SAVE")!=null;
 							%>
 							<a href="<%=(cop.toType(type))%>"><%=provider.getDisplayName(null, type)%></a>
 							<b><%=provider.getDisplayName(null, item)%></b><hr>
@@ -225,14 +226,29 @@ page import="java.util.Map"
 								else if(attribute instanceof EnumerationAttribute)
 								{
 									final EnumerationAttribute enumAttribute = (EnumerationAttribute)attribute;
-									final EnumerationValue value = (EnumerationValue)item.getAttribute((EnumerationAttribute)attribute);
+									final String attributeName = attribute.getName();
+									
+									final EnumerationValue value;
+									if(save)
+									{
+										final String saveString = request.getParameter(attributeName);
+										if(saveString==null)
+											throw new NullPointerException(attributeName);
+										value = enumAttribute.getValue(saveString);
+										if(value==null)
+											throw new NullPointerException(attributeName);
+										item.setAttribute(enumAttribute, value);
+									}
+									else
+										value = (EnumerationValue)item.getAttribute(enumAttribute);
+									
 									for(Iterator k = enumAttribute.getValues().iterator(); k.hasNext(); )
 									{
 										final EnumerationValue currentValue = (EnumerationValue)k.next();
 										%>
 										<input
-											type="radio" name="<%=attribute.getName()%>"
-											value="currentValue.getCode()"
+											type="radio" name="<%=attributeName%>"
+											value="<%=currentValue.getCode()%>"
 											<%
 												if(value==currentValue)
 												{
