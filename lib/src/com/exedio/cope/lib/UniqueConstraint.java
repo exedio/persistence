@@ -9,17 +9,17 @@ import java.util.List;
 
 public final class UniqueConstraint
 {
-	private static final HashMap uniqueConstraintsByName = new HashMap();
+	private static final HashMap uniqueConstraintsByID = new HashMap();
 	
-	static final UniqueConstraint getUniqueConstraint(final String name, final SQLException e)
+	static final UniqueConstraint findByID(final String id, final SQLException e)
 	{
 		//System.out.println("UniqueConstraint.getUniqueConstraint:"+name);
 		final UniqueConstraint result =
-			(UniqueConstraint)uniqueConstraintsByName.get(name);
+			(UniqueConstraint)uniqueConstraintsByID.get(id);
 
 		if(result==null)
-			throw new SystemException(e, "no unique constraint found for >"+name
-																	+"<, has only "+uniqueConstraintsByName.keySet());
+			throw new SystemException(e, "no unique constraint found for >"+id
+																	+"<, has only "+uniqueConstraintsByID.keySet());
 
 		return result;
 	}
@@ -27,7 +27,7 @@ public final class UniqueConstraint
 	
 	private final Attribute[] uniqueAttributes;
 	private final List uniqueAttributeList;
-	private String trimmedName;
+	private String id;
 	private String protectedName;
 
 	private UniqueConstraint(final Attribute[] uniqueAttributes)
@@ -61,19 +61,19 @@ public final class UniqueConstraint
 		if(name==null)
 			throw new RuntimeException();
 
-		this.trimmedName = Database.theInstance.trimName(type.id+"_"+name+"Un");
+		this.id = Database.theInstance.trimName(type.id+"_"+name+"Un");
 
-		final Object collision = uniqueConstraintsByName.put(trimmedName, this);
+		final Object collision = uniqueConstraintsByID.put(id, this);
 		if(collision!=null)
-			throw new InitializerRuntimeException(null, "ambiguous unique constraint "+this+" trimmed to >"+this.trimmedName+"< colliding with "+collision);
+			throw new InitializerRuntimeException(null, "ambiguous unique constraint "+this+" trimmed to >"+this.id+"< colliding with "+collision);
 	}
 
-	final String getTrimmedName()
+	public final String getID()
 	{
-		if(trimmedName==null)
+		if(id==null)
 			throw new RuntimeException();
 			
-		return trimmedName;
+		return id;
 	}
 	
 	final String getProtectedName()
@@ -81,7 +81,7 @@ public final class UniqueConstraint
 		if(protectedName!=null)
 			return protectedName;
 
-		this.protectedName = Database.theInstance.protectName(getTrimmedName());
+		this.protectedName = Database.theInstance.protectName(getID());
 		return protectedName;
 	}
 	

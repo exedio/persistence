@@ -655,10 +655,10 @@ public abstract class Database
 	private final ConstraintViolationException wrapException(final SQLException e)
 	{
 		{		
-			final String uniqueConstraintName = extractUniqueConstraintName(e);
-			if(uniqueConstraintName!=null)
+			final String uniqueConstraintID = extractUniqueConstraintName(e);
+			if(uniqueConstraintID!=null)
 			{
-				final UniqueConstraint constraint = UniqueConstraint.getUniqueConstraint(uniqueConstraintName, e);
+				final UniqueConstraint constraint = UniqueConstraint.findByID(uniqueConstraintID, e);
 				return new UniqueViolationException(e, null, constraint);
 			}
 		}
