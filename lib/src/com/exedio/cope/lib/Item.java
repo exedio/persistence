@@ -277,6 +277,11 @@ public abstract class Item extends Search
 									final StringBuffer bf,
 									final String mimeMajor, final String mimeMinor)
 	{
+		if(mimeMajor==null)
+			throw new NullPointerException();
+		if(mimeMinor==null)
+			throw new NullPointerException();
+			
 		bf.append(attribute.getType().trimmedName).
 			append('/').
 			append(attribute.getName());
@@ -400,7 +405,20 @@ public abstract class Item extends Search
 												 final String mimeMajor, final String mimeMinor)
 	throws NotNullViolationException, IOException
 	{
+		if(data!=null)
+		{
+			if(mimeMajor==null||mimeMinor==null)
+				throw new RuntimeException("if data is not null, mime types must also be not null");
+		}
+		else
+		{
+			if(mimeMajor!=null||mimeMinor!=null)
+				throw new RuntimeException("if data is null, mime types must also be null");
+		}
+
 		final Row row = getRow();
+		final String previousMimeMajor = (String)row.get(attribute.mimeMajor);
+		final String previousMimeMinor = (String)row.get(attribute.mimeMinor);
 		row.put(attribute.mimeMajor, mimeMajor);
 		row.put(attribute.mimeMinor, mimeMinor);
 
@@ -422,6 +440,15 @@ public abstract class Item extends Search
 				out.write(b, 0, len);
 			out.close();
 			data.close();
+		}
+		else
+		{
+			if(previousMimeMajor!=null)
+			{
+				final File file = getMediaFile(attribute, previousMimeMajor, previousMimeMinor);
+				if(!file.delete())
+					throw new RuntimeException("deleting "+file+" failed.");
+			}
 		}
 	}
 	
