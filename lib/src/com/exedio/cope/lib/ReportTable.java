@@ -83,7 +83,7 @@ public final class ReportTable extends ReportNode
 			result = new ReportConstraint(constraintName, this);
 			constraints.put(constraintName, result);
 		}
-		result.exists = true;
+		result.notifyExists();
 		return result;
 	}
 	

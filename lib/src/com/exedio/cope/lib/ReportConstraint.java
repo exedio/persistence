@@ -6,7 +6,7 @@ public final class ReportConstraint extends ReportNode
 	public final String name;
 	public final ReportTable table;
 	boolean required = false; // TODO: make this private
-	boolean exists = false; // TODO: make this private, introduce notifyExists as in ReportColumn
+	private boolean exists = false;
 		
 	ReportConstraint(final String name, final ReportTable table)
 	{
@@ -14,6 +14,10 @@ public final class ReportConstraint extends ReportNode
 		this.table = table; 
 	}
 
+	final void notifyExists()
+	{
+		exists = true;
+	}
 	protected void finish()
 	{
 		if(cumulativeColor!=COLOR_NOT_YET_CALC || particularColor!=COLOR_NOT_YET_CALC)
