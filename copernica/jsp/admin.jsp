@@ -46,18 +46,18 @@ final AdminCop cop = AdminCop.getCop(request.getParameterMap());
 			<%
 				if(request.getParameter("CREATE")!=null)
 				{
-					Database.theInstance.createDatabase();
+					provider.getModel().createDatabase();
 					provider.initializeExampleSystem();
 					%>Database successfully created!<%
 				}
 				else if(request.getParameter("TEARDOWN")!= null)
 				{
-					Database.theInstance.tearDownDatabase();
+					provider.getModel().tearDownDatabase();
 					%>Database successfully torn down!<%
 				}
 				else if(request.getParameter("DROP")!=null)
 				{
-					Database.theInstance.dropDatabase();
+					provider.getModel().dropDatabase();
 					%>Database successfully dropped!<%
 				}
 				else if(request.getParameter("APPLY")!=null)

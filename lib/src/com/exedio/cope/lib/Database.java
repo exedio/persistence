@@ -1,7 +1,6 @@
 
 package com.exedio.cope.lib;
 
-import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
@@ -16,8 +15,10 @@ import java.util.ListIterator;
 
 import bak.pcj.list.IntArrayList;
 
+// TODO: make class package-private
 public abstract class Database
 {
+	// TODO: theInstance to be Model#database
 	public static final Database theInstance = createInstance();
 	
 	private static final Database createInstance()
@@ -129,16 +130,13 @@ public abstract class Database
 	
 	//private static int createTableTime = 0, dropTableTime = 0, checkEmptyTableTime = 0;
 	
-	public void createDatabase()
+	void createDatabase()
 	{
 		buildStage = false;
 
 		//final long time = System.currentTimeMillis();
 		for(Iterator i = tables.iterator(); i.hasNext(); )
 			createTable((Table)i.next());
-
-		for(Iterator i = Type.getTypes().iterator(); i.hasNext(); )
-			createMediaDirectories((Type)i.next());
 
 		for(Iterator i = tables.iterator(); i.hasNext(); )
 			createForeignKeyConstraints((Table)i.next());
@@ -150,18 +148,7 @@ public abstract class Database
 
 	//private static int checkTableTime = 0;
 
-	/**
-	 * Checks the database,
-	 * whether the database tables representing the types do exist.
-	 * Issues a single database statement,
-	 * that touches all tables and columns,
-	 * that would have been created by
-	 * {@link #createDatabase()}.
-	 * @throws SystemException
-	 * 	if something is wrong with the database.
-	 * 	TODO: use a more specific exception.
-	 */
-	public void checkDatabase()
+	void checkDatabase()
 	{
 		buildStage = false;
 
@@ -238,17 +225,13 @@ public abstract class Database
 		//System.out.println("CHECK TABLES "+amount+"ms  accumulated "+checkTableTime);
 	}	
 
-	public void dropDatabase()
+	void dropDatabase()
 	{
 		buildStage = false;
 
 		//final long time = System.currentTimeMillis();
 		{
-			final List types = Type.getTypes();
-			for(ListIterator i = types.listIterator(types.size()); i.hasPrevious(); )
-				((Type)i.previous()).onDropTable();
-		}
-		{
+			// TODO: redo identation
 			// must delete in reverse order, to obey integrity constraints
 			for(ListIterator i = tables.listIterator(tables.size()); i.hasPrevious(); )
 				dropForeignKeyConstraints((Table)i.previous());
@@ -260,7 +243,7 @@ public abstract class Database
 		//System.out.println("DROP TABLES "+amount+"ms  accumulated "+dropTableTime);
 	}
 	
-	public void tearDownDatabase()
+	void tearDownDatabase()
 	{
 		buildStage = false;
 
@@ -1085,27 +1068,6 @@ public abstract class Database
 		}
 	}
 	
-	private void createMediaDirectories(final Type type)
-	{
-		File typeDirectory = null;
-
-		for(Iterator i = type.getAttributes().iterator(); i.hasNext(); )
-		{
-			final Attribute attribute = (Attribute)i.next();
-			if(attribute instanceof MediaAttribute)
-			{
-				if(typeDirectory==null)
-				{
-					final File directory = Properties.getInstance().getMediaDirectory();
-					typeDirectory = new File(directory, type.id);
-					typeDirectory.mkdir();
-				}
-				final File attributeDirectory = new File(typeDirectory, attribute.getName());
-				attributeDirectory.mkdir();
-			}
-		}
-	}
-
 	private void dropTable(final Table table) 
 	{
 		final Statement bf = createStatement();

@@ -20,7 +20,6 @@ import com.exedio.cope.lib.LongAttribute;
 import com.exedio.cope.lib.NoSuchIDException;
 import com.exedio.cope.lib.NotNullViolationException;
 import com.exedio.cope.lib.ObjectAttribute;
-import com.exedio.cope.lib.Search;
 import com.exedio.cope.lib.StringAttribute;
 import com.exedio.cope.lib.Type;
 
@@ -193,7 +192,7 @@ public class ItemForm extends Form
 			else if(attribute instanceof ItemAttribute)
 			{
 				if(valueString.length()>0)
-					value = Search.findByID(valueString);
+					value = attribute.getType().getModel().findByID(valueString);
 				else
 					value = null;
 			}

@@ -1,13 +1,16 @@
 package com.exedio.copernica;
 
 import com.exedio.cope.lib.DatabaseLibTest;
+import com.exedio.cope.lib.Model;
 
 public class CopernicaTestProvider extends TransientCopernicaProvider
 {
-	private static final Object[] types = DatabaseLibTest.types;
+	
+	private final Model model;
 	
 	public CopernicaTestProvider()
 	{
+		this.model = DatabaseLibTest.model;
 		final TransientLanguage de = new TransientLanguage("de");
 		final TransientLanguage en = new TransientLanguage("en");
 
@@ -22,6 +25,11 @@ public class CopernicaTestProvider extends TransientCopernicaProvider
 				en,
 			}
 		);
+	}
+
+	public Model getModel()
+	{
+		return model;
 	}
 
 	public void initializeExampleSystem()

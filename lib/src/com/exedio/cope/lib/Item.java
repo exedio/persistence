@@ -28,12 +28,13 @@ public abstract class Item extends Search
 	private Row rowWhenActive;
 
 	/**
-	 * Returns a string unique for this item in all other items of this application.
-	 * For any item <code>a</code> the following holds true:
-	 * <code>a.equals(findByID(a.getID()).</code>
+	 * Returns a string unique for this item in all other items of the model.
+	 * For any item <code>a</code> in its model <code>m</code>
+	 * the following holds true:
+	 * <code>a.equals(m.findByID(a.getID()).</code>
 	 * Does not activate this item, if it's not already active.
 	 * Never returns null.
-	 * @see #findByID(String)
+	 * @see Model#findByID(String)
 	 */
 	public final String getID()
 	{

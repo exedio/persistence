@@ -1,8 +1,8 @@
 package com.exedio.copernica;
 
 import com.exedio.cope.lib.Item;
+import com.exedio.cope.lib.Model;
 import com.exedio.cope.lib.NoSuchIDException;
-import com.exedio.cope.lib.Search;
 import com.exedio.cope.lib.SystemException;
 import com.exedio.cope.lib.Type;
 
@@ -32,11 +32,11 @@ final class ItemCop extends CopernicaCop
 		return provider.getDisplayName(language, item);
 	}
 
-	static final ItemCop getCop(final Language language, final String itemID)
+	static final ItemCop getCop(final Model model, final Language language, final String itemID)
 	{	
 		try
 		{
-			final Item item = Search.findByID(itemID);
+			final Item item = model.findByID(itemID);
 			return new ItemCop(language, item);
 		}
 		catch(NoSuchIDException e)

@@ -3,6 +3,7 @@ package com.exedio.copernica;
 import java.util.Map;
 
 import com.exedio.cope.lib.Item;
+import com.exedio.cope.lib.Model;
 import com.exedio.cope.lib.Type;
 
 
@@ -45,6 +46,7 @@ abstract class CopernicaCop extends Cop
 	
 	static final CopernicaCop getCop(final CopernicaProvider provider, final Map parameterMap)
 	{	
+		final Model model = provider.getModel();
 		final String typeID = getParameter(parameterMap, TYPE);
 		final String itemID = getParameter(parameterMap, ITEM);
 		final String langID = getParameter(parameterMap, LANGUAGE);
@@ -52,11 +54,11 @@ abstract class CopernicaCop extends Cop
 		final Language language = (langID!=null) ? provider.findLanguageByUniqueID(langID) : null;
 		if(typeID!=null)
 		{
-			return TypeCop.getCop(language, typeID, parameterMap);
+			return TypeCop.getCop(model, language, typeID, parameterMap);
 		}
 		else if(itemID!=null)
 		{
-			return ItemCop.getCop(language, itemID);
+			return ItemCop.getCop(model, language, itemID);
 		}
 		else
 			return new EmptyCop(language);

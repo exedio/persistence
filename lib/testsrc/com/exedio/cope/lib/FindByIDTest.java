@@ -7,7 +7,7 @@ public class FindByIDTest extends DatabaseLibTest
 	{
 		try
 		{
-			Search.findByID(id);
+			model.findByID(id);
 			fail("should have thrown NoSuchIDException");
 		}
 		catch(NoSuchIDException e)

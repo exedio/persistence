@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Map;
 
 import com.exedio.cope.lib.Function;
+import com.exedio.cope.lib.Model;
 import com.exedio.cope.lib.Query;
 import com.exedio.cope.lib.Search;
 import com.exedio.cope.lib.Type;
@@ -99,11 +100,12 @@ final class TypeCop extends CopernicaCop
 	}
 
 	static final TypeCop getCop(
+			final Model model,
 			final Language language,
 			final String typeID,
 			final Map parameterMap)
 	{
-		final Type type = Type.findByID(typeID);
+		final Type type = model.findTypeByID(typeID);
 		if(type==null)
 			throw new RuntimeException("type "+typeID+" not available");
 

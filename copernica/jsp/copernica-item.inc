@@ -134,7 +134,7 @@
 					{
 						try
 						{
-							final Item valueItem = Search.findByID(value);
+							final Item valueItem = provider.getModel().findByID(value);
 							%> <a href="<%=(cop.toItem(valueItem))%>"><%=provider.getDisplayName(null, valueItem)%></a><%
 						}
 						catch(NoSuchIDException e)

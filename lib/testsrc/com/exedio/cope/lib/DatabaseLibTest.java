@@ -9,37 +9,12 @@ import java.util.Date;
 import com.exedio.cope.lib.collision.CollisionItem1;
 import com.exedio.cope.lib.collision.CollisionItem2;
 import com.exedio.cope.lib.hierarchy.FirstSub;
-import com.exedio.cope.lib.hierarchy.SecondSub;
-import com.exedio.cope.lib.hierarchy.Super;
 
 /**
  * An abstract test class for tests creating/using some persistent data.
  */
 public abstract class DatabaseLibTest extends AbstractLibTest
 {
-	public static final Type[] types = new Type[]
-	{
-		ItemWithSingleUnique.TYPE,
-		ItemWithSingleUniqueReadOnly.TYPE,
-		ItemWithSingleUniqueNotNull.TYPE,
-		ItemWithDoubleUnique.TYPE,
-		EmptyItem.TYPE,
-		EmptyItem2.TYPE,
-		AttributeItem.TYPE,
-		StringItem.TYPE,
-		MediaItem.TYPE,
-		SumItem.TYPE,
-		QualifiedItem.TYPE,
-		QualifiedEmptyQualifier.TYPE,
-		PointerItem2.TYPE,
-		PointerItem.TYPE,
-		Super.TYPE,
-		FirstSub.TYPE,
-		SecondSub.TYPE,
-		CollisionItem1.TYPE,
-		CollisionItem2.TYPE,
-	};
-	
 	private static boolean createdDatabase = false;
 	private static boolean registeredDropDatabaseHook = false;
 	private static Object lock = new Object(); 
@@ -50,7 +25,7 @@ public abstract class DatabaseLibTest extends AbstractLibTest
 		{
 			if(!createdDatabase)
 			{
-				Database.theInstance.createDatabase();
+				model.createDatabase();
 				createdDatabase = true;
 			}
 		}
@@ -65,7 +40,7 @@ public abstract class DatabaseLibTest extends AbstractLibTest
 				Runtime.getRuntime().addShutdownHook(new Thread(new Runnable(){
 					public void run()
 					{
-						Database.theInstance.dropDatabase();
+						model.dropDatabase();
 					}
 				}));
 				registeredDropDatabaseHook = true;

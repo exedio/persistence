@@ -5,10 +5,14 @@ import java.util.Collection;
 
 import com.exedio.cope.lib.Feature;
 import com.exedio.cope.lib.Item;
+import com.exedio.cope.lib.Model;
 import com.exedio.cope.lib.Type;
 
 public interface CopernicaProvider
 {
+
+	public Model getModel();
+
 	/**
 	 * @return a collection of {@link Language languages}.
 	 */

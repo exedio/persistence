@@ -5,7 +5,7 @@ package com.exedio.cope.lib;
  * Signals, that an attempt to find an item by it's ID has been failed,
  * because there is no item with such an ID.
  *
- * This exception will be thrown by {@link Search#findByID(String) Search.findByID},
+ * This exception will be thrown by {@link Model#findByID(String) Model.findByID},
  * if there is no item with the given ID.
  */
 public class NoSuchIDException extends Exception

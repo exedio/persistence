@@ -17,7 +17,7 @@ public class ModelTest extends AbstractLibTest
 
 		assertEquals(AttributeItem.class, item.TYPE.getJavaClass());
 		assertEquals(item.TYPE, Type.findByJavaClass(AttributeItem.class));
-		assertEquals(item.TYPE, Type.findByID(item.TYPE.getID()));
+		assertEquals(item.TYPE, model.findTypeByID(item.TYPE.getID()));
 		
 		final Attribute[] attributes = new Attribute[]{
 			item.someString,

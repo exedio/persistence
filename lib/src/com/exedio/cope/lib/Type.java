@@ -20,13 +20,12 @@ import com.exedio.cope.lib.util.ReactivationConstructorDummy;
 
 public final class Type
 {
-	private static final ArrayList typesModifyable = new ArrayList();
-	private static final List types = Collections.unmodifiableList(typesModifyable);
+	// TODO: rename to typesByClass
 	private static final HashMap typesByName = new HashMap();
-	private static final HashMap typesByID = new HashMap();
-	
-	private final Class javaClass;
+
+	final Class javaClass;
 	private final Type supertype;
+	private Model model;
 	final PrimaryKeyIterator primaryKeyIterator;
 	
 	private final Attribute[] declaredAttributes;
@@ -50,19 +49,9 @@ public final class Type
 	private static final Class[] reactivationConstructorParams =
 		new Class[]{ReactivationConstructorDummy.class, int.class};
 
-	public static final List getTypes()
-	{
-		return types;
-	}
-	
 	public static final Type findByJavaClass(final Class javaClass)
 	{
 		return (Type)typesByName.get(javaClass);
-	}
-	
-	public static final Type findByID(final String id)
-	{
-		return (Type)typesByID.get(id);
 	}
 	
 	public Type(final Class javaClass)
@@ -71,10 +60,8 @@ public final class Type
 		if(!Item.class.isAssignableFrom(javaClass))
 			throw new IllegalArgumentException(javaClass.toString()+" is not a subclass of Item");
 
-		typesModifyable.add(this);
 		typesByName.put(javaClass, this);
 		this.id = Database.theInstance.trimName(this);
-		typesByID.put(this.id, this);
 
 		// supertype
 		final Class superClass = javaClass.getSuperclass();
@@ -217,6 +204,22 @@ public final class Type
 	public final String getID()
 	{
 		return id;
+	}
+	
+	public final void setModel(final Model model)
+	{
+		if(this.model!=null)
+			throw new RuntimeException();
+
+		this.model = model;
+	}
+	
+	public final Model getModel()
+	{
+		if(model==null)
+			throw new RuntimeException();
+
+		return model;
 	}
 	
 	/**

@@ -40,7 +40,7 @@ include file="provider.inc"
 	boolean database = false;
 	try
 	{
-		Database.theInstance.checkDatabase();
+		provider.getModel().checkDatabase();
 		database = true;
 	}
 	catch(SystemException e)

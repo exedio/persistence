@@ -1,6 +1,6 @@
 
 <table border="1"><%
-for(Iterator i = Type.getTypes().iterator(); i.hasNext(); )
+for(Iterator i = provider.getModel().getTypes().iterator(); i.hasNext(); )
 {
 	%>
 	<tr>

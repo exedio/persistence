@@ -63,45 +63,6 @@ public abstract class Search
 		return (int)result;
 	}
 
-	/**
-	 * Returns the item with the given ID.
-	 * Always returns {@link Item#activeItem() active} objects.
-	 * @see Item#getID()
-	 * @throws NoSuchIDException if there is no item with the given id.
-	 */
-	public static final Item findByID(final String id)
-			throws NoSuchIDException
-	{
-		final int pos = id.lastIndexOf('.');
-		if(pos<=0)
-			throw new NoSuchIDException(id, "no dot in id");
-
-		final String typeID = id.substring(0, pos);
-		final Type type = Type.findByID(typeID);
-		if(type==null)
-			throw new NoSuchIDException(id, "no such type "+typeID);
-		
-		final String idString = id.substring(pos+1);
-
-		final long idNumber;
-		try
-		{
-			idNumber = Long.parseLong(idString);
-		}
-		catch(NumberFormatException e)
-		{
-			throw new NoSuchIDException(id, e, idString);
-		}
-
-		final int pk = id2pk(idNumber);
-		
-		if(!Database.theInstance.check(type, pk))
-			throw new NoSuchIDException(id, "item <"+idNumber+"> does not exist");
-
-		final Item result = type.getItem(pk);
-		return result;
-	}
-	
 	public static final EqualCondition isNull(final ObjectAttribute attribute)
 	{
 		return new EqualCondition(attribute);

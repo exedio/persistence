@@ -13,7 +13,7 @@ import com.exedio.cope.lib.Type;
 import com.exedio.cope.lib.UniqueConstraint;
 
 
-public class TransientCopernicaProvider implements CopernicaProvider
+public abstract class TransientCopernicaProvider implements CopernicaProvider
 {
 	// Transient Languages
 	
