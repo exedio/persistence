@@ -31,14 +31,14 @@ public abstract class Attribute
 		return notNull;
 	}
 	
-	// phase 2: setType ---------------------------------------------------
+	// second initialization phase ---------------------------------------------------
 
 	private Type type;
 	private String name;
 	private List columns;
 	private Column mainColumn;
 	
-	final void setType(final Type type, final String name)
+	final void initialize(final Type type, final String name)
 	{
 		if(type==null)
 			throw new RuntimeException();

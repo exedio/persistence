@@ -81,7 +81,7 @@ public final class Type
 					final Attribute attribute = (Attribute)field.get(null);
 					if(attribute==null)
 						throw new NullPointerException(field.getName());
-					attribute.setType(this, field.getName());
+					attribute.initialize(this, field.getName());
 					attributesTemp.add(attribute);
 				}
 			}
