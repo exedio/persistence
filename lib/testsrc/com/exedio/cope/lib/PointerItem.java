@@ -146,7 +146,6 @@ public class PointerItem extends Item
 	 *
  */public static final com.exedio.cope.lib.Type TYPE = 
 		new com.exedio.cope.lib.Type(
-			PointerItem.class,
-			null
+			PointerItem.class
 		)
 ;}

@@ -70,8 +70,6 @@ public class CollisionItem2 extends Item
 	 *
  */public static final com.exedio.cope.lib.Type TYPE = 
 		new com.exedio.cope.lib.Type(
-			CollisionItem2.class,
-			new com.exedio.cope.lib.UniqueConstraint[]{
-			}
+			CollisionItem2.class
 		)
 ;}

@@ -50,7 +50,7 @@ public final class Type
 		return (Type)typesByName.get(className);
 	}
 	
-	public Type(final Class javaClass, final UniqueConstraint[] multipleUniqueConstraints)
+	public Type(final Class javaClass)
 	{
 		this.javaClass = javaClass;
 
@@ -73,21 +73,39 @@ public final class Type
 		// declaredAttributes
 		final Field[] fields = javaClass.getDeclaredFields();
 		final ArrayList attributesTemp = new ArrayList(fields.length);
+		final ArrayList uniqueConstraintsTemp = new ArrayList(fields.length);
 		final int expectedModifier = Modifier.STATIC | Modifier.FINAL;
 		try
 		{
 			for(int i = 0; i<fields.length; i++)
 			{
 				final Field field = fields[i];
+				// TODO: make an extra IF for the modifiers
 				if(Attribute.class.isAssignableFrom(field.getType()) &&
 					(field.getModifiers()&expectedModifier)==expectedModifier)
 				{
 					field.setAccessible(true);
 					final Attribute attribute = (Attribute)field.get(null);
 					if(attribute==null)
-						throw new NullPointerException(field.getName());
+						throw new InitializerRuntimeException(field.getName());
 					attribute.initialize(this, field.getName());
 					attributesTemp.add(attribute);
+					final UniqueConstraint uniqueConstraint = attribute.getSingleUniqueConstaint();
+					if(uniqueConstraint!=null)
+					{
+						uniqueConstraint.initialize(this, field.getName());
+						uniqueConstraintsTemp.add(uniqueConstraint);
+					}
+				}
+				else if(UniqueConstraint.class.isAssignableFrom(field.getType()) &&
+					(field.getModifiers()&expectedModifier)==expectedModifier)
+				{
+					field.setAccessible(true);
+					final UniqueConstraint uniqueConstraint = (UniqueConstraint)field.get(null);
+					if(uniqueConstraint==null)
+						throw new InitializerRuntimeException(field.getName());
+					uniqueConstraint.initialize(this, field.getName());
+					uniqueConstraintsTemp.add(uniqueConstraint);
 				}
 			}
 		}
@@ -110,24 +128,6 @@ public final class Type
 		}
 		this.attributeList = Collections.unmodifiableList(Arrays.asList(attributes));
 
-		final ArrayList uniqueConstraintsTemp = new ArrayList();
-		for(int i = 0; i<this.declaredAttributes.length; i++)
-		{
-			final UniqueConstraint suc = this.declaredAttributes[i].getSingleUniqueConstaint();
-			if(suc!=null)
-			{
-				suc.initialize();
-				uniqueConstraintsTemp.add(suc);
-			}
-		}
-		if(multipleUniqueConstraints!=null)
-		{
-			for(int i = 0; i<multipleUniqueConstraints.length; i++)
-			{
-				multipleUniqueConstraints[i].initialize();
-				uniqueConstraintsTemp.add(multipleUniqueConstraints[i]);
-			}
-		}
 		this.uniqueConstraints = (UniqueConstraint[])uniqueConstraintsTemp.toArray(new UniqueConstraint[uniqueConstraintsTemp.size()]);
 		this.uniqueConstraintList = Collections.unmodifiableList(Arrays.asList(this.uniqueConstraints));
 

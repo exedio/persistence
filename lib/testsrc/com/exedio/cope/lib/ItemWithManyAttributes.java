@@ -643,7 +643,6 @@ public class ItemWithManyAttributes extends Item
 	 *
  */public static final com.exedio.cope.lib.Type TYPE = 
 		new com.exedio.cope.lib.Type(
-			ItemWithManyAttributes.class,
-			null
+			ItemWithManyAttributes.class
 		)
 ;}

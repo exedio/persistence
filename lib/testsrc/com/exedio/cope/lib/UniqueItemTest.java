@@ -201,6 +201,10 @@ public class UniqueItemTest extends DatabaseLibTest
 	public void testDoubleUnique()
 		throws ConstraintViolationException
 	{
+		assertEquals(
+			list(ItemWithDoubleUnique.string, ItemWithDoubleUnique.integer),
+			ItemWithDoubleUnique.stringAndInteger.getUniqueAttributes());
+
 		assertEquals(null, ItemWithDoubleUnique.findByStringAndInteger("a", 1));
 		
 		final ItemWithDoubleUnique a1 = new ItemWithDoubleUnique("a", 1);
@@ -222,7 +226,7 @@ public class UniqueItemTest extends DatabaseLibTest
 		}
 		catch(UniqueViolationException e)
 		{
-			assertEquals(list(a1.string, a1.integer), e.getConstraint().getUniqueAttributes());
+			assertEquals(a1.stringAndInteger, e.getConstraint());
 		}
 		assertEquals(b1, ItemWithDoubleUnique.findByStringAndInteger("b", 1));
 		

@@ -4,7 +4,6 @@ package com.exedio.cope.lib;
 /**
  * An item having two attributes and a unique constraint over these attributes.
  * @persistent
- * @unique string integer
  */
 public class ItemWithDoubleUnique extends Item
 {
@@ -12,6 +11,8 @@ public class ItemWithDoubleUnique extends Item
 	public static final StringAttribute string = new StringAttribute(NOT_NULL);
 	
 	public static final IntegerAttribute integer = new IntegerAttribute(NOT_NULL);
+	
+	public static final UniqueConstraint stringAndInteger = new UniqueConstraint(string, integer);
 
 /**
 
@@ -124,9 +125,6 @@ public class ItemWithDoubleUnique extends Item
 	 *
  */public static final com.exedio.cope.lib.Type TYPE = 
 		new com.exedio.cope.lib.Type(
-			ItemWithDoubleUnique.class,
-			new com.exedio.cope.lib.UniqueConstraint[]{
-				new com.exedio.cope.lib.UniqueConstraint(new com.exedio.cope.lib.Attribute[]{string,integer,}),
-			}
+			ItemWithDoubleUnique.class
 		)
 ;}

@@ -18,6 +18,7 @@ import com.exedio.cope.lib.IntegerAttribute;
 import com.exedio.cope.lib.ItemAttribute;
 import com.exedio.cope.lib.MediaAttribute;
 import com.exedio.cope.lib.StringAttribute;
+import com.exedio.cope.lib.UniqueConstraint;
 
 public final class Instrumentor implements InjectionConsumer
 {
@@ -190,12 +191,33 @@ public final class Instrumentor implements InjectionConsumer
 			return false;
 	}
 
+	private boolean isUniqueConstraint(final JavaAttribute javaAttribute)
+	{
+		final int modifier = javaAttribute.getModifiers();
+
+		if(Modifier.isFinal(modifier) && Modifier.isStatic(modifier))
+		{
+			try
+			{
+				final Class type = javaAttribute.getFile().findType(javaAttribute.getType());
+				return UniqueConstraint.class.isAssignableFrom(type);
+			}
+			catch(InjectorParseException e)
+			{
+				return false;
+			}
+		}
+		else
+			return false;
+	}
+
 	public void onClassFeature(final JavaFeature jf, final String docComment)
 	throws IOException, InjectorParseException
 	{
 		//System.out.println("onClassFeature("+jf.getName()+" "+docComment+")");
 		if(!class_state.isInterface())
 		{
+			// TODO: put instanceof and discardnextfeature in outer IF
 			if(jf instanceof JavaAttribute &&
 				!discardnextfeature &&
 				isPersistent((JavaAttribute)jf))
@@ -251,6 +273,27 @@ public final class Instrumentor implements InjectionConsumer
 				}
 				else
 					throw new RuntimeException(typeClass.toString());
+			}
+			else if(jf instanceof JavaAttribute &&
+				!discardnextfeature &&
+				isUniqueConstraint((JavaAttribute)jf))
+			{
+				final String type = jf.getType();
+				final JavaAttribute ja = (JavaAttribute)jf;
+				final JavaClass jc = ja.getParent();
+				final List initializerArguments = ja.getInitializerArguments();
+				//System.out.println(initializerArguments);
+				final PersistentClass persistentClass = PersistentClass.getPersistentClass(jc);
+				final ArrayList persistentAttributes = new ArrayList(initializerArguments.size());
+				for(Iterator i = initializerArguments.iterator(); i.hasNext(); )
+				{
+					final String initializerArgument = (String)i.next();
+					final PersistentAttribute persistentAttribute = persistentClass.getPersistentAttribute(initializerArgument);
+					if(persistentAttribute==null)
+						throw new InjectorParseException("attribute >"+initializerArgument+"< in unique constraint "+ja.getName()+" not found.");
+					persistentAttributes.add(persistentAttribute);
+				}
+				persistentClass.makeUnique((PersistentAttribute[])persistentAttributes.toArray(new PersistentAttribute[persistentAttributes.size()]));
 			}
 		}
 		discardnextfeature=false;

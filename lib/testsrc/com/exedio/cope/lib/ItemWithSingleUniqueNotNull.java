@@ -88,8 +88,6 @@ public class ItemWithSingleUniqueNotNull extends Item
 	 *
  */public static final com.exedio.cope.lib.Type TYPE = 
 		new com.exedio.cope.lib.Type(
-			ItemWithSingleUniqueNotNull.class,
-			new com.exedio.cope.lib.UniqueConstraint[]{
-			}
+			ItemWithSingleUniqueNotNull.class
 		)
 ;}

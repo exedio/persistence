@@ -85,7 +85,6 @@ public abstract class Super extends Item
 	 *
  */public static final com.exedio.cope.lib.Type TYPE = 
 		new com.exedio.cope.lib.Type(
-			Super.class,
-			null
+			Super.class
 		)
 ;}

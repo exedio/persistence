@@ -25,19 +25,18 @@ public final class UniqueConstraint
 	}
 	
 	
-	// TODO: create a speaking name from the attributes
-	private static int runningNumber = 0;
-
-	
 	private final Attribute[] uniqueAttributes;
 	private final List uniqueAttributeList;
 	private String trimmedName;
 	private String protectedName;
 
-	public UniqueConstraint(final Attribute[] uniqueAttributes)
+	private UniqueConstraint(final Attribute[] uniqueAttributes)
 	{
 		this.uniqueAttributes = uniqueAttributes;
 		this.uniqueAttributeList = Collections.unmodifiableList(Arrays.asList(uniqueAttributes));
+		for(int i = 0; i<uniqueAttributes.length; i++)
+			if(uniqueAttributes[i]==null)
+				throw new InitializerRuntimeException(String.valueOf(i));
 	}
 	
 	UniqueConstraint(final Attribute uniqueAttribute)
@@ -45,25 +44,30 @@ public final class UniqueConstraint
 		this(new Attribute[]{uniqueAttribute});
 	}
 	
+	public UniqueConstraint(final Attribute uniqueAttribute1, final Attribute uniqueAttribute2)
+	{
+		this(new Attribute[]{uniqueAttribute1, uniqueAttribute2});
+	}
+	
 	public final List getUniqueAttributes()
 	{
 		return uniqueAttributeList;
 	}
 	
-	final void initialize()
+	final void initialize(final Type type, final String name)
 	{
-		final StringBuffer nameBuffer = new StringBuffer();
-		for(int i = 0; i<uniqueAttributes.length; i++)
-			nameBuffer.append(uniqueAttributes[i].getName());
-		nameBuffer.append(runningNumber++);
-		
-		this.trimmedName = Database.theInstance.trimName(nameBuffer.toString());
+		if(type==null)
+			throw new RuntimeException();
+		if(name==null)
+			throw new RuntimeException();
+
+		this.trimmedName = Database.theInstance.trimName(type.trimmedName+"_"+name+"Un");
 
 		final Object collision = uniqueConstraintsByName.put(trimmedName, this);
 		if(collision!=null)
 			throw new InitializerRuntimeException(null, "ambiguous unique constraint "+this+" trimmed to >"+this.trimmedName+"< colliding with "+collision);
 	}
-	
+
 	final String getTrimmedName()
 	{
 		if(trimmedName==null)

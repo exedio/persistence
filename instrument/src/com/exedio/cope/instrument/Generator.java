@@ -19,13 +19,11 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import com.exedio.cope.lib.Attribute;
 import com.exedio.cope.lib.AttributeValue;
 import com.exedio.cope.lib.NotNullViolationException;
 import com.exedio.cope.lib.ReadOnlyViolationException;
 import com.exedio.cope.lib.SystemException;
 import com.exedio.cope.lib.Type;
-import com.exedio.cope.lib.UniqueConstraint;
 import com.exedio.cope.lib.UniqueViolationException;
 import com.exedio.cope.lib.util.ReactivationConstructorDummy;
 
@@ -656,41 +654,10 @@ final class Generator
 		o.write(lineSeparator);
 		
 		// the class itself
+		// TODO: make less line breaks
 		o.write("\t\t\t");
 		o.write(persistentClass.getName());
-		o.write(".class,");
-		o.write(lineSeparator);
-		
-		// the unique contraints of the class
-		final List uniqueConstraints = persistentClass.getUniqueConstraints();
-		if(!uniqueConstraints.isEmpty())
-		{
-			o.write("\t\t\tnew "+UniqueConstraint.class.getName()+"[]{");
-			o.write(lineSeparator);
-			for(Iterator i = uniqueConstraints.iterator(); i.hasNext(); )
-			{
-				final PersistentAttribute[] uniqueConstraint = (PersistentAttribute[])i.next();
-				// don't write single unique constraints,
-				// they are established without transfer code
-				if(uniqueConstraint.length>1)
-				{
-					// longer notation otherwise
-					o.write("\t\t\t\tnew "+UniqueConstraint.class.getName()+"(new "+Attribute.class.getName()+"[]{");
-					for(int j = 0; j<uniqueConstraint.length; j++)
-					{
-						o.write(uniqueConstraint[j].getName());
-						o.write(',');
-					}
-					o.write("}),");
-					o.write(lineSeparator);
-				}
-			}
-			o.write("\t\t\t}");
-		}
-		else
-		{
-			o.write("\t\t\tnull");
-		}
+		o.write(".class");
 		o.write(lineSeparator);
 
 		// close the constructor of Type

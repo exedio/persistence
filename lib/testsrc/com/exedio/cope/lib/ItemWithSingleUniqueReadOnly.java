@@ -66,8 +66,6 @@ public class ItemWithSingleUniqueReadOnly extends Item
 	 *
  */public static final com.exedio.cope.lib.Type TYPE = 
 		new com.exedio.cope.lib.Type(
-			ItemWithSingleUniqueReadOnly.class,
-			new com.exedio.cope.lib.UniqueConstraint[]{
-			}
+			ItemWithSingleUniqueReadOnly.class
 		)
 ;}
