@@ -11,10 +11,6 @@ final class OracleDatabase
 		extends Database
 		implements DatabaseColumnTypesDefinable
 {
-	public OracleDatabase()
-	{
-		super();
-	}
 
 	String getIntegerType(final int precision)
 	{

@@ -5,10 +5,6 @@ import java.sql.SQLException;
 
 class HsqldbDatabase extends Database
 {
-	HsqldbDatabase()
-	{
-		super();
-	}
 
 	String getIntegerType(final int precision)
 	{
