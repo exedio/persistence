@@ -210,7 +210,7 @@
 			outputDir="${basedir}/copernica/build/jspsrc" /> 
 	</target>
 	
-	<target name="copernica.compile.jsp" depends="copernica.jspc">
+	<target name="copernica.compile.jsp" depends="copernica.jspc, copernica.compile.classes">
 		<javac destdir="copernica/build/classes"
 			optimize="off"
 			debug="on"
