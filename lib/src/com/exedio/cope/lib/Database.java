@@ -621,6 +621,7 @@ abstract class Database
 	}
 
 	static final String GET_TABLES = "getTables";
+	static final String GET_COLUMNS = "getColumns";
 
 	//private static int timeExecuteQuery = 0;
 
@@ -638,6 +639,11 @@ abstract class Database
 			if(GET_TABLES.equals(sqlText))
 			{
 				resultSet = connection.getMetaData().getTables(null, null, null, new String[]{"TABLE"});
+				resultSetHandler.run(resultSet);
+			}
+			else if(GET_COLUMNS.equals(sqlText))
+			{
+				resultSet = connection.getMetaData().getColumns(null, null, null, null);
 				resultSetHandler.run(resultSet);
 			}
 			else

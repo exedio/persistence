@@ -3,6 +3,7 @@ package com.exedio.cope.lib;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 
 class HsqldbDatabase
 		extends Database
@@ -86,6 +87,18 @@ class HsqldbDatabase
 				throw new SystemException(e);
 			}
 		}
+		{
+			final com.exedio.cope.lib.Statement bf = createStatement();
+			bf.append(GET_COLUMNS);
+			try
+			{
+				executeSQL(bf, new MetaDataColumnHandler(report));
+			}
+			catch(ConstraintViolationException e)
+			{
+				throw new SystemException(e);
+			}
+		}
 		
 		report.finish();
 
@@ -107,6 +120,55 @@ class HsqldbDatabase
 			{
 				final String tableName = resultSet.getString("TABLE_NAME");
 				final ReportTable table = report.notifyExistentTable(tableName);
+				//System.out.println("EXISTS:"+tableName);
+			}
+		}
+	}
+
+	private static class MetaDataColumnHandler implements ResultSetHandler
+	{
+		private final Report report;
+
+		MetaDataColumnHandler(final Report report)
+		{
+			this.report = report;
+		}
+
+		public void run(ResultSet resultSet) throws SQLException
+		{
+			while(resultSet.next())
+			{
+				final String tableName = resultSet.getString("TABLE_NAME");
+				final String columnName = resultSet.getString("COLUMN_NAME");
+				final int dataType = resultSet.getInt("DATA_TYPE");
+
+				final String columnType;
+				switch(dataType)
+				{
+					case Types.INTEGER:
+						columnType = "integer";
+						break;
+					case Types.BIGINT:
+						columnType = "bigint";
+						break;
+					case Types.DOUBLE:
+						columnType = "double";
+						break;
+					case Types.TIMESTAMP:
+						columnType = "timestamp";
+						break;
+					case Types.VARCHAR:
+						final int dataLength = resultSet.getInt("COLUMN_SIZE");
+						columnType = "varchar("+dataLength+')';
+						break;
+					default:
+						columnType = String.valueOf(dataType);
+						break;
+				}
+					
+				final ReportTable table = report.getTable(tableName);
+				if(table!=null)
+					table.notifyExistentColumn(columnName, columnType);
 				//System.out.println("EXISTS:"+tableName);
 			}
 		}
