@@ -1,8 +1,8 @@
 <%!
 				static final String SAVE_BUTTON = "SAVE";
-				static final String VALUE_NULL = "null";
-				static final String VALUE_ON = "on";
-				static final String VALUE_OFF = "off";
+				static final String VALUE_NULL = ItemForm.VALUE_NULL;
+				static final String VALUE_ON = ItemForm.VALUE_ON;
+				static final String VALUE_OFF = ItemForm.VALUE_OFF;
 			%><%
 				final Item item = itemCop.item;
 				final Type type = item.getType();
