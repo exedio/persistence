@@ -926,13 +926,13 @@ public final class Injector
 			Object o = result.get(tagname);
 			if (o == null)
 				result.put(tagname, buf.toString().trim());
-			// TODO: trim should not be neccesasary
+			// TODO: trim should not be neccessary
 			else if (o instanceof String)
 			{
 				final ArrayList list = new ArrayList();
 				list.add(o);
 				list.add(buf.toString().trim());
-				// TODO: trim should not be neccesasary
+				// TODO: trim should not be neccessary
 				result.put(tagname, list);
 			}
 			else
