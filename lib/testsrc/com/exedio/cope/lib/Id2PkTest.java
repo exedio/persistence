@@ -3,18 +3,20 @@ package com.exedio.cope.lib;
 
 public class Id2PkTest extends AbstractLibTest
 {
+	final PrimaryKeyIterator i = new PrimaryKeyIterator(null);
+	
 	private void assertIdPk(final long id, final int pk)
 			throws NoSuchIDException
 	{
-		assertEquals(pk, Search.id2pk(id));
-		assertEquals(id, Search.pk2id(pk));
+		assertEquals(pk, i.id2pk(id));
+		assertEquals(id, i.pk2id(pk));
 	}
 	
 	private void assertIDFails(final long id, final String detail)
 	{
 		try
 		{
-			Search.id2pk(id);
+			i.id2pk(id);
 			fail("should have thrown NoSuchIDException");
 		}
 		catch(NoSuchIDException e)
@@ -46,7 +48,7 @@ public class Id2PkTest extends AbstractLibTest
 		
 		try
 		{
-			Search.pk2id(Type.NOT_A_PK);
+			i.pk2id(Type.NOT_A_PK);
 			fail("should have thrown RuntimeException");
 		}
 		catch(RuntimeException e)

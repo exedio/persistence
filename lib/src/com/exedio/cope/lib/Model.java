@@ -250,7 +250,7 @@ public final class Model
 			throw new NoSuchIDException(id, e, idString);
 		}
 
-		final int pk = Search.id2pk(idNumber);
+		final int pk = type.getPrimaryKeyIterator().id2pk(idNumber);
 		
 		if(!database.check(type, pk))
 			throw new NoSuchIDException(id, "item <"+idNumber+"> does not exist");

@@ -39,7 +39,7 @@ public abstract class Item extends Search
 	 */
 	public final String getID()
 	{
-		return type.getID() + '.' + pk2id(pk);
+		return type.getID() + '.' + type.getPrimaryKeyIterator().pk2id(pk);
 	}
 	
 	/**
@@ -385,7 +385,7 @@ public abstract class Item extends Search
 		}
 
 		bf.append('/').
-			append(pk2id(pk));
+			append(type.getPrimaryKeyIterator().pk2id(pk));
 
 		final String compactExtension = getCompactExtension(mimeMajor, mimeMinor);
 		if(compactExtension==null)
