@@ -134,7 +134,7 @@
 				<pathelement location="../lib/hsqldb.jar" />
 			</classpath>
 			<arg value="com.exedio.cope.lib.PackageTest" />
-			<sysproperty key="com.exedio.cope.properties" file="cope.properties.hsql" />
+			<sysproperty key="com.exedio.cope.properties" file="cope.properties.hsqldb" />
 		</java>
 	</target>
 
@@ -282,7 +282,7 @@
 		</copy>
 		
 		<copy tofile="copernica/build/testwebapp-hsqldb/WEB-INF/cope.properties"
-				file="cope.properties.hsql" />
+				file="cope.properties.hsqldb" />
 		<copy todir="copernica/build/testwebapp-hsqldb/WEB-INF/"
 				file="copernica/web.xml" />
 		<touch file="copernica/build/testwebapp-hsqldb/WEB-INF/web.xml" />
