@@ -164,13 +164,14 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); tableCount++)
 			</li><%
 		}
 		
-		for(Iterator j = table.getConstraints().iterator(); j.hasNext(); )
+		int constraintCount = 1;
+		for(Iterator j = table.getConstraints().iterator(); j.hasNext(); constraintCount++)
 		{
 			final ReportConstraint constraint = (ReportConstraint)j.next();
 			final String constraintColor = color(constraint.getCumulativeColor());
 			%>
 			<li class="<%=constraintColor%>">
-				<small>constraint</small> <%=constraint.name%><%
+				<small>constraint<%=constraintCount%></small> <%=constraint.name%><%
 			final String constraintError = constraint.getError();
 			if(constraintError!=null)
 			{
