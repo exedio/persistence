@@ -4,9 +4,9 @@ import java.util.Collection;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.exedio.cope.lib.Cope;
 import com.exedio.cope.lib.Function;
 import com.exedio.cope.lib.Query;
-import com.exedio.cope.lib.Cope;
 import com.exedio.cope.lib.Type;
 
 final class TypeCop extends CopernicaCop
@@ -16,6 +16,9 @@ final class TypeCop extends CopernicaCop
 	final boolean orderAscending;
 	final int start;
 	final int count;
+
+	private boolean lastPage;
+	private Collection items = null;
 
 	TypeCop(final CopernicaProvider provider, final CopernicaLanguage language, final Type type)
 	{
@@ -56,9 +59,21 @@ final class TypeCop extends CopernicaCop
 		return provider.getDisplayName(language, type);
 	}
 
+	final CopernicaCop toNext()
+	{
+		computeItems();
+		return lastPage ? null : nextPage();
+	}
+	
 	final boolean isFirstPage()
 	{
 		return start == 0;
+	}
+	
+	final boolean isLastPage()
+	{
+		computeItems();
+		return lastPage;
 	}
 	
 	final TypeCop firstPage()
@@ -90,14 +105,25 @@ final class TypeCop extends CopernicaCop
 		return new TypeCop(provider, language, type, newOrderBy, ascending, start, count);
 	}
 	
-	final Collection search()
+	final Collection getItems()
 	{
+		computeItems();
+		return items;
+	}
+
+	private final void computeItems()
+	{
+		if(items!=null)
+			return;
+		
 		final Query query = new Query(type, null);
 		if(orderBy!=null)
 			query.setOrderBy(orderBy, orderAscending);
 		query.setDeterministicOrder(true);
 		query.setRange(start, count);
-		return Cope.search(query);
+		
+		items = Cope.search(query);
+		lastPage = count>items.size();
 	}
 
 	static final TypeCop getCop(

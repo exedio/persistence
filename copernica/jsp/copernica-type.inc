@@ -1,6 +1,6 @@
 <%
 			final Type type = typeCop.type;
-			final Collection items = typeCop.search();
+			final Collection items = typeCop.getItems();
 			
 			%>
 			<h1>
@@ -20,7 +20,7 @@
 			</ul><%
 			final int itemsSize = items.size();
 			final boolean firstPage = typeCop.isFirstPage();
-			final boolean lastPage = typeCop.count>items.size();
+			final boolean lastPage = typeCop.isLastPage();
 			if(typeCop.start>0 || itemsSize>0)
 			{
 			%>

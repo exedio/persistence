@@ -73,7 +73,16 @@ include file="provider.inc"
 	
 %><html>
 	<head>
-		<title><%=cop.getTitle()%></title>
+		<title><%=cop.getTitle()%></title><%
+		
+		final CopernicaCop next = cop.toNext();
+		if(next!=null)
+		{
+		%>
+		<link rel="next" href="<%=next%>"><%
+		}
+		
+		%>
 		<link rel="STYLESHEET" type="text/css" href="copernica.css">
 	</head>
 	<body>

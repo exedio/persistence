@@ -39,6 +39,11 @@ abstract class CopernicaCop extends Cop implements RequestCache
 	abstract boolean isType(final Type type);
 	abstract String getTitle();
 
+	CopernicaCop toNext()
+	{
+		return null;
+	}
+	
 	final TypeCop toType(final Type newType)
 	{
 		return new TypeCop(provider, language, newType);
