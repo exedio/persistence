@@ -40,6 +40,23 @@ public class TrimTest extends AbstractLibTest
 		assertTrim("ShortVeryShor", "ShortVeryverylongShort",13);
 		assertTrim("ShorVeryShor", "ShortVeryverylongShort",12);
 		assertTrim("ShorVerySho", "ShortVeryverylongShort",11);
+
+		try
+		{		
+			Database.trimString("hallo", 0);
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals("maxLength must be greater zero", e.getMessage());
+		}
+		try
+		{		
+			Database.trimString("", 20);
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals("longString must not be empty", e.getMessage());
+		}
 	}
 
 }

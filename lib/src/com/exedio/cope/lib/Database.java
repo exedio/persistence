@@ -661,6 +661,11 @@ public abstract class Database
 	
 	protected static final String trimString(final String longString, final int maxLength)
 	{
+		if(maxLength<=0)
+			throw new RuntimeException("maxLength must be greater zero");
+		if(longString.length()==0)
+			throw new RuntimeException("longString must not be empty");
+
 		if(longString.length()<=maxLength)
 			return longString;
 
