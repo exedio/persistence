@@ -182,7 +182,7 @@ public final class Model
 	 * that touches all tables and columns,
 	 * that would have been created by
 	 * {@link #createDatabase()}.
-	 * @throws SystemException
+	 * @throws RuntimeException
 	 * 	if something is wrong with the database.
 	 * 	TODO: use a more specific exception.
 	 */
