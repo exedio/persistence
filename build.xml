@@ -33,4 +33,10 @@
 		<delete dir="lib/build" />
 	</target>
 
+	<target name="instrument.clean">
+		<delete dir="instrument/build" />
+	</target>
+
+	<target name="clean" depends="lib.clean, instrument.clean" />
+	
 </project>
