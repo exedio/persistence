@@ -3,10 +3,10 @@ package com.exedio.cope.lib;
 
 public class ReportTest extends DatabaseLibTest
 {
-	private static final String TABLE1 = "AttributeItem";
-	private static final String TABLE1X = "AttributeItemX";
-	private static final String COLUMN1 = "someInteger";
-	private static final String COLUMN1X = "someIntegerX";
+	private static final String TABLE1 = "SumItem";
+	private static final String TABLE1X = "SumItemX";
+	private static final String COLUMN1 = "num2";
+	private static final String COLUMN1X = "num2X";
 	
 	public void testReport()
 	{
@@ -127,6 +127,40 @@ public class ReportTest extends DatabaseLibTest
 				assertEquals(column1Type, column.getDatabaseType());
 
 				tableX.renameTo(TABLE1);
+			}
+		}
+		// OK
+		{
+			final Report report = model.reportDatabase();
+
+			final ReportTable table = report.getTable(TABLE1);
+			assertNotNull(table);
+			assertEquals(null, table.getError());
+			assertEquals(Report.COLOR_OK, table.getParticularColor());
+
+			final ReportColumn column = table.getColumn(COLUMN1);
+			assertEquals(null, column.getError());
+			assertEquals(Report.COLOR_OK, column.getParticularColor());
+			assertEquals(column1Type, column.getDatabaseType());
+			
+			table.drop();
+		}
+		// TABLE DROPPED
+		{
+			final Report report = model.reportDatabase();
+
+			{
+				final ReportTable table = report.getTable(TABLE1);
+				assertNotNull(table);
+				assertEquals("MISSING !!!", table.getError());
+				assertEquals(Report.COLOR_RED, table.getParticularColor());
+
+				final ReportColumn column = table.getColumn(COLUMN1);
+				assertEquals("missing", column.getError());
+				assertEquals(Report.COLOR_RED, column.getParticularColor());
+				assertEquals(column1Type, column.getDatabaseType());
+
+				table.create();
 			}
 		}
 		// OK
