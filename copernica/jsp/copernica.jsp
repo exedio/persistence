@@ -75,6 +75,9 @@ include file="provider.inc"
 	<head>
 		<title><%=cop.getTitle()%></title><%
 		
+		final CopernicaCop home = cop.toHome();
+		%>
+		<link rel="home" href="<%=home%>"><%
 		final CopernicaCop prev = cop.toPrev();
 		if(prev!=null)
 		{
