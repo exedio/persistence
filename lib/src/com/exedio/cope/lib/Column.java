@@ -28,6 +28,14 @@ abstract class Column
 		table.addColumn(this);
 	}
 	
+	final String getPrimaryKeyConstraintID()
+	{
+		if(!primaryKey)
+			throw new RuntimeException(id);
+
+		return Database.theInstance.trimName(table.id + "_" + "Pk");
+	}
+	
 	public final String toString()
 	{
 		return id;

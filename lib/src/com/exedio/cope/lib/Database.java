@@ -922,21 +922,23 @@ public abstract class Database
 				append(' ').
 				append(column.databaseType);
 
-			if(column.primaryKey)
-			{
-				bf.append(" primary key");
-			}
-			else
-			{
-				if(column.notNull)
-					bf.append(" not null");
-			}
+			if(column.notNull && !column.primaryKey)
+				bf.append(" not null");
 		}
 		
 		// attribute constraints		
-		for(Iterator i = table.getColumns().iterator(); i.hasNext(); )
+		for(Iterator i = table.getAllColumns().iterator(); i.hasNext(); )
 		{
 			final Column column = (Column)i.next();
+
+			if(column.primaryKey)
+			{
+				bf.append(",constraint ").
+					append(protectName(column.getPrimaryKeyConstraintID())).
+					append(" primary key(").
+					append(column.protectedID).
+					append(')');
+			}
 
 			if(column instanceof StringColumn)
 			{
