@@ -70,11 +70,15 @@ public class Item extends Search
 
 	/**
 	 * Returns the active item object representing the same item as this item object.
-	 * For any two active item objects <code>a</code>, <code>b</code> the following holds true:
-	 * <code>If and only if a.equals(b) then a.activeItem() == b.activeItem().</code>
-	 * Does not activate this item, if it's not already active.
+	 * For any two item objects <code>a</code>, <code>b</code> the following holds true:
+	 * <p>
+	 * If and only if <code>a.equals(b)</code> then <code>a.activeItem() == b.activeItem()</code>.
+	 * <p>
+	 * So it does for items, what {@link String#intern} does for strings.
+	 * Does activate this item, if it's not already active.
 	 * Is guaranteed to be very cheap, if this item object is already active, which means
 	 * this method returns <code>this</code>.
+	 * Never returns null.
 	 */
 	public final Item activeItem()
 	{
