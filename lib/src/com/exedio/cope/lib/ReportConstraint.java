@@ -7,6 +7,7 @@ public final class ReportConstraint extends ReportNode
 	public final ReportTable table;
 	private boolean required = false;
 	private boolean exists = false;
+	public String existingCondition;
 		
 	ReportConstraint(final String name, final ReportTable table)
 	{
@@ -25,6 +26,12 @@ public final class ReportConstraint extends ReportNode
 	final void notifyExists()
 	{
 		exists = true;
+	}
+
+	final void notifyExistsCheck(final String condition)
+	{
+		exists = true;
+		this.existingCondition = condition;
 	}
 
 	protected void finish()

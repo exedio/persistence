@@ -85,8 +85,8 @@ public final class ReportTable extends ReportNode
 		result.notifyRequired();
 		return result;
 	}
-		
-	final ReportConstraint notifyExistentConstraint(final String constraintName)
+	
+	private final ReportConstraint getOrCreateConstraint(final String constraintName)
 	{
 		ReportConstraint result = (ReportConstraint)constraintMap.get(constraintName);
 		if(result==null)
@@ -95,7 +95,20 @@ public final class ReportTable extends ReportNode
 			constraintMap.put(constraintName, result);
 			constraintList.add(result);
 		}
+		return result;
+	}
+		
+	final ReportConstraint notifyExistentConstraint(final String constraintName)
+	{
+		final ReportConstraint result = getOrCreateConstraint(constraintName);
 		result.notifyExists();
+		return result;
+	}
+	
+	final ReportConstraint notifyExistentCheckConstraint(final String constraintName, final String condition)
+	{
+		final ReportConstraint result = getOrCreateConstraint(constraintName);
+		result.notifyExistsCheck(condition);
 		return result;
 	}
 	

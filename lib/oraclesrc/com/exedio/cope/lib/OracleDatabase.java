@@ -117,7 +117,14 @@ final class OracleDatabase
 		}
 		{
 			final Statement bf = createStatement();
-			bf.append("select TABLE_NAME, CONSTRAINT_NAME, CONSTRAINT_TYPE from user_constraints order by table_name").
+			bf.append(
+					"select " +
+					"TABLE_NAME," +
+					"CONSTRAINT_NAME," +
+					"CONSTRAINT_TYPE," +
+					"SEARCH_CONDITION " +
+					"from user_constraints order by table_name").
+				defineColumnString().
 				defineColumnString().
 				defineColumnString().
 				defineColumnString();
@@ -215,7 +222,16 @@ final class OracleDatabase
 				final String constraintName = resultSet.getString(2);
 				final String constraintType = resultSet.getString(3);
 				final ReportTable table = report.notifyExistentTable(tableName);
-				final ReportConstraint constraint = table.notifyExistentConstraint(constraintName);
+				//System.out.println("tableName:"+tableName+" constraintName:"+constraintName+" constraintType:>"+constraintType+"<");
+				final ReportConstraint constraint;
+				if("C".equals(constraintType))
+				{
+					final String searchCondition = resultSet.getString(4);
+					//System.out.println("searchCondition:>"+searchCondition+"<");
+					constraint = table.notifyExistentCheckConstraint(constraintName, searchCondition);
+				}
+				else
+					constraint = table.notifyExistentConstraint(constraintName);
 				//System.out.println("EXISTS:"+tableName);
 			}
 		}
