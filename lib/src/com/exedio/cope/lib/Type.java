@@ -27,6 +27,7 @@ public final class Type
 	
 	private final Class javaClass;
 	private final Type supertype;
+	final PrimaryKeyIterator primaryKeyIterator;
 	
 	private final Attribute[] declaredAttributes;
 	private final List declaredAttributeList;
@@ -86,9 +87,15 @@ public final class Type
 
 		this.table = new Table(id);
 		if(supertype!=null)
+		{
+			primaryKeyIterator = supertype.primaryKeyIterator;
 			new ItemColumn(table, supertype.getJavaClass());
+		}
 		else
+		{
+			primaryKeyIterator = new PrimaryKeyIterator(table);
 			new IntegerColumn(table);
+		}
 
 
 		// declaredAttributes
@@ -305,7 +312,7 @@ public final class Type
 	void onDropTable()
 	{
 		rows.clear();
-		flushPK();
+		primaryKeyIterator.flushPK();
 	}
 
 	// active items of this type ---------------------------------------------
@@ -381,41 +388,6 @@ public final class Type
 		}	
 	};
 
-	// pk generation ---------------------------------------------
-
 	static final int NOT_A_PK = Integer.MIN_VALUE;	
-	private int nextPkLo = NOT_A_PK;
-	private int nextPkHi = NOT_A_PK;
-	private boolean nextIsLo;
-	
-	void flushPK()
-	{
-		nextPkLo = NOT_A_PK;
-		nextPkHi = NOT_A_PK;
-	}
-
-	int nextPK()
-	{
-		if(nextPkLo==NOT_A_PK)
-		{
-			final int[] nextPks = Database.theInstance.getNextPK(this);
-			if(nextPks.length!=2)
-				throw new RuntimeException(String.valueOf(nextPks.length));
-			nextPkLo = nextPks[0];
-			nextPkHi = nextPks[1];
-			if(nextPkLo>=nextPkHi)
-				throw new RuntimeException(String.valueOf(nextPkLo)+">="+String.valueOf(nextPkHi));
-			nextIsLo = (-nextPkLo)<=nextPkHi;
-			//System.out.println(this.trimmedName+": getNextPK:"+nextPkLo+"/"+nextPkHi+"  nextIs"+(nextIsLo?"Lo":"Hi"));
-		}
-		
-		//System.out.println(this.trimmedName+": nextPK:"+nextPkLo+"/"+nextPkHi+"  nextIs"+(nextIsLo?"Lo":"Hi"));
-		final int result = nextIsLo ? nextPkLo-- : nextPkHi++;
-		nextIsLo = !nextIsLo;
-
-		if(nextPkLo>=nextPkHi) // TODO : somehow handle pk overflow
-			throw new RuntimeException(String.valueOf(nextPkHi)+String.valueOf(nextPkLo));
-		return result;
-	}
 
 }

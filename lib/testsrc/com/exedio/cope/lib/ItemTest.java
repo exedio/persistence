@@ -53,11 +53,11 @@ public class ItemTest extends DatabaseLibTest
 
 		final EmptyItem item4 = new EmptyItem();
 		assertID(2, item4);
-		item4.TYPE.flushPK();
+		item4.TYPE.primaryKeyIterator.flushPK();
 		final EmptyItem item5 = new EmptyItem();
 		assertID(3, item5);
 		assertNotEquals(item4, item5);
-		item4.TYPE.flushPK();
+		item4.TYPE.primaryKeyIterator.flushPK();
 		final EmptyItem item6 = new EmptyItem();
 		assertID(4, item6);
 		assertNotEquals(item4, item5);

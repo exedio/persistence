@@ -8,6 +8,7 @@ import java.io.InputStream;
 import com.exedio.cope.lib.collision.CollisionItem1;
 import com.exedio.cope.lib.collision.CollisionItem2;
 import com.exedio.cope.lib.hierarchy.FirstSub;
+import com.exedio.cope.lib.hierarchy.SecondSub;
 import com.exedio.cope.lib.hierarchy.Super;
 
 /**
@@ -33,6 +34,7 @@ public abstract class DatabaseLibTest extends AbstractLibTest
 		PointerItem.TYPE,
 		Super.TYPE,
 		FirstSub.TYPE,
+		SecondSub.TYPE,
 		CollisionItem1.TYPE,
 		CollisionItem2.TYPE,
 	};

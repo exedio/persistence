@@ -118,7 +118,7 @@ public abstract class Item extends Search
 		throws ClassCastException
 	{
 		this.type = Type.findByJavaClass(getClass());
-		this.pk = type.nextPK();
+		this.pk = type.primaryKeyIterator.nextPK();
 		final Row row = new Row(this, false);
 		//System.out.println("create item "+type+" "+pk);
 

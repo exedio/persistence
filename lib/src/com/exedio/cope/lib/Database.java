@@ -260,7 +260,7 @@ public abstract class Database
 			final Table table = (Table)i.next();
 			final int count = countTable(table);
 			if(count>0)
-				throw new RuntimeException("there are "+count+" items left for table "+table);
+				throw new RuntimeException("there are "+count+" items left for table "+table.id);
 		}
 		//final long amount = (System.currentTimeMillis()-time);
 		//checkEmptyTableTime += amount;
@@ -1086,10 +1086,9 @@ public abstract class Database
 		}
 	}
 	
-	int[] getNextPK(final Type type)
+	int[] getNextPK(final Table table)
 	{
 		final Statement bf = createStatement();
-		final Table table = type.table;
 		final String primaryKeyProtectedID = table.getPrimaryKey().protectedID;
 		bf.append("select min(").
 			append(primaryKeyProtectedID).defineColumnInteger().
