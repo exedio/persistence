@@ -19,12 +19,12 @@ public class Database
 	{
 	}
 	
-	public char getNameDelimiterStart()
+	private char getNameDelimiterStart()
 	{
 		return '"';
 	}
 	
-	public char getNameDelimiterEnd()
+	private char getNameDelimiterEnd()
 	{
 		return '"';
 	}
