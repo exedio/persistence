@@ -16,7 +16,9 @@ public final class MediaAttribute extends Attribute
 	
 	protected List createColumns(final String name, final boolean notNull)
 	{
+		// TODO: create column only, if major mime type is not fixed
 		mimeMajor = new StringColumn(getType(), name + "Major", notNull);
+		// TODO: create column only, if minor mime type is not fixed
 		mimeMinor = new StringColumn(getType(), name + "Minor", notNull);
 		return Arrays.asList(new StringColumn[]{mimeMajor, mimeMinor});
 	}
