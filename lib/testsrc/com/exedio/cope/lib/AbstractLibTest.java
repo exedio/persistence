@@ -81,6 +81,11 @@ public abstract class AbstractLibTest extends TestCase
 		return Collections.singleton(o);
 	}
 
+	protected Set set(final Object o1, final Object o2)
+	{
+		return new HashSet(Arrays.asList(new Object[]{o1, o2}));
+	}
+
 	protected List list()
 	{
 		return Collections.EMPTY_LIST;
