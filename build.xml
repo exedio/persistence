@@ -94,6 +94,7 @@
 			<arg value="${basedir}/lib/testsrc/com/exedio/cope/lib/ItemWithDoubleUnique.java" />
 			<arg value="${basedir}/lib/testsrc/com/exedio/cope/lib/EmptyItem.java" />
 			<arg value="${basedir}/lib/testsrc/com/exedio/cope/lib/EmptyItem2.java" />
+			<arg value="${basedir}/lib/testsrc/com/exedio/cope/lib/AttributeEmptyItem.java" />
 			<arg value="${basedir}/lib/testsrc/com/exedio/cope/lib/AttributeItem.java" />
 			<arg value="${basedir}/lib/testsrc/com/exedio/cope/lib/StringItem.java" />
 			<arg value="${basedir}/lib/testsrc/com/exedio/cope/lib/MediaItem.java" />

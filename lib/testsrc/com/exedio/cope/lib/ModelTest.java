@@ -37,7 +37,6 @@ public class ModelTest extends AbstractLibTest
 			item.someEnumeration,
 			item.someNotNullEnumeration,
 			item.someMedia,
-			item.someQualifiedString,
 		};
 		assertEquals(Arrays.asList(attributes), item.TYPE.getAttributes());
 		assertEquals(Arrays.asList(attributes), item.TYPE.getDeclaredAttributes());
@@ -63,7 +62,6 @@ public class ModelTest extends AbstractLibTest
 			item.someEnumeration,
 			item.someNotNullEnumeration,
 			item.someMedia,
-			item.someQualifiedString,
 		};
 		assertEquals(Arrays.asList(features), item.TYPE.getFeatures());
 		assertEquals(Arrays.asList(features), item.TYPE.getDeclaredFeatures());

@@ -30,6 +30,7 @@ public abstract class AbstractLibTest extends TestCase
 		EmptyItem.TYPE,
 		EmptyItem2.TYPE,
 		AttributeItem.TYPE,
+		AttributeEmptyItem.TYPE,
 		StringItem.TYPE,
 		MediaItem.TYPE,
 		SumItem.TYPE,
