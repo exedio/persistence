@@ -97,7 +97,7 @@ public final class PersistentClass
 	private ArrayList initialAttributes = null;
 	private TreeSet constructorExceptions = null;
 	
-	private final void makeInitialAttributesAndContructorExceptions()
+	private final void makeInitialAttributesAndConstructorExceptions()
 	{
 		initialAttributes = new ArrayList();
 		constructorExceptions = new TreeSet(ClassComparator.getInstance());
@@ -120,7 +120,7 @@ public final class PersistentClass
 	public final List getInitialAttributes()
 	{
 		if(initialAttributes == null)
-			makeInitialAttributesAndContructorExceptions();
+			makeInitialAttributesAndConstructorExceptions();
 		return initialAttributes;
 	}
 
@@ -134,7 +134,7 @@ public final class PersistentClass
 	public final SortedSet getContructorExceptions()
 	{
 		if(constructorExceptions == null)
-			makeInitialAttributesAndContructorExceptions();
+			makeInitialAttributesAndConstructorExceptions();
 		return constructorExceptions;
 	}
 
