@@ -116,6 +116,16 @@ public abstract class AbstractLibTest extends TestCase
 		return Arrays.asList(new Object[]{o1, o2, o3});
 	}
 	
+	protected List list(final Object o1, final Object o2, final Object o3, final Object o4)
+	{
+		return Arrays.asList(new Object[]{o1, o2, o3, o4});
+	}
+	
+	protected List list(final Object o1, final Object o2, final Object o3, final Object o4, final Object o5)
+	{
+		return Arrays.asList(new Object[]{o1, o2, o3, o4, o5});
+	}
+	
 	protected Object waitForKey(final Object o)
 	{
 		System.out.println("WAITING FOR KEY");
