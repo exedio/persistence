@@ -266,6 +266,7 @@ public class ExampleTest extends InjectorTest
 		final JavaBehaviour emptyMethod = assertBehaviourHeader("run", "void", Modifier.PUBLIC);
 		assertText("{}");
 		assertMethod("run", runComment, emptyMethod);
+		assertText("\n\n\t");
 	}
 
 }
