@@ -164,6 +164,7 @@ public final class Type
 						final Qualifier qualifier = (Qualifier)field.get(null);
 						if(qualifier==null)
 							throw new RuntimeException(field.getName());
+						qualifier.initialize();
 						qualifier.getQualifyUnique().setQualifier(qualifier);
 						qualifiersTemp.add(qualifier);
 					}
