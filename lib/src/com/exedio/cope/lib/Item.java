@@ -79,7 +79,7 @@ public class Item extends Search
 
 	/**
 	 * Returns a stream for fetching the data of this persistent media attribute.
-	 * <b>You are responsible for closing the stream, when your finished!<b>
+	 * <b>You are responsible for closing the stream, when you are finished!</b>
 	 * Returns null, if there is no data for this attribute.
 	 */
 	protected final InputStream getMediaData(final MediaAttribute attribute)
@@ -89,7 +89,7 @@ public class Item extends Search
 
 	/**
 	 * Provides data for this persistent media attribute.
-	 * <b>Closes the stream when finishing normally!<b>
+	 * <b>Closes the stream only, when finishing normally!</b>
 	 * @param data give null to remove data.
 	 * @throws NotNullViolationException
 	 *         if data is null and attribute is {@link Attribute#isNotNull() not-null}.
