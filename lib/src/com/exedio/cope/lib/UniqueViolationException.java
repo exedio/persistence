@@ -6,7 +6,13 @@ import java.io.PrintWriter;
 import java.sql.SQLException;
 
 /**
- * Is thrown, when a persistent modification tries to violate a unique-constraint.
+ * Signals, that an attempt to write an attribute has been failed,
+ * and the value to be set violated a unique constraint.
+ *
+ * This exception will be thrown by {@link Item#setAttribute Item.setAttribute} methods
+ * and item constructors
+ * if that attribute is covered by a {@link UniqueConstraint unique constraint}
+ * and the value to be set violated the uniqueness.
  */
 public final class UniqueViolationException extends ConstraintViolationException
 {
@@ -30,7 +36,7 @@ public final class UniqueViolationException extends ConstraintViolationException
 	}
 	
 	/**
-	 * Returns the item that was tried to be modified.
+	 * Returns the item that was attempted to be modified.
 	 * Is null, if the item has not yet been created,
 	 * e.g. the collision occured in the constructor.
 	 */
