@@ -15,4 +15,9 @@ public final class EqualCondition extends Condition
 		this.value = value;
 	}
 	
+	public final String toString()
+	{
+		return attribute.getName() + "='" + value + '\'';
+	}
+	
 }

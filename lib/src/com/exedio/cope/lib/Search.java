@@ -2,6 +2,7 @@
 package persistence;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import persistence.search.AndCondition;
 import persistence.search.Condition;
@@ -31,7 +32,8 @@ public class Search
 	
 	public static final Collection search(final Type type, final Condition condition)
 	{
-		return null;
+		System.out.println("select " + type.getClass().getName() + " where " + condition);
+		return Collections.EMPTY_LIST;
 	}
 	
 	public static final Item searchUnique(final Type type, final Condition condition)
