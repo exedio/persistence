@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.exedio.cope.lib.Model;
 import com.exedio.cope.lib.NestingRuntimeException;
+import com.exedio.cops.Cop;
 
 final class Util
 {
@@ -71,35 +72,17 @@ final class Util
 		}
 	}
 	
-	private static final String BASIC = "Basic ";
-	private static final int BASIC_LENGTH = BASIC.length();
-	
-	static final CopernicaUser checkAccess( // TODO: put method into Cop
+	static final CopernicaUser checkAccess(
 			final CopernicaProvider provider,
 			final HttpServletRequest request)
 		throws CopernicaAuthorizationFailedException
 	{
-		final String authorization = request.getHeader("Authorization");
-		//System.out.println("authorization:"+authorization);
+		final String[] authorization = Cop.authorizeBasic(request);
 		if(authorization==null)
 			throw new CopernicaAuthorizationFailedException("noauth");
-		if(!authorization.startsWith(BASIC))
-			throw new CopernicaAuthorizationFailedException("nonbasic", authorization);
-		
-		final String basicCookie = authorization.substring(BASIC_LENGTH);
-		//System.out.println("basicCookie:"+basicCookie);
-		
-		final String basicCookiePlain = new String(Base64.decode(basicCookie));
-		//System.out.println("basicCookiePlain:"+basicCookiePlain);
-		
-		final int colon = basicCookiePlain.indexOf(':');
-		if(colon<=0 || colon+1>=basicCookiePlain.length())
-			throw new CopernicaAuthorizationFailedException("badcol", basicCookiePlain);
-		
-		final String userid = basicCookiePlain.substring(0, colon);
-		final String password = basicCookiePlain.substring(colon+1);
-		//System.out.println("userid:"+userid);
-		//System.out.println("password:"+password);
+
+		final String userid = authorization[0];
+		final String password = authorization[1];
 
 		final CopernicaUser user = provider.findUserByID(userid);
 		//System.out.println("user:"+user);

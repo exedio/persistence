@@ -1,8 +1,8 @@
-package com.exedio.copernica;
+package com.exedio.cops;
 
 /*
- * This class has been stripped from all components not used for copernica,
- * and moved into the copernica package.
+ * This class has been stripped from all components not used for http authentication,
+ * and moved into the cops package.
  * 
  * If you want to use the Base64 class, better get the original version.
  */
