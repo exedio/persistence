@@ -95,6 +95,12 @@
 	
 	<target name="copernica.jar" depends="copernica.compile">
 		<jar jarfile="copernica/build/copernica.jar" basedir="copernica/build/classes" />
+		<zip zipfile="copernica/build/copernica-static.zip">
+			<fileset dir="copernica/jsp">
+				<exclude name="*.jsp" />
+				<exclude name="*.inc" />
+			</fileset>
+		</zip>
 	</target>
 	
 	<target name="jar" depends="lib.jar, instrument.jar, copernica.jar" />
