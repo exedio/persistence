@@ -40,7 +40,7 @@
 	<target name="clean" depends="lib.clean, instrument.clean" />
 	
 	
-	<target name="api" description="Builds Javadoc API documentation.">
+	<target name="lib.api">
 
 		<delete dir="lib/api" />
 		<mkdir  dir="lib/api" />
@@ -63,5 +63,32 @@
 			<package name="com.*" />
 		</javadoc>
 	</target>
+
+	<target name="instrument.api">
+
+		<delete dir="instrument/api" />
+		<mkdir  dir="instrument/api" />
+
+		<javadoc
+				sourcepath="instrument/src"
+				destdir="instrument/api"
+				maxmemory="60m"
+				private="on"
+				author="on"
+				use="on"
+				version="on"
+				windowtitle="COPE (Cooles Persistenzframework)"
+				doctitle=   "COPE (Cooles Persistenzframework)"
+				splitindex="on"
+				bottom='&amp;copy; Copyright 2004 &lt;a href="http://www.exedio.com/" target="_top">exedio&lt;/a> Gesellschaft f&amp;uuml;r Softwareentwicklung mbH'
+			>
+			<package name="com.*" />
+			<classpath>
+				<pathelement location="lib/build/classes" />
+			</classpath>
+		</javadoc>
+	</target>
+
+	<target name="api" depends="lib.api, instrument.api" />
 
 </project>
