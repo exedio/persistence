@@ -16,12 +16,12 @@ final class TypeCop extends CopernicaCop
 	final int start;
 	final int count;
 
-	TypeCop(final CopernicaProvider provider, final Language language, final Type type)
+	TypeCop(final CopernicaProvider provider, final CopernicaLanguage language, final Type type)
 	{
 		this(provider, language, type, null, true, 0, 10);
 	}
 	
-	TypeCop(final CopernicaProvider provider, final Language language, final Type type,
+	TypeCop(final CopernicaProvider provider, final CopernicaLanguage language, final Type type,
 					final Function orderBy, final boolean orderAscending,
 					final int start, final int count)
 	{
@@ -40,7 +40,7 @@ final class TypeCop extends CopernicaCop
 			addParameter(COUNT, String.valueOf(count));
 	}
 	
-	final  CopernicaCop switchLanguage(final Language newLanguage)
+	final CopernicaCop switchLanguage(final CopernicaLanguage newLanguage)
 	{
 		return new TypeCop(provider, newLanguage, type, orderBy, orderAscending, start, count);
 	}
@@ -101,7 +101,7 @@ final class TypeCop extends CopernicaCop
 
 	static final TypeCop getCop(
 			final CopernicaProvider provider,
-			final Language language,
+			final CopernicaLanguage language,
 			final String typeID,
 			final Map parameterMap)
 	{

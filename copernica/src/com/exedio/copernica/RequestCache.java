@@ -5,6 +5,6 @@ import com.exedio.cope.lib.Item;
 
 public interface RequestCache
 {
-	public String getDisplayName(Language displayLanguage, Item item);
+	public String getDisplayName(CopernicaLanguage displayLanguage, Item item);
 
 }

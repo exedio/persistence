@@ -13,7 +13,7 @@ public interface Component
 	/**
 	 * Returns the name of this component to be displayed to the user.
 	 */
-	public String getCopernicaName(Language displayLanguage);
+	public String getCopernicaName(CopernicaLanguage displayLanguage);
 
 	/**
 	 * Returns the url of an icon suitable to display with or instead of

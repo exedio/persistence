@@ -38,7 +38,7 @@ public abstract class TransientCopernicaProvider implements CopernicaProvider
 				: transientLanguages.values();
 	}
 	
-	public com.exedio.copernica.Language findLanguageByID(final String copernicaID)
+	public CopernicaLanguage findLanguageByID(final String copernicaID)
 	{
 		return
 			transientLanguages == null
@@ -108,7 +108,7 @@ public abstract class TransientCopernicaProvider implements CopernicaProvider
 		return result.toString();
 	}
 	
-	public String getDisplayNameNull(Language displayLanguage)
+	public String getDisplayNameNull(CopernicaLanguage displayLanguage)
 	{
 		return
 			displayLanguage instanceof TransientLanguage
@@ -116,7 +116,7 @@ public abstract class TransientCopernicaProvider implements CopernicaProvider
 			: "-";
 	}
 
-	public String getDisplayNameOn(Language displayLanguage)
+	public String getDisplayNameOn(CopernicaLanguage displayLanguage)
 	{
 		return
 			displayLanguage instanceof TransientLanguage
@@ -124,7 +124,7 @@ public abstract class TransientCopernicaProvider implements CopernicaProvider
 			: "X";
 	}
 	
-	public String getDisplayNameOff(Language displayLanguage)
+	public String getDisplayNameOff(CopernicaLanguage displayLanguage)
 	{
 		return
 			displayLanguage instanceof TransientLanguage
@@ -132,20 +132,20 @@ public abstract class TransientCopernicaProvider implements CopernicaProvider
 			: "/";
 	}
 
-	public String getDisplayName(final com.exedio.copernica.Language displayLanguage, final Type type)
+	public String getDisplayName(final CopernicaLanguage displayLanguage, final Type type)
 	{
 		final String className = type.getJavaClass().getName();
 		final int pos = className.lastIndexOf('.');
 		return breakupName(className.substring(pos+1));
 	}
 
-	public String getDisplayName(final com.exedio.copernica.Language displayLanguage, final Feature feature)
+	public String getDisplayName(final CopernicaLanguage displayLanguage, final Feature feature)
 	{
 		String name = feature.getName();
 		return breakupName(name);
 	}
 	
-	public String getDisplayName(final RequestCache cache, final com.exedio.copernica.Language displayLanguage, final Item item)
+	public String getDisplayName(final RequestCache cache, final CopernicaLanguage displayLanguage, final Item item)
 	{
 		final Type type = item.getType();
 		final List uniqueConstraints = type.getUniqueConstraints();
@@ -185,7 +185,7 @@ public abstract class TransientCopernicaProvider implements CopernicaProvider
 		transientLanguage.enumerationValueNames.put(value, name);
 	}
 	
-	public String getDisplayName(final Language displayLanguage, final EnumerationValue value)
+	public String getDisplayName(final CopernicaLanguage displayLanguage, final EnumerationValue value)
 	{
 		if(displayLanguage instanceof TransientLanguage)
 		{

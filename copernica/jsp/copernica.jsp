@@ -75,7 +75,7 @@ include file="provider.inc"
 	);
 	
 	
-	final Language language = cop.language;
+	final CopernicaLanguage language = cop.language;
 	
 %><html>
 	<head>
@@ -87,7 +87,7 @@ include file="provider.inc"
 			<ul id="langlist"><%
 			for(Iterator l = provider.getDisplayLanguages().iterator(); l.hasNext(); )
 			{
-				final Language currentLanguage = (Language)l.next();
+				final CopernicaLanguage currentLanguage = (CopernicaLanguage)l.next();
 				final String name = currentLanguage.getCopernicaName(language);
 				final boolean active = currentLanguage.equals(language);
 				%>

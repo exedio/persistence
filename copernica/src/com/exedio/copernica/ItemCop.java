@@ -9,14 +9,14 @@ final class ItemCop extends CopernicaCop
 {
 	final Item item;
 	
-	ItemCop(final CopernicaProvider provider, final Language language, final Item item)
+	ItemCop(final CopernicaProvider provider, final CopernicaLanguage language, final Item item)
 	{
 		super(provider, language);
 		this.item = item;
 		addParameter(ITEM, item.getID());
 	}
 	
-	final CopernicaCop switchLanguage(final Language newLanguage)
+	final CopernicaCop switchLanguage(final CopernicaLanguage newLanguage)
 	{
 		return new ItemCop(provider, newLanguage, item);
 	}
@@ -31,7 +31,7 @@ final class ItemCop extends CopernicaCop
 		return provider.getDisplayName(this, language, item);
 	}
 
-	static final ItemCop getCop(final CopernicaProvider provider, final Language language, final String itemID)
+	static final ItemCop getCop(final CopernicaProvider provider, final CopernicaLanguage language, final String itemID)
 	{	
 		try
 		{

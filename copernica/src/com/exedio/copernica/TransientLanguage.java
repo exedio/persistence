@@ -2,7 +2,7 @@ package com.exedio.copernica;
 
 import java.util.HashMap;
 
-public class TransientLanguage implements Language
+public class TransientLanguage implements CopernicaLanguage
 {
 	private final String id;
 	private final HashMap names = new HashMap();
@@ -31,7 +31,7 @@ public class TransientLanguage implements Language
 		names.put(language, name);
 	}
 	
-	public String getCopernicaName(final Language displayLanguage)
+	public String getCopernicaName(final CopernicaLanguage displayLanguage)
 	{
 		{
 			final String name = (String)names.get(displayLanguage);

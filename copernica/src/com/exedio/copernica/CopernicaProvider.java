@@ -15,7 +15,7 @@ public interface CopernicaProvider
 	public Model getModel();
 
 	/**
-	 * @return a collection of {@link Language languages}.
+	 * @return a collection of {@link CopernicaLanguage languages}.
 	 */
 	public Collection getDisplayLanguages();
 	
@@ -34,23 +34,23 @@ public interface CopernicaProvider
 	 */
 	public Collection getSections(Type type);
 	
-	public String getDisplayNameNull(Language displayLanguage);
+	public String getDisplayNameNull(CopernicaLanguage displayLanguage);
 
-	public String getDisplayNameOn(Language displayLanguage);
+	public String getDisplayNameOn(CopernicaLanguage displayLanguage);
 	
-	public String getDisplayNameOff(Language displayLanguage);
+	public String getDisplayNameOff(CopernicaLanguage displayLanguage);
 
-	public String getDisplayName(Language displayLanguage, Type type);
+	public String getDisplayName(CopernicaLanguage displayLanguage, Type type);
 
-	public String getDisplayName(Language displayLanguage, Feature feature);
+	public String getDisplayName(CopernicaLanguage displayLanguage, Feature feature);
 	
-	public String getDisplayName(RequestCache cache, Language displayLanguage, Item item);
+	public String getDisplayName(RequestCache cache, CopernicaLanguage displayLanguage, Item item);
 
-	public String getDisplayName(Language displayLanguage, EnumerationValue value);
+	public String getDisplayName(CopernicaLanguage displayLanguage, EnumerationValue value);
 
 	public String getIconURL(Type type);
 
-	public Language findLanguageByID(String copernicaID);
+	public CopernicaLanguage findLanguageByID(String copernicaID);
 	
 	public CopernicaUser findUserByID(String copernicaID);
 

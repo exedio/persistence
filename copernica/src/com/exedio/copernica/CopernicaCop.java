@@ -22,9 +22,9 @@ abstract class CopernicaCop extends Cop implements RequestCache
 
 
 	final CopernicaProvider provider;
-	final Language language;
+	final CopernicaLanguage language;
 
-	CopernicaCop(final CopernicaProvider provider, final Language language)
+	CopernicaCop(final CopernicaProvider provider, final CopernicaLanguage language)
 	{
 		super("copernica.jsp"); // TODO: make the jsp name flexible or retrieve it automatically
 		this.language = language;
@@ -33,7 +33,7 @@ abstract class CopernicaCop extends Cop implements RequestCache
 			addParameter(LANGUAGE, language.getCopernicaID());
 	}
 	
-	abstract CopernicaCop switchLanguage(Language newLanguage);
+	abstract CopernicaCop switchLanguage(CopernicaLanguage newLanguage);
 	abstract boolean isType(final Type type);
 	abstract String getTitle();
 
@@ -54,7 +54,7 @@ abstract class CopernicaCop extends Cop implements RequestCache
 		final String itemID = getParameter(parameterMap, ITEM);
 		final String langID = getParameter(parameterMap, LANGUAGE);
 		
-		final Language language = (langID!=null) ? provider.findLanguageByID(langID) : null;
+		final CopernicaLanguage language = (langID!=null) ? provider.findLanguageByID(langID) : null;
 		if(typeID!=null)
 		{
 			return TypeCop.getCop(provider, language, typeID, parameterMap);
@@ -110,7 +110,7 @@ abstract class CopernicaCop extends Cop implements RequestCache
 	//private int itemDisplayNamesHits = 0;
 	//private int itemDisplayNamesMisses = 0;
 	
-	public String getDisplayName(final Language displayLanguage/* TODO: remove language */, final Item item)
+	public String getDisplayName(final CopernicaLanguage displayLanguage/* TODO: remove language */, final Item item)
 	{
 		if((language==null&&displayLanguage==null) || (language!=null&&language.equals(displayLanguage)))
 		{
