@@ -41,5 +41,10 @@ public final class ReportColumn extends ReportNode
 		cumulativeColor = particularColor;
 	}
 		
+	public final boolean exists()
+	{
+		return exists;
+	}
+		
 }
 	
