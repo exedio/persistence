@@ -4,6 +4,7 @@ package com.exedio.cope.lib;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
@@ -966,43 +967,58 @@ abstract class Database
 	final void appendNotNullCondition(final Statement bf, final Column column)
 	{
 		bf.append(column.protectedID).
-			append(" is not null");
+			append(" IS NOT NULL");
 	}
 	
 	final void appendMinimumLengthCondition(final Statement bf, final StringColumn column)
 	{
-		bf.append("length(").
+		if(!column.notNull)
+			bf.append('(');
+		
+		bf.append("LENGTH(").
 			append(column.protectedID).
 			append(")>=").
 			append(column.minimumLength);
 
 		if(!column.notNull)
+			bf.append(')');
+
+		if(!column.notNull)
 		{
-			bf.append(" or ").
+			bf.append(" OR (").
 				append(column.protectedID).
-				append(" is null");
+				append(" IS NULL)");
 		}
 	}
 	
 	final void appendMaximumLengthCondition(final Statement bf, final StringColumn column)
 	{
-		bf.append("length(").
+		if(!column.notNull)
+			bf.append('(');
+		
+		bf.append("LENGTH(").
 			append(column.protectedID).
 			append(")<=").
 			append(column.maximumLength);
 
 		if(!column.notNull)
+			bf.append(')');
+		
+		if(!column.notNull)
 		{
-			bf.append(" or ").
+			bf.append(" OR (").
 				append(column.protectedID).
-				append(" is null");
+				append(" IS NULL)");
 		}
 	}
 	
 	final void appendAllowedValuesCondition(final Statement bf, final IntegerColumn column)
 	{
+		if(!column.notNull)
+			bf.append('(');
+
 		bf.append(column.protectedID).
-			append(" in (");
+			append(" IN (");
 
 		final int[] allowedValues = column.allowedValues;
 		for(int j = 0; j<allowedValues.length; j++)
@@ -1014,10 +1030,13 @@ abstract class Database
 		bf.append(')');
 
 		if(!column.notNull)
+			bf.append(')');
+
+		if(!column.notNull)
 		{
-			bf.append(" or ").
+			bf.append(" OR (").
 				append(column.protectedID).
-				append(" is null");
+				append(" IS NULL)");
 		}
 	}
 
@@ -1427,5 +1446,26 @@ abstract class Database
 			throw new NestingRuntimeException(e);
 		}
 	}
+
+	static final ResultSetHandler logHandler = new ResultSetHandler()
+	{
+		public void run(ResultSet resultSet) throws SQLException
+		{
+			final int columnCount = resultSet.getMetaData().getColumnCount();
+			System.out.println("columnCount:"+columnCount);
+			final ResultSetMetaData meta = resultSet.getMetaData();
+			for(int i = 1; i<=columnCount; i++)
+			{
+				System.out.println(meta.getColumnName(i)+"|");
+			}
+			while(resultSet.next())
+			{
+				for(int i = 1; i<=columnCount; i++)
+				{
+					System.out.println(resultSet.getObject(i)+"|");
+				}
+			}
+		}
+	};
 
 }
