@@ -145,7 +145,7 @@ public final class Properties
 			{
 				throw new NestingRuntimeException(e);
 			}
-			mediaUrl  = getPropertyNotNull(properties, MEDIA_URL);
+			mediaUrl = getPropertyNotNull(properties, MEDIA_URL);
 		}
 		else
 		{
