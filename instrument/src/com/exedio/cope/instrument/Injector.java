@@ -893,25 +893,4 @@ public final class Injector
 		return result;
 	}
 
-	/**
-	 * @param tagname the tag name without the '@' prefix
-	 * @return the whole string following the tag without ending whitespaces
-	 */
-	public final static String findWholeDocTag(
-		String doccomment,
-		String tagname)
-	{
-		String s = '@' + tagname + ' ';
-		int start = doccomment.indexOf(s);
-		if (start < 0)
-			return null;
-		start += s.length();
-
-		final int end = doccomment.indexOf('\n', start);
-		if (end > 0)
-			return doccomment.substring(start, end).trim();
-		else
-			return doccomment.substring(start).trim();
-	}
-
 }
