@@ -23,7 +23,7 @@ public class Search
 	/**
 	 * Returns the item with the given ID.
 	 * Returns null, if no such item exists.
-	 * Always returns {@link Item#primaryItem()} primary objects.
+	 * Always returns {@link Item#primaryItem() primary} objects.
 	 * @see Item#getID()
 	 */
 	public static final Item findByID(final String id)
