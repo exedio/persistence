@@ -91,7 +91,15 @@ public class Main
 	
 	public static void main(final String[] args)
 	{
-		(new Main()).run(args);
+		try
+		{
+			(new Main()).run(args);
+		}
+		catch(RuntimeException e)
+		{
+			e.printStackTrace();
+			throw e;
+		}
 	}
 	
 	protected Main()
