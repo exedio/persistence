@@ -13,7 +13,7 @@ import com.exedio.cope.lib.ReadOnlyViolationException;
 import com.exedio.cope.lib.UniqueViolationException;
 import com.exedio.cope.lib.util.ClassComparator;
 
-public final class PersistentAttribute
+public class PersistentAttribute
 {
 	/**
 	 * Defines this attribute as a media attribute.
@@ -39,17 +39,13 @@ public final class PersistentAttribute
 	private final boolean notNull;
 	private final boolean mapped;
 	private final List qualifiers;
-	private final List mediaVariants;
-	private final String mimeMajor;
-	private final String mimeMinor;
 	private final List enumerationValues;
 
 	public PersistentAttribute(
 			final JavaAttribute javaAttribute,
 			final String persistentType, final int persistentTypeType,
 			final boolean readOnly, final boolean notNull, final boolean mapped,
-			final List qualifiers, final List mediaVariants,
-			final String mimeMajor, final String mimeMinor,
+			final List qualifiers,
 			final List enumerationValues)
 	{
 		this.javaAttribute = javaAttribute;
@@ -61,29 +57,26 @@ public final class PersistentAttribute
 		this.notNull = notNull;
 		this.mapped = mapped;
 		this.qualifiers = qualifiers;
-		this.mediaVariants = mediaVariants;
-		this.mimeMajor = mimeMajor;
-		this.mimeMinor = mimeMinor;
 		this.enumerationValues = enumerationValues;
 		persistentClass.addPersistentAttribute(this);
 	}
 	
-	public String getName()
+	public final String getName()
 	{
 		return javaAttribute.getName();
 	}
 	
-	public String getCamelCaseName()
+	public final String getCamelCaseName()
 	{
 		return javaAttribute.getCamelCaseName();
 	}
 	
-	public int getMethodModifiers()
+	public final int getMethodModifiers()
 	{
 		return javaAttribute.getMethodModifiers();
 	}
 	
-	public JavaClass getParent()
+	public final JavaClass getParent()
 	{
 		return javaAttribute.getParent();
 	}
@@ -91,22 +84,17 @@ public final class PersistentAttribute
 	/**
 	 * Returns the persistent type of this attribute.
 	 */
-	public String getPersistentType()
+	public final String getPersistentType()
 	{
 		return this.persistentType;
 	}
 	
-	public boolean isItemPersistentType()
+	public final boolean isItemPersistentType()
 	{
 		return this.persistentTypeType == TYPE_ITEM;
 	}
 
-	public boolean isMediaPersistentType()
-	{
-		return this.persistentType.equals(MEDIA_TYPE);
-	}
-
-	public boolean isEnumerationAttribute()
+	public final boolean isEnumerationAttribute()
 	{
 		return this.enumerationValues != null;
 	}
@@ -230,7 +218,7 @@ public final class PersistentAttribute
 		return unboxingPostfix;
 	}
 	
-	public boolean isPartOfUniqueConstraint()
+	public final boolean isPartOfUniqueConstraint()
 	{
 		for( final Iterator i = persistentClass.getUniqueConstraints().iterator(); i.hasNext(); )
 		{
@@ -244,42 +232,27 @@ public final class PersistentAttribute
 		return false;
 	}
 	
-	public boolean isReadOnly()
+	public final boolean isReadOnly()
 	{
 		return readOnly;
 	}
 	
-	public boolean isNotNull()
+	public final boolean isNotNull()
 	{
 		return notNull;
 	}
 	
-	public boolean isMapped()
+	public final boolean isMapped()
 	{
 		return mapped;
 	}
 	
-	public List getQualifiers()
+	public final List getQualifiers()
 	{
 		return qualifiers;
 	}
 	
-	public List getMediaVariants()
-	{
-		return mediaVariants;
-	}
-	
-	public String getMimeMajor()
-	{
-		return mimeMajor;
-	}
-	
-	public String getMimeMinor()
-	{
-		return mimeMinor;
-	}
-	
-	public List getEnumerationValues()
+	public final List getEnumerationValues()
 	{
 		return enumerationValues;
 	}

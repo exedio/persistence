@@ -603,7 +603,7 @@ public final class Instrumentor implements InjectionConsumer
 		output.write("\t}");
 	}
 	
-	private void writeMediaAccessMethods(final PersistentAttribute mediaAttribute)
+	private void writeMediaAccessMethods(final PersistentMediaAttribute mediaAttribute)
 	throws IOException
 	{
 		final String methodModifiers = Modifier.toString(mediaAttribute.getMethodModifiers());
@@ -939,8 +939,8 @@ public final class Instrumentor implements InjectionConsumer
 				// write setter/getter methods
 				final PersistentAttribute persistentAttribute = (PersistentAttribute)i.next();
 				//System.out.println("onClassEnd("+jc.getName()+") writing attribute "+persistentAttribute.getName());
-				if(persistentAttribute.isMediaPersistentType())
-					writeMediaAccessMethods(persistentAttribute);
+				if(persistentAttribute instanceof PersistentMediaAttribute)
+					writeMediaAccessMethods((PersistentMediaAttribute)persistentAttribute);
 				else
 					writeAccessMethods(persistentAttribute);
 			}
@@ -1055,11 +1055,24 @@ public final class Instrumentor implements InjectionConsumer
 				else
 					enumerationValues = null;
 
-				final PersistentAttribute persistentAttribute =
-					new PersistentAttribute(
-						ja, persistentType, persistentTypeType,
-						readOnly, notNull, mapped, qualifiers,
-						variants, mimeMajor, mimeMinor, enumerationValues);
+				final PersistentAttribute persistentAttribute;
+				switch(persistentTypeType)
+				{
+					case PersistentAttribute.TYPE_MEDIA:
+						persistentAttribute =
+							new PersistentMediaAttribute(
+								ja,
+								readOnly, notNull, mapped, qualifiers,
+								variants, mimeMajor, mimeMinor);
+						break;
+					default:
+						persistentAttribute =
+							new PersistentAttribute(
+								ja, persistentType, persistentTypeType,
+								readOnly, notNull, mapped, qualifiers,
+								enumerationValues);
+						break;
+				}
 
 				if(containsTag(docComment, UNIQUE_ATTRIBUTE))
 					persistentAttribute.persistentClass.makeUnique(new PersistentAttribute[]{persistentAttribute});
