@@ -18,7 +18,7 @@ public final class EnumAttribute extends ObjectAttribute
 	private final HashMap codesToValues;
 	
 	/**
-	 * @see Item#enumerationAttribute(Option, Class)
+	 * @see Item#enumAttribute(Option, Class)
 	 */
 	EnumAttribute(final Option option, final Class enumClass)
 	{
