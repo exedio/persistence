@@ -5,6 +5,10 @@ import java.util.HashMap;
 
 class Option
 {
+	// never to be instantiated
+	private Option()
+	{}
+
 	static final int getOption(final String optionString)
 			throws InjectorParseException
 	{
