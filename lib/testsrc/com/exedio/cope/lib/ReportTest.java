@@ -97,6 +97,51 @@ public class ReportTest extends DatabaseLibTest
 			assertEquals(null, column.getError());
 			assertEquals(Report.COLOR_OK, column.getParticularColor());
 			assertEquals(column1Type, column.getDatabaseType());
+			
+			table.renameTo(TABLE1X);
+		}
+		// TABLE RENAMED
+		{
+			final Report report = model.reportDatabase();
+
+			{
+				final ReportTable table = report.getTable(TABLE1);
+				assertNotNull(table);
+				assertEquals("MISSING !!!", table.getError());
+				assertEquals(Report.COLOR_RED, table.getParticularColor());
+
+				final ReportColumn column = table.getColumn(COLUMN1);
+				assertEquals("missing", column.getError());
+				assertEquals(Report.COLOR_RED, column.getParticularColor());
+				assertEquals(column1Type, column.getDatabaseType());
+			}
+			{
+				final ReportTable tableX = report.getTable(TABLE1X);
+				assertNotNull(tableX);
+				assertEquals("not used", tableX.getError());
+				assertEquals(Report.COLOR_YELLOW, tableX.getParticularColor());
+
+				final ReportColumn column = tableX.getColumn(COLUMN1);
+				assertEquals("not used", column.getError());
+				assertEquals(Report.COLOR_YELLOW, column.getParticularColor());
+				assertEquals(column1Type, column.getDatabaseType());
+
+				tableX.renameTo(TABLE1);
+			}
+		}
+		// OK
+		{
+			final Report report = model.reportDatabase();
+
+			final ReportTable table = report.getTable(TABLE1);
+			assertNotNull(table);
+			assertEquals(null, table.getError());
+			assertEquals(Report.COLOR_OK, table.getParticularColor());
+
+			final ReportColumn column = table.getColumn(COLUMN1);
+			assertEquals(null, column.getError());
+			assertEquals(Report.COLOR_OK, column.getParticularColor());
+			assertEquals(column1Type, column.getDatabaseType());
 		}
 	}
 	
