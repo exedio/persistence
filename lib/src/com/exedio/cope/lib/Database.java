@@ -862,6 +862,35 @@ public abstract class Database
 					bf.append(')');
 				}
 			}
+			else if(column instanceof IntegerColumn)
+			{
+				final IntegerColumn intColumn = (IntegerColumn)column;
+				final int[] allowedValues = intColumn.allowedValues;
+				if(allowedValues!=null)
+				{
+					bf.append(",constraint ").
+						append(protectName(intColumn.allowedValuesID)).
+						append(" check(").
+						append(column.protectedID).
+						append(" in (");
+
+					for(int j = 0; j<allowedValues.length; j++)
+					{
+						if(j>0)
+							bf.append(',');
+						bf.append(allowedValues[j]);
+					}
+					bf.append(')');
+
+					if(!column.notNull)
+					{
+						bf.append(" or ").
+							append(column.protectedID).
+							append(" is null");
+					}
+					bf.append(')');
+				}
+			}
 		}
 
 		for(Iterator i = type.getUniqueConstraints().iterator(); i.hasNext(); )

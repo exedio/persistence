@@ -6,6 +6,8 @@ import java.util.List;
 
 public final class BooleanAttribute extends ObjectAttribute
 {
+	static final int[] ALLOWED_VALUES = new int[]{0, 1};
+
 	public BooleanAttribute(final Option option)
 	{
 		super(option);
@@ -13,7 +15,7 @@ public final class BooleanAttribute extends ObjectAttribute
 	
 	protected List createColumns(final String name, final boolean notNull)
 	{
-		return Collections.singletonList(new IntegerColumn(getType(), name, notNull, 1, false));
+		return Collections.singletonList(new IntegerColumn(getType(), name, notNull, 1, false, ALLOWED_VALUES));
 	}
 	
 	Object cacheToSurface(final Object cache)

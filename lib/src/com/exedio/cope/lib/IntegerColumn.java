@@ -11,12 +11,17 @@ class IntegerColumn extends Column
 	static final Integer JDBC_TYPE_LONG = new Integer(Types.BIGINT);
 	
 	final boolean longInsteadOfInt;
+	final int[] allowedValues;
+	final String allowedValuesID;
 
 	IntegerColumn(final Type type, final String id,
-					  final boolean notNull, final int precision, final boolean longInsteadOfInt)
+					  final boolean notNull, final int precision,
+					  final boolean longInsteadOfInt, final int[] allowedValues)
 	{
 		super(type, id, notNull, Database.theInstance.getIntegerType(precision), longInsteadOfInt ? JDBC_TYPE_LONG : JDBC_TYPE_INT);
 		this.longInsteadOfInt = longInsteadOfInt;
+		this.allowedValues = allowedValues;
+		this.allowedValuesID = allowedValues==null ? null : Database.theInstance.trimName(type.id+"_"+id+"Val");
 	}
 	
 	final void load(final ResultSet resultSet, final int columnIndex, final Row row)

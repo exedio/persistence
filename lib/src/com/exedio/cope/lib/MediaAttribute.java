@@ -63,7 +63,7 @@ public final class MediaAttribute extends Attribute
 		if(fixedMimeMajor!=null && fixedMimeMinor!=null && !notNull)
 		{
 			// TODO: make that column not-null
-			exists = new IntegerColumn(type, name + "Exists", false, 1, false);
+			exists = new IntegerColumn(type, name + "Exists", false, 1, false, BooleanAttribute.ALLOWED_VALUES);
 			result.add(exists);
 		}
 		return result;

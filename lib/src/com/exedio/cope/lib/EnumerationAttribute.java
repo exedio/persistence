@@ -6,6 +6,7 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 public final class EnumerationAttribute extends ObjectAttribute
@@ -96,7 +97,12 @@ public final class EnumerationAttribute extends ObjectAttribute
 
 	protected List createColumns(final String name, final boolean notNull)
 	{
-		return Collections.singletonList(new IntegerColumn(getType(), name, notNull, 10, false));
+		final int[] allowedValues = new int[values.size()];
+		int in = 0;
+		for(Iterator i = values.iterator(); i.hasNext(); in++)
+			allowedValues[in] = ((EnumerationValue)i.next()).getNumber();
+
+		return Collections.singletonList(new IntegerColumn(getType(), name, notNull, 10, false, allowedValues));
 	}
 	
 	Object cacheToSurface(final Object cache)

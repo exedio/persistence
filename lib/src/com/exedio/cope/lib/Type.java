@@ -179,7 +179,7 @@ public final class Type
 		for(int i = 0; i<this.declaredAttributes.length; i++)
 			columns.addAll(this.declaredAttributes[i].getColumns());
 		this.columns = Collections.unmodifiableList(columns);
-		this.primaryKey = new IntegerColumn(this, "PK", true, ItemColumn.SYNTETIC_PRIMARY_KEY_PRECISION, false);
+		this.primaryKey = new IntegerColumn(this, "PK", true, ItemColumn.SYNTETIC_PRIMARY_KEY_PRECISION, false, null);
 
 		try
 		{

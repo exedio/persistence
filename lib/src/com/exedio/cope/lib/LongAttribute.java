@@ -13,7 +13,7 @@ public final class LongAttribute extends ObjectAttribute
 	
 	protected List createColumns(final String name, final boolean notNull)
 	{
-		return Collections.singletonList(new IntegerColumn(getType(), name, notNull, 20, true));
+		return Collections.singletonList(new IntegerColumn(getType(), name, notNull, 20, true, null));
 	}
 	
 	Object cacheToSurface(final Object cache)

@@ -13,7 +13,7 @@ public final class IntegerAttribute extends ObjectAttribute implements IntegerFu
 	
 	protected List createColumns(final String name, final boolean notNull)
 	{
-		return Collections.singletonList(new IntegerColumn(getType(), name, notNull, 10, false));
+		return Collections.singletonList(new IntegerColumn(getType(), name, notNull, 10, false, null));
 	}
 	
 	Object cacheToSurface(final Object cache)
