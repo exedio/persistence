@@ -31,7 +31,6 @@ include file="copernica-provider.inc"
 		</style>
 	</head>
 	<body>
-<%@ include file="printParams.inc" %>
 		<h1>Copernica</h1>
 		<h2>Generic Backoffice for COPE</h2>
 		<h3>Database Administration</h3>
