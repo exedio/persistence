@@ -47,11 +47,15 @@ final String reportColor = color(report.getCumulativeColor());
 for(Iterator i = report.getTables().iterator(); i.hasNext(); )
 {
 	final ReportTable table = (ReportTable)i.next();
+	
+	if(cop.skipTable(table))
+		continue;
+	
 	final String tableColor = color(table.getCumulativeColor());
 	%>
 	<li class="<%=tableColor%>"><%
 	
-	%><small>table</small> <%=table.name%><%
+	%><small>table</small> <a href="<%=cop.narrowReport(table)%>"><%=table.name%></a><%
 	
 	final String tableError = table.getError();
 	if(tableError!=null)
