@@ -101,22 +101,7 @@ page import="java.text.SimpleDateFormat" %><%!
 		Copernica_Jspm.writeTypeList(out, cop);
 		%>
 		<div id="main"><%
-		if(cop instanceof TypeCop)
-		{
-			final TypeCop typeCop = ((TypeCop)cop);
-			TypeCop_Jspm.writeBody(out, typeCop);
-		}
-		else if(cop instanceof ItemCop)
-		{
-			final ItemCop itemCop = (ItemCop)cop;
-			ItemCop_Jspm.writeBody(out, itemCop, request);
-		}
-		else if(cop instanceof EmptyCop)
-		{
-			Copernica_Jspm.writeEmptyBody(out);
-		}
-		else
-			throw new RuntimeException();
+		cop.writeBody(out, request);
 		//cop.log();
 		%>
 		</div>

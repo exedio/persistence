@@ -1,8 +1,10 @@
 package com.exedio.copernica;
 
+import java.io.IOException;
 import java.util.Collection;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.jsp.JspWriter;
 
 import com.exedio.cope.lib.Function;
 import com.exedio.cope.lib.Query;
@@ -147,6 +149,12 @@ final class TypeCop extends CopernicaCop
 		statementInfo = query.getStatementInfo();
 	}
 	
+	void writeBody(final JspWriter out, final HttpServletRequest request)
+		throws IOException
+	{
+		TypeCop_Jspm.writeBody(out, this);
+	}
+
 	static final TypeCop getCop(
 			final CopernicaProvider provider,
 			final CopernicaLanguage language,
