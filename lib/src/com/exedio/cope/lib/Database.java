@@ -297,7 +297,6 @@ public abstract class Database
 			throw new SystemException(e);
 		}
 
-
 		return report;
 	}
 
