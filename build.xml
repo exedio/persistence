@@ -18,7 +18,11 @@
 				destdir="lib/build/classes"
 				deprecation="on"
 				debug="on"
-				optimize="off" />
+				optimize="off">
+			<classpath>
+				<pathelement location="../lib/pcj.jar" />
+			</classpath>
+		</javac>
 	</target>
 
 	<target name="lib.oracle.compile" depends="lib.compile.mkdir, lib.compile">
@@ -125,6 +129,7 @@
 				<pathelement location="lib/build/classes" />
 				<pathelement location="lib/build/testclasses" />
 				<pathelement location="../lib/junit.jar" />
+				<pathelement location="../lib/pcj.jar" />
 				<pathelement location="../lib/hsqldb.jar" />
 			</classpath>
 			<arg value="com.exedio.cope.lib.PackageTest" />
@@ -139,6 +144,7 @@
 				<pathelement location="lib/build/classes" />
 				<pathelement location="lib/build/testclasses" />
 				<pathelement location="../lib/junit.jar" />
+				<pathelement location="../lib/pcj.jar" />
 				<pathelement location="../lib/classes12.zip" />
 			</classpath>
 			<arg value="com.exedio.cope.lib.PackageTest" />
@@ -266,6 +272,7 @@
 		</copy>
 		
 		<copy todir="copernica/build/testwebapp/WEB-INF/lib">
+			<fileset file="../lib/pcj.jar" />
 			<fileset file="../lib/hsqldb.jar" />
 			<fileset file="../lib/junit.jar" />
 		</copy>
@@ -315,6 +322,9 @@
 			>
 			<package name="com.*" />
 			<link href="${api.link.jdk}" />
+			<classpath>
+				<pathelement location="../lib/pcj.jar" />
+			</classpath>
 		</javadoc>
 	</target>
 

@@ -12,6 +12,8 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
+import bak.pcj.map.IntKeyOpenHashMap;
+
 import com.exedio.cope.lib.util.ReactivationConstructorDummy;
 
 public final class Type
@@ -297,10 +299,7 @@ public final class Type
 
 	// active items of this type ---------------------------------------------
 	
-	/**
-	 * TODO: use something more efficient for integer keys.
-	 */
-	private HashMap rows = new HashMap();
+	private final IntKeyOpenHashMap rows = new IntKeyOpenHashMap();
 	
 	/**
 	 * Returns an item of this type and the given pk, if it's already active.
@@ -309,18 +308,18 @@ public final class Type
 	 */
 	Row getRow(final int pk)
 	{
-		return (Row)rows.get(new Integer(pk));
+		return (Row)rows.get(pk);
 	}
 	
 	void putRow(final Row row)
 	{
-		if(rows.put(new Integer(row.pk), row)!=null)
+		if(rows.put(row.pk, row)!=null)
 			throw new RuntimeException();
 	}
 	
 	void removeRow(final Row row)
 	{
-		if(rows.remove(new Integer(row.pk))!=row)
+		if(rows.remove(row.pk)!=row)
 			throw new RuntimeException();
 	}
 	
