@@ -38,25 +38,29 @@
 		System.out.println( "param: " + entry.getKey() + " value: " + entry.getValue() );
 	}
 
-	final Cop cop;
+	final CopernicaCop cop;
 	{	
 		final String typeID = request.getParameter("type");
 		final String itemID = request.getParameter("item");
+		final String langID = request.getParameter("lang");
+		final Language language = (langID!=null) ? provider.findLanguageByUniqueID(langID) : null;
 		if(typeID!=null)
 		{
 			final Type type = Type.getType(typeID);
 			if(type==null)
 				throw new RuntimeException("type "+typeID+" not available");
-			cop = new TypeCop(type);
+			cop = new TypeCop(language, type);
 		}
 		else if(itemID!=null)
 		{
 			final Item item = Search.findByID(itemID);
-			cop = new ItemCop(item);
+			cop = new ItemCop(language, item);
 		}
 		else
-			cop = new EmptyCop();
+			cop = new EmptyCop(language);
 	}
+	
+	final Language language = cop.language;
 
 %>
 		<form action="copernica.jsp" method="POST">
@@ -86,14 +90,12 @@
 		</form>
 		
 		<%
-		final String langID = request.getParameter("lang");
-		final Language language = (langID!=null) ? provider.findLanguageByUniqueID(langID) : null;
 		for(Iterator l = provider.getDisplayLanguages().iterator(); l.hasNext(); )
 		{
 			final Language currentLanguage = (Language)l.next();
 			if(language!=currentLanguage)
 			{
-				%>[<a href="copernica.jsp?lang=<%=currentLanguage.getCopernicaID()%>"><%=currentLanguage.getCopernicaName(null)%></a>]<%
+				%>[<a href="<%=cop.switchLanguage(currentLanguage)%>"><%=currentLanguage.getCopernicaName(null)%></a>]<%
 			}
 			else
 			{
@@ -115,7 +117,7 @@
 								<%
 								final Type type = (Type)i.next();
 								%>
-								<a href="<%=(new TypeCop(type))%>">
+								<a href="<%=(cop.toType(type))%>">
 									<%=provider.getDisplayName(null, type)%>
 								</a>
 							</td>
@@ -131,7 +133,7 @@
 					{
 						final Type type = ((TypeCop)cop).type;
 						%>
-						<a href="<%=(new TypeCop(type))%>"><%=provider.getDisplayName(null, type)%></a>
+						<a href="<%=(cop.toType(type))%>"><%=provider.getDisplayName(null, type)%></a>
 						<hr>
 						<ul>
 						<%
@@ -157,7 +159,7 @@
 							for(Iterator i = Search.search(type, null).iterator(); i.hasNext(); )
 							{
 								final Item item = (Item)i.next();
-								%><tr><td><a href="<%=(new ItemCop(item))%>">[X]</a></td><%
+								%><tr><td><a href="<%=(cop.toItem(item))%>">[X]</a></td><%
 								for(Iterator j = type.getAttributes().iterator(); j.hasNext(); )
 								{
 									final Attribute attribute = (Attribute)j.next();
@@ -175,7 +177,7 @@
 										}
 										else
 										{
-											%><a href="<%=(new ItemCop(value))%>">
+											%><a href="<%=(cop.toItem(value))%>">
 												<%=provider.getDisplayName(null, value)%>
 											</a><%
 										}
@@ -198,9 +200,9 @@
 						final Type type = item.getType();
 						boolean toSave = false;
 						%>
-						<a href="<%=(new TypeCop(type))%>"><%=provider.getDisplayName(null, type)%></a>
+						<a href="<%=(cop.toType(type))%>"><%=provider.getDisplayName(null, type)%></a>
 						<b><%=provider.getDisplayName(null, item)%></b><hr>
-						<form action="<%=(new ItemCop(item))%>" method="POST">
+						<form action="<%=(cop.toItem(item))%>" method="POST">
 						<table border="1">
 						<%
 						for(Iterator j = type.getAttributes().iterator(); j.hasNext(); )
@@ -220,7 +222,7 @@
 								}
 								else
 								{
-									%><a href="<%=(new ItemCop(value))%>">
+									%><a href="<%=(cop.toItem(value))%>">
 										<%=provider.getDisplayName(null, value)%>
 									</a><%
 								}

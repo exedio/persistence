@@ -1,11 +1,16 @@
 package com.exedio.copernica;
 
 
-final class EmptyCop extends Cop
+final class EmptyCop extends CopernicaCop
 {
-	EmptyCop()
+	EmptyCop(final Language language)
 	{
-		super("copernica.jsp");
+		super(language);
 	}
 	
+	final  CopernicaCop switchLanguage(final Language newLanguage)
+	{
+		return new EmptyCop(newLanguage);
+	}
+
 }
