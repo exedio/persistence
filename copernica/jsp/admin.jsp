@@ -13,16 +13,14 @@ page import="java.util.Date" %><%@
 include file="provider.inc"
 
 %><%
-final boolean doReport = 
-	request.getParameter("REPORT")!=null ||
-	request.getParameter("APPLY")!=null ;
+final AdminCop cop = AdminCop.getCop(request.getParameterMap());
 %>
 <html>
 	<head>
 		<title>
 			Copernica - Database Administration
 		</title><%
-		if(doReport)
+		if(cop.report)
 		{
 			%><%@ include file="admin-report-head.inc" %><%
 		}%>
@@ -32,7 +30,7 @@ final boolean doReport =
 		<h2>Generic Backoffice for COPE</h2>
 		<h3>Database Administration</h3>
 
-		<form action="admin.jsp" method="POST">
+		<form action="<%=cop%>" method="POST">
 			Database:
 			<br>
 			<input type="submit" name="CREATE" value="create" />
@@ -41,7 +39,7 @@ final boolean doReport =
 			<%
 			if(Database.theInstance instanceof DatabaseReportable)
 			{
-				%><input type="submit" name="REPORT" value="report"/><%
+				%><a href="<%=cop.toggleReport()%>"><%=cop.report?"disable":"enable"%> reports</a><%
 			}
 			%>
 			<br>
@@ -62,7 +60,12 @@ final boolean doReport =
 					Database.theInstance.dropDatabase();
 					%>Database successfully dropped!<%
 				}
-				else if(doReport)
+				else if(request.getParameter("APPLY")!=null)
+				{
+					%><hr><%@ include file="admin-apply.inc" %><%
+				}
+				
+				if(cop.report)
 				{
 					%><hr><%@ include file="admin-report.inc" %><%
 				}

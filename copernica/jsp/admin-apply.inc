@@ -1,0 +1,106 @@
+
+<%
+{
+	final Report report = ((DatabaseReportable)Database.theInstance).reportDatabase();
+	%>
+	<ol><%
+	{
+		final String[] dropColums = (String[])request.getParameterMap().get("DROP_COLUMN");
+		if(dropColums!=null)
+		{
+			for(int i = 0; i<dropColums.length; i++)
+			{
+				final String dropColum = dropColums[i];
+				final ReportColumn column = getColumn(report, dropColum);
+				%>
+				<li>dropping column <%=dropColum%> ...</li><%
+				out.flush();
+				final long time = System.currentTimeMillis();
+				column.drop();
+				%><li><b>ok</b>, <%=System.currentTimeMillis()-time%>ms.</li><%
+				out.flush();
+			}
+		}
+	}
+	{
+		final String[] dropTables = (String[])request.getParameterMap().get("DROP_TABLE");
+		if(dropTables!=null)
+		{
+			for(int i = 0; i<dropTables.length; i++)
+			{
+				final String dropTable = dropTables[i];
+				final ReportTable table = report.getTable(dropTable);
+				if(table==null)
+					throw new RuntimeException(dropTable);
+				%>
+				<li>dropping table <%=dropTable%> ...</li><%
+				out.flush();
+				final long time = System.currentTimeMillis();
+				table.drop();
+				%><li><b>ok</b>, <%=System.currentTimeMillis()-time%>ms.</li><%
+				out.flush();
+			}
+		}
+	}
+	{
+		final String[] createTables = (String[])request.getParameterMap().get("CREATE_TABLE");
+		if(createTables!=null)
+		{
+			for(int i = 0; i<createTables.length; i++)
+			{
+				final String createTable = createTables[i];
+				final ReportTable table = report.getTable(createTable);
+				if(table==null)
+					throw new RuntimeException(createTable);
+				%>
+				<li>creating table <%=createTable%> ...</li><%
+				out.flush();
+				final long time = System.currentTimeMillis();
+				table.create();
+				%><li><b>ok</b>, <%=System.currentTimeMillis()-time%>ms.</li><%
+				out.flush();
+			}
+		}
+	}
+	{
+		final String[] analyzeTables = (String[])request.getParameterMap().get("ANALYZE_TABLE");
+		if(analyzeTables!=null)
+		{
+			for(int i = 0; i<analyzeTables.length; i++)
+			{
+				final String analyzeTable = analyzeTables[i];
+				final ReportTable table = report.getTable(analyzeTable);
+				if(table==null)
+					throw new RuntimeException(analyzeTable);
+				%>
+				<li>analyzing table <%=analyzeTable%> ...</li><%
+				out.flush();
+				final long time = System.currentTimeMillis();
+				table.analyze();
+				%><li><b>ok</b>, <%=System.currentTimeMillis()-time%>ms.</li><%
+				out.flush();
+			}
+		}
+	}
+	{
+		final String[] createColums = (String[])request.getParameterMap().get("CREATE_COLUMN");
+		if(createColums!=null)
+		{
+			for(int i = 0; i<createColums.length; i++)
+			{
+				final String createColum = createColums[i];
+				final ReportColumn column = getColumn(report, createColum);
+				%>
+				<li>creating column <%=createColum%> ...</li><%
+				out.flush();
+				final long time = System.currentTimeMillis();
+				column.create();
+				%><li><b>ok</b>, <%=System.currentTimeMillis()-time%>ms.</li><%
+				out.flush();
+			}
+		}
+	}
+	%>
+	</ol>
+	<hr><%
+}%>
