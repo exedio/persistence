@@ -1,5 +1,6 @@
 <%@ page import="com.exedio.demoshop.*" %>
 <%@ page import="com.exedio.cope.lib.Database" %>
+<%@ page import="com.exedio.cope.lib.Attribute" %>
 <%@ page import="com.exedio.cope.lib.Type" %>
 <%@ page import="java.util.Iterator" %>
 <%@ page import="java.util.Map" %>
@@ -97,6 +98,15 @@
 							throw new RuntimeException("type "+typeName+" not available");
 						%>
 						<u><%=type.getJavaClass().getName()%></u>
+						<ul>
+						<%
+							for(Iterator i = type.getAttributes().iterator(); i.hasNext(); )
+							{
+								final Attribute attribute = (Attribute)i.next();
+								%><li><%=attribute.getName()%></li><%
+							}
+						%>
+						</ul>
 						<%
 					}
 					else
