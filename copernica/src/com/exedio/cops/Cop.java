@@ -1,8 +1,8 @@
-package com.exedio.copernica;
+package com.exedio.cops;
 
 
 
-public abstract class Cop // TODO: put class into separate package com.exedio.cops
+public abstract class Cop
 {
 	private final StringBuffer url;
 	private boolean first = true;

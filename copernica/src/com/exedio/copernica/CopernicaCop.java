@@ -8,6 +8,7 @@ import com.exedio.cope.lib.EnumValue;
 import com.exedio.cope.lib.Item;
 import com.exedio.cope.lib.Model;
 import com.exedio.cope.lib.Type;
+import com.exedio.cops.Cop;
 
 
 abstract class CopernicaCop extends Cop implements RequestCache

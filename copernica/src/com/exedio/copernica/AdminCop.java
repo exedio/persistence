@@ -3,6 +3,7 @@ package com.exedio.copernica;
 import javax.servlet.http.HttpServletRequest;
 
 import com.exedio.cope.lib.ReportTable;
+import com.exedio.cops.Cop;
 
 final class AdminCop extends Cop
 {
