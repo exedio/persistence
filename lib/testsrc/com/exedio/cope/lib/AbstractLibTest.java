@@ -119,9 +119,10 @@ public abstract class AbstractLibTest extends TestCase
 	
 	protected void assertContainsList(final List expected, final Collection actual)
 	{
-		assertEquals(expected.size(), actual.size());
-		assertTrue(expected.containsAll(actual));
-		assertTrue(actual.containsAll(expected));
+		if(expected.size()!=actual.size() ||
+				!expected.containsAll(actual) ||
+				!actual.containsAll(expected))
+			fail("expected "+expected+", but was "+actual);
 	}
 
 	protected void assertContains(final Collection actual)
