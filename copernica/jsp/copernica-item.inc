@@ -42,15 +42,30 @@
 					final String saveString = request.getParameter(attributeName);
 					if(saveString==null)
 						throw new NullPointerException(attributeName);
-					value = enumAttribute.getValue(saveString);
-					if(value==null)
-						throw new NullPointerException(attributeName);
+					if("NULL".equals(saveString))
+						value = null;
+					else
+					{
+						value = enumAttribute.getValue(saveString);
+						if(value==null)
+							throw new NullPointerException(attributeName);
+					}
 					item.setAttribute(enumAttribute, value);
 				}
 				else
 					value = (EnumerationValue)item.getAttribute(enumAttribute);
 				
 				toSave = true;
+				if(!enumAttribute.isNotNull())
+				{
+					%>
+					<input type="radio" name="<%=attributeName%>" value="NULL"<%
+					if(value==null)
+					{
+						%> checked="checked"<%
+					}
+					%>><%="leer"%><br><%
+				}
 				for(Iterator k = enumAttribute.getValues().iterator(); k.hasNext(); )
 				{
 					final EnumerationValue currentValue = (EnumerationValue)k.next();
