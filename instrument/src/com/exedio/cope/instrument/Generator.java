@@ -752,8 +752,7 @@ final class Generator
 		{
 			//System.out.println("onClassEnd("+jc.getName()+") writing");
 			writeConstructor(copeClass);
-			if(copeClass.isAbstract()) // TODO: create the constructor for all classes
-				writeGenericConstructor(copeClass);
+			writeGenericConstructor(copeClass);
 			writeReactivationConstructor(copeClass);
 			for(final Iterator i = copeClass.getCopeAttributes().iterator(); i.hasNext(); )
 			{
