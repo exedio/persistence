@@ -105,6 +105,8 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); tableCount++)
 		<input type="checkbox" name="CREATE_TABLE" value="<%=table.name%>"/>create<%
 	}
 	
+	if(narrowReport)
+	{
 	%>
 		<ul><%
 		final ReportLastAnalyzed lastAnalyzed = table.getLastAnalyzed();
@@ -193,6 +195,7 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); tableCount++)
 		}
 		%>
 		</ul><%
+	}
 	%>
 	</li><%
 }
