@@ -6,16 +6,30 @@
 %><%
 	final Item item = itemCop.item;
 	final Type type = item.getType();
+	
 	final boolean save = request.getParameter(SAVE_BUTTON)!=null;
-%>
-<a href="<%=(cop.toType(type))%>"><%=provider.getDisplayName(null, type)%></a>
-<b><%=provider.getDisplayName(null, item)%></b><hr>
-<form action="<%=(cop.toItem(item))%>" method="POST">
-	<table border="1"><%
 	final ItemForm form = new ItemForm(item, request.getParameterMap(), save);
 	if(save)
 		form.save();
-	
+%>
+<form action="<%=(cop.toItem(item))%>" method="POST">
+	<table border="0" width="100%">
+		<tr>
+			<td>
+				<a href="<%=(cop.toType(type))%>"><%=provider.getDisplayName(null, type)%></a>
+				<b><%=provider.getDisplayName(null, item)%></b><hr>
+			</td>
+			<td align="right"><%
+			if(form.toSave)
+			{
+				%>
+				<input type="submit" name="<%=SAVE_BUTTON%>" value="Save" /><%
+			}
+			%>
+			</td>
+		</tr>
+	</table>
+	<table border="1"><%
 	for(Iterator j = form.getFields().iterator(); j.hasNext(); )
 	{
 		final Form.Field field = (Form.Field)j.next();
@@ -143,10 +157,5 @@
 	}
 	%>
 	</table><%
-if(form.toSave)
-{
-	%>
-	<input type="submit" name="<%=SAVE_BUTTON%>" value="Save" /><%
-}
 %>
 </form>
