@@ -110,6 +110,18 @@ public abstract class Item extends Search
 		this.pk = type.nextPK();
 		final Row row = new Row(this, false);
 		//System.out.println("create item "+type+" "+pk);
+
+		for(int i = 0; i<initialAttributeValues.length; i++)
+		{
+			final AttributeValue av = initialAttributeValues[i];
+			if(av.attribute.isNotNull() && av.value == null)
+			{
+				initialNotNullViolationException = new NotNullViolationException(this, av.attribute);
+				return;
+			}
+		}
+		initialNotNullViolationException = null;
+
 		row.put(initialAttributeValues);
 		try
 		{
@@ -140,6 +152,7 @@ public abstract class Item extends Search
 		this.type = Type.getType(getClass().getName());
 		this.pk = pk;
 		rowWhenActive = null; // make passive
+		initialNotNullViolationException = null;
 		//System.out.println("reactivate item:"+type+" "+pk);
 
 		if(type==null)
@@ -150,6 +163,8 @@ public abstract class Item extends Search
 			throw new RuntimeException();
 	}
 	
+	private final NotNullViolationException initialNotNullViolationException;
+
 	/**
 	 * Throws a {@link NotNullViolationException}, if a not-null violation occured in the constructor.
 	 * @throws NotNullViolationException
@@ -159,8 +174,11 @@ public abstract class Item extends Search
 	 */
 	protected final void throwInitialNotNullViolationException() throws NotNullViolationException
 	{
+		if(initialNotNullViolationException!=null)
+			throw initialNotNullViolationException;
 	}
 	
+	// TODO make final
 	private UniqueViolationException initialUniqueViolationException;
 	
 	/**

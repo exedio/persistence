@@ -81,14 +81,26 @@ public class AttributesTest extends DatabaseLibTest
 			throw new SystemException(e);
 		}
 		assertEquals("someOtherString", item.getSomeNotNullString());
+
 		try
 		{
 			item.setSomeNotNullString(null);
+			fail("should have thrown NotNullViolationException");
 		}
 		catch (NotNullViolationException e)
 		{
 			assertEquals(item.someNotNullString, e.getNotNullAttribute());
 			assertEquals(item, e.getItem());
+		}
+
+		try
+		{
+			new ItemWithManyAttributes(null, 5, true, someItem, ItemWithManyAttributes.SomeEnumeration.enumValue1);
+			fail("should have thrown NotNullViolationException");
+		}
+		catch(NotNullViolationException e)
+		{
+			assertEquals(item.someNotNullString, e.getNotNullAttribute());
 		}
 	}
 
@@ -215,6 +227,16 @@ public class AttributesTest extends DatabaseLibTest
 			assertEquals(item.someNotNullItem, e.getAttribute());
 			assertEquals(null/*TODO someItem*/, e.getItem());
 		}
+
+		try
+		{
+			new ItemWithManyAttributes("someString", 5, true, null, ItemWithManyAttributes.SomeEnumeration.enumValue1);
+			fail("should have thrown NotNullViolationException");
+		}
+		catch(NotNullViolationException e)
+		{
+			assertEquals(item.someNotNullItem, e.getNotNullAttribute());
+		}
 	}
 
 	public void testSomeEnumeration()
@@ -265,6 +287,16 @@ public class AttributesTest extends DatabaseLibTest
 		assertEquals(
 			ItemWithManyAttributes.SomeEnumeration.enumValue3,
 			item.getSomeNotNullEnumeration());
+
+		try
+		{
+			new ItemWithManyAttributes("someString", 5, true, someItem, null);
+			fail("should have thrown NotNullViolationException");
+		}
+		catch(NotNullViolationException e)
+		{
+			assertEquals(item.someNotNullEnumeration, e.getNotNullAttribute());
+		}
 	}
 
 	public void testSomeMedia()
