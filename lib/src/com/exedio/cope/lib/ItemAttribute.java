@@ -38,14 +38,12 @@ public final class ItemAttribute extends Attribute
 		return result;
 	}
 	
-	static final int SYNTETIC_PRIMARY_KEY_PRECISION = 10;
-
 	protected List createColumns(final String name, final boolean notNull)
 	{
 		final String integrityConstraintName = name+"FK";
 		if(itemAttributesByIntegrityConstraintName.put(integrityConstraintName, this)!=null)
 			throw new RuntimeException("there is more than one integrity constraint with name "+integrityConstraintName);
-		return Collections.singletonList(new IntegerColumn(getType(), name, notNull, SYNTETIC_PRIMARY_KEY_PRECISION, targetTypeClass, integrityConstraintName));
+		return Collections.singletonList(new ItemColumn(getType(), name, notNull, targetTypeClass, integrityConstraintName));
 	}
 	
 	Object cacheToSurface(final Object cache)

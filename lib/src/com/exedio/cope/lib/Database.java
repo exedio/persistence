@@ -629,30 +629,27 @@ public abstract class Database
 		{
 			final Column column = (Column)i.next();
 			//System.out.println("createForeignKeyConstraints("+column+"):"+bf);
-			if(column instanceof IntegerColumn)
+			if(column instanceof ItemColumn)
 			{
-				final IntegerColumn integerColumn = (IntegerColumn)column;
-				if(integerColumn.getForeignTableNameProtected()!=null)
-				{
-					final Statement bf = createStatement();
-					bf.append("alter table ").
-						append(type.protectedName).
-						append(" add constraint ").
-						append(Database.theInstance.protectName(integerColumn.integrityConstraintName)).
-						append(" foreign key (").
-						append(column.protectedName).
-						append(") references ").
-						append(integerColumn.getForeignTableNameProtected());
+				final ItemColumn itemColumn = (ItemColumn)column;
+				final Statement bf = createStatement();
+				bf.append("alter table ").
+					append(type.protectedName).
+					append(" add constraint ").
+					append(Database.theInstance.protectName(itemColumn.integrityConstraintName)).
+					append(" foreign key (").
+					append(column.protectedName).
+					append(") references ").
+					append(itemColumn.getForeignTableNameProtected());
 
-					//System.out.println("createForeignKeyConstraints:"+bf);
-					try
-					{
-						executeSQL(bf, EMPTY_RESULT_SET_HANDLER);
-					}
-					catch(ConstraintViolationException e)
-					{
-						throw new SystemException(e);
-					}
+				//System.out.println("createForeignKeyConstraints:"+bf);
+				try
+				{
+					executeSQL(bf, EMPTY_RESULT_SET_HANDLER);
+				}
+				catch(ConstraintViolationException e)
+				{
+					throw new SystemException(e);
 				}
 			}
 		}
@@ -700,28 +697,24 @@ public abstract class Database
 		{
 			final Column column = (Column)i.next();
 			//System.out.println("dropForeignKeyConstraints("+column+")");
-			if(column instanceof IntegerColumn)
+			if(column instanceof ItemColumn)
 			{
-				final IntegerColumn integerColumn = (IntegerColumn)column;
-				if(integerColumn.getForeignTableNameProtected()!=null)
+				final Statement bf = createStatement();
+				boolean hasOne = false;
+
+				bf.append("alter table ").
+					append(type.protectedName).
+					append(" drop constraint ").
+					append(Database.theInstance.protectName(column.trimmedName+"FK"));
+
+				//System.out.println("dropForeignKeyConstraints:"+bf);
+				try
 				{
-					final Statement bf = createStatement();
-					boolean hasOne = false;
-
-					bf.append("alter table ").
-						append(type.protectedName).
-						append(" drop constraint ").
-						append(Database.theInstance.protectName(column.trimmedName+"FK"));
-
-					//System.out.println("dropForeignKeyConstraints:"+bf);
-					try
-					{
-						executeSQL(bf, EMPTY_RESULT_SET_HANDLER);
-					}
-					catch(ConstraintViolationException e)
-					{
-						throw new SystemException(e);
-					}
+					executeSQL(bf, EMPTY_RESULT_SET_HANDLER);
+				}
+				catch(ConstraintViolationException e)
+				{
+					throw new SystemException(e);
 				}
 			}
 		}
