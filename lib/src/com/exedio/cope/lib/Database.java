@@ -878,7 +878,7 @@ abstract class Database
 	}
 	
 	/**
-	 * Trims a name to length for being be a suitable qualifier for database entities,
+	 * Trims a name to length for being a suitable qualifier for database entities,
 	 * such as tables, columns, indexes, constraints, partitions etc.
 	 */
 	String trimName(final String longName)
