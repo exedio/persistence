@@ -7,7 +7,10 @@
 		<a href="<%=(cop.toType(type))%>"><%=provider.getDisplayName(null, type)%></a>
 	</h1>
 	<ul><%
-	for(Iterator i = type.getFeatures().iterator(); i.hasNext(); )
+	int numberOfSearchFeatures = 5;
+	for(Iterator i = type.getFeatures().iterator();
+			i.hasNext() && numberOfSearchFeatures>0;
+			numberOfSearchFeatures--)
 	{
 		final Feature feature = (Feature)i.next();
 		%>
