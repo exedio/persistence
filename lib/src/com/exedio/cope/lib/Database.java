@@ -326,28 +326,17 @@ public abstract class Database
 		{
 			final Table table = type.table;
 			final List columns = table.getColumns();
-			final Iterator i = columns.iterator();
-			if(i.hasNext())
+			for(Iterator i = columns.iterator(); i.hasNext(); )
 			{
-				do
-				{
-					if(first)
-						first = false;
-					else
-						bf.append(',');
+				if(first)
+					first = false;
+				else
+					bf.append(',');
 
-					final Column column = (Column)i.next();
-					bf.append(table.protectedID).
-						append('.').
-						append(column.protectedID).defineColumn(column);
-				}
-				while(i.hasNext());
-			}
-			else
-			{
+				final Column column = (Column)i.next();
 				bf.append(table.protectedID).
 					append('.').
-					append(table.getPrimaryKey().protectedID).defineColumnInteger();
+					append(column.protectedID).defineColumn(column);
 			}
 		}
 
@@ -391,6 +380,50 @@ public abstract class Database
 		}
 	}
 
+	boolean check(final Type type, final int pk)
+	{
+		final Statement bf = createStatement();
+		final Table table = type.table;
+		final Column primaryKey = table.getPrimaryKey();
+		final String tableProtectedID = table.protectedID;
+		final String primaryKeyProtectedID = primaryKey.protectedID;
+
+		bf.append("select ").
+			append(tableProtectedID).
+			append('.').
+			append(primaryKeyProtectedID).defineColumnInteger().
+			append(" from ").
+			append(tableProtectedID).
+			append(" where ").
+			append(tableProtectedID).
+			append('.').
+			append(primaryKeyProtectedID).
+			append('=').
+			append(pk);
+
+		//System.out.println("loading "+bf.toString());
+		try
+		{
+			final CheckResultSetHandler handler = new CheckResultSetHandler();
+			executeSQL(bf, handler);
+			return handler.result;
+		}
+		catch(ConstraintViolationException e)
+		{
+			throw new SystemException(e);
+		}
+	}
+
+	private static class CheckResultSetHandler implements ResultSetHandler
+	{
+		private boolean result = false;
+
+		public void run(ResultSet resultSet) throws SQLException
+		{
+			result = resultSet.next();
+		}
+	}
+	
 	void store(final Row row)
 			throws UniqueViolationException
 	{
@@ -570,7 +603,7 @@ public abstract class Database
 		public void run(ResultSet resultSet) throws SQLException
 		{
 			if(!resultSet.next())
-				throw new RuntimeException("no such pk"); // TODO use some better exception
+				throw new RuntimeException("no such pk"); // TODO use a dedicated runtime exception
 			int columnIndex = 1;
 			for(Type type = row.type; type!=null; type = type.getSupertype())
 			{

@@ -93,20 +93,12 @@ public abstract class Search
 			throw new NoSuchIDException(id, e, idString);
 		}
 
-		final Item result = type.getItem(id2pk(idNumber));
-		// Must be activated to make sure, that an item with
-		// such a pk really exists for that type.
-		try
-		{
-			result.activeItem();
-		}
-		catch(RuntimeException e)
-		{
-			if("no such pk".equals(e.getMessage()))
-				throw new NoSuchIDException(id, "item <"+idNumber+"> does not exist");
-			else
-				throw new SystemException(e);
-		}
+		final int pk = id2pk(idNumber);
+		
+		if(!Database.theInstance.check(type, pk))
+			throw new NoSuchIDException(id, "item <"+idNumber+"> does not exist");
+
+		final Item result = type.getItem(pk);
 		return result;
 	}
 	
