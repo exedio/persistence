@@ -1,14 +1,46 @@
-<%!
-				static final String SAVE_BUTTON = ItemForm.SAVE_BUTTON;
-				static final String VALUE_NULL = ItemForm.VALUE_NULL;
-				static final String VALUE_ON = ItemForm.VALUE_ON;
-				static final String VALUE_OFF = ItemForm.VALUE_OFF;
-			%><%
-				final Item item = itemCop.item;
-				final Type type = item.getType();
-				final ItemForm form = new ItemForm(itemCop, request);
-				
-			%>
+<%
+package com.exedio.copernica;
+
+import java.io.IOException;
+import java.util.Collection;
+import java.util.Iterator;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.jsp.JspWriter;
+
+import com.exedio.cope.lib.Attribute;
+import com.exedio.cope.lib.BooleanAttribute;
+import com.exedio.cope.lib.DateAttribute;
+import com.exedio.cope.lib.DoubleAttribute;
+import com.exedio.cope.lib.EnumAttribute;
+import com.exedio.cope.lib.EnumValue;
+import com.exedio.cope.lib.IntegerAttribute;
+import com.exedio.cope.lib.Item;
+import com.exedio.cope.lib.ItemAttribute;
+import com.exedio.cope.lib.LongAttribute;
+import com.exedio.cope.lib.MediaAttribute;
+import com.exedio.cope.lib.NoSuchIDException;
+import com.exedio.cope.lib.ObjectAttribute;
+import com.exedio.cope.lib.StringAttribute;
+import com.exedio.cope.lib.Type;
+
+class ItemCop_Jspm
+{
+	static final String SAVE_BUTTON = ItemForm.SAVE_BUTTON;
+	static final String VALUE_NULL = ItemForm.VALUE_NULL;
+	static final String VALUE_ON = ItemForm.VALUE_ON;
+	static final String VALUE_OFF = ItemForm.VALUE_OFF;
+	
+	static void writeBody(final JspWriter out, final ItemCop itemCop, final HttpServletRequest request)
+		throws IOException
+	{
+		final Item item = itemCop.item;
+		final Type type = item.getType();
+		final ItemForm form = new ItemForm(itemCop, request);
+		final CopernicaCop cop = itemCop;
+		final CopernicaProvider provider = cop.provider;
+		final CopernicaLanguage language = cop.language;
+		%>
 			
 			<form action="<%=(cop.toItem(item))%>" method="POST"<%
 				if(form.hasFiles)
@@ -222,3 +254,7 @@
 				}
 			%>
 			</form>
+<%
+	}
+}
+%>

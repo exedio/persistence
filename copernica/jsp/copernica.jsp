@@ -109,7 +109,7 @@ page import="java.text.SimpleDateFormat" %><%!
 		else if(cop instanceof ItemCop)
 		{
 			final ItemCop itemCop = (ItemCop)cop;
-			%><%@ include file="copernica-item.inc" %><%
+			ItemCop_Jspm.writeBody(out, itemCop, request);
 		}
 		else if(cop instanceof EmptyCop)
 		{

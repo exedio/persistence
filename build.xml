@@ -337,6 +337,7 @@
 			</classpath>
 			<arg value="copernica/src/com/exedio/copernica/Copernica.jspm" />
 			<arg value="copernica/src/com/exedio/copernica/TypeCop.jspm" />
+			<arg value="copernica/src/com/exedio/copernica/ItemCop.jspm" />
 		</java>
 	</target>
 	
