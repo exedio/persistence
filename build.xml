@@ -124,7 +124,7 @@
 		</javac>
 	</target>
 	
-	<target name="lib.test.run.hsql" depends="lib.test.compile">
+	<target name="lib.test.run.hsqldb" depends="lib.test.compile">
 		<mkdir dir="lib/build/media" />
 		<java classname="junit.textui.TestRunner" taskname="junit" fork="yes" failonerror="yes">
 			<classpath>
@@ -154,7 +154,7 @@
 		</java>
 	</target>
 
-	<target name="lib.test.run" depends="lib.test.run.hsql, lib.test.run.oracle" />
+	<target name="lib.test.run" depends="lib.test.run.hsqldb, lib.test.run.oracle" />
 
 	<target name="lib.test.teardown.database" depends="lib.compile, lib.oracle.compile, lib.test.compile">
 		<java classname="com.exedio.cope.lib.DatabaseLibTest" taskname="tear down tables" fork="yes" failonerror="yes">
