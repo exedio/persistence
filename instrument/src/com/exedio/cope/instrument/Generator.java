@@ -600,6 +600,7 @@ final class Generator
 			if(persistentAttribute.qualifiers != null)
 				qualifiers.addAll(persistentAttribute.qualifiers);
 			o.write("final ");
+			// TODO: use boxed type
 			o.write(persistentAttribute.getPersistentType());
 			o.write(" searched");
 			o.write(persistentAttribute.getCamelCaseName());
