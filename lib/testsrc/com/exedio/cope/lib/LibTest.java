@@ -54,12 +54,11 @@ public class LibTest extends TestCase
 			assertFalse(item1.equals(null));
 			assertFalse(item2.equals(null));
 			assertFalse(item3.equals(null));
-			assertFalse(item1.equals(item2));
-			assertFalse(item1.equals(item3));
-			assertFalse(item2.equals(item1));
-			assertFalse(item2.equals(item3));
-			assertFalse(item3.equals(item1));
-			assertFalse(item3.equals(item2));
+			
+			assertNotEquals(item1, item2);
+			assertNotEquals(item1, item3);
+			assertNotEquals(item2, item3);
+			
 			assertFalse(item1.equals("hello"));
 			assertFalse(item1.equals(new Integer(1)));
 			assertFalse(item1.equals(Boolean.TRUE));
@@ -159,7 +158,15 @@ public class LibTest extends TestCase
 		}
 	}
 
-	
+
+	protected void assertNotEquals(final Item item1, final Item item2)
+	{
+		assertFalse(item1.equals(item2));
+		assertFalse(item2.equals(item1));
+		assertFalse(item1.getID().equals(item2.getID()));
+		assertFalse(item1.hashCode()==item2.hashCode());
+	}
+
 	protected Set toSet(final Collection collection)
 	{
 		return new HashSet(collection);
