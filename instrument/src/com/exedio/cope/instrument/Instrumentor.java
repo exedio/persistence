@@ -15,11 +15,9 @@ import com.exedio.cope.lib.BooleanAttribute;
 import com.exedio.cope.lib.DoubleAttribute;
 import com.exedio.cope.lib.EnumerationAttribute;
 import com.exedio.cope.lib.IntegerAttribute;
-import com.exedio.cope.lib.Item;
 import com.exedio.cope.lib.ItemAttribute;
 import com.exedio.cope.lib.MediaAttribute;
 import com.exedio.cope.lib.StringAttribute;
-import com.exedio.cope.lib.SystemException;
 
 public final class Instrumentor implements InjectionConsumer
 {
@@ -172,27 +170,6 @@ public final class Instrumentor implements InjectionConsumer
 	{
 	}
 
-	private final static Attribute.Option getOption(final String optionString)	
-	{
-		try
-		{
-			//System.out.println(optionString);
-			final Attribute.Option result = 
-				(Attribute.Option)Item.class.getDeclaredField(optionString).get(null);
-			if(result==null)
-				throw new NullPointerException(optionString);
-			return result;
-		}
-		catch(NoSuchFieldException e)
-		{
-			throw new SystemException(e, optionString);
-		}
-		catch(IllegalAccessException e)
-		{
-			throw new SystemException(e, optionString);
-		}
-	}
-	
 	private boolean isPersistent(final JavaAttribute javaAttribute)
 	{
 		final int modifier = javaAttribute.getModifiers();
@@ -229,14 +206,6 @@ public final class Instrumentor implements InjectionConsumer
 				final List initializerArguments = ja.getInitializerArguments();
 				//System.out.println(initializerArguments);
 				
-				final String optionString = (String)initializerArguments.get(0);
-				//System.out.println(optionString);
-				final Attribute.Option option = getOption(optionString); 
-
-				final boolean readOnly = option.readOnly;
-				final boolean notNull = option.notNull;
-				final boolean unique = option.unique;
-
 				final String secondArgument = initializerArguments.size()>1 ? (String)initializerArguments.get(1) : null;
 	
 				final boolean mapped = containsTag(docComment, MAPPED_ATTRIBUTE);
@@ -255,28 +224,28 @@ public final class Instrumentor implements InjectionConsumer
 					persistentAttribute =
 						new PersistentAttribute(
 							ja, "Integer",
-							readOnly, notNull, mapped, qualifiers);
+							initializerArguments, mapped, qualifiers);
 				}
 				else if(DoubleAttribute.class.equals(typeClass))
 				{
 					persistentAttribute =
 						new PersistentAttribute(
 							ja, "Double",
-							readOnly, notNull, mapped, qualifiers);
+							initializerArguments, mapped, qualifiers);
 				}
 				else if(BooleanAttribute.class.equals(typeClass))
 				{
 					persistentAttribute =
 						new PersistentAttribute(
 							ja, "Boolean",
-							readOnly, notNull, mapped, qualifiers);
+							initializerArguments, mapped, qualifiers);
 				}
 				else if(StringAttribute.class.equals(typeClass))
 				{
 					persistentAttribute =
 						new PersistentAttribute(
 							ja, "String",
-							readOnly, notNull, mapped, qualifiers);
+							initializerArguments, mapped, qualifiers);
 				}
 				else if(EnumerationAttribute.class.equals(typeClass))
 				{
@@ -288,7 +257,7 @@ public final class Instrumentor implements InjectionConsumer
 					persistentAttribute =
 						new PersistentEnumerationAttribute(
 							ja, persistentType,
-							readOnly, notNull, mapped, qualifiers);
+							initializerArguments, mapped, qualifiers);
 				}
 				else if(ItemAttribute.class.equals(typeClass))
 				{
@@ -300,7 +269,7 @@ public final class Instrumentor implements InjectionConsumer
 					persistentAttribute =
 						new PersistentAttribute(
 							ja, persistentType,
-							readOnly, notNull, mapped, qualifiers);
+							initializerArguments, mapped, qualifiers);
 				}
 				else if(MediaAttribute.class.equals(typeClass))
 				{
@@ -316,14 +285,11 @@ public final class Instrumentor implements InjectionConsumer
 					persistentAttribute =
 						new PersistentMediaAttribute(
 							ja,
-							readOnly, notNull, mapped, qualifiers,
+							initializerArguments, mapped, qualifiers,
 							variants, mimeMajor, mimeMinor);
 				}
 				else
 					throw new RuntimeException(typeClass.toString());
-
-				if(unique)
-					persistentAttribute.persistentClass.makeUnique(new PersistentAttribute[]{persistentAttribute});
 			}
 		}
 		discardnextfeature=false;

@@ -9,8 +9,11 @@ import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import com.exedio.cope.lib.Attribute;
+import com.exedio.cope.lib.Item;
 import com.exedio.cope.lib.NotNullViolationException;
 import com.exedio.cope.lib.ReadOnlyViolationException;
+import com.exedio.cope.lib.SystemException;
 import com.exedio.cope.lib.UniqueViolationException;
 import com.exedio.cope.lib.util.ClassComparator;
 
@@ -40,19 +43,27 @@ public class PersistentAttribute
 	public PersistentAttribute(
 			final JavaAttribute javaAttribute,
 			final String persistentType,
-			final boolean readOnly, final boolean notNull, final boolean mapped,
+			final List initializerArguments, final boolean mapped,
 			final List qualifiers)
 	{
 		this.javaAttribute = javaAttribute;
 		this.accessModifier = javaAttribute.accessModifier;
 		this.persistentClass = PersistentClass.getPersistentClass(javaAttribute.getParent());
 		this.persistentType = persistentType;
-		this.readOnly = readOnly;
-		this.notNull = notNull;
+
+		final String optionString = (String)initializerArguments.get(0);
+		//System.out.println(optionString);
+		final Attribute.Option option = getOption(optionString); 
+
+		this.readOnly = option.readOnly;
+		this.notNull = option.notNull;
+
 		this.mapped = mapped;
 		this.qualifiers = (qualifiers!=null) ? Collections.unmodifiableList(qualifiers) : null;
 
 		persistentClass.addPersistentAttribute(this);
+		if(option.unique)
+			persistentClass.makeUnique(new PersistentAttribute[]{this});
 
 		{
 			final String nativeType = (String)toNativeTypeMapping.get(persistentType);
@@ -242,4 +253,25 @@ public class PersistentAttribute
 		return this.exceptionsToCatchInSetter;
 	}
 
+	private final static Attribute.Option getOption(final String optionString)	
+	{
+		try
+		{
+			//System.out.println(optionString);
+			final Attribute.Option result = 
+				(Attribute.Option)Item.class.getDeclaredField(optionString).get(null);
+			if(result==null)
+				throw new NullPointerException(optionString);
+			return result;
+		}
+		catch(NoSuchFieldException e)
+		{
+			throw new SystemException(e, optionString);
+		}
+		catch(IllegalAccessException e)
+		{
+			throw new SystemException(e, optionString);
+		}
+	}
+	
 }
