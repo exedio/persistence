@@ -141,7 +141,7 @@ final class OracleDatabase
 			{
 				final String tableName = resultSet.getString(1);
 				final Date lastAnalyzed = (Date)resultSet.getObject(2);
-				final Report.Table table = report.notifyExistentTable(tableName);
+				final ReportTable table = report.notifyExistentTable(tableName);
 				table.setLastAnalyzed(lastAnalyzed);
 				//System.out.println("EXISTS:"+tableName);
 			}
@@ -163,8 +163,8 @@ final class OracleDatabase
 			{
 				final String tableName = resultSet.getString(1);
 				final String columnName = resultSet.getString(2);
-				final Report.Table table = report.notifyExistentTable(tableName);
-				final Report.Column column = table.notifyExistentColumn(columnName);
+				final ReportTable table = report.notifyExistentTable(tableName);
+				final ReportColumn column = table.notifyExistentColumn(columnName);
 				//System.out.println("EXISTS:"+tableName);
 			}
 		}
@@ -186,8 +186,8 @@ final class OracleDatabase
 				final String tableName = resultSet.getString(1);
 				final String constraintName = resultSet.getString(2);
 				final String constraintType = resultSet.getString(3);
-				final Report.Table table = report.notifyExistentTable(tableName);
-				final Report.Constraint constraint = table.notifyExistentConstraint(constraintName);
+				final ReportTable table = report.notifyExistentTable(tableName);
+				final ReportConstraint constraint = table.notifyExistentConstraint(constraintName);
 				//System.out.println("EXISTS:"+tableName);
 			}
 		}

@@ -22,7 +22,7 @@ final String reportColor = color(report.getCumulativeColor());
 
 for(Iterator i = report.getTables().iterator(); i.hasNext(); )
 {
-	final Report.Table table = (Report.Table)i.next();
+	final ReportTable table = (ReportTable)i.next();
 	final String tableColor = color(table.getCumulativeColor());
 	%>
 	<li class="<%=tableColor%>"><%
@@ -38,7 +38,7 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); )
 	
 	%>
 		<ul><%
-		final Report.LastAnalyzed lastAnalyzed = table.getLastAnalyzed();
+		final ReportLastAnalyzed lastAnalyzed = table.getLastAnalyzed();
 		if(lastAnalyzed!=null)
 		{
 			final Date date = lastAnalyzed.lastAnalyzed;
@@ -49,7 +49,7 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); )
 		
 		for(Iterator j = table.getColumns().iterator(); j.hasNext(); )
 		{
-			final Report.Column column = (Report.Column)j.next();
+			final ReportColumn column = (ReportColumn)j.next();
 			final String color = color(column.getCumulativeColor());
 			%>
 			<li class="<%=color%>"><%
@@ -66,7 +66,7 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); )
 		
 		for(Iterator j = table.getConstraints().iterator(); j.hasNext(); )
 		{
-			final Report.Constraint constraint = (Report.Constraint)j.next();
+			final ReportConstraint constraint = (ReportConstraint)j.next();
 			final String constraintColor = color(constraint.getCumulativeColor());
 			%>
 			<li class="<%=constraintColor%>"><%
