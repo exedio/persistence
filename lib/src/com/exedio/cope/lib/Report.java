@@ -42,10 +42,18 @@ public final class Report extends ReportNode
 					final StringColumn stringColumn = (StringColumn)column;
 
 					if(stringColumn.minimumLength>0)
-						reportTable.notifyRequiredConstraint(stringColumn.getMinimumLengthConstraintID());
+					{
+						final Statement bf = database.createStatement();
+						database.appendMinimumLengthCondition(bf, stringColumn);
+						reportTable.notifyRequiredCheckConstraint(stringColumn.getMinimumLengthConstraintID(), bf.getText());
+					}
 
 					if(stringColumn.maximumLength!=Integer.MAX_VALUE)
-						reportTable.notifyRequiredConstraint(stringColumn.getMaximumLengthConstraintID());
+					{
+						final Statement bf = database.createStatement();
+						database.appendMaximumLengthCondition(bf, stringColumn);
+						reportTable.notifyRequiredCheckConstraint(stringColumn.getMaximumLengthConstraintID(), bf.getText());
+					}
 				}
 				else if(column instanceof IntegerColumn)
 				{

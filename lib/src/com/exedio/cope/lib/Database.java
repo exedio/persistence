@@ -900,34 +900,18 @@ abstract class Database
 				{
 					bf.append(",constraint ").
 						append(protectName(stringColumn.getMinimumLengthConstraintID())).
-						append(" check(length(").
-						append(column.protectedID).
-						append(")>=").
-						append(stringColumn.minimumLength);
+						append(" check(");
 
-					if(!column.notNull)
-					{
-						bf.append(" or ").
-							append(column.protectedID).
-							append(" is null");
-					}
+					appendMinimumLengthCondition(bf, stringColumn);
 					bf.append(')');
 				}
 				if(stringColumn.maximumLength!=Integer.MAX_VALUE)
 				{
 					bf.append(",constraint ").
 						append(protectName(stringColumn.getMaximumLengthConstraintID())).
-						append(" check(length(").
-						append(column.protectedID).
-						append(")<=").
-						append(stringColumn.maximumLength);
+						append(" check(");
 
-					if(!column.notNull)
-					{
-						bf.append(" or ").
-							append(column.protectedID).
-							append(" is null");
-					}
+					appendMaximumLengthCondition(bf, stringColumn);
 					bf.append(')');
 				}
 			}
@@ -998,6 +982,36 @@ abstract class Database
 	{
 		bf.append(column.protectedID).
 			append(" is not null");
+	}
+	
+	final void appendMinimumLengthCondition(final Statement bf, final StringColumn stringColumn)
+	{
+		bf.append("length(").
+			append(stringColumn.protectedID).
+			append(")>=").
+			append(stringColumn.minimumLength);
+
+		if(!stringColumn.notNull)
+		{
+			bf.append(" or ").
+				append(stringColumn.protectedID).
+				append(" is null");
+		}
+	}
+	
+	final void appendMaximumLengthCondition(final Statement bf, final StringColumn column)
+	{
+		bf.append("length(").
+			append(column.protectedID).
+			append(")<=").
+			append(column.maximumLength);
+
+		if(!column.notNull)
+		{
+			bf.append(" or ").
+				append(column.protectedID).
+				append(" is null");
+		}
 	}
 	
 	private void createForeignKeyConstraints(final Table table)
