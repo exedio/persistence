@@ -6,7 +6,7 @@
 	version="2.4">
 
 	<servlet>
-		<servlet-name>com.exedio.copernica.admin.AdminServlet</servlet-name>
+		<servlet-name>admin</servlet-name>
 		<servlet-class>com.exedio.copernica.admin.AdminServlet</servlet-class>
 		<init-param>
 			<param-name>com.exedio.copernica.model</param-name>
@@ -14,12 +14,12 @@
 		</init-param>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>com.exedio.copernica.admin.AdminServlet</servlet-name>
+		<servlet-name>admin</servlet-name>
 		<url-pattern>/admin.jsp</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
-		<servlet-name>com.exedio.copernica.CopernicaServlet</servlet-name>
+		<servlet-name>copernica</servlet-name>
 		<servlet-class>com.exedio.copernica.CopernicaServlet</servlet-class>
 		<init-param>
 			<param-name>com.exedio.copernica.provider</param-name>
@@ -27,7 +27,7 @@
 		</init-param>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>com.exedio.copernica.CopernicaServlet</servlet-name>
+		<servlet-name>copernica</servlet-name>
 		<url-pattern>/copernica.jsp</url-pattern>
 	</servlet-mapping>
 
