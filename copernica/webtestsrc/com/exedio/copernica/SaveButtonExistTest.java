@@ -13,7 +13,7 @@ public class SaveButtonExistTest extends WebTestCase
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		getTestContext().setBaseUrl("http://localhost:8080/copetest-oracle/");
+		getTestContext().setBaseUrl("http://127.0.0.1:8080/copetest-oracle/");
 	}
 	
 	public void testSaveButtonExists()
