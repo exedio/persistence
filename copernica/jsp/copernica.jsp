@@ -191,7 +191,14 @@ page import="java.util.Map"
 									%><th><%=provider.getDisplayName(null, feature)%><%
 									if(feature instanceof ObjectAttribute)
 									{
-										%><br><a href="<%=typeCop.orderBy((ObjectAttribute)feature)%>">o</a><%
+										if(feature == typeCop.orderAttribute)
+										{
+											%><br><b>o</b><%
+										}
+										else
+										{
+											%><br><a href="<%=typeCop.orderBy((ObjectAttribute)feature)%>">o</a><%
+										}
 									}
 									%></th><%
 								}
