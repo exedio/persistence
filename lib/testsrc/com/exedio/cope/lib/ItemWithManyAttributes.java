@@ -46,6 +46,13 @@ public class ItemWithManyAttributes extends Item
 	 */
 	public static final MediaAttribute someMedia = new MediaAttribute();
 
+	/**
+	 * A qualified attribute.
+	 * @persistent
+	 * @qualifier ItemWithoutAttributes
+	 */
+	public static final StringAttribute someQualifiedString = new StringAttribute();
+
 /**
 
 	 **
@@ -255,6 +262,31 @@ public class ItemWithManyAttributes extends Item
 	}/**
 
 	 **
+	 * Returns the value of the persistent attribute {@link #someQualifiedString}.
+	 * @generated
+	 *
+ */public final String getSomeQualifiedString(final ItemWithoutAttributes itemWithoutAttributes)
+	{
+		return (String)getAttribute(this.someQualifiedString,new Object[]{itemWithoutAttributes});
+	}/**
+
+	 **
+	 * Sets a new value for the persistent attribute {@link #someQualifiedString}.
+	 * @generated
+	 *
+ */public final void setSomeQualifiedString(final ItemWithoutAttributes itemWithoutAttributes,final String someQualifiedString)
+	{
+		try
+		{
+			setAttribute(this.someQualifiedString,new Object[]{itemWithoutAttributes},someQualifiedString);
+		}
+		catch(com.exedio.cope.lib.UniqueViolationException e)
+		{
+			throw new com.exedio.cope.lib.SystemException(e);
+		}
+	}/**
+
+	 **
 	 * The persistent type information for itemWithManyAttributes.
 	 * @generated
 	 *
@@ -267,6 +299,7 @@ public class ItemWithManyAttributes extends Item
 				someNotNullInteger,
 				someItem,
 				someMedia,
+				someQualifiedString,
 			},
 			new com.exedio.cope.lib.UniqueConstraint[]{
 			},
@@ -279,6 +312,7 @@ public class ItemWithManyAttributes extends Item
 					someNotNullInteger.initialize("someNotNullInteger",false,true);
 					someItem.initialize("someItem",false,false);
 					someMedia.initialize("someMedia",false,false);
+					someQualifiedString.initialize("someQualifiedString",false,false);
 				}
 			}
 		)

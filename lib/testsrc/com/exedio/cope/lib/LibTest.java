@@ -224,6 +224,16 @@ public class LibTest extends TestCase
 			assertEquals(null, item.getSomeMediaData());
 			assertEquals(null, item.getSomeMediaMimeMajor());
 			assertEquals(null, item.getSomeMediaMimeMinor());
+			
+			final ItemWithoutAttributes someItem2 = new ItemWithoutAttributes();
+			assertEquals(null, item.getSomeQualifiedString(someItem));
+			assertEquals(null, item.getSomeQualifiedString(someItem2));
+			item.setSomeQualifiedString(someItem, "someQualifiedValue");
+			assertEquals(null/*"someQualifiedValue"*/, item.getSomeQualifiedString(someItem));
+			assertEquals(null, item.getSomeQualifiedString(someItem2));
+			item.setSomeQualifiedString(someItem, null);
+			assertEquals(null, item.getSomeQualifiedString(someItem));
+			assertEquals(null, item.getSomeQualifiedString(someItem2));
 		}
 	}
 
