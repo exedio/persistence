@@ -19,6 +19,9 @@ public class Query
 	int start = 0;
 	int count = -1;
 	
+	boolean makeStatementInfo = false;
+	StatementInfo statementInfo = null;
+	
 	public Query(final Type type, final Condition condition)
 	{
 		this.model = type.getModel();
@@ -74,6 +77,16 @@ public class Query
 		this.count = count;
 		if(start<0)
 			throw new RuntimeException();
+	}
+	
+	public void enableMakeStatementInfo()
+	{
+		makeStatementInfo = true;
+	}
+	
+	public StatementInfo getStatementInfo()
+	{
+		return statementInfo;
 	}
 	
 	void check()

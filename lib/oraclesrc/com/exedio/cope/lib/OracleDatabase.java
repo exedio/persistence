@@ -289,9 +289,6 @@ final class OracleDatabase
 
 	protected StatementInfo makeStatementInfo(final Statement statement, final Connection connection)
 	{
-		if(true)
-			return null;
-
 		final String statementText = statement.getText();
 		if(statementText.startsWith("alter table "))
 			return null;

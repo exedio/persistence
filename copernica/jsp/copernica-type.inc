@@ -1,4 +1,18 @@
-<%
+<%!
+	public void writeInfo(final JspWriter out, final StatementInfo info)
+		throws IOException
+	{
+		out.println(info.getText());
+		out.println("<ul>");
+		for(Iterator i = info.getChilds().iterator(); i.hasNext(); )
+		{
+			out.println("<li>");
+			writeInfo(out, ((StatementInfo)i.next()));
+			out.println("</li>");
+		}
+		out.println("</ul>");
+	}
+%><%
 			final Type type = typeCop.type;
 			final Collection items = typeCop.getItems();
 			
@@ -180,3 +194,13 @@
 				}
 			%>
 			</table>
+
+			<%
+			final StatementInfo info = typeCop.getStatementInfo();
+			if(info!=null)
+			{
+				%><ul><li><%
+				writeInfo(out, info);
+				%></li></ul><%
+			}
+			%>

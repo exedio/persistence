@@ -352,11 +352,12 @@ abstract class Database
 		}
 
 		//System.out.println("searching "+bf.toString());
+		bf.makeInfo = query.makeStatementInfo;
 		try
 		{
 			final SearchResultSetHandler handler =
 				new SearchResultSetHandler(query.start, query.count, selectables, selectColumns, selectTypes, query.model);
-			executeSQL(bf, handler);
+			query.statementInfo = executeSQL(bf, handler);
 			return handler.result;
 		}
 		catch(ConstraintViolationException e)
@@ -759,7 +760,7 @@ abstract class Database
 
 	//private static int timeExecuteQuery = 0;
 
-	protected final void executeSQL(final Statement statement, final ResultSetHandler resultSetHandler)
+	protected final StatementInfo executeSQL(final Statement statement, final ResultSetHandler resultSetHandler)
 			throws ConstraintViolationException
 	{
 		Connection connection = null;
@@ -811,7 +812,10 @@ abstract class Database
 				sqlStatement = null;
 			}
 			
-			makeStatementInfo(statement, connection);
+			if(statement.makeInfo)
+				return makeStatementInfo(statement, connection);
+			else
+				return null;
 		}
 		catch(SQLException e)
 		{

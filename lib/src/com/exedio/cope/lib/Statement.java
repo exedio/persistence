@@ -7,6 +7,7 @@ public final class Statement
 {
 	final StringBuffer text = new StringBuffer();
 	final IntArrayList columnTypes;
+	boolean makeInfo = false;
 		
 	Statement(final boolean useDefineColumnTypes)
 	{

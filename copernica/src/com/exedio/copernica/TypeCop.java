@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.exedio.cope.lib.Cope;
 import com.exedio.cope.lib.Function;
 import com.exedio.cope.lib.Query;
+import com.exedio.cope.lib.StatementInfo;
 import com.exedio.cope.lib.Type;
 
 final class TypeCop extends CopernicaCop
@@ -21,6 +22,7 @@ final class TypeCop extends CopernicaCop
 
 	private boolean lastPage;
 	private Collection items = null;
+	private StatementInfo statementInfo;
 
 	TypeCop(final CopernicaProvider provider, final CopernicaLanguage language, final Type type)
 	{
@@ -123,6 +125,12 @@ final class TypeCop extends CopernicaCop
 		return items;
 	}
 
+	final StatementInfo getStatementInfo()
+	{
+		computeItems();
+		return statementInfo;
+	}
+
 	private final void computeItems()
 	{
 		if(items!=null)
@@ -133,11 +141,13 @@ final class TypeCop extends CopernicaCop
 			query.setOrderBy(orderBy, orderAscending);
 		query.setDeterministicOrder(true);
 		query.setRange(start, count);
+		query.enableMakeStatementInfo();
 		
 		items = Cope.search(query);
 		lastPage = count>items.size();
+		statementInfo = query.getStatementInfo();
 	}
-
+	
 	static final TypeCop getCop(
 			final CopernicaProvider provider,
 			final CopernicaLanguage language,

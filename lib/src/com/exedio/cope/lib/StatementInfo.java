@@ -3,9 +3,11 @@ package com.exedio.cope.lib;
 
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 
-class StatementInfo
+public final class StatementInfo
 {
 	final ArrayList childs = new ArrayList();
 	final int id;
@@ -15,6 +17,16 @@ class StatementInfo
 	{
 		this.id = id;
 		this.text = text;
+	}
+	
+	public String getText()
+	{
+		return text;
+	}
+	
+	public Collection getChilds()
+	{
+		return Collections.unmodifiableList(childs);
 	}
 	
 	void addChild(final StatementInfo newChild)
