@@ -232,6 +232,52 @@ public abstract class Database
 		//checkTableTime += amount;
 		//System.out.println("CHECK TABLES "+amount+"ms  accumulated "+checkTableTime);
 	}
+	
+	public Report reportDatabase()
+	{
+		buildStage = false;
+		
+		final Report result = new Report();
+
+		final Statement bf = createStatement();
+		bf.append("select TABLE_NAME, CONSTRAINT_NAME, CONSTRAINT_TYPE  from user_constraints order by table_name").
+			defineColumnString().
+			defineColumnString().
+			defineColumnString();
+		
+		try
+		{
+			executeSQL(bf, new ReportConstraintHandler(result));
+		}
+		catch(ConstraintViolationException e)
+		{
+			throw new SystemException(e);
+		}
+
+		return result;
+	}
+
+	private static class ReportConstraintHandler implements ResultSetHandler
+	{
+		private final Report report;
+
+		ReportConstraintHandler(final Report report)
+		{
+			this.report = report;
+		}
+
+		public void run(ResultSet resultSet) throws SQLException
+		{
+			while(resultSet.next())
+			{
+				final String tableName = resultSet.getString(1);
+				final String constraintName = resultSet.getString(2);
+				final String constraintType = resultSet.getString(3);
+				final Report.Table table = report.notifyExistentTable(tableName);
+			}
+		}
+	}
+
 
 	public void dropDatabase()
 	{
