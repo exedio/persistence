@@ -1,5 +1,6 @@
 package com.exedio.cope.lib;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
@@ -12,7 +13,10 @@ public final class ReportTable extends ReportNode
 	private final Table table;
 	private boolean exists = false;
 	private ReportLastAnalyzed lastAnalyzed = null;
-	private final HashMap columns = new HashMap();
+
+	private final HashMap columnMap = new HashMap();
+	private final ArrayList columnList = new ArrayList();
+
 	private final HashMap constraints = new HashMap();
 
 	ReportTable(final com.exedio.cope.lib.Table table)
@@ -45,18 +49,20 @@ public final class ReportTable extends ReportNode
 	final ReportColumn notifyRequiredColumn(final Column column)
 	{
 		final ReportColumn result = new ReportColumn(column, this);
-		if(columns.put(result.name, result)!=null)
+		if(columnMap.put(result.name, result)!=null)
 			throw new RuntimeException(column.toString());
+		columnList.add(result);
 		return result;
 	}
 		
 	final ReportColumn notifyExistentColumn(final String columnName, final String existingType)
 	{
-		ReportColumn result = (ReportColumn)columns.get(columnName);
+		ReportColumn result = (ReportColumn)columnMap.get(columnName);
 		if(result==null)
 		{
 			result = new ReportColumn(columnName, existingType, this);
-			columns.put(columnName, result);
+			columnMap.put(columnName, result);
+			columnList.add(result);
 		}
 		else
 		{
@@ -104,12 +110,12 @@ public final class ReportTable extends ReportNode
 		
 	public final Collection getColumns()
 	{
-		return columns.values();
+		return columnList;
 	}
 		
 	public final ReportColumn getColumn(final String columnName)
 	{
-		return (ReportColumn)columns.get(columnName);
+		return (ReportColumn)columnMap.get(columnName);
 	}
 		
 	public final Collection getConstraints()
@@ -143,7 +149,7 @@ public final class ReportTable extends ReportNode
 			cumulativeColor = Math.max(cumulativeColor, lastAnalyzed.cumulativeColor);
 		}
 			
-		for(Iterator i = columns.values().iterator(); i.hasNext(); )
+		for(Iterator i = columnList.iterator(); i.hasNext(); )
 		{
 			final ReportColumn column = (ReportColumn)i.next();
 			column.finish();
