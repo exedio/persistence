@@ -7,7 +7,7 @@ import com.exedio.cope.lib.search.Condition;
 public class Query
 {
 	final Model model;
-	final Selectable selectable;
+	final Selectable[] selectables;
 	final TreeSet fromTypes = new TreeSet(Type.COMPARATOR);
 	final Condition condition;
 
@@ -22,7 +22,7 @@ public class Query
 	public Query(final Type type, final Condition condition)
 	{
 		this.model = type.getModel();
-		this.selectable = type;
+		this.selectables = new Type[]{type};
 		this.fromTypes.add(type);
 		this.condition = condition;
 	}
@@ -30,7 +30,7 @@ public class Query
 	public Query(final Type selectType, final Type fromType2, final Condition condition)
 	{
 		this.model = selectType.getModel();
-		this.selectable = selectType;
+		this.selectables = new Type[]{selectType};
 		this.fromTypes.add(selectType);
 		this.fromTypes.add(fromType2);
 		this.condition = condition;
@@ -39,7 +39,16 @@ public class Query
 	public Query(final Selectable selectable, final Type[] fromTypes, final Condition condition)
 	{
 		this.model = fromTypes[0].getModel();
-		this.selectable = selectable;
+		this.selectables = new Selectable[]{selectable};
+		for(int i = 0; i<fromTypes.length; i++)
+			this.fromTypes.add(fromTypes[i]);
+		this.condition = condition;
+	}
+	
+	public Query(final Selectable[] selectables, final Type[] fromTypes, final Condition condition)
+	{
+		this.model = fromTypes[0].getModel();
+		this.selectables = selectables;
 		for(int i = 0; i<fromTypes.length; i++)
 			this.fromTypes.add(fromTypes[i]);
 		this.condition = condition;

@@ -52,6 +52,11 @@ public class JoinTest extends DatabaseLibTest
 					Cope.and(
 						Cope.join(PointerItem.pointer),
 						Cope.equal(PointerItem2.code, "hallo")))));
+
+		assertContains(
+				list("bello", item1b, "collo"),
+				list("hallo", item1a, "bello"),
+				Cope.search(new Query(new Selectable[]{PointerItem2.code, PointerItem.TYPE, PointerItem.code}, new Type[]{PointerItem2.TYPE, PointerItem.TYPE}, Cope.join(PointerItem.pointer))));
 	}
 
 }
