@@ -44,7 +44,7 @@ abstract class Database
 
 		final Object collision = uniqueConstraintsByID.put(constraintID, constraint);
 		if(collision!=null)
-			throw new InitializerRuntimeException(null, "ambiguous unique constraint "+constraint+" trimmed to >"+constraintID+"< colliding with "+collision);
+			throw new RuntimeException("ambiguous unique constraint "+constraint+" trimmed to >"+constraintID+"< colliding with "+collision);
 	}
 	
 	final void addIntegrityConstraint(final ItemColumn column)
@@ -52,7 +52,7 @@ abstract class Database
 		if(!buildStage)
 			throw new RuntimeException();
 		if(itemColumnsByIntegrityConstraintName.put(column.integrityConstraintName, column)!=null)
-			throw new InitializerRuntimeException("there is more than one integrity constraint with name "+column.integrityConstraintName);
+			throw new RuntimeException("there is more than one integrity constraint with name "+column.integrityConstraintName);
 	}
 	
 	protected final List getTables()

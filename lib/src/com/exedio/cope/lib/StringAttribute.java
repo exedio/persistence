@@ -22,7 +22,7 @@ public final class StringAttribute extends ObjectAttribute implements StringFunc
 		this.minimumLength = minimumLength;
 		this.maximumLength = Integer.MAX_VALUE;
 		if(minimumLength<=0)
-			throw new InitializerRuntimeException("mimimum length must be greater than zero.");
+			throw new RuntimeException("mimimum length must be greater than zero.");
 	}
 	
 	public StringAttribute(final Option option, final int minimumLength, final int maximumLength)
@@ -31,9 +31,9 @@ public final class StringAttribute extends ObjectAttribute implements StringFunc
 		this.minimumLength = minimumLength;
 		this.maximumLength = maximumLength;
 		if(minimumLength<0)
-			throw new InitializerRuntimeException("mimimum length must be positive.");
+			throw new RuntimeException("mimimum length must be positive.");
 		if(minimumLength>maximumLength)
-			throw new InitializerRuntimeException("maximum length must be greater or equal mimimum length.");
+			throw new RuntimeException("maximum length must be greater or equal mimimum length.");
 	}
 	
 	public final int getMinimumLength()

@@ -100,7 +100,7 @@ public final class Type
 						field.setAccessible(true);
 						final Attribute attribute = (Attribute)field.get(null);
 						if(attribute==null)
-							throw new InitializerRuntimeException(field.getName());
+							throw new RuntimeException(field.getName());
 						attribute.initialize(this, field.getName());
 						attributesTemp.add(attribute);
 						featuresTemp.add(attribute);
@@ -117,7 +117,7 @@ public final class Type
 						field.setAccessible(true);
 						final ComputedFunction function = (ComputedFunction)field.get(null);
 						if(function==null)
-							throw new InitializerRuntimeException(field.getName());
+							throw new RuntimeException(field.getName());
 						function.initialize(this, field.getName());
 						featuresTemp.add(function);
 						featuresByName.put(function.getName(), function);
@@ -127,7 +127,7 @@ public final class Type
 						field.setAccessible(true);
 						final UniqueConstraint uniqueConstraint = (UniqueConstraint)field.get(null);
 						if(uniqueConstraint==null)
-							throw new InitializerRuntimeException(field.getName());
+							throw new RuntimeException(field.getName());
 						uniqueConstraint.initialize(this, field.getName());
 						uniqueConstraintsTemp.add(uniqueConstraint);
 					}
@@ -136,7 +136,7 @@ public final class Type
 						field.setAccessible(true);
 						final MediaAttributeVariant variant = (MediaAttributeVariant)field.get(null);
 						if(variant==null)
-							throw new InitializerRuntimeException(field.getName());
+							throw new RuntimeException(field.getName());
 						variant.initialize(this, field.getName());
 					}
 				}
@@ -144,7 +144,7 @@ public final class Type
 		}
 		catch(IllegalAccessException e)
 		{
-			throw new InitializerRuntimeException(e);
+			throw new SystemException(e);
 		}
 		this.declaredAttributes = (Attribute[])attributesTemp.toArray(new Attribute[attributesTemp.size()]);
 		this.declaredAttributeList = Collections.unmodifiableList(Arrays.asList(this.declaredAttributes));
@@ -185,7 +185,7 @@ public final class Type
 		}
 		catch(NoSuchMethodException e)
 		{
-			throw new InitializerRuntimeException(e);
+			throw new SystemException(e);
 		}
 	}
 	

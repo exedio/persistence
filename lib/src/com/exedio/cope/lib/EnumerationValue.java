@@ -18,7 +18,7 @@ public abstract class EnumerationValue
 	final void initialize(final Class enumerationClass, final String code, final int number)
 	{
 		if(initialized)
-			throw new InitializerRuntimeException("enumeration attribute "+this.enumerationClass+"#"+this.code+" has been already initialized");
+			throw new RuntimeException("enumeration attribute "+this.enumerationClass+"#"+this.code+" has been already initialized");
 		if(enumerationClass==null)
 			throw new NullPointerException();
 		if(!EnumerationValue.class.isAssignableFrom(enumerationClass))

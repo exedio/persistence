@@ -61,7 +61,7 @@ public final class Properties
 		}
 		catch(IOException e)
 		{
-			throw new InitializerRuntimeException(e, "property file "+propertyFile.getAbsolutePath()+" not found.");
+			throw new SystemException(e, "property file "+propertyFile.getAbsolutePath()+" not found.");
 		}
 		finally
 		{
@@ -86,20 +86,20 @@ public final class Properties
 			final File mediaDirectoryTest = new File(mediaDirectoryString);
 
 			if(!mediaDirectoryTest.exists())
-				throw new InitializerRuntimeException("media directory "+mediaDirectoryTest.getAbsolutePath()+" does not exist.");
+				throw new RuntimeException("media directory "+mediaDirectoryTest.getAbsolutePath()+" does not exist.");
 			if(!mediaDirectoryTest.isDirectory())
-				throw new InitializerRuntimeException("media directory "+mediaDirectoryTest.getAbsolutePath()+" is not a directory.");
+				throw new RuntimeException("media directory "+mediaDirectoryTest.getAbsolutePath()+" is not a directory.");
 			if(!mediaDirectoryTest.canRead())
-				throw new InitializerRuntimeException("media directory "+mediaDirectoryTest.getAbsolutePath()+" is not readable.");
+				throw new RuntimeException("media directory "+mediaDirectoryTest.getAbsolutePath()+" is not readable.");
 			if(!mediaDirectoryTest.canWrite())
-				throw new InitializerRuntimeException("media directory "+mediaDirectoryTest.getAbsolutePath()+" is not writable.");
+				throw new RuntimeException("media directory "+mediaDirectoryTest.getAbsolutePath()+" is not writable.");
 			try
 			{
 				mediaDirectory = mediaDirectoryTest.getCanonicalFile();
 			}
 			catch(IOException e)
 			{
-				throw new InitializerRuntimeException(e);
+				throw new SystemException(e);
 			}
 			mediaUrl  = getPropertyNotNull(properties, MEDIA_URL);
 		}
@@ -114,7 +114,7 @@ public final class Properties
 	{
 		final String result = properties.getProperty(key);
 		if(result==null)
-			throw new InitializerRuntimeException("property "+key+" in "+source+" not set.");
+			throw new RuntimeException("property "+key+" in "+source+" not set.");
 
 		return result;
 	}
@@ -147,7 +147,7 @@ public final class Properties
 	public File getMediaDirectory()
 	{
 		if(mediaDirectory==null)
-			throw new InitializerRuntimeException("property media.directory in "+source+" not set.");
+			throw new RuntimeException("property media.directory in "+source+" not set.");
 
 		return mediaDirectory;
 	}
@@ -155,7 +155,7 @@ public final class Properties
 	public String getMediaUrl()
 	{
 		if(mediaDirectory==null)
-			throw new InitializerRuntimeException("property media.directory in "+source+" not set.");
+			throw new RuntimeException("property media.directory in "+source+" not set.");
 
 		return mediaUrl;
 	}

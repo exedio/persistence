@@ -20,7 +20,7 @@ public final class UniqueConstraint
 		this.uniqueAttributeList = Collections.unmodifiableList(Arrays.asList(uniqueAttributes));
 		for(int i = 0; i<uniqueAttributes.length; i++)
 			if(uniqueAttributes[i]==null)
-				throw new InitializerRuntimeException(String.valueOf(i));
+				throw new RuntimeException(String.valueOf(i));
 	}
 	
 	UniqueConstraint(final ObjectAttribute uniqueAttribute)

@@ -14,9 +14,9 @@ public final class ItemAttribute extends ObjectAttribute
 		super(option);
 		this.targetTypeClass = targetTypeClass;
 		if(targetTypeClass==null)
-			throw new InitializerRuntimeException("target type class for attribute "+this+" must not be null");
+			throw new RuntimeException("target type class for attribute "+this+" must not be null");
 		if(!Item.class.isAssignableFrom(targetTypeClass))
-			throw new InitializerRuntimeException("target type class "+targetTypeClass+" for attribute "+this+" must be a sub class of item");
+			throw new RuntimeException("target type class "+targetTypeClass+" for attribute "+this+" must be a sub class of item");
 	}
 
 	/**
