@@ -40,6 +40,8 @@ public class JavaClass extends JavaFeature
 	
 	public void addPersistentAttribute(JavaAttribute persistentAttribute)
 	{
+		if(persistentAttributes == null)
+			persistentAttributes = new ArrayList();
 		persistentAttributes.add(persistentAttribute);
 	}
 	
