@@ -527,8 +527,8 @@ final class Generator
 			o.write(lineSeparator);
 		}
 		writeCommentFooter();
-		o.write(JavaAttribute.toAccessModifierString(constraint.accessModifier));
-		o.write("static final ");
+		o.write(Modifier.toString((constraint.modifier & (Modifier.PRIVATE|Modifier.PROTECTED|Modifier.PUBLIC)) | (Modifier.STATIC|Modifier.FINAL) ));
+		o.write(' ');
 		o.write(className);
 		o.write(" findBy");
 		o.write(constraint.camelCaseName);

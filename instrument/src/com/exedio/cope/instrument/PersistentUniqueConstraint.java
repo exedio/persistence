@@ -5,7 +5,7 @@ public final class PersistentUniqueConstraint
 {
 	final String name;
 	final String camelCaseName;
-	final int accessModifier;
+	final int modifier;
 	final PersistentAttribute[] persistentAttributes;
 	
 	/**
@@ -15,7 +15,7 @@ public final class PersistentUniqueConstraint
 	{
 		this.name = javaAttribute.getName();
 		this.camelCaseName = javaAttribute.getCamelCaseName();
-		this.accessModifier = javaAttribute.accessModifier;
+		this.modifier = javaAttribute.getModifiers();
 		this.persistentAttributes = persistentAttributes;
 	}
 	
@@ -26,7 +26,7 @@ public final class PersistentUniqueConstraint
 	{
 		this.name = persistentAttribute.getName();
 		this.camelCaseName = persistentAttribute.getCamelCaseName();
-		this.accessModifier = persistentAttribute.accessModifier;
+		this.modifier = persistentAttribute.javaAttribute.getModifiers();
 		this.persistentAttributes = new PersistentAttribute[]{persistentAttribute};
 	}
 

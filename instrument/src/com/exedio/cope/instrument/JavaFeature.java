@@ -160,28 +160,6 @@ public abstract class JavaFeature
 		}
 	}
 	
-	public final String getAccessModifierString()
-	{
-		return toAccessModifierString(accessModifier);
-	}
-
-	public static final String toAccessModifierString(final int accessModifier)
-	{
-		switch(accessModifier)
-		{
-			case ACCESS_PUBLIC:
-				return "public ";
-			case ACCESS_PACKAGE:
-				return "";
-			case ACCESS_PROTECTED:
-				return "protected ";
-			case ACCESS_PRIVATE:
-				return "private ";
-			default:
-				throw new RuntimeException(Integer.toString(accessModifier));
-		}
-	}
-
 	/**
 	 * The return type of the method.
 	 * Is null, if it is a constructor, or a class.

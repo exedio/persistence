@@ -27,7 +27,7 @@ public abstract class PersistentAttribute
 	 */
 	public static final String MEDIA_TYPE = "Media-";
 
-	private final JavaAttribute javaAttribute;
+	public final JavaAttribute javaAttribute;
 	public final int accessModifier;
 	
 	final PersistentClass persistentClass;
