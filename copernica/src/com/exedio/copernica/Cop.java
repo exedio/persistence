@@ -2,12 +2,12 @@ package com.exedio.copernica;
 
 
 
-abstract class Cop
+public abstract class Cop
 {
 	private final StringBuffer url;
 	private boolean first = true;
 	
-	Cop(final String jsp)
+	public Cop(final String jsp)
 	{
 		this.url = new StringBuffer(jsp);
 	}
