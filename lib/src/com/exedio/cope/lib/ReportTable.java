@@ -9,7 +9,8 @@ import java.util.Iterator;
 public final class ReportTable extends ReportNode
 {
 	public final String name;
-	public final com.exedio.cope.lib.Table table;
+	// TODO: make private
+	public final Table table;
 	boolean exists = false;
 	private ReportLastAnalyzed lastAnalyzed = null;
 	private final HashMap columns = new HashMap();

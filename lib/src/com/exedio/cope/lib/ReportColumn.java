@@ -3,6 +3,7 @@ package com.exedio.cope.lib;
 public final class ReportColumn extends ReportNode
 {
 	public final String name;
+	// TODO: make private
 	public final com.exedio.cope.lib.Column column;
 	boolean exists;
 		
