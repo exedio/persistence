@@ -10,12 +10,12 @@ import com.exedio.cope.lib.search.AndCondition;
 import com.exedio.cope.lib.search.Condition;
 import com.exedio.cope.lib.search.EqualAttributeCondition;
 import com.exedio.cope.lib.search.EqualCondition;
-import com.exedio.cope.lib.search.NotEqualCondition;
 import com.exedio.cope.lib.search.GreaterCondition;
 import com.exedio.cope.lib.search.GreaterEqualCondition;
 import com.exedio.cope.lib.search.JoinCondition;
 import com.exedio.cope.lib.search.LessCondition;
 import com.exedio.cope.lib.search.LessEqualCondition;
+import com.exedio.cope.lib.search.NotEqualCondition;
 import com.exedio.cope.lib.search.OrCondition;
 
 /**
