@@ -78,12 +78,21 @@ public abstract class Database
 		}
 	}
 	
+	private final List tables = new ArrayList();
+	private boolean buildStage = true;
 	private final boolean useDefineColumnTypes;
 	
 	protected Database()
 	{
 		this.useDefineColumnTypes = this instanceof DatabaseColumnTypesDefinable;
 		//System.out.println("using database "+getClass());
+	}
+	
+	final void addTable(final Table table)
+	{
+		if(!buildStage)
+			throw new RuntimeException();
+		tables.add(table);
 	}
 	
 	private final Statement createStatement()
@@ -95,14 +104,16 @@ public abstract class Database
 	
 	public void createDatabase()
 	{
+		buildStage = false;
+
 		//final long time = System.currentTimeMillis();
-		for(Iterator i = Table.getTables().iterator(); i.hasNext(); )
+		for(Iterator i = tables.iterator(); i.hasNext(); )
 			createTable((Table)i.next());
 
 		for(Iterator i = Type.getTypes().iterator(); i.hasNext(); )
 			createMediaDirectories((Type)i.next());
 
-		for(Iterator i = Table.getTables().iterator(); i.hasNext(); )
+		for(Iterator i = tables.iterator(); i.hasNext(); )
 			createForeignKeyConstraints((Table)i.next());
 
 		//final long amount = (System.currentTimeMillis()-time);
@@ -125,12 +136,14 @@ public abstract class Database
 	 */
 	public void checkDatabase()
 	{
+		buildStage = false;
+
 		//final long time = System.currentTimeMillis();
 		final Statement bf = createStatement();
 		bf.append("select count(*) from ").defineColumnInteger();
 		boolean first = true;
 
-		for(Iterator i = Table.getTables().iterator(); i.hasNext(); )
+		for(Iterator i = tables.iterator(); i.hasNext(); )
 		{
 			if(first)
 				first = false;
@@ -145,7 +158,7 @@ public abstract class Database
 		
 		bf.append(" where ");
 		first = true;
-		for(Iterator i = Table.getTables().iterator(); i.hasNext(); )
+		for(Iterator i = tables.iterator(); i.hasNext(); )
 		{
 			if(first)
 				first = false;
@@ -200,6 +213,8 @@ public abstract class Database
 
 	public void dropDatabase()
 	{
+		buildStage = false;
+
 		//final long time = System.currentTimeMillis();
 		{
 			final List types = Type.getTypes();
@@ -207,7 +222,6 @@ public abstract class Database
 				((Type)i.previous()).onDropTable();
 		}
 		{
-			final List tables = Table.getTables();
 			// must delete in reverse order, to obey integrity constraints
 			for(ListIterator i = tables.listIterator(tables.size()); i.hasPrevious(); )
 				dropForeignKeyConstraints((Table)i.previous());
@@ -221,8 +235,10 @@ public abstract class Database
 	
 	public void tearDownDatabase()
 	{
+		buildStage = false;
+
 		System.err.println("TEAR DOWN ALL DATABASE");
-		for(Iterator i = Table.getTables().iterator(); i.hasNext(); )
+		for(Iterator i = tables.iterator(); i.hasNext(); )
 		{
 			try
 			{
@@ -236,7 +252,7 @@ public abstract class Database
 				System.err.println("failed:"+e2.getMessage());
 			}
 		}
-		for(Iterator i = Table.getTables().iterator(); i.hasNext(); )
+		for(Iterator i = tables.iterator(); i.hasNext(); )
 		{
 			try
 			{
@@ -254,8 +270,10 @@ public abstract class Database
 
 	public void checkEmptyTables()
 	{
+		buildStage = false;
+
 		//final long time = System.currentTimeMillis();
-		for(Iterator i = Table.getTables().iterator(); i.hasNext(); )
+		for(Iterator i = tables.iterator(); i.hasNext(); )
 		{
 			final Table table = (Table)i.next();
 			final int count = countTable(table);

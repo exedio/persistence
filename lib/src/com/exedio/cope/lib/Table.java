@@ -7,14 +7,6 @@ import java.util.List;
 
 final class Table
 {
-	private static final List tablesModifiable = new ArrayList();
-	private static final List tables = Collections.unmodifiableList(tablesModifiable);
-	
-	static final List getTables()
-	{
-		return tables;
-	}
-
 	final String id;
 	final String protectedID;
 
@@ -22,7 +14,7 @@ final class Table
 	{
 		this.id = id;
 		this.protectedID = Database.theInstance.protectName(this.id);
-		tablesModifiable.add(this);
+		Database.theInstance.addTable(this);
 	}
 	
 	private boolean buildStage = true;
