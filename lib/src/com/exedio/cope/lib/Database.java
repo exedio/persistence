@@ -239,21 +239,6 @@ public abstract class Database
 		
 		final Report report = new Report();
 
-		final Statement bf = createStatement();
-		bf.append("select TABLE_NAME, CONSTRAINT_NAME, CONSTRAINT_TYPE  from user_constraints order by table_name").
-			defineColumnString().
-			defineColumnString().
-			defineColumnString();
-		
-		try
-		{
-			executeSQL(bf, new ReportConstraintHandler(report));
-		}
-		catch(ConstraintViolationException e)
-		{
-			throw new SystemException(e);
-		}
-
 		for(Iterator i = tables.iterator(); i.hasNext(); )
 		{
 			final Table table = (Table)i.next();
@@ -296,6 +281,22 @@ public abstract class Database
 				reportTable.notifyRequiredConstraint(uniqueConstraint.getID());
 			}
 		}
+
+		final Statement bf = createStatement();
+		bf.append("select TABLE_NAME, CONSTRAINT_NAME, CONSTRAINT_TYPE  from user_constraints order by table_name").
+			defineColumnString().
+			defineColumnString().
+			defineColumnString();
+		
+		try
+		{
+			executeSQL(bf, new ReportConstraintHandler(report));
+		}
+		catch(ConstraintViolationException e)
+		{
+			throw new SystemException(e);
+		}
+
 
 		return report;
 	}
