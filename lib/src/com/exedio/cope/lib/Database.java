@@ -45,21 +45,35 @@ public abstract class Database
 			createTable((Type)i.next());
 	}
 
-	public void createTablesX()
+	public void createTablesDesperatly()
 	{
-		for(Iterator i = Type.getTypes().iterator(); i.hasNext(); )
+		try
 		{
-			final Type type = (Type)i.next();
-			try
+			for(Iterator i = Type.getTypes().iterator(); i.hasNext(); )
 			{
+				final Type type = (Type)i.next();
 				createTable(type);
 			}
-			catch(SystemException e)
+		}
+		catch(SystemException e)
+		{
+			e.printStackTrace();
+			System.err.println("DROPPING ALL TABLES");
+			for(Iterator i = Type.getTypes().iterator(); i.hasNext(); )
 			{
-				e.printStackTrace();
-				dropTable(type);
-				createTable(type);
+				try
+				{
+					final Type type = (Type)i.next();
+					System.err.print("DROPPING "+type+" ... ");
+					dropTable(type);
+					System.err.println("done.");
+				}
+				catch(SystemException e2)
+				{
+					System.err.println("failed:"+e2.getMessage());
+				}
 			}
+			throw e;
 		}
 	}
 
@@ -170,6 +184,7 @@ public abstract class Database
 	}
 
 	void store(final Type type, final int pk, final HashMap itemCache, final boolean present)
+			throws UniqueViolationException
 	{
 		final List columns = type.getColumns();
 
@@ -235,25 +250,41 @@ public abstract class Database
 	}
 
 	private void executeSQL(final String sql)
+			throws UniqueViolationException
 	{
 		executeSQLInternal(sql, 0, null, null);
 	}
 	
 	private ArrayList executeSQLQuery(final String sql)
 	{
-		return executeSQLInternal(sql, 1, null, null);
+		try
+		{
+			return executeSQLInternal(sql, 1, null, null);
+		}
+		catch(UniqueViolationException e)
+		{
+			throw new SystemException(e);
+		}
 	}
 		
 	private void executeSQLLoad(final String sql, final List columns, final HashMap itemCache)
 	{
-		executeSQLInternal(sql, 2, columns, itemCache);
+		try
+		{
+			executeSQLInternal(sql, 2, columns, itemCache);
+		}
+		catch(UniqueViolationException e)
+		{
+			throw new SystemException(e);
+		}
 	}
 		
 	private ArrayList executeSQLInternal(final String sql, final int type, final List columns, final HashMap itemCache)
+			throws UniqueViolationException
 	{
 		final String driver = "oracle.jdbc.driver.OracleDriver";
 		final String url = "jdbc:oracle:thin:@database3.exedio.com:1521:DB3";
-		final String user = "wiebicke";
+		final String user = "wiebicke2";
 		final String password = "wiebicke1234";
 		
 		try
@@ -308,7 +339,11 @@ public abstract class Database
 		}
 		catch(SQLException e)
 		{
-			throw new SystemException(e, sql);
+			final UniqueViolationException wrappedException = wrapException(e);
+			if(wrappedException!=null)
+				throw wrappedException;
+			else
+				throw new SystemException(e, sql);
 		}
 		finally
 		{
@@ -348,6 +383,22 @@ public abstract class Database
 		}
 	}
 	
+	private static final String UNIQUE_VIOLATION_START = "ORA-00001: unique constraint (";
+	private static final String UNIQUE_VIOLATION_END   = ") violated\n";
+
+	private UniqueViolationException wrapException(final SQLException e)
+	{
+		final String m = e.getMessage();
+		if(m.startsWith(UNIQUE_VIOLATION_START) && m.endsWith(UNIQUE_VIOLATION_END))
+		{
+			final int pos = m.indexOf('.', UNIQUE_VIOLATION_START.length());
+			final String name = m.substring(pos+1, m.length()-UNIQUE_VIOLATION_END.length());
+			return new UniqueViolationException(e, null, UniqueConstraint.getUniqueConstraint(name));
+		}
+		else
+			return null;
+	}
+	
 	String makePersistentQualifier(final Type type)
 	{
 		final String className = type.getJavaClass().getName();
@@ -385,9 +436,36 @@ public abstract class Database
 			if(column.notNull)
 				bf.append(" not null");
 		}
+		
+		for(Iterator i = type.getUniqueConstraints().iterator(); i.hasNext(); )
+		{
+			final UniqueConstraint uniqueConstraint = (UniqueConstraint)i.next();
+			bf.append(",constraint ").
+				append(uniqueConstraint.name).
+				append(" unique(");
+			boolean first = true;
+			for(Iterator j = uniqueConstraint.getUniqueAttributes().iterator(); j.hasNext(); )
+			{
+				if(first)
+					first = false;
+				else
+					bf.append(',');
+				final Attribute uniqueAttribute = (Attribute)j.next();
+				bf.append(uniqueAttribute.getMainColumn().name);
+			}
+			bf.append(')');
+		}
+		
 		bf.append(')');
 
-		executeSQL(bf.toString());
+		try
+		{
+			executeSQL(bf.toString());
+		}
+		catch(UniqueViolationException e)
+		{
+			throw new SystemException(e);
+		}
 	}
 	
 	private void dropTable(final Type type)
@@ -397,7 +475,14 @@ public abstract class Database
 		bf.append("drop table ").
 			append(type.getPersistentQualifier());
 
-		executeSQL(bf.toString());
+		try
+		{
+			executeSQL(bf.toString());
+		}
+		catch(UniqueViolationException e)
+		{
+			throw new SystemException(e);
+		}
 	}
 	
 }

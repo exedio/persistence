@@ -102,7 +102,14 @@ public class Item extends Search
 		this.type = type;
 		this.pk = pkCounter++; // TODO: THIS IS A HACK
 		type.putActiveItem(this);
-		writeCache();
+		try
+		{
+			writeCache();
+		}
+		catch(UniqueViolationException e)
+		{
+			initialUniqueViolationException = e;
+		}
 	}
 	
 	/**
@@ -126,11 +133,15 @@ public class Item extends Search
 	{
 	}
 	
+	private UniqueViolationException initialUniqueViolationException;
+	
 	/**
 	 * Throws a {@link UniqueViolationException}, if a unique violation occured in the constructor.
 	 */
 	protected final void throwInitialUniqueViolationException() throws UniqueViolationException
 	{
+		if(initialUniqueViolationException!=null)
+			throw initialUniqueViolationException;
 	}
 	
 	protected final Object getAttribute(final Attribute attribute)
@@ -169,8 +180,17 @@ public class Item extends Search
 			throw new NotNullViolationException(this, attribute);
 
 		activate();
-		putCache(attribute, value);
-		writeCache();
+		final Object previousValue = getCache(attribute);
+		try
+		{
+			putCache(attribute, value);
+			writeCache();
+		}
+		catch(UniqueViolationException e)
+		{
+			putCache(attribute, previousValue);
+			throw e;
+		}
 	}
 
 	/**
@@ -180,8 +200,17 @@ public class Item extends Search
 	throws UniqueViolationException
 	{
 		activate();
-		putCache(attribute, value);
-		writeCache();
+		final Object previousValue = getCache(attribute);
+		try
+		{
+			putCache(attribute, value);
+			writeCache();
+		}
+		catch(UniqueViolationException e)
+		{
+			putCache(attribute, previousValue);
+			throw e;
+		}
 	}
 	
 	/**
@@ -285,7 +314,16 @@ public class Item extends Search
 		activate();
 		putCache(attribute.mimeMajor, mimeMajor);
 		putCache(attribute.mimeMinor, mimeMinor);
-		writeCache();
+
+		try
+		{
+			writeCache();
+		}
+		catch(UniqueViolationException e)
+		{
+			new SystemException(e);
+		}
+
 		if(data!=null)
 			data.close();
 	}
@@ -312,7 +350,14 @@ public class Item extends Search
 		if(itemCache!=null)
 		{
 			type.removeActiveItem(this);
-			writeCache();
+			try
+			{
+				writeCache();
+			}
+			catch(UniqueViolationException e)
+			{
+				throw new SystemException(e);
+			}
 			itemCache = null;
 		}
 	}
@@ -357,6 +402,7 @@ public class Item extends Search
 	}
 	
 	private void writeCache()
+			throws UniqueViolationException
 	{
 		if(!dirty)
 			return;

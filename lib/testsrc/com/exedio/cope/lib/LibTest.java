@@ -99,6 +99,30 @@ public class LibTest extends TestCase
 			assertEquals("uniqueString", item.getUniqueString());
 			assertEquals(item, ItemWithSingleUnique.findByUniqueString("uniqueString"));
 			
+			// test unique violation
+			{
+				final ItemWithSingleUnique item2 = new ItemWithSingleUnique();
+				try
+				{
+					item2.setUniqueString("uniqueString2");
+				}
+				catch(UniqueViolationException e)
+				{
+					throw new SystemException(e);
+				}
+				try
+				{
+					item2.setUniqueString("uniqueString");
+					fail("should have thrown UniqueViolationException");
+				}
+				catch(UniqueViolationException e)
+				{
+					assertEquals(list(item2.uniqueString), e.getConstraint().getUniqueAttributes());
+				}
+				assertEquals("uniqueString2", item2.getUniqueString());
+				assertEquals(item2, ItemWithSingleUnique.findByUniqueString("uniqueString2"));
+			}
+			
 			item.passivate();
 			assertTrue(!item.isActive());
 			assertEquals("uniqueString", item.getUniqueString());

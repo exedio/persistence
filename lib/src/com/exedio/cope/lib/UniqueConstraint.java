@@ -3,17 +3,34 @@ package com.exedio.cope.lib;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 public final class UniqueConstraint
 {
+	private static final HashMap uniqueConstraintsByName = new HashMap();
+	
+	static final UniqueConstraint getUniqueConstraint(final String name)
+	{
+		//System.out.println("UniqueConstraint.getUniqueConstraint:"+name);
+		return (UniqueConstraint)uniqueConstraintsByName.get(name);
+	}
+	
+	// TODO: create a speaking name from the attributes
+	private static int runningNumber = 5;
+
+
 	private final Attribute[] uniqueAttributes;
 	private final List uniqueAttributeList;
+	final String name;
 
 	public UniqueConstraint(final Attribute[] uniqueAttributes)
 	{
 		this.uniqueAttributes = uniqueAttributes;
 		this.uniqueAttributeList = Collections.unmodifiableList(Arrays.asList(uniqueAttributes));
+		final String name = "UC"+runningNumber++;
+		this.name = Database.theInstance.makePersistentQualifier(name);
+		uniqueConstraintsByName.put(name, this);
 	}
 	
 	public UniqueConstraint(final Attribute uniqueAttribute)
@@ -48,5 +65,5 @@ public final class UniqueConstraint
 		toStringCache = buf.toString();
 		return toStringCache;
 	}
-
+	
 }
