@@ -13,14 +13,14 @@ public class ItemWithManyAttributes extends Item
 	 * A string attribute.
 	 * @persistent
 	 */
-	public static final StringAttribute someString = new StringAttribute(null);
+	public static final StringAttribute someString = new StringAttribute(DEFAULT);
 
 	/**
 	 * The code of the item in upper case.
 	 * @persistent
 	 * @mapped
 	 */
-	public static final StringAttribute someStringUpperCase = new StringAttribute(null, new UppercaseMapping(someString));
+	public static final StringAttribute someStringUpperCase = new StringAttribute(DEFAULT, new UppercaseMapping(someString));
 
 	/**
 	 * A not-null string attribute.
@@ -32,7 +32,7 @@ public class ItemWithManyAttributes extends Item
 	 * An integer attribute
 	 * @persistent
 	 */
-	public static final IntegerAttribute someInteger = new IntegerAttribute(null);
+	public static final IntegerAttribute someInteger = new IntegerAttribute(DEFAULT);
 
 	/**
 	 * A not-null integer attribute
@@ -44,7 +44,7 @@ public class ItemWithManyAttributes extends Item
 	 * An boolean attribute
 	 * @persistent
 	 */
-	public static final BooleanAttribute someBoolean = new BooleanAttribute(null);
+	public static final BooleanAttribute someBoolean = new BooleanAttribute(DEFAULT);
 
 	/**
 	 * A not-null boolean attribute
@@ -56,7 +56,7 @@ public class ItemWithManyAttributes extends Item
 	 * An attribute referencing another persistent item
 	 * @persistent
 	 */
-	public static final ItemAttribute someItem = new ItemAttribute(null, ItemWithoutAttributes.class);
+	public static final ItemAttribute someItem = new ItemAttribute(DEFAULT, ItemWithoutAttributes.class);
 
 	/**
 	 * An not-null attribute referencing another persistent item
@@ -68,7 +68,7 @@ public class ItemWithManyAttributes extends Item
 	 * An enumeration attribute
 	 * @persistent
 	 */
-	public static final EnumerationAttribute someEnumeration = new EnumerationAttribute(null, SomeEnumeration.class);
+	public static final EnumerationAttribute someEnumeration = new EnumerationAttribute(DEFAULT, SomeEnumeration.class);
 
 	/**
 	 * A not-null enumeration attribute
@@ -81,14 +81,14 @@ public class ItemWithManyAttributes extends Item
 	 * @persistent
 	 * @variant SomeVariant
 	 */
-	public static final MediaAttribute someMedia = new MediaAttribute(null);
+	public static final MediaAttribute someMedia = new MediaAttribute(DEFAULT);
 
 	/**
 	 * A qualified attribute.
 	 * @persistent
 	 * @qualifier ItemWithoutAttributes
 	 */
-	public static final StringAttribute someQualifiedString = new StringAttribute(null);
+	public static final StringAttribute someQualifiedString = new StringAttribute(DEFAULT);
 
 	/**
 	 * A class representing the possible states of the persistent enumeration attribute {@link #someEnumeration}.

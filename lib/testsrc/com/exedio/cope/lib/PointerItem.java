@@ -20,7 +20,7 @@ public class PointerItem extends Item
 	/**
 	 * @persistent
 	 */
-	static final ItemAttribute self = new ItemAttribute(null, PointerItem.class);
+	static final ItemAttribute self = new ItemAttribute(DEFAULT, PointerItem.class);
 
 /**
 

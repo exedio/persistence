@@ -16,8 +16,8 @@ public abstract class Attribute
 	
 	protected Attribute(final Item.Option option, final AttributeMapping mapping)
 	{
-		this.readOnly = option==null ? false : option.readOnly;
-		this.notNull = option==null ? false : option.notNull;
+		this.readOnly = option.readOnly;
+		this.notNull = option.notNull;
 		this.mapping = mapping;
 	}
 	

@@ -11,7 +11,7 @@ public class FirstSub extends Super
 	/**
 	 * @persistent
 	 */
-	public static final StringAttribute firstSubString = new StringAttribute(null);
+	public static final StringAttribute firstSubString = new StringAttribute(DEFAULT);
 	
 	public FirstSub(final int initialSuperInt)
 	{

@@ -192,29 +192,21 @@ public final class Instrumentor implements InjectionConsumer
 					}
 
 					final String optionString = initializer.substring(openBracketPos+1, firstArgumentEnd).trim();
-					if("null".equals(optionString))
+					try
 					{
-						readOnly = false;
-						notNull = false;
+						//System.out.println(optionString);
+						final Item.Option option = 
+							(Item.Option)Item.class.getDeclaredField(optionString).get(null);
+						readOnly = option.readOnly;
+						notNull = option.notNull;
 					}
-					else
+					catch(NoSuchFieldException e)
 					{
-						try
-						{
-							//System.out.println(optionString);
-							final Item.Option option = 
-								(Item.Option)Item.class.getDeclaredField(optionString).get(null);
-							readOnly = option.readOnly;
-							notNull = option.notNull;
-						}
-						catch(NoSuchFieldException e)
-						{
-							throw new SystemException(e);
-						}
-						catch(IllegalAccessException e)
-						{
-							throw new SystemException(e);
-						}
+						throw new SystemException(e);
+					}
+					catch(IllegalAccessException e)
+					{
+						throw new SystemException(e);
 					}
 				}
 	

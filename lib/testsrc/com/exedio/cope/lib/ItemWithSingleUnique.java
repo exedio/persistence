@@ -12,7 +12,7 @@ public class ItemWithSingleUnique extends Item
 	 * @persistent
 	 * @unique
 	 */
-	public static final StringAttribute uniqueString = new StringAttribute(null);
+	public static final StringAttribute uniqueString = new StringAttribute(DEFAULT);
 
 /**
 

@@ -411,6 +411,7 @@ public abstract class Item extends Search
 		}
 	}
 	
+	public static final Option DEFAULT = new Option(false, false);
 	public static final Option READ_ONLY = new Option(true, false);
 	public static final Option NOT_NULL = new Option(false, true);
 	public static final Option READ_ONLY_NOT_NULL = new Option(true, true);
