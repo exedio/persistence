@@ -10,18 +10,24 @@ public class Item extends Search
 	
 	protected final Object getAttribute(final Attribute attribute)
 	{
+		if(attribute.mapping!=null)
+			return attribute.mapping.mapJava(this, null);
+
 		return null;
 	}
 	
 	protected final Object getAttribute(final Attribute attribute, final Object[] qualifiers)
 	{
+		if(attribute.mapping!=null)
+			return attribute.mapping.mapJava(this, qualifiers);
+
 		return null;
 	}
 	
 	protected final void setAttribute(final Attribute attribute, final Object value)
 	throws UniqueViolationException, NotNullViolationException, ReadOnlyViolationException
 	{
-		if(attribute.isReadOnly())
+		if(attribute.isReadOnly() || attribute.mapping!=null)
 			throw new ReadOnlyViolationException(this, attribute);
 		if(attribute.isNotNull() && value == null)
 			throw new NotNullViolationException(this, attribute);
