@@ -1,5 +1,8 @@
 package com.exedio.copernica;
 
+import java.util.Collection;
+
+import com.exedio.cope.lib.Search;
 import com.exedio.cope.lib.Type;
 
 final class TypeCop extends CopernicaCop
@@ -16,6 +19,11 @@ final class TypeCop extends CopernicaCop
 	final  CopernicaCop switchLanguage(final Language newLanguage)
 	{
 		return new TypeCop(newLanguage, type);
+	}
+	
+	final Collection search()
+	{
+		return Search.search(type, null);
 	}
 
 }

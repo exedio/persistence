@@ -133,7 +133,8 @@ page import="java.util.Map"
 					<%
 						if(cop instanceof TypeCop)
 						{
-							final Type type = ((TypeCop)cop).type;
+							final TypeCop typeCop = ((TypeCop)cop);
+							final Type type = typeCop.type;
 							%>
 							<a href="<%=(cop.toType(type))%>"><%=provider.getDisplayName(null, type)%></a>
 							<hr>
@@ -158,7 +159,7 @@ page import="java.util.Map"
 							%>
 							</tr>
 							<%
-								for(Iterator i = Search.search(type, null).iterator(); i.hasNext(); )
+								for(Iterator i = typeCop.search().iterator(); i.hasNext(); )
 								{
 									final Item item = (Item)i.next();
 									%><tr><td><a href="<%=(cop.toItem(item))%>">[X]</a></td><%
