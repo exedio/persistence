@@ -55,46 +55,7 @@ public class ItemForm extends Form
 				else
 				{
 					final Object itemValue = item.getAttribute(attribute);
-					if(attribute instanceof StringAttribute)
-					{
-						value = (itemValue==null) ? "" : (String)itemValue;
-					}
-					else if(attribute instanceof IntegerAttribute)
-					{
-						value = (itemValue==null) ? "" : String.valueOf((Integer)itemValue);
-					}
-					else if(attribute instanceof LongAttribute)
-					{
-						value = (itemValue==null) ? "" : String.valueOf((Long)itemValue);
-					}
-					else if(attribute instanceof DoubleAttribute)
-					{
-						value = (itemValue==null) ? "" : String.valueOf((Double)itemValue);
-					}
-					else if(attribute instanceof DateAttribute)
-					{
-						 if(itemValue==null)
-							value =  "";
-						else
-						{
-							final SimpleDateFormat df = new SimpleDateFormat(DATE_FORMAT_FULL);
-							value = df.format((Date)itemValue);
-						}
-					}
-					else if(attribute instanceof ItemAttribute)
-					{
-						value = (itemValue==null) ? "" : ((Item)itemValue).getID();
-					}
-					else if(attribute instanceof BooleanAttribute)
-					{
-						value = (itemValue==null) ? VALUE_NULL : ((Boolean)itemValue).booleanValue() ? VALUE_ON : VALUE_OFF;
-					}
-					else if(attribute instanceof EnumerationAttribute)
-					{
-						value = (itemValue==null) ? VALUE_NULL : ((EnumerationValue)itemValue).getCode();
-					}
-					else
-						throw new RuntimeException();
+					value = valueToString(attribute, itemValue);
 				}
 				if(!attribute.isReadOnly())
 					field = new Field(attribute, name, value);
@@ -211,6 +172,53 @@ public class ItemForm extends Form
 				}
 			}
 		}
+	}
+	
+	final static String valueToString(final ObjectAttribute attribute, final Object itemValue)
+	{
+		final String value;
+		if(attribute instanceof StringAttribute)
+		{
+			value = (itemValue==null) ? "" : (String)itemValue;
+		}
+		else if(attribute instanceof IntegerAttribute)
+		{
+			value = (itemValue==null) ? "" : String.valueOf((Integer)itemValue);
+		}
+		else if(attribute instanceof LongAttribute)
+		{
+			value = (itemValue==null) ? "" : String.valueOf((Long)itemValue);
+		}
+		else if(attribute instanceof DoubleAttribute)
+		{
+			value = (itemValue==null) ? "" : String.valueOf((Double)itemValue);
+		}
+		else if(attribute instanceof DateAttribute)
+		{
+			 if(itemValue==null)
+				value =  "";
+			else
+			{
+				final SimpleDateFormat df = new SimpleDateFormat(DATE_FORMAT_FULL);
+				value = df.format((Date)itemValue);
+			}
+		}
+		else if(attribute instanceof ItemAttribute)
+		{
+			value = (itemValue==null) ? "" : ((Item)itemValue).getID();
+		}
+		else if(attribute instanceof BooleanAttribute)
+		{
+			value = (itemValue==null) ? VALUE_NULL : ((Boolean)itemValue).booleanValue() ? VALUE_ON : VALUE_OFF;
+		}
+		else if(attribute instanceof EnumerationAttribute)
+		{
+			value = (itemValue==null) ? VALUE_NULL : ((EnumerationValue)itemValue).getCode();
+		}
+		else
+			throw new RuntimeException();
+			
+		return value;
 	}
 	
 }
