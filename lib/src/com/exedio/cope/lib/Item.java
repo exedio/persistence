@@ -199,7 +199,8 @@ public class Item extends Search
 	 */
 	protected final String getMediaMimeMajor(final MediaAttribute attribute)
 	{
-		return null;
+		activate();
+		return (String)getCache(attribute.mimeMajor);
 	}
 
 	/**
@@ -208,7 +209,8 @@ public class Item extends Search
 	 */
 	protected final String getMediaMimeMinor(final MediaAttribute attribute)
 	{
-		return null;
+		activate();
+		return (String)getCache(attribute.mimeMinor);
 	}
 
 	/**
@@ -233,6 +235,10 @@ public class Item extends Search
 												 final String mimeMajor, final String mimeMinor)
 	throws NotNullViolationException, IOException
 	{
+		activate();
+		putCache(attribute.mimeMajor, mimeMajor);
+		putCache(attribute.mimeMinor, mimeMinor);
+		writeCache();
 		if(data!=null)
 			data.close();
 	}
@@ -276,6 +282,11 @@ public class Item extends Search
 		return attribute.cacheToSurface(itemCache.get(attribute.getMainColumn()));
 	}
 	
+	private Object getCache(final Column column)
+	{
+		return itemCache.get(column);
+	}
+	
 	private void putCache(final AttributeValue[] attributeValues)
 	{
 		for(int i = 0; i<attributeValues.length; i++)
@@ -289,6 +300,12 @@ public class Item extends Search
 	private void putCache(final Attribute attribute, final Object value)
 	{
 		itemCache.put(attribute.getMainColumn(), attribute.surfaceToCache(value));
+		dirty = true; // TODO: check, whether the written attribute got really a new value
+	}
+	
+	private void putCache(final Column column, final Object value)
+	{
+		itemCache.put(column, value);
 		dirty = true; // TODO: check, whether the written attribute got really a new value
 	}
 	

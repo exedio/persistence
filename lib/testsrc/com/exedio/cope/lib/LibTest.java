@@ -332,6 +332,7 @@ public class LibTest extends TestCase
 			assertEquals(null, item.getSomeMediaData());
 			assertEquals(null, item.getSomeMediaMimeMajor());
 			assertEquals(null, item.getSomeMediaMimeMinor());
+
 			try
 			{
 				item.setSomeMediaData(null/*some data*/, "someMimeMajor", "someMimeMinor");
@@ -343,8 +344,16 @@ public class LibTest extends TestCase
 			assertEquals(null/*somehow gets the data*/, item.getSomeMediaURL());
 			assertEquals(null/*somehow gets the data*/, item.getSomeMediaURLSomeVariant());
 			assertEquals(null/*somehow gets the data*/, item.getSomeMediaData());
-			assertEquals(null/*"someMimeMajor"*/, item.getSomeMediaMimeMajor());
-			assertEquals(null/*"someMimeMinor"*/, item.getSomeMediaMimeMinor());
+			assertEquals("someMimeMajor", item.getSomeMediaMimeMajor());
+			assertEquals("someMimeMinor", item.getSomeMediaMimeMinor());
+
+			item.passivate();
+			assertEquals(null/*somehow gets the data*/, item.getSomeMediaURL());
+			assertEquals(null/*somehow gets the data*/, item.getSomeMediaURLSomeVariant());
+			assertEquals(null/*somehow gets the data*/, item.getSomeMediaData());
+			assertEquals("someMimeMajor", item.getSomeMediaMimeMajor());
+			assertEquals("someMimeMinor", item.getSomeMediaMimeMinor());
+
 			try
 			{
 				item.setSomeMediaData(null, null, null);
