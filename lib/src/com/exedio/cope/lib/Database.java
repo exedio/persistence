@@ -152,20 +152,20 @@ public abstract class Database
 			else
 				bf.append(" and ");
 
-			final Table type = (Table)i.next(); // TODO: rename to table
+			final Table table = (Table)i.next();
 
-			final Column primaryKey = type.primaryKey;
-			bf.append(type.protectedID).
+			final Column primaryKey = table.primaryKey;
+			bf.append(table.protectedID).
 				append('.').
 				append(primaryKey.protectedID).
 				append('=').
 				append(Type.NOT_A_PK);
 			
-			for(Iterator j = type.getColumns().iterator(); j.hasNext(); )
+			for(Iterator j = table.getColumns().iterator(); j.hasNext(); )
 			{
 				final Column column = (Column)j.next();
 				bf.append(" and ").
-					append(type.protectedID).
+					append(table.protectedID).
 					append('.').
 					append(column.protectedID).
 					append('=');
