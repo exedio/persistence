@@ -390,6 +390,15 @@ public class ExampleTest extends InjectorTest
 		assertMethod("accessifierPublic", null, accessifierPublic);
 		assertText("\n  \n\t");
 
+		final JavaBehaviour main =
+			assertBehaviourHeader(
+				"main",
+				"void",
+				Modifier.PUBLIC|Modifier.STATIC,
+				"static public void main(String[] args)\n\t");
+		assertText("{\n\t\t// use imports\n\t\tList l;\n\t\tFormat f;\n\t}");
+		assertMethod("main", null, main);
+		assertText("\n\n");
 	}
 
 }
