@@ -189,18 +189,34 @@ public class ModelTest extends AbstractLibTest
 
 	public void testHierarchy()
 	{
+		// Super
 		assertEquals(null, Super.TYPE.getSupertype());
+
 		assertEquals(list(Super.superInt), Super.TYPE.getDeclaredAttributes());
 		assertEquals(list(Super.superInt), Super.TYPE.getAttributes());
+		assertEquals(list(Super.superInt), Super.TYPE.getDeclaredFeatures());
+		assertEquals(list(Super.superInt), Super.TYPE.getFeatures());
+
 		assertUnmodifiable(Super.TYPE.getDeclaredAttributes());
 		assertUnmodifiable(Super.TYPE.getAttributes());
+		assertUnmodifiable(Super.TYPE.getDeclaredFeatures());
+		assertUnmodifiable(Super.TYPE.getFeatures());
+
 		assertEquals(Super.TYPE, Super.superInt.getType());
 		
+		// FirstSub
 		assertEquals(Super.TYPE, FirstSub.TYPE.getSupertype());
+
 		assertEquals(list(FirstSub.firstSubString), FirstSub.TYPE.getDeclaredAttributes());
 		assertEquals(list(Super.superInt, FirstSub.firstSubString), FirstSub.TYPE.getAttributes());
+		assertEquals(list(FirstSub.firstSubString), FirstSub.TYPE.getDeclaredFeatures());
+		assertEquals(list(Super.superInt, FirstSub.firstSubString), FirstSub.TYPE.getFeatures());
+
 		assertUnmodifiable(FirstSub.TYPE.getDeclaredAttributes());
 		assertUnmodifiable(FirstSub.TYPE.getAttributes());
+		assertUnmodifiable(FirstSub.TYPE.getDeclaredFeatures());
+		assertUnmodifiable(FirstSub.TYPE.getFeatures());
+
 		assertEquals(FirstSub.TYPE, FirstSub.firstSubString.getType());
 	}
 

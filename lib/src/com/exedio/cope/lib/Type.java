@@ -181,7 +181,7 @@ public final class Type
 			{
 				final Feature[] supertypeFeatures = supertype.features;
 				features = new Attribute[supertypeFeatures.length+this.declaredFeatures.length];
-				System.arraycopy(supertypeFeatures, 0, attributes, 0, supertypeFeatures.length);
+				System.arraycopy(supertypeFeatures, 0, features, 0, supertypeFeatures.length);
 				System.arraycopy(this.declaredFeatures, 0, features, supertypeFeatures.length, this.declaredFeatures.length);
 			}
 		}
