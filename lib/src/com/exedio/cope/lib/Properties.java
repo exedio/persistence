@@ -147,4 +147,18 @@ public final class Properties
 		return mediaUrl;
 	}
 	
+	public java.util.Properties toProperties()
+	{
+		final java.util.Properties properties = new java.util.Properties();
+		properties.setProperty("source", source);
+		properties.setProperty(DATABASE, database);
+		properties.setProperty(DATABASE_DRIVER, databaseDriver);
+		properties.setProperty(DATABASE_URL, databaseUrl);
+		properties.setProperty(DATABASE_USER, databaseUser);
+		properties.setProperty(DATABASE_PASSWORD, databasePassword);
+		properties.setProperty(MEDIA_DIRECTORY, mediaDirectory.getAbsolutePath());
+		properties.setProperty(MEDIA_URL, mediaUrl);
+		return properties;
+	}
+	
 }

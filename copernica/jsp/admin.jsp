@@ -7,6 +7,7 @@ page import="com.exedio.cope.lib.ReportConstraint" %><%@
 page import="com.exedio.cope.lib.SystemException" %><%@
 
 page import="java.util.Date" %><%@
+page import="java.util.Properties" %><%@
 
 include file="provider.inc"
 
@@ -67,6 +68,8 @@ final AdminCop cop = AdminCop.getCop(request.getParameterMap());
 				{
 					%><hr><%@ include file="admin-report.inc" %><%
 				}
+				
+				%><hr><%@ include file="admin-properties.inc" %><%
 			%>
 		</form>
 	</body>

@@ -103,6 +103,11 @@ public final class Model
 		return (Type)typesByID.get(id);
 	}
 	
+	public final Properties getProperties()
+	{
+		return properties;
+	}
+	
 	public void createDatabase()
 	{
 		for(int i = 0; i<types.length; i++)
