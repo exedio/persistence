@@ -26,6 +26,10 @@ public class QualifierTest extends DatabaseLibTest
 	public void testQualified()
 		throws UniqueViolationException, NotNullViolationException, IntegrityViolationException
 	{
+		assertEquals(QualifiedItem.qualifier.getParent(), QualifiedEmptyQualifier.parent);
+		assertEquals(QualifiedItem.qualifier.getKey(), QualifiedEmptyQualifier.key);
+		assertEquals(QualifiedItem.qualifier.getQualifyUnique(), QualifiedEmptyQualifier.qualifyUnique);
+
 		assertEquals(null, QualifiedEmptyQualifier.findByQualifyUnique(item, key1));
 		assertEquals(null, QualifiedEmptyQualifier.findByQualifyUnique(item, key2));
 
