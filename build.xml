@@ -7,6 +7,7 @@
 		<property name="api.private" value="off" />
 		<property name="api.link.jdk" value="http://intranet.exedio.com/jdk-1.4.1-doc/api" />
 		<!--<property name="api.link.jdk" value="http://java.sun.com/j2se/1.4.2/docs/api" />-->
+		<property name="api.link.servlet" value="http://java.sun.com/products/servlet/2.2/javadoc" />
 	</target>
 
 	<target name="lib.compile.mkdir">
@@ -560,6 +561,7 @@
 			<package name="com.*" />
 			<link offline="on" packagelistLoc="lib/api" href="../../lib/api" />
 			<link href="${api.link.jdk}" />
+			<link href="${api.link.servlet}" />
 			<classpath>
 				<pathelement location="lib/build/classes" />
 				<pathelement location="../tomcat/common/lib/servlet-api.jar" />
