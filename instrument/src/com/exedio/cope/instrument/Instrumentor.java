@@ -155,7 +155,7 @@ public final class Instrumentor implements InjectionConsumer
 			DateAttribute.class.equals(typeClass) ||
 			StringFunction.class.isAssignableFrom(typeClass))
 		{
-			new PersistentNativeAttribute(
+			new CopeNativeAttribute(
 				ja, typeClass,
 				initializerArguments, setterOptionString, qualifiers);
 		}
