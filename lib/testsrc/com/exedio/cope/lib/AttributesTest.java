@@ -70,17 +70,12 @@ public class AttributesTest extends DatabaseLibTest
 	}
 
 	public void testSomeNotNullString()
+		throws NotNullViolationException
 	{
 		assertEquals(item.TYPE, item.someNotNullString.getType());
 		assertEquals("someString", item.getSomeNotNullString());
-		try
-		{
-			item.setSomeNotNullString("someOtherString");
-		}
-		catch (NotNullViolationException e)
-		{
-			throw new SystemException(e);
-		}
+
+		item.setSomeNotNullString("someOtherString");
 		assertEquals("someOtherString", item.getSomeNotNullString());
 
 		try
@@ -90,8 +85,8 @@ public class AttributesTest extends DatabaseLibTest
 		}
 		catch (NotNullViolationException e)
 		{
-			assertEquals(item.someNotNullString, e.getNotNullAttribute());
 			assertEquals(item, e.getItem());
+			assertEquals(item.someNotNullString, e.getNotNullAttribute());
 		}
 
 		try
@@ -275,21 +270,17 @@ public class AttributesTest extends DatabaseLibTest
 	}
 
 	public void testSomeNotNullItem()
+		throws NotNullViolationException
 	{
 		assertEquals(item.TYPE, item.someNotNullItem.getType());
 		assertEquals(
 			ItemWithoutAttributes.TYPE,
 			item.someNotNullItem.getTargetType());
 		assertEquals(someItem, item.getSomeNotNullItem());
-		try
-		{
-			item.setSomeNotNullItem(someItem2);
-		}
-		catch (NotNullViolationException e)
-		{
-			throw new SystemException(e);
-		}
+
+		item.setSomeNotNullItem(someItem2);
 		assertEquals(someItem2, item.getSomeNotNullItem());
+
 		item.passivate();
 		assertEquals(someItem2, item.getSomeNotNullItem());
 		try
