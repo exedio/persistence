@@ -5,15 +5,15 @@
 	%>
 	<ol><%
 	{
-		final String[] dropColums = (String[])request.getParameterMap().get("DROP_COLUMN");
-		if(dropColums!=null)
+		final String[] dropColumns = (String[])request.getParameterMap().get("DROP_COLUMN");
+		if(dropColumns!=null)
 		{
-			for(int i = 0; i<dropColums.length; i++)
+			for(int i = 0; i<dropColumns.length; i++)
 			{
-				final String dropColum = dropColums[i];
-				final ReportColumn column = getColumn(report, dropColum);
+				final String dropColumn = dropColumns[i];
+				final ReportColumn column = getColumn(report, dropColumn);
 				%>
-				<li>dropping column <%=dropColum%> ...</li><%
+				<li>dropping column <%=dropColumn%> ...</li><%
 				out.flush();
 				final long startTime = System.currentTimeMillis();
 				column.drop();
