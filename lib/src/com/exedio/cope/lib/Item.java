@@ -292,12 +292,8 @@ public abstract class Item extends Search
 				append(variant);
 		}
 
-		bf.append('/');
-		if(pk>=0)
-			bf.append(pk);
-		else
-			bf.append('m').
-				append(-pk);
+		bf.append('/').
+			append(pk2id(pk));
 
 		final String compactExtension;
 		if("image".equals(mimeMajor))

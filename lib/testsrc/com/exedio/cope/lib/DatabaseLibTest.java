@@ -110,7 +110,7 @@ public abstract class DatabaseLibTest extends AbstractLibTest
 			throw new SystemException(e);
 		}
 		final String prefix = "/medias/ItemWithManyAttributes/someMedia/";
-		final String pkString = (item.pk>=0) ? String.valueOf(item.pk) : "m"+(-item.pk);
+		final String pkString = String.valueOf(Search.pk2id(item.pk));
 		final String expectedURL = prefix+pkString+'.'+url;
 		final String expectedURLSomeVariant = prefix+"SomeVariant/"+pkString+'.'+url;
 		//System.out.println(expectedURL);

@@ -315,7 +315,7 @@ public class AttributesTest extends DatabaseLibTest
 
 		final String prefix =
 			"/medias/ItemWithManyAttributes/someMedia/";
-		final String pkString = (item.pk>=0) ? String.valueOf(item.pk) : "m"+(-item.pk);
+		final String pkString = String.valueOf(Search.pk2id(item.pk));
 		final String expectedURL =
 			prefix + pkString + ".someMimeMajor.someMimeMinor";
 		final String expectedURLSomeVariant =
