@@ -29,6 +29,16 @@ public class Attribute
 		return name;
 	}
 	
+	public final boolean isReadOnly()
+	{
+		return readOnly;
+	}
+	
+	public final boolean isNotNull()
+	{
+		return notNull;
+	}
+	
 	public final String toString()
 	{
 		// should be precomputed
