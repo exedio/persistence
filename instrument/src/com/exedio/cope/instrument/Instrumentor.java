@@ -10,8 +10,6 @@ import java.util.List;
 
 public final class Instrumentor implements InjectionConsumer
 {
-	private final Writer output;
-	
 	/**
 	 * Holds several properties of the class currently
 	 * worked on.
@@ -30,11 +28,6 @@ public final class Instrumentor implements InjectionConsumer
 	 * The last file level doccomment that was read.
 	 */
 	private String lastFileDocComment = null;
-	
-	public Instrumentor(Writer output)
-	{
-		this.output=output;
-	}
 	
 	public void onPackage(JavaFile javafile)
 	throws InjectorParseException
@@ -136,7 +129,7 @@ public final class Instrumentor implements InjectionConsumer
 		}
 	}
 
-	public void onClassEnd(final JavaClass javaClass)
+	public void onClassEnd(final JavaClass javaClass, final Writer output)
 	throws IOException, InjectorParseException
 	{
 		//System.out.println("onClassEnd("+javaClass.getName()+")");
@@ -263,7 +256,7 @@ public final class Instrumentor implements InjectionConsumer
 		discardnextfeature=false;
 	}
 	
-	public boolean onDocComment(String docComment)
+	public boolean onDocComment(String docComment, final Writer output)
 	throws IOException
 	{
 		//System.out.println("onDocComment("+docComment+")");
@@ -280,7 +273,7 @@ public final class Instrumentor implements InjectionConsumer
 		}
 	}
 	
-	public void onFileDocComment(String docComment)
+	public void onFileDocComment(String docComment, final Writer output)
 	throws IOException
 	{
 		//System.out.println("onFileDocComment("+docComment+")");

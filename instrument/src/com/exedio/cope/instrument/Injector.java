@@ -685,7 +685,7 @@ public final class Injector
 					{
 						doccomment = comment;
 						//System.out.println("doccomment: "+doccomment);
-						scheduleBlock(consumer.onDocComment(doccomment));
+						scheduleBlock(consumer.onDocComment(doccomment, output));
 					}
 					else
 					{
@@ -720,7 +720,7 @@ public final class Injector
 			}
 		}
 
-		consumer.onClassEnd(jc);
+		consumer.onClassEnd(jc, output);
 		return jc;
 	}
 
@@ -785,7 +785,7 @@ public final class Injector
 						{
 							doccomment = comment;
 							//System.out.println ("file level doccomment: "+doccomment);
-							consumer.onFileDocComment(doccomment);
+							consumer.onFileDocComment(doccomment, output);
 							doccomment = null; // Mark doccomment as handled...
 						}
 						else

@@ -1,6 +1,8 @@
 
 package com.exedio.cope.instrument;
 
+import java.io.Writer;
+
 /**
  * Implementors of this interface get the results of the
  * {@link Injector java parser}.
@@ -39,7 +41,7 @@ public interface InjectionConsumer
 	 * the same object as in the corresponding call to onClass
 	 * @see #onClass(JavaClass)
 	 */
-	public void onClassEnd(JavaClass cc)
+	public void onClassEnd(JavaClass cc, Writer output)
 	throws java.io.IOException, InjectorParseException;
 	
 	/**
@@ -84,7 +86,7 @@ public interface InjectionConsumer
 	 * @return
 	 * if false is returned, the next class feature is ignored.
 	 */
-	public boolean onDocComment(String doccomment)
+	public boolean onDocComment(String doccomment, Writer output)
 	throws java.io.IOException;
 	
 	/**
@@ -92,7 +94,7 @@ public interface InjectionConsumer
 	 * Is called for comments on file level only,
 	 * i.e. outside of any classes.
 	 */
-	public void onFileDocComment(String doccomment)
+	public void onFileDocComment(String doccomment, Writer output)
 	throws java.io.IOException;
 	
 	/**

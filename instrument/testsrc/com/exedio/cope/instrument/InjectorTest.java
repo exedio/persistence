@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringWriter;
+import java.io.Writer;
 import java.util.LinkedList;
 
 import junit.framework.AssertionFailedError;
@@ -332,7 +333,7 @@ public abstract class InjectorTest extends TestCase
 			addInjectionEvent(new ClassEvent(cc));
 		}
 
-		public void onClassEnd(final JavaClass cc)
+		public void onClassEnd(final JavaClass cc, final Writer output)
 			throws java.io.IOException, InjectorParseException
 		{
 			addInjectionEvent(new ClassEndEvent(cc));
@@ -356,13 +357,13 @@ public abstract class InjectorTest extends TestCase
 			addInjectionEvent(new ClassFeatureEvent(cf, doccomment));
 		}
 
-		public boolean onDocComment(final String doccomment) throws java.io.IOException
+		public boolean onDocComment(final String doccomment, final Writer output) throws java.io.IOException
 		{
 			addInjectionEvent(new DocCommentEvent(doccomment));
 			return true;
 		}
 
-		public void onFileDocComment(final String doccomment)
+		public void onFileDocComment(final String doccomment, final Writer output)
 			throws java.io.IOException
 		{
 			addInjectionEvent(new FileDocCommentEvent(doccomment));

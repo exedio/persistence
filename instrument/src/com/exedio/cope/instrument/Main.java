@@ -28,7 +28,7 @@ public class Main
 		{
 			input =new InputStreamReader(new FileInputStream(inputfile));
 			output=new OutputStreamWriter(new FileOutputStream(outputfile));
-			(new Injector(input, output, new Instrumentor(output))).parseFile();
+			(new Injector(input, output, new Instrumentor())).parseFile();
 			input.close();
 			output.close();
 		}
