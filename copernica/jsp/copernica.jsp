@@ -19,8 +19,10 @@ page import="com.exedio.cope.lib.NoSuchIDException" %><%@
 page import="java.io.PrintWriter" %><%@
 page import="java.util.Iterator" %><%@
 page import="java.util.Collection" %><%@
-page import="java.util.Map"
-%><%@ include file="copernica-provider.inc"
+page import="java.util.Map" %><%@
+
+include file="copernica-provider.inc"
+
 %><%
 	/*
 	for( final Iterator it = request.getParameterMap().entrySet().iterator(); it.hasNext(); )

@@ -1,6 +1,9 @@
-<%@ page import="com.exedio.cope.lib.Database" %>
-<%@ page import="com.exedio.cope.lib.SystemException" %>
-<%@ include file="copernica-provider.inc"
+<%@
+page import="com.exedio.cope.lib.Database" %><%@
+page import="com.exedio.cope.lib.SystemException" %><%@
+
+include file="copernica-provider.inc"
+
 %>
 <html>
 	<head>	
@@ -12,7 +15,6 @@
 		<h1>Copernica</h1>
 		<h2>Generic Backoffice for COPE</h2>
 		<h3>Database Administration</h3>
-
 
 		<form action="admin.jsp" method="POST">
 			Database:
