@@ -118,7 +118,19 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); )
 			final String color = color(column.getCumulativeColor());
 			%>
 			<li class="<%=color%>">
-				<small>column</small> <%=column.name%> <small><%=column.getDatabaseType()%></small><%
+				<small>column</small> <%=column.name%><%
+			
+			if(narrowReport && column.exists())
+			{
+				%>
+				<input name="RENAME_COLUMN_<%=
+					table.name%>#<%=column.name%>" size="<%=
+					column.name.length()%>"/><%
+			}
+			
+			%>
+				<small><%=column.getDatabaseType()%></small><%
+			
 			final String error = column.getError();
 			if(error!=null)
 			{
@@ -127,11 +139,6 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); )
 			}
 			if(column.exists())
 			{
-				if(narrowReport)
-				{
-					%>,
-				rename to <input name="RENAME_COLUMN_<%=table.name%>#<%=column.name%>"/><%
-				}
 				%>,
 				<input type="checkbox" name="DROP_COLUMN" value="<%=table.name%>#<%=column.name%>"/>drop<%
 			}
