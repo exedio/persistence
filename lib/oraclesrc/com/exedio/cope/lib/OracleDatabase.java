@@ -2,7 +2,6 @@ package com.exedio.cope.lib;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -63,7 +62,7 @@ final class OracleDatabase
 		return extractConstraintName(e, "ORA-02292: integrity constraint (", ") violated - child record found\n");
 	}
 
-	public void defineColumnTypes(final List columnTypes, final Statement statement)
+	public void defineColumnTypes(final List columnTypes, final java.sql.Statement statement)
 			throws SQLException
 	{
 		//System.out.println("defineColumnTypes: "+columnTypes);
@@ -80,7 +79,7 @@ final class OracleDatabase
 	void fillReport(final Report report)
 	{
 		{
-			final com.exedio.cope.lib.Statement bf = createStatement();
+			final Statement bf = createStatement();
 			bf.append("select TABLE_NAME, LAST_ANALYZED from user_tables").
 				defineColumnString().
 				defineColumnTimestamp();
@@ -94,7 +93,7 @@ final class OracleDatabase
 			}
 		}
 		{
-			final com.exedio.cope.lib.Statement bf = createStatement();
+			final Statement bf = createStatement();
 			bf.append("select TABLE_NAME, COLUMN_NAME, DATA_TYPE, DATA_LENGTH, DATA_PRECISION, DATA_SCALE from user_tab_columns").
 				defineColumnString().
 				defineColumnString().
@@ -112,7 +111,7 @@ final class OracleDatabase
 			}
 		}
 		{
-			final com.exedio.cope.lib.Statement bf = createStatement();
+			final Statement bf = createStatement();
 			bf.append("select TABLE_NAME, CONSTRAINT_NAME, CONSTRAINT_TYPE  from user_constraints order by table_name").
 				defineColumnString().
 				defineColumnString().
@@ -217,9 +216,9 @@ final class OracleDatabase
 		}
 	}
 
-	com.exedio.cope.lib.Statement getRenameColumnStatement(final String tableName, final String oldColumnName, final String newColumnName)
+	Statement getRenameColumnStatement(final String tableName, final String oldColumnName, final String newColumnName)
 	{
-		final com.exedio.cope.lib.Statement bf = createStatement();
+		final Statement bf = createStatement();
 		bf.append("alter table ").
 			append(tableName).
 			append(" rename column ").
@@ -229,9 +228,9 @@ final class OracleDatabase
 		return bf;
 	}
 
-	com.exedio.cope.lib.Statement getCreateColumnStatement(final String tableName, final String columnName, final String columnType)
+	Statement getCreateColumnStatement(final String tableName, final String columnName, final String columnType)
 	{
-		final com.exedio.cope.lib.Statement bf = createStatement();
+		final Statement bf = createStatement();
 		bf.append("alter table ").
 			append(tableName).
 			append(" add (").
@@ -242,9 +241,9 @@ final class OracleDatabase
 		return bf;
 	}
 
-	com.exedio.cope.lib.Statement getModifyColumnStatement(final String tableName, final String columnName, final String newColumnType)
+	Statement getModifyColumnStatement(final String tableName, final String columnName, final String newColumnType)
 	{
-		final com.exedio.cope.lib.Statement bf = createStatement();
+		final Statement bf = createStatement();
 		bf.append("alter table ").
 			append(tableName).
 			append(" modify ").
