@@ -3,7 +3,7 @@ package com.exedio.cope.instrument;
 
 import java.util.List;
 
-final class PersistentObjectAttribute extends PersistentAttribute
+final class PersistentObjectAttribute extends CopeAttribute
 {
 	public PersistentObjectAttribute(
 			final JavaAttribute javaAttribute,

@@ -6,12 +6,12 @@ final class PersistentUniqueConstraint
 	final String name;
 	final String camelCaseName;
 	final int modifier;
-	final PersistentAttribute[] persistentAttributes;
+	final CopeAttribute[] persistentAttributes;
 	
 	/**
 	 * For constraints covering more than one attribute.
 	 */
-	PersistentUniqueConstraint(final JavaAttribute javaAttribute, final PersistentAttribute[] persistentAttributes)
+	PersistentUniqueConstraint(final JavaAttribute javaAttribute, final CopeAttribute[] persistentAttributes)
 	{
 		this.name = javaAttribute.name;
 		this.camelCaseName = javaAttribute.getCamelCaseName();
@@ -22,12 +22,12 @@ final class PersistentUniqueConstraint
 	/**
 	 * For constraints covering exactly one attribute.
 	 */
-	PersistentUniqueConstraint(final PersistentAttribute persistentAttribute)
+	PersistentUniqueConstraint(final CopeAttribute persistentAttribute)
 	{
 		this.name = persistentAttribute.getName();
 		this.camelCaseName = persistentAttribute.getCamelCaseName();
 		this.modifier = persistentAttribute.javaAttribute.modifier;
-		this.persistentAttributes = new PersistentAttribute[]{persistentAttribute};
+		this.persistentAttributes = new CopeAttribute[]{persistentAttribute};
 	}
 
 }

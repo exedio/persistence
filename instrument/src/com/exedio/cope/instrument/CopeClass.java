@@ -63,7 +63,7 @@ final class CopeClass
 		return javaClass.isInterface();
 	}
 
-	public void addPersistentAttribute(final PersistentAttribute persistentAttribute)
+	public void addCopeAttribute(final CopeAttribute persistentAttribute)
 	{
 		persistentAttributes.add(persistentAttribute);
 		persistentAttributeMap.put(persistentAttribute.getName(), persistentAttribute);
@@ -72,14 +72,14 @@ final class CopeClass
 	/**
 	 * @return unmodifiable list of {@link JavaAttribute}
 	 */
-	public List getPersistentAttributes()
+	public List getCopeAttributes()
 	{
 		return Collections.unmodifiableList(persistentAttributes);
 	}
 	
-	public PersistentAttribute getPersistentAttribute(final String name)
+	public CopeAttribute getCopeAttribute(final String name)
 	{
-		return (PersistentAttribute)persistentAttributeMap.get(name);
+		return (CopeAttribute)persistentAttributeMap.get(name);
 	}
 	
 	public boolean hasGeneratedConstructor()
@@ -98,7 +98,7 @@ final class CopeClass
 				int result = javaClass.accessModifier;
 				for(Iterator i = getInitialAttributes().iterator(); i.hasNext(); )
 				{
-					final PersistentAttribute initialAttribute = (PersistentAttribute)i.next();
+					final CopeAttribute initialAttribute = (CopeAttribute)i.next();
 					final int attributeAccessModifier = initialAttribute.accessModifier;
 					if(result<attributeAccessModifier)
 						result = attributeAccessModifier;
@@ -163,9 +163,9 @@ final class CopeClass
 	{
 		initialAttributes = new ArrayList();
 		constructorExceptions = new TreeSet(ClassComparator.getInstance());
-		for(Iterator i = getPersistentAttributes().iterator(); i.hasNext(); )
+		for(Iterator i = getCopeAttributes().iterator(); i.hasNext(); )
 		{
-			final PersistentAttribute persistentAttribute = (PersistentAttribute)i.next();
+			final CopeAttribute persistentAttribute = (CopeAttribute)i.next();
 			if(persistentAttribute.isInitial())
 			{
 				initialAttributes.add(persistentAttribute);

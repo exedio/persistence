@@ -18,7 +18,7 @@ import com.exedio.cope.lib.ReadOnlyViolationException;
 import com.exedio.cope.lib.UniqueViolationException;
 import com.exedio.cope.lib.util.ClassComparator;
 
-abstract class PersistentAttribute
+abstract class CopeAttribute
 {
 	/**
 	 * Defines this attribute as a media attribute.
@@ -44,7 +44,7 @@ abstract class PersistentAttribute
 	final int setterOption;
 	final List qualifiers;
 
-	PersistentAttribute(
+	CopeAttribute(
 			final JavaAttribute javaAttribute,
 			final Class typeClass,
 			final String persistentType,
@@ -101,7 +101,7 @@ abstract class PersistentAttribute
 
 		this.qualifiers = (qualifiers!=null) ? Collections.unmodifiableList(qualifiers) : null;
 
-		persistentClass.addPersistentAttribute(this);
+		persistentClass.addCopeAttribute(this);
 	}
 	
 	final String getName()
@@ -171,7 +171,7 @@ abstract class PersistentAttribute
 	{
 		for( final Iterator i = persistentClass.getUniqueConstraints().iterator(); i.hasNext(); )
 		{
-			final PersistentAttribute[] uniqueConstraint = ((PersistentUniqueConstraint)i.next()).persistentAttributes;
+			final CopeAttribute[] uniqueConstraint = ((PersistentUniqueConstraint)i.next()).persistentAttributes;
 			for(int j=0; j<uniqueConstraint.length; j++)
 			{
 				if(this == uniqueConstraint[j])

@@ -156,7 +156,7 @@ final class Generator
 		writeCommentGenerated();
 		for(Iterator i = initialAttributes.iterator(); i.hasNext(); )
 		{
-			final PersistentAttribute initialAttribute = (PersistentAttribute)i.next();
+			final CopeAttribute initialAttribute = (CopeAttribute)i.next();
 			o.write("\t * @param initial");
 			o.write(initialAttribute.getCamelCaseName());
 			o.write(" the initial value for attribute {@link #");
@@ -173,7 +173,7 @@ final class Generator
 			boolean first = true;
 			for(Iterator j = initialAttributes.iterator(); j.hasNext(); )
 			{
-				final PersistentAttribute initialAttribute = (PersistentAttribute)j.next();
+				final CopeAttribute initialAttribute = (CopeAttribute)j.next();
 				if(!initialAttribute.getSetterExceptions().contains(constructorException))
 					continue;
 
@@ -206,7 +206,7 @@ final class Generator
 				first = false;
 			else
 				o.write(',');
-			final PersistentAttribute initialAttribute = (PersistentAttribute)i.next();
+			final CopeAttribute initialAttribute = (CopeAttribute)i.next();
 			o.write(lineSeparator);
 			o.write("\t\t\t\tfinal ");
 			o.write(initialAttribute.getBoxedType());
@@ -223,7 +223,7 @@ final class Generator
 		o.write(lineSeparator);
 		for(Iterator i = initialAttributes.iterator(); i.hasNext(); )
 		{
-			final PersistentAttribute initialAttribute = (PersistentAttribute)i.next();
+			final CopeAttribute initialAttribute = (CopeAttribute)i.next();
 			o.write("\t\t\tnew "+AttributeValue.class.getName()+"(");
 			o.write(initialAttribute.getName());
 			o.write(',');
@@ -286,7 +286,7 @@ final class Generator
 		o.write("\t}");
 	}
 	
-	private void writeAccessMethods(final PersistentAttribute persistentAttribute)
+	private void writeAccessMethods(final CopeAttribute persistentAttribute)
 	throws IOException
 	{
 		final String type = persistentAttribute.getBoxedType();
@@ -347,7 +347,7 @@ final class Generator
 		}
 	}
 
-	private void writeMediaGetterMethod(final PersistentAttribute mediaAttribute,
+	private void writeMediaGetterMethod(final CopeAttribute mediaAttribute,
 													final Class returnType,
 													final String part,
 													final PersistentMediaVariant variant,
@@ -493,7 +493,7 @@ final class Generator
 	private void writeUniqueFinder(final PersistentUniqueConstraint constraint)
 	throws IOException
 	{
-		final PersistentAttribute[] persistentAttributes = constraint.persistentAttributes;
+		final CopeAttribute[] persistentAttributes = constraint.persistentAttributes;
 		final String className = persistentAttributes[0].getParent().name;
 		
 		writeCommentHeader();
@@ -524,7 +524,7 @@ final class Generator
 		{
 			if(i>0)
 				o.write(',');
-			final PersistentAttribute persistentAttribute = persistentAttributes[i];
+			final CopeAttribute persistentAttribute = persistentAttributes[i];
 			if(persistentAttribute.qualifiers != null)
 				qualifiers.addAll(persistentAttribute.qualifiers);
 			o.write("final ");
@@ -569,7 +569,7 @@ final class Generator
 		o.write("\t}");
 	}
 	
-	private void writePrefixedAttribute(final String prefix, final PersistentAttribute attribute)
+	private void writePrefixedAttribute(final String prefix, final CopeAttribute attribute)
 			throws IOException
 	{
 		if(attribute.isBoxed())
@@ -637,10 +637,10 @@ final class Generator
 			if(persistentClass.isAbstract()) // TODO: create the constructor for all classes
 				writeGenericConstructor(persistentClass);
 			writeReactivationConstructor(persistentClass);
-			for(final Iterator i = persistentClass.getPersistentAttributes().iterator(); i.hasNext(); )
+			for(final Iterator i = persistentClass.getCopeAttributes().iterator(); i.hasNext(); )
 			{
 				// write setter/getter methods
-				final PersistentAttribute persistentAttribute = (PersistentAttribute)i.next();
+				final CopeAttribute persistentAttribute = (CopeAttribute)i.next();
 				//System.out.println("onClassEnd("+jc.getName()+") writing attribute "+persistentAttribute.getName());
 				if(persistentAttribute instanceof PersistentMediaAttribute)
 					writeMediaAccessMethods((PersistentMediaAttribute)persistentAttribute);
@@ -671,7 +671,7 @@ final class Generator
 	 * and it should return the o stream after immediatly after a line break.
 	 * This means, doing nothing fullfils the contract.
 	 */
-	private void writeGetterBody(final PersistentAttribute attribute)
+	private void writeGetterBody(final CopeAttribute attribute)
 	throws IOException
 	{
 		o.write("\t\treturn ");
@@ -696,7 +696,7 @@ final class Generator
 	 * and it should return the o stream after immediatly after a line break.
 	 * This means, doing nothing fullfils the contract.
 	 */
-	private void writeSetterBody(final PersistentAttribute attribute)
+	private void writeSetterBody(final CopeAttribute attribute)
 	throws IOException
 	{
 		final SortedSet exceptionsToCatch = attribute.getExceptionsToCatchInSetter();

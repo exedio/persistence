@@ -189,14 +189,14 @@ public final class Instrumentor implements InjectionConsumer
 		for(Iterator i = initializerArguments.iterator(); i.hasNext(); )
 		{
 			final String initializerArgument = (String)i.next();
-			final PersistentAttribute persistentAttribute = persistentClass.getPersistentAttribute(initializerArgument);
+			final CopeAttribute persistentAttribute = persistentClass.getCopeAttribute(initializerArgument);
 			if(persistentAttribute==null)
 				throw new InjectorParseException("attribute >"+initializerArgument+"< in unique constraint "+ja.name+" not found.");
 			persistentAttributes.add(persistentAttribute);
 		}
 		persistentClass.makeUnique(
 			new PersistentUniqueConstraint(ja,
-				(PersistentAttribute[])persistentAttributes.toArray(new PersistentAttribute[persistentAttributes.size()])));
+				(CopeAttribute[])persistentAttributes.toArray(new CopeAttribute[persistentAttributes.size()])));
 	}
 	
 	private final void handleQualifier(final JavaAttribute ja, final Class typeClass)
@@ -219,7 +219,7 @@ public final class Instrumentor implements InjectionConsumer
 			throw new InjectorParseException("attribute >"+ja.name+"< has invalid initializer arguments: "+initializerArguments);
 		//System.out.println("---------"+initializerArguments);
 		final String initializerArgument = (String)initializerArguments.get(0);
-		final PersistentMediaAttribute mediaAttribute = (PersistentMediaAttribute)persistentClass.getPersistentAttribute(initializerArgument);
+		final PersistentMediaAttribute mediaAttribute = (PersistentMediaAttribute)persistentClass.getCopeAttribute(initializerArgument);
 		if(mediaAttribute==null)
 			throw new InjectorParseException("attribute >"+initializerArgument+"< in media attribute variant "+ja.name+" not found.");
 		new PersistentMediaVariant(ja, mediaAttribute);
