@@ -29,6 +29,16 @@ public class HashTest extends DatabaseLibTest
 		assertTrue(!item.checkHashed1(null));
 		assertTrue(!item.checkHashed1("bello"));
 		assertTrue(item.checkHashed1("knollo"));
+		
+		final String longPlainText =
+			"knolloknolloknolloknolloknolloknolloknolloknolloknolloknolloknollo" +
+			"knolloknolloknolloknolloknolloknolloknolloknolloknolloknolloknollo" +
+			"knolloknolloknolloknolloknollo";
+		item.setHashed1(longPlainText);
+		assertEquals("bOYtDb2Oiz9FO6dCwQLNCw==", item.getHashed1MD5());
+		assertTrue(!item.checkHashed1(null));
+		assertTrue(!item.checkHashed1("bello"));
+		assertTrue(item.checkHashed1(longPlainText));
 	}
 
 	public void testWrap()
