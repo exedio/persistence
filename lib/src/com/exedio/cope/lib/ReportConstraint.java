@@ -5,8 +5,8 @@ public final class ReportConstraint extends ReportNode
 {
 	public final String name;
 	public final ReportTable table;
-	boolean required = false;
-	boolean exists = false;
+	boolean required = false; // TODO: make this private
+	boolean exists = false; // TODO: make this private, introduce notifyExists as in ReportColumn
 		
 	ReportConstraint(final String name, final ReportTable table)
 	{
