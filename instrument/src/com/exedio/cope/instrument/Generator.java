@@ -354,7 +354,7 @@ final class Generator
 	private void writeMediaGetterMethod(final PersistentAttribute mediaAttribute,
 													final Class returnType,
 													final String part,
-													final String variant,
+													final PersistentMediaVariant variant,
 													final String comment)
 	throws IOException
 	{
@@ -377,7 +377,7 @@ final class Generator
 		o.write(mediaAttribute.getCamelCaseName());
 		o.write(part);
 		if(variant!=null)
-			o.write(variant);
+			o.write(variant.name);
 		o.write('(');
 		writeParameterDeclarationList(qualifiers);
 		o.write(')');
@@ -387,18 +387,10 @@ final class Generator
 		o.write("\t\treturn getMedia");
 		o.write(part);
 		o.write("(this.");
-		o.write(mediaAttribute.getName());
 		if(variant!=null)
-		{
-			if(variant.length()>0)
-			{
-				o.write(",\"");
-				o.write(variant);
-				o.write('\"');
-			}
-			else
-				o.write(",null");
-		}
+			o.write(variant.name);
+		else
+			o.write(mediaAttribute.getName());
 		o.write(");");
 		o.write(lineSeparator);
 		o.write("\t}");
@@ -413,13 +405,13 @@ final class Generator
 		final String mimeMinor = mediaAttribute.mimeMinor;
 
 		// getters
-		writeMediaGetterMethod(mediaAttribute, String.class, "URL", "",
+		writeMediaGetterMethod(mediaAttribute, String.class, "URL", null,
 										"Returns a URL pointing to the data of the persistent attribute");
 		final List mediaVariants = mediaAttribute.getVariants();
 		if(mediaVariants!=null)
 		{
 			for(Iterator i = mediaVariants.iterator(); i.hasNext(); )
-				writeMediaGetterMethod(mediaAttribute, String.class, "URL", ((PersistentMediaVariant)i.next()).name,
+				writeMediaGetterMethod(mediaAttribute, String.class, "URL", (PersistentMediaVariant)i.next(),
 												"Returns a URL pointing to the varied data of the persistent attribute");
 		}
 		writeMediaGetterMethod(mediaAttribute, String.class, "MimeMajor", null,

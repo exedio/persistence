@@ -693,7 +693,7 @@ public class ItemWithManyAttributes extends Item
 	 *
  */public final java.lang.String getSomeMediaURL()
 	{
-		return getMediaURL(this.someMedia,null);
+		return getMediaURL(this.someMedia);
 	}/**
 
 	 **
@@ -702,7 +702,7 @@ public class ItemWithManyAttributes extends Item
 	 *
  */public final java.lang.String getSomeMediaURLSomeVariant()
 	{
-		return getMediaURL(this.someMedia,"SomeVariant");
+		return getMediaURL(this.SomeVariant);
 	}/**
 
 	 **

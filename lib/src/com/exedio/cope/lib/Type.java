@@ -106,6 +106,14 @@ public final class Type
 						uniqueConstraint.initialize(this, field.getName());
 						uniqueConstraintsTemp.add(uniqueConstraint);
 					}
+					else if(MediaAttributeVariant.class.isAssignableFrom(field.getType()))
+					{
+						field.setAccessible(true);
+						final MediaAttributeVariant variant = (MediaAttributeVariant)field.get(null);
+						if(variant==null)
+							throw new InitializerRuntimeException(field.getName());
+						variant.initialize(this, field.getName());
+					}
 				}
 			}
 		}

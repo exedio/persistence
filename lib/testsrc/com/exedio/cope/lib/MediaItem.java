@@ -46,7 +46,7 @@ public class MediaItem extends Item
 	 *
  */final java.lang.String getFileURL()
 	{
-		return getMediaURL(this.file,null);
+		return getMediaURL(this.file);
 	}/**
 
 	 **
@@ -98,7 +98,7 @@ public class MediaItem extends Item
 	 *
  */final java.lang.String getImageURL()
 	{
-		return getMediaURL(this.image,null);
+		return getMediaURL(this.image);
 	}/**
 
 	 **
@@ -107,7 +107,7 @@ public class MediaItem extends Item
 	 *
  */final java.lang.String getImageURLBB240()
 	{
-		return getMediaURL(this.image,"BB240");
+		return getMediaURL(this.BB240);
 	}/**
 
 	 **
@@ -159,7 +159,7 @@ public class MediaItem extends Item
 	 *
  */final java.lang.String getPhotoURL()
 	{
-		return getMediaURL(this.photo,null);
+		return getMediaURL(this.photo);
 	}/**
 
 	 **
@@ -168,7 +168,7 @@ public class MediaItem extends Item
 	 *
  */final java.lang.String getPhotoURLBB65()
 	{
-		return getMediaURL(this.photo,"BB65");
+		return getMediaURL(this.BB65);
 	}/**
 
 	 **
@@ -177,7 +177,7 @@ public class MediaItem extends Item
 	 *
  */final java.lang.String getPhotoURLProgressive()
 	{
-		return getMediaURL(this.photo,"Progressive");
+		return getMediaURL(this.Progressive);
 	}/**
 
 	 **

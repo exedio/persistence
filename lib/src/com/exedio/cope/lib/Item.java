@@ -326,7 +326,7 @@ public abstract class Item extends Search
 	}
 
 	private final void appendMediaPath(
-									final MediaAttribute attribute, final String variant,
+									final MediaAttribute attribute, final MediaAttributeVariant variant,
 									final StringBuffer bf)
 	{
 		final String mimeMajor;
@@ -364,7 +364,7 @@ public abstract class Item extends Search
 		if(variant!=null)
 		{
 			bf.append('/').
-				append(variant);
+				append(variant.getName());
 		}
 
 		bf.append('/').
@@ -403,8 +403,16 @@ public abstract class Item extends Search
 	 * Returns a URL pointing to the data of this persistent media attribute.
 	 * Returns null, if there is no data for this attribute.
 	 */
-	public final String getMediaURL(final MediaAttribute attribute, final String variant)
+	public final String getMediaURL(final MediaAttributeVariant variant)
 	{
+		return getMediaURL(variant.attribute, variant);
+	}
+
+	private final String getMediaURL(final MediaAttribute attribute, final MediaAttributeVariant variant)
+	{
+		if(variant!=null && variant.attribute!=attribute)
+			throw new RuntimeException();
+
 		if(isNull(attribute))
 			return null;
 
