@@ -67,6 +67,11 @@ public abstract class Item extends Search
 	{
 		return getClass().hashCode() ^ pk;
 	}
+	
+	public String toString()
+	{
+		return getID();
+	}
 
 	/**
 	 * Returns, whether this item is active.
