@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
-import com.exedio.cope.lib.Attribute;
+import com.exedio.cope.lib.Feature;
 import com.exedio.cope.lib.Item;
 import com.exedio.cope.lib.ObjectAttribute;
 import com.exedio.cope.lib.Type;
@@ -92,9 +92,9 @@ public class TransientCopernicaProvider implements CopernicaProvider
 		return breakupName(className.substring(pos+1));
 	}
 
-	public String getDisplayName(final com.exedio.copernica.Language displayLanguage, final Attribute attribute)
+	public String getDisplayName(final com.exedio.copernica.Language displayLanguage, final Feature feature)
 	{
-		String name = attribute.getName();
+		String name = feature.getName();
 		if(name.endsWith("Internal"))
 			name = name.substring(0, name.length()-"Internal".length());
 

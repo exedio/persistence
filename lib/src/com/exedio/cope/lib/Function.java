@@ -1,10 +1,6 @@
 package com.exedio.cope.lib;
 
 
-public interface Function
+public interface Function extends Feature
 {
-	Type getType();
-	
-	String getName();
-
 }

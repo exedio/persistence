@@ -3,7 +3,7 @@ package com.exedio.copernica;
 
 import java.util.Collection;
 
-import com.exedio.cope.lib.Attribute;
+import com.exedio.cope.lib.Feature;
 import com.exedio.cope.lib.Item;
 import com.exedio.cope.lib.Type;
 
@@ -31,7 +31,7 @@ public interface CopernicaProvider
 	
 	public String getDisplayName(Language displayLanguage, Type type);
 
-	public String getDisplayName(Language displayLanguage, Attribute attribute);
+	public String getDisplayName(Language displayLanguage, Feature feature);
 	
 	public String getDisplayName(Language displayLanguage, Item item);
 

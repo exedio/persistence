@@ -29,6 +29,11 @@ public final class Type
 	private final Attribute[] attributes;
 	private final List attributeList;
 
+	private final Feature[] declaredFeatures;
+	private final List declaredFeatureList;
+	private final Feature[] features;
+	private final List featureList;
+
 	private final UniqueConstraint[] uniqueConstraints;
 	private final List uniqueConstraintList;
 	
@@ -80,6 +85,7 @@ public final class Type
 		// declaredAttributes
 		final Field[] fields = javaClass.getDeclaredFields();
 		final ArrayList attributesTemp = new ArrayList(fields.length);
+		final ArrayList featuresTemp = new ArrayList(fields.length);
 		final ArrayList uniqueConstraintsTemp = new ArrayList(fields.length);
 		final int expectedModifier = Modifier.STATIC | Modifier.FINAL;
 		try
@@ -97,6 +103,7 @@ public final class Type
 							throw new InitializerRuntimeException(field.getName());
 						attribute.initialize(this, field.getName());
 						attributesTemp.add(attribute);
+						featuresTemp.add(attribute);
 						final UniqueConstraint uniqueConstraint = attribute.getSingleUniqueConstaint();
 						if(uniqueConstraint!=null)
 						{
@@ -111,6 +118,7 @@ public final class Type
 						if(function==null)
 							throw new InitializerRuntimeException(field.getName());
 						function.initialize(this, field.getName());
+						featuresTemp.add(function);
 					}
 					else if(UniqueConstraint.class.isAssignableFrom(field.getType()))
 					{
@@ -138,20 +146,34 @@ public final class Type
 		}
 		this.declaredAttributes = (Attribute[])attributesTemp.toArray(new Attribute[attributesTemp.size()]);
 		this.declaredAttributeList = Collections.unmodifiableList(Arrays.asList(this.declaredAttributes));
+		this.declaredFeatures = (Feature[])featuresTemp.toArray(new Feature[featuresTemp.size()]);
+		this.declaredFeatureList = Collections.unmodifiableList(Arrays.asList(this.declaredFeatures));
 		this.uniqueConstraints = (UniqueConstraint[])uniqueConstraintsTemp.toArray(new UniqueConstraint[uniqueConstraintsTemp.size()]);
 		this.uniqueConstraintList = Collections.unmodifiableList(Arrays.asList(this.uniqueConstraints));
 
 		// attributes
 		if(supertype==null)
+		{
 			attributes = this.declaredAttributes;
+			features = this.declaredFeatures;
+		}
 		else
 		{
-			final Attribute[] supertypeAttributes = supertype.attributes;
-			attributes = new Attribute[supertypeAttributes.length+this.declaredAttributes.length];
-			System.arraycopy(supertypeAttributes, 0, attributes, 0, supertypeAttributes.length);
-			System.arraycopy(this.declaredAttributes, 0, attributes, supertypeAttributes.length, this.declaredAttributes.length);
+			{
+				final Attribute[] supertypeAttributes = supertype.attributes;
+				attributes = new Attribute[supertypeAttributes.length+this.declaredAttributes.length];
+				System.arraycopy(supertypeAttributes, 0, attributes, 0, supertypeAttributes.length);
+				System.arraycopy(this.declaredAttributes, 0, attributes, supertypeAttributes.length, this.declaredAttributes.length);
+			}
+			{
+				final Feature[] supertypeFeatures = supertype.features;
+				features = new Attribute[supertypeFeatures.length+this.declaredFeatures.length];
+				System.arraycopy(supertypeFeatures, 0, attributes, 0, supertypeFeatures.length);
+				System.arraycopy(this.declaredFeatures, 0, features, supertypeFeatures.length, this.declaredFeatures.length);
+			}
 		}
 		this.attributeList = Collections.unmodifiableList(Arrays.asList(attributes));
+		this.featureList = Collections.unmodifiableList(Arrays.asList(features));
 
 		final ArrayList columns = new ArrayList();
 		for(int i = 0; i<this.declaredAttributes.length; i++)
@@ -227,6 +249,16 @@ public final class Type
 		return attributeList;
 	}
 	
+	public final List getDeclaredFeatures()
+	{
+		return declaredFeatureList;
+	}
+
+	public final List getFeatures()
+	{
+		return featureList;
+	}
+
 	public final List getUniqueConstraints()
 	{
 		return uniqueConstraintList;

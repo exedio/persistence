@@ -1,6 +1,8 @@
 <%@
 page import="com.exedio.cope.lib.Search" %><%@
 page import="com.exedio.cope.lib.Database" %><%@
+page import="com.exedio.cope.lib.Feature" %><%@
+page import="com.exedio.cope.lib.Function" %><%@
 page import="com.exedio.cope.lib.Attribute" %><%@
 page import="com.exedio.cope.lib.ObjectAttribute" %><%@
 page import="com.exedio.cope.lib.StringAttribute" %><%@
@@ -137,10 +139,10 @@ page import="java.util.Map"
 							<hr>
 							<ul>
 							<%
-								for(Iterator i = type.getAttributes().iterator(); i.hasNext(); )
+								for(Iterator i = type.getFeatures().iterator(); i.hasNext(); )
 								{
-									final Attribute attribute = (Attribute)i.next();
-									%><li><%=provider.getDisplayName(null, attribute)%></li><%
+									final Feature feature = (Feature)i.next();
+									%><li><%=provider.getDisplayName(null, feature)%></li><%
 								}
 							%>
 							</ul>
@@ -148,10 +150,10 @@ page import="java.util.Map"
 							<table border="1">
 							<tr>
 							<th></th><%
-								for(Iterator i = type.getAttributes().iterator(); i.hasNext(); )
+								for(Iterator i = type.getFeatures().iterator(); i.hasNext(); )
 								{
-									final Attribute attribute = (Attribute)i.next();
-									%><th><%=provider.getDisplayName(null, attribute)%></th><%
+									final Feature feature = (Feature)i.next();
+									%><th><%=provider.getDisplayName(null, feature)%></th><%
 								}
 							%>
 							</tr>
@@ -160,17 +162,17 @@ page import="java.util.Map"
 								{
 									final Item item = (Item)i.next();
 									%><tr><td><a href="<%=(cop.toItem(item))%>">[X]</a></td><%
-									for(Iterator j = type.getAttributes().iterator(); j.hasNext(); )
+									for(Iterator j = type.getFeatures().iterator(); j.hasNext(); )
 									{
-										final Attribute attribute = (Attribute)j.next();
+										final Feature feature = (Feature)j.next();
 										%><td><%
-										if(attribute instanceof MediaAttribute)
+										if(feature instanceof MediaAttribute)
 										{
-											%><%=item.getMediaURL((MediaAttribute)attribute)%><%
+											%><%=item.getMediaURL((MediaAttribute)feature)%><%
 										}
-										else if(attribute instanceof ItemAttribute)
+										else if(feature instanceof ItemAttribute)
 										{
-											final Item value = (Item)item.getAttribute((ItemAttribute)attribute);
+											final Item value = (Item)item.getAttribute((ItemAttribute)feature);
 											if(value==null)
 											{
 												%><%="leer"%><%
@@ -184,7 +186,7 @@ page import="java.util.Map"
 										}
 										else
 										{
-											%><%=item.getAttribute((ObjectAttribute)attribute)%><%
+											%><%=item.getFunction((Function)feature)%><%
 										}
 										%></td><%
 									}

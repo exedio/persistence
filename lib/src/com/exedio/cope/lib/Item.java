@@ -240,13 +240,21 @@ public abstract class Item extends Search
 		return getRow().get((ObjectAttribute)attribute);
 	}
 	
+	public final Object getFunction(final Function function)
+	{
+		if(function instanceof ComputedFunction)
+			return getFunction((ComputedFunction)function);
+		else
+			return getAttribute((ObjectAttribute)function);
+	}
+
 	public final Object getFunction(final ComputedFunction function)
 	{
 		final List sources = function.getSources();
 		final Object[] values = new Object[sources.size()];
 		int pos = 0;
 		for(Iterator i = sources.iterator(); i.hasNext(); )
-			values[pos++] = getAttribute((ObjectAttribute)i.next());
+			values[pos++] = getFunction((Function)i.next());
 	
 		return function.mapJava(values);
 	}

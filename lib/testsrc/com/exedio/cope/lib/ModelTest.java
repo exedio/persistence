@@ -1,6 +1,8 @@
 
 package com.exedio.cope.lib;
 
+import java.util.Arrays;
+
 import com.exedio.cope.lib.hierarchy.FirstSub;
 import com.exedio.cope.lib.hierarchy.Super;
 
@@ -16,6 +18,53 @@ public class ModelTest extends AbstractLibTest
 		assertEquals(ItemWithManyAttributes.class, item.TYPE.getJavaClass());
 		assertEquals(item.TYPE, Type.findByJavaClass(ItemWithManyAttributes.class));
 		assertEquals(item.TYPE, Type.findByID(item.TYPE.getID()));
+		
+		final Attribute[] attributes = new Attribute[]{
+			item.someString,
+			item.someNotNullString,
+			item.someInteger,
+			item.someNotNullInteger,
+			item.someLong,
+			item.someNotNullLong,
+			item.someDouble,
+			item.someNotNullDouble,
+			item.someBoolean,
+			item.someNotNullBoolean,
+			item.someItem,
+			item.someNotNullItem,
+			item.someEnumeration,
+			item.someNotNullEnumeration,
+			item.someMedia,
+			item.someQualifiedString,
+		};
+		assertEquals(Arrays.asList(attributes), item.TYPE.getAttributes());
+		assertEquals(Arrays.asList(attributes), item.TYPE.getDeclaredAttributes());
+		assertUnmodifiable(item.TYPE.getAttributes());
+		assertUnmodifiable(item.TYPE.getDeclaredAttributes());
+
+		final Feature[] features = new Feature[]{
+			item.someString,
+			item.someStringUpperCase,
+			item.someNotNullString,
+			item.someInteger,
+			item.someNotNullInteger,
+			item.someLong,
+			item.someNotNullLong,
+			item.someDouble,
+			item.someNotNullDouble,
+			item.someBoolean,
+			item.someNotNullBoolean,
+			item.someItem,
+			item.someNotNullItem,
+			item.someEnumeration,
+			item.someNotNullEnumeration,
+			item.someMedia,
+			item.someQualifiedString,
+		};
+		assertEquals(Arrays.asList(features), item.TYPE.getFeatures());
+		assertEquals(Arrays.asList(features), item.TYPE.getDeclaredFeatures());
+		assertUnmodifiable(item.TYPE.getFeatures());
+		assertUnmodifiable(item.TYPE.getDeclaredFeatures());
 	}
 
 	public void testSomeEnumeration()

@@ -3,7 +3,7 @@ package com.exedio.cope.lib;
 import java.util.Collections;
 import java.util.List;
 
-public abstract class Attribute
+public abstract class Attribute implements Feature
 {
 	private final boolean readOnly;
 	private final boolean notNull;
