@@ -203,6 +203,7 @@ public final class Model
 		final List types = typeList;
 		for(ListIterator i = types.listIterator(types.size()); i.hasPrevious(); )
 			((Type)i.previous()).onDropTable();
+		// TODO: remove media directories
 
 		database.dropDatabase();
 	}
