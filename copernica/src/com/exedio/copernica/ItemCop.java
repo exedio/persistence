@@ -2,18 +2,11 @@ package com.exedio.copernica;
 
 import com.exedio.cope.lib.Item;
 
-final class ItemCop
+final class ItemCop extends Cop
 {
-	private final String url;
-	
 	ItemCop(final Item item)
 	{
-		this.url = "copernica.jsp?item="+item.getID();
-	}
-	
-	public final String toString()
-	{
-		return url;
+		super("copernica.jsp?item="+item.getID());
 	}
 	
 }
