@@ -20,8 +20,7 @@ import com.exedio.cope.lib.util.ReactivationConstructorDummy;
 
 public final class Type
 {
-	// TODO: rename to typesByClass
-	private static final HashMap typesByName = new HashMap();
+	private static final HashMap typesByClass = new HashMap();
 
 	final Class javaClass;
 	private final Type supertype;
@@ -52,7 +51,7 @@ public final class Type
 
 	public static final Type findByJavaClass(final Class javaClass)
 	{
-		return (Type)typesByName.get(javaClass);
+		return (Type)typesByClass.get(javaClass);
 	}
 	
 	public Type(final Class javaClass)
@@ -61,7 +60,7 @@ public final class Type
 		if(!Item.class.isAssignableFrom(javaClass))
 			throw new IllegalArgumentException(javaClass.toString()+" is not a subclass of Item");
 
-		typesByName.put(javaClass, this);
+		typesByClass.put(javaClass, this);
 
 		// supertype
 		final Class superClass = javaClass.getSuperclass();
