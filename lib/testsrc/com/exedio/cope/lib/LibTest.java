@@ -18,6 +18,7 @@ public class LibTest extends TestCase
 		ItemWithSingleUniqueNotNull.TYPE,
 		ItemWithoutAttributes.TYPE,
 		ItemWithoutAttributes2.TYPE,
+		ItemWithManyAttributes.TYPE,
 	};
 	
 	public LibTest()
@@ -155,6 +156,35 @@ public class LibTest extends TestCase
 			assertEquals(null, item.getUniqueNotNullString());
 			assertEquals(null, ItemWithSingleUniqueNotNull.findByUniqueNotNullString("uniqueString"));
 			assertEquals(null, ItemWithSingleUniqueNotNull.findByUniqueNotNullString("uniqueString2"));
+		}
+		
+		// ItemWithManyAttributes
+		{
+			final ItemWithManyAttributes item = new ItemWithManyAttributes(5);
+			assertEquals(null, item.getSomeString());
+			assertEquals(null, item.getSomeInteger());
+			try
+			{
+				assertEquals(5, item.getSomeNotNullInteger());
+				fail("should have thrown NullPointerException, until there is some persistence mechanism");
+			}
+			catch(NullPointerException e)
+			{}
+
+			item.setSomeString("someString");
+			assertEquals(null/*"someString"*/, item.getSomeString());
+
+			item.setSomeInteger(new Integer(10));
+			assertEquals(null/*new Integer(10)*/, item.getSomeInteger());
+
+			item.setSomeNotNullInteger(20);
+			try
+			{
+				assertEquals(20, item.getSomeNotNullInteger());
+				fail("should have thrown NullPointerException, until there is some persistence mechanism");
+			}
+			catch(NullPointerException e)
+			{}
 		}
 	}
 

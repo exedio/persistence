@@ -56,6 +56,7 @@
 			<arg value="lib/testsrc/com/exedio/cope/lib/ItemWithSingleUniqueNotNull.java" />
 			<arg value="lib/testsrc/com/exedio/cope/lib/ItemWithoutAttributes.java" />
 			<arg value="lib/testsrc/com/exedio/cope/lib/ItemWithoutAttributes2.java" />
+			<arg value="lib/testsrc/com/exedio/cope/lib/ItemWithManyAttributes.java" />
 		</java>
 	</target>
 	
