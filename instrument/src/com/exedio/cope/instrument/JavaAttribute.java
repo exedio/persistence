@@ -99,8 +99,6 @@ public final class JavaAttribute extends JavaFeature
 		Modifier.FINAL;
 	}
 	
-	private static final String ATTRIBUTE_SUFFIX = "Attribute";
-
 	public final void makePersistent(final String persistentType)
 	{
 		if(persistentType==null)
