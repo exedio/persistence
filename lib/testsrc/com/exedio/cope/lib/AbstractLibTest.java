@@ -98,6 +98,7 @@ public abstract class AbstractLibTest extends TestCase
 	
 	protected Object waitForKey(final Object o)
 	{
+		System.out.println("WAITING FOR KEY");
 		try
 		{
 			System.in.read();
@@ -107,6 +108,11 @@ public abstract class AbstractLibTest extends TestCase
 			throw new SystemException(e);
 		}
 		return o;
+	}
+
+	protected void waitForKey()
+	{
+		waitForKey(null);
 	}
 
 }
