@@ -6,7 +6,15 @@ import java.sql.SQLException;
 import com.mysql.jdbc.Driver;
 
 public final class MysqlDatabase extends Database
-// TODO implement DatabaseTimestampCapable
+
+// TODO
+//	implements DatabaseTimestampCapable
+// would require type "timestamp(14,3) null default null"
+// but (14,3) is not yet supported
+// "null default null" is needed to allow null and
+// make null the default value
+// This works with 4.1.6 and higher only
+
 {
 	static
 	{
@@ -39,7 +47,7 @@ public final class MysqlDatabase extends Database
 	String getStringType(final int maxLength)
 	{
 		// TODO:
-		// 50 is needed for unique columns only,
+		// 255 is needed for unique columns only,
 		// non-unique can have more,
 		// and for longer unique columns you may specify a shorter key length
 		
