@@ -36,44 +36,29 @@
 	
 %>
 		<form action="index.jsp" method="POST">
-			<table border="1">
-				<tr>
-					<td>
-						<input type="submit" name="CREATE" value="create database" />
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<input type="submit" name="TEARDOWN" value="tear down database"/>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<input type="submit" name="DROP" value="drop database"/>
-					</td>
-				</tr>
-				<tr>
-					<td colspan="3">
-					<%
-						if(request.getParameter("CREATE")!=null)
-						{
-							Database.theInstance.createDatabase();
-							%>Database successfully created!<%
-						}
-						else if(request.getParameter("TEARDOWN")!= null)
-						{
-							Database.theInstance.tearDownDatabase();
-							%>Database successfully torn down!<%
-						}
-						else if(request.getParameter("DROP")!=null)
-						{
-							Database.theInstance.dropDatabase();
-							%>Database successfully dropped!<%
-						}
-					%>
-					</td>
-				</tr>
-			</table>
+			Database:
+			<br>
+			<input type="submit" name="CREATE" value="create" />
+			<input type="submit" name="TEARDOWN" value="tear down"/>
+			<input type="submit" name="DROP" value="drop"/>
+			<br>
+			<%
+				if(request.getParameter("CREATE")!=null)
+				{
+					Database.theInstance.createDatabase();
+					%>Database successfully created!<%
+				}
+				else if(request.getParameter("TEARDOWN")!= null)
+				{
+					Database.theInstance.tearDownDatabase();
+					%>Database successfully torn down!<%
+				}
+				else if(request.getParameter("DROP")!=null)
+				{
+					Database.theInstance.dropDatabase();
+					%>Database successfully dropped!<%
+				}
+			%>
 		</form>
 		
 		<table border="1">
