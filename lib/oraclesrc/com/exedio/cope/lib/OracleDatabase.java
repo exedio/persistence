@@ -19,22 +19,22 @@ final class OracleDatabase
 
 	String getIntegerType(final int precision)
 	{
-		return "number(" + precision + ",0)";
+		return "NUMBER(" + precision + ",0)";
 	}
 
 	String getDoubleType(final int precision)
 	{
-		return "number(" + precision + ",8)";
+		return "NUMBER(" + precision + ",8)";
 	}
 
 	String getStringType(final int maxLength)
 	{
-		return "varchar2("+(maxLength!=Integer.MAX_VALUE ? maxLength : 2000)+")";
+		return "VARCHAR2("+(maxLength!=Integer.MAX_VALUE ? maxLength : 2000)+")";
 	}
 	
 	public String getDateTimestampType()
 	{
-		return "timestamp(3)";
+		return "TIMESTAMP(3)";
 	}
 
 	private String extractConstraintName(final SQLException e, final String start, final String end)
@@ -174,15 +174,15 @@ final class OracleDatabase
 				{
 					final int dataPrecision = resultSet.getInt(5);
 					final int dataScale = resultSet.getInt(6);
-					columnType = "number("+dataPrecision+','+dataScale+')';
+					columnType = "NUMBER("+dataPrecision+','+dataScale+')';
 				}
 				else if(dataType.equals("VARCHAR2"))
 				{
 					final int dataLength = resultSet.getInt(4);
-					columnType = "varchar2("+dataLength+')';
+					columnType = "VARCHAR2("+dataLength+')';
 				}
 				else
-					columnType = dataType.toLowerCase(); // TODO: create upper case types
+					columnType = dataType;
 					
 				final ReportTable table = report.notifyExistentTable(tableName);
 				final ReportColumn column = table.notifyExistentColumn(columnName, columnType);
