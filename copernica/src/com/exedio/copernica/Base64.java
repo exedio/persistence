@@ -57,41 +57,11 @@ package com.exedio.copernica;
 final class Base64
 {
     
-/* ********  P U B L I C   F I E L D S  ******** */   
-    
-    
-    /** No options specified. Value is zero. */
-    private final static int NO_OPTIONS = 0;
-    
-    /** Specify encoding. */
-    private final static int ENCODE = 1;
-    
-    
-    /** Specify decoding. */
-    private final static int DECODE = 0;
-    
-    
-    /** Specify that data should be gzip-compressed. */
-    private final static int GZIP = 2;
-    
-    
-    /** Don't break lines when encoding (violates strict Base64 specification) */
-    private final static int DONT_BREAK_LINES = 8;
-    
-    
 /* ********  P R I V A T E   F I E L D S  ******** */  
-    
-    
-    /** Maximum line length (76) of Base64 output. */
-    private final static int MAX_LINE_LENGTH = 76;
     
     
     /** The equals sign (=) as a byte. */
     private final static byte EQUALS_SIGN = (byte)'=';
-    
-    
-    /** The new line character (\n) as a byte. */
-    private final static byte NEW_LINE = (byte)'\n';
     
     
     /** Preferred encoding. */
