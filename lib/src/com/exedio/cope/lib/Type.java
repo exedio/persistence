@@ -54,6 +54,7 @@ public final class Type
 		try
 		{
 			reactivationConstructor = javaClass.getDeclaredConstructor(reactivationConstructorParams);
+			reactivationConstructor.setAccessible(true);
 		}
 		catch(NoSuchMethodException e)
 		{
