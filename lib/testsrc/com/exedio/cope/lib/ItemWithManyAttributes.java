@@ -68,6 +68,13 @@ public class ItemWithManyAttributes extends Item
 	public static final ItemAttribute someItem = new ItemAttribute();
 
 	/**
+	 * An not-null attribute referencing another persistent item
+	 * @persistent ItemWithoutAttributes
+	 * @not-null
+	 */
+	public static final ItemAttribute someNotNullItem = new ItemAttribute();
+
+	/**
 	 * An enumeration attribute
 	 * @persistent
 	 * @value enumValue1
@@ -109,13 +116,15 @@ public class ItemWithManyAttributes extends Item
 	 * @param initialSomeNotNullString the initial value for attribute {@link #someNotNullString}.
 	 * @param initialSomeNotNullInteger the initial value for attribute {@link #someNotNullInteger}.
 	 * @param initialSomeNotNullBoolean the initial value for attribute {@link #someNotNullBoolean}.
-	 * @throws com.exedio.cope.lib.NotNullViolationException if initialSomeNotNullString is not null.
+	 * @param initialSomeNotNullItem the initial value for attribute {@link #someNotNullItem}.
+	 * @throws com.exedio.cope.lib.NotNullViolationException if initialSomeNotNullString, initialSomeNotNullItem is not null.
 	 * @generated
 	 *
  */public ItemWithManyAttributes(
 				final String initialSomeNotNullString,
 				final int initialSomeNotNullInteger,
-				final boolean initialSomeNotNullBoolean)
+				final boolean initialSomeNotNullBoolean,
+				final ItemWithoutAttributes initialSomeNotNullItem)
 			throws
 				com.exedio.cope.lib.NotNullViolationException
 	{
@@ -123,6 +132,7 @@ public class ItemWithManyAttributes extends Item
 			new com.exedio.cope.lib.AttributeValue(someNotNullString,initialSomeNotNullString),
 			new com.exedio.cope.lib.AttributeValue(someNotNullInteger,new Integer(initialSomeNotNullInteger)),
 			new com.exedio.cope.lib.AttributeValue(someNotNullBoolean,(initialSomeNotNullBoolean?Boolean.TRUE:Boolean.FALSE)),
+			new com.exedio.cope.lib.AttributeValue(someNotNullItem,initialSomeNotNullItem),
 		});
 		throwInitialNotNullViolationException();
 	}/**
@@ -376,6 +386,37 @@ public class ItemWithManyAttributes extends Item
 	}/**
 
 	 **
+	 * Returns the value of the persistent attribute {@link #someNotNullItem}.
+	 * @generated
+	 *
+ */public final ItemWithoutAttributes getSomeNotNullItem()
+	{
+		return (ItemWithoutAttributes)getAttribute(this.someNotNullItem);
+	}/**
+
+	 **
+	 * Sets a new value for the persistent attribute {@link #someNotNullItem}.
+	 * @generated
+	 *
+ */public final void setSomeNotNullItem(final ItemWithoutAttributes someNotNullItem)
+			throws
+				com.exedio.cope.lib.NotNullViolationException
+	{
+		try
+		{
+			setAttribute(this.someNotNullItem,someNotNullItem);
+		}
+		catch(com.exedio.cope.lib.ReadOnlyViolationException e)
+		{
+			throw new com.exedio.cope.lib.SystemException(e);
+		}
+		catch(com.exedio.cope.lib.UniqueViolationException e)
+		{
+			throw new com.exedio.cope.lib.SystemException(e);
+		}
+	}/**
+
+	 **
 	 * Returns the value of the persistent attribute {@link #someEnumeration}.
 	 * @generated
 	 *
@@ -510,6 +551,7 @@ public class ItemWithManyAttributes extends Item
 				someBoolean.initialize("someBoolean",false,false),
 				someNotNullBoolean.initialize("someNotNullBoolean",false,true),
 				someItem.initialize("someItem",false,false,ItemWithoutAttributes.TYPE),
+				someNotNullItem.initialize("someNotNullItem",false,true,ItemWithoutAttributes.TYPE),
 				someEnumeration.initialize("someEnumeration",false,false),
 				someMedia.initialize("someMedia",false,false),
 				someQualifiedString.initialize("someQualifiedString",false,false),

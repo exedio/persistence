@@ -528,13 +528,7 @@ public abstract class Database
 	
 	private void createForeignKeyConstraints(final Type type)
 	{
-		final Statement bf = new Statement();
-		boolean hasOne = false;
-
 		//System.out.println("createForeignKeyConstraints:"+bf);
-		bf.append("alter table ").
-			append(type.protectedName).
-			append(" add ");
 
 		for(Iterator i = type.getColumns().iterator(); i.hasNext(); )
 		{
@@ -545,27 +539,26 @@ public abstract class Database
 				final IntegerColumn integerColumn = (IntegerColumn)column;
 				if(integerColumn.foreignTable!=null)
 				{
-					bf.append("constraint ").
+					final Statement bf = new Statement();
+					bf.append("alter table ").
+						append(type.protectedName).
+						append(" add constraint ").
 						append(Database.theInstance.protectName(column.trimmedName+"FK")).
 						append(" foreign key (").
 						append(column.protectedName).
 						append(") references ").
 						append(Database.theInstance.protectName(integerColumn.foreignTable));
-					hasOne = true;
+
+					//System.out.println("createForeignKeyConstraints:"+bf);
+					try
+					{
+						executeSQL(bf, EMPTY_RESULT_SET_HANDLER);
+					}
+					catch(UniqueViolationException e)
+					{
+						throw new SystemException(e);
+					}
 				}
-			}
-		}
-		
-		//System.out.println("createForeignKeyConstraints:"+bf);
-		if(hasOne)
-		{
-			try
-			{
-				executeSQL(bf, EMPTY_RESULT_SET_HANDLER);
-			}
-			catch(UniqueViolationException e)
-			{
-				throw new SystemException(e);
 			}
 		}
 	}

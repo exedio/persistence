@@ -231,10 +231,11 @@ public class LibTest extends TestCase
 		
 		// ItemWithManyAttributes
 		{
+			final ItemWithoutAttributes someItem = new ItemWithoutAttributes();
 			final ItemWithManyAttributes item;
 			try
 			{
-				item = new ItemWithManyAttributes("someString", 5, true);
+				item = new ItemWithManyAttributes("someString", 5, true, someItem);
 			}
 			catch(NotNullViolationException e)
 			{
@@ -318,7 +319,6 @@ public class LibTest extends TestCase
 			assertEquals(item.TYPE, item.someItem.getType());
 			assertEquals(ItemWithoutAttributes.TYPE, item.someItem.getTargetType());
 			assertEquals(null, item.getSomeItem());
-			final ItemWithoutAttributes someItem = new ItemWithoutAttributes();
 			item.setSomeItem(someItem);
 			assertEquals(someItem, item.getSomeItem());
 			item.passivate();
