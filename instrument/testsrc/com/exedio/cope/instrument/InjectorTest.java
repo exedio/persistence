@@ -67,6 +67,12 @@ public abstract class InjectorTest extends TestCase
 		assertEquals(importText, ((ImportEvent)event).importText);
 	}
 
+	protected void assertFileDocComment(final String docComment)
+	{
+		final InjectionEvent event = fetchEvent();
+		assertEquals(docComment, ((FileDocCommentEvent)event).docComment);
+	}
+
 	private static class InjectionEvent
 	{
 	}
@@ -99,6 +105,16 @@ public abstract class InjectorTest extends TestCase
 		ImportEvent(final String importText)
 		{
 			this.importText = importText;
+		}
+	}
+	
+	private static class FileDocCommentEvent extends InjectionEvent
+	{
+		final String docComment;
+
+		FileDocCommentEvent(final String docComment)
+		{
+			this.docComment = docComment;
 		}
 	}
 	
@@ -154,6 +170,7 @@ public abstract class InjectorTest extends TestCase
 		public void onFileDocComment(final String doccomment)
 			throws java.io.IOException
 		{
+			addInjectionEvent(new FileDocCommentEvent(doccomment));
 		}
 
 		public void onFileEnd()
