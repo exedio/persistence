@@ -199,20 +199,36 @@ abstract class Database
 				System.err.println("failed:"+e2.getMessage());
 			}
 		}
-		for(Iterator i = tables.iterator(); i.hasNext(); )
+		
+		final ArrayList tablesToDelete = new ArrayList(tables);
+
+		boolean deleted;
+		int run = 1;
+		do
 		{
-			try
+			deleted = false;
+			
+			for(Iterator i = tablesToDelete.iterator(); i.hasNext(); )
 			{
-				final Table table = (Table)i.next();
-				System.err.print("DROPPING TABLE "+table+" ... ");
-				dropTable(table);
-				System.err.println("done.");
+				try
+				{
+					final Table table = (Table)i.next();
+					System.err.print("DROPPING TABLE "+table+" ... ");
+					dropTable(table);
+					System.err.println("done.");
+					// remove the table, so it's not tried again
+					i.remove();
+					// remember there was at least one table deleted
+					deleted = true;
+				}
+				catch(NestingRuntimeException e2)
+				{
+					System.err.println("failed:"+e2.getMessage());
+				}
 			}
-			catch(NestingRuntimeException e2)
-			{
-				System.err.println("failed:"+e2.getMessage());
-			}
+			System.err.print("FINISH STAGE "+(run++));
 		}
+		while(deleted);
 	}
 
 	void checkEmptyDatabase()
