@@ -19,20 +19,20 @@ import java.lang.reflect.Modifier;
  */
 public final class Injector
 {
-	private Reader input;
-	private Writer output;
-	private InjectionConsumer consumer;
+	private final Reader input;
+	private final Writer output;
+	private final InjectionConsumer consumer;
 
-	private StringBuffer buf = new StringBuffer();
+	private final StringBuffer buf = new StringBuffer();
 
 	private boolean do_block = false;
 	private boolean start_block = false;
 	private boolean collect_when_blocking = false;
-	private StringBuffer collector = new StringBuffer();
+	private final StringBuffer collector = new StringBuffer();
 
 	private String doccomment = null;
 
-	private JavaFile javafile = new JavaFile();
+	private final JavaFile javafile = new JavaFile();
 
 	/**
 	 * Constructs a new java parser.
