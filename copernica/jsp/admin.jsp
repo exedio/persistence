@@ -1,5 +1,7 @@
 <%@ page import="com.exedio.cope.lib.Database" %>
 <%@ page import="com.exedio.cope.lib.SystemException" %>
+<%@ include file="copernica-provider.inc"
+%>
 <html>
 	<head>	
 		<title>
@@ -11,21 +13,7 @@
 		<h2>Generic Backoffice for COPE</h2>
 		<h3>Database Administration</h3>
 
-<%
-	final CopernicaProvider provider;
-	try
-	{
-		final String providerName = getInitParameter("com.exedio.copernica.provider");
-		if(providerName==null)
-			throw new NullPointerException("init-param com.exedio.copernica.provider missing");
-		final Class providerClass = Class.forName(providerName);
-		provider = (CopernicaProvider)providerClass.newInstance();
-	}
-	catch(ClassNotFoundException e)
-	{
-		throw new SystemException(e);
-	}
-%>
+
 		<form action="admin.jsp" method="POST">
 			Database:
 			<br>
