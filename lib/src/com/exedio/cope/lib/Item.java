@@ -272,7 +272,7 @@ public abstract class Item extends Search
 		}
 	}
 	
-	private void appendMediaPath(
+	private final void appendMediaPath(
 									final MediaAttribute attribute, final String variant,
 									final StringBuffer bf,
 									final String mimeMajor, final String mimeMinor)
@@ -318,6 +318,14 @@ public abstract class Item extends Search
 		}
 		else
 			bf.append(compactExtension);
+	}
+	
+	private final File getMediaFile(final MediaAttribute attribute,	final String mimeMajor, final String mimeMinor)
+	{
+		final File directory = Properties.getInstance().getMediaDirectory();
+		final StringBuffer buf = new StringBuffer();
+		appendMediaPath(attribute, null, buf, mimeMajor, mimeMinor);
+		return new File(directory, buf.toString());
 	}
 	
 	/**
@@ -369,11 +377,7 @@ public abstract class Item extends Search
 			return null;
 
 		final String mimeMinor = (String)row.get(attribute.mimeMinor);
-
-		final File directory = Properties.getInstance().getMediaDirectory();
-		final StringBuffer buf = new StringBuffer();
-		appendMediaPath(attribute, null, buf, mimeMajor, mimeMinor);
-		final File file = new File(directory, buf.toString());
+		final File file = getMediaFile(attribute, mimeMajor, mimeMinor);
 		try
 		{
 			return new FileInputStream(file);
@@ -411,10 +415,7 @@ public abstract class Item extends Search
 
 		if(data!=null)
 		{
-			final File directory = Properties.getInstance().getMediaDirectory();
-			final StringBuffer buf = new StringBuffer();
-			appendMediaPath(attribute, null, buf, mimeMajor, mimeMinor);
-			final File file = new File(directory, buf.toString());
+			final File file = getMediaFile(attribute, mimeMajor, mimeMinor);
 			final OutputStream out = new FileOutputStream(file);
 			final byte[] b = new byte[20*1024];
 			for(int len = data.read(b); len>=0; len = data.read(b))
