@@ -1,7 +1,12 @@
-<%@
-page import="com.exedio.cope.lib.Properties"
-%><%!
-	
+<%
+package com.exedio.copernica.admin;
+
+import java.io.IOException;
+import javax.servlet.jsp.JspWriter;
+import com.exedio.cope.lib.Properties;
+
+public class Properties_Jspm
+{
 	private static final String[] systemProperties = new String[]{
 			"java.runtime.version",
 			"java.class.path",
@@ -11,8 +16,9 @@ page import="com.exedio.cope.lib.Properties"
 			"java.vm.version",
 		};
 	
-%><%
-		final Properties properties = model.getProperties();
+	public static void write(final JspWriter out, final Properties properties)
+		throws IOException
+	{
 		%>
 		<table border="1">
 			<tr>
@@ -81,3 +87,7 @@ page import="com.exedio.cope.lib.Properties"
 			}
 			%>
 		</table>
+<%
+	}
+}
+%>

@@ -7,7 +7,9 @@ page import="com.exedio.cope.lib.ReportColumn" %><%@
 page import="com.exedio.cope.lib.ReportConstraint" %><%@
 page import="com.exedio.cope.lib.NestingRuntimeException" %><%@
 
-page import="java.util.Date"
+page import="java.util.Date" %><%@
+
+page import="com.exedio.copernica.admin.Properties_Jspm"
 
 %><%!
 	
@@ -86,7 +88,8 @@ final AdminCop cop = AdminCop.getCop(request);
 					%><hr><%@ include file="admin-report.inc" %><%
 				}
 				
-				%><hr><%@ include file="admin-properties.inc" %><%
+				%><hr><%
+				Properties_Jspm.write(out, model.getProperties());
 			%>
 		</form>
 	</body>
