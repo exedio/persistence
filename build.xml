@@ -273,21 +273,16 @@
 	
 	<target name="copernica.compile.jsp" depends="copernica.jspc, copernica.compile.classes">
 		<javac destdir="copernica/build/classes"
-			optimize="off"
-			debug="on"
-			failonerror="true"
-			srcdir="copernica/build/jspsrc"
-			excludes="**/*.smap">
+					optimize="off"
+					debug="on"
+					failonerror="true"
+					srcdir="copernica/build/jspsrc">
 			<classpath>
 				<pathelement location="lib/build/classes" />
-				<pathelement location="${basedir}/../tomcat/common/classes"/>
-				<fileset dir="${basedir}/../tomcat/common/lib">
-					<include name="*.jar"/>
-				</fileset>
-				<pathelement location="${basedir}/../tomcat/shared/classes"/>
+				<pathelement location="${basedir}/../tomcat/common/lib/servlet-api.jar" />
+				<pathelement location="${basedir}/../tomcat/common/lib/jasper-runtime.jar" />
+				<pathelement location="${basedir}/../tomcat/common/lib/jsp-api.jar" />
 			</classpath>
-			<include name="**" />
-			<exclude name="tags/**" />
 		</javac>
 	</target>
 	
