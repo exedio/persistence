@@ -44,7 +44,7 @@
 	<target name="compile" depends="lib.compile, instrument.compile, copernica.compile" />
 	
 	<target name="libtest.instrument" depends="lib.compile, instrument.compile">
-		<echo message="intrumenting lib/testsrc" />
+		<echo message="Instrumenting lib/testsrc" />
 		<java classname="com.exedio.cope.instrument.Main">
 			<classpath>
 				<pathelement location="lib/build/classes" />
@@ -65,11 +65,25 @@
 			<include name="com/**" />
 			<classpath>
 				<pathelement location="lib/build/classes" />
+				<pathelement location="../lib/junit.jar" />
 			</classpath>
 		</javac>
 	</target>
 	
-	<target name="test" depends="libtest.compile" />
+	<target name="libtest.run" depends="lib.compile, libtest.compile">
+		<java classname="junit.textui.TestRunner" taskname="junit" fork="yes" failonerror="yes">
+			<classpath>
+				<pathelement location="lib/build/classes" />
+				<pathelement location="lib/build/testclasses" />
+				<pathelement location="../lib/junit.jar" />
+				<pathelement location="../lib/classes12dms.jar" />
+				<pathelement location="../lib/dms.jar" />
+			</classpath>
+			<arg value="com.exedio.cope.lib.LibTest" />
+		</java>
+	</target>
+	
+	<target name="test" depends="libtest.run" />
 	
 	<target name="lib.clean">
 		<delete dir="lib/build" />
