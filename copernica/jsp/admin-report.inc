@@ -13,6 +13,23 @@ private String color(final int color)
 		throw new RuntimeException(String.valueOf(color));
 	}
 }
+
+private ReportColumn getColumn(final Report report, final String columnParameter)
+{
+	final int pos = columnParameter.indexOf('#');
+	if(pos<=0)
+		throw new RuntimeException(columnParameter);
+	
+	final ReportTable table = report.getTable(columnParameter.substring(0, pos));
+	if(table==null)
+		throw new RuntimeException(columnParameter);
+	
+	final ReportColumn column = table.getColumn(columnParameter.substring(pos+1));
+	if(column==null)
+		throw new RuntimeException(columnParameter);
+	
+	return column;
+}
 %><%
 
 if(request.getParameter("APPLY")!=null)
@@ -20,6 +37,24 @@ if(request.getParameter("APPLY")!=null)
 	final Report report = ((DatabaseReportable)Database.theInstance).reportDatabase();
 	%>
 	<ol><%
+	{
+		final String[] dropColums = (String[])request.getParameterMap().get("DROP_COLUMN");
+		if(dropColums!=null)
+		{
+			for(int i = 0; i<dropColums.length; i++)
+			{
+				final String dropColum = dropColums[i];
+				final ReportColumn column = getColumn(report, dropColum);
+				%>
+				<li>dropping column <%=dropColum%> ...</li><%
+				out.flush();
+				final long time = System.currentTimeMillis();
+				column.drop();
+				%><li><b>ok</b>, <%=System.currentTimeMillis()-time%>ms.</li><%
+				out.flush();
+			}
+		}
+	}
 	{
 		final String[] dropTables = (String[])request.getParameterMap().get("DROP_TABLE");
 		if(dropTables!=null)
@@ -149,13 +184,13 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); )
 			if(column.exists())
 			{
 				%>
-				<input type="checkbox" name="DROP_COLUMN" value="<%=column.name%>"/>drop<%
+				<input type="checkbox" name="DROP_COLUMN" value="<%=table.name%>#<%=column.name%>"/>drop<%
 			}
 			else if(column.required() &&
 						column.table.exists() )
 			{
 				%>
-				<input type="checkbox" name="CREATE_COLUMN" value="<%=column.name%>"/>create<%
+				<input type="checkbox" name="CREATE_COLUMN" value="<%=table.name%>#<%=column.name%>"/>create<%
 			}
 			%>
 			</li><%

@@ -54,5 +54,10 @@ public final class ReportColumn extends ReportNode
 		return exists;
 	}
 		
+	public final void drop()
+	{
+		Database.theInstance.dropColumn(table.name, name);
+	}
+
 }
 	

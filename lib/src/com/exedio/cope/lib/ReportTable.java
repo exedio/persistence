@@ -100,6 +100,11 @@ public final class ReportTable extends ReportNode
 		return columns.values();
 	}
 		
+	public final ReportColumn getColumn(final String columnName)
+	{
+		return (ReportColumn)columns.get(columnName);
+	}
+		
 	public final Collection getConstraints()
 	{
 		return constraints.values();

@@ -1270,4 +1270,23 @@ public abstract class Database
 		}
 	}
 
+	final void dropColumn(final String tableName, final String columnName)
+	{
+		final Statement bf = createStatement();
+		bf.append("alter table ").
+			append(protectName(tableName)).
+			append(" drop column ").
+			append(protectName(columnName));
+
+		try
+		{
+			System.out.println("dropColumn:"+bf);
+			executeSQL(bf, EMPTY_RESULT_SET_HANDLER);
+		}
+		catch(ConstraintViolationException e)
+		{
+			throw new SystemException(e);
+		}
+	}
+
 }
