@@ -30,54 +30,58 @@ public class QualifierTest extends DatabaseLibTest
 		assertEquals(QualifiedItem.qualifier.getKey(), QualifiedEmptyQualifier.key);
 		assertEquals(QualifiedItem.qualifier.getQualifyUnique(), QualifiedEmptyQualifier.qualifyUnique);
 
-		assertEquals(null, QualifiedEmptyQualifier.findByQualifyUnique(item, key1));
 		assertEquals(null, item.getQualifier(key1));
 		assertEquals(null, item.getQualifiedA(key1));
 		assertEquals(null, item.getQualifiedB(key1));
-		assertEquals(null, QualifiedEmptyQualifier.findByQualifyUnique(item, key2));
+		assertEquals(null, item.getQualifier(key2));
 		assertEquals(null, item.getQualifiedA(key2));
 		assertEquals(null, item.getQualifiedB(key2));
 
 		final QualifiedEmptyQualifier qitem1 = new QualifiedEmptyQualifier(item, key1);
 		assertEquals(qitem1, item.getQualifier(key1));
-		assertEquals(null, item.getQualifier(key2));
 		assertEquals(null, item.getQualifiedA(key1));
 		assertEquals(null, item.getQualifiedB(key1));
-		assertEquals(null, QualifiedEmptyQualifier.findByQualifyUnique(item, key2));
+		assertEquals(null, item.getQualifier(key2));
 		assertEquals(null, item.getQualifiedA(key2));
 		assertEquals(null, item.getQualifiedB(key2));
 
 		qitem1.setQualifiedA("value1A");
+		assertEquals(qitem1, item.getQualifier(key1));
 		assertEquals("value1A", item.getQualifiedA(key1));
 		assertEquals(null, item.getQualifiedB(key1));
-		assertEquals(null, QualifiedEmptyQualifier.findByQualifyUnique(item, key2));
+		assertEquals(null, item.getQualifier(key2));
 		assertEquals(null, item.getQualifiedA(key2));
 		assertEquals(null, item.getQualifiedB(key2));
 		
 		qitem1.setQualifiedB("value1B");
+		assertEquals(qitem1, item.getQualifier(key1));
 		assertEquals("value1A", item.getQualifiedA(key1));
 		assertEquals("value1B", item.getQualifiedB(key1));
-		assertEquals(null, QualifiedEmptyQualifier.findByQualifyUnique(item, key2));
+		assertEquals(null, item.getQualifier(key2));
 		assertEquals(null, item.getQualifiedA(key2));
 		assertEquals(null, item.getQualifiedB(key2));
 		
 		final QualifiedEmptyQualifier qitem2 = new QualifiedEmptyQualifier(item, key2);
 		assertEquals(qitem1, item.getQualifier(key1));
-		assertEquals(qitem2, item.getQualifier(key2));
 		assertEquals("value1A", item.getQualifiedA(key1));
 		assertEquals("value1B", item.getQualifiedB(key1));
+		assertEquals(qitem2, item.getQualifier(key2));
 		assertEquals(null, item.getQualifiedA(key2));
 		assertEquals(null, item.getQualifiedB(key2));
 
 		qitem2.setQualifiedB("value2B");
+		assertEquals(qitem1, item.getQualifier(key1));
 		assertEquals("value1A", item.getQualifiedA(key1));
 		assertEquals("value1B", item.getQualifiedB(key1));
+		assertEquals(qitem2, item.getQualifier(key2));
 		assertEquals(null, item.getQualifiedA(key2));
 		assertEquals("value2B", item.getQualifiedB(key2));
 
 		qitem1.setQualifiedB(null);
+		assertEquals(qitem1, item.getQualifier(key1));
 		assertEquals("value1A", item.getQualifiedA(key1));
 		assertEquals(null, item.getQualifiedB(key1));
+		assertEquals(qitem2, item.getQualifier(key2));
 		assertEquals(null, item.getQualifiedA(key2));
 		assertEquals("value2B", item.getQualifiedB(key2));
 
