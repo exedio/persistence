@@ -123,13 +123,14 @@ public abstract class InjectorTest extends TestCase
 		assertSame(expectedJavaClass, javaClass);
 	}
 	
-	protected void assertBehaviourHeader(final String name, final String type, final int modifier)
+	protected JavaBehaviour assertBehaviourHeader(final String name, final String type, final int modifier)
 	{
 		final InjectionEvent event = fetchEvent();
 		final JavaBehaviour javaBehaviour = ((BehaviourHeaderEvent)event).javaBehaviour;
 		assertEquals(name, javaBehaviour.getName());
 		assertEquals(type, javaBehaviour.getType());
 		assertEquals(modifier, javaBehaviour.getModifiers());
+		return javaBehaviour;
 	}
 	
 	protected void assertAttributeHeader(final String name, final String type, final int modifier)
@@ -141,22 +142,24 @@ public abstract class InjectorTest extends TestCase
 		assertEquals(modifier, javaAttribute.getModifiers());
 	}
 	
-	private void assertFeature(final String name, final String docComment)
+	private void assertFeature(final String name, final String docComment, final JavaFeature expectedJavaFeature)
 	{
 		final InjectionEvent event = fetchEvent();
 		final JavaFeature javaFeature = ((ClassFeatureEvent)event).javaFeature;
 		assertEquals(name, javaFeature.getName());
 		assertEquals(replaceLineBreaks(docComment), ((ClassFeatureEvent)event).docComment);
+		if(expectedJavaFeature!=null) // TODO: remove condition when attributes are checked as well
+			assertSame(expectedJavaFeature, javaFeature);
 	}
 	
 	protected void assertAttribute(final String name, final String docComment)
 	{
-		assertFeature(name, docComment);
+		assertFeature(name, docComment, null);
 	}
 	
-	protected void assertMethod(final String name, final String docComment)
+	protected void assertMethod(final String name, final String docComment, final JavaBehaviour jb)
 	{
-		assertFeature(name, docComment);
+		assertFeature(name, docComment, jb);
 	}
 
 

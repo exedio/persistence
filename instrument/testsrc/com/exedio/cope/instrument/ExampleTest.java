@@ -171,9 +171,9 @@ public class ExampleTest extends InjectorTest
 		assertAttribute("someDrinnerBoolean", null);
 		assertText("\n    \n\t\t");
 
-		assertBehaviourHeader("run", "void", Modifier.PUBLIC);
+		final JavaBehaviour drinnerRunMethod = assertBehaviourHeader("run", "void", Modifier.PUBLIC);
 		assertText("{\n\t\t}");
-		assertMethod("run", null);
+		assertMethod("run", null, drinnerRunMethod);
 		assertText("\n\t ");
 		
 		assertClassEnd("Drinner", drinnerClass);
@@ -185,18 +185,18 @@ public class ExampleTest extends InjectorTest
 		assertAttribute("someInnerBoolean", null);
 		assertText("\n    \n\t ");
 
-		assertBehaviourHeader("run", "void", Modifier.PUBLIC);
+		final JavaBehaviour innerRunMethod = assertBehaviourHeader("run", "void", Modifier.PUBLIC);
 		assertText("{\n\t }");
-		assertMethod("run", null);
+		assertMethod("run", null, innerRunMethod);
 		assertText("\n  ");
 
 		assertClassEnd("Inner", innerClass);
 		assertAttribute("Inner", null);
 		assertText("}  \n\n  ");
 		
-		assertBehaviourHeader("Example", null, Modifier.PRIVATE);
+		final JavaBehaviour emptyConstructor = assertBehaviourHeader("Example", null, Modifier.PRIVATE);
 		assertText("{\n\t namedIntegers.put(\"5\", new Integer(5));\n  }");
-		assertMethod("Example", null);
+		assertMethod("Example", null, emptyConstructor);
 	}
 
 }
