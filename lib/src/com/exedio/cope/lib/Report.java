@@ -1,5 +1,6 @@
 package com.exedio.cope.lib;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -8,7 +9,8 @@ import java.util.List;
 public final class Report extends ReportNode
 {
 
-	private final HashMap tables = new HashMap();
+	private final HashMap tableMap = new HashMap();
+	private final ArrayList tableList = new ArrayList();
 	
 	Report(final List modelTables)
 	{
@@ -16,8 +18,9 @@ public final class Report extends ReportNode
 		{
 			final com.exedio.cope.lib.Table modelTable = (com.exedio.cope.lib.Table)i.next();
 			final ReportTable reportTable = new ReportTable(modelTable);
-			if(tables.put(modelTable.id, reportTable)!=null)
+			if(tableMap.put(modelTable.id, reportTable)!=null)
 				throw new RuntimeException();
+			tableList.add(reportTable);
 	
 			for(Iterator j = modelTable.getAllColumns().iterator(); j.hasNext(); )
 			{
@@ -62,11 +65,12 @@ public final class Report extends ReportNode
 
 	final ReportTable notifyExistentTable(final String tableName)
 	{
-		ReportTable result = (ReportTable)tables.get(tableName);
+		ReportTable result = (ReportTable)tableMap.get(tableName);
 		if(result==null)
 		{
 			result = new ReportTable(tableName);
-			tables.put(tableName, result);
+			tableMap.put(tableName, result);
+			tableList.add(result);
 		}
 		else
 			result.notifyExists();
@@ -76,12 +80,12 @@ public final class Report extends ReportNode
 	
 	public ReportTable getTable(final String name)
 	{
-		return (ReportTable)tables.get(name);
+		return (ReportTable)tableMap.get(name);
 	}
 	
 	public Collection getTables()
 	{
-		return tables.values();
+		return tableList;
 	}
 	
 	void finish()
@@ -92,7 +96,7 @@ public final class Report extends ReportNode
 		particularColor = COLOR_OK;
 
 		cumulativeColor = particularColor;
-		for(Iterator i = tables.values().iterator(); i.hasNext(); )
+		for(Iterator i = tableList.iterator(); i.hasNext(); )
 		{
 			final ReportTable table = (ReportTable)i.next();
 			table.finish();
