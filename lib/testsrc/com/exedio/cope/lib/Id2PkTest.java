@@ -1,7 +1,7 @@
 
 package com.exedio.cope.lib;
 
-public class Id2PkTest extends AbstractLibTest // TODO inherit from a super class, that doesn't initializes the database
+public class Id2PkTest extends AbstractLibTest
 {
 	public void testId2Pk()
 	{
@@ -17,5 +17,5 @@ public class Id2PkTest extends AbstractLibTest // TODO inherit from a super clas
 		assertEquals(pk, Search.id2pk(id));
 		assertEquals(id, Search.pk2id(pk));
 	}
-
+	
 }
