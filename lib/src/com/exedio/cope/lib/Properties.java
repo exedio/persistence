@@ -218,7 +218,7 @@ public final class Properties
 	{
 		final java.util.Properties properties = new java.util.Properties();
 		properties.setProperty("source", source);
-		properties.setProperty(DATABASE, database.getClass().getName());
+		properties.setProperty(DATABASE, database.getDeclaringClass().getName());
 		properties.setProperty(DATABASE_URL, databaseUrl);
 		properties.setProperty(DATABASE_USER, databaseUser);
 		properties.setProperty(DATABASE_PASSWORD, databasePassword);
