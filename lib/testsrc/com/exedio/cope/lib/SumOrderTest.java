@@ -1,5 +1,7 @@
 package com.exedio.cope.lib;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -39,7 +41,12 @@ public class SumOrderTest extends DatabaseLibTest
 	private void assertOrder(final List expectedOrder, final Function searchFunction)
 	{
 		final Query query = new Query(item1.TYPE, null);
-		query.setOrderBy(searchFunction);
+		query.setOrderBy(searchFunction, true);
 		assertEquals(expectedOrder, Search.search(query));
+
+		final List expectedReverseOrder = new ArrayList(expectedOrder);
+		Collections.reverse(expectedReverseOrder);
+		query.setOrderBy(searchFunction, false);
+		assertEquals(expectedReverseOrder, Search.search(query));
 	}
 }

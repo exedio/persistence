@@ -12,26 +12,28 @@ final class TypeCop extends CopernicaCop
 {
 	final Type type;
 	final Function orderBy; 
+	final boolean orderAscending;
 	final int start;
 	final int count;
 
 	TypeCop(final Language language, final Type type)
 	{
-		this(language, type, null, 0, 10);
+		this(language, type, null, true, 0, 10);
 	}
 	
 	TypeCop(final Language language, final Type type,
-					final Function orderBy,
+					final Function orderBy, final boolean orderAscending,
 					final int start, final int count)
 	{
 		super(language);
 		this.type = type;
 		this.orderBy = orderBy;
+		this.orderAscending = orderAscending;
 		this.start = start;
 		this.count = count;
 		addParameter(TYPE, type.getID());
 		if(orderBy!=null)
-			addParameter(ORDER, orderBy.getName());
+			addParameter(orderAscending ? ORDER_ASCENDING : ORDER_DESCENDING, orderBy.getName());
 		if(start!=0)
 			addParameter(START, String.valueOf(start));
 		if(count!=10)
@@ -40,7 +42,7 @@ final class TypeCop extends CopernicaCop
 	
 	final  CopernicaCop switchLanguage(final Language newLanguage)
 	{
-		return new TypeCop(newLanguage, type, orderBy, start, count);
+		return new TypeCop(newLanguage, type, orderBy, orderAscending, start, count);
 	}
 	
 	final boolean isFirstPage()
@@ -50,7 +52,7 @@ final class TypeCop extends CopernicaCop
 	
 	final TypeCop firstPage()
 	{
-		return new TypeCop(language, type, orderBy, 0, count);
+		return new TypeCop(language, type, orderBy, orderAscending, 0, count);
 	}
 	
 	final TypeCop previousPage()
@@ -58,30 +60,30 @@ final class TypeCop extends CopernicaCop
 		int newStart = start - count;
 		if(newStart<0)
 			newStart = 0;
-		return new TypeCop(language, type, orderBy, newStart, count);
+		return new TypeCop(language, type, orderBy, orderAscending, newStart, count);
 	}
 	
 	final TypeCop nextPage()
 	{
 		int newStart = start + count;
-		return new TypeCop(language, type, orderBy, newStart, count);
+		return new TypeCop(language, type, orderBy, orderAscending, newStart, count);
 	}
 	
 	final TypeCop switchCount(final int newCount)
 	{
-		return new TypeCop(language, type, orderBy, start, newCount);
+		return new TypeCop(language, type, orderBy, orderAscending, start, newCount);
 	}
 	
-	final TypeCop orderBy(final Function newOrderBy) 
+	final TypeCop orderBy(final Function newOrderBy, final boolean ascending) 
 	{
-		return new TypeCop(language, type, newOrderBy, start, count);
+		return new TypeCop(language, type, newOrderBy, ascending, start, count);
 	}
 	
 	final Collection search()
 	{
 		final Query query = new Query(type, null);
 		if(orderBy!=null)
-			query.setOrderBy(orderBy);
+			query.setOrderBy(orderBy, orderAscending);
 		query.setRange(start, count);
 		return Search.search(query);
 	}
@@ -95,14 +97,17 @@ final class TypeCop extends CopernicaCop
 		if(type==null)
 			throw new RuntimeException("type "+typeID+" not available");
 
-		final String orderID = getParameter(parameterMap, ORDER);
-		final Function orderAttribute = (orderID==null) ? null : (Function)type.getFeature(orderID);
+		final String orderAscendingID = getParameter(parameterMap, ORDER_ASCENDING);
+		final String orderDescendingID = getParameter(parameterMap, ORDER_DESCENDING);
+		final boolean orderAscending = orderAscendingID!=null;
+		final String orderID = orderAscending ? orderAscendingID : orderDescendingID;
+		final Function orderBy = (orderID==null) ? null : (Function)type.getFeature(orderID);
 
 		final String startString = getParameter(parameterMap, START);
 		final String countString = getParameter(parameterMap, COUNT);
 		final int start = (startString==null) ?  0 : Integer.parseInt(startString);
 		final int count = (countString==null) ? 10 : Integer.parseInt(countString);
 
-		return new TypeCop(language, type, orderAttribute, start, count);
+		return new TypeCop(language, type, orderBy, orderAscending, start, count);
 	}
 }

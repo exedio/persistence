@@ -11,7 +11,8 @@ abstract class CopernicaCop extends Cop
 	static final String LANGUAGE = "l";
 
 	static final String TYPE = "t";
-	static final String ORDER = "o";
+	static final String ORDER_ASCENDING = "oa";
+	static final String ORDER_DESCENDING = "od";
 	static final String START = "st";
 	static final String COUNT = "ct";
 	

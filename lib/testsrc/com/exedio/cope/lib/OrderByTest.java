@@ -1,5 +1,7 @@
 package com.exedio.cope.lib;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -31,34 +33,40 @@ public class OrderByTest extends DatabaseLibTest
 		assertOrder(list(item1, item3, item5, item2, item4), item.someNotNullDouble);
 
 		// range
-		assertOrder(list(item1, item5, item2, item4, item3), item.someNotNullInteger, 0, -1);
-		assertOrder(list(item1, item5), item.someNotNullInteger, 0, 2);
-		assertOrder(list(), item.someNotNullInteger, 0, 0);
-		assertOrder(list(item1, item5, item2, item4, item3), item.someNotNullInteger, 0, 5);
-		assertOrder(list(item1, item5, item2, item4, item3), item.someNotNullInteger, 0, 2000);
+		assertOrder(list(item1, item5, item2, item4, item3), list(item3, item4, item2, item5, item1), item.someNotNullInteger, 0, -1);
+		assertOrder(list(item1, item5), list(item3, item4), item.someNotNullInteger, 0, 2);
+		assertOrder(list(), list(), item.someNotNullInteger, 0, 0);
+		assertOrder(list(item1, item5, item2, item4, item3), list(item3, item4, item2, item5, item1), item.someNotNullInteger, 0, 5);
+		assertOrder(list(item1, item5, item2, item4, item3), list(item3, item4, item2, item5, item1), item.someNotNullInteger, 0, 2000);
 
-		assertOrder(list(item5, item2, item4, item3), item.someNotNullInteger, 1, -1);
-		assertOrder(list(item5, item2), item.someNotNullInteger, 1, 2);
-		assertOrder(list(), item.someNotNullInteger, 1, 0);
-		assertOrder(list(item5, item2, item4, item3), item.someNotNullInteger, 1, 4);
-		assertOrder(list(item5, item2, item4, item3), item.someNotNullInteger, 1, 2000);
+		assertOrder(list(item5, item2, item4, item3), list(item4, item2, item5, item1), item.someNotNullInteger, 1, -1);
+		assertOrder(list(item5, item2), list(item4, item2), item.someNotNullInteger, 1, 2);
+		assertOrder(list(), list(), item.someNotNullInteger, 1, 0);
+		assertOrder(list(item5, item2, item4, item3), list(item4, item2, item5, item1), item.someNotNullInteger, 1, 4);
+		assertOrder(list(item5, item2, item4, item3), list(item4, item2, item5, item1), item.someNotNullInteger, 1, 2000);
 
-		assertOrder(list(), item.someNotNullInteger, 5, -1);
-		assertOrder(list(), item.someNotNullInteger, 5, 2);
-		assertOrder(list(), item.someNotNullInteger, 5, 0);
+		assertOrder(list(), list(), item.someNotNullInteger, 5, -1);
+		assertOrder(list(), list(), item.someNotNullInteger, 5, 2);
+		assertOrder(list(), list(), item.someNotNullInteger, 5, 0);
 	}
 	
 	private void assertOrder(final List expectedOrder, final ObjectAttribute searchAttribute)
 	{
-		assertOrder(expectedOrder, searchAttribute, 0, -1);
+		final List expectedReverseOrder = new ArrayList(expectedOrder);
+		Collections.reverse(expectedReverseOrder);
+		assertOrder(expectedOrder, expectedReverseOrder, searchAttribute, 0, -1);
 	}
 	
-	private void assertOrder(final List expectedOrder, final ObjectAttribute searchAttribute, final int start, final int count)
+	private void assertOrder(final List expectedOrder, final List expectedReverseOrder,
+													final ObjectAttribute searchAttribute, final int start, final int count)
 	{
 		final Query query = new Query(item1.TYPE, null);
-		query.setOrderBy(searchAttribute);
+		query.setOrderBy(searchAttribute, true);
 		query.setRange(start, count);
 		assertEquals(expectedOrder, Search.search(query));
+
+		query.setOrderBy(searchAttribute, false);
+		assertEquals(expectedReverseOrder, Search.search(query));
 	}
 	
 	public void tearDown() throws Exception

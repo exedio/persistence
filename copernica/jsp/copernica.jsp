@@ -187,11 +187,21 @@ page import="java.util.Map"
 									{
 										if(feature == typeCop.orderBy)
 										{
-											%><br><b>o</b><%
+											if(typeCop.orderAscending)
+											{
+												%><br><b>a</b>
+												<a href="<%=typeCop.orderBy((Function)feature, false)%>">d</a><%
+											}
+											else
+											{
+												%><br><a href="<%=typeCop.orderBy((Function)feature, true)%>">a</a>
+												<b>d</b><%
+											}
 										}
 										else
 										{
-											%><br><a href="<%=typeCop.orderBy((Function)feature)%>">o</a><%
+											%><br><a href="<%=typeCop.orderBy((Function)feature, true)%>">a</a>
+											<a href="<%=typeCop.orderBy((Function)feature, false)%>">d</a><%
 										}
 									}
 									%></th><%

@@ -291,6 +291,8 @@ public abstract class Database
 		{
 			bf.append(" order by ").
 				append(query.orderBy);
+			if(!query.orderAscending)
+				bf.append(" desc");
 		}
 		
 		//System.out.println("searching "+bf.toString());

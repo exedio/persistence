@@ -10,6 +10,7 @@ public class Query
 	final TreeSet fromTypes = new TreeSet(Type.COMPARATOR);
 	final Condition condition;
 	Function orderBy;
+	boolean orderAscending;
 	int start = 0;
 	int count = -1;
 	
@@ -36,9 +37,10 @@ public class Query
 		this.condition = condition;
 	}
 	
-	public void setOrderBy(final Function orderBy)
+	public void setOrderBy(final Function orderBy, final boolean ascending)
 	{
 		this.orderBy = orderBy;
+		this.orderAscending = ascending;
 	}
 
 	/**
