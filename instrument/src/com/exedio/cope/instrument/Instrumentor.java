@@ -213,7 +213,8 @@ public final class Instrumentor implements InjectionConsumer
 		}
 		output.write(')');
 		writeThrowsClause(setterExceptions);
-		output.write('{');
+		output.write(lineSeparator);
+		output.write("\t{");
 		output.write(lineSeparator);
 		output.write("\tsuper(1.0);");
 		output.write(lineSeparator);
@@ -252,7 +253,9 @@ public final class Instrumentor implements InjectionConsumer
 		output.write(persistentAttribute.getCamelCaseName());
 		output.write('(');
 		writeParameterDeclarationList(qualifiers);
-		output.write("){");
+		output.write(')');
+		output.write(lineSeparator);
+		output.write("\t{");
 		writeGetterBody(output, persistentAttribute);
 		output.write('}');
 		
@@ -277,9 +280,10 @@ public final class Instrumentor implements InjectionConsumer
 		output.write(type);
 		output.write(' ');
 		output.write(persistentAttribute.getName());
-		output.write(")");
+		output.write(')');
 		writeThrowsClause(persistentAttribute.getSetterExceptions());
-		output.write("{");
+		output.write(lineSeparator);
+		output.write("\t{");
 		writeSetterBody(output, persistentAttribute);
 		output.write('}');
 	}
