@@ -59,6 +59,10 @@ public class FirstSub extends Super
 		{
 			setAttribute(this.firstSubString,firstSubString);
 		}
+		catch(com.exedio.cope.lib.LengthViolationException e)
+		{
+			throw new com.exedio.cope.lib.SystemException(e);
+		}
 		catch(com.exedio.cope.lib.NotNullViolationException e)
 		{
 			throw new com.exedio.cope.lib.SystemException(e);

@@ -71,6 +71,10 @@ public class ItemWithDoubleUnique extends Item
 		{
 			setAttribute(this.string,string);
 		}
+		catch(com.exedio.cope.lib.LengthViolationException e)
+		{
+			throw new com.exedio.cope.lib.SystemException(e);
+		}
 		catch(com.exedio.cope.lib.ReadOnlyViolationException e)
 		{
 			throw new com.exedio.cope.lib.SystemException(e);
@@ -97,6 +101,10 @@ public class ItemWithDoubleUnique extends Item
 		try
 		{
 			setAttribute(this.integer,new Integer(integer));
+		}
+		catch(com.exedio.cope.lib.LengthViolationException e)
+		{
+			throw new com.exedio.cope.lib.SystemException(e);
 		}
 		catch(com.exedio.cope.lib.NotNullViolationException e)
 		{

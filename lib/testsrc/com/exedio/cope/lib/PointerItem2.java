@@ -59,6 +59,10 @@ public class PointerItem2 extends Item
 		{
 			setAttribute(this.code,code);
 		}
+		catch(com.exedio.cope.lib.LengthViolationException e)
+		{
+			throw new com.exedio.cope.lib.SystemException(e);
+		}
 		catch(com.exedio.cope.lib.ReadOnlyViolationException e)
 		{
 			throw new com.exedio.cope.lib.SystemException(e);

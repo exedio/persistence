@@ -66,6 +66,10 @@ public class ItemWithSingleUniqueNotNull extends Item
 		{
 			setAttribute(this.uniqueNotNullString,uniqueNotNullString);
 		}
+		catch(com.exedio.cope.lib.LengthViolationException e)
+		{
+			throw new com.exedio.cope.lib.SystemException(e);
+		}
 		catch(com.exedio.cope.lib.ReadOnlyViolationException e)
 		{
 			throw new com.exedio.cope.lib.SystemException(e);

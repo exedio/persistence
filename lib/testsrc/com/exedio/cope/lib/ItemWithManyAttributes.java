@@ -171,6 +171,10 @@ public class ItemWithManyAttributes extends Item
 		{
 			setAttribute(this.someString,someString);
 		}
+		catch(com.exedio.cope.lib.LengthViolationException e)
+		{
+			throw new com.exedio.cope.lib.SystemException(e);
+		}
 		catch(com.exedio.cope.lib.NotNullViolationException e)
 		{
 			throw new com.exedio.cope.lib.SystemException(e);
@@ -215,6 +219,10 @@ public class ItemWithManyAttributes extends Item
 		{
 			setAttribute(this.someNotNullString,someNotNullString);
 		}
+		catch(com.exedio.cope.lib.LengthViolationException e)
+		{
+			throw new com.exedio.cope.lib.SystemException(e);
+		}
 		catch(com.exedio.cope.lib.ReadOnlyViolationException e)
 		{
 			throw new com.exedio.cope.lib.SystemException(e);
@@ -243,6 +251,10 @@ public class ItemWithManyAttributes extends Item
 		try
 		{
 			setAttribute(this.someInteger,someInteger);
+		}
+		catch(com.exedio.cope.lib.LengthViolationException e)
+		{
+			throw new com.exedio.cope.lib.SystemException(e);
 		}
 		catch(com.exedio.cope.lib.NotNullViolationException e)
 		{
@@ -277,6 +289,10 @@ public class ItemWithManyAttributes extends Item
 		{
 			setAttribute(this.someNotNullInteger,new Integer(someNotNullInteger));
 		}
+		catch(com.exedio.cope.lib.LengthViolationException e)
+		{
+			throw new com.exedio.cope.lib.SystemException(e);
+		}
 		catch(com.exedio.cope.lib.NotNullViolationException e)
 		{
 			throw new com.exedio.cope.lib.SystemException(e);
@@ -309,6 +325,10 @@ public class ItemWithManyAttributes extends Item
 		try
 		{
 			setAttribute(this.someDouble,someDouble);
+		}
+		catch(com.exedio.cope.lib.LengthViolationException e)
+		{
+			throw new com.exedio.cope.lib.SystemException(e);
 		}
 		catch(com.exedio.cope.lib.NotNullViolationException e)
 		{
@@ -343,6 +363,10 @@ public class ItemWithManyAttributes extends Item
 		{
 			setAttribute(this.someNotNullDouble,new Double(someNotNullDouble));
 		}
+		catch(com.exedio.cope.lib.LengthViolationException e)
+		{
+			throw new com.exedio.cope.lib.SystemException(e);
+		}
 		catch(com.exedio.cope.lib.NotNullViolationException e)
 		{
 			throw new com.exedio.cope.lib.SystemException(e);
@@ -375,6 +399,10 @@ public class ItemWithManyAttributes extends Item
 		try
 		{
 			setAttribute(this.someBoolean,someBoolean);
+		}
+		catch(com.exedio.cope.lib.LengthViolationException e)
+		{
+			throw new com.exedio.cope.lib.SystemException(e);
 		}
 		catch(com.exedio.cope.lib.NotNullViolationException e)
 		{
@@ -409,6 +437,10 @@ public class ItemWithManyAttributes extends Item
 		{
 			setAttribute(this.someNotNullBoolean,(someNotNullBoolean?Boolean.TRUE:Boolean.FALSE));
 		}
+		catch(com.exedio.cope.lib.LengthViolationException e)
+		{
+			throw new com.exedio.cope.lib.SystemException(e);
+		}
 		catch(com.exedio.cope.lib.NotNullViolationException e)
 		{
 			throw new com.exedio.cope.lib.SystemException(e);
@@ -441,6 +473,10 @@ public class ItemWithManyAttributes extends Item
 		try
 		{
 			setAttribute(this.someItem,someItem);
+		}
+		catch(com.exedio.cope.lib.LengthViolationException e)
+		{
+			throw new com.exedio.cope.lib.SystemException(e);
 		}
 		catch(com.exedio.cope.lib.NotNullViolationException e)
 		{
@@ -477,6 +513,10 @@ public class ItemWithManyAttributes extends Item
 		{
 			setAttribute(this.someNotNullItem,someNotNullItem);
 		}
+		catch(com.exedio.cope.lib.LengthViolationException e)
+		{
+			throw new com.exedio.cope.lib.SystemException(e);
+		}
 		catch(com.exedio.cope.lib.ReadOnlyViolationException e)
 		{
 			throw new com.exedio.cope.lib.SystemException(e);
@@ -505,6 +545,10 @@ public class ItemWithManyAttributes extends Item
 		try
 		{
 			setAttribute(this.someEnumeration,someEnumeration);
+		}
+		catch(com.exedio.cope.lib.LengthViolationException e)
+		{
+			throw new com.exedio.cope.lib.SystemException(e);
 		}
 		catch(com.exedio.cope.lib.NotNullViolationException e)
 		{
@@ -540,6 +584,10 @@ public class ItemWithManyAttributes extends Item
 		try
 		{
 			setAttribute(this.someNotNullEnumeration,someNotNullEnumeration);
+		}
+		catch(com.exedio.cope.lib.LengthViolationException e)
+		{
+			throw new com.exedio.cope.lib.SystemException(e);
 		}
 		catch(com.exedio.cope.lib.ReadOnlyViolationException e)
 		{
@@ -630,6 +678,10 @@ public class ItemWithManyAttributes extends Item
 		try
 		{
 			setAttribute(this.someQualifiedString,new Object[]{itemWithoutAttributes},someQualifiedString);
+		}
+		catch(com.exedio.cope.lib.LengthViolationException e)
+		{
+			throw new com.exedio.cope.lib.SystemException(e);
 		}
 		catch(com.exedio.cope.lib.UniqueViolationException e)
 		{

@@ -65,6 +65,10 @@ public abstract class Super extends Item
 		{
 			setAttribute(this.superInt,new Integer(superInt));
 		}
+		catch(com.exedio.cope.lib.LengthViolationException e)
+		{
+			throw new com.exedio.cope.lib.SystemException(e);
+		}
 		catch(com.exedio.cope.lib.NotNullViolationException e)
 		{
 			throw new com.exedio.cope.lib.SystemException(e);

@@ -10,6 +10,7 @@ import java.util.TreeSet;
 
 import com.exedio.cope.lib.Attribute;
 import com.exedio.cope.lib.Item;
+import com.exedio.cope.lib.LengthViolationException;
 import com.exedio.cope.lib.NotNullViolationException;
 import com.exedio.cope.lib.ReadOnlyViolationException;
 import com.exedio.cope.lib.SystemException;
@@ -32,6 +33,7 @@ public abstract class PersistentAttribute
 	private final String persistentType;
 	public final boolean readOnly;
 	public final boolean notNull;
+	public final boolean lengthConstrained;
 	public final boolean mapped;
 	public final List qualifiers;
 
@@ -52,6 +54,23 @@ public abstract class PersistentAttribute
 
 		this.readOnly = option.readOnly;
 		this.notNull = option.notNull;
+		
+		if(initializerArguments.size()>1)
+		{
+			final String secondArgument = (String)initializerArguments.get(1);
+			boolean lengthConstrained = true;
+			try
+			{
+				Integer.parseInt(secondArgument);
+			}
+			catch(NumberFormatException e)
+			{
+				lengthConstrained = false;
+			}
+			this.lengthConstrained = lengthConstrained;
+		}
+		else
+			this.lengthConstrained = false;
 
 		this.mapped = mapped;
 		this.qualifiers = (qualifiers!=null) ? Collections.unmodifiableList(qualifiers) : null;
@@ -171,6 +190,9 @@ public abstract class PersistentAttribute
 			modifyableSetterExceptions.add(ReadOnlyViolationException.class);
 		if(notNull && !isBoxed())
 			modifyableSetterExceptions.add(NotNullViolationException.class);
+		if(lengthConstrained)
+			modifyableSetterExceptions.add(LengthViolationException.class);
+		
 
 		this.setterExceptions = Collections.unmodifiableSortedSet(modifyableSetterExceptions);
 		return this.setterExceptions;
@@ -199,6 +221,7 @@ public abstract class PersistentAttribute
 			result.add(NotNullViolationException.class);
 			result.add(ReadOnlyViolationException.class);
 		}
+		result.add(LengthViolationException.class);
 		result.removeAll(getSetterExceptions());
 		
 		this.exceptionsToCatchInSetter = Collections.unmodifiableSortedSet(result);

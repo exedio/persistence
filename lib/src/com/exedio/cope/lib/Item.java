@@ -120,16 +120,24 @@ public abstract class Item extends Search
 		final Row row = new Row(this, false);
 		//System.out.println("create item "+type+" "+pk);
 
-		for(int i = 0; i<initialAttributeValues.length; i++)
+		try
 		{
-			final AttributeValue av = initialAttributeValues[i];
-			if(av.attribute.isNotNull() && av.value == null)
+			for(int i = 0; i<initialAttributeValues.length; i++)
 			{
-				initialNotNullViolationException = new NotNullViolationException(this, av.attribute);
-				return;
+				final AttributeValue av = initialAttributeValues[i];
+				if(av.attribute.isNotNull() && av.value == null)
+				{
+					initialNotNullViolationException = new NotNullViolationException(this, av.attribute);
+					return;
+				}
+				av.attribute.checkValue(av.value, null);
 			}
 		}
-		initialNotNullViolationException = null;
+		catch(LengthViolationException e)
+		{
+			initialLengthViolationException = e;
+			return;
+		}
 
 		row.put(initialAttributeValues);
 		try
@@ -163,7 +171,6 @@ public abstract class Item extends Search
 		this.type = Type.getType(getClass().getName());
 		this.pk = pk;
 		rowWhenActive = null; // make passive
-		initialNotNullViolationException = null;
 		//System.out.println("reactivate item:"+type+" "+pk);
 
 		if(type==null)
@@ -174,7 +181,7 @@ public abstract class Item extends Search
 			throw new RuntimeException();
 	}
 	
-	private final NotNullViolationException initialNotNullViolationException;
+	private NotNullViolationException initialNotNullViolationException = null;
 
 	/**
 	 * Throws a {@link NotNullViolationException}, if a not-null violation occured in the constructor.
@@ -189,7 +196,21 @@ public abstract class Item extends Search
 			throw initialNotNullViolationException;
 	}
 	
-	private UniqueViolationException initialUniqueViolationException;
+	private LengthViolationException initialLengthViolationException = null;
+
+	/**
+	 * Throws a {@link LengthViolationException}, if a length violation occured in the constructor.
+	 * @throws LengthViolationException
+	 *         if one of the values in <code>initialAttributeValues</code>
+	 *         violated the length constraint of it's attribute.
+	 */
+	protected final void throwInitialLengthViolationException() throws LengthViolationException
+	{
+		if(initialLengthViolationException!=null)
+			throw initialLengthViolationException;
+	}
+	
+	private UniqueViolationException initialUniqueViolationException = null;
 	
 	/**
 	 * Throws a {@link UniqueViolationException}, if a unique violation occured in the constructor.
@@ -232,6 +253,7 @@ public abstract class Item extends Search
 		throws
 			UniqueViolationException,
 			NotNullViolationException,
+			LengthViolationException,
 			ReadOnlyViolationException,
 			ClassCastException
 	{
@@ -239,6 +261,7 @@ public abstract class Item extends Search
 			throw new ReadOnlyViolationException(this, attribute);
 		if(attribute.isNotNull() && value == null)
 			throw new NotNullViolationException(this, attribute);
+		attribute.checkValue(value, this);
 
 		final Row row = getRow();
 		final Object previousValue = row.get(attribute);
@@ -260,9 +283,12 @@ public abstract class Item extends Search
 	 */
 	public final void setAttribute(final Attribute attribute, final Object[] qualifiers, final Object value)
 		throws
+			LengthViolationException,
 			UniqueViolationException,
 			ClassCastException
 	{
+		attribute.checkValue(value, this);
+
 		final Row row = getRow();
 		final Object previousValue = row.get(attribute);
 		row.put(attribute, value);

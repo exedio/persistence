@@ -146,6 +146,12 @@ public abstract class Attribute
 	abstract Object cacheToSurface(Object cache);
 	abstract Object surfaceToCache(Object surface);
 	
+	void checkValue(final Object value, final Item item)
+		throws
+			LengthViolationException
+	{
+	}
+
 	public static class Option
 	{
 		public final boolean readOnly;

@@ -20,6 +20,7 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 import com.exedio.cope.lib.AttributeValue;
+import com.exedio.cope.lib.LengthViolationException;
 import com.exedio.cope.lib.NotNullViolationException;
 import com.exedio.cope.lib.ReadOnlyViolationException;
 import com.exedio.cope.lib.SystemException;
@@ -499,6 +500,7 @@ final class Generator
 			
 			final SortedSet exceptionsToCatch = new TreeSet(mediaAttribute.getExceptionsToCatchInSetter());
 			exceptionsToCatch.remove(ReadOnlyViolationException.class);
+			exceptionsToCatch.remove(LengthViolationException.class);
 			exceptionsToCatch.remove(UniqueViolationException.class);
 			if(!exceptionsToCatch.isEmpty())
 			{
