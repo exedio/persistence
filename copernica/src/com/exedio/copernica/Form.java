@@ -20,9 +20,12 @@ abstract class Form
 	private final HttpServletRequest request;
 	private final HashMap multipartContentParameters;
 
-	boolean toSave = false;
 	private final HashMap fieldMap = new HashMap();
 	private final ArrayList fieldList = new ArrayList();
+	private final ArrayList hiddenFieldList = new ArrayList();
+	
+	private final HashMap sectionMap = new HashMap();
+	private final ArrayList sectionList = new ArrayList();
 	
 	Form(final HttpServletRequest request)
 	{
@@ -92,22 +95,22 @@ abstract class Form
 		public final String value;
 		public String error;
 		
-		Field(final Object key, final String name, final String value)
+		Field(final Object key, final String name, final String value, final boolean hidden)
 		{
 			this.key = key;
 			this.name = name;
 			this.value = value;
 			fieldMap.put(key, this);
-			fieldList.add(this);
+			(hidden?hiddenFieldList:fieldList).add(this);
 		}
 		
-		Field(final Object key, final String value)
+		Field(final Object key, final String value, final boolean hidden)
 		{
 			this.key = key;
 			this.name = null;
 			this.value = value;
 			fieldMap.put(key, this);
-			fieldList.add(this);
+			(hidden?hiddenFieldList:fieldList).add(this);
 		}
 		
 		final boolean isReadOnly()
@@ -136,6 +139,30 @@ abstract class Form
 	final List getFields()
 	{
 		return Collections.unmodifiableList(fieldList);
+	}
+	
+	final List getHiddenFields()
+	{
+		return Collections.unmodifiableList(hiddenFieldList);
+	}
+	
+	final class Section
+	{
+		final String id;
+		final String name;
+		
+		Section(final String id, final String name)
+		{
+			this.id = id;
+			this.name = name;
+			sectionMap.put(id, this);
+			sectionList.add(this);
+		}
+	}
+	
+	final List getSections()
+	{
+		return Collections.unmodifiableList(sectionList);
 	}
 	
 }

@@ -1,5 +1,7 @@
 package com.exedio.copernica;
 
+import java.util.Arrays;
+
 
 public class WebTest extends AbstractWebTest
 {
@@ -11,6 +13,7 @@ public class WebTest extends AbstractWebTest
 
 	String someString;
 	String someNotNullString;
+	String section;
 	String someInteger;
 	String someNotNullInteger;
 	String someLong;
@@ -30,6 +33,7 @@ public class WebTest extends AbstractWebTest
 		super.setUp();
 		someString = "";
 		someNotNullString = "running100";
+		section = SECTION_NUMBERS;
 		someInteger = "";
 		someNotNullInteger = "107";
 		someLong = "";
@@ -45,29 +49,57 @@ public class WebTest extends AbstractWebTest
 		someNotNullItem = "EmptyItem.1";
 	}
 	
+	private static final String SECTION_NUMBERS = "numbers";
+	private static final String SECTION_MEDIA = "media";
+	private static final String SECTION_OTHER = "other";
+	
 	private void assertItemForm()
 	{
+		assertTrue(section, Arrays.asList(new String[]{null, "numbers", "media", "other"}).contains(section));
+
 		assertFormElementEquals("someString", someString);
 		assertFormElementEquals("someNotNullString", someNotNullString);
+
 		assertFormElementEquals("someInteger", someInteger);
 		assertFormElementEquals("someNotNullInteger", someNotNullInteger);
 		assertFormElementEquals("someLong", someLong);
 		assertFormElementEquals("someNotNullLong", someNotNullLong);
 		assertFormElementEquals("someDouble", someDouble);
 		assertFormElementEquals("someNotNullDouble", someNotNullDouble);
-		assertFormElementEquals("someDate", someDate);
-		assertFormElementEquals("someBoolean", someBoolean);
-		if(someNotNullBoolean)
-			assertCheckboxSelected("someNotNullBoolean");
-		else
-			assertCheckboxNotSelected("someNotNullBoolean");
+
 		assertFormElementEquals("someEnumeration", someEnumeration);
 		assertFormElementEquals("someNotNullEnumeration", someNotNullEnumeration);
+	
+		assertFormElementEquals("someDate", someDate);
+		assertFormElementEquals("someBoolean", someBoolean);
+		if(section.equals(SECTION_OTHER))
+		{
+			if(someNotNullBoolean)
+				assertCheckboxSelected("someNotNullBoolean");
+			else
+				assertCheckboxNotSelected("someNotNullBoolean");
+		}
+		else
+			assertFormElementEquals("someNotNullBoolean", someNotNullBoolean?"on":"off");
 		assertFormElementEquals("someItem", someItem);
 		if(someItem.length()>0)
-			assertLinkPresentWithText(someItem);
+		{
+			if(section.equals(SECTION_OTHER))
+				assertLinkPresentWithText(someItem);
+			else
+				assertLinkNotPresentWithText(someItem);
+		}
 		assertFormElementEquals("someNotNullItem", someNotNullItem);
-		assertLinkPresentWithText(someNotNullItem);
+		if(section.equals(SECTION_OTHER))
+			assertLinkPresentWithText(someNotNullItem);
+		else
+			assertLinkNotPresentWithText(someNotNullItem);
+	}
+	
+	private void section(final String section)
+	{
+		this.section = section;
+		submit(section);
 	}
 
 	public void testItemForm()
@@ -107,71 +139,99 @@ public class WebTest extends AbstractWebTest
 		assertTitleEquals("AttributeItem.103");
 		assertItemForm();
 
+		section(SECTION_NUMBERS);
+		assertItemForm();
 		setFormElement("someInteger", "99999"); someInteger = "99999";
 		submit(ItemForm.SAVE_BUTTON);
 		assertTitleEquals("AttributeItem.103");
 		assertItemForm();
 
+		section(SECTION_NUMBERS);
+		assertItemForm();
 		setFormElement("someNotNullInteger", "1077"); someNotNullInteger = "1077";
 		submit(ItemForm.SAVE_BUTTON);
 		assertTitleEquals("AttributeItem.103");
 		assertItemForm();
 
+		section(SECTION_NUMBERS);
+		assertItemForm();
 		setFormElement("someLong", "9999999999999"); someLong = "9999999999999";
 		submit(ItemForm.SAVE_BUTTON);
 		assertTitleEquals("AttributeItem.103");
 		assertItemForm();
 
+		section(SECTION_NUMBERS);
+		assertItemForm();
 		setFormElement("someNotNullLong", "-9999999999999"); someNotNullLong = "-9999999999999";
 		submit(ItemForm.SAVE_BUTTON);
 		assertTitleEquals("AttributeItem.103");
 		assertItemForm();
 
+		section(SECTION_NUMBERS);
+		assertItemForm();
 		setFormElement("someDouble", ""); someDouble = "";
 		submit(ItemForm.SAVE_BUTTON);
 		assertTitleEquals("AttributeItem.103");
 		assertItemForm();
 
+		section(SECTION_NUMBERS);
+		assertItemForm();
 		setFormElement("someNotNullDouble", "-75.9912"); someNotNullDouble = "-75.9912";
 		submit(ItemForm.SAVE_BUTTON);
 		assertTitleEquals("AttributeItem.103");
 		assertItemForm();
 
+		section(SECTION_OTHER);
+		assertItemForm();
 		setFormElement("someDate", "17.07.2005 09:44:59.215"); someDate = "17.07.2005 09:44:59.215";
 		submit(ItemForm.SAVE_BUTTON);
 		assertTitleEquals("AttributeItem.103");
 		assertItemForm();
 
+		section(SECTION_OTHER);
+		assertItemForm();
 		setFormElement("someBoolean", "on"); someBoolean = "on";
 		submit(ItemForm.SAVE_BUTTON);
 		assertTitleEquals("AttributeItem.103");
 		assertItemForm();
 
+		section(SECTION_OTHER);
+		assertItemForm();
 		setFormElement("someBoolean", "off"); someBoolean = "off";
 		submit(ItemForm.SAVE_BUTTON);
 		assertTitleEquals("AttributeItem.103");
 		assertItemForm();
 
+		section(SECTION_OTHER);
+		assertItemForm();
 		uncheckCheckbox("someNotNullBoolean"); someNotNullBoolean = false;
 		submit(ItemForm.SAVE_BUTTON);
 		assertTitleEquals("AttributeItem.103");
 		assertItemForm();
 
+		section(SECTION_MEDIA);
+		assertItemForm();
 		setFormElement("someEnumeration", "enumValue2"); someEnumeration = "enumValue2";
 		submit(ItemForm.SAVE_BUTTON);
 		assertTitleEquals("AttributeItem.103");
 		assertItemForm();
 
+		section(SECTION_MEDIA);
+		assertItemForm();
 		setFormElement("someNotNullEnumeration", "enumValue1"); someNotNullEnumeration = "enumValue1";
 		submit(ItemForm.SAVE_BUTTON);
 		assertTitleEquals("AttributeItem.103");
 		assertItemForm();
 
+		section(SECTION_OTHER);
+		assertItemForm();
 		setFormElement("someItem", "EmptyItem.1"); someItem = "EmptyItem.1";
 		submit(ItemForm.SAVE_BUTTON);
 		assertTitleEquals("AttributeItem.103");
 		assertItemForm();
 
+		section(SECTION_OTHER);
+		assertItemForm();
 		setFormElement("someNotNullItem", "EmptyItem.2"); someNotNullItem = "EmptyItem.2";
 		submit(ItemForm.SAVE_BUTTON);
 		assertTitleEquals("AttributeItem.103");
@@ -198,8 +258,15 @@ public class WebTest extends AbstractWebTest
 
 		clickLinkWithText("AttributeItem.103");
 		assertTitleEquals("AttributeItem.103");
+
+		section=SECTION_NUMBERS;
+		assertItemForm();
+		section(SECTION_MEDIA);
+		assertItemForm();
+		section(SECTION_OTHER);
 		assertItemForm();
 
+		section(SECTION_NUMBERS);
 		setFormElement("someString", ""); someString = "";
 		setFormElement("someNotNullString", "running100"); someNotNullString = "running100";
 		setFormElement("someInteger", ""); someInteger = "";
@@ -208,11 +275,21 @@ public class WebTest extends AbstractWebTest
 		setFormElement("someNotNullLong", "108"); someNotNullLong = "108";
 		setFormElement("someDouble", ""); someDouble = "";
 		setFormElement("someNotNullDouble", "102.4"); someNotNullDouble = "102.4";
-		setFormElement("someDate", "16.06.2004 08:43:58.214"); someDate = "16.06.2004 08:43:58.214";
-		setFormElement("someBoolean", "null"); someBoolean = "null";
-		setFormElement("someNotNullBoolean", "on"); someNotNullBoolean = true;
+		submit(ItemForm.SAVE_BUTTON);
+		assertTitleEquals("AttributeItem.103");
+		assertItemForm();
+
+		section(SECTION_MEDIA);
 		setFormElement("someEnumeration", "null"); someEnumeration = "null";
 		setFormElement("someNotNullEnumeration", "enumValue2"); someNotNullEnumeration = "enumValue2";
+		submit(ItemForm.SAVE_BUTTON);
+		assertTitleEquals("AttributeItem.103");
+		assertItemForm();
+
+		section(SECTION_OTHER);
+		setFormElement("someDate", "16.06.2004 08:43:58.214"); someDate = "16.06.2004 08:43:58.214";
+		setFormElement("someBoolean", "null"); someBoolean = "null";
+		checkCheckbox("someNotNullBoolean"); someNotNullBoolean = true;
 		setFormElement("someItem", ""); someItem = "";
 		setFormElement("someNotNullItem", "EmptyItem.1"); someNotNullItem = "EmptyItem.1";
 		submit(ItemForm.SAVE_BUTTON);

@@ -4,9 +4,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -40,25 +43,89 @@ final class ItemForm extends Form
 	static final String VALUE_OFF = "off";
 	static final String SAVE_BUTTON = "SAVE";
 	static final String CHECK_BUTTON = "CHECK";
+	static final String SECTION = "section";
 	
 	static final String DATE_FORMAT_FULL = "dd.MM.yyyy HH:mm:ss.SSS";
 
 	final Item item;
 	final Type type;
-	final boolean hasFiles;
+	/*final TODO*/ boolean hasFiles;
+	boolean toSave = false;
+	final CopernicaSection currentSection;
 	
-	ItemForm(final Item item, final HttpServletRequest request)
+	ItemForm(final ItemCop cop, final HttpServletRequest request)
 	{
 		super(request);
 		
-		final boolean save = getParameter(SAVE_BUTTON)!=null;
-		final boolean post = save || getParameter(CHECK_BUTTON)!=null;
-		this.item = item;
+		this.item = cop.item;
 		this.type = item.getType();
+		final CopernicaProvider provider = cop.provider;
+		final List displayedAttributes;
+		final List hiddenAttributes;
+		final Collection sections = provider.getSections(type);
 		
+		boolean sectionButton = false;
+		if(sections!=null)
+		{
+			{
+				CopernicaSection buttonSection = null;
+				CopernicaSection previousSection = null;
+				CopernicaSection firstSection = null;
+				final String previousSectionParam = getParameter(SECTION);
+				
+				for(Iterator i = sections.iterator(); i.hasNext(); )
+				{
+					final CopernicaSection section = (CopernicaSection)i.next();
+					if(firstSection==null)
+						firstSection = section;
+					
+					final String id = section.getCopernicaID();
+					if(getParameter(id)!=null)
+					{
+						buttonSection = section;
+						sectionButton = true;
+						break;
+					}
+
+					if(id.equals(previousSectionParam))
+						previousSection = section;
+				}
+				if(buttonSection!=null)
+					currentSection = buttonSection;
+				else if(previousSection!=null)
+					currentSection = previousSection;
+				else
+					currentSection = firstSection;
+			}
+
+			displayedAttributes = new ArrayList(provider.getMainAttributes(type));
+			hiddenAttributes = new ArrayList();
+			for(Iterator i = sections.iterator(); i.hasNext(); )
+			{
+				final CopernicaSection section = (CopernicaSection)i.next();
+				new Section(section.getCopernicaID(), section.getCopernicaName(cop.language));
+				final Collection sectionAttributes = section.getCopernicaAttributes();
+				if(section.equals(currentSection))
+					displayedAttributes.addAll(sectionAttributes);
+				else
+					hiddenAttributes.addAll(sectionAttributes);
+			}
+		}
+		else
+		{
+			currentSection = null;
+			displayedAttributes = type.getAttributes();
+			hiddenAttributes = Collections.EMPTY_LIST;
+		}
+		final ArrayList attributes = new ArrayList(displayedAttributes.size()+hiddenAttributes.size());
+		attributes.addAll(displayedAttributes);
+		attributes.addAll(hiddenAttributes);
+
+		final boolean save = getParameter(SAVE_BUTTON)!=null;
+		final boolean post = save || sectionButton || getParameter(CHECK_BUTTON)!=null;
 		boolean hasFilesTemp = false;
 
-		for(Iterator j = type.getAttributes().iterator(); j.hasNext(); )
+		for(Iterator j = attributes.iterator(); j.hasNext(); )
 		{
 			final Attribute anyAttribute = (Attribute)j.next();
 			final Field field;
@@ -69,21 +136,32 @@ final class ItemForm extends Form
 				final String value;
 
 				if(post)
-					value = getParameter(name);
+				{
+					final String postValue = getParameter(name);
+					if(postValue==null)
+					{
+						if(attribute instanceof BooleanAttribute && attribute.isNotNull())
+							value = VALUE_OFF;
+						else
+							throw new NullPointerException(name);
+					}
+					else
+						value = postValue;
+				}
 				else
 				{
 					final Object itemValue = item.getAttribute(attribute);
 					value = valueToString(attribute, itemValue);
 				}
 				if(!attribute.isReadOnly())
-					field = new Field(attribute, name, value);
+					field = new Field(attribute, name, value, hiddenAttributes.contains(attribute));
 				else
-					field = new Field(attribute, value);
+					field = new Field(attribute, value, hiddenAttributes.contains(attribute));
 			}
 			else if(anyAttribute instanceof MediaAttribute)
 			{
 				final MediaAttribute attribute = (MediaAttribute)anyAttribute;
-				field = new Field(attribute, "");
+				field = new Field(attribute, "", hiddenAttributes.contains(attribute));
 				if(!attribute.isReadOnly())
 				{
 					toSave = true;
@@ -113,7 +191,7 @@ final class ItemForm extends Form
 						final ObjectAttribute attribute = (ObjectAttribute)anyAttribute;
 						final Object qualifiedValue = value.getAttribute(attribute);
 						if(qualifiedValue!=null)
-							new Field(attribute, valueToString(attribute, qualifiedValue));
+							new Field(attribute, valueToString(attribute, qualifiedValue), false);
 					}
 				}
 			}

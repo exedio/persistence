@@ -6,7 +6,7 @@
 			%><%
 				final Item item = itemCop.item;
 				final Type type = item.getType();
-				final ItemForm form = new ItemForm(item, request);
+				final ItemForm form = new ItemForm(itemCop, request);
 				
 			%>
 			
@@ -35,26 +35,20 @@
 						</td>
 					</tr>
 				<%
-				final Collection mainAttributes;
-				final Collection sections = provider.getSections(type);
+				final Collection sections = form.getSections();
 				if(sections!=null)
 				{
 					%>
 					<tr><td><%
 					for(Iterator i = sections.iterator(); i.hasNext(); )
 					{
-						final CopernicaSection section = (CopernicaSection)i.next();
-						final String id = section.getCopernicaID();
-						final String name = section.getCopernicaName(language);
+						final Form.Section section = (Form.Section)i.next();
+						final String id = section.id;
+						final String name = section.name;
 						%><input type="submit" name="<%=id%>" value="<%=name%>" /><%
 					}
 					%>
 					</td></tr><%
-					mainAttributes = provider.getMainAttributes(type);
-				}
-				else
-				{
-					mainAttributes = null;
 				}
 				%></table>
 				<table border="1"><%
@@ -207,5 +201,24 @@
 				}
 				%>
 				</table><%
+				for(Iterator i = form.getHiddenFields().iterator(); i.hasNext(); )
+				{
+					final Form.Field field = (Form.Field)i.next();
+					final Attribute attribute = (Attribute)field.key;
+					if(attribute instanceof ObjectAttribute)
+					{
+						final ObjectAttribute objectAttribute = (ObjectAttribute)attribute;
+						final String value = field.getValue();
+						%>
+				<input type="hidden" name="<%=field.getName()%>" value="<%=value%>" /><%
+					}
+				}
+				final CopernicaSection currentSection = form.currentSection;
+				if(currentSection!=null)
+				{
+				%>
+				<input type="hidden" name="<%=ItemForm.SECTION%>" value="<%=
+					currentSection.getCopernicaID()%>" /><%
+				}
 			%>
 			</form>
