@@ -15,7 +15,7 @@ import com.exedio.cope.lib.Model;
 import com.exedio.cope.lib.NestingRuntimeException;
 import com.exedio.copernica.TransientCopernicaProvider;
 
-public class AdminServlet extends HttpServlet
+public final class AdminServlet extends HttpServlet
 {
 
 	Model model = null;
