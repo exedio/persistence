@@ -4,6 +4,7 @@ package com.exedio.cope.lib;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 import java.util.Iterator;
 
 import com.exedio.cope.lib.search.AndCondition;
@@ -156,6 +157,11 @@ public abstract class Search
 		return new EqualCondition(attribute, new Double(value));
 	}
 	
+	public static final EqualCondition equal(final DateAttribute attribute, final Date value)
+	{
+		return new EqualCondition(attribute, value);
+	}
+	
 	public static final EqualCondition equal(final ItemAttribute attribute, final Item value)
 	{
 		return new EqualCondition(attribute, value);
@@ -196,6 +202,11 @@ public abstract class Search
 		return new NotEqualCondition(attribute, new Double(value));
 	}
 	
+	public static final NotEqualCondition notEqual(final DateAttribute attribute, final Date value)
+	{
+		return new NotEqualCondition(attribute, value);
+	}
+	
 	public static final NotEqualCondition notEqual(final ItemAttribute attribute, final Item value)
 	{
 		return new NotEqualCondition(attribute, value);
@@ -217,6 +228,11 @@ public abstract class Search
 	}
 	
 	public static final LessCondition less(final DoubleAttribute attribute, final double value)
+	{
+		return new LessCondition(attribute, value);
+	}
+	
+	public static final LessCondition less(final DateAttribute attribute, final Date value)
 	{
 		return new LessCondition(attribute, value);
 	}
@@ -246,6 +262,11 @@ public abstract class Search
 		return new LessEqualCondition(attribute, value);
 	}
 	
+	public static final LessEqualCondition lessOrEqual(final DateAttribute attribute, final Date value)
+	{
+		return new LessEqualCondition(attribute, value);
+	}
+	
 	public static final LessEqualCondition lessOrEqual(final EnumerationAttribute attribute, final EnumerationValue value)
 	{
 		return new LessEqualCondition(attribute, value);
@@ -271,6 +292,11 @@ public abstract class Search
 		return new GreaterCondition(attribute, value);
 	}
 	
+	public static final GreaterCondition greater(final DateAttribute attribute, final Date value)
+	{
+		return new GreaterCondition(attribute, value);
+	}
+	
 	public static final GreaterCondition greater(final EnumerationAttribute attribute, final EnumerationValue value)
 	{
 		return new GreaterCondition(attribute, value);
@@ -292,6 +318,11 @@ public abstract class Search
 	}
 	
 	public static final GreaterEqualCondition greaterOrEqual(final DoubleAttribute attribute, final double value)
+	{
+		return new GreaterEqualCondition(attribute, value);
+	}
+	
+	public static final GreaterEqualCondition greaterOrEqual(final DateAttribute attribute, final Date value)
 	{
 		return new GreaterEqualCondition(attribute, value);
 	}

@@ -1,8 +1,10 @@
 
 package com.exedio.cope.lib.search;
 
+import java.util.Date;
 import java.util.TreeSet;
 
+import com.exedio.cope.lib.DateAttribute;
 import com.exedio.cope.lib.DoubleAttribute;
 import com.exedio.cope.lib.Function;
 import com.exedio.cope.lib.IntegerFunction;
@@ -43,6 +45,12 @@ public final class NotEqualCondition extends Condition
 	}
 	
 	public NotEqualCondition(final DoubleAttribute attribute, final Double value)
+	{
+		this.function = attribute;
+		this.value = value;
+	}
+	
+	public NotEqualCondition(final DateAttribute attribute, final Date value)
 	{
 		this.function = attribute;
 		this.value = value;

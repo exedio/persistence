@@ -1,6 +1,9 @@
 
 package com.exedio.cope.lib.search;
 
+import java.util.Date;
+
+import com.exedio.cope.lib.DateAttribute;
 import com.exedio.cope.lib.DoubleAttribute;
 import com.exedio.cope.lib.EnumerationAttribute;
 import com.exedio.cope.lib.EnumerationValue;
@@ -30,6 +33,11 @@ public class LessEqualCondition extends LiteralCondition
 	public LessEqualCondition(final DoubleAttribute attribute, final double value)
 	{
 		super(OPERATOR, attribute, new Double(value));
+	}
+
+	public LessEqualCondition(final DateAttribute attribute, final Date value)
+	{
+		super(OPERATOR, attribute, value);
 	}
 
 	public LessEqualCondition(final EnumerationAttribute attribute, final EnumerationValue value)

@@ -1,8 +1,10 @@
 
 package com.exedio.cope.lib.search;
 
+import java.util.Date;
 import java.util.TreeSet;
 
+import com.exedio.cope.lib.DateAttribute;
 import com.exedio.cope.lib.DoubleAttribute;
 import com.exedio.cope.lib.EnumerationAttribute;
 import com.exedio.cope.lib.EnumerationValue;
@@ -48,6 +50,11 @@ public class LiteralCondition extends Condition
 	}
 	
 	LiteralCondition(final String operator, final DoubleAttribute attribute, final Double value)
+	{
+		this(operator, (ObjectAttribute)attribute, (Object)value);
+	}
+	
+	LiteralCondition(final String operator, final DateAttribute attribute, final Date value)
 	{
 		this(operator, (ObjectAttribute)attribute, (Object)value);
 	}

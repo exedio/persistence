@@ -1,10 +1,12 @@
 
 package com.exedio.cope.instrument;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
 import com.exedio.cope.lib.BooleanAttribute;
+import com.exedio.cope.lib.DateAttribute;
 import com.exedio.cope.lib.DoubleAttribute;
 import com.exedio.cope.lib.IntegerFunction;
 import com.exedio.cope.lib.LongAttribute;
@@ -90,6 +92,7 @@ public class PersistentNativeAttribute extends PersistentAttribute
 		fillNativeTypeMap(IntegerFunction.class, "Integer", "int", "new Integer(", ")", "(", ").intValue()");
 		fillNativeTypeMap(DoubleAttribute.class, "Double", "double", "new Double(", ")", "(", ").doubleValue()");
 		fillNativeTypeMap(StringFunction.class, "String", null, null, null, null, null);
+		fillNativeTypeMap(DateAttribute.class, Date.class.getName(), null, null, null, null, null);
 	}
 
 	public final String getBoxedType()

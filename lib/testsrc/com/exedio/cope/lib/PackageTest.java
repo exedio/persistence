@@ -28,6 +28,7 @@ public class PackageTest extends TestCase
 		suite.addTest(new TestSuite(AttributeLongTest.class));
 		suite.addTest(new TestSuite(AttributeDoubleTest.class));
 		suite.addTest(new TestSuite(AttributeBooleanTest.class));
+		suite.addTest(new TestSuite(AttributeDateTest.class));
 		suite.addTest(new TestSuite(AttributeItemTest.class));
 		suite.addTest(new TestSuite(AttributeEnumerationTest.class));
 		suite.addTest(new TestSuite(AttributeMediaTest.class));

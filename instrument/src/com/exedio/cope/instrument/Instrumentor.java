@@ -11,6 +11,7 @@ import java.util.List;
 
 import com.exedio.cope.lib.Attribute;
 import com.exedio.cope.lib.BooleanAttribute;
+import com.exedio.cope.lib.DateAttribute;
 import com.exedio.cope.lib.DoubleAttribute;
 import com.exedio.cope.lib.EnumerationAttribute;
 import com.exedio.cope.lib.Function;
@@ -134,6 +135,7 @@ public final class Instrumentor implements InjectionConsumer
 			LongAttribute.class.equals(typeClass) ||
 			DoubleAttribute.class.equals(typeClass) ||
 			BooleanAttribute.class.equals(typeClass) ||
+			DateAttribute.class.equals(typeClass) ||
 			StringFunction.class.isAssignableFrom(typeClass))
 		{
 			new PersistentNativeAttribute(
