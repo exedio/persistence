@@ -16,7 +16,9 @@ import java.util.List;
 
 import bak.pcj.map.IntKeyOpenHashMap;
 
+import com.exedio.cope.lib.search.AndCondition;
 import com.exedio.cope.lib.search.Condition;
+import com.exedio.cope.lib.search.EqualCondition;
 import com.exedio.cope.lib.util.ReactivationConstructorDummy;
 
 public final class Type
@@ -343,13 +345,28 @@ public final class Type
 		return Search.search(new Query(this, condition));
 	}
 	
-	/**
-	 * TODO: should throw a non-RuntimeException,
-	 * if there is more than one item found.
-	 * TODO: should have a unique constraint as parameter,
-	 * instead of the condition, then the previous todo is obsolete. 
-	 */
-	public final Item searchUnique(final Condition condition)
+	public final Item searchUnique(final ObjectAttribute attribute, final Object value)
+	{
+		// TODO: search nativly for unique constraints
+		return searchUnique(new EqualCondition(attribute, value));
+	}
+		
+	public final Item searchUnique(final UniqueConstraint constraint, final Object[] values)
+	{
+		// TODO: search nativly for unique constraints
+		final List attributes = constraint.getUniqueAttributes();
+		if(attributes.size()!=values.length)
+			throw new RuntimeException();
+
+		final Iterator attributeIterator = attributes.iterator();
+		final Condition[] conditions = new Condition[attributes.size()];
+		for(int j = 0; attributeIterator.hasNext(); j++)
+			conditions[j] = new EqualCondition((ObjectAttribute)attributeIterator.next(), values[j]);
+
+		return searchUnique(new AndCondition(conditions));
+	}
+		
+	private final Item searchUnique(final Condition condition)
 	{
 		final Iterator searchResult = search(condition).iterator();
 		if(searchResult.hasNext())

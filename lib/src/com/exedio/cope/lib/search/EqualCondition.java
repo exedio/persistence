@@ -27,6 +27,12 @@ public final class EqualCondition extends Condition
 		this.value = null;
 	}
 	
+	public EqualCondition(final ObjectAttribute function, final Object value)
+	{
+		this.function = function;
+		this.value = value;
+	}
+	
 	public EqualCondition(final StringFunction function, final String value)
 	{
 		this.function = function;

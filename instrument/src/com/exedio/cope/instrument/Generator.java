@@ -495,16 +495,6 @@ final class Generator
 		}
 	}
 	
-	private final void writeEquals(final PersistentAttribute persistentAttribute)
-	throws IOException
-	{
-		o.write("equal(");
-		o.write(persistentAttribute.getName());
-		o.write(",searched");
-		o.write(persistentAttribute.getCamelCaseName());
-		o.write(')');
-	}
-	
 	private void writeUniqueFinder(final PersistentUniqueConstraint constraint)
 	throws IOException
 	{
@@ -561,17 +551,37 @@ final class Generator
 		o.write(")TYPE.searchUnique(");
 
 		if(persistentAttributes.length==1)
-			writeEquals(persistentAttributes[0]);
+		{
+			o.write(persistentAttributes[0].getName());
+			o.write(',');
+			if(persistentAttributes[0].isBoxed())
+				o.write(persistentAttributes[0].getBoxingPrefix());
+			o.write("searched");
+			o.write(persistentAttributes[0].getCamelCaseName());
+			if(persistentAttributes[0].isBoxed())
+				o.write(persistentAttributes[0].getBoxingPostfix());
+		}
 		else
 		{
-			o.write("and(");
-			writeEquals(persistentAttributes[0]);
+			o.write(constraint.name);
+			o.write(",new Object[]{");
+			if(persistentAttributes[0].isBoxed())
+				o.write(persistentAttributes[0].getBoxingPrefix());
+			o.write("searched");
+			o.write(persistentAttributes[0].getCamelCaseName());
+			if(persistentAttributes[0].isBoxed())
+				o.write(persistentAttributes[0].getBoxingPostfix());
 			for(int i = 1; i<persistentAttributes.length; i++)
 			{
 				o.write(',');
-				writeEquals(persistentAttributes[i]);
+				if(persistentAttributes[i].isBoxed())
+					o.write(persistentAttributes[i].getBoxingPrefix());
+				o.write("searched");
+				o.write(persistentAttributes[i].getCamelCaseName());
+				if(persistentAttributes[i].isBoxed())
+					o.write(persistentAttributes[i].getBoxingPostfix());
 			}
-			o.write(')');
+			o.write('}');
 		}
 		
 		o.write(");");
