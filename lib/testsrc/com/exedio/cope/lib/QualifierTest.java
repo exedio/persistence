@@ -16,17 +16,9 @@ public class QualifierTest extends DatabaseLibTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		item = new QualifiedItem();
-		key1 = new EmptyItem();
-		key2 = new EmptyItem();
-	}
-	
-	public void tearDown() throws Exception
-	{
-		item.delete();
-		key2.delete();
-		key1.delete();
-		super.tearDown();
+		deleteOnTearDown(key1 = new EmptyItem());
+		deleteOnTearDown(key2 = new EmptyItem());
+		deleteOnTearDown(item = new QualifiedItem());
 	}
 	
 	public void testQualified()

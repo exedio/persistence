@@ -10,24 +10,13 @@ public class JoinTest extends DatabaseLibTest
 	PointerItem2 item2a;
 	PointerItem2 item2b;
 
-	protected void setUp() throws NotNullViolationException
+	protected void setUp() throws Exception
 	{
-		item2a = new PointerItem2("hallo");
-		item2b = new PointerItem2("bello");
-		item1a = new PointerItem("bello", item2a);
-		item1b = new PointerItem("collo", item2b);
-	}
-
-	protected void tearDown() throws IntegrityViolationException
-	{
-		if (item1a != null)
-			item1a.delete();
-		if (item1b != null)
-			item1b.delete();
-		if (item2a != null)
-			item2a.delete();
-		if (item2b != null)
-			item2b.delete();
+		super.setUp();
+		deleteOnTearDown(item2a = new PointerItem2("hallo"));
+		deleteOnTearDown(item2b = new PointerItem2("bello"));
+		deleteOnTearDown(item1a = new PointerItem("bello", item2a));
+		deleteOnTearDown(item1b = new PointerItem("collo", item2b));
 	}
 
 	public void testJoin()

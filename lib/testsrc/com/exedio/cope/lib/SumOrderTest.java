@@ -16,17 +16,9 @@ public class SumOrderTest extends DatabaseLibTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		item1 = new SumItem(1, 6, -1000);
-		item2 = new SumItem(2, 1, -1000);
-		item3 = new SumItem(6, 2, -1000);
-	}
-	
-	public void tearDown() throws Exception
-	{
-		item1.delete();
-		item2.delete();
-		item3.delete();
-		super.tearDown();
+		deleteOnTearDown(item1 = new SumItem(1, 6, -1000));
+		deleteOnTearDown(item2 = new SumItem(2, 1, -1000));
+		deleteOnTearDown(item3 = new SumItem(6, 2, -1000));
 	}
 	
 	public void testSumOrder()

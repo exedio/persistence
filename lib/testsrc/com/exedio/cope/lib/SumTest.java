@@ -11,15 +11,8 @@ public class SumTest extends DatabaseLibTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		item = new SumItem(1, 2, 3);
-		item2 = new SumItem(3, 4, 5);
-	}
-	
-	public void tearDown() throws Exception
-	{
-		item2.delete();
-		item.delete();
-		super.tearDown();
+		deleteOnTearDown(item = new SumItem(1, 2, 3));
+		deleteOnTearDown(item2 = new SumItem(3, 4, 5));
 	}
 	
 	public void testSum()

@@ -32,12 +32,12 @@ public class LiteralConditionTest extends DatabaseLibTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		someItem = new EmptyItem();
-		item1 = new AttributeItem("string1", 1, 11l, 2.1, true, someItem, AttributeItem.SomeEnumeration.enumValue1);
-		item2 = new AttributeItem("string2", 2, 12l, 2.2, true, someItem, AttributeItem.SomeEnumeration.enumValue1);
-		item3 = new AttributeItem("string3", 3, 13l, 2.3, true, someItem, AttributeItem.SomeEnumeration.enumValue2);
-		item4 = new AttributeItem("string4", 4, 14l, 2.4, true, someItem, AttributeItem.SomeEnumeration.enumValue3);
-		item5 = new AttributeItem("string5", 5, 15l, 2.5, true, someItem, AttributeItem.SomeEnumeration.enumValue3);
+		deleteOnTearDown(someItem = new EmptyItem());
+		deleteOnTearDown(item1 = new AttributeItem("string1", 1, 11l, 2.1, true, someItem, AttributeItem.SomeEnumeration.enumValue1));
+		deleteOnTearDown(item2 = new AttributeItem("string2", 2, 12l, 2.2, true, someItem, AttributeItem.SomeEnumeration.enumValue1));
+		deleteOnTearDown(item3 = new AttributeItem("string3", 3, 13l, 2.3, true, someItem, AttributeItem.SomeEnumeration.enumValue2));
+		deleteOnTearDown(item4 = new AttributeItem("string4", 4, 14l, 2.4, true, someItem, AttributeItem.SomeEnumeration.enumValue3));
+		deleteOnTearDown(item5 = new AttributeItem("string5", 5, 15l, 2.5, true, someItem, AttributeItem.SomeEnumeration.enumValue3));
 		date = new Date(1087365298214l);
 		setDate(item1, offset(date, -2));
 		setDate(item2, offset(date, -1));
@@ -46,17 +46,6 @@ public class LiteralConditionTest extends DatabaseLibTest
 		setDate(item5, offset(date, 2));
 	}
 	
-	public void tearDown() throws Exception
-	{
-		item1.delete();
-		item2.delete();
-		item3.delete();
-		item4.delete();
-		item5.delete();
-		someItem.delete();
-		super.tearDown();
-	}
-
 	public void testLiteralConditions()
 	{
 		// less

@@ -10,13 +10,7 @@ public class StringTest extends DatabaseLibTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		item = new StringItem(); 
-	}
-	
-	public void tearDown() throws Exception
-	{
-		item.delete();
-		super.tearDown();
+		deleteOnTearDown(item = new StringItem());
 	}
 	
 	public void testStrings() throws LengthViolationException

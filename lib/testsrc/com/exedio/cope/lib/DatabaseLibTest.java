@@ -4,6 +4,8 @@ package com.exedio.cope.lib;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.ListIterator;
 
 import com.exedio.cope.testmodel.AttributeItem;
 
@@ -16,6 +18,8 @@ public abstract class DatabaseLibTest extends AbstractLibTest
 	private static boolean registeredDropDatabaseHook = false;
 	private static Object lock = new Object(); 
 	
+	private ArrayList deleteOnTearDown = null;
+
 	private static void createDatabase()
 	{
 		synchronized(lock)
@@ -50,13 +54,27 @@ public abstract class DatabaseLibTest extends AbstractLibTest
 		super.setUp();
 		createDatabase();
 		model.checkEmptyDatabase();
+		deleteOnTearDown = new ArrayList();
 	}
 	
 	protected void tearDown() throws Exception
 	{
+		if(!deleteOnTearDown.isEmpty())
+		{
+			for(ListIterator i = deleteOnTearDown.listIterator(deleteOnTearDown.size()); i.hasPrevious(); )
+				((Item)i.previous()).delete();
+			deleteOnTearDown.clear();
+		}
+		deleteOnTearDown = null;
+
 		model.checkEmptyDatabase();
 		dropDatabase();
 		super.tearDown();
+	}
+	
+	protected void deleteOnTearDown(final Item item)
+	{
+		deleteOnTearDown.add(item);
 	}
 	
 	protected InputStream stream(byte[] data)

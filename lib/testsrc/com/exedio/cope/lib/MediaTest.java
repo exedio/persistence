@@ -14,12 +14,7 @@ public class MediaTest extends DatabaseLibTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		item = new MediaItem();
-	}
-	
-	public void tearDown() throws Exception
-	{
-		item.delete();
+		deleteOnTearDown(item = new MediaItem());
 	}
 	
 	private void assertExtension(final String mimeMajor, final String mimeMinor, final String extension)
