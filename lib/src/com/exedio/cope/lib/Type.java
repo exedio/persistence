@@ -121,10 +121,7 @@ public final class Type
 							featuresByName.put(attribute.getName(), attribute);
 							final UniqueConstraint uniqueConstraint = attribute.getSingleUniqueConstaint();
 							if(uniqueConstraint!=null)
-							{
-								uniqueConstraint.initialize(this, field.getName());
 								uniqueConstraintsTemp.add(uniqueConstraint);
-							}
 						}
 						else if(ComputedFunction.class.isAssignableFrom(fieldType))
 						{

@@ -63,6 +63,8 @@ public abstract class Attribute extends TypeComponent implements Feature
 
 		this.type = type;
 		this.name = name.intern();
+		if(singleUniqueConstraint!=null)
+			singleUniqueConstraint.initialize(type, name);
 		postInitialize();
 	}
 	
