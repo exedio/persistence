@@ -165,6 +165,7 @@
 						%>
 						<u><%=provider.getDisplayName(null, type)%></u><br>
 						<b><%=provider.getDisplayName(null, item)%></b><hr>
+						<table border="1">
 						<%
 						for(Iterator j = type.getAttributes().iterator(); j.hasNext(); )
 						{
@@ -194,6 +195,7 @@
 							}
 							%></td></tr><%
 						}
+						%></table><%
 					}
 					else
 						%><u>select a type on the left</u>
