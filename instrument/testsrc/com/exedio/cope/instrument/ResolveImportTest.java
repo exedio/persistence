@@ -22,6 +22,7 @@ public class ResolveImportTest extends InstrumentorTest
 		file.addImport("com.exedio.cope.instrument.findtype.subfindtype.*");
 		file.addImport("com.exedio.cope.instrument.findtype.subfindtype2.SubFindType2");
 		file.addImport(com.exedio.cope.instrument.findtype.subfindtype.BothFindType.class.getName());
+		file.addImport("com.exedio.cope.instrument.findtype.collide.*");
 		
 		assertEquals(FindType.class, file.findType("FindType"));
 		assertEquals(FindType.class, file.findType(FindType.class.getName()));
@@ -47,6 +48,24 @@ public class ResolveImportTest extends InstrumentorTest
 			assertEquals("type SubFindType3Non not found.", e.getMessage());
 		}
 		assertEquals(SubFindType3Non.class, file.findType(SubFindType3Non.class.getName()));
+
+		assertEquals(
+			com.exedio.cope.instrument.findtype.subfindtype.CollideType.class,
+			file.findType(com.exedio.cope.instrument.findtype.subfindtype.CollideType.class.getName()));
+		assertEquals(
+			com.exedio.cope.instrument.findtype.collide.CollideType.class,
+			file.findType(com.exedio.cope.instrument.findtype.collide.CollideType.class.getName()));
+		try
+		{
+			file.findType("CollideType");
+		}
+		catch(InjectorParseException e)
+		{
+			assertEquals(
+				"type CollideType found in two imported packages com.exedio.cope.instrument.findtype.collide.CollideType and com.exedio.cope.instrument.findtype.subfindtype.CollideType. "
+				+ "This is ambigous and forbidden by Java Language Specification 6.5.4.1. 'Simple Type Names' item 4.",
+				e.getMessage());
+		}
 	}
 
 }
