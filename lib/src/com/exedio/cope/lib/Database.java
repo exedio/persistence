@@ -823,7 +823,7 @@ public abstract class Database
 		{
 			final UniqueConstraint uniqueConstraint = (UniqueConstraint)i.next();
 			bf.append(",constraint ").
-				append(uniqueConstraint.getProtectedName()).
+				append(uniqueConstraint.getProtectedID()).
 				append(" unique(");
 			boolean first = true;
 			for(Iterator j = uniqueConstraint.getUniqueAttributes().iterator(); j.hasNext(); )

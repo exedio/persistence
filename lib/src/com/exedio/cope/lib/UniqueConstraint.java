@@ -28,7 +28,7 @@ public final class UniqueConstraint
 	private final Attribute[] uniqueAttributes;
 	private final List uniqueAttributeList;
 	private String id;
-	private String protectedName;
+	private String protectedID;
 
 	private UniqueConstraint(final Attribute[] uniqueAttributes)
 	{
@@ -76,13 +76,13 @@ public final class UniqueConstraint
 		return id;
 	}
 	
-	final String getProtectedName()
+	final String getProtectedID()
 	{
-		if(protectedName!=null)
-			return protectedName;
+		if(protectedID!=null)
+			return protectedID;
 
-		this.protectedName = Database.theInstance.protectName(getID());
-		return protectedName;
+		this.protectedID = Database.theInstance.protectName(getID());
+		return protectedID;
 	}
 	
 
