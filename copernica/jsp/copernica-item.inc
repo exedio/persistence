@@ -1,6 +1,6 @@
 <%!
 	static final String SAVE_BUTTON = "SAVE";
-	static final String VALUE_NULL = "NULL";
+	static final String VALUE_NULL = "null";
 	static final String VALUE_ON = "on";
 	static final String VALUE_OFF = "off";
 %><%

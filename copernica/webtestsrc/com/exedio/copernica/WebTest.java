@@ -21,7 +21,7 @@ public class WebTest extends WebTestCase
 		getTestContext().setBaseUrl("http://localhost:8080/copernicatest/");
 		someNotNullString = "running100";
 		someNotNullInteger = "107";
-		someBoolean = "NULL";
+		someBoolean = "null";
 		someNotNullBoolean = true;
 	}
 	
@@ -82,7 +82,7 @@ public class WebTest extends WebTestCase
 
 		setFormElement("someNotNullString", "running100"); someNotNullString = "running100";
 		setFormElement("someNotNullInteger", "107"); someNotNullInteger = "107";
-		setFormElement("someBoolean", "NULL"); someBoolean = "NULL";
+		setFormElement("someBoolean", "null"); someBoolean = "null";
 		setFormElement("someNotNullBoolean", "on"); someNotNullBoolean = true;
 		submit("SAVE");
 		assertTitleEquals("AttributeItem.103");
