@@ -131,6 +131,15 @@ public class WebTest extends WebTestCase
 		assertTitleEquals("AttributeItem.103");
 		assertItemForm();
 
+		// refetch item page, thus check,
+		// whether all values hav been saved properly
+		clickLinkWithText("Attribute Item");
+		assertTitleEquals("Attribute Item");
+		assertTextPresent("Attribute Item");
+		clickLinkWithText("[X]");
+		assertTitleEquals("AttributeItem.103");
+		assertItemForm();
+
 		setFormElement("someString", ""); someString = "";
 		setFormElement("someNotNullString", "running100"); someNotNullString = "running100";
 		setFormElement("someInteger", ""); someInteger = "";
