@@ -71,10 +71,7 @@ public final class EnumerationAttribute extends Attribute
 		if(cell==null)
 			return null;
 		else
-		{
-			// TODO: This is nonsense, must retrieve the correct EnumerationValue
-			return new Integer(((BigDecimal)cell).intValue()); // TODO: use ResultSet.getInt() somehow
-		}
+			return getValue(((BigDecimal)cell).intValue()); // TODO: use ResultSet.getInt() somehow
 	}
 
 	Object cacheToDatabase(final Object cache)

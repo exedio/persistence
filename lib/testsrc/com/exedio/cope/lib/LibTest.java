@@ -311,7 +311,7 @@ public class LibTest extends TestCase
 			assertEquals(ItemWithManyAttributes.SomeEnumeration.enumValue1, item.getSomeEnumeration());
 			item.setSomeEnumeration(ItemWithManyAttributes.SomeEnumeration.enumValue1);
 			assertEquals(ItemWithManyAttributes.SomeEnumeration.enumValue1, item.getSomeEnumeration());
-			//item.passivate(); TODO: fix EnumerationAttribute.databaseToCache
+			item.passivate();
 			assertEquals(ItemWithManyAttributes.SomeEnumeration.enumValue1, item.getSomeEnumeration());
 			item.setSomeEnumeration(null);
 			assertEquals(null, item.getSomeEnumeration());
