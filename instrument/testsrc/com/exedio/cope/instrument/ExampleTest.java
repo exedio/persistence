@@ -25,6 +25,8 @@ public class ExampleTest extends InjectorTest
 		assertPackage("com.exedio.cope.instrument");
 		assertText(";\n\nimport java.util.*");
 		assertImport("import java.util.*");
+		assertText(";\nimport java.text.Format");
+		assertImport("java.text.Format");
 	}
 
 }
