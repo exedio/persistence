@@ -12,6 +12,16 @@ import junit.framework.TestCase;
 
 public class AbstractLibTest extends TestCase
 {
+	final Type[] types = new Type[]
+	{
+		ItemWithSingleUnique.TYPE,
+		ItemWithSingleUniqueReadOnly.TYPE,
+		ItemWithSingleUniqueNotNull.TYPE,
+		ItemWithoutAttributes.TYPE,
+		ItemWithoutAttributes2.TYPE,
+		ItemWithManyAttributes.TYPE,
+	};
+	
 	public AbstractLibTest()
 	{}
 	

@@ -10,16 +10,6 @@ import java.util.Iterator;
 public class LibTest extends AbstractLibTest
 {
 	
-	final Type[] types = new Type[]
-	{
-		ItemWithSingleUnique.TYPE,
-		ItemWithSingleUniqueReadOnly.TYPE,
-		ItemWithSingleUniqueNotNull.TYPE,
-		ItemWithoutAttributes.TYPE,
-		ItemWithoutAttributes2.TYPE,
-		ItemWithManyAttributes.TYPE,
-	};
-	
 	public LibTest()
 	{}
 	
