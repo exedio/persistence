@@ -222,7 +222,7 @@ public final class Instrumentor implements InjectionConsumer
 	{
 		if(!exceptions.isEmpty())
 		{
-			output.write(" throws ");
+			output.write("\t\t\tthrows");
 			boolean first = true;
 			for(final Iterator i = exceptions.iterator(); i.hasNext(); )
 			{
@@ -230,8 +230,11 @@ public final class Instrumentor implements InjectionConsumer
 					first = false;
 				else
 					output.write(',');
+				output.write(lineSeparator);
+				output.write("\t\t\t\t");
 				output.write(((Class)i.next()).getName());
 			}
+			output.write(lineSeparator);
 		}
 	}
 
@@ -296,8 +299,8 @@ public final class Instrumentor implements InjectionConsumer
 		}
 		
 		output.write(')');
-		writeThrowsClause(javaClass.getContructorExceptions());
 		output.write(lineSeparator);
+		writeThrowsClause(javaClass.getContructorExceptions());
 		output.write("\t{");
 		output.write(lineSeparator);
 		output.write("\t\tsuper(new "+AttributeValue.class.getName()+"[]{");
@@ -445,8 +448,8 @@ public final class Instrumentor implements InjectionConsumer
 			output.write(' ');
 			output.write(persistentAttribute.getName());
 			output.write(')');
-			writeThrowsClause(persistentAttribute.getSetterExceptions());
 			output.write(lineSeparator);
+			writeThrowsClause(persistentAttribute.getSetterExceptions());
 			output.write("\t{");
 			output.write(lineSeparator);
 			writeSetterBody(output, persistentAttribute);
