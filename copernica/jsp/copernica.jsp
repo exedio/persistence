@@ -47,9 +47,7 @@ page import="java.util.Map"
 %>
 <html>
 	<head>
-		<title>
-			<%=cop.getTitle(provider)%>
-		</title>
+		<title><%=cop.getTitle(provider)%></title>
 	</head>
 	<body><%
 	
