@@ -77,7 +77,7 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); )
 	{
 		%></a><%
 	}
-	if(narrowReport && table.exists())
+	if(cop.showRenameFields && table.exists())
 	{
 		%>
 		<input name="RENAME_TABLE_<%=table.name%>" size="<%=table.name.length()%>"/><%
@@ -124,7 +124,7 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); )
 			<li class="<%=color%>">
 				<small>column</small> <%=column.name%><%
 			
-			if(narrowReport && column.exists())
+			if(cop.showRenameFields && column.exists())
 			{
 				%>
 				<input name="RENAME_COLUMN_<%=

@@ -13,6 +13,7 @@ final class AdminCop extends Cop
 	final boolean report;
 	final String reportTable;
 	final boolean showDropBoxes;
+	final boolean showRenameFields;
 
 	AdminCop(final boolean report, final String reportTable, final boolean showDropBoxes)
 	{
@@ -20,6 +21,7 @@ final class AdminCop extends Cop
 		this.report = report;
 		this.reportTable = reportTable;
 		this.showDropBoxes = showDropBoxes;
+		this.showRenameFields = showDropBoxes;
 		if(!report && reportTable!=null)
 			throw new RuntimeException();
 		
