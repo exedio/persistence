@@ -139,27 +139,27 @@ public final class Type
 	/**
 	 * TODO: use something more efficient for integer keys.
 	 */
-	private HashMap activeItems = new HashMap();
+	private HashMap rows = new HashMap();
 	
 	/**
 	 * Returns an item of this type and the given pk, if it's already active.
 	 * Returns null, if either there is no such item with the given pk, or
 	 * such an item is not active.
 	 */
-	Item getActiveItem(final int pk)
+	Row getRow(final int pk)
 	{
-		return (Item)activeItems.get(new Integer(pk));
+		return (Row)rows.get(new Integer(pk));
 	}
 	
-	void putActiveItem(final Item item)
+	void putRow(final Row row)
 	{
-		if(activeItems.put(new Integer(item.pk), item)!=null)
+		if(rows.put(new Integer(row.pk), row)!=null)
 			throw new RuntimeException();
 	}
 	
-	void removeActiveItem(final Item item)
+	void removeRow(final Row row)
 	{
-		if(activeItems.remove(new Integer(item.pk))!=item)
+		if(rows.remove(new Integer(row.pk))!=row)
 			throw new RuntimeException();
 	}
 	
@@ -187,9 +187,9 @@ public final class Type
 
 	Item getItem(final int pk)
 	{
-		final Item activeItem = getActiveItem(pk);
-		if(activeItem!=null)
-			return activeItem;
+		final Row row = getRow(pk);
+		if(row!=null)
+			return row.item;
 		else
 			return createItemObject(pk);
 	}

@@ -5,36 +5,48 @@ import java.util.HashMap;
 
 final class Row
 {
+	final Item item;
 	final Type type;
-
 	final int pk;
 
 	// TODO: use arrays for String/int/double instead of the HashMap
 	private final HashMap cache = new HashMap();
 	boolean present;
 	private boolean dirty = false;
+	private boolean closed = false;
 
-	protected Row(final Type type, final int pk, final boolean present)
+	protected Row(final Item item, final boolean present)
 	{
-		this.type = type;
-		this.pk = pk;
+		this.item = item;
+		this.type = item.getType();
+		this.pk = item.pk;
 		this.present = present;
+		type.putRow(this);
 		//System.out.println("created row "+type+" "+pk);
 	}
 	
 	
 	Object get(final Attribute attribute)
 	{
+		if(closed)
+			throw new RuntimeException();
+
 		return attribute.cacheToSurface(cache.get(attribute.getMainColumn()));
 	}
 	
 	Object get(final Column column)
 	{
+		if(closed)
+			throw new RuntimeException();
+
 		return cache.get(column);
 	}
 	
 	void put(final AttributeValue[] attributeValues)
 	{
+		if(closed)
+			throw new RuntimeException();
+
 		for(int i = 0; i<attributeValues.length; i++)
 		{
 			final Attribute attribute = attributeValues[i].attribute;
@@ -45,12 +57,18 @@ final class Row
 	
 	void put(final Attribute attribute, final Object value)
 	{
+		if(closed)
+			throw new RuntimeException();
+
 		cache.put(attribute.getMainColumn(), attribute.surfaceToCache(value));
 		dirty = true; // TODO: check, whether the written attribute got really a new value
 	}
 	
 	void put(final Column column, final Object value)
 	{
+		if(closed)
+			throw new RuntimeException();
+
 		cache.put(column, value);
 		dirty = true; // TODO: check, whether the written attribute got really a new value
 	}
@@ -58,6 +76,9 @@ final class Row
 	void write()
 		throws UniqueViolationException
 	{
+		if(closed)
+			throw new RuntimeException();
+
 		if(!dirty)
 			return;
 		
@@ -69,17 +90,43 @@ final class Row
 	
 	void load(final StringColumn column, final String value)
 	{
+		if(closed)
+			throw new RuntimeException();
+
 		cache.put(column, value);
 	}
 	
 	void load(final IntegerColumn column, final int value)
 	{
+		if(closed)
+			throw new RuntimeException();
+
 		cache.put(column, new Integer(value));
 	}
 	
 	Object store(final Column column)
 	{
+		if(closed)
+			throw new RuntimeException();
+
 		return cache.get(column);
 	}
-	
+
+	void close()
+	{	
+		if(closed)
+			throw new RuntimeException();
+
+		type.removeRow(this);
+		try
+		{
+			write();
+		}
+		catch(UniqueViolationException e)
+		{
+			throw new SystemException(e);
+		}
+		closed = true;
+	}
+
 }

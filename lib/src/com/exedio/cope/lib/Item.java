@@ -77,18 +77,7 @@ public class Item extends Search
 		if(rowWhenActive!=null)
 			return this;
 		else
-		{
-			getRow();
-			if(rowWhenActive!=null)
-				return this;
-			else
-			{
-				final Item result = type.getActiveItem(pk);
-				if(result==null)
-					throw new RuntimeException();
-				return result;
-			}
-		}
+			return getRow().item;
 	}
 
 	/**
@@ -107,9 +96,8 @@ public class Item extends Search
 	{
 		this.type = type;
 		this.pk = type.nextPK();
-		final Row row = new Row(type, pk, false);
+		final Row row = new Row(this, false);
 		//System.out.println("create item "+type+" "+pk);
-		type.putActiveItem(this);
 		row.put(initialAttributeValues);
 		try
 		{
@@ -358,27 +346,26 @@ public class Item extends Search
 	{
 		if(rowWhenActive!=null)
 		{
-			if(type.getActiveItem(pk)!=this)
+			if(type.getRow(pk)!=rowWhenActive)
 				throw new RuntimeException();
 			return rowWhenActive;
 		}
 		else
 		{
-			final Item activeItem = type.getActiveItem(pk);
-			if(activeItem==null)
+			final Row row = type.getRow(pk);
+			if(row==null)
 			{
-				rowWhenActive = new Row(type, pk, true);
+				rowWhenActive = new Row(this, true);
 				Database.theInstance.load(rowWhenActive);
-				type.putActiveItem(this);
 				return rowWhenActive;
 			}
 			else
 			{
-				if(activeItem==this)
+				if(row.item==this)
 					throw new RuntimeException();
-				if(activeItem.rowWhenActive==null)
+				if(row.item.rowWhenActive!=row)
 					throw new RuntimeException();
-				return activeItem.rowWhenActive;
+				return row;
 			}
 		}
 	}
@@ -387,15 +374,7 @@ public class Item extends Search
 	{
 		if(rowWhenActive!=null)
 		{
-			type.removeActiveItem(this);
-			try
-			{
-				rowWhenActive.write();
-			}
-			catch(UniqueViolationException e)
-			{
-				throw new SystemException(e);
-			}
+			rowWhenActive.close();
 			rowWhenActive = null;
 		}
 	}
