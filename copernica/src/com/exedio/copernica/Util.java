@@ -51,7 +51,7 @@ public class Util
 		//System.out.println("userid:"+userid);
 		//System.out.println("password:"+password);
 
-		final User user = provider.findUserByCopernicaID(userid);
+		final User user = provider.findUserByID(userid);
 		//System.out.println("user:"+user);
 		if(user==null)
 			return null;

@@ -41,16 +41,13 @@ public interface CopernicaProvider
 
 	public String getIconURL(Type type);
 
-	// TODO: rename to ByCopernicaID
-	public Language findLanguageByUniqueID(String uniqueID);
+	public Language findLanguageByID(String copernicaID);
 	
-	public User findUserByCopernicaID(String copernicaID);
+	public User findUserByID(String copernicaID);
 
-	// TODO: rename to ByCopernicaID
-	public Category findCategoryByUniqueID(String uniqueID);
+	public Category findCategoryByID(String copernicaID);
 	
-	// TODO: rename to ByCopernicaID
-	public Section findSectionByUniqueID(String uniqueID);
+	public Section findSectionByID(String copernicaID);
 
 	public void initializeExampleSystem();
 }

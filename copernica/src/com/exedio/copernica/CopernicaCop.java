@@ -51,7 +51,7 @@ abstract class CopernicaCop extends Cop
 		final String itemID = getParameter(parameterMap, ITEM);
 		final String langID = getParameter(parameterMap, LANGUAGE);
 		
-		final Language language = (langID!=null) ? provider.findLanguageByUniqueID(langID) : null;
+		final Language language = (langID!=null) ? provider.findLanguageByID(langID) : null;
 		if(typeID!=null)
 		{
 			return TypeCop.getCop(model, language, typeID, parameterMap);

@@ -37,12 +37,12 @@ public abstract class TransientCopernicaProvider implements CopernicaProvider
 				: transientLanguages.values();
 	}
 	
-	public com.exedio.copernica.Language findLanguageByUniqueID(final String uniqueID)
+	public com.exedio.copernica.Language findLanguageByID(final String copernicaID)
 	{
 		return
 			transientLanguages == null
 				? null
-				: (TransientLanguage)transientLanguages.get(uniqueID);
+				: (TransientLanguage)transientLanguages.get(copernicaID);
 	}
 	
 	// Transient Users
@@ -59,7 +59,7 @@ public abstract class TransientCopernicaProvider implements CopernicaProvider
 		transientUsers = result;
 	}
 
-	public User findUserByCopernicaID(String copernicaID)
+	public User findUserByID(String copernicaID)
 	{
 		return
 			transientUsers == null
@@ -160,12 +160,12 @@ public abstract class TransientCopernicaProvider implements CopernicaProvider
 		return null;
 	}
 
-	public Category findCategoryByUniqueID(final String uniqueID)
+	public Category findCategoryByID(final String copernicaID)
 	{
 		return null;
 	}
 	
-	public Section findSectionByUniqueID(final String uniqueID)
+	public Section findSectionByID(final String copernicaID)
 	{
 		return null;
 	}
