@@ -86,7 +86,10 @@ public class JavaClass extends JavaFeature
 	 */
 	public List getUniqueConstraints()
 	{
-		return Collections.unmodifiableList(uniqueConstraints);
+		return
+			uniqueConstraints == null ? 
+			Collections.EMPTY_LIST :
+			Collections.unmodifiableList(uniqueConstraints);
 	}
 	
 	/**
