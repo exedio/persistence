@@ -6,7 +6,7 @@ import java.io.PrintWriter;
 import java.sql.SQLException;
 
 /**
- * Is thrown, when a persistent modifivation violates a constraint.
+ * Is thrown, when a persistent modification violates a constraint.
  */
 public abstract class ConstraintViolationException extends Exception
 {
