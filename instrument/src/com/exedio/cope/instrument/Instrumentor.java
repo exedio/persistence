@@ -402,7 +402,9 @@ public final class Instrumentor implements InjectionConsumer
 			final JavaAttribute persistentAttribute = (JavaAttribute)i.next();
 			output.write("\t\t\t\t\t");
 			output.write(persistentAttribute.getName());
-			output.write(".initialize(");
+			output.write(".initialize(\"");
+			output.write(persistentAttribute.getName());
+			output.write("\",");
 			output.write(persistentAttribute.isReadOnly() ? "true": "false");
 			output.write(',');
 			output.write(persistentAttribute.isNotNull() ? "true": "false");
