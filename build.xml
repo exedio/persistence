@@ -371,7 +371,17 @@
 		</java>
 	</target>
 	
-	<target name="copernica.test.compile" depends="lib.compile, lib.test.compile, copernica.compile">
+	<target name="copernica.test.jspm">
+		<java classname="com.exedio.jspm.Main" taskname="jspm" fork="yes" failonerror="yes">
+			<classpath>
+				<pathelement location="../jspm/build/classes" />
+			</classpath>
+			<arg value="copernica/testsrc/com/exedio/copernica/Init.jspm" />
+		</java>
+	</target>
+	
+	<target name="copernica.test.compile"
+				depends="lib.compile, lib.test.compile, copernica.compile, copernica.test.jspm">
 		<mkdir dir="copernica/build/testclasses" />
 		<javac srcdir="copernica/testsrc"
 				destdir="copernica/build/testclasses"
@@ -382,7 +392,9 @@
 				<pathelement location="lib/build/classes" />
 				<pathelement location="lib/build/testmodelclasses" />
 				<pathelement location="copernica/build/classes" />
+				<pathelement location="../cops/build/classes" />
 				<pathelement location="../lib/junit.jar" />
+				<pathelement location="../tomcat/common/lib/servlet-api.jar" />
 			</classpath>
 		</javac>
 		<copy todir="copernica/build/testclasses/com/exedio/copernica">
@@ -421,8 +433,6 @@
 				<exclude name="*.inc" />
 			</fileset>
 		</copy>
-		<copy todir="copernica/build/testwebapp-${database}/"
-				file="copernica/init.jsp" />
 		<mkdir dir="copernica/build/testwebapp-${database}/media" />
 		
 		<touch file="copernica/build/testwebapp-${database}/WEB-INF/web.xml" />
@@ -502,6 +512,9 @@
 		<delete dir="copernica/build" />
 		<delete>
 			<fileset dir="copernica/src">
+				<include name="**/*_Jspm.java" />
+			</fileset>
+			<fileset dir="copernica/testsrc">
 				<include name="**/*_Jspm.java" />
 			</fileset>
 		</delete>

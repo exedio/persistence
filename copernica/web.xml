@@ -31,6 +31,15 @@
 		<url-pattern>/copernica.jsp</url-pattern>
 	</servlet-mapping>
 
+	<servlet>
+		<servlet-name>init</servlet-name>
+		<servlet-class>com.exedio.copernica.InitServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>init</servlet-name>
+		<url-pattern>/init.jsp</url-pattern>
+	</servlet-mapping>
+
 	<description>
 		Copernica Test Application
 	</description>

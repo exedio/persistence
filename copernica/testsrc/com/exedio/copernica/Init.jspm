@@ -1,7 +1,13 @@
-<%@
-page import="com.exedio.copernica.CopernicaTestProvider" %><%
+<%
+package com.exedio.copernica;
 
-%><html>
+import java.io.PrintStream;
+
+final class Init_Jspm
+{
+	final static void write(final PrintStream out, final boolean initialized)
+	{%>
+<html>
 	<head>
 		<title>
 			Copernica - Database Administration
@@ -17,12 +23,16 @@ page import="com.exedio.copernica.CopernicaTestProvider" %><%
 			<br>
 			<input type="submit" name="INIT" value="init" />
 			<%
-				if(request.getParameter("INIT")!=null)
+				if(initialized)
 				{
-					CopernicaTestProvider.initializeExampleSystem();
-					%>Example system successfully created!<%
+					%><br>
+					Example system successfully created!<%
 				}
 			%>
 		</form>
 	</body>
 </html>
+<%
+	}
+}
+%>
