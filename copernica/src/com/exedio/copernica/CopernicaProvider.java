@@ -1,9 +1,12 @@
 
 package com.exedio.copernica;
 
+import java.io.IOException;
+import java.io.PrintStream;
 import java.util.Collection;
 
 import javax.servlet.ServletConfig;
+import javax.servlet.http.HttpServletRequest;
 
 import com.exedio.cope.lib.EnumValue;
 import com.exedio.cope.lib.Feature;
@@ -65,4 +68,6 @@ public interface CopernicaProvider
 	
 	public CopernicaSection findSectionByID(String copernicaID);
 
+	public void handleException(PrintStream out, CopernicaServlet servlet, HttpServletRequest request, Exception e)
+		throws IOException;
 }

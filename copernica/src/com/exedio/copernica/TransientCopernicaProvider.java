@@ -1,6 +1,8 @@
 package com.exedio.copernica;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.PrintStream;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -10,6 +12,7 @@ import java.util.Properties;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 
 import com.exedio.cope.lib.EnumValue;
 import com.exedio.cope.lib.Feature;
@@ -261,6 +264,15 @@ public abstract class TransientCopernicaProvider implements CopernicaProvider
 	public CopernicaSection findSectionByID(final String copernicaID)
 	{
 		return null;
+	}
+	
+	public void handleException(
+			final PrintStream out, final CopernicaServlet servlet,
+			final HttpServletRequest request, final Exception e)
+		throws IOException
+	{
+		final boolean onPage = "jo-man".equals(request.getParameter("display_error"));
+		Copernica_Jspm.writeException(out, servlet, e, onPage);
 	}
 
 }

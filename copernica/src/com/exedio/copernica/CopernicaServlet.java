@@ -85,8 +85,7 @@ public final class CopernicaServlet extends CopsServlet
 		}
 		catch(Exception e)
 		{
-			final boolean onPage = "jo-man".equals(request.getParameter("display_error"));
-			Copernica_Jspm.writeException(out, this, e, onPage);
+			provider.handleException(out, this, request, e);
 		}
 	}
 
