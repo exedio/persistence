@@ -22,7 +22,17 @@ public class PackageTest extends TestCase
 		suite.addTest(new TestSuite(Id2PkTest.class));
 		suite.addTest(new TestSuite(ModelTest.class));
 		suite.addTest(new TestSuite(ItemTest.class));
-		suite.addTest(new TestSuite(AttributesTest.class));
+		
+		suite.addTest(new TestSuite(AttributeStringTest.class));
+		suite.addTest(new TestSuite(AttributeIntegerTest.class));
+		suite.addTest(new TestSuite(AttributeLongTest.class));
+		suite.addTest(new TestSuite(AttributeDoubleTest.class));
+		suite.addTest(new TestSuite(AttributeBooleanTest.class));
+		suite.addTest(new TestSuite(AttributeItemTest.class));
+		suite.addTest(new TestSuite(AttributeEnumerationTest.class));
+		suite.addTest(new TestSuite(AttributeMediaTest.class));
+		suite.addTest(new TestSuite(AttributeQualifiedTest.class));
+		
 		suite.addTest(new TestSuite(StringTest.class));
 		suite.addTest(new TestSuite(MediaTest.class));
 		suite.addTest(new TestSuite(NullEmptyTest.class));
