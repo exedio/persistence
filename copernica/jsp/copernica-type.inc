@@ -18,47 +18,29 @@
 	}
 	%>
 	</ul>
-	<hr><%
+	<%
 	final boolean firstPage = typeCop.isFirstPage();
 	final boolean lastPage = typeCop.count>items.size();
 	if(!(firstPage&&lastPage))
 	{
-		if(firstPage)
-		{
-			%>
-			[<b>&lt;&lt;</b>] | [<b>&lt;</b>]<%
-		}
-		else
-		{
-			%>
-			[<a href="<%=typeCop.firstPage()%>">&lt;&lt;</a>] |
-			[<a href="<%=typeCop.previousPage()%>">&lt;</a>]<%
-		}
-		%>
-		| <%
-		if(lastPage)
-		{
-			%>
-			[<b>&gt;</b>]<%
-		}
-		else
-		{
-			%>
-			[<a href="<%=typeCop.nextPage()%>">&gt;</a>]<%
-		}
-		%> <%=typeCop.start+1%> - <%=typeCop.start+items.size()
-		%><br>Items per Page: <%
+	%>
+	<div id="pager">
+		<a href="<%=typeCop.firstPage()%>"<%
+			if(firstPage){%> id="disabled"<%}%>>&lt;&lt;</a>
+		<a href="<%=typeCop.previousPage()%>"<%
+			if(firstPage){%> id="disabled"<%}%>>&lt;</a>
+		<a href="<%=typeCop.nextPage()%>"<%
+			if(lastPage) {%> id="disabled"<%}%>>&gt;</a>
+		<%=typeCop.start+1%> - <%=typeCop.start+items.size()%>
+		(<%
 		for(int i = 10; i<=50; i+=10)
 		{
-			if(i==typeCop.count)
-			{
-				%> <b><%=i%></b><%
-			}
-			else
-			{
-				%> <a href="<%=typeCop.switchCount(i)%>"><%=i%></a><%
-			}
-		}
+		%>
+		<a href="<%=typeCop.switchCount(i)%>"<%
+			if(i==typeCop.count){%> id="disabled"<%}%>><%=i%></a><%
+		}%>
+		)
+	</div><%
 	}
 	%>
 	<table border="1">

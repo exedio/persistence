@@ -121,3 +121,31 @@ h1 a
 	color: #ffffff;
 	text-decoration: none;
 }
+
+
+
+
+
+div#pager
+{
+	margin: 0px;
+	margin-top: 30px;
+	margin-bottom: 30px;
+	padding-left: 0.5em;
+	padding-right: 0.5em;
+	color: #ffffff;
+	background: #4a75d5;
+	font-size: 0.7em;
+}
+
+div#pager a
+{
+	color: #ffffff;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+div#pager a#disabled
+{
+	color: #4a75d5;
+}
