@@ -8,7 +8,7 @@
 <b><%=provider.getDisplayName(null, item)%></b><hr>
 <form action="<%=(cop.toItem(item))%>" method="POST">
 	<table border="1"><%
-	final Form form = new Form(item, request.getParameterMap());
+	final ItemForm form = new ItemForm(item, request.getParameterMap());
 	if(save)
 		form.save();
 	
