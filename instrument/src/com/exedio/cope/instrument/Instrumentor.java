@@ -257,11 +257,23 @@ public final class Instrumentor implements InjectionConsumer
 		output.write(lineSeparator);
 		output.write(" */");
 	}
+	
+	
+	private static final HashMap constraintViolationText = new HashMap(5);
+	
+	static
+	{
+		constraintViolationText.put(NotNullViolationException.class, "not null");
+		constraintViolationText.put(ReadOnlyViolationException.class, "read only");
+		constraintViolationText.put(UniqueViolationException.class, "not unique");
+	}
 
 	public void writeConstructor(final JavaClass javaClass)
 	throws IOException
 	{
 		final List initialAttributes = javaClass.getInitialAttributes();
+		final SortedSet constructorExceptions = javaClass.getContructorExceptions();
+
 		writeCommentHeader();
 		output.write("\t * Constructs a new ");
 		output.write(javaClass.getName());
@@ -275,6 +287,31 @@ public final class Instrumentor implements InjectionConsumer
 			output.write(" the initial value for attribute {@link #");
 			output.write(initialAttribute.getName());
 			output.write("}.");
+		}
+		for(Iterator i = constructorExceptions.iterator(); i.hasNext(); )
+		{
+			final Class constructorException = (Class)i.next();
+			output.write(lineSeparator);
+			output.write("\t * @throws ");
+			output.write(constructorException.getName());
+			output.write(" if");
+			boolean first = true;
+			for(Iterator j = initialAttributes.iterator(); j.hasNext(); )
+			{
+				final JavaAttribute initialAttribute = (JavaAttribute)j.next();
+				if(!initialAttribute.getSetterExceptions().contains(constructorException))
+					continue;
+
+				if(first)
+					first = false;
+				else
+					output.write(',');
+				output.write(" initial");
+				output.write(initialAttribute.getCamelCaseName());
+			}
+			output.write(" is ");
+			output.write((String)constraintViolationText.get(constructorException));
+			output.write('.');
 		}
 		output.write(lineSeparator);
 		writeCommentFooter();
@@ -300,7 +337,7 @@ public final class Instrumentor implements InjectionConsumer
 		
 		output.write(')');
 		output.write(lineSeparator);
-		writeThrowsClause(javaClass.getContructorExceptions());
+		writeThrowsClause(constructorExceptions);
 		output.write("\t{");
 		output.write(lineSeparator);
 		output.write("\t\tsuper(new "+AttributeValue.class.getName()+"[]{");
