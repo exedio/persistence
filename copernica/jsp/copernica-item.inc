@@ -160,6 +160,10 @@
 				else
 				{
 					%><input type="text" name="<%=field.getName()%>" value="<%=field.getValue()%>" /><%
+					if(field.getError()!=null)
+					{
+						%> <b><%=field.getError()%></b><%
+					}
 				}
 			}
 			else

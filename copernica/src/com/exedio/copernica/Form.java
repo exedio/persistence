@@ -10,7 +10,6 @@ import com.exedio.cope.lib.IntegerAttribute;
 import com.exedio.cope.lib.Item;
 import com.exedio.cope.lib.ObjectAttribute;
 import com.exedio.cope.lib.StringAttribute;
-import com.exedio.cope.lib.SystemException;
 import com.exedio.cope.lib.Type;
 
 public class Form
@@ -87,6 +86,7 @@ public class Form
 	{
 		private final String name;
 		private final String value;
+		private String error;
 		
 		Field(final String name, final String value)
 		{
@@ -116,6 +116,11 @@ public class Form
 		{
 			return value;
 		}
+		
+		final String getError()
+		{
+			return error;
+		}
 	}
 	
 	Field getField(Attribute attribute)
@@ -132,32 +137,30 @@ public class Form
 			final Field field = (Field)fields.get(attribute);
 			if(!field.isReadOnly())
 			{
-				final Object value;
-				if(attribute instanceof StringAttribute)
+				try
 				{
-					value = field.value;
-				}
-				else if(attribute instanceof IntegerAttribute)
-				{
-					final String valueString = field.value;
-					if(valueString.length()>0)
+					final Object value;
+					if(attribute instanceof StringAttribute)
 					{
-						try
-						{
+						value = field.value;
+					}
+					else if(attribute instanceof IntegerAttribute)
+					{
+						final String valueString = field.value;
+						if(valueString.length()>0)
 							value = new Integer(Integer.parseInt(valueString));
-						}
-						catch(NumberFormatException e)
-						{
-							throw new SystemException(e);
-						}
+						else
+							value = null;
 					}
 					else
-						value = null;
-				}
-				else
-					throw new RuntimeException();
+						throw new RuntimeException();
 				
-				item.setAttribute(attribute, value);
+					item.setAttribute(attribute, value);
+				}
+				catch(NumberFormatException e)
+				{
+					field.error = e.getMessage();
+				}
 			}
 		}
 	}
