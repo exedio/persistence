@@ -2,6 +2,7 @@
 package com.exedio.cope.lib;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -83,6 +84,16 @@ public abstract class AbstractLibTest extends TestCase
 	protected List list(final Object o)
 	{
 		return Collections.singletonList(o);
+	}
+	
+	protected List list(final Object o1, final Object o2)
+	{
+		return Arrays.asList(new Object[]{o1, o2});
+	}
+	
+	protected List list(final Object o1, final Object o2, final Object o3)
+	{
+		return Arrays.asList(new Object[]{o1, o2, o3});
 	}
 	
 	protected Object waitForKey(final Object o)
