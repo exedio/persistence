@@ -29,6 +29,8 @@ public class ExampleTest extends InjectorTest
 		assertImport("java.text.Format");
 		assertText(";\n\n");
 		assertFileDocComment("/**\n	Represents an attribute or association partner of a class.\n	Note: type==Model.AMIGOUS means, the attribute cannot be used in OCL due to attribute ambiguities.\n	See OCL spec 5.4.1. for details.\n*/");
+		assertText("\n");
+		assertClass("Example");
 	}
 
 }

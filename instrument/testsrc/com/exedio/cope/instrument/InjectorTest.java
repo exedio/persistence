@@ -73,6 +73,13 @@ public abstract class InjectorTest extends TestCase
 		assertEquals(docComment, ((FileDocCommentEvent)event).docComment);
 	}
 
+	protected void assertClass(final String className)
+	{
+		final InjectionEvent event = fetchEvent();
+		final JavaClass javaClass = ((ClassEvent)event).javaClass;
+		assertEquals(className, javaClass.getName());
+	}
+
 	private static class InjectionEvent
 	{
 	}
@@ -118,6 +125,16 @@ public abstract class InjectorTest extends TestCase
 		}
 	}
 	
+	private static class ClassEvent extends InjectionEvent
+	{
+		final JavaClass javaClass;
+
+		ClassEvent(final JavaClass javaClass)
+		{
+			this.javaClass = javaClass;
+		}
+	}
+	
 	private class TestInjectionConsumer implements InjectionConsumer
 	{
 		final StringWriter output;
@@ -140,6 +157,7 @@ public abstract class InjectorTest extends TestCase
 
 		public void onClass(final JavaClass cc)
 		{
+			addInjectionEvent(new ClassEvent(cc));
 		}
 
 		public void onClassEnd(final JavaClass cc)
