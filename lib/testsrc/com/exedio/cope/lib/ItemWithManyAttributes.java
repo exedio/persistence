@@ -7,6 +7,7 @@ import com.exedio.cope.lib.Item;
 import com.exedio.cope.lib.ItemAttribute;
 import com.exedio.cope.lib.MediaAttribute;
 import com.exedio.cope.lib.StringAttribute;
+import com.exedio.cope.lib.mapping.UppercaseMapping;
 
 /**
  * An item having many attributes.
@@ -25,7 +26,7 @@ public class ItemWithManyAttributes extends Item
 	 * @persistent
 	 * @mapped
 	 */
-	public static final StringAttribute someStringUpperCase = new StringAttribute(new UppercaseAttributeMapping(someString));
+	public static final StringAttribute someStringUpperCase = new StringAttribute(new UppercaseMapping(someString));
 
 	/**
 	 * A not-null string attribute.
