@@ -188,6 +188,9 @@ public class ExampleTest extends InjectorTest
 		assertText("{\n\t }");
 		assertMethod("run", null);
 		assertText("\n  ");
+
+		assertClassEnd("Inner");
+		assertAttribute("Inner", null);
 	}
 
 }
