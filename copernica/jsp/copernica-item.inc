@@ -2,7 +2,7 @@
 	static final String SAVE_BUTTON = "SAVE";
 	static final String VALUE_NULL = "NULL";
 	static final String VALUE_ON = "on";
-	static final String VALUE_TRUE = "TRUE";
+	static final String VALUE_TRUE = VALUE_ON;
 	static final String VALUE_OFF = "FALSE";
 %><%
 	final Item item = itemCop.item;
