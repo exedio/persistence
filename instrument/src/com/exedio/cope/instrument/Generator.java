@@ -38,6 +38,11 @@ final class Generator
 	private static final String CONSTRUCTOR_REACTIVATION = "Reactivation constructor. Used for internal purposes only.";
 	private static final String GETTER = "Returns the value of the persistent attribute {0}.";
 	private static final String SETTER = "Sets a new value for the persistent attribute {0}.";
+	private static final String GETTER_MEDIA_URL = "Returns a URL pointing to the data of the persistent attribute {0}.";
+	private static final String GETTER_MEDIA_VARIANT = "Returns a URL pointing to the varied data of the persistent attribute {0}.";
+	private static final String GETTER_MEDIA_MAJOR = "Returns the major mime type of the persistent media attribute {0}.";
+	private static final String GETTER_MEDIA_MINOR = "Returns the minor mime type of the persistent media attribute {0}.";
+	private static final String GETTER_MEDIA_DATA = "Returns a stream for fetching the data of the persistent media attribute {0}.";
 
 	private final Writer o;
 	private final String lineSeparator;
@@ -398,20 +403,20 @@ final class Generator
 
 		// getters
 		writeMediaGetterMethod(mediaAttribute, String.class, "URL", null,
-										"Returns a URL pointing to the data of the persistent attribute {0}.");
+						GETTER_MEDIA_URL);
 		final List mediaVariants = mediaAttribute.getVariants();
 		if(mediaVariants!=null)
 		{
 			for(Iterator i = mediaVariants.iterator(); i.hasNext(); )
 				writeMediaGetterMethod(mediaAttribute, String.class, "URL", (CopeMediaVariant)i.next(),
-												"Returns a URL pointing to the varied data of the persistent attribute {0}.");
+						GETTER_MEDIA_VARIANT);
 		}
 		writeMediaGetterMethod(mediaAttribute, String.class, "MimeMajor", null,
-										"Returns the major mime type of the persistent media attribute {0}.");
+						GETTER_MEDIA_MAJOR);
 		writeMediaGetterMethod(mediaAttribute, String.class, "MimeMinor", null,
-										"Returns the minor mime type of the persistent media attribute {0}.");
+						GETTER_MEDIA_MINOR);
 		writeMediaGetterMethod(mediaAttribute, InputStream.class, "Data", null,
-										"Returns a stream for fetching the data of the persistent media attribute {0}.");
+						GETTER_MEDIA_DATA);
 		
 		// setters
 		if(mediaAttribute.hasGeneratedSetter())
