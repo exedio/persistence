@@ -232,6 +232,8 @@
 	
 	<target name="copernica.compile" depends="copernica.compile.classes, copernica.compile.jsp" />
 	
+	<target name="copernica" depends="copernica.compile" />
+	
 	<target name="lib.clean">
 		<delete dir="lib/build" />
 	</target>
