@@ -39,7 +39,11 @@ class IntegerColumn extends Column
 		// It's a string literal, since the string is not used anywhere else
 		// in the framework. In theory, one could specify different column names
 		// for the primary key of different tables here, and the framework
-		// should work as well. But I never tried this.
+		// should work as well. I tried this once (uncomment the line below),
+		// and it did pass all tests.
+		//
+		//super(table, "this"+table.id, true, true, JDBC_TYPE_INT);
+
 		super(table, "this", true, true, JDBC_TYPE_INT);
 
 		this.precision = ItemColumn.SYNTETIC_PRIMARY_KEY_PRECISION;
