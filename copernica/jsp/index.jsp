@@ -22,38 +22,25 @@
 		System.out.println( "param: " + entry.getKey() + " value: " + entry.getValue() );
 	}
 	
-	final String createAction = request.getParameter( "CREATE" );
-	final String tearDownAction = request.getParameter( "TEARDOWN" );
-	final String dropAction = request.getParameter( "DROP" );
-	
-	if( createAction != null || tearDownAction != null || dropAction != null )
-	{
-%>
-	<%
-		if( createAction != null )
-		{
-			Database.theInstance.createDatabase();
-		%>
-		Database successfully created!
-		<%
-		}
-		else if( tearDownAction != null )
-		{
-		Database.theInstance.tearDownDatabase();
-		%>
-		Database successfully torn down!
-		<%
-		}
-		else if( dropAction != null )
-		{
-			Database.theInstance.dropDatabase();
-		%>
-		Database successfully dropped!
-		<%
-		}
-	}
 %>
 		<form action="index.jsp" method="POST">
+			<%
+				if(request.getParameter("CREATE")!=null)
+				{
+					Database.theInstance.createDatabase();
+					%>Database successfully created!<%
+				}
+				else if(request.getParameter("TEARDOWN")!= null)
+				{
+					Database.theInstance.tearDownDatabase();
+					%>Database successfully torn down!<%
+				}
+				else if(request.getParameter("DROP")!=null)
+				{
+					Database.theInstance.dropDatabase();
+					%>Database successfully dropped!<%
+				}
+			%>
 			<table>
 				<tr>
 					<td>
