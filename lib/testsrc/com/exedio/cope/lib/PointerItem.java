@@ -31,7 +31,7 @@ public class PointerItem extends Item
 	 * @param initialCode the initial value for attribute {@link #code}.
 	 * @param initialPointer the initial value for attribute {@link #pointer}.
 	 * @throws com.exedio.cope.lib.NotNullViolationException if initialCode, initialPointer is not null.
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */PointerItem(
 				final String initialCode,
@@ -49,7 +49,7 @@ public class PointerItem extends Item
 	 **
 	 * Reactivation constructor. Used for internal purposes only.
 	 * @see Item#Item(com.exedio.cope.lib.util.ReactivationConstructorDummy,int)
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */private PointerItem(com.exedio.cope.lib.util.ReactivationConstructorDummy d,final int pk)
 	{
@@ -58,7 +58,7 @@ public class PointerItem extends Item
 
 	 **
 	 * Returns the value of the persistent attribute {@link #code}.
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */final String getCode()
 	{
@@ -67,7 +67,7 @@ public class PointerItem extends Item
 
 	 **
 	 * Sets a new value for the persistent attribute {@link #code}.
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */final void setCode(final String code)
 			throws
@@ -89,7 +89,7 @@ public class PointerItem extends Item
 
 	 **
 	 * Returns the value of the persistent attribute {@link #pointer}.
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */final PointerItem2 getPointer()
 	{
@@ -98,7 +98,7 @@ public class PointerItem extends Item
 
 	 **
 	 * Sets a new value for the persistent attribute {@link #pointer}.
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */final void setPointer(final PointerItem2 pointer)
 			throws
@@ -120,7 +120,7 @@ public class PointerItem extends Item
 
 	 **
 	 * Returns the value of the persistent attribute {@link #self}.
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */final PointerItem getSelf()
 	{
@@ -129,7 +129,7 @@ public class PointerItem extends Item
 
 	 **
 	 * Sets a new value for the persistent attribute {@link #self}.
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */final void setSelf(final PointerItem self)
 	{
@@ -153,7 +153,7 @@ public class PointerItem extends Item
 
 	 **
 	 * The persistent type information for pointerItem.
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */public static final com.exedio.cope.lib.Type TYPE = 
 		new com.exedio.cope.lib.Type(

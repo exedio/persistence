@@ -131,7 +131,7 @@ public final class Instrumentor implements InjectionConsumer
 	/**
 	 * All generated class features get this doccomment tag.
 	 */
-	private static final String GENERATED = "generated";
+	private static final String GENERATED_AUTHOR_TAG = "@author cope instrumentor";
 
 	private List uniqueConstraints=null;
 	
@@ -256,7 +256,7 @@ public final class Instrumentor implements InjectionConsumer
 	private final void writeCommentFooter()
 	throws IOException
 	{
-		output.write("\t * @"+GENERATED);
+		output.write("\t * "+GENERATED_AUTHOR_TAG);
 		output.write(lineSeparator);
 		output.write("\t *");
 		output.write(lineSeparator);
@@ -1035,7 +1035,7 @@ public final class Instrumentor implements InjectionConsumer
 	{
 		//System.out.println("onDocComment("+docComment+")");
 
-		if(containsTag(docComment, GENERATED))
+		if(docComment.indexOf(GENERATED_AUTHOR_TAG)>=0)
 		{
 			discardnextfeature=true;
 			return false;

@@ -18,7 +18,7 @@ public class PointerItem2 extends Item
 	 * Constructs a new PointerItem2 with all the attributes initially needed.
 	 * @param initialCode the initial value for attribute {@link #code}.
 	 * @throws com.exedio.cope.lib.NotNullViolationException if initialCode is not null.
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */PointerItem2(
 				final String initialCode)
@@ -34,7 +34,7 @@ public class PointerItem2 extends Item
 	 **
 	 * Reactivation constructor. Used for internal purposes only.
 	 * @see Item#Item(com.exedio.cope.lib.util.ReactivationConstructorDummy,int)
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */private PointerItem2(com.exedio.cope.lib.util.ReactivationConstructorDummy d,final int pk)
 	{
@@ -43,7 +43,7 @@ public class PointerItem2 extends Item
 
 	 **
 	 * Returns the value of the persistent attribute {@link #code}.
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */final String getCode()
 	{
@@ -52,7 +52,7 @@ public class PointerItem2 extends Item
 
 	 **
 	 * Sets a new value for the persistent attribute {@link #code}.
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */final void setCode(final String code)
 			throws
@@ -74,7 +74,7 @@ public class PointerItem2 extends Item
 
 	 **
 	 * The persistent type information for pointerItem2.
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */public static final com.exedio.cope.lib.Type TYPE = 
 		new com.exedio.cope.lib.Type(

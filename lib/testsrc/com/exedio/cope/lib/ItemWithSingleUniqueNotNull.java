@@ -22,7 +22,7 @@ public class ItemWithSingleUniqueNotNull extends Item
 	 * @param initialUniqueNotNullString the initial value for attribute {@link #uniqueNotNullString}.
 	 * @throws com.exedio.cope.lib.NotNullViolationException if initialUniqueNotNullString is not null.
 	 * @throws com.exedio.cope.lib.UniqueViolationException if initialUniqueNotNullString is not unique.
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */public ItemWithSingleUniqueNotNull(
 				final String initialUniqueNotNullString)
@@ -40,7 +40,7 @@ public class ItemWithSingleUniqueNotNull extends Item
 	 **
 	 * Reactivation constructor. Used for internal purposes only.
 	 * @see Item#Item(com.exedio.cope.lib.util.ReactivationConstructorDummy,int)
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */private ItemWithSingleUniqueNotNull(com.exedio.cope.lib.util.ReactivationConstructorDummy d,final int pk)
 	{
@@ -49,7 +49,7 @@ public class ItemWithSingleUniqueNotNull extends Item
 
 	 **
 	 * Returns the value of the persistent attribute {@link #uniqueNotNullString}.
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */public final String getUniqueNotNullString()
 	{
@@ -58,7 +58,7 @@ public class ItemWithSingleUniqueNotNull extends Item
 
 	 **
 	 * Sets a new value for the persistent attribute {@link #uniqueNotNullString}.
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */public final void setUniqueNotNullString(final String uniqueNotNullString)
 			throws
@@ -78,7 +78,7 @@ public class ItemWithSingleUniqueNotNull extends Item
 	 **
 	 * Finds a itemWithSingleUniqueNotNull by it's unique attributes
 	 * @param searchedUniqueNotNullString shall be equal to attribute {@link #uniqueNotNullString}.
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */public static final ItemWithSingleUniqueNotNull findByUniqueNotNullString(final String searchedUniqueNotNullString)
 	{
@@ -87,7 +87,7 @@ public class ItemWithSingleUniqueNotNull extends Item
 
 	 **
 	 * The persistent type information for itemWithSingleUniqueNotNull.
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */public static final com.exedio.cope.lib.Type TYPE = 
 		new com.exedio.cope.lib.Type(

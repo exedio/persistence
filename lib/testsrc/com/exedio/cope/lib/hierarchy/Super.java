@@ -20,7 +20,7 @@ public abstract class Super extends Item
 	 **
 	 * Constructs a new Super with all the attributes initially needed.
 	 * @param initialSuperInt the initial value for attribute {@link #superInt}.
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */public Super(
 				final int initialSuperInt)
@@ -32,7 +32,7 @@ public abstract class Super extends Item
 
 	 **
 	 * Creates an item and sets the given attributes initially.
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */protected Super(final com.exedio.cope.lib.AttributeValue[] initialAttributes)
 	{
@@ -42,7 +42,7 @@ public abstract class Super extends Item
 	 **
 	 * Reactivation constructor. Used for internal purposes only.
 	 * @see Item#Item(com.exedio.cope.lib.util.ReactivationConstructorDummy,int)
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */protected Super(com.exedio.cope.lib.util.ReactivationConstructorDummy d,final int pk)
 	{
@@ -51,7 +51,7 @@ public abstract class Super extends Item
 
 	 **
 	 * Returns the value of the persistent attribute {@link #superInt}.
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */public final int getSuperInt()
 	{
@@ -60,7 +60,7 @@ public abstract class Super extends Item
 
 	 **
 	 * Sets a new value for the persistent attribute {@link #superInt}.
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */public final void setSuperInt(final int superInt)
 	{
@@ -84,7 +84,7 @@ public abstract class Super extends Item
 
 	 **
 	 * The persistent type information for super.
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */public static final com.exedio.cope.lib.Type TYPE = 
 		new com.exedio.cope.lib.Type(

@@ -24,7 +24,7 @@ public class FirstSub extends Super
 
 	 **
 	 * Constructs a new FirstSub with all the attributes initially needed.
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */public FirstSub()
 	{
@@ -35,7 +35,7 @@ public class FirstSub extends Super
 	 **
 	 * Reactivation constructor. Used for internal purposes only.
 	 * @see Item#Item(com.exedio.cope.lib.util.ReactivationConstructorDummy,int)
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */private FirstSub(com.exedio.cope.lib.util.ReactivationConstructorDummy d,final int pk)
 	{
@@ -44,7 +44,7 @@ public class FirstSub extends Super
 
 	 **
 	 * Returns the value of the persistent attribute {@link #firstSubString}.
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */public final String getFirstSubString()
 	{
@@ -53,7 +53,7 @@ public class FirstSub extends Super
 
 	 **
 	 * Sets a new value for the persistent attribute {@link #firstSubString}.
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */public final void setFirstSubString(final String firstSubString)
 	{
@@ -77,7 +77,7 @@ public class FirstSub extends Super
 
 	 **
 	 * The persistent type information for firstSub.
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */public static final com.exedio.cope.lib.Type TYPE = 
 		new com.exedio.cope.lib.Type(

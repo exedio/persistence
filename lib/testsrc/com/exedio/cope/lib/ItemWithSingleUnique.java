@@ -18,7 +18,7 @@ public class ItemWithSingleUnique extends Item
 
 	 **
 	 * Constructs a new ItemWithSingleUnique with all the attributes initially needed.
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */public ItemWithSingleUnique()
 	{
@@ -29,7 +29,7 @@ public class ItemWithSingleUnique extends Item
 	 **
 	 * Reactivation constructor. Used for internal purposes only.
 	 * @see Item#Item(com.exedio.cope.lib.util.ReactivationConstructorDummy,int)
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */private ItemWithSingleUnique(com.exedio.cope.lib.util.ReactivationConstructorDummy d,final int pk)
 	{
@@ -38,7 +38,7 @@ public class ItemWithSingleUnique extends Item
 
 	 **
 	 * Returns the value of the persistent attribute {@link #uniqueString}.
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */public final String getUniqueString()
 	{
@@ -47,7 +47,7 @@ public class ItemWithSingleUnique extends Item
 
 	 **
 	 * Sets a new value for the persistent attribute {@link #uniqueString}.
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */public final void setUniqueString(final String uniqueString)
 			throws
@@ -70,7 +70,7 @@ public class ItemWithSingleUnique extends Item
 	 **
 	 * Finds a itemWithSingleUnique by it's unique attributes
 	 * @param searchedUniqueString shall be equal to attribute {@link #uniqueString}.
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */public static final ItemWithSingleUnique findByUniqueString(final String searchedUniqueString)
 	{
@@ -79,7 +79,7 @@ public class ItemWithSingleUnique extends Item
 
 	 **
 	 * The persistent type information for itemWithSingleUnique.
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */public static final com.exedio.cope.lib.Type TYPE = 
 		new com.exedio.cope.lib.Type(

@@ -11,7 +11,7 @@ public class ItemWithoutAttributes extends Item
 
 	 **
 	 * Constructs a new ItemWithoutAttributes with all the attributes initially needed.
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */public ItemWithoutAttributes()
 	{
@@ -22,7 +22,7 @@ public class ItemWithoutAttributes extends Item
 	 **
 	 * Reactivation constructor. Used for internal purposes only.
 	 * @see Item#Item(com.exedio.cope.lib.util.ReactivationConstructorDummy,int)
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */private ItemWithoutAttributes(com.exedio.cope.lib.util.ReactivationConstructorDummy d,final int pk)
 	{
@@ -31,7 +31,7 @@ public class ItemWithoutAttributes extends Item
 
 	 **
 	 * The persistent type information for itemWithoutAttributes.
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */public static final com.exedio.cope.lib.Type TYPE = 
 		new com.exedio.cope.lib.Type(

@@ -113,7 +113,7 @@ public class ItemWithManyAttributes extends Item
 	 * @param initialSomeNotNullBoolean the initial value for attribute {@link #someNotNullBoolean}.
 	 * @param initialSomeNotNullItem the initial value for attribute {@link #someNotNullItem}.
 	 * @throws com.exedio.cope.lib.NotNullViolationException if initialSomeNotNullString, initialSomeNotNullItem is not null.
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */public ItemWithManyAttributes(
 				final String initialSomeNotNullString,
@@ -135,7 +135,7 @@ public class ItemWithManyAttributes extends Item
 	 **
 	 * Reactivation constructor. Used for internal purposes only.
 	 * @see Item#Item(com.exedio.cope.lib.util.ReactivationConstructorDummy,int)
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */private ItemWithManyAttributes(com.exedio.cope.lib.util.ReactivationConstructorDummy d,final int pk)
 	{
@@ -144,7 +144,7 @@ public class ItemWithManyAttributes extends Item
 
 	 **
 	 * Returns the value of the persistent attribute {@link #someString}.
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */public final String getSomeString()
 	{
@@ -153,7 +153,7 @@ public class ItemWithManyAttributes extends Item
 
 	 **
 	 * Sets a new value for the persistent attribute {@link #someString}.
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */public final void setSomeString(final String someString)
 	{
@@ -177,7 +177,7 @@ public class ItemWithManyAttributes extends Item
 
 	 **
 	 * Returns the value of the persistent attribute {@link #someStringUpperCase}.
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */public final String getSomeStringUpperCase()
 	{
@@ -186,7 +186,7 @@ public class ItemWithManyAttributes extends Item
 
 	 **
 	 * Returns the value of the persistent attribute {@link #someNotNullString}.
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */public final String getSomeNotNullString()
 	{
@@ -195,7 +195,7 @@ public class ItemWithManyAttributes extends Item
 
 	 **
 	 * Sets a new value for the persistent attribute {@link #someNotNullString}.
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */public final void setSomeNotNullString(final String someNotNullString)
 			throws
@@ -217,7 +217,7 @@ public class ItemWithManyAttributes extends Item
 
 	 **
 	 * Returns the value of the persistent attribute {@link #someInteger}.
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */public final Integer getSomeInteger()
 	{
@@ -226,7 +226,7 @@ public class ItemWithManyAttributes extends Item
 
 	 **
 	 * Sets a new value for the persistent attribute {@link #someInteger}.
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */public final void setSomeInteger(final Integer someInteger)
 	{
@@ -250,7 +250,7 @@ public class ItemWithManyAttributes extends Item
 
 	 **
 	 * Returns the value of the persistent attribute {@link #someNotNullInteger}.
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */public final int getSomeNotNullInteger()
 	{
@@ -259,7 +259,7 @@ public class ItemWithManyAttributes extends Item
 
 	 **
 	 * Sets a new value for the persistent attribute {@link #someNotNullInteger}.
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */public final void setSomeNotNullInteger(final int someNotNullInteger)
 	{
@@ -283,7 +283,7 @@ public class ItemWithManyAttributes extends Item
 
 	 **
 	 * Returns the value of the persistent attribute {@link #someBoolean}.
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */public final Boolean getSomeBoolean()
 	{
@@ -292,7 +292,7 @@ public class ItemWithManyAttributes extends Item
 
 	 **
 	 * Sets a new value for the persistent attribute {@link #someBoolean}.
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */public final void setSomeBoolean(final Boolean someBoolean)
 	{
@@ -316,7 +316,7 @@ public class ItemWithManyAttributes extends Item
 
 	 **
 	 * Returns the value of the persistent attribute {@link #someNotNullBoolean}.
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */public final boolean getSomeNotNullBoolean()
 	{
@@ -325,7 +325,7 @@ public class ItemWithManyAttributes extends Item
 
 	 **
 	 * Sets a new value for the persistent attribute {@link #someNotNullBoolean}.
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */public final void setSomeNotNullBoolean(final boolean someNotNullBoolean)
 	{
@@ -349,7 +349,7 @@ public class ItemWithManyAttributes extends Item
 
 	 **
 	 * Returns the value of the persistent attribute {@link #someItem}.
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */public final ItemWithoutAttributes getSomeItem()
 	{
@@ -358,7 +358,7 @@ public class ItemWithManyAttributes extends Item
 
 	 **
 	 * Sets a new value for the persistent attribute {@link #someItem}.
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */public final void setSomeItem(final ItemWithoutAttributes someItem)
 	{
@@ -382,7 +382,7 @@ public class ItemWithManyAttributes extends Item
 
 	 **
 	 * Returns the value of the persistent attribute {@link #someNotNullItem}.
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */public final ItemWithoutAttributes getSomeNotNullItem()
 	{
@@ -391,7 +391,7 @@ public class ItemWithManyAttributes extends Item
 
 	 **
 	 * Sets a new value for the persistent attribute {@link #someNotNullItem}.
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */public final void setSomeNotNullItem(final ItemWithoutAttributes someNotNullItem)
 			throws
@@ -413,7 +413,7 @@ public class ItemWithManyAttributes extends Item
 
 	 **
 	 * Returns the value of the persistent attribute {@link #someEnumeration}.
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */public final SomeEnumeration getSomeEnumeration()
 	{
@@ -422,7 +422,7 @@ public class ItemWithManyAttributes extends Item
 
 	 **
 	 * Sets a new value for the persistent attribute {@link #someEnumeration}.
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */public final void setSomeEnumeration(final SomeEnumeration someEnumeration)
 	{
@@ -446,7 +446,7 @@ public class ItemWithManyAttributes extends Item
 
 	 **
 	 * Returns a URL pointing to the data of the persistent attribute {@link #someMedia}.
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */public final java.lang.String getSomeMediaURL()
 	{
@@ -455,7 +455,7 @@ public class ItemWithManyAttributes extends Item
 
 	 **
 	 * Returns a URL pointing to the varied data of the persistent attribute {@link #someMedia}.
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */public final java.lang.String getSomeMediaURLSomeVariant()
 	{
@@ -464,7 +464,7 @@ public class ItemWithManyAttributes extends Item
 
 	 **
 	 * Returns the major mime type of the persistent media attribute {@link #someMedia}.
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */public final java.lang.String getSomeMediaMimeMajor()
 	{
@@ -473,7 +473,7 @@ public class ItemWithManyAttributes extends Item
 
 	 **
 	 * Returns the minor mime type of the persistent media attribute {@link #someMedia}.
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */public final java.lang.String getSomeMediaMimeMinor()
 	{
@@ -482,7 +482,7 @@ public class ItemWithManyAttributes extends Item
 
 	 **
 	 * Returns a stream for fetching the data of the persistent media attribute {@link #someMedia}.
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */public final java.io.InputStream getSomeMediaData()
 	{
@@ -491,7 +491,7 @@ public class ItemWithManyAttributes extends Item
 
 	 **
 	 * Provides data for the persistent media attribute {@link #someMedia}.
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */public final void setSomeMediaData(final java.io.OutputStream data,final java.lang.String mimeMajor,final java.lang.String mimeMinor)throws java.io.IOException
 	{
@@ -507,7 +507,7 @@ public class ItemWithManyAttributes extends Item
 
 	 **
 	 * Returns the value of the persistent attribute {@link #someQualifiedString}.
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */public final String getSomeQualifiedString(final ItemWithoutAttributes itemWithoutAttributes)
 	{
@@ -516,7 +516,7 @@ public class ItemWithManyAttributes extends Item
 
 	 **
 	 * Sets a new value for the persistent attribute {@link #someQualifiedString}.
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */public final void setSomeQualifiedString(final ItemWithoutAttributes itemWithoutAttributes,final String someQualifiedString)
 	{
@@ -532,7 +532,7 @@ public class ItemWithManyAttributes extends Item
 
 	 **
 	 * The persistent type information for itemWithManyAttributes.
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */public static final com.exedio.cope.lib.Type TYPE = 
 		new com.exedio.cope.lib.Type(

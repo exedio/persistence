@@ -21,7 +21,7 @@ public class ItemWithSingleUniqueReadOnly extends Item
 	 * Constructs a new ItemWithSingleUniqueReadOnly with all the attributes initially needed.
 	 * @param initialUniqueReadOnlyString the initial value for attribute {@link #uniqueReadOnlyString}.
 	 * @throws com.exedio.cope.lib.UniqueViolationException if initialUniqueReadOnlyString is not unique.
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */public ItemWithSingleUniqueReadOnly(
 				final String initialUniqueReadOnlyString)
@@ -37,7 +37,7 @@ public class ItemWithSingleUniqueReadOnly extends Item
 	 **
 	 * Reactivation constructor. Used for internal purposes only.
 	 * @see Item#Item(com.exedio.cope.lib.util.ReactivationConstructorDummy,int)
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */private ItemWithSingleUniqueReadOnly(com.exedio.cope.lib.util.ReactivationConstructorDummy d,final int pk)
 	{
@@ -46,7 +46,7 @@ public class ItemWithSingleUniqueReadOnly extends Item
 
 	 **
 	 * Returns the value of the persistent attribute {@link #uniqueReadOnlyString}.
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */public final String getUniqueReadOnlyString()
 	{
@@ -56,7 +56,7 @@ public class ItemWithSingleUniqueReadOnly extends Item
 	 **
 	 * Finds a itemWithSingleUniqueReadOnly by it's unique attributes
 	 * @param searchedUniqueReadOnlyString shall be equal to attribute {@link #uniqueReadOnlyString}.
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */public static final ItemWithSingleUniqueReadOnly findByUniqueReadOnlyString(final String searchedUniqueReadOnlyString)
 	{
@@ -65,7 +65,7 @@ public class ItemWithSingleUniqueReadOnly extends Item
 
 	 **
 	 * The persistent type information for itemWithSingleUniqueReadOnly.
-	 * @generated
+	 * @author cope instrumentor
 	 *
  */public static final com.exedio.cope.lib.Type TYPE = 
 		new com.exedio.cope.lib.Type(
