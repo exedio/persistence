@@ -1,7 +1,7 @@
 
 package com.exedio.cope.lib;
 
-public class EnumerationValue
+public abstract class EnumerationValue
 {
 
 	private boolean initialized = false;
