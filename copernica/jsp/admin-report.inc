@@ -4,11 +4,11 @@ private String color(final int color)
 	switch(color)
 	{
 	case Report.COLOR_OK:
-		return "83ce7b";
+		return "ok";
 	case Report.COLOR_YELLOW:
-		return "ffff33";
+		return "yellow";
 	case Report.COLOR_RED:
-		return "ff3333";
+		return "red";
 	default:
 		throw new RuntimeException(String.valueOf(color));
 	}
@@ -16,17 +16,10 @@ private String color(final int color)
 %><%
 final Report report = Database.theInstance.reportDatabase();
 final String reportColor = color(report.getCumulativeColor());
-if(reportColor!=null)
-{
-	%><span style="background-color:#<%=reportColor%>"><%
-}
-%>Database Report<%
-if(reportColor!=null)
-{
-	%></span><%
-}
-%>
+
+%><span class="<%=reportColor%>">Database Report</span>
 <ul><%
+
 for(Iterator i = report.getTables().iterator(); i.hasNext(); )
 {
 	final Report.Table table = (Report.Table)i.next();
@@ -34,22 +27,12 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); )
 	<li><%
 	
 	final String tableColor = color(table.getCumulativeColor());
-	if(tableColor!=null)
-	{
-		%><span style="background-color:#<%=tableColor%>"><%
-	}
-	
-	%><small>table</small> <%=table.name%><%
-	
-	if(tableColor!=null)
-	{
-		%></span><%
-	}
+	%><span class="<%=tableColor%>"><small>table</small> <%=table.name%></span><%
 	
 	final String tableError = table.getError();
 	if(tableError!=null)
 	{
-		%> <span style="background-color:#<%=color(table.getParticularColor())
+		%> <span class="<%=color(table.getParticularColor())
 										%>"><%=tableError%></span><%
 	}
 	
@@ -63,19 +46,12 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); )
 			%>
 			<li><%
 			final String constraintColor = color(constraint.getCumulativeColor());
-			if(constraintColor!=null)
-			{
-				%><span style="background-color:#<%=constraintColor%>"><%
-			}
-			%><small>constraint</small> <%=constraint.name%><%
-			if(constraintColor!=null)
-			{
-				%></span><%
-			}
+			%><span class="<%=constraintColor%>"><small>constraint</small> <%=constraint.name%></span><%
 			final String constraintError = constraint.getError();
 			if(constraintError!=null)
 			{
-				%> <span style="background-color:#<%=color(constraint.getParticularColor())
+				%>
+					<span class="<%=color(constraint.getParticularColor())
 												%>"><%=constraintError%></span><%
 			}
 			%></li><%

@@ -13,6 +13,11 @@ include file="copernica-provider.inc"
 		<title>
 			Copernica - Database Administration
 		</title>
+		<style type="text/css">
+			span.ok     { background-color:#83ce7b; }
+			span.yellow { background-color:#ffff33; }
+			span.red    { background-color:#ff3333; }
+		</style>
 	</head>
 	<body>
 		<h1>Copernica</h1>
