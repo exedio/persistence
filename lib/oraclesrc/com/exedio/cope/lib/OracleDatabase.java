@@ -7,7 +7,7 @@ import java.util.List;
 
 import oracle.jdbc.OracleStatement;
 
-class OracleDatabase extends Database
+final class OracleDatabase extends Database
 {
 	public OracleDatabase()
 	{
@@ -17,6 +17,38 @@ class OracleDatabase extends Database
 	protected String protectName(final String name)
 	{
 		return '"' + name + '"';
+	}
+	
+	String getIntegerType(final int precision)
+	{
+		return "number(" + precision + ",0)";
+	}
+
+	String getStringType(final int maxLength)
+	{
+		return "varchar2("+maxLength+")";
+	}
+	
+	private String extractConstraintName(final SQLException e, final String start, final String end)
+	{
+		final String m = e.getMessage();
+		if(m.startsWith(start) && m.endsWith(end))
+		{
+			final int pos = m.indexOf('.', start.length());
+			return m.substring(pos+1, m.length()-end.length());
+		}
+		else
+			return null;
+	}
+	
+	protected String extractUniqueConstraintName(final SQLException e)
+	{
+		return extractConstraintName(e, "ORA-00001: unique constraint (", ") violated\n");
+	}
+
+	protected String extractIntegrityConstraintName(final SQLException e)
+	{
+		return extractConstraintName(e, "ORA-02292: integrity constraint (", ") violated - child record found\n");
 	}
 
 	protected void defineColumnTypes(final List columnTypes, final Statement statement)

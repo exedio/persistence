@@ -544,22 +544,13 @@ public abstract class Database
 		}
 	}
 	
-	private final String extractConstraintName(final String message, final String start, final String end)
-	{
-		if(message.startsWith(start) && message.endsWith(end))
-		{
-			final int pos = message.indexOf('.', start.length());
-			return message.substring(pos+1, message.length()-end.length());
-		}
-		else
-			return null;
-	}
+	protected abstract String extractUniqueConstraintName(SQLException e);
+	protected abstract String extractIntegrityConstraintName(SQLException e);
 
-	private ConstraintViolationException wrapException(final SQLException e)
+	private final ConstraintViolationException wrapException(final SQLException e)
 	{
-		final String m = e.getMessage();
 		{		
-			final String uniqueConstraintName = extractConstraintName(m, "ORA-00001: unique constraint (", ") violated\n");
+			final String uniqueConstraintName = extractUniqueConstraintName(e);
 			if(uniqueConstraintName!=null)
 			{
 				final UniqueConstraint constraint = UniqueConstraint.getUniqueConstraint(uniqueConstraintName);
@@ -569,7 +560,7 @@ public abstract class Database
 			}
 		}
 		{		
-			final String integrityConstraintName = extractConstraintName(m, "ORA-02292: integrity constraint (", ") violated - child record found\n");
+			final String integrityConstraintName = extractIntegrityConstraintName(e);
 			if(integrityConstraintName!=null)
 			{
 				final ItemAttribute attribute = ItemAttribute.getItemAttributeByIntegrityConstraintName(integrityConstraintName);
@@ -603,6 +594,9 @@ public abstract class Database
 	 */
 	protected abstract String protectName(final String name);
 
+	abstract String getIntegerType(int precision);
+	abstract String getStringType(int maxLength);
+	
 	private void createTable(final Type type)
 	{
 		final Statement bf = createStatement();
@@ -616,18 +610,6 @@ public abstract class Database
 			append(primaryKey.databaseType).
 			append(" primary key");
 			
-		final Type supertype = type.getSupertype();
-		if(supertype!=null)
-		{
-			bf.append(" constraint ").
-				append(protectName(type.trimmedName+"SUP")).
-				append(" references ").
-				append(supertype.protectedName).
-				append('(').
-				append(supertype.primaryKey.protectedName).
-				append(')');
-		}
-		
 		for(Iterator i = type.getColumns().iterator(); i.hasNext(); )
 		{
 			final Column column = (Column)i.next();
@@ -638,6 +620,20 @@ public abstract class Database
 			
 			if(column.notNull)
 				bf.append(" not null");
+		}
+		
+		final Type supertype = type.getSupertype();
+		if(supertype!=null)
+		{
+			bf.append(",constraint ").
+				append(protectName(type.trimmedName+"SUP")).
+				append(" foreign key(").
+				append(type.primaryKey.protectedName).
+				append(")references ").
+				append(supertype.protectedName).
+				append('(').
+				append(supertype.primaryKey.protectedName).
+				append(')');
 		}
 		
 		for(Iterator i = type.getUniqueConstraints().iterator(); i.hasNext(); )

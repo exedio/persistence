@@ -12,7 +12,7 @@ class IntegerColumn extends Column
 	IntegerColumn(final Type type, final String trimmedName,
 					  final boolean notNull, final int precision)
 	{
-		super(type, trimmedName, notNull, "number(" + precision + ",0)"/* TODO: this is database specific */, JDBC_TYPE);
+		super(type, trimmedName, notNull, Database.theInstance.getIntegerType(precision), JDBC_TYPE);
 	}
 	
 	final void load(final ResultSet resultSet, final int columnIndex, final Row row)
