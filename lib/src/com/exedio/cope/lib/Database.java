@@ -1022,11 +1022,11 @@ public abstract class Database
 		}
 	}
 
-	private void dropTable(final Table type) // TODO: rename to table
+	private void dropTable(final Table table) 
 	{
 		final Statement bf = createStatement();
 		bf.append("drop table ").
-			append(type.protectedID);
+			append(table.protectedID);
 
 		try
 		{
@@ -1038,7 +1038,7 @@ public abstract class Database
 		}
 	}
 	
-	private int countTable(final Type type)
+	private int countTable(final Type type) // TODO: convert to table
 	{
 		final Statement bf = createStatement();
 		bf.append("select count(*) from ").defineColumnInteger().
