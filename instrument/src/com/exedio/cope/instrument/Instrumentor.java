@@ -170,6 +170,13 @@ public final class Instrumentor implements InjectionConsumer
 		else
 			return Character.toLowerCase(first) + s.substring(1);
 	}
+	
+	private static final String getShortName(final Class aClass)
+	{
+		final String name = aClass.getName();
+		final int pos = name.lastIndexOf('.');
+		return name.substring(pos+1);
+	}
 
 	private void writeParameterDeclarationList(final Collection parameters)
 	throws IOException
@@ -312,10 +319,8 @@ public final class Instrumentor implements InjectionConsumer
 		for(Iterator i = javaClass.getContructorExceptions().iterator(); i.hasNext(); )
 		{
 			final Class exception = (Class)i.next();
-			final String name = exception.getName();
-			final int pos = name.lastIndexOf('.');
 			output.write("\t\tthrowInitial");
-			output.write(name.substring(pos+1));
+			output.write(getShortName(exception));
 			output.write("();");
 			output.write(lineSeparator);
 		}
