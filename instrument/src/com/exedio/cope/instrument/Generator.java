@@ -37,7 +37,7 @@ final class Generator
 	private final Writer output;
 	private final String lineSeparator;
 	
-	public Generator(final Writer output)
+	Generator(final Writer output)
 	{
 		this.output=output;
 		
@@ -156,7 +156,7 @@ final class Generator
 		constraintViolationText.put(UniqueViolationException.class, "not unique");
 	}
 
-	public void writeConstructor(final PersistentClass javaClass)
+	private void writeConstructor(final PersistentClass javaClass)
 	throws IOException
 	{
 		final List initialAttributes = javaClass.getInitialAttributes();
@@ -263,7 +263,7 @@ final class Generator
 		output.write("\t}");
 	}
 	
-	public void writeGenericConstructor(final PersistentClass persistentClass)
+	private void writeGenericConstructor(final PersistentClass persistentClass)
 	throws IOException
 	{
 		writeCommentHeader();
@@ -281,7 +281,7 @@ final class Generator
 		output.write("\t}");
 	}
 	
-	public void writeReactivationConstructor(final PersistentClass persistentClass)
+	private void writeReactivationConstructor(final PersistentClass persistentClass)
 	throws IOException
 	{
 		final boolean abstractClass = persistentClass.isAbstract();
