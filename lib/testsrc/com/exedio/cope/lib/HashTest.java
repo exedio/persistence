@@ -66,6 +66,7 @@ public class HashTest extends DatabaseLibTest
 		try
 		{
 			new MD5Hash(item.hashed1MD5, "nixus");
+			fail("should have thrown UnsupportedEncodingException");
 		}
 		catch(NestingRuntimeException e)
 		{
@@ -75,6 +76,7 @@ public class HashTest extends DatabaseLibTest
 		try
 		{
 			new JavaHash(item.hashed1MD5, "nixus");
+			fail("should have thrown NoSuchAlgorithmException");
 		}
 		catch(NestingRuntimeException e)
 		{
