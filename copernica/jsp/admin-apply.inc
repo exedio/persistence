@@ -188,7 +188,9 @@
 				final String createColum = createColums[i];
 				final ReportColumn column = getColumn(report, createColum);
 				%>
-				<li>creating column <%=createColum%> ...</li><%
+				<li>report.getTable(&quot;<b><%=
+					column.table.name%></b>&quot;).getColumn(&quot;<b><%=
+					column.name%></b>&quot;).create();</li><%
 				out.flush();
 				final long startTime = System.currentTimeMillis();
 				column.create();
