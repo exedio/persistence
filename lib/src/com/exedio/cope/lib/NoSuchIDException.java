@@ -13,8 +13,8 @@ public class NoSuchIDException extends Exception
 		super("no such id <"+id+">, wrong number format <"+cause.getMessage()+">");
 	}
 
-	NoSuchIDException(final long id)
+	NoSuchIDException(final long id, final String detail)
 	{
-		super("number is not within +/- (2^32)-1: <"+id+">");
+		super("no such id number <"+id+">, "+detail);
 	}
 }

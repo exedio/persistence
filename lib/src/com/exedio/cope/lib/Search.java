@@ -24,6 +24,9 @@ public class Search
 
 	protected static final long pk2id(final int pk)
 	{
+		if(pk==Type.NOT_A_PK)
+			throw new RuntimeException("not a pk");
+
 		final long longPk = (long)pk;
 		return
 			(pk>=0) ?
@@ -34,13 +37,19 @@ public class Search
 	protected static final int id2pk(final long id)
 			throws NoSuchIDException
 	{
+		if(id<0)
+			throw new NoSuchIDException(id, "must be positive");
+		if(id>=4294967296l)
+			throw new NoSuchIDException(id, "does not fit in 32 bit");
+
 		final long result =
 			((id&1l)>0) ? // odd id ?
 				-((id>>>1)+1l) : // -(id/2 +1)
 				id>>1; // id/2
 
-		if(result<Integer.MIN_VALUE || result>Integer.MAX_VALUE || result==(long)Type.NOT_A_PK)
-			throw new NoSuchIDException(id);
+		//System.out.println("id2pk: "+id+" -> "+result);
+		if(result==(long)Type.NOT_A_PK)
+			throw new NoSuchIDException(id, "is a NOT_A_TYPE");
 
 		return (int)result;
 	}
@@ -85,7 +94,9 @@ public class Search
 		catch(RuntimeException e)
 		{
 			if("no such pk".equals(e.getMessage()))
-				throw new NoSuchIDException(id, "item does not exist");
+				throw new NoSuchIDException(id, "item <"+idNumber+"> does not exist");
+			else
+				throw new SystemException(e);
 		}
 		return result;
 	}
