@@ -7,10 +7,13 @@ page import="java.util.Map"
 for( final Iterator it = request.getParameterMap().entrySet().iterator(); it.hasNext(); )
 {
 	final Map.Entry entry = (Map.Entry)it.next();
-	System.out.print( "param >" + entry.getKey() + "< :");
+	%>
+	param &gt;<%=entry.getKey()%>&lt; :<%
 	final String[] values = (String[])entry.getValue();
 	for(int jt=0; jt<values.length; jt++)
-		System.out.print( " >" + values[jt] + "<" );
-	System.out.println();
+	{
+		%> &gt;<%=values[jt]%>&lt;<%
+	}
+	%><br><%
 }
 %>
