@@ -14,10 +14,10 @@ include file="copernica-provider.inc"
 			Copernica - Database Administration
 		</title>
 		<style type="text/css">
-			span.ok     { background-color:#83ce7b; }
+			span.ok     { background-color:#ccffcc; }
 			span.yellow { background-color:#ffff33; }
 			span.red    { background-color:#ff3333; }
-			li.ok     { background-color:#83ce7b; }
+			li.ok     { background-color:#ccffcc; }
 			li.yellow { background-color:#ffff33; }
 			li.red    { background-color:#ff3333; }
 		</style>
