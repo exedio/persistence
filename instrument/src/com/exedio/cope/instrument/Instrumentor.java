@@ -419,7 +419,9 @@ public final class Instrumentor implements InjectionConsumer
 			
 			enumerationNumber += ENUMERATION_NUMBER_AUTO_INCREMENT;
 		}
-		output.write("\t\tprivate State(final int number, final String code)");
+		output.write("\t\tprivate ");
+		output.write(enumerationAttribute.getCamelCaseName());
+		output.write("(final int number, final String code)");
 		output.write(lineSeparator);
 		output.write("\t\t{");
 		output.write(lineSeparator);
