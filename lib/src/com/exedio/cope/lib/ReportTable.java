@@ -61,13 +61,9 @@ public final class ReportTable extends ReportNode
 	
 	final ReportConstraint notifyRequiredConstraint(final String constraintName)
 	{
-		// TODO: this method must not cope with for previously created columns
-		ReportConstraint result = (ReportConstraint)constraints.get(constraintName);
-		if(result==null)
-		{
-			result = new ReportConstraint(constraintName, this);
-			constraints.put(constraintName, result);
-		}
+		final ReportConstraint result = new ReportConstraint(constraintName, this);
+		if(constraints.put(result.name, result)!=null)
+			throw new RuntimeException(constraintName);
 		result.required = true;
 		return result;
 	}
