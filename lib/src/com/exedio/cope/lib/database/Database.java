@@ -17,6 +17,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Iterator;
 
+/**
+ * TODO: This (sometime to make abstract) class should be in the parent package,
+ * to allow classes there to access methods with default access modifier.
+ */
 public class Database
 {
 	public static final Database theInstance = new Database();
@@ -25,11 +29,19 @@ public class Database
 	{
 	}
 	
+	/**
+	 * TODO: delimiters should be appended when computing the persistent qualifier,
+	 * and saved together with that qualifier. Would prevent many small StringBuffer.append(char).
+	 */
 	public char getNameDelimiterStart()
 	{
 		return '"';
 	}
 	
+	/**
+	 * TODO: delimiters should be appended when computing the persistent qualifier,
+	 * and saved together with that qualifier. Would prevent many small StringBuffer.append(char).
+	 */
 	public char getNameDelimiterEnd()
 	{
 		return '"';
@@ -135,7 +147,7 @@ public class Database
 		}
 	}
 	
-	private String getPersistentQualifier(final Type type)
+	public String getPersistentQualifier(final Type type)
 	{
 		final String className = type.getJavaClass().getName();
 		final int pos = className.lastIndexOf('.');
