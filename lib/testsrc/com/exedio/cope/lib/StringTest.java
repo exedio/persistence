@@ -34,6 +34,9 @@ public class StringTest extends DatabaseLibTest
 		assertEquals(4, item.min4Max8.getMinimumLength());
 		assertEquals(8, item.min4Max8.getMaximumLength());
 		assertEquals(true, item.min4Max8.isLengthConstrained());
+		
+		// TODO: test special unicode characters
+		// TODO: test special sql characters
 
 		// any
 		item.setAny("1234");
