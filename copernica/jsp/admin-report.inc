@@ -8,11 +8,11 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); )
 	<li><small>table</small> <%=table.name%><%
 	if(table.isMissing())
 	{
-		%> <b>MISSING !!!</b><%
+		%> <span style="background-color:#ff3333">MISSING !!!</span><%
 	}
 	if(table.isUnused())
 	{
-		%> <b>not used</b><%
+		%> <span style="background-color:#ffff33">not used</span><%
 	}
 	if(!table.getConstraints().isEmpty())
 	{
