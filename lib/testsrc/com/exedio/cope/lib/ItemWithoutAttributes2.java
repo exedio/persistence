@@ -9,7 +9,7 @@ import com.exedio.cope.lib.MediaAttribute;
 import com.exedio.cope.lib.StringAttribute;
 
 /**
- * An item not having any attribute.
+ * Another item not having any attribute.
  * @persistent
  */
 public class ItemWithoutAttributes2 extends Item
