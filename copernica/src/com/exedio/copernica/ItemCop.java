@@ -8,12 +8,12 @@ import com.exedio.cope.lib.SystemException;
 final class ItemCop extends CopernicaCop
 {
 	final Item item;
-
+	
 	ItemCop(final Language language, final Item item)
 	{
 		super(language);
 		this.item = item;
-		addParameter("item", item.getID());
+		addParameter(ITEM, item.getID());
 	}
 	
 	final  CopernicaCop switchLanguage(final Language newLanguage)

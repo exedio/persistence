@@ -63,13 +63,7 @@ page import="java.util.Map"
 	if(database)
 	{
 		final CopernicaCop cop = CopernicaCop.getCop(
-			provider,
-			request.getParameter("type"),
-			request.getParameter("order"),
-			request.getParameter("item"),
-			request.getParameter("lang"),
-			request.getParameter("start"),
-			request.getParameter("count")
+			provider, request.getParameterMap()
 		);
 		final Language language = cop.language;
 			

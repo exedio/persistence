@@ -1,6 +1,7 @@
 package com.exedio.copernica;
 
 import java.util.Collection;
+import java.util.Map;
 
 import com.exedio.cope.lib.ObjectAttribute;
 import com.exedio.cope.lib.Query;
@@ -28,13 +29,13 @@ final class TypeCop extends CopernicaCop
 		this.orderAttribute = orderAttribute;
 		this.start = start;
 		this.count = count;
-		addParameter("type", type.getID());
+		addParameter(TYPE, type.getID());
 		if(orderAttribute!=null)
-			addParameter("order", orderAttribute.getName());
+			addParameter(ORDER, orderAttribute.getName());
 		if(start!=0)
-			addParameter("start", String.valueOf(start));
+			addParameter(START, String.valueOf(start));
 		if(count!=10)
-			addParameter("count", String.valueOf(count));
+			addParameter(COUNT, String.valueOf(count));
 	}
 	
 	final  CopernicaCop switchLanguage(final Language newLanguage)
@@ -88,15 +89,20 @@ final class TypeCop extends CopernicaCop
 	static final TypeCop getCop(
 			final Language language,
 			final String typeID,
-			final String orderID,
-			final String startString, final String countString)
+			final Map parameterMap)
 	{
 		final Type type = Type.findByID(typeID);
 		if(type==null)
 			throw new RuntimeException("type "+typeID+" not available");
+
+		final String orderID = getParameter(parameterMap, ORDER);
 		final ObjectAttribute orderAttribute = (orderID==null) ? null : (ObjectAttribute)type.getFeature(orderID);
+
+		final String startString = getParameter(parameterMap, START);
+		final String countString = getParameter(parameterMap, COUNT);
 		final int start = (startString==null) ?  0 : Integer.parseInt(startString);
 		final int count = (countString==null) ? 10 : Integer.parseInt(countString);
+
 		return new TypeCop(language, type, orderAttribute, start, count);
 	}
 }

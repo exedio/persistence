@@ -1,5 +1,7 @@
 package com.exedio.copernica;
 
+import java.util.Map;
+
 
 abstract class Cop
 {
@@ -29,6 +31,12 @@ abstract class Cop
 	public final String toString()
 	{
 		return url.toString();
+	}
+	
+	public static final String getParameter(final Map parameterMap, final String key)
+	{
+		final String[] array = (String[])parameterMap.get(key);
+		return array==null ? null : array[0];
 	}
 	
 }

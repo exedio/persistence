@@ -1,11 +1,23 @@
 package com.exedio.copernica;
 
+import java.util.Map;
+
 import com.exedio.cope.lib.Item;
 import com.exedio.cope.lib.Type;
 
 
 abstract class CopernicaCop extends Cop
 {
+	static final String LANGUAGE = "lang";
+
+	static final String TYPE = "type";
+	static final String ORDER = "order";
+	static final String START = "start";
+	static final String COUNT = "count";
+	
+	final static String ITEM = "item";
+
+
 	final Language language;
 
 	CopernicaCop(final Language language)
@@ -13,7 +25,7 @@ abstract class CopernicaCop extends Cop
 		super("copernica.jsp");
 		this.language = language;
 		if(language!=null)
-			addParameter("lang", language.getCopernicaID());
+			addParameter(LANGUAGE, language.getCopernicaID());
 	}
 	
 	abstract CopernicaCop switchLanguage(Language newLanguage);
@@ -28,17 +40,16 @@ abstract class CopernicaCop extends Cop
 		return new ItemCop(language, newItem);
 	}
 
-	static final CopernicaCop getCop(
-			final CopernicaProvider provider,
-			final String typeID, final String orderID,
-			final String itemID,
-			final String langID,
-			final String startString, final String countString)
+	static final CopernicaCop getCop(final CopernicaProvider provider, final Map parameterMap)
 	{	
+		final String typeID = getParameter(parameterMap, TYPE);
+		final String itemID = getParameter(parameterMap, ITEM);
+		final String langID = getParameter(parameterMap, LANGUAGE);
+		
 		final Language language = (langID!=null) ? provider.findLanguageByUniqueID(langID) : null;
 		if(typeID!=null)
 		{
-			return TypeCop.getCop(language, typeID, orderID, startString, countString);
+			return TypeCop.getCop(language, typeID, parameterMap);
 		}
 		else if(itemID!=null)
 		{
