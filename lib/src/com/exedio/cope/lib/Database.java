@@ -12,8 +12,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
-import org.omg.CORBA.SystemException;
-
 import bak.pcj.list.IntArrayList;
 
 abstract class Database
@@ -207,7 +205,7 @@ abstract class Database
 				dropTable(table);
 				System.err.println("done.");
 			}
-			catch(SystemException e2)
+			catch(NestingRuntimeException e2)
 			{
 				System.err.println("failed:"+e2.getMessage());
 			}
