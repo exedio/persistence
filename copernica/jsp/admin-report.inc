@@ -71,13 +71,11 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); )
 			{
 				%></span><%
 			}
-			if(constraint.isMissing())
+			final String constraintError = constraint.getError();
+			if(constraintError!=null)
 			{
-				%> <span style="background-color:#ffff33">MISSING !!!</span><%
-			}
-			if(constraint.isUnused())
-			{
-				%> <span style="background-color:#ff3333">not used</span><%
+				%> <span style="background-color:#<%=color(constraint.getParticularColor())
+												%>"><%=constraintError%></span><%
 			}
 			%></li><%
 		}

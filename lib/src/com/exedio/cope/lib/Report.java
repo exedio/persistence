@@ -138,16 +138,6 @@ public final class Report extends Node
 			this.table = table; 
 		}
 
-		public final boolean isMissing()
-		{
-			return !exists;
-		}
-		
-		public final boolean isUnused()
-		{
-			return !required;
-		}
-
 		protected void finish()
 		{
 			if(cumulativeColor!=COLOR_NOT_YET_CALC || particularColor!=COLOR_NOT_YET_CALC)
@@ -156,8 +146,14 @@ public final class Report extends Node
 			// TODO: make this dependend on type of constraint:
 			// check/not null constraint are yellow only if missing
 			// foreign key/unique constraint are red when missing or unused
-			if(isMissing() || isUnused())
+			if(!exists)
 			{
+				error = "missing";
+				particularColor = COLOR_RED;
+			}
+			else if(!required)
+			{
+				error = "not used";
 				if(table.table==null)
 					particularColor = COLOR_YELLOW;
 				else
