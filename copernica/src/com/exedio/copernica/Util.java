@@ -1,11 +1,8 @@
 package com.exedio.copernica;
 
-import java.lang.reflect.Field;
-
 import javax.servlet.ServletConfig;
 import javax.servlet.http.HttpServletRequest;
 
-import com.exedio.cope.lib.Model;
 import com.exedio.cope.lib.NestingRuntimeException;
 import com.exedio.cops.Cop;
 
@@ -31,41 +28,6 @@ public final class Util
 			throw new NestingRuntimeException(e);
 		}
 		catch(InstantiationException e)
-		{
-			throw new NestingRuntimeException(e);
-		}
-		catch(IllegalAccessException e)
-		{
-			throw new NestingRuntimeException(e);
-		}
-	}
-	
-	// TODO: should not be public
-	public static final Model getModel(final ServletConfig config)
-	{
-		try
-		{
-			final String modelName = config.getInitParameter("model");
-			if(modelName==null)
-				throw new NullPointerException("init-param 'model' missing");
-
-			final int pos = modelName.indexOf('#');
-			if(pos<=0)
-				throw new RuntimeException("init-param 'model' does not contain '#', but was "+modelName);
-			final String modelClassName = modelName.substring(0, pos);
-			final String modelAttributeName = modelName.substring(pos+1);
-
-			final Class modelClass = Class.forName(modelClassName);
-			final Field modelField = modelClass.getField(modelAttributeName);
-			final Model model = (Model)modelField.get(null);
-			TransientCopernicaProvider.initialize(model, config);
-			return model;
-		}
-		catch(ClassNotFoundException e)
-		{
-			throw new NestingRuntimeException(e);
-		}
-		catch(NoSuchFieldException e)
 		{
 			throw new NestingRuntimeException(e);
 		}
