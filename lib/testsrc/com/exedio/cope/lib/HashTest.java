@@ -25,7 +25,7 @@ public class HashTest extends DatabaseLibTest
 		assertTrue(!item.checkHashed1("bello"));
 		
 		item.setHashed1("knollo");
-		assertNotNull(item.getHashed1MD5());
+		assertEquals("rTc6R9gZSfRmVS7fKUmbMg==", item.getHashed1MD5());
 		assertTrue(!item.checkHashed1(null));
 		assertTrue(!item.checkHashed1("bello"));
 		assertTrue(item.checkHashed1("knollo"));
