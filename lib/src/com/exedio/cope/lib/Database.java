@@ -435,6 +435,10 @@ public abstract class Database
 		return longName; // TODO: we should actually do some shortening
 	}
 
+	/**
+	 * Protects a database name from being interpreted as a SQL keyword.
+	 * This is usually done by using some (database specific) delimiters.
+	 */
 	public abstract String protectName(final String name);
 
 	private void createTable(final Type type)
