@@ -90,12 +90,12 @@ public abstract class Example implements Runnable
 	 }
   }  
 
-  private Example()
+  public Example()
   {
 	 new Integer(5);
   }
   
-  public Example(String name, Integer type)
+  private Example(String name, Integer type)
   {
 	 super();
   }
@@ -165,43 +165,5 @@ public abstract class Example implements Runnable
 
 }
 
-class SecondExample extends Example{
-  int i;
-  
-  /**
-	  @invariant testingInheritance: self.hallo='prollo'
-  */
-  SecondExample()
-  {
-	 super("somename", new Integer(5));
-  }
-  
-  {
-	 // Object initializer as defined in Java Language Spec D.1.3
-	 i=10;
-  }
+class SecondExample extends Example{void abstractMethod(){}}
 
-  void abstractMethod()  {}
-  
-  static
-  {
-	 // this has to be tested too.
-  }
-  
-  public String toString()
-  {
-	 return getClass().getName();
-  }
-  
-}
-
-class ThirdExample extends SecondExample
-{
-  // this class has no explicit constructor
-  void abstractMethod()  {}
-}
-
-interface ExampleFour
-{
-  public int someMethod(double x);
-}

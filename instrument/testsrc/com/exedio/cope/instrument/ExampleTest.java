@@ -237,8 +237,8 @@ public class ExampleTest extends InjectorTest
 			assertBehaviourHeader(
 				"Example",
 				null,
-				Modifier.PRIVATE,
-				"private Example()\n  ");
+				Modifier.PUBLIC,
+				"public Example()\n  ");
 		assertText("{\n\t new Integer(5);\n  }");
 		assertMethod("Example", null, emptyConstructor);
 		assertText("\n  \n  ");
@@ -247,8 +247,8 @@ public class ExampleTest extends InjectorTest
 			assertBehaviourHeader(
 				"Example",
 				null,
-				Modifier.PUBLIC,
-				"public Example(String name, Integer type)\n  ");
+				Modifier.PRIVATE,
+				"private Example(String name, Integer type)\n  ");
 		assertText("{\n\t super();\n  }");
 		assertMethod("Example", null, secondConstructor);
 		assertText("\n\n  ");
