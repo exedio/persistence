@@ -4,10 +4,16 @@ package com.exedio.cope.lib;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.HashMap;
 
 public class Item extends Search
 {
-	
+	/**
+	 * THIS IS A HACK
+	 */
+	private static int pkCounter = 0;
+	private final int pk;
+
 	/**
 	 * Returns a string unique for this item in all other items of this application.
 	 * For any item <code>a</code> the following holds true:
@@ -17,8 +23,7 @@ public class Item extends Search
 	 */
 	public final String getID()
 	{
-		// TODO: should use the primary key and type somehow
-		return toString();
+		return getClass().getName() + '.' + pk;
 	}
 	
 	/**
@@ -29,8 +34,7 @@ public class Item extends Search
 	 */
 	public final boolean equals(final Object o)
 	{
-		// TODO: should use the primary key and type somehow
-		return this == o;
+		return (o!=null) && (getClass()==o.getClass()) && (pk==((Item)o).pk);
 	}
 
 	/**
@@ -40,8 +44,7 @@ public class Item extends Search
 	 */
 	public final int hashCode()
 	{
-		// TODO: should use the primary key and type somehow
-		return System.identityHashCode(this);
+		return getClass().hashCode() ^ pk;
 	}
 	
 	/**
@@ -65,8 +68,10 @@ public class Item extends Search
 	 * All this fiddling is needed, because one cannot wrap a <code>super()</code> call into a
 	 * try-catch statement.
 	 */
-	protected Item(final AttributeValue[] initialAttributesValues)
+	protected Item(final AttributeValue[] initialAttributeValues)
 	{
+		putCache(initialAttributeValues);
+		this.pk = pkCounter++; // TODO: THIS IS A HACK
 	}
 	
 	/**
@@ -85,20 +90,20 @@ public class Item extends Search
 	
 	protected final Object getAttribute(final Attribute attribute)
 	{
-		final AttributeMapping mapping = attribute.mapping;;
+		final AttributeMapping mapping = attribute.mapping;
 		if(mapping!=null)
 			return mapping.mapJava(getAttribute(mapping.sourceAttribute));
 
-		return null;
+		return getCache(attribute);
 	}
 	
 	protected final Object getAttribute(final Attribute attribute, final Object[] qualifiers)
 	{
-		final AttributeMapping mapping = attribute.mapping;;
+		final AttributeMapping mapping = attribute.mapping;
 		if(mapping!=null)
 			return mapping.mapJava(getAttribute(mapping.sourceAttribute));
 
-		return null;
+		return getCache(attribute);
 	}
 
 	/**
@@ -114,11 +119,14 @@ public class Item extends Search
 			throw new ReadOnlyViolationException(this, attribute);
 		if(attribute.isNotNull() && value == null)
 			throw new NotNullViolationException(this, attribute);
+
+		putCache(attribute, value);
 	}
 	
 	protected final void setAttribute(final Attribute attribute, final Object[] qualifiers, final Object value)
 	throws UniqueViolationException
 	{
+		putCache(attribute, value);
 	}
 	
 	/**
@@ -174,4 +182,25 @@ public class Item extends Search
 			data.close();
 	}
 
+	
+	// item cache -------------------------------------------------------------------
+	
+	private final HashMap itemCache = new HashMap();
+
+	private Object getCache(final Attribute attribute)
+	{
+		return itemCache.get(attribute);
+	}
+	
+	private void putCache(final AttributeValue[] attributeValues)
+	{
+		for(int i = 0; i<attributeValues.length; i++)
+			itemCache.put(attributeValues[i].attribute, attributeValues[i].value);
+	}
+	
+	private void putCache(final Attribute attribute, final Object value)
+	{
+		itemCache.put(attribute, value);
+	}
+	
 }

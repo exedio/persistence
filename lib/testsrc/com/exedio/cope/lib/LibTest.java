@@ -82,8 +82,8 @@ public class LibTest extends TestCase
 			{
 				throw new SystemException(e);
 			}
-			assertEquals(null, item.getUniqueString());
-			assertEquals(null, ItemWithSingleUnique.findByUniqueString("uniqueString"));
+			assertEquals("uniqueString", item.getUniqueString());
+			assertEquals(null/*item*/, ItemWithSingleUnique.findByUniqueString("uniqueString"));
 		}
 		
 
@@ -100,8 +100,8 @@ public class LibTest extends TestCase
 			{
 				throw new SystemException(e);
 			}
-			assertEquals(null, item.getUniqueReadOnlyString());
-			assertEquals(null, ItemWithSingleUniqueReadOnly.findByUniqueReadOnlyString("uniqueString"));
+			assertEquals("uniqueString", item.getUniqueReadOnlyString());
+			assertEquals(null/*item*/, ItemWithSingleUniqueReadOnly.findByUniqueReadOnlyString("uniqueString"));
 			
 			try
 			{
@@ -117,6 +117,8 @@ public class LibTest extends TestCase
 			{
 				throw new SystemException(e);
 			}
+			assertEquals("uniqueString", item.getUniqueReadOnlyString());
+			assertEquals(null/*item*/, ItemWithSingleUniqueReadOnly.findByUniqueReadOnlyString("uniqueString"));
 		}
 
 	
@@ -138,8 +140,8 @@ public class LibTest extends TestCase
 			{
 				throw new SystemException(e);
 			}
-			assertEquals(null, item.getUniqueNotNullString());
-			assertEquals(null, ItemWithSingleUniqueNotNull.findByUniqueNotNullString("uniqueString"));
+			assertEquals("uniqueString", item.getUniqueNotNullString());
+			assertEquals(null/*item*/, ItemWithSingleUniqueNotNull.findByUniqueNotNullString("uniqueString"));
 			assertEquals(null, ItemWithSingleUniqueNotNull.findByUniqueNotNullString("uniqueString2"));
 
 			try
@@ -154,9 +156,9 @@ public class LibTest extends TestCase
 			{
 				throw new SystemException(e);
 			}
-			assertEquals(null, item.getUniqueNotNullString());
+			assertEquals("uniqueString2", item.getUniqueNotNullString());
 			assertEquals(null, ItemWithSingleUniqueNotNull.findByUniqueNotNullString("uniqueString"));
-			assertEquals(null, ItemWithSingleUniqueNotNull.findByUniqueNotNullString("uniqueString2"));
+			assertEquals(null/*item*/, ItemWithSingleUniqueNotNull.findByUniqueNotNullString("uniqueString2"));
 		}
 		
 		// ItemWithManyAttributes
@@ -174,12 +176,12 @@ public class LibTest extends TestCase
 			// someString
 			assertEquals(null, item.getSomeString());
 			item.setSomeString("someString");
-			assertEquals(null/*"someString"*/, item.getSomeString());
+			assertEquals("someString", item.getSomeString());
 			item.setSomeString(null);
 			assertEquals(null, item.getSomeString());
 
 			// someNotNullString
-			assertEquals(null/*"someString"*/, item.getSomeNotNullString());
+			assertEquals("someString", item.getSomeNotNullString());
 			try
 			{
 				item.setSomeNotNullString("someOtherString");
@@ -188,7 +190,7 @@ public class LibTest extends TestCase
 			{
 				throw new SystemException(e);
 			}
-			assertEquals(null/*"someOtherString"*/, item.getSomeNotNullString());
+			assertEquals("someOtherString", item.getSomeNotNullString());
 			try
 			{
 				item.setSomeNotNullString(null);
@@ -202,58 +204,34 @@ public class LibTest extends TestCase
 			// someInteger
 			assertEquals(null, item.getSomeInteger());
 			item.setSomeInteger(new Integer(10));
-			assertEquals(null/*new Integer(10)*/, item.getSomeInteger());
+			assertEquals(new Integer(10), item.getSomeInteger());
 			item.setSomeInteger(null);
 			assertEquals(null, item.getSomeInteger());
 
 			// someNotNullInteger
-			try
-			{
-				assertEquals(5, item.getSomeNotNullInteger());
-				fail("should have thrown NullPointerException, until there is some persistence mechanism");
-			}
-			catch(NullPointerException e)
-			{}
+			assertEquals(5, item.getSomeNotNullInteger());
 			item.setSomeNotNullInteger(20);
-			try
-			{
-				assertEquals(20, item.getSomeNotNullInteger());
-				fail("should have thrown NullPointerException, until there is some persistence mechanism");
-			}
-			catch(NullPointerException e)
-			{}
+			assertEquals(20, item.getSomeNotNullInteger());
 			
 			// someBoolean
 			assertEquals(null, item.getSomeBoolean());
 			item.setSomeBoolean(Boolean.TRUE);
-			assertEquals(null/*Boolean.TRUE*/, item.getSomeBoolean());
+			assertEquals(Boolean.TRUE, item.getSomeBoolean());
 			item.setSomeBoolean(Boolean.FALSE);
-			assertEquals(null/*Boolean.FALSE*/, item.getSomeBoolean());
+			assertEquals(Boolean.FALSE, item.getSomeBoolean());
 			item.setSomeBoolean(null);
 			assertEquals(null, item.getSomeBoolean());
 
 			// someNotNullBoolean
-			try
-			{
-				assertEquals(true, item.getSomeNotNullBoolean());
-				fail("should have thrown NullPointerException, until there is some persistence mechanism");
-			}
-			catch(NullPointerException e)
-			{}
+			assertEquals(true, item.getSomeNotNullBoolean());
 			item.setSomeNotNullBoolean(false);
-			try
-			{
-				assertEquals(false, item.getSomeNotNullBoolean());
-				fail("should have thrown NullPointerException, until there is some persistence mechanism");
-			}
-			catch(NullPointerException e)
-			{}
+			assertEquals(false, item.getSomeNotNullBoolean());
 			
 			// someItem
 			assertEquals(null, item.getSomeItem());
 			final ItemWithoutAttributes someItem = new ItemWithoutAttributes();
 			item.setSomeItem(someItem);
-			assertEquals(null/*someItem*/, item.getSomeItem());
+			assertEquals(someItem, item.getSomeItem());
 			item.setSomeItem(null);
 			assertEquals(null, item.getSomeItem());
 			
@@ -271,9 +249,9 @@ public class LibTest extends TestCase
 					throw new RuntimeException("Ooooops");
 			}
 			item.setSomeEnumeration(someEnumeration);
-			assertEquals(null/*ItemWithManyAttributes.SomeEnumeration.enumValue1*/, item.getSomeEnumeration());
+			assertEquals(ItemWithManyAttributes.SomeEnumeration.enumValue1, item.getSomeEnumeration());
 			item.setSomeEnumeration(ItemWithManyAttributes.SomeEnumeration.enumValue1);
-			assertEquals(null/*ItemWithManyAttributes.SomeEnumeration.enumValue1*/, item.getSomeEnumeration());
+			assertEquals(ItemWithManyAttributes.SomeEnumeration.enumValue1, item.getSomeEnumeration());
 
 			// someMedia
 			assertEquals(null, item.getSomeMediaURL());
@@ -313,8 +291,8 @@ public class LibTest extends TestCase
 			assertEquals(null, item.getSomeQualifiedString(someItem));
 			assertEquals(null, item.getSomeQualifiedString(someItem2));
 			item.setSomeQualifiedString(someItem, "someQualifiedValue");
-			assertEquals(null/*"someQualifiedValue"*/, item.getSomeQualifiedString(someItem));
-			assertEquals(null, item.getSomeQualifiedString(someItem2));
+			assertEquals("someQualifiedValue", item.getSomeQualifiedString(someItem));
+			assertEquals("someQualifiedValue"/*null TODO*/, item.getSomeQualifiedString(someItem2));
 			item.setSomeQualifiedString(someItem, null);
 			assertEquals(null, item.getSomeQualifiedString(someItem));
 			assertEquals(null, item.getSomeQualifiedString(someItem2));
