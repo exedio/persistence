@@ -836,7 +836,6 @@ public abstract class Database
 	
 	private void createMediaDirectories(final Type type)
 	{
-		final File directory = Properties.getInstance().getMediaDirectory();
 		File typeDirectory = null;
 
 		for(Iterator i = type.getAttributes().iterator(); i.hasNext(); )
@@ -846,6 +845,7 @@ public abstract class Database
 			{
 				if(typeDirectory==null)
 				{
+					final File directory = Properties.getInstance().getMediaDirectory();
 					typeDirectory = new File(directory, type.trimmedName);
 					typeDirectory.mkdir();
 				}
