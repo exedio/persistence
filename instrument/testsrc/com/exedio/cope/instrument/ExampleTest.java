@@ -192,6 +192,9 @@ public class ExampleTest extends InjectorTest
 
 		assertClassEnd("Inner", innerClass);
 		assertAttribute("Inner", null);
+		assertText("}  \n\n  ");
+		
+		assertBehaviourHeader("Example", null, Modifier.PRIVATE);
 	}
 
 }
