@@ -12,7 +12,7 @@ import bak.pcj.map.IntKeyOpenHashMap;
 
 public final class EnumAttribute extends ObjectAttribute
 {
-	private final Class enumerationClass;
+	private final Class enumClass;
 	private final List values;
 	private final IntKeyOpenHashMap numbersToValues;
 	private final HashMap codesToValues;
@@ -20,19 +20,19 @@ public final class EnumAttribute extends ObjectAttribute
 	/**
 	 * @see Item#enumerationAttribute(Option, Class)
 	 */
-	EnumAttribute(final Option option, final Class enumerationClass)
+	EnumAttribute(final Option option, final Class enumClass)
 	{
 		super(option);
-		this.enumerationClass = enumerationClass;
-		if(!EnumValue.class.isAssignableFrom(enumerationClass))
-			throw new RuntimeException("is not an enumeration value class: "+enumerationClass.getName());
+		this.enumClass = enumClass;
+		if(!EnumValue.class.isAssignableFrom(enumClass))
+			throw new RuntimeException("is not an enumeration value class: "+enumClass.getName());
 
 		try
 		{
 			final ArrayList values = new ArrayList();
 			final IntKeyOpenHashMap numbersToValues = new IntKeyOpenHashMap();
 			final HashMap codesToValues = new HashMap();
-			final Field[] fields = enumerationClass.getDeclaredFields();
+			final Field[] fields = enumClass.getDeclaredFields();
 			for(int j = 0; j<fields.length; j++)
 			{
 				final Field field = fields[j];
@@ -52,21 +52,21 @@ public final class EnumAttribute extends ObjectAttribute
 						final int num;
 						try
 						{
-							final Field numField = enumerationClass.getDeclaredField(numName);
+							final Field numField = enumClass.getDeclaredField(numName);
 							if((numField.getModifiers()&Modifier.STATIC)==0)
-								throw new RuntimeException("field "+enumerationClass.getName()+"#"+numName+" must be static");
+								throw new RuntimeException("field "+enumClass.getName()+"#"+numName+" must be static");
 							if((numField.getModifiers()&Modifier.FINAL)==0)
-								throw new RuntimeException("field "+enumerationClass.getName()+"#"+numName+" must be final");
+								throw new RuntimeException("field "+enumClass.getName()+"#"+numName+" must be final");
 							if(numField.getType()!=int.class)
-								throw new RuntimeException("field "+enumerationClass.getName()+"#"+numName+" must have type int, but has "+numField.getClass());
+								throw new RuntimeException("field "+enumClass.getName()+"#"+numName+" must have type int, but has "+numField.getClass());
 							
 							num = ((Integer)numField.get(null)).intValue();
 						}
 						catch(NoSuchFieldException e)
 						{
-							throw new RuntimeException("no such field "+enumerationClass.getName()+"#"+numName);
+							throw new RuntimeException("no such field "+enumClass.getName()+"#"+numName);
 						}
-						value.initialize(enumerationClass, name, num);
+						value.initialize(enumClass, name, num);
 					}
 					values.add(value);
 					numbersToValues.put(value.getNumber(), value);
