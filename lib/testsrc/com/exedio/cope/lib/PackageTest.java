@@ -5,7 +5,6 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-import com.exedio.cope.lib.hierarchy.HierarchyTest;
 
 public class PackageTest extends TestCase
 {
