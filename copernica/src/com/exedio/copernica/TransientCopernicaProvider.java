@@ -2,6 +2,7 @@ package com.exedio.copernica;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -14,9 +15,34 @@ import com.exedio.cope.lib.UniqueConstraint;
 
 public class TransientCopernicaProvider implements CopernicaProvider
 {
+	// Transient Languages
+	
+	private HashMap transientLanguages = null;
+	
+	protected void setTransientLanguages(final TransientLanguage[] languages)
+	{
+		final HashMap result = new HashMap(languages.length);
+		
+		for(int i = 0; i<languages.length; i++)
+			result.put(languages[i].getCopernicaID(), languages[i]);
+			
+		transientLanguages = result;
+	}
+
 	public Collection getDisplayLanguages()
 	{
-		return Collections.EMPTY_LIST;
+		return
+			transientLanguages == null
+				? Collections.EMPTY_LIST
+				: transientLanguages.values();
+	}
+	
+	public com.exedio.copernica.Language findLanguageByUniqueID(final String uniqueID)
+	{
+		return
+			transientLanguages == null
+				? null
+				: (TransientLanguage)transientLanguages.get(uniqueID);
 	}
 	
 	public Collection getRootCategories()
@@ -115,11 +141,6 @@ public class TransientCopernicaProvider implements CopernicaProvider
 		return null;
 	}
 
-	public com.exedio.copernica.Language findLanguageByUniqueID(final String uniqueID)
-	{
-		return null;
-	}
-	
 	public Category findCategoryByUniqueID(final String uniqueID)
 	{
 		return null;
