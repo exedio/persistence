@@ -3,7 +3,7 @@
 		for(Iterator i = provider.getModel().getTypes().iterator(); i.hasNext(); )
 		{
 			final Type type = (Type)i.next();
-			final String name = provider.getDisplayName(null, type);
+			final String name = provider.getDisplayName(language, type);
 			final boolean active = cop.isType(type);
 			%>
 			<li<%

@@ -4,7 +4,7 @@
 			
 			%>
 			<h1>
-				<a href="<%=(cop.toType(type))%>"><%=provider.getDisplayName(null, type)%></a>
+				<a href="<%=(cop.toType(type))%>"><%=provider.getDisplayName(language, type)%></a>
 			</h1>
 			<ul><%
 			int numberOfSearchFeatures = 5;
@@ -14,7 +14,7 @@
 			{
 				final Feature feature = (Feature)i.next();
 				%>
-				<li><%=provider.getDisplayName(null, feature)%></li><%
+				<li><%=provider.getDisplayName(language, feature)%></li><%
 			}
 			%>
 			</ul><%
@@ -51,7 +51,7 @@
 					final Feature feature = (Feature)i.next();
 					%>
 					<th>
-						<%=provider.getDisplayName(null, feature)%><%
+						<%=provider.getDisplayName(language, feature)%><%
 					if(feature instanceof Function)
 					{
 						%><br>
@@ -85,7 +85,7 @@
 					final Item item = (Item)i.next();
 					%>
 				<tr>
-					<td><a href="<%=(cop.toItem(item))%>"><%=provider.getDisplayName(null, item)%></a></td><%
+					<td><a href="<%=(cop.toItem(item))%>"><%=provider.getDisplayName(language, item)%></a></td><%
 					for(Iterator j = type.getFeatures().iterator(); j.hasNext(); )
 					{
 						final Feature feature = (Feature)j.next();
@@ -104,7 +104,7 @@
 							}
 							else
 							{
-								%><a href="<%=(cop.toItem(value))%>"><%=provider.getDisplayName(null, value)%></a><%
+								%><a href="<%=(cop.toItem(value))%>"><%=provider.getDisplayName(language, value)%></a><%
 							}
 						}
 						else

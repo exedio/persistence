@@ -18,8 +18,8 @@
 					<tr>
 						<td>
 							<h1>
-								<a href="<%=(cop.toType(type))%>"><%=provider.getDisplayName(null, type)%></a>
-								<b><%=provider.getDisplayName(null, item)%></b>
+								<a href="<%=(cop.toType(type))%>"><%=provider.getDisplayName(language, type)%></a>
+								<b><%=provider.getDisplayName(language, item)%></b>
 							</h1>
 						</td>
 						<td align="right"><%
