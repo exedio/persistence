@@ -42,7 +42,7 @@ public class ItemWithSingleUniqueNotNull extends Item
 	 * @see Item#Item(com.exedio.cope.lib.util.ReactivationConstructorDummy,int)
 	 * @generated
 	 *
- */private ItemWithSingleUniqueNotNull(com.exedio.cope.lib.util.ReactivationConstructorDummy d, final int pk)
+ */private ItemWithSingleUniqueNotNull(com.exedio.cope.lib.util.ReactivationConstructorDummy d,final int pk)
 	{
 		super(d,pk);
 	}/**

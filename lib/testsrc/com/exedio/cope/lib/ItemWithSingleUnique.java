@@ -31,7 +31,7 @@ public class ItemWithSingleUnique extends Item
 	 * @see Item#Item(com.exedio.cope.lib.util.ReactivationConstructorDummy,int)
 	 * @generated
 	 *
- */private ItemWithSingleUnique(com.exedio.cope.lib.util.ReactivationConstructorDummy d, final int pk)
+ */private ItemWithSingleUnique(com.exedio.cope.lib.util.ReactivationConstructorDummy d,final int pk)
 	{
 		super(d,pk);
 	}/**

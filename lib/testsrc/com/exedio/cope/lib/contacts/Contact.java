@@ -54,7 +54,7 @@ public abstract class Contact extends Item
 	 * @see Item#Item(com.exedio.cope.lib.util.ReactivationConstructorDummy,int)
 	 * @generated
 	 *
- */protected Contact(com.exedio.cope.lib.util.ReactivationConstructorDummy d, final int pk)
+ */protected Contact(com.exedio.cope.lib.util.ReactivationConstructorDummy d,final int pk)
 	{
 		super(d,pk);
 	}/**

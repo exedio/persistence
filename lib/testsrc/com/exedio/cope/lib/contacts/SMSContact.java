@@ -30,7 +30,7 @@ public class SMSContact extends Contact
 	 * @see Item#Item(com.exedio.cope.lib.util.ReactivationConstructorDummy,int)
 	 * @generated
 	 *
- */private SMSContact(com.exedio.cope.lib.util.ReactivationConstructorDummy d, final int pk)
+ */private SMSContact(com.exedio.cope.lib.util.ReactivationConstructorDummy d,final int pk)
 	{
 		super(d,pk);
 	}/**

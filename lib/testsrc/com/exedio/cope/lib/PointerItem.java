@@ -51,7 +51,7 @@ public class PointerItem extends Item
 	 * @see Item#Item(com.exedio.cope.lib.util.ReactivationConstructorDummy,int)
 	 * @generated
 	 *
- */private PointerItem(com.exedio.cope.lib.util.ReactivationConstructorDummy d, final int pk)
+ */private PointerItem(com.exedio.cope.lib.util.ReactivationConstructorDummy d,final int pk)
 	{
 		super(d,pk);
 	}/**

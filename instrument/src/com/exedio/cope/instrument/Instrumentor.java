@@ -417,7 +417,7 @@ public final class Instrumentor implements InjectionConsumer
 		writeCommentFooter();
 		output.write( abstractClass ? "protected " : "private " );
 		output.write(persistentClass.getName());
-		output.write("("+ReactivationConstructorDummy.class.getName()+" d, final int pk)");
+		output.write("("+ReactivationConstructorDummy.class.getName()+" d,final int pk)");
 		output.write(lineSeparator);
 		output.write("\t{");
 		output.write(lineSeparator);
