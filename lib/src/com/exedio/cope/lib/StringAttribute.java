@@ -1,7 +1,7 @@
 
 package persistence;
 
-public class StringAttribute extends Attribute
+public final class StringAttribute extends Attribute
 {
 	public StringAttribute()
 	{
