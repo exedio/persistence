@@ -87,18 +87,20 @@ public abstract class InjectorTest extends TestCase
 		assertEquals(docComment, ((FileDocCommentEvent)event).docComment);
 	}
 
-	protected void assertClass(final String className)
+	protected JavaClass assertClass(final String className)
 	{
 		final InjectionEvent event = fetchEvent();
 		final JavaClass javaClass = ((ClassEvent)event).javaClass;
 		assertEquals(className, javaClass.getName());
+		return javaClass;
 	}
 	
-	protected void assertClassEnd(final String className)
+	protected void assertClassEnd(final String className, final JavaClass expectedJavaClass)
 	{
 		final InjectionEvent event = fetchEvent();
 		final JavaClass javaClass = ((ClassEndEvent)event).javaClass;
 		assertEquals(className, javaClass.getName());
+		assertSame(expectedJavaClass, javaClass);
 	}
 	
 	protected void assertBehaviourHeader(final String name, final String type, final int modifier)

@@ -160,10 +160,10 @@ public class ExampleTest extends InjectorTest
 		assertAttribute("uglyAttribute8", null);
 		assertText("\n  // end of ugly attributes\n  \n\n  ");
 		
-		assertClass("Inner");
+		final JavaClass innerClass = assertClass("Inner");
 		assertText("class Inner implements Runnable\n  {\n\t ");
 		
-		assertClass("Drinner");
+		final JavaClass drinnerClass = assertClass("Drinner");
 		assertText("class Drinner implements Runnable\n\t {\n\t\t");
 		
 		assertAttributeHeader("someDrinnerBoolean", "boolean", 0);
@@ -176,7 +176,7 @@ public class ExampleTest extends InjectorTest
 		assertMethod("run", null);
 		assertText("\n\t ");
 		
-		assertClassEnd("Drinner");
+		assertClassEnd("Drinner", drinnerClass);
 		assertAttribute("Drinner", null);
 		assertText("}\n\n\t ");
 
@@ -190,7 +190,7 @@ public class ExampleTest extends InjectorTest
 		assertMethod("run", null);
 		assertText("\n  ");
 
-		assertClassEnd("Inner");
+		assertClassEnd("Inner", innerClass);
 		assertAttribute("Inner", null);
 	}
 
