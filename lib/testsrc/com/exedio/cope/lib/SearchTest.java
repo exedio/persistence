@@ -30,4 +30,19 @@ public class SearchTest extends AbstractLibTest
 		assertUnmodifiable(Search.search(item.TYPE, Search.equal(item.someNotNullInteger, 0)));
 	}
 
+	public void testIllegalSearch()
+	{
+		try
+		{
+			Search.search(ItemWithoutAttributes.TYPE, Search.equal(ItemWithManyAttributes.someInteger, 0));
+			fail("should have thrown RuntimeException");
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals(
+				"attribute someInteger{} belongs to type com.exedio.cope.lib.ItemWithManyAttributes, which is the type of the query: com.exedio.cope.lib.ItemWithoutAttributes",
+				e.getMessage());
+		}
+	}
+	
 }
