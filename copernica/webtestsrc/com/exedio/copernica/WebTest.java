@@ -33,5 +33,9 @@ public class WebTest extends WebTestCase
 
 		clickLinkWithText("[X]");
 		assertTitleEquals("AttributeItem.103");
+		assertFormElementEquals("someNotNullString", "running100");
+
+		setFormElement("someNotNullString", "running100changed");
+		submit("SAVE");
 	}
 }
