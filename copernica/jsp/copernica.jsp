@@ -185,7 +185,7 @@ page import="java.util.Map"
 									%><th><%=provider.getDisplayName(null, feature)%><%
 									if(feature instanceof Function)
 									{
-										if(feature == typeCop.orderAttribute)
+										if(feature == typeCop.orderBy)
 										{
 											%><br><b>o</b><%
 										}

@@ -11,7 +11,7 @@ import com.exedio.cope.lib.Type;
 final class TypeCop extends CopernicaCop
 {
 	final Type type;
-	final Function orderAttribute; // TODO: rename to orderBy
+	final Function orderBy; 
 	final int start;
 	final int count;
 
@@ -21,17 +21,17 @@ final class TypeCop extends CopernicaCop
 	}
 	
 	TypeCop(final Language language, final Type type,
-					final Function orderAttribute,  // TODO: rename to orderBy
+					final Function orderBy,
 					final int start, final int count)
 	{
 		super(language);
 		this.type = type;
-		this.orderAttribute = orderAttribute;
+		this.orderBy = orderBy;
 		this.start = start;
 		this.count = count;
 		addParameter(TYPE, type.getID());
-		if(orderAttribute!=null)
-			addParameter(ORDER, orderAttribute.getName());
+		if(orderBy!=null)
+			addParameter(ORDER, orderBy.getName());
 		if(start!=0)
 			addParameter(START, String.valueOf(start));
 		if(count!=10)
@@ -40,7 +40,7 @@ final class TypeCop extends CopernicaCop
 	
 	final  CopernicaCop switchLanguage(final Language newLanguage)
 	{
-		return new TypeCop(newLanguage, type, orderAttribute, start, count);
+		return new TypeCop(newLanguage, type, orderBy, start, count);
 	}
 	
 	final boolean isFirstPage()
@@ -50,7 +50,7 @@ final class TypeCop extends CopernicaCop
 	
 	final TypeCop firstPage()
 	{
-		return new TypeCop(language, type, orderAttribute, 0, count);
+		return new TypeCop(language, type, orderBy, 0, count);
 	}
 	
 	final TypeCop previousPage()
@@ -58,30 +58,30 @@ final class TypeCop extends CopernicaCop
 		int newStart = start - count;
 		if(newStart<0)
 			newStart = 0;
-		return new TypeCop(language, type, orderAttribute, newStart, count);
+		return new TypeCop(language, type, orderBy, newStart, count);
 	}
 	
 	final TypeCop nextPage()
 	{
 		int newStart = start + count;
-		return new TypeCop(language, type, orderAttribute, newStart, count);
+		return new TypeCop(language, type, orderBy, newStart, count);
 	}
 	
 	final TypeCop switchCount(final int newCount)
 	{
-		return new TypeCop(language, type, orderAttribute, start, newCount);
+		return new TypeCop(language, type, orderBy, start, newCount);
 	}
 	
-	final TypeCop orderBy(final Function newOrderAttribute) // TODO: rename to orderBy
+	final TypeCop orderBy(final Function newOrderBy) 
 	{
-		return new TypeCop(language, type, newOrderAttribute, start, count);
+		return new TypeCop(language, type, newOrderBy, start, count);
 	}
 	
 	final Collection search()
 	{
 		final Query query = new Query(type, null);
-		if(orderAttribute!=null)
-			query.setOrderBy(orderAttribute);
+		if(orderBy!=null)
+			query.setOrderBy(orderBy);
 		query.setRange(start, count);
 		return Search.search(query);
 	}
