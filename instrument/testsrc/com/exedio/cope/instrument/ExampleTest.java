@@ -239,12 +239,15 @@ public class ExampleTest extends InjectorTest
 
 		assertBehaviourHeader("set", "void", Modifier.PUBLIC);
 		assertText(
-			"{\n\t\t// ugly comment : { {\n"
+			"{\n"
+				+ "\t\t// ugly comment : { {\n"
 				+ "\t\tString x=\"ugly { string \\\" { literal\";\n"
 				+ "\t\tchar c='{';\n"
-				+ "\t\t\n\t\t/**\n"
+				+ "\t\t\n"
+				+ "\t\t/**\n"
 				+ "\t\tugly comment *\n"
-				+ "\t\t**/\n\t\t\n"
+				+ "\t\t**/\n"
+				+ "\t\t\n"
 				+ "\t\tint a=20;// some other comment\n"
 				+ "\t\tint b=10;\n"
 				+ "\t\ta=a/(a+b); // ugly expression\n"
