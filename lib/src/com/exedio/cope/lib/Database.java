@@ -654,8 +654,8 @@ public abstract class Database
 	private int countTable(final Type type)
 	{
 		final Statement bf = createStatement();
-		bf.append("select count(*) from ").
-			append(type.protectedName).defineColumnInteger();
+		bf.append("select count(*) from ").defineColumnInteger().
+			append(type.protectedName);
 
 		try
 		{
