@@ -99,34 +99,23 @@ public abstract class Database
 			return this;
 		}
 		
-		public Statement append(Attribute attribute)
+		public Statement append(final Attribute attribute)
 		{
-			// TODO: use some kind of recursion instead
-			ArrayList mappingEnds = null;
-			while(attribute.mapping!=null)
+			final AttributeMapping mapping = attribute.mapping;
+			if(attribute.mapping!=null)
 			{
-				final AttributeMapping mapping = attribute.mapping;
 				this.text.append(mapping.sqlMappingStart);
-				if(mappingEnds==null)
-					mappingEnds = new ArrayList();
-				mappingEnds.add(mapping.sqlMappingEnd);
-				attribute = mapping.sourceAttribute;
+				append(mapping.sourceAttribute);
+				this.text.append(mapping.sqlMappingEnd);
 			}
-			
-			this.text.append(attribute.getMainColumn().name);
-			
-			if(mappingEnds!=null)
-			{
-				for(ListIterator i = mappingEnds.listIterator(mappingEnds.size()); i.hasPrevious(); )
-					this.text.append((String)i.previous());
-			}
+			else
+				this.text.append(attribute.getMainColumn().name);
 			
 			return this;
 		}
 		
 		public Statement appendValue(Attribute attribute, final Object value)
 		{
-			// TODO: use some kind of recursion instead
 			while(attribute.mapping!=null)
 				attribute = attribute.mapping.sourceAttribute;
 
