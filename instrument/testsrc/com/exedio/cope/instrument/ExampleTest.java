@@ -173,6 +173,9 @@ public class ExampleTest extends InjectorTest
 		assertBehaviourHeader("run", "void", Modifier.PUBLIC);
 		assertText("{\n\t\t}");
 		assertMethod("run", null);
+		assertText("\n\t ");
+		
+		assertClassEnd("Drinner");
 	}
 
 }

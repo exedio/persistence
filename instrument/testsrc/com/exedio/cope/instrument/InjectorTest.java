@@ -94,6 +94,13 @@ public abstract class InjectorTest extends TestCase
 		assertEquals(className, javaClass.getName());
 	}
 	
+	protected void assertClassEnd(final String className)
+	{
+		final InjectionEvent event = fetchEvent();
+		final JavaClass javaClass = ((ClassEndEvent)event).javaClass;
+		assertEquals(className, javaClass.getName());
+	}
+	
 	protected void assertBehaviourHeader(final String name, final String type, final int modifier)
 	{
 		final InjectionEvent event = fetchEvent();
@@ -186,13 +193,29 @@ public abstract class InjectorTest extends TestCase
 		}
 	}
 	
-	private static class ClassEvent extends InjectionEvent
+	private static abstract class AbstractClassEvent extends InjectionEvent
 	{
 		final JavaClass javaClass;
 
-		ClassEvent(final JavaClass javaClass)
+		AbstractClassEvent(final JavaClass javaClass)
 		{
 			this.javaClass = javaClass;
+		}
+	}
+	
+	private static final class ClassEvent extends AbstractClassEvent
+	{
+		ClassEvent(final JavaClass javaClass)
+		{
+			super(javaClass);
+		}
+	}
+	
+	private static final class ClassEndEvent extends AbstractClassEvent
+	{
+		ClassEndEvent(final JavaClass javaClass)
+		{
+			super(javaClass);
 		}
 	}
 	
@@ -256,6 +279,7 @@ public abstract class InjectorTest extends TestCase
 		public void onClassEnd(final JavaClass cc)
 			throws java.io.IOException, InjectorParseException
 		{
+			addInjectionEvent(new ClassEndEvent(cc));
 		}
 
 		public void onBehaviourHeader(final JavaBehaviour jb)
