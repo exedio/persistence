@@ -58,8 +58,11 @@ final class OracleDatabase
 		return "TIMESTAMP(3)";
 	}
 
-	private String extractConstraintName(final SQLException e, final String start, final String end)
+	private String extractConstraintName(final SQLException e, final int vendorCode, final String start, final String end)
 	{
+		if(e.getErrorCode()!=vendorCode)
+			return null;
+		
 		final String m = e.getMessage();
 		if(m.startsWith(start) && m.endsWith(end))
 		{
@@ -72,12 +75,12 @@ final class OracleDatabase
 	
 	protected String extractUniqueConstraintName(final SQLException e)
 	{
-		return extractConstraintName(e, "ORA-00001: unique constraint (", ") violated\n");
+		return extractConstraintName(e, 1, "ORA-00001: unique constraint (", ") violated\n");
 	}
 
 	protected String extractIntegrityConstraintName(final SQLException e)
 	{
-		return extractConstraintName(e, "ORA-02292: integrity constraint (", ") violated - child record found\n");
+		return extractConstraintName(e, 2292, "ORA-02292: integrity constraint (", ") violated - child record found\n");
 	}
 
 	public void defineColumnTypes(final IntList columnTypes, final java.sql.Statement statement)
