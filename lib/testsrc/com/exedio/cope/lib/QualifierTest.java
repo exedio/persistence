@@ -31,6 +31,7 @@ public class QualifierTest extends DatabaseLibTest
 		assertEquals(QualifiedItem.qualifier.getKey(), QualifiedEmptyQualifier.key);
 		assertEquals(QualifiedItem.qualifier.getQualifyUnique(), QualifiedEmptyQualifier.qualifyUnique);
 		assertEquals(QualifiedItem.qualifier, QualifiedEmptyQualifier.qualifyUnique.getQualifier());
+		assertEquals(list(QualifiedItem.qualifier), QualifiedItem.TYPE.getQualifiers());
 
 		assertEquals(null, item.getQualifier(key1));
 		assertEquals(null, item.getQualifiedA(key1));

@@ -41,6 +41,9 @@ public final class Type
 
 	private final UniqueConstraint[] uniqueConstraints;
 	private final List uniqueConstraintList;
+
+	private final Qualifier[] qualifiers;
+	private final List qualifierList;
 	
 	private Model model;
 
@@ -101,6 +104,7 @@ public final class Type
 		final ArrayList attributesTemp = new ArrayList(fields.length);
 		final ArrayList featuresTemp = new ArrayList(fields.length);
 		final ArrayList uniqueConstraintsTemp = new ArrayList(fields.length);
+		final ArrayList qualifiersTemp = new ArrayList(fields.length);
 		final int expectedModifier = Modifier.STATIC | Modifier.FINAL;
 		try
 		{
@@ -161,7 +165,7 @@ public final class Type
 						if(qualifier==null)
 							throw new RuntimeException(field.getName());
 						qualifier.getQualifyUnique().setQualifier(qualifier);
-						//qualifier.initialize(this, field.getName());
+						qualifiersTemp.add(qualifier);
 					}
 				}
 			}
@@ -176,6 +180,8 @@ public final class Type
 		this.declaredFeatureList = Collections.unmodifiableList(Arrays.asList(this.declaredFeatures));
 		this.uniqueConstraints = (UniqueConstraint[])uniqueConstraintsTemp.toArray(new UniqueConstraint[uniqueConstraintsTemp.size()]);
 		this.uniqueConstraintList = Collections.unmodifiableList(Arrays.asList(this.uniqueConstraints));
+		this.qualifiers = (Qualifier[])qualifiersTemp.toArray(new Qualifier[qualifiersTemp.size()]);
+		this.qualifierList = Collections.unmodifiableList(Arrays.asList(this.qualifiers));
 		
 		// attributes
 		if(supertype==null)
@@ -361,6 +367,11 @@ public final class Type
 	public final List getUniqueConstraints()
 	{
 		return uniqueConstraintList;
+	}
+	
+	public final List getQualifiers()
+	{
+		return qualifierList;
 	}
 	
 	private static final AttributeValue[] EMPTY_ATTRIBUTE_VALUES = new AttributeValue[]{};
