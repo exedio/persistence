@@ -124,7 +124,6 @@ final class Generator
 	static
 	{
 		constraintViolationText.put(NotNullViolationException.class, "null");
-		constraintViolationText.put(ReadOnlyViolationException.class, "read only");
 		constraintViolationText.put(UniqueViolationException.class, "not unique");
 	}
 
@@ -174,7 +173,10 @@ final class Generator
 				o.write(toCamelCase(initialAttribute.getName()));
 			}
 			o.write(" is ");
-			o.write((String)constraintViolationText.get(constructorException));
+			final String violationText = (String)constraintViolationText.get(constructorException);
+			if(violationText==null)
+				throw new RuntimeException(constructorException.getName());
+			o.write(violationText);
 			o.write('.');
 			o.write(lineSeparator);
 		}
