@@ -44,8 +44,4 @@ public class SearchTest extends DatabaseLibTest
 		}
 	}
 	
-	public void testJoin()
-	{
-	}
-	
 }
