@@ -28,24 +28,32 @@ public class StatementInfoTest extends DatabaseLibTest
 		{
 			final Iterator rootChilds = root.getChilds().iterator();
 			{
-				final StatementInfo planSelect = (StatementInfo)rootChilds.next();
-				assertEquals("SELECT STATEMENT", planSelect.text);
+				final StatementInfo planId = (StatementInfo)rootChilds.next();
+				assertTrue(planId.text, planId.text.startsWith("execution plan statement_id = cope"));
 				{
-					final Iterator planSelectChilds = planSelect.getChilds().iterator();
+					final Iterator planIdChilds = planId.getChilds().iterator();
 					{
-						final StatementInfo planTableAccess = (StatementInfo)planSelectChilds.next();
-						assertEquals("TABLE ACCESS (BY INDEX ROWID) on ItemWithSingleUnique[1]", planTableAccess.text);
+						final StatementInfo planSelect = (StatementInfo)planIdChilds.next();
+						assertEquals("SELECT STATEMENT", planSelect.text);
 						{
-							final Iterator planTableAccessChilds = planTableAccess.getChilds().iterator();
+							final Iterator planSelectChilds = planSelect.getChilds().iterator();
 							{
-								final StatementInfo planUnique = (StatementInfo)planTableAccessChilds.next();
-								assertEquals("INDEX (UNIQUE SCAN) on ItemWithSingUni_unStr_Unq[UNIQUE]", planUnique.text);
-								assertEquals(list(), planUnique.getChilds());
+								final StatementInfo planTableAccess = (StatementInfo)planSelectChilds.next();
+								assertEquals("TABLE ACCESS (BY INDEX ROWID) on ItemWithSingleUnique[1]", planTableAccess.text);
+								{
+									final Iterator planTableAccessChilds = planTableAccess.getChilds().iterator();
+									{
+										final StatementInfo planUnique = (StatementInfo)planTableAccessChilds.next();
+										assertEquals("INDEX (UNIQUE SCAN) on ItemWithSingUni_unStr_Unq[UNIQUE]", planUnique.text);
+										assertEquals(list(), planUnique.getChilds());
+									}
+									assertTrue(!planTableAccessChilds.hasNext());
+								}
 							}
-							assertTrue(!planTableAccessChilds.hasNext());
+							assertTrue(!planSelectChilds.hasNext());
 						}
 					}
-					assertTrue(!planSelectChilds.hasNext());
+					assertTrue(!planIdChilds.hasNext());
 				}
 			}
 			assertTrue(!rootChilds.hasNext());

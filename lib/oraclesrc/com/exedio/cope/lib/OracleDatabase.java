@@ -307,7 +307,7 @@ final class OracleDatabase
 		final int statementID;
 		synchronized(statementIDCounter)
 		{
-			statementID = statementIDCounter.nextInt();
+			statementID = Math.abs(statementIDCounter.nextInt());
 		}
 		
 		StatementInfo root = null;
@@ -442,11 +442,14 @@ final class OracleDatabase
 		if(root==null)
 			throw new RuntimeException();
 		
+		final StatementInfo result = new StatementInfo("execution plan statement_id = cope" + statementID);
+		result.addChild(root);
+		
 		//System.out.println("######################");
 		//System.out.println(statement.getText());
 		//root.print(System.out);
 		//System.out.println("######################");
-		return root;
+		return result;
 	}
 	
 }
