@@ -12,11 +12,11 @@
 			<param-name>com.exedio.copernica.provider</param-name>
 			<param-value>com.exedio.copernica.CopernicaTestProvider</param-value>
 		</init-param>
-		<init-param>
-			<param-name>com.exedio.copernica.properties</param-name>
-			<param-value>WEB-INF/cope.properties</param-value>
-		</init-param>
 	</servlet>
+	<servlet-mapping>
+		<servlet-name>com.exedio.copernica.admin_jsp</servlet-name>
+		<url-pattern>/admin.jsp</url-pattern>
+	</servlet-mapping>
 
 	<servlet>
 		<servlet-name>com.exedio.copernica.copernica_jsp</servlet-name>
@@ -25,17 +25,7 @@
 			<param-name>com.exedio.copernica.provider</param-name>
 			<param-value>com.exedio.copernica.CopernicaTestProvider</param-value>
 		</init-param>
-		<init-param>
-			<param-name>com.exedio.copernica.properties</param-name>
-			<param-value>WEB-INF/cope.properties</param-value>
-		</init-param>
 	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>com.exedio.copernica.admin_jsp</servlet-name>
-		<url-pattern>/admin.jsp</url-pattern>
-	</servlet-mapping>
-
 	<servlet-mapping>
 		<servlet-name>com.exedio.copernica.copernica_jsp</servlet-name>
 		<url-pattern>/copernica.jsp</url-pattern>

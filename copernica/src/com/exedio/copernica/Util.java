@@ -1,14 +1,9 @@
 package com.exedio.copernica;
 
-import java.io.File;
-import java.util.Properties;
-
 import javax.servlet.ServletConfig;
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.exedio.cope.lib.Model;
 import com.exedio.cope.lib.NestingRuntimeException;
 
 final class Util
@@ -23,32 +18,7 @@ final class Util
 				throw new NullPointerException("init-param com.exedio.copernica.provider missing");
 			final Class providerClass = Class.forName(providerName);
 			final CopernicaProvider provider = (CopernicaProvider)providerClass.newInstance();
-
-			final Model model = provider.getModel();
-			if(!model.hasProperties())
-			{
-				final ServletContext context = config.getServletContext();
-				
-				final String propertiesString = config.getInitParameter("com.exedio.copernica.properties");
-				if(propertiesString==null)
-					throw new RuntimeException("servlet parameter com.exedio.copernica.properties must be set");
-				
-				final File propertyFile = new File(context.getRealPath(propertiesString));
-				
-				final Properties p = com.exedio.cope.lib.Properties.loadProperties(propertyFile);
-				if("//WEB-APP//".equals(p.getProperty("media.directory")))
-				{
-					final String mediaUrl = p.getProperty("media.url");
-					if(mediaUrl==null)
-						throw new RuntimeException("parameter media.url must exist in "+propertyFile.getAbsolutePath());
-					
-					p.setProperty("media.directory", context.getRealPath(mediaUrl));
-				}
-				
-				model.setProperties(
-					new com.exedio.cope.lib.Properties(p, propertyFile.getAbsolutePath()));
-			}
-			
+			provider.initialize(config);
 			return provider;
 		}
 		catch(ClassNotFoundException e)

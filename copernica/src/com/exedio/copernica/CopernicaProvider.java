@@ -3,6 +3,8 @@ package com.exedio.copernica;
 
 import java.util.Collection;
 
+import javax.servlet.ServletConfig;
+
 import com.exedio.cope.lib.EnumValue;
 import com.exedio.cope.lib.Feature;
 import com.exedio.cope.lib.Item;
@@ -14,6 +16,11 @@ public interface CopernicaProvider
 
 	public Model getModel();
 
+	/**
+	 * Is called once after the constructor.
+	 */
+	public void initialize(ServletConfig config);
+	
 	/**
 	 * @return a collection of {@link CopernicaLanguage languages}.
 	 */

@@ -1,14 +1,20 @@
 package com.exedio.copernica;
 
+import java.io.File;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Properties;
+
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 
 import com.exedio.cope.lib.EnumValue;
 import com.exedio.cope.lib.Feature;
 import com.exedio.cope.lib.Item;
+import com.exedio.cope.lib.Model;
 import com.exedio.cope.lib.ObjectAttribute;
 import com.exedio.cope.lib.Type;
 import com.exedio.cope.lib.UniqueConstraint;
@@ -16,6 +22,42 @@ import com.exedio.cope.lib.UniqueConstraint;
 
 public abstract class TransientCopernicaProvider implements CopernicaProvider
 {
+	
+	public void initialize(final ServletConfig config)
+	{
+		initialize(getModel(), config);
+	}
+	
+	public static final void initialize(final Model model, final ServletConfig config)
+	{
+		final ServletContext context = config.getServletContext();
+		
+		final File propertyFile = new File(context.getRealPath("WEB-INF/cope.properties"));
+		
+		final Properties p = com.exedio.cope.lib.Properties.loadProperties(propertyFile);
+		if("//WEB-APP//".equals(p.getProperty("media.directory")))
+		{
+			final String mediaUrl = p.getProperty("media.url");
+			// TODO: deal with web applications without media
+			if(mediaUrl==null)
+				throw new RuntimeException("parameter media.url must exist in "+propertyFile.getAbsolutePath());
+			
+			p.setProperty("media.directory", context.getRealPath(mediaUrl));
+		}
+			
+		if(!model.hasProperties())
+		{
+			// IMPLEMENTATION NOTE:
+			// One could put the whole method into this condition block,
+			// and have the same functionality.
+			// However, this can hide a wrong configuration of the servlet,
+			// if the wrongly-configured servlet is loaded after another servlet
+			// that is configured correctly.
+			model.setProperties(
+				new com.exedio.cope.lib.Properties(p, propertyFile.getAbsolutePath()));
+		}
+	}
+
 	// Transient Languages
 	
 	private HashMap transientLanguages = null;
