@@ -33,7 +33,11 @@ public final class MediaAttributeVariant
 			throw new RuntimeException();
 
 		this.type = type;
-		this.name = name;
+		final String prefix = attribute.getName();
+		if(name.startsWith(prefix))
+			this.name = name.substring(prefix.length());
+		else
+			this.name = name;
 	}
 	
 	public final Type getType()

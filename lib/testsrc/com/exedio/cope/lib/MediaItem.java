@@ -10,13 +10,13 @@ public class MediaItem extends Item
 
 	static final MediaAttribute image = new MediaAttribute(DEFAULT, "image");
 	
-	static final MediaAttributeVariant BB240 = new MediaAttributeVariant(image);
+	static final MediaAttributeVariant imageBB240 = new MediaAttributeVariant(image);
 
 	static final MediaAttribute photo = new MediaAttribute(DEFAULT, "image", "jpeg");
 	
-	static final MediaAttributeVariant BB65 = new MediaAttributeVariant(photo);
+	static final MediaAttributeVariant photoBB65 = new MediaAttributeVariant(photo);
 
-	static final MediaAttributeVariant Progressive = new MediaAttributeVariant(photo);
+	static final MediaAttributeVariant photoProgressive = new MediaAttributeVariant(photo);
 	
 /**
 
@@ -107,7 +107,7 @@ public class MediaItem extends Item
 	 *
  */final java.lang.String getImageURLBB240()
 	{
-		return getMediaURL(this.BB240);
+		return getMediaURL(this.imageBB240);
 	}/**
 
 	 **
@@ -168,7 +168,7 @@ public class MediaItem extends Item
 	 *
  */final java.lang.String getPhotoURLBB65()
 	{
-		return getMediaURL(this.BB65);
+		return getMediaURL(this.photoBB65);
 	}/**
 
 	 **
@@ -177,7 +177,7 @@ public class MediaItem extends Item
 	 *
  */final java.lang.String getPhotoURLProgressive()
 	{
-		return getMediaURL(this.Progressive);
+		return getMediaURL(this.photoProgressive);
 	}/**
 
 	 **

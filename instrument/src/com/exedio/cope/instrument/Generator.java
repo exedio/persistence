@@ -377,7 +377,13 @@ final class Generator
 		o.write(mediaAttribute.getCamelCaseName());
 		o.write(part);
 		if(variant!=null)
-			o.write(variant.name);
+		{
+			final String prefix = mediaAttribute.getName();
+			if(variant.name.startsWith(prefix))
+				o.write(variant.name.substring(prefix.length()));
+			else
+				o.write(variant.name);
+		}
 		o.write('(');
 		writeParameterDeclarationList(qualifiers);
 		o.write(')');

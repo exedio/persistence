@@ -70,9 +70,9 @@ public class MediaTest extends DatabaseLibTest
 		// image
 		assertEquals("image", item.image.getFixedMimeMajor());
 		assertEquals(null, item.image.getFixedMimeMinor());
-		assertEquals(item.image, item.BB240.getAttribute());
-		assertEquals(item.TYPE, item.BB240.getType());
-		assertEquals("BB240", item.BB240.getName());
+		assertEquals(item.image, item.imageBB240.getAttribute());
+		assertEquals(item.TYPE, item.imageBB240.getType());
+		assertEquals("BB240", item.imageBB240.getName());
 
 		assertEquals(null, item.getImageData());
 		assertEquals(null, item.getImageMimeMajor());
@@ -111,13 +111,13 @@ public class MediaTest extends DatabaseLibTest
 		// photo
 		assertEquals("image", item.photo.getFixedMimeMajor());
 		assertEquals("jpeg", item.photo.getFixedMimeMinor());
-		assertEquals(item.photo, item.BB65.getAttribute());
-		assertEquals(item.TYPE, item.BB65.getType());
-		assertEquals("BB65", item.BB65.getName());
+		assertEquals(item.photo, item.photoBB65.getAttribute());
+		assertEquals(item.TYPE, item.photoBB65.getType());
+		assertEquals("BB65", item.photoBB65.getName());
 
-		assertEquals(item.photo, item.Progressive.getAttribute());
-		assertEquals(item.TYPE, item.Progressive.getType());
-		assertEquals("Progressive", item.Progressive.getName());
+		assertEquals(item.photo, item.photoProgressive.getAttribute());
+		assertEquals(item.TYPE, item.photoProgressive.getType());
+		assertEquals("Progressive", item.photoProgressive.getName());
 
 		assertEquals(null, item.getPhotoData());
 		assertEquals(null, item.getPhotoMimeMajor());
