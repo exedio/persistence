@@ -32,16 +32,48 @@ public class LibTest extends TestCase
 	
 	public void testLib()
 	{
-		assertEquals(null, ItemWithSingleUnique.findByUniqueString("searchedString"));
+		// BEWARE:
+		// if something does not compile,
+		// it may be an error in the 
+		// instrumentor as well.
 		
-		new ItemWithSingleUnique();
-		try
+		
+		// ItemWithSingleUnique
 		{
-			new ItemWithSingleUniqueReadOnly("initialUniqueReadOnlyString");
+			assertEquals(null, ItemWithSingleUnique.findByUniqueString("uniqueString"));
+
+			final ItemWithSingleUnique itemWithSingleUnique = new ItemWithSingleUnique();
+			assertEquals(null, itemWithSingleUnique.getUniqueString());
+			assertEquals(null, ItemWithSingleUnique.findByUniqueString("uniqueString"));
+
+			try
+			{
+				itemWithSingleUnique.setUniqueString("uniqueString");
+			}
+			catch(UniqueViolationException e)
+			{
+				throw new SystemException(e);
+			}
+			assertEquals(null, itemWithSingleUnique.getUniqueString());
+			assertEquals(null, ItemWithSingleUnique.findByUniqueString("uniqueString"));
 		}
-		catch(UniqueViolationException e)
+		
+
+		// ItemWithSingleUniqueReadOnly
 		{
-			throw new SystemException(e);
+			assertEquals(null, ItemWithSingleUniqueReadOnly.findByUniqueReadOnlyString("uniqueString"));
+
+			final ItemWithSingleUniqueReadOnly itemWithSingleUniqueReadOnly;
+			try
+			{
+				itemWithSingleUniqueReadOnly = new ItemWithSingleUniqueReadOnly("uniqueString");
+			}
+			catch(UniqueViolationException e)
+			{
+				throw new SystemException(e);
+			}
+			assertEquals(null, itemWithSingleUniqueReadOnly.getUniqueReadOnlyString());
+			assertEquals(null, ItemWithSingleUniqueReadOnly.findByUniqueReadOnlyString("uniqueString"));
 		}
 	}
 
