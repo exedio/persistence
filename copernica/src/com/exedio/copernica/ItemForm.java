@@ -1,11 +1,15 @@
 package com.exedio.copernica;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
 
 import com.exedio.cope.lib.Attribute;
 import com.exedio.cope.lib.BooleanAttribute;
 import com.exedio.cope.lib.ConstraintViolationException;
+import com.exedio.cope.lib.DateAttribute;
 import com.exedio.cope.lib.EnumerationAttribute;
 import com.exedio.cope.lib.EnumerationValue;
 import com.exedio.cope.lib.IntegerAttribute;
@@ -23,6 +27,8 @@ public class ItemForm extends Form
 	static final String VALUE_NULL = "null";
 	static final String VALUE_ON = "on";
 	static final String VALUE_OFF = "off";
+	
+	static final String DATE_FORMAT_FULL = "dd.MM.yyyy HH:mm:ss.SSS";
 
 	final Item item;
 	final Type type;
@@ -45,6 +51,7 @@ public class ItemForm extends Form
 				if(attribute instanceof StringAttribute
 					|| attribute instanceof IntegerAttribute
 					|| attribute instanceof LongAttribute
+					|| attribute instanceof DateAttribute
 					|| attribute instanceof ItemAttribute
 					|| attribute instanceof BooleanAttribute
 					|| attribute instanceof EnumerationAttribute)
@@ -67,6 +74,16 @@ public class ItemForm extends Form
 						else if(attribute instanceof LongAttribute)
 						{
 							value = (itemValue==null) ? "" : String.valueOf((Long)itemValue);
+						}
+						else if(attribute instanceof DateAttribute)
+						{
+							 if(itemValue==null)
+								value =  "";
+							else
+							{
+								final SimpleDateFormat df = new SimpleDateFormat(DATE_FORMAT_FULL);
+								value = df.format((Date)itemValue);
+							}
 						}
 						else if(attribute instanceof ItemAttribute)
 						{
@@ -132,6 +149,16 @@ public class ItemForm extends Form
 						else
 							value = null;
 					}
+					else if(attribute instanceof DateAttribute)
+					{
+						if(valueString.length()>0)
+						{
+							final SimpleDateFormat df = new SimpleDateFormat(DATE_FORMAT_FULL);
+							value = df.parse(valueString);
+						}
+						else
+							value = null;
+					}
 					else if(attribute instanceof ItemAttribute)
 					{
 						if(valueString.length()>0)
@@ -172,6 +199,10 @@ public class ItemForm extends Form
 				catch(NumberFormatException e)
 				{
 					field.error = "bad number: "+e.getMessage();
+				}
+				catch(ParseException e)
+				{
+					field.error = "bad date: "+e.getMessage();
 				}
 				catch(ConstraintViolationException e)
 				{

@@ -102,6 +102,7 @@
 			else if(attribute instanceof StringAttribute
 						|| attribute instanceof IntegerAttribute
 						|| attribute instanceof LongAttribute
+						|| attribute instanceof DateAttribute
 						|| attribute instanceof ItemAttribute)
 			{
 				final ObjectAttribute objectAttribute = (ObjectAttribute)attribute;
@@ -113,7 +114,7 @@
 				}
 				else
 				{
-					%><input type="text" name="<%=field.getName()%>" value="<%=value%>" /><%
+					%><input type="text" name="<%=field.getName()%>" size="30" value="<%=value%>" /><%
 					if(attribute instanceof ItemAttribute && value.length()>0)
 					{
 						try
