@@ -122,67 +122,6 @@ public final class Instrumentor implements InjectionConsumer
 	{
 	}
 
-	// TODO: make one parameterized method from all "is"-Methods
-	private boolean isPersistent(final JavaAttribute javaAttribute)
-	{
-		final int modifier = javaAttribute.getModifiers();
-
-		if(Modifier.isFinal(modifier) && Modifier.isStatic(modifier))
-		{
-			try
-			{
-				final Class type = javaAttribute.getFile().findType(javaAttribute.getType());
-				return Attribute.class.isAssignableFrom(type);
-			}
-			catch(InjectorParseException e)
-			{
-				return false;
-			}
-		}
-		else
-			return false;
-	}
-
-	private boolean isUniqueConstraint(final JavaAttribute javaAttribute)
-	{
-		final int modifier = javaAttribute.getModifiers();
-
-		if(Modifier.isFinal(modifier) && Modifier.isStatic(modifier))
-		{
-			try
-			{
-				final Class type = javaAttribute.getFile().findType(javaAttribute.getType());
-				return UniqueConstraint.class.isAssignableFrom(type);
-			}
-			catch(InjectorParseException e)
-			{
-				return false;
-			}
-		}
-		else
-			return false;
-	}
-
-	private boolean isQualifier(final JavaAttribute javaAttribute)
-	{
-		final int modifier = javaAttribute.getModifiers();
-
-		if(Modifier.isFinal(modifier) && Modifier.isStatic(modifier))
-		{
-			try
-			{
-				final Class type = javaAttribute.getFile().findType(javaAttribute.getType());
-				return Qualifier.class.isAssignableFrom(type);
-			}
-			catch(InjectorParseException e)
-			{
-				return false;
-			}
-		}
-		else
-			return false;
-	}
-
 	public void onClassFeature(final JavaFeature jf, final String docComment)
 	throws IOException, InjectorParseException
 	{
@@ -191,87 +130,101 @@ public final class Instrumentor implements InjectionConsumer
 			jf instanceof JavaAttribute &&
 			!discardnextfeature)
 		{
-			if(isPersistent((JavaAttribute)jf))
-			{
-				final String type = jf.getType();
-				final JavaAttribute ja = (JavaAttribute)jf;
-				final Class typeClass = ja.getFile().findType(type);
-				final List initializerArguments = ja.getInitializerArguments();
-				//System.out.println(initializerArguments);
-				
-				final boolean mapped = containsTag(docComment, MAPPED_ATTRIBUTE);
-				
-				final String qualifier = Injector.findDocTag(docComment, ATTRIBUTE_QUALIFIER);
-				final List qualifiers;
-				if(qualifier!=null)
-					qualifiers = Collections.singletonList(qualifier);
-				else
-					qualifiers = null;
+			final JavaAttribute ja = (JavaAttribute)jf;
+			final int modifier = ja.getModifiers();
 
-				if(
-					IntegerAttribute.class.equals(typeClass) ||
-					DoubleAttribute.class.equals(typeClass) ||
-					BooleanAttribute.class.equals(typeClass) ||
-					StringAttribute.class.equals(typeClass))
-				{
-					new PersistentNativeAttribute(
-						ja, typeClass,
-						initializerArguments, mapped, qualifiers);
-				}
-				else if(
-					EnumerationAttribute.class.equals(typeClass)||
-					ItemAttribute.class.equals(typeClass))
-				{
-					new PersistentObjectAttribute(
-						ja,
-						initializerArguments, mapped, qualifiers);
-				}
-				else if(MediaAttribute.class.equals(typeClass))
-				{
-					final String variant = Injector.findDocTag(docComment, VARIANT_MEDIA_ATTRIBUTE);
-					final List variants;
-					if(variant!=null)
-						variants = Collections.singletonList(variant);
-					else
-						variants = null;
-	
-					new PersistentMediaAttribute(
-						ja,
-						initializerArguments, mapped, qualifiers,
-						variants);
-				}
-				else
-					throw new RuntimeException(typeClass.toString());
-			}
-			else if(isUniqueConstraint((JavaAttribute)jf))
+			if(Modifier.isFinal(modifier) && Modifier.isStatic(modifier))
 			{
-				final String type = jf.getType();
-				final JavaAttribute ja = (JavaAttribute)jf;
-				final JavaClass jc = ja.getParent();
-				final List initializerArguments = ja.getInitializerArguments();
-				//System.out.println(initializerArguments);
-				final PersistentClass persistentClass = PersistentClass.getPersistentClass(jc);
-				final ArrayList persistentAttributes = new ArrayList(initializerArguments.size());
-				for(Iterator i = initializerArguments.iterator(); i.hasNext(); )
+				Class typeClass = null;
+				try
 				{
-					final String initializerArgument = (String)i.next();
-					final PersistentAttribute persistentAttribute = persistentClass.getPersistentAttribute(initializerArgument);
-					if(persistentAttribute==null)
-						throw new InjectorParseException("attribute >"+initializerArgument+"< in unique constraint "+ja.getName()+" not found.");
-					persistentAttributes.add(persistentAttribute);
+					typeClass = ja.getFile().findType(ja.getType());
 				}
-				persistentClass.makeUnique(
-					new PersistentUniqueConstraint(ja,
-						(PersistentAttribute[])persistentAttributes.toArray(new PersistentAttribute[persistentAttributes.size()])));
-			}
-			else if(isQualifier((JavaAttribute)jf))
-			{
-				final JavaAttribute ja = (JavaAttribute)jf;
-				final JavaClass jc = ja.getParent();
-				final PersistentClass persistentClass = PersistentClass.getPersistentClass(jc);
-				final List initializerArguments = ja.getInitializerArguments();
-				//System.out.println("---------"+initializerArguments);
-				new PersistentQualifier(persistentClass, initializerArguments);
+				catch(InjectorParseException e)
+				{
+				}
+
+				if(typeClass!=null)
+				{
+					if(Attribute.class.isAssignableFrom(typeClass))
+					{
+						final String type = jf.getType();
+						final List initializerArguments = ja.getInitializerArguments();
+						//System.out.println(initializerArguments);
+						
+						final boolean mapped = containsTag(docComment, MAPPED_ATTRIBUTE);
+						
+						final String qualifier = Injector.findDocTag(docComment, ATTRIBUTE_QUALIFIER);
+						final List qualifiers;
+						if(qualifier!=null)
+							qualifiers = Collections.singletonList(qualifier);
+						else
+							qualifiers = null;
+		
+						if(
+							IntegerAttribute.class.equals(typeClass) ||
+							DoubleAttribute.class.equals(typeClass) ||
+							BooleanAttribute.class.equals(typeClass) ||
+							StringAttribute.class.equals(typeClass))
+						{
+							new PersistentNativeAttribute(
+								ja, typeClass,
+								initializerArguments, mapped, qualifiers);
+						}
+						else if(
+							EnumerationAttribute.class.equals(typeClass)||
+							ItemAttribute.class.equals(typeClass))
+						{
+							new PersistentObjectAttribute(
+								ja,
+								initializerArguments, mapped, qualifiers);
+						}
+						else if(MediaAttribute.class.equals(typeClass))
+						{
+							final String variant = Injector.findDocTag(docComment, VARIANT_MEDIA_ATTRIBUTE);
+							final List variants;
+							if(variant!=null)
+								variants = Collections.singletonList(variant);
+							else
+								variants = null;
+			
+							new PersistentMediaAttribute(
+								ja,
+								initializerArguments, mapped, qualifiers,
+								variants);
+						}
+						else
+							throw new RuntimeException(typeClass.toString());
+					}
+					else if(UniqueConstraint.class.isAssignableFrom(typeClass))
+					{
+						final String type = jf.getType();
+						final JavaClass jc = ja.getParent();
+						final List initializerArguments = ja.getInitializerArguments();
+						//System.out.println(initializerArguments);
+						final PersistentClass persistentClass = PersistentClass.getPersistentClass(jc);
+						final ArrayList persistentAttributes = new ArrayList(initializerArguments.size());
+						for(Iterator i = initializerArguments.iterator(); i.hasNext(); )
+						{
+							final String initializerArgument = (String)i.next();
+							final PersistentAttribute persistentAttribute = persistentClass.getPersistentAttribute(initializerArgument);
+							if(persistentAttribute==null)
+								throw new InjectorParseException("attribute >"+initializerArgument+"< in unique constraint "+ja.getName()+" not found.");
+							persistentAttributes.add(persistentAttribute);
+						}
+						persistentClass.makeUnique(
+							new PersistentUniqueConstraint(ja,
+								(PersistentAttribute[])persistentAttributes.toArray(new PersistentAttribute[persistentAttributes.size()])));
+					}
+					else if(Qualifier.class.isAssignableFrom(typeClass))
+					{
+						final JavaClass jc = ja.getParent();
+						final PersistentClass persistentClass = PersistentClass.getPersistentClass(jc);
+						final List initializerArguments = ja.getInitializerArguments();
+						//System.out.println("---------"+initializerArguments);
+						new PersistentQualifier(persistentClass, initializerArguments);
+					}
+				}
 			}
 		}
 		discardnextfeature=false;
