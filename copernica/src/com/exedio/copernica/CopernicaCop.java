@@ -3,6 +3,7 @@ package com.exedio.copernica;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.exedio.cope.lib.EnumerationValue;
 import com.exedio.cope.lib.Item;
 import com.exedio.cope.lib.Model;
 import com.exedio.cope.lib.Type;
@@ -140,11 +141,36 @@ abstract class CopernicaCop extends Cop implements RequestCache
 		}
 	}
 	
-	// TODO: the same for enumeration values
+	private HashMap enumDisplayNames = null;
+	//private int enumDisplayNamesHits = 0;
+	//private int enumDisplayNamesMisses = 0;
+	
+	public String getDisplayName(final EnumerationValue enumerationValue)
+	{
+		if(enumDisplayNames==null)
+		{
+			enumDisplayNames = new HashMap();
+		}
+		else
+		{
+			final String cachedResult = (String)enumDisplayNames.get(enumerationValue);
+			if(cachedResult!=null)
+			{
+				//enumDisplayNamesHits++;
+				return cachedResult;
+			}
+		}
+
+		//enumDisplayNamesMisses++;
+		final String result = provider.getDisplayName(language, enumerationValue);
+		enumDisplayNames.put(enumerationValue, result);
+		return result;
+	}
 	
 	void log()
 	{
 		//System.out.println("itemDisplayNames: ("+itemDisplayNamesMisses+"/"+itemDisplayNamesHits+")");
+		//System.out.println("enumDisplayNames: ("+enumDisplayNamesMisses+"/"+enumDisplayNamesHits+")");
 		//System.out.println("nullNameMisses: "+nullNameMisses+", onNameMisses: "+onNameMisses+", offNameMisses: "+offNameMisses);
 	}
 }

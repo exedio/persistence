@@ -136,7 +136,7 @@
 							}
 							else
 							{
-								%><%=provider.getDisplayName(language, value)%><%
+								%><%=cop.getDisplayName(value)%><%
 							}
 						}
 						else if(feature instanceof BooleanAttribute)
