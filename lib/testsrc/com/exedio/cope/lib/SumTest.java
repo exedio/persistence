@@ -43,19 +43,19 @@ public class SumTest extends DatabaseLibTest
 		assertEquals(i1, item.getNum1());
 		assertEquals(i2, item.getNum2());
 		assertEquals(i3, item.getNum3());
-		assertContains(item, item.TYPE.search(Search.equal(item.num1, 1)));
-		assertContains(item, item.TYPE.search(Search.equal(item.num2, 2)));
-		assertContains(item, item.TYPE.search(Search.equal(item.num3, 3)));
+		assertContains(item, item.TYPE.search(Cope.equal(item.num1, 1)));
+		assertContains(item, item.TYPE.search(Cope.equal(item.num2, 2)));
+		assertContains(item, item.TYPE.search(Cope.equal(item.num3, 3)));
 
 		assertEquals(i3, item.getSum12());
 		assertEquals(i4, item.getSum13());
 		assertEquals(i5, item.getSum23());
 		assertEquals(i6, item.getSum123());
-		assertContains(item, item.TYPE.search(Search.equal(item.sum12, 3)));
-		assertContains(item, item.TYPE.search(Search.equal(item.sum13, 4)));
-		assertContains(item, item.TYPE.search(Search.equal(item.sum23, 5)));
-		assertContains(item, item.TYPE.search(Search.equal(item.sum123, 6)));
-		assertContains(item, item.TYPE.search(Search.equal(item.sum12a3, 6)));
+		assertContains(item, item.TYPE.search(Cope.equal(item.sum12, 3)));
+		assertContains(item, item.TYPE.search(Cope.equal(item.sum13, 4)));
+		assertContains(item, item.TYPE.search(Cope.equal(item.sum23, 5)));
+		assertContains(item, item.TYPE.search(Cope.equal(item.sum123, 6)));
+		assertContains(item, item.TYPE.search(Cope.equal(item.sum12a3, 6)));
 		
 		// test null propagation
 		item.setNum1(null);
@@ -63,19 +63,19 @@ public class SumTest extends DatabaseLibTest
 		assertEquals(null, item.getNum1());
 		assertEquals(i2, item.getNum2());
 		assertEquals(i3, item.getNum3());
-		assertContains(item, item.TYPE.search(Search.equal(item.num1, null)));
-		assertContains(item, item.TYPE.search(Search.equal(item.num2, 2)));
-		assertContains(item, item.TYPE.search(Search.equal(item.num3, 3)));
+		assertContains(item, item.TYPE.search(Cope.equal(item.num1, null)));
+		assertContains(item, item.TYPE.search(Cope.equal(item.num2, 2)));
+		assertContains(item, item.TYPE.search(Cope.equal(item.num3, 3)));
 
 		assertEquals(null, item.getSum12());
 		assertEquals(null, item.getSum13());
 		assertEquals(i5, item.getSum23());
 		assertEquals(null, item.getSum123());
-		assertContains(item, item.TYPE.search(Search.equal(item.sum12, null)));
-		assertContains(item, item.TYPE.search(Search.equal(item.sum13, null)));
-		assertContains(item, item.TYPE.search(Search.equal(item.sum23, 5)));
-		assertContains(item, item.TYPE.search(Search.equal(item.sum123, null)));
-		assertContains(item, item.TYPE.search(Search.equal(item.sum12a3, null)));
+		assertContains(item, item.TYPE.search(Cope.equal(item.sum12, null)));
+		assertContains(item, item.TYPE.search(Cope.equal(item.sum13, null)));
+		assertContains(item, item.TYPE.search(Cope.equal(item.sum23, 5)));
+		assertContains(item, item.TYPE.search(Cope.equal(item.sum123, null)));
+		assertContains(item, item.TYPE.search(Cope.equal(item.sum12a3, null)));
 	}
 
 }

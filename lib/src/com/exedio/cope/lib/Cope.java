@@ -1,4 +1,3 @@
-
 package com.exedio.cope.lib;
 
 import java.util.ArrayList;
@@ -25,9 +24,9 @@ import com.exedio.cope.lib.search.OrCondition;
  * Utility class for searching persistent data.
  * May be subclassed to access methods without class qualifier.
  */
-public abstract class Search
+public abstract class Cope
 {
-	Search()
+	Cope()
 	{}
 
 	public static final EqualCondition isNull(final ObjectAttribute attribute)

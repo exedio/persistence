@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.exedio.cope.lib.Function;
 import com.exedio.cope.lib.Query;
-import com.exedio.cope.lib.Search;
+import com.exedio.cope.lib.Cope;
 import com.exedio.cope.lib.Type;
 
 final class TypeCop extends CopernicaCop
@@ -97,7 +97,7 @@ final class TypeCop extends CopernicaCop
 			query.setOrderBy(orderBy, orderAscending);
 		query.setDeterministicOrder(true);
 		query.setRange(start, count);
-		return Search.search(query);
+		return Cope.search(query);
 	}
 
 	static final TypeCop getCop(

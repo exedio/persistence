@@ -23,21 +23,21 @@ public class SearchTest extends DatabaseLibTest
 			throw new NestingRuntimeException(e);
 		}
 		item.setSomeNotNullInteger(0);
-		final Collection searchResult = item.TYPE.search(Search.equal(item.someNotNullInteger, 0));
+		final Collection searchResult = item.TYPE.search(Cope.equal(item.someNotNullInteger, 0));
 		assertContains(item, searchResult);
 		assertUnmodifiable(searchResult);
 		
 		assertContains(item, item2, item.TYPE.search(null));
 		assertContains(item, item2, 
 			item.TYPE.search(
-				Search.or(
-					Search.equal(item.someNotNullString, "someString"),
-					Search.equal(item.someNotNullString, "someString2"))));
+				Cope.or(
+					Cope.equal(item.someNotNullString, "someString"),
+					Cope.equal(item.someNotNullString, "someString2"))));
 		assertContains(
 			item.TYPE.search(
-				Search.and(
-					Search.equal(item.someNotNullString, "someString"),
-					Search.equal(item.someNotNullString, "someString2"))));
+				Cope.and(
+					Cope.equal(item.someNotNullString, "someString"),
+					Cope.equal(item.someNotNullString, "someString2"))));
 		
 		assertDelete(item);
 		assertDelete(item2);
@@ -48,7 +48,7 @@ public class SearchTest extends DatabaseLibTest
 	{
 		try
 		{
-			EmptyItem.TYPE.search(Search.equal(AttributeItem.someInteger, 0));
+			EmptyItem.TYPE.search(Cope.equal(AttributeItem.someInteger, 0));
 			fail("should have thrown RuntimeException");
 		}
 		catch(RuntimeException e)

@@ -36,11 +36,11 @@ public class SumOrderTest extends DatabaseLibTest
 	{
 		final Query query = new Query(item1.TYPE, null);
 		query.setOrderBy(searchFunction, true);
-		assertEquals(expectedOrder, Search.search(query));
+		assertEquals(expectedOrder, Cope.search(query));
 
 		final List expectedReverseOrder = new ArrayList(expectedOrder);
 		Collections.reverse(expectedReverseOrder);
 		query.setOrderBy(searchFunction, false);
-		assertEquals(expectedReverseOrder, Search.search(query));
+		assertEquals(expectedReverseOrder, Cope.search(query));
 	}
 }

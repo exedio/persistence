@@ -414,7 +414,7 @@ public final class Type
 	 */
 	public final Collection search(final Condition condition)
 	{
-		return Search.search(new Query(this, condition));
+		return Cope.search(new Query(this, condition));
 	}
 	
 	final Item searchUnique(final Condition condition)

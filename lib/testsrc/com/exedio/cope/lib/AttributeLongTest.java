@@ -7,10 +7,10 @@ public class AttributeLongTest extends AttributeTest
 	{
 		assertEquals(item.TYPE, item.someLong.getType());
 		assertEquals(null, item.getSomeLong());
-		assertContains(item, item2, item.TYPE.search(Search.equal(item.someLong, null)));
-		assertContains(item, item2, item.TYPE.search(Search.isNull(item.someLong)));
-		assertContains(item.TYPE.search(Search.notEqual(item.someLong, null)));
-		assertContains(item.TYPE.search(Search.isNotNull(item.someLong)));
+		assertContains(item, item2, item.TYPE.search(Cope.equal(item.someLong, null)));
+		assertContains(item, item2, item.TYPE.search(Cope.isNull(item.someLong)));
+		assertContains(item.TYPE.search(Cope.notEqual(item.someLong, null)));
+		assertContains(item.TYPE.search(Cope.isNotNull(item.someLong)));
 
 		item.setSomeLong(new Long(11));
 		assertEquals(new Long(11), item.getSomeLong());
@@ -19,15 +19,15 @@ public class AttributeLongTest extends AttributeTest
 		assertEquals(new Long(11), item.getSomeLong());
 		assertEquals(
 			list(item),
-			item.TYPE.search(Search.equal(item.someLong, 11)));
+			item.TYPE.search(Cope.equal(item.someLong, 11)));
 		assertEquals(
 			list(item2),
-			item.TYPE.search(Search.notEqual(item.someLong, 11)));
+			item.TYPE.search(Cope.notEqual(item.someLong, 11)));
 
-		assertEquals(list(item2), item.TYPE.search(Search.equal(item.someLong, null)));
-		assertEquals(list(item2), item.TYPE.search(Search.isNull(item.someLong)));
-		assertEquals(list(item), item.TYPE.search(Search.notEqual(item.someLong, null)));
-		assertEquals(list(item), item.TYPE.search(Search.isNotNull(item.someLong)));
+		assertEquals(list(item2), item.TYPE.search(Cope.equal(item.someLong, null)));
+		assertEquals(list(item2), item.TYPE.search(Cope.isNull(item.someLong)));
+		assertEquals(list(item), item.TYPE.search(Cope.notEqual(item.someLong, null)));
+		assertEquals(list(item), item.TYPE.search(Cope.isNotNull(item.someLong)));
 
 		item.setSomeLong(null);
 		assertEquals(null, item.getSomeLong());
@@ -52,7 +52,7 @@ public class AttributeLongTest extends AttributeTest
 			item,
 			
 				item.TYPE.search(
-					Search.equal(item.someNotNullLong, 0l)));
+					Cope.equal(item.someNotNullLong, 0l)));
 
 		item.setSomeNotNullLong(Long.MIN_VALUE);
 		assertEquals(Long.MIN_VALUE, item.getSomeNotNullLong());
@@ -63,7 +63,7 @@ public class AttributeLongTest extends AttributeTest
 			item,
 			
 				item.TYPE.search(
-					Search.equal(item.someNotNullLong, Long.MIN_VALUE)));
+					Cope.equal(item.someNotNullLong, Long.MIN_VALUE)));
 
 		item.setSomeNotNullLong(Long.MAX_VALUE);
 		assertEquals(Long.MAX_VALUE, item.getSomeNotNullLong());
@@ -74,6 +74,6 @@ public class AttributeLongTest extends AttributeTest
 			item,
 			
 				item.TYPE.search(
-					Search.equal(item.someNotNullLong, Long.MAX_VALUE)));
+					Cope.equal(item.someNotNullLong, Long.MAX_VALUE)));
 	}
 }

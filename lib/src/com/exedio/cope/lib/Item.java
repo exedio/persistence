@@ -15,7 +15,7 @@ import java.util.List;
 import com.exedio.cope.lib.Attribute.Option;
 import com.exedio.cope.lib.util.ReactivationConstructorDummy;
 
-public abstract class Item extends Search
+public abstract class Item extends Cope
 {
 	private final Type type;
 
