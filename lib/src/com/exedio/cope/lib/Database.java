@@ -1235,4 +1235,22 @@ public abstract class Database
 		}
 	}
 	
+	final void analyzeTable(final String tableName)
+	{
+		final Statement bf = createStatement();
+		bf.append("analyze table ").
+			append(protectName(tableName)).
+			append(" compute statistics");
+
+		try
+		{
+			System.out.println("analyzeTable:"+bf);
+			executeSQL(bf, EMPTY_RESULT_SET_HANDLER);
+		}
+		catch(ConstraintViolationException e)
+		{
+			throw new SystemException(e);
+		}
+	}
+
 }

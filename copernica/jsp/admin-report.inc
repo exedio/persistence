@@ -26,12 +26,15 @@ if(request.getParameter("APPLY")!=null)
 	{
 		for(int i = 0; i<analyzeTables.length; i++)
 		{
-			String analyzeTable = analyzeTables[i];
+			final String analyzeTable = analyzeTables[i];
+			final ReportTable table = report.getTable(analyzeTable);
+			if(table==null)
+				throw new RuntimeException(analyzeTable);
 			%>
 			<li>analyzing table <%=analyzeTable%> ...</li><%
 			out.flush();
 			final long time = System.currentTimeMillis();
-			
+			table.analyze();
 			%><li><b>ok</b>, <%=System.currentTimeMillis()-time%>ms.</li><%
 			out.flush();
 		}

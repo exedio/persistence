@@ -74,6 +74,11 @@ public final class Report extends ReportNode
 		return result;
 	}
 	
+	public ReportTable getTable(final String name)
+	{
+		return (ReportTable)tables.get(name);
+	}
+	
 	public Collection getTables()
 	{
 		return tables.values();

@@ -145,5 +145,10 @@ public final class ReportTable extends ReportNode
 			cumulativeColor = Math.max(cumulativeColor, constraint.cumulativeColor);
 		}
 	}
+	
+	public final void analyze()
+	{
+		Database.theInstance.analyzeTable(name);
+	}
 
 }
