@@ -151,10 +151,10 @@ public abstract class Example implements Runnable
 	{
 	}
   
-	private   void accessifierPrivate() {}
+	private void accessifierPrivate() {}
 	protected void accessifierProtected() {}
-				void accessifierPackage() {}
-	public    void accessifierPublic() {}
+	void accessifierPackage() {}
+	public void accessifierPublic() {}
   
 	static public void main(String[] args)
 	{
