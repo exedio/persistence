@@ -89,12 +89,12 @@
 				</td>
 				<td valign="top">
 				<%
-					final String typeName = request.getParameter("type");
-					if(typeName!=null)
+					final String typeID = request.getParameter("type");
+					if(typeID!=null)
 					{
-						final Type type = Type.getType(typeName);
+						final Type type = Type.getType(typeID);
 						if(type==null)
-							throw new RuntimeException("type "+typeName+" not available");
+							throw new RuntimeException("type "+typeID+" not available");
 						%>
 						<u><%=type.getJavaClass().getName()%></u>
 						<hr>
@@ -155,6 +155,16 @@
 							}
 						%>
 						</table>
+						<%
+					}
+					final String itemID = request.getParameter("item");
+					if(itemID!=null)
+					{
+						final Item item = Search.findByID(itemID);
+						final Type type = item.getType();
+						%>
+						<u><%=type.getJavaClass().getName()%></u><br>
+						<b><%=provider.getDisplayName(null, item)%></b>
 						<%
 					}
 					else
