@@ -307,7 +307,7 @@
 					<include name="*.jar" /> 
 				</fileset> 
 			</classpath>
-			<arg value="com.exedio.copernica.WebTest" />
+			<arg value="com.exedio.copernica.PackageTest" />
 		</java>
 	</target>
 
