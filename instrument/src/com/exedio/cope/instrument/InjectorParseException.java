@@ -1,5 +1,5 @@
 
-package injection;
+package com.exedio.cope.instrument;
 
 /**
  * Thrown by the java parser, if the input stream is not valid

@@ -1,5 +1,5 @@
 
-package injection;
+package com.exedio.cope.instrument;
 
 /**
  * Implementors of this interface get the results of the

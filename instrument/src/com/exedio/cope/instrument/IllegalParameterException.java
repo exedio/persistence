@@ -1,5 +1,5 @@
 
-package injection;
+package com.exedio.cope.instrument;
 
 /**
  * Is thrown for invalid command line parameters

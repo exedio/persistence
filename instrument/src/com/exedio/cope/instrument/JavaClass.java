@@ -1,5 +1,5 @@
 
-package injection;
+package com.exedio.cope.instrument;
 
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
@@ -11,8 +11,8 @@ import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeMap;
 import java.util.TreeSet;
-import persistence.ReadOnlyViolationException;
-import tools.ClassComparator;
+import com.exedio.cope.lib.ReadOnlyViolationException;
+import com.exedio.cope.lib.util.ClassComparator;
 
 /**
  * Represents a class parsed by the java parser.

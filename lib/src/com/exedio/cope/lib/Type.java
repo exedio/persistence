@@ -1,5 +1,5 @@
 
-package persistence;
+package com.exedio.cope.lib;
 
 import java.util.Arrays;
 import java.util.Collections;

@@ -1,4 +1,4 @@
-package persistence;
+package com.exedio.cope.lib;
 
 public abstract class Attribute
 {

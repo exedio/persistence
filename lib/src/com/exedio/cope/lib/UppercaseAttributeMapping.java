@@ -1,5 +1,5 @@
 
-package persistence;
+package com.exedio.cope.lib;
 
 public final class UppercaseAttributeMapping extends AttributeMapping
 {

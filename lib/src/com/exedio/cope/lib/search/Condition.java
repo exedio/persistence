@@ -1,8 +1,8 @@
 
-package persistence.search;
+package com.exedio.cope.lib.search;
 
-import persistence.Attribute;
-import persistence.StringAttribute;
+import com.exedio.cope.lib.Attribute;
+import com.exedio.cope.lib.StringAttribute;
 
 public abstract class Condition
 {

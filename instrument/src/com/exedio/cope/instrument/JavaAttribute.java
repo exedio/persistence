@@ -1,5 +1,5 @@
 
-package injection;
+package com.exedio.cope.instrument;
 
 import java.lang.reflect.Modifier;
 import java.util.Collections;
@@ -9,10 +9,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
-import persistence.NotNullViolationException;
-import persistence.ReadOnlyViolationException;
-import persistence.UniqueViolationException;
-import tools.ClassComparator;
+import com.exedio.cope.lib.NotNullViolationException;
+import com.exedio.cope.lib.ReadOnlyViolationException;
+import com.exedio.cope.lib.UniqueViolationException;
+import com.exedio.cope.lib.util.ClassComparator;
 
 /**
  * Represents an attribute of a class parsed by the

@@ -1,5 +1,5 @@
 
-package injection;
+package com.exedio.cope.instrument;
 
 import java.io.*;
 import java.util.Collection;

@@ -1,10 +1,10 @@
 
-package persistence.search;
+package com.exedio.cope.lib.search;
 
-import persistence.Attribute;
-import persistence.Item;
-import persistence.ItemAttribute;
-import persistence.StringAttribute;
+import com.exedio.cope.lib.Attribute;
+import com.exedio.cope.lib.Item;
+import com.exedio.cope.lib.ItemAttribute;
+import com.exedio.cope.lib.StringAttribute;
 
 public final class EqualCondition extends Condition
 {

@@ -1,24 +1,23 @@
 
-package injection;
+package com.exedio.cope.instrument;
 
-import injection.InjectorParseException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Writer;
 import java.util.*;
 import java.lang.reflect.Modifier;
-import persistence.Attribute;
-import persistence.AttributeValue;
-import persistence.ConstraintViolationException;
-import persistence.EnumerationValue;
-import persistence.NotNullViolationException;
-import persistence.ReadOnlyViolationException;
-import persistence.SystemException;
-import persistence.Type;
-import persistence.UniqueConstraint;
-import persistence.UniqueViolationException;
-import tools.ClassComparator;
+import com.exedio.cope.lib.Attribute;
+import com.exedio.cope.lib.AttributeValue;
+import com.exedio.cope.lib.ConstraintViolationException;
+import com.exedio.cope.lib.EnumerationValue;
+import com.exedio.cope.lib.NotNullViolationException;
+import com.exedio.cope.lib.ReadOnlyViolationException;
+import com.exedio.cope.lib.SystemException;
+import com.exedio.cope.lib.Type;
+import com.exedio.cope.lib.UniqueConstraint;
+import com.exedio.cope.lib.UniqueViolationException;
+import com.exedio.cope.lib.util.ClassComparator;
 
 public final class Instrumentor implements InjectionConsumer
 {

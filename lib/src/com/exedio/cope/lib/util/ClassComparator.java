@@ -1,4 +1,4 @@
-package tools;
+package com.exedio.cope.lib.util;
 
 import java.util.Comparator;
 

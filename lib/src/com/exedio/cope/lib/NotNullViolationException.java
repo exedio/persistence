@@ -1,5 +1,5 @@
 
-package persistence;
+package com.exedio.cope.lib;
 
 /**
  * Is thrown, when a persistent modification tries to set a not-null attribute to null.

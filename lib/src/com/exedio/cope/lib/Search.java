@@ -1,12 +1,12 @@
 
-package persistence;
+package com.exedio.cope.lib;
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
-import persistence.search.AndCondition;
-import persistence.search.Condition;
-import persistence.search.EqualCondition;
+import com.exedio.cope.lib.search.AndCondition;
+import com.exedio.cope.lib.search.Condition;
+import com.exedio.cope.lib.search.EqualCondition;
 
 /**
  * Utility class for searching persistent data.
