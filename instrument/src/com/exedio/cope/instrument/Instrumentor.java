@@ -29,7 +29,7 @@ public final class Instrumentor implements InjectionConsumer
 	/**
 	 * The last file level doccomment that was read.
 	 */
-	private String m_sFileDocComment = null;
+	private String lastFileDocComment = null;
 	
 	public Instrumentor(Writer output)
 	{
@@ -79,10 +79,10 @@ public final class Instrumentor implements InjectionConsumer
 		class_state_stack.add(class_state);
 		class_state=jc;
 		
-		if (m_sFileDocComment != null)
+		if(lastFileDocComment != null)
 		{
-			handleClassComment(jc, m_sFileDocComment);
-			m_sFileDocComment = null; // mark as handled.
+			handleClassComment(jc, lastFileDocComment);
+			lastFileDocComment = null;
 		}
 	}
 	
@@ -201,7 +201,7 @@ public final class Instrumentor implements InjectionConsumer
 		else
 		{
 			// remember to be handled as soon as we know what class we're talking about
-			m_sFileDocComment = docComment;
+			lastFileDocComment = docComment;
 		}
 	}
 	
