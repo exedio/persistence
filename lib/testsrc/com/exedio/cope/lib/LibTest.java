@@ -185,6 +185,12 @@ public class LibTest extends TestCase
 			}
 			catch(NullPointerException e)
 			{}
+			
+			item.setSomeItem(null);
+			assertEquals(null, item.getSomeItem());
+			final ItemWithoutAttributes someItem = new ItemWithoutAttributes();
+			item.setSomeItem(null);
+			assertEquals(null/*someItem*/, item.getSomeItem());
 		}
 	}
 

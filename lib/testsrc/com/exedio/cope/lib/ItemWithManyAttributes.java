@@ -33,6 +33,12 @@ public class ItemWithManyAttributes extends Item
 	 */
 	public static final IntegerAttribute someNotNullInteger = new IntegerAttribute();
 
+	/**
+	 * An attribute referencing another persistent item
+	 * @persistent ItemWithoutAttributes
+	 */
+	public static final ItemAttribute someItem = new ItemAttribute();
+
 /**
 
 	 **
@@ -148,6 +154,39 @@ public class ItemWithManyAttributes extends Item
 	}/**
 
 	 **
+	 * Returns the value of the persistent attribute {@link #someItem}.
+	 * @generated
+	 *
+ */public final ItemWithoutAttributes getSomeItem()
+	{
+		return (ItemWithoutAttributes)getAttribute(this.someItem);
+	}/**
+
+	 **
+	 * Sets a new value for the persistent attribute {@link #someItem}.
+	 * @generated
+	 *
+ */public final void setSomeItem(final ItemWithoutAttributes someItem)
+	{
+		try
+		{
+			setAttribute(this.someItem,someItem);
+		}
+		catch(com.exedio.cope.lib.NotNullViolationException e)
+		{
+			throw new com.exedio.cope.lib.SystemException(e);
+		}
+		catch(com.exedio.cope.lib.ReadOnlyViolationException e)
+		{
+			throw new com.exedio.cope.lib.SystemException(e);
+		}
+		catch(com.exedio.cope.lib.UniqueViolationException e)
+		{
+			throw new com.exedio.cope.lib.SystemException(e);
+		}
+	}/**
+
+	 **
 	 * The persistent type information for itemWithManyAttributes.
 	 * @generated
 	 *
@@ -158,6 +197,7 @@ public class ItemWithManyAttributes extends Item
 				someString,
 				someInteger,
 				someNotNullInteger,
+				someItem,
 			},
 			new com.exedio.cope.lib.UniqueConstraint[]{
 			},
@@ -168,6 +208,7 @@ public class ItemWithManyAttributes extends Item
 					someString.initialize("someString",false,false);
 					someInteger.initialize("someInteger",false,false);
 					someNotNullInteger.initialize("someNotNullInteger",false,true);
+					someItem.initialize("someItem",false,false);
 				}
 			}
 		)
