@@ -127,10 +127,20 @@ public class ExampleTest extends InjectorTest
 "\t char[]   uglyInnerAttribute7={';','{','\"','\\\''};\n"+
 "\t public void run()\n"+
 "\t {\n"+
-"\t\t// ugly ; { \" ' comment\n\t\tString   uglyVariable1=\"some'Thing{some\\\"Thing;Else\";\n\t\tchar     uglyVariable2=';';\n"+
-"\t\tchar     uglyVariable3='{';\n\t\tchar     uglyVariable4='\"';\n\t\tchar     uglyVariable5='\\\'';\n\t\tString[] uglyVariable6=\n\t\t{\n"+
-"\t\t  \"some'Thing{some\\\"Thing;Else\", // ugly ; { \" ' comment\n\t\t  \"some'Thing{some\\\"Thing;Else\"\n\t\t};\n\t\tchar[]   uglyAttribute7={';','{','\"','\\\''};\n"+
-"\t }\n\t // ugly ; { \" ' comment\n  };");
+"\t\t// ugly ; { \" ' comment\n"+
+"\t\tString   uglyVariable1=\"some'Thing{some\\\"Thing;Else\";\n"+
+"\t\tchar     uglyVariable2=';';\n"+
+"\t\tchar     uglyVariable3='{';\n"+
+"\t\tchar     uglyVariable4='\"';\n"+
+"\t\tchar     uglyVariable5='\\\'';\n"+
+"\t\tString[] uglyVariable6=\n"+
+"\t\t{\n"+
+"\t\t  \"some'Thing{some\\\"Thing;Else\", // ugly ; { \" ' comment\n"+
+"\t\t  \"some'Thing{some\\\"Thing;Else\"\n"+
+"\t\t};\n"+
+"\t\tchar[]   uglyAttribute7={';','{','\"','\\\''};\n"+
+"\t }\n\t // ugly ; { \" ' comment"+
+"\n  };");
 		assertAttribute("uglyAttribute8", null);
 		//assertText("\n  ");
 	}
