@@ -21,6 +21,26 @@ if(request.getParameter("APPLY")!=null)
 	%>
 	<ol><%
 	{
+		final String[] dropTables = (String[])request.getParameterMap().get("DROP_TABLE");
+		if(dropTables!=null)
+		{
+			for(int i = 0; i<dropTables.length; i++)
+			{
+				final String dropTable = dropTables[i];
+				final ReportTable table = report.getTable(dropTable);
+				if(table==null)
+					throw new RuntimeException(dropTable);
+				%>
+				<li>dropping table <%=dropTable%> ...</li><%
+				out.flush();
+				final long time = System.currentTimeMillis();
+				table.drop();
+				%><li><b>ok</b>, <%=System.currentTimeMillis()-time%>ms.</li><%
+				out.flush();
+			}
+		}
+	}
+	{
 		final String[] analyzeTables = (String[])request.getParameterMap().get("ANALYZE_TABLE");
 		if(analyzeTables!=null)
 		{

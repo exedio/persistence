@@ -1235,6 +1235,23 @@ public abstract class Database
 		}
 	}
 	
+	final void dropTable(final String tableName)
+	{
+		final Statement bf = createStatement();
+		bf.append("drop table ").
+			append(protectName(tableName));
+
+		try
+		{
+			//System.out.println("dropTable:"+bf);
+			executeSQL(bf, EMPTY_RESULT_SET_HANDLER);
+		}
+		catch(ConstraintViolationException e)
+		{
+			throw new SystemException(e);
+		}
+	}
+
 	final void analyzeTable(final String tableName)
 	{
 		final Statement bf = createStatement();
@@ -1244,7 +1261,7 @@ public abstract class Database
 
 		try
 		{
-			System.out.println("analyzeTable:"+bf);
+			//System.out.println("analyzeTable:"+bf);
 			executeSQL(bf, EMPTY_RESULT_SET_HANDLER);
 		}
 		catch(ConstraintViolationException e)
