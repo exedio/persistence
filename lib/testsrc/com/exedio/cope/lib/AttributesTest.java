@@ -419,6 +419,15 @@ public class AttributesTest extends DatabaseLibTest
 		assertMediaMime(item, "image", "png", bytes, "png");
 		assertMediaMime(item, "image", "someMinor", bytes, "image.someMinor");
 
+		final byte[] manyBytes = new byte[49467];
+		for(int i = 0; i<manyBytes.length; i++)
+		{
+			manyBytes[i] = (byte)((121*i)%253);
+			//System.out.print(manyBytes[i]+", ");
+		}
+		item.setSomeMediaData(new ByteArrayInputStream(manyBytes),"someMimeMajor", "someMimeMinor");
+		assertData(manyBytes, item.getSomeMediaData());
+
 		item.setSomeMediaData(null, null, null);
 		assertEquals(null, item.getSomeMediaURL());
 		assertEquals(null, item.getSomeMediaURLSomeVariant());
