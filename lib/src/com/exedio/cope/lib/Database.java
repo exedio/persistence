@@ -226,9 +226,9 @@ public abstract class Database
 		{
 			try
 			{
-				final Table type = (Table)i.next(); // TODO: rename to table
-				System.err.print("DROPPING FOREIGN KEY CONSTRAINTS "+type+"... ");
-				dropForeignKeyConstraints(type);
+				final Table table = (Table)i.next();
+				System.err.print("DROPPING FOREIGN KEY CONSTRAINTS "+table+"... ");
+				dropForeignKeyConstraints(table);
 				System.err.println("done.");
 			}
 			catch(SystemException e2)
