@@ -650,33 +650,6 @@ final class Generator
 		o.write(".class,");
 		o.write(lineSeparator);
 		
-		// the attributes of the class
-		final List persistentAttributes = persistentClass.getPersistentAttributes();
-		if(!persistentAttributes.isEmpty())
-		{
-			o.write("\t\t\tnew "+Attribute.class.getName()+"[]{");
-			o.write(lineSeparator);
-			for(Iterator i = persistentAttributes.iterator(); i.hasNext(); )
-			{
-				final PersistentAttribute persistentAttribute = (PersistentAttribute)i.next();
-				o.write("\t\t\t\t");
-				o.write(persistentAttribute.getName());
-				o.write(".initialize(");
-				o.write(persistentAttribute.readOnly ? "true": "false");
-				o.write(',');
-				o.write(persistentAttribute.notNull ? "true": "false");
-				//private List qualifiers = null;
-				o.write("),");
-				o.write(lineSeparator);
-			}
-			o.write("\t\t\t},");
-		}
-		else
-		{
-			o.write("\t\t\tnull,");
-		}
-		o.write(lineSeparator);
-		
 		// the unique contraints of the class
 		final List uniqueConstraints = persistentClass.getUniqueConstraints();
 		if(!uniqueConstraints.isEmpty())

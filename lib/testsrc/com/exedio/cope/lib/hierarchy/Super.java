@@ -88,9 +88,6 @@ public abstract class Super extends Item
  */public static final com.exedio.cope.lib.Type TYPE = 
 		new com.exedio.cope.lib.Type(
 			Super.class,
-			new com.exedio.cope.lib.Attribute[]{
-				superInt.initialize(false,true),
-			},
 			null
 		)
 ;}

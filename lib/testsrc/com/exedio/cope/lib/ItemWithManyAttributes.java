@@ -573,21 +573,6 @@ public class ItemWithManyAttributes extends Item
  */public static final com.exedio.cope.lib.Type TYPE = 
 		new com.exedio.cope.lib.Type(
 			ItemWithManyAttributes.class,
-			new com.exedio.cope.lib.Attribute[]{
-				someString.initialize(false,false),
-				someStringUpperCase.initialize(false,false),
-				someNotNullString.initialize(false,true),
-				someInteger.initialize(false,false),
-				someNotNullInteger.initialize(false,true),
-				someBoolean.initialize(false,false),
-				someNotNullBoolean.initialize(false,true),
-				someItem.initialize(false,false),
-				someNotNullItem.initialize(false,true),
-				someEnumeration.initialize(false,false),
-				someNotNullEnumeration.initialize(false,true),
-				someMedia.initialize(false,false),
-				someQualifiedString.initialize(false,false),
-			},
 			null
 		)
 ;}

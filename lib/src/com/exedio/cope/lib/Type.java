@@ -50,7 +50,7 @@ public final class Type
 		return (Type)typesByName.get(className);
 	}
 	
-	public Type(final Class javaClass, final Attribute[] declaredAttributesNotToBeUsed, final UniqueConstraint[] uniqueConstraints)
+	public Type(final Class javaClass, final UniqueConstraint[] uniqueConstraints)
 	{
 		this.javaClass = javaClass;
 

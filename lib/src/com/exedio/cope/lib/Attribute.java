@@ -21,24 +21,6 @@ public abstract class Attribute
 		this.mapping = mapping;
 	}
 	
-
-	// phase 1: initialize ---------------------------------------------
-	private boolean initialized = false;
-
-	public final Attribute initialize(final boolean readOnlyNotUsed, final boolean notNullNotUsed)
-	{
-		if(initialized)
-			throw new RuntimeException();
-		if(this.name!=null)
-			throw new RuntimeException();
-		if(this.type!=null)
-			throw new RuntimeException();
-
-		initialized = true;
-
-		return this;
-	}
-	
 	public final boolean isReadOnly()
 	{
 		return readOnly;

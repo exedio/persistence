@@ -84,9 +84,6 @@ public class ItemWithSingleUnique extends Item
  */public static final com.exedio.cope.lib.Type TYPE = 
 		new com.exedio.cope.lib.Type(
 			ItemWithSingleUnique.class,
-			new com.exedio.cope.lib.Attribute[]{
-				uniqueString.initialize(false,false),
-			},
 			new com.exedio.cope.lib.UniqueConstraint[]{
 				new com.exedio.cope.lib.UniqueConstraint(uniqueString),
 			}

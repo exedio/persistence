@@ -82,9 +82,6 @@ public class FirstSub extends Super
  */public static final com.exedio.cope.lib.Type TYPE = 
 		new com.exedio.cope.lib.Type(
 			FirstSub.class,
-			new com.exedio.cope.lib.Attribute[]{
-				firstSubString.initialize(false,false),
-			},
 			null
 		)
 ;}
