@@ -28,7 +28,10 @@ page import="java.util.Map"
 	final CopernicaProvider provider;
 	try
 	{
-		final Class providerClass = Class.forName("com.exedio.demoshop.CopernicaProvider");
+		final String providerName = getInitParameter("com.exedio.copernica.provider");
+		if(providerName==null)
+			throw new NullPointerException("init-param com.exedio.copernica.provider missing");
+		final Class providerClass = Class.forName(providerName);
 		provider = (CopernicaProvider)providerClass.newInstance();
 	}
 	catch(ClassNotFoundException e)
