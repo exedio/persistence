@@ -152,9 +152,24 @@ page import="java.util.Map"
 							%>
 							</ul>
 							<hr>
-							[<a href="<%=typeCop.firstPage()%>">&lt;&lt;</a>]
-							|
-							[<a href="<%=typeCop.previousPage()%>">&lt;</a>]
+							<%
+							if(typeCop.isFirstPage())
+							{
+								%>
+								[<b>&lt;&lt;</b>]
+								|
+								[<b>&lt;</b>]
+								<%
+							}
+							else
+							{
+								%>
+								[<a href="<%=typeCop.firstPage()%>">&lt;&lt;</a>]
+								|
+								[<a href="<%=typeCop.previousPage()%>">&lt;</a>]
+								<%
+							}
+							%>
 							|
 							[<a href="<%=typeCop.nextPage()%>">&gt;</a>]
 							<table border="1">

@@ -35,6 +35,11 @@ final class TypeCop extends CopernicaCop
 		return new TypeCop(newLanguage, type);
 	}
 	
+	final boolean isFirstPage()
+	{
+		return start == 0;
+	}
+	
 	final TypeCop firstPage()
 	{
 		return new TypeCop(language, type, 0, count);
