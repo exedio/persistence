@@ -44,7 +44,7 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); )
 			final Date date = lastAnalyzed.lastAnalyzed;
 			%>
 			<li class="<%=color(lastAnalyzed.getCumulativeColor())
-					%>"> last analyzed: <%=date!=null?date.toString():"NEVER"%><%
+					%>">last analyzed: <%=date!=null?date.toString():"NEVER"%></li><%
 		}
 		
 		for(Iterator j = table.getConstraints().iterator(); j.hasNext(); )
