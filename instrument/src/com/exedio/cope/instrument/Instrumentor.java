@@ -371,7 +371,14 @@ public final class Instrumentor implements InjectionConsumer
 		writeCommentFooter();
 		output.write("public static final "+Type.class.getName()+" TYPE = new "+Type.class.getName()+"(");
 		output.write(javaClass.getName());
-		output.write(".class);");
+		output.write(".class, new Attribute[]{");
+		for(Iterator i = javaClass.getPersistentAttributes().iterator(); i.hasNext(); )
+		{
+			final JavaAttribute persistentAttribute = (JavaAttribute)i.next();
+			output.write(persistentAttribute.getName());
+			output.write(',');
+		}
+		output.write("});");
 	}
 	
 	public void onClassEnd(JavaClass jc)
