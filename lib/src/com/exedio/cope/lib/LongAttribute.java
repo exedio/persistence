@@ -6,7 +6,10 @@ import java.util.List;
 
 public final class LongAttribute extends ObjectAttribute
 {
-	public LongAttribute(final Option option)
+	/**
+	 * @see Item#longAttribute(Option)
+	 */
+	LongAttribute(final Option option)
 	{
 		super(option);
 	}

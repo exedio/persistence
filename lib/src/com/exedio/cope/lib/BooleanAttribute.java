@@ -8,7 +8,10 @@ public final class BooleanAttribute extends ObjectAttribute
 {
 	static final int[] ALLOWED_VALUES = new int[]{0, 1};
 
-	public BooleanAttribute(final Option option)
+	/**
+	 * see Item#booleanAttribute(Option)
+	 */
+	BooleanAttribute(final Option option)
 	{
 		super(option);
 	}

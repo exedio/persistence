@@ -9,14 +9,20 @@ public final class StringAttribute extends ObjectAttribute implements StringFunc
 	private final int minimumLength;
 	private final int maximumLength;
 
-	public StringAttribute(final Option option)
+	/**
+	 * @see Item#stringAttribute(Option)
+	 */
+	StringAttribute(final Option option)
 	{
 		super(option);
 		this.minimumLength = 0;
 		this.maximumLength = Integer.MAX_VALUE;
 	}
 	
-	public StringAttribute(final Option option, final int minimumLength)
+	/**
+	 * @see Item#stringAttribute(Option, int)
+	 */
+	StringAttribute(final Option option, final int minimumLength)
 	{
 		super(option);
 		this.minimumLength = minimumLength;
@@ -25,7 +31,10 @@ public final class StringAttribute extends ObjectAttribute implements StringFunc
 			throw new RuntimeException("mimimum length must be greater than zero.");
 	}
 	
-	public StringAttribute(final Option option, final int minimumLength, final int maximumLength)
+	/**
+	 * @see Item#stringAttribute(Option, int, int)
+	 */
+	StringAttribute(final Option option, final int minimumLength, final int maximumLength)
 	{
 		super(option);
 		this.minimumLength = minimumLength;

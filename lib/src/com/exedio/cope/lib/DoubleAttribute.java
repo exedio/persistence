@@ -6,7 +6,10 @@ import java.util.List;
 
 public class DoubleAttribute extends ObjectAttribute
 {
-	public DoubleAttribute(final Option option)
+	/**
+	 * @see Item#doubleAttribute(Option)
+	 */
+	DoubleAttribute(final Option option)
 	{
 		super(option);
 	}

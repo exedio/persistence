@@ -9,7 +9,10 @@ public final class ItemAttribute extends ObjectAttribute
 
 	private final Class targetTypeClass;
 
-	public ItemAttribute(final Option option, final Class targetTypeClass)
+	/**
+	 * @see Item#itemAttribute(Option, Class)
+	 */
+	ItemAttribute(final Option option, final Class targetTypeClass)
 	{
 		super(option);
 		this.targetTypeClass = targetTypeClass;

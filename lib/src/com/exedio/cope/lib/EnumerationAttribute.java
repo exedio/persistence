@@ -18,7 +18,10 @@ public final class EnumerationAttribute extends ObjectAttribute
 	private final IntKeyOpenHashMap numbersToValues;
 	private final HashMap codesToValues;
 	
-	public EnumerationAttribute(final Option option, final Class enumerationClass)
+	/**
+	 * @see Item#enumerationAttribute(Option, Class)
+	 */
+	EnumerationAttribute(final Option option, final Class enumerationClass)
 	{
 		super(option);
 		this.enumerationClass = enumerationClass;

@@ -6,13 +6,13 @@ package com.exedio.cope.lib;
  */
 public class AttributeEmptyItem extends Item
 {
-	public static final ItemAttribute parent = new ItemAttribute(DEFAULT, AttributeItem.class);
+	public static final ItemAttribute parent = itemAttribute(DEFAULT, AttributeItem.class);
 
-	public static final ItemAttribute key = new ItemAttribute(DEFAULT, EmptyItem.class);
+	public static final ItemAttribute key = itemAttribute(DEFAULT, EmptyItem.class);
 	
-	public static final UniqueConstraint parentKey = new UniqueConstraint(parent, key);
+	public static final UniqueConstraint parentKey = uniqueConstraint(parent, key);
 
-	public static final StringAttribute someQualifiedString = new StringAttribute(DEFAULT);
+	public static final StringAttribute someQualifiedString = stringAttribute(DEFAULT);
 
 /**
 

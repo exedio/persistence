@@ -11,7 +11,7 @@ public class ItemWithDoubleUnique extends Item
 	/**
 	 * @cope-setter none
 	 */
-	static final StringAttribute string = new StringAttribute(NOT_NULL);
+	static final StringAttribute string = stringAttribute(NOT_NULL);
 	
 	/**
 	 * @cope-setter private

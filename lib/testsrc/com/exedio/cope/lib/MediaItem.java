@@ -6,17 +6,17 @@ package com.exedio.cope.lib;
  */
 public class MediaItem extends Item
 {
-	static final MediaAttribute file = new MediaAttribute(DEFAULT);
+	static final MediaAttribute file = mediaAttribute(DEFAULT);
 
-	static final MediaAttribute image = new MediaAttribute(DEFAULT, "image");
+	static final MediaAttribute image = mediaAttribute(DEFAULT, "image");
 	
-	static final MediaAttributeVariant imageBB240 = new MediaAttributeVariant(image);
+	static final MediaAttributeVariant imageBB240 = mediaAttributeVariant(image);
 
-	static final MediaAttribute photo = new MediaAttribute(DEFAULT, "image", "jpeg");
+	static final MediaAttribute photo = mediaAttribute(DEFAULT, "image", "jpeg");
 	
-	static final MediaAttributeVariant photoBB65 = new MediaAttributeVariant(photo);
+	static final MediaAttributeVariant photoBB65 = mediaAttributeVariant(photo);
 
-	static final MediaAttributeVariant photoProgressive = new MediaAttributeVariant(photo);
+	static final MediaAttributeVariant photoProgressive = mediaAttributeVariant(photo);
 	
 /**
 

@@ -7,13 +7,13 @@ package com.exedio.cope.lib;
  */
 public class StringItem extends Item
 {
-	static final StringAttribute any = new StringAttribute(DEFAULT);
+	static final StringAttribute any = stringAttribute(DEFAULT);
 
-	static final StringAttribute min4 = new StringAttribute(DEFAULT, 4);
+	static final StringAttribute min4 = stringAttribute(DEFAULT, 4);
 
-	static final StringAttribute max4 = new StringAttribute(DEFAULT, 0, 4);
+	static final StringAttribute max4 = stringAttribute(DEFAULT, 0, 4);
 
-	static final StringAttribute min4Max8 = new StringAttribute(DEFAULT, 4, 8);
+	static final StringAttribute min4Max8 = stringAttribute(DEFAULT, 4, 8);
 
 /**
 

@@ -7,11 +7,11 @@ import com.exedio.cope.lib.function.SumFunction;
  */
 public class SumItem extends Item
 {
-	static final IntegerAttribute num1 = new IntegerAttribute(DEFAULT);
+	static final IntegerAttribute num1 = integerAttribute(DEFAULT);
 
-	static final IntegerAttribute num2 = new IntegerAttribute(DEFAULT);
+	static final IntegerAttribute num2 = integerAttribute(DEFAULT);
 
-	static final IntegerAttribute num3 = new IntegerAttribute(DEFAULT);
+	static final IntegerAttribute num3 = integerAttribute(DEFAULT);
 	
 	static final SumFunction sum12 = new SumFunction(num1, num2);
 

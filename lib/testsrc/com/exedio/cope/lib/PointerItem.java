@@ -7,11 +7,11 @@ package com.exedio.cope.lib;
 public class PointerItem extends Item
 {
 
-	static final StringAttribute code = new StringAttribute(NOT_NULL);
+	static final StringAttribute code = stringAttribute(NOT_NULL);
 	
-	static final ItemAttribute pointer = new ItemAttribute(NOT_NULL, PointerItem2.class);
+	static final ItemAttribute pointer = itemAttribute(NOT_NULL, PointerItem2.class);
 
-	static final ItemAttribute self = new ItemAttribute(DEFAULT, PointerItem.class);
+	static final ItemAttribute self = itemAttribute(DEFAULT, PointerItem.class);
 
 /**
 

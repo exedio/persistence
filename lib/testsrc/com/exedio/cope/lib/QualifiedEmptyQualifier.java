@@ -6,14 +6,14 @@ package com.exedio.cope.lib;
  */
 public class QualifiedEmptyQualifier extends Item
 {
-	static final ItemAttribute parent = new ItemAttribute(READ_ONLY_NOT_NULL, QualifiedItem.class);
+	static final ItemAttribute parent = itemAttribute(READ_ONLY_NOT_NULL, QualifiedItem.class);
 	
-	static final ItemAttribute key = new ItemAttribute(READ_ONLY_NOT_NULL, EmptyItem.class);
+	static final ItemAttribute key = itemAttribute(READ_ONLY_NOT_NULL, EmptyItem.class);
 	
-	static final UniqueConstraint qualifyUnique = new UniqueConstraint(parent, key);
+	static final UniqueConstraint qualifyUnique = uniqueConstraint(parent, key);
 	
-	static final StringAttribute qualifiedA = new StringAttribute(DEFAULT);
-	static final StringAttribute qualifiedB = new StringAttribute(DEFAULT);
+	static final StringAttribute qualifiedA = stringAttribute(DEFAULT);
+	static final StringAttribute qualifiedB = stringAttribute(DEFAULT);
 	
 
 /**

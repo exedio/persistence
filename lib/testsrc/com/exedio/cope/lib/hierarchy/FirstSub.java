@@ -10,7 +10,7 @@ import com.exedio.cope.lib.StringAttribute;
 public class FirstSub extends Super
 {
 
-	public static final StringAttribute firstSubString = new StringAttribute(DEFAULT);
+	public static final StringAttribute firstSubString = stringAttribute(DEFAULT);
 	
 	public FirstSub(final int initialSuperInt)
 	{

@@ -13,7 +13,7 @@ public class AttributeItem extends Item
 	/**
 	 * A string attribute.
 	 */
-	public static final StringAttribute someString = new StringAttribute(DEFAULT);
+	public static final StringAttribute someString = stringAttribute(DEFAULT);
 
 	/**
 	 * Test non-persistent static final attributes.
@@ -28,78 +28,78 @@ public class AttributeItem extends Item
 	/**
 	 * A not-null string attribute.
 	 */
-	public static final StringAttribute someNotNullString = new StringAttribute(NOT_NULL);
+	public static final StringAttribute someNotNullString = stringAttribute(NOT_NULL);
 
 	/**
 	 * An integer attribute
 	 */
-	public static final IntegerAttribute someInteger = new IntegerAttribute(DEFAULT);
+	public static final IntegerAttribute someInteger = integerAttribute(DEFAULT);
 
 	/**
 	 * A not-null integer attribute
 	 */
-	public static final IntegerAttribute someNotNullInteger = new IntegerAttribute(NOT_NULL);
+	public static final IntegerAttribute someNotNullInteger = integerAttribute(NOT_NULL);
 
 	/**
 	 * An integer attribute
 	 */
-	public static final LongAttribute someLong = new LongAttribute(DEFAULT);
+	public static final LongAttribute someLong = longAttribute(DEFAULT);
 
 	/**
 	 * A not-null integer attribute
 	 */
-	public static final LongAttribute someNotNullLong = new LongAttribute(NOT_NULL);
+	public static final LongAttribute someNotNullLong = longAttribute(NOT_NULL);
 
 	/**
 	 * A double attribute
 	 */
-	public static final DoubleAttribute someDouble = new DoubleAttribute(DEFAULT);
+	public static final DoubleAttribute someDouble = doubleAttribute(DEFAULT);
 
 	/**
 	 * A not-null double attribute
 	 */
-	public static final DoubleAttribute someNotNullDouble = new DoubleAttribute(NOT_NULL);
+	public static final DoubleAttribute someNotNullDouble = doubleAttribute(NOT_NULL);
 
-	public static final DateAttribute someDate = new DateAttribute(DEFAULT);
+	public static final DateAttribute someDate = dateAttribute(DEFAULT);
 
-	public static final DateAttribute someLongDate = new DateAttribute(DEFAULT, true);
+	public static final DateAttribute someLongDate = dateAttribute(DEFAULT, true);
 
 	/**
 	 * An boolean attribute
 	 */
-	public static final BooleanAttribute someBoolean = new BooleanAttribute(DEFAULT);
+	public static final BooleanAttribute someBoolean = booleanAttribute(DEFAULT);
 
 	/**
 	 * A not-null boolean attribute
 	 */
-	public static final BooleanAttribute someNotNullBoolean = new BooleanAttribute(NOT_NULL);
+	public static final BooleanAttribute someNotNullBoolean = booleanAttribute(NOT_NULL);
 	
 	/**
 	 * An attribute referencing another persistent item
 	 */
-	public static final ItemAttribute someItem = new ItemAttribute(DEFAULT, EmptyItem.class);
+	public static final ItemAttribute someItem = itemAttribute(DEFAULT, EmptyItem.class);
 
 	/**
 	 * An not-null attribute referencing another persistent item
 	 */
-	public static final ItemAttribute someNotNullItem = new ItemAttribute(NOT_NULL, EmptyItem.class);
+	public static final ItemAttribute someNotNullItem = itemAttribute(NOT_NULL, EmptyItem.class);
 
 	/**
 	 * An enumeration attribute
 	 */
-	public static final EnumerationAttribute someEnumeration = new EnumerationAttribute(DEFAULT, SomeEnumeration.class);
+	public static final EnumerationAttribute someEnumeration = enumerationAttribute(DEFAULT, SomeEnumeration.class);
 
 	/**
 	 * A not-null enumeration attribute
 	 */
-	public static final EnumerationAttribute someNotNullEnumeration = new EnumerationAttribute(NOT_NULL, SomeEnumeration.class);
+	public static final EnumerationAttribute someNotNullEnumeration = enumerationAttribute(NOT_NULL, SomeEnumeration.class);
 
 	/**
 	 * A media attribute.
 	 */
-	public static final MediaAttribute someMedia = new MediaAttribute(DEFAULT);
+	public static final MediaAttribute someMedia = mediaAttribute(DEFAULT);
 	
-	public static final MediaAttributeVariant SomeVariant = new MediaAttributeVariant(someMedia);
+	public static final MediaAttributeVariant SomeVariant = mediaAttributeVariant(someMedia);
 
 	public static final Qualifier emptyItem = new Qualifier(AttributeEmptyItem.parentKey);
 

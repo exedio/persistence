@@ -14,19 +14,28 @@ public final class MediaAttribute extends Attribute
 	StringColumn mimeMinor = null;
 	IntegerColumn exists = null;
 
-	public MediaAttribute(final Option option, final String fixedMimeMajor, final String fixedMimeMinor)
+	/**
+	 * @see Item#mediaAttribute(Option, String, String)
+	 */
+	MediaAttribute(final Option option, final String fixedMimeMajor, final String fixedMimeMinor)
 	{
 		super(option);
 		this.fixedMimeMajor = fixedMimeMajor;
 		this.fixedMimeMinor = fixedMimeMinor;
 	}
 	
-	public MediaAttribute(final Option option, final String fixedMimeMajor)
+	/**
+	 * @see Item#mediaAttribute(Option, String)
+	 */
+	MediaAttribute(final Option option, final String fixedMimeMajor)
 	{
 		this(option, fixedMimeMajor, null);
 	}
 	
-	public MediaAttribute(final Option option)
+	/**
+	 * @see Item#mediaAttribute(Option)
+	 */
+	MediaAttribute(final Option option)
 	{
 		this(option, null, null);
 	}

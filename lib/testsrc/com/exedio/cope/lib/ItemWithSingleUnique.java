@@ -10,7 +10,7 @@ public class ItemWithSingleUnique extends Item
 	/**
 	 * An attribute that is unique.
 	 */
-	public static final StringAttribute uniqueString = new StringAttribute(UNIQUE);
+	public static final StringAttribute uniqueString = stringAttribute(UNIQUE);
 
 /**
 

@@ -6,7 +6,10 @@ import java.util.List;
 
 public final class IntegerAttribute extends ObjectAttribute implements IntegerFunction
 {
-	public IntegerAttribute(final Option option)
+	/**
+	 * @see Item#integerAttribute(Option)
+	 */
+	IntegerAttribute(final Option option)
 	{
 		super(option);
 	}

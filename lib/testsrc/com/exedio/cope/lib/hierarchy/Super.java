@@ -10,7 +10,7 @@ import com.exedio.cope.lib.Item;
 public abstract class Super extends Item
 {
 
-	public static final IntegerAttribute superInt = new IntegerAttribute(NOT_NULL); 
+	public static final IntegerAttribute superInt = integerAttribute(NOT_NULL);
 	
 /**
 

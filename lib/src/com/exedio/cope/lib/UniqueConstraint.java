@@ -30,12 +30,18 @@ public final class UniqueConstraint
 				throw new RuntimeException(String.valueOf(i));
 	}
 	
+	/**
+	 * @see Item#uniqueConstraint(ObjectAttribute)
+	 */
 	UniqueConstraint(final ObjectAttribute uniqueAttribute)
 	{
 		this(new ObjectAttribute[]{uniqueAttribute});
 	}
 	
-	public UniqueConstraint(final ObjectAttribute uniqueAttribute1, final ObjectAttribute uniqueAttribute2)
+	/**
+	 * @see Item#uniqueConstraint(ObjectAttribute, ObjectAttribute)
+	 */
+	UniqueConstraint(final ObjectAttribute uniqueAttribute1, final ObjectAttribute uniqueAttribute2)
 	{
 		this(new ObjectAttribute[]{uniqueAttribute1, uniqueAttribute2});
 	}

@@ -8,7 +8,7 @@ import com.exedio.cope.lib.pattern.Qualifier;
  */
 public class QualifiedItem extends Item
 {
-	static final IntegerAttribute number = new IntegerAttribute(DEFAULT);
+	static final IntegerAttribute number = integerAttribute(DEFAULT);
 	
 	static final Qualifier qualifier = new Qualifier(QualifiedEmptyQualifier.qualifyUnique);
 
