@@ -54,7 +54,7 @@ include file="copernica-provider.inc"
 					{
 						final Report.Table table = (Report.Table)i.next();
 						%>
-						<li><%=table.name%><%
+						<li><small>table</small> <%=table.name%><%
 						if(table.isMissing())
 						{
 							%> <b>MISSING !!!</b><%
@@ -71,7 +71,7 @@ include file="copernica-provider.inc"
 							{
 								final Report.Constraint constraint = (Report.Constraint)j.next();
 								%>
-								<li><%=constraint.name%><%
+								<li><small>constraint</small> <%=constraint.name%><%
 								if(constraint.isMissing())
 								{
 									%> <b>MISSING !!!</b><%
