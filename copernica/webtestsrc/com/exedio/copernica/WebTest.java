@@ -51,7 +51,10 @@ public class WebTest extends WebTestCase
 		assertFormElementEquals("someEnumeration", someEnumeration);
 		assertFormElementEquals("someNotNullEnumeration", someNotNullEnumeration);
 		assertFormElementEquals("someItem", someItem);
+		if(someItem.length()>0)
+			assertLinkPresentWithText(someItem);
 		assertFormElementEquals("someNotNullItem", someNotNullItem);
+		assertLinkPresentWithText(someNotNullItem);
 	}
 
 	public void testSearch()
