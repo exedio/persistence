@@ -3,7 +3,6 @@ package com.exedio.cope.instrument;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -26,10 +25,11 @@ public abstract class JavaBehaviour extends JavaFeature
 	 */
 	private final ArrayList throwables=new ArrayList();
 	
-	public JavaBehaviour(JavaClass parent,
-	int modifiers,
-	String type,
-	String name)
+	public JavaBehaviour(
+						final JavaClass parent,
+						final int modifiers,
+						final String type,
+						final String name)
 	throws InjectorParseException
 	{
 		// parent must not be null
@@ -50,11 +50,6 @@ public abstract class JavaBehaviour extends JavaFeature
 	public final void addThrowable(String throwable)
 	{
 		throwables.add(throwable);
-	}
-	
-	public final Iterator getThrowables()
-	{
-		return throwables.iterator();
 	}
 	
 }
