@@ -43,6 +43,17 @@
 	
 	<target name="compile" depends="lib.compile, instrument.compile, copernica.compile" />
 	
+	<target name="libtest.instrument" depends="lib.compile, instrument.compile">
+		<java classname="com.exedio.cope.instrument.Main">
+			<classpath>
+				<pathelement location="lib/build/classes" />
+				<pathelement location="instrument/build/classes" />
+			</classpath>
+			<arg value="--modify" />
+			<arg value="lib/testsrc/com/exedio/cope/lib/ItemWithSingleUnique.java" />
+		</java>
+	</target>
+	
 	<target name="lib.clean">
 		<delete dir="lib/build" />
 	</target>
