@@ -30,7 +30,7 @@ public final class ReadOnlyViolationException extends ConstraintViolationExcepti
 	}
 	
 	/**
-	 * Returns the item that was tried to be modified.
+	 * Returns the item that was attempted to be modified.
 	 */
 	public final Item getItem()
 	{
@@ -38,7 +38,7 @@ public final class ReadOnlyViolationException extends ConstraintViolationExcepti
 	}
 
 	/**
-	 * Returns the attribute, that was tried to be written.
+	 * Returns the attribute, that was attempted to be written.
 	 */
 	public Attribute getReadOnlyAttribute()
 	{
