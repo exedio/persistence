@@ -48,74 +48,58 @@ public class ItemForm extends Form
 			{
 				final ObjectAttribute attribute = (ObjectAttribute)anyAttribute;
 				final String name = attribute.getName();
+				final String value;
 
-				if(attribute instanceof StringAttribute
-					|| attribute instanceof IntegerAttribute
-					|| attribute instanceof LongAttribute
-					|| attribute instanceof DoubleAttribute
-					|| attribute instanceof DateAttribute
-					|| attribute instanceof ItemAttribute
-					|| attribute instanceof BooleanAttribute
-					|| attribute instanceof EnumerationAttribute)
-				{
-					final String value;
-	
-					if(save)
-						value = Cop.getParameter(parameters, name);
-					else
-					{
-						final Object itemValue = item.getAttribute(attribute);
-						if(attribute instanceof StringAttribute)
-						{
-							value = (itemValue==null) ? "" : (String)itemValue;
-						}
-						else if(attribute instanceof IntegerAttribute)
-						{
-							value = (itemValue==null) ? "" : String.valueOf((Integer)itemValue);
-						}
-						else if(attribute instanceof LongAttribute)
-						{
-							value = (itemValue==null) ? "" : String.valueOf((Long)itemValue);
-						}
-						else if(attribute instanceof DoubleAttribute)
-						{
-							value = (itemValue==null) ? "" : String.valueOf((Double)itemValue);
-						}
-						else if(attribute instanceof DateAttribute)
-						{
-							 if(itemValue==null)
-								value =  "";
-							else
-							{
-								final SimpleDateFormat df = new SimpleDateFormat(DATE_FORMAT_FULL);
-								value = df.format((Date)itemValue);
-							}
-						}
-						else if(attribute instanceof ItemAttribute)
-						{
-							value = (itemValue==null) ? "" : ((Item)itemValue).getID();
-						}
-						else if(attribute instanceof BooleanAttribute)
-						{
-							value = (itemValue==null) ? VALUE_NULL : ((Boolean)itemValue).booleanValue() ? VALUE_ON : VALUE_OFF;
-						}
-						else if(attribute instanceof EnumerationAttribute)
-						{
-							value = (itemValue==null) ? VALUE_NULL : ((EnumerationValue)itemValue).getCode();
-						}
-						else
-							throw new RuntimeException();
-					}
-					if(!attribute.isReadOnly())
-						field = new Field(attribute, name, value);
-					else
-						field = new Field(attribute, value);
-				}
+				if(save)
+					value = Cop.getParameter(parameters, name);
 				else
 				{
 					final Object itemValue = item.getAttribute(attribute);
-					field = new Field(attribute, itemValue==null ? "leer" : itemValue.toString());
+					if(attribute instanceof StringAttribute)
+					{
+						value = (itemValue==null) ? "" : (String)itemValue;
+					}
+					else if(attribute instanceof IntegerAttribute)
+					{
+						value = (itemValue==null) ? "" : String.valueOf((Integer)itemValue);
+					}
+					else if(attribute instanceof LongAttribute)
+					{
+						value = (itemValue==null) ? "" : String.valueOf((Long)itemValue);
+					}
+					else if(attribute instanceof DoubleAttribute)
+					{
+						value = (itemValue==null) ? "" : String.valueOf((Double)itemValue);
+					}
+					else if(attribute instanceof DateAttribute)
+					{
+						 if(itemValue==null)
+							value =  "";
+						else
+						{
+							final SimpleDateFormat df = new SimpleDateFormat(DATE_FORMAT_FULL);
+							value = df.format((Date)itemValue);
+						}
+					}
+					else if(attribute instanceof ItemAttribute)
+					{
+						value = (itemValue==null) ? "" : ((Item)itemValue).getID();
+					}
+					else if(attribute instanceof BooleanAttribute)
+					{
+						value = (itemValue==null) ? VALUE_NULL : ((Boolean)itemValue).booleanValue() ? VALUE_ON : VALUE_OFF;
+					}
+					else if(attribute instanceof EnumerationAttribute)
+					{
+						value = (itemValue==null) ? VALUE_NULL : ((EnumerationValue)itemValue).getCode();
+					}
+					else
+						throw new RuntimeException();
 				}
+				if(!attribute.isReadOnly())
+					field = new Field(attribute, name, value);
+				else
+					field = new Field(attribute, value);
 			}
 			else
 				continue;
