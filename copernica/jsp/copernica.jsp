@@ -65,6 +65,7 @@ page import="java.util.Map"
 		final CopernicaCop cop = CopernicaCop.getCop(
 			provider,
 			request.getParameter("type"),
+			request.getParameter("order"),
 			request.getParameter("item"),
 			request.getParameter("lang"),
 			request.getParameter("start"),
@@ -187,7 +188,12 @@ page import="java.util.Map"
 								for(Iterator i = type.getFeatures().iterator(); i.hasNext(); )
 								{
 									final Feature feature = (Feature)i.next();
-									%><th><%=provider.getDisplayName(null, feature)%></th><%
+									%><th><%=provider.getDisplayName(null, feature)%><%
+									if(feature instanceof ObjectAttribute)
+									{
+										%><br><a href="<%=typeCop.orderBy((ObjectAttribute)feature)%>">o</a><%
+									}
+									%></th><%
 								}
 							%>
 							</tr>

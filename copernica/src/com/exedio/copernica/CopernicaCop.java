@@ -30,14 +30,15 @@ abstract class CopernicaCop extends Cop
 
 	static final CopernicaCop getCop(
 			final CopernicaProvider provider,
-			final String typeID, final String itemID,
+			final String typeID, final String orderID,
+			final String itemID,
 			final String langID,
 			final String startString, final String countString)
 	{	
 		final Language language = (langID!=null) ? provider.findLanguageByUniqueID(langID) : null;
 		if(typeID!=null)
 		{
-			return TypeCop.getCop(language, typeID, startString, countString);
+			return TypeCop.getCop(language, typeID, orderID, startString, countString);
 		}
 		else if(itemID!=null)
 		{
