@@ -337,6 +337,16 @@ public final class Instrumentor implements InjectionConsumer
 		}
 	}
 	
+	private final void writeEquals(final JavaAttribute attribute)
+	throws IOException
+	{
+		output.write("equal(");
+		output.write(attribute.getName());
+		output.write(",searched");
+		output.write(attribute.getCamelCaseName());
+		output.write(')');
+	}
+	
 	private void writeUniqueFinder(final JavaAttribute[] persistentAttributes)
 	throws IOException, InjectorParseException
 	{
@@ -409,7 +419,25 @@ public final class Instrumentor implements InjectionConsumer
 		output.write(lineSeparator);
 		output.write("\t{");
 		output.write(lineSeparator);
-		output.write("\t\treturn null;");
+		output.write("\t\treturn (");
+		output.write(className);
+		output.write(")searchUnique(TYPE,");
+
+		if(persistentAttributes.length==1)
+			writeEquals(persistentAttributes[0]);
+		else
+		{
+			output.write("and(");
+			writeEquals(persistentAttributes[0]);
+			for(int i = 1; i<persistentAttributes.length; i++)
+			{
+				output.write(',');
+				writeEquals(persistentAttributes[i]);
+			}
+			output.write(')');
+		}
+		
+		output.write(");");
 		output.write(lineSeparator);
 		output.write("\t}");
 	}
