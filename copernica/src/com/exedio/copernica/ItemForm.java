@@ -34,7 +34,9 @@ public class ItemForm extends Form
 				final ObjectAttribute attribute = (ObjectAttribute)anyAttribute;
 				final String name = attribute.getName();
 
-				if(attribute instanceof StringAttribute)
+				if(attribute instanceof StringAttribute
+					|| attribute instanceof IntegerAttribute
+					|| attribute instanceof ItemAttribute)
 				{
 					final String value;
 	
@@ -43,42 +45,21 @@ public class ItemForm extends Form
 						value = requestValue;
 					else
 					{
-						final String itemValue = (String)item.getAttribute(attribute);
-						value = (itemValue==null) ? "" : itemValue;
-					}
-					if(!attribute.isReadOnly())
-						field = new Field(name, value);
-					else
-						field = new Field(value);
-				}
-				else if(attribute instanceof IntegerAttribute)
-				{
-					final String value;
-	
-					final String requestValue = Cop.getParameter(parameters, name);
-					if(requestValue!=null)
-						value = requestValue;
-					else
-					{
-						final Integer itemValue = (Integer)item.getAttribute(attribute);
-						value = (itemValue==null) ? "" : String.valueOf(itemValue);
-					}
-					if(!attribute.isReadOnly())
-						field = new Field(name, value);
-					else
-						field = new Field(value);
-				}
-				else if(attribute instanceof ItemAttribute)
-				{
-					final String value;
-	
-					final String requestValue = Cop.getParameter(parameters, name);
-					if(requestValue!=null)
-						value = requestValue;
-					else
-					{
-						final Item itemValue = (Item)item.getAttribute(attribute);
-						value = (itemValue==null) ? "" : itemValue.getID();
+						final Object itemValue = item.getAttribute(attribute);
+						if(attribute instanceof StringAttribute)
+						{
+							value = (itemValue==null) ? "" : (String)itemValue;
+						}
+						else if(attribute instanceof IntegerAttribute)
+						{
+							value = (itemValue==null) ? "" : String.valueOf((Integer)itemValue);
+						}
+						else if(attribute instanceof ItemAttribute)
+						{
+							value = (itemValue==null) ? "" : ((Item)itemValue).getID();
+						}
+						else
+							throw new RuntimeException();
 					}
 					if(!attribute.isReadOnly())
 						field = new Field(name, value);
