@@ -39,6 +39,8 @@ final class Row
 	
 	Object get(final Column column)
 	{
+		if(column==null)
+			throw new NullPointerException();
 		if(closed)
 			throw new RuntimeException();
 
@@ -69,6 +71,8 @@ final class Row
 	
 	void put(final Column column, final Object value)
 	{
+		if(column==null)
+			throw new NullPointerException();
 		if(closed)
 			throw new RuntimeException();
 
