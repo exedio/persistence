@@ -27,7 +27,21 @@
 		</javac>
 	</target>
 	
-	<target name="compile" depends="lib.compile, instrument.compile" />
+	<target name="copernica.compile" depends="lib.compile">
+		<mkdir dir="copernica/build/classes" />
+		<javac srcdir= "copernica/src"
+				destdir="copernica/build/classes"
+				deprecation="on"
+				debug="on"
+				optimize="off">
+			<include name="com/**" />
+			<classpath>
+				<pathelement location="lib/build/classes" />
+			</classpath>
+		</javac>
+	</target>
+	
+	<target name="compile" depends="lib.compile, instrument.compile, copernica.compile" />
 	
 	<target name="lib.clean">
 		<delete dir="lib/build" />
@@ -37,7 +51,11 @@
 		<delete dir="instrument/build" />
 	</target>
 
-	<target name="clean" depends="lib.clean, instrument.clean" />
+	<target name="copernica.clean">
+		<delete dir="copernica/build" />
+	</target>
+
+	<target name="clean" depends="lib.clean, instrument.clean, copernica.clean" />
 	
 	
 	<target name="lib.api">
@@ -92,6 +110,33 @@
 		</javadoc>
 	</target>
 
-	<target name="api" depends="lib.api, instrument.api" />
+	<target name="copernica.api">
+
+		<delete dir="copernica/api" />
+		<mkdir  dir="copernica/api" />
+
+		<javadoc
+				sourcepath="copernica/src"
+				destdir="copernica/api"
+				maxmemory="60m"
+				private="on"
+				author="on"
+				use="on"
+				version="on"
+				windowtitle="Copernica (Generic Backoffice for COPE)"
+				doctitle=   "Copernica (Generic Backoffice for COPE)"
+				splitindex="on"
+				bottom='&amp;copy; Copyright 2004 &lt;a href="http://www.exedio.com/" target="_top">exedio&lt;/a> Gesellschaft f&amp;uuml;r Softwareentwicklung mbH'
+			>
+			<package name="com.*" />
+			<link offline="on" packagelistLoc="lib/api" href="../../lib/api" />
+			<!--link href="http://java.sun.com/j2se/1.4.2/docs/api" /-->
+			<classpath>
+				<pathelement location="lib/build/classes" />
+			</classpath>
+		</javadoc>
+	</target>
+
+	<target name="api" depends="lib.api, instrument.api, copernica.api" />
 
 </project>
