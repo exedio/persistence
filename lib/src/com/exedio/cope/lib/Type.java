@@ -122,6 +122,7 @@ public final class Type
 	
 	void putActiveItem(final Item item)
 	{
+		// TODO: check whether there is only one item object per item
 		activeItems.put(new Integer(item.pk), item);
 	}
 	
