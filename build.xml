@@ -83,6 +83,7 @@
 				bottom='&amp;copy; Copyright 2004 &lt;a href="http://www.exedio.com/" target="_top">exedio&lt;/a> Gesellschaft f&amp;uuml;r Softwareentwicklung mbH'
 			>
 			<package name="com.*" />
+			<link offline="on" packagelistLoc="lib/api" href="../../lib/api" />
 			<classpath>
 				<pathelement location="lib/build/classes" />
 			</classpath>
