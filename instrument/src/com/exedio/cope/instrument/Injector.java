@@ -1096,6 +1096,7 @@ public final class Injector
 		"\t *	Hallo Du!\n" +
 		"\t * @zapp zooppell mappel\n" +
 		"\t * @bipp flap\n" +
+		"\t * @soli\n" +
 		"\t * @bipp flöppp\n" +
 		"\t * @schnopp blubb\n" +
 		"\t */";
