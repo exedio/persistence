@@ -174,6 +174,8 @@ public final class Type
 	}
 	
 
+	// pk generation ---------------------------------------------
+	
 	private int nextpk = -1;
 	
 	void flushPK()
