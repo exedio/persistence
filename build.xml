@@ -205,25 +205,25 @@
 	
 	<target name="test" depends="lib.test, instrument.test" />
 	
-	<target name="copernica.jspc"> 
+	
+	<target name="copernica.jspc">
 		<delete dir="copernica/build/jspsrc" />
 		<mkdir dir="copernica/build/jspsrc" />
-		<taskdef classname="org.apache.jasper.JspC" name="jasper2" > 
-			<classpath id="jspc.classpath"> 
-				<fileset dir="${basedir}/../tomcat/bin"> 
-					<include name="*.jar" /> 
-				</fileset> 
-				<fileset dir="${basedir}/../tomcat/common/lib"> 
-					<include name="*.jar" /> 
-				</fileset> 
-			</classpath> 
-		</taskdef> 
-		<jasper2 
-			package="com.exedio.copernica"
-			validateXml="false" 
-			uriroot="${basedir}/copernica/jsp" 
-			webXmlFragment="${basedir}/copernica/build/copernica.web.xml.fragment" 
-			outputDir="${basedir}/copernica/build/jspsrc" /> 
+		<java classname="org.apache.jasper.JspC" taskname="jasper2" failonerror="yes" fork="yes">
+			<classpath>
+				<fileset dir="${basedir}/../tomcat/bin">
+					<include name="*.jar" />
+				</fileset>
+				<fileset dir="${basedir}/../tomcat/common/lib">
+					<include name="*.jar" />
+				</fileset>
+			</classpath>
+			<arg value="-p" /><arg value="com.exedio.copernica" />
+			<arg value="-uriroot" /><arg value="${basedir}/copernica/jsp" />
+			<arg value="-webinc" />
+			<arg value="${basedir}/copernica/build/copernica.web.xml.fragment" />
+			<arg value="-d" /><arg value="${basedir}/copernica/build/jspsrc" />
+		</java>
 	</target>
 	
 	<target name="copernica.compile.jsp" depends="copernica.jspc, copernica.compile.classes">
