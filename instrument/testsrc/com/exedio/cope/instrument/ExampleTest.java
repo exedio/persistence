@@ -35,7 +35,10 @@ public class ExampleTest extends InjectorTest
 		assertImport("java.text.Format");
 		assertText(";\n\n");
 
-		assertFileDocComment("/**\n	Represents an attribute or association partner of a class.\n	Note: type==Model.AMIGOUS means, the attribute cannot be used in OCL due to attribute ambiguities.\n	See OCL spec 5.4.1. for details.\n*/");
+		assertFileDocComment(
+			"/**\n	Represents an attribute or association partner of a class.\n"
+				+ "	Note: type==Model.AMIGOUS means, the attribute cannot be used in OCL due to attribute ambiguities.\n"
+				+ "	See OCL spec 5.4.1. for details.\n*/");
 		assertText("\npublic abstract class Example");
 		assertClass("Example");
 		assertText(" implements Runnable\n{\n  ");
@@ -78,7 +81,9 @@ public class ExampleTest extends InjectorTest
 		assertAttribute("commaSeparated4", "/**TestCommentCommaSeparated456*/");
 		assertAttribute("commaSeparated5", "/**TestCommentCommaSeparated456*/");
 		assertAttribute("commaSeparated6", "/**TestCommentCommaSeparated456*/");
-		assertText(" \n\n  // these attributes test the ability of the parser\n  // to skip more complex (ugly) attribute initializers\n  ");
+		assertText(
+			" \n\n  // these attributes test the ability of the parser\n"
+				+ "  // to skip more complex (ugly) attribute initializers\n  ");
 
 		assertAttributeHeader("uglyAttribute1", "String", 0);
 		assertText("String   uglyAttribute1=\"some'Thing{some\\\"Thing;Else\";");
@@ -106,7 +111,12 @@ public class ExampleTest extends InjectorTest
 		assertText("\n  ");
 
 		assertAttributeHeader("uglyAttribute6", "String[]", 0);
-		assertText("String[] uglyAttribute6=\n  {\n	 \"some'Thing{some\\\"Thing;Else\", // ugly ; { \" ' comment\n	 \"some'Thing{some\\\"Thing;Else\"\n  };");
+		assertText(
+			"String[] uglyAttribute6=\n"
+				+ "  {\n"
+				+ "	 \"some'Thing{some\\\"Thing;Else\", // ugly ; { \" ' comment\n"
+				+ "	 \"some'Thing{some\\\"Thing;Else\"\n"
+				+ "  };");
 		assertAttribute("uglyAttribute6", null);
 		assertText("\n  ");
 
