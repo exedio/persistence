@@ -217,50 +217,6 @@ public final class Instrumentor implements InjectionConsumer
 
 				final String secondArgument = initializerArguments.size()>1 ? (String)initializerArguments.get(1) : null;
 	
-				final String persistentType;
-				final int persistentTypeType;
-
-				if("IntegerAttribute".equals(type))
-				{
-					persistentType = "Integer";
-					persistentTypeType = PersistentAttribute.TYPE_INTEGER;
-				}
-				else if("BooleanAttribute".equals(type))
-				{
-					persistentType = "Boolean";
-					persistentTypeType = PersistentAttribute.TYPE_BOOLEAN;
-				}
-				else if("StringAttribute".equals(type))
-				{
-					persistentType = "String";
-					persistentTypeType = PersistentAttribute.TYPE_STRING;
-				}
-				else if("EnumerationAttribute".equals(type))
-				{
-					if(secondArgument==null)
-						throw new RuntimeException("second argument required");
-					if(!secondArgument.endsWith(".class"))
-						throw new RuntimeException("second argument must end with .class: \'"+secondArgument+'\'');
-					persistentType = secondArgument.substring(0, secondArgument.length()-".class".length());
-					persistentTypeType = PersistentAttribute.TYPE_ENUMERATION;
-				}
-				else if("ItemAttribute".equals(type))
-				{
-					if(secondArgument==null)
-						throw new RuntimeException("second argument required");
-					if(!secondArgument.endsWith(".class"))
-						throw new RuntimeException("second argument must end with .class: \'"+secondArgument+'\'');
-					persistentType = secondArgument.substring(0, secondArgument.length()-".class".length());
-					persistentTypeType = PersistentAttribute.TYPE_ITEM;
-				}
-				else if("MediaAttribute".equals(type))
-				{
-					persistentType = PersistentAttribute.MEDIA_TYPE;
-					persistentTypeType = PersistentAttribute.TYPE_MEDIA;
-				}
-				else
-					throw new RuntimeException();
-
 				final boolean mapped = containsTag(docComment, MAPPED_ATTRIBUTE);
 				
 				final String qualifier = Injector.findDocTag(docComment, ATTRIBUTE_QUALIFIER);
@@ -270,42 +226,84 @@ public final class Instrumentor implements InjectionConsumer
 				else
 					qualifiers = null;
 
+				final String persistentType;
+				final int persistentTypeType;
 				final PersistentAttribute persistentAttribute;
-				switch(persistentTypeType)
+
+				if("IntegerAttribute".equals(type))
 				{
-					case PersistentAttribute.TYPE_MEDIA:
-					{
-						final String variant = Injector.findDocTag(docComment, VARIANT_MEDIA_ATTRIBUTE);
-						final List variants;
-						if(variant!=null)
-							variants = Collections.singletonList(variant);
-						else
-							variants = null;
-	
-						final String mimeMajor = Injector.findDocTag(docComment, MIME_MAJOR);
-						final String mimeMinor = Injector.findDocTag(docComment, MIME_MINOR);
-						persistentAttribute =
-							new PersistentMediaAttribute(
-								ja,
-								readOnly, notNull, mapped, qualifiers,
-								variants, mimeMajor, mimeMinor);
-						break;
-					}
-					case PersistentAttribute.TYPE_ENUMERATION:
-					{
-						persistentAttribute =
-							new PersistentEnumerationAttribute(
-								ja, persistentType,
-								readOnly, notNull, mapped, qualifiers);
-						break;
-					}
-					default:
-						persistentAttribute =
-							new PersistentAttribute(
-								ja, persistentType, persistentTypeType,
-								readOnly, notNull, mapped, qualifiers);
-						break;
+					persistentType = "Integer";
+					persistentTypeType = PersistentAttribute.TYPE_INTEGER;
+					persistentAttribute =
+						new PersistentAttribute(
+							ja, persistentType, persistentTypeType,
+							readOnly, notNull, mapped, qualifiers);
 				}
+				else if("BooleanAttribute".equals(type))
+				{
+					persistentType = "Boolean";
+					persistentTypeType = PersistentAttribute.TYPE_BOOLEAN;
+					persistentAttribute =
+						new PersistentAttribute(
+							ja, persistentType, persistentTypeType,
+							readOnly, notNull, mapped, qualifiers);
+				}
+				else if("StringAttribute".equals(type))
+				{
+					persistentType = "String";
+					persistentTypeType = PersistentAttribute.TYPE_STRING;
+					persistentAttribute =
+						new PersistentAttribute(
+							ja, persistentType, persistentTypeType,
+							readOnly, notNull, mapped, qualifiers);
+				}
+				else if("EnumerationAttribute".equals(type))
+				{
+					if(secondArgument==null)
+						throw new RuntimeException("second argument required");
+					if(!secondArgument.endsWith(".class"))
+						throw new RuntimeException("second argument must end with .class: \'"+secondArgument+'\'');
+					persistentType = secondArgument.substring(0, secondArgument.length()-".class".length());
+					persistentTypeType = PersistentAttribute.TYPE_ENUMERATION;
+					persistentAttribute =
+						new PersistentEnumerationAttribute(
+							ja, persistentType,
+							readOnly, notNull, mapped, qualifiers);
+				}
+				else if("ItemAttribute".equals(type))
+				{
+					if(secondArgument==null)
+						throw new RuntimeException("second argument required");
+					if(!secondArgument.endsWith(".class"))
+						throw new RuntimeException("second argument must end with .class: \'"+secondArgument+'\'');
+					persistentType = secondArgument.substring(0, secondArgument.length()-".class".length());
+					persistentTypeType = PersistentAttribute.TYPE_ITEM;
+					persistentAttribute =
+						new PersistentAttribute(
+							ja, persistentType, persistentTypeType,
+							readOnly, notNull, mapped, qualifiers);
+				}
+				else if("MediaAttribute".equals(type))
+				{
+					persistentType = PersistentAttribute.MEDIA_TYPE;
+					persistentTypeType = PersistentAttribute.TYPE_MEDIA;
+					final String variant = Injector.findDocTag(docComment, VARIANT_MEDIA_ATTRIBUTE);
+					final List variants;
+					if(variant!=null)
+						variants = Collections.singletonList(variant);
+					else
+						variants = null;
+	
+					final String mimeMajor = Injector.findDocTag(docComment, MIME_MAJOR);
+					final String mimeMinor = Injector.findDocTag(docComment, MIME_MINOR);
+					persistentAttribute =
+						new PersistentMediaAttribute(
+							ja,
+							readOnly, notNull, mapped, qualifiers,
+							variants, mimeMajor, mimeMinor);
+				}
+				else
+					throw new RuntimeException();
 
 				if(unique)
 					persistentAttribute.persistentClass.makeUnique(new PersistentAttribute[]{persistentAttribute});
