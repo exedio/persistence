@@ -176,16 +176,34 @@ public final class Instrumentor implements InjectionConsumer
 		}
 	}
 
-	public void writeConstructor(final JavaClass javaClass)
+	private final void writeCommentHeader()
 	throws IOException
 	{
 		output.write("/**");
 		output.write(lineSeparator);
-		output.write("\t * This is a generated constructor.");
+		output.write("\t **");
 		output.write(lineSeparator);
+		output.write("\t *");
+		output.write(lineSeparator);
+	}
+
+	private final void writeCommentFooter()
+	throws IOException
+	{
 		output.write("\t * @"+GENERATED);
 		output.write(lineSeparator);
-		output.write("\t */");
+		output.write("\t *");
+		output.write(lineSeparator);
+		output.write(" */");
+	}
+
+	public void writeConstructor(final JavaClass javaClass)
+	throws IOException
+	{
+		writeCommentHeader();
+		output.write("\t * This is a generated constructor.");
+		output.write(lineSeparator);
+		writeCommentFooter();
 		output.write(Modifier.toString(javaClass.getModifiers() & (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE)));
 		output.write(' ');
 		output.write(javaClass.getName());
@@ -229,7 +247,7 @@ public final class Instrumentor implements InjectionConsumer
 		}
 		output.write("\t}");
 	}
-	
+
 	private void writeAccessMethods(final JavaAttribute persistentAttribute)
 	throws IOException
 	{
@@ -238,13 +256,10 @@ public final class Instrumentor implements InjectionConsumer
 		final List qualifiers = persistentAttribute.getQualifiers();
 
 		// getter
-		output.write("/**");
-		output.write(lineSeparator);
+		writeCommentHeader();
 		output.write("\t * This is a generated getter method.");
 		output.write(lineSeparator);
-		output.write("\t * @"+GENERATED);
-		output.write(lineSeparator);
-		output.write("\t */");
+		writeCommentFooter();
 		output.write(methodModifiers);
 		output.write(' ');
 		output.write(type);
@@ -260,13 +275,10 @@ public final class Instrumentor implements InjectionConsumer
 		output.write("\t}");
 		
 		// setter
-		output.write("/**");
-		output.write(lineSeparator);
+		writeCommentHeader();
 		output.write("\t * This is a generated setter method.");
 		output.write(lineSeparator);
-		output.write("\t * @"+GENERATED);
-		output.write(lineSeparator);
-		output.write("\t */");
+		writeCommentFooter();
 		output.write(methodModifiers);
 		output.write(" void set");
 		output.write(persistentAttribute.getCamelCaseName());
@@ -299,13 +311,10 @@ public final class Instrumentor implements InjectionConsumer
 		final List qualifiers = persistentAttribute.getQualifiers();
 		final String name = persistentAttribute.getCamelCaseName();
 		
-		output.write("/**");
-		output.write(lineSeparator);
+		writeCommentHeader();
 		output.write("\t * This is a generated unique finder method.");
 		output.write(lineSeparator);
-		output.write("\t * @"+GENERATED);
-		output.write(lineSeparator);
-		output.write("\t */");
+		writeCommentFooter();
 		output.write(methodModifiers);
 		output.write(' ');
 		output.write(persistentAttribute.getParent().getName());
