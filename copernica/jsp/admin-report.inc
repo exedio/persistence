@@ -105,17 +105,29 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); tableCount++)
 		<input type="checkbox" name="CREATE_TABLE" value="<%=table.name%>"/>create<%
 	}
 	
-	if(narrowReport)
+	final ReportLastAnalyzed lastAnalyzed = table.getLastAnalyzed();
+
+	if(!narrowReport)
 	{
-	%>
-		<ul><%
-		final ReportLastAnalyzed lastAnalyzed = table.getLastAnalyzed();
 		if(lastAnalyzed!=null)
 		{
 			final Date date = lastAnalyzed.lastAnalyzed;
+			final String lastAnalyzedString = date!=null ? date.toString() : "NEVER";
+			%>
+			<input type="checkbox" name="ANALYZE_TABLE" value="<%=table.name%>"/>analyze (<%=lastAnalyzedString%>)<%
+		}
+	}
+	else
+	{
+	%>
+		<ul><%
+		if(lastAnalyzed!=null)
+		{
+			final Date date = lastAnalyzed.lastAnalyzed;
+			final String lastAnalyzedString = date!=null ? date.toString() : "NEVER";
 			%>
 			<li class="<%=color(lastAnalyzed.getCumulativeColor())%>">
-				last analyzed: <%=date!=null?date.toString():"NEVER"%>
+				last analyzed: <%=lastAnalyzedString%>
 				<input type="checkbox" name="ANALYZE_TABLE" value="<%=table.name%>"/>analyze
 			</li><%
 		}
