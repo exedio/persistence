@@ -627,7 +627,7 @@ public final class Injector
 					flushOutbuf();
 					if (do_block)
 						getCollector();
-					JavaAttribute[] jaarray =
+					final JavaAttribute[] jaarray =
 						new JavaAttribute[commaSeparatedAttributes.size()];
 					commaSeparatedAttributes.toArray(jaarray);
 					return jaarray;
