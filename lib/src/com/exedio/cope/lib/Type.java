@@ -117,6 +117,11 @@ public final class Type
 		activeItems.put(new Integer(item.pk), item);
 	}
 	
+	void removeActiveItem(final Item item)
+	{
+		activeItems.remove(new Integer(item.pk));
+	}
+	
 	Item createItemObject(final int pk)
 	{
 		try

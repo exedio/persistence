@@ -238,6 +238,7 @@ public class Item extends Search
 		{
 			itemCache = new HashMap();
 			Database.theInstance.load(type, pk, itemCache);
+			type.putActiveItem(this);
 		}
 	}
 
@@ -245,6 +246,7 @@ public class Item extends Search
 	{
 		if(itemCache!=null)
 		{
+			type.removeActiveItem(this);
 			writeCache();
 			itemCache = null;
 		}
