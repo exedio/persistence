@@ -730,7 +730,7 @@ public abstract class Database
 		}
 		//System.out.println("---- trimName("+longString+","+maxLength+") == "+result+"     --- "+words);
 
-		if(result.length()>maxLength)
+		if(result.length()!=maxLength)
 			throw new RuntimeException(result.toString()+maxLength);
 
 		return result.toString();
