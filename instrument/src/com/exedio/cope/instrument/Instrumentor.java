@@ -387,6 +387,18 @@ public final class Instrumentor implements InjectionConsumer
 			output.write(',');
 			output.write(lineSeparator);
 		}
+		output.write("\t\t\t},");
+		output.write(lineSeparator);
+		output.write("\t\t\tnew Runnable()");
+		output.write(lineSeparator);
+		output.write("\t\t\t{");
+		output.write(lineSeparator);
+		output.write("\t\t\t\tpublic void run()");
+		output.write(lineSeparator);
+		output.write("\t\t\t\t{");
+		output.write(lineSeparator);
+		output.write("\t\t\t\t}");
+		output.write(lineSeparator);
 		output.write("\t\t\t}");
 		output.write(lineSeparator);
 		output.write("\t\t)");
