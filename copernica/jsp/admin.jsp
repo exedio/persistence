@@ -7,12 +7,32 @@ page import="com.exedio.cope.lib.ReportColumn" %><%@
 page import="com.exedio.cope.lib.ReportConstraint" %><%@
 page import="com.exedio.cope.lib.NestingRuntimeException" %><%@
 
-page import="java.util.Date" %><%@
+page import="java.util.Date"
 
-include file="provider.inc"
-
+%><%!
+	
+	Model model = null;
+	
+	public final void jspInit()
+	{
+		if(this.model!=null)
+		{
+			System.out.println("reinvokation of jspInit");
+			return;
+		}
+		
+		try
+		{
+			this.model = Util.getModel(getServletConfig());
+		}
+		catch(RuntimeException e)
+		{
+			e.printStackTrace();
+			throw e;
+		}
+	}
 %><%
-final Model model = provider.getModel();
+final Model model = this.model;
 final AdminCop cop = AdminCop.getCop(request);
 %>
 <html>
