@@ -259,6 +259,13 @@ public abstract class Database
 			final Table table = (Table)i.next();
 			final Report.Table reportTable = report.notifyRequiredTable(table.id);
 			reportTable.notifyRequiredConstraint(table.getPrimaryKey().getPrimaryKeyConstraintID());
+			for(Iterator j = table.getColumns().iterator(); j.hasNext(); )
+			{
+				final Column column = (Column)j.next();
+				
+				if(column.notNull)
+					reportTable.notifyRequiredConstraint(column.getNotNullConstraintID());
+			}
 			//System.out.println("REQUIRED:"+table.id);
 		}
 
