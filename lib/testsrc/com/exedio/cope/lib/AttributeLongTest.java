@@ -7,10 +7,10 @@ public class AttributeLongTest extends AttributeTest
 	{
 		assertEquals(item.TYPE, item.someLong.getType());
 		assertEquals(null, item.getSomeLong());
-		assertEquals(set(item, item2), toSet(item.TYPE.search(Search.equal(item.someLong, null))));
-		assertEquals(set(item, item2), toSet(item.TYPE.search(Search.isNull(item.someLong))));
-		assertEquals(set(), toSet(item.TYPE.search(Search.notEqual(item.someLong, null))));
-		assertEquals(set(), toSet(item.TYPE.search(Search.isNotNull(item.someLong))));
+		assertContains(item, item2, toSet(item.TYPE.search(Search.equal(item.someLong, null))));
+		assertContains(item, item2, toSet(item.TYPE.search(Search.isNull(item.someLong))));
+		assertContains(toSet(item.TYPE.search(Search.notEqual(item.someLong, null))));
+		assertContains(toSet(item.TYPE.search(Search.isNotNull(item.someLong))));
 
 		item.setSomeLong(new Long(11));
 		assertEquals(new Long(11), item.getSomeLong());
@@ -48,8 +48,8 @@ public class AttributeLongTest extends AttributeTest
 
 		item.passivate();
 		assertEquals(0l, item.getSomeNotNullLong());
-		assertEquals(
-			set(item),
+		assertContains(
+			item,
 			toSet(
 				item.TYPE.search(
 					Search.equal(item.someNotNullLong, 0l))));
@@ -59,8 +59,8 @@ public class AttributeLongTest extends AttributeTest
 
 		item.passivate();
 		assertEquals(Long.MIN_VALUE, item.getSomeNotNullLong());
-		assertEquals(
-			set(item),
+		assertContains(
+			item,
 			toSet(
 				item.TYPE.search(
 					Search.equal(item.someNotNullLong, Long.MIN_VALUE))));
@@ -70,8 +70,8 @@ public class AttributeLongTest extends AttributeTest
 
 		item.passivate();
 		assertEquals(Long.MAX_VALUE, item.getSomeNotNullLong());
-		assertEquals(
-			set(item),
+		assertContains(
+			item,
 			toSet(
 				item.TYPE.search(
 					Search.equal(item.someNotNullLong, Long.MAX_VALUE))));

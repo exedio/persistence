@@ -13,10 +13,10 @@ public class AttributeDateTest extends AttributeTest
 
 		assertEquals(item.TYPE, item.someDate.getType());
 		assertEquals(null, item.getSomeDate());
-		assertEquals(set(item, item2), toSet(item.TYPE.search(Search.equal(item.someDate, (Date)null))));
-		assertEquals(set(item, item2), toSet(item.TYPE.search(Search.isNull(item.someDate))));
-		assertEquals(set(), toSet(item.TYPE.search(Search.notEqual(item.someDate, (Date)null))));
-		assertEquals(set(), toSet(item.TYPE.search(Search.isNotNull(item.someDate))));
+		assertContains(item, item2, toSet(item.TYPE.search(Search.equal(item.someDate, (Date)null))));
+		assertContains(item, item2, toSet(item.TYPE.search(Search.isNull(item.someDate))));
+		assertContains(toSet(item.TYPE.search(Search.notEqual(item.someDate, (Date)null))));
+		assertContains(toSet(item.TYPE.search(Search.isNotNull(item.someDate))));
 
 		item.setSomeDate(date);
 		assertEquals(date, item.getSomeDate());
@@ -52,10 +52,10 @@ public class AttributeDateTest extends AttributeTest
 
 		assertEquals(item.TYPE, item.someLongDate.getType());
 		assertEquals(null, item.getSomeLongDate());
-		assertEquals(set(item, item2), toSet(item.TYPE.search(Search.equal(item.someLongDate, (Date)null))));
-		assertEquals(set(item, item2), toSet(item.TYPE.search(Search.isNull(item.someLongDate))));
-		assertEquals(set(), toSet(item.TYPE.search(Search.notEqual(item.someLongDate, (Date)null))));
-		assertEquals(set(), toSet(item.TYPE.search(Search.isNotNull(item.someLongDate))));
+		assertContains(item, item2, toSet(item.TYPE.search(Search.equal(item.someLongDate, (Date)null))));
+		assertContains(item, item2, toSet(item.TYPE.search(Search.isNull(item.someLongDate))));
+		assertContains(toSet(item.TYPE.search(Search.notEqual(item.someLongDate, (Date)null))));
+		assertContains(toSet(item.TYPE.search(Search.isNotNull(item.someLongDate))));
 
 		item.setSomeLongDate(date);
 		assertEquals(date, item.getSomeLongDate());

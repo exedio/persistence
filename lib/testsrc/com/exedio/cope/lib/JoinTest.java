@@ -29,8 +29,8 @@ public class JoinTest extends DatabaseLibTest
 
 	public void testJoin()
 	{
-		assertEquals(
-			set(item2b),
+		assertContains(
+			item2b,
 			toSet(
 				Search.search(
 					new Query(
@@ -38,8 +38,8 @@ public class JoinTest extends DatabaseLibTest
 						PointerItem.TYPE,
 						Search.equal(PointerItem.code, PointerItem2.code)))));
 
-		assertEquals(
-			set(item1a),
+		assertContains(
+			item1a,
 			toSet(
 				Search.search(
 					new Query(

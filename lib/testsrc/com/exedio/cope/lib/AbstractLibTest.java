@@ -5,10 +5,8 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 import junit.framework.TestCase;
 
@@ -119,39 +117,47 @@ public abstract class AbstractLibTest extends TestCase
 		}
 	}
 	
-	protected Set toSet(final Collection collection)
+	// TODO: remove this
+	protected Collection toSet(final Collection collection)
 	{
-		return new HashSet(collection);
+		return collection;
+	}
+	
+	protected void assertContainsList(final List expected, final Collection actual)
+	{
+		assertEquals(expected.size(), actual.size());
+		assertTrue(expected.containsAll(actual));
+		assertTrue(actual.containsAll(expected));
 	}
 
-	protected Set set()
+	protected void assertContains(final Collection actual)
 	{
-		return Collections.EMPTY_SET;
+		assertContainsList(Collections.EMPTY_LIST, actual);
 	}
 
-	protected Set set(final Object o)
+	protected void assertContains(final Object o, final Collection actual)
 	{
-		return Collections.singleton(o);
+		assertContainsList(Collections.singletonList(o), actual);
 	}
 
-	protected Set set(final Object o1, final Object o2)
+	protected void assertContains(final Object o1, final Object o2, final Collection actual)
 	{
-		return new HashSet(Arrays.asList(new Object[]{o1, o2}));
+		assertContainsList(Arrays.asList(new Object[]{o1, o2}), actual);
 	}
 
-	protected Set set(final Object o1, final Object o2, final Object o3)
+	protected void assertContains(final Object o1, final Object o2, final Object o3, final Collection actual)
 	{
-		return new HashSet(Arrays.asList(new Object[]{o1, o2, o3}));
+		assertContainsList(Arrays.asList(new Object[]{o1, o2, o3}), actual);
 	}
 
-	protected Set set(final Object o1, final Object o2, final Object o3, final Object o4)
+	protected void assertContains(final Object o1, final Object o2, final Object o3, final Object o4, final Collection actual)
 	{
-		return new HashSet(Arrays.asList(new Object[]{o1, o2, o3, o4}));
+		assertContainsList(Arrays.asList(new Object[]{o1, o2, o3, o4}), actual);
 	}
 
-	protected Set set(final Object o1, final Object o2, final Object o3, final Object o4, final Object o5)
+	protected void assertContains(final Object o1, final Object o2, final Object o3, final Object o4, final Object o5, final Collection actual)
 	{
-		return new HashSet(Arrays.asList(new Object[]{o1, o2, o3, o4, o5}));
+		assertContainsList(Arrays.asList(new Object[]{o1, o2, o3, o4, o5}), actual);
 	}
 
 	protected List list()

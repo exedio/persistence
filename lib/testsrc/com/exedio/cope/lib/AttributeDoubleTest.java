@@ -7,10 +7,10 @@ public class AttributeDoubleTest extends AttributeTest
 	{
 		assertEquals(item.TYPE, item.someDouble.getType());
 		assertEquals(null, item.getSomeDouble());
-		assertEquals(set(item, item2), toSet(item.TYPE.search(Search.equal(item.someDouble, null))));
-		assertEquals(set(item, item2), toSet(item.TYPE.search(Search.isNull(item.someDouble))));
-		assertEquals(set(), toSet(item.TYPE.search(Search.notEqual(item.someDouble, null))));
-		assertEquals(set(), toSet(item.TYPE.search(Search.isNotNull(item.someDouble))));
+		assertContains(item, item2, toSet(item.TYPE.search(Search.equal(item.someDouble, null))));
+		assertContains(item, item2, toSet(item.TYPE.search(Search.isNull(item.someDouble))));
+		assertContains(toSet(item.TYPE.search(Search.notEqual(item.someDouble, null))));
+		assertContains(toSet(item.TYPE.search(Search.isNotNull(item.someDouble))));
 
 		item.setSomeDouble(new Double(22.22));
 		assertEquals(new Double(22.22), item.getSomeDouble());
@@ -47,8 +47,8 @@ public class AttributeDoubleTest extends AttributeTest
 
 		item.passivate();
 		assertEquals(0.0, item.getSomeNotNullDouble(), 0.0);
-		assertEquals(
-			set(item),
+		assertContains(
+			item,
 			toSet(
 				item.TYPE.search(
 					Search.equal(item.someNotNullDouble, 0.0))));

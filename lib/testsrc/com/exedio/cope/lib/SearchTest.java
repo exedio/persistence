@@ -21,16 +21,16 @@ public class SearchTest extends DatabaseLibTest
 		}
 		item.setSomeNotNullInteger(0);
 		final Collection searchResult = item.TYPE.search(Search.equal(item.someNotNullInteger, 0));
-		assertEquals(set(item), toSet(searchResult));
+		assertContains(item, toSet(searchResult));
 		assertUnmodifiable(searchResult);
 		
-		assertEquals(set(item, item2), toSet(item.TYPE.search(null)));
-		assertEquals(set(item, item2), toSet(
+		assertContains(item, item2, toSet(item.TYPE.search(null)));
+		assertContains(item, item2, toSet(
 			item.TYPE.search(
 				Search.or(
 					Search.equal(item.someNotNullString, "someString"),
 					Search.equal(item.someNotNullString, "someString2")))));
-		assertEquals(set(), toSet(
+		assertContains(toSet(
 			item.TYPE.search(
 				Search.and(
 					Search.equal(item.someNotNullString, "someString"),

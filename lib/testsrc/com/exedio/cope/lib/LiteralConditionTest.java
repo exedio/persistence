@@ -57,67 +57,67 @@ public class LiteralConditionTest extends DatabaseLibTest
 	public void testLiteralConditions()
 	{
 		// less
-		assertEquals(set(item1, item2),
+		assertContains(item1, item2,
 			toSet(item1.TYPE.search(Search.less(item1.someNotNullString, "string3"))));
-		assertEquals(set(item1, item2),
+		assertContains(item1, item2,
 			toSet(item1.TYPE.search(Search.less(item1.someNotNullInteger, 3))));
-		assertEquals(set(item1, item2),
+		assertContains(item1, item2,
 			toSet(item1.TYPE.search(Search.less(item1.someNotNullLong, 13l))));
-		assertEquals(set(item1, item2),
+		assertContains(item1, item2,
 			toSet(item1.TYPE.search(Search.less(item1.someNotNullDouble, 2.3))));
-		assertEquals(set(item1, item2),
+		assertContains(item1, item2,
 			toSet(item1.TYPE.search(Search.less(item1.someDate, date))));
-		assertEquals(set(item1, item2),
+		assertContains(item1, item2,
 			toSet(item1.TYPE.search(Search.less(item1.someLongDate, offset(date, LONG_OFFSET)))));
-		assertEquals(set(item1, item2),
+		assertContains(item1, item2,
 			toSet(item1.TYPE.search(Search.less(item1.someNotNullEnumeration, AttributeItem.SomeEnumeration.enumValue2))));
 
 		// less or equal
-		assertEquals(set(item1, item2, item3),
+		assertContains(item1, item2, item3,
 			toSet(item1.TYPE.search(Search.lessOrEqual(item1.someNotNullString, "string3"))));
-		assertEquals(set(item1, item2, item3),
+		assertContains(item1, item2, item3,
 			toSet(item1.TYPE.search(Search.lessOrEqual(item1.someNotNullInteger, 3))));
-		assertEquals(set(item1, item2, item3),
+		assertContains(item1, item2, item3,
 			toSet(item1.TYPE.search(Search.lessOrEqual(item1.someNotNullLong, 13l))));
-		assertEquals(set(item1, item2, item3),
+		assertContains(item1, item2, item3,
 			toSet(item1.TYPE.search(Search.lessOrEqual(item1.someNotNullDouble, 2.3))));
-		assertEquals(set(item1, item2, item3),
+		assertContains(item1, item2, item3,
 			toSet(item1.TYPE.search(Search.lessOrEqual(item1.someDate, date))));
-		assertEquals(set(item1, item2, item3),
+		assertContains(item1, item2, item3,
 			toSet(item1.TYPE.search(Search.lessOrEqual(item1.someLongDate, offset(date, LONG_OFFSET)))));
-		assertEquals(set(item1, item2, item3),
+		assertContains(item1, item2, item3,
 			toSet(item1.TYPE.search(Search.lessOrEqual(item1.someNotNullEnumeration, AttributeItem.SomeEnumeration.enumValue2))));
 
 		// greater
-		assertEquals(set(item4, item5),
+		assertContains(item4, item5,
 			toSet(item1.TYPE.search(Search.greater(item1.someNotNullString, "string3"))));
-		assertEquals(set(item4, item5),
+		assertContains(item4, item5,
 			toSet(item1.TYPE.search(Search.greater(item1.someNotNullInteger, 3))));
-		assertEquals(set(item4, item5),
+		assertContains(item4, item5,
 			toSet(item1.TYPE.search(Search.greater(item1.someNotNullLong, 13l))));
-		assertEquals(set(item4, item5),
+		assertContains(item4, item5,
 			toSet(item1.TYPE.search(Search.greater(item1.someNotNullDouble, 2.3))));
-		assertEquals(set(item4, item5),
+		assertContains(item4, item5,
 			toSet(item1.TYPE.search(Search.greater(item1.someDate, date))));
-		assertEquals(set(item4, item5),
+		assertContains(item4, item5,
 			toSet(item1.TYPE.search(Search.greater(item1.someLongDate, offset(date, LONG_OFFSET)))));
-		assertEquals(set(item4, item5),
+		assertContains(item4, item5,
 			toSet(item1.TYPE.search(Search.greater(item1.someNotNullEnumeration, AttributeItem.SomeEnumeration.enumValue2))));
 
 		// greater or equal
-		assertEquals(set(item3, item4, item5),
+		assertContains(item3, item4, item5,
 			toSet(item1.TYPE.search(Search.greaterOrEqual(item1.someNotNullString, "string3"))));
-		assertEquals(set(item3, item4, item5),
+		assertContains(item3, item4, item5,
 			toSet(item1.TYPE.search(Search.greaterOrEqual(item1.someNotNullInteger, 3))));
-		assertEquals(set(item3, item4, item5),
+		assertContains(item3, item4, item5,
 			toSet(item1.TYPE.search(Search.greaterOrEqual(item1.someNotNullLong, 13l))));
-		assertEquals(set(item3, item4, item5),
+		assertContains(item3, item4, item5,
 			toSet(item1.TYPE.search(Search.greaterOrEqual(item1.someNotNullDouble, 2.3))));
-		assertEquals(set(item3, item4, item5),
+		assertContains(item3, item4, item5,
 			toSet(item1.TYPE.search(Search.greaterOrEqual(item1.someDate, date))));
-		assertEquals(set(item3, item4, item5),
+		assertContains(item3, item4, item5,
 			toSet(item1.TYPE.search(Search.greaterOrEqual(item1.someLongDate, offset(date, LONG_OFFSET)))));
-		assertEquals(set(item3, item4, item5),
+		assertContains(item3, item4, item5,
 			toSet(item1.TYPE.search(Search.greaterOrEqual(item1.someNotNullEnumeration, AttributeItem.SomeEnumeration.enumValue2))));
 	}
 
