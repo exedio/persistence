@@ -140,6 +140,14 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); tableCount++)
 			%>
 				<small><%=column.getDatabaseType()%></small><%
 			
+			if(cop.showRenameFields && column.exists())
+			{
+				%>
+				<input name="MODIFY_COLUMN_<%=
+					table.name%>#<%=column.name%>" size="<%=
+					column.getDatabaseType().length()%>"/><%
+			}
+			
 			final String error = column.getError();
 			if(error!=null)
 			{

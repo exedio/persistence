@@ -222,7 +222,7 @@ final class OracleDatabase
 		final com.exedio.cope.lib.Statement bf = createStatement();
 		bf.append("alter table ").
 			append(tableName).
-			append(" rename column "). // TODO: this syntax is probably oracle specific
+			append(" rename column ").
 			append(oldColumnName).
 			append(" to ").
 			append(newColumnName);
@@ -234,11 +234,23 @@ final class OracleDatabase
 		final com.exedio.cope.lib.Statement bf = createStatement();
 		bf.append("alter table ").
 			append(tableName).
-			append(" add ("). // TODO: this syntax is probably oracle specific
+			append(" add (").
 			append(columnName).
 			append(' ').
 			append(columnType).
 			append(')');
+		return bf;
+	}
+
+	com.exedio.cope.lib.Statement getModifyColumnStatement(final String tableName, final String columnName, final String newColumnType)
+	{
+		final com.exedio.cope.lib.Statement bf = createStatement();
+		bf.append("alter table ").
+			append(tableName).
+			append(" modify ").
+			append(columnName).
+			append(' ').
+			append(newColumnType);
 		return bf;
 	}
 

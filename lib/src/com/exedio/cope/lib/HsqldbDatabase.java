@@ -92,4 +92,9 @@ final class HsqldbDatabase
 		return bf;
 	}
 
+	Statement getModifyColumnStatement(final String tableName, final String columnName, final String newColumnType)
+	{
+		throw new RuntimeException("not implemented");
+	}
+
 }

@@ -74,6 +74,33 @@
 		for(Iterator i = request.getParameterMap().keySet().iterator(); i.hasNext(); )
 		{
 			final String parameterName = (String)i.next();
+			if(!parameterName.startsWith("MODIFY_COLUMN_"))
+				continue;
+			
+			final String targetType = request.getParameter(parameterName);
+			if(targetType.length()==0)
+				continue;
+			
+			final String sourceName = parameterName.substring("MODIFY_COLUMN_".length());
+			
+			final ReportColumn column = getColumn(report, sourceName);
+			if(column==null)
+				throw new RuntimeException(sourceName);
+			
+			%>
+			<li>modifying column <%=sourceName%> to <%=targetType%> ...</li><%
+			out.flush();
+			final long startTime = System.currentTimeMillis();
+			column.modify(targetType);
+			final long endTime = System.currentTimeMillis();
+			%><li><b>ok</b>, <%=endTime-startTime%>ms.</li><%
+			out.flush();
+		}
+	}
+	{
+		for(Iterator i = request.getParameterMap().keySet().iterator(); i.hasNext(); )
+		{
+			final String parameterName = (String)i.next();
 			if(!parameterName.startsWith("RENAME_COLUMN_"))
 				continue;
 			

@@ -93,6 +93,11 @@ public final class ReportColumn extends ReportNode
 		table.report.database.renameColumn(table.name, name, newName);
 	}
 
+	public final void modify(final String newType)
+	{
+		table.report.database.modifyColumn(table.name, name, newType);
+	}
+
 	public final void drop()
 	{
 		table.report.database.dropColumn(table.name, name);

@@ -1389,4 +1389,25 @@ abstract class Database
 		}
 	}
 
+	abstract Statement getModifyColumnStatement(final String tableName, final String columnName, final String newColumnType);
+
+	final void modifyColumn(final String tableName, final String columnName, final String newColumnType)
+	{
+		final Statement bf =
+			getModifyColumnStatement(
+				protectName(tableName),
+				protectName(columnName),
+				newColumnType);
+
+		try
+		{
+			//System.out.println("modifyColumn:"+bf);
+			executeSQL(bf, EMPTY_RESULT_SET_HANDLER);
+		}
+		catch(ConstraintViolationException e)
+		{
+			throw new SystemException(e);
+		}
+	}
+
 }
