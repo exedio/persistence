@@ -135,7 +135,7 @@ include file="provider.inc"
 		}
 		else
 			throw new RuntimeException();
-		cop.log();
+		//cop.log();
 		%>
 		</div>
 	</body>
