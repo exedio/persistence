@@ -130,7 +130,9 @@ public abstract class Item extends Search
 		catch(UniqueViolationException e)
 		{
 			initialUniqueViolationException = e;
+			return;
 		}
+
 		this.rowWhenActive = row; // make active
 
 		if(type==null)
@@ -178,7 +180,6 @@ public abstract class Item extends Search
 			throw initialNotNullViolationException;
 	}
 	
-	// TODO make final
 	private UniqueViolationException initialUniqueViolationException;
 	
 	/**
