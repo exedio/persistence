@@ -32,7 +32,7 @@ final class TypeCop extends CopernicaCop
 	
 	final  CopernicaCop switchLanguage(final Language newLanguage)
 	{
-		return new TypeCop(newLanguage, type);
+		return new TypeCop(newLanguage, type, start, count);
 	}
 	
 	final boolean isFirstPage()
