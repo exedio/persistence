@@ -25,6 +25,7 @@ public final class JavaAttribute extends JavaFeature
 	private String persistentType = null;
 	private boolean readOnly = false;
 	private boolean notNull = false;
+	private boolean mapped = false;
 	private List qualifiers = null;
 
 	public JavaAttribute(JavaClass parent, int modifiers, String type, String name)
@@ -78,6 +79,11 @@ public final class JavaAttribute extends JavaFeature
 	public boolean isNotNull()
 	{
 		return notNull;
+	}
+	
+	public boolean isMapped()
+	{
+		return mapped;
 	}
 	
 	public List getQualifiers()
@@ -163,6 +169,16 @@ public final class JavaAttribute extends JavaFeature
 		if(this.qualifiers!=null)
 			throw new RuntimeException();
 		notNull = true;
+	}
+	
+	public final void makeMapped()
+	{
+		mapped = true;
+	}
+	
+	public final boolean isInitial()
+	{
+		return (readOnly || notNull) && !mapped;
 	}
 	
 	public final void makeQualified(final List qualifiers)

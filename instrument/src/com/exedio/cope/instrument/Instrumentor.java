@@ -93,6 +93,11 @@ public final class Instrumentor implements InjectionConsumer
 	private static final String NOT_NULL_ATTRIBUTE = "not-null";
 	
 	/**
+	 * Tag name for mapped attributes.
+	 */
+	private static final String MAPPED_ATTRIBUTE = "mapped";
+	
+	/**
 	 * Tag name for one qualifier of qualified attributes.
 	 */
 	private static final String ATTRIBUTE_QUALIFIER = "qualifier";
@@ -308,7 +313,7 @@ public final class Instrumentor implements InjectionConsumer
 		output.write("\t}");
 		
 		// setter
-		if(!persistentAttribute.isReadOnly())
+		if(!persistentAttribute.isReadOnly() && !persistentAttribute.isMapped())
 		{
 			writeCommentHeader();
 			output.write("\t * Sets a new value for the persistent attribute {@link #");
@@ -639,6 +644,9 @@ public final class Instrumentor implements InjectionConsumer
 				
 				if(containsTag(docComment, NOT_NULL_ATTRIBUTE))
 					ja.makeNotNull();
+
+				if(containsTag(docComment, MAPPED_ATTRIBUTE))
+					ja.makeMapped();
 				
 				final String qualifier = Injector.findDocTag(docComment, ATTRIBUTE_QUALIFIER);
 				if(qualifier!=null)

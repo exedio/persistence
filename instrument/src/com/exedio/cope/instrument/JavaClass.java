@@ -154,7 +154,7 @@ public class JavaClass extends JavaFeature
 		for(Iterator i = getPersistentAttributes().iterator(); i.hasNext(); )
 		{
 			final JavaAttribute persistentAttribute = (JavaAttribute)i.next();
-			if(persistentAttribute.isReadOnly() || persistentAttribute.isNotNull())
+			if(persistentAttribute.isInitial())
 			{
 				initialAttributes.add(persistentAttribute);
 				contructorExceptions.addAll(persistentAttribute.getSetterExceptions());
