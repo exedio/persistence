@@ -40,10 +40,10 @@ class ConnectionPool
 	final Connection createConnection() throws SQLException
 	{
 		final Properties properties = Properties.getInstance();
-		final String driver = properties.getDriver();
-		final String url = properties.getUrl();
-		final String user = properties.getUser();
-		final String password = properties.getPassword();
+		final String driver = properties.getDatabaseDriver();
+		final String url = properties.getDatabaseUrl();
+		final String user = properties.getDatabaseUser();
+		final String password = properties.getDatabasePassword();
 
 		try
 		{

@@ -98,23 +98,22 @@ final class Properties
 		return database;
 	}
 
-	public String getDriver()
-	// TODO rename to DatabaseDriver
+	public String getDatabaseDriver()
 	{
 		return driver;
 	}
 
-	public String getUrl()
+	public String getDatabaseUrl()
 	{
 		return url;
 	}
 
-	public String getUser()
+	public String getDatabaseUser()
 	{
 		return user;
 	}
 
-	public String getPassword()
+	public String getDatabasePassword()
 	{
 		return password;
 	}
