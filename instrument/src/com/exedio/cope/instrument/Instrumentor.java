@@ -369,16 +369,29 @@ public final class Instrumentor implements InjectionConsumer
 		output.write(".");
 		output.write(lineSeparator);
 		writeCommentFooter();
-		output.write("public static final "+Type.class.getName()+" TYPE = new "+Type.class.getName()+"(");
+		output.write("public static final "+Type.class.getName()+" TYPE = ");
+		output.write(lineSeparator);
+		output.write("\t\tnew "+Type.class.getName()+"(");
+		output.write(lineSeparator);
+		output.write("\t\t\t");
 		output.write(javaClass.getName());
-		output.write(".class, new Attribute[]{");
+		output.write(".class,");
+		output.write(lineSeparator);
+		output.write("\t\t\tnew Attribute[]{");
+		output.write(lineSeparator);
 		for(Iterator i = javaClass.getPersistentAttributes().iterator(); i.hasNext(); )
 		{
 			final JavaAttribute persistentAttribute = (JavaAttribute)i.next();
+			output.write("\t\t\t\t");
 			output.write(persistentAttribute.getName());
 			output.write(',');
+			output.write(lineSeparator);
 		}
-		output.write("});");
+		output.write("\t\t\t}");
+		output.write(lineSeparator);
+		output.write("\t\t)");
+		output.write(lineSeparator);
+		output.write(";");
 	}
 	
 	public void onClassEnd(JavaClass jc)
