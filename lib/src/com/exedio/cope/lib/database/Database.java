@@ -3,6 +3,7 @@ package com.exedio.cope.lib.database;
 
 import com.exedio.cope.lib.Attribute;
 import com.exedio.cope.lib.BooleanAttribute;
+import com.exedio.cope.lib.ItemAttribute;
 import com.exedio.cope.lib.StringAttribute;
 import com.exedio.cope.lib.SystemException;
 import com.exedio.cope.lib.Type;
@@ -27,6 +28,11 @@ public class Database
 	private char getNameDelimiterEnd()
 	{
 		return '"';
+	}
+	
+	private String getSyntheticPrimaryKeyType()
+	{
+		return "number(10,0)";
 	}
 	
 	public void createTable(final Type type)
@@ -110,6 +116,10 @@ public class Database
 	{
 		if(attribute instanceof StringAttribute)
 			return "varchar2(4000)";
+		else if(attribute instanceof BooleanAttribute)
+			return "number(1,0)";
+		else if(attribute instanceof ItemAttribute)
+			return getSyntheticPrimaryKeyType();
 		else
 			throw new RuntimeException(attribute.toString());
 	}
@@ -126,7 +136,8 @@ public class Database
 			append(delimiterEnd).
 			append('(');
 
-		bf.append("\"PK\" number(10,0)");
+		bf.append("\"PK\" ").
+			append(getSyntheticPrimaryKeyType());
 		
 		for(Iterator i = type.getAttributes().iterator(); i.hasNext(); )
 		{
