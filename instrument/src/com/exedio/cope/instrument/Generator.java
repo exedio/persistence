@@ -355,7 +355,6 @@ final class Generator
 													final Class returnType,
 													final String part,
 													final String variant,
-													final String literal,
 													final String comment)
 	throws IOException
 	{
@@ -385,32 +384,22 @@ final class Generator
 		o.write(lineSeparator);
 		o.write("\t{");
 		o.write(lineSeparator);
-		o.write("\t\treturn ");
-		if(literal!=null)
+		o.write("\t\treturn getMedia");
+		o.write(part);
+		o.write("(this.");
+		o.write(mediaAttribute.getName());
+		if(variant!=null)
 		{
-			o.write('\"');
-			o.write(literal);
-			o.write("\";");
-		}
-		else
-		{
-			o.write("getMedia");
-			o.write(part);
-			o.write("(this.");
-			o.write(mediaAttribute.getName());
-			if(variant!=null)
+			if(variant.length()>0)
 			{
-				if(variant.length()>0)
-				{
-					o.write(",\"");
-					o.write(variant);
-					o.write('\"');
-				}
-				else
-					o.write(",null");
+				o.write(",\"");
+				o.write(variant);
+				o.write('\"');
 			}
-			o.write(");");
+			else
+				o.write(",null");
 		}
+		o.write(");");
 		o.write(lineSeparator);
 		o.write("\t}");
 	}
@@ -424,20 +413,20 @@ final class Generator
 		final String mimeMinor = mediaAttribute.mimeMinor;
 
 		// getters
-		writeMediaGetterMethod(mediaAttribute, String.class, "URL", "", null,
+		writeMediaGetterMethod(mediaAttribute, String.class, "URL", "",
 										"Returns a URL pointing to the data of the persistent attribute");
 		final List mediaVariants = mediaAttribute.mediaVariants;
 		if(mediaVariants!=null)
 		{
 			for(Iterator i = mediaVariants.iterator(); i.hasNext(); )
-				writeMediaGetterMethod(mediaAttribute, String.class, "URL", (String)i.next(), null,
+				writeMediaGetterMethod(mediaAttribute, String.class, "URL", (String)i.next(),
 												"Returns a URL pointing to the varied data of the persistent attribute");
 		}
-		writeMediaGetterMethod(mediaAttribute, String.class, "MimeMajor", null, mimeMajor,
+		writeMediaGetterMethod(mediaAttribute, String.class, "MimeMajor", null,
 										"Returns the major mime type of the persistent media attribute");
-		writeMediaGetterMethod(mediaAttribute, String.class, "MimeMinor", null, mimeMinor,
+		writeMediaGetterMethod(mediaAttribute, String.class, "MimeMinor", null,
 										"Returns the minor mime type of the persistent media attribute");
-		writeMediaGetterMethod(mediaAttribute, InputStream.class, "Data", null, null,
+		writeMediaGetterMethod(mediaAttribute, InputStream.class, "Data", null,
 										"Returns a stream for fetching the data of the persistent media attribute");
 		
 		// setters

@@ -101,7 +101,7 @@ public class MediaItem extends Item
 	 *
  */final java.lang.String getImageMimeMajor()
 	{
-		return "image";
+		return getMediaMimeMajor(this.image);
 	}/**
 
 	 **
@@ -153,7 +153,7 @@ public class MediaItem extends Item
 	 *
  */final java.lang.String getPhotoMimeMajor()
 	{
-		return "image";
+		return getMediaMimeMajor(this.photo);
 	}/**
 
 	 **
@@ -162,7 +162,7 @@ public class MediaItem extends Item
 	 *
  */final java.lang.String getPhotoMimeMinor()
 	{
-		return "jpeg";
+		return getMediaMimeMinor(this.photo);
 	}/**
 
 	 **
