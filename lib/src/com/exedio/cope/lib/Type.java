@@ -1,6 +1,7 @@
 
 package com.exedio.cope.lib;
 
+import com.exedio.cope.lib.database.Database;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -19,6 +20,7 @@ public class Type
 	private final UniqueConstraint[] uniqueConstraints;
 	private final List uniqueConstraintList;
 	
+	private final String persistentQualifier;
 
 	public static final List getTypes()
 	{
@@ -34,6 +36,7 @@ public class Type
 		this.uniqueConstraintList = Collections.unmodifiableList(Arrays.asList(uniqueConstraints));
 		initializer.run();
 		typesModifyable.add(this);
+		this.persistentQualifier = Database.theInstance.makePersistentQualifier(this);
 	}
 	
 	public final Class getJavaClass()
@@ -51,6 +54,11 @@ public class Type
 		return uniqueConstraintList;
 	}
 	
+	public String getPersistentQualifier()
+	{
+		return persistentQualifier;
+	}
+
 
 	private String toStringCache = null;
 	

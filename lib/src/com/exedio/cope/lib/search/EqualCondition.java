@@ -26,9 +26,7 @@ public final class EqualCondition extends Condition
 	
 	public final void appendSQL(final Database database, final StringBuffer bf)
 	{
-		bf.append(database.getNameDelimiterStart()).
-			append(database.getPersistentQualifier(attribute)).
-			append(database.getNameDelimiterEnd()).
+		bf.append(attribute.getPersistentQualifier()).
 			append('=');
 		if(attribute instanceof StringAttribute)
 			bf.append('\'');

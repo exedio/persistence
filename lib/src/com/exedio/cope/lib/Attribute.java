@@ -1,5 +1,7 @@
 package com.exedio.cope.lib;
 
+import com.exedio.cope.lib.database.Database;
+
 public abstract class Attribute
 {
 	public final AttributeMapping mapping;
@@ -20,6 +22,7 @@ public abstract class Attribute
 	private String name;
 	private boolean readOnly;
 	private boolean notNull;
+	private String persistentQualifier;
 	
 	public void initialize(final String name, final boolean readOnly, final boolean notNull)
 	{
@@ -31,6 +34,7 @@ public abstract class Attribute
 		this.notNull = notNull;
 
 		initialized = true;
+		this.persistentQualifier = Database.theInstance.makePersistentQualifier(this);
 	}
 	
 	public final String getName()
@@ -48,6 +52,11 @@ public abstract class Attribute
 		return notNull;
 	}
 	
+	public String getPersistentQualifier()
+	{
+		return persistentQualifier;
+	}
+
 	public final String toString()
 	{
 		// should be precomputed

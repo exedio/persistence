@@ -34,20 +34,12 @@ public class Database
 	{
 	}
 	
-	/**
-	 * TODO: delimiters should be appended when computing the persistent qualifier,
-	 * and saved together with that qualifier. Would prevent many small StringBuffer.append(char).
-	 */
-	public char getNameDelimiterStart()
+	private char getNameDelimiterStart()
 	{
 		return '"';
 	}
 	
-	/**
-	 * TODO: delimiters should be appended when computing the persistent qualifier,
-	 * and saved together with that qualifier. Would prevent many small StringBuffer.append(char).
-	 */
-	public char getNameDelimiterEnd()
+	private char getNameDelimiterEnd()
 	{
 		return '"';
 	}
@@ -86,16 +78,11 @@ public class Database
 	
 	public void search(final Type type, final Condition condition)
 	{
-		final char delimiterStart = getNameDelimiterStart();
-		final char delimiterEnd = getNameDelimiterEnd();
-
 		final StringBuffer bf = new StringBuffer();
 		bf.append("select ").
 			append(getSyntheticPrimaryKeyQualifier()).
 			append(" from ").
-			append(delimiterStart).
-			append(getPersistentQualifier(type)).
-			append(delimiterEnd).
+			append(type.getPersistentQualifier()).
 			append(" where ");
 		condition.appendSQL(this, bf);
 		
@@ -125,8 +112,6 @@ public class Database
 
 	public void write(final Type type, final int pk, final HashMap itemCache, final boolean present)
 	{
-		final char delimiterStart = getNameDelimiterStart();
-		final char delimiterEnd = getNameDelimiterEnd();
 		final List attributes = type.getAttributes();
 
 		// TODO: use prepared statements and reuse the statement.
@@ -134,9 +119,7 @@ public class Database
 		if(present)
 		{
 			bf.append("update ").
-				append(delimiterStart).
-				append(getPersistentQualifier(type)).
-				append(delimiterEnd).
+				append(type.getPersistentQualifier()).
 				append(" set ");
 
 			boolean first = true;
@@ -148,9 +131,7 @@ public class Database
 					bf.append(',');
 
 				final Attribute attribute = (Attribute)i.next();
-				bf.append(delimiterStart).
-					append(getPersistentQualifier(attribute)).
-					append(delimiterEnd).
+				bf.append(attribute.getPersistentQualifier()).
 					append('=');
 
 				final Object value = itemCache.get(attribute);
@@ -164,9 +145,7 @@ public class Database
 		else
 		{
 			bf.append("insert into ").
-				append(delimiterStart).
-				append(getPersistentQualifier(type)).
-				append(delimiterEnd).
+				append(type.getPersistentQualifier()).
 				append("(").
 				append(getSyntheticPrimaryKeyQualifier());
 
@@ -174,11 +153,8 @@ public class Database
 			for(Iterator i = attributes.iterator(); i.hasNext(); )
 			{
 				bf.append(',');
-				
 				final Attribute attribute = (Attribute)i.next();
-				bf.append(delimiterStart).
-					append(getPersistentQualifier(attribute)).
-					append(delimiterEnd);
+				bf.append(attribute.getPersistentQualifier());
 			}
 
 			bf.append(")values(").
@@ -253,16 +229,16 @@ public class Database
 		}
 	}
 	
-	public String getPersistentQualifier(final Type type)
+	public String makePersistentQualifier(final Type type)
 	{
 		final String className = type.getJavaClass().getName();
 		final int pos = className.lastIndexOf('.');
-		return className.substring(pos+1);
+		return getNameDelimiterStart() + className.substring(pos+1) + getNameDelimiterEnd();
 	}
 	
-	public String getPersistentQualifier(final Attribute attribute)
+	public String makePersistentQualifier(final Attribute attribute)
 	{
-		return attribute.getName();
+		return getNameDelimiterStart() + attribute.getName() + getNameDelimiterEnd();
 	}
 	
 	private String getPersistentType(final Attribute attribute)
@@ -286,17 +262,13 @@ public class Database
 	
 	private String getCreateTableStatement(final Type type)
 	{
-		final char delimiterStart = getNameDelimiterStart();
-		final char delimiterEnd = getNameDelimiterEnd();
-
 		final StringBuffer bf = new StringBuffer();
 		bf.append("create table ").
-			append(delimiterStart).
-			append(getPersistentQualifier(type)).
-			append(delimiterEnd).
+			append(type.getPersistentQualifier()).
 			append('(');
 
-		bf.append("\"PK\" ").
+		bf.append(getSyntheticPrimaryKeyQualifier()).
+			append(' ').
 			append(getSyntheticPrimaryKeyType()).
 			append(" primary key");
 		
@@ -304,10 +276,8 @@ public class Database
 		{
 			bf.append(',');
 			final Attribute attribute = (Attribute)i.next();
-			bf.append(delimiterStart).
-				append(getPersistentQualifier(attribute)).
-				append(delimiterEnd).
-				append(" ").
+			bf.append(attribute.getPersistentQualifier()).
+				append(' ').
 				append(getPersistentType(attribute));
 		}
 		bf.append(')');
@@ -316,14 +286,9 @@ public class Database
 	
 	private String getDropTableStatement(final Type type)
 	{
-		final char delimiterStart = getNameDelimiterStart();
-		final char delimiterEnd = getNameDelimiterEnd();
-
 		final StringBuffer bf = new StringBuffer();
 		bf.append("drop table ").
-			append(delimiterStart).
-			append(getPersistentQualifier(type)).
-			append(delimiterEnd);
+			append(type.getPersistentQualifier());
 		return bf.toString();
 	}
 	
