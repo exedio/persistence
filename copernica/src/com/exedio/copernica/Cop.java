@@ -33,6 +33,7 @@ abstract class Cop
 		return url.toString();
 	}
 	
+	// TODO: remove this, propagate request into cops instead
 	public static final String getParameter(final Map parameterMap, final String key)
 	{
 		final String[] array = (String[])parameterMap.get(key);
