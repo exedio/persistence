@@ -96,6 +96,12 @@ final class CopeNativeAttribute extends CopeAttribute
 		toUnboxingPostfixMapping.put(typeClass, unboxingPostfix);
 	}
 	
+	private static final void fillNativeTypeMap(final Class typeClass, final Class persistentType, final Class nativeType)
+	{
+		fillNativeTypeMap(typeClass, persistentType, nativeType,
+				"new "+persistentType.getName()+"(", ")", "(", ")."+nativeType.getName()+"Value()");
+	}
+
 	private static final void fillNativeTypeMap(final Class typeClass, final Class persistentType)
 	{
 		fillNativeTypeMap(typeClass, persistentType, null, null, null, null, null);
@@ -104,9 +110,9 @@ final class CopeNativeAttribute extends CopeAttribute
 	static
 	{
 		fillNativeTypeMap(BooleanAttribute.class, Boolean.class, boolean.class, "(", "?"+Boolean.class.getName()+".TRUE:"+Boolean.class.getName()+".FALSE)", "(", ").booleanValue()");
-		fillNativeTypeMap(LongAttribute.class,    Long.class,    long.class,    "new "+Long.class.getName()+   "(", ")", "(", ").longValue()");
-		fillNativeTypeMap(IntegerFunction.class,  Integer.class, int.class,     "new "+Integer.class.getName()+"(", ")", "(", ").intValue()");
-		fillNativeTypeMap(DoubleAttribute.class,  Double.class,  double.class,  "new "+Double.class.getName()+ "(", ")", "(", ").doubleValue()");
+		fillNativeTypeMap(LongAttribute.class,    Long.class,    long.class);
+		fillNativeTypeMap(IntegerFunction.class,  Integer.class, int.class);
+		fillNativeTypeMap(DoubleAttribute.class,  Double.class,  double.class);
 		fillNativeTypeMap(StringFunction.class,   String.class);
 		fillNativeTypeMap(DateAttribute.class,    Date.class);
 	}
