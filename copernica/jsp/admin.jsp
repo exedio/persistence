@@ -35,22 +35,7 @@ final boolean doReport =
 		</style><%
 		if(doReport)
 		{
-		%>
-		<script type="text/javascript">
-			function checkAllAnalyze()
-			{
-				var checkboxes = document.all.tags("input");
-				for(j=0; j<checkboxes.length; j++)
-				{
-					var checkbox = checkboxes[j];
-					if(checkbox.type=="checkbox" &&
-						checkbox.name=="ANALYZE_TABLE")
-					{
-						checkbox.checked = true;
-					}
-				}
-			}
-		</script><%
+			%><%@ include file="admin-report-head.inc" %><%
 		}%>
 	</head>
 	<body>
