@@ -25,7 +25,7 @@ final class IntegerColumn extends Column
 		if(loadedInteger!=null)
 		{
 			// TODO: somehow do without that BigDecimal
-			row.put(this, new Integer(((BigDecimal)loadedInteger).intValue()));
+			row.load(this, ((BigDecimal)loadedInteger).intValue());
 		}
 	}
 

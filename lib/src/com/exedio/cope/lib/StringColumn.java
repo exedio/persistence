@@ -19,7 +19,7 @@ final class StringColumn extends Column
 		final String loadedString = resultSet.getString(columnIndex);
 		//System.out.println("StringColumn.load:"+loadedString);
 		if(loadedString!=null)
-			row.put(this, loadedString);
+			row.load(this, loadedString);
 	}
 
 	Object cacheToDatabase(final Object cache)
