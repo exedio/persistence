@@ -81,7 +81,7 @@ abstract class CopernicaCop extends Cop implements RequestCache
 		}
 		else if(itemID!=null)
 		{
-			return ItemCop.getCop(provider, language, itemID);
+			return ItemCop.getCop(provider, language, itemID, request);
 		}
 		else
 			return new EmptyCop(provider, language);
@@ -193,6 +193,6 @@ abstract class CopernicaCop extends Cop implements RequestCache
 		//System.out.println("nullNameMisses: "+nullNameMisses+", onNameMisses: "+onNameMisses+", offNameMisses: "+offNameMisses);
 	}
 	
-	abstract void writeBody(PrintStream out, HttpServletRequest request) throws IOException;
+	abstract void writeBody(PrintStream out) throws IOException;
 	
 }

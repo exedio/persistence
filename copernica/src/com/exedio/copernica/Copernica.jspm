@@ -70,7 +70,7 @@ class Copernica_Jspm
 		Copernica_Jspm.writeTypeList(out, cop);
 		%>
 		<div id="main"><%
-		cop.writeBody(out, request);
+		cop.writeBody(out);
 		//cop.log();
 		%>
 		</div>

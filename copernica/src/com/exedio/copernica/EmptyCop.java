@@ -3,8 +3,6 @@ package com.exedio.copernica;
 import java.io.IOException;
 import java.io.PrintStream;
 
-import javax.servlet.http.HttpServletRequest;
-
 import com.exedio.cope.lib.Type;
 
 
@@ -30,7 +28,7 @@ final class EmptyCop extends CopernicaCop
 		return "Copernica";
 	}
 
-	void writeBody(final PrintStream out, final HttpServletRequest request)
+	void writeBody(final PrintStream out)
 		throws IOException
 	{
 		Copernica_Jspm.writeEmptyBody(out);

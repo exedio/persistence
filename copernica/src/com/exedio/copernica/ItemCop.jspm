@@ -6,8 +6,6 @@ import java.io.PrintStream;
 import java.util.Collection;
 import java.util.Iterator;
 
-import javax.servlet.http.HttpServletRequest;
-
 import com.exedio.cope.lib.Attribute;
 import com.exedio.cope.lib.BooleanAttribute;
 import com.exedio.cope.lib.DateAttribute;
@@ -31,13 +29,12 @@ class ItemCop_Jspm
 	static final String VALUE_ON = ItemForm.VALUE_ON;
 	static final String VALUE_OFF = ItemForm.VALUE_OFF;
 	
-	static void writeBody(final PrintStream out, final ItemCop cop, final HttpServletRequest request)
+	static void writeBody(final PrintStream out, final ItemCop cop)
 		throws IOException
 	{
 		final Item item = cop.item;
 		final Type type = item.getType();
-		// TODO: move this in enclosing method
-		final ItemForm form = new ItemForm(cop, request);
+		final ItemForm form = cop.form;
 		final CopernicaProvider provider = cop.provider;
 		final CopernicaLanguage language = cop.language;
 		%>
