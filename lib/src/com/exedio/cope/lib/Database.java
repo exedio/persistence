@@ -84,7 +84,44 @@ public abstract class Database
 		return executeSQLQuery(bf.toString());
 	}
 
-	public String makeValue(final Object o)
+	void load(final Type type, final int pk, final HashMap itemCache)
+	{
+		final List attributes = type.getAttributes();
+
+		// TODO: use prepared statements and reuse the statement.
+		final StringBuffer bf = new StringBuffer();
+		bf.append("select ");
+
+		boolean first = true;
+		for(Iterator i = attributes.iterator(); i.hasNext(); )
+		{
+			if(first)
+				first = false;
+			else
+				bf.append(',');
+			final Attribute attribute = (Attribute)i.next();
+			bf.append(attribute.getPersistentQualifier());
+		}
+		bf.append(" from ").
+			append(type.getPersistentQualifier()).
+			append(" where ").
+			append(getSyntheticPrimaryKeyQualifier()).
+			append('=').
+			append(pk);
+
+		System.out.println("loading "+bf.toString());
+
+		final ArrayList row = executeSQLLoad(bf.toString(), attributes.size());
+		final Iterator ir = row.iterator();
+		for(Iterator i = attributes.iterator(); i.hasNext(); )
+		{
+			final Attribute attribute = (Attribute)i.next();
+			final Object cell = ir.next();
+			itemCache.put(attribute, attribute.cellToCache(cell));
+		}
+	}
+
+	public String storeValue(final Object o)
 	{
 		if(o==null)
 			return "NULL";
@@ -103,7 +140,7 @@ public abstract class Database
 		}
 	}
 
-	void write(final Type type, final int pk, final HashMap itemCache, final boolean present)
+	void store(final Type type, final int pk, final HashMap itemCache, final boolean present)
 	{
 		final List attributes = type.getAttributes();
 
@@ -128,7 +165,7 @@ public abstract class Database
 					append('=');
 
 				final Object value = itemCache.get(attribute);
-				bf.append(makeValue(value));
+				bf.append(storeValue(value));
 			}
 			bf.append(" where ").
 				append(getSyntheticPrimaryKeyQualifier()).
@@ -157,27 +194,32 @@ public abstract class Database
 				bf.append(',');
 				final Attribute attribute = (Attribute)i.next();
 				final Object value = itemCache.get(attribute);
-				bf.append(makeValue(value));
+				bf.append(storeValue(value));
 			}
 			bf.append(')');
 		}
 
-		System.out.println("writing "+bf.toString());
+		System.out.println("storing "+bf.toString());
 
 		executeSQL(bf.toString());
 	}
 
 	private void executeSQL(final String sql)
 	{
-		executeSQLInternal(sql, false);
+		executeSQLInternal(sql, 0, 0);
 	}
 	
 	private ArrayList executeSQLQuery(final String sql)
 	{
-		return executeSQLInternal(sql, true);
+		return executeSQLInternal(sql, 1, 0);
 	}
 		
-	private ArrayList executeSQLInternal(final String sql, final boolean query)
+	private ArrayList executeSQLLoad(final String sql, final int columns)
+	{
+		return executeSQLInternal(sql, 2, columns);
+	}
+		
+	private ArrayList executeSQLInternal(final String sql, final int type, final int columns)
 	{
 		final String driver = "oracle.jdbc.driver.OracleDriver";
 		final String url = "jdbc:oracle:thin:@database3.exedio.com:1521:DB3";
@@ -200,23 +242,38 @@ public abstract class Database
 		{
 			connection = DriverManager.getConnection(url, user, password);
 			statement = connection.createStatement();
-			if(query)
+			switch(type)
 			{
-				resultSet = statement.executeQuery(sql);
-				// TODO: use special list for integers
-				final ArrayList result = new ArrayList();
-				while(resultSet.next())
+				case 0:
 				{
-					final Integer pk = new Integer(resultSet.getInt(1));
-					//System.out.println("pk:"+pk);
-					result.add(pk);
+					statement.execute(sql);
+					return null;
 				}
-				return result;
-			}
-			else
-			{
-				statement.execute(sql);
-				return null;
+				case 1:
+				{
+					resultSet = statement.executeQuery(sql);
+					// TODO: use special list for integers
+					final ArrayList result = new ArrayList();
+					while(resultSet.next())
+					{
+						final Integer pk = new Integer(resultSet.getInt(1));
+						//System.out.println("pk:"+pk);
+						result.add(pk);
+					}
+					return result;
+				}
+				case 2:
+				{
+					resultSet = statement.executeQuery(sql);
+					final ArrayList result = new ArrayList(columns);
+					if(!resultSet.next())
+						return null;
+					for(int i = 1; i<=columns; i++)
+						result.add(resultSet.getObject(i));
+					return result;
+				}
+				default:
+					throw new RuntimeException("type"+type);
 			}
 		}
 		catch(SQLException e)

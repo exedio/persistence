@@ -2,6 +2,9 @@
 package com.exedio.cope.lib;
 
 import com.exedio.cope.lib.Database;
+import com.exedio.cope.lib.util.ReactivationConstructorDummy;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -22,6 +25,9 @@ public final class Type
 	private final List uniqueConstraintList;
 	
 	private final String persistentQualifier;
+	private final Constructor reactivationConstructor;
+	private static final Class[] reactivationConstructorParams =
+		new Class[]{ReactivationConstructorDummy.class, int.class};
 
 	public static final List getTypes()
 	{
@@ -38,6 +44,14 @@ public final class Type
 		initializer.run();
 		typesModifyable.add(this);
 		this.persistentQualifier = Database.theInstance.makePersistentQualifier(this);
+		try
+		{
+			reactivationConstructor = javaClass.getDeclaredConstructor(reactivationConstructorParams);
+		}
+		catch(NoSuchMethodException e)
+		{
+			throw new SystemException(e);
+		}
 	}
 	
 	public final Class getJavaClass()
@@ -101,6 +115,26 @@ public final class Type
 	void putActiveItem(final Item item)
 	{
 		activeItems.put(new Integer(item.pk), item);
+	}
+	
+	Item createItemObject(final int pk)
+	{
+		try
+		{
+			return (Item)reactivationConstructor.newInstance(new Object[]{null, new Integer(pk)});
+		}
+		catch(InstantiationException e)
+		{
+			throw new SystemException(e);
+		}
+		catch(IllegalAccessException e)
+		{
+			throw new SystemException(e);
+		}
+		catch(InvocationTargetException e)
+		{
+			throw new SystemException(e);
+		}
 	}
 	
 }

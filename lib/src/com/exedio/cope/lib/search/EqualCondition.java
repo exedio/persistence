@@ -27,8 +27,8 @@ public final class EqualCondition extends Condition
 	public final void appendSQL(final Database database, final StringBuffer bf)
 	{
 		bf.append(attribute.getPersistentQualifier()).
-			append('=');
-		bf.append(database.makeValue(value));
+			append('=').
+			append(database.storeValue(value));
 	}
 
 	public final String toString()

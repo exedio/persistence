@@ -59,16 +59,13 @@ public class Search
 		final ArrayList result = new ArrayList(pks.size());
 		for(Iterator i = pks.iterator(); i.hasNext(); )
 		{
-			final Integer pk = (Integer)i.next();
+			final int pk = ((Integer)i.next()).intValue();
 			System.out.println("pk:"+pk);
-			final Item item = type.getActiveItem(pk.intValue());
+			final Item item = type.getActiveItem(pk);
 			if(item!=null)
 				result.add(item);
 			else
-			{
-				// TODO create inactive item with the given pk, if there is no active item
-				System.out.println("OOOOPS:"+type+" "+pk);
-			}
+				result.add(type.createItemObject(pk));
 		}
 		return Collections.unmodifiableList(result);
 	}

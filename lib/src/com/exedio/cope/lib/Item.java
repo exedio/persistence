@@ -89,6 +89,7 @@ public class Item extends Search
 	 */
 	protected Item(final Type type, final AttributeValue[] initialAttributeValues)
 	{
+		itemCache = new HashMap(); // make active
 		putCache(initialAttributeValues);
 		this.type = type;
 		this.pk = pkCounter++; // TODO: THIS IS A HACK
@@ -99,14 +100,15 @@ public class Item extends Search
 	/**
 	 * Reactivation constructor.
 	 * Is used for internal purposes only.
-	 * Does not actually create a new item, but an deactivated item object for
+	 * Does not actually create a new item, but an passive item object for
 	 * an already existing item.
 	 */
 	protected Item(final Type type, final int pk)
 	{
 		this.type = type;
 		this.pk = pk;
-		throw new RuntimeException("not yet implemented");
+		itemCache = null; // make passive
+		System.out.println("reactivate item:"+type+" "+pk);
 	}
 	
 	/**
@@ -129,6 +131,7 @@ public class Item extends Search
 		if(mapping!=null)
 			return mapping.mapJava(getAttribute(mapping.sourceAttribute));
 
+		activate();
 		return getCache(attribute);
 	}
 	
@@ -138,6 +141,7 @@ public class Item extends Search
 		if(mapping!=null)
 			return mapping.mapJava(getAttribute(mapping.sourceAttribute));
 
+		activate();
 		return getCache(attribute);
 	}
 
@@ -155,6 +159,7 @@ public class Item extends Search
 		if(attribute.isNotNull() && value == null)
 			throw new NotNullViolationException(this, attribute);
 
+		activate();
 		putCache(attribute, value);
 		writeCache();
 	}
@@ -162,6 +167,7 @@ public class Item extends Search
 	protected final void setAttribute(final Attribute attribute, final Object[] qualifiers, final Object value)
 	throws UniqueViolationException
 	{
+		activate();
 		putCache(attribute, value);
 		writeCache();
 	}
@@ -219,14 +225,38 @@ public class Item extends Search
 			data.close();
 	}
 
+	// activation/deactivation -----------------------------------------------------
 	
+	private final boolean isActive()
+	{
+		return itemCache!=null;
+	}
+
+	private final void activate()
+	{
+		if(itemCache==null)
+		{
+			itemCache = new HashMap();
+			Database.theInstance.load(type, pk, itemCache);
+		}
+	}
+
+	private final void passivate()
+	{
+		if(itemCache!=null)
+		{
+			writeCache();
+			itemCache = null;
+		}
+	}
+
 	// item cache -------------------------------------------------------------------
 
 
-	private final HashMap itemCache = new HashMap();
+	private HashMap itemCache = null;
 	private boolean present = false;
 	private boolean dirty = false;
-
+	
 	private Object getCache(final Attribute attribute)
 	{
 		return itemCache.get(attribute);
@@ -250,7 +280,7 @@ public class Item extends Search
 		if(!dirty)
 			return;
 		
-		Database.theInstance.write(type, pk, itemCache, present);
+		Database.theInstance.store(type, pk, itemCache, present);
 
 		present = true;
 		dirty = false;
