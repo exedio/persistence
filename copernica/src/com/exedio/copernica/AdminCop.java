@@ -13,7 +13,8 @@ public final class AdminCop extends Cop
 	static final String SHOW_DROP_BOXES = "drop";
 	static final String SHOW_RENAME_FIELDS = "rename";
 
-	final boolean report;
+	// TODO: should not be public
+	public final boolean report;
 	final String reportTable;
 	// TODO: should not be public
 	public final boolean showDropBoxes;
@@ -97,7 +98,8 @@ public final class AdminCop extends Cop
 		return reportTable!=null && !reportTable.equals(table.name);
 	}
 
-	static final AdminCop getCop(final HttpServletRequest request)
+	// TODO: should not be public
+	public static final AdminCop getCop(final HttpServletRequest request)
 	{	
 		final String reportID = request.getParameter(REPORT);
 		if(reportID==null)

@@ -10,7 +10,8 @@ import com.exedio.cope.lib.NestingRuntimeException;
 import com.exedio.cops.Cop;
 
 // TODO: move this class into CopernicaServlet
-final class Util
+// TODO: should not be public
+public final class Util
 {
 		
 	static final CopernicaProvider createProvider(final ServletConfig config)
@@ -39,7 +40,8 @@ final class Util
 		}
 	}
 	
-	static final Model getModel(final ServletConfig config)
+	// TODO: should not be public
+	public static final Model getModel(final ServletConfig config)
 	{
 		try
 		{

@@ -2,7 +2,8 @@
 package com.exedio.copernica.admin;
 
 import java.io.IOException;
-import javax.servlet.jsp.JspWriter;
+import java.io.PrintStream;
+
 import com.exedio.cope.lib.Properties;
 
 public class Properties_Jspm
@@ -16,7 +17,7 @@ public class Properties_Jspm
 			"java.vm.version",
 		};
 	
-	public static void write(final JspWriter out, final Properties properties)
+	public static void write(final PrintStream out, final Properties properties)
 		throws IOException
 	{
 		%>

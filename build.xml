@@ -110,8 +110,6 @@
 			<classpath>
 				<pathelement location="lib/build/classes" />
 				<pathelement location="../tomcat/common/lib/servlet-api.jar" />
-				<!-- TODO: to be removed, once support for jsp is dropped -->
-				<pathelement location="../tomcat/common/lib/jsp-api.jar" />
 				<pathelement location="../tomcat/server/lib/commons-fileupload-1.0.jar" />
 			</classpath>
 		</javac>
@@ -338,48 +336,13 @@
 			<arg value="copernica/src/com/exedio/copernica/Copernica.jspm" />
 			<arg value="copernica/src/com/exedio/copernica/TypeCop.jspm" />
 			<arg value="copernica/src/com/exedio/copernica/ItemCop.jspm" />
+			<arg value="copernica/src/com/exedio/copernica/admin/Admin.jspm" />
 			<arg value="copernica/src/com/exedio/copernica/admin/Report.jspm" />
 			<arg value="copernica/src/com/exedio/copernica/admin/Properties.jspm" />
 		</java>
 	</target>
 	
-	<target name="copernica.jspc">
-		<delete dir="copernica/build/jspsrc" />
-		<mkdir dir="copernica/build/jspsrc" />
-		<java classname="org.apache.jasper.JspC" taskname="jasper2" failonerror="yes" fork="yes">
-			<classpath>
-				<pathelement location="${basedir}/../tomcat/common/lib/jasper-compiler.jar" />
-				<pathelement location="${basedir}/../tomcat/common/lib/jasper-runtime.jar" />
-				<pathelement location="${basedir}/../tomcat/common/lib/servlet-api.jar" />
-				<pathelement location="${basedir}/../tomcat/common/lib/jsp-api.jar" />
-				<pathelement location="${basedir}/../tomcat/common/lib/ant.jar" />
-				<pathelement location="${basedir}/../tomcat/common/lib/commons-el.jar" />
-				<pathelement location="${basedir}/../tomcat/bin/commons-logging-api.jar" />
-			</classpath>
-			<arg value="-p" /><arg value="com.exedio.copernica" />
-			<arg value="-uriroot" /><arg value="${basedir}/copernica/jsp" />
-			<arg value="-webinc" />
-			<arg value="${basedir}/copernica/build/copernica.web.xml.fragment" />
-			<arg value="-d" /><arg value="${basedir}/copernica/build/jspsrc" />
-		</java>
-	</target>
-	
-	<target name="copernica.compile.jsp" depends="copernica.jspc, copernica.compile.classes">
-		<javac destdir="copernica/build/classes"
-					optimize="off"
-					debug="on"
-					failonerror="true"
-					srcdir="copernica/build/jspsrc">
-			<classpath>
-				<pathelement location="lib/build/classes" />
-				<pathelement location="${basedir}/../tomcat/common/lib/servlet-api.jar" />
-				<pathelement location="${basedir}/../tomcat/common/lib/jasper-runtime.jar" />
-				<pathelement location="${basedir}/../tomcat/common/lib/jsp-api.jar" />
-			</classpath>
-		</javac>
-	</target>
-	
-	<target name="copernica.compile" depends="copernica.compile.classes, copernica.compile.jsp" />
+	<target name="copernica.compile" depends="copernica.compile.classes" />
 	
 	<target name="copernica.test.compile" depends="lib.compile, lib.test.compile, copernica.compile">
 		<mkdir dir="copernica/build/testclasses" />

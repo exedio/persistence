@@ -2,11 +2,11 @@
 package com.exedio.copernica.admin;
 
 import java.io.IOException;
+import java.io.PrintStream;
 import java.util.Date;
 import java.util.Iterator;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.jsp.JspWriter;
 
 import com.exedio.cope.lib.Model;
 import com.exedio.cope.lib.Report;
@@ -50,7 +50,7 @@ public class Report_Jspm
 		return column;
 	}
 	
-	public static void writeReport(final JspWriter out, final Model model, final AdminCop cop)
+	public static void writeReport(final PrintStream out, final Model model, final AdminCop cop)
 		throws IOException
 	{
 		final Report report = model.reportDatabase();
@@ -255,7 +255,10 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); tableCount++)
 
 	}
 	
-	public static void writeApply(final JspWriter out, final HttpServletRequest request, final Model model)
+	public static void writeApply(
+				final PrintStream out,
+				final HttpServletRequest request,
+				final Model model)
 		throws IOException
 	{
 		final Report report = model.reportDatabase();

@@ -1,42 +1,23 @@
-<%@
-page import="com.exedio.cope.lib.Model" %><%@
-page import="com.exedio.cope.lib.Report" %><%@
-page import="com.exedio.cope.lib.ReportTable" %><%@
-page import="com.exedio.cope.lib.ReportLastAnalyzed" %><%@
-page import="com.exedio.cope.lib.ReportColumn" %><%@
-page import="com.exedio.cope.lib.ReportConstraint" %><%@
-page import="com.exedio.cope.lib.NestingRuntimeException" %><%@
+<%
+package com.exedio.copernica.admin;
 
-page import="java.util.Date" %><%@
+import java.io.IOException;
+import java.io.PrintStream;
 
-page import="com.exedio.copernica.admin.Report_Jspm" %><%@
-page import="com.exedio.copernica.admin.Properties_Jspm"
+import javax.servlet.http.HttpServletRequest;
 
-%><%!
-	
-	Model model = null;
-	
-	public final void jspInit()
+import com.exedio.cope.lib.Model;
+import com.exedio.copernica.AdminCop;
+
+public class Admin_Jspm
+{
+	public static void write(
+				final PrintStream out,
+				final HttpServletRequest request,
+				final Model model)
+		throws IOException
 	{
-		if(this.model!=null)
-		{
-			System.out.println("reinvokation of jspInit");
-			return;
-		}
-		
-		try
-		{
-			this.model = Util.getModel(getServletConfig());
-		}
-		catch(RuntimeException e)
-		{
-			e.printStackTrace();
-			throw e;
-		}
-	}
-%><%
-final Model model = this.model;
-final AdminCop cop = AdminCop.getCop(request);
+		final AdminCop cop = AdminCop.getCop(request);
 %>
 <html>
 	<head>
@@ -97,3 +78,6 @@ final AdminCop cop = AdminCop.getCop(request);
 		</form>
 	</body>
 </html>
+<%
+	}
+}%>
