@@ -38,12 +38,12 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); )
 	if(table.exists())
 	{
 		%>
-		<input type="checkbox" name="DROP_TABLE_" value="drop"/>drop<%
+		<input type="checkbox" name="DROP_TABLE" value="<%=table.name%>"/>drop<%
 	}
 	else if(table.required())
 	{
 		%>
-		<input type="checkbox" name="CREATE_TABLE_" value="create"/>create<%
+		<input type="checkbox" name="CREATE_TABLE" value="<%=table.name%>"/>create<%
 	}
 	
 	%>
@@ -55,7 +55,7 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); )
 			%>
 			<li class="<%=color(lastAnalyzed.getCumulativeColor())
 				%>">last analyzed: <%=date!=null?date.toString():"NEVER"%>
-				<input type="checkbox" name="ANALYZE_TABLE_" value="analyze"/>analyze
+				<input type="checkbox" name="ANALYZE_TABLE" value="<%=table.name%>"/>analyze
 			</li><%
 		}
 		
@@ -76,13 +76,13 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); )
 			if(column.exists())
 			{
 				%>
-				<input type="checkbox" name="DROP_COLUMN_" value="drop"/>drop<%
+				<input type="checkbox" name="DROP_COLUMN" value="<%=column.name%>"/>drop<%
 			}
 			else if(column.required() &&
 						column.table.exists() )
 			{
 				%>
-				<input type="checkbox" name="CREATE_COLUMN_" value="create"/>create<%
+				<input type="checkbox" name="CREATE_COLUMN" value="<%=column.name%>"/>create<%
 			}
 			%>
 			</li><%
@@ -105,13 +105,13 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); )
 			if(constraint.exists())
 			{
 				%>
-				<input type="checkbox" name="DROP_CONSTRAINT_" value="drop"/>drop<%
+				<input type="checkbox" name="DROP_CONSTRAINT" value="<%=constraint.name%>"/>drop<%
 			}
 			else if( constraint.required() &&
 						constraint.table.exists() )
 			{
 				%>
-				<input type="checkbox" name="CREATE_CONSTRAINT_" value="create"/>create<%
+				<input type="checkbox" name="CREATE_CONSTRAINT" value="<%=constraint.name%>"/>create<%
 			}
 			%>
 			</li><%
