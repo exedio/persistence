@@ -356,6 +356,8 @@
 				<exclude name="*.inc" />
 			</fileset>
 		</copy>
+		<copy todir="copernica/build/testwebapp-${database}/"
+				file="copernica/init.jsp" />
 		<mkdir dir="copernica/build/testwebapp-${database}/media" />
 		
 		<touch file="copernica/build/testwebapp-${database}/WEB-INF/web.xml" />

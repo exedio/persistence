@@ -272,8 +272,4 @@ public abstract class TransientCopernicaProvider implements CopernicaProvider
 		return null;
 	}
 
-	public void initializeExampleSystem()
-	{
-	}
-
 }

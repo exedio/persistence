@@ -65,5 +65,4 @@ public interface CopernicaProvider
 	
 	public CopernicaSection findSectionByID(String copernicaID);
 
-	public void initializeExampleSystem();
 }

@@ -42,7 +42,6 @@ final AdminCop cop = AdminCop.getCop(request);
 				if(request.getParameter("CREATE")!=null)
 				{
 					provider.getModel().createDatabase();
-					provider.initializeExampleSystem();
 					%>Database successfully created!<%
 				}
 				else if(request.getParameter("TEARDOWN")!= null)

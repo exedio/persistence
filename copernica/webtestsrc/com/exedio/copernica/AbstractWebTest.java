@@ -28,6 +28,8 @@ public class AbstractWebTest extends WebTestCase
 		ctx.setAuthorization("admin", "nimda");
 		beginAt("admin.jsp");
 		submit("CREATE");
+		beginAt("init.jsp");
+		submit("INIT");
 	}
 	
 	public void tearDown() throws Exception
