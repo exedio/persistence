@@ -231,13 +231,14 @@ public abstract class Database
 		}
 	}
 
-	void store(final Type type, final int pk, final HashMap itemCache, final boolean present)
+	void store(final Row row)
 			throws UniqueViolationException
 	{
+		final Type type = row.type;
 		final List columns = type.getColumns();
 
 		final Statement bf = new Statement();
-		if(present)
+		if(row.present)
 		{
 			bf.append("update ").
 				append(type.protectedName).
@@ -255,13 +256,13 @@ public abstract class Database
 				bf.append(column.protectedName).
 					append('=');
 
-				final Object value = itemCache.get(column);
+				final Object value = row.get(column);
 				bf.append(column.cacheToDatabase(value));
 			}
 			bf.append(" where ").
 				append(type.primaryKey.protectedName).
 				append('=').
-				append(pk);
+				append(row.pk);
 		}
 		else
 		{
@@ -279,12 +280,12 @@ public abstract class Database
 			}
 
 			bf.append(")values(").
-				append(pk);
+				append(row.pk);
 			for(Iterator i = columns.iterator(); i.hasNext(); )
 			{
 				bf.append(',');
 				final Column column = (Column)i.next();
-				final Object value = itemCache.get(column);
+				final Object value = row.get(column);
 				bf.append(column.cacheToDatabase(value));
 			}
 			bf.append(')');

@@ -16,7 +16,7 @@ final class Row
 	final int pk;
 
 	private final HashMap cache = new HashMap();
-	private boolean present;
+	boolean present;
 	private boolean dirty = false;
 
 	protected Row(final Type type, final int pk, final boolean present)
@@ -66,7 +66,7 @@ final class Row
 		if(!dirty)
 			return;
 		
-		Database.theInstance.store(type, pk, cache, present);
+		Database.theInstance.store(this);
 
 		present = true;
 		dirty = false;
