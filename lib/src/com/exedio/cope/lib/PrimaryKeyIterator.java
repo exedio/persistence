@@ -1,5 +1,5 @@
-package com.exedio.cope.lib;
 
+package com.exedio.cope.lib;
 
 final class PrimaryKeyIterator
 {
@@ -13,39 +13,49 @@ final class PrimaryKeyIterator
 	private int nextPkLo = Type.NOT_A_PK;
 	private int nextPkHi = Type.NOT_A_PK;
 	private boolean nextIsLo;
+	private final Object lock = new Object();
 	
 	void flushPK()
 	{
-		nextPkLo = Type.NOT_A_PK;
-		nextPkHi = Type.NOT_A_PK;
+		synchronized(lock)
+		{
+			nextPkLo = Type.NOT_A_PK;
+			nextPkHi = Type.NOT_A_PK;
+		}
 	}
 
 	int nextPK()
 	{
-		if(nextPkLo==Type.NOT_A_PK)
+		synchronized(lock)
 		{
-			final int[] nextPks = table.database.getNextPK(table);
-			if(nextPks.length!=2)
-				throw new RuntimeException(String.valueOf(nextPks.length));
-			nextPkLo = nextPks[0];
-			nextPkHi = nextPks[1];
-			if(nextPkLo>=nextPkHi)
-				throw new RuntimeException(String.valueOf(nextPkLo)+">="+String.valueOf(nextPkHi));
-			nextIsLo = (-nextPkLo)<=nextPkHi;
-			//System.out.println(this.trimmedName+": getNextPK:"+nextPkLo+"/"+nextPkHi+"  nextIs"+(nextIsLo?"Lo":"Hi"));
+			if(nextPkLo==Type.NOT_A_PK)
+			{
+				final int[] nextPks = table.database.getNextPK(table);
+				if(nextPks.length!=2)
+					throw new RuntimeException(String.valueOf(nextPks.length));
+				nextPkLo = nextPks[0];
+				nextPkHi = nextPks[1];
+				if(nextPkLo>=nextPkHi)
+					throw new RuntimeException(String.valueOf(nextPkLo)+">="+String.valueOf(nextPkHi));
+				nextIsLo = (-nextPkLo)<=nextPkHi;
+				//System.out.println(this.trimmedName+": getNextPK:"+nextPkLo+"/"+nextPkHi+"  nextIs"+(nextIsLo?"Lo":"Hi"));
+			}
+			
+			//System.out.println(this.trimmedName+": nextPK:"+nextPkLo+"/"+nextPkHi+"  nextIs"+(nextIsLo?"Lo":"Hi"));
+			final int result = nextIsLo ? nextPkLo-- : nextPkHi++;
+			nextIsLo = !nextIsLo;
+	
+			if(nextPkLo>=nextPkHi) // TODO : somehow handle pk overflow
+				throw new RuntimeException(String.valueOf(nextPkHi)+String.valueOf(nextPkLo));
+			return result;
 		}
-		
-		//System.out.println(this.trimmedName+": nextPK:"+nextPkLo+"/"+nextPkHi+"  nextIs"+(nextIsLo?"Lo":"Hi"));
-		final int result = nextIsLo ? nextPkLo-- : nextPkHi++;
-		nextIsLo = !nextIsLo;
-
-		if(nextPkLo>=nextPkHi) // TODO : somehow handle pk overflow
-			throw new RuntimeException(String.valueOf(nextPkHi)+String.valueOf(nextPkLo));
-		return result;
 	}
 
 	long pk2id(final int pk)
 	{
+		// needs no synchronized, since this method
+		// does not use any member variables.
+
 		if(pk==Type.NOT_A_PK)
 			throw new RuntimeException("not a pk");
 
@@ -59,6 +69,9 @@ final class PrimaryKeyIterator
 	int id2pk(final long id)
 			throws NoSuchIDException
 	{
+		// needs no synchronized, since this method
+		// does not use any member variables.
+
 		if(id<0)
 			throw new NoSuchIDException(id, "must be positive");
 		if(id>=4294967296l)
