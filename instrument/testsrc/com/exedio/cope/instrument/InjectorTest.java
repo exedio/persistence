@@ -1,7 +1,6 @@
 
 package com.exedio.cope.instrument;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -62,6 +61,12 @@ public abstract class InjectorTest extends TestCase
 		assertEquals(packageName, ((PackageEvent)event).javafile.getPackageName());
 	}
 
+	protected void assertImport(final String importText)
+	{
+		final InjectionEvent event = fetchEvent();
+		assertEquals(importText, ((ImportEvent)event).importText);
+	}
+
 	private static class InjectionEvent
 	{
 	}
@@ -87,6 +92,16 @@ public abstract class InjectorTest extends TestCase
 		}
 	}
 	
+	private static class ImportEvent extends InjectionEvent
+	{
+		final String importText;
+
+		ImportEvent(final String importText)
+		{
+			this.importText = importText;
+		}
+	}
+	
 	private class TestInjectionConsumer implements InjectionConsumer
 	{
 		final StringWriter output;
@@ -104,6 +119,7 @@ public abstract class InjectorTest extends TestCase
 
 		public void onImport(final String importname)
 		{
+			addInjectionEvent(new ImportEvent(importname));
 		}
 
 		public void onClass(final JavaClass cc)

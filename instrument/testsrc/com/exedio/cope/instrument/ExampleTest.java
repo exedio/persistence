@@ -23,6 +23,8 @@ public class ExampleTest extends InjectorTest
 	{
 		assertText("/*\nSome initial test comment.\n*/\n\npackage// hallo\n  com.exedio.cope.instrument");
 		assertPackage("com.exedio.cope.instrument");
+		assertText(";\n\nimport java.util.*");
+		assertImport("import java.util.*");
 	}
 
 }
