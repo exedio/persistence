@@ -124,7 +124,7 @@ public abstract class Example implements Runnable
   public void run()
   {}
 
-	public boolean getBoolean(Interface someInterface)
+	public boolean getBoolean(int someInterface)
 	{
 		return true;
 	}

@@ -305,7 +305,7 @@ public class ExampleTest extends InjectorTest
 				"getBoolean",
 				"boolean",
 				Modifier.PUBLIC,
-				"public boolean getBoolean(Interface someInterface)\n\t");
+				"public boolean getBoolean(int someInterface)\n\t");
 		assertText("{\n\t\treturn true;\n\t}");
 		assertMethod("getBoolean", null, getBoolean);
 		assertText("\n\t\n\t");
