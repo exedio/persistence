@@ -349,15 +349,12 @@ final class Generator
 													final Class returnType,
 													final String part,
 													final CopeMediaVariant variant,
-													final String comment)
+													final String commentPattern)
 	throws IOException
 	{
 		writeCommentHeader();
 		o.write("\t * ");
-		o.write(comment);
-		o.write(" {@link #");
-		o.write(mediaAttribute.getName());
-		o.write("}.");
+		o.write(format(commentPattern, link(mediaAttribute.getName())));
 		o.write(lineSeparator);
 		writeCommentGenerated();
 		writeCommentFooter();
@@ -401,20 +398,20 @@ final class Generator
 
 		// getters
 		writeMediaGetterMethod(mediaAttribute, String.class, "URL", null,
-										"Returns a URL pointing to the data of the persistent attribute");
+										"Returns a URL pointing to the data of the persistent attribute {0}.");
 		final List mediaVariants = mediaAttribute.getVariants();
 		if(mediaVariants!=null)
 		{
 			for(Iterator i = mediaVariants.iterator(); i.hasNext(); )
 				writeMediaGetterMethod(mediaAttribute, String.class, "URL", (CopeMediaVariant)i.next(),
-												"Returns a URL pointing to the varied data of the persistent attribute");
+												"Returns a URL pointing to the varied data of the persistent attribute {0}.");
 		}
 		writeMediaGetterMethod(mediaAttribute, String.class, "MimeMajor", null,
-										"Returns the major mime type of the persistent media attribute");
+										"Returns the major mime type of the persistent media attribute {0}.");
 		writeMediaGetterMethod(mediaAttribute, String.class, "MimeMinor", null,
-										"Returns the minor mime type of the persistent media attribute");
+										"Returns the minor mime type of the persistent media attribute {0}.");
 		writeMediaGetterMethod(mediaAttribute, InputStream.class, "Data", null,
-										"Returns a stream for fetching the data of the persistent media attribute");
+										"Returns a stream for fetching the data of the persistent media attribute {0}.");
 		
 		// setters
 		if(mediaAttribute.hasGeneratedSetter())
