@@ -316,4 +316,31 @@ public final class JavaAttribute extends JavaFeature
 	}
 
 
+	private TreeSet exceptionsToCatchInSetter = null;
+
+	/**
+	 * Compute exceptions to be caught in the setter.
+	 * These are just those thrown by {@link Item#setAttribute(Attribute,Object)}
+	 * (or {@link Item#setAttribute(Attribute,Object[],Object)} for qualified attributes)
+	 * which are not in the setters throws clause.
+	 * (see {@link #getSetterExceptions())
+	 */
+	public final SortedSet getExceptionsToCatchInSetter()
+	{
+		if(exceptionsToCatchInSetter!=null)
+			return exceptionsToCatchInSetter;
+
+		exceptionsToCatchInSetter = new TreeSet(ClassComparator.newInstance());
+		exceptionsToCatchInSetter.add(UniqueViolationException.class);
+		if(qualifiers==null)
+		{
+			// qualified setAttribute does not throw not-null/read-only
+			exceptionsToCatchInSetter.add(NotNullViolationException.class);
+			exceptionsToCatchInSetter.add(ReadOnlyViolationException.class);
+		}
+		exceptionsToCatchInSetter.removeAll(getSetterExceptions());
+		
+		return exceptionsToCatchInSetter;
+	}
+
 }

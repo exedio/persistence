@@ -751,18 +751,7 @@ public final class Instrumentor implements InjectionConsumer
 	private void writeSetterBody(final Writer output, final JavaAttribute attribute)
 	throws IOException
 	{
-		// compute exceptions to be caught in the setter.
-		// Are just those thrown by Item.setAttribute,
-		// which are not in the setters throws clause (JavaAttribute.getSetterExceptions);
-		final TreeSet exceptionsToCatch = new TreeSet(ClassComparator.newInstance());
-		exceptionsToCatch.add(UniqueViolationException.class);
-		if(attribute.getQualifiers()==null)
-		{
-			// qualified setAttribute does not throw not-null/read-only
-			exceptionsToCatch.add(NotNullViolationException.class);
-			exceptionsToCatch.add(ReadOnlyViolationException.class);
-		}
-		exceptionsToCatch.removeAll(attribute.getSetterExceptions());
+		final SortedSet exceptionsToCatch = attribute.getExceptionsToCatchInSetter();
 
 		if(!exceptionsToCatch.isEmpty())
 		{
