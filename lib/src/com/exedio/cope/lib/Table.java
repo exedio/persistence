@@ -25,16 +25,21 @@ final class Table
 		tablesModifiable.add(this);
 	}
 	
+	private boolean buildStage = true;
+
 	private final ArrayList columnsModifiable = new ArrayList();
-	final List columns = Collections.unmodifiableList(columnsModifiable);
+	private final List columns = Collections.unmodifiableList(columnsModifiable);
 	
-	Column primaryKey; // TODO: make private
+	private Column primaryKey;
 	
 	private final List allColumnsModifiable = new ArrayList();
-	final List allColumns = Collections.unmodifiableList(allColumnsModifiable);
+	private final List allColumns = Collections.unmodifiableList(allColumnsModifiable);
 
 	void addColumn(final Column column)
 	{
+		if(!buildStage)
+			throw new RuntimeException();
+
 		if(column.primaryKey)
 		{
 			if(primaryKey!=null)
@@ -54,19 +59,29 @@ final class Table
 	 * Returns &quot;payload&quot; columns of this type only,
 	 * excluding primary key column.
 	 * @see #getAllColumns()
+	 * @see #getPrimaryKey()
 	 */
-	List getColumns() // TODO: remove method
+	List getColumns()
 	{
+		buildStage = false;
 		return columns;
+	}
+	
+	Column getPrimaryKey()
+	{
+		buildStage = false;
+		return primaryKey;
 	}
 	
 	/**
 	 * Returns all columns of this type,
 	 * including primary key column.
 	 * @see #getColumns()
+	 * @see #getPrimaryKey()
 	 */
-	List getAllColumns() // TODO: remove method
+	List getAllColumns()
 	{
+		buildStage = false;
 		return allColumns;
 	}
 	

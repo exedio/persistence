@@ -154,7 +154,7 @@ public abstract class Database
 
 			final Table table = (Table)i.next();
 
-			final Column primaryKey = table.primaryKey;
+			final Column primaryKey = table.getPrimaryKey();
 			bf.append(table.protectedID).
 				append('.').
 				append(primaryKey.protectedID).
@@ -275,7 +275,7 @@ public abstract class Database
 		bf.append("select ").
 			append(selectTable.protectedID).
 			append('.').
-			append(selectTable.primaryKey.protectedID).defineColumnInteger().
+			append(selectTable.getPrimaryKey().protectedID).defineColumnInteger().
 			append(" from ");
 
 		boolean first = true;
@@ -364,7 +364,7 @@ public abstract class Database
 			final Table table = type.table;
 			bf.append(table.protectedID).
 				append('.').
-				append(table.primaryKey.protectedID).
+				append(table.getPrimaryKey().protectedID).
 				append('=').
 				append(row.pk);
 		}
@@ -420,7 +420,7 @@ public abstract class Database
 				bf.append(column.cacheToDatabase(value));
 			}
 			bf.append(" where ").
-				append(table.primaryKey.protectedID).
+				append(table.getPrimaryKey().protectedID).
 				append('=').
 				append(row.pk);
 		}
@@ -429,7 +429,7 @@ public abstract class Database
 			bf.append("insert into ").
 				append(table.protectedID).
 				append("(").
-				append(table.primaryKey.protectedID);
+				append(table.getPrimaryKey().protectedID);
 
 			boolean first = true;
 			for(Iterator i = columns.iterator(); i.hasNext(); )
@@ -476,7 +476,7 @@ public abstract class Database
 			bf.append("delete from ").
 				append(currentTable.protectedID).
 				append(" where ").
-				append(currentTable.primaryKey.protectedID).
+				append(currentTable.getPrimaryKey().protectedID).
 				append('=').
 				append(pk);
 
@@ -1090,7 +1090,7 @@ public abstract class Database
 	{
 		final Statement bf = createStatement();
 		final Table table = type.table;
-		final String primaryKeyProtectedID = table.primaryKey.protectedID;
+		final String primaryKeyProtectedID = table.getPrimaryKey().protectedID;
 		bf.append("select min(").
 			append(primaryKeyProtectedID).defineColumnInteger().
 			append("),max(").

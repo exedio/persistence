@@ -69,7 +69,7 @@ public final class Statement
 		this.text.
 			append(table.protectedID).
 			append('.').
-			append(table.primaryKey.protectedID);
+			append(table.getPrimaryKey().protectedID);
 			
 		return this;
 	}
