@@ -177,6 +177,7 @@ final class HsqldbDatabase
 		}
 	}
 
+	// TODO: make getRenameColumnStatement function for override
 	final void renameColumn(final String tableName, final String oldColumnName, final String newColumnName)
 	{
 		final Statement bf = createStatement();
