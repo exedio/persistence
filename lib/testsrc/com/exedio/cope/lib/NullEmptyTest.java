@@ -6,7 +6,7 @@ package com.exedio.cope.lib;
  */ 
 public class NullEmptyTest extends DatabaseLibTest
 {
-	ItemWithoutAttributes someItem;
+	EmptyItem someItem;
 	ItemWithManyAttributes item;
 	ItemWithManyAttributes item2;
 	String emptyString;
@@ -14,7 +14,7 @@ public class NullEmptyTest extends DatabaseLibTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		someItem = new ItemWithoutAttributes();
+		someItem = new EmptyItem();
 		item = new ItemWithManyAttributes("someString", 5, 2.2, true, someItem, ItemWithManyAttributes.SomeEnumeration.enumValue1);
 		item2 = new ItemWithManyAttributes("someString", 5, 2.2, false, someItem, ItemWithManyAttributes.SomeEnumeration.enumValue2);
 		// TODO: database must hide this from the user

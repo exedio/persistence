@@ -21,7 +21,7 @@ public abstract class DatabaseLibTest extends AbstractLibTest
 		ItemWithSingleUniqueReadOnly.TYPE,
 		ItemWithSingleUniqueNotNull.TYPE,
 		ItemWithDoubleUnique.TYPE,
-		ItemWithoutAttributes.TYPE,
+		EmptyItem.TYPE,
 		ItemWithoutAttributes2.TYPE,
 		ItemWithManyAttributes.TYPE,
 		StringItem.TYPE,

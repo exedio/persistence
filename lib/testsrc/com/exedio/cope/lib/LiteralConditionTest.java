@@ -3,7 +3,7 @@ package com.exedio.cope.lib;
 
 public class LiteralConditionTest extends DatabaseLibTest
 {
-	ItemWithoutAttributes someItem;
+	EmptyItem someItem;
 	ItemWithManyAttributes item1;
 	ItemWithManyAttributes item2;
 	ItemWithManyAttributes item3;
@@ -13,7 +13,7 @@ public class LiteralConditionTest extends DatabaseLibTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		someItem = new ItemWithoutAttributes();
+		someItem = new EmptyItem();
 		item1 = new ItemWithManyAttributes("string1", 1, 2.1, true, someItem, ItemWithManyAttributes.SomeEnumeration.enumValue1);
 		item2 = new ItemWithManyAttributes("string2", 2, 2.2, true, someItem, ItemWithManyAttributes.SomeEnumeration.enumValue1);
 		item3 = new ItemWithManyAttributes("string3", 3, 2.3, true, someItem, ItemWithManyAttributes.SomeEnumeration.enumValue2);

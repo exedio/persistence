@@ -7,7 +7,7 @@ public class SearchTest extends DatabaseLibTest
 	public void testUnmodifiableSearchResult()
 			throws IntegrityViolationException
 	{
-		final ItemWithoutAttributes someItem = new ItemWithoutAttributes();
+		final EmptyItem someItem = new EmptyItem();
 		final ItemWithManyAttributes item;
 		final ItemWithManyAttributes item2;
 		try
@@ -47,13 +47,13 @@ public class SearchTest extends DatabaseLibTest
 	{
 		try
 		{
-			Search.search(ItemWithoutAttributes.TYPE, Search.equal(ItemWithManyAttributes.someInteger, 0));
+			Search.search(EmptyItem.TYPE, Search.equal(ItemWithManyAttributes.someInteger, 0));
 			fail("should have thrown RuntimeException");
 		}
 		catch(RuntimeException e)
 		{
 			assertEquals(
-				"attribute someInteger{} belongs to type com.exedio.cope.lib.ItemWithManyAttributes, which is not a from-type of the query: [com.exedio.cope.lib.ItemWithoutAttributes]",
+				"attribute someInteger{} belongs to type com.exedio.cope.lib.ItemWithManyAttributes, which is not a from-type of the query: [com.exedio.cope.lib.EmptyItem]",
 				e.getMessage());
 		}
 	}

@@ -4,15 +4,15 @@ package com.exedio.cope.lib;
 public class QualifierTest extends DatabaseLibTest
 {
 	QualifiedItem item;
-	ItemWithoutAttributes key1;
-	ItemWithoutAttributes key2;
+	EmptyItem key1;
+	EmptyItem key2;
 	
 	public void setUp() throws Exception
 	{
 		super.setUp();
 		item = new QualifiedItem();
-		key1 = new ItemWithoutAttributes();
-		key2 = new ItemWithoutAttributes();
+		key1 = new EmptyItem();
+		key2 = new EmptyItem();
 	}
 	
 	public void tearDown() throws Exception

@@ -15,16 +15,16 @@ public class ItemTest extends DatabaseLibTest
 	public void testItemMethods()
 			throws IntegrityViolationException, NoSuchIDException
 	{
-		assertEquals(ItemWithoutAttributes.TYPE, Type.getType(ItemWithoutAttributes.class.getName()));
+		assertEquals(EmptyItem.TYPE, Type.getType(EmptyItem.class.getName()));
 		assertEquals(ItemWithoutAttributes2.TYPE, Type.getType(ItemWithoutAttributes2.class.getName()));
 		assertEquals(toSet(Arrays.asList(types)), toSet(Type.getTypes()));
 
-		final ItemWithoutAttributes item1 = new ItemWithoutAttributes();
-		final ItemWithoutAttributes item2 = new ItemWithoutAttributes();
+		final EmptyItem item1 = new EmptyItem();
+		final EmptyItem item2 = new EmptyItem();
 		final ItemWithoutAttributes2 item3 = new ItemWithoutAttributes2();
 
-		assertEquals(ItemWithoutAttributes.TYPE, item1.getType());
-		assertEquals(ItemWithoutAttributes.TYPE, item2.getType());
+		assertEquals(EmptyItem.TYPE, item1.getType());
+		assertEquals(EmptyItem.TYPE, item2.getType());
 		assertEquals(ItemWithoutAttributes2.TYPE, item3.getType());
 
 		assertID(0, item1);
@@ -51,14 +51,14 @@ public class ItemTest extends DatabaseLibTest
 		assertFalse(item1.equals(new Integer(1)));
 		assertFalse(item1.equals(Boolean.TRUE));
 
-		final ItemWithoutAttributes item4 = new ItemWithoutAttributes();
+		final EmptyItem item4 = new EmptyItem();
 		assertID(2, item4);
 		item4.TYPE.flushPK();
-		final ItemWithoutAttributes item5 = new ItemWithoutAttributes();
+		final EmptyItem item5 = new EmptyItem();
 		assertID(3, item5);
 		assertNotEquals(item4, item5);
 		item4.TYPE.flushPK();
-		final ItemWithoutAttributes item6 = new ItemWithoutAttributes();
+		final EmptyItem item6 = new EmptyItem();
 		assertID(4, item6);
 		assertNotEquals(item4, item5);
 		assertNotEquals(item4, item6);

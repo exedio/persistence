@@ -5,14 +5,14 @@ import java.io.IOException;
 public class AttributesTest extends DatabaseLibTest
 {
 
-	private ItemWithoutAttributes someItem, someItem2;
+	private EmptyItem someItem, someItem2;
 	private ItemWithManyAttributes item;
 
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		someItem = new ItemWithoutAttributes();
-		someItem2 = new ItemWithoutAttributes();
+		someItem = new EmptyItem();
+		someItem2 = new EmptyItem();
 		item = new ItemWithManyAttributes("someString", 5, 2.2, true, someItem, ItemWithManyAttributes.SomeEnumeration.enumValue1);
 	}
 	
@@ -258,7 +258,7 @@ public class AttributesTest extends DatabaseLibTest
 	public void testSomeItem()
 	{
 		assertEquals(item.TYPE, item.someItem.getType());
-		assertEquals(ItemWithoutAttributes.TYPE, item.someItem.getTargetType());
+		assertEquals(EmptyItem.TYPE, item.someItem.getTargetType());
 		assertEquals(null, item.getSomeItem());
 		item.setSomeItem(someItem);
 		assertEquals(someItem, item.getSomeItem());
@@ -273,7 +273,7 @@ public class AttributesTest extends DatabaseLibTest
 	{
 		assertEquals(item.TYPE, item.someNotNullItem.getType());
 		assertEquals(
-			ItemWithoutAttributes.TYPE,
+			EmptyItem.TYPE,
 			item.someNotNullItem.getTargetType());
 		assertEquals(someItem, item.getSomeNotNullItem());
 
@@ -439,7 +439,7 @@ public class AttributesTest extends DatabaseLibTest
 			throws IntegrityViolationException
 	{
 		assertEquals(item.TYPE, item.someQualifiedString.getType());
-		final ItemWithoutAttributes someItem2 = new ItemWithoutAttributes();
+		final EmptyItem someItem2 = new EmptyItem();
 		assertEquals(null, item.getSomeQualifiedString(someItem));
 		assertEquals(null, item.getSomeQualifiedString(someItem2));
 		item.setSomeQualifiedString(someItem, "someQualifiedValue");
