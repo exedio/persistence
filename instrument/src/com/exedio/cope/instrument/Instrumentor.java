@@ -168,7 +168,28 @@ public final class Instrumentor implements InjectionConsumer
 	public void onAttributeHeader(JavaAttribute ja)
 	{
 	}
-	
+
+	private final static Item.Option getOption(final String optionString)	
+	{
+		try
+		{
+			//System.out.println(optionString);
+			final Item.Option result = 
+				(Item.Option)Item.class.getDeclaredField(optionString).get(null);
+			if(result==null)
+				throw new NullPointerException(optionString);
+			return result;
+		}
+		catch(NoSuchFieldException e)
+		{
+			throw new SystemException(e, optionString);
+		}
+		catch(IllegalAccessException e)
+		{
+			throw new SystemException(e, optionString);
+		}
+	}
+
 	public void onClassFeature(final JavaFeature jf, final String docComment)
 	throws IOException, InjectorParseException
 	{
@@ -183,58 +204,18 @@ public final class Instrumentor implements InjectionConsumer
 			{
 				final String type = jf.getType();
 				final JavaAttribute ja = (JavaAttribute)jf;
+				final List initializerArguments = ja.getInitializerArguments();
+				//System.out.println(initializerArguments);
 				
-				final boolean readOnly;
-				final boolean notNull;
-				final boolean unique;
-				final String secondArgument;
-				{
-					final String initializer = ja.getInitializerTokens();
-	
-					final int openBracketPos = initializer.indexOf('(');
-					if(openBracketPos<0)
-						throw new RuntimeException("attribute initializer must start must contain '(', but was "+initializer);
-	
-					final int closeBracketPos = initializer.indexOf(')', openBracketPos);
-					if(closeBracketPos<0)
-						throw new RuntimeException("attribute initializer must start must contain ')', but was "+initializer);
+				final String optionString = (String)initializerArguments.get(0);
+				//System.out.println(optionString);
+				final Item.Option option = getOption(optionString); 
 
-					final int firstArgumentEnd;	
-					final int firstCommaPos = initializer.indexOf(',', openBracketPos+1);
-					if(firstCommaPos<0)
-					{
-						firstArgumentEnd = closeBracketPos;
-						secondArgument = null;
-					}
-					else
-					{
-						firstArgumentEnd = firstCommaPos;
-						final int secondCommaPos = initializer.indexOf(',', firstCommaPos+1);
-						if(secondCommaPos>0)
-							secondArgument = initializer.substring(firstCommaPos+1, secondCommaPos).trim();
-						else
-							secondArgument = initializer.substring(firstCommaPos+1, closeBracketPos).trim();
-					}
+				final boolean readOnly = option.readOnly;
+				final boolean notNull = option.notNull;
+				final boolean unique = option.unique;
 
-					final String optionString = initializer.substring(openBracketPos+1, firstArgumentEnd).trim();
-					try
-					{
-						//System.out.println(optionString);
-						final Item.Option option = 
-							(Item.Option)Item.class.getDeclaredField(optionString).get(null);
-						readOnly = option.readOnly;
-						notNull = option.notNull;
-						unique = option.unique;
-					}
-					catch(NoSuchFieldException e)
-					{
-						throw new SystemException(e);
-					}
-					catch(IllegalAccessException e)
-					{
-						throw new SystemException(e);
-					}
-				}
+				final String secondArgument = initializerArguments.size()>1 ? (String)initializerArguments.get(1) : null;
 	
 				final String persistentType;
 				final int persistentTypeType;

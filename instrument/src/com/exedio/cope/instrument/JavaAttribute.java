@@ -1,6 +1,8 @@
 package com.exedio.cope.instrument;
 
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Represents an attribute of a class parsed by the
@@ -86,41 +88,57 @@ public final class JavaAttribute
 			| Modifier.VOLATILE;
 	}
 	
-	private final StringBuffer initializerTokens = new StringBuffer();
-	private boolean skipSpace = true;
+	private final ArrayList initializerArguments = new ArrayList();
+	private final StringBuffer currentArgument = new StringBuffer();
+	private int bracketLevel = 0;
 	
 	public void addToken(final char token)
 	{
 		switch(token)
 		{
+			case '(':
+			{
+				bracketLevel++;
+				break;
+			}
+			case ')':
+			{
+				if(bracketLevel==1)
+				{
+					initializerArguments.add(currentArgument.toString());
+					currentArgument.setLength(0);
+				}
+				bracketLevel--;
+				break;
+			}
 			case ' ':
 			case '\t':
 			case '\n':
 			case '\r':
-			{
-				if(!skipSpace)
-					initializerTokens.append(' ');
-				skipSpace = true;
-			}
-			break;
+				break;
 			case ',':
 			{
-				initializerTokens.append(token);
-				skipSpace = true;
+				if(bracketLevel==1)
+				{
+					initializerArguments.add(currentArgument.toString());
+					currentArgument.setLength(0);
+					break;
+				}
 			}
-			break;
 			default:
 			{
-				skipSpace = false;
-				initializerTokens.append(token);
+				if(bracketLevel==1)
+				{
+					currentArgument.append(token);
+				}
+				break;
 			}
-			break;
 		}
 	}
 	
-	String getInitializerTokens()
+	List getInitializerArguments()
 	{
-		return initializerTokens.toString();
+		return initializerArguments;
 	}
 
 }
