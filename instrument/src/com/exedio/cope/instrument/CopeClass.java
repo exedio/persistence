@@ -30,8 +30,8 @@ final class CopeClass
 	private final JavaClass javaClass;
 	final int accessModifier;
 
-	private final ArrayList persistentAttributes = new ArrayList();
-	private final Map persistentAttributeMap = new TreeMap();
+	private final ArrayList copeAttributes = new ArrayList();
+	private final Map copeAttributeMap = new TreeMap();
 	private ArrayList uniqueConstraints = null;
 	private ArrayList qualifiers = null;
 	final int constructorOption;
@@ -63,10 +63,10 @@ final class CopeClass
 		return javaClass.isInterface();
 	}
 
-	public void addCopeAttribute(final CopeAttribute persistentAttribute)
+	public void addCopeAttribute(final CopeAttribute copeAttribute)
 	{
-		persistentAttributes.add(persistentAttribute);
-		persistentAttributeMap.put(persistentAttribute.getName(), persistentAttribute);
+		copeAttributes.add(copeAttribute);
+		copeAttributeMap.put(copeAttribute.getName(), copeAttribute);
 	}
 	
 	/**
@@ -74,12 +74,12 @@ final class CopeClass
 	 */
 	public List getCopeAttributes()
 	{
-		return Collections.unmodifiableList(persistentAttributes);
+		return Collections.unmodifiableList(copeAttributes);
 	}
 	
 	public CopeAttribute getCopeAttribute(final String name)
 	{
-		return (CopeAttribute)persistentAttributeMap.get(name);
+		return (CopeAttribute)copeAttributeMap.get(name);
 	}
 	
 	public boolean hasGeneratedConstructor()
@@ -165,11 +165,11 @@ final class CopeClass
 		constructorExceptions = new TreeSet(ClassComparator.getInstance());
 		for(Iterator i = getCopeAttributes().iterator(); i.hasNext(); )
 		{
-			final CopeAttribute persistentAttribute = (CopeAttribute)i.next();
-			if(persistentAttribute.isInitial())
+			final CopeAttribute copeAttribute = (CopeAttribute)i.next();
+			if(copeAttribute.isInitial())
 			{
-				initialAttributes.add(persistentAttribute);
-				constructorExceptions.addAll(persistentAttribute.getSetterExceptions());
+				initialAttributes.add(copeAttribute);
+				constructorExceptions.addAll(copeAttribute.getSetterExceptions());
 			}
 		}
 		constructorExceptions.remove(ReadOnlyViolationException.class);

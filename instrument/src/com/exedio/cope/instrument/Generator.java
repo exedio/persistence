@@ -286,47 +286,47 @@ final class Generator
 		o.write("\t}");
 	}
 	
-	private void writeAccessMethods(final CopeAttribute persistentAttribute)
+	private void writeAccessMethods(final CopeAttribute copeAttribute)
 	throws IOException
 	{
-		final String type = persistentAttribute.getBoxedType();
-		final List qualifiers = persistentAttribute.qualifiers;
+		final String type = copeAttribute.getBoxedType();
+		final List qualifiers = copeAttribute.qualifiers;
 
 		// getter
 		writeCommentHeader();
 		o.write("\t * Returns the value of the persistent attribute {@link #");
-		o.write(persistentAttribute.getName());
+		o.write(copeAttribute.getName());
 		o.write("}.");
 		o.write(lineSeparator);
 		writeCommentGenerated();
 		writeCommentFooter();
-		o.write(Modifier.toString(persistentAttribute.getGeneratedGetterModifier()));
+		o.write(Modifier.toString(copeAttribute.getGeneratedGetterModifier()));
 		o.write(' ');
 		o.write(type);
 		o.write(" get");
-		o.write(persistentAttribute.getCamelCaseName());
+		o.write(copeAttribute.getCamelCaseName());
 		o.write('(');
 		writeParameterDeclarationList(qualifiers);
 		o.write(')');
 		o.write(lineSeparator);
 		o.write("\t{");
 		o.write(lineSeparator);
-		writeGetterBody(persistentAttribute);
+		writeGetterBody(copeAttribute);
 		o.write("\t}");
 		
 		// setter
-		if(persistentAttribute.hasGeneratedSetter())
+		if(copeAttribute.hasGeneratedSetter())
 		{
 			writeCommentHeader();
 			o.write("\t * Sets a new value for the persistent attribute {@link #");
-			o.write(persistentAttribute.getName());
+			o.write(copeAttribute.getName());
 			o.write("}.");
 			o.write(lineSeparator);
 			writeCommentGenerated();
 			writeCommentFooter();
-			o.write(Modifier.toString(persistentAttribute.getGeneratedSetterModifier()));
+			o.write(Modifier.toString(copeAttribute.getGeneratedSetterModifier()));
 			o.write(" void set");
-			o.write(persistentAttribute.getCamelCaseName());
+			o.write(copeAttribute.getCamelCaseName());
 			o.write('(');
 			if(qualifiers!=null)
 			{
@@ -336,13 +336,13 @@ final class Generator
 			o.write("final ");
 			o.write(type);
 			o.write(' ');
-			o.write(persistentAttribute.getName());
+			o.write(copeAttribute.getName());
 			o.write(')');
 			o.write(lineSeparator);
-			writeThrowsClause(persistentAttribute.getSetterExceptions());
+			writeThrowsClause(copeAttribute.getSetterExceptions());
 			o.write("\t{");
 			o.write(lineSeparator);
-			writeSetterBody(persistentAttribute);
+			writeSetterBody(copeAttribute);
 			o.write("\t}");
 		}
 	}
@@ -493,8 +493,8 @@ final class Generator
 	private void writeUniqueFinder(final CopeUniqueConstraint constraint)
 	throws IOException
 	{
-		final CopeAttribute[] persistentAttributes = constraint.persistentAttributes;
-		final String className = persistentAttributes[0].getParent().name;
+		final CopeAttribute[] copeAttributes = constraint.copeAttributes;
+		final String className = copeAttributes[0].getParent().name;
 		
 		writeCommentHeader();
 		o.write("\t * Finds a ");
@@ -502,12 +502,12 @@ final class Generator
 		o.write(" by it's unique attributes.");
 		o.write(lineSeparator);
 		writeCommentGenerated();
-		for(int i=0; i<persistentAttributes.length; i++)
+		for(int i=0; i<copeAttributes.length; i++)
 		{
 			o.write("\t * @param searched");
-			o.write(persistentAttributes[i].getCamelCaseName());
+			o.write(copeAttributes[i].getCamelCaseName());
 			o.write(" shall be equal to attribute {@link #");
-			o.write(persistentAttributes[i].getName());
+			o.write(copeAttributes[i].getName());
 			o.write("}.");
 			o.write(lineSeparator);
 		}
@@ -520,17 +520,17 @@ final class Generator
 		
 		o.write('(');
 		final Set qualifiers = new HashSet();
-		for(int i=0; i<persistentAttributes.length; i++)
+		for(int i=0; i<copeAttributes.length; i++)
 		{
 			if(i>0)
 				o.write(',');
-			final CopeAttribute persistentAttribute = persistentAttributes[i];
-			if(persistentAttribute.qualifiers != null)
-				qualifiers.addAll(persistentAttribute.qualifiers);
+			final CopeAttribute copeAttribute = copeAttributes[i];
+			if(copeAttribute.qualifiers != null)
+				qualifiers.addAll(copeAttribute.qualifiers);
 			o.write("final ");
-			o.write(persistentAttribute.getBoxedType());
+			o.write(copeAttribute.getBoxedType());
 			o.write(" searched");
-			o.write(persistentAttribute.getCamelCaseName());
+			o.write(copeAttribute.getCamelCaseName());
 		}
 		if(!qualifiers.isEmpty())
 		{
@@ -545,21 +545,21 @@ final class Generator
 		o.write(className);
 		o.write(")TYPE.searchUnique(");
 
-		if(persistentAttributes.length==1)
+		if(copeAttributes.length==1)
 		{
-			o.write(persistentAttributes[0].getName());
+			o.write(copeAttributes[0].getName());
 			o.write(',');
-			writePrefixedAttribute("searched", persistentAttributes[0]);
+			writePrefixedAttribute("searched", copeAttributes[0]);
 		}
 		else
 		{
 			o.write(constraint.name);
 			o.write(",new Object[]{");
-			writePrefixedAttribute("searched", persistentAttributes[0]);
-			for(int i = 1; i<persistentAttributes.length; i++)
+			writePrefixedAttribute("searched", copeAttributes[0]);
+			for(int i = 1; i<copeAttributes.length; i++)
 			{
 				o.write(',');
-				writePrefixedAttribute("searched", persistentAttributes[i]);
+				writePrefixedAttribute("searched", copeAttributes[i]);
 			}
 			o.write('}');
 		}
@@ -640,12 +640,12 @@ final class Generator
 			for(final Iterator i = copeClass.getCopeAttributes().iterator(); i.hasNext(); )
 			{
 				// write setter/getter methods
-				final CopeAttribute persistentAttribute = (CopeAttribute)i.next();
-				//System.out.println("onClassEnd("+jc.getName()+") writing attribute "+persistentAttribute.getName());
-				if(persistentAttribute instanceof CopeMediaAttribute)
-					writeMediaAccessMethods((CopeMediaAttribute)persistentAttribute);
+				final CopeAttribute copeAttribute = (CopeAttribute)i.next();
+				//System.out.println("onClassEnd("+jc.getName()+") writing attribute "+copeAttribute.getName());
+				if(copeAttribute instanceof CopeMediaAttribute)
+					writeMediaAccessMethods((CopeMediaAttribute)copeAttribute);
 				else
-					writeAccessMethods(persistentAttribute);
+					writeAccessMethods(copeAttribute);
 			}
 			for(final Iterator i = copeClass.getUniqueConstraints().iterator(); i.hasNext(); )
 			{

@@ -171,7 +171,7 @@ abstract class CopeAttribute
 	{
 		for( final Iterator i = copeClass.getUniqueConstraints().iterator(); i.hasNext(); )
 		{
-			final CopeAttribute[] uniqueConstraint = ((CopeUniqueConstraint)i.next()).persistentAttributes;
+			final CopeAttribute[] uniqueConstraint = ((CopeUniqueConstraint)i.next()).copeAttributes;
 			for(int j=0; j<uniqueConstraint.length; j++)
 			{
 				if(this == uniqueConstraint[j])
