@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public abstract class ComputedFunction implements Function
+public abstract class ComputedFunction extends TypeComponent implements Function
 {
 	private final Function[] sources;
 	private final List sourceList;
@@ -70,7 +70,7 @@ public abstract class ComputedFunction implements Function
 	private Type type;
 	private String name;
 	
-	final void initialize(final Type type, final String name)
+	public final void initialize(final Type type, final String name)
 	{
 		if(type==null)
 			throw new RuntimeException();

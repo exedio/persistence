@@ -102,59 +102,47 @@ public final class Type
 				if((field.getModifiers()&expectedModifier)==expectedModifier)
 				{
 					final Class fieldType = field.getType();
-					if(Attribute.class.isAssignableFrom(fieldType))
+					if(TypeComponent.class.isAssignableFrom(fieldType))
 					{
 						field.setAccessible(true);
-						final Attribute attribute = (Attribute)field.get(null);
-						if(attribute==null)
+						final TypeComponent component = (TypeComponent)field.get(null);
+						if(component==null)
 							throw new RuntimeException(field.getName());
-						attribute.initialize(this, field.getName());
-						attributesTemp.add(attribute);
-						featuresTemp.add(attribute);
-						featuresByName.put(attribute.getName(), attribute);
-						final UniqueConstraint uniqueConstraint = attribute.getSingleUniqueConstaint();
-						if(uniqueConstraint!=null)
+						if(component.initialized)
+							throw new RuntimeException(field.getName());
+						component.initialized = true;
+						component.initialize(this, field.getName());
+
+						if(Attribute.class.isAssignableFrom(fieldType))
 						{
-							uniqueConstraint.initialize(this, field.getName());
+							final Attribute attribute = (Attribute)component;
+							attributesTemp.add(attribute);
+							featuresTemp.add(attribute);
+							featuresByName.put(attribute.getName(), attribute);
+							final UniqueConstraint uniqueConstraint = attribute.getSingleUniqueConstaint();
+							if(uniqueConstraint!=null)
+							{
+								uniqueConstraint.initialize(this, field.getName());
+								uniqueConstraintsTemp.add(uniqueConstraint);
+							}
+						}
+						else if(ComputedFunction.class.isAssignableFrom(fieldType))
+						{
+							final ComputedFunction function = (ComputedFunction)component;
+							featuresTemp.add(function);
+							featuresByName.put(function.getName(), function);
+						}
+						else if(UniqueConstraint.class.isAssignableFrom(fieldType))
+						{
+							final UniqueConstraint uniqueConstraint = (UniqueConstraint)component;
 							uniqueConstraintsTemp.add(uniqueConstraint);
 						}
-					}
-					else if(ComputedFunction.class.isAssignableFrom(fieldType))
-					{
-						field.setAccessible(true);
-						final ComputedFunction function = (ComputedFunction)field.get(null);
-						if(function==null)
-							throw new RuntimeException(field.getName());
-						function.initialize(this, field.getName());
-						featuresTemp.add(function);
-						featuresByName.put(function.getName(), function);
-					}
-					else if(UniqueConstraint.class.isAssignableFrom(fieldType))
-					{
-						field.setAccessible(true);
-						final UniqueConstraint uniqueConstraint = (UniqueConstraint)field.get(null);
-						if(uniqueConstraint==null)
-							throw new RuntimeException(field.getName());
-						uniqueConstraint.initialize(this, field.getName());
-						uniqueConstraintsTemp.add(uniqueConstraint);
-					}
-					else if(MediaAttributeVariant.class.isAssignableFrom(fieldType))
-					{
-						field.setAccessible(true);
-						final MediaAttributeVariant variant = (MediaAttributeVariant)field.get(null);
-						if(variant==null)
-							throw new RuntimeException(field.getName());
-						variant.initialize(this, field.getName());
-					}
-					else if(Qualifier.class.isAssignableFrom(fieldType))
-					{
-						field.setAccessible(true);
-						final Qualifier qualifier = (Qualifier)field.get(null);
-						if(qualifier==null)
-							throw new RuntimeException(field.getName());
-						qualifier.initialize();
-						qualifier.getQualifyUnique().setQualifier(qualifier);
-						qualifiersTemp.add(qualifier);
+						else if(Qualifier.class.isAssignableFrom(fieldType))
+						{
+							final Qualifier qualifier = (Qualifier)component;
+							qualifier.getQualifyUnique().setQualifier(qualifier);
+							qualifiersTemp.add(qualifier);
+						}
 					}
 				}
 			}

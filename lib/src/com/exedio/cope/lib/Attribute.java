@@ -3,7 +3,7 @@ package com.exedio.cope.lib;
 import java.util.Collections;
 import java.util.List;
 
-public abstract class Attribute implements Feature
+public abstract class Attribute extends TypeComponent implements Feature
 {
 	private final boolean readOnly;
 	private final boolean notNull;
@@ -49,7 +49,7 @@ public abstract class Attribute implements Feature
 	private List columns;
 	private Column mainColumn;
 	
-	final void initialize(final Type type, final String name)
+	public final void initialize(final Type type, final String name)
 	{
 		if(type==null)
 			throw new RuntimeException();

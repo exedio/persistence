@@ -1,7 +1,7 @@
 package com.exedio.cope.lib;
 
 
-public final class MediaAttributeVariant
+public final class MediaAttributeVariant extends TypeComponent
 {
 	final MediaAttribute attribute;
 
@@ -24,7 +24,7 @@ public final class MediaAttributeVariant
 	private Type type;
 	private String name;
 
-	final void initialize(final Type type, final String name)
+	public final void initialize(final Type type, final String name)
 	{
 		if(type==null)
 			throw new RuntimeException();

@@ -17,10 +17,11 @@ import com.exedio.cope.lib.NotNullViolationException;
 import com.exedio.cope.lib.ObjectAttribute;
 import com.exedio.cope.lib.ReadOnlyViolationException;
 import com.exedio.cope.lib.Type;
+import com.exedio.cope.lib.TypeComponent;
 import com.exedio.cope.lib.UniqueConstraint;
 import com.exedio.cope.lib.UniqueViolationException;
 
-public final class Qualifier
+public final class Qualifier extends TypeComponent
 {
 	private final ItemAttribute parent;
 	private final ObjectAttribute[] keys;
@@ -65,7 +66,7 @@ public final class Qualifier
 		return qualifyUnique;
 	}
 	
-	public void initialize()
+	public void initialize(final Type qualifiedType, final String name)
 	{
 		if(this.attributes!=null)
 			throw new RuntimeException();

@@ -11,7 +11,7 @@ import com.exedio.cope.lib.search.AndCondition;
 import com.exedio.cope.lib.search.Condition;
 import com.exedio.cope.lib.search.EqualCondition;
 
-public final class UniqueConstraint
+public final class UniqueConstraint extends TypeComponent
 {
 	
 	private final ObjectAttribute[] uniqueAttributes;
@@ -75,7 +75,7 @@ public final class UniqueConstraint
 		this.qualifier = qualifier;
 	}
 	
-	final void initialize(final Type type, final String name)
+	public final void initialize(final Type type, final String name)
 	{
 		if(type==null)
 			throw new RuntimeException();
