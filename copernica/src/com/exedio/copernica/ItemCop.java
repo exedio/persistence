@@ -17,7 +17,7 @@ final class ItemCop extends CopernicaCop
 		addParameter(ITEM, item.getID());
 	}
 	
-	final  CopernicaCop switchLanguage(final Language newLanguage)
+	final CopernicaCop switchLanguage(final Language newLanguage)
 	{
 		return new ItemCop(newLanguage, item);
 	}
