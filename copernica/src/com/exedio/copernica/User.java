@@ -10,6 +10,7 @@ public interface User
 	/**
 	 * Returns, whether the given password authenticates this user.
 	 */
+	// TODO: rename to checkCopernicaPassword
 	public boolean checkPassword(String actualPassword);
 
 }

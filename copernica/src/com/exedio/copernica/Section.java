@@ -10,6 +10,7 @@ public interface Section extends Component
 	/**
 	 * @return a collection of {@link com.exedio.cope.lib.Attribute attributes}.
 	 */
+	// TODO: rename to getCopernicaAttributes
 	public Collection getAttributes(Type type);
 	
 }
