@@ -197,5 +197,44 @@ public class UniqueItemTest extends DatabaseLibTest
 
 		assertDelete(item);
 	}
+	
+	public void testDoubleUnique()
+		throws ConstraintViolationException
+	{
+		assertEquals(null, ItemWithDoubleUnique.findByStringAndInteger("a", new Integer(1)));
+		
+		final ItemWithDoubleUnique a1 = new ItemWithDoubleUnique("a", 1);
+		assertEquals(a1, ItemWithDoubleUnique.findByStringAndInteger("a", new Integer(1)));
+		
+		final ItemWithDoubleUnique a2 = new ItemWithDoubleUnique("a", 2);
+		assertEquals(a2, ItemWithDoubleUnique.findByStringAndInteger("a", new Integer(2)));
+		
+		final ItemWithDoubleUnique b1 = new ItemWithDoubleUnique("b", 1);
+		assertEquals(b1, ItemWithDoubleUnique.findByStringAndInteger("b", new Integer(1)));
+		
+		final ItemWithDoubleUnique b2 = new ItemWithDoubleUnique("b", 2);
+		assertEquals(b2, ItemWithDoubleUnique.findByStringAndInteger("b", new Integer(2)));
+
+		try
+		{		
+			new ItemWithDoubleUnique("b", 1);
+			fail("should have thrown UniqueViolationException");
+		}
+		catch(UniqueViolationException e)
+		{
+			assertEquals(list(a1.string, a1.integer), e.getConstraint().getUniqueAttributes());
+		}
+		assertEquals(b1, ItemWithDoubleUnique.findByStringAndInteger("b", new Integer(1)));
+		
+		assertDelete(b2);
+		assertDelete(b1);
+
+		final ItemWithDoubleUnique b1X = new ItemWithDoubleUnique("b", 1);
+		assertEquals(b1X, ItemWithDoubleUnique.findByStringAndInteger("b", new Integer(1)));
+
+		assertDelete(a2);
+		assertDelete(a1);
+		assertDelete(b1X);
+	}
 
 }
