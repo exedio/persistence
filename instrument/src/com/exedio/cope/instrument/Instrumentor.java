@@ -92,15 +92,30 @@ public final class Instrumentor implements InjectionConsumer
 		final String methodModifiers = Modifier.toString(persistentAttribute.getMethodModifiers());
 		final String type = "String";
 
-		output.write("/** @"+GENERATED+" */ ");
+		output.write("/** @"+GENERATED);
+		output.write(lineSeparator);
+		output.write("*/");
 		output.write(methodModifiers);
 		output.write(' ');
 		output.write(type);
 		output.write(" get");
 		output.write(persistentAttribute.getCamelCaseName());
 		output.write("(){");
-		output.write('}');
 		output.write(lineSeparator);
+		output.write('}');
+		output.write("/** @"+GENERATED);
+		output.write(lineSeparator);
+		output.write("*/");
+		output.write(methodModifiers);
+		output.write(" void set");
+		output.write(persistentAttribute.getCamelCaseName());
+		output.write('(');
+		output.write(type);
+		output.write(' ');
+		output.write(persistentAttribute.getName());
+		output.write("){");
+		output.write(lineSeparator);
+		output.write('}');
 	}
 	
 	public void onClassEnd(JavaClass jc)
