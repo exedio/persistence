@@ -27,7 +27,7 @@ public abstract class ComputedFunction implements Function
 		this.functionName = functionName;
 	}
 	
-	final List getSourceAttributes()
+	public final List getSources()
 	{
 		return sourceList;
 	}
