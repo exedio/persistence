@@ -1178,7 +1178,7 @@ abstract class Database
 	}
 	
 
-	int[] getNextPK(final Table table)
+	int[] getMinMaxPK(final Table table)
 	{
 		buildStage = false;
 
@@ -1196,7 +1196,7 @@ abstract class Database
 			final NextPKResultSetHandler handler = new NextPKResultSetHandler();
 			executeSQL(bf, handler);
 			//System.err.println("select max("+type.primaryKey.trimmedName+") from "+type.trimmedName+" : "+handler.result);
-			return new int[] {handler.resultLo, handler.resultHi};
+			return handler.result;
 		}
 		catch(ConstraintViolationException e)
 		{
@@ -1206,24 +1206,19 @@ abstract class Database
 	
 	private static class NextPKResultSetHandler implements ResultSetHandler
 	{
-		int resultLo;
-		int resultHi;
+		int[] result;
 
 		public void run(ResultSet resultSet) throws SQLException
 		{
 			if(!resultSet.next())
 				throw new RuntimeException();
 			final Object oLo = resultSet.getObject(1);
-			if(oLo==null)
+			if(oLo!=null)
 			{
-				resultLo = -1;
-				resultHi = 0;
-			}
-			else
-			{
-				resultLo = convertSQLResult(oLo)-1;
+				result = new int[2];
+				result[0] = convertSQLResult(oLo);
 				final Object oHi = resultSet.getObject(2);
-				resultHi = convertSQLResult(oHi)+1;
+				result[1] = convertSQLResult(oHi);
 			}
 		}
 	}

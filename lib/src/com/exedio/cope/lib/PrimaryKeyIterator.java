@@ -30,11 +30,20 @@ final class PrimaryKeyIterator
 		{
 			if(nextPkLo==Type.NOT_A_PK)
 			{
-				final int[] nextPks = table.database.getNextPK(table);
-				if(nextPks.length!=2)
-					throw new RuntimeException(String.valueOf(nextPks.length));
-				nextPkLo = nextPks[0];
-				nextPkHi = nextPks[1];
+				final int[] minMaxPks = table.database.getMinMaxPK(table);
+				if(minMaxPks==null)
+				{
+					nextPkLo = -1;
+					nextPkHi = 0;
+				}
+				else
+				{
+					if(minMaxPks.length!=2)
+						throw new RuntimeException(String.valueOf(minMaxPks.length));
+					nextPkLo = minMaxPks[0]-1;
+					nextPkHi = minMaxPks[1]+1;
+				}
+
 				if(nextPkLo>=nextPkHi)
 					throw new RuntimeException(String.valueOf(nextPkLo)+">="+String.valueOf(nextPkHi));
 				nextIsLo = (-nextPkLo)<=nextPkHi;
