@@ -21,6 +21,13 @@ public class ItemWithManyAttributes extends Item
 	public static final StringAttribute someString = new StringAttribute();
 
 	/**
+	 * The code of the item in upper case.
+	 * @persistent
+	 * @mapped
+	 */
+	public static final StringAttribute someStringUpperCase = new StringAttribute(new UppercaseAttributeMapping(someString));
+
+	/**
 	 * A not-null string attribute.
 	 * @persistent
 	 * @not-null
@@ -160,6 +167,15 @@ public class ItemWithManyAttributes extends Item
 		{
 			throw new com.exedio.cope.lib.SystemException(e);
 		}
+	}/**
+
+	 **
+	 * Returns the value of the persistent attribute {@link #someStringUpperCase}.
+	 * @generated
+	 *
+ */public final String getSomeStringUpperCase()
+	{
+		return (String)getAttribute(this.someStringUpperCase);
 	}/**
 
 	 **
@@ -486,6 +502,7 @@ public class ItemWithManyAttributes extends Item
 			ItemWithManyAttributes.class,
 			new com.exedio.cope.lib.Attribute[]{
 				someString,
+				someStringUpperCase,
 				someNotNullString,
 				someInteger,
 				someNotNullInteger,
@@ -503,6 +520,7 @@ public class ItemWithManyAttributes extends Item
 				public void run()
 				{
 					someString.initialize("someString",false,false);
+					someStringUpperCase.initialize("someStringUpperCase",false,false);
 					someNotNullString.initialize("someNotNullString",false,true);
 					someInteger.initialize("someInteger",false,false);
 					someNotNullInteger.initialize("someNotNullInteger",false,true);

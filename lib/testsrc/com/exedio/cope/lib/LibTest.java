@@ -219,13 +219,18 @@ public class LibTest extends TestCase
 			
 			// someString
 			assertEquals(item.TYPE, item.someString.getType());
+			assertEquals(item.TYPE, item.someStringUpperCase.getType());
 			assertEquals(null, item.getSomeString());
+			assertEquals(null, item.getSomeStringUpperCase());
 			item.setSomeString("someString");
 			assertEquals("someString", item.getSomeString());
+			assertEquals("SOMESTRING", item.getSomeStringUpperCase());
 			item.passivate();
 			assertEquals("someString", item.getSomeString());
+			assertEquals("SOMESTRING", item.getSomeStringUpperCase());
 			item.setSomeString(null);
 			assertEquals(null, item.getSomeString());
+			assertEquals(null, item.getSomeStringUpperCase());
 
 			// someNotNullString
 			assertEquals(item.TYPE, item.someNotNullString.getType());

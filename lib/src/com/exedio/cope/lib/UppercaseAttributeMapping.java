@@ -11,7 +11,7 @@ public final class UppercaseAttributeMapping extends AttributeMapping
 
 	public final Object mapJava(final Object sourceValue)
 	{
-		return ((String)sourceValue).toUpperCase();
+		return sourceValue==null ? null : ((String)sourceValue).toUpperCase();
 	}
 	
 }
