@@ -30,5 +30,8 @@ public class WebTest extends WebTestCase
 		clickLinkWithText("50");
 		assertTitleEquals("Attribute Item");
 		assertLinkNotPresentWithText("50");
+
+		clickLinkWithText("[X]");
+		assertTitleEquals("AttributeItem.103");
 	}
 }
