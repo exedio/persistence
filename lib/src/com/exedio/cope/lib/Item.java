@@ -54,7 +54,7 @@ public class Item extends Search
 	 * Returns a URL pointing to the data of this persistent media attribute.
 	 * Returns null, if there is no data for this attribute.
 	 */
-	protected final String getMediaURL(final MediaAttribute attribute)
+	protected final String getMediaURL(final MediaAttribute attribute, final String variant)
 	{
 		return null;
 	}

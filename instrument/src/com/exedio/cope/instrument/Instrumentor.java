@@ -105,6 +105,11 @@ public final class Instrumentor implements InjectionConsumer
 	private static final String ATTRIBUTE_QUALIFIER = "qualifier";
 	
 	/**
+	 * Tag name for one variant of media attributes.
+	 */
+	private static final String VARIANT_MEDIA_ATTRIBUTE = "variant";
+	
+	/**
 	 * All generated class features get this doccomment tag.
 	 */
 	private static final String GENERATED = "generated";
@@ -354,6 +359,7 @@ public final class Instrumentor implements InjectionConsumer
 	private void writeMediaGetterMethod(final JavaAttribute mediaAttribute,
 													final Class returnType,
 													final String part,
+													final String variant,
 													final String comment)
 	throws IOException
 	{
@@ -374,6 +380,8 @@ public final class Instrumentor implements InjectionConsumer
 		output.write(" get");
 		output.write(mediaAttribute.getCamelCaseName());
 		output.write(part);
+		if(variant!=null)
+			output.write(variant);
 		output.write('(');
 		writeParameterDeclarationList(qualifiers);
 		output.write(')');
@@ -384,6 +392,17 @@ public final class Instrumentor implements InjectionConsumer
 		output.write(part);
 		output.write("(this.");
 		output.write(mediaAttribute.getName());
+		if(variant!=null)
+		{
+			if(variant.length()>0)
+			{
+				output.write(",\"");
+				output.write(variant);
+				output.write('\"');
+			}
+			else
+				output.write(",null");
+		}
 		if(qualifiers!=null)
 		{
 			output.write(",new Object[]{");
@@ -402,13 +421,20 @@ public final class Instrumentor implements InjectionConsumer
 		final List qualifiers = mediaAttribute.getQualifiers();
 
 		// getters
-		writeMediaGetterMethod(mediaAttribute, String.class, "URL",
+		writeMediaGetterMethod(mediaAttribute, String.class, "URL", "",
 										"Returns a URL pointing to the data of the persistent attribute");
-		writeMediaGetterMethod(mediaAttribute, String.class, "MimeMajor",
+		final List mediaVariants = mediaAttribute.getMediaVariants();
+		if(mediaVariants!=null)
+		{
+			for(Iterator i = mediaVariants.iterator(); i.hasNext(); )
+				writeMediaGetterMethod(mediaAttribute, String.class, "URL", (String)i.next(),
+												"Returns a URL pointing to the varied data of the persistent attribute");
+		}
+		writeMediaGetterMethod(mediaAttribute, String.class, "MimeMajor", null,
 										"Returns the major mime type of the persistent media attribute");
-		writeMediaGetterMethod(mediaAttribute, String.class, "MimeMinor",
+		writeMediaGetterMethod(mediaAttribute, String.class, "MimeMinor", null,
 										"Returns the minor mime type of the persistent media attribute");
-		writeMediaGetterMethod(mediaAttribute, InputStream.class, "Data",
+		writeMediaGetterMethod(mediaAttribute, InputStream.class, "Data", null,
 										"Returns a stream for fetching the data of the persistent media attribute");
 		
 		// setters
@@ -792,6 +818,10 @@ public final class Instrumentor implements InjectionConsumer
 				final String qualifier = Injector.findDocTag(docComment, ATTRIBUTE_QUALIFIER);
 				if(qualifier!=null)
 					ja.makeQualified(Collections.singletonList(qualifier));
+
+				final String variant = Injector.findDocTag(docComment, VARIANT_MEDIA_ATTRIBUTE);
+				if(variant!=null)
+					ja.makeMediaVarianted(Collections.singletonList(variant));
 			}
 		}
 		discardnextfeature=false;

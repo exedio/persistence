@@ -36,6 +36,7 @@ public final class JavaAttribute extends JavaFeature
 	private boolean notNull = false;
 	private boolean mapped = false;
 	private List qualifiers = null;
+	private List mediaVariants = null;
 
 	public JavaAttribute(JavaClass parent, int modifiers, String type, String name)
 	throws InjectorParseException
@@ -200,6 +201,11 @@ public final class JavaAttribute extends JavaFeature
 		return qualifiers;
 	}
 	
+	public List getMediaVariants()
+	{
+		return mediaVariants;
+	}
+	
 	/**
 	 * Return a fully qualified name of the attribute,
 	 * including class and package path.
@@ -307,6 +313,18 @@ public final class JavaAttribute extends JavaFeature
 			throw new RuntimeException();
 		this.qualifiers = Collections.unmodifiableList(qualifiers);
 	}
+
+	public final void makeMediaVarianted(final List mediaVariants)
+	{
+		if(mediaVariants==null)
+			throw new NullPointerException();
+		if(this.mediaVariants!=null)
+			throw new RuntimeException();
+		if(!isMediaPersistentType())
+			throw new RuntimeException();
+		this.mediaVariants = Collections.unmodifiableList(mediaVariants);
+	}
+
 
 	private SortedSet setterExceptions = null;
 
