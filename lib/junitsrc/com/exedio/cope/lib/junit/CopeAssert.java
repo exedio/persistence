@@ -2,18 +2,20 @@
 package com.exedio.cope.lib.junit;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
+import junit.framework.TestCase;
+
 import com.exedio.cope.lib.Item;
 import com.exedio.cope.lib.NestingRuntimeException;
-
-import junit.framework.TestCase;
 
 public class CopeAssert extends TestCase
 {
@@ -165,6 +167,20 @@ public class CopeAssert extends TestCase
 			}
 			catch(UnsupportedOperationException e) {}
 		}
+	}
+	
+	private static final String DATE_FORMAT_FULL = "dd.MM.yyyy HH:mm:ss.SSS";
+	
+	protected final static void assertWithin(final Date expectedBefore, final Date expectedAfter, final Date actual)
+	{
+		final SimpleDateFormat df = new SimpleDateFormat(DATE_FORMAT_FULL);
+		final String message =
+			"expected date within " + df.format(expectedBefore) +
+			" and " + df.format(expectedAfter) +
+			", but was " + df.format(actual);
+
+		assertTrue(message, !expectedBefore.after(actual));
+		assertTrue(message, !expectedAfter.before(actual));
 	}
 	
 	protected final static Object waitForKey(final Object o)
