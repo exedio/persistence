@@ -237,7 +237,7 @@ public abstract class Database
 	{
 		buildStage = false;
 		
-		final Report result = new Report();
+		final Report report = new Report();
 
 		final Statement bf = createStatement();
 		bf.append("select TABLE_NAME, CONSTRAINT_NAME, CONSTRAINT_TYPE  from user_constraints order by table_name").
@@ -247,14 +247,21 @@ public abstract class Database
 		
 		try
 		{
-			executeSQL(bf, new ReportConstraintHandler(result));
+			executeSQL(bf, new ReportConstraintHandler(report));
 		}
 		catch(ConstraintViolationException e)
 		{
 			throw new SystemException(e);
 		}
 
-		return result;
+		for(Iterator i = tables.iterator(); i.hasNext(); )
+		{
+			final Table table = (Table)i.next();
+			final Report.Table reportTable = report.notifyRequiredTable(table.id);
+			//System.out.println("REQUIRED:"+table.id);
+		}
+
+		return report;
 	}
 
 	private static class ReportConstraintHandler implements ResultSetHandler
@@ -275,6 +282,7 @@ public abstract class Database
 				final String constraintType = resultSet.getString(3);
 				final Report.Table table = report.notifyExistentTable(tableName);
 				final Report.Constraint constraint = table.notifyExistentConstraint(constraintName);
+				//System.out.println("EXISTS:"+tableName);
 			}
 		}
 	}

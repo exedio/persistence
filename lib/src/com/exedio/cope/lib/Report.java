@@ -10,6 +10,8 @@ public final class Report
 	public class Table
 	{
 		public final String name;
+		private boolean required = false;
+		private boolean exists = false;
 		private final HashMap constraints = new HashMap();
 
 		private Table(final String name)
@@ -32,6 +34,16 @@ public final class Report
 		{
 			return constraints.values();
 		}
+		
+		public final boolean isMissing()
+		{
+			return !exists;
+		}
+		
+		public final boolean isUnused()
+		{
+			return !required;
+		}
 	}
 	
 	public class Constraint
@@ -46,6 +58,18 @@ public final class Report
 		}
 	}
 
+	final Table notifyRequiredTable(final String tableName)
+	{
+		Table result = (Table)tables.get(tableName);
+		if(result==null)
+		{
+			result = new Table(tableName);
+			tables.put(tableName, result);
+		}
+		result.required = true;
+		return result;
+	}
+	
 	final Table notifyExistentTable(final String tableName)
 	{
 		Table result = (Table)tables.get(tableName);
@@ -54,6 +78,7 @@ public final class Report
 			result = new Table(tableName);
 			tables.put(tableName, result);
 		}
+		result.exists = true;
 		return result;
 	}
 	
