@@ -183,7 +183,8 @@ public final class Instrumentor implements InjectionConsumer
 				else
 					throw new RuntimeException();
 
-				((JavaAttribute)jf).makePersistent(persistentType);
+				final JavaAttribute ja = (JavaAttribute)jf;
+				ja.makePersistent(persistentType);
 			}
 		}
 		discardnextfeature=false;
