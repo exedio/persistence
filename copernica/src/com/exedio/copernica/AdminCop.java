@@ -16,7 +16,12 @@ final class AdminCop extends Cop
 	final boolean showDropBoxes;
 	final boolean showRenameFields;
 
-	AdminCop(final boolean report, final String reportTable, final boolean showDropBoxes, final boolean showRenameFields)
+	AdminCop()
+	{
+		this(false, null, false, false);
+	}
+
+	private AdminCop(final boolean report, final String reportTable, final boolean showDropBoxes, final boolean showRenameFields)
 	{
 		super("admin.jsp");
 		this.report = report;

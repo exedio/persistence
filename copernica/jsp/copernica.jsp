@@ -48,7 +48,7 @@ include file="provider.inc"
 	catch(NestingRuntimeException e)
 	{
 		%><b>Database not initialized.</b><br>
-		<a href="admin.jsp">Administration</a>
+		<a href="<%=new AdminCop()%>">Administration</a>
 		<hr>
 		<pre><%e.printStackTrace(new PrintWriter(out));%></pre><%
 	}
