@@ -1,6 +1,7 @@
 
 package com.exedio.cope.lib;
 
+import java.sql.SQLException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -9,9 +10,16 @@ public final class ItemAttribute extends Attribute
 {
 	private static final HashMap itemAttributesByIntegrityConstraintName = new HashMap();
 	
-	static final ItemAttribute getItemAttributeByIntegrityConstraintName(final String integrityConstraintName)
+	static final ItemAttribute getItemAttributeByIntegrityConstraintName(final String integrityConstraintName, final SQLException e)
 	{
-		return (ItemAttribute)itemAttributesByIntegrityConstraintName.get(integrityConstraintName);
+		final ItemAttribute result =
+			(ItemAttribute)itemAttributesByIntegrityConstraintName.get(integrityConstraintName);
+
+		if(result==null)
+			throw new SystemException(e, "no item attribute found for >"+integrityConstraintName
+																	+"<, has only "+itemAttributesByIntegrityConstraintName.keySet());
+
+		return result;
 	}
 	
 

@@ -640,9 +640,7 @@ public abstract class Database
 			final String uniqueConstraintName = extractUniqueConstraintName(e);
 			if(uniqueConstraintName!=null)
 			{
-				final UniqueConstraint constraint = UniqueConstraint.getUniqueConstraint(uniqueConstraintName);
-				if(constraint==null)
-					throw new SystemException(e, "no unique constraint found for >"+uniqueConstraintName+"<");
+				final UniqueConstraint constraint = UniqueConstraint.getUniqueConstraint(uniqueConstraintName, e);
 				return new UniqueViolationException(e, null, constraint);
 			}
 		}
@@ -650,9 +648,7 @@ public abstract class Database
 			final String integrityConstraintName = extractIntegrityConstraintName(e);
 			if(integrityConstraintName!=null)
 			{
-				final ItemAttribute attribute = ItemAttribute.getItemAttributeByIntegrityConstraintName(integrityConstraintName);
-				if(attribute==null)
-					throw new SystemException(e, "no item attribute found for >"+integrityConstraintName+"<");
+				final ItemAttribute attribute = ItemAttribute.getItemAttributeByIntegrityConstraintName(integrityConstraintName, e);
 				return new IntegrityViolationException(e, null, attribute);
 			}
 		}

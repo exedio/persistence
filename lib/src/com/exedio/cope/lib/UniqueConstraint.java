@@ -1,6 +1,7 @@
 
 package com.exedio.cope.lib;
 
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -10,10 +11,17 @@ public final class UniqueConstraint
 {
 	private static final HashMap uniqueConstraintsByName = new HashMap();
 	
-	static final UniqueConstraint getUniqueConstraint(final String name)
+	static final UniqueConstraint getUniqueConstraint(final String name, final SQLException e)
 	{
 		//System.out.println("UniqueConstraint.getUniqueConstraint:"+name);
-		return (UniqueConstraint)uniqueConstraintsByName.get(name);
+		final UniqueConstraint result =
+			(UniqueConstraint)uniqueConstraintsByName.get(name);
+
+		if(result==null)
+			throw new SystemException(e, "no unique constraint found for >"+name
+																	+"<, has only "+uniqueConstraintsByName.keySet());
+
+		return result;
 	}
 	
 	
