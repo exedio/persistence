@@ -53,7 +53,7 @@ include file="provider.inc"
 		return;
 	}
 
-	final User user = Util.checkAccess(provider, request.getHeader("Authorization"));
+	final CopernicaUser user = Util.checkAccess(provider, request.getHeader("Authorization"));
 	if(user==null)
 	{
 		response.addHeader("WWW-Authenticate", "Basic realm=\"Copernica\"");

@@ -30,7 +30,7 @@ final class Util
 	
 	private static final String BASIC = "Basic ";
 	
-	static final User checkAccess(final CopernicaProvider provider, final String authorization)
+	static final CopernicaUser checkAccess(final CopernicaProvider provider, final String authorization)
 	{
 		//System.out.println("authorization:"+authorization);
 		if(authorization==null || !authorization.startsWith(BASIC))
@@ -51,7 +51,7 @@ final class Util
 		//System.out.println("userid:"+userid);
 		//System.out.println("password:"+password);
 
-		final User user = provider.findUserByID(userid);
+		final CopernicaUser user = provider.findUserByID(userid);
 		//System.out.println("user:"+user);
 		if(user==null)
 			return null;

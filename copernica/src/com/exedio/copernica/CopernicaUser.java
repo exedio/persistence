@@ -1,6 +1,6 @@
 package com.exedio.copernica;
 
-public interface User
+public interface CopernicaUser
 {
 	/**
 	 * Returns the name of this user to be displayed in the web application.

@@ -52,7 +52,7 @@ public interface CopernicaProvider
 
 	public Language findLanguageByID(String copernicaID);
 	
-	public User findUserByID(String copernicaID);
+	public CopernicaUser findUserByID(String copernicaID);
 
 	public CopernicaCategory findCategoryByID(String copernicaID);
 	

@@ -60,7 +60,7 @@ public abstract class TransientCopernicaProvider implements CopernicaProvider
 		transientUsers = result;
 	}
 
-	public User findUserByID(String copernicaID)
+	public CopernicaUser findUserByID(String copernicaID)
 	{
 		return
 			transientUsers == null
