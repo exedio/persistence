@@ -350,7 +350,7 @@ public class Item extends Search
 	 * Activates this item.
 	 * After this method, {link #row} is guaranteed to be not null.
 	 */
-	protected final Row getRow()
+	private final Row getRow()
 	{
 		if(rowWhenActive!=null)
 		{
