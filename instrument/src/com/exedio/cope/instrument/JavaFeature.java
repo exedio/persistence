@@ -1,8 +1,7 @@
 
 package com.exedio.cope.instrument;
 
-import java.io.*;
-import java.util.*;
+import java.io.PrintStream;
 import java.lang.reflect.Modifier;
 
 /**

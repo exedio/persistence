@@ -1,6 +1,5 @@
 package com.exedio.cope.lib;
 
-import com.exedio.cope.lib.Database;
 import java.util.Collections;
 import java.util.List;
 

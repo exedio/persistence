@@ -1,9 +1,7 @@
 package com.exedio.cope.lib;
 
-import com.exedio.cope.lib.Database;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
 
 abstract class Column
 {

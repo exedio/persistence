@@ -5,11 +5,21 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Writer;
-import java.util.*;
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.StringTokenizer;
+import java.util.TreeSet;
+
 import com.exedio.cope.lib.Attribute;
 import com.exedio.cope.lib.AttributeValue;
-import com.exedio.cope.lib.ConstraintViolationException;
 import com.exedio.cope.lib.EnumerationValue;
 import com.exedio.cope.lib.NotNullViolationException;
 import com.exedio.cope.lib.ReadOnlyViolationException;
@@ -17,7 +27,6 @@ import com.exedio.cope.lib.SystemException;
 import com.exedio.cope.lib.Type;
 import com.exedio.cope.lib.UniqueConstraint;
 import com.exedio.cope.lib.UniqueViolationException;
-import com.exedio.cope.lib.util.ClassComparator;
 import com.exedio.cope.lib.util.ReactivationConstructorDummy;
 
 public final class Instrumentor implements InjectionConsumer

@@ -4,13 +4,13 @@ package com.exedio.cope.instrument;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeMap;
 import java.util.TreeSet;
+
 import com.exedio.cope.lib.ReadOnlyViolationException;
 import com.exedio.cope.lib.util.ClassComparator;
 

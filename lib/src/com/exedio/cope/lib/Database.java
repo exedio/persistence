@@ -1,20 +1,6 @@
 
 package com.exedio.cope.lib;
 
-import com.exedio.cope.lib.Attribute;
-import com.exedio.cope.lib.AttributeMapping;
-import com.exedio.cope.lib.BooleanAttribute;
-import com.exedio.cope.lib.EnumerationAttribute;
-import com.exedio.cope.lib.EnumerationValue;
-import com.exedio.cope.lib.IntegerAttribute;
-import com.exedio.cope.lib.Item;
-import com.exedio.cope.lib.ItemAttribute;
-import com.exedio.cope.lib.MediaAttribute;
-import com.exedio.cope.lib.StringAttribute;
-import com.exedio.cope.lib.SystemException;
-import com.exedio.cope.lib.Type;
-import com.exedio.cope.lib.database.OracleDatabase;
-import com.exedio.cope.lib.search.Condition;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -22,12 +8,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
-import java.util.Map;
+
+import com.exedio.cope.lib.database.OracleDatabase;
+import com.exedio.cope.lib.search.Condition;
 
 public abstract class Database
 {

@@ -1,13 +1,6 @@
 
 package com.exedio.cope.lib;
 
-import com.exedio.cope.lib.Attribute;
-import com.exedio.cope.lib.IntegerAttribute;
-import com.exedio.cope.lib.Item;
-import com.exedio.cope.lib.ItemAttribute;
-import com.exedio.cope.lib.MediaAttribute;
-import com.exedio.cope.lib.StringAttribute;
-
 /**
  * An item not having any attribute.
  * @persistent

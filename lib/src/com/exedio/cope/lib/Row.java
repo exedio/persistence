@@ -1,13 +1,7 @@
 
 package com.exedio.cope.lib;
 
-import com.exedio.cope.lib.Database;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 
 final class Row
 {

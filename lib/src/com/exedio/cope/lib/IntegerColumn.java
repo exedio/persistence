@@ -1,10 +1,8 @@
 package com.exedio.cope.lib;
 
-import com.exedio.cope.lib.Database;
 import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
 
 final class IntegerColumn extends Column
 {
