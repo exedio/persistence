@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<project name="cope" default="compile" basedir=".">
+<project name="cope" default="all" basedir=".">
 
 	<target name="properties">
 		<property file="../local.properties" />
@@ -282,5 +282,7 @@
 	</target>
 
 	<target name="api" depends="lib.api, instrument.api, copernica.api" />
+	
+	<target name="all" depends="compile, test, jar, api" />
 
 </project>
