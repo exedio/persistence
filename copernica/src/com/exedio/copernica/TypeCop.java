@@ -3,7 +3,7 @@ package com.exedio.copernica;
 import java.util.Collection;
 import java.util.Map;
 
-import com.exedio.cope.lib.ObjectAttribute;
+import com.exedio.cope.lib.Function;
 import com.exedio.cope.lib.Query;
 import com.exedio.cope.lib.Search;
 import com.exedio.cope.lib.Type;
@@ -11,7 +11,7 @@ import com.exedio.cope.lib.Type;
 final class TypeCop extends CopernicaCop
 {
 	final Type type;
-	final ObjectAttribute orderAttribute;
+	final Function orderAttribute; // TODO: rename to orderBy
 	final int start;
 	final int count;
 
@@ -21,7 +21,7 @@ final class TypeCop extends CopernicaCop
 	}
 	
 	TypeCop(final Language language, final Type type,
-					final ObjectAttribute orderAttribute,
+					final Function orderAttribute,  // TODO: rename to orderBy
 					final int start, final int count)
 	{
 		super(language);
@@ -72,7 +72,7 @@ final class TypeCop extends CopernicaCop
 		return new TypeCop(language, type, orderAttribute, start, newCount);
 	}
 	
-	final TypeCop orderBy(final ObjectAttribute newOrderAttribute)
+	final TypeCop orderBy(final Function newOrderAttribute) // TODO: rename to orderBy
 	{
 		return new TypeCop(language, type, newOrderAttribute, start, count);
 	}
@@ -96,7 +96,7 @@ final class TypeCop extends CopernicaCop
 			throw new RuntimeException("type "+typeID+" not available");
 
 		final String orderID = getParameter(parameterMap, ORDER);
-		final ObjectAttribute orderAttribute = (orderID==null) ? null : (ObjectAttribute)type.getFeature(orderID);
+		final Function orderAttribute = (orderID==null) ? null : (Function)type.getFeature(orderID);
 
 		final String startString = getParameter(parameterMap, START);
 		final String countString = getParameter(parameterMap, COUNT);

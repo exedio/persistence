@@ -210,7 +210,16 @@ public abstract class DatabaseLibTest extends AbstractLibTest
 			new MediaItem();
 			
 			new SumItem(1, 2, 3);
-			new SumItem(4, 5, 6);
+			new SumItem(4, 5, 4);
+			new SumItem(9, 2, 6);
+			new SumItem(2, 8, 1);
+			new SumItem(5, 6, 7);
+			new SumItem(3, 5, 9);
+			new SumItem(6, 4, 0);
+			new SumItem(8, 1, 2);
+			new SumItem(2, 9, 7);
+			new SumItem(5, 2, 0);
+			new SumItem(6, 7, 6);
 
 			{
 				final PointerItem2 item2a = new PointerItem2("hallo");
