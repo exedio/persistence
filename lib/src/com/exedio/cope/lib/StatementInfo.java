@@ -1,0 +1,40 @@
+
+package com.exedio.cope.lib;
+
+import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.Iterator;
+
+class StatementInfo
+{
+	final ArrayList childs = new ArrayList();
+	final int id;
+	final String text;
+	
+	StatementInfo(final int id, final String text)
+	{
+		this.id = id;
+		this.text = text;
+	}
+	
+	void addChild(final StatementInfo newChild)
+	{
+		childs.add(newChild);
+	}
+	
+	void print(final PrintStream o)
+	{
+		printInternal(o, 0);
+	}
+
+	void printInternal(final PrintStream o, int level)
+	{
+		for(int i=0; i<level; i++)
+			o.print("  ");
+		o.println(text);
+		level++;
+		for(Iterator i = childs.iterator(); i.hasNext(); )
+			((StatementInfo)i.next()).printInternal(o, level);
+	}
+
+}

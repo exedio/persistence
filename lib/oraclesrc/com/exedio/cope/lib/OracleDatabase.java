@@ -1,13 +1,16 @@
 package com.exedio.cope.lib;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 import oracle.jdbc.OracleStatement;
 import oracle.jdbc.driver.OracleDriver;
+import bak.pcj.map.IntKeyChainedHashMap;
 
 final class OracleDatabase
 		extends Database
@@ -280,5 +283,151 @@ final class OracleDatabase
 			append(newColumnType);
 		return bf;
 	}
+	
+	private static final Random statementIDCounter = new Random();
+	private static final String STATEMENT_ID = "STATEMENT_ID";
 
+	protected StatementInfo makeStatementInfo(final Statement statement, final Connection connection)
+	{
+		if(true)
+			return null;
+
+		final String statementText = statement.getText();
+		if(statementText.startsWith("alter table "))
+			return null;
+		
+		final int statementID;
+		synchronized(statementIDCounter)
+		{
+			statementID = statementIDCounter.nextInt();
+		}
+		
+		StatementInfo root = null;
+		{
+			final Statement explainStatement = createStatement();
+			explainStatement.
+				append("explain plan set "+STATEMENT_ID+"='cope").
+				append(statementID).
+				append("' for ").
+				append(statementText);
+			java.sql.Statement sqlExplainStatement = null;
+			try
+			{
+				sqlExplainStatement = connection.createStatement();
+				sqlExplainStatement.executeUpdate(explainStatement.getText());
+			}
+			catch(SQLException e)
+			{
+				throw new NestingRuntimeException(e, explainStatement.toString());
+			}
+			finally
+			{
+				if(sqlExplainStatement!=null)
+				{
+					try
+					{
+						sqlExplainStatement.close();
+					}
+					catch(SQLException e)
+					{
+						// exception is already thrown
+					}
+				}
+			}
+		}
+		{
+			final Statement fetchStatement = createStatement();
+			fetchStatement.
+				append(
+						"select OPERATION,OPTIONS,OBJECT_NAME,ID,PARENT_ID " +
+						"from plan_table " +
+						"where "+STATEMENT_ID+"='cope").
+				defineColumnString().
+				defineColumnString().
+				defineColumnString().
+				defineColumnInteger().
+				defineColumnInteger().
+				append(statementID).
+				append("' order by ID");
+			java.sql.Statement sqlFetchStatement = null;
+			ResultSet sqlFetchResultSet = null;
+			try
+			{
+				sqlFetchStatement = connection.createStatement();
+				defineColumnTypes(fetchStatement.columnTypes, sqlFetchStatement);
+				sqlFetchResultSet = sqlFetchStatement.executeQuery(fetchStatement.getText());
+				final IntKeyChainedHashMap infos = new IntKeyChainedHashMap();
+				while(sqlFetchResultSet.next())
+				{
+					int columnIndex = 1;
+					final String operation = sqlFetchResultSet.getString(columnIndex++);
+					final String options = sqlFetchResultSet.getString(columnIndex++);
+					final String objectName = sqlFetchResultSet.getString(columnIndex++);
+					final int id = sqlFetchResultSet.getInt(columnIndex++);
+					final Integer parentID = (Integer)sqlFetchResultSet.getObject(columnIndex++);
+					
+					String text = operation;
+					if(options!=null)
+						text+=" ("+options+')';
+					if(objectName!=null)
+						text+=" on "+objectName;
+
+					final StatementInfo info = new StatementInfo(id, text);
+					if(parentID==null)
+					{
+						if(root!=null)
+							throw new RuntimeException(String.valueOf(id));
+						root = info;
+					}
+					else
+					{
+						final StatementInfo parent = (StatementInfo)infos.get(parentID.intValue());
+						if(parent==null)
+							throw new RuntimeException();
+						parent.addChild(info);
+					}
+					infos.put(id, info);
+					
+				}
+			}
+			catch(SQLException e)
+			{
+				throw new NestingRuntimeException(e, fetchStatement.toString());
+			}
+			finally
+			{
+				if(sqlFetchResultSet!=null)
+				{
+					try
+					{
+						sqlFetchResultSet.close();
+					}
+					catch(SQLException e)
+					{
+						// exception is already thrown
+					}
+				}
+				if(sqlFetchStatement!=null)
+				{
+					try
+					{
+						sqlFetchStatement.close();
+					}
+					catch(SQLException e)
+					{
+						// exception is already thrown
+					}
+				}
+			}
+		}
+		if(root==null)
+			throw new RuntimeException();
+		
+		System.out.println("######################");
+		System.out.println(statement.getText());
+		root.print(System.out);
+		System.out.println("######################");
+		return root;
+	}
+	
 }

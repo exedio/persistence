@@ -800,6 +800,18 @@ abstract class Database
 					resultSetHandler.run(resultSet);
 				}
 			}
+			if(resultSet!=null)
+			{
+				resultSet.close();
+				resultSet = null;
+			}
+			if(sqlStatement!=null)
+			{
+				sqlStatement.close();
+				sqlStatement = null;
+			}
+			
+			makeStatementInfo(statement, connection);
 		}
 		catch(SQLException e)
 		{
@@ -845,6 +857,11 @@ abstract class Database
 				}
 			}
 		}
+	}
+	
+	protected StatementInfo makeStatementInfo(final Statement statement, final Connection connection)
+	{
+		return null;
 	}
 	
 	protected abstract String extractUniqueConstraintName(SQLException e);
