@@ -61,8 +61,16 @@ public final class Type
 			this.attributeList = Collections.EMPTY_LIST;
 		}
 
-		this.uniqueConstraints = uniqueConstraints;
-		this.uniqueConstraintList = Collections.unmodifiableList(Arrays.asList(uniqueConstraints));
+		if(uniqueConstraints!=null)
+		{
+			this.uniqueConstraints = uniqueConstraints;
+			this.uniqueConstraintList = Collections.unmodifiableList(Arrays.asList(uniqueConstraints));
+		}
+		else
+		{
+			this.uniqueConstraints = new UniqueConstraint[]{};
+			this.uniqueConstraintList = Collections.EMPTY_LIST;
+		}
 		
 		typesModifyable.add(this);
 		typesByName.put(javaClass.getName(), this);

@@ -37,7 +37,6 @@ public class ItemWithoutAttributes extends Item
 		new com.exedio.cope.lib.Type(
 			ItemWithoutAttributes.class,
 			null,
-			new com.exedio.cope.lib.UniqueConstraint[]{
-			}
+			null
 		)
 ;}

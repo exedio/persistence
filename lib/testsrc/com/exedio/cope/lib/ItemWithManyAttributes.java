@@ -550,7 +550,6 @@ public class ItemWithManyAttributes extends Item
 				someMedia.initialize("someMedia",false,false),
 				someQualifiedString.initialize("someQualifiedString",false,false),
 			},
-			new com.exedio.cope.lib.UniqueConstraint[]{
-			}
+			null
 		)
 ;}

@@ -858,32 +858,40 @@ public final class Instrumentor implements InjectionConsumer
 		output.write(lineSeparator);
 		
 		// the unique contraints of the class
-		output.write("\t\t\tnew "+UniqueConstraint.class.getName()+"[]{");
-		output.write(lineSeparator);
-		for(Iterator i = javaClass.getUniqueConstraints().iterator(); i.hasNext(); )
+		final List uniqueConstraints = javaClass.getUniqueConstraints();
+		if(!uniqueConstraints.isEmpty())
 		{
-			final JavaAttribute[] uniqueConstraint = (JavaAttribute[])i.next();
-			if(uniqueConstraint.length==1)
-			{
-				// shorter notation, if unique contraint does not cover multive attributes
-				output.write("\t\t\t\tnew "+UniqueConstraint.class.getName()+'(');
-				output.write(uniqueConstraint[0].getName());
-				output.write("),");
-			}
-			else
-			{
-				// longer notation otherwise
-				output.write("\t\t\t\tnew "+UniqueConstraint.class.getName()+"(new "+Attribute.class.getName()+"[]{");
-				for(int j = 0; j<uniqueConstraint.length; j++)
-				{
-					output.write(uniqueConstraint[j].getName());
-					output.write(',');
-				}
-				output.write("}),");
-			}
+			output.write("\t\t\tnew "+UniqueConstraint.class.getName()+"[]{");
 			output.write(lineSeparator);
+			for(Iterator i = uniqueConstraints.iterator(); i.hasNext(); )
+			{
+				final JavaAttribute[] uniqueConstraint = (JavaAttribute[])i.next();
+				if(uniqueConstraint.length==1)
+				{
+					// shorter notation, if unique contraint does not cover multive attributes
+					output.write("\t\t\t\tnew "+UniqueConstraint.class.getName()+'(');
+					output.write(uniqueConstraint[0].getName());
+					output.write("),");
+				}
+				else
+				{
+					// longer notation otherwise
+					output.write("\t\t\t\tnew "+UniqueConstraint.class.getName()+"(new "+Attribute.class.getName()+"[]{");
+					for(int j = 0; j<uniqueConstraint.length; j++)
+					{
+						output.write(uniqueConstraint[j].getName());
+						output.write(',');
+					}
+					output.write("}),");
+				}
+				output.write(lineSeparator);
+			}
+			output.write("\t\t\t}");
 		}
-		output.write("\t\t\t}");
+		else
+		{
+			output.write("\t\t\tnull");
+		}
 		output.write(lineSeparator);
 
 		// close the constructor of Type
