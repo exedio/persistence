@@ -44,7 +44,12 @@ public abstract class AbstractLibTest extends TestCase
 		CollisionItem2.TYPE,
 	};
 
-	public static final Model model = new Model(modelTypes, new Properties());
+	public static final Model model = new Model(modelTypes);
+	
+	static
+	{
+		model.setProperties(new Properties());
+	}
 
 	public AbstractLibTest()
 	{}

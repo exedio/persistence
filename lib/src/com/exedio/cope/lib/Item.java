@@ -400,7 +400,7 @@ public abstract class Item extends Search
 	
 	private final File getMediaFile(final MediaAttribute attribute)
 	{
-		final File directory = getType().getModel().properties.getMediaDirectory();
+		final File directory = getType().getModel().getProperties().getMediaDirectory();
 		final StringBuffer buf = new StringBuffer();
 		appendMediaPath(attribute, null, buf);
 		return new File(directory, buf.toString());
@@ -432,7 +432,7 @@ public abstract class Item extends Search
 		if(isNull(attribute))
 			return null;
 
-		final StringBuffer bf = new StringBuffer(getType().getModel().properties.getMediaUrl());
+		final StringBuffer bf = new StringBuffer(getType().getModel().getProperties().getMediaUrl());
 		appendMediaPath(attribute, variant, bf);
 		return bf.toString();
 	}
@@ -574,7 +574,7 @@ public abstract class Item extends Search
 		{
 			if(type.getRow(pk)!=rowWhenActive)
 				throw new RuntimeException();
-			type.getModel().database.delete(type, pk);
+			type.getModel().getDatabase().delete(type, pk);
 			rowWhenActive.close();
 			rowWhenActive = null;
 		}
@@ -583,7 +583,7 @@ public abstract class Item extends Search
 			final Row row = type.getRow(pk);
 			if(row==null)
 			{
-				type.getModel().database.delete(type, pk);
+				type.getModel().getDatabase().delete(type, pk);
 			}
 			else
 			{
@@ -634,7 +634,7 @@ public abstract class Item extends Search
 			if(row==null)
 			{
 				rowWhenActive = new Row(this, true);
-				type.getModel().database.load(rowWhenActive);
+				type.getModel().getDatabase().load(rowWhenActive);
 				return rowWhenActive;
 			}
 			else

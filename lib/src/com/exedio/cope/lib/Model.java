@@ -16,20 +16,39 @@ public final class Model
 	private final Type[] types;
 	private final List typeList;
 	private final HashMap typesByID = new HashMap();
-	final Properties properties;
-	final Database database;
 	
-	public Model(final Type[] types, final Properties properties)
+	public Model(final Type[] types)
 	{
 		this.types = types;
 		this.typeList = Collections.unmodifiableList(Arrays.asList(types));
-		this.properties = properties;
-		database = createDatabaseInstance();
 
 		for(int i = 0; i<types.length; i++)
 		{
 			final Type type = types[i];
 			type.initialize(this);
+		}
+	}
+	
+	private Properties properties;
+	private Database database;
+
+	public final void setProperties(final Properties properties)
+	{
+		if(properties==null)
+			throw new NullPointerException();
+
+		if(this.properties!=null)
+			throw new RuntimeException();
+		if(this.database!=null)
+			throw new RuntimeException();
+
+		this.properties = properties;
+		this.database = createDatabaseInstance();
+
+		for(int i = 0; i<types.length; i++)
+		{
+			final Type type = types[i];
+			type.materialize(database);
 			typesByID.put(type.getID(), type);
 		}
 	}
@@ -100,12 +119,26 @@ public final class Model
 	
 	public final Type findTypeByID(final String id)
 	{
+		if(this.properties==null)
+			throw new RuntimeException();
+
 		return (Type)typesByID.get(id);
 	}
 	
 	public final Properties getProperties()
 	{
+		if(properties==null)
+			throw new RuntimeException();
+
 		return properties;
+	}
+	
+	final Database getDatabase()
+	{
+		if(database==null)
+			throw new RuntimeException();
+
+		return database;
 	}
 	
 	public void createDatabase()

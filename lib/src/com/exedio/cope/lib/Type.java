@@ -181,7 +181,7 @@ public final class Type
 		}
 	}
 	
-	public final void initialize(final Model model)
+	final void initialize(final Model model)
 	{
 		if(model==null)
 			throw new RuntimeException();
@@ -196,7 +196,23 @@ public final class Type
 			throw new RuntimeException();
 		
 		this.model = model;
-		final Database database = model.database;
+	}
+	
+	final void materialize(final Database database)
+	{
+		if(database==null)
+			throw new RuntimeException();
+
+		if(this.model==null)
+			throw new RuntimeException();
+		if(this.id!=null)
+			throw new RuntimeException();
+		if(this.table!=null)
+			throw new RuntimeException();
+		if(this.primaryKeyIterator!=null)
+			throw new RuntimeException();
+
+		// TODO: seperate id and table name and initialize id in the constructor
 		this.id = database.trimName(this);
 		this.table = new Table(database, id);
 
@@ -217,7 +233,7 @@ public final class Type
 			uniqueConstraints[i].materialize(database);
 		this.table.setUniqueConstraints(this.uniqueConstraintList);
 	}
-	
+
 	public final Class getJavaClass()
 	{
 		return javaClass;

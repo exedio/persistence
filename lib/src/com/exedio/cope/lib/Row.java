@@ -89,7 +89,7 @@ final class Row
 		if(!dirty)
 			return;
 		
-		type.getModel().database.store(this);
+		type.getModel().getDatabase().store(this);
 
 		present = true;
 		dirty = false;
