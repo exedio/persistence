@@ -830,15 +830,15 @@ public abstract class Database
 	abstract String getStringType(int maxLength);
 	abstract String getDateTimestampType();
 	
-	private void createTable(final Table type) // TODO: rename to table
+	private void createTable(final Table table)
 	{
 		final Statement bf = createStatement();
 		bf.append("create table ").
-			append(type.protectedID).
+			append(table.protectedID).
 			append('(');
 
 		boolean firstColumn = true;
-		for(Iterator i = type.getAllColumns().iterator(); i.hasNext(); )
+		for(Iterator i = table.getAllColumns().iterator(); i.hasNext(); )
 		{
 			if(firstColumn)
 				firstColumn = false;
@@ -862,7 +862,7 @@ public abstract class Database
 		}
 		
 		// attribute constraints		
-		for(Iterator i = type.getColumns().iterator(); i.hasNext(); )
+		for(Iterator i = table.getColumns().iterator(); i.hasNext(); )
 		{
 			final Column column = (Column)i.next();
 
@@ -935,7 +935,7 @@ public abstract class Database
 			}
 		}
 
-		for(Iterator i = type.getUniqueConstraints().iterator(); i.hasNext(); )
+		for(Iterator i = table.getUniqueConstraints().iterator(); i.hasNext(); )
 		{
 			final UniqueConstraint uniqueConstraint = (UniqueConstraint)i.next();
 			bf.append(",constraint ").

@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 abstract class Column
 {
-	final Table type; // TODO: rename to table
+	final Table table;
 	final String id;
 	final String protectedID;
 	final boolean primaryKey;
@@ -14,18 +14,18 @@ abstract class Column
 	final Integer jdbcType;
 	
 	Column(
-			final Table type, final String id, // TODO: rename to table
+			final Table table, final String id,
 			final boolean primaryKey, final boolean notNull,
 			final String databaseType, final Integer jdbcType)
 	{
-		this.type = type;
+		this.table = table;
 		this.id = id;
 		this.protectedID = Database.theInstance.protectName(id);
 		this.primaryKey = primaryKey;
 		this.notNull = notNull;
 		this.databaseType = databaseType;
 		this.jdbcType = jdbcType;
-		type.addColumn(this);
+		table.addColumn(this);
 	}
 	
 	public final String toString()
