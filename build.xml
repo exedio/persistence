@@ -171,6 +171,9 @@
 		</java>
 	</target>
 
+	<target name="teardown" depends="lib.test.teardown.database" />
+
+
 	<target name="lib.test" depends="lib.test.run" />
 
 	<target name="instrument.test.compile" depends="instrument.compile">
