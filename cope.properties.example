@@ -18,3 +18,8 @@ database.driver=oracle.jdbc.driver.OracleDriver
 database.url=jdbc:oracle:thin:@yourdatabase.yoursite.com:1521:yourSID
 database.user=youruser
 database.password=yourpassword
+
+# Example properties for the media directory
+#
+media.directory=your/directories/for/media/files
+
