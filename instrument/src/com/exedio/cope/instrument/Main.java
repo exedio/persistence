@@ -58,7 +58,7 @@ public class Main
 		}
 	}
 	
-	private static final String TEMPFILE_SUFFIX=".temp_oclinjection";
+	private static final String TEMPFILE_SUFFIX=".temp_cope_injection";
 	
 	public static void inject(File tobemodifiedfile)
 	throws IOException, InjectorParseException
