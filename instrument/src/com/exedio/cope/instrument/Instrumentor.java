@@ -197,8 +197,8 @@ public final class Instrumentor implements InjectionConsumer
 		if(!class_state.isInterface())
 		{
 			if(jf instanceof JavaAttribute &&
-			!discardnextfeature &&
-			isPersistent((JavaAttribute)jf))
+				!discardnextfeature &&
+				isPersistent((JavaAttribute)jf))
 			{
 				final String type = jf.getType();
 				final JavaAttribute ja = (JavaAttribute)jf;
