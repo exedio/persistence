@@ -11,6 +11,7 @@ public class ReportTest extends DatabaseLibTest
 	public void testReport()
 	{
 		final String column1Type;
+		// OK
 		{
 			final Report report = model.reportDatabase();
 
@@ -27,6 +28,7 @@ public class ReportTest extends DatabaseLibTest
 			
 			column.renameTo(COLUMN1X);
 		}
+		// COLUMN RENAMED
 		{
 			final Report report = model.reportDatabase();
 
@@ -50,6 +52,39 @@ public class ReportTest extends DatabaseLibTest
 				columnX.renameTo(COLUMN1);
 			}
 		}
+		// OK
+		{
+			final Report report = model.reportDatabase();
+
+			final ReportTable table = report.getTable(TABLE1);
+			assertNotNull(table);
+			assertEquals(null, table.getError());
+			assertEquals(Report.COLOR_OK, table.getParticularColor());
+
+			final ReportColumn column = table.getColumn(COLUMN1);
+			assertEquals(null, column.getError());
+			assertEquals(Report.COLOR_OK, column.getParticularColor());
+			assertEquals(column1Type, column.getDatabaseType());
+
+			column.drop();
+		}
+		// COLUMN DROPPED
+		{
+			final Report report = model.reportDatabase();
+
+			final ReportTable table = report.getTable(TABLE1);
+			assertNotNull(table);
+			assertEquals(null, table.getError());
+			assertEquals(Report.COLOR_OK, table.getParticularColor());
+
+			final ReportColumn column = table.getColumn(COLUMN1);
+			assertEquals("missing", column.getError());
+			assertEquals(Report.COLOR_RED, column.getParticularColor());
+			assertEquals(column1Type, column.getDatabaseType());
+
+			column.create();
+		}
+		// OK
 		{
 			final Report report = model.reportDatabase();
 
