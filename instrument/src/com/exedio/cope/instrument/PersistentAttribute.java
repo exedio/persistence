@@ -182,7 +182,7 @@ public abstract class PersistentAttribute
 		if(setterExceptions!=null)
 			return setterExceptions;
 		
-		final TreeSet modifyableSetterExceptions = new TreeSet(ClassComparator.newInstance());
+		final TreeSet modifyableSetterExceptions = new TreeSet(ClassComparator.getInstance());
 		
 		if(isPartOfUniqueConstraint())
 			modifyableSetterExceptions.add(UniqueViolationException.class);
@@ -212,7 +212,7 @@ public abstract class PersistentAttribute
 		if(exceptionsToCatchInSetter!=null)
 			return exceptionsToCatchInSetter;
 
-		final TreeSet result = new TreeSet(ClassComparator.newInstance());
+		final TreeSet result = new TreeSet(ClassComparator.getInstance());
 		result.add(UniqueViolationException.class);
 		result.add(NotNullViolationException.class);
 		result.add(ReadOnlyViolationException.class);

@@ -6,7 +6,7 @@ public final class ClassComparator implements Comparator
 {
 	private static final ClassComparator instance=new ClassComparator();
 
-	public static final ClassComparator newInstance()
+	public static final ClassComparator getInstance()
 	{
 		return instance;
 	}

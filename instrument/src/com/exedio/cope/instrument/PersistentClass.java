@@ -100,7 +100,7 @@ public final class PersistentClass
 	private final void makeInitialAttributesAndContructorExceptions()
 	{
 		initialAttributes = new ArrayList();
-		contructorExceptions = new TreeSet(ClassComparator.newInstance());
+		contructorExceptions = new TreeSet(ClassComparator.getInstance());
 		for(Iterator i = getPersistentAttributes().iterator(); i.hasNext(); )
 		{
 			final PersistentAttribute persistentAttribute = (PersistentAttribute)i.next();
