@@ -107,6 +107,10 @@ final class HsqldbDatabase
 	{
 		super.fillReport(report);
 
+		// TODO: use SYSTEM_TABLE_CONSTRAINTS
+		// select stc.CONSTRAINT_NAME, stc.CONSTRAINT_TYPE, stc.TABLE_NAME, scc.CHECK_CLAUSE
+		// from SYSTEM_TABLE_CONSTRAINTS stc
+		// left outer join SYSTEM_CHECK_CONSTRAINTS scc on stc.CONSTRAINT_NAME = scc.CONSTRAINT_NAME
 		final Statement bf = createStatement();
 		bf.append("select " +
 				"CONSTRAINT_NAME," +
