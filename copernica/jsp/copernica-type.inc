@@ -21,8 +21,6 @@
 	<%
 	final boolean firstPage = typeCop.isFirstPage();
 	final boolean lastPage = typeCop.count>items.size();
-	if(!(firstPage&&lastPage))
-	{
 	%>
 	<div id="pager">
 		<a href="<%=typeCop.firstPage()%>"<%
@@ -40,9 +38,7 @@
 			if(i==typeCop.count){%> id="disabled"<%}%>><%=i%></a><%
 		}%>
 		)
-	</div><%
-	}
-	%>
+	</div>
 	<table border="1">
 	<tr>
 	<th></th><%
