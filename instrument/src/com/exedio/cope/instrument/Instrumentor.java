@@ -823,30 +823,38 @@ public final class Instrumentor implements InjectionConsumer
 		output.write(lineSeparator);
 		
 		// the attributes of the class
-		output.write("\t\t\tnew "+Attribute.class.getName()+"[]{");
-		output.write(lineSeparator);
-		for(Iterator i = javaClass.getPersistentAttributes().iterator(); i.hasNext(); )
+		final List persistentAttributes = javaClass.getPersistentAttributes();
+		if(!persistentAttributes.isEmpty())
 		{
-			final JavaAttribute persistentAttribute = (JavaAttribute)i.next();
-			output.write("\t\t\t\t");
-			output.write(persistentAttribute.getName());
-			output.write(".initialize(\"");
-			output.write(persistentAttribute.getName());
-			output.write("\",");
-			output.write(persistentAttribute.isReadOnly() ? "true": "false");
-			output.write(',');
-			output.write(persistentAttribute.isNotNull() ? "true": "false");
-			if(persistentAttribute.isItemPersistentType())
-			{
-				output.write(',');
-				output.write(persistentAttribute.getBoxedType());
-				output.write(".TYPE");
-			}
-			//private List qualifiers = null;
-			output.write("),");
+			output.write("\t\t\tnew "+Attribute.class.getName()+"[]{");
 			output.write(lineSeparator);
+			for(Iterator i = persistentAttributes.iterator(); i.hasNext(); )
+			{
+				final JavaAttribute persistentAttribute = (JavaAttribute)i.next();
+				output.write("\t\t\t\t");
+				output.write(persistentAttribute.getName());
+				output.write(".initialize(\"");
+				output.write(persistentAttribute.getName());
+				output.write("\",");
+				output.write(persistentAttribute.isReadOnly() ? "true": "false");
+				output.write(',');
+				output.write(persistentAttribute.isNotNull() ? "true": "false");
+				if(persistentAttribute.isItemPersistentType())
+				{
+					output.write(',');
+					output.write(persistentAttribute.getBoxedType());
+					output.write(".TYPE");
+				}
+				//private List qualifiers = null;
+				output.write("),");
+				output.write(lineSeparator);
+			}
+			output.write("\t\t\t},");
 		}
-		output.write("\t\t\t},");
+		else
+		{
+			output.write("\t\t\tnull,");
+		}
 		output.write(lineSeparator);
 		
 		// the unique contraints of the class

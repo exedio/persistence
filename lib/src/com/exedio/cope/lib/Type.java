@@ -47,10 +47,20 @@ public final class Type
 	public Type(final Class javaClass, final Attribute[] attributes, final UniqueConstraint[] uniqueConstraints)
 	{
 		this.javaClass = javaClass;
-		this.attributes = attributes;
-		this.attributeList = Collections.unmodifiableList(Arrays.asList(attributes));
-		for(int i = 0; i<attributes.length; i++)
-			attributes[i].setType(this);
+
+		if(attributes!=null)
+		{
+			this.attributes = attributes;
+			this.attributeList = Collections.unmodifiableList(Arrays.asList(attributes));
+			for(int i = 0; i<attributes.length; i++)
+				attributes[i].setType(this);
+		}
+		else
+		{
+			this.attributes = new Attribute[]{};
+			this.attributeList = Collections.EMPTY_LIST;
+		}
+
 		this.uniqueConstraints = uniqueConstraints;
 		this.uniqueConstraintList = Collections.unmodifiableList(Arrays.asList(uniqueConstraints));
 		
@@ -60,8 +70,8 @@ public final class Type
 		this.protectedName = Database.theInstance.protectName(this.trimmedName);
 
 		final ArrayList columns = new ArrayList();
-		for(int i = 0; i<attributes.length; i++)
-			columns.addAll(attributes[i].getColumns());
+		for(int i = 0; i<this.attributes.length; i++)
+			columns.addAll(this.attributes[i].getColumns());
 		this.columns = Collections.unmodifiableList(columns);
 		this.primaryKey = new IntegerColumn(this, "PK", true, ItemAttribute.SYNTETIC_PRIMARY_KEY_PRECISION, null);
 
