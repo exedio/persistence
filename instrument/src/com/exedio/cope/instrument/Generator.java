@@ -578,6 +578,31 @@ final class Generator
 		o.write("\t}");
 	}
 	
+	private void writeQualifier(final PersistentQualifier qualifier)
+	throws IOException
+	{
+		writeCommentHeader();
+		o.write("\t * Returns the qualifier.");
+		o.write(lineSeparator);
+		writeCommentGenerated();
+		writeCommentFooter();
+
+		o.write("static final ");
+		o.write(qualifier.qualifierClass);
+		o.write(" get");
+		o.write(qualifier.qualifierClass);
+		o.write("(final Object key)");
+		o.write(lineSeparator);
+
+		o.write("\t{");
+		o.write(lineSeparator);
+
+		o.write("\t\treturn null;");
+		o.write(lineSeparator);
+
+		o.write("\t}");
+	}
+
 	private final void writeType(final PersistentClass persistentClass)
 	throws IOException
 	{
@@ -625,6 +650,11 @@ final class Generator
 				// write unique finder methods
 				final PersistentUniqueConstraint constraint = (PersistentUniqueConstraint)i.next();
 				writeUniqueFinder(constraint);
+			}
+			for(final Iterator i = persistentClass.getQualifiers().iterator(); i.hasNext(); )
+			{
+				final PersistentQualifier qualifier = (PersistentQualifier)i.next();
+				writeQualifier(qualifier);
 			}
 			writeType(persistentClass);
 		}

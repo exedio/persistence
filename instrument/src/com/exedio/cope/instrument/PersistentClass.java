@@ -32,6 +32,7 @@ public final class PersistentClass
 	private final ArrayList persistentAttributes = new ArrayList();
 	private final Map persistentAttributeMap = new TreeMap();
 	private ArrayList uniqueConstraints = null;
+	private ArrayList qualifiers = null;
 
 	public PersistentClass(final JavaClass javaClass)
 	{
@@ -92,6 +93,25 @@ public final class PersistentClass
 			uniqueConstraints == null ? 
 			Collections.EMPTY_LIST :
 			Collections.unmodifiableList(uniqueConstraints);
+	}
+	
+	public void addQualifier(final PersistentQualifier qualifier)
+	{
+		if(qualifiers==null)
+			qualifiers=new ArrayList();
+		
+		qualifiers.add(qualifier);
+	}
+	
+	/**
+	 * @return unmodifiable list of {@link JavaAttribute}
+	 */
+	public List getQualifiers()
+	{
+		return
+			qualifiers == null ?
+			Collections.EMPTY_LIST :
+			Collections.unmodifiableList(qualifiers);
 	}
 	
 	private ArrayList initialAttributes = null;

@@ -18,6 +18,7 @@ import com.exedio.cope.lib.ItemAttribute;
 import com.exedio.cope.lib.MediaAttribute;
 import com.exedio.cope.lib.StringAttribute;
 import com.exedio.cope.lib.UniqueConstraint;
+import com.exedio.cope.lib.pattern.Qualifier;
 
 public final class Instrumentor implements InjectionConsumer
 {
@@ -121,6 +122,7 @@ public final class Instrumentor implements InjectionConsumer
 	{
 	}
 
+	// TODO: make one parameterized method from all "is"-Methods
 	private boolean isPersistent(final JavaAttribute javaAttribute)
 	{
 		final int modifier = javaAttribute.getModifiers();
@@ -151,6 +153,26 @@ public final class Instrumentor implements InjectionConsumer
 			{
 				final Class type = javaAttribute.getFile().findType(javaAttribute.getType());
 				return UniqueConstraint.class.isAssignableFrom(type);
+			}
+			catch(InjectorParseException e)
+			{
+				return false;
+			}
+		}
+		else
+			return false;
+	}
+
+	private boolean isQualifier(final JavaAttribute javaAttribute)
+	{
+		final int modifier = javaAttribute.getModifiers();
+
+		if(Modifier.isFinal(modifier) && Modifier.isStatic(modifier))
+		{
+			try
+			{
+				final Class type = javaAttribute.getFile().findType(javaAttribute.getType());
+				return Qualifier.class.isAssignableFrom(type);
 			}
 			catch(InjectorParseException e)
 			{
@@ -241,6 +263,15 @@ public final class Instrumentor implements InjectionConsumer
 				persistentClass.makeUnique(
 					new PersistentUniqueConstraint(ja,
 						(PersistentAttribute[])persistentAttributes.toArray(new PersistentAttribute[persistentAttributes.size()])));
+			}
+			else if(isQualifier((JavaAttribute)jf))
+			{
+				final JavaAttribute ja = (JavaAttribute)jf;
+				final JavaClass jc = ja.getParent();
+				final PersistentClass persistentClass = PersistentClass.getPersistentClass(jc);
+				final List initializerArguments = ja.getInitializerArguments();
+				//System.out.println("---------"+initializerArguments);
+				new PersistentQualifier(persistentClass, initializerArguments);
 			}
 		}
 		discardnextfeature=false;
