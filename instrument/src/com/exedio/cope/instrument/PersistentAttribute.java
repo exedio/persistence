@@ -3,7 +3,6 @@ package com.exedio.cope.instrument;
 
 import java.lang.reflect.Modifier;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.SortedSet;
@@ -36,10 +35,6 @@ public abstract class PersistentAttribute
 	public final boolean mapped;
 	public final List qualifiers;
 
-	private final String boxedType;
-	private final boolean boxed;
-	private final String boxingPrefix, boxingPostfix, unboxingPrefix, unboxingPostfix;
-
 	public PersistentAttribute(
 			final JavaAttribute javaAttribute,
 			final String persistentType,
@@ -64,25 +59,6 @@ public abstract class PersistentAttribute
 		persistentClass.addPersistentAttribute(this);
 		if(option.unique)
 			persistentClass.makeUnique(new PersistentAttribute[]{this});
-
-		{
-			final String nativeType = (String)toNativeTypeMapping.get(persistentType);
-			if(notNull && nativeType!=null)
-			{
-				boxedType = nativeType;
-				boxed = true;
-				boxingPrefix = (String)toBoxingPrefixMapping.get(persistentType);
-				boxingPostfix = (String)toBoxingPostfixMapping.get(persistentType);
-				unboxingPrefix = (String)toUnboxingPrefixMapping.get(persistentType);
-				unboxingPostfix = (String)toUnboxingPostfixMapping.get(persistentType);
-			}
-			else
-			{
-				boxedType = persistentType;
-				boxed = false;
-				boxingPrefix = boxingPostfix = unboxingPrefix = unboxingPostfix = null;
-			}
-		}
 	}
 	
 	public final String getName()
@@ -115,38 +91,14 @@ public abstract class PersistentAttribute
 		return this.persistentType;
 	}
 	
-	private static final HashMap toNativeTypeMapping = new HashMap(3);
-	private static final HashMap toBoxingPrefixMapping = new HashMap(3);
-	private static final HashMap toBoxingPostfixMapping = new HashMap(3);
-	private static final HashMap toUnboxingPrefixMapping = new HashMap(3);
-	private static final HashMap toUnboxingPostfixMapping = new HashMap(3);
-	
-	private static final void fillNativeTypeMap(final String persistentType, final String nativeType,
-															  final String boxingPrefix, final String boxingPostfix,
-															  final String unboxingPrefix, final String unboxingPostfix)
-	{
-		toNativeTypeMapping.put(persistentType, nativeType);
-		toBoxingPrefixMapping.put(persistentType, boxingPrefix);
-		toBoxingPostfixMapping.put(persistentType, boxingPostfix);
-		toUnboxingPrefixMapping.put(persistentType, unboxingPrefix);
-		toUnboxingPostfixMapping.put(persistentType, unboxingPostfix);
-	}
-	
-	static
-	{
-		fillNativeTypeMap("Boolean", "boolean", "(",            "?Boolean.TRUE:Boolean.FALSE)","(", ").booleanValue()");
-		fillNativeTypeMap("Integer", "int",     "new Integer(", ")",                           "(", ").intValue()");
-		fillNativeTypeMap("Double", "double", "new Double(", ")",                       "(", ").doubleValue()");
-	}
-
 	/**
 	 * Returns the type of this attribute to be used in accessor (setter/getter) methods.
 	 * Differs from {@link #getPersistentType() the persistent type},
 	 * if and only if the attribute is {@link #isBoxed() boxed}.
 	 */
-	public final String getBoxedType()
+	public String getBoxedType()
 	{
-		return boxedType;
+		return persistentType;
 	}
 	
 	/**
@@ -155,29 +107,29 @@ public abstract class PersistentAttribute
 	 * and the persistent type is convertable to a native types (int, double, boolean).
 	 * @see #getBoxedType()
 	 */
-	public final boolean isBoxed()
+	public boolean isBoxed()
 	{
-		return boxed;
+		return false;
 	}
 	
-	public final String getBoxingPrefix()
+	public String getBoxingPrefix()
 	{
-		return boxingPrefix;
+		return null;
 	}
 	
-	public final String getBoxingPostfix()
+	public String getBoxingPostfix()
 	{
-		return boxingPostfix;
+		return null;
 	}
 	
-	public final String getUnBoxingPrefix()
+	public String getUnBoxingPrefix()
 	{
-		return unboxingPrefix;
+		return null;
 	}
 	
-	public final String getUnBoxingPostfix()
+	public String getUnBoxingPostfix()
 	{
-		return unboxingPostfix;
+		return null;
 	}
 	
 	public final boolean isPartOfUniqueConstraint()
@@ -217,7 +169,7 @@ public abstract class PersistentAttribute
 			modifyableSetterExceptions.add(UniqueViolationException.class);
 		if(readOnly)
 			modifyableSetterExceptions.add(ReadOnlyViolationException.class);
-		if(notNull && !toNativeTypeMapping.containsKey(persistentType))
+		if(notNull && !isBoxed())
 			modifyableSetterExceptions.add(NotNullViolationException.class);
 
 		this.setterExceptions = Collections.unmodifiableSortedSet(modifyableSetterExceptions);
