@@ -131,7 +131,7 @@
 									{
 										%><%=item.getMediaURL((MediaAttribute)attribute)%><%
 									}
-									if(attribute instanceof ItemAttribute)
+									else if(attribute instanceof ItemAttribute)
 									{
 										final Item value = (Item)item.getAttribute(attribute);
 										if(value==null)
@@ -140,7 +140,9 @@
 										}
 										else
 										{
-											%><a href="copernica.jsp?item=<%=value.getID()%>"><%=value.getID()%></a><%
+											%><a href="copernica.jsp?item=<%=value.getID()%>">
+												<%=provider.getDisplayName(null, value)%>
+											</a><%
 										}
 									}
 									else

@@ -4,6 +4,7 @@ package com.exedio.copernica;
 import java.util.Collection;
 
 import com.exedio.cope.lib.Attribute;
+import com.exedio.cope.lib.Item;
 import com.exedio.cope.lib.Type;
 
 public interface CopernicaProvider
@@ -32,6 +33,8 @@ public interface CopernicaProvider
 
 	public String getDisplayName(Language displayLanguage, Attribute attribute);
 	
+	public String getDisplayName(Language displayLanguage, Item item);
+
 	public String getIconURL(Type type);
 
 	public Language findLanguageByUniqueID(String uniqueID);
