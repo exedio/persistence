@@ -315,7 +315,15 @@ public final class Instrumentor implements InjectionConsumer
 		final String name = persistentAttribute.getCamelCaseName();
 		
 		writeCommentHeader();
-		output.write("\t * This is a generated unique finder method.");
+		output.write("\t * Finds a ");
+		output.write(lowerCamelCase(persistentAttributes[0].getParent().getName()));
+		output.write(" by it's unique attributes");
+		output.write(lineSeparator);
+		output.write("\t * @param ");
+		output.write(persistentAttribute.getName());
+		output.write(" shall be equal to attribute {@link #");
+		output.write(persistentAttribute.getName());
+		output.write("}.");
 		output.write(lineSeparator);
 		writeCommentFooter();
 		output.write(methodModifiers);
