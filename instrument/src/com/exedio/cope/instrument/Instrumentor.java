@@ -306,32 +306,35 @@ public final class Instrumentor implements InjectionConsumer
 		output.write("\t}");
 		
 		// setter
-		writeCommentHeader();
-		output.write("\t * Sets a new value for the persistent attribute {@link #");
-		output.write(persistentAttribute.getName());
-		output.write("}.");
-		output.write(lineSeparator);
-		writeCommentFooter();
-		output.write(methodModifiers);
-		output.write(" void set");
-		output.write(persistentAttribute.getCamelCaseName());
-		output.write('(');
-		if(qualifiers!=null)
+		if(!persistentAttribute.isReadOnly())
 		{
-			writeParameterDeclarationList(qualifiers);
-			output.write(',');
+			writeCommentHeader();
+			output.write("\t * Sets a new value for the persistent attribute {@link #");
+			output.write(persistentAttribute.getName());
+			output.write("}.");
+			output.write(lineSeparator);
+			writeCommentFooter();
+			output.write(methodModifiers);
+			output.write(" void set");
+			output.write(persistentAttribute.getCamelCaseName());
+			output.write('(');
+			if(qualifiers!=null)
+			{
+				writeParameterDeclarationList(qualifiers);
+				output.write(',');
+			}
+			output.write("final ");
+			output.write(type);
+			output.write(' ');
+			output.write(persistentAttribute.getName());
+			output.write(')');
+			writeThrowsClause(persistentAttribute.getSetterExceptions());
+			output.write(lineSeparator);
+			output.write("\t{");
+			output.write(lineSeparator);
+			writeSetterBody(output, persistentAttribute);
+			output.write("\t}");
 		}
-		output.write("final ");
-		output.write(type);
-		output.write(' ');
-		output.write(persistentAttribute.getName());
-		output.write(')');
-		writeThrowsClause(persistentAttribute.getSetterExceptions());
-		output.write(lineSeparator);
-		output.write("\t{");
-		output.write(lineSeparator);
-		writeSetterBody(output, persistentAttribute);
-		output.write("\t}");
 	}
 	
 	private void writeUniqueFinder(final JavaAttribute[] persistentAttributes)
