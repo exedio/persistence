@@ -13,7 +13,7 @@ import com.exedio.cope.lib.ItemWithoutAttributes;
  */
 public class CollisionItem1 extends Item
 {
-	public static final ItemAttribute collisionAttribute = new ItemAttribute(DEFAULT, ItemWithoutAttributes.class); 
+	public static final ItemAttribute collisionAttribute = new ItemAttribute(UNIQUE, ItemWithoutAttributes.class); 
 
 /**
 
