@@ -1,10 +1,12 @@
 package com.exedio.copernica;
 
-import java.util.Properties;
 import java.io.File;
+import java.util.Properties;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import com.exedio.cope.lib.Model;
 import com.exedio.cope.lib.NestingRuntimeException;
@@ -63,10 +65,27 @@ final class Util
 		}
 	}
 	
+	static final CopernicaUser checkAccess(
+			final CopernicaProvider provider,
+			final HttpServletRequest request,
+			final HttpServletResponse response)
+	{
+		final CopernicaUser result = checkAccessPrivate(provider, request);
+		if(result==null)
+		{
+			response.addHeader("WWW-Authenticate", "Basic realm=\"Copernica\"");
+			response.setStatus(response.SC_UNAUTHORIZED);
+		}
+		return result;
+	}
+
 	private static final String BASIC = "Basic ";
 	
-	static final CopernicaUser checkAccess(final CopernicaProvider provider, final String authorization)
+	private static final CopernicaUser checkAccessPrivate(
+			final CopernicaProvider provider,
+			final HttpServletRequest request)
 	{
+		final String authorization = request.getHeader("Authorization");
 		//System.out.println("authorization:"+authorization);
 		if(authorization==null || !authorization.startsWith(BASIC))
 			return null;

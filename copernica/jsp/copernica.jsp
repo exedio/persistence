@@ -53,10 +53,9 @@ include file="provider.inc"
 		return;
 	}
 
-	final CopernicaUser user = Util.checkAccess(provider, request.getHeader("Authorization"));
+	final CopernicaUser user = Util.checkAccess(provider, request, response);
 	if(user==null)
 	{
-		response.addHeader("WWW-Authenticate", "Basic realm=\"Copernica\"");
 %><html>
 	<head>
 		<title>Copernica Unauthorized</title>
@@ -66,7 +65,6 @@ include file="provider.inc"
 	</body>
 </html>
 <%
-		response.setStatus(response.SC_UNAUTHORIZED);
 		return;
 	}
 	
