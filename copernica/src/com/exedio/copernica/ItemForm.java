@@ -127,28 +127,31 @@ final class ItemForm extends Form
 				if(fileItem!=null)
 				{
 					final String contentType = fileItem.getContentType();
-					final int pos = contentType.indexOf('/');
-					if(pos<=0)
-						throw new RuntimeException("invalid content type "+contentType);
-					final String mimeMajor = contentType.substring(0, pos);
-					String mimeMinor = contentType.substring(pos+1);
-					
-					// fix for MSIE behaviour
-					if("image".equals(mimeMajor) && "pjpeg".equals(mimeMinor))
-						mimeMinor = "jpeg";
-					
-					try
+					if(contentType!=null)
 					{
-						final InputStream data = fileItem.getInputStream();
-						item.setMediaData(attribute, data, mimeMajor, mimeMinor);
-					}
-					catch(IOException e)
-					{
-						throw new NestingRuntimeException(e);
-					}
-					catch(NotNullViolationException e)
-					{
-						throw new NestingRuntimeException(e);
+						final int pos = contentType.indexOf('/');
+						if(pos<=0)
+							throw new RuntimeException("invalid content type "+contentType);
+						final String mimeMajor = contentType.substring(0, pos);
+						String mimeMinor = contentType.substring(pos+1);
+						
+						// fix for MSIE behaviour
+						if("image".equals(mimeMajor) && "pjpeg".equals(mimeMinor))
+							mimeMinor = "jpeg";
+						
+						try
+						{
+							final InputStream data = fileItem.getInputStream();
+							item.setMediaData(attribute, data, mimeMajor, mimeMinor);
+						}
+						catch(IOException e)
+						{
+							throw new NestingRuntimeException(e);
+						}
+						catch(NotNullViolationException e)
+						{
+							throw new NestingRuntimeException(e);
+						}
 					}
 				}
 			}
