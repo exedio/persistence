@@ -99,7 +99,7 @@
 						if(type==null)
 							throw new RuntimeException("type "+typeID+" not available");
 						%>
-						<u><%=provider.getDisplayName(null, type)%></u>
+						<a href="<%=(new TypeCop(type)).url%>"><%=provider.getDisplayName(null, type)%></a>
 						<hr>
 						<ul>
 						<%
@@ -166,7 +166,7 @@
 						final Type type = item.getType();
 						boolean toSave = false;
 						%>
-						<u><%=provider.getDisplayName(null, type)%></u><br>
+						<a href="<%=(new TypeCop(type)).url%>"><%=provider.getDisplayName(null, type)%></a>
 						<b><%=provider.getDisplayName(null, item)%></b><hr>
 						<form action="copernica.jsp?item=<%=item.getID()%>" method="POST">
 						<table border="1">
