@@ -412,22 +412,16 @@ public final class Instrumentor implements InjectionConsumer
 		output.write("\t * Reactivation constructor. Used for internal purposes only.");
 		output.write(lineSeparator);
 		output.write("\t * @see Item#Item("
-			+ ReactivationConstructorDummy.class.getName() + ","
-			+ Type.class.getName() + ",int)");
+			+ ReactivationConstructorDummy.class.getName() + ",int)");
 		output.write(lineSeparator);
 		writeCommentFooter();
 		output.write( abstractClass ? "protected " : "private " );
 		output.write(persistentClass.getName());
-		output.write("("+ReactivationConstructorDummy.class.getName()+" d, ");
-		if(abstractClass)
-			output.write("final "+Type.class.getName()+" type,");
-		output.write("final int pk)");
+		output.write("("+ReactivationConstructorDummy.class.getName()+" d, final int pk)");
 		output.write(lineSeparator);
 		output.write("\t{");
 		output.write(lineSeparator);
-		output.write("\t\tsuper(d,");
-		output.write( abstractClass ? "type" : "TYPE");
-		output.write(",pk);");
+		output.write("\t\tsuper(d,pk);");
 		output.write(lineSeparator);
 		output.write("\t}");
 	}

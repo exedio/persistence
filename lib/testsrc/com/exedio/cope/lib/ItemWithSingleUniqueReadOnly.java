@@ -36,12 +36,12 @@ public class ItemWithSingleUniqueReadOnly extends Item
 
 	 **
 	 * Reactivation constructor. Used for internal purposes only.
-	 * @see Item#Item(com.exedio.cope.lib.util.ReactivationConstructorDummy,com.exedio.cope.lib.Type,int)
+	 * @see Item#Item(com.exedio.cope.lib.util.ReactivationConstructorDummy,int)
 	 * @generated
 	 *
  */private ItemWithSingleUniqueReadOnly(com.exedio.cope.lib.util.ReactivationConstructorDummy d, final int pk)
 	{
-		super(d,TYPE,pk);
+		super(d,pk);
 	}/**
 
 	 **

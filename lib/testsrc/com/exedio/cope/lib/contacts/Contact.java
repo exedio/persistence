@@ -51,12 +51,12 @@ public abstract class Contact extends Item
 
 	 **
 	 * Reactivation constructor. Used for internal purposes only.
-	 * @see Item#Item(com.exedio.cope.lib.util.ReactivationConstructorDummy,com.exedio.cope.lib.Type,int)
+	 * @see Item#Item(com.exedio.cope.lib.util.ReactivationConstructorDummy,int)
 	 * @generated
 	 *
- */protected Contact(com.exedio.cope.lib.util.ReactivationConstructorDummy d, final com.exedio.cope.lib.Type type,final int pk)
+ */protected Contact(com.exedio.cope.lib.util.ReactivationConstructorDummy d, final int pk)
 	{
-		super(d,type,pk);
+		super(d,pk);
 	}/**
 
 	 **
