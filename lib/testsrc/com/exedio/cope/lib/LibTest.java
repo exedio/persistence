@@ -250,8 +250,29 @@ public class LibTest extends TestCase
 		{
 			throw new SystemException(e);
 		}
+		dotestItemWithManyAttributesSomeString(item);
+		dotestItemWithManyAttributesSomeNotNullString(item);
 
-		// someString
+		dotestItemWithManyAttributesSomeInteger(item);
+		dotestItemWithManyAttributesSomeNotNullInteger(item);
+
+		dotestItemWithManyAttributesSomeBoolean(item);
+		dotestItemWithManyAttributesSomeNotNullBoolean(item);
+
+		dotestItemWithManyAttributesSomeItem(item, someItem);
+		// TODO: dotestItemWithManyAttributesSomeNotNullItem(item, someItem);
+
+		dotestItemWithManyAttributesSomeEnumeration(item);
+		// TODO: dotestItemWithManyAttributesSomeNotNullEnumeration(item);
+
+		dotestItemWithManyAttributesSomeMedia(item);
+		// TODO: dotestItemWithManyAttributesSomeNotNullMedia(item);
+
+		dotestItemWithManyAttributesSomeQualifiedAttribute(item, someItem);
+	}
+
+	private void dotestItemWithManyAttributesSomeString(final ItemWithManyAttributes item)
+	{
 		assertEquals(item.TYPE, item.someString.getType());
 		assertEquals(item.TYPE, item.someStringUpperCase.getType());
 		assertEquals(null, item.getSomeString());
@@ -269,8 +290,10 @@ public class LibTest extends TestCase
 		item.setSomeString(null);
 		assertEquals(null, item.getSomeString());
 		assertEquals(null, item.getSomeStringUpperCase());
+	}
 
-		// someNotNullString
+	private void dotestItemWithManyAttributesSomeNotNullString(final ItemWithManyAttributes item)
+	{
 		assertEquals(item.TYPE, item.someNotNullString.getType());
 		assertEquals("someString", item.getSomeNotNullString());
 		try
@@ -291,8 +314,10 @@ public class LibTest extends TestCase
 			assertEquals(item.someNotNullString, e.getNotNullAttribute());
 			assertEquals(item, e.getItem());
 		}
+	}
 
-		// someInteger
+	private void dotestItemWithManyAttributesSomeInteger(final ItemWithManyAttributes item)
+	{
 		assertEquals(item.TYPE, item.someInteger.getType());
 		assertEquals(null, item.getSomeInteger());
 		// TODO: assertEquals(list(item), Search.search(item.TYPE, Search.equal(item.someInteger, null)));
@@ -301,14 +326,18 @@ public class LibTest extends TestCase
 		assertEquals(list(item), Search.search(item.TYPE, Search.equal(item.someInteger, 10)));
 		item.setSomeInteger(null);
 		assertEquals(null, item.getSomeInteger());
+	}
 
-		// someNotNullInteger
+	private void dotestItemWithManyAttributesSomeNotNullInteger(final ItemWithManyAttributes item)
+	{
 		assertEquals(item.TYPE, item.someNotNullInteger.getType());
 		assertEquals(5, item.getSomeNotNullInteger());
 		item.setSomeNotNullInteger(20);
 		assertEquals(20, item.getSomeNotNullInteger());
+	}
 
-		// someBoolean
+	private void dotestItemWithManyAttributesSomeBoolean(final ItemWithManyAttributes item)
+	{
 		assertEquals(item.TYPE, item.someBoolean.getType());
 		assertEquals(null, item.getSomeBoolean());
 		item.setSomeBoolean(Boolean.TRUE);
@@ -317,14 +346,18 @@ public class LibTest extends TestCase
 		assertEquals(Boolean.FALSE, item.getSomeBoolean());
 		item.setSomeBoolean(null);
 		assertEquals(null, item.getSomeBoolean());
+	}
 
-		// someNotNullBoolean
+	private void dotestItemWithManyAttributesSomeNotNullBoolean(final ItemWithManyAttributes item)
+	{
 		assertEquals(item.TYPE, item.someNotNullBoolean.getType());
 		assertEquals(true, item.getSomeNotNullBoolean());
 		item.setSomeNotNullBoolean(false);
 		assertEquals(false, item.getSomeNotNullBoolean());
+	}
 
-		// someItem
+	private void dotestItemWithManyAttributesSomeItem(final ItemWithManyAttributes item, final ItemWithoutAttributes someItem)
+	{
 		assertEquals(item.TYPE, item.someItem.getType());
 		assertEquals(ItemWithoutAttributes.TYPE, item.someItem.getTargetType());
 		assertEquals(null, item.getSomeItem());
@@ -334,8 +367,10 @@ public class LibTest extends TestCase
 		assertEquals(someItem, item.getSomeItem());
 		item.setSomeItem(null);
 		assertEquals(null, item.getSomeItem());
+	}
 
-		// someEnumeration
+	private void dotestItemWithManyAttributesSomeEnumeration(final ItemWithManyAttributes item)
+	{
 		assertEquals(item.TYPE, item.someEnumeration.getType());
 		assertEquals(list(ItemWithManyAttributes.SomeEnumeration.enumValue1), item.someEnumeration.getValues());
 		assertEquals(ItemWithManyAttributes.SomeEnumeration.enumValue1, item.someEnumeration.getValue(ItemWithManyAttributes.SomeEnumeration.enumValue1NUM));
@@ -359,8 +394,10 @@ public class LibTest extends TestCase
 		assertEquals(ItemWithManyAttributes.SomeEnumeration.enumValue1, item.getSomeEnumeration());
 		item.setSomeEnumeration(null);
 		assertEquals(null, item.getSomeEnumeration());
+	}
 
-		// someMedia
+	private void dotestItemWithManyAttributesSomeMedia(final ItemWithManyAttributes item)
+	{
 		assertEquals(item.TYPE, item.someMedia.getType());
 		assertEquals(null, item.getSomeMediaURL());
 		assertEquals(null, item.getSomeMediaURLSomeVariant());
@@ -413,8 +450,10 @@ public class LibTest extends TestCase
 		assertEquals(null, item.getSomeMediaData());
 		assertEquals(null, item.getSomeMediaMimeMajor());
 		assertEquals(null, item.getSomeMediaMimeMinor());
+	}
 
-		// someQualifiedAttribute
+	private void dotestItemWithManyAttributesSomeQualifiedAttribute(final ItemWithManyAttributes item, final ItemWithoutAttributes someItem)
+	{
 		assertEquals(item.TYPE, item.someQualifiedString.getType());
 		final ItemWithoutAttributes someItem2 = new ItemWithoutAttributes();
 		assertEquals(null, item.getSomeQualifiedString(someItem));
