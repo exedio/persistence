@@ -24,6 +24,9 @@ final class TimestampColumn extends Column
 	{
 		return null;
 	}
+	
+	private static final boolean skipWorkAround =
+		!System.getProperty("java.runtime.version").startsWith("1.3");
 
 	/**
 	 * Returns what should be returned by
@@ -42,10 +45,7 @@ final class TimestampColumn extends Column
 		
 		long result = date.getTime();
 		
-		final String version = System.getProperty("java.runtime.version");
-		//System.out.println("          version "+version);
-		// TODO: compute that condition statically in advance 
-		if(!version.startsWith("1.3"))
+		if(skipWorkAround)
 			return result;
 	
 		//System.out.println("          result "+result+" before");
