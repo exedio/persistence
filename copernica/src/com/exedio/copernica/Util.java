@@ -18,9 +18,9 @@ public final class Util
 	{
 		try
 		{
-			final String providerName = config.getInitParameter("com.exedio.copernica.provider");
+			final String providerName = config.getInitParameter("provider");
 			if(providerName==null)
-				throw new NullPointerException("init-param com.exedio.copernica.provider missing");
+				throw new NullPointerException("init-param 'provider' missing");
 			final Class providerClass = Class.forName(providerName);
 			final CopernicaProvider provider = (CopernicaProvider)providerClass.newInstance();
 			provider.initialize(config);
@@ -45,13 +45,13 @@ public final class Util
 	{
 		try
 		{
-			final String modelName = config.getInitParameter("com.exedio.copernica.model");
+			final String modelName = config.getInitParameter("model");
 			if(modelName==null)
-				throw new NullPointerException("init-param com.exedio.copernica.model missing");
+				throw new NullPointerException("init-param 'model' missing");
 
 			final int pos = modelName.indexOf('#');
 			if(pos<=0)
-				throw new RuntimeException("init-param com.exedio.copernica.model does not contain '#', but was "+modelName);
+				throw new RuntimeException("init-param 'model' does not contain '#', but was "+modelName);
 			final String modelClassName = modelName.substring(0, pos);
 			final String modelAttributeName = modelName.substring(pos+1);
 
