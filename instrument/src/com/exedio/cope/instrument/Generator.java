@@ -35,6 +35,9 @@ final class Generator
 	private static final String CONSTRUCTOR_NEW = "Constructs a new {0} with all the attributes initially needed.";
 	private static final String CONSTRUCTOR_NEW_PARAMETER = "the initial value for attribute {0}.";
 	private static final String CONSTRUCTOR_GENERIC = "Creates an item and sets the given attributes initially.";
+	private static final String CONSTRUCTOR_REACTIVATION = "Reactivation constructor. Used for internal purposes only.";
+	private static final String GETTER = "Returns the value of the persistent attribute {0}.";
+	private static final String SETTER = "Sets a new value for the persistent attribute {0}.";
 
 	private final Writer o;
 	private final String lineSeparator;
@@ -273,7 +276,8 @@ final class Generator
 	{
 		final boolean abstractClass = copeClass.isAbstract();
 		writeCommentHeader();
-		o.write("\t * Reactivation constructor. Used for internal purposes only.");
+		o.write("\t * ");
+		o.write(CONSTRUCTOR_REACTIVATION);
 		o.write(lineSeparator);
 		writeCommentGenerated();
 		o.write("\t * @see Item#Item("
@@ -298,9 +302,8 @@ final class Generator
 
 		// getter
 		writeCommentHeader();
-		o.write("\t * Returns the value of the persistent attribute {@link #");
-		o.write(copeAttribute.getName());
-		o.write("}.");
+		o.write("\t * ");
+		o.write(format(GETTER, link(copeAttribute.getName())));
 		o.write(lineSeparator);
 		writeCommentGenerated();
 		writeCommentFooter();
@@ -320,9 +323,8 @@ final class Generator
 		if(copeAttribute.hasGeneratedSetter())
 		{
 			writeCommentHeader();
-			o.write("\t * Sets a new value for the persistent attribute {@link #");
-			o.write(copeAttribute.getName());
-			o.write("}.");
+			o.write("\t * ");
+			o.write(format(SETTER, link(copeAttribute.getName())));
 			o.write(lineSeparator);
 			writeCommentGenerated();
 			writeCommentFooter();
