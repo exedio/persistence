@@ -1,12 +1,11 @@
-
 package com.exedio.copernica;
 
 import java.util.Collection;
 
-public interface Category extends Component
+public interface CopernicaCategory extends Component
 {
 	/**
-	 * @return a collection of {@link Category categories}.
+	 * @return a collection of {@link CopernicaCategory categories}.
 	 */
 	public Collection getCopernicaSubCategories();
 	

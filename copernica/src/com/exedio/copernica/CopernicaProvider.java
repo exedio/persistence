@@ -20,7 +20,7 @@ public interface CopernicaProvider
 	public Collection getDisplayLanguages();
 	
 	/**
-	 * @return a collection of {@link Category categories}.
+	 * @return a collection of {@link CopernicaCategory categories}.
 	 */
 	public Collection getRootCategories();
 	
@@ -54,7 +54,7 @@ public interface CopernicaProvider
 	
 	public User findUserByID(String copernicaID);
 
-	public Category findCategoryByID(String copernicaID);
+	public CopernicaCategory findCategoryByID(String copernicaID);
 	
 	public Section findSectionByID(String copernicaID);
 

@@ -203,7 +203,7 @@ public abstract class TransientCopernicaProvider implements CopernicaProvider
 		return null;
 	}
 
-	public Category findCategoryByID(final String copernicaID)
+	public CopernicaCategory findCategoryByID(final String copernicaID)
 	{
 		return null;
 	}
