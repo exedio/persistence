@@ -78,7 +78,7 @@ public class JavaClass extends JavaFeature
 	
 	public final boolean isInterface()
 	{
-		return (getModifiers() & Modifier.INTERFACE) > 0;
+		return (modifier & Modifier.INTERFACE) > 0;
 	}
 	
 	public final int getAllowedModifiers()

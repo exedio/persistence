@@ -234,7 +234,7 @@ public final class Instrumentor implements InjectionConsumer
 			!discardnextfeature)
 		{
 			final JavaAttribute ja = (JavaAttribute)jf;
-			final int modifier = ja.getModifiers();
+			final int modifier = ja.modifier;
 
 			if(Modifier.isFinal(modifier) && Modifier.isStatic(modifier))
 			{

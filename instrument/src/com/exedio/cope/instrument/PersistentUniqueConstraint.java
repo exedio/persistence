@@ -15,7 +15,7 @@ public final class PersistentUniqueConstraint
 	{
 		this.name = javaAttribute.getName();
 		this.camelCaseName = javaAttribute.getCamelCaseName();
-		this.modifier = javaAttribute.getModifiers();
+		this.modifier = javaAttribute.modifier;
 		this.persistentAttributes = persistentAttributes;
 	}
 	
@@ -26,7 +26,7 @@ public final class PersistentUniqueConstraint
 	{
 		this.name = persistentAttribute.getName();
 		this.camelCaseName = persistentAttribute.getCamelCaseName();
-		this.modifier = persistentAttribute.javaAttribute.getModifiers();
+		this.modifier = persistentAttribute.javaAttribute.modifier;
 		this.persistentAttributes = new PersistentAttribute[]{persistentAttribute};
 	}
 

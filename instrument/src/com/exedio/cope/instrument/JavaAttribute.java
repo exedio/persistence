@@ -38,7 +38,7 @@ public final class JavaAttribute
 	public JavaAttribute(JavaAttribute ja, String name)
 		throws InjectorParseException
 	{
-		this(ja.parent, ja.getModifiers(), ja.type, name);
+		this(ja.parent, ja.modifier, ja.type, name);
 	}
 
 	/**

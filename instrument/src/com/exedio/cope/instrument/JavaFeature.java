@@ -21,19 +21,19 @@ public abstract class JavaFeature
 	 * The java file, which contains this feature.
 	 * Is never null.
 	 */
-	public final JavaFile file;
+	final JavaFile file;
 	
 	/**
 	 * The class, which contains this feature.
 	 * Is null for top-level (not inner) classes.
 	 */
-	public final JavaClass parent;
+	final JavaClass parent;
 	
 	/**
-	 * The modifiers of this feature.
+	 * The modifier of this feature.
 	 * @see java.lang.reflect.Modifier
 	 */
-	private final int modifiers;
+	final int modifier;
 	
 	final int accessModifier;
 	
@@ -45,17 +45,18 @@ public abstract class JavaFeature
 	
 	protected final String name;
 	
-	public JavaFeature(JavaFile file,
-	JavaClass parent,
-	int modifiers,
-	String type,
-	String name)
+	public JavaFeature(
+							final JavaFile file,
+							final JavaClass parent,
+							final int modifier,
+							final String type,
+							final String name)
 	throws InjectorParseException
 	{
 		this.file=file;
 		this.parent=parent;
-		this.modifiers=modifiers;
-		this.accessModifier=toAccessModifier(modifiers);
+		this.modifier=modifier;
+		this.accessModifier=toAccessModifier(modifier);
 		this.type=type;
 		this.name=name;
 		
@@ -65,7 +66,7 @@ public abstract class JavaFeature
 		if(parent!=null && file!=parent.file) // JavaFile objects are flyweight
 			throw new RuntimeException();
 		
-		int over=modifiers&~getAllowedModifiers();
+		int over=modifier&~getAllowedModifiers();
 		if(over!=0)
 			throw new InjectorParseException(
 			"modifier(s) "+java.lang.reflect.Modifier.toString(over)+
@@ -83,15 +84,6 @@ public abstract class JavaFeature
 	}
 	
 	/**
-	 * Returns the modifiers of this feature.
-	 * @see java.lang.reflect.Modifier
-	 */
-	public final int getModifiers()
-	{
-		return modifiers;
-	}
-	
-	/**
 	 * Subclasses use this method to specify,
 	 * which modifiers are allowed for the specific kind
 	 * of feature.
@@ -100,12 +92,12 @@ public abstract class JavaFeature
 	
 	public final boolean isStatic()
 	{
-		return (modifiers & Modifier.STATIC) > 0;
+		return (modifier & Modifier.STATIC) > 0;
 	}
 	
 	public final boolean isAbstract()
 	{
-		return (modifiers & Modifier.ABSTRACT) > 0;
+		return (modifier & Modifier.ABSTRACT) > 0;
 	}
 	
 	public static final int toAccessModifier(final int reflectionModifier)
@@ -164,7 +156,7 @@ public abstract class JavaFeature
 	public final void print(PrintStream o)
 	{
 		o.println("  "+JavaFile.extractClassName(getClass().getName())+
-		" ("+Modifier.toString(modifiers)+
+		" ("+Modifier.toString(modifier)+
 		") >"+type+
 		"< >"+name+
 		"< in >"+(parent==null?"none":parent.getName())+"<");

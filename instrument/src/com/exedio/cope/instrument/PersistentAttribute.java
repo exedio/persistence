@@ -111,7 +111,7 @@ public abstract class PersistentAttribute
 	
 	public final int getGeneratedGetterModifier()
 	{
-		return javaAttribute.getModifiers()
+		return javaAttribute.modifier
 			& (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE)
 			| Modifier.FINAL;
 	}
@@ -207,7 +207,7 @@ public abstract class PersistentAttribute
 			case Option.NONE:
 				throw new RuntimeException();
 			case Option.AUTO:
-				result = javaAttribute.getModifiers() & (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE);
+				result = javaAttribute.modifier & (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE);
 				break;
 			case Option.PRIVATE:
 				result = Modifier.PRIVATE;

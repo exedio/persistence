@@ -141,7 +141,7 @@ public abstract class InjectorTest extends InstrumentorTest
 		final JavaBehaviour javaBehaviour = ((BehaviourHeaderEvent)event).javaBehaviour;
 		assertEquals(name, javaBehaviour.getName());
 		assertEquals(type, javaBehaviour.getType());
-		assertEquals(modifier, javaBehaviour.getModifiers());
+		assertEquals(modifier, javaBehaviour.modifier);
 		return javaBehaviour;
 	}
 	
@@ -151,7 +151,7 @@ public abstract class InjectorTest extends InstrumentorTest
 		final JavaAttribute javaAttribute = ((AttributeHeaderEvent)event).javaAttribute;
 		assertEquals(name, javaAttribute.getName());
 		assertEquals(type, javaAttribute.getType());
-		assertEquals(modifier, javaAttribute.getModifiers());
+		assertEquals(modifier, javaAttribute.modifier);
 		return javaAttribute;
 	}
 	
