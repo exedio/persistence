@@ -241,7 +241,7 @@ public final class JavaFile
 		
 		// implements item 3 and 4 of 6.5.4.1
 		// java.lang is already in imports_demand
-		Class result=null;
+		final ArrayList result = new ArrayList();
 		for(Iterator i=import_demand.iterator(); i.hasNext(); )
 		{
 			String importString=(String)i.next();
@@ -249,25 +249,29 @@ public final class JavaFile
 			try
 			{
 				//System.out.println("findType("+typename+"): try by demand :"+full_element_type);
-				final Class x=Class.forName(full_element_type, false, classLoader);
-				if(result!=null)
-				{
-					throw new InjectorParseException(
-					"type "+typename+
-					" found in two imported packages "+result.getName()+
-					" and "+x.getName()+
-					". This is ambigous and forbidden by "+
-					"Java Language Specification 6.5.4.1. 'Simple Type Names' item 4.");
-				}
-				result=x;
+				result.add(Class.forName(full_element_type, false, classLoader));
 			}
 			catch(ClassNotFoundException e)
 			{};
 		}
-		if(result!=null)
-			return result;
-		else
-			throw new InjectorParseException("type "+typename+" not found.");
+
+		switch(result.size())
+		{
+			case 1:
+				return (Class)result.iterator().next();
+			case 0:
+				throw new InjectorParseException("type "+typename+" not found.");
+			default:
+				final TreeSet packages = new TreeSet();
+				for(Iterator i = result.iterator(); i.hasNext(); )
+					packages.add(((Class)i.next()).getPackage().getName());
+
+				throw new InjectorParseException(
+					"type "+typename+
+					" found in imported packages "+packages.toString()+
+					". This is ambigous and forbidden by "+
+					"Java Language Specification 6.5.4.1. 'Simple Type Names' item 4.");
+		}
 	}
 	
 	/**

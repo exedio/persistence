@@ -62,7 +62,7 @@ public class ResolveImportTest extends InstrumentorTest
 		catch(InjectorParseException e)
 		{
 			assertEquals(
-				"type CollideType found in two imported packages com.exedio.cope.instrument.findtype.collide.CollideType and com.exedio.cope.instrument.findtype.subfindtype.CollideType. "
+				"type CollideType found in imported packages [com.exedio.cope.instrument.findtype.collide, com.exedio.cope.instrument.findtype.subfindtype]. "
 				+ "This is ambigous and forbidden by Java Language Specification 6.5.4.1. 'Simple Type Names' item 4.",
 				e.getMessage());
 		}
