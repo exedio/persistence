@@ -75,7 +75,11 @@ page import="java.util.Map"
 				final Type type = Type.findByID(typeID);
 				if(type==null)
 					throw new RuntimeException("type "+typeID+" not available");
-				cop = new TypeCop(language, type);
+				final String startString = request.getParameter("start");
+				final String countString = request.getParameter("count");
+				final int start = (startString==null) ?  0 : Integer.parseInt(startString);
+				final int count = (countString==null) ? 10 : Integer.parseInt(countString);
+				cop = new TypeCop(language, type, start, count);
 			}
 			else if(itemID!=null)
 			{
@@ -148,6 +152,9 @@ page import="java.util.Map"
 							%>
 							</ul>
 							<hr>
+							[<a href="<%=typeCop.previousPage()%>">&lt;</a>]
+							|
+							[<a href="<%=typeCop.nextPage()%>">&gt;</a>]
 							<table border="1">
 							<tr>
 							<th></th><%
