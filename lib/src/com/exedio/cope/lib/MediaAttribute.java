@@ -24,4 +24,15 @@ public final class MediaAttribute extends Attribute
 		else
 			throw new RuntimeException("not yet implemented");
 	}
+
+	Object cacheToSurface(final Object cache)
+	{
+		return cache;
+	}
+		
+	Object surfaceToCache(final Object surface)
+	{
+		return surface;
+	}
+	
 }

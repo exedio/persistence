@@ -24,4 +24,15 @@ public final class ItemAttribute extends Attribute
 		else
 			return Integer.toString(((Item)cache).pk);
 	}
+
+	Object cacheToSurface(final Object cache)
+	{
+		return (Item)cache;
+	}
+		
+	Object surfaceToCache(final Object surface)
+	{
+		return (Item)surface;
+	}
+	
 }

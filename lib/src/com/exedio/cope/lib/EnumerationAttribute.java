@@ -23,4 +23,15 @@ public final class EnumerationAttribute extends Attribute
 		else
 			return Integer.toString(((EnumerationValue)cache).number);
 	}
+
+	Object cacheToSurface(final Object cache)
+	{
+		return (EnumerationValue)cache;
+	}
+		
+	Object surfaceToCache(final Object surface)
+	{
+		return (EnumerationValue)surface;
+	}
+	
 }

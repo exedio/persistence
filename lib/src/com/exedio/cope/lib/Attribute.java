@@ -92,6 +92,9 @@ public abstract class Attribute
 	abstract Object databaseToCache(Object cell);
 	public abstract Object cacheToDatabase(Object cache);
 
+	abstract Object cacheToSurface(Object cache);
+	abstract Object surfaceToCache(Object surface);
+	
 }
 
 

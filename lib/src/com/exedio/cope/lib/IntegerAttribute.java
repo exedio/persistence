@@ -20,4 +20,15 @@ public final class IntegerAttribute extends Attribute
 		else
 			return ((Integer)cache).toString();
 	}
+
+	Object cacheToSurface(final Object cache)
+	{
+		return (Integer)cache;
+	}
+		
+	Object surfaceToCache(final Object surface)
+	{
+		return (Integer)surface;
+	}
+	
 }

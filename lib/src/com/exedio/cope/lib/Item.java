@@ -95,6 +95,8 @@ public class Item extends Search
 	 * {@link #throwInitialUniqueViolationException}.
 	 * All this fiddling is needed, because one cannot wrap a <code>super()</code> call into a
 	 * try-catch statement.
+	 * @throws ClassCastException if the values in <code>initialAttributeValues</code> are not
+	 *                            compatible to their attributes.
 	 */
 	protected Item(final Type type, final AttributeValue[] initialAttributeValues)
 	{
@@ -159,6 +161,7 @@ public class Item extends Search
 	 *         if value is null and attribute is {@link Attribute#isNotNull() not-null}.
 	 * @throws ReadOnlyViolationException
 	 *         if attribute is {@link Attribute#isReadOnly() read-only}.
+	 * @throws ClassCastException if <code>value</code> is not compatible to <code>attribute</code>.
 	 */
 	protected final void setAttribute(final Attribute attribute, final Object value)
 	throws UniqueViolationException, NotNullViolationException, ReadOnlyViolationException
@@ -172,7 +175,10 @@ public class Item extends Search
 		putCache(attribute, value);
 		writeCache();
 	}
-	
+
+	/**
+	 * @throws ClassCastException if <code>value</code> is not compatible to <code>attribute</code>.
+	 */
 	protected final void setAttribute(final Attribute attribute, final Object[] qualifiers, final Object value)
 	throws UniqueViolationException
 	{
@@ -270,19 +276,22 @@ public class Item extends Search
 	
 	private Object getCache(final Attribute attribute)
 	{
-		return itemCache.get(attribute);
+		return attribute.cacheToSurface(itemCache.get(attribute));
 	}
 	
 	private void putCache(final AttributeValue[] attributeValues)
 	{
 		for(int i = 0; i<attributeValues.length; i++)
-			itemCache.put(attributeValues[i].attribute, attributeValues[i].value);
+		{
+			final Attribute attribute = attributeValues[i].attribute;
+			itemCache.put(attribute, attribute.surfaceToCache(attributeValues[i].value));
+		}
 		dirty = true; // TODO: check, whether the written attribute got really a new value
 	}
 	
 	private void putCache(final Attribute attribute, final Object value)
 	{
-		itemCache.put(attribute, value);
+		itemCache.put(attribute, attribute.surfaceToCache(value));
 		dirty = true; // TODO: check, whether the written attribute got really a new value
 	}
 	

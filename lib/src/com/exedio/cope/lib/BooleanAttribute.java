@@ -30,4 +30,15 @@ public final class BooleanAttribute extends Attribute
 		else
 			return ((Boolean)cache).booleanValue() ? "1" : "0";
 	}
+
+	Object cacheToSurface(final Object cache)
+	{
+		return (Boolean)cache;
+	}
+		
+	Object surfaceToCache(final Object surface)
+	{
+		return (Boolean)surface;
+	}
+	
 }

@@ -29,4 +29,15 @@ public final class StringAttribute extends Attribute
 		else
 			return "'" + ((String)cache) + '\'';
 	}
+
+	Object cacheToSurface(final Object cache)
+	{
+		return (String)cache;
+	}
+		
+	Object surfaceToCache(final Object surface)
+	{
+		return (String)surface;
+	}
+	
 }
