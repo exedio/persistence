@@ -10,11 +10,6 @@ class HsqldbDatabase extends Database
 		super();
 	}
 
-	protected String protectName(String name)
-	{
-		return '"' + name + '"';
-	}
-
 	String getIntegerType(final int precision)
 	{
 		// TODO: use precision to select between TINYINT, SMALLINT, INTEGER, BIGINT, NUMBER

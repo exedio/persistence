@@ -16,11 +16,6 @@ final class OracleDatabase
 		super();
 	}
 
-	protected String protectName(final String name)
-	{
-		return '"' + name + '"';
-	}
-	
 	String getIntegerType(final int precision)
 	{
 		return "number(" + precision + ",0)";

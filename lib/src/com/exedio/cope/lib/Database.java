@@ -588,9 +588,13 @@ public abstract class Database
 
 	/**
 	 * Protects a database name from being interpreted as a SQL keyword.
-	 * This is usually done by using some (database specific) delimiters.
+	 * This is usually done by enclosing the name with some (database specific) delimiters.
+	 * The default implementation uses double quotes as delimiter.
 	 */
-	protected abstract String protectName(final String name);
+	protected String protectName(String name)
+	{
+		return '"' + name + '"';
+	}
 
 	abstract String getIntegerType(int precision);
 	abstract String getStringType(int maxLength);
