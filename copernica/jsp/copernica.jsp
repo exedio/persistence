@@ -57,7 +57,6 @@ include file="provider.inc"
 	if(user==null)
 	{
 		response.addHeader("WWW-Authenticate", "Basic realm=\"Copernica\"");
-		response.sendError(response.SC_UNAUTHORIZED, "Unauthorized");
 %><html>
 	<head>
 		<title>Copernica Unauthorized</title>
@@ -67,6 +66,7 @@ include file="provider.inc"
 	</body>
 </html>
 <%
+		response.setStatus(response.SC_UNAUTHORIZED);
 		return;
 	}
 	
