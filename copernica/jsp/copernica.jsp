@@ -247,6 +247,7 @@ page import="java.util.Map"
 									else
 										value = (EnumerationValue)item.getAttribute(enumAttribute);
 									
+									toSave = true;
 									for(Iterator k = enumAttribute.getValues().iterator(); k.hasNext(); )
 									{
 										final EnumerationValue currentValue = (EnumerationValue)k.next();
@@ -285,6 +286,7 @@ page import="java.util.Map"
 										else
 											value = (String)item.getAttribute(stringAttribute);
 
+										toSave = true;
 										%><input type="text" name="<%=attribute.getName()%>" value="<%=value%>" /><%
 									}
 								}
@@ -296,7 +298,12 @@ page import="java.util.Map"
 							}
 							%>
 							</table>
-							<input type="submit" name="SAVE" value="Save" />
+							<%
+							if(toSave)
+							{
+								%><input type="submit" name="SAVE" value="Save" /><%
+							}
+							%>
 							</form>
 							<%
 						}
