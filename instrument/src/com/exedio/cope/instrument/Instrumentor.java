@@ -903,7 +903,57 @@ public final class Instrumentor implements InjectionConsumer
 		output.write(lineSeparator);
 		output.write(";");
 	}
+
+	private void writeClassFeatures(final PersistentClass persistentClass)
+			throws IOException, InjectorParseException
+	{
+		//System.out.println("onClassEnd("+jc.getName()+") persistent");
+		if(uniqueConstraints != null)
+		{
+			//System.out.println("onClassEnd("+jc.getName()+") unique");
+			for( final Iterator i=uniqueConstraints.iterator(); i.hasNext(); )
+			{
+				final String uniqueConstraint=(String)i.next();
+				final List attributes = new ArrayList();
+				for(final StringTokenizer t=new StringTokenizer(uniqueConstraint, " "); t.hasMoreTokens(); )
+				{
+					final String attributeName = t.nextToken();
+					final PersistentAttribute ja = persistentClass.getPersistentAttribute(attributeName);
+					if(ja==null)
+						throw new InjectorParseException("Attribute with name "+attributeName+" does not exist!");
+					attributes.add(ja);
+				}
+				if(attributes.isEmpty())
+					throw new InjectorParseException("No attributes found in unique constraint "+uniqueConstraint);
+				persistentClass.makeUnique((PersistentAttribute[])attributes.toArray(new PersistentAttribute[]{}));
+			}
+		}
 	
+		if(!persistentClass.isInterface())
+		{
+			//System.out.println("onClassEnd("+jc.getName()+") writing");
+			writeConstructor(persistentClass);
+			writeReactivationConstructor(persistentClass);
+			for(final Iterator i = persistentClass.getPersistentAttributes().iterator(); i.hasNext(); )
+			{
+				// write setter/getter methods
+				final PersistentAttribute persistentAttribute = (PersistentAttribute)i.next();
+				//System.out.println("onClassEnd("+jc.getName()+") writing attribute "+persistentAttribute.getName());
+				if(persistentAttribute.isMediaPersistentType())
+					writeMediaAccessMethods(persistentAttribute);
+				else
+					writeAccessMethods(persistentAttribute);
+			}
+			for(final Iterator i = persistentClass.getUniqueConstraints().iterator(); i.hasNext(); )
+			{
+				// write unique finder methods
+				final PersistentAttribute[] persistentAttributes = (PersistentAttribute[])i.next();
+				writeUniqueFinder(persistentAttributes);
+			}
+			writeType(persistentClass);
+		}
+	}
+
 	public void onClassEnd(final JavaClass javaClass)
 	throws IOException, InjectorParseException
 	{
@@ -911,53 +961,7 @@ public final class Instrumentor implements InjectionConsumer
 
 		final PersistentClass persistentClass = PersistentClass.getPersistentClass(javaClass);
 		if(persistentClass!=null)
-		{
-			//System.out.println("onClassEnd("+jc.getName()+") persistent");
-			if(uniqueConstraints != null)
-			{
-				//System.out.println("onClassEnd("+jc.getName()+") unique");
-				for( final Iterator i=uniqueConstraints.iterator(); i.hasNext(); )
-				{
-					final String uniqueConstraint=(String)i.next();
-					final List attributes = new ArrayList();
-					for(final StringTokenizer t=new StringTokenizer(uniqueConstraint, " "); t.hasMoreTokens(); )
-					{
-						final String attributeName = t.nextToken();
-						final PersistentAttribute ja = persistentClass.getPersistentAttribute(attributeName);
-						if(ja==null)
-							throw new InjectorParseException("Attribute with name "+attributeName+" does not exist!");
-						attributes.add(ja);
-					}
-					if(attributes.isEmpty())
-						throw new InjectorParseException("No attributes found in unique constraint "+uniqueConstraint);
-					persistentClass.makeUnique((PersistentAttribute[])attributes.toArray(new PersistentAttribute[]{}));
-				}
-			}
-	
-			if(!persistentClass.isInterface())
-			{
-				//System.out.println("onClassEnd("+jc.getName()+") writing");
-				writeConstructor(persistentClass);
-				writeReactivationConstructor(persistentClass);
-				for(final Iterator i = persistentClass.getPersistentAttributes().iterator(); i.hasNext(); )
-				{
-					// write setter/getter methods
-					final PersistentAttribute persistentAttribute = (PersistentAttribute)i.next();
-					//System.out.println("onClassEnd("+jc.getName()+") writing attribute "+persistentAttribute.getName());
-					if(persistentAttribute.isMediaPersistentType())
-						writeMediaAccessMethods(persistentAttribute);
-					else
-						writeAccessMethods(persistentAttribute);
-				}
-				for(final Iterator i = persistentClass.getUniqueConstraints().iterator(); i.hasNext(); )
-				{
-					// write unique finder methods
-					final PersistentAttribute[] persistentAttributes = (PersistentAttribute[])i.next();
-					writeUniqueFinder(persistentAttributes);
-				}
-				writeType(persistentClass);
-			}
-		}
+			writeClassFeatures(persistentClass);
 		
 		if(class_state!=javaClass)
 			throw new RuntimeException();
