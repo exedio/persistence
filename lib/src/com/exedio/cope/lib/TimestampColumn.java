@@ -26,7 +26,7 @@ class TimestampColumn extends Column
 	 * Probably has to be adjusted for different jdbc drivers
 	 * and jdk versions. 
 	 */
-	private final long getTime(final Date date)
+	private static final long getTime(final Date date)
 	{
 		//System.out.println("TimeColumn.getTime");
 		
