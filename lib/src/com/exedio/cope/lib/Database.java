@@ -20,7 +20,7 @@ public abstract class Database
 	{
 	}
 	
-	//private static int createTableTime = 0, dropTableTime = 0;
+	//private static int createTableTime = 0, dropTableTime = 0, checkEmptyTableTime = 0;
 	
 	public void createTables()
 	{
@@ -79,6 +79,21 @@ public abstract class Database
 		}
 	}
 
+	public void checkEmptyTables()
+	{
+		//final long time = System.currentTimeMillis();
+		for(Iterator i = Type.getTypes().iterator(); i.hasNext(); )
+		{
+			final Type type = (Type)i.next();
+			final int count = countTable(type);
+			if(count>0)
+				throw new RuntimeException("there are "+count+" items left for type "+type); 
+		}
+		//final long amount = (System.currentTimeMillis()-time);
+		//checkEmptyTableTime += amount;
+		//System.out.println("CHECK EMPTY TABLES "+amount+"ms  accumulated "+checkEmptyTableTime);
+	}
+	
 	Collection search(final Query query)
 	{
 		final Type type = query.type;
@@ -242,6 +257,7 @@ public abstract class Database
 		
 	private static class QueryResultSetHandler implements ResultSetHandler
 	{
+		// TODO: make this a inner class
 		private final ArrayList result = new ArrayList();
 
 		public void run(ResultSet resultSet) throws SQLException
@@ -277,8 +293,23 @@ public abstract class Database
 		}
 	}
 
+	private static class IntegerResultSetHandler implements ResultSetHandler
+	{
+		// TODO: make this a inner class
+		int result;
+
+		public void run(ResultSet resultSet) throws SQLException
+		{
+			if(!resultSet.next())
+				throw new RuntimeException();
+			final BigDecimal o = (BigDecimal)resultSet.getObject(1);
+			result = o.intValue();
+		}
+	}
+
 	private static class MaxPKResultSetHandler implements ResultSetHandler
 	{
+		// TODO: make this a inner class
 		int result;
 
 		public void run(ResultSet resultSet) throws SQLException
@@ -498,6 +529,24 @@ public abstract class Database
 		try
 		{
 			executeSQL(bf, EMPTY_RESULT_SET_HANDLER);
+		}
+		catch(UniqueViolationException e)
+		{
+			throw new SystemException(e);
+		}
+	}
+	
+	private int countTable(final Type type)
+	{
+		final Statement bf = new Statement();
+		bf.append("select count(*) from ").
+			append(type.protectedName);
+
+		try
+		{
+			final IntegerResultSetHandler handler = new IntegerResultSetHandler();
+			executeSQL(bf, handler);
+			return handler.result;
 		}
 		catch(UniqueViolationException e)
 		{

@@ -63,10 +63,12 @@ public abstract class AbstractLibTest extends TestCase
 	{
 		super.setUp();
 		createTables();
+		Database.theInstance.checkEmptyTables();
 	}
 	
 	public void tearDown() throws Exception
 	{
+		Database.theInstance.checkEmptyTables();
 		dropTables();
 		super.tearDown();
 	}
