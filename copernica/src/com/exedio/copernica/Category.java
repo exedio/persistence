@@ -8,13 +8,11 @@ public interface Category extends Component
 	/**
 	 * @return a collection of {@link Category categories}.
 	 */
-	// TODO: rename to getCopernicaSubCategories
-	public Collection getSubCategories();
+	public Collection getCopernicaSubCategories();
 	
 	/**
 	 * @return a collection of {@link com.exedio.cope.lib.Type types}.
 	 */
-	// TODO: rename to getCopernicaTypes
-	public Collection getTypes();
+	public Collection getCopernicaTypes();
 	
 }
