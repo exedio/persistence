@@ -60,6 +60,9 @@ public abstract class InjectorTest extends TestCase
 	
 	private String replaceLineBreaks(final String s)
 	{
+		if(s==null)
+			return null;
+
 		final StringBuffer result = new StringBuffer();
 		int pos;
 		int lastpos = -1;
@@ -95,13 +98,13 @@ public abstract class InjectorTest extends TestCase
 	protected void assertDocComment(final String docComment)
 	{
 		final InjectionEvent event = fetchEvent();
-		assertEquals(docComment, ((DocCommentEvent)event).docComment);
+		assertEquals(replaceLineBreaks(docComment), ((DocCommentEvent)event).docComment);
 	}
 
 	protected void assertFileDocComment(final String docComment)
 	{
 		final InjectionEvent event = fetchEvent();
-		assertEquals(docComment, ((FileDocCommentEvent)event).docComment);
+		assertEquals(replaceLineBreaks(docComment), ((FileDocCommentEvent)event).docComment);
 	}
 
 	protected JavaClass assertClass(final String className)
@@ -143,7 +146,7 @@ public abstract class InjectorTest extends TestCase
 		final InjectionEvent event = fetchEvent();
 		final JavaFeature javaFeature = ((ClassFeatureEvent)event).javaFeature;
 		assertEquals(name, javaFeature.getName());
-		assertEquals(docComment, ((ClassFeatureEvent)event).docComment);
+		assertEquals(replaceLineBreaks(docComment), ((ClassFeatureEvent)event).docComment);
 	}
 	
 	protected void assertAttribute(final String name, final String docComment)
