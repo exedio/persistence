@@ -127,6 +127,7 @@ public final class Instrumentor implements InjectionConsumer
 					first = false;
 				else
 					output.write(',');
+				output.write("final ");
 				output.write(persistentAttribute.getPersistentType());
 				output.write(' ');
 				output.write(persistentAttribute.getName());
@@ -175,7 +176,7 @@ public final class Instrumentor implements InjectionConsumer
 		output.write(methodModifiers);
 		output.write(" void set");
 		output.write(persistentAttribute.getCamelCaseName());
-		output.write('(');
+		output.write("(final ");
 		output.write(type);
 		output.write(' ');
 		output.write(persistentAttribute.getName());
