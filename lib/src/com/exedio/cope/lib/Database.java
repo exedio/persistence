@@ -710,7 +710,7 @@ abstract class Database
 		try
 		{
 			//System.out.println("storing "+bf.toString());
-			executeSQLUpdate(bf);
+			executeSQLUpdate(bf, 1);
 		}
 		catch(UniqueViolationException e)
 		{
@@ -742,7 +742,7 @@ abstract class Database
 
 			try
 			{
-				executeSQLUpdate(bf);
+				executeSQLUpdate(bf, 1);
 			}
 			catch(IntegrityViolationException e)
 			{
@@ -778,17 +778,20 @@ abstract class Database
 	protected final StatementInfo executeSQLQuery(final Statement statement, final ResultSetHandler resultSetHandler)
 			throws ConstraintViolationException
 	{
-		return executeSQL(statement, resultSetHandler);
+		return executeSQL(statement, resultSetHandler, 0);
 	}
 	
-	protected final void executeSQLUpdate(final Statement statement)
+	protected final void executeSQLUpdate(final Statement statement, final int expectedRows)
 			throws ConstraintViolationException
 	{
-		if(executeSQL(statement, null)!=null)
+		if(executeSQL(statement, null, expectedRows)!=null)
 			throw new RuntimeException(statement.toString());
 	}
 	
-	private final StatementInfo executeSQL(final Statement statement, final ResultSetHandler resultSetHandler)
+	private final StatementInfo executeSQL(
+		final Statement statement,
+		final ResultSetHandler resultSetHandler,
+		final int expectedRows)
 			throws ConstraintViolationException
 	{
 		Connection connection = null;
@@ -816,6 +819,8 @@ abstract class Database
 				{
 					final int rows = sqlStatement.executeUpdate(sqlText);
 					//System.out.println("("+rows+"): "+statement.getText());
+					//if(rows!=expectedRows) TODO
+						//throw new RuntimeException("expected "+expectedRows+" rows, but got "+rows);
 				}
 				else
 				{
@@ -1106,7 +1111,7 @@ abstract class Database
 		try
 		{
 			//System.out.println("createTable:"+bf.toString());
-			executeSQLUpdate(bf);
+			executeSQLUpdate(bf, 0);
 		}
 		catch(ConstraintViolationException e)
 		{
@@ -1138,7 +1143,7 @@ abstract class Database
 				try
 				{
 					//System.out.println("createForeignKeyConstraints:"+bf);
-					executeSQLUpdate(bf);
+					executeSQLUpdate(bf, 0);
 				}
 				catch(ConstraintViolationException e)
 				{
@@ -1156,7 +1161,7 @@ abstract class Database
 
 		try
 		{
-			executeSQLUpdate(bf);
+			executeSQLUpdate(bf, 0);
 		}
 		catch(ConstraintViolationException e)
 		{
@@ -1224,7 +1229,7 @@ abstract class Database
 				//System.out.println("dropForeignKeyConstraints:"+bf);
 				try
 				{
-					executeSQLUpdate(bf);
+					executeSQLUpdate(bf, 0);
 				}
 				catch(ConstraintViolationException e)
 				{
@@ -1399,7 +1404,7 @@ abstract class Database
 		try
 		{
 			//System.out.println("renameTable:"+bf);
-			executeSQLUpdate(bf);
+			executeSQLUpdate(bf, 0);
 		}
 		catch(ConstraintViolationException e)
 		{
@@ -1416,7 +1421,7 @@ abstract class Database
 		try
 		{
 			//System.out.println("dropTable:"+bf);
-			executeSQLUpdate(bf);
+			executeSQLUpdate(bf, 0);
 		}
 		catch(ConstraintViolationException e)
 		{
@@ -1434,7 +1439,7 @@ abstract class Database
 		try
 		{
 			//System.out.println("analyzeTable:"+bf);
-			executeSQLUpdate(bf);
+			executeSQLUpdate(bf, 0);
 		}
 		catch(ConstraintViolationException e)
 		{
@@ -1453,7 +1458,7 @@ abstract class Database
 		try
 		{
 			//System.out.println("dropColumn:"+bf);
-			executeSQLUpdate(bf);
+			executeSQLUpdate(bf, 0);
 		}
 		catch(ConstraintViolationException e)
 		{
@@ -1476,7 +1481,7 @@ abstract class Database
 		try
 		{
 			//System.err.println("renameColumn:"+bf);
-			executeSQLUpdate(bf);
+			executeSQLUpdate(bf, 0);
 		}
 		catch(ConstraintViolationException e)
 		{
@@ -1497,7 +1502,7 @@ abstract class Database
 		try
 		{
 			//System.out.println("createColumn:"+bf);
-			executeSQLUpdate(bf);
+			executeSQLUpdate(bf, 0);
 		}
 		catch(ConstraintViolationException e)
 		{
@@ -1518,7 +1523,7 @@ abstract class Database
 		try
 		{
 			//System.out.println("modifyColumn:"+bf);
-			executeSQLUpdate(bf);
+			executeSQLUpdate(bf, 0);
 		}
 		catch(ConstraintViolationException e)
 		{
