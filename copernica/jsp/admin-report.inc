@@ -20,23 +20,24 @@ if(request.getParameter("APPLY")!=null)
 	final Report report = ((DatabaseReportable)Database.theInstance).reportDatabase();
 	%>
 	<ol><%
-	final String[] analyzeTables = (String[])request.getParameterMap().get("ANALYZE_TABLE");
-	
-	if(analyzeTables!=null)
 	{
-		for(int i = 0; i<analyzeTables.length; i++)
+		final String[] analyzeTables = (String[])request.getParameterMap().get("ANALYZE_TABLE");
+		if(analyzeTables!=null)
 		{
-			final String analyzeTable = analyzeTables[i];
-			final ReportTable table = report.getTable(analyzeTable);
-			if(table==null)
-				throw new RuntimeException(analyzeTable);
-			%>
-			<li>analyzing table <%=analyzeTable%> ...</li><%
-			out.flush();
-			final long time = System.currentTimeMillis();
-			table.analyze();
-			%><li><b>ok</b>, <%=System.currentTimeMillis()-time%>ms.</li><%
-			out.flush();
+			for(int i = 0; i<analyzeTables.length; i++)
+			{
+				final String analyzeTable = analyzeTables[i];
+				final ReportTable table = report.getTable(analyzeTable);
+				if(table==null)
+					throw new RuntimeException(analyzeTable);
+				%>
+				<li>analyzing table <%=analyzeTable%> ...</li><%
+				out.flush();
+				final long time = System.currentTimeMillis();
+				table.analyze();
+				%><li><b>ok</b>, <%=System.currentTimeMillis()-time%>ms.</li><%
+				out.flush();
+			}
 		}
 	}
 	%>
