@@ -8,10 +8,10 @@ public class DoubleColumn extends Column
 {
 	static final Integer JDBC_TYPE = new Integer(Types.DOUBLE);
 
-	DoubleColumn(final Table type, final String id, // TODO: rename to table
+	DoubleColumn(final Table table, final String id, 
 					  final boolean notNull, final int precision)
 	{
-		super(type, id, false, notNull, Database.theInstance.getDoubleType(precision), JDBC_TYPE);
+		super(table, id, false, notNull, Database.theInstance.getDoubleType(precision), JDBC_TYPE);
 	}
 	
 	final void load(final ResultSet resultSet, final int columnIndex, final Row row)

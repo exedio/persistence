@@ -1056,9 +1056,9 @@ public abstract class Database
 		}
 	}
 	
-	private void dropForeignKeyConstraints(final Table type) // TODO: rename to table
+	private void dropForeignKeyConstraints(final Table table) 
 	{
-		for(Iterator i = type.getColumns().iterator(); i.hasNext(); )
+		for(Iterator i = table.getColumns().iterator(); i.hasNext(); )
 		{
 			final Column column = (Column)i.next();
 			//System.out.println("dropForeignKeyConstraints("+column+")");
@@ -1069,7 +1069,7 @@ public abstract class Database
 				boolean hasOne = false;
 
 				bf.append("alter table ").
-					append(type.protectedID).
+					append(table.protectedID).
 					append(" drop constraint ").
 					append(Database.theInstance.protectName(itemColumn.integrityConstraintName));
 

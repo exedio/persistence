@@ -14,14 +14,14 @@ class IntegerColumn extends Column
 	final int[] allowedValues;
 	final String allowedValuesID;
 
-	IntegerColumn(final Table type, final String id, // TODO: rename to table
+	IntegerColumn(final Table table, final String id, 
 					  final boolean notNull, final int precision,
 					  final boolean longInsteadOfInt, final int[] allowedValues)
 	{
-		super(type, id, false, notNull, Database.theInstance.getIntegerType(precision), longInsteadOfInt ? JDBC_TYPE_LONG : JDBC_TYPE_INT);
+		super(table, id, false, notNull, Database.theInstance.getIntegerType(precision), longInsteadOfInt ? JDBC_TYPE_LONG : JDBC_TYPE_INT);
 		this.longInsteadOfInt = longInsteadOfInt;
 		this.allowedValues = allowedValues;
-		this.allowedValuesID = allowedValues==null ? null : Database.theInstance.trimName(type.id+"_"+id+"Val");
+		this.allowedValuesID = allowedValues==null ? null : Database.theInstance.trimName(table.id+"_"+id+"Val");
 	}
 
 	/**
