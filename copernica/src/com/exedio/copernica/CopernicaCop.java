@@ -38,6 +38,10 @@ abstract class CopernicaCop extends Cop implements RequestCache
 			addParameter(LANGUAGE, language.getCopernicaID());
 	}
 	
+	void init(final HttpServletRequest request)
+	{
+	}
+	
 	abstract CopernicaCop switchLanguage(CopernicaLanguage newLanguage);
 	abstract boolean isType(final Type type);
 	abstract String getTitle();
@@ -81,7 +85,7 @@ abstract class CopernicaCop extends Cop implements RequestCache
 		}
 		else if(itemID!=null)
 		{
-			return ItemCop.getCop(provider, language, itemID, request);
+			return ItemCop.getCop(provider, language, itemID);
 		}
 		else
 			return new EmptyCop(provider, language);

@@ -112,6 +112,7 @@ public final class CopernicaServlet extends HttpServlet
 
 			final CopernicaUser user = checkAccess(request);
 			final CopernicaCop cop = CopernicaCop.getCop(provider, request);
+			cop.init(request);
 			Copernica_Jspm.write(out, request, user, cop);
 
 			out.close();

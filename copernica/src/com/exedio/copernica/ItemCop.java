@@ -13,21 +13,20 @@ import com.exedio.cope.lib.Type;
 final class ItemCop extends CopernicaCop
 {
 	final Item item;
-	final ItemForm form;
 	
 	ItemCop(final CopernicaProvider provider, final CopernicaLanguage language, final Item item)
 	{
-		this(provider, language, item, null);
-	}
-	
-	ItemCop(
-			final CopernicaProvider provider, final CopernicaLanguage language, final Item item,
-			final HttpServletRequest request)
-	{
 		super(provider, language);
 		this.item = item;
-		this.form = (request==null) ? null : new ItemForm(this, request);
 		addParameter(ITEM, item.getID());
+	}
+	
+	ItemForm form;
+
+	final void init(final HttpServletRequest request)
+	{
+		super.init(request);
+		this.form = new ItemForm(this, request);
 	}
 	
 	final CopernicaCop switchLanguage(final CopernicaLanguage newLanguage)
@@ -53,12 +52,12 @@ final class ItemCop extends CopernicaCop
 
 	static final ItemCop getCop(
 			final CopernicaProvider provider, final CopernicaLanguage language,
-			final String itemID, final HttpServletRequest request)
+			final String itemID)
 	{	
 		try
 		{
 			final Item item = provider.getModel().findByID(itemID);
-			return new ItemCop(provider, language, item, request);
+			return new ItemCop(provider, language, item);
 		}
 		catch(NoSuchIDException e)
 		{
