@@ -40,6 +40,10 @@ public class PersistentAttribute
 	public final boolean mapped;
 	public final List qualifiers;
 
+	private final String boxedType;
+	private final boolean boxed;
+	private final String boxingPrefix, boxingPostfix, unboxingPrefix, unboxingPostfix;
+
 	public PersistentAttribute(
 			final JavaAttribute javaAttribute,
 			final String persistentType, final int persistentTypeType,
@@ -55,7 +59,27 @@ public class PersistentAttribute
 		this.notNull = notNull;
 		this.mapped = mapped;
 		this.qualifiers = (qualifiers!=null) ? Collections.unmodifiableList(qualifiers) : null;
+
 		persistentClass.addPersistentAttribute(this);
+
+		{
+			final String nativeType = (String)toNativeTypeMapping.get(persistentType);
+			if(notNull && nativeType!=null)
+			{
+				boxedType = nativeType;
+				boxed = true;
+				boxingPrefix = (String)toBoxingPrefixMapping.get(persistentType);
+				boxingPostfix = (String)toBoxingPostfixMapping.get(persistentType);
+				unboxingPrefix = (String)toUnboxingPrefixMapping.get(persistentType);
+				unboxingPostfix = (String)toUnboxingPostfixMapping.get(persistentType);
+			}
+			else
+			{
+				boxedType = persistentType;
+				boxed = false;
+				boxingPrefix = boxingPostfix = unboxingPrefix = unboxingPostfix = null;
+			}
+		}
 	}
 	
 	public final String getName()
@@ -114,43 +138,6 @@ public class PersistentAttribute
 		fillNativeTypeMap("Integer", "int",     "new Integer(", ")",                           "(", ").intValue()");
 	}
 
-
-	private String boxedType = null;
-	private boolean boxed;
-	private String boxingPrefix;
-	private String boxingPostfix;
-	private String unboxingPrefix;
-	private String unboxingPostfix;
-
-	private final String makeBoxedTypeAndFlag()
-	{
-		if(boxedType!=null)
-			return boxedType;
-
-		if(notNull)
-		{
-			final String nativeType = (String)toNativeTypeMapping.get(persistentType);
-			if(nativeType!=null)
-			{
-				boxedType = nativeType;
-				boxed = true;
-				boxingPrefix = (String)toBoxingPrefixMapping.get(persistentType);
-				boxingPostfix = (String)toBoxingPostfixMapping.get(persistentType);
-				unboxingPrefix = (String)toUnboxingPrefixMapping.get(persistentType);
-				unboxingPostfix = (String)toUnboxingPostfixMapping.get(persistentType);
-			}
-			else
-			{
-				boxedType = persistentType;
-				boxed = false;
-			}
-		}
-		else
-			boxedType = persistentType;
-		
-		return boxedType;
-	}
-
 	/**
 	 * Returns the type of this attribute to be used in accessor (setter/getter) methods.
 	 * Differs from {@link #getPersistentType() the persistent type},
@@ -158,9 +145,6 @@ public class PersistentAttribute
 	 */
 	public final String getBoxedType()
 	{
-		if(boxedType==null)
-			makeBoxedTypeAndFlag();
-		
 		return boxedType;
 	}
 	
@@ -172,41 +156,26 @@ public class PersistentAttribute
 	 */
 	public final boolean isBoxed()
 	{
-		if(boxedType==null)
-			makeBoxedTypeAndFlag();
-		
 		return boxed;
 	}
 	
 	public final String getBoxingPrefix()
 	{
-		if(boxedType==null)
-			makeBoxedTypeAndFlag();
-		
 		return boxingPrefix;
 	}
 	
 	public final String getBoxingPostfix()
 	{
-		if(boxedType==null)
-			makeBoxedTypeAndFlag();
-		
 		return boxingPostfix;
 	}
 	
 	public final String getUnBoxingPrefix()
 	{
-		if(boxedType==null)
-			makeBoxedTypeAndFlag();
-		
 		return unboxingPrefix;
 	}
 	
 	public final String getUnBoxingPostfix()
 	{
-		if(boxedType==null)
-			makeBoxedTypeAndFlag();
-		
 		return unboxingPostfix;
 	}
 	
