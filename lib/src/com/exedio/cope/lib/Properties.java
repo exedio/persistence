@@ -27,6 +27,7 @@ final class Properties
 	private final String url;
 	private final String user;
 	private final String password;
+	private final File mediaDirectory;
 
 	private Properties()
 	{
@@ -64,6 +65,41 @@ final class Properties
 		url = getPropertyNotNull(properties, "database.url");
 		user = getPropertyNotNull(properties, "database.user");
 		password = getPropertyNotNull(properties, "database.password");
+		final String mediaDirectoryString  = getPropertyNotNull(properties, "media.directory");
+		final File mediaDirectoryTest = new File(mediaDirectoryString);
+		if(!mediaDirectoryTest.exists())
+		{
+			final String m = "ERROR: media directory "+mediaDirectoryTest.getAbsolutePath()+" does not exist.";
+			System.out.println(m);
+			throw new RuntimeException(m);
+		}
+		if(!mediaDirectoryTest.isDirectory())
+		{
+			final String m = "ERROR: media directory "+mediaDirectoryTest.getAbsolutePath()+" is not a directory.";
+			System.out.println(m);
+			throw new RuntimeException(m);
+		}
+		if(!mediaDirectoryTest.canRead())
+		{
+			final String m = "ERROR: media directory "+mediaDirectoryTest.getAbsolutePath()+" is not readable.";
+			System.out.println(m);
+			throw new RuntimeException(m);
+		}
+		if(!mediaDirectoryTest.canWrite())
+		{
+			final String m = "ERROR: media directory "+mediaDirectoryTest.getAbsolutePath()+" is not writable.";
+			System.out.println(m);
+			throw new RuntimeException(m);
+		}
+		try
+		{
+			mediaDirectory = mediaDirectoryTest.getCanonicalFile();
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
+			throw new SystemException(e);
+		}
 	}
 	
 	private String getPropertyNotNull(final java.util.Properties properties, final String key)
@@ -71,6 +107,7 @@ final class Properties
 		final String result = properties.getProperty(key);
 		if(result==null)
 		{
+			// TODO: make an initializer exception, that additionally prints the error message
 			final String m = "ERROR: property "+key+" in "+file.getAbsolutePath()+" not set.";
 			System.out.println(m);
 			throw new RuntimeException(m);
@@ -101,6 +138,11 @@ final class Properties
 	public String getPassword()
 	{
 		return password;
+	}
+	
+	public File getMediaDirectory()
+	{
+		return mediaDirectory;
 	}
 
 }

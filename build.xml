@@ -108,6 +108,7 @@
 	</target>
 	
 	<target name="lib.test.run.hsql" depends="lib.test.compile">
+		<mkdir dir="lib/build/media" />
 		<java classname="junit.textui.TestRunner" taskname="junit" fork="yes" failonerror="yes">
 			<classpath>
 				<pathelement location="lib/build/classes" />
@@ -121,6 +122,7 @@
 	</target>
 
 	<target name="lib.test.run.oracle" depends="lib.test.compile">
+		<mkdir dir="lib/build/media" />
 		<java classname="junit.textui.TestRunner" taskname="junit" fork="yes" failonerror="yes">
 			<classpath>
 				<pathelement location="lib/build/classes" />

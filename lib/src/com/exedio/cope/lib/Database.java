@@ -1,6 +1,7 @@
 
 package com.exedio.cope.lib;
 
+import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
@@ -94,7 +95,11 @@ public abstract class Database
 	{
 		//final long time = System.currentTimeMillis();
 		for(Iterator i = Type.getTypes().iterator(); i.hasNext(); )
-			createTable((Type)i.next());
+		{
+			final Type type = (Type)i.next();
+			createTable(type);
+			createMediaDirectories(type);
+		}
 		for(Iterator i = Type.getTypes().iterator(); i.hasNext(); )
 			createForeignKeyConstraints((Type)i.next());
 		//final long amount = (System.currentTimeMillis()-time);
@@ -829,6 +834,27 @@ public abstract class Database
 		}
 	}
 	
+	private void createMediaDirectories(final Type type)
+	{
+		final File directory = Properties.getInstance().getMediaDirectory();
+		File typeDirectory = null;
+
+		for(Iterator i = type.getAttributes().iterator(); i.hasNext(); )
+		{
+			final Attribute attribute = (Attribute)i.next();
+			if(attribute instanceof MediaAttribute)
+			{
+				if(typeDirectory==null)
+				{
+					typeDirectory = new File(directory, type.getJavaClass().getName());
+					typeDirectory.mkdir();
+				}
+				final File attributeDirectory = new File(typeDirectory, attribute.getName());
+				attributeDirectory.mkdir();
+			}
+		}
+	}
+
 	private void dropTable(final Type type)
 	{
 		type.onDropTable();

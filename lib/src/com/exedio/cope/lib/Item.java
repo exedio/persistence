@@ -1,6 +1,8 @@
 
 package com.exedio.cope.lib;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -23,8 +25,8 @@ public abstract class Item extends Search
 
 	/**
 	 * Returns a string unique for this item in all other items of this application.
-	 * For any item <code>a</code> the following holds true:
-	 * <code>a.equals(findByID(a.getID()).</code>
+	 * For any item <code>a</code> the following holds true:
+	 * <code>a.equals(findByID(a.getID()).</code>
 	 * Does not activate this item, if it's not already active.
 	 * Never returns null.
 	 * @see #findByID(String)
@@ -73,17 +75,17 @@ public abstract class Item extends Search
 	}
 
 	/**
-	 * Returns the active item object representing the same item as this item object.
-	 * For any two item objects <code>a</code>, <code>b</code> the following holds true:
+	 * Returns the active item object representing the same item as this item object.
+	 * For any two item objects <code>a</code>, <code>b</code> the following holds true:
 	 * <p>
-	 * If and only if <code>a.equals(b)</code> then <code>a.activeItem() == b.activeItem()</code>.
+	 * If and only if <code>a.equals(b)</code> then <code>a.activeItem() == b.activeItem()</code>.
 	 * <p>
 	 * So it does for items, what {@link String#intern} does for strings.
 	 * Does activate this item, if it's not already active.
 	 * Is guaranteed to be very cheap, if this item object is already active, which means
 	 * this method returns <code>this</code>.
 	 * Never returns null.
-	 */
+	 */
 	public final Item activeItem()
 	{
 		if(rowWhenActive!=null)
@@ -268,20 +270,11 @@ public abstract class Item extends Search
 		}
 	}
 	
-	/**
-	 * Returns a URL pointing to the data of this persistent media attribute.
-	 * Returns null, if there is no data for this attribute.
-	 */
-	public final String getMediaURL(final MediaAttribute attribute, final String variant)
+	private void appendMediaPath(
+									final MediaAttribute attribute, final String variant,
+									final StringBuffer bf,
+									final String mimeMajor, final String mimeMinor)
 	{
-		final Row row = getRow();
-
-		final String mimeMajor = (String)row.get(attribute.mimeMajor);
-		if(mimeMajor==null)
-			return null;
-
-		final StringBuffer bf = new StringBuffer("/medias/");
-
 		bf.append(attribute.getType().getJavaClass().getName()).
 			append('/').
 			append(attribute.getName());
@@ -292,10 +285,13 @@ public abstract class Item extends Search
 				append(variant);
 		}
 
-		bf.append('/').
-			append(pk);
+		bf.append('/');
+		if(pk>=0)
+			bf.append(pk);
+		else
+			bf.append('m').
+				append(-pk);
 
-		final String mimeMinor = (String)row.get(attribute.mimeMinor);
 		final String compactExtension;
 		if("image".equals(mimeMajor))
 		{
@@ -320,7 +316,23 @@ public abstract class Item extends Search
 		}
 		else
 			bf.append(compactExtension);
-		
+	}
+	
+	/**
+	 * Returns a URL pointing to the data of this persistent media attribute.
+	 * Returns null, if there is no data for this attribute.
+	 */
+	public final String getMediaURL(final MediaAttribute attribute, final String variant)
+	{
+		final Row row = getRow();
+
+		final String mimeMajor = (String)row.get(attribute.mimeMajor);
+		if(mimeMajor==null)
+			return null;
+
+		final String mimeMinor = (String)row.get(attribute.mimeMinor);
+		final StringBuffer bf = new StringBuffer("/medias/");
+		appendMediaPath(attribute, variant, bf, mimeMajor, mimeMinor);
 		return bf.toString();
 	}
 
@@ -360,7 +372,7 @@ public abstract class Item extends Search
 	 *         if data is null and attribute is {@link Attribute#isNotNull() not-null}.
 	 * @throws IOException if reading data throws an IOException.
 	 */
-	public final void setMediaData(final MediaAttribute attribute, final OutputStream data,
+	public final void setMediaData(final MediaAttribute attribute, final InputStream data,
 												 final String mimeMajor, final String mimeMinor)
 	throws NotNullViolationException, IOException
 	{
@@ -378,7 +390,18 @@ public abstract class Item extends Search
 		}
 
 		if(data!=null)
+		{
+			final File directory = Properties.getInstance().getMediaDirectory();
+			final StringBuffer buf = new StringBuffer();
+			appendMediaPath(attribute, null, buf, mimeMajor, mimeMinor);
+			final File file = new File(directory, buf.toString());
+			final OutputStream out = new FileOutputStream(file);
+			final byte[] b = new byte[20*1024];
+			for(int len = data.read(b); len>=0; len = data.read(b))
+				out.write(b, 0, len);
+			out.close();
 			data.close();
+		}
 	}
 	
 	public final void delete()

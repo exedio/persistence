@@ -1,5 +1,6 @@
 package com.exedio.cope.lib;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
 public class AttributesTest extends DatabaseLibTest
@@ -309,10 +310,11 @@ public class AttributesTest extends DatabaseLibTest
 		assertEquals(null, item.getSomeMediaMimeMajor());
 		assertEquals(null, item.getSomeMediaMimeMinor());
 
+		final byte[] bytes = new byte[]{3,7,1,4};
 		try
 		{
-			item.setSomeMediaData(null /*some data*/
-			, "someMimeMajor", "someMimeMinor");
+			item.setSomeMediaData(new ByteArrayInputStream(bytes),
+			"someMimeMajor", "someMimeMinor");
 		}
 		catch (IOException e)
 		{
@@ -320,10 +322,11 @@ public class AttributesTest extends DatabaseLibTest
 		}
 		final String prefix =
 			"/medias/com.exedio.cope.lib.ItemWithManyAttributes/someMedia/";
+		final String pkString = (item.pk>=0) ? String.valueOf(item.pk) : "m"+(-item.pk);
 		final String expectedURL =
-			prefix + item.pk + ".someMimeMajor.someMimeMinor";
+			prefix + pkString + ".someMimeMajor.someMimeMinor";
 		final String expectedURLSomeVariant =
-			prefix + "SomeVariant/" + item.pk + ".someMimeMajor.someMimeMinor";
+			prefix + "SomeVariant/" + pkString + ".someMimeMajor.someMimeMinor";
 		//System.out.println(expectedURL);
 		//System.out.println(item.getSomeMediaURL());
 		assertEquals(expectedURL, item.getSomeMediaURL());

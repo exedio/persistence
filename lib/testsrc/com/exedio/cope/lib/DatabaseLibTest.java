@@ -90,8 +90,9 @@ public abstract class DatabaseLibTest extends AbstractLibTest
 			throw new SystemException(e);
 		}
 		final String prefix = "/medias/com.exedio.cope.lib.ItemWithManyAttributes/someMedia/";
-		final String expectedURL = prefix+item.pk+'.'+url;
-		final String expectedURLSomeVariant = prefix+"SomeVariant/"+item.pk+'.'+url;
+		final String pkString = (item.pk>=0) ? String.valueOf(item.pk) : "m"+(-item.pk);
+		final String expectedURL = prefix+pkString+'.'+url;
+		final String expectedURLSomeVariant = prefix+"SomeVariant/"+pkString+'.'+url;
 		//System.out.println(expectedURL);
 		//System.out.println(item.getSomeMediaURL());
 		assertEquals(expectedURL, item.getSomeMediaURL());

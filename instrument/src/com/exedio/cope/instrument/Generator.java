@@ -8,7 +8,6 @@ package com.exedio.cope.instrument;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.Writer;
 import java.lang.reflect.Modifier;
 import java.util.Collection;
@@ -485,7 +484,7 @@ final class Generator
 				writeParameterDeclarationList(qualifiers);
 				o.write(',');
 			}
-			o.write("final " + OutputStream.class.getName() + " data");
+			o.write("final " + InputStream.class.getName() + " data");
 			if(mimeMajor==null)
 				o.write(",final "+String.class.getName()+" mimeMajor");
 			if(mimeMinor==null)
