@@ -221,8 +221,30 @@ public final class Instrumentor implements InjectionConsumer
 	public void writeConstructor(final JavaClass javaClass)
 	throws IOException
 	{
+		final ArrayList initialAttributes = new ArrayList();
+		final TreeSet setterExceptions = new TreeSet(ClassComparator.newInstance());
+		for(Iterator i = javaClass.getPersistentAttributes().iterator(); i.hasNext(); )
+		{
+			final JavaAttribute persistentAttribute = (JavaAttribute)i.next();
+			if(persistentAttribute.isReadOnly() || persistentAttribute.isNotNull())
+			{
+				initialAttributes.add(persistentAttribute);
+				setterExceptions.addAll(persistentAttribute.getSetterExceptions());
+			}
+		}
+
 		writeCommentHeader();
 		output.write("\t * This is a generated constructor.");
+		for(Iterator i = initialAttributes.iterator(); i.hasNext(); )
+		{
+			final JavaAttribute initialAttribute = (JavaAttribute)i.next();
+			output.write(lineSeparator);
+			output.write("\t * @param initial");
+			output.write(initialAttribute.getCamelCaseName());
+			output.write(" the intial value for attribute {@link #");
+			output.write(initialAttribute.getName());
+			output.write("}.");
+		}
 		output.write(lineSeparator);
 		writeCommentFooter();
 		output.write(Modifier.toString(javaClass.getModifiers() & (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE)));
@@ -231,24 +253,17 @@ public final class Instrumentor implements InjectionConsumer
 		output.write('(');
 		
 		boolean first = true;
-		final ArrayList attributes = new ArrayList();
-		final TreeSet setterExceptions = new TreeSet(ClassComparator.newInstance());
-		for(Iterator i = javaClass.getPersistentAttributes().iterator(); i.hasNext(); )
+		for(Iterator i = initialAttributes.iterator(); i.hasNext(); )
 		{
-			final JavaAttribute persistentAttribute = (JavaAttribute)i.next();
-			if(persistentAttribute.isReadOnly() || persistentAttribute.isNotNull())
-			{
-				attributes.add(persistentAttribute);
-				setterExceptions.addAll(persistentAttribute.getSetterExceptions());
-				if(first)
-					first = false;
-				else
-					output.write(',');
-				output.write("final ");
-				output.write(persistentAttribute.getPersistentType());
-				output.write(" initial");
-				output.write(persistentAttribute.getCamelCaseName());
-			}
+			if(first)
+				first = false;
+			else
+				output.write(',');
+			final JavaAttribute initialAttribute = (JavaAttribute)i.next();
+			output.write("final ");
+			output.write(initialAttribute.getPersistentType());
+			output.write(" initial");
+			output.write(initialAttribute.getCamelCaseName());
 		}
 		
 		output.write(')');
@@ -258,13 +273,13 @@ public final class Instrumentor implements InjectionConsumer
 		output.write(lineSeparator);
 		output.write("\t\tsuper(new "+AttributeValue.class.getName()+"[]{");
 		output.write(lineSeparator);
-		for(Iterator i = attributes.iterator(); i.hasNext(); )
+		for(Iterator i = initialAttributes.iterator(); i.hasNext(); )
 		{
-			final JavaAttribute attribute = (JavaAttribute)i.next();
+			final JavaAttribute initialAttribute = (JavaAttribute)i.next();
 			output.write("\t\t\tnew "+AttributeValue.class.getName()+"(");
-			output.write(attribute.getName());
+			output.write(initialAttribute.getName());
 			output.write(",initial");
-			output.write(attribute.getCamelCaseName());
+			output.write(initialAttribute.getCamelCaseName());
 			output.write("),");
 			output.write(lineSeparator);
 		}
