@@ -33,6 +33,7 @@ import com.exedio.cope.lib.util.ReactivationConstructorDummy;
 final class Generator
 {
 	private static final String CONSTRUCTOR_NEW = "Constructs a new {0} with all the attributes initially needed.";
+	private static final String CONSTRUCTOR_NEW_PARAMETER = "the initial value for attribute {0}.";
 
 	private final Writer o;
 	private final String lineSeparator;
@@ -129,6 +130,16 @@ final class Generator
 		constraintViolationText.put(NotNullViolationException.class, "null");
 		constraintViolationText.put(UniqueViolationException.class, "not unique");
 	}
+	
+	private static final String link(final String target)
+	{
+		return "{@link #" + target + "}";
+	}
+	
+	private static final String format(final String pattern, final String parameter1)
+	{
+		return MessageFormat.format(pattern, new Object[]{ parameter1 });
+	}
 
 	private void writeConstructor(final CopeClass javaClass)
 	throws IOException
@@ -141,7 +152,7 @@ final class Generator
 		
 		writeCommentHeader();
 		o.write("\t * ");
-		o.write(MessageFormat.format(CONSTRUCTOR_NEW, new Object[]{javaClass.getName()}));
+		o.write(format(CONSTRUCTOR_NEW, javaClass.getName()));
 		o.write(lineSeparator);
 		writeCommentGenerated();
 		for(Iterator i = initialAttributes.iterator(); i.hasNext(); )
@@ -149,9 +160,8 @@ final class Generator
 			final CopeAttribute initialAttribute = (CopeAttribute)i.next();
 			o.write("\t * @param initial");
 			o.write(toCamelCase(initialAttribute.getName()));
-			o.write(" the initial value for attribute {@link #");
-			o.write(initialAttribute.getName());
-			o.write("}.");
+			o.write(' ');
+			o.write(format(CONSTRUCTOR_NEW_PARAMETER, link(initialAttribute.getName())));
 			o.write(lineSeparator);
 		}
 		for(Iterator i = constructorExceptions.iterator(); i.hasNext(); )
