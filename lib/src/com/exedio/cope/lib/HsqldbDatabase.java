@@ -177,48 +177,28 @@ final class HsqldbDatabase
 		}
 	}
 
-	// TODO: make getRenameColumnStatement function for override
-	final void renameColumn(final String tableName, final String oldColumnName, final String newColumnName)
+	Statement getRenameColumnStatement(final String tableName, final String oldColumnName, final String newColumnName)
 	{
 		final Statement bf = createStatement();
 		bf.append("alter table ").
-			append(protectName(tableName)).
+			append(tableName).
 			append(" alter column ").
-			append(protectName(oldColumnName)).
+			append(oldColumnName).
 			append(" rename to ").
-			append(protectName(newColumnName));
-
-		try
-		{
-			//System.err.println("renameColumn:"+bf);
-			executeSQL(bf, EMPTY_RESULT_SET_HANDLER);
-		}
-		catch(ConstraintViolationException e)
-		{
-			throw new SystemException(e);
-		}
+			append(newColumnName);
+		return bf;
 	}
 
-	// TODO: make getCreateColumnStatement function for override
-	final void createColumn(final Column column)
+	Statement getCreateColumnStatement(final String tableName, final String columnName, final String columnType)
 	{
 		final Statement bf = createStatement();
 		bf.append("alter table ").
-			append(column.table.protectedID).
+			append(tableName).
 			append(" add column ").
-			append(column.protectedID).
+			append(columnName).
 			append(' ').
-			append(column.databaseType);
-
-		try
-		{
-			//System.out.println("createColumn:"+bf);
-			executeSQL(bf, EMPTY_RESULT_SET_HANDLER);
-		}
-		catch(ConstraintViolationException e)
-		{
-			throw new SystemException(e);
-		}
+			append(columnType);
+		return bf;
 	}
 
 }

@@ -601,7 +601,7 @@ abstract class Database
 		public void run(ResultSet resultSet) throws SQLException;
 	}
 
-	static final ResultSetHandler EMPTY_RESULT_SET_HANDLER = new ResultSetHandler()
+	private static final ResultSetHandler EMPTY_RESULT_SET_HANDLER = new ResultSetHandler()
 	{
 		public void run(ResultSet resultSet)
 		{
@@ -1237,16 +1237,26 @@ abstract class Database
 			throw new SystemException(e);
 		}
 	}
-
-	void renameColumn(final String tableName, final String oldColumnName, final String newColumnName)
+	
+	Statement getRenameColumnStatement(final String tableName, final String oldColumnName, final String newColumnName)
 	{
 		final Statement bf = createStatement();
 		bf.append("alter table ").
-			append(protectName(tableName)).
+			append(tableName).
 			append(" rename column "). // TODO: this syntax is probably oracle specific
-			append(protectName(oldColumnName)).
+			append(oldColumnName).
 			append(" to ").
-			append(protectName(newColumnName));
+			append(newColumnName);
+		return bf;
+	}
+
+	final void renameColumn(final String tableName, final String oldColumnName, final String newColumnName)
+	{
+		final Statement bf =
+			getRenameColumnStatement(
+				protectName(tableName),
+				protectName(oldColumnName),
+				protectName(newColumnName));
 
 		try
 		{
@@ -1258,17 +1268,27 @@ abstract class Database
 			throw new SystemException(e);
 		}
 	}
-
-	void createColumn(final Column column)
+	
+	Statement getCreateColumnStatement(final String tableName, final String columnName, final String columnType)
 	{
 		final Statement bf = createStatement();
 		bf.append("alter table ").
-			append(column.table.protectedID).
+			append(tableName).
 			append(" add ("). // TODO: this syntax is probably oracle specific
-			append(column.protectedID).
+			append(columnName).
 			append(' ').
-			append(column.databaseType).
+			append(columnType).
 			append(')');
+		return bf;
+	}
+
+	final void createColumn(final Column column)
+	{
+		final Statement bf =
+			getCreateColumnStatement(
+				column.table.protectedID,
+				column.protectedID,
+				column.databaseType);
 
 		try
 		{
