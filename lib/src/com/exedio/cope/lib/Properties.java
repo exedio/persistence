@@ -24,10 +24,10 @@ final class Properties
 	private File file = null;
 
 	private final String database;
-	private final String driver;
-	private final String url;
-	private final String user;
-	private final String password;
+	private final String databaseDriver;
+	private final String databaseUrl;
+	private final String databaseUser;
+	private final String databasePassword;
 
 	private final File mediaDirectory;
 	private final String mediaUrl;
@@ -62,10 +62,10 @@ final class Properties
 			}
 		}
 		database = getPropertyNotNull(properties, "database");
-		driver = getPropertyNotNull(properties, "database.driver");
-		url = getPropertyNotNull(properties, "database.url");
-		user = getPropertyNotNull(properties, "database.user");
-		password = getPropertyNotNull(properties, "database.password");
+		databaseDriver = getPropertyNotNull(properties, "database.driver");
+		databaseUrl = getPropertyNotNull(properties, "database.url");
+		databaseUser = getPropertyNotNull(properties, "database.user");
+		databasePassword = getPropertyNotNull(properties, "database.password");
 		final String mediaDirectoryString  = getPropertyNotNull(properties, "media.directory");
 		final File mediaDirectoryTest = new File(mediaDirectoryString);
 
@@ -104,22 +104,22 @@ final class Properties
 
 	public String getDatabaseDriver()
 	{
-		return driver;
+		return databaseDriver;
 	}
 
 	public String getDatabaseUrl()
 	{
-		return url;
+		return databaseUrl;
 	}
 
 	public String getDatabaseUser()
 	{
-		return user;
+		return databaseUser;
 	}
 
 	public String getDatabasePassword()
 	{
-		return password;
+		return databasePassword;
 	}
 	
 	public File getMediaDirectory()
