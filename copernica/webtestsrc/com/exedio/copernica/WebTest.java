@@ -1,8 +1,7 @@
 package com.exedio.copernica;
 
-import net.sourceforge.jwebunit.WebTestCase;
 
-public class WebTest extends WebTestCase
+public class WebTest extends AbstractWebTest
 {
 
 	public WebTest(String name)
@@ -29,7 +28,6 @@ public class WebTest extends WebTestCase
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		getTestContext().setBaseUrl("http://127.0.0.1:8080/copetest-oracle/");
 		someString = "";
 		someNotNullString = "running100";
 		someInteger = "";
