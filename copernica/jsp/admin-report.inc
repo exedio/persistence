@@ -15,7 +15,7 @@ private String color(final int color)
 }
 %><%
 final Report report = Database.theInstance.reportDatabase();
-final String reportColor = color(report.getColor());
+final String reportColor = color(report.getCumulativeColor());
 if(reportColor!=null)
 {
 	%><span style="background-color:#<%=reportColor%>"><%
@@ -33,7 +33,7 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); )
 	%>
 	<li><%
 	
-	final String tableColor = color(table.getColor());
+	final String tableColor = color(table.getCumulativeColor());
 	if(tableColor!=null)
 	{
 		%><span style="background-color:#<%=tableColor%>"><%
@@ -62,7 +62,7 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); )
 		for(Iterator j = table.getConstraints().iterator(); j.hasNext(); )
 		{
 			final Report.Constraint constraint = (Report.Constraint)j.next();
-			final String constraintColor = color(constraint.getColor());
+			final String constraintColor = color(constraint.getCumulativeColor());
 			if(constraintColor!=null)
 			{
 				%><span style="background-color:#<%=constraintColor%>"><%
