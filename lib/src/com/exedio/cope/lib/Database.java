@@ -398,6 +398,7 @@ public abstract class Database
 		for(Iterator i = type.getColumns().iterator(); i.hasNext(); )
 		{
 			final Column column = (Column)i.next();
+			//System.out.println("getCreateTableStatement:"+column);
 			bf.append(',').
 				append(column.name).
 				append(' ').
