@@ -48,11 +48,10 @@ page import="java.util.Map"
 <html>
 	<head>
 		<title>
-			Copernica
+			<%=cop.getTitle(provider)%>
 		</title>
 	</head>
-	<body>
-<%
+	<body><%
 	
 	boolean database = false;
 	try

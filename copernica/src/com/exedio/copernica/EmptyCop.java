@@ -19,5 +19,10 @@ final class EmptyCop extends CopernicaCop
 	{
 		return false;
 	}
+	
+	final String getTitle(final CopernicaProvider provider)
+	{
+		return "Copernica";
+	}
 
 }

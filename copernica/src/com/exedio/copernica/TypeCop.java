@@ -50,6 +50,11 @@ final class TypeCop extends CopernicaCop
 		return this.type == type;
 	}
 
+	final String getTitle(final CopernicaProvider provider)
+	{
+		return provider.getDisplayName(language, type);
+	}
+
 	final boolean isFirstPage()
 	{
 		return start == 0;

@@ -31,6 +31,7 @@ abstract class CopernicaCop extends Cop
 	
 	abstract CopernicaCop switchLanguage(Language newLanguage);
 	abstract boolean isType(final Type type);
+	abstract String getTitle(CopernicaProvider provider);
 
 	final TypeCop toType(final Type newType)
 	{
