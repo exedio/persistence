@@ -1,10 +1,13 @@
 
 package com.exedio.cope.lib;
 
+import com.exedio.cope.lib.database.Database;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 public class Item extends Search
 {
@@ -12,7 +15,11 @@ public class Item extends Search
 	 * THIS IS A HACK
 	 */
 	private static int pkCounter = 0;
-	private final int pk;
+	
+	/**
+	 * TODO: must be at least package private
+	 */
+	public final int pk;
 
 	/**
 	 * Returns a string unique for this item in all other items of this application.
@@ -72,6 +79,7 @@ public class Item extends Search
 	{
 		putCache(initialAttributeValues);
 		this.pk = pkCounter++; // TODO: THIS IS A HACK
+		writeCache();
 	}
 	
 	/**
@@ -121,12 +129,14 @@ public class Item extends Search
 			throw new NotNullViolationException(this, attribute);
 
 		putCache(attribute, value);
+		writeCache();
 	}
 	
 	protected final void setAttribute(final Attribute attribute, final Object[] qualifiers, final Object value)
 	throws UniqueViolationException
 	{
 		putCache(attribute, value);
+		writeCache();
 	}
 	
 	/**
@@ -186,6 +196,8 @@ public class Item extends Search
 	// item cache -------------------------------------------------------------------
 	
 	private final HashMap itemCache = new HashMap();
+	private boolean present = false;
+	private boolean dirty = false;
 
 	private Object getCache(final Attribute attribute)
 	{
@@ -196,11 +208,38 @@ public class Item extends Search
 	{
 		for(int i = 0; i<attributeValues.length; i++)
 			itemCache.put(attributeValues[i].attribute, attributeValues[i].value);
+		dirty = true; // TODO: check, whether the written attribute got really a new value
 	}
 	
 	private void putCache(final Attribute attribute, final Object value)
 	{
 		itemCache.put(attribute, value);
+		dirty = true; // TODO: check, whether the written attribute got really a new value
+	}
+	
+	private void writeCache()
+	{
+		if(!dirty)
+			return;
+		
+		final Type type;
+		try
+		{
+			type = (Type)getClass().getField("TYPE").get(null); // TODO: very inefficient
+		}
+		catch(IllegalAccessException e)
+		{
+			throw new SystemException(e);
+		}
+		catch(NoSuchFieldException e)
+		{
+			throw new SystemException(e);
+		}
+		
+		Database.theInstance.write(type, pk, itemCache, present);
+
+		present = true;
+		dirty = false;
 	}
 	
 }

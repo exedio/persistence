@@ -4,7 +4,9 @@ package com.exedio.cope.lib.database;
 import com.exedio.cope.lib.Attribute;
 import com.exedio.cope.lib.BooleanAttribute;
 import com.exedio.cope.lib.EnumerationAttribute;
+import com.exedio.cope.lib.EnumerationValue;
 import com.exedio.cope.lib.IntegerAttribute;
+import com.exedio.cope.lib.Item;
 import com.exedio.cope.lib.ItemAttribute;
 import com.exedio.cope.lib.MediaAttribute;
 import com.exedio.cope.lib.StringAttribute;
@@ -15,7 +17,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * TODO: This (sometime to make abstract) class should be in the parent package,
@@ -45,6 +50,11 @@ public class Database
 	public char getNameDelimiterEnd()
 	{
 		return '"';
+	}
+	
+	private String getSyntheticPrimaryKeyQualifier()
+	{
+		return "\"PK\"";
 	}
 	
 	private String getSyntheticPrimaryKeyType()
@@ -80,7 +90,9 @@ public class Database
 		final char delimiterEnd = getNameDelimiterEnd();
 
 		final StringBuffer bf = new StringBuffer();
-		bf.append("select \"PK\" from ").
+		bf.append("select ").
+			append(getSyntheticPrimaryKeyQualifier()).
+			append(" from ").
 			append(delimiterStart).
 			append(getPersistentQualifier(type)).
 			append(delimiterEnd).
@@ -88,6 +100,100 @@ public class Database
 		condition.appendSQL(this, bf);
 		
 		System.out.println("searching "+bf.toString());
+
+		executeSQL(bf.toString());
+	}
+
+	private String makeValue(final Object o)
+	{
+		if(o==null)
+			return "NULL";
+		else
+		{
+			if(o instanceof String)
+				return "'" + o + '\'';
+			else if(o instanceof Boolean)
+				return ((Boolean)o).booleanValue() ? "1" : "0";
+			else if(o instanceof Item)
+				return Integer.toString(((Item)o).pk);
+			else if(o instanceof EnumerationValue)
+				return Integer.toString(((EnumerationValue)o).number);
+			else
+				return o.toString();
+		}
+	}
+
+	public void write(final Type type, final int pk, final HashMap itemCache, final boolean present)
+	{
+		final char delimiterStart = getNameDelimiterStart();
+		final char delimiterEnd = getNameDelimiterEnd();
+		final List attributes = type.getAttributes();
+
+		// TODO: use prepared statements and reuse the statement.
+		final StringBuffer bf = new StringBuffer();
+		if(present)
+		{
+			bf.append("update ").
+				append(delimiterStart).
+				append(getPersistentQualifier(type)).
+				append(delimiterEnd).
+				append(" set ");
+
+			boolean first = true;
+			for(Iterator i = attributes.iterator(); i.hasNext(); )
+			{
+				if(first)
+					first = false;
+				else
+					bf.append(',');
+
+				final Attribute attribute = (Attribute)i.next();
+				bf.append(delimiterStart).
+					append(getPersistentQualifier(attribute)).
+					append(delimiterEnd).
+					append('=');
+
+				final Object value = itemCache.get(attribute);
+				bf.append(makeValue(value));
+			}
+			bf.append(" where ").
+				append(getSyntheticPrimaryKeyQualifier()).
+				append('=').
+				append(pk);
+		}
+		else
+		{
+			bf.append("insert into ").
+				append(delimiterStart).
+				append(getPersistentQualifier(type)).
+				append(delimiterEnd).
+				append("(").
+				append(getSyntheticPrimaryKeyQualifier());
+
+			boolean first = true;
+			for(Iterator i = attributes.iterator(); i.hasNext(); )
+			{
+				bf.append(',');
+				
+				final Attribute attribute = (Attribute)i.next();
+				bf.append(delimiterStart).
+					append(getPersistentQualifier(attribute)).
+					append(delimiterEnd);
+			}
+
+			bf.append(")values(").
+				append(pk);
+			for(Iterator i = attributes.iterator(); i.hasNext(); )
+			{
+				bf.append(',');
+				final Attribute attribute = (Attribute)i.next();
+				final Object value = itemCache.get(attribute);
+				bf.append(makeValue(value));
+			}
+			bf.append(')');
+		}
+
+		System.out.println("writing "+bf.toString());
 
 		executeSQL(bf.toString());
 	}
