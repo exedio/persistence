@@ -478,7 +478,8 @@ public final class Instrumentor implements InjectionConsumer
 	}
 
 	
-	// ----------------- methods for a new interface
+	// ----------------- methods for a new interface abstracting the persistence
+	// ----------------- implementation used, e.g. EJB.
 
 	/**
 	 * Identation contract:
