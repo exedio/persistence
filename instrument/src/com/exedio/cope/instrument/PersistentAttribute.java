@@ -25,10 +25,10 @@ abstract class PersistentAttribute
 	 * The dash prevents this name to be used as a java identifier.
 	 * @see #getPersistentType()
 	 */
-	public static final String MEDIA_TYPE = "Media-";
+	static final String MEDIA_TYPE = "Media-";
 
-	public final JavaAttribute javaAttribute;
-	public final int accessModifier;
+	final JavaAttribute javaAttribute;
+	final int accessModifier;
 	
 	final PersistentClass persistentClass;
 
@@ -37,14 +37,14 @@ abstract class PersistentAttribute
 	 */
 	final String persistentType;
 
-	public final boolean readOnly;
-	public final boolean notNull;
-	public final boolean lengthConstrained;
-	public final boolean computed;
-	public final int setterOption;
-	public final List qualifiers;
+	final boolean readOnly;
+	final boolean notNull;
+	final boolean lengthConstrained;
+	final boolean computed;
+	final int setterOption;
+	final List qualifiers;
 
-	public PersistentAttribute(
+	PersistentAttribute(
 			final JavaAttribute javaAttribute,
 			final Class typeClass,
 			final String persistentType,
@@ -104,24 +104,24 @@ abstract class PersistentAttribute
 		persistentClass.addPersistentAttribute(this);
 	}
 	
-	public final String getName()
+	final String getName()
 	{
 		return javaAttribute.name;
 	}
 	
-	public final String getCamelCaseName()
+	final String getCamelCaseName()
 	{
 		return javaAttribute.getCamelCaseName();
 	}
 	
-	public final int getGeneratedGetterModifier()
+	final int getGeneratedGetterModifier()
 	{
 		return javaAttribute.modifier
 			& (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE)
 			| Modifier.FINAL;
 	}
 
-	public final JavaClass getParent()
+	final JavaClass getParent()
 	{
 		return javaAttribute.parent;
 	}
@@ -131,7 +131,7 @@ abstract class PersistentAttribute
 	 * Differs from {@link #getPersistentType() the persistent type},
 	 * if and only if the attribute is {@link #isBoxed() boxed}.
 	 */
-	public String getBoxedType()
+	String getBoxedType()
 	{
 		return persistentType;
 	}
@@ -142,32 +142,32 @@ abstract class PersistentAttribute
 	 * and the persistent type is convertable to a native types (int, double, boolean).
 	 * @see #getBoxedType()
 	 */
-	public boolean isBoxed()
+	boolean isBoxed()
 	{
 		return false;
 	}
 	
-	public String getBoxingPrefix()
+	String getBoxingPrefix()
 	{
 		throw new RuntimeException();
 	}
 	
-	public String getBoxingPostfix()
+	String getBoxingPostfix()
 	{
 		throw new RuntimeException();
 	}
 	
-	public String getUnBoxingPrefix()
+	String getUnBoxingPrefix()
 	{
 		throw new RuntimeException();
 	}
 	
-	public String getUnBoxingPostfix()
+	String getUnBoxingPostfix()
 	{
 		throw new RuntimeException();
 	}
 	
-	public final boolean isPartOfUniqueConstraint()
+	final boolean isPartOfUniqueConstraint()
 	{
 		for( final Iterator i = persistentClass.getUniqueConstraints().iterator(); i.hasNext(); )
 		{
@@ -181,7 +181,7 @@ abstract class PersistentAttribute
 		return false;
 	}
 	
-	public final boolean isInitial()
+	final boolean isInitial()
 	{
 		return (readOnly || notNull) && !computed;
 	}
@@ -191,12 +191,12 @@ abstract class PersistentAttribute
 		return !readOnly && !computed;
 	}
 	
-	public final boolean hasGeneratedSetter()
+	final boolean hasGeneratedSetter()
 	{
 		return isWriteable() && (setterOption!=Option.NONE);
 	}
 	
-	public final int getGeneratedSetterModifier()
+	final int getGeneratedSetterModifier()
 	{
 		final int result;
 		switch(setterOption)
@@ -226,7 +226,7 @@ abstract class PersistentAttribute
 	
 	private SortedSet setterExceptions = null;
 
-	public final SortedSet getSetterExceptions()
+	final SortedSet getSetterExceptions()
 	{
 		if(setterExceptions!=null)
 			return setterExceptions;
@@ -256,7 +256,7 @@ abstract class PersistentAttribute
 	 * which are not in the setters throws clause.
 	 * (see {@link #getSetterExceptions()})
 	 */
-	public final SortedSet getExceptionsToCatchInSetter()
+	final SortedSet getExceptionsToCatchInSetter()
 	{
 		if(exceptionsToCatchInSetter!=null)
 			return exceptionsToCatchInSetter;
