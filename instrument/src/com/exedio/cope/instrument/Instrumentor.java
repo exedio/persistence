@@ -802,12 +802,12 @@ public final class Instrumentor implements InjectionConsumer
 		output.write("\t}");
 	}
 	
-	private final void writeType(final PersistentClass javaClass) // TODO rename parameter
+	private final void writeType(final PersistentClass persistentClass)
 	throws IOException
 	{
 		writeCommentHeader();
 		output.write("\t * The persistent type information for ");
-		output.write(lowerCamelCase(javaClass.getName()));
+		output.write(lowerCamelCase(persistentClass.getName()));
 		output.write(".");
 		output.write(lineSeparator);
 		writeCommentFooter();
@@ -822,12 +822,12 @@ public final class Instrumentor implements InjectionConsumer
 		
 		// the class itself
 		output.write("\t\t\t");
-		output.write(javaClass.getName());
+		output.write(persistentClass.getName());
 		output.write(".class,");
 		output.write(lineSeparator);
 		
 		// the attributes of the class
-		final List persistentAttributes = javaClass.getPersistentAttributes();
+		final List persistentAttributes = persistentClass.getPersistentAttributes();
 		if(!persistentAttributes.isEmpty())
 		{
 			output.write("\t\t\tnew "+Attribute.class.getName()+"[]{");
@@ -862,7 +862,7 @@ public final class Instrumentor implements InjectionConsumer
 		output.write(lineSeparator);
 		
 		// the unique contraints of the class
-		final List uniqueConstraints = javaClass.getUniqueConstraints();
+		final List uniqueConstraints = persistentClass.getUniqueConstraints();
 		if(!uniqueConstraints.isEmpty())
 		{
 			output.write("\t\t\tnew "+UniqueConstraint.class.getName()+"[]{");
