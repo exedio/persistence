@@ -9,7 +9,7 @@ package injection;
  */
 public class InjectorParseException extends Exception
 {
-	public InjectorParseException(String message)
+	protected InjectorParseException(String message)
 	{
 		super(message);
 	}
