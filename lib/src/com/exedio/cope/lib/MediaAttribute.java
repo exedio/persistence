@@ -33,6 +33,16 @@ public final class MediaAttribute extends Attribute
 		this(option, null, null);
 	}
 	
+	public final String getFixedMimeMajor()
+	{
+		return fixedMimeMajor;
+	}
+	
+	public final String getFixedMimeMinor()
+	{
+		return fixedMimeMinor;
+	}
+	
 	protected List createColumns(final String name, final boolean notNull)
 	{
 		final Type type = getType();

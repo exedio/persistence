@@ -32,6 +32,9 @@ public class MediaTest extends DatabaseLibTest
 	public void testMedia() throws IOException
 	{
 		// file
+		assertEquals(null, item.file.getFixedMimeMajor());
+		assertEquals(null, item.file.getFixedMimeMinor());
+		
 		assertEquals(null, item.getFileData());
 		assertEquals(null, item.getFileMimeMajor());
 		assertEquals(null, item.getFileMimeMinor());
@@ -65,6 +68,8 @@ public class MediaTest extends DatabaseLibTest
 
 
 		// image
+		assertEquals("image", item.image.getFixedMimeMajor());
+		assertEquals(null, item.image.getFixedMimeMinor());
 		assertEquals(item.image, item.BB240.getAttribute());
 		assertEquals(item.TYPE, item.BB240.getType());
 		assertEquals("BB240", item.BB240.getName());
@@ -104,6 +109,8 @@ public class MediaTest extends DatabaseLibTest
 		
 		
 		// photo
+		assertEquals("image", item.photo.getFixedMimeMajor());
+		assertEquals("jpeg", item.photo.getFixedMimeMinor());
 		assertEquals(item.photo, item.BB65.getAttribute());
 		assertEquals(item.TYPE, item.BB65.getType());
 		assertEquals("BB65", item.BB65.getName());
