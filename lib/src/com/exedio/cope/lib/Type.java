@@ -5,6 +5,7 @@ import com.exedio.cope.lib.Database;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 public class Type
@@ -78,6 +79,28 @@ public class Type
 		
 		toStringCache = buf.toString();
 		return toStringCache;
+	}
+	
+	// active items of this type ---------------------------------------------
+	
+	/**
+	 * TODO: use something more efficient for integer keys.
+	 */
+	private HashMap activeItems = new HashMap();
+	
+	/**
+	 * Returns an item of this type and the given pk, if it's already active.
+	 * Returns null, if either there is no such item with the given pk, or
+	 * such an item is not active.
+	 */
+	Item getActiveItem(final int pk)
+	{
+		return (Item)activeItems.get(new Integer(pk));
+	}
+	
+	void putActiveItem(final Item item)
+	{
+		activeItems.put(new Integer(item.pk), item);
 	}
 	
 }

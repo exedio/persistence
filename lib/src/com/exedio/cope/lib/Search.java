@@ -47,11 +47,13 @@ public class Search
 		return new AndCondition(new Condition[]{condition1, condition2});
 	}
 	
+	/**
+	 * Always returns unmodifiable collections.
+	 */
 	public static final Collection search(final Type type, final Condition condition)
 	{
 		//System.out.println("select " + type.getJavaClass().getName() + " where " + condition);
-		Database.theInstance.search(type, condition);
-		return Collections.EMPTY_LIST;
+		return Database.theInstance.search(type, condition);
 	}
 	
 	public static final Item searchUnique(final Type type, final Condition condition)

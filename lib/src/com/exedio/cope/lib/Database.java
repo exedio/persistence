@@ -16,8 +16,12 @@ import com.exedio.cope.lib.database.OracleDatabase;
 import com.exedio.cope.lib.search.Condition;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -65,8 +69,33 @@ public abstract class Database
 	{
 		executeSQL(getDropTableStatement(type));
 	}
+
+	/**
+	 * Converts a collection of primary keys to a collection of items of the given type.
+	 * @param pks the collection of primary keys, is expected not to be modified
+	 * @return an unmodifiable collection.
+	 */
+	private final Collection wrapPrimaryKeys(final Type type, final Collection pks)
+	{
+		// TODO: dont convert all items at once, but use some kind of wrapper collection
+		final ArrayList result = new ArrayList(pks.size());
+		for(Iterator i = pks.iterator(); i.hasNext(); )
+		{
+			final Integer pk = (Integer)i.next();
+			System.out.println("pk:"+pk);
+			final Item item = type.getActiveItem(pk.intValue());
+			if(item!=null)
+				result.add(item);
+			else
+			{
+				// TODO create inactive item with the given pk, if there is no active item
+				System.out.println("OOOOPS:"+type+" "+pk);
+			}
+		}
+		return Collections.unmodifiableList(result);
+	}
 	
-	void search(final Type type, final Condition condition)
+	Collection search(final Type type, final Condition condition)
 	{
 		final StringBuffer bf = new StringBuffer();
 		bf.append("select ").
@@ -77,11 +106,10 @@ public abstract class Database
 		condition.appendSQL(this, bf);
 		
 		System.out.println("searching "+bf.toString());
-
-		executeSQL(bf.toString());
+		return wrapPrimaryKeys(type, executeSQLQuery(bf.toString()));
 	}
 
-	private String makeValue(final Object o)
+	public String makeValue(final Object o)
 	{
 		if(o==null)
 			return "NULL";
@@ -166,6 +194,16 @@ public abstract class Database
 
 	private void executeSQL(final String sql)
 	{
+		executeSQLInternal(sql, false);
+	}
+	
+	private ArrayList executeSQLQuery(final String sql)
+	{
+		return executeSQLInternal(sql, true);
+	}
+		
+	private ArrayList executeSQLInternal(final String sql, final boolean query)
+	{
 		final String driver = "oracle.jdbc.driver.OracleDriver";
 		final String url = "jdbc:oracle:thin:@database3.exedio.com:1521:DB3";
 		final String user = "wiebicke";
@@ -182,11 +220,29 @@ public abstract class Database
 		
 		Connection connection = null;
 		Statement statement = null;
+		ResultSet resultSet = null;
 		try
 		{
 			connection = DriverManager.getConnection(url, user, password);
 			statement = connection.createStatement();
-			statement.execute(sql);
+			if(query)
+			{
+				resultSet = statement.executeQuery(sql);
+				// TODO: use special list for integers
+				final ArrayList result = new ArrayList();
+				while(resultSet.next())
+				{
+					final Integer pk = new Integer(resultSet.getInt(1));
+					//System.out.println("pk:"+pk);
+					result.add(pk);
+				}
+				return result;
+			}
+			else
+			{
+				statement.execute(sql);
+				return null;
+			}
 		}
 		catch(SQLException e)
 		{
@@ -194,11 +250,11 @@ public abstract class Database
 		}
 		finally
 		{
-			if(connection!=null)
+			if(resultSet!=null)
 			{
 				try
 				{
-					connection.close();
+					resultSet.close();
 				}
 				catch(SQLException e)
 				{
@@ -210,6 +266,17 @@ public abstract class Database
 				try
 				{
 					statement.close();
+				}
+				catch(SQLException e)
+				{
+					// exception is already thrown
+				}
+			}
+			if(connection!=null)
+			{
+				try
+				{
+					connection.close();
 				}
 				catch(SQLException e)
 				{

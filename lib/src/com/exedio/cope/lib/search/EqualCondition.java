@@ -28,11 +28,7 @@ public final class EqualCondition extends Condition
 	{
 		bf.append(attribute.getPersistentQualifier()).
 			append('=');
-		if(attribute instanceof StringAttribute)
-			bf.append('\'');
-		bf.append(value);
-		if(attribute instanceof StringAttribute)
-			bf.append('\'');
+		bf.append(database.makeValue(value));
 	}
 
 	public final String toString()

@@ -83,7 +83,7 @@ public class LibTest extends TestCase
 				throw new SystemException(e);
 			}
 			assertEquals("uniqueString", item.getUniqueString());
-			assertEquals(null/*item*/, ItemWithSingleUnique.findByUniqueString("uniqueString"));
+			assertEquals(item, ItemWithSingleUnique.findByUniqueString("uniqueString"));
 		}
 		
 
@@ -101,7 +101,7 @@ public class LibTest extends TestCase
 				throw new SystemException(e);
 			}
 			assertEquals("uniqueString", item.getUniqueReadOnlyString());
-			assertEquals(null/*item*/, ItemWithSingleUniqueReadOnly.findByUniqueReadOnlyString("uniqueString"));
+			assertEquals(item, ItemWithSingleUniqueReadOnly.findByUniqueReadOnlyString("uniqueString"));
 			
 			try
 			{
@@ -118,7 +118,7 @@ public class LibTest extends TestCase
 				throw new SystemException(e);
 			}
 			assertEquals("uniqueString", item.getUniqueReadOnlyString());
-			assertEquals(null/*item*/, ItemWithSingleUniqueReadOnly.findByUniqueReadOnlyString("uniqueString"));
+			assertEquals(item, ItemWithSingleUniqueReadOnly.findByUniqueReadOnlyString("uniqueString"));
 		}
 
 	
@@ -141,7 +141,7 @@ public class LibTest extends TestCase
 				throw new SystemException(e);
 			}
 			assertEquals("uniqueString", item.getUniqueNotNullString());
-			assertEquals(null/*item*/, ItemWithSingleUniqueNotNull.findByUniqueNotNullString("uniqueString"));
+			assertEquals(item, ItemWithSingleUniqueNotNull.findByUniqueNotNullString("uniqueString"));
 			assertEquals(null, ItemWithSingleUniqueNotNull.findByUniqueNotNullString("uniqueString2"));
 
 			try
@@ -158,7 +158,7 @@ public class LibTest extends TestCase
 			}
 			assertEquals("uniqueString2", item.getUniqueNotNullString());
 			assertEquals(null, ItemWithSingleUniqueNotNull.findByUniqueNotNullString("uniqueString"));
-			assertEquals(null/*item*/, ItemWithSingleUniqueNotNull.findByUniqueNotNullString("uniqueString2"));
+			assertEquals(item, ItemWithSingleUniqueNotNull.findByUniqueNotNullString("uniqueString2"));
 		}
 		
 		// ItemWithManyAttributes

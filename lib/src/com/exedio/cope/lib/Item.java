@@ -11,21 +11,24 @@ import java.util.Map;
 
 public class Item extends Search
 {
+	private final Type type;
+
 	/**
 	 * THIS IS A HACK
 	 */
-	private static int pkCounter = 0;
+	private static int pkCounter = 10;
 	
 	/**
 	 * TODO: must be at least package private
 	 */
-	public final int pk;
+	final int pk;
 
 	/**
 	 * Returns a string unique for this item in all other items of this application.
 	 * For any item <code>a</code> the following holds true:
 	 * <code>a.equals(findByID(a.getID()).</code>
 	 * Does not activate this item, if it's not already active.
+	 * Never returns null.
 	 * @see #findByID(String)
 	 */
 	public final String getID()
@@ -33,6 +36,15 @@ public class Item extends Search
 		return getClass().getName() + '.' + pk;
 	}
 	
+	/**
+	 * Returns the type of this item.
+	 * Never returns null.
+	 */
+	public final Type getType()
+	{
+		return type;
+	}
+
 	/**
 	 * Returns true, if <code>o</code> represents the same item as this item.
 	 * Is equivalent to
@@ -79,6 +91,19 @@ public class Item extends Search
 	{
 		putCache(initialAttributeValues);
 		this.pk = pkCounter++; // TODO: THIS IS A HACK
+		try
+		{
+			type = (Type)getClass().getField("TYPE").get(null); // TODO: very inefficient
+		}
+		catch(IllegalAccessException e)
+		{
+			throw new SystemException(e);
+		}
+		catch(NoSuchFieldException e)
+		{
+			throw new SystemException(e);
+		}
+		type.putActiveItem(this);
 		writeCache();
 	}
 	
@@ -194,7 +219,8 @@ public class Item extends Search
 
 	
 	// item cache -------------------------------------------------------------------
-	
+
+
 	private final HashMap itemCache = new HashMap();
 	private boolean present = false;
 	private boolean dirty = false;
@@ -221,20 +247,6 @@ public class Item extends Search
 	{
 		if(!dirty)
 			return;
-		
-		final Type type;
-		try
-		{
-			type = (Type)getClass().getField("TYPE").get(null); // TODO: very inefficient
-		}
-		catch(IllegalAccessException e)
-		{
-			throw new SystemException(e);
-		}
-		catch(NoSuchFieldException e)
-		{
-			throw new SystemException(e);
-		}
 		
 		Database.theInstance.write(type, pk, itemCache, present);
 
