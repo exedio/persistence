@@ -255,12 +255,12 @@ public abstract class Database
 	public void checkEmptyTables()
 	{
 		//final long time = System.currentTimeMillis();
-		for(Iterator i = Type.getTypes().iterator(); i.hasNext(); )
+		for(Iterator i = Table.getTables().iterator(); i.hasNext(); )
 		{
-			final Type type = (Type)i.next();
-			final int count = countTable(type);
+			final Table table = (Table)i.next();
+			final int count = countTable(table);
 			if(count>0)
-				throw new RuntimeException("there are "+count+" items left for type "+type); 
+				throw new RuntimeException("there are "+count+" items left for table "+table);
 		}
 		//final long amount = (System.currentTimeMillis()-time);
 		//checkEmptyTableTime += amount;
@@ -1038,11 +1038,11 @@ public abstract class Database
 		}
 	}
 	
-	private int countTable(final Type type) // TODO: convert to table
+	private int countTable(final Table table)
 	{
 		final Statement bf = createStatement();
 		bf.append("select count(*) from ").defineColumnInteger().
-			append(type.table.protectedID);
+			append(table.protectedID);
 
 		try
 		{
