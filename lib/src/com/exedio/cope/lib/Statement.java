@@ -58,7 +58,7 @@ public final class Statement
 		this.text.
 			append(attribute.getType().protectedID).
 			append('.').
-			append(attribute.getMainColumn().protectedName);
+			append(attribute.getMainColumn().protectedID);
 			
 		return this;
 	}
@@ -68,7 +68,7 @@ public final class Statement
 		this.text.
 			append(type.protectedID).
 			append('.').
-			append(type.primaryKey.protectedName);
+			append(type.primaryKey.protectedID);
 			
 		return this;
 	}

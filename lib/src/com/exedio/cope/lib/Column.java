@@ -7,7 +7,7 @@ abstract class Column
 {
 	final Type type;
 	final String id;
-	final String protectedName;
+	final String protectedID;
 	final boolean notNull;
 	final String databaseType;
 	final Integer jdbcType;
@@ -16,7 +16,7 @@ abstract class Column
 	{
 		this.type = type;
 		this.id = id;
-		this.protectedName = Database.theInstance.protectName(id);
+		this.protectedID = Database.theInstance.protectName(id);
 		this.notNull = notNull;
 		this.databaseType = databaseType;
 		this.jdbcType = jdbcType;

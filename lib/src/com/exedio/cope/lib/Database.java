@@ -153,7 +153,7 @@ public abstract class Database
 			final Column primaryKey = type.primaryKey;
 			bf.append(type.protectedID).
 				append('.').
-				append(primaryKey.protectedName).
+				append(primaryKey.protectedID).
 				append('=').
 				append(Type.NOT_A_PK);
 			
@@ -163,7 +163,7 @@ public abstract class Database
 				bf.append(" and ").
 					append(type.protectedID).
 					append('.').
-					append(column.protectedName).
+					append(column.protectedID).
 					append('=');
 
 				if(column instanceof IntegerColumn)
@@ -262,7 +262,7 @@ public abstract class Database
 		bf.append("select ").
 			append(selectType.protectedID).
 			append('.').
-			append(selectType.primaryKey.protectedName).defineColumnInteger().
+			append(selectType.primaryKey.protectedID).defineColumnInteger().
 			append(" from ");
 
 		boolean first = true;
@@ -314,7 +314,7 @@ public abstract class Database
 				final Column column = (Column)i.next();
 				bf.append(type.protectedID).
 					append('.').
-					append(column.protectedName).defineColumn(column);
+					append(column.protectedID).defineColumn(column);
 			}
 		}
 
@@ -341,7 +341,7 @@ public abstract class Database
 
 			bf.append(type.protectedID).
 				append('.').
-				append(type.primaryKey.protectedName).
+				append(type.primaryKey.protectedID).
 				append('=').
 				append(row.pk);
 		}
@@ -388,14 +388,14 @@ public abstract class Database
 					bf.append(',');
 
 				final Column column = (Column)i.next();
-				bf.append(column.protectedName).
+				bf.append(column.protectedID).
 					append('=');
 
 				final Object value = row.store(column);
 				bf.append(column.cacheToDatabase(value));
 			}
 			bf.append(" where ").
-				append(type.primaryKey.protectedName).
+				append(type.primaryKey.protectedID).
 				append('=').
 				append(row.pk);
 		}
@@ -404,14 +404,14 @@ public abstract class Database
 			bf.append("insert into ").
 				append(type.protectedID).
 				append("(").
-				append(type.primaryKey.protectedName);
+				append(type.primaryKey.protectedID);
 
 			boolean first = true;
 			for(Iterator i = columns.iterator(); i.hasNext(); )
 			{
 				bf.append(',');
 				final Column column = (Column)i.next();
-				bf.append(column.protectedName);
+				bf.append(column.protectedID);
 			}
 
 			bf.append(")values(").
@@ -451,7 +451,7 @@ public abstract class Database
 			bf.append("delete from ").
 				append(currentType.protectedID).
 				append(" where ").
-				append(currentType.primaryKey.protectedName).
+				append(currentType.primaryKey.protectedID).
 				append('=').
 				append(pk);
 
@@ -788,7 +788,7 @@ public abstract class Database
 			append('(');
 
 		final Column primaryKey = type.primaryKey;
-		bf.append(primaryKey.protectedName).
+		bf.append(primaryKey.protectedID).
 			append(' ').
 			append(primaryKey.databaseType).
 			append(" primary key");
@@ -797,7 +797,7 @@ public abstract class Database
 		{
 			final Column column = (Column)i.next();
 			bf.append(',').
-				append(column.protectedName).
+				append(column.protectedID).
 				append(' ').
 				append(column.databaseType);
 			
@@ -811,11 +811,11 @@ public abstract class Database
 			bf.append(",constraint ").
 				append(protectName(type.id+"SUP")).
 				append(" foreign key(").
-				append(type.primaryKey.protectedName).
+				append(type.primaryKey.protectedID).
 				append(")references ").
 				append(supertype.protectedID).
 				append('(').
-				append(supertype.primaryKey.protectedName).
+				append(supertype.primaryKey.protectedID).
 				append(')');
 		}
 		
@@ -833,7 +833,7 @@ public abstract class Database
 				else
 					bf.append(',');
 				final Attribute uniqueAttribute = (Attribute)j.next();
-				bf.append(uniqueAttribute.getMainColumn().protectedName);
+				bf.append(uniqueAttribute.getMainColumn().protectedID);
 			}
 			bf.append(')');
 		}
@@ -868,7 +868,7 @@ public abstract class Database
 					append(" add constraint ").
 					append(Database.theInstance.protectName(itemColumn.integrityConstraintName)).
 					append(" foreign key (").
-					append(column.protectedName).
+					append(column.protectedID).
 					append(") references ").
 					append(itemColumn.getForeignTableNameProtected());
 
@@ -975,11 +975,11 @@ public abstract class Database
 	int[] getNextPK(final Type type)
 	{
 		final Statement bf = createStatement();
-		final String primaryKeyProtectedName = type.primaryKey.protectedName;
+		final String primaryKeyProtectedID = type.primaryKey.protectedID;
 		bf.append("select min(").
-			append(primaryKeyProtectedName).defineColumnInteger().
+			append(primaryKeyProtectedID).defineColumnInteger().
 			append("),max(").
-			append(primaryKeyProtectedName).defineColumnInteger().
+			append(primaryKeyProtectedID).defineColumnInteger().
 			append(") from ").
 			append(type.protectedID);
 			
