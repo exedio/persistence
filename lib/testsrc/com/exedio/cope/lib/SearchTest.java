@@ -13,7 +13,7 @@ public class SearchTest extends DatabaseLibTest
 		try
 		{
 			item = new ItemWithManyAttributes("someString", 5, true, someItem, ItemWithManyAttributes.SomeEnumeration.enumValue1);
-			item2 = new ItemWithManyAttributes("someString", 5, false, someItem, ItemWithManyAttributes.SomeEnumeration.enumValue2);
+			item2 = new ItemWithManyAttributes("someString2", 5, false, someItem, ItemWithManyAttributes.SomeEnumeration.enumValue2);
 		}
 		catch(NotNullViolationException e)
 		{
@@ -25,6 +25,18 @@ public class SearchTest extends DatabaseLibTest
 		assertUnmodifiable(searchResult);
 		
 		assertEquals(set(item, item2), toSet(Search.search(item.TYPE, null)));
+		assertEquals(set(item, item2), toSet(
+			Search.search(
+				item.TYPE,
+				Search.or(
+					Search.equal(item.someNotNullString, "someString"),
+					Search.equal(item.someNotNullString, "someString2")))));
+		assertEquals(set(), toSet(
+			Search.search(
+				item.TYPE,
+				Search.and(
+					Search.equal(item.someNotNullString, "someString"),
+					Search.equal(item.someNotNullString, "someString2")))));
 		
 		assertDelete(item);
 		assertDelete(item2);

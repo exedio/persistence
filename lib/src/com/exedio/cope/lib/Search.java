@@ -11,6 +11,7 @@ import com.exedio.cope.lib.search.Condition;
 import com.exedio.cope.lib.search.EqualAttributeCondition;
 import com.exedio.cope.lib.search.EqualCondition;
 import com.exedio.cope.lib.search.JoinCondition;
+import com.exedio.cope.lib.search.OrCondition;
 
 /**
  * Utility class for searching persistent data.
@@ -138,6 +139,11 @@ public abstract class Search
 	public static final AndCondition and(final Condition condition1, final Condition condition2)
 	{
 		return new AndCondition(new Condition[]{condition1, condition2});
+	}
+	
+	public static final OrCondition or(final Condition condition1, final Condition condition2)
+	{
+		return new OrCondition(new Condition[]{condition1, condition2});
 	}
 	
 	/**
