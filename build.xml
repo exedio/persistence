@@ -71,10 +71,10 @@
 				author="on"
 				use="on"
 				version="on"
-				windowtitle="COPE (Cooles Persistenzframework)"
-				doctitle=   "COPE (Cooles Persistenzframework)"
-				header='Welcome To A Better World,&lt;br>Where There Is &lt;a href="http://www.javageeks.com/SBJP/index.html" target="_top">No EJB&lt;/a>,&lt;br>&lt;a href="http://radio.weblogs.com/0112098/2002/11/26.html" target="_top">Really&lt;/a>.'
-				footer='Don&apos;t Make Things More&lt;br>Complicated They Have To Be.&lt;br>Don&apos;t Use EJB.'
+				windowtitle="Cope with Object Persistence"
+				doctitle=   "Cope with Object Persistence&lt;br&gt;API Specification"
+				header=     "Cope with&lt;br&gt;Object&lt;br&gt;Persistence"
+				footer=     "Cope with&lt;br&gt;Object&lt;br&gt;Persistence"
 				splitindex="on"
 				bottom='&amp;copy; Copyright 2004 &lt;a href="http://www.exedio.com/" target="_top">exedio&lt;/a> Gesellschaft f&amp;uuml;r Softwareentwicklung mbH'
 			>
@@ -96,8 +96,10 @@
 				author="on"
 				use="on"
 				version="on"
-				windowtitle="COPE (Cooles Persistenzframework)"
-				doctitle=   "COPE (Cooles Persistenzframework)"
+				windowtitle="Cope with Object Persistence"
+				doctitle=   "Cope with Object Persistence&lt;br&gt;API Specification"
+				header=     "Cope with&lt;br&gt;Object&lt;br&gt;Persistence"
+				footer=     "Cope with&lt;br&gt;Object&lt;br&gt;Persistence"
 				splitindex="on"
 				bottom='&amp;copy; Copyright 2004 &lt;a href="http://www.exedio.com/" target="_top">exedio&lt;/a> Gesellschaft f&amp;uuml;r Softwareentwicklung mbH'
 			>
@@ -123,8 +125,10 @@
 				author="on"
 				use="on"
 				version="on"
-				windowtitle="Copernica (Generic Backoffice for COPE)"
-				doctitle=   "Copernica (Generic Backoffice for COPE)"
+				windowtitle="Copernica"
+				doctitle=   "Copernica&lt;br&gt;API Specification"
+				header=     "Copernica"
+				footer=     "Cope with&lt;br&gt;Object&lt;br&gt;Persistence"
 				splitindex="on"
 				bottom='&amp;copy; Copyright 2004 &lt;a href="http://www.exedio.com/" target="_top">exedio&lt;/a> Gesellschaft f&amp;uuml;r Softwareentwicklung mbH'
 			>
