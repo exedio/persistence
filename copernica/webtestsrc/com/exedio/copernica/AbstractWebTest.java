@@ -28,4 +28,11 @@ public class AbstractWebTest extends WebTestCase
 		super.tearDown();
 	}
 	
+	protected final void assertFormElementEqualsWithLabel(final String formElementLabel, final String expectedValue)
+	{
+		final String formElementName = getDialog().getFormElementNameForLabel(formElementLabel);
+		assertNotNull("no form element with label "+formElementLabel, formElementName);
+		assertFormElementEquals(formElementName, expectedValue);
+	}
+	
 }

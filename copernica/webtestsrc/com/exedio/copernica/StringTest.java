@@ -16,6 +16,11 @@ public class StringTest extends AbstractWebTest
 	String min4;
 	String max4;
 	String min4Max8;
+	
+	private static final String ANY = "Any";
+	private static final String MIN4 = "Min4";
+	private static final String MAX4 = "Max4";
+	private static final String MIN4MAX8 = "Min4 Max8";
 
 	public void setUp() throws Exception
 	{
@@ -28,10 +33,10 @@ public class StringTest extends AbstractWebTest
 	
 	private void assertItemForm()
 	{
-		assertFormElementEquals("any", any);
-		assertFormElementEquals("min4", min4);
-		assertFormElementEquals("max4", max4);
-		assertFormElementEquals("min4Max8", min4Max8);
+		assertFormElementEqualsWithLabel(ANY, any);
+		assertFormElementEqualsWithLabel(MIN4, min4);
+		assertFormElementEqualsWithLabel(MAX4, max4);
+		assertFormElementEqualsWithLabel(MIN4MAX8, min4Max8);
 	}
 
 	public void testItemForm()
@@ -47,13 +52,13 @@ public class StringTest extends AbstractWebTest
 		assertTitleEquals("StringItem.0");
 		assertItemForm();
 
-		setFormElement("any", "yeah"); any = "yeah";
+		setFormElementWithLabel(ANY, "yeah"); any = "yeah";
 		submit(ItemForm.SAVE_BUTTON);
 		assertTitleEquals("StringItem.0");
 		assertItemForm();
 
 		// take back all changes
-		setFormElement("any", "any1"); any = "any1";
+		setFormElementWithLabel(ANY, "any1"); any = "any1";
 		submit(ItemForm.SAVE_BUTTON);
 		assertTitleEquals("StringItem.0");
 		assertItemForm();
