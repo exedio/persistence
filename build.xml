@@ -412,6 +412,8 @@
 		</java>
 	</target>
 
+	<target name="webtest" depends="copernica.webtest" />
+	
 	<target name="copernica" depends="copernica.compile" />
 	
 	<target name="lib.clean">
