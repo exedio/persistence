@@ -105,6 +105,25 @@ public final class Instrumentor implements InjectionConsumer
 		}
 	}
 	
+	private void writeThrowsClause(final Collection exceptions)
+	throws IOException
+	{
+		if(!exceptions.isEmpty())
+		{
+			output.write(" throws ");
+			boolean first = true;
+			for(final Iterator i = exceptions.iterator(); i.hasNext(); )
+			{
+				if(first)
+					first = false;
+				else
+					output.write(',');
+				output.write(((Class)i.next()).getName());
+			}
+			output.write(' ');
+		}
+	}
+
 	public void writeConstructor(final JavaClass javaClass)
 	throws IOException
 	{
@@ -117,12 +136,14 @@ public final class Instrumentor implements InjectionConsumer
 		output.write('(');
 		boolean first = true;
 		final ArrayList readOnlyAttributes = new ArrayList();
+		final TreeSet setterExceptions = new TreeSet();
 		for(Iterator i = javaClass.getPersistentAttributes().iterator(); i.hasNext(); )
 		{
 			final JavaAttribute persistentAttribute = (JavaAttribute)i.next();
 			if(persistentAttribute.isReadOnly())
 			{
 				readOnlyAttributes.add(persistentAttribute);
+				setterExceptions.addAll(persistentAttribute.getSetterExceptions());
 				if(first)
 					first = false;
 				else
@@ -133,7 +154,9 @@ public final class Instrumentor implements InjectionConsumer
 				output.write(persistentAttribute.getName());
 			}
 		}
-		output.write("){");
+		output.write(')');
+		writeThrowsClause(setterExceptions);
+		output.write('{');
 		output.write(lineSeparator);
 		output.write("\tsuper(1.0);");
 		output.write(lineSeparator);
@@ -181,8 +204,7 @@ public final class Instrumentor implements InjectionConsumer
 		output.write(' ');
 		output.write(persistentAttribute.getName());
 		output.write(")");
-		if(persistentAttribute.isUnique())
-			output.write(" throws "+UniqueViolationException.class.getName()+' ');
+		writeThrowsClause(persistentAttribute.getSetterExceptions());
 		output.write("{");
 		writeSetterBody(output, persistentAttribute);
 		output.write('}');

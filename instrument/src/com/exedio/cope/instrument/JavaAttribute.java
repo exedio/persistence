@@ -2,6 +2,10 @@
 package injection;
 
 import java.lang.reflect.Modifier;
+import java.util.Collections;
+import java.util.SortedSet;
+import java.util.TreeSet;
+import persistence.UniqueViolationException;
 
 /**
  * Represents an attribute of a class parsed by the
@@ -130,5 +134,21 @@ public final class JavaAttribute extends JavaFeature
 	{
 		readOnly = true;
 	}
-	
+
+	private SortedSet setterExceptions = null;
+
+	public final SortedSet getSetterExceptions()
+	{
+		if(setterExceptions!=null)
+			return setterExceptions;
+		
+		final TreeSet modifyableSetterExceptions = new TreeSet();
+		
+		if(unique)
+			modifyableSetterExceptions.add(UniqueViolationException.class);
+
+		this.setterExceptions = Collections.unmodifiableSortedSet(modifyableSetterExceptions);
+		return this.setterExceptions;
+	}
+
 }
