@@ -34,6 +34,7 @@ final class Generator
 {
 	private static final String CONSTRUCTOR_NEW = "Constructs a new {0} with all the attributes initially needed.";
 	private static final String CONSTRUCTOR_NEW_PARAMETER = "the initial value for attribute {0}.";
+	private static final String CONSTRUCTOR_GENERIC = "Creates an item and sets the given attributes initially.";
 
 	private final Writer o;
 	private final String lineSeparator;
@@ -251,7 +252,8 @@ final class Generator
 	throws IOException
 	{
 		writeCommentHeader();
-		o.write("\t * Creates an item and sets the given attributes initially.");
+		o.write("\t * ");
+		o.write(CONSTRUCTOR_GENERIC);
 		o.write(lineSeparator);
 		writeCommentGenerated();
 		writeCommentFooter();
