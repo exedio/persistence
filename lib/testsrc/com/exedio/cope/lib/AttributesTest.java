@@ -13,7 +13,7 @@ public class AttributesTest extends DatabaseLibTest
 		super.setUp();
 		someItem = new ItemWithoutAttributes();
 		someItem2 = new ItemWithoutAttributes();
-		item = new ItemWithManyAttributes("someString", 5, true, someItem);
+		item = new ItemWithManyAttributes("someString", 5, true, someItem, ItemWithManyAttributes.SomeEnumeration.enumValue1);
 	}
 	
 	public void tearDown() throws Exception
@@ -219,7 +219,6 @@ public class AttributesTest extends DatabaseLibTest
 
 	public void testSomeEnumeration()
 	{
-		// TODO: dotestItemWithManyAttributesSomeNotNullEnumeration(item);
 		assertEquals(null, item.getSomeEnumeration());
 		item.setSomeEnumeration(ItemWithManyAttributes.SomeEnumeration.enumValue1);
 		assertEquals(
@@ -236,6 +235,36 @@ public class AttributesTest extends DatabaseLibTest
 			item.getSomeEnumeration());
 		item.setSomeEnumeration(null);
 		assertEquals(null, item.getSomeEnumeration());
+	}
+
+	public void testNotNullSomeEnumeration()
+			throws NotNullViolationException
+	{
+		assertEquals(ItemWithManyAttributes.SomeEnumeration.enumValue1, item.getSomeNotNullEnumeration());
+		item.setSomeNotNullEnumeration(ItemWithManyAttributes.SomeEnumeration.enumValue2);
+		assertEquals(
+			ItemWithManyAttributes.SomeEnumeration.enumValue2,
+			item.getSomeNotNullEnumeration());
+		item.setSomeNotNullEnumeration(
+			ItemWithManyAttributes.SomeEnumeration.enumValue3);
+		assertEquals(
+			ItemWithManyAttributes.SomeEnumeration.enumValue3,
+			item.getSomeNotNullEnumeration());
+		item.passivate();
+		assertEquals(
+			ItemWithManyAttributes.SomeEnumeration.enumValue3,
+			item.getSomeNotNullEnumeration());
+		try
+		{
+			item.setSomeNotNullEnumeration(null);
+		}
+		catch(NotNullViolationException e)
+		{
+			assertEquals(item.someNotNullEnumeration, e.getNotNullAttribute());
+		}
+		assertEquals(
+			ItemWithManyAttributes.SomeEnumeration.enumValue3,
+			item.getSomeNotNullEnumeration());
 	}
 
 	public void testSomeMedia()

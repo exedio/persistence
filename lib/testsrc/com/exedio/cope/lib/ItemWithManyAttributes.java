@@ -75,6 +75,13 @@ public class ItemWithManyAttributes extends Item
 	public static final EnumerationAttribute someEnumeration = new EnumerationAttribute(SomeEnumeration.class);
 
 	/**
+	 * A not-null enumeration attribute
+	 * @persistent
+	 * @not-null
+	 */
+	public static final EnumerationAttribute someNotNullEnumeration = new EnumerationAttribute(SomeEnumeration.class);
+
+	/**
 	 * A media attribute.
 	 * @persistent
 	 * @variant SomeVariant
@@ -112,14 +119,16 @@ public class ItemWithManyAttributes extends Item
 	 * @param initialSomeNotNullInteger the initial value for attribute {@link #someNotNullInteger}.
 	 * @param initialSomeNotNullBoolean the initial value for attribute {@link #someNotNullBoolean}.
 	 * @param initialSomeNotNullItem the initial value for attribute {@link #someNotNullItem}.
-	 * @throws com.exedio.cope.lib.NotNullViolationException if initialSomeNotNullString, initialSomeNotNullItem is not null.
+	 * @param initialSomeNotNullEnumeration the initial value for attribute {@link #someNotNullEnumeration}.
+	 * @throws com.exedio.cope.lib.NotNullViolationException if initialSomeNotNullString, initialSomeNotNullItem, initialSomeNotNullEnumeration is not null.
 	 * @author cope instrumentor
 	 *
  */public ItemWithManyAttributes(
 				final String initialSomeNotNullString,
 				final int initialSomeNotNullInteger,
 				final boolean initialSomeNotNullBoolean,
-				final ItemWithoutAttributes initialSomeNotNullItem)
+				final ItemWithoutAttributes initialSomeNotNullItem,
+				final SomeEnumeration initialSomeNotNullEnumeration)
 			throws
 				com.exedio.cope.lib.NotNullViolationException
 	{
@@ -128,6 +137,7 @@ public class ItemWithManyAttributes extends Item
 			new com.exedio.cope.lib.AttributeValue(someNotNullInteger,new Integer(initialSomeNotNullInteger)),
 			new com.exedio.cope.lib.AttributeValue(someNotNullBoolean,(initialSomeNotNullBoolean?Boolean.TRUE:Boolean.FALSE)),
 			new com.exedio.cope.lib.AttributeValue(someNotNullItem,initialSomeNotNullItem),
+			new com.exedio.cope.lib.AttributeValue(someNotNullEnumeration,initialSomeNotNullEnumeration),
 		});
 		throwInitialNotNullViolationException();
 	}/**
@@ -445,6 +455,37 @@ public class ItemWithManyAttributes extends Item
 	}/**
 
 	 **
+	 * Returns the value of the persistent attribute {@link #someNotNullEnumeration}.
+	 * @author cope instrumentor
+	 *
+ */public final SomeEnumeration getSomeNotNullEnumeration()
+	{
+		return (SomeEnumeration)getAttribute(this.someNotNullEnumeration);
+	}/**
+
+	 **
+	 * Sets a new value for the persistent attribute {@link #someNotNullEnumeration}.
+	 * @author cope instrumentor
+	 *
+ */public final void setSomeNotNullEnumeration(final SomeEnumeration someNotNullEnumeration)
+			throws
+				com.exedio.cope.lib.NotNullViolationException
+	{
+		try
+		{
+			setAttribute(this.someNotNullEnumeration,someNotNullEnumeration);
+		}
+		catch(com.exedio.cope.lib.ReadOnlyViolationException e)
+		{
+			throw new com.exedio.cope.lib.SystemException(e);
+		}
+		catch(com.exedio.cope.lib.UniqueViolationException e)
+		{
+			throw new com.exedio.cope.lib.SystemException(e);
+		}
+	}/**
+
+	 **
 	 * Returns a URL pointing to the data of the persistent attribute {@link #someMedia}.
 	 * @author cope instrumentor
 	 *
@@ -548,6 +589,7 @@ public class ItemWithManyAttributes extends Item
 				someItem.initialize("someItem",false,false,ItemWithoutAttributes.class),
 				someNotNullItem.initialize("someNotNullItem",false,true,ItemWithoutAttributes.class),
 				someEnumeration.initialize("someEnumeration",false,false),
+				someNotNullEnumeration.initialize("someNotNullEnumeration",false,true),
 				someMedia.initialize("someMedia",false,false),
 				someQualifiedString.initialize("someQualifiedString",false,false),
 			},

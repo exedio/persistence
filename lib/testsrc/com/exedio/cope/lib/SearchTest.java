@@ -23,7 +23,7 @@ public class SearchTest extends DatabaseLibTest
 		final ItemWithManyAttributes item;
 		try
 		{
-			item = new ItemWithManyAttributes("someString", 5, true, someItem);
+			item = new ItemWithManyAttributes("someString", 5, true, someItem, ItemWithManyAttributes.SomeEnumeration.enumValue1);
 		}
 		catch(NotNullViolationException e)
 		{
