@@ -1,5 +1,6 @@
 <%@
 page import="java.util.Iterator" %><%@
+page import="java.util.Enumeration" %><%@
 page import="java.util.Map"
 
 %><%
@@ -15,5 +16,14 @@ for( final Iterator it = request.getParameterMap().entrySet().iterator(); it.has
 		%> &gt;<%=values[jt]%>&lt;<%
 	}
 	%><br><%
+}
+for( final Enumeration it = request.getHeaderNames(); it.hasMoreElements(); )
+{
+	final String name = (String)it.nextElement();
+	%>
+	header &gt;<%=name%>&lt; :<%
+	%> &gt;<%=request.getHeader(name)%>&lt;<%
+	%><br><%
+	//System.out.println("header <"+name+">: <"+request.getHeader(name)+">");
 }
 %>
