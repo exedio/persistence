@@ -79,6 +79,22 @@ public abstract class InjectorTest extends TestCase
 		final JavaClass javaClass = ((ClassEvent)event).javaClass;
 		assertEquals(className, javaClass.getName());
 	}
+	
+	protected void assertAttributeHeader(final String attributeName)
+	{
+		final InjectionEvent event = fetchEvent();
+		final JavaAttribute javaAttribute = ((AttributeHeaderEvent)event).javaAttribute;
+		assertEquals(attributeName, javaAttribute.getName());
+	}
+	
+	protected void assertAttribute(final String featureName, final String docComment)
+	{
+		final InjectionEvent event = fetchEvent();
+		final JavaFeature javaFeature = ((ClassFeatureEvent)event).javaFeature;
+		assertEquals(featureName, javaFeature.getName());
+		assertEquals(docComment, ((ClassFeatureEvent)event).docComment);
+	}
+
 
 	private static class InjectionEvent
 	{
@@ -135,6 +151,28 @@ public abstract class InjectorTest extends TestCase
 		}
 	}
 	
+	private static class AttributeHeaderEvent extends InjectionEvent
+	{
+		final JavaAttribute javaAttribute;
+
+		AttributeHeaderEvent(final JavaAttribute javaAttribute)
+		{
+			this.javaAttribute = javaAttribute;
+		}
+	}
+	
+	private static class ClassFeatureEvent extends InjectionEvent
+	{
+		final JavaFeature javaFeature;
+		final String docComment;
+
+		ClassFeatureEvent(final JavaFeature javaFeature, final String docComment)
+		{
+			this.javaFeature = javaFeature;
+			this.docComment = docComment;
+		}
+	}
+	
 	private class TestInjectionConsumer implements InjectionConsumer
 	{
 		final StringWriter output;
@@ -173,11 +211,13 @@ public abstract class InjectorTest extends TestCase
 		public void onAttributeHeader(final JavaAttribute ja)
 			throws java.io.IOException
 		{
+			addInjectionEvent(new AttributeHeaderEvent(ja));
 		}
 
 		public void onClassFeature(final JavaFeature cf, final String doccomment)
 			throws java.io.IOException, InjectorParseException
 		{
+			addInjectionEvent(new ClassFeatureEvent(cf, doccomment));
 		}
 
 		public boolean onDocComment(final String doccomment) throws java.io.IOException
