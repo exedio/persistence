@@ -224,4 +224,29 @@ final class OracleDatabase
 		}
 	}
 
+	com.exedio.cope.lib.Statement getRenameColumnStatement(final String tableName, final String oldColumnName, final String newColumnName)
+	{
+		final com.exedio.cope.lib.Statement bf = createStatement();
+		bf.append("alter table ").
+			append(tableName).
+			append(" rename column "). // TODO: this syntax is probably oracle specific
+			append(oldColumnName).
+			append(" to ").
+			append(newColumnName);
+		return bf;
+	}
+
+	com.exedio.cope.lib.Statement getCreateColumnStatement(final String tableName, final String columnName, final String columnType)
+	{
+		final com.exedio.cope.lib.Statement bf = createStatement();
+		bf.append("alter table ").
+			append(tableName).
+			append(" add ("). // TODO: this syntax is probably oracle specific
+			append(columnName).
+			append(' ').
+			append(columnType).
+			append(')');
+		return bf;
+	}
+
 }

@@ -1238,17 +1238,7 @@ abstract class Database
 		}
 	}
 	
-	Statement getRenameColumnStatement(final String tableName, final String oldColumnName, final String newColumnName)
-	{
-		final Statement bf = createStatement();
-		bf.append("alter table ").
-			append(tableName).
-			append(" rename column "). // TODO: this syntax is probably oracle specific
-			append(oldColumnName).
-			append(" to ").
-			append(newColumnName);
-		return bf;
-	}
+	abstract Statement getRenameColumnStatement(final String tableName, final String oldColumnName, final String newColumnName);
 
 	final void renameColumn(final String tableName, final String oldColumnName, final String newColumnName)
 	{
@@ -1269,18 +1259,7 @@ abstract class Database
 		}
 	}
 	
-	Statement getCreateColumnStatement(final String tableName, final String columnName, final String columnType)
-	{
-		final Statement bf = createStatement();
-		bf.append("alter table ").
-			append(tableName).
-			append(" add ("). // TODO: this syntax is probably oracle specific
-			append(columnName).
-			append(' ').
-			append(columnType).
-			append(')');
-		return bf;
-	}
+	abstract Statement getCreateColumnStatement(final String tableName, final String columnName, final String columnType);
 
 	final void createColumn(final Column column)
 	{
