@@ -13,11 +13,13 @@ import junit.framework.TestCase;
 public abstract class InjectorTest extends TestCase
 {
 	private final String resourceName;
+	private final String lineSeparator;
 
 	protected InjectorTest(String name, final String resourceName)
 	{
 		super(name);
 		this.resourceName = resourceName;
+		this.lineSeparator = System.getProperty("line.separator");
 	}
 
 	private LinkedList injectionEvents;
@@ -55,12 +57,27 @@ public abstract class InjectorTest extends TestCase
 	{
 		return s.replace('\n', '#').replace(' ', '_').replace('\t', '~');
 	}
+	
+	private String replaceLineBreaks(final String s)
+	{
+		final StringBuffer result = new StringBuffer();
+		int pos;
+		int lastpos = -1;
+		for(pos = s.indexOf('\n'); pos>=0; pos = s.indexOf('\n', pos+1))
+		{
+			result.append(s.substring(lastpos+1, pos));
+			result.append(lineSeparator);
+			lastpos = pos;
+		}
+		result.append(s.substring(lastpos+1));
+		return result.toString();
+	}
 
 	protected void assertText(final String text)
 	{
 		final InjectionEvent event = fetchEvent();
 		final String actualText = ((TextEvent)event).text;
-		assertEquals("ZAPP \n>"+format(text)+"<\n>"+format(actualText)+"<\n", text, actualText);
+		assertEquals("ZAPP \n>"+format(text)+"<\n>"+format(actualText)+"<\n", replaceLineBreaks(text), actualText);
 	}
 
 	protected void assertPackage(final String packageName)
