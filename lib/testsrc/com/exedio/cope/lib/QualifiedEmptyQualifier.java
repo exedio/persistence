@@ -151,7 +151,7 @@ public class QualifiedEmptyQualifier extends Item
 	 *
  */static final QualifiedEmptyQualifier findByQualifyUnique(final QualifiedItem searchedParent,final EmptyItem searchedKey)
 	{
-		return (QualifiedEmptyQualifier)TYPE.searchUnique(qualifyUnique,new Object[]{searchedParent,searchedKey});
+		return (QualifiedEmptyQualifier)qualifyUnique.searchUnique(new Object[]{searchedParent,searchedKey});
 	}/**
 
 	 **

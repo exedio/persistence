@@ -76,7 +76,7 @@ public class ItemWithSingleUnique extends Item
 	 *
  */public static final ItemWithSingleUnique findByUniqueString(final String searchedUniqueString)
 	{
-		return (ItemWithSingleUnique)TYPE.searchUnique(uniqueString,searchedUniqueString);
+		return (ItemWithSingleUnique)uniqueString.searchUnique(searchedUniqueString);
 	}/**
 
 	 **

@@ -107,7 +107,7 @@ public class ItemWithDoubleUnique extends Item
 	 *
  */static final ItemWithDoubleUnique findByDoubleUnique(final String searchedString,final int searchedInteger)
 	{
-		return (ItemWithDoubleUnique)TYPE.searchUnique(doubleUnique,new Object[]{searchedString,new Integer(searchedInteger)});
+		return (ItemWithDoubleUnique)doubleUnique.searchUnique(new Object[]{searchedString,new Integer(searchedInteger)});
 	}/**
 
 	 **

@@ -57,7 +57,7 @@ public class ItemWithSingleUniqueReadOnly extends Item
 	 *
  */public static final ItemWithSingleUniqueReadOnly findByUniqueReadOnlyString(final String searchedUniqueReadOnlyString)
 	{
-		return (ItemWithSingleUniqueReadOnly)TYPE.searchUnique(uniqueReadOnlyString,searchedUniqueReadOnlyString);
+		return (ItemWithSingleUniqueReadOnly)uniqueReadOnlyString.searchUnique(searchedUniqueReadOnlyString);
 	}/**
 
 	 **

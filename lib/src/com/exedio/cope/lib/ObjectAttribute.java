@@ -1,5 +1,7 @@
 package com.exedio.cope.lib;
 
+import com.exedio.cope.lib.search.EqualCondition;
+
 
 public abstract class ObjectAttribute extends Attribute implements Function
 {
@@ -23,5 +25,10 @@ public abstract class ObjectAttribute extends Attribute implements Function
 			throw new NotNullViolationException(item, this);
 	}
 
+	public final Item searchUnique(final Object value)
+	{
+		// TODO: search nativly for unique constraints
+		return getType().searchUnique(new EqualCondition(this, value));
+	}
 
 }

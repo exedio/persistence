@@ -3,7 +3,12 @@ package com.exedio.cope.lib;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
+
+import com.exedio.cope.lib.search.AndCondition;
+import com.exedio.cope.lib.search.Condition;
+import com.exedio.cope.lib.search.EqualCondition;
 
 public final class UniqueConstraint
 {
@@ -77,6 +82,14 @@ public final class UniqueConstraint
 		return id;
 	}
 	
+	public final Type getType()
+	{
+		if(type==null)
+			throw new RuntimeException();
+			
+		return type;
+	}
+
 	public final String getDatabaseID()
 	{
 		if(databaseID==null)
@@ -109,4 +122,18 @@ public final class UniqueConstraint
 		return toStringCache;
 	}
 	
+	public final Item searchUnique(final Object[] values)
+	{
+		// TODO: search nativly for unique constraints
+		final List attributes = getUniqueAttributes();
+		if(attributes.size()!=values.length)
+			throw new RuntimeException();
+
+		final Iterator attributeIterator = attributes.iterator();
+		final Condition[] conditions = new Condition[attributes.size()];
+		for(int j = 0; attributeIterator.hasNext(); j++)
+			conditions[j] = new EqualCondition((ObjectAttribute)attributeIterator.next(), values[j]);
+
+		return getType().searchUnique(new AndCondition(conditions));
+	}
 }

@@ -552,18 +552,18 @@ final class Generator
 		o.write(lineSeparator);
 		o.write("\t\treturn (");
 		o.write(className);
-		o.write(")TYPE.searchUnique(");
+		o.write(')');
 
 		if(copeAttributes.length==1)
 		{
 			o.write(copeAttributes[0].getName());
-			o.write(',');
+			o.write(".searchUnique(");
 			writePrefixedAttribute("searched", copeAttributes[0]);
 		}
 		else
 		{
 			o.write(constraint.name);
-			o.write(",new Object[]{");
+			o.write(".searchUnique(new Object[]{");
 			writePrefixedAttribute("searched", copeAttributes[0]);
 			for(int i = 1; i<copeAttributes.length; i++)
 			{
@@ -616,10 +616,8 @@ final class Generator
 		o.write("\t\treturn (");
 		o.write(resultType);
 		o.write(")");
-		o.write(resultType);
-		o.write(".TYPE.searchUnique(");
 		o.write(qualifier.uniqueConstraintString);
-		o.write(",new Object[]{this,");
+		o.write(".searchUnique(new Object[]{this,");
 		o.write(qualifier.keyAttribute.javaAttribute.name);
 		o.write("});");
 		o.write(lineSeparator);

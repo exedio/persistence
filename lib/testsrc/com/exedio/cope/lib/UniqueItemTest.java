@@ -201,6 +201,8 @@ public class UniqueItemTest extends DatabaseLibTest
 	public void testDoubleUnique()
 		throws ConstraintViolationException
 	{
+		assertEquals("doubleUnique", ItemWithDoubleUnique.doubleUnique.getID());
+		assertEquals(ItemWithDoubleUnique.TYPE, ItemWithDoubleUnique.doubleUnique.getType());
 		assertEquals(
 			list(ItemWithDoubleUnique.string, ItemWithDoubleUnique.integer),
 			ItemWithDoubleUnique.doubleUnique.getUniqueAttributes());
