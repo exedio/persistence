@@ -17,7 +17,8 @@ public final class ReportTable extends ReportNode
 	private final HashMap columnMap = new HashMap();
 	private final ArrayList columnList = new ArrayList();
 
-	private final HashMap constraints = new HashMap();
+	private final HashMap constraintMap = new HashMap();
+	private final ArrayList constraintList = new ArrayList();
 
 	ReportTable(final com.exedio.cope.lib.Table table)
 	{
@@ -75,19 +76,21 @@ public final class ReportTable extends ReportNode
 	final ReportConstraint notifyRequiredConstraint(final String constraintName)
 	{
 		final ReportConstraint result = new ReportConstraint(constraintName, this);
-		if(constraints.put(result.name, result)!=null)
+		if(constraintMap.put(result.name, result)!=null)
 			throw new RuntimeException(constraintName);
+		constraintList.add(result);
 		result.notifyRequired();
 		return result;
 	}
 		
 	final ReportConstraint notifyExistentConstraint(final String constraintName)
 	{
-		ReportConstraint result = (ReportConstraint)constraints.get(constraintName);
+		ReportConstraint result = (ReportConstraint)constraintMap.get(constraintName);
 		if(result==null)
 		{
 			result = new ReportConstraint(constraintName, this);
-			constraints.put(constraintName, result);
+			constraintMap.put(constraintName, result);
+			constraintList.add(result);
 		}
 		result.notifyExists();
 		return result;
@@ -120,7 +123,7 @@ public final class ReportTable extends ReportNode
 		
 	public final Collection getConstraints()
 	{
-		return constraints.values();
+		return constraintList;
 	}
 		
 	protected void finish()
@@ -156,7 +159,7 @@ public final class ReportTable extends ReportNode
 			cumulativeColor = Math.max(cumulativeColor, column.cumulativeColor);
 		}
 
-		for(Iterator i = constraints.values().iterator(); i.hasNext(); )
+		for(Iterator i = constraintList.iterator(); i.hasNext(); )
 		{
 			final ReportConstraint constraint = (ReportConstraint)i.next();
 			constraint.finish();
