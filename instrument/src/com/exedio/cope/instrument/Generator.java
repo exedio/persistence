@@ -292,7 +292,6 @@ final class Generator
 	private void writeAccessMethods(final PersistentAttribute persistentAttribute)
 	throws IOException
 	{
-		final String methodModifiers = Modifier.toString(persistentAttribute.getMethodModifiers());
 		final String type = persistentAttribute.getBoxedType();
 		final List qualifiers = persistentAttribute.qualifiers;
 
@@ -304,7 +303,7 @@ final class Generator
 		o.write(lineSeparator);
 		writeCommentGenerated();
 		writeCommentFooter();
-		o.write(methodModifiers);
+		o.write(Modifier.toString(persistentAttribute.getGeneratedGetterModifier()));
 		o.write(' ');
 		o.write(type);
 		o.write(" get");
@@ -328,7 +327,7 @@ final class Generator
 			o.write(lineSeparator);
 			writeCommentGenerated();
 			writeCommentFooter();
-			o.write(methodModifiers);
+			o.write(Modifier.toString(persistentAttribute.getGeneratedSetterModifier()));
 			o.write(" void set");
 			o.write(persistentAttribute.getCamelCaseName());
 			o.write('(');
@@ -358,7 +357,6 @@ final class Generator
 													final String comment)
 	throws IOException
 	{
-		final String methodModifiers = Modifier.toString(mediaAttribute.getMethodModifiers());
 		final List qualifiers = mediaAttribute.qualifiers;
 
 		writeCommentHeader();
@@ -370,7 +368,7 @@ final class Generator
 		o.write(lineSeparator);
 		writeCommentGenerated();
 		writeCommentFooter();
-		o.write(methodModifiers);
+		o.write(Modifier.toString(mediaAttribute.getGeneratedGetterModifier()));
 		o.write(' ');
 		o.write(returnType.getName());
 		o.write(" get");
@@ -407,7 +405,6 @@ final class Generator
 	private void writeMediaAccessMethods(final PersistentMediaAttribute mediaAttribute)
 	throws IOException
 	{
-		final String methodModifiers = Modifier.toString(mediaAttribute.getMethodModifiers());
 		final List qualifiers = mediaAttribute.qualifiers;
 		final String mimeMajor = mediaAttribute.mimeMajor;
 		final String mimeMinor = mediaAttribute.mimeMinor;
@@ -439,7 +436,7 @@ final class Generator
 			o.write(lineSeparator);
 			writeCommentGenerated();
 			writeCommentFooter();
-			o.write(methodModifiers);
+			o.write(Modifier.toString(mediaAttribute.getGeneratedSetterModifier()));
 			o.write(" void set");
 			o.write(mediaAttribute.getCamelCaseName());
 			o.write("Data(");

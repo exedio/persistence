@@ -110,12 +110,20 @@ public abstract class PersistentAttribute
 	
 	private static final HashMap options = new HashMap();
 	
-	public static int OPTION_NONE = 0;
-	public static int OPTION_AUTO = 1;
+	public static final int OPTION_NONE = 0;
+	public static final int OPTION_AUTO = 1;
+	public static final int OPTION_PRIVATE = 2;
+	public static final int OPTION_PROTECTED = 3;
+	public static final int OPTION_PACKAGE = 4;
+	public static final int OPTION_PUBLIC = 5;
 	
 	static
 	{
 		options.put("none", new Integer(OPTION_NONE));
+		options.put("private", new Integer(OPTION_PRIVATE));
+		options.put("protected", new Integer(OPTION_PROTECTED));
+		options.put("package", new Integer(OPTION_PACKAGE));
+		options.put("public", new Integer(OPTION_PUBLIC));
 	}
 	
 	public final String getName()
@@ -128,7 +136,7 @@ public abstract class PersistentAttribute
 		return javaAttribute.getCamelCaseName();
 	}
 	
-	public final int getMethodModifiers()
+	public final int getGeneratedGetterModifier()
 	{
 		return javaAttribute.getModifiers()
 			& (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE)
@@ -216,6 +224,34 @@ public abstract class PersistentAttribute
 	public final boolean hasGeneratedSetter()
 	{
 		return isWriteable() && (setterOption!=OPTION_NONE);
+	}
+	
+	public final int getGeneratedSetterModifier()
+	{
+		final int result;
+		switch(setterOption)
+		{
+			case OPTION_NONE:
+				throw new RuntimeException();
+			case OPTION_AUTO:
+				result = javaAttribute.getModifiers() & (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE);
+				break;
+			case OPTION_PRIVATE:
+				result = Modifier.PRIVATE;
+				break;
+			case OPTION_PROTECTED:
+				result = Modifier.PROTECTED;
+				break;
+			case OPTION_PACKAGE:
+				result = 0;
+				break;
+			case OPTION_PUBLIC:
+				result = Modifier.PUBLIC;
+				break;
+			default:
+				throw new RuntimeException(String.valueOf(setterOption));
+		}
+		return result | Modifier.FINAL;
 	}
 	
 	private SortedSet setterExceptions = null;
