@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 
-class HsqldbDatabase
+final class HsqldbDatabase
 		extends Database
 		implements
 			DatabaseReportable,
@@ -174,6 +174,27 @@ class HsqldbDatabase
 				return "varchar("+dataLength+')';
 			default:
 				return null;
+		}
+	}
+
+	final void renameColumn(final String tableName, final String oldColumnName, final String newColumnName)
+	{
+		final Statement bf = createStatement();
+		bf.append("alter table ").
+			append(protectName(tableName)).
+			append(" alter column ").
+			append(protectName(oldColumnName)).
+			append(" rename to ").
+			append(protectName(newColumnName));
+
+		try
+		{
+			//System.err.println("renameColumn:"+bf);
+			executeSQL(bf, EMPTY_RESULT_SET_HANDLER);
+		}
+		catch(ConstraintViolationException e)
+		{
+			throw new SystemException(e);
 		}
 	}
 

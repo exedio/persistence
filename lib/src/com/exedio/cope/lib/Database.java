@@ -601,7 +601,7 @@ abstract class Database
 		public void run(ResultSet resultSet) throws SQLException;
 	}
 
-	private static final ResultSetHandler EMPTY_RESULT_SET_HANDLER = new ResultSetHandler()
+	static final ResultSetHandler EMPTY_RESULT_SET_HANDLER = new ResultSetHandler()
 	{
 		public void run(ResultSet resultSet)
 		{
@@ -1238,7 +1238,7 @@ abstract class Database
 		}
 	}
 
-	final void renameColumn(final String tableName, final String oldColumnName, final String newColumnName)
+	void renameColumn(final String tableName, final String oldColumnName, final String newColumnName)
 	{
 		final Statement bf = createStatement();
 		bf.append("alter table ").
