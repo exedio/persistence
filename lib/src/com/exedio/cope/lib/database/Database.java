@@ -1,0 +1,130 @@
+
+package com.exedio.cope.lib.database;
+
+import com.exedio.cope.lib.SystemException;
+import com.exedio.cope.lib.Type;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class Database
+{
+	
+	public Database()
+	{
+	}
+	
+	public char getNameDelimiterStart()
+	{
+		return '"';
+	}
+	
+	public char getNameDelimiterEnd()
+	{
+		return '"';
+	}
+	
+	public void createTable(final Type type)
+	{
+		executeSQL(getCreateTableStatement(type));
+	}
+	
+	public void dropTable(final Type type)
+	{
+		executeSQL(getDropTableStatement(type));
+	}
+	
+	private void executeSQL(final String sql)
+	{
+		final String driver = "oracle.jdbc.driver.OracleDriver";
+		final String url = "jdbc:oracle:thin:@database3.exedio.com:1521:DB3";
+		final String user = "wiebicke";
+		final String password = "wiebicke1234";
+		
+		try
+		{
+			Class.forName(driver);
+		}
+		catch(ClassNotFoundException e)
+		{
+			throw new SystemException(e);
+		}
+		
+		Connection connection = null;
+		Statement statement = null;
+		try
+		{
+			connection = DriverManager.getConnection(url, user, password);
+			statement = connection.createStatement();
+			statement.execute(sql);
+		}
+		catch(SQLException e)
+		{
+			throw new SystemException(e, sql);
+		}
+		finally
+		{
+			if(connection!=null)
+			{
+				try
+				{
+					connection.close();
+				}
+				catch(SQLException e)
+				{
+					// exception is already thrown
+				}
+			}
+			if(statement!=null)
+			{
+				try
+				{
+					statement.close();
+				}
+				catch(SQLException e)
+				{
+					// exception is already thrown
+				}
+			}
+		}
+	}
+	
+	private String getTableName(final Type type)
+	{
+		final String className = type.getJavaClass().getName();
+		final int pos = className.lastIndexOf('.');
+		return className.substring(pos+1);
+	}
+	
+	private String getCreateTableStatement(final Type type)
+	{
+		final char delimiterStart = getNameDelimiterStart();
+		final char delimiterEnd = getNameDelimiterEnd();
+
+		final StringBuffer bf = new StringBuffer();
+		bf.append("create table ").
+			append(delimiterStart).
+			append(getTableName(type)).
+			append(delimiterEnd).
+			append('(');
+		bf.append("\"code\" varchar2(5),");
+		bf.append("\"name\" varchar2(20)");
+		bf.append(')');
+		return bf.toString();
+	}
+	
+	private String getDropTableStatement(final Type type)
+	{
+		final char delimiterStart = getNameDelimiterStart();
+		final char delimiterEnd = getNameDelimiterEnd();
+
+		final StringBuffer bf = new StringBuffer();
+		bf.append("drop table ").
+			append(delimiterStart).
+			append(getTableName(type)).
+			append(delimiterEnd);
+		return bf.toString();
+	}
+	
+}
