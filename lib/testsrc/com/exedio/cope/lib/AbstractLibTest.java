@@ -81,6 +81,11 @@ public abstract class AbstractLibTest extends TestCase
 		return Collections.singleton(o);
 	}
 
+	protected List list()
+	{
+		return Collections.EMPTY_LIST;
+	}
+
 	protected List list(final Object o)
 	{
 		return Collections.singletonList(o);
