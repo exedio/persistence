@@ -404,5 +404,18 @@ public class LibTest extends TestCase
 	{
 		return Collections.singletonList(o);
 	}
+	
+	protected Object waitForKey(final Object o)
+	{
+		try
+		{
+			System.in.read();
+		}
+		catch(IOException e)
+		{
+			throw new SystemException(e);
+		}
+		return o;
+	}
 
 }
