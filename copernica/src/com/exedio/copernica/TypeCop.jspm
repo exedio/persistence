@@ -38,14 +38,13 @@ public class TypeCop_Jspm
 		out.println("</ul>");
 	}
 
-	public static final void writeBody(final JspWriter out, final TypeCop typeCop)
+	public static final void writeBody(final JspWriter out, final TypeCop cop)
 		throws IOException
 	{
-		final CopernicaCop cop = typeCop;
 		final CopernicaProvider provider = cop.provider;
 		final CopernicaLanguage language = cop.language;
-		final Type type = typeCop.type;
-		final Collection items = typeCop.getItems();
+		final Type type = cop.type;
+		final Collection items = cop.getItems();
 			
 			%>
 			<h1>
@@ -64,25 +63,25 @@ public class TypeCop_Jspm
 			%>
 			</ul><%
 			final int itemsSize = items.size();
-			final boolean firstPage = typeCop.isFirstPage();
-			final boolean lastPage = typeCop.isLastPage();
-			if(typeCop.start>0 || itemsSize>0)
+			final boolean firstPage = cop.isFirstPage();
+			final boolean lastPage = cop.isLastPage();
+			if(cop.start>0 || itemsSize>0)
 			{
 			%>
 			<div id="pager">
-				<a href="<%=typeCop.firstPage()%>"<%
+				<a href="<%=cop.firstPage()%>"<%
 					if(firstPage){%> id="disabled"<%}%>>&lt;&lt;</a>
-				<a href="<%=typeCop.previousPage()%>"<%
+				<a href="<%=cop.previousPage()%>"<%
 					if(firstPage){%> id="disabled"<%}%>>&lt;</a>
-				<a href="<%=typeCop.nextPage()%>"<%
+				<a href="<%=cop.nextPage()%>"<%
 					if(lastPage) {%> id="disabled"<%}%>>&gt;</a>
-				<%=typeCop.start+1%> - <%=typeCop.start+itemsSize%>
+				<%=cop.start+1%> - <%=cop.start+itemsSize%>
 				(<%
 				for(int i = 10; i<=50; i+=10)
 				{
 				%>
-				<a href="<%=typeCop.switchCount(i)%>"<%
-					if(i==typeCop.count){%> id="disabled"<%}%>><%=i%></a><%
+				<a href="<%=cop.switchCount(i)%>"<%
+					if(i==cop.count){%> id="disabled"<%}%>><%=i%></a><%
 				}%>
 				)
 			</div><%
@@ -111,14 +110,14 @@ public class TypeCop_Jspm
 					{
 						final Function function = (Function)feature;
 						%>
-						<a href="<%=typeCop.orderBy(function, true)%>"<%
-						if(feature == typeCop.orderBy && typeCop.orderAscending)
+						<a href="<%=cop.orderBy(function, true)%>"<%
+						if(feature == cop.orderBy && cop.orderAscending)
 						{
 							%> class="disabled"<%
 						}
 						%>>a</a>
-						<a href="<%=typeCop.orderBy(function, false)%>"<%
-						if(feature == typeCop.orderBy && !typeCop.orderAscending)
+						<a href="<%=cop.orderBy(function, false)%>"<%
+						if(feature == cop.orderBy && !cop.orderAscending)
 						{
 							%> class="disabled"<%
 						}
@@ -227,7 +226,7 @@ public class TypeCop_Jspm
 			</table>
 
 			<%
-			final StatementInfo info = typeCop.getStatementInfo();
+			final StatementInfo info = cop.getStatementInfo();
 			if(info!=null)
 			{
 				%><ul><li><%
