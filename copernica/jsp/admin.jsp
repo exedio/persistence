@@ -21,7 +21,9 @@ final AdminCop cop = AdminCop.getCop(request);
 		</title><%
 		if(cop.report)
 		{
-			%><%@ include file="admin-report-head.inc" %><%
+			%>
+		<link rel="STYLESHEET" type="text/css" href="admin-report.css">
+		<script src="admin-report.js" type="text/javascript"></script><%
 		}%>
 	</head>
 	<body>
