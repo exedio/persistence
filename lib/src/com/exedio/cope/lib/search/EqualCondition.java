@@ -4,6 +4,7 @@ package com.exedio.cope.lib.search;
 import java.util.Date;
 import java.util.TreeSet;
 
+import com.exedio.cope.lib.BooleanAttribute;
 import com.exedio.cope.lib.DateAttribute;
 import com.exedio.cope.lib.DoubleAttribute;
 import com.exedio.cope.lib.Function;
@@ -39,6 +40,12 @@ public final class EqualCondition extends Condition
 	}
 	
 	public EqualCondition(final LongAttribute attribute, final Long value)
+	{
+		this.function = attribute;
+		this.value = value;
+	}
+	
+	public EqualCondition(final BooleanAttribute attribute, final Boolean value)
 	{
 		this.function = attribute;
 		this.value = value;

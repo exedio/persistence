@@ -160,6 +160,16 @@ public abstract class Search
 		return new EqualCondition(attribute, new Double(value));
 	}
 	
+	public static final EqualCondition equal(final BooleanAttribute attribute, final Boolean value)
+	{
+		return new EqualCondition(attribute, value);
+	}
+	
+	public static final EqualCondition equal(final BooleanAttribute attribute, final boolean value)
+	{
+		return new EqualCondition(attribute, value ? Boolean.TRUE : Boolean.FALSE);
+	}
+	
 	public static final EqualCondition equal(final DateAttribute attribute, final Date value)
 	{
 		return new EqualCondition(attribute, value);
@@ -193,6 +203,16 @@ public abstract class Search
 	public static final NotEqualCondition notEqual(final LongAttribute attribute, final long value)
 	{
 		return new NotEqualCondition(attribute, new Long(value));
+	}
+	
+	public static final NotEqualCondition notEqual(final BooleanAttribute attribute, final Boolean value)
+	{
+		return new NotEqualCondition(attribute, value);
+	}
+	
+	public static final NotEqualCondition notEqual(final BooleanAttribute attribute, final boolean value)
+	{
+		return new NotEqualCondition(attribute, value ? Boolean.TRUE : Boolean.FALSE);
 	}
 	
 	public static final NotEqualCondition notEqual(final DoubleAttribute attribute, final Double value)
