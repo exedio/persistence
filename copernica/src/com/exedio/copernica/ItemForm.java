@@ -26,7 +26,7 @@ import com.exedio.cope.lib.Type;
 import com.exedio.cope.lib.pattern.Qualifier;
 import com.exedio.cope.lib.search.EqualCondition;
 
-public class ItemForm extends Form
+final class ItemForm extends Form
 {
 	static final String VALUE_NULL = "null";
 	static final String VALUE_ON = "on";

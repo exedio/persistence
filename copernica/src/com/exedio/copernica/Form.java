@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public abstract class Form
+abstract class Form
 {
 	private final Map parameters;
 	boolean toSave = false;
