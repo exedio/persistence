@@ -58,7 +58,7 @@
 		</javac>
 	</target>
 	
-	<target name="compile" depends="lib.compile, lib.oracle.compile, instrument.compile, copernica.compile" />
+	<target name="compile" depends="lib.compile, lib.oracle.compile, instrument.compile, copernica.compile, copernica.test.compile" />
 	
 	<target name="lib.jar" depends="lib.compile, lib.oracle.compile">
 		<jar jarfile="lib/build/cope.jar" basedir="lib/build/classes" />
@@ -377,6 +377,6 @@
 
 	<target name="api" depends="lib.api, instrument.api, copernica.api" />
 	
-	<target name="all" depends="compile, test, jar, api" />
+	<target name="all" depends="compile, test, jar, api, copernica.testwebapp" />
 
 </project>
