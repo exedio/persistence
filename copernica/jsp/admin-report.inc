@@ -41,6 +41,7 @@ final boolean narrowReport = cop.isNarrowReport();
 
 %>
 drop boxes: <a href="<%=cop.toggleDropBoxes()%>"><%=cop.showDropBoxes?"hide":"show"%></a><br>
+rename fields: <a href="<%=cop.toggleRenameFields()%>"><%=cop.showRenameFields?"hide":"show"%></a><br>
 <span class="<%=reportColor%>"><%
 if(narrowReport)
 {
