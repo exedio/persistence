@@ -8,9 +8,9 @@ page import="com.exedio.cope.lib.ReportColumn" %><%@
 page import="com.exedio.cope.lib.ReportConstraint" %><%@
 page import="com.exedio.cope.lib.SystemException" %><%@
 
-page import="java.util.Iterator" %><%@
 page import="java.util.Date" %><%@
 
+include file="printParams.inc" %><%@
 include file="copernica-provider.inc"
 
 %>
