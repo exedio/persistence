@@ -413,7 +413,7 @@ public final class Type
 		final int result = nextIsLo ? nextPkLo-- : nextPkHi++;
 		nextIsLo = !nextIsLo;
 
-		if(nextPkLo>=nextPkHi) // TODO some handle pk overflow
+		if(nextPkLo>=nextPkHi) // TODO : somehow handle pk overflow
 			throw new RuntimeException(String.valueOf(nextPkHi)+String.valueOf(nextPkLo));
 		return result;
 	}
