@@ -23,6 +23,14 @@ import tools.ClassComparator;
  */
 public final class JavaAttribute extends JavaFeature
 {
+	/**
+	 * Defines this attribute as a media attribute.
+	 * The dash prevents this name to be used as a java identifier.
+	 * @see #getPersistentType()
+	 */
+	public static final String MEDIA_TYPE = "Media-";
+
+
 	private String persistentType = null;
 	private boolean readOnly = false;
 	private boolean notNull = false;
@@ -56,6 +64,11 @@ public final class JavaAttribute extends JavaFeature
 	public String getPersistentType()
 	{
 		return this.persistentType;
+	}
+	
+	public boolean isMediaPersistentType()
+	{
+		return this.persistentType.equals(MEDIA_TYPE);
 	}
 
 	private static final HashMap toNativeTypeMapping = new HashMap(3);
@@ -316,7 +329,7 @@ public final class JavaAttribute extends JavaFeature
 	}
 
 
-	private TreeSet exceptionsToCatchInSetter = null;
+	private SortedSet exceptionsToCatchInSetter = null;
 
 	/**
 	 * Compute exceptions to be caught in the setter.
@@ -330,17 +343,18 @@ public final class JavaAttribute extends JavaFeature
 		if(exceptionsToCatchInSetter!=null)
 			return exceptionsToCatchInSetter;
 
-		exceptionsToCatchInSetter = new TreeSet(ClassComparator.newInstance());
-		exceptionsToCatchInSetter.add(UniqueViolationException.class);
+		final TreeSet result = new TreeSet(ClassComparator.newInstance());
+		result.add(UniqueViolationException.class);
 		if(qualifiers==null)
 		{
 			// qualified setAttribute does not throw not-null/read-only
-			exceptionsToCatchInSetter.add(NotNullViolationException.class);
-			exceptionsToCatchInSetter.add(ReadOnlyViolationException.class);
+			result.add(NotNullViolationException.class);
+			result.add(ReadOnlyViolationException.class);
 		}
-		exceptionsToCatchInSetter.removeAll(getSetterExceptions());
+		result.removeAll(getSetterExceptions());
 		
-		return exceptionsToCatchInSetter;
+		this.exceptionsToCatchInSetter = Collections.unmodifiableSortedSet(result);
+		return this.exceptionsToCatchInSetter;
 	}
 
 }

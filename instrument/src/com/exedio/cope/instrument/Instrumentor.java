@@ -3,6 +3,8 @@ package injection;
 
 import injection.InjectorParseException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.Writer;
 import java.util.*;
 import java.lang.reflect.Modifier;
@@ -348,6 +350,133 @@ public final class Instrumentor implements InjectionConsumer
 			output.write("\t}");
 		}
 	}
+
+	private void writeMediaGetterMethod(final JavaAttribute mediaAttribute,
+													final Class returnType,
+													final String part,
+													final String comment)
+	throws IOException
+	{
+		final String methodModifiers = Modifier.toString(mediaAttribute.getMethodModifiers());
+		final List qualifiers = mediaAttribute.getQualifiers();
+
+		writeCommentHeader();
+		output.write("\t * ");
+		output.write(comment);
+		output.write(" {@link #");
+		output.write(mediaAttribute.getName());
+		output.write("}.");
+		output.write(lineSeparator);
+		writeCommentFooter();
+		output.write(methodModifiers);
+		output.write(' ');
+		output.write(returnType.getName());
+		output.write(" get");
+		output.write(mediaAttribute.getCamelCaseName());
+		output.write(part);
+		output.write('(');
+		writeParameterDeclarationList(qualifiers);
+		output.write(')');
+		output.write(lineSeparator);
+		output.write("\t{");
+		output.write(lineSeparator);
+		output.write("\t\treturn getMedia");
+		output.write(part);
+		output.write("(this.");
+		output.write(mediaAttribute.getName());
+		if(qualifiers!=null)
+		{
+			output.write(",new Object[]{");
+			writeParameterCallList(qualifiers);
+			output.write('}');
+		}
+		output.write(");");
+		output.write(lineSeparator);
+		output.write("\t}");
+	}
+	
+	private void writeMediaAccessMethods(final JavaAttribute mediaAttribute)
+	throws IOException
+	{
+		final String methodModifiers = Modifier.toString(mediaAttribute.getMethodModifiers());
+		final List qualifiers = mediaAttribute.getQualifiers();
+
+		// getters
+		writeMediaGetterMethod(mediaAttribute, String.class, "URL",
+										"Returns a URL pointing to the data of the persistent attribute");
+		writeMediaGetterMethod(mediaAttribute, String.class, "MimeMajor",
+										"Returns the major mime type of the persistent media attribute");
+		writeMediaGetterMethod(mediaAttribute, String.class, "MimeMinor",
+										"Returns the minor mime type of the persistent media attribute");
+		writeMediaGetterMethod(mediaAttribute, InputStream.class, "Data",
+										"Returns a stream for fetching the data of the persistent media attribute");
+		
+		// setters
+		if(mediaAttribute.hasSetter())
+		{
+			writeCommentHeader();
+			output.write("\t * Provides data for the persistent media attribute {@link #");
+			output.write(mediaAttribute.getName());
+			output.write("}.");
+			output.write(lineSeparator);
+			writeCommentFooter();
+			output.write(methodModifiers);
+			output.write(" void set");
+			output.write(mediaAttribute.getCamelCaseName());
+			output.write("Data(");
+			if(qualifiers!=null)
+			{
+				writeParameterDeclarationList(qualifiers);
+				output.write(',');
+			}
+			output.write("final " + OutputStream.class.getName() + " data");
+			output.write(",final "+String.class.getName()+" mimeMajor");
+			output.write(",final "+String.class.getName()+" mimeMinor");
+			output.write(')');
+			final SortedSet setterExceptions = mediaAttribute.getSetterExceptions();
+			writeThrowsClause(setterExceptions);
+			if(setterExceptions.isEmpty())
+				output.write("throws ");
+			output.write(IOException.class.getName());
+			output.write(lineSeparator);
+			output.write("\t{");
+			output.write(lineSeparator);
+			
+			final SortedSet exceptionsToCatch = new TreeSet(mediaAttribute.getExceptionsToCatchInSetter());
+			exceptionsToCatch.remove(ReadOnlyViolationException.class);
+			exceptionsToCatch.remove(UniqueViolationException.class);
+			if(!exceptionsToCatch.isEmpty())
+			{
+				output.write("\t\ttry");
+				output.write(lineSeparator);
+				output.write("\t\t{");
+				output.write(lineSeparator);
+				output.write('\t');
+			}
+			output.write("\t\tsetMediaData(this.");
+			output.write(mediaAttribute.getName());
+			if(qualifiers!=null)
+			{
+				output.write(",new Object[]{");
+				writeParameterCallList(qualifiers);
+				output.write('}');
+			}
+			output.write(",data");
+			output.write(",mimeMajor");
+			output.write(",mimeMinor");
+			output.write(");");
+			output.write(lineSeparator);
+			if(!exceptionsToCatch.isEmpty())
+			{
+				output.write("\t\t}");
+				output.write(lineSeparator);
+
+				for(Iterator i = exceptionsToCatch.iterator(); i.hasNext(); )
+					writeViolationExceptionCatchClause(output, (Class)i.next());
+			}
+			output.write("\t}");
+		}
+	}
 	
 	private final void writeEquals(final JavaAttribute attribute)
 	throws IOException
@@ -587,7 +716,10 @@ public final class Instrumentor implements InjectionConsumer
 			{
 				// write setter/getter methods
 				final JavaAttribute persistentAttribute = (JavaAttribute)i.next();
-				writeAccessMethods(persistentAttribute);
+				if(persistentAttribute.isMediaPersistentType())
+					writeMediaAccessMethods(persistentAttribute);
+				else
+					writeAccessMethods(persistentAttribute);
 			}
 			for(final Iterator i = jc.getUniqueConstraints().iterator(); i.hasNext(); )
 			{
@@ -634,6 +766,10 @@ public final class Instrumentor implements InjectionConsumer
 				else if("ItemAttribute".equals(type))
 				{
 					persistentType = Injector.findDocTag(docComment, PERSISTENT_ATTRIBUTE);
+				}
+				else if("MediaAttribute".equals(type))
+				{
+					persistentType = JavaAttribute.MEDIA_TYPE;
 				}
 				else
 					throw new RuntimeException();
