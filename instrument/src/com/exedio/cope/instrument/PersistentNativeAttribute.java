@@ -23,20 +23,19 @@ public class PersistentNativeAttribute extends PersistentAttribute
 	{
 		super(javaAttribute, getPersistentType(typeClass), initializerArguments, mapped, qualifiers);
 
-		final String persistentType = getPersistentType();
-		final String nativeType = (String)toNativeTypeMapping.get(persistentType);
+		final String nativeType = (String)toNativeTypeMapping.get(typeClass);
 		if(notNull && nativeType!=null)
 		{
 			boxedType = nativeType;
 			boxed = true;
-			boxingPrefix = (String)toBoxingPrefixMapping.get(persistentType);
-			boxingPostfix = (String)toBoxingPostfixMapping.get(persistentType);
-			unboxingPrefix = (String)toUnboxingPrefixMapping.get(persistentType);
-			unboxingPostfix = (String)toUnboxingPostfixMapping.get(persistentType);
+			boxingPrefix = (String)toBoxingPrefixMapping.get(typeClass);
+			boxingPostfix = (String)toBoxingPostfixMapping.get(typeClass);
+			unboxingPrefix = (String)toUnboxingPrefixMapping.get(typeClass);
+			unboxingPostfix = (String)toUnboxingPostfixMapping.get(typeClass);
 		}
 		else
 		{
-			boxedType = persistentType;
+			boxedType = getPersistentType();
 			boxed = false;
 			boxingPrefix = boxingPostfix = unboxingPrefix = unboxingPostfix = null;
 		}
@@ -44,40 +43,39 @@ public class PersistentNativeAttribute extends PersistentAttribute
 
 	private static final String getPersistentType(final Class typeClass)
 	{
-		if(IntegerAttribute.class.equals(typeClass))
-			return "Integer";
-		else if(DoubleAttribute.class.equals(typeClass))
-			return "Double";
-		else if(BooleanAttribute.class.equals(typeClass))
-			return "Boolean";
-		else if(StringAttribute.class.equals(typeClass))
-			return "String";
-		else
+		final String result = (String)toPersistentTypeMapping.get(typeClass);
+
+		if(result==null)
 			throw new RuntimeException(typeClass.toString());
+
+		return result;
 	}
 
+	private static final HashMap toPersistentTypeMapping = new HashMap(3);
 	private static final HashMap toNativeTypeMapping = new HashMap(3);
 	private static final HashMap toBoxingPrefixMapping = new HashMap(3);
 	private static final HashMap toBoxingPostfixMapping = new HashMap(3);
 	private static final HashMap toUnboxingPrefixMapping = new HashMap(3);
 	private static final HashMap toUnboxingPostfixMapping = new HashMap(3);
 	
-	private static final void fillNativeTypeMap(final String persistentType, final String nativeType,
+	private static final void fillNativeTypeMap(final Class typeClass, final String persistentType, final String nativeType,
 															  final String boxingPrefix, final String boxingPostfix,
 															  final String unboxingPrefix, final String unboxingPostfix)
 	{
-		toNativeTypeMapping.put(persistentType, nativeType);
-		toBoxingPrefixMapping.put(persistentType, boxingPrefix);
-		toBoxingPostfixMapping.put(persistentType, boxingPostfix);
-		toUnboxingPrefixMapping.put(persistentType, unboxingPrefix);
-		toUnboxingPostfixMapping.put(persistentType, unboxingPostfix);
+		toPersistentTypeMapping.put(typeClass, persistentType);
+		toNativeTypeMapping.put(typeClass, nativeType);
+		toBoxingPrefixMapping.put(typeClass, boxingPrefix);
+		toBoxingPostfixMapping.put(typeClass, boxingPostfix);
+		toUnboxingPrefixMapping.put(typeClass, unboxingPrefix);
+		toUnboxingPostfixMapping.put(typeClass, unboxingPostfix);
 	}
 	
 	static
 	{
-		fillNativeTypeMap("Boolean", "boolean", "(",            "?Boolean.TRUE:Boolean.FALSE)","(", ").booleanValue()");
-		fillNativeTypeMap("Integer", "int",     "new Integer(", ")",                           "(", ").intValue()");
-		fillNativeTypeMap("Double", "double", "new Double(", ")",                       "(", ").doubleValue()");
+		fillNativeTypeMap(BooleanAttribute.class, "Boolean", "boolean", "(", "?Boolean.TRUE:Boolean.FALSE)", "(", ").booleanValue()");
+		fillNativeTypeMap(IntegerAttribute.class, "Integer", "int", "new Integer(", ")", "(", ").intValue()");
+		fillNativeTypeMap(DoubleAttribute.class, "Double", "double", "new Double(", ")", "(", ").doubleValue()");
+		fillNativeTypeMap(StringAttribute.class, "String", null, null, null, null, null);
 	}
 
 	public final String getBoxedType()
