@@ -44,7 +44,7 @@ public class SumItem extends Item
 	 *
  */public SumItem()
 	{
-		super(new com.exedio.cope.lib.AttributeValue[]{
+		this(new com.exedio.cope.lib.AttributeValue[]{
 		});
 	}/**
 

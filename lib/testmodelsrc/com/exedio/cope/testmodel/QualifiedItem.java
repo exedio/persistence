@@ -26,7 +26,7 @@ public class QualifiedItem extends Item
 	 *
  */public QualifiedItem()
 	{
-		super(new com.exedio.cope.lib.AttributeValue[]{
+		this(new com.exedio.cope.lib.AttributeValue[]{
 		});
 	}/**
 

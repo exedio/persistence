@@ -30,7 +30,7 @@ public class MediaItem extends Item
 	 *
  */public MediaItem()
 	{
-		super(new com.exedio.cope.lib.AttributeValue[]{
+		this(new com.exedio.cope.lib.AttributeValue[]{
 		});
 	}/**
 

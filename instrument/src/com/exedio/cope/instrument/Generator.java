@@ -247,7 +247,7 @@ final class Generator
 		writeThrowsClause(constructorExceptions);
 		o.write("\t{");
 		o.write(lineSeparator);
-		o.write("\t\tsuper(new "+AttributeValue.class.getName()+"[]{");
+		o.write("\t\tthis(new "+AttributeValue.class.getName()+"[]{");
 		o.write(lineSeparator);
 		for(Iterator i = initialAttributes.iterator(); i.hasNext(); )
 		{

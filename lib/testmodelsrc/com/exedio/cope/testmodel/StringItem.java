@@ -37,7 +37,7 @@ public class StringItem extends Item
 	 *
  */public StringItem()
 	{
-		super(new com.exedio.cope.lib.AttributeValue[]{
+		this(new com.exedio.cope.lib.AttributeValue[]{
 		});
 	}/**
 

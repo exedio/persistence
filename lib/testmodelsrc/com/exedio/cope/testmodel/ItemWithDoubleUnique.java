@@ -42,7 +42,7 @@ public class ItemWithDoubleUnique extends Item
 				com.exedio.cope.lib.NotNullViolationException,
 				com.exedio.cope.lib.UniqueViolationException
 	{
-		super(new com.exedio.cope.lib.AttributeValue[]{
+		this(new com.exedio.cope.lib.AttributeValue[]{
 			new com.exedio.cope.lib.AttributeValue(string,initialString),
 			new com.exedio.cope.lib.AttributeValue(integer,new java.lang.Integer(initialInteger)),
 		});

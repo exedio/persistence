@@ -53,7 +53,7 @@ public class QualifiedIntegerEnumQualifier extends Item
 				com.exedio.cope.lib.NotNullViolationException,
 				com.exedio.cope.lib.UniqueViolationException
 	{
-		super(new com.exedio.cope.lib.AttributeValue[]{
+		this(new com.exedio.cope.lib.AttributeValue[]{
 			new com.exedio.cope.lib.AttributeValue(up,initialUp),
 			new com.exedio.cope.lib.AttributeValue(keyX,new java.lang.Integer(initialKeyX)),
 			new com.exedio.cope.lib.AttributeValue(keyY,initialKeyY),

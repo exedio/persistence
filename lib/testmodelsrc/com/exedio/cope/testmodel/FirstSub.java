@@ -27,7 +27,7 @@ public class FirstSub extends Super
 	 *
  */public FirstSub()
 	{
-		super(new com.exedio.cope.lib.AttributeValue[]{
+		this(new com.exedio.cope.lib.AttributeValue[]{
 		});
 	}/**
 

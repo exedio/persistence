@@ -27,7 +27,7 @@ public class SecondSub extends Super
 	 *
  */public SecondSub()
 	{
-		super(new com.exedio.cope.lib.AttributeValue[]{
+		this(new com.exedio.cope.lib.AttributeValue[]{
 		});
 	}/**
 

@@ -17,7 +17,7 @@ public class EmptyItem2 extends Item
 	 *
  */public EmptyItem2()
 	{
-		super(new com.exedio.cope.lib.AttributeValue[]{
+		this(new com.exedio.cope.lib.AttributeValue[]{
 		});
 	}/**
 

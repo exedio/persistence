@@ -162,7 +162,7 @@ public class AttributeItem extends Item
 			throws
 				com.exedio.cope.lib.NotNullViolationException
 	{
-		super(new com.exedio.cope.lib.AttributeValue[]{
+		this(new com.exedio.cope.lib.AttributeValue[]{
 			new com.exedio.cope.lib.AttributeValue(someNotNullString,initialSomeNotNullString),
 			new com.exedio.cope.lib.AttributeValue(someNotNullInteger,new java.lang.Integer(initialSomeNotNullInteger)),
 			new com.exedio.cope.lib.AttributeValue(someNotNullLong,new java.lang.Long(initialSomeNotNullLong)),

@@ -22,7 +22,7 @@ public abstract class Super extends Item
  */public Super(
 				final int initialSuperInt)
 	{
-		super(new com.exedio.cope.lib.AttributeValue[]{
+		this(new com.exedio.cope.lib.AttributeValue[]{
 			new com.exedio.cope.lib.AttributeValue(superInt,new java.lang.Integer(initialSuperInt)),
 		});
 	}/**
