@@ -7,7 +7,7 @@ import java.io.OutputStream;
 
 public class Item extends Search
 {
-
+	
 	/**
 	 * Returns a string unique for this item in all other items of this application.
 	 * For any item <code>a</code> the following holds true:
@@ -22,12 +22,13 @@ public class Item extends Search
 	
 	/**
 	 * Returns true, if <code>o</code> represents the same item as this item.
-	 * Is equivalent to <code>(o instanceof Item) && getID().equals(((Item)o).getID())</code>.
+	 * Is equivalent to
+	 * <code>(o != null) && (o instanceof Item) && getID().equals(((Item)o).getID())</code>.
 	 * Does not activate this item, if it's not already active.
 	 */
 	public final boolean equals(final Object o)
 	{
-		return (o instanceof Item) && getID().equals(((Item)o).getID());
+		return (o != null) && (o instanceof Item) && getID().equals(((Item)o).getID());
 	}
 
 	/**
