@@ -146,6 +146,11 @@ public final class ReportTable extends ReportNode
 		}
 	}
 	
+	public final void create()
+	{
+		Database.theInstance.createTable(table);
+	}
+
 	public final void drop()
 	{
 		Database.theInstance.dropTable(name);

@@ -907,7 +907,7 @@ public abstract class Database
 	abstract String getDoubleType(int precision);
 	abstract String getStringType(int maxLength);
 	
-	private void createTable(final Table table)
+	void createTable(final Table table)
 	{
 		final Statement bf = createStatement();
 		bf.append("create table ").

@@ -41,6 +41,26 @@ if(request.getParameter("APPLY")!=null)
 		}
 	}
 	{
+		final String[] createTables = (String[])request.getParameterMap().get("CREATE_TABLE");
+		if(createTables!=null)
+		{
+			for(int i = 0; i<createTables.length; i++)
+			{
+				final String createTable = createTables[i];
+				final ReportTable table = report.getTable(createTable);
+				if(table==null)
+					throw new RuntimeException(createTable);
+				%>
+				<li>creating table <%=createTable%> ...</li><%
+				out.flush();
+				final long time = System.currentTimeMillis();
+				table.create();
+				%><li><b>ok</b>, <%=System.currentTimeMillis()-time%>ms.</li><%
+				out.flush();
+			}
+		}
+	}
+	{
 		final String[] analyzeTables = (String[])request.getParameterMap().get("ANALYZE_TABLE");
 		if(analyzeTables!=null)
 		{
