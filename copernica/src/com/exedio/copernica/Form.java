@@ -129,7 +129,6 @@ public class Form
 	}
 	
 	void save()
-		throws ConstraintViolationException
 	{
 		for(Iterator i = fields.keySet().iterator(); i.hasNext(); )
 		{
@@ -159,7 +158,11 @@ public class Form
 				}
 				catch(NumberFormatException e)
 				{
-					field.error = e.getMessage();
+					field.error = "bad number: "+e.getMessage();
+				}
+				catch(ConstraintViolationException e)
+				{
+					field.error = e.getClass().getName();
 				}
 			}
 		}
