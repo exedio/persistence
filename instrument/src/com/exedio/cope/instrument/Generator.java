@@ -167,18 +167,18 @@ final class Generator
 		return MessageFormat.format(pattern, new Object[]{ parameter1, parameter2 });
 	}
 
-	private void writeConstructor(final CopeClass javaClass) // TODO: rename to copeClass
+	private void writeConstructor(final CopeClass copeClass) 
 	throws IOException
 	{
-		if(!javaClass.hasGeneratedConstructor())
+		if(!copeClass.hasGeneratedConstructor())
 			return;
 
-		final List initialAttributes = javaClass.getInitialAttributes();
-		final SortedSet constructorExceptions = javaClass.getConstructorExceptions();
+		final List initialAttributes = copeClass.getInitialAttributes();
+		final SortedSet constructorExceptions = copeClass.getConstructorExceptions();
 		
 		writeCommentHeader();
 		o.write("\t * ");
-		o.write(format(CONSTRUCTOR_NEW, javaClass.getName()));
+		o.write(format(CONSTRUCTOR_NEW, copeClass.getName()));
 		o.write(lineSeparator);
 		writeCommentGenerated();
 		for(Iterator i = initialAttributes.iterator(); i.hasNext(); )
@@ -219,13 +219,13 @@ final class Generator
 			o.write(lineSeparator);
 		}
 		writeCommentFooter();
-		final String modifier = Modifier.toString(javaClass.getGeneratedConstructorModifier());
+		final String modifier = Modifier.toString(copeClass.getGeneratedConstructorModifier());
 		if(modifier.length()>0)
 		{
 			o.write(modifier);
 			o.write(' ');
 		}
-		o.write(javaClass.getName());
+		o.write(copeClass.getName());
 		o.write('(');
 		
 		boolean first = true;
@@ -262,7 +262,7 @@ final class Generator
 		}
 		o.write("\t\t});");
 		o.write(lineSeparator);
-		for(Iterator i = javaClass.getConstructorExceptions().iterator(); i.hasNext(); )
+		for(Iterator i = copeClass.getConstructorExceptions().iterator(); i.hasNext(); )
 		{
 			final Class exception = (Class)i.next();
 			o.write("\t\tthrowInitial");
