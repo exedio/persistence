@@ -35,7 +35,7 @@ public abstract class PersistentAttribute
 	public final boolean readOnly;
 	public final boolean notNull;
 	public final boolean lengthConstrained;
-	public final boolean mapped;
+	public final boolean computed;
 	public final List qualifiers;
 
 	public PersistentAttribute(
@@ -50,9 +50,9 @@ public abstract class PersistentAttribute
 		this.accessModifier = javaAttribute.accessModifier;
 		this.persistentClass = PersistentClass.getPersistentClass(javaAttribute.getParent());
 		this.persistentType = persistentType;
-		this.mapped = ComputedFunction.class.isAssignableFrom(typeClass);
+		this.computed = ComputedFunction.class.isAssignableFrom(typeClass);
 		
-		if(!mapped)
+		if(!computed)
 		{
 			if(initializerArguments.size()<1)
 				throw new InjectorParseException("attribute "+javaAttribute.name+" has no option.");
@@ -182,12 +182,12 @@ public abstract class PersistentAttribute
 	
 	public final boolean isInitial()
 	{
-		return (readOnly || notNull) && !mapped;
+		return (readOnly || notNull) && !computed;
 	}
 	
 	public final boolean hasSetter()
 	{
-		return !readOnly && !mapped;
+		return !readOnly && !computed;
 	}
 	
 	private SortedSet setterExceptions = null;
