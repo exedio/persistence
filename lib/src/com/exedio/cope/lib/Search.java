@@ -32,14 +32,15 @@ public class Search
 	}
 
 	protected static final int id2pk(final long id)
+			throws NoSuchIDException
 	{
 		final long result =
 			((id&1l)>0) ? // odd id ?
 				-((id>>>1)+1l) : // -(id/2 +1)
 				id>>1; // id/2
 
-		if(result<Integer.MIN_VALUE || result>Integer.MAX_VALUE)
-			throw new RuntimeException(String.valueOf(result));
+		if(result<Integer.MIN_VALUE || result>Integer.MAX_VALUE || result==(long)Type.NOT_A_PK)
+			throw new NoSuchIDException(id);
 
 		return (int)result;
 	}
@@ -49,18 +50,19 @@ public class Search
 	 * Returns null, if no such item exists.
 	 * Always returns {@link Item#activeItem() active} objects.
 	 * @see Item#getID()
-	 * @throws RuntimeException if there is no item with the given id. TODO: use non-RuntimeException
+	 * @throws NoSuchIDException if there is no item with the given id.
 	 */
 	public static final Item findByID(final String id)
+			throws NoSuchIDException
 	{
 		final int pos = id.lastIndexOf('.');
 		if(pos<=0)
-			throw new RuntimeException("no dot");
+			throw new NoSuchIDException(id, "no dot in id");
 
 		final String typeName = id.substring(0, pos);
 		final Type type = Type.getType(typeName);
 		if(type==null)
-			throw new RuntimeException("no type "+typeName);
+			throw new NoSuchIDException(id, "no such type "+typeName);
 		
 		final String idString = id.substring(pos+1);
 
@@ -71,7 +73,7 @@ public class Search
 		}
 		catch(NumberFormatException e)
 		{
-			throw new RuntimeException("not a number "+idString);
+			throw new NoSuchIDException(id, e);
 		}
 
 		final Item result = type.getItem(id2pk(idNumber));
