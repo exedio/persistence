@@ -1,5 +1,16 @@
 <%@
 page import="com.exedio.cope.lib.Properties"
+%><%!
+	
+	private static final String[] systemProperties = new String[]{
+			"java.runtime.version",
+			"java.class.path",
+			"java.version",
+			"java.vm.name",
+			"java.vm.info",
+			"java.vm.version",
+		};
+	
 %><%
 		final Properties properties = model.getProperties();
 		%>
@@ -56,6 +67,16 @@ page import="com.exedio.cope.lib.Properties"
 			<tr>
 				<td><small>media</small></td>
 				<td><small><b>not available</b></small></td>
+			</tr><%
+			}
+			
+			for(int i = 0; i<systemProperties.length; i++)
+			{
+				final String name = systemProperties[i];
+			%>
+			<tr>
+				<td><small><%=name%></small></td>
+				<td><small><%=System.getProperty(name)%></small></td>
 			</tr><%
 			}
 			%>
