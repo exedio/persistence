@@ -17,6 +17,9 @@ include file="copernica-provider.inc"
 			span.ok     { background-color:#83ce7b; }
 			span.yellow { background-color:#ffff33; }
 			span.red    { background-color:#ff3333; }
+			li.ok     { background-color:#83ce7b; }
+			li.yellow { background-color:#ffff33; }
+			li.red    { background-color:#ff3333; }
 		</style>
 	</head>
 	<body>

@@ -23,11 +23,11 @@ final String reportColor = color(report.getCumulativeColor());
 for(Iterator i = report.getTables().iterator(); i.hasNext(); )
 {
 	final Report.Table table = (Report.Table)i.next();
-	%>
-	<li><%
-	
 	final String tableColor = color(table.getCumulativeColor());
-	%><span class="<%=tableColor%>"><small>table</small> <%=table.name%></span><%
+	%>
+	<li class="<%=tableColor%>"><%
+	
+	%><small>table</small> <%=table.name%><%
 	
 	final String tableError = table.getError();
 	if(tableError!=null)
@@ -43,10 +43,10 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); )
 		for(Iterator j = table.getConstraints().iterator(); j.hasNext(); )
 		{
 			final Report.Constraint constraint = (Report.Constraint)j.next();
-			%>
-			<li><%
 			final String constraintColor = color(constraint.getCumulativeColor());
-			%><span class="<%=constraintColor%>"><small>constraint</small> <%=constraint.name%></span><%
+			%>
+			<li class="<%=constraintColor%>"><%
+			%><small>constraint</small> <%=constraint.name%><%
 			final String constraintError = constraint.getError();
 			if(constraintError!=null)
 			{
