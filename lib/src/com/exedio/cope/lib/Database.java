@@ -20,20 +20,30 @@ public abstract class Database
 	{
 	}
 	
+	//private static int createTableTime = 0, dropTableTime = 0;
+	
 	public void createTables()
 	{
+		//final long time = System.currentTimeMillis();
 		for(Iterator i = Type.getTypes().iterator(); i.hasNext(); )
 			createTable((Type)i.next());
 		for(Iterator i = Type.getTypes().iterator(); i.hasNext(); )
 			createForeignKeyConstraints((Type)i.next());
+		//final long amount = (System.currentTimeMillis()-time);
+		//createTableTime += amount;
+		//System.out.println("CREATE TABLES "+amount+"ms  accumulated "+createTableTime);
 	}
 
 	public void dropTables()
 	{
+		//final long time = System.currentTimeMillis();
 		for(Iterator i = Type.getTypes().iterator(); i.hasNext(); )
 			dropForeignKeyConstraints((Type)i.next());
 		for(Iterator i = Type.getTypes().iterator(); i.hasNext(); )
 			dropTable((Type)i.next());
+		//final long amount = (System.currentTimeMillis()-time);
+		//dropTableTime += amount;
+		//System.out.println("DROP TABLES "+amount+"ms  accumulated "+dropTableTime);
 	}
 	
 	public void tearDownTables()
