@@ -236,6 +236,24 @@ public class LibTest extends TestCase
 		assertEquals("uniqueString2", item.getUniqueNotNullString());
 		assertEquals(null, ItemWithSingleUniqueNotNull.findByUniqueNotNullString("uniqueString"));
 		assertEquals(item, ItemWithSingleUniqueNotNull.findByUniqueNotNullString("uniqueString2"));
+
+		try
+		{
+			item.setUniqueNotNullString(null);
+			fail("should have thrown NotNullViolationException");
+		}
+		catch(UniqueViolationException e)
+		{
+			throw new SystemException(e);
+		}
+		catch(NotNullViolationException e)
+		{
+			assertEquals(item.uniqueNotNullString, e.getNotNullAttribute());
+			assertEquals(item, e.getItem());
+		}
+		assertEquals("uniqueString2", item.getUniqueNotNullString());
+		assertEquals(null, ItemWithSingleUniqueNotNull.findByUniqueNotNullString("uniqueString"));
+		assertEquals(item, ItemWithSingleUniqueNotNull.findByUniqueNotNullString("uniqueString2"));
 	}
 
 	private void dotestItemWithManyAttributes()
