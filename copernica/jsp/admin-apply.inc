@@ -36,7 +36,8 @@
 				if(table==null)
 					throw new RuntimeException(dropTable);
 				%>
-				<li>dropping table <%=dropTable%> ...</li><%
+				<li>report.getTable(&quot;<b><%=
+					table.name%></b>&quot;).drop();</li><%
 				out.flush();
 				final long startTime = System.currentTimeMillis();
 				table.drop();
