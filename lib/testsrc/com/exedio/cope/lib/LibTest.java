@@ -371,12 +371,23 @@ public class LibTest extends TestCase
 
 		item.setSomeNotNullInteger(0);
 		assertEquals(0, item.getSomeNotNullInteger());
+		assertEquals(set(item), toSet(Search.search(item.TYPE, Search.equal(item.someNotNullInteger, 0))));
 
 		item.setSomeNotNullInteger(Integer.MIN_VALUE);
 		assertEquals(Integer.MIN_VALUE, item.getSomeNotNullInteger());
+		assertEquals(set(item), toSet(Search.search(item.TYPE, Search.equal(item.someNotNullInteger, Integer.MIN_VALUE))));
 
 		item.setSomeNotNullInteger(Integer.MAX_VALUE);
 		assertEquals(Integer.MAX_VALUE, item.getSomeNotNullInteger());
+		assertEquals(set(item), toSet(Search.search(item.TYPE, Search.equal(item.someNotNullInteger, Integer.MAX_VALUE))));
+		
+		final Collection searchResult = Search.search(item.TYPE, Search.equal(item.someNotNullInteger, Integer.MAX_VALUE));
+		try
+		{
+			searchResult.add(new Object());
+			fail("should have thrown UnsupportedOperationException");
+		}
+		catch(UnsupportedOperationException e) {}
 	}
 
 	private void dotestItemWithManyAttributesSomeBoolean(final ItemWithManyAttributes item)
