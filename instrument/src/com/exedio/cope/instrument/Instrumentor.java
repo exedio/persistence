@@ -410,7 +410,7 @@ public final class Instrumentor implements InjectionConsumer
 	
 	private static final int ENUMERATION_NUMBER_AUTO_INCREMENT = 100;
 
-	private void writeEnumerationClass(final PersistentAttribute enumerationAttribute)
+	private void writeEnumerationClass(final PersistentEnumerationAttribute enumerationAttribute)
 	throws IOException
 	{
 		// deactivated, since the parser cannot remove generated inner classes.
@@ -474,8 +474,8 @@ public final class Instrumentor implements InjectionConsumer
 	private void writeAccessMethods(final PersistentAttribute persistentAttribute)
 	throws IOException
 	{
-		if(persistentAttribute.isEnumerationAttribute())
-			writeEnumerationClass(persistentAttribute);
+		if(persistentAttribute instanceof PersistentEnumerationAttribute)
+			writeEnumerationClass((PersistentEnumerationAttribute)persistentAttribute);
 
 		final String methodModifiers = Modifier.toString(persistentAttribute.getMethodModifiers());
 		final String type = persistentAttribute.getBoxedType();
@@ -1065,12 +1065,18 @@ public final class Instrumentor implements InjectionConsumer
 								readOnly, notNull, mapped, qualifiers,
 								variants, mimeMajor, mimeMinor);
 						break;
+					case PersistentAttribute.TYPE_ENUMERATION:
+						persistentAttribute =
+							new PersistentEnumerationAttribute(
+								ja, persistentType,
+								readOnly, notNull, mapped, qualifiers,
+								enumerationValues);
+						break;
 					default:
 						persistentAttribute =
 							new PersistentAttribute(
 								ja, persistentType, persistentTypeType,
-								readOnly, notNull, mapped, qualifiers,
-								enumerationValues);
+								readOnly, notNull, mapped, qualifiers);
 						break;
 				}
 

@@ -3,7 +3,7 @@ package com.exedio.cope.instrument;
 
 import java.util.List;
 
-public class PersistentMediaAttribute extends PersistentAttribute
+public final class PersistentMediaAttribute extends PersistentAttribute
 {
 
 	private final List mediaVariants;
@@ -16,7 +16,7 @@ public class PersistentMediaAttribute extends PersistentAttribute
 			final List qualifiers, final List mediaVariants,
 			final String mimeMajor, final String mimeMinor)
 	{
-		super(javaAttribute, MEDIA_TYPE, TYPE_MEDIA, readOnly, notNull, mapped, qualifiers, null);
+		super(javaAttribute, MEDIA_TYPE, TYPE_MEDIA, readOnly, notNull, mapped, qualifiers);
 		this.mediaVariants = mediaVariants;
 		this.mimeMajor = mimeMajor;
 		this.mimeMinor = mimeMinor;

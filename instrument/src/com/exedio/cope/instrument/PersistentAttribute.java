@@ -39,14 +39,12 @@ public class PersistentAttribute
 	private final boolean notNull;
 	private final boolean mapped;
 	private final List qualifiers;
-	private final List enumerationValues;
 
 	public PersistentAttribute(
 			final JavaAttribute javaAttribute,
 			final String persistentType, final int persistentTypeType,
 			final boolean readOnly, final boolean notNull, final boolean mapped,
-			final List qualifiers,
-			final List enumerationValues)
+			final List qualifiers)
 	{
 		this.javaAttribute = javaAttribute;
 		this.accessModifier = javaAttribute.accessModifier;
@@ -57,7 +55,6 @@ public class PersistentAttribute
 		this.notNull = notNull;
 		this.mapped = mapped;
 		this.qualifiers = qualifiers;
-		this.enumerationValues = enumerationValues;
 		persistentClass.addPersistentAttribute(this);
 	}
 	
@@ -92,11 +89,6 @@ public class PersistentAttribute
 	public final boolean isItemPersistentType()
 	{
 		return this.persistentTypeType == TYPE_ITEM;
-	}
-
-	public final boolean isEnumerationAttribute()
-	{
-		return this.enumerationValues != null;
 	}
 
 	private static final HashMap toNativeTypeMapping = new HashMap(3);
@@ -250,11 +242,6 @@ public class PersistentAttribute
 	public final List getQualifiers()
 	{
 		return qualifiers;
-	}
-	
-	public final List getEnumerationValues()
-	{
-		return enumerationValues;
 	}
 	
 	public final boolean isInitial()
