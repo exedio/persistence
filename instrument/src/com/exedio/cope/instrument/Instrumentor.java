@@ -361,8 +361,8 @@ public final class Instrumentor implements InjectionConsumer
 		for(int i=0; i<persistentAttributes.length; i++)
 		{
 			output.write(lineSeparator);
-			output.write("\t * @param ");
-			output.write(persistentAttributes[i].getName());
+			output.write("\t * @param searched");
+			output.write(persistentAttributes[i].getCamelCaseName());
 			output.write(" shall be equal to attribute {@link #");
 			output.write(persistentAttributes[i].getName());
 			output.write("}.");
@@ -397,8 +397,8 @@ public final class Instrumentor implements InjectionConsumer
 				qualifiers.addAll(persistentAttribute.getQualifiers());
 			output.write("final ");
 			output.write(persistentAttribute.getPersistentType());
-			output.write(' ');
-			output.write(persistentAttribute.getName());
+			output.write(" searched");
+			output.write(persistentAttribute.getCamelCaseName());
 		}
 		if(!qualifiers.isEmpty())
 		{
