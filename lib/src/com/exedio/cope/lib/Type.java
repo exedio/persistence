@@ -32,8 +32,8 @@ public final class Type
 	private final UniqueConstraint[] uniqueConstraints;
 	private final List uniqueConstraintList;
 	
-	final String trimmedName; // TODO rename to id
-	final String protectedName; // TODO rename to protectedID
+	final String id;
+	final String protectedID;
 	private final List columns;
 	final Column primaryKey;
 
@@ -62,9 +62,9 @@ public final class Type
 
 		typesModifyable.add(this);
 		typesByName.put(javaClass, this);
-		this.trimmedName = Database.theInstance.trimName(this);
-		typesByID.put(this.trimmedName, this);
-		this.protectedName = Database.theInstance.protectName(this.trimmedName);
+		this.id = Database.theInstance.trimName(this);
+		typesByID.put(this.id, this);
+		this.protectedID = Database.theInstance.protectName(this.id);
 
 		// supertype
 		final Class superClass = javaClass.getSuperclass();
@@ -177,7 +177,7 @@ public final class Type
 	
 	public final String getID()
 	{
-		return trimmedName;
+		return id;
 	}
 	
 	/**
@@ -335,7 +335,7 @@ public final class Type
 		{
 			final Type t1 = (Type)o1;
 			final Type t2 = (Type)o2;
-			return t1.trimmedName.compareTo(t2.trimmedName);
+			return t1.id.compareTo(t2.id);
 		}	
 	};
 

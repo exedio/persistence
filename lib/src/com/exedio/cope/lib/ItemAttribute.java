@@ -48,7 +48,7 @@ public final class ItemAttribute extends ObjectAttribute
 	
 	protected List createColumns(final String name, final boolean notNull)
 	{
-		final String integrityConstraintName = Database.theInstance.trimName(getType().trimmedName+"_"+name+"Fk");
+		final String integrityConstraintName = Database.theInstance.trimName(getType().id+"_"+name+"Fk");
 		if(itemAttributesByIntegrityConstraintName.put(integrityConstraintName, this)!=null)
 			throw new InitializerRuntimeException("there is more than one integrity constraint with name "+integrityConstraintName);
 		return Collections.singletonList(new ItemColumn(getType(), name, notNull, targetTypeClass, integrityConstraintName));

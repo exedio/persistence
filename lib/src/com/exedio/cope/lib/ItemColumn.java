@@ -24,7 +24,7 @@ final class ItemColumn extends IntegerColumn
 	String getForeignTableNameProtected()
 	{
 		if(targetTypeClass!=null)
-			return Type.findByJavaClass(targetTypeClass).protectedName;
+			return Type.findByJavaClass(targetTypeClass).protectedID;
 		else
 			return null; 
 	}

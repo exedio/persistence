@@ -61,7 +61,7 @@ public final class UniqueConstraint
 		if(name==null)
 			throw new RuntimeException();
 
-		this.trimmedName = Database.theInstance.trimName(type.trimmedName+"_"+name+"Un");
+		this.trimmedName = Database.theInstance.trimName(type.id+"_"+name+"Un");
 
 		final Object collision = uniqueConstraintsByName.put(trimmedName, this);
 		if(collision!=null)

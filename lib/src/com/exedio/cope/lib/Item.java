@@ -37,7 +37,7 @@ public abstract class Item extends Search
 	 */
 	public final String getID()
 	{
-		return type.trimmedName + '.' + pk2id(pk);
+		return type.id + '.' + pk2id(pk);
 	}
 	
 	/**
@@ -364,7 +364,7 @@ public abstract class Item extends Search
 			}
 		}
 
-		bf.append(attribute.getType().trimmedName).
+		bf.append(attribute.getType().id).
 			append('/').
 			append(attribute.getName());
 		

@@ -136,7 +136,7 @@ public abstract class Database
 				bf.append(',');
 
 			final Type type = (Type)i.next();
-			bf.append(type.protectedName);
+			bf.append(type.protectedID);
 		}
 		
 		bf.append(" where ");
@@ -151,7 +151,7 @@ public abstract class Database
 			final Type type = (Type)i.next();
 
 			final Column primaryKey = type.primaryKey;
-			bf.append(type.protectedName).
+			bf.append(type.protectedID).
 				append('.').
 				append(primaryKey.protectedName).
 				append('=').
@@ -161,7 +161,7 @@ public abstract class Database
 			{
 				final Column column = (Column)j.next();
 				bf.append(" and ").
-					append(type.protectedName).
+					append(type.protectedID).
 					append('.').
 					append(column.protectedName).
 					append('=');
@@ -260,7 +260,7 @@ public abstract class Database
 		final Statement bf = createStatement();
 
 		bf.append("select ").
-			append(selectType.protectedName).
+			append(selectType.protectedID).
 			append('.').
 			append(selectType.primaryKey.protectedName).defineColumnInteger().
 			append(" from ");
@@ -273,7 +273,7 @@ public abstract class Database
 			else
 				bf.append(',');
 
-			bf.append(((Type)i.next()).protectedName);
+			bf.append(((Type)i.next()).protectedID);
 		}
 
 		if(query.condition!=null)
@@ -312,7 +312,7 @@ public abstract class Database
 					bf.append(',');
 
 				final Column column = (Column)i.next();
-				bf.append(type.protectedName).
+				bf.append(type.protectedID).
 					append('.').
 					append(column.protectedName).defineColumn(column);
 			}
@@ -327,7 +327,7 @@ public abstract class Database
 			else
 				bf.append(',');
 
-			bf.append(type.protectedName);
+			bf.append(type.protectedID);
 		}
 			
 		bf.append(" where ");
@@ -339,7 +339,7 @@ public abstract class Database
 			else
 				bf.append(" and ");
 
-			bf.append(type.protectedName).
+			bf.append(type.protectedID).
 				append('.').
 				append(type.primaryKey.protectedName).
 				append('=').
@@ -376,7 +376,7 @@ public abstract class Database
 		if(row.present)
 		{
 			bf.append("update ").
-				append(type.protectedName).
+				append(type.protectedID).
 				append(" set ");
 
 			boolean first = true;
@@ -402,7 +402,7 @@ public abstract class Database
 		else
 		{
 			bf.append("insert into ").
-				append(type.protectedName).
+				append(type.protectedID).
 				append("(").
 				append(type.primaryKey.protectedName);
 
@@ -449,7 +449,7 @@ public abstract class Database
 		{
 			final Statement bf = createStatement();
 			bf.append("delete from ").
-				append(currentType.protectedName).
+				append(currentType.protectedID).
 				append(" where ").
 				append(currentType.primaryKey.protectedName).
 				append('=').
@@ -784,7 +784,7 @@ public abstract class Database
 	{
 		final Statement bf = createStatement();
 		bf.append("create table ").
-			append(type.protectedName).
+			append(type.protectedID).
 			append('(');
 
 		final Column primaryKey = type.primaryKey;
@@ -809,11 +809,11 @@ public abstract class Database
 		if(supertype!=null)
 		{
 			bf.append(",constraint ").
-				append(protectName(type.trimmedName+"SUP")).
+				append(protectName(type.id+"SUP")).
 				append(" foreign key(").
 				append(type.primaryKey.protectedName).
 				append(")references ").
-				append(supertype.protectedName).
+				append(supertype.protectedID).
 				append('(').
 				append(supertype.primaryKey.protectedName).
 				append(')');
@@ -864,7 +864,7 @@ public abstract class Database
 				final ItemColumn itemColumn = (ItemColumn)column;
 				final Statement bf = createStatement();
 				bf.append("alter table ").
-					append(type.protectedName).
+					append(type.protectedID).
 					append(" add constraint ").
 					append(Database.theInstance.protectName(itemColumn.integrityConstraintName)).
 					append(" foreign key (").
@@ -897,7 +897,7 @@ public abstract class Database
 				if(typeDirectory==null)
 				{
 					final File directory = Properties.getInstance().getMediaDirectory();
-					typeDirectory = new File(directory, type.trimmedName);
+					typeDirectory = new File(directory, type.id);
 					typeDirectory.mkdir();
 				}
 				final File attributeDirectory = new File(typeDirectory, attribute.getName());
@@ -912,7 +912,7 @@ public abstract class Database
 
 		final Statement bf = createStatement();
 		bf.append("drop table ").
-			append(type.protectedName);
+			append(type.protectedID);
 
 		try
 		{
@@ -928,7 +928,7 @@ public abstract class Database
 	{
 		final Statement bf = createStatement();
 		bf.append("select count(*) from ").defineColumnInteger().
-			append(type.protectedName);
+			append(type.protectedID);
 
 		try
 		{
@@ -955,7 +955,7 @@ public abstract class Database
 				boolean hasOne = false;
 
 				bf.append("alter table ").
-					append(type.protectedName).
+					append(type.protectedID).
 					append(" drop constraint ").
 					append(Database.theInstance.protectName(itemColumn.integrityConstraintName));
 
@@ -981,7 +981,7 @@ public abstract class Database
 			append("),max(").
 			append(primaryKeyProtectedName).defineColumnInteger().
 			append(") from ").
-			append(type.protectedName);
+			append(type.protectedID);
 			
 		try
 		{
