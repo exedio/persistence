@@ -46,10 +46,9 @@ public final class Type
 		return types;
 	}
 	
-	public static final Type getType(String className)
-	// TODO: change argument to type class and rename to findByJavaClass
+	public static final Type findByJavaClass(final Class javaClass)
 	{
-		return (Type)typesByName.get(className);
+		return (Type)typesByName.get(javaClass);
 	}
 	
 	public static final Type findByID(final String id)
@@ -62,7 +61,7 @@ public final class Type
 		this.javaClass = javaClass;
 
 		typesModifyable.add(this);
-		typesByName.put(javaClass.getName(), this);
+		typesByName.put(javaClass, this);
 		this.trimmedName = Database.theInstance.trimName(this);
 		typesByID.put(this.trimmedName, this);
 		this.protectedName = Database.theInstance.protectName(this.trimmedName);
@@ -73,7 +72,7 @@ public final class Type
 			supertype = null;
 		else
 		{
-			supertype = getType(superClass.getName());
+			supertype = findByJavaClass(superClass);
 			if(supertype==null)
 				throw new NullPointerException(superClass.getName());
 		}

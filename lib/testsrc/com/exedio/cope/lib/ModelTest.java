@@ -14,7 +14,7 @@ public class ModelTest extends AbstractLibTest
 		final ItemWithManyAttributes item = null;
 
 		assertEquals(ItemWithManyAttributes.class, item.TYPE.getJavaClass());
-		assertEquals(item.TYPE, Type.getType(ItemWithManyAttributes.class.getName()));
+		assertEquals(item.TYPE, Type.findByJavaClass(ItemWithManyAttributes.class));
 		assertEquals(item.TYPE, Type.findByID(item.TYPE.getID()));
 	}
 

@@ -15,8 +15,8 @@ public class ItemTest extends DatabaseLibTest
 	public void testItemMethods()
 			throws IntegrityViolationException, NoSuchIDException
 	{
-		assertEquals(EmptyItem.TYPE, Type.getType(EmptyItem.class.getName()));
-		assertEquals(EmptyItem2.TYPE, Type.getType(EmptyItem2.class.getName()));
+		assertEquals(EmptyItem.TYPE, Type.findByJavaClass(EmptyItem.class));
+		assertEquals(EmptyItem2.TYPE, Type.findByJavaClass(EmptyItem2.class));
 		assertEquals(toSet(Arrays.asList(types)), toSet(Type.getTypes()));
 
 		final EmptyItem item1 = new EmptyItem();

@@ -117,7 +117,7 @@ public abstract class Item extends Search
 	protected Item(final AttributeValue[] initialAttributeValues)
 		throws ClassCastException
 	{
-		this.type = Type.getType(getClass().getName());
+		this.type = Type.findByJavaClass(getClass());
 		this.pk = type.nextPK();
 		final Row row = new Row(this, false);
 		//System.out.println("create item "+type+" "+pk);
@@ -174,7 +174,7 @@ public abstract class Item extends Search
 		final ReactivationConstructorDummy reactivationDummy,
 		final int pk)
 	{
-		this.type = Type.getType(getClass().getName());
+		this.type = Type.findByJavaClass(getClass());
 		this.pk = pk;
 		rowWhenActive = null; // make passive
 		//System.out.println("reactivate item:"+type+" "+pk);
