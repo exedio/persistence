@@ -289,6 +289,7 @@ public class LibTest extends TestCase
 
 		dotestItemWithManyAttributesSomeInteger(item);
 		dotestItemWithManyAttributesSomeNotNullInteger(item);
+		dotestUnmodifieableSearchResult(item);
 
 		dotestItemWithManyAttributesSomeBoolean(item);
 		dotestItemWithManyAttributesSomeNotNullBoolean(item);
@@ -380,8 +381,12 @@ public class LibTest extends TestCase
 		item.setSomeNotNullInteger(Integer.MAX_VALUE);
 		assertEquals(Integer.MAX_VALUE, item.getSomeNotNullInteger());
 		assertEquals(set(item), toSet(Search.search(item.TYPE, Search.equal(item.someNotNullInteger, Integer.MAX_VALUE))));
+	}
 		
-		final Collection searchResult = Search.search(item.TYPE, Search.equal(item.someNotNullInteger, Integer.MAX_VALUE));
+	private void dotestUnmodifieableSearchResult(final ItemWithManyAttributes item)
+	{
+		item.setSomeNotNullInteger(0);
+		final Collection searchResult = Search.search(item.TYPE, Search.equal(item.someNotNullInteger, 0));
 		try
 		{
 			searchResult.add(new Object());
