@@ -188,6 +188,7 @@ page import="java.util.Map"
 									[<a href="<%=typeCop.nextPage()%>">&gt;</a>]
 									<%
 								}
+								%><%=typeCop.start+1%> - <%=typeCop.start+items.size()%><%
 							}
 							%>
 							<table border="1">
