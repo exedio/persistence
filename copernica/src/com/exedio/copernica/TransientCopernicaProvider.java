@@ -40,7 +40,29 @@ public class TransientCopernicaProvider implements CopernicaProvider
 		String name = attribute.getName();
 		if(name.endsWith("Internal"))
 			name = name.substring(0, name.length()-"Internal".length());
-		return name;
+
+		final StringBuffer result = new StringBuffer(name.length());
+		boolean wordStart = true;
+		for(int i=0; i<name.length(); i++)
+		{
+			final char c = name.charAt(i);
+
+			if(Character.isUpperCase(c))
+			{
+				if(!wordStart)
+					result.append(' ');
+				wordStart = true;
+			}
+			else
+				wordStart = false;
+
+			if(i==0)
+				result.append(Character.toUpperCase(c));
+			else
+				result.append(c);
+		}
+
+		return result.toString();
 	}
 	
 	public String getDisplayName(final com.exedio.copernica.Language displayLanguage, final Item item)
