@@ -9,8 +9,7 @@ import java.util.Iterator;
 public final class ReportTable extends ReportNode
 {
 	public final String name;
-	// TODO: make private
-	public final Table table;
+	private final Table table;
 	boolean exists = false;
 	private ReportLastAnalyzed lastAnalyzed = null;
 	private final HashMap columns = new HashMap();
@@ -79,6 +78,11 @@ public final class ReportTable extends ReportNode
 		}
 		result.exists = true;
 		return result;
+	}
+	
+	public final boolean required()
+	{
+		return table!=null;
 	}
 	
 	public final boolean exists()

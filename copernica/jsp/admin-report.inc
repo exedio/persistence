@@ -40,7 +40,7 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); )
 		%>
 		<input type="checkbox" name="DROP_TABLE_" value="drop"/>drop<%
 	}
-	else if(table.table!=null)
+	else if(table.required())
 	{
 		%>
 		<input type="checkbox" name="CREATE_TABLE_" value="create"/>create<%

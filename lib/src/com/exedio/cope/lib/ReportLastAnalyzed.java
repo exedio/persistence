@@ -26,7 +26,7 @@ public final class ReportLastAnalyzed extends ReportNode
 		else
 			particularColor = COLOR_OK;
 
-		if(table.table==null)
+		if(!table.required())
 			particularColor = Math.min(particularColor, COLOR_YELLOW);
 				
 		cumulativeColor = particularColor;

@@ -30,7 +30,7 @@ public final class ReportConstraint extends ReportNode
 		else if(!required)
 		{
 			error = "not used";
-			if(table.table==null)
+			if(!table.required())
 				particularColor = COLOR_YELLOW;
 			else
 				particularColor = COLOR_RED;
