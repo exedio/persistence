@@ -15,6 +15,7 @@ page import="com.exedio.cope.lib.Item" %><%@
 page import="com.exedio.cope.lib.SystemException" %><%@
 page import="java.io.PrintWriter" %><%@
 page import="java.util.Iterator" %><%@
+page import="java.util.Collection" %><%@
 page import="java.util.Map"
 %>
 <html>
@@ -139,6 +140,7 @@ page import="java.util.Map"
 						{
 							final TypeCop typeCop = ((TypeCop)cop);
 							final Type type = typeCop.type;
+							final Collection items = typeCop.search();
 							%>
 							<a href="<%=(cop.toType(type))%>"><%=provider.getDisplayName(null, type)%></a>
 							<hr>
@@ -171,7 +173,20 @@ page import="java.util.Map"
 							}
 							%>
 							|
-							[<a href="<%=typeCop.nextPage()%>">&gt;</a>]
+							<%
+							if(typeCop.count>items.size())
+							{
+								%>
+								[<b>&gt;</b>]
+								<%
+							}
+							else
+							{
+								%>
+								[<a href="<%=typeCop.nextPage()%>">&gt;</a>]
+								<%
+							}
+							%>
 							<table border="1">
 							<tr>
 							<th></th><%
@@ -183,7 +198,7 @@ page import="java.util.Map"
 							%>
 							</tr>
 							<%
-								for(Iterator i = typeCop.search().iterator(); i.hasNext(); )
+								for(Iterator i = items.iterator(); i.hasNext(); )
 								{
 									final Item item = (Item)i.next();
 									%><tr><td><a href="<%=(cop.toItem(item))%>">[X]</a></td><%
