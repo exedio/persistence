@@ -43,19 +43,19 @@ public class LibTest extends TestCase
 		{
 			assertEquals(null, ItemWithSingleUnique.findByUniqueString("uniqueString"));
 
-			final ItemWithSingleUnique itemWithSingleUnique = new ItemWithSingleUnique();
-			assertEquals(null, itemWithSingleUnique.getUniqueString());
-			assertEquals(null, ItemWithSingleUnique.findByUniqueString("uniqueString"));
+			final ItemWithSingleUnique item = new ItemWithSingleUnique();
+			assertEquals(null, item.getUniqueString());
+			assertEquals(null, item.findByUniqueString("uniqueString"));
 
 			try
 			{
-				itemWithSingleUnique.setUniqueString("uniqueString");
+				item.setUniqueString("uniqueString");
 			}
 			catch(UniqueViolationException e)
 			{
 				throw new SystemException(e);
 			}
-			assertEquals(null, itemWithSingleUnique.getUniqueString());
+			assertEquals(null, item.getUniqueString());
 			assertEquals(null, ItemWithSingleUnique.findByUniqueString("uniqueString"));
 		}
 		
@@ -64,27 +64,27 @@ public class LibTest extends TestCase
 		{
 			assertEquals(null, ItemWithSingleUniqueReadOnly.findByUniqueReadOnlyString("uniqueString"));
 
-			final ItemWithSingleUniqueReadOnly itemWithSingleUniqueReadOnly;
+			final ItemWithSingleUniqueReadOnly item;
 			try
 			{
-				itemWithSingleUniqueReadOnly = new ItemWithSingleUniqueReadOnly("uniqueString");
+				item = new ItemWithSingleUniqueReadOnly("uniqueString");
 			}
 			catch(UniqueViolationException e)
 			{
 				throw new SystemException(e);
 			}
-			assertEquals(null, itemWithSingleUniqueReadOnly.getUniqueReadOnlyString());
+			assertEquals(null, item.getUniqueReadOnlyString());
 			assertEquals(null, ItemWithSingleUniqueReadOnly.findByUniqueReadOnlyString("uniqueString"));
 			
 			try
 			{
-				itemWithSingleUniqueReadOnly.setAttribute(itemWithSingleUniqueReadOnly.uniqueReadOnlyString, "zapp");
+				item.setAttribute(item.uniqueReadOnlyString, "zapp");
 				fail("should have thrown ReadOnlyViolationException");
 			}
 			catch(ReadOnlyViolationException e)
 			{
-				assertEquals(itemWithSingleUniqueReadOnly.uniqueReadOnlyString, e.getReadOnlyAttribute());
-				assertEquals(itemWithSingleUniqueReadOnly, e.getItem());
+				assertEquals(item.uniqueReadOnlyString, e.getReadOnlyAttribute());
+				assertEquals(item, e.getItem());
 			}
 			catch(ConstraintViolationException e)
 			{
