@@ -72,7 +72,7 @@ public final class Instrumentor implements InjectionConsumer
 	
 	public void onClass(final JavaClass jc)
 	{
-		System.out.println("onClass("+jc.getName()+")");
+		//System.out.println("onClass("+jc.getName()+")");
 
 		discardnextfeature=false;
 		
@@ -124,7 +124,7 @@ public final class Instrumentor implements InjectionConsumer
 	public void onClassEnd(JavaClass jc)
 	throws IOException, InjectorParseException
 	{
-		System.out.println("onClassEnd("+jc.getName()+")");
+		//System.out.println("onClassEnd("+jc.getName()+")");
 
 		if(!jc.isInterface() && jc.isPersistent())
 		{
@@ -154,7 +154,7 @@ public final class Instrumentor implements InjectionConsumer
 	public void onClassFeature(final JavaFeature jf, final String docComment)
 	throws IOException, InjectorParseException
 	{
-		System.out.println("onClassFeature("+jf.getName()+" "+docComment+")");
+		//System.out.println("onClassFeature("+jf.getName()+" "+docComment+")");
 		if(!class_state.isInterface())
 		{
 			if(jf instanceof JavaAttribute &&
@@ -172,7 +172,7 @@ public final class Instrumentor implements InjectionConsumer
 	public boolean onDocComment(String docComment)
 	throws IOException
 	{
-		System.out.println("onDocComment("+docComment+")");
+		//System.out.println("onDocComment("+docComment+")");
 
 		if(containsTag(docComment, GENERATED))
 		{
@@ -189,7 +189,7 @@ public final class Instrumentor implements InjectionConsumer
 	public void onFileDocComment(String docComment)
 	throws IOException
 	{
-		System.out.println("onFileDocComment("+docComment+")");
+		//System.out.println("onFileDocComment("+docComment+")");
 		
 		output.write(docComment);
 		
