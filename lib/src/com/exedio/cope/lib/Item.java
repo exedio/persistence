@@ -87,10 +87,12 @@ public class Item extends Search
 	 * {@link #throwInitialUniqueViolationException}.
 	 * All this fiddling is needed, because one cannot wrap a <code>super()</code> call into a
 	 * try-catch statement.
-	 * @throws ClassCastException if the values in <code>initialAttributeValues</code> are not
-	 *                            compatible to their attributes.
+	 * @throws ClassCastException
+	 *         if one of the values in <code>initialAttributeValues</code>
+	 *         is not compatible to it's attribute.
 	 */
 	protected Item(final Type type, final AttributeValue[] initialAttributeValues)
+		throws ClassCastException
 	{
 		itemCache = new HashMap(); // make active
 		putCache(initialAttributeValues);
@@ -123,6 +125,10 @@ public class Item extends Search
 	
 	/**
 	 * Throws a {@link NotNullViolationException}, if a not-null violation occured in the constructor.
+	 * @throws NotNullViolationException
+	 *         if one of the values in <code>initialAttributeValues</code>
+	 *         is either null or not specified
+	 *         and it's attribute is {@link Attribute#isNotNull() not-null}.
 	 */
 	protected final void throwInitialNotNullViolationException() throws NotNullViolationException
 	{
@@ -161,13 +167,20 @@ public class Item extends Search
 
 	/**
 	 * @throws NotNullViolationException
-	 *         if value is null and attribute is {@link Attribute#isNotNull() not-null}.
+	 *         if <code>value</code> is null and <code>attribute</code>
+	 *         is {@link Attribute#isNotNull() not-null}.
 	 * @throws ReadOnlyViolationException
-	 *         if attribute is {@link Attribute#isReadOnly() read-only}.
-	 * @throws ClassCastException if <code>value</code> is not compatible to <code>attribute</code>.
+	 *         if <code>attribute</code> is {@link Attribute#isReadOnly() read-only}
+	 *         or a {@link AttributeMapping mapped attribute}.
+	 * @throws ClassCastException
+	 *         if <code>value</code> is not compatible to <code>attribute</code>.
 	 */
 	public final void setAttribute(final Attribute attribute, final Object value)
-	throws UniqueViolationException, NotNullViolationException, ReadOnlyViolationException
+		throws
+			UniqueViolationException,
+			NotNullViolationException,
+			ReadOnlyViolationException,
+			ClassCastException
 	{
 		if(attribute.isReadOnly() || attribute.mapping!=null)
 			throw new ReadOnlyViolationException(this, attribute);
@@ -189,10 +202,13 @@ public class Item extends Search
 	}
 
 	/**
-	 * @throws ClassCastException if <code>value</code> is not compatible to <code>attribute</code>.
+	 * @throws ClassCastException
+	 *         if <code>value</code> is not compatible to <code>attribute</code>.
 	 */
 	public final void setAttribute(final Attribute attribute, final Object[] qualifiers, final Object value)
-	throws UniqueViolationException
+		throws
+			UniqueViolationException,
+			ClassCastException
 	{
 		activate();
 		final Object previousValue = getCache(attribute);

@@ -2,7 +2,15 @@
 package com.exedio.cope.lib;
 
 /**
- * Is thrown, when a persistent modification tries to write a read-only attribute.
+ * Signals, that an attempt to write an attribute has been failed,
+ * because it cannot be written with any value.
+ *
+ * This exception will be thrown by {@link Item#setAttribute Item.setAttribute} methods
+ * if that attribute is {@link Attribute#isReadOnly() read-only}
+ * or a {@link AttributeMapping mapped attribute}.
+ *
+ * This exception will be thrown by item constructors
+ * if that attribute is a {@link AttributeMapping mapped attribute}.
  */
 public final class ReadOnlyViolationException extends ConstraintViolationException
 {
