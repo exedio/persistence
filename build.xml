@@ -253,7 +253,7 @@
 				<filter token="MEDIA_DIRECTORY" value="lib/build/teardown/media" />
 			</filterset>
 		</copy>
-		<java classname="com.exedio.cope.lib.DatabaseLibTest" taskname="tear down tables" fork="yes" failonerror="yes">
+		<java classname="com.exedio.cope.lib.DatabaseLibTest" taskname="tear down" fork="yes" failonerror="yes">
 			<classpath>
 				<pathelement location="lib/build/classes" />
 				<pathelement location="lib/build/testclasses" />
