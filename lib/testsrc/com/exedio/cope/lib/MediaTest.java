@@ -34,6 +34,8 @@ public class MediaTest extends DatabaseLibTest
 		// file
 		assertEquals(null, item.file.getFixedMimeMajor());
 		assertEquals(null, item.file.getFixedMimeMinor());
+		assertEquals(list(), item.file.getVariants());
+		assertUnmodifiable(item.file.getVariants());
 		
 		assertEquals(null, item.getFileData());
 		assertEquals(null, item.getFileMimeMajor());
@@ -70,6 +72,8 @@ public class MediaTest extends DatabaseLibTest
 		// image
 		assertEquals("image", item.image.getFixedMimeMajor());
 		assertEquals(null, item.image.getFixedMimeMinor());
+		assertEquals(list(item.imageBB240), item.image.getVariants());
+		assertUnmodifiable(item.image.getVariants());
 		assertEquals(item.image, item.imageBB240.getAttribute());
 		assertEquals(item.TYPE, item.imageBB240.getType());
 		assertEquals("BB240", item.imageBB240.getName());
@@ -111,6 +115,8 @@ public class MediaTest extends DatabaseLibTest
 		// photo
 		assertEquals("image", item.photo.getFixedMimeMajor());
 		assertEquals("jpeg", item.photo.getFixedMimeMinor());
+		assertEquals(list(item.photoBB65, item.photoProgressive), item.photo.getVariants());
+		assertUnmodifiable(item.photo.getVariants());
 		assertEquals(item.photo, item.photoBB65.getAttribute());
 		assertEquals(item.TYPE, item.photoBB65.getType());
 		assertEquals("BB65", item.photoBB65.getName());

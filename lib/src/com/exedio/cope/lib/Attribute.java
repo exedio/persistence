@@ -66,6 +66,11 @@ public abstract class Attribute
 		this.columns =
 				Collections.unmodifiableList(createColumns(name, notNull));
 		this.mainColumn = this.columns.isEmpty() ? null : (Column)columns.iterator().next();
+		postInitialize();
+	}
+	
+	protected void postInitialize()
+	{
 	}
 	
 	public final Type getType()

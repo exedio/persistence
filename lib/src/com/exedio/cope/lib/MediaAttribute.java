@@ -2,6 +2,7 @@
 package com.exedio.cope.lib;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public final class MediaAttribute extends Attribute
@@ -43,6 +44,8 @@ public final class MediaAttribute extends Attribute
 		return fixedMimeMinor;
 	}
 	
+	// second initialization phase ---------------------------------------------------
+
 	protected List createColumns(final String name, final boolean notNull)
 	{
 		final Type type = getType();
@@ -64,6 +67,45 @@ public final class MediaAttribute extends Attribute
 			result.add(exists);
 		}
 		return result;
+	}
+	
+	ArrayList variantsCollecting = null;
+	List variants = null;
+	
+	final void addVariant(final MediaAttributeVariant variant)
+	{
+		if(variants!=null)
+			throw new RuntimeException();
+		if(variant==null)
+			throw new NullPointerException();
+
+		if(variantsCollecting==null)
+			variantsCollecting = new ArrayList();
+			
+		variantsCollecting.add(variant);
+	}
+	
+	protected void postInitialize()
+	{
+		if(variants!=null)
+			throw new RuntimeException();
+
+		if(variantsCollecting==null)
+			variants = Collections.EMPTY_LIST;
+		else
+		{
+			variantsCollecting.trimToSize();
+			variants = Collections.unmodifiableList(variantsCollecting);
+			variantsCollecting = null;
+		}
+	}
+	
+	public List getVariants()
+	{
+		if(variants==null)
+			throw new RuntimeException();
+		
+		return variants;
 	}
 	
 }

@@ -8,6 +8,7 @@ public final class MediaAttributeVariant
 	public MediaAttributeVariant(final MediaAttribute attribute)
 	{
 		this.attribute = attribute;
+		attribute.addVariant(this);
 	}
 	
 	public MediaAttribute getAttribute()
