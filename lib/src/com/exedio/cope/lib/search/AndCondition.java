@@ -2,6 +2,7 @@
 package com.exedio.cope.lib.search;
 
 import com.exedio.cope.lib.Statement;
+import com.exedio.cope.lib.Type;
 
 public final class AndCondition extends Condition
 {
@@ -22,6 +23,12 @@ public final class AndCondition extends Condition
 			conditions[i].appendStatement(bf);
 		}
 		bf.append(')');
+	}
+
+	public final void check(final Type type)
+	{
+		for(int i = 0; i<conditions.length; i++)
+			conditions[i].check(type);
 	}
 
 	public final String toString()

@@ -126,6 +126,7 @@ public class Search
 	public static final Collection search(final Query query)
 	{
 		//System.out.println("select " + type.getJavaClass().getName() + " where " + condition);
+		query.check(query.type);
 		return wrapPrimaryKeys(query.type, Database.theInstance.search(query));
 	}
 	

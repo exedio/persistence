@@ -12,5 +12,10 @@ public class Query
 		this.type = type;
 		this.condition = condition;
 	}
+	
+	void check(final Type type)
+	{
+		condition.check(type);
+	}
 
 }

@@ -291,6 +291,7 @@ public class LibTest extends TestCase
 		dotestItemWithManyAttributesSomeInteger(item);
 		dotestItemWithManyAttributesSomeNotNullInteger(item);
 		dotestUnmodifiableSearchResult(item);
+		dotestIllegalSearch();
 
 		dotestItemWithManyAttributesSomeBoolean(item);
 		dotestItemWithManyAttributesSomeNotNullBoolean(item);
@@ -388,6 +389,21 @@ public class LibTest extends TestCase
 	{
 		item.setSomeNotNullInteger(0);
 		assertUnmodifiable(Search.search(item.TYPE, Search.equal(item.someNotNullInteger, 0)));
+	}
+	
+	private void dotestIllegalSearch()
+	{
+		try
+		{
+			Search.search(ItemWithoutAttributes.TYPE, Search.equal(ItemWithManyAttributes.someInteger, 0));
+			fail("should have thrown RuntimeException");
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals(
+				"attribute someInteger{} belongs to type com.exedio.cope.lib.ItemWithManyAttributes, which is the type of the query: com.exedio.cope.lib.ItemWithoutAttributes",
+				e.getMessage());
+		}
 	}
 	
 	private void assertUnmodifiable(final Collection c)
