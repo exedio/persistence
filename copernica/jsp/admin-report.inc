@@ -46,13 +46,11 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); )
 		%></span><%
 	}
 	
-	if(table.isMissing())
+	final String tableError = table.getError();
+	if(tableError!=null)
 	{
-		%> <span style="background-color:#ff3333">MISSING !!!</span><%
-	}
-	if(table.isUnused())
-	{
-		%> <span style="background-color:#ffff33">not used</span><%
+		%> <span style="background-color:#<%=color(table.getParticularColor())
+										%>"><%=tableError%></span><%
 	}
 	
 	if(!table.getConstraints().isEmpty())

@@ -6,10 +6,19 @@ import java.util.Iterator;
 
 abstract class Node
 {
+	protected String error = null;
 	protected int particularColor = Report.COLOR_NOT_YET_CALC;
 	protected int cumulativeColor = Report.COLOR_NOT_YET_CALC;
 
 	abstract void finish();
+
+	public final String getError()
+	{
+		if(particularColor==Report.COLOR_NOT_YET_CALC)
+			throw new RuntimeException();
+
+		return error;
+	}
 
 	public final int getParticularColor()
 	{
@@ -87,25 +96,21 @@ public final class Report extends Node
 			return constraints.values();
 		}
 		
-		public final boolean isMissing()
-		{
-			return !exists;
-		}
-		
-		public final boolean isUnused()
-		{
-			return table==null;
-		}
-
 		protected void finish()
 		{
 			if(cumulativeColor!=COLOR_NOT_YET_CALC || particularColor!=COLOR_NOT_YET_CALC)
 				throw new RuntimeException();
 
-			if(isMissing())
+			if(!exists)
+			{
+				error = "MISSING !!!";
 				particularColor = COLOR_RED;
-			else if(isUnused())
+			}
+			else if(table==null)
+			{
+				error = "not used";
 				particularColor = COLOR_YELLOW;
+			}
 			else
 				particularColor = COLOR_OK;
 			
