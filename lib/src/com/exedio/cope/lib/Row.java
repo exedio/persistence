@@ -15,6 +15,7 @@ final class Row
 
 	final int pk;
 
+	// TODO: use arrays for String/int/double instead of the HashMap
 	private final HashMap cache = new HashMap();
 	boolean present;
 	private boolean dirty = false;
@@ -72,10 +73,14 @@ final class Row
 		dirty = false;
 	}
 	
-	// TODO: provide separate methods for int, String and double, instead this method
-	void load(final Column column, final Object value)
+	void load(final StringColumn column, final String value)
 	{
 		cache.put(column, value);
+	}
+	
+	void load(final IntegerColumn column, final int value)
+	{
+		cache.put(column, new Integer(value));
 	}
 	
 	Object store(final Column column)
