@@ -38,12 +38,12 @@ final class Generator
 	private static final String CONSTRUCTOR_REACTIVATION = "Reactivation constructor. Used for internal purposes only.";
 	private static final String GETTER = "Returns the value of the persistent attribute {0}.";
 	private static final String SETTER = "Sets a new value for the persistent attribute {0}.";
-	private static final String SETTER_MEDIA = "Provides data for the persistent media attribute {0}.";
-	private static final String GETTER_MEDIA_URL = "Returns a URL pointing to the data of the persistent attribute {0}.";
-	private static final String GETTER_MEDIA_VARIANT = "Returns a URL pointing to the varied data of the persistent attribute {0}.";
-	private static final String GETTER_MEDIA_MAJOR = "Returns the major mime type of the persistent media attribute {0}.";
-	private static final String GETTER_MEDIA_MINOR = "Returns the minor mime type of the persistent media attribute {0}.";
-	private static final String GETTER_MEDIA_DATA = "Returns a stream for fetching the data of the persistent media attribute {0}.";
+	private static final String SETTER_MEDIA = "Sets the new data for the media attribute {0}.";
+	private static final String GETTER_MEDIA_URL =     "Returns a URL the data of the media attribute {0} is available under.";
+	private static final String GETTER_MEDIA_VARIANT = "Returns a URL the data of the {1} variant of the media attribute {0} is available under.";
+	private static final String GETTER_MEDIA_MAJOR = "Returns the major mime type of the media attribute {0}.";
+	private static final String GETTER_MEDIA_MINOR = "Returns the minor mime type of the media attribute {0}.";
+	private static final String GETTER_MEDIA_DATA = "Returns the data of the media attribute {0}.";
 	private static final String FINDER_UNIQUE = "Finds a {0} by it''s unique attributes.";
 	private static final String FINDER_UNIQUE_PARAMETER = "shall be equal to attribute {0}.";
 	private static final String QUALIFIER = "Returns the qualifier.";
@@ -155,6 +155,11 @@ final class Generator
 	private static final String format(final String pattern, final String parameter1)
 	{
 		return MessageFormat.format(pattern, new Object[]{ parameter1 });
+	}
+
+	private static final String format(final String pattern, final String parameter1, final String parameter2)
+	{
+		return MessageFormat.format(pattern, new Object[]{ parameter1, parameter2 });
 	}
 
 	private void writeConstructor(final CopeClass javaClass) // TODO: rename to copeClass
@@ -366,7 +371,9 @@ final class Generator
 	{
 		writeCommentHeader();
 		o.write("\t * ");
-		o.write(format(commentPattern, link(mediaAttribute.getName())));
+		o.write(variant==null
+				? format(commentPattern, link(mediaAttribute.getName()))
+				: format(commentPattern, link(mediaAttribute.getName()), variant.name)); // TODO: use short name, make link
 		o.write(lineSeparator);
 		writeCommentGenerated();
 		writeCommentFooter();
