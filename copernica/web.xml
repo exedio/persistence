@@ -49,5 +49,18 @@
 	<session-config>
 		<session-timeout>30</session-timeout>    <!-- 30 minutes -->
 	</session-config>
+	
+	<error-page>
+		<error-code>500</error-code>
+		<location>/error.jsp</location>
+	</error-page>
+	<servlet>
+		<servlet-name>com.exedio.copernica.error_jsp</servlet-name>
+		<servlet-class>com.exedio.copernica.error_jsp</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>com.exedio.copernica.error_jsp</servlet-name>
+		<url-pattern>/error.jsp</url-pattern>
+	</servlet-mapping>
 
 </web-app>
