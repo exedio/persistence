@@ -37,7 +37,7 @@ public class Search
 	
 	public static final Collection search(final Type type, final Condition condition)
 	{
-		System.out.println("select " + type.getClass().getName() + " where " + condition);
+		System.out.println("select " + type.getJavaClass().getName() + " where " + condition);
 		return Collections.EMPTY_LIST;
 	}
 	
