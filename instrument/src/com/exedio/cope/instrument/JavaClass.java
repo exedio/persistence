@@ -39,7 +39,7 @@ public class JavaClass extends JavaFeature
 		{
 			if(i!=this)
 				buf.insert(pos, '$');
-			buf.insert(pos, i.getName());
+			buf.insert(pos, i.name);
 		}
 		return buf.toString();
 	}
@@ -70,7 +70,7 @@ public class JavaClass extends JavaFeature
 		int pos=buf.length();
 		for(JavaClass i=this; i!=null; i=i.parent)
 		{
-			buf.insert(pos, i.getName());
+			buf.insert(pos, i.name);
 			buf.insert(pos, '_');
 		}
 		return buf.toString();

@@ -509,7 +509,7 @@ final class Generator
 	throws IOException
 	{
 		final PersistentAttribute[] persistentAttributes = constraint.persistentAttributes;
-		final String className = persistentAttributes[0].getParent().getName();
+		final String className = persistentAttributes[0].getParent().name;
 		
 		writeCommentHeader();
 		o.write("\t * Finds a ");

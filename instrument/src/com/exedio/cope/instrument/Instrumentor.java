@@ -191,7 +191,7 @@ public final class Instrumentor implements InjectionConsumer
 			final String initializerArgument = (String)i.next();
 			final PersistentAttribute persistentAttribute = persistentClass.getPersistentAttribute(initializerArgument);
 			if(persistentAttribute==null)
-				throw new InjectorParseException("attribute >"+initializerArgument+"< in unique constraint "+ja.getName()+" not found.");
+				throw new InjectorParseException("attribute >"+initializerArgument+"< in unique constraint "+ja.name+" not found.");
 			persistentAttributes.add(persistentAttribute);
 		}
 		persistentClass.makeUnique(
@@ -221,7 +221,7 @@ public final class Instrumentor implements InjectionConsumer
 		final String initializerArgument = (String)initializerArguments.get(0);
 		final PersistentMediaAttribute mediaAttribute = (PersistentMediaAttribute)persistentClass.getPersistentAttribute(initializerArgument);
 		if(mediaAttribute==null)
-			throw new InjectorParseException("attribute >"+initializerArgument+"< in media attribute variant "+ja.getName()+" not found.");
+			throw new InjectorParseException("attribute >"+initializerArgument+"< in media attribute variant "+ja.name+" not found.");
 		new PersistentMediaVariant(ja, mediaAttribute);
 	}
 

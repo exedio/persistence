@@ -52,9 +52,9 @@ public final class JavaAttribute
 	{
 		return file.getPackageName()
 			+ '.'
-			+ parent.getName()
+			+ parent.name
 			+ '#'
-			+ getName();
+			+ name;
 	}
 
 	private String camelCaseName = null;
@@ -64,7 +64,7 @@ public final class JavaAttribute
 		if (camelCaseName != null)
 			return camelCaseName;
 
-		final String name = getName();
+		final String name = this.name;
 		final char first = name.charAt(0);
 		if (Character.isUpperCase(first))
 			camelCaseName = name;

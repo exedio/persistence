@@ -50,7 +50,7 @@ public final class PersistentClass
 	
 	public String getName()
 	{
-		return javaClass.getName();
+		return javaClass.name;
 	}
 	
 	public boolean isAbstract()

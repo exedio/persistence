@@ -13,7 +13,7 @@ public final class PersistentUniqueConstraint
 	 */
 	PersistentUniqueConstraint(final JavaAttribute javaAttribute, final PersistentAttribute[] persistentAttributes)
 	{
-		this.name = javaAttribute.getName();
+		this.name = javaAttribute.name;
 		this.camelCaseName = javaAttribute.getCamelCaseName();
 		this.modifier = javaAttribute.modifier;
 		this.persistentAttributes = persistentAttributes;

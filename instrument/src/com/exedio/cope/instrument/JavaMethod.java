@@ -35,7 +35,7 @@ public final class JavaMethod extends JavaBehaviour
 		if(signature!=null)
 			return signature;
 		StringBuffer buf=new StringBuffer();
-		buf.append(getName());
+		buf.append(name);
 		buf.append('(');
 		for(Iterator i=parameters.iterator(); i.hasNext(); )
 		{

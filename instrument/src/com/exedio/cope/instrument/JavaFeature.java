@@ -43,7 +43,7 @@ abstract class JavaFeature
 	 */
 	final String type;
 	
-	protected final String name;
+	final String name;
 	
 	public JavaFeature(
 							final JavaFile file,
@@ -134,11 +134,6 @@ abstract class JavaFeature
 		}
 	}
 	
-	public final String getName()
-	{
-		return name;
-	}
-	
 	public String toString()
 	{
 		return getClass().getName()+'('+name+')';
@@ -150,7 +145,7 @@ abstract class JavaFeature
 		" ("+Modifier.toString(modifier)+
 		") >"+type+
 		"< >"+name+
-		"< in >"+(parent==null?"none":parent.getName())+"<");
+		"< in >"+(parent==null?"none":parent.name)+"<");
 		printMore(o);
 	}
 	

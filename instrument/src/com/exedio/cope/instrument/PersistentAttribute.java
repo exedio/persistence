@@ -101,7 +101,7 @@ public abstract class PersistentAttribute
 	
 	public final String getName()
 	{
-		return javaAttribute.getName();
+		return javaAttribute.name;
 	}
 	
 	public final String getCamelCaseName()

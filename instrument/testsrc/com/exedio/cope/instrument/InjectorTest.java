@@ -121,7 +121,7 @@ public abstract class InjectorTest extends InstrumentorTest
 	{
 		final InjectionEvent event = fetchEvent();
 		final JavaClass javaClass = ((ClassEvent)event).javaClass;
-		assertEquals(className, javaClass.getName());
+		assertEquals(className, javaClass.name);
 		return javaClass;
 	}
 	
@@ -129,7 +129,7 @@ public abstract class InjectorTest extends InstrumentorTest
 	{
 		final InjectionEvent event = fetchEvent();
 		final JavaClass javaClass = ((ClassEndEvent)event).javaClass;
-		assertEquals(className, javaClass.getName());
+		assertEquals(className, javaClass.name);
 		assertSame(expectedJavaClass, javaClass);
 	}
 	
@@ -139,7 +139,7 @@ public abstract class InjectorTest extends InstrumentorTest
 		if(!(event instanceof BehaviourHeaderEvent))
 			throw new AssertionFailedError("expected BehaviourHeader event >"+name+"<, but was "+event);
 		final JavaBehaviour javaBehaviour = ((BehaviourHeaderEvent)event).javaBehaviour;
-		assertEquals(name, javaBehaviour.getName());
+		assertEquals(name, javaBehaviour.name);
 		assertEquals(type, javaBehaviour.type);
 		assertEquals(modifier, javaBehaviour.modifier);
 		return javaBehaviour;
@@ -149,7 +149,7 @@ public abstract class InjectorTest extends InstrumentorTest
 	{
 		final InjectionEvent event = fetchEvent();
 		final JavaAttribute javaAttribute = ((AttributeHeaderEvent)event).javaAttribute;
-		assertEquals(name, javaAttribute.getName());
+		assertEquals(name, javaAttribute.name);
 		assertEquals(type, javaAttribute.type);
 		assertEquals(modifier, javaAttribute.modifier);
 		return javaAttribute;
@@ -159,7 +159,7 @@ public abstract class InjectorTest extends InstrumentorTest
 	{
 		final InjectionEvent event = fetchEvent();
 		final JavaFeature javaFeature = ((ClassFeatureEvent)event).javaFeature;
-		assertEquals(name, javaFeature.getName());
+		assertEquals(name, javaFeature.name);
 		assertEquals(replaceLineBreaks(docComment), ((ClassFeatureEvent)event).docComment);
 		if(expectedJavaFeature!=null)
 			assertSame(expectedJavaFeature, javaFeature);
