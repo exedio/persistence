@@ -237,50 +237,7 @@ public abstract class Database
 	{
 		buildStage = false;
 		
-		final Report report = new Report();
-
-		for(Iterator i = tables.iterator(); i.hasNext(); )
-		{
-			final Table table = (Table)i.next();
-			final Report.Table reportTable = report.notifyRequiredTable(table);
-			for(Iterator j = table.getAllColumns().iterator(); j.hasNext(); )
-			{
-				final Column column = (Column)j.next();
-				
-				if(column.primaryKey)
-					reportTable.notifyRequiredConstraint(column.getPrimaryKeyConstraintID());
-				else if(column.notNull)
-					reportTable.notifyRequiredConstraint(column.getNotNullConstraintID());
-					
-				if(column instanceof StringColumn)
-				{
-					final StringColumn stringColumn = (StringColumn)column;
-
-					if(stringColumn.minimumLength>0)
-						reportTable.notifyRequiredConstraint(stringColumn.getMinimumLengthConstraintID());
-
-					if(stringColumn.maximumLength!=Integer.MAX_VALUE)
-						reportTable.notifyRequiredConstraint(stringColumn.getMaximumLengthConstraintID());
-				}
-				else if(column instanceof IntegerColumn)
-				{
-					final IntegerColumn intColumn = (IntegerColumn)column;
-					if(intColumn.allowedValues!=null)
-						reportTable.notifyRequiredConstraint(intColumn.getAllowedValuesConstraintID());
-
-					if(intColumn instanceof ItemColumn)
-					{
-						final ItemColumn itemColumn = (ItemColumn)intColumn;
-						reportTable.notifyRequiredConstraint(itemColumn.integrityConstraintName);
-					}
-				}
-			}
-			for(Iterator j = table.getUniqueConstraints().iterator(); j.hasNext(); )
-			{
-				final UniqueConstraint uniqueConstraint = (UniqueConstraint)j.next();
-				reportTable.notifyRequiredConstraint(uniqueConstraint.getID());
-			}
-		}
+		final Report report = new Report(tables);
 
 		final Statement bf = createStatement();
 		bf.append("select TABLE_NAME, CONSTRAINT_NAME, CONSTRAINT_TYPE  from user_constraints order by table_name").

@@ -3,6 +3,7 @@ package com.exedio.cope.lib;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 
 abstract class Node
 {
@@ -166,15 +167,56 @@ public final class Report extends Node
 		}
 		
 	}
-
-	final Table notifyRequiredTable(final com.exedio.cope.lib.Table table)
-	{
-		final Table result = new Table(table);
-		if(tables.put(table.id, result)!=null)
-			throw new RuntimeException();
-		return result;
-	}
 	
+	Report(final List modelTables)
+	{
+		for(Iterator i = modelTables.iterator(); i.hasNext(); )
+		{
+			final com.exedio.cope.lib.Table modelTable = (com.exedio.cope.lib.Table)i.next();
+			final Report.Table reportTable = new Table(modelTable);
+			if(tables.put(modelTable.id, reportTable)!=null)
+				throw new RuntimeException();
+	
+			for(Iterator j = modelTable.getAllColumns().iterator(); j.hasNext(); )
+			{
+				final Column column = (Column)j.next();
+				
+				if(column.primaryKey)
+					reportTable.notifyRequiredConstraint(column.getPrimaryKeyConstraintID());
+				else if(column.notNull)
+					reportTable.notifyRequiredConstraint(column.getNotNullConstraintID());
+					
+				if(column instanceof StringColumn)
+				{
+					final StringColumn stringColumn = (StringColumn)column;
+
+					if(stringColumn.minimumLength>0)
+						reportTable.notifyRequiredConstraint(stringColumn.getMinimumLengthConstraintID());
+
+					if(stringColumn.maximumLength!=Integer.MAX_VALUE)
+						reportTable.notifyRequiredConstraint(stringColumn.getMaximumLengthConstraintID());
+				}
+				else if(column instanceof IntegerColumn)
+				{
+					final IntegerColumn intColumn = (IntegerColumn)column;
+					if(intColumn.allowedValues!=null)
+						reportTable.notifyRequiredConstraint(intColumn.getAllowedValuesConstraintID());
+
+					if(intColumn instanceof ItemColumn)
+					{
+						final ItemColumn itemColumn = (ItemColumn)intColumn;
+						reportTable.notifyRequiredConstraint(itemColumn.integrityConstraintName);
+					}
+				}
+			}
+			for(Iterator j = modelTable.getUniqueConstraints().iterator(); j.hasNext(); )
+			{
+				final UniqueConstraint uniqueConstraint = (UniqueConstraint)j.next();
+				reportTable.notifyRequiredConstraint(uniqueConstraint.getID());
+			}
+		}
+	}
+
 	final Table notifyExistentTable(final String tableName)
 	{
 		Table result = (Table)tables.get(tableName);
