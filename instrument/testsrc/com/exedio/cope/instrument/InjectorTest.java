@@ -41,6 +41,8 @@ public abstract class InjectorTest extends TestCase
 		input = null;
 		output.close();
 		output = null;
+		
+		assertInjection();
 		injectionEvents = null;
 	}
 	
@@ -49,10 +51,16 @@ public abstract class InjectorTest extends TestCase
 		return (InjectionEvent)injectionEvents.removeFirst();
 	}
 
+	private String format(final String s)
+	{
+		return s.replace('\n', '=').replace(' ', '_');
+	}
+
 	protected void assertText(final String text)
 	{
 		final InjectionEvent event = fetchEvent();
-		assertEquals(text, ((TextEvent)event).text);
+		final String actualText = ((TextEvent)event).text;
+		assertEquals("ZAPP \n>"+format(text)+"<\n>"+format(actualText)+"<\n", text, actualText);
 	}
 
 	protected void assertPackage(final String packageName)
