@@ -144,14 +144,16 @@ public final class Instrumentor implements InjectionConsumer
 	private void handleClassComment(final JavaClass jc, final String docComment)
 	{
 		if(containsTag(docComment, PERSISTENT_CLASS))
-			jc.setPersistent();
-		
-		final String uniqueConstraint = Injector.findWholeDocTag(docComment, UNIQUE_ATTRIBUTE);
-		if(uniqueConstraint!=null)
 		{
-			if(uniqueConstraints==null)
-				uniqueConstraints = new ArrayList();
-			uniqueConstraints.add(uniqueConstraint);
+			PersistentClass pc = new PersistentClass(jc);
+		
+			final String uniqueConstraint = Injector.findWholeDocTag(docComment, UNIQUE_ATTRIBUTE);
+			if(uniqueConstraint!=null)
+			{
+				if(uniqueConstraints==null)
+					uniqueConstraints = new ArrayList();
+				uniqueConstraints.add(uniqueConstraint);
+			}
 		}
 	}
 	
@@ -277,7 +279,7 @@ public final class Instrumentor implements InjectionConsumer
 		constraintViolationText.put(UniqueViolationException.class, "not unique");
 	}
 
-	public void writeConstructor(final JavaClass javaClass)
+	public void writeConstructor(final PersistentClass javaClass)
 	throws IOException
 	{
 		final List initialAttributes = javaClass.getInitialAttributes();
@@ -291,7 +293,7 @@ public final class Instrumentor implements InjectionConsumer
 		output.write(" with all the attributes initially needed.");
 		for(Iterator i = initialAttributes.iterator(); i.hasNext(); )
 		{
-			final JavaAttribute initialAttribute = (JavaAttribute)i.next();
+			final PersistentAttribute initialAttribute = (PersistentAttribute)i.next();
 			output.write(lineSeparator);
 			output.write("\t * @param initial");
 			output.write(initialAttribute.getCamelCaseName());
@@ -313,7 +315,7 @@ public final class Instrumentor implements InjectionConsumer
 			boolean first = true;
 			for(Iterator j = initialAttributes.iterator(); j.hasNext(); )
 			{
-				final JavaAttribute initialAttribute = (JavaAttribute)j.next();
+				final PersistentAttribute initialAttribute = (PersistentAttribute)j.next();
 				if(!initialAttribute.getSetterExceptions().contains(constructorException))
 					continue;
 
@@ -341,7 +343,7 @@ public final class Instrumentor implements InjectionConsumer
 				first = false;
 			else
 				output.write(',');
-			final JavaAttribute initialAttribute = (JavaAttribute)i.next();
+			final PersistentAttribute initialAttribute = (PersistentAttribute)i.next();
 			output.write(lineSeparator);
 			output.write("\t\t\t\tfinal ");
 			output.write(initialAttribute.getBoxedType());
@@ -358,7 +360,7 @@ public final class Instrumentor implements InjectionConsumer
 		output.write(lineSeparator);
 		for(Iterator i = initialAttributes.iterator(); i.hasNext(); )
 		{
-			final JavaAttribute initialAttribute = (JavaAttribute)i.next();
+			final PersistentAttribute initialAttribute = (PersistentAttribute)i.next();
 			output.write("\t\t\tnew "+AttributeValue.class.getName()+"(");
 			output.write(initialAttribute.getName());
 			output.write(',');
@@ -384,7 +386,7 @@ public final class Instrumentor implements InjectionConsumer
 		output.write("\t}");
 	}
 	
-	public void writeReactivationConstructor(final JavaClass javaClass)
+	public void writeReactivationConstructor(final PersistentClass javaClass) // TODO: rename parameter
 	throws IOException
 	{
 		writeCommentHeader();
@@ -408,7 +410,7 @@ public final class Instrumentor implements InjectionConsumer
 	
 	private static final int ENUMERATION_NUMBER_AUTO_INCREMENT = 100;
 
-	private void writeEnumerationClass(final JavaAttribute enumerationAttribute)
+	private void writeEnumerationClass(final PersistentAttribute enumerationAttribute)
 	throws IOException
 	{
 		// deactivated, since the parser cannot remove generated inner classes.
@@ -469,7 +471,7 @@ public final class Instrumentor implements InjectionConsumer
 		output.write("\t}");
 	}
 
-	private void writeAccessMethods(final JavaAttribute persistentAttribute)
+	private void writeAccessMethods(final PersistentAttribute persistentAttribute)
 	throws IOException
 	{
 		if(persistentAttribute.isEnumerationAttribute())
@@ -532,7 +534,7 @@ public final class Instrumentor implements InjectionConsumer
 		}
 	}
 
-	private void writeMediaGetterMethod(final JavaAttribute mediaAttribute,
+	private void writeMediaGetterMethod(final PersistentAttribute mediaAttribute,
 													final Class returnType,
 													final String part,
 													final String variant,
@@ -601,7 +603,7 @@ public final class Instrumentor implements InjectionConsumer
 		output.write("\t}");
 	}
 	
-	private void writeMediaAccessMethods(final JavaAttribute mediaAttribute)
+	private void writeMediaAccessMethods(final PersistentAttribute mediaAttribute)
 	throws IOException
 	{
 		final String methodModifiers = Modifier.toString(mediaAttribute.getMethodModifiers());
@@ -695,7 +697,7 @@ public final class Instrumentor implements InjectionConsumer
 		}
 	}
 	
-	private final void writeEquals(final JavaAttribute attribute)
+	private final void writeEquals(final PersistentAttribute attribute)
 	throws IOException
 	{
 		output.write("equal(");
@@ -705,7 +707,7 @@ public final class Instrumentor implements InjectionConsumer
 		output.write(')');
 	}
 	
-	private void writeUniqueFinder(final JavaAttribute[] persistentAttributes)
+	private void writeUniqueFinder(final PersistentAttribute[] persistentAttributes)
 	throws IOException, InjectorParseException
 	{
 		int modifiers = -1;
@@ -760,7 +762,7 @@ public final class Instrumentor implements InjectionConsumer
 		{
 			if(i>0)
 				output.write(',');
-			final JavaAttribute persistentAttribute = (JavaAttribute)persistentAttributes[i];
+			final PersistentAttribute persistentAttribute = persistentAttributes[i];
 			if(persistentAttribute.getQualifiers() != null)
 				qualifiers.addAll(persistentAttribute.getQualifiers());
 			output.write("final ");
@@ -800,7 +802,7 @@ public final class Instrumentor implements InjectionConsumer
 		output.write("\t}");
 	}
 	
-	private final void writeType(final JavaClass javaClass)
+	private final void writeType(final PersistentClass javaClass) // TODO rename parameter
 	throws IOException
 	{
 		writeCommentHeader();
@@ -832,7 +834,7 @@ public final class Instrumentor implements InjectionConsumer
 			output.write(lineSeparator);
 			for(Iterator i = persistentAttributes.iterator(); i.hasNext(); )
 			{
-				final JavaAttribute persistentAttribute = (JavaAttribute)i.next();
+				final PersistentAttribute persistentAttribute = (PersistentAttribute)i.next();
 				output.write("\t\t\t\t");
 				output.write(persistentAttribute.getName());
 				output.write(".initialize(\"");
@@ -867,7 +869,7 @@ public final class Instrumentor implements InjectionConsumer
 			output.write(lineSeparator);
 			for(Iterator i = uniqueConstraints.iterator(); i.hasNext(); )
 			{
-				final JavaAttribute[] uniqueConstraint = (JavaAttribute[])i.next();
+				final PersistentAttribute[] uniqueConstraint = (PersistentAttribute[])i.next();
 				if(uniqueConstraint.length==1)
 				{
 					// shorter notation, if unique contraint does not cover multive attributes
@@ -902,53 +904,62 @@ public final class Instrumentor implements InjectionConsumer
 		output.write(";");
 	}
 	
-	public void onClassEnd(JavaClass jc)
+	public void onClassEnd(JavaClass javaClass)
 	throws IOException, InjectorParseException
 	{
-		if(uniqueConstraints != null)
-		{
-			for( final Iterator i=uniqueConstraints.iterator(); i.hasNext(); )
-			{
-				final String uniqueConstraint=(String)i.next();
-				final List attributes = new ArrayList();
-				for(final StringTokenizer t=new StringTokenizer(uniqueConstraint, " "); t.hasMoreTokens(); )
-				{
-					final String attributeName = t.nextToken();
-					final JavaAttribute ja = jc.getPersistentAttribute(attributeName);
-					if(ja==null)
-						throw new InjectorParseException("Attribute with name "+attributeName+" does not exist!");
-					attributes.add(ja);
-				}
-				if(attributes.isEmpty())
-					throw new InjectorParseException("No attributes found in unique constraint "+uniqueConstraint);
-				jc.makeUnique((JavaAttribute[])attributes.toArray(new JavaAttribute[]{}));
-			}
-		}
-		//System.out.println("onClassEnd("+jc.getName()+")");
+		//System.out.println("onClassEnd("+javaClass.getName()+")");
 
-		if(!jc.isInterface() && jc.isPersistent())
+		final PersistentClass jc = PersistentClass.getPersistentClass(javaClass); // TODO: rename variable
+		if(jc!=null)
 		{
-			writeConstructor(jc);
-			writeReactivationConstructor(jc);
-			for(final Iterator i = jc.getPersistentAttributes().iterator(); i.hasNext(); )
+			//System.out.println("onClassEnd("+jc.getName()+") persistent");
+			if(uniqueConstraints != null)
 			{
-				// write setter/getter methods
-				final JavaAttribute persistentAttribute = (JavaAttribute)i.next();
-				if(persistentAttribute.isMediaPersistentType())
-					writeMediaAccessMethods(persistentAttribute);
-				else
-					writeAccessMethods(persistentAttribute);
+				//System.out.println("onClassEnd("+jc.getName()+") unique");
+				for( final Iterator i=uniqueConstraints.iterator(); i.hasNext(); )
+				{
+					final String uniqueConstraint=(String)i.next();
+					final List attributes = new ArrayList();
+					for(final StringTokenizer t=new StringTokenizer(uniqueConstraint, " "); t.hasMoreTokens(); )
+					{
+						final String attributeName = t.nextToken();
+						final PersistentAttribute ja = jc.getPersistentAttribute(attributeName); // TODO: rename variable
+						if(ja==null)
+							throw new InjectorParseException("Attribute with name "+attributeName+" does not exist!");
+						attributes.add(ja);
+					}
+					if(attributes.isEmpty())
+						throw new InjectorParseException("No attributes found in unique constraint "+uniqueConstraint);
+					jc.makeUnique((PersistentAttribute[])attributes.toArray(new PersistentAttribute[]{}));
+				}
 			}
-			for(final Iterator i = jc.getUniqueConstraints().iterator(); i.hasNext(); )
+	
+			if(!jc.isInterface())
 			{
-				// write unique finder methods
-				final JavaAttribute[] persistentAttributes = (JavaAttribute[])i.next();
-				writeUniqueFinder(persistentAttributes);
+				//System.out.println("onClassEnd("+jc.getName()+") writing");
+				writeConstructor(jc);
+				writeReactivationConstructor(jc);
+				for(final Iterator i = jc.getPersistentAttributes().iterator(); i.hasNext(); )
+				{
+					// write setter/getter methods
+					final PersistentAttribute persistentAttribute = (PersistentAttribute)i.next();
+					//System.out.println("onClassEnd("+jc.getName()+") writing attribute "+persistentAttribute.getName());
+					if(persistentAttribute.isMediaPersistentType())
+						writeMediaAccessMethods(persistentAttribute);
+					else
+						writeAccessMethods(persistentAttribute);
+				}
+				for(final Iterator i = jc.getUniqueConstraints().iterator(); i.hasNext(); )
+				{
+					// write unique finder methods
+					final PersistentAttribute[] persistentAttributes = (PersistentAttribute[])i.next();
+					writeUniqueFinder(persistentAttributes);
+				}
+				writeType(jc);
 			}
-			writeType(jc);
 		}
 		
-		if(class_state!=jc)
+		if(class_state!=javaClass)
 			throw new RuntimeException();
 		class_state=(JavaClass)(class_state_stack.remove(class_state_stack.size()-1));
 	}
@@ -982,66 +993,72 @@ public final class Instrumentor implements InjectionConsumer
 				if("IntegerAttribute".equals(type))
 				{
 					persistentType = "Integer";
-					persistentTypeType = JavaAttribute.TYPE_INTEGER;
+					persistentTypeType = PersistentAttribute.TYPE_INTEGER;
 				}
 				else if("BooleanAttribute".equals(type))
 				{
 					persistentType = "Boolean";
-					persistentTypeType = JavaAttribute.TYPE_BOOLEAN;
+					persistentTypeType = PersistentAttribute.TYPE_BOOLEAN;
 				}
 				else if("StringAttribute".equals(type))
 				{
 					persistentType = "String";
-					persistentTypeType = JavaAttribute.TYPE_STRING;
+					persistentTypeType = PersistentAttribute.TYPE_STRING;
 				}
 				else if("EnumerationAttribute".equals(type))
 				{
 					persistentType = ja.getCamelCaseName();
-					persistentTypeType = JavaAttribute.TYPE_ENUMERATION;
+					persistentTypeType = PersistentAttribute.TYPE_ENUMERATION;
 				}
 				else if("ItemAttribute".equals(type))
 				{
 					persistentType = Injector.findDocTag(docComment, PERSISTENT_ATTRIBUTE);
-					persistentTypeType = JavaAttribute.TYPE_ITEM;
+					persistentTypeType = PersistentAttribute.TYPE_ITEM;
 				}
 				else if("MediaAttribute".equals(type))
 				{
-					persistentType = JavaAttribute.MEDIA_TYPE;
-					persistentTypeType = JavaAttribute.TYPE_MEDIA;
+					persistentType = PersistentAttribute.MEDIA_TYPE;
+					persistentTypeType = PersistentAttribute.TYPE_MEDIA;
 				}
 				else
 					throw new RuntimeException();
 
-				ja.makePersistent(persistentType, persistentTypeType);
-
-				if(containsTag(docComment, UNIQUE_ATTRIBUTE))
-					ja.getParent().makeUnique(new JavaAttribute[]{ja});
-				
-				if(containsTag(docComment, READ_ONLY_ATTRIBUTE))
-					ja.makeReadOnly();
-				
-				if(containsTag(docComment, NOT_NULL_ATTRIBUTE))
-					ja.makeNotNull();
-
-				if(containsTag(docComment, MAPPED_ATTRIBUTE))
-					ja.makeMapped();
+				final boolean readOnly = containsTag(docComment, READ_ONLY_ATTRIBUTE);
+				final boolean notNull = containsTag(docComment, NOT_NULL_ATTRIBUTE);
+				final boolean mapped = containsTag(docComment, MAPPED_ATTRIBUTE);
 				
 				final String qualifier = Injector.findDocTag(docComment, ATTRIBUTE_QUALIFIER);
+				final List qualifiers;
 				if(qualifier!=null)
-					ja.makeQualified(Collections.singletonList(qualifier));
+					qualifiers = Collections.singletonList(qualifier);
+				else
+					qualifiers = null;
 
 				final String variant = Injector.findDocTag(docComment, VARIANT_MEDIA_ATTRIBUTE);
+				final List variants;
 				if(variant!=null)
-					ja.makeMediaVarianted(Collections.singletonList(variant));
+					variants = Collections.singletonList(variant);
+				else
+					variants = null;
 
 				final String mimeMajor = Injector.findDocTag(docComment, MIME_MAJOR);
 				final String mimeMinor = Injector.findDocTag(docComment, MIME_MINOR);
-				if(mimeMajor!=null || mimeMinor!=null)
-					ja.contrainMediaMime(mimeMajor, mimeMinor);
 
 				final String enumerationValue = Injector.findDocTag(docComment, ENUMERATION_VALUE);
+				final List enumerationValues;
 				if(enumerationValue!=null)
-					ja.makeEnumerationAttribute(Collections.singletonList(enumerationValue));
+					enumerationValues = Collections.singletonList(enumerationValue);
+				else
+					enumerationValues = null;
+
+				final PersistentAttribute persistentAttribute =
+					new PersistentAttribute(
+						ja, persistentType, persistentTypeType,
+						readOnly, notNull, mapped, qualifiers,
+						variants, mimeMajor, mimeMinor, enumerationValues);
+
+				if(containsTag(docComment, UNIQUE_ATTRIBUTE))
+					persistentAttribute.persistentClass.makeUnique(new PersistentAttribute[]{persistentAttribute});
 			}
 		}
 		discardnextfeature=false;
@@ -1104,7 +1121,7 @@ public final class Instrumentor implements InjectionConsumer
 	 * and it should return the output stream after immediatly after a line break.
 	 * This means, doing nothing fullfils the contract.
 	 */
-	private void writeGetterBody(final Writer output, final JavaAttribute attribute)
+	private void writeGetterBody(final Writer output, final PersistentAttribute attribute)
 	throws IOException
 	{
 		output.write("\t\treturn ");
@@ -1134,7 +1151,7 @@ public final class Instrumentor implements InjectionConsumer
 	 * and it should return the output stream after immediatly after a line break.
 	 * This means, doing nothing fullfils the contract.
 	 */
-	private void writeSetterBody(final Writer output, final JavaAttribute attribute)
+	private void writeSetterBody(final Writer output, final PersistentAttribute attribute)
 	throws IOException
 	{
 		final SortedSet exceptionsToCatch = attribute.getExceptionsToCatchInSetter();
