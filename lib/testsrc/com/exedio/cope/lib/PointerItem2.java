@@ -80,7 +80,7 @@ public class PointerItem2 extends Item
 		new com.exedio.cope.lib.Type(
 			PointerItem2.class,
 			new com.exedio.cope.lib.Attribute[]{
-				code.initialize("code",false,true),
+				code.initialize(false,true),
 			},
 			null
 		)

@@ -71,7 +71,7 @@ public class ItemWithSingleUniqueReadOnly extends Item
 		new com.exedio.cope.lib.Type(
 			ItemWithSingleUniqueReadOnly.class,
 			new com.exedio.cope.lib.Attribute[]{
-				uniqueReadOnlyString.initialize("uniqueReadOnlyString",true,false),
+				uniqueReadOnlyString.initialize(true,false),
 			},
 			new com.exedio.cope.lib.UniqueConstraint[]{
 				new com.exedio.cope.lib.UniqueConstraint(uniqueReadOnlyString),

@@ -159,9 +159,9 @@ public class PointerItem extends Item
 		new com.exedio.cope.lib.Type(
 			PointerItem.class,
 			new com.exedio.cope.lib.Attribute[]{
-				code.initialize("code",false,true),
-				pointer.initialize("pointer",false,true),
-				self.initialize("self",false,false),
+				code.initialize(false,true),
+				pointer.initialize(false,true),
+				self.initialize(false,false),
 			},
 			null
 		)

@@ -661,9 +661,7 @@ final class Generator
 				final PersistentAttribute persistentAttribute = (PersistentAttribute)i.next();
 				o.write("\t\t\t\t");
 				o.write(persistentAttribute.getName());
-				o.write(".initialize(\"");
-				o.write(persistentAttribute.getName());
-				o.write("\",");
+				o.write(".initialize(");
 				o.write(persistentAttribute.readOnly ? "true": "false");
 				o.write(',');
 				o.write(persistentAttribute.notNull ? "true": "false");

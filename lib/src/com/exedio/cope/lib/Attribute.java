@@ -23,11 +23,8 @@ public abstract class Attribute
 	private boolean notNull;
 	private boolean initialized = false;
 
-	public final Attribute initialize(final String name, final boolean readOnly, final boolean notNull)
+	public final Attribute initialize(final boolean readOnly, final boolean notNull)
 	{
-		if(name==null)
-			throw new RuntimeException();
-
 		if(initialized)
 			throw new RuntimeException();
 		if(this.name!=null)

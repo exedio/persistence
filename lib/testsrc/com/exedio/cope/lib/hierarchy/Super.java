@@ -90,7 +90,7 @@ public abstract class Super extends Item
 		new com.exedio.cope.lib.Type(
 			Super.class,
 			new com.exedio.cope.lib.Attribute[]{
-				superInt.initialize("superInt",false,true),
+				superInt.initialize(false,true),
 			},
 			null
 		)
