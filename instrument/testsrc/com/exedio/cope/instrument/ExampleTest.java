@@ -256,6 +256,8 @@ public class ExampleTest extends InjectorTest
 		assertText("\n\n  ");
 		
 		final JavaBehaviour abstractMethod = assertBehaviourHeader("abstractMethod", "void", Modifier.ABSTRACT);
+		assertText(";");
+		assertMethod("abstractMethod", null, abstractMethod);
 	}
 
 }
