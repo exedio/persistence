@@ -23,6 +23,8 @@ public final class Type
 	
 	private final Attribute[] declaredAttributes;
 	private final List declaredAttributeList;
+	private final Attribute[] attributes;
+	private final List attributeList;
 
 	private final UniqueConstraint[] uniqueConstraints;
 	private final List uniqueConstraintList;
@@ -50,6 +52,7 @@ public final class Type
 	{
 		this.javaClass = javaClass;
 
+		// supertype
 		final Class superClass = javaClass.getSuperclass();
 		if(superClass.equals(Item.class))
 			supertype = null;
@@ -60,6 +63,7 @@ public final class Type
 				throw new NullPointerException(superClass.getName());
 		}
 
+		// declaredAttributes
 		if(declaredAttributes!=null)
 		{
 			this.declaredAttributes = declaredAttributes;
@@ -72,6 +76,18 @@ public final class Type
 			this.declaredAttributes = new Attribute[]{};
 			this.declaredAttributeList = Collections.EMPTY_LIST;
 		}
+
+		// attributes
+		if(supertype==null)
+			attributes = this.declaredAttributes;
+		else
+		{
+			final Attribute[] supertypeAttributes = supertype.attributes;
+			attributes = new Attribute[supertypeAttributes.length+this.declaredAttributes.length];
+			System.arraycopy(supertypeAttributes, 0, attributes, 0, supertypeAttributes.length);
+			System.arraycopy(this.declaredAttributes, 0, attributes, supertypeAttributes.length, this.declaredAttributes.length);
+		}
+		this.attributeList = Collections.unmodifiableList(Arrays.asList(attributes));
 
 		if(uniqueConstraints!=null)
 		{
@@ -155,13 +171,7 @@ public final class Type
 	 */
 	public final List getAttributes()
 	{
-		// TODO: compute in advance in constructor
-		final Type superType = getSupertype();
-		final ArrayList result = new ArrayList();
-		if(superType!=null)
-			result.addAll(superType.getAttributes());
-		result.addAll(declaredAttributeList);
-		return result;
+		return attributeList;
 	}
 	
 	public final List getUniqueConstraints()
