@@ -23,7 +23,20 @@ final class Admin_Jspm
 	<head>
 		<title>
 			Copernica - Database Administration
-		</title><%
+		</title>
+		<style>
+			div.message
+			{
+				color: #000;
+				background-color: #FCC;
+				margin-top: 20px;
+				margin-bottom: 20px;
+				padding: 5px;
+				border-width: 3px;
+				border-color: #800;
+				border-style: solid;
+			}
+		</style><%
 		if(cop.report)
 		{
 			%>
@@ -48,17 +61,17 @@ final class Admin_Jspm
 				if(request.getParameter("CREATE")!=null)
 				{
 					model.createDatabase();
-					%>Database successfully created!<%
+					%><div class="message">Database successfully created!</div><%
 				}
 				else if(request.getParameter("TEARDOWN")!= null)
 				{
 					model.tearDownDatabase();
-					%>Database successfully torn down!<%
+					%><div class="message">Database successfully torn down!</div><%
 				}
 				else if(request.getParameter("DROP")!=null)
 				{
 					model.dropDatabase();
-					%>Database successfully dropped!<%
+					%><div class="message">Database successfully dropped!</div><%
 				}
 				else if(request.getParameter("APPLY")!=null)
 				{

@@ -12,6 +12,19 @@ final class Init_Jspm
 		<title>
 			Copernica - Database Administration
 		</title>
+		<style>
+			div.message
+			{
+				color: #000;
+				background-color: #FCC;
+				margin-top: 20px;
+				margin-bottom: 20px;
+				padding: 5px;
+				border-width: 3px;
+				border-color: #800;
+				border-style: solid;
+			}
+		</style>
 	</head>
 	<body>
 		<h1>Copernica</h1>
@@ -25,8 +38,7 @@ final class Init_Jspm
 			<%
 				if(initialized)
 				{
-					%><br>
-					Example system successfully created!<%
+					%><div class="message">Example system successfully created!</div><%
 				}
 			%>
 		</form>
