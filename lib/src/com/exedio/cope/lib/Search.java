@@ -22,7 +22,7 @@ public class Search
 	protected Search()
 	{}
 
-	protected static final long pk2id(final int pk)
+	static final long pk2id(final int pk)
 	{
 		if(pk==Type.NOT_A_PK)
 			throw new RuntimeException("not a pk");
@@ -34,7 +34,7 @@ public class Search
 				-((longPk<<1)|1l); // -(2*pk + 1)
 	}
 
-	protected static final int id2pk(final long id)
+	static final int id2pk(final long id)
 			throws NoSuchIDException
 	{
 		if(id<0)
