@@ -9,8 +9,11 @@ public class Query
 	final Type selectType;
 	final TreeSet fromTypes = new TreeSet(Type.COMPARATOR);
 	final Condition condition;
-	Function orderBy;
+
+	Function orderBy = null;
 	boolean orderAscending;
+	boolean deterministicOrder = false;
+
 	int start = 0;
 	int count = -1;
 	
@@ -41,6 +44,11 @@ public class Query
 	{
 		this.orderBy = orderBy;
 		this.orderAscending = ascending;
+	}
+
+	public void setDeterministicOrder(final boolean deterministicOrder)
+	{
+		this.deterministicOrder = deterministicOrder;
 	}
 
 	/**

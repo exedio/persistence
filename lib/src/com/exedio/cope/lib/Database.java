@@ -300,12 +300,13 @@ public abstract class Database
 		buildStage = false;
 
 		final Table selectTable = query.selectType.table;
+		final Column selectPrimaryKey = selectTable.getPrimaryKey();
 		final Statement bf = createStatement();
 
 		bf.append("select ").
 			append(selectTable.protectedID).
 			append('.').
-			append(selectTable.getPrimaryKey().protectedID).defineColumnInteger().
+			append(selectPrimaryKey.protectedID).defineColumnInteger().
 			append(" from ");
 
 		boolean first = true;
@@ -324,15 +325,32 @@ public abstract class Database
 			bf.append(" where ");
 			query.condition.appendStatement(bf);
 		}
-		
+
+		boolean firstOrderBy = true;		
+		if(query.orderBy!=null || query.deterministicOrder)
+			bf.append(" order by ");
+
 		if(query.orderBy!=null)
 		{
-			bf.append(" order by ").
-				append(query.orderBy);
+			firstOrderBy = false;
+
+			bf.append(query.orderBy);
 			if(!query.orderAscending)
 				bf.append(" desc");
 		}
 		
+		if(query.deterministicOrder)
+		{
+			if(!firstOrderBy)
+				bf.append(',');
+
+			bf.append("abs(").
+				append(selectTable.protectedID).
+				append('.').
+				append(selectPrimaryKey.protectedID).
+				append("*4+1)");
+		}
+
 		//System.out.println("searching "+bf.toString());
 		try
 		{
