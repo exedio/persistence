@@ -114,7 +114,7 @@ public class ItemWithManyAttributes extends Item
 		super(new com.exedio.cope.lib.AttributeValue[]{
 			new com.exedio.cope.lib.AttributeValue(someNotNullString,initialSomeNotNullString),
 			new com.exedio.cope.lib.AttributeValue(someNotNullInteger,new Integer(initialSomeNotNullInteger)),
-			new com.exedio.cope.lib.AttributeValue(someNotNullBoolean,(initialSomeNotNullBoolean?Boolean.TRUE:Boolean.TRUE)),
+			new com.exedio.cope.lib.AttributeValue(someNotNullBoolean,(initialSomeNotNullBoolean?Boolean.TRUE:Boolean.FALSE)),
 		});
 		throwInitialNotNullViolationException();
 	}/**
@@ -299,7 +299,7 @@ public class ItemWithManyAttributes extends Item
 	{
 		try
 		{
-			setAttribute(this.someNotNullBoolean,(someNotNullBoolean?Boolean.TRUE:Boolean.TRUE));
+			setAttribute(this.someNotNullBoolean,(someNotNullBoolean?Boolean.TRUE:Boolean.FALSE));
 		}
 		catch(com.exedio.cope.lib.NotNullViolationException e)
 		{
