@@ -18,6 +18,15 @@ public abstract class AbstractLibTest extends TestCase
 	public AbstractLibTest()
 	{}
 	
+	final static Integer i1 = new Integer(1);
+	final static Integer i2 = new Integer(2);
+	final static Integer i3 = new Integer(3);
+	final static Integer i4 = new Integer(4);
+	final static Integer i5 = new Integer(5);
+	final static Integer i6 = new Integer(6);
+	final static Integer i7 = new Integer(7);
+	final static Integer i8 = new Integer(8);
+
 	protected void assertUnmodifiable(final Collection c)
 	{
 		try

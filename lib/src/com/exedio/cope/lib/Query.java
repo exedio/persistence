@@ -9,7 +9,7 @@ public class Query
 	final Type selectType;
 	final TreeSet fromTypes = new TreeSet(Type.COMPARATOR);
 	final Condition condition;
-	ObjectAttribute orderBy;
+	Function orderBy;
 	int start = 0;
 	int count = -1;
 	
@@ -36,7 +36,7 @@ public class Query
 		this.condition = condition;
 	}
 	
-	public void setOrderBy(final ObjectAttribute orderBy)
+	public void setOrderBy(final Function orderBy)
 	{
 		this.orderBy = orderBy;
 	}
