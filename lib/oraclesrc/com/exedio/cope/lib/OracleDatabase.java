@@ -442,10 +442,10 @@ final class OracleDatabase
 		if(root==null)
 			throw new RuntimeException();
 		
-		System.out.println("######################");
-		System.out.println(statement.getText());
-		root.print(System.out);
-		System.out.println("######################");
+		//System.out.println("######################");
+		//System.out.println(statement.getText());
+		//root.print(System.out);
+		//System.out.println("######################");
 		return root;
 	}
 	
