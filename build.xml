@@ -230,34 +230,7 @@
 		</javac>
 	</target>
 	
-	<target name="copernica.replacewebxml" depends="copernica.jspc, copernica.compile.jsp">
-		<loadfile
-			property="generated_web.xml"
-			srcFile="copernica/jsp/WEB-INF/generated_web.xml" />
-		<delete file="copernica/jsp/WEB-INF/web.xml" />
-		<copy
-			tofile="copernica/jsp/WEB-INF/web.xml"
-			file="copernica/jsp/WEB-INF/web.xml.template" />
-		<replace
-			file="copernica/jsp/WEB-INF/web.xml"
-			token="&lt;!--GENERATED_JSPS--&gt;"
-			value="${generated_web.xml}" />
-	</target>
-	
 	<target name="copernica.compile" depends="copernica.compile.classes, copernica.compile.jsp" />
-	
-	<target name="copernica.tomcat" depends="copernica.compile, copernica.replacewebxml">
-		<copy tofile="${basedir}/../tomcat/bin/cope.properties" file="cope.properties.hsql" />
-		<mkdir dir="${basedir}/../tomcat/bin/build/media" />
-		<copy todir="copernica/jsp/WEB-INF/classes">
-			<fileset dir="copernica/build/classes" />
-			<fileset dir="../persistence/lib/build/classes" />
-			<fileset dir="../sendmail/build/classes" />
-			<fileset dir="../demoshop/build/classes" />
-		</copy>
-		<copy todir="copernica/jsp/WEB-INF/lib" file="../lib/hsqldb.jar" />
-		<touch file="${basedir}/../tomcat/conf/Catalina/localhost/copernica.xml" />
-	</target>
 	
 	<target name="lib.clean">
 		<delete dir="lib/build" />
@@ -269,6 +242,8 @@
 
 	<target name="copernica.clean">
 		<delete dir="copernica/build" />
+		<delete dir="copernica/jsp/WEB-INF/src" />
+		<delete file="copernica/jsp/WEB-INF/generated_web.xml" />
 	</target>
 
 	<target name="clean" depends="lib.clean, instrument.clean, copernica.clean" />

@@ -35,7 +35,7 @@
 	}
 	
 %>
-		<form action="index.jsp" method="POST">
+		<form action="copernica.jsp" method="POST">
 			Database:
 			<br>
 			<input type="submit" name="CREATE" value="create" />
@@ -75,7 +75,7 @@
 								<%
 								final Type type = (Type)i.next();
 								%>
-								<a href="index.jsp?type=<%=type.getJavaClass().getName()%>">
+								<a href="copernica.jsp?type=<%=type.getJavaClass().getName()%>">
 									<%=type.getJavaClass().getName()%>
 								</a>
 							</td>
