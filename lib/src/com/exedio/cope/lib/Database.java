@@ -1015,7 +1015,7 @@ abstract class Database
 	 * This is usually done by enclosing the name with some (database specific) delimiters.
 	 * The default implementation uses double quotes as delimiter.
 	 */
-	protected String protectName(String name)
+	protected String protectName(final String name)
 	{
 		return '"' + name + '"';
 	}
