@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -1165,8 +1166,112 @@ abstract class Database
 		}
 	}
 	
-	abstract Report reportDatabase();
+	private final String getColumnType(final int dataType, final ResultSet resultSet)
+			throws SQLException
+	{
+		switch(dataType)
+		{
+			case Types.INTEGER:
+				return "integer";
+			case Types.BIGINT:
+				return "bigint";
+			case Types.DOUBLE:
+				return "double";
+			case Types.TIMESTAMP:
+				return "timestamp";
+			case Types.VARCHAR:
+				final int dataLength = resultSet.getInt("COLUMN_SIZE");
+				return "varchar("+dataLength+')';
+			default:
+				return null;
+		}
+	}
 
+	public Report reportDatabase()
+	{
+		final Report report = new Report(this, getTables());
+
+		{
+			final com.exedio.cope.lib.Statement bf = createStatement();
+			bf.append(GET_TABLES);
+			try
+			{
+				executeSQL(bf, new MetaDataTableHandler(report));
+			}
+			catch(ConstraintViolationException e)
+			{
+				throw new SystemException(e);
+			}
+		}
+		{
+			final com.exedio.cope.lib.Statement bf = createStatement();
+			bf.append(GET_COLUMNS);
+			try
+			{
+				executeSQL(bf, new MetaDataColumnHandler(report));
+			}
+			catch(ConstraintViolationException e)
+			{
+				throw new SystemException(e);
+			}
+		}
+		
+		report.finish();
+
+		return report;
+	}
+
+	private static class MetaDataTableHandler implements ResultSetHandler
+	{
+		private final Report report;
+
+		MetaDataTableHandler(final Report report)
+		{
+			this.report = report;
+		}
+
+		public void run(ResultSet resultSet) throws SQLException
+		{
+			while(resultSet.next())
+			{
+				final String tableName = resultSet.getString("TABLE_NAME");
+				final ReportTable table = report.notifyExistentTable(tableName);
+				//System.out.println("EXISTS:"+tableName);
+			}
+		}
+	}
+
+	private class MetaDataColumnHandler implements ResultSetHandler
+	{
+		private final Report report;
+
+		MetaDataColumnHandler(final Report report)
+		{
+			this.report = report;
+		}
+
+		public void run(ResultSet resultSet) throws SQLException
+		{
+			while(resultSet.next())
+			{
+				final String tableName = resultSet.getString("TABLE_NAME");
+				final String columnName = resultSet.getString("COLUMN_NAME");
+				final int dataType = resultSet.getInt("DATA_TYPE");
+				
+				final ReportTable table = report.getTable(tableName);
+				if(table!=null)
+				{
+					String columnType = getColumnType(dataType, resultSet);
+					if(columnType==null)
+						columnType = String.valueOf(dataType);
+
+					table.notifyExistentColumn(columnName, columnType);
+				}
+				//System.out.println("EXISTS:"+tableName);
+			}
+		}
+	}
+	
 	final void renameTable(final String oldTableName, final String newTableName)
 	{
 		final Statement bf = createStatement();
