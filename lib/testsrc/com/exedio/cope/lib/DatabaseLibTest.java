@@ -108,7 +108,7 @@ public abstract class DatabaseLibTest extends AbstractLibTest
 		{
 			throw new SystemException(e);
 		}
-		final String prefix = "/medias/com.exedio.cope.lib.ItemWithManyAttributes/someMedia/";
+		final String prefix = "/medias/ItemWithManyAttributes/someMedia/";
 		final String pkString = (item.pk>=0) ? String.valueOf(item.pk) : "m"+(-item.pk);
 		final String expectedURL = prefix+pkString+'.'+url;
 		final String expectedURLSomeVariant = prefix+"SomeVariant/"+pkString+'.'+url;

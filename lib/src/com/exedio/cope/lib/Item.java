@@ -277,7 +277,7 @@ public abstract class Item extends Search
 									final StringBuffer bf,
 									final String mimeMajor, final String mimeMinor)
 	{
-		bf.append(attribute.getType().getJavaClass().getName()).
+		bf.append(attribute.getType().trimmedName).
 			append('/').
 			append(attribute.getName());
 		

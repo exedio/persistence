@@ -846,7 +846,7 @@ public abstract class Database
 			{
 				if(typeDirectory==null)
 				{
-					typeDirectory = new File(directory, type.getJavaClass().getName());
+					typeDirectory = new File(directory, type.trimmedName);
 					typeDirectory.mkdir();
 				}
 				final File attributeDirectory = new File(typeDirectory, attribute.getName());

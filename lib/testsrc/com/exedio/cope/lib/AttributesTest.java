@@ -314,7 +314,7 @@ public class AttributesTest extends DatabaseLibTest
 		item.setSomeMediaData(new ByteArrayInputStream(bytes),"someMimeMajor", "someMimeMinor");
 
 		final String prefix =
-			"/medias/com.exedio.cope.lib.ItemWithManyAttributes/someMedia/";
+			"/medias/ItemWithManyAttributes/someMedia/";
 		final String pkString = (item.pk>=0) ? String.valueOf(item.pk) : "m"+(-item.pk);
 		final String expectedURL =
 			prefix + pkString + ".someMimeMajor.someMimeMinor";
