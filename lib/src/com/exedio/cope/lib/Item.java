@@ -1,7 +1,7 @@
 
 package persistence;
 
-public class Item
+public class Item extends Search
 {
 	
 	protected Item(final AttributeValue[] initialAttributesValues)
