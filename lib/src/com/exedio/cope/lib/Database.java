@@ -241,7 +241,16 @@ public abstract class Database
 	void store(final Row row)
 			throws UniqueViolationException
 	{
-		final Type type = row.type;
+		store(row, row.type);
+	}
+
+	private void store(final Row row, final Type type)
+			throws UniqueViolationException
+	{
+		final Type supertype = type.getSupertype();
+		if(supertype!=null)
+			store(row, supertype);
+
 		final List columns = type.getColumns();
 
 		final Statement bf = createStatement();
@@ -339,6 +348,10 @@ public abstract class Database
 		{
 			throw new SystemException(e);
 		}
+
+		final Type supertype = type.getSupertype();
+		if(supertype!=null)
+			delete(supertype, pk);
 	}
 
 	private static interface ResultSetHandler

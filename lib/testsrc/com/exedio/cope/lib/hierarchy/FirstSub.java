@@ -11,7 +11,14 @@ public class FirstSub extends Super
 	/**
 	 * @persistent
 	 */
-	public static final StringAttribute firstSubString = new StringAttribute(); 
+	public static final StringAttribute firstSubString = new StringAttribute();
+	
+	public FirstSub(final int initialSuperInt)
+	{
+		super(new com.exedio.cope.lib.AttributeValue[]{
+			new com.exedio.cope.lib.AttributeValue(superInt,new Integer(initialSuperInt)),
+		});
+	} 
 
 /**
 
