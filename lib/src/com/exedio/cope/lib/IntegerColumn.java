@@ -27,9 +27,9 @@ class IntegerColumn extends Column
 	/**
 	 * Creates a primary key column.
 	 */	
-	IntegerColumn(final Table type) // TODO: rename to table
+	IntegerColumn(final Table table) 
 	{
-		super(type, "PK", true, true, Database.theInstance.getIntegerType(ItemColumn.SYNTETIC_PRIMARY_KEY_PRECISION), JDBC_TYPE_INT);
+		super(table, "PK", true, true, Database.theInstance.getIntegerType(ItemColumn.SYNTETIC_PRIMARY_KEY_PRECISION), JDBC_TYPE_INT);
 		this.longInsteadOfInt = false;
 		this.allowedValues = null;
 		this.allowedValuesID = null;

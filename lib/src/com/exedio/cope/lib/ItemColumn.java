@@ -8,11 +8,11 @@ final class ItemColumn extends IntegerColumn
 	final Class targetTypeClass;
 	final String integrityConstraintName;
 
-	ItemColumn(final Table type, final String id, // TODO: rename to table
+	ItemColumn(final Table table, final String id,
 					  final boolean notNull,
 					  final Class targetTypeClass, final String integrityConstraintName)
 	{
-		super(type, id, notNull, SYNTETIC_PRIMARY_KEY_PRECISION, false, null);
+		super(table, id, notNull, SYNTETIC_PRIMARY_KEY_PRECISION, false, null);
 		if(targetTypeClass==null)
 			throw new RuntimeException();
 		if(integrityConstraintName==null)
