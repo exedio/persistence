@@ -263,23 +263,26 @@ page import="java.util.Map"
 								{
 									final StringAttribute stringAttribute = (StringAttribute)attribute;
 									final String attributeName = attribute.getName();
-									
-									final String value;
-									if(save)
+
+									if(attribute.isReadOnly())
 									{
-										value = request.getParameter(attributeName);
-										if(value==null)
-											throw new NullPointerException(attributeName);
-										item.setAttribute(stringAttribute, value);
+										%><b><%=(String)item.getAttribute(stringAttribute)%></b><%
 									}
 									else
-										value = (String)item.getAttribute(stringAttribute);
-									%>
-									<input
-										type="text"
-										name="<%=attribute.getName()%>"
-										value="<%=value%>" />
-									<%
+									{
+										final String value;
+										if(save)
+										{
+											value = request.getParameter(attributeName);
+											if(value==null)
+												throw new NullPointerException(attributeName);
+											item.setAttribute(stringAttribute, value);
+										}
+										else
+											value = (String)item.getAttribute(stringAttribute);
+
+										%><input type="text" name="<%=attribute.getName()%>" value="<%=value%>" /><%
+									}
 								}
 								else
 								{
