@@ -34,7 +34,7 @@ public final class Injector
 
 	private String doccomment = null;
 
-	private final JavaFile javafile = new JavaFile();
+	private final JavaFile javafile;
 
 	/**
 	 * Constructs a new java parser.
@@ -48,11 +48,13 @@ public final class Injector
 	 * listening to parsed elements of the input stream.
 	 * @see InjectionConsumer
 	 */
-	public Injector(Reader input, Writer output, InjectionConsumer consumer)
+	public Injector(final Reader input, final Writer output,
+								final InjectionConsumer consumer, final JavaRepository repository)
 	{
 		this.input = input;
 		this.output = output;
 		this.consumer = consumer;
+		this.javafile = new JavaFile(repository);
 	}
 
 	private char outbuf;

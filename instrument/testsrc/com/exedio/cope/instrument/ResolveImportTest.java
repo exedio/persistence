@@ -16,7 +16,9 @@ public class ResolveImportTest extends InstrumentorTest
 	
 	public void testImports() throws InjectorParseException
 	{
-		final JavaFile file = new JavaFile();
+		final JavaRepository repository = new JavaRepository();
+		final JavaFile file = new JavaFile(repository);
+		assertEquals(list(file), repository.getFiles());
 		file.setPackage("com.exedio.cope.instrument.findtype");
 		
 		file.addImport("com.exedio.cope.instrument.findtype.subfindtype.*");

@@ -18,7 +18,7 @@ import java.util.Iterator;
 public class Main
 {
 	
-	public static void inject(File inputfile, File outputfile)
+	public static void inject(final File inputfile, final File outputfile, final JavaRepository repository)
 	throws IOException, InjectorParseException
 	{
 		//System.out.println("injecting from "+inputfile+" to "+outputfile);
@@ -37,7 +37,7 @@ public class Main
 		{
 			input =new InputStreamReader(new FileInputStream(inputfile));
 			output=new OutputStreamWriter(new FileOutputStream(outputfile));
-			(new Injector(input, output, new Instrumentor())).parseFile();
+			(new Injector(input, output, new Instrumentor(), repository)).parseFile();
 			input.close();
 			output.close();
 		}
@@ -60,11 +60,11 @@ public class Main
 	
 	private static final String TEMPFILE_SUFFIX=".temp_cope_injection";
 	
-	public static void inject(File tobemodifiedfile)
+	public static void inject(final File tobemodifiedfile, final JavaRepository repository)
 	throws IOException, InjectorParseException
 	{
 		File outputfile=new File(tobemodifiedfile.getPath()+TEMPFILE_SUFFIX);
-		inject(tobemodifiedfile, outputfile);
+		inject(tobemodifiedfile, outputfile, repository);
 		if(!tobemodifiedfile.delete())
 			System.out.println("warning: deleting "+tobemodifiedfile+" failed.");
 		if(!outputfile.renameTo(tobemodifiedfile))
@@ -162,13 +162,15 @@ public class Main
 			if(sourcefiles.isEmpty())
 				throw new IllegalParameterException("nothing to do.");
 			
+			final JavaRepository repository = new JavaRepository();
+			
 			for(Iterator i=sourcefiles.iterator(); i.hasNext(); )
 			{
 				String s=(String)i.next();
 				if(modify)
-					inject(new File(s));
+					inject(new File(s), repository);
 				else
-					inject(new File(s), new File(s+".injected"));
+					inject(new File(s), new File(s+".injected"), repository);
 			}
 		}
 		catch(IllegalParameterException e)
