@@ -93,6 +93,7 @@ public abstract class Database
 		
 		public Statement append(Attribute attribute)
 		{
+			// TODO: use some kind of recursion instead
 			ArrayList mappingEnds = null;
 			while(attribute.mapping!=null)
 			{
@@ -151,6 +152,7 @@ public abstract class Database
 		final List attributes = type.getAttributes();
 
 		// TODO: use prepared statements and reuse the statement.
+		// TODO: use Statement class
 		final StringBuffer bf = new StringBuffer();
 		bf.append("select ");
 
@@ -188,6 +190,7 @@ public abstract class Database
 		final List attributes = type.getAttributes();
 
 		// TODO: use prepared statements and reuse the statement.
+		// TODO: use Statement class
 		final StringBuffer bf = new StringBuffer();
 		if(present)
 		{
@@ -394,6 +397,7 @@ public abstract class Database
 	
 	private String getCreateTableStatement(final Type type)
 	{
+		// TODO: use Statement class
 		final StringBuffer bf = new StringBuffer();
 		bf.append("create table ").
 			append(type.getPersistentQualifier()).
@@ -419,6 +423,7 @@ public abstract class Database
 	
 	private String getDropTableStatement(final Type type)
 	{
+		// TODO: use Statement class
 		final StringBuffer bf = new StringBuffer();
 		bf.append("drop table ").
 			append(type.getPersistentQualifier());
