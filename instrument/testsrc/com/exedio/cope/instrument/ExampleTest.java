@@ -1,6 +1,8 @@
 
 package com.exedio.cope.instrument;
 
+import java.lang.reflect.Modifier;
+
 public class ExampleTest extends InjectorTest
 {
 
@@ -36,29 +38,29 @@ public class ExampleTest extends InjectorTest
 		assertClass("Example");
 		assertText(" implements Runnable\n{\n  ");
 
-		assertAttributeHeader("name");
+		assertAttributeHeader("name", "String", Modifier.PRIVATE);
 		assertText("private String name;");
 		assertAttribute("name", null);
 		assertText("\n  ");
 
-		assertAttributeHeader("type");
+		assertAttributeHeader("type", "Integer", Modifier.PRIVATE);
 		assertText("private Integer type=new Integer(5);");
 		assertAttribute("type", null);
 		assertText("\n  ");
 
-		assertAttributeHeader("qualifiers");
+		assertAttributeHeader("qualifiers", "Integer[]", Modifier.PRIVATE|Modifier.VOLATILE);
 		assertText("private volatile Integer[] qualifiers;");
 		assertAttribute("qualifiers", null);
 		assertText("\n  ");
 
-		assertAttributeHeader("hallo");
+		assertAttributeHeader("hallo", "String", 0);
 		assertText("String hallo=\"hallo\";");
 		assertAttribute("hallo", null);
 		assertText("\n  \n  ");
 
 		assertDocComment("/**TestCommentCommaSeparated123*/");
 		assertText("\n  ");
-		assertAttributeHeader("commaSeparated1");
+		assertAttributeHeader("commaSeparated1", "int", 0);
 		//assertText("int commaSeparated1,commaSeparated2=0,commaSeparated3;"); TODO: where is the text of these attributes?
 		assertAttribute("commaSeparated1", "/**TestCommentCommaSeparated123*/");
 		assertAttribute("commaSeparated2", "/**TestCommentCommaSeparated123*/");
@@ -67,7 +69,7 @@ public class ExampleTest extends InjectorTest
 
 		assertDocComment("/**TestCommentCommaSeparated456*/");
 		assertText("\n  ");
-		assertAttributeHeader("commaSeparated4");
+		assertAttributeHeader("commaSeparated4", "int", 0);
 		assertAttribute("commaSeparated4", "/**TestCommentCommaSeparated456*/");
 		assertAttribute("commaSeparated5", "/**TestCommentCommaSeparated456*/");
 		assertAttribute("commaSeparated6", "/**TestCommentCommaSeparated456*/");

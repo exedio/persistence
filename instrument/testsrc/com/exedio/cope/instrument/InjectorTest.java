@@ -94,11 +94,13 @@ public abstract class InjectorTest extends TestCase
 		assertEquals(className, javaClass.getName());
 	}
 	
-	protected void assertAttributeHeader(final String attributeName)
+	protected void assertAttributeHeader(final String name, final String type, final int modifier)
 	{
 		final InjectionEvent event = fetchEvent();
 		final JavaAttribute javaAttribute = ((AttributeHeaderEvent)event).javaAttribute;
-		assertEquals(attributeName, javaAttribute.getName());
+		assertEquals(name, javaAttribute.getName());
+		assertEquals(type, javaAttribute.getType());
+		assertEquals(modifier, javaAttribute.getModifiers());
 	}
 	
 	protected void assertAttribute(final String featureName, final String docComment)
