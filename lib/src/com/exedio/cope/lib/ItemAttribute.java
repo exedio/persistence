@@ -30,9 +30,9 @@ public final class ItemAttribute extends Attribute
 		super(option);
 		this.targetTypeClass = targetTypeClass;
 		if(targetTypeClass==null)
-			throw new NullPointerException("target type class for attribute "+this+" must not be null");
+			throw new InitializerRuntimeException("target type class for attribute "+this+" must not be null");
 		if(!Item.class.isAssignableFrom(targetTypeClass))
-			throw new NullPointerException("target type class "+targetTypeClass+" for attribute "+this+" must be a sub class of item");
+			throw new InitializerRuntimeException("target type class "+targetTypeClass+" for attribute "+this+" must be a sub class of item");
 	}
 
 	/**
@@ -50,7 +50,7 @@ public final class ItemAttribute extends Attribute
 	{
 		final String integrityConstraintName = Database.theInstance.trimName(getType().trimmedName+"_"+name+"Fk");
 		if(itemAttributesByIntegrityConstraintName.put(integrityConstraintName, this)!=null)
-			throw new RuntimeException("there is more than one integrity constraint with name "+integrityConstraintName);
+			throw new InitializerRuntimeException("there is more than one integrity constraint with name "+integrityConstraintName);
 		return Collections.singletonList(new ItemColumn(getType(), name, notNull, targetTypeClass, integrityConstraintName));
 	}
 	

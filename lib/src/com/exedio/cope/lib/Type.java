@@ -144,7 +144,7 @@ public final class Type
 		}
 		catch(NoSuchMethodException e)
 		{
-			throw new SystemException(e);
+			throw new InitializerRuntimeException(e);
 		}
 	}
 	

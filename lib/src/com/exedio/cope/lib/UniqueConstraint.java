@@ -61,7 +61,7 @@ public final class UniqueConstraint
 
 		final Object collision = uniqueConstraintsByName.put(trimmedName, this);
 		if(collision!=null)
-			throw new SystemException(null, "ambiguous unique constraint "+this+" trimmed to >"+this.trimmedName+"< colliding with "+collision);
+			throw new InitializerRuntimeException(null, "ambiguous unique constraint "+this+" trimmed to >"+this.trimmedName+"< colliding with "+collision);
 	}
 	
 	final String getTrimmedName()

@@ -47,17 +47,17 @@ public final class EnumerationAttribute extends Attribute
 						{
 							final Field numField = enumerationClass.getDeclaredField(numName);
 							if((numField.getModifiers()&Modifier.STATIC)==0)
-								throw new RuntimeException("field "+enumerationClass.getName()+"#"+numName+" must be static");
+								throw new InitializerRuntimeException("field "+enumerationClass.getName()+"#"+numName+" must be static");
 							if((numField.getModifiers()&Modifier.FINAL)==0)
-								throw new RuntimeException("field "+enumerationClass.getName()+"#"+numName+" must be final");
+								throw new InitializerRuntimeException("field "+enumerationClass.getName()+"#"+numName+" must be final");
 							if(numField.getType()!=int.class)
-								throw new RuntimeException("field "+enumerationClass.getName()+"#"+numName+" must have type int, but has "+numField.getClass());
+								throw new InitializerRuntimeException("field "+enumerationClass.getName()+"#"+numName+" must have type int, but has "+numField.getClass());
 							
 							num = ((Integer)numField.get(null)).intValue();
 						}
 						catch(NoSuchFieldException e)
 						{
-							throw new RuntimeException("no such field "+enumerationClass.getName()+"#"+numName);
+							throw new InitializerRuntimeException("no such field "+enumerationClass.getName()+"#"+numName);
 						}
 						value.initialize(enumerationClass, name, num);
 					}
