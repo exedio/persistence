@@ -171,7 +171,7 @@ public class ItemWithManyAttributes extends Item
 	 *
  */public final String getSomeString()
 	{
-		return (String)getAttribute(this.someString);
+		return (String)getAttribute(ItemWithManyAttributes.someString);
 	}/**
 
 	 **
@@ -182,7 +182,7 @@ public class ItemWithManyAttributes extends Item
 	{
 		try
 		{
-			setAttribute(this.someString,someString);
+			setAttribute(ItemWithManyAttributes.someString,someString);
 		}
 		catch(com.exedio.cope.lib.LengthViolationException e)
 		{
@@ -208,7 +208,7 @@ public class ItemWithManyAttributes extends Item
 	 *
  */public final String getSomeStringUpperCase()
 	{
-		return (String)getAttribute(this.someStringUpperCase);
+		return (String)getAttribute(ItemWithManyAttributes.someStringUpperCase);
 	}/**
 
 	 **
@@ -217,7 +217,7 @@ public class ItemWithManyAttributes extends Item
 	 *
  */public final String getSomeNotNullString()
 	{
-		return (String)getAttribute(this.someNotNullString);
+		return (String)getAttribute(ItemWithManyAttributes.someNotNullString);
 	}/**
 
 	 **
@@ -230,7 +230,7 @@ public class ItemWithManyAttributes extends Item
 	{
 		try
 		{
-			setAttribute(this.someNotNullString,someNotNullString);
+			setAttribute(ItemWithManyAttributes.someNotNullString,someNotNullString);
 		}
 		catch(com.exedio.cope.lib.LengthViolationException e)
 		{
@@ -252,7 +252,7 @@ public class ItemWithManyAttributes extends Item
 	 *
  */public final Integer getSomeInteger()
 	{
-		return (Integer)getAttribute(this.someInteger);
+		return (Integer)getAttribute(ItemWithManyAttributes.someInteger);
 	}/**
 
 	 **
@@ -263,7 +263,7 @@ public class ItemWithManyAttributes extends Item
 	{
 		try
 		{
-			setAttribute(this.someInteger,someInteger);
+			setAttribute(ItemWithManyAttributes.someInteger,someInteger);
 		}
 		catch(com.exedio.cope.lib.LengthViolationException e)
 		{
@@ -289,7 +289,7 @@ public class ItemWithManyAttributes extends Item
 	 *
  */public final int getSomeNotNullInteger()
 	{
-		return ((Integer)getAttribute(this.someNotNullInteger)).intValue();
+		return ((Integer)getAttribute(ItemWithManyAttributes.someNotNullInteger)).intValue();
 	}/**
 
 	 **
@@ -300,7 +300,7 @@ public class ItemWithManyAttributes extends Item
 	{
 		try
 		{
-			setAttribute(this.someNotNullInteger,new Integer(someNotNullInteger));
+			setAttribute(ItemWithManyAttributes.someNotNullInteger,new Integer(someNotNullInteger));
 		}
 		catch(com.exedio.cope.lib.LengthViolationException e)
 		{
@@ -326,7 +326,7 @@ public class ItemWithManyAttributes extends Item
 	 *
  */public final Long getSomeLong()
 	{
-		return (Long)getAttribute(this.someLong);
+		return (Long)getAttribute(ItemWithManyAttributes.someLong);
 	}/**
 
 	 **
@@ -337,7 +337,7 @@ public class ItemWithManyAttributes extends Item
 	{
 		try
 		{
-			setAttribute(this.someLong,someLong);
+			setAttribute(ItemWithManyAttributes.someLong,someLong);
 		}
 		catch(com.exedio.cope.lib.LengthViolationException e)
 		{
@@ -363,7 +363,7 @@ public class ItemWithManyAttributes extends Item
 	 *
  */public final long getSomeNotNullLong()
 	{
-		return ((Long)getAttribute(this.someNotNullLong)).longValue();
+		return ((Long)getAttribute(ItemWithManyAttributes.someNotNullLong)).longValue();
 	}/**
 
 	 **
@@ -374,7 +374,7 @@ public class ItemWithManyAttributes extends Item
 	{
 		try
 		{
-			setAttribute(this.someNotNullLong,new Long(someNotNullLong));
+			setAttribute(ItemWithManyAttributes.someNotNullLong,new Long(someNotNullLong));
 		}
 		catch(com.exedio.cope.lib.LengthViolationException e)
 		{
@@ -400,7 +400,7 @@ public class ItemWithManyAttributes extends Item
 	 *
  */public final Double getSomeDouble()
 	{
-		return (Double)getAttribute(this.someDouble);
+		return (Double)getAttribute(ItemWithManyAttributes.someDouble);
 	}/**
 
 	 **
@@ -411,7 +411,7 @@ public class ItemWithManyAttributes extends Item
 	{
 		try
 		{
-			setAttribute(this.someDouble,someDouble);
+			setAttribute(ItemWithManyAttributes.someDouble,someDouble);
 		}
 		catch(com.exedio.cope.lib.LengthViolationException e)
 		{
@@ -437,7 +437,7 @@ public class ItemWithManyAttributes extends Item
 	 *
  */public final double getSomeNotNullDouble()
 	{
-		return ((Double)getAttribute(this.someNotNullDouble)).doubleValue();
+		return ((Double)getAttribute(ItemWithManyAttributes.someNotNullDouble)).doubleValue();
 	}/**
 
 	 **
@@ -448,7 +448,7 @@ public class ItemWithManyAttributes extends Item
 	{
 		try
 		{
-			setAttribute(this.someNotNullDouble,new Double(someNotNullDouble));
+			setAttribute(ItemWithManyAttributes.someNotNullDouble,new Double(someNotNullDouble));
 		}
 		catch(com.exedio.cope.lib.LengthViolationException e)
 		{
@@ -474,7 +474,7 @@ public class ItemWithManyAttributes extends Item
 	 *
  */public final Boolean getSomeBoolean()
 	{
-		return (Boolean)getAttribute(this.someBoolean);
+		return (Boolean)getAttribute(ItemWithManyAttributes.someBoolean);
 	}/**
 
 	 **
@@ -485,7 +485,7 @@ public class ItemWithManyAttributes extends Item
 	{
 		try
 		{
-			setAttribute(this.someBoolean,someBoolean);
+			setAttribute(ItemWithManyAttributes.someBoolean,someBoolean);
 		}
 		catch(com.exedio.cope.lib.LengthViolationException e)
 		{
@@ -511,7 +511,7 @@ public class ItemWithManyAttributes extends Item
 	 *
  */public final boolean getSomeNotNullBoolean()
 	{
-		return ((Boolean)getAttribute(this.someNotNullBoolean)).booleanValue();
+		return ((Boolean)getAttribute(ItemWithManyAttributes.someNotNullBoolean)).booleanValue();
 	}/**
 
 	 **
@@ -522,7 +522,7 @@ public class ItemWithManyAttributes extends Item
 	{
 		try
 		{
-			setAttribute(this.someNotNullBoolean,(someNotNullBoolean?Boolean.TRUE:Boolean.FALSE));
+			setAttribute(ItemWithManyAttributes.someNotNullBoolean,(someNotNullBoolean?Boolean.TRUE:Boolean.FALSE));
 		}
 		catch(com.exedio.cope.lib.LengthViolationException e)
 		{
@@ -548,7 +548,7 @@ public class ItemWithManyAttributes extends Item
 	 *
  */public final EmptyItem getSomeItem()
 	{
-		return (EmptyItem)getAttribute(this.someItem);
+		return (EmptyItem)getAttribute(ItemWithManyAttributes.someItem);
 	}/**
 
 	 **
@@ -559,7 +559,7 @@ public class ItemWithManyAttributes extends Item
 	{
 		try
 		{
-			setAttribute(this.someItem,someItem);
+			setAttribute(ItemWithManyAttributes.someItem,someItem);
 		}
 		catch(com.exedio.cope.lib.LengthViolationException e)
 		{
@@ -585,7 +585,7 @@ public class ItemWithManyAttributes extends Item
 	 *
  */public final EmptyItem getSomeNotNullItem()
 	{
-		return (EmptyItem)getAttribute(this.someNotNullItem);
+		return (EmptyItem)getAttribute(ItemWithManyAttributes.someNotNullItem);
 	}/**
 
 	 **
@@ -598,7 +598,7 @@ public class ItemWithManyAttributes extends Item
 	{
 		try
 		{
-			setAttribute(this.someNotNullItem,someNotNullItem);
+			setAttribute(ItemWithManyAttributes.someNotNullItem,someNotNullItem);
 		}
 		catch(com.exedio.cope.lib.LengthViolationException e)
 		{
@@ -620,7 +620,7 @@ public class ItemWithManyAttributes extends Item
 	 *
  */public final SomeEnumeration getSomeEnumeration()
 	{
-		return (SomeEnumeration)getAttribute(this.someEnumeration);
+		return (SomeEnumeration)getAttribute(ItemWithManyAttributes.someEnumeration);
 	}/**
 
 	 **
@@ -631,7 +631,7 @@ public class ItemWithManyAttributes extends Item
 	{
 		try
 		{
-			setAttribute(this.someEnumeration,someEnumeration);
+			setAttribute(ItemWithManyAttributes.someEnumeration,someEnumeration);
 		}
 		catch(com.exedio.cope.lib.LengthViolationException e)
 		{
@@ -657,7 +657,7 @@ public class ItemWithManyAttributes extends Item
 	 *
  */public final SomeEnumeration getSomeNotNullEnumeration()
 	{
-		return (SomeEnumeration)getAttribute(this.someNotNullEnumeration);
+		return (SomeEnumeration)getAttribute(ItemWithManyAttributes.someNotNullEnumeration);
 	}/**
 
 	 **
@@ -670,7 +670,7 @@ public class ItemWithManyAttributes extends Item
 	{
 		try
 		{
-			setAttribute(this.someNotNullEnumeration,someNotNullEnumeration);
+			setAttribute(ItemWithManyAttributes.someNotNullEnumeration,someNotNullEnumeration);
 		}
 		catch(com.exedio.cope.lib.LengthViolationException e)
 		{
@@ -692,7 +692,7 @@ public class ItemWithManyAttributes extends Item
 	 *
  */public final java.lang.String getSomeMediaURL()
 	{
-		return getMediaURL(this.someMedia);
+		return getMediaURL(ItemWithManyAttributes.someMedia);
 	}/**
 
 	 **
@@ -701,7 +701,7 @@ public class ItemWithManyAttributes extends Item
 	 *
  */public final java.lang.String getSomeMediaURLSomeVariant()
 	{
-		return getMediaURL(this.SomeVariant);
+		return getMediaURL(ItemWithManyAttributes.SomeVariant);
 	}/**
 
 	 **
@@ -710,7 +710,7 @@ public class ItemWithManyAttributes extends Item
 	 *
  */public final java.lang.String getSomeMediaMimeMajor()
 	{
-		return getMediaMimeMajor(this.someMedia);
+		return getMediaMimeMajor(ItemWithManyAttributes.someMedia);
 	}/**
 
 	 **
@@ -719,7 +719,7 @@ public class ItemWithManyAttributes extends Item
 	 *
  */public final java.lang.String getSomeMediaMimeMinor()
 	{
-		return getMediaMimeMinor(this.someMedia);
+		return getMediaMimeMinor(ItemWithManyAttributes.someMedia);
 	}/**
 
 	 **
@@ -728,7 +728,7 @@ public class ItemWithManyAttributes extends Item
 	 *
  */public final java.io.InputStream getSomeMediaData()
 	{
-		return getMediaData(this.someMedia);
+		return getMediaData(ItemWithManyAttributes.someMedia);
 	}/**
 
 	 **
@@ -739,7 +739,7 @@ public class ItemWithManyAttributes extends Item
 	{
 		try
 		{
-			setMediaData(this.someMedia,data,mimeMajor,mimeMinor);
+			setMediaData(ItemWithManyAttributes.someMedia,data,mimeMajor,mimeMinor);
 		}
 		catch(com.exedio.cope.lib.NotNullViolationException e)
 		{
@@ -753,7 +753,7 @@ public class ItemWithManyAttributes extends Item
 	 *
  */public final String getSomeQualifiedString(final EmptyItem emptyItem)
 	{
-		return (String)getAttribute(this.someQualifiedString);
+		return (String)getAttribute(ItemWithManyAttributes.someQualifiedString);
 	}/**
 
 	 **
@@ -764,7 +764,7 @@ public class ItemWithManyAttributes extends Item
 	{
 		try
 		{
-			setAttribute(this.someQualifiedString,someQualifiedString);
+			setAttribute(ItemWithManyAttributes.someQualifiedString,someQualifiedString);
 		}
 		catch(com.exedio.cope.lib.LengthViolationException e)
 		{

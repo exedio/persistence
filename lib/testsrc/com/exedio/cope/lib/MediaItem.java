@@ -46,7 +46,7 @@ public class MediaItem extends Item
 	 *
  */final java.lang.String getFileURL()
 	{
-		return getMediaURL(this.file);
+		return getMediaURL(MediaItem.file);
 	}/**
 
 	 **
@@ -55,7 +55,7 @@ public class MediaItem extends Item
 	 *
  */final java.lang.String getFileMimeMajor()
 	{
-		return getMediaMimeMajor(this.file);
+		return getMediaMimeMajor(MediaItem.file);
 	}/**
 
 	 **
@@ -64,7 +64,7 @@ public class MediaItem extends Item
 	 *
  */final java.lang.String getFileMimeMinor()
 	{
-		return getMediaMimeMinor(this.file);
+		return getMediaMimeMinor(MediaItem.file);
 	}/**
 
 	 **
@@ -73,7 +73,7 @@ public class MediaItem extends Item
 	 *
  */final java.io.InputStream getFileData()
 	{
-		return getMediaData(this.file);
+		return getMediaData(MediaItem.file);
 	}/**
 
 	 **
@@ -84,7 +84,7 @@ public class MediaItem extends Item
 	{
 		try
 		{
-			setMediaData(this.file,data,mimeMajor,mimeMinor);
+			setMediaData(MediaItem.file,data,mimeMajor,mimeMinor);
 		}
 		catch(com.exedio.cope.lib.NotNullViolationException e)
 		{
@@ -98,7 +98,7 @@ public class MediaItem extends Item
 	 *
  */final java.lang.String getImageURL()
 	{
-		return getMediaURL(this.image);
+		return getMediaURL(MediaItem.image);
 	}/**
 
 	 **
@@ -107,7 +107,7 @@ public class MediaItem extends Item
 	 *
  */final java.lang.String getImageURLBB240()
 	{
-		return getMediaURL(this.imageBB240);
+		return getMediaURL(MediaItem.imageBB240);
 	}/**
 
 	 **
@@ -116,7 +116,7 @@ public class MediaItem extends Item
 	 *
  */final java.lang.String getImageMimeMajor()
 	{
-		return getMediaMimeMajor(this.image);
+		return getMediaMimeMajor(MediaItem.image);
 	}/**
 
 	 **
@@ -125,7 +125,7 @@ public class MediaItem extends Item
 	 *
  */final java.lang.String getImageMimeMinor()
 	{
-		return getMediaMimeMinor(this.image);
+		return getMediaMimeMinor(MediaItem.image);
 	}/**
 
 	 **
@@ -134,7 +134,7 @@ public class MediaItem extends Item
 	 *
  */final java.io.InputStream getImageData()
 	{
-		return getMediaData(this.image);
+		return getMediaData(MediaItem.image);
 	}/**
 
 	 **
@@ -145,7 +145,7 @@ public class MediaItem extends Item
 	{
 		try
 		{
-			setMediaData(this.image,data,null,mimeMinor);
+			setMediaData(MediaItem.image,data,null,mimeMinor);
 		}
 		catch(com.exedio.cope.lib.NotNullViolationException e)
 		{
@@ -159,7 +159,7 @@ public class MediaItem extends Item
 	 *
  */final java.lang.String getPhotoURL()
 	{
-		return getMediaURL(this.photo);
+		return getMediaURL(MediaItem.photo);
 	}/**
 
 	 **
@@ -168,7 +168,7 @@ public class MediaItem extends Item
 	 *
  */final java.lang.String getPhotoURLBB65()
 	{
-		return getMediaURL(this.photoBB65);
+		return getMediaURL(MediaItem.photoBB65);
 	}/**
 
 	 **
@@ -177,7 +177,7 @@ public class MediaItem extends Item
 	 *
  */final java.lang.String getPhotoURLProgressive()
 	{
-		return getMediaURL(this.photoProgressive);
+		return getMediaURL(MediaItem.photoProgressive);
 	}/**
 
 	 **
@@ -186,7 +186,7 @@ public class MediaItem extends Item
 	 *
  */final java.lang.String getPhotoMimeMajor()
 	{
-		return getMediaMimeMajor(this.photo);
+		return getMediaMimeMajor(MediaItem.photo);
 	}/**
 
 	 **
@@ -195,7 +195,7 @@ public class MediaItem extends Item
 	 *
  */final java.lang.String getPhotoMimeMinor()
 	{
-		return getMediaMimeMinor(this.photo);
+		return getMediaMimeMinor(MediaItem.photo);
 	}/**
 
 	 **
@@ -204,7 +204,7 @@ public class MediaItem extends Item
 	 *
  */final java.io.InputStream getPhotoData()
 	{
-		return getMediaData(this.photo);
+		return getMediaData(MediaItem.photo);
 	}/**
 
 	 **
@@ -215,7 +215,7 @@ public class MediaItem extends Item
 	{
 		try
 		{
-			setMediaData(this.photo,data,null,null);
+			setMediaData(MediaItem.photo,data,null,null);
 		}
 		catch(com.exedio.cope.lib.NotNullViolationException e)
 		{

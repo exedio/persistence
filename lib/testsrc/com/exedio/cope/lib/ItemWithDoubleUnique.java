@@ -55,7 +55,7 @@ public class ItemWithDoubleUnique extends Item
 	 *
  */final String getString()
 	{
-		return (String)getAttribute(this.string);
+		return (String)getAttribute(ItemWithDoubleUnique.string);
 	}/**
 
 	 **
@@ -69,7 +69,7 @@ public class ItemWithDoubleUnique extends Item
 	{
 		try
 		{
-			setAttribute(this.string,string);
+			setAttribute(ItemWithDoubleUnique.string,string);
 		}
 		catch(com.exedio.cope.lib.LengthViolationException e)
 		{
@@ -87,7 +87,7 @@ public class ItemWithDoubleUnique extends Item
 	 *
  */public final int getInteger()
 	{
-		return ((Integer)getAttribute(this.integer)).intValue();
+		return ((Integer)getAttribute(ItemWithDoubleUnique.integer)).intValue();
 	}/**
 
 	 **
@@ -100,7 +100,7 @@ public class ItemWithDoubleUnique extends Item
 	{
 		try
 		{
-			setAttribute(this.integer,new Integer(integer));
+			setAttribute(ItemWithDoubleUnique.integer,new Integer(integer));
 		}
 		catch(com.exedio.cope.lib.LengthViolationException e)
 		{

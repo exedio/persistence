@@ -41,7 +41,7 @@ public class QualifiedItem extends Item
 	 *
  */final Integer getNumber()
 	{
-		return (Integer)getAttribute(this.number);
+		return (Integer)getAttribute(QualifiedItem.number);
 	}/**
 
 	 **
@@ -52,7 +52,7 @@ public class QualifiedItem extends Item
 	{
 		try
 		{
-			setAttribute(this.number,number);
+			setAttribute(QualifiedItem.number,number);
 		}
 		catch(com.exedio.cope.lib.LengthViolationException e)
 		{

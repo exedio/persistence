@@ -392,7 +392,9 @@ final class Generator
 		o.write(lineSeparator);
 		o.write("\t\treturn getMedia");
 		o.write(part);
-		o.write("(this.");
+		o.write('(');
+		o.write(mediaAttribute.persistentClass.getName());
+		o.write('.');
 		if(variant!=null)
 			o.write(variant.name);
 		else
@@ -473,7 +475,9 @@ final class Generator
 				o.write(lineSeparator);
 				o.write('\t');
 			}
-			o.write("\t\tsetMediaData(this.");
+			o.write("\t\tsetMediaData(");
+			o.write(mediaAttribute.persistentClass.getName());
+			o.write('.');
 			o.write(mediaAttribute.getName());
 			o.write(",data");
 			o.write(mimeMajor==null ? ",mimeMajor" : ",null");
@@ -675,7 +679,9 @@ final class Generator
 			o.write(attribute.getUnBoxingPrefix());
 		o.write('(');
 		o.write(attribute.getPersistentType());
-		o.write(")getAttribute(this.");
+		o.write(")getAttribute(");
+		o.write(attribute.persistentClass.getName());
+		o.write('.');
 		o.write(attribute.getName());
 		o.write(')');
 		if(attribute.isBoxed())
@@ -703,7 +709,9 @@ final class Generator
 			o.write(lineSeparator);
 			o.write('\t');
 		}
-		o.write("\t\tsetAttribute(this.");
+		o.write("\t\tsetAttribute(");
+		o.write(attribute.persistentClass.getName());
+		o.write('.');
 		o.write(attribute.getName());
 		o.write(',');
 		if(attribute.isBoxed())

@@ -52,7 +52,7 @@ public abstract class Super extends Item
 	 *
  */public final int getSuperInt()
 	{
-		return ((Integer)getAttribute(this.superInt)).intValue();
+		return ((Integer)getAttribute(Super.superInt)).intValue();
 	}/**
 
 	 **
@@ -63,7 +63,7 @@ public abstract class Super extends Item
 	{
 		try
 		{
-			setAttribute(this.superInt,new Integer(superInt));
+			setAttribute(Super.superInt,new Integer(superInt));
 		}
 		catch(com.exedio.cope.lib.LengthViolationException e)
 		{

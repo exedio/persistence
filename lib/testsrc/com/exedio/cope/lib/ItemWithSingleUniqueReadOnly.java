@@ -47,7 +47,7 @@ public class ItemWithSingleUniqueReadOnly extends Item
 	 *
  */public final String getUniqueReadOnlyString()
 	{
-		return (String)getAttribute(this.uniqueReadOnlyString);
+		return (String)getAttribute(ItemWithSingleUniqueReadOnly.uniqueReadOnlyString);
 	}/**
 
 	 **

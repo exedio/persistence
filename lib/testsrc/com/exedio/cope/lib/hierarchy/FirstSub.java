@@ -46,7 +46,7 @@ public class FirstSub extends Super
 	 *
  */public final String getFirstSubString()
 	{
-		return (String)getAttribute(this.firstSubString);
+		return (String)getAttribute(FirstSub.firstSubString);
 	}/**
 
 	 **
@@ -57,7 +57,7 @@ public class FirstSub extends Super
 	{
 		try
 		{
-			setAttribute(this.firstSubString,firstSubString);
+			setAttribute(FirstSub.firstSubString,firstSubString);
 		}
 		catch(com.exedio.cope.lib.LengthViolationException e)
 		{

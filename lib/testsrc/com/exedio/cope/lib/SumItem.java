@@ -60,7 +60,7 @@ public class SumItem extends Item
 	 *
  */final Integer getNum1()
 	{
-		return (Integer)getAttribute(this.num1);
+		return (Integer)getAttribute(SumItem.num1);
 	}/**
 
 	 **
@@ -71,7 +71,7 @@ public class SumItem extends Item
 	{
 		try
 		{
-			setAttribute(this.num1,num1);
+			setAttribute(SumItem.num1,num1);
 		}
 		catch(com.exedio.cope.lib.LengthViolationException e)
 		{
@@ -97,7 +97,7 @@ public class SumItem extends Item
 	 *
  */final Integer getNum2()
 	{
-		return (Integer)getAttribute(this.num2);
+		return (Integer)getAttribute(SumItem.num2);
 	}/**
 
 	 **
@@ -108,7 +108,7 @@ public class SumItem extends Item
 	{
 		try
 		{
-			setAttribute(this.num2,num2);
+			setAttribute(SumItem.num2,num2);
 		}
 		catch(com.exedio.cope.lib.LengthViolationException e)
 		{
@@ -134,7 +134,7 @@ public class SumItem extends Item
 	 *
  */final Integer getNum3()
 	{
-		return (Integer)getAttribute(this.num3);
+		return (Integer)getAttribute(SumItem.num3);
 	}/**
 
 	 **
@@ -145,7 +145,7 @@ public class SumItem extends Item
 	{
 		try
 		{
-			setAttribute(this.num3,num3);
+			setAttribute(SumItem.num3,num3);
 		}
 		catch(com.exedio.cope.lib.LengthViolationException e)
 		{
@@ -171,7 +171,7 @@ public class SumItem extends Item
 	 *
  */final Integer getSum12()
 	{
-		return (Integer)getAttribute(this.sum12);
+		return (Integer)getAttribute(SumItem.sum12);
 	}/**
 
 	 **
@@ -180,7 +180,7 @@ public class SumItem extends Item
 	 *
  */final Integer getSum13()
 	{
-		return (Integer)getAttribute(this.sum13);
+		return (Integer)getAttribute(SumItem.sum13);
 	}/**
 
 	 **
@@ -189,7 +189,7 @@ public class SumItem extends Item
 	 *
  */final Integer getSum23()
 	{
-		return (Integer)getAttribute(this.sum23);
+		return (Integer)getAttribute(SumItem.sum23);
 	}/**
 
 	 **
@@ -198,7 +198,7 @@ public class SumItem extends Item
 	 *
  */final Integer getSum123()
 	{
-		return (Integer)getAttribute(this.sum123);
+		return (Integer)getAttribute(SumItem.sum123);
 	}/**
 
 	 **
@@ -207,7 +207,7 @@ public class SumItem extends Item
 	 *
  */final Integer getSum12a3()
 	{
-		return (Integer)getAttribute(this.sum12a3);
+		return (Integer)getAttribute(SumItem.sum12a3);
 	}/**
 
 	 **

@@ -50,7 +50,7 @@ public class ItemWithSingleUniqueNotNull extends Item
 	 *
  */public final String getUniqueNotNullString()
 	{
-		return (String)getAttribute(this.uniqueNotNullString);
+		return (String)getAttribute(ItemWithSingleUniqueNotNull.uniqueNotNullString);
 	}/**
 
 	 **
@@ -64,7 +64,7 @@ public class ItemWithSingleUniqueNotNull extends Item
 	{
 		try
 		{
-			setAttribute(this.uniqueNotNullString,uniqueNotNullString);
+			setAttribute(ItemWithSingleUniqueNotNull.uniqueNotNullString,uniqueNotNullString);
 		}
 		catch(com.exedio.cope.lib.LengthViolationException e)
 		{

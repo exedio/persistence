@@ -40,7 +40,7 @@ public class ItemWithSingleUnique extends Item
 	 *
  */public final String getUniqueString()
 	{
-		return (String)getAttribute(this.uniqueString);
+		return (String)getAttribute(ItemWithSingleUnique.uniqueString);
 	}/**
 
 	 **
@@ -53,7 +53,7 @@ public class ItemWithSingleUnique extends Item
 	{
 		try
 		{
-			setAttribute(this.uniqueString,uniqueString);
+			setAttribute(ItemWithSingleUnique.uniqueString,uniqueString);
 		}
 		catch(com.exedio.cope.lib.LengthViolationException e)
 		{

@@ -51,7 +51,7 @@ public class PointerItem extends Item
 	 *
  */final String getCode()
 	{
-		return (String)getAttribute(this.code);
+		return (String)getAttribute(PointerItem.code);
 	}/**
 
 	 **
@@ -64,7 +64,7 @@ public class PointerItem extends Item
 	{
 		try
 		{
-			setAttribute(this.code,code);
+			setAttribute(PointerItem.code,code);
 		}
 		catch(com.exedio.cope.lib.LengthViolationException e)
 		{
@@ -86,7 +86,7 @@ public class PointerItem extends Item
 	 *
  */final PointerItem2 getPointer()
 	{
-		return (PointerItem2)getAttribute(this.pointer);
+		return (PointerItem2)getAttribute(PointerItem.pointer);
 	}/**
 
 	 **
@@ -99,7 +99,7 @@ public class PointerItem extends Item
 	{
 		try
 		{
-			setAttribute(this.pointer,pointer);
+			setAttribute(PointerItem.pointer,pointer);
 		}
 		catch(com.exedio.cope.lib.LengthViolationException e)
 		{
@@ -121,7 +121,7 @@ public class PointerItem extends Item
 	 *
  */final PointerItem getSelf()
 	{
-		return (PointerItem)getAttribute(this.self);
+		return (PointerItem)getAttribute(PointerItem.self);
 	}/**
 
 	 **
@@ -132,7 +132,7 @@ public class PointerItem extends Item
 	{
 		try
 		{
-			setAttribute(this.self,self);
+			setAttribute(PointerItem.self,self);
 		}
 		catch(com.exedio.cope.lib.LengthViolationException e)
 		{

@@ -42,7 +42,7 @@ public class StringItem extends Item
 	 *
  */final String getAny()
 	{
-		return (String)getAttribute(this.any);
+		return (String)getAttribute(StringItem.any);
 	}/**
 
 	 **
@@ -53,7 +53,7 @@ public class StringItem extends Item
 	{
 		try
 		{
-			setAttribute(this.any,any);
+			setAttribute(StringItem.any,any);
 		}
 		catch(com.exedio.cope.lib.LengthViolationException e)
 		{
@@ -79,7 +79,7 @@ public class StringItem extends Item
 	 *
  */final String getMin4()
 	{
-		return (String)getAttribute(this.min4);
+		return (String)getAttribute(StringItem.min4);
 	}/**
 
 	 **
@@ -92,7 +92,7 @@ public class StringItem extends Item
 	{
 		try
 		{
-			setAttribute(this.min4,min4);
+			setAttribute(StringItem.min4,min4);
 		}
 		catch(com.exedio.cope.lib.NotNullViolationException e)
 		{
@@ -114,7 +114,7 @@ public class StringItem extends Item
 	 *
  */final String getMax4()
 	{
-		return (String)getAttribute(this.max4);
+		return (String)getAttribute(StringItem.max4);
 	}/**
 
 	 **
@@ -127,7 +127,7 @@ public class StringItem extends Item
 	{
 		try
 		{
-			setAttribute(this.max4,max4);
+			setAttribute(StringItem.max4,max4);
 		}
 		catch(com.exedio.cope.lib.NotNullViolationException e)
 		{
@@ -149,7 +149,7 @@ public class StringItem extends Item
 	 *
  */final String getMin4Max8()
 	{
-		return (String)getAttribute(this.min4Max8);
+		return (String)getAttribute(StringItem.min4Max8);
 	}/**
 
 	 **
@@ -162,7 +162,7 @@ public class StringItem extends Item
 	{
 		try
 		{
-			setAttribute(this.min4Max8,min4Max8);
+			setAttribute(StringItem.min4Max8,min4Max8);
 		}
 		catch(com.exedio.cope.lib.NotNullViolationException e)
 		{

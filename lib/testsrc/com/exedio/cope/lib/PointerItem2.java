@@ -44,7 +44,7 @@ public class PointerItem2 extends Item
 	 *
  */final String getCode()
 	{
-		return (String)getAttribute(this.code);
+		return (String)getAttribute(PointerItem2.code);
 	}/**
 
 	 **
@@ -57,7 +57,7 @@ public class PointerItem2 extends Item
 	{
 		try
 		{
-			setAttribute(this.code,code);
+			setAttribute(PointerItem2.code,code);
 		}
 		catch(com.exedio.cope.lib.LengthViolationException e)
 		{
