@@ -95,6 +95,7 @@ final class TypeCop extends CopernicaCop
 		final Query query = new Query(type, null);
 		if(orderBy!=null)
 			query.setOrderBy(orderBy, orderAscending);
+		query.setDeterministicOrder(true);
 		query.setRange(start, count);
 		return Search.search(query);
 	}
