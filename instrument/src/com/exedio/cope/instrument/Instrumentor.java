@@ -311,6 +311,8 @@ public final class Instrumentor implements InjectionConsumer
 		output.write(lineSeparator);
 		output.write("\t}");
 	}
+	
+	private static final int ENUMERATION_NUMBER_AUTO_INCREMENT = 100;
 
 	private void writeEnumerationClass(final JavaAttribute enumerationAttribute)
 	throws IOException
@@ -332,8 +334,8 @@ public final class Instrumentor implements InjectionConsumer
 		output.write(lineSeparator);
 		output.write("\t{");
 		output.write(lineSeparator);
-		int enumerationNumber = 0;
-		for(Iterator i = enumerationAttribute.getEnumerationValues().iterator(); i.hasNext(); enumerationNumber++)
+		int enumerationNumber = ENUMERATION_NUMBER_AUTO_INCREMENT;
+		for(Iterator i = enumerationAttribute.getEnumerationValues().iterator(); i.hasNext(); )
 		{
 			final String enumerationValue = (String)i.next();
 
@@ -357,6 +359,8 @@ public final class Instrumentor implements InjectionConsumer
 			output.write("\");");
 			output.write(lineSeparator);
 			output.write(lineSeparator);
+			
+			enumerationNumber += ENUMERATION_NUMBER_AUTO_INCREMENT;
 		}
 		output.write("\t\tprivate State(final int number, final String code)");
 		output.write(lineSeparator);
