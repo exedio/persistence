@@ -64,6 +64,11 @@ public class WebTest extends WebTestCase
 		assertTitleEquals("AttributeItem.103");
 		assertItemForm();
 
+		setFormElement("someBoolean", "FALSE"); someBoolean = "FALSE";
+		submit("SAVE");
+		assertTitleEquals("AttributeItem.103");
+		assertItemForm();
+
 		setFormElement("someNotNullString", "running100"); someNotNullString = "running100";
 		setFormElement("someNotNullInteger", "107"); someNotNullInteger = "107";
 		setFormElement("someBoolean", "NULL"); someBoolean = "NULL";
