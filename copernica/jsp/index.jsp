@@ -64,25 +64,46 @@
 			</table>
 		</form>
 		
-			<table border="1">
-			<%
-			for(Iterator i = Type.getTypes().iterator(); i.hasNext(); )
-			{
-				%>
-				<tr>
-					<td>
-						<%
-						final Type type = (Type)i.next();
+		<table border="1">
+			<tr>
+				<td>
+					<table border="1">
+					<%
+					for(Iterator i = Type.getTypes().iterator(); i.hasNext(); )
+					{
 						%>
-						<a href="type.jsp?type=<%=type.getJavaClass().getName()%>">
-							<%=type.getJavaClass().getName()%>
-						</a>
-					</td>
-				</tr>
+						<tr>
+							<td>
+								<%
+								final Type type = (Type)i.next();
+								%>
+								<a href="index.jsp?type=<%=type.getJavaClass().getName()%>">
+									<%=type.getJavaClass().getName()%>
+								</a>
+							</td>
+						</tr>
+						<%
+					}
+					%>
+					</table>
+				</td>
+				<td>
 				<%
-			}
-			%>
-			</table>
+					final String typeName = request.getParameter("type");
+					if(typeName!=null)
+					{
+						final Type type = Type.getType(typeName);
+						if(type==null)
+							throw new RuntimeException("type "+typeName+" not available");
+						%>
+						<u><%=type.getJavaClass().getName()%></u>
+						<%
+					}
+					else
+						%><u>EMPTY</u>
+				</td>
+			</tr>
+		</table>
 	
 	</body>
 </html>
