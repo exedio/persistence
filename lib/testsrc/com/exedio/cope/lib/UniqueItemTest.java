@@ -141,7 +141,6 @@ public class UniqueItemTest extends AbstractLibTest
 		assertEquals(item, ItemWithSingleUniqueReadOnly.findByUniqueReadOnlyString("uniqueString"));
 	}
 
-
 	public void testItemWithSingleUniqueNotNull()
 	{
 		assertEquals(null, ItemWithSingleUniqueNotNull.findByUniqueNotNullString("uniqueString"));
