@@ -9,7 +9,7 @@ final class PersistentQualifier
 	final String key;
 	final String qualifyUnique;
 
-	public PersistentQualifier(final PersistentClass persistentClass, final List initializerArguments)
+	public PersistentQualifier(final CopeClass persistentClass, final List initializerArguments)
 		throws InjectorParseException
 	{
 		if(initializerArguments.size()!=3)

@@ -30,7 +30,7 @@ abstract class PersistentAttribute
 	final JavaAttribute javaAttribute;
 	final int accessModifier;
 	
-	final PersistentClass persistentClass;
+	final CopeClass persistentClass;
 
 	/**
 	 * The persistent type of this attribute.
@@ -55,7 +55,7 @@ abstract class PersistentAttribute
 	{
 		this.javaAttribute = javaAttribute;
 		this.accessModifier = javaAttribute.accessModifier;
-		this.persistentClass = PersistentClass.getPersistentClass(javaAttribute.parent);
+		this.persistentClass = CopeClass.getCopeClass(javaAttribute.parent);
 		this.persistentType = persistentType;
 		this.computed = ComputedFunction.class.isAssignableFrom(typeClass);
 		

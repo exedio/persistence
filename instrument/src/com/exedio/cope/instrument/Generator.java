@@ -139,7 +139,7 @@ final class Generator
 		constraintViolationText.put(UniqueViolationException.class, "not unique");
 	}
 
-	private void writeConstructor(final PersistentClass javaClass)
+	private void writeConstructor(final CopeClass javaClass)
 	throws IOException
 	{
 		if(!javaClass.hasGeneratedConstructor())
@@ -244,7 +244,7 @@ final class Generator
 		o.write("\t}");
 	}
 	
-	private void writeGenericConstructor(final PersistentClass persistentClass)
+	private void writeGenericConstructor(final CopeClass persistentClass)
 	throws IOException
 	{
 		writeCommentHeader();
@@ -263,7 +263,7 @@ final class Generator
 		o.write("\t}");
 	}
 	
-	private void writeReactivationConstructor(final PersistentClass persistentClass)
+	private void writeReactivationConstructor(final CopeClass persistentClass)
 	throws IOException
 	{
 		final boolean abstractClass = persistentClass.isAbstract();
@@ -605,7 +605,7 @@ final class Generator
 		o.write("\t}");
 	}
 
-	private final void writeType(final PersistentClass persistentClass)
+	private final void writeType(final CopeClass persistentClass)
 	throws IOException
 	{
 		writeCommentHeader();
@@ -627,7 +627,7 @@ final class Generator
 		o.write(";");
 	}
 
-	void writeClassFeatures(final PersistentClass persistentClass)
+	void writeClassFeatures(final CopeClass persistentClass)
 			throws IOException, InjectorParseException
 	{
 		if(!persistentClass.isInterface())

@@ -15,14 +15,14 @@ import java.util.TreeSet;
 import com.exedio.cope.lib.ReadOnlyViolationException;
 import com.exedio.cope.lib.util.ClassComparator;
 
-final class PersistentClass
+final class CopeClass
 {
 	private static final HashMap persistentClassByJavaClass = new HashMap();
 	
-	static final PersistentClass getPersistentClass(final JavaClass javaClass)
+	static final CopeClass getCopeClass(final JavaClass javaClass)
 	{
-		final PersistentClass result = (PersistentClass)persistentClassByJavaClass.get(javaClass);
-		//System.out.println("getPersistentClass "+javaClass.getName()+" "+(result==null?"NULL":result.getName()));
+		final CopeClass result = (CopeClass)persistentClassByJavaClass.get(javaClass);
+		//System.out.println("getCopeClass "+javaClass.getName()+" "+(result==null?"NULL":result.getName()));
 		return result;
 	}
 
@@ -36,7 +36,7 @@ final class PersistentClass
 	private ArrayList qualifiers = null;
 	final int constructorOption;
 
-	public PersistentClass(
+	public CopeClass(
 			final JavaClass javaClass,
 			final String constructorOptionString)
 		throws InjectorParseException

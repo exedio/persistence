@@ -87,7 +87,7 @@ public final class Instrumentor implements InjectionConsumer
 		if(containsTag(docComment, PERSISTENT_CLASS))
 		{
 			final String constructorOptionString = Injector.findDocTag(docComment, CLASS_CONSTRUCTOR);
-			new PersistentClass(jc, constructorOptionString);
+			new CopeClass(jc, constructorOptionString);
 		}
 	}
 	
@@ -112,7 +112,7 @@ public final class Instrumentor implements InjectionConsumer
 	throws IOException, InjectorParseException
 	{
 		//System.out.println("onClassEnd("+javaClass.getName()+")");
-		final PersistentClass persistentClass = PersistentClass.getPersistentClass(javaClass);
+		final CopeClass persistentClass = CopeClass.getCopeClass(javaClass);
 
 		if(persistentClass!=null)
 			(new Generator(output)).writeClassFeatures(persistentClass);
@@ -184,7 +184,7 @@ public final class Instrumentor implements InjectionConsumer
 		final JavaClass jc = ja.parent;
 		final List initializerArguments = ja.getInitializerArguments();
 		//System.out.println(initializerArguments);
-		final PersistentClass persistentClass = PersistentClass.getPersistentClass(jc);
+		final CopeClass persistentClass = CopeClass.getCopeClass(jc);
 		final ArrayList persistentAttributes = new ArrayList(initializerArguments.size());
 		for(Iterator i = initializerArguments.iterator(); i.hasNext(); )
 		{
@@ -203,7 +203,7 @@ public final class Instrumentor implements InjectionConsumer
 		throws InjectorParseException
 	{
 		final JavaClass jc = ja.parent;
-		final PersistentClass persistentClass = PersistentClass.getPersistentClass(jc);
+		final CopeClass persistentClass = CopeClass.getCopeClass(jc);
 		final List initializerArguments = ja.getInitializerArguments();
 		//System.out.println("---------"+initializerArguments);
 		new PersistentQualifier(persistentClass, initializerArguments);
@@ -213,7 +213,7 @@ public final class Instrumentor implements InjectionConsumer
 		throws InjectorParseException
 	{
 		final JavaClass jc = ja.parent;
-		final PersistentClass persistentClass = PersistentClass.getPersistentClass(jc);
+		final CopeClass persistentClass = CopeClass.getCopeClass(jc);
 		final List initializerArguments = ja.getInitializerArguments();
 		if(initializerArguments.size()!=1)
 			throw new InjectorParseException("attribute >"+ja.name+"< has invalid initializer arguments: "+initializerArguments);
