@@ -295,7 +295,6 @@ final class Generator
 	private void writeReactivationConstructor(final CopeClass copeClass)
 	throws IOException
 	{
-		final boolean abstractClass = copeClass.isAbstract();
 		writeCommentHeader();
 		o.write("\t * ");
 		o.write(CONSTRUCTOR_REACTIVATION);
@@ -305,7 +304,7 @@ final class Generator
 			+ ReactivationConstructorDummy.class.getName() + ",int)");
 		o.write(lineSeparator);
 		writeCommentFooter();
-		o.write( abstractClass ? "protected " : "private " );
+		o.write( copeClass.isAbstract() ? "protected " : "private " );
 		o.write(copeClass.getName());
 		o.write("("+ReactivationConstructorDummy.class.getName()+" d,final int pk)");
 		o.write(lineSeparator);
