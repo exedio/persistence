@@ -348,15 +348,8 @@ final class OracleDatabase
 			final Statement fetchStatement = createStatement();
 			fetchStatement.
 				append(
-						"select " +
-							"OPERATION,OPTIONS," +
-							"OBJECT_NAME,OBJECT_INSTANCE,OBJECT_TYPE," +
-							"ID,PARENT_ID " +
-						"from plan_table " +
+						"select * from plan_table " +
 						"where "+STATEMENT_ID+"='"+STATEMENT_ID_PREFIX).
-				defineColumnString().defineColumnString().
-				defineColumnString().defineColumnInteger().defineColumnString().
-				defineColumnInteger().defineColumnInteger().
 				append(statementID).
 				append("' order by ID");
 			java.sql.Statement sqlFetchStatement = null;
@@ -369,14 +362,13 @@ final class OracleDatabase
 				final IntKeyChainedHashMap infos = new IntKeyChainedHashMap();
 				while(sqlFetchResultSet.next())
 				{
-					int columnIndex = 1;
-					final String operation = sqlFetchResultSet.getString(columnIndex++);
-					final String options = sqlFetchResultSet.getString(columnIndex++);
-					final String objectName = sqlFetchResultSet.getString(columnIndex++);
-					final int objectInstance = sqlFetchResultSet.getInt(columnIndex++);
-					final String objectType = sqlFetchResultSet.getString(columnIndex++);
-					final int id = sqlFetchResultSet.getInt(columnIndex++);
-					final Integer parentID = (Integer)sqlFetchResultSet.getObject(columnIndex++);
+					final String operation = sqlFetchResultSet.getString("OPERATION");
+					final String options = sqlFetchResultSet.getString("OPTIONS");
+					final String objectName = sqlFetchResultSet.getString("OBJECT_NAME");
+					final int objectInstance = sqlFetchResultSet.getInt("OBJECT_INSTANCE");
+					final String objectType = sqlFetchResultSet.getString("OBJECT_TYPE");
+					final int id = sqlFetchResultSet.getInt("ID");
+					final Number parentID = (Number)sqlFetchResultSet.getObject("PARENT_ID");
 					
 					final StringBuffer bf = new StringBuffer(operation);
 
