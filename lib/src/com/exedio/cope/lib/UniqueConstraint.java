@@ -139,7 +139,11 @@ public final class UniqueConstraint
 	
 	public final Object getQualified(final Object[] values, final ObjectAttribute attribute)
 	{
-		return searchUnique(values).getAttribute(attribute);
+		final Item item = searchUnique(values);
+		if(item!=null)
+			return item.getAttribute(attribute);
+		else
+			return null;
 	}
 
 }
