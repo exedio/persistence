@@ -2,13 +2,12 @@
 package com.exedio.copernica;
 
 import java.io.IOException;
+import java.io.PrintStream;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-
-import javax.servlet.jsp.JspWriter;
 
 import com.exedio.cope.lib.BooleanAttribute;
 import com.exedio.cope.lib.DateAttribute;
@@ -24,7 +23,7 @@ import com.exedio.cope.lib.Type;
 
 public class TypeCop_Jspm
 {
-	private static void writeInfo(final JspWriter out, final StatementInfo info)
+	private static void writeInfo(final PrintStream out, final StatementInfo info)
 		throws IOException
 	{
 		%><%=info.getText()%><ul><%
@@ -37,7 +36,7 @@ public class TypeCop_Jspm
 		%></ul><%
 	}
 
-	public static final void writeBody(final JspWriter out, final TypeCop cop)
+	public static final void writeBody(final PrintStream out, final TypeCop cop)
 		throws IOException
 	{
 		final CopernicaProvider provider = cop.provider;

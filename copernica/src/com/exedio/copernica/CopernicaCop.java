@@ -1,10 +1,10 @@
 package com.exedio.copernica;
 
 import java.io.IOException;
+import java.io.PrintStream;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.jsp.JspWriter;
 
 import com.exedio.cope.lib.EnumValue;
 import com.exedio.cope.lib.Item;
@@ -193,6 +193,6 @@ abstract class CopernicaCop extends Cop implements RequestCache
 		//System.out.println("nullNameMisses: "+nullNameMisses+", onNameMisses: "+onNameMisses+", offNameMisses: "+offNameMisses);
 	}
 	
-	abstract void writeBody(JspWriter out, HttpServletRequest request) throws IOException;
+	abstract void writeBody(PrintStream out, HttpServletRequest request) throws IOException;
 	
 }

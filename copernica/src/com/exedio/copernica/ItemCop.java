@@ -1,9 +1,9 @@
 package com.exedio.copernica;
 
 import java.io.IOException;
+import java.io.PrintStream;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.jsp.JspWriter;
 
 import com.exedio.cope.lib.Item;
 import com.exedio.cope.lib.NestingRuntimeException;
@@ -36,7 +36,7 @@ final class ItemCop extends CopernicaCop
 		return provider.getDisplayName(this, language, item);
 	}
 
-	void writeBody(final JspWriter out, final HttpServletRequest request)
+	void writeBody(final PrintStream out, final HttpServletRequest request)
 		throws IOException
 	{
 		ItemCop_Jspm.writeBody(out, this, request);

@@ -2,19 +2,108 @@
 package com.exedio.copernica;
 
 import java.io.BufferedReader;
+import java.io.PrintStream;
 import java.io.IOException;
 import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.jsp.JspWriter;
 
 import com.exedio.cope.lib.Type;
 
 class Copernica_Jspm
 {
-	static final void writeTypeList(final JspWriter out, final CopernicaCop cop)
+	static final void write(final PrintStream out, final HttpServletRequest request, final CopernicaProvider provider)
+		throws IOException, CopernicaAuthorizationFailedException
+	{
+		final CopernicaUser user = Util.checkAccess(provider, request);
+		final CopernicaCop cop = CopernicaCop.getCop(provider, request);
+		final CopernicaLanguage language = cop.language;
+	
+%><html>
+	<head>
+		<title><%=cop.getTitle()%></title><%
+		
+		final CopernicaCop home = cop.toHome();
+		%>
+		<link rel="home" href="<%=home%>"><%
+		final CopernicaCop prev = cop.toPrev();
+		if(prev!=null)
+		{
+		%>
+		<link rel="prev" href="<%=prev%>"><%
+		}
+		final CopernicaCop next = cop.toNext();
+		if(next!=null)
+		{
+		%>
+		<link rel="next" href="<%=next%>"><%
+		}
+		
+		%>
+		<link rel="STYLESHEET" type="text/css" href="copernica.css">
+	</head>
+	<body>
+		<div id="langcontainer">
+			<ul id="langlist"><%
+			for(Iterator l = provider.getDisplayLanguages().iterator(); l.hasNext(); )
+			{
+				final CopernicaLanguage currentLanguage = (CopernicaLanguage)l.next();
+				final String name = currentLanguage.getCopernicaName(language);
+				final boolean active = currentLanguage.equals(language);
+				%>
+				<li<%if(active){%> id="active"<%}%>>
+					<a href="<%=cop.switchLanguage(currentLanguage)%>"<%
+						if(active){%> id="current"<%}%>><%=name%></a>
+				</li><%
+			}
+			%>
+			<li>
+				<%=user.getCopernicaName()%>
+			</li>
+			</ul>
+		</div><%
+		Copernica_Jspm.writeTypeList(out, cop);
+		%>
+		<div id="main"><%
+		cop.writeBody(out, request);
+		//cop.log();
+		%>
+		</div>
+	</body>
+</html>
+<%
+	}
+	
+	static final void writeAuthenticationError(
+				final PrintStream out,
+				final CopernicaAuthorizationFailedException cafe)
+		throws IOException
+	{
+%><html>
+	<head>
+		<title>Copernica - Authorization Required</title>
+	</head>
+	<body>
+		<h1>Authorization Required.</h1>
+		<div>
+			Copernica could not verify that you are authorized to access
+			the application. Either you supplied the wrong credentials
+			(e.g., bad password), or your browser doesn't understand how
+			to supply the credentials required.
+		</div>
+		<div>
+			If you think, this error is unjustified, please report the
+			error id <code><%=cafe.getDisplayCode()%></code> with your
+			complaint.
+		</div>
+	</body>
+</html>
+<%
+	}
+	
+	static final void writeTypeList(final PrintStream out, final CopernicaCop cop)
 		throws IOException
 	{
 		final CopernicaProvider provider = cop.provider;
@@ -45,7 +134,7 @@ class Copernica_Jspm
 <%
 	}
 	
-	static final void writeEmptyBody(final JspWriter out)
+	static final void writeEmptyBody(final PrintStream out)
 		throws IOException
 	{
 			%>
@@ -54,7 +143,7 @@ class Copernica_Jspm
 			<img src="exedio.png" width="200" height="66"><%
 	}
 
-	static final void writeParameters(final JspWriter out, final HttpServletRequest request)
+	static final void writeParameters(final PrintStream out, final HttpServletRequest request)
 		throws IOException
 	{
 		for( final Iterator it = request.getParameterMap().entrySet().iterator(); it.hasNext(); )

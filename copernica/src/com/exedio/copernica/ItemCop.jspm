@@ -2,11 +2,11 @@
 package com.exedio.copernica;
 
 import java.io.IOException;
+import java.io.PrintStream;
 import java.util.Collection;
 import java.util.Iterator;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.jsp.JspWriter;
 
 import com.exedio.cope.lib.Attribute;
 import com.exedio.cope.lib.BooleanAttribute;
@@ -31,7 +31,7 @@ class ItemCop_Jspm
 	static final String VALUE_ON = ItemForm.VALUE_ON;
 	static final String VALUE_OFF = ItemForm.VALUE_OFF;
 	
-	static void writeBody(final JspWriter out, final ItemCop cop, final HttpServletRequest request)
+	static void writeBody(final PrintStream out, final ItemCop cop, final HttpServletRequest request)
 		throws IOException
 	{
 		final Item item = cop.item;

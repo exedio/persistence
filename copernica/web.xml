@@ -19,15 +19,15 @@
 	</servlet-mapping>
 
 	<servlet>
-		<servlet-name>com.exedio.copernica.copernica_jsp</servlet-name>
-		<servlet-class>com.exedio.copernica.copernica_jsp</servlet-class>
+		<servlet-name>com.exedio.copernica.CopernicaServlet</servlet-name>
+		<servlet-class>com.exedio.copernica.CopernicaServlet</servlet-class>
 		<init-param>
 			<param-name>com.exedio.copernica.provider</param-name>
 			<param-value>com.exedio.copernica.CopernicaTestProvider</param-value>
 		</init-param>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>com.exedio.copernica.copernica_jsp</servlet-name>
+		<servlet-name>com.exedio.copernica.CopernicaServlet</servlet-name>
 		<url-pattern>/copernica.jsp</url-pattern>
 	</servlet-mapping>
 
@@ -53,17 +53,4 @@
 		<url-pattern>/error.jsp</url-pattern>
 	</servlet-mapping>
 	
-	<error-page>
-		<exception-type>com.exedio.copernica.CopernicaAuthorizationFailedException</exception-type>
-		<location>/copernica.authorization.failed.jsp</location>
-	</error-page>
-	<servlet>
-		<servlet-name>com.exedio.copernica.copernica_authorization_failed_jsp</servlet-name>
-		<servlet-class>com.exedio.copernica.copernica_authorization_failed_jsp</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>com.exedio.copernica.copernica_authorization_failed_jsp</servlet-name>
-		<url-pattern>/copernica.authorization.failed.jsp</url-pattern>
-	</servlet-mapping>
-
 </web-app>
