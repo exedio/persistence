@@ -3,7 +3,11 @@ package injection;
 
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Represents a class parsed by the java parser.
@@ -15,6 +19,8 @@ public class JavaClass extends JavaFeature
 {
 	
 	private ArrayList persistentAttributes = null;
+	private Map persistentAttributeMap = new TreeMap();
+	private ArrayList uniqueConstraints = null;
 	
 	/**
 	 * @parameter parent may be null for non-inner classes
@@ -38,16 +44,44 @@ public class JavaClass extends JavaFeature
 		return persistentAttributes != null;
 	}
 	
-	public void addPersistentAttribute(JavaAttribute persistentAttribute)
+	public void addPersistentAttribute(final JavaAttribute persistentAttribute)
 	{
 		if(persistentAttributes == null)
+		{
 			persistentAttributes = new ArrayList();
+			persistentAttributeMap = new TreeMap();
+		}
 		persistentAttributes.add(persistentAttribute);
+		persistentAttributeMap.put(persistentAttribute.getName(), persistentAttribute);
 	}
 	
+	/**
+	 * @returns unmodifiable list of {@link JavaAttribute}
+	 */
 	public List getPersistentAttributes()
 	{
-		return persistentAttributes;
+		return Collections.unmodifiableList(persistentAttributes);
+	}
+	
+	public JavaAttribute getPersistentAttribute(final String name)
+	{
+		return (JavaAttribute)persistentAttributeMap.get(name);
+	}
+	
+	public void makeUnique(final JavaAttribute[] uniqueAttributes)
+	{
+		if(uniqueConstraints==null)
+			uniqueConstraints=new ArrayList();
+		
+		uniqueConstraints.add(uniqueAttributes);
+	}
+	
+	/**
+	 * @returns unmodifiable list of {@link JavaAttribute[]}
+	 */
+	public List getUniqueConstraints()
+	{
+		return Collections.unmodifiableList(uniqueConstraints);
 	}
 	
 	/**

@@ -4,6 +4,7 @@ package injection;
 import java.lang.reflect.Modifier;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -22,7 +23,6 @@ import tools.ClassComparator;
 public final class JavaAttribute extends JavaFeature
 {
 	private String persistentType = null;
-	private boolean unique = false;
 	private boolean readOnly = false;
 	private boolean notNull = false;
 	private List qualifiers = null;
@@ -56,9 +56,18 @@ public final class JavaAttribute extends JavaFeature
 		return this.persistentType;
 	}
 	
-	public boolean isUnique()
+	public boolean isPartOfUniqueConstraint()
 	{
-		return unique;
+		for( final Iterator i=getParent().getUniqueConstraints().iterator(); i.hasNext(); )
+		{
+			final JavaAttribute[] uniqueConstraint = (JavaAttribute[])i.next();
+			for(int j=0; j<uniqueConstraint.length; j++)
+			{
+				if(this == uniqueConstraint[j])
+					return true;
+			}
+		}
+		return false;
 	}
 	
 	public boolean isReadOnly()
@@ -142,11 +151,6 @@ public final class JavaAttribute extends JavaFeature
 		this.persistentType = persistentType;
 	}
 
-	public final void makeUnique()
-	{
-		unique = true;
-	}
-
 	public final void makeReadOnly()
 	{
 		if(this.qualifiers!=null)
@@ -183,7 +187,7 @@ public final class JavaAttribute extends JavaFeature
 		
 		final TreeSet modifyableSetterExceptions = new TreeSet(ClassComparator.newInstance());
 		
-		if(unique)
+		if(isPartOfUniqueConstraint())
 			modifyableSetterExceptions.add(UniqueViolationException.class);
 		if(readOnly)
 			modifyableSetterExceptions.add(ReadOnlyViolationException.class);

@@ -1,6 +1,7 @@
 
 package injection;
 
+import injection.InjectorParseException;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.*;
@@ -98,10 +99,20 @@ public final class Instrumentor implements InjectionConsumer
 	 */
 	private static final String GENERATED = "generated";
 
+	private List uniqueConstraints=null;
+	
 	private void handleClassComment(final JavaClass jc, final String docComment)
 	{
 		if(containsTag(docComment, PERSISTENT_CLASS))
 			jc.setPersistent();
+		
+		final String uniqueConstraint = Injector.findWholeDocTag(docComment, UNIQUE_ATTRIBUTE);
+		if(uniqueConstraint!=null)
+		{
+			if(uniqueConstraints==null)
+				uniqueConstraints = new ArrayList();
+			uniqueConstraints.add(uniqueConstraint);
+		}
 	}
 	
 	public void onClass(final JavaClass jc)
@@ -316,41 +327,74 @@ public final class Instrumentor implements InjectionConsumer
 		output.write("\t}");
 	}
 	
-	private void writeUniqueFinder(final JavaAttribute persistentAttribute)
-	throws IOException
+	private void writeUniqueFinder(final JavaAttribute[] persistentAttributes)
+	throws IOException, InjectorParseException
 	{
-		final String methodModifiers = Modifier.toString(persistentAttribute.getMethodModifiers()|Modifier.STATIC);
-		final String type = persistentAttribute.getPersistentType();
-		final List qualifiers = persistentAttribute.getQualifiers();
-		final String name = persistentAttribute.getCamelCaseName();
+		int modifiers = -1;
+		for(int i=0; i<persistentAttributes.length; i++)
+		{
+			if(modifiers==-1)
+				modifiers = persistentAttributes[i].getMethodModifiers();
+			else 
+			{
+				if(modifiers!=persistentAttributes[i].getMethodModifiers())
+					throw new InjectorParseException("Tried to write unique finder and found attribues with different modifiers");
+			}
+		}
+		final String methodModifiers = Modifier.toString(modifiers|Modifier.STATIC);
+		final String className = persistentAttributes[0].getParent().getName();
 		
 		writeCommentHeader();
 		output.write("\t * Finds a ");
-		output.write(lowerCamelCase(persistentAttribute.getParent().getName()));
+		output.write(lowerCamelCase(className));
 		output.write(" by it's unique attributes");
-		output.write(lineSeparator);
-		output.write("\t * @param ");
-		output.write(persistentAttribute.getName());
-		output.write(" shall be equal to attribute {@link #");
-		output.write(persistentAttribute.getName());
-		output.write("}.");
+		for(int i=0; i<persistentAttributes.length; i++)
+		{
+			output.write(lineSeparator);
+			output.write("\t * @param ");
+			output.write(persistentAttributes[i].getName());
+			output.write(" shall be equal to attribute {@link #");
+			output.write(persistentAttributes[i].getName());
+			output.write("}.");
+		}
 		output.write(lineSeparator);
 		writeCommentFooter();
 		output.write(methodModifiers);
 		output.write(' ');
-		output.write(persistentAttribute.getParent().getName());
-		output.write(" findBy");
-		output.write(name);
-		output.write('(');
-		if(qualifiers!=null)
+		output.write(className);
+		
+		boolean first=true;
+		for(int i=0; i<persistentAttributes.length; i++)
 		{
-			writeParameterDeclarationList(qualifiers);
-			output.write(',');
+			if(first)
+			{
+				output.write(" findBy");
+				first = false;
+			}
+			else
+				output.write("And");
+			output.write(persistentAttributes[i].getCamelCaseName());
 		}
-		output.write("final ");
-		output.write(type);
-		output.write(' ');
-		output.write(persistentAttribute.getName());
+		
+		output.write('(');
+		final Set qualifiers = new HashSet();
+		for(int i=0; i<persistentAttributes.length; i++)
+		{
+			if(i>0)
+				output.write(',');
+			final JavaAttribute persistentAttribute = (JavaAttribute)persistentAttributes[i];
+			if(persistentAttribute.getQualifiers() != null)
+				qualifiers.addAll(persistentAttribute.getQualifiers());
+			output.write("final ");
+			output.write(persistentAttribute.getPersistentType());
+			output.write(' ');
+			output.write(persistentAttribute.getName());
+		}
+		if(!qualifiers.isEmpty())
+		{
+			output.write(',');
+			writeParameterDeclarationList(qualifiers);
+		}
 		output.write(')');
 		output.write(lineSeparator);
 		output.write("\t{");
@@ -424,6 +468,25 @@ public final class Instrumentor implements InjectionConsumer
 	public void onClassEnd(JavaClass jc)
 	throws IOException, InjectorParseException
 	{
+		if(uniqueConstraints != null)
+		{
+			for( final Iterator i=uniqueConstraints.iterator(); i.hasNext(); )
+			{
+				final String uniqueConstraint=(String)i.next();
+				final List attributes = new ArrayList();
+				for(final StringTokenizer t=new StringTokenizer(uniqueConstraint, " "); t.hasMoreTokens(); )
+				{
+					final String attributeName = t.nextToken();
+					final JavaAttribute ja = jc.getPersistentAttribute(attributeName);
+					if(ja==null)
+						throw new InjectorParseException("Attribute with name "+attributeName+" does not exist!");
+					attributes.add(ja);
+				}
+				if(attributes.isEmpty())
+					throw new InjectorParseException("No attributes found in unique constraint "+uniqueConstraint);
+				jc.makeUnique((JavaAttribute[])attributes.toArray(new JavaAttribute[]{}));
+			}
+		}
 		//System.out.println("onClassEnd("+jc.getName()+")");
 
 		if(!jc.isInterface() && jc.isPersistent())
@@ -435,12 +498,11 @@ public final class Instrumentor implements InjectionConsumer
 				final JavaAttribute persistentAttribute = (JavaAttribute)i.next();
 				writeAccessMethods(persistentAttribute);
 			}
-			for(final Iterator i = jc.getPersistentAttributes().iterator(); i.hasNext(); )
+			for(final Iterator i = jc.getUniqueConstraints().iterator(); i.hasNext(); )
 			{
 				// write unique finder methods
-				final JavaAttribute persistentAttribute = (JavaAttribute)i.next();
-				if(persistentAttribute.isUnique())
-					writeUniqueFinder(persistentAttribute);
+				final JavaAttribute[] persistentAttributes = (JavaAttribute[])i.next();
+				writeUniqueFinder(persistentAttributes);
 			}
 			writeType(jc);
 		}
@@ -489,7 +551,7 @@ public final class Instrumentor implements InjectionConsumer
 				ja.makePersistent(persistentType);
 
 				if(containsTag(docComment, UNIQUE_ATTRIBUTE))
-					ja.makeUnique();
+					ja.getParent().makeUnique(new JavaAttribute[]{ja});
 				
 				if(containsTag(docComment, READ_ONLY_ATTRIBUTE))
 					ja.makeReadOnly();
@@ -589,7 +651,7 @@ public final class Instrumentor implements InjectionConsumer
 	private void writeSetterBody(final Writer output, final JavaAttribute attribute)
 	throws IOException
 	{
-		if(!attribute.isUnique() 
+		if(!attribute.isPartOfUniqueConstraint() 
 			|| (attribute.getQualifiers()==null && (!attribute.isReadOnly() || !attribute.isNotNull())))
 		{
 			output.write("\t\ttry");
@@ -611,13 +673,13 @@ public final class Instrumentor implements InjectionConsumer
 		output.write(attribute.getName());
 		output.write(");");
 		output.write(lineSeparator);
-		if(!attribute.isUnique() 
+		if(!attribute.isPartOfUniqueConstraint() 
 			|| (attribute.getQualifiers()==null && (!attribute.isReadOnly() || !attribute.isNotNull())))
 		{
 			output.write("\t\t}");
 			output.write(lineSeparator);
 			
-			if(!attribute.isUnique()) writeViolationExceptionCatchClause(output, UniqueViolationException.class);
+			if(!attribute.isPartOfUniqueConstraint()) writeViolationExceptionCatchClause(output, UniqueViolationException.class);
 			if(attribute.getQualifiers()==null && !attribute.isReadOnly()) writeViolationExceptionCatchClause(output, ReadOnlyViolationException.class);
 			if(attribute.getQualifiers()==null && !attribute.isNotNull()) writeViolationExceptionCatchClause(output, NotNullViolationException.class);
 		}
