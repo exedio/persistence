@@ -93,6 +93,17 @@
 		</java>
 	</target>
 
+	<target name="lib.test.teardowntables" depends="lib.compile, lib.test.compile">
+		<java classname="com.exedio.cope.lib.AbstractLibTest" taskname="tear down tables" fork="yes" failonerror="yes">
+			<classpath>
+				<pathelement location="lib/build/classes" />
+				<pathelement location="lib/build/testclasses" />
+				<pathelement location="../lib/junit.jar" />
+				<pathelement location="../lib/classes12.zip" />
+			</classpath>
+		</java>
+	</target>
+
 	<target name="lib.test" depends="lib.test.run" />
 
 	<target name="instrument.test.compile" depends="instrument.compile">

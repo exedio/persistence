@@ -12,7 +12,7 @@ import junit.framework.TestCase;
 
 public class AbstractLibTest extends TestCase
 {
-	final Type[] types = new Type[]
+	protected static final Type[] types = new Type[]
 	{
 		ItemWithSingleUnique.TYPE,
 		ItemWithSingleUniqueReadOnly.TYPE,
@@ -25,14 +25,16 @@ public class AbstractLibTest extends TestCase
 	public AbstractLibTest()
 	{}
 	
-	public void setUp()
+	public void setUp() throws Exception
 	{
+		super.setUp();
 		Database.theInstance.createTables();
 	}
 	
-	public void tearDown()
+	public void tearDown() throws Exception
 	{
 		Database.theInstance.dropTables();
+		super.tearDown();
 	}
 	
 	protected void assertMediaMime(final ItemWithManyAttributes item,
@@ -103,5 +105,9 @@ public class AbstractLibTest extends TestCase
 		return o;
 	}
 
+	public static void main(String[] args)
+	{
+		Database.theInstance.tearDownTables();
+	}
 
 }
