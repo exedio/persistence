@@ -2,7 +2,7 @@ package com.exedio.copernica;
 
 
 
-public abstract class Cop
+public abstract class Cop // TODO: put class into separate package com.exedio.cops
 {
 	private final StringBuffer url;
 	private boolean first = true;

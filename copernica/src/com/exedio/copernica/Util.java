@@ -73,7 +73,7 @@ final class Util
 	
 	private static final String BASIC = "Basic ";
 	
-	static final CopernicaUser checkAccess(
+	static final CopernicaUser checkAccess( // TODO: put method into Cop
 			final CopernicaProvider provider,
 			final HttpServletRequest request)
 		throws CopernicaAuthorizationFailedException
@@ -85,7 +85,7 @@ final class Util
 		if(!authorization.startsWith(BASIC))
 			throw new CopernicaAuthorizationFailedException("nonbasic", authorization);
 		
-		final String basicCookie = authorization.substring(BASIC.length());
+		final String basicCookie = authorization.substring(BASIC.length()); // TODO: make a constant
 		//System.out.println("basicCookie:"+basicCookie);
 		
 		final String basicCookiePlain = new String(Base64.decode(basicCookie));
