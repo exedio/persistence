@@ -105,6 +105,10 @@ public class ExampleTest extends InjectorTest
 		assertAttribute("uglyAttribute6", null);
 		assertText("\n  ");
 
+		assertAttributeHeader("uglyAttribute7", "char[]", 0);
+		assertText("char[]   uglyAttribute7={';','{','\"','\\\''};");
+		assertAttribute("uglyAttribute7", null);
+		assertText("\n  ");
 	}
 
 }
