@@ -104,6 +104,7 @@
 			<arg value="${basedir}/lib/testsrc/com/exedio/cope/lib/QualifiedEmptyQualifier.java" />
 			<arg value="${basedir}/lib/testsrc/com/exedio/cope/lib/hierarchy/Super.java" />
 			<arg value="${basedir}/lib/testsrc/com/exedio/cope/lib/hierarchy/FirstSub.java" />
+			<arg value="${basedir}/lib/testsrc/com/exedio/cope/lib/hierarchy/SecondSub.java" />
 			<arg value="${basedir}/lib/testsrc/com/exedio/cope/lib/collision/CollisionItem1.java" />
 			<arg value="${basedir}/lib/testsrc/com/exedio/cope/lib/collision/CollisionItem2.java" />
 		</java>
