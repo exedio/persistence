@@ -3,6 +3,7 @@ package com.exedio.cope.lib;
 
 import com.exedio.cope.lib.Database;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -45,6 +46,10 @@ public class LibTest extends TestCase
 		
 		// type, ID, equals, hashCode
 		{
+			assertEquals(ItemWithoutAttributes.TYPE, Type.getType(ItemWithoutAttributes.class.getName()));
+			assertEquals(ItemWithoutAttributes2.TYPE, Type.getType(ItemWithoutAttributes2.class.getName()));
+			assertEquals(toSet(Arrays.asList(types)), toSet(Type.getTypes()));
+			
 			final ItemWithoutAttributes item1 = new ItemWithoutAttributes();
 			final ItemWithoutAttributes item2 = new ItemWithoutAttributes();
 			final ItemWithoutAttributes2 item3 = new ItemWithoutAttributes2();

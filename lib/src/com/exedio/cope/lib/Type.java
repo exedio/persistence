@@ -15,6 +15,7 @@ public final class Type
 {
 	private static final ArrayList typesModifyable = new ArrayList();
 	private static final List types = Collections.unmodifiableList(typesModifyable);
+	private static final HashMap typesByName = new HashMap();
 	
 	private final Class javaClass;
 	
@@ -34,6 +35,11 @@ public final class Type
 		return types;
 	}
 	
+	public static final Type getType(String className)
+	{
+		return (Type)typesByName.get(className);
+	}
+	
 	public Type(final Class javaClass, final Attribute[] attributes, final UniqueConstraint[] uniqueConstraints, final Runnable initializer)
 	{
 		this.javaClass = javaClass;
@@ -43,6 +49,7 @@ public final class Type
 		this.uniqueConstraintList = Collections.unmodifiableList(Arrays.asList(uniqueConstraints));
 		initializer.run();
 		typesModifyable.add(this);
+		typesByName.put(javaClass.getName(), this);
 		this.persistentQualifier = Database.theInstance.makePersistentQualifier(this);
 		try
 		{
