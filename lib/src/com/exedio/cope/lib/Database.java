@@ -269,13 +269,13 @@ public abstract class Database
 	
 	final IntArrayList search(final Query query)
 	{
-		final Table selectType = query.selectType.table; // TODO: rename to selectTable
+		final Table selectTable = query.selectType.table;
 		final Statement bf = createStatement();
 
 		bf.append("select ").
-			append(selectType.protectedID).
+			append(selectTable.protectedID).
 			append('.').
-			append(selectType.primaryKey.protectedID).defineColumnInteger().
+			append(selectTable.primaryKey.protectedID).defineColumnInteger().
 			append(" from ");
 
 		boolean first = true;
