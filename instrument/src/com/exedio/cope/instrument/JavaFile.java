@@ -65,6 +65,7 @@ public final class JavaFile
 	/**
 	 * Sets the package of this file.
 	 * Necessary, since the package is not known at construction time.
+	 * @param packagename may be null for root package
 	 * @throws InjectorParseException if called more than once.
 	 */
 	public final void setPackage(String packagename)

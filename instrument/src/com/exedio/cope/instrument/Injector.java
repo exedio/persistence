@@ -36,12 +36,12 @@ public final class Injector
 
 	/**
 	 * Constructs a new java parser.
-	 * @parameter input
+	 * @param input
 	 * the input stream to be parsed.
-	 * @parameter output
+	 * @param output
 	 * the target, where the modified input stream is written to.
 	 * May be null, if only reading is desired.
-	 * @parameter consumer
+	 * @param consumer
 	 * an implementation of InjectionConsumer,
 	 * listening to parsed elements of the input stream.
 	 * @see InjectionConsumer
@@ -385,7 +385,7 @@ public final class Injector
 	/**
 	 * Parses a class feature. May be an attribute, a method or a inner
 	 * class. May even be a normal class, in this case parent==null.
-	 * @parameter parent the class that contains the class feature
+	 * @param parent the class that contains the class feature
 	 * if null, there is no containing class, and
 	 * the feature must be a class itself.
 	 */
@@ -398,7 +398,7 @@ public final class Injector
 	/**
 	 * The same as parseFeature(JavaClass) but the first token has
 	 * already been fetched from the input stream.
-	 * @parameter bufs the first token of the class feature.
+	 * @param bufs the first token of the class feature.
 	 * @see #parseFeature(JavaClass)
 	 */
 	private JavaFeature[] parseFeature(JavaClass parent, String bufs)
@@ -854,7 +854,7 @@ public final class Injector
 	}
 
 	/**
-	 * @parameter tagname the tag name without the '@' prefix
+	 * @param tagname the tag name without the '@' prefix
 	 * @return the first word following the tag
 	 */
 	public final static String findDocTag(String doccomment, String tagname)
@@ -883,7 +883,7 @@ public final class Injector
 	}
 
 	/**
-	 * @parameter tagname the tag name without the '@' prefix
+	 * @param tagname the tag name without the '@' prefix
 	 * @return the whole string following the tag without ending whitespaces
 	 */
 	public final static String findWholeDocTag(

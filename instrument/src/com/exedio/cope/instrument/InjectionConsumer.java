@@ -37,7 +37,7 @@ public interface InjectionConsumer
 	
 	/**
 	 * Encountered the end of a class.
-	 * @parameter cc
+	 * @param cc
 	 * the same object as in the corresponding call to onClass
 	 * @see #onClass(JavaClass)
 	 */
@@ -49,7 +49,7 @@ public interface InjectionConsumer
 	 * Is called additionally to
 	 * {@link #onClassFeature(JavaFeature, String)}.
 	 *
-	 * @parameter jb
+	 * @param jb
 	 * contains all parsed information about the method
 	 */
 	public void onBehaviourHeader(JavaBehaviour jb)
@@ -60,7 +60,7 @@ public interface InjectionConsumer
 	 * Is called additionally to
 	 * {@link #onClassFeature(JavaFeature, String)}.
 	 *
-	 * @parameter ja
+	 * @param ja
 	 * contains all parsed information about the attribute
 	 */
 	public void onAttributeHeader(JavaAttribute ja)
@@ -71,7 +71,7 @@ public interface InjectionConsumer
 	 * Is called additionally to
 	 * {@link #onBehaviourHeader(JavaBehaviour)}.
 	 *
-	 * @parameter doccomment
+	 * @param doccomment
 	 * the doccomment associated to this feature.
 	 * Is null, if there was none.
 	 */

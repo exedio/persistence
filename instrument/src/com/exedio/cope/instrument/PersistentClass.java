@@ -63,7 +63,7 @@ public final class PersistentClass
 	}
 	
 	/**
-	 * @returns unmodifiable list of {@link JavaAttribute}
+	 * @return unmodifiable list of {@link JavaAttribute}
 	 */
 	public List getPersistentAttributes()
 	{
@@ -84,7 +84,7 @@ public final class PersistentClass
 	}
 	
 	/**
-	 * @returns unmodifiable list of {@link JavaAttribute[]}
+	 * @return unmodifiable list of {@link JavaAttribute}
 	 */
 	public List getUniqueConstraints()
 	{

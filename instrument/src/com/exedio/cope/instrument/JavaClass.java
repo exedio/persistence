@@ -13,8 +13,7 @@ public class JavaClass extends JavaFeature
 {
 
 	/**
-	 * @parameter parent may be null for non-inner classes
-	 * @parameter packagename may be null for root package
+	 * @param parent may be null for non-inner classes
 	 */
 	public JavaClass(JavaFile file, JavaClass parent, int modifiers, String name)
 	throws InjectorParseException
