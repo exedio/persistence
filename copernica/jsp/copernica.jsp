@@ -1,6 +1,7 @@
 <%@ page import="com.exedio.cope.lib.Search" %>
 <%@ page import="com.exedio.cope.lib.Database" %>
 <%@ page import="com.exedio.cope.lib.Attribute" %>
+<%@ page import="com.exedio.cope.lib.MediaAttribute" %>
 <%@ page import="com.exedio.cope.lib.Type" %>
 <%@ page import="com.exedio.cope.lib.Item" %>
 <%@ page import="com.exedio.cope.lib.SystemException" %>
@@ -129,7 +130,14 @@
 									{
 										%><a href="copernica.jsp?item=<%=item.getID()%>"><%
 									}
-									%><%=item.getAttribute(attribute)%></td><%
+									if(attribute instanceof MediaAttribute)
+									{
+										%><%=item.getMediaURL((MediaAttribute)attribute)%></td><%
+									}
+									else
+									{
+										%><%=item.getAttribute(attribute)%></td><%
+									}
 									if(firstAttribute)
 									{
 										%></a><%
