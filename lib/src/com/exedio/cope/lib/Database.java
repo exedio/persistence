@@ -258,6 +258,7 @@ public abstract class Database
 		{
 			final Table table = (Table)i.next();
 			final Report.Table reportTable = report.notifyRequiredTable(table.id);
+			reportTable.notifyRequiredConstraint(table.getPrimaryKey().getPrimaryKeyConstraintID());
 			//System.out.println("REQUIRED:"+table.id);
 		}
 

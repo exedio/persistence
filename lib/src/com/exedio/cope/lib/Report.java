@@ -19,6 +19,18 @@ public final class Report
 			this.name = name;
 		}
 		
+		final Constraint notifyRequiredConstraint(final String constraintName)
+		{
+			Constraint result = (Constraint)constraints.get(constraintName);
+			if(result==null)
+			{
+				result = new Constraint(constraintName, this);
+				constraints.put(constraintName, result);
+			}
+			result.required = true;
+			return result;
+		}
+		
 		final Constraint notifyExistentConstraint(final String constraintName)
 		{
 			Constraint result = (Constraint)constraints.get(constraintName);
@@ -27,6 +39,7 @@ public final class Report
 				result = new Constraint(constraintName, this);
 				constraints.put(constraintName, result);
 			}
+			result.exists = true;
 			return result;
 		}
 		
@@ -50,11 +63,23 @@ public final class Report
 	{
 		public final String name;
 		public final Table table;
+		private boolean required = false;
+		private boolean exists = false;
 		
 		private Constraint(final String name, final Table table)
 		{
 			this.name = name;
 			this.table = table; 
+		}
+
+		public final boolean isMissing()
+		{
+			return !exists;
+		}
+		
+		public final boolean isUnused()
+		{
+			return !required;
 		}
 	}
 

@@ -71,7 +71,16 @@ include file="copernica-provider.inc"
 							{
 								final Report.Constraint constraint = (Report.Constraint)j.next();
 								%>
-								<li><%=constraint.name%></li><%
+								<li><%=constraint.name%><%
+								if(constraint.isMissing())
+								{
+									%> <b>MISSING !!!</b><%
+								}
+								if(constraint.isUnused())
+								{
+									%> <b>not used</b><%
+								}
+								%></li><%
 							}
 							%>
 							</ul><%
