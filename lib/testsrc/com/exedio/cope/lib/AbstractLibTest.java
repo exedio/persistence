@@ -23,18 +23,51 @@ public abstract class AbstractLibTest extends TestCase
 		ItemWithManyAttributes.TYPE,
 	};
 	
+	private static boolean createdTables = false;
+	private static boolean registeredDropTableHook = false;
+	private static Object lock = new Object(); 
+	
+	private static void createTables()
+	{
+		synchronized(lock)
+		{
+			if(!createdTables)
+			{
+				Database.theInstance.createTables();
+				createdTables = true;
+			}
+		}
+	}
+	
+	private void dropTables()
+	{
+		synchronized(lock)
+		{
+			if(!registeredDropTableHook)
+			{
+				Runtime.getRuntime().addShutdownHook(new Thread(new Runnable(){
+					public void run()
+					{
+						Database.theInstance.dropTables();
+					}
+				}));
+				registeredDropTableHook = true;
+			}
+		}
+	}
+	
 	public AbstractLibTest()
 	{}
 	
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		Database.theInstance.createTables();
+		createTables();
 	}
 	
 	public void tearDown() throws Exception
 	{
-		Database.theInstance.dropTables();
+		dropTables();
 		super.tearDown();
 	}
 	
