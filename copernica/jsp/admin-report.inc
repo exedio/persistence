@@ -1,4 +1,7 @@
-<%!
+<%@
+page import="java.util.Iterator"
+
+%><%!
 private String color(final int color)
 {
 	switch(color)
