@@ -1,14 +1,62 @@
-
-		<table border="1"><%
-		final Properties properties = provider.getModel().getProperties().toProperties();
-		for(Iterator i = properties.keySet().iterator(); i.hasNext(); )
-		{
-			final String key = (String)i.next();
+<%@
+page import="com.exedio.cope.lib.Properties"
+%><%
+		final Properties properties = provider.getModel().getProperties();
+		%>
+		<table border="1">
+			<tr>
+				<td><small>source</small></td>
+				<td><small><%
+					final String source = properties.getSource();
+					%>
+					<a href="file://<%=source%>"><%=source%></a>
+					<br>
+					(link works only if the server is running locally).
+				</small></td>
+			</tr>
+			<tr>
+				<td><small>database</small></td>
+				<td><small><%=properties.getDatabase()%></small></td>
+			</tr>
+			<tr>
+				<td><small>database.url</small></td>
+				<td><small><%=properties.getDatabaseUrl()%></small></td>
+			</tr>
+			<tr>
+				<td><small>database.user</small></td>
+				<td><small><%=properties.getDatabaseUser()%></small></td>
+			</tr><%
+			if(properties.hasMedia())
+			{
+				final String mediaDirectory =
+					properties.getMediaDirectory().getAbsolutePath();
+				final String mediaUrl = properties.getMediaUrl();
 			%>
 			<tr>
-				<td><small><%=key%></small></td>
-				<td><small><%=properties.getProperty(key)%></small></td>
+				<td><small>media.directory</small></td>
+				<td><small>
+					<a href="file://<%=mediaDirectory%>"><%=mediaDirectory%></a>
+					<br>
+					(link works only if the server is running locally).
+				</small></td>
+			</tr>
+			<tr>
+				<td><small>media.url</small></td>
+				<td><small>
+					<a href="<%=mediaUrl%>"><%=mediaUrl%></a>
+					<br>
+					(link works only if the server allows directory listing,
+					which is a security risk in production mode).
+				</small></td>
 			</tr><%
-		}
-		%>
+			}
+			else
+			{
+			%>
+			<tr>
+				<td><small>media</small></td>
+				<td><small><b>not available</b></small></td>
+			</tr><%
+			}
+			%>
 		</table>

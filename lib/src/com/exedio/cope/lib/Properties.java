@@ -183,6 +183,16 @@ public final class Properties
 		}
 	}
 	
+	public String getSource()
+	{
+		return source;
+	}
+
+	public String getDatabase()
+	{
+		return database.getDeclaringClass().getName();
+	}
+
 	public String getDatabaseUrl()
 	{
 		return databaseUrl;
@@ -196,6 +206,11 @@ public final class Properties
 	public String getDatabasePassword()
 	{
 		return databasePassword;
+	}
+	
+	public boolean hasMedia()
+	{
+		return mediaDirectory!=null;
 	}
 	
 	public File getMediaDirectory()
@@ -212,21 +227,6 @@ public final class Properties
 			throw new RuntimeException("property media.directory in "+source+" not set.");
 
 		return mediaUrl;
-	}
-	
-	public java.util.Properties toProperties()
-	{
-		final java.util.Properties properties = new java.util.Properties();
-		properties.setProperty("source", source);
-		properties.setProperty(DATABASE, database.getDeclaringClass().getName());
-		properties.setProperty(DATABASE_URL, databaseUrl);
-		properties.setProperty(DATABASE_USER, databaseUser);
-		if(mediaDirectory!=null)
-		{
-			properties.setProperty(MEDIA_DIRECTORY, mediaDirectory.getAbsolutePath());
-			properties.setProperty(MEDIA_URL, mediaUrl);
-		}
-		return properties;
 	}
 	
 }

@@ -7,7 +7,6 @@ page import="com.exedio.cope.lib.ReportConstraint" %><%@
 page import="com.exedio.cope.lib.NestingRuntimeException" %><%@
 
 page import="java.util.Date" %><%@
-page import="java.util.Properties" %><%@
 
 include file="provider.inc"
 
