@@ -107,6 +107,14 @@ final class Row
 		cache.put(column, new Integer(value));
 	}
 	
+	void load(final DoubleColumn column, final double value)
+	{
+		if(closed)
+			throw new RuntimeException();
+
+		cache.put(column, new Double(value));
+	}
+	
 	Object store(final Column column)
 	{
 		if(closed)

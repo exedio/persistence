@@ -249,6 +249,13 @@ public final class Instrumentor implements InjectionConsumer
 							ja, "Integer",
 							readOnly, notNull, mapped, qualifiers);
 				}
+				else if("DoubleAttribute".equals(type))
+				{
+					persistentAttribute =
+						new PersistentAttribute(
+							ja, "Double",
+							readOnly, notNull, mapped, qualifiers);
+				}
 				else if("BooleanAttribute".equals(type))
 				{
 					persistentAttribute =

@@ -17,6 +17,11 @@ final class OracleDatabase
 		return "number(" + precision + ",0)";
 	}
 
+	String getDoubleType(final int precision)
+	{
+		return "number(" + precision + ",8)";
+	}
+
 	String getStringType(final int maxLength)
 	{
 		return "varchar2("+maxLength+")";

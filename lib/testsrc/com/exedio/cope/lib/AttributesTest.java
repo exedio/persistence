@@ -122,6 +122,23 @@ public class AttributesTest extends DatabaseLibTest
 		assertEquals(null, item.getSomeInteger());
 	}
 
+	public void testSomeDouble()
+	{
+		assertEquals(item.TYPE, item.someDouble.getType());
+		assertEquals(null, item.getSomeDouble());
+		assertEquals(list(item), Search.search(item.TYPE, Search.equal(item.someDouble, null)));
+		assertEquals(list(item), Search.search(item.TYPE, Search.isNull(item.someDouble)));
+		item.setSomeDouble(new Double(22.22));
+		assertEquals(new Double(22.22), item.getSomeDouble());
+		assertEquals(
+			list(item),
+			Search.search(item.TYPE, Search.equal(item.someDouble, 22.22)));
+		assertEquals(list(), Search.search(item.TYPE, Search.equal(item.someDouble, null)));
+		assertEquals(list(), Search.search(item.TYPE, Search.isNull(item.someDouble)));
+		item.setSomeDouble(null);
+		assertEquals(null, item.getSomeDouble());
+	}
+
 	public void testSomeNotNullInteger()
 	{
 		assertEquals(item.TYPE, item.someNotNullInteger.getType());

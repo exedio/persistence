@@ -130,6 +130,16 @@ public abstract class Search
 		return new EqualCondition(attribute, new Integer(value));
 	}
 	
+	public static final EqualCondition equal(final DoubleAttribute attribute, final Double value)
+	{
+		return new EqualCondition(attribute, value);
+	}
+	
+	public static final EqualCondition equal(final DoubleAttribute attribute, final double value)
+	{
+		return new EqualCondition(attribute, new Double(value));
+	}
+	
 	public static final EqualCondition equal(final ItemAttribute attribute, final Item value)
 	{
 		return new EqualCondition(attribute, value);

@@ -12,6 +12,11 @@ class HsqldbDatabase extends Database
 		return "integer";
 	}
 
+	String getDoubleType(final int precision)
+	{
+		return "double";
+	}
+
 	String getStringType(final int maxLength)
 	{
 		return "varchar("+maxLength+")";

@@ -1,0 +1,29 @@
+
+package com.exedio.cope.lib;
+
+import java.util.List;
+import java.util.Collections;
+
+public class DoubleAttribute extends Attribute
+{
+	public DoubleAttribute(final Option option)
+	{
+		super(option);
+	}
+
+	protected List createColumns(final String name, final boolean notNull)
+	{
+		return Collections.singletonList(new DoubleColumn(getType(), name, notNull, 30));
+	}
+
+	Object cacheToSurface(final Object cache)
+	{
+		return (Double)cache;
+	}
+	
+	Object surfaceToCache(final Object surface)
+	{
+		return (Double)surface;
+	}
+	
+}

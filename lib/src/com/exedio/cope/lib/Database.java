@@ -167,8 +167,12 @@ public abstract class Database
 
 				if(column instanceof IntegerColumn)
 					bf.appendValue(column, new Integer(1));
-				else
+				else if(column instanceof DoubleColumn)
+					bf.appendValue(column, new Double(2.2));
+				else if(column instanceof StringColumn)
 					bf.appendValue(column, "z");
+				else
+					throw new RuntimeException(column.toString());
 			}
 		}
 		
@@ -723,6 +727,7 @@ public abstract class Database
 	}
 
 	abstract String getIntegerType(int precision);
+	abstract String getDoubleType(int precision);
 	abstract String getStringType(int maxLength);
 	
 	private void createTable(final Type type)

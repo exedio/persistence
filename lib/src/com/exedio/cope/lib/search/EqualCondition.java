@@ -4,6 +4,7 @@ package com.exedio.cope.lib.search;
 import java.util.TreeSet;
 
 import com.exedio.cope.lib.Attribute;
+import com.exedio.cope.lib.DoubleAttribute;
 import com.exedio.cope.lib.IntegerAttribute;
 import com.exedio.cope.lib.Item;
 import com.exedio.cope.lib.ItemAttribute;
@@ -28,6 +29,12 @@ public final class EqualCondition extends Condition
 	}
 	
 	public EqualCondition(final IntegerAttribute attribute, final Integer value)
+	{
+		this.attribute = attribute;
+		this.value = value;
+	}
+	
+	public EqualCondition(final DoubleAttribute attribute, final Double value)
 	{
 		this.attribute = attribute;
 		this.value = value;
