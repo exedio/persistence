@@ -386,7 +386,7 @@ public final class Instrumentor implements InjectionConsumer
 		output.write("\t}");
 	}
 	
-	public void writeReactivationConstructor(final PersistentClass javaClass) // TODO: rename parameter
+	public void writeReactivationConstructor(final PersistentClass persistentClass)
 	throws IOException
 	{
 		writeCommentHeader();
@@ -398,7 +398,7 @@ public final class Instrumentor implements InjectionConsumer
 		output.write(lineSeparator);
 		writeCommentFooter();
 		output.write("private ");
-		output.write(javaClass.getName());
+		output.write(persistentClass.getName());
 		output.write("("+ReactivationConstructorDummy.class.getName()+" d, final int pk)");
 		output.write(lineSeparator);
 		output.write("\t{");
