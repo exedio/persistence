@@ -324,5 +324,7 @@ public class AttributesTest extends AbstractLibTest
 		item.setSomeQualifiedString(someItem, null);
 		assertEquals(null, item.getSomeQualifiedString(someItem));
 		assertEquals(null, item.getSomeQualifiedString(someItem2));
+
+		assertDelete(someItem2);
 	}
 }
