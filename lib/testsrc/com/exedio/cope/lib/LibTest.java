@@ -97,6 +97,11 @@ public class LibTest extends TestCase
 			}
 			assertEquals("uniqueString", item.getUniqueString());
 			assertEquals(item, ItemWithSingleUnique.findByUniqueString("uniqueString"));
+			
+			item.passivate();
+			assertTrue(!item.isActive());
+			assertEquals("uniqueString", item.getUniqueString());
+			assertTrue(item.isActive());
 		}
 		
 

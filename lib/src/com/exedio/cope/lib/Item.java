@@ -242,7 +242,7 @@ public class Item extends Search
 
 	// activation/deactivation -----------------------------------------------------
 	
-	private final boolean isActive()
+	public final boolean isActive()
 	{
 		return itemCache!=null;
 	}
@@ -257,7 +257,7 @@ public class Item extends Search
 		}
 	}
 
-	private final void passivate()
+	public final void passivate()
 	{
 		if(itemCache!=null)
 		{
