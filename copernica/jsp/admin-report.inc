@@ -40,7 +40,17 @@ final String reportColor = color(report.getCumulativeColor());
 final boolean narrowReport = cop.isNarrowReport();
 
 %>
-<span class="<%=reportColor%>">Database Report</span>
+<span class="<%=reportColor%>"><%
+if(narrowReport)
+{
+	%><a href="<%=cop.widenReport()%>"><%
+}
+%>Database Report<%
+if(narrowReport)
+{
+	%></a><%
+}
+%></span>
 <input type="button" value="check all analyze" onClick="checkAllAnalyze()">
 <input type="submit" name="APPLY" value="apply"/>
 <ul class="<%=reportColor%>"><%

@@ -36,6 +36,14 @@ final class AdminCop extends Cop
 		return new AdminCop(true, reportTable.name);
 	}
 	
+	final AdminCop widenReport()
+	{
+		if(!report)
+			throw new RuntimeException();
+			
+		return new AdminCop(true, null);
+	}
+	
 	final boolean isNarrowReport()
 	{
 		return reportTable!=null;
