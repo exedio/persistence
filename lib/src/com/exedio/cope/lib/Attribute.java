@@ -8,12 +8,12 @@ public abstract class Attribute
 {
 	public final AttributeMapping mapping;
 
-	public Attribute()
+	protected Attribute()
 	{
 		this.mapping = null;
 	}
 	
-	public Attribute(final AttributeMapping mapping)
+	protected Attribute(final AttributeMapping mapping)
 	{
 		this.mapping = mapping;
 	}
