@@ -8,22 +8,33 @@
 		<property name="api.link.jdk" value="http://java.sun.com/j2se/1.4.2/docs/api" />
 	</target>
 
-	<target name="lib.compile">
+	<target name="lib.compile.mkdir">
 		<mkdir dir="lib/build/classes" />
+	</target>
+
+	<target name="lib.compile" depends="lib.compile.mkdir">
 		<javac srcdir= "lib/src"
 				destdir="lib/build/classes"
 				deprecation="on"
 				debug="on"
 				optimize="off">
 			<include name="com/**" />
+		</javac>
+	</target>
+
+	<target name="lib.oracle.compile" depends="lib.compile.mkdir, lib.compile">
+		<javac srcdir= "lib/oraclesrc"
+				destdir="lib/build/classes"
+				deprecation="on"
+				debug="on"
+				optimize="off">
+			<include name="com/**" />
 			<classpath>
-				<!-- TODO: move OracleDatabase into separate source directory
-						to remove this dependency -->
 				<pathelement location="../lib/classes12.zip" />
 			</classpath>
 		</javac>
 	</target>
-	
+
 	<target name="instrument.compile" depends="lib.compile">
 		<mkdir dir="instrument/build/classes" />
 		<javac srcdir= "instrument/src"
@@ -52,9 +63,9 @@
 		</javac>
 	</target>
 	
-	<target name="compile" depends="lib.compile, instrument.compile, copernica.compile" />
+	<target name="compile" depends="lib.compile, lib.oracle.compile, instrument.compile, copernica.compile" />
 	
-	<target name="lib.test.instrument" depends="lib.compile, instrument.compile">
+	<target name="lib.test.instrument" depends="lib.compile, lib.oracle.compile, instrument.compile">
 		<echo message="Instrumenting lib/testsrc" />
 		<java classname="com.exedio.cope.instrument.Main" failonerror="yes">
 			<classpath>
@@ -71,7 +82,7 @@
 		</java>
 	</target>
 	
-	<target name="lib.test.compile" depends="lib.compile, lib.test.instrument">
+	<target name="lib.test.compile" depends="lib.test.instrument">
 		<mkdir dir="lib/build/testclasses" />
 		<javac srcdir="lib/testsrc"
 				destdir="lib/build/testclasses"
@@ -86,7 +97,7 @@
 		</javac>
 	</target>
 	
-	<target name="lib.test.run" depends="lib.compile, lib.test.compile">
+	<target name="lib.test.run" depends="lib.test.compile">
 		<java classname="junit.textui.TestRunner" taskname="junit" fork="yes" failonerror="yes">
 			<classpath>
 				<pathelement location="lib/build/classes" />
@@ -98,7 +109,7 @@
 		</java>
 	</target>
 
-	<target name="lib.test.teardowntables" depends="lib.compile, lib.test.compile">
+	<target name="lib.test.teardowntables" depends="lib.compile, lib.oracle.compile, lib.test.compile">
 		<java classname="com.exedio.cope.lib.AbstractLibTest" taskname="tear down tables" fork="yes" failonerror="yes">
 			<classpath>
 				<pathelement location="lib/build/classes" />

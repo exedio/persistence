@@ -1,5 +1,4 @@
-
-package com.exedio.cope.lib.database;
+package com.exedio.cope.lib;
 
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -8,16 +7,14 @@ import java.util.List;
 
 import oracle.jdbc.OracleStatement;
 
-import com.exedio.cope.lib.Database;
-
-public class OracleDatabase extends Database
+class OracleDatabase extends Database
 {
 	public OracleDatabase()
 	{
 		super(true);
 	}
 
-	public String protectName(final String name)
+	protected String protectName(final String name)
 	{
 		return '"' + name + '"';
 	}

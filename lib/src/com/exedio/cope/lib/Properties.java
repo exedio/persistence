@@ -4,7 +4,7 @@ package com.exedio.cope.lib;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-class Properties
+final class Properties
 {
 	private static Properties theInstance = null;
 	
@@ -19,6 +19,7 @@ class Properties
 
 	private static final String FILE_NAME = "cope.properties";
 	
+	private final String database;
 	private final String driver;
 	private final String url;
 	private final String user;
@@ -48,17 +49,28 @@ class Properties
 				catch(IOException e) {}
 			}
 		}
-		driver = properties.getProperty("database.driver");
-		url = properties.getProperty("database.url");
-		user = properties.getProperty("database.user");
-		password = properties.getProperty("database.password");
+		database = getPropertyNotNull(properties, "database");
+		driver = getPropertyNotNull(properties, "database.driver");
+		url = getPropertyNotNull(properties, "database.url");
+		user = getPropertyNotNull(properties, "database.user");
+		password = getPropertyNotNull(properties, "database.password");
 	}
 	
-	private static void getPropertyNotNull(final java.util.Properties properties, final String key)
+	private static String getPropertyNotNull(final java.util.Properties properties, final String key)
 	{
 		final String result = properties.getProperty(key);
-		if(key==null)
-			throw new RuntimeException("property "+key+" in "+FILE_NAME+" not set.");
+		if(result==null)
+		{
+			final String m = "ERROR: property "+key+" in "+FILE_NAME+" not set.";
+			System.out.println(m);
+			throw new RuntimeException(m);
+		}
+		return result;
+	}
+
+	public String getDatabase()
+	{
+		return database;
 	}
 
 	public String getDriver()

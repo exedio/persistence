@@ -1,6 +1,8 @@
 
 package com.exedio.cope.lib;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,11 +11,68 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-import com.exedio.cope.lib.database.OracleDatabase;
-
 public abstract class Database
 {
-	public static final Database theInstance = new OracleDatabase();
+	public static final Database theInstance = createDatabase();
+	
+	private static final Database createDatabase()
+	{
+		final String databaseName = Properties.getInstance().getDatabase();
+
+		final Class databaseClass;
+		try
+		{
+			databaseClass = Class.forName(databaseName);
+		}
+		catch(ClassNotFoundException e)
+		{
+			final String m = "ERROR: class "+databaseName+" from cope.properties not found.";
+			System.err.println(m);
+			throw new RuntimeException(m);
+		}
+		
+		if(!Database.class.isAssignableFrom(databaseClass))
+		{
+			final String m = "ERROR: class "+databaseName+" from cope.properties not a subclass of "+Database.class.getName()+".";
+			System.err.println(m);
+			throw new RuntimeException(m);
+		}
+
+		final Constructor constructor;
+		try
+		{
+			constructor = databaseClass.getDeclaredConstructor(new Class[]{});
+		}
+		catch(NoSuchMethodException e)
+		{
+			final String m = "ERROR: class "+databaseName+" from cope.properties has no default constructor.";
+			System.err.println(m);
+			throw new RuntimeException(m);
+		}
+
+		try
+		{
+			return (Database)constructor.newInstance(new Object[]{});
+		}
+		catch(InstantiationException e)
+		{
+			e.printStackTrace();
+			System.err.println(e.getMessage());
+			throw new SystemException(e);
+		}
+		catch(IllegalAccessException e)
+		{
+			e.printStackTrace();
+			System.err.println(e.getMessage());
+			throw new SystemException(e);
+		}
+		catch(InvocationTargetException e)
+		{
+			e.printStackTrace();
+			System.err.println(e.getMessage());
+			throw new SystemException(e);
+		}
+	}
 	
 	private final boolean useDefineColumnTypes;
 	
@@ -478,7 +537,7 @@ public abstract class Database
 	 * Protects a database name from being interpreted as a SQL keyword.
 	 * This is usually done by using some (database specific) delimiters.
 	 */
-	public abstract String protectName(final String name);
+	protected abstract String protectName(final String name);
 
 	private void createTable(final Type type)
 	{
