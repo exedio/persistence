@@ -28,7 +28,7 @@ import com.exedio.copernica.TransientCopernicaProvider;
  *    &lt;servlet-class&gt;com.exedio.copernica.admin.AdminServlet&lt;/servlet-class&gt;
  *    &lt;init-param&gt;
  *       &lt;param-name&gt;model&lt;/param-name&gt;
- *       &lt;param-value&gt;com.bigbusiness.shop.Main#model&lt;/param-value&gt;
+ *       &lt;param-value&gt;{@link com.exedio.cope.lib.Model com.bigbusiness.shop.Main#model}&lt;/param-value&gt;
  *    &lt;/init-param&gt;
  * &lt;/servlet&gt;
  * &lt;servlet-mapping&gt;

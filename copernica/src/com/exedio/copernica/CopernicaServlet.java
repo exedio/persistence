@@ -27,7 +27,7 @@ import com.exedio.cops.Cop;
  *    &lt;servlet-class&gt;com.exedio.copernica.CopernicaServlet&lt;/servlet-class&gt;
  *    &lt;init-param&gt;
  *       &lt;param-name&gt;provider&lt;/param-name&gt;
- *       &lt;param-value&gt;com.bigbusiness.shop.ShopProvider&lt;/param-value&gt;
+ *       &lt;param-value&gt;{@link CopernicaProvider com.bigbusiness.shop.ShopProvider}&lt;/param-value&gt;
  *    &lt;/init-param&gt;
  * &lt;/servlet&gt;
  * &lt;servlet-mapping&gt;
