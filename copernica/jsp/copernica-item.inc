@@ -1,19 +1,16 @@
 <%!
-				static final String SAVE_BUTTON = "SAVE";
+				static final String SAVE_BUTTON = ItemForm.SAVE_BUTTON;
 				static final String VALUE_NULL = ItemForm.VALUE_NULL;
 				static final String VALUE_ON = ItemForm.VALUE_ON;
 				static final String VALUE_OFF = ItemForm.VALUE_OFF;
 			%><%
 				final Item item = itemCop.item;
 				final Type type = item.getType();
+				final ItemForm form = new ItemForm(item, request);
 				
-				final boolean save = request.getParameter(SAVE_BUTTON)!=null;
-				final ItemForm form = new ItemForm(item, request.getParameterMap(), save);
-				if(save)
-					form.save();
 			%>
-
-			<form action="<%=(cop.toItem(item))%>" method="POST">
+			
+			<form action="<%=(cop.toItem(item))%>" method="POST" enctype="multipart/form-data">
 				<table border="0" width="100%">
 					<tr>
 						<td>
@@ -44,6 +41,7 @@
 						if(attribute instanceof MediaAttribute)
 						{
 							final MediaAttribute mediaAttribute = (MediaAttribute)attribute;
+							final String attributeName = attribute.getName();
 							final String url = item.getMediaURL(mediaAttribute);
 							if(url==null)
 							{
@@ -62,6 +60,9 @@
 								}
 								%></a><%
 							}
+							%>
+							<input type="file" name="data<%=attributeName%>" size="20">
+							<input type="submit" name="UPLOAD<%=attributeName%>" value="Upload"><%
 						}
 						else if(attribute instanceof EnumAttribute)
 						{

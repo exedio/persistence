@@ -5,7 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
-import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import com.exedio.cope.lib.Attribute;
 import com.exedio.cope.lib.BooleanAttribute;
@@ -32,15 +33,18 @@ final class ItemForm extends Form
 	static final String VALUE_NULL = "null";
 	static final String VALUE_ON = "on";
 	static final String VALUE_OFF = "off";
+	static final String SAVE_BUTTON = "SAVE";
 	
 	static final String DATE_FORMAT_FULL = "dd.MM.yyyy HH:mm:ss.SSS";
 
 	final Item item;
 	final Type type;
 	
-	ItemForm(final Item item, final Map parameters, final boolean save)
+	ItemForm(final Item item, final HttpServletRequest request)
 	{
-		super(parameters);
+		super(request);
+		
+		final boolean save = getParameter(SAVE_BUTTON)!=null;
 		this.item = item;
 		this.type = item.getType();
 
@@ -55,7 +59,7 @@ final class ItemForm extends Form
 				final String value;
 
 				if(save)
-					value = Cop.getParameter(parameters, name);
+					value = getParameter(name);
 				else
 				{
 					final Object itemValue = item.getAttribute(attribute);
@@ -97,9 +101,14 @@ final class ItemForm extends Form
 				}
 			}
 		}
+		
+		if(save)
+		{
+			save();
+		}
 	}
 	
-	void save()
+	private void save()
 	{
 		for(Iterator i = getFields().iterator(); i.hasNext(); )
 		{

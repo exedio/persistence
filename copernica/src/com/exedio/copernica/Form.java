@@ -3,19 +3,86 @@ package com.exedio.copernica;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.fileupload.DiskFileUpload;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUpload;
+import org.apache.commons.fileupload.FileUploadException;
+
+import com.exedio.cope.lib.NestingRuntimeException;
 
 abstract class Form
 {
-	private final Map parameters;
+	private final HttpServletRequest request;
+	private final HashMap multipartContentParameters;
+
 	boolean toSave = false;
 	private final HashMap fieldMap = new HashMap();
 	private final ArrayList fieldList = new ArrayList();
 	
-	Form(final Map parameters)
+	Form(final HttpServletRequest request)
 	{
-		this.parameters = parameters;
+		this.request = request;
+
+		if(FileUpload.isMultipartContent(request))
+		{
+			final DiskFileUpload upload = new DiskFileUpload();
+			final int maxSize = 100*1024; // TODO: make this configurable
+			upload.setSizeThreshold(maxSize); // TODO: always save to disk
+			upload.setSizeMax(maxSize);
+			//upload.setRepositoryPath("");
+			multipartContentParameters = new HashMap();
+			try
+			{
+				for(Iterator i = upload.parseRequest(request).iterator(); i.hasNext(); )
+				{
+					final FileItem item = (FileItem)i.next();
+					if (item.isFormField())
+					{
+						final String name = item.getFieldName();
+						final String value = item.getString();
+						multipartContentParameters.put(name, value);
+					}
+					else
+					{
+						final String name = item.getFieldName();
+						multipartContentParameters.put(name, item);
+					}
+				}
+			}
+			catch(FileUploadException e)
+			{
+				throw new NestingRuntimeException(e);
+			}
+		}
+		else
+		{
+			multipartContentParameters = null;
+		}
+	}
+	
+	protected final String getParameter(final String name)
+	{
+		if(multipartContentParameters!=null)
+		{
+			return (String)multipartContentParameters.get(name);
+		}
+		else
+			return request.getParameter(name);
+	}
+	
+	protected final FileItem getParameterFile(final String name)
+	{
+		if(multipartContentParameters!=null)
+		{
+			return (FileItem)multipartContentParameters.get(name);
+		}
+		else
+			return null;
 	}
 	
 	class Field
