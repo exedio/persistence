@@ -105,18 +105,37 @@
 		</javac>
 	</target>
 	
-	<target name="lib.test.run" depends="lib.test.compile">
+	<target name="lib.test.run.hsql" depends="lib.test.compile">
+		<delete file="cope.properties" />
+		<copy file="cope.properties.hsql" tofile="cope.properties" />
 		<java classname="junit.textui.TestRunner" taskname="junit" fork="yes" failonerror="yes">
 			<classpath>
 				<pathelement location="lib/build/classes" />
 				<pathelement location="lib/build/testclasses" />
 				<pathelement location="../lib/junit.jar" />
 				<pathelement location="../lib/hsqldb.jar" />
+			</classpath>
+			<arg value="com.exedio.cope.lib.PackageTest" />
+		</java>
+		<delete file="cope.properties" />
+	</target>
+
+	<target name="lib.test.run.oracle" depends="lib.test.compile">
+		<delete file="cope.properties" />
+		<copy file="cope.properties.oracle" tofile="cope.properties" />
+		<java classname="junit.textui.TestRunner" taskname="junit" fork="yes" failonerror="yes">
+			<classpath>
+				<pathelement location="lib/build/classes" />
+				<pathelement location="lib/build/testclasses" />
+				<pathelement location="../lib/junit.jar" />
 				<pathelement location="../lib/classes12.zip" />
 			</classpath>
 			<arg value="com.exedio.cope.lib.PackageTest" />
 		</java>
+		<delete file="cope.properties" />
 	</target>
+
+	<target name="lib.test.run" depends="lib.test.run.hsql, lib.test.run.oracle" />
 
 	<target name="lib.test.teardown.database" depends="lib.compile, lib.oracle.compile, lib.test.compile">
 		<java classname="com.exedio.cope.lib.DatabaseLibTest" taskname="tear down tables" fork="yes" failonerror="yes">
