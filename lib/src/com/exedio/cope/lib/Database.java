@@ -597,7 +597,7 @@ abstract class Database
 		}
 	}
 
-	protected static interface ResultSetHandler
+	static interface ResultSetHandler
 	{
 		public void run(ResultSet resultSet) throws SQLException;
 	}
@@ -877,7 +877,7 @@ abstract class Database
 			final Column column = (Column)i.next();
 			bf.append(column.protectedID).
 				append(' ').
-				append(column.databaseType);
+				append(column.getDatabaseType());
 		}
 		
 		// attribute constraints		
@@ -1376,7 +1376,7 @@ abstract class Database
 			getCreateColumnStatement(
 				column.table.protectedID,
 				column.protectedID,
-				column.databaseType);
+				column.getDatabaseType());
 
 		try
 		{

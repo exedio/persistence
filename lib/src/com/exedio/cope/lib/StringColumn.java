@@ -15,11 +15,16 @@ final class StringColumn extends Column
 			final Table table, final String id, final boolean notNull,
 			final int minimumLength, final int maximumLength)
 	{
-		super(table, id, false, notNull, table.database.getStringType(maximumLength), JDBC_TYPE);
+		super(table, id, false, notNull, JDBC_TYPE);
 		this.minimumLength = minimumLength;
 		this.maximumLength = maximumLength;
 	}
 	
+	final String getDatabaseType()
+	{
+		return table.database.getStringType(maximumLength);
+	}
+
 	final String getMinimumLengthConstraintID()
 	{
 		if(minimumLength<=0)

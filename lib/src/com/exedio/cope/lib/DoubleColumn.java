@@ -4,16 +4,24 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 
-public class DoubleColumn extends Column
+final class DoubleColumn extends Column
 {
 	static final Integer JDBC_TYPE = new Integer(Types.DOUBLE);
+	
+	final int precision;
 
 	DoubleColumn(final Table table, final String id, 
 					  final boolean notNull, final int precision)
 	{
-		super(table, id, false, notNull, table.database.getDoubleType(precision), JDBC_TYPE);
+		super(table, id, false, notNull, JDBC_TYPE);
+		this.precision = precision;
 	}
 	
+	final String getDatabaseType()
+	{
+		return table.database.getDoubleType(precision);
+	}
+
 	final void load(final ResultSet resultSet, final int columnIndex, final Row row)
 			throws SQLException
 	{

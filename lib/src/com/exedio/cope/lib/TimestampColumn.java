@@ -6,15 +6,20 @@ import java.sql.Types;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-class TimestampColumn extends Column
+final class TimestampColumn extends Column
 {
 	static final Integer JDBC_TYPE = new Integer(Types.TIMESTAMP);
 	
 	TimestampColumn(final Table table, final String id, final boolean notNull)
 	{
-		super(table, id, false, notNull, ((DatabaseTimestampCapable)table.database).getDateTimestampType(), JDBC_TYPE);
+		super(table, id, false, notNull, JDBC_TYPE);
 	}
 	
+	final String getDatabaseType()
+	{
+		return ((DatabaseTimestampCapable)table.database).getDateTimestampType(); 
+	}
+
 	/**
 	 * Returns what should be returned by
 	 * {@link Date#getTime()}.

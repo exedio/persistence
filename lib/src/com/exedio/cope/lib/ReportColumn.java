@@ -53,7 +53,7 @@ public final class ReportColumn extends ReportNode
 		{
 			if(column!=null &&
 				existingType!=null &&
-				!column.databaseType.equals(existingType))
+				!column.getDatabaseType().equals(existingType))
 			{
 				error = "different type in database: >"+existingType+"<";
 				particularColor = COLOR_RED;
@@ -78,7 +78,7 @@ public final class ReportColumn extends ReportNode
 	public final String getDatabaseType()
 	{
 		if(column!=null)
-			return column.databaseType;
+			return column.getDatabaseType();
 		else
 			return existingType;
 	}

@@ -10,24 +10,24 @@ abstract class Column
 	final String protectedID;
 	final boolean primaryKey;
 	final boolean notNull;
-	final String databaseType; // TODO: remove databaseType and compute it on demand
 	final Integer jdbcType;
 	
 	Column(
 			final Table table, final String id,
 			final boolean primaryKey, final boolean notNull,
-			final String databaseType, final Integer jdbcType)
+			final Integer jdbcType)
 	{
 		this.table = table;
 		this.id = id;
 		this.protectedID = table.database.protectName(id);
 		this.primaryKey = primaryKey;
 		this.notNull = notNull;
-		this.databaseType = databaseType;
 		this.jdbcType = jdbcType;
 		table.addColumn(this);
 	}
 	
+	abstract String getDatabaseType();
+
 	final String getPrimaryKeyConstraintID()
 	{
 		if(!primaryKey)

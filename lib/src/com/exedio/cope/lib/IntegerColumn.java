@@ -10,6 +10,7 @@ class IntegerColumn extends Column
 	static final Integer JDBC_TYPE_INT = new Integer(Types.INTEGER);
 	static final Integer JDBC_TYPE_LONG = new Integer(Types.BIGINT);
 	
+	final int precision;
 	final boolean longInsteadOfInt;
 	final int[] allowedValues;
 
@@ -17,7 +18,8 @@ class IntegerColumn extends Column
 					  final boolean notNull, final int precision,
 					  final boolean longInsteadOfInt, final int[] allowedValues)
 	{
-		super(table, id, false, notNull, table.database.getIntegerType(precision), longInsteadOfInt ? JDBC_TYPE_LONG : JDBC_TYPE_INT);
+		super(table, id, false, notNull, longInsteadOfInt ? JDBC_TYPE_LONG : JDBC_TYPE_INT);
+		this.precision = precision;
 		this.longInsteadOfInt = longInsteadOfInt;
 		this.allowedValues = allowedValues;
 	}
@@ -27,11 +29,17 @@ class IntegerColumn extends Column
 	 */	
 	IntegerColumn(final Table table) 
 	{
-		super(table, "PK", true, true, table.database.getIntegerType(ItemColumn.SYNTETIC_PRIMARY_KEY_PRECISION), JDBC_TYPE_INT);
+		super(table, "PK", true, true, JDBC_TYPE_INT);
+		this.precision = ItemColumn.SYNTETIC_PRIMARY_KEY_PRECISION;
 		this.longInsteadOfInt = false;
 		this.allowedValues = null;
 	}
 	
+	final String getDatabaseType()
+	{
+		return table.database.getIntegerType(precision); 
+	}
+
 	final String getAllowedValuesConstraintID()
 	{
 		if(allowedValues==null)
