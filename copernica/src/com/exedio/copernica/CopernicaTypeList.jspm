@@ -11,8 +11,8 @@ public class CopernicaTypeList_Jspm
 	public static final void write(final JspWriter out, final CopernicaCop cop)
 		throws IOException
 	{
-		final CopernicaProvider provider = cop.provider; 
-		final CopernicaLanguage language = cop.language; 
+		final CopernicaProvider provider = cop.provider;
+		final CopernicaLanguage language = cop.language;
 %>
 		<ul id="typelist"><%
 		for(Iterator i = provider.getModel().getTypes().iterator(); i.hasNext(); )
