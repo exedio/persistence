@@ -43,6 +43,31 @@
 		}
 	}
 	{
+		for(Iterator i = request.getParameterMap().keySet().iterator(); i.hasNext(); )
+		{
+			final String parameterName = (String)i.next();
+			if(!parameterName.startsWith("RENAME_TABLE_"))
+				continue;
+			
+			final String targetName = request.getParameter(parameterName);
+			if(targetName.length()==0)
+				continue;
+			
+			final String sourceName = parameterName.substring("RENAME_TABLE_".length());
+			final ReportTable table = report.getTable(sourceName);
+			if(table==null)
+				throw new RuntimeException(sourceName);
+			
+			%>
+			<li>renaming table <%=sourceName%> to <%=targetName%> ...</li><%
+			out.flush();
+			final long time = System.currentTimeMillis();
+			table.renameTo(targetName);
+			%><li><b>ok</b>, <%=System.currentTimeMillis()-time%>ms.</li><%
+			out.flush();
+		}
+	}
+	{
 		final String[] createTables = (String[])request.getParameterMap().get("CREATE_TABLE");
 		if(createTables!=null)
 		{

@@ -85,12 +85,17 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); )
 	}
 	if(table.exists())
 	{
-		%>
+		if(narrowReport)
+		{
+			%>,
+		rename to <input name="RENAME_TABLE_<%=table.name%>"/><%
+		}
+		%>,
 		<input type="checkbox" name="DROP_TABLE" value="<%=table.name%>"/>drop<%
 	}
 	else if(table.required())
 	{
-		%>
+		%>,
 		<input type="checkbox" name="CREATE_TABLE" value="<%=table.name%>"/>create<%
 	}
 	

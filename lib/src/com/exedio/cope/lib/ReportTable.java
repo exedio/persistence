@@ -162,6 +162,11 @@ public final class ReportTable extends ReportNode
 	{
 		Database.theInstance.createTable(table);
 	}
+	
+	public final void renameTo(final String newName)
+	{
+		Database.theInstance.renameTable(name, newName);
+	}
 
 	public final void drop()
 	{
