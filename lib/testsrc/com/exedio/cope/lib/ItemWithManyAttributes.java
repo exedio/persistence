@@ -42,6 +42,7 @@ public class ItemWithManyAttributes extends Item
 	/**
 	 * A media attribute.
 	 * @persistent
+	 * @variant SomeVariant
 	 */
 	public static final MediaAttribute someMedia = new MediaAttribute();
 
@@ -199,6 +200,15 @@ public class ItemWithManyAttributes extends Item
  */public final java.lang.String getSomeMediaURL()
 	{
 		return getMediaURL(this.someMedia,null);
+	}/**
+
+	 **
+	 * Returns a URL pointing to the varied data of the persistent attribute {@link #someMedia}.
+	 * @generated
+	 *
+ */public final java.lang.String getSomeMediaURLSomeVariant()
+	{
+		return getMediaURL(this.someMedia,"SomeVariant");
 	}/**
 
 	 **

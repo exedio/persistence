@@ -194,21 +194,36 @@ public class LibTest extends TestCase
 			assertEquals(null/*someItem*/, item.getSomeItem());
 			
 			assertEquals(null, item.getSomeMediaURL());
+			assertEquals(null, item.getSomeMediaURLSomeVariant());
 			assertEquals(null, item.getSomeMediaData());
 			assertEquals(null, item.getSomeMediaMimeMajor());
 			assertEquals(null, item.getSomeMediaMimeMinor());
 			try
 			{
-				item.setSomeMediaData(null, "someMimeMajor", "someMimeMinor");
+				item.setSomeMediaData(null/*some data*/, "someMimeMajor", "someMimeMinor");
 			}
 			catch(IOException e)
 			{
 				throw new SystemException(e);
 			}
 			assertEquals(null/*somehow gets the data*/, item.getSomeMediaURL());
+			assertEquals(null/*somehow gets the data*/, item.getSomeMediaURLSomeVariant());
 			assertEquals(null/*somehow gets the data*/, item.getSomeMediaData());
 			assertEquals(null/*"someMimeMajor"*/, item.getSomeMediaMimeMajor());
 			assertEquals(null/*"someMimeMinor"*/, item.getSomeMediaMimeMinor());
+			try
+			{
+				item.setSomeMediaData(null, null, null);
+			}
+			catch(IOException e)
+			{
+				throw new SystemException(e);
+			}
+			assertEquals(null, item.getSomeMediaURL());
+			assertEquals(null, item.getSomeMediaURLSomeVariant());
+			assertEquals(null, item.getSomeMediaData());
+			assertEquals(null, item.getSomeMediaMimeMajor());
+			assertEquals(null, item.getSomeMediaMimeMinor());
 		}
 	}
 
