@@ -1,6 +1,9 @@
 
 package com.exedio.cope.lib;
 
+import com.exedio.cope.lib.hierarchy.FirstSub;
+import com.exedio.cope.lib.hierarchy.Super;
+
 /**
  * Tests the model itself, without creating/using any persistent data.
  */
@@ -57,6 +60,12 @@ public class ModelTest extends AbstractLibTest
 				throw new RuntimeException("Ooooops");
 		}
 		assertEquals(someEnumeration, ItemWithManyAttributes.SomeEnumeration.enumValue2);
+	}
+
+	public void testHierarchy()
+	{
+		assertEquals(list(Super.superInt), Super.TYPE.getAttributes());
+		assertEquals(list(FirstSub.firstSubString), FirstSub.TYPE.getAttributes());
 	}
 
 }
