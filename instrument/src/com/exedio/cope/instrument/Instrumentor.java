@@ -215,19 +215,19 @@ public final class Instrumentor implements InjectionConsumer
 		output.write(lineSeparator);
 		output.write("\t{");
 		output.write(lineSeparator);
-		output.write("\tsuper(1.0);");
+		output.write("\t\tsuper(1.0);");
 		output.write(lineSeparator);
 		for(Iterator i = readOnlyAttributes.iterator(); i.hasNext(); )
 		{
 			final JavaAttribute readOnlyAttribute = (JavaAttribute)i.next();
-			output.write("\tset");
+			output.write("\t\tset");
 			output.write(readOnlyAttribute.getCamelCaseName());
 			output.write('(');
 			output.write(readOnlyAttribute.getName());
 			output.write(");");
 			output.write(lineSeparator);
 		}
-		output.write("}");
+		output.write("\t}");
 	}
 	
 	private void writeAccessMethods(final JavaAttribute persistentAttribute)
@@ -255,8 +255,9 @@ public final class Instrumentor implements InjectionConsumer
 		output.write(')');
 		output.write(lineSeparator);
 		output.write("\t{");
+		output.write(lineSeparator);
 		writeGetterBody(output, persistentAttribute);
-		output.write('}');
+		output.write("\t}");
 		
 		// setter
 		output.write("/**");
@@ -283,8 +284,9 @@ public final class Instrumentor implements InjectionConsumer
 		writeThrowsClause(persistentAttribute.getSetterExceptions());
 		output.write(lineSeparator);
 		output.write("\t{");
+		output.write(lineSeparator);
 		writeSetterBody(output, persistentAttribute);
-		output.write('}');
+		output.write("\t}");
 	}
 	
 	public void onClassEnd(JavaClass jc)
@@ -410,11 +412,16 @@ public final class Instrumentor implements InjectionConsumer
 	
 	// ----------------- methods for a new interface
 
+	/**
+	 * Identation contract:
+	 * This methods is called, when output stream is immediatly after a line break,
+	 * and it should return the output stream after immediatly after a line break.
+	 * This means, doing nothing fullfils the contract.
+	 */
 	private void writeGetterBody(final Writer output, final JavaAttribute attribute)
 	throws IOException
 	{
-		output.write(lineSeparator);
-		output.write("\treturn (");
+		output.write("\t\treturn (");
 		output.write(attribute.getPersistentType());
 		output.write(")getAttribute(this.");
 		output.write(attribute.getName());
@@ -429,16 +436,22 @@ public final class Instrumentor implements InjectionConsumer
 		output.write(lineSeparator);
 	}
 
+	/**
+	 * Identation contract:
+	 * This methods is called, when output stream is immediatly after a line break,
+	 * and it should return the output stream after immediatly after a line break.
+	 * This means, doing nothing fullfils the contract.
+	 */
 	private void writeSetterBody(final Writer output, final JavaAttribute attribute)
 	throws IOException
 	{
-		output.write(lineSeparator);
 		if(!attribute.isUnique())
 		{
-			output.write("\ttry");
+			output.write("\t\ttry");
 			output.write(lineSeparator);
-			output.write("\t{");
+			output.write("\t\t{");
 			output.write(lineSeparator);
+			output.write('\t');
 		}
 		output.write("\t\tsetAttribute(this.");
 		output.write(attribute.getName());
@@ -455,15 +468,15 @@ public final class Instrumentor implements InjectionConsumer
 		output.write(lineSeparator);
 		if(!attribute.isUnique())
 		{
-			output.write("\t}");
+			output.write("\t\t}");
 			output.write(lineSeparator);
-			output.write("\tcatch("+UniqueViolationException.class.getName()+" e)");
+			output.write("\t\tcatch("+UniqueViolationException.class.getName()+" e)");
 			output.write(lineSeparator);
-			output.write("\t{");
+			output.write("\t\t{");
 			output.write(lineSeparator);
-			output.write("\t\tthrow new "+SystemException.class.getName()+"(e);");
+			output.write("\t\t\tthrow new "+SystemException.class.getName()+"(e);");
 			output.write(lineSeparator);
-			output.write("\t}");
+			output.write("\t\t}");
 			output.write(lineSeparator);
 		}
 	}
