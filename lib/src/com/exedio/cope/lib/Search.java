@@ -102,7 +102,13 @@ public class Search
 	}
 	
 	/**
-	 * Always returns unmodifiable collections.
+	 * Searches for items of the given type, that match the given condition.
+	 * <p>
+	 * Returns an unmodifiable collection.
+	 * Any attempts to modify the returned collection, whether direct or via its iterator,
+	 * result in an <code>UnsupportedOperationException</code>.
+	 * @param type the type the searched items must match.
+	 * @param condition the condition the searched items must match.
 	 */
 	public static final Collection search(final Type type, final Condition condition)
 	{
