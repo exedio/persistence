@@ -90,20 +90,6 @@ public abstract class Example implements Runnable
 	 }
   }  
 
-  /**
-	 * Testcomment A
-	 */
-  private int a;
-  
-  private List collectionWithoutComment;
-  
-  /**
-	 * Testcomment B
-	 */
-  private int b;
-  
-  private Map mapWithoutComment;
-
   private Example()
   {
 	 namedIntegers.put("5", new Integer(5));
@@ -137,6 +123,7 @@ public abstract class Example implements Runnable
 	 this.qualifiers=qualifiers;
     
 	 int a=20;
+	 int b=10;
 	 a=a/(a+b); // ugly expression
   }
 
