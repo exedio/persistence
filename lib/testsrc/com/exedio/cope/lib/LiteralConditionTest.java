@@ -58,6 +58,14 @@ public class LiteralConditionTest extends DatabaseLibTest
 		assertEquals(set(item4, item5),
 			toSet(Search.search(item1.TYPE, Search.greater(item1.someNotNullEnumeration, ItemWithManyAttributes.SomeEnumeration.enumValue2))));
 
+		// greater or equal
+		assertEquals(set(item3, item4, item5),
+			toSet(Search.search(item1.TYPE, Search.greaterOrEqual(item1.someNotNullString, "string3"))));
+		assertEquals(set(item3, item4, item5),
+			toSet(Search.search(item1.TYPE, Search.greaterOrEqual(item1.someNotNullInteger, 3))));
+		assertEquals(set(item3, item4, item5),
+			toSet(Search.search(item1.TYPE, Search.greaterOrEqual(item1.someNotNullEnumeration, ItemWithManyAttributes.SomeEnumeration.enumValue2))));
+
 	}
 
 }
