@@ -1,12 +1,16 @@
 
 package com.exedio.cope.lib;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 public class Type
 {
+	private static final ArrayList typesModifyable = new ArrayList();
+	private static final List types = Collections.unmodifiableList(typesModifyable);
+	
 	private final Class javaClass;
 	
 	private final Attribute[] attributes;
@@ -14,6 +18,12 @@ public class Type
 
 	private final UniqueConstraint[] uniqueConstraints;
 	private final List uniqueConstraintList;
+	
+
+	public static final List getTypes()
+	{
+		return types;
+	}
 	
 	public Type(final Class javaClass, final Attribute[] attributes, final UniqueConstraint[] uniqueConstraints, final Runnable initializer)
 	{
@@ -23,6 +33,7 @@ public class Type
 		this.uniqueConstraints = uniqueConstraints;
 		this.uniqueConstraintList = Collections.unmodifiableList(Arrays.asList(uniqueConstraints));
 		initializer.run();
+		typesModifyable.add(this);
 	}
 	
 	public final Class getJavaClass()

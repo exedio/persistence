@@ -38,12 +38,24 @@ public class Database
 		return "number(10,0)";
 	}
 	
-	public void createTable(final Type type)
+	public void createTables()
+	{
+		for(Iterator i = Type.getTypes().iterator(); i.hasNext(); )
+			createTable((Type)i.next());
+	}
+
+	public void dropTables()
+	{
+		for(Iterator i = Type.getTypes().iterator(); i.hasNext(); )
+			dropTable((Type)i.next());
+	}
+
+	private void createTable(final Type type)
 	{
 		executeSQL(getCreateTableStatement(type));
 	}
 	
-	public void dropTable(final Type type)
+	private void dropTable(final Type type)
 	{
 		executeSQL(getDropTableStatement(type));
 	}
