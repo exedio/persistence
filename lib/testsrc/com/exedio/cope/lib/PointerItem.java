@@ -1,6 +1,9 @@
 
 package com.exedio.cope.lib;
 
+/**
+ * @persistent
+ */
 public class PointerItem extends Item
 {
 	/**
