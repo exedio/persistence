@@ -29,6 +29,7 @@ public class PackageTest extends TestCase
 		suite.addTest(new TestSuite(UniqueItemTest.class));
 		suite.addTest(new TestSuite(HierarchyTest.class));
 		suite.addTest(new TestSuite(SearchTest.class));
+		suite.addTest(new TestSuite(QualifierTest.class));
 		suite.addTest(new TestSuite(LiteralConditionTest.class));
 		suite.addTest(new TestSuite(JoinTest.class));
 		suite.addTest(new TestSuite(FindByIDTest.class));

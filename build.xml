@@ -89,6 +89,8 @@
 			<arg value="${basedir}/lib/testsrc/com/exedio/cope/lib/MediaItem.java" />
 			<arg value="${basedir}/lib/testsrc/com/exedio/cope/lib/PointerItem.java" />
 			<arg value="${basedir}/lib/testsrc/com/exedio/cope/lib/PointerItem2.java" />
+			<arg value="${basedir}/lib/testsrc/com/exedio/cope/lib/QualifierItem.java" />
+			<arg value="${basedir}/lib/testsrc/com/exedio/cope/lib/QualifiedItem.java" />
 			<arg value="${basedir}/lib/testsrc/com/exedio/cope/lib/hierarchy/Super.java" />
 			<arg value="${basedir}/lib/testsrc/com/exedio/cope/lib/hierarchy/FirstSub.java" />
 			<arg value="${basedir}/lib/testsrc/com/exedio/cope/lib/collision/CollisionItem1.java" />
