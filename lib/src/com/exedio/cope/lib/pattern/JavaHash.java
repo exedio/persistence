@@ -25,8 +25,8 @@ public class JavaHash extends Hash
 
 		try
 		{
-			MessageDigest.getInstance(hash);
-			"test".getBytes(encoding);
+			createDigest();
+			encode("test");
 		}
 		catch(NoSuchAlgorithmException e)
 		{
@@ -43,6 +43,16 @@ public class JavaHash extends Hash
 		this(storage, hash, "utf8");
 	}
 	
+	private final MessageDigest createDigest() throws NoSuchAlgorithmException
+	{
+		return MessageDigest.getInstance(hash);
+	}
+	
+	private final byte[] encode(final String s) throws UnsupportedEncodingException
+	{
+		return s.getBytes(encoding);
+	}
+	
 	public final String hash(final String plainText)
 	{
 		if(plainText == null)
@@ -52,9 +62,9 @@ public class JavaHash extends Hash
 
 		try
 		{
-			final MessageDigest messageDigest = MessageDigest.getInstance(hash);
+			final MessageDigest messageDigest = createDigest();
 			messageDigest.reset();
-			messageDigest.update(plainText.getBytes(encoding));
+			messageDigest.update(encode(plainText));
 			final byte[] resultBytes = messageDigest.digest();
 			final String result = encodeBytes(resultBytes);
 			//System.out.println("----------- encoded ("+hash+","+encoding+") >"+plainText+"< to >"+result+"< ("+resultBytes.length+").");
