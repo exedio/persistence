@@ -73,12 +73,23 @@ final class CopeNativeAttribute extends CopeAttribute
 	private static final HashMap toUnboxingPrefixMapping = new HashMap(3);
 	private static final HashMap toUnboxingPostfixMapping = new HashMap(3);
 	
-	private static final void fillNativeTypeMap(final Class typeClass, final String persistentType, final String nativeType,
+	private static final void fillNativeTypeMap(final Class typeClass, final Class persistentType, final Class nativeType,
 															  final String boxingPrefix, final String boxingPostfix,
 															  final String unboxingPrefix, final String unboxingPostfix)
 	{
-		toPersistentTypeMapping.put(typeClass, persistentType);
-		toNativeTypeMapping.put(typeClass, nativeType);
+		if(persistentType.isPrimitive())
+			throw new RuntimeException(nativeType.toString());
+
+		toPersistentTypeMapping.put(typeClass, persistentType.getName());
+
+		if(nativeType!=null)
+		{
+			if(!nativeType.isPrimitive())
+				throw new RuntimeException(nativeType.toString());
+
+			toNativeTypeMapping.put(typeClass, nativeType.getName());
+		}
+		
 		toBoxingPrefixMapping.put(typeClass, boxingPrefix);
 		toBoxingPostfixMapping.put(typeClass, boxingPostfix);
 		toUnboxingPrefixMapping.put(typeClass, unboxingPrefix);
@@ -87,12 +98,12 @@ final class CopeNativeAttribute extends CopeAttribute
 	
 	static
 	{
-		fillNativeTypeMap(BooleanAttribute.class, Boolean.class.getName(), "boolean", "(", "?"+Boolean.class.getName()+".TRUE:"+Boolean.class.getName()+".FALSE)", "(", ").booleanValue()");
-		fillNativeTypeMap(LongAttribute.class,    Long.class.getName(),    "long",    "new "+Long.class.getName()+"(", ")", "(", ").longValue()");
-		fillNativeTypeMap(IntegerFunction.class,  Integer.class.getName(), "int",     "new "+Integer.class.getName()+"(", ")", "(", ").intValue()");
-		fillNativeTypeMap(DoubleAttribute.class,  Double.class.getName(),  "double",  "new "+Double.class.getName()+"(", ")", "(", ").doubleValue()");
-		fillNativeTypeMap(StringFunction.class,   String.class.getName(),  null, null, null, null, null);
-		fillNativeTypeMap(DateAttribute.class,    Date.class.getName(),    null, null, null, null, null);
+		fillNativeTypeMap(BooleanAttribute.class, Boolean.class, boolean.class, "(", "?"+Boolean.class.getName()+".TRUE:"+Boolean.class.getName()+".FALSE)", "(", ").booleanValue()");
+		fillNativeTypeMap(LongAttribute.class,    Long.class,    long.class,    "new "+Long.class.getName()+   "(", ")", "(", ").longValue()");
+		fillNativeTypeMap(IntegerFunction.class,  Integer.class, int.class,     "new "+Integer.class.getName()+"(", ")", "(", ").intValue()");
+		fillNativeTypeMap(DoubleAttribute.class,  Double.class,  double.class,  "new "+Double.class.getName()+ "(", ")", "(", ").doubleValue()");
+		fillNativeTypeMap(StringFunction.class,   String.class,  null, null, null, null, null);
+		fillNativeTypeMap(DateAttribute.class,    Date.class,    null, null, null, null, null);
 	}
 
 	public final String getBoxedType()
