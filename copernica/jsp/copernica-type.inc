@@ -46,7 +46,8 @@
 			<table id="item">
 				<tr>
 					<th></th><%
-				for(Iterator i = type.getFeatures().iterator(); i.hasNext(); )
+				final List features = type.getFeatures();
+				for(Iterator i = features.iterator(); i.hasNext(); )
 				{
 					final Feature feature = (Feature)i.next();
 					%>
@@ -56,7 +57,7 @@
 				</tr>
 				<tr>
 					<th></th><%
-				for(Iterator i = type.getFeatures().iterator(); i.hasNext(); )
+				for(Iterator i = features.iterator(); i.hasNext(); )
 				{
 					final Feature feature = (Feature)i.next();
 					%>
@@ -96,7 +97,7 @@
 					%>
 				<tr>
 					<td><a href="<%=(cop.toItem(item))%>"><%=provider.getDisplayName(language, item)%></a></td><%
-					for(Iterator j = type.getFeatures().iterator(); j.hasNext(); )
+					for(Iterator j = features.iterator(); j.hasNext(); )
 					{
 						final Feature feature = (Feature)j.next();
 						%>
