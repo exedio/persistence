@@ -15,6 +15,9 @@ public class TrimTest extends AbstractLibTest
 		assertTrim("FirSecThi", "FirstSecondThird", 10);
 		assertTrim("FirstSeconThird", "FirstSecondThird", 15);
 		assertTrim("FirstSecondThird", "FirstSecondThird", 18);
+
+		assertTrim("1ir2ec3hi", "1irst2econd3hird", 10);
+		assertTrim("_ir_ec_hi", "_irst_econd_hird", 10);
 	}
 
 }
