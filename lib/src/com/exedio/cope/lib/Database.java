@@ -102,6 +102,86 @@ public abstract class Database
 		//System.out.println("CREATE TABLES "+amount+"ms  accumulated "+createTableTime);
 	}
 
+	//private static int checkTableTime = 0;
+
+	/**
+	 * Checks the database,
+	 * whether the database tables representing the types do exist.
+	 * Issues a single database statement,
+	 * that touches all tables and columns,
+	 * that would have been created by
+	 * {@link #createDatabase()}.
+	 * @throws SystemException
+	 * 	if something is wrong with the database.
+	 * 	TODO: use a more specific exception.
+	 */
+	public void checkDatabase()
+	{
+		//final long time = System.currentTimeMillis();
+		final Statement bf = createStatement();
+		bf.append("select count(*) from ").defineColumnInteger();
+		boolean first = true;
+
+		for(Iterator i = Type.getTypes().iterator(); i.hasNext(); )
+		{
+			if(first)
+				first = false;
+			else
+				bf.append(',');
+
+			final Type type = (Type)i.next();
+			bf.append(type.protectedName);
+		}
+		
+		bf.append(" where ");
+		first = true;
+		for(Iterator i = Type.getTypes().iterator(); i.hasNext(); )
+		{
+			if(first)
+				first = false;
+			else
+				bf.append(" and ");
+
+			final Type type = (Type)i.next();
+
+			final Column primaryKey = type.primaryKey;
+			bf.append(type.protectedName).
+				append('.').
+				append(primaryKey.protectedName).
+				append('=').
+				append(Type.NOT_A_PK);
+			
+			for(Iterator j = type.getColumns().iterator(); j.hasNext(); )
+			{
+				final Column column = (Column)j.next();
+				bf.append(" and ").
+					append(type.protectedName).
+					append('.').
+					append(column.protectedName).
+					append('=');
+
+				if(column instanceof IntegerColumn)
+					bf.appendValue(column, new Integer(1));
+				else
+					bf.appendValue(column, "z");
+			}
+		}
+		
+		try
+		{
+			//System.out.println("checkDatabase:"+bf.toString());
+			executeSQL(bf, EMPTY_RESULT_SET_HANDLER);
+		}
+		catch(ConstraintViolationException e)
+		{
+			throw new SystemException(e);
+		}
+
+		//final long amount = (System.currentTimeMillis()-time);
+		//checkTableTime += amount;
+		//System.out.println("CHECK TABLES "+amount+"ms  accumulated "+checkTableTime);
+	}
+
 	public void dropDatabase()
 	{
 		//final long time = System.currentTimeMillis();
@@ -479,9 +559,10 @@ public abstract class Database
 			connection = connectionPool.getConnection();
 			// TODO: use prepared statements and reuse the statement.
 			sqlStatement = connection.createStatement();
-			if(resultSetHandler==EMPTY_RESULT_SET_HANDLER)
+			final String sqlText = statement.getText();
+			if(!sqlText.startsWith("select "))
 			{
-				final int rows = sqlStatement.executeUpdate(statement.getText());
+				final int rows = sqlStatement.executeUpdate(sqlText);
 				//System.out.println("("+rows+"): "+statement.getText());
 			}
 			else
@@ -489,7 +570,7 @@ public abstract class Database
 				//long time = System.currentTimeMillis();
 				if(useDefineColumnTypes)
 					((DatabaseColumnTypesDefinable)this).defineColumnTypes(statement.columnTypes, sqlStatement);
-				resultSet = sqlStatement.executeQuery(statement.getText());
+				resultSet = sqlStatement.executeQuery(sqlText);
 				//long interval = System.currentTimeMillis() - time;
 				//timeExecuteQuery += interval;
 				//System.out.println("executeQuery: "+interval+"ms sum "+timeExecuteQuery+"ms");

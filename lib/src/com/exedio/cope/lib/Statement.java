@@ -70,7 +70,13 @@ public final class Statement
 		while(attribute.mapping!=null)
 			attribute = attribute.mapping.sourceAttribute;
 
-		this.text.append(attribute.getMainColumn().cacheToDatabase(attribute.surfaceToCache(value)));
+		appendValue(attribute.getMainColumn(), attribute.surfaceToCache(value));
+		return this;
+	}
+	
+	public Statement appendValue(final Column column, final Object value)
+	{
+		this.text.append(column.cacheToDatabase(value));
 		return this;
 	}
 	

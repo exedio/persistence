@@ -71,5 +71,10 @@ public class ItemTest extends DatabaseLibTest
 		assertDelete(item5);
 		assertDelete(item6);
 	}
+	
+	public void testCheckDatabase()
+	{
+		Database.theInstance.checkDatabase();
+	}
 
 }
