@@ -7,9 +7,10 @@ package com.exedio.cope.instrument;
  */
 public final class JavaConstructor extends JavaBehaviour
 {
-	public JavaConstructor(JavaClass parent,
-	int modifiers,
-	String name)
+	public JavaConstructor(
+						final JavaClass parent,
+						final int modifiers,
+						final String name)
 	throws InjectorParseException
 	{
 		super(parent, modifiers, null, name);
