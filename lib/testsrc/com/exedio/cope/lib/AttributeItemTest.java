@@ -56,6 +56,7 @@ public class AttributeItemTest extends AttributeTest
 		try
 		{
 			someItem2.delete();
+			fail("should have thrown IntegrityViolationException");
 		}
 		catch(IntegrityViolationException e)
 		{
