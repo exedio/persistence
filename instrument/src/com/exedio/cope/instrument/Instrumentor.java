@@ -56,7 +56,14 @@ public final class Instrumentor implements InjectionConsumer
 	
 	private boolean discardnextfeature=false;
 	
+	/**
+	 * Tag name for persistent classes.
+	 */
 	private static final String PERSISTENT_CLASS = "persistent";
+
+	/**
+	 * Tag name for persistent attributes.
+	 */
 	private static final String PERSISTENT_ATTRIBUTE = PERSISTENT_CLASS;
 	
 	/**
