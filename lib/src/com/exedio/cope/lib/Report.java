@@ -6,9 +6,18 @@ import java.util.Iterator;
 
 abstract class Node
 {
+	protected int particularColor = Report.COLOR_NOT_YET_CALC;
 	protected int cumulativeColor = Report.COLOR_NOT_YET_CALC;
 
 	abstract void finish();
+
+	public final int getParticularColor()
+	{
+		if(particularColor==Report.COLOR_NOT_YET_CALC)
+			throw new RuntimeException();
+
+		return particularColor;
+	}
 
 	public final int getCumulativeColor()
 	{
@@ -90,16 +99,17 @@ public final class Report extends Node
 
 		protected void finish()
 		{
-			if(cumulativeColor!=COLOR_NOT_YET_CALC)
+			if(cumulativeColor!=COLOR_NOT_YET_CALC || particularColor!=COLOR_NOT_YET_CALC)
 				throw new RuntimeException();
 
 			if(isMissing())
-				cumulativeColor = COLOR_RED;
+				particularColor = COLOR_RED;
 			else if(isUnused())
-				cumulativeColor = COLOR_YELLOW;
+				particularColor = COLOR_YELLOW;
 			else
-				cumulativeColor = COLOR_OK;
+				particularColor = COLOR_OK;
 			
+			cumulativeColor = particularColor;
 			for(Iterator i = constraints.values().iterator(); i.hasNext(); )
 			{
 				final Constraint constraint = (Constraint)i.next();
@@ -135,16 +145,18 @@ public final class Report extends Node
 
 		protected void finish()
 		{
-			if(cumulativeColor!=COLOR_NOT_YET_CALC)
+			if(cumulativeColor!=COLOR_NOT_YET_CALC || particularColor!=COLOR_NOT_YET_CALC)
 				throw new RuntimeException();
 
 			// TODO: make this dependend on type of constraint:
 			// check/not null constraint are yellow only if missing
 			// foreign key/unique constraint are red when missing or unused
 			if(isMissing() || isUnused())
-				cumulativeColor = COLOR_RED;
+				particularColor = COLOR_RED;
 			else
-				cumulativeColor = COLOR_OK;
+				particularColor = COLOR_OK;
+				
+			cumulativeColor = particularColor;
 		}
 		
 	}
@@ -178,11 +190,12 @@ public final class Report extends Node
 	
 	void finish()
 	{
-		if(cumulativeColor!=COLOR_NOT_YET_CALC)
+		if(cumulativeColor!=COLOR_NOT_YET_CALC || particularColor!=COLOR_NOT_YET_CALC)
 			throw new RuntimeException();
 		
-		cumulativeColor = COLOR_OK;
+		particularColor = COLOR_OK;
 
+		cumulativeColor = particularColor;
 		for(Iterator i = tables.values().iterator(); i.hasNext(); )
 		{
 			final Table table = (Table)i.next();
