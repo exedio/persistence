@@ -185,7 +185,14 @@ public final class Instrumentor implements InjectionConsumer
 				}
 				else if("EnumerationAttribute".equals(type))
 				{
-					persistentType = ja.getCamelCaseName();
+					final String start = "new EnumerationAttribute(";
+					final String end = ".class)";
+					final String initializer = ja.getInitializerTokens();
+					if(!initializer.startsWith(start))
+						throw new RuntimeException("enumeration attribute initializer must start with \'"+start+'\'');
+					if(!initializer.endsWith(end))
+						throw new RuntimeException("enumeration attribute initializer must end with \'"+end+'\'');
+					persistentType = initializer.substring(start.length(), initializer.length()-end.length());
 					persistentTypeType = PersistentAttribute.TYPE_ENUMERATION;
 				}
 				else if("ItemAttribute".equals(type))
