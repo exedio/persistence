@@ -479,7 +479,7 @@ public final class Instrumentor implements InjectionConsumer
 
 		final String methodModifiers = Modifier.toString(persistentAttribute.getMethodModifiers());
 		final String type = persistentAttribute.getBoxedType();
-		final List qualifiers = persistentAttribute.getQualifiers();
+		final List qualifiers = persistentAttribute.qualifiers;
 
 		// getter
 		writeCommentHeader();
@@ -543,7 +543,7 @@ public final class Instrumentor implements InjectionConsumer
 	throws IOException
 	{
 		final String methodModifiers = Modifier.toString(mediaAttribute.getMethodModifiers());
-		final List qualifiers = mediaAttribute.getQualifiers();
+		final List qualifiers = mediaAttribute.qualifiers;
 
 		writeCommentHeader();
 		output.write("\t * ");
@@ -607,7 +607,7 @@ public final class Instrumentor implements InjectionConsumer
 	throws IOException
 	{
 		final String methodModifiers = Modifier.toString(mediaAttribute.getMethodModifiers());
-		final List qualifiers = mediaAttribute.getQualifiers();
+		final List qualifiers = mediaAttribute.qualifiers;
 		final String mimeMajor = mediaAttribute.mimeMajor;
 		final String mimeMinor = mediaAttribute.mimeMinor;
 
@@ -763,8 +763,8 @@ public final class Instrumentor implements InjectionConsumer
 			if(i>0)
 				output.write(',');
 			final PersistentAttribute persistentAttribute = persistentAttributes[i];
-			if(persistentAttribute.getQualifiers() != null)
-				qualifiers.addAll(persistentAttribute.getQualifiers());
+			if(persistentAttribute.qualifiers != null)
+				qualifiers.addAll(persistentAttribute.qualifiers);
 			output.write("final ");
 			output.write(persistentAttribute.getPersistentType());
 			output.write(" searched");
@@ -840,9 +840,9 @@ public final class Instrumentor implements InjectionConsumer
 				output.write(".initialize(\"");
 				output.write(persistentAttribute.getName());
 				output.write("\",");
-				output.write(persistentAttribute.isReadOnly() ? "true": "false");
+				output.write(persistentAttribute.readOnly ? "true": "false");
 				output.write(',');
-				output.write(persistentAttribute.isNotNull() ? "true": "false");
+				output.write(persistentAttribute.notNull ? "true": "false");
 				if(persistentAttribute.isItemPersistentType())
 				{
 					output.write(',');
@@ -1158,7 +1158,7 @@ public final class Instrumentor implements InjectionConsumer
 		output.write(attribute.getPersistentType());
 		output.write(")getAttribute(this.");
 		output.write(attribute.getName());
-		final List qualifiers = attribute.getQualifiers();
+		final List qualifiers = attribute.qualifiers;
 		if(qualifiers!=null)
 		{
 			output.write(",new Object[]{");
@@ -1193,7 +1193,7 @@ public final class Instrumentor implements InjectionConsumer
 		}
 		output.write("\t\tsetAttribute(this.");
 		output.write(attribute.getName());
-		final List qualifiers = attribute.getQualifiers();
+		final List qualifiers = attribute.qualifiers;
 		if(qualifiers!=null)
 		{
 			output.write(",new Object[]{");

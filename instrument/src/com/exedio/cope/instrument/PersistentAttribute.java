@@ -30,15 +30,15 @@ public class PersistentAttribute
 	public static final int TYPE_MEDIA = 5;
 
 	private final JavaAttribute javaAttribute;
-	final int accessModifier;
+	public final int accessModifier;
 	
 	final PersistentClass persistentClass;
 	private final String persistentType;
 	private final int persistentTypeType;
-	private final boolean readOnly;
-	private final boolean notNull;
-	private final boolean mapped;
-	private final List qualifiers;
+	public final boolean readOnly;
+	public final boolean notNull;
+	public final boolean mapped;
+	public final List qualifiers;
 
 	public PersistentAttribute(
 			final JavaAttribute javaAttribute,
@@ -54,7 +54,7 @@ public class PersistentAttribute
 		this.readOnly = readOnly;
 		this.notNull = notNull;
 		this.mapped = mapped;
-		this.qualifiers = qualifiers;
+		this.qualifiers = (qualifiers!=null) ? Collections.unmodifiableList(qualifiers) : null;
 		persistentClass.addPersistentAttribute(this);
 	}
 	
@@ -222,26 +222,6 @@ public class PersistentAttribute
 			}
 		}
 		return false;
-	}
-	
-	public final boolean isReadOnly()
-	{
-		return readOnly;
-	}
-	
-	public final boolean isNotNull()
-	{
-		return notNull;
-	}
-	
-	public final boolean isMapped()
-	{
-		return mapped;
-	}
-	
-	public final List getQualifiers()
-	{
-		return qualifiers;
 	}
 	
 	public final boolean isInitial()
