@@ -1,0 +1,49 @@
+#langlist
+{
+	border-bottom: 1px solid #4181d5;
+	border-top: 1px solid #4181d5;
+	margin: 0px;
+	margin-top: 30px;
+	margin-bottom: 30px;
+	padding: 0px;
+	padding-left: 50px;
+	background-color: #ffffff;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+#langlist a, #langlist a:link, #langlist a:visited
+{
+	border: 1px solid #4181d5;
+	padding: 1px;
+	padding-left: 0.5em;
+	padding-right: 0.5em;
+	color: #000000;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+#langlist a:hover, #langlist a:active, #langlist a:focus
+{
+	border: 1px solid #000000;
+	padding: 1px;
+	padding-left: 0.5em;
+	padding-right: 0.5em;
+	text-decoration: none;
+}
+
+#langlist li
+{
+	padding-right: 1px;
+	display: inline;
+	font-size: 0.6em;
+}
+
+#langlist ul
+{
+	margin: 0px;
+	padding: 0px;
+}
+
+#langlist #active a { background-color: #61a1f5; }

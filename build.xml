@@ -287,6 +287,13 @@
 				file="cope.properties.hsqldb" />
 		<copy todir="copernica/build/testwebapp-hsqldb/WEB-INF/"
 				file="copernica/web.xml" />
+		<copy todir="copernica/build/testwebapp-hsqldb">
+			<fileset dir="copernica/jsp">
+				<exclude name="*.jsp" />
+				<exclude name="*.inc" />
+			</fileset>
+		</copy>
+		
 		<touch file="copernica/build/testwebapp-hsqldb/WEB-INF/web.xml" />
 	
 	</target>
@@ -315,6 +322,13 @@
 				file="cope.properties.oracle" />
 		<copy todir="copernica/build/testwebapp-oracle/WEB-INF/"
 				file="copernica/web.xml" />
+		<copy todir="copernica/build/testwebapp-oracle">
+			<fileset dir="copernica/jsp">
+				<exclude name="*.jsp" />
+				<exclude name="*.inc" />
+			</fileset>
+		</copy>
+		
 		<touch file="copernica/build/testwebapp-oracle/WEB-INF/web.xml" />
 	
 	</target>
