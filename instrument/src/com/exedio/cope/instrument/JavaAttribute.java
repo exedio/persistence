@@ -81,28 +81,35 @@ public final class JavaAttribute extends JavaFeature
 	}
 
 	private static final HashMap toNativeTypeMapping = new HashMap(3);
-	private static final HashMap toBoxingCodeMapping = new HashMap(3);
-	private static final HashMap toUnboxingCodeMapping = new HashMap(3);
+	private static final HashMap toBoxingPrefixMapping = new HashMap(3);
+	private static final HashMap toBoxingPostfixMapping = new HashMap(3);
+	private static final HashMap toUnboxingPrefixMapping = new HashMap(3);
+	private static final HashMap toUnboxingPostfixMapping = new HashMap(3);
 	
 	private static final void fillNativeTypeMap(final String persistentType, final String nativeType,
-															  final String boxingCode, final String unboxingCode)
+															  final String boxingPrefix, final String boxingPostfix,
+															  final String unboxingPrefix, final String unboxingPostfix)
 	{
 		toNativeTypeMapping.put(persistentType, nativeType);
-		toBoxingCodeMapping.put(persistentType, boxingCode);
-		toUnboxingCodeMapping.put(persistentType, unboxingCode);
+		toBoxingPrefixMapping.put(persistentType, boxingPrefix);
+		toBoxingPostfixMapping.put(persistentType, boxingPostfix);
+		toUnboxingPrefixMapping.put(persistentType, unboxingPrefix);
+		toUnboxingPostfixMapping.put(persistentType, unboxingPostfix);
 	}
 	
 	static
 	{
-		fillNativeTypeMap("Boolean", "boolean", "Boolean.valueOf(", ").booleanValue()");
-		fillNativeTypeMap("Integer", "int",     "new Integer(",     ").intValue()");
+		fillNativeTypeMap("Boolean", "boolean", "(",            "?Boolean.TRUE:Boolean.TRUE)", "(", ").booleanValue()");
+		fillNativeTypeMap("Integer", "int",     "new Integer(", ")",                           "(", ").intValue()");
 	}
 
 
 	private String boxedType = null;
 	private boolean boxed;
-	private String boxingCode;
-	private String unboxingCode;
+	private String boxingPrefix;
+	private String boxingPostfix;
+	private String unboxingPrefix;
+	private String unboxingPostfix;
 
 	private final String makeBoxedTypeAndFlag()
 	{
@@ -117,8 +124,10 @@ public final class JavaAttribute extends JavaFeature
 			{
 				boxedType = nativeType;
 				boxed = true;
-				boxingCode = (String)toBoxingCodeMapping.get(persistentType);
-				unboxingCode = (String)toUnboxingCodeMapping.get(persistentType);
+				boxingPrefix = (String)toBoxingPrefixMapping.get(persistentType);
+				boxingPostfix = (String)toBoxingPostfixMapping.get(persistentType);
+				unboxingPrefix = (String)toUnboxingPrefixMapping.get(persistentType);
+				unboxingPostfix = (String)toUnboxingPostfixMapping.get(persistentType);
 			}
 			else
 			{
@@ -160,20 +169,36 @@ public final class JavaAttribute extends JavaFeature
 		return boxed;
 	}
 	
-	public final String getBoxingCode()
+	public final String getBoxingPrefix()
 	{
 		if(boxedType==null)
 			makeBoxedTypeAndFlag();
 		
-		return boxingCode;
+		return boxingPrefix;
 	}
 	
-	public final String getUnBoxingCode()
+	public final String getBoxingPostfix()
 	{
 		if(boxedType==null)
 			makeBoxedTypeAndFlag();
 		
-		return unboxingCode;
+		return boxingPostfix;
+	}
+	
+	public final String getUnBoxingPrefix()
+	{
+		if(boxedType==null)
+			makeBoxedTypeAndFlag();
+		
+		return unboxingPrefix;
+	}
+	
+	public final String getUnBoxingPostfix()
+	{
+		if(boxedType==null)
+			makeBoxedTypeAndFlag();
+		
+		return unboxingPostfix;
 	}
 	
 	public boolean isPartOfUniqueConstraint()

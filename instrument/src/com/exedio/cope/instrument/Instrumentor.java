@@ -348,11 +348,11 @@ public final class Instrumentor implements InjectionConsumer
 			output.write(initialAttribute.getName());
 			output.write(',');
 			if(initialAttribute.isBoxed())
-				output.write(initialAttribute.getBoxingCode());
+				output.write(initialAttribute.getBoxingPrefix());
 			output.write("initial");
 			output.write(initialAttribute.getCamelCaseName());
 			if(initialAttribute.isBoxed())
-				output.write(')');
+				output.write(initialAttribute.getBoxingPostfix());
 			output.write("),");
 			output.write(lineSeparator);
 		}
@@ -1056,7 +1056,7 @@ public final class Instrumentor implements InjectionConsumer
 	{
 		output.write("\t\treturn ");
 		if(attribute.isBoxed())
-			output.write('(');
+			output.write(attribute.getUnBoxingPrefix());
 		output.write('(');
 		output.write(attribute.getPersistentType());
 		output.write(")getAttribute(this.");
@@ -1070,7 +1070,7 @@ public final class Instrumentor implements InjectionConsumer
 		}
 		output.write(')');
 		if(attribute.isBoxed())
-			output.write(attribute.getUnBoxingCode());
+			output.write(attribute.getUnBoxingPostfix());
 		output.write(';');
 		output.write(lineSeparator);
 	}
@@ -1105,10 +1105,10 @@ public final class Instrumentor implements InjectionConsumer
 		}
 		output.write(',');
 		if(attribute.isBoxed())
-			output.write(attribute.getBoxingCode());
+			output.write(attribute.getBoxingPrefix());
 		output.write(attribute.getName());
 		if(attribute.isBoxed())
-			output.write(')');
+			output.write(attribute.getBoxingPostfix());
 		output.write(");");
 		output.write(lineSeparator);
 		if(!exceptionsToCatch.isEmpty())
