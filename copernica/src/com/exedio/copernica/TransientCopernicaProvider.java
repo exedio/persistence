@@ -54,7 +54,7 @@ public abstract class TransientCopernicaProvider implements CopernicaProvider
 		final HashMap result = new HashMap(users.length);
 		
 		for(int i = 0; i<users.length; i++)
-			result.put(users[i].getCopernicaID(), users[i]);
+			result.put(users[i].id, users[i]);
 			
 		transientUsers = result;
 	}

@@ -3,7 +3,7 @@ package com.exedio.copernica;
 
 public class TransientUser implements User
 {
-	private final String id;
+	final String id;
 	private final String password; 
 	private final String name;
 	
@@ -12,11 +12,6 @@ public class TransientUser implements User
 		this.id = id;
 		this.password = password;
 		this.name = name;
-	}
-	
-	public String getCopernicaID()
-	{
-		return id;
 	}
 	
 	public String getCopernicaName()
