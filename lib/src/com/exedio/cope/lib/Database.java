@@ -1,7 +1,6 @@
 
 package com.exedio.cope.lib;
 
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -763,14 +762,12 @@ abstract class Database
 		
 	private final static int convertSQLResult(final Object sqlInteger)
 	{
-		// IMPLEMENTATION NOTE for Oracle
-		// Whether the returned object is an Integer or a BigDecimal,
-		// depends on whether OracleStatement.defineColumnType is used or not,
-		// so we support both here.
-		if(sqlInteger instanceof BigDecimal)
-			return ((BigDecimal)sqlInteger).intValue();
-		else
-			return ((Integer)sqlInteger).intValue();
+		// IMPLEMENTATION NOTE
+		// Whether the returned object is an Integer, a Long or a BigDecimal,
+		// depends on the database used and for oracle on whether
+		// OracleStatement.defineColumnType is used or not, so we support all
+		// here.
+		return ((Number)sqlInteger).intValue();
 	}
 
 	static final String GET_TABLES = "getTables";
