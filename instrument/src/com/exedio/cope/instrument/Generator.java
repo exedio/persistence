@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Writer;
 import java.lang.reflect.Modifier;
+import java.text.MessageFormat;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
@@ -31,6 +32,8 @@ import com.exedio.cope.lib.util.ReactivationConstructorDummy;
 
 final class Generator
 {
+	private static final String CONSTRUCTOR_NEW = "Constructs a new {0} with all the attributes initially needed.";
+
 	private final Writer o;
 	private final String lineSeparator;
 	
@@ -137,9 +140,8 @@ final class Generator
 		final SortedSet constructorExceptions = javaClass.getConstructorExceptions();
 		
 		writeCommentHeader();
-		o.write("\t * Constructs a new ");
-		o.write(javaClass.getName());
-		o.write(" with all the attributes initially needed.");
+		o.write("\t * ");
+		o.write(MessageFormat.format(CONSTRUCTOR_NEW, new Object[]{javaClass.getName()}));
 		o.write(lineSeparator);
 		writeCommentGenerated();
 		for(Iterator i = initialAttributes.iterator(); i.hasNext(); )
