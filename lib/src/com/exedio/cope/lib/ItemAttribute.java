@@ -5,21 +5,21 @@ import java.math.BigDecimal;
 
 public final class ItemAttribute extends Attribute
 {
-	private Type type;
+	private Type targetType;
 
 	public void initialize(final String name, final boolean readOnly, final boolean notNull,
-								  final Type type)
+								  final Type targetType)
 	{
 		super.initialize(name, readOnly, notNull);
-		this.type = type;
+		this.targetType = targetType;
 	}
 	
 	/**
 	 * Returns the type of items, this attribute accepts instances of.
 	 */
-	public Type getType()
+	public Type getTargetType()
 	{
-		return this.type;
+		return this.targetType;
 	}
 
 	Object databaseToCache(final Object cell)
@@ -40,7 +40,7 @@ public final class ItemAttribute extends Attribute
 
 	Object cacheToSurface(final Object cache)
 	{
-		return cache==null ? null : type.getItem(((Integer)cache).intValue());
+		return cache==null ? null : targetType.getItem(((Integer)cache).intValue());
 	}
 		
 	Object surfaceToCache(final Object surface)

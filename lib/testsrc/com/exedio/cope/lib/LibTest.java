@@ -273,7 +273,7 @@ public class LibTest extends TestCase
 			assertEquals(false, item.getSomeNotNullBoolean());
 			
 			// someItem
-			assertEquals(ItemWithoutAttributes.TYPE, item.someItem.getType());
+			assertEquals(ItemWithoutAttributes.TYPE, item.someItem.getTargetType());
 			assertEquals(null, item.getSomeItem());
 			final ItemWithoutAttributes someItem = new ItemWithoutAttributes();
 			item.setSomeItem(someItem);
