@@ -18,7 +18,7 @@ final Report report = Database.theInstance.reportDatabase();
 final String reportColor = color(report.getCumulativeColor());
 
 %><span class="<%=reportColor%>">Database Report</span>
-<ul><%
+<ul class="<%=reportColor%>"><%
 
 for(Iterator i = report.getTables().iterator(); i.hasNext(); )
 {

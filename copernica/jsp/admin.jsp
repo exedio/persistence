@@ -20,6 +20,9 @@ include file="copernica-provider.inc"
 			li.ok     { background-color:#ccffcc; }
 			li.yellow { background-color:#ffff33; }
 			li.red    { background-color:#ff3333; }
+			ul.ok     { background-color:#ccffcc; }
+			ul.yellow { background-color:#ffff33; }
+			ul.red    { background-color:#ff3333; }
 		</style>
 	</head>
 	<body>
