@@ -202,6 +202,7 @@ public class ExampleTest extends InjectorTest
 		final JavaBehaviour secondConstructor = assertBehaviourHeader("Example", null, Modifier.PUBLIC);
 		assertText("{\n\t super();\n  }");
 		assertMethod("Example", null, secondConstructor);
+		assertText("\n\n  ");
 	}
 
 }
