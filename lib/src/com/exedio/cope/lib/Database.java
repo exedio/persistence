@@ -315,6 +315,10 @@ abstract class Database
 			for(Iterator i = queryJoins.iterator(); i.hasNext(); )
 			{
 				final Join join = (Join)i.next();
+				
+				if("com.exedio.cope.lib.HsqldbDatabase".equals(getClass().getName()) &&
+						join.getKind()==Join.KIND_OUTER_RIGHT)
+					throw new RuntimeException("hsqldb not support right outer joins");
 	
 				bf.append(' ').
 					append(join.getKindString()).
