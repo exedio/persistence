@@ -45,7 +45,6 @@
 			<input type="submit" name="CREATE" value="create" />
 			<input type="submit" name="TEARDOWN" value="tear down"/>
 			<input type="submit" name="DROP" value="drop"/>
-			<br>
 			<%
 				if(request.getParameter("CREATE")!=null)
 				{
