@@ -214,7 +214,7 @@ public abstract class Database
 		}
 	}
 
-	public void checkEmptyDatabase()
+	void checkEmptyDatabase()
 	{
 		buildStage = false;
 
