@@ -1,6 +1,18 @@
 #
 # Example for cope.properties
 #
+
+# Example properties for hsqldb
+# see http://hsqldb.sourceforge.net/
+#
+database=com.exedio.cope.lib.HsqldbDatabase
+database.driver=org.hsqldb.jdbcDriver
+database.url=jdbc:hsqldb:.
+database.user=sa
+database.password=
+
+# Example properties for Oracle
+#
 database=com.exedio.cope.lib.OracleDatabase
 database.driver=oracle.jdbc.driver.OracleDriver
 database.url=jdbc:oracle:thin:@yourdatabase.yoursite.com:1521:yourSID
