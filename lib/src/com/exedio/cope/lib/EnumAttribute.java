@@ -73,6 +73,8 @@ public final class EnumAttribute extends ObjectAttribute
 					codesToValues.put(value.getCode(), value);
 				}
 			}
+			values.trimToSize();
+			numbersToValues.trimToSize();
 			this.values = Collections.unmodifiableList(values);
 			this.numbersToValues = numbersToValues;
 			this.codesToValues = codesToValues;
