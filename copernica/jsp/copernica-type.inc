@@ -19,8 +19,11 @@
 	%>
 	</ul>
 	<%
+	final int itemsSize = items.size();
 	final boolean firstPage = typeCop.isFirstPage();
 	final boolean lastPage = typeCop.count>items.size();
+	if(typeCop.start>0 || itemsSize>0)
+	{
 	%>
 	<div id="pager">
 		<a href="<%=typeCop.firstPage()%>"<%
@@ -29,7 +32,7 @@
 			if(firstPage){%> id="disabled"<%}%>>&lt;</a>
 		<a href="<%=typeCop.nextPage()%>"<%
 			if(lastPage) {%> id="disabled"<%}%>>&gt;</a>
-		<%=typeCop.start+1%> - <%=typeCop.start+items.size()%>
+		<%=typeCop.start+1%> - <%=typeCop.start+itemsSize%>
 		(<%
 		for(int i = 10; i<=50; i+=10)
 		{
@@ -38,7 +41,9 @@
 			if(i==typeCop.count){%> id="disabled"<%}%>><%=i%></a><%
 		}%>
 		)
-	</div>
+	</div><%
+	}
+	%>
 	<table border="1">
 	<tr>
 	<th></th><%
