@@ -15,9 +15,10 @@
 				%>
 				<li>dropping column <%=dropColum%> ...</li><%
 				out.flush();
-				final long time = System.currentTimeMillis();
+				final long startTime = System.currentTimeMillis();
 				column.drop();
-				%><li><b>ok</b>, <%=System.currentTimeMillis()-time%>ms.</li><%
+				final long endTime = System.currentTimeMillis();
+				%><li><b>ok</b>, <%=endTime-startTime%>ms.</li><%
 				out.flush();
 			}
 		}
@@ -35,9 +36,10 @@
 				%>
 				<li>dropping table <%=dropTable%> ...</li><%
 				out.flush();
-				final long time = System.currentTimeMillis();
+				final long startTime = System.currentTimeMillis();
 				table.drop();
-				%><li><b>ok</b>, <%=System.currentTimeMillis()-time%>ms.</li><%
+				final long endTime = System.currentTimeMillis();
+				%><li><b>ok</b>, <%=endTime-startTime%>ms.</li><%
 				out.flush();
 			}
 		}
@@ -61,9 +63,10 @@
 			%>
 			<li>renaming table <%=sourceName%> to <%=targetName%> ...</li><%
 			out.flush();
-			final long time = System.currentTimeMillis();
+			final long startTime = System.currentTimeMillis();
 			table.renameTo(targetName);
-			%><li><b>ok</b>, <%=System.currentTimeMillis()-time%>ms.</li><%
+			final long endTime = System.currentTimeMillis();
+			%><li><b>ok</b>, <%=endTime-startTime%>ms.</li><%
 			out.flush();
 		}
 	}
@@ -87,9 +90,10 @@
 			%>
 			<li>renaming column <%=sourceName%> to <%=targetName%> ...</li><%
 			out.flush();
-			final long time = System.currentTimeMillis();
+			final long startTime = System.currentTimeMillis();
 			column.renameTo(targetName);
-			%><li><b>ok</b>, <%=System.currentTimeMillis()-time%>ms.</li><%
+			final long endTime = System.currentTimeMillis();
+			%><li><b>ok</b>, <%=endTime-startTime%>ms.</li><%
 			out.flush();
 		}
 	}
@@ -106,9 +110,10 @@
 				%>
 				<li>creating table <%=createTable%> ...</li><%
 				out.flush();
-				final long time = System.currentTimeMillis();
+				final long startTime = System.currentTimeMillis();
 				table.create();
-				%><li><b>ok</b>, <%=System.currentTimeMillis()-time%>ms.</li><%
+				final long endTime = System.currentTimeMillis();
+				%><li><b>ok</b>, <%=endTime-startTime%>ms.</li><%
 				out.flush();
 			}
 		}
@@ -126,9 +131,10 @@
 				%>
 				<li>analyzing table <%=analyzeTable%> ...</li><%
 				out.flush();
-				final long time = System.currentTimeMillis();
+				final long startTime = System.currentTimeMillis();
 				table.analyze();
-				%><li><b>ok</b>, <%=System.currentTimeMillis()-time%>ms.</li><%
+				final long endTime = System.currentTimeMillis();
+				%><li><b>ok</b>, <%=endTime-startTime%>ms.</li><%
 				out.flush();
 			}
 		}
@@ -144,9 +150,10 @@
 				%>
 				<li>creating column <%=createColum%> ...</li><%
 				out.flush();
-				final long time = System.currentTimeMillis();
+				final long startTime = System.currentTimeMillis();
 				column.create();
-				%><li><b>ok</b>, <%=System.currentTimeMillis()-time%>ms.</li><%
+				final long endTime = System.currentTimeMillis();
+				%><li><b>ok</b>, <%=endTime-startTime%>ms.</li><%
 				out.flush();
 			}
 		}
