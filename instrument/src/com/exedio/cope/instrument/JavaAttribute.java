@@ -134,8 +134,6 @@ public final class JavaAttribute extends JavaFeature
 
 	public final void makeUnique()
 	{
-		if(this.qualifiers!=null)
-			throw new RuntimeException();
 		unique = true;
 	}
 
@@ -151,8 +149,6 @@ public final class JavaAttribute extends JavaFeature
 		if(qualifiers==null)
 			throw new NullPointerException();
 		if(this.qualifiers!=null)
-			throw new RuntimeException();
-		if(this.unique)
 			throw new RuntimeException();
 		if(this.readOnly)
 			throw new RuntimeException();
