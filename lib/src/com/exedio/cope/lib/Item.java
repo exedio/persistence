@@ -7,10 +7,32 @@ import java.io.OutputStream;
 
 public class Item extends Search
 {
-	
+
+	/**
+	 * Must never be public, since it does not throw exceptions for constraint violations.
+	 * Subclasses (usually generated) must care about throwing these exception by calling
+	 * {@link #throwInitialNotNullViolationException} and/or 
+	 * {@link #throwInitialUniqueViolationException}.
+	 * All this fiddling is needed, because one cannot wrap a <code>super()</code> call into a
+	 * try-catch statement.
+	 */
 	protected Item(final AttributeValue[] initialAttributesValues)
-	throws UniqueViolationException, NotNullViolationException
-	{}
+	{
+	}
+	
+	/**
+	 * Throws a {@link NotNullViolationException}, if a not-null violation occured in the constructor.
+	 */
+	protected final void throwInitialNotNullViolationException() throws NotNullViolationException
+	{
+	}
+	
+	/**
+	 * Throws a {@link UniqueViolationException}, if a unique violation occured in the constructor.
+	 */
+	protected final void throwInitialUniqueViolationException() throws UniqueViolationException
+	{
+	}
 	
 	protected final Object getAttribute(final Attribute attribute)
 	{

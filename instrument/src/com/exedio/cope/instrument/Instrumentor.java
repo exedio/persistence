@@ -309,6 +309,16 @@ public final class Instrumentor implements InjectionConsumer
 		}
 		output.write("\t\t});");
 		output.write(lineSeparator);
+		for(Iterator i = javaClass.getContructorExceptions().iterator(); i.hasNext(); )
+		{
+			final Class exception = (Class)i.next();
+			final String name = exception.getName();
+			final int pos = name.lastIndexOf('.');
+			output.write("\t\tthrowInitial");
+			output.write(name.substring(pos+1));
+			output.write("();");
+			output.write(lineSeparator);
+		}
 		output.write("\t}");
 	}
 	
