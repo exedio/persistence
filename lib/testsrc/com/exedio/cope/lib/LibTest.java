@@ -15,6 +15,7 @@ public class LibTest extends TestCase
 	{
 		ItemWithSingleUnique.TYPE,
 		ItemWithSingleUniqueReadOnly.TYPE,
+		ItemWithSingleUniqueNotNull.TYPE,
 	};
 	
 	public LibTest()
@@ -74,6 +75,62 @@ public class LibTest extends TestCase
 			}
 			assertEquals(null, itemWithSingleUniqueReadOnly.getUniqueReadOnlyString());
 			assertEquals(null, ItemWithSingleUniqueReadOnly.findByUniqueReadOnlyString("uniqueString"));
+			
+			try
+			{
+				itemWithSingleUniqueReadOnly.setAttribute(itemWithSingleUniqueReadOnly.uniqueReadOnlyString, "zapp");
+				fail("should have thrown ReadOnlyViolationException");
+			}
+			catch(ReadOnlyViolationException e)
+			{
+				assertEquals(itemWithSingleUniqueReadOnly.uniqueReadOnlyString, e.getReadOnlyAttribute());
+				// TODO: use equals, once equals is working
+				assertTrue(itemWithSingleUniqueReadOnly==e.getItem());
+			}
+			catch(ConstraintViolationException e)
+			{
+				throw new SystemException(e);
+			}
+		}
+
+	
+		// ItemWithSingleNotNull
+		{
+			assertEquals(null, ItemWithSingleUniqueNotNull.findByUniqueNotNullString("uniqueString"));
+			assertEquals(null, ItemWithSingleUniqueNotNull.findByUniqueNotNullString("uniqueString2"));
+
+			final ItemWithSingleUniqueNotNull item;
+			try
+			{
+				item = new ItemWithSingleUniqueNotNull("uniqueString");
+			}
+			catch(UniqueViolationException e)
+			{
+				throw new SystemException(e);
+			}
+			catch(NotNullViolationException e)
+			{
+				throw new SystemException(e);
+			}
+			assertEquals(null, item.getUniqueNotNullString());
+			assertEquals(null, ItemWithSingleUniqueNotNull.findByUniqueNotNullString("uniqueString"));
+			assertEquals(null, ItemWithSingleUniqueNotNull.findByUniqueNotNullString("uniqueString2"));
+
+			try
+			{
+				item.setUniqueNotNullString("uniqueString2");
+			}
+			catch(UniqueViolationException e)
+			{
+				throw new SystemException(e);
+			}
+			catch(NotNullViolationException e)
+			{
+				throw new SystemException(e);
+			}
+			assertEquals(null, item.getUniqueNotNullString());
+			assertEquals(null, ItemWithSingleUniqueNotNull.findByUniqueNotNullString("uniqueString"));
+			assertEquals(null, ItemWithSingleUniqueNotNull.findByUniqueNotNullString("uniqueString2"));
 		}
 	}
 
