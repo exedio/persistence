@@ -21,7 +21,29 @@ public class Search
 	 */
 	protected Search()
 	{}
-	
+
+	protected static final long pk2id(final int pk)
+	{
+		final long longPk = (long)pk;
+		return
+			(pk>=0) ?
+				(longPk<<1) : // 2*pk
+				-((longPk<<1)|1l); // -(2*pk + 1)
+	}
+
+	protected static final int id2pk(final long id)
+	{
+		final long result =
+			((id&1l)>0) ? // odd id ?
+				-((id>>>1)+1l) : // -(id/2 +1)
+				id>>1; // id/2
+
+		if(result<Integer.MIN_VALUE || result>Integer.MAX_VALUE)
+			throw new RuntimeException(String.valueOf(result));
+
+		return (int)result;
+	}
+
 	/**
 	 * Returns the item with the given ID.
 	 * Returns null, if no such item exists.
@@ -40,18 +62,19 @@ public class Search
 		if(type==null)
 			throw new RuntimeException("no type "+typeName);
 		
-		final String pkString = id.substring(pos+1);
-		final int pk;
+		final String idString = id.substring(pos+1);
+
+		final long idNumber;
 		try
 		{
-			pk = Integer.parseInt(pkString);
+			idNumber = Long.parseLong(idString);
 		}
 		catch(NumberFormatException e)
 		{
-			throw new RuntimeException("not a number "+pkString);
+			throw new RuntimeException("not a number "+idString);
 		}
 
-		final Item result = type.getItem(pk);
+		final Item result = type.getItem(id2pk(idNumber));
 		// Must be activated to make sure, that an item with
 		// such a pk really exists for that type.
 		result.activeItem();

@@ -23,6 +23,9 @@ final class Row
 		this.present = present;
 		type.putRow(this);
 		//System.out.println("created row "+type+" "+pk);
+
+		if(pk==Type.NOT_A_PK)
+			throw new RuntimeException();
 	}
 	
 	

@@ -27,6 +27,10 @@ public class ItemTest extends AbstractLibTest
 		assertEquals(ItemWithoutAttributes.TYPE, item2.getType());
 		assertEquals(ItemWithoutAttributes2.TYPE, item3.getType());
 
+		assertID(0, item1);
+		assertID(1, item2);
+		assertID(0, item3);
+
 		assertEquals(item1, Search.findByID(item1.getID()));
 		assertEquals(item2, Search.findByID(item2.getID()));
 		assertEquals(item3, Search.findByID(item3.getID()));
@@ -48,15 +52,24 @@ public class ItemTest extends AbstractLibTest
 		assertFalse(item1.equals(Boolean.TRUE));
 
 		final ItemWithoutAttributes item4 = new ItemWithoutAttributes();
+		assertID(2, item4);
 		item4.TYPE.flushPK();
 		final ItemWithoutAttributes item5 = new ItemWithoutAttributes();
+		assertID(3, item5);
 		assertNotEquals(item4, item5);
+		item4.TYPE.flushPK();
+		final ItemWithoutAttributes item6 = new ItemWithoutAttributes();
+		assertID(4, item6);
+		assertNotEquals(item4, item5);
+		assertNotEquals(item4, item6);
+		assertNotEquals(item5, item6);
 		
 		assertDelete(item1);
 		assertDelete(item2);
 		assertDelete(item3);
 		assertDelete(item4);
 		assertDelete(item5);
+		assertDelete(item6);
 	}
 
 }

@@ -29,7 +29,7 @@ public class Item extends Search
 	 */
 	public final String getID()
 	{
-		return getClass().getName() + '.' + pk;
+		return getClass().getName() + '.' + pk2id(pk);
 	}
 	
 	/**
@@ -118,6 +118,9 @@ public class Item extends Search
 			initialUniqueViolationException = e;
 		}
 		this.rowWhenActive = row; // make active
+
+		if(pk==Type.NOT_A_PK)
+			throw new RuntimeException();
 	}
 	
 	/**
@@ -132,6 +135,9 @@ public class Item extends Search
 		this.pk = pk;
 		rowWhenActive = null; // make passive
 		//System.out.println("reactivate item:"+type+" "+pk);
+
+		if(pk==Type.NOT_A_PK)
+			throw new RuntimeException();
 	}
 	
 	/**

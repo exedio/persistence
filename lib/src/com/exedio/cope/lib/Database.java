@@ -386,16 +386,27 @@ public abstract class Database
 		}
 	}
 
-	private static class MaxPKResultSetHandler implements ResultSetHandler
+	private static class NextPKResultSetHandler implements ResultSetHandler
 	{
-		int result;
+		int resultLo;
+		int resultHi;
 
 		public void run(ResultSet resultSet) throws SQLException
 		{
 			if(!resultSet.next())
 				throw new RuntimeException();
-			final Object o = resultSet.getObject(1);
-			result = (o==null) ? 0 : IntegerColumn.convertSQLResult(o)+1;
+			final Object oLo = resultSet.getObject(1);
+			if(oLo==null)
+			{
+				resultLo = -1;
+				resultHi = 0;
+			}
+			else
+			{
+				resultLo = IntegerColumn.convertSQLResult(oLo)-1;
+				final Object oHi = resultSet.getObject(2);
+				resultHi = IntegerColumn.convertSQLResult(oHi)+1;
+			}
 		}
 	}
 	
@@ -702,20 +713,23 @@ public abstract class Database
 		}
 	}
 	
-	int getNextPK(final Type type)
+	int[] getNextPK(final Type type)
 	{
 		final Statement bf = createStatement();
-		bf.append("select max(").
-			append(type.primaryKey.protectedName).defineColumnInteger().
+		final String primaryKeyProtectedName = type.primaryKey.protectedName;
+		bf.append("select min(").
+			append(primaryKeyProtectedName).defineColumnInteger().
+			append("),max(").
+			append(primaryKeyProtectedName).defineColumnInteger().
 			append(") from ").
 			append(type.protectedName);
 			
 		try
 		{
-			final MaxPKResultSetHandler handler = new MaxPKResultSetHandler();
+			final NextPKResultSetHandler handler = new NextPKResultSetHandler();
 			executeSQL(bf, handler);
 			//System.err.println("select max("+type.primaryKey.trimmedName+") from "+type.trimmedName+" : "+handler.result);
-			return handler.result;
+			return new int[] {handler.resultLo, handler.resultHi};
 		}
 		catch(ConstraintViolationException e)
 		{

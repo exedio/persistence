@@ -107,6 +107,11 @@ public abstract class AbstractLibTest extends TestCase
 		assertFalse(item1.getID().equals(item2.getID()));
 		assertFalse(item1.hashCode()==item2.hashCode());
 	}
+	
+	protected void assertID(final int id, final Item item)
+	{
+		assertTrue(item.getID()+"/"+id, item.getID().endsWith("."+id));
+	}
 
 	protected void assertUnmodifiable(final Collection c)
 	{

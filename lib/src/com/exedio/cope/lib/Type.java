@@ -202,20 +202,40 @@ public final class Type
 	
 
 	// pk generation ---------------------------------------------
-	
-	private int nextpk = -1;
+
+	static final int NOT_A_PK = Integer.MIN_VALUE;	
+	private int nextPkLo = NOT_A_PK;
+	private int nextPkHi = NOT_A_PK;
+	private boolean nextIsLo;
 	
 	void flushPK()
 	{
-		nextpk=-1;
+		nextPkLo = NOT_A_PK;
+		nextPkHi = NOT_A_PK;
 	}
 
 	int nextPK()
 	{
-		if(nextpk<0)
-			nextpk = Database.theInstance.getNextPK(this);
+		if(nextPkLo==NOT_A_PK)
+		{
+			final int[] nextPks = Database.theInstance.getNextPK(this);
+			if(nextPks.length!=2)
+				throw new RuntimeException(String.valueOf(nextPks.length));
+			nextPkLo = nextPks[0];
+			nextPkHi = nextPks[1];
+			if(nextPkLo>=nextPkHi)
+				throw new RuntimeException(String.valueOf(nextPkLo)+">="+String.valueOf(nextPkHi));
+			nextIsLo = (-nextPkLo)<=nextPkHi;
+			//System.out.println(this.trimmedName+": getNextPK:"+nextPkLo+"/"+nextPkHi+"  nextIs"+(nextIsLo?"Lo":"Hi"));
+		}
 		
-		return nextpk++;
+		//System.out.println(this.trimmedName+": nextPK:"+nextPkLo+"/"+nextPkHi+"  nextIs"+(nextIsLo?"Lo":"Hi"));
+		final int result = nextIsLo ? nextPkLo-- : nextPkHi++;
+		nextIsLo = !nextIsLo;
+
+		if(nextPkLo>=nextPkHi) // TODO some handle pk overflow
+			throw new RuntimeException(String.valueOf(nextPkHi)+String.valueOf(nextPkLo));
+		return result;
 	}
 
 }
