@@ -11,6 +11,14 @@ public final class Properties
 	private static final String FILE_NAME_PROPERTY = "com.exedio.cope.properties";
 	private static final String DEFAULT_FILE_NAME = "cope.properties";
 	
+	private static final String DATABASE = "database";
+	private static final String DATABASE_DRIVER = "database.driver";
+	private static final String DATABASE_URL = "database.url";
+	private static final String DATABASE_USER = "database.user";
+	private static final String DATABASE_PASSWORD = "database.password";
+	private static final String MEDIA_DIRECTORY = "media.directory";
+	private static final String MEDIA_URL = "media.url";
+
 	private final String source;
 
 	private final String database;
@@ -53,13 +61,13 @@ public final class Properties
 				catch(IOException e) {}
 			}
 		}
-		database = getPropertyNotNull(properties, "database");
-		databaseDriver = getPropertyNotNull(properties, "database.driver");
-		databaseUrl = getPropertyNotNull(properties, "database.url");
-		databaseUser = getPropertyNotNull(properties, "database.user");
-		databasePassword = getPropertyNotNull(properties, "database.password");
+		database = getPropertyNotNull(properties, DATABASE);
+		databaseDriver = getPropertyNotNull(properties, DATABASE_DRIVER);
+		databaseUrl = getPropertyNotNull(properties, DATABASE_URL);
+		databaseUser = getPropertyNotNull(properties, DATABASE_USER);
+		databasePassword = getPropertyNotNull(properties, DATABASE_PASSWORD);
 
-		final String mediaDirectoryString  = properties.getProperty("media.directory");
+		final String mediaDirectoryString  = properties.getProperty(MEDIA_DIRECTORY);
 		if(mediaDirectoryString!=null)
 		{
 			final File mediaDirectoryTest = new File(mediaDirectoryString);
@@ -80,7 +88,7 @@ public final class Properties
 			{
 				throw new InitializerRuntimeException(e);
 			}
-			mediaUrl  = getPropertyNotNull(properties, "media.url");
+			mediaUrl  = getPropertyNotNull(properties, MEDIA_URL);
 		}
 		else
 		{
@@ -138,5 +146,5 @@ public final class Properties
 
 		return mediaUrl;
 	}
-
+	
 }
