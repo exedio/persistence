@@ -10,7 +10,7 @@ import java.util.Iterator;
 public final class StatementInfo
 {
 	final ArrayList childs = new ArrayList();
-	final int id;
+	final int id; // TODO: remove id
 	final String text;
 	
 	StatementInfo(final int id, final String text)
