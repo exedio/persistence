@@ -168,7 +168,10 @@ public class ExampleTest extends InjectorTest
 		assertAttributeHeader("someDrinnerBoolean", "boolean", 0);
 		assertText("boolean someDrinnerBoolean=true;");
 		assertAttribute("someDrinnerBoolean", null);
-		assertText("\n    \n\t\t{\n\t\t}");
+		assertText("\n    \n\t\t");
+
+		assertBehaviourHeader("run", "void", Modifier.PUBLIC);
+		assertText("{\n\t\t}");
 	}
 
 }

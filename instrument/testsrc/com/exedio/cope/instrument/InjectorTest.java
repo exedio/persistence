@@ -94,6 +94,15 @@ public abstract class InjectorTest extends TestCase
 		assertEquals(className, javaClass.getName());
 	}
 	
+	protected void assertBehaviourHeader(final String name, final String type, final int modifier)
+	{
+		final InjectionEvent event = fetchEvent();
+		final JavaBehaviour javaBehaviour = ((BehaviourHeaderEvent)event).javaBehaviour;
+		assertEquals(name, javaBehaviour.getName());
+		assertEquals(type, javaBehaviour.getType());
+		assertEquals(modifier, javaBehaviour.getModifiers());
+	}
+	
 	protected void assertAttributeHeader(final String name, final String type, final int modifier)
 	{
 		final InjectionEvent event = fetchEvent();
@@ -187,6 +196,16 @@ public abstract class InjectorTest extends TestCase
 		}
 	}
 	
+	private static class BehaviourHeaderEvent extends InjectionEvent
+	{
+		final JavaBehaviour javaBehaviour;
+
+		BehaviourHeaderEvent(final JavaBehaviour javaBehaviour)
+		{
+			this.javaBehaviour = javaBehaviour;
+		}
+	}
+	
 	private static class AttributeHeaderEvent extends InjectionEvent
 	{
 		final JavaAttribute javaAttribute;
@@ -242,6 +261,7 @@ public abstract class InjectorTest extends TestCase
 		public void onBehaviourHeader(final JavaBehaviour jb)
 			throws java.io.IOException
 		{
+			addInjectionEvent(new BehaviourHeaderEvent(jb));
 		}
 
 		public void onAttributeHeader(final JavaAttribute ja)
