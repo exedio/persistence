@@ -22,7 +22,7 @@ public class ItemWithoutAttributes2 extends Item
 	 *
  */public ItemWithoutAttributes2()
 	{
-		super(new com.exedio.cope.lib.AttributeValue[]{
+		super(TYPE, new com.exedio.cope.lib.AttributeValue[]{
 		});
 	}/**
 

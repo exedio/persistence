@@ -339,7 +339,7 @@ public final class Instrumentor implements InjectionConsumer
 		writeThrowsClause(constructorExceptions);
 		output.write("\t{");
 		output.write(lineSeparator);
-		output.write("\t\tsuper(new "+AttributeValue.class.getName()+"[]{");
+		output.write("\t\tsuper(TYPE, new "+AttributeValue.class.getName()+"[]{");
 		output.write(lineSeparator);
 		for(Iterator i = initialAttributes.iterator(); i.hasNext(); )
 		{

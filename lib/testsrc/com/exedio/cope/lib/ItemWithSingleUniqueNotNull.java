@@ -37,7 +37,7 @@ public class ItemWithSingleUniqueNotNull extends Item
 				com.exedio.cope.lib.NotNullViolationException,
 				com.exedio.cope.lib.UniqueViolationException
 	{
-		super(new com.exedio.cope.lib.AttributeValue[]{
+		super(TYPE, new com.exedio.cope.lib.AttributeValue[]{
 			new com.exedio.cope.lib.AttributeValue(uniqueNotNullString,initialUniqueNotNullString),
 		});
 		throwInitialNotNullViolationException();

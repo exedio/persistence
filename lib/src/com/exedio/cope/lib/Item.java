@@ -87,22 +87,11 @@ public class Item extends Search
 	 * All this fiddling is needed, because one cannot wrap a <code>super()</code> call into a
 	 * try-catch statement.
 	 */
-	protected Item(final AttributeValue[] initialAttributeValues)
+	protected Item(final Type type, final AttributeValue[] initialAttributeValues)
 	{
 		putCache(initialAttributeValues);
+		this.type = type;
 		this.pk = pkCounter++; // TODO: THIS IS A HACK
-		try
-		{
-			type = (Type)getClass().getField("TYPE").get(null); // TODO: very inefficient
-		}
-		catch(IllegalAccessException e)
-		{
-			throw new SystemException(e);
-		}
-		catch(NoSuchFieldException e)
-		{
-			throw new SystemException(e);
-		}
 		type.putActiveItem(this);
 		writeCache();
 	}
