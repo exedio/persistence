@@ -9,11 +9,13 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+import bak.pcj.map.IntKeyOpenHashMap;
+
 public final class EnumerationAttribute extends ObjectAttribute
 {
 	private final Class enumerationClass;
 	private final List values;
-	private final HashMap numbersToValues; // TODO: use special integer map
+	private final IntKeyOpenHashMap numbersToValues;
 	private final HashMap codesToValues;
 	
 	public EnumerationAttribute(final Option option, final Class enumerationClass)
@@ -26,7 +28,7 @@ public final class EnumerationAttribute extends ObjectAttribute
 		try
 		{
 			final ArrayList values = new ArrayList();
-			final HashMap numbersToValues = new HashMap();
+			final IntKeyOpenHashMap numbersToValues = new IntKeyOpenHashMap();
 			final HashMap codesToValues = new HashMap();
 			final Field[] fields = enumerationClass.getDeclaredFields();
 			for(int j = 0; j<fields.length; j++)
@@ -65,7 +67,7 @@ public final class EnumerationAttribute extends ObjectAttribute
 						value.initialize(enumerationClass, name, num);
 					}
 					values.add(value);
-					numbersToValues.put(value.getNumberObject(), value);
+					numbersToValues.put(value.getNumber(), value);
 					codesToValues.put(value.getCode(), value);
 				}
 			}
@@ -86,7 +88,7 @@ public final class EnumerationAttribute extends ObjectAttribute
 	
 	public EnumerationValue getValue(final int number)
 	{
-		return (EnumerationValue)numbersToValues.get(new Integer(number));
+		return (EnumerationValue)numbersToValues.get(number);
 	}
 
 	public EnumerationValue getValue(final String code)
