@@ -16,7 +16,7 @@ public class CollisionItem1 extends Item
 	/**
 	 * @persistent
 	 */
-	public static final ItemAttribute collisionAttribute = new ItemAttribute(NOT_NULL_UNIQUE, ItemWithoutAttributes.class); 
+	public static final ItemAttribute collisionAttribute = new ItemAttribute(READ_ONLY_NOT_NULL_UNIQUE, ItemWithoutAttributes.class); 
 
 /**
 
@@ -57,25 +57,6 @@ public class CollisionItem1 extends Item
  */public final ItemWithoutAttributes getCollisionAttribute()
 	{
 		return (ItemWithoutAttributes)getAttribute(this.collisionAttribute);
-	}/**
-
-	 **
-	 * Sets a new value for the persistent attribute {@link #collisionAttribute}.
-	 * @author cope instrumentor
-	 *
- */public final void setCollisionAttribute(final ItemWithoutAttributes collisionAttribute)
-			throws
-				com.exedio.cope.lib.NotNullViolationException,
-				com.exedio.cope.lib.UniqueViolationException
-	{
-		try
-		{
-			setAttribute(this.collisionAttribute,collisionAttribute);
-		}
-		catch(com.exedio.cope.lib.ReadOnlyViolationException e)
-		{
-			throw new com.exedio.cope.lib.SystemException(e);
-		}
 	}/**
 
 	 **
