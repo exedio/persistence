@@ -103,14 +103,14 @@ public class Search
 		return result;
 	}
 	
-	public static final EqualCondition equal(final StringAttribute attribute, final String value)
-	{
-		return new EqualCondition(attribute, value);
-	}
-	
 	public static final EqualCondition isNull(final Attribute attribute)
 	{
 		return new EqualCondition(attribute);
+	}
+	
+	public static final EqualCondition equal(final StringAttribute attribute, final String value)
+	{
+		return new EqualCondition(attribute, value);
 	}
 	
 	public static final EqualAttributeCondition equal(final StringAttribute attribute1, final StringAttribute attribute2)
