@@ -167,14 +167,11 @@ abstract class Database
 		buildStage = false;
 
 		//final long time = System.currentTimeMillis();
-		{
-			// TODO: redo identation
-			// must delete in reverse order, to obey integrity constraints
-			for(ListIterator i = tables.listIterator(tables.size()); i.hasPrevious(); )
-				dropForeignKeyConstraints((Table)i.previous());
-			for(ListIterator i = tables.listIterator(tables.size()); i.hasPrevious(); )
-				dropTable((Table)i.previous());
-		}
+		// must delete in reverse order, to obey integrity constraints
+		for(ListIterator i = tables.listIterator(tables.size()); i.hasPrevious(); )
+			dropForeignKeyConstraints((Table)i.previous());
+		for(ListIterator i = tables.listIterator(tables.size()); i.hasPrevious(); )
+			dropTable((Table)i.previous());
 		//final long amount = (System.currentTimeMillis()-time);
 		//dropTableTime += amount;
 		//System.out.println("DROP TABLES "+amount+"ms  accumulated "+dropTableTime);
