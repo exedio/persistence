@@ -9,7 +9,7 @@ include file="copernica-provider.inc"
 
 %>
 <html>
-	<head>	
+	<head>
 		<title>
 			Copernica - Database Administration
 		</title>
