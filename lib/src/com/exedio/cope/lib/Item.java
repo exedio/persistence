@@ -125,13 +125,17 @@ public abstract class Item extends Search
 			for(int i = 0; i<initialAttributeValues.length; i++)
 			{
 				final AttributeValue av = initialAttributeValues[i];
-				if(av.attribute.isNotNull() && av.value == null)
-				{
-					initialNotNullViolationException = new NotNullViolationException(this, av.attribute);
-					return;
-				}
-				av.attribute.checkValue(av.value, null);
+				av.attribute.checkValue(true, av.value, null);
 			}
+		}
+		catch(ReadOnlyViolationException e)
+		{
+			throw new SystemException(e);
+		}
+		catch(NotNullViolationException e)
+		{
+			initialNotNullViolationException = e;
+			return;
 		}
 		catch(LengthViolationException e)
 		{
@@ -257,11 +261,7 @@ public abstract class Item extends Search
 			ReadOnlyViolationException,
 			ClassCastException
 	{
-		if(attribute.isReadOnly() || attribute.mapping!=null)
-			throw new ReadOnlyViolationException(this, attribute);
-		if(attribute.isNotNull() && value == null)
-			throw new NotNullViolationException(this, attribute);
-		attribute.checkValue(value, this);
+		attribute.checkValue(false, value, this);
 
 		final Row row = getRow();
 		final Object previousValue = row.get(attribute);
@@ -287,7 +287,18 @@ public abstract class Item extends Search
 			UniqueViolationException,
 			ClassCastException
 	{
-		attribute.checkValue(value, this);
+		try
+		{
+			attribute.checkValue(false, value, this);
+		}
+		catch(NotNullViolationException e)
+		{
+			throw new SystemException(e);
+		}
+		catch(ReadOnlyViolationException e)
+		{
+			throw new SystemException(e);
+		}
 
 		final Row row = getRow();
 		final Object previousValue = row.get(attribute);

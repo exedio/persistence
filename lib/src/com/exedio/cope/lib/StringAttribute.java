@@ -56,11 +56,13 @@ public final class StringAttribute extends Attribute
 		return (String)surface;
 	}
 	
-	void checkValue(final Object value, final Item item)
+	void checkValue(final boolean initial, final Object value, final Item item)
 		throws
+			ReadOnlyViolationException,
+			NotNullViolationException,
 			LengthViolationException
 	{
-		super.checkValue(value, item);
+		super.checkValue(initial, value, item);
 		if(value!=null)
 		{
 			final String stringValue = (String)value;
