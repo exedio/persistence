@@ -15,38 +15,38 @@ public class HashTest extends DatabaseLibTest
 	
 	public void testMD5()
 	{
-		assertNull(item.getEncoded1MD5());
-		assertTrue(item.checkEncoded1(null));
-		assertTrue(!item.checkEncoded1("bing"));
+		assertNull(item.getHashed1MD5());
+		assertTrue(item.checkHashed1(null));
+		assertTrue(!item.checkHashed1("bing"));
 		
-		item.setEncoded1MD5("bello");
-		assertEquals("bello", item.getEncoded1MD5());
-		assertTrue(!item.checkEncoded1(null));
-		assertTrue(!item.checkEncoded1("bello"));
+		item.setHashed1MD5("bello");
+		assertEquals("bello", item.getHashed1MD5());
+		assertTrue(!item.checkHashed1(null));
+		assertTrue(!item.checkHashed1("bello"));
 		
-		item.setEncoded1("knollo");
-		assertNotNull(item.getEncoded1MD5());
-		assertTrue(!item.checkEncoded1(null));
-		assertTrue(!item.checkEncoded1("bello"));
-		assertTrue(item.checkEncoded1("knollo"));
+		item.setHashed1("knollo");
+		assertNotNull(item.getHashed1MD5());
+		assertTrue(!item.checkHashed1(null));
+		assertTrue(!item.checkHashed1("bello"));
+		assertTrue(item.checkHashed1("knollo"));
 	}
 
 	public void testWrap()
 	{
-		assertNull(item.getEncoded2Wrap());
-		assertTrue(item.checkEncoded2(null));
-		assertTrue(!item.checkEncoded2("bing"));
+		assertNull(item.getHashed2Wrap());
+		assertTrue(item.checkHashed2(null));
+		assertTrue(!item.checkHashed2("bing"));
 		
-		item.setEncoded2Wrap("bello");
-		assertEquals("bello", item.getEncoded2Wrap());
-		assertTrue(!item.checkEncoded2(null));
-		assertTrue(!item.checkEncoded2("bello"));
+		item.setHashed2Wrap("bello");
+		assertEquals("bello", item.getHashed2Wrap());
+		assertTrue(!item.checkHashed2(null));
+		assertTrue(!item.checkHashed2("bello"));
 		
-		item.setEncoded2("knollo");
-		assertEquals("[knollo]", item.getEncoded2Wrap());
-		assertTrue(!item.checkEncoded2(null));
-		assertTrue(!item.checkEncoded2("bello"));
-		assertTrue(item.checkEncoded2("knollo"));
+		item.setHashed2("knollo");
+		assertEquals("[knollo]", item.getHashed2Wrap());
+		assertTrue(!item.checkHashed2(null));
+		assertTrue(!item.checkHashed2("bello"));
+		assertTrue(item.checkHashed2("knollo"));
 	}
 
 }

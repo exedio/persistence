@@ -6,7 +6,7 @@ import com.exedio.cope.lib.StringAttribute;
 
 
 /**
- * A nonsense test hash for unit-testing the encoding mechanism.
+ * A nonsense test hash for unit-testing the hashing mechanism.
  */
 public class WrapHash extends Hash
 {
