@@ -205,19 +205,19 @@ public class UniqueItemTest extends DatabaseLibTest
 			list(ItemWithDoubleUnique.string, ItemWithDoubleUnique.integer),
 			ItemWithDoubleUnique.doubleUnique.getUniqueAttributes());
 
-		assertEquals(null, ItemWithDoubleUnique.findByStringAndInteger("a", 1));
+		assertEquals(null, ItemWithDoubleUnique.findByDoubleUnique("a", 1));
 		
 		final ItemWithDoubleUnique a1 = new ItemWithDoubleUnique("a", 1);
-		assertEquals(a1, ItemWithDoubleUnique.findByStringAndInteger("a", 1));
+		assertEquals(a1, ItemWithDoubleUnique.findByDoubleUnique("a", 1));
 		
 		final ItemWithDoubleUnique a2 = new ItemWithDoubleUnique("a", 2);
-		assertEquals(a2, ItemWithDoubleUnique.findByStringAndInteger("a", 2));
+		assertEquals(a2, ItemWithDoubleUnique.findByDoubleUnique("a", 2));
 		
 		final ItemWithDoubleUnique b1 = new ItemWithDoubleUnique("b", 1);
-		assertEquals(b1, ItemWithDoubleUnique.findByStringAndInteger("b", 1));
+		assertEquals(b1, ItemWithDoubleUnique.findByDoubleUnique("b", 1));
 		
 		final ItemWithDoubleUnique b2 = new ItemWithDoubleUnique("b", 2);
-		assertEquals(b2, ItemWithDoubleUnique.findByStringAndInteger("b", 2));
+		assertEquals(b2, ItemWithDoubleUnique.findByDoubleUnique("b", 2));
 
 		try
 		{		
@@ -228,13 +228,13 @@ public class UniqueItemTest extends DatabaseLibTest
 		{
 			assertEquals(a1.doubleUnique, e.getConstraint());
 		}
-		assertEquals(b1, ItemWithDoubleUnique.findByStringAndInteger("b", 1));
+		assertEquals(b1, ItemWithDoubleUnique.findByDoubleUnique("b", 1));
 		
 		assertDelete(b2);
 		assertDelete(b1);
 
 		final ItemWithDoubleUnique b1X = new ItemWithDoubleUnique("b", 1);
-		assertEquals(b1X, ItemWithDoubleUnique.findByStringAndInteger("b", 1));
+		assertEquals(b1X, ItemWithDoubleUnique.findByDoubleUnique("b", 1));
 
 		assertDelete(a2);
 		assertDelete(a1);

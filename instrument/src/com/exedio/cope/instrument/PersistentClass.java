@@ -75,12 +75,12 @@ public final class PersistentClass
 		return (PersistentAttribute)persistentAttributeMap.get(name);
 	}
 	
-	public void makeUnique(final PersistentAttribute[] uniqueAttributes)
+	public void makeUnique(final PersistentUniqueConstraint constraint)
 	{
 		if(uniqueConstraints==null)
 			uniqueConstraints=new ArrayList();
 		
-		uniqueConstraints.add(uniqueAttributes);
+		uniqueConstraints.add(constraint);
 	}
 	
 	/**

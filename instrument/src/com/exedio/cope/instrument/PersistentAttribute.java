@@ -58,7 +58,7 @@ public abstract class PersistentAttribute
 
 		persistentClass.addPersistentAttribute(this);
 		if(option.unique)
-			persistentClass.makeUnique(new PersistentAttribute[]{this});
+			persistentClass.makeUnique(new PersistentUniqueConstraint(this));
 	}
 	
 	public final String getName()
@@ -136,7 +136,7 @@ public abstract class PersistentAttribute
 	{
 		for( final Iterator i = persistentClass.getUniqueConstraints().iterator(); i.hasNext(); )
 		{
-			final PersistentAttribute[] uniqueConstraint = (PersistentAttribute[])i.next();
+			final PersistentAttribute[] uniqueConstraint = ((PersistentUniqueConstraint)i.next()).persistentAttributes;
 			for(int j=0; j<uniqueConstraint.length; j++)
 			{
 				if(this == uniqueConstraint[j])

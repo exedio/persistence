@@ -543,16 +543,10 @@ final class Generator
 		o.write(')');
 	}
 	
-	private void writeUniqueFinder(final PersistentAttribute[] persistentAttributes)
+	private void writeUniqueFinder(final PersistentUniqueConstraint constraint)
 	throws IOException
 	{
-		int accessModifier = JavaFeature.ACCESS_PUBLIC;
-		for(int i=0; i<persistentAttributes.length; i++)
-		{
-			final int attributeAccessModifier = persistentAttributes[i].accessModifier;
-			if(accessModifier<attributeAccessModifier)
-				accessModifier=attributeAccessModifier;
-		}
+		final PersistentAttribute[] persistentAttributes = constraint.persistentAttributes;
 		final String className = persistentAttributes[0].getParent().getName();
 		
 		writeCommentHeader();
@@ -571,22 +565,11 @@ final class Generator
 			o.write(lineSeparator);
 		}
 		writeCommentFooter();
-		o.write(JavaAttribute.toAccessModifierString(accessModifier));
+		o.write(JavaAttribute.toAccessModifierString(constraint.accessModifier));
 		o.write("static final ");
 		o.write(className);
-		
-		boolean first=true;
-		for(int i=0; i<persistentAttributes.length; i++)
-		{
-			if(first)
-			{
-				o.write(" findBy");
-				first = false;
-			}
-			else
-				o.write("And");
-			o.write(persistentAttributes[i].getCamelCaseName());
-		}
+		o.write(" findBy");
+		o.write(constraint.camelCaseName);
 		
 		o.write('(');
 		final Set qualifiers = new HashSet();
@@ -679,8 +662,8 @@ final class Generator
 			for(final Iterator i = persistentClass.getUniqueConstraints().iterator(); i.hasNext(); )
 			{
 				// write unique finder methods
-				final PersistentAttribute[] persistentAttributes = (PersistentAttribute[])i.next();
-				writeUniqueFinder(persistentAttributes);
+				final PersistentUniqueConstraint constraint = (PersistentUniqueConstraint)i.next();
+				writeUniqueFinder(constraint);
 			}
 			writeType(persistentClass);
 		}

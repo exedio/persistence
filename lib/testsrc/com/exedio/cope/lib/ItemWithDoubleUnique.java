@@ -114,7 +114,7 @@ public class ItemWithDoubleUnique extends Item
 	 * @param searchedString shall be equal to attribute {@link #string}.
 	 * @param searchedInteger shall be equal to attribute {@link #integer}.
 	 *
- */public static final ItemWithDoubleUnique findByStringAndInteger(final String searchedString,final int searchedInteger)
+ */public static final ItemWithDoubleUnique findByDoubleUnique(final String searchedString,final int searchedInteger)
 	{
 		return (ItemWithDoubleUnique)searchUnique(TYPE,and(equal(string,searchedString),equal(integer,searchedInteger)));
 	}/**

@@ -250,7 +250,9 @@ public final class Instrumentor implements InjectionConsumer
 						throw new InjectorParseException("attribute >"+initializerArgument+"< in unique constraint "+ja.getName()+" not found.");
 					persistentAttributes.add(persistentAttribute);
 				}
-				persistentClass.makeUnique((PersistentAttribute[])persistentAttributes.toArray(new PersistentAttribute[persistentAttributes.size()]));
+				persistentClass.makeUnique(
+					new PersistentUniqueConstraint(ja,
+						(PersistentAttribute[])persistentAttributes.toArray(new PersistentAttribute[persistentAttributes.size()])));
 			}
 		}
 		discardnextfeature=false;
