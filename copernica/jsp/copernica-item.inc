@@ -150,14 +150,14 @@
 			else if(attribute instanceof StringAttribute)
 			{
 				final StringAttribute stringAttribute = (StringAttribute)attribute;
+				final Form.Field field = form.getField(stringAttribute);
 		
-				if(attribute.isReadOnly())
+				if(field.isReadOnly())
 				{
-					%><b><%=(String)item.getAttribute(stringAttribute)%></b><%
+					%><b><%=field.getValue()%></b><%
 				}
 				else
 				{
-					final Form.Field field = form.getField(stringAttribute);
 					%><input type="text" name="<%=field.getName()%>" value="<%=field.getValue()%>" /><%
 				}
 			}

@@ -29,29 +29,32 @@ public class Form
 		for(Iterator j = type.getAttributes().iterator(); j.hasNext(); )
 		{
 			final Attribute attribute = (Attribute)j.next();
-			if(!attribute.isReadOnly())
+			final Field field;
+			if(attribute instanceof StringAttribute)
 			{
+				final StringAttribute stringAttribute = (StringAttribute)attribute;
 				final String name = attribute.getName();
 				final String value;
-				if(attribute instanceof StringAttribute)
-				{
-					final StringAttribute stringAttribute = (StringAttribute)attribute;
 
-					final String requestValue = Cop.getParameter(parameters, name);
-					if(requestValue!=null)
-						value = requestValue;
-					else
-					{
-						final String itemValue = (String)item.getAttribute(stringAttribute);
-						value = (itemValue==null) ? "" : itemValue;
-					}
-					toSave = true;
-				}
+				final String requestValue = Cop.getParameter(parameters, name);
+				if(requestValue!=null)
+					value = requestValue;
 				else
-					continue;
-
-				fields.put(attribute, new Field(name, value));
+				{
+					final String itemValue = (String)item.getAttribute(stringAttribute);
+					value = (itemValue==null) ? "" : itemValue;
+				}
+				if(!attribute.isReadOnly())
+					field = new Field(name, value);
+				else
+					field = new Field(value);
 			}
+			else
+				continue;
+
+			if(!field.isReadOnly())
+				toSave = true;
+			fields.put(attribute, field);
 		}
 	}
 	
@@ -66,8 +69,21 @@ public class Form
 			this.value = value;
 		}
 		
+		Field(final String value)
+		{
+			this.name = null;
+			this.value = value;
+		}
+		
+		final boolean isReadOnly()
+		{
+			return name==null;
+		}
+		
 		final String getName()
 		{
+			if(name==null)
+				throw new RuntimeException();
 			return name;
 		}
 		
@@ -89,7 +105,8 @@ public class Form
 		{
 			final ObjectAttribute attribute = (ObjectAttribute)i.next();
 			final Field field = (Field)fields.get(attribute);
-			item.setAttribute(attribute, field.value);
+			if(!field.isReadOnly())
+				item.setAttribute(attribute, field.value);
 		}
 	}
 	
