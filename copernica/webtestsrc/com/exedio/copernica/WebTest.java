@@ -14,6 +14,8 @@ public class WebTest extends WebTestCase
 	String someNotNullString;
 	String someInteger;
 	String someNotNullInteger;
+	String someLong;
+	String someNotNullLong;
 	String someBoolean;
 	boolean someNotNullBoolean;
 	String someEnumeration;
@@ -29,6 +31,8 @@ public class WebTest extends WebTestCase
 		someNotNullString = "running100";
 		someInteger = "";
 		someNotNullInteger = "107";
+		someLong = "";
+		someNotNullLong = "108";
 		someBoolean = "null";
 		someNotNullBoolean = true;
 		someEnumeration = "null";
@@ -43,6 +47,8 @@ public class WebTest extends WebTestCase
 		assertFormElementEquals("someNotNullString", someNotNullString);
 		assertFormElementEquals("someInteger", someInteger);
 		assertFormElementEquals("someNotNullInteger", someNotNullInteger);
+		assertFormElementEquals("someLong", someLong);
+		assertFormElementEquals("someNotNullLong", someNotNullLong);
 		assertFormElementEquals("someBoolean", someBoolean);
 		if(someNotNullBoolean)
 			assertCheckboxSelected("someNotNullBoolean");
@@ -96,6 +102,16 @@ public class WebTest extends WebTestCase
 		assertTitleEquals("AttributeItem.103");
 		assertItemForm();
 
+		setFormElement("someLong", "9999999999999"); someLong = "9999999999999";
+		submit("SAVE");
+		assertTitleEquals("AttributeItem.103");
+		assertItemForm();
+
+		setFormElement("someNotNullLong", "-9999999999999"); someNotNullLong = "-9999999999999";
+		submit("SAVE");
+		assertTitleEquals("AttributeItem.103");
+		assertItemForm();
+
 		setFormElement("someBoolean", "on"); someBoolean = "on";
 		submit("SAVE");
 		assertTitleEquals("AttributeItem.103");
@@ -144,6 +160,8 @@ public class WebTest extends WebTestCase
 		setFormElement("someNotNullString", "running100"); someNotNullString = "running100";
 		setFormElement("someInteger", ""); someInteger = "";
 		setFormElement("someNotNullInteger", "107"); someNotNullInteger = "107";
+		setFormElement("someLong", ""); someLong = "";
+		setFormElement("someNotNullLong", "108"); someNotNullLong = "108";
 		setFormElement("someBoolean", "null"); someBoolean = "null";
 		setFormElement("someNotNullBoolean", "on"); someNotNullBoolean = true;
 		setFormElement("someEnumeration", "null"); someEnumeration = "null";

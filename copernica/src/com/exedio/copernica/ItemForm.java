@@ -11,6 +11,7 @@ import com.exedio.cope.lib.EnumerationValue;
 import com.exedio.cope.lib.IntegerAttribute;
 import com.exedio.cope.lib.Item;
 import com.exedio.cope.lib.ItemAttribute;
+import com.exedio.cope.lib.LongAttribute;
 import com.exedio.cope.lib.NoSuchIDException;
 import com.exedio.cope.lib.ObjectAttribute;
 import com.exedio.cope.lib.Search;
@@ -43,6 +44,7 @@ public class ItemForm extends Form
 
 				if(attribute instanceof StringAttribute
 					|| attribute instanceof IntegerAttribute
+					|| attribute instanceof LongAttribute
 					|| attribute instanceof ItemAttribute
 					|| attribute instanceof BooleanAttribute
 					|| attribute instanceof EnumerationAttribute)
@@ -61,6 +63,10 @@ public class ItemForm extends Form
 						else if(attribute instanceof IntegerAttribute)
 						{
 							value = (itemValue==null) ? "" : String.valueOf((Integer)itemValue);
+						}
+						else if(attribute instanceof LongAttribute)
+						{
+							value = (itemValue==null) ? "" : String.valueOf((Long)itemValue);
 						}
 						else if(attribute instanceof ItemAttribute)
 						{
@@ -116,6 +122,13 @@ public class ItemForm extends Form
 					{
 						if(valueString.length()>0)
 							value = new Integer(Integer.parseInt(valueString));
+						else
+							value = null;
+					}
+					else if(attribute instanceof LongAttribute)
+					{
+						if(valueString.length()>0)
+							value = new Long(Long.parseLong(valueString));
 						else
 							value = null;
 					}

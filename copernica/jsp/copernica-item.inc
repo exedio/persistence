@@ -101,6 +101,7 @@
 			}
 			else if(attribute instanceof StringAttribute
 						|| attribute instanceof IntegerAttribute
+						|| attribute instanceof LongAttribute
 						|| attribute instanceof ItemAttribute)
 			{
 				final ObjectAttribute objectAttribute = (ObjectAttribute)attribute;
