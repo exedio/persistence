@@ -61,6 +61,7 @@
 				bottom='&amp;copy; Copyright 2004 &lt;a href="http://www.exedio.com/" target="_top">exedio&lt;/a> Gesellschaft f&amp;uuml;r Softwareentwicklung mbH'
 			>
 			<package name="com.*" />
+			<link href="http://java.sun.com/j2se/1.4.2/docs/api" />
 		</javadoc>
 	</target>
 
@@ -84,6 +85,7 @@
 			>
 			<package name="com.*" />
 			<link offline="on" packagelistLoc="lib/api" href="../../lib/api" />
+			<link href="http://java.sun.com/j2se/1.4.2/docs/api" />
 			<classpath>
 				<pathelement location="lib/build/classes" />
 			</classpath>
