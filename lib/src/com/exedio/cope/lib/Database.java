@@ -265,6 +265,23 @@ public abstract class Database
 				
 				if(column.notNull)
 					reportTable.notifyRequiredConstraint(column.getNotNullConstraintID());
+					
+				if(column instanceof StringColumn)
+				{
+					final StringColumn stringColumn = (StringColumn)column;
+
+					if(stringColumn.minimumLength>0)
+						reportTable.notifyRequiredConstraint(stringColumn.getMinimumLengthConstraintID());
+
+					if(stringColumn.maximumLength!=Integer.MAX_VALUE)
+						reportTable.notifyRequiredConstraint(stringColumn.getMaximumLengthConstraintID());
+				}
+				else if(column instanceof IntegerColumn)
+				{
+					final IntegerColumn intColumn = (IntegerColumn)column;
+					if(intColumn.allowedValues!=null)
+						reportTable.notifyRequiredConstraint(intColumn.getAllowedValuesConstraintID());
+				}
 			}
 			//System.out.println("REQUIRED:"+table.id);
 		}
