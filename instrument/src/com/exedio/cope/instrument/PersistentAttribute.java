@@ -23,19 +23,11 @@ public class PersistentAttribute
 	 */
 	public static final String MEDIA_TYPE = "Media-";
 
-	public static final int TYPE_INTEGER = 0;
-	public static final int TYPE_BOOLEAN = 1;
-	public static final int TYPE_STRING = 2;
-	public static final int TYPE_ENUMERATION = 3;
-	public static final int TYPE_ITEM = 4;
-	public static final int TYPE_MEDIA = 5;
-
 	private final JavaAttribute javaAttribute;
 	public final int accessModifier;
 	
 	final PersistentClass persistentClass;
 	private final String persistentType;
-	private final int persistentTypeType;
 	public final boolean readOnly;
 	public final boolean notNull;
 	public final boolean mapped;
@@ -47,7 +39,7 @@ public class PersistentAttribute
 
 	public PersistentAttribute(
 			final JavaAttribute javaAttribute,
-			final String persistentType, final int persistentTypeType,
+			final String persistentType,
 			final boolean readOnly, final boolean notNull, final boolean mapped,
 			final List qualifiers)
 	{
@@ -55,7 +47,6 @@ public class PersistentAttribute
 		this.accessModifier = javaAttribute.accessModifier;
 		this.persistentClass = PersistentClass.getPersistentClass(javaAttribute.getParent());
 		this.persistentType = persistentType;
-		this.persistentTypeType = persistentTypeType;
 		this.readOnly = readOnly;
 		this.notNull = notNull;
 		this.mapped = mapped;
@@ -113,11 +104,6 @@ public class PersistentAttribute
 		return this.persistentType;
 	}
 	
-	public final boolean isItemPersistentType()
-	{
-		return this.persistentTypeType == TYPE_ITEM;
-	}
-
 	private static final HashMap toNativeTypeMapping = new HashMap(3);
 	private static final HashMap toBoxingPrefixMapping = new HashMap(3);
 	private static final HashMap toBoxingPostfixMapping = new HashMap(3);

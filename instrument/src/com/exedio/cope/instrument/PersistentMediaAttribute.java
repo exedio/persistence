@@ -16,7 +16,7 @@ public final class PersistentMediaAttribute extends PersistentAttribute
 			final List qualifiers, final List mediaVariants,
 			final String mimeMajor, final String mimeMinor)
 	{
-		super(javaAttribute, MEDIA_TYPE, TYPE_MEDIA, readOnly, notNull, mapped, qualifiers);
+		super(javaAttribute, MEDIA_TYPE, readOnly, notNull, mapped, qualifiers);
 		this.mediaVariants = Collections.unmodifiableList(mediaVariants);
 		this.mimeMajor = mimeMajor;
 		this.mimeMinor = mimeMinor;

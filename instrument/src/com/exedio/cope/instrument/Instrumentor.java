@@ -232,21 +232,21 @@ public final class Instrumentor implements InjectionConsumer
 				{
 					persistentAttribute =
 						new PersistentAttribute(
-							ja, "Integer", PersistentAttribute.TYPE_INTEGER,
+							ja, "Integer",
 							readOnly, notNull, mapped, qualifiers);
 				}
 				else if("BooleanAttribute".equals(type))
 				{
 					persistentAttribute =
 						new PersistentAttribute(
-							ja, "Boolean", PersistentAttribute.TYPE_BOOLEAN,
+							ja, "Boolean",
 							readOnly, notNull, mapped, qualifiers);
 				}
 				else if("StringAttribute".equals(type))
 				{
 					persistentAttribute =
 						new PersistentAttribute(
-							ja, "String", PersistentAttribute.TYPE_STRING,
+							ja, "String",
 							readOnly, notNull, mapped, qualifiers);
 				}
 				else if("EnumerationAttribute".equals(type))
@@ -270,7 +270,7 @@ public final class Instrumentor implements InjectionConsumer
 					final String persistentType = secondArgument.substring(0, secondArgument.length()-".class".length());
 					persistentAttribute =
 						new PersistentAttribute(
-							ja, persistentType, PersistentAttribute.TYPE_ITEM,
+							ja, persistentType,
 							readOnly, notNull, mapped, qualifiers);
 				}
 				else if("MediaAttribute".equals(type))

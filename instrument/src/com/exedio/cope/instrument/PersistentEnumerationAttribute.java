@@ -11,7 +11,7 @@ public final class PersistentEnumerationAttribute extends PersistentAttribute
 			final boolean readOnly, final boolean notNull, final boolean mapped,
 			final List qualifiers)
 	{
-		super(javaAttribute, persistentType, PersistentAttribute.TYPE_ENUMERATION, readOnly, notNull, mapped, qualifiers);
+		super(javaAttribute, persistentType, readOnly, notNull, mapped, qualifiers);
 	}
 
 }
