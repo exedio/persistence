@@ -25,6 +25,11 @@ public class Search
 		return new EqualCondition(attribute, value);
 	}
 	
+	public static final EqualCondition equal(final ItemAttribute attribute, final Item value)
+	{
+		return new EqualCondition(attribute, value);
+	}
+	
 	public static final AndCondition and(final Condition condition1, final Condition condition2)
 	{
 		return new AndCondition(new Condition[]{condition1, condition2});
