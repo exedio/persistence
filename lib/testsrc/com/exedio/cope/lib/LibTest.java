@@ -259,6 +259,7 @@ public class LibTest extends TestCase
 			
 			// someEnumeration
 			ItemWithManyAttributes.SomeEnumeration someEnumeration = item.getSomeEnumeration();
+			assertEquals(null, someEnumeration);
 			if(someEnumeration!=ItemWithManyAttributes.SomeEnumeration.enumValue1)
 				someEnumeration = ItemWithManyAttributes.SomeEnumeration.enumValue1;
 			switch(someEnumeration.number)
@@ -270,7 +271,9 @@ public class LibTest extends TestCase
 					throw new RuntimeException("Ooooops");
 			}
 			item.setSomeEnumeration(someEnumeration);
+			assertEquals(null/*ItemWithManyAttributes.SomeEnumeration.enumValue1*/, item.getSomeEnumeration());
 			item.setSomeEnumeration(ItemWithManyAttributes.SomeEnumeration.enumValue1);
+			assertEquals(null/*ItemWithManyAttributes.SomeEnumeration.enumValue1*/, item.getSomeEnumeration());
 
 			// someMedia
 			assertEquals(null, item.getSomeMediaURL());
