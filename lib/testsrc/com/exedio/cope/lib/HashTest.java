@@ -39,6 +39,24 @@ public class HashTest extends DatabaseLibTest
 		assertTrue(!item.checkHashed1(null));
 		assertTrue(!item.checkHashed1("bello"));
 		assertTrue(item.checkHashed1(longPlainText));
+
+		// Test, that special characters produce different hashes
+		// with different pre-MD5 encodings.
+		final String specialPlainText = "Viele Gr\u00fc\u00dfe";
+		
+		item.setHashed1(specialPlainText);
+		assertEquals("tvfBJmSletFymAaLYskFPA==", item.getHashed1MD5());
+		assertTrue(!item.checkHashed1(null));
+		assertTrue(!item.checkHashed1("bello"));
+		assertTrue(item.checkHashed1(specialPlainText));
+		assertTrue(!item.checkHashed1Latin(specialPlainText));
+
+		item.setHashed1Latin(specialPlainText);
+		assertEquals("+AKBybdVUIr3xC9YXtduIw==", item.getHashed1MD5());
+		assertTrue(!item.checkHashed1Latin(null));
+		assertTrue(!item.checkHashed1Latin("bello"));
+		assertTrue(item.checkHashed1Latin(specialPlainText));
+		assertTrue(!item.checkHashed1(specialPlainText));
 	}
 
 	public void testWrap()
