@@ -101,29 +101,20 @@ public abstract class Example implements Runnable
   }
 
   public void set(String name, Integer type,// what a cool parameter
-	 final Integer[] qualifiers)
-  {
-	 if(name==null)
-		throw new IllegalArgumentException(); // ugly comment : { {
-	 this.name=name;
-	 String x="ugly { string \" { literal";
-	 char c='{';
-
-	 /**
+	final Integer[] qualifiers)
+	{
+		// ugly comment : { {
+		String x="ugly { string \" { literal";
+		char c='{';
+		
+		/**
 		ugly comment *
-	 **/
-	 if(type==null)
-		throw new IllegalArgumentException(); // some other comment
-	 this.type=type;
-
-	 if(qualifiers!=null&&qualifiers.length==0)
-		throw new IllegalArgumentException();
-	 this.qualifiers=qualifiers;
-    
-	 int a=20;
-	 int b=10;
-	 a=a/(a+b); // ugly expression
-  }
+		**/
+		
+		int a=20;// some other comment
+		int b=10;
+		a=a/(a+b); // ugly expression
+	}
 
   abstract void abstractMethod();
 
