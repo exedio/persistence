@@ -77,9 +77,9 @@ public abstract class Database
 	
 	private final boolean useDefineColumnTypes;
 	
-	protected Database(final boolean useDefineColumnTypes)
+	protected Database()
 	{
-		this.useDefineColumnTypes = useDefineColumnTypes;
+		this.useDefineColumnTypes = this instanceof DatabaseColumnTypesDefinable;
 		//System.out.println("using database "+getClass());
 	}
 	
@@ -464,9 +464,6 @@ public abstract class Database
 		}
 	}
 	
-	protected abstract void defineColumnTypes(List columnTypes, java.sql.Statement sqlStatement)
-			throws SQLException;
-
 	//private static int timeExecuteQuery = 0;
 
 	private void executeSQL(final Statement statement, final ResultSetHandler resultSetHandler)
@@ -491,7 +488,7 @@ public abstract class Database
 			{
 				//long time = System.currentTimeMillis();
 				if(useDefineColumnTypes)
-					defineColumnTypes(statement.columnTypes, sqlStatement);
+					((DatabaseColumnTypesDefinable)this).defineColumnTypes(statement.columnTypes, sqlStatement);
 				resultSet = sqlStatement.executeQuery(statement.getText());
 				//long interval = System.currentTimeMillis() - time;
 				//timeExecuteQuery += interval;

@@ -7,11 +7,13 @@ import java.util.List;
 
 import oracle.jdbc.OracleStatement;
 
-final class OracleDatabase extends Database
+final class OracleDatabase
+		extends Database
+		implements DatabaseColumnTypesDefinable
 {
 	public OracleDatabase()
 	{
-		super(true);
+		super();
 	}
 
 	protected String protectName(final String name)
@@ -51,9 +53,10 @@ final class OracleDatabase extends Database
 		return extractConstraintName(e, "ORA-02292: integrity constraint (", ") violated - child record found\n");
 	}
 
-	protected void defineColumnTypes(final List columnTypes, final Statement statement)
+	public void defineColumnTypes(final List columnTypes, final Statement statement)
 			throws SQLException
 	{
+		//System.out.println("defineColumnTypes: "+columnTypes);
 		final OracleStatement s = (OracleStatement)statement;
 		int columnIndex = 1;
 		for(Iterator i = columnTypes.iterator(); i.hasNext(); columnIndex++)

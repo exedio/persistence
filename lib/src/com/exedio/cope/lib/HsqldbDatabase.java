@@ -1,15 +1,13 @@
 
 package com.exedio.cope.lib;
 
-import java.sql.Statement;
 import java.sql.SQLException;
-import java.util.List;
 
 class HsqldbDatabase extends Database
 {
 	HsqldbDatabase()
 	{
-		super(false);
+		super();
 	}
 
 	protected String protectName(String name)
@@ -50,11 +48,6 @@ class HsqldbDatabase extends Database
 	protected String extractIntegrityConstraintName(final SQLException e)
 	{
 		return extractConstraintName(e, "Integrity constraint violation ", ' ');
-	}
-
-	protected void defineColumnTypes(List columnTypes, Statement sqlStatement)
-	{
-		throw new RuntimeException(getClass().getName()+" does not support defineColumnTypes.");
 	}
 
 }
