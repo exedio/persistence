@@ -508,7 +508,7 @@ public class ItemWithManyAttributes extends Item
 					someNotNullInteger.initialize("someNotNullInteger",false,true);
 					someBoolean.initialize("someBoolean",false,false);
 					someNotNullBoolean.initialize("someNotNullBoolean",false,true);
-					someItem.initialize("someItem",false,false);
+					someItem.initialize("someItem",false,false,ItemWithoutAttributes.TYPE);
 					someEnumeration.initialize("someEnumeration",false,false);
 					someMedia.initialize("someMedia",false,false);
 					someQualifiedString.initialize("someQualifiedString",false,false);

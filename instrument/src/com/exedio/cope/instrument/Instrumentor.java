@@ -871,6 +871,12 @@ public final class Instrumentor implements InjectionConsumer
 			output.write(persistentAttribute.isReadOnly() ? "true": "false");
 			output.write(',');
 			output.write(persistentAttribute.isNotNull() ? "true": "false");
+			if(persistentAttribute.isItemPersistentType())
+			{
+				output.write(',');
+				output.write(persistentAttribute.getBoxedType());
+				output.write(".TYPE");
+			}
 			//private List qualifiers = null;
 			output.write(");");
 			output.write(lineSeparator);
@@ -962,28 +968,41 @@ public final class Instrumentor implements InjectionConsumer
 				final String type = jf.getType();
 				final JavaAttribute ja = (JavaAttribute)jf;
 				final String persistentType;
+				final int persistentTypeType;
 				if("IntegerAttribute".equals(type))
+				{
 					persistentType = "Integer";
+					persistentTypeType = JavaAttribute.TYPE_INTEGER;
+				}
 				else if("BooleanAttribute".equals(type))
+				{
 					persistentType = "Boolean";
+					persistentTypeType = JavaAttribute.TYPE_BOOLEAN;
+				}
 				else if("StringAttribute".equals(type))
+				{
 					persistentType = "String";
+					persistentTypeType = JavaAttribute.TYPE_STRING;
+				}
 				else if("EnumerationAttribute".equals(type))
 				{
 					persistentType = ja.getCamelCaseName();
+					persistentTypeType = JavaAttribute.TYPE_ENUMERATION;
 				}
 				else if("ItemAttribute".equals(type))
 				{
 					persistentType = Injector.findDocTag(docComment, PERSISTENT_ATTRIBUTE);
+					persistentTypeType = JavaAttribute.TYPE_ITEM;
 				}
 				else if("MediaAttribute".equals(type))
 				{
 					persistentType = JavaAttribute.MEDIA_TYPE;
+					persistentTypeType = JavaAttribute.TYPE_MEDIA;
 				}
 				else
 					throw new RuntimeException();
 
-				ja.makePersistent(persistentType);
+				ja.makePersistent(persistentType, persistentTypeType);
 
 				if(containsTag(docComment, UNIQUE_ATTRIBUTE))
 					ja.getParent().makeUnique(new JavaAttribute[]{ja});

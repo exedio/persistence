@@ -30,8 +30,15 @@ public final class JavaAttribute extends JavaFeature
 	 */
 	public static final String MEDIA_TYPE = "Media-";
 
+	public static final int TYPE_INTEGER = 0;
+	public static final int TYPE_BOOLEAN = 1;
+	public static final int TYPE_STRING = 2;
+	public static final int TYPE_ENUMERATION = 3;
+	public static final int TYPE_ITEM = 4;
+	public static final int TYPE_MEDIA = 5;
 
 	private String persistentType = null;
+	private int persistentTypeType = -1;
 	private boolean readOnly = false;
 	private boolean notNull = false;
 	private boolean mapped = false;
@@ -70,6 +77,11 @@ public final class JavaAttribute extends JavaFeature
 		return this.persistentType;
 	}
 	
+	public boolean isItemPersistentType()
+	{
+		return this.persistentTypeType == TYPE_ITEM;
+	}
+
 	public boolean isMediaPersistentType()
 	{
 		return this.persistentType.equals(MEDIA_TYPE);
@@ -311,7 +323,7 @@ public final class JavaAttribute extends JavaFeature
 		Modifier.FINAL;
 	}
 	
-	public final void makePersistent(final String persistentType)
+	public final void makePersistent(final String persistentType, final int persistentTypeType)
 	{
 		if(persistentType==null)
 			throw new NullPointerException();
@@ -319,6 +331,7 @@ public final class JavaAttribute extends JavaFeature
 			throw new RuntimeException("Du Schwein!");
 		getParent().addPersistentAttribute(this);
 		this.persistentType = persistentType;
+		this.persistentTypeType = persistentTypeType;
 	}
 
 	public final void makeReadOnly()
