@@ -331,33 +331,31 @@ public abstract class Database
 	void delete(final Type type, final int pk)
 			throws IntegrityViolationException
 	{
-		final Statement bf = createStatement();
-		bf.append("delete from ").
-			append(type.protectedName).
-			append(" where ").
-			append(type.primaryKey.protectedName).
-			append('=').
-			append(pk);
-
-		//System.out.println("deleting "+bf.toString());
-
-		try
+		for(Type currentType = type; currentType!=null; currentType = currentType.getSupertype())
 		{
-			executeSQL(bf, EMPTY_RESULT_SET_HANDLER);
-		}
-		catch(IntegrityViolationException e)
-		{
-			throw e;
-		}
-		catch(ConstraintViolationException e)
-		{
-			throw new SystemException(e);
-		}
+			final Statement bf = createStatement();
+			bf.append("delete from ").
+				append(currentType.protectedName).
+				append(" where ").
+				append(currentType.primaryKey.protectedName).
+				append('=').
+				append(pk);
 
-		// TODO: dont use recursion
-		final Type supertype = type.getSupertype();
-		if(supertype!=null)
-			delete(supertype, pk);
+			//System.out.println("deleting "+bf.toString());
+
+			try
+			{
+				executeSQL(bf, EMPTY_RESULT_SET_HANDLER);
+			}
+			catch(IntegrityViolationException e)
+			{
+				throw e;
+			}
+			catch(ConstraintViolationException e)
+			{
+				throw new SystemException(e);
+			}
+		}
 	}
 
 	private static interface ResultSetHandler
