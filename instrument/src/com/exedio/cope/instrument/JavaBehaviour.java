@@ -34,7 +34,7 @@ public abstract class JavaBehaviour extends JavaFeature
 	throws InjectorParseException
 	{
 		// parent must not be null
-		super(parent.getFile(), parent, modifiers, type, name);
+		super(parent.file, parent, modifiers, type, name);
 	}
 	
 	public void addParameter(String paramtype, String paramname)

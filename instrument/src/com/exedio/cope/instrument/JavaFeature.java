@@ -19,9 +19,9 @@ public abstract class JavaFeature
 
 	/**
 	 * The java file, which contains this feature.
-	 * Must not be null.
+	 * Is never null.
 	 */
-	private final JavaFile file;
+	public final JavaFile file;
 	
 	/**
 	 * The class, which contains this feature.
@@ -62,7 +62,7 @@ public abstract class JavaFeature
 		if(file==null)
 			throw new RuntimeException();
 		
-		if(parent!=null && file!=parent.getFile()) // JavaFile objects are flyweight
+		if(parent!=null && file!=parent.file) // JavaFile objects are flyweight
 			throw new RuntimeException();
 		
 		int over=modifiers&~getAllowedModifiers();
@@ -74,15 +74,6 @@ public abstract class JavaFeature
 		
 	}
 
-	/**
-	 * Returns the java file, which contains this feature.
-	 * Is never null.
-	 */
-	public final JavaFile getFile()
-	{
-		return file;
-	}
-	
 	/**
 	 * Returns the package of the file containing this feature.
 	 */

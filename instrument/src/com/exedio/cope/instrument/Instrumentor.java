@@ -241,7 +241,7 @@ public final class Instrumentor implements InjectionConsumer
 				Class typeClass = null;
 				try
 				{
-					typeClass = ja.getFile().findType(ja.getType());
+					typeClass = ja.file.findType(ja.getType());
 				}
 				catch(InjectorParseException e)
 				{

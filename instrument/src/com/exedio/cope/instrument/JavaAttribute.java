@@ -24,7 +24,7 @@ public final class JavaAttribute
 		throws InjectorParseException
 	{
 		// parent must not be null
-		super(parent.getFile(), parent, modifiers, type, name);
+		super(parent.file, parent, modifiers, type, name);
 		if (type == null)
 			throw new RuntimeException();
 	}
@@ -50,7 +50,7 @@ public final class JavaAttribute
 	 */
 	public final String getFullDocName()
 	{
-		return getFile().getPackageName()
+		return file.getPackageName()
 			+ '.'
 			+ getParent().getName()
 			+ '#'
