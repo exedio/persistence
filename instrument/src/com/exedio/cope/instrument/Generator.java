@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Writer;
 import java.lang.reflect.Modifier;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -620,6 +621,55 @@ final class Generator
 		o.write(".searchUnique(new Object[]{this,");
 		o.write(qualifier.keyAttribute.javaAttribute.name);
 		o.write("});");
+		o.write(lineSeparator);
+
+		o.write("\t}");
+		
+		final List qualifierAttributes = Arrays.asList(qualifier.uniqueConstraint.copeAttributes);
+		for(Iterator i = qualifier.qualifierClass.getCopeAttributes().iterator(); i.hasNext(); )
+		{
+			final CopeAttribute attribute = (CopeAttribute)i.next();
+			if(qualifierAttributes.contains(attribute))
+				continue;
+			writeQualifierGetter(qualifier, attribute);
+		}
+	}
+
+	private void writeQualifierGetter(final CopeQualifier qualifier, final CopeAttribute attribute)
+	throws IOException
+	{
+		writeCommentHeader();
+		o.write("\t * Returns the qualifier.");
+		o.write(lineSeparator);
+		writeCommentGenerated();
+		writeCommentFooter();
+
+		final String resultType = attribute.persistentType;
+		o.write("final ");
+		o.write(resultType);
+		o.write(" get");
+		o.write(toCamelCase(attribute.getName()));
+		o.write("(final ");
+		o.write(qualifier.keyAttribute.persistentType);
+		o.write(' ');
+		o.write(qualifier.keyAttribute.javaAttribute.name);
+		o.write(')');
+		o.write(lineSeparator);
+
+		o.write("\t{");
+		o.write(lineSeparator);
+
+		o.write("\t\treturn (");
+		o.write(resultType);
+		o.write(")");
+		o.write(qualifier.uniqueConstraintString);
+		o.write(".searchUnique(new Object[]{this,");
+		o.write(qualifier.keyAttribute.javaAttribute.name);
+		o.write("}).getAttribute(");
+		o.write(qualifier.qualifierClassString);
+		o.write('.');
+		o.write(attribute.getName());
+		o.write(");");
 		o.write(lineSeparator);
 
 		o.write("\t}");

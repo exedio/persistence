@@ -6,6 +6,7 @@ final class CopeQualifier
 {
 	final String name;
 	final String uniqueConstraintString;
+	final String qualifierClassString;
 
 	final CopeClass qualifierClass;
 	final CopeUniqueConstraint uniqueConstraint;
@@ -20,10 +21,10 @@ final class CopeQualifier
 			throw new InjectorParseException("Qualifier must have 1 argument, but has "+initializerArguments);
 		this.uniqueConstraintString = (String)initializerArguments.get(0);
 
-		final int dot = uniqueConstraintString.indexOf('.');
+		final int dot = uniqueConstraintString.lastIndexOf('.');
 		if(dot<0)
 			throw new InjectorParseException("Qualifier argument must have dot, but is "+uniqueConstraintString);
-		final String qualifierClassString = uniqueConstraintString.substring(0, dot);
+		this.qualifierClassString = uniqueConstraintString.substring(0, dot);
 
 		//System.out.println("--------- qualifierClassString: "+qualifierClassString);
 		//Sstem.out.println("--------- key: "+key);
