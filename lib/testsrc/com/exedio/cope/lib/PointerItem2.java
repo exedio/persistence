@@ -25,7 +25,7 @@ public class PointerItem2 extends Item
 			throws
 				com.exedio.cope.lib.NotNullViolationException
 	{
-		super(TYPE, new com.exedio.cope.lib.AttributeValue[]{
+		super(new com.exedio.cope.lib.AttributeValue[]{
 			new com.exedio.cope.lib.AttributeValue(code,initialCode),
 		});
 		throwInitialNotNullViolationException();

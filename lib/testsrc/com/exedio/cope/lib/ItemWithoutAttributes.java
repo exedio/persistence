@@ -15,7 +15,7 @@ public class ItemWithoutAttributes extends Item
 	 *
  */public ItemWithoutAttributes()
 	{
-		super(TYPE, new com.exedio.cope.lib.AttributeValue[]{
+		super(new com.exedio.cope.lib.AttributeValue[]{
 		});
 	}/**
 

@@ -356,7 +356,7 @@ public final class Instrumentor implements InjectionConsumer
 		writeThrowsClause(constructorExceptions);
 		output.write("\t{");
 		output.write(lineSeparator);
-		output.write("\t\tsuper(TYPE, new "+AttributeValue.class.getName()+"[]{");
+		output.write("\t\tsuper(new "+AttributeValue.class.getName()+"[]{");
 		output.write(lineSeparator);
 		for(Iterator i = initialAttributes.iterator(); i.hasNext(); )
 		{
@@ -395,11 +395,11 @@ public final class Instrumentor implements InjectionConsumer
 		writeCommentFooter();
 		output.write("protected ");
 		output.write(persistentClass.getName());
-		output.write("(final "+Type.class.getName()+" type,final "+AttributeValue.class.getName()+"[] initialAttributes)");
+		output.write("(final "+AttributeValue.class.getName()+"[] initialAttributes)");
 		output.write(lineSeparator);
 		output.write("\t{");
 		output.write(lineSeparator);
-		output.write("\t\tsuper(type,initialAttributes);");
+		output.write("\t\tsuper(initialAttributes);");
 		output.write(lineSeparator);
 		output.write("\t}");
 	}

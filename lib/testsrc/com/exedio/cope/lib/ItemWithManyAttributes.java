@@ -130,7 +130,7 @@ public class ItemWithManyAttributes extends Item
 			throws
 				com.exedio.cope.lib.NotNullViolationException
 	{
-		super(TYPE, new com.exedio.cope.lib.AttributeValue[]{
+		super(new com.exedio.cope.lib.AttributeValue[]{
 			new com.exedio.cope.lib.AttributeValue(someNotNullString,initialSomeNotNullString),
 			new com.exedio.cope.lib.AttributeValue(someNotNullInteger,new Integer(initialSomeNotNullInteger)),
 			new com.exedio.cope.lib.AttributeValue(someNotNullBoolean,(initialSomeNotNullBoolean?Boolean.TRUE:Boolean.FALSE)),

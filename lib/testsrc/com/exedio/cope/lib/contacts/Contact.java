@@ -34,7 +34,7 @@ public abstract class Contact extends Item
 				final int initialLatency,
 				final int initialAnnoyance)
 	{
-		super(TYPE, new com.exedio.cope.lib.AttributeValue[]{
+		super(new com.exedio.cope.lib.AttributeValue[]{
 			new com.exedio.cope.lib.AttributeValue(latency,new Integer(initialLatency)),
 			new com.exedio.cope.lib.AttributeValue(annoyance,new Integer(initialAnnoyance)),
 		});
@@ -44,9 +44,9 @@ public abstract class Contact extends Item
 	 * Creates an item and sets the given attributes initially.
 	 * @generated
 	 *
- */protected Contact(final com.exedio.cope.lib.Type type,final com.exedio.cope.lib.AttributeValue[] initialAttributes)
+ */protected Contact(final com.exedio.cope.lib.AttributeValue[] initialAttributes)
 	{
-		super(type,initialAttributes);
+		super(initialAttributes);
 	}/**
 
 	 **

@@ -22,7 +22,7 @@ public class ItemWithSingleUnique extends Item
 	 *
  */public ItemWithSingleUnique()
 	{
-		super(TYPE, new com.exedio.cope.lib.AttributeValue[]{
+		super(new com.exedio.cope.lib.AttributeValue[]{
 		});
 	}/**
 

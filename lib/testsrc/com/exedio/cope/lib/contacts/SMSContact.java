@@ -21,7 +21,7 @@ public class SMSContact extends Contact
 	 *
  */public SMSContact()
 	{
-		super(TYPE, new com.exedio.cope.lib.AttributeValue[]{
+		super(new com.exedio.cope.lib.AttributeValue[]{
 		});
 	}/**
 

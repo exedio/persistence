@@ -103,10 +103,10 @@ public class Item extends Search
 	 *         if one of the values in <code>initialAttributeValues</code>
 	 *         is not compatible to it's attribute.
 	 */
-	protected Item(final Type type/*TODO: determine type automatically*/, final AttributeValue[] initialAttributeValues)
+	protected Item(final AttributeValue[] initialAttributeValues)
 		throws ClassCastException
 	{
-		this.type = type;
+		this.type = Type.getType(getClass().getName());
 		this.pk = type.nextPK();
 		final Row row = new Row(this, false);
 		//System.out.println("create item "+type+" "+pk);
@@ -121,6 +121,8 @@ public class Item extends Search
 		}
 		this.rowWhenActive = row; // make active
 
+		if(type==null)
+			throw new NullPointerException(getClass().toString());
 		if(pk==Type.NOT_A_PK)
 			throw new RuntimeException();
 	}
