@@ -88,7 +88,7 @@ abstract class CopeAttribute
 				this.lengthConstrained = false;
 
 			if(option.unique)
-				persistentClass.makeUnique(new PersistentUniqueConstraint(this));
+				persistentClass.makeUnique(new CopeUniqueConstraint(this));
 		}
 		else
 		{
@@ -171,7 +171,7 @@ abstract class CopeAttribute
 	{
 		for( final Iterator i = persistentClass.getUniqueConstraints().iterator(); i.hasNext(); )
 		{
-			final CopeAttribute[] uniqueConstraint = ((PersistentUniqueConstraint)i.next()).persistentAttributes;
+			final CopeAttribute[] uniqueConstraint = ((CopeUniqueConstraint)i.next()).persistentAttributes;
 			for(int j=0; j<uniqueConstraint.length; j++)
 			{
 				if(this == uniqueConstraint[j])

@@ -195,7 +195,7 @@ public final class Instrumentor implements InjectionConsumer
 			persistentAttributes.add(persistentAttribute);
 		}
 		persistentClass.makeUnique(
-			new PersistentUniqueConstraint(ja,
+			new CopeUniqueConstraint(ja,
 				(CopeAttribute[])persistentAttributes.toArray(new CopeAttribute[persistentAttributes.size()])));
 	}
 	

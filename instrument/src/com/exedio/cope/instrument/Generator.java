@@ -490,7 +490,7 @@ final class Generator
 		}
 	}
 	
-	private void writeUniqueFinder(final PersistentUniqueConstraint constraint)
+	private void writeUniqueFinder(final CopeUniqueConstraint constraint)
 	throws IOException
 	{
 		final CopeAttribute[] persistentAttributes = constraint.persistentAttributes;
@@ -650,7 +650,7 @@ final class Generator
 			for(final Iterator i = persistentClass.getUniqueConstraints().iterator(); i.hasNext(); )
 			{
 				// write unique finder methods
-				final PersistentUniqueConstraint constraint = (PersistentUniqueConstraint)i.next();
+				final CopeUniqueConstraint constraint = (CopeUniqueConstraint)i.next();
 				writeUniqueFinder(constraint);
 			}
 			for(final Iterator i = persistentClass.getQualifiers().iterator(); i.hasNext(); )

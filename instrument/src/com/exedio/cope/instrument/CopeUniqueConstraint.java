@@ -1,7 +1,7 @@
 
 package com.exedio.cope.instrument;
 
-final class PersistentUniqueConstraint
+final class CopeUniqueConstraint
 {
 	final String name;
 	final String camelCaseName;
@@ -11,7 +11,7 @@ final class PersistentUniqueConstraint
 	/**
 	 * For constraints covering more than one attribute.
 	 */
-	PersistentUniqueConstraint(final JavaAttribute javaAttribute, final CopeAttribute[] persistentAttributes)
+	CopeUniqueConstraint(final JavaAttribute javaAttribute, final CopeAttribute[] persistentAttributes)
 	{
 		this.name = javaAttribute.name;
 		this.camelCaseName = javaAttribute.getCamelCaseName();
@@ -22,7 +22,7 @@ final class PersistentUniqueConstraint
 	/**
 	 * For constraints covering exactly one attribute.
 	 */
-	PersistentUniqueConstraint(final CopeAttribute persistentAttribute)
+	CopeUniqueConstraint(final CopeAttribute persistentAttribute)
 	{
 		this.name = persistentAttribute.getName();
 		this.camelCaseName = persistentAttribute.getCamelCaseName();

@@ -118,7 +118,7 @@ final class CopeClass
 		}
 	}
 	
-	public void makeUnique(final PersistentUniqueConstraint constraint)
+	public void makeUnique(final CopeUniqueConstraint constraint)
 	{
 		if(uniqueConstraints==null)
 			uniqueConstraints=new ArrayList();
