@@ -13,7 +13,7 @@ public class SaveButtonExistTest extends WebTestCase
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		getTestContext().setBaseUrl("http://localhost:8080/copernicatest/");
+		getTestContext().setBaseUrl("http://localhost:8080/copetest-oracle/");
 	}
 	
 	public void testSaveButtonExists()

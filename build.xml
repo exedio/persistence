@@ -262,33 +262,64 @@
 		</javac>
 	</target>
 	
-	<target name="copernica.testwebapp" depends="copernica.compile, copernica.test.compile">
+	<target name="copernica.testwebapp.hsqldb"
+			depends="copernica.compile, copernica.test.compile">
 		
-		<mkdir dir="copernica/build/testwebapp" />
+		<mkdir dir="copernica/build/testwebapp-hsqldb" />
 		
-		<copy todir="copernica/build/testwebapp/WEB-INF/classes">
+		<copy todir="copernica/build/testwebapp-hsqldb/WEB-INF/classes">
 			<fileset dir="lib/build/classes" />
 			<fileset dir="lib/build/testclasses" />
 			<fileset dir="copernica/build/classes" />
 			<fileset dir="copernica/build/testclasses" />
 		</copy>
 		
-		<copy todir="copernica/build/testwebapp/WEB-INF/lib">
+		<copy todir="copernica/build/testwebapp-hsqldb/WEB-INF/lib">
 			<fileset file="../lib/pcj.jar" />
 			<fileset file="../lib/hsqldb.jar" />
 			<!-- TODO: removed, when the test model gets it own model class independent of junit -->
 			<fileset file="../lib/junit.jar" />
 		</copy>
-		<copy file="../lib/classes12.zip"
-				tofile="copernica/build/testwebapp/WEB-INF/lib/classes12.jar" />
 		
-		<copy tofile="copernica/build/testwebapp/WEB-INF/cope.properties"
-				file="cope.properties.oracle" />
-		<copy todir="copernica/build/testwebapp/WEB-INF/"
+		<copy tofile="copernica/build/testwebapp-hsqldb/WEB-INF/cope.properties"
+				file="cope.properties.hsql" />
+		<copy todir="copernica/build/testwebapp-hsqldb/WEB-INF/"
 				file="copernica/web.xml" />
-		<touch file="copernica/build/testwebapp/WEB-INF/web.xml" />
+		<touch file="copernica/build/testwebapp-hsqldb/WEB-INF/web.xml" />
 	
 	</target>
+	
+	<target name="copernica.testwebapp.oracle"
+			depends="copernica.compile, copernica.test.compile">
+		
+		<mkdir dir="copernica/build/testwebapp-oracle" />
+		
+		<copy todir="copernica/build/testwebapp-oracle/WEB-INF/classes">
+			<fileset dir="lib/build/classes" />
+			<fileset dir="lib/build/testclasses" />
+			<fileset dir="copernica/build/classes" />
+			<fileset dir="copernica/build/testclasses" />
+		</copy>
+		
+		<copy todir="copernica/build/testwebapp-oracle/WEB-INF/lib">
+			<fileset file="../lib/pcj.jar" />
+			<!-- TODO: removed, when the test model gets it own model class independent of junit -->
+			<fileset file="../lib/junit.jar" />
+		</copy>
+		<copy file="../lib/classes12.zip"
+				tofile="copernica/build/testwebapp-oracle/WEB-INF/lib/classes12.jar" />
+		
+		<copy tofile="copernica/build/testwebapp-oracle/WEB-INF/cope.properties"
+				file="cope.properties.oracle" />
+		<copy todir="copernica/build/testwebapp-oracle/WEB-INF/"
+				file="copernica/web.xml" />
+		<touch file="copernica/build/testwebapp-oracle/WEB-INF/web.xml" />
+	
+	</target>
+	
+	<target name="copernica.testwebapp"
+			depends="copernica.testwebapp.hsqldb,
+						copernica.testwebapp.oracle" />
 	
 	<target name="copernica.webtest.compile">
 		<mkdir dir="copernica/build/webtestclasses" />
