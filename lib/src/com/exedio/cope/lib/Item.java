@@ -475,6 +475,8 @@ public abstract class Item extends Search
 			row.put(attribute.mimeMajor, mimeMajor);
 		if(attribute.fixedMimeMinor==null)
 			row.put(attribute.mimeMinor, mimeMinor);
+		if(attribute.exists!=null)
+			row.put(attribute.exists, BooleanAttribute.TRUE);
 
 		try
 		{

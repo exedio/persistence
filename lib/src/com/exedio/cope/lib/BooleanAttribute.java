@@ -34,8 +34,8 @@ public final class BooleanAttribute extends Attribute
 		}
 	}
 	
-	private static final Integer FALSE = new Integer(0);
-	private static final Integer TRUE = new Integer(1);
+	static final Integer FALSE = new Integer(0);
+	static final Integer TRUE = new Integer(1);
 		
 	Object surfaceToCache(final Object surface)
 	{
