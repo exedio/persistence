@@ -134,7 +134,7 @@
 			}
 			else
 			{
-				%><%=item.getAttribute((ObjectAttribute)attribute)%><%
+				%><i><%=field.getValue()%></i><%
 			}
 			%></td>
 		</tr><%

@@ -83,7 +83,10 @@ public class ItemForm extends Form
 						field = new Field(attribute, value);
 				}
 				else
-					continue;
+				{
+					final Object itemValue = item.getAttribute(attribute);
+					field = new Field(attribute, itemValue==null ? "leer" : itemValue.toString());
+				}
 			}
 			else
 				continue;
