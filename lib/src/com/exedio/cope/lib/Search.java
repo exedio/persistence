@@ -3,6 +3,8 @@ package persistence;
 
 import java.util.Collection;
 import java.util.Iterator;
+import persistence.search.AndCondition;
+import persistence.search.Condition;
 import persistence.search.EqualCondition;
 
 /**
@@ -22,12 +24,17 @@ public class Search
 		return new EqualCondition(attribute, value);
 	}
 	
-	public static final Collection search(final Type type, final EqualCondition condition)
+	public static final AndCondition and(final Condition condition1, final Condition condition2)
+	{
+		return new AndCondition(new Condition[]{condition1, condition2});
+	}
+	
+	public static final Collection search(final Type type, final Condition condition)
 	{
 		return null;
 	}
 	
-	public static final Item searchUnique(final Type type, final EqualCondition condition)
+	public static final Item searchUnique(final Type type, final Condition condition)
 	{
 		final Iterator searchResult = search(type, condition).iterator();
 		if(searchResult.hasNext())

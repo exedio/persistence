@@ -4,10 +4,10 @@ package persistence.search;
 import persistence.Attribute;
 import persistence.StringAttribute;
 
-public final class EqualCondition
+public final class EqualCondition extends Condition
 {
-	final Attribute attribute;
-	final Object value;
+	public final Attribute attribute;
+	public final Object value;
 
 	public EqualCondition(final StringAttribute attribute, final String value)
 	{
