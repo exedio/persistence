@@ -3,8 +3,7 @@ package com.exedio.cope.lib;
 public final class ReportColumn extends ReportNode
 {
 	public final String name;
-	// TODO: make private
-	public final com.exedio.cope.lib.Column column;
+	private final Column column;
 	boolean exists;
 		
 	ReportColumn(final Column column)
@@ -42,6 +41,11 @@ public final class ReportColumn extends ReportNode
 		cumulativeColor = particularColor;
 	}
 		
+	public final boolean required()
+	{
+		return column!=null;
+	}
+	
 	public final boolean exists()
 	{
 		return exists;

@@ -78,7 +78,7 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); )
 				%>
 				<input type="checkbox" name="DROP_COLUMN_" value="drop"/>drop<%
 			}
-			else if(column.column!=null)
+			else if(column.required())
 			{
 				%>
 				<input type="checkbox" name="CREATE_COLUMN_" value="create"/>create<%
