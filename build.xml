@@ -83,7 +83,7 @@
 			<arg value="${basedir}/lib/testsrc/com/exedio/cope/lib/ItemWithSingleUniqueNotNull.java" />
 			<arg value="${basedir}/lib/testsrc/com/exedio/cope/lib/ItemWithDoubleUnique.java" />
 			<arg value="${basedir}/lib/testsrc/com/exedio/cope/lib/EmptyItem.java" />
-			<arg value="${basedir}/lib/testsrc/com/exedio/cope/lib/ItemWithoutAttributes2.java" />
+			<arg value="${basedir}/lib/testsrc/com/exedio/cope/lib/EmptyItem2.java" />
 			<arg value="${basedir}/lib/testsrc/com/exedio/cope/lib/ItemWithManyAttributes.java" />
 			<arg value="${basedir}/lib/testsrc/com/exedio/cope/lib/StringItem.java" />
 			<arg value="${basedir}/lib/testsrc/com/exedio/cope/lib/MediaItem.java" />

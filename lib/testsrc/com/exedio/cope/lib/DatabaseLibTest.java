@@ -22,7 +22,7 @@ public abstract class DatabaseLibTest extends AbstractLibTest
 		ItemWithSingleUniqueNotNull.TYPE,
 		ItemWithDoubleUnique.TYPE,
 		EmptyItem.TYPE,
-		ItemWithoutAttributes2.TYPE,
+		EmptyItem2.TYPE,
 		ItemWithManyAttributes.TYPE,
 		StringItem.TYPE,
 		MediaItem.TYPE,

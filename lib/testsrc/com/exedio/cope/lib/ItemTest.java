@@ -16,16 +16,16 @@ public class ItemTest extends DatabaseLibTest
 			throws IntegrityViolationException, NoSuchIDException
 	{
 		assertEquals(EmptyItem.TYPE, Type.getType(EmptyItem.class.getName()));
-		assertEquals(ItemWithoutAttributes2.TYPE, Type.getType(ItemWithoutAttributes2.class.getName()));
+		assertEquals(EmptyItem2.TYPE, Type.getType(EmptyItem2.class.getName()));
 		assertEquals(toSet(Arrays.asList(types)), toSet(Type.getTypes()));
 
 		final EmptyItem item1 = new EmptyItem();
 		final EmptyItem item2 = new EmptyItem();
-		final ItemWithoutAttributes2 item3 = new ItemWithoutAttributes2();
+		final EmptyItem2 item3 = new EmptyItem2();
 
 		assertEquals(EmptyItem.TYPE, item1.getType());
 		assertEquals(EmptyItem.TYPE, item2.getType());
-		assertEquals(ItemWithoutAttributes2.TYPE, item3.getType());
+		assertEquals(EmptyItem2.TYPE, item3.getType());
 
 		assertID(0, item1);
 		assertID(1, item2);
