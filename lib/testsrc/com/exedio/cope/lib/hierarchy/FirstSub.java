@@ -1,25 +1,25 @@
 
-package com.exedio.cope.lib.contacts;
+package com.exedio.cope.lib.hierarchy;
 
 import com.exedio.cope.lib.StringAttribute;
 
 /**
  * @persistent
  */
-public class SMSContact extends Contact
+public class FirstSub extends Super
 {
 	/**
 	 * @persistent
 	 */
-	public static final StringAttribute phoneNumber = new StringAttribute(); 
+	public static final StringAttribute firstSubString = new StringAttribute(); 
 
 /**
 
 	 **
-	 * Constructs a new SMSContact with all the attributes initially needed.
+	 * Constructs a new FirstSub with all the attributes initially needed.
 	 * @generated
 	 *
- */public SMSContact()
+ */public FirstSub()
 	{
 		super(new com.exedio.cope.lib.AttributeValue[]{
 		});
@@ -30,29 +30,29 @@ public class SMSContact extends Contact
 	 * @see Item#Item(com.exedio.cope.lib.util.ReactivationConstructorDummy,int)
 	 * @generated
 	 *
- */private SMSContact(com.exedio.cope.lib.util.ReactivationConstructorDummy d,final int pk)
+ */private FirstSub(com.exedio.cope.lib.util.ReactivationConstructorDummy d,final int pk)
 	{
 		super(d,pk);
 	}/**
 
 	 **
-	 * Returns the value of the persistent attribute {@link #phoneNumber}.
+	 * Returns the value of the persistent attribute {@link #firstSubString}.
 	 * @generated
 	 *
- */public final String getPhoneNumber()
+ */public final String getFirstSubString()
 	{
-		return (String)getAttribute(this.phoneNumber);
+		return (String)getAttribute(this.firstSubString);
 	}/**
 
 	 **
-	 * Sets a new value for the persistent attribute {@link #phoneNumber}.
+	 * Sets a new value for the persistent attribute {@link #firstSubString}.
 	 * @generated
 	 *
- */public final void setPhoneNumber(final String phoneNumber)
+ */public final void setFirstSubString(final String firstSubString)
 	{
 		try
 		{
-			setAttribute(this.phoneNumber,phoneNumber);
+			setAttribute(this.firstSubString,firstSubString);
 		}
 		catch(com.exedio.cope.lib.NotNullViolationException e)
 		{
@@ -69,14 +69,14 @@ public class SMSContact extends Contact
 	}/**
 
 	 **
-	 * The persistent type information for sMSContact.
+	 * The persistent type information for firstSub.
 	 * @generated
 	 *
  */public static final com.exedio.cope.lib.Type TYPE = 
 		new com.exedio.cope.lib.Type(
-			SMSContact.class,
+			FirstSub.class,
 			new com.exedio.cope.lib.Attribute[]{
-				phoneNumber.initialize("phoneNumber",false,false),
+				firstSubString.initialize("firstSubString",false,false),
 			},
 			null
 		)

@@ -3,8 +3,8 @@ package com.exedio.cope.lib;
 
 import java.io.IOException;
 
-import com.exedio.cope.lib.contacts.Contact;
-import com.exedio.cope.lib.contacts.SMSContact;
+import com.exedio.cope.lib.hierarchy.FirstSub;
+import com.exedio.cope.lib.hierarchy.Super;
 
 /**
  * An abstract test class for tests creating/using some persistent data.
@@ -21,8 +21,8 @@ public abstract class DatabaseLibTest extends AbstractLibTest
 		ItemWithManyAttributes.TYPE,
 		PointerItem2.TYPE,
 		PointerItem.TYPE,
-		Contact.TYPE,
-		SMSContact.TYPE,
+		Super.TYPE,
+		FirstSub.TYPE,
 	};
 	
 	private static boolean createdDatabase = false;
