@@ -92,13 +92,14 @@ page import="java.util.Map"
 			for(Iterator l = provider.getDisplayLanguages().iterator(); l.hasNext(); )
 			{
 				final Language currentLanguage = (Language)l.next();
+				final String languageName = currentLanguage.getCopernicaName(language);
 				if(!currentLanguage.equals(language))
 				{
-					%>[<a href="<%=cop.switchLanguage(currentLanguage)%>"><%=currentLanguage.getCopernicaName(null)%></a>]<%
+					%>[<a href="<%=cop.switchLanguage(currentLanguage)%>"><%=languageName%></a>]<%
 				}
 				else
 				{
-					%>[<b><%=currentLanguage.getCopernicaName(null)%></b>]<%
+					%>[<b><%=languageName%></b>]<%
 				}
 			}
 			%>

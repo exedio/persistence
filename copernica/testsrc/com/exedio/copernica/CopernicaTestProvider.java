@@ -8,10 +8,18 @@ public class CopernicaTestProvider extends TransientCopernicaProvider
 	
 	public CopernicaTestProvider()
 	{
+		final TransientLanguage de = new TransientLanguage("de");
+		final TransientLanguage en = new TransientLanguage("en");
+
+		de.putName(de, "Deutsch");
+		de.putName(en, "German");
+		en.putName(de, "Englisch");
+		en.putName(en, "English");
+
 		setTransientLanguages(
 			new TransientLanguage[]{
-				new TransientLanguage("de"),
-				new TransientLanguage("en"),
+				de,
+				en,
 			}
 		);
 	}
