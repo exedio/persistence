@@ -181,6 +181,11 @@ public final class JavaAttribute extends JavaFeature
 		return (readOnly || notNull) && !mapped;
 	}
 	
+	public final boolean hasSetter()
+	{
+		return !readOnly && !mapped;
+	}
+	
 	public final void makeQualified(final List qualifiers)
 	{
 		if(qualifiers==null)

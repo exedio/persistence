@@ -313,7 +313,7 @@ public final class Instrumentor implements InjectionConsumer
 		output.write("\t}");
 		
 		// setter
-		if(!persistentAttribute.isReadOnly() && !persistentAttribute.isMapped())
+		if(persistentAttribute.hasSetter())
 		{
 			writeCommentHeader();
 			output.write("\t * Sets a new value for the persistent attribute {@link #");
