@@ -30,8 +30,9 @@ if(request.getParameter("APPLY")!=null)
 			%>
 			<li>analyzing table <%=analyzeTable%> ...</li><%
 			out.flush();
+			final long time = System.currentTimeMillis();
 			
-			%><li><b>ok</b>.</li><%
+			%><li><b>ok</b>, <%=System.currentTimeMillis()-time%>ms.</li><%
 			out.flush();
 		}
 	}
