@@ -3,7 +3,7 @@ package com.exedio.cope.lib;
 
 public final class ItemAttribute extends Attribute
 {
-	Object cellToCache(final Object cell)
+	Object databaseToCache(final Object cell)
 	{
 		if(cell==null)
 			return null;

@@ -12,7 +12,7 @@ public final class StringAttribute extends Attribute
 		super(mapping);
 	}
 	
-	Object cellToCache(final Object cell)
+	Object databaseToCache(final Object cell)
 	{
 		if(cell==null)
 			return null;

@@ -117,7 +117,7 @@ public abstract class Database
 		{
 			final Attribute attribute = (Attribute)i.next();
 			final Object cell = ir.next();
-			itemCache.put(attribute, attribute.cellToCache(cell));
+			itemCache.put(attribute, attribute.databaseToCache(cell));
 		}
 	}
 
