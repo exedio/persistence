@@ -2,8 +2,6 @@
 package com.exedio.cope.lib.function;
 
 import com.exedio.cope.lib.ComputedStringFunction;
-import com.exedio.cope.lib.ObjectAttribute;
-import com.exedio.cope.lib.StringAttribute;
 import com.exedio.cope.lib.StringFunction;
 
 public final class UppercaseFunction
@@ -12,9 +10,9 @@ public final class UppercaseFunction
 {
 	private static final String[] sql = new String[]{"UPPER(", ")"};
 
-	public UppercaseFunction(final StringAttribute sourceAttribute)
+	public UppercaseFunction(final StringFunction source)
 	{
-		super(new ObjectAttribute[]{sourceAttribute}, sql, "upper");
+		super(new StringFunction[]{source}, sql, "upper");
 	}
 
 	public final Object mapJava(final Object[] sourceValues)

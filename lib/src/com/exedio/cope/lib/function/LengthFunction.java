@@ -3,8 +3,7 @@ package com.exedio.cope.lib.function;
 
 import com.exedio.cope.lib.ComputedIntegerFunction;
 import com.exedio.cope.lib.IntegerFunction;
-import com.exedio.cope.lib.ObjectAttribute;
-import com.exedio.cope.lib.StringAttribute;
+import com.exedio.cope.lib.StringFunction;
 
 public class LengthFunction
 	extends ComputedIntegerFunction
@@ -12,9 +11,9 @@ public class LengthFunction
 {
 	private static final String[] sql = new String[]{"LENGTH(", ")"};
 
-	public LengthFunction(final StringAttribute sourceAttribute)
+	public LengthFunction(final StringFunction source)
 	{
-		super(new ObjectAttribute[]{sourceAttribute}, sql, "length");
+		super(new StringFunction[]{source}, sql, "length");
 	}
 
 	public final Object mapJava(final Object[] sourceValues)

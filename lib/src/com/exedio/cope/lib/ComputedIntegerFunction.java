@@ -21,11 +21,13 @@ public abstract class ComputedIntegerFunction
 	throws SQLException
 	{
 		final Object loadedInteger = resultSet.getObject(columnIndex);
-		//System.out.println("IntegerColumn.load "+trimmedName+" "+loadedInteger);
+		//System.out.println("ComputedIntegerFunction.load "+functionName+" "+loadedInteger+" "+(loadedInteger==null?"null":loadedInteger.getClass().getName()));
 		if(loadedInteger!=null)
 		{
 			if(loadedInteger instanceof BigDecimal)
 				return new Integer(((BigDecimal)loadedInteger).intValue());
+			else if(loadedInteger instanceof Long)
+				return new Integer(((Long)loadedInteger).intValue());
 			else
 				return (Integer)loadedInteger;
 		}
