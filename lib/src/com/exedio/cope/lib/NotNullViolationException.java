@@ -2,7 +2,12 @@
 package com.exedio.cope.lib;
 
 /**
- * Is thrown, when a persistent modification tries to set a not-null attribute to null.
+ * Signals, that an attempt to write an attribute has been failed,
+ * because it cannot be written with a null value.
+ *
+ * This exception will be thrown by {@link Item#setAttribute Item.setAttribute} methods
+ * and item constructors
+ * if that attribute is {@link Attribute#isNotNull() not-null}.
  */
 public final class NotNullViolationException extends ConstraintViolationException
 {
@@ -21,7 +26,7 @@ public final class NotNullViolationException extends ConstraintViolationExceptio
 	}
 	
 	/**
-	 * Returns the item that was tried to be modified.
+	 * Returns the item that was attempted to be modified.
 	 */
 	public final Item getItem()
 	{
@@ -29,7 +34,7 @@ public final class NotNullViolationException extends ConstraintViolationExceptio
 	}
 
 	/**
-	 * Returns the attribute, that was tried to be written.
+	 * Returns the attribute, that was attempted to be written.
 	 */
 	public Attribute getNotNullAttribute()
 	{
