@@ -433,13 +433,6 @@ public abstract class Item extends Search
 
 		if(data!=null)
 		{
-			if(previousMimeMajor!=null && 
-				(!previousMimeMajor.equals(mimeMajor) || !previousMimeMinor.equals(mimeMinor)))
-			{
-				final File file = getMediaFile(attribute, previousMimeMajor, previousMimeMinor);
-				if(!file.delete())
-					throw new RuntimeException("deleting "+file+" failed.");
-			}
 			final File file = getMediaFile(attribute, mimeMajor, mimeMinor);
 			final OutputStream out = new FileOutputStream(file);
 			final byte[] b = new byte[20*1024];
@@ -447,6 +440,18 @@ public abstract class Item extends Search
 				out.write(b, 0, len);
 			out.close();
 			data.close();
+
+			// This is done after the new file is written,
+			// to prevent loss of data, if writing the new file fails
+			if(previousMimeMajor!=null)
+			{
+				final File previousFile = getMediaFile(attribute, previousMimeMajor, previousMimeMinor);
+				if(!previousFile.equals(file))
+				{
+					if(!previousFile.delete())
+						throw new RuntimeException("deleting "+previousFile+" failed.");
+				}
+			}
 		}
 		else
 		{
