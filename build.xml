@@ -335,7 +335,7 @@
 			<classpath>
 				<pathelement location="../jspm/build/classes" />
 			</classpath>
-			<arg value="copernica/src/com/exedio/copernica/CopernicaTypeList.jspm" />
+			<arg value="copernica/src/com/exedio/copernica/Copernica.jspm" />
 			<arg value="copernica/src/com/exedio/copernica/TypeCop.jspm" />
 		</java>
 	</target>

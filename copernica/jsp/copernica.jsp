@@ -98,7 +98,7 @@ page import="java.text.SimpleDateFormat" %><%!
 			</li>
 			</ul>
 		</div><%
-		CopernicaTypeList_Jspm.write(out, cop);
+		Copernica_Jspm.writeTypeList(out, cop);
 		%>
 		<div id="main"><%
 		if(cop instanceof TypeCop)

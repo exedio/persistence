@@ -6,9 +6,9 @@ import java.util.Iterator;
 import javax.servlet.jsp.JspWriter;
 import com.exedio.cope.lib.Type;
 
-public class CopernicaTypeList_Jspm
+public class Copernica_Jspm
 {
-	public static final void write(final JspWriter out, final CopernicaCop cop)
+	public static final void writeTypeList(final JspWriter out, final CopernicaCop cop)
 		throws IOException
 	{
 		final CopernicaProvider provider = cop.provider;
