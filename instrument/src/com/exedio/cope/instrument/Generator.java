@@ -618,7 +618,7 @@ final class Generator
 		o.write(")");
 		o.write(resultType);
 		o.write(".TYPE.searchUnique(");
-		o.write(qualifier.qualifyUnique);
+		o.write(qualifier.uniqueConstraintString);
 		o.write(",new Object[]{this,");
 		o.write(qualifier.keyAttribute.javaAttribute.name);
 		o.write("});");

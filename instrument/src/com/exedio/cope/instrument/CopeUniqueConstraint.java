@@ -15,6 +15,9 @@ final class CopeUniqueConstraint
 		this.name = javaAttribute.name;
 		this.modifier = javaAttribute.modifier;
 		this.copeAttributes = copeAttributes;
+
+		final CopeClass copeClass = CopeClass.getCopeClass(copeAttributes[0].javaAttribute.parent);
+		copeClass.addCopeUniqueConstraint(this);
 	}
 	
 	/**

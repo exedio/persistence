@@ -32,6 +32,7 @@ final class CopeClass
 
 	private final ArrayList copeAttributes = new ArrayList();
 	private final Map copeAttributeMap = new TreeMap();
+	private final Map copeUniqueConstraintMap = new TreeMap();
 	private ArrayList uniqueConstraints = null;
 	private ArrayList qualifiers = null;
 	final int constructorOption;
@@ -83,6 +84,16 @@ final class CopeClass
 		return (CopeAttribute)copeAttributeMap.get(name);
 	}
 	
+	public void addCopeUniqueConstraint(final CopeUniqueConstraint copeUniqueConstraint)
+	{
+		copeUniqueConstraintMap.put(copeUniqueConstraint.name, copeUniqueConstraint);
+	}
+	
+	public CopeUniqueConstraint getCopeUniqueConstraint(final String name)
+	{
+		return (CopeUniqueConstraint)copeUniqueConstraintMap.get(name);
+	}
+
 	public boolean hasGeneratedConstructor()
 	{
 		return constructorOption != Option.NONE;

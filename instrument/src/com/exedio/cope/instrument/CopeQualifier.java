@@ -5,27 +5,25 @@ import java.util.List;
 final class CopeQualifier
 {
 	final String name;
-	final CopeClass qualifierClass;
-	final CopeAttribute keyAttribute;
+	final String uniqueConstraintString;
 
-	final String parent;
-	final String key;
-	final String qualifyUnique;
+	final CopeClass qualifierClass;
+	final CopeUniqueConstraint uniqueConstraint;
+
+	final CopeAttribute keyAttribute;
 
 	public CopeQualifier(final String name, final CopeClass copeClass, final List initializerArguments)
 		throws InjectorParseException
 	{
 		this.name = name;
-		if(initializerArguments.size()!=3)
-			throw new InjectorParseException("Qualifier must have 3 arguments, but has "+initializerArguments);
-		this.parent = (String)initializerArguments.get(0);
-		this.key = (String)initializerArguments.get(1);
-		this.qualifyUnique = (String)initializerArguments.get(2);
+		if(initializerArguments.size()!=1)
+			throw new InjectorParseException("Qualifier must have 1 argument, but has "+initializerArguments);
+		this.uniqueConstraintString = (String)initializerArguments.get(0);
 
-		final int qualifyUniqueDot = this.parent.indexOf('.');
-		if(qualifyUniqueDot<0)
-			throw new InjectorParseException("Qualifier must have dot, but is "+this.parent);
-		final String qualifierClassString = this.parent.substring(0, qualifyUniqueDot);
+		final int dot = uniqueConstraintString.indexOf('.');
+		if(dot<0)
+			throw new InjectorParseException("Qualifier argument must have dot, but is "+uniqueConstraintString);
+		final String qualifierClassString = uniqueConstraintString.substring(0, dot);
 
 		//System.out.println("--------- qualifierClassString: "+qualifierClassString);
 		//Sstem.out.println("--------- key: "+key);
@@ -33,15 +31,18 @@ final class CopeQualifier
 		this.qualifierClass = copeClass.javaClass.file.repository.getCopeClass(qualifierClassString);
 		//System.out.println("--------- qualifierClass: "+qualifierClass.javaClass.name);
 		
-		final int keyDot = this.key.indexOf('.');
-		if(keyDot<0)
-			throw new InjectorParseException("Qualifier must have dot, but is "+this.key);
-		final String keyString = this.key.substring(keyDot+1);
+		final String constraintName = uniqueConstraintString.substring(dot+1);
 		//System.out.println("--------- keyString: "+keyString);
 		
-		this.keyAttribute = qualifierClass.getCopeAttribute(keyString);
-		if(this.keyAttribute==null)
-			throw new RuntimeException(keyString);
+		this.uniqueConstraint = qualifierClass.getCopeUniqueConstraint(constraintName);
+		if(uniqueConstraint==null)
+			throw new InjectorParseException("unique constraint not found "+uniqueConstraintString);
+		
+		final CopeAttribute[] uniqueAttributes = uniqueConstraint.copeAttributes;
+		if(uniqueAttributes.length!=2)
+			throw new RuntimeException(uniqueAttributes.toString());
+		
+		this.keyAttribute = uniqueAttributes[1];
 
 		copeClass.addQualifier(this);
 	}
