@@ -109,11 +109,6 @@ abstract class CopeAttribute
 		return javaAttribute.name;
 	}
 	
-	final String getCamelCaseName()
-	{
-		return javaAttribute.getCamelCaseName();
-	}
-	
 	final int getGeneratedGetterModifier()
 	{
 		return javaAttribute.modifier

@@ -4,7 +4,6 @@ package com.exedio.cope.instrument;
 final class CopeUniqueConstraint
 {
 	final String name;
-	final String camelCaseName;
 	final int modifier;
 	final CopeAttribute[] copeAttributes;
 	
@@ -14,7 +13,6 @@ final class CopeUniqueConstraint
 	CopeUniqueConstraint(final JavaAttribute javaAttribute, final CopeAttribute[] copeAttributes)
 	{
 		this.name = javaAttribute.name;
-		this.camelCaseName = javaAttribute.getCamelCaseName();
 		this.modifier = javaAttribute.modifier;
 		this.copeAttributes = copeAttributes;
 	}
@@ -25,7 +23,6 @@ final class CopeUniqueConstraint
 	CopeUniqueConstraint(final CopeAttribute copeAttribute)
 	{
 		this.name = copeAttribute.getName();
-		this.camelCaseName = copeAttribute.getCamelCaseName();
 		this.modifier = copeAttribute.javaAttribute.modifier;
 		this.copeAttributes = new CopeAttribute[]{copeAttribute};
 	}

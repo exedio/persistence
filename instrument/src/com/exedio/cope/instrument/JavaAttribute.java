@@ -57,23 +57,6 @@ public final class JavaAttribute
 			+ name;
 	}
 
-	private String camelCaseName = null;
-
-	public final String getCamelCaseName()
-	{
-		if (camelCaseName != null)
-			return camelCaseName;
-
-		final String name = this.name;
-		final char first = name.charAt(0);
-		if (Character.isUpperCase(first))
-			camelCaseName = name;
-		else
-			camelCaseName = Character.toUpperCase(first) + name.substring(1);
-
-		return camelCaseName;
-	}
-
 	/**
 	 * See Java Specification 8.3.1 &quot;Field Modifiers&quot;
 	 */

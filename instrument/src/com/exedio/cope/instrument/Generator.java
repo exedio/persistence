@@ -47,6 +47,15 @@ final class Generator
 			lineSeparator = systemLineSeparator;
 	}
 
+	public static final String toCamelCase(final String name)
+	{
+		final char first = name.charAt(0);
+		if (Character.isUpperCase(first))
+			return name;
+		else
+			return Character.toUpperCase(first) + name.substring(1);
+	}
+
 	private static final String lowerCamelCase(final String s)
 	{
 		final char first = s.charAt(0);
@@ -158,7 +167,7 @@ final class Generator
 		{
 			final CopeAttribute initialAttribute = (CopeAttribute)i.next();
 			o.write("\t * @param initial");
-			o.write(initialAttribute.getCamelCaseName());
+			o.write(toCamelCase(initialAttribute.getName()));
 			o.write(" the initial value for attribute {@link #");
 			o.write(initialAttribute.getName());
 			o.write("}.");
@@ -182,7 +191,7 @@ final class Generator
 				else
 					o.write(',');
 				o.write(" initial");
-				o.write(initialAttribute.getCamelCaseName());
+				o.write(toCamelCase(initialAttribute.getName()));
 			}
 			o.write(" is ");
 			o.write((String)constraintViolationText.get(constructorException));
@@ -211,7 +220,7 @@ final class Generator
 			o.write("\t\t\t\tfinal ");
 			o.write(initialAttribute.getBoxedType());
 			o.write(" initial");
-			o.write(initialAttribute.getCamelCaseName());
+			o.write(toCamelCase(initialAttribute.getName()));
 		}
 		
 		o.write(')');
@@ -304,7 +313,7 @@ final class Generator
 		o.write(' ');
 		o.write(type);
 		o.write(" get");
-		o.write(copeAttribute.getCamelCaseName());
+		o.write(toCamelCase(copeAttribute.getName()));
 		o.write('(');
 		writeParameterDeclarationList(qualifiers);
 		o.write(')');
@@ -326,7 +335,7 @@ final class Generator
 			writeCommentFooter();
 			o.write(Modifier.toString(copeAttribute.getGeneratedSetterModifier()));
 			o.write(" void set");
-			o.write(copeAttribute.getCamelCaseName());
+			o.write(toCamelCase(copeAttribute.getName()));
 			o.write('(');
 			if(qualifiers!=null)
 			{
@@ -369,7 +378,7 @@ final class Generator
 		o.write(' ');
 		o.write(returnType.getName());
 		o.write(" get");
-		o.write(mediaAttribute.getCamelCaseName());
+		o.write(toCamelCase(mediaAttribute.getName()));
 		o.write(part);
 		if(variant!=null)
 		{
@@ -435,7 +444,7 @@ final class Generator
 			writeCommentFooter();
 			o.write(Modifier.toString(mediaAttribute.getGeneratedSetterModifier()));
 			o.write(" void set");
-			o.write(mediaAttribute.getCamelCaseName());
+			o.write(toCamelCase(mediaAttribute.getName()));
 			o.write("Data(");
 			if(qualifiers!=null)
 			{
@@ -505,7 +514,7 @@ final class Generator
 		for(int i=0; i<copeAttributes.length; i++)
 		{
 			o.write("\t * @param searched");
-			o.write(copeAttributes[i].getCamelCaseName());
+			o.write(toCamelCase(copeAttributes[i].getName()));
 			o.write(" shall be equal to attribute {@link #");
 			o.write(copeAttributes[i].getName());
 			o.write("}.");
@@ -516,7 +525,7 @@ final class Generator
 		o.write(' ');
 		o.write(className);
 		o.write(" findBy");
-		o.write(constraint.camelCaseName);
+		o.write(toCamelCase(constraint.name));
 		
 		o.write('(');
 		final Set qualifiers = new HashSet();
@@ -530,7 +539,7 @@ final class Generator
 			o.write("final ");
 			o.write(copeAttribute.getBoxedType());
 			o.write(" searched");
-			o.write(copeAttribute.getCamelCaseName());
+			o.write(toCamelCase(copeAttribute.getName()));
 		}
 		if(!qualifiers.isEmpty())
 		{
@@ -575,7 +584,7 @@ final class Generator
 		if(attribute.isBoxed())
 			o.write(attribute.getBoxingPrefix());
 		o.write(prefix);
-		o.write(attribute.getCamelCaseName());
+		o.write(toCamelCase(attribute.getName()));
 		if(attribute.isBoxed())
 			o.write(attribute.getBoxingPostfix());
 	}
@@ -592,7 +601,7 @@ final class Generator
 		o.write("final ");
 		o.write(qualifier.qualifierClass.getName());
 		o.write(" get");
-		o.write(qualifier.getCamelCaseName());
+		o.write(toCamelCase(qualifier.name));
 		o.write("(final ");
 		o.write(qualifier.keyAttribute.persistentType);
 		o.write(' ');
