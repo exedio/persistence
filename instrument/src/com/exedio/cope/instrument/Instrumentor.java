@@ -6,7 +6,9 @@ import java.io.Writer;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import com.exedio.cope.lib.Item;
 import com.exedio.cope.lib.SystemException;
@@ -128,8 +130,30 @@ public final class Instrumentor implements InjectionConsumer
 		//System.out.println("onClassEnd("+javaClass.getName()+")");
 
 		final PersistentClass persistentClass = PersistentClass.getPersistentClass(javaClass);
+
+		if(uniqueConstraints != null)
+		{
+			//System.out.println("onClassEnd("+jc.getName()+") unique");
+			for( final Iterator i=uniqueConstraints.iterator(); i.hasNext(); )
+			{
+				final String uniqueConstraint=(String)i.next();
+				final List attributes = new ArrayList();
+				for(final StringTokenizer t=new StringTokenizer(uniqueConstraint, " "); t.hasMoreTokens(); )
+				{
+					final String attributeName = t.nextToken();
+					final PersistentAttribute ja = persistentClass.getPersistentAttribute(attributeName);
+					if(ja==null)
+						throw new InjectorParseException("Attribute with name "+attributeName+" does not exist!");
+					attributes.add(ja);
+				}
+				if(attributes.isEmpty())
+					throw new InjectorParseException("No attributes found in unique constraint "+uniqueConstraint);
+				persistentClass.makeUnique((PersistentAttribute[])attributes.toArray(new PersistentAttribute[]{}));
+			}
+		}
+	
 		if(persistentClass!=null)
-			(new Generator(output)).writeClassFeatures(persistentClass, uniqueConstraints);
+			(new Generator(output)).writeClassFeatures(persistentClass);
 		
 		if(class_state!=javaClass)
 			throw new RuntimeException();

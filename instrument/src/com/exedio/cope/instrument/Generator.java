@@ -11,7 +11,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Writer;
 import java.lang.reflect.Modifier;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -19,7 +18,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
-import java.util.StringTokenizer;
 import java.util.TreeSet;
 
 import com.exedio.cope.lib.Attribute;
@@ -693,31 +691,9 @@ final class Generator
 		o.write(";");
 	}
 
-	void writeClassFeatures(final PersistentClass persistentClass, final List uniqueConstraints)
+	void writeClassFeatures(final PersistentClass persistentClass)
 			throws IOException, InjectorParseException
 	{
-		//System.out.println("onClassEnd("+jc.getName()+") persistent");
-		if(uniqueConstraints != null)
-		{
-			//System.out.println("onClassEnd("+jc.getName()+") unique");
-			for( final Iterator i=uniqueConstraints.iterator(); i.hasNext(); )
-			{
-				final String uniqueConstraint=(String)i.next();
-				final List attributes = new ArrayList();
-				for(final StringTokenizer t=new StringTokenizer(uniqueConstraint, " "); t.hasMoreTokens(); )
-				{
-					final String attributeName = t.nextToken();
-					final PersistentAttribute ja = persistentClass.getPersistentAttribute(attributeName);
-					if(ja==null)
-						throw new InjectorParseException("Attribute with name "+attributeName+" does not exist!");
-					attributes.add(ja);
-				}
-				if(attributes.isEmpty())
-					throw new InjectorParseException("No attributes found in unique constraint "+uniqueConstraint);
-				persistentClass.makeUnique((PersistentAttribute[])attributes.toArray(new PersistentAttribute[]{}));
-			}
-		}
-	
 		if(!persistentClass.isInterface())
 		{
 			//System.out.println("onClassEnd("+jc.getName()+") writing");
