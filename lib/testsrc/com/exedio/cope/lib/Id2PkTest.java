@@ -39,7 +39,7 @@ public class Id2PkTest extends AbstractLibTest
 		assertIdPk(4294967292l, 2147483646); // 2^32 - 4
 		assertIdPk(4294967293l, -2147483647); // 2^32 - 3
 		assertIdPk(4294967294l, 2147483647); // 2^32 - 2
-		assertIDFails(4294967295l, "is a NOT_A_TYPE"); // 2^32 - 1
+		assertIDFails(4294967295l, "is a NOT_A_PK"); // 2^32 - 1
 		assertIDFails(4294967296l, "does not fit in 32 bit"); // 2^32
 		assertIDFails(4294967297l, "does not fit in 32 bit"); // 2^32 + 1
 		assertIDFails(Long.MAX_VALUE, "does not fit in 32 bit");

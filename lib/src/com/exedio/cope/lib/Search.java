@@ -49,7 +49,7 @@ public abstract class Search
 
 		//System.out.println("id2pk: "+id+" -> "+result);
 		if(result==(long)Type.NOT_A_PK)
-			throw new NoSuchIDException(id, "is a NOT_A_TYPE");
+			throw new NoSuchIDException(id, "is a NOT_A_PK");
 
 		return (int)result;
 	}
