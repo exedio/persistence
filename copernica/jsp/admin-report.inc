@@ -28,10 +28,10 @@ if(request.getParameter("APPLY")!=null)
 		{
 			String analyzeTable = analyzeTables[i];
 			%>
-			<li>analyzing table <%=analyzeTable%> ...<%
+			<li>analyzing table <%=analyzeTable%> ...</li><%
 			out.flush();
 			
-			%> <b>ok</b>.</li><%
+			%><li><b>ok</b>.</li><%
 			out.flush();
 		}
 	}
