@@ -9,8 +9,12 @@ public class HierarchyTest extends DatabaseLibTest
 	public void testHierarchy()
 			throws IntegrityViolationException
 	{
-		final Super superItem = new FirstSub(0);
-		superItem.delete();
+		final FirstSub firstItem = new FirstSub(0);
+		
+		assertEquals(0, firstItem.getSuperInt());
+		assertEquals(null, firstItem.getFirstSubString());
+		
+		firstItem.delete();
 	}
 
 }
