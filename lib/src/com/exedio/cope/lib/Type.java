@@ -571,12 +571,12 @@ public final class Type
 	
 	static final Comparator COMPARATOR = new Comparator()
 	{
-		public int compare(Object o1, Object o2)
+		public int compare(final Object o1, final Object o2)
 		{
-			final Type t1 = (Type)o1;
-			final Type t2 = (Type)o2;
-			return t1.id.compareTo(t2.id);
-		}	
+			final String t1 = ((Type)o1).id;
+			final String t2 = ((Type)o2).id;
+			return t1.compareTo(t2);
+		}
 	};
 
 	static final int NOT_A_PK = Integer.MIN_VALUE;	
