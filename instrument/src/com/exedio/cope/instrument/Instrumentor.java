@@ -304,11 +304,9 @@ public final class Instrumentor implements InjectionConsumer
 		output.write("\t}");
 	}
 	
-	private void writeUniqueFinder(final JavaAttribute[] persistentAttributes)
+	private void writeUniqueFinder(final JavaAttribute persistentAttribute)
 	throws IOException
 	{
-		final JavaAttribute persistentAttribute = persistentAttributes[0];
-		
 		final String methodModifiers = Modifier.toString(persistentAttribute.getMethodModifiers()|Modifier.STATIC);
 		final String type = persistentAttribute.getPersistentType();
 		final List qualifiers = persistentAttribute.getQualifiers();
@@ -316,7 +314,7 @@ public final class Instrumentor implements InjectionConsumer
 		
 		writeCommentHeader();
 		output.write("\t * Finds a ");
-		output.write(lowerCamelCase(persistentAttributes[0].getParent().getName()));
+		output.write(lowerCamelCase(persistentAttribute.getParent().getName()));
 		output.write(" by it's unique attributes");
 		output.write(lineSeparator);
 		output.write("\t * @param ");
@@ -369,7 +367,7 @@ public final class Instrumentor implements InjectionConsumer
 				// write unique finder methods
 				final JavaAttribute persistentAttribute = (JavaAttribute)i.next();
 				if(persistentAttribute.isUnique())
-					writeUniqueFinder(new JavaAttribute[]{persistentAttribute});
+					writeUniqueFinder(persistentAttribute);
 			}
 		}
 		
