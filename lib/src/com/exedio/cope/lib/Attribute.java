@@ -15,7 +15,7 @@ public abstract class Attribute implements Feature
 		this.notNull = option.notNull;
 		this.singleUniqueConstraint =
 			option.unique ?
-				new UniqueConstraint(this) :
+				new UniqueConstraint((ObjectAttribute)this) :
 				null;
 	}
 	

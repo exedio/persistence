@@ -8,13 +8,13 @@ import java.util.List;
 public final class UniqueConstraint
 {
 	
-	private final Attribute[] uniqueAttributes;
+	private final ObjectAttribute[] uniqueAttributes;
 	private final List uniqueAttributeList;
 	private Type type;
 	private String id;
 	private String databaseID;
 
-	private UniqueConstraint(final Attribute[] uniqueAttributes)
+	private UniqueConstraint(final ObjectAttribute[] uniqueAttributes)
 	{
 		this.uniqueAttributes = uniqueAttributes;
 		this.uniqueAttributeList = Collections.unmodifiableList(Arrays.asList(uniqueAttributes));
@@ -23,14 +23,14 @@ public final class UniqueConstraint
 				throw new InitializerRuntimeException(String.valueOf(i));
 	}
 	
-	UniqueConstraint(final Attribute uniqueAttribute)
+	UniqueConstraint(final ObjectAttribute uniqueAttribute)
 	{
-		this(new Attribute[]{uniqueAttribute});
+		this(new ObjectAttribute[]{uniqueAttribute});
 	}
 	
-	public UniqueConstraint(final Attribute uniqueAttribute1, final Attribute uniqueAttribute2)
+	public UniqueConstraint(final ObjectAttribute uniqueAttribute1, final ObjectAttribute uniqueAttribute2)
 	{
-		this(new Attribute[]{uniqueAttribute1, uniqueAttribute2});
+		this(new ObjectAttribute[]{uniqueAttribute1, uniqueAttribute2});
 	}
 	
 	public final List getUniqueAttributes()
