@@ -39,10 +39,29 @@ public final class EnumerationAttribute extends Attribute
 					//System.out.println("-------------value:"+value);
 					if(!value.isInitialized())
 					{
-						value.initialize(enumerationClass, field.getName());
+						final String name = field.getName();
+						final String numName = name+"NUM";
+						final int num;
+						try
+						{
+							final Field numField = enumerationClass.getDeclaredField(numName);
+							if((numField.getModifiers()&Modifier.STATIC)==0)
+								throw new RuntimeException("field "+enumerationClass.getName()+"#"+numName+" must be static");
+							if((numField.getModifiers()&Modifier.FINAL)==0)
+								throw new RuntimeException("field "+enumerationClass.getName()+"#"+numName+" must be final");
+							if(numField.getType()!=int.class)
+								throw new RuntimeException("field "+enumerationClass.getName()+"#"+numName+" must have type int, but has "+numField.getClass());
+							
+							num = ((Integer)numField.get(null)).intValue();
+						}
+						catch(NoSuchFieldException e)
+						{
+							throw new RuntimeException("no such field "+enumerationClass.getName()+"#"+numName);
+						}
+						value.initialize(enumerationClass, name, num);
 					}
 					values.add(value);
-					numbersToValues.put(value.numberObject, value);
+					numbersToValues.put(value.getNumberObject(), value);
 				}
 			}
 			this.values = Collections.unmodifiableList(values);
@@ -82,7 +101,7 @@ public final class EnumerationAttribute extends Attribute
 		return
 			surface==null ?
 				null :
-				((EnumerationValue)surface).numberObject;
+				((EnumerationValue)surface).getNumberObject();
 	}
 	
 }

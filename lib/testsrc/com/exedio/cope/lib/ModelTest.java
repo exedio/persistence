@@ -48,6 +48,20 @@ public class ModelTest extends AbstractLibTest
 		assertEquals("enumValue3",
 			ItemWithManyAttributes.SomeEnumeration.enumValue3.getCode());
 
+		assertEquals(100,
+			ItemWithManyAttributes.SomeEnumeration.enumValue1.getNumber());
+		assertEquals(200,
+			ItemWithManyAttributes.SomeEnumeration.enumValue2.getNumber());
+		assertEquals(300,
+			ItemWithManyAttributes.SomeEnumeration.enumValue3.getNumber());
+
+		assertEquals(new Integer(100),
+			ItemWithManyAttributes.SomeEnumeration.enumValue1.getNumberObject());
+		assertEquals(new Integer(200),
+			ItemWithManyAttributes.SomeEnumeration.enumValue2.getNumberObject());
+		assertEquals(new Integer(300),
+			ItemWithManyAttributes.SomeEnumeration.enumValue3.getNumberObject());
+
 		assertTrue(!
 			ItemWithManyAttributes.SomeEnumeration.enumValue1.equals(
 			ItemWithManyAttributes.SomeEnumeration.enumValue2));
@@ -59,7 +73,7 @@ public class ModelTest extends AbstractLibTest
 			ItemWithManyAttributes.SomeEnumeration.enumValue1));
 
 		ItemWithManyAttributes.SomeEnumeration someEnumeration = ItemWithManyAttributes.SomeEnumeration.enumValue1;
-		switch (someEnumeration.number)
+		switch (someEnumeration.getNumber())
 		{
 			case ItemWithManyAttributes.SomeEnumeration.enumValue1NUM :
 				someEnumeration = ItemWithManyAttributes.SomeEnumeration.enumValue2;

@@ -94,18 +94,13 @@ public class ItemWithManyAttributes extends Item
 	public static final class SomeEnumeration extends EnumerationValue
 	{
 		public static final int enumValue1NUM = 100;
-		public static final SomeEnumeration enumValue1 = new SomeEnumeration(enumValue1NUM);
+		public static final SomeEnumeration enumValue1 = new SomeEnumeration();
 
 		public static final int enumValue2NUM = 200;
-		public static final SomeEnumeration enumValue2 = new SomeEnumeration(enumValue2NUM);
+		public static final SomeEnumeration enumValue2 = new SomeEnumeration();
 
 		public static final int enumValue3NUM = 300;
-		public static final SomeEnumeration enumValue3 = new SomeEnumeration(enumValue3NUM);
-
-		private SomeEnumeration(final int number)
-		{
-			super(number);
-		}
+		public static final SomeEnumeration enumValue3 = new SomeEnumeration();
 	}
 
 

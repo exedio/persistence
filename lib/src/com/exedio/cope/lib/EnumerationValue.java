@@ -3,25 +3,19 @@ package com.exedio.cope.lib;
 
 public class EnumerationValue
 {
-	public final int number;
-	public final Integer numberObject;
-	
-	public EnumerationValue(final int number)
-	{
-		this.number = number;
-		this.numberObject = new Integer(number);
-	}
-	
+
 	private boolean initialized = false;
 	private Class enumerationClass;
 	private String code;
+	private int number;
+	private Integer numberObject;
 	
 	final boolean isInitialized()
 	{
 		return initialized;
 	}
 
-	final void initialize(final Class enumerationClass, final String code)
+	final void initialize(final Class enumerationClass, final String code, final int number)
 	{
 		if(initialized)
 			throw new RuntimeException("enumeration attribute "+this.enumerationClass+"#"+this.code+" has been already initialized");
@@ -34,6 +28,8 @@ public class EnumerationValue
 			
 		this.enumerationClass = enumerationClass;
 		this.code = code;
+		this.number = number;
+		this.numberObject = new Integer(number);
 		initialized = true;
 	}
 	
@@ -51,6 +47,22 @@ public class EnumerationValue
 			throw new RuntimeException("enumeration attribute is not yet initialized");
 
 		return code;
+	}
+	
+	public final int getNumber()
+	{
+		if(!initialized)
+			throw new RuntimeException("enumeration attribute is not yet initialized");
+
+		return number;
+	}
+	
+	public final Integer getNumberObject()
+	{
+		if(!initialized)
+			throw new RuntimeException("enumeration attribute is not yet initialized");
+
+		return numberObject;
 	}
 	
 	public final String toString()
