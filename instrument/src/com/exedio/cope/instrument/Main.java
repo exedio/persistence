@@ -158,14 +158,17 @@ public class Main
 		{
 			System.out.println(e.getMessage());
 			printUsage(System.out);
+			throw new RuntimeException(e.getMessage());
 		}
 		catch(InjectorParseException e)
 		{
 			System.out.println(e);
+			throw new RuntimeException(e.getMessage());
 		}
 		catch(IOException e)
 		{
 			System.out.println(e);
+			throw new RuntimeException(e.getMessage());
 		}
 	}
 	
