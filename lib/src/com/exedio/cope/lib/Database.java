@@ -80,6 +80,7 @@ public abstract class Database
 	protected Database(final boolean useDefineColumnTypes)
 	{
 		this.useDefineColumnTypes = useDefineColumnTypes;
+		//System.out.println("using database "+getClass());
 	}
 	
 	private final Statement createStatement()
