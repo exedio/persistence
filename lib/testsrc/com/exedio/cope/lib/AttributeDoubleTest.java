@@ -50,11 +50,8 @@ public class AttributeDoubleTest extends AttributeTest
 
 		item.passivate();
 		assertEquals(0.0, item.getSomeNotNullDouble(), 0.0);
-		assertContains(
-			item,
-			
-				item.TYPE.search(
-					Cope.equal(item.someNotNullDouble, 0.0)));
+		assertContains(item,
+			item.TYPE.search(Cope.equal(item.someNotNullDouble, 0.0)));
 
 		// TODO: test with extreme values
 		/*item.setSomeNotNullDouble(Double.MIN_VALUE);
