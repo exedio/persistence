@@ -227,12 +227,7 @@ final class Generator
 			o.write("\t\t\tnew "+AttributeValue.class.getName()+"(");
 			o.write(initialAttribute.getName());
 			o.write(',');
-			if(initialAttribute.isBoxed())
-				o.write(initialAttribute.getBoxingPrefix());
-			o.write("initial");
-			o.write(initialAttribute.getCamelCaseName());
-			if(initialAttribute.isBoxed())
-				o.write(initialAttribute.getBoxingPostfix());
+			writePrefixedAttribute("initial", initialAttribute);
 			o.write("),");
 			o.write(lineSeparator);
 		}
@@ -554,32 +549,17 @@ final class Generator
 		{
 			o.write(persistentAttributes[0].getName());
 			o.write(',');
-			if(persistentAttributes[0].isBoxed())
-				o.write(persistentAttributes[0].getBoxingPrefix());
-			o.write("searched");
-			o.write(persistentAttributes[0].getCamelCaseName());
-			if(persistentAttributes[0].isBoxed())
-				o.write(persistentAttributes[0].getBoxingPostfix());
+			writePrefixedAttribute("searched", persistentAttributes[0]);
 		}
 		else
 		{
 			o.write(constraint.name);
 			o.write(",new Object[]{");
-			if(persistentAttributes[0].isBoxed())
-				o.write(persistentAttributes[0].getBoxingPrefix());
-			o.write("searched");
-			o.write(persistentAttributes[0].getCamelCaseName());
-			if(persistentAttributes[0].isBoxed())
-				o.write(persistentAttributes[0].getBoxingPostfix());
+			writePrefixedAttribute("searched", persistentAttributes[0]);
 			for(int i = 1; i<persistentAttributes.length; i++)
 			{
 				o.write(',');
-				if(persistentAttributes[i].isBoxed())
-					o.write(persistentAttributes[i].getBoxingPrefix());
-				o.write("searched");
-				o.write(persistentAttributes[i].getCamelCaseName());
-				if(persistentAttributes[i].isBoxed())
-					o.write(persistentAttributes[i].getBoxingPostfix());
+				writePrefixedAttribute("searched", persistentAttributes[i]);
 			}
 			o.write('}');
 		}
@@ -587,6 +567,17 @@ final class Generator
 		o.write(");");
 		o.write(lineSeparator);
 		o.write("\t}");
+	}
+	
+	private void writePrefixedAttribute(final String prefix, final PersistentAttribute attribute)
+			throws IOException
+	{
+		if(attribute.isBoxed())
+			o.write(attribute.getBoxingPrefix());
+		o.write(prefix);
+		o.write(attribute.getCamelCaseName());
+		if(attribute.isBoxed())
+			o.write(attribute.getBoxingPostfix());
 	}
 	
 	private void writeQualifier(final PersistentQualifier qualifier)
