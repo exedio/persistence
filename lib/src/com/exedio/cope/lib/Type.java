@@ -37,6 +37,7 @@ public final class Type
 	private final List declaredFeatureList;
 	private final Feature[] features;
 	private final List featureList;
+	private final HashMap featuresByName = new HashMap();
 
 	private final UniqueConstraint[] uniqueConstraints;
 	private final List uniqueConstraintList;
@@ -108,6 +109,7 @@ public final class Type
 						attribute.initialize(this, field.getName());
 						attributesTemp.add(attribute);
 						featuresTemp.add(attribute);
+						featuresByName.put(attribute.getName(), attribute);
 						final UniqueConstraint uniqueConstraint = attribute.getSingleUniqueConstaint();
 						if(uniqueConstraint!=null)
 						{
@@ -123,6 +125,7 @@ public final class Type
 							throw new InitializerRuntimeException(field.getName());
 						function.initialize(this, field.getName());
 						featuresTemp.add(function);
+						featuresByName.put(function.getName(), function);
 					}
 					else if(UniqueConstraint.class.isAssignableFrom(field.getType()))
 					{
@@ -261,6 +264,11 @@ public final class Type
 	public final List getFeatures()
 	{
 		return featureList;
+	}
+	
+	public final Feature getFeature(final String name)
+	{
+		return (Feature)featuresByName.get(name);
 	}
 
 	public final List getUniqueConstraints()

@@ -69,6 +69,9 @@ public class ModelTest extends AbstractLibTest
 		assertEquals(Arrays.asList(features), item.TYPE.getDeclaredFeatures());
 		assertUnmodifiable(item.TYPE.getFeatures());
 		assertUnmodifiable(item.TYPE.getDeclaredFeatures());
+		
+		assertEquals(item.someString, item.TYPE.getFeature("someString"));
+		assertEquals(item.someStringUpperCase, item.TYPE.getFeature("someStringUpperCase"));
 	}
 
 	public void testSomeEnumeration()
