@@ -47,3 +47,48 @@
 }
 
 #langlist #active a { background-color: #61a1f5; }
+
+
+
+
+
+ul#typelist
+{
+	text-align: left;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	width: 90%;
+}
+
+ul#typelist li
+{
+	display: block;
+	margin: 2;
+	padding: 0;
+}
+
+ul#typelist li a
+{
+	display: block;
+	width: 100%;
+	padding: 0.5em 0 0.5em 2em;
+	border-width: 1px;
+	border-color: #4181d5;
+	border-style: solid;
+	font-size: 0.6em;
+	font-weight: bold;
+	color: #000000;
+	text-decoration: none;
+	background: #ffffff;
+}
+
+ul#typelist li#active a
+{
+	background: #4181d5;
+}
+
+ul#typelist li a:hover, ul#typelist li#active a:hover
+{
+	border-color: #000000;
+}

@@ -1,21 +1,23 @@
 
-<table border="1"><%
+<ul id="typelist"><%
 for(Iterator i = provider.getModel().getTypes().iterator(); i.hasNext(); )
 {
+	final Type type = (Type)i.next();
+	final String name = provider.getDisplayName(null, type);
+	final boolean active = cop.isType(type);
 	%>
-	<tr>
-		<td><%
-			final Type type = (Type)i.next();
-			if(cop.isType(type))
-			{
-				%><b><%=provider.getDisplayName(null, type)%></b><%
-			}
-			else
-			{
-				%><a href="<%=(cop.toType(type))%>"><%=provider.getDisplayName(null, type)%></a><%
-			}
-		%></td>
-	</tr><%
+	<li<%
+	if(active)
+	{
+		%> id="active"<%
+	}
+	%>><a href="<%=(cop.toType(type))
+	%>"<%
+	if(active)
+	{
+		%> id="current"<%
+	}
+	%>><%=name%></a></li><%
 }
 %>
-</table>
+</ul>

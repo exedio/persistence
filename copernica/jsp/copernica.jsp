@@ -72,7 +72,7 @@ include file="provider.inc"
 			</ul>
 		</div>
 
-		<table border="1">
+		<table border="0">
 			<tr>
 				<td valign="top">
 					<%@ include file="copernica-typelist.inc" %>
