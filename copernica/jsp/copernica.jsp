@@ -29,6 +29,7 @@ page import="java.util.Map" %><%@
 page import="java.text.SimpleDateFormat" %><%!
 	
 	CopernicaProvider provider = null;
+	boolean checked;
 	
 	public final void jspInit()
 	{
@@ -39,34 +40,17 @@ page import="java.text.SimpleDateFormat" %><%!
 		}
 		
 		this.provider = Util.createProvider(getServletConfig());
+		this.checked = false;
 	}
 %><%
 	final CopernicaProvider provider = this.provider;
 	
-	try
+	if(!this.checked)
 	{
 		provider.getModel().checkDatabase();
+		this.checked = true;
 	}
-	catch(NestingRuntimeException e)
-	{
-		%><html>
-	<head>
-		<title>Copernica Error</title>
-	</head>
-	<body>
-		<b>Database not initialized.</b><br>
-		<a href="<%=new AdminCop()%>">Administration</a>
-		<hr>
-		<pre>
-<%e.printStackTrace(new PrintWriter(out));%>
-		</pre>
-		<hr>
-	</body>
-</html>
-<%
-		return;
-	}
-
+	
 	final CopernicaUser user = Util.checkAccess(provider, request);
 	final CopernicaCop cop = CopernicaCop.getCop(provider, request);
 	final CopernicaLanguage language = cop.language;
