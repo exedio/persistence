@@ -667,12 +667,6 @@ final class Generator
 				o.write(persistentAttribute.readOnly ? "true": "false");
 				o.write(',');
 				o.write(persistentAttribute.notNull ? "true": "false");
-				if(persistentAttribute.isItemPersistentType())
-				{
-					o.write(',');
-					o.write(persistentAttribute.getBoxedType());
-					o.write(".class");
-				}
 				//private List qualifiers = null;
 				o.write("),");
 				o.write(lineSeparator);

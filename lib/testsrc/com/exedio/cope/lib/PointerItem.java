@@ -14,15 +14,15 @@ public class PointerItem extends Item
 	
 	
 	/**
-	 * @persistent PointerItem2
+	 * @persistent
 	 * @not-null
 	 */
-	static final ItemAttribute pointer = new ItemAttribute();
+	static final ItemAttribute pointer = new ItemAttribute(PointerItem2.class);
 
 	/**
-	 * @persistent PointerItem
+	 * @persistent
 	 */
-	static final ItemAttribute self = new ItemAttribute();
+	static final ItemAttribute self = new ItemAttribute(PointerItem.class);
 
 /**
 
@@ -160,8 +160,8 @@ public class PointerItem extends Item
 			PointerItem.class,
 			new com.exedio.cope.lib.Attribute[]{
 				code.initialize("code",false,true),
-				pointer.initialize("pointer",false,true,PointerItem2.class),
-				self.initialize("self",false,false,PointerItem.class),
+				pointer.initialize("pointer",false,true),
+				self.initialize("self",false,false),
 			},
 			null
 		)

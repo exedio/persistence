@@ -14,19 +14,18 @@ public final class ItemAttribute extends Attribute
 		return (ItemAttribute)itemAttributesByIntegrityConstraintName.get(integrityConstraintName);
 	}
 	
-	private Class targetTypeClass;
 
-	public ItemAttribute initialize(final String name, final boolean readOnly, final boolean notNull, final Class targetTypeClass)
+	private final Class targetTypeClass;
+
+	public ItemAttribute(final Class targetTypeClass)
 	{
-		super.initialize(name, readOnly, notNull);
+		this.targetTypeClass = targetTypeClass;
 		if(targetTypeClass==null)
 			throw new NullPointerException("target type class for attribute "+this+" must not be null");
 		if(!Item.class.isAssignableFrom(targetTypeClass))
 			throw new NullPointerException("target type class "+targetTypeClass+" for attribute "+this+" must be a sub class of item");
-		this.targetTypeClass = targetTypeClass;
-		return this;
 	}
-	
+
 	/**
 	 * Returns the type of items, this attribute accepts instances of.
 	 */

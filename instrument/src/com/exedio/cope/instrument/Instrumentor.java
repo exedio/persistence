@@ -197,7 +197,14 @@ public final class Instrumentor implements InjectionConsumer
 				}
 				else if("ItemAttribute".equals(type))
 				{
-					persistentType = Injector.findDocTag(docComment, PERSISTENT_ATTRIBUTE);
+					final String start = "new ItemAttribute(";
+					final String end = ".class)";
+					final String initializer = ja.getInitializerTokens();
+					if(!initializer.startsWith(start))
+						throw new RuntimeException("item attribute initializer must start with \'"+start+'\'');
+					if(!initializer.endsWith(end))
+						throw new RuntimeException("item attribute initializer must end with \'"+end+'\'');
+					persistentType = initializer.substring(start.length(), initializer.length()-end.length());
 					persistentTypeType = PersistentAttribute.TYPE_ITEM;
 				}
 				else if("MediaAttribute".equals(type))

@@ -57,16 +57,16 @@ public class ItemWithManyAttributes extends Item
 
 	/**
 	 * An attribute referencing another persistent item
-	 * @persistent ItemWithoutAttributes
+	 * @persistent
 	 */
-	public static final ItemAttribute someItem = new ItemAttribute();
+	public static final ItemAttribute someItem = new ItemAttribute(ItemWithoutAttributes.class);
 
 	/**
 	 * An not-null attribute referencing another persistent item
-	 * @persistent ItemWithoutAttributes
+	 * @persistent
 	 * @not-null
 	 */
-	public static final ItemAttribute someNotNullItem = new ItemAttribute();
+	public static final ItemAttribute someNotNullItem = new ItemAttribute(ItemWithoutAttributes.class);
 
 	/**
 	 * An enumeration attribute
@@ -586,8 +586,8 @@ public class ItemWithManyAttributes extends Item
 				someNotNullInteger.initialize("someNotNullInteger",false,true),
 				someBoolean.initialize("someBoolean",false,false),
 				someNotNullBoolean.initialize("someNotNullBoolean",false,true),
-				someItem.initialize("someItem",false,false,ItemWithoutAttributes.class),
-				someNotNullItem.initialize("someNotNullItem",false,true,ItemWithoutAttributes.class),
+				someItem.initialize("someItem",false,false),
+				someNotNullItem.initialize("someNotNullItem",false,true),
 				someEnumeration.initialize("someEnumeration",false,false),
 				someNotNullEnumeration.initialize("someNotNullEnumeration",false,true),
 				someMedia.initialize("someMedia",false,false),
