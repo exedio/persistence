@@ -296,6 +296,8 @@ public abstract class Database
 		{
 			throw new SystemException(e);
 		}
+		
+		report.finish();
 
 		return report;
 	}
