@@ -826,13 +826,6 @@ abstract class Database
 		return result.toString();
 	}
 	
-	String trimName(final Type type)
-	{
-		final String className = type.getJavaClass().getName();
-		final int pos = className.lastIndexOf('.');
-		return trimString(className.substring(pos+1), 25);
-	}
-	
 	/**
 	 * Trims a name to length for being be a suitable qualifier for database entities,
 	 * such as tables, columns, indexes, constraints, partitions etc.

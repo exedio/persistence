@@ -26,6 +26,7 @@ public final class Type
 	private static final HashMap typesByClass = new HashMap();
 
 	final Class javaClass;
+	private final String id;
 	private final Type supertype;
 	
 	private final Attribute[] declaredAttributes;
@@ -43,7 +44,6 @@ public final class Type
 	private final List uniqueConstraintList;
 	
 	private Model model;
-	private String id;
 
 	private Table table;
 	private PrimaryKeyIterator primaryKeyIterator;
@@ -64,6 +64,12 @@ public final class Type
 			throw new IllegalArgumentException(javaClass.toString()+" is not a subclass of Item");
 
 		typesByClass.put(javaClass, this);
+
+		{
+			final String className = javaClass.getName();
+			final int pos = className.lastIndexOf('.');
+			this.id = className.substring(pos+1);
+		}
 
 		// supertype
 		final Class superClass = javaClass.getSuperclass();
@@ -190,8 +196,6 @@ public final class Type
 
 		if(this.model!=null)
 			throw new RuntimeException();
-		if(this.id!=null)
-			throw new RuntimeException();
 		if(this.table!=null)
 			throw new RuntimeException();
 		if(this.primaryKeyIterator!=null)
@@ -207,15 +211,11 @@ public final class Type
 
 		if(this.model==null)
 			throw new RuntimeException();
-		if(this.id!=null)
-			throw new RuntimeException();
 		if(this.table!=null)
 			throw new RuntimeException();
 		if(this.primaryKeyIterator!=null)
 			throw new RuntimeException();
 
-		// TODO: separate id and table name and initialize id in the constructor
-		this.id = database.trimName(this);
 		this.table = new Table(database, id);
 
 		if(supertype!=null)
@@ -243,9 +243,6 @@ public final class Type
 	
 	public final String getID()
 	{
-		if(model==null)
-			throw new RuntimeException();
-
 		return id;
 	}
 	
