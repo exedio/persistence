@@ -31,13 +31,12 @@ class ItemCop_Jspm
 	static final String VALUE_ON = ItemForm.VALUE_ON;
 	static final String VALUE_OFF = ItemForm.VALUE_OFF;
 	
-	static void writeBody(final JspWriter out, final ItemCop itemCop, final HttpServletRequest request)
+	static void writeBody(final JspWriter out, final ItemCop cop, final HttpServletRequest request)
 		throws IOException
 	{
-		final Item item = itemCop.item;
+		final Item item = cop.item;
 		final Type type = item.getType();
-		final ItemForm form = new ItemForm(itemCop, request);
-		final CopernicaCop cop = itemCop;
+		final ItemForm form = new ItemForm(cop, request);
 		final CopernicaProvider provider = cop.provider;
 		final CopernicaLanguage language = cop.language;
 		%>
