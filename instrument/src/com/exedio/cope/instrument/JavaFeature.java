@@ -12,31 +12,39 @@ import java.lang.reflect.Modifier;
  */
 public abstract class JavaFeature
 {
+	public static final int ACCESS_PUBLIC = 0;
+	public static final int ACCESS_PACKAGE = 1;
+	public static final int ACCESS_PROTECTED = 2;
+	public static final int ACCESS_PRIVATE = 3;
+	
+
 	/**
 	 * The java file, which contains this feature.
 	 * Must not be null.
 	 */
-	private JavaFile file;
+	private final JavaFile file;
 	
 	/**
 	 * The class, which contains this feature.
 	 * Is null for top-level (not inner) classes.
 	 */
-	private JavaClass parent;
+	private final JavaClass parent;
 	
 	/**
 	 * The modifiers of this feature.
 	 * @see java.lang.reflect.Modifier
 	 */
-	private int modifiers;
+	private final int modifiers;
+	
+	final int accessModifier;
 	
 	/**
 	 * The return type of the method.
 	 * Is null, if it is a constructor, or a class.
 	 */
-	protected String type;
+	protected final String type;
 	
-	protected String name;
+	protected final String name;
 	
 	public JavaFeature(JavaFile file,
 	JavaClass parent,
@@ -48,6 +56,7 @@ public abstract class JavaFeature
 		this.file=file;
 		this.parent=parent;
 		this.modifiers=modifiers;
+		this.accessModifier=toAccessModifier(modifiers);
 		this.type=type;
 		this.name=name;
 		
@@ -63,8 +72,9 @@ public abstract class JavaFeature
 			"modifier(s) "+java.lang.reflect.Modifier.toString(over)+
 			" not allowed for class feature "+name+
 			" of type "+getClass().getName()+'.');
+		
 	}
-	
+
 	/**
 	 * Returns the java file, which contains this feature.
 	 * Is never null.
@@ -117,6 +127,45 @@ public abstract class JavaFeature
 		return (modifiers & Modifier.ABSTRACT) > 0;
 	}
 	
+	public static final int toAccessModifier(final int modifier)
+	{
+		switch(modifier & (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE))
+		{
+			case Modifier.PUBLIC:
+				return ACCESS_PUBLIC;
+			case 0:
+				return ACCESS_PACKAGE;
+			case Modifier.PROTECTED:
+				return ACCESS_PROTECTED;
+			case Modifier.PRIVATE:
+				return ACCESS_PRIVATE;
+			default:
+				throw new RuntimeException(Integer.toString(modifier));
+		}
+	}
+	
+	public final String getAccessModifierString()
+	{
+		return toAccessModifierString(accessModifier);
+	}
+
+	public static final String toAccessModifierString(final int accessModifier)
+	{
+		switch(accessModifier)
+		{
+			case ACCESS_PUBLIC:
+				return "public ";
+			case ACCESS_PACKAGE:
+				return "";
+			case ACCESS_PROTECTED:
+				return "protected ";
+			case ACCESS_PRIVATE:
+				return "private ";
+			default:
+				throw new RuntimeException(Integer.toString(accessModifier));
+		}
+	}
+
 	/**
 	 * The return type of the method.
 	 * Is null, if it is a constructor, or a class.

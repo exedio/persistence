@@ -273,7 +273,9 @@ public final class Instrumentor implements InjectionConsumer
 	{
 		final List initialAttributes = javaClass.getInitialAttributes();
 		final SortedSet constructorExceptions = javaClass.getContructorExceptions();
-
+		
+		int constructorAccessModifier = javaClass.accessModifier;
+		
 		writeCommentHeader();
 		output.write("\t * Constructs a new ");
 		output.write(javaClass.getName());
@@ -287,6 +289,10 @@ public final class Instrumentor implements InjectionConsumer
 			output.write(" the initial value for attribute {@link #");
 			output.write(initialAttribute.getName());
 			output.write("}.");
+			
+			final int attributeAccessModifier = initialAttribute.accessModifier;
+			if(constructorAccessModifier<attributeAccessModifier)
+				constructorAccessModifier = attributeAccessModifier;
 		}
 		for(Iterator i = constructorExceptions.iterator(); i.hasNext(); )
 		{
@@ -315,8 +321,7 @@ public final class Instrumentor implements InjectionConsumer
 		}
 		output.write(lineSeparator);
 		writeCommentFooter();
-		output.write(Modifier.toString(javaClass.getModifiers() & (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE)));
-		output.write(' ');
+		output.write(JavaFeature.toAccessModifierString(constructorAccessModifier));
 		output.write(javaClass.getName());
 		output.write('(');
 		
