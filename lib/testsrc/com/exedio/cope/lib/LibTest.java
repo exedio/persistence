@@ -241,6 +241,7 @@ public class LibTest extends TestCase
 	private void dotestItemWithManyAttributes()
 	{
 		final ItemWithoutAttributes someItem = new ItemWithoutAttributes();
+		final ItemWithoutAttributes someItem2 = new ItemWithoutAttributes();
 		final ItemWithManyAttributes item;
 		try
 		{
@@ -260,7 +261,7 @@ public class LibTest extends TestCase
 		dotestItemWithManyAttributesSomeNotNullBoolean(item);
 
 		dotestItemWithManyAttributesSomeItem(item, someItem);
-		// TODO: dotestItemWithManyAttributesSomeNotNullItem(item, someItem);
+		dotestItemWithManyAttributesSomeNotNullItem(item, someItem, someItem2);
 
 		dotestItemWithManyAttributesSomeEnumeration(item);
 		// TODO: dotestItemWithManyAttributesSomeNotNullEnumeration(item);
@@ -367,6 +368,35 @@ public class LibTest extends TestCase
 		assertEquals(someItem, item.getSomeItem());
 		item.setSomeItem(null);
 		assertEquals(null, item.getSomeItem());
+	}
+
+	private void dotestItemWithManyAttributesSomeNotNullItem(final ItemWithManyAttributes item, final ItemWithoutAttributes someItem, final ItemWithoutAttributes someItem2)
+	{
+		assertEquals(item.TYPE, item.someNotNullItem.getType());
+		assertEquals(ItemWithoutAttributes.TYPE, item.someNotNullItem.getTargetType());
+		assertEquals(someItem, item.getSomeNotNullItem());
+		try
+		{
+			item.setSomeNotNullItem(someItem2);
+		}
+		catch(NotNullViolationException e)
+		{
+			throw new SystemException(e);
+		}
+		assertEquals(someItem2, item.getSomeNotNullItem());
+		item.passivate();
+		assertEquals(someItem2, item.getSomeNotNullItem());
+		try
+		{
+			item.setSomeNotNullItem(null);
+			fail("should have thrown NotNullViolationException");
+		}
+		catch(NotNullViolationException e)
+		{
+			assertEquals(item, e.getItem());
+			assertEquals(item.someNotNullItem, e.getNotNullAttribute());
+		}
+		assertEquals(someItem2, item.getSomeNotNullItem());
 	}
 
 	private void dotestItemWithManyAttributesSomeEnumeration(final ItemWithManyAttributes item)
