@@ -80,7 +80,7 @@ public abstract class Search
 		}
 		catch(NumberFormatException e)
 		{
-			throw new NoSuchIDException(id, e);
+			throw new NoSuchIDException(id, e, idString);
 		}
 
 		final Item result = type.getItem(id2pk(idNumber));

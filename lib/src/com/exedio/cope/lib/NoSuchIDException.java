@@ -15,9 +15,9 @@ public class NoSuchIDException extends Exception
 		super("no such id <"+id+">, "+detail);
 	}
 
-	NoSuchIDException(final String id, final NumberFormatException cause)
+	NoSuchIDException(final String id, final NumberFormatException cause, final String numberString)
 	{
-		super("no such id <"+id+">, wrong number format <"+cause.getMessage()+">");
+		super("no such id <"+id+">, wrong number format <"+numberString+">");
 	}
 
 	NoSuchIDException(final long id, final String detail)
