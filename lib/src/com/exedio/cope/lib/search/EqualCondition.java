@@ -35,9 +35,12 @@ public final class EqualCondition extends Condition
 	
 	public final void appendStatement(final Statement bf)
 	{
-		bf.append(attribute).
-			append('=').
-			appendValue(attribute, value);
+		bf.append(attribute);
+		if(value!=null)
+			bf.append('=').
+				appendValue(attribute, value);
+		else
+			bf.append(" is null");
 	}
 
 	public final void check(final TreeSet fromTypes)
