@@ -59,9 +59,14 @@ public final class Instrumentor implements InjectionConsumer
 	private static final String PERSISTENT_CLASS = "persistent";
 	private static final String PERSISTENT_ATTRIBUTE = PERSISTENT_CLASS;
 	
+	/**
+	 * All generated class features get this doccomment tag.
+	 */
+	private static final String GENERATED = "generated";
+
 	private void handleClassComment(final JavaClass jc, final String docComment)
 	{
-		if(docComment.indexOf('@'+PERSISTENT_CLASS)>=0)
+		if(containsTag(docComment, PERSISTENT_CLASS))
 			jc.setPersistent();
 	}
 	
@@ -135,8 +140,7 @@ public final class Instrumentor implements InjectionConsumer
 			Modifier.isFinal(jf.getModifiers()) &&
 			Modifier.isStatic(jf.getModifiers()) &&
 			!discardnextfeature &&
-			docComment!=null &&
-			docComment.indexOf('@'+PERSISTENT_ATTRIBUTE)>=0)
+			containsTag(docComment, PERSISTENT_ATTRIBUTE))
 			{
 				((JavaAttribute)jf).makePersistent();
 			}
@@ -149,7 +153,7 @@ public final class Instrumentor implements InjectionConsumer
 	{
 		System.out.println("onDocComment("+docComment+")");
 
-		if(OCL_AUTHOR.equals(Injector.findDocTag(docComment, "author")))
+		if(containsTag(docComment, GENERATED))
 		{
 			discardnextfeature=true;
 			return false;
@@ -186,13 +190,11 @@ public final class Instrumentor implements InjectionConsumer
 			throw new RuntimeException();
 	}
 	
-	/**
-	 * All generated class features get this string as author.
-	 * Must not contain spaces, line breaks or askerics.
-	 * @see Injector#findDocTag
-	 */
-	public static final String OCL_AUTHOR="ocl_injector";
-	
+	private static final boolean containsTag(final String docComment, final String tagName)
+	{
+		return docComment!=null && docComment.indexOf('@'+tagName)>=0 ;
+	}
+
 }
 
 
