@@ -79,7 +79,7 @@ include file="provider.inc"
 	
 %><html>
 	<head>
-		<title><%=cop.getTitle(provider)%></title>
+		<title><%=cop.getTitle()%></title>
 		<link rel="STYLESHEET" type="text/css" href="copernica.css">
 	</head>
 	<body>

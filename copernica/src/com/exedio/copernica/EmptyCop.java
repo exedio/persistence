@@ -5,14 +5,14 @@ import com.exedio.cope.lib.Type;
 
 final class EmptyCop extends CopernicaCop
 {
-	EmptyCop(final Language language)
+	EmptyCop(final CopernicaProvider provider, final Language language)
 	{
-		super(language);
+		super(provider, language);
 	}
 	
 	final  CopernicaCop switchLanguage(final Language newLanguage)
 	{
-		return new EmptyCop(newLanguage);
+		return new EmptyCop(provider, newLanguage);
 	}
 
 	final boolean isType(final Type type)
@@ -20,7 +20,7 @@ final class EmptyCop extends CopernicaCop
 		return false;
 	}
 	
-	final String getTitle(final CopernicaProvider provider)
+	final String getTitle()
 	{
 		return "Copernica";
 	}

@@ -1,7 +1,6 @@
 package com.exedio.copernica;
 
 import com.exedio.cope.lib.Item;
-import com.exedio.cope.lib.Model;
 import com.exedio.cope.lib.NestingRuntimeException;
 import com.exedio.cope.lib.NoSuchIDException;
 import com.exedio.cope.lib.Type;
@@ -10,16 +9,16 @@ final class ItemCop extends CopernicaCop
 {
 	final Item item;
 	
-	ItemCop(final Language language, final Item item)
+	ItemCop(final CopernicaProvider provider, final Language language, final Item item)
 	{
-		super(language);
+		super(provider, language);
 		this.item = item;
 		addParameter(ITEM, item.getID());
 	}
 	
 	final CopernicaCop switchLanguage(final Language newLanguage)
 	{
-		return new ItemCop(newLanguage, item);
+		return new ItemCop(provider, newLanguage, item);
 	}
 
 	final boolean isType(final Type type)
@@ -27,17 +26,17 @@ final class ItemCop extends CopernicaCop
 		return item.getType() == type;
 	}
 
-	final String getTitle(final CopernicaProvider provider)
+	final String getTitle()
 	{
 		return provider.getDisplayName(language, item);
 	}
 
-	static final ItemCop getCop(final Model model, final Language language, final String itemID)
+	static final ItemCop getCop(final CopernicaProvider provider, final Language language, final String itemID)
 	{	
 		try
 		{
-			final Item item = model.findByID(itemID);
-			return new ItemCop(language, item);
+			final Item item = provider.getModel().findByID(itemID);
+			return new ItemCop(provider, language, item);
 		}
 		catch(NoSuchIDException e)
 		{
