@@ -176,6 +176,13 @@ public class ExampleTest extends InjectorTest
 		assertText("\n\t ");
 		
 		assertClassEnd("Drinner");
+		assertAttribute("Drinner", null);
+		assertText("}\n\n\t ");
+
+		assertAttributeHeader("someInnerBoolean", "boolean", 0);
+		assertText("boolean someInnerBoolean=true;");
+		assertAttribute("someInnerBoolean", null);
+		assertText("\n    \n\t ");
 	}
 
 }
