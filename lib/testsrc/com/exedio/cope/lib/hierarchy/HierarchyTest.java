@@ -10,8 +10,11 @@ public class HierarchyTest extends DatabaseLibTest
 			throws IntegrityViolationException
 	{
 		final FirstSub firstItem = new FirstSub(0);
-		
 		assertEquals(0, firstItem.getSuperInt());
+		assertEquals(null, firstItem.getFirstSubString());
+		
+		firstItem.setSuperInt(2);
+		assertEquals(2, firstItem.getSuperInt());
 		assertEquals(null, firstItem.getFirstSubString());
 		
 		firstItem.delete();
