@@ -517,7 +517,7 @@ public abstract class Item extends Search
 
 	/**
 	 * Provides data for this persistent media attribute.
-	 * <b>Closes the stream only, when finishing normally!</b>
+	 * Closes <data>data</data> after reading the contents of the stream.
 	 * @param data give null to remove data.
 	 * @throws NotNullViolationException
 	 *         if data is null and attribute is {@link Attribute#isNotNull() not-null}.
@@ -527,66 +527,74 @@ public abstract class Item extends Search
 												 final String mimeMajor, final String mimeMinor)
 	throws NotNullViolationException, IOException
 	{
-		if(data!=null)
-		{
-			if((mimeMajor==null&&attribute.fixedMimeMajor==null) ||
-				(mimeMinor==null&&attribute.fixedMimeMinor==null))
-				throw new RuntimeException("if data is not null, mime types must also be not null");
-		}
-		else
-		{
-			if(mimeMajor!=null||mimeMinor!=null)
-				throw new RuntimeException("if data is null, mime types must also be null");
-		}
-
-		final boolean isNullPreviously = isNull(attribute);
-		final File previousFile = isNullPreviously ? null : getMediaFile(attribute);
-
-		final Row row = getRow();
-		if(attribute.fixedMimeMajor==null)
-			row.put(attribute.mimeMajor, mimeMajor);
-		if(attribute.fixedMimeMinor==null)
-			row.put(attribute.mimeMinor, mimeMinor);
-		if(attribute.exists!=null)
-			row.put(attribute.exists, (data!=null) ? BooleanAttribute.TRUE : null);
-
 		try
 		{
-			row.write();
-		}
-		catch(UniqueViolationException e)
-		{
-			new NestingRuntimeException(e);
-		}
-
-		if(data!=null)
-		{
-			final File file = getMediaFile(attribute);
-			final OutputStream out = new FileOutputStream(file);
-			final byte[] b = new byte[20*1024];
-			for(int len = data.read(b); len>=0; len = data.read(b))
-				out.write(b, 0, len);
-			out.close();
-			data.close();
-
-			// This is done after the new file is written,
-			// to prevent loss of data, if writing the new file fails
-			if(!isNullPreviously)
+			if(data!=null)
 			{
-				if(!previousFile.equals(file))
+				if((mimeMajor==null&&attribute.fixedMimeMajor==null) ||
+					(mimeMinor==null&&attribute.fixedMimeMinor==null))
+					throw new RuntimeException("if data is not null, mime types must also be not null");
+			}
+			else
+			{
+				if(mimeMajor!=null||mimeMinor!=null)
+					throw new RuntimeException("if data is null, mime types must also be null");
+			}
+	
+			final boolean isNullPreviously = isNull(attribute);
+			final File previousFile = isNullPreviously ? null : getMediaFile(attribute);
+	
+			final Row row = getRow();
+			if(attribute.fixedMimeMajor==null)
+				row.put(attribute.mimeMajor, mimeMajor);
+			if(attribute.fixedMimeMinor==null)
+				row.put(attribute.mimeMinor, mimeMinor);
+			if(attribute.exists!=null)
+				row.put(attribute.exists, (data!=null) ? BooleanAttribute.TRUE : null);
+	
+			try
+			{
+				row.write();
+			}
+			catch(UniqueViolationException e)
+			{
+				new NestingRuntimeException(e);
+			}
+	
+			if(data!=null)
+			{
+				final File file = getMediaFile(attribute);
+				final OutputStream out = new FileOutputStream(file);
+				final byte[] b = new byte[20*1024];
+				for(int len = data.read(b); len>=0; len = data.read(b))
+					out.write(b, 0, len);
+				out.close();
+				data.close();
+	
+				// This is done after the new file is written,
+				// to prevent loss of data, if writing the new file fails
+				if(!isNullPreviously)
+				{
+					if(!previousFile.equals(file))
+					{
+						if(!previousFile.delete())
+							throw new RuntimeException("deleting "+previousFile+" failed.");
+					}
+				}
+			}
+			else
+			{
+				if(!isNullPreviously)
 				{
 					if(!previousFile.delete())
 						throw new RuntimeException("deleting "+previousFile+" failed.");
 				}
 			}
 		}
-		else
+		finally
 		{
-			if(!isNullPreviously)
-			{
-				if(!previousFile.delete())
-					throw new RuntimeException("deleting "+previousFile+" failed.");
-			}
+			if(data!=null)
+				data.close();
 		}
 	}
 	
