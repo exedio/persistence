@@ -44,6 +44,8 @@ final class Generator
 	private static final String GETTER_MEDIA_MAJOR = "Returns the major mime type of the persistent media attribute {0}.";
 	private static final String GETTER_MEDIA_MINOR = "Returns the minor mime type of the persistent media attribute {0}.";
 	private static final String GETTER_MEDIA_DATA = "Returns a stream for fetching the data of the persistent media attribute {0}.";
+	private static final String FINDER_UNIQUE = "Finds a {0} by it''s unique attributes.";
+	private static final String FINDER_UNIQUE_PARAMETER = "shall be equal to attribute {0}.";
 
 	private final Writer o;
 	private final String lineSeparator;
@@ -481,18 +483,16 @@ final class Generator
 		final String className = copeAttributes[0].getParent().name;
 		
 		writeCommentHeader();
-		o.write("\t * Finds a ");
-		o.write(lowerCamelCase(className));
-		o.write(" by it's unique attributes.");
+		o.write("\t * ");
+		o.write(format(FINDER_UNIQUE, lowerCamelCase(className)));
 		o.write(lineSeparator);
 		writeCommentGenerated();
 		for(int i=0; i<copeAttributes.length; i++)
 		{
 			o.write("\t * @param searched");
 			o.write(toCamelCase(copeAttributes[i].getName()));
-			o.write(" shall be equal to attribute {@link #");
-			o.write(copeAttributes[i].getName());
-			o.write("}.");
+			o.write(' ');
+			o.write(format(FINDER_UNIQUE_PARAMETER, link(copeAttributes[i].getName())));
 			o.write(lineSeparator);
 		}
 		writeCommentFooter();
