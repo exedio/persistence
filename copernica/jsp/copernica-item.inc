@@ -1,5 +1,9 @@
 <%!
 	static final String SAVE_BUTTON = "SAVE";
+	static final String VALUE_NULL = "NULL";
+	static final String VALUE_ON = "on";
+	static final String VALUE_TRUE = "TRUE";
+	static final String VALUE_OFF = "FALSE";
 %><%
 	final Item item = itemCop.item;
 	final Type type = item.getType();
@@ -36,7 +40,7 @@
 					final String saveString = request.getParameter(attributeName);
 					if(saveString==null)
 						throw new NullPointerException(attributeName);
-					if("NULL".equals(saveString))
+					if(VALUE_NULL.equals(saveString))
 						value = null;
 					else
 					{
@@ -53,7 +57,7 @@
 				if(!enumAttribute.isNotNull())
 				{
 					%>
-					<input type="radio" name="<%=attributeName%>" value="NULL"<%
+					<input type="radio" name="<%=attributeName%>" value="<%=VALUE_NULL%>"<%
 					if(value==null)
 					{
 						%> checked="checked"<%
@@ -87,13 +91,13 @@
 						value = Boolean.FALSE;
 					else
 					{
-						if("NULL".equals(saveString))
+						if(VALUE_NULL.equals(saveString))
 							value = null;
-						else if("on".equals(saveString))
+						else if(VALUE_ON.equals(saveString))
 							value = Boolean.TRUE;
-						else if("TRUE".equals(saveString))
+						else if(VALUE_TRUE.equals(saveString))
 							value = Boolean.TRUE;
-						else if("FALSE".equals(saveString))
+						else if(VALUE_OFF.equals(saveString))
 							value = Boolean.FALSE;
 						else
 							throw new RuntimeException(saveString);
@@ -107,7 +111,7 @@
 				if(boolAttribute.isNotNull())
 				{
 					%>
-					<input type="checkbox" name="<%=attributeName%>" value="on"<%
+					<input type="checkbox" name="<%=attributeName%>" value="<%=VALUE_ON%>"<%
 					if(Boolean.TRUE.equals(value))
 					{
 						%> checked="checked"<%
@@ -117,19 +121,19 @@
 				else
 				{
 					%>
-					<input type="radio" name="<%=attributeName%>" value="NULL"<%
+					<input type="radio" name="<%=attributeName%>" value="<%=VALUE_NULL%>"<%
 					if(value==null)
 					{
 						%> checked="checked"<%
 					}
 					%>><%="leer"%><br>
-					<input type="radio" name="<%=attributeName%>" value="TRUE"<%
+					<input type="radio" name="<%=attributeName%>" value="<%=VALUE_TRUE%>"<%
 					if(Boolean.TRUE.equals(value))
 					{
 						%> checked="checked"<%
 					}
 					%>><%="ein"%><br>
-					<input type="radio" name="<%=attributeName%>" value="FALSE"<%
+					<input type="radio" name="<%=attributeName%>" value="<%=VALUE_OFF%>"<%
 					if(Boolean.FALSE.equals(value))
 					{
 						%> checked="checked"<%
