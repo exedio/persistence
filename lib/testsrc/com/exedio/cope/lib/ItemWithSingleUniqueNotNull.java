@@ -39,12 +39,12 @@ public class ItemWithSingleUniqueNotNull extends Item
 
 	 **
 	 * Reactivation constructor. Used for internal purposes only.
-	 * @see Item#Item(Type, int)
+	 * @see Item#Item(com.exedio.cope.lib.util.ReactivationConstructorDummy,com.exedio.cope.lib.Type,int)
 	 * @generated
 	 *
  */private ItemWithSingleUniqueNotNull(com.exedio.cope.lib.util.ReactivationConstructorDummy d, final int pk)
 	{
-		super(TYPE, pk);
+		super(d,TYPE,pk);
 	}/**
 
 	 **

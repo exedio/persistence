@@ -169,13 +169,19 @@ public final class Type
 			throw new RuntimeException();
 	}
 	
+	static final ReactivationConstructorDummy REACTIVATION_DUMMY = new ReactivationConstructorDummy();
+
 	private Item createItemObject(final int pk)
 	{
 		try
 		{
-			// TODO: make sure, that this constructor is called from here only,
-			// maybe we use a secret instance of reactivation dummy for this.
-			return (Item)reactivationConstructor.newInstance(new Object[]{null, new Integer(pk)});
+			return 
+				(Item)reactivationConstructor.newInstance(
+					new Object[]{
+						REACTIVATION_DUMMY,
+						new Integer(pk)
+					}
+				);
 		}
 		catch(InstantiationException e)
 		{

@@ -5,8 +5,8 @@ package com.exedio.cope.lib.util;
  */
 public final class ReactivationConstructorDummy
 {
-	private ReactivationConstructorDummy()
-	{
-	}
+
+	public ReactivationConstructorDummy()
+	{}
 
 }

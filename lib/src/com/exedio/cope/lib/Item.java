@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import com.exedio.cope.lib.util.ReactivationConstructorDummy;
+
 public class Item extends Search
 {
 	private final Type type;
@@ -129,13 +131,17 @@ public class Item extends Search
 	 * Does not actually create a new item, but a passive item object for
 	 * an already existing item.
 	 */
-	protected Item(final Type type, final int pk)
+	protected Item(
+		final ReactivationConstructorDummy reactivationDummy,
+		final Type type, final int pk)
 	{
 		this.type = type;
 		this.pk = pk;
 		rowWhenActive = null; // make passive
 		//System.out.println("reactivate item:"+type+" "+pk);
 
+		if(reactivationDummy!=Type.REACTIVATION_DUMMY)
+			throw new RuntimeException("reactivation constructor is for internal purposes only, don't use it in your application!");
 		if(pk==Type.NOT_A_PK)
 			throw new RuntimeException();
 	}

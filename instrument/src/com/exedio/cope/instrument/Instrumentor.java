@@ -390,7 +390,9 @@ public final class Instrumentor implements InjectionConsumer
 		writeCommentHeader();
 		output.write("\t * Reactivation constructor. Used for internal purposes only.");
 		output.write(lineSeparator);
-		output.write("\t * @see Item#Item(Type, int)");
+		output.write("\t * @see Item#Item("
+			+ ReactivationConstructorDummy.class.getName() + ","
+			+ Type.class.getName() + ",int)");
 		output.write(lineSeparator);
 		writeCommentFooter();
 		output.write("private ");
@@ -399,7 +401,7 @@ public final class Instrumentor implements InjectionConsumer
 		output.write(lineSeparator);
 		output.write("\t{");
 		output.write(lineSeparator);
-		output.write("\t\tsuper(TYPE, pk);");
+		output.write("\t\tsuper(d,TYPE,pk);");
 		output.write(lineSeparator);
 		output.write("\t}");
 	}
