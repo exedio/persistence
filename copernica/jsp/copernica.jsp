@@ -164,8 +164,36 @@
 						final Type type = item.getType();
 						%>
 						<u><%=provider.getDisplayName(null, type)%></u><br>
-						<b><%=provider.getDisplayName(null, item)%></b>
+						<b><%=provider.getDisplayName(null, item)%></b><hr>
 						<%
+						for(Iterator j = type.getAttributes().iterator(); j.hasNext(); )
+						{
+							final Attribute attribute = (Attribute)j.next();
+							%><tr><td><%=attribute.getName()%></td><td><%
+							if(attribute instanceof MediaAttribute)
+							{
+								%><%=item.getMediaURL((MediaAttribute)attribute)%><%
+							}
+							else if(attribute instanceof ItemAttribute)
+							{
+								final Item value = (Item)item.getAttribute(attribute);
+								if(value==null)
+								{
+									%><%="leer"%><%
+								}
+								else
+								{
+									%><a href="copernica.jsp?item=<%=value.getID()%>">
+										<%=provider.getDisplayName(null, value)%>
+									</a><%
+								}
+							}
+							else
+							{
+								%><%=item.getAttribute(attribute)%><%
+							}
+							%></td></tr><%
+						}
 					}
 					else
 						%><u>select a type on the left</u>
