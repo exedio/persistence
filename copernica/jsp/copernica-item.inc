@@ -23,6 +23,7 @@
 						if(form.toSave)
 						{
 							%>
+							<input type="submit" name="<%=ItemForm.CHECK_BUTTON%>" value="Check" />
 							<input type="submit" name="<%=SAVE_BUTTON%>" value="Save" /><%
 						}
 						%>

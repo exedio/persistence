@@ -39,6 +39,7 @@ final class ItemForm extends Form
 	static final String VALUE_ON = "on";
 	static final String VALUE_OFF = "off";
 	static final String SAVE_BUTTON = "SAVE";
+	static final String CHECK_BUTTON = "CHECK";
 	
 	static final String DATE_FORMAT_FULL = "dd.MM.yyyy HH:mm:ss.SSS";
 
@@ -50,6 +51,7 @@ final class ItemForm extends Form
 		super(request);
 		
 		final boolean save = getParameter(SAVE_BUTTON)!=null;
+		final boolean post = save || getParameter(CHECK_BUTTON)!=null;
 		this.item = item;
 		this.type = item.getType();
 
@@ -63,7 +65,7 @@ final class ItemForm extends Form
 				final String name = attribute.getName();
 				final String value;
 
-				if(save)
+				if(post)
 					value = getParameter(name);
 				else
 				{
