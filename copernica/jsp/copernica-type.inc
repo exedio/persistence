@@ -17,8 +17,7 @@
 				<li><%=provider.getDisplayName(null, feature)%></li><%
 			}
 			%>
-			</ul>
-			<%
+			</ul><%
 			final int itemsSize = items.size();
 			final boolean firstPage = typeCop.isFirstPage();
 			final boolean lastPage = typeCop.count>items.size();
@@ -45,8 +44,8 @@
 			}
 			%>
 			<table id="item">
-			<tr>
-			<th></th><%
+				<tr>
+					<th></th><%
 				for(Iterator i = type.getFeatures().iterator(); i.hasNext(); )
 				{
 					final Feature feature = (Feature)i.next();
@@ -80,18 +79,18 @@
 					</th><%
 				}
 			%>
-			</tr><%
+				</tr><%
 				for(Iterator i = items.iterator(); i.hasNext(); )
 				{
 					final Item item = (Item)i.next();
 					%>
-					<tr>
-						<td><a href="<%=(cop.toItem(item))%>"><%=provider.getDisplayName(null, item)%></a></td><%
+				<tr>
+					<td><a href="<%=(cop.toItem(item))%>"><%=provider.getDisplayName(null, item)%></a></td><%
 					for(Iterator j = type.getFeatures().iterator(); j.hasNext(); )
 					{
 						final Feature feature = (Feature)j.next();
 						%>
-						<td><%
+					<td><%
 						if(feature instanceof MediaAttribute)
 						{
 							%><%=item.getMediaURL((MediaAttribute)feature)%><%
@@ -115,8 +114,7 @@
 						%></td><%
 					}
 					%>
-					</tr><%
+				</tr><%
 				}
 			%>
 			</table>
-

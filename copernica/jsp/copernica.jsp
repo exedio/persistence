@@ -92,8 +92,7 @@ include file="provider.inc"
 			else
 				throw new RuntimeException();
 		%>
-		</div>
-		<%
+		</div><%
 		}
 	%>
 	</body>
