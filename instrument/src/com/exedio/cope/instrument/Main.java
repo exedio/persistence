@@ -122,12 +122,6 @@ public class Main
 		o.println("[options] tobemodified1.java ...");
 		o.println("  -m  --modify");
 		o.println("      modify files");
-		o.println("  -c  --clean");
-		o.println("      clean files");
-		o.println("  -vm --violation-macro macro");
-		o.println("      what to to, if a constraint fails.");
-		o.println("  -tt --trace-types");
-		o.println("      trace types of collection elements.");
 	}
 	
 	protected int i;
