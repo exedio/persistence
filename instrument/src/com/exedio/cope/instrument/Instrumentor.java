@@ -110,6 +110,16 @@ public final class Instrumentor implements InjectionConsumer
 	private static final String VARIANT_MEDIA_ATTRIBUTE = "variant";
 	
 	/**
+	 * Tag name for media attributes with a constant major mime type.
+	 */
+	private static final String MIME_MAJOR = "mime-major";
+	
+	/**
+	 * Tag name for media attributes with a constant minor mime type.
+	 */
+	private static final String MIME_MINOR = "mime-minor";
+	
+	/**
 	 * All generated class features get this doccomment tag.
 	 */
 	private static final String GENERATED = "generated";
@@ -360,6 +370,7 @@ public final class Instrumentor implements InjectionConsumer
 													final Class returnType,
 													final String part,
 													final String variant,
+													final String literal,
 													final String comment)
 	throws IOException
 	{
@@ -388,28 +399,38 @@ public final class Instrumentor implements InjectionConsumer
 		output.write(lineSeparator);
 		output.write("\t{");
 		output.write(lineSeparator);
-		output.write("\t\treturn getMedia");
-		output.write(part);
-		output.write("(this.");
-		output.write(mediaAttribute.getName());
-		if(variant!=null)
+		output.write("\t\treturn ");
+		if(literal!=null)
 		{
-			if(variant.length()>0)
+			output.write('\"');
+			output.write(literal);
+			output.write("\";");
+		}
+		else
+		{
+			output.write("getMedia");
+			output.write(part);
+			output.write("(this.");
+			output.write(mediaAttribute.getName());
+			if(variant!=null)
 			{
-				output.write(",\"");
-				output.write(variant);
-				output.write('\"');
+				if(variant.length()>0)
+				{
+					output.write(",\"");
+					output.write(variant);
+					output.write('\"');
+				}
+				else
+					output.write(",null");
 			}
-			else
-				output.write(",null");
+			if(qualifiers!=null)
+			{
+				output.write(",new Object[]{");
+				writeParameterCallList(qualifiers);
+				output.write('}');
+			}
+			output.write(");");
 		}
-		if(qualifiers!=null)
-		{
-			output.write(",new Object[]{");
-			writeParameterCallList(qualifiers);
-			output.write('}');
-		}
-		output.write(");");
 		output.write(lineSeparator);
 		output.write("\t}");
 	}
@@ -419,22 +440,24 @@ public final class Instrumentor implements InjectionConsumer
 	{
 		final String methodModifiers = Modifier.toString(mediaAttribute.getMethodModifiers());
 		final List qualifiers = mediaAttribute.getQualifiers();
+		final String mimeMajor = mediaAttribute.getMimeMajor();
+		final String mimeMinor = mediaAttribute.getMimeMinor();
 
 		// getters
-		writeMediaGetterMethod(mediaAttribute, String.class, "URL", "",
+		writeMediaGetterMethod(mediaAttribute, String.class, "URL", "", null,
 										"Returns a URL pointing to the data of the persistent attribute");
 		final List mediaVariants = mediaAttribute.getMediaVariants();
 		if(mediaVariants!=null)
 		{
 			for(Iterator i = mediaVariants.iterator(); i.hasNext(); )
-				writeMediaGetterMethod(mediaAttribute, String.class, "URL", (String)i.next(),
+				writeMediaGetterMethod(mediaAttribute, String.class, "URL", (String)i.next(), null,
 												"Returns a URL pointing to the varied data of the persistent attribute");
 		}
-		writeMediaGetterMethod(mediaAttribute, String.class, "MimeMajor", null,
+		writeMediaGetterMethod(mediaAttribute, String.class, "MimeMajor", null, mimeMajor,
 										"Returns the major mime type of the persistent media attribute");
-		writeMediaGetterMethod(mediaAttribute, String.class, "MimeMinor", null,
+		writeMediaGetterMethod(mediaAttribute, String.class, "MimeMinor", null, mimeMinor,
 										"Returns the minor mime type of the persistent media attribute");
-		writeMediaGetterMethod(mediaAttribute, InputStream.class, "Data", null,
+		writeMediaGetterMethod(mediaAttribute, InputStream.class, "Data", null, null,
 										"Returns a stream for fetching the data of the persistent media attribute");
 		
 		// setters
@@ -456,8 +479,10 @@ public final class Instrumentor implements InjectionConsumer
 				output.write(',');
 			}
 			output.write("final " + OutputStream.class.getName() + " data");
-			output.write(",final "+String.class.getName()+" mimeMajor");
-			output.write(",final "+String.class.getName()+" mimeMinor");
+			if(mimeMajor==null)
+				output.write(",final "+String.class.getName()+" mimeMajor");
+			if(mimeMinor==null)
+				output.write(",final "+String.class.getName()+" mimeMinor");
 			output.write(')');
 			final SortedSet setterExceptions = mediaAttribute.getSetterExceptions();
 			writeThrowsClause(setterExceptions);
@@ -488,8 +513,8 @@ public final class Instrumentor implements InjectionConsumer
 				output.write('}');
 			}
 			output.write(",data");
-			output.write(",mimeMajor");
-			output.write(",mimeMinor");
+			output.write(mimeMajor==null ? ",mimeMajor" : ",null");
+			output.write(mimeMinor==null ? ",mimeMinor" : ",null");
 			output.write(");");
 			output.write(lineSeparator);
 			if(!exceptionsToCatch.isEmpty())
@@ -822,6 +847,11 @@ public final class Instrumentor implements InjectionConsumer
 				final String variant = Injector.findDocTag(docComment, VARIANT_MEDIA_ATTRIBUTE);
 				if(variant!=null)
 					ja.makeMediaVarianted(Collections.singletonList(variant));
+
+				final String mimeMajor = Injector.findDocTag(docComment, MIME_MAJOR);
+				final String mimeMinor = Injector.findDocTag(docComment, MIME_MINOR);
+				if(mimeMajor!=null || mimeMinor!=null)
+					ja.contrainMediaMime(mimeMajor, mimeMinor);
 			}
 		}
 		discardnextfeature=false;

@@ -37,6 +37,8 @@ public final class JavaAttribute extends JavaFeature
 	private boolean mapped = false;
 	private List qualifiers = null;
 	private List mediaVariants = null;
+	private String mimeMajor = null;
+	private String mimeMinor = null;
 
 	public JavaAttribute(JavaClass parent, int modifiers, String type, String name)
 	throws InjectorParseException
@@ -206,6 +208,16 @@ public final class JavaAttribute extends JavaFeature
 		return mediaVariants;
 	}
 	
+	public String getMimeMajor()
+	{
+		return mimeMajor;
+	}
+	
+	public String getMimeMinor()
+	{
+		return mimeMinor;
+	}
+	
 	/**
 	 * Return a fully qualified name of the attribute,
 	 * including class and package path.
@@ -323,6 +335,16 @@ public final class JavaAttribute extends JavaFeature
 		if(!isMediaPersistentType())
 			throw new RuntimeException();
 		this.mediaVariants = Collections.unmodifiableList(mediaVariants);
+	}
+	
+	public final void contrainMediaMime(final String mimeMajor, final String mimeMinor)
+	{
+		if(!isMediaPersistentType())
+			throw new RuntimeException();
+		if(mimeMajor==null && mimeMinor!=null)
+			throw new RuntimeException();
+		this.mimeMajor = mimeMajor;
+		this.mimeMinor = mimeMinor;
 	}
 
 
