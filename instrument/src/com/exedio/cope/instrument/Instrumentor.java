@@ -226,35 +226,27 @@ public final class Instrumentor implements InjectionConsumer
 				else
 					qualifiers = null;
 
-				final String persistentType;
-				final int persistentTypeType;
 				final PersistentAttribute persistentAttribute;
 
 				if("IntegerAttribute".equals(type))
 				{
-					persistentType = "Integer";
-					persistentTypeType = PersistentAttribute.TYPE_INTEGER;
 					persistentAttribute =
 						new PersistentAttribute(
-							ja, persistentType, persistentTypeType,
+							ja, "Integer", PersistentAttribute.TYPE_INTEGER,
 							readOnly, notNull, mapped, qualifiers);
 				}
 				else if("BooleanAttribute".equals(type))
 				{
-					persistentType = "Boolean";
-					persistentTypeType = PersistentAttribute.TYPE_BOOLEAN;
 					persistentAttribute =
 						new PersistentAttribute(
-							ja, persistentType, persistentTypeType,
+							ja, "Boolean", PersistentAttribute.TYPE_BOOLEAN,
 							readOnly, notNull, mapped, qualifiers);
 				}
 				else if("StringAttribute".equals(type))
 				{
-					persistentType = "String";
-					persistentTypeType = PersistentAttribute.TYPE_STRING;
 					persistentAttribute =
 						new PersistentAttribute(
-							ja, persistentType, persistentTypeType,
+							ja, "String", PersistentAttribute.TYPE_STRING,
 							readOnly, notNull, mapped, qualifiers);
 				}
 				else if("EnumerationAttribute".equals(type))
@@ -263,8 +255,7 @@ public final class Instrumentor implements InjectionConsumer
 						throw new RuntimeException("second argument required");
 					if(!secondArgument.endsWith(".class"))
 						throw new RuntimeException("second argument must end with .class: \'"+secondArgument+'\'');
-					persistentType = secondArgument.substring(0, secondArgument.length()-".class".length());
-					persistentTypeType = PersistentAttribute.TYPE_ENUMERATION;
+					final String persistentType = secondArgument.substring(0, secondArgument.length()-".class".length());
 					persistentAttribute =
 						new PersistentEnumerationAttribute(
 							ja, persistentType,
@@ -276,17 +267,14 @@ public final class Instrumentor implements InjectionConsumer
 						throw new RuntimeException("second argument required");
 					if(!secondArgument.endsWith(".class"))
 						throw new RuntimeException("second argument must end with .class: \'"+secondArgument+'\'');
-					persistentType = secondArgument.substring(0, secondArgument.length()-".class".length());
-					persistentTypeType = PersistentAttribute.TYPE_ITEM;
+					final String persistentType = secondArgument.substring(0, secondArgument.length()-".class".length());
 					persistentAttribute =
 						new PersistentAttribute(
-							ja, persistentType, persistentTypeType,
+							ja, persistentType, PersistentAttribute.TYPE_ITEM,
 							readOnly, notNull, mapped, qualifiers);
 				}
 				else if("MediaAttribute".equals(type))
 				{
-					persistentType = PersistentAttribute.MEDIA_TYPE;
-					persistentTypeType = PersistentAttribute.TYPE_MEDIA;
 					final String variant = Injector.findDocTag(docComment, VARIANT_MEDIA_ATTRIBUTE);
 					final List variants;
 					if(variant!=null)
