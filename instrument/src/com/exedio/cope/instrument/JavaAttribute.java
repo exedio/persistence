@@ -11,12 +11,12 @@ import java.util.List;
  * described in the doccomment of this attribute.
  * @see Injector
  */
-public final class JavaAttribute
+final class JavaAttribute
 	extends JavaFeature
 	implements TokenConsumer
 {
 
-	public JavaAttribute(
+	JavaAttribute(
 		JavaClass parent,
 		int modifiers,
 		String type,
@@ -35,7 +35,7 @@ public final class JavaAttribute
 	 * but the given name.
 	 * Needed for comma separated attributes.
 	 */
-	public JavaAttribute(JavaAttribute ja, String name)
+	JavaAttribute(JavaAttribute ja, String name)
 		throws InjectorParseException
 	{
 		this(ja.parent, ja.modifier, ja.type, name);
@@ -48,7 +48,7 @@ public final class JavaAttribute
 	 * with a '#' between class and attribute name.
 	 * Is used for type tracing log files.
 	 */
-	public final String getFullDocName()
+	final String getFullDocName()
 	{
 		return file.getPackageName()
 			+ '.'
@@ -60,7 +60,7 @@ public final class JavaAttribute
 	/**
 	 * See Java Specification 8.3.1 &quot;Field Modifiers&quot;
 	 */
-	public final int getAllowedModifiers()
+	final int getAllowedModifiers()
 	{
 		return Modifier.PUBLIC
 			| Modifier.PROTECTED

@@ -44,7 +44,7 @@ abstract class JavaFeature
 	
 	final String name;
 	
-	public JavaFeature(
+	JavaFeature(
 							final JavaFile file,
 							final JavaClass parent,
 							final int modifier,
@@ -77,7 +77,7 @@ abstract class JavaFeature
 	/**
 	 * Returns the package of the file containing this feature.
 	 */
-	public final String getPackageName()
+	final String getPackageName()
 	{
 		return file.getPackageName();
 	}
@@ -87,19 +87,19 @@ abstract class JavaFeature
 	 * which modifiers are allowed for the specific kind
 	 * of feature.
 	 */
-	public abstract int getAllowedModifiers();
+	abstract int getAllowedModifiers();
 	
-	public final boolean isStatic()
+	final boolean isStatic()
 	{
 		return (modifier & Modifier.STATIC) > 0;
 	}
 	
-	public final boolean isAbstract()
+	final boolean isAbstract()
 	{
 		return (modifier & Modifier.ABSTRACT) > 0;
 	}
 	
-	public static final int toAccessModifier(final int reflectionModifier)
+	static final int toAccessModifier(final int reflectionModifier)
 	{
 		switch(reflectionModifier & (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE))
 		{
@@ -116,7 +116,7 @@ abstract class JavaFeature
 		}
 	}
 	
-	public static final int toReflectionModifier(final int accessModifier)
+	static final int toReflectionModifier(final int accessModifier)
 	{
 		switch(accessModifier)
 		{

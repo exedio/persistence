@@ -7,7 +7,7 @@ package com.exedio.cope.instrument;
  * javac sucessfully (otherwise it's a bug.)
  * @see Injector
  */
-public class InjectorParseException extends Exception
+class InjectorParseException extends Exception
 {
 	protected InjectorParseException(String message)
 	{

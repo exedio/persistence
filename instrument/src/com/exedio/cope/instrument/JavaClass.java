@@ -8,7 +8,7 @@ import java.lang.reflect.Modifier;
  * Is an inner class, if parent is not null.
  * @see Injector
  */
-public class JavaClass extends JavaFeature
+class JavaClass extends JavaFeature
 {
 
 	/**

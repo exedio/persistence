@@ -13,7 +13,7 @@ import java.util.TreeSet;
  * This depends on the current package and all
  * imported packages/classes.
  */
-public final class JavaFile
+final class JavaFile
 {
 	private String packagename;
 	

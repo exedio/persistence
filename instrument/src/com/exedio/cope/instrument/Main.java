@@ -18,7 +18,7 @@ import java.util.Iterator;
 public class Main
 {
 	
-	public static void inject(final File inputfile, final File outputfile, final JavaRepository repository)
+	static void inject(final File inputfile, final File outputfile, final JavaRepository repository)
 	throws IOException, InjectorParseException
 	{
 		//System.out.println("injecting from "+inputfile+" to "+outputfile);
@@ -60,7 +60,7 @@ public class Main
 	
 	private static final String TEMPFILE_SUFFIX=".temp_cope_injection";
 	
-	public static void inject(final File tobemodifiedfile, final JavaRepository repository)
+	static void inject(final File tobemodifiedfile, final JavaRepository repository)
 	throws IOException, InjectorParseException
 	{
 		File outputfile=new File(tobemodifiedfile.getPath()+TEMPFILE_SUFFIX);
@@ -71,7 +71,7 @@ public class Main
 			System.out.println("warning: renaming "+outputfile+" to "+tobemodifiedfile+" failed.");
 	}
 	
-	public static void expand(Collection files, String pattern)
+	static void expand(Collection files, String pattern)
 	throws IOException
 	{
 		if(pattern.endsWith("*.java"))
@@ -111,10 +111,10 @@ public class Main
 		}
 	}
 	
-	protected Main()
+	private Main()
 	{}
 	
-	protected void printUsage(PrintStream o)
+	private void printUsage(PrintStream o)
 	{
 		o.println("usage:");
 		o.print("java ");
@@ -122,19 +122,19 @@ public class Main
 		o.println(" tobemodified1.java ...");
 	}
 	
-	protected int i;
-	protected String[] args;
-	protected final ArrayList taskConfigs = new ArrayList();
+	private int i;
+	private String[] args;
+	private final ArrayList taskConfigs = new ArrayList();
 	
 	private ArrayList sourcefiles=new ArrayList();
 	
-	protected void processParameter() throws IOException, IllegalParameterException
+	private void processParameter() throws IOException, IllegalParameterException
 	{
 		for(; i<args.length; i++)
 			expand(sourcefiles, args[i]);
 	}
 	
-	protected final void run(final String[] args)
+	private final void run(final String[] args)
 	{
 		this.args = args;
 		

@@ -19,7 +19,7 @@ import java.util.ArrayList;
  * InjectionConsumer interface to the constructor.
  * @see InjectionConsumer
  */
-public final class Injector
+final class Injector
 {
 	private final Reader input;
 	private final Writer output;

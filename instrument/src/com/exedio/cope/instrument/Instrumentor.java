@@ -24,7 +24,7 @@ import com.exedio.cope.lib.StringFunction;
 import com.exedio.cope.lib.UniqueConstraint;
 import com.exedio.cope.lib.pattern.Qualifier;
 
-public final class Instrumentor implements InjectionConsumer
+final class Instrumentor implements InjectionConsumer
 {
 	/**
 	 * Holds several properties of the class currently

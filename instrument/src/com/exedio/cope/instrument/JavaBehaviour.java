@@ -10,7 +10,7 @@ import java.util.List;
  * May be either a method or a constructor.
  * @see Injector
  */
-public abstract class JavaBehaviour extends JavaFeature
+abstract class JavaBehaviour extends JavaFeature
 {
 	
 	/**
@@ -25,7 +25,7 @@ public abstract class JavaBehaviour extends JavaFeature
 	 */
 	private final ArrayList throwables=new ArrayList();
 	
-	public JavaBehaviour(
+	JavaBehaviour(
 						final JavaClass parent,
 						final int modifiers,
 						final String type,
@@ -36,18 +36,18 @@ public abstract class JavaBehaviour extends JavaFeature
 		super(parent.file, parent, modifiers, type, name);
 	}
 	
-	public void addParameter(String paramtype, String paramname)
+	void addParameter(String paramtype, String paramname)
 	{
 		parameters.add(paramtype);
 		parameters.add(paramname);
 	}
 	
-	public final List getParameters()
+	final List getParameters()
 	{
 		return unmodifiableParameters;
 	}
 	
-	public final void addThrowable(String throwable)
+	final void addThrowable(String throwable)
 	{
 		throwables.add(throwable);
 	}

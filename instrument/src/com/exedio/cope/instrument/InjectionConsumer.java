@@ -12,14 +12,14 @@ import java.io.Writer;
  * specifies the position of the output stream, when
  * the method is called.
  */
-public interface InjectionConsumer
+interface InjectionConsumer
 {
 	/**
 	 * Encountered a package statement.
 	 * This method is guaranteed to be called at most once.
 	 * @see JavaFile#getPackageName()
 	 */
-	public void onPackage(JavaFile javafile) throws InjectorParseException;
+	void onPackage(JavaFile javafile) throws InjectorParseException;
 	
 	/**
 	 * Encountered an import statement.
@@ -27,13 +27,13 @@ public interface InjectionConsumer
 	 * This information may be used for mapping type names to types.
 	 * @see JavaFile#findType(String)
 	 */
-	public void onImport(String importname);
+	void onImport(String importname);
 	
 	/**
 	 * Encountered a class header.
 	 * Is also called for inner classes.
 	 */
-	public void onClass(JavaClass cc) throws InjectorParseException;
+	void onClass(JavaClass cc) throws InjectorParseException;
 	
 	/**
 	 * Encountered the end of a class.
@@ -41,7 +41,7 @@ public interface InjectionConsumer
 	 * the same object as in the corresponding call to onClass
 	 * @see #onClass(JavaClass)
 	 */
-	public void onClassEnd(JavaClass cc, Writer output)
+	void onClassEnd(JavaClass cc, Writer output)
 	throws java.io.IOException, InjectorParseException;
 	
 	/**
@@ -52,7 +52,7 @@ public interface InjectionConsumer
 	 * @param jb
 	 * contains all parsed information about the method
 	 */
-	public void onBehaviourHeader(JavaBehaviour jb)
+	void onBehaviourHeader(JavaBehaviour jb)
 	throws java.io.IOException;
 	
 	/**
@@ -63,7 +63,7 @@ public interface InjectionConsumer
 	 * @param ja
 	 * contains all parsed information about the attribute
 	 */
-	public void onAttributeHeader(JavaAttribute ja)
+	void onAttributeHeader(JavaAttribute ja)
 	throws java.io.IOException;
 	
 	/**
@@ -75,7 +75,7 @@ public interface InjectionConsumer
 	 * the doccomment associated to this feature.
 	 * Is null, if there was none.
 	 */
-	public void onClassFeature(JavaFeature cf, String doccomment)
+	void onClassFeature(JavaFeature cf, String doccomment)
 	throws java.io.IOException, InjectorParseException;
 	
 	/**
@@ -86,7 +86,7 @@ public interface InjectionConsumer
 	 * @return
 	 * if false is returned, the next class feature is ignored.
 	 */
-	public boolean onDocComment(String doccomment, Writer output)
+	boolean onDocComment(String doccomment, Writer output)
 	throws java.io.IOException;
 	
 	/**
@@ -94,7 +94,7 @@ public interface InjectionConsumer
 	 * Is called for comments on file level only,
 	 * i.e. outside of any classes.
 	 */
-	public void onFileDocComment(String doccomment, Writer output)
+	void onFileDocComment(String doccomment, Writer output)
 	throws java.io.IOException, InjectorParseException;
 	
 }

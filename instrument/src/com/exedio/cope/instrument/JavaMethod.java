@@ -5,7 +5,7 @@ package com.exedio.cope.instrument;
  * Represents a method of a class parsed by the java parser.
  * @see Injector
  */
-public final class JavaMethod extends JavaBehaviour
+final class JavaMethod extends JavaBehaviour
 {
 	
 	public JavaMethod(JavaClass parent, int modifiers, String type, String name)

@@ -5,7 +5,7 @@ package com.exedio.cope.instrument;
  * Represents a constructor of a class parsed by the java parser.
  * @see Injector
  */
-public final class JavaConstructor extends JavaBehaviour
+final class JavaConstructor extends JavaBehaviour
 {
 	public JavaConstructor(
 						final JavaClass parent,

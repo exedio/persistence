@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public final class JavaRepository
+final class JavaRepository
 {
 	private final ArrayList files = new ArrayList();
 	private final HashMap copeClasses = new HashMap();
