@@ -84,7 +84,9 @@ public class ItemForm extends Form
 					if(anyAttribute instanceof ObjectAttribute)
 					{
 						final ObjectAttribute attribute = (ObjectAttribute)anyAttribute;
-						new Field(attribute, valueToString(attribute, value.getAttribute(attribute)));
+						final Object qualifiedValue = value.getAttribute(attribute);
+						if(qualifiedValue!=null)
+							new Field(attribute, valueToString(attribute, qualifiedValue));
 					}
 				}
 			}
