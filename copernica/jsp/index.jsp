@@ -1,6 +1,8 @@
+<%@ page import="com.exedio.cope.lib.Search" %>
 <%@ page import="com.exedio.cope.lib.Database" %>
 <%@ page import="com.exedio.cope.lib.Attribute" %>
 <%@ page import="com.exedio.cope.lib.Type" %>
+<%@ page import="com.exedio.cope.lib.Item" %>
 <%@ page import="com.exedio.cope.lib.SystemException" %>
 <%@ page import="java.util.Iterator" %>
 <%@ page import="java.util.Map" %>
@@ -105,6 +107,18 @@
 						%>
 						</ul>
 						<hr>
+						<table border="1">
+						<tr>
+							<td>Item</td>
+						</tr>
+						<%
+							for(Iterator i = Search.search(type, null).iterator(); i.hasNext(); )
+							{
+								final Item item = (Item)i.next();
+								%><tr><td><%=item.getID()%></td></tr><%
+							}
+						%>
+						</table>
 						<%
 					}
 					else
