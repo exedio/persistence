@@ -261,27 +261,14 @@ public abstract class Database
 	private void executeSQL(final Statement statement, final ResultSetHandler resultSetHandler)
 			throws UniqueViolationException
 	{
-		final Properties properties = Properties.getInstance();
-		final String driver = properties.getDriver();
-		final String url = properties.getUrl();
-		final String user = properties.getUser();
-		final String password = properties.getPassword();
-		
-		try
-		{
-			Class.forName(driver);
-		}
-		catch(ClassNotFoundException e)
-		{
-			throw new SystemException(e);
-		}
+		final ConnectionPool connectionPool = ConnectionPool.getInstance();
 		
 		Connection connection = null;
 		java.sql.Statement sqlStatement = null;
 		ResultSet resultSet = null;
 		try
 		{
-			connection = DriverManager.getConnection(url, user, password);
+			connection = connectionPool.getConnection();
 			// TODO: use prepared statements and reuse the statement.
 			sqlStatement = connection.createStatement();
 			resultSet = sqlStatement.executeQuery(statement.getText());
@@ -323,7 +310,7 @@ public abstract class Database
 			{
 				try
 				{
-					connection.close();
+					connectionPool.putConnection(connection);
 				}
 				catch(SQLException e)
 				{
