@@ -8,13 +8,14 @@ import java.util.List;
 
 import com.exedio.cope.lib.Attribute;
 import com.exedio.cope.lib.ItemAttribute;
+import com.exedio.cope.lib.ObjectAttribute;
 import com.exedio.cope.lib.Type;
 import com.exedio.cope.lib.UniqueConstraint;
 
 public final class Qualifier
 {
 	private final ItemAttribute parent;
-	private final Attribute key;
+	private final ObjectAttribute key;
 	private final UniqueConstraint qualifyUnique;
 	private List attributes;
 
@@ -30,7 +31,7 @@ public final class Qualifier
 			throw new RuntimeException(attributes.toString());
 
 		this.parent = (ItemAttribute)attributes.get(0);
-		this.key = (ItemAttribute)attributes.get(1);
+		this.key = (ObjectAttribute)attributes.get(1);
 		this.qualifyUnique = qualifyUnique;
 	}
 	
@@ -39,7 +40,7 @@ public final class Qualifier
 		return parent;
 	}
 
-	public final Attribute getKey()
+	public final ObjectAttribute getKey()
 	{
 		return key;
 	}
