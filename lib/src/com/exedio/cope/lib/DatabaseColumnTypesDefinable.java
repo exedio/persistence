@@ -7,7 +7,7 @@ import java.util.List;
 
 interface DatabaseColumnTypesDefinable
 {
-	abstract void defineColumnTypes(List columnTypes, Statement statement)
+	void defineColumnTypes(List columnTypes, Statement statement)
 			throws SQLException;
 
 }
