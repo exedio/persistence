@@ -54,6 +54,9 @@ public abstract class DatabaseLibTest extends AbstractLibTest
 		super.setUp();
 		createDatabase();
 		model.checkEmptyDatabase();
+
+		// ensure, that last test did call tearDown()
+		assertEquals(null, deleteOnTearDown);
 		deleteOnTearDown = new ArrayList();
 	}
 	
