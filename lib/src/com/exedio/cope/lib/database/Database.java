@@ -2,6 +2,8 @@
 package com.exedio.cope.lib.database;
 
 import com.exedio.cope.lib.Attribute;
+import com.exedio.cope.lib.BooleanAttribute;
+import com.exedio.cope.lib.StringAttribute;
 import com.exedio.cope.lib.SystemException;
 import com.exedio.cope.lib.Type;
 import java.sql.Connection;
@@ -104,6 +106,14 @@ public class Database
 		return attribute.getName();
 	}
 	
+	private String getPersistentType(final Attribute attribute)
+	{
+		if(attribute instanceof StringAttribute)
+			return "varchar2(4000)";
+		else
+			throw new RuntimeException(attribute.toString());
+	}
+	
 	private String getCreateTableStatement(final Type type)
 	{
 		final char delimiterStart = getNameDelimiterStart();
@@ -128,7 +138,7 @@ public class Database
 				append(getPersistentQualifier(attribute)).
 				append(delimiterEnd).
 				append(" ").
-				append("varchar2(5)");
+				append(getPersistentType(attribute));
 		}
 		bf.append(')');
 		return bf.toString();
