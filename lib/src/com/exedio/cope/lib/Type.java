@@ -152,6 +152,11 @@ public final class Type
 		return javaClass;
 	}
 	
+	public final String getID()
+	{
+		return trimmedName;
+	}
+	
 	/**
 	 * Returns the type representing the {@link Class#getSuperclass() superclass}
 	 * of this type's {@link #getJavaClass() java class}.

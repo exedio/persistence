@@ -78,7 +78,7 @@
 								final Type type = (Type)i.next();
 								%>
 								<a href="copernica.jsp?type=<%=type.getJavaClass().getName()%>">
-									<%=type.getJavaClass().getName()%>
+									<%=provider.getDisplayName(null, type)%>
 								</a>
 							</td>
 						</tr>
@@ -90,13 +90,14 @@
 				<td valign="top">
 				<%
 					final String typeID = request.getParameter("type");
+					final String itemID = request.getParameter("item");
 					if(typeID!=null)
 					{
 						final Type type = Type.getType(typeID);
 						if(type==null)
 							throw new RuntimeException("type "+typeID+" not available");
 						%>
-						<u><%=type.getJavaClass().getName()%></u>
+						<u><%=provider.getDisplayName(null, type)%></u>
 						<hr>
 						<ul>
 						<%
@@ -157,13 +158,12 @@
 						</table>
 						<%
 					}
-					final String itemID = request.getParameter("item");
-					if(itemID!=null)
+					else if(itemID!=null)
 					{
 						final Item item = Search.findByID(itemID);
 						final Type type = item.getType();
 						%>
-						<u><%=type.getJavaClass().getName()%></u><br>
+						<u><%=provider.getDisplayName(null, type)%></u><br>
 						<b><%=provider.getDisplayName(null, item)%></b>
 						<%
 					}
