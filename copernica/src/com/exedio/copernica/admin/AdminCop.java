@@ -1,4 +1,5 @@
-package com.exedio.copernica;
+
+package com.exedio.copernica.admin;
 
 import javax.servlet.http.HttpServletRequest;
 

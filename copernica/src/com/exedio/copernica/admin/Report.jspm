@@ -14,7 +14,7 @@ import com.exedio.cope.lib.ReportColumn;
 import com.exedio.cope.lib.ReportConstraint;
 import com.exedio.cope.lib.ReportLastAnalyzed;
 import com.exedio.cope.lib.ReportTable;
-import com.exedio.copernica.AdminCop;
+import com.exedio.copernica.admin.AdminCop;
 
 public class Report_Jspm
 {
