@@ -190,6 +190,12 @@ public class Search
 		return wrapPrimaryKeys(query.selectType, Database.theInstance.search(query));
 	}
 	
+	/**
+	 * TODO: should throw a non-RuntimeException,
+	 * if there is more than one item found.
+	 * TODO: should have a unique constraint as parameter,
+	 * instead of the condition, then the previous todo is obsolete. 
+	 */
 	public static final Item searchUnique(final Type type, final Condition condition)
 	{
 		final Iterator searchResult = search(type, condition).iterator();
