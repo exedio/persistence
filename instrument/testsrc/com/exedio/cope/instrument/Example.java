@@ -98,8 +98,6 @@ public abstract class Example implements Runnable
   public Example(String name, Integer type)
   {
 	 super();
-	 qualifiers=new Integer[6];
-	 namedIntegers.put("5", new Integer(5));
   }
 
   public void set(String name, Integer type,// what a cool parameter
