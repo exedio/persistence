@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import com.exedio.cope.testmodel.AttributeItem;
-import com.exedio.cope.testmodel.Main;
 
 /**
  * An abstract test class for tests creating/using some persistent data.
@@ -83,12 +82,6 @@ public abstract class DatabaseLibTest extends AbstractLibTest
 		assertTrue(!item.isDeleted());
 		item.delete();
 		assertTrue(item.isDeleted());
-	}
-
-	public static void main(String[] args)
-	{
-		Main.model.setPropertiesInitially(new Properties());
-		Main.model.tearDownDatabase();
 	}
 
 }

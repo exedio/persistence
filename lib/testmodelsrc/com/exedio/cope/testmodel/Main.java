@@ -1,6 +1,7 @@
 package com.exedio.cope.testmodel;
 
 import com.exedio.cope.lib.Model;
+import com.exedio.cope.lib.Properties;
 import com.exedio.cope.lib.Type;
 
 public class Main
@@ -32,5 +33,11 @@ public class Main
 	};
 
 	public static final Model model = new Model(modelTypes);
+
+	public static void main(String[] args)
+	{
+		Main.model.setPropertiesInitially(new Properties());
+		Main.model.tearDownDatabase();
+	}
 
 }

@@ -255,13 +255,12 @@
 							value="lib/build/teardown.${database}/media" />
 			</filterset>
 		</copy>
-		<java classname="com.exedio.cope.lib.DatabaseLibTest" taskname="tear down" fork="yes" failonerror="yes">
+		<java classname="com.exedio.cope.testmodel.Main" taskname="tear down"
+				fork="yes" failonerror="yes">
 			<classpath>
 				<pathelement location="lib/build/classes" />
-				<pathelement location="lib/build/testclasses" />
 				<pathelement location="lib/build/testmodelclasses" />
 				<pathelement location="../lib/pcj.jar" />
-				<pathelement location="../lib/junit.jar" />
 				<pathelement location="../lib/${database-driver}" />
 			</classpath>
 			<sysproperty key="com.exedio.cope.properties"
@@ -269,14 +268,14 @@
 		</java>
 	</target>
 
-	<target name="lib.test.teardown.oracle" depends="lib.compile, lib.test.compile">
+	<target name="lib.test.teardown.oracle" depends="lib.compile, lib.testmodel.compile">
 		<antcall target="lib.test.teardown.anydb">
 			<param name="database" value="oracle"/>
 			<param name="database-driver" value="classes12.jar"/>
 		</antcall>
 	</target>
 
-	<target name="lib.test.teardown.mysql" depends="lib.compile, lib.test.compile">
+	<target name="lib.test.teardown.mysql" depends="lib.compile, lib.testmodel.compile">
 		<antcall target="lib.test.teardown.anydb">
 			<param name="database" value="mysql"/>
 			<param name="database-driver" value="mysql-connector-java-bin.jar"/>
