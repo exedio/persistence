@@ -40,7 +40,7 @@ public class ExampleTest extends InjectorTest
 				+ "	Note: type==Model.AMIGOUS means, the attribute cannot be used in OCL due to attribute ambiguities.\n"
 				+ "	See OCL spec 5.4.1. for details.\n*/");
 		assertText("\npublic abstract class Example");
-		assertClass("Example");
+		final JavaClass exampleClass = assertClass("Example");
 		assertText(" implements Runnable\n{\n  ");
 
 		final JavaAttribute name =
@@ -399,6 +399,8 @@ public class ExampleTest extends InjectorTest
 		assertText("{\n\t\t// use imports\n\t\tList l;\n\t\tFormat f;\n\t}");
 		assertMethod("main", null, main);
 		assertText("\n\n");
+		
+		assertClassEnd("Example", exampleClass);
 	}
 
 }
