@@ -57,16 +57,12 @@ public final class Instrumentor implements InjectionConsumer
 	private boolean discardnextfeature=false;
 	
 	private static final String PERSISTENT_CLASS = "persistent";
+	private static final String PERSISTENT_ATTRIBUTE = PERSISTENT_CLASS;
 	
 	private void handleClassComment(final JavaClass jc, final String docComment)
 	{
-		// handle file doccomment
-		final Map map = Injector.extractDocParagraphs(docComment);
-		
-		if (map.get(PERSISTENT_CLASS) != null)
-		{
+		if(docComment.indexOf('@'+PERSISTENT_CLASS)>=0)
 			jc.setPersistent();
-		}
 	}
 	
 	public void onClass(final JavaClass jc)
@@ -129,20 +125,20 @@ public final class Instrumentor implements InjectionConsumer
 	{
 	}
 	
-	public void onClassFeature(final JavaFeature jf, final String doccomment)
+	public void onClassFeature(final JavaFeature jf, final String docComment)
 	throws IOException, InjectorParseException
 	{
+		System.out.println("onClassFeature("+jf.getName()+" "+docComment+")");
 		if(!class_state.isInterface())
 		{
 			if(jf instanceof JavaAttribute &&
 			Modifier.isFinal(jf.getModifiers()) &&
 			Modifier.isStatic(jf.getModifiers()) &&
-			!discardnextfeature)
+			!discardnextfeature &&
+			docComment!=null &&
+			docComment.indexOf('@'+PERSISTENT_ATTRIBUTE)>=0)
 			{
-				if(doccomment!=null)
-				{
-					jf.getParent().addPersistentAttribute((JavaAttribute)jf);
-				}
+				jf.getParent().addPersistentAttribute((JavaAttribute)jf);
 			}
 		}
 		discardnextfeature=false;
