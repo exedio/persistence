@@ -221,8 +221,11 @@ public final class Properties
 		properties.setProperty(DATABASE, database.getDeclaringClass().getName());
 		properties.setProperty(DATABASE_URL, databaseUrl);
 		properties.setProperty(DATABASE_USER, databaseUser);
-		properties.setProperty(MEDIA_DIRECTORY, mediaDirectory.getAbsolutePath());
-		properties.setProperty(MEDIA_URL, mediaUrl);
+		if(mediaDirectory!=null)
+		{
+			properties.setProperty(MEDIA_DIRECTORY, mediaDirectory.getAbsolutePath());
+			properties.setProperty(MEDIA_URL, mediaUrl);
+		}
 		return properties;
 	}
 	
