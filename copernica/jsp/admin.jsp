@@ -29,6 +29,22 @@ include file="copernica-provider.inc"
 			ul.yellow { background-color:#ffff33; }
 			ul.red    { background-color:#ff3333; }
 		</style>
+		<!-- TODO: include only if reports are printed -->
+		<script type="text/javascript">
+			function checkAllAnalyze()
+			{
+				var checkboxes = document.all.tags("input");
+				for(j=0; j<checkboxes.length; j++)
+				{
+					var checkbox = checkboxes[j];
+					if(checkbox.type=="checkbox" &&
+						checkbox.name=="ANALYZE_TABLE")
+					{
+						checkbox.checked = true;
+					}
+				}
+			}
+		</script>
 	</head>
 	<body>
 		<h1>Copernica</h1>

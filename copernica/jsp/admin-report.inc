@@ -146,6 +146,7 @@ final String reportColor = color(report.getCumulativeColor());
 
 %>
 <span class="<%=reportColor%>">Database Report</span>
+<input type="button" value="check all analyze" onClick="checkAllAnalyze()">
 <input type="submit" name="APPLY" value="apply"/>
 <ul class="<%=reportColor%>"><%
 
