@@ -25,12 +25,7 @@ public class PersistentNativeAttribute extends PersistentAttribute
 	{
 		super(javaAttribute, typeClass, getPersistentType(typeClass), initializerArguments, qualifiers);
 
-		// TODO do this a bit more intelligent
-		if(StringFunction.class.isAssignableFrom(typeClass))
-			typeClass = StringFunction.class;
-		else if(IntegerFunction.class.isAssignableFrom(typeClass))
-			typeClass = IntegerFunction.class;
-
+		typeClass = normalizeTypeClass(typeClass);
 		final String nativeType = (String)toNativeTypeMapping.get(typeClass);
 		if(notNull && nativeType!=null)
 		{
@@ -48,16 +43,20 @@ public class PersistentNativeAttribute extends PersistentAttribute
 			boxingPrefix = boxingPostfix = unboxingPrefix = unboxingPostfix = null;
 		}
 	}
-
-	private static final String getPersistentType(Class typeClass)
+	
+	private static final Class normalizeTypeClass(final Class typeClass)
 	{
-		// TODO do this a bit more intelligent
 		if(StringFunction.class.isAssignableFrom(typeClass))
-			typeClass = StringFunction.class;
+			return StringFunction.class;
 		else if(IntegerFunction.class.isAssignableFrom(typeClass))
-			typeClass = IntegerFunction.class;
+			return IntegerFunction.class;
+		else
+			return typeClass;
+	}
 
-		final String result = (String)toPersistentTypeMapping.get(typeClass);
+	private static final String getPersistentType(final Class typeClass)
+	{
+		final String result = (String)toPersistentTypeMapping.get(normalizeTypeClass(typeClass));
 
 		if(result==null)
 			throw new RuntimeException(typeClass.toString());
