@@ -7,18 +7,19 @@ final class ItemColumn extends IntegerColumn
 
 	final Class targetTypeClass;
 	final String integrityConstraintName;
+	final ItemAttribute attribute;
 
 	ItemColumn(final Table table, final String id,
 					  final boolean notNull,
-					  final Class targetTypeClass, final String integrityConstraintName)
+					  final Class targetTypeClass, final ItemAttribute attribute)
 	{
 		super(table, id, notNull, SYNTETIC_PRIMARY_KEY_PRECISION, false, null);
 		if(targetTypeClass==null)
 			throw new RuntimeException();
-		if(integrityConstraintName==null)
-			throw new RuntimeException();
 		this.targetTypeClass = targetTypeClass;
-		this.integrityConstraintName = integrityConstraintName;
+		this.integrityConstraintName = Database.theInstance.trimName(table.id+"_"+id+"Fk");
+		this.attribute = attribute;
+		Database.theInstance.addIntegrityConstraint(this);
 	}
 
 	/**
@@ -31,6 +32,7 @@ final class ItemColumn extends IntegerColumn
 			throw new RuntimeException();
 		this.targetTypeClass = targetTypeClass;
 		this.integrityConstraintName = table.id+"SUP";
+		this.attribute = null;
 	}
 
 	String getForeignTableNameProtected()

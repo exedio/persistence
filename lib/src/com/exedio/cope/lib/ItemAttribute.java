@@ -1,27 +1,11 @@
 
 package com.exedio.cope.lib;
 
-import java.sql.SQLException;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 
 public final class ItemAttribute extends ObjectAttribute
 {
-	private static final HashMap itemAttributesByIntegrityConstraintName = new HashMap();
-	
-	static final ItemAttribute getItemAttributeByIntegrityConstraintName(final String name, final SQLException e)
-	{
-		final ItemAttribute result =
-			(ItemAttribute)itemAttributesByIntegrityConstraintName.get(name);
-
-		if(result==null)
-			throw new SystemException(e, "no item attribute found for >"+name
-																	+"<, has only "+itemAttributesByIntegrityConstraintName.keySet());
-
-		return result;
-	}
-	
 
 	private final Class targetTypeClass;
 
@@ -48,10 +32,7 @@ public final class ItemAttribute extends ObjectAttribute
 	
 	protected List createColumns(final Table table, final String name, final boolean notNull)
 	{
-		final String integrityConstraintName = Database.theInstance.trimName(getType().id+"_"+name+"Fk");
-		if(itemAttributesByIntegrityConstraintName.put(integrityConstraintName, this)!=null)
-			throw new InitializerRuntimeException("there is more than one integrity constraint with name "+integrityConstraintName);
-		return Collections.singletonList(new ItemColumn(table, name, notNull, targetTypeClass, integrityConstraintName));
+		return Collections.singletonList(new ItemColumn(table, name, notNull, targetTypeClass, this));
 	}
 	
 	Object cacheToSurface(final Object cache)

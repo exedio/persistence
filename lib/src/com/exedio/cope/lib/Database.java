@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
@@ -79,8 +80,10 @@ public abstract class Database
 	}
 	
 	private final List tables = new ArrayList();
+	private final HashMap itemColumnsByIntegrityConstraintName = new HashMap();
 	private boolean buildStage = true;
 	private final boolean useDefineColumnTypes;
+	
 	
 	protected Database()
 	{
@@ -93,6 +96,14 @@ public abstract class Database
 		if(!buildStage)
 			throw new RuntimeException();
 		tables.add(table);
+	}
+	
+	final void addIntegrityConstraint(final ItemColumn column)
+	{
+		if(!buildStage)
+			throw new RuntimeException();
+		if(itemColumnsByIntegrityConstraintName.put(column.integrityConstraintName, column)!=null)
+			throw new InitializerRuntimeException("there is more than one integrity constraint with name "+column.integrityConstraintName);
 	}
 	
 	private final Statement createStatement()
@@ -287,6 +298,8 @@ public abstract class Database
 	
 	final IntArrayList search(final Query query)
 	{
+		buildStage = false;
+
 		final Table selectTable = query.selectType.table;
 		final Statement bf = createStatement();
 
@@ -375,6 +388,8 @@ public abstract class Database
 
 	void load(final Row row)
 	{
+		buildStage = false;
+
 		final Statement bf = createStatement();
 		bf.append("select ");
 
@@ -463,6 +478,8 @@ public abstract class Database
 
 	boolean check(final Type type, final int pk)
 	{
+		buildStage = false;
+
 		final Statement bf = createStatement();
 		final Table table = type.table;
 		final Column primaryKey = table.getPrimaryKey();
@@ -514,6 +531,8 @@ public abstract class Database
 	private void store(final Row row, final Type type)
 			throws UniqueViolationException
 	{
+		buildStage = false;
+
 		final Type supertype = type.getSupertype();
 		if(supertype!=null)
 			store(row, supertype);
@@ -594,6 +613,8 @@ public abstract class Database
 	void delete(final Type type, final int pk)
 			throws IntegrityViolationException
 	{
+		buildStage = false;
+
 		for(Type currentType = type; currentType!=null; currentType = currentType.getSupertype())
 		{
 			final Table currentTable = currentType.table;
@@ -742,7 +763,16 @@ public abstract class Database
 			final String integrityConstraintName = extractIntegrityConstraintName(e);
 			if(integrityConstraintName!=null)
 			{
-				final ItemAttribute attribute = ItemAttribute.getItemAttributeByIntegrityConstraintName(integrityConstraintName, e);
+				final ItemColumn column =
+					(ItemColumn)itemColumnsByIntegrityConstraintName.get(integrityConstraintName);
+				if(column==null)
+					throw new SystemException(e, "no column attribute found for >"+integrityConstraintName
+																			+"<, has only "+itemColumnsByIntegrityConstraintName.keySet());
+
+				final ItemAttribute attribute = column.attribute;
+				if(attribute==null)
+					throw new SystemException(e, "no item attribute for column "+column);
+
 				return new IntegrityViolationException(e, null, attribute);
 			}
 		}
@@ -1130,6 +1160,8 @@ public abstract class Database
 
 	int[] getNextPK(final Table table)
 	{
+		buildStage = false;
+
 		final Statement bf = createStatement();
 		final String primaryKeyProtectedID = table.getPrimaryKey().protectedID;
 		bf.append("select min(").
