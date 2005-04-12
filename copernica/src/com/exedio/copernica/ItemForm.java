@@ -164,11 +164,8 @@ final class ItemForm extends Form
 				if(attribute instanceof EnumAttribute)
 				{
 					final EnumAttribute enumAttribute = (EnumAttribute)attribute;
-					final EnumField enumField;
-					if(!attribute.isReadOnly())
-						enumField = new EnumField(attribute, name, value, hiddenAttributes.contains(attribute));
-					else
-						enumField = new EnumField(attribute, value, hiddenAttributes.contains(attribute));
+					final EnumField enumField =
+						new EnumField(attribute, name, attribute.isReadOnly(), value, hiddenAttributes.contains(attribute));
 					
 					if(!enumAttribute.isNotNull())
 					{
@@ -187,18 +184,12 @@ final class ItemForm extends Form
 				{
 					if(attribute.isNotNull())
 					{
-						if(!attribute.isReadOnly())
-							field = new BooleanField(attribute, name, value, hiddenAttributes.contains(attribute));
-						else
-							field = new BooleanField(attribute, value, hiddenAttributes.contains(attribute));
+						field = new BooleanField(attribute, name, attribute.isReadOnly(), value, hiddenAttributes.contains(attribute));
 					}
 					else
 					{
-						final EnumField enumField;
-						if(!attribute.isReadOnly())
-							enumField = new EnumField(attribute, name, value, hiddenAttributes.contains(attribute));
-						else
-							enumField = new EnumField(attribute, value, hiddenAttributes.contains(attribute));
+						final EnumField enumField =
+							new EnumField(attribute, name, attribute.isReadOnly(), value, hiddenAttributes.contains(attribute));
 						
 						enumField.addOption(VALUE_NULL, cop.getDisplayNameNull());
 						enumField.addOption(VALUE_ON, cop.getDisplayNameOn());
@@ -213,34 +204,21 @@ final class ItemForm extends Form
 						attribute instanceof DoubleAttribute ||
 						attribute instanceof DateAttribute)
 				{
-					if(!attribute.isReadOnly())
-						field = new TextField(attribute, name, value, hiddenAttributes.contains(attribute));
-					else
-						field = new TextField(attribute, value, hiddenAttributes.contains(attribute));
+					field = new TextField(attribute, name, attribute.isReadOnly(), value, hiddenAttributes.contains(attribute));
 				}
 				else if(attribute instanceof ItemAttribute)
 				{
-					if(!attribute.isReadOnly())
-						field = new ItemField(attribute, name, value, hiddenAttributes.contains(attribute), provider.getModel(), cop);
-					else
-						field = new ItemField(attribute, value, hiddenAttributes.contains(attribute), provider.getModel(), cop);
+					field = new ItemField(attribute, name, attribute.isReadOnly(), value, hiddenAttributes.contains(attribute), provider.getModel(), cop);
 				}
 				else
 				{
-					if(!attribute.isReadOnly())
-					{
-						field = new Field(attribute, name, value, hiddenAttributes.contains(attribute));
-					}
-					else
-					{
-						field = new Field(attribute, value, hiddenAttributes.contains(attribute));
-					}
+					field = new Field(attribute, name, attribute.isReadOnly(), value, hiddenAttributes.contains(attribute));
 				}
 			}
 			else if(anyAttribute instanceof MediaAttribute)
 			{
 				final MediaAttribute attribute = (MediaAttribute)anyAttribute;
-				field = new Field(attribute, "", hiddenAttributes.contains(attribute));
+				field = new Field(attribute, null, true, "", hiddenAttributes.contains(attribute));
 				if(!attribute.isReadOnly())
 				{
 					toSave = true;
@@ -270,7 +248,7 @@ final class ItemForm extends Form
 						final ObjectAttribute attribute = (ObjectAttribute)anyAttribute;
 						final Object qualifiedValue = value.getAttribute(attribute);
 						if(qualifiedValue!=null)
-							new Field(attribute, valueToString(attribute, qualifiedValue), false);
+							new Field(attribute, null, true, valueToString(attribute, qualifiedValue), false);
 					}
 				}
 			}
@@ -287,16 +265,9 @@ final class ItemForm extends Form
 		final Model model;
 		final ItemCop cop;
 		
-		public ItemField(final Object key, final String name, final String value, final boolean hidden, final Model model, final ItemCop cop)
+		public ItemField(final Object key, final String name, final boolean readOnly, final String value, final boolean hidden, final Model model, final ItemCop cop)
 		{
-			super(key, name, value, hidden);
-			this.model = model;
-			this.cop = cop;
-		}
-		
-		public ItemField(final Object key, final String value, final boolean hidden, final Model model, final ItemCop cop)
-		{
-			super(key, value, hidden);
+			super(key, name, readOnly, value, hidden);
 			this.model = model;
 			this.cop = cop;
 		}
