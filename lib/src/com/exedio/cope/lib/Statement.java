@@ -37,7 +37,6 @@ public final class Statement
 		return this;
 	}
 	
-	// TODO: remove this method
 	public Statement append(final Function function)
 	{
 		function.append(this);
