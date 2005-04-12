@@ -113,49 +113,10 @@ class ItemCop_Jspm
 							%>
 							<input type="file" name="<%=attributeName%>" size="20"><%
 						}
-						else if(field instanceof Form.EnumField)
+						else if(field instanceof Form.EnumField
+									|| field instanceof Form.BooleanField)
 						{
 							field.write(out);
-						}
-						else if(attribute instanceof BooleanAttribute)
-						{
-							final String attributeName = attribute.getName();
-							final String value = field.getValue();
-							
-							if(attribute.isNotNull())
-							{
-								%>
-								<input type="checkbox" name="<%=attributeName%>" value="<%=VALUE_ON%>"<%
-								if(VALUE_ON.equals(value))
-								{
-									%> checked="checked"<%
-								}
-								%>><br><%
-							}
-							else
-							{
-								%>
-								<input type="radio" name="<%=attributeName%>" value="<%=VALUE_NULL%>"<%
-								if(value.equals(VALUE_NULL))
-								{
-									%> checked="checked"<%
-								}
-								%>><%=cop.getDisplayNameNull()%><br>
-								<input type="radio" name="<%=attributeName%>" value="<%=VALUE_ON%>"<%
-								if(value.equals(VALUE_ON))
-								{
-									%> checked="checked"<%
-								}
-								%>><%=cop.getDisplayNameOn()%><br>
-								<input type="radio" name="<%=attributeName%>" value="<%=VALUE_OFF%>"<%
-								if(value.equals(VALUE_OFF))
-								{
-									%> checked="checked"<%
-								}
-								%>><%=cop.getDisplayNameOff()%><br><%
-							}
-							%>
-						<%
 						}
 						else if(attribute instanceof StringAttribute
 									|| attribute instanceof IntegerAttribute

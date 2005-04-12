@@ -40,7 +40,7 @@ import com.exedio.cops.Form;
 final class ItemForm extends Form
 {
 	static final String VALUE_NULL = "null";
-	static final String VALUE_ON = "on";
+	static final String VALUE_ON = Form.BooleanField.VALUE_ON;
 	static final String VALUE_OFF = "off";
 	static final String SAVE_BUTTON = "SAVE";
 	static final String CHECK_BUTTON = "CHECK";
@@ -180,6 +180,29 @@ final class ItemForm extends Form
 						enumField.addOption(currentCode, currentName);
 					}
 					field = enumField;
+				}
+				else if(attribute instanceof BooleanAttribute)
+				{
+					if(attribute.isNotNull())
+					{
+						if(!attribute.isReadOnly())
+							field = new BooleanField(attribute, name, value, hiddenAttributes.contains(attribute));
+						else
+							field = new BooleanField(attribute, value, hiddenAttributes.contains(attribute));
+					}
+					else
+					{
+						final EnumField enumField;
+						if(!attribute.isReadOnly())
+							enumField = new EnumField(attribute, name, value, hiddenAttributes.contains(attribute));
+						else
+							enumField = new EnumField(attribute, value, hiddenAttributes.contains(attribute));
+						
+						enumField.addOption(VALUE_NULL, cop.getDisplayNameNull());
+						enumField.addOption(VALUE_ON, cop.getDisplayNameOn());
+						enumField.addOption(VALUE_OFF, cop.getDisplayNameOff());
+						field = enumField;
+					}
 				}
 				else
 				{
