@@ -7,7 +7,6 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import com.exedio.cope.lib.Attribute;
-import com.exedio.cope.lib.BooleanAttribute;
 import com.exedio.cope.lib.DateAttribute;
 import com.exedio.cope.lib.DoubleAttribute;
 import com.exedio.cope.lib.IntegerAttribute;
