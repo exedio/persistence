@@ -115,24 +115,7 @@ class ItemCop_Jspm
 						}
 						else if(field instanceof Form.EnumField)
 						{
-							final Form.EnumField enumField = (Form.EnumField)field;
-							final String attributeName = field.name;
-							final String value = field.getValue();
-							
-							for(Iterator k = enumField.names.iterator(); k.hasNext(); )
-							{
-								final String currentCode = (String)k.next();
-								final String currentName = enumField.getValue(currentCode);
-								%>
-								<input type="radio" name="<%=attributeName%>" value="<%=currentCode%>"<%
-								if(enumField.isChecked(currentCode))
-								{
-									%> checked="checked"<%
-								}
-								%>><%=currentName%><br><%
-							}
-							%>
-						<%
+							field.write(out);
 						}
 						else if(attribute instanceof BooleanAttribute)
 						{
