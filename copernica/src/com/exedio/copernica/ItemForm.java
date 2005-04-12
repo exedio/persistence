@@ -204,6 +204,18 @@ final class ItemForm extends Form
 						field = enumField;
 					}
 				}
+				else if(
+						attribute instanceof StringAttribute ||
+						attribute instanceof IntegerAttribute ||
+						attribute instanceof LongAttribute ||
+						attribute instanceof DoubleAttribute ||
+						attribute instanceof DateAttribute)
+				{
+					if(!attribute.isReadOnly())
+						field = new TextField(attribute, name, value, hiddenAttributes.contains(attribute));
+					else
+						field = new TextField(attribute, value, hiddenAttributes.contains(attribute));
+				}
 				else
 				{
 					if(!attribute.isReadOnly())

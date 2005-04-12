@@ -113,16 +113,12 @@ class ItemCop_Jspm
 							<input type="file" name="<%=attributeName%>" size="20"><%
 						}
 						else if(field instanceof Form.EnumField
-									|| field instanceof Form.BooleanField)
+									|| field instanceof Form.BooleanField
+									|| field instanceof Form.TextField)
 						{
 							field.write(out);
 						}
-						else if(attribute instanceof StringAttribute
-									|| attribute instanceof IntegerAttribute
-									|| attribute instanceof LongAttribute
-									|| attribute instanceof DoubleAttribute
-									|| attribute instanceof DateAttribute
-									|| attribute instanceof ItemAttribute)
+						else if(attribute instanceof ItemAttribute)
 						{
 							final ObjectAttribute objectAttribute = (ObjectAttribute)attribute;
 							final String value = field.getValue();
