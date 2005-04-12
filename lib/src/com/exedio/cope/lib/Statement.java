@@ -36,33 +36,14 @@ public final class Statement
 		this.text.append(text);
 		return this;
 	}
-		
+	
+	// TODO: remove this method
 	public Statement append(final Function function)
-	{
-		if(function instanceof ObjectAttribute)
-			append((ObjectAttribute)function);
-		else
-			append((ComputedFunction)function);
-			
-		return this;
-	}
-
-	public Statement append(final ComputedFunction function)
 	{
 		function.append(this);
 		return this;
 	}
 
-	public Statement append(final ObjectAttribute attribute)
-	{
-		this.text.
-			append(attribute.getType().getTable().protectedID).
-			append('.').
-			append(attribute.getMainColumn().protectedID);
-			
-		return this;
-	}
-		
 	public Statement appendPK(final Type type)
 	{
 		final Table table = type.getTable();

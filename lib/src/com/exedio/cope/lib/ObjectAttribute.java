@@ -27,6 +27,14 @@ public abstract class ObjectAttribute
 			throw new NotNullViolationException(item, this);
 	}
 
+	public void append(final Statement bf)
+	{
+		bf.text.
+			append(getType().getTable().protectedID).
+			append('.').
+			append(getMainColumn().protectedID);
+	}
+		
 	public final Item searchUnique(final Object value)
 	{
 		// TODO: search nativly for unique constraints
