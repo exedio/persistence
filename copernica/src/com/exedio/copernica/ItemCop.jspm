@@ -161,18 +161,8 @@ class ItemCop_Jspm
 				}
 				%>
 				</table><%
-				for(Iterator i = form.getHiddenFields().iterator(); i.hasNext(); )
-				{
-					final Form.Field field = (Form.Field)i.next();
-					final Attribute attribute = (Attribute)field.key;
-					if(attribute instanceof ObjectAttribute)
-					{
-						final ObjectAttribute objectAttribute = (ObjectAttribute)attribute;
-						final String value = field.getValue();
-						%>
-				<input type="hidden" name="<%=field.getName()%>" value="<%=value%>" /><%
-					}
-				}
+				form.writeHiddenFields(out);
+				
 				final CopernicaSection currentSection = form.currentSection;
 				if(currentSection!=null)
 				{
