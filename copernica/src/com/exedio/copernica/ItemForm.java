@@ -156,11 +156,42 @@ final class ItemForm extends Form
 				}
 				else
 					value = valueToString(attribute, item.getAttribute(attribute));
-
-				if(!attribute.isReadOnly())
-					field = new Field(attribute, name, value, hiddenAttributes.contains(attribute));
+				
+				final String attributeName = attribute.getName();
+				
+				if(attribute instanceof EnumAttribute)
+				{
+					final EnumAttribute enumAttribute = (EnumAttribute)attribute;
+					final EnumField enumField;
+					if(!attribute.isReadOnly())
+						enumField = new EnumField(attribute, name, value, hiddenAttributes.contains(attribute));
+					else
+						enumField = new EnumField(attribute, value, hiddenAttributes.contains(attribute));
+					
+					if(!enumAttribute.isNotNull())
+					{
+						enumField.addOption(VALUE_NULL, cop.getDisplayNameNull());
+					}
+					for(Iterator k = enumAttribute.getValues().iterator(); k.hasNext(); )
+					{
+						final EnumValue currentValue = (EnumValue)k.next();
+						final String currentCode = currentValue.getCode();
+						final String currentName = cop.getDisplayName(currentValue);
+						enumField.addOption(currentCode, currentName);
+					}
+					field = enumField;
+				}
 				else
-					field = new Field(attribute, value, hiddenAttributes.contains(attribute));
+				{
+					if(!attribute.isReadOnly())
+					{
+						field = new Field(attribute, name, value, hiddenAttributes.contains(attribute));
+					}
+					else
+					{
+						field = new Field(attribute, value, hiddenAttributes.contains(attribute));
+					}
+				}
 			}
 			else if(anyAttribute instanceof MediaAttribute)
 			{
