@@ -2,6 +2,7 @@ package com.exedio.copernica;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ import com.exedio.cope.lib.Item;
 import com.exedio.cope.lib.ItemAttribute;
 import com.exedio.cope.lib.LongAttribute;
 import com.exedio.cope.lib.MediaAttribute;
+import com.exedio.cope.lib.Model;
 import com.exedio.cope.lib.NestingRuntimeException;
 import com.exedio.cope.lib.NoSuchIDException;
 import com.exedio.cope.lib.NotNullViolationException;
@@ -216,6 +218,13 @@ final class ItemForm extends Form
 					else
 						field = new TextField(attribute, value, hiddenAttributes.contains(attribute));
 				}
+				else if(attribute instanceof ItemAttribute)
+				{
+					if(!attribute.isReadOnly())
+						field = new ItemField(attribute, name, value, hiddenAttributes.contains(attribute), provider.getModel(), cop);
+					else
+						field = new ItemField(attribute, value, hiddenAttributes.contains(attribute), provider.getModel(), cop);
+				}
 				else
 				{
 					if(!attribute.isReadOnly())
@@ -271,6 +280,50 @@ final class ItemForm extends Form
 		{
 			save();
 		}
+	}
+	
+	public class ItemField extends Form.TextField
+	{
+		final Model model;
+		final ItemCop cop;
+		
+		public ItemField(final Object key, final String name, final String value, final boolean hidden, final Model model, final ItemCop cop)
+		{
+			super(key, name, value, hidden);
+			this.model = model;
+			this.cop = cop;
+		}
+		
+		public ItemField(final Object key, final String value, final boolean hidden, final Model model, final ItemCop cop)
+		{
+			super(key, value, hidden);
+			this.model = model;
+			this.cop = cop;
+		}
+		
+		public Item getItem()
+		{
+			if(value.length()>0)
+			{
+				try
+				{
+					return model.findByID(value);
+				}
+				catch(NoSuchIDException e)
+				{
+					return null;
+				}
+			}
+			else
+				return null;
+		}
+		
+		public void write(final PrintStream out) throws IOException
+		{
+			super.write(out);
+			ItemCop_Jspm.write(out, this);
+		}
+		
 	}
 	
 	private void save()

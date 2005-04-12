@@ -7,16 +7,8 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import com.exedio.cope.lib.Attribute;
-import com.exedio.cope.lib.DateAttribute;
-import com.exedio.cope.lib.DoubleAttribute;
-import com.exedio.cope.lib.IntegerAttribute;
 import com.exedio.cope.lib.Item;
-import com.exedio.cope.lib.ItemAttribute;
-import com.exedio.cope.lib.LongAttribute;
 import com.exedio.cope.lib.MediaAttribute;
-import com.exedio.cope.lib.NoSuchIDException;
-import com.exedio.cope.lib.ObjectAttribute;
-import com.exedio.cope.lib.StringAttribute;
 import com.exedio.cope.lib.Type;
 import com.exedio.cops.Form;
 
@@ -118,36 +110,6 @@ class ItemCop_Jspm
 						{
 							field.write(out);
 						}
-						else if(attribute instanceof ItemAttribute)
-						{
-							final ObjectAttribute objectAttribute = (ObjectAttribute)attribute;
-							final String value = field.getValue();
-					
-							if(field.isReadOnly())
-							{
-								%><b><%=value%></b><%
-							}
-							else
-							{
-								%><input type="text" name="<%=field.getName()%>" size="30" value="<%=value%>" /><%
-								if(attribute instanceof ItemAttribute && value.length()>0)
-								{
-									try
-									{
-										final Item valueItem = provider.getModel().findByID(value);
-										%> <a href="<%=(cop.toItem(valueItem))%>"><%=cop.getDisplayName(null, valueItem)%></a><%
-									}
-									catch(NoSuchIDException e)
-									{
-										%> !!!<%
-									}
-								}
-								if(field.getError()!=null)
-								{
-									%> <b><%=field.getError()%></b><%
-								}
-							}
-						}
 						else
 						{
 							%><i><%=field.getValue()%></i><%
@@ -170,5 +132,16 @@ class ItemCop_Jspm
 			</form>
 <%
 	}
+	
+	public static final void write(final PrintStream out, final ItemForm.ItemField field)
+		throws IOException
+	{
+		final Item item = field.getItem();
+		if(item!=null)
+		{
+			%> <a href="<%=field.cop.toItem(item)%>"><%=field.cop.getDisplayName(null, item)%></a><%
+		}
+	}
+	
 }
 %>
