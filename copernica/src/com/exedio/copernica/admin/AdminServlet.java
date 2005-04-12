@@ -66,8 +66,9 @@ public final class AdminServlet extends CopsServlet
 			final HttpServletResponse response)
 		throws ServletException, IOException
 	{
-		final PrintStream out = new PrintStream(response.getOutputStream());
 		response.setContentType("text/html");
+
+		final PrintStream out = new PrintStream(response.getOutputStream());
 		Admin_Jspm.write(out, request, model);
 		out.close();
 	}

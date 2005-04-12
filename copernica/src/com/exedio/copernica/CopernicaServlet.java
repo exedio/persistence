@@ -62,7 +62,6 @@ public final class CopernicaServlet extends CopsServlet
 		try
 		{
 			response.setContentType("text/html");
-			out = new PrintStream(response.getOutputStream());
 
 			if(!checked)
 			{
@@ -73,18 +72,25 @@ public final class CopernicaServlet extends CopsServlet
 			final CopernicaUser user = checkAccess(request);
 			final CopernicaCop cop = CopernicaCop.getCop(provider, request);
 			cop.init(request);
-			Copernica_Jspm.write(out, request, user, cop);
 
+			out = new PrintStream(response.getOutputStream());
+			Copernica_Jspm.write(out, request, user, cop);
 			out.close();
 		}
 		catch(CopernicaAuthorizationFailedException e)
 		{
+			if(out==null)
+				out = new PrintStream(response.getOutputStream());
+
 			response.addHeader("WWW-Authenticate", "Basic realm=\"Copernica\"");
 			response.setStatus(response.SC_UNAUTHORIZED);
 			Copernica_Jspm.writeAuthenticationError(out, e);
 		}
 		catch(Exception e)
 		{
+			if(out==null)
+				out = new PrintStream(response.getOutputStream());
+
 			provider.handleException(out, this, request, e);
 		}
 	}

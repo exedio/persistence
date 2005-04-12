@@ -23,10 +23,8 @@ public class InitServlet extends CopsServlet
 		if(initialize)
 			CopernicaTestProvider.initializeExampleSystem();
 
-		PrintStream out = new PrintStream(response.getOutputStream());
-
+		final PrintStream out = new PrintStream(response.getOutputStream());
 		Init_Jspm.write(out, initialize);
-
 		out.close();
 	}
 
