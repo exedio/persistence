@@ -15,9 +15,6 @@ import com.exedio.cops.Form;
 class ItemCop_Jspm
 {
 	static final String SAVE_BUTTON = ItemForm.SAVE_BUTTON;
-	static final String VALUE_NULL = ItemForm.VALUE_NULL;
-	static final String VALUE_ON = ItemForm.VALUE_ON;
-	static final String VALUE_OFF = ItemForm.VALUE_OFF;
 	
 	static void writeBody(final PrintStream out, final ItemCop cop)
 		throws IOException
