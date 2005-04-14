@@ -164,8 +164,8 @@ final class ItemForm extends Form
 				if(attribute instanceof EnumAttribute)
 				{
 					final EnumAttribute enumAttribute = (EnumAttribute)attribute;
-					final EnumField enumField =
-						new EnumField(attribute, name, attribute.isReadOnly(), value, hiddenAttributes.contains(attribute));
+					final RadioField enumField =
+						new RadioField(attribute, name, attribute.isReadOnly(), value, hiddenAttributes.contains(attribute));
 					
 					if(!enumAttribute.isNotNull())
 					{
@@ -188,8 +188,8 @@ final class ItemForm extends Form
 					}
 					else
 					{
-						final EnumField enumField =
-							new EnumField(attribute, name, attribute.isReadOnly(), value, hiddenAttributes.contains(attribute));
+						final RadioField enumField =
+							new RadioField(attribute, name, attribute.isReadOnly(), value, hiddenAttributes.contains(attribute));
 						
 						enumField.addOption(VALUE_NULL, cop.getDisplayNameNull());
 						enumField.addOption(VALUE_ON, cop.getDisplayNameOn());
