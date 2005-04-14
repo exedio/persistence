@@ -10,7 +10,11 @@ import com.exedio.cope.lib.Attribute;
 import com.exedio.cope.lib.Item;
 import com.exedio.cope.lib.MediaAttribute;
 import com.exedio.cope.lib.Type;
+import com.exedio.cops.CheckboxField;
+import com.exedio.cops.Field;
 import com.exedio.cops.Form;
+import com.exedio.cops.RadioField;
+import com.exedio.cops.TextField;
 
 class ItemCop_Jspm
 {
@@ -70,7 +74,7 @@ class ItemCop_Jspm
 				<table border="1"><%
 				for(Iterator j = form.getFields().iterator(); j.hasNext(); )
 				{
-					final Form.Field field = (Form.Field)j.next();
+					final Field field = (Field)j.next();
 					final Attribute attribute = (Attribute)field.key;
 					%>
 					<tr>
@@ -101,9 +105,9 @@ class ItemCop_Jspm
 							%>
 							<input type="file" name="<%=attributeName%>" size="20"><%
 						}
-						else if(field instanceof Form.RadioField
-									|| field instanceof Form.CheckboxField
-									|| field instanceof Form.TextField)
+						else if(field instanceof RadioField
+									|| field instanceof CheckboxField
+									|| field instanceof TextField)
 						{
 							field.write(out);
 						}

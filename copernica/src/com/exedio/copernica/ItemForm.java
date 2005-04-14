@@ -36,12 +36,20 @@ import com.exedio.cope.lib.StringAttribute;
 import com.exedio.cope.lib.Type;
 import com.exedio.cope.lib.pattern.Qualifier;
 import com.exedio.cope.lib.search.EqualCondition;
+import com.exedio.cops.CheckboxField;
+import com.exedio.cops.DateField;
+import com.exedio.cops.DoubleField;
+import com.exedio.cops.Field;
 import com.exedio.cops.Form;
+import com.exedio.cops.IntegerField;
+import com.exedio.cops.LongField;
+import com.exedio.cops.RadioField;
+import com.exedio.cops.TextField;
 
 final class ItemForm extends Form
 {
 	static final String VALUE_NULL = "null";
-	static final String VALUE_ON = Form.CheckboxField.VALUE_ON;
+	static final String VALUE_ON = CheckboxField.VALUE_ON;
 	static final String VALUE_OFF = "off";
 	static final String SAVE_BUTTON = "SAVE";
 	static final String CHECK_BUTTON = "CHECK";
@@ -167,37 +175,37 @@ final class ItemForm extends Form
 				else if(attribute instanceof BooleanAttribute)
 				{
 					if(attribute.isNotNull())
-						field = new CheckboxField(attribute, name, attribute.isReadOnly(), value, hidden);
+						field = new CheckboxField(this, attribute, name, attribute.isReadOnly(), value, hidden);
 					else
 						field = new BooleanEnumField((BooleanAttribute)attribute, value, hidden, cop);
 				}
 				else if(attribute instanceof LongAttribute)
 				{
-					field = new LongField(attribute, name, attribute.isReadOnly(), value, hidden);
+					field = new LongField(this, attribute, name, attribute.isReadOnly(), value, hidden);
 				}
 				else if(attribute instanceof IntegerAttribute)
 				{
-					field = new IntegerField(attribute, name, attribute.isReadOnly(), value, hidden);
+					field = new IntegerField(this, attribute, name, attribute.isReadOnly(), value, hidden);
 				}
 				else if(attribute instanceof LongAttribute)
 				{
-					field = new LongField(attribute, name, attribute.isReadOnly(), value, hidden);
+					field = new LongField(this, attribute, name, attribute.isReadOnly(), value, hidden);
 				}
 				else if(attribute instanceof DoubleAttribute)
 				{
-					field = new DoubleField(attribute, name, attribute.isReadOnly(), value, hidden);
+					field = new DoubleField(this, attribute, name, attribute.isReadOnly(), value, hidden);
 				}
 				else if(attribute instanceof DateAttribute)
 				{
-					field = new DateField(attribute, name, attribute.isReadOnly(), value, hidden);
+					field = new DateField(this, attribute, name, attribute.isReadOnly(), value, hidden);
 				}
 				else if(attribute instanceof LongAttribute)
 				{
-					field = new LongField(attribute, name, attribute.isReadOnly(), value, hidden);
+					field = new LongField(this, attribute, name, attribute.isReadOnly(), value, hidden);
 				}
 				else if(attribute instanceof StringAttribute)
 				{
-					field = new TextField(attribute, name, attribute.isReadOnly(), value, hidden);
+					field = new TextField(this, attribute, name, attribute.isReadOnly(), value, hidden);
 				}
 				else if(attribute instanceof ItemAttribute)
 				{
@@ -205,13 +213,13 @@ final class ItemForm extends Form
 				}
 				else
 				{
-					field = new Field(attribute, name, attribute.isReadOnly(), value, hidden);
+					field = new Field(this, attribute, name, attribute.isReadOnly(), value, hidden);
 				}
 			}
 			else if(anyAttribute instanceof MediaAttribute)
 			{
 				final MediaAttribute attribute = (MediaAttribute)anyAttribute;
-				field = new Field(attribute, null, true, "", hiddenAttributes.contains(attribute));
+				field = new Field(this, attribute, null, true, "", hiddenAttributes.contains(attribute));
 				if(!attribute.isReadOnly())
 				{
 					toSave = true;
@@ -241,7 +249,7 @@ final class ItemForm extends Form
 						final ObjectAttribute attribute = (ObjectAttribute)anyAttribute;
 						final Object qualifiedValue = value.getAttribute(attribute);
 						if(qualifiedValue!=null)
-							new Field(attribute, null, true, valueToString(attribute, qualifiedValue), false);
+							new Field(this, attribute, null, true, valueToString(attribute, qualifiedValue), false);
 					}
 				}
 			}
@@ -253,7 +261,7 @@ final class ItemForm extends Form
 		}
 	}
 	
-	public class ItemField extends Form.TextField
+	public class ItemField extends TextField
 	{
 		final Model model;
 		final ItemCop cop;
@@ -261,7 +269,7 @@ final class ItemForm extends Form
 		
 		public ItemField(final Object key, final String name, final boolean readOnly, final String value, final boolean hidden, final Model model, final ItemCop cop)
 		{
-			super(key, name, readOnly, value, hidden);
+			super(ItemForm.this, key, name, readOnly, value, hidden);
 			this.model = model;
 			this.cop = cop;
 
@@ -300,13 +308,13 @@ final class ItemForm extends Form
 		
 	}
 	
-	final class EnumField extends Form.RadioField
+	final class EnumField extends RadioField
 	{
 		final EnumAttribute attribute;
 
 		EnumField(final EnumAttribute attribute, final String value, final boolean hidden, final ItemCop cop)
 		{
-			super(attribute, attribute.getName(), attribute.isReadOnly(), value, hidden);
+			super(ItemForm.this, attribute, attribute.getName(), attribute.isReadOnly(), value, hidden);
 			
 			this.attribute = attribute;
 			
@@ -338,12 +346,12 @@ final class ItemForm extends Form
 
 	}
 	
-	final class BooleanEnumField extends Form.RadioField
+	final class BooleanEnumField extends RadioField
 	{
 
 		BooleanEnumField(final BooleanAttribute attribute, final String value, final boolean hidden, final ItemCop cop)
 		{
-			super(attribute, attribute.getName(), attribute.isReadOnly(), value, hidden);
+			super(ItemForm.this, attribute, attribute.getName(), attribute.isReadOnly(), value, hidden);
 			
 			addOption(VALUE_NULL, cop.getDisplayNameNull());
 			addOption(VALUE_ON, cop.getDisplayNameOn());
