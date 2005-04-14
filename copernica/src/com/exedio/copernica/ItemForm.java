@@ -188,13 +188,13 @@ final class ItemForm extends Form
 					}
 					else
 					{
-						final RadioField enumField =
+						final RadioField radioField =
 							new RadioField(attribute, name, attribute.isReadOnly(), value, hiddenAttributes.contains(attribute));
 						
-						enumField.addOption(VALUE_NULL, cop.getDisplayNameNull());
-						enumField.addOption(VALUE_ON, cop.getDisplayNameOn());
-						enumField.addOption(VALUE_OFF, cop.getDisplayNameOff());
-						field = enumField;
+						radioField.addOption(VALUE_NULL, cop.getDisplayNameNull());
+						radioField.addOption(VALUE_ON, cop.getDisplayNameOn());
+						radioField.addOption(VALUE_OFF, cop.getDisplayNameOff());
+						field = radioField;
 					}
 				}
 				else if(
