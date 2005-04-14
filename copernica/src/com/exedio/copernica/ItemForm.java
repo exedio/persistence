@@ -370,7 +370,7 @@ final class ItemForm extends Form
 	
 	private void save()
 	{
-		for(Iterator i = getVisibleFields().iterator(); i.hasNext(); )
+		for(Iterator i = getAllFields().iterator(); i.hasNext(); )
 		{
 			final Field field = (Field)i.next();
 			if(field.key instanceof MediaAttribute)
