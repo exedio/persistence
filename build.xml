@@ -615,6 +615,8 @@
 
 	<target name="api" depends="lib.api, instrument.api, copernica.api" />
 	
+	<target name="jspm" depends="copernica.jspm" />
+	
 	<target name="all"
 			depends="compile, test, jar, api,
 						copernica.testwebapp,
