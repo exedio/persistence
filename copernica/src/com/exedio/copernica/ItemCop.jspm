@@ -72,7 +72,7 @@ class ItemCop_Jspm
 				}
 				%></table>
 				<table border="1"><%
-				for(Iterator j = form.getFields().iterator(); j.hasNext(); )
+				for(Iterator j = form.getVisibleFields().iterator(); j.hasNext(); )
 				{
 					final Field field = (Field)j.next();
 					final Attribute attribute = (Attribute)field.key;
