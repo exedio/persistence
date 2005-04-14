@@ -197,6 +197,10 @@ final class ItemForm extends Form
 						field = radioField;
 					}
 				}
+				else if(attribute instanceof LongAttribute)
+				{
+					field = new LongField(attribute, name, attribute.isReadOnly(), value, hiddenAttributes.contains(attribute));
+				}
 				else if(
 						attribute instanceof StringAttribute ||
 						attribute instanceof IntegerAttribute ||
