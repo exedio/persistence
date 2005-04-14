@@ -175,7 +175,12 @@ final class ItemForm extends Form
 				else if(attribute instanceof BooleanAttribute)
 				{
 					if(attribute.isNotNull())
-						field = new CheckboxField(this, attribute, name, attribute.isReadOnly(), value, hidden);
+					{
+						if(post)
+							field = new CheckboxField(this, attribute, name, attribute.isReadOnly(), hidden);
+						else
+							field = new CheckboxField(this, attribute, name, attribute.isReadOnly(), ((Boolean)item.getAttribute(attribute)).booleanValue(), hidden);
+					}
 					else
 						field = new BooleanEnumField((BooleanAttribute)attribute, value, hidden, cop);
 				}

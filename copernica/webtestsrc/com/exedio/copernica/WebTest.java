@@ -80,7 +80,12 @@ public class WebTest extends AbstractWebTest
 				assertCheckboxNotSelected("someNotNullBoolean");
 		}
 		else
-			assertFormElementEquals("someNotNullBoolean", someNotNullBoolean?"on":"off");
+		{
+			if(someNotNullBoolean)
+				assertFormElementEquals("someNotNullBoolean", "on");
+			else
+				assertFormElementNotPresent("someNotNullBoolean");
+		}
 		assertFormElementEquals("someItem", someItem);
 		if(someItem.length()>0)
 		{
