@@ -240,7 +240,7 @@ public abstract class Item extends Cope
 
 	public final Object getAttribute(final ObjectAttribute attribute)
 	{
-		return getRow().get((ObjectAttribute)attribute);
+		return getRow().get(attribute);
 	}
 	
 	public final Object getFunction(final Function function)
