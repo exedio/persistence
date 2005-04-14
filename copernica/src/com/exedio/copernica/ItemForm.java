@@ -179,17 +179,16 @@ final class ItemForm extends Form
 					else
 						field = new BooleanEnumField((BooleanAttribute)attribute, value, hidden, cop);
 				}
-				else if(attribute instanceof LongAttribute)
-				{
-					field = new LongField(this, attribute, name, attribute.isReadOnly(), value, hidden);
-				}
 				else if(attribute instanceof IntegerAttribute)
 				{
 					field = new IntegerField(this, attribute, name, attribute.isReadOnly(), value, hidden);
 				}
 				else if(attribute instanceof LongAttribute)
 				{
-					field = new LongField(this, attribute, name, attribute.isReadOnly(), value, hidden);
+					if(post)
+						field = new LongField(this, attribute, name, attribute.isReadOnly(), hidden);
+					else
+						field = new LongField(this, attribute, name, attribute.isReadOnly(), (Long)item.getAttribute(attribute), hidden);
 				}
 				else if(attribute instanceof DoubleAttribute)
 				{
@@ -198,10 +197,6 @@ final class ItemForm extends Form
 				else if(attribute instanceof DateAttribute)
 				{
 					field = new DateField(this, attribute, name, attribute.isReadOnly(), value, hidden);
-				}
-				else if(attribute instanceof LongAttribute)
-				{
-					field = new LongField(this, attribute, name, attribute.isReadOnly(), value, hidden);
 				}
 				else if(attribute instanceof StringAttribute)
 				{
