@@ -42,7 +42,7 @@ import com.exedio.cops.Form;
 final class ItemForm extends Form
 {
 	static final String VALUE_NULL = "null";
-	static final String VALUE_ON = Form.BooleanField.VALUE_ON;
+	static final String VALUE_ON = Form.CheckboxField.VALUE_ON;
 	static final String VALUE_OFF = "off";
 	static final String SAVE_BUTTON = "SAVE";
 	static final String CHECK_BUTTON = "CHECK";
@@ -184,7 +184,7 @@ final class ItemForm extends Form
 				{
 					if(attribute.isNotNull())
 					{
-						field = new BooleanField(attribute, name, attribute.isReadOnly(), value, hiddenAttributes.contains(attribute));
+						field = new CheckboxField(attribute, name, attribute.isReadOnly(), value, hiddenAttributes.contains(attribute));
 					}
 					else
 					{

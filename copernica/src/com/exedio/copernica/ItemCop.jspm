@@ -105,7 +105,7 @@ class ItemCop_Jspm
 							<input type="file" name="<%=attributeName%>" size="20"><%
 						}
 						else if(field instanceof Form.RadioField
-									|| field instanceof Form.BooleanField
+									|| field instanceof Form.CheckboxField
 									|| field instanceof Form.TextField)
 						{
 							field.write(out);
