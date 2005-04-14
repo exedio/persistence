@@ -149,6 +149,8 @@ public class CopernicaTestProvider extends TransientCopernicaProvider
 				item2.setMin4("min4");
 				item2.setMax4("max4");
 				item2.setMin4Max8("m4x8");
+				
+				item3.setAny("Herzliche Gr\u00fc\u00dfe!");
 			}
 			
 			final MediaItem mediaItem1 = new MediaItem();
