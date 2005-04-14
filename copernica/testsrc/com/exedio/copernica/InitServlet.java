@@ -11,19 +11,20 @@ import com.exedio.cops.CopsServlet;
 
 public class InitServlet extends CopsServlet
 {
+	private final static String ENCODING = "ISO-8859-1";
 
 	protected void doRequest(
 			final HttpServletRequest request,
 			final HttpServletResponse response)
 		throws ServletException, IOException
 	{
-		response.setContentType("text/html");
+		response.setContentType("text/html; charset="+ENCODING);
 
 		final boolean initialize = (request.getParameter("INIT")!=null);
 		if(initialize)
 			CopernicaTestProvider.initializeExampleSystem();
 
-		final PrintStream out = new PrintStream(response.getOutputStream());
+		final PrintStream out = new PrintStream(response.getOutputStream(), false, ENCODING);
 		Init_Jspm.write(out, initialize);
 		out.close();
 	}

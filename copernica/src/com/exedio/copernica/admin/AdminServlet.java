@@ -39,6 +39,7 @@ import com.exedio.cops.CopsServlet;
  */
 public final class AdminServlet extends CopsServlet
 {
+	private final static String ENCODING = "ISO-8859-1";
 
 	Model model = null;
 	
@@ -66,9 +67,9 @@ public final class AdminServlet extends CopsServlet
 			final HttpServletResponse response)
 		throws ServletException, IOException
 	{
-		response.setContentType("text/html");
+		response.setContentType("text/html; charset="+ENCODING);
 
-		final PrintStream out = new PrintStream(response.getOutputStream());
+		final PrintStream out = new PrintStream(response.getOutputStream(), false, ENCODING);
 		Admin_Jspm.write(out, request, model);
 		out.close();
 	}

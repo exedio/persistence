@@ -37,6 +37,8 @@ import com.exedio.cops.CopsServlet;
  */
 public final class CopernicaServlet extends CopsServlet
 {
+	private final static String ENCODING = "ISO-8859-1";
+
 	CopernicaProvider provider = null;
 	boolean checked;
 
@@ -61,7 +63,7 @@ public final class CopernicaServlet extends CopsServlet
 		PrintStream out = null;
 		try
 		{
-			response.setContentType("text/html");
+			response.setContentType("text/html; charset="+ENCODING);
 
 			if(!checked)
 			{
@@ -73,14 +75,14 @@ public final class CopernicaServlet extends CopsServlet
 			final CopernicaCop cop = CopernicaCop.getCop(provider, request);
 			cop.init(request);
 
-			out = new PrintStream(response.getOutputStream());
+			out = new PrintStream(response.getOutputStream(), false, ENCODING);
 			Copernica_Jspm.write(out, request, user, cop);
 			out.close();
 		}
 		catch(CopernicaAuthorizationFailedException e)
 		{
 			if(out==null)
-				out = new PrintStream(response.getOutputStream());
+				out = new PrintStream(response.getOutputStream(), false, ENCODING);
 
 			response.addHeader("WWW-Authenticate", "Basic realm=\"Copernica\"");
 			response.setStatus(response.SC_UNAUTHORIZED);
@@ -89,7 +91,7 @@ public final class CopernicaServlet extends CopsServlet
 		catch(Exception e)
 		{
 			if(out==null)
-				out = new PrintStream(response.getOutputStream());
+				out = new PrintStream(response.getOutputStream(), false, ENCODING);
 
 			provider.handleException(out, this, request, e);
 		}
