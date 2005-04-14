@@ -3,7 +3,6 @@ package com.exedio.copernica;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -159,64 +158,54 @@ final class ItemForm extends Form
 				else
 					value = valueToString(attribute, item.getAttribute(attribute));
 				
-				final String attributeName = attribute.getName();
+				final boolean hidden = hiddenAttributes.contains(attribute);
 				
 				if(attribute instanceof EnumAttribute)
 				{
-					final EnumAttribute enumAttribute = (EnumAttribute)attribute;
-					final RadioField enumField =
-						new RadioField(attribute, name, attribute.isReadOnly(), value, hiddenAttributes.contains(attribute));
-					
-					if(!enumAttribute.isNotNull())
-					{
-						enumField.addOption(VALUE_NULL, cop.getDisplayNameNull());
-					}
-					for(Iterator k = enumAttribute.getValues().iterator(); k.hasNext(); )
-					{
-						final EnumValue currentValue = (EnumValue)k.next();
-						final String currentCode = currentValue.getCode();
-						final String currentName = cop.getDisplayName(currentValue);
-						enumField.addOption(currentCode, currentName);
-					}
-					field = enumField;
+					field = new EnumField((EnumAttribute)attribute, value, hidden, cop);
 				}
 				else if(attribute instanceof BooleanAttribute)
 				{
 					if(attribute.isNotNull())
-					{
-						field = new CheckboxField(attribute, name, attribute.isReadOnly(), value, hiddenAttributes.contains(attribute));
-					}
+						field = new CheckboxField(attribute, name, attribute.isReadOnly(), value, hidden);
 					else
-					{
-						final RadioField radioField =
-							new RadioField(attribute, name, attribute.isReadOnly(), value, hiddenAttributes.contains(attribute));
-						
-						radioField.addOption(VALUE_NULL, cop.getDisplayNameNull());
-						radioField.addOption(VALUE_ON, cop.getDisplayNameOn());
-						radioField.addOption(VALUE_OFF, cop.getDisplayNameOff());
-						field = radioField;
-					}
+						field = new BooleanEnumField((BooleanAttribute)attribute, value, hidden, cop);
 				}
 				else if(attribute instanceof LongAttribute)
 				{
-					field = new LongField(attribute, name, attribute.isReadOnly(), value, hiddenAttributes.contains(attribute));
+					field = new LongField(attribute, name, attribute.isReadOnly(), value, hidden);
 				}
-				else if(
-						attribute instanceof StringAttribute ||
-						attribute instanceof IntegerAttribute ||
-						attribute instanceof LongAttribute ||
-						attribute instanceof DoubleAttribute ||
-						attribute instanceof DateAttribute)
+				else if(attribute instanceof IntegerAttribute)
 				{
-					field = new TextField(attribute, name, attribute.isReadOnly(), value, hiddenAttributes.contains(attribute));
+					field = new IntegerField(attribute, name, attribute.isReadOnly(), value, hidden);
+				}
+				else if(attribute instanceof LongAttribute)
+				{
+					field = new LongField(attribute, name, attribute.isReadOnly(), value, hidden);
+				}
+				else if(attribute instanceof DoubleAttribute)
+				{
+					field = new DoubleField(attribute, name, attribute.isReadOnly(), value, hidden);
+				}
+				else if(attribute instanceof DateAttribute)
+				{
+					field = new DateField(attribute, name, attribute.isReadOnly(), value, hidden);
+				}
+				else if(attribute instanceof LongAttribute)
+				{
+					field = new LongField(attribute, name, attribute.isReadOnly(), value, hidden);
+				}
+				else if(attribute instanceof StringAttribute)
+				{
+					field = new TextField(attribute, name, attribute.isReadOnly(), value, hidden);
 				}
 				else if(attribute instanceof ItemAttribute)
 				{
-					field = new ItemField(attribute, name, attribute.isReadOnly(), value, hiddenAttributes.contains(attribute), provider.getModel(), cop);
+					field = new ItemField(attribute, name, attribute.isReadOnly(), value, hidden, provider.getModel(), cop);
 				}
 				else
 				{
-					field = new Field(attribute, name, attribute.isReadOnly(), value, hiddenAttributes.contains(attribute));
+					field = new Field(attribute, name, attribute.isReadOnly(), value, hidden);
 				}
 			}
 			else if(anyAttribute instanceof MediaAttribute)
@@ -268,29 +257,34 @@ final class ItemForm extends Form
 	{
 		final Model model;
 		final ItemCop cop;
+		final Item content;
 		
 		public ItemField(final Object key, final String name, final boolean readOnly, final String value, final boolean hidden, final Model model, final ItemCop cop)
 		{
 			super(key, name, readOnly, value, hidden);
 			this.model = model;
 			this.cop = cop;
+
+			if(value.length()>0)
+			{
+				Item parsed = null;
+				try
+				{
+					parsed = model.findByID(value);
+				}
+				catch(NoSuchIDException e)
+				{
+					error = e.getMessage();
+				}
+				content = error==null ? parsed : null;
+			}
+			else
+				content = null;
 		}
 		
 		public Item getItem()
 		{
-			if(value.length()>0)
-			{
-				try
-				{
-					return model.findByID(value);
-				}
-				catch(NoSuchIDException e)
-				{
-					return null;
-				}
-			}
-			else
-				return null;
+			return content;
 		}
 		
 		public void write(final PrintStream out) throws IOException
@@ -299,6 +293,76 @@ final class ItemForm extends Form
 			ItemCop_Jspm.write(out, this);
 		}
 		
+		public Object getContent()
+		{
+			return content;
+		}
+		
+	}
+	
+	final class EnumField extends Form.RadioField
+	{
+		final EnumAttribute attribute;
+
+		EnumField(final EnumAttribute attribute, final String value, final boolean hidden, final ItemCop cop)
+		{
+			super(attribute, attribute.getName(), attribute.isReadOnly(), value, hidden);
+			
+			this.attribute = attribute;
+			
+			if(!attribute.isNotNull())
+			{
+				addOption(VALUE_NULL, cop.getDisplayNameNull());
+			}
+			for(Iterator k = attribute.getValues().iterator(); k.hasNext(); )
+			{
+				final EnumValue currentValue = (EnumValue)k.next();
+				final String currentCode = currentValue.getCode();
+				final String currentName = cop.getDisplayName(currentValue);
+				addOption(currentCode, currentName);
+			}
+		}
+	
+		public Object getContent()
+		{
+			final String value = this.value;
+			if(VALUE_NULL.equals(value))
+				return null;
+			
+			final EnumValue result = attribute.getValue(value);
+			if(result==null)
+				throw new RuntimeException(value);
+			
+			return result;
+		}
+
+	}
+	
+	final class BooleanEnumField extends Form.RadioField
+	{
+
+		BooleanEnumField(final BooleanAttribute attribute, final String value, final boolean hidden, final ItemCop cop)
+		{
+			super(attribute, attribute.getName(), attribute.isReadOnly(), value, hidden);
+			
+			addOption(VALUE_NULL, cop.getDisplayNameNull());
+			addOption(VALUE_ON, cop.getDisplayNameOn());
+			addOption(VALUE_OFF, cop.getDisplayNameOff());
+		}
+		
+		public Object getContent()
+		{
+			final String value = this.value;
+			
+			if(VALUE_NULL.equals(value))
+				return null;
+			else if(VALUE_ON.equals(value))
+				return Boolean.TRUE;
+			else if(VALUE_OFF.equals(value))
+				return Boolean.FALSE;
+			else
+				throw new RuntimeException(value);
+		}
 	}
 	
 	private void save()
@@ -343,25 +407,21 @@ final class ItemForm extends Form
 			}
 			if(!field.isReadOnly())
 			{
-				final ObjectAttribute attribute = (ObjectAttribute)field.key;
-				try
+				if(field.error==null)
 				{
-					final Object value;
-					final String valueString = field.value;
-					value = stringToValue(attribute, valueString);
-					item.setAttribute(attribute, value);
-				}
-				catch(MalformedFieldException e)
-				{
-					field.error = e.getMessage();
-				}
-				catch(NotNullViolationException e)
-				{
-					field.error = "error.notnull:"+e.getNotNullAttribute().toString();
-				}
-				catch(ConstraintViolationException e)
-				{
-					field.error = e.getClass().getName();
+					try
+					{
+						final ObjectAttribute attribute = (ObjectAttribute)field.key;
+						item.setAttribute(attribute, field.getContent());
+					}
+					catch(NotNullViolationException e)
+					{
+						field.error = "error.notnull:"+e.getNotNullAttribute().toString();
+					}
+					catch(ConstraintViolationException e)
+					{
+						field.error = e.getClass().getName();
+					}
 				}
 			}
 		}
@@ -414,95 +474,4 @@ final class ItemForm extends Form
 		return value;
 	}
 	
-	final static Object stringToValue(final ObjectAttribute attribute, final String valueString)
-				throws MalformedFieldException
-	{
-		try
-		{
-			final Object value;
-			if(attribute instanceof StringAttribute)
-			{
-				value = valueString;
-			}
-			else if(attribute instanceof IntegerAttribute)
-			{
-				if(valueString.length()>0)
-					value = new Integer(Integer.parseInt(valueString));
-				else
-					value = null;
-			}
-			else if(attribute instanceof LongAttribute)
-			{
-				if(valueString.length()>0)
-					value = new Long(Long.parseLong(valueString));
-				else
-					value = null;
-			}
-			else if(attribute instanceof DoubleAttribute)
-			{
-				if(valueString.length()>0)
-					value = new Double(Double.parseDouble(valueString));
-				else
-					value = null;
-			}
-			else if(attribute instanceof DateAttribute)
-			{
-				if(valueString.length()>0)
-				{
-					final SimpleDateFormat df = new SimpleDateFormat(DATE_FORMAT_FULL);
-					value = df.parse(valueString);
-				}
-				else
-					value = null;
-			}
-			else if(attribute instanceof ItemAttribute)
-			{
-				if(valueString.length()>0)
-					value = attribute.getType().getModel().findByID(valueString);
-				else
-					value = null;
-			}
-			else if(attribute instanceof BooleanAttribute)
-			{
-				if(valueString==null)
-					value = Boolean.FALSE;
-				else if(VALUE_NULL.equals(valueString))
-					value = null;
-				else if(VALUE_ON.equals(valueString))
-					value = Boolean.TRUE;
-				else if(VALUE_OFF.equals(valueString))
-					value = Boolean.FALSE;
-				else
-					throw new RuntimeException(valueString);
-			}
-			else if(attribute instanceof EnumAttribute)
-			{
-				if(VALUE_NULL.equals(valueString))
-					value = null;
-				else
-				{
-					final EnumAttribute enumAttribute = (EnumAttribute)attribute;
-					value = enumAttribute.getValue(valueString);
-					if(value==null)
-						throw new NullPointerException(valueString);
-				}
-			}
-			else
-				throw new RuntimeException();
-	
-			return value;
-		}
-		catch(NumberFormatException e)
-		{
-			throw new MalformedFieldException("bad number: "+e.getMessage());
-		}
-		catch(ParseException e)
-		{
-			throw new MalformedFieldException("bad date: "+e.getMessage());
-		}
-		catch(NoSuchIDException e)
-		{
-			throw new MalformedFieldException(e.getMessage());
-		}
-	}
 }
