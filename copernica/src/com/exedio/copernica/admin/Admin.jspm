@@ -21,6 +21,7 @@ final class Admin_Jspm
 %>
 <html>
 	<head>
+		<meta http-equiv="content-type" content="text/html; charset=<%=AdminServlet.ENCODING%>">
 		<title>
 			Copernica - Database Administration
 		</title>

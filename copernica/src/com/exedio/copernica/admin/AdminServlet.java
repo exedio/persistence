@@ -39,7 +39,7 @@ import com.exedio.cops.CopsServlet;
  */
 public final class AdminServlet extends CopsServlet
 {
-	private final static String ENCODING = "ISO-8859-1";
+	final static String ENCODING = "ISO-8859-1";
 
 	Model model = null;
 	

@@ -37,7 +37,7 @@ import com.exedio.cops.CopsServlet;
  */
 public final class CopernicaServlet extends CopsServlet
 {
-	private final static String ENCODING = "ISO-8859-1";
+	final static String ENCODING = "ISO-8859-1";
 
 	CopernicaProvider provider = null;
 	boolean checked;

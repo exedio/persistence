@@ -11,7 +11,7 @@ import com.exedio.cops.CopsServlet;
 
 public class InitServlet extends CopsServlet
 {
-	private final static String ENCODING = "ISO-8859-1";
+	final static String ENCODING = "ISO-8859-1";
 
 	protected void doRequest(
 			final HttpServletRequest request,
