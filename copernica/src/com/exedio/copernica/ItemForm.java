@@ -273,7 +273,7 @@ final class ItemForm extends Form
 		final Item content;
 		
 		/**
-		 * Constructs a form field with an inital value.
+		 * Constructs a form field with an initial value.
 		 */
 		public ItemField(final Object key, final String name, final boolean readOnly, final Item value, final boolean hidden, final Model model, final ItemCop cop)
 		{
@@ -332,7 +332,7 @@ final class ItemForm extends Form
 		final EnumValue content;
 
 		/**
-		 * Constructs a form field with an inital value.
+		 * Constructs a form field with an initial value.
 		 */
 		EnumField(final EnumAttribute attribute, final EnumValue value, final boolean hidden, final ItemCop cop)
 		{
@@ -395,7 +395,7 @@ final class ItemForm extends Form
 		final Boolean content;
 
 		/**
-		 * Constructs a form field with an inital value.
+		 * Constructs a form field with an initial value.
 		 */
 		BooleanEnumField(final BooleanAttribute attribute, final Boolean value, final boolean hidden, final ItemCop cop)
 		{
@@ -443,7 +443,7 @@ final class ItemForm extends Form
 		final String content;
 
 		/**
-		 * Constructs a form field with an inital value.
+		 * Constructs a form field with an initial value.
 		 */
 		StringField(final StringAttribute attribute, final String name, final boolean readOnly, final String value, final boolean hidden)
 		{
