@@ -53,7 +53,7 @@ final class ItemForm extends Form
 	
 	final Item item;
 	final Type type;
-	/*final TODO*/ boolean hasFiles;
+	final boolean hasFiles;
 	boolean toSave = false;
 	final CopernicaSection currentSection;
 	
