@@ -11,13 +11,14 @@ import com.exedio.cops.CopsServlet;
 
 public class InitServlet extends CopsServlet
 {
-	final static String ENCODING = "ISO-8859-1";
+	final static String ENCODING = "utf-8";
 
 	protected void doRequest(
 			final HttpServletRequest request,
 			final HttpServletResponse response)
 		throws ServletException, IOException
 	{
+		request.setCharacterEncoding(ENCODING);
 		response.setContentType("text/html; charset="+ENCODING);
 
 		final boolean initialize = (request.getParameter("INIT")!=null);

@@ -37,7 +37,7 @@ import com.exedio.cops.CopsServlet;
  */
 public final class CopernicaServlet extends CopsServlet
 {
-	final static String ENCODING = "ISO-8859-1";
+	final static String ENCODING = "utf-8";
 
 	CopernicaProvider provider = null;
 	boolean checked;
@@ -63,6 +63,7 @@ public final class CopernicaServlet extends CopsServlet
 		PrintStream out = null;
 		try
 		{
+			request.setCharacterEncoding(ENCODING);
 			response.setContentType("text/html; charset="+ENCODING);
 
 			if(!checked)
