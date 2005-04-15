@@ -3,7 +3,6 @@ package com.exedio.copernica;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -48,15 +47,10 @@ import com.exedio.cops.TextField;
 
 final class ItemForm extends Form
 {
-	static final String VALUE_NULL = "null";
-	static final String VALUE_ON = CheckboxField.VALUE_ON;
-	static final String VALUE_OFF = "off";
 	static final String SAVE_BUTTON = "SAVE";
 	static final String CHECK_BUTTON = "CHECK";
 	static final String SECTION = "section";
 	
-	static final String DATE_FORMAT_FULL = "dd.MM.yyyy HH:mm:ss.SSS";
-
 	final Item item;
 	final Type type;
 	/*final TODO*/ boolean hasFiles;
@@ -70,6 +64,7 @@ final class ItemForm extends Form
 		this.item = cop.item;
 		this.type = item.getType();
 		final CopernicaProvider provider = cop.provider;
+		final Model model = provider.getModel();
 		final List displayedAttributes;
 		final List hiddenAttributes;
 		final Collection sections = provider.getSections(type);
@@ -141,80 +136,7 @@ final class ItemForm extends Form
 			final Field field;
 			if(anyAttribute instanceof ObjectAttribute)
 			{
-				final ObjectAttribute attribute = (ObjectAttribute)anyAttribute;
-				final String name = attribute.getName();
-				final String value;
-
-				if(post)
-				{
-					final String postValue = getParameter(name);
-					if(postValue==null)
-					{
-						if(attribute instanceof BooleanAttribute && attribute.isNotNull())
-							value = VALUE_OFF;
-						else
-						{
-							if(attribute.isReadOnly())
-								value = valueToString(attribute, item.getAttribute(attribute));
-							else
-								throw new NullPointerException(name);
-						}
-					}
-					else
-						value = postValue;
-				}
-				else
-					value = valueToString(attribute, item.getAttribute(attribute));
-				
-				final boolean hidden = hiddenAttributes.contains(attribute);
-				
-				if(attribute instanceof EnumAttribute)
-				{
-					field = new EnumField((EnumAttribute)attribute, value, hidden, cop);
-				}
-				else if(attribute instanceof BooleanAttribute)
-				{
-					if(attribute.isNotNull())
-					{
-						if(post)
-							field = new CheckboxField(this, attribute, name, attribute.isReadOnly(), hidden);
-						else
-							field = new CheckboxField(this, attribute, name, attribute.isReadOnly(), ((Boolean)item.getAttribute(attribute)).booleanValue(), hidden);
-					}
-					else
-						field = new BooleanEnumField((BooleanAttribute)attribute, value, hidden, cop);
-				}
-				else if(attribute instanceof IntegerAttribute)
-				{
-					field = new IntegerField(this, attribute, name, attribute.isReadOnly(), value, hidden);
-				}
-				else if(attribute instanceof LongAttribute)
-				{
-					if(post)
-						field = new LongField(this, attribute, name, attribute.isReadOnly(), hidden);
-					else
-						field = new LongField(this, attribute, name, attribute.isReadOnly(), (Long)item.getAttribute(attribute), hidden);
-				}
-				else if(attribute instanceof DoubleAttribute)
-				{
-					field = new DoubleField(this, attribute, name, attribute.isReadOnly(), value, hidden);
-				}
-				else if(attribute instanceof DateAttribute)
-				{
-					field = new DateField(this, attribute, name, attribute.isReadOnly(), value, hidden);
-				}
-				else if(attribute instanceof StringAttribute)
-				{
-					field = new TextField(this, attribute, name, attribute.isReadOnly(), value, hidden);
-				}
-				else if(attribute instanceof ItemAttribute)
-				{
-					field = new ItemField(attribute, name, attribute.isReadOnly(), value, hidden, provider.getModel(), cop);
-				}
-				else
-				{
-					field = new Field(this, attribute, name, attribute.isReadOnly(), value, hidden);
-				}
+				field = createField((ObjectAttribute)anyAttribute, post, cop, hiddenAttributes.contains(anyAttribute), model);
 			}
 			else if(anyAttribute instanceof MediaAttribute)
 			{
@@ -249,7 +171,7 @@ final class ItemForm extends Form
 						final ObjectAttribute attribute = (ObjectAttribute)anyAttribute;
 						final Object qualifiedValue = value.getAttribute(attribute);
 						if(qualifiedValue!=null)
-							new Field(this, attribute, null, true, valueToString(attribute, qualifiedValue), false);
+							createField(attribute, value, value.getID()+'.'+attribute.getName(), true, false, cop, false, model);
 					}
 				}
 			}
@@ -261,18 +183,117 @@ final class ItemForm extends Form
 		}
 	}
 	
+	private final Field createField(
+			final ObjectAttribute attribute,
+			final boolean post, final ItemCop cop, final boolean hidden, final Model model)
+	{
+		return createField(attribute, this.item, attribute.getName(), attribute.isReadOnly(), post, cop, hidden, model);
+	}
+	
+	private final Field createField(
+			final ObjectAttribute attribute, final Item item, final String name, final boolean readOnly,
+			final boolean post, final ItemCop cop, final boolean hidden, final Model model)
+	{
+		if(attribute instanceof EnumAttribute)
+		{
+			if(post)
+				return new EnumField((EnumAttribute)attribute, hidden, cop);
+			else
+				return new EnumField((EnumAttribute)attribute, (EnumValue)item.getAttribute(attribute), hidden, cop);
+		}
+		else if(attribute instanceof BooleanAttribute)
+		{
+			if(attribute.isNotNull())
+			{
+				if(post)
+					return new CheckboxField(this, attribute, name, readOnly, hidden);
+				else
+					return new CheckboxField(this, attribute, name, readOnly, ((Boolean)item.getAttribute(attribute)).booleanValue(), hidden);
+			}
+			else
+			{
+				if(post)
+					return new BooleanEnumField((BooleanAttribute)attribute, hidden, cop);
+				else
+					return new BooleanEnumField((BooleanAttribute)attribute, (Boolean)item.getAttribute(attribute), hidden, cop);
+			}
+		}
+		else if(attribute instanceof IntegerAttribute)
+		{
+			if(post)
+				return new IntegerField(this, attribute, name, readOnly, hidden);
+			else
+				return new IntegerField(this, attribute, name, readOnly, (Integer)item.getAttribute(attribute), hidden);
+		}
+		else if(attribute instanceof LongAttribute)
+		{
+			if(post)
+				return new LongField(this, attribute, name, readOnly, hidden);
+			else
+				return new LongField(this, attribute, name, readOnly, (Long)item.getAttribute(attribute), hidden);
+		}
+		else if(attribute instanceof DoubleAttribute)
+		{
+			if(post)
+				return new DoubleField(this, attribute, name, readOnly, hidden);
+			else
+				return new DoubleField(this, attribute, name, readOnly, (Double)item.getAttribute(attribute), hidden);
+		}
+		else if(attribute instanceof DateAttribute)
+		{
+			if(post)
+				return new DateField(this, attribute, name, readOnly, hidden);
+			else
+				return new DateField(this, attribute, name, readOnly, (Date)item.getAttribute(attribute), hidden);
+		}
+		else if(attribute instanceof StringAttribute)
+		{
+			if(post)
+				return new StringField((StringAttribute)attribute, name, readOnly, hidden);
+			else
+				return new StringField((StringAttribute)attribute, name, readOnly, (String)item.getAttribute(attribute), hidden);
+		}
+		else if(attribute instanceof ItemAttribute)
+		{
+			if(post)
+				return new ItemField(attribute, name, readOnly, hidden, model, cop);
+			else
+				return new ItemField(attribute, name, readOnly, (Item)item.getAttribute(attribute), hidden, model, cop);
+		}
+		else
+		{
+			throw new RuntimeException(attribute.getClass().toString());
+		}
+	}
+	
 	public class ItemField extends TextField
 	{
 		final Model model;
 		final ItemCop cop;
 		final Item content;
 		
-		public ItemField(final Object key, final String name, final boolean readOnly, final String value, final boolean hidden, final Model model, final ItemCop cop)
+		/**
+		 * Constructs a form field with an inital value.
+		 */
+		public ItemField(final Object key, final String name, final boolean readOnly, final Item value, final boolean hidden, final Model model, final ItemCop cop)
 		{
-			super(ItemForm.this, key, name, readOnly, value, hidden);
+			super(ItemForm.this, key, name, readOnly, (value==null) ? "" : value.getID(), hidden);
+
+			this.model = model;
+			this.cop = cop;
+			this.content = value;
+		}
+		
+		/**
+		 * Constructs a form field with a value obtained from the submitted form.
+		 */
+		public ItemField(final Object key, final String name, final boolean readOnly, final boolean hidden, final Model model, final ItemCop cop)
+		{
+			super(ItemForm.this, key, name, readOnly, hidden);
 			this.model = model;
 			this.cop = cop;
 
+			final String value = this.value;
 			if(value.length()>0)
 			{
 				Item parsed = null;
@@ -289,7 +310,8 @@ final class ItemForm extends Form
 			else
 				content = null;
 		}
-		
+
+		// TODO remove method
 		public Item getItem()
 		{
 			return content;
@@ -310,14 +332,46 @@ final class ItemForm extends Form
 	
 	final class EnumField extends RadioField
 	{
-		final EnumAttribute attribute;
+		private static final String VALUE_NULL = "null";
 
-		EnumField(final EnumAttribute attribute, final String value, final boolean hidden, final ItemCop cop)
+		final EnumAttribute attribute;
+		final EnumValue content;
+
+		/**
+		 * Constructs a form field with an inital value.
+		 */
+		EnumField(final EnumAttribute attribute, final EnumValue value, final boolean hidden, final ItemCop cop)
 		{
-			super(ItemForm.this, attribute, attribute.getName(), attribute.isReadOnly(), value, hidden);
+			super(ItemForm.this, attribute, attribute.getName(), attribute.isReadOnly(), (value==null) ? VALUE_NULL : value.getCode(), hidden);
 			
 			this.attribute = attribute;
+			this.content = value;
+			addOptions(cop);
+		}
+	
+		/**
+		 * Constructs a form field with a value obtained from the submitted form.
+		 */
+		EnumField(final EnumAttribute attribute, final boolean hidden, final ItemCop cop)
+		{
+			super(ItemForm.this, attribute, attribute.getName(), attribute.isReadOnly(), hidden);
 			
+			this.attribute = attribute;
+			addOptions(cop);
+
+			final String value = this.value;
+			if(VALUE_NULL.equals(value))
+				content = null;
+			else
+			{
+				content = attribute.getValue(value);
+				if(content==null)
+					throw new RuntimeException(value);
+			}
+		}
+		
+		private void addOptions(final ItemCop cop)
+		{
 			if(!attribute.isNotNull())
 			{
 				addOption(VALUE_NULL, cop.getDisplayNameNull());
@@ -333,26 +387,51 @@ final class ItemForm extends Form
 	
 		public Object getContent()
 		{
-			final String value = this.value;
-			if(VALUE_NULL.equals(value))
-				return null;
-			
-			final EnumValue result = attribute.getValue(value);
-			if(result==null)
-				throw new RuntimeException(value);
-			
-			return result;
+			return content;
 		}
 
 	}
 	
 	final class BooleanEnumField extends RadioField
 	{
+		private static final String VALUE_NULL = "null";
+		private static final String VALUE_ON = "on";
+		private static final String VALUE_OFF = "off";
+		
+		final Boolean content;
 
-		BooleanEnumField(final BooleanAttribute attribute, final String value, final boolean hidden, final ItemCop cop)
+		/**
+		 * Constructs a form field with an inital value.
+		 */
+		BooleanEnumField(final BooleanAttribute attribute, final Boolean value, final boolean hidden, final ItemCop cop)
 		{
-			super(ItemForm.this, attribute, attribute.getName(), attribute.isReadOnly(), value, hidden);
+			super(ItemForm.this, attribute, attribute.getName(), attribute.isReadOnly(), value==null ? VALUE_NULL : value.booleanValue() ? VALUE_ON : VALUE_OFF, hidden);
 			
+			this.content = value;
+			addOptions(cop);
+		}
+		
+		/**
+		 * Constructs a form field with a value obtained from the submitted form.
+		 */
+		BooleanEnumField(final BooleanAttribute attribute, final boolean hidden, final ItemCop cop)
+		{
+			super(ItemForm.this, attribute, attribute.getName(), attribute.isReadOnly(), hidden);
+			addOptions(cop);
+
+			final String value = this.value;
+			if(VALUE_NULL.equals(value))
+				content = null;
+			else if(VALUE_ON.equals(value))
+				content = Boolean.TRUE;
+			else if(VALUE_OFF.equals(value))
+				content = Boolean.FALSE;
+			else
+				throw new RuntimeException(value);
+		}
+		
+		private final void addOptions(final ItemCop cop)
+		{
 			addOption(VALUE_NULL, cop.getDisplayNameNull());
 			addOption(VALUE_ON, cop.getDisplayNameOn());
 			addOption(VALUE_OFF, cop.getDisplayNameOff());
@@ -360,17 +439,41 @@ final class ItemForm extends Form
 		
 		public Object getContent()
 		{
-			final String value = this.value;
-			
-			if(VALUE_NULL.equals(value))
-				return null;
-			else if(VALUE_ON.equals(value))
-				return Boolean.TRUE;
-			else if(VALUE_OFF.equals(value))
-				return Boolean.FALSE;
-			else
-				throw new RuntimeException(value);
+			return content;
 		}
+	}
+	
+	// TODO: put StringField in cops framework
+	final class StringField extends TextField
+	{
+		final String content;
+
+		/**
+		 * Constructs a form field with an inital value.
+		 */
+		StringField(final StringAttribute attribute, final String name, final boolean readOnly, final String value, final boolean hidden)
+		{
+			super(ItemForm.this, attribute, name, readOnly, (value==null) ? "" : value, hidden);
+			
+			this.content = value;
+		}
+	
+		/**
+		 * Constructs a form field with a value obtained from the submitted form.
+		 */
+		StringField(final StringAttribute attribute, final String name, final boolean readOnly, final boolean hidden)
+		{
+			super(ItemForm.this, attribute, name, readOnly, hidden);
+			
+			final String value = this.value;
+			content = value; // TODO: convert empty string to null
+		}
+		
+		public Object getContent()
+		{
+			return content;
+		}
+
 	}
 	
 	private void save()
@@ -433,53 +536,6 @@ final class ItemForm extends Form
 				}
 			}
 		}
-	}
-	
-	final static String valueToString(final ObjectAttribute attribute, final Object itemValue)
-	{
-		final String value;
-		if(attribute instanceof StringAttribute)
-		{
-			value = (itemValue==null) ? "" : (String)itemValue;
-		}
-		else if(attribute instanceof IntegerAttribute)
-		{
-			value = (itemValue==null) ? "" : String.valueOf((Integer)itemValue);
-		}
-		else if(attribute instanceof LongAttribute)
-		{
-			value = (itemValue==null) ? "" : String.valueOf((Long)itemValue);
-		}
-		else if(attribute instanceof DoubleAttribute)
-		{
-			value = (itemValue==null) ? "" : String.valueOf((Double)itemValue);
-		}
-		else if(attribute instanceof DateAttribute)
-		{
-			 if(itemValue==null)
-				value =  "";
-			else
-			{
-				final SimpleDateFormat df = new SimpleDateFormat(DATE_FORMAT_FULL);
-				value = df.format((Date)itemValue);
-			}
-		}
-		else if(attribute instanceof ItemAttribute)
-		{
-			value = (itemValue==null) ? "" : ((Item)itemValue).getID();
-		}
-		else if(attribute instanceof BooleanAttribute)
-		{
-			value = (itemValue==null) ? VALUE_NULL : ((Boolean)itemValue).booleanValue() ? VALUE_ON : VALUE_OFF;
-		}
-		else if(attribute instanceof EnumAttribute)
-		{
-			value = (itemValue==null) ? VALUE_NULL : ((EnumValue)itemValue).getCode();
-		}
-		else
-			throw new RuntimeException();
-			
-		return value;
 	}
 	
 }

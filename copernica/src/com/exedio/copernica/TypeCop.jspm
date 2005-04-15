@@ -20,6 +20,7 @@ import com.exedio.cope.lib.ItemAttribute;
 import com.exedio.cope.lib.MediaAttribute;
 import com.exedio.cope.lib.StatementInfo;
 import com.exedio.cope.lib.Type;
+import com.exedio.cops.DateField;
 
 final class TypeCop_Jspm
 {
@@ -190,7 +191,7 @@ final class TypeCop_Jspm
 							else
 							{
 								if(df==null)
-									df = new SimpleDateFormat(ItemForm.DATE_FORMAT_FULL);
+									df = new SimpleDateFormat(DateField.DATE_FORMAT_FULL);
 								%><%=df.format(value)%><%
 							}
 						}
