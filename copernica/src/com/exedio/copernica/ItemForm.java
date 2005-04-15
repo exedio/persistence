@@ -311,12 +311,6 @@ final class ItemForm extends Form
 				content = null;
 		}
 
-		// TODO remove method
-		public Item getItem()
-		{
-			return content;
-		}
-		
 		public void write(final PrintStream out) throws IOException
 		{
 			super.write(out);

@@ -137,7 +137,7 @@ class ItemCop_Jspm
 	public static final void write(final PrintStream out, final ItemForm.ItemField field)
 		throws IOException
 	{
-		final Item item = field.getItem();
+		final Item item = field.content;
 		if(item!=null)
 		{
 			%> <a href="<%=field.cop.toItem(item)%>"><%=field.cop.getDisplayName(null, item)%></a><%
