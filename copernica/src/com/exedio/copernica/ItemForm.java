@@ -142,7 +142,7 @@ final class ItemForm extends Form
 			else if(anyAttribute instanceof MediaAttribute)
 			{
 				final MediaAttribute attribute = (MediaAttribute)anyAttribute;
-				field = new Field(this, attribute, null, true, "", hiddenAttributes.contains(attribute));
+				field = new StringField(this, attribute, null, true, "", hiddenAttributes.contains(attribute));
 				if(!attribute.isReadOnly())
 				{
 					toSave = true;
