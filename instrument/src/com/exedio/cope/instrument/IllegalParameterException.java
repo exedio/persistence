@@ -20,6 +20,7 @@ package com.exedio.cope.instrument;
 
 /**
  * Is thrown for invalid command line parameters
+ * @author ralf.wiebicke@exedio.com
  */
 final class IllegalParameterException extends Exception
 {

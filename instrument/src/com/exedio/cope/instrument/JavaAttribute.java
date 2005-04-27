@@ -27,6 +27,8 @@ import java.util.List;
  * Contains additional information about this attribute
  * described in the doccomment of this attribute.
  * @see Injector
+ * 
+ * @author ralf.wiebicke@exedio.com
  */
 final class JavaAttribute
 	extends JavaFeature

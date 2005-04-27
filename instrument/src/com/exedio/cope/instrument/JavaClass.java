@@ -24,6 +24,8 @@ import java.lang.reflect.Modifier;
  * Represents a class parsed by the java parser.
  * Is an inner class, if parent is not null.
  * @see Injector
+ * 
+ * @author ralf.wiebicke@exedio.com
  */
 class JavaClass extends JavaFeature
 {

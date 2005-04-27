@@ -24,6 +24,7 @@ import com.exedio.cope.lib.StringAttribute;
 
 /**
  * A nonsense test hash for unit-testing the hashing mechanism.
+ * @author ralf.wiebicke@exedio.com
  */
 public class WrapHash extends Hash
 {

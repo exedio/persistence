@@ -35,6 +35,8 @@ import java.util.ArrayList;
  * To use the parser, provide an implemention of the
  * InjectionConsumer interface to the constructor.
  * @see InjectionConsumer
+ * 
+ * @author ralf.wiebicke@exedio.com
  */
 final class Injector
 {

@@ -19,6 +19,8 @@ package com.exedio.cope.lib.util;
 
 /**
  * A dummy class for reactivation constructors.
+ * 
+ * @author ralf.wiebicke@exedio.com
  */
 public final class ReactivationConstructorDummy
 {

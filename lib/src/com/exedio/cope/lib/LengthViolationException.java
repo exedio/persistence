@@ -25,6 +25,8 @@ package com.exedio.cope.lib;
  * This exception will be thrown by {@link Item#setAttribute Item.setAttribute} methods
  * and item constructors
  * if that attribute {@link StringAttribute#isLengthConstrained is length constrained}.
+ * 
+ * @author ralf.wiebicke@exedio.com
  */
 public final class LengthViolationException extends ConstraintViolationException
 {

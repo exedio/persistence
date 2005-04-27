@@ -29,6 +29,8 @@ import java.util.TreeSet;
  * Manages the mapping of type names and types.
  * This depends on the current package and all
  * imported packages/classes.
+ * 
+ * @author ralf.wiebicke@exedio.com
  */
 final class JavaFile
 {

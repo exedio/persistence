@@ -26,6 +26,8 @@ import java.io.PrintWriter;
  * Can nests an inner exception.
  * Is a replacement of the nesting functionality of RuntimeException
  * in JDK 1.4.
+ * 
+ * @author ralf.wiebicke@exedio.com
  */
 public final class NestingRuntimeException extends RuntimeException
 {

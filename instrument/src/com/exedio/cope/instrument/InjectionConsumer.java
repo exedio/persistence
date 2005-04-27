@@ -28,6 +28,8 @@ import java.io.Writer;
  * java parser. Therefore, the interface of each method
  * specifies the position of the output stream, when
  * the method is called.
+ * 
+ * @author ralf.wiebicke@exedio.com
  */
 interface InjectionConsumer
 {

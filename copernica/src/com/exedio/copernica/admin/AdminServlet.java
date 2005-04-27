@@ -53,6 +53,8 @@ import com.exedio.cops.CopsServlet;
  *    &lt;url-pattern&gt;/admin.jsp&lt;/url-pattern&gt;
  * &lt;/servlet-mapping&gt;
  * </pre>
+ * 
+ * @author ralf.wiebicke@exedio.com
  */
 public final class AdminServlet extends CopsServlet
 {

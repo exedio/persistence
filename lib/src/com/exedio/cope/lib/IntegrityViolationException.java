@@ -28,6 +28,8 @@ import java.sql.SQLException;
  * Also knows as foreign key constraint violation.
  * <p>
  * This exception is thrown by {@link Item#delete}.
+ * 
+ * @author ralf.wiebicke@exedio.com
  */
 public class IntegrityViolationException extends ConstraintViolationException
 {

@@ -28,6 +28,8 @@ import com.exedio.cope.lib.StringAttribute;
 
 /**
  * Uses hashes from the java.security package.
+ * 
+ * @author ralf.wiebicke@exedio.com
  */
 public class JavaHash extends Hash
 {

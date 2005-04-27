@@ -24,6 +24,8 @@ package com.exedio.cope.lib;
  *
  * This exception will be thrown by {@link Model#findByID(String) Model.findByID},
  * if there is no item with the given ID.
+ * 
+ * @author ralf.wiebicke@exedio.com
  */
 public class NoSuchIDException extends Exception
 {

@@ -23,6 +23,7 @@ import com.exedio.cope.lib.Item;
 
 /**
  * @persistent
+ * @author ralf.wiebicke@exedio.com
  */
 public abstract class Super extends Item
 {

@@ -25,6 +25,7 @@ import com.exedio.cope.lib.UniqueConstraint;
 
 /**
  * @persistent
+ * @author ralf.wiebicke@exedio.com
  */
 public class QualifiedEmptyQualifier extends Item
 {

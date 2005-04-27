@@ -23,6 +23,7 @@ import com.exedio.cope.lib.Item;
 /**
  * Another item not having any attribute.
  * @persistent
+ * @author ralf.wiebicke@exedio.com
  */
 public class EmptyItem2 extends Item
 {

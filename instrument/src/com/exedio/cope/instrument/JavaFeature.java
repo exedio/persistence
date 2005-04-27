@@ -24,6 +24,8 @@ import java.lang.reflect.Modifier;
  * Represents a java feature.
  * May be a class (even an inner class), an attribute or
  * a method.
+ * 
+ * @author ralf.wiebicke@exedio.com
  */
 abstract class JavaFeature
 {

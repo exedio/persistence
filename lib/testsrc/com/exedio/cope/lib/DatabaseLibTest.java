@@ -26,6 +26,7 @@ import com.exedio.cope.testmodel.AttributeItem;
 
 /**
  * An abstract test class for tests creating/using some persistent data.
+ * @author ralf.wiebicke@exedio.com
  */
 public abstract class DatabaseLibTest extends AbstractLibTest
 {

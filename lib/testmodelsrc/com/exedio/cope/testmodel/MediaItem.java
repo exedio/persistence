@@ -24,6 +24,7 @@ import com.exedio.cope.lib.MediaAttributeVariant;
 
 /**
  * @persistent
+ * @author ralf.wiebicke@exedio.com
  */
 public class MediaItem extends Item
 {

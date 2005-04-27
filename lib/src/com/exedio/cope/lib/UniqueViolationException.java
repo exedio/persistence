@@ -28,6 +28,8 @@ import java.sql.SQLException;
  * and item constructors
  * if that attribute is covered by a {@link UniqueConstraint unique constraint}
  * and the value to be set violated the uniqueness.
+ * 
+ * @author ralf.wiebicke@exedio.com
  */
 public final class UniqueViolationException extends ConstraintViolationException
 {

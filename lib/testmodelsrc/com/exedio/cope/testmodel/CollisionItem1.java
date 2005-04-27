@@ -26,6 +26,7 @@ import com.exedio.cope.lib.ItemAttribute;
  * by using the same attributes names
  * in different persistent classes.
  * @persistent
+ * @author ralf.wiebicke@exedio.com
  */
 public class CollisionItem1 extends Item
 {

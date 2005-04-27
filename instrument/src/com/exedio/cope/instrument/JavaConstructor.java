@@ -21,6 +21,8 @@ package com.exedio.cope.instrument;
 /**
  * Represents a constructor of a class parsed by the java parser.
  * @see Injector
+ * 
+ * @author ralf.wiebicke@exedio.com
  */
 final class JavaConstructor extends JavaBehaviour
 {

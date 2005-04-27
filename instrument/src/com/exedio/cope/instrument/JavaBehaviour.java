@@ -26,6 +26,8 @@ import java.util.List;
  * Represents a behavioral feature of a class parsed by the java parser.
  * May be either a method or a constructor.
  * @see Injector
+ * 
+ * @author ralf.wiebicke@exedio.com
  */
 abstract class JavaBehaviour extends JavaFeature
 {

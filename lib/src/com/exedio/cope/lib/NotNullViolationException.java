@@ -25,6 +25,8 @@ package com.exedio.cope.lib;
  * This exception will be thrown by {@link Item#setAttribute Item.setAttribute} methods
  * and item constructors
  * if that attribute is {@link Attribute#isNotNull() not-null}.
+ * 
+ * @author ralf.wiebicke@exedio.com
  */
 public final class NotNullViolationException extends ConstraintViolationException
 {

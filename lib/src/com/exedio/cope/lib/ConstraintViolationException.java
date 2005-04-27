@@ -24,6 +24,8 @@ import java.sql.SQLException;
 
 /**
  * Is thrown, when a persistent modification violates a constraint.
+ * 
+ * @author ralf.wiebicke@exedio.com
  */
 public abstract class ConstraintViolationException extends Exception
 {
