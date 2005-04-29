@@ -49,6 +49,10 @@ public class HashTest extends DatabaseLibTest
 		assertEquals("a3cca2b2aa1e3b5b3b5aad99a8529074", item.getHashed1MD5());
 		assertTrue(item.checkHashed1("Franz jagt im komplett verwahrlosten Taxi quer durch Bayern"));
 		assertTrue(!item.checkHashed1("franz jagt im komplett verwahrlosten Taxi quer durch Bayern"));
+		item.setHashed1("franz jagt im komplett verwahrlosten Taxi quer durch Bayern");
+		assertEquals("4679e94e07f9a61f42b3d7f50cae0aef", item.getHashed1MD5());
+		assertTrue(!item.checkHashed1("Franz jagt im komplett verwahrlosten Taxi quer durch Bayern"));
+		assertTrue(item.checkHashed1("franz jagt im komplett verwahrlosten Taxi quer durch Bayern"));
 
 		item.setHashed1MD5("bello");
 		assertEquals("bello", item.getHashed1MD5());
