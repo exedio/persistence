@@ -57,7 +57,7 @@ public class CopeAssert extends TestCase
 		if(!deleteOnTearDown.isEmpty())
 		{
 			for(ListIterator i = deleteOnTearDown.listIterator(deleteOnTearDown.size()); i.hasPrevious(); )
-				((Item)i.previous()).delete();
+				((Item)i.previous()).deleteItem();
 			deleteOnTearDown.clear();
 		}
 		deleteOnTearDown = null;

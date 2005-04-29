@@ -615,7 +615,7 @@ public abstract class Item extends Cope
 		}
 	}
 	
-	public final void delete()
+	public final void deleteItem()
 			throws IntegrityViolationException
 	{
 		// TODO: additionally we must ensure, that any passive item objects of this item
@@ -640,7 +640,7 @@ public abstract class Item extends Cope
 					throw new RuntimeException();
 				if(row.item.rowWhenActive!=row)
 					throw new RuntimeException();
-				row.item.delete();
+				row.item.deleteItem();
 			}
 		}
 		itemDeleted = true;
