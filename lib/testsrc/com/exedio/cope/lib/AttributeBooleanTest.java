@@ -46,7 +46,7 @@ public class AttributeBooleanTest extends AttributeTest
 		assertContains(Boolean.FALSE, null, search(item.someBoolean));
 		assertContains(Boolean.FALSE, search(item.someBoolean, Cope.equal(item.someBoolean, false)));
 
-		item.passivate();
+		item.passivateItem();
 		assertEquals(Boolean.FALSE, item.getSomeBoolean());
 		assertContains(item, item.TYPE.search(Cope.equal(item.someBoolean, false)));
 		assertContains(item2, item.TYPE.search(Cope.isNull(item.someBoolean)));

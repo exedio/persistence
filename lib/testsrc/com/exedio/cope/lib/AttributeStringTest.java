@@ -57,7 +57,7 @@ public class AttributeStringTest extends AttributeTest
 		// TODO allow functions for select
 		//assertContains("SOMESTRING", search(item.someStringUpperCase, Cope.equal(item.someString, "someString")));
 
-		item.passivate();
+		item.passivateItem();
 		assertEquals("someString", item.getSomeString());
 		assertEquals("SOMESTRING", item.getSomeStringUpperCase());
 		assertEquals(new Integer("someString".length()), item.getSomeStringLength());

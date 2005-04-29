@@ -35,7 +35,7 @@ public class AttributeQualifiedTest extends AttributeTest
 		item.setSomeQualifiedString(someItem, "someQualifiedValue");
 		assertEquals("someQualifiedValue", item.getSomeQualifiedString(someItem));
 		assertEquals(null, item.getSomeQualifiedString(someItem2));
-		item.passivate();
+		item.passivateItem();
 		assertEquals("someQualifiedValue", item.getSomeQualifiedString(someItem));
 		assertEquals(null, item.getSomeQualifiedString(someItem2));
 		item.setSomeQualifiedString(someItem, null);

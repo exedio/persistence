@@ -41,7 +41,7 @@ public class AttributeDateTest extends AttributeTest
 		assertContains(date, null, search(item.someDate));
 		assertContains(date, search(item.someDate, Cope.equal(item.someDate, date)));
 
-		item.passivate();
+		item.passivateItem();
 		assertEquals(date, item.getSomeDate());
 		assertEquals(
 			list(item),
@@ -55,13 +55,13 @@ public class AttributeDateTest extends AttributeTest
 		assertEquals(list(item), item.TYPE.search(Cope.isNotNull(item.someDate)));
 
 		item.setSomeDate(nextDate);
-		item.passivate();
+		item.passivateItem();
 		assertEquals(nextDate, item.getSomeDate());
 
 		item.setSomeDate(null);
 		assertEquals(null, item.getSomeDate());
 		
-		item.passivate();
+		item.passivateItem();
 		assertEquals(null, item.getSomeDate());
 		
 		final Date beforeTouch = new Date();
@@ -86,7 +86,7 @@ public class AttributeDateTest extends AttributeTest
 		item.setSomeLongDate(date);
 		assertEquals(date, item.getSomeLongDate());
 
-		item.passivate();
+		item.passivateItem();
 		assertEquals(date, item.getSomeLongDate());
 		assertEquals(
 			list(item),
@@ -103,13 +103,13 @@ public class AttributeDateTest extends AttributeTest
 		assertContains(date, search(item.someLongDate, Cope.equal(item.someLongDate, date)));
 
 		item.setSomeLongDate(nextDate);
-		item.passivate();
+		item.passivateItem();
 		assertEquals(nextDate, item.getSomeLongDate());
 
 		item.setSomeLongDate(null);
 		assertEquals(null, item.getSomeLongDate());
 		
-		item.passivate();
+		item.passivateItem();
 		assertEquals(null, item.getSomeLongDate());
 	}
 	

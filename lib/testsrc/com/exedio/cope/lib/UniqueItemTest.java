@@ -66,14 +66,14 @@ public class UniqueItemTest extends DatabaseLibTest
 			assertDelete(item2);
 		}
 
-		item.passivate();
+		item.passivateItem();
 		assertTrue(!item.isActiveItem());
 		assertEquals("uniqueString", item.getUniqueString());
 		assertTrue(item.isActiveItem());
 
 		final ItemWithSingleUnique firstFoundItem;
 		{
-			item.passivate();
+			item.passivateItem();
 			assertTrue(!item.isActiveItem());
 			final ItemWithSingleUnique foundItem = ItemWithSingleUnique.findByUniqueString("uniqueString");
 			assertEquals(item, foundItem);
@@ -94,7 +94,7 @@ public class UniqueItemTest extends DatabaseLibTest
 			firstFoundItem = foundItem;
 		}
 		{
-			item.passivate();
+			item.passivateItem();
 			assertTrue(!item.isActiveItem());
 			final ItemWithSingleUnique foundItem = ItemWithSingleUnique.findByUniqueString("uniqueString");
 			assertEquals("uniqueString", foundItem.getUniqueString());

@@ -697,7 +697,7 @@ public abstract class Item extends Cope
 		}
 	}
 
-	public final void passivate()
+	public final void passivateItem()
 	{
 		if(rowWhenActive!=null)
 		{
