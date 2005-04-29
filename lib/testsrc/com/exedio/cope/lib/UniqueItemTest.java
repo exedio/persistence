@@ -77,7 +77,7 @@ public class UniqueItemTest extends DatabaseLibTest
 			assertTrue(!item.isActiveItem());
 			final ItemWithSingleUnique foundItem = ItemWithSingleUnique.findByUniqueString("uniqueString");
 			assertEquals(item, foundItem);
-			assertEquals(item.getItemID(), foundItem.getItemID());
+			assertEquals(item.getCopeID(), foundItem.getCopeID());
 			assertEquals(item.hashCode(), foundItem.hashCode());
 			assertNotSame(item, foundItem);
 			assertTrue(!item.isActiveItem());
@@ -100,7 +100,7 @@ public class UniqueItemTest extends DatabaseLibTest
 			assertEquals("uniqueString", foundItem.getUniqueString());
 			assertEquals("uniqueString", item.getUniqueString());
 			assertEquals(item, foundItem);
-			assertEquals(item.getItemID(), foundItem.getItemID());
+			assertEquals(item.getCopeID(), foundItem.getCopeID());
 			assertEquals(item.hashCode(), foundItem.hashCode());
 			assertNotSame(item, foundItem);
 			assertNotSame(item, firstFoundItem);

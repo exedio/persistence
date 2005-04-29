@@ -95,13 +95,13 @@ public abstract class DatabaseLibTest extends AbstractLibTest
 	{
 		assertFalse(item1.equals(item2));
 		assertFalse(item2.equals(item1));
-		assertFalse(item1.getItemID().equals(item2.getItemID()));
+		assertFalse(item1.getCopeID().equals(item2.getCopeID()));
 		assertFalse(item1.hashCode()==item2.hashCode());
 	}
 	
 	protected void assertID(final int id, final Item item)
 	{
-		assertTrue(item.getItemID()+"/"+id, item.getItemID().endsWith("."+id));
+		assertTrue(item.getCopeID()+"/"+id, item.getCopeID().endsWith("."+id));
 	}
 
 	protected void assertDelete(final Item item)
