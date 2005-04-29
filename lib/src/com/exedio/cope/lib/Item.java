@@ -38,7 +38,7 @@ public abstract class Item extends Cope
 
 	final int pk;
 	
-	private boolean itemDeleted = false;
+	private boolean deleted = false;
 
 	/**
 	 * The row containing the item cache for this item, if this item is active.
@@ -643,12 +643,12 @@ public abstract class Item extends Cope
 				row.item.deleteItem();
 			}
 		}
-		itemDeleted = true;
+		deleted = true;
 	}
 	
 	public final boolean isItemDeleted()
 	{
-		return itemDeleted;
+		return deleted;
 	}
 
 	public static final Attribute.Option DEFAULT = new Attribute.Option(false, false, false);
