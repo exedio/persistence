@@ -50,7 +50,7 @@ public class AttributeQualifiedTest extends AttributeTest
 		for(Iterator i = AttributeEmptyItem.TYPE.search(null).iterator(); i.hasNext(); )
 		{
 			final Item item = (Item)i.next();
-			item.deleteItem();
+			item.deleteCopeItem();
 		}
 
 		super.tearDown();

@@ -104,8 +104,8 @@ public class QualifierTest extends DatabaseLibTest
 		assertEquals(null, item.getQualifiedA(key2));
 		assertEquals("value2B", item.getQualifiedB(key2));
 
-		qitem2.deleteItem();
-		qitem1.deleteItem();
+		qitem2.deleteCopeItem();
+		qitem1.deleteCopeItem();
 
 		assertEquals(null, item.getQualifiedA("key1"));
 		assertEquals(null, item.getQualifiedB("key1"));
@@ -130,8 +130,8 @@ public class QualifierTest extends DatabaseLibTest
 		assertEquals(null, item.getQualifiedA("key2"));
 		assertEquals(new Integer(10), item.getQualifiedB("key2"));
 		
-		QualifiedStringQualifier.findByQualifyUnique(item, "key1").deleteItem();
-		QualifiedStringQualifier.findByQualifyUnique(item, "key2").deleteItem();
+		QualifiedStringQualifier.findByQualifyUnique(item, "key1").deleteCopeItem();
+		QualifiedStringQualifier.findByQualifyUnique(item, "key2").deleteCopeItem();
 
 		assertEquals(QualifiedIntegerEnumQualifier.up, QualifiedItem.intEnumQualifier.getParent());
 		assertEquals(
@@ -170,9 +170,9 @@ public class QualifierTest extends DatabaseLibTest
 	
 		assertEquals(null, QualifiedIntegerEnumQualifier.findByQualifyUnique(item, 21, QualifiedIntegerEnumQualifier.KeyEnum.key2));
 
-		QualifiedIntegerEnumQualifier.findByQualifyUnique(item, 20, QualifiedIntegerEnumQualifier.KeyEnum.key1).deleteItem();
-		QualifiedIntegerEnumQualifier.findByQualifyUnique(item, 21, QualifiedIntegerEnumQualifier.KeyEnum.key1).deleteItem();
-		QualifiedIntegerEnumQualifier.findByQualifyUnique(item, 20, QualifiedIntegerEnumQualifier.KeyEnum.key2).deleteItem();
+		QualifiedIntegerEnumQualifier.findByQualifyUnique(item, 20, QualifiedIntegerEnumQualifier.KeyEnum.key1).deleteCopeItem();
+		QualifiedIntegerEnumQualifier.findByQualifyUnique(item, 21, QualifiedIntegerEnumQualifier.KeyEnum.key1).deleteCopeItem();
+		QualifiedIntegerEnumQualifier.findByQualifyUnique(item, 20, QualifiedIntegerEnumQualifier.KeyEnum.key2).deleteCopeItem();
 	}
 	
 }

@@ -72,7 +72,7 @@ public class AttributeItemTest extends AttributeTest
 		assertEquals(someItem2, item.getSomeNotNullItem());
 		try
 		{
-			someItem2.deleteItem();
+			someItem2.deleteCopeItem();
 			fail("should have thrown IntegrityViolationException");
 		}
 		catch(IntegrityViolationException e)

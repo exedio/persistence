@@ -27,7 +27,7 @@ import java.sql.SQLException;
  * <p>
  * Also knows as foreign key constraint violation.
  * <p>
- * This exception is thrown by {@link Item#deleteItem}.
+ * This exception is thrown by {@link Item#deleteCopeItem}.
  * 
  * @author ralf.wiebicke@exedio.com
  */
