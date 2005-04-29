@@ -42,7 +42,7 @@ class ItemCop_Jspm
 		throws IOException
 	{
 		final Item item = cop.item;
-		final Type type = item.getType();
+		final Type type = item.getItemType();
 		final ItemForm form = cop.form;
 		final CopernicaProvider provider = cop.provider;
 		final CopernicaLanguage language = cop.language;
