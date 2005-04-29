@@ -64,7 +64,7 @@ public abstract class Item extends Cope
 	 * Returns the type of this item.
 	 * Never returns null.
 	 */
-	public final Type getItemType()
+	public final Type getCopeType()
 	{
 		return type;
 	}
@@ -442,7 +442,7 @@ public abstract class Item extends Cope
 	
 	private final File getMediaFile(final MediaAttribute attribute)
 	{
-		final File directory = getItemType().getModel().getProperties().getMediaDirectory();
+		final File directory = getCopeType().getModel().getProperties().getMediaDirectory();
 		final StringBuffer buf = new StringBuffer();
 		appendMediaPath(attribute, null, buf);
 		return new File(directory, buf.toString());
@@ -474,7 +474,7 @@ public abstract class Item extends Cope
 		if(isNull(attribute))
 			return null;
 
-		final StringBuffer bf = new StringBuffer(getItemType().getModel().getProperties().getMediaUrl());
+		final StringBuffer bf = new StringBuffer(getCopeType().getModel().getProperties().getMediaUrl());
 		appendMediaPath(attribute, variant, bf);
 		return bf.toString();
 	}
