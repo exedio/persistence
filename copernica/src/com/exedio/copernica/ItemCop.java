@@ -35,7 +35,7 @@ final class ItemCop extends CopernicaCop
 	{
 		super(provider, language);
 		this.item = item;
-		addParameter(ITEM, item.getID());
+		addParameter(ITEM, item.getItemID());
 	}
 	
 	ItemForm form;

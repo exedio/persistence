@@ -49,9 +49,9 @@ public class ItemTest extends DatabaseLibTest
 		assertID(1, item2);
 		assertID(0, item3);
 
-		assertEquals(item1, model.findByID(item1.getID()));
-		assertEquals(item2, model.findByID(item2.getID()));
-		assertEquals(item3, model.findByID(item3.getID()));
+		assertEquals(item1, model.findByID(item1.getItemID()));
+		assertEquals(item2, model.findByID(item2.getItemID()));
+		assertEquals(item3, model.findByID(item3.getItemID()));
 
 		assertEquals(item1, item1);
 		assertEquals(item2, item2);

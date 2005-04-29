@@ -50,12 +50,12 @@ public abstract class Item extends Cope
 	 * Returns a string unique for this item in all other items of the model.
 	 * For any item <code>a</code> in its model <code>m</code>
 	 * the following holds true:
-	 * <code>a.equals(m.findByID(a.getID()).</code>
+	 * <code>a.equals(m.findByID(a.getItemID()).</code>
 	 * Does not activate this item, if it's not already active.
 	 * Never returns null.
 	 * @see Model#findByID(String)
 	 */
-	public final String getID()
+	public final String getItemID()
 	{
 		return type.getID() + '.' + type.getPrimaryKeyIterator().pk2id(pk);
 	}
@@ -72,7 +72,7 @@ public abstract class Item extends Cope
 	/**
 	 * Returns true, if <code>o</code> represents the same item as this item.
 	 * Is equivalent to
-	 * <code>(o != null) && (o instanceof Item) && getID().equals(((Item)o).getID())</code>.
+	 * <code>(o != null) && (o instanceof Item) && getItemID().equals(((Item)o).getItemID())</code>.
 	 * Does not activate this item, if it's not already active.
 	 */
 	public final boolean equals(final Object o)
@@ -82,7 +82,7 @@ public abstract class Item extends Cope
 
 	/**
 	 * Returns a hash code, that is consistent with {@link #equals(Object)}.
-	 * Note, that this is not neccessarily equivalent to <code>getID().hashCode()</code>.
+	 * Note, that this is not neccessarily equivalent to <code>getItemID().hashCode()</code>.
 	 * Does not activate this item, if it's not already active.
 	 */
 	public final int hashCode()
@@ -92,7 +92,7 @@ public abstract class Item extends Cope
 	
 	public String toString()
 	{
-		return getID();
+		return getItemID();
 	}
 
 	/**

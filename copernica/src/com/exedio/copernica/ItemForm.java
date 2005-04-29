@@ -189,7 +189,7 @@ final class ItemForm extends Form
 						final ObjectAttribute attribute = (ObjectAttribute)anyAttribute;
 						final Object qualifiedValue = value.getAttribute(attribute);
 						if(qualifiedValue!=null)
-							createField(attribute, value, value.getID()+'.'+attribute.getName(), true, false, cop, false, model);
+							createField(attribute, value, value.getItemID()+'.'+attribute.getName(), true, false, cop, false, model);
 					}
 				}
 			}
@@ -295,7 +295,7 @@ final class ItemForm extends Form
 		 */
 		public ItemField(final Object key, final String name, final boolean readOnly, final Item value, final boolean hidden, final Model model, final ItemCop cop)
 		{
-			super(ItemForm.this, key, name, readOnly, (value==null) ? "" : value.getID(), hidden);
+			super(ItemForm.this, key, name, readOnly, (value==null) ? "" : value.getItemID(), hidden);
 
 			this.model = model;
 			this.cop = cop;
