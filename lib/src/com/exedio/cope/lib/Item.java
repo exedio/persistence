@@ -107,7 +107,7 @@ public abstract class Item extends Cope
 	 * Returns the active item object representing the same item as this item object.
 	 * For any two item objects <code>a</code>, <code>b</code> the following holds true:
 	 * <p>
-	 * If and only if <code>a.equals(b)</code> then <code>a.activeItem() == b.activeItem()</code>.
+	 * If and only if <code>a.equals(b)</code> then <code>a.activeCopeItem() == b.activeCopeItem()</code>.
 	 * <p>
 	 * So it does for items, what {@link String#intern} does for strings.
 	 * Does activate this item, if it's not already active.
@@ -115,7 +115,7 @@ public abstract class Item extends Cope
 	 * this method returns <code>this</code>.
 	 * Never returns null.
 	 */
-	public final Item activeItem()
+	public final Item activeCopeItem()
 	{
 		if(rowWhenActive!=null)
 			return this;

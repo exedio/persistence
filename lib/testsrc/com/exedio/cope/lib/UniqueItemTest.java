@@ -83,11 +83,11 @@ public class UniqueItemTest extends DatabaseLibTest
 			assertTrue(!item.isActiveItem());
 			assertTrue(!foundItem.isActiveItem());
 
-			assertSame(item, item.activeItem());
+			assertSame(item, item.activeCopeItem());
 			assertTrue(item.isActiveItem());
 			assertTrue(!foundItem.isActiveItem());
 
-			assertSame(item, foundItem.activeItem());
+			assertSame(item, foundItem.activeCopeItem());
 			assertTrue(item.isActiveItem());
 			assertTrue(!foundItem.isActiveItem());
 
@@ -107,8 +107,8 @@ public class UniqueItemTest extends DatabaseLibTest
 			assertNotSame(foundItem, firstFoundItem);
 			assertTrue(!item.isActiveItem());
 			assertTrue(foundItem.isActiveItem());
-			assertSame(foundItem, item.activeItem());
-			assertSame(foundItem, foundItem.activeItem());
+			assertSame(foundItem, item.activeCopeItem());
+			assertSame(foundItem, foundItem.activeCopeItem());
 		}
 		assertDelete(item);
 	}
