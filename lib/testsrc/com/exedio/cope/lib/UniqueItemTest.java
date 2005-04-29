@@ -67,35 +67,35 @@ public class UniqueItemTest extends DatabaseLibTest
 		}
 
 		item.passivate();
-		assertTrue(!item.isActive());
+		assertTrue(!item.isActiveItem());
 		assertEquals("uniqueString", item.getUniqueString());
-		assertTrue(item.isActive());
+		assertTrue(item.isActiveItem());
 
 		final ItemWithSingleUnique firstFoundItem;
 		{
 			item.passivate();
-			assertTrue(!item.isActive());
+			assertTrue(!item.isActiveItem());
 			final ItemWithSingleUnique foundItem = ItemWithSingleUnique.findByUniqueString("uniqueString");
 			assertEquals(item, foundItem);
 			assertEquals(item.getID(), foundItem.getID());
 			assertEquals(item.hashCode(), foundItem.hashCode());
 			assertNotSame(item, foundItem);
-			assertTrue(!item.isActive());
-			assertTrue(!foundItem.isActive());
+			assertTrue(!item.isActiveItem());
+			assertTrue(!foundItem.isActiveItem());
 
 			assertSame(item, item.activeItem());
-			assertTrue(item.isActive());
-			assertTrue(!foundItem.isActive());
+			assertTrue(item.isActiveItem());
+			assertTrue(!foundItem.isActiveItem());
 
 			assertSame(item, foundItem.activeItem());
-			assertTrue(item.isActive());
-			assertTrue(!foundItem.isActive());
+			assertTrue(item.isActiveItem());
+			assertTrue(!foundItem.isActiveItem());
 
 			firstFoundItem = foundItem;
 		}
 		{
 			item.passivate();
-			assertTrue(!item.isActive());
+			assertTrue(!item.isActiveItem());
 			final ItemWithSingleUnique foundItem = ItemWithSingleUnique.findByUniqueString("uniqueString");
 			assertEquals("uniqueString", foundItem.getUniqueString());
 			assertEquals("uniqueString", item.getUniqueString());
@@ -105,8 +105,8 @@ public class UniqueItemTest extends DatabaseLibTest
 			assertNotSame(item, foundItem);
 			assertNotSame(item, firstFoundItem);
 			assertNotSame(foundItem, firstFoundItem);
-			assertTrue(!item.isActive());
-			assertTrue(foundItem.isActive());
+			assertTrue(!item.isActiveItem());
+			assertTrue(foundItem.isActiveItem());
 			assertSame(foundItem, item.activeItem());
 			assertSame(foundItem, foundItem.activeItem());
 		}
