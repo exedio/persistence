@@ -37,17 +37,26 @@ public class HashTest extends DatabaseLibTest
 	
 	public void testMD5()
 	{
+		assertEquals("000ff0aa", JavaHash.encodeBytes(new byte[]{0x00, 0x0F, (byte)0xF0, (byte)0xAA}));
+		assertEquals("0123456789abcdef", JavaHash.encodeBytes(new byte[]{0x01, 0x23, 0x45, 0x67, (byte)0x89, (byte)0xab, (byte)0xcd, (byte)0xef}));
+
 		assertNull(item.getHashed1MD5());
 		assertTrue(item.checkHashed1(null));
 		assertTrue(!item.checkHashed1("bing"));
 		
+		// reference example from http://de.wikipedia.org/wiki/MD5
+		item.setHashed1("Franz jagt im komplett verwahrlosten Taxi quer durch Bayern");
+		assertEquals("a3cca2b2aa1e3b5b3b5aad99a8529074", item.getHashed1MD5());
+		assertTrue(item.checkHashed1("Franz jagt im komplett verwahrlosten Taxi quer durch Bayern"));
+		assertTrue(!item.checkHashed1("franz jagt im komplett verwahrlosten Taxi quer durch Bayern"));
+
 		item.setHashed1MD5("bello");
 		assertEquals("bello", item.getHashed1MD5());
 		assertTrue(!item.checkHashed1(null));
 		assertTrue(!item.checkHashed1("bello"));
-		
+
 		item.setHashed1("knollo");
-		assertEquals("rTc6R9gZSfRmVS7fKUmbMg==", item.getHashed1MD5());
+		assertEquals("ad373a47d81949f466552edf29499b32", item.getHashed1MD5());
 		assertTrue(!item.checkHashed1(null));
 		assertTrue(!item.checkHashed1("bello"));
 		assertTrue(item.checkHashed1("knollo"));
@@ -57,7 +66,7 @@ public class HashTest extends DatabaseLibTest
 			"knolloknolloknolloknolloknolloknolloknolloknolloknolloknolloknollo" +
 			"knolloknolloknolloknolloknollo";
 		item.setHashed1(longPlainText);
-		assertEquals("bOYtDb2Oiz9FO6dCwQLNCw==", item.getHashed1MD5());
+		assertEquals("6ce62d0dbd8e8b3f453ba742c102cd0b", item.getHashed1MD5());
 		assertTrue(!item.checkHashed1(null));
 		assertTrue(!item.checkHashed1("bello"));
 		assertTrue(item.checkHashed1(longPlainText));
@@ -67,19 +76,19 @@ public class HashTest extends DatabaseLibTest
 		final String specialPlainText = "Viele Gr\u00fc\u00dfe";
 		
 		item.setHashed1(specialPlainText);
-		assertEquals("tvfBJmSletFymAaLYskFPA==", item.getHashed1MD5());
+		assertEquals("b6f7c12664a57ad17298068b62c9053c", item.getHashed1MD5());
 		assertTrue(!item.checkHashed1(null));
 		assertTrue(!item.checkHashed1("bello"));
 		assertTrue(item.checkHashed1(specialPlainText));
 		assertTrue(!item.checkHashed1Latin(specialPlainText));
 
 		item.setHashed1Latin(specialPlainText);
-		assertEquals("+AKBybdVUIr3xC9YXtduIw==", item.getHashed1MD5());
+		assertEquals("f80281c9b755508af7c42f585ed76e23", item.getHashed1MD5());
 		assertTrue(!item.checkHashed1Latin(null));
 		assertTrue(!item.checkHashed1Latin("bello"));
 		assertTrue(item.checkHashed1Latin(specialPlainText));
 		assertTrue(!item.checkHashed1(specialPlainText));
-		
+
 		try
 		{
 			new MD5Hash(item.hashed1MD5, "nixus");
