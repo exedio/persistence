@@ -67,35 +67,35 @@ public class UniqueItemTest extends DatabaseLibTest
 		}
 
 		item.passivateItem();
-		assertTrue(!item.isActiveItem());
+		assertTrue(!item.isActiveCopeItem());
 		assertEquals("uniqueString", item.getUniqueString());
-		assertTrue(item.isActiveItem());
+		assertTrue(item.isActiveCopeItem());
 
 		final ItemWithSingleUnique firstFoundItem;
 		{
 			item.passivateItem();
-			assertTrue(!item.isActiveItem());
+			assertTrue(!item.isActiveCopeItem());
 			final ItemWithSingleUnique foundItem = ItemWithSingleUnique.findByUniqueString("uniqueString");
 			assertEquals(item, foundItem);
 			assertEquals(item.getCopeID(), foundItem.getCopeID());
 			assertEquals(item.hashCode(), foundItem.hashCode());
 			assertNotSame(item, foundItem);
-			assertTrue(!item.isActiveItem());
-			assertTrue(!foundItem.isActiveItem());
+			assertTrue(!item.isActiveCopeItem());
+			assertTrue(!foundItem.isActiveCopeItem());
 
 			assertSame(item, item.activeCopeItem());
-			assertTrue(item.isActiveItem());
-			assertTrue(!foundItem.isActiveItem());
+			assertTrue(item.isActiveCopeItem());
+			assertTrue(!foundItem.isActiveCopeItem());
 
 			assertSame(item, foundItem.activeCopeItem());
-			assertTrue(item.isActiveItem());
-			assertTrue(!foundItem.isActiveItem());
+			assertTrue(item.isActiveCopeItem());
+			assertTrue(!foundItem.isActiveCopeItem());
 
 			firstFoundItem = foundItem;
 		}
 		{
 			item.passivateItem();
-			assertTrue(!item.isActiveItem());
+			assertTrue(!item.isActiveCopeItem());
 			final ItemWithSingleUnique foundItem = ItemWithSingleUnique.findByUniqueString("uniqueString");
 			assertEquals("uniqueString", foundItem.getUniqueString());
 			assertEquals("uniqueString", item.getUniqueString());
@@ -105,8 +105,8 @@ public class UniqueItemTest extends DatabaseLibTest
 			assertNotSame(item, foundItem);
 			assertNotSame(item, firstFoundItem);
 			assertNotSame(foundItem, firstFoundItem);
-			assertTrue(!item.isActiveItem());
-			assertTrue(foundItem.isActiveItem());
+			assertTrue(!item.isActiveCopeItem());
+			assertTrue(foundItem.isActiveCopeItem());
 			assertSame(foundItem, item.activeCopeItem());
 			assertSame(foundItem, foundItem.activeCopeItem());
 		}

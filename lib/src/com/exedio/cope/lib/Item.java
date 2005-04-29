@@ -98,7 +98,7 @@ public abstract class Item extends Cope
 	/**
 	 * Returns, whether this item is active.
 	 */	
-	public final boolean isActiveItem()
+	public final boolean isActiveCopeItem()
 	{
 		return rowWhenActive!=null;
 	}
