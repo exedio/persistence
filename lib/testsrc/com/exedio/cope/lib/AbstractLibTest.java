@@ -42,7 +42,7 @@ public abstract class AbstractLibTest extends CopeLibTest
 	
 	final String pkString(final Item item)
 	{
-		return String.valueOf(item.getType().getPrimaryKeyIterator().pk2id(((Item)item).pk));
+		return String.valueOf(item.getItemType().getPrimaryKeyIterator().pk2id(((Item)item).pk));
 	}
 
 }

@@ -53,7 +53,7 @@ final class ItemCop extends CopernicaCop
 
 	final boolean isType(final Type type)
 	{
-		return item.getType() == type;
+		return item.getItemType() == type;
 	}
 
 	final String getTitle()

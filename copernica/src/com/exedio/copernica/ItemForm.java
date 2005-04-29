@@ -80,7 +80,7 @@ final class ItemForm extends Form
 		super(request);
 		
 		this.item = cop.item;
-		this.type = item.getType();
+		this.type = item.getItemType();
 		final CopernicaProvider provider = cop.provider;
 		final Model model = provider.getModel();
 		final List displayedAttributes;

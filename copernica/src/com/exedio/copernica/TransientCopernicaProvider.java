@@ -217,7 +217,7 @@ public abstract class TransientCopernicaProvider implements CopernicaProvider
 	
 	public String getDisplayName(final RequestCache cache, final CopernicaLanguage displayLanguage, final Item item)
 	{
-		final Type type = item.getType();
+		final Type type = item.getItemType();
 		final List uniqueConstraints = type.getUniqueConstraints();
 		if(uniqueConstraints.isEmpty())
 			return item.toString();

@@ -41,9 +41,9 @@ public class ItemTest extends DatabaseLibTest
 		final EmptyItem item2 = new EmptyItem();
 		final EmptyItem2 item3 = new EmptyItem2();
 
-		assertEquals(EmptyItem.TYPE, item1.getType());
-		assertEquals(EmptyItem.TYPE, item2.getType());
-		assertEquals(EmptyItem2.TYPE, item3.getType());
+		assertEquals(EmptyItem.TYPE, item1.getItemType());
+		assertEquals(EmptyItem.TYPE, item2.getItemType());
+		assertEquals(EmptyItem2.TYPE, item3.getItemType());
 
 		assertID(0, item1);
 		assertID(1, item2);

@@ -35,7 +35,7 @@ final class Row
 	protected Row(final Item item, final boolean present)
 	{
 		this.item = item;
-		this.type = item.getType();
+		this.type = item.getItemType();
 		this.pk = item.pk;
 		this.present = present;
 		type.putRow(this);
