@@ -646,7 +646,7 @@ public abstract class Item extends Cope
 		itemDeleted = true;
 	}
 	
-	public final boolean isDeleted()
+	public final boolean isItemDeleted()
 	{
 		return itemDeleted;
 	}
