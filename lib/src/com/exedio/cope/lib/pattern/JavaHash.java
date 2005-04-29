@@ -101,7 +101,7 @@ public class JavaHash extends Hash
 	
 	private static final char[] mapping = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
 	
-	public static final String encodeBytes(final byte[] buf)
+	static final String encodeBytes(final byte[] buf)
 	{
 		final int length = buf.length;
 		final char[] result = new char[length*2];

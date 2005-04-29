@@ -16,13 +16,13 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.lib;
+package com.exedio.cope.lib.pattern;
 
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 
-import com.exedio.cope.lib.pattern.JavaHash;
-import com.exedio.cope.lib.pattern.MD5Hash;
+import com.exedio.cope.lib.DatabaseLibTest;
+import com.exedio.cope.lib.NestingRuntimeException;
 import com.exedio.cope.testmodel.StringItem;
 
 public class HashTest extends DatabaseLibTest
