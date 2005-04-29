@@ -107,9 +107,9 @@ public abstract class DatabaseLibTest extends AbstractLibTest
 	protected void assertDelete(final Item item)
 			throws IntegrityViolationException
 	{
-		assertTrue(!item.isItemDeleted());
+		assertTrue(!item.isCopeItemDeleted());
 		item.deleteCopeItem();
-		assertTrue(item.isItemDeleted());
+		assertTrue(item.isCopeItemDeleted());
 	}
 
 }
