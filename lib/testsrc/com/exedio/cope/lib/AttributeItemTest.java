@@ -39,7 +39,7 @@ public class AttributeItemTest extends AttributeTest
 		assertContains(someItem, null, search(item.someItem));
 		assertContains(someItem, search(item.someItem, Cope.equal(item.someItem, someItem)));
 
-		item.passivateItem();
+		item.passivateCopeItem();
 		assertEquals(someItem, item.getSomeItem());
 		item.setSomeItem(null);
 		assertEquals(null, item.getSomeItem());
@@ -57,7 +57,7 @@ public class AttributeItemTest extends AttributeTest
 		item.setSomeNotNullItem(someItem2);
 		assertEquals(someItem2, item.getSomeNotNullItem());
 
-		item.passivateItem();
+		item.passivateCopeItem();
 		assertEquals(someItem2, item.getSomeNotNullItem());
 		try
 		{

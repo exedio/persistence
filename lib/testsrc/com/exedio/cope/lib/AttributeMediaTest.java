@@ -49,7 +49,7 @@ public class AttributeMediaTest extends AttributeTest
 		assertEquals("someMimeMajor", item.getSomeMediaMimeMajor());
 		assertEquals("someMimeMinor", item.getSomeMediaMimeMinor());
 
-		item.passivateItem();
+		item.passivateCopeItem();
 		assertEquals(expectedURL, item.getSomeMediaURL());
 		assertEquals(expectedURLSomeVariant, item.getSomeMediaURLSomeVariant());
 		assertData(bytes, item.getSomeMediaData());

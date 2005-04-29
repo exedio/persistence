@@ -43,7 +43,7 @@ public class AttributeEnumerationTest extends AttributeTest
 		assertContains(AttributeItem.SomeEnumeration.enumValue2, null, search(item.someEnumeration));
 		assertContains(AttributeItem.SomeEnumeration.enumValue2, search(item.someEnumeration, Cope.equal(item.someEnumeration, AttributeItem.SomeEnumeration.enumValue2)));
 
-		item.passivateItem();
+		item.passivateCopeItem();
 		assertEquals(
 			AttributeItem.SomeEnumeration.enumValue2,
 			item.getSomeEnumeration());
@@ -64,7 +64,7 @@ public class AttributeEnumerationTest extends AttributeTest
 		assertEquals(
 			AttributeItem.SomeEnumeration.enumValue3,
 			item.getSomeNotNullEnumeration());
-		item.passivateItem();
+		item.passivateCopeItem();
 		assertEquals(
 			AttributeItem.SomeEnumeration.enumValue3,
 			item.getSomeNotNullEnumeration());

@@ -32,7 +32,7 @@ public class AttributeDoubleTest extends AttributeTest
 		item.setSomeDouble(new Double(22.22));
 		assertEquals(new Double(22.22), item.getSomeDouble());
 
-		item.passivateItem();
+		item.passivateCopeItem();
 		assertEquals(new Double(22.22), item.getSomeDouble());
 		assertEquals(
 			list(item),
@@ -51,7 +51,7 @@ public class AttributeDoubleTest extends AttributeTest
 		item.setSomeDouble(null);
 		assertEquals(null, item.getSomeDouble());
 
-		item.passivateItem();
+		item.passivateCopeItem();
 		assertEquals(null, item.getSomeDouble());
 	}
 
@@ -65,7 +65,7 @@ public class AttributeDoubleTest extends AttributeTest
 		item.setSomeNotNullDouble(0.0);
 		assertEquals(0.0, item.getSomeNotNullDouble(), 0.0);
 
-		item.passivateItem();
+		item.passivateCopeItem();
 		assertEquals(0.0, item.getSomeNotNullDouble(), 0.0);
 		assertContains(item,
 			item.TYPE.search(Cope.equal(item.someNotNullDouble, 0.0)));

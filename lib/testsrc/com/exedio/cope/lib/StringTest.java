@@ -60,7 +60,7 @@ public class StringTest extends DatabaseLibTest
 		// due to column "hijackedColumn" not found
 		item.setAny("value',hijackedColumn='otherValue");
 		assertEquals("value',hijackedColumn='otherValue", item.getAny());
-		item.passivateItem();
+		item.passivateCopeItem();
 		// TODO: sql injection protection just swallows apostrophes,
 		// should be escaped or wrapped into prepared statements
 		assertEquals("value,hijackedColumn=otherValue", item.getAny());
@@ -79,7 +79,7 @@ public class StringTest extends DatabaseLibTest
 		//System.out.println(unicodeString);
 		item.setAny(unicodeString);
 		assertEquals(unicodeString, item.getAny());
-		item.passivateItem();
+		item.passivateCopeItem();
 		assertEquals(unicodeString, item.getAny());
 		
 		// min4
@@ -138,7 +138,7 @@ public class StringTest extends DatabaseLibTest
 		item.setMin4Max8("12345678");
 		assertEquals("12345678", item.getMin4Max8());
 
-		item.passivateItem();
+		item.passivateCopeItem();
 		assertEquals("12345678", item.getMin4Max8());
 
 		try
@@ -155,7 +155,7 @@ public class StringTest extends DatabaseLibTest
 		}
 		assertEquals("12345678", item.getMin4Max8());
 
-		item.passivateItem();
+		item.passivateCopeItem();
 		assertEquals("12345678", item.getMin4Max8());
 	}
 

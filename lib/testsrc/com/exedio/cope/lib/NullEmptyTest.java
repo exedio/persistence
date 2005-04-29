@@ -53,12 +53,12 @@ public class NullEmptyTest extends DatabaseLibTest
 
 		item.setSomeString("");
 		assertEquals("", item.getSomeString());
-		item.passivateItem();
+		item.passivateCopeItem();
 		assertEquals(emptyString, item.getSomeString());
 
 		item.setSomeString(null);
 		assertEquals(null, item.getSomeString());
-		item.passivateItem();
+		item.passivateCopeItem();
 		assertEquals(null, item.getSomeString());
 	}
 

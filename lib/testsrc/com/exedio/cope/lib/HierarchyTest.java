@@ -40,7 +40,7 @@ public class HierarchyTest extends DatabaseLibTest
 		assertEquals(2, firstItem.getSuperInt());
 		assertEquals("firstSubString", firstItem.getFirstSubString());
 		
-		firstItem.passivateItem();
+		firstItem.passivateCopeItem();
 		assertEquals(2, firstItem.getSuperInt());
 		assertEquals("firstSubString", firstItem.getFirstSubString());
 		
