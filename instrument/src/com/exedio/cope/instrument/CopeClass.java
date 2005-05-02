@@ -39,7 +39,7 @@ final class CopeClass
 	static final CopeClass getCopeClass(final JavaClass javaClass)
 	{
 		final CopeClass result = (CopeClass)copeClassByJavaClass.get(javaClass);
-		//System.out.println("getCopeClass "+javaClass.getName()+" "+(result==null?"NULL":result.getName()));
+		//System.out.println("getCopeClass "+javaClass.getFullName()+" "+(result==null?"NULL":result.getName()));
 		return result;
 	}
 
