@@ -234,7 +234,7 @@ abstract class CopeAttribute
 		{
 			case Option.NONE:
 				throw new RuntimeException();
-			case Option.AUTO:
+			case Option.INHERITED:
 				result = javaAttribute.modifier & (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE);
 				break;
 			case Option.PRIVATE:

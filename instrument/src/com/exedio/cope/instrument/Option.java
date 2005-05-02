@@ -30,7 +30,7 @@ class Option
 			throws InjectorParseException
 	{
 		if(optionString==null)
-			return Option.AUTO;
+			return Option.INHERITED;
 		else
 		{
 			final Integer setterOptionObject = (Integer)options.get(optionString);
@@ -43,7 +43,7 @@ class Option
 	private static final HashMap options = new HashMap();
 	
 	public static final int NONE = 0;
-	public static final int AUTO = 1;
+	public static final int INHERITED = 1;
 	public static final int PRIVATE = 2;
 	public static final int PROTECTED = 3;
 	public static final int PACKAGE = 4;

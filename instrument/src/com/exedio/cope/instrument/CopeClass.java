@@ -122,7 +122,7 @@ final class CopeClass
 		{
 			case Option.NONE:
 				throw new RuntimeException();
-			case Option.AUTO:
+			case Option.INHERITED:
 			{
 				int result = javaClass.accessModifier;
 				for(Iterator i = getInitialAttributes().iterator(); i.hasNext(); )
