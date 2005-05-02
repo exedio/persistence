@@ -18,7 +18,6 @@
 
 package com.exedio.cope.instrument;
 
-import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -150,9 +149,7 @@ abstract class CopeAttribute
 	
 	final int getGeneratedGetterModifier()
 	{
-		return javaAttribute.modifier
-			& (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE)
-			| Modifier.FINAL;
+		return getterOption.getModifier(javaAttribute.modifier);
 	}
 
 	final JavaClass getParent()

@@ -25,7 +25,7 @@ class Option
 	final boolean exists;
 	final int visibility;
 	final boolean booleanAsIs;
-	final boolean allowFinal;
+	final boolean isFinal;
 	
 	Option(final String optionString, final boolean allowFinal)
 	{
@@ -34,6 +34,7 @@ class Option
 			exists = true;
 			visibility = Option.INHERITED;
 			booleanAsIs = false;
+			isFinal = allowFinal;
 		}
 		else
 		{
@@ -69,8 +70,11 @@ class Option
 			}
 
 			booleanAsIs = (optionString.indexOf("boolean-as-is")>=0);
+			if(allowFinal)
+				this.isFinal = (optionString.indexOf("non-final")<0);
+			else
+				this.isFinal = false;
 		}
-		this.allowFinal = allowFinal;
 	}
 
 	private static final int INHERITED = 0;
@@ -105,7 +109,7 @@ class Option
 			default:
 				throw new RuntimeException(String.valueOf(visibility));
 		}
-		if(allowFinal)
+		if(isFinal)
 			return result | Modifier.FINAL;
 		else
 			return result;
