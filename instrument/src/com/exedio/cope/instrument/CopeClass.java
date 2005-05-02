@@ -112,7 +112,7 @@ final class CopeClass
 
 	public boolean hasGeneratedConstructor()
 	{
-		return constructorOption.isVisible();
+		return constructorOption.exists;
 	}
 	
 	public int getGeneratedConstructorModifier()

@@ -232,7 +232,7 @@ abstract class CopeAttribute
 
 	final boolean hasGeneratedSetter()
 	{
-		return isWriteable() && (setterOption.isVisible());
+		return isWriteable() && setterOption.exists;
 	}
 	
 	final int getGeneratedSetterModifier()

@@ -22,6 +22,7 @@ import java.lang.reflect.Modifier;
 
 class Option
 {
+	final boolean exists;
 	final int visibility;
 	final boolean booleanAsIs;
 	final boolean allowFinal;
@@ -30,48 +31,62 @@ class Option
 	{
 		if(optionString==null)
 		{
+			exists = true;
 			visibility = Option.INHERITED;
 			booleanAsIs = false;
 		}
 		else
 		{
 			if(optionString.indexOf("none")>=0)
-				visibility = NONE;
+			{
+				exists = false;
+				visibility = -1;
+			}
 			else if(optionString.indexOf("private")>=0)
+			{
+				exists = true;
 				visibility = PRIVATE;
+			}
 			else if(optionString.indexOf("protected")>=0)
+			{
+				exists = true;
 				visibility = PROTECTED;
+			}
 			else if(optionString.indexOf("package")>=0)
+			{
+				exists = true;
 				visibility = PACKAGE;
+			}
 			else if(optionString.indexOf("public")>=0)
+			{
+				exists = true;
 				visibility = PUBLIC;
+			}
 			else
+			{
+				exists = true;
 				visibility = INHERITED;
+			}
 
 			booleanAsIs = (optionString.indexOf("boolean-as-is")>=0);
 		}
 		this.allowFinal = allowFinal;
 	}
 
-	private static final int NONE = 0;
-	private static final int INHERITED = 1;
-	private static final int PRIVATE = 2;
-	private static final int PROTECTED = 3;
-	private static final int PACKAGE = 4;
-	private static final int PUBLIC = 5;
-	
-	final boolean isVisible()
-	{
-		return visibility!=NONE;
-	}
+	private static final int INHERITED = 0;
+	private static final int PRIVATE = 1;
+	private static final int PROTECTED = 2;
+	private static final int PACKAGE = 3;
+	private static final int PUBLIC = 4;
 	
 	final int getModifier(final int inheritedModifier)
 	{
+		if(!exists)
+			throw new RuntimeException();
+		
 		final int result;
 		switch(visibility)
 		{
-			case Option.NONE:
-				throw new RuntimeException();
 			case Option.INHERITED:
 				result = inheritedModifier & (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE);
 				break;
