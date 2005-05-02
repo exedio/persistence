@@ -884,9 +884,9 @@ final class Injector
 
 	/**
 	 * @param tagname the tag name without the '@' prefix
-	 * @return the first word following the tag
+	 * @return the first line following the tag
 	 */
-	public final static String findDocTag(String doccomment, String tagname)
+	public final static String findDocTagLine(String doccomment, String tagname)
 	{
 		if(doccomment==null)
 			return null;
@@ -902,7 +902,6 @@ final class Injector
 		{
 			switch (doccomment.charAt(end))
 			{
-				case ' ' :
 				case '\n' :
 				case '\r' :
 				case '*' :

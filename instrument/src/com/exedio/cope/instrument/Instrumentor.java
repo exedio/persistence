@@ -105,8 +105,8 @@ final class Instrumentor implements InjectionConsumer
 	{
 		if(containsTag(docComment, PERSISTENT_CLASS))
 		{
-			final String constructorOptionString = Injector.findDocTag(docComment, CLASS_CONSTRUCTOR);
-			new CopeClass(jc, constructorOptionString);
+			final String constructorOption = Injector.findDocTagLine(docComment, CLASS_CONSTRUCTOR);
+			new CopeClass(jc, constructorOption);
 		}
 	}
 	
@@ -157,8 +157,8 @@ final class Instrumentor implements InjectionConsumer
 		final List initializerArguments = ja.getInitializerArguments();
 		//System.out.println(initializerArguments);
 					
-		final String getterOption = Injector.findDocTag(docComment, ATTRIBUTE_GETTER);
-		final String setterOption = Injector.findDocTag(docComment, ATTRIBUTE_SETTER);
+		final String getterOption = Injector.findDocTagLine(docComment, ATTRIBUTE_GETTER);
+		final String setterOption = Injector.findDocTagLine(docComment, ATTRIBUTE_SETTER);
 
 		if(
 			IntegerFunction.class.isAssignableFrom(typeClass) ||

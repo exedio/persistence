@@ -55,13 +55,13 @@ final class CopeClass
 
 	public CopeClass(
 			final JavaClass javaClass,
-			final String constructorOptionString)
+			final String constructorOption)
 		throws InjectorParseException
 	{
 		this.javaClass = javaClass;
 		this.accessModifier = javaClass.accessModifier;
 		copeClassByJavaClass.put(javaClass, this);	
-		constructorOption = new Option(constructorOptionString, false);
+		this.constructorOption = new Option(constructorOption, false);
 		//System.out.println("copeClassByJavaClass "+javaClass.getName());
 		javaClass.file.repository.add(this);
 	}
