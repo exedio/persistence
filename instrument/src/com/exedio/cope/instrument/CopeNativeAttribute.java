@@ -40,10 +40,11 @@ final class CopeNativeAttribute extends CopeAttribute
 			final JavaAttribute javaAttribute,
 			Class typeClass,
 			final List initializerArguments,
-			final String setterOptionString)
+			final String setterOption,
+			final String getterOption)
 		throws InjectorParseException
 	{
-		super(javaAttribute, typeClass, getPersistentType(typeClass), initializerArguments, setterOptionString);
+		super(javaAttribute, typeClass, getPersistentType(typeClass), initializerArguments, getterOption, setterOption);
 		
 		this.touchable = DateAttribute.class.isAssignableFrom(typeClass);
 

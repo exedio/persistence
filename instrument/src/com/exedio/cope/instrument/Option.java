@@ -17,45 +17,83 @@
  */
 package com.exedio.cope.instrument;
 
-import java.util.HashMap;
+import java.lang.reflect.Modifier;
 
 
 class Option
 {
-	// never to be instantiated
-	private Option()
-	{}
-
-	static final int getOption(final String optionString)
-			throws InjectorParseException
+	final int visibility;
+	final boolean booleanAsIs;
+	final boolean allowFinal;
+	
+	Option(final String optionString, final boolean allowFinal)
 	{
 		if(optionString==null)
-			return Option.INHERITED;
+		{
+			visibility = Option.INHERITED;
+			booleanAsIs = false;
+		}
 		else
 		{
-			final Integer setterOptionObject = (Integer)options.get(optionString);
-			if(setterOptionObject==null)
-				throw new InjectorParseException("invalid @cope-setter value "+optionString);
-			return setterOptionObject.intValue();
+			if(optionString.indexOf("none")>=0)
+				visibility = NONE;
+			else if(optionString.indexOf("private")>=0)
+				visibility = PRIVATE;
+			else if(optionString.indexOf("protected")>=0)
+				visibility = PROTECTED;
+			else if(optionString.indexOf("package")>=0)
+				visibility = PACKAGE;
+			else if(optionString.indexOf("public")>=0)
+				visibility = PUBLIC;
+			else
+				visibility = INHERITED;
+
+			booleanAsIs = (optionString.indexOf("boolean-as-is")>=0);
 		}
+		this.allowFinal = allowFinal;
 	}
 
-	private static final HashMap options = new HashMap();
+	private static final int NONE = 0;
+	private static final int INHERITED = 1;
+	private static final int PRIVATE = 2;
+	private static final int PROTECTED = 3;
+	private static final int PACKAGE = 4;
+	private static final int PUBLIC = 5;
 	
-	public static final int NONE = 0;
-	public static final int INHERITED = 1;
-	public static final int PRIVATE = 2;
-	public static final int PROTECTED = 3;
-	public static final int PACKAGE = 4;
-	public static final int PUBLIC = 5;
-	
-	static
+	final boolean isVisible()
 	{
-		options.put("none", new Integer(NONE));
-		options.put("private", new Integer(PRIVATE));
-		options.put("protected", new Integer(PROTECTED));
-		options.put("package", new Integer(PACKAGE));
-		options.put("public", new Integer(PUBLIC));
+		return visibility!=NONE;
+	}
+	
+	final int getModifier(final int inheritedModifier)
+	{
+		final int result;
+		switch(visibility)
+		{
+			case Option.NONE:
+				throw new RuntimeException();
+			case Option.INHERITED:
+				result = inheritedModifier & (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE);
+				break;
+			case Option.PRIVATE:
+				result = Modifier.PRIVATE;
+				break;
+			case Option.PROTECTED:
+				result = Modifier.PROTECTED;
+				break;
+			case Option.PACKAGE:
+				result = 0;
+				break;
+			case Option.PUBLIC:
+				result = Modifier.PUBLIC;
+				break;
+			default:
+				throw new RuntimeException(String.valueOf(visibility));
+		}
+		if(allowFinal)
+			return result | Modifier.FINAL;
+		else
+			return result;
 	}
 	
 }

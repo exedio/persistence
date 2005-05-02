@@ -176,7 +176,6 @@
 				<pathelement location="lib/build/classes" />
 				<pathelement location="instrument/build/classes" />
 			</classpath>
-			<arg value="--boolean-as-is" />
 			<arg value="${basedir}/lib/testmodelsrc/com/exedio/cope/testmodel/ItemWithSingleUnique.java" />
 			<arg value="${basedir}/lib/testmodelsrc/com/exedio/cope/testmodel/ItemWithSingleUniqueReadOnly.java" />
 			<arg value="${basedir}/lib/testmodelsrc/com/exedio/cope/testmodel/ItemWithSingleUniqueNotNull.java" />

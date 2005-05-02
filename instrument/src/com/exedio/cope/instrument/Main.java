@@ -54,7 +54,7 @@ public class Main
 		{
 			input =new InputStreamReader(new FileInputStream(inputfile));
 			output=new OutputStreamWriter(new FileOutputStream(outputfile));
-			(new Injector(input, output, new Instrumentor(booleanAsIs), repository)).parseFile();
+			(new Injector(input, output, new Instrumentor(), repository)).parseFile();
 			input.close();
 			output.close();
 		}
@@ -88,16 +88,10 @@ public class Main
 			System.out.println("warning: renaming "+outputfile+" to "+tobemodifiedfile+" failed.");
 	}
 	
-	static boolean booleanAsIs = false;
-	
 	static void expand(Collection files, String pattern)
 	throws IOException
 	{
-		if(pattern.equals("--boolean-as-is"))
-		{
-			booleanAsIs = true;
-		}
-		else if(pattern.endsWith("*.java"))
+		if(pattern.endsWith("*.java"))
 		{
 			//System.out.println("expanding "+pattern);
 			String directoryName = pattern.substring(0,pattern.length()-"*.java".length());

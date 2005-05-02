@@ -62,7 +62,8 @@ abstract class CopeAttribute
 	final boolean notNull;
 	final boolean lengthConstrained;
 	final boolean computed;
-	final int setterOption;
+	final Option getterOption;
+	final Option setterOption;
 	final boolean isBoolean;
 
 	CopeAttribute(
@@ -70,7 +71,8 @@ abstract class CopeAttribute
 			final Class typeClass,
 			final String persistentType,
 			final List initializerArguments,
-			final String setterOptionString)
+			final String setterOption,
+			final String getterOption)
 		throws InjectorParseException
 	{
 		this.javaAttribute = javaAttribute;
@@ -117,7 +119,8 @@ abstract class CopeAttribute
 			this.lengthConstrained = false;
 		}
 		
-		setterOption = Option.getOption(setterOptionString);
+		this.getterOption = new Option(getterOption, true);
+		this.setterOption = new Option(setterOption, true);
 		this.isBoolean = BooleanAttribute.class.equals(typeClass);
 
 		copeClass.addCopeAttribute(this);
@@ -222,37 +225,19 @@ abstract class CopeAttribute
 		return !readOnly && !computed;
 	}
 	
+	final boolean hasIsGetter()
+	{
+		return isBoolean && getterOption.booleanAsIs;
+	}
+
 	final boolean hasGeneratedSetter()
 	{
-		return isWriteable() && (setterOption!=Option.NONE);
+		return isWriteable() && (setterOption.isVisible());
 	}
 	
 	final int getGeneratedSetterModifier()
 	{
-		final int result;
-		switch(setterOption)
-		{
-			case Option.NONE:
-				throw new RuntimeException();
-			case Option.INHERITED:
-				result = javaAttribute.modifier & (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE);
-				break;
-			case Option.PRIVATE:
-				result = Modifier.PRIVATE;
-				break;
-			case Option.PROTECTED:
-				result = Modifier.PROTECTED;
-				break;
-			case Option.PACKAGE:
-				result = 0;
-				break;
-			case Option.PUBLIC:
-				result = Modifier.PUBLIC;
-				break;
-			default:
-				throw new RuntimeException(String.valueOf(setterOption));
-		}
-		return result | Modifier.FINAL;
+		return setterOption.getModifier(javaAttribute.modifier);
 	}
 	
 	private SortedSet setterExceptions = null;

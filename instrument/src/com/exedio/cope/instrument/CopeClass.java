@@ -18,7 +18,6 @@
 
 package com.exedio.cope.instrument;
 
-import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -52,7 +51,7 @@ final class CopeClass
 	private final Map copeUniqueConstraintMap = new TreeMap();
 	private ArrayList uniqueConstraints = null;
 	private ArrayList qualifiers = null;
-	final int constructorOption;
+	final Option constructorOption;
 
 	public CopeClass(
 			final JavaClass javaClass,
@@ -62,7 +61,7 @@ final class CopeClass
 		this.javaClass = javaClass;
 		this.accessModifier = javaClass.accessModifier;
 		copeClassByJavaClass.put(javaClass, this);	
-		constructorOption = Option.getOption(constructorOptionString);
+		constructorOption = new Option(constructorOptionString, false);
 		//System.out.println("copeClassByJavaClass "+javaClass.getName());
 		javaClass.file.repository.add(this);
 	}
@@ -113,38 +112,21 @@ final class CopeClass
 
 	public boolean hasGeneratedConstructor()
 	{
-		return constructorOption != Option.NONE;
+		return constructorOption.isVisible();
 	}
 	
 	public int getGeneratedConstructorModifier()
 	{
-		switch(constructorOption)
+		int inheritedModifier = javaClass.accessModifier;
+		for(Iterator i = getInitialAttributes().iterator(); i.hasNext(); )
 		{
-			case Option.NONE:
-				throw new RuntimeException();
-			case Option.INHERITED:
-			{
-				int result = javaClass.accessModifier;
-				for(Iterator i = getInitialAttributes().iterator(); i.hasNext(); )
-				{
-					final CopeAttribute initialAttribute = (CopeAttribute)i.next();
-					final int attributeAccessModifier = initialAttribute.accessModifier;
-					if(result<attributeAccessModifier)
-						result = attributeAccessModifier;
-				}
-				return JavaFeature.toReflectionModifier(result);
-			}
-			case Option.PRIVATE:
-				return Modifier.PRIVATE;
-			case Option.PROTECTED:
-				return Modifier.PROTECTED;
-			case Option.PACKAGE:
-				return 0;
-			case Option.PUBLIC:
-				return Modifier.PUBLIC;
-			default:
-				throw new RuntimeException(String.valueOf(constructorOption));
+			final CopeAttribute initialAttribute = (CopeAttribute)i.next();
+			final int attributeAccessModifier = initialAttribute.accessModifier;
+			if(inheritedModifier<attributeAccessModifier)
+				inheritedModifier = attributeAccessModifier;
 		}
+		
+		return constructorOption.getModifier(JavaFeature.toReflectionModifier(inheritedModifier));
 	}
 	
 	public void makeUnique(final CopeUniqueConstraint constraint)
