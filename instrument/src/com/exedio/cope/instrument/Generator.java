@@ -69,11 +69,13 @@ final class Generator
 	private static final String TYPE = "The persistent type information for {0}.";
 
 	private final Writer o;
+	private final boolean booleanAsIs;
 	private final String lineSeparator;
 	
-	Generator(final Writer output)
+	Generator(final Writer output, final boolean booleanAsIs)
 	{
 		this.o=output;
+		this.booleanAsIs = booleanAsIs;
 		
 		final String systemLineSeparator = System.getProperty("line.separator");
 		if(systemLineSeparator==null)
@@ -348,7 +350,10 @@ final class Generator
 		o.write(Modifier.toString(copeAttribute.getGeneratedGetterModifier()));
 		o.write(' ');
 		o.write(type);
-		o.write(" get");
+		if(booleanAsIs && copeAttribute.isBoolean)
+			o.write(" is");
+		else
+			o.write(" get");
 		o.write(toCamelCase(copeAttribute.getName()));
 		o.write("()");
 		o.write(lineSeparator);

@@ -27,6 +27,7 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 import com.exedio.cope.lib.Attribute;
+import com.exedio.cope.lib.BooleanAttribute;
 import com.exedio.cope.lib.ComputedFunction;
 import com.exedio.cope.lib.DateAttribute;
 import com.exedio.cope.lib.Item;
@@ -62,6 +63,7 @@ abstract class CopeAttribute
 	final boolean lengthConstrained;
 	final boolean computed;
 	final int setterOption;
+	final boolean isBoolean;
 
 	CopeAttribute(
 			final JavaAttribute javaAttribute,
@@ -116,6 +118,7 @@ abstract class CopeAttribute
 		}
 		
 		setterOption = Option.getOption(setterOptionString);
+		this.isBoolean = BooleanAttribute.class.equals(typeClass);
 
 		copeClass.addCopeAttribute(this);
 	}
@@ -339,7 +342,7 @@ abstract class CopeAttribute
 		this.exceptionsToCatchInToucher = Collections.unmodifiableSortedSet(result);
 		return this.exceptionsToCatchInToucher;
 	}
-
+	
 	private final static Attribute.Option getOption(final String optionString)	
 	{
 		try

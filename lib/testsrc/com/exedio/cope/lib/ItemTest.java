@@ -112,7 +112,7 @@ public class ItemTest extends DatabaseLibTest
 		assertEquals(50, item2.getSomeNotNullInteger());
 		assertEquals(60l, item2.getSomeNotNullLong());
 		assertEquals(20.2, item2.getSomeNotNullDouble(), 0.0);
-		assertEquals(false, item2.getSomeNotNullBoolean());
+		assertEquals(false, item2.isSomeNotNullBoolean());
 		assertEquals(item1, item2.getSomeNotNullItem());
 		assertEquals(AttributeItem.SomeEnumeration.enumValue3, item2.getSomeNotNullEnumeration());
 
