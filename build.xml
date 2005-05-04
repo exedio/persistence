@@ -159,10 +159,7 @@
 			</manifest>
 		</jar>
 		<zip zipfile="copernica/build/exedio-copernica-static.zip">
-			<fileset dir="copernica/jsp">
-				<exclude name="*.jsp" /><!-- TODO: remove excludes -->
-				<exclude name="*.inc" />
-			</fileset>
+			<fileset dir="copernica/jsp" />
 		</zip>
 	</target>
 	
