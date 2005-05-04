@@ -19,7 +19,6 @@
 package com.exedio.cope.instrument;
 
 import java.io.File;
-import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -32,6 +31,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
+import com.exedio.cope.lib.NestingRuntimeException;
+
 public class Main
 {
 	
@@ -40,6 +41,11 @@ public class Main
 	{
 		//System.out.println("injecting from "+inputfile+" to "+outputfile);
 		
+		if(!inputfile.exists())
+			throw new RuntimeException("error: input file " + inputfile.getAbsolutePath() + " does not exist.");
+		if(!inputfile.isFile())
+			throw new RuntimeException("error: input file " + inputfile.getAbsolutePath() + " is not a regular file.");
+			
 		if(outputfile.exists())
 		{
 			if(inputfile.getCanonicalPath().equals(outputfile.getCanonicalPath()))
@@ -61,17 +67,12 @@ public class Main
 		catch(InjectorParseException e)
 		{
 			e.printStackTrace();
-			input.close();
-			output.close();
-			outputfile.delete();
-			throw new InjectorParseException(inputfile+": "+e.getMessage());
+			throw new InjectorParseException(inputfile.getAbsolutePath() + " does not exist");
 		}
-		catch(IOException e)
+		finally
 		{
 			if(input!=null)  input.close();
 			if(output!=null) output.close();
-			outputfile.delete();
-			throw e;
 		}
 	}
 	
@@ -80,55 +81,52 @@ public class Main
 	static void inject(final File tobemodifiedfile, final JavaRepository repository)
 	throws IOException, InjectorParseException
 	{
-		File outputfile=new File(tobemodifiedfile.getPath()+TEMPFILE_SUFFIX);
+		System.out.println("Instrumenting "+tobemodifiedfile);
+		final File outputfile=new File(tobemodifiedfile.getAbsolutePath()+TEMPFILE_SUFFIX);
 		inject(tobemodifiedfile, outputfile, repository);
+		if(!outputfile.exists())
+			throw new RuntimeException("not exists "+outputfile+".");
 		if(!tobemodifiedfile.delete())
-			System.out.println("warning: deleting "+tobemodifiedfile+" failed.");
+			throw new RuntimeException("deleting "+tobemodifiedfile+" failed.");
 		if(!outputfile.renameTo(tobemodifiedfile))
-			System.out.println("warning: renaming "+outputfile+" to "+tobemodifiedfile+" failed.");
+			throw new RuntimeException("renaming "+outputfile+" to "+tobemodifiedfile+" failed.");
 	}
 	
 	static void expand(Collection files, String pattern)
 	throws IOException
 	{
-		if(pattern.endsWith("*.java"))
-		{
-			//System.out.println("expanding "+pattern);
-			String directoryName = pattern.substring(0,pattern.length()-"*.java".length());
-			File directory = new File(directoryName);
-			if(!directory.isDirectory())
-				throw new IOException(directoryName+" should be a directory");
-			File[] expandedFiles = directory.listFiles(new FileFilter()
-			{
-				public boolean accept(File file)
-				{
-					return
-					file.isFile() &&
-					file.getName().endsWith(".java");
-				}
-			});
-			//for(int i=0; i<expandedFiles.length; i++) System.out.println("  into "+expandedFiles[i].getPath());
-			for(int i=0; i<expandedFiles.length; i++)
-				files.add(expandedFiles[i].getPath());
-		}
-		else
-			files.add(pattern);
+		files.add(pattern);
 	}
 	
 	public static void main(final String[] args)
 	{
 		try
 		{
-			(new Main()).run(args);
+			(new Main()).run(new File("."), args);
 		}
 		catch(RuntimeException e)
 		{
 			e.printStackTrace();
 			throw e;
 		}
+		catch(IllegalParameterException e)
+		{
+			e.printStackTrace();
+			throw new NestingRuntimeException(e);
+		}
+		catch(InjectorParseException e)
+		{
+			e.printStackTrace();
+			throw new NestingRuntimeException(e);
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
+			throw new NestingRuntimeException(e);
+		}
 	}
 	
-	private Main()
+	Main()
 	{}
 	
 	private void printUsage(PrintStream o)
@@ -151,41 +149,22 @@ public class Main
 			expand(sourcefiles, args[i]);
 	}
 	
-	private final void run(final String[] args)
+	final void run(final File dir, final String[] args) throws IllegalParameterException, InjectorParseException, IOException
 	{
 		this.args = args;
 		
-		try
+		for(i=0; i<args.length; i++)
+			processParameter();
+		
+		if(sourcefiles.isEmpty())
+			throw new IllegalParameterException("nothing to do.");
+		
+		final JavaRepository repository = new JavaRepository();
+		
+		for(Iterator i=sourcefiles.iterator(); i.hasNext(); )
 		{
-			for(i=0; i<args.length; i++)
-				processParameter();
-			
-			if(sourcefiles.isEmpty())
-				throw new IllegalParameterException("nothing to do.");
-			
-			final JavaRepository repository = new JavaRepository();
-			
-			for(Iterator i=sourcefiles.iterator(); i.hasNext(); )
-			{
-				String s=(String)i.next();
-				inject(new File(s), repository);
-			}
-		}
-		catch(IllegalParameterException e)
-		{
-			System.out.println(e.getMessage());
-			printUsage(System.out);
-			throw new RuntimeException(e.getMessage());
-		}
-		catch(InjectorParseException e)
-		{
-			System.out.println(e);
-			throw new RuntimeException(e.getMessage());
-		}
-		catch(IOException e)
-		{
-			System.out.println(e);
-			throw new RuntimeException(e.getMessage());
+			final String s=(String)i.next();
+			inject(new File(dir, s), repository);
 		}
 	}
 	

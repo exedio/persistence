@@ -160,7 +160,7 @@
 		</jar>
 		<zip zipfile="copernica/build/exedio-copernica-static.zip">
 			<fileset dir="copernica/jsp">
-				<exclude name="*.jsp" />
+				<exclude name="*.jsp" /><!-- TODO: remove excludes -->
 				<exclude name="*.inc" />
 			</fileset>
 		</zip>
@@ -168,37 +168,42 @@
 	
 	<target name="jar" depends="lib.jar, instrument.jar, copernica.jar" />
 	
-	<target name="lib.testmodel.instrument" depends="lib.compile, instrument.compile">
-		<echo message="Instrumenting lib/testmodelsrc" />
-		<java classname="com.exedio.cope.instrument.Main" failonerror="yes">
+	<target name="instrument.taskdef" depends="lib.compile, instrument.compile">
+		<taskdef name="instrument" classname="com.exedio.cope.instrument.AntTask">
 			<classpath>
 				<pathelement location="../lib/pcj.jar" />
 				<pathelement location="lib/build/classes" />
 				<pathelement location="instrument/build/classes" />
 			</classpath>
-			<arg value="${basedir}/lib/testmodelsrc/com/exedio/cope/testmodel/ItemWithSingleUnique.java" />
-			<arg value="${basedir}/lib/testmodelsrc/com/exedio/cope/testmodel/ItemWithSingleUniqueReadOnly.java" />
-			<arg value="${basedir}/lib/testmodelsrc/com/exedio/cope/testmodel/ItemWithSingleUniqueNotNull.java" />
-			<arg value="${basedir}/lib/testmodelsrc/com/exedio/cope/testmodel/ItemWithDoubleUnique.java" />
-			<arg value="${basedir}/lib/testmodelsrc/com/exedio/cope/testmodel/EmptyItem.java" />
-			<arg value="${basedir}/lib/testmodelsrc/com/exedio/cope/testmodel/EmptyItem2.java" />
-			<arg value="${basedir}/lib/testmodelsrc/com/exedio/cope/testmodel/AttributeEmptyItem.java" />
-			<arg value="${basedir}/lib/testmodelsrc/com/exedio/cope/testmodel/AttributeItem.java" />
-			<arg value="${basedir}/lib/testmodelsrc/com/exedio/cope/testmodel/StringItem.java" />
-			<arg value="${basedir}/lib/testmodelsrc/com/exedio/cope/testmodel/MediaItem.java" />
-			<arg value="${basedir}/lib/testmodelsrc/com/exedio/cope/testmodel/SumItem.java" />
-			<arg value="${basedir}/lib/testmodelsrc/com/exedio/cope/testmodel/PointerItem.java" />
-			<arg value="${basedir}/lib/testmodelsrc/com/exedio/cope/testmodel/PointerItem2.java" />
-			<arg value="${basedir}/lib/testmodelsrc/com/exedio/cope/testmodel/QualifiedEmptyQualifier.java" />
-			<arg value="${basedir}/lib/testmodelsrc/com/exedio/cope/testmodel/QualifiedStringQualifier.java" />
-			<arg value="${basedir}/lib/testmodelsrc/com/exedio/cope/testmodel/QualifiedIntegerEnumQualifier.java" />
-			<arg value="${basedir}/lib/testmodelsrc/com/exedio/cope/testmodel/QualifiedItem.java" />
-			<arg value="${basedir}/lib/testmodelsrc/com/exedio/cope/testmodel/Super.java" />
-			<arg value="${basedir}/lib/testmodelsrc/com/exedio/cope/testmodel/FirstSub.java" />
-			<arg value="${basedir}/lib/testmodelsrc/com/exedio/cope/testmodel/SecondSub.java" />
-			<arg value="${basedir}/lib/testmodelsrc/com/exedio/cope/testmodel/CollisionItem1.java" />
-			<arg value="${basedir}/lib/testmodelsrc/com/exedio/cope/testmodel/CollisionItem2.java" />
-		</java>
+		</taskdef>
+	</target>
+	
+	<target name="lib.testmodel.instrument" depends="instrument.taskdef">
+		<instrument>
+			<filelist dir="lib/testmodelsrc/com/exedio/cope/testmodel" files="
+				ItemWithSingleUnique.java,
+				ItemWithSingleUniqueReadOnly.java,
+				ItemWithSingleUniqueNotNull.java,
+				ItemWithDoubleUnique.java,
+				EmptyItem.java,
+				EmptyItem2.java,
+				AttributeEmptyItem.java,
+				AttributeItem.java,
+				StringItem.java,
+				MediaItem.java,
+				SumItem.java,
+				PointerItem.java,
+				PointerItem2.java,
+				QualifiedEmptyQualifier.java,
+				QualifiedStringQualifier.java,
+				QualifiedIntegerEnumQualifier.java,
+				QualifiedItem.java,
+				Super.java,
+				FirstSub.java,
+				SecondSub.java,
+				CollisionItem1.java,
+				CollisionItem2.java" />
+		</instrument>
 	</target>
 	
 	<target name="lib.testmodel.compile" depends="lib.testmodel.instrument">
