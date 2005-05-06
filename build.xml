@@ -9,6 +9,14 @@
 		<property name="api.link.servlet" value="http://jakarta.apache.org/tomcat/tomcat-5.0-doc/servletapi" />
 	</target>
 
+	<target name="jspm.taskdef">
+		<taskdef name="jspm" classname="com.exedio.jspm.AntTask">
+			<classpath>
+				<pathelement location="../jspm/build/classes" />
+			</classpath>
+		</taskdef>
+	</target>
+	
 	<target name="lib.compile.mkdir">
 		<mkdir dir="lib/build/classes" />
 		<!-- test for cruisecontrol -->
@@ -358,27 +366,16 @@
 	<target name="test" depends="lib.test, instrument.test" />
 	
 	
-	<target name="copernica.jspm">
-		<java classname="com.exedio.jspm.Main" taskname="jspm" fork="yes" failonerror="yes">
-			<classpath>
-				<pathelement location="../jspm/build/classes" />
-			</classpath>
-			<arg value="copernica/src/com/exedio/copernica/Copernica.jspm" />
-			<arg value="copernica/src/com/exedio/copernica/TypeCop.jspm" />
-			<arg value="copernica/src/com/exedio/copernica/ItemCop.jspm" />
-			<arg value="copernica/src/com/exedio/copernica/admin/Admin.jspm" />
-			<arg value="copernica/src/com/exedio/copernica/admin/Report.jspm" />
-			<arg value="copernica/src/com/exedio/copernica/admin/Properties.jspm" />
-		</java>
+	<target name="copernica.jspm" depends="jspm.taskdef">
+		<jspm>
+			<fileset dir="copernica/src" includes="**/*.jspm" />
+		</jspm>
 	</target>
 	
-	<target name="copernica.test.jspm">
-		<java classname="com.exedio.jspm.Main" taskname="jspm" fork="yes" failonerror="yes">
-			<classpath>
-				<pathelement location="../jspm/build/classes" />
-			</classpath>
-			<arg value="copernica/testsrc/com/exedio/copernica/Init.jspm" />
-		</java>
+	<target name="copernica.test.jspm" depends="jspm.taskdef">
+		<jspm>
+			<fileset dir="copernica/testsrc" includes="**/*.jspm" />
+		</jspm>
 	</target>
 	
 	<target name="copernica.test.compile"
