@@ -80,7 +80,7 @@ public final class Type
 	{
 		final Type result = (Type)typesByClass.get(javaClass);
 		if(result==null)
-			throw new RuntimeException("there is no type for class "+javaClass);
+			throw new RuntimeException("there is no type for "+javaClass);
 		return result;
 	}
 	

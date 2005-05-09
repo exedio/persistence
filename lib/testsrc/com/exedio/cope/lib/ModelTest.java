@@ -47,7 +47,7 @@ public class ModelTest extends AbstractLibTest
 		}
 		catch(RuntimeException e)
 		{
-			assertEquals("there is no type for class class com.exedio.cope.lib.ModelTest", e.getMessage());
+			assertEquals("there is no type for class com.exedio.cope.lib.ModelTest", e.getMessage());
 		}
 		assertEquals(item.TYPE, model.findTypeByID(item.TYPE.getID()));
 		
