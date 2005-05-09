@@ -44,10 +44,7 @@ public final class ItemAttribute extends ObjectAttribute
 	 */
 	public Type getTargetType()
 	{
-		final Type result = Type.findByJavaClass(targetTypeClass);
-		if(result==null)
-			throw new NullPointerException("there is no type for class "+targetTypeClass);
-		return result;
+		return Type.findByJavaClass(targetTypeClass);
 	}
 	
 	protected List createColumns(final Table table, final String name, final boolean notNull)

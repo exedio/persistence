@@ -199,8 +199,6 @@ public abstract class Item extends Cope
 		rowWhenActive = null; // make passive
 		//System.out.println("reactivate item:"+type+" "+pk);
 
-		if(type==null)
-			throw new NullPointerException(getClass().toString());
 		if(reactivationDummy!=Type.REACTIVATION_DUMMY)
 			throw new RuntimeException("reactivation constructor is for internal purposes only, don't use it in your application!");
 		if(pk==Type.NOT_A_PK)

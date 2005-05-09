@@ -73,9 +73,15 @@ public final class Type
 	private final Constructor creationConstructor;
 	private final Constructor reactivationConstructor;
 
+	/**
+	 * @throws RuntimeException if there is no type for the given java class.
+	 */
 	public static final Type findByJavaClass(final Class javaClass)
 	{
-		return (Type)typesByClass.get(javaClass);
+		final Type result = (Type)typesByClass.get(javaClass);
+		if(result==null)
+			throw new RuntimeException("there is no type for class "+javaClass);
+		return result;
 	}
 	
 	public Type(final Class javaClass)
@@ -99,8 +105,6 @@ public final class Type
 		else
 		{
 			supertype = findByJavaClass(superClass);
-			if(supertype==null)
-				throw new NullPointerException(superClass.getName());
 			supertype.registerSubType(this);
 		}
 
