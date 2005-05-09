@@ -40,6 +40,15 @@ public class ModelTest extends AbstractLibTest
 
 		assertEquals(AttributeItem.class, item.TYPE.getJavaClass());
 		assertEquals(item.TYPE, Type.findByJavaClass(AttributeItem.class));
+		try
+		{
+			Type.findByJavaClass(ModelTest.class);
+			fail("should have thrown RuntimeException");
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals("there is no type for class class com.exedio.cope.lib.ModelTest", e.getMessage());
+		}
 		assertEquals(item.TYPE, model.findTypeByID(item.TYPE.getID()));
 		
 		final Attribute[] attributes = new Attribute[]{
