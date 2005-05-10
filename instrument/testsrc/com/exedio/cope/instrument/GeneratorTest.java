@@ -41,7 +41,7 @@ public class GeneratorTest extends InstrumentorTest
 		final Class attributeValueArrayClass = Class.forName("[L"+AttributeValue.class.getName()+';');
 		
 		final Class standard = Standard.class;
-		assertConstructor(standard, new Class[]{int.class}, PUBLIC);
+		assertConstructor(standard, new Class[]{int.class, long.class}, PUBLIC);
 		assertConstructor(standard, new Class[]{attributeValueArrayClass}, PRIVATE);
 		assertConstructor(standard, new Class[]{ReactivationConstructorDummy.class, int.class}, PRIVATE);
 
@@ -52,6 +52,11 @@ public class GeneratorTest extends InstrumentorTest
 		assertMethod(standard, "setDefaultInteger", new Class[]{Integer.class}, PUBLIC|FINAL);
 		assertMethod(standard, "getNativeInteger", int.class, PUBLIC|FINAL);
 		assertMethod(standard, "setNativeInteger", new Class[]{int.class}, PUBLIC|FINAL);
+
+		assertMethod(standard, "getDefaultLong", Long.class, PUBLIC|FINAL);
+		assertMethod(standard, "setDefaultLong", new Class[]{Long.class}, PUBLIC|FINAL);
+		assertMethod(standard, "getNativeLong", long.class, PUBLIC|FINAL);
+		assertMethod(standard, "setNativeLong", new Class[]{long.class}, PUBLIC|FINAL);
 
 		assertField(standard, "TYPE", Type.class, PUBLIC|STATIC|FINAL);
 	}
