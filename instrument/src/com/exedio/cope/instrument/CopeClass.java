@@ -51,16 +51,19 @@ final class CopeClass
 	private final Map copeUniqueConstraintMap = new TreeMap();
 	private ArrayList uniqueConstraints = null;
 	private ArrayList qualifiers = null;
+	final Option typeOption;
 	final Option constructorOption;
 
 	public CopeClass(
 			final JavaClass javaClass,
+			final String typeOption,
 			final String constructorOption)
 		throws InjectorParseException
 	{
 		this.javaClass = javaClass;
 		this.accessModifier = javaClass.accessModifier;
 		copeClassByJavaClass.put(javaClass, this);	
+		this.typeOption = new Option(typeOption, false);
 		this.constructorOption = new Option(constructorOption, false);
 		//System.out.println("copeClassByJavaClass "+javaClass.getName());
 		javaClass.file.repository.add(this);

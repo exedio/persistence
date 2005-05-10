@@ -812,22 +812,27 @@ final class Generator
 	private final void writeType(final CopeClass copeClass)
 	throws IOException
 	{
-		writeCommentHeader();
-		o.write("\t * ");
-		o.write(format(TYPE, lowerCamelCase(copeClass.getName())));
-		o.write(lineSeparator);
-		writeCommentGenerated();
-		writeCommentFooter();
-		
-		o.write("public static final "+Type.class.getName()+" TYPE = ");
-		o.write(lineSeparator);
-
-		o.write("\t\tnew "+Type.class.getName()+"(");
-		o.write(copeClass.getName());
-		o.write(".class)");
-		o.write(lineSeparator);
-
-		o.write(";");
+		final Option option = copeClass.typeOption;
+		if(option.exists)
+		{
+			writeCommentHeader();
+			o.write("\t * ");
+			o.write(format(TYPE, lowerCamelCase(copeClass.getName())));
+			o.write(lineSeparator);
+			writeCommentGenerated();
+			writeCommentFooter();
+			
+			o.write(Modifier.toString(option.getModifier(Modifier.PUBLIC) | Modifier.STATIC | Modifier.FINAL)); // TODO obey class visibility
+			o.write(" "+Type.class.getName()+" TYPE = ");
+			o.write(lineSeparator);
+	
+			o.write("\t\tnew "+Type.class.getName()+"(");
+			o.write(copeClass.getName());
+			o.write(".class)");
+			o.write(lineSeparator);
+	
+			o.write(";");
+		}
 	}
 
 	void writeClassFeatures(final CopeClass copeClass)
