@@ -1,4 +1,3 @@
-<%
 /*
  * Copyright (C) 2004-2005  exedio GmbH (www.exedio.com)
  *
@@ -22,7 +21,6 @@ package com.exedio.cope.instrument;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Writer;
-import java.io.PrintWriter;
 import java.lang.reflect.Modifier;
 import java.text.MessageFormat;
 import java.util.Arrays;
@@ -44,7 +42,7 @@ import com.exedio.cope.lib.UniqueViolationException;
 import com.exedio.cope.lib.util.ReactivationConstructorDummy;
 
 // TODO use jspm
-final class Generator_Jspm
+final class Generator
 {
 	private static final String THROWS_NULL   = "if {0} is null.";
 	private static final String THROWS_UNIQUE = "if {0} is not unique.";
@@ -72,13 +70,11 @@ final class Generator_Jspm
 	private static final String TYPE = "The persistent type information for {0}.";
 
 	private final Writer o;
-	private final PrintWriter out;
 	private final String lineSeparator;
 	
-	Generator_Jspm(final Writer output)
+	Generator(final Writer output)
 	{
 		this.o=output;
-		this.out = new PrintWriter(output);
 		
 		final String systemLineSeparator = System.getProperty("line.separator");
 		if(systemLineSeparator==null)
@@ -770,28 +766,47 @@ final class Generator_Jspm
 	throws IOException
 	{
 		writeCommentHeader();
-%>	 * <%=QUALIFIER_SETTER%>
-<%
+		o.write("\t * ");
+		o.write(QUALIFIER_SETTER);
+		o.write(lineSeparator);
 		writeCommentGenerated();
 		writeCommentFooter();
 
 		final String resultType = attribute.persistentType;
-		// TODO: obey attribute visibility
-		%>public final void set<%=toCamelCase(attribute.getName())%>(<%
+		o.write("public final void set"); // TODO: obey attribute visibility
+		o.write(toCamelCase(attribute.getName()));
+		o.write('(');
 		writeQualifierParameters(qualifier);
-		%>,final <%=resultType%> <%=attribute.getName()%>)
-<%
+		o.write(",final ");
+		o.write(resultType);
+		o.write(' ');
+		o.write(attribute.getName());
+		o.write(')');
+		o.write(lineSeparator);
+		
 		writeThrowsClause(Arrays.asList(new Class[]{
 			NotNullViolationException.class,
 			LengthViolationException.class,
 			ReadOnlyViolationException.class,
 			ClassCastException.class}));
 
-%>	{
-		<%=qualifier.name%>.setQualified(new Object[]{this<%
-			writeQualifierCall(qualifier);
-			%>},<%=qualifier.qualifierClassString%>.<%=attribute.getName()%>,<%=attribute.getName()%>);
-	}<%
+		o.write("\t{");
+		o.write(lineSeparator);
+
+		o.write("\t\t");
+		o.write(qualifier.name);
+		o.write(".setQualified(new Object[]{this");
+		writeQualifierCall(qualifier);
+		o.write("},");
+		o.write(qualifier.qualifierClassString);
+		o.write('.');
+		o.write(attribute.getName());
+		o.write(',');
+		o.write(attribute.getName());
+		o.write(");");
+		o.write(lineSeparator);
+
+		o.write("\t}");
 	}
 
 	private final void writeType(final CopeClass copeClass)
@@ -954,8 +969,14 @@ final class Generator_Jspm
 		final CopeAttribute attribute = hash.storageAttribute;
 		final SortedSet exceptionsToCatch = attribute.getExceptionsToCatchInSetter();
 		writeTryCatchClausePrefix(exceptionsToCatch);
-%>		<%=attribute.copeClass.getName()%>.<%=hash.name%>.setHash(this,<%=hash.name%>);
-<%
+		o.write("\t\t");
+		o.write(attribute.copeClass.getName());
+		o.write('.');
+		o.write(hash.name);
+		o.write(".setHash(this,");
+		o.write(hash.name);
+		o.write(");");
+		o.write(lineSeparator);
 		writeTryCatchClausePostfix(exceptionsToCatch);
 	}
 	
@@ -964,9 +985,11 @@ final class Generator_Jspm
 	{
 		if(!exceptionsToCatch.isEmpty())
 		{
-%>		try
-		{
-	<%
+			o.write("\t\ttry");
+			o.write(lineSeparator);
+			o.write("\t\t{");
+			o.write(lineSeparator);
+			o.write('\t');
 		}
 	}
 	
@@ -975,19 +998,22 @@ final class Generator_Jspm
 	{
 		if(!exceptionsToCatch.isEmpty())
 		{
-%>		}
-<%
+			o.write("\t\t}");
+			o.write(lineSeparator);
+			
 			for(Iterator i = exceptionsToCatch.iterator(); i.hasNext(); )
 			{
 				final Class exceptionClass = (Class)i.next();
-%>		catch(<%=exceptionClass.getName()%> e)
-		{
-			throw new <%=NestingRuntimeException.class.getName()%>(e);
-		}
-<%
+				o.write("\t\tcatch("+exceptionClass.getName()+" e)");
+				o.write(lineSeparator);
+				o.write("\t\t{");
+				o.write(lineSeparator);
+				o.write("\t\t\tthrow new "+NestingRuntimeException.class.getName()+"(e);");
+				o.write(lineSeparator);
+				o.write("\t\t}");
+				o.write(lineSeparator);
 			}
 		}
 	}
 	
 }
-%>
