@@ -83,9 +83,13 @@ public class GeneratorTest extends InstrumentorTest
 
 		assertField(standard, "TYPE", Type.class, PUBLIC|STATIC|FINAL);
 
-		assertMethod(TypeNone.class, "getDefaultString", String.class, PUBLIC|FINAL);
-		assertMethod(TypeNone.class, "setDefaultString", new Class[]{String.class}, PUBLIC|FINAL);
-		assertNoField(TypeNone.class, "TYPE");
+		final Class typeNone = TypeNone.class;
+		assertConstructor(typeNone, new Class[]{}, PUBLIC);
+		assertConstructor(typeNone, new Class[]{attributeValueArrayClass}, PRIVATE);
+		assertConstructor(typeNone, new Class[]{ReactivationConstructorDummy.class, int.class}, PRIVATE);
+		assertMethod(typeNone, "getDefaultString", String.class, PUBLIC|FINAL);
+		assertMethod(typeNone, "setDefaultString", new Class[]{String.class}, PUBLIC|FINAL);
+		assertNoField(typeNone, "TYPE");
 	}
 	
 	void assertField(
