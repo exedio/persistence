@@ -22,10 +22,12 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.util.Arrays;
 
 import com.exedio.cope.instrument.testmodel.Standard;
 import com.exedio.cope.lib.AttributeValue;
 import com.exedio.cope.lib.Type;
+import com.exedio.cope.lib.UniqueViolationException;
 import com.exedio.cope.lib.util.ReactivationConstructorDummy;
 
 
@@ -54,6 +56,8 @@ public class GeneratorTest extends InstrumentorTest
 		assertMethod(standard, "setDefaultString", new Class[]{String.class}, PUBLIC|FINAL);
 		assertMethod(standard, "getReadOnlyString", String.class, PUBLIC|FINAL);
 		assertNoMethod(standard, "setReadOnlyString", new Class[]{String.class});
+		assertMethod(standard, "getUniqueString", String.class, PUBLIC|FINAL);
+		assertMethod(standard, "setUniqueString", new Class[]{String.class}, PUBLIC|FINAL, new Class[]{UniqueViolationException.class});
 
 		assertMethod(standard, "getDefaultInteger", Integer.class, PUBLIC|FINAL);
 		assertMethod(standard, "setDefaultInteger", new Class[]{Integer.class}, PUBLIC|FINAL);
@@ -92,17 +96,27 @@ public class GeneratorTest extends InstrumentorTest
 
 	void assertMethod(final Class javaClass, final String name, final Class returnType, final int modifiers)
 	{
-		assertMethod(javaClass, name, null, returnType, modifiers);
+		assertMethod(javaClass, name, null, returnType, modifiers, new Class[]{});
 	}
 	
 	void assertMethod(final Class javaClass, final String name, final Class[] parameterTypes, final int modifiers)
 	{
-		assertMethod(javaClass, name, parameterTypes, Void.TYPE, modifiers);
+		assertMethod(javaClass, name, parameterTypes, Void.TYPE, modifiers, new Class[]{});
+	}
+
+	void assertMethod(final Class javaClass, final String name, final Class[] parameterTypes, final int modifiers, final Class[] exceptionTypes)
+	{
+		assertMethod(javaClass, name, parameterTypes, Void.TYPE, modifiers, exceptionTypes);
+	}
+
+	void assertMethod(final Class javaClass, final String name, final Class[] parameterTypes, final Class returnType, final int modifiers)
+	{
+		assertMethod(javaClass, name, parameterTypes, returnType, modifiers, new Class[]{});
 	}
 
 	void assertMethod(
 			final Class javaClass, final String name, final Class[] parameterTypes,
-			final Class returnType, final int modifiers)
+			final Class returnType, final int modifiers, final Class[] exceptionTypes)
 	{
 		final Method method;
 		try
@@ -115,6 +129,7 @@ public class GeneratorTest extends InstrumentorTest
 		}
 		assertEquals(returnType, method.getReturnType());
 		assertEquals(modifiers, method.getModifiers());
+		assertEquals(Arrays.asList(exceptionTypes), Arrays.asList(method.getExceptionTypes()));
 	}
 
 	void assertNoMethod(final Class javaClass, final String name, final Class[] parameterTypes)
