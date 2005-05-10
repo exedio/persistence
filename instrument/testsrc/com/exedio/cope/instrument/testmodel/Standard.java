@@ -48,11 +48,13 @@ public class Standard extends Item
 
 	/**
 	 * @cope-setter none
+	 * @cope-getter boolean-as-is
 	 */
 	public static final StringAttribute noneSetterString = stringAttribute(DEFAULT);
 
 	/**
 	 * @cope-setter private
+	 * @cope-getter boolean-as-is
 	 */
 	public static final StringAttribute privateSetterString = stringAttribute(DEFAULT);
 
