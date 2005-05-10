@@ -27,6 +27,15 @@ import com.exedio.cope.lib.StringAttribute;
 
 /**
  * @persistent
+ * TODO: length constraint
+ * TODO: unique with multiple attributes
+ * TODO: item attributes
+ * TODO: enum attributes
+ * TODO: date attributes with toucher methods
+ * TODO: media attributes with all access methods methods and mime type constraints
+ * TODO: functions
+ * TODO: qualifiers
+ * TODO: hashes
  */
 public class Standard extends Item
 {
