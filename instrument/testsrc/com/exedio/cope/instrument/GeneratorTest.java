@@ -77,6 +77,8 @@ public class GeneratorTest extends InstrumentorTest
 
 		assertMethod(standard, "getNoneSetterString", String.class, PUBLIC|FINAL);
 		assertNoMethod(standard, "setNoneSetterString", new Class[]{String.class});
+		assertMethod(standard, "getPrivateSetterString", String.class, PUBLIC|FINAL);
+		assertMethod(standard, "setPrivateSetterString", new Class[]{String.class}, PRIVATE|FINAL);
 
 		assertField(standard, "TYPE", Type.class, PUBLIC|STATIC|FINAL);
 	}
