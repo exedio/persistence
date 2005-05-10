@@ -48,11 +48,11 @@ public class GeneratorTest extends InstrumentorTest
 		final Class standard = Standard.class;
 		assertConstructor(standard, new Class[]{
 				String.class, // notNullString
-				String.class,
-				int.class,
-				long.class,
-				double.class,
-				boolean.class,
+				String.class, // readOnlyString
+				int.class, // nativeInteger
+				long.class, // nativeLong
+				double.class, // nativeDouble
+				boolean.class, // nativeBoolean
 			}, PUBLIC);
 		assertConstructor(standard, new Class[]{attributeValueArrayClass}, PRIVATE);
 		assertConstructor(standard, new Class[]{ReactivationConstructorDummy.class, int.class}, PRIVATE);
