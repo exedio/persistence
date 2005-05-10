@@ -87,6 +87,10 @@ public class GeneratorTest extends InstrumentorTest
 		assertMethod(standard, "getPrivateSetterString", String.class, PUBLIC|FINAL);
 		assertMethod(standard, "setPrivateSetterString", new Class[]{String.class}, PRIVATE|FINAL);
 
+		assertMethod(standard, "isAsIsBoolean", Boolean.class, PUBLIC|FINAL);
+		assertNoMethod(standard, "getAsIsBoolean");
+		assertMethod(standard, "setAsIsBoolean", new Class[]{Boolean.class}, PUBLIC|FINAL);
+
 		assertField(standard, "TYPE", Type.class, PUBLIC|STATIC|FINAL);
 
 		final Class typeNone = TypeNone.class;
@@ -164,6 +168,11 @@ public class GeneratorTest extends InstrumentorTest
 		assertEquals(returnType, method.getReturnType());
 		assertEquals(modifiers, method.getModifiers());
 		assertEquals(Arrays.asList(exceptionTypes), Arrays.asList(method.getExceptionTypes()));
+	}
+
+	void assertNoMethod(final Class javaClass, final String name)
+	{
+		assertNoMethod(javaClass, name, null);
 	}
 
 	void assertNoMethod(final Class javaClass, final String name, final Class[] parameterTypes)
