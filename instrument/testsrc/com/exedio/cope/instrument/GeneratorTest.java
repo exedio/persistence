@@ -49,6 +49,7 @@ public class GeneratorTest extends InstrumentorTest
 				int.class,
 				long.class,
 				double.class,
+				boolean.class,
 			}, PUBLIC);
 		assertConstructor(standard, new Class[]{attributeValueArrayClass}, PRIVATE);
 		assertConstructor(standard, new Class[]{ReactivationConstructorDummy.class, int.class}, PRIVATE);
@@ -75,6 +76,11 @@ public class GeneratorTest extends InstrumentorTest
 		assertMethod(standard, "setDefaultDouble", new Class[]{Double.class}, PUBLIC|FINAL);
 		assertMethod(standard, "getNativeDouble", double.class, PUBLIC|FINAL);
 		assertMethod(standard, "setNativeDouble", new Class[]{double.class}, PUBLIC|FINAL);
+
+		assertMethod(standard, "getDefaultBoolean", Boolean.class, PUBLIC|FINAL);
+		assertMethod(standard, "setDefaultBoolean", new Class[]{Boolean.class}, PUBLIC|FINAL);
+		assertMethod(standard, "getNativeBoolean", boolean.class, PUBLIC|FINAL);
+		assertMethod(standard, "setNativeBoolean", new Class[]{boolean.class}, PUBLIC|FINAL);
 
 		assertMethod(standard, "getNoneSetterString", String.class, PUBLIC|FINAL);
 		assertNoMethod(standard, "setNoneSetterString", new Class[]{String.class});
