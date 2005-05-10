@@ -35,6 +35,7 @@ import com.exedio.cope.lib.util.ReactivationConstructorDummy;
 public class GeneratorTest extends InstrumentorTest
 {
 	public static final int PUBLIC = Modifier.PUBLIC;
+	public static final int PROTECTED = Modifier.PROTECTED;
 	public static final int PRIVATE = Modifier.PRIVATE;
 	public static final int STATIC = Modifier.STATIC;
 	public static final int FINAL = Modifier.FINAL;
@@ -86,6 +87,11 @@ public class GeneratorTest extends InstrumentorTest
 		assertNoMethod(standard, "setNoneSetterString", new Class[]{String.class});
 		assertMethod(standard, "getPrivateSetterString", String.class, PUBLIC|FINAL);
 		assertMethod(standard, "setPrivateSetterString", new Class[]{String.class}, PRIVATE|FINAL);
+
+		assertMethod(standard, "getNonfinalGetterString", String.class, PUBLIC);
+		assertMethod(standard, "setNonfinalGetterString", new Class[]{String.class}, PROTECTED|FINAL);
+		assertMethod(standard, "getNonfinalSetterString", String.class, PROTECTED|FINAL);
+		assertMethod(standard, "setNonfinalSetterString", new Class[]{String.class}, PUBLIC);
 
 		assertMethod(standard, "isAsIsBoolean", Boolean.class, PUBLIC|FINAL);
 		assertNoMethod(standard, "getAsIsBoolean");
