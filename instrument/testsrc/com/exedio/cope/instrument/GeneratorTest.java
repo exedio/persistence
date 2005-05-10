@@ -18,23 +18,32 @@
 
 package com.exedio.cope.instrument;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
 import com.exedio.cope.instrument.testmodel.Standard;
+import com.exedio.cope.lib.AttributeValue;
 import com.exedio.cope.lib.Type;
+import com.exedio.cope.lib.util.ReactivationConstructorDummy;
 
 
 public class GeneratorTest extends InstrumentorTest
 {
 	public static final int PUBLIC = Modifier.PUBLIC;
+	public static final int PRIVATE = Modifier.PRIVATE;
 	public static final int STATIC = Modifier.STATIC;
 	public static final int FINAL = Modifier.FINAL;
 	
-	public void testStandard()
+	public void testStandard() throws ClassNotFoundException
 	{
+		final Class attributeValueArrayClass = Class.forName("[L"+AttributeValue.class.getName()+';');
+		
 		final Class standard = Standard.class;
+		assertConstructor(standard, null, PUBLIC);
+		assertConstructor(standard, new Class[]{attributeValueArrayClass}, PRIVATE);
+		assertConstructor(standard, new Class[]{ReactivationConstructorDummy.class, int.class}, PRIVATE);
 		assertMethod(standard, "getDefaultString", String.class, PUBLIC|FINAL);
 		assertMethod(standard, "setDefaultString", new Class[]{String.class}, PUBLIC|FINAL);
 		assertField(standard, "TYPE", Type.class, PUBLIC|STATIC|FINAL);
@@ -82,6 +91,21 @@ public class GeneratorTest extends InstrumentorTest
 		}
 		assertEquals(returnType, method.getReturnType());
 		assertEquals(modifiers, method.getModifiers());
+	}
+
+	void assertConstructor(
+			final Class javaClass, final Class[] parameterTypes, final int modifiers)
+	{
+		final Constructor constructor;
+		try
+		{
+			constructor = javaClass.getDeclaredConstructor(parameterTypes);
+		}
+		catch(NoSuchMethodException e)
+		{
+			throw new AssertionError(e);
+		}
+		assertEquals(modifiers, constructor.getModifiers());
 	}
 
 }
