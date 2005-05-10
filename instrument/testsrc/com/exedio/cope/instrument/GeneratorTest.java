@@ -75,6 +75,9 @@ public class GeneratorTest extends InstrumentorTest
 		assertMethod(standard, "getNativeDouble", double.class, PUBLIC|FINAL);
 		assertMethod(standard, "setNativeDouble", new Class[]{double.class}, PUBLIC|FINAL);
 
+		assertMethod(standard, "getNoneSetterString", String.class, PUBLIC|FINAL);
+		assertNoMethod(standard, "setNoneSetterString", new Class[]{String.class});
+
 		assertField(standard, "TYPE", Type.class, PUBLIC|STATIC|FINAL);
 	}
 	
