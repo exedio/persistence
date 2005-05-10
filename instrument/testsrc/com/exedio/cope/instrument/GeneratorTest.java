@@ -44,8 +44,13 @@ public class GeneratorTest extends InstrumentorTest
 		assertConstructor(standard, null, PUBLIC);
 		assertConstructor(standard, new Class[]{attributeValueArrayClass}, PRIVATE);
 		assertConstructor(standard, new Class[]{ReactivationConstructorDummy.class, int.class}, PRIVATE);
+
 		assertMethod(standard, "getDefaultString", String.class, PUBLIC|FINAL);
 		assertMethod(standard, "setDefaultString", new Class[]{String.class}, PUBLIC|FINAL);
+
+		assertMethod(standard, "getDefaultInteger", Integer.class, PUBLIC|FINAL);
+		assertMethod(standard, "setDefaultInteger", new Class[]{Integer.class}, PUBLIC|FINAL);
+
 		assertField(standard, "TYPE", Type.class, PUBLIC|STATIC|FINAL);
 	}
 	
