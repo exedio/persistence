@@ -27,6 +27,7 @@ import java.util.Arrays;
 import com.exedio.cope.instrument.testmodel.Standard;
 import com.exedio.cope.instrument.testmodel.TypeNone;
 import com.exedio.cope.lib.AttributeValue;
+import com.exedio.cope.lib.NotNullViolationException;
 import com.exedio.cope.lib.Type;
 import com.exedio.cope.lib.UniqueViolationException;
 import com.exedio.cope.lib.util.ReactivationConstructorDummy;
@@ -46,6 +47,7 @@ public class GeneratorTest extends InstrumentorTest
 		
 		final Class standard = Standard.class;
 		assertConstructor(standard, new Class[]{
+				String.class, // notNullString
 				String.class,
 				int.class,
 				long.class,
@@ -57,6 +59,8 @@ public class GeneratorTest extends InstrumentorTest
 
 		assertMethod(standard, "getDefaultString", String.class, PUBLIC|FINAL);
 		assertMethod(standard, "setDefaultString", new Class[]{String.class}, PUBLIC|FINAL);
+		assertMethod(standard, "getNotNullString", String.class, PUBLIC|FINAL);
+		assertMethod(standard, "setNotNullString", new Class[]{String.class}, PUBLIC|FINAL, new Class[]{NotNullViolationException.class});
 		assertMethod(standard, "getReadOnlyString", String.class, PUBLIC|FINAL);
 		assertNoMethod(standard, "setReadOnlyString", new Class[]{String.class});
 		assertMethod(standard, "getUniqueString", String.class, PUBLIC|FINAL);
