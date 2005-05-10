@@ -33,14 +33,27 @@ public class GeneratorTest extends InstrumentorTest
 	{
 		final Class standard = Standard.class;
 		assertMethod(standard, "getDefaultString", String.class, PUBLIC|FINAL);
+		assertMethod(standard, "setDefaultString", new Class[]{String.class}, PUBLIC|FINAL);
 	}
 	
 	void assertMethod(final Class javaClass, final String name, final Class returnType, final int modifiers)
 	{
+		assertMethod(javaClass, name, null, returnType, modifiers);
+	}
+	
+	void assertMethod(final Class javaClass, final String name, final Class[] parameterTypes, final int modifiers)
+	{
+		assertMethod(javaClass, name, parameterTypes, Void.TYPE, modifiers);
+	}
+
+	void assertMethod(
+			final Class javaClass, final String name, final Class[] parameterTypes,
+			final Class returnType, final int modifiers)
+	{
 		final Method method;
 		try
 		{
-			method = javaClass.getDeclaredMethod(name, null);
+			method = javaClass.getDeclaredMethod(name, parameterTypes);
 		}
 		catch(NoSuchMethodException e)
 		{
