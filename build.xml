@@ -333,7 +333,14 @@
 
 	<target name="lib.test" depends="lib.test.run" />
 
-	<target name="instrument.test.compile" depends="instrument.compile">
+	<target name="instrument.test.instrument" depends="instrument.taskdef">
+		<instrument>
+			<filelist dir="instrument/testsrc/com/exedio/cope/instrument/testmodel" files="
+				Standard.java" />
+		</instrument>
+	</target>
+	
+	<target name="instrument.test.compile" depends="instrument.test.instrument, lib.compile, instrument.compile">
 		<mkdir dir="instrument/build/testclasses" />
 		<javac srcdir="instrument/testsrc"
 				destdir="instrument/build/testclasses"
@@ -341,6 +348,7 @@
 				debug="on"
 				optimize="off">
 			<classpath>
+				<pathelement location="lib/build/classes" />
 				<pathelement location="instrument/build/classes" />
 				<pathelement location="../lib/junit.jar" />
 			</classpath>
@@ -350,12 +358,15 @@
 			todir="instrument/build/testclasses/com/exedio/cope/instrument" />
 	</target>
 	
-	<target name="instrument.test.run" depends="instrument.test.compile">
+	<target name="instrument.test.run"
+				depends="lib.compile, instrument.compile, instrument.test.compile">
 		<java classname="junit.textui.TestRunner" taskname="junit" fork="yes" failonerror="yes">
 			<classpath>
+				<pathelement location="lib/build/classes" />
 				<pathelement location="instrument/build/classes" />
 				<pathelement location="instrument/build/testclasses" />
 				<pathelement location="../lib/junit.jar" />
+				<pathelement location="../lib/pcj.jar" />
 			</classpath>
 			<arg value="com.exedio.cope.instrument.PackageTest" />
 		</java>

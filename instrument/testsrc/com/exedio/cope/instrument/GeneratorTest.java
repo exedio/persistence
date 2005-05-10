@@ -15,30 +15,39 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
+
 package com.exedio.cope.instrument;
 
-import java.util.Collections;
-import java.util.List;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 
-import junit.framework.TestCase;
+import com.exedio.cope.instrument.testmodel.Standard;
 
-public class InstrumentorTest extends TestCase
+
+public class GeneratorTest extends InstrumentorTest
 {
-	protected InstrumentorTest()
+	public static final int PUBLIC = Modifier.PUBLIC;
+	public static final int FINAL = Modifier.FINAL;
+	
+	public void testStandard()
 	{
-		super();
-	}
-
-	// TODO: remove this constructor
-	protected InstrumentorTest(final String name)
-	{
-		super(name);
-	}
-
-	protected List list(final Object o)
-	{
-		return Collections.singletonList(o);
+		final Class standard = Standard.class;
+		assertMethod(standard, "getDefaultString", String.class, PUBLIC|FINAL);
 	}
 	
+	void assertMethod(final Class javaClass, final String name, final Class returnType, final int modifiers)
+	{
+		final Method method;
+		try
+		{
+			method = javaClass.getDeclaredMethod(name, null);
+		}
+		catch(NoSuchMethodException e)
+		{
+			throw new AssertionError(e);
+		}
+		assertEquals(returnType, method.getReturnType());
+		assertEquals(modifiers, method.getModifiers());
+	}
 
 }
