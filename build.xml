@@ -336,7 +336,8 @@
 	<target name="instrument.test.instrument" depends="instrument.taskdef">
 		<instrument>
 			<filelist dir="instrument/testsrc/com/exedio/cope/instrument/testmodel" files="
-				Standard.java" />
+				Standard.java,
+				TypeNone.java" />
 		</instrument>
 	</target>
 	

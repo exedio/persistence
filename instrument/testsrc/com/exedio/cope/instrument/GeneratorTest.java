@@ -25,6 +25,7 @@ import java.lang.reflect.Modifier;
 import java.util.Arrays;
 
 import com.exedio.cope.instrument.testmodel.Standard;
+import com.exedio.cope.instrument.testmodel.TypeNone;
 import com.exedio.cope.lib.AttributeValue;
 import com.exedio.cope.lib.Type;
 import com.exedio.cope.lib.UniqueViolationException;
@@ -81,6 +82,10 @@ public class GeneratorTest extends InstrumentorTest
 		assertMethod(standard, "setPrivateSetterString", new Class[]{String.class}, PRIVATE|FINAL);
 
 		assertField(standard, "TYPE", Type.class, PUBLIC|STATIC|FINAL);
+
+		assertMethod(TypeNone.class, "getDefaultString", String.class, PUBLIC|FINAL);
+		assertMethod(TypeNone.class, "setDefaultString", new Class[]{String.class}, PUBLIC|FINAL);
+		assertNoField(TypeNone.class, "TYPE");
 	}
 	
 	void assertField(
@@ -98,6 +103,19 @@ public class GeneratorTest extends InstrumentorTest
 		}
 		assertEquals(returnType, field.getType());
 		assertEquals(modifiers, field.getModifiers());
+	}
+
+	void assertNoField(final Class javaClass, final String name)
+	{
+		try
+		{
+			javaClass.getDeclaredField(name);
+			fail("field " + name + " exists.");
+		}
+		catch(NoSuchFieldException e)
+		{
+			// success
+		}
 	}
 
 	void assertMethod(final Class javaClass, final String name, final Class returnType, final int modifiers)
