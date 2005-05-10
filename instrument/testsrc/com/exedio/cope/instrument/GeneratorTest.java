@@ -18,15 +18,18 @@
 
 package com.exedio.cope.instrument;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
 import com.exedio.cope.instrument.testmodel.Standard;
+import com.exedio.cope.lib.Type;
 
 
 public class GeneratorTest extends InstrumentorTest
 {
 	public static final int PUBLIC = Modifier.PUBLIC;
+	public static final int STATIC = Modifier.STATIC;
 	public static final int FINAL = Modifier.FINAL;
 	
 	public void testStandard()
@@ -34,8 +37,26 @@ public class GeneratorTest extends InstrumentorTest
 		final Class standard = Standard.class;
 		assertMethod(standard, "getDefaultString", String.class, PUBLIC|FINAL);
 		assertMethod(standard, "setDefaultString", new Class[]{String.class}, PUBLIC|FINAL);
+		assertField(standard, "TYPE", Type.class, PUBLIC|STATIC|FINAL);
 	}
 	
+	void assertField(
+			final Class javaClass, final String name,
+			final Class returnType, final int modifiers)
+	{
+		final Field field;
+		try
+		{
+			field = javaClass.getDeclaredField(name);
+		}
+		catch(NoSuchFieldException e)
+		{
+			throw new AssertionError(e);
+		}
+		assertEquals(returnType, field.getType());
+		assertEquals(modifiers, field.getModifiers());
+	}
+
 	void assertMethod(final Class javaClass, final String name, final Class returnType, final int modifiers)
 	{
 		assertMethod(javaClass, name, null, returnType, modifiers);
