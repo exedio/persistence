@@ -58,6 +58,7 @@ public class GeneratorTest extends InstrumentorTest
 		assertNoMethod(standard, "setReadOnlyString", new Class[]{String.class});
 		assertMethod(standard, "getUniqueString", String.class, PUBLIC|FINAL);
 		assertMethod(standard, "setUniqueString", new Class[]{String.class}, PUBLIC|FINAL, new Class[]{UniqueViolationException.class});
+		assertMethod(standard, "findByUniqueString", new Class[]{String.class}, Standard.class, PUBLIC|STATIC|FINAL);
 
 		assertMethod(standard, "getDefaultInteger", Integer.class, PUBLIC|FINAL);
 		assertMethod(standard, "setDefaultInteger", new Class[]{Integer.class}, PUBLIC|FINAL);
