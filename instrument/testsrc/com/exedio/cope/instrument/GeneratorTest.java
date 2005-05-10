@@ -41,12 +41,19 @@ public class GeneratorTest extends InstrumentorTest
 		final Class attributeValueArrayClass = Class.forName("[L"+AttributeValue.class.getName()+';');
 		
 		final Class standard = Standard.class;
-		assertConstructor(standard, new Class[]{int.class, long.class, double.class}, PUBLIC);
+		assertConstructor(standard, new Class[]{
+				String.class,
+				int.class,
+				long.class,
+				double.class,
+			}, PUBLIC);
 		assertConstructor(standard, new Class[]{attributeValueArrayClass}, PRIVATE);
 		assertConstructor(standard, new Class[]{ReactivationConstructorDummy.class, int.class}, PRIVATE);
 
 		assertMethod(standard, "getDefaultString", String.class, PUBLIC|FINAL);
 		assertMethod(standard, "setDefaultString", new Class[]{String.class}, PUBLIC|FINAL);
+		assertMethod(standard, "getReadOnlyString", String.class, PUBLIC|FINAL);
+		assertNoMethod(standard, "setReadOnlyString", new Class[]{String.class});
 
 		assertMethod(standard, "getDefaultInteger", Integer.class, PUBLIC|FINAL);
 		assertMethod(standard, "setDefaultInteger", new Class[]{Integer.class}, PUBLIC|FINAL);
@@ -108,6 +115,19 @@ public class GeneratorTest extends InstrumentorTest
 		}
 		assertEquals(returnType, method.getReturnType());
 		assertEquals(modifiers, method.getModifiers());
+	}
+
+	void assertNoMethod(final Class javaClass, final String name, final Class[] parameterTypes)
+	{
+		try
+		{
+			javaClass.getDeclaredMethod(name, parameterTypes);
+			fail("method " + name + " exists.");
+		}
+		catch(NoSuchMethodException e)
+		{
+			// success
+		}
 	}
 
 	void assertConstructor(
