@@ -307,4 +307,59 @@ public abstract class Cope
 		return new OrCondition(new Condition[]{condition1, condition2});
 	}
 	
+	public static final AttributeValue attributeValue(final StringAttribute attribute, final String value)
+	{
+		return new AttributeValue(attribute, value);
+	}
+	
+	public static final AttributeValue attributeValue(final BooleanAttribute attribute, final Boolean value)
+	{
+		return new AttributeValue(attribute, value);
+	}
+	
+	public static final AttributeValue attributeValue(final BooleanAttribute attribute, final boolean value)
+	{
+		return new AttributeValue(attribute, value ? Boolean.TRUE : Boolean.FALSE);
+	}
+	
+	public static final AttributeValue attributeValue(final IntegerAttribute attribute, final Integer value)
+	{
+		return new AttributeValue(attribute, value);
+	}
+	
+	public static final AttributeValue attributeValue(final IntegerAttribute attribute, final int value)
+	{
+		return new AttributeValue(attribute, new Integer(value));
+	}
+	
+	public static final AttributeValue attributeValue(final LongAttribute attribute, final Long value)
+	{
+		return new AttributeValue(attribute, value);
+	}
+	
+	public static final AttributeValue attributeValue(final LongAttribute attribute, final long value)
+	{
+		return new AttributeValue(attribute, new Long(value));
+	}
+	
+	public static final AttributeValue attributeValue(final DoubleAttribute attribute, final Double value)
+	{
+		return new AttributeValue(attribute, value);
+	}
+	
+	public static final AttributeValue attributeValue(final DoubleAttribute attribute, final double value)
+	{
+		return new AttributeValue(attribute, new Double(value));
+	}
+	
+	public static final AttributeValue attributeValue(final ItemAttribute attribute, final Item value)
+	{
+		return new AttributeValue(attribute, value);
+	}
+	
+	public static final AttributeValue attributeValue(final EnumAttribute attribute, final EnumValue value)
+	{
+		return new AttributeValue(attribute, value);
+	}
+	
 }

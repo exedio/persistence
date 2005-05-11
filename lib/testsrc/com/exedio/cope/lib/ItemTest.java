@@ -100,13 +100,13 @@ public class ItemTest extends DatabaseLibTest
 	{
 		final EmptyItem item1 = (EmptyItem)EmptyItem.TYPE.newItem(null);
 		final AttributeItem item2 = (AttributeItem)AttributeItem.TYPE.newItem(new AttributeValue[]{
-			new AttributeValue(AttributeItem.someNotNullString, "someGenericString"),
-			new AttributeValue(AttributeItem.someNotNullInteger, 50),
-			new AttributeValue(AttributeItem.someNotNullLong, 60l),
-			new AttributeValue(AttributeItem.someNotNullDouble, 20.2),
-			new AttributeValue(AttributeItem.someNotNullBoolean, false),
-			new AttributeValue(AttributeItem.someNotNullItem, item1), 
-			new AttributeValue(AttributeItem.someNotNullEnumeration, AttributeItem.SomeEnumeration.enumValue3)});
+			Cope.attributeValue(AttributeItem.someNotNullString, "someGenericString"),
+			Cope.attributeValue(AttributeItem.someNotNullInteger, 50),
+			Cope.attributeValue(AttributeItem.someNotNullLong, 60l),
+			Cope.attributeValue(AttributeItem.someNotNullDouble, 20.2),
+			Cope.attributeValue(AttributeItem.someNotNullBoolean, false),
+			Cope.attributeValue(AttributeItem.someNotNullItem, item1), 
+			Cope.attributeValue(AttributeItem.someNotNullEnumeration, AttributeItem.SomeEnumeration.enumValue3)});
 		
 		assertEquals("someGenericString", item2.getSomeNotNullString());
 		assertEquals(50, item2.getSomeNotNullInteger());
