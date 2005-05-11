@@ -44,6 +44,7 @@ public abstract class ComputedFunction extends TypeComponent implements Function
 			throw new RuntimeException("length "+sources.length+" "+sqlFragments.length);
 		this.functionName = functionName;
 		this.jdbcType = jdbcType;
+		this.type = sources[0].getTypeIfInitialized();
 	}
 	
 	public final List getSources()
@@ -81,6 +82,12 @@ public abstract class ComputedFunction extends TypeComponent implements Function
 		
 		return buf.toString();
 	}
+	
+	public final Type getTypeIfInitialized()
+	{
+		return type;
+	}
+
 
 	// second initialization phase ---------------------------------------------------
 
@@ -94,12 +101,19 @@ public abstract class ComputedFunction extends TypeComponent implements Function
 		if(name==null)
 			throw new RuntimeException();
 
-		if(this.type!=null)
-			throw new RuntimeException();
 		if(this.name!=null)
 			throw new RuntimeException();
 
-		this.type = type;
+		if(this.type!=null)
+		{
+			if(this.type!=type)
+				throw new RuntimeException();
+		}
+		else
+		{
+			this.type = type;
+		}
+		
 		this.name = name.intern();
 	}
 	

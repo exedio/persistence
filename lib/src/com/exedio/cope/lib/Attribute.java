@@ -59,6 +59,11 @@ public abstract class Attribute extends TypeComponent implements Feature
 		return singleUniqueConstraint;
 	}
 	
+	public final Type getTypeIfInitialized()
+	{
+		return type;
+	}
+
 	// second initialization phase ---------------------------------------------------
 
 	private Type type;
