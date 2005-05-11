@@ -24,7 +24,7 @@ public final class AttributeValue
 	
 	/**
 	 * Creates a new AttributeValue.
-	 * Instead of using this contructor directly,
+	 * Instead of using this constructor directly,
 	 * you may want to use the more type-safe wrapper methods
 	 * {@link Cope#attributeValue(StringAttribute, String) Cope.attributeValue}.
 	 */
