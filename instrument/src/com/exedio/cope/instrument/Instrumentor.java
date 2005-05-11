@@ -90,9 +90,9 @@ final class Instrumentor implements InjectionConsumer
 	private static final String ATTRIBUTE_SETTER = "cope-setter";
 
 	/**
-	 * Tag name for the generated constructor option.
+	 * Tag name for the generated initial constructor option.
 	 */
-	private static final String CLASS_CONSTRUCTOR = "cope-constructor";
+	private static final String CLASS_INITIAL_CONSTRUCTOR = "cope-constructor";
 	
 	/**
 	 * Tag name for the generated type option.
@@ -111,7 +111,7 @@ final class Instrumentor implements InjectionConsumer
 		if(containsTag(docComment, PERSISTENT_CLASS))
 		{
 			final String typeOption = Injector.findDocTagLine(docComment, CLASS_TYPE);
-			final String constructorOption = Injector.findDocTagLine(docComment, CLASS_CONSTRUCTOR);
+			final String constructorOption = Injector.findDocTagLine(docComment, CLASS_INITIAL_CONSTRUCTOR);
 			new CopeClass(jc, typeOption, constructorOption);
 		}
 	}
