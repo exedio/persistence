@@ -18,11 +18,18 @@
 
 package com.exedio.cope.lib.search;
 
+import com.exedio.cope.lib.Cope;
 import com.exedio.cope.lib.ObjectAttribute;
+import com.exedio.cope.lib.StringAttribute;
 
 public class GreaterEqualCondition extends LiteralCondition
 {
-
+	/**
+	 * Creates a new GreaterEqualCondition.
+	 * Instead of using this constructor directly,
+	 * you may want to use the more type-safe wrapper methods
+	 * {@link Cope#greaterOrEqual(StringAttribute, String) Cope.greaterOrEqual}.
+	 */
 	public GreaterEqualCondition(final ObjectAttribute attribute, final Object value)
 	{
 		super(">=", attribute, value);
