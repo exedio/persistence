@@ -8,8 +8,8 @@
 		<property name="api.link.jdk" value="http://java.sun.com/j2se/1.4.2/docs/api" />
 		<property name="api.link.ant" value="http://searchmorph.com/pub/ant/apache-ant-1.6.2/build/javadocs" />
 		<property name="api.link.servlet" value="http://jakarta.apache.org/tomcat/tomcat-5.0-doc/servletapi" />
-		<property environment="env" />
-		<property name="ant.jar" value="${env.ANT_HOME}/lib/ant.jar" />
+		<property environment="environment" />
+		<property name="ant.jar" value="${environment.ANT_HOME}/lib/ant.jar" />
 	</target>
 
 	<target name="jspm.taskdef">
