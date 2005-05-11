@@ -87,6 +87,9 @@ public class GeneratorTest extends InstrumentorTest
 		assertMethod(standard, "getNativeBoolean", boolean.class, PUBLIC|FINAL);
 		assertMethod(standard, "setNativeBoolean", new Class[]{boolean.class}, PUBLIC|FINAL);
 
+		assertMethod(standard, "getPrivateString", String.class, PRIVATE|FINAL);
+		assertMethod(standard, "setPrivateString", new Class[]{String.class}, PRIVATE|FINAL);
+
 		assertNoMethod(standard, "getNoneGetterString");
 		assertMethod(standard, "setNoneGetterString", new Class[]{String.class}, PUBLIC|FINAL);
 		assertMethod(standard, "getPrivateGetterString", String.class, PRIVATE|FINAL);
