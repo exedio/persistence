@@ -113,7 +113,7 @@ final class CopeClass
 		return (CopeUniqueConstraint)copeUniqueConstraintMap.get(name);
 	}
 
-	public boolean hasGeneratedConstructor()
+	public boolean hasInitialConstructor()
 	{
 		return initialConstructorOption.exists;
 	}

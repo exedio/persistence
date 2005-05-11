@@ -180,7 +180,7 @@ final class Generator
 	private void writeInitialConstructor(final CopeClass copeClass) 
 	throws IOException
 	{
-		if(!copeClass.hasGeneratedConstructor())
+		if(!copeClass.hasInitialConstructor())
 			return;
 
 		final List initialAttributes = copeClass.getInitialAttributes();
