@@ -237,7 +237,7 @@ final class Generator
 			o.write(lineSeparator);
 		}
 		writeCommentFooter();
-		final String modifier = Modifier.toString(copeClass.getGeneratedConstructorModifier());
+		final String modifier = Modifier.toString(copeClass.getInitialConstructorModifier());
 		if(modifier.length()>0)
 		{
 			o.write(modifier);

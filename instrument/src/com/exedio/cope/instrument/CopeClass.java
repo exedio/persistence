@@ -118,7 +118,7 @@ final class CopeClass
 		return initialConstructorOption.exists;
 	}
 	
-	public int getGeneratedConstructorModifier()
+	public int getInitialConstructorModifier()
 	{
 		int inheritedModifier = javaClass.accessModifier;
 		for(Iterator i = getInitialAttributes().iterator(); i.hasNext(); )
