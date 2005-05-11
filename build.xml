@@ -6,7 +6,10 @@
 		<property file="../local.properties" />
 		<property name="api.private" value="off" />
 		<property name="api.link.jdk" value="http://java.sun.com/j2se/1.4.2/docs/api" />
+		<property name="api.link.ant" value="http://searchmorph.com/pub/ant/apache-ant-1.6.2/build/javadocs" />
 		<property name="api.link.servlet" value="http://jakarta.apache.org/tomcat/tomcat-5.0-doc/servletapi" />
+		<property environment="env" />
+		<property name="ant.jar" value="${env.ANT_HOME}/lib/ant.jar" />
 	</target>
 
 	<target name="jspm.taskdef">
@@ -585,8 +588,10 @@
 			<package name="com.*" />
 			<link offline="on" packagelistLoc="lib/api" href="../../lib/api" />
 			<link href="${api.link.jdk}" />
+			<link href="${api.link.ant}" />
 			<classpath>
 				<pathelement location="lib/build/classes" />
+				<pathelement location="${ant.jar}" />
 			</classpath>
 		</javadoc>
 	</target>
