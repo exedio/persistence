@@ -37,7 +37,6 @@ import com.exedio.cope.lib.StringAttribute;
  * TODO: qualifiers
  * TODO: hashes
  * TODO: creation constructor with different exceptions
- * TODO: implement @cope-generic-constructor
  */
 public class Standard extends Item
 {

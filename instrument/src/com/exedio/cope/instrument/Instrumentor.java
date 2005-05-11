@@ -95,6 +95,11 @@ final class Instrumentor implements InjectionConsumer
 	private static final String CLASS_INITIAL_CONSTRUCTOR = "cope-constructor";
 	
 	/**
+	 * Tag name for the generated generic constructor option.
+	 */
+	private static final String CLASS_GENERIC_CONSTRUCTOR = "cope-generic-constructor";
+	
+	/**
 	 * Tag name for the generated type option.
 	 */
 	private static final String CLASS_TYPE = "cope-type";
@@ -112,7 +117,8 @@ final class Instrumentor implements InjectionConsumer
 		{
 			final String typeOption = Injector.findDocTagLine(docComment, CLASS_TYPE);
 			final String initialConstructorOption = Injector.findDocTagLine(docComment, CLASS_INITIAL_CONSTRUCTOR);
-			new CopeClass(jc, typeOption, initialConstructorOption);
+			final String genericConstructorOption = Injector.findDocTagLine(docComment, CLASS_GENERIC_CONSTRUCTOR);
+			new CopeClass(jc, typeOption, initialConstructorOption, genericConstructorOption);
 		}
 	}
 	

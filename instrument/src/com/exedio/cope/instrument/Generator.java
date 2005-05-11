@@ -294,13 +294,18 @@ final class Generator
 	private void writeGenericConstructor(final CopeClass copeClass)
 	throws IOException
 	{
+		final Option option = copeClass.genericConstructorOption;
+		if(!option.exists)
+			return;
+
 		writeCommentHeader();
 		o.write("\t * ");
 		o.write(format(CONSTRUCTOR_GENERIC, copeClass.getName()));
 		o.write(lineSeparator);
 		writeCommentGenerated();
 		writeCommentFooter();
-		o.write( copeClass.isAbstract() ? "protected " : "private " );
+		o.write( Modifier.toString( option.getModifier(copeClass.isAbstract() ? Modifier.PROTECTED : Modifier.PRIVATE) ) );
+		o.write(' ');
 		o.write(copeClass.getName());
 		o.write("(final "+AttributeValue.class.getName()+"[] initialAttributes)");
 		o.write(lineSeparator);

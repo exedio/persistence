@@ -53,11 +53,13 @@ final class CopeClass
 	private ArrayList qualifiers = null;
 	final Option typeOption;
 	final Option initialConstructorOption;
+	final Option genericConstructorOption;
 
 	public CopeClass(
 			final JavaClass javaClass,
 			final String typeOption,
-			final String initialConstructorOption)
+			final String initialConstructorOption,
+			final String genericConstructorOption)
 		throws InjectorParseException
 	{
 		this.javaClass = javaClass;
@@ -65,6 +67,7 @@ final class CopeClass
 		copeClassByJavaClass.put(javaClass, this);	
 		this.typeOption = new Option(typeOption, false);
 		this.initialConstructorOption = new Option(initialConstructorOption, false);
+		this.genericConstructorOption = new Option(genericConstructorOption, false);
 		//System.out.println("copeClassByJavaClass "+javaClass.getName());
 		javaClass.file.repository.add(this);
 	}
