@@ -33,6 +33,7 @@ public class TypePrivate extends Item
 
 	/**
 	 * Creates a new TypeNone and sets the given attributes initially.
+	 * This constructor is called by {@link com.exedio.cope.lib.Type#newItem Type.newItem}.
 	 */
 	private TypePrivate(final AttributeValue[] initialAttributes)
 	{

@@ -50,6 +50,7 @@ final class Generator
 	private static final String CONSTRUCTOR_INITIAL = "Creates a new {0} with all the attributes initially needed.";
 	private static final String CONSTRUCTOR_INITIAL_PARAMETER = "the initial value for attribute {0}.";
 	private static final String CONSTRUCTOR_GENERIC = "Creates a new {0} and sets the given attributes initially.";
+	private static final String CONSTRUCTOR_GENERIC_CALLED = "This constructor is called by {0}.";
 	private static final String CONSTRUCTOR_REACTIVATION = "Reactivation constructor. Used for internal purposes only.";
 	private static final String GETTER = "Returns the value of the persistent attribute {0}.";
 	private static final String CHECKER = "Returns whether the given value corresponds to the hash in {0}.";
@@ -301,6 +302,9 @@ final class Generator
 		writeCommentHeader();
 		o.write("\t * ");
 		o.write(format(CONSTRUCTOR_GENERIC, copeClass.getName()));
+		o.write(lineSeparator);
+		o.write("\t * ");
+		o.write(format(CONSTRUCTOR_GENERIC_CALLED, "{@link com.exedio.cope.lib.Type#newItem Type.newItem}"));
 		o.write(lineSeparator);
 		writeCommentGenerated();
 		writeCommentFooter();
