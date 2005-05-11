@@ -179,17 +179,17 @@ public abstract class Cope
 	
 	public static final LessCondition less(final IntegerAttribute attribute, final int value)
 	{
-		return new LessCondition(attribute, value);
+		return new LessCondition(attribute, new Integer(value));
 	}
 	
 	public static final LessCondition less(final LongAttribute attribute, final long value)
 	{
-		return new LessCondition(attribute, value);
+		return new LessCondition(attribute, new Long(value));
 	}
 	
 	public static final LessCondition less(final DoubleAttribute attribute, final double value)
 	{
-		return new LessCondition(attribute, value);
+		return new LessCondition(attribute, new Double(value));
 	}
 	
 	public static final LessCondition less(final DateAttribute attribute, final Date value)
@@ -209,17 +209,17 @@ public abstract class Cope
 	
 	public static final LessEqualCondition lessOrEqual(final IntegerAttribute attribute, final int value)
 	{
-		return new LessEqualCondition(attribute, value);
+		return new LessEqualCondition(attribute, new Integer(value));
 	}
 	
 	public static final LessEqualCondition lessOrEqual(final LongAttribute attribute, final long value)
 	{
-		return new LessEqualCondition(attribute, value);
+		return new LessEqualCondition(attribute, new Long(value));
 	}
 	
 	public static final LessEqualCondition lessOrEqual(final DoubleAttribute attribute, final double value)
 	{
-		return new LessEqualCondition(attribute, value);
+		return new LessEqualCondition(attribute, new Double(value));
 	}
 	
 	public static final LessEqualCondition lessOrEqual(final DateAttribute attribute, final Date value)
@@ -239,17 +239,17 @@ public abstract class Cope
 	
 	public static final GreaterCondition greater(final IntegerAttribute attribute, final int value)
 	{
-		return new GreaterCondition(attribute, value);
+		return new GreaterCondition(attribute, new Integer(value));
 	}
 	
 	public static final GreaterCondition greater(final LongAttribute attribute, final long value)
 	{
-		return new GreaterCondition(attribute, value);
+		return new GreaterCondition(attribute, new Long(value));
 	}
 	
 	public static final GreaterCondition greater(final DoubleAttribute attribute, final double value)
 	{
-		return new GreaterCondition(attribute, value);
+		return new GreaterCondition(attribute, new Double(value));
 	}
 	
 	public static final GreaterCondition greater(final DateAttribute attribute, final Date value)
@@ -269,17 +269,17 @@ public abstract class Cope
 	
 	public static final GreaterEqualCondition greaterOrEqual(final IntegerAttribute attribute, final int value)
 	{
-		return new GreaterEqualCondition(attribute, value);
+		return new GreaterEqualCondition(attribute, new Integer(value));
 	}
 	
 	public static final GreaterEqualCondition greaterOrEqual(final LongAttribute attribute, final long value)
 	{
-		return new GreaterEqualCondition(attribute, value);
+		return new GreaterEqualCondition(attribute, new Long(value));
 	}
 	
 	public static final GreaterEqualCondition greaterOrEqual(final DoubleAttribute attribute, final double value)
 	{
-		return new GreaterEqualCondition(attribute, value);
+		return new GreaterEqualCondition(attribute, new Double(value));
 	}
 	
 	public static final GreaterEqualCondition greaterOrEqual(final DateAttribute attribute, final Date value)
