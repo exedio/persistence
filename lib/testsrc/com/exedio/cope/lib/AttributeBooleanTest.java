@@ -64,14 +64,14 @@ public class AttributeBooleanTest extends AttributeTest
 	public void testSomeNotNullBoolean()
 	{
 		assertEquals(item.TYPE, item.someNotNullBoolean.getType());
-		assertEquals(true, item.isSomeNotNullBoolean());
+		assertEquals(true, item.getSomeNotNullBoolean());
 		assertContains(item, item.TYPE.search(Cope.equal(item.someNotNullBoolean, true)));
 		assertContains(item.TYPE.search(Cope.isNull(item.someNotNullBoolean)));
 		assertContains(item, item.TYPE.search(Cope.notEqual(item.someNotNullBoolean, false)));
 		assertContains(item, item2, item.TYPE.search(Cope.isNotNull(item.someNotNullBoolean)));
 		
 		item.setSomeNotNullBoolean(false);
-		assertEquals(false, item.isSomeNotNullBoolean());
+		assertEquals(false, item.getSomeNotNullBoolean());
 		assertContains(item.TYPE.search(Cope.equal(item.someNotNullBoolean, true)));
 		assertContains(item.TYPE.search(Cope.isNull(item.someNotNullBoolean)));
 		assertContains(item.TYPE.search(Cope.notEqual(item.someNotNullBoolean, false)));
