@@ -28,7 +28,6 @@ import com.exedio.cope.lib.pattern.MD5Hash;
 
 /**
  * @persistent
- * @cope-constructor public
  * @author ralf.wiebicke@exedio.com
  */
 public class StringItem extends Item
