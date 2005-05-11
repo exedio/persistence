@@ -18,9 +18,8 @@
 
 package com.exedio.cope.lib.search;
 
+import com.exedio.cope.lib.Cope;
 import com.exedio.cope.lib.Function;
-import com.exedio.cope.lib.IntegerFunction;
-import com.exedio.cope.lib.ObjectAttribute;
 import com.exedio.cope.lib.Query;
 import com.exedio.cope.lib.Statement;
 import com.exedio.cope.lib.StringFunction;
@@ -30,25 +29,13 @@ public final class EqualCondition extends Condition
 	public final Function function;
 	public final Object value;
 
-	public EqualCondition(final ObjectAttribute function)
-	{
-		this.function = function;
-		this.value = null;
-	}
-	
-	public EqualCondition(final ObjectAttribute function, final Object value)
-	{
-		this.function = function;
-		this.value = value;
-	}
-	
-	public EqualCondition(final StringFunction function, final String value)
-	{
-		this.function = function;
-		this.value = value;
-	}
-	
-	public EqualCondition(final IntegerFunction function, final Integer value)
+	/**
+	 * Creates a new EqualCondition.
+	 * Instead of using this constructor directly,
+	 * you may want to use the more type-safe wrapper methods
+	 * {@link Cope#equal(StringFunction, String) Cope.equal}.
+	 */
+	public EqualCondition(final Function function, final Object value)
 	{
 		this.function = function;
 		this.value = value;
