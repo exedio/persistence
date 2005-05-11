@@ -618,6 +618,7 @@
 			>
 			<package name="com.*" />
 			<link offline="on" packagelistLoc="lib/api" href="../../lib/api" />
+			<link href="../../../cops/api" />
 			<link href="${api.link.jdk}" />
 			<link href="${api.link.j2ee}" />
 			<classpath>
