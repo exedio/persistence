@@ -586,7 +586,7 @@
 				bottom='&lt;small&gt;Copyright &amp;copy; 2004-2005 &lt;a href="http://www.exedio.com/" target="_top"&gt;exedio&lt;/a&gt; Gesellschaft f&amp;uuml;r Softwareentwicklung mbH. All rights reserved.&lt;small&gt;'
 			>
 			<package name="com.*" />
-			<link offline="on" packagelistLoc="lib/api" href="../../lib/api" />
+			<link href="../../lib/api" />
 			<link href="${api.link.jdk}" />
 			<link href="${api.link.ant}" />
 			<classpath>
