@@ -340,26 +340,29 @@ final class Generator
 		final String type = copeAttribute.getBoxedType();
 
 		// getter
-		writeCommentHeader();
-		o.write("\t * ");
-		o.write(format(GETTER, link(copeAttribute.getName())));
-		o.write(lineSeparator);
-		writeCommentGenerated();
-		writeCommentFooter();
-		o.write(Modifier.toString(copeAttribute.getGeneratedGetterModifier()));
-		o.write(' ');
-		o.write(type);
-		if(copeAttribute.hasIsGetter())
-			o.write(" is");
-		else
-			o.write(" get");
-		o.write(toCamelCase(copeAttribute.getName()));
-		o.write("()");
-		o.write(lineSeparator);
-		o.write("\t{");
-		o.write(lineSeparator);
-		writeGetterBody(copeAttribute);
-		o.write("\t}");
+		if(copeAttribute.getterOption.exists)
+		{
+			writeCommentHeader();
+			o.write("\t * ");
+			o.write(format(GETTER, link(copeAttribute.getName())));
+			o.write(lineSeparator);
+			writeCommentGenerated();
+			writeCommentFooter();
+			o.write(Modifier.toString(copeAttribute.getGeneratedGetterModifier()));
+			o.write(' ');
+			o.write(type);
+			if(copeAttribute.hasIsGetter())
+				o.write(" is");
+			else
+				o.write(" get");
+			o.write(toCamelCase(copeAttribute.getName()));
+			o.write("()");
+			o.write(lineSeparator);
+			o.write("\t{");
+			o.write(lineSeparator);
+			writeGetterBody(copeAttribute);
+			o.write("\t}");
+		}
 		
 		// setter
 		if(copeAttribute.hasGeneratedSetter())
