@@ -52,19 +52,19 @@ final class CopeClass
 	private ArrayList uniqueConstraints = null;
 	private ArrayList qualifiers = null;
 	final Option typeOption;
-	final Option constructorOption;
+	final Option initialConstructorOption;
 
 	public CopeClass(
 			final JavaClass javaClass,
 			final String typeOption,
-			final String constructorOption)
+			final String initialConstructorOption)
 		throws InjectorParseException
 	{
 		this.javaClass = javaClass;
 		this.accessModifier = javaClass.accessModifier;
 		copeClassByJavaClass.put(javaClass, this);	
 		this.typeOption = new Option(typeOption, false);
-		this.constructorOption = new Option(constructorOption, false);
+		this.initialConstructorOption = new Option(initialConstructorOption, false);
 		//System.out.println("copeClassByJavaClass "+javaClass.getName());
 		javaClass.file.repository.add(this);
 	}
@@ -115,7 +115,7 @@ final class CopeClass
 
 	public boolean hasGeneratedConstructor()
 	{
-		return constructorOption.exists;
+		return initialConstructorOption.exists;
 	}
 	
 	public int getGeneratedConstructorModifier()
@@ -129,7 +129,7 @@ final class CopeClass
 				inheritedModifier = attributeAccessModifier;
 		}
 		
-		return constructorOption.getModifier(JavaFeature.toReflectionModifier(inheritedModifier));
+		return initialConstructorOption.getModifier(JavaFeature.toReflectionModifier(inheritedModifier));
 	}
 	
 	public void makeUnique(final CopeUniqueConstraint constraint)

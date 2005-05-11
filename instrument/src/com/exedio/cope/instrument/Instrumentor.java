@@ -111,8 +111,8 @@ final class Instrumentor implements InjectionConsumer
 		if(containsTag(docComment, PERSISTENT_CLASS))
 		{
 			final String typeOption = Injector.findDocTagLine(docComment, CLASS_TYPE);
-			final String constructorOption = Injector.findDocTagLine(docComment, CLASS_INITIAL_CONSTRUCTOR);
-			new CopeClass(jc, typeOption, constructorOption);
+			final String initialConstructorOption = Injector.findDocTagLine(docComment, CLASS_INITIAL_CONSTRUCTOR);
+			new CopeClass(jc, typeOption, initialConstructorOption);
 		}
 	}
 	
