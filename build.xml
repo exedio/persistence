@@ -337,6 +337,7 @@
 		<instrument>
 			<filelist dir="instrument/testsrc/com/exedio/cope/instrument/testmodel" files="
 				Standard.java,
+				TypePrivate.java,
 				TypeNone.java" />
 		</instrument>
 	</target>

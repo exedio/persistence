@@ -26,6 +26,7 @@ import java.util.Arrays;
 
 import com.exedio.cope.instrument.testmodel.Standard;
 import com.exedio.cope.instrument.testmodel.TypeNone;
+import com.exedio.cope.instrument.testmodel.TypePrivate;
 import com.exedio.cope.lib.AttributeValue;
 import com.exedio.cope.lib.NotNullViolationException;
 import com.exedio.cope.lib.Type;
@@ -118,6 +119,14 @@ public class GeneratorTest extends InstrumentorTest
 		assertMethod(typeNone, "getDefaultString", String.class, PUBLIC|FINAL);
 		assertMethod(typeNone, "setDefaultString", new Class[]{String.class}, PUBLIC|FINAL);
 		assertNoField(typeNone, "TYPE");
+
+		final Class typePrivate = TypePrivate.class;
+		assertConstructor(typePrivate, new Class[]{}, PUBLIC);
+		assertConstructor(typePrivate, new Class[]{attributeValueArrayClass}, PRIVATE);
+		assertConstructor(typePrivate, new Class[]{ReactivationConstructorDummy.class, int.class}, PRIVATE);
+		assertMethod(typePrivate, "getDefaultString", String.class, PUBLIC|FINAL);
+		assertMethod(typePrivate, "setDefaultString", new Class[]{String.class}, PUBLIC|FINAL);
+		assertField(typePrivate, "TYPE", Type.class, PRIVATE|STATIC|FINAL);
 	}
 	
 	void assertField(

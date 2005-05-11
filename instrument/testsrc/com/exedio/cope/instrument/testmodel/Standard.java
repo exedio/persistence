@@ -36,7 +36,6 @@ import com.exedio.cope.lib.StringAttribute;
  * TODO: functions
  * TODO: qualifiers
  * TODO: hashes
- * TODO: type with visibility
  * TODO: creation constructor with different exceptions
  */
 public class Standard extends Item
