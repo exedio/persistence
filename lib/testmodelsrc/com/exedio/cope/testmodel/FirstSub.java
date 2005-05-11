@@ -37,22 +37,6 @@ public class FirstSub extends Super
 		});
 	} 
 
-	/**
-	 * Override method to test <code>@cope-getter non-final</code>
-	 */
-	public final int getSuperInt()
-	{
-		return super.getSuperInt();
-	}
-	
-	/**
-	 * Override method to test <code>@cope-setter non-final</code>
-	 */
-	public final void setSuperString(final String superString)
-	{
-		super.setSuperString(superString);
-	}
-
 /**
 
 	 **
