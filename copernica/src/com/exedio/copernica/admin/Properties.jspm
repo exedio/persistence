@@ -64,14 +64,14 @@ final class Properties_Jspm
 			</tr><%
 			if(properties.hasData())
 			{
-				final String mediaDirectory =
+				final String datadirPath =
 					properties.getDatadirPath().getAbsolutePath();
 				final String mediaUrl = properties.getDatadirUrl();
 			%>
 			<tr>
-				<td><small>media.directory</small></td>
+				<td><small><%=properties.DATADIR_PATH%></small></td>
 				<td><small>
-					<a href="file://<%=mediaDirectory%>"><%=mediaDirectory%></a>
+					<a href="file://<%=datadirPath%>"><%=datadirPath%></a>
 					<br>
 					(link works only if the server is running locally).
 				</small></td>
