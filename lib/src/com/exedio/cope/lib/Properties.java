@@ -45,7 +45,7 @@ public final class Properties
 	private final String databasePassword;
 
 	private final File datadirPath;
-	private final String mediaUrl;
+	private final String datadirUrl;
 
 	public Properties()
 	{
@@ -162,12 +162,12 @@ public final class Properties
 			{
 				throw new NestingRuntimeException(e);
 			}
-			mediaUrl = getPropertyNotNull(properties, DATADIR_URL);
+			datadirUrl = getPropertyNotNull(properties, DATADIR_URL);
 		}
 		else
 		{
 			datadirPath = null;
-			mediaUrl  = null;
+			datadirUrl  = null;
 		}
 	}
 	
@@ -243,7 +243,7 @@ public final class Properties
 		if(datadirPath==null)
 			throw new RuntimeException("property media.directory in "+source+" not set.");
 
-		return mediaUrl;
+		return datadirUrl;
 	}
 	
 	final void ensureEquality(final Properties other)
@@ -277,12 +277,12 @@ public final class Properties
 					" expected " + this.datadirPath +
 					" but got " + other.datadirPath + '.');
 		
-		if((this.mediaUrl!=null && !this.mediaUrl.equals(other.mediaUrl)) ||
-				(this.mediaUrl==null && other.mediaUrl!=null))
+		if((this.datadirUrl!=null && !this.datadirUrl.equals(other.datadirUrl)) ||
+				(this.datadirUrl==null && other.datadirUrl!=null))
 			throw new RuntimeException(
 					"inconsistent initialization for " + DATADIR_URL + "," +
-					" expected " + this.mediaUrl +
-					" but got " + other.mediaUrl + '.');
+					" expected " + this.datadirUrl +
+					" but got " + other.datadirUrl + '.');
 	}
 	
 }
