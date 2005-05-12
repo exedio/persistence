@@ -118,12 +118,12 @@ public final class Model
 	public void createDatabase()
 	{
 		for(int i = 0; i<types.length; i++)
-			createMediaDirectories(types[i]);
+			createDataDirectories(types[i]);
 
 		database.createDatabase();
 	}
 
-	private void createMediaDirectories(final Type type)
+	private void createDataDirectories(final Type type)
 	{
 		File typeDirectory = null;
 
