@@ -90,7 +90,7 @@ final class Properties_Jspm
 			{
 			%>
 			<tr>
-				<td><small>media</small></td>
+				<td><small>datadir</small></td>
 				<td><small><b>not available</b></small></td>
 			</tr><%
 			}
