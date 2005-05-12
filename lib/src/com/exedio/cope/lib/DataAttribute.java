@@ -97,7 +97,7 @@ public final class DataAttribute extends Attribute
 	ArrayList variantsCollecting = null;
 	List variants = null;
 	
-	final void addVariant(final MediaAttributeVariant variant)
+	final void addVariant(final DataAttributeVariant variant)
 	{
 		if(variants!=null)
 			throw new RuntimeException();

@@ -36,7 +36,7 @@ import com.exedio.cope.lib.IntegerFunction;
 import com.exedio.cope.lib.ItemAttribute;
 import com.exedio.cope.lib.LongAttribute;
 import com.exedio.cope.lib.DataAttribute;
-import com.exedio.cope.lib.MediaAttributeVariant;
+import com.exedio.cope.lib.DataAttributeVariant;
 import com.exedio.cope.lib.StringFunction;
 import com.exedio.cope.lib.UniqueConstraint;
 import com.exedio.cope.lib.pattern.Qualifier;
@@ -296,7 +296,7 @@ final class Instrumentor implements InjectionConsumer
 						handleUniqueConstraint(ja, typeClass);
 					else if(Qualifier.class.isAssignableFrom(typeClass))
 						handleQualifier(ja, typeClass);
-					else if(MediaAttributeVariant.class.isAssignableFrom(typeClass))
+					else if(DataAttributeVariant.class.isAssignableFrom(typeClass))
 						handleMediaVariant(ja, typeClass);
 					else if(Hash.class.isAssignableFrom(typeClass))
 						handleHash(ja, typeClass);

@@ -382,7 +382,7 @@ public abstract class Item extends Cope
 	}
 
 	private final void appendMediaPath(
-									final DataAttribute attribute, final MediaAttributeVariant variant,
+									final DataAttribute attribute, final DataAttributeVariant variant,
 									final StringBuffer bf)
 	{
 		final String mimeMajor;
@@ -459,12 +459,12 @@ public abstract class Item extends Cope
 	 * Returns a URL pointing to the data of this persistent media attribute.
 	 * Returns null, if there is no data for this attribute.
 	 */
-	public final String getMediaURL(final MediaAttributeVariant variant)
+	public final String getMediaURL(final DataAttributeVariant variant)
 	{
 		return getMediaURL(variant.attribute, variant);
 	}
 
-	private final String getMediaURL(final DataAttribute attribute, final MediaAttributeVariant variant)
+	private final String getMediaURL(final DataAttribute attribute, final DataAttributeVariant variant)
 	{
 		if(variant!=null && variant.attribute!=attribute)
 			throw new RuntimeException();
@@ -756,9 +756,9 @@ public abstract class Item extends Cope
 		return new DataAttribute(option, fixedMimeMajor, fixedMimeMinor);
 	}
 	
-	protected static final MediaAttributeVariant mediaAttributeVariant(final DataAttribute attribute)
+	protected static final DataAttributeVariant mediaAttributeVariant(final DataAttribute attribute)
 	{
-		return new MediaAttributeVariant(attribute);
+		return new DataAttributeVariant(attribute);
 	}
 	
 	protected static final UniqueConstraint uniqueConstraint(final ObjectAttribute uniqueAttribute)

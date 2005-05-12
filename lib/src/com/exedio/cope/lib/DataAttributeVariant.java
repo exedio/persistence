@@ -18,14 +18,14 @@
 package com.exedio.cope.lib;
 
 
-public final class MediaAttributeVariant extends TypeComponent
+public final class DataAttributeVariant extends TypeComponent
 {
 	final DataAttribute attribute;
 
 	/**
 	 * @see Item#mediaAttributeVariant(MediaAttribute)
 	 */
-	MediaAttributeVariant(final DataAttribute attribute)
+	DataAttributeVariant(final DataAttribute attribute)
 	{
 		this.attribute = attribute;
 		attribute.addVariant(this);
