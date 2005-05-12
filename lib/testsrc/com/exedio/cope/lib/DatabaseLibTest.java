@@ -62,7 +62,7 @@ public abstract class DatabaseLibTest extends AbstractLibTest
 		}
 	}
 	
-	protected void assertMediaMime(final AttributeItem item,
+	protected void assertDataMime(final AttributeItem item,
 											final String mimeMajor,
 											final String mimeMinor,
 											final byte[] data,

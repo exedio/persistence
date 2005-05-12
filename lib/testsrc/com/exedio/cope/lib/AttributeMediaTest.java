@@ -56,11 +56,11 @@ public class AttributeMediaTest extends AttributeTest
 		assertEquals("someMimeMajor", item.getSomeDataMimeMajor());
 		assertEquals("someMimeMinor", item.getSomeDataMimeMinor());
 
-		assertMediaMime(item, "image", "jpeg", bytes, "jpg");
-		assertMediaMime(item, "image", "pjpeg", bytes, "jpg");
-		assertMediaMime(item, "image", "gif", bytes, "gif");
-		assertMediaMime(item, "image", "png", bytes, "png");
-		assertMediaMime(item, "image", "someMinor", bytes, "image.someMinor");
+		assertDataMime(item, "image", "jpeg", bytes, "jpg");
+		assertDataMime(item, "image", "pjpeg", bytes, "jpg");
+		assertDataMime(item, "image", "gif", bytes, "gif");
+		assertDataMime(item, "image", "png", bytes, "png");
+		assertDataMime(item, "image", "someMinor", bytes, "image.someMinor");
 
 		final byte[] manyBytes = new byte[49467];
 		for(int i = 0; i<manyBytes.length; i++)
