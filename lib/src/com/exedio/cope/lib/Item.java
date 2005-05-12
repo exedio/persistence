@@ -478,7 +478,7 @@ public abstract class Item extends Cope
 	}
 
 	/**
-	 * Returns the major mime type of this persistent media attribute.
+	 * Returns the major mime type of this persistent data attribute.
 	 * Returns null, if there is no data for this attribute.
 	 */
 	public final String getMimeMajor(final DataAttribute attribute)
@@ -494,7 +494,7 @@ public abstract class Item extends Cope
 	}
 
 	/**
-	 * Returns the minor mime type of this persistent media attribute.
+	 * Returns the minor mime type of this persistent data attribute.
 	 * Returns null, if there is no data for this attribute.
 	 */
 	public final String getMimeMinor(final DataAttribute attribute)
@@ -510,7 +510,7 @@ public abstract class Item extends Cope
 	}
 
 	/**
-	 * Returns a stream for fetching the data of this persistent media attribute.
+	 * Returns a stream for fetching the data of this persistent data attribute.
 	 * <b>You are responsible for closing the stream, when you are finished!</b>
 	 * Returns null, if there is no data for this attribute.
 	 */
@@ -531,7 +531,7 @@ public abstract class Item extends Cope
 	}
 
 	/**
-	 * Provides data for this persistent media attribute.
+	 * Provides data for this persistent data attribute.
 	 * Closes <data>data</data> after reading the contents of the stream.
 	 * @param data give null to remove data.
 	 * @throws NotNullViolationException
