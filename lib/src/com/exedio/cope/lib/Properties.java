@@ -147,13 +147,13 @@ public final class Properties
 			final File mediaDirectoryTest = new File(mediaDirectoryString);
 
 			if(!mediaDirectoryTest.exists())
-				throw new RuntimeException("media directory "+mediaDirectoryTest.getAbsolutePath()+" does not exist.");
+				throw new RuntimeException(DATADIR_PATH + ' ' + mediaDirectoryTest.getAbsolutePath() + " does not exist.");
 			if(!mediaDirectoryTest.isDirectory())
-				throw new RuntimeException("media directory "+mediaDirectoryTest.getAbsolutePath()+" is not a directory.");
+				throw new RuntimeException(DATADIR_PATH + ' ' + mediaDirectoryTest.getAbsolutePath() + " is not a directory.");
 			if(!mediaDirectoryTest.canRead())
-				throw new RuntimeException("media directory "+mediaDirectoryTest.getAbsolutePath()+" is not readable.");
+				throw new RuntimeException(DATADIR_PATH + ' ' + mediaDirectoryTest.getAbsolutePath() + " is not readable.");
 			if(!mediaDirectoryTest.canWrite())
-				throw new RuntimeException("media directory "+mediaDirectoryTest.getAbsolutePath()+" is not writable.");
+				throw new RuntimeException(DATADIR_PATH + ' ' + mediaDirectoryTest.getAbsolutePath() + " is not writable.");
 			try
 			{
 				datadirPath = mediaDirectoryTest.getCanonicalFile();
