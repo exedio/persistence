@@ -141,10 +141,10 @@ public final class Properties
 		databaseUser = getPropertyNotNull(properties, DATABASE_USER);
 		databasePassword = getPropertyNotNull(properties, DATABASE_PASSWORD);
 
-		final String mediaDirectoryString  = properties.getProperty(DATADIR_PATH);
-		if(mediaDirectoryString!=null)
+		final String datadirPathString  = properties.getProperty(DATADIR_PATH);
+		if(datadirPathString!=null)
 		{
-			final File mediaDirectoryTest = new File(mediaDirectoryString);
+			final File mediaDirectoryTest = new File(datadirPathString);
 
 			if(!mediaDirectoryTest.exists())
 				throw new RuntimeException(DATADIR_PATH + ' ' + mediaDirectoryTest.getAbsolutePath() + " does not exist.");
