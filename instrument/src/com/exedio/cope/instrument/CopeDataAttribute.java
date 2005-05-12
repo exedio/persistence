@@ -36,7 +36,7 @@ final class CopeDataAttribute extends CopeAttribute
 			final String getterOption)
 		throws InjectorParseException
 	{
-		super(javaAttribute, typeClass, MEDIA_TYPE, initializerArguments, getterOption, setterOption);
+		super(javaAttribute, typeClass, DATA_TYPE, initializerArguments, getterOption, setterOption);
 		this.variants = new ArrayList();
 
 		this.mimeMajor = getString(initializerArguments, 1);

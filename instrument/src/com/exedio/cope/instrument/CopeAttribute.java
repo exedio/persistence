@@ -45,7 +45,7 @@ abstract class CopeAttribute
 	 * The dash prevents this name to be used as a java identifier.
 	 * @see #getPersistentType()
 	 */
-	static final String MEDIA_TYPE = "Media-";
+	static final String DATA_TYPE = "Data-";
 
 	final JavaAttribute javaAttribute;
 	final int accessModifier;
