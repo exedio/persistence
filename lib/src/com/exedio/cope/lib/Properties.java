@@ -34,7 +34,7 @@ public final class Properties
 	private static final String DATABASE_URL = "database.url";
 	private static final String DATABASE_USER = "database.user";
 	private static final String DATABASE_PASSWORD = "database.password";
-	public static final String MEDIA_DIRECTORY = "datadir.path";
+	public static final String DATADIR_PATH = "datadir.path";
 	public static final String MEDIA_URL = "datadir.url";
 
 	private final String source;
@@ -141,7 +141,7 @@ public final class Properties
 		databaseUser = getPropertyNotNull(properties, DATABASE_USER);
 		databasePassword = getPropertyNotNull(properties, DATABASE_PASSWORD);
 
-		final String mediaDirectoryString  = properties.getProperty(MEDIA_DIRECTORY);
+		final String mediaDirectoryString  = properties.getProperty(DATADIR_PATH);
 		if(mediaDirectoryString!=null)
 		{
 			final File mediaDirectoryTest = new File(mediaDirectoryString);
@@ -273,7 +273,7 @@ public final class Properties
 		if((this.mediaDirectory!=null && !this.mediaDirectory.equals(other.mediaDirectory)) ||
 				(this.mediaDirectory==null && other.mediaDirectory!=null))
 			throw new RuntimeException(
-					"inconsistent initialization for "+MEDIA_DIRECTORY+"," +
+					"inconsistent initialization for " + DATADIR_PATH + "," +
 					" expected " + this.mediaDirectory +
 					" but got " + other.mediaDirectory + '.');
 		
