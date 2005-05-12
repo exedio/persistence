@@ -81,11 +81,11 @@ public abstract class DatabaseLibTest extends AbstractLibTest
 		final String expectedURL = prefix+pkString+'.'+url;
 		final String expectedURLSomeVariant = prefix+"SomeVariant/"+pkString+'.'+url;
 		//System.out.println(expectedURL);
-		//System.out.println(item.getSomeMediaURL());
+		//System.out.println(item.getSomeDataURL());
 		assertEquals(expectedURL, item.getSomeDataURL());
 		assertEquals(expectedURLSomeVariant, item.getSomeDataURLSomeVariant());
 		//System.out.println(expectedURLSomeVariant);
-		//System.out.println(item.getSomeMediaURL());
+		//System.out.println(item.getSomeDataURL());
 		assertData(data, item.getSomeDataData());
 		assertEquals(mimeMajor, item.getSomeDataMimeMajor());
 		assertEquals(mimeMinor, item.getSomeDataMimeMinor());

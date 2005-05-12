@@ -21,7 +21,7 @@ import java.io.IOException;
 
 public class AttributeDataTest extends AttributeTest
 {
-	public void testSomeMedia() throws IOException
+	public void testSomeData() throws IOException
 	{
 		// TODO: test with not null media
 		assertEquals(item.TYPE, item.someData.getType());
@@ -42,7 +42,7 @@ public class AttributeDataTest extends AttributeTest
 		final String expectedURLSomeVariant =
 			prefix + "SomeVariant/" + pkString + ".someMimeMajor.someMimeMinor";
 		//System.out.println(expectedURL);
-		//System.out.println(item.getSomeMediaURL());
+		//System.out.println(item.getSomeDataURL());
 		assertEquals(expectedURL, item.getSomeDataURL());
 		assertEquals(expectedURLSomeVariant, item.getSomeDataURLSomeVariant());
 		assertData(bytes, item.getSomeDataData());
