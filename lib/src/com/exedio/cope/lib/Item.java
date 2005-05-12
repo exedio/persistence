@@ -440,7 +440,7 @@ public abstract class Item extends Cope
 	
 	private final File getMediaFile(final DataAttribute attribute)
 	{
-		final File directory = getCopeType().getModel().getProperties().getMediaDirectory();
+		final File directory = getCopeType().getModel().getProperties().getDataDirectory();
 		final StringBuffer buf = new StringBuffer();
 		appendMediaPath(attribute, null, buf);
 		return new File(directory, buf.toString());
