@@ -233,7 +233,7 @@ public final class Properties
 	public File getDatadirPath()
 	{
 		if(datadirPath==null)
-			throw new RuntimeException("property media.directory in "+source+" not set.");
+			throw new RuntimeException("property " + DATADIR_PATH + " in " + source + " not set.");
 
 		return datadirPath;
 	}
@@ -241,7 +241,7 @@ public final class Properties
 	public String getDatadirUrl()
 	{
 		if(datadirPath==null)
-			throw new RuntimeException("property media.directory in "+source+" not set.");
+			throw new RuntimeException("property " + DATADIR_PATH + " in " + source + " not set.");
 
 		return datadirUrl;
 	}
