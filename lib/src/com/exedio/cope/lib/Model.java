@@ -157,7 +157,7 @@ public final class Model
 	 */
 	public void checkDatabase()
 	{
-		// TODO: check for media attribute directories
+		// TODO: check for data attribute directories
 		database.checkDatabase();
 	}
 
@@ -174,18 +174,18 @@ public final class Model
 			((Type)i.previous()).onDropTable();
 
 		database.dropDatabase();
-		// TODO: remove media directories
+		// TODO: remove data directories
 	}
 
 	public void tearDownDatabase()
 	{
 		database.tearDownDatabase();
-		// TODO: remove media directories
+		// TODO: remove data directories
 	}
 
 	public Report reportDatabase()
 	{
-		// TODO: report media directories
+		// TODO: report data directories
 		return database.reportDatabase();
 	}
 

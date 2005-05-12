@@ -43,7 +43,7 @@ public class DataTest extends DatabaseLibTest
 		assertTrue(item.getFileURL().endsWith(extension));
 	}
 	
-	public void testMedia() throws IOException
+	public void testData() throws IOException
 	{
 		// file
 		assertEquals(null, item.file.getFixedMimeMajor());

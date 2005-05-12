@@ -23,7 +23,7 @@ public class AttributeDataTest extends AttributeTest
 {
 	public void testSomeData() throws IOException
 	{
-		// TODO: test with not null media
+		// TODO: test with not null data
 		assertEquals(item.TYPE, item.someData.getType());
 		assertEquals(null, item.getSomeDataURL());
 		assertEquals(null, item.getSomeDataURLSomeVariant());

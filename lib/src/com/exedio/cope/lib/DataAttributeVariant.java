@@ -23,7 +23,7 @@ public final class DataAttributeVariant extends TypeComponent
 	final DataAttribute attribute;
 
 	/**
-	 * @see Item#dataAttributeVariant(MediaAttribute)
+	 * @see Item#dataAttributeVariant(DataAttribute)
 	 */
 	DataAttributeVariant(final DataAttribute attribute)
 	{
