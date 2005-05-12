@@ -48,7 +48,7 @@ public abstract class TransientCopernicaProvider implements CopernicaProvider
 		initialize(getModel(), config);
 	}
 	
-	private static final String MEDIA_DIRECTORY = com.exedio.cope.lib.Properties.DATADIR_PATH;
+	private static final String DATADIR_PATH = com.exedio.cope.lib.Properties.DATADIR_PATH;
 	private static final String MEDIA_URL = com.exedio.cope.lib.Properties.DATADIR_URL;
 	
 	public static final void initialize(final Model model, final ServletConfig config)
@@ -58,14 +58,14 @@ public abstract class TransientCopernicaProvider implements CopernicaProvider
 		final File propertyFile = new File(context.getRealPath("WEB-INF/cope.properties"));
 		
 		final Properties p = com.exedio.cope.lib.Properties.loadProperties(propertyFile);
-		if("//WEB-APP//".equals(p.getProperty(MEDIA_DIRECTORY)))
+		if("//WEB-APP//".equals(p.getProperty(DATADIR_PATH)))
 		{
 			final String mediaUrl = p.getProperty(MEDIA_URL);
 			// TODO: deal with web applications without media
 			if(mediaUrl==null)
 				throw new RuntimeException("parameter " + MEDIA_URL + " must exist in "+propertyFile.getAbsolutePath());
 			
-			p.setProperty(MEDIA_DIRECTORY, context.getRealPath(mediaUrl));
+			p.setProperty(DATADIR_PATH, context.getRealPath(mediaUrl));
 		}
 			
 		model.setPropertiesInitially(
