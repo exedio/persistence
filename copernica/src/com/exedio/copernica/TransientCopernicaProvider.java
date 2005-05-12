@@ -61,7 +61,7 @@ public abstract class TransientCopernicaProvider implements CopernicaProvider
 		if("//WEB-APP//".equals(p.getProperty(DATADIR_PATH)))
 		{
 			final String datadirUrl = p.getProperty(DATADIR_URL);
-			// TODO: deal with web applications without media
+			// TODO: deal with web applications without data attributes
 			if(datadirUrl==null)
 				throw new RuntimeException("parameter " + DATADIR_URL + " must exist in "+propertyFile.getAbsolutePath());
 			
