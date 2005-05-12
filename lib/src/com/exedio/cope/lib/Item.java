@@ -381,7 +381,7 @@ public abstract class Item extends Cope
 			return null;
 	}
 
-	private final void appendMediaPath(
+	private final void appendDataPath(
 									final DataAttribute attribute, final DataAttributeVariant variant,
 									final StringBuffer bf)
 	{
@@ -442,7 +442,7 @@ public abstract class Item extends Cope
 	{
 		final File directory = getCopeType().getModel().getProperties().getDataDirectory();
 		final StringBuffer buf = new StringBuffer();
-		appendMediaPath(attribute, null, buf);
+		appendDataPath(attribute, null, buf);
 		return new File(directory, buf.toString());
 	}
 	
@@ -473,7 +473,7 @@ public abstract class Item extends Cope
 			return null;
 
 		final StringBuffer bf = new StringBuffer(getCopeType().getModel().getProperties().getDataUrl());
-		appendMediaPath(attribute, variant, bf);
+		appendDataPath(attribute, variant, bf);
 		return bf.toString();
 	}
 
