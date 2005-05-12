@@ -133,9 +133,9 @@ public class AttributeItem extends Item
 	/**
 	 * A media attribute.
 	 */
-	public static final DataAttribute someMedia = mediaAttribute(DEFAULT);
+	public static final DataAttribute someMedia = dataAttribute(DEFAULT);
 	
-	public static final DataAttributeVariant SomeVariant = mediaAttributeVariant(someMedia);
+	public static final DataAttributeVariant SomeVariant = dataAttributeVariant(someMedia);
 
 	public static final Qualifier emptyItem = new Qualifier(AttributeEmptyItem.parentKey);
 

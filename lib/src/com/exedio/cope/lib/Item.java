@@ -741,22 +741,22 @@ public abstract class Item extends Cope
 		return new DoubleAttribute(option);
 	}
 	
-	protected static final DataAttribute mediaAttribute(final Option option)
+	protected static final DataAttribute dataAttribute(final Option option)
 	{
 		return new DataAttribute(option);
 	}
 
-	protected static final DataAttribute mediaAttribute(final Option option, final String fixedMimeMajor)
+	protected static final DataAttribute dataAttribute(final Option option, final String fixedMimeMajor)
 	{
 		return new DataAttribute(option, fixedMimeMajor);
 	}
 
-	protected static final DataAttribute mediaAttribute(final Option option, final String fixedMimeMajor, final String fixedMimeMinor)
+	protected static final DataAttribute dataAttribute(final Option option, final String fixedMimeMajor, final String fixedMimeMinor)
 	{
 		return new DataAttribute(option, fixedMimeMajor, fixedMimeMinor);
 	}
 	
-	protected static final DataAttributeVariant mediaAttributeVariant(final DataAttribute attribute)
+	protected static final DataAttributeVariant dataAttributeVariant(final DataAttribute attribute)
 	{
 		return new DataAttributeVariant(attribute);
 	}

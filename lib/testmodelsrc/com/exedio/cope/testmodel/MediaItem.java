@@ -28,17 +28,17 @@ import com.exedio.cope.lib.DataAttributeVariant;
  */
 public class MediaItem extends Item
 {
-	public static final DataAttribute file = mediaAttribute(DEFAULT);
+	public static final DataAttribute file = dataAttribute(DEFAULT);
 
-	public static final DataAttribute image = mediaAttribute(DEFAULT, "image");
+	public static final DataAttribute image = dataAttribute(DEFAULT, "image");
 	
-	public static final DataAttributeVariant imageBB240 = mediaAttributeVariant(image);
+	public static final DataAttributeVariant imageBB240 = dataAttributeVariant(image);
 
-	public static final DataAttribute photo = mediaAttribute(DEFAULT, "image", "jpeg");
+	public static final DataAttribute photo = dataAttribute(DEFAULT, "image", "jpeg");
 	
-	public static final DataAttributeVariant photoBB65 = mediaAttributeVariant(photo);
+	public static final DataAttributeVariant photoBB65 = dataAttributeVariant(photo);
 
-	public static final DataAttributeVariant photoProgressive = mediaAttributeVariant(photo);
+	public static final DataAttributeVariant photoProgressive = dataAttributeVariant(photo);
 	
 /**
 

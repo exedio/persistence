@@ -32,7 +32,7 @@ public final class DataAttribute extends Attribute
 	IntegerColumn exists = null;
 
 	/**
-	 * @see Item#mediaAttribute(Option, String, String)
+	 * @see Item#dataAttribute(Option, String, String)
 	 */
 	DataAttribute(final Option option, final String fixedMimeMajor, final String fixedMimeMinor)
 	{
@@ -42,7 +42,7 @@ public final class DataAttribute extends Attribute
 	}
 	
 	/**
-	 * @see Item#mediaAttribute(Option, String)
+	 * @see Item#dataAttribute(Option, String)
 	 */
 	DataAttribute(final Option option, final String fixedMimeMajor)
 	{
@@ -50,7 +50,7 @@ public final class DataAttribute extends Attribute
 	}
 	
 	/**
-	 * @see Item#mediaAttribute(Option)
+	 * @see Item#dataAttribute(Option)
 	 */
 	DataAttribute(final Option option)
 	{
