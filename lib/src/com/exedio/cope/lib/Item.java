@@ -452,7 +452,7 @@ public abstract class Item extends Cope
 	 */
 	public final String getURL(final DataAttribute attribute)
 	{
-		return getMediaURL(attribute, null);
+		return getDataURL(attribute, null);
 	}
 
 	/**
@@ -461,10 +461,10 @@ public abstract class Item extends Cope
 	 */
 	public final String getURL(final DataAttributeVariant variant)
 	{
-		return getMediaURL(variant.attribute, variant);
+		return getDataURL(variant.attribute, variant);
 	}
 
-	private final String getMediaURL(final DataAttribute attribute, final DataAttributeVariant variant)
+	private final String getDataURL(final DataAttribute attribute, final DataAttributeVariant variant)
 	{
 		if(variant!=null && variant.attribute!=attribute)
 			throw new RuntimeException();
