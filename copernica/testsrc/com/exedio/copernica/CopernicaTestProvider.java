@@ -89,7 +89,7 @@ public class CopernicaTestProvider extends TransientCopernicaProvider
 						AttributeItem.someNotNullLong,
 						AttributeItem.someNotNullDouble,
 						}),
-				new TransientSection("media", new Attribute[]{
+				new TransientSection("data", new Attribute[]{
 						AttributeItem.someEnumeration,
 						AttributeItem.someNotNullEnumeration,
 						AttributeItem.someMedia,

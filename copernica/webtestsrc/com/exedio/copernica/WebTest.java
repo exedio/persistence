@@ -67,12 +67,12 @@ public class WebTest extends AbstractWebTest
 	}
 	
 	private static final String SECTION_NUMBERS = "numbers";
-	private static final String SECTION_DATA = "media";
+	private static final String SECTION_DATA = "data";
 	private static final String SECTION_OTHER = "other";
 	
 	private void assertItemForm()
 	{
-		assertTrue(section, Arrays.asList(new String[]{null, "numbers", "media", "other"}).contains(section));
+		assertTrue(section, Arrays.asList(new String[]{null, SECTION_NUMBERS, SECTION_DATA, SECTION_OTHER}).contains(section));
 
 		assertFormElementEquals("someString", someString);
 		assertFormElementEquals("someNotNullString", someNotNullString);
