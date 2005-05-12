@@ -66,7 +66,7 @@ final class Properties_Jspm
 			{
 				final String datadirPath =
 					properties.getDatadirPath().getAbsolutePath();
-				final String mediaUrl = properties.getDatadirUrl();
+				final String datadirUrl = properties.getDatadirUrl();
 			%>
 			<tr>
 				<td><small><%=properties.DATADIR_PATH%></small></td>
@@ -77,12 +77,12 @@ final class Properties_Jspm
 				</small></td>
 			</tr>
 			<tr>
-				<td><small>media.url</small></td>
+				<td><small><%=properties.DATADIR_URL%></small></td>
 				<td><small>
-					<a href="<%=mediaUrl%>"><%=mediaUrl%></a>
+					<a href="<%=datadirUrl%>"><%=datadirUrl%></a>
 					<br>
 					(link works only if the server allows directory listing,
-					which is a security risk in production mode).
+					which may be a security risk).
 				</small></td>
 			</tr><%
 			}
