@@ -450,7 +450,7 @@ public abstract class Item extends Cope
 	 * Returns a URL pointing to the data of this persistent media attribute.
 	 * Returns null, if there is no data for this attribute.
 	 */
-	public final String getMediaURL(final DataAttribute attribute)
+	public final String getURL(final DataAttribute attribute)
 	{
 		return getMediaURL(attribute, null);
 	}
@@ -459,7 +459,7 @@ public abstract class Item extends Cope
 	 * Returns a URL pointing to the data of this persistent media attribute.
 	 * Returns null, if there is no data for this attribute.
 	 */
-	public final String getMediaURL(final DataAttributeVariant variant)
+	public final String getURL(final DataAttributeVariant variant)
 	{
 		return getMediaURL(variant.attribute, variant);
 	}
@@ -481,7 +481,7 @@ public abstract class Item extends Cope
 	 * Returns the major mime type of this persistent media attribute.
 	 * Returns null, if there is no data for this attribute.
 	 */
-	public final String getMediaMimeMajor(final DataAttribute attribute)
+	public final String getMimeMajor(final DataAttribute attribute)
 	{
 		if(isNull(attribute))
 			return null;
@@ -497,7 +497,7 @@ public abstract class Item extends Cope
 	 * Returns the minor mime type of this persistent media attribute.
 	 * Returns null, if there is no data for this attribute.
 	 */
-	public final String getMediaMimeMinor(final DataAttribute attribute)
+	public final String getMimeMinor(final DataAttribute attribute)
 	{
 		if(isNull(attribute))
 			return null;
@@ -514,7 +514,7 @@ public abstract class Item extends Cope
 	 * <b>You are responsible for closing the stream, when you are finished!</b>
 	 * Returns null, if there is no data for this attribute.
 	 */
-	public final InputStream getMediaData(final DataAttribute attribute)
+	public final InputStream getData(final DataAttribute attribute)
 	{
 		if(isNull(attribute))
 			return null;

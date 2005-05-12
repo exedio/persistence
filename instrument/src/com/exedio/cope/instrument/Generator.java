@@ -501,7 +501,7 @@ final class Generator
 		o.write(lineSeparator);
 		o.write("\t{");
 		o.write(lineSeparator);
-		o.write("\t\treturn getMedia");
+		o.write("\t\treturn get");
 		o.write(part);
 		o.write('(');
 		o.write(mediaAttribute.copeClass.getName());

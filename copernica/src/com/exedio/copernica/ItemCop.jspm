@@ -102,7 +102,7 @@ class ItemCop_Jspm
 						{
 							final DataAttribute mediaAttribute = (DataAttribute)attribute;
 							final String attributeName = attribute.getName();
-							final String url = item.getMediaURL(mediaAttribute);
+							final String url = item.getURL(mediaAttribute);
 							if(url==null)
 							{
 								%><%=cop.getDisplayNameNull()%><%
@@ -110,13 +110,13 @@ class ItemCop_Jspm
 							else
 							{
 								%><a href="<%=url%>"><%
-								if("image".equals(item.getMediaMimeMajor(mediaAttribute)))
+								if("image".equals(item.getMimeMajor(mediaAttribute)))
 								{
-									%><img src="<%=url%>" width="250"><small>(<%=item.getMediaMimeMinor(mediaAttribute)%>)</small><%
+									%><img src="<%=url%>" width="250"><small>(<%=item.getMimeMinor(mediaAttribute)%>)</small><%
 								}
 								else
 								{
-									%>download <small>(<%=item.getMediaMimeMajor(mediaAttribute)%>/<%=item.getMediaMimeMinor(mediaAttribute)%>)</small><%
+									%>download <small>(<%=item.getMimeMajor(mediaAttribute)%>/<%=item.getMimeMinor(mediaAttribute)%>)</small><%
 								}
 								%></a><%
 							}

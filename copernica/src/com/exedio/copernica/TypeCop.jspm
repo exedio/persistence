@@ -168,7 +168,7 @@ final class TypeCop_Jspm
 						if(feature instanceof DataAttribute)
 						{
 							final DataAttribute mediaAttribute = (DataAttribute)feature;
-							final String url = item.getMediaURL(mediaAttribute);
+							final String url = item.getURL(mediaAttribute);
 							if(url==null)
 							{
 								%><%=cop.getDisplayNameNull()%><%
@@ -176,7 +176,7 @@ final class TypeCop_Jspm
 							else
 							{
 								%><a href="<%=url%>"><%
-								if("image".equals(item.getMediaMimeMajor(mediaAttribute)))
+								if("image".equals(item.getMimeMajor(mediaAttribute)))
 								{
 									%><img src="<%=url%>" width="50"><%
 								}

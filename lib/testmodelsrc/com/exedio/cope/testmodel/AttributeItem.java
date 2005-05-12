@@ -862,7 +862,7 @@ public class AttributeItem extends Item
 	 *
  */public final java.lang.String getSomeMediaURL()
 	{
-		return getMediaURL(AttributeItem.someMedia);
+		return getURL(AttributeItem.someMedia);
 	}/**
 
 	 **
@@ -871,7 +871,7 @@ public class AttributeItem extends Item
 	 *
  */public final java.lang.String getSomeMediaURLSomeVariant()
 	{
-		return getMediaURL(AttributeItem.SomeVariant);
+		return getURL(AttributeItem.SomeVariant);
 	}/**
 
 	 **
@@ -880,7 +880,7 @@ public class AttributeItem extends Item
 	 *
  */public final java.lang.String getSomeMediaMimeMajor()
 	{
-		return getMediaMimeMajor(AttributeItem.someMedia);
+		return getMimeMajor(AttributeItem.someMedia);
 	}/**
 
 	 **
@@ -889,7 +889,7 @@ public class AttributeItem extends Item
 	 *
  */public final java.lang.String getSomeMediaMimeMinor()
 	{
-		return getMediaMimeMinor(AttributeItem.someMedia);
+		return getMimeMinor(AttributeItem.someMedia);
 	}/**
 
 	 **
@@ -898,7 +898,7 @@ public class AttributeItem extends Item
 	 *
  */public final java.io.InputStream getSomeMediaData()
 	{
-		return getMediaData(AttributeItem.someMedia);
+		return getData(AttributeItem.someMedia);
 	}/**
 
 	 **

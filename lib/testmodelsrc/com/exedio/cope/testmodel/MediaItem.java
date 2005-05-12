@@ -78,7 +78,7 @@ public class MediaItem extends Item
 	 *
  */public final java.lang.String getFileURL()
 	{
-		return getMediaURL(MediaItem.file);
+		return getURL(MediaItem.file);
 	}/**
 
 	 **
@@ -87,7 +87,7 @@ public class MediaItem extends Item
 	 *
  */public final java.lang.String getFileMimeMajor()
 	{
-		return getMediaMimeMajor(MediaItem.file);
+		return getMimeMajor(MediaItem.file);
 	}/**
 
 	 **
@@ -96,7 +96,7 @@ public class MediaItem extends Item
 	 *
  */public final java.lang.String getFileMimeMinor()
 	{
-		return getMediaMimeMinor(MediaItem.file);
+		return getMimeMinor(MediaItem.file);
 	}/**
 
 	 **
@@ -105,7 +105,7 @@ public class MediaItem extends Item
 	 *
  */public final java.io.InputStream getFileData()
 	{
-		return getMediaData(MediaItem.file);
+		return getData(MediaItem.file);
 	}/**
 
 	 **
@@ -131,7 +131,7 @@ public class MediaItem extends Item
 	 *
  */public final java.lang.String getImageURL()
 	{
-		return getMediaURL(MediaItem.image);
+		return getURL(MediaItem.image);
 	}/**
 
 	 **
@@ -140,7 +140,7 @@ public class MediaItem extends Item
 	 *
  */public final java.lang.String getImageURLBB240()
 	{
-		return getMediaURL(MediaItem.imageBB240);
+		return getURL(MediaItem.imageBB240);
 	}/**
 
 	 **
@@ -149,7 +149,7 @@ public class MediaItem extends Item
 	 *
  */public final java.lang.String getImageMimeMajor()
 	{
-		return getMediaMimeMajor(MediaItem.image);
+		return getMimeMajor(MediaItem.image);
 	}/**
 
 	 **
@@ -158,7 +158,7 @@ public class MediaItem extends Item
 	 *
  */public final java.lang.String getImageMimeMinor()
 	{
-		return getMediaMimeMinor(MediaItem.image);
+		return getMimeMinor(MediaItem.image);
 	}/**
 
 	 **
@@ -167,7 +167,7 @@ public class MediaItem extends Item
 	 *
  */public final java.io.InputStream getImageData()
 	{
-		return getMediaData(MediaItem.image);
+		return getData(MediaItem.image);
 	}/**
 
 	 **
@@ -193,7 +193,7 @@ public class MediaItem extends Item
 	 *
  */public final java.lang.String getPhotoURL()
 	{
-		return getMediaURL(MediaItem.photo);
+		return getURL(MediaItem.photo);
 	}/**
 
 	 **
@@ -202,7 +202,7 @@ public class MediaItem extends Item
 	 *
  */public final java.lang.String getPhotoURLBB65()
 	{
-		return getMediaURL(MediaItem.photoBB65);
+		return getURL(MediaItem.photoBB65);
 	}/**
 
 	 **
@@ -211,7 +211,7 @@ public class MediaItem extends Item
 	 *
  */public final java.lang.String getPhotoURLProgressive()
 	{
-		return getMediaURL(MediaItem.photoProgressive);
+		return getURL(MediaItem.photoProgressive);
 	}/**
 
 	 **
@@ -220,7 +220,7 @@ public class MediaItem extends Item
 	 *
  */public final java.lang.String getPhotoMimeMajor()
 	{
-		return getMediaMimeMajor(MediaItem.photo);
+		return getMimeMajor(MediaItem.photo);
 	}/**
 
 	 **
@@ -229,7 +229,7 @@ public class MediaItem extends Item
 	 *
  */public final java.lang.String getPhotoMimeMinor()
 	{
-		return getMediaMimeMinor(MediaItem.photo);
+		return getMimeMinor(MediaItem.photo);
 	}/**
 
 	 **
@@ -238,7 +238,7 @@ public class MediaItem extends Item
 	 *
  */public final java.io.InputStream getPhotoData()
 	{
-		return getMediaData(MediaItem.photo);
+		return getData(MediaItem.photo);
 	}/**
 
 	 **
