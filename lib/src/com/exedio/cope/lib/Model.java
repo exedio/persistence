@@ -130,7 +130,7 @@ public final class Model
 		for(Iterator i = type.getAttributes().iterator(); i.hasNext(); )
 		{
 			final Attribute attribute = (Attribute)i.next();
-			if(attribute instanceof MediaAttribute)
+			if(attribute instanceof DataAttribute)
 			{
 				if(typeDirectory==null)
 				{

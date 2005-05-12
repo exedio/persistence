@@ -35,7 +35,7 @@ import com.exedio.cope.lib.Feature;
 import com.exedio.cope.lib.Function;
 import com.exedio.cope.lib.Item;
 import com.exedio.cope.lib.ItemAttribute;
-import com.exedio.cope.lib.MediaAttribute;
+import com.exedio.cope.lib.DataAttribute;
 import com.exedio.cope.lib.StatementInfo;
 import com.exedio.cope.lib.Type;
 import com.exedio.cops.DateField;
@@ -165,9 +165,9 @@ final class TypeCop_Jspm
 						final Feature feature = (Feature)j.next();
 						%>
 					<td><%
-						if(feature instanceof MediaAttribute)
+						if(feature instanceof DataAttribute)
 						{
-							final MediaAttribute mediaAttribute = (MediaAttribute)feature;
+							final DataAttribute mediaAttribute = (DataAttribute)feature;
 							final String url = item.getMediaURL(mediaAttribute);
 							if(url==null)
 							{

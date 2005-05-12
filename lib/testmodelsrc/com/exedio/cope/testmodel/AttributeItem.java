@@ -27,7 +27,7 @@ import com.exedio.cope.lib.IntegerAttribute;
 import com.exedio.cope.lib.Item;
 import com.exedio.cope.lib.ItemAttribute;
 import com.exedio.cope.lib.LongAttribute;
-import com.exedio.cope.lib.MediaAttribute;
+import com.exedio.cope.lib.DataAttribute;
 import com.exedio.cope.lib.MediaAttributeVariant;
 import com.exedio.cope.lib.StringAttribute;
 import com.exedio.cope.lib.function.LengthFunction;
@@ -133,7 +133,7 @@ public class AttributeItem extends Item
 	/**
 	 * A media attribute.
 	 */
-	public static final MediaAttribute someMedia = mediaAttribute(DEFAULT);
+	public static final DataAttribute someMedia = mediaAttribute(DEFAULT);
 	
 	public static final MediaAttributeVariant SomeVariant = mediaAttributeVariant(someMedia);
 

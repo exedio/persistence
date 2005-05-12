@@ -333,7 +333,7 @@ public abstract class Item extends Cope
 		}
 	}
 
-	private final boolean isNull(final MediaAttribute attribute)
+	private final boolean isNull(final DataAttribute attribute)
 	{
 		if(attribute.isNotNull())
 			return false;
@@ -382,7 +382,7 @@ public abstract class Item extends Cope
 	}
 
 	private final void appendMediaPath(
-									final MediaAttribute attribute, final MediaAttributeVariant variant,
+									final DataAttribute attribute, final MediaAttributeVariant variant,
 									final StringBuffer bf)
 	{
 		final String mimeMajor;
@@ -438,7 +438,7 @@ public abstract class Item extends Cope
 			bf.append(compactExtension);
 	}
 	
-	private final File getMediaFile(final MediaAttribute attribute)
+	private final File getMediaFile(final DataAttribute attribute)
 	{
 		final File directory = getCopeType().getModel().getProperties().getMediaDirectory();
 		final StringBuffer buf = new StringBuffer();
@@ -450,7 +450,7 @@ public abstract class Item extends Cope
 	 * Returns a URL pointing to the data of this persistent media attribute.
 	 * Returns null, if there is no data for this attribute.
 	 */
-	public final String getMediaURL(final MediaAttribute attribute)
+	public final String getMediaURL(final DataAttribute attribute)
 	{
 		return getMediaURL(attribute, null);
 	}
@@ -464,7 +464,7 @@ public abstract class Item extends Cope
 		return getMediaURL(variant.attribute, variant);
 	}
 
-	private final String getMediaURL(final MediaAttribute attribute, final MediaAttributeVariant variant)
+	private final String getMediaURL(final DataAttribute attribute, final MediaAttributeVariant variant)
 	{
 		if(variant!=null && variant.attribute!=attribute)
 			throw new RuntimeException();
@@ -481,7 +481,7 @@ public abstract class Item extends Cope
 	 * Returns the major mime type of this persistent media attribute.
 	 * Returns null, if there is no data for this attribute.
 	 */
-	public final String getMediaMimeMajor(final MediaAttribute attribute)
+	public final String getMediaMimeMajor(final DataAttribute attribute)
 	{
 		if(isNull(attribute))
 			return null;
@@ -497,7 +497,7 @@ public abstract class Item extends Cope
 	 * Returns the minor mime type of this persistent media attribute.
 	 * Returns null, if there is no data for this attribute.
 	 */
-	public final String getMediaMimeMinor(final MediaAttribute attribute)
+	public final String getMediaMimeMinor(final DataAttribute attribute)
 	{
 		if(isNull(attribute))
 			return null;
@@ -514,7 +514,7 @@ public abstract class Item extends Cope
 	 * <b>You are responsible for closing the stream, when you are finished!</b>
 	 * Returns null, if there is no data for this attribute.
 	 */
-	public final InputStream getMediaData(final MediaAttribute attribute)
+	public final InputStream getMediaData(final DataAttribute attribute)
 	{
 		if(isNull(attribute))
 			return null;
@@ -538,7 +538,7 @@ public abstract class Item extends Cope
 	 *         if data is null and attribute is {@link Attribute#isNotNull() not-null}.
 	 * @throws IOException if reading data throws an IOException.
 	 */
-	public final void setMediaData(final MediaAttribute attribute, final InputStream data,
+	public final void setMediaData(final DataAttribute attribute, final InputStream data,
 												 final String mimeMajor, final String mimeMinor)
 	throws NotNullViolationException, IOException
 	{
@@ -741,22 +741,22 @@ public abstract class Item extends Cope
 		return new DoubleAttribute(option);
 	}
 	
-	protected static final MediaAttribute mediaAttribute(final Option option)
+	protected static final DataAttribute mediaAttribute(final Option option)
 	{
-		return new MediaAttribute(option);
+		return new DataAttribute(option);
 	}
 
-	protected static final MediaAttribute mediaAttribute(final Option option, final String fixedMimeMajor)
+	protected static final DataAttribute mediaAttribute(final Option option, final String fixedMimeMajor)
 	{
-		return new MediaAttribute(option, fixedMimeMajor);
+		return new DataAttribute(option, fixedMimeMajor);
 	}
 
-	protected static final MediaAttribute mediaAttribute(final Option option, final String fixedMimeMajor, final String fixedMimeMinor)
+	protected static final DataAttribute mediaAttribute(final Option option, final String fixedMimeMajor, final String fixedMimeMinor)
 	{
-		return new MediaAttribute(option, fixedMimeMajor, fixedMimeMinor);
+		return new DataAttribute(option, fixedMimeMajor, fixedMimeMinor);
 	}
 	
-	protected static final MediaAttributeVariant mediaAttributeVariant(final MediaAttribute attribute)
+	protected static final MediaAttributeVariant mediaAttributeVariant(final DataAttribute attribute)
 	{
 		return new MediaAttributeVariant(attribute);
 	}

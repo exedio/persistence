@@ -20,18 +20,18 @@ package com.exedio.cope.lib;
 
 public final class MediaAttributeVariant extends TypeComponent
 {
-	final MediaAttribute attribute;
+	final DataAttribute attribute;
 
 	/**
 	 * @see Item#mediaAttributeVariant(MediaAttribute)
 	 */
-	MediaAttributeVariant(final MediaAttribute attribute)
+	MediaAttributeVariant(final DataAttribute attribute)
 	{
 		this.attribute = attribute;
 		attribute.addVariant(this);
 	}
 	
-	public MediaAttribute getAttribute()
+	public DataAttribute getAttribute()
 	{
 		return attribute;
 	}

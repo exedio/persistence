@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public final class MediaAttribute extends Attribute
+public final class DataAttribute extends Attribute
 {
 	final String fixedMimeMajor;
 	final String fixedMimeMinor;
@@ -34,7 +34,7 @@ public final class MediaAttribute extends Attribute
 	/**
 	 * @see Item#mediaAttribute(Option, String, String)
 	 */
-	MediaAttribute(final Option option, final String fixedMimeMajor, final String fixedMimeMinor)
+	DataAttribute(final Option option, final String fixedMimeMajor, final String fixedMimeMinor)
 	{
 		super(option);
 		this.fixedMimeMajor = fixedMimeMajor;
@@ -44,7 +44,7 @@ public final class MediaAttribute extends Attribute
 	/**
 	 * @see Item#mediaAttribute(Option, String)
 	 */
-	MediaAttribute(final Option option, final String fixedMimeMajor)
+	DataAttribute(final Option option, final String fixedMimeMajor)
 	{
 		this(option, fixedMimeMajor, null);
 	}
@@ -52,7 +52,7 @@ public final class MediaAttribute extends Attribute
 	/**
 	 * @see Item#mediaAttribute(Option)
 	 */
-	MediaAttribute(final Option option)
+	DataAttribute(final Option option)
 	{
 		this(option, null, null);
 	}

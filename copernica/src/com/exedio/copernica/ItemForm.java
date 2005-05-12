@@ -42,7 +42,7 @@ import com.exedio.cope.lib.IntegerAttribute;
 import com.exedio.cope.lib.Item;
 import com.exedio.cope.lib.ItemAttribute;
 import com.exedio.cope.lib.LongAttribute;
-import com.exedio.cope.lib.MediaAttribute;
+import com.exedio.cope.lib.DataAttribute;
 import com.exedio.cope.lib.Model;
 import com.exedio.cope.lib.NestingRuntimeException;
 import com.exedio.cope.lib.NoSuchIDException;
@@ -156,9 +156,9 @@ final class ItemForm extends Form
 			{
 				field = createField((ObjectAttribute)anyAttribute, post, cop, hiddenAttributes.contains(anyAttribute), model);
 			}
-			else if(anyAttribute instanceof MediaAttribute)
+			else if(anyAttribute instanceof DataAttribute)
 			{
-				final MediaAttribute attribute = (MediaAttribute)anyAttribute;
+				final DataAttribute attribute = (DataAttribute)anyAttribute;
 				field = new StringField(this, attribute, null, true, "", hiddenAttributes.contains(attribute));
 				if(!attribute.isReadOnly())
 				{
@@ -461,9 +461,9 @@ final class ItemForm extends Form
 		for(Iterator i = getAllFields().iterator(); i.hasNext(); )
 		{
 			final Field field = (Field)i.next();
-			if(field.key instanceof MediaAttribute)
+			if(field.key instanceof DataAttribute)
 			{
-				final MediaAttribute attribute = (MediaAttribute)field.key;
+				final DataAttribute attribute = (DataAttribute)field.key;
 				final FileItem fileItem = getParameterFile(attribute.getName());
 				if(fileItem!=null)
 				{

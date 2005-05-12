@@ -26,7 +26,7 @@ import java.util.Iterator;
 
 import com.exedio.cope.lib.Attribute;
 import com.exedio.cope.lib.Item;
-import com.exedio.cope.lib.MediaAttribute;
+import com.exedio.cope.lib.DataAttribute;
 import com.exedio.cope.lib.Type;
 import com.exedio.cops.CheckboxField;
 import com.exedio.cops.Field;
@@ -98,9 +98,9 @@ class ItemCop_Jspm
 					<tr>
 						<td><%=provider.getDisplayName(null, attribute)%></td>
 						<td><%
-						if(attribute instanceof MediaAttribute)
+						if(attribute instanceof DataAttribute)
 						{
-							final MediaAttribute mediaAttribute = (MediaAttribute)attribute;
+							final DataAttribute mediaAttribute = (DataAttribute)attribute;
 							final String attributeName = attribute.getName();
 							final String url = item.getMediaURL(mediaAttribute);
 							if(url==null)

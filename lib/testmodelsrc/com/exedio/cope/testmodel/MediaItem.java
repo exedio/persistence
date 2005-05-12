@@ -19,7 +19,7 @@
 package com.exedio.cope.testmodel;
 
 import com.exedio.cope.lib.Item;
-import com.exedio.cope.lib.MediaAttribute;
+import com.exedio.cope.lib.DataAttribute;
 import com.exedio.cope.lib.MediaAttributeVariant;
 
 /**
@@ -28,13 +28,13 @@ import com.exedio.cope.lib.MediaAttributeVariant;
  */
 public class MediaItem extends Item
 {
-	public static final MediaAttribute file = mediaAttribute(DEFAULT);
+	public static final DataAttribute file = mediaAttribute(DEFAULT);
 
-	public static final MediaAttribute image = mediaAttribute(DEFAULT, "image");
+	public static final DataAttribute image = mediaAttribute(DEFAULT, "image");
 	
 	public static final MediaAttributeVariant imageBB240 = mediaAttributeVariant(image);
 
-	public static final MediaAttribute photo = mediaAttribute(DEFAULT, "image", "jpeg");
+	public static final DataAttribute photo = mediaAttribute(DEFAULT, "image", "jpeg");
 	
 	public static final MediaAttributeVariant photoBB65 = mediaAttributeVariant(photo);
 

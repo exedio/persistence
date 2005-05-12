@@ -35,7 +35,7 @@ import com.exedio.cope.lib.Hash;
 import com.exedio.cope.lib.IntegerFunction;
 import com.exedio.cope.lib.ItemAttribute;
 import com.exedio.cope.lib.LongAttribute;
-import com.exedio.cope.lib.MediaAttribute;
+import com.exedio.cope.lib.DataAttribute;
 import com.exedio.cope.lib.MediaAttributeVariant;
 import com.exedio.cope.lib.StringFunction;
 import com.exedio.cope.lib.UniqueConstraint;
@@ -192,7 +192,7 @@ final class Instrumentor implements InjectionConsumer
 				ja, typeClass,
 				initializerArguments, getterOption, setterOption);
 		}
-		else if(MediaAttribute.class.equals(typeClass))
+		else if(DataAttribute.class.equals(typeClass))
 		{
 			new CopeMediaAttribute(
 				ja, typeClass,
