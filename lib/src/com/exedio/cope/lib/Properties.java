@@ -44,7 +44,7 @@ public final class Properties
 	private final String databaseUser;
 	private final String databasePassword;
 
-	private final File mediaDirectory;
+	private final File datadirPath;
 	private final String mediaUrl;
 
 	public Properties()
@@ -156,7 +156,7 @@ public final class Properties
 				throw new RuntimeException("media directory "+mediaDirectoryTest.getAbsolutePath()+" is not writable.");
 			try
 			{
-				mediaDirectory = mediaDirectoryTest.getCanonicalFile();
+				datadirPath = mediaDirectoryTest.getCanonicalFile();
 			}
 			catch(IOException e)
 			{
@@ -166,7 +166,7 @@ public final class Properties
 		}
 		else
 		{
-			mediaDirectory = null;
+			datadirPath = null;
 			mediaUrl  = null;
 		}
 	}
@@ -227,20 +227,20 @@ public final class Properties
 	
 	public boolean hasData()
 	{
-		return mediaDirectory!=null;
+		return datadirPath!=null;
 	}
 	
 	public File getDataDirectory()
 	{
-		if(mediaDirectory==null)
+		if(datadirPath==null)
 			throw new RuntimeException("property media.directory in "+source+" not set.");
 
-		return mediaDirectory;
+		return datadirPath;
 	}
 
 	public String getDataUrl()
 	{
-		if(mediaDirectory==null)
+		if(datadirPath==null)
 			throw new RuntimeException("property media.directory in "+source+" not set.");
 
 		return mediaUrl;
@@ -270,12 +270,12 @@ public final class Properties
 			throw new RuntimeException(
 					"inconsistent initialization for "+DATABASE_PASSWORD+".");
 		
-		if((this.mediaDirectory!=null && !this.mediaDirectory.equals(other.mediaDirectory)) ||
-				(this.mediaDirectory==null && other.mediaDirectory!=null))
+		if((this.datadirPath!=null && !this.datadirPath.equals(other.datadirPath)) ||
+				(this.datadirPath==null && other.datadirPath!=null))
 			throw new RuntimeException(
 					"inconsistent initialization for " + DATADIR_PATH + "," +
-					" expected " + this.mediaDirectory +
-					" but got " + other.mediaDirectory + '.');
+					" expected " + this.datadirPath +
+					" but got " + other.datadirPath + '.');
 		
 		if((this.mediaUrl!=null && !this.mediaUrl.equals(other.mediaUrl)) ||
 				(this.mediaUrl==null && other.mediaUrl!=null))
