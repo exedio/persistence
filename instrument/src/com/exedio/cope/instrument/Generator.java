@@ -515,30 +515,30 @@ final class Generator
 		o.write("\t}");
 	}
 	
-	private void writeDataAccessMethods(final CopeDataAttribute mediaAttribute)
+	private void writeDataAccessMethods(final CopeDataAttribute attribute)
 	throws IOException
 	{
-		final String mimeMajor = mediaAttribute.mimeMajor;
-		final String mimeMinor = mediaAttribute.mimeMinor;
+		final String mimeMajor = attribute.mimeMajor;
+		final String mimeMinor = attribute.mimeMinor;
 
 		// getters
-		writeDataGetterMethod(mediaAttribute, String.class, "URL", null, GETTER_DATA_URL);
-		final List mediaVariants = mediaAttribute.getVariants();
+		writeDataGetterMethod(attribute, String.class, "URL", null, GETTER_DATA_URL);
+		final List mediaVariants = attribute.getVariants();
 		if(mediaVariants!=null)
 		{
 			for(Iterator i = mediaVariants.iterator(); i.hasNext(); )
-				writeDataGetterMethod(mediaAttribute, String.class, "URL", (CopeDataVariant)i.next(), GETTER_DATA_VARIANT);
+				writeDataGetterMethod(attribute, String.class, "URL", (CopeDataVariant)i.next(), GETTER_DATA_VARIANT);
 		}
-		writeDataGetterMethod(mediaAttribute, String.class, "MimeMajor", null, GETTER_DATA_MAJOR);
-		writeDataGetterMethod(mediaAttribute, String.class, "MimeMinor", null, GETTER_DATA_MINOR);
-		writeDataGetterMethod(mediaAttribute, InputStream.class, "Data", null, GETTER_DATA_DATA);
+		writeDataGetterMethod(attribute, String.class, "MimeMajor", null, GETTER_DATA_MAJOR);
+		writeDataGetterMethod(attribute, String.class, "MimeMinor", null, GETTER_DATA_MINOR);
+		writeDataGetterMethod(attribute, InputStream.class, "Data", null, GETTER_DATA_DATA);
 		
 		// setters
-		if(mediaAttribute.hasGeneratedSetter())
+		if(attribute.hasGeneratedSetter())
 		{
 			writeCommentHeader();
 			o.write("\t * ");
-			o.write(format(SETTER_DATA, link(mediaAttribute.getName())));
+			o.write(format(SETTER_DATA, link(attribute.getName())));
 			o.write(lineSeparator);
 			writeCommentGenerated();
 			o.write("\t * @throws ");
@@ -547,16 +547,16 @@ final class Generator
 			o.write(format(SETTER_DATA_IOEXCEPTION, "<code>data</code>"));
 			o.write(lineSeparator);
 			writeCommentFooter();
-			o.write(Modifier.toString(mediaAttribute.getGeneratedSetterModifier()));
+			o.write(Modifier.toString(attribute.getGeneratedSetterModifier()));
 			o.write(" void set");
-			o.write(toCamelCase(mediaAttribute.getName()));
+			o.write(toCamelCase(attribute.getName()));
 			o.write("Data(final " + InputStream.class.getName() + " data");
 			if(mimeMajor==null)
 				o.write(",final "+String.class.getName()+" mimeMajor");
 			if(mimeMinor==null)
 				o.write(",final "+String.class.getName()+" mimeMinor");
 			o.write(')');
-			final SortedSet setterExceptions = mediaAttribute.getSetterExceptions();
+			final SortedSet setterExceptions = attribute.getSetterExceptions();
 			writeThrowsClause(setterExceptions);
 			if(setterExceptions.isEmpty())
 				o.write("throws ");
@@ -565,15 +565,15 @@ final class Generator
 			o.write("\t{");
 			o.write(lineSeparator);
 			
-			final SortedSet exceptionsToCatch = new TreeSet(mediaAttribute.getExceptionsToCatchInSetter());
+			final SortedSet exceptionsToCatch = new TreeSet(attribute.getExceptionsToCatchInSetter());
 			exceptionsToCatch.remove(ReadOnlyViolationException.class);
 			exceptionsToCatch.remove(LengthViolationException.class);
 			exceptionsToCatch.remove(UniqueViolationException.class);
 			writeTryCatchClausePrefix(exceptionsToCatch);
 			o.write("\t\tsetData(");
-			o.write(mediaAttribute.copeClass.getName());
+			o.write(attribute.copeClass.getName());
 			o.write('.');
-			o.write(mediaAttribute.getName());
+			o.write(attribute.getName());
 			o.write(",data");
 			o.write(mimeMajor==null ? ",mimeMajor" : ",null");
 			o.write(mimeMinor==null ? ",mimeMinor" : ",null");
