@@ -230,7 +230,7 @@ public final class Properties
 		return datadirPath!=null;
 	}
 	
-	public File getDataDirectory()
+	public File getDatadirPath()
 	{
 		if(datadirPath==null)
 			throw new RuntimeException("property media.directory in "+source+" not set.");

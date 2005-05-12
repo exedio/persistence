@@ -72,7 +72,7 @@ public final class DataAttribute extends Attribute
 	protected List createColumns(final Table table, final String name, final boolean notNull)
 	{
 		// make sure, media configuration properties are set
-		getType().getModel().getProperties().getDataDirectory();
+		getType().getModel().getProperties().getDatadirPath();
 
 		final ArrayList result = new ArrayList(2);
 		if(fixedMimeMajor==null)

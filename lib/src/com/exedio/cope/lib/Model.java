@@ -134,7 +134,7 @@ public final class Model
 			{
 				if(typeDirectory==null)
 				{
-					final File directory = properties.getDataDirectory();
+					final File directory = properties.getDatadirPath();
 					typeDirectory = new File(directory, type.getID());
 					typeDirectory.mkdir();
 				}

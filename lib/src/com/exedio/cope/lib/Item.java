@@ -440,7 +440,7 @@ public abstract class Item extends Cope
 	
 	private final File getDataFile(final DataAttribute attribute)
 	{
-		final File directory = getCopeType().getModel().getProperties().getDataDirectory();
+		final File directory = getCopeType().getModel().getProperties().getDatadirPath();
 		final StringBuffer buf = new StringBuffer();
 		appendDataPath(attribute, null, buf);
 		return new File(directory, buf.toString());

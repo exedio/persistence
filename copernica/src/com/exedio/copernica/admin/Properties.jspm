@@ -65,7 +65,7 @@ final class Properties_Jspm
 			if(properties.hasData())
 			{
 				final String mediaDirectory =
-					properties.getDataDirectory().getAbsolutePath();
+					properties.getDatadirPath().getAbsolutePath();
 				final String mediaUrl = properties.getDataUrl();
 			%>
 			<tr>
