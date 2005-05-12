@@ -438,7 +438,7 @@ public abstract class Item extends Cope
 			bf.append(compactExtension);
 	}
 	
-	private final File getMediaFile(final DataAttribute attribute)
+	private final File getDataFile(final DataAttribute attribute)
 	{
 		final File directory = getCopeType().getModel().getProperties().getDataDirectory();
 		final StringBuffer buf = new StringBuffer();
@@ -519,7 +519,7 @@ public abstract class Item extends Cope
 		if(isNull(attribute))
 			return null;
 
-		final File file = getMediaFile(attribute);
+		final File file = getDataFile(attribute);
 		try
 		{
 			return new FileInputStream(file);
@@ -557,7 +557,7 @@ public abstract class Item extends Cope
 			}
 	
 			final boolean isNullPreviously = isNull(attribute);
-			final File previousFile = isNullPreviously ? null : getMediaFile(attribute);
+			final File previousFile = isNullPreviously ? null : getDataFile(attribute);
 	
 			final Row row = getRow();
 			if(attribute.fixedMimeMajor==null)
@@ -578,7 +578,7 @@ public abstract class Item extends Cope
 	
 			if(data!=null)
 			{
-				final File file = getMediaFile(attribute);
+				final File file = getDataFile(attribute);
 				final OutputStream out = new FileOutputStream(file);
 				final byte[] b = new byte[20*1024];
 				for(int len = data.read(b); len>=0; len = data.read(b))
