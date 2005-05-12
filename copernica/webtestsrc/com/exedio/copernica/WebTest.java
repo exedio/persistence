@@ -67,7 +67,7 @@ public class WebTest extends AbstractWebTest
 	}
 	
 	private static final String SECTION_NUMBERS = "numbers";
-	private static final String SECTION_MEDIA = "media";
+	private static final String SECTION_DATA = "media";
 	private static final String SECTION_OTHER = "other";
 	
 	private void assertItemForm()
@@ -231,14 +231,14 @@ public class WebTest extends AbstractWebTest
 		assertTitleEquals("AttributeItem.103");
 		assertItemForm();
 
-		section(SECTION_MEDIA);
+		section(SECTION_DATA);
 		assertItemForm();
 		setFormElement("someEnumeration", "enumValue2"); someEnumeration = "enumValue2";
 		submitWithValue(SAVE_BUTTON);
 		assertTitleEquals("AttributeItem.103");
 		assertItemForm();
 
-		section(SECTION_MEDIA);
+		section(SECTION_DATA);
 		assertItemForm();
 		setFormElement("someNotNullEnumeration", "enumValue1"); someNotNullEnumeration = "enumValue1";
 		submitWithValue(SAVE_BUTTON);
@@ -283,7 +283,7 @@ public class WebTest extends AbstractWebTest
 
 		section=SECTION_NUMBERS;
 		assertItemForm();
-		section(SECTION_MEDIA);
+		section(SECTION_DATA);
 		assertItemForm();
 		section(SECTION_OTHER);
 		assertItemForm();
@@ -301,7 +301,7 @@ public class WebTest extends AbstractWebTest
 		assertTitleEquals("AttributeItem.103");
 		assertItemForm();
 
-		section(SECTION_MEDIA);
+		section(SECTION_DATA);
 		setFormElement("someEnumeration", "null"); someEnumeration = "null";
 		setFormElement("someNotNullEnumeration", "enumValue2"); someNotNullEnumeration = "enumValue2";
 		submitWithValue(SAVE_BUTTON);
