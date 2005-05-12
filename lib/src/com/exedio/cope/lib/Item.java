@@ -447,7 +447,7 @@ public abstract class Item extends Cope
 	}
 	
 	/**
-	 * Returns a URL pointing to the data of this persistent media attribute.
+	 * Returns a URL pointing to the data of this persistent data attribute.
 	 * Returns null, if there is no data for this attribute.
 	 */
 	public final String getURL(final DataAttribute attribute)
@@ -456,7 +456,7 @@ public abstract class Item extends Cope
 	}
 
 	/**
-	 * Returns a URL pointing to the data of this persistent media attribute.
+	 * Returns a URL pointing to the data of this persistent data attribute.
 	 * Returns null, if there is no data for this attribute.
 	 */
 	public final String getURL(final DataAttributeVariant variant)
