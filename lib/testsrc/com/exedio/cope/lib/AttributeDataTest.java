@@ -19,7 +19,7 @@ package com.exedio.cope.lib;
 
 import java.io.IOException;
 
-public class AttributeMediaTest extends AttributeTest
+public class AttributeDataTest extends AttributeTest
 {
 	public void testSomeMedia() throws IOException
 	{
