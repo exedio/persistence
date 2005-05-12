@@ -474,7 +474,7 @@ final class Generator
 		o.write("\t}");
 	}
 
-	private void writeDataGetterMethod(final CopeAttribute mediaAttribute,
+	private void writeDataGetterMethod(final CopeDataAttribute attribute,
 													final Class returnType,
 													final String part,
 													final CopeDataVariant variant,
@@ -484,16 +484,16 @@ final class Generator
 		writeCommentHeader();
 		o.write("\t * ");
 		o.write(variant==null
-				? format(commentPattern, link(mediaAttribute.getName()))
-				: format(commentPattern, link(mediaAttribute.getName()), link(variant.name, variant.shortName)));
+				? format(commentPattern, link(attribute.getName()))
+				: format(commentPattern, link(attribute.getName()), link(variant.name, variant.shortName)));
 		o.write(lineSeparator);
 		writeCommentGenerated();
 		writeCommentFooter();
-		o.write(Modifier.toString(mediaAttribute.getGeneratedGetterModifier()));
+		o.write(Modifier.toString(attribute.getGeneratedGetterModifier()));
 		o.write(' ');
 		o.write(returnType.getName());
 		o.write(" get");
-		o.write(toCamelCase(mediaAttribute.getName()));
+		o.write(toCamelCase(attribute.getName()));
 		o.write(part);
 		if(variant!=null)
 			o.write(variant.shortName);
@@ -504,12 +504,12 @@ final class Generator
 		o.write("\t\treturn get");
 		o.write(part);
 		o.write('(');
-		o.write(mediaAttribute.copeClass.getName());
+		o.write(attribute.copeClass.getName());
 		o.write('.');
 		if(variant!=null)
 			o.write(variant.name);
 		else
-			o.write(mediaAttribute.getName());
+			o.write(attribute.getName());
 		o.write(");");
 		o.write(lineSeparator);
 		o.write("\t}");

@@ -244,10 +244,10 @@ final class Instrumentor implements InjectionConsumer
 			throw new InjectorParseException("attribute >"+ja.name+"< has invalid initializer arguments: "+initializerArguments);
 		//System.out.println("---------"+initializerArguments);
 		final String initializerArgument = (String)initializerArguments.get(0);
-		final CopeDataAttribute mediaAttribute = (CopeDataAttribute)copeClass.getCopeAttribute(initializerArgument);
-		if(mediaAttribute==null)
-			throw new InjectorParseException("attribute >"+initializerArgument+"< in media attribute variant "+ja.name+" not found.");
-		new CopeDataVariant(ja, mediaAttribute);
+		final CopeDataAttribute attribute = (CopeDataAttribute)copeClass.getCopeAttribute(initializerArgument);
+		if(attribute==null)
+			throw new InjectorParseException("attribute >"+initializerArgument+"< in data attribute variant "+ja.name+" not found.");
+		new CopeDataVariant(ja, attribute);
 	}
 
 	private final void handleHash(final JavaAttribute ja, final Class typeClass)
