@@ -304,7 +304,7 @@ final class Generator
 		o.write(format(CONSTRUCTOR_GENERIC, copeClass.getName()));
 		o.write(lineSeparator);
 		o.write("\t * ");
-		o.write(format(CONSTRUCTOR_GENERIC_CALLED, "{@link com.exedio.cope.lib.Type#newItem Type.newItem}"));
+		o.write(format(CONSTRUCTOR_GENERIC_CALLED, "{@link " + Type.class.getName() + "#newItem Type.newItem}"));
 		o.write(lineSeparator);
 		writeCommentGenerated();
 		writeCommentFooter();
