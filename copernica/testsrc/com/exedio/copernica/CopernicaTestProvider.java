@@ -170,17 +170,17 @@ public class CopernicaTestProvider extends TransientCopernicaProvider
 				item3.setAny("Herzliche Gr\u00fc\u00dfe!");
 			}
 			
-			final DataItem mediaItem1 = new DataItem();
-			mediaItem1.setFile(thisClass.getResourceAsStream("dummy.txt"), "text", "plain");
-			mediaItem1.setImage(thisClass.getResourceAsStream("osorno.png"), "png");
-			mediaItem1.setPhoto(thisClass.getResourceAsStream("tree.jpg"));
+			final DataItem dataItem1 = new DataItem();
+			dataItem1.setFile(thisClass.getResourceAsStream("dummy.txt"), "text", "plain");
+			dataItem1.setImage(thisClass.getResourceAsStream("osorno.png"), "png");
+			dataItem1.setPhoto(thisClass.getResourceAsStream("tree.jpg"));
 
-			final DataItem mediaItem2 = new DataItem();
-			mediaItem2.setFile(thisClass.getResourceAsStream("osorno.png"), "image", "png");
-			mediaItem2.setImage(thisClass.getResourceAsStream("tree.jpg"), "jpeg");
+			final DataItem dataItem2 = new DataItem();
+			dataItem2.setFile(thisClass.getResourceAsStream("osorno.png"), "image", "png");
+			dataItem2.setImage(thisClass.getResourceAsStream("tree.jpg"), "jpeg");
 
-			final DataItem mediaItem3 = new DataItem();
-			mediaItem3.setFile(thisClass.getResourceAsStream("dummy.txt"), "unknownma", "unknownmi");
+			final DataItem dataItem3 = new DataItem();
+			dataItem3.setFile(thisClass.getResourceAsStream("dummy.txt"), "unknownma", "unknownmi");
 			
 			new SumItem(1, 2, 3);
 			new SumItem(4, 5, 4);
