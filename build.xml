@@ -198,7 +198,7 @@
 				AttributeEmptyItem.java,
 				AttributeItem.java,
 				StringItem.java,
-				MediaItem.java,
+				DataItem.java,
 				SumItem.java,
 				PointerItem.java,
 				PointerItem2.java,

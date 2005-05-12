@@ -20,18 +20,18 @@ package com.exedio.cope.lib;
 
 import java.io.IOException;
 
-import com.exedio.cope.testmodel.MediaItem;
+import com.exedio.cope.testmodel.DataItem;
 
 public class MediaTest extends DatabaseLibTest
 {
-	private MediaItem item;
+	private DataItem item;
 	private final byte[] data = new byte[]{-86,122,-8,23};
 	private final byte[] data2 = new byte[]{-97,35,-126,86,19,-8};
 	
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		deleteOnTearDown(item = new MediaItem());
+		deleteOnTearDown(item = new DataItem());
 	}
 	
 	private void assertExtension(final String mimeMajor, final String mimeMinor, final String extension)

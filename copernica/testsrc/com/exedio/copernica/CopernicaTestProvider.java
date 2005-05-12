@@ -36,7 +36,7 @@ import com.exedio.cope.testmodel.ItemWithSingleUnique;
 import com.exedio.cope.testmodel.ItemWithSingleUniqueNotNull;
 import com.exedio.cope.testmodel.ItemWithSingleUniqueReadOnly;
 import com.exedio.cope.testmodel.Main;
-import com.exedio.cope.testmodel.MediaItem;
+import com.exedio.cope.testmodel.DataItem;
 import com.exedio.cope.testmodel.PointerItem;
 import com.exedio.cope.testmodel.PointerItem2;
 import com.exedio.cope.testmodel.QualifiedIntegerEnumQualifier;
@@ -170,16 +170,16 @@ public class CopernicaTestProvider extends TransientCopernicaProvider
 				item3.setAny("Herzliche Gr\u00fc\u00dfe!");
 			}
 			
-			final MediaItem mediaItem1 = new MediaItem();
+			final DataItem mediaItem1 = new DataItem();
 			mediaItem1.setFile(thisClass.getResourceAsStream("dummy.txt"), "text", "plain");
 			mediaItem1.setImage(thisClass.getResourceAsStream("osorno.png"), "png");
 			mediaItem1.setPhoto(thisClass.getResourceAsStream("tree.jpg"));
 
-			final MediaItem mediaItem2 = new MediaItem();
+			final DataItem mediaItem2 = new DataItem();
 			mediaItem2.setFile(thisClass.getResourceAsStream("osorno.png"), "image", "png");
 			mediaItem2.setImage(thisClass.getResourceAsStream("tree.jpg"), "jpeg");
 
-			final MediaItem mediaItem3 = new MediaItem();
+			final DataItem mediaItem3 = new DataItem();
 			mediaItem3.setFile(thisClass.getResourceAsStream("dummy.txt"), "unknownma", "unknownmi");
 			
 			new SumItem(1, 2, 3);
