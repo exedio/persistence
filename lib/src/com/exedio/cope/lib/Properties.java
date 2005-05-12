@@ -35,7 +35,7 @@ public final class Properties
 	private static final String DATABASE_USER = "database.user";
 	private static final String DATABASE_PASSWORD = "database.password";
 	public static final String DATADIR_PATH = "datadir.path";
-	public static final String MEDIA_URL = "datadir.url";
+	public static final String DATADIR_URL = "datadir.url";
 
 	private final String source;
 
@@ -162,7 +162,7 @@ public final class Properties
 			{
 				throw new NestingRuntimeException(e);
 			}
-			mediaUrl = getPropertyNotNull(properties, MEDIA_URL);
+			mediaUrl = getPropertyNotNull(properties, DATADIR_URL);
 		}
 		else
 		{
@@ -280,7 +280,7 @@ public final class Properties
 		if((this.mediaUrl!=null && !this.mediaUrl.equals(other.mediaUrl)) ||
 				(this.mediaUrl==null && other.mediaUrl!=null))
 			throw new RuntimeException(
-					"inconsistent initialization for "+MEDIA_URL+"," +
+					"inconsistent initialization for " + DATADIR_URL + "," +
 					" expected " + this.mediaUrl +
 					" but got " + other.mediaUrl + '.');
 	}

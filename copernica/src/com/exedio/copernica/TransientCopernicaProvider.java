@@ -49,7 +49,7 @@ public abstract class TransientCopernicaProvider implements CopernicaProvider
 	}
 	
 	private static final String MEDIA_DIRECTORY = com.exedio.cope.lib.Properties.DATADIR_PATH;
-	private static final String MEDIA_URL = com.exedio.cope.lib.Properties.MEDIA_URL;
+	private static final String MEDIA_URL = com.exedio.cope.lib.Properties.DATADIR_URL;
 	
 	public static final void initialize(final Model model, final ServletConfig config)
 	{
