@@ -25,8 +25,8 @@ database.user=youruser
 database.password=yourpassword
 
 
-# Example properties for the media directory
+# Example properties for the data directory
 #
-media.directory=your/directory/for/media/files
-media.url=/url/prefix/of/your/media/
+datadir.path=the/path/to/your/directory/for/data/files
+datadir.url=/url/prefix/of/your/data/files/
 

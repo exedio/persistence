@@ -249,7 +249,7 @@
 		<copy file="cope.properties.${database}"
 				tofile="lib/build/test.${database}/cope.properties">
 			<filterset>
-				<filter token="MEDIA_DIRECTORY" value="lib/build/test.${database}/media" />
+				<filter token="DATADIR_PATH" value="lib/build/test.${database}/media" />
 			</filterset>
 		</copy>
 		<java classname="junit.textui.TestRunner" taskname="junit" fork="yes" failonerror="yes">
@@ -298,7 +298,7 @@
 		<copy file="cope.properties.${database}"
 				tofile="lib/build/teardown.${database}/cope.properties">
 			<filterset>
-				<filter token="MEDIA_DIRECTORY" 
+				<filter token="DATADIR_PATH" 
 							value="lib/build/teardown.${database}/media" />
 			</filterset>
 		</copy>
@@ -436,7 +436,7 @@
 		<copy tofile="copernica/build/testwebapp-${database}/WEB-INF/cope.properties"
 				file="cope.properties.${database}">
 			<filterset>
-				<filter token="MEDIA_DIRECTORY" value="//WEB-APP//" />
+				<filter token="DATADIR_PATH" value="//WEB-APP//" />
 			</filterset>
 		</copy>
 		<copy todir="copernica/build/testwebapp-${database}/WEB-INF/"

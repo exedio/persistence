@@ -2,5 +2,5 @@ database=hsqldb
 database.url=jdbc:hsqldb:.
 database.user=sa
 database.password=
-media.directory=@MEDIA_DIRECTORY@
-media.url=media/
+datadir.path=@DATADIR_PATH@
+datadir.url=media/

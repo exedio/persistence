@@ -34,8 +34,8 @@ public final class Properties
 	private static final String DATABASE_URL = "database.url";
 	private static final String DATABASE_USER = "database.user";
 	private static final String DATABASE_PASSWORD = "database.password";
-	private static final String MEDIA_DIRECTORY = "media.directory";
-	private static final String MEDIA_URL = "media.url";
+	public static final String MEDIA_DIRECTORY = "datadir.path";
+	public static final String MEDIA_URL = "datadir.url";
 
 	private final String source;
 
