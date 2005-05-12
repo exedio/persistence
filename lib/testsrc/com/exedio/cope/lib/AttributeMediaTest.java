@@ -24,18 +24,18 @@ public class AttributeMediaTest extends AttributeTest
 	public void testSomeMedia() throws IOException
 	{
 		// TODO: test with not null media
-		assertEquals(item.TYPE, item.someMedia.getType());
-		assertEquals(null, item.getSomeMediaURL());
-		assertEquals(null, item.getSomeMediaURLSomeVariant());
-		assertEquals(null, item.getSomeMediaData());
-		assertEquals(null, item.getSomeMediaMimeMajor());
-		assertEquals(null, item.getSomeMediaMimeMinor());
+		assertEquals(item.TYPE, item.someData.getType());
+		assertEquals(null, item.getSomeDataURL());
+		assertEquals(null, item.getSomeDataURLSomeVariant());
+		assertEquals(null, item.getSomeDataData());
+		assertEquals(null, item.getSomeDataMimeMajor());
+		assertEquals(null, item.getSomeDataMimeMinor());
 
 		final byte[] bytes = new byte[]{3,7,1,4};
-		item.setSomeMediaData(stream(bytes),"someMimeMajor", "someMimeMinor");
+		item.setSomeDataData(stream(bytes),"someMimeMajor", "someMimeMinor");
 
 		final String prefix =
-			"data/AttributeItem/someMedia/";
+			"data/AttributeItem/someData/";
 		final String pkString = pkString(item);
 		final String expectedURL =
 			prefix + pkString + ".someMimeMajor.someMimeMinor";
@@ -43,18 +43,18 @@ public class AttributeMediaTest extends AttributeTest
 			prefix + "SomeVariant/" + pkString + ".someMimeMajor.someMimeMinor";
 		//System.out.println(expectedURL);
 		//System.out.println(item.getSomeMediaURL());
-		assertEquals(expectedURL, item.getSomeMediaURL());
-		assertEquals(expectedURLSomeVariant, item.getSomeMediaURLSomeVariant());
-		assertData(bytes, item.getSomeMediaData());
-		assertEquals("someMimeMajor", item.getSomeMediaMimeMajor());
-		assertEquals("someMimeMinor", item.getSomeMediaMimeMinor());
+		assertEquals(expectedURL, item.getSomeDataURL());
+		assertEquals(expectedURLSomeVariant, item.getSomeDataURLSomeVariant());
+		assertData(bytes, item.getSomeDataData());
+		assertEquals("someMimeMajor", item.getSomeDataMimeMajor());
+		assertEquals("someMimeMinor", item.getSomeDataMimeMinor());
 
 		item.passivateCopeItem();
-		assertEquals(expectedURL, item.getSomeMediaURL());
-		assertEquals(expectedURLSomeVariant, item.getSomeMediaURLSomeVariant());
-		assertData(bytes, item.getSomeMediaData());
-		assertEquals("someMimeMajor", item.getSomeMediaMimeMajor());
-		assertEquals("someMimeMinor", item.getSomeMediaMimeMinor());
+		assertEquals(expectedURL, item.getSomeDataURL());
+		assertEquals(expectedURLSomeVariant, item.getSomeDataURLSomeVariant());
+		assertData(bytes, item.getSomeDataData());
+		assertEquals("someMimeMajor", item.getSomeDataMimeMajor());
+		assertEquals("someMimeMinor", item.getSomeDataMimeMinor());
 
 		assertMediaMime(item, "image", "jpeg", bytes, "jpg");
 		assertMediaMime(item, "image", "pjpeg", bytes, "jpg");
@@ -68,15 +68,15 @@ public class AttributeMediaTest extends AttributeTest
 			manyBytes[i] = (byte)((121*i)%253);
 			//System.out.print(manyBytes[i]+", ");
 		}
-		item.setSomeMediaData(stream(manyBytes),"someMimeMajor", "someMimeMinor");
-		assertData(manyBytes, item.getSomeMediaData());
+		item.setSomeDataData(stream(manyBytes),"someMimeMajor", "someMimeMinor");
+		assertData(manyBytes, item.getSomeDataData());
 
-		item.setSomeMediaData(null, null, null);
-		assertEquals(null, item.getSomeMediaURL());
-		assertEquals(null, item.getSomeMediaURLSomeVariant());
-		assertEquals(null, item.getSomeMediaData());
-		assertEquals(null, item.getSomeMediaMimeMajor());
-		assertEquals(null, item.getSomeMediaMimeMinor());
+		item.setSomeDataData(null, null, null);
+		assertEquals(null, item.getSomeDataURL());
+		assertEquals(null, item.getSomeDataURLSomeVariant());
+		assertEquals(null, item.getSomeDataData());
+		assertEquals(null, item.getSomeDataMimeMajor());
+		assertEquals(null, item.getSomeDataMimeMinor());
 	}
 
 

@@ -207,7 +207,7 @@ public class ReportTest extends DatabaseLibTest
 			assertConstraint(attributeItem, "AttrItem_somNotNullBoo_Ck", "("+protect("someNotNullBoolean")+" IS NOT NULL) AND ("+protect("someNotNullBoolean")+" IN (0,1))");
 			assertConstraint(attributeItem, "AttribuItem_someEnumer_Ck", "("+protect("someEnumeration")+" IN (100,200,300)) OR ("+protect("someEnumeration")+" IS NULL)");
 			assertConstraint(attributeItem, "AttrItem_somNotNullEnu_Ck", "("+protect("someNotNullEnumeration")+" IS NOT NULL) AND ("+protect("someNotNullEnumeration")+" IN (100,200,300))");
-			assertConstraint(attributeItem, "AttriItem_someMediMajo_Ck", "((LENGTH("+protect("someMediaMajor")+")>=1) AND (LENGTH("+protect("someMediaMajor")+")<=30)) OR ("+protect("someMediaMajor")+" IS NULL)");
+			assertConstraint(attributeItem, "AttriItem_someDataMajo_Ck", "((LENGTH("+protect("someDataMajor")+")>=1) AND (LENGTH("+protect("someDataMajor")+")<=30)) OR ("+protect("someDataMajor")+" IS NULL)");
 		}
 	}
 	

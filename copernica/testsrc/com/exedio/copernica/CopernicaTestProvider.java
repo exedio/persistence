@@ -92,7 +92,7 @@ public class CopernicaTestProvider extends TransientCopernicaProvider
 				new TransientSection("data", new Attribute[]{
 						AttributeItem.someEnumeration,
 						AttributeItem.someNotNullEnumeration,
-						AttributeItem.someMedia,
+						AttributeItem.someData,
 						}),
 				new TransientSection("other", new Attribute[]{
 						AttributeItem.someDate,
@@ -142,9 +142,9 @@ public class CopernicaTestProvider extends TransientCopernicaProvider
 			final AttributeItem attributeItem1 = new AttributeItem("someString1", 5, 6l, 2.2, true, emptyItem1, AttributeItem.SomeEnumeration.enumValue1);
 			final AttributeItem attributeItem2 = new AttributeItem("someString2", 6, 7l, 2.3, true, emptyItem2, AttributeItem.SomeEnumeration.enumValue2);
 			final AttributeItem attributeItem3 = new AttributeItem("someString3", 7, 8l, 2.4, false, emptyItem2, AttributeItem.SomeEnumeration.enumValue2);
-			attributeItem1.setSomeMediaData(thisClass.getResourceAsStream("dummy.txt"), "text", "plain");
-			attributeItem2.setSomeMediaData(thisClass.getResourceAsStream("osorno.png"), "image", "png");
-			attributeItem3.setSomeMediaData(thisClass.getResourceAsStream("tree.jpg"), "image", "jpeg");
+			attributeItem1.setSomeDataData(thisClass.getResourceAsStream("dummy.txt"), "text", "plain");
+			attributeItem2.setSomeDataData(thisClass.getResourceAsStream("osorno.png"), "image", "png");
+			attributeItem3.setSomeDataData(thisClass.getResourceAsStream("tree.jpg"), "image", "jpeg");
 			
 			final Date date = new Date(1087368238214l);
 			for(int i = 0; i<102; i++)

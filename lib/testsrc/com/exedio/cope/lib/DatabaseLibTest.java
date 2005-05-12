@@ -70,25 +70,25 @@ public abstract class DatabaseLibTest extends AbstractLibTest
 	{
 		try
 		{
-			item.setSomeMediaData(new ByteArrayInputStream(data), mimeMajor, mimeMinor);
+			item.setSomeDataData(new ByteArrayInputStream(data), mimeMajor, mimeMinor);
 		}
 		catch(IOException e)
 		{
 			throw new NestingRuntimeException(e);
 		}
-		final String prefix = "data/AttributeItem/someMedia/";
+		final String prefix = "data/AttributeItem/someData/";
 		final String pkString = pkString(item);
 		final String expectedURL = prefix+pkString+'.'+url;
 		final String expectedURLSomeVariant = prefix+"SomeVariant/"+pkString+'.'+url;
 		//System.out.println(expectedURL);
 		//System.out.println(item.getSomeMediaURL());
-		assertEquals(expectedURL, item.getSomeMediaURL());
-		assertEquals(expectedURLSomeVariant, item.getSomeMediaURLSomeVariant());
+		assertEquals(expectedURL, item.getSomeDataURL());
+		assertEquals(expectedURLSomeVariant, item.getSomeDataURLSomeVariant());
 		//System.out.println(expectedURLSomeVariant);
 		//System.out.println(item.getSomeMediaURL());
-		assertData(data, item.getSomeMediaData());
-		assertEquals(mimeMajor, item.getSomeMediaMimeMajor());
-		assertEquals(mimeMinor, item.getSomeMediaMimeMinor());
+		assertData(data, item.getSomeDataData());
+		assertEquals(mimeMajor, item.getSomeDataMimeMajor());
+		assertEquals(mimeMinor, item.getSomeDataMimeMinor());
 	}
 
 	protected void assertNotEquals(final Item item1, final Item item2)
