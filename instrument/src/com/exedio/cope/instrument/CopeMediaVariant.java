@@ -22,9 +22,9 @@ final class CopeMediaVariant
 {
 	final String name;
 	final String shortName;
-	final CopeMediaAttribute mediaAttribute;
+	final CopeDataAttribute mediaAttribute;
 
-	public CopeMediaVariant(final JavaAttribute javaAttribute, final CopeMediaAttribute mediaAttribute)
+	public CopeMediaVariant(final JavaAttribute javaAttribute, final CopeDataAttribute mediaAttribute)
 	{
 		this.name = javaAttribute.name;
 		this.mediaAttribute = mediaAttribute;

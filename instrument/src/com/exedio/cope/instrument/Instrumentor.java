@@ -194,7 +194,7 @@ final class Instrumentor implements InjectionConsumer
 		}
 		else if(DataAttribute.class.equals(typeClass))
 		{
-			new CopeMediaAttribute(
+			new CopeDataAttribute(
 				ja, typeClass,
 				initializerArguments, getterOption, setterOption);
 		}
@@ -244,7 +244,7 @@ final class Instrumentor implements InjectionConsumer
 			throw new InjectorParseException("attribute >"+ja.name+"< has invalid initializer arguments: "+initializerArguments);
 		//System.out.println("---------"+initializerArguments);
 		final String initializerArgument = (String)initializerArguments.get(0);
-		final CopeMediaAttribute mediaAttribute = (CopeMediaAttribute)copeClass.getCopeAttribute(initializerArgument);
+		final CopeDataAttribute mediaAttribute = (CopeDataAttribute)copeClass.getCopeAttribute(initializerArgument);
 		if(mediaAttribute==null)
 			throw new InjectorParseException("attribute >"+initializerArgument+"< in media attribute variant "+ja.name+" not found.");
 		new CopeMediaVariant(ja, mediaAttribute);

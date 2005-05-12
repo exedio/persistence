@@ -22,13 +22,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-final class CopeMediaAttribute extends CopeAttribute
+final class CopeDataAttribute extends CopeAttribute
 {
 	private final List mediaVariants;
 	public final String mimeMajor;
 	public final String mimeMinor;
 
-	public CopeMediaAttribute(
+	public CopeDataAttribute(
 			final JavaAttribute javaAttribute,
 			final Class typeClass,
 			final List initializerArguments,
