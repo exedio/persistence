@@ -18,13 +18,13 @@
 package com.exedio.cope.instrument;
 
 
-final class CopeMediaVariant
+final class CopeDataVariant
 {
 	final String name;
 	final String shortName;
 	final CopeDataAttribute mediaAttribute;
 
-	public CopeMediaVariant(final JavaAttribute javaAttribute, final CopeDataAttribute mediaAttribute)
+	public CopeDataVariant(final JavaAttribute javaAttribute, final CopeDataAttribute mediaAttribute)
 	{
 		this.name = javaAttribute.name;
 		this.mediaAttribute = mediaAttribute;

@@ -477,7 +477,7 @@ final class Generator
 	private void writeDataGetterMethod(final CopeAttribute mediaAttribute,
 													final Class returnType,
 													final String part,
-													final CopeMediaVariant variant,
+													final CopeDataVariant variant,
 													final String commentPattern)
 	throws IOException
 	{
@@ -527,7 +527,7 @@ final class Generator
 		if(mediaVariants!=null)
 		{
 			for(Iterator i = mediaVariants.iterator(); i.hasNext(); )
-				writeDataGetterMethod(mediaAttribute, String.class, "URL", (CopeMediaVariant)i.next(), GETTER_DATA_VARIANT);
+				writeDataGetterMethod(mediaAttribute, String.class, "URL", (CopeDataVariant)i.next(), GETTER_DATA_VARIANT);
 		}
 		writeDataGetterMethod(mediaAttribute, String.class, "MimeMajor", null, GETTER_DATA_MAJOR);
 		writeDataGetterMethod(mediaAttribute, String.class, "MimeMinor", null, GETTER_DATA_MINOR);

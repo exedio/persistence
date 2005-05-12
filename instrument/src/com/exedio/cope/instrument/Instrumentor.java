@@ -247,7 +247,7 @@ final class Instrumentor implements InjectionConsumer
 		final CopeDataAttribute mediaAttribute = (CopeDataAttribute)copeClass.getCopeAttribute(initializerArgument);
 		if(mediaAttribute==null)
 			throw new InjectorParseException("attribute >"+initializerArgument+"< in media attribute variant "+ja.name+" not found.");
-		new CopeMediaVariant(ja, mediaAttribute);
+		new CopeDataVariant(ja, mediaAttribute);
 	}
 
 	private final void handleHash(final JavaAttribute ja, final Class typeClass)

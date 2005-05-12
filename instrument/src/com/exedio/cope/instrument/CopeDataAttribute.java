@@ -43,7 +43,7 @@ final class CopeDataAttribute extends CopeAttribute
 		this.mimeMinor = getString(initializerArguments, 2);
 	}
 	
-	void addVariant(final CopeMediaVariant variant)
+	void addVariant(final CopeDataVariant variant)
 	{
 		mediaVariants.add(variant);
 	}
