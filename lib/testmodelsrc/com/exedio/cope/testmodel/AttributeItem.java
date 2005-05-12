@@ -910,7 +910,7 @@ public class AttributeItem extends Item
 	{
 		try
 		{
-			setMediaData(AttributeItem.someMedia,data,mimeMajor,mimeMinor);
+			setData(AttributeItem.someMedia,data,mimeMajor,mimeMinor);
 		}
 		catch(com.exedio.cope.lib.NotNullViolationException e)
 		{

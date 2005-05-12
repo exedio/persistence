@@ -538,7 +538,7 @@ public abstract class Item extends Cope
 	 *         if data is null and attribute is {@link Attribute#isNotNull() not-null}.
 	 * @throws IOException if reading data throws an IOException.
 	 */
-	public final void setMediaData(final DataAttribute attribute, final InputStream data,
+	public final void setData(final DataAttribute attribute, final InputStream data,
 												 final String mimeMajor, final String mimeMinor)
 	throws NotNullViolationException, IOException
 	{

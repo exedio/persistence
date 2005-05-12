@@ -483,7 +483,7 @@ final class ItemForm extends Form
 						try
 						{
 							final InputStream data = fileItem.getInputStream();
-							item.setMediaData(attribute, data, mimeMajor, mimeMinor);
+							item.setData(attribute, data, mimeMajor, mimeMinor);
 						}
 						catch(IOException e)
 						{

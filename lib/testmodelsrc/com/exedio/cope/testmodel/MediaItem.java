@@ -117,7 +117,7 @@ public class MediaItem extends Item
 	{
 		try
 		{
-			setMediaData(MediaItem.file,data,mimeMajor,mimeMinor);
+			setData(MediaItem.file,data,mimeMajor,mimeMinor);
 		}
 		catch(com.exedio.cope.lib.NotNullViolationException e)
 		{
@@ -179,7 +179,7 @@ public class MediaItem extends Item
 	{
 		try
 		{
-			setMediaData(MediaItem.image,data,null,mimeMinor);
+			setData(MediaItem.image,data,null,mimeMinor);
 		}
 		catch(com.exedio.cope.lib.NotNullViolationException e)
 		{
@@ -250,7 +250,7 @@ public class MediaItem extends Item
 	{
 		try
 		{
-			setMediaData(MediaItem.photo,data,null,null);
+			setData(MediaItem.photo,data,null,null);
 		}
 		catch(com.exedio.cope.lib.NotNullViolationException e)
 		{

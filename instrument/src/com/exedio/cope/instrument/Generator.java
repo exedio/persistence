@@ -570,7 +570,7 @@ final class Generator
 			exceptionsToCatch.remove(LengthViolationException.class);
 			exceptionsToCatch.remove(UniqueViolationException.class);
 			writeTryCatchClausePrefix(exceptionsToCatch);
-			o.write("\t\tsetMediaData(");
+			o.write("\t\tsetData(");
 			o.write(mediaAttribute.copeClass.getName());
 			o.write('.');
 			o.write(mediaAttribute.getName());
