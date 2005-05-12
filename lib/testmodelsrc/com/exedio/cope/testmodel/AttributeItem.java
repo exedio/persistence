@@ -131,7 +131,7 @@ public class AttributeItem extends Item
 	public static final EnumAttribute someNotNullEnumeration = enumAttribute(NOT_NULL, SomeEnumeration.class);
 
 	/**
-	 * A media attribute.
+	 * A data attribute.
 	 */
 	public static final DataAttribute someData = dataAttribute(DEFAULT);
 	
