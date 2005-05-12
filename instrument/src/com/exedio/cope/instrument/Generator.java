@@ -523,10 +523,10 @@ final class Generator
 
 		// getters
 		writeDataGetterMethod(attribute, String.class, "URL", null, GETTER_DATA_URL);
-		final List mediaVariants = attribute.getVariants();
-		if(mediaVariants!=null)
+		final List variants = attribute.getVariants();
+		if(variants!=null)
 		{
-			for(Iterator i = mediaVariants.iterator(); i.hasNext(); )
+			for(Iterator i = variants.iterator(); i.hasNext(); )
 				writeDataGetterMethod(attribute, String.class, "URL", (CopeDataVariant)i.next(), GETTER_DATA_VARIANT);
 		}
 		writeDataGetterMethod(attribute, String.class, "MimeMajor", null, GETTER_DATA_MAJOR);
