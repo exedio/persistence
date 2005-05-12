@@ -234,7 +234,7 @@ final class Instrumentor implements InjectionConsumer
 		new CopeQualifier(ja.name, copeClass, initializerArguments);
 	}
 
-	private final void handleMediaVariant(final JavaAttribute ja, final Class typeClass)
+	private final void handleDataVariant(final JavaAttribute ja, final Class typeClass)
 		throws InjectorParseException
 	{
 		final JavaClass jc = ja.parent;
@@ -297,7 +297,7 @@ final class Instrumentor implements InjectionConsumer
 					else if(Qualifier.class.isAssignableFrom(typeClass))
 						handleQualifier(ja, typeClass);
 					else if(DataAttributeVariant.class.isAssignableFrom(typeClass))
-						handleMediaVariant(ja, typeClass);
+						handleDataVariant(ja, typeClass);
 					else if(Hash.class.isAssignableFrom(typeClass))
 						handleHash(ja, typeClass);
 				}
