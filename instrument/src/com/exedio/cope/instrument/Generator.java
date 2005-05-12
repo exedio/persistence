@@ -550,7 +550,7 @@ final class Generator
 			o.write(Modifier.toString(attribute.getGeneratedSetterModifier()));
 			o.write(" void set");
 			o.write(toCamelCase(attribute.getName()));
-			o.write("Data(final " + InputStream.class.getName() + " data");
+			o.write("(final " + InputStream.class.getName() + " data");
 			if(mimeMajor==null)
 				o.write(",final "+String.class.getName()+" mimeMajor");
 			if(mimeMinor==null)

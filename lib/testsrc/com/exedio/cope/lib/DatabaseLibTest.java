@@ -70,7 +70,7 @@ public abstract class DatabaseLibTest extends AbstractLibTest
 	{
 		try
 		{
-			item.setSomeDataData(new ByteArrayInputStream(data), mimeMajor, mimeMinor);
+			item.setSomeData(new ByteArrayInputStream(data), mimeMajor, mimeMinor);
 		}
 		catch(IOException e)
 		{
