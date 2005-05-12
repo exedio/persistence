@@ -55,13 +55,13 @@ final class Generator
 	private static final String GETTER = "Returns the value of the persistent attribute {0}.";
 	private static final String CHECKER = "Returns whether the given value corresponds to the hash in {0}.";
 	private static final String SETTER = "Sets a new value for the persistent attribute {0}.";
-	private static final String SETTER_MEDIA = "Sets the new data for the data attribute {0}.";
-	private static final String SETTER_MEDIA_IOEXCEPTION = "if accessing {0} throws an IOException.";
-	private static final String GETTER_MEDIA_URL =     "Returns a URL the data of the data attribute {0} is available under.";
-	private static final String GETTER_MEDIA_VARIANT = "Returns a URL the data of the {1} variant of the data attribute {0} is available under.";
-	private static final String GETTER_MEDIA_MAJOR = "Returns the major mime type of the data attribute {0}.";
-	private static final String GETTER_MEDIA_MINOR = "Returns the minor mime type of the data attribute {0}.";
-	private static final String GETTER_MEDIA_DATA = "Returns the data of the data attribute {0}.";
+	private static final String SETTER_DATA = "Sets the new data for the data attribute {0}.";
+	private static final String SETTER_DATA_IOEXCEPTION = "if accessing {0} throws an IOException.";
+	private static final String GETTER_DATA_URL =     "Returns a URL the data of the data attribute {0} is available under.";
+	private static final String GETTER_DATA_VARIANT = "Returns a URL the data of the {1} variant of the data attribute {0} is available under.";
+	private static final String GETTER_DATA_MAJOR = "Returns the major mime type of the data attribute {0}.";
+	private static final String GETTER_DATA_MINOR = "Returns the minor mime type of the data attribute {0}.";
+	private static final String GETTER_DATA_DATA = "Returns the data of the data attribute {0}.";
 	private static final String TOUCHER = "Sets the current date for the date attribute {0}.";
 	private static final String FINDER_UNIQUE = "Finds a {0} by it''s unique attributes.";
 	private static final String FINDER_UNIQUE_PARAMETER = "shall be equal to attribute {0}.";
@@ -522,29 +522,29 @@ final class Generator
 		final String mimeMinor = mediaAttribute.mimeMinor;
 
 		// getters
-		writeMediaGetterMethod(mediaAttribute, String.class, "URL", null, GETTER_MEDIA_URL);
+		writeMediaGetterMethod(mediaAttribute, String.class, "URL", null, GETTER_DATA_URL);
 		final List mediaVariants = mediaAttribute.getVariants();
 		if(mediaVariants!=null)
 		{
 			for(Iterator i = mediaVariants.iterator(); i.hasNext(); )
-				writeMediaGetterMethod(mediaAttribute, String.class, "URL", (CopeMediaVariant)i.next(), GETTER_MEDIA_VARIANT);
+				writeMediaGetterMethod(mediaAttribute, String.class, "URL", (CopeMediaVariant)i.next(), GETTER_DATA_VARIANT);
 		}
-		writeMediaGetterMethod(mediaAttribute, String.class, "MimeMajor", null, GETTER_MEDIA_MAJOR);
-		writeMediaGetterMethod(mediaAttribute, String.class, "MimeMinor", null, GETTER_MEDIA_MINOR);
-		writeMediaGetterMethod(mediaAttribute, InputStream.class, "Data", null, GETTER_MEDIA_DATA);
+		writeMediaGetterMethod(mediaAttribute, String.class, "MimeMajor", null, GETTER_DATA_MAJOR);
+		writeMediaGetterMethod(mediaAttribute, String.class, "MimeMinor", null, GETTER_DATA_MINOR);
+		writeMediaGetterMethod(mediaAttribute, InputStream.class, "Data", null, GETTER_DATA_DATA);
 		
 		// setters
 		if(mediaAttribute.hasGeneratedSetter())
 		{
 			writeCommentHeader();
 			o.write("\t * ");
-			o.write(format(SETTER_MEDIA, link(mediaAttribute.getName())));
+			o.write(format(SETTER_DATA, link(mediaAttribute.getName())));
 			o.write(lineSeparator);
 			writeCommentGenerated();
 			o.write("\t * @throws ");
 			o.write(IOException.class.getName());
 			o.write(' ');
-			o.write(format(SETTER_MEDIA_IOEXCEPTION, "<code>data</code>"));
+			o.write(format(SETTER_DATA_IOEXCEPTION, "<code>data</code>"));
 			o.write(lineSeparator);
 			writeCommentFooter();
 			o.write(Modifier.toString(mediaAttribute.getGeneratedSetterModifier()));
