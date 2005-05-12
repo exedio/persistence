@@ -886,8 +886,8 @@ final class Generator
 
 	/**
 	 * Identation contract:
-	 * This methods is called, when o stream is immediatly after a line break,
-	 * and it should return the o stream after immediatly after a line break.
+	 * This methods is called, when o stream is immediately after a line break,
+	 * and it should return the o stream after immediately after a line break.
 	 * This means, doing nothing fullfils the contract.
 	 */
 	private void writeGetterBody(final CopeAttribute attribute)
@@ -911,8 +911,8 @@ final class Generator
 
 	/**
 	 * Identation contract:
-	 * This methods is called, when o stream is immediatly after a line break,
-	 * and it should return the o stream after immediatly after a line break.
+	 * This methods is called, when o stream is immediately after a line break,
+	 * and it should return the o stream after immediately after a line break.
 	 * This means, doing nothing fullfils the contract.
 	 */
 	private void writeSetterBody(final CopeAttribute attribute)
@@ -937,8 +937,8 @@ final class Generator
 	
 	/**
 	 * Identation contract:
-	 * This methods is called, when o stream is immediatly after a line break,
-	 * and it should return the o stream after immediatly after a line break.
+	 * This methods is called, when o stream is immediately after a line break,
+	 * and it should return the o stream after immediately after a line break.
 	 * This means, doing nothing fullfils the contract.
 	 */
 	private void writeToucherBody(final CopeAttribute attribute)
@@ -957,8 +957,8 @@ final class Generator
 	
 	/**
 	 * Identation contract:
-	 * This methods is called, when o stream is immediatly after a line break,
-	 * and it should return the o stream after immediatly after a line break.
+	 * This methods is called, when o stream is immediately after a line break,
+	 * and it should return the o stream after immediately after a line break.
 	 * This means, doing nothing fullfils the contract.
 	 */
 	private void writeCheckerBody(final CopeHash hash)
@@ -976,8 +976,8 @@ final class Generator
 
 	/**
 	 * Identation contract:
-	 * This methods is called, when o stream is immediatly after a line break,
-	 * and it should return the o stream after immediatly after a line break.
+	 * This methods is called, when o stream is immediately after a line break,
+	 * and it should return the o stream after immediately after a line break.
 	 * This means, doing nothing fullfils the contract.
 	 */
 	private void writeSetterBody(final CopeHash hash)
