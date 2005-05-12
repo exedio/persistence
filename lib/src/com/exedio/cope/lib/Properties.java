@@ -238,7 +238,7 @@ public final class Properties
 		return mediaDirectory;
 	}
 
-	public String getMediaUrl()
+	public String getDataUrl()
 	{
 		if(mediaDirectory==null)
 			throw new RuntimeException("property media.directory in "+source+" not set.");

@@ -472,7 +472,7 @@ public abstract class Item extends Cope
 		if(isNull(attribute))
 			return null;
 
-		final StringBuffer bf = new StringBuffer(getCopeType().getModel().getProperties().getMediaUrl());
+		final StringBuffer bf = new StringBuffer(getCopeType().getModel().getProperties().getDataUrl());
 		appendMediaPath(attribute, variant, bf);
 		return bf.toString();
 	}
