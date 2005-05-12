@@ -515,7 +515,7 @@ final class Generator
 		o.write("\t}");
 	}
 	
-	private void writeMediaAccessMethods(final CopeDataAttribute mediaAttribute)
+	private void writeDataAccessMethods(final CopeDataAttribute mediaAttribute)
 	throws IOException
 	{
 		final String mimeMajor = mediaAttribute.mimeMajor;
@@ -862,7 +862,7 @@ final class Generator
 				final CopeAttribute copeAttribute = (CopeAttribute)i.next();
 				//System.out.println("onClassEnd("+jc.getName()+") writing attribute "+copeAttribute.getName());
 				if(copeAttribute instanceof CopeDataAttribute)
-					writeMediaAccessMethods((CopeDataAttribute)copeAttribute);
+					writeDataAccessMethods((CopeDataAttribute)copeAttribute);
 				else
 					writeAccessMethods(copeAttribute);
 			}
