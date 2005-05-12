@@ -24,7 +24,7 @@ import java.util.List;
 
 final class CopeDataAttribute extends CopeAttribute
 {
-	private final List mediaVariants;
+	private final List variants;
 	public final String mimeMajor;
 	public final String mimeMinor;
 
@@ -37,7 +37,7 @@ final class CopeDataAttribute extends CopeAttribute
 		throws InjectorParseException
 	{
 		super(javaAttribute, typeClass, MEDIA_TYPE, initializerArguments, getterOption, setterOption);
-		this.mediaVariants = new ArrayList();
+		this.variants = new ArrayList();
 
 		this.mimeMajor = getString(initializerArguments, 1);
 		this.mimeMinor = getString(initializerArguments, 2);
@@ -45,12 +45,12 @@ final class CopeDataAttribute extends CopeAttribute
 	
 	void addVariant(final CopeDataVariant variant)
 	{
-		mediaVariants.add(variant);
+		variants.add(variant);
 	}
 	
 	List getVariants()
 	{
-		return Collections.unmodifiableList(mediaVariants);
+		return Collections.unmodifiableList(variants);
 	}
 
 	private static String getString(final List initializerArguments, final int pos)
