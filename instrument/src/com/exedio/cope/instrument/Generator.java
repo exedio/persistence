@@ -474,7 +474,7 @@ final class Generator
 		o.write("\t}");
 	}
 
-	private void writeMediaGetterMethod(final CopeAttribute mediaAttribute,
+	private void writeDataGetterMethod(final CopeAttribute mediaAttribute,
 													final Class returnType,
 													final String part,
 													final CopeMediaVariant variant,
@@ -522,16 +522,16 @@ final class Generator
 		final String mimeMinor = mediaAttribute.mimeMinor;
 
 		// getters
-		writeMediaGetterMethod(mediaAttribute, String.class, "URL", null, GETTER_DATA_URL);
+		writeDataGetterMethod(mediaAttribute, String.class, "URL", null, GETTER_DATA_URL);
 		final List mediaVariants = mediaAttribute.getVariants();
 		if(mediaVariants!=null)
 		{
 			for(Iterator i = mediaVariants.iterator(); i.hasNext(); )
-				writeMediaGetterMethod(mediaAttribute, String.class, "URL", (CopeMediaVariant)i.next(), GETTER_DATA_VARIANT);
+				writeDataGetterMethod(mediaAttribute, String.class, "URL", (CopeMediaVariant)i.next(), GETTER_DATA_VARIANT);
 		}
-		writeMediaGetterMethod(mediaAttribute, String.class, "MimeMajor", null, GETTER_DATA_MAJOR);
-		writeMediaGetterMethod(mediaAttribute, String.class, "MimeMinor", null, GETTER_DATA_MINOR);
-		writeMediaGetterMethod(mediaAttribute, InputStream.class, "Data", null, GETTER_DATA_DATA);
+		writeDataGetterMethod(mediaAttribute, String.class, "MimeMajor", null, GETTER_DATA_MAJOR);
+		writeDataGetterMethod(mediaAttribute, String.class, "MimeMinor", null, GETTER_DATA_MINOR);
+		writeDataGetterMethod(mediaAttribute, InputStream.class, "Data", null, GETTER_DATA_DATA);
 		
 		// setters
 		if(mediaAttribute.hasGeneratedSetter())
