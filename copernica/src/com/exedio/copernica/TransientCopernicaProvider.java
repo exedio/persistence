@@ -60,12 +60,12 @@ public abstract class TransientCopernicaProvider implements CopernicaProvider
 		final Properties p = com.exedio.cope.lib.Properties.loadProperties(propertyFile);
 		if("//WEB-APP//".equals(p.getProperty(DATADIR_PATH)))
 		{
-			final String mediaUrl = p.getProperty(DATADIR_URL);
+			final String datadirUrl = p.getProperty(DATADIR_URL);
 			// TODO: deal with web applications without media
-			if(mediaUrl==null)
+			if(datadirUrl==null)
 				throw new RuntimeException("parameter " + DATADIR_URL + " must exist in "+propertyFile.getAbsolutePath());
 			
-			p.setProperty(DATADIR_PATH, context.getRealPath(mediaUrl));
+			p.setProperty(DATADIR_PATH, context.getRealPath(datadirUrl));
 		}
 			
 		model.setPropertiesInitially(
