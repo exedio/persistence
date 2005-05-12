@@ -245,11 +245,11 @@
 	
 	<target name="lib.test.run.anydb" >
 		<echo message="Running test for ${database}" />
-		<mkdir dir="lib/build/test.${database}/media" />
+		<mkdir dir="lib/build/test.${database}/data" />
 		<copy file="cope.properties.${database}"
 				tofile="lib/build/test.${database}/cope.properties">
 			<filterset>
-				<filter token="DATADIR_PATH" value="lib/build/test.${database}/media" />
+				<filter token="DATADIR_PATH" value="lib/build/test.${database}/data" />
 			</filterset>
 		</copy>
 		<java classname="junit.textui.TestRunner" taskname="junit" fork="yes" failonerror="yes">
@@ -294,12 +294,12 @@
 
 	<target name="lib.test.teardown.anydb">
 		<echo message="Tearing down database for ${database}" />
-		<mkdir dir="lib/build/teardown.${database}/media" />
+		<mkdir dir="lib/build/teardown.${database}/data" />
 		<copy file="cope.properties.${database}"
 				tofile="lib/build/teardown.${database}/cope.properties">
 			<filterset>
 				<filter token="DATADIR_PATH" 
-							value="lib/build/teardown.${database}/media" />
+							value="lib/build/teardown.${database}/data" />
 			</filterset>
 		</copy>
 		<java classname="com.exedio.cope.testmodel.Main" taskname="tear down"
@@ -447,7 +447,7 @@
 				<exclude name="*.inc" />
 			</fileset>
 		</copy>
-		<mkdir dir="copernica/build/testwebapp-${database}/media" />
+		<mkdir dir="copernica/build/testwebapp-${database}/data" />
 		
 		<touch file="copernica/build/testwebapp-${database}/WEB-INF/web.xml" />
 	
