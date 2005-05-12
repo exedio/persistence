@@ -225,7 +225,7 @@ public final class Properties
 		return databasePassword;
 	}
 	
-	public boolean hasMedia()
+	public boolean hasData()
 	{
 		return mediaDirectory!=null;
 	}

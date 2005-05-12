@@ -62,7 +62,7 @@ final class Properties_Jspm
 				<td><small>database.user</small></td>
 				<td><small><%=properties.getDatabaseUser()%></small></td>
 			</tr><%
-			if(properties.hasMedia())
+			if(properties.hasData())
 			{
 				final String mediaDirectory =
 					properties.getMediaDirectory().getAbsolutePath();
