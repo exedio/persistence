@@ -32,7 +32,7 @@ import com.exedio.cope.lib.StringAttribute;
  * TODO: item attributes
  * TODO: enum attributes
  * TODO: date attributes with toucher methods
- * TODO: media attributes with all access methods methods and mime type constraints
+ * TODO: data attributes with all access methods methods and mime type constraints
  * TODO: functions
  * TODO: qualifiers
  * TODO: hashes

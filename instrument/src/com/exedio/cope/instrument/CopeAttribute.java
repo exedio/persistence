@@ -41,7 +41,7 @@ import com.exedio.cope.lib.util.ClassComparator;
 abstract class CopeAttribute
 {
 	/**
-	 * Defines this attribute as a media attribute.
+	 * Defines this attribute as a data attribute.
 	 * The dash prevents this name to be used as a java identifier.
 	 * @see #getPersistentType()
 	 */
