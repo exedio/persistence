@@ -22,17 +22,17 @@ final class CopeDataVariant
 {
 	final String name;
 	final String shortName;
-	final CopeDataAttribute mediaAttribute;
+	final CopeDataAttribute attribute;
 
-	public CopeDataVariant(final JavaAttribute javaAttribute, final CopeDataAttribute mediaAttribute)
+	public CopeDataVariant(final JavaAttribute javaAttribute, final CopeDataAttribute attribute)
 	{
 		this.name = javaAttribute.name;
-		this.mediaAttribute = mediaAttribute;
-		final String prefix = mediaAttribute.getName();
+		this.attribute = attribute;
+		final String prefix = attribute.getName();
 		this.shortName = this.name.startsWith(prefix)
 				? this.name.substring(prefix.length())
 				: this.name;
-		mediaAttribute.addVariant(this);
+		attribute.addVariant(this);
 	}
 
 }
