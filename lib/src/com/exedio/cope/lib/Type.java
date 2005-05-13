@@ -28,6 +28,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
@@ -86,11 +87,22 @@ public final class Type
 	
 	public Type(final Class javaClass)
 	{
-		this.javaClass = javaClass;
-		if(!Item.class.isAssignableFrom(javaClass))
-			throw new IllegalArgumentException(javaClass.toString()+" is not a subclass of Item");
-
-		typesByClass.put(javaClass, this);
+		this(new Class[]{javaClass});
+	}
+	
+	/**
+	 * BEWARE: use this constructor only, if you know what you are doing.
+	 * @see #Type(Class)
+	 */
+	public Type(final Class[] javaClasses)
+	{
+		this.javaClass = javaClasses[0];
+		for(int i = 0; i<javaClasses.length; i++)
+		{
+			if(!Item.class.isAssignableFrom(javaClasses[i]))
+				throw new IllegalArgumentException(javaClasses[i].toString()+" is not a subclass of Item");
+			typesByClass.put(javaClasses[i], this);
+		}
 
 		{
 			final String className = javaClass.getName();
@@ -99,7 +111,19 @@ public final class Type
 		}
 
 		// supertype
-		final Class superClass = javaClass.getSuperclass();
+		final Class superClass;
+		{
+			Class superClassTemp;
+			final HashSet javaClassesSet = new HashSet(Arrays.asList(javaClasses));
+			for(superClassTemp = javaClass.getSuperclass();
+					javaClassesSet.contains(superClassTemp);
+					superClassTemp = superClassTemp.getSuperclass() )
+			{
+				// nothing to do here
+			}
+			superClass = superClassTemp;
+		}
+		
 		if(superClass.equals(Item.class))
 			supertype = null;
 		else
