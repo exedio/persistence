@@ -28,6 +28,7 @@ import com.exedio.cope.lib.search.GreaterEqualCondition;
 import com.exedio.cope.lib.search.JoinCondition;
 import com.exedio.cope.lib.search.LessCondition;
 import com.exedio.cope.lib.search.LessEqualCondition;
+import com.exedio.cope.lib.search.LikeCondition;
 import com.exedio.cope.lib.search.NotEqualCondition;
 import com.exedio.cope.lib.search.OrCondition;
 
@@ -170,6 +171,11 @@ public abstract class Cope
 	public static final NotEqualCondition notEqual(final ItemAttribute attribute, final Item value)
 	{
 		return new NotEqualCondition(attribute, value);
+	}
+	
+	public static final LikeCondition like(final StringFunction function, final String value)
+	{
+		return new LikeCondition(function, value);
 	}
 	
 	public static final LessCondition less(final StringAttribute attribute, final String value)
