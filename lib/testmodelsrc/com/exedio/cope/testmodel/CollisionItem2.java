@@ -23,7 +23,7 @@ import com.exedio.cope.lib.ItemAttribute;
 
 /**
  * @persistent
- * @author ralf.wiebicke@exedio.com
+ * @author Ralf Wiebicke
  */
 public class CollisionItem2 extends Item
 {

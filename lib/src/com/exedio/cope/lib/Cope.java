@@ -35,7 +35,7 @@ import com.exedio.cope.lib.search.OrCondition;
  * Utility class for creating conditions.
  * May be subclassed to access methods without class qualifier.
  * 
- * @author ralf.wiebicke@exedio.com
+ * @author Ralf Wiebicke
  */
 public abstract class Cope
 {

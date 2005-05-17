@@ -29,7 +29,7 @@ import java.io.Writer;
  * specifies the position of the output stream, when
  * the method is called.
  * 
- * @author ralf.wiebicke@exedio.com
+ * @author Ralf Wiebicke
  */
 interface InjectionConsumer
 {

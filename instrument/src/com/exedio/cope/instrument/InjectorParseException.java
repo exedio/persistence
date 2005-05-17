@@ -24,7 +24,7 @@ package com.exedio.cope.instrument;
  * javac sucessfully (otherwise it's a bug.)
  * @see Injector
  * 
- * @author ralf.wiebicke@exedio.com
+ * @author Ralf Wiebicke
  */
 class InjectorParseException extends Exception
 {

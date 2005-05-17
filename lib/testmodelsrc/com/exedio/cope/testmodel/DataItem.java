@@ -24,7 +24,7 @@ import com.exedio.cope.lib.DataAttributeVariant;
 
 /**
  * @persistent
- * @author ralf.wiebicke@exedio.com
+ * @author Ralf Wiebicke
  */
 public class DataItem extends Item
 {

@@ -52,7 +52,7 @@ import com.exedio.cops.CopsServlet;
  * &lt;/servlet-mapping&gt;
  * </pre>
  * 
- * @author ralf.wiebicke@exedio.com
+ * @author Ralf Wiebicke
  */
 public final class CopernicaServlet extends CopsServlet
 {

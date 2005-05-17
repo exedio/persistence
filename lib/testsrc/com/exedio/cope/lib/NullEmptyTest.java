@@ -23,7 +23,7 @@ import com.exedio.cope.testmodel.EmptyItem;
 /**
  * Test, whether database converts empty strings to null,
  * and how the framework hides such behaviour from the user.
- * @author ralf.wiebicke@exedio.com
+ * @author Ralf Wiebicke
  */
 public class NullEmptyTest extends DatabaseLibTest
 {

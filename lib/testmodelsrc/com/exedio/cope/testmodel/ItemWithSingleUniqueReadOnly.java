@@ -24,7 +24,7 @@ import com.exedio.cope.lib.StringAttribute;
 /**
  * An item having a unique read-only attribute.
  * @persistent
- * @author ralf.wiebicke@exedio.com
+ * @author Ralf Wiebicke
  */
 public class ItemWithSingleUniqueReadOnly extends Item
 {

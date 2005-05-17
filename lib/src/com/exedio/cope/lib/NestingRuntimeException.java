@@ -27,7 +27,7 @@ import java.io.PrintWriter;
  * Is a replacement of the nesting functionality of RuntimeException
  * in JDK 1.4.
  * 
- * @author ralf.wiebicke@exedio.com
+ * @author Ralf Wiebicke
  */
 public final class NestingRuntimeException extends RuntimeException
 {

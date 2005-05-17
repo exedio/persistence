@@ -25,7 +25,7 @@ import java.lang.reflect.Modifier;
  * Is an inner class, if parent is not null.
  * @see Injector
  * 
- * @author ralf.wiebicke@exedio.com
+ * @author Ralf Wiebicke
  */
 class JavaClass extends JavaFeature
 {

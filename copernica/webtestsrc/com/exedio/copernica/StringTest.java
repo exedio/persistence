@@ -21,7 +21,7 @@ package com.exedio.copernica;
  * Tests especcially, that the forms still work
  * without multipart/form-data encoding.
  * 
- * @author ralf.wiebicke@exedio.com
+ * @author Ralf Wiebicke
  */
 public class StringTest extends AbstractWebTest
 {

@@ -25,7 +25,7 @@ package com.exedio.cope.lib;
  * This exception will be thrown by {@link Item#setAttribute Item.setAttribute} methods
  * if that attribute is {@link Attribute#isReadOnly() read-only}.
  * 
- * @author ralf.wiebicke@exedio.com
+ * @author Ralf Wiebicke
  */
 public final class ReadOnlyViolationException extends ConstraintViolationException
 {

@@ -25,7 +25,7 @@ import java.lang.reflect.Modifier;
  * May be a class (even an inner class), an attribute or
  * a method.
  * 
- * @author ralf.wiebicke@exedio.com
+ * @author Ralf Wiebicke
  */
 abstract class JavaFeature
 {

@@ -30,7 +30,7 @@ import java.util.TreeSet;
  * This depends on the current package and all
  * imported packages/classes.
  * 
- * @author ralf.wiebicke@exedio.com
+ * @author Ralf Wiebicke
  */
 final class JavaFile
 {

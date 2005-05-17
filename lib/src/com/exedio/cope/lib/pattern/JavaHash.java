@@ -29,7 +29,7 @@ import com.exedio.cope.lib.StringAttribute;
 /**
  * Uses hashes from the java.security package.
  * 
- * @author ralf.wiebicke@exedio.com
+ * @author Ralf Wiebicke
  */
 public class JavaHash extends Hash
 {

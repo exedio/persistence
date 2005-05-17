@@ -23,7 +23,7 @@ import com.exedio.cope.lib.StringAttribute;
 
 /**
  * @persistent
- * @author ralf.wiebicke@exedio.com
+ * @author Ralf Wiebicke
  */
 public class FirstSub extends Super
 {

@@ -27,7 +27,7 @@ import java.util.List;
  * May be either a method or a constructor.
  * @see Injector
  * 
- * @author ralf.wiebicke@exedio.com
+ * @author Ralf Wiebicke
  */
 abstract class JavaBehaviour extends JavaFeature
 {

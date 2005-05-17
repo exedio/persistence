@@ -25,7 +25,7 @@ import com.exedio.cope.lib.function.SumFunction;
 
 /**
  * @persistent
- * @author ralf.wiebicke@exedio.com
+ * @author Ralf Wiebicke
  */
 public class SumItem extends Item
 {

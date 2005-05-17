@@ -29,7 +29,7 @@ import java.sql.SQLException;
  * <p>
  * This exception is thrown by {@link Item#deleteCopeItem}.
  * 
- * @author ralf.wiebicke@exedio.com
+ * @author Ralf Wiebicke
  */
 public class IntegrityViolationException extends ConstraintViolationException
 {

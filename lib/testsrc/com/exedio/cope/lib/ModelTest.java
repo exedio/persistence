@@ -30,7 +30,7 @@ import com.exedio.cope.testmodel.Super;
 
 /**
  * Tests the model itself, without creating/using any persistent data.
- * @author ralf.wiebicke@exedio.com
+ * @author Ralf Wiebicke
  */
 public class ModelTest extends AbstractLibTest
 {

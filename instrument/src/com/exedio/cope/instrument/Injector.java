@@ -36,7 +36,7 @@ import java.util.ArrayList;
  * InjectionConsumer interface to the constructor.
  * @see InjectionConsumer
  * 
- * @author ralf.wiebicke@exedio.com
+ * @author Ralf Wiebicke
  */
 final class Injector
 {

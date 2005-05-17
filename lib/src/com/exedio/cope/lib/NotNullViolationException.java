@@ -26,7 +26,7 @@ package com.exedio.cope.lib;
  * and item constructors
  * if that attribute is {@link Attribute#isNotNull() not-null}.
  * 
- * @author ralf.wiebicke@exedio.com
+ * @author Ralf Wiebicke
  */
 public final class NotNullViolationException extends ConstraintViolationException
 {

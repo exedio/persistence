@@ -26,7 +26,7 @@ package com.exedio.cope.lib;
  * and item constructors
  * if that attribute {@link StringAttribute#isLengthConstrained is length constrained}.
  * 
- * @author ralf.wiebicke@exedio.com
+ * @author Ralf Wiebicke
  */
 public final class LengthViolationException extends ConstraintViolationException
 {
