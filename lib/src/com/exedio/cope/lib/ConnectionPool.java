@@ -22,8 +22,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-class ConnectionPool
+final class ConnectionPool
 {
+	// TODO: allow changing pool size
+	// TODO: gather pool effectivity statistics
 	
 	private final Connection[] pool = new Connection[10];
 	private int size = 0;
@@ -35,7 +37,7 @@ class ConnectionPool
 		this.properties = properties;
 	}
 
-	final Connection getConnection(final Database database) throws SQLException
+	final Connection getConnection() throws SQLException
 	{
 		synchronized(lock)
 		{
@@ -46,12 +48,13 @@ class ConnectionPool
 			}
 			else
 			{
-				return createConnection(database);
+				// TODO: may be one could do this outside the synchronzed block ??
+				return createConnection();
 			}
 		}
 	}
 
-	final Connection createConnection(final Database database) throws SQLException
+	private final Connection createConnection() throws SQLException
 	{
 		final String url = properties.getDatabaseUrl();
 		final String user = properties.getDatabaseUser();

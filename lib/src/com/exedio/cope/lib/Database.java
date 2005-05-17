@@ -795,7 +795,7 @@ abstract class Database
 		ResultSet resultSet = null;
 		try
 		{
-			connection = connectionPool.getConnection(this);
+			connection = connectionPool.getConnection();
 
 			final String sqlText = statement.getText();
 			if(GET_TABLES.equals(sqlText))
@@ -888,7 +888,7 @@ abstract class Database
 		java.sql.Statement sqlStatement = null;
 		try
 		{
-			connection = connectionPool.getConnection(this);
+			connection = connectionPool.getConnection();
 			// TODO: use prepared statements and reuse the statement.
 			final String sqlText = statement.getText();
 			//System.err.println(statement.getText());
