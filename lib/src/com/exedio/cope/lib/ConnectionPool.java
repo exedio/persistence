@@ -30,11 +30,16 @@ final class ConnectionPool
 	private final Connection[] pool = new Connection[10];
 	private int size = 0;
 	private final Object lock = new Object();
-	private final Properties properties;
+
+	private final String url;
+	private final String user;
+	private final String password;
 
 	ConnectionPool(final Properties properties)
 	{
-		this.properties = properties;
+		this.url = properties.getDatabaseUrl();
+		this.user = properties.getDatabaseUser();
+		this.password = properties.getDatabasePassword();
 	}
 
 	final Connection getConnection() throws SQLException
@@ -56,9 +61,6 @@ final class ConnectionPool
 
 	private final Connection createConnection() throws SQLException
 	{
-		final String url = properties.getDatabaseUrl();
-		final String user = properties.getDatabaseUser();
-		final String password = properties.getDatabasePassword();
 
 		//System.out.println("connection pool: CREATE");
 		return DriverManager.getConnection(url, user, password);
