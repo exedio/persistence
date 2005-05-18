@@ -22,6 +22,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import com.exedio.cope.lib.util.PoolCounter;
+
 final class ConnectionPool
 {
 	// TODO: allow changing pool size
@@ -34,16 +36,22 @@ final class ConnectionPool
 	private final String url;
 	private final String user;
 	private final String password;
+	
+	final PoolCounter counter;
 
 	ConnectionPool(final Properties properties)
 	{
 		this.url = properties.getDatabaseUrl();
 		this.user = properties.getDatabaseUser();
 		this.password = properties.getDatabasePassword();
+		
+		this.counter = new PoolCounter(); // TODO: make it possible to switch of counting
 	}
 
 	final Connection getConnection() throws SQLException
 	{
+		counter.get();
+
 		synchronized(lock)
 		{
 			if(size>0)
@@ -62,6 +70,8 @@ final class ConnectionPool
 
 	final void putConnection(final Connection connection) throws SQLException
 	{
+		counter.put();
+		
 		synchronized(lock)
 		{
 			if(size<pool.length)

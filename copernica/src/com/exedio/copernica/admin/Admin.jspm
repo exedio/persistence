@@ -21,11 +21,12 @@ package com.exedio.copernica.admin;
 
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.Iterator;
 
 import javax.servlet.http.HttpServletRequest;
 
 import com.exedio.cope.lib.Model;
-import com.exedio.copernica.admin.AdminCop;
+import com.exedio.cope.lib.util.PoolCounter;
 
 final class Admin_Jspm
 {
@@ -94,10 +95,44 @@ final class Admin_Jspm
 				
 				%><hr><%
 				Properties_Jspm.write(out, model.getProperties());
+				write(out, model.getConnectionPoolCounter());
 			%>
 		</form>
 	</body>
 </html>
 <%
+	}
+	final static void write(final PrintStream out, final PoolCounter poolCounter)
+		throws IOException
+	{
+	%>
+	<hr>
+	<table border="1">
+		<tr>
+			<th colspan="6">Connection Pool Statictics</th>
+		</tr>
+		<tr>
+			<th>Size</th>
+			<th>Pool</th>
+			<th>Get</th>
+			<th>Put</th>
+			<th>Create</th>
+			<th>Destroy</th>
+		</tr><%
+		for(Iterator i = poolCounter.getPools().iterator(); i.hasNext(); )
+		{
+			final PoolCounter.Pool pool = (PoolCounter.Pool)i.next();
+		%>
+		<tr>
+			<td><%=pool.getSize()%></td>
+			<td><%=pool.getPool()%></td>
+			<td><%=pool.getGetCounter()%></td>
+			<td><%=pool.getPutCounter()%></td>
+			<td><%=pool.getCreateCounter()%></td>
+			<td><%=pool.getDestroyCounter()%></td>
+		</tr><%
+		}
+	%>
+	</table><%
 	}
 }%>

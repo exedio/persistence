@@ -25,6 +25,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
+import com.exedio.cope.lib.util.PoolCounter;
+
 
 public final class Model
 {
@@ -228,4 +230,8 @@ public final class Model
 		return result;
 	}
 	
+	public PoolCounter getConnectionPoolCounter()
+	{
+		return database.connectionPool.counter;
+	}
 }

@@ -38,7 +38,7 @@ abstract class Database
 	private final HashMap itemColumnsByIntegrityConstraintName = new HashMap();
 	private boolean buildStage = true;
 	private final boolean useDefineColumnTypes;
-	private final ConnectionPool connectionPool;
+	final ConnectionPool connectionPool;
 	final boolean hsqldb; // TODO remove hsqldb-specific stuff
 	final boolean mysql; // TODO remove mysql-specific stuff
 	
