@@ -32,7 +32,7 @@ public class PoolCounterTest extends AbstractLibTest
 		final Date before = new Date();
 		final PoolCounter c = new PoolCounter();
 		final Date after = new Date();
-		assertWithin(before, after, c.start);
+		assertWithin(before, after, c.getStart());
 		
 		final Iterator pi = c.getPools().iterator();
 		final PoolCounter.Pool p2 = (PoolCounter.Pool)pi.next();
