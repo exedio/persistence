@@ -130,7 +130,7 @@ final class Admin_Jspm
 			<th>Size</th>
 			<th>Efficiency</th>
 			<th>Level</th>
-			<th>Level Max</th>
+			<th>-Max</th>
 			<th>Get</th>
 			<th>Put</th>
 			<th>Create</th>
