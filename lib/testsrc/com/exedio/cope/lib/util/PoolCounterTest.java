@@ -19,6 +19,7 @@
 
 package com.exedio.cope.lib.util;
 
+import java.util.Date;
 import java.util.Iterator;
 
 import com.exedio.cope.lib.AbstractLibTest;
@@ -28,7 +29,11 @@ public class PoolCounterTest extends AbstractLibTest
 {
 	public void testIt()
 	{
+		final Date before = new Date();
 		final PoolCounter c = new PoolCounter();
+		final Date after = new Date();
+		assertWithin(before, after, c.start);
+		
 		final Iterator pi = c.getPools().iterator();
 		final PoolCounter.Pool p2 = (PoolCounter.Pool)pi.next();
 		assertIt(p2, 2, 0, 0, 0, 0, 0);
