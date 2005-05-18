@@ -39,25 +39,25 @@ public class PoolCounterTest extends AbstractLibTest
 		assertIt(p2, 2, 0, 0, 0, 0, 0, 0);
 		
 		c.get();
-		assertIt(p2, 2, /*pool*/0, /*get*/1, /*put*/0, /*create*/1, /*destroy*/0, /*eff*/100);
+		assertIt(p2, 2, /*level*/0, /*get*/1, /*put*/0, /*create*/1, /*destroy*/0, /*eff*/100);
 		
 		c.get();
-		assertIt(p2, 2, /*pool*/0, /*get*/2, /*put*/0, /*create*/2, /*destroy*/0, /*eff*/100);
+		assertIt(p2, 2, /*level*/0, /*get*/2, /*put*/0, /*create*/2, /*destroy*/0, /*eff*/100);
 		
 		c.put();
-		assertIt(p2, 2, /*pool*/1, /*get*/2, /*put*/1, /*create*/2, /*destroy*/0, /*eff*/100);
+		assertIt(p2, 2, /*level*/1, /*get*/2, /*put*/1, /*create*/2, /*destroy*/0, /*eff*/100);
 		
 		c.put();
-		assertIt(p2, 2, /*pool*/2, /*get*/2, /*put*/2, /*create*/2, /*destroy*/0, /*eff*/100);
+		assertIt(p2, 2, /*level*/2, /*get*/2, /*put*/2, /*create*/2, /*destroy*/0, /*eff*/100);
 		
 		c.put();
-		assertIt(p2, 2, /*pool*/2, /*get*/2, /*put*/3, /*create*/2, /*destroy*/1, /*eff*/50);
+		assertIt(p2, 2, /*level*/2, /*get*/2, /*put*/3, /*create*/2, /*destroy*/1, /*eff*/50);
 	}
 	
-	static final void assertIt(final PoolCounter.Pool p, final int size, final int pool, final int getCounter, final int putCounter, final int createCounter, final int destroyCounter, final int efficiency)
+	static final void assertIt(final PoolCounter.Pool p, final int size, final int level, final int getCounter, final int putCounter, final int createCounter, final int destroyCounter, final int efficiency)
 	{
 		assertEquals(size, p.getSize());
-		assertEquals(pool, p.getPool());
+		assertEquals(level, p.getLevel());
 		assertEquals(getCounter, p.getGetCounter());
 		assertEquals(putCounter, p.getPutCounter());
 		assertEquals(createCounter, p.getCreateCounter());

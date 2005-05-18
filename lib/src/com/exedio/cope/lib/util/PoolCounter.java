@@ -88,7 +88,7 @@ public final class PoolCounter
 	{
 		final int size;
 
-		private int pool = 0;
+		private int level = 0;
 
 		private int createCounter = 0;
 		private int destroyCounter = 0;
@@ -100,16 +100,16 @@ public final class PoolCounter
 
 		private final void get()
 		{
-			if(pool>0)
-				pool--;
+			if(level>0)
+				level--;
 			else
 				createCounter++;
 		}
 
 		private final void put()
 		{
-			if(pool<size)
-				pool++;
+			if(level<size)
+				level++;
 			else
 				destroyCounter++;
 		}
@@ -119,9 +119,9 @@ public final class PoolCounter
 			return size;
 		}
 		
-		public final int getPool()
+		public final int getLevel()
 		{
-			return pool;
+			return level;
 		}
 		
 		public final int getGetCounter()
