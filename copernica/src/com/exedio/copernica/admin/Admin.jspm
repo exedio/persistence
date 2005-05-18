@@ -121,7 +121,7 @@ final class Admin_Jspm
 	{
 	final SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss.SSS");
 	%>
-	from<br><%=df.format(poolCounter.getStart())%> to <br><%=df.format(new Date())%>
+	from<br><%=df.format(poolCounter.getStart())%> to<br><%=df.format(new Date())%>
 	<table border="1">
 		<tr>
 			<th colspan="8">Connection Pool Statictics</th>
