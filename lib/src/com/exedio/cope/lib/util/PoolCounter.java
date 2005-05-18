@@ -33,7 +33,7 @@ import java.util.List;
  */
 public final class PoolCounter
 {
-	final Date start = new Date();
+	public final Date start = new Date();
 	private final Object lock = new Object();
 	private final Pool[] pools;
 
