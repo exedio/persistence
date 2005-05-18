@@ -68,4 +68,17 @@ public final class ItemAttribute extends ObjectAttribute
 				new Integer(((Item)surface).pk);
 	}
 	
+	void checkValue( boolean initial, Object value, Item item )
+		throws
+			ReadOnlyViolationException,
+			NotNullViolationException,
+			LengthViolationException
+	{
+		super.checkValue( initial, value, item );
+		if ( value!=null && ! (value instanceof Item) )
+		{
+			throw new RuntimeException( "expected Item, got "+value.getClass().getName()+" for "+getName() );
+		}
+	}
+	
 }
