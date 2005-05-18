@@ -144,6 +144,12 @@ public final class PoolCounter
 			return destroyCounter;
 		}
 
+		public final int getEfficiency()
+		{
+			final int getCounter = PoolCounter.this.getCounter;
+			return (getCounter==0) ? 0 : (100 - ((100*destroyCounter)/getCounter));
+		}
+
 	}
 
 }

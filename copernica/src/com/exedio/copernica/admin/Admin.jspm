@@ -128,6 +128,7 @@ final class Admin_Jspm
 		</tr>
 		<tr>
 			<th>Size</th>
+			<th>Efficiency</th>
 			<th>Pool</th>
 			<th>Get</th>
 			<th>Put</th>
@@ -140,6 +141,7 @@ final class Admin_Jspm
 		%>
 		<tr>
 			<td><%=pool.getSize()%></td>
+			<td><%=pool.getEfficiency()%></td>
 			<td><%=pool.getPool()%></td>
 			<td><%=pool.getGetCounter()%></td>
 			<td><%=pool.getPutCounter()%></td>
