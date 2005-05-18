@@ -26,6 +26,10 @@ import com.exedio.cope.lib.Model;
 
 final class PropertiesCop extends AdminCop
 {
+	PropertiesCop()
+	{
+		super("properties");
+	}
 
 	final void writeBody(final PrintStream out, final Model model) throws IOException
 	{

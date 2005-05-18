@@ -38,6 +38,7 @@ final class ReportCop extends AdminCop
 
 	ReportCop(final String reportTable, final boolean showDropBoxes, final boolean showRenameFields)
 	{
+		super("reports");
 		this.reportTable = reportTable;
 		this.showDropBoxes = showDropBoxes;
 		this.showRenameFields = showRenameFields;

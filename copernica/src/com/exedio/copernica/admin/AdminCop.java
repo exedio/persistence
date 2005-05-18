@@ -28,10 +28,12 @@ import com.exedio.cops.Cop;
 
 abstract class AdminCop extends Cop
 {
+	final String name;
 
-	protected AdminCop()
+	protected AdminCop(final String name)
 	{
 		super("admin.jsp");
+		this.name = name;
 	}
 	
 	final PropertiesCop toProperties()

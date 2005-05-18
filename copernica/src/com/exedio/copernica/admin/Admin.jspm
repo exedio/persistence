@@ -82,9 +82,28 @@ final class Admin_Jspm
 					Report_Jspm.writeApply(out, request, model);
 				}
 			%>
-			<p>
-			<a href="<%=cop.toProperties()%>">properties</a> |
-			<a href="<%=cop.toReport()%>">reports</a>
+			<p><%
+			
+			final AdminCop[] tabs = new AdminCop[]{
+				cop.toProperties(),
+				cop.toReport(),
+			};
+			for(int i = 0; i<tabs.length; i++)
+			{
+				final AdminCop tab = tabs[i];
+				if(cop.name.equals(tab.name))
+				{
+				%>
+				| <b><%=tab.name%></b><%
+				}
+				else
+				{
+				%>
+				| <a href="<%=tab%>"><%=tab.name%></a><%
+				}
+			}
+			
+			%>
 			</p>
 			<hr><%
 			cop.writeBody(out, model);
