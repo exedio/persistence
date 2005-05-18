@@ -23,6 +23,7 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 import com.exedio.cope.lib.pattern.HashTest;
+import com.exedio.cope.lib.util.PoolCounterTest;
 
 
 public class PackageTest extends TestCase
@@ -71,6 +72,9 @@ public class PackageTest extends TestCase
 		suite.addTest(new TestSuite(FindByIDTest.class));
 		suite.addTest(new TestSuite(ReportTest.class));
 		suite.addTest(new TestSuite(StatementInfoTest.class));
+
+		suite.addTest(new TestSuite(PoolCounterTest.class));
+		
 		return suite;
 	}
 

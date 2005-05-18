@@ -26,7 +26,7 @@ public abstract class AbstractLibTest extends CopeLibTest
 	
 	public static final Type[] modelTypes = Main.modelTypes;
 	
-	AbstractLibTest()
+	public AbstractLibTest()
 	{
 		super(Main.model);
 	}
