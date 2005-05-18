@@ -519,7 +519,7 @@ public final class Type
 	PrimaryKeyIterator getPrimaryKeyIterator()
 	{
 		if(primaryKeyIterator==null)
-			throw new RuntimeException();
+			throw new RuntimeException( "no primary key iterator in "+getID()+"; maybe you have to initialize the model first" );
 		
 		return primaryKeyIterator;
 	}
@@ -527,7 +527,7 @@ public final class Type
 	void onDropTable()
 	{
 		rows.clear();
-		primaryKeyIterator.flushPK();
+		getPrimaryKeyIterator().flushPK();
 	}
 
 	// active items of this type ---------------------------------------------
