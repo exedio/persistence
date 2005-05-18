@@ -18,114 +18,60 @@
 
 package com.exedio.copernica.admin;
 
+import java.io.IOException;
+import java.io.PrintStream;
+
 import javax.servlet.http.HttpServletRequest;
 
-import com.exedio.cope.lib.ReportTable;
+import com.exedio.cope.lib.Model;
 import com.exedio.cops.Cop;
 
-final class AdminCop extends Cop
+abstract class AdminCop extends Cop
 {
-	static final String REPORT = "report";
-	static final String SHOW = "show";
-	static final String SHOW_DROP_BOXES = "drop";
-	static final String SHOW_RENAME_FIELDS = "rename";
 
-	final boolean report;
-	final String reportTable;
-	final boolean showDropBoxes;
-	final boolean showRenameFields;
-
-	AdminCop()
-	{
-		this(false, null, false, false);
-	}
-
-	private AdminCop(final boolean report, final String reportTable, final boolean showDropBoxes, final boolean showRenameFields)
+	protected AdminCop()
 	{
 		super("admin.jsp");
-		this.report = report;
-		this.reportTable = reportTable;
-		this.showDropBoxes = showDropBoxes;
-		this.showRenameFields = showRenameFields;
-		if(!report && reportTable!=null)
-			throw new RuntimeException();
-		
-		if(report)
-			addParameter(REPORT, reportTable==null ? "" : reportTable);
-		if(showDropBoxes)
-			addParameter(SHOW, SHOW_DROP_BOXES);
-		if(showRenameFields)
-			addParameter(SHOW, SHOW_RENAME_FIELDS);
 	}
 	
-	final AdminCop toggleReport()
+	final PropertiesCop toProperties()
 	{
-		return new AdminCop(!report, null, false, false);
+		return new PropertiesCop();
 	}
 	
-	final AdminCop narrowReport(final ReportTable reportTable)
+	final ReportCop toReport()
 	{
-		if(!report)
-			throw new RuntimeException();
-			
-		return new AdminCop(true, reportTable.name, showDropBoxes, showRenameFields);
+		return new ReportCop(null, false, false);
 	}
 	
-	final AdminCop widenReport()
+	void writeHead(PrintStream out) throws IOException
 	{
-		if(!report)
-			throw new RuntimeException();
-			
-		return new AdminCop(true, null, showDropBoxes, showRenameFields);
+		// default implementation does nothing
 	}
 	
-	final AdminCop toggleDropBoxes()
-	{
-		if(!report)
-			throw new RuntimeException();
-
-		return new AdminCop(true, reportTable, !showDropBoxes, showRenameFields);
-	}
+	abstract void writeBody(PrintStream out, Model model) throws IOException;
 	
-	final AdminCop toggleRenameFields()
-	{
-		if(!report)
-			throw new RuntimeException();
-
-		return new AdminCop(true, reportTable, showDropBoxes, !showRenameFields);
-	}
-	
-	final boolean isNarrowReport()
-	{
-		return reportTable!=null;
-	}
-	
-	final boolean skipTable(final ReportTable table)
-	{
-		return reportTable!=null && !reportTable.equals(table.name);
-	}
-
 	static final AdminCop getCop(final HttpServletRequest request)
 	{	
-		final String reportID = request.getParameter(REPORT);
+		final String reportID = request.getParameter(ReportCop.REPORT);
 		if(reportID==null)
 		{
-			return new AdminCop(false, null, false, false);
+			return new PropertiesCop();
 		}
 		else
 		{
 			boolean showDropBoxes = false;
 			boolean showRenameFields = false;
 
-			final String[] showIDs = request.getParameterValues(SHOW);
+			final String[] showIDs = request.getParameterValues(ReportCop.SHOW);
 			if(showIDs!=null)
 			{
 				for(int i = 0; i<showIDs.length; i++)
 				{
 					final String showID = showIDs[i];
-					if(SHOW_DROP_BOXES.equals(showID))
+					if(ReportCop.SHOW_DROP_BOXES.equals(showID))
 						showDropBoxes = true;
-					else if(SHOW_RENAME_FIELDS.equals(showID))
+					else if(ReportCop.SHOW_RENAME_FIELDS.equals(showID))
 						showRenameFields = true;
 					else
 						throw new RuntimeException(showID);
@@ -133,9 +79,9 @@ final class AdminCop extends Cop
 			}
 			
 			if(reportID.length()==0)
-				return new AdminCop(true, null, showDropBoxes, showRenameFields);
+				return new ReportCop(null, showDropBoxes, showRenameFields);
 			else
-				return new AdminCop(true, reportID, showDropBoxes, showRenameFields);
+				return new ReportCop(reportID, showDropBoxes, showRenameFields);
 		}
 	}
 

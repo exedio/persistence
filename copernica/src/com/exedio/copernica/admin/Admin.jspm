@@ -45,12 +45,8 @@ final class Admin_Jspm
 			Copernica - Database Administration
 		</title>
 		<link rel="STYLESHEET" type="text/css" href="admin.css"><%
-		if(cop.report)
-		{
-			%>
-		<link rel="STYLESHEET" type="text/css" href="admin-report.css">
-		<script src="admin-report.js" type="text/javascript"></script><%
-		}%>
+		cop.writeHead(out);
+		%>
 	</head>
 	<body>
 		<h1>Copernica</h1>
@@ -63,7 +59,6 @@ final class Admin_Jspm
 			<input type="submit" name="CREATE" value="create" />
 			<input type="submit" name="TEARDOWN" value="tear down"/>
 			<input type="submit" name="DROP" value="drop"/>
-			<a href="<%=cop.toggleReport()%>"><%=cop.report?"disable":"enable"%> reports</a>
 			<br>
 			<%
 				if(request.getParameter("CREATE")!=null)
@@ -86,16 +81,13 @@ final class Admin_Jspm
 					%><hr><%
 					Report_Jspm.writeApply(out, request, model);
 				}
-				
-				if(cop.report)
-				{
-					%><hr><%
-					Report_Jspm.writeReport(out, model, cop);
-				}
-				
-				%><hr><%
-				Properties_Jspm.write(out, model.getProperties());
-				write(out, model.getConnectionPoolCounter());
+			%>
+			<p>
+			<a href="<%=cop.toProperties()%>">properties</a> |
+			<a href="<%=cop.toReport()%>">reports</a>
+			</p>
+			<hr><%
+			cop.writeBody(out, model);
 			%>
 		</form>
 	</body>

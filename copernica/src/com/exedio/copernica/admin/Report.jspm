@@ -32,7 +32,6 @@ import com.exedio.cope.lib.ReportColumn;
 import com.exedio.cope.lib.ReportConstraint;
 import com.exedio.cope.lib.ReportLastAnalyzed;
 import com.exedio.cope.lib.ReportTable;
-import com.exedio.copernica.admin.AdminCop;
 
 final class Report_Jspm
 {
@@ -68,7 +67,7 @@ final class Report_Jspm
 		return column;
 	}
 	
-	final static void writeReport(final PrintStream out, final Model model, final AdminCop cop)
+	final static void writeReport(final PrintStream out, final Model model, final ReportCop cop)
 		throws IOException
 	{
 		final Report report = model.reportDatabase();
@@ -271,6 +270,13 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); tableCount++)
 %>
 </ul><%
 
+	}
+	
+	final static void writeHead(final PrintStream out) throws IOException
+	{
+		%>
+		<link rel="STYLESHEET" type="text/css" href="admin-report.css">
+		<script src="admin-report.js" type="text/javascript"></script><%
 	}
 	
 	final static void writeApply(
