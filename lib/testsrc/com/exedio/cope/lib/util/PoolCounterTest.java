@@ -72,6 +72,7 @@ public class PoolCounterTest extends AbstractLibTest
 		assertEquals(createCounter, p.getCreateCounter());
 		assertEquals(destroyCounter, p.getDestroyCounter());
 		assertEquals(loss, p.getLoss());
+		assertTrue(p.isConsistent());
 	}
 
 }

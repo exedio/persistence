@@ -124,7 +124,7 @@ final class Admin_Jspm
 	from<br><%=df.format(poolCounter.getStart())%> to<br><%=df.format(new Date())%>
 	<table border="1">
 		<tr>
-			<th colspan="8">Connection Pool Statistics</th>
+			<th colspan="9">Connection Pool Statistics</th>
 		</tr>
 		<tr>
 			<th>Size</th>
@@ -135,6 +135,7 @@ final class Admin_Jspm
 			<th>Put</th>
 			<th>Create</th>
 			<th>Destroy</th>
+			<th></th>
 		</tr><%
 		for(Iterator i = poolCounter.getPools().iterator(); i.hasNext(); )
 		{
@@ -149,6 +150,7 @@ final class Admin_Jspm
 			<td><%=pool.getPutCounter()%></td>
 			<td><%=pool.getCreateCounter()%></td>
 			<td><%=pool.getDestroyCounter()%></td>
+			<td><%=pool.isConsistent()%></td>
 		</tr><%
 		}
 	%>

@@ -153,6 +153,11 @@ public final class PoolCounter
 		{
 			return destroyCounter;
 		}
+		
+		public final boolean isConsistent()
+		{
+			return (getCounter - putCounter) == (createCounter - destroyCounter - level);
+		}
 
 		public final int getLoss()
 		{
