@@ -124,7 +124,7 @@ final class Admin_Jspm
 	from<br><%=df.format(poolCounter.getStart())%> to <br><%=df.format(new Date())%>
 	<table border="1">
 		<tr>
-			<th colspan="6">Connection Pool Statictics</th>
+			<th colspan="7">Connection Pool Statictics</th>
 		</tr>
 		<tr>
 			<th>Size</th>
