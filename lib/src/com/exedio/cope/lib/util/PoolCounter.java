@@ -37,6 +37,9 @@ public final class PoolCounter
 	private final Object lock = new Object();
 	private final Pool[] pools;
 
+	private int getCounter = 0;
+	private int putCounter = 0;
+
 	public PoolCounter()
 	{
 		final ArrayList pools = new ArrayList();
@@ -55,6 +58,7 @@ public final class PoolCounter
 	{
 		synchronized(lock)
 		{
+			getCounter++;
 			for(int i = 0; i<pools.length; i++)
 				pools[i].get();
 		}
@@ -64,6 +68,7 @@ public final class PoolCounter
 	{
 		synchronized(lock)
 		{
+			putCounter++;
 			for(int i = 0; i<pools.length; i++)
 				pools[i].put();
 		}
@@ -74,14 +79,12 @@ public final class PoolCounter
 		return Collections.unmodifiableList(Arrays.asList(pools));
 	}
 
-	public static final class Pool
+	public final class Pool
 	{
 		final int size;
 
 		private int pool = 0;
 
-		private int getCounter = 0;
-		private int putCounter = 0;
 		private int createCounter = 0;
 		private int destroyCounter = 0;
 		
@@ -92,7 +95,6 @@ public final class PoolCounter
 
 		private final void get()
 		{
-			getCounter++;
 			if(pool>0)
 				pool--;
 			else
@@ -101,7 +103,6 @@ public final class PoolCounter
 
 		private final void put()
 		{
-			putCounter++;
 			if(pool<size)
 				pool++;
 			else
