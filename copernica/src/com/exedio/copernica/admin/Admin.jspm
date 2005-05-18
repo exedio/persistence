@@ -128,7 +128,7 @@ final class Admin_Jspm
 		</tr>
 		<tr>
 			<th>Size</th>
-			<th>Efficiency</th>
+			<th>Loss</th>
 			<th>Level</th>
 			<th>-Max</th>
 			<th>Get</th>
@@ -142,7 +142,7 @@ final class Admin_Jspm
 		%>
 		<tr>
 			<td><%=pool.getSize()%></td>
-			<td><%=pool.getEfficiency()%></td>
+			<td><%=pool.getLoss()%></td>
 			<td><%=pool.getLevel()%></td>
 			<td><%=pool.getMaxLevel()%></td>
 			<td><%=pool.getGetCounter()%></td>

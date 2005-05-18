@@ -153,10 +153,10 @@ public final class PoolCounter
 			return destroyCounter;
 		}
 
-		public final int getEfficiency()
+		public final int getLoss()
 		{
 			final int getCounter = PoolCounter.this.getCounter;
-			return (getCounter==0) ? 0 : (100 - ((100*destroyCounter)/getCounter));
+			return (getCounter==0) ? 0 : ((100*destroyCounter)/getCounter);
 		}
 
 	}
