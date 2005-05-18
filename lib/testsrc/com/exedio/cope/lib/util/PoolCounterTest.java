@@ -35,6 +35,7 @@ public class PoolCounterTest extends AbstractLibTest
 		assertWithin(before, after, c.getStart());
 		
 		final Iterator pi = c.getPools().iterator();
+		final PoolCounter.Pool p1 = (PoolCounter.Pool)pi.next();
 		final PoolCounter.Pool p2 = (PoolCounter.Pool)pi.next();
 		assertIt(p2, 2, 0, 0, 0, 0, 0, 0, 0);
 		
