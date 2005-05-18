@@ -89,6 +89,7 @@ public final class PoolCounter
 		final int size;
 
 		private int level = 0;
+		private int maxLevel = 0;
 
 		private int createCounter = 0;
 		private int destroyCounter = 0;
@@ -109,7 +110,10 @@ public final class PoolCounter
 		private final void put()
 		{
 			if(level<size)
-				level++;
+			{
+				if((++level)>maxLevel)
+					maxLevel = level;
+			}
 			else
 				destroyCounter++;
 		}
@@ -122,6 +126,11 @@ public final class PoolCounter
 		public final int getLevel()
 		{
 			return level;
+		}
+		
+		public final int getMaxLevel()
+		{
+			return maxLevel;
 		}
 		
 		public final int getGetCounter()
