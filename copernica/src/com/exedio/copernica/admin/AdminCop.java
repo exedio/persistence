@@ -46,6 +46,11 @@ abstract class AdminCop extends Cop
 		return new ReportCop(null, false, false);
 	}
 	
+	final StatisticsCop toStatistics()
+	{
+		return new StatisticsCop();
+	}
+	
 	void writeHead(PrintStream out) throws IOException
 	{
 		// default implementation does nothing
@@ -54,7 +59,10 @@ abstract class AdminCop extends Cop
 	abstract void writeBody(PrintStream out, Model model) throws IOException;
 	
 	static final AdminCop getCop(final HttpServletRequest request)
-	{	
+	{
+		if(request.getParameter(StatisticsCop.STATISTICS)!=null)
+			return new StatisticsCop();
+		
 		final String reportID = request.getParameter(ReportCop.REPORT);
 		if(reportID==null)
 		{

@@ -24,16 +24,19 @@ import java.io.PrintStream;
 import com.exedio.cope.lib.Model;
 
 
-final class PropertiesCop extends AdminCop
+final class StatisticsCop extends AdminCop
 {
-	PropertiesCop()
+	static final String STATISTICS = "statistics";
+
+	StatisticsCop()
 	{
-		super("properties");
+		super("statistics");
+		addParameter(STATISTICS, "true");
 	}
 
 	final void writeBody(final PrintStream out, final Model model) throws IOException
 	{
-		Properties_Jspm.write(out, model.getProperties());
+		Admin_Jspm.write(out, model.getConnectionPoolCounter());
 	}
 	
 }
