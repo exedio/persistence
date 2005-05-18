@@ -93,7 +93,7 @@ public final class PoolCounter
 		private final void get()
 		{
 			getCounter++;
-			if(size>0)
+			if(pool>0)
 				pool--;
 			else
 				createCounter++;
