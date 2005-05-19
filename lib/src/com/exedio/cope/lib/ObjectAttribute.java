@@ -43,7 +43,7 @@ public abstract class ObjectAttribute
 	 * and {@link Item(ObjectAttribute[])} (for <code>initial==true</code>)
 	 * and throws the exception specified there.
 	 */
-	void checkValue(final boolean initial, final Object value, final Item item)
+	final void checkValue(final boolean initial, final Object value, final Item item)
 		throws
 			ReadOnlyViolationException,
 			NotNullViolationException,
@@ -66,7 +66,20 @@ public abstract class ObjectAttribute
 						", got " + value.getClass().getName() +
 						" for " + getName());
 			}
+			checkNotNullValue(value, item);
 		}
+	}
+
+	/**
+	 * Further checks non-null attribute values already checked by
+	 * {@link #checkValue(boolean, Object, Item)}.
+	 * To be overidden by subclasses,
+	 * the default implementation does nothing.
+	 */
+	void checkNotNullValue(final Object value, final Item item)
+		throws
+			LengthViolationException
+	{
 	}
 
 	public void append(final Statement bf)

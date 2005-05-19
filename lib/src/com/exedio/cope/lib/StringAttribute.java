@@ -86,21 +86,15 @@ public final class StringAttribute extends ObjectAttribute implements StringFunc
 		return (String)surface;
 	}
 	
-	void checkValue(final boolean initial, final Object value, final Item item)
+	void checkNotNullValue(final Object value, final Item item)
 		throws
-			ReadOnlyViolationException,
-			NotNullViolationException,
 			LengthViolationException
 	{
-		super.checkValue(initial, value, item);
-		if(value!=null)
-		{
-			final String stringValue = (String)value;
-			if(stringValue.length()<minimumLength)
-				throw new LengthViolationException(item, this, stringValue, true);
-			if(stringValue.length()>maximumLength)
-				throw new LengthViolationException(item, this, stringValue, false);
-		}
+		final String stringValue = (String)value;
+		if(stringValue.length()<minimumLength)
+			throw new LengthViolationException(item, this, stringValue, true);
+		if(stringValue.length()>maximumLength)
+			throw new LengthViolationException(item, this, stringValue, false);
 	}
 	
 }
