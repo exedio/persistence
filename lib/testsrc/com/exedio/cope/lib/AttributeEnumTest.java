@@ -20,7 +20,7 @@ package com.exedio.cope.lib;
 import com.exedio.cope.testmodel.AttributeItem;
 
 
-public class AttributeEnumerationTest extends AttributeTest
+public class AttributeEnumTest extends AttributeTest
 {
 	public void testSomeEnumeration()
 	{
