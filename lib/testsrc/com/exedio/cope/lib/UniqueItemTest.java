@@ -168,6 +168,19 @@ public class UniqueItemTest extends DatabaseLibTest
 		assertEquals(null, ItemWithSingleUniqueNotNull.findByUniqueNotNullString("uniqueString"));
 		assertEquals(item, ItemWithSingleUniqueNotNull.findByUniqueNotNullString("uniqueString2"));
 
+		assertContains(item, item.TYPE.search(null));
+		try
+		{
+			new ItemWithSingleUniqueNotNull(null);
+			fail();
+		}
+		catch(NotNullViolationException e)
+		{
+			assertEquals(item.uniqueNotNullString, e.getNotNullAttribute());
+			assertEquals(null, e.getItem());
+		}
+		assertContains(item, item.TYPE.search(null));
+
 		assertDelete(item);
 	}
 	
