@@ -43,15 +43,11 @@ public abstract class ObjectAttribute
 	 * and {@link Item(ObjectAttribute[])} (for <code>initial==true</code>)
 	 * and throws the exception specified there.
 	 */
-	final void checkValue(final boolean initial, final Object value, final Item item)
+	final void checkValue(final Object value, final Item item)
 		throws
-			ReadOnlyViolationException,
 			NotNullViolationException,
 			LengthViolationException
 	{
-		if(!initial && isReadOnly())
-			throw new ReadOnlyViolationException(item, this);
-
 		if(value == null)
 		{
 			if(isNotNull())

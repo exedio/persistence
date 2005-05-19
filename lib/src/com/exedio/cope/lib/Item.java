@@ -147,12 +147,8 @@ public abstract class Item extends Cope
 			for(int i = 0; i<initialAttributeValues.length; i++)
 			{
 				final AttributeValue av = initialAttributeValues[i];
-				av.attribute.checkValue(true, av.value, null);
+				av.attribute.checkValue(av.value, null);
 			}
-		}
-		catch(ReadOnlyViolationException e)
-		{
-			throw new NestingRuntimeException(e);
 		}
 		catch(NotNullViolationException e)
 		{
@@ -294,7 +290,10 @@ public abstract class Item extends Cope
 			ReadOnlyViolationException,
 			ClassCastException
 	{
-		attribute.checkValue(false, value, this);
+		if(attribute.isReadOnly())
+			throw new ReadOnlyViolationException(this, attribute);
+
+		attribute.checkValue(value, this);
 
 		final Row row = getRow();
 		final Object previousValue = row.get(attribute);
