@@ -23,7 +23,7 @@ import com.exedio.cope.testmodel.EmptyItem;
 
 public class AttributeItemTest extends AttributeTest
 {
-	public void testSomeItem()
+	public void testSomeItem() throws ConstraintViolationException
 	{
 		assertEquals(item.TYPE, item.someItem.getType());
 		assertEquals(EmptyItem.TYPE, item.someItem.getTargetType());
@@ -43,6 +43,16 @@ public class AttributeItemTest extends AttributeTest
 		assertEquals(someItem, item.getSomeItem());
 		item.setSomeItem(null);
 		assertEquals(null, item.getSomeItem());
+		
+		try
+		{
+			item.setAttribute(item.someItem, new Integer(10));
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals("expected Item, got java.lang.Integer for someItem", e.getMessage());
+		}
 	}
 
 	public void testSomeNotNullItem()
