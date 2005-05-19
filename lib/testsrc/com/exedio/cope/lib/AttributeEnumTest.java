@@ -22,7 +22,7 @@ import com.exedio.cope.testmodel.AttributeItem;
 
 public class AttributeEnumTest extends AttributeTest
 {
-	public void testSomeEnumeration()
+	public void testSomeEnum()
 	{
 		assertEquals(null, item.getSomeEnumeration());
 		item.setSomeEnumeration(AttributeItem.SomeEnumeration.enumValue1);
@@ -51,7 +51,7 @@ public class AttributeEnumTest extends AttributeTest
 		assertEquals(null, item.getSomeEnumeration());
 	}
 
-	public void testNotNullSomeEnumeration()
+	public void testNotNullSomeEnum()
 			throws NotNullViolationException
 	{
 		assertEquals(AttributeItem.SomeEnumeration.enumValue1, item.getSomeNotNullEnumeration());
