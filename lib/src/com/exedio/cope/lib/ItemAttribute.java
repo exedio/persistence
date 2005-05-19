@@ -75,9 +75,13 @@ public final class ItemAttribute extends ObjectAttribute
 			LengthViolationException
 	{
 		super.checkValue( initial, value, item );
-		if ( value!=null && ! (value instanceof Item) )
+
+		if(value!=null && !(targetTypeClass.isAssignableFrom(value.getClass())))
 		{
-			throw new ClassCastException("expected Item, got "+value.getClass().getName()+" for "+getName());
+			throw new ClassCastException(
+					"expected " + targetTypeClass.getName() +
+					", got " + value.getClass().getName() +
+					" for " + getName());
 		}
 	}
 	

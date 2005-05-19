@@ -19,6 +19,7 @@ package com.exedio.cope.lib;
 
 import com.exedio.cope.testmodel.AttributeItem;
 import com.exedio.cope.testmodel.EmptyItem;
+import com.exedio.cope.testmodel.EmptyItem2;
 
 
 public class AttributeItemTest extends AttributeTest
@@ -51,7 +52,19 @@ public class AttributeItemTest extends AttributeTest
 		}
 		catch(ClassCastException e)
 		{
-			assertEquals("expected Item, got java.lang.Integer for someItem", e.getMessage());
+			assertEquals("expected " + EmptyItem.class.getName() + ", got " + Integer.class.getName() + " for someItem", e.getMessage());
+		}
+		
+		final EmptyItem2 wrongItem = new EmptyItem2();
+		deleteOnTearDown(wrongItem);
+		try
+		{
+			item.setAttribute(item.someItem, wrongItem);
+			fail();
+		}
+		catch(ClassCastException e)
+		{
+			assertEquals("expected " + EmptyItem.class.getName() + ", got " + EmptyItem2.class.getName() + " for someItem", e.getMessage());
 		}
 	}
 
