@@ -32,6 +32,12 @@ public abstract class ObjectAttribute
 	abstract Object cacheToSurface(Object cache);
 	abstract Object surfaceToCache(Object surface);
 	
+	/**
+	 * Checks attribute values set by
+	 * {@link Item#setAttribute(ObjectAttribute,Object)} (for <code>initial==false</code>)
+	 * and {@link Item(ObjectAttribute[])} (for <code>initial==true</code>)
+	 * and throws the exception specified there.
+	 */
 	void checkValue(final boolean initial, final Object value, final Item item)
 		throws
 			ReadOnlyViolationException,
