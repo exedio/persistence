@@ -24,9 +24,14 @@ public abstract class ObjectAttribute
 	extends Attribute
 	implements Function
 {
-	protected ObjectAttribute(final Option option)
+	final Class valueClass;
+	final String valueClassName;
+	
+	protected ObjectAttribute(final Option option, final Class valueClass, final String valueClassName)
 	{
 		super(option);
+		this.valueClass = valueClass;
+		this.valueClassName = valueClassName;
 	}
 	
 	abstract Object cacheToSurface(Object cache);
@@ -46,8 +51,22 @@ public abstract class ObjectAttribute
 	{
 		if(!initial && isReadOnly())
 			throw new ReadOnlyViolationException(item, this);
-		if(isNotNull() && value == null)
-			throw new NotNullViolationException(item, this);
+
+		if(value == null)
+		{
+			if(isNotNull())
+				throw new NotNullViolationException(item, this);
+		}
+		else
+		{
+			if(!(valueClass.isAssignableFrom(value.getClass())))
+			{
+				throw new ClassCastException(
+						"expected " + valueClassName +
+						", got " + value.getClass().getName() +
+						" for " + getName());
+			}
+		}
 	}
 
 	public void append(final Statement bf)

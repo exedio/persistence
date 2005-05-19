@@ -31,9 +31,7 @@ public final class StringAttribute extends ObjectAttribute implements StringFunc
 	 */
 	StringAttribute(final Option option)
 	{
-		super(option);
-		this.minimumLength = 0;
-		this.maximumLength = Integer.MAX_VALUE;
+		this(option, 0, Integer.MAX_VALUE);
 	}
 	
 	/**
@@ -41,11 +39,7 @@ public final class StringAttribute extends ObjectAttribute implements StringFunc
 	 */
 	StringAttribute(final Option option, final int minimumLength)
 	{
-		super(option);
-		this.minimumLength = minimumLength;
-		this.maximumLength = Integer.MAX_VALUE;
-		if(minimumLength<=0)
-			throw new RuntimeException("mimimum length must be greater than zero.");
+		this(option, minimumLength, Integer.MAX_VALUE);
 	}
 	
 	/**
@@ -53,7 +47,7 @@ public final class StringAttribute extends ObjectAttribute implements StringFunc
 	 */
 	StringAttribute(final Option option, final int minimumLength, final int maximumLength)
 	{
-		super(option);
+		super(option, String.class, "string");
 		this.minimumLength = minimumLength;
 		this.maximumLength = maximumLength;
 		if(minimumLength<0)
@@ -101,8 +95,6 @@ public final class StringAttribute extends ObjectAttribute implements StringFunc
 		super.checkValue(initial, value, item);
 		if(value!=null)
 		{
-			if(!(value instanceof String))
-				throw new ClassCastException("expected string, got " + value.getClass().getName() + " for " + getName());
 			final String stringValue = (String)value;
 			if(stringValue.length()<minimumLength)
 				throw new LengthViolationException(item, this, stringValue, true);

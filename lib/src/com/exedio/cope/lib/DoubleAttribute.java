@@ -28,7 +28,7 @@ public class DoubleAttribute extends ObjectAttribute
 	 */
 	DoubleAttribute(final Option option)
 	{
-		super(option);
+		super(option, Double.class, "double");
 	}
 
 	protected List createColumns(final Table table, final String name, final boolean notNull)
@@ -46,18 +46,4 @@ public class DoubleAttribute extends ObjectAttribute
 		return (Double)surface;
 	}
 	
-	void checkValue(final boolean initial, final Object value, final Item item)
-		throws
-			ReadOnlyViolationException,
-			NotNullViolationException,
-			LengthViolationException
-	{
-		super.checkValue(initial, value, item);
-		if(value!=null)
-		{
-			if(!(value instanceof Double))
-				throw new ClassCastException("expected double, got " + value.getClass().getName() + " for " + getName());
-		}
-	}
-
 }

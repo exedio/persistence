@@ -39,7 +39,7 @@ public final class EnumAttribute extends ObjectAttribute
 	 */
 	EnumAttribute(final Option option, final Class enumClass)
 	{
-		super(option);
+		super(option, enumClass, enumClass.getName());
 		this.enumClass = enumClass;
 		if(!EnumValue.class.isAssignableFrom(enumClass))
 			throw new RuntimeException("is not an enumeration value class: "+enumClass.getName());
@@ -142,23 +142,6 @@ public final class EnumAttribute extends ObjectAttribute
 			surface==null ?
 				null :
 				((EnumValue)surface).getNumberObject();
-	}
-	
-	void checkValue(final boolean initial, final Object value, final Item item )
-		throws
-			ReadOnlyViolationException,
-			NotNullViolationException,
-			LengthViolationException
-	{
-		super.checkValue(initial, value, item);
-	
-		if(value!=null && !(enumClass.isAssignableFrom(value.getClass())))
-		{
-			throw new ClassCastException(
-					"expected " + enumClass.getName() +
-					", got " + value.getClass().getName() +
-					" for " + getName());
-		}
 	}
 	
 }

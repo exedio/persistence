@@ -30,7 +30,7 @@ public final class BooleanAttribute extends ObjectAttribute
 	 */
 	BooleanAttribute(final Option option)
 	{
-		super(option);
+		super(option, Boolean.class, "boolean");
 	}
 	
 	protected List createColumns(final Table table, final String name, final boolean notNull)
@@ -65,20 +65,6 @@ public final class BooleanAttribute extends ObjectAttribute
 			surface==null ?
 				null :
 				((Boolean)surface).booleanValue() ? TRUE : FALSE;
-	}
-	
-	void checkValue(final boolean initial, final Object value, final Item item)
-	throws
-		ReadOnlyViolationException,
-		NotNullViolationException,
-		LengthViolationException
-	{
-		super.checkValue(initial, value, item);
-		if(value!=null)
-		{
-			if(!(value instanceof Boolean))
-				throw new ClassCastException("expected boolean, got " + value.getClass().getName() + " for " + getName());
-		}
 	}
 	
 }

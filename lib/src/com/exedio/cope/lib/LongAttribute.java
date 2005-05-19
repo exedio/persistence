@@ -28,7 +28,7 @@ public final class LongAttribute extends ObjectAttribute
 	 */
 	LongAttribute(final Option option)
 	{
-		super(option);
+		super(option, Long.class, "long");
 	}
 	
 	protected List createColumns(final Table table, final String name, final boolean notNull)
@@ -44,20 +44,6 @@ public final class LongAttribute extends ObjectAttribute
 	Object surfaceToCache(final Object surface)
 	{
 		return (Long)surface;
-	}
-	
-	void checkValue(final boolean initial, final Object value, final Item item)
-		throws
-			ReadOnlyViolationException,
-			NotNullViolationException,
-			LengthViolationException
-	{
-		super.checkValue(initial, value, item);
-		if(value!=null)
-		{
-			if(!(value instanceof Long))
-				throw new ClassCastException("expected long, got " + value.getClass().getName() + " for " + getName());
-		}
 	}
 	
 }

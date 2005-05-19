@@ -31,7 +31,7 @@ public final class ItemAttribute extends ObjectAttribute
 	 */
 	ItemAttribute(final Option option, final Class targetTypeClass)
 	{
-		super(option);
+		super(option, targetTypeClass, targetTypeClass.getName());
 		this.targetTypeClass = targetTypeClass;
 		if(targetTypeClass==null)
 			throw new RuntimeException("target type class for attribute "+this+" must not be null");
@@ -66,23 +66,6 @@ public final class ItemAttribute extends ObjectAttribute
 			surface==null ? 
 				null : 
 				new Integer(((Item)surface).pk);
-	}
-	
-	void checkValue( boolean initial, Object value, Item item )
-		throws
-			ReadOnlyViolationException,
-			NotNullViolationException,
-			LengthViolationException
-	{
-		super.checkValue( initial, value, item );
-
-		if(value!=null && !(targetTypeClass.isAssignableFrom(value.getClass())))
-		{
-			throw new ClassCastException(
-					"expected " + targetTypeClass.getName() +
-					", got " + value.getClass().getName() +
-					" for " + getName());
-		}
 	}
 	
 }

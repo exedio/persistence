@@ -31,8 +31,7 @@ public final class DateAttribute extends ObjectAttribute
 	 */
 	DateAttribute(final Option option)
 	{
-		super(option);
-		this.forbidTimestampColumn = false;
+		this(option, false);
 	}
 	
 	/**
@@ -40,7 +39,7 @@ public final class DateAttribute extends ObjectAttribute
 	 */
 	DateAttribute(final Option option, final boolean forbidTimestampColumn)
 	{
-		super(option);
+		super(option, Date.class, "date");
 		this.forbidTimestampColumn = forbidTimestampColumn;
 	}
 	
@@ -66,20 +65,6 @@ public final class DateAttribute extends ObjectAttribute
 	Object surfaceToCache(final Object surface)
 	{
 		return surface==null ? null : new Long(((Date)surface).getTime());
-	}
-	
-	void checkValue(final boolean initial, final Object value, final Item item)
-		throws
-			ReadOnlyViolationException,
-			NotNullViolationException,
-			LengthViolationException
-	{
-		super.checkValue(initial, value, item);
-		if(value!=null)
-		{
-			if(!(value instanceof Date))
-				throw new ClassCastException("expected date, got " + value.getClass().getName() + " for " + getName());
-		}
 	}
 	
 }
