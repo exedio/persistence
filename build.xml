@@ -2,11 +2,7 @@
 
 <project name="cope" default="all" basedir=".">
 
-	<taskdef
-			  resource="net/sf/antcontrib/antcontrib.properties"
-			  classpath="../lib/ant-contrib.jar" />
-
-	<target name="properties">
+	<target name="properties.first">
 		<property file="../local.properties" />
 		<property name="api.private" value="off" />
 		<property name="api.link.jdk" value="http://java.sun.com/j2se/1.4.2/docs/api" />
@@ -14,7 +10,32 @@
 		<property name="api.link.j2ee" value="http://java.sun.com/j2ee/1.4/docs/api" />
 		<property environment="environment" />
 		<property name="ant.jar" value="${environment.ANT_HOME}/lib/ant.jar" />
+		<available property="available.oracle" file="cope.properties.oracle" />
+		<available property="available.mysql"  file="cope.properties.mysql" />
+		<fail message="Skipping test for databases not allowed when building by cruisecontrol">
+			<condition>
+				<and>
+					<isset property="label" />
+					<or>
+						<not><isset property="cope.properties.oracle" /></not>
+						<not><isset property="cope.properties.mysql" /></not>
+					</or>
+				</and>
+			</condition>
+		</fail>
 	</target>
+
+	<target name="properties.oracle" unless="available.oracle"
+			  depends="properties.first">
+		<echo level="warning" message="Skipping oracle because there is no file cope.properties.oracle !!" />
+	</target>
+	
+	<target name="properties.mysql" unless="available.mysql"
+			  depends="properties.first">
+		<echo level="warning" message="Skipping mysql because there is no file cope.properties.mysql !!" />
+	</target>
+	
+	<target name="properties" depends="properties.first, properties.oracle, properties.mysql" />
 
 	<target name="jspm.taskdef">
 		<taskdef name="jspm" classname="com.exedio.jspm.AntTask">
@@ -248,35 +269,26 @@
 	</target>
 	
 	<target name="lib.test.run.anydb">
-		<if>
-			<available file="cope.properties.${database}" />
-			<then>
-				<echo message="Running test for ${database}" />
-				<mkdir dir="lib/build/test.${database}/data" />
-				<copy file="cope.properties.${database}"
-						tofile="lib/build/test.${database}/cope.properties">
-					<filterset>
-						<filter token="DATADIR_PATH" value="lib/build/test.${database}/data" />
-					</filterset>
-				</copy>
-				<java classname="junit.textui.TestRunner" taskname="junit" fork="yes" failonerror="yes">
-					<classpath>
-						<pathelement location="lib/build/classes" />
-						<pathelement location="lib/build/testmodelclasses" />
-						<pathelement location="lib/build/testclasses" />
-						<pathelement location="../lib/junit.jar" />
-						<pathelement location="../lib/pcj.jar" />
-						<pathelement location="../lib/${database-driver}" />
-					</classpath>
-					<arg value="com.exedio.cope.lib.PackageTest" />
-					<sysproperty key="com.exedio.cope.properties" file="lib/build/test.${database}/cope.properties" />
-				</java>
-			</then>
-			<else>
-				<echo level="warning" message="Skipping test for ${database} because there is no file cope.properties.${database} !!" />
-				<fail if="${label}" message="Skipping test for ${database} not allowed when building by cruisecontrol" />
-			</else>
-		</if>
+		<echo message="Running test for ${database}" />
+		<mkdir dir="lib/build/test.${database}/data" />
+		<copy file="cope.properties.${database}"
+				tofile="lib/build/test.${database}/cope.properties">
+			<filterset>
+				<filter token="DATADIR_PATH" value="lib/build/test.${database}/data" />
+			</filterset>
+		</copy>
+		<java classname="junit.textui.TestRunner" taskname="junit" fork="yes" failonerror="yes">
+			<classpath>
+				<pathelement location="lib/build/classes" />
+				<pathelement location="lib/build/testmodelclasses" />
+				<pathelement location="lib/build/testclasses" />
+				<pathelement location="../lib/junit.jar" />
+				<pathelement location="../lib/pcj.jar" />
+				<pathelement location="../lib/${database-driver}" />
+			</classpath>
+			<arg value="com.exedio.cope.lib.PackageTest" />
+			<sysproperty key="com.exedio.cope.properties" file="lib/build/test.${database}/cope.properties" />
+		</java>
 	</target>
 	
 	<target name="lib.test.run.hsqldb" depends="lib.test.compile">
@@ -286,14 +298,16 @@
 		</antcall>
 	</target>
 
-	<target name="lib.test.run.oracle" depends="lib.test.compile">
+	<target name="lib.test.run.oracle" if="available.oracle"
+			  depends="properties, lib.test.compile">
 		<antcall target="lib.test.run.anydb">
 			<param name="database" value="oracle"/>
 			<param name="database-driver" value="classes12.jar"/>
 		</antcall>
 	</target>
 
-	<target name="lib.test.run.mysql" depends="lib.test.compile">
+	<target name="lib.test.run.mysql" if="available.mysql"
+			  depends="properties, lib.test.compile">
 		<antcall target="lib.test.run.anydb">
 			<param name="database" value="mysql"/>
 			<param name="database-driver" value="mysql-connector-java-bin.jar"/>
@@ -328,14 +342,16 @@
 		</java>
 	</target>
 
-	<target name="lib.test.teardown.oracle" depends="lib.compile, lib.testmodel.compile">
+	<target name="lib.test.teardown.oracle" if="available.oracle"
+			  depends="properties, lib.compile, lib.testmodel.compile">
 		<antcall target="lib.test.teardown.anydb">
 			<param name="database" value="oracle"/>
 			<param name="database-driver" value="classes12.jar"/>
 		</antcall>
 	</target>
 
-	<target name="lib.test.teardown.mysql" depends="lib.compile, lib.testmodel.compile">
+	<target name="lib.test.teardown.mysql" if="available.mysql"
+			  depends="properties, lib.compile, lib.testmodel.compile">
 		<antcall target="lib.test.teardown.anydb">
 			<param name="database" value="mysql"/>
 			<param name="database-driver" value="mysql-connector-java-bin.jar"/>
@@ -474,16 +490,16 @@
 		</antcall>
 	</target>
 	
-	<target name="copernica.testwebapp.oracle"
-			depends="copernica.compile, copernica.test.compile">
+	<target name="copernica.testwebapp.oracle" if="available.oracle"
+			  depends="properties, copernica.compile, copernica.test.compile">
 		<antcall target="copernica.testwebapp.anydb">
 			<param name="database" value="oracle"/>
 			<param name="database-driver" value="classes12.jar"/>
 		</antcall>
 	</target>
 	
-	<target name="copernica.testwebapp.mysql"
-			depends="copernica.compile, copernica.test.compile">
+	<target name="copernica.testwebapp.mysql" if="available.mysql"
+			  depends="properties, copernica.compile, copernica.test.compile">
 		<antcall target="copernica.testwebapp.anydb">
 			<param name="database" value="mysql"/>
 			<param name="database-driver" value="mysql-connector-java-bin.jar"/>
