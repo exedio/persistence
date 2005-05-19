@@ -49,7 +49,7 @@ public class AttributeItemTest extends AttributeTest
 			item.setAttribute(item.someItem, new Integer(10));
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(ClassCastException e)
 		{
 			assertEquals("expected Item, got java.lang.Integer for someItem", e.getMessage());
 		}

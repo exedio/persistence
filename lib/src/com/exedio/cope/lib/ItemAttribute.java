@@ -77,7 +77,7 @@ public final class ItemAttribute extends ObjectAttribute
 		super.checkValue( initial, value, item );
 		if ( value!=null && ! (value instanceof Item) )
 		{
-			throw new RuntimeException( "expected Item, got "+value.getClass().getName()+" for "+getName() );
+			throw new ClassCastException("expected Item, got "+value.getClass().getName()+" for "+getName());
 		}
 	}
 	
