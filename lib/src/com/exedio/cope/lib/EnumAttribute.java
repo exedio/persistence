@@ -144,4 +144,21 @@ public final class EnumAttribute extends ObjectAttribute
 				((EnumValue)surface).getNumberObject();
 	}
 	
+	void checkValue(final boolean initial, final Object value, final Item item )
+		throws
+			ReadOnlyViolationException,
+			NotNullViolationException,
+			LengthViolationException
+	{
+		super.checkValue(initial, value, item);
+	
+		if(value!=null && !(enumClass.isAssignableFrom(value.getClass())))
+		{
+			throw new ClassCastException(
+					"expected " + enumClass.getName() +
+					", got " + value.getClass().getName() +
+					" for " + getName());
+		}
+	}
+	
 }

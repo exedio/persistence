@@ -154,6 +154,18 @@ public class AttributeItem extends Item
 		public static final SomeEnumeration enumValue3 = new SomeEnumeration();
 	}
 
+	/**
+	 * Not used by the model, but for tests.
+	 */
+	public static final class SomeEnum2 extends EnumValue
+	{
+		public static final int enumValue1NUM = 150;
+		public static final SomeEnum2 enumValue1 = new SomeEnum2();
+
+		public static final int enumValue2NUM = 250;
+		public static final SomeEnum2 enumValue2 = new SomeEnum2();
+	}
+
 
 /**
 

@@ -18,11 +18,12 @@
 package com.exedio.cope.lib;
 
 import com.exedio.cope.testmodel.AttributeItem;
+import com.exedio.cope.testmodel.AttributeItem.SomeEnumeration;
 
 
 public class AttributeEnumTest extends AttributeTest
 {
-	public void testSomeEnum()
+	public void testSomeEnum() throws ConstraintViolationException
 	{
 		assertEquals(null, item.getSomeEnumeration());
 		item.setSomeEnumeration(AttributeItem.SomeEnumeration.enumValue1);
@@ -49,6 +50,26 @@ public class AttributeEnumTest extends AttributeTest
 			item.getSomeEnumeration());
 		item.setSomeEnumeration(null);
 		assertEquals(null, item.getSomeEnumeration());
+		
+		try
+		{
+			item.setAttribute(item.someEnumeration, new Integer(10));
+			fail();
+		}
+		catch(ClassCastException e)
+		{
+			assertEquals("expected " + SomeEnumeration.class.getName() + ", got " + Integer.class.getName() + " for someEnumeration", e.getMessage());
+		}
+		
+		try
+		{
+			item.setAttribute(item.someEnumeration, AttributeItem.SomeEnum2.enumValue2);
+			fail();
+		}
+		catch(ClassCastException e)
+		{
+			assertEquals("expected " + SomeEnumeration.class.getName() + ", got " + AttributeItem.SomeEnum2.class.getName() + " for someEnumeration", e.getMessage());
+		}
 	}
 
 	public void testNotNullSomeEnum()
