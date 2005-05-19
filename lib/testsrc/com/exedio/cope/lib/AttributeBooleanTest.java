@@ -20,7 +20,7 @@ package com.exedio.cope.lib;
 
 public class AttributeBooleanTest extends AttributeTest 
 {
-	public void testSomeBoolean()
+	public void testSomeBoolean() throws ConstraintViolationException
 	{
 		assertEquals(item.TYPE, item.someBoolean.getType());
 		assertEquals(null, item.getSomeBoolean());
@@ -59,6 +59,16 @@ public class AttributeBooleanTest extends AttributeTest
 		assertContains(item, item2, item.TYPE.search(Cope.isNull(item.someBoolean)));
 		assertContains(item.TYPE.search(Cope.notEqual(item.someBoolean, null)));
 		assertContains(item.TYPE.search(Cope.isNotNull(item.someBoolean)));
+
+		try
+		{
+			item.setAttribute(item.someBoolean, new Integer(10));
+			fail();
+		}
+		catch(ClassCastException e)
+		{
+			assertEquals("expected boolean, got " + Integer.class.getName() + " for someBoolean", e.getMessage());
+		}
 	}
 
 	public void testSomeNotNullBoolean()

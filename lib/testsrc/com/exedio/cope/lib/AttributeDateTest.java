@@ -23,7 +23,7 @@ import java.util.Date;
 public class AttributeDateTest extends AttributeTest
 {
 
-	public void testSomeDate()
+	public void testSomeDate() throws ConstraintViolationException
 	{
 		final Date date = new Date(1087365298214l);
 		final Date nextDate = new Date(date.getTime()+1l);
@@ -69,6 +69,16 @@ public class AttributeDateTest extends AttributeTest
 		final Date afterTouch = new Date();
 		assertTrue(!beforeTouch.after(item.getSomeDate()));
 		assertTrue(!afterTouch.before(item.getSomeDate()));
+
+		try
+		{
+			item.setAttribute(item.someDate, new Integer(10));
+			fail();
+		}
+		catch(ClassCastException e)
+		{
+			assertEquals("expected date, got " + Integer.class.getName() + " for someDate", e.getMessage());
+		}
 	}
 	
 	public void testSomeLongDate()

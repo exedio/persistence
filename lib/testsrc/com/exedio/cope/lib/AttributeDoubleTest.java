@@ -20,7 +20,7 @@ package com.exedio.cope.lib;
 
 public class AttributeDoubleTest extends AttributeTest
 {
-	public void testSomeDouble()
+	public void testSomeDouble() throws ConstraintViolationException
 	{
 		assertEquals(item.TYPE, item.someDouble.getType());
 		assertEquals(null, item.getSomeDouble());
@@ -53,6 +53,16 @@ public class AttributeDoubleTest extends AttributeTest
 
 		item.passivateCopeItem();
 		assertEquals(null, item.getSomeDouble());
+
+		try
+		{
+			item.setAttribute(item.someDouble, new Integer(10));
+			fail();
+		}
+		catch(ClassCastException e)
+		{
+			assertEquals("expected double, got " + Integer.class.getName() + " for someDouble", e.getMessage());
+		}
 	}
 
 	public void testSomeNotNullDouble()

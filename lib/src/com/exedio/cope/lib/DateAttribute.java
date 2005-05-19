@@ -68,4 +68,18 @@ public final class DateAttribute extends ObjectAttribute
 		return surface==null ? null : new Long(((Date)surface).getTime());
 	}
 	
+	void checkValue(final boolean initial, final Object value, final Item item)
+		throws
+			ReadOnlyViolationException,
+			NotNullViolationException,
+			LengthViolationException
+	{
+		super.checkValue(initial, value, item);
+		if(value!=null)
+		{
+			if(!(value instanceof Date))
+				throw new ClassCastException("expected date, got " + value.getClass().getName() + " for " + getName());
+		}
+	}
+	
 }

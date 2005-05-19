@@ -101,6 +101,8 @@ public final class StringAttribute extends ObjectAttribute implements StringFunc
 		super.checkValue(initial, value, item);
 		if(value!=null)
 		{
+			if(!(value instanceof String))
+				throw new ClassCastException("expected string, got " + value.getClass().getName() + " for " + getName());
 			final String stringValue = (String)value;
 			if(stringValue.length()<minimumLength)
 				throw new LengthViolationException(item, this, stringValue, true);

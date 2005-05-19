@@ -20,7 +20,7 @@ package com.exedio.cope.lib;
 
 public class AttributeIntegerTest extends AttributeTest
 {
-	public void testSomeInteger()
+	public void testSomeInteger() throws ConstraintViolationException
 	{
 		assertEquals(item.TYPE, item.someInteger.getType());
 		assertEquals(null, item.getSomeInteger());
@@ -53,6 +53,16 @@ public class AttributeIntegerTest extends AttributeTest
 		
 		item.passivateCopeItem();
 		assertEquals(null, item.getSomeInteger());
+
+		try
+		{
+			item.setAttribute(item.someInteger, new Long(10l));
+			fail();
+		}
+		catch(ClassCastException e)
+		{
+			assertEquals("expected integer, got " + Long.class.getName() + " for someInteger", e.getMessage());
+		}
 	}
 
 	public void testSomeNotNullInteger()

@@ -46,4 +46,18 @@ public final class IntegerAttribute extends ObjectAttribute implements IntegerFu
 		return (Integer)surface;
 	}
 	
+	void checkValue(final boolean initial, final Object value, final Item item)
+		throws
+			ReadOnlyViolationException,
+			NotNullViolationException,
+			LengthViolationException
+	{
+		super.checkValue(initial, value, item);
+		if(value!=null)
+		{
+			if(!(value instanceof Integer))
+				throw new ClassCastException("expected integer, got " + value.getClass().getName() + " for " + getName());
+		}
+	}
+
 }

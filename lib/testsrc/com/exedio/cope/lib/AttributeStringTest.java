@@ -23,7 +23,7 @@ import com.exedio.cope.testmodel.AttributeItem;
 
 public class AttributeStringTest extends AttributeTest
 {
-	public void testSomeString()
+	public void testSomeString() throws ConstraintViolationException
 	{
 		assertEquals(item.TYPE, item.someString.getType());
 		assertEquals(item.TYPE, item.someStringUpperCase.getType());
@@ -65,6 +65,16 @@ public class AttributeStringTest extends AttributeTest
 		assertEquals(null, item.getSomeString());
 		assertEquals(null, item.getSomeStringUpperCase());
 		assertEquals(null, item.getSomeStringLength());
+
+		try
+		{
+			item.setAttribute(item.someString, new Integer(10));
+			fail();
+		}
+		catch(ClassCastException e)
+		{
+			assertEquals("expected string, got " + Integer.class.getName() + " for someString", e.getMessage());
+		}
 	}
 
 	public void testSomeNotNullString()

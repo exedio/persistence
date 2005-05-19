@@ -20,7 +20,7 @@ package com.exedio.cope.lib;
 
 public class AttributeLongTest extends AttributeTest
 {
-	public void testSomeLong()
+	public void testSomeLong() throws ConstraintViolationException
 	{
 		assertEquals(item.TYPE, item.someLong.getType());
 		assertEquals(null, item.getSomeLong());
@@ -54,6 +54,16 @@ public class AttributeLongTest extends AttributeTest
 		
 		item.passivateCopeItem();
 		assertEquals(null, item.getSomeLong());
+
+		try
+		{
+			item.setAttribute(item.someLong, new Integer(10));
+			fail();
+		}
+		catch(ClassCastException e)
+		{
+			assertEquals("expected long, got " + Integer.class.getName() + " for someLong", e.getMessage());
+		}
 	}
 
 	public void testSomeNotNullLong()
