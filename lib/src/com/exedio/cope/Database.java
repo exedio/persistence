@@ -753,31 +753,7 @@ abstract class Database
 
 			try
 			{
-				// TODO: compute this statically
-				ItemAttribute onlyItemAttribute = null;
-				for(Iterator i = type.getModel().getTypes().iterator(); i.hasNext(); )
-				{
-					final Type sourceType = (Type)i.next();
-					for(Iterator j = sourceType.getAttributes().iterator(); j.hasNext(); )
-					{
-						final Attribute attribute = (Attribute)j.next();
-						if(attribute instanceof ItemAttribute)
-						{
-							final ItemAttribute itemAttribute = (ItemAttribute)attribute;
-							if(itemAttribute.getTargetType()==type)
-							{
-								if(onlyItemAttribute==null)
-									onlyItemAttribute = (ItemAttribute)attribute;
-								else
-								{
-									onlyItemAttribute = null;
-									break;
-								}
-							}
-						}
-					}
-				}
-				executeSQLUpdate(bf, 1, null, onlyItemAttribute);
+				executeSQLUpdate(bf, 1, null, type.onlyReference);
 			}
 			catch(IntegrityViolationException e)
 			{
