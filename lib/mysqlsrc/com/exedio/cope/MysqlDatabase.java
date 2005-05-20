@@ -102,7 +102,10 @@ public final class MysqlDatabase extends Database
 	{
 		// TODO: MySQL does not deliver constraint name in exception
 		//System.out.println("-i-"+e.getClass()+" "+e.getCause()+" "+e.getErrorCode()+" "+e.getLocalizedMessage()+" "+e.getSQLState()+" "+e.getNextException());
-		return null;
+		if(e.getMessage().startsWith("Cannot delete or update a parent row: a foreign key constraint fails"))
+			return ANY_CONSTRAINT;
+		else
+			return null;
 	}
 
 	Statement getRenameColumnStatement(final String tableName, final String oldColumnName, final String newColumnName, final String columnType)

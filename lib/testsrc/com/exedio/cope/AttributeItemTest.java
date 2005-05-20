@@ -100,14 +100,8 @@ public class AttributeItemTest extends AttributeTest
 		}
 		catch(IntegrityViolationException e)
 		{
-			assertTrue(!mysql);
-			assertEquals(item.someNotNullItem, e.getAttribute());
+			assertEquals(mysql?null/*TODO*/:item.someNotNullItem, e.getAttribute());
 			assertEquals(null/*TODO someItem*/, e.getItem());
-		}
-		catch(NestingRuntimeException e)
-		{
-			assertTrue(mysql);
-			assertEquals("Cannot delete or update a parent row: a foreign key constraint fails", e.getNestedCause().getMessage());
 		}
 
 		try

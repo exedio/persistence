@@ -39,14 +39,12 @@ public class IntegrityViolationException extends ConstraintViolationException
 	 * Creates a new UniqueViolationException with the neccessary information about the violation.
 	 * @param item initializes, what is returned by {@link #getItem()}.
 	 * @param attribute initializes, what is returned by {@link #getAttribute()}.
-	 * @throws NullPointerException if <code>attribute</code> is null.
+	 * @throws NullPointerException if <code>cause</code> is null.
 	 */
 	IntegrityViolationException(final SQLException cause, final Item item, final ItemAttribute attribute)
 	{
 		super(cause);
 		if(cause==null)
-			throw new NullPointerException();
-		if(attribute==null)
 			throw new NullPointerException();
 		this.attribute = attribute;
 	}
@@ -61,6 +59,7 @@ public class IntegrityViolationException extends ConstraintViolationException
 
 	/**
 	 * Returns the item attribute, for which the integrity (foreign key) constraint has been violated.
+	 * Returns null, if the violated constraint is unknown.
 	 */
 	public ItemAttribute getAttribute()
 	{

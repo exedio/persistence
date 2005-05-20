@@ -721,7 +721,7 @@ abstract class Database
 		{
 			//System.out.println("storing "+bf.toString());
 			final UniqueConstraint[] uqs = type.uniqueConstraints;
-			executeSQLUpdate(bf, 1, uqs.length==1?uqs[0]:null);
+			executeSQLUpdate(bf, 1, uqs.length==1?uqs[0]:null, null);
 		}
 		catch(UniqueViolationException e)
 		{
@@ -753,7 +753,23 @@ abstract class Database
 
 			try
 			{
-				executeSQLUpdate(bf, 1);
+				// TODO: compute this statically
+				ItemAttribute onlyItemAttribute = null;
+				for(Iterator i = type.getAttributes().iterator(); i.hasNext(); )
+				{
+					final Attribute attribute = (Attribute)i.next();
+					if(attribute instanceof ItemAttribute)
+					{
+						if(onlyItemAttribute==null)
+							onlyItemAttribute = (ItemAttribute)attribute;
+						else
+						{
+							onlyItemAttribute = null;
+							break;
+						}
+					}
+				}
+				executeSQLUpdate(bf, 1, null, onlyItemAttribute);
 			}
 			catch(IntegrityViolationException e)
 			{
@@ -885,12 +901,13 @@ abstract class Database
 	protected final void executeSQLUpdate(final Statement statement, final int expectedRows)
 			throws ConstraintViolationException
 	{
-		executeSQLUpdate(statement, expectedRows, null);
+		executeSQLUpdate(statement, expectedRows, null, null);
 	}
 
 	protected final void executeSQLUpdate(
 			final Statement statement, final int expectedRows,
-			final UniqueConstraint onlyThreatenedUniqueConstraint)
+			final UniqueConstraint onlyThreatenedUniqueConstraint,
+			final ItemAttribute onlyThreatenedIntegrityConstraint)
 		throws ConstraintViolationException
 	{
 		Connection connection = null;
@@ -910,7 +927,7 @@ abstract class Database
 		}
 		catch(SQLException e)
 		{
-			final ConstraintViolationException wrappedException = wrapException(e, onlyThreatenedUniqueConstraint);
+			final ConstraintViolationException wrappedException = wrapException(e, onlyThreatenedUniqueConstraint, onlyThreatenedIntegrityConstraint);
 			if(wrappedException!=null)
 				throw wrappedException;
 			else
@@ -955,7 +972,8 @@ abstract class Database
 
 	private final ConstraintViolationException wrapException(
 			final SQLException e,
-			final UniqueConstraint onlyThreatenedUniqueConstraint)
+			final UniqueConstraint onlyThreatenedUniqueConstraint,
+			final ItemAttribute onlyThreatenedIntegrityConstraint)
 	{
 		{		
 			final String uniqueConstraintID = extractUniqueConstraintName(e);
@@ -978,15 +996,20 @@ abstract class Database
 			final String integrityConstraintName = extractIntegrityConstraintName(e);
 			if(integrityConstraintName!=null)
 			{
-				final ItemColumn column =
-					(ItemColumn)itemColumnsByIntegrityConstraintName.get(integrityConstraintName);
-				if(column==null)
-					throw new NestingRuntimeException(e, "no column attribute found for >"+integrityConstraintName
-																			+"<, has only "+itemColumnsByIntegrityConstraintName.keySet());
-
-				final ItemAttribute attribute = column.attribute;
-				if(attribute==null)
-					throw new NestingRuntimeException(e, "no item attribute for column "+column);
+				final ItemAttribute attribute;
+				if(ANY_CONSTRAINT.equals(integrityConstraintName))
+					attribute = onlyThreatenedIntegrityConstraint;
+				else
+				{
+					final ItemColumn column =
+						(ItemColumn)itemColumnsByIntegrityConstraintName.get(integrityConstraintName);
+					if(column==null)
+						throw new NestingRuntimeException(e, "no column attribute found for >"+integrityConstraintName
+																				+"<, has only "+itemColumnsByIntegrityConstraintName.keySet());
+					attribute = column.attribute;
+					if(attribute==null)
+						throw new NestingRuntimeException(e, "no item attribute for column "+column);
+				}
 
 				return new IntegrityViolationException(e, null, attribute);
 			}
