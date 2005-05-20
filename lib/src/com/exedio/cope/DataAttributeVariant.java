@@ -54,10 +54,10 @@ public final class DataAttributeVariant extends TypeComponent
 			throw new RuntimeException();
 
 		this.type = type;
-		this.name = getName(attribute.getName(), name).intern();
+		this.name = makeName(attribute.getName(), name).intern();
 	}
 	
-	private static final String getName(final String prefix, final String name)
+	private static final String makeName(final String prefix, final String name)
 	{
 		if(name.startsWith(prefix))
 		{
