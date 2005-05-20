@@ -22,6 +22,7 @@ final class CopeDataVariant
 {
 	final String name;
 	final String shortName;
+	final String methodAppendix;
 	final CopeDataAttribute attribute;
 
 	public CopeDataVariant(final JavaAttribute javaAttribute, final CopeDataAttribute attribute)
@@ -32,7 +33,24 @@ final class CopeDataVariant
 		this.shortName = this.name.startsWith(prefix)
 				? this.name.substring(prefix.length())
 				: this.name;
+		this.methodAppendix = makeMethodAppendix(attribute.getName(), this.name);
 		attribute.addVariant(this);
 	}
 
+	private static final String makeMethodAppendix(final String prefix, final String name)
+	{
+		if(name.startsWith(prefix))
+		{
+			return name.substring(prefix.length());
+		}
+		else
+		{
+			final char start = name.charAt(0);
+			if(Character.isLowerCase(start))
+				return Character.toUpperCase(start) + name.substring(1);
+			else
+				return name;
+		}
+	}
+	
 }

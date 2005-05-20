@@ -496,7 +496,7 @@ final class Generator
 		o.write(toCamelCase(attribute.getName()));
 		o.write(part);
 		if(variant!=null)
-			o.write(variant.shortName);
+			o.write(variant.methodAppendix);
 		o.write("()");
 		o.write(lineSeparator);
 		o.write("\t{");

@@ -162,8 +162,8 @@ public class DataTest extends DatabaseLibTest
 		//System.out.println(item.getPhotoURLProgressive());
 		assertTrue(item.getPhotoURLProgressive().endsWith(".jpg"));
 		assertTrue(item.getPhotoURLProgressive().indexOf("/progressive/")>=0);
-		assertTrue(item.getPhotoURLlowQuality().endsWith(".jpg"));
-		assertTrue(item.getPhotoURLlowQuality().indexOf("/lowQuality/")>=0);
+		assertTrue(item.getPhotoURLLowQuality().endsWith(".jpg"));
+		assertTrue(item.getPhotoURLLowQuality().indexOf("/lowQuality/")>=0);
 
 		item.setPhoto(stream(data2));
 		assertData(data2, item.getPhotoData());
@@ -177,8 +177,8 @@ public class DataTest extends DatabaseLibTest
 		//System.out.println(item.getPhotoURLProgressive());
 		assertTrue(item.getPhotoURLProgressive().endsWith(".jpg"));
 		assertTrue(item.getPhotoURLProgressive().indexOf("/progressive/")>=0);
-		assertTrue(item.getPhotoURLlowQuality().endsWith(".jpg"));
-		assertTrue(item.getPhotoURLlowQuality().indexOf("/lowQuality/")>=0);
+		assertTrue(item.getPhotoURLLowQuality().endsWith(".jpg"));
+		assertTrue(item.getPhotoURLLowQuality().indexOf("/lowQuality/")>=0);
 
 		item.setPhoto(null);
 		assertEquals(null, item.getPhotoData());
@@ -187,7 +187,7 @@ public class DataTest extends DatabaseLibTest
 		assertEquals(null, item.getPhotoURL());
 		assertEquals(null, item.getPhotoURLBB65());
 		assertEquals(null, item.getPhotoURLProgressive());
-		assertEquals(null, item.getPhotoURLlowQuality());
+		assertEquals(null, item.getPhotoURLLowQuality());
 	}
 
 }
