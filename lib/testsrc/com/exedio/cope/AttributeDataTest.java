@@ -23,7 +23,16 @@ public class AttributeDataTest extends AttributeTest
 {
 	public void testSomeData() throws IOException
 	{
+		assertEquals(item.TYPE, item.someData.getType());
+		assertEquals("someData", item.someData.getName());
+		assertEquals(null, item.someData.getFixedMimeMajor());
+		assertEquals(null, item.someData.getFixedMimeMinor());
+		assertEquals(list(item.someVariant), item.someData.getVariants());
+		assertEquals(null, item.someData.getSingleUniqueConstraint());
+
+		assertEquals(item.TYPE, item.someVariant.getType());
 		assertEquals("someVariant", item.someVariant.getName());
+		assertEquals(item.someData, item.someVariant.getAttribute());
 		
 		// TODO: test with not null data
 		assertEquals(item.TYPE, item.someData.getType());
