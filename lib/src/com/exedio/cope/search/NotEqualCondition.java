@@ -18,17 +18,8 @@
 
 package com.exedio.cope.search;
 
-import java.util.Date;
-
-import com.exedio.cope.BooleanAttribute;
-import com.exedio.cope.DateAttribute;
-import com.exedio.cope.DoubleAttribute;
+import com.exedio.cope.Cope;
 import com.exedio.cope.Function;
-import com.exedio.cope.IntegerFunction;
-import com.exedio.cope.Item;
-import com.exedio.cope.ItemAttribute;
-import com.exedio.cope.LongAttribute;
-import com.exedio.cope.ObjectAttribute;
 import com.exedio.cope.Query;
 import com.exedio.cope.Statement;
 import com.exedio.cope.StringFunction;
@@ -38,51 +29,16 @@ public final class NotEqualCondition extends Condition
 	public final Function function;
 	public final Object value;
 
-	public NotEqualCondition(final ObjectAttribute function)
+	/**
+	 * Creates a new NotEqualCondition.
+	 * Instead of using this constructor directly,
+	 * you may want to use the more type-safe wrapper methods
+	 * {@link Cope#notEqual(StringFunction, String) Cope.notEqual} or
+	 * {@link Cope#isNotNull(ObjectAttribute) Cope.isNotNull}.
+	 */
+	public NotEqualCondition(final Function function, final Object value)
 	{
 		this.function = function;
-		this.value = null;
-	}
-	
-	public NotEqualCondition(final StringFunction function, final String value)
-	{
-		this.function = function;
-		this.value = value;
-	}
-	
-	public NotEqualCondition(final IntegerFunction function, final Integer value)
-	{
-		this.function = function;
-		this.value = value;
-	}
-	
-	public NotEqualCondition(final LongAttribute attribute, final Long value)
-	{
-		this.function = attribute;
-		this.value = value;
-	}
-	
-	public NotEqualCondition(final BooleanAttribute attribute, final Boolean value)
-	{
-		this.function = attribute;
-		this.value = value;
-	}
-	
-	public NotEqualCondition(final DoubleAttribute attribute, final Double value)
-	{
-		this.function = attribute;
-		this.value = value;
-	}
-	
-	public NotEqualCondition(final DateAttribute attribute, final Date value)
-	{
-		this.function = attribute;
-		this.value = value;
-	}
-	
-	public NotEqualCondition(final ItemAttribute attribute, final Item value)
-	{
-		this.function = attribute;
 		this.value = value;
 	}
 	

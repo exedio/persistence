@@ -50,7 +50,7 @@ public abstract class Cope
 	
 	public static final NotEqualCondition isNotNull(final ObjectAttribute attribute)
 	{
-		return new NotEqualCondition(attribute);
+		return new NotEqualCondition(attribute, null);
 	}
 	
 	public static final EqualCondition equal(final StringFunction function, final String value)
