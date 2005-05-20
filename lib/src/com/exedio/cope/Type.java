@@ -65,6 +65,7 @@ public final class Type
 	private final List qualifierList;
 	
 	private ArrayList subTypes = null;
+	private ArrayList references = null;
 	
 	private Model model;
 
@@ -268,6 +269,16 @@ public final class Type
 		subTypes.add(subType);
 	}
 	
+	final void registerReference(final ItemAttribute reference)
+	{
+		if(this.model==null)
+			throw new RuntimeException();
+
+		if(references==null)
+			references = new ArrayList();
+		references.add(reference);
+	}
+	
 	final void initialize(final Model model)
 	{
 		if(model==null)
@@ -374,9 +385,20 @@ public final class Type
 		return supertype;
 	}
 	
+	/**
+	 * @return a list of {@link Type}s.
+	 */
 	public final List getSubTypes()
 	{
 		return subTypes==null ? Collections.EMPTY_LIST : Collections.unmodifiableList(subTypes);
+	}
+
+	/**
+	 * @return a list of {@link ItemAttribute}s.
+	 */
+	public final List getReferences()
+	{
+		return references==null ? Collections.EMPTY_LIST : Collections.unmodifiableList(references);
 	}
 
 	/**

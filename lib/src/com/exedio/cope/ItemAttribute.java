@@ -38,17 +38,28 @@ public final class ItemAttribute extends ObjectAttribute
 		if(!Item.class.isAssignableFrom(targetTypeClass))
 			throw new RuntimeException("target type class "+targetTypeClass+" for attribute "+this+" must be a sub class of item");
 	}
+	
+	Type targetType = null;
 
 	/**
 	 * Returns the type of items, this attribute accepts instances of.
 	 */
 	public Type getTargetType()
 	{
-		return Type.findByJavaClass(targetTypeClass);
+		if(targetType==null)
+			throw new RuntimeException();
+
+		return targetType;
 	}
 	
 	protected List createColumns(final Table table, final String name, final boolean notNull)
 	{
+		if(targetType!=null)
+			throw new RuntimeException();
+		
+		targetType = Type.findByJavaClass(targetTypeClass);
+		targetType.registerReference(this);
+
 		return Collections.singletonList(new ItemColumn(table, name, notNull, targetTypeClass, this));
 	}
 	

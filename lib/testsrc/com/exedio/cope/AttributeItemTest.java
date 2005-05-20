@@ -17,11 +17,13 @@
  */
 package com.exedio.cope;
 
+import com.exedio.cope.testmodel.AttributeEmptyItem;
 import com.exedio.cope.testmodel.AttributeItem;
 import com.exedio.cope.testmodel.EmptyItem;
 import com.exedio.cope.testmodel.EmptyItem2;
 import com.exedio.cope.testmodel.PointerItem;
 import com.exedio.cope.testmodel.PointerItem2;
+import com.exedio.cope.testmodel.SumItem;
 
 
 public class AttributeItemTest extends AttributeTest
@@ -30,6 +32,9 @@ public class AttributeItemTest extends AttributeTest
 	{
 		assertEquals(item.TYPE, item.someItem.getType());
 		assertEquals(EmptyItem.TYPE, item.someItem.getTargetType());
+		assertEquals(list(), SumItem.TYPE.getReferences());
+		assertEquals(list(AttributeEmptyItem.parent), AttributeItem.TYPE.getReferences());
+		
 		assertEquals(null, item.getSomeItem());
 		item.setSomeItem(someItem);
 		assertEquals(someItem, item.getSomeItem());
