@@ -88,26 +88,26 @@ public final class MysqlDatabase extends Database
 		return false;
 	}
 
-	protected String extractUniqueConstraintName(final SQLException e)
+	private final String extracteConstraintName(final SQLException e, final int vendorCode, final String start)
 	{
 		// TODO: MySQL does not deliver constraint name in exception
 		//System.out.println("-u-"+e.getClass()+" "+e.getCause()+" "+e.getErrorCode()+" "+e.getLocalizedMessage()+" "+e.getSQLState()+" "+e.getNextException());
-		if(e.getErrorCode()==1062 &&
-				e.getMessage().startsWith("Duplicate entry "))
+
+		if(e.getErrorCode()==vendorCode &&
+				e.getMessage().startsWith(start))
 			return ANY_CONSTRAINT;
 		else
 			return null;
 	}
 
+	protected String extractUniqueConstraintName(final SQLException e)
+	{
+		return extracteConstraintName(e, 1062, "Duplicate entry ");
+	}
+
 	protected String extractIntegrityConstraintName(final SQLException e)
 	{
-		// TODO: MySQL does not deliver constraint name in exception
-		//System.out.println("-i-"+e.getClass()+" "+e.getCause()+" "+e.getErrorCode()+" "+e.getLocalizedMessage()+" "+e.getSQLState()+" "+e.getNextException());
-		if(e.getErrorCode()==1217 && 
-				e.getMessage().startsWith("Cannot delete or update a parent row: a foreign key constraint fails"))
-			return ANY_CONSTRAINT;
-		else
-			return null;
+		return extracteConstraintName(e, 1217, "Cannot delete or update a parent row: a foreign key constraint fails");
 	}
 
 	Statement getRenameColumnStatement(final String tableName, final String oldColumnName, final String newColumnName, final String columnType)
