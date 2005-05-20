@@ -61,7 +61,13 @@ public final class DataAttributeVariant extends TypeComponent
 	{
 		if(name.startsWith(prefix))
 		{
-			return name.substring(prefix.length());
+			final int prefixLength = prefix.length();
+			final char start = name.charAt(prefixLength);
+			if(Character.isUpperCase(start) &&
+					(name.length()<=(prefixLength+1) || Character.isLowerCase(name.charAt(prefixLength+1))))
+				return Character.toLowerCase(start) + name.substring(prefixLength+1);
+			else
+				return name.substring(prefixLength);
 		}
 		else
 			return name;
