@@ -66,8 +66,11 @@ final class HsqldbDatabase
 		return "timestamp";
 	}
 
-	private final String extractConstraintName(final SQLException e, final String start, final char end)
+	private final String extractConstraintName(final SQLException e, final int vendorCode, final String start, final char end)
 	{
+		if(e.getErrorCode()!=vendorCode)
+			return null;
+
 		final String m = e.getMessage();
 		if(m.startsWith(start))
 		{
@@ -80,8 +83,13 @@ final class HsqldbDatabase
 			return null;
 	}
 	
-	private final String extractConstraintName(final SQLException e, final String start)
+	private final String extractConstraintName(final SQLException e, final int vendorCode, final String start)
 	{
+		//System.out.println("-u-"+e.getClass()+" "+e.getCause()+" "+e.getErrorCode()+" "+e.getLocalizedMessage()+" "+e.getSQLState()+" "+e.getNextException());
+
+		if(e.getErrorCode()!=vendorCode)
+			return null;
+
 		final String m = e.getMessage();
 		if(m.startsWith(start))
 			return m.substring(start.length());
@@ -91,12 +99,12 @@ final class HsqldbDatabase
 	
 	protected String extractUniqueConstraintName(final SQLException e)
 	{
-		return extractConstraintName(e, "Unique constraint violation: ");
+		return extractConstraintName(e, -104, "Unique constraint violation: ");
 	}
 
 	protected String extractIntegrityConstraintName(final SQLException e)
 	{
-		return extractConstraintName(e, "Integrity constraint violation ", ' ');
+		return extractConstraintName(e, -8, "Integrity constraint violation ", ' ');
 	}
 
 	Statement getRenameColumnStatement(final String tableName,
