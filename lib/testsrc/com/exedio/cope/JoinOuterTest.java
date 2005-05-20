@@ -49,25 +49,25 @@ public class JoinOuterTest extends DatabaseLibTest
 			assertContains(leftJoined, leftLonely, query.search());
 		}
 
-		if(hsqldb)
 		{
 			final Query query = new Query(PointerItem.TYPE, null);
 			query.joinOuterRight(PointerItem2.TYPE, Cope.equal(PointerItem.code, PointerItem2.code));
-			try
+			if(hsqldb)
 			{
-				query.search();
-				fail("should have throws RuntimeException");
+				try
+				{
+					query.search();
+					fail("should have throws RuntimeException");
+				}
+				catch(RuntimeException e)
+				{
+					assertEquals("hsqldb not support right outer joins", e.getMessage());
+				}
 			}
-			catch(RuntimeException e)
+			else
 			{
-				assertEquals("hsqldb not support right outer joins", e.getMessage());
+				assertContains(leftJoined, null, query.search());
 			}
-		}
-		else
-		{
-			final Query query = new Query(PointerItem.TYPE, null);
-			query.joinOuterRight(PointerItem2.TYPE, Cope.equal(PointerItem.code, PointerItem2.code));
-			assertContains(leftJoined, null, query.search());
 		}
 	}
 
