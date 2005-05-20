@@ -102,7 +102,8 @@ public final class MysqlDatabase extends Database
 	{
 		// TODO: MySQL does not deliver constraint name in exception
 		//System.out.println("-i-"+e.getClass()+" "+e.getCause()+" "+e.getErrorCode()+" "+e.getLocalizedMessage()+" "+e.getSQLState()+" "+e.getNextException());
-		if(e.getMessage().startsWith("Cannot delete or update a parent row: a foreign key constraint fails"))
+		if(e.getErrorCode()==1217 && 
+				e.getMessage().startsWith("Cannot delete or update a parent row: a foreign key constraint fails"))
 			return ANY_CONSTRAINT;
 		else
 			return null;
