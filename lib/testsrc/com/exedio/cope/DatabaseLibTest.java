@@ -79,7 +79,7 @@ public abstract class DatabaseLibTest extends AbstractLibTest
 		final String prefix = "data/AttributeItem/someData/";
 		final String pkString = pkString(item);
 		final String expectedURL = prefix+pkString+'.'+url;
-		final String expectedURLSomeVariant = prefix+"SomeVariant/"+pkString+'.'+url;
+		final String expectedURLSomeVariant = prefix+"someVariant/"+pkString+'.'+url;
 		//System.out.println(expectedURL);
 		//System.out.println(item.getSomeDataURL());
 		assertEquals(expectedURL, item.getSomeDataURL());

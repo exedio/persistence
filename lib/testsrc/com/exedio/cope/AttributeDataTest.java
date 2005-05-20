@@ -23,6 +23,8 @@ public class AttributeDataTest extends AttributeTest
 {
 	public void testSomeData() throws IOException
 	{
+		assertEquals("someVariant", item.someVariant.getName());
+		
 		// TODO: test with not null data
 		assertEquals(item.TYPE, item.someData.getType());
 		assertEquals(null, item.getSomeDataURL());
@@ -40,7 +42,7 @@ public class AttributeDataTest extends AttributeTest
 		final String expectedURL =
 			prefix + pkString + ".someMimeMajor.someMimeMinor";
 		final String expectedURLSomeVariant =
-			prefix + "SomeVariant/" + pkString + ".someMimeMajor.someMimeMinor";
+			prefix + "someVariant/" + pkString + ".someMimeMajor.someMimeMinor";
 		//System.out.println(expectedURL);
 		//System.out.println(item.getSomeDataURL());
 		assertEquals(expectedURL, item.getSomeDataURL());
