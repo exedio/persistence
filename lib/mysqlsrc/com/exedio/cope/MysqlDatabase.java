@@ -92,7 +92,8 @@ public final class MysqlDatabase extends Database
 	{
 		// TODO: MySQL does not deliver constraint name in exception
 		//System.out.println("-u-"+e.getClass()+" "+e.getCause()+" "+e.getErrorCode()+" "+e.getLocalizedMessage()+" "+e.getSQLState()+" "+e.getNextException());
-		if(e.getMessage().startsWith("Duplicate entry "))
+		if(e.getErrorCode()==1062 &&
+				e.getMessage().startsWith("Duplicate entry "))
 			return ANY_CONSTRAINT;
 		else
 			return null;
