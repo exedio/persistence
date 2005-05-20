@@ -20,6 +20,8 @@ package com.exedio.cope;
 import com.exedio.cope.testmodel.AttributeItem;
 import com.exedio.cope.testmodel.EmptyItem;
 import com.exedio.cope.testmodel.EmptyItem2;
+import com.exedio.cope.testmodel.PointerItem;
+import com.exedio.cope.testmodel.PointerItem2;
 
 
 public class AttributeItemTest extends AttributeTest
@@ -115,6 +117,26 @@ public class AttributeItemTest extends AttributeTest
 			assertEquals(item.someNotNullItem, e.getNotNullAttribute());
 		}
 	}
+	
+	public void testIntegrity() throws ConstraintViolationException
+	{
+		final EmptyItem2 target = new EmptyItem2();
+		deleteOnTearDown(target);
+		final PointerItem2 pointer2 = new PointerItem2("pointer2");
+		deleteOnTearDown(pointer2);
+		final PointerItem source = new PointerItem("source", pointer2);
+		deleteOnTearDown(source);
+		source.setEmpty2(target);
 
+		try
+		{
+			target.deleteCopeItem();
+		}
+		catch(IntegrityViolationException e)
+		{
+			assertEquals(source.empty2, e.getAttribute());
+			assertEquals(null/*TODO someItem*/, e.getItem());
+		}
+	}
 
 }

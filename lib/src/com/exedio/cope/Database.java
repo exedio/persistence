@@ -755,17 +755,25 @@ abstract class Database
 			{
 				// TODO: compute this statically
 				ItemAttribute onlyItemAttribute = null;
-				for(Iterator i = type.getAttributes().iterator(); i.hasNext(); )
+				for(Iterator i = type.getModel().getTypes().iterator(); i.hasNext(); )
 				{
-					final Attribute attribute = (Attribute)i.next();
-					if(attribute instanceof ItemAttribute)
+					final Type sourceType = (Type)i.next();
+					for(Iterator j = sourceType.getAttributes().iterator(); j.hasNext(); )
 					{
-						if(onlyItemAttribute==null)
-							onlyItemAttribute = (ItemAttribute)attribute;
-						else
+						final Attribute attribute = (Attribute)j.next();
+						if(attribute instanceof ItemAttribute)
 						{
-							onlyItemAttribute = null;
-							break;
+							final ItemAttribute itemAttribute = (ItemAttribute)attribute;
+							if(itemAttribute.getTargetType()==type)
+							{
+								if(onlyItemAttribute==null)
+									onlyItemAttribute = (ItemAttribute)attribute;
+								else
+								{
+									onlyItemAttribute = null;
+									break;
+								}
+							}
 						}
 					}
 				}
