@@ -33,7 +33,8 @@ public final class EqualCondition extends Condition
 	 * Creates a new EqualCondition.
 	 * Instead of using this constructor directly,
 	 * you may want to use the more type-safe wrapper methods
-	 * {@link Cope#equal(StringFunction, String) Cope.equal}.
+	 * {@link Cope#equal(StringFunction, String) Cope.equal} or
+	 * {@link Cope#isNull(ObjectAttribute) Cope.isNull}.
 	 */
 	public EqualCondition(final Function function, final Object value)
 	{
