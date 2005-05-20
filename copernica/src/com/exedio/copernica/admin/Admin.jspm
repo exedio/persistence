@@ -27,8 +27,8 @@ import java.util.Iterator;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.exedio.cope.lib.Model;
-import com.exedio.cope.lib.util.PoolCounter;
+import com.exedio.cope.Model;
+import com.exedio.cope.util.PoolCounter;
 
 final class Admin_Jspm
 {

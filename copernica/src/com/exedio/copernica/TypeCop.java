@@ -23,10 +23,10 @@ import java.util.Collection;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.exedio.cope.lib.Function;
-import com.exedio.cope.lib.Query;
-import com.exedio.cope.lib.StatementInfo;
-import com.exedio.cope.lib.Type;
+import com.exedio.cope.Function;
+import com.exedio.cope.Query;
+import com.exedio.cope.StatementInfo;
+import com.exedio.cope.Type;
 
 final class TypeCop extends CopernicaCop
 {

@@ -287,7 +287,7 @@
 				<pathelement location="../lib/pcj.jar" />
 				<pathelement location="../lib/${database-driver}" />
 			</classpath>
-			<arg value="com.exedio.cope.lib.PackageTest" />
+			<arg value="com.exedio.cope.PackageTest" />
 			<sysproperty key="com.exedio.cope.properties" file="lib/build/test.${database}/cope.properties" />
 		</java>
 	</target>

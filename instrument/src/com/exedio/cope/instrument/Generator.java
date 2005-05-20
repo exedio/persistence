@@ -32,14 +32,14 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import com.exedio.cope.lib.AttributeValue;
-import com.exedio.cope.lib.LengthViolationException;
-import com.exedio.cope.lib.NestingRuntimeException;
-import com.exedio.cope.lib.NotNullViolationException;
-import com.exedio.cope.lib.ReadOnlyViolationException;
-import com.exedio.cope.lib.Type;
-import com.exedio.cope.lib.UniqueViolationException;
-import com.exedio.cope.lib.util.ReactivationConstructorDummy;
+import com.exedio.cope.AttributeValue;
+import com.exedio.cope.LengthViolationException;
+import com.exedio.cope.NestingRuntimeException;
+import com.exedio.cope.NotNullViolationException;
+import com.exedio.cope.ReadOnlyViolationException;
+import com.exedio.cope.Type;
+import com.exedio.cope.UniqueViolationException;
+import com.exedio.cope.util.ReactivationConstructorDummy;
 
 // TODO use jspm
 final class Generator

@@ -22,10 +22,10 @@ import java.io.PrintStream;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.exedio.cope.lib.Item;
-import com.exedio.cope.lib.NestingRuntimeException;
-import com.exedio.cope.lib.NoSuchIDException;
-import com.exedio.cope.lib.Type;
+import com.exedio.cope.Item;
+import com.exedio.cope.NestingRuntimeException;
+import com.exedio.cope.NoSuchIDException;
+import com.exedio.cope.Type;
 
 final class ItemCop extends CopernicaCop
 {

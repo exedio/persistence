@@ -24,10 +24,10 @@ import java.io.PrintStream;
 import java.util.Collection;
 import java.util.Iterator;
 
-import com.exedio.cope.lib.Attribute;
-import com.exedio.cope.lib.Item;
-import com.exedio.cope.lib.DataAttribute;
-import com.exedio.cope.lib.Type;
+import com.exedio.cope.Attribute;
+import com.exedio.cope.Item;
+import com.exedio.cope.DataAttribute;
+import com.exedio.cope.Type;
 import com.exedio.cops.CheckboxField;
 import com.exedio.cops.Field;
 import com.exedio.cops.Form;

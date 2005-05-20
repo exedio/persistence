@@ -22,7 +22,7 @@ package com.exedio.copernica.admin;
 import java.io.IOException;
 import java.io.PrintStream;
 
-import com.exedio.cope.lib.Properties;
+import com.exedio.cope.Properties;
 
 final class Properties_Jspm
 {

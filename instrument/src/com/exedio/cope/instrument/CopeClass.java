@@ -28,8 +28,8 @@ import java.util.SortedSet;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
-import com.exedio.cope.lib.ReadOnlyViolationException;
-import com.exedio.cope.lib.util.ClassComparator;
+import com.exedio.cope.ReadOnlyViolationException;
+import com.exedio.cope.util.ClassComparator;
 
 final class CopeClass
 {

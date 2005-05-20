@@ -23,7 +23,7 @@ import java.io.PrintStream;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.exedio.cope.lib.Model;
+import com.exedio.cope.Model;
 import com.exedio.cops.Cop;
 
 abstract class AdminCop extends Cop

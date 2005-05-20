@@ -22,12 +22,12 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-import com.exedio.cope.lib.BooleanAttribute;
-import com.exedio.cope.lib.DateAttribute;
-import com.exedio.cope.lib.DoubleAttribute;
-import com.exedio.cope.lib.IntegerFunction;
-import com.exedio.cope.lib.LongAttribute;
-import com.exedio.cope.lib.StringFunction;
+import com.exedio.cope.BooleanAttribute;
+import com.exedio.cope.DateAttribute;
+import com.exedio.cope.DoubleAttribute;
+import com.exedio.cope.IntegerFunction;
+import com.exedio.cope.LongAttribute;
+import com.exedio.cope.StringFunction;
 
 final class CopeNativeAttribute extends CopeAttribute
 {

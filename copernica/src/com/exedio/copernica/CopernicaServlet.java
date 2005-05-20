@@ -26,7 +26,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.exedio.cope.lib.NestingRuntimeException;
+import com.exedio.cope.NestingRuntimeException;
 import com.exedio.cops.Cop;
 import com.exedio.cops.CopsServlet;
 

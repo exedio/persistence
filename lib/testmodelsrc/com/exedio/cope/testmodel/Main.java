@@ -17,9 +17,9 @@
  */
 package com.exedio.cope.testmodel;
 
-import com.exedio.cope.lib.Model;
-import com.exedio.cope.lib.Properties;
-import com.exedio.cope.lib.Type;
+import com.exedio.cope.Model;
+import com.exedio.cope.Properties;
+import com.exedio.cope.Type;
 
 public class Main
 {

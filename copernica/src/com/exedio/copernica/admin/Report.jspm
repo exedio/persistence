@@ -26,12 +26,12 @@ import java.util.Iterator;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.exedio.cope.lib.Model;
-import com.exedio.cope.lib.Report;
-import com.exedio.cope.lib.ReportColumn;
-import com.exedio.cope.lib.ReportConstraint;
-import com.exedio.cope.lib.ReportLastAnalyzed;
-import com.exedio.cope.lib.ReportTable;
+import com.exedio.cope.Model;
+import com.exedio.cope.Report;
+import com.exedio.cope.ReportColumn;
+import com.exedio.cope.ReportConstraint;
+import com.exedio.cope.ReportLastAnalyzed;
+import com.exedio.cope.ReportTable;
 
 final class Report_Jspm
 {

@@ -23,10 +23,10 @@ import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.exedio.cope.lib.EnumValue;
-import com.exedio.cope.lib.Item;
-import com.exedio.cope.lib.Model;
-import com.exedio.cope.lib.Type;
+import com.exedio.cope.EnumValue;
+import com.exedio.cope.Item;
+import com.exedio.cope.Model;
+import com.exedio.cope.Type;
 import com.exedio.cops.Cop;
 
 

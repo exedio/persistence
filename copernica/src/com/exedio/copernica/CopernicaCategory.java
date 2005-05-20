@@ -27,7 +27,7 @@ public interface CopernicaCategory extends Component
 	public Collection getCopernicaSubCategories();
 	
 	/**
-	 * @return a collection of {@link com.exedio.cope.lib.Type types}.
+	 * @return a collection of {@link com.exedio.cope.Type types}.
 	 */
 	public Collection getCopernicaTypes();
 	

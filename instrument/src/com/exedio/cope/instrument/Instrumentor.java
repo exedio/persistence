@@ -25,21 +25,21 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import com.exedio.cope.lib.Attribute;
-import com.exedio.cope.lib.BooleanAttribute;
-import com.exedio.cope.lib.DateAttribute;
-import com.exedio.cope.lib.DoubleAttribute;
-import com.exedio.cope.lib.EnumAttribute;
-import com.exedio.cope.lib.Function;
-import com.exedio.cope.lib.Hash;
-import com.exedio.cope.lib.IntegerFunction;
-import com.exedio.cope.lib.ItemAttribute;
-import com.exedio.cope.lib.LongAttribute;
-import com.exedio.cope.lib.DataAttribute;
-import com.exedio.cope.lib.DataAttributeVariant;
-import com.exedio.cope.lib.StringFunction;
-import com.exedio.cope.lib.UniqueConstraint;
-import com.exedio.cope.lib.pattern.Qualifier;
+import com.exedio.cope.Attribute;
+import com.exedio.cope.BooleanAttribute;
+import com.exedio.cope.DateAttribute;
+import com.exedio.cope.DoubleAttribute;
+import com.exedio.cope.EnumAttribute;
+import com.exedio.cope.Function;
+import com.exedio.cope.Hash;
+import com.exedio.cope.IntegerFunction;
+import com.exedio.cope.ItemAttribute;
+import com.exedio.cope.LongAttribute;
+import com.exedio.cope.DataAttribute;
+import com.exedio.cope.DataAttributeVariant;
+import com.exedio.cope.StringFunction;
+import com.exedio.cope.UniqueConstraint;
+import com.exedio.cope.pattern.Qualifier;
 
 final class Instrumentor implements InjectionConsumer
 {

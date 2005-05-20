@@ -27,8 +27,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.exedio.cope.lib.Model;
-import com.exedio.cope.lib.NestingRuntimeException;
+import com.exedio.cope.Model;
+import com.exedio.cope.NestingRuntimeException;
 import com.exedio.copernica.TransientCopernicaProvider;
 import com.exedio.cops.CopsServlet;
 
@@ -45,7 +45,7 @@ import com.exedio.cops.CopsServlet;
  *    &lt;servlet-class&gt;com.exedio.copernica.admin.AdminServlet&lt;/servlet-class&gt;
  *    &lt;init-param&gt;
  *       &lt;param-name&gt;model&lt;/param-name&gt;
- *       &lt;param-value&gt;{@link com.exedio.cope.lib.Model com.bigbusiness.shop.Main#model}&lt;/param-value&gt;
+ *       &lt;param-value&gt;{@link com.exedio.cope.Model com.bigbusiness.shop.Main#model}&lt;/param-value&gt;
  *    &lt;/init-param&gt;
  * &lt;/servlet&gt;
  * &lt;servlet-mapping&gt;

@@ -21,7 +21,7 @@ package com.exedio.copernica.admin;
 import java.io.IOException;
 import java.io.PrintStream;
 
-import com.exedio.cope.lib.Model;
+import com.exedio.cope.Model;
 
 
 final class PropertiesCop extends AdminCop

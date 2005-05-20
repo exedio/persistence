@@ -23,7 +23,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-import com.exedio.cope.lib.Attribute;
+import com.exedio.cope.Attribute;
 
 public class TransientSection
 	extends TransientComponent

@@ -18,8 +18,8 @@
 
 package com.exedio.cope.testmodel;
 
-import com.exedio.cope.lib.Hash;
-import com.exedio.cope.lib.StringAttribute;
+import com.exedio.cope.Hash;
+import com.exedio.cope.StringAttribute;
 
 
 /**

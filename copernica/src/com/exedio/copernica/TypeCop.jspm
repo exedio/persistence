@@ -27,17 +27,17 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-import com.exedio.cope.lib.BooleanAttribute;
-import com.exedio.cope.lib.DateAttribute;
-import com.exedio.cope.lib.EnumAttribute;
-import com.exedio.cope.lib.EnumValue;
-import com.exedio.cope.lib.Feature;
-import com.exedio.cope.lib.Function;
-import com.exedio.cope.lib.Item;
-import com.exedio.cope.lib.ItemAttribute;
-import com.exedio.cope.lib.DataAttribute;
-import com.exedio.cope.lib.StatementInfo;
-import com.exedio.cope.lib.Type;
+import com.exedio.cope.BooleanAttribute;
+import com.exedio.cope.DateAttribute;
+import com.exedio.cope.EnumAttribute;
+import com.exedio.cope.EnumValue;
+import com.exedio.cope.Feature;
+import com.exedio.cope.Function;
+import com.exedio.cope.Item;
+import com.exedio.cope.ItemAttribute;
+import com.exedio.cope.DataAttribute;
+import com.exedio.cope.StatementInfo;
+import com.exedio.cope.Type;
 import com.exedio.cops.DateField;
 
 final class TypeCop_Jspm

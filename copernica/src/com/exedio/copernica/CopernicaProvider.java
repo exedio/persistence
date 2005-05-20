@@ -25,11 +25,11 @@ import java.util.Collection;
 import javax.servlet.ServletConfig;
 import javax.servlet.http.HttpServletRequest;
 
-import com.exedio.cope.lib.EnumValue;
-import com.exedio.cope.lib.Feature;
-import com.exedio.cope.lib.Item;
-import com.exedio.cope.lib.Model;
-import com.exedio.cope.lib.Type;
+import com.exedio.cope.EnumValue;
+import com.exedio.cope.Feature;
+import com.exedio.cope.Item;
+import com.exedio.cope.Model;
+import com.exedio.cope.Type;
 
 public interface CopernicaProvider
 {
@@ -52,7 +52,7 @@ public interface CopernicaProvider
 	public Collection getRootCategories();
 	
 	/**
-	 * @return a collection of {@link com.exedio.cope.lib.Attribute attributes}.
+	 * @return a collection of {@link com.exedio.cope.Attribute attributes}.
 	 */
 	public Collection getMainAttributes(Type type);
 

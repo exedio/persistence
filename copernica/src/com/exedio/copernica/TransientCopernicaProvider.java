@@ -31,13 +31,13 @@ import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
-import com.exedio.cope.lib.EnumValue;
-import com.exedio.cope.lib.Feature;
-import com.exedio.cope.lib.Item;
-import com.exedio.cope.lib.Model;
-import com.exedio.cope.lib.ObjectAttribute;
-import com.exedio.cope.lib.Type;
-import com.exedio.cope.lib.UniqueConstraint;
+import com.exedio.cope.EnumValue;
+import com.exedio.cope.Feature;
+import com.exedio.cope.Item;
+import com.exedio.cope.Model;
+import com.exedio.cope.ObjectAttribute;
+import com.exedio.cope.Type;
+import com.exedio.cope.UniqueConstraint;
 
 
 public abstract class TransientCopernicaProvider implements CopernicaProvider
@@ -48,8 +48,8 @@ public abstract class TransientCopernicaProvider implements CopernicaProvider
 		initialize(getModel(), config);
 	}
 	
-	private static final String DATADIR_PATH = com.exedio.cope.lib.Properties.DATADIR_PATH;
-	private static final String DATADIR_URL = com.exedio.cope.lib.Properties.DATADIR_URL;
+	private static final String DATADIR_PATH = com.exedio.cope.Properties.DATADIR_PATH;
+	private static final String DATADIR_URL = com.exedio.cope.Properties.DATADIR_URL;
 	
 	public static final void initialize(final Model model, final ServletConfig config)
 	{
@@ -57,7 +57,7 @@ public abstract class TransientCopernicaProvider implements CopernicaProvider
 		
 		final File propertyFile = new File(context.getRealPath("WEB-INF/cope.properties"));
 		
-		final Properties p = com.exedio.cope.lib.Properties.loadProperties(propertyFile);
+		final Properties p = com.exedio.cope.Properties.loadProperties(propertyFile);
 		if("//WEB-APP//".equals(p.getProperty(DATADIR_PATH)))
 		{
 			final String datadirUrl = p.getProperty(DATADIR_URL);
@@ -69,7 +69,7 @@ public abstract class TransientCopernicaProvider implements CopernicaProvider
 		}
 			
 		model.setPropertiesInitially(
-			new com.exedio.cope.lib.Properties(p, propertyFile.getAbsolutePath()));
+			new com.exedio.cope.Properties(p, propertyFile.getAbsolutePath()));
 	}
 
 	// Transient Languages

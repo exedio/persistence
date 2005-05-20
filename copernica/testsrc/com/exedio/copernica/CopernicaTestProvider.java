@@ -21,10 +21,10 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Date;
 
-import com.exedio.cope.lib.Attribute;
-import com.exedio.cope.lib.ConstraintViolationException;
-import com.exedio.cope.lib.Model;
-import com.exedio.cope.lib.NestingRuntimeException;
+import com.exedio.cope.Attribute;
+import com.exedio.cope.ConstraintViolationException;
+import com.exedio.cope.Model;
+import com.exedio.cope.NestingRuntimeException;
 import com.exedio.cope.testmodel.AttributeItem;
 import com.exedio.cope.testmodel.CollisionItem1;
 import com.exedio.cope.testmodel.CollisionItem2;

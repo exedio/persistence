@@ -18,7 +18,7 @@
 
 package com.exedio.copernica;
 
-import com.exedio.cope.lib.Item;
+import com.exedio.cope.Item;
 
 public interface RequestCache
 {

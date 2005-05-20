@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
-import com.exedio.cope.lib.NestingRuntimeException;
+import com.exedio.cope.NestingRuntimeException;
 
 public class Main
 {

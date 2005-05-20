@@ -27,11 +27,11 @@ import java.util.Arrays;
 import com.exedio.cope.instrument.testmodel.Standard;
 import com.exedio.cope.instrument.testmodel.TypeNone;
 import com.exedio.cope.instrument.testmodel.TypePrivate;
-import com.exedio.cope.lib.AttributeValue;
-import com.exedio.cope.lib.NotNullViolationException;
-import com.exedio.cope.lib.Type;
-import com.exedio.cope.lib.UniqueViolationException;
-import com.exedio.cope.lib.util.ReactivationConstructorDummy;
+import com.exedio.cope.AttributeValue;
+import com.exedio.cope.NotNullViolationException;
+import com.exedio.cope.Type;
+import com.exedio.cope.UniqueViolationException;
+import com.exedio.cope.util.ReactivationConstructorDummy;
 
 
 public class GeneratorTest extends InstrumentorTest

@@ -25,18 +25,18 @@ import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import com.exedio.cope.lib.Attribute;
-import com.exedio.cope.lib.BooleanAttribute;
-import com.exedio.cope.lib.ComputedFunction;
-import com.exedio.cope.lib.DateAttribute;
-import com.exedio.cope.lib.Item;
-import com.exedio.cope.lib.LengthViolationException;
-import com.exedio.cope.lib.NestingRuntimeException;
-import com.exedio.cope.lib.NotNullViolationException;
-import com.exedio.cope.lib.ObjectAttribute;
-import com.exedio.cope.lib.ReadOnlyViolationException;
-import com.exedio.cope.lib.UniqueViolationException;
-import com.exedio.cope.lib.util.ClassComparator;
+import com.exedio.cope.Attribute;
+import com.exedio.cope.BooleanAttribute;
+import com.exedio.cope.ComputedFunction;
+import com.exedio.cope.DateAttribute;
+import com.exedio.cope.Item;
+import com.exedio.cope.LengthViolationException;
+import com.exedio.cope.NestingRuntimeException;
+import com.exedio.cope.NotNullViolationException;
+import com.exedio.cope.ObjectAttribute;
+import com.exedio.cope.ReadOnlyViolationException;
+import com.exedio.cope.UniqueViolationException;
+import com.exedio.cope.util.ClassComparator;
 
 abstract class CopeAttribute
 {
@@ -265,7 +265,7 @@ abstract class CopeAttribute
 
 	/**
 	 * Compute exceptions to be caught in the setter.
-	 * These are just those thrown by {@link com.exedio.cope.lib.Item#setAttribute(ObjectAttribute,Object)}
+	 * These are just those thrown by {@link com.exedio.cope.Item#setAttribute(ObjectAttribute,Object)}
 	 * which are not in the setters throws clause.
 	 * (see {@link #getSetterExceptions()})
 	 */
@@ -307,7 +307,7 @@ abstract class CopeAttribute
 
 	/**
 	 * Compute exceptions to be caught in the toucher.
-	 * These are just those thrown by {@link com.exedio.cope.lib.Item#touchAttribute(DateAttribute)}
+	 * These are just those thrown by {@link com.exedio.cope.Item#touchAttribute(DateAttribute)}
 	 * which are not in the touchers throws clause.
 	 * (see {@link #getToucherExceptions()})
 	 */
