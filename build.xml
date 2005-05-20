@@ -8,8 +8,6 @@
 		<property name="api.link.jdk" value="http://java.sun.com/j2se/1.4.2/docs/api" />
 		<property name="api.link.ant" value="http://searchmorph.com/pub/ant/apache-ant-1.6.2/build/javadocs" />
 		<property name="api.link.j2ee" value="http://java.sun.com/j2ee/1.4/docs/api" />
-		<property environment="environment" />
-		<property name="ant.jar" value="${environment.ANT_HOME}/lib/ant.jar" />
 		<available property="available.oracle" file="cope.properties.oracle" />
 		<available property="available.mysql"  file="cope.properties.mysql" />
 		<fail message="Skipping test for databases not allowed when building by cruisecontrol">
@@ -621,7 +619,7 @@
 			<link href="${api.link.ant}" />
 			<classpath>
 				<pathelement location="lib/build/classes" />
-				<pathelement location="${ant.jar}" />
+				<pathelement location="../tomcat/common/lib/ant.jar" />
 			</classpath>
 		</javadoc>
 	</target>
