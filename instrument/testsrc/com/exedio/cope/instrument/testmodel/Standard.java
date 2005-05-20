@@ -34,7 +34,6 @@ import com.exedio.cope.StringAttribute;
  * TODO: item attributes
  * TODO: enum attributes
  * TODO: date attributes with toucher methods
- * TODO: data attributes with all access methods methods and mime type constraints
  * TODO: functions
  * TODO: qualifiers
  * TODO: hashes
