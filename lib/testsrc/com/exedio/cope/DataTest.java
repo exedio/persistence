@@ -129,7 +129,7 @@ public class DataTest extends DatabaseLibTest
 		// photo
 		assertEquals("image", item.photo.getFixedMimeMajor());
 		assertEquals("jpeg", item.photo.getFixedMimeMinor());
-		assertEquals(list(item.photoBB65, item.photoProgressive), item.photo.getVariants());
+		assertEquals(list(item.photoBB65, item.photoProgressive, item.lowQuality), item.photo.getVariants());
 		assertUnmodifiable(item.photo.getVariants());
 		assertEquals(item.photo, item.photoBB65.getAttribute());
 		assertEquals(item.TYPE, item.photoBB65.getType());
@@ -137,7 +137,11 @@ public class DataTest extends DatabaseLibTest
 
 		assertEquals(item.photo, item.photoProgressive.getAttribute());
 		assertEquals(item.TYPE, item.photoProgressive.getType());
-		assertEquals("Progressive", item.photoProgressive.getName());
+		assertEquals("Progressive", item.photoProgressive.getName()); // TODO: should be "progressive"
+
+		assertEquals(item.photo, item.lowQuality.getAttribute());
+		assertEquals(item.TYPE, item.lowQuality.getType());
+		assertEquals("lowQuality", item.lowQuality.getName());
 
 		assertEquals(null, item.getPhotoData());
 		assertEquals(null, item.getPhotoMimeMajor());
