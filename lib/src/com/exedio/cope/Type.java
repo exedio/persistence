@@ -58,7 +58,7 @@ public final class Type
 	private final List featureList;
 	private final HashMap featuresByName = new HashMap();
 
-	private final UniqueConstraint[] uniqueConstraints;
+	final UniqueConstraint[] uniqueConstraints;
 	private final List uniqueConstraintList;
 
 	private final Qualifier[] qualifiers;

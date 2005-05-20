@@ -92,7 +92,10 @@ public final class MysqlDatabase extends Database
 	{
 		// TODO: MySQL does not deliver constraint name in exception
 		//System.out.println("-u-"+e.getClass()+" "+e.getCause()+" "+e.getErrorCode()+" "+e.getLocalizedMessage()+" "+e.getSQLState()+" "+e.getNextException());
-		return null;
+		if(e.getMessage().startsWith("Duplicate entry "))
+			return ANY_CONSTRAINT;
+		else
+			return null;
 	}
 
 	protected String extractIntegrityConstraintName(final SQLException e)

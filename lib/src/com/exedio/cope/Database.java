@@ -720,7 +720,8 @@ abstract class Database
 		try
 		{
 			//System.out.println("storing "+bf.toString());
-			executeSQLUpdate(bf, 1);
+			final UniqueConstraint[] uqs = type.uniqueConstraints;
+			executeSQLUpdate(bf, 1, uqs.length==1?uqs[0]:null);
 		}
 		catch(UniqueViolationException e)
 		{
@@ -884,6 +885,14 @@ abstract class Database
 	protected final void executeSQLUpdate(final Statement statement, final int expectedRows)
 			throws ConstraintViolationException
 	{
+		executeSQLUpdate(statement, expectedRows, null);
+	}
+
+	protected final void executeSQLUpdate(
+			final Statement statement, final int expectedRows,
+			final UniqueConstraint onlyThreatenedUniqueConstraint)
+		throws ConstraintViolationException
+	{
 		Connection connection = null;
 		java.sql.Statement sqlStatement = null;
 		try
@@ -901,7 +910,7 @@ abstract class Database
 		}
 		catch(SQLException e)
 		{
-			final ConstraintViolationException wrappedException = wrapException(e);
+			final ConstraintViolationException wrappedException = wrapException(e, onlyThreatenedUniqueConstraint);
 			if(wrappedException!=null)
 				throw wrappedException;
 			else
@@ -941,19 +950,27 @@ abstract class Database
 	
 	protected abstract String extractUniqueConstraintName(SQLException e);
 	protected abstract String extractIntegrityConstraintName(SQLException e);
+	
+	protected final static String ANY_CONSTRAINT = "--ANY--";
 
-	private final ConstraintViolationException wrapException(final SQLException e)
+	private final ConstraintViolationException wrapException(
+			final SQLException e,
+			final UniqueConstraint onlyThreatenedUniqueConstraint)
 	{
 		{		
 			final String uniqueConstraintID = extractUniqueConstraintName(e);
 			if(uniqueConstraintID!=null)
 			{
-				final UniqueConstraint constraint =
-					(UniqueConstraint)uniqueConstraintsByID.get(uniqueConstraintID);
-				if(constraint==null)
-					throw new NestingRuntimeException(e, "no unique constraint found for >"+uniqueConstraintID
-																			+"<, has only "+uniqueConstraintsByID.keySet());
-
+				final UniqueConstraint constraint;
+				if(ANY_CONSTRAINT.equals(uniqueConstraintID))
+					constraint = onlyThreatenedUniqueConstraint;
+				else
+				{
+					constraint = (UniqueConstraint)uniqueConstraintsByID.get(uniqueConstraintID);
+					if(constraint==null)
+						throw new NestingRuntimeException(e, "no unique constraint found for >"+uniqueConstraintID
+																				+"<, has only "+uniqueConstraintsByID.keySet());
+				}
 				return new UniqueViolationException(e, null, constraint);
 			}
 		}

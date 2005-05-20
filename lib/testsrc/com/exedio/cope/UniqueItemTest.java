@@ -51,15 +51,8 @@ public class UniqueItemTest extends DatabaseLibTest
 			}
 			catch(UniqueViolationException e)
 			{
-				assertTrue(!mysql);
 				assertEquals(item2.uniqueString.getSingleUniqueConstraint(), e.getConstraint());
 				assertEquals("uniqueString2", item2.getUniqueString());
-			}
-			catch(NestingRuntimeException e)
-			{
-				assertTrue(mysql);
-				assertEquals("Duplicate entry 'uniqueString' for key 2", e.getNestedCause().getMessage());
-				assertEquals("uniqueString", item2.getUniqueString());
 			}
 			assertEquals(item2, ItemWithSingleUnique.findByUniqueString("uniqueString2"));
 
@@ -214,13 +207,8 @@ public class UniqueItemTest extends DatabaseLibTest
 		}
 		catch(UniqueViolationException e)
 		{
-			assertTrue(!mysql);
 			assertEquals(a1.doubleUnique, e.getConstraint());
-		}
-		catch(NestingRuntimeException e)
-		{
-			assertTrue(mysql);
-			assertEquals("Duplicate entry 'b-1' for key 2", e.getNestedCause().getMessage());
+			assertEquals(null, e.getItem());
 		}
 		assertEquals(b1, ItemWithDoubleUnique.findByDoubleUnique("b", 1));
 		
