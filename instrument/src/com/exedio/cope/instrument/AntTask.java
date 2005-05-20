@@ -24,11 +24,11 @@ import java.util.Iterator;
 
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.DirectoryScanner;
-import org.apache.tools.ant.taskdefs.Touch;
+import org.apache.tools.ant.Task;
 import org.apache.tools.ant.types.FileList;
 import org.apache.tools.ant.types.FileSet;
 
-public final class AntTask extends Touch
+public final class AntTask extends Task
 {
 	private final ArrayList fileSets = new ArrayList();
 	private final ArrayList fileLists = new ArrayList();
