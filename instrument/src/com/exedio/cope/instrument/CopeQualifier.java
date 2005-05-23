@@ -63,7 +63,7 @@ final class CopeQualifier
 		for(int i = 0; i<this.keyAttributes.length; i++)
 			this.keyAttributes[i] = uniqueAttributes[i+1];
 
-		copeClass.addQualifier(this);
+		copeClass.add(this);
 	}
 
 }
