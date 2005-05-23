@@ -154,9 +154,6 @@ public final class Type
 						final TypeComponent component = (TypeComponent)field.get(null);
 						if(component==null)
 							throw new RuntimeException(field.getName());
-						if(component.initialized)
-							throw new RuntimeException(field.getName());
-						component.initialized = true;
 						component.initialize(this, field.getName());
 
 						if(Attribute.class.isAssignableFrom(fieldType))

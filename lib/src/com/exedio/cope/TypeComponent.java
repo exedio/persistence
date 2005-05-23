@@ -20,8 +20,6 @@ package com.exedio.cope;
 
 public abstract class TypeComponent
 {
-	boolean initialized = false; // TODO:remove
-	
 	private Type type;
 	private String name;
 
