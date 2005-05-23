@@ -68,6 +68,8 @@ final class Generator
 	private static final String QUALIFIER = "Returns the qualifier.";
 	private static final String QUALIFIER_GETTER = "Returns the qualifier.";
 	private static final String QUALIFIER_SETTER = "Sets the qualifier.";
+	private static final String VECTOR_GETTER = "Returns the value of the vector.";
+	private static final String VECTOR_SETTER = "Sets the vector.";
 	private static final String TYPE = "The persistent type information for {0}.";
 
 	private final Writer o;
@@ -820,6 +822,73 @@ final class Generator
 
 		o.write("\t}");
 	}
+	
+	private void writeVector(final CopeVector vector)
+		throws IOException
+	{
+		writeCommentHeader();
+		o.write("\t * ");
+		o.write(VECTOR_GETTER);
+		o.write(lineSeparator);
+		writeCommentGenerated();
+		writeCommentFooter();
+
+		o.write("public final "); // TODO: obey attribute visibility
+		o.write(List.class.getName());
+		o.write(" get");
+		o.write(toCamelCase(vector.name));
+		o.write("()");
+		o.write(lineSeparator);
+
+		o.write("\t{");
+		o.write(lineSeparator);
+
+		o.write("\t\treturn ");
+		o.write(vector.copeClass.getName());
+		o.write('.');
+		o.write(vector.name);
+		o.write(".get(this);");
+		o.write(lineSeparator);
+
+		o.write("\t}");
+
+		writeCommentHeader();
+		o.write("\t * ");
+		o.write(VECTOR_SETTER);
+		o.write(lineSeparator);
+		writeCommentGenerated();
+		writeCommentFooter();
+
+		o.write("public final void set"); // TODO: obey attribute visibility
+		o.write(toCamelCase(vector.name));
+		o.write("(final ");
+		o.write(Collection.class.getName());
+		o.write(' ');
+		o.write(vector.name);
+		o.write(')');
+		o.write(lineSeparator);
+
+		writeThrowsClause(Arrays.asList(new Class[]{
+				UniqueViolationException.class,
+				NotNullViolationException.class,
+				LengthViolationException.class,
+				ReadOnlyViolationException.class,
+				ClassCastException.class}));
+
+		o.write("\t{");
+		o.write(lineSeparator);
+
+		o.write("\t\t");
+		o.write(vector.copeClass.getName());
+		o.write('.');
+		o.write(vector.name);
+		o.write(".set(this,");
+		o.write(vector.name);
+		o.write(");");
+		o.write(lineSeparator);
+
+		o.write("\t}");
+	}
 
 	private final void writeType(final CopeClass copeClass)
 	throws IOException
@@ -876,6 +945,11 @@ final class Generator
 			{
 				final CopeQualifier qualifier = (CopeQualifier)i.next();
 				writeQualifier(qualifier);
+			}
+			for(final Iterator i = copeClass.getVectors().iterator(); i.hasNext(); )
+			{
+				final CopeVector vector = (CopeVector)i.next();
+				writeVector(vector);
 			}
 			writeType(copeClass);
 		}

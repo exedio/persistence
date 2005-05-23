@@ -51,6 +51,7 @@ final class CopeClass
 	private final Map copeUniqueConstraintMap = new TreeMap();
 	private ArrayList uniqueConstraints = null;
 	private ArrayList qualifiers = null;
+	private ArrayList vectors = null;
 	final Option typeOption;
 	final Option initialConstructorOption;
 	final Option genericConstructorOption;
@@ -171,6 +172,25 @@ final class CopeClass
 			qualifiers == null ?
 			Collections.EMPTY_LIST :
 			Collections.unmodifiableList(qualifiers);
+	}
+	
+	public void add(final CopeVector vector)
+	{
+		if(vectors==null)
+			vectors=new ArrayList();
+
+		vectors.add(vector);
+	}
+	
+	/**
+	 * @return unmodifiable list of {@link CopeVector}s.
+	 */
+	public List getVectors()
+	{
+		return
+			vectors == null ?
+			Collections.EMPTY_LIST :
+			Collections.unmodifiableList(vectors);
 	}
 	
 	private ArrayList initialAttributes = null;

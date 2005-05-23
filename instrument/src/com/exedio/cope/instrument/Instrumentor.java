@@ -27,6 +27,8 @@ import java.util.List;
 
 import com.exedio.cope.Attribute;
 import com.exedio.cope.BooleanAttribute;
+import com.exedio.cope.DataAttribute;
+import com.exedio.cope.DataAttributeVariant;
 import com.exedio.cope.DateAttribute;
 import com.exedio.cope.DoubleAttribute;
 import com.exedio.cope.EnumAttribute;
@@ -34,12 +36,11 @@ import com.exedio.cope.Function;
 import com.exedio.cope.IntegerFunction;
 import com.exedio.cope.ItemAttribute;
 import com.exedio.cope.LongAttribute;
-import com.exedio.cope.DataAttribute;
-import com.exedio.cope.DataAttributeVariant;
 import com.exedio.cope.StringFunction;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.pattern.Hash;
 import com.exedio.cope.pattern.Qualifier;
+import com.exedio.cope.pattern.Vector;
 
 final class Instrumentor implements InjectionConsumer
 {
@@ -266,6 +267,14 @@ final class Instrumentor implements InjectionConsumer
 		new CopeHash(ja, storageAttribute);
 	}
 
+	private final void handleVector(final JavaAttribute ja, final Class typeClass)
+		throws InjectorParseException
+	{
+		final JavaClass jc = ja.parent;
+		final CopeClass copeClass = CopeClass.getCopeClass(jc);
+		new CopeVector(ja);
+	}
+	
 	public void onClassFeature(final JavaFeature jf, final String docComment)
 	throws IOException, InjectorParseException
 	{
@@ -300,6 +309,8 @@ final class Instrumentor implements InjectionConsumer
 						handleDataVariant(ja, typeClass);
 					else if(Hash.class.isAssignableFrom(typeClass))
 						handleHash(ja, typeClass);
+					else if(Vector.class.isAssignableFrom(typeClass))
+						handleVector(ja, typeClass);
 				}
 			}
 		}
