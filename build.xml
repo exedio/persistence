@@ -169,6 +169,21 @@
 		</jar>
 	</target>
 	
+	<target name="lib.test.jar" depends="lib.test.compile">
+		<jar jarfile="lib/build/exedio-cope-test.jar">
+			<fileset dir="lib/build/testclasses" />
+			<fileset dir="lib/build/testmodelclasses" />
+			<manifest>
+				<attribute name="Specification-Title" value="exedio cope test"/>
+				<attribute name="Specification-Version" value="cruisecontrol ${label} ${cvstimestamp}"/>
+				<attribute name="Specification-Vendor" value="exedio GmbH"/>
+				<attribute name="Implementation-Title" value="exedio cope test"/>
+				<attribute name="Implementation-Version" value="cruisecontrol ${label} ${cvstimestamp}"/> 
+				<attribute name="Implementation-Vendor" value="exedio GmbH"/>
+			</manifest>
+		</jar>
+	</target>
+	
 	<target name="instrument.jar" depends="instrument.compile">
 		<jar jarfile="instrument/build/exedio-cope-instrument.jar" basedir="instrument/build/classes">
 			<manifest>
@@ -198,7 +213,7 @@
 		</zip>
 	</target>
 	
-	<target name="jar" depends="lib.jar, instrument.jar, copernica.jar" />
+	<target name="jar" depends="lib.jar, lib.test.jar, instrument.jar, copernica.jar" />
 	
 	<target name="instrument.taskdef" depends="lib.compile, instrument.compile">
 		<taskdef name="instrument" classname="com.exedio.cope.instrument.AntTask">
