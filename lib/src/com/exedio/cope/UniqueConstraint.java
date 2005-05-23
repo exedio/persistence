@@ -34,8 +34,6 @@ public final class UniqueConstraint extends TypeComponent
 	private final ObjectAttribute[] uniqueAttributes;
 	private final List uniqueAttributeList;
 	private Qualifier qualifier;
-	private Type type;
-	private String id;
 	private String databaseID;
 
 	private UniqueConstraint(final ObjectAttribute[] uniqueAttributes)
@@ -92,53 +90,21 @@ public final class UniqueConstraint extends TypeComponent
 		this.qualifier = qualifier;
 	}
 	
-	public final void initialize(final Type type, final String name)
-	{
-		if(type==null)
-			throw new RuntimeException();
-		if(name==null)
-			throw new RuntimeException();
-
-		if(this.type!=null)
-			throw new RuntimeException();
-		if(this.id!=null)
-			throw new RuntimeException();
-		if(databaseID!=null)
-			throw new RuntimeException();
-
-		this.type = type;
-		this.id = name.intern();
-	}
-
 	final void materialize(final Database database)
 	{
-		if(this.type==null)
-			throw new RuntimeException();
-		if(this.id==null)
-			throw new RuntimeException();
 		if(this.databaseID!=null)
 			throw new RuntimeException();
 
-		this.databaseID = database.trimName(type.getID()+"_"+id+"_Unq").intern();
+		this.databaseID = database.trimName(getType().getID()+"_"+getName()+"_Unq").intern();
 		database.addUniqueConstraint(databaseID, this);
 	}
 
+	// TODO: remove
 	public final String getID()
 	{
-		if(id==null)
-			throw new RuntimeException();
-			
-		return id;
+		return getName();
 	}
 	
-	public final Type getType()
-	{
-		if(type==null)
-			throw new RuntimeException();
-			
-		return type;
-	}
-
 	public final String getDatabaseID()
 	{
 		if(databaseID==null)

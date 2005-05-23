@@ -42,6 +42,8 @@ public class QualifierTest extends DatabaseLibTest
 		throws UniqueViolationException, NotNullViolationException, IntegrityViolationException,
 			LengthViolationException, ReadOnlyViolationException
 	{
+		assertEquals(QualifiedItem.TYPE, QualifiedItem.qualifier.getType());
+		assertEquals("qualifier", QualifiedItem.qualifier.getName());
 		assertEquals(QualifiedItem.qualifier.getParent(), QualifiedEmptyQualifier.parent);
 		assertEquals(list(QualifiedEmptyQualifier.key), QualifiedItem.qualifier.getKeys());
 		assertEquals(QualifiedItem.qualifier.getQualifyUnique(), QualifiedEmptyQualifier.qualifyUnique);

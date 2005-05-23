@@ -83,8 +83,12 @@ public final class Qualifier extends TypeComponent
 		return qualifyUnique;
 	}
 	
+	// second initialization phase ---------------------------------------------------
+
 	public void initialize(final Type qualifiedType, final String name)
 	{
+		super.initialize(qualifiedType, name);
+		
 		if(this.attributes!=null)
 			throw new RuntimeException();
 

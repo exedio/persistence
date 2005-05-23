@@ -59,34 +59,19 @@ public abstract class Attribute extends TypeComponent implements Feature
 		return singleUniqueConstraint;
 	}
 	
-	public final Type getTypeIfInitialized()
-	{
-		return type;
-	}
 
 	// second initialization phase ---------------------------------------------------
 
-	private Type type;
-	private String name;
 	private List columns;
 	private Column mainColumn;
 	
 	public final void initialize(final Type type, final String name)
 	{
-		if(type==null)
-			throw new RuntimeException();
-		if(name==null)
-			throw new RuntimeException();
+		super.initialize(type, name);
 
-		if(this.type!=null)
-			throw new RuntimeException();
-		if(this.name!=null)
-			throw new RuntimeException();
-
-		this.type = type;
-		this.name = name.intern();
 		if(singleUniqueConstraint!=null)
 			singleUniqueConstraint.initialize(type, name);
+
 		postInitialize();
 	}
 	
@@ -99,37 +84,19 @@ public abstract class Attribute extends TypeComponent implements Feature
 		if(table==null)
 			throw new NullPointerException();
 
-		if(this.name==null)
-			throw new RuntimeException();
 		if(this.columns!=null)
 			throw new RuntimeException();
 		if(this.mainColumn!=null)
 			throw new RuntimeException();
 
 		this.columns =
-				Collections.unmodifiableList(createColumns(table, name, notNull));
+				Collections.unmodifiableList(createColumns(table, getName(), notNull));
 		this.mainColumn = this.columns.isEmpty() ? null : (Column)columns.iterator().next();
-	}
-	
-	public final Type getType()
-	{
-		if(this.type==null)
-			throw new RuntimeException();
-
-		return type;
-	}
-	
-	public final String getName()
-	{
-		if(this.type==null)
-			throw new RuntimeException();
-
-		return name;
 	}
 	
 	final List getColumns()
 	{
-		if(this.type==null)
+		if(this.columns==null)
 			throw new RuntimeException();
 
 		return columns;
@@ -137,7 +104,7 @@ public abstract class Attribute extends TypeComponent implements Feature
 	
 	final Column getMainColumn()
 	{
-		if(this.type==null)
+		if(this.mainColumn==null)
 			throw new RuntimeException();
 
 		return mainColumn;
@@ -147,7 +114,7 @@ public abstract class Attribute extends TypeComponent implements Feature
 	{
 		// should be precomputed
 		final StringBuffer buf = new StringBuffer();
-		buf.append(name);
+		buf.append(super.toString());
 		buf.append('{');
 		boolean first = true;
 		if(readOnly)

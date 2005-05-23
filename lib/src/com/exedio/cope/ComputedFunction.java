@@ -31,6 +31,7 @@ public abstract class ComputedFunction extends TypeComponent implements Function
 	private final String[] sqlFragments;
 	private final String functionName;
 	final int jdbcType;
+	final Type sourceType;
 
 	public ComputedFunction(final Function[] sources,
 									final String[] sqlFragments,
@@ -44,7 +45,7 @@ public abstract class ComputedFunction extends TypeComponent implements Function
 			throw new RuntimeException("length "+sources.length+" "+sqlFragments.length);
 		this.functionName = functionName;
 		this.jdbcType = jdbcType;
-		this.type = sources[0].getTypeIfInitialized();
+		this.sourceType = sources[0].getTypeIfInitialized();
 	}
 	
 	public final List getSources()
@@ -83,54 +84,24 @@ public abstract class ComputedFunction extends TypeComponent implements Function
 		return buf.toString();
 	}
 	
-	public final Type getTypeIfInitialized()
-	{
-		return type;
-	}
-
-
 	// second initialization phase ---------------------------------------------------
 
-	private Type type;
-	private String name;
-	
 	public final void initialize(final Type type, final String name)
 	{
-		if(type==null)
+		if(sourceType!=null && type!=sourceType)
 			throw new RuntimeException();
-		if(name==null)
-			throw new RuntimeException();
-
-		if(this.name!=null)
-			throw new RuntimeException();
-
-		if(this.type!=null)
-		{
-			if(this.type!=type)
-				throw new RuntimeException();
-		}
-		else
-		{
-			this.type = type;
-		}
-		
-		this.name = name.intern();
+			
+		super.initialize(type, name);
 	}
 	
 	public final Type getType()
 	{
-		if(this.type==null)
-			throw new RuntimeException();
-
-		return type;
+		return (sourceType!=null) ? sourceType : super.getType();
 	}
 	
-	public final String getName()
+	public final Type getTypeIfInitialized()
 	{
-		if(this.type==null)
-			throw new RuntimeException();
-
-		return name;
+		return (sourceType!=null) ? sourceType : super.getTypeIfInitialized();
 	}
 	
 }

@@ -38,23 +38,9 @@ public final class DataAttributeVariant extends TypeComponent
 
 	// second initialization phase ---------------------------------------------------
 
-	private Type type;
-	private String name;
-
 	public final void initialize(final Type type, final String name)
 	{
-		if(type==null)
-			throw new RuntimeException();
-		if(name==null)
-			throw new RuntimeException();
-
-		if(this.type!=null)
-			throw new RuntimeException();
-		if(this.name!=null)
-			throw new RuntimeException();
-
-		this.type = type;
-		this.name = makeName(attribute.getName(), name).intern();
+		super.initialize(type, makeName(attribute.getName(), name));
 	}
 	
 	private static final String makeName(final String prefix, final String name)
@@ -71,22 +57,6 @@ public final class DataAttributeVariant extends TypeComponent
 		}
 		else
 			return name;
-	}
-	
-	public final Type getType()
-	{
-		if(this.type==null)
-			throw new RuntimeException();
-
-		return type;
-	}
-	
-	public final String getName()
-	{
-		if(this.type==null)
-			throw new RuntimeException();
-
-		return name;
 	}
 	
 }
