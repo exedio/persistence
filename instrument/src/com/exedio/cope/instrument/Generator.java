@@ -976,7 +976,7 @@ final class Generator
 			o.write(attribute.getUnBoxingPrefix());
 		o.write('(');
 		o.write(attribute.persistentType);
-		o.write(")getAttribute(");
+		o.write(")get(");
 		o.write(attribute.copeClass.getName());
 		o.write('.');
 		o.write(attribute.getName());

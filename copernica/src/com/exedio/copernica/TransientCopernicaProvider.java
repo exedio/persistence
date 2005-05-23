@@ -237,7 +237,7 @@ public abstract class TransientCopernicaProvider implements CopernicaProvider
 					result.append(" - ");
 
 				final ObjectAttribute attribute = (ObjectAttribute)i.next();
-				final Object value = item.getAttribute(attribute);
+				final Object value = item.get(attribute);
 
 				final String valueString;
 				if(value == null)

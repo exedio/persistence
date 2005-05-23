@@ -91,7 +91,7 @@ public class QualifiedStringQualifier extends Item
 	 *
  */public final QualifiedItem getParent()
 	{
-		return (QualifiedItem)getAttribute(QualifiedStringQualifier.parent);
+		return (QualifiedItem)get(QualifiedStringQualifier.parent);
 	}/**
 
 	 **
@@ -100,7 +100,7 @@ public class QualifiedStringQualifier extends Item
 	 *
  */public final java.lang.String getKey()
 	{
-		return (java.lang.String)getAttribute(QualifiedStringQualifier.key);
+		return (java.lang.String)get(QualifiedStringQualifier.key);
 	}/**
 
 	 **
@@ -109,7 +109,7 @@ public class QualifiedStringQualifier extends Item
 	 *
  */public final java.lang.Integer getQualifiedA()
 	{
-		return (java.lang.Integer)getAttribute(QualifiedStringQualifier.qualifiedA);
+		return (java.lang.Integer)get(QualifiedStringQualifier.qualifiedA);
 	}/**
 
 	 **
@@ -146,7 +146,7 @@ public class QualifiedStringQualifier extends Item
 	 *
  */public final java.lang.Integer getQualifiedB()
 	{
-		return (java.lang.Integer)getAttribute(QualifiedStringQualifier.qualifiedB);
+		return (java.lang.Integer)get(QualifiedStringQualifier.qualifiedB);
 	}/**
 
 	 **

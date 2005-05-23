@@ -74,7 +74,7 @@ public class QualifiedItem extends Item
 	 *
  */public final java.lang.Integer getNumber()
 	{
-		return (java.lang.Integer)getAttribute(QualifiedItem.number);
+		return (java.lang.Integer)get(QualifiedItem.number);
 	}/**
 
 	 **

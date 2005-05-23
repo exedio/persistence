@@ -187,7 +187,7 @@ final class ItemForm extends Form
 					if(anyAttribute instanceof ObjectAttribute)
 					{
 						final ObjectAttribute attribute = (ObjectAttribute)anyAttribute;
-						final Object qualifiedValue = value.getAttribute(attribute);
+						final Object qualifiedValue = value.get(attribute);
 						if(qualifiedValue!=null)
 							createField(attribute, value, value.getCopeID()+'.'+attribute.getName(), true, false, cop, false, model);
 					}
@@ -217,7 +217,7 @@ final class ItemForm extends Form
 			if(post)
 				return new EnumField((EnumAttribute)attribute, hidden, cop);
 			else
-				return new EnumField((EnumAttribute)attribute, (EnumValue)item.getAttribute(attribute), hidden, cop);
+				return new EnumField((EnumAttribute)attribute, (EnumValue)item.get(attribute), hidden, cop);
 		}
 		else if(attribute instanceof BooleanAttribute)
 		{
@@ -226,14 +226,14 @@ final class ItemForm extends Form
 				if(post)
 					return new CheckboxField(this, attribute, name, readOnly, hidden);
 				else
-					return new CheckboxField(this, attribute, name, readOnly, ((Boolean)item.getAttribute(attribute)).booleanValue(), hidden);
+					return new CheckboxField(this, attribute, name, readOnly, ((Boolean)item.get(attribute)).booleanValue(), hidden);
 			}
 			else
 			{
 				if(post)
 					return new BooleanEnumField((BooleanAttribute)attribute, hidden, cop);
 				else
-					return new BooleanEnumField((BooleanAttribute)attribute, (Boolean)item.getAttribute(attribute), hidden, cop);
+					return new BooleanEnumField((BooleanAttribute)attribute, (Boolean)item.get(attribute), hidden, cop);
 			}
 		}
 		else if(attribute instanceof IntegerAttribute)
@@ -241,42 +241,42 @@ final class ItemForm extends Form
 			if(post)
 				return new IntegerField(this, attribute, name, readOnly, hidden);
 			else
-				return new IntegerField(this, attribute, name, readOnly, (Integer)item.getAttribute(attribute), hidden);
+				return new IntegerField(this, attribute, name, readOnly, (Integer)item.get(attribute), hidden);
 		}
 		else if(attribute instanceof LongAttribute)
 		{
 			if(post)
 				return new LongField(this, attribute, name, readOnly, hidden);
 			else
-				return new LongField(this, attribute, name, readOnly, (Long)item.getAttribute(attribute), hidden);
+				return new LongField(this, attribute, name, readOnly, (Long)item.get(attribute), hidden);
 		}
 		else if(attribute instanceof DoubleAttribute)
 		{
 			if(post)
 				return new DoubleField(this, attribute, name, readOnly, hidden);
 			else
-				return new DoubleField(this, attribute, name, readOnly, (Double)item.getAttribute(attribute), hidden);
+				return new DoubleField(this, attribute, name, readOnly, (Double)item.get(attribute), hidden);
 		}
 		else if(attribute instanceof DateAttribute)
 		{
 			if(post)
 				return new DateField(this, attribute, name, readOnly, hidden);
 			else
-				return new DateField(this, attribute, name, readOnly, (Date)item.getAttribute(attribute), hidden);
+				return new DateField(this, attribute, name, readOnly, (Date)item.get(attribute), hidden);
 		}
 		else if(attribute instanceof StringAttribute)
 		{
 			if(post)
 				return new StringField(this, attribute, name, readOnly, hidden);
 			else
-				return new StringField(this, attribute, name, readOnly, (String)item.getAttribute(attribute), hidden);
+				return new StringField(this, attribute, name, readOnly, (String)item.get(attribute), hidden);
 		}
 		else if(attribute instanceof ItemAttribute)
 		{
 			if(post)
 				return new ItemField(attribute, name, readOnly, hidden, model, cop);
 			else
-				return new ItemField(attribute, name, readOnly, (Item)item.getAttribute(attribute), hidden, model, cop);
+				return new ItemField(attribute, name, readOnly, (Item)item.get(attribute), hidden, model, cop);
 		}
 		else
 		{

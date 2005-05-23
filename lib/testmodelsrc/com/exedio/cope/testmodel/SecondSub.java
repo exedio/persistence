@@ -75,7 +75,7 @@ public class SecondSub extends Super
 	 *
  */public final java.lang.String getFirstSubString()
 	{
-		return (java.lang.String)getAttribute(SecondSub.firstSubString);
+		return (java.lang.String)get(SecondSub.firstSubString);
 	}/**
 
 	 **

@@ -81,7 +81,7 @@ public class CollisionItem1 extends Item
 	 *
  */public final EmptyItem getCollisionAttribute()
 	{
-		return (EmptyItem)getAttribute(CollisionItem1.collisionAttribute);
+		return (EmptyItem)get(CollisionItem1.collisionAttribute);
 	}/**
 
 	 **

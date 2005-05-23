@@ -241,34 +241,26 @@ public abstract class Item extends Cope
 			throw initialUniqueViolationException;
 	}
 	
-	public final Object getAttribute(final Function function)
+	public final Object get(final Function function)
 	{
 		if(function instanceof ObjectAttribute)
-			return getAttribute((ObjectAttribute)function);
+			return get((ObjectAttribute)function);
 		else
-			return getFunction((ComputedFunction)function);
+			return get((ComputedFunction)function);
 	}
 
-	public final Object getAttribute(final ObjectAttribute attribute)
+	public final Object get(final ObjectAttribute attribute)
 	{
 		return getRow().get(attribute);
 	}
 	
-	public final Object getFunction(final Function function)
-	{
-		if(function instanceof ComputedFunction)
-			return getFunction((ComputedFunction)function);
-		else
-			return getAttribute((ObjectAttribute)function);
-	}
-
-	public final Object getFunction(final ComputedFunction function)
+	public final Object get(final ComputedFunction function)
 	{
 		final List sources = function.getSources();
 		final Object[] values = new Object[sources.size()];
 		int pos = 0;
 		for(Iterator i = sources.iterator(); i.hasNext(); )
-			values[pos++] = getFunction((Function)i.next());
+			values[pos++] = get((Function)i.next());
 	
 		return function.mapJava(values);
 	}

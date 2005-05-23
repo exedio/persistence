@@ -93,7 +93,7 @@ public class StringItem extends Item
 	 *
  */public final java.lang.String getAny()
 	{
-		return (java.lang.String)getAttribute(StringItem.any);
+		return (java.lang.String)get(StringItem.any);
 	}/**
 
 	 **
@@ -130,7 +130,7 @@ public class StringItem extends Item
 	 *
  */public final java.lang.String getMin4()
 	{
-		return (java.lang.String)getAttribute(StringItem.min4);
+		return (java.lang.String)get(StringItem.min4);
 	}/**
 
 	 **
@@ -165,7 +165,7 @@ public class StringItem extends Item
 	 *
  */public final java.lang.String getMax4()
 	{
-		return (java.lang.String)getAttribute(StringItem.max4);
+		return (java.lang.String)get(StringItem.max4);
 	}/**
 
 	 **
@@ -200,7 +200,7 @@ public class StringItem extends Item
 	 *
  */public final java.lang.String getMin4Max8()
 	{
-		return (java.lang.String)getAttribute(StringItem.min4Max8);
+		return (java.lang.String)get(StringItem.min4Max8);
 	}/**
 
 	 **
@@ -235,7 +235,7 @@ public class StringItem extends Item
 	 *
  */public final java.lang.String getMin4Upper()
 	{
-		return (java.lang.String)getAttribute(StringItem.min4Upper);
+		return (java.lang.String)get(StringItem.min4Upper);
 	}/**
 
 	 **
@@ -244,7 +244,7 @@ public class StringItem extends Item
 	 *
  */public final java.lang.String getMax4Upper()
 	{
-		return (java.lang.String)getAttribute(StringItem.max4Upper);
+		return (java.lang.String)get(StringItem.max4Upper);
 	}/**
 
 	 **
@@ -253,7 +253,7 @@ public class StringItem extends Item
 	 *
  */public final java.lang.Integer getMin4UpperLength()
 	{
-		return (java.lang.Integer)getAttribute(StringItem.min4UpperLength);
+		return (java.lang.Integer)get(StringItem.min4UpperLength);
 	}/**
 
 	 **
@@ -262,7 +262,7 @@ public class StringItem extends Item
 	 *
  */public final java.lang.Integer getMax4UpperLength()
 	{
-		return (java.lang.Integer)getAttribute(StringItem.max4UpperLength);
+		return (java.lang.Integer)get(StringItem.max4UpperLength);
 	}/**
 
 	 **
@@ -271,7 +271,7 @@ public class StringItem extends Item
 	 *
  */public final java.lang.Integer getMin4AndMax4UpperLength()
 	{
-		return (java.lang.Integer)getAttribute(StringItem.min4AndMax4UpperLength);
+		return (java.lang.Integer)get(StringItem.min4AndMax4UpperLength);
 	}/**
 
 	 **
@@ -280,7 +280,7 @@ public class StringItem extends Item
 	 *
  */public final java.lang.String getHashed1MD5()
 	{
-		return (java.lang.String)getAttribute(StringItem.hashed1MD5);
+		return (java.lang.String)get(StringItem.hashed1MD5);
 	}/**
 
 	 **
@@ -391,7 +391,7 @@ public class StringItem extends Item
 	 *
  */public final java.lang.String getHashed2Wrap()
 	{
-		return (java.lang.String)getAttribute(StringItem.hashed2Wrap);
+		return (java.lang.String)get(StringItem.hashed2Wrap);
 	}/**
 
 	 **

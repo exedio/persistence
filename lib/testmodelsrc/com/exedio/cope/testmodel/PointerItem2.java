@@ -75,7 +75,7 @@ public class PointerItem2 extends Item
 	 *
  */public final java.lang.String getCode()
 	{
-		return (java.lang.String)getAttribute(PointerItem2.code);
+		return (java.lang.String)get(PointerItem2.code);
 	}/**
 
 	 **

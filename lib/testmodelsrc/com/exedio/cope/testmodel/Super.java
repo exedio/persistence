@@ -73,7 +73,7 @@ public abstract class Super extends Item
 	 *
  */public final int getSuperInt()
 	{
-		return ((java.lang.Integer)getAttribute(Super.superInt)).intValue();
+		return ((java.lang.Integer)get(Super.superInt)).intValue();
 	}/**
 
 	 **
@@ -110,7 +110,7 @@ public abstract class Super extends Item
 	 *
  */public final java.lang.String getSuperString()
 	{
-		return (java.lang.String)getAttribute(Super.superString);
+		return (java.lang.String)get(Super.superString);
 	}/**
 
 	 **

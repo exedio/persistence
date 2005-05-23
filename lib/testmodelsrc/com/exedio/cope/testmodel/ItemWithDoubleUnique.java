@@ -87,7 +87,7 @@ public class ItemWithDoubleUnique extends Item
 	 *
  */public final java.lang.String getString()
 	{
-		return (java.lang.String)getAttribute(ItemWithDoubleUnique.string);
+		return (java.lang.String)get(ItemWithDoubleUnique.string);
 	}/**
 
 	 **
@@ -119,7 +119,7 @@ public class ItemWithDoubleUnique extends Item
 	 *
  */public final int getInteger()
 	{
-		return ((java.lang.Integer)getAttribute(ItemWithDoubleUnique.integer)).intValue();
+		return ((java.lang.Integer)get(ItemWithDoubleUnique.integer)).intValue();
 	}/**
 
 	 **

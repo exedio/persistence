@@ -53,7 +53,7 @@ public final class Vector extends TypeComponent
 
 		for(int i = 0; i<sources.length; i++)
 		{
-			final Object value = item.getAttribute(sources[i]);
+			final Object value = item.get(sources[i]);
 			if(value!=null)
 				result.add(value);
 		}

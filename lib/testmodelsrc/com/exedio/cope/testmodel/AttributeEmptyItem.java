@@ -76,7 +76,7 @@ public class AttributeEmptyItem extends Item
 	 *
  */public final AttributeItem getParent()
 	{
-		return (AttributeItem)getAttribute(AttributeEmptyItem.parent);
+		return (AttributeItem)get(AttributeEmptyItem.parent);
 	}/**
 
 	 **
@@ -111,7 +111,7 @@ public class AttributeEmptyItem extends Item
 	 *
  */public final EmptyItem getKey()
 	{
-		return (EmptyItem)getAttribute(AttributeEmptyItem.key);
+		return (EmptyItem)get(AttributeEmptyItem.key);
 	}/**
 
 	 **
@@ -146,7 +146,7 @@ public class AttributeEmptyItem extends Item
 	 *
  */public final java.lang.String getSomeQualifiedString()
 	{
-		return (java.lang.String)getAttribute(AttributeEmptyItem.someQualifiedString);
+		return (java.lang.String)get(AttributeEmptyItem.someQualifiedString);
 	}/**
 
 	 **

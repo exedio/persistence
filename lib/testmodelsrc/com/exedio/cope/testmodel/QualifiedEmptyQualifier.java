@@ -90,7 +90,7 @@ public class QualifiedEmptyQualifier extends Item
 	 *
  */public final QualifiedItem getParent()
 	{
-		return (QualifiedItem)getAttribute(QualifiedEmptyQualifier.parent);
+		return (QualifiedItem)get(QualifiedEmptyQualifier.parent);
 	}/**
 
 	 **
@@ -99,7 +99,7 @@ public class QualifiedEmptyQualifier extends Item
 	 *
  */public final EmptyItem getKey()
 	{
-		return (EmptyItem)getAttribute(QualifiedEmptyQualifier.key);
+		return (EmptyItem)get(QualifiedEmptyQualifier.key);
 	}/**
 
 	 **
@@ -108,7 +108,7 @@ public class QualifiedEmptyQualifier extends Item
 	 *
  */public final java.lang.String getQualifiedA()
 	{
-		return (java.lang.String)getAttribute(QualifiedEmptyQualifier.qualifiedA);
+		return (java.lang.String)get(QualifiedEmptyQualifier.qualifiedA);
 	}/**
 
 	 **
@@ -145,7 +145,7 @@ public class QualifiedEmptyQualifier extends Item
 	 *
  */public final java.lang.String getQualifiedB()
 	{
-		return (java.lang.String)getAttribute(QualifiedEmptyQualifier.qualifiedB);
+		return (java.lang.String)get(QualifiedEmptyQualifier.qualifiedB);
 	}/**
 
 	 **

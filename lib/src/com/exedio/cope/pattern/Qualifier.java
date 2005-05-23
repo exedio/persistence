@@ -120,7 +120,7 @@ public final class Qualifier extends TypeComponent
 	{
 		final Item item = qualifyUnique.searchUnique(values);
 		if(item!=null)
-			return item.getAttribute(attribute);
+			return item.get(attribute);
 		else
 			return null;
 	}

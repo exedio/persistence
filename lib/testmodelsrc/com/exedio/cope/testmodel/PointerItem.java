@@ -85,7 +85,7 @@ public class PointerItem extends Item
 	 *
  */public final java.lang.String getCode()
 	{
-		return (java.lang.String)getAttribute(PointerItem.code);
+		return (java.lang.String)get(PointerItem.code);
 	}/**
 
 	 **
@@ -120,7 +120,7 @@ public class PointerItem extends Item
 	 *
  */public final PointerItem2 getPointer()
 	{
-		return (PointerItem2)getAttribute(PointerItem.pointer);
+		return (PointerItem2)get(PointerItem.pointer);
 	}/**
 
 	 **
@@ -155,7 +155,7 @@ public class PointerItem extends Item
 	 *
  */public final PointerItem getSelf()
 	{
-		return (PointerItem)getAttribute(PointerItem.self);
+		return (PointerItem)get(PointerItem.self);
 	}/**
 
 	 **
@@ -192,7 +192,7 @@ public class PointerItem extends Item
 	 *
  */public final EmptyItem2 getEmpty2()
 	{
-		return (EmptyItem2)getAttribute(PointerItem.empty2);
+		return (EmptyItem2)get(PointerItem.empty2);
 	}/**
 
 	 **

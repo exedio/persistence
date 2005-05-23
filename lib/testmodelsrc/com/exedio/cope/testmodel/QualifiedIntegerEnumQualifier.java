@@ -106,7 +106,7 @@ public class QualifiedIntegerEnumQualifier extends Item
 	 *
  */public final QualifiedItem getUp()
 	{
-		return (QualifiedItem)getAttribute(QualifiedIntegerEnumQualifier.up);
+		return (QualifiedItem)get(QualifiedIntegerEnumQualifier.up);
 	}/**
 
 	 **
@@ -115,7 +115,7 @@ public class QualifiedIntegerEnumQualifier extends Item
 	 *
  */public final int getKeyX()
 	{
-		return ((java.lang.Integer)getAttribute(QualifiedIntegerEnumQualifier.keyX)).intValue();
+		return ((java.lang.Integer)get(QualifiedIntegerEnumQualifier.keyX)).intValue();
 	}/**
 
 	 **
@@ -124,7 +124,7 @@ public class QualifiedIntegerEnumQualifier extends Item
 	 *
  */public final KeyEnum getKeyY()
 	{
-		return (KeyEnum)getAttribute(QualifiedIntegerEnumQualifier.keyY);
+		return (KeyEnum)get(QualifiedIntegerEnumQualifier.keyY);
 	}/**
 
 	 **
@@ -133,7 +133,7 @@ public class QualifiedIntegerEnumQualifier extends Item
 	 *
  */public final java.lang.String getQualifiedA()
 	{
-		return (java.lang.String)getAttribute(QualifiedIntegerEnumQualifier.qualifiedA);
+		return (java.lang.String)get(QualifiedIntegerEnumQualifier.qualifiedA);
 	}/**
 
 	 **
@@ -170,7 +170,7 @@ public class QualifiedIntegerEnumQualifier extends Item
 	 *
  */public final java.lang.String getQualifiedB()
 	{
-		return (java.lang.String)getAttribute(QualifiedIntegerEnumQualifier.qualifiedB);
+		return (java.lang.String)get(QualifiedIntegerEnumQualifier.qualifiedB);
 	}/**
 
 	 **

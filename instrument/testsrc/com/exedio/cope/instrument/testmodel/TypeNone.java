@@ -69,7 +69,7 @@ public class TypeNone extends Item
 	 *
  */public final java.lang.String getDefaultString()
 	{
-		return (java.lang.String)getAttribute(TypeNone.defaultString);
+		return (java.lang.String)get(TypeNone.defaultString);
 	}/**
 
 	 **

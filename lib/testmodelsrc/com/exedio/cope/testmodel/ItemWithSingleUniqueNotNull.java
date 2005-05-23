@@ -81,7 +81,7 @@ public class ItemWithSingleUniqueNotNull extends Item
 	 *
  */public final java.lang.String getUniqueNotNullString()
 	{
-		return (java.lang.String)getAttribute(ItemWithSingleUniqueNotNull.uniqueNotNullString);
+		return (java.lang.String)get(ItemWithSingleUniqueNotNull.uniqueNotNullString);
 	}/**
 
 	 **

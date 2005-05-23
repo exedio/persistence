@@ -49,7 +49,7 @@ public abstract class Hash extends TypeComponent
 	
 	public final boolean check(final Item item, final String actualPlainText)
 	{
-		final String expectedHash = (String)item.getAttribute(storage);
+		final String expectedHash = (String)item.get(storage);
 		final String actualHash = hash(actualPlainText);
 		if(expectedHash==null)
 			return actualHash==null;

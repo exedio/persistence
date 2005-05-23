@@ -189,7 +189,7 @@ final class TypeCop_Jspm
 						}
 						else if(feature instanceof ItemAttribute)
 						{
-							final Item value = (Item)item.getAttribute((ItemAttribute)feature);
+							final Item value = (Item)item.get((ItemAttribute)feature);
 							if(value==null)
 							{
 								%><%=cop.getDisplayNameNull()%><%
@@ -201,7 +201,7 @@ final class TypeCop_Jspm
 						}
 						else if(feature instanceof DateAttribute)
 						{
-							final Date value = (Date)item.getAttribute((DateAttribute)feature);
+							final Date value = (Date)item.get((DateAttribute)feature);
 							if(value==null)
 							{
 								%><%=cop.getDisplayNameNull()%><%
@@ -215,7 +215,7 @@ final class TypeCop_Jspm
 						}
 						else if(feature instanceof EnumAttribute)
 						{
-							final EnumValue value = (EnumValue)item.getAttribute((EnumAttribute)feature);
+							final EnumValue value = (EnumValue)item.get((EnumAttribute)feature);
 							if(value==null)
 							{
 								%><%=cop.getDisplayNameNull()%><%
@@ -227,7 +227,7 @@ final class TypeCop_Jspm
 						}
 						else if(feature instanceof BooleanAttribute)
 						{
-							final Boolean value = (Boolean)item.getAttribute((BooleanAttribute)feature);
+							final Boolean value = (Boolean)item.get((BooleanAttribute)feature);
 							if(value==null)
 							{
 								%><%=cop.getDisplayNameNull()%><%
@@ -239,7 +239,7 @@ final class TypeCop_Jspm
 						}
 						else
 						{
-							%><%=item.getFunction((Function)feature)%><%
+							%><%=item.get((Function)feature)%><%
 						}
 						%></td><%
 					}

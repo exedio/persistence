@@ -96,7 +96,7 @@ public class SumItem extends Item
 	 *
  */public final java.lang.Integer getNum1()
 	{
-		return (java.lang.Integer)getAttribute(SumItem.num1);
+		return (java.lang.Integer)get(SumItem.num1);
 	}/**
 
 	 **
@@ -133,7 +133,7 @@ public class SumItem extends Item
 	 *
  */public final java.lang.Integer getNum2()
 	{
-		return (java.lang.Integer)getAttribute(SumItem.num2);
+		return (java.lang.Integer)get(SumItem.num2);
 	}/**
 
 	 **
@@ -170,7 +170,7 @@ public class SumItem extends Item
 	 *
  */public final java.lang.Integer getNum3()
 	{
-		return (java.lang.Integer)getAttribute(SumItem.num3);
+		return (java.lang.Integer)get(SumItem.num3);
 	}/**
 
 	 **
@@ -207,7 +207,7 @@ public class SumItem extends Item
 	 *
  */public final java.lang.Integer getSum12()
 	{
-		return (java.lang.Integer)getAttribute(SumItem.sum12);
+		return (java.lang.Integer)get(SumItem.sum12);
 	}/**
 
 	 **
@@ -216,7 +216,7 @@ public class SumItem extends Item
 	 *
  */public final java.lang.Integer getSum13()
 	{
-		return (java.lang.Integer)getAttribute(SumItem.sum13);
+		return (java.lang.Integer)get(SumItem.sum13);
 	}/**
 
 	 **
@@ -225,7 +225,7 @@ public class SumItem extends Item
 	 *
  */public final java.lang.Integer getSum23()
 	{
-		return (java.lang.Integer)getAttribute(SumItem.sum23);
+		return (java.lang.Integer)get(SumItem.sum23);
 	}/**
 
 	 **
@@ -234,7 +234,7 @@ public class SumItem extends Item
 	 *
  */public final java.lang.Integer getSum123()
 	{
-		return (java.lang.Integer)getAttribute(SumItem.sum123);
+		return (java.lang.Integer)get(SumItem.sum123);
 	}/**
 
 	 **
@@ -243,7 +243,7 @@ public class SumItem extends Item
 	 *
  */public final java.lang.Integer getSum12a3()
 	{
-		return (java.lang.Integer)getAttribute(SumItem.sum12a3);
+		return (java.lang.Integer)get(SumItem.sum12a3);
 	}/**
 
 	 **

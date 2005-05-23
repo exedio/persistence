@@ -230,7 +230,7 @@ public class AttributeItem extends Item
 	 *
  */public final java.lang.String getSomeString()
 	{
-		return (java.lang.String)getAttribute(AttributeItem.someString);
+		return (java.lang.String)get(AttributeItem.someString);
 	}/**
 
 	 **
@@ -267,7 +267,7 @@ public class AttributeItem extends Item
 	 *
  */public final java.lang.String getSomeStringUpperCase()
 	{
-		return (java.lang.String)getAttribute(AttributeItem.someStringUpperCase);
+		return (java.lang.String)get(AttributeItem.someStringUpperCase);
 	}/**
 
 	 **
@@ -276,7 +276,7 @@ public class AttributeItem extends Item
 	 *
  */public final java.lang.Integer getSomeStringLength()
 	{
-		return (java.lang.Integer)getAttribute(AttributeItem.someStringLength);
+		return (java.lang.Integer)get(AttributeItem.someStringLength);
 	}/**
 
 	 **
@@ -285,7 +285,7 @@ public class AttributeItem extends Item
 	 *
  */public final java.lang.String getSomeNotNullString()
 	{
-		return (java.lang.String)getAttribute(AttributeItem.someNotNullString);
+		return (java.lang.String)get(AttributeItem.someNotNullString);
 	}/**
 
 	 **
@@ -320,7 +320,7 @@ public class AttributeItem extends Item
 	 *
  */public final java.lang.Integer getSomeInteger()
 	{
-		return (java.lang.Integer)getAttribute(AttributeItem.someInteger);
+		return (java.lang.Integer)get(AttributeItem.someInteger);
 	}/**
 
 	 **
@@ -357,7 +357,7 @@ public class AttributeItem extends Item
 	 *
  */public final int getSomeNotNullInteger()
 	{
-		return ((java.lang.Integer)getAttribute(AttributeItem.someNotNullInteger)).intValue();
+		return ((java.lang.Integer)get(AttributeItem.someNotNullInteger)).intValue();
 	}/**
 
 	 **
@@ -394,7 +394,7 @@ public class AttributeItem extends Item
 	 *
  */public final java.lang.Long getSomeLong()
 	{
-		return (java.lang.Long)getAttribute(AttributeItem.someLong);
+		return (java.lang.Long)get(AttributeItem.someLong);
 	}/**
 
 	 **
@@ -431,7 +431,7 @@ public class AttributeItem extends Item
 	 *
  */public final long getSomeNotNullLong()
 	{
-		return ((java.lang.Long)getAttribute(AttributeItem.someNotNullLong)).longValue();
+		return ((java.lang.Long)get(AttributeItem.someNotNullLong)).longValue();
 	}/**
 
 	 **
@@ -468,7 +468,7 @@ public class AttributeItem extends Item
 	 *
  */public final java.lang.Double getSomeDouble()
 	{
-		return (java.lang.Double)getAttribute(AttributeItem.someDouble);
+		return (java.lang.Double)get(AttributeItem.someDouble);
 	}/**
 
 	 **
@@ -505,7 +505,7 @@ public class AttributeItem extends Item
 	 *
  */public final double getSomeNotNullDouble()
 	{
-		return ((java.lang.Double)getAttribute(AttributeItem.someNotNullDouble)).doubleValue();
+		return ((java.lang.Double)get(AttributeItem.someNotNullDouble)).doubleValue();
 	}/**
 
 	 **
@@ -542,7 +542,7 @@ public class AttributeItem extends Item
 	 *
  */public final java.util.Date getSomeDate()
 	{
-		return (java.util.Date)getAttribute(AttributeItem.someDate);
+		return (java.util.Date)get(AttributeItem.someDate);
 	}/**
 
 	 **
@@ -599,7 +599,7 @@ public class AttributeItem extends Item
 	 *
  */public final java.util.Date getSomeLongDate()
 	{
-		return (java.util.Date)getAttribute(AttributeItem.someLongDate);
+		return (java.util.Date)get(AttributeItem.someLongDate);
 	}/**
 
 	 **
@@ -656,7 +656,7 @@ public class AttributeItem extends Item
 	 *
  */public final java.lang.Boolean getSomeBoolean()
 	{
-		return (java.lang.Boolean)getAttribute(AttributeItem.someBoolean);
+		return (java.lang.Boolean)get(AttributeItem.someBoolean);
 	}/**
 
 	 **
@@ -693,7 +693,7 @@ public class AttributeItem extends Item
 	 *
  */public final boolean getSomeNotNullBoolean()
 	{
-		return ((java.lang.Boolean)getAttribute(AttributeItem.someNotNullBoolean)).booleanValue();
+		return ((java.lang.Boolean)get(AttributeItem.someNotNullBoolean)).booleanValue();
 	}/**
 
 	 **
@@ -730,7 +730,7 @@ public class AttributeItem extends Item
 	 *
  */public final EmptyItem getSomeItem()
 	{
-		return (EmptyItem)getAttribute(AttributeItem.someItem);
+		return (EmptyItem)get(AttributeItem.someItem);
 	}/**
 
 	 **
@@ -767,7 +767,7 @@ public class AttributeItem extends Item
 	 *
  */public final EmptyItem getSomeNotNullItem()
 	{
-		return (EmptyItem)getAttribute(AttributeItem.someNotNullItem);
+		return (EmptyItem)get(AttributeItem.someNotNullItem);
 	}/**
 
 	 **
@@ -802,7 +802,7 @@ public class AttributeItem extends Item
 	 *
  */public final SomeEnumeration getSomeEnumeration()
 	{
-		return (SomeEnumeration)getAttribute(AttributeItem.someEnumeration);
+		return (SomeEnumeration)get(AttributeItem.someEnumeration);
 	}/**
 
 	 **
@@ -839,7 +839,7 @@ public class AttributeItem extends Item
 	 *
  */public final SomeEnumeration getSomeNotNullEnumeration()
 	{
-		return (SomeEnumeration)getAttribute(AttributeItem.someNotNullEnumeration);
+		return (SomeEnumeration)get(AttributeItem.someNotNullEnumeration);
 	}/**
 
 	 **

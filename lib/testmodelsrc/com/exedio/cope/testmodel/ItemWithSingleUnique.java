@@ -71,7 +71,7 @@ public class ItemWithSingleUnique extends Item
 	 *
  */public final java.lang.String getUniqueString()
 	{
-		return (java.lang.String)getAttribute(ItemWithSingleUnique.uniqueString);
+		return (java.lang.String)get(ItemWithSingleUnique.uniqueString);
 	}/**
 
 	 **

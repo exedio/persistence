@@ -168,7 +168,7 @@ public class Standard extends Item
 	 *
  */public final java.lang.String getDefaultString()
 	{
-		return (java.lang.String)getAttribute(Standard.defaultString);
+		return (java.lang.String)get(Standard.defaultString);
 	}/**
 
 	 **
@@ -205,7 +205,7 @@ public class Standard extends Item
 	 *
  */public final java.lang.String getNotNullString()
 	{
-		return (java.lang.String)getAttribute(Standard.notNullString);
+		return (java.lang.String)get(Standard.notNullString);
 	}/**
 
 	 **
@@ -240,7 +240,7 @@ public class Standard extends Item
 	 *
  */public final java.lang.String getReadOnlyString()
 	{
-		return (java.lang.String)getAttribute(Standard.readOnlyString);
+		return (java.lang.String)get(Standard.readOnlyString);
 	}/**
 
 	 **
@@ -249,7 +249,7 @@ public class Standard extends Item
 	 *
  */public final java.lang.String getUniqueString()
 	{
-		return (java.lang.String)getAttribute(Standard.uniqueString);
+		return (java.lang.String)get(Standard.uniqueString);
 	}/**
 
 	 **
@@ -284,7 +284,7 @@ public class Standard extends Item
 	 *
  */public final java.lang.Integer getDefaultInteger()
 	{
-		return (java.lang.Integer)getAttribute(Standard.defaultInteger);
+		return (java.lang.Integer)get(Standard.defaultInteger);
 	}/**
 
 	 **
@@ -321,7 +321,7 @@ public class Standard extends Item
 	 *
  */public final int getNativeInteger()
 	{
-		return ((java.lang.Integer)getAttribute(Standard.nativeInteger)).intValue();
+		return ((java.lang.Integer)get(Standard.nativeInteger)).intValue();
 	}/**
 
 	 **
@@ -358,7 +358,7 @@ public class Standard extends Item
 	 *
  */public final java.lang.Long getDefaultLong()
 	{
-		return (java.lang.Long)getAttribute(Standard.defaultLong);
+		return (java.lang.Long)get(Standard.defaultLong);
 	}/**
 
 	 **
@@ -395,7 +395,7 @@ public class Standard extends Item
 	 *
  */public final long getNativeLong()
 	{
-		return ((java.lang.Long)getAttribute(Standard.nativeLong)).longValue();
+		return ((java.lang.Long)get(Standard.nativeLong)).longValue();
 	}/**
 
 	 **
@@ -432,7 +432,7 @@ public class Standard extends Item
 	 *
  */public final java.lang.Double getDefaultDouble()
 	{
-		return (java.lang.Double)getAttribute(Standard.defaultDouble);
+		return (java.lang.Double)get(Standard.defaultDouble);
 	}/**
 
 	 **
@@ -469,7 +469,7 @@ public class Standard extends Item
 	 *
  */public final double getNativeDouble()
 	{
-		return ((java.lang.Double)getAttribute(Standard.nativeDouble)).doubleValue();
+		return ((java.lang.Double)get(Standard.nativeDouble)).doubleValue();
 	}/**
 
 	 **
@@ -506,7 +506,7 @@ public class Standard extends Item
 	 *
  */public final java.lang.Boolean getDefaultBoolean()
 	{
-		return (java.lang.Boolean)getAttribute(Standard.defaultBoolean);
+		return (java.lang.Boolean)get(Standard.defaultBoolean);
 	}/**
 
 	 **
@@ -543,7 +543,7 @@ public class Standard extends Item
 	 *
  */public final boolean getNativeBoolean()
 	{
-		return ((java.lang.Boolean)getAttribute(Standard.nativeBoolean)).booleanValue();
+		return ((java.lang.Boolean)get(Standard.nativeBoolean)).booleanValue();
 	}/**
 
 	 **
@@ -580,7 +580,7 @@ public class Standard extends Item
 	 *
  */private final java.lang.String getPrivateString()
 	{
-		return (java.lang.String)getAttribute(Standard.privateString);
+		return (java.lang.String)get(Standard.privateString);
 	}/**
 
 	 **
@@ -645,7 +645,7 @@ public class Standard extends Item
 	 *
  */private final java.lang.String getPrivateGetterString()
 	{
-		return (java.lang.String)getAttribute(Standard.privateGetterString);
+		return (java.lang.String)get(Standard.privateGetterString);
 	}/**
 
 	 **
@@ -682,7 +682,7 @@ public class Standard extends Item
 	 *
  */public final java.lang.String getNoneSetterString()
 	{
-		return (java.lang.String)getAttribute(Standard.noneSetterString);
+		return (java.lang.String)get(Standard.noneSetterString);
 	}/**
 
 	 **
@@ -691,7 +691,7 @@ public class Standard extends Item
 	 *
  */public final java.lang.String getPrivateSetterString()
 	{
-		return (java.lang.String)getAttribute(Standard.privateSetterString);
+		return (java.lang.String)get(Standard.privateSetterString);
 	}/**
 
 	 **
@@ -728,7 +728,7 @@ public class Standard extends Item
 	 *
  */public java.lang.String getNonfinalGetterString()
 	{
-		return (java.lang.String)getAttribute(Standard.nonfinalGetterString);
+		return (java.lang.String)get(Standard.nonfinalGetterString);
 	}/**
 
 	 **
@@ -765,7 +765,7 @@ public class Standard extends Item
 	 *
  */protected final java.lang.String getNonfinalSetterString()
 	{
-		return (java.lang.String)getAttribute(Standard.nonfinalSetterString);
+		return (java.lang.String)get(Standard.nonfinalSetterString);
 	}/**
 
 	 **
@@ -802,7 +802,7 @@ public class Standard extends Item
 	 *
  */public final java.lang.Boolean isAsIsBoolean()
 	{
-		return (java.lang.Boolean)getAttribute(Standard.asIsBoolean);
+		return (java.lang.Boolean)get(Standard.asIsBoolean);
 	}/**
 
 	 **

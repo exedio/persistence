@@ -69,7 +69,7 @@ public class TypePrivate extends Item
 	 *
  */public final java.lang.String getDefaultString()
 	{
-		return (java.lang.String)getAttribute(TypePrivate.defaultString);
+		return (java.lang.String)get(TypePrivate.defaultString);
 	}/**
 
 	 **
