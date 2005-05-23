@@ -600,8 +600,8 @@ final class Generator
 		writeCommentGenerated();
 		for(int i=0; i<copeAttributes.length; i++)
 		{
-			o.write("\t * @param searched");
-			o.write(toCamelCase(copeAttributes[i].getName()));
+			o.write("\t * @param ");
+			o.write(copeAttributes[i].getName());
 			o.write(' ');
 			o.write(format(FINDER_UNIQUE_PARAMETER, link(copeAttributes[i].getName())));
 			o.write(lineSeparator);
@@ -622,8 +622,8 @@ final class Generator
 			final CopeAttribute copeAttribute = copeAttributes[i];
 			o.write("final ");
 			o.write(copeAttribute.getBoxedType());
-			o.write(" searched");
-			o.write(toCamelCase(copeAttribute.getName()));
+			o.write(' ');
+			o.write(copeAttribute.getName());
 		}
 		o.write(')');
 		o.write(lineSeparator);
@@ -635,19 +635,23 @@ final class Generator
 
 		if(copeAttributes.length==1)
 		{
+			o.write(copeAttributes[0].copeClass.getName());
+			o.write('.');
 			o.write(copeAttributes[0].getName());
 			o.write(".searchUnique(");
-			writePrefixedAttribute("searched", copeAttributes[0]);
+			writeAttribute(copeAttributes[0]);
 		}
 		else
 		{
+			o.write(copeAttributes[0].copeClass.getName());
+			o.write('.');
 			o.write(constraint.name);
 			o.write(".searchUnique(new Object[]{");
-			writePrefixedAttribute("searched", copeAttributes[0]);
+			writeAttribute(copeAttributes[0]);
 			for(int i = 1; i<copeAttributes.length; i++)
 			{
 				o.write(',');
-				writePrefixedAttribute("searched", copeAttributes[i]);
+				writeAttribute(copeAttributes[i]);
 			}
 			o.write('}');
 		}
@@ -655,17 +659,6 @@ final class Generator
 		o.write(");");
 		o.write(lineSeparator);
 		o.write("\t}");
-	}
-	
-	private void writePrefixedAttribute(final String prefix, final CopeAttribute attribute)
-			throws IOException
-	{
-		if(attribute.isBoxed())
-			o.write(attribute.getBoxingPrefix());
-		o.write(prefix);
-		o.write(toCamelCase(attribute.getName()));
-		if(attribute.isBoxed())
-			o.write(attribute.getBoxingPostfix());
 	}
 	
 	private void writeAttribute(final CopeAttribute attribute)
