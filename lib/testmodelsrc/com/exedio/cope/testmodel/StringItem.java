@@ -18,12 +18,12 @@
 
 package com.exedio.cope.testmodel;
 
-import com.exedio.cope.Hash;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringAttribute;
 import com.exedio.cope.function.LengthFunction;
 import com.exedio.cope.function.SumFunction;
 import com.exedio.cope.function.UppercaseFunction;
+import com.exedio.cope.pattern.Hash;
 import com.exedio.cope.pattern.MD5Hash;
 
 /**

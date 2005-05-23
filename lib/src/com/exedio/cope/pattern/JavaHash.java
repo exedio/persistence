@@ -22,7 +22,6 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import com.exedio.cope.Hash;
 import com.exedio.cope.NestingRuntimeException;
 import com.exedio.cope.StringAttribute;
 

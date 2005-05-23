@@ -16,7 +16,14 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope;
+package com.exedio.cope.pattern;
+
+import com.exedio.cope.Item;
+import com.exedio.cope.LengthViolationException;
+import com.exedio.cope.NotNullViolationException;
+import com.exedio.cope.ReadOnlyViolationException;
+import com.exedio.cope.StringAttribute;
+import com.exedio.cope.UniqueViolationException;
 
 public abstract class Hash
 {

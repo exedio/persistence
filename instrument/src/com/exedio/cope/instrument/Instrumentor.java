@@ -31,7 +31,6 @@ import com.exedio.cope.DateAttribute;
 import com.exedio.cope.DoubleAttribute;
 import com.exedio.cope.EnumAttribute;
 import com.exedio.cope.Function;
-import com.exedio.cope.Hash;
 import com.exedio.cope.IntegerFunction;
 import com.exedio.cope.ItemAttribute;
 import com.exedio.cope.LongAttribute;
@@ -39,6 +38,7 @@ import com.exedio.cope.DataAttribute;
 import com.exedio.cope.DataAttributeVariant;
 import com.exedio.cope.StringFunction;
 import com.exedio.cope.UniqueConstraint;
+import com.exedio.cope.pattern.Hash;
 import com.exedio.cope.pattern.Qualifier;
 
 final class Instrumentor implements InjectionConsumer
