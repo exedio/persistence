@@ -99,12 +99,6 @@ public final class UniqueConstraint extends TypeComponent
 		database.addUniqueConstraint(databaseID, this);
 	}
 
-	// TODO: remove
-	public final String getID()
-	{
-		return getName();
-	}
-	
 	public final String getDatabaseID()
 	{
 		if(databaseID==null)
