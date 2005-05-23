@@ -122,7 +122,7 @@ abstract class CopeAttribute
 		this.setterOption = new Option(setterOption, true);
 		this.isBoolean = BooleanAttribute.class.equals(typeClass);
 
-		copeClass.addCopeAttribute(this);
+		copeClass.add(this);
 	}
 	
 	private ArrayList hashes;

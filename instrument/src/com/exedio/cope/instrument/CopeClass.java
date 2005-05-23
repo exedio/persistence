@@ -88,7 +88,7 @@ final class CopeClass
 		return javaClass.isInterface();
 	}
 
-	public void addCopeAttribute(final CopeAttribute copeAttribute)
+	public void add(final CopeAttribute copeAttribute)
 	{
 		copeAttributes.add(copeAttribute);
 		copeAttributeMap.put(copeAttribute.getName(), copeAttribute);
