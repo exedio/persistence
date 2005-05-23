@@ -122,7 +122,7 @@ public class DataItem extends Item
 	{
 		try
 		{
-			setData(DataItem.file,data,mimeMajor,mimeMinor);
+			set(DataItem.file,data,mimeMajor,mimeMinor);
 		}
 		catch(com.exedio.cope.NotNullViolationException e)
 		{
@@ -184,7 +184,7 @@ public class DataItem extends Item
 	{
 		try
 		{
-			setData(DataItem.image,data,null,mimeMinor);
+			set(DataItem.image,data,null,mimeMinor);
 		}
 		catch(com.exedio.cope.NotNullViolationException e)
 		{
@@ -264,7 +264,7 @@ public class DataItem extends Item
 	{
 		try
 		{
-			setData(DataItem.photo,data,null,null);
+			set(DataItem.photo,data,null,null);
 		}
 		catch(com.exedio.cope.NotNullViolationException e)
 		{

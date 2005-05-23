@@ -896,7 +896,7 @@ public class Standard extends Item
 	{
 		try
 		{
-			setData(Standard.anyData,data,mimeMajor,mimeMinor);
+			set(Standard.anyData,data,mimeMajor,mimeMinor);
 		}
 		catch(com.exedio.cope.NotNullViolationException e)
 		{
@@ -949,7 +949,7 @@ public class Standard extends Item
 	{
 		try
 		{
-			setData(Standard.majorData,data,null,mimeMinor);
+			set(Standard.majorData,data,null,mimeMinor);
 		}
 		catch(com.exedio.cope.NotNullViolationException e)
 		{
@@ -1002,7 +1002,7 @@ public class Standard extends Item
 	{
 		try
 		{
-			setData(Standard.minorData,data,null,null);
+			set(Standard.minorData,data,null,null);
 		}
 		catch(com.exedio.cope.NotNullViolationException e)
 		{

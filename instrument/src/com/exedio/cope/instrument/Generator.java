@@ -573,7 +573,7 @@ final class Generator
 			exceptionsToCatch.remove(LengthViolationException.class);
 			exceptionsToCatch.remove(UniqueViolationException.class);
 			writeTryCatchClausePrefix(exceptionsToCatch);
-			o.write("\t\tsetData(");
+			o.write("\t\tset(");
 			o.write(attribute.copeClass.getName());
 			o.write('.');
 			o.write(attribute.getName());

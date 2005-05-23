@@ -922,7 +922,7 @@ public class AttributeItem extends Item
 	{
 		try
 		{
-			setData(AttributeItem.someData,data,mimeMajor,mimeMinor);
+			set(AttributeItem.someData,data,mimeMajor,mimeMinor);
 		}
 		catch(com.exedio.cope.NotNullViolationException e)
 		{
