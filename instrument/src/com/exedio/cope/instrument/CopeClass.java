@@ -107,7 +107,7 @@ final class CopeClass
 		return (CopeAttribute)copeAttributeMap.get(name);
 	}
 	
-	public void addCopeUniqueConstraint(final CopeUniqueConstraint copeUniqueConstraint)
+	public void add(final CopeUniqueConstraint copeUniqueConstraint)
 	{
 		copeUniqueConstraintMap.put(copeUniqueConstraint.name, copeUniqueConstraint);
 	}
