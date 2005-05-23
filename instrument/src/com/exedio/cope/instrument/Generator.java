@@ -197,8 +197,8 @@ final class Generator
 		for(Iterator i = initialAttributes.iterator(); i.hasNext(); )
 		{
 			final CopeAttribute initialAttribute = (CopeAttribute)i.next();
-			o.write("\t * @param initial");
-			o.write(toCamelCase(initialAttribute.getName()));
+			o.write("\t * @param ");
+			o.write(initialAttribute.getName());
 			o.write(' ');
 			o.write(format(CONSTRUCTOR_INITIAL_PARAMETER, link(initialAttribute.getName())));
 			o.write(lineSeparator);
@@ -222,8 +222,7 @@ final class Generator
 					first = false;
 				else
 					initialAttributesBuf.append(", ");
-				initialAttributesBuf.append("initial");
-				initialAttributesBuf.append(toCamelCase(initialAttribute.getName()));
+				initialAttributesBuf.append(initialAttribute.getName());
 			}
 
 			final String pattern;
@@ -260,8 +259,8 @@ final class Generator
 			o.write(lineSeparator);
 			o.write("\t\t\t\tfinal ");
 			o.write(initialAttribute.getBoxedType());
-			o.write(" initial");
-			o.write(toCamelCase(initialAttribute.getName()));
+			o.write(' ');
+			o.write(initialAttribute.getName());
 		}
 		
 		o.write(')');
@@ -275,9 +274,11 @@ final class Generator
 		{
 			final CopeAttribute initialAttribute = (CopeAttribute)i.next();
 			o.write("\t\t\tnew "+AttributeValue.class.getName()+"(");
+			o.write(initialAttribute.copeClass.getName());
+			o.write('.');
 			o.write(initialAttribute.getName());
 			o.write(',');
-			writePrefixedAttribute("initial", initialAttribute);
+			writeAttribute(initialAttribute);
 			o.write("),");
 			o.write(lineSeparator);
 		}
@@ -663,6 +664,16 @@ final class Generator
 			o.write(attribute.getBoxingPrefix());
 		o.write(prefix);
 		o.write(toCamelCase(attribute.getName()));
+		if(attribute.isBoxed())
+			o.write(attribute.getBoxingPostfix());
+	}
+	
+	private void writeAttribute(final CopeAttribute attribute)
+			throws IOException
+	{
+		if(attribute.isBoxed())
+			o.write(attribute.getBoxingPrefix());
+		o.write(attribute.getName());
 		if(attribute.isBoxed())
 			o.write(attribute.getBoxingPostfix());
 	}
