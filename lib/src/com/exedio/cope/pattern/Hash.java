@@ -37,7 +37,7 @@ public abstract class Hash extends TypeComponent
 	
 	public abstract String hash(String plainText);
 	
-	public void set(final Item item, final String plainText)
+	public final void set(final Item item, final String plainText)
 		throws
 			UniqueViolationException,
 			NotNullViolationException,
@@ -47,7 +47,7 @@ public abstract class Hash extends TypeComponent
 		item.setAttribute(storage, hash(plainText));
 	}
 	
-	public boolean check(final Item item, final String actualPlainText)
+	public final boolean check(final Item item, final String actualPlainText)
 	{
 		final String expectedHash = (String)item.getAttribute(storage);
 		final String actualHash = hash(actualPlainText);
