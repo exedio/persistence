@@ -80,7 +80,7 @@ public class TypeNone extends Item
 	{
 		try
 		{
-			setAttribute(TypeNone.defaultString,defaultString);
+			set(TypeNone.defaultString,defaultString);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{

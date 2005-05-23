@@ -71,7 +71,7 @@ public class AttributeStringTest extends AttributeTest
 
 		try
 		{
-			item.setAttribute(item.someString, new Integer(10));
+			item.set(item.someString, new Integer(10));
 			fail();
 		}
 		catch(ClassCastException e)

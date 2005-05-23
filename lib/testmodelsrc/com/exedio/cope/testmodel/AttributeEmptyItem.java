@@ -89,7 +89,7 @@ public class AttributeEmptyItem extends Item
 	{
 		try
 		{
-			setAttribute(AttributeEmptyItem.parent,parent);
+			set(AttributeEmptyItem.parent,parent);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -124,7 +124,7 @@ public class AttributeEmptyItem extends Item
 	{
 		try
 		{
-			setAttribute(AttributeEmptyItem.key,key);
+			set(AttributeEmptyItem.key,key);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -157,7 +157,7 @@ public class AttributeEmptyItem extends Item
 	{
 		try
 		{
-			setAttribute(AttributeEmptyItem.someQualifiedString,someQualifiedString);
+			set(AttributeEmptyItem.someQualifiedString,someQualifiedString);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{

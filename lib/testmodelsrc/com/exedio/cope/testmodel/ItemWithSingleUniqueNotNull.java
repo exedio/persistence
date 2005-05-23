@@ -95,7 +95,7 @@ public class ItemWithSingleUniqueNotNull extends Item
 	{
 		try
 		{
-			setAttribute(ItemWithSingleUniqueNotNull.uniqueNotNullString,uniqueNotNullString);
+			set(ItemWithSingleUniqueNotNull.uniqueNotNullString,uniqueNotNullString);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{

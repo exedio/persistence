@@ -117,7 +117,7 @@ public class UniqueItemTest extends DatabaseLibTest
 
 		try
 		{
-			item.setAttribute(item.uniqueReadOnlyString, "zapp");
+			item.set(item.uniqueReadOnlyString, "zapp");
 			fail("should have thrown ReadOnlyViolationException");
 		}
 		catch(ReadOnlyViolationException e)

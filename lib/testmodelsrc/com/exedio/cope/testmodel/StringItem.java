@@ -104,7 +104,7 @@ public class StringItem extends Item
 	{
 		try
 		{
-			setAttribute(StringItem.any,any);
+			set(StringItem.any,any);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -143,7 +143,7 @@ public class StringItem extends Item
 	{
 		try
 		{
-			setAttribute(StringItem.min4,min4);
+			set(StringItem.min4,min4);
 		}
 		catch(com.exedio.cope.NotNullViolationException e)
 		{
@@ -178,7 +178,7 @@ public class StringItem extends Item
 	{
 		try
 		{
-			setAttribute(StringItem.max4,max4);
+			set(StringItem.max4,max4);
 		}
 		catch(com.exedio.cope.NotNullViolationException e)
 		{
@@ -213,7 +213,7 @@ public class StringItem extends Item
 	{
 		try
 		{
-			setAttribute(StringItem.min4Max8,min4Max8);
+			set(StringItem.min4Max8,min4Max8);
 		}
 		catch(com.exedio.cope.NotNullViolationException e)
 		{
@@ -291,7 +291,7 @@ public class StringItem extends Item
 	{
 		try
 		{
-			setAttribute(StringItem.hashed1MD5,hashed1MD5);
+			set(StringItem.hashed1MD5,hashed1MD5);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -402,7 +402,7 @@ public class StringItem extends Item
 	{
 		try
 		{
-			setAttribute(StringItem.hashed2Wrap,hashed2Wrap);
+			set(StringItem.hashed2Wrap,hashed2Wrap);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{

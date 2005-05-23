@@ -98,7 +98,7 @@ public class PointerItem extends Item
 	{
 		try
 		{
-			setAttribute(PointerItem.code,code);
+			set(PointerItem.code,code);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -133,7 +133,7 @@ public class PointerItem extends Item
 	{
 		try
 		{
-			setAttribute(PointerItem.pointer,pointer);
+			set(PointerItem.pointer,pointer);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -166,7 +166,7 @@ public class PointerItem extends Item
 	{
 		try
 		{
-			setAttribute(PointerItem.self,self);
+			set(PointerItem.self,self);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -203,7 +203,7 @@ public class PointerItem extends Item
 	{
 		try
 		{
-			setAttribute(PointerItem.empty2,empty2);
+			set(PointerItem.empty2,empty2);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{

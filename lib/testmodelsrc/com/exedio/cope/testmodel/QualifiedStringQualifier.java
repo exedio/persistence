@@ -120,7 +120,7 @@ public class QualifiedStringQualifier extends Item
 	{
 		try
 		{
-			setAttribute(QualifiedStringQualifier.qualifiedA,qualifiedA);
+			set(QualifiedStringQualifier.qualifiedA,qualifiedA);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -157,7 +157,7 @@ public class QualifiedStringQualifier extends Item
 	{
 		try
 		{
-			setAttribute(QualifiedStringQualifier.qualifiedB,qualifiedB);
+			set(QualifiedStringQualifier.qualifiedB,qualifiedB);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{

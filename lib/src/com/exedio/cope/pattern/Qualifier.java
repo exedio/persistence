@@ -147,7 +147,7 @@ public final class Qualifier extends TypeComponent
 
 		try
 		{
-			item.setAttribute(attribute, value);
+			item.set(attribute, value);
 		}
 		catch(UniqueViolationException e)
 		{

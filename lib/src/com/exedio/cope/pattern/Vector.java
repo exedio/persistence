@@ -71,10 +71,10 @@ public final class Vector extends TypeComponent
 		int i = 0;
 
 		for(Iterator it = values.iterator(); it.hasNext(); i++)
-			item.setAttribute(sources[i], it.next());
+			item.set(sources[i], it.next());
 
 		for(; i<sources.length; i++)
-			item.setAttribute(sources[i], null);
+			item.set(sources[i], null);
 	}
 	
 }

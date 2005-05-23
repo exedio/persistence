@@ -84,7 +84,7 @@ public abstract class Super extends Item
 	{
 		try
 		{
-			setAttribute(Super.superInt,new java.lang.Integer(superInt));
+			set(Super.superInt,new java.lang.Integer(superInt));
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -121,7 +121,7 @@ public abstract class Super extends Item
 	{
 		try
 		{
-			setAttribute(Super.superString,superString);
+			set(Super.superString,superString);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{

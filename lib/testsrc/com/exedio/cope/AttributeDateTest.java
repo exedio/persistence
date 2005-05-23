@@ -72,7 +72,7 @@ public class AttributeDateTest extends AttributeTest
 
 		try
 		{
-			item.setAttribute(item.someDate, new Integer(10));
+			item.set(item.someDate, new Integer(10));
 			fail();
 		}
 		catch(ClassCastException e)

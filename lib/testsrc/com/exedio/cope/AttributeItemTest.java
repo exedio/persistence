@@ -54,7 +54,7 @@ public class AttributeItemTest extends AttributeTest
 		
 		try
 		{
-			item.setAttribute(item.someItem, new Integer(10));
+			item.set(item.someItem, new Integer(10));
 			fail();
 		}
 		catch(ClassCastException e)
@@ -66,7 +66,7 @@ public class AttributeItemTest extends AttributeTest
 		deleteOnTearDown(wrongItem);
 		try
 		{
-			item.setAttribute(item.someItem, wrongItem);
+			item.set(item.someItem, wrongItem);
 			fail();
 		}
 		catch(ClassCastException e)

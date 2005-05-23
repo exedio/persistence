@@ -56,7 +56,7 @@ public class AttributeDoubleTest extends AttributeTest
 
 		try
 		{
-			item.setAttribute(item.someDouble, new Integer(10));
+			item.set(item.someDouble, new Integer(10));
 			fail();
 		}
 		catch(ClassCastException e)

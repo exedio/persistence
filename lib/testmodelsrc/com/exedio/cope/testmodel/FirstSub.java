@@ -86,7 +86,7 @@ public class FirstSub extends Super
 	{
 		try
 		{
-			setAttribute(FirstSub.firstSubString,firstSubString);
+			set(FirstSub.firstSubString,firstSubString);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{

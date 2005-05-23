@@ -503,7 +503,7 @@ final class ItemForm extends Form
 					try
 					{
 						final ObjectAttribute attribute = (ObjectAttribute)field.key;
-						item.setAttribute(attribute, field.getContent());
+						item.set(attribute, field.getContent());
 					}
 					catch(NotNullViolationException e)
 					{

@@ -119,7 +119,7 @@ public class QualifiedEmptyQualifier extends Item
 	{
 		try
 		{
-			setAttribute(QualifiedEmptyQualifier.qualifiedA,qualifiedA);
+			set(QualifiedEmptyQualifier.qualifiedA,qualifiedA);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -156,7 +156,7 @@ public class QualifiedEmptyQualifier extends Item
 	{
 		try
 		{
-			setAttribute(QualifiedEmptyQualifier.qualifiedB,qualifiedB);
+			set(QualifiedEmptyQualifier.qualifiedB,qualifiedB);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{

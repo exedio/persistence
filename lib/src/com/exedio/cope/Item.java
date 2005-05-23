@@ -274,7 +274,7 @@ public abstract class Item extends Cope
 	 * @throws ClassCastException
 	 *         if <code>value</code> is not compatible to <code>attribute</code>.
 	 */
-	public final void setAttribute(final ObjectAttribute attribute, final Object value)
+	public final void set(final ObjectAttribute attribute, final Object value)
 		throws
 			UniqueViolationException,
 			NotNullViolationException,
@@ -312,7 +312,7 @@ public abstract class Item extends Cope
 	{
 		try
 		{
-			setAttribute(attribute, new Date()); // TODO: make a more efficient implementation
+			set(attribute, new Date()); // TODO: make a more efficient implementation
 		}
 		catch(NotNullViolationException e)
 		{

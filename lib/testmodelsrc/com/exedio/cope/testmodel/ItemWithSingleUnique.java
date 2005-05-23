@@ -84,7 +84,7 @@ public class ItemWithSingleUnique extends Item
 	{
 		try
 		{
-			setAttribute(ItemWithSingleUnique.uniqueString,uniqueString);
+			set(ItemWithSingleUnique.uniqueString,uniqueString);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{

@@ -241,7 +241,7 @@ public class AttributeItem extends Item
 	{
 		try
 		{
-			setAttribute(AttributeItem.someString,someString);
+			set(AttributeItem.someString,someString);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -298,7 +298,7 @@ public class AttributeItem extends Item
 	{
 		try
 		{
-			setAttribute(AttributeItem.someNotNullString,someNotNullString);
+			set(AttributeItem.someNotNullString,someNotNullString);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -331,7 +331,7 @@ public class AttributeItem extends Item
 	{
 		try
 		{
-			setAttribute(AttributeItem.someInteger,someInteger);
+			set(AttributeItem.someInteger,someInteger);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -368,7 +368,7 @@ public class AttributeItem extends Item
 	{
 		try
 		{
-			setAttribute(AttributeItem.someNotNullInteger,new java.lang.Integer(someNotNullInteger));
+			set(AttributeItem.someNotNullInteger,new java.lang.Integer(someNotNullInteger));
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -405,7 +405,7 @@ public class AttributeItem extends Item
 	{
 		try
 		{
-			setAttribute(AttributeItem.someLong,someLong);
+			set(AttributeItem.someLong,someLong);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -442,7 +442,7 @@ public class AttributeItem extends Item
 	{
 		try
 		{
-			setAttribute(AttributeItem.someNotNullLong,new java.lang.Long(someNotNullLong));
+			set(AttributeItem.someNotNullLong,new java.lang.Long(someNotNullLong));
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -479,7 +479,7 @@ public class AttributeItem extends Item
 	{
 		try
 		{
-			setAttribute(AttributeItem.someDouble,someDouble);
+			set(AttributeItem.someDouble,someDouble);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -516,7 +516,7 @@ public class AttributeItem extends Item
 	{
 		try
 		{
-			setAttribute(AttributeItem.someNotNullDouble,new java.lang.Double(someNotNullDouble));
+			set(AttributeItem.someNotNullDouble,new java.lang.Double(someNotNullDouble));
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -553,7 +553,7 @@ public class AttributeItem extends Item
 	{
 		try
 		{
-			setAttribute(AttributeItem.someDate,someDate);
+			set(AttributeItem.someDate,someDate);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -610,7 +610,7 @@ public class AttributeItem extends Item
 	{
 		try
 		{
-			setAttribute(AttributeItem.someLongDate,someLongDate);
+			set(AttributeItem.someLongDate,someLongDate);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -667,7 +667,7 @@ public class AttributeItem extends Item
 	{
 		try
 		{
-			setAttribute(AttributeItem.someBoolean,someBoolean);
+			set(AttributeItem.someBoolean,someBoolean);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -704,7 +704,7 @@ public class AttributeItem extends Item
 	{
 		try
 		{
-			setAttribute(AttributeItem.someNotNullBoolean,(someNotNullBoolean?java.lang.Boolean.TRUE:java.lang.Boolean.FALSE));
+			set(AttributeItem.someNotNullBoolean,(someNotNullBoolean?java.lang.Boolean.TRUE:java.lang.Boolean.FALSE));
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -741,7 +741,7 @@ public class AttributeItem extends Item
 	{
 		try
 		{
-			setAttribute(AttributeItem.someItem,someItem);
+			set(AttributeItem.someItem,someItem);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -780,7 +780,7 @@ public class AttributeItem extends Item
 	{
 		try
 		{
-			setAttribute(AttributeItem.someNotNullItem,someNotNullItem);
+			set(AttributeItem.someNotNullItem,someNotNullItem);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -813,7 +813,7 @@ public class AttributeItem extends Item
 	{
 		try
 		{
-			setAttribute(AttributeItem.someEnumeration,someEnumeration);
+			set(AttributeItem.someEnumeration,someEnumeration);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -852,7 +852,7 @@ public class AttributeItem extends Item
 	{
 		try
 		{
-			setAttribute(AttributeItem.someNotNullEnumeration,someNotNullEnumeration);
+			set(AttributeItem.someNotNullEnumeration,someNotNullEnumeration);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{

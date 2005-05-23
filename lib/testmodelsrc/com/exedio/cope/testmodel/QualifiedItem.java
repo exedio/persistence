@@ -85,7 +85,7 @@ public class QualifiedItem extends Item
 	{
 		try
 		{
-			setAttribute(QualifiedItem.number,number);
+			set(QualifiedItem.number,number);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{

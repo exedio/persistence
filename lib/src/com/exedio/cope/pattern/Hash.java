@@ -44,7 +44,7 @@ public abstract class Hash extends TypeComponent
 			LengthViolationException,
 			ReadOnlyViolationException
 	{
-		item.setAttribute(storage, hash(plainText));
+		item.set(storage, hash(plainText));
 	}
 	
 	public final boolean check(final Item item, final String actualPlainText)

@@ -80,7 +80,7 @@ public class TypePrivate extends Item
 	{
 		try
 		{
-			setAttribute(TypePrivate.defaultString,defaultString);
+			set(TypePrivate.defaultString,defaultString);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{

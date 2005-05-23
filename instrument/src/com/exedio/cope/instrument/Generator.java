@@ -998,7 +998,7 @@ final class Generator
 	{
 		final SortedSet exceptionsToCatch = attribute.getExceptionsToCatchInSetter();
 		writeTryCatchClausePrefix(exceptionsToCatch);
-		o.write("\t\tsetAttribute(");
+		o.write("\t\tset(");
 		o.write(attribute.copeClass.getName());
 		o.write('.');
 		o.write(attribute.getName());

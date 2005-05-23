@@ -144,7 +144,7 @@ public class QualifiedIntegerEnumQualifier extends Item
 	{
 		try
 		{
-			setAttribute(QualifiedIntegerEnumQualifier.qualifiedA,qualifiedA);
+			set(QualifiedIntegerEnumQualifier.qualifiedA,qualifiedA);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -181,7 +181,7 @@ public class QualifiedIntegerEnumQualifier extends Item
 	{
 		try
 		{
-			setAttribute(QualifiedIntegerEnumQualifier.qualifiedB,qualifiedB);
+			set(QualifiedIntegerEnumQualifier.qualifiedB,qualifiedB);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{

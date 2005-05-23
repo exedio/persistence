@@ -107,7 +107,7 @@ public class SumItem extends Item
 	{
 		try
 		{
-			setAttribute(SumItem.num1,num1);
+			set(SumItem.num1,num1);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -144,7 +144,7 @@ public class SumItem extends Item
 	{
 		try
 		{
-			setAttribute(SumItem.num2,num2);
+			set(SumItem.num2,num2);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -181,7 +181,7 @@ public class SumItem extends Item
 	{
 		try
 		{
-			setAttribute(SumItem.num3,num3);
+			set(SumItem.num3,num3);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{

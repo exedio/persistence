@@ -101,7 +101,7 @@ public class ItemWithDoubleUnique extends Item
 	{
 		try
 		{
-			setAttribute(ItemWithDoubleUnique.string,string);
+			set(ItemWithDoubleUnique.string,string);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -132,7 +132,7 @@ public class ItemWithDoubleUnique extends Item
 	{
 		try
 		{
-			setAttribute(ItemWithDoubleUnique.integer,new java.lang.Integer(integer));
+			set(ItemWithDoubleUnique.integer,new java.lang.Integer(integer));
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{

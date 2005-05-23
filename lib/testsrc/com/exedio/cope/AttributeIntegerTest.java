@@ -56,7 +56,7 @@ public class AttributeIntegerTest extends AttributeTest
 
 		try
 		{
-			item.setAttribute(item.someInteger, new Long(10l));
+			item.set(item.someInteger, new Long(10l));
 			fail();
 		}
 		catch(ClassCastException e)

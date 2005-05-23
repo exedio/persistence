@@ -57,7 +57,7 @@ public class AttributeLongTest extends AttributeTest
 
 		try
 		{
-			item.setAttribute(item.someLong, new Integer(10));
+			item.set(item.someLong, new Integer(10));
 			fail();
 		}
 		catch(ClassCastException e)

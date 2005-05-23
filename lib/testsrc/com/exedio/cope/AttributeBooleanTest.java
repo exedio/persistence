@@ -62,7 +62,7 @@ public class AttributeBooleanTest extends AttributeTest
 
 		try
 		{
-			item.setAttribute(item.someBoolean, new Integer(10));
+			item.set(item.someBoolean, new Integer(10));
 			fail();
 		}
 		catch(ClassCastException e)

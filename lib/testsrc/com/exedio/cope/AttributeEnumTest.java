@@ -53,7 +53,7 @@ public class AttributeEnumTest extends AttributeTest
 		
 		try
 		{
-			item.setAttribute(item.someEnumeration, new Integer(10));
+			item.set(item.someEnumeration, new Integer(10));
 			fail();
 		}
 		catch(ClassCastException e)
@@ -63,7 +63,7 @@ public class AttributeEnumTest extends AttributeTest
 		
 		try
 		{
-			item.setAttribute(item.someEnumeration, AttributeItem.SomeEnum2.enumValue2);
+			item.set(item.someEnumeration, AttributeItem.SomeEnum2.enumValue2);
 			fail();
 		}
 		catch(ClassCastException e)

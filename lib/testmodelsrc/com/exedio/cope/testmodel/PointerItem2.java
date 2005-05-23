@@ -88,7 +88,7 @@ public class PointerItem2 extends Item
 	{
 		try
 		{
-			setAttribute(PointerItem2.code,code);
+			set(PointerItem2.code,code);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
