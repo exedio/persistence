@@ -1042,7 +1042,7 @@ final class Generator
 		o.write(hash.storageAttribute.copeClass.getName());
 		o.write('.');
 		o.write(hash.name);
-		o.write(".checkHash(this,");
+		o.write(".check(this,");
 		o.write(hash.name);
 		o.write(");");
 		o.write(lineSeparator);
@@ -1064,7 +1064,7 @@ final class Generator
 		o.write(attribute.copeClass.getName());
 		o.write('.');
 		o.write(hash.name);
-		o.write(".setHash(this,");
+		o.write(".set(this,");
 		o.write(hash.name);
 		o.write(");");
 		o.write(lineSeparator);
