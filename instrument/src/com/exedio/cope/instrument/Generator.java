@@ -959,9 +959,6 @@ final class Generator
 		}
 	}
 
-	// ----------------- methods for a new interface abstracting the persistence
-	// ----------------- implementation used, e.g. EJB.
-
 	/**
 	 * Identation contract:
 	 * This methods is called, when o stream is immediately after a line break,
