@@ -37,6 +37,9 @@ public class HashTest extends DatabaseLibTest
 	
 	public void testMD5()
 	{
+		assertEquals("hashed1", item.hashed1.getName());
+		assertEquals("hashed1Latin", item.hashed1Latin.getName());
+
 		assertEquals("000ff0aa", JavaHash.encodeBytes(new byte[]{0x00, 0x0F, (byte)0xF0, (byte)0xAA}));
 		assertEquals("0123456789abcdef", JavaHash.encodeBytes(new byte[]{0x01, 0x23, 0x45, 0x67, (byte)0x89, (byte)0xab, (byte)0xcd, (byte)0xef}));
 
@@ -117,6 +120,8 @@ public class HashTest extends DatabaseLibTest
 
 	public void testWrap()
 	{
+		assertEquals("hashed2", item.hashed2.getName());
+
 		assertNull(item.getHashed2Wrap());
 		assertTrue(item.checkHashed2(null));
 		assertTrue(!item.checkHashed2("bing"));

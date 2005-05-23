@@ -23,9 +23,11 @@ import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.NotNullViolationException;
 import com.exedio.cope.ReadOnlyViolationException;
 import com.exedio.cope.StringAttribute;
+import com.exedio.cope.Type;
+import com.exedio.cope.TypeComponent;
 import com.exedio.cope.UniqueViolationException;
 
-public abstract class Hash
+public abstract class Hash extends TypeComponent
 {
 	final StringAttribute storage;
 
@@ -54,6 +56,24 @@ public abstract class Hash
 			return actualHash==null;
 		else
 			return expectedHash.equals(actualHash);
+	}
+
+	private String name = null;
+
+	public final void initialize(final Type type, final String name)
+	{
+		if(this.name!=null)
+			throw new RuntimeException(this.name);
+		
+		this.name = name;
+	}
+	
+	public final String getName()
+	{
+		if(name==null)
+			throw new RuntimeException();
+		
+		return name;
 	}
 
 }
