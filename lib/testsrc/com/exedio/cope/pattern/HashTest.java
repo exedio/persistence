@@ -37,6 +37,8 @@ public class HashTest extends DatabaseLibTest
 	
 	public void testMD5()
 	{
+		assertEquals(item.TYPE, item.hashed1.getType());
+		assertEquals(item.TYPE, item.hashed1Latin.getType());
 		assertEquals("hashed1", item.hashed1.getName());
 		assertEquals("hashed1Latin", item.hashed1Latin.getName());
 
@@ -120,6 +122,7 @@ public class HashTest extends DatabaseLibTest
 
 	public void testWrap()
 	{
+		assertEquals(item.TYPE, item.hashed2.getType());
 		assertEquals("hashed2", item.hashed2.getName());
 
 		assertNull(item.getHashed2Wrap());

@@ -58,14 +58,25 @@ public abstract class Hash extends TypeComponent
 			return expectedHash.equals(actualHash);
 	}
 
+	// second initialization phase ---------------------------------------------------
+
+	private Type type;
 	private String name = null;
 
 	public final void initialize(final Type type, final String name)
 	{
+		if(type==null)
+			throw new RuntimeException();
+		if(name==null)
+			throw new RuntimeException();
+
+		if(this.type!=null)
+			throw new RuntimeException();
 		if(this.name!=null)
-			throw new RuntimeException(this.name);
-		
-		this.name = name;
+			throw new RuntimeException();
+
+		this.type = type;
+		this.name = name.intern();
 	}
 	
 	public final String getName()
@@ -76,4 +87,12 @@ public abstract class Hash extends TypeComponent
 		return name;
 	}
 
+	public final Type getType()
+	{
+		if(this.type==null)
+			throw new RuntimeException();
+
+		return type;
+	}
+	
 }
