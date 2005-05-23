@@ -120,7 +120,7 @@ public class QualifiedItem extends Item
 	 *
  */public final java.lang.String getQualifiedA(final EmptyItem key)
 	{
-		return (java.lang.String)qualifier.getQualified(new Object[]{this,key},QualifiedEmptyQualifier.qualifiedA);
+		return (java.lang.String)qualifier.get(new Object[]{this,key},QualifiedEmptyQualifier.qualifiedA);
 	}/**
 
 	 **
@@ -134,7 +134,7 @@ public class QualifiedItem extends Item
 				com.exedio.cope.ReadOnlyViolationException,
 				java.lang.ClassCastException
 	{
-		qualifier.setQualified(new Object[]{this,key},QualifiedEmptyQualifier.qualifiedA,qualifiedA);
+		qualifier.set(new Object[]{this,key},QualifiedEmptyQualifier.qualifiedA,qualifiedA);
 	}/**
 
 	 **
@@ -143,7 +143,7 @@ public class QualifiedItem extends Item
 	 *
  */public final java.lang.String getQualifiedB(final EmptyItem key)
 	{
-		return (java.lang.String)qualifier.getQualified(new Object[]{this,key},QualifiedEmptyQualifier.qualifiedB);
+		return (java.lang.String)qualifier.get(new Object[]{this,key},QualifiedEmptyQualifier.qualifiedB);
 	}/**
 
 	 **
@@ -157,7 +157,7 @@ public class QualifiedItem extends Item
 				com.exedio.cope.ReadOnlyViolationException,
 				java.lang.ClassCastException
 	{
-		qualifier.setQualified(new Object[]{this,key},QualifiedEmptyQualifier.qualifiedB,qualifiedB);
+		qualifier.set(new Object[]{this,key},QualifiedEmptyQualifier.qualifiedB,qualifiedB);
 	}/**
 
 	 **
@@ -175,7 +175,7 @@ public class QualifiedItem extends Item
 	 *
  */public final java.lang.Integer getQualifiedA(final java.lang.String key)
 	{
-		return (java.lang.Integer)stringQualifier.getQualified(new Object[]{this,key},QualifiedStringQualifier.qualifiedA);
+		return (java.lang.Integer)stringQualifier.get(new Object[]{this,key},QualifiedStringQualifier.qualifiedA);
 	}/**
 
 	 **
@@ -189,7 +189,7 @@ public class QualifiedItem extends Item
 				com.exedio.cope.ReadOnlyViolationException,
 				java.lang.ClassCastException
 	{
-		stringQualifier.setQualified(new Object[]{this,key},QualifiedStringQualifier.qualifiedA,qualifiedA);
+		stringQualifier.set(new Object[]{this,key},QualifiedStringQualifier.qualifiedA,qualifiedA);
 	}/**
 
 	 **
@@ -198,7 +198,7 @@ public class QualifiedItem extends Item
 	 *
  */public final java.lang.Integer getQualifiedB(final java.lang.String key)
 	{
-		return (java.lang.Integer)stringQualifier.getQualified(new Object[]{this,key},QualifiedStringQualifier.qualifiedB);
+		return (java.lang.Integer)stringQualifier.get(new Object[]{this,key},QualifiedStringQualifier.qualifiedB);
 	}/**
 
 	 **
@@ -212,7 +212,7 @@ public class QualifiedItem extends Item
 				com.exedio.cope.ReadOnlyViolationException,
 				java.lang.ClassCastException
 	{
-		stringQualifier.setQualified(new Object[]{this,key},QualifiedStringQualifier.qualifiedB,qualifiedB);
+		stringQualifier.set(new Object[]{this,key},QualifiedStringQualifier.qualifiedB,qualifiedB);
 	}/**
 
 	 **
@@ -230,7 +230,7 @@ public class QualifiedItem extends Item
 	 *
  */public final java.lang.String getQualifiedA(final java.lang.Integer keyX,final KeyEnum keyY)
 	{
-		return (java.lang.String)intEnumQualifier.getQualified(new Object[]{this,keyX,keyY},QualifiedIntegerEnumQualifier.qualifiedA);
+		return (java.lang.String)intEnumQualifier.get(new Object[]{this,keyX,keyY},QualifiedIntegerEnumQualifier.qualifiedA);
 	}/**
 
 	 **
@@ -244,7 +244,7 @@ public class QualifiedItem extends Item
 				com.exedio.cope.ReadOnlyViolationException,
 				java.lang.ClassCastException
 	{
-		intEnumQualifier.setQualified(new Object[]{this,keyX,keyY},QualifiedIntegerEnumQualifier.qualifiedA,qualifiedA);
+		intEnumQualifier.set(new Object[]{this,keyX,keyY},QualifiedIntegerEnumQualifier.qualifiedA,qualifiedA);
 	}/**
 
 	 **
@@ -253,7 +253,7 @@ public class QualifiedItem extends Item
 	 *
  */public final java.lang.String getQualifiedB(final java.lang.Integer keyX,final KeyEnum keyY)
 	{
-		return (java.lang.String)intEnumQualifier.getQualified(new Object[]{this,keyX,keyY},QualifiedIntegerEnumQualifier.qualifiedB);
+		return (java.lang.String)intEnumQualifier.get(new Object[]{this,keyX,keyY},QualifiedIntegerEnumQualifier.qualifiedB);
 	}/**
 
 	 **
@@ -267,7 +267,7 @@ public class QualifiedItem extends Item
 				com.exedio.cope.ReadOnlyViolationException,
 				java.lang.ClassCastException
 	{
-		intEnumQualifier.setQualified(new Object[]{this,keyX,keyY},QualifiedIntegerEnumQualifier.qualifiedB,qualifiedB);
+		intEnumQualifier.set(new Object[]{this,keyX,keyY},QualifiedIntegerEnumQualifier.qualifiedB,qualifiedB);
 	}/**
 
 	 **

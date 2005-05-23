@@ -116,7 +116,7 @@ public final class Qualifier extends TypeComponent
 		return qualifyUnique.searchUnique(values);
 	}
 	
-	public final Object getQualified(final Object[] values, final ObjectAttribute attribute)
+	public final Object get(final Object[] values, final ObjectAttribute attribute)
 	{
 		final Item item = qualifyUnique.searchUnique(values);
 		if(item!=null)
@@ -125,7 +125,7 @@ public final class Qualifier extends TypeComponent
 			return null;
 	}
 	
-	public final void setQualified(final Object[] values, final ObjectAttribute attribute, Object value)
+	public final void set(final Object[] values, final ObjectAttribute attribute, Object value)
 	throws
 		NotNullViolationException,
 		LengthViolationException,

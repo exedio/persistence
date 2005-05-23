@@ -764,7 +764,7 @@ final class Generator
 		o.write(resultType);
 		o.write(')');
 		o.write(qualifier.name);
-		o.write(".getQualified(new Object[]{this");
+		o.write(".get(new Object[]{this");
 		writeQualifierCall(qualifier);
 		o.write("},");
 		o.write(qualifier.qualifierClassString);
@@ -809,7 +809,7 @@ final class Generator
 
 		o.write("\t\t");
 		o.write(qualifier.name);
-		o.write(".setQualified(new Object[]{this");
+		o.write(".set(new Object[]{this");
 		writeQualifierCall(qualifier);
 		o.write("},");
 		o.write(qualifier.qualifierClassString);

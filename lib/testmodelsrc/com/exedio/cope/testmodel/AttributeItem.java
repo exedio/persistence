@@ -945,7 +945,7 @@ public class AttributeItem extends Item
 	 *
  */public final java.lang.String getSomeQualifiedString(final EmptyItem key)
 	{
-		return (java.lang.String)emptyItem.getQualified(new Object[]{this,key},AttributeEmptyItem.someQualifiedString);
+		return (java.lang.String)emptyItem.get(new Object[]{this,key},AttributeEmptyItem.someQualifiedString);
 	}/**
 
 	 **
@@ -959,7 +959,7 @@ public class AttributeItem extends Item
 				com.exedio.cope.ReadOnlyViolationException,
 				java.lang.ClassCastException
 	{
-		emptyItem.setQualified(new Object[]{this,key},AttributeEmptyItem.someQualifiedString,someQualifiedString);
+		emptyItem.set(new Object[]{this,key},AttributeEmptyItem.someQualifiedString,someQualifiedString);
 	}/**
 
 	 **
