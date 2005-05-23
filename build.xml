@@ -14,7 +14,6 @@
 			<condition>
 				<and>
 					<isset property="label" />
-					<not><equals arg1="${label}" arg2="none" /></not>
 					<or>
 						<not><isset property="available.oracle" /></not>
 						<not><isset property="available.mysql" /></not>
