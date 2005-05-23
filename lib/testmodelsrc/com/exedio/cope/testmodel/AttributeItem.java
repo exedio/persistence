@@ -581,7 +581,7 @@ public class AttributeItem extends Item
 	{
 		try
 		{
-			touchAttribute(AttributeItem.someDate);
+			touch(AttributeItem.someDate);
 		}
 		catch(com.exedio.cope.ReadOnlyViolationException e)
 		{
@@ -638,7 +638,7 @@ public class AttributeItem extends Item
 	{
 		try
 		{
-			touchAttribute(AttributeItem.someLongDate);
+			touch(AttributeItem.someLongDate);
 		}
 		catch(com.exedio.cope.ReadOnlyViolationException e)
 		{

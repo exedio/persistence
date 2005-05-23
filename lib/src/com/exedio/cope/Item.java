@@ -305,7 +305,7 @@ public abstract class Item extends Cope
 	 * @throws ReadOnlyViolationException
 	 *         if <code>attribute</code> is {@link Attribute#isReadOnly() read-only}.
 	 */
-	public final void touchAttribute(final DateAttribute attribute)
+	public final void touch(final DateAttribute attribute)
 		throws
 			UniqueViolationException,
 			ReadOnlyViolationException
