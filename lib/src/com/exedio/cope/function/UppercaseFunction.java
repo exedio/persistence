@@ -19,6 +19,7 @@
 package com.exedio.cope.function;
 
 import com.exedio.cope.ComputedStringFunction;
+import com.exedio.cope.Cope;
 import com.exedio.cope.StringFunction;
 
 public final class UppercaseFunction
@@ -27,6 +28,12 @@ public final class UppercaseFunction
 {
 	private static final String[] sql = new String[]{"UPPER(", ")"};
 
+	/**
+	 * Creates a new UppercaseFunction.
+	 * Instead of using this constructor directly,
+	 * you may want to use the more convenient wrapper method
+	 * {@link Cope#uppercase(StringFunction) Cope.uppercase}.
+	 */
 	public UppercaseFunction(final StringFunction source)
 	{
 		super(new StringFunction[]{source}, sql, "upper");

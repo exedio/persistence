@@ -40,8 +40,8 @@ public class StringItem extends Item
 
 	public static final StringAttribute min4Max8 = stringAttribute(DEFAULT, 4, 8);
 	
-	public static final UppercaseFunction min4Upper = new UppercaseFunction(min4);
-	public static final UppercaseFunction max4Upper = new UppercaseFunction(max4);
+	public static final UppercaseFunction min4Upper = uppercase(min4);
+	public static final UppercaseFunction max4Upper = uppercase(max4);
 
 	public static final LengthFunction min4UpperLength = new LengthFunction(min4Upper);
 	public static final LengthFunction max4UpperLength = new LengthFunction(max4Upper);

@@ -19,6 +19,7 @@ package com.exedio.cope;
 
 import java.util.Date;
 
+import com.exedio.cope.function.UppercaseFunction;
 import com.exedio.cope.search.AndCondition;
 import com.exedio.cope.search.Condition;
 import com.exedio.cope.search.EqualAttributeCondition;
@@ -366,6 +367,11 @@ public abstract class Cope
 	public static final AttributeValue attributeValue(final EnumAttribute attribute, final EnumValue value)
 	{
 		return new AttributeValue(attribute, value);
+	}
+	
+	public static final UppercaseFunction uppercase(final StringFunction source)
+	{
+		return new UppercaseFunction(source);
 	}
 	
 }

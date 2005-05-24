@@ -17,7 +17,6 @@
  */
 package com.exedio.cope;
 
-import com.exedio.cope.function.UppercaseFunction;
 import com.exedio.cope.testmodel.AttributeItem;
 
 
@@ -45,11 +44,11 @@ public class AttributeStringTest extends AttributeTest
 		assertContains(item2, item.TYPE.search(Cope.like(item.someNotNullString, "someString2%")));
 
 		assertContains(item, item.TYPE.search(Cope.equal(item.someStringUpperCase, "SOMESTRING")));
-		assertContains(item, item.TYPE.search(Cope.equal(new UppercaseFunction(item.someString), "SOMESTRING")));
+		assertContains(item, item.TYPE.search(Cope.equal(Cope.uppercase(item.someString), "SOMESTRING")));
 		assertContains(item2, item.TYPE.search(Cope.notEqual(item.someStringUpperCase, "SOMESTRING")));
-		assertContains(item2, item.TYPE.search(Cope.notEqual(new UppercaseFunction(item.someString), "SOMESTRING")));
+		assertContains(item2, item.TYPE.search(Cope.notEqual(Cope.uppercase(item.someString), "SOMESTRING")));
 		assertContains(item.TYPE.search(Cope.equal(item.someStringUpperCase, "someString")));
-		assertContains(item.TYPE.search(Cope.equal(new UppercaseFunction(item.someString), "someString")));
+		assertContains(item.TYPE.search(Cope.equal(Cope.uppercase(item.someString), "someString")));
 		
 		assertContains(item, item.TYPE.search(Cope.equal(item.someStringLength, "someString".length())));
 		assertContains(item2, item.TYPE.search(Cope.notEqual(item.someStringLength, "someString".length())));
