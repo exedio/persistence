@@ -22,9 +22,6 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-import com.exedio.cope.pattern.HashTest;
-import com.exedio.cope.pattern.QualifierTest;
-import com.exedio.cope.pattern.VectorTest;
 import com.exedio.cope.util.PoolCounterTest;
 
 
@@ -56,25 +53,24 @@ public class PackageTest extends TestCase
 		suite.addTest(new TestSuite(AttributeQualifiedTest.class));
 		
 		suite.addTest(new TestSuite(StringTest.class));
-		suite.addTest(new TestSuite(HashTest.class));
 		suite.addTest(new TestSuite(DataTest.class));
 		suite.addTest(new TestSuite(NullEmptyTest.class));
 		suite.addTest(new TestSuite(UniqueItemTest.class));
 		suite.addTest(new TestSuite(HierarchyTest.class));
 		suite.addTest(new TestSuite(SearchTest.class));
 		suite.addTest(new TestSuite(SumTest.class));
-		suite.addTest(new TestSuite(VectorTest.class));
 		suite.addTest(new TestSuite(SumOrderTest.class));
 		suite.addTest(new TestSuite(OrderByTest.class));
 		suite.addTest(new TestSuite(SelectTest.class));
 		suite.addTest(new TestSuite(FunctionTest.class));
-		suite.addTest(new TestSuite(QualifierTest.class));
 		suite.addTest(new TestSuite(LiteralConditionTest.class));
 		suite.addTest(new TestSuite(JoinTest.class));
 		suite.addTest(new TestSuite(JoinOuterTest.class));
 		suite.addTest(new TestSuite(FindByIDTest.class));
 		suite.addTest(new TestSuite(ReportTest.class));
 		suite.addTest(new TestSuite(StatementInfoTest.class));
+
+		suite.addTest(com.exedio.cope.pattern.PackageTest.suite());
 
 		suite.addTest(new TestSuite(PoolCounterTest.class));
 		
