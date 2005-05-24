@@ -146,8 +146,8 @@ final class Admin_Jspm
 			<td><%=pool.getLoss()%>%</td>
 			<td><%=pool.getLevel()%></td>
 			<td><%=pool.getMaxLevel()%></td>
-			<td><%=pool.getGetCounter()%></td>
-			<td><%=pool.getPutCounter()%></td>
+			<td><%=poolCounter.getGetCounter()%></td>
+			<td><%=poolCounter.getPutCounter()%></td>
 			<td><%=pool.getCreateCounter()%></td>
 			<td><%=pool.getDestroyCounter()%></td>
 			<td><%=pool.isConsistent()%></td>

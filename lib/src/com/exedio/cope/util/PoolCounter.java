@@ -85,6 +85,16 @@ public final class PoolCounter
 		return new Date(start);
 	}
 
+	public final int getGetCounter()
+	{
+		return getCounter;
+	}
+	
+	public final int getPutCounter()
+	{
+		return putCounter;
+	}
+	
 	public final class Pool
 	{
 		final int size;
@@ -132,16 +142,6 @@ public final class PoolCounter
 		public final int getMaxLevel()
 		{
 			return maxLevel;
-		}
-		
-		public final int getGetCounter()
-		{
-			return getCounter;
-		}
-		
-		public final int getPutCounter()
-		{
-			return putCounter;
 		}
 		
 		public final int getCreateCounter()

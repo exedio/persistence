@@ -37,38 +37,42 @@ public class PoolCounterTest extends AbstractLibTest
 		final Iterator pi = c.getPools().iterator();
 		final PoolCounter.Pool p1 = (PoolCounter.Pool)pi.next();
 		final PoolCounter.Pool p2 = (PoolCounter.Pool)pi.next();
-		assertIt(p2, 2, 0, 0, 0, 0, 0, 0, 0);
+		assertIt(c, 0, 0); assertIt(p2, 2, 0, 0, 0, 0, 0);
 		
 		c.get();
-		assertIt(p2, 2, /*level*/0, /*maxlevel*/0, /*get*/1, /*put*/0, /*create*/1, /*destroy*/0, /*loss*/0);
+		assertIt(c, /*get*/1, /*put*/0); assertIt(p2, 2, /*level*/0, /*maxlevel*/0, /*create*/1, /*destroy*/0, /*loss*/0);
 		
 		c.get();
-		assertIt(p2, 2, /*level*/0, /*maxlevel*/0, /*get*/2, /*put*/0, /*create*/2, /*destroy*/0, /*loss*/0);
+		assertIt(c, /*get*/2, /*put*/0); assertIt(p2, 2, /*level*/0, /*maxlevel*/0, /*create*/2, /*destroy*/0, /*loss*/0);
 		
 		c.put();
-		assertIt(p2, 2, /*level*/1, /*maxlevel*/1, /*get*/2, /*put*/1, /*create*/2, /*destroy*/0, /*loss*/0);
+		assertIt(c, /*get*/2, /*put*/1); assertIt(p2, 2, /*level*/1, /*maxlevel*/1, /*create*/2, /*destroy*/0, /*loss*/0);
 		
 		c.put();
-		assertIt(p2, 2, /*level*/2, /*maxlevel*/2, /*get*/2, /*put*/2, /*create*/2, /*destroy*/0, /*loss*/0);
+		assertIt(c, /*get*/2, /*put*/2); assertIt(p2, 2, /*level*/2, /*maxlevel*/2, /*create*/2, /*destroy*/0, /*loss*/0);
 		
 		c.put();
-		assertIt(p2, 2, /*level*/2, /*maxlevel*/2, /*get*/2, /*put*/3, /*create*/2, /*destroy*/1, /*loss*/50);
+		assertIt(c, /*get*/2, /*put*/3); assertIt(p2, 2, /*level*/2, /*maxlevel*/2, /*create*/2, /*destroy*/1, /*loss*/50);
 		
 		c.get();
-		assertIt(p2, 2, /*level*/1, /*maxlevel*/2, /*get*/3, /*put*/3, /*create*/2, /*destroy*/1, /*loss*/33);
+		assertIt(c, /*get*/3, /*put*/3); assertIt(p2, 2, /*level*/1, /*maxlevel*/2, /*create*/2, /*destroy*/1, /*loss*/33);
 	}
 	
+	static final void assertIt(final PoolCounter p, final int getCounter, final int putCounter)
+	{
+		assertEquals(getCounter, p.getGetCounter());
+		assertEquals(putCounter, p.getPutCounter());
+	}
+
 	static final void assertIt(
 			final PoolCounter.Pool p, final int size,
 			final int level, final int maxLevel,
-			final int getCounter, final int putCounter, final int createCounter, final int destroyCounter,
+			final int createCounter, final int destroyCounter,
 			final int loss)
 	{
 		assertEquals(size, p.getSize());
 		assertEquals(level, p.getLevel());
 		assertEquals(maxLevel, p.getMaxLevel());
-		assertEquals(getCounter, p.getGetCounter());
-		assertEquals(putCounter, p.getPutCounter());
 		assertEquals(createCounter, p.getCreateCounter());
 		assertEquals(destroyCounter, p.getDestroyCounter());
 		assertEquals(loss, p.getLoss());
