@@ -117,15 +117,15 @@ public class UniqueItemTest extends DatabaseLibTest
 				new AttributeValue(item1.uniqueString, "uniqueString1"),
 				new AttributeValue(item1.otherString, "otherString1"),
 		});
-		assertEquals(item1.getUniqueString(), "uniqueString1");
-		assertEquals(item1.getOtherString(), "otherString1");
+		assertEquals("uniqueString1", item1.getUniqueString());
+		assertEquals("otherString1", item1.getOtherString());
 
 		item2.set(new AttributeValue[]{
 				new AttributeValue(item1.uniqueString, "uniqueString2"),
 				new AttributeValue(item1.otherString, "otherString2"),
 		});
-		assertEquals(item2.getUniqueString(), "uniqueString2");
-		assertEquals(item2.getOtherString(), "otherString2");
+		assertEquals("uniqueString2", item2.getUniqueString());
+		assertEquals("otherString2", item2.getOtherString());
 
 		// test unique violation
 		try
@@ -140,8 +140,8 @@ public class UniqueItemTest extends DatabaseLibTest
 		{
 			assertEquals(item2.uniqueString.getSingleUniqueConstraint(), e.getConstraint());
 		}
-		assertEquals(item2.getUniqueString(), "uniqueString2");
-		assertEquals(item2.getOtherString(), "otherString2");
+		assertEquals("uniqueString2", item2.getUniqueString());
+		assertEquals("otherString2", item2.getOtherString());
 	}
 
 	public void testItemWithSingleUniqueReadOnly()
