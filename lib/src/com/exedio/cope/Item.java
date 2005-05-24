@@ -44,7 +44,7 @@ public abstract class Item extends Cope
 	 * The row containing the item cache for this item, if this item is active.
 	 * If you want to be sure, that you get a row, use {@link #getRow()}.
 	 */
-	private Row rowWhenActive;
+	Row rowWhenActive;
 
 	/**
 	 * Returns a string unique for this item in all other items of the model.
@@ -139,9 +139,10 @@ public abstract class Item extends Cope
 	{
 		this.type = Type.findByJavaClass(getClass());
 		this.pk = type.getPrimaryKeyIterator().nextPK();
-		final Row row = new Row(this, false);
+		if(pk==Type.NOT_A_PK)
+			throw new RuntimeException();
 		//System.out.println("create item "+type+" "+pk);
-
+		
 		try
 		{
 			for(int i = 0; i<initialAttributeValues.length; i++)
@@ -161,6 +162,9 @@ public abstract class Item extends Cope
 			return;
 		}
 
+		final Row row = new Row(this, false);
+		this.rowWhenActive = row; // make active
+
 		row.put(initialAttributeValues);
 		try
 		{
@@ -171,13 +175,6 @@ public abstract class Item extends Cope
 			initialUniqueViolationException = e;
 			return;
 		}
-
-		this.rowWhenActive = row; // make active
-
-		if(type==null)
-			throw new NullPointerException(getClass().toString());
-		if(pk==Type.NOT_A_PK)
-			throw new RuntimeException();
 	}
 	
 	/**
@@ -288,17 +285,8 @@ public abstract class Item extends Cope
 		attribute.checkValue(value, this);
 
 		final Row row = getRow();
-		final Object previousValue = row.get(attribute);
 		row.put(attribute, value);
-		try
-		{
-			row.write();
-		}
-		catch(UniqueViolationException e)
-		{
-			row.put(attribute, previousValue);
-			throw e;
-		}
+		row.write();
 	}
 
 	/**
@@ -614,7 +602,6 @@ public abstract class Item extends Cope
 			if(type.getRow(pk)!=rowWhenActive)
 				throw new RuntimeException();
 			rowWhenActive.delete();
-			rowWhenActive = null;
 		}
 		else
 		{
@@ -689,10 +676,7 @@ public abstract class Item extends Cope
 	public final void passivateCopeItem()
 	{
 		if(rowWhenActive!=null)
-		{
 			rowWhenActive.close();
-			rowWhenActive = null;
-		}
 	}
 	
 	//-----------------------------------------

@@ -30,7 +30,7 @@ final class Row
 	private final HashMap cache = new HashMap();
 	boolean present;
 	private boolean dirty = false;
-	private boolean closed = false;
+	private boolean closed = false; // TODO rename to discarded
 
 	protected Row(final Item item, final boolean present)
 	{
@@ -97,6 +97,18 @@ final class Row
 		dirty = true; // TODO: check, whether the written attribute got really a new value
 	}
 	
+	private void discard()
+	{
+		if(closed)
+			throw new RuntimeException();
+		if(item.rowWhenActive==null)
+			throw new RuntimeException();
+		
+		type.removeRow(this);
+		item.rowWhenActive = null;
+		closed = true;
+	}
+	
 	void write()
 		throws UniqueViolationException
 	{
@@ -106,7 +118,25 @@ final class Row
 		if(!dirty)
 			return;
 		
-		type.getModel().getDatabase().store(this);
+		try
+		{
+			type.getModel().getDatabase().store(this);
+		}
+		catch(UniqueViolationException e)
+		{
+			discard();
+			throw e;
+		}
+		catch(RuntimeException e)
+		{
+			discard();
+			throw e;
+		}
+		catch(Error e)
+		{
+			discard();
+			throw e;
+		}
 
 		present = true;
 		dirty = false;
@@ -157,17 +187,9 @@ final class Row
 	{	
 		if(closed)
 			throw new RuntimeException();
-
-		type.removeRow(this);
-		try
-		{
-			write();
-		}
-		catch(UniqueViolationException e)
-		{
-			throw new NestingRuntimeException(e);
-		}
-		closed = true;
+		if(dirty)
+			throw new RuntimeException();
+		discard();
 	}
 
 	void delete() throws IntegrityViolationException
@@ -175,9 +197,14 @@ final class Row
 		if(closed)
 			throw new RuntimeException();
 
-		type.getModel().getDatabase().delete(type, pk);
-		type.removeRow(this);
-		closed = true;
+		try
+		{
+			type.getModel().getDatabase().delete(type, pk);
+		}
+		finally
+		{
+			discard();
+		}
 	}
 
 }
