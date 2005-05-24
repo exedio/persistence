@@ -96,6 +96,8 @@ public class StringTest extends DatabaseLibTest
 			assertEquals(true, e.isTooShort());
 		}
 		assertEquals(null, item.getMin4());
+		item.passivateCopeItem();
+		assertEquals(null, item.getMin4());
 
 		item.setMin4("1234");
 		assertEquals("1234", item.getMin4());
@@ -116,6 +118,8 @@ public class StringTest extends DatabaseLibTest
 			assertEquals(false, e.isTooShort());
 		}
 		assertEquals("1234", item.getMax4());
+		item.passivateCopeItem();
+		assertEquals("1234", item.getMax4());
 
 		// min4max8		
 		try
@@ -130,6 +134,8 @@ public class StringTest extends DatabaseLibTest
 			assertEquals("123", e.getValue());
 			assertEquals(true, e.isTooShort());
 		}
+		assertEquals(null, item.getMin4Max8());
+		item.passivateCopeItem();
 		assertEquals(null, item.getMin4Max8());
 
 		item.setMin4Max8("1234");
@@ -154,7 +160,6 @@ public class StringTest extends DatabaseLibTest
 			assertEquals(false, e.isTooShort());
 		}
 		assertEquals("12345678", item.getMin4Max8());
-
 		item.passivateCopeItem();
 		assertEquals("12345678", item.getMin4Max8());
 	}
