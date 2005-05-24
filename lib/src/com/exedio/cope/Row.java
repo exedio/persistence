@@ -30,7 +30,7 @@ final class Row
 	private final HashMap cache = new HashMap();
 	boolean present;
 	private boolean dirty = false;
-	private boolean closed = false; // TODO rename to discarded
+	private boolean discarded = false;
 
 	protected Row(final Item item, final boolean present)
 	{
@@ -48,7 +48,7 @@ final class Row
 	
 	Object get(final ObjectAttribute attribute)
 	{
-		if(closed)
+		if(discarded)
 			throw new RuntimeException();
 
 		return attribute.cacheToSurface(cache.get(attribute.getMainColumn()));
@@ -58,7 +58,7 @@ final class Row
 	{
 		if(column==null)
 			throw new NullPointerException();
-		if(closed)
+		if(discarded)
 			throw new RuntimeException();
 
 		return cache.get(column);
@@ -66,7 +66,7 @@ final class Row
 	
 	void put(final AttributeValue[] attributeValues)
 	{
-		if(closed)
+		if(discarded)
 			throw new RuntimeException();
 
 		for(int i = 0; i<attributeValues.length; i++)
@@ -79,7 +79,7 @@ final class Row
 	
 	void put(final ObjectAttribute attribute, final Object value)
 	{
-		if(closed)
+		if(discarded)
 			throw new RuntimeException();
 
 		cache.put(attribute.getMainColumn(), attribute.surfaceToCache(value));
@@ -90,7 +90,7 @@ final class Row
 	{
 		if(column==null)
 			throw new NullPointerException();
-		if(closed)
+		if(discarded)
 			throw new RuntimeException();
 
 		cache.put(column, value);
@@ -99,20 +99,20 @@ final class Row
 	
 	private void discard()
 	{
-		if(closed)
+		if(discarded)
 			throw new RuntimeException();
 		if(item.rowWhenActive==null)
 			throw new RuntimeException();
 		
 		type.removeRow(this);
 		item.rowWhenActive = null;
-		closed = true;
+		discarded = true;
 	}
 	
 	void write()
 		throws UniqueViolationException
 	{
-		if(closed)
+		if(discarded)
 			throw new RuntimeException();
 
 		if(!dirty)
@@ -144,7 +144,7 @@ final class Row
 	
 	void load(final StringColumn column, final String value)
 	{
-		if(closed)
+		if(discarded)
 			throw new RuntimeException();
 
 		cache.put(column, value);
@@ -152,7 +152,7 @@ final class Row
 	
 	void load(final IntegerColumn column, final long value)
 	{
-		if(closed)
+		if(discarded)
 			throw new RuntimeException();
 
 		cache.put(column, column.longInsteadOfInt ? (Number)new Long(value) : new Integer((int)value));
@@ -160,7 +160,7 @@ final class Row
 	
 	void load(final DoubleColumn column, final double value)
 	{
-		if(closed)
+		if(discarded)
 			throw new RuntimeException();
 
 		cache.put(column, new Double(value));
@@ -168,7 +168,7 @@ final class Row
 	
 	void load(final TimestampColumn column, final long value)
 	{
-		if(closed)
+		if(discarded)
 			throw new RuntimeException();
 
 		//System.out.println("Row.load TimestampColumn "+value);
@@ -177,7 +177,7 @@ final class Row
 	
 	Object store(final Column column)
 	{
-		if(closed)
+		if(discarded)
 			throw new RuntimeException();
 
 		return cache.get(column);
@@ -185,7 +185,7 @@ final class Row
 
 	void close()
 	{	
-		if(closed)
+		if(discarded)
 			throw new RuntimeException();
 		if(dirty)
 			throw new RuntimeException();
@@ -194,7 +194,7 @@ final class Row
 
 	void delete() throws IntegrityViolationException
 	{	
-		if(closed)
+		if(discarded)
 			throw new RuntimeException();
 
 		try
