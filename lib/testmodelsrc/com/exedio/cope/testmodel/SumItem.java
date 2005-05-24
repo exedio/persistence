@@ -37,15 +37,15 @@ public class SumItem extends Item
 
 	public static final IntegerAttribute num3 = integerAttribute(DEFAULT);
 	
-	public static final SumFunction sum12 = new SumFunction(num1, num2);
+	public static final SumFunction sum12 = sum(num1, num2);
 
-	public static final SumFunction sum13 = new SumFunction(num1, num3);
+	public static final SumFunction sum13 = sum(num1, num3);
 
-	public static final SumFunction sum23 = new SumFunction(num2, num3);
+	public static final SumFunction sum23 = sum(num2, num3);
 
-	public static final SumFunction sum123 = new SumFunction(num1, num2, num3);
+	public static final SumFunction sum123 = sum(num1, num2, num3);
 
-	public static final SumFunction sum12a3 = new SumFunction(sum12, num3);
+	public static final SumFunction sum12a3 = sum(sum12, num3);
 	
 	public static final Vector nums = new Vector(new ObjectAttribute[]{num1, num2, num3});
 

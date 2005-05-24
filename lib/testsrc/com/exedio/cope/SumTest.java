@@ -17,7 +17,6 @@
  */
 package com.exedio.cope;
 
-import com.exedio.cope.function.SumFunction;
 import com.exedio.cope.testmodel.SumItem;
 
 
@@ -74,7 +73,7 @@ public class SumTest extends DatabaseLibTest
 		assertContains(item, item.TYPE.search(Cope.equal(item.sum23, 5)));
 		assertContains(item, item.TYPE.search(Cope.equal(item.sum123, 6)));
 		assertContains(item, item.TYPE.search(Cope.equal(item.sum12a3, 6)));
-		assertContains(item, item.TYPE.search(Cope.equal(new SumFunction(item.num1, item.num2), 3)));
+		assertContains(item, item.TYPE.search(Cope.equal(Cope.sum(item.num1, item.num2), 3)));
 		
 		// test null propagation
 		item.setNum1(null);

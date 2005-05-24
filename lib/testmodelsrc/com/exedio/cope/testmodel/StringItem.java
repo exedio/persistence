@@ -46,7 +46,7 @@ public class StringItem extends Item
 	public static final LengthFunction min4UpperLength = length(min4Upper);
 	public static final LengthFunction max4UpperLength = length(max4Upper);
 	
-	public static final SumFunction min4AndMax4UpperLength = new SumFunction(min4UpperLength, max4UpperLength);
+	public static final SumFunction min4AndMax4UpperLength = sum(min4UpperLength, max4UpperLength);
 	
 	public static final StringAttribute hashed1MD5 = stringAttribute(DEFAULT);
 	public static final MD5Hash hashed1 = new MD5Hash(hashed1MD5);

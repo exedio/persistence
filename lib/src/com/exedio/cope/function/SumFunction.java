@@ -18,6 +18,7 @@
 package com.exedio.cope.function;
 
 import com.exedio.cope.ComputedIntegerFunction;
+import com.exedio.cope.Cope;
 import com.exedio.cope.IntegerFunction;
 
 public final class SumFunction
@@ -25,17 +26,13 @@ public final class SumFunction
 	implements IntegerFunction
 {
 
-	public SumFunction(final IntegerFunction addend1, final IntegerFunction addend2)
-	{
-		this(new IntegerFunction[]{addend1, addend2});
-	}
-
-	public SumFunction(final IntegerFunction addend1, final IntegerFunction addend2, final IntegerFunction addend3)
-	{
-		this(new IntegerFunction[]{addend1, addend2, addend3});
-	}
-
-	private SumFunction(final IntegerFunction[] addends)
+	/**
+	 * Creates a new SumFunction.
+	 * Instead of using this constructor directly,
+	 * you may want to use the more convenient wrapper methods
+	 * {@link Cope#sum(IntegerFunction,IntegerFunction) Cope.sum}.
+	 */
+	public SumFunction(final IntegerFunction[] addends)
 	{
 		super(addends, makePlusses(addends.length), "sum");
 	}

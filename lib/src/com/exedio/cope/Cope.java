@@ -20,6 +20,7 @@ package com.exedio.cope;
 import java.util.Date;
 
 import com.exedio.cope.function.LengthFunction;
+import com.exedio.cope.function.SumFunction;
 import com.exedio.cope.function.UppercaseFunction;
 import com.exedio.cope.search.AndCondition;
 import com.exedio.cope.search.Condition;
@@ -375,6 +376,16 @@ public abstract class Cope
 		return new LengthFunction(source);
 	}
 	
+	public static final SumFunction sum(final IntegerFunction addend1, final IntegerFunction addend2)
+	{
+		return new SumFunction(new IntegerFunction[]{addend1, addend2});
+	}
+
+	public static final SumFunction sum(final IntegerFunction addend1, final IntegerFunction addend2, final IntegerFunction addend3)
+	{
+		return new SumFunction(new IntegerFunction[]{addend1, addend2, addend3});
+	}
+
 	public static final UppercaseFunction uppercase(final StringFunction source)
 	{
 		return new UppercaseFunction(source);
