@@ -24,7 +24,7 @@ import java.sql.SQLException;
  * Signals, that an attempt to write an attribute has been failed,
  * and the value to be set violated a unique constraint.
  *
- * This exception will be thrown by {@link Item#setAttribute Item.setAttribute} methods
+ * This exception will be thrown by {@link Item#set(ObjectAttribute,Object) Item.set}
  * and item constructors
  * if that attribute is covered by a {@link UniqueConstraint unique constraint}
  * and the value to be set violated the uniqueness.

@@ -22,7 +22,7 @@ package com.exedio.cope;
  * Signals, that an attempt to write an attribute has been failed,
  * because it cannot be written with any value.
  *
- * This exception will be thrown by {@link Item#setAttribute Item.setAttribute} methods
+ * This exception will be thrown by {@link Item#set(ObjectAttribute,Object) Item.set}
  * if that attribute is {@link Attribute#isReadOnly() read-only}.
  * 
  * @author Ralf Wiebicke

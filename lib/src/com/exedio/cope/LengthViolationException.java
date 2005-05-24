@@ -22,7 +22,7 @@ package com.exedio.cope;
  * Signals, that an attempt to write a {@link StringAttribute string attribute} has been failed,
  * because value to be written violated the length constraint on that attribute.
  *
- * This exception will be thrown by {@link Item#setAttribute Item.setAttribute} methods
+ * This exception will be thrown by {@link Item#set(ObjectAttribute,Object) Item.set}
  * and item constructors
  * if that attribute {@link StringAttribute#isLengthConstrained is length constrained}.
  * 
