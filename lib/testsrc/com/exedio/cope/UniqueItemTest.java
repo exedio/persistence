@@ -139,7 +139,6 @@ public class UniqueItemTest extends DatabaseLibTest
 		catch(UniqueViolationException e)
 		{
 			assertEquals(item2.uniqueString.getSingleUniqueConstraint(), e.getConstraint());
-			assertEquals("uniqueString2", item2.getUniqueString()); // TODO: should be uniqueString1 ???
 		}
 		assertEquals(item2.getUniqueString(), "uniqueString2");
 		assertEquals(item2.getOtherString(), "otherString2");
