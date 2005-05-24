@@ -10,7 +10,14 @@ div.message
 	border-style: solid;
 }
 
+table.statistics th
+{
+	padding:1px 0px;
+}
+
 table.statistics td
 {
 	text-align:right;
+	background:#CCC;
+	padding:1px 3px;
 }
