@@ -59,7 +59,7 @@ public class AttributeItem extends Item
 	/**
 	 * The length of code of the item.
 	 */
-	public static final LengthFunction someStringLength = new LengthFunction(someString);
+	public static final LengthFunction someStringLength = length(someString);
 
 	/**
 	 * A not-null string attribute.

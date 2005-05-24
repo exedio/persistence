@@ -19,6 +19,7 @@
 package com.exedio.cope.function;
 
 import com.exedio.cope.ComputedIntegerFunction;
+import com.exedio.cope.Cope;
 import com.exedio.cope.IntegerFunction;
 import com.exedio.cope.StringFunction;
 
@@ -28,6 +29,12 @@ public class LengthFunction
 {
 	private static final String[] sql = new String[]{"LENGTH(", ")"};
 
+	/**
+	 * Creates a new LengthFunction.
+	 * Instead of using this constructor directly,
+	 * you may want to use the more convenient wrapper method
+	 * {@link Cope#length(StringFunction) Cope.length}.
+	 */
 	public LengthFunction(final StringFunction source)
 	{
 		super(new StringFunction[]{source}, sql, "length");
