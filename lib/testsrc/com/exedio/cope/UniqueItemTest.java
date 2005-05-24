@@ -105,6 +105,45 @@ public class UniqueItemTest extends DatabaseLibTest
 		}
 		assertDelete(item);
 	}
+	
+	public void testMultipleSet() throws ConstraintViolationException
+	{
+		final ItemWithSingleUnique item1 = new ItemWithSingleUnique();
+		deleteOnTearDown(item1);
+		final ItemWithSingleUnique item2 = new ItemWithSingleUnique();
+		deleteOnTearDown(item2);
+
+		item1.set(new AttributeValue[]{
+				new AttributeValue(item1.uniqueString, "uniqueString1"),
+				new AttributeValue(item1.otherString, "otherString1"),
+		});
+		assertEquals(item1.getUniqueString(), "uniqueString1");
+		assertEquals(item1.getOtherString(), "otherString1");
+
+		item2.set(new AttributeValue[]{
+				new AttributeValue(item1.uniqueString, "uniqueString2"),
+				new AttributeValue(item1.otherString, "otherString2"),
+		});
+		assertEquals(item2.getUniqueString(), "uniqueString2");
+		assertEquals(item2.getOtherString(), "otherString2");
+
+		// test unique violation
+		try
+		{
+			item2.set(new AttributeValue[]{
+					new AttributeValue(item1.uniqueString, "uniqueString1"),
+					new AttributeValue(item1.otherString, "otherString1"),
+			});
+			fail("should have thrown UniqueViolationException");
+		}
+		catch(UniqueViolationException e)
+		{
+			assertEquals(item2.uniqueString.getSingleUniqueConstraint(), e.getConstraint());
+			assertEquals("uniqueString2", item2.getUniqueString()); // TODO: should be uniqueString1 ???
+		}
+		assertEquals(item2.getUniqueString(), "uniqueString2");
+		assertEquals(item2.getOtherString(), "otherString2");
+	}
 
 	public void testItemWithSingleUniqueReadOnly()
 			throws ConstraintViolationException

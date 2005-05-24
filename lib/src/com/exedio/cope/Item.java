@@ -290,6 +290,39 @@ public abstract class Item extends Cope
 	}
 
 	/**
+	 * @throws NotNullViolationException
+	 *         if <code>value</code> is null and <code>attribute</code>
+	 *         is {@link Attribute#isNotNull() not-null}.
+	 * @throws ReadOnlyViolationException
+	 *         if <code>attribute</code> is {@link Attribute#isReadOnly() read-only}.
+	 * @throws ClassCastException
+	 *         if <code>value</code> is not compatible to <code>attribute</code>.
+	 */
+	public final void set(final AttributeValue[] attributeValues)
+		throws
+			UniqueViolationException,
+			NotNullViolationException,
+			LengthViolationException,
+			ReadOnlyViolationException,
+			ClassCastException
+	{
+		for(int i = 0; i<attributeValues.length; i++)
+		{
+			final AttributeValue attributeValue = attributeValues[i];
+			final ObjectAttribute attribute = attributeValue.attribute;
+
+			if(attribute.isReadOnly())
+				throw new ReadOnlyViolationException(this, attribute);
+	
+			attribute.checkValue(attributeValue.value, this);
+		}
+
+		final Row row = getRow();
+		row.put(attributeValues);
+		row.write();
+	}
+
+	/**
 	 * @throws ReadOnlyViolationException
 	 *         if <code>attribute</code> is {@link Attribute#isReadOnly() read-only}.
 	 */

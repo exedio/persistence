@@ -25,6 +25,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import com.exedio.cope.AttributeValue;
 import com.exedio.cope.Item;
 import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.NotNullViolationException;
@@ -69,12 +70,15 @@ public final class Vector extends TypeComponent
 			ClassCastException
 	{
 		int i = 0;
+		final AttributeValue[] attributeValues = new AttributeValue[sources.length];
 
 		for(Iterator it = values.iterator(); it.hasNext(); i++)
-			item.set(sources[i], it.next());
+			attributeValues[i] = new AttributeValue(sources[i], it.next());
 
 		for(; i<sources.length; i++)
-			item.set(sources[i], null);
+			attributeValues[i] = new AttributeValue(sources[i], null);
+		
+		item.set(attributeValues);
 	}
 	
 }
