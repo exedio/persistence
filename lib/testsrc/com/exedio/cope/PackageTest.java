@@ -24,6 +24,7 @@ import junit.framework.TestSuite;
 
 import com.exedio.cope.pattern.HashTest;
 import com.exedio.cope.pattern.QualifierTest;
+import com.exedio.cope.pattern.VectorTest;
 import com.exedio.cope.util.PoolCounterTest;
 
 

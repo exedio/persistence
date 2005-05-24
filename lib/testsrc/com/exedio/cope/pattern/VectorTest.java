@@ -16,8 +16,10 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope;
+package com.exedio.cope.pattern;
 
+import com.exedio.cope.ConstraintViolationException;
+import com.exedio.cope.DatabaseLibTest;
 import com.exedio.cope.testmodel.SumItem;
 
 
