@@ -32,8 +32,9 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.fileupload.FileItem;
 
 import com.exedio.cope.Attribute;
+import com.exedio.cope.AttributeValue;
 import com.exedio.cope.BooleanAttribute;
-import com.exedio.cope.ConstraintViolationException;
+import com.exedio.cope.DataAttribute;
 import com.exedio.cope.DateAttribute;
 import com.exedio.cope.DoubleAttribute;
 import com.exedio.cope.EnumAttribute;
@@ -41,15 +42,17 @@ import com.exedio.cope.EnumValue;
 import com.exedio.cope.IntegerAttribute;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemAttribute;
+import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.LongAttribute;
-import com.exedio.cope.DataAttribute;
 import com.exedio.cope.Model;
 import com.exedio.cope.NestingRuntimeException;
 import com.exedio.cope.NoSuchIDException;
 import com.exedio.cope.NotNullViolationException;
 import com.exedio.cope.ObjectAttribute;
+import com.exedio.cope.ReadOnlyViolationException;
 import com.exedio.cope.StringAttribute;
 import com.exedio.cope.Type;
+import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.pattern.Qualifier;
 import com.exedio.cope.search.EqualCondition;
 import com.exedio.cops.CheckboxField;
@@ -458,6 +461,8 @@ final class ItemForm extends Form
 
 	private void save()
 	{
+		final ArrayList attributeValues = new ArrayList();
+		
 		for(Iterator i = getAllFields().iterator(); i.hasNext(); )
 		{
 			final Field field = (Field)i.next();
@@ -500,21 +505,33 @@ final class ItemForm extends Form
 			{
 				if(field.error==null)
 				{
-					try
-					{
-						final ObjectAttribute attribute = (ObjectAttribute)field.key;
-						item.set(attribute, field.getContent());
-					}
-					catch(NotNullViolationException e)
-					{
-						field.error = "error.notnull:"+e.getNotNullAttribute().toString();
-					}
-					catch(ConstraintViolationException e)
-					{
-						field.error = e.getClass().getName();
-					}
+					final ObjectAttribute attribute = (ObjectAttribute)field.key;
+					attributeValues.add(new AttributeValue(attribute, field.getContent()));
 				}
 			}
+		}
+		try
+		{
+			item.set((AttributeValue[])attributeValues.toArray(new AttributeValue[attributeValues.size()]));
+		}
+		catch(NotNullViolationException e)
+		{
+			final Field field = getField(e.getNotNullAttribute().getName());
+			field.error = "error.notnull:"+e.getNotNullAttribute().toString();
+		}
+		catch(ReadOnlyViolationException e)
+		{
+			throw new NestingRuntimeException(e);
+		}
+		catch(UniqueViolationException e)
+		{
+			final Field field = getField(((ObjectAttribute)e.getConstraint().getUniqueAttributes().iterator().next()).getName());
+			field.error = e.getClass().getName();
+		}
+		catch(LengthViolationException e)
+		{
+			final Field field = getField(e.getStringAttribute().getName());
+			field.error = e.getClass().getName();
 		}
 	}
 	
