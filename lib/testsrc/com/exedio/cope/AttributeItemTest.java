@@ -136,12 +136,14 @@ public class AttributeItemTest extends AttributeTest
 		try
 		{
 			target.deleteCopeItem();
+			fail("should have thrown IntegrityViolationException");
 		}
 		catch(IntegrityViolationException e)
 		{
 			assertEquals(source.empty2, e.getAttribute());
 			assertEquals(null/*TODO someItem*/, e.getItem());
 		}
+		assertTrue(!target.isCopeItemDeleted());
 	}
 
 }
