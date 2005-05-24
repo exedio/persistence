@@ -9,3 +9,8 @@ div.message
 	border-color: #800;
 	border-style: solid;
 }
+
+table.statistics td
+{
+	text-align:right;
+}
