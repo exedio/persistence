@@ -46,7 +46,7 @@ final class ConnectionPool
 		this.password = properties.getDatabasePassword();
 		
 		// TODO: make this customizable and disableable
-		this.counter = new PoolCounter(new int[]{0,1,2,5,8,10,15,20,30,50});
+		this.counter = new PoolCounter(new int[]{0,1,2,3,4,5,6,7,8,9,10,12,15,16,18,20,25,30,35,40,45,50,60,70,80,90,100,120,140,160,180,200,250,300,350,400,450,500,600,700,800,900,1000});
 	}
 
 	final Connection getConnection() throws SQLException
