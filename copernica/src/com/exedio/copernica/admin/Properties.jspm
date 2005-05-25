@@ -41,26 +41,28 @@ final class Properties_Jspm
 		%>
 		<table border="1">
 			<tr>
-				<td><small>source</small></td>
-				<td><small><%
+				<td>source</td>
+				<td><%
 					final String source = properties.getSource();
 					%>
 					<a href="file://<%=source%>"><%=source%></a>
 					<br>
+					<small>
 					(link works only if the server is running locally).
-				</small></td>
+					</small>
+				</td>
 			</tr>
 			<tr>
-				<td><small>database</small></td>
-				<td><small><%=properties.getDatabase()%></small></td>
+				<td>database</td>
+				<td><%=properties.getDatabase()%></td>
 			</tr>
 			<tr>
-				<td><small>database.url</small></td>
-				<td><small><%=properties.getDatabaseUrl()%></small></td>
+				<td>database.url</td>
+				<td><%=properties.getDatabaseUrl()%></td>
 			</tr>
 			<tr>
-				<td><small>database.user</small></td>
-				<td><small><%=properties.getDatabaseUser()%></small></td>
+				<td>database.user</td>
+				<td><%=properties.getDatabaseUser()%></td>
 			</tr><%
 			if(properties.hasData())
 			{
@@ -69,29 +71,33 @@ final class Properties_Jspm
 				final String datadirUrl = properties.getDatadirUrl();
 			%>
 			<tr>
-				<td><small><%=properties.DATADIR_PATH%></small></td>
-				<td><small>
+				<td><%=properties.DATADIR_PATH%></td>
+				<td>
 					<a href="file://<%=datadirPath%>"><%=datadirPath%></a>
 					<br>
+					<small>
 					(link works only if the server is running locally).
-				</small></td>
+					</small>
+				</td>
 			</tr>
 			<tr>
-				<td><small><%=properties.DATADIR_URL%></small></td>
-				<td><small>
+				<td><%=properties.DATADIR_URL%></td>
+				<td>
 					<a href="<%=datadirUrl%>"><%=datadirUrl%></a>
 					<br>
+					<small>
 					(link works only if the server allows directory listing,
 					which may be a security risk).
-				</small></td>
+					</small>
+				</td>
 			</tr><%
 			}
 			else
 			{
 			%>
 			<tr>
-				<td><small>datadir</small></td>
-				<td><small><b>not available</b></small></td>
+				<td>datadir</td>
+				<td><b>not available</b></td>
 			</tr><%
 			}
 			
@@ -100,8 +106,8 @@ final class Properties_Jspm
 				final String name = systemProperties[i];
 			%>
 			<tr>
-				<td><small><%=name%></small></td>
-				<td><small><%=System.getProperty(name)%></small></td>
+				<td><%=name%></td>
+				<td><%=System.getProperty(name)%></td>
 			</tr><%
 			}
 			%>
