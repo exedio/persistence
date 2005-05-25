@@ -43,7 +43,8 @@ public final class PoolCounter
 	public PoolCounter()
 	{
 		final ArrayList pools = new ArrayList();
-		pools.add(new Pool(1)); // TODO: make this customizable
+		pools.add(new Pool(0)); // TODO: make this customizable
+		pools.add(new Pool(1));
 		pools.add(new Pool(2));
 		pools.add(new Pool(5));
 		pools.add(new Pool(8));

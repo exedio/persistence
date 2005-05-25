@@ -35,27 +35,30 @@ public class PoolCounterTest extends AbstractLibTest
 		assertWithin(before, after, c.getStart());
 		
 		final Iterator pi = c.getPools().iterator();
+		final PoolCounter.Pool p0 = (PoolCounter.Pool)pi.next();
 		final PoolCounter.Pool p1 = (PoolCounter.Pool)pi.next();
 		final PoolCounter.Pool p2 = (PoolCounter.Pool)pi.next();
-		assertIt(c, 0, 0); assertIt(p2, 2, 0, 0, 0, 0, 0);
+		assertIt(c, 0, 0);
+		assertIt(p0, 0, 0, 0, 0, 0, 0);
+		assertIt(p2, 2, 0, 0, 0, 0, 0);
 		
 		c.get();
-		assertIt(c, /*get*/1, /*put*/0); assertIt(p2, 2, /*level*/0, /*maxlevel*/0, /*create*/1, /*destroy*/0, /*loss*/0);
+		assertIt(c, 1, 0); assertIt(p0,0, 0, 0, 1, 0,  0); assertIt(p2,2, 0, 0, 1, 0, 0);
 		
 		c.get();
-		assertIt(c, /*get*/2, /*put*/0); assertIt(p2, 2, /*level*/0, /*maxlevel*/0, /*create*/2, /*destroy*/0, /*loss*/0);
+		assertIt(c, 2, 0); assertIt(p0,0, 0, 0, 2, 0,  0); assertIt(p2,2, 0, 0, 2, 0, 0);
 		
 		c.put();
-		assertIt(c, /*get*/2, /*put*/1); assertIt(p2, 2, /*level*/1, /*maxlevel*/1, /*create*/2, /*destroy*/0, /*loss*/0);
+		assertIt(c, 2, 1); assertIt(p0,0, 0, 0, 2, 1, 50); assertIt(p2,2, 1, 1, 2, 0, 0);
 		
 		c.put();
-		assertIt(c, /*get*/2, /*put*/2); assertIt(p2, 2, /*level*/2, /*maxlevel*/2, /*create*/2, /*destroy*/0, /*loss*/0);
+		assertIt(c, 2, 2); assertIt(p0,0, 0, 0, 2, 2,100); assertIt(p2,2, 2, 2, 2, 0, 0);
 		
 		c.put();
-		assertIt(c, /*get*/2, /*put*/3); assertIt(p2, 2, /*level*/2, /*maxlevel*/2, /*create*/2, /*destroy*/1, /*loss*/50);
+		assertIt(c, 2, 3); assertIt(p0,0, 0, 0, 2, 3,150); assertIt(p2,2, 2, 2, 2, 1,50);
 		
 		c.get();
-		assertIt(c, /*get*/3, /*put*/3); assertIt(p2, 2, /*level*/1, /*maxlevel*/2, /*create*/2, /*destroy*/1, /*loss*/33);
+		assertIt(c, 3, 3); assertIt(p0,0, 0, 0, 3, 3,100); assertIt(p2,2, 1, 2, 2, 1,33);
 	}
 	
 	static final void assertIt(final PoolCounter p, final int getCounter, final int putCounter)
