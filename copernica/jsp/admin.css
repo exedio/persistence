@@ -10,6 +10,24 @@ div.message
 	border-style: solid;
 }
 
+table.properties th
+{
+	text-align:left;
+	vertical-align:top;
+	background:#CCC;
+	border:solid 1px #CCC;
+	padding:1px 3px;
+	font-weight:normal;
+}
+
+table.properties td
+{
+	text-align:left;
+	vertical-align:top;
+	border:solid 1px #CCC;
+	padding:1px 3px;
+}
+
 table.statistics th
 {
 	padding:1px 0px;

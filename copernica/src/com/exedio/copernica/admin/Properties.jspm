@@ -39,9 +39,9 @@ final class Properties_Jspm
 		throws IOException
 	{
 		%>
-		<table border="1">
+		<table class="properties">
 			<tr>
-				<td>source</td>
+				<th>source</th>
 				<td><%
 					final String source = properties.getSource();
 					%>
@@ -53,15 +53,15 @@ final class Properties_Jspm
 				</td>
 			</tr>
 			<tr>
-				<td>database</td>
+				<th>database</th>
 				<td><%=properties.getDatabase()%></td>
 			</tr>
 			<tr>
-				<td>database.url</td>
+				<th>database.url</th>
 				<td><%=properties.getDatabaseUrl()%></td>
 			</tr>
 			<tr>
-				<td>database.user</td>
+				<th>database.user</th>
 				<td><%=properties.getDatabaseUser()%></td>
 			</tr><%
 			if(properties.hasData())
@@ -71,7 +71,7 @@ final class Properties_Jspm
 				final String datadirUrl = properties.getDatadirUrl();
 			%>
 			<tr>
-				<td><%=properties.DATADIR_PATH%></td>
+				<th><%=properties.DATADIR_PATH%></th>
 				<td>
 					<a href="file://<%=datadirPath%>"><%=datadirPath%></a>
 					<br>
@@ -81,7 +81,7 @@ final class Properties_Jspm
 				</td>
 			</tr>
 			<tr>
-				<td><%=properties.DATADIR_URL%></td>
+				<th><%=properties.DATADIR_URL%></th>
 				<td>
 					<a href="<%=datadirUrl%>"><%=datadirUrl%></a>
 					<br>
@@ -96,7 +96,7 @@ final class Properties_Jspm
 			{
 			%>
 			<tr>
-				<td>datadir</td>
+				<th>datadir</th>
 				<td><b>not available</b></td>
 			</tr><%
 			}
@@ -106,7 +106,7 @@ final class Properties_Jspm
 				final String name = systemProperties[i];
 			%>
 			<tr>
-				<td><%=name%></td>
+				<th><%=name%></th>
 				<td><%=System.getProperty(name)%></td>
 			</tr><%
 			}
