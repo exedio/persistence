@@ -123,23 +123,23 @@ final class Admin_Jspm
 	%>
 	<table class="statistics">
 		<tr>
-			<th colspan="7">Connection Pool Statistics</th>
+			<th colspan="6">Connection Pool Statistics</th>
 		</tr>
 		<tr>
 			<th>From</th>
-			<td colspan="6"><%=df.format(poolCounter.getStart())%></td>
+			<td colspan="5"><%=df.format(poolCounter.getStart())%></td>
 		</tr>
 		<tr>
 			<th>To</th>
-			<td colspan="6"><%=df.format(new Date())%></td>
+			<td colspan="5"><%=df.format(new Date())%></td>
 		</tr>
 		<tr>
 			<th>Get</th>
-			<td colspan="6"><%=poolCounter.getGetCounter()%></td>
+			<td colspan="5"><%=poolCounter.getGetCounter()%></td>
 		</tr>
 		<tr>
 			<th>Put</th>
-			<td colspan="6"><%=poolCounter.getPutCounter()%></td>
+			<td colspan="5"><%=poolCounter.getPutCounter()%></td>
 		</tr>
 		<tr>
 			<th>Size</th>
@@ -148,20 +148,18 @@ final class Admin_Jspm
 			<th>-Max</th>
 			<th>Create</th>
 			<th>Destroy</th>
-			<th></th>
 		</tr><%
 		for(Iterator i = poolCounter.getPools().iterator(); i.hasNext(); )
 		{
 			final PoolCounter.Pool pool = (PoolCounter.Pool)i.next();
 		%>
 		<tr>
-			<td><%=pool.getSize()%></td>
+			<td><%=pool.getSize()%><%if(!pool.isConsistent()){%>!<%}%></td>
 			<td><%=pool.getLoss()%>%</td>
 			<td><%=pool.getLevel()%></td>
 			<td><%=pool.getMaxLevel()%></td>
 			<td><%=pool.getCreateCounter()%></td>
 			<td><%=pool.getDestroyCounter()%></td>
-			<td><%=pool.isConsistent()%></td>
 		</tr><%
 		}
 	%>
