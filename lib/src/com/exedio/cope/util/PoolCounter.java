@@ -18,7 +18,6 @@
 
 package com.exedio.cope.util;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
@@ -40,20 +39,12 @@ public final class PoolCounter
 	private int getCounter = 0;
 	private int putCounter = 0;
 
-	public PoolCounter()
+	public PoolCounter(final int[] sizes)
 	{
-		final ArrayList pools = new ArrayList();
-		pools.add(new Pool(0)); // TODO: make this customizable
-		pools.add(new Pool(1));
-		pools.add(new Pool(2));
-		pools.add(new Pool(5));
-		pools.add(new Pool(8));
-		pools.add(new Pool(10));
-		pools.add(new Pool(15));
-		pools.add(new Pool(20));
-		pools.add(new Pool(30));
-		pools.add(new Pool(50));
-		this.pools = (Pool[])pools.toArray(new Pool[pools.size()]);
+		final Pool[] pools = new Pool[sizes.length];
+		for(int i = 0; i<sizes.length; i++)
+			pools[i] = new Pool(sizes[i]);
+		this.pools = pools;
 	}
 
 	public final void get()
@@ -109,6 +100,9 @@ public final class PoolCounter
 		private Pool(final int size)
 		{
 			this.size = size;
+
+			if(size<0)
+				throw new RuntimeException(String.valueOf(size));
 		}
 
 		private final void get()
