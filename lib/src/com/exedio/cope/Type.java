@@ -88,19 +88,19 @@ public final class Type
 	
 	public Type(final Class javaClass)
 	{
-		this(new Class[]{javaClass}, true);
+		this(new Class[]{javaClass}, new Class[]{}, true);
 	}
 	
 	/**
 	 * @deprecated BEWARE: use this constructor only, if you know what you are doing.
 	 * @see #Type(Class)
 	 */
-	public Type(final Class[] javaClasses)
+	public Type(final Class[] javaClasses, final Class[] ignoreClasses)
 	{
-		this(javaClasses, true);
+		this(javaClasses, ignoreClasses, true);
 	}
 
-	public Type(final Class[] javaClasses, boolean dontUse)
+	public Type(final Class[] javaClasses, final Class[] ignoreClasses, boolean dontUse)
 	{
 		this.javaClass = javaClasses[0];
 		for(int i = 0; i<javaClasses.length; i++)
@@ -120,9 +120,10 @@ public final class Type
 		final Class superClass;
 		{
 			Class superClassTemp;
-			final HashSet javaClassesSet = new HashSet(Arrays.asList(javaClasses));
+			final HashSet ignoreClassesSet = new HashSet(Arrays.asList(javaClasses));
+			ignoreClassesSet.addAll(Arrays.asList(ignoreClasses));
 			for(superClassTemp = javaClass.getSuperclass();
-					javaClassesSet.contains(superClassTemp);
+					ignoreClassesSet.contains(superClassTemp);
 					superClassTemp = superClassTemp.getSuperclass() )
 			{
 				// nothing to do here
