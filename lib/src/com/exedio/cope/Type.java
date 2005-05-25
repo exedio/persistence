@@ -88,14 +88,19 @@ public final class Type
 	
 	public Type(final Class javaClass)
 	{
-		this(new Class[]{javaClass});
+		this(new Class[]{javaClass}, true);
 	}
 	
 	/**
-	 * BEWARE: use this constructor only, if you know what you are doing.
+	 * @deprecated BEWARE: use this constructor only, if you know what you are doing.
 	 * @see #Type(Class)
 	 */
 	public Type(final Class[] javaClasses)
+	{
+		this(javaClasses, true);
+	}
+
+	public Type(final Class[] javaClasses, boolean dontUse)
 	{
 		this.javaClass = javaClasses[0];
 		for(int i = 0; i<javaClasses.length; i++)
