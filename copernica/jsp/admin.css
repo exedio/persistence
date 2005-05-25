@@ -21,3 +21,8 @@ table.statistics td
 	background:#CCC;
 	padding:1px 3px;
 }
+
+table.statistics tr.inconsistent td
+{
+	background:#C00;
+}

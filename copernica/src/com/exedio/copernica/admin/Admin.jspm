@@ -152,9 +152,10 @@ final class Admin_Jspm
 		for(Iterator i = poolCounter.getPools().iterator(); i.hasNext(); )
 		{
 			final PoolCounter.Pool pool = (PoolCounter.Pool)i.next();
+			final boolean inconsistent = !pool.isConsistent();
 		%>
-		<tr>
-			<td><%=pool.getSize()%><%if(!pool.isConsistent()){%>!<%}%></td>
+		<tr<%if(inconsistent){%> class="inconsistent"<%}%>>
+			<td><%=pool.getSize()%><%if(inconsistent){%>!<%}%></td>
 			<td><%=pool.getLoss()%>%</td>
 			<td><%=pool.getLevel()%></td>
 			<td><%=pool.getMaxLevel()%></td>
