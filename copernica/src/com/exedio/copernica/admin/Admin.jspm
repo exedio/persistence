@@ -43,17 +43,13 @@ final class Admin_Jspm
 <html>
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=<%=AdminServlet.ENCODING%>">
-		<title>
-			Copernica - Database Administration
-		</title>
+		<title>COPE Administration</title>
 		<link rel="STYLESHEET" type="text/css" href="admin.css"><%
 		cop.writeHead(out);
 		%>
 	</head>
 	<body>
-		<h1>Copernica</h1>
-		<h2>Generic Backoffice for COPE</h2>
-		<h3>Database Administration</h3>
+		<h1>COPE Administration</h3>
 
 		<form action="<%=cop%>" method="POST">
 			Database:
