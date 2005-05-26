@@ -18,10 +18,11 @@
 package com.exedio.cope;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
@@ -33,51 +34,12 @@ public final class Model
 {
 	private final Type[] types;
 	private final List typeList;
-	private final Type[] sortedTypes;
 	private final HashMap typesByID = new HashMap();
 	
 	public Model(final Type[] types)
 	{
 		this.types = types;
 		this.typeList = Collections.unmodifiableList(Arrays.asList(types));
-
-		final Type[] sortedTypes = new Type[types.length];
-		System.arraycopy(types, 0, sortedTypes, 0, types.length);
-		
-		//System.out.println("A============================");
-		//for(int i = 0; i<sortedTypes.length; i++) System.out.println("----------------"+sortedTypes[i].getID());
-		Arrays.sort(sortedTypes, new Comparator()
-		{
-			public final int compare(final Object o1, final Object o2)
-			{
-				final Type t1 = (Type)o1;
-				final Type t2 = (Type)o2;
-				
-				for(Type s = t1.getSupertype(); s!=null; s = s.getSupertype())
-				{
-					if(s==t2)
-					{
-						//System.out.println("--------------------"+t1.getID()+"->-"+t2.getID());
-						return 1;
-					}
-				}
-					
-				for(Type s = t2.getSupertype(); s!=null; s = s.getSupertype())
-				{
-					if(s==t1)
-					{
-						//System.out.println("--------------------"+t1.getID()+"-<-"+t2.getID());
-						return -1;
-					}
-				}
-				
-				//System.out.println("--------------------"+t1.getID()+"-=-"+t2.getID());
-				return 0;
-			}
-		});
-		//System.out.println("B============================");
-		//for(int i = 0; i<sortedTypes.length; i++) System.out.println("----------------"+sortedTypes[i].getID());
-		this.sortedTypes = sortedTypes;
 
 		for(int i = 0; i<types.length; i++)
 		{
@@ -118,24 +80,47 @@ public final class Model
 	
 			this.properties = properties;
 			this.database = properties.createDatabase();
+			
+			final HashSet typeSet = new HashSet(Arrays.asList(types));
+			final HashSet materialized = new HashSet();
 	
-			for(int i = 0; i<sortedTypes.length; i++)
+			for(int i = 0; i<types.length; i++)
 			{
-				final Type type = sortedTypes[i];
-				type.materialize(database);
-				typesByID.put(type.getID(), type);
+				final ArrayList stack = new ArrayList();
+
+				//System.out.println("------------------------------ "+types[i].getID());
+
+				for(Type type = types[i]; type!=null; type=type.getSupertype())
+				{
+					//System.out.println("-------------------------------> "+type.getID());
+					if(!typeSet.contains(type))
+						throw new RuntimeException("type "+type.getID()+ " is supertype of " + types[i].getID() + " but not part of the model");
+					stack.add(type);
+				}
+				
+				for(ListIterator j = stack.listIterator(stack.size()); j.hasPrevious(); )
+				{
+					final Type type = (Type)j.previous();
+					//System.out.println("-------------------------------) "+type.getID());
+
+					if(!materialized.contains(type))
+					{
+						//System.out.println("-------------------------------] "+type.getID());
+						type.materialize(database);
+						if(typesByID.put(type.getID(), type)!=null)
+							throw new RuntimeException(type.getID());
+						materialized.add(type);
+					}
+				}
 			}
+			if(!materialized.equals(typeSet))
+				throw new RuntimeException(materialized.toString()+"<->"+typeSet.toString());
 		}
 	}
 
 	public final List getTypes()
 	{
 		return typeList;
-	}
-	
-	final List getSortedTypes()
-	{
-		return Collections.unmodifiableList(Arrays.asList(sortedTypes));
 	}
 	
 	public final Type findTypeByID(final String id)
