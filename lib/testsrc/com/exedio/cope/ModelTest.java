@@ -27,6 +27,7 @@ import com.exedio.cope.testmodel.ItemWithSingleUniqueNotNull;
 import com.exedio.cope.testmodel.ItemWithSingleUniqueReadOnly;
 import com.exedio.cope.testmodel.SecondSub;
 import com.exedio.cope.testmodel.Super;
+import com.exedio.cope.util.ReactivationConstructorDummy;
 
 /**
  * Tests the model itself, without creating/using any persistent data.
@@ -103,6 +104,50 @@ public class ModelTest extends AbstractLibTest
 		
 		assertEquals(item.someString, item.TYPE.getFeature("someString"));
 		assertEquals(item.someStringUpperCase, item.TYPE.getFeature("someStringUpperCase"));
+		
+		try
+		{
+			new Type(NoCreationConstructor.class);
+			fail();
+		}
+		catch(NestingRuntimeException e)
+		{
+			assertEquals(
+					NoCreationConstructor.class.getName() +
+					" does not have a creation constructor:" + NoCreationConstructor.class.getName() +
+					".<init>([L" + AttributeValue.class.getName() + ";)", e.getMessage());
+			assertEquals(NoSuchMethodException.class, e.getNestedCause().getClass());
+		}
+
+		try
+		{
+			new Type(NoReactivationConstructor.class);
+			fail();
+		}
+		catch(NestingRuntimeException e)
+		{
+			assertEquals(e.getMessage(),
+					NoReactivationConstructor.class.getName() +
+					" does not have a reactivation constructor:" + NoReactivationConstructor.class.getName() +
+					".<init>(" + ReactivationConstructorDummy.class.getName() + ", int)", e.getMessage());
+			assertEquals(NoSuchMethodException.class, e.getNestedCause().getClass());
+		}
+	}
+	
+	static class NoCreationConstructor extends Item
+	{
+		NoCreationConstructor()
+		{
+			super(null);
+		}
+	}
+
+	static class NoReactivationConstructor extends Item
+	{
+		NoReactivationConstructor(final AttributeValue[] initialAttributes)
+		{
+			super(null);
+		}
 	}
 
 	public void testSomeEnumeration()

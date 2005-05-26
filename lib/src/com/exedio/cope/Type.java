@@ -244,11 +244,11 @@ public final class Type
 			e.printStackTrace();
 			throw new NestingRuntimeException(e);
 		}
-		this.creationConstructor = getConstructor(new Class[]{attributeValueArrayClass});
-		this.reactivationConstructor = getConstructor(new Class[]{ReactivationConstructorDummy.class, int.class});
+		this.creationConstructor = getConstructor(new Class[]{attributeValueArrayClass}, "creation");
+		this.reactivationConstructor = getConstructor(new Class[]{ReactivationConstructorDummy.class, int.class}, "reactivation");
 	}
 	
-	private final Constructor getConstructor(final Class[] params)
+	private final Constructor getConstructor(final Class[] params, final String name)
 	{
 		try
 		{
@@ -258,7 +258,7 @@ public final class Type
 		}
 		catch(NoSuchMethodException e)
 		{
-			throw new NestingRuntimeException(e);
+			throw new NestingRuntimeException(e, javaClass.getName() + " does not have a " + name + " constructor");
 		}
 	}
 	
