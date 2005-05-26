@@ -25,6 +25,7 @@ public abstract class AbstractLibTest extends CopeLibTest
 {
 	
 	public static final Type[] modelTypes = Main.modelTypes;
+	public static final Type[] sortedModelTypes = Main.sortedModelTypes;
 	
 	public AbstractLibTest()
 	{

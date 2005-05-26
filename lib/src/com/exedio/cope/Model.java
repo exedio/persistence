@@ -20,6 +20,7 @@ package com.exedio.cope;
 import java.io.File;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -32,12 +33,51 @@ public final class Model
 {
 	private final Type[] types;
 	private final List typeList;
+	private final Type[] sortedTypes;
 	private final HashMap typesByID = new HashMap();
 	
 	public Model(final Type[] types)
 	{
 		this.types = types;
 		this.typeList = Collections.unmodifiableList(Arrays.asList(types));
+
+		final Type[] sortedTypes = new Type[types.length];
+		System.arraycopy(types, 0, sortedTypes, 0, types.length);
+		
+		//System.out.println("A============================");
+		//for(int i = 0; i<sortedTypes.length; i++) System.out.println("----------------"+sortedTypes[i].getID());
+		Arrays.sort(sortedTypes, new Comparator()
+		{
+			public final int compare(final Object o1, final Object o2)
+			{
+				final Type t1 = (Type)o1;
+				final Type t2 = (Type)o2;
+				
+				for(Type s = t1.getSupertype(); s!=null; s = s.getSupertype())
+				{
+					if(s==t2)
+					{
+						//System.out.println("--------------------"+t1.getID()+"->-"+t2.getID());
+						return 1;
+					}
+				}
+					
+				for(Type s = t2.getSupertype(); s!=null; s = s.getSupertype())
+				{
+					if(s==t1)
+					{
+						//System.out.println("--------------------"+t1.getID()+"-<-"+t2.getID());
+						return -1;
+					}
+				}
+				
+				//System.out.println("--------------------"+t1.getID()+"-=-"+t2.getID());
+				return 0;
+			}
+		});
+		//System.out.println("B============================");
+		//for(int i = 0; i<sortedTypes.length; i++) System.out.println("----------------"+sortedTypes[i].getID());
+		this.sortedTypes = sortedTypes;
 
 		for(int i = 0; i<types.length; i++)
 		{
@@ -79,9 +119,9 @@ public final class Model
 			this.properties = properties;
 			this.database = properties.createDatabase();
 	
-			for(int i = 0; i<types.length; i++)
+			for(int i = 0; i<sortedTypes.length; i++)
 			{
-				final Type type = types[i];
+				final Type type = sortedTypes[i];
 				type.materialize(database);
 				typesByID.put(type.getID(), type);
 			}
@@ -91,6 +131,11 @@ public final class Model
 	public final List getTypes()
 	{
 		return typeList;
+	}
+	
+	final List getSortedTypes()
+	{
+		return Collections.unmodifiableList(Arrays.asList(sortedTypes));
 	}
 	
 	public final Type findTypeByID(final String id)

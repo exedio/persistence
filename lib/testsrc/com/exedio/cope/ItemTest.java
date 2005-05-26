@@ -36,6 +36,7 @@ public class ItemTest extends DatabaseLibTest
 		assertEquals(EmptyItem.TYPE, Type.findByJavaClass(EmptyItem.class));
 		assertEquals(EmptyItem2.TYPE, Type.findByJavaClass(EmptyItem2.class));
 		assertEquals(Arrays.asList(modelTypes), model.getTypes());
+		assertEquals(Arrays.asList(sortedModelTypes), model.getSortedTypes());
 
 		final EmptyItem item1 = new EmptyItem();
 		final EmptyItem item2 = new EmptyItem();
