@@ -88,27 +88,27 @@ public final class Type
 	
 	public Type(final Class javaClass)
 	{
-		this(new Class[]{javaClass}, new Class[]{}, true);
+		this(javaClass, javaClass, new Class[]{}, true);
 	}
 	
 	/**
 	 * @deprecated BEWARE: use this constructor only, if you know what you are doing.
 	 * @see #Type(Class)
 	 */
-	public Type(final Class[] javaClasses, final Class[] ignoreClasses)
+	public Type(final Class javaClass, final Class componentJavaClass, final Class[] ignoreClasses)
 	{
-		this(javaClasses, ignoreClasses, true);
+		this(javaClass, componentJavaClass, ignoreClasses, true);
 	}
 
-	public Type(final Class[] javaClasses, final Class[] ignoreClasses, boolean dontUse)
+	public Type(final Class javaClass, final Class componentJavaClass, final Class[] ignoreClasses, boolean dontUse)
 	{
-		this.javaClass = javaClasses[0];
-		for(int i = 0; i<javaClasses.length; i++)
-		{
-			if(!Item.class.isAssignableFrom(javaClasses[i]))
-				throw new IllegalArgumentException(javaClasses[i].toString()+" is not a subclass of Item");
-			typesByClass.put(javaClasses[i], this);
-		}
+		this.javaClass = javaClass;
+		if(!Item.class.isAssignableFrom(javaClass))
+			throw new IllegalArgumentException(javaClass.toString()+" is not a subclass of Item");
+		typesByClass.put(javaClass, this);
+
+		if(!Item.class.isAssignableFrom(componentJavaClass))
+			throw new IllegalArgumentException(componentJavaClass.toString()+" is not a subclass of Item");
 
 		{
 			final String className = javaClass.getName();
@@ -120,8 +120,8 @@ public final class Type
 		final Class superClass;
 		{
 			Class superClassTemp;
-			final HashSet ignoreClassesSet = new HashSet(Arrays.asList(javaClasses));
-			ignoreClassesSet.addAll(Arrays.asList(ignoreClasses));
+			final HashSet ignoreClassesSet = new HashSet(Arrays.asList(ignoreClasses));
+			ignoreClassesSet.add(componentJavaClass);
 			for(superClassTemp = javaClass.getSuperclass();
 					ignoreClassesSet.contains(superClassTemp);
 					superClassTemp = superClassTemp.getSuperclass() )
@@ -140,7 +140,7 @@ public final class Type
 		}
 
 		// declaredAttributes
-		final Field[] fields = javaClass.getDeclaredFields();
+		final Field[] fields = componentJavaClass.getDeclaredFields();
 		final ArrayList attributesTemp = new ArrayList(fields.length);
 		final ArrayList featuresTemp = new ArrayList(fields.length);
 		final ArrayList uniqueConstraintsTemp = new ArrayList(fields.length);
