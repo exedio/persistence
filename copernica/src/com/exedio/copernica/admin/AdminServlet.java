@@ -111,16 +111,22 @@ public final class AdminServlet extends CopsServlet
 			final String modelAttributeName = modelName.substring(pos+1);
 
 			final Class modelClass = Class.forName(modelClassName);
-			final Field modelField = modelClass.getField(modelAttributeName);
+
+			final Field modelField;
+			try
+			{
+				modelField = modelClass.getField(modelAttributeName);
+			}
+			catch(NoSuchFieldException e)
+			{
+				throw new NestingRuntimeException(e, "field " + modelAttributeName + " in " + modelClass.toString() + " does not exist or is not public.");
+			}
+			
 			final Model model = (Model)modelField.get(null);
 			TransientCopernicaProvider.initialize(model, config);
 			return model;
 		}
 		catch(ClassNotFoundException e)
-		{
-			throw new NestingRuntimeException(e);
-		}
-		catch(NoSuchFieldException e)
 		{
 			throw new NestingRuntimeException(e);
 		}
