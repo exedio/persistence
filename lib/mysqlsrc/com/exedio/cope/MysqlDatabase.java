@@ -83,11 +83,6 @@ public final class MysqlDatabase extends Database
 		return '`' + name + '`';
 	}
 
-	protected boolean supportsForeignKeyConstraints()
-	{
-		return false;
-	}
-
 	private final String extracteConstraintName(final SQLException e, final int vendorCode, final String start)
 	{
 		// TODO: MySQL does not deliver constraint name in exception
@@ -110,6 +105,16 @@ public final class MysqlDatabase extends Database
 		return extracteConstraintName(e, 1217, "Cannot delete or update a parent row: a foreign key constraint fails");
 	}
 
+	protected Statement getDropForeignKeyConstraintStatement(final Table table, final ItemColumn column)
+	{
+		final Statement bf = createStatement();
+		bf.append("alter table ").
+			append(table.protectedID).
+			append(" drop foreign key ").
+			append(protectName(column.integrityConstraintName));
+		return bf;
+	}
+	
 	Statement getRenameColumnStatement(final String tableName, final String oldColumnName, final String newColumnName, final String columnType)
 	{
 		final Statement bf = createStatement();

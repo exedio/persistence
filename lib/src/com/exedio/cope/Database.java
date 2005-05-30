@@ -211,9 +211,7 @@ abstract class Database
 			try
 			{
 				final Table table = (Table)i.next();
-				System.err.print("DROPPING FOREIGN KEY CONSTRAINTS "+table+"... ");
 				dropForeignKeyConstraints(table);
-				System.err.println("done.");
 			}
 			catch(NestingRuntimeException e2)
 			{
@@ -1266,16 +1264,18 @@ abstract class Database
 	}
 
 
-	protected boolean supportsForeignKeyConstraints()
+	protected Statement getDropForeignKeyConstraintStatement(final Table table, final ItemColumn column)
 	{
-		return true;
+		final Statement bf = createStatement();
+		bf.append("alter table ").
+			append(table.protectedID).
+			append(" drop constraint ").
+			append(protectName(column.integrityConstraintName));
+		return bf;
 	}
 	
 	private void dropForeignKeyConstraints(final Table table) 
 	{
-		if(!supportsForeignKeyConstraints())
-			return;
-		
 		for(Iterator i = table.getColumns().iterator(); i.hasNext(); )
 		{
 			final Column column = (Column)i.next();
@@ -1283,15 +1283,9 @@ abstract class Database
 			if(column instanceof ItemColumn)
 			{
 				final ItemColumn itemColumn = (ItemColumn)column;
-				final Statement bf = createStatement();
-				boolean hasOne = false;
+				final Statement bf = getDropForeignKeyConstraintStatement(table, itemColumn);
 
-				bf.append("alter table ").
-					append(table.protectedID).
-					append(" drop constraint ").
-					append(protectName(itemColumn.integrityConstraintName));
-
-				//System.out.println("dropForeignKeyConstraints:"+bf);
+				System.err.println("DROPPING FOREIGN KEY CONSTRAINTS "+table+" "+itemColumn.integrityConstraintName+"... ");
 				try
 				{
 					executeSQLUpdate(bf, 0);
