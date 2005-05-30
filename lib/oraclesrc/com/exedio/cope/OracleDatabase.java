@@ -76,6 +76,23 @@ final class OracleDatabase
 		return "TIMESTAMP(3)";
 	}
 
+	protected String getColumnType(final int dataType, final ResultSet resultSet) throws SQLException
+	{
+		final int columnSize = resultSet.getInt("COLUMN_SIZE");
+		switch(dataType)
+		{
+			case Types.DECIMAL:
+				final int decimalDigits = resultSet.getInt("DECIMAL_DIGITS");
+				return "NUMBER("+columnSize+','+decimalDigits+')'; // TODO: no null
+			case Types.OTHER:
+				return "TIMESTAMP(3)";
+			case Types.VARCHAR:
+				return "VARCHAR2("+columnSize+')';
+			default:
+				return null;
+		}
+	}
+
 	private String extractConstraintName(final SQLException e, final int vendorCode, final String start, final String end)
 	{
 		if(e.getErrorCode()!=vendorCode)
@@ -114,23 +131,6 @@ final class OracleDatabase
 		}
 	}
 
-
-	protected String getColumnType(final int dataType, final ResultSet resultSet) throws SQLException
-	{
-		final int columnSize = resultSet.getInt("COLUMN_SIZE");
-		switch(dataType)
-		{
-			case Types.DECIMAL:
-				final int decimalDigits = resultSet.getInt("DECIMAL_DIGITS");
-				return "NUMBER("+columnSize+','+decimalDigits+')'; // TODO: no null
-			case Types.OTHER:
-				return "TIMESTAMP(3)";
-			case Types.VARCHAR:
-				return "VARCHAR2("+columnSize+')';
-			default:
-				return null;
-		}
-	}
 
 	void fillReport(final Report report)
 	{

@@ -80,6 +80,26 @@ public final class MysqlDatabase extends Database
 		return "varchar("+(maxLength!=Integer.MAX_VALUE ? maxLength : 255)+") binary";
 	}
 	
+	protected String getColumnType(final int dataType, final ResultSet resultSet) throws SQLException
+	{
+		switch(dataType)
+		{
+			case Types.INTEGER:
+				return "integer";
+			case Types.BIGINT:
+				return "bigint";
+			case Types.DOUBLE:
+				return "double";
+			case Types.TIMESTAMP:
+				return "timestamp";
+			case Types.VARCHAR:
+				final int columnSize = resultSet.getInt("COLUMN_SIZE");
+				return "varchar("+columnSize+") binary";
+			default:
+				return null;
+		}
+	}
+
 	protected String protectName(final String name)
 	{
 		return '`' + name + '`';
@@ -107,27 +127,6 @@ public final class MysqlDatabase extends Database
 		return extracteConstraintName(e, 1217, "Cannot delete or update a parent row: a foreign key constraint fails");
 	}
 
-	protected String getColumnType(final int dataType, final ResultSet resultSet)
-			throws SQLException
-	{
-		switch(dataType)
-		{
-			case Types.INTEGER:
-				return "integer";
-			case Types.BIGINT:
-				return "bigint";
-			case Types.DOUBLE:
-				return "double";
-			case Types.TIMESTAMP:
-				return "timestamp";
-			case Types.VARCHAR:
-				final int columnSize = resultSet.getInt("COLUMN_SIZE");
-				return "varchar("+columnSize+") binary";
-			default:
-				return null;
-		}
-	}
-	
 	protected Statement getDropForeignKeyConstraintStatement(final Table table, final ItemColumn column)
 	{
 		final Statement bf = createStatement();
