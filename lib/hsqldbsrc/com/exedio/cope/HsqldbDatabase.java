@@ -42,7 +42,7 @@ final class HsqldbDatabase
 
 	protected HsqldbDatabase(final Properties properties)
 	{
-		super(properties);
+		super(properties, null);
 	}
 
 	String getIntegerType(final int precision)

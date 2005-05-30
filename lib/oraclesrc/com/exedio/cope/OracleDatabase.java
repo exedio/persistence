@@ -21,6 +21,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
@@ -52,7 +53,7 @@ final class OracleDatabase
 
 	protected OracleDatabase(final Properties properties)
 	{
-		super(properties);
+		super(properties, properties.getDatabaseUser().toUpperCase());
 	}
 	
 	String getIntegerType(final int precision)
@@ -114,8 +115,26 @@ final class OracleDatabase
 	}
 
 
+	protected String getColumnType(final int dataType, final ResultSet resultSet) throws SQLException
+	{
+		final int columnSize = resultSet.getInt("COLUMN_SIZE");
+		switch(dataType)
+		{
+			case Types.DECIMAL:
+				final int decimalDigits = resultSet.getInt("DECIMAL_DIGITS");
+				return "NUMBER("+columnSize+','+decimalDigits+')'; // TODO: no null
+			case Types.OTHER:
+				return "TIMESTAMP(3)";
+			case Types.VARCHAR:
+				return "VARCHAR2("+columnSize+')';
+			default:
+				return null;
+		}
+	}
+
 	void fillReport(final Report report)
 	{
+		super.fillReport(report);
 		{
 			final Statement bf = createStatement();
 			bf.append("select TABLE_NAME, LAST_ANALYZED from user_tables").
@@ -123,18 +142,6 @@ final class OracleDatabase
 				defineColumnTimestamp();
 
 			executeSQLQuery(bf, new ReportTableHandler(report), false);
-		}
-		{
-			final Statement bf = createStatement();
-			bf.append("select TABLE_NAME, COLUMN_NAME, DATA_TYPE, DATA_LENGTH, DATA_PRECISION, DATA_SCALE from user_tab_columns").
-				defineColumnString().
-				defineColumnString().
-				defineColumnString().
-				defineColumnInteger().
-				defineColumnInteger().
-				defineColumnInteger();
-
-			executeSQLQuery(bf, new ReportColumnHandler(report), false);
 		}
 		{
 			final Statement bf = createStatement();
@@ -171,50 +178,6 @@ final class OracleDatabase
 				final Date lastAnalyzed = (Date)resultSet.getObject(2);
 				final ReportTable table = report.notifyExistentTable(tableName);
 				table.setLastAnalyzed(lastAnalyzed);
-				//System.out.println("EXISTS:"+tableName);
-			}
-		}
-	}
-
-	private static class ReportColumnHandler implements ResultSetHandler
-	{
-		private final Report report;
-
-		ReportColumnHandler(final Report report)
-		{
-			this.report = report;
-		}
-
-		public void run(ResultSet resultSet) throws SQLException
-		{
-			while(resultSet.next())
-			{
-				final String tableName = resultSet.getString(1);
-				final String columnName = resultSet.getString(2);
-				final String dataType = resultSet.getString(3);
-
-				final String columnType;
-				if(dataType.equals("NUMBER"))
-				{
-					final int dataPrecision = resultSet.getInt(5);
-					final int dataScale = resultSet.getInt(6);
-					columnType = "NUMBER("+dataPrecision+','+dataScale+')';
-				}
-				else if(dataType.equals("VARCHAR2"))
-				{
-					final int dataLength = resultSet.getInt(4);
-					columnType = "VARCHAR2("+dataLength+')';
-				}
-				else if(dataType.equals("NVARCHAR2"))
-				{
-					final int dataLength = resultSet.getInt(4);
-					columnType = "NVARCHAR2("+dataLength+')';
-				}
-				else
-					columnType = dataType;
-					
-				final ReportTable table = report.notifyExistentTable(tableName);
-				final ReportColumn column = table.notifyExistentColumn(columnName, columnType);
 				//System.out.println("EXISTS:"+tableName);
 			}
 		}

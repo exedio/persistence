@@ -54,7 +54,7 @@ public final class MysqlDatabase extends Database
 
 	protected MysqlDatabase(final Properties properties)
 	{
-		super(properties);
+		super(properties, null);
 	}
 
 	String getIntegerType(final int precision)

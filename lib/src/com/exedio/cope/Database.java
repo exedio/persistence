@@ -37,13 +37,15 @@ abstract class Database
 	private final HashMap uniqueConstraintsByID = new HashMap();
 	private final HashMap itemColumnsByIntegrityConstraintName = new HashMap();
 	private boolean buildStage = true;
+	private final String schema;
 	private final boolean useDefineColumnTypes;
 	final ConnectionPool connectionPool;
 	final boolean hsqldb; // TODO remove hsqldb-specific stuff
 	final boolean mysql; // TODO remove mysql-specific stuff
 	
-	protected Database(final Properties properties)
+	protected Database(final Properties properties, final String schema)
 	{
+		this.schema = schema;
 		this.useDefineColumnTypes = this instanceof DatabaseColumnTypesDefinable;
 		this.connectionPool = new ConnectionPool(properties);
 		this.hsqldb = "com.exedio.cope.HsqldbDatabase".equals(getClass().getName()); 
@@ -799,11 +801,11 @@ abstract class Database
 			final String sqlText = statement.getText();
 			if(GET_TABLES.equals(sqlText))
 			{
-				resultSet = connection.getMetaData().getTables(null, null, null, new String[]{"TABLE"});
+				resultSet = connection.getMetaData().getTables(null, schema, null, new String[]{"TABLE"});
 			}
 			else if(GET_COLUMNS.equals(sqlText))
 			{
-				resultSet = connection.getMetaData().getColumns(null, null, null, null);
+				resultSet = connection.getMetaData().getColumns(null, schema, null, null);
 			}
 			else
 			{
@@ -1357,6 +1359,28 @@ abstract class Database
 			default:
 				return null;
 		}
+	}
+	
+	/**
+	 * For debugging output
+	 */
+	protected final void printMeta(final ResultSet resultSet) throws SQLException
+	{
+		final ResultSetMetaData metaData = resultSet.getMetaData();;
+		final int columnCount = metaData.getColumnCount();
+		for(int i = 1; i<=columnCount; i++)
+			System.out.println("------"+i+":"+metaData.getColumnName(i)+":"+metaData.getColumnType(i));
+	}
+	
+	/**
+	 * For debugging output
+	 */
+	protected final void printRow(final ResultSet resultSet) throws SQLException
+	{
+		final ResultSetMetaData metaData = resultSet.getMetaData();;
+		final int columnCount = metaData.getColumnCount();
+		for(int i = 1; i<=columnCount; i++)
+			System.out.println("----------"+i+":"+resultSet.getObject(i));
 	}
 	
 	public final Report reportDatabase()
