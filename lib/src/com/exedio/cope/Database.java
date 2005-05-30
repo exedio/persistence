@@ -1338,7 +1338,7 @@ abstract class Database
 		}
 	}
 	
-	private final String getColumnType(final int dataType, final ResultSet resultSet)
+	protected String getColumnType(final int dataType, final ResultSet resultSet)
 			throws SQLException
 	{
 		switch(dataType)

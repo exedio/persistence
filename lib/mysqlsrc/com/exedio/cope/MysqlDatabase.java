@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.mysql.jdbc.Driver;
@@ -105,6 +106,19 @@ public final class MysqlDatabase extends Database
 		return extracteConstraintName(e, 1217, "Cannot delete or update a parent row: a foreign key constraint fails");
 	}
 
+	protected String getColumnType(final int dataType, final ResultSet resultSet)
+			throws SQLException
+	{
+		final String result = super.getColumnType(dataType, resultSet);
+
+		if(result==null)
+			return null;
+		else if(result.startsWith("varchar"))
+			return result + " binary";
+		else
+			return result;
+	}
+	
 	protected Statement getDropForeignKeyConstraintStatement(final Table table, final ItemColumn column)
 	{
 		final Statement bf = createStatement();

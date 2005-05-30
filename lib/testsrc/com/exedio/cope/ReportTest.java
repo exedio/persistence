@@ -230,22 +230,18 @@ public class ReportTest extends DatabaseLibTest
 			assertEquals(Report.COLOR_OK, stringItem.getParticularColor());
 
 			final ReportColumn min4Max8 = stringItem.getColumn("min4Max8");
+			assertEquals(null, min4Max8.getError());
+			assertEquals(Report.COLOR_OK, min4Max8.getParticularColor());
 			if(hsqldb)
 			{
-				assertEquals(null, min4Max8.getError());
-				assertEquals(Report.COLOR_OK, min4Max8.getParticularColor());
 				assertEquals("varchar(8)", min4Max8.getDatabaseType());
 			}
 			else if(mysql)
 			{
-				assertEquals("different type in database: >varchar(8)<", min4Max8.getError());
-				assertEquals(Report.COLOR_RED, min4Max8.getParticularColor());
 				assertEquals("varchar(8) binary", min4Max8.getDatabaseType());
 			}
 			else
 			{
-				assertEquals(null, min4Max8.getError());
-				assertEquals(Report.COLOR_OK, min4Max8.getParticularColor());
 				assertEquals("VARCHAR2(8)", min4Max8.getDatabaseType());
 			}
 		}
