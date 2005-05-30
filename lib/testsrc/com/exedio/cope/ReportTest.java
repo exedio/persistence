@@ -215,6 +215,39 @@ public class ReportTest extends DatabaseLibTest
 
 			final boolean fkOk = !mysql && !hsqldb;
 			assertConstraint(attributeItem, "AttributeItem_someItem_Fk", null, fkOk);
+
+			final ReportTable uniqueItem = report.getTable("ItemWithSingleUnique");
+			assertNotNull(uniqueItem);
+			assertEquals(null, uniqueItem.getError());
+			assertEquals(Report.COLOR_OK, uniqueItem.getParticularColor());
+			
+			final boolean uniqueOk = !mysql && !hsqldb;
+			assertConstraint(uniqueItem, "ItemWithSingUni_unStr_Unq", null, uniqueOk);
+			
+			final ReportTable stringItem = report.getTable("StringItem");
+			assertNotNull(stringItem);
+			assertEquals(null, stringItem.getError());
+			assertEquals(Report.COLOR_OK, stringItem.getParticularColor());
+
+			final ReportColumn min4Max8 = stringItem.getColumn("min4Max8");
+			if(hsqldb)
+			{
+				assertEquals(null, min4Max8.getError());
+				assertEquals(Report.COLOR_OK, min4Max8.getParticularColor());
+				assertEquals("varchar(8)", min4Max8.getDatabaseType());
+			}
+			else if(mysql)
+			{
+				assertEquals("different type in database: >varchar(8)<", min4Max8.getError());
+				assertEquals(Report.COLOR_RED, min4Max8.getParticularColor());
+				assertEquals("varchar(8) binary", min4Max8.getDatabaseType());
+			}
+			else
+			{
+				assertEquals(null, min4Max8.getError());
+				assertEquals(Report.COLOR_OK, min4Max8.getParticularColor());
+				assertEquals("VARCHAR2(8)", min4Max8.getDatabaseType());
+			}
 		}
 	}
 	
