@@ -121,8 +121,8 @@ public final class MysqlDatabase extends Database
 			case Types.TIMESTAMP:
 				return "timestamp";
 			case Types.VARCHAR:
-				final int dataLength = resultSet.getInt("COLUMN_SIZE");
-				return "varchar("+dataLength+") binary";
+				final int columnSize = resultSet.getInt("COLUMN_SIZE");
+				return "varchar("+columnSize+") binary";
 			default:
 				return null;
 		}

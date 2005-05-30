@@ -81,8 +81,8 @@ final class HsqldbDatabase
 			case Types.TIMESTAMP:
 				return "timestamp";
 			case Types.VARCHAR:
-				final int dataLength = resultSet.getInt("COLUMN_SIZE");
-				return "varchar("+dataLength+')';
+				final int columnSize = resultSet.getInt("COLUMN_SIZE");
+				return "varchar("+columnSize+')';
 			default:
 				return null;
 		}
