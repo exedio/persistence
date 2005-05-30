@@ -58,7 +58,7 @@ final class OracleDatabase
 	
 	String getIntegerType(final int precision)
 	{
-		return "NUMBER(" + precision + ",0)";
+		return "NUMBER(" + precision + ')';
 	}
 
 	String getDoubleType(final int precision)
@@ -83,7 +83,10 @@ final class OracleDatabase
 		{
 			case Types.DECIMAL:
 				final int decimalDigits = resultSet.getInt("DECIMAL_DIGITS");
-				return "NUMBER("+columnSize+','+decimalDigits+')'; // TODO: no null
+				if(decimalDigits>0)
+					return "NUMBER("+columnSize+','+decimalDigits+')';
+				else
+					return "NUMBER("+columnSize+')';
 			case Types.OTHER:
 				return "TIMESTAMP(3)";
 			case Types.VARCHAR:
