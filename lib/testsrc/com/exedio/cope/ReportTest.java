@@ -202,20 +202,25 @@ public class ReportTest extends DatabaseLibTest
 			assertEquals(null, attributeItem.getError());
 			assertEquals(Report.COLOR_OK, attributeItem.getParticularColor());
 			
-			assertConstraint(attributeItem, "AttrItem_somNotNullStr_Ck", protect("someNotNullString")+" IS NOT NULL");
-			assertConstraint(attributeItem, "AttribuItem_someBoolea_Ck", "("+protect("someBoolean")+" IN (0,1)) OR ("+protect("someBoolean")+" IS NULL)");
-			assertConstraint(attributeItem, "AttrItem_somNotNullBoo_Ck", "("+protect("someNotNullBoolean")+" IS NOT NULL) AND ("+protect("someNotNullBoolean")+" IN (0,1))");
-			assertConstraint(attributeItem, "AttribuItem_someEnumer_Ck", "("+protect("someEnumeration")+" IN (100,200,300)) OR ("+protect("someEnumeration")+" IS NULL)");
-			assertConstraint(attributeItem, "AttrItem_somNotNullEnu_Ck", "("+protect("someNotNullEnumeration")+" IS NOT NULL) AND ("+protect("someNotNullEnumeration")+" IN (100,200,300))");
-			assertConstraint(attributeItem, "AttriItem_someDataMajo_Ck", "((LENGTH("+protect("someDataMajor")+")>=1) AND (LENGTH("+protect("someDataMajor")+")<=30)) OR ("+protect("someDataMajor")+" IS NULL)");
+			final boolean checkOk = !mysql;
+			assertConstraint(attributeItem, "AttrItem_somNotNullStr_Ck", protect("someNotNullString")+" IS NOT NULL", checkOk);
+			assertConstraint(attributeItem, "AttribuItem_someBoolea_Ck", "("+protect("someBoolean")+" IN (0,1)) OR ("+protect("someBoolean")+" IS NULL)", checkOk);
+			assertConstraint(attributeItem, "AttrItem_somNotNullBoo_Ck", "("+protect("someNotNullBoolean")+" IS NOT NULL) AND ("+protect("someNotNullBoolean")+" IN (0,1))", checkOk);
+			assertConstraint(attributeItem, "AttribuItem_someEnumer_Ck", "("+protect("someEnumeration")+" IN (100,200,300)) OR ("+protect("someEnumeration")+" IS NULL)", checkOk);
+			assertConstraint(attributeItem, "AttrItem_somNotNullEnu_Ck", "("+protect("someNotNullEnumeration")+" IS NOT NULL) AND ("+protect("someNotNullEnumeration")+" IN (100,200,300))", checkOk);
+			assertConstraint(attributeItem, "AttriItem_someDataMajo_Ck", "((LENGTH("+protect("someDataMajor")+")>=1) AND (LENGTH("+protect("someDataMajor")+")<=30)) OR ("+protect("someDataMajor")+" IS NULL)", checkOk);
 		}
 	}
 	
-	private void assertConstraint(final ReportTable table, final String constraintName, final String requiredCondition)
+	private void assertConstraint(final ReportTable table, final String constraintName, final String requiredCondition, final boolean ok)
 	{
 		final ReportConstraint constraint = table.getConstraint(constraintName);
 		assertNotNull("no such constraint "+constraintName+", but has "+table.getConstraints(), constraint);
 		assertEquals(requiredCondition, constraint.requiredCondition);
+		if(ok)
+			assertEquals(Report.COLOR_OK, constraint.getParticularColor());
+		else
+			assertEquals(Report.COLOR_RED, constraint.getParticularColor());
 	}
 	
 	private final String protect(final String name)
