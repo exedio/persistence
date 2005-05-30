@@ -22,7 +22,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -1340,26 +1339,8 @@ abstract class Database
 		}
 	}
 	
-	protected String getColumnType(final int dataType, final ResultSet resultSet)
-			throws SQLException
-	{
-		switch(dataType)
-		{
-			case Types.INTEGER:
-				return "integer";
-			case Types.BIGINT:
-				return "bigint";
-			case Types.DOUBLE:
-				return "double";
-			case Types.TIMESTAMP:
-				return "timestamp";
-			case Types.VARCHAR:
-				final int dataLength = resultSet.getInt("COLUMN_SIZE");
-				return "varchar("+dataLength+')';
-			default:
-				return null;
-		}
-	}
+	protected abstract String getColumnType(final int dataType, final ResultSet resultSet)
+			throws SQLException;
 	
 	/**
 	 * For debugging output

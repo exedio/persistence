@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 
 import com.mysql.jdbc.Driver;
 
@@ -109,14 +110,22 @@ public final class MysqlDatabase extends Database
 	protected String getColumnType(final int dataType, final ResultSet resultSet)
 			throws SQLException
 	{
-		final String result = super.getColumnType(dataType, resultSet);
-
-		if(result==null)
-			return null;
-		else if(result.startsWith("varchar"))
-			return result + " binary";
-		else
-			return result;
+		switch(dataType)
+		{
+			case Types.INTEGER:
+				return "integer";
+			case Types.BIGINT:
+				return "bigint";
+			case Types.DOUBLE:
+				return "double";
+			case Types.TIMESTAMP:
+				return "timestamp";
+			case Types.VARCHAR:
+				final int dataLength = resultSet.getInt("COLUMN_SIZE");
+				return "varchar("+dataLength+") binary";
+			default:
+				return null;
+		}
 	}
 	
 	protected Statement getDropForeignKeyConstraintStatement(final Table table, final ItemColumn column)
