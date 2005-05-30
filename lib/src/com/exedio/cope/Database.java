@@ -193,7 +193,7 @@ abstract class Database
 		//final long time = System.currentTimeMillis();
 		// must delete in reverse order, to obey integrity constraints
 		for(ListIterator i = tables.listIterator(tables.size()); i.hasPrevious(); )
-			dropForeignKeyConstraints((Table)i.previous());
+			dropForeignKeyConstraints((Table)i.previous(), false);
 		for(ListIterator i = tables.listIterator(tables.size()); i.hasPrevious(); )
 			dropTable((Table)i.previous());
 		//final long amount = (System.currentTimeMillis()-time);
@@ -211,7 +211,7 @@ abstract class Database
 			try
 			{
 				final Table table = (Table)i.next();
-				dropForeignKeyConstraints(table);
+				dropForeignKeyConstraints(table, true);
 			}
 			catch(NestingRuntimeException e2)
 			{
@@ -1274,7 +1274,7 @@ abstract class Database
 		return bf;
 	}
 	
-	private void dropForeignKeyConstraints(final Table table) 
+	private final void dropForeignKeyConstraints(final Table table, final boolean log) 
 	{
 		for(Iterator i = table.getColumns().iterator(); i.hasNext(); )
 		{
@@ -1285,7 +1285,8 @@ abstract class Database
 				final ItemColumn itemColumn = (ItemColumn)column;
 				final Statement bf = getDropForeignKeyConstraintStatement(table, itemColumn);
 
-				System.err.println("DROPPING FOREIGN KEY CONSTRAINTS "+table+" "+itemColumn.integrityConstraintName+"... ");
+				if(log)
+					System.err.println("DROPPING FOREIGN KEY CONSTRAINTS "+table+" "+itemColumn.integrityConstraintName+"... ");
 				try
 				{
 					executeSQLUpdate(bf, 0);
