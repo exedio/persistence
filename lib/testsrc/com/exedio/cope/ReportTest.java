@@ -209,6 +209,12 @@ public class ReportTest extends DatabaseLibTest
 			assertConstraint(attributeItem, "AttribuItem_someEnumer_Ck", "("+protect("someEnumeration")+" IN (100,200,300)) OR ("+protect("someEnumeration")+" IS NULL)", checkOk);
 			assertConstraint(attributeItem, "AttrItem_somNotNullEnu_Ck", "("+protect("someNotNullEnumeration")+" IS NOT NULL) AND ("+protect("someNotNullEnumeration")+" IN (100,200,300))", checkOk);
 			assertConstraint(attributeItem, "AttriItem_someDataMajo_Ck", "((LENGTH("+protect("someDataMajor")+")>=1) AND (LENGTH("+protect("someDataMajor")+")<=30)) OR ("+protect("someDataMajor")+" IS NULL)", checkOk);
+
+			final boolean pkOk = !mysql && !hsqldb;
+			assertConstraint(attributeItem, "AttributeItem_Pk", null, pkOk);
+
+			final boolean fkOk = !mysql && !hsqldb;
+			assertConstraint(attributeItem, "AttributeItem_someItem_Fk", null, fkOk);
 		}
 	}
 	
