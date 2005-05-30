@@ -67,8 +67,7 @@ final class HsqldbDatabase
 		return "timestamp";
 	}
 
-	protected String getColumnType(final int dataType, final ResultSet resultSet)
-	throws SQLException
+	protected String getColumnType(final int dataType, final ResultSet resultSet) throws SQLException
 	{
 		switch(dataType)
 		{
