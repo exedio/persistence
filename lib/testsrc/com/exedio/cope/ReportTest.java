@@ -233,17 +233,11 @@ public class ReportTest extends DatabaseLibTest
 			assertEquals(null, min4Max8.getError());
 			assertEquals(Report.COLOR_OK, min4Max8.getParticularColor());
 			if(hsqldb)
-			{
 				assertEquals("varchar(8)", min4Max8.getDatabaseType());
-			}
 			else if(mysql)
-			{
 				assertEquals("varchar(8) binary", min4Max8.getDatabaseType());
-			}
 			else
-			{
 				assertEquals("VARCHAR2(8)", min4Max8.getDatabaseType());
-			}
 		}
 	}
 	
