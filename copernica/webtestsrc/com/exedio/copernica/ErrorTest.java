@@ -15,29 +15,29 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
+
 package com.exedio.copernica;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
 
-public class PackageTest extends TestCase
+public class ErrorTest extends AbstractWebTest
 {
-
-	public PackageTest(String name)
+	public ErrorTest(String name)
 	{
 		super(name);
 	}
 
-	public static Test suite()
+	public void testError() throws Exception
 	{
-		final TestSuite suite = new TestSuite();
-		suite.addTest(new TestSuite(ErrorTest.class));
-		suite.addTest(new TestSuite(AuthorizationTest.class));
-		suite.addTest(new TestSuite(WebTest.class));
-		suite.addTest(new TestSuite(StringTest.class));
-		suite.addTest(new TestSuite(SaveButtonExistTest.class));
-		return suite;
+		try
+		{
+			beginAt("copernica.jsp?t=EmptyItemx");
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			final String message = e.getMessage();
+			assertTrue(message, message.startsWith("com.meterware.httpunit.HttpInternalErrorException: Error on HTTP request: 500 Internal Error [http://127.0.0.1:8080/copetest-hsqldb/copernica.jsp?t=EmptyItemx"));
+		}
 	}
 
 }

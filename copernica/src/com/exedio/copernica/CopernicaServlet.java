@@ -110,6 +110,7 @@ public final class CopernicaServlet extends CopsServlet
 		}
 		catch(Exception e)
 		{
+			response.setStatus(response.SC_INTERNAL_SERVER_ERROR);
 			if(out==null)
 				out = new PrintStream(response.getOutputStream(), false, ENCODING);
 
