@@ -23,11 +23,6 @@ import java.util.Arrays;
 public class WebTest extends AbstractWebTest
 {
 
-	public WebTest(String name)
-	{
-		super(name);
-	}
-
 	String someString;
 	String someNotNullString;
 	String section;

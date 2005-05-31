@@ -21,11 +21,6 @@ package com.exedio.copernica;
 public class SaveButtonExistTest extends AbstractWebTest
 {
 
-	public SaveButtonExistTest(String name)
-	{
-		super(name);
-	}
-
 	public void testSaveButtonExists()
 	{
 		beginAt("copernica.jsp");

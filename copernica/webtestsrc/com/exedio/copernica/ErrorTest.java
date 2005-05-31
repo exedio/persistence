@@ -21,10 +21,6 @@ package com.exedio.copernica;
 
 public class ErrorTest extends AbstractWebTest
 {
-	public ErrorTest(String name)
-	{
-		super(name);
-	}
 
 	public void testError() throws Exception
 	{

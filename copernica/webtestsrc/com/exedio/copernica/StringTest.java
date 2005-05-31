@@ -26,11 +26,6 @@ package com.exedio.copernica;
 public class StringTest extends AbstractWebTest
 {
 
-	public StringTest(String name)
-	{
-		super(name);
-	}
-
 	String any;
 	String min4;
 	String max4;

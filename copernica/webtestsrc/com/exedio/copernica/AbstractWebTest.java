@@ -32,11 +32,6 @@ public class AbstractWebTest extends WebTestCase
 
 	protected static final String SAVE_BUTTON = "Save";
 
-	public AbstractWebTest(String name)
-	{
-		super(name);
-	}
-
 	public void setUp() throws Exception
 	{
 		super.setUp();
