@@ -28,11 +28,6 @@ import com.exedio.cope.util.PoolCounterTest;
 public class PackageTest extends TestCase
 {
 
-	public PackageTest(String name)
-	{
-		super(name);
-	}
-
 	public static Test suite()
 	{
 		TestSuite suite = new TestSuite();

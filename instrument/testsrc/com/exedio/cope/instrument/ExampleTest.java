@@ -22,9 +22,9 @@ import java.lang.reflect.Modifier;
 public class ExampleTest extends InjectorTest
 {
 
-	public ExampleTest(String name)
+	public ExampleTest()
 	{
-		super(name, "Example.java");
+		super("Example.java");
 	}
 
 	protected void setUp() throws Exception

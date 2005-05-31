@@ -33,9 +33,8 @@ public abstract class InjectorTest extends InstrumentorTest
 	private final String resourceName;
 	private final String lineSeparator;
 
-	protected InjectorTest(String name, final String resourceName)
+	protected InjectorTest(final String resourceName)
 	{
-		super(name);
 		this.resourceName = resourceName;
 		this.lineSeparator = System.getProperty("line.separator");
 	}

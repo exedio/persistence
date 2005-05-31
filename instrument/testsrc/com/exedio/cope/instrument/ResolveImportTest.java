@@ -26,10 +26,6 @@ import com.exedio.cope.instrument.findtype.subfindtype2.SubFindType3Non;
 
 public class ResolveImportTest extends InstrumentorTest
 {
-	public ResolveImportTest(final String name)
-	{
-		super(name);
-	}
 	
 	public void testImports() throws InjectorParseException
 	{

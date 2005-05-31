@@ -24,16 +24,6 @@ import junit.framework.TestCase;
 
 public class InstrumentorTest extends TestCase
 {
-	protected InstrumentorTest()
-	{
-		super();
-	}
-
-	// TODO: remove this constructor
-	protected InstrumentorTest(final String name)
-	{
-		super(name);
-	}
 
 	protected List list(final Object o)
 	{
