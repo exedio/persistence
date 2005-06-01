@@ -575,7 +575,7 @@ abstract class Database
 			this.row = row;
 		}
 
-		public void run(ResultSet resultSet) throws SQLException
+		public void run(final ResultSet resultSet) throws SQLException
 		{
 			if(!resultSet.next())
 				throw new RuntimeException("no such pk"); // TODO use a dedicated runtime exception
@@ -623,7 +623,7 @@ abstract class Database
 	{
 		private boolean result = false;
 
-		public void run(ResultSet resultSet) throws SQLException
+		public void run(final ResultSet resultSet) throws SQLException
 		{
 			result = resultSet.next();
 		}
@@ -1255,7 +1255,7 @@ abstract class Database
 	{
 		int result;
 
-		public void run(ResultSet resultSet) throws SQLException
+		public void run(final ResultSet resultSet) throws SQLException
 		{
 			if(!resultSet.next())
 				throw new RuntimeException();
@@ -1324,7 +1324,7 @@ abstract class Database
 	{
 		int[] result;
 
-		public void run(ResultSet resultSet) throws SQLException
+		public void run(final ResultSet resultSet) throws SQLException
 		{
 			if(!resultSet.next())
 				throw new RuntimeException();
@@ -1395,7 +1395,7 @@ abstract class Database
 			this.report = report;
 		}
 
-		public void run(ResultSet resultSet) throws SQLException
+		public void run(final ResultSet resultSet) throws SQLException
 		{
 			while(resultSet.next())
 			{
@@ -1415,7 +1415,7 @@ abstract class Database
 			this.report = report;
 		}
 
-		public void run(ResultSet resultSet) throws SQLException
+		public void run(final ResultSet resultSet) throws SQLException
 		{
 			while(resultSet.next())
 			{
@@ -1577,7 +1577,7 @@ abstract class Database
 
 	static final ResultSetHandler logHandler = new ResultSetHandler()
 	{
-		public void run(ResultSet resultSet) throws SQLException
+		public void run(final ResultSet resultSet) throws SQLException
 		{
 			final int columnCount = resultSet.getMetaData().getColumnCount();
 			System.out.println("columnCount:"+columnCount);

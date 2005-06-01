@@ -179,7 +179,7 @@ final class HsqldbDatabase
 			this.report = report;
 		}
 
-		public void run(ResultSet resultSet) throws SQLException
+		public void run(final ResultSet resultSet) throws SQLException
 		{
 			while(resultSet.next())
 			{
