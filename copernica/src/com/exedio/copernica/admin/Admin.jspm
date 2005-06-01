@@ -78,7 +78,11 @@ final class Admin_Jspm
 				{
 					%><hr>
 					<a href="<%=cop%>">flush log</a><%
-					Report_Jspm.writeApply(out, request, model);
+	%>
+	<ol><%
+					ReportCop.writeApply(out, request, model);
+	%>
+	</ol><%
 					%>
 					<a href="<%=cop%>">flush log</a>
 					<hr><%

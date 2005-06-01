@@ -20,8 +20,13 @@ package com.exedio.copernica.admin;
 
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.Iterator;
+
+import javax.servlet.http.HttpServletRequest;
 
 import com.exedio.cope.Model;
+import com.exedio.cope.Report;
+import com.exedio.cope.ReportColumn;
 import com.exedio.cope.ReportTable;
 
 
@@ -88,6 +93,199 @@ final class ReportCop extends AdminCop
 	final boolean skipTable(final ReportTable table)
 	{
 		return reportTable!=null && !reportTable.equals(table.name);
+	}
+
+	private static final ReportColumn getColumn(final Report report, final String columnParameter)
+	{
+		final int pos = columnParameter.indexOf('#');
+		if(pos<=0)
+			throw new RuntimeException(columnParameter);
+		
+		final ReportTable table = report.getTable(columnParameter.substring(0, pos));
+		if(table==null)
+			throw new RuntimeException(columnParameter);
+		
+		final ReportColumn column = table.getColumn(columnParameter.substring(pos+1));
+		if(column==null)
+			throw new RuntimeException(columnParameter);
+		
+		return column;
+	}
+	
+	final static void writeApply(final PrintStream out,
+			final HttpServletRequest request, final Model model)
+			throws IOException
+	{
+		final Report report = model.reportDatabase();
+		{
+			final String[] dropColumns = (String[]) request.getParameterMap().get(
+					"DROP_COLUMN");
+			if (dropColumns != null)
+			{
+				for (int i = 0; i < dropColumns.length; i++)
+				{
+					final String dropColumn = dropColumns[i];
+					final ReportColumn column = getColumn(report, dropColumn);
+					Report_Jspm.writeDrop(out, column);
+					out.flush();
+					final long startTime = System.currentTimeMillis();
+					column.drop();
+					Report_Jspm.writeDone(out, startTime);
+				}
+			}
+		}
+		{
+			final String[] dropTables = (String[]) request.getParameterMap().get(
+					"DROP_TABLE");
+			if (dropTables != null)
+			{
+				for (int i = 0; i < dropTables.length; i++)
+				{
+					final String dropTable = dropTables[i];
+					final ReportTable table = report.getTable(dropTable);
+					if (table == null)
+						throw new RuntimeException(dropTable);
+					Report_Jspm.writeDrop(out, table);
+					out.flush();
+					final long startTime = System.currentTimeMillis();
+					table.drop();
+					Report_Jspm.writeDone(out, startTime);
+				}
+			}
+		}
+		{
+			for (Iterator i = request.getParameterMap().keySet().iterator(); i
+					.hasNext();)
+			{
+				final String parameterName = (String) i.next();
+				if (!parameterName.startsWith("RENAME_TABLE_"))
+					continue;
+
+				final String targetName = request.getParameter(parameterName);
+				if (targetName.length() == 0)
+					continue;
+
+				final String sourceName = parameterName.substring("RENAME_TABLE_"
+						.length());
+				final ReportTable table = report.getTable(sourceName);
+				if (table == null)
+					throw new RuntimeException(sourceName);
+
+				Report_Jspm.writeRename(out, table, targetName);
+				out.flush();
+				final long startTime = System.currentTimeMillis();
+				table.renameTo(targetName);
+				Report_Jspm.writeDone(out, startTime);
+			}
+		}
+		{
+			for (Iterator i = request.getParameterMap().keySet().iterator(); i
+					.hasNext();)
+			{
+				final String parameterName = (String) i.next();
+				if (!parameterName.startsWith("MODIFY_COLUMN_"))
+					continue;
+
+				final String targetType = request.getParameter(parameterName);
+				if (targetType.length() == 0)
+					continue;
+
+				final String sourceName = parameterName.substring("MODIFY_COLUMN_"
+						.length());
+
+				final ReportColumn column = getColumn(report, sourceName);
+				if (column == null)
+					throw new RuntimeException(sourceName);
+
+				Report_Jspm.writeModify(out, column, targetType);
+				out.flush();
+				final long startTime = System.currentTimeMillis();
+				column.modify(targetType);
+				Report_Jspm.writeDone(out, startTime);
+			}
+		}
+		{
+			for (Iterator i = request.getParameterMap().keySet().iterator(); i
+					.hasNext();)
+			{
+				final String parameterName = (String) i.next();
+				if (!parameterName.startsWith("RENAME_COLUMN_"))
+					continue;
+
+				final String targetName = request.getParameter(parameterName);
+				if (targetName.length() == 0)
+					continue;
+
+				final String sourceName = parameterName.substring("RENAME_COLUMN_"
+						.length());
+
+				final ReportColumn column = getColumn(report, sourceName);
+				if (column == null)
+					throw new RuntimeException(sourceName);
+
+				Report_Jspm.writeRename(out, column, targetName);
+				out.flush();
+				final long startTime = System.currentTimeMillis();
+				column.renameTo(targetName);
+				Report_Jspm.writeDone(out, startTime);
+			}
+		}
+		{
+			final String[] createTables = (String[]) request.getParameterMap()
+					.get("CREATE_TABLE");
+			if (createTables != null)
+			{
+				for (int i = 0; i < createTables.length; i++)
+				{
+					final String createTable = createTables[i];
+					final ReportTable table = report.getTable(createTable);
+					if (table == null)
+						throw new RuntimeException(createTable);
+
+					Report_Jspm.writeCreate(out, table);
+					out.flush();
+					final long startTime = System.currentTimeMillis();
+					table.create();
+					Report_Jspm.writeDone(out, startTime);
+				}
+			}
+		}
+		{
+			final String[] analyzeTables = (String[]) request.getParameterMap()
+					.get("ANALYZE_TABLE");
+			if (analyzeTables != null)
+			{
+				for (int i = 0; i < analyzeTables.length; i++)
+				{
+					final String analyzeTable = analyzeTables[i];
+					final ReportTable table = report.getTable(analyzeTable);
+					if (table == null)
+						throw new RuntimeException(analyzeTable);
+					Report_Jspm.writeAnalyze(out, table);
+					out.flush();
+					final long startTime = System.currentTimeMillis();
+					table.analyze();
+					Report_Jspm.writeDone(out, startTime);
+				}
+			}
+		}
+		{
+			final String[] createColums = (String[]) request.getParameterMap()
+					.get("CREATE_COLUMN");
+			if (createColums != null)
+			{
+				for (int i = 0; i < createColums.length; i++)
+				{
+					final String createColumn = createColums[i];
+					final ReportColumn column = getColumn(report, createColumn);
+					Report_Jspm.writeCreate(out, column);
+					out.flush();
+					final long startTime = System.currentTimeMillis();
+					column.create();
+					Report_Jspm.writeDone(out, startTime);
+				}
+			}
+		}
 	}
 
 }
