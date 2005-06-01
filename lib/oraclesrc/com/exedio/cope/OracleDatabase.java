@@ -270,20 +270,29 @@ final class OracleDatabase
 	}
 	
 	private static final Random statementIDCounter = new Random();
+	
 	private static final String STATEMENT_ID = "STATEMENT_ID";
+	private static final String OPERATION = "OPERATION";
+	private static final String OPTIONS = "OPTIONS";
+	private static final String OBJECT_NAME = "OBJECT_NAME";
+	private static final String OBJECT_INSTANCE = "OBJECT_INSTANCE";
+	private static final String OBJECT_TYPE = "OBJECT_TYPE";
+	private static final String ID = "ID";
+	private static final String PARENT_ID = "PARENT_ID";
+
 	private static final String STATEMENT_ID_PREFIX = "cope";
 
 	private static final HashSet skippedColumnNames = new HashSet(Arrays.asList(new String[]{
 			STATEMENT_ID,
-			"OPERATION",
-			"OPTIONS",
+			OPERATION,
+			OPTIONS,
 			"TIMESTAMP",
 			"OBJECT_OWNER",
-			"OBJECT_NAME",
-			"OBJECT_INSTANCE",
-			"OBJECT_TYPE",
-			"ID",
-			"PARENT_ID",
+			OBJECT_NAME,
+			OBJECT_INSTANCE,
+			OBJECT_TYPE,
+			ID,
+			PARENT_ID,
 			"POSITION",
 		}));
 	
@@ -310,20 +319,20 @@ final class OracleDatabase
 				final Statement create = createStatement();
 				create.append(
 					"CREATE TABLE PLAN_TABLE (" +
-						"statement_id VARCHAR2(30), " +
+						STATEMENT_ID+" VARCHAR2(30), " +
 						"timestamp DATE, " +
 						"remarks VARCHAR2(80), " +
-						"operation VARCHAR2(30), " +
-						"options VARCHAR2(30), " +
+						OPERATION+" VARCHAR2(30), " +
+						OPTIONS+" VARCHAR2(30), " +
 						"object_node VARCHAR2(128), " +
 						"object_owner VARCHAR2(30), " +
-						"object_name VARCHAR2(30), " +
-						"object_instance NUMERIC, " +
-						"object_type VARCHAR2(30), " +
+						OBJECT_NAME+" VARCHAR2(30), " +
+						OBJECT_INSTANCE+" NUMERIC, " +
+						OBJECT_TYPE+" VARCHAR2(30), " +
 						"optimizer VARCHAR2(255), " +
 						"search_columns NUMERIC, " +
-						"id NUMERIC, " +
-						"parent_id NUMERIC, " +
+						ID+" NUMERIC, " +
+						PARENT_ID+" NUMERIC, " +
 						"position NUMERIC, " +
 						"cost NUMERIC, " +
 						"cardinality NUMERIC, " +
@@ -392,7 +401,7 @@ final class OracleDatabase
 						"select * from plan_table " +
 						"where "+STATEMENT_ID+"='"+STATEMENT_ID_PREFIX).
 				append(statementID).
-				append("' order by ID");
+				append("' order by "+ID);
 			java.sql.Statement sqlFetchStatement = null;
 			ResultSet sqlFetchResultSet = null;
 			try
@@ -407,13 +416,13 @@ final class OracleDatabase
 
 				while(sqlFetchResultSet.next())
 				{
-					final String operation = sqlFetchResultSet.getString("OPERATION");
-					final String options = sqlFetchResultSet.getString("OPTIONS");
-					final String objectName = sqlFetchResultSet.getString("OBJECT_NAME");
-					final int objectInstance = sqlFetchResultSet.getInt("OBJECT_INSTANCE");
-					final String objectType = sqlFetchResultSet.getString("OBJECT_TYPE");
-					final int id = sqlFetchResultSet.getInt("ID");
-					final Number parentID = (Number)sqlFetchResultSet.getObject("PARENT_ID");
+					final String operation = sqlFetchResultSet.getString(OPERATION);
+					final String options = sqlFetchResultSet.getString(OPTIONS);
+					final String objectName = sqlFetchResultSet.getString(OBJECT_NAME);
+					final int objectInstance = sqlFetchResultSet.getInt(OBJECT_INSTANCE);
+					final String objectType = sqlFetchResultSet.getString(OBJECT_TYPE);
+					final int id = sqlFetchResultSet.getInt(ID);
+					final Number parentID = (Number)sqlFetchResultSet.getObject(PARENT_ID);
 					
 					final StringBuffer bf = new StringBuffer(operation);
 
