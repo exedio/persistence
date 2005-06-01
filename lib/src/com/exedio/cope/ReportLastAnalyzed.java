@@ -44,7 +44,7 @@ public final class ReportLastAnalyzed extends ReportNode
 			particularColor = COLOR_OK;
 
 		if(!table.required())
-			particularColor = Math.min(particularColor, COLOR_YELLOW);
+			particularColor = Math.min(particularColor, COLOR_WARNING);
 				
 		cumulativeColor = particularColor;
 	}

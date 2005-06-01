@@ -202,7 +202,7 @@ public final class ReportTable extends ReportNode
 		else if(table==null)
 		{
 			error = "not used";
-			particularColor = COLOR_YELLOW;
+			particularColor = COLOR_WARNING;
 		}
 		else
 			particularColor = COLOR_OK;

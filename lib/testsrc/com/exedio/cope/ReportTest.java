@@ -63,7 +63,7 @@ public class ReportTest extends DatabaseLibTest
 			{
 				final ReportColumn columnX = table.getColumn(COLUMN1X);
 				assertEquals("not used", columnX.getError());
-				assertEquals(Report.COLOR_YELLOW, columnX.getParticularColor());
+				assertEquals(Report.COLOR_WARNING, columnX.getParticularColor());
 				assertEquals(column1Type, columnX.getDatabaseType());
 
 				columnX.renameTo(COLUMN1);
@@ -136,11 +136,11 @@ public class ReportTest extends DatabaseLibTest
 				final ReportTable tableX = report.getTable(TABLE1X);
 				assertNotNull(tableX);
 				assertEquals("not used", tableX.getError());
-				assertEquals(Report.COLOR_YELLOW, tableX.getParticularColor());
+				assertEquals(Report.COLOR_WARNING, tableX.getParticularColor());
 
 				final ReportColumn column = tableX.getColumn(COLUMN1);
 				assertEquals("not used", column.getError());
-				assertEquals(Report.COLOR_YELLOW, column.getParticularColor());
+				assertEquals(Report.COLOR_WARNING, column.getParticularColor());
 				assertEquals(column1Type, column.getDatabaseType());
 
 				tableX.renameTo(TABLE1);

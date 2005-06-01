@@ -41,7 +41,7 @@ final class Report_Jspm
 		{
 		case Report.COLOR_OK:
 			return "ok";
-		case Report.COLOR_YELLOW:
+		case Report.COLOR_WARNING:
 			return "yellow";
 		case Report.COLOR_RED:
 			return "red";

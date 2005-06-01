@@ -64,7 +64,7 @@ public final class ReportColumn extends ReportNode
 		else if(column==null)
 		{
 			error = "not used";
-			particularColor = COLOR_YELLOW;
+			particularColor = COLOR_WARNING;
 		}
 		else
 		{
