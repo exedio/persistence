@@ -76,8 +76,12 @@ final class Admin_Jspm
 				}
 				else if(request.getParameter("APPLY")!=null)
 				{
-					%><hr><%
+					%><hr>
+					<a href="<%=cop%>">flush log</a><%
 					Report_Jspm.writeApply(out, request, model);
+					%>
+					<a href="<%=cop%>">flush log</a>
+					<hr><%
 				}
 			%>
 			<p><%

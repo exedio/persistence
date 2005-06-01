@@ -484,8 +484,7 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); tableCount++)
 		}
 	}
 	%>
-	</ol>
-	<hr><%
+	</ol><%
 	}
 	
 }
