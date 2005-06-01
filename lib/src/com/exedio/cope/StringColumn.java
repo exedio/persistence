@@ -62,31 +62,9 @@ final class StringColumn extends Column
 	final String getCheckConstraintIfNotNull()
 	{
 		final StringBuffer bf = new StringBuffer();
-		boolean first = true;
-
-		if(minimumLength>0)
-		{
-			first = false;
-			bf.append("(LENGTH(" + protectedID + ")>=" + minimumLength + ')');
-		}
-
-		if(maximumLength!=Integer.MAX_VALUE)
-		{
-			if(first)
-				first = false;
-			else
-				bf.append(" AND ");
-			
-			bf.append("(LENGTH(" + protectedID + ")<=" + maximumLength + ')');
-		}
 
 		if(allowedValues!=null)
 		{
-			if(first)
-				first = false;
-			else
-				bf.append(" AND ");
-
 			bf.append(protectedID + " IN (");
 
 			for(int j = 0; j<allowedValues.length; j++)
@@ -102,7 +80,20 @@ final class StringColumn extends Column
 			return bf.toString();
 		}
 		
-		return first ? null : bf.toString();
+		if(minimumLength>0)
+		{
+			if(maximumLength!=Integer.MAX_VALUE)
+				bf.append("(LENGTH(" + protectedID + ")>=" + minimumLength + ") AND (LENGTH(" + protectedID + ")<=" + maximumLength + ')');
+			else
+				bf.append("LENGTH(" + protectedID + ")>=" + minimumLength);
+		}
+		else
+		{
+			if(maximumLength!=Integer.MAX_VALUE)
+				bf.append("LENGTH(" + protectedID + ")<=" + maximumLength);
+		}
+
+		return bf.length()==0 ? null : bf.toString();
 	}
 
 	void load(final ResultSet resultSet, final int columnIndex, final Row row)
