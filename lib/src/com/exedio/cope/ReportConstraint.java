@@ -20,23 +20,31 @@ package com.exedio.cope;
 
 public final class ReportConstraint extends ReportNode
 {
+	public static final int TYPE_CHECK = 0;
+	public static final int TYPE_PRIMARY_KEY = 1;
+	public static final int TYPE_FOREIGN_KEY = 2;
+	public static final int TYPE_UNIQUE = 3;
+
 	public final String name;
+	public final int type;
 	public final ReportTable table;
 	private boolean required = false;
 	public final String requiredCondition;
 	private boolean exists = false;
 	private String existingCondition;
 		
-	ReportConstraint(final String name, final ReportTable table)
+	ReportConstraint(final String name, final int type, final ReportTable table)
 	{
 		this.name = name;
+		this.type = type;
 		this.table = table; 
 		this.requiredCondition = null;
 	}
 
-	ReportConstraint(final String name, final ReportTable table, final String requiredCondition)
+	ReportConstraint(final String name, final int type, final ReportTable table, final String requiredCondition)
 	{
 		this.name = name;
+		this.type = type;
 		this.table = table;
 		this.requiredCondition = requiredCondition;
 	}

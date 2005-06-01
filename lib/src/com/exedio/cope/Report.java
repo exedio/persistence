@@ -46,7 +46,7 @@ public final class Report extends ReportNode
 			for(Iterator j = modelTable.getUniqueConstraints().iterator(); j.hasNext(); )
 			{
 				final UniqueConstraint uniqueConstraint = (UniqueConstraint)j.next();
-				reportTable.notifyRequiredConstraint(uniqueConstraint.getDatabaseID());
+				reportTable.notifyRequiredConstraint(uniqueConstraint.getDatabaseID(), ReportConstraint.TYPE_UNIQUE);
 			}
 		}
 	}

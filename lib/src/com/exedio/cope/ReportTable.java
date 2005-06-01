@@ -77,7 +77,7 @@ public final class ReportTable extends ReportNode
 		if(column.primaryKey)
 		{
 			addRequiredConstraint(
-					new ReportConstraint(column.getPrimaryKeyConstraintID(), this));
+					new ReportConstraint(column.getPrimaryKeyConstraintID(), ReportConstraint.TYPE_PRIMARY_KEY, this));
 		}
 		else
 		{
@@ -85,14 +85,14 @@ public final class ReportTable extends ReportNode
 			if(checkConstraint!=null)
 			{
 				addRequiredConstraint(
-						new ReportConstraint(column.getCheckConstraintID(), this, checkConstraint));
+						new ReportConstraint(column.getCheckConstraintID(), ReportConstraint.TYPE_CHECK, this, checkConstraint));
 			}
 		}
 		if(column instanceof ItemColumn)
 		{
 			final ItemColumn itemColumn = (ItemColumn)column;
 			addRequiredConstraint(
-					new ReportConstraint(itemColumn.integrityConstraintName, this));
+					new ReportConstraint(itemColumn.integrityConstraintName, ReportConstraint.TYPE_FOREIGN_KEY, this));
 		}
 	}
 		
@@ -121,35 +121,35 @@ public final class ReportTable extends ReportNode
 		constraint.notifyRequired();
 	}
 	
-	final ReportConstraint notifyRequiredConstraint(final String constraintName)
+	final ReportConstraint notifyRequiredConstraint(final String constraintName, final int type)
 	{
-		final ReportConstraint result = new ReportConstraint(constraintName, this);
+		final ReportConstraint result = new ReportConstraint(constraintName, type, this);
 		addRequiredConstraint(result);
 		return result;
 	}
 	
-	private final ReportConstraint getOrCreateExistentConstraint(final String constraintName)
+	private final ReportConstraint getOrCreateExistentConstraint(final String constraintName, final int type)
 	{
 		ReportConstraint result = (ReportConstraint)constraintMap.get(constraintName);
 		if(result==null)
 		{
-			result = new ReportConstraint(constraintName, this);
+			result = new ReportConstraint(constraintName, type, this);
 			constraintMap.put(constraintName, result);
 			constraintList.add(result);
 		}
 		return result;
 	}
 		
-	final ReportConstraint notifyExistentConstraint(final String constraintName)
+	final ReportConstraint notifyExistentConstraint(final String constraintName, final int type)
 	{
-		final ReportConstraint result = getOrCreateExistentConstraint(constraintName);
+		final ReportConstraint result = getOrCreateExistentConstraint(constraintName, type);
 		result.notifyExists();
 		return result;
 	}
 	
 	final ReportConstraint notifyExistentCheckConstraint(final String constraintName, final String condition)
 	{
-		final ReportConstraint result = getOrCreateExistentConstraint(constraintName);
+		final ReportConstraint result = getOrCreateExistentConstraint(constraintName, ReportConstraint.TYPE_CHECK);
 		result.notifyExistsCheck(condition);
 		return result;
 	}

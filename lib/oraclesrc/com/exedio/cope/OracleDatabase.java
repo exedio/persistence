@@ -214,7 +214,19 @@ final class OracleDatabase
 					constraint = table.notifyExistentCheckConstraint(constraintName, searchCondition);
 				}
 				else
-					constraint = table.notifyExistentConstraint(constraintName);
+				{
+					final int type;
+					if("P".equals(constraintType))
+						type = ReportConstraint.TYPE_PRIMARY_KEY;
+					else if("R".equals(constraintType))
+						type = ReportConstraint.TYPE_FOREIGN_KEY;
+					else if("U".equals(constraintType))
+						type = ReportConstraint.TYPE_UNIQUE;
+					else
+						throw new RuntimeException(constraintType+'-'+constraintName);
+
+					constraint = table.notifyExistentConstraint(constraintName, type);
+				}
 				//System.out.println("EXISTS:"+tableName);
 			}
 		}

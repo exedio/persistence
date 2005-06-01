@@ -25,6 +25,11 @@ public class ReportTest extends DatabaseLibTest
 	private static final String COLUMN1 = "num2";
 	private static final String COLUMN1X = "num2X";
 	
+	public static final int CHECK = ReportConstraint.TYPE_CHECK;
+	public static final int PK = ReportConstraint.TYPE_PRIMARY_KEY;
+	public static final int FK = ReportConstraint.TYPE_FOREIGN_KEY;
+	public static final int UNIQUE = ReportConstraint.TYPE_UNIQUE;
+
 	public void testReport()
 	{
 		final String column1Type;
@@ -203,18 +208,18 @@ public class ReportTest extends DatabaseLibTest
 			assertEquals(Report.COLOR_OK, attributeItem.getParticularColor());
 			
 			final boolean checkOk = !mysql;
-			assertConstraint(attributeItem, "AttrItem_somNotNullStr_Ck", protect("someNotNullString")+" IS NOT NULL", checkOk);
-			assertConstraint(attributeItem, "AttribuItem_someBoolea_Ck", "("+protect("someBoolean")+" IN (0,1)) OR ("+protect("someBoolean")+" IS NULL)", checkOk);
-			assertConstraint(attributeItem, "AttrItem_somNotNullBoo_Ck", "("+protect("someNotNullBoolean")+" IS NOT NULL) AND ("+protect("someNotNullBoolean")+" IN (0,1))", checkOk);
-			assertConstraint(attributeItem, "AttribuItem_someEnumer_Ck", "("+protect("someEnumeration")+" IN (100,200,300)) OR ("+protect("someEnumeration")+" IS NULL)", checkOk);
-			assertConstraint(attributeItem, "AttrItem_somNotNullEnu_Ck", "("+protect("someNotNullEnumeration")+" IS NOT NULL) AND ("+protect("someNotNullEnumeration")+" IN (100,200,300))", checkOk);
-			assertConstraint(attributeItem, "AttriItem_someDataMajo_Ck", "((LENGTH("+protect("someDataMajor")+")>=1) AND (LENGTH("+protect("someDataMajor")+")<=30)) OR ("+protect("someDataMajor")+" IS NULL)", checkOk);
+			assertConstraint(attributeItem, CHECK, "AttrItem_somNotNullStr_Ck", protect("someNotNullString")+" IS NOT NULL", checkOk);
+			assertConstraint(attributeItem, CHECK, "AttribuItem_someBoolea_Ck", "("+protect("someBoolean")+" IN (0,1)) OR ("+protect("someBoolean")+" IS NULL)", checkOk);
+			assertConstraint(attributeItem, CHECK, "AttrItem_somNotNullBoo_Ck", "("+protect("someNotNullBoolean")+" IS NOT NULL) AND ("+protect("someNotNullBoolean")+" IN (0,1))", checkOk);
+			assertConstraint(attributeItem, CHECK, "AttribuItem_someEnumer_Ck", "("+protect("someEnumeration")+" IN (100,200,300)) OR ("+protect("someEnumeration")+" IS NULL)", checkOk);
+			assertConstraint(attributeItem, CHECK, "AttrItem_somNotNullEnu_Ck", "("+protect("someNotNullEnumeration")+" IS NOT NULL) AND ("+protect("someNotNullEnumeration")+" IN (100,200,300))", checkOk);
+			assertConstraint(attributeItem, CHECK, "AttriItem_someDataMajo_Ck", "((LENGTH("+protect("someDataMajor")+")>=1) AND (LENGTH("+protect("someDataMajor")+")<=30)) OR ("+protect("someDataMajor")+" IS NULL)", checkOk);
 
 			final boolean pkOk = !mysql;
-			assertConstraint(attributeItem, "AttributeItem_Pk", null, pkOk);
+			assertConstraint(attributeItem, PK, "AttributeItem_Pk", null, pkOk);
 
 			final boolean fkOk = !mysql;
-			assertConstraint(attributeItem, "AttributeItem_someItem_Fk", null, fkOk);
+			assertConstraint(attributeItem, FK, "AttributeItem_someItem_Fk", null, fkOk);
 
 			final ReportTable uniqueItem = report.getTable("ItemWithSingleUnique");
 			assertNotNull(uniqueItem);
@@ -222,7 +227,7 @@ public class ReportTest extends DatabaseLibTest
 			assertEquals(Report.COLOR_OK, uniqueItem.getParticularColor());
 			
 			final boolean uniqueOk = !mysql;
-			assertConstraint(uniqueItem, "ItemWithSingUni_unStr_Unq", null, uniqueOk);
+			assertConstraint(uniqueItem, UNIQUE, "ItemWithSingUni_unStr_Unq", null, uniqueOk);
 			
 			final ReportTable stringItem = report.getTable("StringItem");
 			assertNotNull(stringItem);
@@ -241,10 +246,11 @@ public class ReportTest extends DatabaseLibTest
 		}
 	}
 	
-	private void assertConstraint(final ReportTable table, final String constraintName, final String requiredCondition, final boolean ok)
+	private void assertConstraint(final ReportTable table, final int constraintType, final String constraintName, final String requiredCondition, final boolean ok)
 	{
 		final ReportConstraint constraint = table.getConstraint(constraintName);
 		assertNotNull("no such constraint "+constraintName+", but has "+table.getConstraints(), constraint);
+		assertEquals(constraintName, constraintType, constraint.type);
 		assertEquals(requiredCondition, constraint.requiredCondition);
 		if(ok)
 			assertEquals(Report.COLOR_OK, constraint.getParticularColor());

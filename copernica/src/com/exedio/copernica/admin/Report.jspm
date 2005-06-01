@@ -48,6 +48,23 @@ final class Report_Jspm
 		}
 	}
 	
+	private static final String type(final int type)
+	{
+		switch(type)
+		{
+		case ReportConstraint.TYPE_CHECK:
+			return "check";
+		case ReportConstraint.TYPE_PRIMARY_KEY:
+			return "pk";
+		case ReportConstraint.TYPE_FOREIGN_KEY:
+			return "fk";
+		case ReportConstraint.TYPE_UNIQUE:
+			return "unique";
+		default:
+			throw new RuntimeException(String.valueOf(type));
+		}
+	}
+	
 	final static void writeReport(final PrintStream out, final Model model, final ReportCop cop)
 		throws IOException
 	{
@@ -211,7 +228,7 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); tableCount++)
 			final String constraintColor = color(constraint.getCumulativeColor());
 			%>
 			<li class="<%=constraintColor%>">
-				<small>constraint<%=constraintCount%></small> <%=constraint.name%><%
+				<small><%=type(constraint.type)%><%=constraintCount%></small> <%=constraint.name%><%
 			
 			final String constraintCondition = constraint.requiredCondition;
 			if(constraintCondition!=null)

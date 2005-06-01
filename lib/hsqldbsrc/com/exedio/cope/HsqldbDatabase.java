@@ -194,7 +194,17 @@ final class HsqldbDatabase
 				}
 				else
 				{
-					table.notifyExistentConstraint(constraintName);
+					final int type;
+					if("PRIMARY KEY".equals(constraintType))
+						type = ReportConstraint.TYPE_PRIMARY_KEY;
+					else if("FOREIGN KEY".equals(constraintType))
+						type = ReportConstraint.TYPE_FOREIGN_KEY;
+					else if("UNIQUE".equals(constraintType))
+						type = ReportConstraint.TYPE_UNIQUE;
+					else
+						throw new RuntimeException(constraintType+'-'+constraintName);
+					
+					table.notifyExistentConstraint(constraintName, type);
 				}
 			}
 		}
