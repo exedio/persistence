@@ -28,15 +28,15 @@ table.properties td
 	padding:1px 3px;
 }
 
-span.ok     { background-color:#ccffcc; }
-span.warning{ background-color:#ffff33; }
-span.error  { background-color:#ff3333; }
-li.ok     { background-color:#ccffcc; }
-li.warning{ background-color:#ffff33; }
-li.error  { background-color:#ff3333; }
-ul.ok     { background-color:#ccffcc; }
-ul.warning{ background-color:#ffff33; }
-ul.error  { background-color:#ff3333; }
+span.ok      { background-color:#cfc; }
+span.warning { background-color:#ff3; }
+span.error   { background-color:#f33; }
+li.ok        { background-color:#cfc; }
+li.warning   { background-color:#ff3; }
+li.error     { background-color:#f33; }
+ul.ok        { background-color:#cfc; }
+ul.warning   { background-color:#ff3; }
+ul.error     { background-color:#f33; }
 
 table.statistics th
 {
