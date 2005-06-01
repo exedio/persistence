@@ -48,6 +48,15 @@ final class Table
 	private final List allColumns = Collections.unmodifiableList(allColumnsModifiable);
 
 	private List uniqueConstraints = null;
+	
+	/**
+	 * The column name for the type information.
+	 * The value "class" prevents name collisions
+	 * with columns for cope attributes,
+	 * since "class" is a reserved java keyword,
+	 * which cannot be used for java attributes.
+	 */
+	private static final String TYPE_COLUMN_NAME = "class";
 
 	void addColumn(final Column column)
 	{
@@ -61,7 +70,7 @@ final class Table
 
 			primaryKey = column;
 		}
-		else if("class".equals(column.id))
+		else if(TYPE_COLUMN_NAME.equals(column.id))
 		{
 			// do not add it to columnsModifiable
 		}
@@ -79,16 +88,7 @@ final class Table
 		if(typeColumn!=null)
 			throw new RuntimeException();
 		
-		// IMPLEMENTATION NOTE
-		//
-		// The following line specifies the column name for the type information
-		// to be "class". This prevents name collisions with columns for cope 
-		// attributes, since "class" is a reserved java keyword, which cannot be
-		// used for java attributes.
-		//
-		// It's a string literal, since the string is not used anywhere else
-		// in the framework.
-		typeColumn = new StringColumn(this, "class", true, (String[])typeIDs.toArray(new String[typeIDs.size()]));
+		typeColumn = new StringColumn(this, TYPE_COLUMN_NAME, true, (String[])typeIDs.toArray(new String[typeIDs.size()]));
 	}
 	
 	/**
