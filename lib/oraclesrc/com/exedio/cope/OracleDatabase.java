@@ -50,7 +50,9 @@ final class OracleDatabase
 			throw new NestingRuntimeException(e);
 		}
 	}
-
+	
+	private boolean checkedPlanTable = false;
+	
 	protected OracleDatabase(final Properties properties)
 	{
 		super(properties, properties.getDatabaseUser().toUpperCase());
@@ -173,7 +175,7 @@ final class OracleDatabase
 			this.report = report;
 		}
 
-		public void run(ResultSet resultSet) throws SQLException
+		public void run(final ResultSet resultSet) throws SQLException
 		{
 			while(resultSet.next())
 			{
@@ -195,7 +197,7 @@ final class OracleDatabase
 			this.report = report;
 		}
 
-		public void run(ResultSet resultSet) throws SQLException
+		public void run(final ResultSet resultSet) throws SQLException
 		{
 			while(resultSet.next())
 			{
@@ -287,6 +289,59 @@ final class OracleDatabase
 	
 	private StatementInfo makePlanInfo(final Statement statement, final Connection connection)
 	{
+		if(!checkedPlanTable)
+		{
+			final Statement check = createStatement();
+			check.append("SELECT * FROM PLAN_TABLE");
+			try
+			{
+				executeSQLQuery(check,
+					new ResultSetHandler()
+					{
+						public void run(final ResultSet resultSet) throws SQLException
+						{
+						}
+					},
+					false);
+			}
+			catch(NestingRuntimeException e)
+			{
+				System.err.println("cope creates oracle plan_table");
+				final Statement create = createStatement();
+				create.append(
+					"CREATE TABLE PLAN_TABLE (" +
+						"statement_id VARCHAR2(30), " +
+						"timestamp DATE, " +
+						"remarks VARCHAR2(80), " +
+						"operation VARCHAR2(30), " +
+						"options VARCHAR2(30), " +
+						"object_node VARCHAR2(128), " +
+						"object_owner VARCHAR2(30), " +
+						"object_name VARCHAR2(30), " +
+						"object_instance NUMERIC, " +
+						"object_type VARCHAR2(30), " +
+						"optimizer VARCHAR2(255), " +
+						"search_columns NUMERIC, " +
+						"id NUMERIC, " +
+						"parent_id NUMERIC, " +
+						"position NUMERIC, " +
+						"cost NUMERIC, " +
+						"cardinality NUMERIC, " +
+						"bytes NUMERIC, " +
+						"other_tag VARCHAR2(255), " +
+						"other LONG)");
+				try
+				{
+					executeSQLUpdate(create, 0);
+				}
+				catch(ConstraintViolationException cve)
+				{
+					throw new NestingRuntimeException(cve);
+				}
+			}
+			checkedPlanTable = true;
+		}
+
 		final String statementText = statement.getText();
 		if(statementText.startsWith("alter table "))
 			return null;
