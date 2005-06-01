@@ -210,10 +210,10 @@ public class ReportTest extends DatabaseLibTest
 			assertConstraint(attributeItem, "AttrItem_somNotNullEnu_Ck", "("+protect("someNotNullEnumeration")+" IS NOT NULL) AND ("+protect("someNotNullEnumeration")+" IN (100,200,300))", checkOk);
 			assertConstraint(attributeItem, "AttriItem_someDataMajo_Ck", "((LENGTH("+protect("someDataMajor")+")>=1) AND (LENGTH("+protect("someDataMajor")+")<=30)) OR ("+protect("someDataMajor")+" IS NULL)", checkOk);
 
-			final boolean pkOk = !mysql && !hsqldb;
+			final boolean pkOk = !mysql;
 			assertConstraint(attributeItem, "AttributeItem_Pk", null, pkOk);
 
-			final boolean fkOk = !mysql && !hsqldb;
+			final boolean fkOk = !mysql;
 			assertConstraint(attributeItem, "AttributeItem_someItem_Fk", null, fkOk);
 
 			final ReportTable uniqueItem = report.getTable("ItemWithSingleUnique");
@@ -221,7 +221,7 @@ public class ReportTest extends DatabaseLibTest
 			assertEquals(null, uniqueItem.getError());
 			assertEquals(Report.COLOR_OK, uniqueItem.getParticularColor());
 			
-			final boolean uniqueOk = !mysql && !hsqldb;
+			final boolean uniqueOk = !mysql;
 			assertConstraint(uniqueItem, "ItemWithSingUni_unStr_Unq", null, uniqueOk);
 			
 			final ReportTable stringItem = report.getTable("StringItem");

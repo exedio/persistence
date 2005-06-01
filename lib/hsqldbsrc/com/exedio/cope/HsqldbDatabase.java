@@ -155,22 +155,16 @@ final class HsqldbDatabase
 	{
 		super.fillReport(report);
 
-		// TODO: use SYSTEM_TABLE_CONSTRAINTS
-		// select stc.CONSTRAINT_NAME, stc.CONSTRAINT_TYPE, stc.TABLE_NAME, scc.CHECK_CLAUSE
-		// from SYSTEM_TABLE_CONSTRAINTS stc
-		// left outer join SYSTEM_CHECK_CONSTRAINTS scc on stc.CONSTRAINT_NAME = scc.CONSTRAINT_NAME
 		final Statement bf = createStatement();
-		bf.append("select " +
-				"CONSTRAINT_NAME," +
-				"CHECK_CLAUSE " +
-				"from SYSTEM_CHECK_CONSTRAINTS").
-			defineColumnString().
-			defineColumnString();
+		bf.append(
+			"select stc.CONSTRAINT_NAME, stc.CONSTRAINT_TYPE, stc.TABLE_NAME, scc.CHECK_CLAUSE " +
+			"from SYSTEM_TABLE_CONSTRAINTS stc " +
+			"left outer join SYSTEM_CHECK_CONSTRAINTS scc on stc.CONSTRAINT_NAME = scc.CONSTRAINT_NAME");
 
 		executeSQLQuery(bf, new ReportConstraintHandler(report), false);
 	}
 
-	private static class ReportConstraintHandler implements ResultSetHandler
+	private class ReportConstraintHandler implements ResultSetHandler
 	{
 		private final Report report;
 
@@ -184,24 +178,24 @@ final class HsqldbDatabase
 			while(resultSet.next())
 			{
 				final String constraintName = resultSet.getString(1);
-				final String checkClause = resultSet.getString(2);
-				final int end = checkClause.indexOf("\".");
-				if(end<=0)
-					throw new RuntimeException(checkClause);
-				final int start = checkClause.lastIndexOf("\"", end-1);
-				if(start<0)
-					throw new RuntimeException(checkClause);
-
-				final String tableName = checkClause.substring(start+1, end);
-				final String tablePrefix = checkClause.substring(start, end+2);
+				final String constraintType = resultSet.getString(2);
+				final String tableName = resultSet.getString(3);
+				
 				final ReportTable table = report.notifyExistentTable(tableName);
 				
-				String checkClauseClean = checkClause;
-				for(int pos = checkClauseClean.indexOf(tablePrefix); pos>=0; pos = checkClauseClean.indexOf(tablePrefix))
-					checkClauseClean = checkClauseClean.substring(0, pos) + checkClauseClean.substring(pos+tablePrefix.length());
-				
-				//System.out.println("tableName:"+tableName+" constraintName:"+constraintName+" checkClause:>"+checkClause+"<");
-				final ReportConstraint constraint = table.notifyExistentCheckConstraint(constraintName, checkClauseClean);
+				if("CHECK".equals(constraintType))
+				{
+					final String tablePrefix = protectName(tableName)+'.';
+					String checkClause = resultSet.getString(4);
+					for(int pos = checkClause.indexOf(tablePrefix); pos>=0; pos = checkClause.indexOf(tablePrefix))
+						checkClause = checkClause.substring(0, pos) + checkClause.substring(pos+tablePrefix.length());
+
+					table.notifyExistentCheckConstraint(constraintName, checkClause);
+				}
+				else
+				{
+					table.notifyExistentConstraint(constraintName);
+				}
 			}
 		}
 	}
