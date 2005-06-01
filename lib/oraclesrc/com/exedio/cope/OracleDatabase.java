@@ -271,6 +271,7 @@ final class OracleDatabase
 	
 	private static final Random statementIDCounter = new Random();
 	
+	private static final String PLAN_TABLE = "PLAN_TABLE";
 	private static final String STATEMENT_ID = "STATEMENT_ID";
 	private static final String OPERATION = "OPERATION";
 	private static final String OPTIONS = "OPTIONS";
@@ -301,7 +302,7 @@ final class OracleDatabase
 		if(!checkedPlanTable)
 		{
 			final Statement check = createStatement();
-			check.append("SELECT * FROM PLAN_TABLE");
+			check.append("SELECT * FROM "+PLAN_TABLE);
 			try
 			{
 				executeSQLQuery(check,
@@ -318,7 +319,7 @@ final class OracleDatabase
 				System.err.println("cope creates oracle plan_table");
 				final Statement create = createStatement();
 				create.append(
-					"CREATE TABLE PLAN_TABLE (" +
+					"CREATE TABLE "+PLAN_TABLE+" (" +
 						STATEMENT_ID+" VARCHAR2(30), " +
 						"timestamp DATE, " +
 						"remarks VARCHAR2(80), " +
@@ -398,7 +399,7 @@ final class OracleDatabase
 			final Statement fetchStatement = createStatement();
 			fetchStatement.
 				append(
-						"select * from plan_table " +
+						"select * from "+PLAN_TABLE+' ' +
 						"where "+STATEMENT_ID+"='"+STATEMENT_ID_PREFIX).
 				append(statementID).
 				append("' order by "+ID);
