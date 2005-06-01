@@ -278,6 +278,14 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); tableCount++)
 		<script src="admin-report.js" type="text/javascript"></script><%
 	}
 	
+	final static void writeDone(final PrintStream out, final long startTime)
+		throws IOException
+	{
+		final long endTime = System.currentTimeMillis();
+		%><li><b>ok</b>, <%=endTime-startTime%>ms.</li><%
+		out.flush();
+	}
+	
 	final static void writeApply(
 				final PrintStream out,
 				final HttpServletRequest request,
@@ -302,9 +310,7 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); tableCount++)
 				out.flush();
 				final long startTime = System.currentTimeMillis();
 				column.drop();
-				final long endTime = System.currentTimeMillis();
-				%><li><b>ok</b>, <%=endTime-startTime%>ms.</li><%
-				out.flush();
+				writeDone(out, startTime);
 			}
 		}
 	}
@@ -324,9 +330,7 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); tableCount++)
 				out.flush();
 				final long startTime = System.currentTimeMillis();
 				table.drop();
-				final long endTime = System.currentTimeMillis();
-				%><li><b>ok</b>, <%=endTime-startTime%>ms.</li><%
-				out.flush();
+				writeDone(out, startTime);
 			}
 		}
 	}
@@ -353,9 +357,7 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); tableCount++)
 			out.flush();
 			final long startTime = System.currentTimeMillis();
 			table.renameTo(targetName);
-			final long endTime = System.currentTimeMillis();
-			%><li><b>ok</b>, <%=endTime-startTime%>ms.</li><%
-			out.flush();
+			writeDone(out, startTime);
 		}
 	}
 	{
@@ -383,9 +385,7 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); tableCount++)
 			out.flush();
 			final long startTime = System.currentTimeMillis();
 			column.modify(targetType);
-			final long endTime = System.currentTimeMillis();
-			%><li><b>ok</b>, <%=endTime-startTime%>ms.</li><%
-			out.flush();
+			writeDone(out, startTime);
 		}
 	}
 	{
@@ -413,9 +413,7 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); tableCount++)
 			out.flush();
 			final long startTime = System.currentTimeMillis();
 			column.renameTo(targetName);
-			final long endTime = System.currentTimeMillis();
-			%><li><b>ok</b>, <%=endTime-startTime%>ms.</li><%
-			out.flush();
+			writeDone(out, startTime);
 		}
 	}
 	{
@@ -434,9 +432,7 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); tableCount++)
 				out.flush();
 				final long startTime = System.currentTimeMillis();
 				table.create();
-				final long endTime = System.currentTimeMillis();
-				%><li><b>ok</b>, <%=endTime-startTime%>ms.</li><%
-				out.flush();
+				writeDone(out, startTime);
 			}
 		}
 	}
@@ -456,9 +452,7 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); tableCount++)
 				out.flush();
 				final long startTime = System.currentTimeMillis();
 				table.analyze();
-				final long endTime = System.currentTimeMillis();
-				%><li><b>ok</b>, <%=endTime-startTime%>ms.</li><%
-				out.flush();
+				writeDone(out, startTime);
 			}
 		}
 	}
@@ -477,9 +471,7 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); tableCount++)
 				out.flush();
 				final long startTime = System.currentTimeMillis();
 				column.create();
-				final long endTime = System.currentTimeMillis();
-				%><li><b>ok</b>, <%=endTime-startTime%>ms.</li><%
-				out.flush();
+				writeDone(out, startTime);
 			}
 		}
 	}
