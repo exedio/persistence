@@ -29,14 +29,14 @@ table.properties td
 }
 
 span.ok      { background-color:#cfc; }
-span.warning { background-color:#ff3; }
-span.error   { background-color:#f33; }
+span.warning { background-color:#ffc; }
+span.error   { background-color:#fcc; }
 li.ok        { background-color:#cfc; }
-li.warning   { background-color:#ff3; }
-li.error     { background-color:#f33; }
+li.warning   { background-color:#ffc; }
+li.error     { background-color:#fcc; }
 ul.ok        { background-color:#cfc; }
-ul.warning   { background-color:#ff3; }
-ul.error     { background-color:#f33; }
+ul.warning   { background-color:#ffc; }
+ul.error     { background-color:#fcc; }
 
 table.statistics th
 {
