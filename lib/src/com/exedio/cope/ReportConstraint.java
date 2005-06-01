@@ -71,7 +71,7 @@ public final class ReportConstraint extends ReportNode
 		if(!exists)
 		{
 			error = "missing";
-			particularColor = COLOR_RED;
+			particularColor = COLOR_ERROR;
 		}
 		else if(!required)
 		{
@@ -79,7 +79,7 @@ public final class ReportConstraint extends ReportNode
 			if(!table.required())
 				particularColor = COLOR_WARNING;
 			else
-				particularColor = COLOR_RED;
+				particularColor = COLOR_ERROR;
 		}
 		else
 		{
@@ -88,19 +88,19 @@ public final class ReportConstraint extends ReportNode
 				!requiredCondition.equals(existingCondition))
 			{
 				error = "different condition in database: >"+existingCondition+"<";
-				particularColor = COLOR_RED;
+				particularColor = COLOR_ERROR;
 			}
 			else if(requiredCondition==null &&
 					existingCondition!=null)
 			{
 				error = "surplus condition in database: >"+existingCondition+"<";
-				particularColor = COLOR_RED;
+				particularColor = COLOR_ERROR;
 			}
 			else if(requiredCondition!=null &&
 					existingCondition==null)
 			{
 				error = "missing condition in database";
-				particularColor = COLOR_RED;
+				particularColor = COLOR_ERROR;
 			}
 			else
 				particularColor = COLOR_OK;

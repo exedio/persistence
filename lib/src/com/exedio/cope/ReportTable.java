@@ -197,7 +197,7 @@ public final class ReportTable extends ReportNode
 		if(!exists)
 		{
 			error = "MISSING !!!";
-			particularColor = COLOR_RED;
+			particularColor = COLOR_ERROR;
 		}
 		else if(table==null)
 		{

@@ -38,7 +38,7 @@ public final class ReportLastAnalyzed extends ReportNode
 		if(lastAnalyzed==null)
 		{
 			error = "not analyzed !!!";
-			particularColor = COLOR_RED;
+			particularColor = COLOR_ERROR;
 		}
 		else
 			particularColor = COLOR_OK;

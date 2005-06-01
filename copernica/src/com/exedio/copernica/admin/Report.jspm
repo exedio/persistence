@@ -43,7 +43,7 @@ final class Report_Jspm
 			return "ok";
 		case Report.COLOR_WARNING:
 			return "yellow";
-		case Report.COLOR_RED:
+		case Report.COLOR_ERROR:
 			return "red";
 		default:
 			throw new RuntimeException(String.valueOf(color));

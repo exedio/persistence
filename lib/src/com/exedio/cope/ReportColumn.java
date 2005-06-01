@@ -59,7 +59,7 @@ public final class ReportColumn extends ReportNode
 		if(!exists)
 		{
 			error = "missing";
-			particularColor = COLOR_RED;
+			particularColor = COLOR_ERROR;
 		}
 		else if(column==null)
 		{
@@ -73,7 +73,7 @@ public final class ReportColumn extends ReportNode
 				!column.getDatabaseType().equals(existingType))
 			{
 				error = "different type in database: >"+existingType+"<";
-				particularColor = COLOR_RED;
+				particularColor = COLOR_ERROR;
 			}
 			else
 				particularColor = COLOR_OK;

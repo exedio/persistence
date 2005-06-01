@@ -57,7 +57,7 @@ public class ReportTest extends DatabaseLibTest
 			{
 				final ReportColumn column = table.getColumn(COLUMN1);
 				assertEquals("missing", column.getError());
-				assertEquals(Report.COLOR_RED, column.getParticularColor());
+				assertEquals(Report.COLOR_ERROR, column.getParticularColor());
 				assertEquals(column1Type, column.getDatabaseType());
 			}
 			{
@@ -96,7 +96,7 @@ public class ReportTest extends DatabaseLibTest
 
 			final ReportColumn column = table.getColumn(COLUMN1);
 			assertEquals("missing", column.getError());
-			assertEquals(Report.COLOR_RED, column.getParticularColor());
+			assertEquals(Report.COLOR_ERROR, column.getParticularColor());
 			assertEquals(column1Type, column.getDatabaseType());
 
 			column.create();
@@ -125,11 +125,11 @@ public class ReportTest extends DatabaseLibTest
 				final ReportTable table = report.getTable(TABLE1);
 				assertNotNull(table);
 				assertEquals("MISSING !!!", table.getError());
-				assertEquals(Report.COLOR_RED, table.getParticularColor());
+				assertEquals(Report.COLOR_ERROR, table.getParticularColor());
 
 				final ReportColumn column = table.getColumn(COLUMN1);
 				assertEquals("missing", column.getError());
-				assertEquals(Report.COLOR_RED, column.getParticularColor());
+				assertEquals(Report.COLOR_ERROR, column.getParticularColor());
 				assertEquals(column1Type, column.getDatabaseType());
 			}
 			{
@@ -170,11 +170,11 @@ public class ReportTest extends DatabaseLibTest
 				final ReportTable table = report.getTable(TABLE1);
 				assertNotNull(table);
 				assertEquals("MISSING !!!", table.getError());
-				assertEquals(Report.COLOR_RED, table.getParticularColor());
+				assertEquals(Report.COLOR_ERROR, table.getParticularColor());
 
 				final ReportColumn column = table.getColumn(COLUMN1);
 				assertEquals("missing", column.getError());
-				assertEquals(Report.COLOR_RED, column.getParticularColor());
+				assertEquals(Report.COLOR_ERROR, column.getParticularColor());
 				assertEquals(column1Type, column.getDatabaseType());
 
 				table.create();
@@ -249,7 +249,7 @@ public class ReportTest extends DatabaseLibTest
 		if(ok)
 			assertEquals(Report.COLOR_OK, constraint.getParticularColor());
 		else
-			assertEquals(Report.COLOR_RED, constraint.getParticularColor());
+			assertEquals(Report.COLOR_ERROR, constraint.getParticularColor());
 	}
 	
 	private final String protect(final String name)
