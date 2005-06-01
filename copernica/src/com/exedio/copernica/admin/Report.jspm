@@ -270,72 +270,72 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); tableCount++)
 	final static void writeDrop(final PrintStream out, final ReportColumn column)
 		throws IOException
 	{
-				%>
-				<li>report.getTable(&quot;<b><%=
-					column.table.name%></b>&quot;).getColumn(&quot;<b><%=
-					column.name%></b>&quot;).drop();</li><%
+		%>
+		<li>report.getTable(&quot;<b><%=
+			column.table.name%></b>&quot;).getColumn(&quot;<b><%=
+			column.name%></b>&quot;).drop();</li><%
 	}
 
 	final static void writeDrop(final PrintStream out, final ReportTable table)
 		throws IOException
 	{
-				%>
-				<li>report.getTable(&quot;<b><%=
-					table.name%></b>&quot;).drop();</li><%
+		%>
+		<li>report.getTable(&quot;<b><%=
+			table.name%></b>&quot;).drop();</li><%
 	}
 
 	final static void writeRename(final PrintStream out, final ReportTable table, final String targetName)
 		throws IOException
 	{
-			%>
-			<li>report.getTable(&quot;<b><%=
-				table.name%></b>&quot;).renameTo(&quot;<%=
-				targetName%>&quot;);</li><%
+		%>
+		<li>report.getTable(&quot;<b><%=
+			table.name%></b>&quot;).renameTo(&quot;<%=
+			targetName%>&quot;);</li><%
 	}
 
 	final static void writeModify(final PrintStream out, final ReportColumn column, final String targetType)
 		throws IOException
 	{
-			%>
-			<li>report.getTable(&quot;<b><%=
-				column.table.name%></b>&quot;).getColumn(&quot;<b><%=
-				column.name%></b>&quot;).modify(&quot;<b><%=
-				targetType%></b>&quot;);</li><%
+		%>
+		<li>report.getTable(&quot;<b><%=
+			column.table.name%></b>&quot;).getColumn(&quot;<b><%=
+			column.name%></b>&quot;).modify(&quot;<b><%=
+			targetType%></b>&quot;);</li><%
 	}
 
 	final static void writeRename(final PrintStream out, final ReportColumn column, final String targetName)
 		throws IOException
 	{
-			%>
-			<li>report.getTable(&quot;<b><%=
-				column.table.name%></b>&quot;).getColumn(&quot;<b><%=
-				column.name%></b>&quot;).renameTo(&quot;<b><%=
-				targetName%></b>&quot;);</li><%
+		%>
+		<li>report.getTable(&quot;<b><%=
+			column.table.name%></b>&quot;).getColumn(&quot;<b><%=
+			column.name%></b>&quot;).renameTo(&quot;<b><%=
+			targetName%></b>&quot;);</li><%
 	}
 
 	final static void writeCreate(final PrintStream out, final ReportTable table)
 		throws IOException
 	{
-				%>
-				<li>report.getTable(&quot;<b><%=
-					table.name%></b>&quot;).create();</li><%
+		%>
+		<li>report.getTable(&quot;<b><%=
+			table.name%></b>&quot;).create();</li><%
 	}
 
 	final static void writeAnalyze(final PrintStream out, final ReportTable table)
 		throws IOException
 	{
-				%>
-				<li>report.getTable(&quot;<b><%=
-					table.name%></b>&quot;).analyze();</li><%
+		%>
+		<li>report.getTable(&quot;<b><%=
+			table.name%></b>&quot;).analyze();</li><%
 	}
 	
 	final static void writeCreate(final PrintStream out, final ReportColumn column)
 		throws IOException
 	{
-				%>
-				<li>report.getTable(&quot;<b><%=
-					column.table.name%></b>&quot;).getColumn(&quot;<b><%=
-					column.name%></b>&quot;).create();</li><%
+		%>
+		<li>report.getTable(&quot;<b><%=
+			column.table.name%></b>&quot;).getColumn(&quot;<b><%=
+			column.name%></b>&quot;).create();</li><%
 	}
 
 }
