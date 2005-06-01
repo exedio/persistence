@@ -282,7 +282,7 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); tableCount++)
 		throws IOException
 	{
 		final long endTime = System.currentTimeMillis();
-		%><li><b>ok</b>, <%=endTime-startTime%>ms.</li><%
+		%><li class="timelog">ok, <%=endTime-startTime%>ms.</li><%
 		out.flush();
 	}
 	

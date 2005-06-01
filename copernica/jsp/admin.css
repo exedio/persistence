@@ -38,6 +38,8 @@ ul.ok        { background-color:#cfc; }
 ul.warning   { background-color:#ffc; }
 ul.error     { background-color:#fcc; }
 
+li.timelog { color:#ccc; }
+
 table.statistics th
 {
 	padding:1px 0px;
