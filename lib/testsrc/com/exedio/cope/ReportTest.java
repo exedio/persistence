@@ -243,6 +243,10 @@ public class ReportTest extends DatabaseLibTest
 				assertEquals("varchar(8) binary", min4Max8.getDatabaseType());
 			else
 				assertEquals("VARCHAR2(8)", min4Max8.getDatabaseType());
+
+			assertConstraint(stringItem, CHECK, "StringItem_min4_Ck", "(LENGTH("+protect("min4")+")>=4) OR ("+protect("min4")+" IS NULL)", checkOk);
+			assertConstraint(stringItem, CHECK, "StringItem_max4_Ck", "(LENGTH("+protect("max4")+")<=4) OR ("+protect("max4")+" IS NULL)", checkOk);
+			assertConstraint(stringItem, CHECK, "StringItem_min4Max8_Ck", "((LENGTH("+protect("min4Max8")+")>=4) AND (LENGTH("+protect("min4Max8")+")<=8)) OR ("+protect("min4Max8")+" IS NULL)", checkOk);
 		}
 	}
 	
