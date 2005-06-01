@@ -28,6 +28,16 @@ table.properties td
 	padding:1px 3px;
 }
 
+span.ok     { background-color:#ccffcc; }
+span.yellow { background-color:#ffff33; }
+span.red    { background-color:#ff3333; }
+li.ok     { background-color:#ccffcc; }
+li.yellow { background-color:#ffff33; }
+li.red    { background-color:#ff3333; }
+ul.ok     { background-color:#ccffcc; }
+ul.yellow { background-color:#ffff33; }
+ul.red    { background-color:#ff3333; }
+
 table.statistics th
 {
 	padding:1px 0px;
