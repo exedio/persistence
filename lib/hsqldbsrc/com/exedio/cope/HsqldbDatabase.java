@@ -161,52 +161,44 @@ final class HsqldbDatabase
 			"from SYSTEM_TABLE_CONSTRAINTS stc " +
 			"left outer join SYSTEM_CHECK_CONSTRAINTS scc on stc.CONSTRAINT_NAME = scc.CONSTRAINT_NAME");
 
-		executeSQLQuery(bf, new ReportConstraintHandler(report), false);
-	}
-
-	private class ReportConstraintHandler implements ResultSetHandler
-	{
-		private final Report report;
-
-		ReportConstraintHandler(final Report report)
-		{
-			this.report = report;
-		}
-
-		public void run(final ResultSet resultSet) throws SQLException
-		{
-			while(resultSet.next())
+		executeSQLQuery(bf, new ResultSetHandler()
 			{
-				final String constraintName = resultSet.getString(1);
-				final String constraintType = resultSet.getString(2);
-				final String tableName = resultSet.getString(3);
-				
-				final ReportTable table = report.notifyExistentTable(tableName);
-				
-				if("CHECK".equals(constraintType))
+				public void run(final ResultSet resultSet) throws SQLException
 				{
-					final String tablePrefix = protectName(tableName)+'.';
-					String checkClause = resultSet.getString(4);
-					for(int pos = checkClause.indexOf(tablePrefix); pos>=0; pos = checkClause.indexOf(tablePrefix))
-						checkClause = checkClause.substring(0, pos) + checkClause.substring(pos+tablePrefix.length());
+					while(resultSet.next())
+					{
+						final String constraintName = resultSet.getString(1);
+						final String constraintType = resultSet.getString(2);
+						final String tableName = resultSet.getString(3);
+						
+						final ReportTable table = report.notifyExistentTable(tableName);
+						
+						if("CHECK".equals(constraintType))
+						{
+							final String tablePrefix = protectName(tableName)+'.';
+							String checkClause = resultSet.getString(4);
+							for(int pos = checkClause.indexOf(tablePrefix); pos>=0; pos = checkClause.indexOf(tablePrefix))
+								checkClause = checkClause.substring(0, pos) + checkClause.substring(pos+tablePrefix.length());
 
-					table.notifyExistentCheckConstraint(constraintName, checkClause);
+							table.notifyExistentCheckConstraint(constraintName, checkClause);
+						}
+						else
+						{
+							final int type;
+							if("PRIMARY KEY".equals(constraintType))
+								type = ReportConstraint.TYPE_PRIMARY_KEY;
+							else if("FOREIGN KEY".equals(constraintType))
+								type = ReportConstraint.TYPE_FOREIGN_KEY;
+							else if("UNIQUE".equals(constraintType))
+								type = ReportConstraint.TYPE_UNIQUE;
+							else
+								throw new RuntimeException(constraintType+'-'+constraintName);
+							
+							table.notifyExistentConstraint(constraintName, type);
+						}
+					}
 				}
-				else
-				{
-					final int type;
-					if("PRIMARY KEY".equals(constraintType))
-						type = ReportConstraint.TYPE_PRIMARY_KEY;
-					else if("FOREIGN KEY".equals(constraintType))
-						type = ReportConstraint.TYPE_FOREIGN_KEY;
-					else if("UNIQUE".equals(constraintType))
-						type = ReportConstraint.TYPE_UNIQUE;
-					else
-						throw new RuntimeException(constraintType+'-'+constraintName);
-					
-					table.notifyExistentConstraint(constraintName, type);
-				}
-			}
-		}
+			}, false);
 	}
+
 }

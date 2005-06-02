@@ -175,51 +175,42 @@ final class OracleDatabase
 				defineColumnString().
 				defineColumnString();
 
-			executeSQLQuery(bf, new ReportConstraintHandler(report), false);
-		}
-	}
-
-	private static class ReportConstraintHandler implements ResultSetHandler
-	{
-		private final Report report;
-
-		ReportConstraintHandler(final Report report)
-		{
-			this.report = report;
-		}
-
-		public void run(final ResultSet resultSet) throws SQLException
-		{
-			while(resultSet.next())
-			{
-				final String tableName = resultSet.getString(1);
-				final String constraintName = resultSet.getString(2);
-				final String constraintType = resultSet.getString(3);
-				final ReportTable table = report.notifyExistentTable(tableName);
-				//System.out.println("tableName:"+tableName+" constraintName:"+constraintName+" constraintType:>"+constraintType+"<");
-				final ReportConstraint constraint;
-				if("C".equals(constraintType))
+			executeSQLQuery(bf, new ResultSetHandler()
 				{
-					final String searchCondition = resultSet.getString(4);
-					//System.out.println("searchCondition:>"+searchCondition+"<");
-					constraint = table.notifyExistentCheckConstraint(constraintName, searchCondition);
-				}
-				else
-				{
-					final int type;
-					if("P".equals(constraintType))
-						type = ReportConstraint.TYPE_PRIMARY_KEY;
-					else if("R".equals(constraintType))
-						type = ReportConstraint.TYPE_FOREIGN_KEY;
-					else if("U".equals(constraintType))
-						type = ReportConstraint.TYPE_UNIQUE;
-					else
-						throw new RuntimeException(constraintType+'-'+constraintName);
+					public void run(final ResultSet resultSet) throws SQLException
+					{
+						while(resultSet.next())
+						{
+							final String tableName = resultSet.getString(1);
+							final String constraintName = resultSet.getString(2);
+							final String constraintType = resultSet.getString(3);
+							final ReportTable table = report.notifyExistentTable(tableName);
+							//System.out.println("tableName:"+tableName+" constraintName:"+constraintName+" constraintType:>"+constraintType+"<");
+							final ReportConstraint constraint;
+							if("C".equals(constraintType))
+							{
+								final String searchCondition = resultSet.getString(4);
+								//System.out.println("searchCondition:>"+searchCondition+"<");
+								constraint = table.notifyExistentCheckConstraint(constraintName, searchCondition);
+							}
+							else
+							{
+								final int type;
+								if("P".equals(constraintType))
+									type = ReportConstraint.TYPE_PRIMARY_KEY;
+								else if("R".equals(constraintType))
+									type = ReportConstraint.TYPE_FOREIGN_KEY;
+								else if("U".equals(constraintType))
+									type = ReportConstraint.TYPE_UNIQUE;
+								else
+									throw new RuntimeException(constraintType+'-'+constraintName);
 
-					constraint = table.notifyExistentConstraint(constraintName, type);
-				}
-				//System.out.println("EXISTS:"+tableName);
-			}
+								constraint = table.notifyExistentConstraint(constraintName, type);
+							}
+							//System.out.println("EXISTS:"+tableName);
+						}
+					}
+				}, false);
 		}
 	}
 
