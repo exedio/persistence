@@ -216,12 +216,11 @@ final class OracleDatabase
 							final String constraintType = resultSet.getString(3);
 							final ReportTable table = report.notifyExistentTable(tableName);
 							//System.out.println("tableName:"+tableName+" constraintName:"+constraintName+" constraintType:>"+constraintType+"<");
-							final ReportConstraint constraint; // TODO: remove
 							if("C".equals(constraintType))
 							{
 								final String searchCondition = resultSet.getString(4);
 								//System.out.println("searchCondition:>"+searchCondition+"<");
-								constraint = table.notifyExistentCheckConstraint(constraintName, searchCondition);
+								table.notifyExistentCheckConstraint(constraintName, searchCondition);
 							}
 							else if("U".equals(constraintType))
 							{
@@ -236,7 +235,7 @@ final class OracleDatabase
 									uniqueColumns.add(columnName);
 								else
 								{
-									constraint = makeUniqueConstraint(uniqueConstraintTable, uniqueConstraintName, uniqueColumns);
+									makeUniqueConstraint(uniqueConstraintTable, uniqueConstraintName, uniqueColumns);
 									uniqueConstraintName = constraintName;
 									uniqueConstraintTable = table;
 									uniqueColumns.clear();
@@ -253,7 +252,7 @@ final class OracleDatabase
 								else
 									throw new RuntimeException(constraintType+'-'+constraintName);
 
-								constraint = table.notifyExistentConstraint(constraintName, type);
+								table.notifyExistentConstraint(constraintName, type);
 							}
 							//System.out.println("EXISTS:"+tableName);
 						}
