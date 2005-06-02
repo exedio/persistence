@@ -162,7 +162,7 @@ public final class MysqlDatabase extends Database
 				{
 					{
 						final Statement bf = createStatement();
-						bf.append("show columns from  ").
+						bf.append("show columns from ").
 							append(protectName(reportTable.name));
 						executeSQLQuery(bf, new ResultSetHandler()
 							{
