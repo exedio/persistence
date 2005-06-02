@@ -122,7 +122,7 @@ public final class MysqlDatabase extends Database
 		return protectedName.substring(1, protectedName.length()-1);
 	}
 
-	private final String extracteConstraintName(final SQLException e, final int vendorCode, final String start)
+	private final String extractConstraintName(final SQLException e, final int vendorCode, final String start)
 	{
 		// TODO: MySQL does not deliver constraint name in exception
 		//System.out.println("-u-"+e.getClass()+" "+e.getCause()+" "+e.getErrorCode()+" "+e.getLocalizedMessage()+" "+e.getSQLState()+" "+e.getNextException());
@@ -136,12 +136,12 @@ public final class MysqlDatabase extends Database
 
 	protected String extractUniqueConstraintName(final SQLException e)
 	{
-		return extracteConstraintName(e, 1062, "Duplicate entry ");
+		return extractConstraintName(e, 1062, "Duplicate entry ");
 	}
 
 	protected String extractIntegrityConstraintName(final SQLException e)
 	{
-		return extracteConstraintName(e, 1217, "Cannot delete or update a parent row: a foreign key constraint fails");
+		return extractConstraintName(e, 1217, "Cannot delete or update a parent row: a foreign key constraint fails");
 	}
 
 	void fillReport(final Report report)
