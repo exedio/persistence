@@ -218,7 +218,7 @@ public class ReportTest extends DatabaseLibTest
 			final boolean pkOk = true;
 			assertConstraint(attributeItem, PK, "AttributeItem_Pk", null, pkOk);
 
-			final boolean fkOk = !mysql;
+			final boolean fkOk = true;
 			assertConstraint(attributeItem, FK, "AttributeItem_someItem_Fk", null, fkOk);
 
 			final ReportTable uniqueItem = report.getTable("ItemWithSingleUnique");

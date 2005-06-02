@@ -22,6 +22,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.Iterator;
+import java.util.StringTokenizer;
 
 import com.mysql.jdbc.Driver;
 
@@ -135,14 +136,22 @@ public final class MysqlDatabase extends Database
 			for(Iterator i = report.getTables().iterator(); i.hasNext(); )
 			{
 				final ReportTable table = (ReportTable)i.next();
-				final Statement bf = createStatement();
 
-				bf.append("show columns from ").
-					append(protectName(table.name));
 				
 				try
 				{
-					executeSQLQuery(bf, new ReportConstraintHandler(report, table), false);
+					{
+						final Statement bf = createStatement();
+						bf.append("show columns from  ").
+							append(protectName(table.name));
+						executeSQLQuery(bf, new ShowColumnsHandler(report, table), false);
+					}
+					{
+						final Statement bf = createStatement();
+						bf.append("show create table ").
+							append(protectName(table.name));
+						executeSQLQuery(bf, new ShowCreateTableHandler(report), false);
+					}
 				}
 				catch(NestingRuntimeException nre)
 				{
@@ -163,12 +172,12 @@ public final class MysqlDatabase extends Database
 		}
 	}
 
-	private static class ReportConstraintHandler implements ResultSetHandler
+	private static class ShowColumnsHandler implements ResultSetHandler
 	{
 		private final Report report;
 		private final ReportTable reportTable;
 
-		ReportConstraintHandler(final Report report, final ReportTable reportTable)
+		ShowColumnsHandler(final Report report, final ReportTable reportTable)
 		{
 			this.report = report;
 			this.reportTable = reportTable;
@@ -189,6 +198,58 @@ public final class MysqlDatabase extends Database
 						reportTable.notifyExistentConstraint(table.getPrimaryKey().getPrimaryKeyConstraintID(), ReportConstraint.TYPE_PRIMARY_KEY);
 					else
 						reportTable.notifyExistentConstraint(field+"_Pk", ReportConstraint.TYPE_PRIMARY_KEY);
+				}
+			}
+		}
+	}
+
+	private static class ShowCreateTableHandler implements ResultSetHandler
+	{
+		private final Report report;
+
+		ShowCreateTableHandler(final Report report)
+		{
+			this.report = report;
+		}
+
+		public void run(final ResultSet resultSet) throws SQLException
+		{
+			while(resultSet.next())
+			{
+				final String tableName = resultSet.getString("Table");
+				final String createTable = resultSet.getString("Create Table");
+				final ReportTable table = report.notifyExistentTable(tableName);
+				//System.out.println("----------"+tableName+"----"+createTable);
+				final StringTokenizer t = new StringTokenizer(createTable);
+				for(String s = t.nextToken(); t.hasMoreTokens(); s = t.nextToken())
+				{
+					//System.out.println("----------"+tableName+"---------------"+s);
+					if("CONSTRAINT".equals(s))
+					{
+						if(!t.hasMoreTokens())
+							continue;
+						final String protectedName = t.nextToken();
+						//System.out.println("----------"+tableName+"--------------------protectedName:"+protectedName);
+						final String name = protectedName.substring(1, protectedName.length()-1);
+						//System.out.println("----------"+tableName+"--------------------name:"+name);
+						if(!t.hasMoreTokens() || !"FOREIGN".equals(t.nextToken()) ||
+							!t.hasMoreTokens() || !"KEY".equals(t.nextToken()) ||
+							!t.hasMoreTokens())
+							continue;
+						final String source = t.nextToken();
+						//System.out.println("----------"+tableName+"--------------------source:"+source);
+						if(!t.hasMoreTokens() || !"REFERENCES".equals(t.nextToken()) ||
+							!t.hasMoreTokens())
+							continue;
+						final String targetTable = t.nextToken();
+						//System.out.println("----------"+tableName+"--------------------targetTable:"+targetTable);
+						if(!t.hasMoreTokens())
+							continue;
+						final String targetAttribute = t.nextToken();
+						//System.out.println("----------"+tableName+"--------------------targetAttribute:"+targetAttribute);
+						
+						table.notifyExistentConstraint(name, ReportConstraint.TYPE_FOREIGN_KEY);
+					}
 				}
 			}
 		}
