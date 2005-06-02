@@ -1372,32 +1372,23 @@ abstract class Database
 		{
 			final com.exedio.cope.Statement bf = createStatement();
 			bf.append(GET_TABLES);
-			executeSQLQuery(bf, new MetaDataTableHandler(report), false);
+			executeSQLQuery(bf, new ResultSetHandler()
+				{
+					public void run(final ResultSet resultSet) throws SQLException
+					{
+						while(resultSet.next())
+						{
+							final String tableName = resultSet.getString("TABLE_NAME");
+							final ReportTable table = report.notifyExistentTable(tableName);
+							//System.out.println("EXISTS:"+tableName);
+						}
+					}
+				}, false);
 		}
 		{
 			final com.exedio.cope.Statement bf = createStatement();
 			bf.append(GET_COLUMNS);
 			executeSQLQuery(bf, new MetaDataColumnHandler(report), false);
-		}
-	}
-
-	private static class MetaDataTableHandler implements ResultSetHandler
-	{
-		private final Report report;
-
-		MetaDataTableHandler(final Report report)
-		{
-			this.report = report;
-		}
-
-		public void run(final ResultSet resultSet) throws SQLException
-		{
-			while(resultSet.next())
-			{
-				final String tableName = resultSet.getString("TABLE_NAME");
-				final ReportTable table = report.notifyExistentTable(tableName);
-				//System.out.println("EXISTS:"+tableName);
-			}
 		}
 	}
 
