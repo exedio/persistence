@@ -62,7 +62,7 @@ public final class ReportConstraint extends ReportNode
 		exists = true;
 	}
 
-	final void notifyExistsCheck(final String condition)
+	final void notifyExistsCondition(final String condition)
 	{
 		exists = true;
 		this.existingCondition = condition;

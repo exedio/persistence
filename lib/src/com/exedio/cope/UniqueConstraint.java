@@ -107,6 +107,19 @@ public final class UniqueConstraint extends TypeComponent
 		return databaseID;
 	}
 	
+	final void appendClause(final Statement bf)
+	{
+		bf.append('(');
+		for(int i = 0; i<uniqueAttributes.length; i++)
+		{
+			if(i>0)
+				bf.append(',');
+			final Attribute uniqueAttribute = uniqueAttributes[i];
+			bf.append(uniqueAttribute.getMainColumn().protectedID);
+		}
+		bf.append(')');
+	}
+	
 
 	private String toStringCache = null;
 	

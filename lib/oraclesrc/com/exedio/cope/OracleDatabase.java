@@ -22,9 +22,11 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Random;
 
 import oracle.jdbc.OracleStatement;
@@ -137,6 +139,24 @@ final class OracleDatabase
 	}
 
 
+	private ReportConstraint makeUniqueConstraint(final ReportTable table, final String constraintName, final ArrayList columns)
+	{
+		final StringBuffer bf = new StringBuffer();
+		bf.append('(');
+		boolean first = true;
+		for(Iterator i = columns.iterator(); i.hasNext(); )
+		{
+			if(first)
+				first = false;
+			else
+				bf.append(',');
+			
+			bf.append(protectName((String)i.next()));
+		}
+		bf.append(')');
+		return table.notifyExistentUniqueConstraint(constraintName, bf.toString());
+	}
+	
 	void fillReport(final Report report)
 	{
 		super.fillReport(report);
@@ -165,11 +185,17 @@ final class OracleDatabase
 			final Statement bf = createStatement();
 			bf.append(
 					"select " +
-					"TABLE_NAME," +
-					"CONSTRAINT_NAME," +
-					"CONSTRAINT_TYPE," +
-					"SEARCH_CONDITION " +
-					"from user_constraints order by table_name").
+					"uc.TABLE_NAME," +
+					"uc.CONSTRAINT_NAME," +
+					"uc.CONSTRAINT_TYPE," +
+					"uc.SEARCH_CONDITION," +
+					"ucc.COLUMN_NAME " +
+					"from user_constraints uc " +
+					"left outer join user_cons_columns ucc " +
+						"on uc.CONSTRAINT_NAME=ucc.CONSTRAINT_NAME " +
+						"and uc.TABLE_NAME=ucc.TABLE_NAME " +
+					"order by uc.TABLE_NAME, ucc.POSITION").
+				defineColumnString().
 				defineColumnString().
 				defineColumnString().
 				defineColumnString().
@@ -177,21 +203,45 @@ final class OracleDatabase
 
 			executeSQLQuery(bf, new ResultSetHandler()
 				{
+					String uniqueConstraintName = null;
+					ReportTable uniqueConstraintTable = null;
+					final ArrayList uniqueColumns = new ArrayList();
 					public void run(final ResultSet resultSet) throws SQLException
 					{
 						while(resultSet.next())
 						{
+							//printRow(resultSet);
 							final String tableName = resultSet.getString(1);
 							final String constraintName = resultSet.getString(2);
 							final String constraintType = resultSet.getString(3);
 							final ReportTable table = report.notifyExistentTable(tableName);
 							//System.out.println("tableName:"+tableName+" constraintName:"+constraintName+" constraintType:>"+constraintType+"<");
-							final ReportConstraint constraint;
+							final ReportConstraint constraint; // TODO: remove
 							if("C".equals(constraintType))
 							{
 								final String searchCondition = resultSet.getString(4);
 								//System.out.println("searchCondition:>"+searchCondition+"<");
 								constraint = table.notifyExistentCheckConstraint(constraintName, searchCondition);
+							}
+							else if("U".equals(constraintType))
+							{
+								final String columnName = resultSet.getString(5);
+								if(uniqueConstraintName==null)
+								{
+									uniqueConstraintName = constraintName;
+									uniqueConstraintTable = table;
+									uniqueColumns.add(columnName);
+								}
+								else if(uniqueConstraintName.equals(constraintName) && uniqueConstraintTable==table)
+									uniqueColumns.add(columnName);
+								else
+								{
+									constraint = makeUniqueConstraint(uniqueConstraintTable, uniqueConstraintName, uniqueColumns);
+									uniqueConstraintName = constraintName;
+									uniqueConstraintTable = table;
+									uniqueColumns.clear();
+									uniqueColumns.add(columnName);
+								}
 							}
 							else
 							{
@@ -200,8 +250,6 @@ final class OracleDatabase
 									type = ReportConstraint.TYPE_PRIMARY_KEY;
 								else if("R".equals(constraintType))
 									type = ReportConstraint.TYPE_FOREIGN_KEY;
-								else if("U".equals(constraintType))
-									type = ReportConstraint.TYPE_UNIQUE;
 								else
 									throw new RuntimeException(constraintType+'-'+constraintName);
 
@@ -209,6 +257,8 @@ final class OracleDatabase
 							}
 							//System.out.println("EXISTS:"+tableName);
 						}
+						if(uniqueConstraintName!=null)
+							makeUniqueConstraint(uniqueConstraintTable, uniqueConstraintName, uniqueColumns);
 					}
 				}, false);
 		}

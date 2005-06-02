@@ -182,6 +182,37 @@ final class HsqldbDatabase
 
 							table.notifyExistentCheckConstraint(constraintName, checkClause);
 						}
+						else if("UNIQUE".equals(constraintType))
+						{
+							//printRow(resultSet);
+							final StringBuffer clause = new StringBuffer();
+							final Statement bf = createStatement();
+							bf.append("select COLUMN_NAME from SYSTEM_INDEXINFO where INDEX_NAME like 'SYS_IDX_").
+								append(constraintName).
+								append("_%' and NON_UNIQUE=false order by ORDINAL_POSITION");
+							executeSQLQuery(bf, new ResultSetHandler()
+								{
+									public void run(final ResultSet resultSet) throws SQLException
+									{
+										//printMeta(resultSet);
+										boolean first = true;
+										clause.append('(');
+										while(resultSet.next())
+										{
+											//printRow(resultSet);
+											if(first)
+												first = false;
+											else
+												clause.append(',');
+											final String columnName = resultSet.getString(1);
+											clause.append(protectName(columnName));
+										}
+										clause.append(')');
+									}
+								}, false);
+
+							table.notifyExistentUniqueConstraint(constraintName, clause.toString());
+						}
 						else
 						{
 							final int type;
@@ -189,8 +220,6 @@ final class HsqldbDatabase
 								type = ReportConstraint.TYPE_PRIMARY_KEY;
 							else if("FOREIGN KEY".equals(constraintType))
 								type = ReportConstraint.TYPE_FOREIGN_KEY;
-							else if("UNIQUE".equals(constraintType))
-								type = ReportConstraint.TYPE_UNIQUE;
 							else
 								throw new RuntimeException(constraintType+'-'+constraintName);
 							

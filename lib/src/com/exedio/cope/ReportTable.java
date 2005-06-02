@@ -128,6 +128,13 @@ public final class ReportTable extends ReportNode
 		return result;
 	}
 	
+	final ReportConstraint notifyRequiredConstraint(final String constraintName, final int type, final String condition)
+	{
+		final ReportConstraint result = new ReportConstraint(constraintName, type, this, condition);
+		addRequiredConstraint(result);
+		return result;
+	}
+	
 	private final ReportConstraint getOrCreateExistentConstraint(final String constraintName, final int type)
 	{
 		ReportConstraint result = (ReportConstraint)constraintMap.get(constraintName);
@@ -150,7 +157,14 @@ public final class ReportTable extends ReportNode
 	final ReportConstraint notifyExistentCheckConstraint(final String constraintName, final String condition)
 	{
 		final ReportConstraint result = getOrCreateExistentConstraint(constraintName, ReportConstraint.TYPE_CHECK);
-		result.notifyExistsCheck(condition);
+		result.notifyExistsCondition(condition);
+		return result;
+	}
+	
+	final ReportConstraint notifyExistentUniqueConstraint(final String constraintName, final String condition)
+	{
+		final ReportConstraint result = getOrCreateExistentConstraint(constraintName, ReportConstraint.TYPE_UNIQUE);
+		result.notifyExistsCondition(condition);
 		return result;
 	}
 	

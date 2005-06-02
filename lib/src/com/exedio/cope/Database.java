@@ -1129,18 +1129,8 @@ abstract class Database
 			final UniqueConstraint uniqueConstraint = (UniqueConstraint)i.next();
 			bf.append(",constraint ").
 				append(protectName(uniqueConstraint.getDatabaseID())).
-				append(" unique(");
-			boolean first = true;
-			for(Iterator j = uniqueConstraint.getUniqueAttributes().iterator(); j.hasNext(); )
-			{
-				if(first)
-					first = false;
-				else
-					bf.append(',');
-				final Attribute uniqueAttribute = (Attribute)j.next();
-				bf.append(uniqueAttribute.getMainColumn().protectedID);
-			}
-			bf.append(')');
+				append(" unique");
+			uniqueConstraint.appendClause(bf);
 		}
 		
 		bf.append(')');
@@ -1318,7 +1308,7 @@ abstract class Database
 			throws SQLException;
 	
 	/**
-	 * For debugging output
+	 * @deprecated for debugging only, should never be used in committed code
 	 */
 	protected static final void printMeta(final ResultSet resultSet) throws SQLException
 	{
@@ -1329,7 +1319,7 @@ abstract class Database
 	}
 	
 	/**
-	 * For debugging output
+	 * @deprecated for debugging only, should never be used in committed code
 	 */
 	protected static final void printRow(final ResultSet resultSet) throws SQLException
 	{

@@ -243,8 +243,9 @@ public final class MysqlDatabase extends Database
 												continue;
 											final String clause = t.nextToken();
 											//System.out.println("----------"+tableName+"--------------------clause:"+clause);
-											
-											table.notifyExistentConstraint(name, ReportConstraint.TYPE_UNIQUE);
+
+											final int clauseLengthM1 = clause.length()-1;
+											table.notifyExistentUniqueConstraint(name, clause.charAt(clauseLengthM1)==',' ? clause.substring(0, clauseLengthM1) : clause);
 										}
 									}
 								}

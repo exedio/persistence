@@ -224,7 +224,14 @@ public class ReportTest extends DatabaseLibTest
 			assertEquals(null, uniqueItem.getError());
 			assertEquals(Report.COLOR_OK, uniqueItem.getParticularColor());
 			
-			assertConstraint(uniqueItem, UNIQUE, "ItemWithSingUni_unStr_Unq", null);
+			assertConstraint(uniqueItem, UNIQUE, "ItemWithSingUni_unStr_Unq", "("+protect("uniqueString")+")");
+			
+			final ReportTable doubleUniqueItem = report.getTable("ItemWithDoubleUnique");
+			assertNotNull(doubleUniqueItem);
+			assertEquals(null, doubleUniqueItem.getError());
+			assertEquals(Report.COLOR_OK, doubleUniqueItem.getParticularColor());
+			
+			assertConstraint(doubleUniqueItem, UNIQUE, "ItemWithDoubUni_doUni_Unq", "("+protect("string")+","+protect("integer")+")");
 			
 			final ReportTable stringItem = report.getTable("StringItem");
 			assertNotNull(stringItem);
