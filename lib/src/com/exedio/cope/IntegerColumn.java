@@ -51,20 +51,14 @@ class IntegerColumn extends Column
 	{
 		// IMPLEMENTATION NOTE
 		//
-		// The following line specifies the column name for the generated
-		// primary key of all cope tables to be "this". This prevents
-		// name collisions with columns for cope attributes, since "this"
-		// is a reserved java keyword, which cannot be used for java attributes.
-		//
-		// It's a string literal, since the string is not used anywhere else
-		// in the framework. In theory, one could specify different column names
+		// In theory, one could specify different column names
 		// for the primary key of different tables here, and the framework
 		// should work as well. I tried this once (uncomment the line below),
 		// and it did pass all tests.
 		//
-		//super(table, "this"+table.id, true, true, JDBC_TYPE_INT);
+		//super(table, Table.PK_COLUMN_NAME+table.id, true, true, JDBC_TYPE_INT);
 
-		super(table, "this", true, true, JDBC_TYPE_INT);
+		super(table, Table.PK_COLUMN_NAME, true, true, JDBC_TYPE_INT);
 
 		this.precision = ItemColumn.SYNTETIC_PRIMARY_KEY_PRECISION;
 		this.longInsteadOfInt = false;

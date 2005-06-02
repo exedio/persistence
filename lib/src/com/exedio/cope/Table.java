@@ -50,6 +50,15 @@ final class Table
 	private List uniqueConstraints = null;
 	
 	/**
+	 * The column name for the primary key.
+	 * The value "this" prevents name collisions
+	 * with columns for cope attributes,
+	 * since "this" is a reserved java keyword,
+	 * which cannot be used for java attributes.
+	 */
+	static final String PK_COLUMN_NAME = "this";
+
+	/**
 	 * The column name for the type information.
 	 * The value "class" prevents name collisions
 	 * with columns for cope attributes,

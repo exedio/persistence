@@ -185,7 +185,7 @@ public final class MysqlDatabase extends Database
 				if("PRI".equals(key))
 				{
 					final String field = resultSet.getString("Field");
-					if("this".equals(field) && table!=null)
+					if(Table.PK_COLUMN_NAME.equals(field) && table!=null)
 						reportTable.notifyExistentConstraint(table.getPrimaryKey().getPrimaryKeyConstraintID(), ReportConstraint.TYPE_PRIMARY_KEY);
 					else
 						reportTable.notifyExistentConstraint(field+"_Pk", ReportConstraint.TYPE_PRIMARY_KEY);
