@@ -226,7 +226,7 @@ public class ReportTest extends DatabaseLibTest
 			assertEquals(null, uniqueItem.getError());
 			assertEquals(Report.COLOR_OK, uniqueItem.getParticularColor());
 			
-			final boolean uniqueOk = !mysql;
+			final boolean uniqueOk = true;
 			assertConstraint(uniqueItem, UNIQUE, "ItemWithSingUni_unStr_Unq", null, uniqueOk);
 			
 			final ReportTable stringItem = report.getTable("StringItem");

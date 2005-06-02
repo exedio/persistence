@@ -101,10 +101,25 @@ public final class MysqlDatabase extends Database
 				return null;
 		}
 	}
+	
+	private static final char PROTECTOR = '`';
 
 	protected String protectName(final String name)
 	{
-		return '`' + name + '`';
+		return PROTECTOR + name + PROTECTOR;
+	}
+	
+	private final String unprotectName(final String protectedName)
+	{
+		final int length = protectedName.length();
+		if(length<3)
+			throw new RuntimeException(protectedName);
+		if(protectedName.charAt(0)!=PROTECTOR)
+			throw new RuntimeException(protectedName);
+		if(protectedName.charAt(length-1)!=PROTECTOR)
+			throw new RuntimeException(protectedName);
+
+		return protectedName.substring(1, protectedName.length()-1);
 	}
 
 	private final String extracteConstraintName(final SQLException e, final int vendorCode, final String start)
@@ -190,7 +205,7 @@ public final class MysqlDatabase extends Database
 													continue;
 												final String protectedName = t.nextToken();
 												//System.out.println("----------"+tableName+"--------------------protectedName:"+protectedName);
-												final String name = protectedName.substring(1, protectedName.length()-1);
+												final String name = unprotectName(protectedName);
 												//System.out.println("----------"+tableName+"--------------------name:"+name);
 												if(!t.hasMoreTokens() || !"FOREIGN".equals(t.nextToken()) ||
 													!t.hasMoreTokens() || !"KEY".equals(t.nextToken()) ||
@@ -209,6 +224,23 @@ public final class MysqlDatabase extends Database
 												//System.out.println("----------"+tableName+"--------------------targetAttribute:"+targetAttribute);
 												
 												table.notifyExistentConstraint(name, ReportConstraint.TYPE_FOREIGN_KEY);
+											}
+											//UNIQUE KEY `AttriEmptyItem_parKey_Unq` (`parent`,`key`)
+											if("UNIQUE".equals(s))
+											{
+												if(!t.hasMoreTokens() || !"KEY".equals(t.nextToken()) ||
+													!t.hasMoreTokens())
+													continue;
+												final String protectedName = t.nextToken();
+												//System.out.println("----------"+tableName+"--------------------protectedName:"+protectedName);
+												final String name = unprotectName(protectedName);
+												//System.out.println("----------"+tableName+"--------------------name:"+name);
+												if(!t.hasMoreTokens())
+													continue;
+												final String clause = t.nextToken();
+												//System.out.println("----------"+tableName+"--------------------clause:"+clause);
+												
+												table.notifyExistentConstraint(name, ReportConstraint.TYPE_UNIQUE);
 											}
 										}
 									}
