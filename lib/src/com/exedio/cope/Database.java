@@ -1388,41 +1388,32 @@ abstract class Database
 		{
 			final com.exedio.cope.Statement bf = createStatement();
 			bf.append(GET_COLUMNS);
-			executeSQLQuery(bf, new MetaDataColumnHandler(report), false);
-		}
-	}
-
-	private class MetaDataColumnHandler implements ResultSetHandler
-	{
-		private final Report report;
-
-		MetaDataColumnHandler(final Report report)
-		{
-			this.report = report;
-		}
-
-		public void run(final ResultSet resultSet) throws SQLException
-		{
-			while(resultSet.next())
-			{
-				final String tableName = resultSet.getString("TABLE_NAME");
-				final String columnName = resultSet.getString("COLUMN_NAME");
-				final int dataType = resultSet.getInt("DATA_TYPE");
-				
-				final ReportTable table = report.getTable(tableName);
-				if(table!=null)
+			executeSQLQuery(bf, new ResultSetHandler()
 				{
-					String columnType = getColumnType(dataType, resultSet);
-					if(columnType==null)
-						columnType = String.valueOf(dataType);
+					public void run(final ResultSet resultSet) throws SQLException
+					{
+						while(resultSet.next())
+						{
+							final String tableName = resultSet.getString("TABLE_NAME");
+							final String columnName = resultSet.getString("COLUMN_NAME");
+							final int dataType = resultSet.getInt("DATA_TYPE");
+							
+							final ReportTable table = report.getTable(tableName);
+							if(table!=null)
+							{
+								String columnType = getColumnType(dataType, resultSet);
+								if(columnType==null)
+									columnType = String.valueOf(dataType);
 
-					table.notifyExistentColumn(columnName, columnType);
-				}
-				//System.out.println("EXISTS:"+tableName);
-			}
+								table.notifyExistentColumn(columnName, columnType);
+							}
+							//System.out.println("EXISTS:"+tableName);
+						}
+					}
+				}, false);
 		}
 	}
-	
+
 	final void renameTable(final String oldTableName, final String newTableName)
 	{
 		final Statement bf = createStatement();
