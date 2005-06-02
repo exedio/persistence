@@ -1345,7 +1345,7 @@ abstract class Database
 	/**
 	 * For debugging output
 	 */
-	protected final void printMeta(final ResultSet resultSet) throws SQLException
+	protected static final void printMeta(final ResultSet resultSet) throws SQLException
 	{
 		final ResultSetMetaData metaData = resultSet.getMetaData();;
 		final int columnCount = metaData.getColumnCount();
@@ -1356,7 +1356,7 @@ abstract class Database
 	/**
 	 * For debugging output
 	 */
-	protected final void printRow(final ResultSet resultSet) throws SQLException
+	protected static final void printRow(final ResultSet resultSet) throws SQLException
 	{
 		final ResultSetMetaData metaData = resultSet.getMetaData();;
 		final int columnCount = metaData.getColumnCount();
