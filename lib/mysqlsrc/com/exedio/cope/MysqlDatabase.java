@@ -122,6 +122,11 @@ public final class MysqlDatabase extends Database
 		return protectedName.substring(1, protectedName.length()-1);
 	}
 
+	protected boolean supportsCheckConstraints()
+	{
+		return false;
+	}
+
 	private final String extractConstraintName(final SQLException e, final int vendorCode, final String start)
 	{
 		// TODO: MySQL does not deliver constraint name in exception

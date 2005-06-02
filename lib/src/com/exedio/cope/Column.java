@@ -63,11 +63,17 @@ abstract class Column
 	
 	final String getCheckConstraintID()
 	{
+		if(!table.database.supportsCheckConstraints())
+			return null;
+
 		return table.database.trimName(table.id + "_" + id + "_Ck");
 	}
 	
 	final String getCheckConstraint()
 	{
+		if(!table.database.supportsCheckConstraints())
+			return null;
+
 		final String ccinn = getCheckConstraintIfNotNull();
 		
 		if(notNull)
