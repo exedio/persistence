@@ -146,7 +146,20 @@ final class OracleDatabase
 				defineColumnString().
 				defineColumnTimestamp();
 
-			executeSQLQuery(bf, new ReportTableHandler(report), false);
+			executeSQLQuery(bf, new ResultSetHandler()
+				{
+					public void run(final ResultSet resultSet) throws SQLException
+					{
+						while(resultSet.next())
+						{
+							final String tableName = resultSet.getString(1);
+							final Date lastAnalyzed = (Date)resultSet.getObject(2);
+							final ReportTable table = report.notifyExistentTable(tableName);
+							table.setLastAnalyzed(lastAnalyzed);
+							//System.out.println("EXISTS:"+tableName);
+						}
+					}
+				}, false);
 		}
 		{
 			final Statement bf = createStatement();
@@ -163,28 +176,6 @@ final class OracleDatabase
 				defineColumnString();
 
 			executeSQLQuery(bf, new ReportConstraintHandler(report), false);
-		}
-	}
-
-	private static class ReportTableHandler implements ResultSetHandler
-	{
-		private final Report report;
-
-		ReportTableHandler(final Report report)
-		{
-			this.report = report;
-		}
-
-		public void run(final ResultSet resultSet) throws SQLException
-		{
-			while(resultSet.next())
-			{
-				final String tableName = resultSet.getString(1);
-				final Date lastAnalyzed = (Date)resultSet.getObject(2);
-				final ReportTable table = report.notifyExistentTable(tableName);
-				table.setLastAnalyzed(lastAnalyzed);
-				//System.out.println("EXISTS:"+tableName);
-			}
 		}
 	}
 
