@@ -200,6 +200,7 @@ public class ReportTest extends DatabaseLibTest
 			assertEquals(column1Type, column.getDatabaseType());
 		}
 		{
+			assertEquals(!mysql, model.supportsCheckConstraints());
 			final Report report = model.reportDatabase();
 
 			final ReportTable attributeItem = report.getTable("AttributeItem");

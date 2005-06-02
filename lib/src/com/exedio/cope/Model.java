@@ -139,6 +139,11 @@ public final class Model
 		return properties;
 	}
 	
+	public final boolean supportsCheckConstraints()
+	{
+		return database.supportsCheckConstraints();
+	}
+
 	final Database getDatabase()
 	{
 		if(database==null)

@@ -92,6 +92,7 @@ if(narrowReport)
 }
 %></span>
 <input type="submit" name="APPLY" value="apply"/>
+supports check constraints: <i><%if(model.supportsCheckConstraints()){%>yes<%}else{%>no<%}%></i>
 <ul class="<%=reportColor%>"><%
 
 int tableCount = 1;
