@@ -1276,8 +1276,7 @@ abstract class Database
 		}
 	}
 	
-
-	int[] getMinMaxPK(final Table table)
+	final int[] getMinMaxPK(final Table table)
 	{
 		buildStage = false;
 
