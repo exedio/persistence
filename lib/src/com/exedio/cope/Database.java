@@ -399,113 +399,94 @@ abstract class Database
 		}
 
 		//System.out.println("searching "+bf.toString());
-		final SearchResultSetHandler handler =
-			new SearchResultSetHandler(query.start, query.count, selectables, selectColumns, selectTypes, query.model);
-		query.statementInfo = executeSQLQuery(bf, handler, query.makeStatementInfo);
-		return handler.result;
-	}
+		final int start = query.start;
+		final int count = query.count;
+		final Type[] types = selectTypes;
+		final Model model = query.model;
+		final ArrayList result = new ArrayList();
 
-	private static class SearchResultSetHandler implements ResultSetHandler
-	{
-		private final int start;
-		private final int count;
-		private final Selectable[] selectables;
-		private final Column[] selectColumns;
-		private final Type[] types;
-		private final Model model;
-		private final ArrayList result = new ArrayList();
-		
-		SearchResultSetHandler(
-				final int start, final int count,
-				final Selectable[] selectables, final Column[] selectColumns, final Type[] types,
-				final Model model)
-		{
-			this.start = start;
-			this.count = count;
-			this.selectables = selectables;
-			this.selectColumns = selectColumns;
-			this.types = types;
-			this.model = model;
-			if(start<0)
-				throw new RuntimeException();
-			if(selectables.length!=selectColumns.length)
-				throw new RuntimeException();
-			if(selectables.length!=types.length)
-				throw new RuntimeException();
-		}
+		if(start<0)
+			throw new RuntimeException();
+		if(selectables.length!=selectColumns.length)
+			throw new RuntimeException();
+		if(selectables.length!=types.length)
+			throw new RuntimeException();
 
-		public void run(final ResultSet resultSet) throws SQLException
-		{
-			if(start>0)
+		query.statementInfo = executeSQLQuery(bf, new ResultSetHandler()
 			{
-				// TODO: ResultSet.relative
-				// Would like to use
-				//    resultSet.relative(start+1);
-				// but this throws a java.sql.SQLException:
-				// Invalid operation for forward only resultset : relative
-				for(int i = start; i>0; i--)
-					resultSet.next();
-			}
-				
-			int i = (count>=0 ? count : Integer.MAX_VALUE);
-
-			while(resultSet.next() && (--i)>=0)
-			{
-				int columnIndex = 1;
-				final Object[] resultRow = (selectables.length > 1) ? new Object[selectables.length] : null;
-					
-				for(int selectableIndex = 0; selectableIndex<selectables.length; selectableIndex++)
+				public void run(final ResultSet resultSet) throws SQLException
 				{
-					final Selectable selectable = selectables[selectableIndex];
-					final Object resultCell;
-					if(selectable instanceof ObjectAttribute)
+					if(start>0)
 					{
-						final Object selectValue = selectColumns[selectableIndex].load(resultSet, columnIndex++);
-						final ObjectAttribute selectAttribute = (ObjectAttribute)selectable;
-						resultCell = selectAttribute.cacheToSurface(selectValue);
+						// TODO: ResultSet.relative
+						// Would like to use
+						//    resultSet.relative(start+1);
+						// but this throws a java.sql.SQLException:
+						// Invalid operation for forward only resultset : relative
+						for(int i = start; i>0; i--)
+							resultSet.next();
 					}
-					else if(selectable instanceof ComputedFunction)
+						
+					int i = (count>=0 ? count : Integer.MAX_VALUE);
+
+					while(resultSet.next() && (--i)>=0)
 					{
-						final ComputedFunction selectFunction = (ComputedFunction)selectable;
-						resultCell = selectFunction.load(resultSet, columnIndex++);
-					}
-					else
-					{
-						final Number pk = (Number)resultSet.getObject(columnIndex++);
-						//System.out.println("pk:"+pk);
-						if(pk==null)
+						int columnIndex = 1;
+						final Object[] resultRow = (selectables.length > 1) ? new Object[selectables.length] : null;
+							
+						for(int selectableIndex = 0; selectableIndex<selectables.length; selectableIndex++)
 						{
-							// can happen when using right outer joins
-							resultCell = null;
-						}
-						else
-						{
-							final Type type = types[selectableIndex];
-							final Type currentType;
-							if(type==null)
+							final Selectable selectable = selectables[selectableIndex];
+							final Object resultCell;
+							if(selectable instanceof ObjectAttribute)
 							{
-								final String typeID = resultSet.getString(columnIndex++);
-								currentType = model.findTypeByID(typeID);
-								if(currentType==null)
-									throw new RuntimeException("no type with type id "+typeID);
+								final Object selectValue = selectColumns[selectableIndex].load(resultSet, columnIndex++);
+								final ObjectAttribute selectAttribute = (ObjectAttribute)selectable;
+								resultCell = selectAttribute.cacheToSurface(selectValue);
+							}
+							else if(selectable instanceof ComputedFunction)
+							{
+								final ComputedFunction selectFunction = (ComputedFunction)selectable;
+								resultCell = selectFunction.load(resultSet, columnIndex++);
 							}
 							else
-								currentType = type;
-			
-							resultCell = currentType.getItem(pk.intValue());
+							{
+								final Number pk = (Number)resultSet.getObject(columnIndex++);
+								//System.out.println("pk:"+pk);
+								if(pk==null)
+								{
+									// can happen when using right outer joins
+									resultCell = null;
+								}
+								else
+								{
+									final Type type = types[selectableIndex];
+									final Type currentType;
+									if(type==null)
+									{
+										final String typeID = resultSet.getString(columnIndex++);
+										currentType = model.findTypeByID(typeID);
+										if(currentType==null)
+											throw new RuntimeException("no type with type id "+typeID);
+									}
+									else
+										currentType = type;
+					
+									resultCell = currentType.getItem(pk.intValue());
+								}
+							}
+							if(resultRow!=null)
+								resultRow[selectableIndex] = resultCell;
+							else
+								result.add(resultCell);
 						}
+						if(resultRow!=null)
+							result.add(Collections.unmodifiableList(Arrays.asList(resultRow)));
 					}
-					if(resultRow!=null)
-						resultRow[selectableIndex] = resultCell;
-					else
-						result.add(resultCell);
 				}
-				if(resultRow!=null)
-					result.add(Collections.unmodifiableList(Arrays.asList(resultRow)));
-			}
-		}
+			}, query.makeStatementInfo);
+		return result;
 	}
-	
 
 	void load(final Row row)
 	{
