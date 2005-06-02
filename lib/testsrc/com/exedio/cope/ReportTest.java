@@ -215,7 +215,7 @@ public class ReportTest extends DatabaseLibTest
 			assertConstraint(attributeItem, CHECK, "AttrItem_somNotNullEnu_Ck", "("+protect("someNotNullEnumeration")+" IS NOT NULL) AND ("+protect("someNotNullEnumeration")+" IN (100,200,300))", checkOk);
 			assertConstraint(attributeItem, CHECK, "AttriItem_someDataMajo_Ck", "((LENGTH("+protect("someDataMajor")+")>=1) AND (LENGTH("+protect("someDataMajor")+")<=30)) OR ("+protect("someDataMajor")+" IS NULL)", checkOk);
 
-			final boolean pkOk = !mysql;
+			final boolean pkOk = true;
 			assertConstraint(attributeItem, PK, "AttributeItem_Pk", null, pkOk);
 
 			final boolean fkOk = !mysql;

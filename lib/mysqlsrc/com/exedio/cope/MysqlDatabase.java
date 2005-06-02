@@ -21,6 +21,7 @@ package com.exedio.cope;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.Iterator;
 
 import com.mysql.jdbc.Driver;
 
@@ -125,6 +126,72 @@ public final class MysqlDatabase extends Database
 	protected String extractIntegrityConstraintName(final SQLException e)
 	{
 		return extracteConstraintName(e, 1217, "Cannot delete or update a parent row: a foreign key constraint fails");
+	}
+
+	void fillReport(final Report report)
+	{
+		super.fillReport(report);
+		{
+			for(Iterator i = report.getTables().iterator(); i.hasNext(); )
+			{
+				final ReportTable table = (ReportTable)i.next();
+				final Statement bf = createStatement();
+
+				bf.append("show columns from ").
+					append(protectName(table.name));
+				
+				try
+				{
+					executeSQLQuery(bf, new ReportConstraintHandler(report, table), false);
+				}
+				catch(NestingRuntimeException nre)
+				{
+					final Exception e = nre.getNestedCause();
+					if(e!=null)
+					{
+						final String m = e.getMessage();
+						//System.out.println("--------------"+m);
+						if(e instanceof SQLException && m.startsWith("Table ") && m.endsWith(" doesn't exist"))
+							; // ignore
+						else
+							throw nre;
+					}
+					else
+						throw nre;
+				}
+			}
+		}
+	}
+
+	private static class ReportConstraintHandler implements ResultSetHandler
+	{
+		private final Report report;
+		private final ReportTable reportTable;
+
+		ReportConstraintHandler(final Report report, final ReportTable reportTable)
+		{
+			this.report = report;
+			this.reportTable = reportTable;
+		}
+
+		public void run(final ResultSet resultSet) throws SQLException
+		{
+			//printMeta(resultSet);
+			final Table table = reportTable.table;
+			while(resultSet.next())
+			{
+				//printRow(resultSet);
+				final String key = resultSet.getString("Key");
+				if("PRI".equals(key))
+				{
+					final String field = resultSet.getString("Field");
+					if("this".equals(field) && table!=null)
+						reportTable.notifyExistentConstraint(table.getPrimaryKey().getPrimaryKeyConstraintID(), ReportConstraint.TYPE_PRIMARY_KEY);
+					else
+						reportTable.notifyExistentConstraint(field+"_Pk", ReportConstraint.TYPE_PRIMARY_KEY);
+				}
+			}
+		}
 	}
 
 	protected Statement getDropForeignKeyConstraintStatement(final Table table, final ItemColumn column)

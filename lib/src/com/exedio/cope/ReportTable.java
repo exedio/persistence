@@ -28,7 +28,7 @@ public final class ReportTable extends ReportNode
 {
 	public final Report report;
 	public final String name;
-	private final Table table;
+	final Table table;
 	private boolean exists = false;
 	private ReportLastAnalyzed lastAnalyzed = null;
 
