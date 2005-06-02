@@ -563,32 +563,22 @@ abstract class Database
 		}
 
 		//System.out.println("loading "+bf.toString());
-		executeSQLQuery(bf, new LoadResultSetHandler(row), false);
-	}
-
-	private static class LoadResultSetHandler implements ResultSetHandler
-	{
-		private final Row row;
-
-		LoadResultSetHandler(final Row row)
-		{
-			this.row = row;
-		}
-
-		public void run(final ResultSet resultSet) throws SQLException
-		{
-			if(!resultSet.next())
-				throw new RuntimeException("no such pk"); // TODO use a dedicated runtime exception
-			int columnIndex = 1;
-			for(Type type = row.type; type!=null; type = type.getSupertype())
+		executeSQLQuery(bf, new ResultSetHandler()
 			{
-				for(Iterator i = type.getTable().getColumns().iterator(); i.hasNext(); )
-					((Column)i.next()).load(resultSet, columnIndex++, row);
-			}
-			return;
-		}
+				public void run(final ResultSet resultSet) throws SQLException
+				{
+					if(!resultSet.next())
+						throw new RuntimeException("no such pk"); // TODO use a dedicated runtime exception
+					int columnIndex = 1;
+					for(Type type = row.type; type!=null; type = type.getSupertype())
+					{
+						for(Iterator i = type.getTable().getColumns().iterator(); i.hasNext(); )
+							((Column)i.next()).load(resultSet, columnIndex++, row);
+					}
+					return;
+				}
+			}, false);
 	}
-	
 
 	boolean check(final Type type, final int pk)
 	{
