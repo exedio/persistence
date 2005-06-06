@@ -22,7 +22,6 @@ public final class ReportColumn extends ReportNode
 	public final String name;
 	public final ReportTable table;
 	private final String requiredType;
-	private boolean exists;
 	private String existingType;
 		
 	ReportColumn(final String name, final String type, final boolean required, final ReportTable table)
@@ -46,16 +45,16 @@ public final class ReportColumn extends ReportNode
 			this.requiredType = null;
 			this.existingType = type;
 		}
-		this.exists = !required;
 	}
 
 	void notifyExists(final String existingType)
 	{
-		if(exists && !this.existingType.equals(existingType))
+		if(existingType==null)
+			throw new RuntimeException(name);
+		if(this.existingType!=null && !this.existingType.equals(existingType))
 			throw new RuntimeException(name);
 
 		this.existingType = existingType;
-		exists = true;
 	}
 
 	protected void finish()
@@ -63,7 +62,7 @@ public final class ReportColumn extends ReportNode
 		if(cumulativeColor!=COLOR_NOT_YET_CALC || particularColor!=COLOR_NOT_YET_CALC)
 			throw new RuntimeException();
 
-		if(!exists)
+		if(existingType==null)
 		{
 			error = "missing";
 			particularColor = COLOR_ERROR;
@@ -96,7 +95,7 @@ public final class ReportColumn extends ReportNode
 	
 	public final boolean exists()
 	{
-		return exists;
+		return existingType!=null;
 	}
 		
 	public final String getDatabaseType()
