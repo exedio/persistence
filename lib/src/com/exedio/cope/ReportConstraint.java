@@ -91,21 +91,18 @@ public final class ReportConstraint extends ReportNode
 		}
 		else
 		{
-			if(requiredCondition!=null &&
-				existingCondition!=null &&
+			if(requiredCondition!=null && existingCondition!=null &&
 				!requiredCondition.equals(existingCondition))
 			{
 				error = "different condition in database: >"+existingCondition+"<";
 				particularColor = COLOR_ERROR;
 			}
-			else if(requiredCondition==null &&
-					existingCondition!=null)
+			else if(requiredCondition==null && existingCondition!=null)
 			{
 				error = "surplus condition in database: >"+existingCondition+"<";
 				particularColor = COLOR_ERROR;
 			}
-			else if(requiredCondition!=null &&
-					existingCondition==null)
+			else if(requiredCondition!=null && existingCondition==null)
 			{
 				error = "missing condition in database";
 				particularColor = COLOR_ERROR;
