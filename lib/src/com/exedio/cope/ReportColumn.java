@@ -21,27 +21,34 @@ public final class ReportColumn extends ReportNode
 {
 	public final String name;
 	public final ReportTable table;
-	private final Column column;
+	private final String requiredType;
 	private boolean exists;
 	private String existingType;
 		
-	ReportColumn(final Column column, final ReportTable table)
+	ReportColumn(final String name, final String type, final boolean required, final ReportTable table)
 	{
-		this.name = column.id;
-		this.table = table;
-		this.column = column;
-		exists = false;
-	}
+		if(name==null)
+			throw new RuntimeException(type);
+		if(type==null)
+			throw new RuntimeException(name);
+		if(table==null)
+			throw new RuntimeException(name);
 
-	ReportColumn(final String name, final String existingType, final ReportTable table)
-	{
 		this.name = name;
 		this.table = table;
-		this.column = null;
-		this.existingType = existingType;
-		exists = true;
+		if(required)
+		{
+			this.requiredType = type;
+			this.existingType = null;
+		}
+		else
+		{
+			this.requiredType = null;
+			this.existingType = type;
+		}
+		this.exists = !required;
 	}
-	
+
 	void notifyExists(final String existingType)
 	{
 		if(exists && !this.existingType.equals(existingType))
@@ -61,16 +68,16 @@ public final class ReportColumn extends ReportNode
 			error = "missing";
 			particularColor = COLOR_ERROR;
 		}
-		else if(column==null)
+		else if(requiredType==null)
 		{
 			error = "not used";
 			particularColor = COLOR_WARNING;
 		}
 		else
 		{
-			if(column!=null &&
+			if(requiredType!=null &&
 				existingType!=null &&
-				!column.getDatabaseType().equals(existingType))
+				!requiredType.equals(existingType))
 			{
 				error = "different type in database: >"+existingType+"<";
 				particularColor = COLOR_ERROR;
@@ -84,7 +91,7 @@ public final class ReportColumn extends ReportNode
 		
 	public final boolean required()
 	{
-		return column!=null;
+		return requiredType!=null;
 	}
 	
 	public final boolean exists()
@@ -94,15 +101,15 @@ public final class ReportColumn extends ReportNode
 		
 	public final String getDatabaseType()
 	{
-		if(column!=null)
-			return column.getDatabaseType();
+		if(requiredType!=null)
+			return requiredType;
 		else
 			return existingType;
 	}
 		
 	public final void create()
 	{
-		table.report.database.createColumn(column);
+		table.report.database.createColumn(this);
 	}
 
 	public final void renameTo(final String newName)

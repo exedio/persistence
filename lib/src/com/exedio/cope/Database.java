@@ -1482,12 +1482,12 @@ abstract class Database
 	
 	abstract Statement getCreateColumnStatement(final String tableName, final String columnName, final String columnType);
 
-	final void createColumn(final Column column)
+	final void createColumn(final ReportColumn column)
 	{
 		final Statement bf =
 			getCreateColumnStatement(
-				column.table.protectedID,
-				column.protectedID,
+				protectName(column.table.name),
+				protectName(column.name),
 				column.getDatabaseType());
 
 		try
