@@ -235,9 +235,9 @@ public class ReportTest extends DatabaseLibTest
 			assertEquals(Report.COLOR_OK, table.getParticularColor());
 
 			final ReportColumn column = table.getColumn(COLUMN1);
-			assertEquals(null, column.getError());
 			assertEquals(true, column.required());
 			assertEquals(true, column.exists());
+			assertEquals(null, column.getError());
 			assertEquals(Report.COLOR_OK, column.getParticularColor());
 			assertEquals(column1Type, column.getDatabaseType());
 		}
