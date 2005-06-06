@@ -105,7 +105,7 @@ public final class ReportColumn extends ReportNode
 		return existingType!=null;
 	}
 		
-	public final String getDatabaseType()
+	public final String getType()
 	{
 		if(requiredType!=null)
 			return requiredType;

@@ -49,7 +49,7 @@ public class ReportTest extends DatabaseLibTest
 			assertEquals(true, column.exists());
 			assertEquals(null, column.getError());
 			assertEquals(Report.COLOR_OK, column.getParticularColor());
-			column1Type = column.getDatabaseType();
+			column1Type = column.getType();
 			assertNotNull(column1Type);
 			
 			column.renameTo(COLUMN1X);
@@ -71,7 +71,7 @@ public class ReportTest extends DatabaseLibTest
 				assertEquals(false, column.exists());
 				assertEquals("missing", column.getError());
 				assertEquals(Report.COLOR_ERROR, column.getParticularColor());
-				assertEquals(column1Type, column.getDatabaseType());
+				assertEquals(column1Type, column.getType());
 			}
 			{
 				final ReportColumn columnX = table.getColumn(COLUMN1X);
@@ -79,7 +79,7 @@ public class ReportTest extends DatabaseLibTest
 				assertEquals(true, columnX.exists());
 				assertEquals("not used", columnX.getError());
 				assertEquals(Report.COLOR_WARNING, columnX.getParticularColor());
-				assertEquals(column1Type, columnX.getDatabaseType());
+				assertEquals(column1Type, columnX.getType());
 
 				columnX.renameTo(COLUMN1);
 			}
@@ -100,7 +100,7 @@ public class ReportTest extends DatabaseLibTest
 			assertEquals(true, column.exists());
 			assertEquals(null, column.getError());
 			assertEquals(Report.COLOR_OK, column.getParticularColor());
-			assertEquals(column1Type, column.getDatabaseType());
+			assertEquals(column1Type, column.getType());
 
 			column.drop();
 		}
@@ -120,7 +120,7 @@ public class ReportTest extends DatabaseLibTest
 			assertEquals(false, column.exists());
 			assertEquals("missing", column.getError());
 			assertEquals(Report.COLOR_ERROR, column.getParticularColor());
-			assertEquals(column1Type, column.getDatabaseType());
+			assertEquals(column1Type, column.getType());
 
 			column.create();
 		}
@@ -140,7 +140,7 @@ public class ReportTest extends DatabaseLibTest
 			assertEquals(true, column.exists());
 			assertEquals(null, column.getError());
 			assertEquals(Report.COLOR_OK, column.getParticularColor());
-			assertEquals(column1Type, column.getDatabaseType());
+			assertEquals(column1Type, column.getType());
 			
 			table.renameTo(TABLE1X);
 		}
@@ -161,7 +161,7 @@ public class ReportTest extends DatabaseLibTest
 				assertEquals(false, column.exists());
 				assertEquals("missing", column.getError());
 				assertEquals(Report.COLOR_ERROR, column.getParticularColor());
-				assertEquals(column1Type, column.getDatabaseType());
+				assertEquals(column1Type, column.getType());
 			}
 			{
 				final ReportTable tableX = report.getTable(TABLE1X);
@@ -176,7 +176,7 @@ public class ReportTest extends DatabaseLibTest
 				assertEquals(true, column.exists());
 				assertEquals("not used", column.getError());
 				assertEquals(Report.COLOR_WARNING, column.getParticularColor());
-				assertEquals(column1Type, column.getDatabaseType());
+				assertEquals(column1Type, column.getType());
 
 				tableX.renameTo(TABLE1);
 			}
@@ -197,7 +197,7 @@ public class ReportTest extends DatabaseLibTest
 			assertEquals(true, column.exists());
 			assertEquals(null, column.getError());
 			assertEquals(Report.COLOR_OK, column.getParticularColor());
-			assertEquals(column1Type, column.getDatabaseType());
+			assertEquals(column1Type, column.getType());
 			
 			table.drop();
 		}
@@ -218,7 +218,7 @@ public class ReportTest extends DatabaseLibTest
 				assertEquals(false, column.exists());
 				assertEquals("missing", column.getError());
 				assertEquals(Report.COLOR_ERROR, column.getParticularColor());
-				assertEquals(column1Type, column.getDatabaseType());
+				assertEquals(column1Type, column.getType());
 
 				table.create();
 			}
@@ -239,7 +239,7 @@ public class ReportTest extends DatabaseLibTest
 			assertEquals(true, column.exists());
 			assertEquals(null, column.getError());
 			assertEquals(Report.COLOR_OK, column.getParticularColor());
-			assertEquals(column1Type, column.getDatabaseType());
+			assertEquals(column1Type, column.getType());
 		}
 		{
 			assertEquals(!mysql, model.supportsCheckConstraints());
@@ -284,11 +284,11 @@ public class ReportTest extends DatabaseLibTest
 			assertEquals(null, min4Max8.getError());
 			assertEquals(Report.COLOR_OK, min4Max8.getParticularColor());
 			if(hsqldb)
-				assertEquals("varchar(8)", min4Max8.getDatabaseType());
+				assertEquals("varchar(8)", min4Max8.getType());
 			else if(mysql)
-				assertEquals("varchar(8) binary", min4Max8.getDatabaseType());
+				assertEquals("varchar(8) binary", min4Max8.getType());
 			else
-				assertEquals("VARCHAR2(8)", min4Max8.getDatabaseType());
+				assertEquals("VARCHAR2(8)", min4Max8.getType());
 
 			assertConstraint(stringItem, CHECK, "StringItem_min4_Ck", "(LENGTH("+protect("min4")+")>=4) OR ("+protect("min4")+" IS NULL)");
 			assertConstraint(stringItem, CHECK, "StringItem_max4_Ck", "(LENGTH("+protect("max4")+")<=4) OR ("+protect("max4")+" IS NULL)");

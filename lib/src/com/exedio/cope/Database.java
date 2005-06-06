@@ -1488,7 +1488,7 @@ abstract class Database
 			getCreateColumnStatement(
 				protectName(column.table.name),
 				protectName(column.name),
-				column.getDatabaseType());
+				column.getType());
 
 		try
 		{
