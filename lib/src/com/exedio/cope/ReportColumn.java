@@ -62,6 +62,8 @@ public final class ReportColumn extends ReportNode
 		if(cumulativeColor!=COLOR_NOT_YET_CALC || particularColor!=COLOR_NOT_YET_CALC)
 			throw new RuntimeException();
 
+		final String error;
+		final int particularColor;
 		if(existingType==null)
 		{
 			error = "missing";
@@ -82,9 +84,14 @@ public final class ReportColumn extends ReportNode
 				particularColor = COLOR_ERROR;
 			}
 			else
+			{
+				error = null;
 				particularColor = COLOR_OK;
+			}
 		}
 				
+		this.error = error;
+		this.particularColor = particularColor;
 		cumulativeColor = particularColor;
 	}
 		

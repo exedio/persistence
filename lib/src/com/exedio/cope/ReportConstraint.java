@@ -76,6 +76,8 @@ public final class ReportConstraint extends ReportNode
 		// TODO: make this dependend on type of constraint:
 		// check/not null constraint are yellow only if missing
 		// foreign key/unique constraint are red when missing or unused
+		final String error;
+		final int particularColor;
 		if(!exists)
 		{
 			error = "missing";
@@ -108,9 +110,14 @@ public final class ReportConstraint extends ReportNode
 				particularColor = COLOR_ERROR;
 			}
 			else
+			{
+				error = null;
 				particularColor = COLOR_OK;
+			}
 		}
-				
+
+		this.error = error;
+		this.particularColor = particularColor;
 		cumulativeColor = particularColor;
 	}
 

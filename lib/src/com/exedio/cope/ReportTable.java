@@ -208,6 +208,8 @@ public final class ReportTable extends ReportNode
 		if(cumulativeColor!=COLOR_NOT_YET_CALC || particularColor!=COLOR_NOT_YET_CALC)
 			throw new RuntimeException();
 
+		final String error;
+		final int particularColor;
 		if(!exists)
 		{
 			error = "MISSING !!!";
@@ -219,8 +221,13 @@ public final class ReportTable extends ReportNode
 			particularColor = COLOR_WARNING;
 		}
 		else
+		{
+			error = null;
 			particularColor = COLOR_OK;
+		}
 				
+		this.error = error;
+		this.particularColor = particularColor;
 		cumulativeColor = particularColor;
 			
 		if(lastAnalyzed!=null)
