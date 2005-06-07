@@ -61,6 +61,14 @@ public final class ReportTable extends ReportNode
 		columnList.add(column);
 	}
 	
+	final void register(final ReportConstraint constraint)
+	{
+		if(constraintMap.put(constraint.name, constraint)!=null)
+			throw new RuntimeException(constraint.name);
+		constraintList.add(constraint);
+		constraint.notifyRequired();
+	}
+	
 	final void setLastAnalyzed(final Date lastAnalyzed)
 	{
 		if(this.lastAnalyzed!=null)
@@ -79,24 +87,17 @@ public final class ReportTable extends ReportNode
 		final ReportColumn result = new ReportColumn(column.id, column.getDatabaseType(), true, this);
 
 		if(column.primaryKey)
-		{
-			addRequiredConstraint(
-					new ReportConstraint(column.getPrimaryKeyConstraintID(), ReportConstraint.TYPE_PRIMARY_KEY, this));
-		}
+			new ReportConstraint(column.getPrimaryKeyConstraintID(), ReportConstraint.TYPE_PRIMARY_KEY, this);
 		else
 		{
 			final String checkConstraint = column.getCheckConstraint();
 			if(checkConstraint!=null)
-			{
-				addRequiredConstraint(
-						new ReportConstraint(column.getCheckConstraintID(), ReportConstraint.TYPE_CHECK, this, checkConstraint));
-			}
+				new ReportConstraint(column.getCheckConstraintID(), ReportConstraint.TYPE_CHECK, this, checkConstraint);
 		}
 		if(column instanceof ItemColumn)
 		{
 			final ItemColumn itemColumn = (ItemColumn)column;
-			addRequiredConstraint(
-					new ReportConstraint(itemColumn.integrityConstraintName, ReportConstraint.TYPE_FOREIGN_KEY, this));
+			new ReportConstraint(itemColumn.integrityConstraintName, ReportConstraint.TYPE_FOREIGN_KEY, this);
 		}
 	}
 		
@@ -111,30 +112,12 @@ public final class ReportTable extends ReportNode
 		return result;
 	}
 	
-	private final void addRequiredConstraint(final ReportConstraint constraint)
-	{
-		if(constraintMap.put(constraint.name, constraint)!=null)
-			throw new RuntimeException(constraint.name);
-		constraintList.add(constraint);
-		constraint.notifyRequired();
-	}
-	
-	final ReportConstraint notifyRequiredConstraint(final String constraintName, final int type, final String condition)
-	{
-		final ReportConstraint result = new ReportConstraint(constraintName, type, this, condition);
-		addRequiredConstraint(result);
-		return result;
-	}
-	
 	private final ReportConstraint getOrCreateExistentConstraint(final String constraintName, final int type)
 	{
 		ReportConstraint result = (ReportConstraint)constraintMap.get(constraintName);
 		if(result==null)
-		{
 			result = new ReportConstraint(constraintName, type, this);
-			constraintMap.put(constraintName, result);
-			constraintList.add(result);
-		}
+
 		return result;
 	}
 		

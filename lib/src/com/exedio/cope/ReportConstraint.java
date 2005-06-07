@@ -39,6 +39,7 @@ public final class ReportConstraint extends ReportNode
 		this.type = type;
 		this.table = table; 
 		this.requiredCondition = null;
+		table.register(this);
 	}
 
 	ReportConstraint(final String name, final int type, final ReportTable table, final String requiredCondition)
@@ -47,6 +48,7 @@ public final class ReportConstraint extends ReportNode
 		this.type = type;
 		this.table = table;
 		this.requiredCondition = requiredCondition;
+		table.register(this);
 	}
 
 	final void notifyRequired()

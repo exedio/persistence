@@ -48,7 +48,7 @@ public final class Report extends ReportNode
 				final UniqueConstraint uniqueConstraint = (UniqueConstraint)j.next();
 				final Statement bf = database.createStatement();
 				uniqueConstraint.appendClause(bf);
-				reportTable.notifyRequiredConstraint(uniqueConstraint.getDatabaseID(), ReportConstraint.TYPE_UNIQUE, bf.getText());
+				new ReportConstraint(uniqueConstraint.getDatabaseID(), ReportConstraint.TYPE_UNIQUE, reportTable, bf.getText());
 			}
 		}
 	}
