@@ -66,7 +66,6 @@ public final class ReportTable extends ReportNode
 		if(constraintMap.put(constraint.name, constraint)!=null)
 			throw new RuntimeException(constraint.name);
 		constraintList.add(constraint);
-		constraint.notifyRequired();
 	}
 	
 	final void setLastAnalyzed(final Date lastAnalyzed)
@@ -87,17 +86,17 @@ public final class ReportTable extends ReportNode
 		final ReportColumn result = new ReportColumn(column.id, column.getDatabaseType(), true, this);
 
 		if(column.primaryKey)
-			new ReportConstraint(column.getPrimaryKeyConstraintID(), ReportConstraint.TYPE_PRIMARY_KEY, this);
+			new ReportConstraint(column.getPrimaryKeyConstraintID(), ReportConstraint.TYPE_PRIMARY_KEY, true, this);
 		else
 		{
 			final String checkConstraint = column.getCheckConstraint();
 			if(checkConstraint!=null)
-				new ReportConstraint(column.getCheckConstraintID(), ReportConstraint.TYPE_CHECK, this, checkConstraint);
+				new ReportConstraint(column.getCheckConstraintID(), ReportConstraint.TYPE_CHECK, true, this, checkConstraint);
 		}
 		if(column instanceof ItemColumn)
 		{
 			final ItemColumn itemColumn = (ItemColumn)column;
-			new ReportConstraint(itemColumn.integrityConstraintName, ReportConstraint.TYPE_FOREIGN_KEY, this);
+			new ReportConstraint(itemColumn.integrityConstraintName, ReportConstraint.TYPE_FOREIGN_KEY, true, this);
 		}
 	}
 		
@@ -116,7 +115,7 @@ public final class ReportTable extends ReportNode
 	{
 		ReportConstraint result = (ReportConstraint)constraintMap.get(constraintName);
 		if(result==null)
-			result = new ReportConstraint(constraintName, type, this);
+			result = new ReportConstraint(constraintName, type, false, this);
 
 		return result;
 	}

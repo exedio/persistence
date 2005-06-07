@@ -18,7 +18,7 @@
 package com.exedio.cope;
 
 
-public final class ReportConstraint extends ReportNode
+public class ReportConstraint extends ReportNode
 {
 	public static final int TYPE_CHECK = 0;
 	public static final int TYPE_PRIMARY_KEY = 1;
@@ -28,35 +28,35 @@ public final class ReportConstraint extends ReportNode
 	public final String name;
 	public final int type;
 	public final ReportTable table;
-	private boolean required = false;
+	private final boolean required;
 	public final String requiredCondition;
 	private boolean exists = false;
 	private String existingCondition;
 		
-	ReportConstraint(final String name, final int type, final ReportTable table)
+	ReportConstraint(final String name, final int type, final boolean required, final ReportTable table)
 	{
 		this.name = name;
 		this.type = type;
+		this.required = required;
 		this.table = table; 
 		this.requiredCondition = null;
 		table.register(this);
 	}
 
-	ReportConstraint(final String name, final int type, final ReportTable table, final String requiredCondition)
+	ReportConstraint(final String name, final int type, final boolean required, final ReportTable table, final String condition)
 	{
 		this.name = name;
 		this.type = type;
+		this.required = required;
 		this.table = table;
-		this.requiredCondition = requiredCondition;
-		table.register(this);
-	}
-
-	final void notifyRequired()
-	{
 		if(required)
-			throw new RuntimeException(name);
-
-		required = true;
+			this.requiredCondition = condition;
+		else
+		{
+			this.requiredCondition = null;
+			this.existingCondition = condition;
+		}
+		table.register(this);
 	}
 
 	final void notifyExists()
@@ -70,7 +70,7 @@ public final class ReportConstraint extends ReportNode
 		this.existingCondition = condition;
 	}
 
-	protected void finish()
+	protected final void finish()
 	{
 		if(cumulativeColor!=COLOR_NOT_YET_CALC || particularColor!=COLOR_NOT_YET_CALC)
 			throw new RuntimeException();
