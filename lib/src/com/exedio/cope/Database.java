@@ -1329,7 +1329,7 @@ abstract class Database
 			System.out.println("----------"+i+":"+resultSet.getObject(i));
 	}
 	
-	public final Report reportDatabase()
+	final Report report()
 	{
 		final Report report = new Report(this);
 		for(Iterator i = getTables().iterator(); i.hasNext(); )

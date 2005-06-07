@@ -223,7 +223,7 @@ public final class Model
 	public Report reportDatabase()
 	{
 		// TODO: report data directories
-		return database.reportDatabase();
+		return database.report();
 	}
 
 	/**
