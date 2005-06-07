@@ -25,30 +25,30 @@ public class ReportConstraint extends ReportNode
 	public static final int TYPE_FOREIGN_KEY = 2;
 	public static final int TYPE_UNIQUE = 3;
 
+	public final ReportTable table;
 	public final String name;
 	public final int type;
-	public final ReportTable table;
 	private final boolean required;
 	public final String requiredCondition;
 	private boolean exists = false;
 	private String existingCondition;
 		
-	ReportConstraint(final String name, final int type, final boolean required, final ReportTable table)
+	ReportConstraint(final ReportTable table, final String name, final int type, final boolean required)
 	{
-		this(name, type, required, table, null);
+		this(table, name, type, required, null);
 	}
 
-	ReportConstraint(final String name, final int type, final boolean required, final ReportTable table, final String condition)
+	ReportConstraint(final ReportTable table, final String name, final int type, final boolean required, final String condition)
 	{
-		if(name==null)
-			throw new RuntimeException(table.name);
 		if(table==null)
 			throw new RuntimeException(name);
+		if(name==null)
+			throw new RuntimeException(table.name);
 
+		this.table = table;
 		this.name = name;
 		this.type = type;
 		this.required = required;
-		this.table = table;
 		if(required)
 			this.requiredCondition = condition;
 		else

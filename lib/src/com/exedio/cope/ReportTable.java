@@ -86,17 +86,17 @@ public final class ReportTable extends ReportNode
 		final ReportColumn result = new ReportColumn(column.id, column.getDatabaseType(), true, this);
 
 		if(column.primaryKey)
-			new ReportConstraint(column.getPrimaryKeyConstraintID(), ReportConstraint.TYPE_PRIMARY_KEY, true, this);
+			new ReportConstraint(this, column.getPrimaryKeyConstraintID(), ReportConstraint.TYPE_PRIMARY_KEY, true);
 		else
 		{
 			final String checkConstraint = column.getCheckConstraint();
 			if(checkConstraint!=null)
-				new ReportConstraint(column.getCheckConstraintID(), ReportConstraint.TYPE_CHECK, true, this, checkConstraint);
+				new ReportConstraint(this, column.getCheckConstraintID(), ReportConstraint.TYPE_CHECK, true, checkConstraint);
 		}
 		if(column instanceof ItemColumn)
 		{
 			final ItemColumn itemColumn = (ItemColumn)column;
-			new ReportConstraint(itemColumn.integrityConstraintName, ReportConstraint.TYPE_FOREIGN_KEY, true, this);
+			new ReportConstraint(this, itemColumn.integrityConstraintName, ReportConstraint.TYPE_FOREIGN_KEY, true);
 		}
 	}
 		
@@ -115,7 +115,7 @@ public final class ReportTable extends ReportNode
 	{
 		ReportConstraint result = (ReportConstraint)constraintMap.get(constraintName);
 		if(result==null)
-			result = new ReportConstraint(constraintName, type, false, this);
+			result = new ReportConstraint(this, constraintName, type, false);
 
 		return result;
 	}
