@@ -119,13 +119,6 @@ public final class ReportTable extends ReportNode
 		constraint.notifyRequired();
 	}
 	
-	final ReportConstraint notifyRequiredConstraint(final String constraintName, final int type)
-	{
-		final ReportConstraint result = new ReportConstraint(constraintName, type, this);
-		addRequiredConstraint(result);
-		return result;
-	}
-	
 	final ReportConstraint notifyRequiredConstraint(final String constraintName, final int type, final String condition)
 	{
 		final ReportConstraint result = new ReportConstraint(constraintName, type, this, condition);
