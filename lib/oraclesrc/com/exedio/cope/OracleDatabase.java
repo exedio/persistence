@@ -222,6 +222,8 @@ final class OracleDatabase
 								//System.out.println("searchCondition:>"+searchCondition+"<");
 								table.notifyExistentCheckConstraint(constraintName, searchCondition);
 							}
+							else if("P".equals(constraintType))
+								table.notifyExistentPrimaryKeyConstraint(constraintName);
 							else if("R".equals(constraintType))
 								table.notifyExistentForeignKeyConstraint(constraintName);
 							else if("U".equals(constraintType))
@@ -245,15 +247,8 @@ final class OracleDatabase
 								}
 							}
 							else
-							{
-								final int type;
-								if("P".equals(constraintType))
-									type = ReportConstraint.TYPE_PRIMARY_KEY;
-								else
-									throw new RuntimeException(constraintType+'-'+constraintName);
+								throw new RuntimeException(constraintType+'-'+constraintName);
 
-								table.notifyExistentConstraint(constraintName, type);
-							}
 							//System.out.println("EXISTS:"+tableName);
 						}
 						if(uniqueConstraintName!=null)

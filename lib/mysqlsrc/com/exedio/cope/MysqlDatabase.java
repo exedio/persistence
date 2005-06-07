@@ -177,9 +177,9 @@ public final class MysqlDatabase extends Database
 									{
 										final String field = resultSet.getString("Field");
 										if(Table.PK_COLUMN_NAME.equals(field) && table!=null)
-											reportTable.notifyExistentConstraint(table.getPrimaryKey().getPrimaryKeyConstraintID(), ReportConstraint.TYPE_PRIMARY_KEY);
+											reportTable.notifyExistentPrimaryKeyConstraint(table.getPrimaryKey().getPrimaryKeyConstraintID());
 										else
-											reportTable.notifyExistentConstraint(field+"_Pk", ReportConstraint.TYPE_PRIMARY_KEY);
+											reportTable.notifyExistentPrimaryKeyConstraint(field+"_Pk");
 									}
 								}
 							}

@@ -104,18 +104,6 @@ public final class ReportTable extends ReportNode
 		return result;
 	}
 	
-	final ReportConstraint notifyExistentConstraint(final String constraintName, final int type)
-	{
-		ReportConstraint result = (ReportConstraint)constraintMap.get(constraintName);
-
-		if(result==null)
-			result = new ReportConstraint(this, constraintName, type, false);
-		else
-			result.notifyExists();
-		
-		return result;
-	}
-	
 	final ReportConstraint notifyExistentCheckConstraint(final String constraintName, final String condition)
 	{
 		ReportConstraint result = (ReportConstraint)constraintMap.get(constraintName);
@@ -125,6 +113,18 @@ public final class ReportTable extends ReportNode
 		else
 			result.notifyExistsCondition(condition);
 
+		return result;
+	}
+	
+	final ReportConstraint notifyExistentPrimaryKeyConstraint(final String constraintName)
+	{
+		ReportConstraint result = (ReportConstraint)constraintMap.get(constraintName);
+
+		if(result==null)
+			result = new ReportConstraint(this, constraintName, ReportConstraint.TYPE_PRIMARY_KEY, false);
+		else
+			result.notifyExists();
+		
 		return result;
 	}
 	

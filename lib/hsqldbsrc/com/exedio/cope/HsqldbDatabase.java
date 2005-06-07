@@ -182,6 +182,8 @@ final class HsqldbDatabase
 
 							table.notifyExistentCheckConstraint(constraintName, checkClause);
 						}
+						else if("PRIMARY KEY".equals(constraintType))
+							table.notifyExistentPrimaryKeyConstraint(constraintName);
 						else if("FOREIGN KEY".equals(constraintType))
 							table.notifyExistentForeignKeyConstraint(constraintName);
 						else if("UNIQUE".equals(constraintType))
@@ -216,15 +218,8 @@ final class HsqldbDatabase
 							table.notifyExistentUniqueConstraint(constraintName, clause.toString());
 						}
 						else
-						{
-							final int type;
-							if("PRIMARY KEY".equals(constraintType))
-								type = ReportConstraint.TYPE_PRIMARY_KEY;
-							else
-								throw new RuntimeException(constraintType+'-'+constraintName);
-							
-							table.notifyExistentConstraint(constraintName, type);
-						}
+							throw new RuntimeException(constraintType+'-'+constraintName);
+
 					}
 				}
 			}, false);
