@@ -161,7 +161,7 @@ final class ReportCop extends AdminCop
 				if (!parameterName.startsWith("RENAME_TABLE_"))
 					continue;
 
-				final String targetName = request.getParameter(parameterName);
+				final String targetName = request.getParameter(parameterName).trim();
 				if (targetName.length() == 0)
 					continue;
 
@@ -186,7 +186,7 @@ final class ReportCop extends AdminCop
 				if (!parameterName.startsWith("MODIFY_COLUMN_"))
 					continue;
 
-				final String targetType = request.getParameter(parameterName);
+				final String targetType = request.getParameter(parameterName).trim();
 				if (targetType.length() == 0)
 					continue;
 
@@ -212,7 +212,7 @@ final class ReportCop extends AdminCop
 				if (!parameterName.startsWith("RENAME_COLUMN_"))
 					continue;
 
-				final String targetName = request.getParameter(parameterName);
+				final String targetName = request.getParameter(parameterName).trim();
 				if (targetName.length() == 0)
 					continue;
 
