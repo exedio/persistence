@@ -71,7 +71,7 @@ final class ItemColumn extends IntegerColumn
 	void report(final ReportTable reportTable)
 	{
 		super.report(reportTable);
-		new ReportConstraint(reportTable, integrityConstraintName, ReportConstraint.TYPE_FOREIGN_KEY, true);
+		new ReportForeignKeyConstraint(reportTable, integrityConstraintName, true);
 	}
 		
 }

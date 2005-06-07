@@ -222,6 +222,8 @@ final class OracleDatabase
 								//System.out.println("searchCondition:>"+searchCondition+"<");
 								table.notifyExistentCheckConstraint(constraintName, searchCondition);
 							}
+							else if("R".equals(constraintType))
+								table.notifyExistentForeignKeyConstraint(constraintName);
 							else if("U".equals(constraintType))
 							{
 								final String columnName = resultSet.getString(5);
@@ -247,8 +249,6 @@ final class OracleDatabase
 								final int type;
 								if("P".equals(constraintType))
 									type = ReportConstraint.TYPE_PRIMARY_KEY;
-								else if("R".equals(constraintType))
-									type = ReportConstraint.TYPE_FOREIGN_KEY;
 								else
 									throw new RuntimeException(constraintType+'-'+constraintName);
 

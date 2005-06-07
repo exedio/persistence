@@ -227,7 +227,7 @@ public final class MysqlDatabase extends Database
 											final String targetAttribute = t.nextToken();
 											//System.out.println("----------"+tableName+"--------------------targetAttribute:"+targetAttribute);
 											
-											table.notifyExistentConstraint(name, ReportConstraint.TYPE_FOREIGN_KEY);
+											table.notifyExistentForeignKeyConstraint(name);
 										}
 										//UNIQUE KEY `AttriEmptyItem_parKey_Unq` (`parent`,`key`)
 										if("UNIQUE".equals(s))

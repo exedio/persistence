@@ -127,6 +127,18 @@ public final class ReportTable extends ReportNode
 		return result;
 	}
 	
+	final ReportConstraint notifyExistentForeignKeyConstraint(final String constraintName)
+	{
+		ReportConstraint result = (ReportConstraint)constraintMap.get(constraintName);
+		
+		if(result==null)
+			result = new ReportForeignKeyConstraint(this, constraintName, false);
+		else
+			result.notifyExists();
+		
+		return result;
+	}
+	
 	final ReportConstraint notifyExistentUniqueConstraint(final String constraintName, final String condition)
 	{
 		final ReportConstraint result = getOrCreateExistentConstraint(constraintName, ReportConstraint.TYPE_UNIQUE);
