@@ -83,7 +83,7 @@ public final class ReportTable extends ReportNode
 	
 	final void notifyRequiredColumn(final Column column)
 	{
-		final ReportColumn result = new ReportColumn(column.id, column.getDatabaseType(), true, this);
+		final ReportColumn result = new ReportColumn(this, column.id, column.getDatabaseType(), true);
 
 		if(column.primaryKey)
 			new ReportConstraint(this, column.getPrimaryKeyConstraintID(), ReportConstraint.TYPE_PRIMARY_KEY, true);
@@ -104,7 +104,7 @@ public final class ReportTable extends ReportNode
 	{
 		ReportColumn result = (ReportColumn)columnMap.get(columnName);
 		if(result==null)
-			result = new ReportColumn(columnName, existingType, false, this);
+			result = new ReportColumn(this, columnName, existingType, false);
 		else
 			result.notifyExists(existingType);
 

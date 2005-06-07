@@ -19,22 +19,22 @@ package com.exedio.cope;
 
 public final class ReportColumn extends ReportNode
 {
-	public final String name;
 	public final ReportTable table;
+	public final String name;
 	private final String requiredType;
 	private String existingType;
 		
-	ReportColumn(final String name, final String type, final boolean required, final ReportTable table)
+	ReportColumn(final ReportTable table, final String name, final String type, final boolean required)
 	{
+		if(table==null)
+			throw new RuntimeException(name);
 		if(name==null)
 			throw new RuntimeException(type);
 		if(type==null)
 			throw new RuntimeException(name);
-		if(table==null)
-			throw new RuntimeException(name);
 
-		this.name = name;
 		this.table = table;
+		this.name = name;
 		if(required)
 		{
 			this.requiredType = type;
