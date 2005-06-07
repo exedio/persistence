@@ -40,6 +40,11 @@ public class ReportConstraint extends ReportNode
 
 	ReportConstraint(final String name, final int type, final boolean required, final ReportTable table, final String condition)
 	{
+		if(name==null)
+			throw new RuntimeException(table.name);
+		if(table==null)
+			throw new RuntimeException(name);
+
 		this.name = name;
 		this.type = type;
 		this.required = required;
