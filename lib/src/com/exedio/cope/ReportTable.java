@@ -40,18 +40,30 @@ public final class ReportTable extends ReportNode
 
 	ReportTable(final Report report, final Table table)
 	{
+		if(report==null)
+			throw new RuntimeException();
+		if(table==null)
+			throw new RuntimeException();
+
 		this.report = report;
 		this.name = table.id;
 		this.table = table;
 		this.exists = false;
+		report.register(this);
 	}
 
 	ReportTable(final Report report, final String name)
 	{
+		if(report==null)
+			throw new RuntimeException();
+		if(name==null)
+			throw new RuntimeException();
+
 		this.report = report;
 		this.name = name;
 		this.table = null;
 		this.exists = true;
+		report.register(this);
 	}
 		
 	final void register(final ReportColumn column)

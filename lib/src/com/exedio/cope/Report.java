@@ -36,9 +36,6 @@ public final class Report extends ReportNode
 		{
 			final Table modelTable = (Table)i.next();
 			final ReportTable reportTable = new ReportTable(this, modelTable);
-			if(tableMap.put(modelTable.id, reportTable)!=null)
-				throw new RuntimeException();
-			tableList.add(reportTable);
 	
 			for(Iterator j = modelTable.getAllColumns().iterator(); j.hasNext(); )
 				((Column)j.next()).report(reportTable);
@@ -53,15 +50,18 @@ public final class Report extends ReportNode
 		}
 	}
 
+	final void register(final ReportTable table)
+	{
+		if(tableMap.put(table.name, table)!=null)
+			throw new RuntimeException(table.name);
+		tableList.add(table);
+	}
+	
 	final ReportTable notifyExistentTable(final String tableName)
 	{
 		ReportTable result = (ReportTable)tableMap.get(tableName);
 		if(result==null)
-		{
 			result = new ReportTable(this, tableName);
-			tableMap.put(tableName, result);
-			tableList.add(result);
-		}
 		else
 			result.notifyExists();
 
