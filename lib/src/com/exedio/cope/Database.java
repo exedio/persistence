@@ -1332,22 +1332,10 @@ abstract class Database
 	final Report report()
 	{
 		final Report report = new Report(this);
+		
 		for(Iterator i = getTables().iterator(); i.hasNext(); )
-		{
-			final Table modelTable = (Table)i.next();
-			final ReportTable reportTable = new ReportTable(report, modelTable);
-	
-			for(Iterator j = modelTable.getAllColumns().iterator(); j.hasNext(); )
-				((Column)j.next()).report(reportTable);
+			((Table)i.next()).report(report);
 
-			for(Iterator j = modelTable.getUniqueConstraints().iterator(); j.hasNext(); )
-			{
-				final UniqueConstraint uniqueConstraint = (UniqueConstraint)j.next();
-				final Statement bf = createStatement();
-				uniqueConstraint.appendClause(bf);
-				new ReportConstraint(reportTable, uniqueConstraint.getDatabaseID(), ReportConstraint.TYPE_UNIQUE, true, bf.getText());
-			}
-		}
 		fillReport(report);
 		report.finish();
 		return report;

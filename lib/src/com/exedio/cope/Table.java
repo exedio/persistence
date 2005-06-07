@@ -19,6 +19,7 @@ package com.exedio.cope;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 
@@ -157,6 +158,22 @@ final class Table
 	public final String toString()
 	{
 		return id;
+	}
+	
+	void report(final Report report)
+	{
+		final ReportTable reportTable = new ReportTable(report, this);
+		
+		for(Iterator i = getAllColumns().iterator(); i.hasNext(); )
+			((Column)i.next()).report(reportTable);
+
+		for(Iterator i = getUniqueConstraints().iterator(); i.hasNext(); )
+		{
+			final UniqueConstraint uniqueConstraint = (UniqueConstraint)i.next();
+			final Statement bf = database.createStatement();
+			uniqueConstraint.appendClause(bf);
+			new ReportConstraint(reportTable, uniqueConstraint.getDatabaseID(), ReportConstraint.TYPE_UNIQUE, true, bf.getText());
+		}
 	}
 
 }
