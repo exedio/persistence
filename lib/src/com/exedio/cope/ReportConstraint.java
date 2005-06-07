@@ -35,12 +35,7 @@ public class ReportConstraint extends ReportNode
 		
 	ReportConstraint(final String name, final int type, final boolean required, final ReportTable table)
 	{
-		this.name = name;
-		this.type = type;
-		this.required = required;
-		this.table = table; 
-		this.requiredCondition = null;
-		table.register(this);
+		this(name, type, required, table, null);
 	}
 
 	ReportConstraint(final String name, final int type, final boolean required, final ReportTable table, final String condition)
