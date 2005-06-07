@@ -114,6 +114,18 @@ abstract class Column
 
 	abstract Object cacheToDatabase(Object cache);
 
+	void report(final ReportTable reportTable)
+	{
+		final ReportColumn result = new ReportColumn(reportTable, id, getDatabaseType(), true);
+
+		if(primaryKey)
+			new ReportConstraint(reportTable, getPrimaryKeyConstraintID(), ReportConstraint.TYPE_PRIMARY_KEY, true);
+		else
+		{
+			final String checkConstraint = getCheckConstraint();
+			if(checkConstraint!=null)
+				new ReportConstraint(reportTable, getCheckConstraintID(), ReportConstraint.TYPE_CHECK, true, checkConstraint);
+		}
+	}
+		
 }
-
-

@@ -81,25 +81,6 @@ public final class ReportTable extends ReportNode
 		exists = true;
 	}
 	
-	final void notifyRequiredColumn(final Column column)
-	{
-		final ReportColumn result = new ReportColumn(this, column.id, column.getDatabaseType(), true);
-
-		if(column.primaryKey)
-			new ReportConstraint(this, column.getPrimaryKeyConstraintID(), ReportConstraint.TYPE_PRIMARY_KEY, true);
-		else
-		{
-			final String checkConstraint = column.getCheckConstraint();
-			if(checkConstraint!=null)
-				new ReportConstraint(this, column.getCheckConstraintID(), ReportConstraint.TYPE_CHECK, true, checkConstraint);
-		}
-		if(column instanceof ItemColumn)
-		{
-			final ItemColumn itemColumn = (ItemColumn)column;
-			new ReportConstraint(this, itemColumn.integrityConstraintName, ReportConstraint.TYPE_FOREIGN_KEY, true);
-		}
-	}
-		
 	final ReportColumn notifyExistentColumn(final String columnName, final String existingType)
 	{
 		ReportColumn result = (ReportColumn)columnMap.get(columnName);

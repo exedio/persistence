@@ -41,7 +41,7 @@ public final class Report extends ReportNode
 			tableList.add(reportTable);
 	
 			for(Iterator j = modelTable.getAllColumns().iterator(); j.hasNext(); )
-				reportTable.notifyRequiredColumn((Column)j.next());
+				((Column)j.next()).report(reportTable);
 
 			for(Iterator j = modelTable.getUniqueConstraints().iterator(); j.hasNext(); )
 			{
