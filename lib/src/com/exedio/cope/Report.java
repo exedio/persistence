@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 
 public final class Report extends ReportNode
 {
@@ -29,25 +28,9 @@ public final class Report extends ReportNode
 	private final HashMap tableMap = new HashMap();
 	private final ArrayList tableList = new ArrayList();
 	
-	Report(final Database database, final List modelTables)
+	Report(final Database database)
 	{
 		this.database = database;
-		for(Iterator i = modelTables.iterator(); i.hasNext(); )
-		{
-			final Table modelTable = (Table)i.next();
-			final ReportTable reportTable = new ReportTable(this, modelTable);
-	
-			for(Iterator j = modelTable.getAllColumns().iterator(); j.hasNext(); )
-				((Column)j.next()).report(reportTable);
-
-			for(Iterator j = modelTable.getUniqueConstraints().iterator(); j.hasNext(); )
-			{
-				final UniqueConstraint uniqueConstraint = (UniqueConstraint)j.next();
-				final Statement bf = database.createStatement();
-				uniqueConstraint.appendClause(bf);
-				new ReportConstraint(reportTable, uniqueConstraint.getDatabaseID(), ReportConstraint.TYPE_UNIQUE, true, bf.getText());
-			}
-		}
 	}
 
 	final void register(final ReportTable table)
