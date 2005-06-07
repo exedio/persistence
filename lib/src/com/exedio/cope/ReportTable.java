@@ -54,6 +54,13 @@ public final class ReportTable extends ReportNode
 		this.exists = true;
 	}
 		
+	final void register(final ReportColumn column)
+	{
+		if(columnMap.put(column.name, column)!=null)
+			throw new RuntimeException(column.toString());
+		columnList.add(column);
+	}
+	
 	final void setLastAnalyzed(final Date lastAnalyzed)
 	{
 		if(this.lastAnalyzed!=null)
@@ -66,13 +73,10 @@ public final class ReportTable extends ReportNode
 	{
 		exists = true;
 	}
-		
+	
 	final void notifyRequiredColumn(final Column column)
 	{
 		final ReportColumn result = new ReportColumn(column.id, column.getDatabaseType(), true, this);
-		if(columnMap.put(result.name, result)!=null)
-			throw new RuntimeException(column.toString());
-		columnList.add(result);
 
 		if(column.primaryKey)
 		{
@@ -100,15 +104,9 @@ public final class ReportTable extends ReportNode
 	{
 		ReportColumn result = (ReportColumn)columnMap.get(columnName);
 		if(result==null)
-		{
 			result = new ReportColumn(columnName, existingType, false, this);
-			columnMap.put(columnName, result);
-			columnList.add(result);
-		}
 		else
-		{
 			result.notifyExists(existingType);
-		}
 
 		return result;
 	}

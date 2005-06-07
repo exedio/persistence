@@ -45,6 +45,7 @@ public final class ReportColumn extends ReportNode
 			this.requiredType = null;
 			this.existingType = type;
 		}
+		table.register(this);
 	}
 
 	void notifyExists(final String existingType)
