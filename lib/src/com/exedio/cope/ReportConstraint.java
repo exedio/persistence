@@ -18,7 +18,7 @@
 package com.exedio.cope;
 
 
-public class ReportConstraint extends ReportNode
+public abstract class ReportConstraint extends ReportNode
 {
 	public static final int TYPE_CHECK = 0;
 	public static final int TYPE_PRIMARY_KEY = 1;

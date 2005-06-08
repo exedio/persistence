@@ -298,7 +298,8 @@ public class ReportTest extends DatabaseLibTest
 	
 	private void assertCheckConstraint(final ReportTable table, final String constraintName, final String requiredCondition)
 	{
-		assertConstraint(table, CHECK, constraintName, requiredCondition);
+		final ReportCheckConstraint constraint =
+			(ReportCheckConstraint)assertConstraint(table, CHECK, constraintName, requiredCondition);
 	}
 	
 	private void assertPkConstraint(final ReportTable table, final String constraintName, final String requiredCondition, final String primaryKeyColumn)

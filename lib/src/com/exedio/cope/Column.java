@@ -124,7 +124,7 @@ abstract class Column
 		{
 			final String checkConstraint = getCheckConstraint();
 			if(checkConstraint!=null)
-				new ReportConstraint(reportTable, getCheckConstraintID(), ReportConstraint.TYPE_CHECK, true, checkConstraint);
+				new ReportCheckConstraint(reportTable, getCheckConstraintID(), true, checkConstraint);
 		}
 	}
 		
