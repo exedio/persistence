@@ -20,9 +20,17 @@ package com.exedio.cope;
 
 public class ReportPrimaryKeyConstraint extends ReportConstraint
 {
-	ReportPrimaryKeyConstraint(final ReportTable table, final String name, final boolean required)
+	final String primaryKeyColumn;
+	
+	ReportPrimaryKeyConstraint(final ReportTable table, final String name, final boolean required, final String primaryKeyColumn)
 	{
 		super(table, name, TYPE_PRIMARY_KEY, required, null);
+
+		if(required && primaryKeyColumn==null)
+			throw new RuntimeException(name);
+		
+		this.primaryKeyColumn = primaryKeyColumn;
+		//System.out.println("-------------"+name+"-"+primaryKeyColumn);
 	}
 
 }

@@ -119,7 +119,7 @@ abstract class Column
 		final ReportColumn result = new ReportColumn(reportTable, id, getDatabaseType(), true);
 
 		if(primaryKey)
-			new ReportPrimaryKeyConstraint(reportTable, getPrimaryKeyConstraintID(), true);
+			new ReportPrimaryKeyConstraint(reportTable, getPrimaryKeyConstraintID(), true, id);
 		else
 		{
 			final String checkConstraint = getCheckConstraint();
