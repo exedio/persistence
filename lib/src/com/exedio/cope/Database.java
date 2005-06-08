@@ -92,13 +92,15 @@ abstract class Database
 	void createDatabase()
 	{
 		buildStage = false;
+		
+		final Report report = requiredReport();
 
 		//final long time = System.currentTimeMillis();
-		for(Iterator i = tables.iterator(); i.hasNext(); )
-			createTable((Table)i.next());
+		for(Iterator i = report.getTables().iterator(); i.hasNext(); )
+			createTable((ReportTable)i.next());
 
-		for(Iterator i = tables.iterator(); i.hasNext(); )
-			createForeignKeyConstraints((Table)i.next());
+		for(Iterator i = report.getTables().iterator(); i.hasNext(); )
+			createForeignKeyConstraints((ReportTable)i.next());
 
 		//final long amount = (System.currentTimeMillis()-time);
 		//createTableTime += amount;
@@ -1076,63 +1078,64 @@ abstract class Database
 	abstract String getDoubleType(int precision);
 	abstract String getStringType(int maxLength);
 	
-	void createTable(final Table table)
+	void createTable(final ReportTable table)
 	{
 		final Statement bf = createStatement();
 		bf.append("create table ").
-			append(table.protectedID).
+			append(protectName(table.name)).
 			append('(');
 
 		boolean firstColumn = true;
-		for(Iterator i = table.getAllColumns().iterator(); i.hasNext(); )
+		for(Iterator i = table.getColumns().iterator(); i.hasNext(); )
 		{
 			if(firstColumn)
 				firstColumn = false;
 			else
 				bf.append(',');
 			
-			final Column column = (Column)i.next();
-			bf.append(column.protectedID).
+			final ReportColumn column = (ReportColumn)i.next();
+			bf.append(protectName(column.name)).
 				append(' ').
-				append(column.getDatabaseType());
+				append(column.getType());
 		}
 		
 		// attribute constraints		
-		for(Iterator i = table.getAllColumns().iterator(); i.hasNext(); )
+		for(Iterator i = table.getConstraints().iterator(); i.hasNext(); )
 		{
-			final Column column = (Column)i.next();
+			final ReportConstraint constraint = (ReportConstraint)i.next();
 
-			if(column.primaryKey)
+			if(constraint instanceof ReportPrimaryKeyConstraint)
 			{
+				final ReportPrimaryKeyConstraint pk = (ReportPrimaryKeyConstraint)constraint;
 				bf.append(",constraint ").
-					append(protectName(column.getPrimaryKeyConstraintID())).
+					append(protectName(pk.name)).
 					append(" primary key(").
-					append(column.protectedID).
+					append(protectName(pk.primaryKeyColumn)).
 					append(')');
 			}
-			else
+			else if(constraint instanceof ReportCheckConstraint) // TODO:order of constraints: check,pk,fk,unique
 			{
-				final String checkConstraint = column.getCheckConstraint();
-				if(checkConstraint!=null)
-				{
-					bf.append(",constraint ").
-						append(protectName(column.getCheckConstraintID())).
-						append(" check(").
-						append(checkConstraint).
-						append(')');
-				}
+				final ReportCheckConstraint check = (ReportCheckConstraint)constraint;
+				bf.append(",constraint ").
+					append(protectName(check.name)).
+					append(" check(").
+					append(check.requiredCondition).
+					append(')');
 			}
+			else if(constraint instanceof ReportForeignKeyConstraint)
+				; // this is done in createForeignKeyConstraints
+			else if(constraint instanceof ReportUniqueConstraint)
+			{
+				final ReportUniqueConstraint unique = (ReportUniqueConstraint)constraint;
+				bf.append(",constraint ").
+					append(protectName(unique.name)).
+					append(" unique").
+					append(unique.clause);
+			}
+			else
+				throw new RuntimeException(constraint.getClass().getName());
 		}
 
-		for(Iterator i = table.getUniqueConstraints().iterator(); i.hasNext(); )
-		{
-			final UniqueConstraint uniqueConstraint = (UniqueConstraint)i.next();
-			bf.append(",constraint ").
-				append(protectName(uniqueConstraint.getDatabaseID())).
-				append(" unique");
-			uniqueConstraint.appendClause(bf);
-		}
-		
 		bf.append(')');
 
 		if(mysql)
@@ -1149,31 +1152,31 @@ abstract class Database
 		}
 	}
 	
-	private void createForeignKeyConstraints(final Table table)
+	private void createForeignKeyConstraints(final ReportTable table)
 	{
 		//System.out.println("createForeignKeyConstraints:"+bf);
 
-		for(Iterator i = table.getAllColumns().iterator(); i.hasNext(); )
+		for(Iterator i = table.getConstraints().iterator(); i.hasNext(); )
 		{
-			final Column column = (Column)i.next();
+			final ReportConstraint constraint = (ReportConstraint)i.next();
 			//System.out.println("createForeignKeyConstraints("+column+"):"+bf);
-			if(column instanceof ItemColumn)
+			if(constraint instanceof ReportForeignKeyConstraint)
 			{
-				final ItemColumn itemColumn = (ItemColumn)column;
+				final ReportForeignKeyConstraint fk = (ReportForeignKeyConstraint)constraint;
 				final Statement bf = createStatement();
 				bf.append("alter table ").
-					append(table.protectedID).
+					append(protectName(table.name)).
 					append(" add constraint ").
-					append(protectName(itemColumn.integrityConstraintName)).
+					append(protectName(fk.name)).
 					append(" foreign key (").
-					append(column.protectedID).
+					append(protectName(fk.foreignKeyColumn)).
 					append(") references ").
-					append(itemColumn.getForeignTableNameProtected());
+					append(fk.targetTable);
 
 				if(mysql)
 				{
 					bf.append('(').
-						append(itemColumn.getForeignTablePkNameProtected()).
+						append(fk.targetColumn).
 						append(')');
 				}
 
@@ -1329,13 +1332,17 @@ abstract class Database
 			System.out.println("----------"+i+":"+resultSet.getObject(i));
 	}
 	
-	final Report report()
+	final Report requiredReport()
 	{
 		final Report report = new Report(this);
-		
 		for(Iterator i = getTables().iterator(); i.hasNext(); )
 			((Table)i.next()).report(report);
-
+		return report;
+	}
+	
+	final Report report()
+	{
+		final Report report = requiredReport();
 		fillReport(report);
 		report.finish();
 		return report;

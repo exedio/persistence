@@ -237,7 +237,7 @@ public final class ReportTable extends ReportNode
 	
 	public final void create()
 	{
-		report.database.createTable(table);
+		report.database.createTable(this);
 	}
 	
 	public final void renameTo(final String newName)
@@ -253,6 +253,11 @@ public final class ReportTable extends ReportNode
 	public final void analyze()
 	{
 		report.database.analyzeTable(name);
+	}
+	
+	public final String toString()
+	{
+		return name;
 	}
 	
 }
