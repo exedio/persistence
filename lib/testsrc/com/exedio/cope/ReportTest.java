@@ -259,7 +259,7 @@ public class ReportTest extends DatabaseLibTest
 
 			assertPkConstraint(attributeItem, "AttributeItem_Pk", null, Table.PK_COLUMN_NAME);
 
-			assertConstraint(attributeItem, FK, "AttributeItem_someItem_Fk", null);
+			assertFkConstraint(attributeItem, "AttributeItem_someItem_Fk", "someItem", protect("EmptyItem")/*TODO*/, protect(Table.PK_COLUMN_NAME)/*TODO*/);
 
 			final ReportTable uniqueItem = report.getTable("ItemWithSingleUnique");
 			assertNotNull(uniqueItem);
@@ -307,6 +307,16 @@ public class ReportTest extends DatabaseLibTest
 			(ReportPrimaryKeyConstraint)assertConstraint(table, PK, constraintName, requiredCondition);
 
 		assertEquals(primaryKeyColumn, constraint.primaryKeyColumn);
+	}
+	
+	private void assertFkConstraint(final ReportTable table, final String constraintName, final String foreignKeyColumn, final String targetTable, final String targetColumn)
+	{
+		final ReportForeignKeyConstraint constraint =
+			(ReportForeignKeyConstraint)assertConstraint(table, FK, constraintName, null);
+
+		assertEquals(foreignKeyColumn, constraint.foreignKeyColumn);
+		assertEquals(targetTable, constraint.targetTable);
+		assertEquals(targetColumn, constraint.targetColumn);
 	}
 	
 	private ReportConstraint assertConstraint(final ReportTable table, final int constraintType, final String constraintName, final String requiredCondition)
