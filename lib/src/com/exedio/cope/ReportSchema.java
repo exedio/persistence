@@ -85,7 +85,7 @@ public final class ReportSchema extends ReportNode
 			((ReportTable)i.next()).create();
 	
 		for(Iterator i = tableList.iterator(); i.hasNext(); )
-			database.createForeignKeyConstraints((ReportTable)i.next());
+			((ReportTable)i.next()).createForeignKeyConstraints();
 	
 		//final long amount = (System.currentTimeMillis()-time);
 		//createTableTime += amount;

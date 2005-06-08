@@ -1072,47 +1072,6 @@ abstract class Database
 	abstract String getDoubleType(int precision);
 	abstract String getStringType(int maxLength);
 	
-	void createForeignKeyConstraints(final ReportTable table)
-	{
-		//System.out.println("createForeignKeyConstraints:"+bf);
-
-		for(Iterator i = table.getConstraints().iterator(); i.hasNext(); )
-		{
-			final ReportConstraint constraint = (ReportConstraint)i.next();
-			//System.out.println("createForeignKeyConstraints("+column+"):"+bf);
-			if(constraint instanceof ReportForeignKeyConstraint)
-			{
-				final ReportForeignKeyConstraint fk = (ReportForeignKeyConstraint)constraint;
-				final Statement bf = createStatement();
-				bf.append("alter table ").
-					append(protectName(table.name)).
-					append(" add constraint ").
-					append(protectName(fk.name)).
-					append(" foreign key (").
-					append(protectName(fk.foreignKeyColumn)).
-					append(") references ").
-					append(protectName(fk.targetTable));
-
-				if(mysql)
-				{
-					bf.append('(').
-						append(protectName(fk.targetColumn)).
-						append(')');
-				}
-
-				try
-				{
-					//System.out.println("createForeignKeyConstraints:"+bf);
-					executeSQLUpdate(bf, 0);
-				}
-				catch(ConstraintViolationException e)
-				{
-					throw new NestingRuntimeException(e);
-				}
-			}
-		}
-	}
-	
 	private void dropTable(final ReportTable table) 
 	{
 		final Statement bf = createStatement();

@@ -291,6 +291,40 @@ public final class ReportTable extends ReportNode
 		executeSQL(bf.toString());
 	}
 	
+	final void createForeignKeyConstraints()
+	{
+		//System.out.println("createForeignKeyConstraints:"+bf);
+
+		for(Iterator i = constraintList.iterator(); i.hasNext(); )
+		{
+			final ReportConstraint constraint = (ReportConstraint)i.next();
+			//System.out.println("createForeignKeyConstraints("+column+"):"+bf);
+			if(constraint instanceof ReportForeignKeyConstraint)
+			{
+				final ReportForeignKeyConstraint fk = (ReportForeignKeyConstraint)constraint;
+				final StringBuffer bf = new StringBuffer();
+				bf.append("alter table ").
+					append(protectName(name)).
+					append(" add constraint ").
+					append(protectName(fk.name)).
+					append(" foreign key (").
+					append(protectName(fk.foreignKeyColumn)).
+					append(") references ").
+					append(protectName(fk.targetTable));
+
+				if(database.mysql)
+				{
+					bf.append('(').
+						append(protectName(fk.targetColumn)).
+						append(')');
+				}
+
+				//System.out.println("createForeignKeyConstraints:"+bf);
+				executeSQL(bf.toString());
+			}
+		}
+	}
+	
 	public final void renameTo(final String newName)
 	{
 		report.database.renameTable(name, newName);
