@@ -1104,22 +1104,22 @@ abstract class Database
 		{
 			final ReportConstraint constraint = (ReportConstraint)i.next();
 
-			if(constraint instanceof ReportPrimaryKeyConstraint)
-			{
-				final ReportPrimaryKeyConstraint pk = (ReportPrimaryKeyConstraint)constraint;
-				bf.append(",constraint ").
-					append(protectName(pk.name)).
-					append(" primary key(").
-					append(protectName(pk.primaryKeyColumn)).
-					append(')');
-			}
-			else if(constraint instanceof ReportCheckConstraint) // TODO:order of constraints: check,pk,fk,unique
+			if(constraint instanceof ReportCheckConstraint)
 			{
 				final ReportCheckConstraint check = (ReportCheckConstraint)constraint;
 				bf.append(",constraint ").
 					append(protectName(check.name)).
 					append(" check(").
 					append(check.requiredCondition).
+					append(')');
+			}
+			else if(constraint instanceof ReportPrimaryKeyConstraint)
+			{
+				final ReportPrimaryKeyConstraint pk = (ReportPrimaryKeyConstraint)constraint;
+				bf.append(",constraint ").
+					append(protectName(pk.name)).
+					append(" primary key(").
+					append(protectName(pk.primaryKeyColumn)).
 					append(')');
 			}
 			else if(constraint instanceof ReportForeignKeyConstraint)
