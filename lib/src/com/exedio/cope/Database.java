@@ -1171,7 +1171,7 @@ abstract class Database
 					append(" foreign key (").
 					append(protectName(fk.foreignKeyColumn)).
 					append(") references ").
-					append(fk.targetTable);
+					append(protectName(fk.targetTable));
 
 				if(mysql)
 				{

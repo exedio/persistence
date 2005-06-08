@@ -259,7 +259,7 @@ public class ReportTest extends DatabaseLibTest
 
 			assertPkConstraint(attributeItem, "AttributeItem_Pk", null, Table.PK_COLUMN_NAME);
 
-			assertFkConstraint(attributeItem, "AttributeItem_someItem_Fk", "someItem", protect("EmptyItem")/*TODO*/, protect(Table.PK_COLUMN_NAME)/*TODO*/);
+			assertFkConstraint(attributeItem, "AttributeItem_someItem_Fk", "someItem", "EmptyItem", protect(Table.PK_COLUMN_NAME)/*TODO*/);
 
 			final ReportTable uniqueItem = report.getTable("ItemWithSingleUnique");
 			assertNotNull(uniqueItem);
