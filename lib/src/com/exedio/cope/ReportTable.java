@@ -145,7 +145,7 @@ public final class ReportTable extends ReportNode
 		ReportConstraint result = (ReportConstraint)constraintMap.get(constraintName);
 		
 		if(result==null)
-			result = new ReportConstraint(this, constraintName, ReportConstraint.TYPE_UNIQUE, false);
+			result = new ReportUniqueConstraint(this, constraintName, false, condition);
 		else
 			result.notifyExistsCondition(condition);
 		

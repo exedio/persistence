@@ -172,7 +172,7 @@ final class Table
 			final UniqueConstraint uniqueConstraint = (UniqueConstraint)i.next();
 			final Statement bf = database.createStatement();
 			uniqueConstraint.appendClause(bf);
-			new ReportConstraint(reportTable, uniqueConstraint.getDatabaseID(), ReportConstraint.TYPE_UNIQUE, true, bf.getText());
+			new ReportUniqueConstraint(reportTable, uniqueConstraint.getDatabaseID(), true, bf.getText());
 		}
 	}
 
