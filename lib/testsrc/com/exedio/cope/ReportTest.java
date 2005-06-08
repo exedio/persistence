@@ -257,7 +257,7 @@ public class ReportTest extends DatabaseLibTest
 			assertCheckConstraint(attributeItem, "AttrItem_somNotNullEnu_Ck", "("+protect("someNotNullEnumeration")+" IS NOT NULL) AND ("+protect("someNotNullEnumeration")+" IN (100,200,300))");
 			assertCheckConstraint(attributeItem, "AttriItem_someDataMajo_Ck", "((LENGTH("+protect("someDataMajor")+")>=1) AND (LENGTH("+protect("someDataMajor")+")<=30)) OR ("+protect("someDataMajor")+" IS NULL)");
 
-			assertConstraint(attributeItem, PK, "AttributeItem_Pk", null);
+			assertPkConstraint(attributeItem, "AttributeItem_Pk", null, Table.PK_COLUMN_NAME);
 
 			assertConstraint(attributeItem, FK, "AttributeItem_someItem_Fk", null);
 
@@ -301,7 +301,15 @@ public class ReportTest extends DatabaseLibTest
 		assertConstraint(table, CHECK, constraintName, requiredCondition);
 	}
 	
-	private void assertConstraint(final ReportTable table, final int constraintType, final String constraintName, final String requiredCondition)
+	private void assertPkConstraint(final ReportTable table, final String constraintName, final String requiredCondition, final String primaryKeyColumn)
+	{
+		final ReportPrimaryKeyConstraint constraint =
+			(ReportPrimaryKeyConstraint)assertConstraint(table, PK, constraintName, requiredCondition);
+
+		assertEquals(primaryKeyColumn, constraint.primaryKeyColumn);
+	}
+	
+	private ReportConstraint assertConstraint(final ReportTable table, final int constraintType, final String constraintName, final String requiredCondition)
 	{
 		final ReportConstraint constraint = table.getConstraint(constraintName);
 		if(model.supportsCheckConstraints() || constraintType!=CHECK)
@@ -314,6 +322,8 @@ public class ReportTest extends DatabaseLibTest
 		}
 		else
 			assertEquals(constraintName, null, constraint);
+
+		return constraint;
 	}
 	
 	private final String protect(final String name)
