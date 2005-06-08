@@ -1176,7 +1176,7 @@ abstract class Database
 				if(mysql)
 				{
 					bf.append('(').
-						append(fk.targetColumn).
+						append(protectName(fk.targetColumn)).
 						append(')');
 				}
 

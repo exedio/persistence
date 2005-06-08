@@ -56,7 +56,7 @@ final class ItemColumn extends IntegerColumn
 	{
 		super.report(reportTable);
 		final Table targetTable = Type.findByJavaClass(targetTypeClass).getTable();
-		new ReportForeignKeyConstraint(reportTable, integrityConstraintName, true, id, targetTable.id, targetTable.getPrimaryKey().protectedID);
+		new ReportForeignKeyConstraint(reportTable, integrityConstraintName, true, id, targetTable.id, targetTable.getPrimaryKey().id);
 	}
 		
 }
