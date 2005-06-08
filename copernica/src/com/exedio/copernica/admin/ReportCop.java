@@ -25,7 +25,7 @@ import java.util.Iterator;
 import javax.servlet.http.HttpServletRequest;
 
 import com.exedio.cope.Model;
-import com.exedio.cope.Report;
+import com.exedio.cope.ReportSchema;
 import com.exedio.cope.ReportColumn;
 import com.exedio.cope.ReportTable;
 
@@ -95,7 +95,7 @@ final class ReportCop extends AdminCop
 		return reportTable!=null && !reportTable.equals(table.name);
 	}
 
-	private static final ReportColumn getColumn(final Report report, final String columnParameter)
+	private static final ReportColumn getColumn(final ReportSchema report, final String columnParameter)
 	{
 		final int pos = columnParameter.indexOf('#');
 		if(pos<=0)
@@ -116,7 +116,7 @@ final class ReportCop extends AdminCop
 			final HttpServletRequest request, final Model model)
 			throws IOException
 	{
-		final Report report = model.reportDatabase();
+		final ReportSchema report = model.reportDatabase();
 		{
 			final String[] dropColumns = (String[]) request.getParameterMap().get(
 					"DROP_COLUMN");

@@ -25,7 +25,7 @@ import java.util.Date;
 import java.util.Iterator;
 
 import com.exedio.cope.Model;
-import com.exedio.cope.Report;
+import com.exedio.cope.ReportSchema;
 import com.exedio.cope.ReportColumn;
 import com.exedio.cope.ReportConstraint;
 import com.exedio.cope.ReportLastAnalyzed;
@@ -37,11 +37,11 @@ final class Report_Jspm
 	{
 		switch(color)
 		{
-		case Report.COLOR_OK:
+		case ReportSchema.COLOR_OK:
 			return "ok";
-		case Report.COLOR_WARNING:
+		case ReportSchema.COLOR_WARNING:
 			return "warning";
-		case Report.COLOR_ERROR:
+		case ReportSchema.COLOR_ERROR:
 			return "error";
 		default:
 			throw new RuntimeException(String.valueOf(color));
@@ -68,7 +68,7 @@ final class Report_Jspm
 	final static void writeReport(final PrintStream out, final Model model, final ReportCop cop)
 		throws IOException
 	{
-		final Report report = model.reportDatabase();
+		final ReportSchema report = model.reportDatabase();
 		final String reportColor = color(report.getCumulativeColor());
 		final boolean narrowReport = cop.isNarrowReport();
 
@@ -85,7 +85,7 @@ if(narrowReport)
 {
 	%><a href="<%=cop.widenReport()%>"><%
 }
-%>Database Report<%
+%>Schema<%
 if(narrowReport)
 {
 	%></a><%

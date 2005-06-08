@@ -22,13 +22,13 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 
-public final class Report extends ReportNode
+public final class ReportSchema extends ReportNode
 {
 	final Database database;
 	private final HashMap tableMap = new HashMap();
 	private final ArrayList tableList = new ArrayList();
 	
-	Report(final Database database)
+	ReportSchema(final Database database)
 	{
 		this.database = database;
 	}

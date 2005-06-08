@@ -93,7 +93,7 @@ abstract class Database
 	{
 		buildStage = false;
 		
-		final Report report = requiredReport();
+		final ReportSchema report = requiredReport();
 
 		//final long time = System.currentTimeMillis();
 		for(Iterator i = report.getTables().iterator(); i.hasNext(); )
@@ -1332,23 +1332,23 @@ abstract class Database
 			System.out.println("----------"+i+":"+resultSet.getObject(i));
 	}
 	
-	final Report requiredReport()
+	final ReportSchema requiredReport()
 	{
-		final Report report = new Report(this);
+		final ReportSchema report = new ReportSchema(this);
 		for(Iterator i = getTables().iterator(); i.hasNext(); )
 			((Table)i.next()).report(report);
 		return report;
 	}
 	
-	final Report report()
+	final ReportSchema report()
 	{
-		final Report report = requiredReport();
+		final ReportSchema report = requiredReport();
 		fillReport(report);
 		report.finish();
 		return report;
 	}
 
-	void fillReport(final Report report)
+	void fillReport(final ReportSchema report)
 	{
 		{
 			final com.exedio.cope.Statement bf = createStatement();

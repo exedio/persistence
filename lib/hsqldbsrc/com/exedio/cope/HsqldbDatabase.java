@@ -151,7 +151,7 @@ final class HsqldbDatabase
 		throw new RuntimeException("not implemented");
 	}
 
-	void fillReport(final Report report)
+	void fillReport(final ReportSchema report)
 	{
 		super.fillReport(report);
 

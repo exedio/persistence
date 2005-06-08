@@ -25,14 +25,14 @@ public abstract class ReportNode
 	public static final int COLOR_ERROR = 3;
 
 	protected String error = null;
-	protected int particularColor = Report.COLOR_NOT_YET_CALC;
-	protected int cumulativeColor = Report.COLOR_NOT_YET_CALC;
+	protected int particularColor = ReportSchema.COLOR_NOT_YET_CALC;
+	protected int cumulativeColor = ReportSchema.COLOR_NOT_YET_CALC;
 
 	abstract void finish();
 
 	public final String getError()
 	{
-		if(particularColor==Report.COLOR_NOT_YET_CALC)
+		if(particularColor==ReportSchema.COLOR_NOT_YET_CALC)
 			throw new RuntimeException();
 
 		return error;
@@ -40,7 +40,7 @@ public abstract class ReportNode
 
 	public final int getParticularColor()
 	{
-		if(particularColor==Report.COLOR_NOT_YET_CALC)
+		if(particularColor==ReportSchema.COLOR_NOT_YET_CALC)
 			throw new RuntimeException();
 
 		return particularColor;
@@ -48,7 +48,7 @@ public abstract class ReportNode
 
 	public final int getCumulativeColor()
 	{
-		if(cumulativeColor==Report.COLOR_NOT_YET_CALC)
+		if(cumulativeColor==ReportSchema.COLOR_NOT_YET_CALC)
 			throw new RuntimeException();
 
 		return cumulativeColor;

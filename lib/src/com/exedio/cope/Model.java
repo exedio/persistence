@@ -220,7 +220,7 @@ public final class Model
 		// TODO: remove data directories
 	}
 
-	public Report reportDatabase()
+	public ReportSchema reportDatabase()
 	{
 		// TODO: report data directories
 		return database.report();

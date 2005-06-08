@@ -157,7 +157,7 @@ final class OracleDatabase
 		return table.notifyExistentUniqueConstraint(constraintName, bf.toString());
 	}
 	
-	void fillReport(final Report report)
+	void fillReport(final ReportSchema report)
 	{
 		super.fillReport(report);
 		{

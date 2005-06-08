@@ -149,7 +149,7 @@ public final class MysqlDatabase extends Database
 		return extractConstraintName(e, 1217, "Cannot delete or update a parent row: a foreign key constraint fails");
 	}
 
-	void fillReport(final Report report)
+	void fillReport(final ReportSchema report)
 	{
 		super.fillReport(report);
 		{

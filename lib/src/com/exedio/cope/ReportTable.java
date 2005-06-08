@@ -26,7 +26,7 @@ import java.util.Iterator;
 
 public final class ReportTable extends ReportNode
 {
-	public final Report report;
+	public final ReportSchema report;
 	public final String name;
 	final Table table;
 	private boolean exists = false;
@@ -38,7 +38,7 @@ public final class ReportTable extends ReportNode
 	private final HashMap constraintMap = new HashMap();
 	private final ArrayList constraintList = new ArrayList();
 
-	ReportTable(final Report report, final Table table)
+	ReportTable(final ReportSchema report, final Table table)
 	{
 		if(report==null)
 			throw new RuntimeException();
@@ -52,7 +52,7 @@ public final class ReportTable extends ReportNode
 		report.register(this);
 	}
 
-	ReportTable(final Report report, final String name)
+	ReportTable(final ReportSchema report, final String name)
 	{
 		if(report==null)
 			throw new RuntimeException();

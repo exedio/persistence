@@ -160,7 +160,7 @@ final class Table
 		return id;
 	}
 	
-	void report(final Report report)
+	void report(final ReportSchema report)
 	{
 		final ReportTable reportTable = new ReportTable(report, this);
 		
