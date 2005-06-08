@@ -40,5 +40,28 @@ public class ReportForeignKeyConstraint extends ReportConstraint
 		this.targetColumn = targetColumn;
 		//System.out.println("-------------"+name+"-"+foreignKeyColumn+"-"+targetTable+"-"+targetColumn);
 	}
+	
+	final void create()
+	{
+		final StringBuffer bf = new StringBuffer();
+		bf.append("alter table ").
+			append(protectName(table.name)).
+			append(" add constraint ").
+			append(protectName(name)).
+			append(" foreign key (").
+			append(protectName(foreignKeyColumn)).
+			append(") references ").
+			append(protectName(targetTable));
+
+		if(database.mysql)
+		{
+			bf.append('(').
+				append(protectName(targetColumn)).
+				append(')');
+		}
+
+		//System.out.println("createForeignKeyConstraints:"+bf);
+		executeSQL(bf.toString());
+	}
 
 }
