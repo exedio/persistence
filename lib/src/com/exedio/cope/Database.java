@@ -193,12 +193,15 @@ abstract class Database
 	{
 		buildStage = false;
 
+		final ReportSchema report = requiredReport();
+		final List tables = report.getTables();
+
 		//final long time = System.currentTimeMillis();
 		// must delete in reverse order, to obey integrity constraints
 		for(ListIterator i = tables.listIterator(tables.size()); i.hasPrevious(); )
-			dropForeignKeyConstraints((Table)i.previous(), false);
+			dropForeignKeyConstraints((ReportTable)i.previous(), false);
 		for(ListIterator i = tables.listIterator(tables.size()); i.hasPrevious(); )
-			dropTable((Table)i.previous());
+			dropTable((ReportTable)i.previous());
 		//final long amount = (System.currentTimeMillis()-time);
 		//dropTableTime += amount;
 		//System.out.println("DROP TABLES "+amount+"ms  accumulated "+dropTableTime);
@@ -208,12 +211,15 @@ abstract class Database
 	{
 		buildStage = false;
 
+		final ReportSchema report = requiredReport();
+		final List tables = report.getTables();
+
 		System.err.println("TEAR DOWN ALL DATABASE");
 		for(Iterator i = tables.iterator(); i.hasNext(); )
 		{
 			try
 			{
-				final Table table = (Table)i.next();
+				final ReportTable table = (ReportTable)i.next();
 				dropForeignKeyConstraints(table, true);
 			}
 			catch(NestingRuntimeException e2)
@@ -234,7 +240,7 @@ abstract class Database
 			{
 				try
 				{
-					final Table table = (Table)i.next();
+					final ReportTable table = (ReportTable)i.next();
 					System.err.print("DROPPING TABLE "+table+" ... ");
 					dropTable(table);
 					System.err.println("done.");
@@ -1193,11 +1199,11 @@ abstract class Database
 		}
 	}
 	
-	private void dropTable(final Table table) 
+	private void dropTable(final ReportTable table) 
 	{
 		final Statement bf = createStatement();
 		bf.append("drop table ").
-			append(table.protectedID);
+			append(protectName(table.name));
 
 		try
 		{
@@ -1234,29 +1240,29 @@ abstract class Database
 	}
 
 
-	protected Statement getDropForeignKeyConstraintStatement(final Table table, final ItemColumn column)
+	protected Statement getDropForeignKeyConstraintStatement(final ReportTable table, final ReportForeignKeyConstraint fk)
 	{
 		final Statement bf = createStatement();
 		bf.append("alter table ").
-			append(table.protectedID).
+			append(protectName(table.name)).
 			append(" drop constraint ").
-			append(protectName(column.integrityConstraintName));
+			append(protectName(fk.name));
 		return bf;
 	}
 	
-	private final void dropForeignKeyConstraints(final Table table, final boolean log) 
+	private final void dropForeignKeyConstraints(final ReportTable table, final boolean log) 
 	{
-		for(Iterator i = table.getColumns().iterator(); i.hasNext(); )
+		for(Iterator i = table.getConstraints().iterator(); i.hasNext(); )
 		{
-			final Column column = (Column)i.next();
+			final ReportConstraint constraint = (ReportConstraint)i.next();
 			//System.out.println("dropForeignKeyConstraints("+column+")");
-			if(column instanceof ItemColumn)
+			if(constraint instanceof ReportForeignKeyConstraint)
 			{
-				final ItemColumn itemColumn = (ItemColumn)column;
-				final Statement bf = getDropForeignKeyConstraintStatement(table, itemColumn);
+				final ReportForeignKeyConstraint fk = (ReportForeignKeyConstraint)constraint;
+				final Statement bf = getDropForeignKeyConstraintStatement(table, fk);
 
 				if(log)
-					System.err.println("DROPPING FOREIGN KEY CONSTRAINTS "+table+" "+itemColumn.integrityConstraintName+"... ");
+					System.err.println("DROPPING FOREIGN KEY CONSTRAINTS "+table.name+" "+fk.name+"... ");
 				try
 				{
 					executeSQLUpdate(bf, 0);

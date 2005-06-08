@@ -256,13 +256,13 @@ public final class MysqlDatabase extends Database
 		}
 	}
 
-	protected Statement getDropForeignKeyConstraintStatement(final Table table, final ItemColumn column)
+	protected Statement getDropForeignKeyConstraintStatement(final ReportTable table, final ReportForeignKeyConstraint fk)
 	{
 		final Statement bf = createStatement();
 		bf.append("alter table ").
-			append(table.protectedID).
+			append(protectName(table.name)).
 			append(" drop foreign key ").
-			append(protectName(column.integrityConstraintName));
+			append(protectName(fk.name));
 		return bf;
 	}
 	
