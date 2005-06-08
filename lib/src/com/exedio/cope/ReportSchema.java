@@ -76,5 +76,21 @@ public final class ReportSchema extends ReportNode
 			cumulativeColor = Math.max(cumulativeColor, table.cumulativeColor);
 		}
 	}
+	
+	//private static int createTableTime = 0, dropTableTime = 0, checkEmptyTableTime = 0;
+	
+	final void create()
+	{
+		//final long time = System.currentTimeMillis();
+		for(Iterator i = tableList.iterator(); i.hasNext(); )
+			database.createTable((ReportTable)i.next());
+	
+		for(Iterator i = tableList.iterator(); i.hasNext(); )
+			database.createForeignKeyConstraints((ReportTable)i.next());
+	
+		//final long amount = (System.currentTimeMillis()-time);
+		//createTableTime += amount;
+		//System.out.println("CREATE TABLES "+amount+"ms  accumulated "+createTableTime);
+	}
 
 }

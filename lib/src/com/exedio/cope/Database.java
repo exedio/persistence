@@ -87,24 +87,12 @@ abstract class Database
 		return new Statement(useDefineColumnTypes);
 	}
 	
-	//private static int createTableTime = 0, dropTableTime = 0, checkEmptyTableTime = 0;
-	
 	void createDatabase()
 	{
 		buildStage = false;
 		
 		final ReportSchema report = requiredReport();
-
-		//final long time = System.currentTimeMillis();
-		for(Iterator i = report.getTables().iterator(); i.hasNext(); )
-			createTable((ReportTable)i.next());
-
-		for(Iterator i = report.getTables().iterator(); i.hasNext(); )
-			createForeignKeyConstraints((ReportTable)i.next());
-
-		//final long amount = (System.currentTimeMillis()-time);
-		//createTableTime += amount;
-		//System.out.println("CREATE TABLES "+amount+"ms  accumulated "+createTableTime);
+		report.create();
 	}
 
 	//private static int checkTableTime = 0;
@@ -1158,7 +1146,7 @@ abstract class Database
 		}
 	}
 	
-	private void createForeignKeyConstraints(final ReportTable table)
+	void createForeignKeyConstraints(final ReportTable table)
 	{
 		//System.out.println("createForeignKeyConstraints:"+bf);
 
