@@ -44,7 +44,7 @@ public final class ReportSchema extends ReportNode
 	{
 		ReportTable result = (ReportTable)tableMap.get(tableName);
 		if(result==null)
-			result = new ReportTable(this, tableName);
+			result = new ReportTable(this, tableName, false);
 		else
 			result.notifyExists();
 

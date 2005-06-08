@@ -168,7 +168,6 @@ public final class MysqlDatabase extends Database
 							public void run(final ResultSet resultSet) throws SQLException
 							{
 								//printMeta(resultSet);
-								final Table table = reportTable.table;
 								while(resultSet.next())
 								{
 									//printRow(resultSet);
@@ -176,8 +175,18 @@ public final class MysqlDatabase extends Database
 									if("PRI".equals(key))
 									{
 										final String field = resultSet.getString("Field");
-										if(Table.PK_COLUMN_NAME.equals(field) && table!=null)
-											reportTable.notifyExistentPrimaryKeyConstraint(table.getPrimaryKey().getPrimaryKeyConstraintID());
+										if(Table.PK_COLUMN_NAME.equals(field) && reportTable.required())
+										{
+											for(Iterator j = reportTable.getConstraints().iterator(); j.hasNext(); )
+											{
+												final ReportConstraint c = (ReportConstraint)j.next();
+												if(c instanceof ReportPrimaryKeyConstraint)
+												{
+													reportTable.notifyExistentPrimaryKeyConstraint(c.name);
+													break;
+												}
+											}
+										}
 										else
 											reportTable.notifyExistentPrimaryKeyConstraint(field+"_Pk");
 									}

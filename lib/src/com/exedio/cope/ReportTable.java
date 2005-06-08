@@ -28,8 +28,8 @@ public final class ReportTable extends ReportNode
 {
 	public final ReportSchema report;
 	public final String name;
-	final Table table;
-	private boolean exists = false;
+	private final boolean required;
+	private boolean exists;
 	private ReportLastAnalyzed lastAnalyzed = null;
 
 	private final HashMap columnMap = new HashMap();
@@ -38,21 +38,7 @@ public final class ReportTable extends ReportNode
 	private final HashMap constraintMap = new HashMap();
 	private final ArrayList constraintList = new ArrayList();
 
-	ReportTable(final ReportSchema report, final Table table)
-	{
-		if(report==null)
-			throw new RuntimeException();
-		if(table==null)
-			throw new RuntimeException();
-
-		this.report = report;
-		this.name = table.id;
-		this.table = table;
-		this.exists = false;
-		report.register(this);
-	}
-
-	ReportTable(final ReportSchema report, final String name)
+	ReportTable(final ReportSchema report, final String name, final boolean required)
 	{
 		if(report==null)
 			throw new RuntimeException();
@@ -61,11 +47,12 @@ public final class ReportTable extends ReportNode
 
 		this.report = report;
 		this.name = name;
-		this.table = null;
-		this.exists = true;
+		this.required = required;
+		this.exists = !required;
+
 		report.register(this);
 	}
-		
+
 	final void register(final ReportColumn column)
 	{
 		if(columnMap.put(column.name, column)!=null)
@@ -154,7 +141,7 @@ public final class ReportTable extends ReportNode
 	
 	public final boolean required()
 	{
-		return table!=null;
+		return required;
 	}
 	
 	public final boolean exists()
@@ -199,7 +186,7 @@ public final class ReportTable extends ReportNode
 			error = "MISSING !!!";
 			particularColor = COLOR_ERROR;
 		}
-		else if(table==null)
+		else if(!required)
 		{
 			error = "not used";
 			particularColor = COLOR_WARNING;
