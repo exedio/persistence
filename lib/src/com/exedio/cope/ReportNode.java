@@ -43,21 +43,20 @@ public abstract class ReportNode
 		return database.protectName(name);
 	}
 	
-	protected final void executeSQL(final Statement statement)
+	protected final void executeSQL(final String statement)
 	{
 		Connection connection = null;
 		java.sql.Statement sqlStatement = null;
 		try
 		{
 			connection = database.connectionPool.getConnection();
-			final String sqlText = statement.getText();
-			//System.err.println(statement.getText());
+			//System.err.println(statement);
 			sqlStatement = connection.createStatement();
-			final int rows = sqlStatement.executeUpdate(sqlText);
+			final int rows = sqlStatement.executeUpdate(statement);
 
 			//System.out.println("("+rows+"): "+statement.getText());
 			if(rows!=0)
-				throw new RuntimeException("expected no rows, but got "+rows+" on statement "+sqlText);
+				throw new RuntimeException("expected no rows, but got "+rows+" on statement "+statement);
 		}
 		catch(SQLException e)
 		{

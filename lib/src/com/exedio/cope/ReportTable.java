@@ -226,7 +226,8 @@ public final class ReportTable extends ReportNode
 	
 	public final void create()
 	{
-		final Statement bf = report.database.createStatement();
+		final StringBuffer bf = new StringBuffer();
+
 		bf.append("create table ").
 			append(protectName(name)).
 			append('(');
@@ -287,7 +288,7 @@ public final class ReportTable extends ReportNode
 			bf.append(" engine=innodb");
 
 		//System.out.println("createTable:"+bf.toString());
-		executeSQL(bf);
+		executeSQL(bf.toString());
 	}
 	
 	public final void renameTo(final String newName)
