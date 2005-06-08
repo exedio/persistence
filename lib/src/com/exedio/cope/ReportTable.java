@@ -222,9 +222,82 @@ public final class ReportTable extends ReportNode
 		}
 	}
 	
+	private final String protectName(final String name)
+	{
+		return report.database.protectName(name);
+	}
+	
 	public final void create()
 	{
-		report.database.createTable(this);
+		final Statement bf = report.database.createStatement();
+		bf.append("create table ").
+			append(protectName(name)).
+			append('(');
+
+		boolean firstColumn = true;
+		for(Iterator i = columnList.iterator(); i.hasNext(); )
+		{
+			if(firstColumn)
+				firstColumn = false;
+			else
+				bf.append(',');
+			
+			final ReportColumn column = (ReportColumn)i.next();
+			bf.append(protectName(column.name)).
+				append(' ').
+				append(column.getType());
+		}
+		
+		for(Iterator i = constraintList.iterator(); i.hasNext(); )
+		{
+			final ReportConstraint constraint = (ReportConstraint)i.next();
+
+			if(constraint instanceof ReportCheckConstraint)
+			{
+				final ReportCheckConstraint check = (ReportCheckConstraint)constraint;
+				bf.append(",constraint ").
+					append(protectName(check.name)).
+					append(" check(").
+					append(check.requiredCondition).
+					append(')');
+			}
+			else if(constraint instanceof ReportPrimaryKeyConstraint)
+			{
+				final ReportPrimaryKeyConstraint pk = (ReportPrimaryKeyConstraint)constraint;
+				bf.append(",constraint ").
+					append(protectName(pk.name)).
+					append(" primary key(").
+					append(protectName(pk.primaryKeyColumn)).
+					append(')');
+			}
+			else if(constraint instanceof ReportForeignKeyConstraint)
+				; // this is done in createForeignKeyConstraints
+			else if(constraint instanceof ReportUniqueConstraint)
+			{
+				final ReportUniqueConstraint unique = (ReportUniqueConstraint)constraint;
+				bf.append(",constraint ").
+					append(protectName(unique.name)).
+					append(" unique").
+					append(unique.clause);
+			}
+			else
+				throw new RuntimeException(constraint.getClass().getName());
+		}
+
+		bf.append(')');
+
+		if(report.database.mysql)
+			bf.append(" engine=innodb");
+
+		try
+		{
+			//System.out.println("createTable:"+bf.toString());
+			report.database.executeSQLUpdate(bf, 0);
+		}
+		catch(ConstraintViolationException e)
+		{
+			throw new NestingRuntimeException(e);
+		}
 	}
 	
 	public final void renameTo(final String newName)
