@@ -24,13 +24,12 @@ import java.util.List;
 
 public final class ReportSchema extends ReportNode
 {
-	final Database database;
 	private final HashMap tableMap = new HashMap();
 	private final ArrayList tableList = new ArrayList();
 	
 	ReportSchema(final Database database)
 	{
-		this.database = database;
+		super(database);
 	}
 
 	final void register(final ReportTable table)

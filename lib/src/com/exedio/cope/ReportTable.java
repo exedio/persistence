@@ -17,8 +17,6 @@
  */
 package com.exedio.cope;
 
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -42,6 +40,8 @@ public final class ReportTable extends ReportNode
 
 	ReportTable(final ReportSchema report, final String name, final boolean required)
 	{
+		super(report.database);
+		
 		if(report==null)
 			throw new RuntimeException();
 		if(name==null)
@@ -221,58 +221,6 @@ public final class ReportTable extends ReportNode
 			final ReportConstraint constraint = (ReportConstraint)i.next();
 			constraint.finish();
 			cumulativeColor = Math.max(cumulativeColor, constraint.cumulativeColor);
-		}
-	}
-	
-	private final String protectName(final String name)
-	{
-		return report.database.protectName(name);
-	}
-	
-	protected final void executeSQL(final Statement statement)
-	{
-		Connection connection = null;
-		java.sql.Statement sqlStatement = null;
-		try
-		{
-			connection = report.database.connectionPool.getConnection();
-			final String sqlText = statement.getText();
-			//System.err.println(statement.getText());
-			sqlStatement = connection.createStatement();
-			final int rows = sqlStatement.executeUpdate(sqlText);
-
-			//System.out.println("("+rows+"): "+statement.getText());
-			if(rows!=0)
-				throw new RuntimeException("expected no rows, but got "+rows+" on statement "+sqlText);
-		}
-		catch(SQLException e)
-		{
-			throw new NestingRuntimeException(e, statement.toString());
-		}
-		finally
-		{
-			if(sqlStatement!=null)
-			{
-				try
-				{
-					sqlStatement.close();
-				}
-				catch(SQLException e)
-				{
-					// exception is already thrown
-				}
-			}
-			if(connection!=null)
-			{
-				try
-				{
-					report.database.connectionPool.putConnection(connection);
-				}
-				catch(SQLException e)
-				{
-					// exception is already thrown
-				}
-			}
 		}
 	}
 	
