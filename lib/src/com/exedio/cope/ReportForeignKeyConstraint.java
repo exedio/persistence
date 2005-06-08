@@ -20,9 +20,25 @@ package com.exedio.cope;
 
 public class ReportForeignKeyConstraint extends ReportConstraint
 {
-	ReportForeignKeyConstraint(final ReportTable table, final String name, final boolean required)
+	final String foreignKeyColumn;
+	final String targetTable;
+	final String targetColumn;
+	
+	ReportForeignKeyConstraint(final ReportTable table, final String name, final boolean required, final String foreignKeyColumn, final String targetTable, final String targetColumn)
 	{
 		super(table, name, TYPE_FOREIGN_KEY, required, null);
+		
+		if(required && foreignKeyColumn==null)
+			throw new RuntimeException(name);
+		if(required && targetTable==null)
+			throw new RuntimeException(name);
+		if(required && targetColumn==null)
+			throw new RuntimeException(name);
+
+		this.foreignKeyColumn = foreignKeyColumn;
+		this.targetTable = targetTable;
+		this.targetColumn = targetColumn;
+		//System.out.println("-------------"+name+"-"+foreignKeyColumn+"-"+targetTable+"-"+targetColumn);
 	}
 
 }

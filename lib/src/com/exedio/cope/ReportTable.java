@@ -133,7 +133,7 @@ public final class ReportTable extends ReportNode
 		ReportConstraint result = (ReportConstraint)constraintMap.get(constraintName);
 		
 		if(result==null)
-			result = new ReportForeignKeyConstraint(this, constraintName, false);
+			result = new ReportForeignKeyConstraint(this, constraintName, false, null, null, null);
 		else
 			result.notifyExists();
 		

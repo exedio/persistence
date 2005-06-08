@@ -52,6 +52,7 @@ final class ItemColumn extends IntegerColumn
 		this.attribute = null;
 	}
 
+	// TODO: remove these, when report is creating database
 	String getForeignTableNameProtected()
 	{
 		if(targetTypeClass!=null)
@@ -60,6 +61,7 @@ final class ItemColumn extends IntegerColumn
 			return null; 
 	}
 	
+	// TODO: remove these, when report is creating database
 	String getForeignTablePkNameProtected()
 	{
 		if(targetTypeClass!=null)
@@ -71,7 +73,7 @@ final class ItemColumn extends IntegerColumn
 	void report(final ReportTable reportTable)
 	{
 		super.report(reportTable);
-		new ReportForeignKeyConstraint(reportTable, integrityConstraintName, true);
+		new ReportForeignKeyConstraint(reportTable, integrityConstraintName, true, id, getForeignTableNameProtected(), getForeignTablePkNameProtected());
 	}
 		
 }
