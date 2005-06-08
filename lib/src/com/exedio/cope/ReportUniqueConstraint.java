@@ -30,7 +30,7 @@ public class ReportUniqueConstraint extends ReportConstraint
 			throw new RuntimeException(name);
 		
 		this.clause = clause;
-		System.out.println("-------------"+name+"-"+clause);
+		//System.out.println("-------------"+name+"-"+clause);
 	}
 
 }
