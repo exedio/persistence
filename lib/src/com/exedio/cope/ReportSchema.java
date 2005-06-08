@@ -18,9 +18,9 @@
 package com.exedio.cope;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 
 public final class ReportSchema extends ReportNode
 {
@@ -56,7 +56,7 @@ public final class ReportSchema extends ReportNode
 		return (ReportTable)tableMap.get(name);
 	}
 	
-	public Collection getTables()
+	public List getTables()
 	{
 		return tableList;
 	}
