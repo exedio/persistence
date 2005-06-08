@@ -250,12 +250,12 @@ public class ReportTest extends DatabaseLibTest
 			assertEquals(null, attributeItem.getError());
 			assertEquals(Report.COLOR_OK, attributeItem.getParticularColor());
 			
-			assertConstraint(attributeItem, CHECK, "AttrItem_somNotNullStr_Ck", protect("someNotNullString")+" IS NOT NULL");
-			assertConstraint(attributeItem, CHECK, "AttribuItem_someBoolea_Ck", "("+protect("someBoolean")+" IN (0,1)) OR ("+protect("someBoolean")+" IS NULL)");
-			assertConstraint(attributeItem, CHECK, "AttrItem_somNotNullBoo_Ck", "("+protect("someNotNullBoolean")+" IS NOT NULL) AND ("+protect("someNotNullBoolean")+" IN (0,1))");
-			assertConstraint(attributeItem, CHECK, "AttribuItem_someEnumer_Ck", "("+protect("someEnumeration")+" IN (100,200,300)) OR ("+protect("someEnumeration")+" IS NULL)");
-			assertConstraint(attributeItem, CHECK, "AttrItem_somNotNullEnu_Ck", "("+protect("someNotNullEnumeration")+" IS NOT NULL) AND ("+protect("someNotNullEnumeration")+" IN (100,200,300))");
-			assertConstraint(attributeItem, CHECK, "AttriItem_someDataMajo_Ck", "((LENGTH("+protect("someDataMajor")+")>=1) AND (LENGTH("+protect("someDataMajor")+")<=30)) OR ("+protect("someDataMajor")+" IS NULL)");
+			assertCheckConstraint(attributeItem, "AttrItem_somNotNullStr_Ck", protect("someNotNullString")+" IS NOT NULL");
+			assertCheckConstraint(attributeItem, "AttribuItem_someBoolea_Ck", "("+protect("someBoolean")+" IN (0,1)) OR ("+protect("someBoolean")+" IS NULL)");
+			assertCheckConstraint(attributeItem, "AttrItem_somNotNullBoo_Ck", "("+protect("someNotNullBoolean")+" IS NOT NULL) AND ("+protect("someNotNullBoolean")+" IN (0,1))");
+			assertCheckConstraint(attributeItem, "AttribuItem_someEnumer_Ck", "("+protect("someEnumeration")+" IN (100,200,300)) OR ("+protect("someEnumeration")+" IS NULL)");
+			assertCheckConstraint(attributeItem, "AttrItem_somNotNullEnu_Ck", "("+protect("someNotNullEnumeration")+" IS NOT NULL) AND ("+protect("someNotNullEnumeration")+" IN (100,200,300))");
+			assertCheckConstraint(attributeItem, "AttriItem_someDataMajo_Ck", "((LENGTH("+protect("someDataMajor")+")>=1) AND (LENGTH("+protect("someDataMajor")+")<=30)) OR ("+protect("someDataMajor")+" IS NULL)");
 
 			assertConstraint(attributeItem, PK, "AttributeItem_Pk", null);
 
@@ -290,10 +290,15 @@ public class ReportTest extends DatabaseLibTest
 			else
 				assertEquals("VARCHAR2(8)", min4Max8.getType());
 
-			assertConstraint(stringItem, CHECK, "StringItem_min4_Ck", "(LENGTH("+protect("min4")+")>=4) OR ("+protect("min4")+" IS NULL)");
-			assertConstraint(stringItem, CHECK, "StringItem_max4_Ck", "(LENGTH("+protect("max4")+")<=4) OR ("+protect("max4")+" IS NULL)");
-			assertConstraint(stringItem, CHECK, "StringItem_min4Max8_Ck", "((LENGTH("+protect("min4Max8")+")>=4) AND (LENGTH("+protect("min4Max8")+")<=8)) OR ("+protect("min4Max8")+" IS NULL)");
+			assertCheckConstraint(stringItem, "StringItem_min4_Ck", "(LENGTH("+protect("min4")+")>=4) OR ("+protect("min4")+" IS NULL)");
+			assertCheckConstraint(stringItem, "StringItem_max4_Ck", "(LENGTH("+protect("max4")+")<=4) OR ("+protect("max4")+" IS NULL)");
+			assertCheckConstraint(stringItem, "StringItem_min4Max8_Ck", "((LENGTH("+protect("min4Max8")+")>=4) AND (LENGTH("+protect("min4Max8")+")<=8)) OR ("+protect("min4Max8")+" IS NULL)");
 		}
+	}
+	
+	private void assertCheckConstraint(final ReportTable table, final String constraintName, final String requiredCondition)
+	{
+		assertConstraint(table, CHECK, constraintName, requiredCondition);
 	}
 	
 	private void assertConstraint(final ReportTable table, final int constraintType, final String constraintName, final String requiredCondition)
