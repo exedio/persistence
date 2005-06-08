@@ -74,7 +74,7 @@ public final class ReportTable extends ReportNode
 		if(this.lastAnalyzed!=null)
 			throw new RuntimeException();
 
-		this.lastAnalyzed = new ReportLastAnalyzed(lastAnalyzed, this);
+		this.lastAnalyzed = new ReportLastAnalyzed(this, lastAnalyzed);
 	}
 	
 	final void notifyExists()

@@ -21,14 +21,14 @@ import java.util.Date;
 
 public final class ReportLastAnalyzed extends ReportNode
 {
-	public final Date lastAnalyzed;
 	public final ReportTable table;
+	public final Date lastAnalyzed;
 		
-	ReportLastAnalyzed(final Date lastAnalyzed, final ReportTable table)
+	ReportLastAnalyzed(final ReportTable table, final Date lastAnalyzed)
 	{
 		super(table.database);
-		this.lastAnalyzed = lastAnalyzed;
 		this.table = table;
+		this.lastAnalyzed = lastAnalyzed;
 	}
 
 	protected void finish()
