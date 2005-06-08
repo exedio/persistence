@@ -53,8 +53,6 @@ final class OracleDatabase
 		}
 	}
 	
-	private boolean checkedPlanTable = false;
-	
 	protected OracleDatabase(final Properties properties)
 	{
 		super(properties, properties.getDatabaseUser().toUpperCase());
@@ -95,6 +93,10 @@ final class OracleDatabase
 				return "TIMESTAMP(3)";
 			case Types.VARCHAR:
 				return "VARCHAR2("+columnSize+')';
+			case Types.TIMESTAMP:
+				return "DATE";
+			case Types.LONGVARCHAR:
+				return "LONG";
 			default:
 				return null;
 		}
@@ -296,6 +298,31 @@ final class OracleDatabase
 		return bf;
 	}
 	
+	protected void appendReport(final ReportSchema report)
+	{
+		final ReportTable planTable = new ReportTable(report, "PLAN_TABLE", true);
+		new ReportColumn(planTable, STATEMENT_ID, "VARCHAR2(30)", true);
+		new ReportColumn(planTable, "TIMESTAMP", "DATE", true);
+		new ReportColumn(planTable, "REMARKS", "VARCHAR2(80)", true);
+		new ReportColumn(planTable, OPERATION, "VARCHAR2(30)", true);
+		new ReportColumn(planTable, OPTIONS, "VARCHAR2(30)", true);
+		new ReportColumn(planTable, "OBJECT_NODE", "VARCHAR2(128)", true);
+		new ReportColumn(planTable, "OBJECT_OWNER", "VARCHAR2(30)", true);
+		new ReportColumn(planTable, OBJECT_NAME, "VARCHAR2(30)", true);
+		new ReportColumn(planTable, OBJECT_INSTANCE, "NUMBER(22)", true);
+		new ReportColumn(planTable, OBJECT_TYPE, "VARCHAR2(30)", true);
+		new ReportColumn(planTable, "OPTIMIZER", "VARCHAR2(255)", true);
+		new ReportColumn(planTable, "SEARCH_COLUMNS", "NUMBER(22)", true);
+		new ReportColumn(planTable, ID, "NUMBER(22)", true);
+		new ReportColumn(planTable, PARENT_ID, "NUMBER(22)", true);
+		new ReportColumn(planTable, "POSITION", "NUMBER(22)", true);
+		new ReportColumn(planTable, "COST", "NUMBER(22)", true);
+		new ReportColumn(planTable, "CARDINALITY", "NUMBER(22)", true);
+		new ReportColumn(planTable, "BYTES", "NUMBER(22)", true);
+		new ReportColumn(planTable, "OTHER_TAG", "VARCHAR2(255)", true);
+		new ReportColumn(planTable, "OTHER", "LONG", true);
+	}
+	
 	protected StatementInfo makeStatementInfo(final Statement statement, final Connection connection)
 	{
 		final StatementInfo result = super.makeStatementInfo(statement, connection);
@@ -337,59 +364,6 @@ final class OracleDatabase
 	
 	private StatementInfo makePlanInfo(final Statement statement, final Connection connection)
 	{
-		if(!checkedPlanTable)
-		{
-			final Statement check = createStatement();
-			check.append("SELECT * FROM "+PLAN_TABLE);
-			try
-			{
-				executeSQLQuery(check,
-					new ResultSetHandler()
-					{
-						public void run(final ResultSet resultSet) throws SQLException
-						{
-						}
-					},
-					false);
-			}
-			catch(NestingRuntimeException e)
-			{
-				System.err.println("cope creates oracle plan_table");
-				final Statement create = createStatement();
-				create.append(
-					"CREATE TABLE "+PLAN_TABLE+" (" +
-						STATEMENT_ID+" VARCHAR2(30), " +
-						"timestamp DATE, " +
-						"remarks VARCHAR2(80), " +
-						OPERATION+" VARCHAR2(30), " +
-						OPTIONS+" VARCHAR2(30), " +
-						"object_node VARCHAR2(128), " +
-						"object_owner VARCHAR2(30), " +
-						OBJECT_NAME+" VARCHAR2(30), " +
-						OBJECT_INSTANCE+" NUMERIC, " +
-						OBJECT_TYPE+" VARCHAR2(30), " +
-						"optimizer VARCHAR2(255), " +
-						"search_columns NUMERIC, " +
-						ID+" NUMERIC, " +
-						PARENT_ID+" NUMERIC, " +
-						"position NUMERIC, " +
-						"cost NUMERIC, " +
-						"cardinality NUMERIC, " +
-						"bytes NUMERIC, " +
-						"other_tag VARCHAR2(255), " +
-						"other LONG)");
-				try
-				{
-					executeSQLUpdate(create, 0);
-				}
-				catch(ConstraintViolationException cve)
-				{
-					throw new NestingRuntimeException(cve);
-				}
-			}
-			checkedPlanTable = true;
-		}
-
 		final String statementText = statement.getText();
 		if(statementText.startsWith("alter table "))
 			return null;

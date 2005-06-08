@@ -1343,7 +1343,12 @@ abstract class Database
 		final ReportSchema report = new ReportSchema(this);
 		for(Iterator i = getTables().iterator(); i.hasNext(); )
 			((Table)i.next()).report(report);
+		appendReport(report);
 		return report;
+	}
+	
+	protected void appendReport(final ReportSchema report)
+	{
 	}
 	
 	final ReportSchema report()
