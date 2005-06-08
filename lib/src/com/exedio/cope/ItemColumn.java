@@ -52,28 +52,11 @@ final class ItemColumn extends IntegerColumn
 		this.attribute = null;
 	}
 
-	// TODO: remove these, when report is creating database
-	String getForeignTableNameProtected()
-	{
-		if(targetTypeClass!=null)
-			return Type.findByJavaClass(targetTypeClass).getTable().protectedID;
-		else
-			return null; 
-	}
-	
-	// TODO: remove these, when report is creating database
-	String getForeignTablePkNameProtected()
-	{
-		if(targetTypeClass!=null)
-			return Type.findByJavaClass(targetTypeClass).getTable().getPrimaryKey().protectedID;
-		else
-			return null; 
-	}
-	
 	void report(final ReportTable reportTable)
 	{
 		super.report(reportTable);
-		new ReportForeignKeyConstraint(reportTable, integrityConstraintName, true, id, getForeignTableNameProtected(), getForeignTablePkNameProtected());
+		final Table targetTable = Type.findByJavaClass(targetTypeClass).getTable();
+		new ReportForeignKeyConstraint(reportTable, integrityConstraintName, true, id, targetTable.protectedID, targetTable.getPrimaryKey().protectedID);
 	}
 		
 }
