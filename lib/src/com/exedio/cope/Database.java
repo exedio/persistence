@@ -1089,28 +1089,6 @@ abstract class Database
 	protected abstract String getColumnType(final int dataType, final ResultSet resultSet)
 			throws SQLException;
 	
-	/**
-	 * @deprecated for debugging only, should never be used in committed code
-	 */
-	protected static final void printMeta(final ResultSet resultSet) throws SQLException
-	{
-		final ResultSetMetaData metaData = resultSet.getMetaData();;
-		final int columnCount = metaData.getColumnCount();
-		for(int i = 1; i<=columnCount; i++)
-			System.out.println("------"+i+":"+metaData.getColumnName(i)+":"+metaData.getColumnType(i));
-	}
-	
-	/**
-	 * @deprecated for debugging only, should never be used in committed code
-	 */
-	protected static final void printRow(final ResultSet resultSet) throws SQLException
-	{
-		final ResultSetMetaData metaData = resultSet.getMetaData();;
-		final int columnCount = metaData.getColumnCount();
-		for(int i = 1; i<=columnCount; i++)
-			System.out.println("----------"+i+":"+resultSet.getObject(i));
-	}
-	
 	final ReportSchema requiredReport()
 	{
 		final ReportSchema report = new ReportSchema(this);
@@ -1183,6 +1161,33 @@ abstract class Database
 	abstract String getCreateColumnStatement(String tableName, String columnName, String columnType);
 	abstract String getModifyColumnStatement(String tableName, String columnName, String newColumnType);
 
+	
+	
+	/**
+	 * @deprecated for debugging only, should never be used in committed code
+	 */
+	protected static final void printMeta(final ResultSet resultSet) throws SQLException
+	{
+		final ResultSetMetaData metaData = resultSet.getMetaData();;
+		final int columnCount = metaData.getColumnCount();
+		for(int i = 1; i<=columnCount; i++)
+			System.out.println("------"+i+":"+metaData.getColumnName(i)+":"+metaData.getColumnType(i));
+	}
+	
+	/**
+	 * @deprecated for debugging only, should never be used in committed code
+	 */
+	protected static final void printRow(final ResultSet resultSet) throws SQLException
+	{
+		final ResultSetMetaData metaData = resultSet.getMetaData();;
+		final int columnCount = metaData.getColumnCount();
+		for(int i = 1; i<=columnCount; i++)
+			System.out.println("----------"+i+":"+resultSet.getObject(i));
+	}
+	
+	/**
+	 * @deprecated for debugging only, should never be used in committed code
+	 */
 	static final ResultSetHandler logHandler = new ResultSetHandler()
 	{
 		public void run(final ResultSet resultSet) throws SQLException
