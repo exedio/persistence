@@ -33,6 +33,7 @@ final class ConnectionPool
 	
 	private final Connection[] pool = new Connection[10];
 	private int size = 0;
+	private int due = 0;
 	private final Object lock = new Object();
 
 	private final String url;
@@ -57,6 +58,8 @@ final class ConnectionPool
 
 		synchronized(lock)
 		{
+			due++;
+			
 			if(size>0)
 			{
 				//System.out.println("connection pool: fetch "+(size-1));
@@ -79,6 +82,8 @@ final class ConnectionPool
 		
 		synchronized(lock)
 		{
+			due--;
+
 			if(size<pool.length)
 			{
 				//System.out.println("connection pool: store "+size);
@@ -99,6 +104,9 @@ final class ConnectionPool
 
 		synchronized(lock)
 		{
+			if(due!=0)
+				throw new RuntimeException("still "+due+" connection outside");
+			
 			if(size==0)
 				return;
 
