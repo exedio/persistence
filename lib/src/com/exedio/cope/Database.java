@@ -76,11 +76,6 @@ abstract class Database
 			throw new RuntimeException("there is more than one integrity constraint with name "+column.integrityConstraintName);
 	}
 	
-	protected final List getTables()
-	{
-		return tables;
-	}
-	
 	protected final Statement createStatement()
 	{
 		return new Statement(useDefineColumnTypes);
@@ -1119,7 +1114,7 @@ abstract class Database
 	final ReportSchema requiredReport()
 	{
 		final ReportSchema report = new ReportSchema(this);
-		for(Iterator i = getTables().iterator(); i.hasNext(); )
+		for(Iterator i = tables.iterator(); i.hasNext(); )
 			((Table)i.next()).report(report);
 		appendReport(report);
 		return report;
