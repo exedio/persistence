@@ -104,8 +104,7 @@ public final class CopernicaServlet extends CopsServlet
 			if(out==null)
 				out = new PrintStream(response.getOutputStream(), false, ENCODING);
 
-			response.addHeader("WWW-Authenticate", "Basic realm=\"Copernica\"");
-			response.setStatus(response.SC_UNAUTHORIZED);
+			Cop.rejectAuthorizeBasic(response, "Copernica");
 			Copernica_Jspm.writeAuthenticationError(out, e);
 		}
 		catch(Exception e)
