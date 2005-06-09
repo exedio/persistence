@@ -60,7 +60,9 @@ final class ConnectionPool
 			if(size>0)
 			{
 				//System.out.println("connection pool: fetch "+(size-1));
-				return pool[--size];
+				final Connection connection = pool[--size];
+				pool[size] = null; // do not reference old connections anymore
+				return connection;
 			}
 			else
 			{
