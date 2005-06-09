@@ -1183,23 +1183,6 @@ abstract class Database
 		}
 	}
 
-	final void dropTable(final String tableName)
-	{
-		final Statement bf = createStatement();
-		bf.append("drop table ").
-			append(protectName(tableName));
-
-		try
-		{
-			//System.out.println("dropTable:"+bf);
-			executeSQLUpdate(bf, 0);
-		}
-		catch(ConstraintViolationException e)
-		{
-			throw new NestingRuntimeException(e);
-		}
-	}
-
 	final void analyzeTable(final String tableName)
 	{
 		final Statement bf = createStatement();
