@@ -1184,25 +1184,6 @@ abstract class Database
 		}
 	}
 
-	final void dropColumn(final String tableName, final String columnName)
-	{
-		final Statement bf = createStatement();
-		bf.append("alter table ").
-			append(protectName(tableName)).
-			append(" drop column ").
-			append(protectName(columnName));
-
-		try
-		{
-			//System.out.println("dropColumn:"+bf);
-			executeSQLUpdate(bf, 0);
-		}
-		catch(ConstraintViolationException e)
-		{
-			throw new NestingRuntimeException(e);
-		}
-	}
-	
 	abstract Statement getRenameColumnStatement(String tableName, String oldColumnName, String newColumnName, String columnType);
 
 	final void renameColumn(final String tableName,

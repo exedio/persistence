@@ -133,8 +133,15 @@ public final class ReportColumn extends ReportNode
 
 	public final void drop()
 	{
-		table.report.database.dropColumn(table.name, name);
-	}
+		final StringBuffer bf = new StringBuffer();
+		bf.append("alter table ").
+			append(protectName(table.name)).
+			append(" drop column ").
+			append(protectName(name));
 
+		//System.out.println("dropColumn:"+bf);
+		executeSQL(bf.toString());
+	}
+	
 }
 	
