@@ -72,6 +72,7 @@ public abstract class CopeLibTest extends CopeAssert
 					{
 						//printConnectionPoolCounter();
 						model.dropDatabase();
+						model.close();
 					}
 				}));
 				registeredDropDatabaseHook = true;

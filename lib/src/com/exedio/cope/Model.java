@@ -219,6 +219,11 @@ public final class Model
 		database.tearDownDatabase();
 		// TODO: remove data directories
 	}
+	
+	public void close()
+	{
+		database.connectionPool.flush();
+	}
 
 	public ReportSchema reportDatabase()
 	{

@@ -21,6 +21,8 @@ package com.exedio.cope;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import com.exedio.cope.util.PoolCounter;
 
@@ -87,6 +89,35 @@ final class ConnectionPool
 
 		// Important to do this outside the synchronized block!
 		connection.close();
+	}
+	
+	final void flush()
+	{
+		final ArrayList connections = new ArrayList(pool.length);
+
+		synchronized(lock)
+		{
+			if(size==0)
+				return;
+
+			System.out.println("connection pool: FLUSH "+size);
+			for(int i = 0; i<size; i++)
+			{
+				connections.add(pool[i]);
+				pool[i] = null; // do not reference old connections anymore
+			}
+			size = 0;
+		}
+		
+		try
+		{
+			for(Iterator i = connections.iterator(); i.hasNext(); )
+				((Connection)i.next()).close();
+		}
+		catch(SQLException e)
+		{
+			throw new NestingRuntimeException(e);
+		}
 	}
 
 }
