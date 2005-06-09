@@ -24,6 +24,7 @@ import java.sql.Types;
 import java.util.Iterator;
 import java.util.StringTokenizer;
 
+import com.exedio.dsmf.MysqlDriver;
 import com.mysql.jdbc.Driver;
 
 /**
@@ -57,7 +58,7 @@ public final class MysqlDatabase extends Database
 
 	protected MysqlDatabase(final Properties properties)
 	{
-		super(properties, null);
+		super(new MysqlDriver(), properties, null);
 	}
 
 	String getIntegerType(final int precision)
@@ -275,36 +276,4 @@ public final class MysqlDatabase extends Database
 		return bf.toString();
 	}
 	
-	String getRenameColumnStatement(final String tableName, final String oldColumnName, final String newColumnName, final String columnType)
-	{
-		final StringBuffer bf = new StringBuffer();
-		bf.append("alter table ").
-			append(tableName).
-			append(" change ").
-			append(oldColumnName).
-			append(' ').
-			append(newColumnName).
-			append(' ').
-			append(columnType);
-		return bf.toString();
-	}
-
-	// TODO is same as hsqldb
-	String getCreateColumnStatement(final String tableName, final String columnName, final String columnType)
-	{
-		final StringBuffer bf = new StringBuffer();
-		bf.append("alter table ").
-			append(tableName).
-			append(" add column ").
-			append(columnName).
-			append(' ').
-			append(columnType);
-		return bf.toString();
-	}
-
-	String getModifyColumnStatement(final String tableName, final String columnName, final String newColumnType)
-	{
-		throw new RuntimeException("not implemented");
-	}
-
 }

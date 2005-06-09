@@ -30,10 +30,11 @@ import java.util.Iterator;
 import java.util.Random;
 
 import oracle.jdbc.OracleStatement;
-import oracle.jdbc.driver.OracleDriver;
 import bak.pcj.IntIterator;
 import bak.pcj.list.IntList;
 import bak.pcj.map.IntKeyChainedHashMap;
+
+import com.exedio.dsmf.OracleDriver;
 
 final class OracleDatabase
 		extends Database
@@ -45,7 +46,7 @@ final class OracleDatabase
 	{
 		try
 		{
-			Class.forName(OracleDriver.class.getName());
+			Class.forName(oracle.jdbc.driver.OracleDriver.class.getName());
 		}
 		catch(ClassNotFoundException e)
 		{
@@ -55,7 +56,7 @@ final class OracleDatabase
 	
 	protected OracleDatabase(final Properties properties)
 	{
-		super(properties, properties.getDatabaseUser().toUpperCase());
+		super(new OracleDriver(), properties, properties.getDatabaseUser().toUpperCase());
 	}
 	
 	String getIntegerType(final int precision)
@@ -260,45 +261,6 @@ final class OracleDatabase
 		}
 	}
 
-	String getRenameColumnStatement(
-			final String tableName,
-			final String oldColumnName, final String newColumnName, final String columnType)
-	{
-		final StringBuffer bf = new StringBuffer();
-		bf.append("alter table ").
-			append(tableName).
-			append(" rename column ").
-			append(oldColumnName).
-			append(" to ").
-			append(newColumnName);
-		return bf.toString();
-	}
-
-	String getCreateColumnStatement(final String tableName, final String columnName, final String columnType)
-	{
-		final StringBuffer bf = new StringBuffer();
-		bf.append("alter table ").
-			append(tableName).
-			append(" add (").
-			append(columnName).
-			append(' ').
-			append(columnType).
-			append(')');
-		return bf.toString();
-	}
-
-	String getModifyColumnStatement(final String tableName, final String columnName, final String newColumnType)
-	{
-		final StringBuffer bf = new StringBuffer();
-		bf.append("alter table ").
-			append(tableName).
-			append(" modify ").
-			append(columnName).
-			append(' ').
-			append(newColumnType);
-		return bf.toString();
-	}
-	
 	protected void appendReport(final ReportSchema report)
 	{
 		final ReportTable planTable = new ReportTable(report, "PLAN_TABLE", true);

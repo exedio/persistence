@@ -29,20 +29,24 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+import com.exedio.dsmf.Driver;
+
 abstract class Database
 {
 	private final List tables = new ArrayList();
 	private final HashMap uniqueConstraintsByID = new HashMap();
 	private final HashMap itemColumnsByIntegrityConstraintName = new HashMap();
 	private boolean buildStage = true;
+	final Driver driver;
 	private final String schema;
 	private final boolean useDefineColumnTypes;
 	final ConnectionPool connectionPool;
 	final boolean hsqldb; // TODO remove hsqldb-specific stuff
 	final boolean mysql; // TODO remove mysql-specific stuff
 	
-	protected Database(final Properties properties, final String schema)
+	protected Database(final Driver driver, final Properties properties, final String schema)
 	{
+		this.driver = driver;
 		this.schema = schema;
 		this.useDefineColumnTypes = this instanceof DatabaseColumnTypesDefinable;
 		this.connectionPool = new ConnectionPool(properties);
@@ -1156,10 +1160,6 @@ abstract class Database
 				}, false);
 		}
 	}
-
-	abstract String getRenameColumnStatement(String tableName, String oldColumnName, String newColumnName, String columnType);
-	abstract String getCreateColumnStatement(String tableName, String columnName, String columnType);
-	abstract String getModifyColumnStatement(String tableName, String columnName, String newColumnType);
 
 	
 	

@@ -120,7 +120,7 @@ public final class ReportColumn extends ReportNode
 	{
 		//System.out.println("createColumn:"+bf);
 		executeSQL(
-			database.getCreateColumnStatement(
+			database.driver.getCreateColumnStatement(
 				protectName(table.name),
 				protectName(name),
 				getType()));
@@ -130,7 +130,7 @@ public final class ReportColumn extends ReportNode
 	{
 		//System.err.println("renameColumn:"+bf);
 		executeSQL(
-			database.getRenameColumnStatement(
+			database.driver.getRenameColumnStatement(
 				protectName(table.name),
 				protectName(name),
 				protectName(newName),
@@ -140,7 +140,7 @@ public final class ReportColumn extends ReportNode
 	public final void modify(final String newType)
 	{
 		executeSQL(
-			database.getModifyColumnStatement(
+			database.driver.getModifyColumnStatement(
 				protectName(table.name),
 				protectName(name),
 				newType));

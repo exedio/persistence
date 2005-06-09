@@ -24,6 +24,8 @@ import java.sql.Types;
 
 import org.hsqldb.jdbcDriver;
 
+import com.exedio.dsmf.HsqldbDriver;
+
 final class HsqldbDatabase
 		extends Database
 		implements
@@ -43,7 +45,7 @@ final class HsqldbDatabase
 
 	protected HsqldbDatabase(final Properties properties)
 	{
-		super(properties, null);
+		super(new HsqldbDriver(), properties, null);
 	}
 
 	String getIntegerType(final int precision)
@@ -119,37 +121,6 @@ final class HsqldbDatabase
 	protected String extractIntegrityConstraintName(final SQLException e)
 	{
 		return extractConstraintName(e, -8, "Integrity constraint violation ", ' ');
-	}
-
-	String getRenameColumnStatement(
-			final String tableName,
-			final String oldColumnName, final String newColumnName, final String columnType)
-	{
-		final StringBuffer bf = new StringBuffer();
-		bf.append("alter table ").
-			append(tableName).
-			append(" alter column ").
-			append(oldColumnName).
-			append(" rename to ").
-			append(newColumnName);
-		return bf.toString();
-	}
-
-	String getCreateColumnStatement(final String tableName, final String columnName, final String columnType)
-	{
-		final StringBuffer bf = new StringBuffer();
-		bf.append("alter table ").
-			append(tableName).
-			append(" add column ").
-			append(columnName).
-			append(' ').
-			append(columnType);
-		return bf.toString();
-	}
-
-	String getModifyColumnStatement(final String tableName, final String columnName, final String newColumnType)
-	{
-		throw new RuntimeException("not implemented");
 	}
 
 	void fillReport(final ReportSchema report)
