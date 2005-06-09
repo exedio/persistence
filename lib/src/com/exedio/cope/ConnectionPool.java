@@ -62,7 +62,7 @@ final class ConnectionPool
 			}
 			else
 			{
-				// TODO: may be one could do this outside the synchronzed block ??
+				// TODO: may be one could do this outside the synchronized block ??
 				//System.out.println("connection pool: CREATE");
 				return DriverManager.getConnection(url, user, password);
 			}
