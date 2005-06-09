@@ -726,6 +726,7 @@ abstract class Database
 				if(useDefineColumnTypes)
 					((DatabaseColumnTypesDefinable)this).defineColumnTypes(statement.columnTypes, sqlStatement);
 
+				//System.out.println(sqlText);
 				//long time = System.currentTimeMillis();
 				resultSet = sqlStatement.executeQuery(sqlText);
 				//long interval = System.currentTimeMillis() - time;
