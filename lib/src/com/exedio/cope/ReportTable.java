@@ -306,7 +306,14 @@ public final class ReportTable extends ReportNode
 	
 	public final void renameTo(final String newName)
 	{
-		report.database.renameTable(name, newName);
+		final StringBuffer bf = new StringBuffer();
+		bf.append("alter table ").
+			append(protectName(name)).
+			append(" rename to ").
+			append(protectName(newName));
+
+		//System.out.println("renameTable:"+bf);
+		executeSQL(bf.toString());
 	}
 
 	public final void drop()

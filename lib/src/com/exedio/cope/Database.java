@@ -1183,25 +1183,6 @@ abstract class Database
 		}
 	}
 
-	final void renameTable(final String oldTableName, final String newTableName)
-	{
-		final Statement bf = createStatement();
-		bf.append("alter table ").
-			append(protectName(oldTableName)).
-			append(" rename to ").
-			append(protectName(newTableName));
-
-		try
-		{
-			//System.out.println("renameTable:"+bf);
-			executeSQLUpdate(bf, 0);
-		}
-		catch(ConstraintViolationException e)
-		{
-			throw new NestingRuntimeException(e);
-		}
-	}
-
 	final void dropTable(final String tableName)
 	{
 		final Statement bf = createStatement();
