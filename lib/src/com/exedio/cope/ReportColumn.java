@@ -123,9 +123,15 @@ public final class ReportColumn extends ReportNode
 
 	public final void renameTo(final String newName)
 	{
-		table.report.database.renameColumn(table.name, name, newName, existingType);
+		//System.err.println("renameColumn:"+bf);
+		executeSQL(
+			database.getRenameColumnStatement(
+				protectName(table.name),
+				protectName(name),
+				protectName(newName),
+				existingType));
 	}
-
+	
 	public final void modify(final String newType)
 	{
 		table.report.database.modifyColumn(table.name, name, newType);

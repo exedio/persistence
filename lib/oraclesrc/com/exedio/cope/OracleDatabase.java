@@ -260,17 +260,18 @@ final class OracleDatabase
 		}
 	}
 
-	Statement getRenameColumnStatement(final String tableName,
+	String getRenameColumnStatement(
+			final String tableName,
 			final String oldColumnName, final String newColumnName, final String columnType)
 	{
-		final Statement bf = createStatement();
+		final StringBuffer bf = new StringBuffer();
 		bf.append("alter table ").
 			append(tableName).
 			append(" rename column ").
 			append(oldColumnName).
 			append(" to ").
 			append(newColumnName);
-		return bf;
+		return bf.toString();
 	}
 
 	Statement getCreateColumnStatement(final String tableName, final String columnName, final String columnType)

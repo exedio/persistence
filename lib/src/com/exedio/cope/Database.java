@@ -1184,29 +1184,7 @@ abstract class Database
 		}
 	}
 
-	abstract Statement getRenameColumnStatement(String tableName, String oldColumnName, String newColumnName, String columnType);
-
-	final void renameColumn(final String tableName,
-			final String oldColumnName, final String newColumnName, final String columnType)
-	{
-		final Statement bf =
-			getRenameColumnStatement(
-				protectName(tableName),
-				protectName(oldColumnName),
-				protectName(newColumnName),
-				columnType);
-
-		try
-		{
-			//System.err.println("renameColumn:"+bf);
-			executeSQLUpdate(bf, 0);
-		}
-		catch(ConstraintViolationException e)
-		{
-			throw new NestingRuntimeException(e);
-		}
-	}
-	
+	abstract String getRenameColumnStatement(String tableName, String oldColumnName, String newColumnName, String columnType);
 	abstract Statement getCreateColumnStatement(final String tableName, final String columnName, final String columnType);
 
 	final void createColumn(final ReportColumn column)

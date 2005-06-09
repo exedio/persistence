@@ -275,9 +275,9 @@ public final class MysqlDatabase extends Database
 		return bf.toString();
 	}
 	
-	Statement getRenameColumnStatement(final String tableName, final String oldColumnName, final String newColumnName, final String columnType)
+	String getRenameColumnStatement(final String tableName, final String oldColumnName, final String newColumnName, final String columnType)
 	{
-		final Statement bf = createStatement();
+		final StringBuffer bf = new StringBuffer();
 		bf.append("alter table ").
 			append(tableName).
 			append(" change ").
@@ -286,7 +286,7 @@ public final class MysqlDatabase extends Database
 			append(newColumnName).
 			append(' ').
 			append(columnType);
-		return bf;
+		return bf.toString();
 	}
 
 	// TODO is same as hsqldb
