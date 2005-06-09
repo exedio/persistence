@@ -18,6 +18,8 @@
 
 package com.exedio.cope.junit;
 
+import java.util.Iterator;
+
 import com.exedio.cope.Model;
 import com.exedio.cope.Properties;
 import com.exedio.cope.util.PoolCounter;
@@ -38,14 +40,13 @@ public abstract class CopeLibTest extends CopeAssert
 	protected final void printConnectionPoolCounter()
 	{
 		final PoolCounter connectionPoolCounter = model.getConnectionPoolCounter();
-		/*
+
 		System.out.println("ConnectionPool: "+connectionPoolCounter.getGetCounter()+", "+connectionPoolCounter.getPutCounter());
 		for(Iterator i = connectionPoolCounter.getPools().iterator(); i.hasNext(); )
 		{
 			final PoolCounter.Pool pool = (PoolCounter.Pool)i.next();
 			System.out.println("ConnectionPool:["+pool.getSize()+"]: "+pool.getLevel()+", "+pool.getMaxLevel()+", "+pool.getCreateCounter()+", "+pool.getDestroyCounter()+", "+pool.getLoss());
 		}
-		*/
 	}
 
 	private final void createDatabase()
@@ -69,7 +70,7 @@ public abstract class CopeLibTest extends CopeAssert
 				Runtime.getRuntime().addShutdownHook(new Thread(new Runnable(){
 					public void run()
 					{
-						printConnectionPoolCounter();
+						//printConnectionPoolCounter();
 						model.dropDatabase();
 					}
 				}));
