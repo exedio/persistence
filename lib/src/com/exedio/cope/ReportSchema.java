@@ -100,7 +100,7 @@ public final class ReportSchema extends ReportNode
 		for(ListIterator i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
 			database.dropForeignKeyConstraints((ReportTable)i.previous(), false);
 		for(ListIterator i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
-			database.dropTable((ReportTable)i.previous());
+			((ReportTable)i.previous()).drop();
 		//final long amount = (System.currentTimeMillis()-time);
 		//dropTableTime += amount;
 		//System.out.println("DROP TABLES "+amount+"ms  accumulated "+dropTableTime);

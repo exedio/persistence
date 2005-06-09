@@ -311,9 +311,13 @@ public final class ReportTable extends ReportNode
 
 	public final void drop()
 	{
-		report.database.dropTable(name);
-	}
+		final StringBuffer bf = new StringBuffer();
+		bf.append("drop table ").
+			append(protectName(name));
 
+		executeSQL(bf.toString());
+	}
+	
 	public final void analyze()
 	{
 		report.database.analyzeTable(name);

@@ -219,7 +219,7 @@ abstract class Database
 				{
 					final ReportTable table = (ReportTable)i.next();
 					System.err.print("DROPPING TABLE "+table+" ... ");
-					dropTable(table);
+					table.drop();
 					System.err.println("done.");
 					// remove the table, so it's not tried again
 					i.remove();
@@ -1060,22 +1060,6 @@ abstract class Database
 	abstract String getIntegerType(int precision);
 	abstract String getDoubleType(int precision);
 	abstract String getStringType(int maxLength);
-	
-	void dropTable(final ReportTable table) 
-	{
-		final Statement bf = createStatement();
-		bf.append("drop table ").
-			append(protectName(table.name));
-
-		try
-		{
-			executeSQLUpdate(bf, 0);
-		}
-		catch(ConstraintViolationException e)
-		{
-			throw new NestingRuntimeException(e);
-		}
-	}
 	
 	private int countTable(final Table table)
 	{
