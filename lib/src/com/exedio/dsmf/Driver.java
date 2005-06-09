@@ -21,6 +21,17 @@ package com.exedio.dsmf;
 
 public abstract class Driver
 {
+	
+	/**
+	 * Protects a database name from being interpreted as a SQL keyword.
+	 * This is usually done by enclosing the name with some (database specific) delimiters.
+	 * The default implementation uses double quotes as delimiter.
+	 */
+	public String protectName(final String name)
+	{
+		return '"' + name + '"';
+	}
+
 	public abstract String getRenameColumnStatement(String tableName, String oldColumnName, String newColumnName, String columnType);
 	public abstract String getCreateColumnStatement(String tableName, String columnName, String columnType);
 	public abstract String getModifyColumnStatement(String tableName, String columnName, String newColumnType);

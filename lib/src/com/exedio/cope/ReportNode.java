@@ -44,7 +44,7 @@ public abstract class ReportNode
 
 	protected final String protectName(final String name)
 	{
-		return database.protectName(name);
+		return driver.protectName(name);
 	}
 	
 	protected final void executeSQL(final String statement)

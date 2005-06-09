@@ -347,7 +347,7 @@ public class ReportTest extends DatabaseLibTest
 	
 	private final String protect(final String name)
 	{
-		return model.getDatabase().protectName(name);
+		return model.getDatabase().driver.protectName(name);
 	}
 	
 }

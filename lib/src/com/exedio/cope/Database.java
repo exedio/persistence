@@ -998,16 +998,6 @@ abstract class Database
 		return trimString(longName, 25);
 	}
 
-	/**
-	 * Protects a database name from being interpreted as a SQL keyword.
-	 * This is usually done by enclosing the name with some (database specific) delimiters.
-	 * The default implementation uses double quotes as delimiter.
-	 */
-	protected String protectName(final String name)
-	{
-		return '"' + name + '"';
-	}
-
 	protected boolean supportsCheckConstraints()
 	{
 		return true;

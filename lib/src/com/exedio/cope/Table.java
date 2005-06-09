@@ -33,7 +33,7 @@ final class Table
 	{
 		this.database = database;
 		this.id = database.trimName(id).intern();
-		this.protectedID = database.protectName(this.id).intern();
+		this.protectedID = database.driver.protectName(this.id).intern();
 		database.addTable(this);
 	}
 	

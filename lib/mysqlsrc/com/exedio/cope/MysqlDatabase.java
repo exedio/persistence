@@ -103,21 +103,14 @@ public final class MysqlDatabase extends Database
 		}
 	}
 	
-	private static final char PROTECTOR = '`';
-
-	protected String protectName(final String name)
-	{
-		return PROTECTOR + name + PROTECTOR;
-	}
-	
 	private final String unprotectName(final String protectedName)
 	{
 		final int length = protectedName.length();
 		if(length<3)
 			throw new RuntimeException(protectedName);
-		if(protectedName.charAt(0)!=PROTECTOR)
+		if(protectedName.charAt(0)!=MysqlDriver.PROTECTOR)
 			throw new RuntimeException(protectedName);
-		if(protectedName.charAt(length-1)!=PROTECTOR)
+		if(protectedName.charAt(length-1)!=MysqlDriver.PROTECTOR)
 			throw new RuntimeException(protectedName);
 
 		return protectedName.substring(1, protectedName.length()-1);
@@ -163,7 +156,7 @@ public final class MysqlDatabase extends Database
 				{
 					final Statement bf = createStatement();
 					bf.append("show columns from ").
-						append(protectName(reportTable.name));
+						append(driver.protectName(reportTable.name));
 					executeSQLQuery(bf, new ResultSetHandler()
 						{
 							public void run(final ResultSet resultSet) throws SQLException
@@ -198,7 +191,7 @@ public final class MysqlDatabase extends Database
 				{
 					final Statement bf = createStatement();
 					bf.append("show create table ").
-						append(protectName(reportTable.name));
+						append(driver.protectName(reportTable.name));
 					executeSQLQuery(bf, new ResultSetHandler()
 						{
 							public void run(final ResultSet resultSet) throws SQLException

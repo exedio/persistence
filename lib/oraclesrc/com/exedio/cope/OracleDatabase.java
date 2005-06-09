@@ -154,7 +154,7 @@ final class OracleDatabase
 			else
 				bf.append(',');
 			
-			bf.append(protectName((String)i.next()));
+			bf.append(driver.protectName((String)i.next()));
 		}
 		bf.append(')');
 		return table.notifyExistentUniqueConstraint(constraintName, bf.toString());

@@ -147,7 +147,7 @@ final class HsqldbDatabase
 						
 						if("CHECK".equals(constraintType))
 						{
-							final String tablePrefix = protectName(tableName)+'.';
+							final String tablePrefix = driver.protectName(tableName)+'.';
 							String checkClause = resultSet.getString(4);
 							for(int pos = checkClause.indexOf(tablePrefix); pos>=0; pos = checkClause.indexOf(tablePrefix))
 								checkClause = checkClause.substring(0, pos) + checkClause.substring(pos+tablePrefix.length());
@@ -181,7 +181,7 @@ final class HsqldbDatabase
 											else
 												clause.append(',');
 											final String columnName = resultSet.getString(1);
-											clause.append(protectName(columnName));
+											clause.append(driver.protectName(columnName));
 										}
 										clause.append(')');
 									}

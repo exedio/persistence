@@ -22,6 +22,16 @@ package com.exedio.dsmf;
 public final class MysqlDriver extends Driver
 {
 
+	/**
+	 * TODO make non-public
+	 */
+	public static final char PROTECTOR = '`';
+
+	public String protectName(final String name)
+	{
+		return PROTECTOR + name + PROTECTOR;
+	}
+	
 	public String getRenameColumnStatement(final String tableName, final String oldColumnName, final String newColumnName, final String columnType)
 	{
 		final StringBuffer bf = new StringBuffer();
