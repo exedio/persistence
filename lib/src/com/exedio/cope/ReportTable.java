@@ -343,9 +343,15 @@ public final class ReportTable extends ReportNode
 	
 	public final void analyze()
 	{
-		report.database.analyzeTable(name);
+		final StringBuffer bf = new StringBuffer();
+		bf.append("analyze table ").
+			append(protectName(name)).
+			append(" compute statistics");
+
+		//System.out.println("analyzeTable:"+bf);
+		executeSQL(bf.toString());
 	}
-	
+
 	public final String toString()
 	{
 		return name;

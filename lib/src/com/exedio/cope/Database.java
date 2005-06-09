@@ -1184,24 +1184,6 @@ abstract class Database
 		}
 	}
 
-	final void analyzeTable(final String tableName)
-	{
-		final Statement bf = createStatement();
-		bf.append("analyze table ").
-			append(protectName(tableName)).
-			append(" compute statistics");
-
-		try
-		{
-			//System.out.println("analyzeTable:"+bf);
-			executeSQLUpdate(bf, 0);
-		}
-		catch(ConstraintViolationException e)
-		{
-			throw new NestingRuntimeException(e);
-		}
-	}
-
 	final void dropColumn(final String tableName, final String columnName)
 	{
 		final Statement bf = createStatement();
