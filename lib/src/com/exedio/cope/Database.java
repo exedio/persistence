@@ -42,7 +42,6 @@ abstract class Database
 	private final boolean useDefineColumnTypes;
 	final ConnectionPool connectionPool;
 	final boolean hsqldb; // TODO remove hsqldb-specific stuff
-	final boolean mysql; // TODO remove mysql-specific stuff
 	
 	protected Database(final Driver driver, final Properties properties, final String schema)
 	{
@@ -51,7 +50,6 @@ abstract class Database
 		this.useDefineColumnTypes = this instanceof DatabaseColumnTypesDefinable;
 		this.connectionPool = new ConnectionPool(properties);
 		this.hsqldb = "com.exedio.cope.HsqldbDatabase".equals(getClass().getName()); 
-		this.mysql = "com.exedio.cope.MysqlDatabase".equals(getClass().getName()); 
 		//System.out.println("using database "+getClass());
 	}
 	

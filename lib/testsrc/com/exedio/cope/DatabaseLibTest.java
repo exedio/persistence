@@ -37,7 +37,7 @@ public abstract class DatabaseLibTest extends AbstractLibTest
 	{
 		super.setUp();
 		hsqldb = model.getDatabase().hsqldb;
-		mysql  = model.getDatabase().mysql;
+		mysql  = "com.exedio.cope.MysqlDatabase".equals(model.getDatabase().getClass().getName());
 	}
 
 	protected InputStream stream(byte[] data)
