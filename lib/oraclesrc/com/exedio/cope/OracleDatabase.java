@@ -287,16 +287,16 @@ final class OracleDatabase
 		return bf.toString();
 	}
 
-	Statement getModifyColumnStatement(final String tableName, final String columnName, final String newColumnType)
+	String getModifyColumnStatement(final String tableName, final String columnName, final String newColumnType)
 	{
-		final Statement bf = createStatement();
+		final StringBuffer bf = new StringBuffer();
 		bf.append("alter table ").
 			append(tableName).
 			append(" modify ").
 			append(columnName).
 			append(' ').
 			append(newColumnType);
-		return bf;
+		return bf.toString();
 	}
 	
 	protected void appendReport(final ReportSchema report)

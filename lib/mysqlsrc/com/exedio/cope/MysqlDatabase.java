@@ -302,7 +302,7 @@ public final class MysqlDatabase extends Database
 		return bf.toString();
 	}
 
-	Statement getModifyColumnStatement(final String tableName, final String columnName, final String newColumnType)
+	String getModifyColumnStatement(final String tableName, final String columnName, final String newColumnType)
 	{
 		throw new RuntimeException("not implemented");
 	}

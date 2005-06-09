@@ -139,7 +139,11 @@ public final class ReportColumn extends ReportNode
 	
 	public final void modify(final String newType)
 	{
-		table.report.database.modifyColumn(table.name, name, newType);
+		executeSQL(
+			database.getModifyColumnStatement(
+				protectName(table.name),
+				protectName(name),
+				newType));
 	}
 
 	public final void drop()

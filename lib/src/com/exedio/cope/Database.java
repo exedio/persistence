@@ -1181,26 +1181,7 @@ abstract class Database
 
 	abstract String getRenameColumnStatement(String tableName, String oldColumnName, String newColumnName, String columnType);
 	abstract String getCreateColumnStatement(String tableName, String columnName, String columnType);
-	abstract Statement getModifyColumnStatement(final String tableName, final String columnName, final String newColumnType);
-
-	final void modifyColumn(final String tableName, final String columnName, final String newColumnType)
-	{
-		final Statement bf =
-			getModifyColumnStatement(
-				protectName(tableName),
-				protectName(columnName),
-				newColumnType);
-
-		try
-		{
-			//System.out.println("modifyColumn:"+bf);
-			executeSQLUpdate(bf, 0);
-		}
-		catch(ConstraintViolationException e)
-		{
-			throw new NestingRuntimeException(e);
-		}
-	}
+	abstract String getModifyColumnStatement(String tableName, String columnName, String newColumnType);
 
 	static final ResultSetHandler logHandler = new ResultSetHandler()
 	{
