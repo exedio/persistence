@@ -54,7 +54,7 @@ public abstract class ReportNode
 			sqlStatement = connection.createStatement();
 			final int rows = sqlStatement.executeUpdate(statement);
 
-			//System.out.println("("+rows+"): "+statement.getText());
+			//System.out.println("("+rows+"): "+statement);
 			if(rows!=0)
 				throw new RuntimeException("expected no rows, but got "+rows+" on statement "+statement);
 		}
