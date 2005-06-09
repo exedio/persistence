@@ -108,7 +108,7 @@ final class ConnectionPool
 			if(size==0)
 				return;
 
-			System.out.println("connection pool: FLUSH "+size);
+			//System.out.println("connection pool: FLUSH "+size);
 			for(int i = 0; i<size; i++)
 			{
 				connections.add(pool[i]);
