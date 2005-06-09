@@ -20,6 +20,7 @@ package com.exedio.cope;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import com.exedio.dsmf.ConnectionProvider;
 import com.exedio.dsmf.Driver;
 
 public abstract class ReportNode
@@ -29,14 +30,14 @@ public abstract class ReportNode
 	public static final int COLOR_WARNING = 2;
 	public static final int COLOR_ERROR = 3;
 	
-	final Database database;
+	final ConnectionProvider database;
 	final Driver driver;
 
 	protected String error = null;
 	protected int particularColor = ReportSchema.COLOR_NOT_YET_CALC;
 	protected int cumulativeColor = ReportSchema.COLOR_NOT_YET_CALC;
 	
-	ReportNode(final Database database, final Driver driver)
+	ReportNode(final ConnectionProvider database, final Driver driver)
 	{
 		this.database = database;
 		this.driver = driver;
@@ -53,7 +54,7 @@ public abstract class ReportNode
 		java.sql.Statement sqlStatement = null;
 		try
 		{
-			connection = database.connectionPool.getConnection();
+			connection = database.getConnection();
 			//System.err.println(statement);
 			sqlStatement = connection.createStatement();
 			final int rows = sqlStatement.executeUpdate(statement);
@@ -83,7 +84,7 @@ public abstract class ReportNode
 			{
 				try
 				{
-					database.connectionPool.putConnection(connection);
+					database.putConnection(connection);
 				}
 				catch(SQLException e)
 				{

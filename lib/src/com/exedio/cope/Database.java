@@ -1075,7 +1075,7 @@ abstract class Database
 	
 	final ReportSchema requiredReport()
 	{
-		final ReportSchema report = new ReportSchema(this);
+		final ReportSchema report = new ReportSchema(connectionPool, driver);
 		for(Iterator i = tables.iterator(); i.hasNext(); )
 			((Table)i.next()).report(report);
 		appendReport(report);

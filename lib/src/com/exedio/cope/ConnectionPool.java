@@ -25,8 +25,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import com.exedio.cope.util.PoolCounter;
+import com.exedio.dsmf.ConnectionProvider;
 
-final class ConnectionPool
+final class ConnectionPool implements ConnectionProvider
 {
 	// TODO: allow changing pool size
 	// TODO: gather pool effectivity statistics
@@ -52,7 +53,7 @@ final class ConnectionPool
 		this.counter = new PoolCounter(new int[]{0,1,2,3,4,5,6,7,8,9,10,12,15,16,18,20,25,30,35,40,45,50,60,70,80,90,100,120,140,160,180,200,250,300,350,400,450,500,600,700,800,900,1000});
 	}
 
-	final Connection getConnection() throws SQLException
+	public final Connection getConnection() throws SQLException
 	{
 		counter.get();
 
@@ -74,7 +75,7 @@ final class ConnectionPool
 		return DriverManager.getConnection(url, user, password);
 	}
 
-	final void putConnection(final Connection connection) throws SQLException
+	public final void putConnection(final Connection connection) throws SQLException
 	{
 		counter.put();
 		

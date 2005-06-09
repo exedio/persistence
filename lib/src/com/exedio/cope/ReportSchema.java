@@ -23,14 +23,17 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
+import com.exedio.dsmf.ConnectionProvider;
+import com.exedio.dsmf.Driver;
+
 public final class ReportSchema extends ReportNode
 {
 	private final HashMap tableMap = new HashMap();
 	private final ArrayList tableList = new ArrayList();
 	
-	ReportSchema(final Database database)
+	ReportSchema(final ConnectionProvider database, final Driver driver)
 	{
-		super(database, database.driver);
+		super(database, driver);
 	}
 
 	final void register(final ReportTable table)
