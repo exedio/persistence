@@ -189,51 +189,7 @@ abstract class Database
 		buildStage = false;
 
 		final ReportSchema report = requiredReport();
-		final List tables = report.getTables();
-
-		System.err.println("TEAR DOWN ALL DATABASE");
-		for(Iterator i = tables.iterator(); i.hasNext(); )
-		{
-			try
-			{
-				final ReportTable table = (ReportTable)i.next();
-				table.dropForeignKeyConstraints(true);
-			}
-			catch(NestingRuntimeException e2)
-			{
-				System.err.println("failed:"+e2.getMessage());
-			}
-		}
-		
-		final ArrayList tablesToDelete = new ArrayList(tables);
-
-		boolean deleted;
-		int run = 1;
-		do
-		{
-			deleted = false;
-			
-			for(Iterator i = tablesToDelete.iterator(); i.hasNext(); )
-			{
-				try
-				{
-					final ReportTable table = (ReportTable)i.next();
-					System.err.print("DROPPING TABLE "+table+" ... ");
-					table.drop();
-					System.err.println("done.");
-					// remove the table, so it's not tried again
-					i.remove();
-					// remember there was at least one table deleted
-					deleted = true;
-				}
-				catch(NestingRuntimeException e2)
-				{
-					System.err.println("failed:"+e2.getMessage());
-				}
-			}
-			System.err.println("FINISH STAGE "+(run++));
-		}
-		while(deleted);
+		report.tearDown();
 	}
 
 	void checkEmptyDatabase()
