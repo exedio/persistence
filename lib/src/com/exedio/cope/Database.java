@@ -1185,27 +1185,7 @@ abstract class Database
 	}
 
 	abstract String getRenameColumnStatement(String tableName, String oldColumnName, String newColumnName, String columnType);
-	abstract Statement getCreateColumnStatement(final String tableName, final String columnName, final String columnType);
-
-	final void createColumn(final ReportColumn column)
-	{
-		final Statement bf =
-			getCreateColumnStatement(
-				protectName(column.table.name),
-				protectName(column.name),
-				column.getType());
-
-		try
-		{
-			//System.out.println("createColumn:"+bf);
-			executeSQLUpdate(bf, 0);
-		}
-		catch(ConstraintViolationException e)
-		{
-			throw new NestingRuntimeException(e);
-		}
-	}
-
+	abstract String getCreateColumnStatement(String tableName, String columnName, String columnType);
 	abstract Statement getModifyColumnStatement(final String tableName, final String columnName, final String newColumnType);
 
 	final void modifyColumn(final String tableName, final String columnName, final String newColumnType)

@@ -290,16 +290,16 @@ public final class MysqlDatabase extends Database
 	}
 
 	// TODO is same as hsqldb
-	Statement getCreateColumnStatement(final String tableName, final String columnName, final String columnType)
+	String getCreateColumnStatement(final String tableName, final String columnName, final String columnType)
 	{
-		final Statement bf = createStatement();
+		final StringBuffer bf = new StringBuffer();
 		bf.append("alter table ").
 			append(tableName).
 			append(" add column ").
 			append(columnName).
 			append(' ').
 			append(columnType);
-		return bf;
+		return bf.toString();
 	}
 
 	Statement getModifyColumnStatement(final String tableName, final String columnName, final String newColumnType)

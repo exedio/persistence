@@ -274,9 +274,9 @@ final class OracleDatabase
 		return bf.toString();
 	}
 
-	Statement getCreateColumnStatement(final String tableName, final String columnName, final String columnType)
+	String getCreateColumnStatement(final String tableName, final String columnName, final String columnType)
 	{
-		final Statement bf = createStatement();
+		final StringBuffer bf = new StringBuffer();
 		bf.append("alter table ").
 			append(tableName).
 			append(" add (").
@@ -284,7 +284,7 @@ final class OracleDatabase
 			append(' ').
 			append(columnType).
 			append(')');
-		return bf;
+		return bf.toString();
 	}
 
 	Statement getModifyColumnStatement(final String tableName, final String columnName, final String newColumnType)

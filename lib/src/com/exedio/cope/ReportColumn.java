@@ -118,7 +118,12 @@ public final class ReportColumn extends ReportNode
 		
 	public final void create()
 	{
-		table.report.database.createColumn(this);
+		//System.out.println("createColumn:"+bf);
+		executeSQL(
+			database.getCreateColumnStatement(
+				protectName(table.name),
+				protectName(name),
+				getType()));
 	}
 
 	public final void renameTo(final String newName)
