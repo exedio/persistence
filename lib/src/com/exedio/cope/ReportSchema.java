@@ -98,7 +98,7 @@ public final class ReportSchema extends ReportNode
 		//final long time = System.currentTimeMillis();
 		// must delete in reverse order, to obey integrity constraints
 		for(ListIterator i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
-			database.dropForeignKeyConstraints((ReportTable)i.previous(), false);
+			((ReportTable)i.previous()).dropForeignKeyConstraints(false);
 		for(ListIterator i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
 			((ReportTable)i.previous()).drop();
 		//final long amount = (System.currentTimeMillis()-time);

@@ -265,14 +265,14 @@ public final class MysqlDatabase extends Database
 		}
 	}
 
-	protected Statement getDropForeignKeyConstraintStatement(final ReportTable table, final ReportForeignKeyConstraint fk)
+	protected String getDropForeignKeyConstraintStatement(final ReportTable table, final ReportForeignKeyConstraint fk)
 	{
-		final Statement bf = createStatement();
+		final StringBuffer bf = new StringBuffer();
 		bf.append("alter table ").
 			append(protectName(table.name)).
 			append(" drop foreign key ").
 			append(protectName(fk.name));
-		return bf;
+		return bf.toString();
 	}
 	
 	Statement getRenameColumnStatement(final String tableName, final String oldColumnName, final String newColumnName, final String columnType)

@@ -197,7 +197,7 @@ abstract class Database
 			try
 			{
 				final ReportTable table = (ReportTable)i.next();
-				dropForeignKeyConstraints(table, true);
+				table.dropForeignKeyConstraints(true);
 			}
 			catch(NestingRuntimeException e2)
 			{
@@ -1086,39 +1086,14 @@ abstract class Database
 	}
 
 
-	protected Statement getDropForeignKeyConstraintStatement(final ReportTable table, final ReportForeignKeyConstraint fk)
+	protected String getDropForeignKeyConstraintStatement(final ReportTable table, final ReportForeignKeyConstraint fk)
 	{
-		final Statement bf = createStatement();
+		final StringBuffer bf = new StringBuffer();
 		bf.append("alter table ").
 			append(protectName(table.name)).
 			append(" drop constraint ").
 			append(protectName(fk.name));
-		return bf;
-	}
-	
-	final void dropForeignKeyConstraints(final ReportTable table, final boolean log) 
-	{
-		for(Iterator i = table.getConstraints().iterator(); i.hasNext(); )
-		{
-			final ReportConstraint constraint = (ReportConstraint)i.next();
-			//System.out.println("dropForeignKeyConstraints("+column+")");
-			if(constraint instanceof ReportForeignKeyConstraint)
-			{
-				final ReportForeignKeyConstraint fk = (ReportForeignKeyConstraint)constraint;
-				final Statement bf = getDropForeignKeyConstraintStatement(table, fk);
-
-				if(log)
-					System.err.println("DROPPING FOREIGN KEY CONSTRAINTS "+table.name+" "+fk.name+"... ");
-				try
-				{
-					executeSQLUpdate(bf, 0);
-				}
-				catch(ConstraintViolationException e)
-				{
-					throw new NestingRuntimeException(e);
-				}
-			}
-		}
+		return bf.toString();
 	}
 	
 	final int[] getMinMaxPK(final Table table)

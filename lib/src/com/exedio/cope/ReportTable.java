@@ -318,6 +318,25 @@ public final class ReportTable extends ReportNode
 		executeSQL(bf.toString());
 	}
 	
+	final void dropForeignKeyConstraints(final boolean log) 
+	{
+		for(Iterator i = constraintList.iterator(); i.hasNext(); )
+		{
+			final ReportConstraint constraint = (ReportConstraint)i.next();
+			//System.out.println("dropForeignKeyConstraints("+column+")");
+			if(constraint instanceof ReportForeignKeyConstraint)
+			{
+				final ReportForeignKeyConstraint fk = (ReportForeignKeyConstraint)constraint;
+				final String bf = database.getDropForeignKeyConstraintStatement(this, fk);
+
+				if(log)
+					System.err.println("DROPPING FOREIGN KEY CONSTRAINTS "+name+" "+fk.name+"... ");
+
+				executeSQL(bf);
+			}
+		}
+	}
+	
 	public final void analyze()
 	{
 		report.database.analyzeTable(name);
