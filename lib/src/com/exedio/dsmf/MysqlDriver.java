@@ -37,6 +37,11 @@ public final class MysqlDriver extends Driver
 		bf.append(" engine=innodb");
 	}
 	
+	public boolean needsTargetColumnName()
+	{
+		return true;
+	}
+	
 	public String getRenameColumnStatement(final String tableName, final String oldColumnName, final String newColumnName, final String columnType)
 	{
 		final StringBuffer bf = new StringBuffer();

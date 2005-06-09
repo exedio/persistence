@@ -53,7 +53,7 @@ public class ReportForeignKeyConstraint extends ReportConstraint
 			append(") references ").
 			append(protectName(targetTable));
 
-		if(database.mysql)
+		if(driver.needsTargetColumnName())
 		{
 			bf.append('(').
 				append(protectName(targetColumn)).

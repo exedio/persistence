@@ -36,6 +36,11 @@ public abstract class Driver
 	{
 	}
 	
+	public boolean needsTargetColumnName()
+	{
+		return false;
+	}
+	
 	public abstract String getRenameColumnStatement(String tableName, String oldColumnName, String newColumnName, String columnType);
 	public abstract String getCreateColumnStatement(String tableName, String columnName, String columnType);
 	public abstract String getModifyColumnStatement(String tableName, String columnName, String newColumnType);
