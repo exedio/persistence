@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 public final class ReportSchema extends ReportNode
 {
@@ -92,4 +93,17 @@ public final class ReportSchema extends ReportNode
 		//System.out.println("CREATE TABLES "+amount+"ms  accumulated "+createTableTime);
 	}
 
+	final void drop()
+	{
+		//final long time = System.currentTimeMillis();
+		// must delete in reverse order, to obey integrity constraints
+		for(ListIterator i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
+			database.dropForeignKeyConstraints((ReportTable)i.previous(), false);
+		for(ListIterator i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
+			database.dropTable((ReportTable)i.previous());
+		//final long amount = (System.currentTimeMillis()-time);
+		//dropTableTime += amount;
+		//System.out.println("DROP TABLES "+amount+"ms  accumulated "+dropTableTime);
+	}
+	
 }

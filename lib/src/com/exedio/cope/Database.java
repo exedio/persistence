@@ -28,7 +28,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 abstract class Database
 {
@@ -182,17 +181,7 @@ abstract class Database
 		buildStage = false;
 
 		final ReportSchema report = requiredReport();
-		final List tables = report.getTables();
-
-		//final long time = System.currentTimeMillis();
-		// must delete in reverse order, to obey integrity constraints
-		for(ListIterator i = tables.listIterator(tables.size()); i.hasPrevious(); )
-			dropForeignKeyConstraints((ReportTable)i.previous(), false);
-		for(ListIterator i = tables.listIterator(tables.size()); i.hasPrevious(); )
-			dropTable((ReportTable)i.previous());
-		//final long amount = (System.currentTimeMillis()-time);
-		//dropTableTime += amount;
-		//System.out.println("DROP TABLES "+amount+"ms  accumulated "+dropTableTime);
+		report.drop();
 	}
 	
 	void tearDownDatabase()
@@ -1072,7 +1061,7 @@ abstract class Database
 	abstract String getDoubleType(int precision);
 	abstract String getStringType(int maxLength);
 	
-	private void dropTable(final ReportTable table) 
+	void dropTable(final ReportTable table) 
 	{
 		final Statement bf = createStatement();
 		bf.append("drop table ").
@@ -1123,7 +1112,7 @@ abstract class Database
 		return bf;
 	}
 	
-	private final void dropForeignKeyConstraints(final ReportTable table, final boolean log) 
+	final void dropForeignKeyConstraints(final ReportTable table, final boolean log) 
 	{
 		for(Iterator i = table.getConstraints().iterator(); i.hasNext(); )
 		{
