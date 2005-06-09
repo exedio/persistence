@@ -67,13 +67,11 @@ final class ConnectionPool
 				pool[size] = null; // do not reference old connections anymore
 				return connection;
 			}
-			else
-			{
-				// TODO: may be one could do this outside the synchronized block ??
-				//System.out.println("connection pool: CREATE");
-				return DriverManager.getConnection(url, user, password);
-			}
 		}
+		//System.out.println("connection pool: CREATE");
+
+		// Important to do this outside the synchronized block!
+		return DriverManager.getConnection(url, user, password);
 	}
 
 	final void putConnection(final Connection connection) throws SQLException
