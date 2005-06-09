@@ -266,14 +266,4 @@ public final class MysqlDatabase extends Database
 		}
 	}
 
-	protected String getDropForeignKeyConstraintStatement(final ReportTable table, final ReportForeignKeyConstraint fk)
-	{
-		final StringBuffer bf = new StringBuffer();
-		bf.append("alter table ").
-			append(protectName(table.name)).
-			append(" drop foreign key ").
-			append(protectName(fk.name));
-		return bf.toString();
-	}
-	
 }

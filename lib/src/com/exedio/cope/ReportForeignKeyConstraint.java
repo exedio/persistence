@@ -66,7 +66,7 @@ public class ReportForeignKeyConstraint extends ReportConstraint
 	
 	final void drop()
 	{
-		executeSQL(database.getDropForeignKeyConstraintStatement(table, this));
+		executeSQL(driver.getDropForeignKeyConstraintStatement(protectName(table.name), protectName(name)));
 	}
 
 }

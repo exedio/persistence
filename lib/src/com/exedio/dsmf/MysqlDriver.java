@@ -54,4 +54,14 @@ public final class MysqlDriver extends Driver
 		throw new RuntimeException("not implemented");
 	}
 
+	public String getDropForeignKeyConstraintStatement(final String tableName, final String constraintName)
+	{
+		final StringBuffer bf = new StringBuffer();
+		bf.append("alter table ").
+			append(tableName).
+			append(" drop foreign key ").
+			append(constraintName);
+		return bf.toString();
+	}
+	
 }

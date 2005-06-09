@@ -1042,16 +1042,6 @@ abstract class Database
 	}
 
 
-	protected String getDropForeignKeyConstraintStatement(final ReportTable table, final ReportForeignKeyConstraint fk)
-	{
-		final StringBuffer bf = new StringBuffer();
-		bf.append("alter table ").
-			append(protectName(table.name)).
-			append(" drop constraint ").
-			append(protectName(fk.name));
-		return bf.toString();
-	}
-	
 	final int[] getMinMaxPK(final Table table)
 	{
 		buildStage = false;
