@@ -26,7 +26,7 @@ public final class ReportLastAnalyzed extends ReportNode
 		
 	ReportLastAnalyzed(final ReportTable table, final Date lastAnalyzed)
 	{
-		super(table.database);
+		super(table.database, table.driver);
 		this.table = table;
 		this.lastAnalyzed = lastAnalyzed;
 	}

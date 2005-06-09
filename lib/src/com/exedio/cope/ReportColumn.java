@@ -26,7 +26,7 @@ public final class ReportColumn extends ReportNode
 		
 	ReportColumn(final ReportTable table, final String name, final String type, final boolean required)
 	{
-		super(table.database);
+		super(table.database, table.driver);
 
 		if(table==null)
 			throw new RuntimeException(name);
@@ -120,7 +120,7 @@ public final class ReportColumn extends ReportNode
 	{
 		//System.out.println("createColumn:"+bf);
 		executeSQL(
-			database.driver.getCreateColumnStatement(
+			driver.getCreateColumnStatement(
 				protectName(table.name),
 				protectName(name),
 				getType()));
@@ -130,7 +130,7 @@ public final class ReportColumn extends ReportNode
 	{
 		//System.err.println("renameColumn:"+bf);
 		executeSQL(
-			database.driver.getRenameColumnStatement(
+			driver.getRenameColumnStatement(
 				protectName(table.name),
 				protectName(name),
 				protectName(newName),
@@ -140,7 +140,7 @@ public final class ReportColumn extends ReportNode
 	public final void modify(final String newType)
 	{
 		executeSQL(
-			database.driver.getModifyColumnStatement(
+			driver.getModifyColumnStatement(
 				protectName(table.name),
 				protectName(name),
 				newType));

@@ -30,7 +30,7 @@ public final class ReportSchema extends ReportNode
 	
 	ReportSchema(final Database database)
 	{
-		super(database);
+		super(database, database.driver);
 	}
 
 	final void register(final ReportTable table)

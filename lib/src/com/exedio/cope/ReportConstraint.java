@@ -40,7 +40,7 @@ public abstract class ReportConstraint extends ReportNode
 
 	ReportConstraint(final ReportTable table, final String name, final int type, final boolean required, final String condition)
 	{
-		super(table.database);
+		super(table.database, table.driver);
 		
 		if(table==null)
 			throw new RuntimeException(name);

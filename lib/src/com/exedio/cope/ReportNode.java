@@ -20,6 +20,8 @@ package com.exedio.cope;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import com.exedio.dsmf.Driver;
+
 public abstract class ReportNode
 {
 	static final int COLOR_NOT_YET_CALC = 0;
@@ -28,14 +30,16 @@ public abstract class ReportNode
 	public static final int COLOR_ERROR = 3;
 	
 	final Database database;
+	final Driver driver;
 
 	protected String error = null;
 	protected int particularColor = ReportSchema.COLOR_NOT_YET_CALC;
 	protected int cumulativeColor = ReportSchema.COLOR_NOT_YET_CALC;
 	
-	ReportNode(final Database database)
+	ReportNode(final Database database, final Driver driver)
 	{
 		this.database = database;
+		this.driver = driver;
 	}
 
 	protected final String protectName(final String name)

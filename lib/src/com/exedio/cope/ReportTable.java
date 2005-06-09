@@ -40,7 +40,7 @@ public final class ReportTable extends ReportNode
 
 	ReportTable(final ReportSchema report, final String name, final boolean required)
 	{
-		super(report.database);
+		super(report.database, report.driver);
 		
 		if(report==null)
 			throw new RuntimeException();
