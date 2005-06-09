@@ -283,9 +283,7 @@ public final class ReportTable extends ReportNode
 		}
 
 		bf.append(')');
-
-		if(report.database.mysql)
-			bf.append(" engine=innodb");
+		driver.appendTableCreateStatement(bf);
 
 		//System.out.println("createTable:"+bf.toString());
 		executeSQL(bf.toString());

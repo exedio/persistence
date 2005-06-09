@@ -32,6 +32,11 @@ public final class MysqlDriver extends Driver
 		return PROTECTOR + name + PROTECTOR;
 	}
 	
+	public void appendTableCreateStatement(final StringBuffer bf)
+	{
+		bf.append(" engine=innodb");
+	}
+	
 	public String getRenameColumnStatement(final String tableName, final String oldColumnName, final String newColumnName, final String columnType)
 	{
 		final StringBuffer bf = new StringBuffer();
