@@ -63,5 +63,10 @@ public class ReportForeignKeyConstraint extends ReportConstraint
 		//System.out.println("createForeignKeyConstraints:"+bf);
 		executeSQL(bf.toString());
 	}
+	
+	final void drop()
+	{
+		executeSQL(database.getDropForeignKeyConstraintStatement(table, this));
+	}
 
 }

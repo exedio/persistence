@@ -334,12 +334,9 @@ public final class ReportTable extends ReportNode
 			if(constraint instanceof ReportForeignKeyConstraint)
 			{
 				final ReportForeignKeyConstraint fk = (ReportForeignKeyConstraint)constraint;
-				final String bf = database.getDropForeignKeyConstraintStatement(this, fk);
-
 				if(log)
 					System.err.println("DROPPING FOREIGN KEY CONSTRAINTS "+name+" "+fk.name+"... ");
-
-				executeSQL(bf);
+				fk.drop();
 			}
 		}
 	}
