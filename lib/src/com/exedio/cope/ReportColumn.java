@@ -26,7 +26,7 @@ public final class ReportColumn extends ReportNode
 		
 	ReportColumn(final ReportTable table, final String name, final String type, final boolean required)
 	{
-		super(table.database, table.driver);
+		super(table.driver, table.connectionProvider);
 
 		if(table==null)
 			throw new RuntimeException(name);

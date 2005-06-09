@@ -31,9 +31,9 @@ public final class ReportSchema extends ReportNode
 	private final HashMap tableMap = new HashMap();
 	private final ArrayList tableList = new ArrayList();
 	
-	ReportSchema(final ConnectionProvider database, final Driver driver)
+	ReportSchema(final Driver driver, final ConnectionProvider connectionProvider)
 	{
-		super(database, driver);
+		super(driver, connectionProvider);
 	}
 
 	final void register(final ReportTable table)

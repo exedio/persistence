@@ -30,17 +30,22 @@ public abstract class ReportNode
 	public static final int COLOR_WARNING = 2;
 	public static final int COLOR_ERROR = 3;
 	
-	final ConnectionProvider database;
 	final Driver driver;
+	final ConnectionProvider connectionProvider;
 
 	protected String error = null;
 	protected int particularColor = ReportSchema.COLOR_NOT_YET_CALC;
 	protected int cumulativeColor = ReportSchema.COLOR_NOT_YET_CALC;
 	
-	ReportNode(final ConnectionProvider database, final Driver driver)
+	ReportNode(final Driver driver, final ConnectionProvider connectionProvider)
 	{
-		this.database = database;
+		if(driver==null)
+			throw new NullPointerException("driver");
+		if(connectionProvider==null)
+			throw new NullPointerException("connectionProvider");
+		
 		this.driver = driver;
+		this.connectionProvider = connectionProvider;
 	}
 
 	protected final String protectName(final String name)
@@ -54,7 +59,7 @@ public abstract class ReportNode
 		java.sql.Statement sqlStatement = null;
 		try
 		{
-			connection = database.getConnection();
+			connection = connectionProvider.getConnection();
 			//System.err.println(statement);
 			sqlStatement = connection.createStatement();
 			final int rows = sqlStatement.executeUpdate(statement);
@@ -84,7 +89,7 @@ public abstract class ReportNode
 			{
 				try
 				{
-					database.putConnection(connection);
+					connectionProvider.putConnection(connection);
 				}
 				catch(SQLException e)
 				{
