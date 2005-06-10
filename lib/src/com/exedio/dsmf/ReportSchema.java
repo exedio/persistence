@@ -15,7 +15,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-package com.exedio.cope;
+package com.exedio.dsmf;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,15 +23,14 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
-import com.exedio.dsmf.ConnectionProvider;
-import com.exedio.dsmf.Driver;
+import com.exedio.cope.NestingRuntimeException;
 
 public final class ReportSchema extends ReportNode
 {
 	private final HashMap tableMap = new HashMap();
 	private final ArrayList tableList = new ArrayList();
 	
-	ReportSchema(final Driver driver, final ConnectionProvider connectionProvider)
+	public ReportSchema(final Driver driver, final ConnectionProvider connectionProvider)
 	{
 		super(driver, connectionProvider);
 	}
@@ -65,7 +64,7 @@ public final class ReportSchema extends ReportNode
 		return tableList;
 	}
 	
-	void fillReport()
+	public void fillReport()
 	{
 		driver.fillReport(this);
 		finish();
@@ -89,7 +88,7 @@ public final class ReportSchema extends ReportNode
 	
 	//private static int createTableTime = 0, dropTableTime = 0, checkEmptyTableTime = 0;
 	
-	final void create()
+	public final void create()
 	{
 		//final long time = System.currentTimeMillis();
 		for(Iterator i = tableList.iterator(); i.hasNext(); )
@@ -103,7 +102,7 @@ public final class ReportSchema extends ReportNode
 		//System.out.println("CREATE TABLES "+amount+"ms  accumulated "+createTableTime);
 	}
 
-	final void drop()
+	public final void drop()
 	{
 		//final long time = System.currentTimeMillis();
 		// must delete in reverse order, to obey integrity constraints
@@ -116,7 +115,7 @@ public final class ReportSchema extends ReportNode
 		//System.out.println("DROP TABLES "+amount+"ms  accumulated "+dropTableTime);
 	}
 	
-	final void tearDown()
+	public final void tearDown()
 	{
 		System.err.println("TEAR DOWN ALL DATABASE");
 		for(Iterator i = tableList.iterator(); i.hasNext(); )

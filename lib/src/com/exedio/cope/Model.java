@@ -28,6 +28,7 @@ import java.util.List;
 import java.util.ListIterator;
 
 import com.exedio.cope.util.PoolCounter;
+import com.exedio.dsmf.ReportSchema;
 
 
 public final class Model

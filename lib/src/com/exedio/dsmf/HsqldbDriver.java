@@ -22,9 +22,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 
-import com.exedio.cope.ReportNode;
-import com.exedio.cope.ReportSchema;
-import com.exedio.cope.ReportTable;
 
 
 public final class HsqldbDriver extends Driver

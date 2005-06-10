@@ -31,6 +31,9 @@ import bak.pcj.list.IntList;
 import bak.pcj.map.IntKeyChainedHashMap;
 
 import com.exedio.dsmf.OracleDriver;
+import com.exedio.dsmf.ReportColumn;
+import com.exedio.dsmf.ReportSchema;
+import com.exedio.dsmf.ReportTable;
 
 final class OracleDatabase
 		extends Database

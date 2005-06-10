@@ -15,38 +15,19 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-package com.exedio.cope;
+package com.exedio.dsmf;
 
-import java.util.Date;
 
-public final class ReportLastAnalyzed extends ReportNode
+
+public class ReportCheckConstraint extends ReportConstraint
 {
-	public final ReportTable table;
-	public final Date lastAnalyzed;
+
+	public ReportCheckConstraint(final ReportTable table, final String name, final boolean required, final String condition)
+	{
+		super(table, name, TYPE_CHECK, required, condition);
 		
-	ReportLastAnalyzed(final ReportTable table, final Date lastAnalyzed)
-	{
-		super(table.driver, table.connectionProvider);
-		this.table = table;
-		this.lastAnalyzed = lastAnalyzed;
+		if(condition==null)
+			throw new RuntimeException(name);
 	}
 
-	protected void finish()
-	{
-		if(cumulativeColor!=COLOR_NOT_YET_CALC || particularColor!=COLOR_NOT_YET_CALC)
-			throw new RuntimeException();
-
-		if(lastAnalyzed==null)
-		{
-			error = "not analyzed !!!";
-			particularColor = COLOR_ERROR;
-		}
-		else
-			particularColor = COLOR_OK;
-
-		if(!table.required())
-			particularColor = Math.min(particularColor, COLOR_WARNING);
-				
-		cumulativeColor = particularColor;
-	}
 }

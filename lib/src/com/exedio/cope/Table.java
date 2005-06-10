@@ -22,6 +22,10 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import com.exedio.dsmf.ReportSchema;
+import com.exedio.dsmf.ReportTable;
+import com.exedio.dsmf.ReportUniqueConstraint;
+
 
 final class Table
 {

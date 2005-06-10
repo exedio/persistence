@@ -15,14 +15,13 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-package com.exedio.cope;
+package com.exedio.dsmf;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.exedio.dsmf.ConnectionProvider;
-import com.exedio.dsmf.Driver;
+import com.exedio.cope.NestingRuntimeException;
 
 public abstract class ReportNode
 {

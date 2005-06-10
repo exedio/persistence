@@ -24,12 +24,7 @@ import java.sql.Types;
 import java.util.Iterator;
 import java.util.StringTokenizer;
 
-import com.exedio.cope.ReportConstraint;
-import com.exedio.cope.ReportNode;
-import com.exedio.cope.ReportPrimaryKeyConstraint;
-import com.exedio.cope.ReportSchema;
-import com.exedio.cope.ReportTable;
-import com.exedio.cope.ReportNode.ResultSetHandler;
+import com.exedio.dsmf.ReportNode.ResultSetHandler;
 
 
 public final class MysqlDriver extends Driver

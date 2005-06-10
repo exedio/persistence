@@ -15,7 +15,8 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-package com.exedio.cope;
+package com.exedio.dsmf;
+
 
 public final class ReportColumn extends ReportNode
 {
@@ -24,7 +25,7 @@ public final class ReportColumn extends ReportNode
 	private final String requiredType;
 	private String existingType;
 		
-	ReportColumn(final ReportTable table, final String name, final String type, final boolean required)
+	public ReportColumn(final ReportTable table, final String name, final String type, final boolean required)
 	{
 		super(table.driver, table.connectionProvider);
 

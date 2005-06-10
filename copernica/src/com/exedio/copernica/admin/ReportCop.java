@@ -25,9 +25,9 @@ import java.util.Iterator;
 import javax.servlet.http.HttpServletRequest;
 
 import com.exedio.cope.Model;
-import com.exedio.cope.ReportSchema;
-import com.exedio.cope.ReportColumn;
-import com.exedio.cope.ReportTable;
+import com.exedio.dsmf.ReportColumn;
+import com.exedio.dsmf.ReportSchema;
+import com.exedio.dsmf.ReportTable;
 
 
 final class ReportCop extends AdminCop

@@ -18,6 +18,15 @@
 
 package com.exedio.cope;
 
+import com.exedio.dsmf.ReportCheckConstraint;
+import com.exedio.dsmf.ReportColumn;
+import com.exedio.dsmf.ReportConstraint;
+import com.exedio.dsmf.ReportForeignKeyConstraint;
+import com.exedio.dsmf.ReportPrimaryKeyConstraint;
+import com.exedio.dsmf.ReportSchema;
+import com.exedio.dsmf.ReportTable;
+import com.exedio.dsmf.ReportUniqueConstraint;
+
 public class ReportTest extends DatabaseLibTest
 {
 	private static final String TABLE1 = "SumItem";
@@ -307,7 +316,7 @@ public class ReportTest extends DatabaseLibTest
 		final ReportPrimaryKeyConstraint constraint =
 			(ReportPrimaryKeyConstraint)assertConstraint(table, PK, constraintName, requiredCondition);
 
-		assertEquals(primaryKeyColumn, constraint.primaryKeyColumn);
+		assertEquals(primaryKeyColumn, constraint.getPrimaryKeyColumn());
 	}
 	
 	private void assertFkConstraint(final ReportTable table, final String constraintName, final String foreignKeyColumn, final String targetTable, final String targetColumn)
@@ -315,9 +324,9 @@ public class ReportTest extends DatabaseLibTest
 		final ReportForeignKeyConstraint constraint =
 			(ReportForeignKeyConstraint)assertConstraint(table, FK, constraintName, null);
 
-		assertEquals(foreignKeyColumn, constraint.foreignKeyColumn);
-		assertEquals(targetTable, constraint.targetTable);
-		assertEquals(targetColumn, constraint.targetColumn);
+		assertEquals(foreignKeyColumn, constraint.getForeignKeyColumn());
+		assertEquals(targetTable, constraint.getTargetTable());
+		assertEquals(targetColumn, constraint.getTargetColumn());
 	}
 	
 	private void assertUniqueConstraint(final ReportTable table, final String constraintName, final String clause)
@@ -325,7 +334,7 @@ public class ReportTest extends DatabaseLibTest
 		final ReportUniqueConstraint constraint =
 			(ReportUniqueConstraint)assertConstraint(table, UNIQUE, constraintName, clause);
 
-		assertEquals(clause, constraint.clause);
+		assertEquals(clause, constraint.getClause());
 	}
 	
 	private ReportConstraint assertConstraint(final ReportTable table, final int constraintType, final String constraintName, final String requiredCondition)

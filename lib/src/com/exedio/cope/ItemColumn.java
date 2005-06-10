@@ -18,6 +18,9 @@
 
 package com.exedio.cope;
 
+import com.exedio.dsmf.ReportForeignKeyConstraint;
+import com.exedio.dsmf.ReportTable;
+
 final class ItemColumn extends IntegerColumn
 {
 	static final int SYNTETIC_PRIMARY_KEY_PRECISION = 10;

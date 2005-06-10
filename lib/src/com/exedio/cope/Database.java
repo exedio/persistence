@@ -30,6 +30,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.exedio.dsmf.Driver;
+import com.exedio.dsmf.ReportSchema;
 
 abstract class Database
 {

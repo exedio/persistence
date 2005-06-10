@@ -21,9 +21,6 @@ package com.exedio.dsmf;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.exedio.cope.ReportSchema;
-import com.exedio.cope.ReportTable;
-import com.exedio.cope.ReportNode;
 
 
 public abstract class Driver

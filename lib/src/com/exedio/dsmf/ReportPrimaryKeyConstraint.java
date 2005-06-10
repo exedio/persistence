@@ -15,22 +15,28 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-package com.exedio.cope;
+package com.exedio.dsmf;
 
 
-public class ReportUniqueConstraint extends ReportConstraint
+
+public class ReportPrimaryKeyConstraint extends ReportConstraint
 {
-	final String clause;
+	final String primaryKeyColumn;
 	
-	ReportUniqueConstraint(final ReportTable table, final String name, final boolean required, final String clause)
+	public ReportPrimaryKeyConstraint(final ReportTable table, final String name, final boolean required, final String primaryKeyColumn)
 	{
-		super(table, name, TYPE_UNIQUE, required, clause);
+		super(table, name, TYPE_PRIMARY_KEY, required, null);
 
-		if(clause==null)
+		if(required && primaryKeyColumn==null)
 			throw new RuntimeException(name);
 		
-		this.clause = clause;
-		//System.out.println("-------------"+name+"-"+clause);
+		this.primaryKeyColumn = primaryKeyColumn;
+		//System.out.println("-------------"+name+"-"+primaryKeyColumn);
+	}
+	
+	public final String getPrimaryKeyColumn()
+	{
+		return primaryKeyColumn;
 	}
 
 }

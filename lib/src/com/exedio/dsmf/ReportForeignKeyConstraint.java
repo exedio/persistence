@@ -15,7 +15,8 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-package com.exedio.cope;
+package com.exedio.dsmf;
+
 
 
 public class ReportForeignKeyConstraint extends ReportConstraint
@@ -24,7 +25,7 @@ public class ReportForeignKeyConstraint extends ReportConstraint
 	final String targetTable;
 	final String targetColumn;
 	
-	ReportForeignKeyConstraint(final ReportTable table, final String name, final boolean required, final String foreignKeyColumn, final String targetTable, final String targetColumn)
+	public ReportForeignKeyConstraint(final ReportTable table, final String name, final boolean required, final String foreignKeyColumn, final String targetTable, final String targetColumn)
 	{
 		super(table, name, TYPE_FOREIGN_KEY, required, null);
 		
@@ -39,6 +40,21 @@ public class ReportForeignKeyConstraint extends ReportConstraint
 		this.targetTable = targetTable;
 		this.targetColumn = targetColumn;
 		//System.out.println("-------------"+name+"-"+foreignKeyColumn+"-"+targetTable+"-"+targetColumn);
+	}
+	
+	public final String getForeignKeyColumn()
+	{
+		return foreignKeyColumn;
+	}
+	
+	public final String getTargetTable()
+	{
+		return targetTable;
+	}
+	
+	public final String getTargetColumn()
+	{
+		return targetColumn;
 	}
 	
 	final void create()

@@ -15,13 +15,14 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-package com.exedio.cope;
+package com.exedio.dsmf;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+
 
 
 public final class ReportTable extends ReportNode
@@ -38,7 +39,7 @@ public final class ReportTable extends ReportNode
 	private final HashMap constraintMap = new HashMap();
 	private final ArrayList constraintList = new ArrayList();
 
-	ReportTable(final ReportSchema report, final String name, final boolean required)
+	public ReportTable(final ReportSchema report, final String name, final boolean required)
 	{
 		super(report.driver, report.connectionProvider);
 		
