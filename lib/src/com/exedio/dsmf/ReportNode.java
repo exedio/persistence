@@ -33,9 +33,9 @@ public abstract class ReportNode
 	final Driver driver;
 	final ConnectionProvider connectionProvider;
 
-	protected String error = null;
-	protected int particularColor = ReportSchema.COLOR_NOT_YET_CALC;
-	protected int cumulativeColor = ReportSchema.COLOR_NOT_YET_CALC;
+	String error = null;
+	int particularColor = ReportSchema.COLOR_NOT_YET_CALC;
+	int cumulativeColor = ReportSchema.COLOR_NOT_YET_CALC;
 	
 	ReportNode(final Driver driver, final ConnectionProvider connectionProvider)
 	{
@@ -48,7 +48,7 @@ public abstract class ReportNode
 		this.connectionProvider = connectionProvider;
 	}
 
-	protected final String protectName(final String name)
+	final String protectName(final String name)
 	{
 		return driver.protectName(name);
 	}
@@ -128,7 +128,7 @@ public abstract class ReportNode
 		}
 	}
 	
-	protected final void executeSQL(final String statement)
+	final void executeSQL(final String statement)
 	{
 		Connection connection = null;
 		java.sql.Statement sqlStatement = null;

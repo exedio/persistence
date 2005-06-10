@@ -42,7 +42,7 @@ public abstract class Driver
 		return '"' + name + '"';
 	}
 
-	public abstract String getColumnType(int dataType, ResultSet resultSet) throws SQLException;
+	abstract String getColumnType(int dataType, ResultSet resultSet) throws SQLException;
 
 	void fillReport(final ReportSchema report)
 	{
@@ -84,20 +84,20 @@ public abstract class Driver
 			});
 	}
 	
-	public void appendTableCreateStatement(final StringBuffer bf)
+	void appendTableCreateStatement(final StringBuffer bf)
 	{
 	}
 	
-	public boolean needsTargetColumnName()
+	boolean needsTargetColumnName()
 	{
 		return false;
 	}
 	
-	public abstract String getRenameColumnStatement(String tableName, String oldColumnName, String newColumnName, String columnType);
-	public abstract String getCreateColumnStatement(String tableName, String columnName, String columnType);
-	public abstract String getModifyColumnStatement(String tableName, String columnName, String newColumnType);
+	abstract String getRenameColumnStatement(String tableName, String oldColumnName, String newColumnName, String columnType);
+	abstract String getCreateColumnStatement(String tableName, String columnName, String columnType);
+	abstract String getModifyColumnStatement(String tableName, String columnName, String newColumnType);
 
-	public String getDropForeignKeyConstraintStatement(final String tableName, final String constraintName)
+	String getDropForeignKeyConstraintStatement(final String tableName, final String constraintName)
 	{
 		final StringBuffer bf = new StringBuffer();
 		bf.append("alter table ").

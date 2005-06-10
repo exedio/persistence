@@ -35,7 +35,7 @@ public final class OracleDriver extends Driver
 		super(schema);
 	}
 
-	public String getColumnType(final int dataType, final ResultSet resultSet) throws SQLException
+	String getColumnType(final int dataType, final ResultSet resultSet) throws SQLException
 	{
 		final int columnSize = resultSet.getInt("COLUMN_SIZE");
 		switch(dataType)
@@ -164,7 +164,7 @@ public final class OracleDriver extends Driver
 			});
 	}
 
-	public String getRenameColumnStatement(final String tableName, final String oldColumnName, final String newColumnName, final String columnType)
+	String getRenameColumnStatement(final String tableName, final String oldColumnName, final String newColumnName, final String columnType)
 	{
 		final StringBuffer bf = new StringBuffer();
 		bf.append("alter table ").
@@ -176,7 +176,7 @@ public final class OracleDriver extends Driver
 		return bf.toString();
 	}
 
-	public String getCreateColumnStatement(final String tableName, final String columnName, final String columnType)
+	String getCreateColumnStatement(final String tableName, final String columnName, final String columnType)
 	{
 		final StringBuffer bf = new StringBuffer();
 		bf.append("alter table ").
@@ -189,7 +189,7 @@ public final class OracleDriver extends Driver
 		return bf.toString();
 	}
 
-	public String getModifyColumnStatement(final String tableName, final String columnName, final String newColumnType)
+	String getModifyColumnStatement(final String tableName, final String columnName, final String newColumnType)
 	{
 		final StringBuffer bf = new StringBuffer();
 		bf.append("alter table ").

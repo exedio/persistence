@@ -44,7 +44,7 @@ public final class MysqlDriver extends Driver
 		return PROTECTOR + name + PROTECTOR;
 	}
 	
-	public String getColumnType(final int dataType, final ResultSet resultSet) throws SQLException
+	String getColumnType(final int dataType, final ResultSet resultSet) throws SQLException
 	{
 		switch(dataType)
 		{
@@ -195,17 +195,17 @@ public final class MysqlDriver extends Driver
 		}
 	}
 
-	public void appendTableCreateStatement(final StringBuffer bf)
+	void appendTableCreateStatement(final StringBuffer bf)
 	{
 		bf.append(" engine=innodb");
 	}
 	
-	public boolean needsTargetColumnName()
+	boolean needsTargetColumnName()
 	{
 		return true;
 	}
 	
-	public String getRenameColumnStatement(final String tableName, final String oldColumnName, final String newColumnName, final String columnType)
+	String getRenameColumnStatement(final String tableName, final String oldColumnName, final String newColumnName, final String columnType)
 	{
 		final StringBuffer bf = new StringBuffer();
 		bf.append("alter table ").
@@ -220,7 +220,7 @@ public final class MysqlDriver extends Driver
 	}
 
 	// TODO is same as hsqldb
-	public String getCreateColumnStatement(final String tableName, final String columnName, final String columnType)
+	String getCreateColumnStatement(final String tableName, final String columnName, final String columnType)
 	{
 		final StringBuffer bf = new StringBuffer();
 		bf.append("alter table ").
@@ -232,12 +232,12 @@ public final class MysqlDriver extends Driver
 		return bf.toString();
 	}
 
-	public String getModifyColumnStatement(final String tableName, final String columnName, final String newColumnType)
+	String getModifyColumnStatement(final String tableName, final String columnName, final String newColumnType)
 	{
 		throw new RuntimeException("not implemented");
 	}
 
-	public String getDropForeignKeyConstraintStatement(final String tableName, final String constraintName)
+	String getDropForeignKeyConstraintStatement(final String tableName, final String constraintName)
 	{
 		final StringBuffer bf = new StringBuffer();
 		bf.append("alter table ").

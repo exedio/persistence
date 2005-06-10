@@ -20,8 +20,8 @@ package com.exedio.dsmf;
 
 public final class ReportColumn extends ReportNode
 {
-	public final ReportTable table;
-	public final String name;
+	final ReportTable table;
+	final String name;
 	private final String requiredType;
 	private String existingType;
 		
@@ -61,7 +61,7 @@ public final class ReportColumn extends ReportNode
 		this.existingType = existingType;
 	}
 
-	protected void finish()
+	void finish()
 	{
 		if(cumulativeColor!=COLOR_NOT_YET_CALC || particularColor!=COLOR_NOT_YET_CALC)
 			throw new RuntimeException();

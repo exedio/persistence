@@ -31,7 +31,7 @@ public final class HsqldbDriver extends Driver
 		super(null);
 	}
 
-	public String getColumnType(final int dataType, final ResultSet resultSet) throws SQLException
+	String getColumnType(final int dataType, final ResultSet resultSet) throws SQLException
 	{
 		switch(dataType)
 		{
@@ -124,7 +124,7 @@ public final class HsqldbDriver extends Driver
 			});
 	}
 
-	public String getRenameColumnStatement(final String tableName, final String oldColumnName, final String newColumnName, final String columnType)
+	String getRenameColumnStatement(final String tableName, final String oldColumnName, final String newColumnName, final String columnType)
 	{
 		final StringBuffer bf = new StringBuffer();
 		bf.append("alter table ").
@@ -136,7 +136,7 @@ public final class HsqldbDriver extends Driver
 		return bf.toString();
 	}
 
-	public String getCreateColumnStatement(final String tableName, final String columnName, final String columnType)
+	String getCreateColumnStatement(final String tableName, final String columnName, final String columnType)
 	{
 		final StringBuffer bf = new StringBuffer();
 		bf.append("alter table ").
@@ -148,7 +148,7 @@ public final class HsqldbDriver extends Driver
 		return bf.toString();
 	}
 
-	public String getModifyColumnStatement(final String tableName, final String columnName, final String newColumnType)
+	String getModifyColumnStatement(final String tableName, final String columnName, final String newColumnType)
 	{
 		throw new RuntimeException("not implemented");
 	}
