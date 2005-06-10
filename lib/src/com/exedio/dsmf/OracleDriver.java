@@ -18,9 +18,37 @@
 
 package com.exedio.dsmf;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Types;
+
 
 public final class OracleDriver extends Driver
 {
+
+	public String getColumnType(final int dataType, final ResultSet resultSet) throws SQLException
+	{
+		final int columnSize = resultSet.getInt("COLUMN_SIZE");
+		switch(dataType)
+		{
+			case Types.DECIMAL:
+				final int decimalDigits = resultSet.getInt("DECIMAL_DIGITS");
+				if(decimalDigits>0)
+					return "NUMBER("+columnSize+','+decimalDigits+')';
+				else
+					return "NUMBER("+columnSize+')';
+			case Types.OTHER:
+				return "TIMESTAMP(3)";
+			case Types.VARCHAR:
+				return "VARCHAR2("+columnSize+')';
+			case Types.TIMESTAMP:
+				return "DATE";
+			case Types.LONGVARCHAR:
+				return "LONG";
+			default:
+				return null;
+		}
+	}
 
 	public String getRenameColumnStatement(final String tableName, final String oldColumnName, final String newColumnName, final String columnType)
 	{

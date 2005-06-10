@@ -1068,9 +1068,6 @@ abstract class Database
 		}
 	}
 	
-	protected abstract String getColumnType(final int dataType, final ResultSet resultSet)
-			throws SQLException;
-	
 	final ReportSchema requiredReport()
 	{
 		final ReportSchema report = new ReportSchema(driver, connectionPool);
@@ -1126,7 +1123,7 @@ abstract class Database
 							final ReportTable table = report.getTable(tableName);
 							if(table!=null)
 							{
-								String columnType = getColumnType(dataType, resultSet);
+								String columnType = driver.getColumnType(dataType, resultSet);
 								if(columnType==null)
 									columnType = String.valueOf(dataType);
 

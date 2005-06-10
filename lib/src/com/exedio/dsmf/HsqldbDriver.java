@@ -18,9 +18,33 @@
 
 package com.exedio.dsmf;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Types;
+
 
 public final class HsqldbDriver extends Driver
 {
+
+	public String getColumnType(final int dataType, final ResultSet resultSet) throws SQLException
+	{
+		switch(dataType)
+		{
+			case Types.INTEGER:
+				return "integer";
+			case Types.BIGINT:
+				return "bigint";
+			case Types.DOUBLE:
+				return "double";
+			case Types.TIMESTAMP:
+				return "timestamp";
+			case Types.VARCHAR:
+				final int columnSize = resultSet.getInt("COLUMN_SIZE");
+				return "varchar("+columnSize+')';
+			default:
+				return null;
+		}
+	}
 
 	public String getRenameColumnStatement(final String tableName, final String oldColumnName, final String newColumnName, final String columnType)
 	{

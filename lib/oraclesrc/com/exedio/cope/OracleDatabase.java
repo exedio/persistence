@@ -21,7 +21,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -77,30 +76,6 @@ final class OracleDatabase
 	public String getDateTimestampType()
 	{
 		return "TIMESTAMP(3)";
-	}
-
-	protected String getColumnType(final int dataType, final ResultSet resultSet) throws SQLException
-	{
-		final int columnSize = resultSet.getInt("COLUMN_SIZE");
-		switch(dataType)
-		{
-			case Types.DECIMAL:
-				final int decimalDigits = resultSet.getInt("DECIMAL_DIGITS");
-				if(decimalDigits>0)
-					return "NUMBER("+columnSize+','+decimalDigits+')';
-				else
-					return "NUMBER("+columnSize+')';
-			case Types.OTHER:
-				return "TIMESTAMP(3)";
-			case Types.VARCHAR:
-				return "VARCHAR2("+columnSize+')';
-			case Types.TIMESTAMP:
-				return "DATE";
-			case Types.LONGVARCHAR:
-				return "LONG";
-			default:
-				return null;
-		}
 	}
 
 	private String extractConstraintName(final SQLException e, final int vendorCode, final String start, final String end)

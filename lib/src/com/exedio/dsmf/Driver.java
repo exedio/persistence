@@ -18,6 +18,9 @@
 
 package com.exedio.dsmf;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 
 public abstract class Driver
 {
@@ -31,6 +34,8 @@ public abstract class Driver
 	{
 		return '"' + name + '"';
 	}
+
+	public abstract String getColumnType(int dataType, ResultSet resultSet) throws SQLException;
 
 	public void appendTableCreateStatement(final StringBuffer bf)
 	{

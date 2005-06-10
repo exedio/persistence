@@ -20,7 +20,6 @@ package com.exedio.cope;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Types;
 
 import org.hsqldb.jdbcDriver;
 
@@ -67,26 +66,6 @@ final class HsqldbDatabase
 	public String getDateTimestampType()
 	{
 		return "timestamp";
-	}
-
-	protected String getColumnType(final int dataType, final ResultSet resultSet) throws SQLException
-	{
-		switch(dataType)
-		{
-			case Types.INTEGER:
-				return "integer";
-			case Types.BIGINT:
-				return "bigint";
-			case Types.DOUBLE:
-				return "double";
-			case Types.TIMESTAMP:
-				return "timestamp";
-			case Types.VARCHAR:
-				final int columnSize = resultSet.getInt("COLUMN_SIZE");
-				return "varchar("+columnSize+')';
-			default:
-				return null;
-		}
 	}
 
 	private final String extractConstraintName(final SQLException e, final int vendorCode, final String start, final char end)

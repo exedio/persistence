@@ -20,7 +20,6 @@ package com.exedio.cope;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Types;
 import java.util.Iterator;
 import java.util.StringTokenizer;
 
@@ -81,26 +80,6 @@ public final class MysqlDatabase extends Database
 		
 		// IMPLEMENTATION NOTE: "binary" is needed to make string comparisions case sensitive
 		return "varchar("+(maxLength!=Integer.MAX_VALUE ? maxLength : 255)+") binary";
-	}
-	
-	protected String getColumnType(final int dataType, final ResultSet resultSet) throws SQLException
-	{
-		switch(dataType)
-		{
-			case Types.INTEGER:
-				return "integer";
-			case Types.BIGINT:
-				return "bigint";
-			case Types.DOUBLE:
-				return "double";
-			case Types.TIMESTAMP:
-				return "timestamp";
-			case Types.VARCHAR:
-				final int columnSize = resultSet.getInt("COLUMN_SIZE");
-				return "varchar("+columnSize+") binary";
-			default:
-				return null;
-		}
 	}
 	
 	private final String unprotectName(final String protectedName)

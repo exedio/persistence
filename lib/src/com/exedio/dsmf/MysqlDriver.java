@@ -18,6 +18,10 @@
 
 package com.exedio.dsmf;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Types;
+
 
 public final class MysqlDriver extends Driver
 {
@@ -30,6 +34,26 @@ public final class MysqlDriver extends Driver
 	public String protectName(final String name)
 	{
 		return PROTECTOR + name + PROTECTOR;
+	}
+	
+	public String getColumnType(final int dataType, final ResultSet resultSet) throws SQLException
+	{
+		switch(dataType)
+		{
+			case Types.INTEGER:
+				return "integer";
+			case Types.BIGINT:
+				return "bigint";
+			case Types.DOUBLE:
+				return "double";
+			case Types.TIMESTAMP:
+				return "timestamp";
+			case Types.VARCHAR:
+				final int columnSize = resultSet.getInt("COLUMN_SIZE");
+				return "varchar("+columnSize+") binary";
+			default:
+				return null;
+		}
 	}
 	
 	public void appendTableCreateStatement(final StringBuffer bf)
