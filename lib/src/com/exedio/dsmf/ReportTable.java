@@ -27,8 +27,8 @@ import java.util.Iterator;
 
 public final class ReportTable extends ReportNode
 {
-	public final ReportSchema report;
-	public final String name;
+	final ReportSchema report;
+	final String name;
 	private final boolean required;
 	private boolean exists;
 	private ReportLastAnalyzed lastAnalyzed = null;
@@ -54,6 +54,11 @@ public final class ReportTable extends ReportNode
 		this.exists = !required;
 
 		report.register(this);
+	}
+	
+	public final String getName()
+	{
+		return name;
 	}
 
 	final void register(final ReportColumn column)

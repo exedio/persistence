@@ -67,7 +67,7 @@ final class ReportCop extends AdminCop
 	
 	final ReportCop narrowReport(final ReportTable reportTable)
 	{
-		return new ReportCop(reportTable.name, showDropBoxes, showRenameFields);
+		return new ReportCop(reportTable.getName(), showDropBoxes, showRenameFields);
 	}
 	
 	final ReportCop widenReport()
@@ -92,7 +92,7 @@ final class ReportCop extends AdminCop
 	
 	final boolean skipTable(final ReportTable table)
 	{
-		return reportTable!=null && !reportTable.equals(table.name);
+		return reportTable!=null && !reportTable.equals(table.getName());
 	}
 
 	private static final ReportColumn getColumn(final ReportSchema report, final String columnParameter)
