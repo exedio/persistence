@@ -182,7 +182,7 @@ public final class ReportTable extends ReportNode
 		return (ReportConstraint)constraintMap.get(constraintName);
 	}
 		
-	protected void finish()
+	void finish()
 	{
 		if(cumulativeColor!=COLOR_NOT_YET_CALC || particularColor!=COLOR_NOT_YET_CALC)
 			throw new RuntimeException();
