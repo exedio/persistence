@@ -50,6 +50,16 @@ public final class ReportColumn extends ReportNode
 		}
 		table.register(this);
 	}
+	
+	public final ReportTable getTable()
+	{
+		return table;
+	}
+
+	public final String getName()
+	{
+		return name;
+	}
 
 	void notifyExists(final String existingType)
 	{

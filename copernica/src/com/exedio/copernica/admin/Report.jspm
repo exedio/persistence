@@ -177,14 +177,14 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); tableCount++)
 			final String color = color(column.getCumulativeColor());
 			%>
 			<li class="<%=color%>">
-				<small>col<%=columnCount%></small> <%=column.name%><%
+				<small>col<%=columnCount%></small> <%=column.getName()%><%
 			
 			if(cop.showRenameFields && column.exists())
 			{
 				%>
 				<input name="RENAME_COLUMN_<%=
-					table.name%>#<%=column.name%>" size="<%=
-					column.name.length()%>"/><%
+					table.name%>#<%=column.getName()%>" size="<%=
+					column.getName().length()%>"/><%
 			}
 			
 			final String columnType = column.getType();
@@ -195,7 +195,7 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); tableCount++)
 			{
 				%>
 				<input name="MODIFY_COLUMN_<%=
-					table.name%>#<%=column.name%>" size="<%=
+					table.name%>#<%=column.getName()%>" size="<%=
 					columnType.length()%>"/><%
 			}
 			
@@ -210,14 +210,14 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); tableCount++)
 				if(cop.showDropBoxes)
 				{
 					%>,
-				<input type="checkbox" name="DROP_COLUMN" value="<%=table.name%>#<%=column.name%>"/>drop<%
+				<input type="checkbox" name="DROP_COLUMN" value="<%=table.name%>#<%=column.getName()%>"/>drop<%
 				}
 			}
 			else if(column.required() &&
-						column.table.exists() )
+						column.getTable().exists() )
 			{
 				%>,
-				<input type="checkbox" name="CREATE_COLUMN" value="<%=table.name%>#<%=column.name%>"/>create<%
+				<input type="checkbox" name="CREATE_COLUMN" value="<%=table.name%>#<%=column.getName()%>"/>create<%
 			}
 			%>
 			</li><%
@@ -291,8 +291,8 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); tableCount++)
 	{
 		%>
 		<li>report.getTable(&quot;<b><%=
-			column.table.name%></b>&quot;).getColumn(&quot;<b><%=
-			column.name%></b>&quot;).drop();</li><%
+			column.getTable().name%></b>&quot;).getColumn(&quot;<b><%=
+			column.getName()%></b>&quot;).drop();</li><%
 	}
 
 	final static void writeDrop(final PrintStream out, final ReportTable table)
@@ -317,8 +317,8 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); tableCount++)
 	{
 		%>
 		<li>report.getTable(&quot;<b><%=
-			column.table.name%></b>&quot;).getColumn(&quot;<b><%=
-			column.name%></b>&quot;).modify(&quot;<b><%=
+			column.getTable().name%></b>&quot;).getColumn(&quot;<b><%=
+			column.getName()%></b>&quot;).modify(&quot;<b><%=
 			targetType%></b>&quot;);</li><%
 	}
 
@@ -327,8 +327,8 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); tableCount++)
 	{
 		%>
 		<li>report.getTable(&quot;<b><%=
-			column.table.name%></b>&quot;).getColumn(&quot;<b><%=
-			column.name%></b>&quot;).renameTo(&quot;<b><%=
+			column.getTable().name%></b>&quot;).getColumn(&quot;<b><%=
+			column.getName()%></b>&quot;).renameTo(&quot;<b><%=
 			targetName%></b>&quot;);</li><%
 	}
 
@@ -353,8 +353,8 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); tableCount++)
 	{
 		%>
 		<li>report.getTable(&quot;<b><%=
-			column.table.name%></b>&quot;).getColumn(&quot;<b><%=
-			column.name%></b>&quot;).create();</li><%
+			column.getTable().name%></b>&quot;).getColumn(&quot;<b><%=
+			column.getName()%></b>&quot;).create();</li><%
 	}
 
 }
