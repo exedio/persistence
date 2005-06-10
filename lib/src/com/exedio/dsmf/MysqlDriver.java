@@ -21,10 +21,26 @@ package com.exedio.dsmf;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.Iterator;
+import java.util.StringTokenizer;
+
+import com.exedio.cope.ReportConstraint;
+import com.exedio.cope.ReportNode;
+import com.exedio.cope.ReportPrimaryKeyConstraint;
+import com.exedio.cope.ReportSchema;
+import com.exedio.cope.ReportTable;
+import com.exedio.cope.ReportNode.ResultSetHandler;
 
 
 public final class MysqlDriver extends Driver
 {
+	final String primaryKeyColumnName;
+	
+	public MysqlDriver(final String primaryKeyColumnName)
+	{
+		super(null);
+		this.primaryKeyColumnName = primaryKeyColumnName;
+	}
 
 	/**
 	 * TODO make non-public
@@ -56,6 +72,138 @@ public final class MysqlDriver extends Driver
 		}
 	}
 	
+	private final String unprotectName(final String protectedName)
+	{
+		final int length = protectedName.length();
+		if(length<3)
+			throw new RuntimeException(protectedName);
+		if(protectedName.charAt(0)!=MysqlDriver.PROTECTOR)
+			throw new RuntimeException(protectedName);
+		if(protectedName.charAt(length-1)!=MysqlDriver.PROTECTOR)
+			throw new RuntimeException(protectedName);
+
+		return protectedName.substring(1, protectedName.length()-1);
+	}
+
+	// TODO: make non-public
+	public void fillReport(final ReportSchema report)
+	{
+		super.fillReport(report);
+		{
+			for(Iterator i = report.getTables().iterator(); i.hasNext(); )
+			{
+				final ReportTable reportTable = (ReportTable)i.next();
+				if(!reportTable.exists())
+					continue;
+				
+				{
+					final StringBuffer bf = new StringBuffer();
+					bf.append("show columns from ").
+						append(protectName(reportTable.name));
+					
+					report.querySQL(bf.toString(), new ReportNode.ResultSetHandler()
+						{
+							public void run(final ResultSet resultSet) throws SQLException
+							{
+								//printMeta(resultSet);
+								while(resultSet.next())
+								{
+									//printRow(resultSet);
+									final String key = resultSet.getString("Key");
+									if("PRI".equals(key))
+									{
+										final String field = resultSet.getString("Field");
+										if(primaryKeyColumnName.equals(field) && reportTable.required())
+										{
+											for(Iterator j = reportTable.getConstraints().iterator(); j.hasNext(); )
+											{
+												final ReportConstraint c = (ReportConstraint)j.next();
+												if(c instanceof ReportPrimaryKeyConstraint)
+												{
+													reportTable.notifyExistentPrimaryKeyConstraint(c.name);
+													break;
+												}
+											}
+										}
+										else
+											reportTable.notifyExistentPrimaryKeyConstraint(field+"_Pk");
+									}
+								}
+							}
+						});
+				}
+				{
+					final StringBuffer bf = new StringBuffer();
+					bf.append("show create table ").
+						append(protectName(reportTable.name));
+					
+					report.querySQL(bf.toString(), new ResultSetHandler()
+						{
+							public void run(final ResultSet resultSet) throws SQLException
+							{
+								while(resultSet.next())
+								{
+									final String tableName = resultSet.getString("Table");
+									final String createTable = resultSet.getString("Create Table");
+									final ReportTable table = report.notifyExistentTable(tableName);
+									//System.out.println("----------"+tableName+"----"+createTable);
+									final StringTokenizer t = new StringTokenizer(createTable);
+									for(String s = t.nextToken(); t.hasMoreTokens(); s = t.nextToken())
+									{
+										//System.out.println("----------"+tableName+"---------------"+s);
+										if("CONSTRAINT".equals(s))
+										{
+											if(!t.hasMoreTokens())
+												continue;
+											final String protectedName = t.nextToken();
+											//System.out.println("----------"+tableName+"--------------------protectedName:"+protectedName);
+											final String name = unprotectName(protectedName);
+											//System.out.println("----------"+tableName+"--------------------name:"+name);
+											if(!t.hasMoreTokens() || !"FOREIGN".equals(t.nextToken()) ||
+												!t.hasMoreTokens() || !"KEY".equals(t.nextToken()) ||
+												!t.hasMoreTokens())
+												continue;
+											final String source = t.nextToken();
+											//System.out.println("----------"+tableName+"--------------------source:"+source);
+											if(!t.hasMoreTokens() || !"REFERENCES".equals(t.nextToken()) ||
+												!t.hasMoreTokens())
+												continue;
+											final String targetTable = t.nextToken();
+											//System.out.println("----------"+tableName+"--------------------targetTable:"+targetTable);
+											if(!t.hasMoreTokens())
+												continue;
+											final String targetAttribute = t.nextToken();
+											//System.out.println("----------"+tableName+"--------------------targetAttribute:"+targetAttribute);
+											
+											table.notifyExistentForeignKeyConstraint(name);
+										}
+										//UNIQUE KEY `AttriEmptyItem_parKey_Unq` (`parent`,`key`)
+										if("UNIQUE".equals(s))
+										{
+											if(!t.hasMoreTokens() || !"KEY".equals(t.nextToken()) ||
+												!t.hasMoreTokens())
+												continue;
+											final String protectedName = t.nextToken();
+											//System.out.println("----------"+tableName+"--------------------protectedName:"+protectedName);
+											final String name = unprotectName(protectedName);
+											//System.out.println("----------"+tableName+"--------------------name:"+name);
+											if(!t.hasMoreTokens())
+												continue;
+											final String clause = t.nextToken();
+											//System.out.println("----------"+tableName+"--------------------clause:"+clause);
+
+											final int clauseLengthM1 = clause.length()-1;
+											table.notifyExistentUniqueConstraint(name, clause.charAt(clauseLengthM1)==',' ? clause.substring(0, clauseLengthM1) : clause);
+										}
+									}
+								}
+							}
+						});
+				}
+			}
+		}
+	}
+
 	public void appendTableCreateStatement(final StringBuffer bf)
 	{
 		bf.append(" engine=innodb");

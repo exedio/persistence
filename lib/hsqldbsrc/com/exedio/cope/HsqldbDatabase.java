@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.hsqldb.jdbcDriver;
@@ -44,7 +43,7 @@ final class HsqldbDatabase
 
 	protected HsqldbDatabase(final Properties properties)
 	{
-		super(new HsqldbDriver(), properties, null);
+		super(new HsqldbDriver(), properties);
 	}
 
 	String getIntegerType(final int precision)
@@ -100,80 +99,6 @@ final class HsqldbDatabase
 	protected String extractIntegrityConstraintName(final SQLException e)
 	{
 		return extractConstraintName(e, -8, "Integrity constraint violation ", ' ');
-	}
-
-	void fillReport(final ReportSchema report)
-	{
-		super.fillReport(report);
-
-		final Statement bf = createStatement();
-		bf.append(
-			"select stc.CONSTRAINT_NAME, stc.CONSTRAINT_TYPE, stc.TABLE_NAME, scc.CHECK_CLAUSE " +
-			"from SYSTEM_TABLE_CONSTRAINTS stc " +
-			"left outer join SYSTEM_CHECK_CONSTRAINTS scc on stc.CONSTRAINT_NAME = scc.CONSTRAINT_NAME");
-
-		executeSQLQuery(bf, new ResultSetHandler()
-			{
-				public void run(final ResultSet resultSet) throws SQLException
-				{
-					while(resultSet.next())
-					{
-						final String constraintName = resultSet.getString(1);
-						final String constraintType = resultSet.getString(2);
-						final String tableName = resultSet.getString(3);
-						
-						final ReportTable table = report.notifyExistentTable(tableName);
-						
-						if("CHECK".equals(constraintType))
-						{
-							final String tablePrefix = driver.protectName(tableName)+'.';
-							String checkClause = resultSet.getString(4);
-							for(int pos = checkClause.indexOf(tablePrefix); pos>=0; pos = checkClause.indexOf(tablePrefix))
-								checkClause = checkClause.substring(0, pos) + checkClause.substring(pos+tablePrefix.length());
-
-							table.notifyExistentCheckConstraint(constraintName, checkClause);
-						}
-						else if("PRIMARY KEY".equals(constraintType))
-							table.notifyExistentPrimaryKeyConstraint(constraintName);
-						else if("FOREIGN KEY".equals(constraintType))
-							table.notifyExistentForeignKeyConstraint(constraintName);
-						else if("UNIQUE".equals(constraintType))
-						{
-							//printRow(resultSet);
-							final StringBuffer clause = new StringBuffer();
-							final Statement bf = createStatement();
-							bf.append("select COLUMN_NAME from SYSTEM_INDEXINFO where INDEX_NAME like 'SYS_IDX_").
-								append(constraintName).
-								append("_%' and NON_UNIQUE=false order by ORDINAL_POSITION");
-							executeSQLQuery(bf, new ResultSetHandler()
-								{
-									public void run(final ResultSet resultSet) throws SQLException
-									{
-										//printMeta(resultSet);
-										boolean first = true;
-										clause.append('(');
-										while(resultSet.next())
-										{
-											//printRow(resultSet);
-											if(first)
-												first = false;
-											else
-												clause.append(',');
-											final String columnName = resultSet.getString(1);
-											clause.append(driver.protectName(columnName));
-										}
-										clause.append(')');
-									}
-								}, false);
-
-							table.notifyExistentUniqueConstraint(constraintName, clause.toString());
-						}
-						else
-							throw new RuntimeException(constraintType+'-'+constraintName);
-
-					}
-				}
-			}, false);
 	}
 
 }

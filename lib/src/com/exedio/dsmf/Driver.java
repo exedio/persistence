@@ -21,9 +21,20 @@ package com.exedio.dsmf;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.exedio.cope.ReportSchema;
+import com.exedio.cope.ReportTable;
+import com.exedio.cope.ReportNode;
+
 
 public abstract class Driver
 {
+	// TODO: make non-public
+	public final String schema;
+
+	Driver(final String schema)
+	{
+		this.schema = schema;
+	}
 	
 	/**
 	 * Protects a database name from being interpreted as a SQL keyword.
@@ -37,6 +48,47 @@ public abstract class Driver
 
 	public abstract String getColumnType(int dataType, ResultSet resultSet) throws SQLException;
 
+	// TODO: make non-public
+	public void fillReport(final ReportSchema report)
+	{
+		report.querySQL(ReportNode.GET_TABLES, new ReportNode.ResultSetHandler()
+			{
+				public void run(final ResultSet resultSet) throws SQLException
+				{
+					while(resultSet.next())
+					{
+						final String tableName = resultSet.getString("TABLE_NAME");
+						final ReportTable table = report.notifyExistentTable(tableName);
+						//System.out.println("EXISTS:"+tableName);
+					}
+				}
+			});
+		
+		report.querySQL(ReportNode.GET_COLUMNS, new ReportNode.ResultSetHandler()
+			{
+				public void run(final ResultSet resultSet) throws SQLException
+				{
+					while(resultSet.next())
+					{
+						final String tableName = resultSet.getString("TABLE_NAME");
+						final String columnName = resultSet.getString("COLUMN_NAME");
+						final int dataType = resultSet.getInt("DATA_TYPE");
+						
+						final ReportTable table = report.getTable(tableName);
+						if(table!=null)
+						{
+							String columnType = getColumnType(dataType, resultSet);
+							if(columnType==null)
+								columnType = String.valueOf(dataType);
+
+							table.notifyExistentColumn(columnName, columnType);
+						}
+						//System.out.println("EXISTS:"+tableName);
+					}
+				}
+			});
+	}
+	
 	public void appendTableCreateStatement(final StringBuffer bf)
 	{
 	}

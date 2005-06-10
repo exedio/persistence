@@ -38,15 +38,13 @@ abstract class Database
 	private final HashMap itemColumnsByIntegrityConstraintName = new HashMap();
 	private boolean buildStage = true;
 	final Driver driver;
-	private final String schema;
 	private final boolean useDefineColumnTypes;
 	final ConnectionPool connectionPool;
 	final boolean hsqldb; // TODO remove hsqldb-specific stuff
 	
-	protected Database(final Driver driver, final Properties properties, final String schema)
+	protected Database(final Driver driver, final Properties properties)
 	{
 		this.driver = driver;
-		this.schema = schema;
 		this.useDefineColumnTypes = this instanceof DatabaseColumnTypesDefinable;
 		this.connectionPool = new ConnectionPool(properties);
 		this.hsqldb = "com.exedio.cope.HsqldbDatabase".equals(getClass().getName()); 
@@ -689,9 +687,6 @@ abstract class Database
 		return ((Number)sqlInteger).intValue();
 	}
 
-	static final String GET_TABLES = "getTables";
-	static final String GET_COLUMNS = "getColumns";
-
 	//private static int timeExecuteQuery = 0;
 
 	protected final StatementInfo executeSQLQuery(
@@ -707,29 +702,18 @@ abstract class Database
 			connection = connectionPool.getConnection();
 
 			final String sqlText = statement.getText();
-			if(GET_TABLES.equals(sqlText))
-			{
-				resultSet = connection.getMetaData().getTables(null, schema, null, new String[]{"TABLE"});
-			}
-			else if(GET_COLUMNS.equals(sqlText))
-			{
-				resultSet = connection.getMetaData().getColumns(null, schema, null, null);
-			}
-			else
-			{
-				// TODO: use prepared statements and reuse the statement.
-				sqlStatement = connection.createStatement();
-				
-				if(useDefineColumnTypes)
-					((DatabaseColumnTypesDefinable)this).defineColumnTypes(statement.columnTypes, sqlStatement);
+			// TODO: use prepared statements and reuse the statement.
+			sqlStatement = connection.createStatement();
+			
+			if(useDefineColumnTypes)
+				((DatabaseColumnTypesDefinable)this).defineColumnTypes(statement.columnTypes, sqlStatement);
 
-				//System.out.println(sqlText);
-				//long time = System.currentTimeMillis();
-				resultSet = sqlStatement.executeQuery(sqlText);
-				//long interval = System.currentTimeMillis() - time;
-				//timeExecuteQuery += interval;
-				//System.out.println("executeQuery: "+interval+"ms sum "+timeExecuteQuery+"ms");
-			}
+			//System.out.println(sqlText);
+			//long time = System.currentTimeMillis();
+			resultSet = sqlStatement.executeQuery(sqlText);
+			//long interval = System.currentTimeMillis() - time;
+			//timeExecuteQuery += interval;
+			//System.out.println("executeQuery: "+interval+"ms sum "+timeExecuteQuery+"ms");
 
 			resultSetHandler.run(resultSet);
 			
@@ -1084,56 +1068,8 @@ abstract class Database
 	final ReportSchema report()
 	{
 		final ReportSchema report = requiredReport();
-		fillReport(report);
-		report.finish();
+		report.fillReport();
 		return report;
-	}
-
-	void fillReport(final ReportSchema report)
-	{
-		{
-			final com.exedio.cope.Statement bf = createStatement();
-			bf.append(GET_TABLES);
-			executeSQLQuery(bf, new ResultSetHandler()
-				{
-					public void run(final ResultSet resultSet) throws SQLException
-					{
-						while(resultSet.next())
-						{
-							final String tableName = resultSet.getString("TABLE_NAME");
-							final ReportTable table = report.notifyExistentTable(tableName);
-							//System.out.println("EXISTS:"+tableName);
-						}
-					}
-				}, false);
-		}
-		{
-			final com.exedio.cope.Statement bf = createStatement();
-			bf.append(GET_COLUMNS);
-			executeSQLQuery(bf, new ResultSetHandler()
-				{
-					public void run(final ResultSet resultSet) throws SQLException
-					{
-						while(resultSet.next())
-						{
-							final String tableName = resultSet.getString("TABLE_NAME");
-							final String columnName = resultSet.getString("COLUMN_NAME");
-							final int dataType = resultSet.getInt("DATA_TYPE");
-							
-							final ReportTable table = report.getTable(tableName);
-							if(table!=null)
-							{
-								String columnType = driver.getColumnType(dataType, resultSet);
-								if(columnType==null)
-									columnType = String.valueOf(dataType);
-
-								table.notifyExistentColumn(columnName, columnType);
-							}
-							//System.out.println("EXISTS:"+tableName);
-						}
-					}
-				}, false);
-		}
 	}
 
 	

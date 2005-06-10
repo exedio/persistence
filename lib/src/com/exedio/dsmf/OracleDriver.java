@@ -21,10 +21,23 @@ package com.exedio.dsmf;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+
+import com.exedio.cope.ReportConstraint;
+import com.exedio.cope.ReportNode;
+import com.exedio.cope.ReportSchema;
+import com.exedio.cope.ReportTable;
+import com.exedio.cope.ReportNode.ResultSetHandler;
 
 
 public final class OracleDriver extends Driver
 {
+	public OracleDriver(final String schema)
+	{
+		super(schema);
+	}
 
 	public String getColumnType(final int dataType, final ResultSet resultSet) throws SQLException
 	{
@@ -48,6 +61,112 @@ public final class OracleDriver extends Driver
 			default:
 				return null;
 		}
+	}
+
+	private ReportConstraint makeUniqueConstraint(final ReportTable table, final String constraintName, final ArrayList columns)
+	{
+		final StringBuffer bf = new StringBuffer();
+		bf.append('(');
+		boolean first = true;
+		for(Iterator i = columns.iterator(); i.hasNext(); )
+		{
+			if(first)
+				first = false;
+			else
+				bf.append(',');
+			
+			bf.append(protectName((String)i.next()));
+		}
+		bf.append(')');
+		return table.notifyExistentUniqueConstraint(constraintName, bf.toString());
+	}
+	
+	// TODO: make non-public
+	public void fillReport(final ReportSchema report)
+	{
+		super.fillReport(report);
+
+		report.querySQL("select TABLE_NAME, LAST_ANALYZED from user_tables", new ReportNode.ResultSetHandler()
+			{
+				public void run(final ResultSet resultSet) throws SQLException
+				{
+					while(resultSet.next())
+					{
+						final String tableName = resultSet.getString(1);
+						final Date lastAnalyzed = (Date)resultSet.getObject(2);
+						final ReportTable table = report.notifyExistentTable(tableName);
+						table.setLastAnalyzed(lastAnalyzed);
+						//System.out.println("EXISTS:"+tableName);
+					}
+				}
+			});
+		
+		report.querySQL(
+				"select " +
+				"uc.TABLE_NAME," +
+				"uc.CONSTRAINT_NAME," +
+				"uc.CONSTRAINT_TYPE," +
+				"uc.SEARCH_CONDITION," +
+				"ucc.COLUMN_NAME " +
+				"from user_constraints uc " +
+				"left outer join user_cons_columns ucc " +
+					"on uc.CONSTRAINT_NAME=ucc.CONSTRAINT_NAME " +
+					"and uc.TABLE_NAME=ucc.TABLE_NAME " +
+				"order by uc.TABLE_NAME, ucc.POSITION",
+			new ResultSetHandler()
+			{
+				String uniqueConstraintName = null;
+				ReportTable uniqueConstraintTable = null;
+				final ArrayList uniqueColumns = new ArrayList();
+				public void run(final ResultSet resultSet) throws SQLException
+				{
+					while(resultSet.next())
+					{
+						//printRow(resultSet);
+						final String tableName = resultSet.getString(1);
+						final String constraintName = resultSet.getString(2);
+						final String constraintType = resultSet.getString(3);
+						final ReportTable table = report.notifyExistentTable(tableName);
+						//System.out.println("tableName:"+tableName+" constraintName:"+constraintName+" constraintType:>"+constraintType+"<");
+						if("C".equals(constraintType))
+						{
+							final String searchCondition = resultSet.getString(4);
+							//System.out.println("searchCondition:>"+searchCondition+"<");
+							table.notifyExistentCheckConstraint(constraintName, searchCondition);
+						}
+						else if("P".equals(constraintType))
+							table.notifyExistentPrimaryKeyConstraint(constraintName);
+						else if("R".equals(constraintType))
+							table.notifyExistentForeignKeyConstraint(constraintName);
+						else if("U".equals(constraintType))
+						{
+							final String columnName = resultSet.getString(5);
+							if(uniqueConstraintName==null)
+							{
+								uniqueConstraintName = constraintName;
+								uniqueConstraintTable = table;
+								uniqueColumns.add(columnName);
+							}
+							else if(uniqueConstraintName.equals(constraintName) && uniqueConstraintTable==table)
+								uniqueColumns.add(columnName);
+							else
+							{
+								makeUniqueConstraint(uniqueConstraintTable, uniqueConstraintName, uniqueColumns);
+								uniqueConstraintName = constraintName;
+								uniqueConstraintTable = table;
+								uniqueColumns.clear();
+								uniqueColumns.add(columnName);
+							}
+						}
+						else
+							throw new RuntimeException(constraintType+'-'+constraintName);
+
+						//System.out.println("EXISTS:"+tableName);
+					}
+					if(uniqueConstraintName!=null)
+						makeUniqueConstraint(uniqueConstraintTable, uniqueConstraintName, uniqueColumns);
+				}
+			});
 	}
 
 	public String getRenameColumnStatement(final String tableName, final String oldColumnName, final String newColumnName, final String columnType)

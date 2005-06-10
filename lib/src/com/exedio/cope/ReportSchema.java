@@ -43,7 +43,8 @@ public final class ReportSchema extends ReportNode
 		tableList.add(table);
 	}
 	
-	final ReportTable notifyExistentTable(final String tableName)
+	// TODO: make non-public
+	public final ReportTable notifyExistentTable(final String tableName)
 	{
 		ReportTable result = (ReportTable)tableMap.get(tableName);
 		if(result==null)
@@ -64,6 +65,12 @@ public final class ReportSchema extends ReportNode
 		return tableList;
 	}
 	
+	void fillReport()
+	{
+		driver.fillReport(this);
+		finish();
+	}
+
 	void finish()
 	{
 		if(cumulativeColor!=COLOR_NOT_YET_CALC || particularColor!=COLOR_NOT_YET_CALC)

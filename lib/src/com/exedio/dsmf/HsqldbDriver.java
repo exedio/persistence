@@ -22,9 +22,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 
+import com.exedio.cope.ReportNode;
+import com.exedio.cope.ReportSchema;
+import com.exedio.cope.ReportTable;
+
 
 public final class HsqldbDriver extends Driver
 {
+	public HsqldbDriver()
+	{
+		super(null);
+	}
 
 	public String getColumnType(final int dataType, final ResultSet resultSet) throws SQLException
 	{
@@ -44,6 +52,80 @@ public final class HsqldbDriver extends Driver
 			default:
 				return null;
 		}
+	}
+
+	// TODO: make non-public
+	public void fillReport(final ReportSchema report)
+	{
+		super.fillReport(report);
+
+		report.querySQL(
+				"select stc.CONSTRAINT_NAME, stc.CONSTRAINT_TYPE, stc.TABLE_NAME, scc.CHECK_CLAUSE " +
+				"from SYSTEM_TABLE_CONSTRAINTS stc " +
+				"left outer join SYSTEM_CHECK_CONSTRAINTS scc on stc.CONSTRAINT_NAME = scc.CONSTRAINT_NAME",
+			new ReportNode.ResultSetHandler()
+			{
+				public void run(final ResultSet resultSet) throws SQLException
+				{
+					while(resultSet.next())
+					{
+						final String constraintName = resultSet.getString(1);
+						final String constraintType = resultSet.getString(2);
+						final String tableName = resultSet.getString(3);
+						
+						final ReportTable table = report.notifyExistentTable(tableName);
+						
+						if("CHECK".equals(constraintType))
+						{
+							final String tablePrefix = protectName(tableName)+'.';
+							String checkClause = resultSet.getString(4);
+							for(int pos = checkClause.indexOf(tablePrefix); pos>=0; pos = checkClause.indexOf(tablePrefix))
+								checkClause = checkClause.substring(0, pos) + checkClause.substring(pos+tablePrefix.length());
+
+							table.notifyExistentCheckConstraint(constraintName, checkClause);
+						}
+						else if("PRIMARY KEY".equals(constraintType))
+							table.notifyExistentPrimaryKeyConstraint(constraintName);
+						else if("FOREIGN KEY".equals(constraintType))
+							table.notifyExistentForeignKeyConstraint(constraintName);
+						else if("UNIQUE".equals(constraintType))
+						{
+							//printRow(resultSet);
+							final StringBuffer clause = new StringBuffer();
+							final StringBuffer bf = new StringBuffer();
+							bf.append("select COLUMN_NAME from SYSTEM_INDEXINFO where INDEX_NAME like 'SYS_IDX_").
+								append(constraintName).
+								append("_%' and NON_UNIQUE=false order by ORDINAL_POSITION");
+							
+							report.querySQL(bf.toString(), new ReportNode.ResultSetHandler()
+								{
+									public void run(final ResultSet resultSet) throws SQLException
+									{
+										//printMeta(resultSet);
+										boolean first = true;
+										clause.append('(');
+										while(resultSet.next())
+										{
+											//printRow(resultSet);
+											if(first)
+												first = false;
+											else
+												clause.append(',');
+											final String columnName = resultSet.getString(1);
+											clause.append(protectName(columnName));
+										}
+										clause.append(')');
+									}
+								});
+
+							table.notifyExistentUniqueConstraint(constraintName, clause.toString());
+						}
+						else
+							throw new RuntimeException(constraintType+'-'+constraintName);
+
+					}
+				}
+			});
 	}
 
 	public String getRenameColumnStatement(final String tableName, final String oldColumnName, final String newColumnName, final String columnType)

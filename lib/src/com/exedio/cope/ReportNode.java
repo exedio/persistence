@@ -18,6 +18,7 @@
 package com.exedio.cope;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.exedio.dsmf.ConnectionProvider;
@@ -51,6 +52,85 @@ public abstract class ReportNode
 	protected final String protectName(final String name)
 	{
 		return driver.protectName(name);
+	}
+	
+	// TODO: make non-public
+	public static final String GET_TABLES = "getTables";
+	// TODO: make non-public
+	public static final String GET_COLUMNS = "getColumns";
+
+	// TODO: make non-public
+	public static interface ResultSetHandler
+	{
+		public void run(ResultSet resultSet) throws SQLException;
+	}
+
+	// TODO: make non-public
+	public final void querySQL(final String statement, final ResultSetHandler resultSetHandler)
+	{
+		Connection connection = null;
+		ResultSet resultSet = null;
+		java.sql.Statement sqlStatement = null;
+		try
+		{
+			connection = connectionProvider.getConnection();
+			//System.err.println(statement);
+
+			if(GET_TABLES.equals(statement))
+			{
+				resultSet = connection.getMetaData().getTables(null, driver.schema, null, new String[]{"TABLE"});
+			}
+			else if(GET_COLUMNS.equals(statement))
+			{
+				resultSet = connection.getMetaData().getColumns(null, driver.schema, null, null);
+			}
+			else
+			{
+				sqlStatement = connection.createStatement();
+				resultSet = sqlStatement.executeQuery(statement);
+			}
+			resultSetHandler.run(resultSet);
+		}
+		catch(SQLException e)
+		{
+			throw new NestingRuntimeException(e, statement.toString());
+		}
+		finally
+		{
+			if(sqlStatement!=null)
+			{
+				try
+				{
+					sqlStatement.close();
+				}
+				catch(SQLException e)
+				{
+					// exception is already thrown
+				}
+			}
+			if(resultSet!=null)
+			{
+				try
+				{
+					resultSet.close();
+				}
+				catch(SQLException e)
+				{
+					// exception is already thrown
+				}
+			}
+			if(connection!=null)
+			{
+				try
+				{
+					connectionProvider.putConnection(connection);
+				}
+				catch(SQLException e)
+				{
+					// exception is already thrown
+				}
+			}
+		}
 	}
 	
 	protected final void executeSQL(final String statement)
