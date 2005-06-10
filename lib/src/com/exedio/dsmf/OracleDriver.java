@@ -77,8 +77,7 @@ public final class OracleDriver extends Driver
 		return table.notifyExistentUniqueConstraint(constraintName, bf.toString());
 	}
 	
-	// TODO: make non-public
-	public void fillReport(final ReportSchema report)
+	void fillReport(final ReportSchema report)
 	{
 		super.fillReport(report);
 

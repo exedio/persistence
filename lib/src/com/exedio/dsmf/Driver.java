@@ -25,8 +25,7 @@ import java.sql.SQLException;
 
 public abstract class Driver
 {
-	// TODO: make non-public
-	public final String schema;
+	final String schema;
 
 	Driver(final String schema)
 	{
@@ -45,8 +44,7 @@ public abstract class Driver
 
 	public abstract String getColumnType(int dataType, ResultSet resultSet) throws SQLException;
 
-	// TODO: make non-public
-	public void fillReport(final ReportSchema report)
+	void fillReport(final ReportSchema report)
 	{
 		report.querySQL(ReportNode.GET_TABLES, new ReportNode.ResultSetHandler()
 			{

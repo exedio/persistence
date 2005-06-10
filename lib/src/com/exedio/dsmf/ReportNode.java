@@ -53,19 +53,15 @@ public abstract class ReportNode
 		return driver.protectName(name);
 	}
 	
-	// TODO: make non-public
-	public static final String GET_TABLES = "getTables";
-	// TODO: make non-public
-	public static final String GET_COLUMNS = "getColumns";
+	static final String GET_TABLES = "getTables";
+	static final String GET_COLUMNS = "getColumns";
 
-	// TODO: make non-public
-	public static interface ResultSetHandler
+	static interface ResultSetHandler
 	{
 		public void run(ResultSet resultSet) throws SQLException;
 	}
 
-	// TODO: make non-public
-	public final void querySQL(final String statement, final ResultSetHandler resultSetHandler)
+	final void querySQL(final String statement, final ResultSetHandler resultSetHandler)
 	{
 		Connection connection = null;
 		ResultSet resultSet = null;

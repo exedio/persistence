@@ -51,8 +51,7 @@ public final class HsqldbDriver extends Driver
 		}
 	}
 
-	// TODO: make non-public
-	public void fillReport(final ReportSchema report)
+	void fillReport(final ReportSchema report)
 	{
 		super.fillReport(report);
 

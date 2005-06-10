@@ -37,10 +37,7 @@ public final class MysqlDriver extends Driver
 		this.primaryKeyColumnName = primaryKeyColumnName;
 	}
 
-	/**
-	 * TODO make non-public
-	 */
-	public static final char PROTECTOR = '`';
+	private static final char PROTECTOR = '`';
 
 	public String protectName(final String name)
 	{
@@ -80,8 +77,7 @@ public final class MysqlDriver extends Driver
 		return protectedName.substring(1, protectedName.length()-1);
 	}
 
-	// TODO: make non-public
-	public void fillReport(final ReportSchema report)
+	void fillReport(final ReportSchema report)
 	{
 		super.fillReport(report);
 		{

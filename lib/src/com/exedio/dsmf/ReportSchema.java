@@ -42,8 +42,7 @@ public final class ReportSchema extends ReportNode
 		tableList.add(table);
 	}
 	
-	// TODO: make non-public
-	public final ReportTable notifyExistentTable(final String tableName)
+	final ReportTable notifyExistentTable(final String tableName)
 	{
 		ReportTable result = (ReportTable)tableMap.get(tableName);
 		if(result==null)

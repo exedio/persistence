@@ -70,8 +70,7 @@ public final class ReportTable extends ReportNode
 		constraintList.add(constraint);
 	}
 	
-	// TODO: make non-public
-	public final void setLastAnalyzed(final Date lastAnalyzed)
+	final void setLastAnalyzed(final Date lastAnalyzed)
 	{
 		if(this.lastAnalyzed!=null)
 			throw new RuntimeException();
@@ -84,8 +83,7 @@ public final class ReportTable extends ReportNode
 		exists = true;
 	}
 	
-	// TODO: make non-public
-	public final ReportColumn notifyExistentColumn(final String columnName, final String existingType)
+	final ReportColumn notifyExistentColumn(final String columnName, final String existingType)
 	{
 		ReportColumn result = (ReportColumn)columnMap.get(columnName);
 		if(result==null)
@@ -96,8 +94,7 @@ public final class ReportTable extends ReportNode
 		return result;
 	}
 	
-	// TODO: make non-public
-	public final ReportConstraint notifyExistentCheckConstraint(final String constraintName, final String condition)
+	final ReportConstraint notifyExistentCheckConstraint(final String constraintName, final String condition)
 	{
 		ReportConstraint result = (ReportConstraint)constraintMap.get(constraintName);
 		
@@ -109,8 +106,7 @@ public final class ReportTable extends ReportNode
 		return result;
 	}
 	
-	// TODO: make non-public
-	public final ReportConstraint notifyExistentPrimaryKeyConstraint(final String constraintName)
+	final ReportConstraint notifyExistentPrimaryKeyConstraint(final String constraintName)
 	{
 		ReportConstraint result = (ReportConstraint)constraintMap.get(constraintName);
 
@@ -122,8 +118,7 @@ public final class ReportTable extends ReportNode
 		return result;
 	}
 	
-	// TODO: make non-public
-	public final ReportConstraint notifyExistentForeignKeyConstraint(final String constraintName)
+	final ReportConstraint notifyExistentForeignKeyConstraint(final String constraintName)
 	{
 		ReportConstraint result = (ReportConstraint)constraintMap.get(constraintName);
 		
@@ -135,8 +130,7 @@ public final class ReportTable extends ReportNode
 		return result;
 	}
 	
-	// TODO: make non-public
-	public final ReportConstraint notifyExistentUniqueConstraint(final String constraintName, final String condition)
+	final ReportConstraint notifyExistentUniqueConstraint(final String constraintName, final String condition)
 	{
 		ReportConstraint result = (ReportConstraint)constraintMap.get(constraintName);
 		
