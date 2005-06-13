@@ -58,14 +58,6 @@ abstract class Column
 		return table.getTypeColumn();
 	}
 
-	final String getPrimaryKeyConstraintID()
-	{
-		if(!primaryKey)
-			throw new RuntimeException(id);
-
-		return table.database.trimName(table.id + "_" + "Pk");
-	}
-	
 	final String getCheckConstraintID()
 	{
 		if(!table.database.supportsCheckConstraints())
@@ -124,7 +116,7 @@ abstract class Column
 		final ReportColumn result = new ReportColumn(reportTable, id, getDatabaseType(), true);
 
 		if(primaryKey)
-			new ReportPrimaryKeyConstraint(reportTable, getPrimaryKeyConstraintID(), true, id);
+			new ReportPrimaryKeyConstraint(reportTable, table.database.trimName(table.id + "_" + "Pk"), true, id);
 		else
 		{
 			final String checkConstraint = getCheckConstraint();
