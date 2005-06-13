@@ -343,7 +343,7 @@ public class ReportTest extends DatabaseLibTest
 		if(model.supportsCheckConstraints() || constraintType!=CHECK)
 		{
 			assertNotNull("no such constraint "+constraintName+", but has "+table.getConstraints(), constraint);
-			assertEquals(constraintName, constraintType, constraint.type);
+			assertEquals(constraintName, constraintType, constraint.getType());
 			assertEquals(constraintName, requiredCondition, constraint.requiredCondition);
 			assertEquals(constraintName, null, constraint.getError());
 			assertEquals(constraintName, ReportSchema.COLOR_OK, constraint.getParticularColor());

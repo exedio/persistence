@@ -230,7 +230,7 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); tableCount++)
 			final String constraintColor = color(constraint.getCumulativeColor());
 			%>
 			<li class="<%=constraintColor%>">
-				<small><%=type(constraint.type)%><%=constraintCount%></small> <%=constraint.getName()%><%
+				<small><%=type(constraint.getType())%><%=constraintCount%></small> <%=constraint.getName()%><%
 			
 			final String constraintCondition = constraint.requiredCondition;
 			if(constraintCondition!=null)

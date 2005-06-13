@@ -28,7 +28,7 @@ public abstract class ReportConstraint extends ReportNode
 
 	final ReportTable table;
 	final String name;
-	public final int type;
+	final int type;
 	private final boolean required;
 	public final String requiredCondition;
 	private boolean exists = false;
@@ -70,6 +70,11 @@ public abstract class ReportConstraint extends ReportNode
 	public final String getName()
 	{
 		return name;
+	}
+	
+	public final int getType()
+	{
+		return type;
 	}
 
 	final void notifyExists()
