@@ -149,7 +149,7 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); tableCount++)
 	{
 		if(lastAnalyzed!=null)
 		{
-			final Date date = lastAnalyzed.lastAnalyzed;
+			final Date date = lastAnalyzed.getDate();
 			final String lastAnalyzedString = date!=null ? date.toString() : "NEVER";
 			%>
 			<input type="checkbox" name="ANALYZE_TABLE" value="<%=table.getName()%>"/>analyze (<%=lastAnalyzedString%>)<%
@@ -161,7 +161,7 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); tableCount++)
 		<ul><%
 		if(lastAnalyzed!=null)
 		{
-			final Date date = lastAnalyzed.lastAnalyzed;
+			final Date date = lastAnalyzed.getDate();
 			final String lastAnalyzedString = date!=null ? date.toString() : "NEVER";
 			%>
 			<li class="<%=color(lastAnalyzed.getCumulativeColor())%>">

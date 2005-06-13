@@ -22,14 +22,19 @@ import java.util.Date;
 
 public final class ReportLastAnalyzed extends ReportNode
 {
-	public final ReportTable table;
-	public final Date lastAnalyzed;
+	final ReportTable table;
+	final Date date;
 		
-	ReportLastAnalyzed(final ReportTable table, final Date lastAnalyzed)
+	ReportLastAnalyzed(final ReportTable table, final Date date)
 	{
 		super(table.driver, table.connectionProvider);
 		this.table = table;
-		this.lastAnalyzed = lastAnalyzed;
+		this.date = date;
+	}
+	
+	public final Date getDate()
+	{
+		return date;
 	}
 
 	protected void finish()
@@ -37,7 +42,7 @@ public final class ReportLastAnalyzed extends ReportNode
 		if(cumulativeColor!=COLOR_NOT_YET_CALC || particularColor!=COLOR_NOT_YET_CALC)
 			throw new RuntimeException();
 
-		if(lastAnalyzed==null)
+		if(date==null)
 		{
 			error = "not analyzed !!!";
 			particularColor = COLOR_ERROR;
