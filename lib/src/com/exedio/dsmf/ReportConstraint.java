@@ -26,7 +26,7 @@ public abstract class ReportConstraint extends ReportNode
 	public static final int TYPE_FOREIGN_KEY = 2;
 	public static final int TYPE_UNIQUE = 3;
 
-	public final ReportTable table;
+	final ReportTable table;
 	public final String name;
 	public final int type;
 	private final boolean required;
@@ -60,6 +60,11 @@ public abstract class ReportConstraint extends ReportNode
 			this.existingCondition = condition;
 		}
 		table.register(this);
+	}
+	
+	public final ReportTable getTable()
+	{
+		return table;
 	}
 
 	final void notifyExists()

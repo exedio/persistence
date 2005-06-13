@@ -253,7 +253,7 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); tableCount++)
 				}
 			}
 			else if( constraint.required() &&
-						constraint.table.exists() )
+						constraint.getTable().exists() )
 			{
 				%>
 				<input type="checkbox" name="CREATE_CONSTRAINT" value="<%=constraint.name%>"/>create<%
