@@ -109,7 +109,7 @@ public final class ReportTable extends ReportNode
 		ReportConstraint result = (ReportConstraint)constraintMap.get(constraintName);
 		
 		if(result==null)
-			result = new ReportCheckConstraint(this, constraintName, false, condition);
+			result = new CheckConstraint(this, constraintName, false, condition);
 		else
 			result.notifyExistsCondition(condition);
 
@@ -261,9 +261,9 @@ public final class ReportTable extends ReportNode
 		{
 			final ReportConstraint constraint = (ReportConstraint)i.next();
 
-			if(constraint instanceof ReportCheckConstraint)
+			if(constraint instanceof CheckConstraint)
 			{
-				final ReportCheckConstraint check = (ReportCheckConstraint)constraint;
+				final CheckConstraint check = (CheckConstraint)constraint;
 				bf.append(",constraint ").
 					append(protectName(check.name)).
 					append(" check(").

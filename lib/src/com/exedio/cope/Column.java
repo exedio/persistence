@@ -20,7 +20,7 @@ package com.exedio.cope;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.exedio.dsmf.ReportCheckConstraint;
+import com.exedio.dsmf.CheckConstraint;
 import com.exedio.dsmf.ReportColumn;
 import com.exedio.dsmf.ReportPrimaryKeyConstraint;
 import com.exedio.dsmf.ReportTable;
@@ -109,7 +109,7 @@ abstract class Column
 				}
 	
 				if(checkConstraint!=null)
-					new ReportCheckConstraint(reportTable, table.database.trimName(table.id + "_" + id + "_Ck"), checkConstraint);
+					new CheckConstraint(reportTable, table.database.trimName(table.id + "_" + id + "_Ck"), checkConstraint);
 			}
 		}
 	}

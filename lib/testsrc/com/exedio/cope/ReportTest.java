@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import com.exedio.dsmf.ReportCheckConstraint;
+import com.exedio.dsmf.CheckConstraint;
 import com.exedio.dsmf.ReportColumn;
 import com.exedio.dsmf.ReportConstraint;
 import com.exedio.dsmf.ReportForeignKeyConstraint;
@@ -34,7 +34,7 @@ public class ReportTest extends DatabaseLibTest
 	private static final String COLUMN1 = "num2";
 	private static final String COLUMN1X = "num2X";
 	
-	public static final Class CHECK = ReportCheckConstraint.class;
+	public static final Class CHECK = CheckConstraint.class;
 	public static final Class PK = ReportPrimaryKeyConstraint.class;
 	public static final Class FK = ReportForeignKeyConstraint.class;
 	public static final Class UNIQUE = ReportUniqueConstraint.class;
@@ -307,8 +307,8 @@ public class ReportTest extends DatabaseLibTest
 	
 	private void assertCheckConstraint(final ReportTable table, final String constraintName, final String requiredCondition)
 	{
-		final ReportCheckConstraint constraint =
-			(ReportCheckConstraint)assertConstraint(table, CHECK, constraintName, requiredCondition);
+		final CheckConstraint constraint =
+			(CheckConstraint)assertConstraint(table, CHECK, constraintName, requiredCondition);
 	}
 	
 	private void assertPkConstraint(final ReportTable table, final String constraintName, final String requiredCondition, final String primaryKeyColumn)

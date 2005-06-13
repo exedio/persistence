@@ -15,19 +15,19 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
+
 package com.exedio.dsmf;
 
 
-
-public class ReportCheckConstraint extends ReportConstraint
+public class CheckConstraint extends ReportConstraint
 {
 
-	public ReportCheckConstraint(final ReportTable table, final String name, final String condition)
+	public CheckConstraint(final ReportTable table, final String name, final String condition)
 	{
 		this(table, name, true, condition);
 	}
 
-	ReportCheckConstraint(final ReportTable table, final String name, final boolean required, final String condition)
+	CheckConstraint(final ReportTable table, final String name, final boolean required, final String condition)
 	{
 		super(table, name, required, condition);
 		

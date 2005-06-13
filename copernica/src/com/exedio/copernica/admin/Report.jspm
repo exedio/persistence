@@ -25,7 +25,7 @@ import java.util.Date;
 import java.util.Iterator;
 
 import com.exedio.cope.Model;
-import com.exedio.dsmf.ReportCheckConstraint;
+import com.exedio.dsmf.CheckConstraint;
 import com.exedio.dsmf.ReportColumn;
 import com.exedio.dsmf.ReportConstraint;
 import com.exedio.dsmf.ReportForeignKeyConstraint;
@@ -54,7 +54,7 @@ final class Report_Jspm
 	
 	private static final String type(final ReportConstraint constraint)
 	{
-		if(constraint instanceof ReportCheckConstraint)
+		if(constraint instanceof CheckConstraint)
 			return "check";
 		else if(constraint instanceof ReportPrimaryKeyConstraint)
 			return "pk";
