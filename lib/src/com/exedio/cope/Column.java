@@ -58,14 +58,6 @@ abstract class Column
 		return table.getTypeColumn();
 	}
 
-	final String getCheckConstraintID()
-	{
-		if(!table.database.supportsCheckConstraints())
-			return null;
-
-		return table.database.trimName(table.id + "_" + id + "_Ck");
-	}
-	
 	final String getCheckConstraint()
 	{
 		if(!table.database.supportsCheckConstraints())
@@ -121,7 +113,7 @@ abstract class Column
 		{
 			final String checkConstraint = getCheckConstraint();
 			if(checkConstraint!=null)
-				new ReportCheckConstraint(reportTable, getCheckConstraintID(), true, checkConstraint);
+				new ReportCheckConstraint(reportTable, table.database.trimName(table.id + "_" + id + "_Ck"), true, checkConstraint);
 		}
 	}
 		
