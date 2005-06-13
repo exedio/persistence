@@ -109,7 +109,7 @@ public final class MysqlDriver extends Driver
 											for(Iterator j = reportTable.getConstraints().iterator(); j.hasNext(); )
 											{
 												final ReportConstraint c = (ReportConstraint)j.next();
-												if(c instanceof ReportPrimaryKeyConstraint)
+												if(c instanceof PrimaryKeyConstraint)
 												{
 													reportTable.notifyExistentPrimaryKeyConstraint(c.name);
 													break;

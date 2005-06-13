@@ -30,7 +30,7 @@ import com.exedio.dsmf.ReportColumn;
 import com.exedio.dsmf.ReportConstraint;
 import com.exedio.dsmf.ReportForeignKeyConstraint;
 import com.exedio.dsmf.ReportLastAnalyzed;
-import com.exedio.dsmf.ReportPrimaryKeyConstraint;
+import com.exedio.dsmf.PrimaryKeyConstraint;
 import com.exedio.dsmf.ReportSchema;
 import com.exedio.dsmf.ReportTable;
 import com.exedio.dsmf.ReportUniqueConstraint;
@@ -56,7 +56,7 @@ final class Report_Jspm
 	{
 		if(constraint instanceof CheckConstraint)
 			return "check";
-		else if(constraint instanceof ReportPrimaryKeyConstraint)
+		else if(constraint instanceof PrimaryKeyConstraint)
 			return "pk";
 		else if(constraint instanceof ReportForeignKeyConstraint)
 			return "fk";

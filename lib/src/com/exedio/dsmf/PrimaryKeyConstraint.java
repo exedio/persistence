@@ -19,16 +19,16 @@ package com.exedio.dsmf;
 
 
 
-public class ReportPrimaryKeyConstraint extends ReportConstraint
+public class PrimaryKeyConstraint extends ReportConstraint
 {
 	final String primaryKeyColumn;
 	
-	public ReportPrimaryKeyConstraint(final ReportTable table, final String name, final String primaryKeyColumn)
+	public PrimaryKeyConstraint(final ReportTable table, final String name, final String primaryKeyColumn)
 	{
 		this(table, name, true, primaryKeyColumn);
 	}
 	
-	ReportPrimaryKeyConstraint(final ReportTable table, final String name, final boolean required, final String primaryKeyColumn)
+	PrimaryKeyConstraint(final ReportTable table, final String name, final boolean required, final String primaryKeyColumn)
 	{
 		super(table, name, required, null);
 

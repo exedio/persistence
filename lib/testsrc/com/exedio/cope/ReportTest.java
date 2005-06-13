@@ -22,7 +22,7 @@ import com.exedio.dsmf.CheckConstraint;
 import com.exedio.dsmf.ReportColumn;
 import com.exedio.dsmf.ReportConstraint;
 import com.exedio.dsmf.ReportForeignKeyConstraint;
-import com.exedio.dsmf.ReportPrimaryKeyConstraint;
+import com.exedio.dsmf.PrimaryKeyConstraint;
 import com.exedio.dsmf.ReportSchema;
 import com.exedio.dsmf.ReportTable;
 import com.exedio.dsmf.ReportUniqueConstraint;
@@ -35,7 +35,7 @@ public class ReportTest extends DatabaseLibTest
 	private static final String COLUMN1X = "num2X";
 	
 	public static final Class CHECK = CheckConstraint.class;
-	public static final Class PK = ReportPrimaryKeyConstraint.class;
+	public static final Class PK = PrimaryKeyConstraint.class;
 	public static final Class FK = ReportForeignKeyConstraint.class;
 	public static final Class UNIQUE = ReportUniqueConstraint.class;
 
@@ -313,8 +313,8 @@ public class ReportTest extends DatabaseLibTest
 	
 	private void assertPkConstraint(final ReportTable table, final String constraintName, final String requiredCondition, final String primaryKeyColumn)
 	{
-		final ReportPrimaryKeyConstraint constraint =
-			(ReportPrimaryKeyConstraint)assertConstraint(table, PK, constraintName, requiredCondition);
+		final PrimaryKeyConstraint constraint =
+			(PrimaryKeyConstraint)assertConstraint(table, PK, constraintName, requiredCondition);
 
 		assertEquals(primaryKeyColumn, constraint.getPrimaryKeyColumn());
 	}
