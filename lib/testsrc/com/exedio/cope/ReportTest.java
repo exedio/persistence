@@ -25,7 +25,7 @@ import com.exedio.dsmf.ForeignKeyConstraint;
 import com.exedio.dsmf.PrimaryKeyConstraint;
 import com.exedio.dsmf.ReportSchema;
 import com.exedio.dsmf.ReportTable;
-import com.exedio.dsmf.ReportUniqueConstraint;
+import com.exedio.dsmf.UniqueConstraint;
 
 public class ReportTest extends DatabaseLibTest
 {
@@ -37,7 +37,7 @@ public class ReportTest extends DatabaseLibTest
 	public static final Class CHECK = CheckConstraint.class;
 	public static final Class PK = PrimaryKeyConstraint.class;
 	public static final Class FK = ForeignKeyConstraint.class;
-	public static final Class UNIQUE = ReportUniqueConstraint.class;
+	public static final Class UNIQUE = UniqueConstraint.class;
 
 	public void testReport()
 	{
@@ -331,8 +331,8 @@ public class ReportTest extends DatabaseLibTest
 	
 	private void assertUniqueConstraint(final ReportTable table, final String constraintName, final String clause)
 	{
-		final ReportUniqueConstraint constraint =
-			(ReportUniqueConstraint)assertConstraint(table, UNIQUE, constraintName, clause);
+		final UniqueConstraint constraint =
+			(UniqueConstraint)assertConstraint(table, UNIQUE, constraintName, clause);
 
 		assertEquals(clause, constraint.getClause());
 	}

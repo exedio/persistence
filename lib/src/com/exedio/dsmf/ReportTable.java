@@ -145,7 +145,7 @@ public final class ReportTable extends ReportNode
 		ReportConstraint result = (ReportConstraint)constraintMap.get(constraintName);
 		
 		if(result==null)
-			result = new ReportUniqueConstraint(this, constraintName, false, condition);
+			result = new UniqueConstraint(this, constraintName, false, condition);
 		else
 			result.notifyExistsCondition(condition);
 		
@@ -281,9 +281,9 @@ public final class ReportTable extends ReportNode
 			}
 			else if(constraint instanceof ForeignKeyConstraint)
 				; // this is done in createForeignKeyConstraints
-			else if(constraint instanceof ReportUniqueConstraint)
+			else if(constraint instanceof UniqueConstraint)
 			{
-				final ReportUniqueConstraint unique = (ReportUniqueConstraint)constraint;
+				final UniqueConstraint unique = (UniqueConstraint)constraint;
 				bf.append(",constraint ").
 					append(protectName(unique.name)).
 					append(" unique").

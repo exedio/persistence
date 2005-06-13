@@ -15,20 +15,21 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
+
 package com.exedio.dsmf;
 
 
 
-public class ReportUniqueConstraint extends ReportConstraint
+public class UniqueConstraint extends ReportConstraint
 {
 	final String clause;
 	
-	public ReportUniqueConstraint(final ReportTable table, final String name, final String clause)
+	public UniqueConstraint(final ReportTable table, final String name, final String clause)
 	{
 		this(table, name, true, clause);
 	}
 
-	ReportUniqueConstraint(final ReportTable table, final String name, final boolean required, final String clause)
+	UniqueConstraint(final ReportTable table, final String name, final boolean required, final String clause)
 	{
 		super(table, name, required, clause);
 

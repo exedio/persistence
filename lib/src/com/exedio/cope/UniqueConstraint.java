@@ -28,7 +28,6 @@ import com.exedio.cope.search.AndCondition;
 import com.exedio.cope.search.Condition;
 import com.exedio.cope.search.EqualCondition;
 import com.exedio.dsmf.ReportTable;
-import com.exedio.dsmf.ReportUniqueConstraint;
 
 public final class UniqueConstraint extends TypeComponent
 {
@@ -122,7 +121,7 @@ public final class UniqueConstraint extends TypeComponent
 		}
 		bf.append(')');
 
-		new ReportUniqueConstraint(reportTable, getDatabaseID(), bf.toString());
+		new com.exedio.dsmf.UniqueConstraint(reportTable, getDatabaseID(), bf.toString());
 	}
 	
 

@@ -33,7 +33,7 @@ import com.exedio.dsmf.ReportLastAnalyzed;
 import com.exedio.dsmf.PrimaryKeyConstraint;
 import com.exedio.dsmf.ReportSchema;
 import com.exedio.dsmf.ReportTable;
-import com.exedio.dsmf.ReportUniqueConstraint;
+import com.exedio.dsmf.UniqueConstraint;
 
 final class Report_Jspm
 {
@@ -60,7 +60,7 @@ final class Report_Jspm
 			return "pk";
 		else if(constraint instanceof ForeignKeyConstraint)
 			return "fk";
-		else if(constraint instanceof ReportUniqueConstraint)
+		else if(constraint instanceof UniqueConstraint)
 			return "unique";
 		else
 			throw new RuntimeException(constraint.getClass().getName());
