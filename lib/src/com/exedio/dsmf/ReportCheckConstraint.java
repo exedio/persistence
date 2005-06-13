@@ -24,7 +24,7 @@ public class ReportCheckConstraint extends ReportConstraint
 
 	public ReportCheckConstraint(final ReportTable table, final String name, final boolean required, final String condition)
 	{
-		super(table, name, TYPE_CHECK, required, condition);
+		super(table, name, required, condition);
 		
 		if(condition==null)
 			throw new RuntimeException(name);

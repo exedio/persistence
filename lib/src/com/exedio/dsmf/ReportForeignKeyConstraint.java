@@ -27,7 +27,7 @@ public class ReportForeignKeyConstraint extends ReportConstraint
 	
 	public ReportForeignKeyConstraint(final ReportTable table, final String name, final boolean required, final String foreignKeyColumn, final String targetTable, final String targetColumn)
 	{
-		super(table, name, TYPE_FOREIGN_KEY, required, null);
+		super(table, name, required, null);
 		
 		if(required && foreignKeyColumn==null)
 			throw new RuntimeException(name);

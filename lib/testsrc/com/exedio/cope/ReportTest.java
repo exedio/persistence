@@ -34,10 +34,10 @@ public class ReportTest extends DatabaseLibTest
 	private static final String COLUMN1 = "num2";
 	private static final String COLUMN1X = "num2X";
 	
-	public static final int CHECK = ReportConstraint.TYPE_CHECK;
-	public static final int PK = ReportConstraint.TYPE_PRIMARY_KEY;
-	public static final int FK = ReportConstraint.TYPE_FOREIGN_KEY;
-	public static final int UNIQUE = ReportConstraint.TYPE_UNIQUE;
+	public static final Class CHECK = ReportCheckConstraint.class;
+	public static final Class PK = ReportPrimaryKeyConstraint.class;
+	public static final Class FK = ReportForeignKeyConstraint.class;
+	public static final Class UNIQUE = ReportUniqueConstraint.class;
 
 	public void testReport()
 	{
@@ -337,13 +337,13 @@ public class ReportTest extends DatabaseLibTest
 		assertEquals(clause, constraint.getClause());
 	}
 	
-	private ReportConstraint assertConstraint(final ReportTable table, final int constraintType, final String constraintName, final String requiredCondition)
+	private ReportConstraint assertConstraint(final ReportTable table, final Class constraintType, final String constraintName, final String requiredCondition)
 	{
 		final ReportConstraint constraint = table.getConstraint(constraintName);
 		if(model.supportsCheckConstraints() || constraintType!=CHECK)
 		{
 			assertNotNull("no such constraint "+constraintName+", but has "+table.getConstraints(), constraint);
-			assertEquals(constraintName, constraintType, constraint.getType());
+			assertEquals(constraintName, constraintType, constraint.getClass());
 			assertEquals(constraintName, requiredCondition, constraint.getRequiredCondition());
 			assertEquals(constraintName, null, constraint.getError());
 			assertEquals(constraintName, ReportSchema.COLOR_OK, constraint.getParticularColor());

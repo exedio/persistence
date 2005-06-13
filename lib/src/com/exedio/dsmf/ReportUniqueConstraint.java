@@ -25,7 +25,7 @@ public class ReportUniqueConstraint extends ReportConstraint
 	
 	public ReportUniqueConstraint(final ReportTable table, final String name, final boolean required, final String clause)
 	{
-		super(table, name, TYPE_UNIQUE, required, clause);
+		super(table, name, required, clause);
 
 		if(clause==null)
 			throw new RuntimeException(name);

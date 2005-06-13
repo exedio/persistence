@@ -25,7 +25,7 @@ public class ReportPrimaryKeyConstraint extends ReportConstraint
 	
 	public ReportPrimaryKeyConstraint(final ReportTable table, final String name, final boolean required, final String primaryKeyColumn)
 	{
-		super(table, name, TYPE_PRIMARY_KEY, required, null);
+		super(table, name, required, null);
 
 		if(required && primaryKeyColumn==null)
 			throw new RuntimeException(name);

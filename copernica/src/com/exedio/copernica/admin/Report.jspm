@@ -25,11 +25,15 @@ import java.util.Date;
 import java.util.Iterator;
 
 import com.exedio.cope.Model;
+import com.exedio.dsmf.ReportCheckConstraint;
 import com.exedio.dsmf.ReportColumn;
 import com.exedio.dsmf.ReportConstraint;
+import com.exedio.dsmf.ReportForeignKeyConstraint;
 import com.exedio.dsmf.ReportLastAnalyzed;
+import com.exedio.dsmf.ReportPrimaryKeyConstraint;
 import com.exedio.dsmf.ReportSchema;
 import com.exedio.dsmf.ReportTable;
+import com.exedio.dsmf.ReportUniqueConstraint;
 
 final class Report_Jspm
 {
@@ -48,21 +52,18 @@ final class Report_Jspm
 		}
 	}
 	
-	private static final String type(final int type)
+	private static final String type(final ReportConstraint constraint)
 	{
-		switch(type)
-		{
-		case ReportConstraint.TYPE_CHECK:
+		if(constraint instanceof ReportCheckConstraint)
 			return "check";
-		case ReportConstraint.TYPE_PRIMARY_KEY:
+		else if(constraint instanceof ReportPrimaryKeyConstraint)
 			return "pk";
-		case ReportConstraint.TYPE_FOREIGN_KEY:
+		else if(constraint instanceof ReportForeignKeyConstraint)
 			return "fk";
-		case ReportConstraint.TYPE_UNIQUE:
+		else if(constraint instanceof ReportUniqueConstraint)
 			return "unique";
-		default:
-			throw new RuntimeException(String.valueOf(type));
-		}
+		else
+			throw new RuntimeException(constraint.getClass().getName());
 	}
 	
 	final static void writeReport(final PrintStream out, final Model model, final ReportCop cop)
@@ -230,7 +231,7 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); tableCount++)
 			final String constraintColor = color(constraint.getCumulativeColor());
 			%>
 			<li class="<%=constraintColor%>">
-				<small><%=type(constraint.getType())%><%=constraintCount%></small> <%=constraint.getName()%><%
+				<small><%=type(constraint)%><%=constraintCount%></small> <%=constraint.getName()%><%
 			
 			final String constraintCondition = constraint.getRequiredCondition();
 			if(constraintCondition!=null)
