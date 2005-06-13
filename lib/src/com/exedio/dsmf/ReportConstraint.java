@@ -27,7 +27,7 @@ public abstract class ReportConstraint extends ReportNode
 	public static final int TYPE_UNIQUE = 3;
 
 	final ReportTable table;
-	public final String name;
+	final String name;
 	public final int type;
 	private final boolean required;
 	public final String requiredCondition;
@@ -65,6 +65,11 @@ public abstract class ReportConstraint extends ReportNode
 	public final ReportTable getTable()
 	{
 		return table;
+	}
+	
+	public final String getName()
+	{
+		return name;
 	}
 
 	final void notifyExists()

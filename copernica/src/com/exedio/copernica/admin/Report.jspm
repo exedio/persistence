@@ -230,7 +230,7 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); tableCount++)
 			final String constraintColor = color(constraint.getCumulativeColor());
 			%>
 			<li class="<%=constraintColor%>">
-				<small><%=type(constraint.type)%><%=constraintCount%></small> <%=constraint.name%><%
+				<small><%=type(constraint.type)%><%=constraintCount%></small> <%=constraint.getName()%><%
 			
 			final String constraintCondition = constraint.requiredCondition;
 			if(constraintCondition!=null)
@@ -249,14 +249,14 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); tableCount++)
 				if(cop.showDropBoxes)
 				{
 					%>
-				<input type="checkbox" name="DROP_CONSTRAINT" value="<%=constraint.name%>"/>drop<%
+				<input type="checkbox" name="DROP_CONSTRAINT" value="<%=constraint.getName()%>"/>drop<%
 				}
 			}
 			else if( constraint.required() &&
 						constraint.getTable().exists() )
 			{
 				%>
-				<input type="checkbox" name="CREATE_CONSTRAINT" value="<%=constraint.name%>"/>create<%
+				<input type="checkbox" name="CREATE_CONSTRAINT" value="<%=constraint.getName()%>"/>create<%
 			}
 			%>
 			</li><%
