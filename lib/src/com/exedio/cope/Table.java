@@ -24,7 +24,6 @@ import java.util.List;
 
 import com.exedio.dsmf.ReportSchema;
 import com.exedio.dsmf.ReportTable;
-import com.exedio.dsmf.ReportUniqueConstraint;
 
 
 final class Table
@@ -172,12 +171,7 @@ final class Table
 			((Column)i.next()).report(reportTable);
 
 		for(Iterator i = getUniqueConstraints().iterator(); i.hasNext(); )
-		{
-			final UniqueConstraint uniqueConstraint = (UniqueConstraint)i.next();
-			final Statement bf = database.createStatement();
-			uniqueConstraint.appendClause(bf);
-			new ReportUniqueConstraint(reportTable, uniqueConstraint.getDatabaseID(), true, bf.getText());
-		}
+			((UniqueConstraint)i.next()).report(reportTable);
 	}
 
 }

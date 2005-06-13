@@ -27,6 +27,8 @@ import com.exedio.cope.pattern.Qualifier;
 import com.exedio.cope.search.AndCondition;
 import com.exedio.cope.search.Condition;
 import com.exedio.cope.search.EqualCondition;
+import com.exedio.dsmf.ReportTable;
+import com.exedio.dsmf.ReportUniqueConstraint;
 
 public final class UniqueConstraint extends TypeComponent
 {
@@ -107,8 +109,9 @@ public final class UniqueConstraint extends TypeComponent
 		return databaseID;
 	}
 	
-	final void appendClause(final Statement bf)
+	final void report(final ReportTable reportTable)
 	{
+		final StringBuffer bf = new StringBuffer();
 		bf.append('(');
 		for(int i = 0; i<uniqueAttributes.length; i++)
 		{
@@ -118,6 +121,8 @@ public final class UniqueConstraint extends TypeComponent
 			bf.append(uniqueAttribute.getMainColumn().protectedID);
 		}
 		bf.append(')');
+
+		new ReportUniqueConstraint(reportTable, getDatabaseID(), true, bf.toString());
 	}
 	
 
