@@ -28,7 +28,7 @@ import com.exedio.cope.Model;
 import com.exedio.dsmf.CheckConstraint;
 import com.exedio.dsmf.ReportColumn;
 import com.exedio.dsmf.ReportConstraint;
-import com.exedio.dsmf.ReportForeignKeyConstraint;
+import com.exedio.dsmf.ForeignKeyConstraint;
 import com.exedio.dsmf.ReportLastAnalyzed;
 import com.exedio.dsmf.PrimaryKeyConstraint;
 import com.exedio.dsmf.ReportSchema;
@@ -58,7 +58,7 @@ final class Report_Jspm
 			return "check";
 		else if(constraint instanceof PrimaryKeyConstraint)
 			return "pk";
-		else if(constraint instanceof ReportForeignKeyConstraint)
+		else if(constraint instanceof ForeignKeyConstraint)
 			return "fk";
 		else if(constraint instanceof ReportUniqueConstraint)
 			return "unique";

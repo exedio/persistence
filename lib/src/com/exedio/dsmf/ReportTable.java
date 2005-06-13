@@ -133,7 +133,7 @@ public final class ReportTable extends ReportNode
 		ReportConstraint result = (ReportConstraint)constraintMap.get(constraintName);
 		
 		if(result==null)
-			result = new ReportForeignKeyConstraint(this, constraintName, false, null, null, null);
+			result = new ForeignKeyConstraint(this, constraintName, false, null, null, null);
 		else
 			result.notifyExists();
 		
@@ -279,7 +279,7 @@ public final class ReportTable extends ReportNode
 					append(protectName(pk.primaryKeyColumn)).
 					append(')');
 			}
-			else if(constraint instanceof ReportForeignKeyConstraint)
+			else if(constraint instanceof ForeignKeyConstraint)
 				; // this is done in createForeignKeyConstraints
 			else if(constraint instanceof ReportUniqueConstraint)
 			{
@@ -308,8 +308,8 @@ public final class ReportTable extends ReportNode
 		{
 			final ReportConstraint constraint = (ReportConstraint)i.next();
 			//System.out.println("createForeignKeyConstraints("+column+"):"+bf);
-			if(constraint instanceof ReportForeignKeyConstraint)
-				((ReportForeignKeyConstraint)constraint).create();
+			if(constraint instanceof ForeignKeyConstraint)
+				((ForeignKeyConstraint)constraint).create();
 		}
 	}
 	
@@ -340,9 +340,9 @@ public final class ReportTable extends ReportNode
 		{
 			final ReportConstraint constraint = (ReportConstraint)i.next();
 			//System.out.println("dropForeignKeyConstraints("+column+")");
-			if(constraint instanceof ReportForeignKeyConstraint)
+			if(constraint instanceof ForeignKeyConstraint)
 			{
-				final ReportForeignKeyConstraint fk = (ReportForeignKeyConstraint)constraint;
+				final ForeignKeyConstraint fk = (ForeignKeyConstraint)constraint;
 				if(log)
 					System.err.println("DROPPING FOREIGN KEY CONSTRAINTS "+name+" "+fk.name+"... ");
 				fk.drop();

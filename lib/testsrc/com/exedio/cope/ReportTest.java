@@ -21,7 +21,7 @@ package com.exedio.cope;
 import com.exedio.dsmf.CheckConstraint;
 import com.exedio.dsmf.ReportColumn;
 import com.exedio.dsmf.ReportConstraint;
-import com.exedio.dsmf.ReportForeignKeyConstraint;
+import com.exedio.dsmf.ForeignKeyConstraint;
 import com.exedio.dsmf.PrimaryKeyConstraint;
 import com.exedio.dsmf.ReportSchema;
 import com.exedio.dsmf.ReportTable;
@@ -36,7 +36,7 @@ public class ReportTest extends DatabaseLibTest
 	
 	public static final Class CHECK = CheckConstraint.class;
 	public static final Class PK = PrimaryKeyConstraint.class;
-	public static final Class FK = ReportForeignKeyConstraint.class;
+	public static final Class FK = ForeignKeyConstraint.class;
 	public static final Class UNIQUE = ReportUniqueConstraint.class;
 
 	public void testReport()
@@ -321,8 +321,8 @@ public class ReportTest extends DatabaseLibTest
 	
 	private void assertFkConstraint(final ReportTable table, final String constraintName, final String foreignKeyColumn, final String targetTable, final String targetColumn)
 	{
-		final ReportForeignKeyConstraint constraint =
-			(ReportForeignKeyConstraint)assertConstraint(table, FK, constraintName, null);
+		final ForeignKeyConstraint constraint =
+			(ForeignKeyConstraint)assertConstraint(table, FK, constraintName, null);
 
 		assertEquals(foreignKeyColumn, constraint.getForeignKeyColumn());
 		assertEquals(targetTable, constraint.getTargetTable());
