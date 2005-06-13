@@ -344,7 +344,7 @@ public class ReportTest extends DatabaseLibTest
 		{
 			assertNotNull("no such constraint "+constraintName+", but has "+table.getConstraints(), constraint);
 			assertEquals(constraintName, constraintType, constraint.getType());
-			assertEquals(constraintName, requiredCondition, constraint.requiredCondition);
+			assertEquals(constraintName, requiredCondition, constraint.getRequiredCondition());
 			assertEquals(constraintName, null, constraint.getError());
 			assertEquals(constraintName, ReportSchema.COLOR_OK, constraint.getParticularColor());
 		}

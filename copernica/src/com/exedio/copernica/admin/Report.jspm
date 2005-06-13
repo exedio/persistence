@@ -232,7 +232,7 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); tableCount++)
 			<li class="<%=constraintColor%>">
 				<small><%=type(constraint.getType())%><%=constraintCount%></small> <%=constraint.getName()%><%
 			
-			final String constraintCondition = constraint.requiredCondition;
+			final String constraintCondition = constraint.getRequiredCondition();
 			if(constraintCondition!=null)
 			{
 				%> <small><%=constraintCondition%></small><%

@@ -30,7 +30,7 @@ public abstract class ReportConstraint extends ReportNode
 	final String name;
 	final int type;
 	private final boolean required;
-	public final String requiredCondition;
+	final String requiredCondition;
 	private boolean exists = false;
 	private String existingCondition;
 		
@@ -77,6 +77,11 @@ public abstract class ReportConstraint extends ReportNode
 		return type;
 	}
 
+	public final String getRequiredCondition()
+	{
+		return requiredCondition;
+	}
+	
 	final void notifyExists()
 	{
 		exists = true;
