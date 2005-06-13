@@ -23,7 +23,12 @@ public class ReportUniqueConstraint extends ReportConstraint
 {
 	final String clause;
 	
-	public ReportUniqueConstraint(final ReportTable table, final String name, final boolean required, final String clause)
+	public ReportUniqueConstraint(final ReportTable table, final String name, final String clause)
+	{
+		this(table, name, true, clause);
+	}
+
+	ReportUniqueConstraint(final ReportTable table, final String name, final boolean required, final String clause)
 	{
 		super(table, name, required, clause);
 

@@ -39,7 +39,12 @@ public final class ReportTable extends ReportNode
 	private final HashMap constraintMap = new HashMap();
 	private final ArrayList constraintList = new ArrayList();
 
-	public ReportTable(final ReportSchema report, final String name, final boolean required)
+	public ReportTable(final ReportSchema report, final String name)
+	{
+		this(report, name, true);
+	}
+	
+	ReportTable(final ReportSchema report, final String name, final boolean required)
 	{
 		super(report.driver, report.connectionProvider);
 		

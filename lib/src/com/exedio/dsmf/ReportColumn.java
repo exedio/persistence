@@ -25,7 +25,12 @@ public final class ReportColumn extends ReportNode
 	private final String requiredType;
 	private String existingType;
 		
-	public ReportColumn(final ReportTable table, final String name, final String type, final boolean required)
+	public ReportColumn(final ReportTable table, final String name, final String type)
+	{
+		this(table, name, type, true);
+	}
+
+	ReportColumn(final ReportTable table, final String name, final String type, final boolean required)
 	{
 		super(table.driver, table.connectionProvider);
 

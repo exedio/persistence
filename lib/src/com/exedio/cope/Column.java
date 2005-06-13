@@ -82,10 +82,10 @@ abstract class Column
 
 	void report(final ReportTable reportTable)
 	{
-		final ReportColumn result = new ReportColumn(reportTable, id, getDatabaseType(), true);
+		final ReportColumn result = new ReportColumn(reportTable, id, getDatabaseType());
 
 		if(primaryKey)
-			new ReportPrimaryKeyConstraint(reportTable, table.database.trimName(table.id + "_" + "Pk"), true, id);
+			new ReportPrimaryKeyConstraint(reportTable, table.database.trimName(table.id + "_" + "Pk"), id);
 		else
 		{
 			if(table.database.supportsCheckConstraints())
@@ -109,7 +109,7 @@ abstract class Column
 				}
 	
 				if(checkConstraint!=null)
-					new ReportCheckConstraint(reportTable, table.database.trimName(table.id + "_" + id + "_Ck"), true, checkConstraint);
+					new ReportCheckConstraint(reportTable, table.database.trimName(table.id + "_" + id + "_Ck"), checkConstraint);
 			}
 		}
 	}

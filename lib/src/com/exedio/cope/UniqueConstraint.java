@@ -122,7 +122,7 @@ public final class UniqueConstraint extends TypeComponent
 		}
 		bf.append(')');
 
-		new ReportUniqueConstraint(reportTable, getDatabaseID(), true, bf.toString());
+		new ReportUniqueConstraint(reportTable, getDatabaseID(), bf.toString());
 	}
 	
 

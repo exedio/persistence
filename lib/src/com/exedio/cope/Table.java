@@ -165,7 +165,7 @@ final class Table
 	
 	void report(final ReportSchema report)
 	{
-		final ReportTable reportTable = new ReportTable(report, id, true);
+		final ReportTable reportTable = new ReportTable(report, id);
 		
 		for(Iterator i = getAllColumns().iterator(); i.hasNext(); )
 			((Column)i.next()).report(reportTable);

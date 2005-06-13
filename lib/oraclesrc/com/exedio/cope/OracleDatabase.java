@@ -118,27 +118,27 @@ final class OracleDatabase
 
 	protected void appendReport(final ReportSchema report)
 	{
-		final ReportTable planTable = new ReportTable(report, "PLAN_TABLE", true);
-		new ReportColumn(planTable, STATEMENT_ID, "VARCHAR2(30)", true);
-		new ReportColumn(planTable, "TIMESTAMP", "DATE", true);
-		new ReportColumn(planTable, "REMARKS", "VARCHAR2(80)", true);
-		new ReportColumn(planTable, OPERATION, "VARCHAR2(30)", true);
-		new ReportColumn(planTable, OPTIONS, "VARCHAR2(30)", true);
-		new ReportColumn(planTable, "OBJECT_NODE", "VARCHAR2(128)", true);
-		new ReportColumn(planTable, "OBJECT_OWNER", "VARCHAR2(30)", true);
-		new ReportColumn(planTable, OBJECT_NAME, "VARCHAR2(30)", true);
-		new ReportColumn(planTable, OBJECT_INSTANCE, "NUMBER(22)", true);
-		new ReportColumn(planTable, OBJECT_TYPE, "VARCHAR2(30)", true);
-		new ReportColumn(planTable, "OPTIMIZER", "VARCHAR2(255)", true);
-		new ReportColumn(planTable, "SEARCH_COLUMNS", "NUMBER(22)", true);
-		new ReportColumn(planTable, ID, "NUMBER(22)", true);
-		new ReportColumn(planTable, PARENT_ID, "NUMBER(22)", true);
-		new ReportColumn(planTable, "POSITION", "NUMBER(22)", true);
-		new ReportColumn(planTable, "COST", "NUMBER(22)", true);
-		new ReportColumn(planTable, "CARDINALITY", "NUMBER(22)", true);
-		new ReportColumn(planTable, "BYTES", "NUMBER(22)", true);
-		new ReportColumn(planTable, "OTHER_TAG", "VARCHAR2(255)", true);
-		new ReportColumn(planTable, "OTHER", "LONG", true);
+		final ReportTable planTable = new ReportTable(report, "PLAN_TABLE");
+		new ReportColumn(planTable, STATEMENT_ID, "VARCHAR2(30)");
+		new ReportColumn(planTable, "TIMESTAMP", "DATE");
+		new ReportColumn(planTable, "REMARKS", "VARCHAR2(80)");
+		new ReportColumn(planTable, OPERATION, "VARCHAR2(30)");
+		new ReportColumn(planTable, OPTIONS, "VARCHAR2(30)");
+		new ReportColumn(planTable, "OBJECT_NODE", "VARCHAR2(128)");
+		new ReportColumn(planTable, "OBJECT_OWNER", "VARCHAR2(30)");
+		new ReportColumn(planTable, OBJECT_NAME, "VARCHAR2(30)");
+		new ReportColumn(planTable, OBJECT_INSTANCE, "NUMBER(22)");
+		new ReportColumn(planTable, OBJECT_TYPE, "VARCHAR2(30)");
+		new ReportColumn(planTable, "OPTIMIZER", "VARCHAR2(255)");
+		new ReportColumn(planTable, "SEARCH_COLUMNS", "NUMBER(22)");
+		new ReportColumn(planTable, ID, "NUMBER(22)");
+		new ReportColumn(planTable, PARENT_ID, "NUMBER(22)");
+		new ReportColumn(planTable, "POSITION", "NUMBER(22)");
+		new ReportColumn(planTable, "COST", "NUMBER(22)");
+		new ReportColumn(planTable, "CARDINALITY", "NUMBER(22)");
+		new ReportColumn(planTable, "BYTES", "NUMBER(22)");
+		new ReportColumn(planTable, "OTHER_TAG", "VARCHAR2(255)");
+		new ReportColumn(planTable, "OTHER", "LONG");
 	}
 	
 	protected StatementInfo makeStatementInfo(final Statement statement, final Connection connection)
