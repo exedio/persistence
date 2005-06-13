@@ -101,7 +101,7 @@ public final class UniqueConstraint extends TypeComponent
 		database.addUniqueConstraint(databaseID, this);
 	}
 
-	public final String getDatabaseID()
+	private final String getDatabaseID()
 	{
 		if(databaseID==null)
 			throw new RuntimeException();
