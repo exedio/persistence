@@ -35,27 +35,27 @@ public final class ReportSchema extends ReportNode
 		super(driver, connectionProvider);
 	}
 
-	final void register(final ReportTable table)
+	final void register(final Table table)
 	{
 		if(tableMap.put(table.name, table)!=null)
 			throw new RuntimeException(table.name);
 		tableList.add(table);
 	}
 	
-	final ReportTable notifyExistentTable(final String tableName)
+	final Table notifyExistentTable(final String tableName)
 	{
-		ReportTable result = (ReportTable)tableMap.get(tableName);
+		Table result = (Table)tableMap.get(tableName);
 		if(result==null)
-			result = new ReportTable(this, tableName, false);
+			result = new Table(this, tableName, false);
 		else
 			result.notifyExists();
 
 		return result;
 	}
 	
-	public ReportTable getTable(final String name)
+	public Table getTable(final String name)
 	{
-		return (ReportTable)tableMap.get(name);
+		return (Table)tableMap.get(name);
 	}
 	
 	public List getTables()
@@ -79,7 +79,7 @@ public final class ReportSchema extends ReportNode
 		cumulativeColor = particularColor;
 		for(Iterator i = tableList.iterator(); i.hasNext(); )
 		{
-			final ReportTable table = (ReportTable)i.next();
+			final Table table = (Table)i.next();
 			table.finish();
 			cumulativeColor = Math.max(cumulativeColor, table.cumulativeColor);
 		}
@@ -91,10 +91,10 @@ public final class ReportSchema extends ReportNode
 	{
 		//final long time = System.currentTimeMillis();
 		for(Iterator i = tableList.iterator(); i.hasNext(); )
-			((ReportTable)i.next()).create();
+			((Table)i.next()).create();
 	
 		for(Iterator i = tableList.iterator(); i.hasNext(); )
-			((ReportTable)i.next()).createForeignKeyConstraints();
+			((Table)i.next()).createForeignKeyConstraints();
 	
 		//final long amount = (System.currentTimeMillis()-time);
 		//createTableTime += amount;
@@ -106,9 +106,9 @@ public final class ReportSchema extends ReportNode
 		//final long time = System.currentTimeMillis();
 		// must delete in reverse order, to obey integrity constraints
 		for(ListIterator i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
-			((ReportTable)i.previous()).dropForeignKeyConstraints(false);
+			((Table)i.previous()).dropForeignKeyConstraints(false);
 		for(ListIterator i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
-			((ReportTable)i.previous()).drop();
+			((Table)i.previous()).drop();
 		//final long amount = (System.currentTimeMillis()-time);
 		//dropTableTime += amount;
 		//System.out.println("DROP TABLES "+amount+"ms  accumulated "+dropTableTime);
@@ -121,7 +121,7 @@ public final class ReportSchema extends ReportNode
 		{
 			try
 			{
-				final ReportTable table = (ReportTable)i.next();
+				final Table table = (Table)i.next();
 				table.dropForeignKeyConstraints(true);
 			}
 			catch(NestingRuntimeException e2)
@@ -142,7 +142,7 @@ public final class ReportSchema extends ReportNode
 			{
 				try
 				{
-					final ReportTable table = (ReportTable)i.next();
+					final Table table = (Table)i.next();
 					System.err.print("DROPPING TABLE "+table+" ... ");
 					table.drop();
 					System.err.println("done.");

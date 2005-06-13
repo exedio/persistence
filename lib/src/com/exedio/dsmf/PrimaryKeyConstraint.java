@@ -23,12 +23,12 @@ public class PrimaryKeyConstraint extends ReportConstraint
 {
 	final String primaryKeyColumn;
 	
-	public PrimaryKeyConstraint(final ReportTable table, final String name, final String primaryKeyColumn)
+	public PrimaryKeyConstraint(final Table table, final String name, final String primaryKeyColumn)
 	{
 		this(table, name, true, primaryKeyColumn);
 	}
 	
-	PrimaryKeyConstraint(final ReportTable table, final String name, final boolean required, final String primaryKeyColumn)
+	PrimaryKeyConstraint(final Table table, final String name, final boolean required, final String primaryKeyColumn)
 	{
 		super(table, name, required, null);
 

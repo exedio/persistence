@@ -69,7 +69,7 @@ public final class HsqldbDriver extends Driver
 						final String constraintType = resultSet.getString(2);
 						final String tableName = resultSet.getString(3);
 						
-						final ReportTable table = report.notifyExistentTable(tableName);
+						final Table table = report.notifyExistentTable(tableName);
 						
 						if("CHECK".equals(constraintType))
 						{

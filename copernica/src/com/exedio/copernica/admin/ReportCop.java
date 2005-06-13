@@ -27,7 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.exedio.cope.Model;
 import com.exedio.dsmf.ReportColumn;
 import com.exedio.dsmf.ReportSchema;
-import com.exedio.dsmf.ReportTable;
+import com.exedio.dsmf.Table;
 
 
 final class ReportCop extends AdminCop
@@ -65,7 +65,7 @@ final class ReportCop extends AdminCop
 		Report_Jspm.writeReport(out, model, this);
 	}
 	
-	final ReportCop narrowReport(final ReportTable reportTable)
+	final ReportCop narrowReport(final Table reportTable)
 	{
 		return new ReportCop(reportTable.getName(), showDropBoxes, showRenameFields);
 	}
@@ -90,7 +90,7 @@ final class ReportCop extends AdminCop
 		return reportTable!=null;
 	}
 	
-	final boolean skipTable(final ReportTable table)
+	final boolean skipTable(final Table table)
 	{
 		return reportTable!=null && !reportTable.equals(table.getName());
 	}
@@ -101,7 +101,7 @@ final class ReportCop extends AdminCop
 		if(pos<=0)
 			throw new RuntimeException(columnParameter);
 		
-		final ReportTable table = report.getTable(columnParameter.substring(0, pos));
+		final Table table = report.getTable(columnParameter.substring(0, pos));
 		if(table==null)
 			throw new RuntimeException(columnParameter);
 		
@@ -142,7 +142,7 @@ final class ReportCop extends AdminCop
 				for (int i = 0; i < dropTables.length; i++)
 				{
 					final String dropTable = dropTables[i];
-					final ReportTable table = report.getTable(dropTable);
+					final Table table = report.getTable(dropTable);
 					if (table == null)
 						throw new RuntimeException(dropTable);
 					Report_Jspm.writeDrop(out, table);
@@ -167,7 +167,7 @@ final class ReportCop extends AdminCop
 
 				final String sourceName = parameterName.substring("RENAME_TABLE_"
 						.length());
-				final ReportTable table = report.getTable(sourceName);
+				final Table table = report.getTable(sourceName);
 				if (table == null)
 					throw new RuntimeException(sourceName);
 
@@ -238,7 +238,7 @@ final class ReportCop extends AdminCop
 				for (int i = 0; i < createTables.length; i++)
 				{
 					final String createTable = createTables[i];
-					final ReportTable table = report.getTable(createTable);
+					final Table table = report.getTable(createTable);
 					if (table == null)
 						throw new RuntimeException(createTable);
 
@@ -258,7 +258,7 @@ final class ReportCop extends AdminCop
 				for (int i = 0; i < analyzeTables.length; i++)
 				{
 					final String analyzeTable = analyzeTables[i];
-					final ReportTable table = report.getTable(analyzeTable);
+					final Table table = report.getTable(analyzeTable);
 					if (table == null)
 						throw new RuntimeException(analyzeTable);
 					Report_Jspm.writeAnalyze(out, table);

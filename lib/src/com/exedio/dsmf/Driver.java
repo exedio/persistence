@@ -53,7 +53,7 @@ public abstract class Driver
 					while(resultSet.next())
 					{
 						final String tableName = resultSet.getString("TABLE_NAME");
-						final ReportTable table = report.notifyExistentTable(tableName);
+						final Table table = report.notifyExistentTable(tableName);
 						//System.out.println("EXISTS:"+tableName);
 					}
 				}
@@ -69,7 +69,7 @@ public abstract class Driver
 						final String columnName = resultSet.getString("COLUMN_NAME");
 						final int dataType = resultSet.getInt("DATA_TYPE");
 						
-						final ReportTable table = report.getTable(tableName);
+						final Table table = report.getTable(tableName);
 						if(table!=null)
 						{
 							String columnType = getColumnType(dataType, resultSet);

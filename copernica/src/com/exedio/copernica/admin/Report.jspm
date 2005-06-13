@@ -32,7 +32,7 @@ import com.exedio.dsmf.ForeignKeyConstraint;
 import com.exedio.dsmf.ReportLastAnalyzed;
 import com.exedio.dsmf.PrimaryKeyConstraint;
 import com.exedio.dsmf.ReportSchema;
-import com.exedio.dsmf.ReportTable;
+import com.exedio.dsmf.Table;
 import com.exedio.dsmf.UniqueConstraint;
 
 final class Report_Jspm
@@ -99,7 +99,7 @@ supports check constraints: <i><%if(model.supportsCheckConstraints()){%>yes<%}el
 int tableCount = 1;
 for(Iterator i = report.getTables().iterator(); i.hasNext(); tableCount++)
 {
-	final ReportTable table = (ReportTable)i.next();
+	final Table table = (Table)i.next();
 	
 	if(cop.skipTable(table))
 		continue;
@@ -296,7 +296,7 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); tableCount++)
 			column.getName()%></b>&quot;).drop();</li><%
 	}
 
-	final static void writeDrop(final PrintStream out, final ReportTable table)
+	final static void writeDrop(final PrintStream out, final Table table)
 		throws IOException
 	{
 		%>
@@ -304,7 +304,7 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); tableCount++)
 			table.getName()%></b>&quot;).drop();</li><%
 	}
 
-	final static void writeRename(final PrintStream out, final ReportTable table, final String targetName)
+	final static void writeRename(final PrintStream out, final Table table, final String targetName)
 		throws IOException
 	{
 		%>
@@ -333,7 +333,7 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); tableCount++)
 			targetName%></b>&quot;);</li><%
 	}
 
-	final static void writeCreate(final PrintStream out, final ReportTable table)
+	final static void writeCreate(final PrintStream out, final Table table)
 		throws IOException
 	{
 		%>
@@ -341,7 +341,7 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); tableCount++)
 			table.getName()%></b>&quot;).create();</li><%
 	}
 
-	final static void writeAnalyze(final PrintStream out, final ReportTable table)
+	final static void writeAnalyze(final PrintStream out, final Table table)
 		throws IOException
 	{
 		%>

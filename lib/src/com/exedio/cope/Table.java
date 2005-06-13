@@ -23,7 +23,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.exedio.dsmf.ReportSchema;
-import com.exedio.dsmf.ReportTable;
 
 
 final class Table
@@ -165,7 +164,7 @@ final class Table
 	
 	void report(final ReportSchema report)
 	{
-		final ReportTable reportTable = new ReportTable(report, id);
+		final com.exedio.dsmf.Table reportTable = new com.exedio.dsmf.Table(report, id);
 		
 		for(Iterator i = getAllColumns().iterator(); i.hasNext(); )
 			((Column)i.next()).report(reportTable);

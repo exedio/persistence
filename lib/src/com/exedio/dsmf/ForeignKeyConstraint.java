@@ -25,12 +25,12 @@ public class ForeignKeyConstraint extends ReportConstraint
 	final String targetTable;
 	final String targetColumn;
 	
-	public ForeignKeyConstraint(final ReportTable table, final String name, final String foreignKeyColumn, final String targetTable, final String targetColumn)
+	public ForeignKeyConstraint(final Table table, final String name, final String foreignKeyColumn, final String targetTable, final String targetColumn)
 	{
 		this(table, name, true, foreignKeyColumn, targetTable, targetColumn);
 	}
 	
-	ForeignKeyConstraint(final ReportTable table, final String name, final boolean required, final String foreignKeyColumn, final String targetTable, final String targetColumn)
+	ForeignKeyConstraint(final Table table, final String name, final boolean required, final String foreignKeyColumn, final String targetTable, final String targetColumn)
 	{
 		super(table, name, required, null);
 		

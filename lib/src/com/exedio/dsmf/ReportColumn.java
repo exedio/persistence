@@ -20,17 +20,17 @@ package com.exedio.dsmf;
 
 public final class ReportColumn extends ReportNode
 {
-	final ReportTable table;
+	final Table table;
 	final String name;
 	private final String requiredType;
 	private String existingType;
 		
-	public ReportColumn(final ReportTable table, final String name, final String type)
+	public ReportColumn(final Table table, final String name, final String type)
 	{
 		this(table, name, type, true);
 	}
 
-	ReportColumn(final ReportTable table, final String name, final String type, final boolean required)
+	ReportColumn(final Table table, final String name, final String type, final boolean required)
 	{
 		super(table.driver, table.connectionProvider);
 
@@ -56,7 +56,7 @@ public final class ReportColumn extends ReportNode
 		table.register(this);
 	}
 	
-	public final ReportTable getTable()
+	public final Table getTable()
 	{
 		return table;
 	}

@@ -21,19 +21,19 @@ package com.exedio.dsmf;
 
 public abstract class ReportConstraint extends ReportNode
 {
-	final ReportTable table;
+	final Table table;
 	final String name;
 	private final boolean required;
 	final String requiredCondition;
 	private boolean exists = false;
 	private String existingCondition;
 		
-	ReportConstraint(final ReportTable table, final String name, final boolean required)
+	ReportConstraint(final Table table, final String name, final boolean required)
 	{
 		this(table, name, required, null);
 	}
 
-	ReportConstraint(final ReportTable table, final String name, final boolean required, final String condition)
+	ReportConstraint(final Table table, final String name, final boolean required, final String condition)
 	{
 		super(table.driver, table.connectionProvider);
 		
@@ -55,7 +55,7 @@ public abstract class ReportConstraint extends ReportNode
 		table.register(this);
 	}
 	
-	public final ReportTable getTable()
+	public final Table getTable()
 	{
 		return table;
 	}

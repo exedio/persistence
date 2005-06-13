@@ -24,12 +24,12 @@ public class UniqueConstraint extends ReportConstraint
 {
 	final String clause;
 	
-	public UniqueConstraint(final ReportTable table, final String name, final String clause)
+	public UniqueConstraint(final Table table, final String name, final String clause)
 	{
 		this(table, name, true, clause);
 	}
 
-	UniqueConstraint(final ReportTable table, final String name, final boolean required, final String clause)
+	UniqueConstraint(final Table table, final String name, final boolean required, final String clause)
 	{
 		super(table, name, required, clause);
 

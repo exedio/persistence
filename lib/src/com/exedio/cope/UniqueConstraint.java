@@ -27,7 +27,7 @@ import com.exedio.cope.pattern.Qualifier;
 import com.exedio.cope.search.AndCondition;
 import com.exedio.cope.search.Condition;
 import com.exedio.cope.search.EqualCondition;
-import com.exedio.dsmf.ReportTable;
+import com.exedio.dsmf.Table;
 
 public final class UniqueConstraint extends TypeComponent
 {
@@ -108,7 +108,7 @@ public final class UniqueConstraint extends TypeComponent
 		return databaseID;
 	}
 	
-	final void report(final ReportTable reportTable)
+	final void report(final Table reportTable)
 	{
 		final StringBuffer bf = new StringBuffer();
 		bf.append('(');

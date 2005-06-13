@@ -23,7 +23,6 @@ import java.sql.SQLException;
 import com.exedio.dsmf.CheckConstraint;
 import com.exedio.dsmf.ReportColumn;
 import com.exedio.dsmf.PrimaryKeyConstraint;
-import com.exedio.dsmf.ReportTable;
 
 abstract class Column
 {
@@ -80,7 +79,7 @@ abstract class Column
 
 	abstract Object cacheToDatabase(Object cache);
 
-	void report(final ReportTable reportTable)
+	void report(final com.exedio.dsmf.Table reportTable)
 	{
 		final ReportColumn result = new ReportColumn(reportTable, id, getDatabaseType());
 

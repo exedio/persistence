@@ -33,7 +33,7 @@ import bak.pcj.map.IntKeyChainedHashMap;
 import com.exedio.dsmf.OracleDriver;
 import com.exedio.dsmf.ReportColumn;
 import com.exedio.dsmf.ReportSchema;
-import com.exedio.dsmf.ReportTable;
+import com.exedio.dsmf.Table;
 
 final class OracleDatabase
 		extends Database
@@ -118,7 +118,7 @@ final class OracleDatabase
 
 	protected void appendReport(final ReportSchema report)
 	{
-		final ReportTable planTable = new ReportTable(report, "PLAN_TABLE");
+		final Table planTable = new Table(report, "PLAN_TABLE");
 		new ReportColumn(planTable, STATEMENT_ID, "VARCHAR2(30)");
 		new ReportColumn(planTable, "TIMESTAMP", "DATE");
 		new ReportColumn(planTable, "REMARKS", "VARCHAR2(80)");

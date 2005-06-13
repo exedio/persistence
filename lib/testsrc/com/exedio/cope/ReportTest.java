@@ -24,7 +24,6 @@ import com.exedio.dsmf.ReportConstraint;
 import com.exedio.dsmf.ForeignKeyConstraint;
 import com.exedio.dsmf.PrimaryKeyConstraint;
 import com.exedio.dsmf.ReportSchema;
-import com.exedio.dsmf.ReportTable;
 import com.exedio.dsmf.UniqueConstraint;
 
 public class ReportTest extends DatabaseLibTest
@@ -46,7 +45,7 @@ public class ReportTest extends DatabaseLibTest
 		{
 			final ReportSchema report = model.reportDatabase();
 
-			final ReportTable table = report.getTable(TABLE1);
+			final com.exedio.dsmf.Table table = report.getTable(TABLE1);
 			assertNotNull(table);
 			assertEquals(true, table.required());
 			assertEquals(true, table.exists());
@@ -67,7 +66,7 @@ public class ReportTest extends DatabaseLibTest
 		{
 			final ReportSchema report = model.reportDatabase();
 
-			final ReportTable table = report.getTable(TABLE1);
+			final com.exedio.dsmf.Table table = report.getTable(TABLE1);
 			assertNotNull(table);
 			assertEquals(true, table.required());
 			assertEquals(true, table.exists());
@@ -97,7 +96,7 @@ public class ReportTest extends DatabaseLibTest
 		{
 			final ReportSchema report = model.reportDatabase();
 
-			final ReportTable table = report.getTable(TABLE1);
+			final com.exedio.dsmf.Table table = report.getTable(TABLE1);
 			assertNotNull(table);
 			assertEquals(true, table.required());
 			assertEquals(true, table.exists());
@@ -117,7 +116,7 @@ public class ReportTest extends DatabaseLibTest
 		{
 			final ReportSchema report = model.reportDatabase();
 
-			final ReportTable table = report.getTable(TABLE1);
+			final com.exedio.dsmf.Table table = report.getTable(TABLE1);
 			assertNotNull(table);
 			assertEquals(true, table.required());
 			assertEquals(true, table.exists());
@@ -137,7 +136,7 @@ public class ReportTest extends DatabaseLibTest
 		{
 			final ReportSchema report = model.reportDatabase();
 
-			final ReportTable table = report.getTable(TABLE1);
+			final com.exedio.dsmf.Table table = report.getTable(TABLE1);
 			assertNotNull(table);
 			assertEquals(true, table.required());
 			assertEquals(true, table.exists());
@@ -158,7 +157,7 @@ public class ReportTest extends DatabaseLibTest
 			final ReportSchema report = model.reportDatabase();
 
 			{
-				final ReportTable table = report.getTable(TABLE1);
+				final com.exedio.dsmf.Table table = report.getTable(TABLE1);
 				assertNotNull(table);
 				assertEquals(true, table.required());
 				assertEquals(false, table.exists());
@@ -173,7 +172,7 @@ public class ReportTest extends DatabaseLibTest
 				assertEquals(column1Type, column.getType());
 			}
 			{
-				final ReportTable tableX = report.getTable(TABLE1X);
+				final com.exedio.dsmf.Table tableX = report.getTable(TABLE1X);
 				assertNotNull(tableX);
 				assertEquals(false, tableX.required());
 				assertEquals(true, tableX.exists());
@@ -194,7 +193,7 @@ public class ReportTest extends DatabaseLibTest
 		{
 			final ReportSchema report = model.reportDatabase();
 
-			final ReportTable table = report.getTable(TABLE1);
+			final com.exedio.dsmf.Table table = report.getTable(TABLE1);
 			assertNotNull(table);
 			assertEquals(true, table.required());
 			assertEquals(true, table.exists());
@@ -215,7 +214,7 @@ public class ReportTest extends DatabaseLibTest
 			final ReportSchema report = model.reportDatabase();
 
 			{
-				final ReportTable table = report.getTable(TABLE1);
+				final com.exedio.dsmf.Table table = report.getTable(TABLE1);
 				assertNotNull(table);
 				assertEquals(true, table.required());
 				assertEquals(false, table.exists());
@@ -236,7 +235,7 @@ public class ReportTest extends DatabaseLibTest
 		{
 			final ReportSchema report = model.reportDatabase();
 
-			final ReportTable table = report.getTable(TABLE1);
+			final com.exedio.dsmf.Table table = report.getTable(TABLE1);
 			assertNotNull(table);
 			assertEquals(true, table.required());
 			assertEquals(true, table.exists());
@@ -254,7 +253,7 @@ public class ReportTest extends DatabaseLibTest
 			assertEquals(!mysql, model.supportsCheckConstraints());
 			final ReportSchema report = model.reportDatabase();
 
-			final ReportTable attributeItem = report.getTable("AttributeItem");
+			final com.exedio.dsmf.Table attributeItem = report.getTable("AttributeItem");
 			assertNotNull(attributeItem);
 			assertEquals(null, attributeItem.getError());
 			assertEquals(ReportSchema.COLOR_OK, attributeItem.getParticularColor());
@@ -270,21 +269,21 @@ public class ReportTest extends DatabaseLibTest
 
 			assertFkConstraint(attributeItem, "AttributeItem_someItem_Fk", "someItem", "EmptyItem", Table.PK_COLUMN_NAME);
 
-			final ReportTable uniqueItem = report.getTable("ItemWithSingleUnique");
+			final com.exedio.dsmf.Table uniqueItem = report.getTable("ItemWithSingleUnique");
 			assertNotNull(uniqueItem);
 			assertEquals(null, uniqueItem.getError());
 			assertEquals(ReportSchema.COLOR_OK, uniqueItem.getParticularColor());
 			
 			assertUniqueConstraint(uniqueItem, "ItemWithSingUni_unStr_Unq", "("+protect("uniqueString")+")");
 			
-			final ReportTable doubleUniqueItem = report.getTable("ItemWithDoubleUnique");
+			final com.exedio.dsmf.Table doubleUniqueItem = report.getTable("ItemWithDoubleUnique");
 			assertNotNull(doubleUniqueItem);
 			assertEquals(null, doubleUniqueItem.getError());
 			assertEquals(ReportSchema.COLOR_OK, doubleUniqueItem.getParticularColor());
 			
 			assertUniqueConstraint(doubleUniqueItem, "ItemWithDoubUni_doUni_Unq", "("+protect("string")+","+protect("integer")+")");
 			
-			final ReportTable stringItem = report.getTable("StringItem");
+			final com.exedio.dsmf.Table stringItem = report.getTable("StringItem");
 			assertNotNull(stringItem);
 			assertEquals(null, stringItem.getError());
 			assertEquals(ReportSchema.COLOR_OK, stringItem.getParticularColor());
@@ -305,13 +304,13 @@ public class ReportTest extends DatabaseLibTest
 		}
 	}
 	
-	private void assertCheckConstraint(final ReportTable table, final String constraintName, final String requiredCondition)
+	private void assertCheckConstraint(final com.exedio.dsmf.Table table, final String constraintName, final String requiredCondition)
 	{
 		final CheckConstraint constraint =
 			(CheckConstraint)assertConstraint(table, CHECK, constraintName, requiredCondition);
 	}
 	
-	private void assertPkConstraint(final ReportTable table, final String constraintName, final String requiredCondition, final String primaryKeyColumn)
+	private void assertPkConstraint(final com.exedio.dsmf.Table table, final String constraintName, final String requiredCondition, final String primaryKeyColumn)
 	{
 		final PrimaryKeyConstraint constraint =
 			(PrimaryKeyConstraint)assertConstraint(table, PK, constraintName, requiredCondition);
@@ -319,7 +318,7 @@ public class ReportTest extends DatabaseLibTest
 		assertEquals(primaryKeyColumn, constraint.getPrimaryKeyColumn());
 	}
 	
-	private void assertFkConstraint(final ReportTable table, final String constraintName, final String foreignKeyColumn, final String targetTable, final String targetColumn)
+	private void assertFkConstraint(final com.exedio.dsmf.Table table, final String constraintName, final String foreignKeyColumn, final String targetTable, final String targetColumn)
 	{
 		final ForeignKeyConstraint constraint =
 			(ForeignKeyConstraint)assertConstraint(table, FK, constraintName, null);
@@ -329,7 +328,7 @@ public class ReportTest extends DatabaseLibTest
 		assertEquals(targetColumn, constraint.getTargetColumn());
 	}
 	
-	private void assertUniqueConstraint(final ReportTable table, final String constraintName, final String clause)
+	private void assertUniqueConstraint(final com.exedio.dsmf.Table table, final String constraintName, final String clause)
 	{
 		final UniqueConstraint constraint =
 			(UniqueConstraint)assertConstraint(table, UNIQUE, constraintName, clause);
@@ -337,7 +336,7 @@ public class ReportTest extends DatabaseLibTest
 		assertEquals(clause, constraint.getClause());
 	}
 	
-	private ReportConstraint assertConstraint(final ReportTable table, final Class constraintType, final String constraintName, final String requiredCondition)
+	private ReportConstraint assertConstraint(final com.exedio.dsmf.Table table, final Class constraintType, final String constraintName, final String requiredCondition)
 	{
 		final ReportConstraint constraint = table.getConstraint(constraintName);
 		if(model.supportsCheckConstraints() || constraintType!=CHECK)

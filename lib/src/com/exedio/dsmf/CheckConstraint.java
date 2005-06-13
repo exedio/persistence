@@ -22,12 +22,12 @@ package com.exedio.dsmf;
 public class CheckConstraint extends ReportConstraint
 {
 
-	public CheckConstraint(final ReportTable table, final String name, final String condition)
+	public CheckConstraint(final Table table, final String name, final String condition)
 	{
 		this(table, name, true, condition);
 	}
 
-	CheckConstraint(final ReportTable table, final String name, final boolean required, final String condition)
+	CheckConstraint(final Table table, final String name, final boolean required, final String condition)
 	{
 		super(table, name, required, condition);
 		

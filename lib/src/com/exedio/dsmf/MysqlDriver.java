@@ -83,7 +83,7 @@ public final class MysqlDriver extends Driver
 		{
 			for(Iterator i = report.getTables().iterator(); i.hasNext(); )
 			{
-				final ReportTable reportTable = (ReportTable)i.next();
+				final Table reportTable = (Table)i.next();
 				if(!reportTable.exists())
 					continue;
 				
@@ -136,7 +136,7 @@ public final class MysqlDriver extends Driver
 								{
 									final String tableName = resultSet.getString("Table");
 									final String createTable = resultSet.getString("Create Table");
-									final ReportTable table = report.notifyExistentTable(tableName);
+									final Table table = report.notifyExistentTable(tableName);
 									//System.out.println("----------"+tableName+"----"+createTable);
 									final StringTokenizer t = new StringTokenizer(createTable);
 									for(String s = t.nextToken(); t.hasMoreTokens(); s = t.nextToken())

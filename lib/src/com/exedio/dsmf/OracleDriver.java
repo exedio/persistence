@@ -59,7 +59,7 @@ public final class OracleDriver extends Driver
 		}
 	}
 
-	private ReportConstraint makeUniqueConstraint(final ReportTable table, final String constraintName, final ArrayList columns)
+	private ReportConstraint makeUniqueConstraint(final Table table, final String constraintName, final ArrayList columns)
 	{
 		final StringBuffer bf = new StringBuffer();
 		bf.append('(');
@@ -89,7 +89,7 @@ public final class OracleDriver extends Driver
 					{
 						final String tableName = resultSet.getString(1);
 						final Date lastAnalyzed = (Date)resultSet.getObject(2);
-						final ReportTable table = report.notifyExistentTable(tableName);
+						final Table table = report.notifyExistentTable(tableName);
 						table.setLastAnalyzed(lastAnalyzed);
 						//System.out.println("EXISTS:"+tableName);
 					}
@@ -111,7 +111,7 @@ public final class OracleDriver extends Driver
 			new ResultSetHandler()
 			{
 				String uniqueConstraintName = null;
-				ReportTable uniqueConstraintTable = null;
+				Table uniqueConstraintTable = null;
 				final ArrayList uniqueColumns = new ArrayList();
 				public void run(final ResultSet resultSet) throws SQLException
 				{
@@ -121,7 +121,7 @@ public final class OracleDriver extends Driver
 						final String tableName = resultSet.getString(1);
 						final String constraintName = resultSet.getString(2);
 						final String constraintType = resultSet.getString(3);
-						final ReportTable table = report.notifyExistentTable(tableName);
+						final Table table = report.notifyExistentTable(tableName);
 						//System.out.println("tableName:"+tableName+" constraintName:"+constraintName+" constraintType:>"+constraintType+"<");
 						if("C".equals(constraintType))
 						{

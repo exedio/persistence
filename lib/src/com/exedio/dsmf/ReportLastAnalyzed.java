@@ -22,10 +22,10 @@ import java.util.Date;
 
 public final class ReportLastAnalyzed extends ReportNode
 {
-	final ReportTable table;
+	final Table table;
 	final Date date;
 		
-	ReportLastAnalyzed(final ReportTable table, final Date date)
+	ReportLastAnalyzed(final Table table, final Date date)
 	{
 		super(table.driver, table.connectionProvider);
 		this.table = table;

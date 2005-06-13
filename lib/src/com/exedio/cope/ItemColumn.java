@@ -19,7 +19,6 @@
 package com.exedio.cope;
 
 import com.exedio.dsmf.ForeignKeyConstraint;
-import com.exedio.dsmf.ReportTable;
 
 final class ItemColumn extends IntegerColumn
 {
@@ -55,7 +54,7 @@ final class ItemColumn extends IntegerColumn
 		this.attribute = null;
 	}
 
-	void report(final ReportTable reportTable)
+	void report(final com.exedio.dsmf.Table reportTable)
 	{
 		super.report(reportTable);
 		final Table targetTable = Type.findByJavaClass(targetTypeClass).getTable();
