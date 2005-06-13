@@ -58,29 +58,6 @@ abstract class Column
 		return table.getTypeColumn();
 	}
 
-	final String getCheckConstraint()
-	{
-		if(!table.database.supportsCheckConstraints())
-			return null;
-
-		final String ccinn = getCheckConstraintIfNotNull();
-		
-		if(notNull)
-		{
-			if(ccinn!=null)
-				return "(" + protectedID + " IS NOT NULL) AND (" + ccinn + ')';
-			else
-				return protectedID + " IS NOT NULL";
-		}
-		else
-		{
-			if(ccinn!=null)
-				return "(" + ccinn + ") OR (" + protectedID + " IS NULL)";
-			else
-				return null;
-		}
-	}
-	
 	abstract String getCheckConstraintIfNotNull();
 	
 	public final String toString()
@@ -111,9 +88,29 @@ abstract class Column
 			new ReportPrimaryKeyConstraint(reportTable, table.database.trimName(table.id + "_" + "Pk"), true, id);
 		else
 		{
-			final String checkConstraint = getCheckConstraint();
-			if(checkConstraint!=null)
-				new ReportCheckConstraint(reportTable, table.database.trimName(table.id + "_" + id + "_Ck"), true, checkConstraint);
+			if(table.database.supportsCheckConstraints())
+			{
+				final String ccinn = getCheckConstraintIfNotNull();
+				final String checkConstraint;
+				
+				if(notNull)
+				{
+					if(ccinn!=null)
+						checkConstraint = "(" + protectedID + " IS NOT NULL) AND (" + ccinn + ')';
+					else
+						checkConstraint = protectedID + " IS NOT NULL";
+				}
+				else
+				{
+					if(ccinn!=null)
+						checkConstraint = "(" + ccinn + ") OR (" + protectedID + " IS NULL)";
+					else
+						checkConstraint = null;
+				}
+	
+				if(checkConstraint!=null)
+					new ReportCheckConstraint(reportTable, table.database.trimName(table.id + "_" + id + "_Ck"), true, checkConstraint);
+			}
 		}
 	}
 		
