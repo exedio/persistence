@@ -70,7 +70,7 @@ final class Schema_Jspm
 		throws IOException
 	{
 		final Schema schema = model.getVerifiedSchema();
-		final String reportColor = color(schema.getCumulativeColor());
+		final String schemaColor = color(schema.getCumulativeColor());
 		final boolean narrowReport = cop.isNarrowReport();
 
 %>
@@ -81,7 +81,7 @@ check all:
 <input type="button" value="drop table" onClick="checkAll(&quot;DROP_TABLE&quot;)">
 <input type="button" value="drop column" onClick="checkAll(&quot;DROP_COLUMN&quot;)">
 <br>
-<span class="<%=reportColor%>"><%
+<span class="<%=schemaColor%>"><%
 if(narrowReport)
 {
 	%><a href="<%=cop.widenReport()%>"><%
@@ -94,7 +94,7 @@ if(narrowReport)
 %></span>
 <input type="submit" name="APPLY" value="apply"/>
 supports check constraints: <i><%if(model.supportsCheckConstraints()){%>yes<%}else{%>no<%}%></i>
-<ul class="<%=reportColor%>"><%
+<ul class="<%=schemaColor%>"><%
 
 int tableCount = 1;
 for(Iterator i = schema.getTables().iterator(); i.hasNext(); tableCount++)
