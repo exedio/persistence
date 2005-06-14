@@ -84,7 +84,7 @@ check all:
 <span class="<%=schemaColor%>"><%
 if(narrowReport)
 {
-	%><a href="<%=cop.widenReport()%>"><%
+	%><a href="<%=cop.widen()%>"><%
 }
 %>Schema<%
 if(narrowReport)

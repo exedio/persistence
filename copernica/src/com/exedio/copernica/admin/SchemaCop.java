@@ -70,7 +70,7 @@ final class SchemaCop extends AdminCop
 		return new SchemaCop(table.getName(), showDropBoxes, showRenameFields);
 	}
 	
-	final SchemaCop widenReport()
+	final SchemaCop widen()
 	{
 		return new SchemaCop(null, showDropBoxes, showRenameFields);
 	}
