@@ -164,13 +164,13 @@ final class Table
 	
 	void report(final Schema schema)
 	{
-		final com.exedio.dsmf.Table reportTable = new com.exedio.dsmf.Table(schema, id);
+		final com.exedio.dsmf.Table result = new com.exedio.dsmf.Table(schema, id);
 		
 		for(Iterator i = getAllColumns().iterator(); i.hasNext(); )
-			((Column)i.next()).report(reportTable);
+			((Column)i.next()).report(result);
 
 		for(Iterator i = getUniqueConstraints().iterator(); i.hasNext(); )
-			((UniqueConstraint)i.next()).report(reportTable);
+			((UniqueConstraint)i.next()).report(result);
 	}
 
 }
