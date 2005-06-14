@@ -86,8 +86,7 @@ abstract class Database
 	{
 		buildStage = false;
 		
-		final Schema report = makeSchema();
-		report.create();
+		makeSchema().create();
 	}
 
 	//private static int checkTableTime = 0;
