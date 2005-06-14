@@ -95,13 +95,13 @@ final class SchemaCop extends AdminCop
 		return this.table!=null && !this.table.equals(table.getName());
 	}
 
-	private static final Column getColumn(final Schema report, final String columnParameter)
+	private static final Column getColumn(final Schema schema, final String columnParameter)
 	{
 		final int pos = columnParameter.indexOf('#');
 		if(pos<=0)
 			throw new RuntimeException(columnParameter);
 		
-		final Table table = report.getTable(columnParameter.substring(0, pos));
+		final Table table = schema.getTable(columnParameter.substring(0, pos));
 		if(table==null)
 			throw new RuntimeException(columnParameter);
 		
