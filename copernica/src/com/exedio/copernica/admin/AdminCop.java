@@ -41,9 +41,9 @@ abstract class AdminCop extends Cop
 		return new PropertiesCop();
 	}
 	
-	final ReportCop toReport()
+	final SchemaCop toReport()
 	{
-		return new ReportCop(null, false, false);
+		return new SchemaCop(null, false, false);
 	}
 	
 	final StatisticsCop toStatistics()
@@ -63,7 +63,7 @@ abstract class AdminCop extends Cop
 		if(request.getParameter(StatisticsCop.STATISTICS)!=null)
 			return new StatisticsCop();
 		
-		final String reportID = request.getParameter(ReportCop.REPORT);
+		final String reportID = request.getParameter(SchemaCop.REPORT);
 		if(reportID==null)
 		{
 			return new PropertiesCop();
@@ -73,15 +73,15 @@ abstract class AdminCop extends Cop
 			boolean showDropBoxes = false;
 			boolean showRenameFields = false;
 
-			final String[] showIDs = request.getParameterValues(ReportCop.SHOW);
+			final String[] showIDs = request.getParameterValues(SchemaCop.SHOW);
 			if(showIDs!=null)
 			{
 				for(int i = 0; i<showIDs.length; i++)
 				{
 					final String showID = showIDs[i];
-					if(ReportCop.SHOW_DROP_BOXES.equals(showID))
+					if(SchemaCop.SHOW_DROP_BOXES.equals(showID))
 						showDropBoxes = true;
-					else if(ReportCop.SHOW_RENAME_FIELDS.equals(showID))
+					else if(SchemaCop.SHOW_RENAME_FIELDS.equals(showID))
 						showRenameFields = true;
 					else
 						throw new RuntimeException(showID);
@@ -89,9 +89,9 @@ abstract class AdminCop extends Cop
 			}
 			
 			if(reportID.length()==0)
-				return new ReportCop(null, showDropBoxes, showRenameFields);
+				return new SchemaCop(null, showDropBoxes, showRenameFields);
 			else
-				return new ReportCop(reportID, showDropBoxes, showRenameFields);
+				return new SchemaCop(reportID, showDropBoxes, showRenameFields);
 		}
 	}
 

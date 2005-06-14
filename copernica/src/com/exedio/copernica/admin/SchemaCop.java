@@ -30,7 +30,7 @@ import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Table;
 
 
-final class ReportCop extends AdminCop
+final class SchemaCop extends AdminCop
 {
 	static final String REPORT = "report";
 	static final String SHOW = "show";
@@ -41,7 +41,7 @@ final class ReportCop extends AdminCop
 	final boolean showDropBoxes;
 	final boolean showRenameFields;
 
-	ReportCop(final String reportTable, final boolean showDropBoxes, final boolean showRenameFields)
+	SchemaCop(final String reportTable, final boolean showDropBoxes, final boolean showRenameFields)
 	{
 		super("reports");
 		this.reportTable = reportTable;
@@ -65,24 +65,24 @@ final class ReportCop extends AdminCop
 		Report_Jspm.writeReport(out, model, this);
 	}
 	
-	final ReportCop narrowReport(final Table reportTable)
+	final SchemaCop narrowReport(final Table reportTable)
 	{
-		return new ReportCop(reportTable.getName(), showDropBoxes, showRenameFields);
+		return new SchemaCop(reportTable.getName(), showDropBoxes, showRenameFields);
 	}
 	
-	final ReportCop widenReport()
+	final SchemaCop widenReport()
 	{
-		return new ReportCop(null, showDropBoxes, showRenameFields);
+		return new SchemaCop(null, showDropBoxes, showRenameFields);
 	}
 	
-	final ReportCop toggleDropBoxes()
+	final SchemaCop toggleDropBoxes()
 	{
-		return new ReportCop(reportTable, !showDropBoxes, showRenameFields);
+		return new SchemaCop(reportTable, !showDropBoxes, showRenameFields);
 	}
 	
-	final ReportCop toggleRenameFields()
+	final SchemaCop toggleRenameFields()
 	{
-		return new ReportCop(reportTable, showDropBoxes, !showRenameFields);
+		return new SchemaCop(reportTable, showDropBoxes, !showRenameFields);
 	}
 	
 	final boolean isNarrowReport()

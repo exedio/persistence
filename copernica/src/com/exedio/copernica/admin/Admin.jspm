@@ -80,7 +80,7 @@ final class Admin_Jspm
 					<a href="<%=cop%>">flush log</a><%
 	%>
 	<ol><%
-					ReportCop.writeApply(out, request, model);
+					SchemaCop.writeApply(out, request, model);
 	%>
 	</ol><%
 					%>
