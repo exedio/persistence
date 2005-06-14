@@ -18,19 +18,19 @@
 package com.exedio.dsmf;
 
 
-public final class ReportColumn extends ReportNode
+public final class Column extends ReportNode
 {
 	final Table table;
 	final String name;
 	private final String requiredType;
 	private String existingType;
 		
-	public ReportColumn(final Table table, final String name, final String type)
+	public Column(final Table table, final String name, final String type)
 	{
 		this(table, name, type, true);
 	}
 
-	ReportColumn(final Table table, final String name, final String type, final boolean required)
+	Column(final Table table, final String name, final String type, final boolean required)
 	{
 		super(table.driver, table.connectionProvider);
 

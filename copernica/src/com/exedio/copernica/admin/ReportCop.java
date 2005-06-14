@@ -25,7 +25,7 @@ import java.util.Iterator;
 import javax.servlet.http.HttpServletRequest;
 
 import com.exedio.cope.Model;
-import com.exedio.dsmf.ReportColumn;
+import com.exedio.dsmf.Column;
 import com.exedio.dsmf.ReportSchema;
 import com.exedio.dsmf.Table;
 
@@ -95,7 +95,7 @@ final class ReportCop extends AdminCop
 		return reportTable!=null && !reportTable.equals(table.getName());
 	}
 
-	private static final ReportColumn getColumn(final ReportSchema report, final String columnParameter)
+	private static final Column getColumn(final ReportSchema report, final String columnParameter)
 	{
 		final int pos = columnParameter.indexOf('#');
 		if(pos<=0)
@@ -105,7 +105,7 @@ final class ReportCop extends AdminCop
 		if(table==null)
 			throw new RuntimeException(columnParameter);
 		
-		final ReportColumn column = table.getColumn(columnParameter.substring(pos+1));
+		final Column column = table.getColumn(columnParameter.substring(pos+1));
 		if(column==null)
 			throw new RuntimeException(columnParameter);
 		
@@ -125,7 +125,7 @@ final class ReportCop extends AdminCop
 				for (int i = 0; i < dropColumns.length; i++)
 				{
 					final String dropColumn = dropColumns[i];
-					final ReportColumn column = getColumn(report, dropColumn);
+					final Column column = getColumn(report, dropColumn);
 					Report_Jspm.writeDrop(out, column);
 					out.flush();
 					final long startTime = System.currentTimeMillis();
@@ -193,7 +193,7 @@ final class ReportCop extends AdminCop
 				final String sourceName = parameterName.substring("MODIFY_COLUMN_"
 						.length());
 
-				final ReportColumn column = getColumn(report, sourceName);
+				final Column column = getColumn(report, sourceName);
 				if (column == null)
 					throw new RuntimeException(sourceName);
 
@@ -219,7 +219,7 @@ final class ReportCop extends AdminCop
 				final String sourceName = parameterName.substring("RENAME_COLUMN_"
 						.length());
 
-				final ReportColumn column = getColumn(report, sourceName);
+				final Column column = getColumn(report, sourceName);
 				if (column == null)
 					throw new RuntimeException(sourceName);
 
@@ -277,7 +277,7 @@ final class ReportCop extends AdminCop
 				for (int i = 0; i < createColums.length; i++)
 				{
 					final String createColumn = createColums[i];
-					final ReportColumn column = getColumn(report, createColumn);
+					final Column column = getColumn(report, createColumn);
 					Report_Jspm.writeCreate(out, column);
 					out.flush();
 					final long startTime = System.currentTimeMillis();

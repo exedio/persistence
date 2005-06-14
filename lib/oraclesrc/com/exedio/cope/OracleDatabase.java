@@ -31,7 +31,7 @@ import bak.pcj.list.IntList;
 import bak.pcj.map.IntKeyChainedHashMap;
 
 import com.exedio.dsmf.OracleDriver;
-import com.exedio.dsmf.ReportColumn;
+import com.exedio.dsmf.Column;
 import com.exedio.dsmf.ReportSchema;
 import com.exedio.dsmf.Table;
 
@@ -119,26 +119,26 @@ final class OracleDatabase
 	protected void appendReport(final ReportSchema report)
 	{
 		final Table planTable = new Table(report, "PLAN_TABLE");
-		new ReportColumn(planTable, STATEMENT_ID, "VARCHAR2(30)");
-		new ReportColumn(planTable, "TIMESTAMP", "DATE");
-		new ReportColumn(planTable, "REMARKS", "VARCHAR2(80)");
-		new ReportColumn(planTable, OPERATION, "VARCHAR2(30)");
-		new ReportColumn(planTable, OPTIONS, "VARCHAR2(30)");
-		new ReportColumn(planTable, "OBJECT_NODE", "VARCHAR2(128)");
-		new ReportColumn(planTable, "OBJECT_OWNER", "VARCHAR2(30)");
-		new ReportColumn(planTable, OBJECT_NAME, "VARCHAR2(30)");
-		new ReportColumn(planTable, OBJECT_INSTANCE, "NUMBER(22)");
-		new ReportColumn(planTable, OBJECT_TYPE, "VARCHAR2(30)");
-		new ReportColumn(planTable, "OPTIMIZER", "VARCHAR2(255)");
-		new ReportColumn(planTable, "SEARCH_COLUMNS", "NUMBER(22)");
-		new ReportColumn(planTable, ID, "NUMBER(22)");
-		new ReportColumn(planTable, PARENT_ID, "NUMBER(22)");
-		new ReportColumn(planTable, "POSITION", "NUMBER(22)");
-		new ReportColumn(planTable, "COST", "NUMBER(22)");
-		new ReportColumn(planTable, "CARDINALITY", "NUMBER(22)");
-		new ReportColumn(planTable, "BYTES", "NUMBER(22)");
-		new ReportColumn(planTable, "OTHER_TAG", "VARCHAR2(255)");
-		new ReportColumn(planTable, "OTHER", "LONG");
+		new Column(planTable, STATEMENT_ID, "VARCHAR2(30)");
+		new Column(planTable, "TIMESTAMP", "DATE");
+		new Column(planTable, "REMARKS", "VARCHAR2(80)");
+		new Column(planTable, OPERATION, "VARCHAR2(30)");
+		new Column(planTable, OPTIONS, "VARCHAR2(30)");
+		new Column(planTable, "OBJECT_NODE", "VARCHAR2(128)");
+		new Column(planTable, "OBJECT_OWNER", "VARCHAR2(30)");
+		new Column(planTable, OBJECT_NAME, "VARCHAR2(30)");
+		new Column(planTable, OBJECT_INSTANCE, "NUMBER(22)");
+		new Column(planTable, OBJECT_TYPE, "VARCHAR2(30)");
+		new Column(planTable, "OPTIMIZER", "VARCHAR2(255)");
+		new Column(planTable, "SEARCH_COLUMNS", "NUMBER(22)");
+		new Column(planTable, ID, "NUMBER(22)");
+		new Column(planTable, PARENT_ID, "NUMBER(22)");
+		new Column(planTable, "POSITION", "NUMBER(22)");
+		new Column(planTable, "COST", "NUMBER(22)");
+		new Column(planTable, "CARDINALITY", "NUMBER(22)");
+		new Column(planTable, "BYTES", "NUMBER(22)");
+		new Column(planTable, "OTHER_TAG", "VARCHAR2(255)");
+		new Column(planTable, "OTHER", "LONG");
 	}
 	
 	protected StatementInfo makeStatementInfo(final Statement statement, final Connection connection)

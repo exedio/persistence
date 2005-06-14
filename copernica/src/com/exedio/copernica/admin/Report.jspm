@@ -26,7 +26,7 @@ import java.util.Iterator;
 
 import com.exedio.cope.Model;
 import com.exedio.dsmf.CheckConstraint;
-import com.exedio.dsmf.ReportColumn;
+import com.exedio.dsmf.Column;
 import com.exedio.dsmf.ReportConstraint;
 import com.exedio.dsmf.ForeignKeyConstraint;
 import com.exedio.dsmf.ReportLastAnalyzed;
@@ -174,7 +174,7 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); tableCount++)
 		int columnCount = 1;
 		for(Iterator j = table.getColumns().iterator(); j.hasNext(); columnCount++)
 		{
-			final ReportColumn column = (ReportColumn)j.next();
+			final Column column = (Column)j.next();
 			final String color = color(column.getCumulativeColor());
 			%>
 			<li class="<%=color%>">
@@ -287,7 +287,7 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); tableCount++)
 		out.flush();
 	}
 	
-	final static void writeDrop(final PrintStream out, final ReportColumn column)
+	final static void writeDrop(final PrintStream out, final Column column)
 		throws IOException
 	{
 		%>
@@ -313,7 +313,7 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); tableCount++)
 			targetName%>&quot;);</li><%
 	}
 
-	final static void writeModify(final PrintStream out, final ReportColumn column, final String targetType)
+	final static void writeModify(final PrintStream out, final Column column, final String targetType)
 		throws IOException
 	{
 		%>
@@ -323,7 +323,7 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); tableCount++)
 			targetType%></b>&quot;);</li><%
 	}
 
-	final static void writeRename(final PrintStream out, final ReportColumn column, final String targetName)
+	final static void writeRename(final PrintStream out, final Column column, final String targetName)
 		throws IOException
 	{
 		%>
@@ -349,7 +349,7 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); tableCount++)
 			table.getName()%></b>&quot;).analyze();</li><%
 	}
 	
-	final static void writeCreate(final PrintStream out, final ReportColumn column)
+	final static void writeCreate(final PrintStream out, final Column column)
 		throws IOException
 	{
 		%>

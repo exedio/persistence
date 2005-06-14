@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 import com.exedio.dsmf.CheckConstraint;
-import com.exedio.dsmf.ReportColumn;
+import com.exedio.dsmf.Column;
 import com.exedio.dsmf.ReportConstraint;
 import com.exedio.dsmf.ForeignKeyConstraint;
 import com.exedio.dsmf.PrimaryKeyConstraint;
@@ -52,7 +52,7 @@ public class ReportTest extends DatabaseLibTest
 			assertEquals(null, table.getError());
 			assertEquals(ReportSchema.COLOR_OK, table.getParticularColor());
 
-			final ReportColumn column = table.getColumn(COLUMN1);
+			final Column column = table.getColumn(COLUMN1);
 			assertEquals(true, column.required());
 			assertEquals(true, column.exists());
 			assertEquals(null, column.getError());
@@ -74,7 +74,7 @@ public class ReportTest extends DatabaseLibTest
 			assertEquals(ReportSchema.COLOR_OK, table.getParticularColor());
 
 			{
-				final ReportColumn column = table.getColumn(COLUMN1);
+				final Column column = table.getColumn(COLUMN1);
 				assertEquals(true, column.required());
 				assertEquals(false, column.exists());
 				assertEquals("missing", column.getError());
@@ -82,7 +82,7 @@ public class ReportTest extends DatabaseLibTest
 				assertEquals(column1Type, column.getType());
 			}
 			{
-				final ReportColumn columnX = table.getColumn(COLUMN1X);
+				final Column columnX = table.getColumn(COLUMN1X);
 				assertEquals(false, columnX.required());
 				assertEquals(true, columnX.exists());
 				assertEquals("not used", columnX.getError());
@@ -103,7 +103,7 @@ public class ReportTest extends DatabaseLibTest
 			assertEquals(null, table.getError());
 			assertEquals(ReportSchema.COLOR_OK, table.getParticularColor());
 
-			final ReportColumn column = table.getColumn(COLUMN1);
+			final Column column = table.getColumn(COLUMN1);
 			assertEquals(true, column.required());
 			assertEquals(true, column.exists());
 			assertEquals(null, column.getError());
@@ -123,7 +123,7 @@ public class ReportTest extends DatabaseLibTest
 			assertEquals(null, table.getError());
 			assertEquals(ReportSchema.COLOR_OK, table.getParticularColor());
 
-			final ReportColumn column = table.getColumn(COLUMN1);
+			final Column column = table.getColumn(COLUMN1);
 			assertEquals(true, column.required());
 			assertEquals(false, column.exists());
 			assertEquals("missing", column.getError());
@@ -143,7 +143,7 @@ public class ReportTest extends DatabaseLibTest
 			assertEquals(null, table.getError());
 			assertEquals(ReportSchema.COLOR_OK, table.getParticularColor());
 
-			final ReportColumn column = table.getColumn(COLUMN1);
+			final Column column = table.getColumn(COLUMN1);
 			assertEquals(true, column.required());
 			assertEquals(true, column.exists());
 			assertEquals(null, column.getError());
@@ -164,7 +164,7 @@ public class ReportTest extends DatabaseLibTest
 				assertEquals("MISSING !!!", table.getError());
 				assertEquals(ReportSchema.COLOR_ERROR, table.getParticularColor());
 
-				final ReportColumn column = table.getColumn(COLUMN1);
+				final Column column = table.getColumn(COLUMN1);
 				assertEquals(true, column.required());
 				assertEquals(false, column.exists());
 				assertEquals("missing", column.getError());
@@ -179,7 +179,7 @@ public class ReportTest extends DatabaseLibTest
 				assertEquals("not used", tableX.getError());
 				assertEquals(ReportSchema.COLOR_WARNING, tableX.getParticularColor());
 
-				final ReportColumn column = tableX.getColumn(COLUMN1);
+				final Column column = tableX.getColumn(COLUMN1);
 				assertEquals(false, column.required());
 				assertEquals(true, column.exists());
 				assertEquals("not used", column.getError());
@@ -200,7 +200,7 @@ public class ReportTest extends DatabaseLibTest
 			assertEquals(null, table.getError());
 			assertEquals(ReportSchema.COLOR_OK, table.getParticularColor());
 
-			final ReportColumn column = table.getColumn(COLUMN1);
+			final Column column = table.getColumn(COLUMN1);
 			assertEquals(true, column.required());
 			assertEquals(true, column.exists());
 			assertEquals(null, column.getError());
@@ -221,7 +221,7 @@ public class ReportTest extends DatabaseLibTest
 				assertEquals("MISSING !!!", table.getError());
 				assertEquals(ReportSchema.COLOR_ERROR, table.getParticularColor());
 
-				final ReportColumn column = table.getColumn(COLUMN1);
+				final Column column = table.getColumn(COLUMN1);
 				assertEquals(true, column.required());
 				assertEquals(false, column.exists());
 				assertEquals("missing", column.getError());
@@ -242,7 +242,7 @@ public class ReportTest extends DatabaseLibTest
 			assertEquals(null, table.getError());
 			assertEquals(ReportSchema.COLOR_OK, table.getParticularColor());
 
-			final ReportColumn column = table.getColumn(COLUMN1);
+			final Column column = table.getColumn(COLUMN1);
 			assertEquals(true, column.required());
 			assertEquals(true, column.exists());
 			assertEquals(null, column.getError());
@@ -288,7 +288,7 @@ public class ReportTest extends DatabaseLibTest
 			assertEquals(null, stringItem.getError());
 			assertEquals(ReportSchema.COLOR_OK, stringItem.getParticularColor());
 
-			final ReportColumn min4Max8 = stringItem.getColumn("min4Max8");
+			final Column min4Max8 = stringItem.getColumn("min4Max8");
 			assertEquals(null, min4Max8.getError());
 			assertEquals(ReportSchema.COLOR_OK, min4Max8.getParticularColor());
 			if(hsqldb)

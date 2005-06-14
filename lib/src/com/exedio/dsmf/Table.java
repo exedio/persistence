@@ -66,7 +66,7 @@ public final class Table extends ReportNode
 		return name;
 	}
 
-	final void register(final ReportColumn column)
+	final void register(final Column column)
 	{
 		if(columnMap.put(column.name, column)!=null)
 			throw new RuntimeException(column.toString());
@@ -93,11 +93,11 @@ public final class Table extends ReportNode
 		exists = true;
 	}
 	
-	final ReportColumn notifyExistentColumn(final String columnName, final String existingType)
+	final Column notifyExistentColumn(final String columnName, final String existingType)
 	{
-		ReportColumn result = (ReportColumn)columnMap.get(columnName);
+		Column result = (Column)columnMap.get(columnName);
 		if(result==null)
-			result = new ReportColumn(this, columnName, existingType, false);
+			result = new Column(this, columnName, existingType, false);
 		else
 			result.notifyExists(existingType);
 
@@ -172,9 +172,9 @@ public final class Table extends ReportNode
 		return columnList;
 	}
 		
-	public final ReportColumn getColumn(final String columnName)
+	public final Column getColumn(final String columnName)
 	{
-		return (ReportColumn)columnMap.get(columnName);
+		return (Column)columnMap.get(columnName);
 	}
 		
 	public final Collection getConstraints()
@@ -222,7 +222,7 @@ public final class Table extends ReportNode
 			
 		for(Iterator i = columnList.iterator(); i.hasNext(); )
 		{
-			final ReportColumn column = (ReportColumn)i.next();
+			final Column column = (Column)i.next();
 			column.finish();
 			cumulativeColor = Math.max(cumulativeColor, column.cumulativeColor);
 		}
@@ -251,7 +251,7 @@ public final class Table extends ReportNode
 			else
 				bf.append(',');
 			
-			final ReportColumn column = (ReportColumn)i.next();
+			final Column column = (Column)i.next();
 			bf.append(protectName(column.name)).
 				append(' ').
 				append(column.getType());

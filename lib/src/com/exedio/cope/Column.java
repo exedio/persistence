@@ -21,7 +21,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.exedio.dsmf.CheckConstraint;
-import com.exedio.dsmf.ReportColumn;
 import com.exedio.dsmf.PrimaryKeyConstraint;
 
 abstract class Column
@@ -81,7 +80,7 @@ abstract class Column
 
 	void report(final com.exedio.dsmf.Table reportTable)
 	{
-		final ReportColumn result = new ReportColumn(reportTable, id, getDatabaseType());
+		final com.exedio.dsmf.Column result = new com.exedio.dsmf.Column(reportTable, id, getDatabaseType());
 
 		if(primaryKey)
 			new PrimaryKeyConstraint(reportTable, table.database.trimName(table.id + "_" + "Pk"), id);
