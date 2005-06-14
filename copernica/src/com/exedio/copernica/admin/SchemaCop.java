@@ -62,7 +62,7 @@ final class SchemaCop extends AdminCop
 
 	final void writeBody(final PrintStream out, final Model model) throws IOException
 	{
-		Schema_Jspm.writeReport(out, model, this);
+		Schema_Jspm.writeSchema(out, model, this);
 	}
 	
 	final SchemaCop narrowReport(final Table table)

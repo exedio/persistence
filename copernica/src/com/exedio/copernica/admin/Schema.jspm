@@ -66,7 +66,7 @@ final class Schema_Jspm
 			throw new RuntimeException(constraint.getClass().getName());
 	}
 	
-	final static void writeReport(final PrintStream out, final Model model, final SchemaCop cop)
+	final static void writeSchema(final PrintStream out, final Model model, final SchemaCop cop)
 		throws IOException
 	{
 		final Schema report = model.getVerifiedSchema();
