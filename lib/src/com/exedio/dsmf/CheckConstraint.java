@@ -19,7 +19,7 @@
 package com.exedio.dsmf;
 
 
-public class CheckConstraint extends ReportConstraint
+public class CheckConstraint extends Constraint
 {
 
 	public CheckConstraint(final Table table, final String name, final String condition)

@@ -19,7 +19,7 @@ package com.exedio.dsmf;
 
 
 
-public class PrimaryKeyConstraint extends ReportConstraint
+public class PrimaryKeyConstraint extends Constraint
 {
 	final String primaryKeyColumn;
 	

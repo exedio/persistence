@@ -19,7 +19,7 @@ package com.exedio.dsmf;
 
 
 
-public class ForeignKeyConstraint extends ReportConstraint
+public class ForeignKeyConstraint extends Constraint
 {
 	final String foreignKeyColumn;
 	final String targetTable;

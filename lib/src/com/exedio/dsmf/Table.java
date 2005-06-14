@@ -73,7 +73,7 @@ public final class Table extends ReportNode
 		columnList.add(column);
 	}
 	
-	final void register(final ReportConstraint constraint)
+	final void register(final Constraint constraint)
 	{
 		if(constraintMap.put(constraint.name, constraint)!=null)
 			throw new RuntimeException(constraint.name);
@@ -104,9 +104,9 @@ public final class Table extends ReportNode
 		return result;
 	}
 	
-	final ReportConstraint notifyExistentCheckConstraint(final String constraintName, final String condition)
+	final Constraint notifyExistentCheckConstraint(final String constraintName, final String condition)
 	{
-		ReportConstraint result = (ReportConstraint)constraintMap.get(constraintName);
+		Constraint result = (Constraint)constraintMap.get(constraintName);
 		
 		if(result==null)
 			result = new CheckConstraint(this, constraintName, false, condition);
@@ -116,9 +116,9 @@ public final class Table extends ReportNode
 		return result;
 	}
 	
-	final ReportConstraint notifyExistentPrimaryKeyConstraint(final String constraintName)
+	final Constraint notifyExistentPrimaryKeyConstraint(final String constraintName)
 	{
-		ReportConstraint result = (ReportConstraint)constraintMap.get(constraintName);
+		Constraint result = (Constraint)constraintMap.get(constraintName);
 
 		if(result==null)
 			result = new PrimaryKeyConstraint(this, constraintName, false, null);
@@ -128,9 +128,9 @@ public final class Table extends ReportNode
 		return result;
 	}
 	
-	final ReportConstraint notifyExistentForeignKeyConstraint(final String constraintName)
+	final Constraint notifyExistentForeignKeyConstraint(final String constraintName)
 	{
-		ReportConstraint result = (ReportConstraint)constraintMap.get(constraintName);
+		Constraint result = (Constraint)constraintMap.get(constraintName);
 		
 		if(result==null)
 			result = new ForeignKeyConstraint(this, constraintName, false, null, null, null);
@@ -140,9 +140,9 @@ public final class Table extends ReportNode
 		return result;
 	}
 	
-	final ReportConstraint notifyExistentUniqueConstraint(final String constraintName, final String condition)
+	final Constraint notifyExistentUniqueConstraint(final String constraintName, final String condition)
 	{
-		ReportConstraint result = (ReportConstraint)constraintMap.get(constraintName);
+		Constraint result = (Constraint)constraintMap.get(constraintName);
 		
 		if(result==null)
 			result = new UniqueConstraint(this, constraintName, false, condition);
@@ -182,9 +182,9 @@ public final class Table extends ReportNode
 		return constraintList;
 	}
 		
-	public final ReportConstraint getConstraint(final String constraintName)
+	public final Constraint getConstraint(final String constraintName)
 	{
-		return (ReportConstraint)constraintMap.get(constraintName);
+		return (Constraint)constraintMap.get(constraintName);
 	}
 		
 	void finish()
@@ -229,7 +229,7 @@ public final class Table extends ReportNode
 
 		for(Iterator i = constraintList.iterator(); i.hasNext(); )
 		{
-			final ReportConstraint constraint = (ReportConstraint)i.next();
+			final Constraint constraint = (Constraint)i.next();
 			constraint.finish();
 			cumulativeColor = Math.max(cumulativeColor, constraint.cumulativeColor);
 		}
@@ -259,7 +259,7 @@ public final class Table extends ReportNode
 		
 		for(Iterator i = constraintList.iterator(); i.hasNext(); )
 		{
-			final ReportConstraint constraint = (ReportConstraint)i.next();
+			final Constraint constraint = (Constraint)i.next();
 
 			if(constraint instanceof CheckConstraint)
 			{
@@ -306,7 +306,7 @@ public final class Table extends ReportNode
 
 		for(Iterator i = constraintList.iterator(); i.hasNext(); )
 		{
-			final ReportConstraint constraint = (ReportConstraint)i.next();
+			final Constraint constraint = (Constraint)i.next();
 			//System.out.println("createForeignKeyConstraints("+column+"):"+bf);
 			if(constraint instanceof ForeignKeyConstraint)
 				((ForeignKeyConstraint)constraint).create();
@@ -338,7 +338,7 @@ public final class Table extends ReportNode
 	{
 		for(Iterator i = constraintList.iterator(); i.hasNext(); )
 		{
-			final ReportConstraint constraint = (ReportConstraint)i.next();
+			final Constraint constraint = (Constraint)i.next();
 			//System.out.println("dropForeignKeyConstraints("+column+")");
 			if(constraint instanceof ForeignKeyConstraint)
 			{

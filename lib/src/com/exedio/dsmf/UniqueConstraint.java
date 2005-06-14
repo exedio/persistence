@@ -20,7 +20,7 @@ package com.exedio.dsmf;
 
 
 
-public class UniqueConstraint extends ReportConstraint
+public class UniqueConstraint extends Constraint
 {
 	final String clause;
 	

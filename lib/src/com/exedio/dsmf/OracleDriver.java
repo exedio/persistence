@@ -59,7 +59,7 @@ public final class OracleDriver extends Driver
 		}
 	}
 
-	private ReportConstraint makeUniqueConstraint(final Table table, final String constraintName, final ArrayList columns)
+	private Constraint makeUniqueConstraint(final Table table, final String constraintName, final ArrayList columns)
 	{
 		final StringBuffer bf = new StringBuffer();
 		bf.append('(');

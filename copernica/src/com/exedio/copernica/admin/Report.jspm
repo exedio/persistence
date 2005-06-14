@@ -27,7 +27,7 @@ import java.util.Iterator;
 import com.exedio.cope.Model;
 import com.exedio.dsmf.CheckConstraint;
 import com.exedio.dsmf.Column;
-import com.exedio.dsmf.ReportConstraint;
+import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.ForeignKeyConstraint;
 import com.exedio.dsmf.ReportLastAnalyzed;
 import com.exedio.dsmf.PrimaryKeyConstraint;
@@ -52,7 +52,7 @@ final class Report_Jspm
 		}
 	}
 	
-	private static final String type(final ReportConstraint constraint)
+	private static final String type(final Constraint constraint)
 	{
 		if(constraint instanceof CheckConstraint)
 			return "check";
@@ -227,7 +227,7 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); tableCount++)
 		int constraintCount = 1;
 		for(Iterator j = table.getConstraints().iterator(); j.hasNext(); constraintCount++)
 		{
-			final ReportConstraint constraint = (ReportConstraint)j.next();
+			final Constraint constraint = (Constraint)j.next();
 			final String constraintColor = color(constraint.getCumulativeColor());
 			%>
 			<li class="<%=constraintColor%>">

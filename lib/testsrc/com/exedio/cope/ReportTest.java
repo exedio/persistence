@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import com.exedio.dsmf.CheckConstraint;
 import com.exedio.dsmf.Column;
-import com.exedio.dsmf.ReportConstraint;
+import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.ForeignKeyConstraint;
 import com.exedio.dsmf.PrimaryKeyConstraint;
 import com.exedio.dsmf.ReportSchema;
@@ -336,9 +336,9 @@ public class ReportTest extends DatabaseLibTest
 		assertEquals(clause, constraint.getClause());
 	}
 	
-	private ReportConstraint assertConstraint(final com.exedio.dsmf.Table table, final Class constraintType, final String constraintName, final String requiredCondition)
+	private Constraint assertConstraint(final com.exedio.dsmf.Table table, final Class constraintType, final String constraintName, final String requiredCondition)
 	{
-		final ReportConstraint constraint = table.getConstraint(constraintName);
+		final Constraint constraint = table.getConstraint(constraintName);
 		if(model.supportsCheckConstraints() || constraintType!=CHECK)
 		{
 			assertNotNull("no such constraint "+constraintName+", but has "+table.getConstraints(), constraint);
