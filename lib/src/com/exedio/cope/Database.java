@@ -1055,7 +1055,7 @@ abstract class Database
 	{
 		final Schema result = new Schema(driver, connectionPool);
 		for(Iterator i = tables.iterator(); i.hasNext(); )
-			((Table)i.next()).report(result);
+			((Table)i.next()).makeSchema(result);
 		completeSchema(result);
 		return result;
 	}

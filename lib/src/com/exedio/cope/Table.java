@@ -162,7 +162,7 @@ final class Table
 		return id;
 	}
 	
-	void report(final Schema schema)
+	void makeSchema(final Schema schema)
 	{
 		final com.exedio.dsmf.Table result = new com.exedio.dsmf.Table(schema, id);
 		
