@@ -43,7 +43,7 @@ final class SchemaCop extends AdminCop
 
 	SchemaCop(final String reportTable, final boolean showDropBoxes, final boolean showRenameFields)
 	{
-		super("reports");
+		super("schema");
 		this.reportTable = reportTable;
 		this.showDropBoxes = showDropBoxes;
 		this.showRenameFields = showRenameFields;
