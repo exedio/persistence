@@ -63,8 +63,8 @@ abstract class AdminCop extends Cop
 		if(request.getParameter(StatisticsCop.STATISTICS)!=null)
 			return new StatisticsCop();
 		
-		final String reportID = request.getParameter(SchemaCop.SCHEMA);
-		if(reportID==null)
+		final String schemaID = request.getParameter(SchemaCop.SCHEMA);
+		if(schemaID==null)
 		{
 			return new PropertiesCop();
 		}
@@ -88,10 +88,10 @@ abstract class AdminCop extends Cop
 				}
 			}
 			
-			if(reportID.length()==0)
+			if(schemaID.length()==0)
 				return new SchemaCop(null, showDropBoxes, showRenameFields);
 			else
-				return new SchemaCop(reportID, showDropBoxes, showRenameFields);
+				return new SchemaCop(schemaID, showDropBoxes, showRenameFields);
 		}
 	}
 
