@@ -116,7 +116,7 @@ final class SchemaCop extends AdminCop
 			final HttpServletRequest request, final Model model)
 			throws IOException
 	{
-		final Schema report = model.getVerifiedSchema();
+		final Schema schema = model.getVerifiedSchema();
 		{
 			final String[] dropColumns = (String[]) request.getParameterMap().get(
 					"DROP_COLUMN");
@@ -125,7 +125,7 @@ final class SchemaCop extends AdminCop
 				for (int i = 0; i < dropColumns.length; i++)
 				{
 					final String dropColumn = dropColumns[i];
-					final Column column = getColumn(report, dropColumn);
+					final Column column = getColumn(schema, dropColumn);
 					Schema_Jspm.writeDrop(out, column);
 					out.flush();
 					final long startTime = System.currentTimeMillis();
@@ -142,7 +142,7 @@ final class SchemaCop extends AdminCop
 				for (int i = 0; i < dropTables.length; i++)
 				{
 					final String dropTable = dropTables[i];
-					final Table table = report.getTable(dropTable);
+					final Table table = schema.getTable(dropTable);
 					if (table == null)
 						throw new RuntimeException(dropTable);
 					Schema_Jspm.writeDrop(out, table);
@@ -167,7 +167,7 @@ final class SchemaCop extends AdminCop
 
 				final String sourceName = parameterName.substring("RENAME_TABLE_"
 						.length());
-				final Table table = report.getTable(sourceName);
+				final Table table = schema.getTable(sourceName);
 				if (table == null)
 					throw new RuntimeException(sourceName);
 
@@ -193,7 +193,7 @@ final class SchemaCop extends AdminCop
 				final String sourceName = parameterName.substring("MODIFY_COLUMN_"
 						.length());
 
-				final Column column = getColumn(report, sourceName);
+				final Column column = getColumn(schema, sourceName);
 				if (column == null)
 					throw new RuntimeException(sourceName);
 
@@ -219,7 +219,7 @@ final class SchemaCop extends AdminCop
 				final String sourceName = parameterName.substring("RENAME_COLUMN_"
 						.length());
 
-				final Column column = getColumn(report, sourceName);
+				final Column column = getColumn(schema, sourceName);
 				if (column == null)
 					throw new RuntimeException(sourceName);
 
@@ -238,7 +238,7 @@ final class SchemaCop extends AdminCop
 				for (int i = 0; i < createTables.length; i++)
 				{
 					final String createTable = createTables[i];
-					final Table table = report.getTable(createTable);
+					final Table table = schema.getTable(createTable);
 					if (table == null)
 						throw new RuntimeException(createTable);
 
@@ -258,7 +258,7 @@ final class SchemaCop extends AdminCop
 				for (int i = 0; i < analyzeTables.length; i++)
 				{
 					final String analyzeTable = analyzeTables[i];
-					final Table table = report.getTable(analyzeTable);
+					final Table table = schema.getTable(analyzeTable);
 					if (table == null)
 						throw new RuntimeException(analyzeTable);
 					Schema_Jspm.writeAnalyze(out, table);
@@ -277,7 +277,7 @@ final class SchemaCop extends AdminCop
 				for (int i = 0; i < createColums.length; i++)
 				{
 					final String createColumn = createColums[i];
-					final Column column = getColumn(report, createColumn);
+					final Column column = getColumn(schema, createColumn);
 					Schema_Jspm.writeCreate(out, column);
 					out.flush();
 					final long startTime = System.currentTimeMillis();
