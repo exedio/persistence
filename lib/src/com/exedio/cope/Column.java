@@ -78,7 +78,7 @@ abstract class Column
 
 	abstract Object cacheToDatabase(Object cache);
 
-	void report(final com.exedio.dsmf.Table reportTable)
+	void makeSchema(final com.exedio.dsmf.Table reportTable)
 	{
 		final com.exedio.dsmf.Column result = new com.exedio.dsmf.Column(reportTable, id, getDatabaseType());
 

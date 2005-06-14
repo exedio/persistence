@@ -108,7 +108,7 @@ public final class UniqueConstraint extends TypeComponent
 		return databaseID;
 	}
 	
-	final void report(final Table reportTable)
+	final void makeSchema(final Table reportTable)
 	{
 		final StringBuffer bf = new StringBuffer();
 		bf.append('(');

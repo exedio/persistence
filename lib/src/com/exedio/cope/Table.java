@@ -167,10 +167,10 @@ final class Table
 		final com.exedio.dsmf.Table result = new com.exedio.dsmf.Table(schema, id);
 		
 		for(Iterator i = getAllColumns().iterator(); i.hasNext(); )
-			((Column)i.next()).report(result);
+			((Column)i.next()).makeSchema(result);
 
 		for(Iterator i = getUniqueConstraints().iterator(); i.hasNext(); )
-			((UniqueConstraint)i.next()).report(result);
+			((UniqueConstraint)i.next()).makeSchema(result);
 	}
 
 }
