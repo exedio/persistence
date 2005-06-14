@@ -83,14 +83,14 @@ public final class MysqlDriver extends Driver
 		{
 			for(Iterator i = schema.getTables().iterator(); i.hasNext(); )
 			{
-				final Table reportTable = (Table)i.next();
-				if(!reportTable.exists())
+				final Table table = (Table)i.next();
+				if(!table.exists())
 					continue;
 				
 				{
 					final StringBuffer bf = new StringBuffer();
 					bf.append("show columns from ").
-						append(protectName(reportTable.name));
+						append(protectName(table.name));
 					
 					schema.querySQL(bf.toString(), new Node.ResultSetHandler()
 						{
@@ -104,20 +104,20 @@ public final class MysqlDriver extends Driver
 									if("PRI".equals(key))
 									{
 										final String field = resultSet.getString("Field");
-										if(primaryKeyColumnName.equals(field) && reportTable.required())
+										if(primaryKeyColumnName.equals(field) && table.required())
 										{
-											for(Iterator j = reportTable.getConstraints().iterator(); j.hasNext(); )
+											for(Iterator j = table.getConstraints().iterator(); j.hasNext(); )
 											{
 												final Constraint c = (Constraint)j.next();
 												if(c instanceof PrimaryKeyConstraint)
 												{
-													reportTable.notifyExistentPrimaryKeyConstraint(c.name);
+													table.notifyExistentPrimaryKeyConstraint(c.name);
 													break;
 												}
 											}
 										}
 										else
-											reportTable.notifyExistentPrimaryKeyConstraint(field+"_Pk");
+											table.notifyExistentPrimaryKeyConstraint(field+"_Pk");
 									}
 								}
 							}
@@ -126,7 +126,7 @@ public final class MysqlDriver extends Driver
 				{
 					final StringBuffer bf = new StringBuffer();
 					bf.append("show create table ").
-						append(protectName(reportTable.name));
+						append(protectName(table.name));
 					
 					schema.querySQL(bf.toString(), new ResultSetHandler()
 						{
