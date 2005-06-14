@@ -176,16 +176,14 @@ abstract class Database
 	{
 		buildStage = false;
 
-		final Schema report = makeSchema();
-		report.drop();
+		makeSchema().drop();
 	}
 	
 	void tearDownDatabase()
 	{
 		buildStage = false;
 
-		final Schema report = makeSchema();
-		report.tearDown();
+		makeSchema().tearDown();
 	}
 
 	void checkEmptyDatabase()
