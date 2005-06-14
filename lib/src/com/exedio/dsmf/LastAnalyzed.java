@@ -20,7 +20,7 @@ package com.exedio.dsmf;
 import java.util.Date;
 
 
-public final class LastAnalyzed extends ReportNode
+public final class LastAnalyzed extends Node
 {
 	final Table table;
 	final Date date;

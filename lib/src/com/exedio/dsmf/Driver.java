@@ -46,7 +46,7 @@ public abstract class Driver
 
 	void fillReport(final Schema report)
 	{
-		report.querySQL(ReportNode.GET_TABLES, new ReportNode.ResultSetHandler()
+		report.querySQL(Node.GET_TABLES, new Node.ResultSetHandler()
 			{
 				public void run(final ResultSet resultSet) throws SQLException
 				{
@@ -59,7 +59,7 @@ public abstract class Driver
 				}
 			});
 		
-		report.querySQL(ReportNode.GET_COLUMNS, new ReportNode.ResultSetHandler()
+		report.querySQL(Node.GET_COLUMNS, new Node.ResultSetHandler()
 			{
 				public void run(final ResultSet resultSet) throws SQLException
 				{

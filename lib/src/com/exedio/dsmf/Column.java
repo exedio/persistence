@@ -18,7 +18,7 @@
 package com.exedio.dsmf;
 
 
-public final class Column extends ReportNode
+public final class Column extends Node
 {
 	final Table table;
 	final String name;

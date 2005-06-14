@@ -25,7 +25,7 @@ import java.util.Iterator;
 
 
 
-public final class Table extends ReportNode
+public final class Table extends Node
 {
 	final Schema report;
 	final String name;

@@ -19,7 +19,7 @@ package com.exedio.dsmf;
 
 
 
-public abstract class Constraint extends ReportNode
+public abstract class Constraint extends Node
 {
 	final Table table;
 	final String name;

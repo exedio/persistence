@@ -24,7 +24,7 @@ import java.sql.Types;
 import java.util.Iterator;
 import java.util.StringTokenizer;
 
-import com.exedio.dsmf.ReportNode.ResultSetHandler;
+import com.exedio.dsmf.Node.ResultSetHandler;
 
 
 public final class MysqlDriver extends Driver
@@ -92,7 +92,7 @@ public final class MysqlDriver extends Driver
 					bf.append("show columns from ").
 						append(protectName(reportTable.name));
 					
-					report.querySQL(bf.toString(), new ReportNode.ResultSetHandler()
+					report.querySQL(bf.toString(), new Node.ResultSetHandler()
 						{
 							public void run(final ResultSet resultSet) throws SQLException
 							{

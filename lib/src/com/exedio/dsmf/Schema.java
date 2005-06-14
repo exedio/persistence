@@ -25,7 +25,7 @@ import java.util.ListIterator;
 
 import com.exedio.cope.NestingRuntimeException;
 
-public final class Schema extends ReportNode
+public final class Schema extends Node
 {
 	private final HashMap tableMap = new HashMap();
 	private final ArrayList tableList = new ArrayList();

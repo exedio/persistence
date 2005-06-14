@@ -23,7 +23,7 @@ import java.sql.SQLException;
 
 import com.exedio.cope.NestingRuntimeException;
 
-public abstract class ReportNode
+public abstract class Node
 {
 	static final int COLOR_NOT_YET_CALC = 0;
 	public static final int COLOR_OK = 1;
@@ -37,7 +37,7 @@ public abstract class ReportNode
 	int particularColor = Schema.COLOR_NOT_YET_CALC;
 	int cumulativeColor = Schema.COLOR_NOT_YET_CALC;
 	
-	ReportNode(final Driver driver, final ConnectionProvider connectionProvider)
+	Node(final Driver driver, final ConnectionProvider connectionProvider)
 	{
 		if(driver==null)
 			throw new NullPointerException("driver");

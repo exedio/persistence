@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 
-import com.exedio.dsmf.ReportNode.ResultSetHandler;
+import com.exedio.dsmf.Node.ResultSetHandler;
 
 
 public final class OracleDriver extends Driver
@@ -81,7 +81,7 @@ public final class OracleDriver extends Driver
 	{
 		super.fillReport(report);
 
-		report.querySQL("select TABLE_NAME, LAST_ANALYZED from user_tables", new ReportNode.ResultSetHandler()
+		report.querySQL("select TABLE_NAME, LAST_ANALYZED from user_tables", new Node.ResultSetHandler()
 			{
 				public void run(final ResultSet resultSet) throws SQLException
 				{

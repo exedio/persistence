@@ -59,7 +59,7 @@ public final class HsqldbDriver extends Driver
 				"select stc.CONSTRAINT_NAME, stc.CONSTRAINT_TYPE, stc.TABLE_NAME, scc.CHECK_CLAUSE " +
 				"from SYSTEM_TABLE_CONSTRAINTS stc " +
 				"left outer join SYSTEM_CHECK_CONSTRAINTS scc on stc.CONSTRAINT_NAME = scc.CONSTRAINT_NAME",
-			new ReportNode.ResultSetHandler()
+			new Node.ResultSetHandler()
 			{
 				public void run(final ResultSet resultSet) throws SQLException
 				{
@@ -93,7 +93,7 @@ public final class HsqldbDriver extends Driver
 								append(constraintName).
 								append("_%' and NON_UNIQUE=false order by ORDINAL_POSITION");
 							
-							report.querySQL(bf.toString(), new ReportNode.ResultSetHandler()
+							report.querySQL(bf.toString(), new Node.ResultSetHandler()
 								{
 									public void run(final ResultSet resultSet) throws SQLException
 									{
