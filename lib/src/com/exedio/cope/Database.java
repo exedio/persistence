@@ -1068,9 +1068,9 @@ abstract class Database
 	
 	final Schema makeVerifiedSchema()
 	{
-		final Schema report = requiredReport();
-		report.verify();
-		return report;
+		final Schema result = requiredReport();
+		result.verify();
+		return result;
 	}
 
 	
