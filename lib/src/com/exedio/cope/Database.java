@@ -86,7 +86,7 @@ abstract class Database
 	{
 		buildStage = false;
 		
-		final Schema report = requiredReport();
+		final Schema report = makeSchema();
 		report.create();
 	}
 
@@ -176,7 +176,7 @@ abstract class Database
 	{
 		buildStage = false;
 
-		final Schema report = requiredReport();
+		final Schema report = makeSchema();
 		report.drop();
 	}
 	
@@ -184,7 +184,7 @@ abstract class Database
 	{
 		buildStage = false;
 
-		final Schema report = requiredReport();
+		final Schema report = makeSchema();
 		report.tearDown();
 	}
 
@@ -1053,7 +1053,7 @@ abstract class Database
 		}
 	}
 	
-	final Schema requiredReport()
+	final Schema makeSchema()
 	{
 		final Schema report = new Schema(driver, connectionPool);
 		for(Iterator i = tables.iterator(); i.hasNext(); )
@@ -1068,7 +1068,7 @@ abstract class Database
 	
 	final Schema makeVerifiedSchema()
 	{
-		final Schema result = requiredReport();
+		final Schema result = makeSchema();
 		result.verify();
 		return result;
 	}
