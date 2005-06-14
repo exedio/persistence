@@ -37,18 +37,18 @@ final class SchemaCop extends AdminCop
 	static final String SHOW_DROP_BOXES = "drop";
 	static final String SHOW_RENAME_FIELDS = "rename";
 
-	final String reportTable;
+	final String table;
 	final boolean showDropBoxes;
 	final boolean showRenameFields;
 
-	SchemaCop(final String reportTable, final boolean showDropBoxes, final boolean showRenameFields)
+	SchemaCop(final String table, final boolean showDropBoxes, final boolean showRenameFields)
 	{
 		super("schema");
-		this.reportTable = reportTable;
+		this.table = table;
 		this.showDropBoxes = showDropBoxes;
 		this.showRenameFields = showRenameFields;
 		
-		addParameter(SCHEMA, reportTable==null ? "" : reportTable);
+		addParameter(SCHEMA, table==null ? "" : table);
 		if(showDropBoxes)
 			addParameter(SHOW, SHOW_DROP_BOXES);
 		if(showRenameFields)
@@ -77,22 +77,22 @@ final class SchemaCop extends AdminCop
 	
 	final SchemaCop toggleDropBoxes()
 	{
-		return new SchemaCop(reportTable, !showDropBoxes, showRenameFields);
+		return new SchemaCop(table, !showDropBoxes, showRenameFields);
 	}
 	
 	final SchemaCop toggleRenameFields()
 	{
-		return new SchemaCop(reportTable, showDropBoxes, !showRenameFields);
+		return new SchemaCop(table, showDropBoxes, !showRenameFields);
 	}
 	
 	final boolean isNarrowReport()
 	{
-		return reportTable!=null;
+		return table!=null;
 	}
 	
 	final boolean skipTable(final Table table)
 	{
-		return reportTable!=null && !reportTable.equals(table.getName());
+		return this.table!=null && !this.table.equals(table.getName());
 	}
 
 	private static final Column getColumn(final Schema report, final String columnParameter)
