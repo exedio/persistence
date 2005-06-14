@@ -69,8 +69,8 @@ final class Schema_Jspm
 	final static void writeSchema(final PrintStream out, final Model model, final SchemaCop cop)
 		throws IOException
 	{
-		final Schema report = model.getVerifiedSchema();
-		final String reportColor = color(report.getCumulativeColor());
+		final Schema schema = model.getVerifiedSchema();
+		final String reportColor = color(schema.getCumulativeColor());
 		final boolean narrowReport = cop.isNarrowReport();
 
 %>
@@ -97,7 +97,7 @@ supports check constraints: <i><%if(model.supportsCheckConstraints()){%>yes<%}el
 <ul class="<%=reportColor%>"><%
 
 int tableCount = 1;
-for(Iterator i = report.getTables().iterator(); i.hasNext(); tableCount++)
+for(Iterator i = schema.getTables().iterator(); i.hasNext(); tableCount++)
 {
 	final Table table = (Table)i.next();
 	
