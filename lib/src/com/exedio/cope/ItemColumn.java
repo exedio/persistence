@@ -54,11 +54,11 @@ final class ItemColumn extends IntegerColumn
 		this.attribute = null;
 	}
 
-	void makeSchema(final com.exedio.dsmf.Table reportTable)
+	void makeSchema(final com.exedio.dsmf.Table dsmfTable)
 	{
-		super.makeSchema(reportTable);
+		super.makeSchema(dsmfTable);
 		final Table targetTable = Type.findByJavaClass(targetTypeClass).getTable();
-		new ForeignKeyConstraint(reportTable, integrityConstraintName, id, targetTable.id, targetTable.getPrimaryKey().id);
+		new ForeignKeyConstraint(dsmfTable, integrityConstraintName, id, targetTable.id, targetTable.getPrimaryKey().id);
 	}
 		
 }

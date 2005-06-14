@@ -78,12 +78,12 @@ abstract class Column
 
 	abstract Object cacheToDatabase(Object cache);
 
-	void makeSchema(final com.exedio.dsmf.Table reportTable)
+	void makeSchema(final com.exedio.dsmf.Table dsmfTable)
 	{
-		final com.exedio.dsmf.Column result = new com.exedio.dsmf.Column(reportTable, id, getDatabaseType());
+		final com.exedio.dsmf.Column result = new com.exedio.dsmf.Column(dsmfTable, id, getDatabaseType());
 
 		if(primaryKey)
-			new PrimaryKeyConstraint(reportTable, table.database.trimName(table.id + "_" + "Pk"), id);
+			new PrimaryKeyConstraint(dsmfTable, table.database.trimName(table.id + "_" + "Pk"), id);
 		else
 		{
 			if(table.database.supportsCheckConstraints())
@@ -107,7 +107,7 @@ abstract class Column
 				}
 	
 				if(checkConstraint!=null)
-					new CheckConstraint(reportTable, table.database.trimName(table.id + "_" + id + "_Ck"), checkConstraint);
+					new CheckConstraint(dsmfTable, table.database.trimName(table.id + "_" + id + "_Ck"), checkConstraint);
 			}
 		}
 	}

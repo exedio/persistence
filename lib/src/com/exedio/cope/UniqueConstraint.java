@@ -108,7 +108,7 @@ public final class UniqueConstraint extends TypeComponent
 		return databaseID;
 	}
 	
-	final void makeSchema(final Table reportTable)
+	final void makeSchema(final Table dsmfTable)
 	{
 		final StringBuffer bf = new StringBuffer();
 		bf.append('(');
@@ -121,7 +121,7 @@ public final class UniqueConstraint extends TypeComponent
 		}
 		bf.append(')');
 
-		new com.exedio.dsmf.UniqueConstraint(reportTable, getDatabaseID(), bf.toString());
+		new com.exedio.dsmf.UniqueConstraint(dsmfTable, getDatabaseID(), bf.toString());
 	}
 	
 
