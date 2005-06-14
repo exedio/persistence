@@ -71,7 +71,7 @@ final class Schema_Jspm
 	{
 		final Schema schema = model.getVerifiedSchema();
 		final String schemaColor = color(schema.getCumulativeColor());
-		final boolean narrowReport = cop.isNarrow();
+		final boolean narrow = cop.isNarrow();
 
 %>
 drop boxes: <a href="<%=cop.toggleDropBoxes()%>"><%=cop.showDropBoxes?"hide":"show"%></a><br>
@@ -82,12 +82,12 @@ check all:
 <input type="button" value="drop column" onClick="checkAll(&quot;DROP_COLUMN&quot;)">
 <br>
 <span class="<%=schemaColor%>"><%
-if(narrowReport)
+if(narrow)
 {
 	%><a href="<%=cop.widen()%>"><%
 }
 %>Schema<%
-if(narrowReport)
+if(narrow)
 {
 	%></a><%
 }
@@ -109,12 +109,12 @@ for(Iterator i = schema.getTables().iterator(); i.hasNext(); tableCount++)
 	<li class="<%=tableColor%>"><%
 	
 	%><small>tab<%=tableCount%></small> <%
-	if(!narrowReport)
+	if(!narrow)
 	{
 		%><a href="<%=cop.narrow(table)%>"><%
 	}
 	%><%=table.getName()%><%
-	if(!narrowReport)
+	if(!narrow)
 	{
 		%></a><%
 	}
@@ -146,7 +146,7 @@ for(Iterator i = schema.getTables().iterator(); i.hasNext(); tableCount++)
 	
 	final LastAnalyzed lastAnalyzed = table.getLastAnalyzed();
 
-	if(!narrowReport)
+	if(!narrow)
 	{
 		if(lastAnalyzed!=null)
 		{
