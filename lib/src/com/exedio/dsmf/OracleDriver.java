@@ -77,11 +77,11 @@ public final class OracleDriver extends Driver
 		return table.notifyExistentUniqueConstraint(constraintName, bf.toString());
 	}
 	
-	void verify(final Schema report)
+	void verify(final Schema schema)
 	{
-		super.verify(report);
+		super.verify(schema);
 
-		report.querySQL("select TABLE_NAME, LAST_ANALYZED from user_tables", new Node.ResultSetHandler()
+		schema.querySQL("select TABLE_NAME, LAST_ANALYZED from user_tables", new Node.ResultSetHandler()
 			{
 				public void run(final ResultSet resultSet) throws SQLException
 				{
@@ -89,14 +89,14 @@ public final class OracleDriver extends Driver
 					{
 						final String tableName = resultSet.getString(1);
 						final Date lastAnalyzed = (Date)resultSet.getObject(2);
-						final Table table = report.notifyExistentTable(tableName);
+						final Table table = schema.notifyExistentTable(tableName);
 						table.setLastAnalyzed(lastAnalyzed);
 						//System.out.println("EXISTS:"+tableName);
 					}
 				}
 			});
 		
-		report.querySQL(
+		schema.querySQL(
 				"select " +
 				"uc.TABLE_NAME," +
 				"uc.CONSTRAINT_NAME," +
@@ -121,7 +121,7 @@ public final class OracleDriver extends Driver
 						final String tableName = resultSet.getString(1);
 						final String constraintName = resultSet.getString(2);
 						final String constraintType = resultSet.getString(3);
-						final Table table = report.notifyExistentTable(tableName);
+						final Table table = schema.notifyExistentTable(tableName);
 						//System.out.println("tableName:"+tableName+" constraintName:"+constraintName+" constraintType:>"+constraintType+"<");
 						if("C".equals(constraintType))
 						{

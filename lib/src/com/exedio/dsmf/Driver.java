@@ -44,22 +44,22 @@ public abstract class Driver
 
 	abstract String getColumnType(int dataType, ResultSet resultSet) throws SQLException;
 
-	void verify(final Schema report)
+	void verify(final Schema schema)
 	{
-		report.querySQL(Node.GET_TABLES, new Node.ResultSetHandler()
+		schema.querySQL(Node.GET_TABLES, new Node.ResultSetHandler()
 			{
 				public void run(final ResultSet resultSet) throws SQLException
 				{
 					while(resultSet.next())
 					{
 						final String tableName = resultSet.getString("TABLE_NAME");
-						final Table table = report.notifyExistentTable(tableName);
+						final Table table = schema.notifyExistentTable(tableName);
 						//System.out.println("EXISTS:"+tableName);
 					}
 				}
 			});
 		
-		report.querySQL(Node.GET_COLUMNS, new Node.ResultSetHandler()
+		schema.querySQL(Node.GET_COLUMNS, new Node.ResultSetHandler()
 			{
 				public void run(final ResultSet resultSet) throws SQLException
 				{
@@ -69,7 +69,7 @@ public abstract class Driver
 						final String columnName = resultSet.getString("COLUMN_NAME");
 						final int dataType = resultSet.getInt("DATA_TYPE");
 						
-						final Table table = report.getTable(tableName);
+						final Table table = schema.getTable(tableName);
 						if(table!=null)
 						{
 							String columnType = getColumnType(dataType, resultSet);

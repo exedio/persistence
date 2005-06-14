@@ -77,11 +77,11 @@ public final class MysqlDriver extends Driver
 		return protectedName.substring(1, protectedName.length()-1);
 	}
 
-	void verify(final Schema report)
+	void verify(final Schema schema)
 	{
-		super.verify(report);
+		super.verify(schema);
 		{
-			for(Iterator i = report.getTables().iterator(); i.hasNext(); )
+			for(Iterator i = schema.getTables().iterator(); i.hasNext(); )
 			{
 				final Table reportTable = (Table)i.next();
 				if(!reportTable.exists())
@@ -92,7 +92,7 @@ public final class MysqlDriver extends Driver
 					bf.append("show columns from ").
 						append(protectName(reportTable.name));
 					
-					report.querySQL(bf.toString(), new Node.ResultSetHandler()
+					schema.querySQL(bf.toString(), new Node.ResultSetHandler()
 						{
 							public void run(final ResultSet resultSet) throws SQLException
 							{
@@ -128,7 +128,7 @@ public final class MysqlDriver extends Driver
 					bf.append("show create table ").
 						append(protectName(reportTable.name));
 					
-					report.querySQL(bf.toString(), new ResultSetHandler()
+					schema.querySQL(bf.toString(), new ResultSetHandler()
 						{
 							public void run(final ResultSet resultSet) throws SQLException
 							{
@@ -136,7 +136,7 @@ public final class MysqlDriver extends Driver
 								{
 									final String tableName = resultSet.getString("Table");
 									final String createTable = resultSet.getString("Create Table");
-									final Table table = report.notifyExistentTable(tableName);
+									final Table table = schema.notifyExistentTable(tableName);
 									//System.out.println("----------"+tableName+"----"+createTable);
 									final StringTokenizer t = new StringTokenizer(createTable);
 									for(String s = t.nextToken(); t.hasMoreTokens(); s = t.nextToken())
