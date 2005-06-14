@@ -43,9 +43,9 @@ public class ReportTest extends DatabaseLibTest
 		final String column1Type;
 		// OK
 		{
-			final Schema report = model.getVerifiedSchema();
+			final Schema schema = model.getVerifiedSchema();
 
-			final com.exedio.dsmf.Table table = report.getTable(TABLE1);
+			final com.exedio.dsmf.Table table = schema.getTable(TABLE1);
 			assertNotNull(table);
 			assertEquals(true, table.required());
 			assertEquals(true, table.exists());
@@ -64,9 +64,9 @@ public class ReportTest extends DatabaseLibTest
 		}
 		// COLUMN RENAMED
 		{
-			final Schema report = model.getVerifiedSchema();
+			final Schema schema = model.getVerifiedSchema();
 
-			final com.exedio.dsmf.Table table = report.getTable(TABLE1);
+			final com.exedio.dsmf.Table table = schema.getTable(TABLE1);
 			assertNotNull(table);
 			assertEquals(true, table.required());
 			assertEquals(true, table.exists());
@@ -94,9 +94,9 @@ public class ReportTest extends DatabaseLibTest
 		}
 		// OK
 		{
-			final Schema report = model.getVerifiedSchema();
+			final Schema schema = model.getVerifiedSchema();
 
-			final com.exedio.dsmf.Table table = report.getTable(TABLE1);
+			final com.exedio.dsmf.Table table = schema.getTable(TABLE1);
 			assertNotNull(table);
 			assertEquals(true, table.required());
 			assertEquals(true, table.exists());
@@ -114,9 +114,9 @@ public class ReportTest extends DatabaseLibTest
 		}
 		// COLUMN DROPPED
 		{
-			final Schema report = model.getVerifiedSchema();
+			final Schema schema = model.getVerifiedSchema();
 
-			final com.exedio.dsmf.Table table = report.getTable(TABLE1);
+			final com.exedio.dsmf.Table table = schema.getTable(TABLE1);
 			assertNotNull(table);
 			assertEquals(true, table.required());
 			assertEquals(true, table.exists());
@@ -134,9 +134,9 @@ public class ReportTest extends DatabaseLibTest
 		}
 		// OK
 		{
-			final Schema report = model.getVerifiedSchema();
+			final Schema schema = model.getVerifiedSchema();
 
-			final com.exedio.dsmf.Table table = report.getTable(TABLE1);
+			final com.exedio.dsmf.Table table = schema.getTable(TABLE1);
 			assertNotNull(table);
 			assertEquals(true, table.required());
 			assertEquals(true, table.exists());
@@ -154,10 +154,10 @@ public class ReportTest extends DatabaseLibTest
 		}
 		// TABLE RENAMED
 		{
-			final Schema report = model.getVerifiedSchema();
+			final Schema schema = model.getVerifiedSchema();
 
 			{
-				final com.exedio.dsmf.Table table = report.getTable(TABLE1);
+				final com.exedio.dsmf.Table table = schema.getTable(TABLE1);
 				assertNotNull(table);
 				assertEquals(true, table.required());
 				assertEquals(false, table.exists());
@@ -172,7 +172,7 @@ public class ReportTest extends DatabaseLibTest
 				assertEquals(column1Type, column.getType());
 			}
 			{
-				final com.exedio.dsmf.Table tableX = report.getTable(TABLE1X);
+				final com.exedio.dsmf.Table tableX = schema.getTable(TABLE1X);
 				assertNotNull(tableX);
 				assertEquals(false, tableX.required());
 				assertEquals(true, tableX.exists());
@@ -191,9 +191,9 @@ public class ReportTest extends DatabaseLibTest
 		}
 		// OK
 		{
-			final Schema report = model.getVerifiedSchema();
+			final Schema schema = model.getVerifiedSchema();
 
-			final com.exedio.dsmf.Table table = report.getTable(TABLE1);
+			final com.exedio.dsmf.Table table = schema.getTable(TABLE1);
 			assertNotNull(table);
 			assertEquals(true, table.required());
 			assertEquals(true, table.exists());
@@ -211,10 +211,10 @@ public class ReportTest extends DatabaseLibTest
 		}
 		// TABLE DROPPED
 		{
-			final Schema report = model.getVerifiedSchema();
+			final Schema schema = model.getVerifiedSchema();
 
 			{
-				final com.exedio.dsmf.Table table = report.getTable(TABLE1);
+				final com.exedio.dsmf.Table table = schema.getTable(TABLE1);
 				assertNotNull(table);
 				assertEquals(true, table.required());
 				assertEquals(false, table.exists());
@@ -233,9 +233,9 @@ public class ReportTest extends DatabaseLibTest
 		}
 		// OK
 		{
-			final Schema report = model.getVerifiedSchema();
+			final Schema schema = model.getVerifiedSchema();
 
-			final com.exedio.dsmf.Table table = report.getTable(TABLE1);
+			final com.exedio.dsmf.Table table = schema.getTable(TABLE1);
 			assertNotNull(table);
 			assertEquals(true, table.required());
 			assertEquals(true, table.exists());
@@ -251,9 +251,9 @@ public class ReportTest extends DatabaseLibTest
 		}
 		{
 			assertEquals(!mysql, model.supportsCheckConstraints());
-			final Schema report = model.getVerifiedSchema();
+			final Schema schema = model.getVerifiedSchema();
 
-			final com.exedio.dsmf.Table attributeItem = report.getTable("AttributeItem");
+			final com.exedio.dsmf.Table attributeItem = schema.getTable("AttributeItem");
 			assertNotNull(attributeItem);
 			assertEquals(null, attributeItem.getError());
 			assertEquals(Schema.COLOR_OK, attributeItem.getParticularColor());
@@ -269,21 +269,21 @@ public class ReportTest extends DatabaseLibTest
 
 			assertFkConstraint(attributeItem, "AttributeItem_someItem_Fk", "someItem", "EmptyItem", Table.PK_COLUMN_NAME);
 
-			final com.exedio.dsmf.Table uniqueItem = report.getTable("ItemWithSingleUnique");
+			final com.exedio.dsmf.Table uniqueItem = schema.getTable("ItemWithSingleUnique");
 			assertNotNull(uniqueItem);
 			assertEquals(null, uniqueItem.getError());
 			assertEquals(Schema.COLOR_OK, uniqueItem.getParticularColor());
 			
 			assertUniqueConstraint(uniqueItem, "ItemWithSingUni_unStr_Unq", "("+protect("uniqueString")+")");
 			
-			final com.exedio.dsmf.Table doubleUniqueItem = report.getTable("ItemWithDoubleUnique");
+			final com.exedio.dsmf.Table doubleUniqueItem = schema.getTable("ItemWithDoubleUnique");
 			assertNotNull(doubleUniqueItem);
 			assertEquals(null, doubleUniqueItem.getError());
 			assertEquals(Schema.COLOR_OK, doubleUniqueItem.getParticularColor());
 			
 			assertUniqueConstraint(doubleUniqueItem, "ItemWithDoubUni_doUni_Unq", "("+protect("string")+","+protect("integer")+")");
 			
-			final com.exedio.dsmf.Table stringItem = report.getTable("StringItem");
+			final com.exedio.dsmf.Table stringItem = schema.getTable("StringItem");
 			assertNotNull(stringItem);
 			assertEquals(null, stringItem.getError());
 			assertEquals(Schema.COLOR_OK, stringItem.getParticularColor());
