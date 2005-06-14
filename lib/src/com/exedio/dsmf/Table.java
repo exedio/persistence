@@ -31,7 +31,7 @@ public final class Table extends ReportNode
 	final String name;
 	private final boolean required;
 	private boolean exists;
-	private ReportLastAnalyzed lastAnalyzed = null;
+	private LastAnalyzed lastAnalyzed = null;
 
 	private final HashMap columnMap = new HashMap();
 	private final ArrayList columnList = new ArrayList();
@@ -85,7 +85,7 @@ public final class Table extends ReportNode
 		if(this.lastAnalyzed!=null)
 			throw new RuntimeException();
 
-		this.lastAnalyzed = new ReportLastAnalyzed(this, lastAnalyzed);
+		this.lastAnalyzed = new LastAnalyzed(this, lastAnalyzed);
 	}
 	
 	final void notifyExists()
@@ -162,7 +162,7 @@ public final class Table extends ReportNode
 		return exists;
 	}
 		
-	public final ReportLastAnalyzed getLastAnalyzed()
+	public final LastAnalyzed getLastAnalyzed()
 	{
 		return lastAnalyzed;
 	}

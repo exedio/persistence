@@ -29,7 +29,7 @@ import com.exedio.dsmf.CheckConstraint;
 import com.exedio.dsmf.Column;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.ForeignKeyConstraint;
-import com.exedio.dsmf.ReportLastAnalyzed;
+import com.exedio.dsmf.LastAnalyzed;
 import com.exedio.dsmf.PrimaryKeyConstraint;
 import com.exedio.dsmf.ReportSchema;
 import com.exedio.dsmf.Table;
@@ -144,7 +144,7 @@ for(Iterator i = report.getTables().iterator(); i.hasNext(); tableCount++)
 		<input type="checkbox" name="CREATE_TABLE" value="<%=table.getName()%>"/>create<%
 	}
 	
-	final ReportLastAnalyzed lastAnalyzed = table.getLastAnalyzed();
+	final LastAnalyzed lastAnalyzed = table.getLastAnalyzed();
 
 	if(!narrowReport)
 	{

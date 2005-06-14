@@ -20,12 +20,12 @@ package com.exedio.dsmf;
 import java.util.Date;
 
 
-public final class ReportLastAnalyzed extends ReportNode
+public final class LastAnalyzed extends ReportNode
 {
 	final Table table;
 	final Date date;
 		
-	ReportLastAnalyzed(final Table table, final Date date)
+	LastAnalyzed(final Table table, final Date date)
 	{
 		super(table.driver, table.connectionProvider);
 		this.table = table;
