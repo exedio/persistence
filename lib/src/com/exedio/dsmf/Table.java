@@ -27,7 +27,7 @@ import java.util.Iterator;
 
 public final class Table extends Node
 {
-	final Schema report;
+	private final Schema schema;
 	final String name;
 	private final boolean required;
 	private boolean exists;
@@ -39,26 +39,26 @@ public final class Table extends Node
 	private final HashMap constraintMap = new HashMap();
 	private final ArrayList constraintList = new ArrayList();
 
-	public Table(final Schema report, final String name)
+	public Table(final Schema schema, final String name)
 	{
-		this(report, name, true);
+		this(schema, name, true);
 	}
 	
-	Table(final Schema report, final String name, final boolean required)
+	Table(final Schema schema, final String name, final boolean required)
 	{
-		super(report.driver, report.connectionProvider);
+		super(schema.driver, schema.connectionProvider);
 		
-		if(report==null)
+		if(schema==null)
 			throw new RuntimeException();
 		if(name==null)
 			throw new RuntimeException();
 
-		this.report = report;
+		this.schema = schema;
 		this.name = name;
 		this.required = required;
 		this.exists = !required;
 
-		report.register(this);
+		schema.register(this);
 	}
 	
 	public final String getName()
