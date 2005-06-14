@@ -291,7 +291,7 @@ for(Iterator i = schema.getTables().iterator(); i.hasNext(); tableCount++)
 		throws IOException
 	{
 		%>
-		<li>report.getTable(&quot;<b><%=
+		<li>schema.getTable(&quot;<b><%=
 			column.getTable().getName()%></b>&quot;).getColumn(&quot;<b><%=
 			column.getName()%></b>&quot;).drop();</li><%
 	}
@@ -300,7 +300,7 @@ for(Iterator i = schema.getTables().iterator(); i.hasNext(); tableCount++)
 		throws IOException
 	{
 		%>
-		<li>report.getTable(&quot;<b><%=
+		<li>schema.getTable(&quot;<b><%=
 			table.getName()%></b>&quot;).drop();</li><%
 	}
 
@@ -308,7 +308,7 @@ for(Iterator i = schema.getTables().iterator(); i.hasNext(); tableCount++)
 		throws IOException
 	{
 		%>
-		<li>report.getTable(&quot;<b><%=
+		<li>schema.getTable(&quot;<b><%=
 			table.getName()%></b>&quot;).renameTo(&quot;<%=
 			targetName%>&quot;);</li><%
 	}
@@ -317,7 +317,7 @@ for(Iterator i = schema.getTables().iterator(); i.hasNext(); tableCount++)
 		throws IOException
 	{
 		%>
-		<li>report.getTable(&quot;<b><%=
+		<li>schema.getTable(&quot;<b><%=
 			column.getTable().getName()%></b>&quot;).getColumn(&quot;<b><%=
 			column.getName()%></b>&quot;).modify(&quot;<b><%=
 			targetType%></b>&quot;);</li><%
@@ -327,7 +327,7 @@ for(Iterator i = schema.getTables().iterator(); i.hasNext(); tableCount++)
 		throws IOException
 	{
 		%>
-		<li>report.getTable(&quot;<b><%=
+		<li>schema.getTable(&quot;<b><%=
 			column.getTable().getName()%></b>&quot;).getColumn(&quot;<b><%=
 			column.getName()%></b>&quot;).renameTo(&quot;<b><%=
 			targetName%></b>&quot;);</li><%
@@ -337,7 +337,7 @@ for(Iterator i = schema.getTables().iterator(); i.hasNext(); tableCount++)
 		throws IOException
 	{
 		%>
-		<li>report.getTable(&quot;<b><%=
+		<li>schema.getTable(&quot;<b><%=
 			table.getName()%></b>&quot;).create();</li><%
 	}
 
@@ -345,7 +345,7 @@ for(Iterator i = schema.getTables().iterator(); i.hasNext(); tableCount++)
 		throws IOException
 	{
 		%>
-		<li>report.getTable(&quot;<b><%=
+		<li>schema.getTable(&quot;<b><%=
 			table.getName()%></b>&quot;).analyze();</li><%
 	}
 	
@@ -353,7 +353,7 @@ for(Iterator i = schema.getTables().iterator(); i.hasNext(); tableCount++)
 		throws IOException
 	{
 		%>
-		<li>report.getTable(&quot;<b><%=
+		<li>schema.getTable(&quot;<b><%=
 			column.getTable().getName()%></b>&quot;).getColumn(&quot;<b><%=
 			column.getName()%></b>&quot;).create();</li><%
 	}
