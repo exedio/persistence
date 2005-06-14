@@ -32,7 +32,7 @@ import com.exedio.dsmf.Table;
 
 final class SchemaCop extends AdminCop
 {
-	static final String REPORT = "report";
+	static final String SCHEMA = "schema";
 	static final String SHOW = "show";
 	static final String SHOW_DROP_BOXES = "drop";
 	static final String SHOW_RENAME_FIELDS = "rename";
@@ -48,7 +48,7 @@ final class SchemaCop extends AdminCop
 		this.showDropBoxes = showDropBoxes;
 		this.showRenameFields = showRenameFields;
 		
-		addParameter(REPORT, reportTable==null ? "" : reportTable);
+		addParameter(SCHEMA, reportTable==null ? "" : reportTable);
 		if(showDropBoxes)
 			addParameter(SHOW, SHOW_DROP_BOXES);
 		if(showRenameFields)

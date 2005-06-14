@@ -63,7 +63,7 @@ abstract class AdminCop extends Cop
 		if(request.getParameter(StatisticsCop.STATISTICS)!=null)
 			return new StatisticsCop();
 		
-		final String reportID = request.getParameter(SchemaCop.REPORT);
+		final String reportID = request.getParameter(SchemaCop.SCHEMA);
 		if(reportID==null)
 		{
 			return new PropertiesCop();
