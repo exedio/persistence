@@ -35,7 +35,7 @@ import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Table;
 import com.exedio.dsmf.UniqueConstraint;
 
-final class Report_Jspm
+final class Schema_Jspm
 {
 	private static final String color(final int color)
 	{

@@ -57,12 +57,12 @@ final class SchemaCop extends AdminCop
 	
 	void writeHead(final PrintStream out) throws IOException
 	{
-		Report_Jspm.writeHead(out);
+		Schema_Jspm.writeHead(out);
 	}
 
 	final void writeBody(final PrintStream out, final Model model) throws IOException
 	{
-		Report_Jspm.writeReport(out, model, this);
+		Schema_Jspm.writeReport(out, model, this);
 	}
 	
 	final SchemaCop narrowReport(final Table reportTable)
@@ -126,11 +126,11 @@ final class SchemaCop extends AdminCop
 				{
 					final String dropColumn = dropColumns[i];
 					final Column column = getColumn(report, dropColumn);
-					Report_Jspm.writeDrop(out, column);
+					Schema_Jspm.writeDrop(out, column);
 					out.flush();
 					final long startTime = System.currentTimeMillis();
 					column.drop();
-					Report_Jspm.writeDone(out, startTime);
+					Schema_Jspm.writeDone(out, startTime);
 				}
 			}
 		}
@@ -145,11 +145,11 @@ final class SchemaCop extends AdminCop
 					final Table table = report.getTable(dropTable);
 					if (table == null)
 						throw new RuntimeException(dropTable);
-					Report_Jspm.writeDrop(out, table);
+					Schema_Jspm.writeDrop(out, table);
 					out.flush();
 					final long startTime = System.currentTimeMillis();
 					table.drop();
-					Report_Jspm.writeDone(out, startTime);
+					Schema_Jspm.writeDone(out, startTime);
 				}
 			}
 		}
@@ -171,11 +171,11 @@ final class SchemaCop extends AdminCop
 				if (table == null)
 					throw new RuntimeException(sourceName);
 
-				Report_Jspm.writeRename(out, table, targetName);
+				Schema_Jspm.writeRename(out, table, targetName);
 				out.flush();
 				final long startTime = System.currentTimeMillis();
 				table.renameTo(targetName);
-				Report_Jspm.writeDone(out, startTime);
+				Schema_Jspm.writeDone(out, startTime);
 			}
 		}
 		{
@@ -197,11 +197,11 @@ final class SchemaCop extends AdminCop
 				if (column == null)
 					throw new RuntimeException(sourceName);
 
-				Report_Jspm.writeModify(out, column, targetType);
+				Schema_Jspm.writeModify(out, column, targetType);
 				out.flush();
 				final long startTime = System.currentTimeMillis();
 				column.modify(targetType);
-				Report_Jspm.writeDone(out, startTime);
+				Schema_Jspm.writeDone(out, startTime);
 			}
 		}
 		{
@@ -223,11 +223,11 @@ final class SchemaCop extends AdminCop
 				if (column == null)
 					throw new RuntimeException(sourceName);
 
-				Report_Jspm.writeRename(out, column, targetName);
+				Schema_Jspm.writeRename(out, column, targetName);
 				out.flush();
 				final long startTime = System.currentTimeMillis();
 				column.renameTo(targetName);
-				Report_Jspm.writeDone(out, startTime);
+				Schema_Jspm.writeDone(out, startTime);
 			}
 		}
 		{
@@ -242,11 +242,11 @@ final class SchemaCop extends AdminCop
 					if (table == null)
 						throw new RuntimeException(createTable);
 
-					Report_Jspm.writeCreate(out, table);
+					Schema_Jspm.writeCreate(out, table);
 					out.flush();
 					final long startTime = System.currentTimeMillis();
 					table.create();
-					Report_Jspm.writeDone(out, startTime);
+					Schema_Jspm.writeDone(out, startTime);
 				}
 			}
 		}
@@ -261,11 +261,11 @@ final class SchemaCop extends AdminCop
 					final Table table = report.getTable(analyzeTable);
 					if (table == null)
 						throw new RuntimeException(analyzeTable);
-					Report_Jspm.writeAnalyze(out, table);
+					Schema_Jspm.writeAnalyze(out, table);
 					out.flush();
 					final long startTime = System.currentTimeMillis();
 					table.analyze();
-					Report_Jspm.writeDone(out, startTime);
+					Schema_Jspm.writeDone(out, startTime);
 				}
 			}
 		}
@@ -278,11 +278,11 @@ final class SchemaCop extends AdminCop
 				{
 					final String createColumn = createColums[i];
 					final Column column = getColumn(report, createColumn);
-					Report_Jspm.writeCreate(out, column);
+					Schema_Jspm.writeCreate(out, column);
 					out.flush();
 					final long startTime = System.currentTimeMillis();
 					column.create();
-					Report_Jspm.writeDone(out, startTime);
+					Schema_Jspm.writeDone(out, startTime);
 				}
 			}
 		}
