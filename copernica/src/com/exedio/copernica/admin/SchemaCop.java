@@ -65,9 +65,9 @@ final class SchemaCop extends AdminCop
 		Schema_Jspm.writeReport(out, model, this);
 	}
 	
-	final SchemaCop narrowReport(final Table reportTable)
+	final SchemaCop narrowReport(final Table table)
 	{
-		return new SchemaCop(reportTable.getName(), showDropBoxes, showRenameFields);
+		return new SchemaCop(table.getName(), showDropBoxes, showRenameFields);
 	}
 	
 	final SchemaCop widenReport()
