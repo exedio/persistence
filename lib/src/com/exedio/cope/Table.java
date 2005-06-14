@@ -162,9 +162,9 @@ final class Table
 		return id;
 	}
 	
-	void report(final Schema report)
+	void report(final Schema schema)
 	{
-		final com.exedio.dsmf.Table reportTable = new com.exedio.dsmf.Table(report, id);
+		final com.exedio.dsmf.Table reportTable = new com.exedio.dsmf.Table(schema, id);
 		
 		for(Iterator i = getAllColumns().iterator(); i.hasNext(); )
 			((Column)i.next()).report(reportTable);

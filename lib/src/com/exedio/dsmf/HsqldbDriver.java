@@ -51,11 +51,11 @@ public final class HsqldbDriver extends Driver
 		}
 	}
 
-	void verify(final Schema report)
+	void verify(final Schema schema)
 	{
-		super.verify(report);
+		super.verify(schema);
 
-		report.querySQL(
+		schema.querySQL(
 				"select stc.CONSTRAINT_NAME, stc.CONSTRAINT_TYPE, stc.TABLE_NAME, scc.CHECK_CLAUSE " +
 				"from SYSTEM_TABLE_CONSTRAINTS stc " +
 				"left outer join SYSTEM_CHECK_CONSTRAINTS scc on stc.CONSTRAINT_NAME = scc.CONSTRAINT_NAME",
@@ -69,7 +69,7 @@ public final class HsqldbDriver extends Driver
 						final String constraintType = resultSet.getString(2);
 						final String tableName = resultSet.getString(3);
 						
-						final Table table = report.notifyExistentTable(tableName);
+						final Table table = schema.notifyExistentTable(tableName);
 						
 						if("CHECK".equals(constraintType))
 						{
@@ -93,7 +93,7 @@ public final class HsqldbDriver extends Driver
 								append(constraintName).
 								append("_%' and NON_UNIQUE=false order by ORDINAL_POSITION");
 							
-							report.querySQL(bf.toString(), new Node.ResultSetHandler()
+							schema.querySQL(bf.toString(), new Node.ResultSetHandler()
 								{
 									public void run(final ResultSet resultSet) throws SQLException
 									{
