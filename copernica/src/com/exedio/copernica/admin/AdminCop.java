@@ -41,7 +41,7 @@ abstract class AdminCop extends Cop
 		return new PropertiesCop();
 	}
 	
-	final SchemaCop toReport()
+	final SchemaCop toSchema()
 	{
 		return new SchemaCop(null, false, false);
 	}
