@@ -63,9 +63,9 @@ public final class Schema extends Node
 		return tableList;
 	}
 	
-	public void fillReport()
+	public void verify()
 	{
-		driver.fillReport(this);
+		driver.verify(this);
 		finish();
 	}
 

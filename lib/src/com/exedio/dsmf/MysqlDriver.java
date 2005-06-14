@@ -77,9 +77,9 @@ public final class MysqlDriver extends Driver
 		return protectedName.substring(1, protectedName.length()-1);
 	}
 
-	void fillReport(final Schema report)
+	void verify(final Schema report)
 	{
-		super.fillReport(report);
+		super.verify(report);
 		{
 			for(Iterator i = report.getTables().iterator(); i.hasNext(); )
 			{

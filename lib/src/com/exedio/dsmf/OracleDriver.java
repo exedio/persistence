@@ -77,9 +77,9 @@ public final class OracleDriver extends Driver
 		return table.notifyExistentUniqueConstraint(constraintName, bf.toString());
 	}
 	
-	void fillReport(final Schema report)
+	void verify(final Schema report)
 	{
-		super.fillReport(report);
+		super.verify(report);
 
 		report.querySQL("select TABLE_NAME, LAST_ANALYZED from user_tables", new Node.ResultSetHandler()
 			{

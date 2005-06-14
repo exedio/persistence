@@ -51,9 +51,9 @@ public final class HsqldbDriver extends Driver
 		}
 	}
 
-	void fillReport(final Schema report)
+	void verify(final Schema report)
 	{
-		super.fillReport(report);
+		super.verify(report);
 
 		report.querySQL(
 				"select stc.CONSTRAINT_NAME, stc.CONSTRAINT_TYPE, stc.TABLE_NAME, scc.CHECK_CLAUSE " +

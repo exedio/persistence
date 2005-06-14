@@ -1069,7 +1069,7 @@ abstract class Database
 	final Schema report()
 	{
 		final Schema report = requiredReport();
-		report.fillReport();
+		report.verify();
 		return report;
 	}
 
