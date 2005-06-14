@@ -1056,11 +1056,11 @@ abstract class Database
 		final Schema result = new Schema(driver, connectionPool);
 		for(Iterator i = tables.iterator(); i.hasNext(); )
 			((Table)i.next()).report(result);
-		appendReport(result);
+		completeSchema(result);
 		return result;
 	}
 	
-	protected void appendReport(final Schema report)
+	protected void completeSchema(final Schema schema)
 	{
 	}
 	

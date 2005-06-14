@@ -116,9 +116,9 @@ final class OracleDatabase
 		}
 	}
 
-	protected void appendReport(final Schema report)
+	protected void completeSchema(final Schema schema)
 	{
-		final Table planTable = new Table(report, "PLAN_TABLE");
+		final Table planTable = new Table(schema, "PLAN_TABLE");
 		new Column(planTable, STATEMENT_ID, "VARCHAR2(30)");
 		new Column(planTable, "TIMESTAMP", "DATE");
 		new Column(planTable, "REMARKS", "VARCHAR2(80)");
