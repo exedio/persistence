@@ -111,7 +111,7 @@ for(Iterator i = schema.getTables().iterator(); i.hasNext(); tableCount++)
 	%><small>tab<%=tableCount%></small> <%
 	if(!narrowReport)
 	{
-		%><a href="<%=cop.narrowReport(table)%>"><%
+		%><a href="<%=cop.narrow(table)%>"><%
 	}
 	%><%=table.getName()%><%
 	if(!narrowReport)
