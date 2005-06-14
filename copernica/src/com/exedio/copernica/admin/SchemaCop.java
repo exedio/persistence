@@ -85,7 +85,7 @@ final class SchemaCop extends AdminCop
 		return new SchemaCop(table, showDropBoxes, !showRenameFields);
 	}
 	
-	final boolean isNarrowReport()
+	final boolean isNarrow()
 	{
 		return table!=null;
 	}

@@ -71,7 +71,7 @@ final class Schema_Jspm
 	{
 		final Schema schema = model.getVerifiedSchema();
 		final String schemaColor = color(schema.getCumulativeColor());
-		final boolean narrowReport = cop.isNarrowReport();
+		final boolean narrowReport = cop.isNarrow();
 
 %>
 drop boxes: <a href="<%=cop.toggleDropBoxes()%>"><%=cop.showDropBoxes?"hide":"show"%></a><br>
