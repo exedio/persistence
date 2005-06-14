@@ -32,7 +32,7 @@ import bak.pcj.map.IntKeyChainedHashMap;
 
 import com.exedio.dsmf.OracleDriver;
 import com.exedio.dsmf.Column;
-import com.exedio.dsmf.ReportSchema;
+import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Table;
 
 final class OracleDatabase
@@ -116,7 +116,7 @@ final class OracleDatabase
 		}
 	}
 
-	protected void appendReport(final ReportSchema report)
+	protected void appendReport(final Schema report)
 	{
 		final Table planTable = new Table(report, "PLAN_TABLE");
 		new Column(planTable, STATEMENT_ID, "VARCHAR2(30)");

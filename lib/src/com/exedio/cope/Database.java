@@ -30,7 +30,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.exedio.dsmf.Driver;
-import com.exedio.dsmf.ReportSchema;
+import com.exedio.dsmf.Schema;
 
 abstract class Database
 {
@@ -86,7 +86,7 @@ abstract class Database
 	{
 		buildStage = false;
 		
-		final ReportSchema report = requiredReport();
+		final Schema report = requiredReport();
 		report.create();
 	}
 
@@ -176,7 +176,7 @@ abstract class Database
 	{
 		buildStage = false;
 
-		final ReportSchema report = requiredReport();
+		final Schema report = requiredReport();
 		report.drop();
 	}
 	
@@ -184,7 +184,7 @@ abstract class Database
 	{
 		buildStage = false;
 
-		final ReportSchema report = requiredReport();
+		final Schema report = requiredReport();
 		report.tearDown();
 	}
 
@@ -1053,22 +1053,22 @@ abstract class Database
 		}
 	}
 	
-	final ReportSchema requiredReport()
+	final Schema requiredReport()
 	{
-		final ReportSchema report = new ReportSchema(driver, connectionPool);
+		final Schema report = new Schema(driver, connectionPool);
 		for(Iterator i = tables.iterator(); i.hasNext(); )
 			((Table)i.next()).report(report);
 		appendReport(report);
 		return report;
 	}
 	
-	protected void appendReport(final ReportSchema report)
+	protected void appendReport(final Schema report)
 	{
 	}
 	
-	final ReportSchema report()
+	final Schema report()
 	{
-		final ReportSchema report = requiredReport();
+		final Schema report = requiredReport();
 		report.fillReport();
 		return report;
 	}

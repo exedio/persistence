@@ -51,7 +51,7 @@ public final class HsqldbDriver extends Driver
 		}
 	}
 
-	void fillReport(final ReportSchema report)
+	void fillReport(final Schema report)
 	{
 		super.fillReport(report);
 

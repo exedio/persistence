@@ -25,12 +25,12 @@ import java.util.ListIterator;
 
 import com.exedio.cope.NestingRuntimeException;
 
-public final class ReportSchema extends ReportNode
+public final class Schema extends ReportNode
 {
 	private final HashMap tableMap = new HashMap();
 	private final ArrayList tableList = new ArrayList();
 	
-	public ReportSchema(final Driver driver, final ConnectionProvider connectionProvider)
+	public Schema(final Driver driver, final ConnectionProvider connectionProvider)
 	{
 		super(driver, connectionProvider);
 	}

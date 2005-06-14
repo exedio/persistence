@@ -77,7 +77,7 @@ public final class MysqlDriver extends Driver
 		return protectedName.substring(1, protectedName.length()-1);
 	}
 
-	void fillReport(final ReportSchema report)
+	void fillReport(final Schema report)
 	{
 		super.fillReport(report);
 		{

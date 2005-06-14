@@ -44,7 +44,7 @@ public abstract class Driver
 
 	abstract String getColumnType(int dataType, ResultSet resultSet) throws SQLException;
 
-	void fillReport(final ReportSchema report)
+	void fillReport(final Schema report)
 	{
 		report.querySQL(ReportNode.GET_TABLES, new ReportNode.ResultSetHandler()
 			{

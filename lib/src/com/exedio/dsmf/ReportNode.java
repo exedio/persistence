@@ -34,8 +34,8 @@ public abstract class ReportNode
 	final ConnectionProvider connectionProvider;
 
 	String error = null;
-	int particularColor = ReportSchema.COLOR_NOT_YET_CALC;
-	int cumulativeColor = ReportSchema.COLOR_NOT_YET_CALC;
+	int particularColor = Schema.COLOR_NOT_YET_CALC;
+	int cumulativeColor = Schema.COLOR_NOT_YET_CALC;
 	
 	ReportNode(final Driver driver, final ConnectionProvider connectionProvider)
 	{
@@ -178,7 +178,7 @@ public abstract class ReportNode
 
 	public final String getError()
 	{
-		if(particularColor==ReportSchema.COLOR_NOT_YET_CALC)
+		if(particularColor==Schema.COLOR_NOT_YET_CALC)
 			throw new RuntimeException();
 
 		return error;
@@ -186,7 +186,7 @@ public abstract class ReportNode
 
 	public final int getParticularColor()
 	{
-		if(particularColor==ReportSchema.COLOR_NOT_YET_CALC)
+		if(particularColor==Schema.COLOR_NOT_YET_CALC)
 			throw new RuntimeException();
 
 		return particularColor;
@@ -194,7 +194,7 @@ public abstract class ReportNode
 
 	public final int getCumulativeColor()
 	{
-		if(cumulativeColor==ReportSchema.COLOR_NOT_YET_CALC)
+		if(cumulativeColor==Schema.COLOR_NOT_YET_CALC)
 			throw new RuntimeException();
 
 		return cumulativeColor;

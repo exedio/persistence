@@ -27,7 +27,7 @@ import java.util.Iterator;
 
 public final class Table extends ReportNode
 {
-	final ReportSchema report;
+	final Schema report;
 	final String name;
 	private final boolean required;
 	private boolean exists;
@@ -39,12 +39,12 @@ public final class Table extends ReportNode
 	private final HashMap constraintMap = new HashMap();
 	private final ArrayList constraintList = new ArrayList();
 
-	public Table(final ReportSchema report, final String name)
+	public Table(final Schema report, final String name)
 	{
 		this(report, name, true);
 	}
 	
-	Table(final ReportSchema report, final String name, final boolean required)
+	Table(final Schema report, final String name, final boolean required)
 	{
 		super(report.driver, report.connectionProvider);
 		

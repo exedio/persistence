@@ -26,7 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.exedio.cope.Model;
 import com.exedio.dsmf.Column;
-import com.exedio.dsmf.ReportSchema;
+import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Table;
 
 
@@ -95,7 +95,7 @@ final class ReportCop extends AdminCop
 		return reportTable!=null && !reportTable.equals(table.getName());
 	}
 
-	private static final Column getColumn(final ReportSchema report, final String columnParameter)
+	private static final Column getColumn(final Schema report, final String columnParameter)
 	{
 		final int pos = columnParameter.indexOf('#');
 		if(pos<=0)
@@ -116,7 +116,7 @@ final class ReportCop extends AdminCop
 			final HttpServletRequest request, final Model model)
 			throws IOException
 	{
-		final ReportSchema report = model.reportDatabase();
+		final Schema report = model.reportDatabase();
 		{
 			final String[] dropColumns = (String[]) request.getParameterMap().get(
 					"DROP_COLUMN");

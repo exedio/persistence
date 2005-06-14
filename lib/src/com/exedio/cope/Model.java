@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.ListIterator;
 
 import com.exedio.cope.util.PoolCounter;
-import com.exedio.dsmf.ReportSchema;
+import com.exedio.dsmf.Schema;
 
 
 public final class Model
@@ -226,7 +226,7 @@ public final class Model
 		database.connectionPool.flush();
 	}
 
-	public ReportSchema reportDatabase()
+	public Schema reportDatabase()
 	{
 		// TODO: report data directories
 		return database.report();
