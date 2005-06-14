@@ -43,7 +43,7 @@ public class ReportTest extends DatabaseLibTest
 		final String column1Type;
 		// OK
 		{
-			final Schema report = model.reportDatabase();
+			final Schema report = model.getVerifiedSchema();
 
 			final com.exedio.dsmf.Table table = report.getTable(TABLE1);
 			assertNotNull(table);
@@ -64,7 +64,7 @@ public class ReportTest extends DatabaseLibTest
 		}
 		// COLUMN RENAMED
 		{
-			final Schema report = model.reportDatabase();
+			final Schema report = model.getVerifiedSchema();
 
 			final com.exedio.dsmf.Table table = report.getTable(TABLE1);
 			assertNotNull(table);
@@ -94,7 +94,7 @@ public class ReportTest extends DatabaseLibTest
 		}
 		// OK
 		{
-			final Schema report = model.reportDatabase();
+			final Schema report = model.getVerifiedSchema();
 
 			final com.exedio.dsmf.Table table = report.getTable(TABLE1);
 			assertNotNull(table);
@@ -114,7 +114,7 @@ public class ReportTest extends DatabaseLibTest
 		}
 		// COLUMN DROPPED
 		{
-			final Schema report = model.reportDatabase();
+			final Schema report = model.getVerifiedSchema();
 
 			final com.exedio.dsmf.Table table = report.getTable(TABLE1);
 			assertNotNull(table);
@@ -134,7 +134,7 @@ public class ReportTest extends DatabaseLibTest
 		}
 		// OK
 		{
-			final Schema report = model.reportDatabase();
+			final Schema report = model.getVerifiedSchema();
 
 			final com.exedio.dsmf.Table table = report.getTable(TABLE1);
 			assertNotNull(table);
@@ -154,7 +154,7 @@ public class ReportTest extends DatabaseLibTest
 		}
 		// TABLE RENAMED
 		{
-			final Schema report = model.reportDatabase();
+			final Schema report = model.getVerifiedSchema();
 
 			{
 				final com.exedio.dsmf.Table table = report.getTable(TABLE1);
@@ -191,7 +191,7 @@ public class ReportTest extends DatabaseLibTest
 		}
 		// OK
 		{
-			final Schema report = model.reportDatabase();
+			final Schema report = model.getVerifiedSchema();
 
 			final com.exedio.dsmf.Table table = report.getTable(TABLE1);
 			assertNotNull(table);
@@ -211,7 +211,7 @@ public class ReportTest extends DatabaseLibTest
 		}
 		// TABLE DROPPED
 		{
-			final Schema report = model.reportDatabase();
+			final Schema report = model.getVerifiedSchema();
 
 			{
 				final com.exedio.dsmf.Table table = report.getTable(TABLE1);
@@ -233,7 +233,7 @@ public class ReportTest extends DatabaseLibTest
 		}
 		// OK
 		{
-			final Schema report = model.reportDatabase();
+			final Schema report = model.getVerifiedSchema();
 
 			final com.exedio.dsmf.Table table = report.getTable(TABLE1);
 			assertNotNull(table);
@@ -251,7 +251,7 @@ public class ReportTest extends DatabaseLibTest
 		}
 		{
 			assertEquals(!mysql, model.supportsCheckConstraints());
-			final Schema report = model.reportDatabase();
+			final Schema report = model.getVerifiedSchema();
 
 			final com.exedio.dsmf.Table attributeItem = report.getTable("AttributeItem");
 			assertNotNull(attributeItem);

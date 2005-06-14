@@ -116,7 +116,7 @@ final class ReportCop extends AdminCop
 			final HttpServletRequest request, final Model model)
 			throws IOException
 	{
-		final Schema report = model.reportDatabase();
+		final Schema report = model.getVerifiedSchema();
 		{
 			final String[] dropColumns = (String[]) request.getParameterMap().get(
 					"DROP_COLUMN");

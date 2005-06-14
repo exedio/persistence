@@ -226,7 +226,7 @@ public final class Model
 		database.connectionPool.flush();
 	}
 
-	public Schema reportDatabase()
+	public Schema getVerifiedSchema()
 	{
 		// TODO: report data directories
 		return database.report();

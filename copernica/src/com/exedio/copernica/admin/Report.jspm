@@ -69,7 +69,7 @@ final class Report_Jspm
 	final static void writeReport(final PrintStream out, final Model model, final ReportCop cop)
 		throws IOException
 	{
-		final Schema report = model.reportDatabase();
+		final Schema report = model.getVerifiedSchema();
 		final String reportColor = color(report.getCumulativeColor());
 		final boolean narrowReport = cop.isNarrowReport();
 
