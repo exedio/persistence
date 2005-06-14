@@ -228,8 +228,8 @@ public final class Model
 
 	public Schema getVerifiedSchema()
 	{
-		// TODO: report data directories
-		return database.report();
+		// TODO: check data directories
+		return database.makeVerifiedSchema();
 	}
 
 	/**

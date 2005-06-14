@@ -1066,7 +1066,7 @@ abstract class Database
 	{
 	}
 	
-	final Schema report()
+	final Schema makeVerifiedSchema()
 	{
 		final Schema report = requiredReport();
 		report.verify();
