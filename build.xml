@@ -2,6 +2,8 @@
 
 <project name="cope" default="all" basedir=".">
 
+	<property name="exedioline" value='&lt;small&gt;Copyright &amp;copy; 2004-2005 &lt;a href="http://www.exedio.com/" target="_top"&gt;exedio&lt;/a&gt; Gesellschaft f&amp;uuml;r Softwareentwicklung mbH. All rights reserved.&lt;small&gt;' />
+
 	<target name="properties.first">
 		<property file="../local.properties" />
 		<property name="api.private" value="off" />
@@ -589,7 +591,7 @@
 				  header=     "DSMF"
 				  footer=     "Database Schema&lt;br&gt;Management Facility"
 				  splitindex="on"
-				  bottom='&lt;small&gt;Copyright &amp;copy; 2004-2005 &lt;a href="http://www.exedio.com/" target="_top"&gt;exedio&lt;/a&gt; Gesellschaft f&amp;uuml;r Softwareentwicklung mbH. All rights reserved.&lt;small&gt;'
+				  bottom="${exedioline}"
 				  >
 			<package name="com.*" />
 			<link href="${api.link.jdk}" />
@@ -614,7 +616,7 @@
 				header=     "COPE"
 				footer=     "Cope with&lt;br&gt;Object&lt;br&gt;Persistence"
 				splitindex="on"
-				bottom='&lt;small&gt;Copyright &amp;copy; 2004-2005 &lt;a href="http://www.exedio.com/" target="_top"&gt;exedio&lt;/a&gt; Gesellschaft f&amp;uuml;r Softwareentwicklung mbH. All rights reserved.&lt;small&gt;'
+				bottom="${exedioline}"
 			>
 			<package name="com.*" />
 			<link href="${api.link.jdk}" />
@@ -643,7 +645,7 @@
 				header=     "COPE&lt;br&gt;Instrumentor"
 				footer=     "Cope with&lt;br&gt;Object&lt;br&gt;Persistence"
 				splitindex="on"
-				bottom='&lt;small&gt;Copyright &amp;copy; 2004-2005 &lt;a href="http://www.exedio.com/" target="_top"&gt;exedio&lt;/a&gt; Gesellschaft f&amp;uuml;r Softwareentwicklung mbH. All rights reserved.&lt;small&gt;'
+				bottom="${exedioline}"
 			>
 			<package name="com.*" />
 			<link href="../../lib/api" />
@@ -674,7 +676,7 @@
 				header=     "Copernica"
 				footer=     "Cope with&lt;br&gt;Object&lt;br&gt;Persistence"
 				splitindex="on"
-				bottom='&lt;small&gt;Copyright &amp;copy; 2004-2005 &lt;a href="http://www.exedio.com/" target="_top"&gt;exedio&lt;/a&gt; Gesellschaft f&amp;uuml;r Softwareentwicklung mbH. All rights reserved.&lt;small&gt;'
+				bottom="${exedioline}"
 			>
 			<package name="com.*" />
 			<link href="../../lib/api" />
