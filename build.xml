@@ -53,7 +53,15 @@
 		<echo message="test message level debug"   level="debug" />
 	</target>
 
-	<target name="lib.core.compile" depends="lib.compile.mkdir">
+	<target name="dsmf.compile" depends="lib.compile.mkdir">
+		<javac srcdir="dsmf/src"
+				 destdir="lib/build/classes"
+				 deprecation="on"
+				 debug="on"
+				 optimize="off" />
+	</target>
+	
+	<target name="lib.core.compile" depends="lib.compile.mkdir, dsmf.compile">
 		<javac srcdir="lib/src"
 				destdir="lib/build/classes"
 				deprecation="on"
@@ -64,7 +72,7 @@
 			</classpath>
 		</javac>
 	</target>
-
+	
 	<target name="lib.hsqldb.compile" depends="lib.compile.mkdir, lib.core.compile">
 		<javac srcdir= "lib/hsqldbsrc"
 				destdir="lib/build/classes"
@@ -579,6 +587,31 @@
 	<target name="clean" depends="lib.clean, instrument.clean, copernica.clean" />
 	
 	
+	<target name="dsmf.api" depends="properties">
+		
+		<delete dir="dsmf/api" />
+		<mkdir  dir="dsmf/api" />
+		
+		<javadoc
+				  sourcepath="dsmf/src"
+				  destdir="dsmf/api"
+				  maxmemory="60m"
+				  private="${api.private}"
+				  author="on"
+				  use="on"
+				  version="on"
+				  windowtitle="Database Schema Management Facility"
+				  doctitle=   "Database Schema Management Facility&lt;br&gt;API Specification"
+				  header=     "DSMF"
+				  footer=     "Database Schema&lt;br&gt;Management Facility"
+				  splitindex="on"
+				  bottom='&lt;small&gt;Copyright &amp;copy; 2004-2005 &lt;a href="http://www.exedio.com/" target="_top"&gt;exedio&lt;/a&gt; Gesellschaft f&amp;uuml;r Softwareentwicklung mbH. All rights reserved.&lt;small&gt;'
+				  >
+			<package name="com.*" />
+			<link href="${api.link.jdk}" />
+		</javadoc>
+	</target>
+	
 	<target name="lib.api" depends="properties">
 
 		<delete dir="lib/api" />
@@ -602,6 +635,7 @@
 			<package name="com.*" />
 			<link href="${api.link.jdk}" />
 			<classpath>
+				<pathelement location="lib/build/classes" /><!-- for dsmf -->
 				<pathelement location="../lib/pcj.jar" />
 			</classpath>
 		</javadoc>
@@ -672,7 +706,7 @@
 		</javadoc>
 	</target>
 
-	<target name="api" depends="lib.api, instrument.api, copernica.api" />
+	<target name="api" depends="dsmf.api, lib.api, instrument.api, copernica.api" />
 	
 	<target name="jspm" depends="copernica.jspm, copernica.test.jspm" />
 	
