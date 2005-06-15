@@ -43,6 +43,7 @@ public class ConstraintTest extends SchemaTest
 	private static final String FK_TARGET_COLUMN = "foreignKeyTargetColumn";
 
 	private static final String UNIQUE_SINGLE_COLUMN = "uniqueSingle";
+	private static final String UNIQUE_SINGLE_NAME = "uniqueSingleId";
 
 	protected Schema getSchema()
 	{
@@ -71,7 +72,7 @@ public class ConstraintTest extends SchemaTest
 			new ForeignKeyConstraint(table, FK_NAME, FK_COLUMN, FK_TARGET_TABLE, FK_TARGET_COLUMN);
 
 			new Column(table, UNIQUE_SINGLE_COLUMN, stringType);
-			new UniqueConstraint(table, "ItemWithSingUni_unStr_Unq", "("+p(UNIQUE_SINGLE_COLUMN)+")");
+			new UniqueConstraint(table, UNIQUE_SINGLE_NAME, "("+p(UNIQUE_SINGLE_COLUMN)+")");
 
 			new Column(table, "string", stringType);
 			new Column(table, "integer", intType);
@@ -93,7 +94,7 @@ public class ConstraintTest extends SchemaTest
 		assertCheckConstraint(attributeItem, CHECK_NAME, "("+p(CHECK_COLUMN)+" IS NOT NULL) AND ("+p(CHECK_COLUMN)+" IN (0,1))");
 		assertPkConstraint(attributeItem, PK_NAME, null, PK_COLUMN);
 		assertFkConstraint(attributeItem, FK_NAME, FK_COLUMN, FK_TARGET_TABLE, FK_TARGET_COLUMN);
-		assertUniqueConstraint(attributeItem, "ItemWithSingUni_unStr_Unq", "("+p(UNIQUE_SINGLE_COLUMN)+")");
+		assertUniqueConstraint(attributeItem, UNIQUE_SINGLE_NAME, "("+p(UNIQUE_SINGLE_COLUMN)+")");
 		assertUniqueConstraint(attributeItem, "ItemWithDoubUni_doUni_Unq", "("+p("string")+","+p("integer")+")");
 	}
 
