@@ -142,10 +142,10 @@ public class SchemaTest extends TestCase
 			if(supportsCheckConstraints)
 			{
 				new Column(table, "someNotNullString", stringType);
-				new CheckConstraint(table, "AttrItem_somNotNullStr_Ck", protect("someNotNullString")+" IS NOT NULL");
+				new CheckConstraint(table, "AttrItem_somNotNullStr_Ck", p("someNotNullString")+" IS NOT NULL");
 				
 				new Column(table, "someNotNullBoolean", stringType);
-				new CheckConstraint(table, "AttrItem_somNotNullBoo_Ck", "("+protect("someNotNullBoolean")+" IS NOT NULL) AND ("+protect("someNotNullBoolean")+" IN (0,1))");
+				new CheckConstraint(table, "AttrItem_somNotNullBoo_Ck", "("+p("someNotNullBoolean")+" IS NOT NULL) AND ("+p("someNotNullBoolean")+" IN (0,1))");
 			}
 			
 			new Column(table, "this", stringType);
@@ -162,13 +162,13 @@ public class SchemaTest extends TestCase
 		{
 			final Table table = new Table(result, "ItemWithSingleUnique");
 			new Column(table, "uniqueString", stringType);
-			new UniqueConstraint(table, "ItemWithSingUni_unStr_Unq", "("+protect("uniqueString")+")");
+			new UniqueConstraint(table, "ItemWithSingUni_unStr_Unq", "("+p("uniqueString")+")");
 		}
 		{
 			final Table table = new Table(result, "ItemWithDoubleUnique");
 			new Column(table, "string", stringType);
 			new Column(table, "integer", intType);
-			new UniqueConstraint(table, "ItemWithDoubUni_doUni_Unq", "("+protect("string")+","+protect("integer")+")");
+			new UniqueConstraint(table, "ItemWithDoubUni_doUni_Unq", "("+p("string")+","+p("integer")+")");
 		}
 		return result;
 	}
@@ -399,8 +399,8 @@ public class SchemaTest extends TestCase
 			assertEquals(null, attributeItem.getError());
 			assertEquals(Schema.COLOR_OK, attributeItem.getParticularColor());
 			
-			assertCheckConstraint(attributeItem, "AttrItem_somNotNullStr_Ck", protect("someNotNullString")+" IS NOT NULL");
-			assertCheckConstraint(attributeItem, "AttrItem_somNotNullBoo_Ck", "("+protect("someNotNullBoolean")+" IS NOT NULL) AND ("+protect("someNotNullBoolean")+" IN (0,1))");
+			assertCheckConstraint(attributeItem, "AttrItem_somNotNullStr_Ck", p("someNotNullString")+" IS NOT NULL");
+			assertCheckConstraint(attributeItem, "AttrItem_somNotNullBoo_Ck", "("+p("someNotNullBoolean")+" IS NOT NULL) AND ("+p("someNotNullBoolean")+" IN (0,1))");
 			assertPkConstraint(attributeItem, "AttributeItem_Pk", null, "this");
 			assertFkConstraint(attributeItem, "AttributeItem_someItem_Fk", "someItem", "EmptyItem", "thus");
 
@@ -409,14 +409,14 @@ public class SchemaTest extends TestCase
 			assertEquals(null, uniqueItem.getError());
 			assertEquals(Schema.COLOR_OK, uniqueItem.getParticularColor());
 			
-			assertUniqueConstraint(uniqueItem, "ItemWithSingUni_unStr_Unq", "("+protect("uniqueString")+")");
+			assertUniqueConstraint(uniqueItem, "ItemWithSingUni_unStr_Unq", "("+p("uniqueString")+")");
 			
 			final Table doubleUniqueItem = schema.getTable("ItemWithDoubleUnique");
 			assertNotNull(doubleUniqueItem);
 			assertEquals(null, doubleUniqueItem.getError());
 			assertEquals(Schema.COLOR_OK, doubleUniqueItem.getParticularColor());
 			
-			assertUniqueConstraint(doubleUniqueItem, "ItemWithDoubUni_doUni_Unq", "("+protect("string")+","+protect("integer")+")");
+			assertUniqueConstraint(doubleUniqueItem, "ItemWithDoubUni_doUni_Unq", "("+p("string")+","+p("integer")+")");
 		}
 	}
 	
@@ -469,7 +469,7 @@ public class SchemaTest extends TestCase
 		return constraint;
 	}
 	
-	private final String protect(final String name)
+	private final String p(final String name)
 	{
 		return driver.protectName(name);
 	}
