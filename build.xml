@@ -671,6 +671,7 @@
 				bottom="${exedioline}"
 			>
 			<package name="com.*" />
+			<link href="../../dsmf/api" />
 			<link href="${api.link.jdk}" />
 			<classpath>
 				<pathelement location="lib/build/classes" /><!-- for dsmf -->
