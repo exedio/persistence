@@ -34,6 +34,8 @@ public class ConstraintTest extends SchemaTest
 	private static final String CHECK_COLUMN = "check";
 	private static final String CHECK_NAME = "check";
 	
+	private static final String PK_COLUMN = "primaryKey";
+
 	protected Schema getSchema()
 	{
 		final Schema result = newSchema();
@@ -49,8 +51,8 @@ public class ConstraintTest extends SchemaTest
 				new CheckConstraint(table, CHECK_NAME, "("+p(CHECK_COLUMN)+" IS NOT NULL) AND ("+p(CHECK_COLUMN)+" IN (0,1))");
 			}
 			
-			new Column(table, "this", stringType);
-			new PrimaryKeyConstraint(table, "AttributeItem_Pk", "this");
+			new Column(table, PK_COLUMN, stringType);
+			new PrimaryKeyConstraint(table, "AttributeItem_Pk", PK_COLUMN);
 			
 			new Column(table, "someItem", stringType);
 			{
@@ -81,7 +83,7 @@ public class ConstraintTest extends SchemaTest
 		
 		assertCheckConstraint(attributeItem, NOT_NULL_NAME, p(NOT_NULL_COLUMN)+" IS NOT NULL");
 		assertCheckConstraint(attributeItem, CHECK_NAME, "("+p(CHECK_COLUMN)+" IS NOT NULL) AND ("+p(CHECK_COLUMN)+" IN (0,1))");
-		assertPkConstraint(attributeItem, "AttributeItem_Pk", null, "this");
+		assertPkConstraint(attributeItem, "AttributeItem_Pk", null, PK_COLUMN);
 		assertFkConstraint(attributeItem, "AttributeItem_someItem_Fk", "someItem", "EmptyItem", "thus");
 		assertUniqueConstraint(attributeItem, "ItemWithSingUni_unStr_Unq", "("+p("uniqueString")+")");
 		assertUniqueConstraint(attributeItem, "ItemWithDoubUni_doUni_Unq", "("+p("string")+","+p("integer")+")");
