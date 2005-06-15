@@ -37,7 +37,6 @@ public class ColumnTest extends SchemaTest
 	
 	public void testColumns()
 	{
-		final String column1Type;
 		// OK
 		{
 			final Schema schema = getVerifiedSchema();
@@ -54,8 +53,7 @@ public class ColumnTest extends SchemaTest
 			assertEquals(true, column.exists());
 			assertEquals(null, column.getError());
 			assertEquals(Schema.COLOR_OK, column.getParticularColor());
-			column1Type = column.getType();
-			assertNotNull(column1Type);
+			assertEquals(intType, column.getType());
 			
 			column.renameTo(COLUMN1X);
 		}
@@ -76,7 +74,7 @@ public class ColumnTest extends SchemaTest
 				assertEquals(false, column.exists());
 				assertEquals("missing", column.getError());
 				assertEquals(Schema.COLOR_ERROR, column.getParticularColor());
-				assertEquals(column1Type, column.getType());
+				assertEquals(intType, column.getType());
 			}
 			{
 				final Column columnX = table.getColumn(COLUMN1X);
@@ -84,7 +82,7 @@ public class ColumnTest extends SchemaTest
 				assertEquals(true, columnX.exists());
 				assertEquals("not used", columnX.getError());
 				assertEquals(Schema.COLOR_WARNING, columnX.getParticularColor());
-				assertEquals(column1Type, columnX.getType());
+				assertEquals(intType, columnX.getType());
 
 				columnX.renameTo(COLUMN1);
 			}
@@ -105,7 +103,7 @@ public class ColumnTest extends SchemaTest
 			assertEquals(true, column.exists());
 			assertEquals(null, column.getError());
 			assertEquals(Schema.COLOR_OK, column.getParticularColor());
-			assertEquals(column1Type, column.getType());
+			assertEquals(intType, column.getType());
 
 			column.drop();
 		}
@@ -125,7 +123,7 @@ public class ColumnTest extends SchemaTest
 			assertEquals(false, column.exists());
 			assertEquals("missing", column.getError());
 			assertEquals(Schema.COLOR_ERROR, column.getParticularColor());
-			assertEquals(column1Type, column.getType());
+			assertEquals(intType, column.getType());
 
 			column.create();
 		}
@@ -145,7 +143,7 @@ public class ColumnTest extends SchemaTest
 			assertEquals(true, column.exists());
 			assertEquals(null, column.getError());
 			assertEquals(Schema.COLOR_OK, column.getParticularColor());
-			assertEquals(column1Type, column.getType());
+			assertEquals(intType, column.getType());
 		}
 	}
 
