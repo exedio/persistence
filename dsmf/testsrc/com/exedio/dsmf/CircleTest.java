@@ -31,6 +31,9 @@ public class CircleTest extends SchemaTest
 	private static final String FK_NAME1 = "circleForeignKeyId1";
 	private static final String FK_NAME2 = "circleForeignKeyId2";
 
+	private static final String SELF_COLUMN = "selfForeignKey";
+	private static final String SELF_NAME = "selfForeignKeyId";
+
 	protected Schema getSchema()
 	{
 		final Schema result = newSchema();
@@ -49,6 +52,9 @@ public class CircleTest extends SchemaTest
 
 		new ForeignKeyConstraint(table1, FK_NAME1, FK_COLUMN, TABLE2, FK_COLUMN);
 		new ForeignKeyConstraint(table2, FK_NAME2, FK_COLUMN, TABLE1, FK_COLUMN);
+
+		new Column(table1, SELF_COLUMN, stringType);
+		new ForeignKeyConstraint(table1, SELF_NAME, SELF_COLUMN, TABLE1, PK_COLUMN);
 
 		return result;
 	}
