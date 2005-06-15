@@ -26,7 +26,7 @@ public class ConstraintTest extends SchemaTest
 	private static final Class FK = ForeignKeyConstraint.class;
 	private static final Class UNIQUE = UniqueConstraint.class;
 	
-	private static final String TABLE = "AttributeItem";
+	private static final String TABLE = "ConstraintTable";
 	
 	private static final String NOT_NULL_COLUMN = "notNull";
 	private static final String NOT_NULL_NAME = "notNullId";
