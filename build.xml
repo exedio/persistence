@@ -334,43 +334,40 @@
 							lib.test.run.oracle,
 							lib.test.run.mysql" />
 
-	<target name="lib.test.teardown.anydb">
-		<echo message="Tearing down database for ${database}" />
-		<mkdir dir="lib/build/teardown.${database}/data" />
-		<copy file="cope.properties.${database}"
-				tofile="lib/build/teardown.${database}/cope.properties">
-			<filterset>
-				<filter token="DATADIR_PATH" 
-							value="lib/build/teardown.${database}/data" />
-			</filterset>
-		</copy>
-		<java classname="com.exedio.cope.testmodel.Main" taskname="tear down"
-				fork="yes" failonerror="yes">
-			<classpath>
-				<pathelement location="lib/build/classes" />
-				<pathelement location="lib/build/testmodelclasses" />
-				<pathelement location="../lib/pcj.jar" />
-				<pathelement location="../lib/${database-driver}" />
-			</classpath>
-			<sysproperty key="com.exedio.cope.properties"
-							file="lib/build/teardown.${database}/cope.properties" />
-		</java>
-	</target>
+	<macrodef name="libtestteardown">
+		<attribute name="database" />
+		<attribute name="database-driver" />
+		<sequential>
+			<mkdir dir="lib/build/teardown.@{database}/data" />
+			<copy file="cope.properties.@{database}"
+					tofile="lib/build/teardown.@{database}/cope.properties">
+				<filterset>
+					<filter token="DATADIR_PATH"
+								value="lib/build/teardown.@{database}/data" />
+				</filterset>
+			</copy>
+			<java classname="com.exedio.cope.testmodel.Main" taskname="tear down"
+					fork="yes" failonerror="yes">
+				<classpath>
+					<pathelement location="lib/build/classes" />
+					<pathelement location="lib/build/testmodelclasses" />
+					<pathelement location="../lib/pcj.jar" />
+					<pathelement location="../lib/@{database-driver}" />
+				</classpath>
+				<sysproperty key="com.exedio.cope.properties"
+								file="lib/build/teardown.@{database}/cope.properties" />
+			</java>
+		</sequential>
+	</macrodef>
 
 	<target name="lib.test.teardown.oracle" if="available.oracle"
 			  depends="properties, lib.compile, lib.testmodel.compile">
-		<antcall target="lib.test.teardown.anydb">
-			<param name="database" value="oracle"/>
-			<param name="database-driver" value="classes12.jar"/>
-		</antcall>
+		<libtestteardown database="oracle" database-driver="classes12.jar" />
 	</target>
 
 	<target name="lib.test.teardown.mysql" if="available.mysql"
 			  depends="properties, lib.compile, lib.testmodel.compile">
-		<antcall target="lib.test.teardown.anydb">
-			<param name="database" value="mysql"/>
-			<param name="database-driver" value="mysql-connector-java-bin.jar"/>
-		</antcall>
+		<libtestteardown database="mysql" database-driver="mysql-connector-java-bin.jar" />
 	</target>
 
 	<target name="teardown"
