@@ -51,14 +51,10 @@ public class ConstraintTest extends SchemaTest
 				new PrimaryKeyConstraint(targetTable, "EmptyItem_Pk", "thus");
 			}
 			new ForeignKeyConstraint(table, "AttributeItem_someItem_Fk", "someItem", "EmptyItem", "thus");
-		}
-		{
-			final Table table = new Table(result, "ItemWithSingleUnique");
+
 			new Column(table, "uniqueString", stringType);
 			new UniqueConstraint(table, "ItemWithSingUni_unStr_Unq", "("+p("uniqueString")+")");
-		}
-		{
-			final Table table = new Table(result, "ItemWithDoubleUnique");
+
 			new Column(table, "string", stringType);
 			new Column(table, "integer", intType);
 			new UniqueConstraint(table, "ItemWithDoubUni_doUni_Unq", "("+p("string")+","+p("integer")+")");
@@ -79,20 +75,8 @@ public class ConstraintTest extends SchemaTest
 		assertCheckConstraint(attributeItem, "AttrItem_somNotNullBoo_Ck", "("+p("someNotNullBoolean")+" IS NOT NULL) AND ("+p("someNotNullBoolean")+" IN (0,1))");
 		assertPkConstraint(attributeItem, "AttributeItem_Pk", null, "this");
 		assertFkConstraint(attributeItem, "AttributeItem_someItem_Fk", "someItem", "EmptyItem", "thus");
-
-		final Table uniqueItem = schema.getTable("ItemWithSingleUnique");
-		assertNotNull(uniqueItem);
-		assertEquals(null, uniqueItem.getError());
-		assertEquals(Schema.COLOR_OK, uniqueItem.getParticularColor());
-		
-		assertUniqueConstraint(uniqueItem, "ItemWithSingUni_unStr_Unq", "("+p("uniqueString")+")");
-		
-		final Table doubleUniqueItem = schema.getTable("ItemWithDoubleUnique");
-		assertNotNull(doubleUniqueItem);
-		assertEquals(null, doubleUniqueItem.getError());
-		assertEquals(Schema.COLOR_OK, doubleUniqueItem.getParticularColor());
-		
-		assertUniqueConstraint(doubleUniqueItem, "ItemWithDoubUni_doUni_Unq", "("+p("string")+","+p("integer")+")");
+		assertUniqueConstraint(attributeItem, "ItemWithSingUni_unStr_Unq", "("+p("uniqueString")+")");
+		assertUniqueConstraint(attributeItem, "ItemWithDoubUni_doUni_Unq", "("+p("string")+","+p("integer")+")");
 	}
 
 	private void assertCheckConstraint(final Table table, final String constraintName, final String requiredCondition)
