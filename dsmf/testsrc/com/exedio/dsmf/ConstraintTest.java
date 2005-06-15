@@ -52,36 +52,35 @@ public class ConstraintTest extends SchemaTest
 	protected Schema getSchema()
 	{
 		final Schema result = newSchema();
+		final Table table = new Table(result, TABLE);
+
+		if(supportsCheckConstraints)
 		{
-			final Table table = new Table(result, TABLE);
-
-			if(supportsCheckConstraints)
-			{
-				new Column(table, NOT_NULL_COLUMN, stringType);
-				new CheckConstraint(table, NOT_NULL_NAME, p(NOT_NULL_COLUMN)+" IS NOT NULL");
-				
-				new Column(table, CHECK_COLUMN, stringType);
-				new CheckConstraint(table, CHECK_NAME, "("+p(CHECK_COLUMN)+" IS NOT NULL) AND ("+p(CHECK_COLUMN)+" IN (0,1))");
-			}
+			new Column(table, NOT_NULL_COLUMN, stringType);
+			new CheckConstraint(table, NOT_NULL_NAME, p(NOT_NULL_COLUMN)+" IS NOT NULL");
 			
-			new Column(table, PK_COLUMN, stringType);
-			new PrimaryKeyConstraint(table, PK_NAME, PK_COLUMN);
-			
-			new Column(table, FK_COLUMN, stringType);
-			{
-				final Table targetTable = new Table(result, FK_TARGET_TABLE);
-				new Column(targetTable, FK_TARGET_COLUMN, stringType);
-				new PrimaryKeyConstraint(targetTable, "targetPrimaryKey_Pk", FK_TARGET_COLUMN);
-			}
-			new ForeignKeyConstraint(table, FK_NAME, FK_COLUMN, FK_TARGET_TABLE, FK_TARGET_COLUMN);
-
-			new Column(table, UNIQUE_SINGLE_COLUMN, stringType);
-			new UniqueConstraint(table, UNIQUE_SINGLE_NAME, "("+p(UNIQUE_SINGLE_COLUMN)+")");
-
-			new Column(table, UNIQUE_DOUBLE_COLUMN1, stringType);
-			new Column(table, UNIQUE_DOUBLE_COLUMN2, intType);
-			new UniqueConstraint(table, UNIQUE_DOUBLE_NAME, "("+p(UNIQUE_DOUBLE_COLUMN1)+","+p(UNIQUE_DOUBLE_COLUMN2)+")");
+			new Column(table, CHECK_COLUMN, stringType);
+			new CheckConstraint(table, CHECK_NAME, "("+p(CHECK_COLUMN)+" IS NOT NULL) AND ("+p(CHECK_COLUMN)+" IN (0,1))");
 		}
+		
+		new Column(table, PK_COLUMN, stringType);
+		new PrimaryKeyConstraint(table, PK_NAME, PK_COLUMN);
+		
+		new Column(table, FK_COLUMN, stringType);
+		{
+			final Table targetTable = new Table(result, FK_TARGET_TABLE);
+			new Column(targetTable, FK_TARGET_COLUMN, stringType);
+			new PrimaryKeyConstraint(targetTable, "targetPrimaryKey_Pk", FK_TARGET_COLUMN);
+		}
+		new ForeignKeyConstraint(table, FK_NAME, FK_COLUMN, FK_TARGET_TABLE, FK_TARGET_COLUMN);
+
+		new Column(table, UNIQUE_SINGLE_COLUMN, stringType);
+		new UniqueConstraint(table, UNIQUE_SINGLE_NAME, "("+p(UNIQUE_SINGLE_COLUMN)+")");
+
+		new Column(table, UNIQUE_DOUBLE_COLUMN1, stringType);
+		new Column(table, UNIQUE_DOUBLE_COLUMN2, intType);
+		new UniqueConstraint(table, UNIQUE_DOUBLE_NAME, "("+p(UNIQUE_DOUBLE_COLUMN1)+","+p(UNIQUE_DOUBLE_COLUMN2)+")");
+
 		return result;
 	}
 	
