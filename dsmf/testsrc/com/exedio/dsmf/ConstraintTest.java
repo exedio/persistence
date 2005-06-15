@@ -64,7 +64,7 @@ public class ConstraintTest extends SchemaTest
 			{
 				final Table targetTable = new Table(result, FK_TARGET_TABLE);
 				new Column(targetTable, FK_TARGET_COLUMN, stringType);
-				new PrimaryKeyConstraint(targetTable, "EmptyItem_Pk", FK_TARGET_COLUMN);
+				new PrimaryKeyConstraint(targetTable, "targetPrimaryKey_Pk", FK_TARGET_COLUMN);
 			}
 			new ForeignKeyConstraint(table, FK_NAME, FK_COLUMN, FK_TARGET_TABLE, FK_TARGET_COLUMN);
 
