@@ -20,9 +20,9 @@ package com.exedio.dsmf;
 
 public class ColumnTest extends SchemaTest
 {
-	private static final String TABLE1 = "SumItem";
-	private static final String COLUMN1 = "num2";
-	private static final String COLUMN1X = "num2X";
+	private static final String TABLE1 = "SomeOtherTable";
+	private static final String COLUMN1 = "someColumn";
+	private static final String COLUMN1X = "someColumnWrong";
 
 	protected Schema getSchema()
 	{

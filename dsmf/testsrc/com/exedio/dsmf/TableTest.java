@@ -21,9 +21,9 @@ package com.exedio.dsmf;
 
 public class TableTest extends SchemaTest
 {
-	private static final String TABLE1 = "SumItem";
-	private static final String TABLE1X = "SumItemX";
-	private static final String COLUMN1 = "num2";
+	private static final String TABLE1 = "SomeTable";
+	private static final String TABLE1X = "SomeTableWrong";
+	private static final String COLUMN1 = "someColumn";
 	
 	protected Schema getSchema()
 	{
