@@ -82,7 +82,7 @@ public abstract class Constraint extends Node
 		this.existingCondition = condition;
 	}
 
-	protected final void finish()
+	final void finish()
 	{
 		if(cumulativeColor!=COLOR_NOT_YET_CALC || particularColor!=COLOR_NOT_YET_CALC)
 			throw new RuntimeException();
