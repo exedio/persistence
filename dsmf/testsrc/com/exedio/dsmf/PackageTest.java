@@ -30,7 +30,8 @@ public class PackageTest extends TestCase
 	{
 		final TestSuite suite = new TestSuite();
 		
-		suite.addTest(new TestSuite(SchemaTest.class));
+		suite.addTest(new TestSuite(TableTest.class));
+		suite.addTest(new TestSuite(ConstraintTest.class));
 		
 		return suite;
 	}

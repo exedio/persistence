@@ -29,25 +29,15 @@ import java.util.Properties;
 
 import junit.framework.TestCase;
 
-public class SchemaTest extends TestCase
+public abstract class SchemaTest extends TestCase
 {
-	private static final String TABLE1 = "SumItem";
-	private static final String TABLE1X = "SumItemX";
-	private static final String COLUMN1 = "num2";
-	private static final String COLUMN1X = "num2X";
-	
-	public static final Class CHECK = CheckConstraint.class;
-	public static final Class PK = PrimaryKeyConstraint.class;
-	public static final Class FK = ForeignKeyConstraint.class;
-	public static final Class UNIQUE = UniqueConstraint.class;
-	
-	Driver driver;
+	private Driver driver;
 	String stringType;
 	String intType;
 	boolean supportsCheckConstraints = true;
-	SimpleConnectionProvider provider;
-	Connection connection1;
-	Connection connection2;
+	private SimpleConnectionProvider provider;
+	private Connection connection1;
+	private Connection connection2;
 	
 	public void setUp() throws Exception
 	{
@@ -106,7 +96,7 @@ public class SchemaTest extends TestCase
 		super.tearDown();
 	}
 	
-	static class SimpleConnectionProvider implements ConnectionProvider
+	private static final class SimpleConnectionProvider implements ConnectionProvider
 	{
 		final ArrayList connections;
 		
@@ -128,348 +118,21 @@ public class SchemaTest extends TestCase
 		}
 	}
 	
-	private final Schema getSchema()
+	protected final Schema newSchema()
 	{
-		final Schema result = new Schema(driver, provider);
-		{
-			final Table table = new Table(result, TABLE1);
-			new Column(table, COLUMN1, intType);
-			new Column(table, "otherColumn", stringType);
-		}
-		{
-			final Table table = new Table(result, "AttributeItem");
-
-			if(supportsCheckConstraints)
-			{
-				new Column(table, "someNotNullString", stringType);
-				new CheckConstraint(table, "AttrItem_somNotNullStr_Ck", p("someNotNullString")+" IS NOT NULL");
-				
-				new Column(table, "someNotNullBoolean", stringType);
-				new CheckConstraint(table, "AttrItem_somNotNullBoo_Ck", "("+p("someNotNullBoolean")+" IS NOT NULL) AND ("+p("someNotNullBoolean")+" IN (0,1))");
-			}
-			
-			new Column(table, "this", stringType);
-			new PrimaryKeyConstraint(table, "AttributeItem_Pk", "this");
-			
-			new Column(table, "someItem", stringType);
-			{
-				final Table targetTable = new Table(result, "EmptyItem");
-				new Column(targetTable, "thus", stringType);
-				new PrimaryKeyConstraint(targetTable, "EmptyItem_Pk", "thus");
-			}
-			new ForeignKeyConstraint(table, "AttributeItem_someItem_Fk", "someItem", "EmptyItem", "thus");
-		}
-		{
-			final Table table = new Table(result, "ItemWithSingleUnique");
-			new Column(table, "uniqueString", stringType);
-			new UniqueConstraint(table, "ItemWithSingUni_unStr_Unq", "("+p("uniqueString")+")");
-		}
-		{
-			final Table table = new Table(result, "ItemWithDoubleUnique");
-			new Column(table, "string", stringType);
-			new Column(table, "integer", intType);
-			new UniqueConstraint(table, "ItemWithDoubUni_doUni_Unq", "("+p("string")+","+p("integer")+")");
-		}
-		return result;
+		return new Schema(driver, provider);
 	}
+	
+	protected abstract Schema getSchema();
 
-	private final Schema getVerifiedSchema()
+	protected final Schema getVerifiedSchema()
 	{
 		final Schema result = getSchema();
 		result.verify();
 		return result;
 	}
 
-	public void testSchema()
-	{
-		final String column1Type;
-		// OK
-		{
-			final Schema schema = getVerifiedSchema();
-
-			final Table table = schema.getTable(TABLE1);
-			assertNotNull(table);
-			assertEquals(true, table.required());
-			assertEquals(true, table.exists());
-			assertEquals(null, table.getError());
-			assertEquals(Schema.COLOR_OK, table.getParticularColor());
-
-			final Column column = table.getColumn(COLUMN1);
-			assertEquals(true, column.required());
-			assertEquals(true, column.exists());
-			assertEquals(null, column.getError());
-			assertEquals(Schema.COLOR_OK, column.getParticularColor());
-			column1Type = column.getType();
-			assertNotNull(column1Type);
-			
-			column.renameTo(COLUMN1X);
-		}
-		// COLUMN RENAMED
-		{
-			final Schema schema = getVerifiedSchema();
-
-			final Table table = schema.getTable(TABLE1);
-			assertNotNull(table);
-			assertEquals(true, table.required());
-			assertEquals(true, table.exists());
-			assertEquals(null, table.getError());
-			assertEquals(Schema.COLOR_OK, table.getParticularColor());
-
-			{
-				final Column column = table.getColumn(COLUMN1);
-				assertEquals(true, column.required());
-				assertEquals(false, column.exists());
-				assertEquals("missing", column.getError());
-				assertEquals(Schema.COLOR_ERROR, column.getParticularColor());
-				assertEquals(column1Type, column.getType());
-			}
-			{
-				final Column columnX = table.getColumn(COLUMN1X);
-				assertEquals(false, columnX.required());
-				assertEquals(true, columnX.exists());
-				assertEquals("not used", columnX.getError());
-				assertEquals(Schema.COLOR_WARNING, columnX.getParticularColor());
-				assertEquals(column1Type, columnX.getType());
-
-				columnX.renameTo(COLUMN1);
-			}
-		}
-		// OK
-		{
-			final Schema schema = getVerifiedSchema();
-
-			final Table table = schema.getTable(TABLE1);
-			assertNotNull(table);
-			assertEquals(true, table.required());
-			assertEquals(true, table.exists());
-			assertEquals(null, table.getError());
-			assertEquals(Schema.COLOR_OK, table.getParticularColor());
-
-			final Column column = table.getColumn(COLUMN1);
-			assertEquals(true, column.required());
-			assertEquals(true, column.exists());
-			assertEquals(null, column.getError());
-			assertEquals(Schema.COLOR_OK, column.getParticularColor());
-			assertEquals(column1Type, column.getType());
-
-			column.drop();
-		}
-		// COLUMN DROPPED
-		{
-			final Schema schema = getVerifiedSchema();
-
-			final Table table = schema.getTable(TABLE1);
-			assertNotNull(table);
-			assertEquals(true, table.required());
-			assertEquals(true, table.exists());
-			assertEquals(null, table.getError());
-			assertEquals(Schema.COLOR_OK, table.getParticularColor());
-
-			final Column column = table.getColumn(COLUMN1);
-			assertEquals(true, column.required());
-			assertEquals(false, column.exists());
-			assertEquals("missing", column.getError());
-			assertEquals(Schema.COLOR_ERROR, column.getParticularColor());
-			assertEquals(column1Type, column.getType());
-
-			column.create();
-		}
-		// OK
-		{
-			final Schema schema = getVerifiedSchema();
-
-			final Table table = schema.getTable(TABLE1);
-			assertNotNull(table);
-			assertEquals(true, table.required());
-			assertEquals(true, table.exists());
-			assertEquals(null, table.getError());
-			assertEquals(Schema.COLOR_OK, table.getParticularColor());
-
-			final Column column = table.getColumn(COLUMN1);
-			assertEquals(true, column.required());
-			assertEquals(true, column.exists());
-			assertEquals(null, column.getError());
-			assertEquals(Schema.COLOR_OK, column.getParticularColor());
-			assertEquals(column1Type, column.getType());
-			
-			table.renameTo(TABLE1X);
-		}
-		// TABLE RENAMED
-		{
-			final Schema schema = getVerifiedSchema();
-
-			{
-				final Table table = schema.getTable(TABLE1);
-				assertNotNull(table);
-				assertEquals(true, table.required());
-				assertEquals(false, table.exists());
-				assertEquals("MISSING !!!", table.getError());
-				assertEquals(Schema.COLOR_ERROR, table.getParticularColor());
-
-				final Column column = table.getColumn(COLUMN1);
-				assertEquals(true, column.required());
-				assertEquals(false, column.exists());
-				assertEquals("missing", column.getError());
-				assertEquals(Schema.COLOR_ERROR, column.getParticularColor());
-				assertEquals(column1Type, column.getType());
-			}
-			{
-				final Table tableX = schema.getTable(TABLE1X);
-				assertNotNull(tableX);
-				assertEquals(false, tableX.required());
-				assertEquals(true, tableX.exists());
-				assertEquals("not used", tableX.getError());
-				assertEquals(Schema.COLOR_WARNING, tableX.getParticularColor());
-
-				final Column column = tableX.getColumn(COLUMN1);
-				assertEquals(false, column.required());
-				assertEquals(true, column.exists());
-				assertEquals("not used", column.getError());
-				assertEquals(Schema.COLOR_WARNING, column.getParticularColor());
-				assertEquals(column1Type, column.getType());
-
-				tableX.renameTo(TABLE1);
-			}
-		}
-		// OK
-		{
-			final Schema schema = getVerifiedSchema();
-
-			final Table table = schema.getTable(TABLE1);
-			assertNotNull(table);
-			assertEquals(true, table.required());
-			assertEquals(true, table.exists());
-			assertEquals(null, table.getError());
-			assertEquals(Schema.COLOR_OK, table.getParticularColor());
-
-			final Column column = table.getColumn(COLUMN1);
-			assertEquals(true, column.required());
-			assertEquals(true, column.exists());
-			assertEquals(null, column.getError());
-			assertEquals(Schema.COLOR_OK, column.getParticularColor());
-			assertEquals(column1Type, column.getType());
-			
-			table.drop();
-		}
-		// TABLE DROPPED
-		{
-			final Schema schema = getVerifiedSchema();
-
-			{
-				final Table table = schema.getTable(TABLE1);
-				assertNotNull(table);
-				assertEquals(true, table.required());
-				assertEquals(false, table.exists());
-				assertEquals("MISSING !!!", table.getError());
-				assertEquals(Schema.COLOR_ERROR, table.getParticularColor());
-
-				final Column column = table.getColumn(COLUMN1);
-				assertEquals(true, column.required());
-				assertEquals(false, column.exists());
-				assertEquals("missing", column.getError());
-				assertEquals(Schema.COLOR_ERROR, column.getParticularColor());
-				assertEquals(column1Type, column.getType());
-
-				table.create();
-			}
-		}
-		// OK
-		{
-			final Schema schema = getVerifiedSchema();
-
-			final Table table = schema.getTable(TABLE1);
-			assertNotNull(table);
-			assertEquals(true, table.required());
-			assertEquals(true, table.exists());
-			assertEquals(null, table.getError());
-			assertEquals(Schema.COLOR_OK, table.getParticularColor());
-
-			final Column column = table.getColumn(COLUMN1);
-			assertEquals(true, column.required());
-			assertEquals(true, column.exists());
-			assertEquals(null, column.getError());
-			assertEquals(Schema.COLOR_OK, column.getParticularColor());
-			assertEquals(column1Type, column.getType());
-		}
-		{
-			final Schema schema = getVerifiedSchema();
-
-			final Table attributeItem = schema.getTable("AttributeItem");
-			assertNotNull(attributeItem);
-			assertEquals(null, attributeItem.getError());
-			assertEquals(Schema.COLOR_OK, attributeItem.getParticularColor());
-			
-			assertCheckConstraint(attributeItem, "AttrItem_somNotNullStr_Ck", p("someNotNullString")+" IS NOT NULL");
-			assertCheckConstraint(attributeItem, "AttrItem_somNotNullBoo_Ck", "("+p("someNotNullBoolean")+" IS NOT NULL) AND ("+p("someNotNullBoolean")+" IN (0,1))");
-			assertPkConstraint(attributeItem, "AttributeItem_Pk", null, "this");
-			assertFkConstraint(attributeItem, "AttributeItem_someItem_Fk", "someItem", "EmptyItem", "thus");
-
-			final Table uniqueItem = schema.getTable("ItemWithSingleUnique");
-			assertNotNull(uniqueItem);
-			assertEquals(null, uniqueItem.getError());
-			assertEquals(Schema.COLOR_OK, uniqueItem.getParticularColor());
-			
-			assertUniqueConstraint(uniqueItem, "ItemWithSingUni_unStr_Unq", "("+p("uniqueString")+")");
-			
-			final Table doubleUniqueItem = schema.getTable("ItemWithDoubleUnique");
-			assertNotNull(doubleUniqueItem);
-			assertEquals(null, doubleUniqueItem.getError());
-			assertEquals(Schema.COLOR_OK, doubleUniqueItem.getParticularColor());
-			
-			assertUniqueConstraint(doubleUniqueItem, "ItemWithDoubUni_doUni_Unq", "("+p("string")+","+p("integer")+")");
-		}
-	}
-	
-	private void assertCheckConstraint(final Table table, final String constraintName, final String requiredCondition)
-	{
-		final CheckConstraint constraint =
-			(CheckConstraint)assertConstraint(table, CHECK, constraintName, requiredCondition);
-	}
-	
-	private void assertPkConstraint(final Table table, final String constraintName, final String requiredCondition, final String primaryKeyColumn)
-	{
-		final PrimaryKeyConstraint constraint =
-			(PrimaryKeyConstraint)assertConstraint(table, PK, constraintName, requiredCondition);
-
-		assertEquals(primaryKeyColumn, constraint.getPrimaryKeyColumn());
-	}
-	
-	private void assertFkConstraint(final Table table, final String constraintName, final String foreignKeyColumn, final String targetTable, final String targetColumn)
-	{
-		final ForeignKeyConstraint constraint =
-			(ForeignKeyConstraint)assertConstraint(table, FK, constraintName, null);
-
-		assertEquals(foreignKeyColumn, constraint.getForeignKeyColumn());
-		assertEquals(targetTable, constraint.getTargetTable());
-		assertEquals(targetColumn, constraint.getTargetColumn());
-	}
-	
-	private void assertUniqueConstraint(final Table table, final String constraintName, final String clause)
-	{
-		final UniqueConstraint constraint =
-			(UniqueConstraint)assertConstraint(table, UNIQUE, constraintName, clause);
-
-		assertEquals(clause, constraint.getClause());
-	}
-	
-	private Constraint assertConstraint(final Table table, final Class constraintType, final String constraintName, final String requiredCondition)
-	{
-		final Constraint constraint = table.getConstraint(constraintName);
-		if(supportsCheckConstraints || constraintType!=CHECK)
-		{
-			assertNotNull("no such constraint "+constraintName+", but has "+table.getConstraints(), constraint);
-			assertEquals(constraintName, constraintType, constraint.getClass());
-			assertEquals(constraintName, requiredCondition, constraint.getRequiredCondition());
-			assertEquals(constraintName, null, constraint.getError());
-			assertEquals(constraintName, Schema.COLOR_OK, constraint.getParticularColor());
-		}
-		else
-			assertEquals(constraintName, null, constraint);
-
-		return constraint;
-	}
-	
-	private final String p(final String name)
+	protected final String p(final String name)
 	{
 		return driver.protectName(name);
 	}
