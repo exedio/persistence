@@ -30,7 +30,8 @@ public class PackageTest extends TestCase
 
 	public static Test suite()
 	{
-		TestSuite suite = new TestSuite();
+		final TestSuite suite = new TestSuite();
+		
 		suite.addTest(new TestSuite(TrimTest.class));
 		suite.addTest(new TestSuite(Id2PkTest.class));
 		suite.addTest(new TestSuite(ModelTest.class));
