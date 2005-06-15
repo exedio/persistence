@@ -473,7 +473,7 @@
 			
 			<copy todir="copernica/build/testwebapp-@{database}/WEB-INF/lib">
 				<fileset file="../lib/pcj.jar" />
-				<fileset file="../lib/${database-driver}" />
+				<fileset file="../lib/@{database-driver}" />
 			</copy>
 			
 			<copy tofile="copernica/build/testwebapp-@{database}/WEB-INF/cope.properties"
