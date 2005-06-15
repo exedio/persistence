@@ -224,6 +224,58 @@
 	
 	<target name="jar" depends="lib.jar, lib.test.jar, instrument.jar, copernica.jar" />
 	
+	<target name="dsmf.test.compile" depends="dsmf.compile, lib.compile">
+		<mkdir dir="dsmf/build/testclasses" />
+		<javac srcdir="dsmf/testsrc"
+				 destdir="dsmf/build/testclasses"
+				 deprecation="on"
+				 debug="on"
+				 optimize="off">
+			<classpath>
+				<pathelement location="lib/build/classes" />
+				<pathelement location="../lib/junit.jar" />
+			</classpath>
+		</javac>
+	</target>
+	
+	<macrodef name="dsmftestrun">
+		<attribute name="database" />
+		<attribute name="database-driver" />
+		<sequential>
+			<java classname="junit.textui.TestRunner" taskname="junit" fork="yes" failonerror="yes">
+				<classpath>
+					<pathelement location="lib/build/classes" />
+					<pathelement location="dsmf/build/testclasses" />
+					<pathelement location="../lib/junit.jar" />
+					<pathelement location="../lib/@{database-driver}" />
+				</classpath>
+				<arg value="com.exedio.dsmf.PackageTest" />
+				<sysproperty key="com.exedio.cope.properties" file="cope.properties.@{database}" />
+			</java>
+		</sequential>
+	</macrodef>
+	
+	<target name="dsmf.test.run.hsqldb" depends="dsmf.test.compile">
+		<dsmftestrun database="hsqldb" database-driver="hsqldb.jar" />
+	</target>
+	
+	<target name="dsmf.test.run.oracle" if="available.oracle"
+			  depends="properties, dsmf.test.compile">
+		<dsmftestrun database="oracle" database-driver="classes12.jar" />
+	</target>
+	
+	<target name="dsmf.test.run.mysql" if="available.mysql"
+			  depends="properties, dsmf.test.compile">
+		<dsmftestrun database="mysql" database-driver="mysql-connector-java-bin.jar" />
+	</target>
+	
+	<target name="dsmf.test.run"
+				depends="dsmf.test.run.hsqldb,
+							dsmf.test.run.oracle,
+							dsmf.test.run.mysql" />
+	
+	<target name="dsmf.test" depends="dsmf.test.run" />
+	
 	<target name="instrument.taskdef" depends="lib.compile, instrument.compile">
 		<taskdef name="instrument" classname="com.exedio.cope.instrument.AntTask">
 			<classpath>
@@ -422,7 +474,7 @@
 	
 	<target name="instrument.test" depends="instrument.test.run" />
 	
-	<target name="test" depends="lib.test, instrument.test" />
+	<target name="test" depends="dsmf.test, lib.test, instrument.test" />
 	
 	
 	<target name="copernica.jspm" depends="jspm.taskdef">
