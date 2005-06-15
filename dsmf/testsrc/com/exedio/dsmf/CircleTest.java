@@ -50,8 +50,8 @@ public class CircleTest extends SchemaTest
 		new Column(table1, FK_COLUMN, stringType);
 		new Column(table2, FK_COLUMN, stringType);
 
-		new ForeignKeyConstraint(table1, FK_NAME1, FK_COLUMN, TABLE2, FK_COLUMN);
-		new ForeignKeyConstraint(table2, FK_NAME2, FK_COLUMN, TABLE1, FK_COLUMN);
+		new ForeignKeyConstraint(table1, FK_NAME1, FK_COLUMN, TABLE2, PK_COLUMN);
+		new ForeignKeyConstraint(table2, FK_NAME2, FK_COLUMN, TABLE1, PK_COLUMN);
 
 		new Column(table1, SELF_COLUMN, stringType);
 		new ForeignKeyConstraint(table1, SELF_NAME, SELF_COLUMN, TABLE1, PK_COLUMN);
