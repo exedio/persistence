@@ -35,7 +35,7 @@ public class ConstraintTest extends SchemaTest
 	private static final String CHECK_NAME = "check";
 	
 	private static final String PK_COLUMN = "primaryKey";
-	private static final String PK_NAME = "primaryKeyId";
+	private static final String PK_NAME = "primaryKey_Pk"; // must have this value to work with mysql
 
 	private static final String FK_COLUMN = "foreignKey";
 	private static final String FK_NAME = "foreignKeyId";
