@@ -457,65 +457,58 @@
 		</copy>
 	</target>
 	
-	<target name="copernica.testwebapp.anydb" >
-		
-		<mkdir dir="copernica/build/testwebapp-${database}" />
-		
-		<copy todir="copernica/build/testwebapp-${database}/WEB-INF/classes">
-			<fileset dir="lib/build/classes" />
-			<fileset dir="lib/build/testmodelclasses" />
-			<fileset dir="copernica/build/classes" />
-			<fileset dir="copernica/build/testclasses" />
-			<fileset dir="../cops/build/classes" />
-		</copy>
-		
-		<copy todir="copernica/build/testwebapp-${database}/WEB-INF/lib">
-			<fileset file="../lib/pcj.jar" />
-			<fileset file="../lib/${database-driver}" />
-		</copy>
-		
-		<copy tofile="copernica/build/testwebapp-${database}/WEB-INF/cope.properties"
-				file="cope.properties.${database}">
-			<filterset>
-				<filter token="DATADIR_PATH" value="//WEB-APP//" />
-			</filterset>
-		</copy>
-		<copy todir="copernica/build/testwebapp-${database}/WEB-INF/"
-				file="copernica/web.xml" />
-		<copy todir="copernica/build/testwebapp-${database}">
-			<fileset dir="copernica/jsp">
-				<exclude name="*.jsp" />
-				<exclude name="*.inc" />
-			</fileset>
-		</copy>
-		<mkdir dir="copernica/build/testwebapp-${database}/data" />
-		
-		<touch file="copernica/build/testwebapp-${database}/WEB-INF/web.xml" />
-	
-	</target>
+	<macrodef name="copernicatestwebapp">
+		<attribute name="database" />
+		<attribute name="database-driver" />
+		<sequential>
+			<mkdir dir="copernica/build/testwebapp-@{database}" />
+			
+			<copy todir="copernica/build/testwebapp-@{database}/WEB-INF/classes">
+				<fileset dir="lib/build/classes" />
+				<fileset dir="lib/build/testmodelclasses" />
+				<fileset dir="copernica/build/classes" />
+				<fileset dir="copernica/build/testclasses" />
+				<fileset dir="../cops/build/classes" />
+			</copy>
+			
+			<copy todir="copernica/build/testwebapp-@{database}/WEB-INF/lib">
+				<fileset file="../lib/pcj.jar" />
+				<fileset file="../lib/${database-driver}" />
+			</copy>
+			
+			<copy tofile="copernica/build/testwebapp-@{database}/WEB-INF/cope.properties"
+					file="cope.properties.@{database}">
+				<filterset>
+					<filter token="DATADIR_PATH" value="//WEB-APP//" />
+				</filterset>
+			</copy>
+			<copy todir="copernica/build/testwebapp-@{database}/WEB-INF/"
+					file="copernica/web.xml" />
+			<copy todir="copernica/build/testwebapp-@{database}">
+				<fileset dir="copernica/jsp">
+					<exclude name="*.jsp" />
+					<exclude name="*.inc" />
+				</fileset>
+			</copy>
+			<mkdir dir="copernica/build/testwebapp-@{database}/data" />
+			
+			<touch file="copernica/build/testwebapp-@{database}/WEB-INF/web.xml" />
+		</sequential>
+	</macrodef>
 	
 	<target name="copernica.testwebapp.hsqldb"
 			depends="copernica.compile, copernica.test.compile">
-		<antcall target="copernica.testwebapp.anydb">
-			<param name="database" value="hsqldb"/>
-			<param name="database-driver" value="hsqldb.jar"/>
-		</antcall>
+		<copernicatestwebapp database="hsqldb" database-driver="hsqldb.jar" />
 	</target>
 	
 	<target name="copernica.testwebapp.oracle" if="available.oracle"
 			  depends="properties, copernica.compile, copernica.test.compile">
-		<antcall target="copernica.testwebapp.anydb">
-			<param name="database" value="oracle"/>
-			<param name="database-driver" value="classes12.jar"/>
-		</antcall>
+		<copernicatestwebapp database="oracle" database-driver="classes12.jar" />
 	</target>
 	
 	<target name="copernica.testwebapp.mysql" if="available.mysql"
 			  depends="properties, copernica.compile, copernica.test.compile">
-		<antcall target="copernica.testwebapp.anydb">
-			<param name="database" value="mysql"/>
-			<param name="database-driver" value="mysql-connector-java-bin.jar"/>
-		</antcall>
+		<copernicatestwebapp database="mysql" database-driver="mysql-connector-java-bin.jar" />
 	</target>
 	
 	<target name="copernica.testwebapp"
