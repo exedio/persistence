@@ -39,6 +39,7 @@ public class ConstraintTest extends SchemaTest
 
 	private static final String FK_COLUMN = "foreignKey";
 	private static final String FK_NAME = "foreignKeyId";
+	private static final String FK_TARGET_TABLE = "foreignKeyTargetTable";
 
 	protected Schema getSchema()
 	{
@@ -60,11 +61,11 @@ public class ConstraintTest extends SchemaTest
 			
 			new Column(table, FK_COLUMN, stringType);
 			{
-				final Table targetTable = new Table(result, "EmptyItem");
+				final Table targetTable = new Table(result, FK_TARGET_TABLE);
 				new Column(targetTable, "thus", stringType);
 				new PrimaryKeyConstraint(targetTable, "EmptyItem_Pk", "thus");
 			}
-			new ForeignKeyConstraint(table, FK_NAME, FK_COLUMN, "EmptyItem", "thus");
+			new ForeignKeyConstraint(table, FK_NAME, FK_COLUMN, FK_TARGET_TABLE, "thus");
 
 			new Column(table, "uniqueString", stringType);
 			new UniqueConstraint(table, "ItemWithSingUni_unStr_Unq", "("+p("uniqueString")+")");
@@ -88,7 +89,7 @@ public class ConstraintTest extends SchemaTest
 		assertCheckConstraint(attributeItem, NOT_NULL_NAME, p(NOT_NULL_COLUMN)+" IS NOT NULL");
 		assertCheckConstraint(attributeItem, CHECK_NAME, "("+p(CHECK_COLUMN)+" IS NOT NULL) AND ("+p(CHECK_COLUMN)+" IN (0,1))");
 		assertPkConstraint(attributeItem, PK_NAME, null, PK_COLUMN);
-		assertFkConstraint(attributeItem, FK_NAME, FK_COLUMN, "EmptyItem", "thus");
+		assertFkConstraint(attributeItem, FK_NAME, FK_COLUMN, FK_TARGET_TABLE, "thus");
 		assertUniqueConstraint(attributeItem, "ItemWithSingUni_unStr_Unq", "("+p("uniqueString")+")");
 		assertUniqueConstraint(attributeItem, "ItemWithDoubUni_doUni_Unq", "("+p("string")+","+p("integer")+")");
 	}
