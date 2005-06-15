@@ -26,11 +26,13 @@ public class ConstraintTest extends SchemaTest
 	private static final Class FK = ForeignKeyConstraint.class;
 	private static final Class UNIQUE = UniqueConstraint.class;
 	
+	private static final String TABLE = "AttributeItem";
+	
 	protected Schema getSchema()
 	{
 		final Schema result = newSchema();
 		{
-			final Table table = new Table(result, "AttributeItem");
+			final Table table = new Table(result, TABLE);
 
 			if(supportsCheckConstraints)
 			{
@@ -66,7 +68,7 @@ public class ConstraintTest extends SchemaTest
 	{
 		final Schema schema = getVerifiedSchema();
 
-		final Table attributeItem = schema.getTable("AttributeItem");
+		final Table attributeItem = schema.getTable(TABLE);
 		assertNotNull(attributeItem);
 		assertEquals(null, attributeItem.getError());
 		assertEquals(Schema.COLOR_OK, attributeItem.getParticularColor());
