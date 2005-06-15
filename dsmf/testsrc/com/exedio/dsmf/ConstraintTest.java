@@ -47,6 +47,7 @@ public class ConstraintTest extends SchemaTest
 
 	private static final String UNIQUE_DOUBLE_COLUMN1 = "uniqueDouble1";
 	private static final String UNIQUE_DOUBLE_COLUMN2 = "uniqueDouble2";
+	private static final String UNIQUE_DOUBLE_NAME = "uniqueDoubleId";
 
 	protected Schema getSchema()
 	{
@@ -79,7 +80,7 @@ public class ConstraintTest extends SchemaTest
 
 			new Column(table, UNIQUE_DOUBLE_COLUMN1, stringType);
 			new Column(table, UNIQUE_DOUBLE_COLUMN2, intType);
-			new UniqueConstraint(table, "ItemWithDoubUni_doUni_Unq", "("+p(UNIQUE_DOUBLE_COLUMN1)+","+p(UNIQUE_DOUBLE_COLUMN2)+")");
+			new UniqueConstraint(table, UNIQUE_DOUBLE_NAME, "("+p(UNIQUE_DOUBLE_COLUMN1)+","+p(UNIQUE_DOUBLE_COLUMN2)+")");
 		}
 		return result;
 	}
@@ -98,7 +99,7 @@ public class ConstraintTest extends SchemaTest
 		assertPkConstraint(attributeItem, PK_NAME, null, PK_COLUMN);
 		assertFkConstraint(attributeItem, FK_NAME, FK_COLUMN, FK_TARGET_TABLE, FK_TARGET_COLUMN);
 		assertUniqueConstraint(attributeItem, UNIQUE_SINGLE_NAME, "("+p(UNIQUE_SINGLE_COLUMN)+")");
-		assertUniqueConstraint(attributeItem, "ItemWithDoubUni_doUni_Unq", "("+p(UNIQUE_DOUBLE_COLUMN1)+","+p(UNIQUE_DOUBLE_COLUMN2)+")");
+		assertUniqueConstraint(attributeItem, UNIQUE_DOUBLE_NAME, "("+p(UNIQUE_DOUBLE_COLUMN1)+","+p(UNIQUE_DOUBLE_COLUMN2)+")");
 	}
 
 	private void assertCheckConstraint(final Table table, final String constraintName, final String requiredCondition)
