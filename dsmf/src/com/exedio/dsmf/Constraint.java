@@ -51,6 +51,7 @@ public abstract class Constraint extends Node
 		{
 			this.requiredCondition = null;
 			this.existingCondition = condition;
+			this.exists = true;
 		}
 		table.register(this);
 	}
