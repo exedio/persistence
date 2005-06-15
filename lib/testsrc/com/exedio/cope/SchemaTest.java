@@ -38,7 +38,7 @@ public class SchemaTest extends DatabaseLibTest
 	public static final Class FK = ForeignKeyConstraint.class;
 	public static final Class UNIQUE = UniqueConstraint.class;
 
-	public void testReport()
+	public void testSchema()
 	{
 		final String column1Type;
 		// OK
