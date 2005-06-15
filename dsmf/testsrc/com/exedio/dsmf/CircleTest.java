@@ -63,6 +63,11 @@ public class CircleTest extends SchemaTest
 	{
 		final Schema schema = getVerifiedSchema();
 		
+		final Table table1 = schema.getTable(TABLE1);
+		final Table table2 = schema.getTable(TABLE2);
+		assertNotNull(table1);
+		assertNotNull(table2);
+		
 		schema.drop();
 	}
 	
