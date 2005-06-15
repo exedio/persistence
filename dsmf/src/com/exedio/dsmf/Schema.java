@@ -28,6 +28,7 @@ public final class Schema extends Node
 {
 	private final HashMap tableMap = new HashMap();
 	private final ArrayList tableList = new ArrayList();
+	private boolean verified = false;
 	
 	public Schema(final Driver driver, final ConnectionProvider connectionProvider)
 	{
@@ -64,6 +65,10 @@ public final class Schema extends Node
 	
 	public void verify()
 	{
+		if(verified)
+			throw new RuntimeException("alread verified");
+		verified = true;
+		
 		driver.verify(this);
 		finish();
 	}
