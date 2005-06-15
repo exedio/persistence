@@ -289,50 +289,44 @@
 		</javac>
 	</target>
 	
-	<target name="lib.test.run.anydb">
-		<echo message="Running test for ${database}" />
-		<mkdir dir="lib/build/test.${database}/data" />
-		<copy file="cope.properties.${database}"
-				tofile="lib/build/test.${database}/cope.properties">
-			<filterset>
-				<filter token="DATADIR_PATH" value="lib/build/test.${database}/data" />
-			</filterset>
-		</copy>
-		<java classname="junit.textui.TestRunner" taskname="junit" fork="yes" failonerror="yes">
-			<classpath>
-				<pathelement location="lib/build/classes" />
-				<pathelement location="lib/build/testmodelclasses" />
-				<pathelement location="lib/build/testclasses" />
-				<pathelement location="../lib/junit.jar" />
-				<pathelement location="../lib/pcj.jar" />
-				<pathelement location="../lib/${database-driver}" />
-			</classpath>
-			<arg value="com.exedio.cope.PackageTest" />
-			<sysproperty key="com.exedio.cope.properties" file="lib/build/test.${database}/cope.properties" />
-		</java>
-	</target>
+	<macrodef name="libtestrun">
+		<attribute name="database" />
+		<attribute name="database-driver" />
+		<sequential>
+			<mkdir dir="lib/build/test.@{database}/data" />
+			<copy file="cope.properties.@{database}"
+					tofile="lib/build/test.@{database}/cope.properties">
+				<filterset>
+					<filter token="DATADIR_PATH" value="lib/build/test.@{database}/data" />
+				</filterset>
+			</copy>
+			<java classname="junit.textui.TestRunner" taskname="junit" fork="yes" failonerror="yes">
+				<classpath>
+					<pathelement location="lib/build/classes" />
+					<pathelement location="lib/build/testmodelclasses" />
+					<pathelement location="lib/build/testclasses" />
+					<pathelement location="../lib/junit.jar" />
+					<pathelement location="../lib/pcj.jar" />
+					<pathelement location="../lib/@{database-driver}" />
+				</classpath>
+				<arg value="com.exedio.cope.PackageTest" />
+				<sysproperty key="com.exedio.cope.properties" file="lib/build/test.@{database}/cope.properties" />
+			</java>
+		</sequential>
+	</macrodef>
 	
 	<target name="lib.test.run.hsqldb" depends="lib.test.compile">
-		<antcall target="lib.test.run.anydb">
-			<param name="database" value="hsqldb"/>
-			<param name="database-driver" value="hsqldb.jar"/>
-		</antcall>
+		<libtestrun database="hsqldb" database-driver="hsqldb.jar" />
 	</target>
 
 	<target name="lib.test.run.oracle" if="available.oracle"
 			  depends="properties, lib.test.compile">
-		<antcall target="lib.test.run.anydb">
-			<param name="database" value="oracle"/>
-			<param name="database-driver" value="classes12.jar"/>
-		</antcall>
+		<libtestrun database="oracle" database-driver="classes12.jar" />
 	</target>
 
 	<target name="lib.test.run.mysql" if="available.mysql"
 			  depends="properties, lib.test.compile">
-		<antcall target="lib.test.run.anydb">
-			<param name="database" value="mysql"/>
-			<param name="database-driver" value="mysql-connector-java-bin.jar"/>
-		</antcall>
+		<libtestrun database="mysql" database-driver="mysql-connector-java-bin.jar" />
 	</target>
 
 	<target name="lib.test.run"
