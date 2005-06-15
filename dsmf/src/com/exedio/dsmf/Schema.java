@@ -123,7 +123,7 @@ public final class Schema extends Node
 				final Table table = (Table)i.next();
 				table.dropForeignKeyConstraints(true);
 			}
-			catch(NestingRuntimeException e2)
+			catch(SQLRuntimeException e2)
 			{
 				System.err.println("failed:"+e2.getMessage());
 			}
@@ -150,7 +150,7 @@ public final class Schema extends Node
 					// remember there was at least one table deleted
 					deleted = true;
 				}
-				catch(NestingRuntimeException e2)
+				catch(SQLRuntimeException e2)
 				{
 					System.err.println("failed:"+e2.getMessage());
 				}

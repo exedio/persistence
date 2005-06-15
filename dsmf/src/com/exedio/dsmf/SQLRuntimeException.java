@@ -20,76 +20,57 @@ package com.exedio.dsmf;
 
 import java.io.PrintStream;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 
 /**
- * Is thrown, when a fatal unspecified error occurs.
- * Can nests an inner exception.
- * Is a replacement of the nesting functionality of RuntimeException
- * in JDK 1.4.
+ * A wrapper for an unexpected SQLException.
  * 
  * @author Ralf Wiebicke
  */
-final class NestingRuntimeException extends RuntimeException
+final class SQLRuntimeException extends RuntimeException
 {
-	private final Exception cause;
-	private final String message;
+	private final SQLException cause;
+	private final String statement;
 	
-	public NestingRuntimeException(final Exception cause)
+	public SQLRuntimeException(final SQLException cause, final String statement)
 	{
+		if(cause==null)
+			throw new NullPointerException();
+		if(statement==null)
+			throw new NullPointerException();
+
 		this.cause = cause;
-		this.message = null;
+		this.statement = statement;
 	}
 	
-	public NestingRuntimeException(final Exception cause, final String message)
-	{
-		this.cause = cause;
-		this.message = message;
-	}
-	
-	public Exception getNestedCause()
+	public SQLException getNestedCause()
 	{
 		return cause;
 	}
 	
 	public String getMessage()
 	{
-		if(message!=null)
-		{
-			if(cause!=null)
-				return message + ":" + cause.getMessage();
-			else
-				return message;
-		}
-		else
-		{
-			if(cause!=null)
-				return cause.getMessage();
-			else
-				return "";
-		}
+		return statement + ":" + cause.getMessage();
 	}
 	
 	public void printStackTrace()
 	{
 		super.printStackTrace();
-		if(message!=null)
-			System.out.println(message);
+		System.out.println(statement);
 		cause.printStackTrace();
 	}
 
 	public void printStackTrace(final PrintStream s)
 	{
 		super.printStackTrace(s);
-		if(message!=null)
-			s.println(message);
+		s.println(statement);
 		cause.printStackTrace(s);
 	}
 
 	public void printStackTrace(final PrintWriter s)
 	{
 		super.printStackTrace(s);
-		if(message!=null)
-			s.println(message);
+		s.println(statement);
 		cause.printStackTrace(s);
 	}
 

@@ -87,7 +87,7 @@ public abstract class Node
 		}
 		catch(SQLException e)
 		{
-			throw new NestingRuntimeException(e, statement.toString());
+			throw new SQLRuntimeException(e, statement.toString());
 		}
 		finally
 		{
@@ -144,7 +144,7 @@ public abstract class Node
 		}
 		catch(SQLException e)
 		{
-			throw new NestingRuntimeException(e, statement.toString());
+			throw new SQLRuntimeException(e, statement.toString());
 		}
 		finally
 		{
