@@ -30,8 +30,9 @@ import bak.pcj.IntIterator;
 import bak.pcj.list.IntList;
 import bak.pcj.map.IntKeyChainedHashMap;
 
-import com.exedio.dsmf.OracleDriver;
 import com.exedio.dsmf.Column;
+import com.exedio.dsmf.OracleDriver;
+import com.exedio.dsmf.SQLRuntimeException;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Table;
 
@@ -208,7 +209,7 @@ final class OracleDatabase
 			}
 			catch(SQLException e)
 			{
-				throw new NestingRuntimeException(e, explainStatement.toString());
+				throw new SQLRuntimeException(e, explainStatement.toString());
 			}
 			finally
 			{
@@ -306,7 +307,7 @@ final class OracleDatabase
 			}
 			catch(SQLException e)
 			{
-				throw new NestingRuntimeException(e, fetchStatement.toString());
+				throw new SQLRuntimeException(e, fetchStatement.toString());
 			}
 			finally
 			{

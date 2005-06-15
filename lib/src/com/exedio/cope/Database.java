@@ -30,6 +30,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.exedio.dsmf.Driver;
+import com.exedio.dsmf.SQLRuntimeException;
 import com.exedio.dsmf.Schema;
 
 abstract class Database
@@ -733,7 +734,7 @@ abstract class Database
 		}
 		catch(SQLException e)
 		{
-			throw new NestingRuntimeException(e, statement.toString());
+			throw new SQLRuntimeException(e, statement.toString());
 		}
 		finally
 		{
@@ -806,7 +807,7 @@ abstract class Database
 			if(wrappedException!=null)
 				throw wrappedException;
 			else
-				throw new NestingRuntimeException(e, statement.toString());
+				throw new SQLRuntimeException(e, statement.toString());
 		}
 		finally
 		{
@@ -861,7 +862,7 @@ abstract class Database
 				{
 					constraint = (UniqueConstraint)uniqueConstraintsByID.get(uniqueConstraintID);
 					if(constraint==null)
-						throw new NestingRuntimeException(e, "no unique constraint found for >"+uniqueConstraintID
+						throw new SQLRuntimeException(e, "no unique constraint found for >"+uniqueConstraintID
 																				+"<, has only "+uniqueConstraintsByID.keySet());
 				}
 				return new UniqueViolationException(e, null, constraint);
@@ -879,11 +880,11 @@ abstract class Database
 					final ItemColumn column =
 						(ItemColumn)itemColumnsByIntegrityConstraintName.get(integrityConstraintName);
 					if(column==null)
-						throw new NestingRuntimeException(e, "no column attribute found for >"+integrityConstraintName
+						throw new SQLRuntimeException(e, "no column attribute found for >"+integrityConstraintName
 																				+"<, has only "+itemColumnsByIntegrityConstraintName.keySet());
 					attribute = column.attribute;
 					if(attribute==null)
-						throw new NestingRuntimeException(e, "no item attribute for column "+column);
+						throw new SQLRuntimeException(e, "no item attribute for column "+column);
 				}
 
 				return new IntegrityViolationException(e, null, attribute);

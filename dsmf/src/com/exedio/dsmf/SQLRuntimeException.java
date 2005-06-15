@@ -27,7 +27,7 @@ import java.sql.SQLException;
  * 
  * @author Ralf Wiebicke
  */
-final class SQLRuntimeException extends RuntimeException
+public final class SQLRuntimeException extends RuntimeException
 {
 	private final SQLException cause;
 	private final String statement;
