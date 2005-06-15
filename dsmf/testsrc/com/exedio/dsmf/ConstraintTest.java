@@ -32,6 +32,7 @@ public class ConstraintTest extends SchemaTest
 	private static final String NOT_NULL_NAME = "notNullId";
 
 	private static final String CHECK_COLUMN = "check";
+	private static final String CHECK_NAME = "check";
 	
 	protected Schema getSchema()
 	{
@@ -45,7 +46,7 @@ public class ConstraintTest extends SchemaTest
 				new CheckConstraint(table, NOT_NULL_NAME, p(NOT_NULL_COLUMN)+" IS NOT NULL");
 				
 				new Column(table, CHECK_COLUMN, stringType);
-				new CheckConstraint(table, "AttrItem_somNotNullBoo_Ck", "("+p(CHECK_COLUMN)+" IS NOT NULL) AND ("+p(CHECK_COLUMN)+" IN (0,1))");
+				new CheckConstraint(table, CHECK_NAME, "("+p(CHECK_COLUMN)+" IS NOT NULL) AND ("+p(CHECK_COLUMN)+" IN (0,1))");
 			}
 			
 			new Column(table, "this", stringType);
@@ -79,7 +80,7 @@ public class ConstraintTest extends SchemaTest
 		assertEquals(Schema.COLOR_OK, attributeItem.getParticularColor());
 		
 		assertCheckConstraint(attributeItem, NOT_NULL_NAME, p(NOT_NULL_COLUMN)+" IS NOT NULL");
-		assertCheckConstraint(attributeItem, "AttrItem_somNotNullBoo_Ck", "("+p(CHECK_COLUMN)+" IS NOT NULL) AND ("+p(CHECK_COLUMN)+" IN (0,1))");
+		assertCheckConstraint(attributeItem, CHECK_NAME, "("+p(CHECK_COLUMN)+" IS NOT NULL) AND ("+p(CHECK_COLUMN)+" IN (0,1))");
 		assertPkConstraint(attributeItem, "AttributeItem_Pk", null, "this");
 		assertFkConstraint(attributeItem, "AttributeItem_someItem_Fk", "someItem", "EmptyItem", "thus");
 		assertUniqueConstraint(attributeItem, "ItemWithSingUni_unStr_Unq", "("+p("uniqueString")+")");
