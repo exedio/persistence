@@ -75,7 +75,10 @@ public class StringTest extends DatabaseLibTest
 			+ "uuml \u00fc; "
 			+ "szlig \u00df; "
 			+ "paragraph \u00a7; "
-			+ "kringel \u00b0";
+			+ "kringel \u00b0; "
+			//+ "abreve \u0102; "
+			//+ "hebrew \u05d8 "
+			+ "euro \u20ac";
 		//System.out.println(unicodeString);
 		item.setAny(unicodeString);
 		assertEquals(unicodeString, item.getAny());
