@@ -39,6 +39,9 @@ public abstract class Driver
 	 */
 	public String protectName(final String name)
 	{
+		if(name.indexOf('"')>=0)
+			throw new RuntimeException("database name contains forbidden characters: "+name);
+		
 		return '"' + name + '"';
 	}
 
