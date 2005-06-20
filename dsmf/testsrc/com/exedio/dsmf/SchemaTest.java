@@ -78,16 +78,10 @@ public abstract class SchemaTest extends TestCase
 		connection1 = DriverManager.getConnection(url, user, password);
 		connection2 = DriverManager.getConnection(url, user, password);
 		provider = new SimpleConnectionProvider(Arrays.asList(new Connection[]{connection1, connection2}));
-
-		final Schema schema = getSchema();
-		schema.tearDown();
-		schema.create();
 	}
 	
 	public void tearDown() throws Exception
 	{
-		getSchema().tearDown();
-		
 		if(connection1!=null)
 			connection1.close();
 		if(connection2!=null)
@@ -123,15 +117,6 @@ public abstract class SchemaTest extends TestCase
 		return new Schema(driver, provider);
 	}
 	
-	protected abstract Schema getSchema();
-
-	protected final Schema getVerifiedSchema()
-	{
-		final Schema result = getSchema();
-		result.verify();
-		return result;
-	}
-
 	protected final String p(final String name)
 	{
 		return driver.protectName(name);

@@ -18,7 +18,7 @@
 
 package com.exedio.dsmf;
 
-public class ColumnTest extends SchemaTest
+public class ColumnTest extends SchemaReadyTest
 {
 	private static final String TABLE1 = "SomeOtherTable";
 	private static final String COLUMN1 = "someColumn";

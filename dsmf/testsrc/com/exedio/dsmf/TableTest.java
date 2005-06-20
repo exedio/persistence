@@ -19,7 +19,7 @@
 package com.exedio.dsmf;
 
 
-public class TableTest extends SchemaTest
+public class TableTest extends SchemaReadyTest
 {
 	private static final String TABLE1 = "SomeTable";
 	private static final String TABLE1X = "SomeTableWrong";

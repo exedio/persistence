@@ -18,7 +18,7 @@
 
 package com.exedio.dsmf;
 
-public class CircleTest extends SchemaTest
+public class CircleTest extends SchemaReadyTest
 {
 	private static final String TABLE1 = "CircleTable1";
 	private static final String TABLE2 = "CircleTable2";

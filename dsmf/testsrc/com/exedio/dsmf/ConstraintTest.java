@@ -19,7 +19,7 @@
 package com.exedio.dsmf;
 
 
-public class ConstraintTest extends SchemaTest
+public class ConstraintTest extends SchemaReadyTest
 {
 	private static final Class CHECK = CheckConstraint.class;
 	private static final Class PK = PrimaryKeyConstraint.class;
