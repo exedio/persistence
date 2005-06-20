@@ -110,7 +110,7 @@ public final class Schema extends Node
 		//final long time = System.currentTimeMillis();
 		// must delete in reverse order, to obey integrity constraints
 		for(ListIterator i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
-			((Table)i.previous()).dropForeignKeyConstraints(false);
+			((Table)i.previous()).dropForeignKeyConstraints();
 		for(ListIterator i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
 			((Table)i.previous()).drop();
 		//final long amount = (System.currentTimeMillis()-time);
@@ -120,17 +120,18 @@ public final class Schema extends Node
 	
 	public final void tearDown()
 	{
-		System.err.println("TEAR DOWN ALL DATABASE");
+		System.err.println("TEAR DOWN SCHEMA");
 		for(Iterator i = tableList.iterator(); i.hasNext(); )
 		{
 			try
 			{
 				final Table table = (Table)i.next();
-				table.dropForeignKeyConstraints(true);
+				table.dropForeignKeyConstraints();
 			}
 			catch(SQLRuntimeException e2)
 			{
-				System.err.println("failed:"+e2.getMessage());
+				// ignored in teardown
+				//System.err.println("failed:"+e2.getMessage());
 			}
 		}
 		
@@ -147,9 +148,9 @@ public final class Schema extends Node
 				try
 				{
 					final Table table = (Table)i.next();
-					System.err.print("DROPPING TABLE "+table+" ... ");
+					//System.err.print("DROPPING TABLE "+table+" ... ");
 					table.drop();
-					System.err.println("done.");
+					//System.err.println("done.");
 					// remove the table, so it's not tried again
 					i.remove();
 					// remember there was at least one table deleted
@@ -157,10 +158,11 @@ public final class Schema extends Node
 				}
 				catch(SQLRuntimeException e2)
 				{
-					System.err.println("failed:"+e2.getMessage());
+					// ignored in teardown
+					//System.err.println("failed:"+e2.getMessage());
 				}
 			}
-			System.err.println("FINISH STAGE "+(run++));
+			//System.err.println("FINISH STAGE "+(run++));
 		}
 		while(deleted);
 	}

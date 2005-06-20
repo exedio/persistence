@@ -334,7 +334,7 @@ public final class Table extends Node
 		executeSQL(bf.toString());
 	}
 	
-	final void dropForeignKeyConstraints(final boolean log) 
+	final void dropForeignKeyConstraints() 
 	{
 		for(Iterator i = constraintList.iterator(); i.hasNext(); )
 		{
@@ -343,8 +343,7 @@ public final class Table extends Node
 			if(constraint instanceof ForeignKeyConstraint)
 			{
 				final ForeignKeyConstraint fk = (ForeignKeyConstraint)constraint;
-				if(log)
-					System.err.println("DROPPING FOREIGN KEY CONSTRAINTS "+name+" "+fk.name+"... ");
+				//System.err.println("DROPPING FOREIGN KEY CONSTRAINTS "+name+" "+fk.name+"... ");
 				fk.drop();
 			}
 		}
