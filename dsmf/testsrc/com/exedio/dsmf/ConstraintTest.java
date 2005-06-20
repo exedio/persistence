@@ -88,17 +88,17 @@ public class ConstraintTest extends SchemaTest
 	{
 		final Schema schema = getVerifiedSchema();
 
-		final Table attributeItem = schema.getTable(TABLE);
-		assertNotNull(attributeItem);
-		assertEquals(null, attributeItem.getError());
-		assertEquals(Schema.COLOR_OK, attributeItem.getParticularColor());
+		final Table table = schema.getTable(TABLE);
+		assertNotNull(table);
+		assertEquals(null, table.getError());
+		assertEquals(Schema.COLOR_OK, table.getParticularColor());
 		
-		assertCheckConstraint(attributeItem, NOT_NULL_NAME, p(NOT_NULL_COLUMN)+" IS NOT NULL");
-		assertCheckConstraint(attributeItem, CHECK_NAME, "("+p(CHECK_COLUMN)+" IS NOT NULL) AND ("+p(CHECK_COLUMN)+" IN (0,1))");
-		assertPkConstraint(attributeItem, PK_NAME, null, PK_COLUMN);
-		assertFkConstraint(attributeItem, FK_NAME, FK_COLUMN, FK_TARGET_TABLE, FK_TARGET_COLUMN);
-		assertUniqueConstraint(attributeItem, UNIQUE_SINGLE_NAME, "("+p(UNIQUE_SINGLE_COLUMN)+")");
-		assertUniqueConstraint(attributeItem, UNIQUE_DOUBLE_NAME, "("+p(UNIQUE_DOUBLE_COLUMN1)+","+p(UNIQUE_DOUBLE_COLUMN2)+")");
+		assertCheckConstraint(table, NOT_NULL_NAME, p(NOT_NULL_COLUMN)+" IS NOT NULL");
+		assertCheckConstraint(table, CHECK_NAME, "("+p(CHECK_COLUMN)+" IS NOT NULL) AND ("+p(CHECK_COLUMN)+" IN (0,1))");
+		assertPkConstraint(table, PK_NAME, null, PK_COLUMN);
+		assertFkConstraint(table, FK_NAME, FK_COLUMN, FK_TARGET_TABLE, FK_TARGET_COLUMN);
+		assertUniqueConstraint(table, UNIQUE_SINGLE_NAME, "("+p(UNIQUE_SINGLE_COLUMN)+")");
+		assertUniqueConstraint(table, UNIQUE_DOUBLE_NAME, "("+p(UNIQUE_DOUBLE_COLUMN1)+","+p(UNIQUE_DOUBLE_COLUMN2)+")");
 	}
 
 	private void assertCheckConstraint(final Table table, final String constraintName, final String requiredCondition)
