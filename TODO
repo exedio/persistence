@@ -16,8 +16,6 @@
 	- add/drop constraints:
 		* alter table "SumItem" add constraint schnappel check ("num2" is not null)
 		* alter table "ItemWithDoubleUnique" drop constraint "ItemWithDoublUniqu_str_Nn"
-	* factor out all create/drop/rename/modify database/table/column/constraint into separate framework
-		Database Schema Migration Framework: dsmf
 
 * Docs
 	- aus AGENDA
