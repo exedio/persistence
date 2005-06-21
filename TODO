@@ -16,6 +16,8 @@
 	- add/drop constraints:
 		* alter table "SumItem" add constraint schnappel check ("num2" is not null)
 		* alter table "ItemWithDoubleUnique" drop constraint "ItemWithDoublUniqu_str_Nn"
+	- patterns should be able to create attributes etc.
+		e.g. Vector creates it's underlying StringAttributes
 
 * Docs
 	- aus AGENDA
