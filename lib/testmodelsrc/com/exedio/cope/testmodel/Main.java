@@ -36,6 +36,7 @@ public class Main
 		StringItem.TYPE,
 		DataItem.TYPE,
 		SumItem.TYPE,
+		VectorItem.TYPE,
 		QualifiedItem.TYPE,
 		QualifiedEmptyQualifier.TYPE,
 		QualifiedStringQualifier.TYPE,

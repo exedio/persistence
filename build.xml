@@ -300,6 +300,7 @@
 				StringItem.java,
 				DataItem.java,
 				SumItem.java,
+				VectorItem.java,
 				PointerItem.java,
 				PointerItem2.java,
 				QualifiedEmptyQualifier.java,

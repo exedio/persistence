@@ -20,17 +20,17 @@ package com.exedio.cope.pattern;
 
 import com.exedio.cope.ConstraintViolationException;
 import com.exedio.cope.DatabaseLibTest;
-import com.exedio.cope.testmodel.SumItem;
+import com.exedio.cope.testmodel.VectorItem;
 
 
 public class VectorTest extends DatabaseLibTest
 {
-	SumItem item;
+	VectorItem item;
 	
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		deleteOnTearDown(item = new SumItem(1, 2, 3));
+		deleteOnTearDown(item = new VectorItem(1, 2, 3));
 	}
 	
 	public void testVector() throws ConstraintViolationException
