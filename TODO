@@ -12,7 +12,7 @@
 	- optionally use strings in DB for enum attributes
 	- disable empty strings for oracle
 		/ introduce database specific max/min length for strings
-	- reportDatabase: Datenverzeichnisse prüfen
+	- analog dsmf: Datenverzeichnisse prüfen
 	- add/drop constraints:
 		* alter table "SumItem" add constraint schnappel check ("num2" is not null)
 		* alter table "ItemWithDoubleUnique" drop constraint "ItemWithDoublUniqu_str_Nn"
