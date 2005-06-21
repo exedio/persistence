@@ -1,0 +1,31 @@
+* Instrumentor
+	- mehrsprachige generierte Comments
+	- mehrsprachige Parametertypen
+	- Instrumentierung nur für geänderte Dateien
+	- disable/anderer access modifier für alle Methoden
+* Lib
+	- search API
+		- oracle statistics
+		- self joins
+		- group by
+	- Transaktionen / Synchronisierung
+	- optionally use strings in DB for enum attributes
+	- disable empty strings for oracle
+		/ introduce database specific max/min length for strings
+	- reportDatabase: Datenverzeichnisse prüfen
+	- add/drop constraints:
+		* alter table "SumItem" add constraint schnappel check ("num2" is not null)
+		* alter table "ItemWithDoubleUnique" drop constraint "ItemWithDoublUniqu_str_Nn"
+	* factor out all create/drop/rename/modify database/table/column/constraint into separate framework
+		Database Schema Migration Framework: dsmf
+
+* Docs
+	- aus AGENDA
+* Copernica
+	- query designer
+	- schönere Darstellung der Qualifiers
+	- Restriktionen
+	- hochgeladene DataAttributes erst beim "Save" speichern
+	- use <link rel="prev/next/copyright/home"
+	- generate tomcat/conf/Catalina/localhost/copetest-*.xml
+	- show warning on website, if account runs with empty/default/bad password
