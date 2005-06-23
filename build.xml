@@ -3,39 +3,20 @@
 <project name="cope" default="all" basedir=".">
 
 	<property name="exedioline" value='&lt;small&gt;Copyright &amp;copy; 2004-2005 &lt;a href="http://www.exedio.com/" target="_top"&gt;exedio&lt;/a&gt; Gesellschaft f&amp;uuml;r Softwareentwicklung mbH. All rights reserved.&lt;small&gt;' />
+	
+	<taskdef resource="net/sf/antcontrib/antlib.xml">
+		<classpath>
+			<pathelement location="../lib/ant-contrib.jar"/>
+		</classpath>
+	</taskdef>
 
-	<target name="properties.first">
+	<target name="properties">
 		<property file="../local.properties" />
 		<property name="api.private" value="off" />
 		<property name="api.link.jdk" value="http://java.sun.com/j2se/1.4.2/docs/api" />
 		<property name="api.link.ant" value="http://searchmorph.com/pub/ant/apache-ant-1.6.2/build/javadocs" />
 		<property name="api.link.j2ee" value="http://java.sun.com/j2ee/1.4/docs/api" />
-		<available property="available.oracle" file="cope.properties.oracle" />
-		<available property="available.mysql"  file="cope.properties.mysql" />
-		<fail message="Skipping test for databases not allowed when building by cruisecontrol">
-			<condition>
-				<and>
-					<isset property="label" />
-					<or>
-						<not><isset property="available.oracle" /></not>
-						<not><isset property="available.mysql" /></not>
-					</or>
-				</and>
-			</condition>
-		</fail>
 	</target>
-
-	<target name="properties.oracle" unless="available.oracle"
-			  depends="properties.first">
-		<echo level="warning" message="Skipping oracle because there is no file cope.properties.oracle !!" />
-	</target>
-	
-	<target name="properties.mysql" unless="available.mysql"
-			  depends="properties.first">
-		<echo level="warning" message="Skipping mysql because there is no file cope.properties.mysql !!" />
-	</target>
-	
-	<target name="properties" depends="properties.first, properties.oracle, properties.mysql" />
 
 	<target name="jspm.taskdef">
 		<taskdef name="jspm" classname="com.exedio.jspm.AntTask">
@@ -238,41 +219,27 @@
 		</javac>
 	</target>
 	
-	<macrodef name="dsmftestrun">
-		<attribute name="database" />
-		<attribute name="database-driver" />
-		<sequential>
-			<java classname="junit.textui.TestRunner" taskname="junit" fork="yes" failonerror="yes">
-				<classpath>
-					<pathelement location="lib/build/classes" />
-					<pathelement location="dsmf/build/testclasses" />
-					<pathelement location="../lib/junit.jar" />
-					<pathelement location="../lib/@{database-driver}" />
-				</classpath>
-				<arg value="com.exedio.dsmf.PackageTest" />
-				<sysproperty key="com.exedio.cope.properties" file="cope.properties.@{database}" />
-			</java>
-		</sequential>
-	</macrodef>
-	
-	<target name="dsmf.test.run.hsqldb" depends="dsmf.test.compile">
-		<dsmftestrun database="hsqldb" database-driver="hsqldb.jar" />
+	<target name="dsmf.test.run" depends="dsmf.test.compile">
+		<for param="property-file">
+			<path>
+				<fileset dir="${basedir}" includes="cope.properties.test.*" />
+			</path>
+			<sequential>
+				<echo message="Testing @{property-file}" />
+				<property file="@{property-file}" prefix="@{property-file}." />
+				<java classname="junit.textui.TestRunner" taskname="junit ${@{property-file}.database}" fork="yes" failonerror="yes">
+					<classpath>
+						<pathelement location="lib/build/classes" />
+						<pathelement location="dsmf/build/testclasses" />
+						<pathelement location="../lib/junit.jar" />
+						<pathelement location="../lib/${@{property-file}.x-build.driver}" />
+					</classpath>
+					<arg value="com.exedio.dsmf.PackageTest" />
+					<sysproperty key="com.exedio.cope.properties" file="@{property-file}" />
+				</java>
+			</sequential>
+		</for>
 	</target>
-	
-	<target name="dsmf.test.run.oracle" if="available.oracle"
-			  depends="properties, dsmf.test.compile">
-		<dsmftestrun database="oracle" database-driver="classes12.jar" />
-	</target>
-	
-	<target name="dsmf.test.run.mysql" if="available.mysql"
-			  depends="properties, dsmf.test.compile">
-		<dsmftestrun database="mysql" database-driver="mysql-connector-java-bin.jar" />
-	</target>
-	
-	<target name="dsmf.test.run"
-				depends="dsmf.test.run.hsqldb,
-							dsmf.test.run.oracle,
-							dsmf.test.run.mysql" />
 	
 	<target name="dsmf.test" depends="dsmf.test.run" />
 	
@@ -344,93 +311,74 @@
 		</javac>
 	</target>
 	
-	<macrodef name="libtestrun">
-		<attribute name="database" />
-		<attribute name="database-driver" />
-		<sequential>
-			<mkdir dir="lib/build/test.@{database}/data" />
-			<copy file="cope.properties.@{database}"
-					tofile="lib/build/test.@{database}/cope.properties">
-				<filterset>
-					<filter token="DATADIR_PATH" value="lib/build/test.@{database}/data" />
-				</filterset>
-			</copy>
-			<java classname="junit.textui.TestRunner" taskname="junit" fork="yes" failonerror="yes">
-				<classpath>
-					<pathelement location="lib/build/classes" />
-					<pathelement location="lib/build/testmodelclasses" />
-					<pathelement location="lib/build/testclasses" />
-					<pathelement location="../lib/junit.jar" />
-					<pathelement location="../lib/pcj.jar" />
-					<pathelement location="../lib/@{database-driver}" />
-				</classpath>
-				<arg value="com.exedio.cope.PackageTest" />
-				<sysproperty key="com.exedio.cope.properties" file="lib/build/test.@{database}/cope.properties" />
-			</java>
-		</sequential>
-	</macrodef>
+	<target name="lib.test.run" depends="lib.test.compile">
+		<for param="property-file">
+			<path>
+				<fileset dir="${basedir}" includes="cope.properties.test.*" />
+			</path>
+			<sequential>
+				<echo message="Testing @{property-file}" />
+				<property file="@{property-file}" prefix="@{property-file}." />
+				<mkdir dir="lib/build/test.${@{property-file}.database}/data" />
+				<copy file="@{property-file}"
+						tofile="lib/build/test.${@{property-file}.database}/cope.properties">
+					<filterset>
+						<filter token="DATADIR_PATH" value="lib/build/test.${@{property-file}.database}/data" />
+					</filterset>
+				</copy>
+				<java classname="junit.textui.TestRunner" taskname="junit ${@{property-file}.database}" fork="yes" failonerror="yes">
+					<classpath>
+						<pathelement location="lib/build/classes" />
+						<pathelement location="lib/build/testmodelclasses" />
+						<pathelement location="lib/build/testclasses" />
+						<pathelement location="../lib/junit.jar" />
+						<pathelement location="../lib/pcj.jar" />
+						<pathelement location="../lib/${@{property-file}.x-build.driver}" />
+					</classpath>
+					<arg value="com.exedio.cope.PackageTest" />
+					<sysproperty key="com.exedio.cope.properties" file="lib/build/test.${@{property-file}.database}/cope.properties" />
+				</java>
+			</sequential>
+		</for>
+	</target>
 	
-	<target name="lib.test.run.hsqldb" depends="lib.test.compile">
-		<libtestrun database="hsqldb" database-driver="hsqldb.jar" />
-	</target>
-
-	<target name="lib.test.run.oracle" if="available.oracle"
-			  depends="properties, lib.test.compile">
-		<libtestrun database="oracle" database-driver="classes12.jar" />
-	</target>
-
-	<target name="lib.test.run.mysql" if="available.mysql"
-			  depends="properties, lib.test.compile">
-		<libtestrun database="mysql" database-driver="mysql-connector-java-bin.jar" />
-	</target>
-
-	<target name="lib.test.run"
-				depends="lib.test.run.hsqldb,
-							lib.test.run.oracle,
-							lib.test.run.mysql" />
-
-	<macrodef name="libtestteardown">
-		<attribute name="database" />
-		<attribute name="database-driver" />
-		<sequential>
-			<mkdir dir="lib/build/teardown.@{database}/data" />
-			<copy file="cope.properties.@{database}"
-					tofile="lib/build/teardown.@{database}/cope.properties">
-				<filterset>
-					<filter token="DATADIR_PATH"
-								value="lib/build/teardown.@{database}/data" />
-				</filterset>
-			</copy>
-			<java classname="com.exedio.cope.testmodel.Main" taskname="tear down"
-					fork="yes" failonerror="yes">
-				<classpath>
-					<pathelement location="lib/build/classes" />
-					<pathelement location="lib/build/testmodelclasses" />
-					<pathelement location="../lib/pcj.jar" />
-					<pathelement location="../lib/@{database-driver}" />
-				</classpath>
-				<sysproperty key="com.exedio.cope.properties"
-								file="lib/build/teardown.@{database}/cope.properties" />
-			</java>
-		</sequential>
-	</macrodef>
-
-	<target name="lib.test.teardown.oracle" if="available.oracle"
-			  depends="properties, lib.compile, lib.testmodel.compile">
-		<libtestteardown database="oracle" database-driver="classes12.jar" />
-	</target>
-
-	<target name="lib.test.teardown.mysql" if="available.mysql"
-			  depends="properties, lib.compile, lib.testmodel.compile">
-		<libtestteardown database="mysql" database-driver="mysql-connector-java-bin.jar" />
-	</target>
-
-	<target name="teardown"
-			depends="lib.test.teardown.oracle,
-						lib.test.teardown.mysql" />
-
-
 	<target name="lib.test" depends="lib.test.run" />
+
+	<target name="lib.test.teardown" depends="lib.compile, lib.testmodel.compile">
+		<for param="property-file">
+			<path>
+				<fileset dir="${basedir}" includes="cope.properties.test.*" />
+			</path>
+			<sequential>
+				<echo message="Tearing down @{property-file}" />
+				<property file="@{property-file}" prefix="@{property-file}." />
+				
+				<mkdir dir="lib/build/teardown.${@{property-file}.database}/data" />
+				<copy file="@{property-file}"
+						tofile="lib/build/teardown.${@{property-file}.database}/cope.properties">
+					<filterset>
+						<filter token="DATADIR_PATH"
+								  value="lib/build/teardown.${@{property-file}.database}/data" />
+					</filterset>
+				</copy>
+				<java classname="com.exedio.cope.testmodel.Main" taskname="tear down ${@{property-file}.database}"
+						fork="yes" failonerror="yes">
+					<classpath>
+						<pathelement location="lib/build/classes" />
+						<pathelement location="lib/build/testmodelclasses" />
+						<pathelement location="../lib/pcj.jar" />
+						<pathelement location="../lib/${@{property-file}.x-build.driver}" />
+					</classpath>
+					<sysproperty key="com.exedio.cope.properties"
+									 file="lib/build/teardown.${@{property-file}.database}/cope.properties" />
+				</java>
+				
+			</sequential>
+		</for>
+	</target>
+
+	<target name="teardown" depends="lib.test.teardown" />
+
 
 	<target name="instrument.test.instrument" depends="instrument.taskdef">
 		<instrument>
@@ -512,64 +460,51 @@
 		</copy>
 	</target>
 	
-	<macrodef name="copernicatestwebapp">
-		<attribute name="database" />
-		<attribute name="database-driver" />
-		<sequential>
-			<mkdir dir="copernica/build/testwebapp-@{database}" />
-			
-			<copy todir="copernica/build/testwebapp-@{database}/WEB-INF/classes">
-				<fileset dir="lib/build/classes" />
-				<fileset dir="lib/build/testmodelclasses" />
-				<fileset dir="copernica/build/classes" />
-				<fileset dir="copernica/build/testclasses" />
-				<fileset dir="../cops/build/classes" />
-			</copy>
-			
-			<copy todir="copernica/build/testwebapp-@{database}/WEB-INF/lib">
-				<fileset file="../lib/pcj.jar" />
-				<fileset file="../lib/@{database-driver}" />
-			</copy>
-			
-			<copy tofile="copernica/build/testwebapp-@{database}/WEB-INF/cope.properties"
-					file="cope.properties.@{database}">
-				<filterset>
-					<filter token="DATADIR_PATH" value="//WEB-APP//" />
-				</filterset>
-			</copy>
-			<copy todir="copernica/build/testwebapp-@{database}/WEB-INF/"
-					file="copernica/web.xml" />
-			<copy todir="copernica/build/testwebapp-@{database}">
-				<fileset dir="copernica/jsp">
-					<exclude name="*.jsp" />
-					<exclude name="*.inc" />
-				</fileset>
-			</copy>
-			<mkdir dir="copernica/build/testwebapp-@{database}/data" />
-			
-			<touch file="copernica/build/testwebapp-@{database}/WEB-INF/web.xml" />
-		</sequential>
-	</macrodef>
-	
-	<target name="copernica.testwebapp.hsqldb"
-			depends="copernica.compile, copernica.test.compile">
-		<copernicatestwebapp database="hsqldb" database-driver="hsqldb.jar" />
+	<target name="copernica.testwebapp" depends="copernica.compile, copernica.test.compile">
+		<for param="property-file">
+			<path>
+				<fileset dir="${basedir}" includes="cope.properties.test.*" />
+			</path>
+			<sequential>
+				<echo message="Using @{property-file}" />
+				<property file="@{property-file}" prefix="@{property-file}." />
+				
+				<mkdir dir="copernica/build/testwebapp-${@{property-file}.database}" />
+				
+				<copy todir="copernica/build/testwebapp-${@{property-file}.database}/WEB-INF/classes">
+					<fileset dir="lib/build/classes" />
+					<fileset dir="lib/build/testmodelclasses" />
+					<fileset dir="copernica/build/classes" />
+					<fileset dir="copernica/build/testclasses" />
+					<fileset dir="../cops/build/classes" />
+				</copy>
+				
+				<copy todir="copernica/build/testwebapp-${@{property-file}.database}/WEB-INF/lib">
+					<fileset file="../lib/pcj.jar" />
+					<fileset file="../lib/${@{property-file}.x-build.driver}" />
+				</copy>
+				
+				<copy tofile="copernica/build/testwebapp-${@{property-file}.database}/WEB-INF/cope.properties"
+						file="@{property-file}">
+					<filterset>
+						<filter token="DATADIR_PATH" value="//WEB-APP//" />
+					</filterset>
+				</copy>
+				<copy todir="copernica/build/testwebapp-${@{property-file}.database}/WEB-INF/"
+						file="copernica/web.xml" />
+				<copy todir="copernica/build/testwebapp-${@{property-file}.database}">
+					<fileset dir="copernica/jsp">
+						<exclude name="*.jsp" />
+						<exclude name="*.inc" />
+					</fileset>
+				</copy>
+				<mkdir dir="copernica/build/testwebapp-${@{property-file}.database}/data" />
+				
+				<touch file="copernica/build/testwebapp-${@{property-file}.database}/WEB-INF/web.xml" />
+			</sequential>
+		</for>
 	</target>
 	
-	<target name="copernica.testwebapp.oracle" if="available.oracle"
-			  depends="properties, copernica.compile, copernica.test.compile">
-		<copernicatestwebapp database="oracle" database-driver="classes12.jar" />
-	</target>
-	
-	<target name="copernica.testwebapp.mysql" if="available.mysql"
-			  depends="properties, copernica.compile, copernica.test.compile">
-		<copernicatestwebapp database="mysql" database-driver="mysql-connector-java-bin.jar" />
-	</target>
-	
-	<target name="copernica.testwebapp"
-			depends="copernica.testwebapp.hsqldb,
-						copernica.testwebapp.oracle,
-						copernica.testwebapp.mysql" />
 	
 	<target name="copernica.webtest.compile">
 		<mkdir dir="copernica/build/webtestclasses" />

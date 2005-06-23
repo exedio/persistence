@@ -4,3 +4,5 @@ database.user=sa
 database.password=
 datadir.path=@DATADIR_PATH@
 datadir.url=data/
+
+x-build.driver=hsqldb.jar
