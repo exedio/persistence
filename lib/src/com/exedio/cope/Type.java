@@ -34,7 +34,6 @@ import java.util.List;
 
 import bak.pcj.map.IntKeyOpenHashMap;
 
-import com.exedio.cope.pattern.Qualifier;
 import com.exedio.cope.search.Condition;
 import com.exedio.cope.util.ReactivationConstructorDummy;
 
@@ -180,7 +179,7 @@ public final class Type
 		this.declaredFeatureList = Collections.unmodifiableList(Arrays.asList(this.declaredFeatures));
 		this.uniqueConstraints = (UniqueConstraint[])uniqueConstraintsWhileConstruction.toArray(new UniqueConstraint[uniqueConstraintsWhileConstruction.size()]);
 		this.uniqueConstraintList = Collections.unmodifiableList(Arrays.asList(this.uniqueConstraints));
-		this.patterns = (Qualifier[])patternsWhileConstruction.toArray(new Qualifier[patternsWhileConstruction.size()]);
+		this.patterns = (Pattern[])patternsWhileConstruction.toArray(new Pattern[patternsWhileConstruction.size()]);
 		this.patternList = Collections.unmodifiableList(Arrays.asList(this.patterns));
 
 		// make sure, register methods fail from now on
@@ -263,12 +262,9 @@ public final class Type
 		uniqueConstraintsWhileConstruction.add(uniqueConstraint);
 	}
 
-	/**
-	 * TODO: Type must not know Qualifier.
-	 */
-	public final void registerInitialization(final Qualifier qualifier)
+	final void registerInitialization(final Pattern pattern)
 	{
-		patternsWhileConstruction.add(qualifier);
+		patternsWhileConstruction.add(pattern);
 	}
 	
 	final void registerSubType(final Type subType)

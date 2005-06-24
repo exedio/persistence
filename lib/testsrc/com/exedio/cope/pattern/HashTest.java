@@ -37,6 +37,7 @@ public class HashTest extends DatabaseLibTest
 	
 	public void testMD5()
 	{
+		assertEquals(list(item.hashed1, item.hashed1Latin, item.hashed2), item.TYPE.getPatterns());
 		assertEquals(item.TYPE, item.hashed1.getType());
 		assertEquals(item.TYPE, item.hashed1Latin.getType());
 		assertEquals("hashed1", item.hashed1.getName());

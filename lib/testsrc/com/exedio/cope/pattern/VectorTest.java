@@ -40,6 +40,8 @@ public class VectorTest extends DatabaseLibTest
 	public void testVector() throws ConstraintViolationException
 	{
 		// test model
+		assertEquals(list(item.nums, item.strings), item.TYPE.getPatterns());
+
 		assertEquals(item.TYPE, item.nums.getType());
 		assertEquals("nums", item.nums.getName());
 		assertEquals(list(item.num1, item.num2, item.num3), item.nums.getSources());

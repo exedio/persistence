@@ -89,8 +89,6 @@ public final class Qualifier extends Pattern
 	{
 		final Type qualifiedType = getType();
 		
-		qualifiedType.registerInitialization(this);
-		
 		if(this.attributes!=null)
 			throw new RuntimeException();
 
