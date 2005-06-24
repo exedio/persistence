@@ -69,6 +69,8 @@ public abstract class Attribute extends TypeComponent implements Feature
 	{
 		super.initialize(type, name);
 
+		type.register(this);
+
 		if(singleUniqueConstraint!=null)
 			singleUniqueConstraint.initialize(type, name);
 

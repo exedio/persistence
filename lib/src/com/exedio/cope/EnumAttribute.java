@@ -102,6 +102,11 @@ public final class EnumAttribute extends ObjectAttribute
 		}
 	}
 	
+	public ObjectAttribute copyAsTemplate()
+	{
+		return new EnumAttribute(getTemplateOption(), enumClass);
+	}
+	
 	public List getValues()
 	{
 		return values;

@@ -31,16 +31,50 @@ import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.NotNullViolationException;
 import com.exedio.cope.ObjectAttribute;
 import com.exedio.cope.ReadOnlyViolationException;
+import com.exedio.cope.Type;
 import com.exedio.cope.TypeComponent;
 import com.exedio.cope.UniqueViolationException;
 
 public final class Vector extends TypeComponent
 {
 	final ObjectAttribute[] sources;
+	final boolean initializeSources;
 
-	public Vector(final ObjectAttribute[] sources)
+	private Vector(final ObjectAttribute[] sources, final boolean initializeSources)
 	{
 		this.sources = sources;
+		this.initializeSources = initializeSources;
+	}
+	
+	public Vector(final ObjectAttribute[] sources)
+	{
+		this(sources, false);
+	}
+	
+	public Vector(final ObjectAttribute template, final int length)
+	{
+		this(template2Sources(template, length), true);
+	}
+	
+	private static final ObjectAttribute[] template2Sources(final ObjectAttribute template, final int length)
+	{
+		final ObjectAttribute[] result = new ObjectAttribute[length];
+		
+		for(int i = 0; i<length; i++)
+			result[i] = template.copyAsTemplate();
+
+		return result;
+	}
+	
+	public void initialize(final Type type, final String name)
+	{
+		super.initialize(type, name);
+		
+		if(initializeSources)
+		{
+			for(int i = 0; i<sources.length; i++)
+				sources[i].initialize(type, name+(i+1/*TODO: make this '1' customizable*/));
+		}
 	}
 	
 	public final List getSources()

@@ -41,6 +41,11 @@ public final class ItemAttribute extends ObjectAttribute
 	
 	Type targetType = null;
 
+	public ObjectAttribute copyAsTemplate()
+	{
+		return new ItemAttribute(getTemplateOption(), targetTypeClass);
+	}
+	
 	/**
 	 * Returns the type of items, this attribute accepts instances of.
 	 */

@@ -31,6 +31,11 @@ public final class IntegerAttribute extends ObjectAttribute implements IntegerFu
 		super(option, Integer.class, "integer");
 	}
 	
+	public ObjectAttribute copyAsTemplate()
+	{
+		return new IntegerAttribute(getTemplateOption());
+	}
+	
 	protected List createColumns(final Table table, final String name, final boolean notNull)
 	{
 		return Collections.singletonList(new IntegerColumn(table, name, notNull, 10, false, null));

@@ -33,6 +33,11 @@ public final class BooleanAttribute extends ObjectAttribute
 		super(option, Boolean.class, "boolean");
 	}
 	
+	public ObjectAttribute copyAsTemplate()
+	{
+		return new BooleanAttribute(getTemplateOption());
+	}
+	
 	protected List createColumns(final Table table, final String name, final boolean notNull)
 	{
 		return Collections.singletonList(new IntegerColumn(table, name, notNull, 1, false, ALLOWED_VALUES));

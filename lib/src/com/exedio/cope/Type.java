@@ -100,6 +100,12 @@ public final class Type
 		this(javaClass, componentJavaClass, ignoreClasses, true);
 	}
 
+	// TODO: rename to xxxWhileConstruction
+	ArrayList attributesTemp;
+	ArrayList featuresTemp;
+	ArrayList uniqueConstraintsTemp;
+	ArrayList qualifiersTemp;
+
 	public Type(final Class javaClass, final Class componentJavaClass, final Class[] ignoreClasses, boolean dontUse)
 	{
 		this.javaClass = javaClass;
@@ -141,10 +147,10 @@ public final class Type
 
 		// declaredAttributes
 		final Field[] fields = componentJavaClass.getDeclaredFields();
-		final ArrayList attributesTemp = new ArrayList(fields.length);
-		final ArrayList featuresTemp = new ArrayList(fields.length);
-		final ArrayList uniqueConstraintsTemp = new ArrayList(fields.length);
-		final ArrayList qualifiersTemp = new ArrayList(fields.length);
+		this.attributesTemp = new ArrayList(fields.length);
+		this.featuresTemp = new ArrayList(fields.length);
+		this.uniqueConstraintsTemp = new ArrayList(fields.length);
+		this.qualifiersTemp = new ArrayList(fields.length);
 		final int expectedModifier = Modifier.STATIC | Modifier.FINAL;
 		try
 		{
@@ -161,34 +167,6 @@ public final class Type
 						if(component==null)
 							throw new RuntimeException(field.getName());
 						component.initialize(this, field.getName());
-
-						if(Attribute.class.isAssignableFrom(fieldType))
-						{
-							final Attribute attribute = (Attribute)component;
-							attributesTemp.add(attribute);
-							featuresTemp.add(attribute);
-							featuresByName.put(attribute.getName(), attribute);
-							final UniqueConstraint uniqueConstraint = attribute.getSingleUniqueConstraint();
-							if(uniqueConstraint!=null)
-								uniqueConstraintsTemp.add(uniqueConstraint);
-						}
-						else if(ComputedFunction.class.isAssignableFrom(fieldType))
-						{
-							final ComputedFunction function = (ComputedFunction)component;
-							featuresTemp.add(function);
-							featuresByName.put(function.getName(), function);
-						}
-						else if(UniqueConstraint.class.isAssignableFrom(fieldType))
-						{
-							final UniqueConstraint uniqueConstraint = (UniqueConstraint)component;
-							uniqueConstraintsTemp.add(uniqueConstraint);
-						}
-						else if(Qualifier.class.isAssignableFrom(fieldType))
-						{
-							final Qualifier qualifier = (Qualifier)component;
-							qualifier.getQualifyUnique().setQualifier(qualifier);
-							qualifiersTemp.add(qualifier);
-						}
 					}
 				}
 			}
@@ -205,6 +183,12 @@ public final class Type
 		this.uniqueConstraintList = Collections.unmodifiableList(Arrays.asList(this.uniqueConstraints));
 		this.qualifiers = (Qualifier[])qualifiersTemp.toArray(new Qualifier[qualifiersTemp.size()]);
 		this.qualifierList = Collections.unmodifiableList(Arrays.asList(this.qualifiers));
+
+		// make sure, register methods fail from now on
+		this.attributesTemp = null;
+		this.featuresTemp = null;
+		this.uniqueConstraintsTemp = null;
+		this.qualifiersTemp = null;
 		
 		// attributes
 		if(supertype==null)
@@ -260,6 +244,38 @@ public final class Type
 		{
 			throw new NestingRuntimeException(e, javaClass.getName() + " does not have a " + name + " constructor");
 		}
+	}
+
+	// TODO: rename to registerInitialization
+	final void register(final Attribute attribute)
+	{
+		attributesTemp.add(attribute);
+		featuresTemp.add(attribute);
+		featuresByName.put(attribute.getName(), attribute);
+	}
+
+	// TODO: rename to registerInitialization
+	final void register(final ComputedFunction function)
+	{
+		featuresTemp.add(function);
+		featuresByName.put(function.getName(), function);
+	}
+
+	// TODO: rename to registerInitialization
+	final void register(final UniqueConstraint uniqueConstraint)
+	{
+		uniqueConstraintsTemp.add(uniqueConstraint);
+	}
+
+	// TODO: rename to registerInitialization
+	/**
+	 * TODO: Type must not know Qualifier.
+	 */
+	public final void register(final Qualifier qualifier)
+	{
+		qualifiersTemp.add(qualifier);
+		// TODO: do this in initialize
+		qualifier.getQualifyUnique().setQualifier(qualifier);
 	}
 	
 	final void registerSubType(final Type subType)

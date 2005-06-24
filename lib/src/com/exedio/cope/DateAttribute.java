@@ -43,6 +43,11 @@ public final class DateAttribute extends ObjectAttribute
 		this.forbidTimestampColumn = forbidTimestampColumn;
 	}
 	
+	public ObjectAttribute copyAsTemplate()
+	{
+		return new DateAttribute(getTemplateOption());
+	}
+	
 	protected List createColumns(final Table table, final String name, final boolean notNull)
 	{
 		final boolean useLong =

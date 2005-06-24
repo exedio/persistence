@@ -92,6 +92,8 @@ public abstract class ComputedFunction extends TypeComponent implements Function
 			throw new RuntimeException();
 			
 		super.initialize(type, name);
+
+		type.register(this);
 	}
 	
 	public final Type getType()

@@ -56,6 +56,11 @@ public final class StringAttribute extends ObjectAttribute implements StringFunc
 			throw new RuntimeException("maximum length must be greater or equal mimimum length.");
 	}
 	
+	public ObjectAttribute copyAsTemplate()
+	{
+		return new StringAttribute(getTemplateOption(), minimumLength, maximumLength);
+	}
+	
 	public final int getMinimumLength()
 	{
 		return minimumLength;

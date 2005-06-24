@@ -31,6 +31,11 @@ public class DoubleAttribute extends ObjectAttribute
 		super(option, Double.class, "double");
 	}
 
+	public ObjectAttribute copyAsTemplate()
+	{
+		return new DoubleAttribute(getTemplateOption());
+	}
+	
 	protected List createColumns(final Table table, final String name, final boolean notNull)
 	{
 		return Collections.singletonList(new DoubleColumn(table, name, notNull, 30));

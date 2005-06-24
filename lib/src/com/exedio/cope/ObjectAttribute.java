@@ -34,8 +34,23 @@ public abstract class ObjectAttribute
 		this.valueClassName = valueClassName;
 	}
 	
+	public abstract ObjectAttribute copyAsTemplate();
 	abstract Object cacheToSurface(Object cache);
 	abstract Object surfaceToCache(Object surface);
+	
+	final Option getTemplateOption()
+	{
+		if(isReadOnly())
+			if(isNotNull())
+				return Item.READ_ONLY_NOT_NULL;
+			else
+				return Item.READ_ONLY;
+		else
+			if(isNotNull())
+				return Item.NOT_NULL;
+			else
+				return Item.DEFAULT;
+	}
 	
 	/**
 	 * Checks attribute values set by

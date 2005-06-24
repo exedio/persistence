@@ -89,6 +89,8 @@ public final class Qualifier extends TypeComponent
 	{
 		super.initialize(qualifiedType, name);
 		
+		qualifiedType.register(this);
+		
 		if(this.attributes!=null)
 			throw new RuntimeException();
 

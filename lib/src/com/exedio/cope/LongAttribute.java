@@ -31,6 +31,11 @@ public final class LongAttribute extends ObjectAttribute
 		super(option, Long.class, "long");
 	}
 	
+	public ObjectAttribute copyAsTemplate()
+	{
+		return new LongAttribute(getTemplateOption());
+	}
+	
 	protected List createColumns(final Table table, final String name, final boolean notNull)
 	{
 		return Collections.singletonList(new IntegerColumn(table, name, notNull, 20, true, null));

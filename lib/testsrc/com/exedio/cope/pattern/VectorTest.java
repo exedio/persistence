@@ -18,8 +18,12 @@
 
 package com.exedio.cope.pattern;
 
+import java.util.Iterator;
+import java.util.List;
+
 import com.exedio.cope.ConstraintViolationException;
 import com.exedio.cope.DatabaseLibTest;
+import com.exedio.cope.StringAttribute;
 import com.exedio.cope.testmodel.VectorItem;
 
 
@@ -40,6 +44,33 @@ public class VectorTest extends DatabaseLibTest
 		assertEquals("nums", item.nums.getName());
 		assertEquals(list(item.num1, item.num2, item.num3), item.nums.getSources());
 		assertUnmodifiable(item.nums.getSources());
+
+		assertEquals(item.TYPE, item.strings.getType());
+		assertEquals("strings", item.strings.getName());
+		final List stringSources = item.strings.getSources();
+		assertEquals(4, stringSources.size());
+		assertUnmodifiable(stringSources);
+		final Iterator stringSourcesIterator = stringSources.iterator();
+		final StringAttribute string1 = (StringAttribute)stringSourcesIterator.next();
+		final StringAttribute string2 = (StringAttribute)stringSourcesIterator.next();
+		final StringAttribute string3 = (StringAttribute)stringSourcesIterator.next();
+		final StringAttribute string4 = (StringAttribute)stringSourcesIterator.next();
+		assertEquals(item.TYPE, string1.getType());
+		assertEquals(item.TYPE, string2.getType());
+		assertEquals(item.TYPE, string3.getType());
+		assertEquals(item.TYPE, string4.getType());
+		assertEquals("strings1", string1.getName());
+		assertEquals("strings2", string2.getName());
+		assertEquals("strings3", string3.getName());
+		assertEquals("strings4", string4.getName());
+		assertEquals(false, string4.isNotNull());
+		assertEquals(false, string4.isReadOnly());
+		assertEquals(false, string4.isLengthConstrained());
+		assertEquals(0, string4.getMinimumLength());
+		assertEquals(Integer.MAX_VALUE, string4.getMaximumLength());
+		assertEquals(
+				list(item.num1, item.num2, item.num3, string1, string2, string3, string4),
+				item.TYPE.getDeclaredAttributes());
 
 		assertEquals(i1, item.getNum1());
 		assertEquals(i2, item.getNum2());
@@ -79,6 +110,13 @@ public class VectorTest extends DatabaseLibTest
 		item.setNum2(null);
 		item.setNum3(null);
 		assertEquals(list(), item.getNums());
+		
+		item.setStrings(list("hallo", "bello"));
+		assertEquals(list("hallo", "bello"), item.getStrings());
+		assertEquals("hallo", item.get(string1));
+		assertEquals("bello", item.get(string2));
+		assertEquals(null, item.get(string3));
+		assertEquals(null, item.get(string4));
 	}
 
 }
