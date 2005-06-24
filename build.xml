@@ -17,11 +17,9 @@
 	</target>
 
 	<target name="jspm.taskdef">
-		<taskdef name="jspm" classname="com.exedio.jspm.AntTask">
-			<classpath>
-				<pathelement location="../jspm/build/classes" />
-			</classpath>
-		</taskdef>
+		<taskdef name="jspm"
+					classname="com.exedio.jspm.AntTask"
+					classpath="../jspm/build/classes" />
 	</target>
 	
 	<target name="lib.compile.mkdir">
