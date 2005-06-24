@@ -4,11 +4,9 @@
 
 	<property name="exedioline" value='&lt;small&gt;Copyright &amp;copy; 2004-2005 &lt;a href="http://www.exedio.com/" target="_top"&gt;exedio&lt;/a&gt; Gesellschaft f&amp;uuml;r Softwareentwicklung mbH. All rights reserved.&lt;small&gt;' />
 	
-	<taskdef resource="net/sf/antcontrib/antlib.xml">
-		<classpath>
-			<pathelement location="../lib/ant-contrib.jar"/>
-		</classpath>
-	</taskdef>
+	<taskdef
+			resource="net/sf/antcontrib/antcontrib.properties"
+			classpath="../lib/ant-contrib.jar" />
 
 	<target name="properties">
 		<property file="../local.properties" />
