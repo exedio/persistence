@@ -73,7 +73,7 @@ public final class UniqueConstraint extends TypeComponent
 	public void initialize(final Type type, final String name)
 	{
 		super.initialize(type, name);
-		type.register(this);
+		type.registerInitialization(this);
 	}
 
 	/**

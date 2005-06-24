@@ -93,7 +93,7 @@ public abstract class ComputedFunction extends TypeComponent implements Function
 			
 		super.initialize(type, name);
 
-		type.register(this);
+		type.registerInitialization(this);
 	}
 	
 	public final Type getType()

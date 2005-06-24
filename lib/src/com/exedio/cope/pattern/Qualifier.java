@@ -89,7 +89,7 @@ public final class Qualifier extends TypeComponent
 	{
 		super.initialize(qualifiedType, name);
 		
-		qualifiedType.register(this);
+		qualifiedType.registerInitialization(this);
 		
 		if(this.attributes!=null)
 			throw new RuntimeException();

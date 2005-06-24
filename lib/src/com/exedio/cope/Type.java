@@ -245,32 +245,28 @@ public final class Type
 		}
 	}
 
-	// TODO: rename to registerInitialization
-	final void register(final Attribute attribute)
+	final void registerInitialization(final Attribute attribute)
 	{
 		attributesWhileConstruction.add(attribute);
 		featuresWhileConstruction.add(attribute);
 		featuresByName.put(attribute.getName(), attribute);
 	}
 
-	// TODO: rename to registerInitialization
-	final void register(final ComputedFunction function)
+	final void registerInitialization(final ComputedFunction function)
 	{
 		featuresWhileConstruction.add(function);
 		featuresByName.put(function.getName(), function);
 	}
 
-	// TODO: rename to registerInitialization
-	final void register(final UniqueConstraint uniqueConstraint)
+	final void registerInitialization(final UniqueConstraint uniqueConstraint)
 	{
 		uniqueConstraintsWhileConstruction.add(uniqueConstraint);
 	}
 
-	// TODO: rename to registerInitialization
 	/**
 	 * TODO: Type must not know Qualifier.
 	 */
-	public final void register(final Qualifier qualifier)
+	public final void registerInitialization(final Qualifier qualifier)
 	{
 		qualifiersWhileConstruction.add(qualifier);
 		// TODO: do this in initialize
