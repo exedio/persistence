@@ -100,11 +100,10 @@ public final class Type
 		this(javaClass, componentJavaClass, ignoreClasses, true);
 	}
 
-	// TODO: rename to xxxWhileConstruction
-	ArrayList attributesTemp;
-	ArrayList featuresTemp;
-	ArrayList uniqueConstraintsTemp;
-	ArrayList qualifiersTemp;
+	private ArrayList attributesWhileConstruction;
+	private ArrayList featuresWhileConstruction;
+	private ArrayList uniqueConstraintsWhileConstruction;
+	private ArrayList qualifiersWhileConstruction;
 
 	public Type(final Class javaClass, final Class componentJavaClass, final Class[] ignoreClasses, boolean dontUse)
 	{
@@ -147,10 +146,10 @@ public final class Type
 
 		// declaredAttributes
 		final Field[] fields = componentJavaClass.getDeclaredFields();
-		this.attributesTemp = new ArrayList(fields.length);
-		this.featuresTemp = new ArrayList(fields.length);
-		this.uniqueConstraintsTemp = new ArrayList(fields.length);
-		this.qualifiersTemp = new ArrayList(fields.length);
+		this.attributesWhileConstruction = new ArrayList(fields.length);
+		this.featuresWhileConstruction = new ArrayList(fields.length);
+		this.uniqueConstraintsWhileConstruction = new ArrayList(fields.length);
+		this.qualifiersWhileConstruction = new ArrayList(fields.length);
 		final int expectedModifier = Modifier.STATIC | Modifier.FINAL;
 		try
 		{
@@ -175,20 +174,20 @@ public final class Type
 		{
 			throw new NestingRuntimeException(e);
 		}
-		this.declaredAttributes = (Attribute[])attributesTemp.toArray(new Attribute[attributesTemp.size()]);
+		this.declaredAttributes = (Attribute[])attributesWhileConstruction.toArray(new Attribute[attributesWhileConstruction.size()]);
 		this.declaredAttributeList = Collections.unmodifiableList(Arrays.asList(this.declaredAttributes));
-		this.declaredFeatures = (Feature[])featuresTemp.toArray(new Feature[featuresTemp.size()]);
+		this.declaredFeatures = (Feature[])featuresWhileConstruction.toArray(new Feature[featuresWhileConstruction.size()]);
 		this.declaredFeatureList = Collections.unmodifiableList(Arrays.asList(this.declaredFeatures));
-		this.uniqueConstraints = (UniqueConstraint[])uniqueConstraintsTemp.toArray(new UniqueConstraint[uniqueConstraintsTemp.size()]);
+		this.uniqueConstraints = (UniqueConstraint[])uniqueConstraintsWhileConstruction.toArray(new UniqueConstraint[uniqueConstraintsWhileConstruction.size()]);
 		this.uniqueConstraintList = Collections.unmodifiableList(Arrays.asList(this.uniqueConstraints));
-		this.qualifiers = (Qualifier[])qualifiersTemp.toArray(new Qualifier[qualifiersTemp.size()]);
+		this.qualifiers = (Qualifier[])qualifiersWhileConstruction.toArray(new Qualifier[qualifiersWhileConstruction.size()]);
 		this.qualifierList = Collections.unmodifiableList(Arrays.asList(this.qualifiers));
 
 		// make sure, register methods fail from now on
-		this.attributesTemp = null;
-		this.featuresTemp = null;
-		this.uniqueConstraintsTemp = null;
-		this.qualifiersTemp = null;
+		this.attributesWhileConstruction = null;
+		this.featuresWhileConstruction = null;
+		this.uniqueConstraintsWhileConstruction = null;
+		this.qualifiersWhileConstruction = null;
 		
 		// attributes
 		if(supertype==null)
@@ -249,22 +248,22 @@ public final class Type
 	// TODO: rename to registerInitialization
 	final void register(final Attribute attribute)
 	{
-		attributesTemp.add(attribute);
-		featuresTemp.add(attribute);
+		attributesWhileConstruction.add(attribute);
+		featuresWhileConstruction.add(attribute);
 		featuresByName.put(attribute.getName(), attribute);
 	}
 
 	// TODO: rename to registerInitialization
 	final void register(final ComputedFunction function)
 	{
-		featuresTemp.add(function);
+		featuresWhileConstruction.add(function);
 		featuresByName.put(function.getName(), function);
 	}
 
 	// TODO: rename to registerInitialization
 	final void register(final UniqueConstraint uniqueConstraint)
 	{
-		uniqueConstraintsTemp.add(uniqueConstraint);
+		uniqueConstraintsWhileConstruction.add(uniqueConstraint);
 	}
 
 	// TODO: rename to registerInitialization
@@ -273,7 +272,7 @@ public final class Type
 	 */
 	public final void register(final Qualifier qualifier)
 	{
-		qualifiersTemp.add(qualifier);
+		qualifiersWhileConstruction.add(qualifier);
 		// TODO: do this in initialize
 		qualifier.getQualifyUnique().setQualifier(qualifier);
 	}
