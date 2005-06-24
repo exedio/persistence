@@ -29,7 +29,7 @@ public abstract class Pattern extends Feature
 	
 	/**
 	 * Here you can do additional initialization not yet done in the constructor.
-	 * In this method you can call methods {@link getType()} and {@link getName()}
+	 * In this method you can call methods {@link #getType()} and {@link #getName()}
 	 * for the first time.
 	 */
 	public void initialize()
