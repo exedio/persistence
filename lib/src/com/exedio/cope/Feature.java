@@ -18,10 +18,54 @@
 package com.exedio.cope;
 
 
-public interface Feature
+public abstract class Feature
 {
-	Type getType();
-	
-	String getName();
+	private Type type;
+	private String name;
 
+	/**
+	 * Is called in the constructor of the containing type.
+	 */
+	void initialize(final Type type, final String name)
+	{
+		if(type==null)
+			throw new RuntimeException();
+		if(name==null)
+			throw new RuntimeException();
+
+		if(this.type!=null)
+			throw new RuntimeException();
+		if(this.name!=null)
+			throw new RuntimeException();
+
+		this.type = type;
+		this.name = name.intern();
+	}
+	
+	public Type getType()
+	{
+		if(this.type==null)
+			throw new RuntimeException();
+
+		return type;
+	}
+	
+	public Type getTypeIfInitialized()
+	{
+		return type;
+	}
+	
+	public final String getName()
+	{
+		if(this.type==null)
+			throw new RuntimeException();
+
+		return name;
+	}
+	
+	public String toString()
+	{
+		return type!=null ? (type.getID()+'#'+name) : super.toString();
+	}
+	
 }

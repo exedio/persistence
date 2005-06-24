@@ -24,7 +24,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public abstract class ComputedFunction extends TypeComponent implements Function
+public abstract class ComputedFunction extends Feature implements Function
 {
 	private final Function[] sources;
 	private final List sourceList;

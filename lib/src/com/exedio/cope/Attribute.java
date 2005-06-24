@@ -20,7 +20,7 @@ package com.exedio.cope;
 import java.util.Collections;
 import java.util.List;
 
-public abstract class Attribute extends TypeComponent implements Feature
+public abstract class Attribute extends Feature
 {
 	private final boolean readOnly;
 	private final boolean notNull;

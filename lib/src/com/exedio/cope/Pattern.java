@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-public abstract class Pattern extends TypeComponent
+public abstract class Pattern extends Feature
 {
 	final void initialize(final Type type, final String name)
 	{

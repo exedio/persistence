@@ -28,7 +28,7 @@ import com.exedio.cope.search.Condition;
 import com.exedio.cope.search.EqualCondition;
 import com.exedio.dsmf.Table;
 
-public final class UniqueConstraint extends TypeComponent
+public final class UniqueConstraint extends Feature
 {
 	
 	private final ObjectAttribute[] uniqueAttributes;

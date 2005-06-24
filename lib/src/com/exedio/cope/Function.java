@@ -18,9 +18,13 @@
 package com.exedio.cope;
 
 
-public interface Function extends Feature, Selectable
+public interface Function extends Selectable
 {
 	void append(Statement bf);
 	
+	Type getType();
+
 	Type getTypeIfInitialized();
+	
+	String getName();
 }

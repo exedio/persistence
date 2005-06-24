@@ -158,10 +158,10 @@ public final class Type
 				if((field.getModifiers()&expectedModifier)==expectedModifier)
 				{
 					final Class fieldType = field.getType();
-					if(TypeComponent.class.isAssignableFrom(fieldType))
+					if(Feature.class.isAssignableFrom(fieldType))
 					{
 						field.setAccessible(true);
-						final TypeComponent component = (TypeComponent)field.get(null);
+						final Feature component = (Feature)field.get(null); // TODO rename component to feature
 						if(component==null)
 							throw new RuntimeException(field.getName());
 						component.initialize(this, field.getName());

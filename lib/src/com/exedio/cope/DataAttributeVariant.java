@@ -18,7 +18,7 @@
 package com.exedio.cope;
 
 
-public final class DataAttributeVariant extends TypeComponent
+public final class DataAttributeVariant extends Feature
 {
 	final DataAttribute attribute;
 
