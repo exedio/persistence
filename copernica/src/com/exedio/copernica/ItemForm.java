@@ -49,6 +49,7 @@ import com.exedio.cope.NestingRuntimeException;
 import com.exedio.cope.NoSuchIDException;
 import com.exedio.cope.NotNullViolationException;
 import com.exedio.cope.ObjectAttribute;
+import com.exedio.cope.Pattern;
 import com.exedio.cope.ReadOnlyViolationException;
 import com.exedio.cope.StringAttribute;
 import com.exedio.cope.Type;
@@ -177,22 +178,26 @@ final class ItemForm extends Form
 		}
 		this.hasFiles = hasFilesTemp;
 
-		for(Iterator j = type.getQualifiers().iterator(); j.hasNext(); )
+		for(Iterator j = type.getPatterns().iterator(); j.hasNext(); )
 		{
-			final Qualifier qualifier = (Qualifier)j.next();
-			final Collection values = qualifier.getQualifyUnique().getType().search(new EqualCondition(qualifier.getParent(), item));
-			for(Iterator k = qualifier.getAttributes().iterator(); k.hasNext(); )
+			final Pattern pattern = (Pattern)j.next();
+			if(pattern instanceof Qualifier)
 			{
-				final Attribute anyAttribute = (Attribute)k.next();
-				for(Iterator l = values.iterator(); l.hasNext(); )
+				final Qualifier qualifier = (Qualifier)pattern;
+				final Collection values = qualifier.getQualifyUnique().getType().search(new EqualCondition(qualifier.getParent(), item));
+				for(Iterator k = qualifier.getAttributes().iterator(); k.hasNext(); )
 				{
-					final Item value = (Item)l.next();
-					if(anyAttribute instanceof ObjectAttribute)
+					final Attribute anyAttribute = (Attribute)k.next();
+					for(Iterator l = values.iterator(); l.hasNext(); )
 					{
-						final ObjectAttribute attribute = (ObjectAttribute)anyAttribute;
-						final Object qualifiedValue = value.get(attribute);
-						if(qualifiedValue!=null)
-							createField(attribute, value, value.getCopeID()+'.'+attribute.getName(), true, false, cop, false, model);
+						final Item value = (Item)l.next();
+						if(anyAttribute instanceof ObjectAttribute)
+						{
+							final ObjectAttribute attribute = (ObjectAttribute)anyAttribute;
+							final Object qualifiedValue = value.get(attribute);
+							if(qualifiedValue!=null)
+								createField(attribute, value, value.getCopeID()+'.'+attribute.getName(), true, false, cop, false, model);
+						}
 					}
 				}
 			}

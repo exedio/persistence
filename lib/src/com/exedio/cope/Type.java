@@ -61,8 +61,8 @@ public final class Type
 	final UniqueConstraint[] uniqueConstraints;
 	private final List uniqueConstraintList;
 
-	private final Qualifier[] qualifiers;
-	private final List qualifierList;
+	private final Pattern[] patterns;
+	private final List patternList;
 	
 	private ArrayList subTypes = null;
 	private ArrayList references = null;
@@ -103,7 +103,7 @@ public final class Type
 	private ArrayList attributesWhileConstruction;
 	private ArrayList featuresWhileConstruction;
 	private ArrayList uniqueConstraintsWhileConstruction;
-	private ArrayList qualifiersWhileConstruction;
+	private ArrayList patternsWhileConstruction;
 
 	public Type(final Class javaClass, final Class componentJavaClass, final Class[] ignoreClasses, boolean dontUse)
 	{
@@ -149,7 +149,7 @@ public final class Type
 		this.attributesWhileConstruction = new ArrayList(fields.length);
 		this.featuresWhileConstruction = new ArrayList(fields.length);
 		this.uniqueConstraintsWhileConstruction = new ArrayList(fields.length);
-		this.qualifiersWhileConstruction = new ArrayList(fields.length);
+		this.patternsWhileConstruction = new ArrayList(fields.length);
 		final int expectedModifier = Modifier.STATIC | Modifier.FINAL;
 		try
 		{
@@ -180,14 +180,14 @@ public final class Type
 		this.declaredFeatureList = Collections.unmodifiableList(Arrays.asList(this.declaredFeatures));
 		this.uniqueConstraints = (UniqueConstraint[])uniqueConstraintsWhileConstruction.toArray(new UniqueConstraint[uniqueConstraintsWhileConstruction.size()]);
 		this.uniqueConstraintList = Collections.unmodifiableList(Arrays.asList(this.uniqueConstraints));
-		this.qualifiers = (Qualifier[])qualifiersWhileConstruction.toArray(new Qualifier[qualifiersWhileConstruction.size()]);
-		this.qualifierList = Collections.unmodifiableList(Arrays.asList(this.qualifiers));
+		this.patterns = (Qualifier[])patternsWhileConstruction.toArray(new Qualifier[patternsWhileConstruction.size()]);
+		this.patternList = Collections.unmodifiableList(Arrays.asList(this.patterns));
 
 		// make sure, register methods fail from now on
 		this.attributesWhileConstruction = null;
 		this.featuresWhileConstruction = null;
 		this.uniqueConstraintsWhileConstruction = null;
-		this.qualifiersWhileConstruction = null;
+		this.patternsWhileConstruction = null;
 		
 		// attributes
 		if(supertype==null)
@@ -268,7 +268,7 @@ public final class Type
 	 */
 	public final void registerInitialization(final Qualifier qualifier)
 	{
-		qualifiersWhileConstruction.add(qualifier);
+		patternsWhileConstruction.add(qualifier);
 		// TODO: do this in initialize
 		qualifier.getQualifyUnique().setQualifier(qualifier);
 	}
@@ -478,9 +478,9 @@ public final class Type
 		return uniqueConstraintList;
 	}
 	
-	public final List getQualifiers()
+	public final List getPatterns()
 	{
-		return qualifierList;
+		return patternList;
 	}
 	
 	private static final AttributeValue[] EMPTY_ATTRIBUTE_VALUES = new AttributeValue[]{};
