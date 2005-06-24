@@ -23,7 +23,6 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import com.exedio.cope.pattern.Qualifier;
 import com.exedio.cope.search.AndCondition;
 import com.exedio.cope.search.Condition;
 import com.exedio.cope.search.EqualCondition;
@@ -34,7 +33,6 @@ public final class UniqueConstraint extends TypeComponent
 	
 	private final ObjectAttribute[] uniqueAttributes;
 	private final List uniqueAttributeList;
-	private Qualifier qualifier;
 	private String databaseID;
 
 	private UniqueConstraint(final ObjectAttribute[] uniqueAttributes)
@@ -82,19 +80,6 @@ public final class UniqueConstraint extends TypeComponent
 	public final List getUniqueAttributes()
 	{
 		return uniqueAttributeList;
-	}
-	
-	public Qualifier getQualifier()
-	{
-		return qualifier;
-	}
-	
-	void setQualifier(final Qualifier qualifier)
-	{
-		if(this.qualifier!=null)
-			throw new RuntimeException("unique constraint can have at most one qualifier");
-
-		this.qualifier = qualifier;
 	}
 	
 	final void materialize(final Database database)

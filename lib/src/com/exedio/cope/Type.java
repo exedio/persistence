@@ -269,8 +269,6 @@ public final class Type
 	public final void registerInitialization(final Qualifier qualifier)
 	{
 		patternsWhileConstruction.add(qualifier);
-		// TODO: do this in initialize
-		qualifier.getQualifyUnique().setQualifier(qualifier);
 	}
 	
 	final void registerSubType(final Type subType)
