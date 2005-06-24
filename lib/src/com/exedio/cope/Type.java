@@ -161,10 +161,10 @@ public final class Type
 					if(Feature.class.isAssignableFrom(fieldType))
 					{
 						field.setAccessible(true);
-						final Feature component = (Feature)field.get(null); // TODO rename component to feature
-						if(component==null)
+						final Feature feature = (Feature)field.get(null); 
+						if(feature==null)
 							throw new RuntimeException(field.getName());
-						component.initialize(this, field.getName());
+						feature.initialize(this, field.getName());
 					}
 				}
 			}
