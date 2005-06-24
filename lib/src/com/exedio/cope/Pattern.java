@@ -41,4 +41,10 @@ public abstract class Pattern extends Feature
 		attribute.initialize(getType(), name);
 	}
 
+	// Make non-final method from super class final
+	public final Type getType()
+	{
+		return super.getType();
+	}
+	
 }
