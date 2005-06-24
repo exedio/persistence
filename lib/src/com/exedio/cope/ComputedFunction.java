@@ -45,7 +45,17 @@ public abstract class ComputedFunction extends Feature implements Function
 			throw new RuntimeException("length "+sources.length+" "+sqlFragments.length);
 		this.functionName = functionName;
 		this.jdbcType = jdbcType;
-		this.sourceType = sources[0].getTypeIfInitialized();
+		
+		Type sourceType;
+		try
+		{
+			sourceType = sources[0].getType();
+		}
+		catch(FeatureNotInitializedException e)
+		{
+			sourceType = null;
+		}
+		this.sourceType = sourceType;
 	}
 	
 	public final List getSources()
@@ -99,11 +109,6 @@ public abstract class ComputedFunction extends Feature implements Function
 	public final Type getType()
 	{
 		return (sourceType!=null) ? sourceType : super.getType();
-	}
-	
-	public final Type getTypeIfInitialized()
-	{
-		return (sourceType!=null) ? sourceType : super.getTypeIfInitialized();
 	}
 	
 }

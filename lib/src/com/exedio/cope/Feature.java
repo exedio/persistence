@@ -45,20 +45,15 @@ public abstract class Feature
 	public Type getType()
 	{
 		if(this.type==null)
-			throw new RuntimeException();
+			throw new FeatureNotInitializedException();
 
-		return type;
-	}
-	
-	public Type getTypeIfInitialized()
-	{
 		return type;
 	}
 	
 	public final String getName()
 	{
 		if(this.type==null)
-			throw new RuntimeException();
+			throw new FeatureNotInitializedException();
 
 		return name;
 	}
