@@ -21,12 +21,12 @@ package com.exedio.cope.pattern;
 import com.exedio.cope.Item;
 import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.NotNullViolationException;
+import com.exedio.cope.Pattern;
 import com.exedio.cope.ReadOnlyViolationException;
 import com.exedio.cope.StringAttribute;
-import com.exedio.cope.TypeComponent;
 import com.exedio.cope.UniqueViolationException;
 
-public abstract class Hash extends TypeComponent
+public abstract class Hash extends Pattern
 {
 	final StringAttribute storage;
 

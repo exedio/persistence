@@ -86,7 +86,7 @@ public abstract class ComputedFunction extends TypeComponent implements Function
 	
 	// second initialization phase ---------------------------------------------------
 
-	public final void initialize(final Type type, final String name)
+	final void initialize(final Type type, final String name)
 	{
 		if(sourceType!=null && type!=sourceType)
 			throw new RuntimeException();

@@ -32,13 +32,13 @@ import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.NestingRuntimeException;
 import com.exedio.cope.NotNullViolationException;
 import com.exedio.cope.ObjectAttribute;
+import com.exedio.cope.Pattern;
 import com.exedio.cope.ReadOnlyViolationException;
 import com.exedio.cope.Type;
-import com.exedio.cope.TypeComponent;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.UniqueViolationException;
 
-public final class Qualifier extends TypeComponent
+public final class Qualifier extends Pattern
 {
 	private final ItemAttribute parent;
 	private final ObjectAttribute[] keys;
@@ -85,9 +85,9 @@ public final class Qualifier extends TypeComponent
 	
 	// second initialization phase ---------------------------------------------------
 
-	public void initialize(final Type qualifiedType, final String name)
+	public void initialize()
 	{
-		super.initialize(qualifiedType, name);
+		final Type qualifiedType = getType();
 		
 		qualifiedType.registerInitialization(this);
 		

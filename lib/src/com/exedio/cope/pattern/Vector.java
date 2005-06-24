@@ -30,12 +30,11 @@ import com.exedio.cope.Item;
 import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.NotNullViolationException;
 import com.exedio.cope.ObjectAttribute;
+import com.exedio.cope.Pattern;
 import com.exedio.cope.ReadOnlyViolationException;
-import com.exedio.cope.Type;
-import com.exedio.cope.TypeComponent;
 import com.exedio.cope.UniqueViolationException;
 
-public final class Vector extends TypeComponent
+public final class Vector extends Pattern
 {
 	final ObjectAttribute[] sources;
 	final boolean initializeSources;
@@ -66,14 +65,14 @@ public final class Vector extends TypeComponent
 		return result;
 	}
 	
-	public void initialize(final Type type, final String name)
+	public void initialize()
 	{
-		super.initialize(type, name);
+		final String name = getName();
 		
 		if(initializeSources)
 		{
 			for(int i = 0; i<sources.length; i++)
-				sources[i].initialize(type, name+(i+1/*TODO: make this '1' customizable*/));
+				initialize(sources[i], name+(i+1/*TODO: make this '1' customizable*/));
 		}
 	}
 	

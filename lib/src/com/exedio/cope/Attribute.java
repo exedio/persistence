@@ -65,7 +65,7 @@ public abstract class Attribute extends TypeComponent implements Feature
 	private List columns;
 	private Column mainColumn;
 	
-	public final void initialize(final Type type, final String name)
+	final void initialize(final Type type, final String name)
 	{
 		super.initialize(type, name);
 

@@ -38,7 +38,7 @@ public final class DataAttributeVariant extends TypeComponent
 
 	// second initialization phase ---------------------------------------------------
 
-	public final void initialize(final Type type, final String name)
+	final void initialize(final Type type, final String name)
 	{
 		super.initialize(type, makeName(attribute.getName(), name));
 	}

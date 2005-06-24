@@ -18,54 +18,26 @@
 
 package com.exedio.cope;
 
-abstract class TypeComponent
+public abstract class Pattern extends TypeComponent
 {
-	private Type type;
-	private String name;
-
+	final void initialize(final Type type, final String name)
+	{
+		super.initialize(type, name);
+		initialize();
+	}
+	
 	/**
-	 * Is called in the constructor of the containing type.
+	 * Here you can do additional initialization not yet done in the constructor.
+	 * In this method you can call methods {@link getType()} and {@link getName()}
+	 * for the first time.
 	 */
-	void initialize(final Type type, final String name)
+	public void initialize()
 	{
-		if(type==null)
-			throw new RuntimeException();
-		if(name==null)
-			throw new RuntimeException();
+	}
+	
+	protected final void initialize(final ObjectAttribute attribute, final String name)
+	{
+		attribute.initialize(getType(), name);
+	}
 
-		if(this.type!=null)
-			throw new RuntimeException();
-		if(this.name!=null)
-			throw new RuntimeException();
-
-		this.type = type;
-		this.name = name.intern();
-	}
-	
-	public Type getType()
-	{
-		if(this.type==null)
-			throw new RuntimeException();
-
-		return type;
-	}
-	
-	public Type getTypeIfInitialized()
-	{
-		return type;
-	}
-	
-	public final String getName()
-	{
-		if(this.type==null)
-			throw new RuntimeException();
-
-		return name;
-	}
-	
-	public String toString()
-	{
-		return type!=null ? (type.getID()+'#'+name) : super.toString();
-	}
-	
 }

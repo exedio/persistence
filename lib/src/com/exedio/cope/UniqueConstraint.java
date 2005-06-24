@@ -70,7 +70,7 @@ public final class UniqueConstraint extends TypeComponent
 		this(new ObjectAttribute[]{uniqueAttribute1, uniqueAttribute2, uniqueAttribute3});
 	}
 	
-	public void initialize(final Type type, final String name)
+	void initialize(final Type type, final String name)
 	{
 		super.initialize(type, name);
 		type.registerInitialization(this);
