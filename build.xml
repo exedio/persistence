@@ -2,7 +2,7 @@
 
 <project name="cope" default="all" basedir=".">
 
-	<property name="exedioline" value='&lt;small&gt;Copyright &amp;copy; 2004-2005 &lt;a href="http://www.exedio.com/" target="_top"&gt;exedio&lt;/a&gt; Gesellschaft f&amp;uuml;r Softwareentwicklung mbH. All rights reserved.&lt;small&gt;' />
+	<property name="exedioline" value='&lt;small&gt;Copyright &amp;copy; 2004-2005 &lt;a href="http://www.exedio.com/" target="_top"&gt;exedio&lt;/a&gt; Gesellschaft f&amp;uuml;r Softwareentwicklung mbH. All rights reserved.&lt;/small&gt;' />
 	
 	<taskdef
 			resource="net/sf/antcontrib/antcontrib.properties"
