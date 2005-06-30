@@ -39,6 +39,9 @@ public final class MysqlDriver extends Driver
 
 	private static final char PROTECTOR = '`';
 
+	/**
+	 * Use backticks to protect name for mysql.
+	 */
 	public String protectName(final String name)
 	{
 		if(name.indexOf(PROTECTOR)>=0)
