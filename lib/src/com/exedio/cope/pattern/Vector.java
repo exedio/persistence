@@ -36,8 +36,8 @@ import com.exedio.cope.UniqueViolationException;
 
 public final class Vector extends Pattern
 {
-	final ObjectAttribute[] sources;
-	final boolean initializeSources;
+	private final ObjectAttribute[] sources;
+	private final boolean initializeSources;
 
 	private Vector(final ObjectAttribute[] sources, final boolean initializeSources)
 	{

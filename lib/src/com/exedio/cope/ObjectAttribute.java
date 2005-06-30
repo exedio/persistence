@@ -24,8 +24,8 @@ public abstract class ObjectAttribute
 	extends Attribute
 	implements Function
 {
-	final Class valueClass;
-	final String valueClassName;
+	private final Class valueClass;
+	private final String valueClassName;
 	
 	protected ObjectAttribute(final Option option, final Class valueClass, final String valueClassName)
 	{

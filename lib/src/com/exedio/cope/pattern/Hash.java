@@ -28,7 +28,7 @@ import com.exedio.cope.UniqueViolationException;
 
 public abstract class Hash extends Pattern
 {
-	final StringAttribute storage;
+	private final StringAttribute storage;
 
 	public Hash(final StringAttribute storage)
 	{
