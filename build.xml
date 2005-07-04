@@ -22,6 +22,23 @@
 					classpath="../jspm/build/classes" />
 	</target>
 	
+	<macrodef name="foreachdb">
+		<attribute name="message"/>
+		<element name="body" optional="false" />
+		<sequential>
+			<for param="property-file">
+				<path>
+					<fileset dir="${basedir}" includes="cope.properties.test.*" />
+				</path>
+				<sequential>
+					<echo message="@{message} @{property-file}" />
+					<property file="@{property-file}" prefix="@{property-file}." />
+					<body />
+				</sequential>
+			</for>
+		</sequential>
+	</macrodef>
+	
 	<target name="lib.compile.mkdir">
 		<mkdir dir="lib/build/classes" />
 		<!-- test for cruisecontrol -->
@@ -216,13 +233,8 @@
 	</target>
 	
 	<target name="dsmf.test.run" depends="dsmf.test.compile">
-		<for param="property-file">
-			<path>
-				<fileset dir="${basedir}" includes="cope.properties.test.*" />
-			</path>
-			<sequential>
-				<echo message="Testing @{property-file}" />
-				<property file="@{property-file}" prefix="@{property-file}." />
+		<foreachdb message="Testing">
+			<body>
 				<java classname="junit.textui.TestRunner" taskname="junit ${@{property-file}.database}" fork="yes" failonerror="yes">
 					<classpath>
 						<pathelement location="lib/build/classes" />
@@ -233,8 +245,8 @@
 					<arg value="com.exedio.dsmf.PackageTest" />
 					<sysproperty key="com.exedio.cope.properties" file="@{property-file}" />
 				</java>
-			</sequential>
-		</for>
+			</body>
+		</foreachdb>
 	</target>
 	
 	<target name="dsmf.test" depends="dsmf.test.run" />
@@ -308,13 +320,8 @@
 	</target>
 	
 	<target name="lib.test.run" depends="lib.test.compile">
-		<for param="property-file">
-			<path>
-				<fileset dir="${basedir}" includes="cope.properties.test.*" />
-			</path>
-			<sequential>
-				<echo message="Testing @{property-file}" />
-				<property file="@{property-file}" prefix="@{property-file}." />
+		<foreachdb message="Testing">
+			<body>
 				<mkdir dir="lib/build/test.${@{property-file}.database}/data" />
 				<copy file="@{property-file}"
 						tofile="lib/build/test.${@{property-file}.database}/cope.properties">
@@ -334,21 +341,15 @@
 					<arg value="com.exedio.cope.PackageTest" />
 					<sysproperty key="com.exedio.cope.properties" file="lib/build/test.${@{property-file}.database}/cope.properties" />
 				</java>
-			</sequential>
-		</for>
+			</body>
+		</foreachdb>
 	</target>
 	
 	<target name="lib.test" depends="lib.test.run" />
 
 	<target name="lib.test.teardown" depends="lib.compile, lib.testmodel.compile">
-		<for param="property-file">
-			<path>
-				<fileset dir="${basedir}" includes="cope.properties.test.*" />
-			</path>
-			<sequential>
-				<echo message="Tearing down @{property-file}" />
-				<property file="@{property-file}" prefix="@{property-file}." />
-				
+		<foreachdb message="Tearing down">
+			<body>
 				<mkdir dir="lib/build/teardown.${@{property-file}.database}/data" />
 				<copy file="@{property-file}"
 						tofile="lib/build/teardown.${@{property-file}.database}/cope.properties">
@@ -368,9 +369,8 @@
 					<sysproperty key="com.exedio.cope.properties"
 									 file="lib/build/teardown.${@{property-file}.database}/cope.properties" />
 				</java>
-				
-			</sequential>
-		</for>
+			</body>
+		</foreachdb>
 	</target>
 
 	<target name="teardown" depends="lib.test.teardown" />
@@ -457,14 +457,8 @@
 	</target>
 	
 	<target name="copernica.testwebapp" depends="copernica.compile, copernica.test.compile">
-		<for param="property-file">
-			<path>
-				<fileset dir="${basedir}" includes="cope.properties.test.*" />
-			</path>
-			<sequential>
-				<echo message="Using @{property-file}" />
-				<property file="@{property-file}" prefix="@{property-file}." />
-				
+		<foreachdb message="Using">
+			<body>
 				<mkdir dir="copernica/build/testwebapp-${@{property-file}.database}" />
 				
 				<copy todir="copernica/build/testwebapp-${@{property-file}.database}/WEB-INF/classes">
@@ -503,8 +497,8 @@
 				</copy>
 				
 				<touch file="copernica/build/testwebapp-${@{property-file}.database}/WEB-INF/web.xml" />
-			</sequential>
-		</for>
+			</body>
+		</foreachdb>
 	</target>
 	
 	
