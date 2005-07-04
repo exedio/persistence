@@ -568,38 +568,12 @@
 	<target name="clean" depends="lib.clean, instrument.clean, copernica.clean" />
 	
 	
-	<target name="dsmf.api" depends="properties">
-		
-		<delete dir="dsmf/api" />
-		<mkdir  dir="dsmf/api" />
-		
-		<javadoc
-				  sourcepath="dsmf/src"
-				  destdir="dsmf/api"
-				  maxmemory="60m"
-				  private="${api.private}"
-				  author="on"
-				  use="on"
-				  version="on"
-				  windowtitle="Database Schema Management Facility"
-				  doctitle=   "Database Schema Management Facility&lt;br&gt;API Specification"
-				  header=     "DSMF"
-				  footer=     "Database Schema&lt;br&gt;Management Facility"
-				  splitindex="on"
-				  bottom="${exedioline}"
-				  >
-			<package name="com.*" />
-			<link href="${api.link.jdk}" />
-		</javadoc>
-	</target>
-	
 	<target name="lib.api" depends="properties">
 
 		<delete dir="lib/api" />
 		<mkdir  dir="lib/api" />
 
 		<javadoc
-				sourcepath="lib/src"
 				destdir="lib/api"
 				maxmemory="60m"
 				private="${api.private}"
@@ -614,10 +588,10 @@
 				bottom="${exedioline}"
 			>
 			<package name="com.*" />
-			<link href="../../dsmf/api" />
 			<link href="${api.link.jdk}" />
+			<fileset file="dsmf/src/com" includes="**/*.java" />
+			<fileset file="lib/src/com" includes="**/*.java" />
 			<classpath>
-				<pathelement location="lib/build/classes" /><!-- for dsmf -->
 				<pathelement location="../lib/pcj.jar" />
 			</classpath>
 		</javadoc>
@@ -688,7 +662,7 @@
 		</javadoc>
 	</target>
 
-	<target name="api" depends="dsmf.api, lib.api, instrument.api, copernica.api" />
+	<target name="api" depends="lib.api, instrument.api, copernica.api" />
 	
 	<target name="jspm" depends="copernica.jspm, copernica.test.jspm" />
 	
