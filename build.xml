@@ -26,19 +26,19 @@
 		<attribute name="message" />
 		<element name="body" optional="false" />
 		<sequential>
-			<for param="property-file">
+			<for param="db.file">
 				<path>
 					<fileset dir="${basedir}" includes="*.test.cope.properties" />
 				</path>
 				<sequential>
-					<basename file="@{property-file}" property="@{property-file}.db" suffix=".test.cope.properties" />
+					<basename file="@{db.file}" property="@{db.file}.db" suffix=".test.cope.properties" />
 					<!-- this is a dummy loop to create the attribute @{db} -->
-					<for param="db" list="${@{property-file}.db}">
+					<for param="db" list="${@{db.file}.db}">
 						<sequential>
 							<echo message="@{message} @{db}" />
-							<property file="@{property-file}" prefix="@{property-file}." />
+							<property file="@{db.file}" prefix="@{db.file}." />
 							<!-- this is a dummy loop to create the attribute @{db.driver} -->
-							<for param="db.driver" list="${@{property-file}.x-build.driver}">
+							<for param="db.driver" list="${@{db.file}.x-build.driver}">
 								<sequential>
 									<body />
 								</sequential>
@@ -254,7 +254,7 @@
 						<pathelement location="../lib/@{db.driver}" />
 					</classpath>
 					<arg value="com.exedio.dsmf.PackageTest" />
-					<sysproperty key="com.exedio.cope.properties" file="@{property-file}" />
+					<sysproperty key="com.exedio.cope.properties" file="@{db.file}" />
 				</java>
 			</body>
 		</foreachdb>
@@ -334,7 +334,7 @@
 		<foreachdb message="Testing">
 			<body>
 				<mkdir dir="lib/build/test.@{db}/data" />
-				<copy file="@{property-file}"
+				<copy file="@{db.file}"
 						tofile="lib/build/test.@{db}/cope.properties">
 					<filterset>
 						<filter token="DATADIR_PATH" value="lib/build/test.@{db}/data" />
@@ -362,7 +362,7 @@
 		<foreachdb message="Tearing down">
 			<body>
 				<mkdir dir="lib/build/teardown.@{db}/data" />
-				<copy file="@{property-file}"
+				<copy file="@{db.file}"
 						tofile="lib/build/teardown.@{db}/cope.properties">
 					<filterset>
 						<filter token="DATADIR_PATH"
@@ -486,7 +486,7 @@
 				</copy>
 				
 				<copy tofile="copernica/build/testwebapp-@{db}/WEB-INF/cope.properties"
-						file="@{property-file}">
+						file="@{db.file}">
 					<filterset>
 						<filter token="DATADIR_PATH" value="//WEB-APP//" />
 					</filterset>
