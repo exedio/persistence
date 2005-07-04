@@ -27,6 +27,9 @@ database.password=yourpassword
 
 # Example properties for the data directory
 #
+# Is needed only if the project uses DataAttribute,
+# otherwise you may remove these properties.
+#
 datadir.path=the/path/to/your/directory/for/data/files
 datadir.url=/url/prefix/of/your/data/files/
 
