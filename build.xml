@@ -587,7 +587,6 @@
 				splitindex="on"
 				bottom="${exedioline}"
 			>
-			<package name="com.*" />
 			<link href="${api.link.jdk}" />
 			<link href="${api.link.j2ee}" />
 			<link href="${api.link.ant}" />
