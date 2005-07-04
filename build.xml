@@ -23,7 +23,7 @@
 	</target>
 	
 	<macrodef name="foreachdb">
-		<attribute name="message"/>
+		<attribute name="message" />
 		<element name="body" optional="false" />
 		<sequential>
 			<for param="property-file">
