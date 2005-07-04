@@ -568,7 +568,7 @@
 	<target name="clean" depends="lib.clean, instrument.clean, copernica.clean" />
 	
 	
-	<target name="lib.api" depends="properties">
+	<target name="api" depends="properties">
 
 		<delete dir="lib/api" />
 		<mkdir  dir="lib/api" />
@@ -609,8 +609,6 @@
 		</javadoc>
 	</target>
 
-	<target name="api" depends="lib.api" />
-	
 	<target name="jspm" depends="copernica.jspm, copernica.test.jspm" />
 	
 	<target name="all"
