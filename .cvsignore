@@ -1,2 +1,2 @@
-cope.properties.test.oracle
-cope.properties.test.mysql
+oracle.test.cope.properties
+mysql.test.cope.properties

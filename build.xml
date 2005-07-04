@@ -28,10 +28,11 @@
 		<sequential>
 			<for param="property-file">
 				<path>
-					<fileset dir="${basedir}" includes="cope.properties.test.*" />
+					<fileset dir="${basedir}" includes="*.test.cope.properties" />
 				</path>
 				<sequential>
-					<echo message="@{message} @{property-file}" />
+					<basename file="@{property-file}" property="@{property-file}.db" suffix=".test.cope.properties" />
+					<echo message="@{message} ${@{property-file}.db}" />
 					<property file="@{property-file}" prefix="@{property-file}." />
 					<body />
 				</sequential>
@@ -235,7 +236,7 @@
 	<target name="dsmf.test.run" depends="dsmf.test.compile">
 		<foreachdb message="Testing">
 			<body>
-				<java classname="junit.textui.TestRunner" taskname="junit ${@{property-file}.database}" fork="yes" failonerror="yes">
+				<java classname="junit.textui.TestRunner" taskname="junit ${@{property-file}.db}" fork="yes" failonerror="yes">
 					<classpath>
 						<pathelement location="lib/build/classes" />
 						<pathelement location="dsmf/build/testclasses" />
@@ -322,14 +323,14 @@
 	<target name="lib.test.run" depends="lib.test.compile">
 		<foreachdb message="Testing">
 			<body>
-				<mkdir dir="lib/build/test.${@{property-file}.database}/data" />
+				<mkdir dir="lib/build/test.${@{property-file}.db}/data" />
 				<copy file="@{property-file}"
-						tofile="lib/build/test.${@{property-file}.database}/cope.properties">
+						tofile="lib/build/test.${@{property-file}.db}/cope.properties">
 					<filterset>
-						<filter token="DATADIR_PATH" value="lib/build/test.${@{property-file}.database}/data" />
+						<filter token="DATADIR_PATH" value="lib/build/test.${@{property-file}.db}/data" />
 					</filterset>
 				</copy>
-				<java classname="junit.textui.TestRunner" taskname="junit ${@{property-file}.database}" fork="yes" failonerror="yes">
+				<java classname="junit.textui.TestRunner" taskname="junit ${@{property-file}.db}" fork="yes" failonerror="yes">
 					<classpath>
 						<pathelement location="lib/build/classes" />
 						<pathelement location="lib/build/testmodelclasses" />
@@ -339,7 +340,7 @@
 						<pathelement location="../lib/${@{property-file}.x-build.driver}" />
 					</classpath>
 					<arg value="com.exedio.cope.PackageTest" />
-					<sysproperty key="com.exedio.cope.properties" file="lib/build/test.${@{property-file}.database}/cope.properties" />
+					<sysproperty key="com.exedio.cope.properties" file="lib/build/test.${@{property-file}.db}/cope.properties" />
 				</java>
 			</body>
 		</foreachdb>
@@ -350,15 +351,15 @@
 	<target name="lib.test.teardown" depends="lib.compile, lib.testmodel.compile">
 		<foreachdb message="Tearing down">
 			<body>
-				<mkdir dir="lib/build/teardown.${@{property-file}.database}/data" />
+				<mkdir dir="lib/build/teardown.${@{property-file}.db}/data" />
 				<copy file="@{property-file}"
-						tofile="lib/build/teardown.${@{property-file}.database}/cope.properties">
+						tofile="lib/build/teardown.${@{property-file}.db}/cope.properties">
 					<filterset>
 						<filter token="DATADIR_PATH"
-								  value="lib/build/teardown.${@{property-file}.database}/data" />
+								  value="lib/build/teardown.${@{property-file}.db}/data" />
 					</filterset>
 				</copy>
-				<java classname="com.exedio.cope.testmodel.Main" taskname="tear down ${@{property-file}.database}"
+				<java classname="com.exedio.cope.testmodel.Main" taskname="tear down ${@{property-file}.db}"
 						fork="yes" failonerror="yes">
 					<classpath>
 						<pathelement location="lib/build/classes" />
@@ -367,7 +368,7 @@
 						<pathelement location="../lib/${@{property-file}.x-build.driver}" />
 					</classpath>
 					<sysproperty key="com.exedio.cope.properties"
-									 file="lib/build/teardown.${@{property-file}.database}/cope.properties" />
+									 file="lib/build/teardown.${@{property-file}.db}/cope.properties" />
 				</java>
 			</body>
 		</foreachdb>
@@ -459,9 +460,9 @@
 	<target name="copernica.testwebapp" depends="copernica.compile, copernica.test.compile">
 		<foreachdb message="Using">
 			<body>
-				<mkdir dir="copernica/build/testwebapp-${@{property-file}.database}" />
+				<mkdir dir="copernica/build/testwebapp-${@{property-file}.db}" />
 				
-				<copy todir="copernica/build/testwebapp-${@{property-file}.database}/WEB-INF/classes">
+				<copy todir="copernica/build/testwebapp-${@{property-file}.db}/WEB-INF/classes">
 					<fileset dir="lib/build/classes" />
 					<fileset dir="lib/build/testmodelclasses" />
 					<fileset dir="copernica/build/classes" />
@@ -469,34 +470,34 @@
 					<fileset dir="../cops/build/classes" />
 				</copy>
 				
-				<copy todir="copernica/build/testwebapp-${@{property-file}.database}/WEB-INF/lib">
+				<copy todir="copernica/build/testwebapp-${@{property-file}.db}/WEB-INF/lib">
 					<fileset file="../lib/pcj.jar" />
 					<fileset file="../lib/${@{property-file}.x-build.driver}" />
 				</copy>
 				
-				<copy tofile="copernica/build/testwebapp-${@{property-file}.database}/WEB-INF/cope.properties"
+				<copy tofile="copernica/build/testwebapp-${@{property-file}.db}/WEB-INF/cope.properties"
 						file="@{property-file}">
 					<filterset>
 						<filter token="DATADIR_PATH" value="//WEB-APP//" />
 					</filterset>
 				</copy>
-				<copy todir="copernica/build/testwebapp-${@{property-file}.database}/WEB-INF/"
+				<copy todir="copernica/build/testwebapp-${@{property-file}.db}/WEB-INF/"
 						file="copernica/web.xml" />
-				<copy todir="copernica/build/testwebapp-${@{property-file}.database}">
+				<copy todir="copernica/build/testwebapp-${@{property-file}.db}">
 					<fileset dir="copernica/jsp">
 						<exclude name="*.jsp" />
 						<exclude name="*.inc" />
 					</fileset>
 				</copy>
-				<mkdir dir="copernica/build/testwebapp-${@{property-file}.database}/data" />
-				<copy tofile="../tomcat/conf/Catalina/localhost/copetest-${@{property-file}.database}.xml"
+				<mkdir dir="copernica/build/testwebapp-${@{property-file}.db}/data" />
+				<copy tofile="../tomcat/conf/Catalina/localhost/copetest-${@{property-file}.db}.xml"
 						file="copernica/copetest.xml">
 					<filterset>
-						<filter token="DATABASE" value="${@{property-file}.database}" />
+						<filter token="DATABASE" value="${@{property-file}.db}" />
 					</filterset>
 				</copy>
 				
-				<touch file="copernica/build/testwebapp-${@{property-file}.database}/WEB-INF/web.xml" />
+				<touch file="copernica/build/testwebapp-${@{property-file}.db}/WEB-INF/web.xml" />
 			</body>
 		</foreachdb>
 	</target>
