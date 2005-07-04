@@ -26,5 +26,4 @@
 	- Restriktionen
 	- hochgeladene DataAttributes erst beim "Save" speichern
 	- use <link rel="prev/next/copyright/home"
-	- generate tomcat/conf/Catalina/localhost/copetest-*.xml
 	- show warning on website, if account runs with empty/default/bad password
