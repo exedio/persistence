@@ -529,8 +529,8 @@
 				debug="on"
 				optimize="off">
 			<classpath>
-				<fileset dir="../lib/jwebunit"> 
-					<include name="*.jar" /> 
+				<fileset dir="../lib/jwebunit">
+					<include name="*.jar" />
 				</fileset> 
 			</classpath>
 		</javac>
@@ -541,8 +541,8 @@
 				failonerror="yes" fork="yes">
 			<classpath>
 				<pathelement location="copernica/build/webtestclasses" />
-				<fileset dir="../lib/jwebunit"> 
-					<include name="*.jar" /> 
+				<fileset dir="../lib/jwebunit">
+					<include name="*.jar" />
 				</fileset> 
 			</classpath>
 			<arg value="com.exedio.copernica.PackageTest" />
