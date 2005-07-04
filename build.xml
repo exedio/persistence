@@ -570,11 +570,11 @@
 	
 	<target name="api" depends="properties">
 
-		<delete dir="lib/api" />
-		<mkdir  dir="lib/api" />
+		<delete dir="api" />
+		<mkdir  dir="api" />
 
 		<javadoc
-				destdir="lib/api"
+				destdir="api"
 				maxmemory="60m"
 				private="${api.private}"
 				author="on"
@@ -590,7 +590,7 @@
 			<link href="${api.link.jdk}" />
 			<link href="${api.link.j2ee}" />
 			<link href="${api.link.ant}" />
-			<link href="../../../cops/api" />
+			<link href="../../cops/api" />
 			<fileset file="dsmf/src/com" includes="**/*.java" />
 			<fileset file="lib/src/com" includes="**/*.java" />
 			<fileset file="instrument/src/com" includes="**/*.java" />
