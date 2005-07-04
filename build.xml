@@ -32,9 +32,14 @@
 				</path>
 				<sequential>
 					<basename file="@{property-file}" property="@{property-file}.db" suffix=".test.cope.properties" />
-					<echo message="@{message} ${@{property-file}.db}" />
-					<property file="@{property-file}" prefix="@{property-file}." />
-					<body />
+					<!-- this is a dummy loop to create the attribute @{db} -->
+					<for param="db" list="${@{property-file}.db}">
+						<sequential>
+							<echo message="@{message} @{db}" />
+							<property file="@{property-file}" prefix="@{property-file}." />
+							<body />
+						</sequential>
+					</for>
 				</sequential>
 			</for>
 		</sequential>
@@ -236,7 +241,7 @@
 	<target name="dsmf.test.run" depends="dsmf.test.compile">
 		<foreachdb message="Testing">
 			<body>
-				<java classname="junit.textui.TestRunner" taskname="junit ${@{property-file}.db}" fork="yes" failonerror="yes">
+				<java classname="junit.textui.TestRunner" taskname="junit @{db}" fork="yes" failonerror="yes">
 					<classpath>
 						<pathelement location="lib/build/classes" />
 						<pathelement location="dsmf/build/testclasses" />
@@ -323,14 +328,14 @@
 	<target name="lib.test.run" depends="lib.test.compile">
 		<foreachdb message="Testing">
 			<body>
-				<mkdir dir="lib/build/test.${@{property-file}.db}/data" />
+				<mkdir dir="lib/build/test.@{db}/data" />
 				<copy file="@{property-file}"
-						tofile="lib/build/test.${@{property-file}.db}/cope.properties">
+						tofile="lib/build/test.@{db}/cope.properties">
 					<filterset>
-						<filter token="DATADIR_PATH" value="lib/build/test.${@{property-file}.db}/data" />
+						<filter token="DATADIR_PATH" value="lib/build/test.@{db}/data" />
 					</filterset>
 				</copy>
-				<java classname="junit.textui.TestRunner" taskname="junit ${@{property-file}.db}" fork="yes" failonerror="yes">
+				<java classname="junit.textui.TestRunner" taskname="junit @{db}" fork="yes" failonerror="yes">
 					<classpath>
 						<pathelement location="lib/build/classes" />
 						<pathelement location="lib/build/testmodelclasses" />
@@ -340,7 +345,7 @@
 						<pathelement location="../lib/${@{property-file}.x-build.driver}" />
 					</classpath>
 					<arg value="com.exedio.cope.PackageTest" />
-					<sysproperty key="com.exedio.cope.properties" file="lib/build/test.${@{property-file}.db}/cope.properties" />
+					<sysproperty key="com.exedio.cope.properties" file="lib/build/test.@{db}/cope.properties" />
 				</java>
 			</body>
 		</foreachdb>
@@ -351,15 +356,15 @@
 	<target name="lib.test.teardown" depends="lib.compile, lib.testmodel.compile">
 		<foreachdb message="Tearing down">
 			<body>
-				<mkdir dir="lib/build/teardown.${@{property-file}.db}/data" />
+				<mkdir dir="lib/build/teardown.@{db}/data" />
 				<copy file="@{property-file}"
-						tofile="lib/build/teardown.${@{property-file}.db}/cope.properties">
+						tofile="lib/build/teardown.@{db}/cope.properties">
 					<filterset>
 						<filter token="DATADIR_PATH"
-								  value="lib/build/teardown.${@{property-file}.db}/data" />
+								  value="lib/build/teardown.@{db}/data" />
 					</filterset>
 				</copy>
-				<java classname="com.exedio.cope.testmodel.Main" taskname="tear down ${@{property-file}.db}"
+				<java classname="com.exedio.cope.testmodel.Main" taskname="tear down @{db}"
 						fork="yes" failonerror="yes">
 					<classpath>
 						<pathelement location="lib/build/classes" />
@@ -368,7 +373,7 @@
 						<pathelement location="../lib/${@{property-file}.x-build.driver}" />
 					</classpath>
 					<sysproperty key="com.exedio.cope.properties"
-									 file="lib/build/teardown.${@{property-file}.db}/cope.properties" />
+									 file="lib/build/teardown.@{db}/cope.properties" />
 				</java>
 			</body>
 		</foreachdb>
@@ -460,9 +465,9 @@
 	<target name="copernica.testwebapp" depends="copernica.compile, copernica.test.compile">
 		<foreachdb message="Using">
 			<body>
-				<mkdir dir="copernica/build/testwebapp-${@{property-file}.db}" />
+				<mkdir dir="copernica/build/testwebapp-@{db}" />
 				
-				<copy todir="copernica/build/testwebapp-${@{property-file}.db}/WEB-INF/classes">
+				<copy todir="copernica/build/testwebapp-@{db}/WEB-INF/classes">
 					<fileset dir="lib/build/classes" />
 					<fileset dir="lib/build/testmodelclasses" />
 					<fileset dir="copernica/build/classes" />
@@ -470,34 +475,34 @@
 					<fileset dir="../cops/build/classes" />
 				</copy>
 				
-				<copy todir="copernica/build/testwebapp-${@{property-file}.db}/WEB-INF/lib">
+				<copy todir="copernica/build/testwebapp-@{db}/WEB-INF/lib">
 					<fileset file="../lib/pcj.jar" />
 					<fileset file="../lib/${@{property-file}.x-build.driver}" />
 				</copy>
 				
-				<copy tofile="copernica/build/testwebapp-${@{property-file}.db}/WEB-INF/cope.properties"
+				<copy tofile="copernica/build/testwebapp-@{db}/WEB-INF/cope.properties"
 						file="@{property-file}">
 					<filterset>
 						<filter token="DATADIR_PATH" value="//WEB-APP//" />
 					</filterset>
 				</copy>
-				<copy todir="copernica/build/testwebapp-${@{property-file}.db}/WEB-INF/"
+				<copy todir="copernica/build/testwebapp-@{db}/WEB-INF/"
 						file="copernica/web.xml" />
-				<copy todir="copernica/build/testwebapp-${@{property-file}.db}">
+				<copy todir="copernica/build/testwebapp-@{db}">
 					<fileset dir="copernica/jsp">
 						<exclude name="*.jsp" />
 						<exclude name="*.inc" />
 					</fileset>
 				</copy>
-				<mkdir dir="copernica/build/testwebapp-${@{property-file}.db}/data" />
-				<copy tofile="../tomcat/conf/Catalina/localhost/copetest-${@{property-file}.db}.xml"
+				<mkdir dir="copernica/build/testwebapp-@{db}/data" />
+				<copy tofile="../tomcat/conf/Catalina/localhost/copetest-@{db}.xml"
 						file="copernica/copetest.xml">
 					<filterset>
-						<filter token="DATABASE" value="${@{property-file}.db}" />
+						<filter token="DATABASE" value="@{db}" />
 					</filterset>
 				</copy>
 				
-				<touch file="copernica/build/testwebapp-${@{property-file}.db}/WEB-INF/web.xml" />
+				<touch file="copernica/build/testwebapp-@{db}/WEB-INF/web.xml" />
 			</body>
 		</foreachdb>
 	</target>
