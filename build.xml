@@ -116,6 +116,14 @@
 		</javac>
 	</target>
 
+	<target name="lib.pattern.compile" depends="lib.compile.mkdir, lib.core.compile">
+		<javac srcdir= "lib/patternsrc"
+				 destdir="lib/build/classes"
+				 deprecation="on"
+				 debug="on"
+				 optimize="off" />
+	</target>
+	
 	<target name="lib.junit.compile" depends="lib.compile.mkdir, lib.core.compile">
 		<javac srcdir="lib/junitsrc"
 				destdir="lib/build/classes"
@@ -132,7 +140,9 @@
 				depends="lib.core.compile,
 							lib.hsqldb.compile,
 							lib.oracle.compile,
-							lib.mysql.compile" />
+							lib.mysql.compile,
+							lib.pattern.compile,
+							lib.junit.compile" />
 	
 	<target name="instrument.compile" depends="lib.compile">
 		<mkdir dir="instrument/build/classes" />
@@ -591,6 +601,7 @@
 			<link href="../../cops/api" />
 			<fileset file="dsmf/src/com" includes="**/*.java" />
 			<fileset file="lib/src/com" includes="**/*.java" />
+			<fileset file="lib/patternsrc/com" includes="**/*.java" />
 			<fileset file="instrument/src/com" includes="**/*.java" />
 			<fileset file="copernica/src/com" includes="**/*.java" />
 			<classpath>
