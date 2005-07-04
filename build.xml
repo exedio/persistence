@@ -589,44 +589,16 @@
 			>
 			<package name="com.*" />
 			<link href="${api.link.jdk}" />
+			<link href="${api.link.j2ee}" />
 			<link href="${api.link.ant}" />
+			<link href="../../../cops/api" />
 			<fileset file="dsmf/src/com" includes="**/*.java" />
 			<fileset file="lib/src/com" includes="**/*.java" />
 			<fileset file="instrument/src/com" includes="**/*.java" />
+			<fileset file="copernica/src/com" includes="**/*.java" />
 			<classpath>
 				<pathelement location="../lib/pcj.jar" />
 				<pathelement location="../tomcat/common/lib/ant.jar" />
-			</classpath>
-		</javadoc>
-	</target>
-
-	<target name="copernica.api" depends="properties">
-
-		<delete dir="copernica/api" />
-		<mkdir  dir="copernica/api" />
-
-		<javadoc
-				sourcepath="copernica/src"
-				destdir="copernica/api"
-				maxmemory="60m"
-				private="${api.private}"
-				author="on"
-				use="on"
-				version="on"
-				windowtitle="Copernica"
-				doctitle=   "Copernica&lt;br&gt;API Specification"
-				header=     "Copernica"
-				footer=     "Cope with&lt;br&gt;Object&lt;br&gt;Persistence"
-				splitindex="on"
-				bottom="${exedioline}"
-			>
-			<package name="com.*" />
-			<link href="../../lib/api" />
-			<link href="../../../cops/api" />
-			<link href="${api.link.jdk}" />
-			<link href="${api.link.j2ee}" />
-			<classpath>
-				<pathelement location="lib/build/classes" />
 				<pathelement location="../cops/build/classes" />
 				<pathelement location="../tomcat/common/lib/servlet-api.jar" />
 				<pathelement location="../tomcat/server/lib/commons-fileupload-1.0.jar" />
@@ -634,7 +606,7 @@
 		</javadoc>
 	</target>
 
-	<target name="api" depends="lib.api, copernica.api" />
+	<target name="api" depends="lib.api" />
 	
 	<target name="jspm" depends="copernica.jspm, copernica.test.jspm" />
 	
