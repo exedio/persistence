@@ -18,10 +18,10 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.junit.CopeLibTest;
+import com.exedio.cope.junit.CopeTest;
 import com.exedio.cope.testmodel.Main;
 
-public abstract class AbstractLibTest extends CopeLibTest
+public abstract class AbstractLibTest extends CopeTest
 {
 	
 	public static final Type[] modelTypes = Main.modelTypes;

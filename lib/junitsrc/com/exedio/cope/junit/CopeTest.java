@@ -24,7 +24,7 @@ import com.exedio.cope.Model;
 import com.exedio.cope.Properties;
 import com.exedio.cope.util.PoolCounter;
 
-public abstract class CopeLibTest extends CopeAssert
+public abstract class CopeTest extends CopeAssert
 {
 	private static boolean createdDatabase = false;
 	private static boolean registeredDropDatabaseHook = false;
@@ -32,7 +32,7 @@ public abstract class CopeLibTest extends CopeAssert
 
 	public final Model model;
 	
-	protected CopeLibTest(final Model model)
+	protected CopeTest(final Model model)
 	{
 		this.model = model;
 	}
