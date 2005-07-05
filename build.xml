@@ -617,10 +617,12 @@
 			<fileset file="dsmf/src/com" includes="**/*.java" />
 			<fileset file="lib/src/com" includes="**/*.java" />
 			<fileset file="lib/patternsrc/com" includes="**/*.java" />
+			<fileset file="lib/junitsrc/com" includes="**/*.java" />
 			<fileset file="instrument/src/com" includes="**/*.java" />
 			<fileset file="copernica/src/com" includes="**/*.java" />
 			<classpath>
 				<pathelement location="../lib/pcj.jar" />
+				<pathelement location="../lib/junit.jar" />
 				<pathelement location="../tomcat/common/lib/ant.jar" />
 				<pathelement location="../cops/build/classes" />
 				<pathelement location="../tomcat/common/lib/servlet-api.jar" />
