@@ -519,6 +519,13 @@ public final class Type
 		return new Query(this, condition).search();
 	}
 	
+	public final Collection search(final Condition condition, final Function orderBy, final boolean ascending)
+	{
+		final Query query = new Query(this, condition);
+		query.setOrderBy(orderBy, ascending);
+		return query.search();
+	}
+	
 	final Item searchUnique(final Condition condition)
 	{
 		final Iterator searchResult = search(condition).iterator();
