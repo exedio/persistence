@@ -23,7 +23,7 @@ import com.exedio.cope.StringAttribute;
 
 /**
  * An item having a unique not-null attribute.
- * @persistent
+ * @cope.persistent
  * @author Ralf Wiebicke
  */
 public class ItemWithSingleUniqueNotNull extends Item

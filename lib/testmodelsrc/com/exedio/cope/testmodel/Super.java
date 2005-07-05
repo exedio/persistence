@@ -23,7 +23,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.StringAttribute;
 
 /**
- * @persistent
+ * @cope.persistent
  * @author Ralf Wiebicke
  */
 public abstract class Super extends Item

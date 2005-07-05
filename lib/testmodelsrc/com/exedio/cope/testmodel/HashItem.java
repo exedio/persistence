@@ -24,7 +24,7 @@ import com.exedio.cope.pattern.Hash;
 import com.exedio.cope.pattern.MD5Hash;
 
 /**
- * @persistent
+ * @cope.persistent
  * @author Ralf Wiebicke
  */
 public class HashItem extends Item

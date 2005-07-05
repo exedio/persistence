@@ -22,7 +22,7 @@ import com.exedio.cope.Item;
 
 /**
  * Another item not having any attribute.
- * @persistent
+ * @cope.persistent
  * @author Ralf Wiebicke
  */
 public class EmptyItem2 extends Item

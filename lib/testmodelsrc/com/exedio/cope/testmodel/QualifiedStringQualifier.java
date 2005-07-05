@@ -25,7 +25,7 @@ import com.exedio.cope.StringAttribute;
 import com.exedio.cope.UniqueConstraint;
 
 /**
- * @persistent
+ * @cope.persistent
  * @author Ralf Wiebicke
  */
 public class QualifiedStringQualifier extends Item

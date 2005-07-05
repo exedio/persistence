@@ -23,7 +23,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.StringAttribute;
 
 /**
- * @persistent
+ * @cope.persistent
  * @cope.type private
  * @cope.generic.constructor none
  */

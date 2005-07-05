@@ -30,7 +30,7 @@ import com.exedio.cope.pattern.Hash;
 import com.exedio.cope.pattern.MD5Hash;
 
 /**
- * @persistent
+ * @cope.persistent
  * TODO: length constraint
  * TODO: unique with multiple attributes
  * TODO: item attributes

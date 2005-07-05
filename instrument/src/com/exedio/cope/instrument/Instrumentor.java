@@ -80,7 +80,7 @@ final class Instrumentor implements InjectionConsumer
 	/**
 	 * Tag name for persistent classes.
 	 */
-	private static final String PERSISTENT_CLASS = "persistent";
+	private static final String PERSISTENT_CLASS = "cope.persistent";
 
 	/**
 	 * Tag name for the generated getter option.

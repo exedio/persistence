@@ -25,7 +25,7 @@ import com.exedio.cope.ObjectAttribute;
 import com.exedio.cope.pattern.Vector;
 
 /**
- * @persistent
+ * @cope.persistent
  * @author Ralf Wiebicke
  */
 public class VectorItem extends Item

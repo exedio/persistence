@@ -25,7 +25,7 @@ import com.exedio.cope.ItemAttribute;
  * Test for database name collisions
  * by using the same attributes names
  * in different persistent classes.
- * @persistent
+ * @cope.persistent
  * @author Ralf Wiebicke
  */
 public class CollisionItem1 extends Item

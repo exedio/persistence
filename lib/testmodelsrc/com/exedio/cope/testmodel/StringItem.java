@@ -25,7 +25,7 @@ import com.exedio.cope.function.SumFunction;
 import com.exedio.cope.function.UppercaseFunction;
 
 /**
- * @persistent
+ * @cope.persistent
  * @author Ralf Wiebicke
  */
 public class StringItem extends Item

@@ -36,7 +36,7 @@ import com.exedio.cope.pattern.Qualifier;
 
 /**
  * An item having many attributes.
- * @persistent
+ * @cope.persistent
  * @author Ralf Wiebicke
  */
 public class AttributeItem extends Item
