@@ -190,12 +190,12 @@
 	<target name="lib.jar" depends="databases.property, lib.compile">
 		<jar jarfile="lib/build/exedio-cope.jar" basedir="lib/build/classes">
 			<manifest>
-				<attribute name="Specification-Title" value="exedio cope"/>
-				<attribute name="Specification-Version" value="cruisecontrol ${label} ${cvstimestamp}"/>
-				<attribute name="Specification-Vendor" value="exedio GmbH"/>
-				<attribute name="Implementation-Title" value="exedio cope"/>
-				<attribute name="Implementation-Version" value="cruisecontrol ${label} ${cvstimestamp} tested with${databases}"/>
-				<attribute name="Implementation-Vendor" value="exedio GmbH"/>
+				<attribute name="Specification-Title" value="exedio cope" />
+				<attribute name="Specification-Version" value="cruisecontrol ${label} ${cvstimestamp}" />
+				<attribute name="Specification-Vendor" value="exedio GmbH" />
+				<attribute name="Implementation-Title" value="exedio cope" />
+				<attribute name="Implementation-Version" value="cruisecontrol ${label} ${cvstimestamp} tested with${databases}" />
+				<attribute name="Implementation-Vendor" value="exedio GmbH" />
 			</manifest>
 		</jar>
 	</target>
@@ -205,12 +205,12 @@
 			<fileset dir="lib/build/testclasses" />
 			<fileset dir="lib/build/testmodelclasses" />
 			<manifest>
-				<attribute name="Specification-Title" value="exedio cope test"/>
-				<attribute name="Specification-Version" value="cruisecontrol ${label} ${cvstimestamp}"/>
-				<attribute name="Specification-Vendor" value="exedio GmbH"/>
-				<attribute name="Implementation-Title" value="exedio cope test"/>
-				<attribute name="Implementation-Version" value="cruisecontrol ${label} ${cvstimestamp}"/>
-				<attribute name="Implementation-Vendor" value="exedio GmbH"/>
+				<attribute name="Specification-Title" value="exedio cope test" />
+				<attribute name="Specification-Version" value="cruisecontrol ${label} ${cvstimestamp}" />
+				<attribute name="Specification-Vendor" value="exedio GmbH" />
+				<attribute name="Implementation-Title" value="exedio cope test" />
+				<attribute name="Implementation-Version" value="cruisecontrol ${label} ${cvstimestamp}" />
+				<attribute name="Implementation-Vendor" value="exedio GmbH" />
 			</manifest>
 		</jar>
 	</target>
@@ -218,12 +218,12 @@
 	<target name="instrument.jar" depends="instrument.compile">
 		<jar jarfile="instrument/build/exedio-cope-instrument.jar" basedir="instrument/build/classes">
 			<manifest>
-				<attribute name="Specification-Title" value="exedio cope instrumentor"/>
-				<attribute name="Specification-Version" value="cruisecontrol ${label} ${cvstimestamp}"/>
-				<attribute name="Specification-Vendor" value="exedio GmbH"/>
-				<attribute name="Implementation-Title" value="exedio cope instrumentor"/>
-				<attribute name="Implementation-Version" value="cruisecontrol ${label} ${cvstimestamp}"/>
-				<attribute name="Implementation-Vendor" value="exedio GmbH"/>
+				<attribute name="Specification-Title" value="exedio cope instrumentor" />
+				<attribute name="Specification-Version" value="cruisecontrol ${label} ${cvstimestamp}" />
+				<attribute name="Specification-Vendor" value="exedio GmbH" />
+				<attribute name="Implementation-Title" value="exedio cope instrumentor" />
+				<attribute name="Implementation-Version" value="cruisecontrol ${label} ${cvstimestamp}" />
+				<attribute name="Implementation-Vendor" value="exedio GmbH" />
 			</manifest>
 		</jar>
 	</target>
@@ -231,12 +231,12 @@
 	<target name="copernica.jar" depends="copernica.compile">
 		<jar jarfile="copernica/build/exedio-copernica.jar" basedir="copernica/build/classes">
 			<manifest>
-				<attribute name="Specification-Title" value="exedio copernica"/>
-				<attribute name="Specification-Version" value="cruisecontrol ${label} ${cvstimestamp}"/>
-				<attribute name="Specification-Vendor" value="exedio GmbH"/>
-				<attribute name="Implementation-Title" value="exedio copernica"/>
-				<attribute name="Implementation-Version" value="cruisecontrol ${label} ${cvstimestamp}"/>
-				<attribute name="Implementation-Vendor" value="exedio GmbH"/>
+				<attribute name="Specification-Title" value="exedio copernica" />
+				<attribute name="Specification-Version" value="cruisecontrol ${label} ${cvstimestamp}" />
+				<attribute name="Specification-Vendor" value="exedio GmbH" />
+				<attribute name="Implementation-Title" value="exedio copernica" />
+				<attribute name="Implementation-Version" value="cruisecontrol ${label} ${cvstimestamp}" />
+				<attribute name="Implementation-Vendor" value="exedio GmbH" />
 			</manifest>
 		</jar>
 		<zip zipfile="copernica/build/exedio-copernica-static.zip">
