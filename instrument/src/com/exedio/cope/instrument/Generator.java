@@ -1040,7 +1040,7 @@ final class Generator
 	throws IOException
 	{
 		o.write("\t\treturn ");
-		o.write(hash.storageAttribute.copeClass.getName());
+		o.write(hash.copeClass.getName());
 		o.write('.');
 		o.write(hash.name);
 		o.write(".check(this,");

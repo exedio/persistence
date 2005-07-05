@@ -21,11 +21,13 @@ package com.exedio.cope.instrument;
 final class CopeHash
 {
 	final String name;
+	final CopeClass copeClass;
 	final CopeAttribute storageAttribute;
 
 	public CopeHash(final JavaAttribute javaAttribute, final CopeAttribute storageAttribute)
 	{
 		this.name = javaAttribute.name;
+		this.copeClass = CopeClass.getCopeClass(javaAttribute.parent);
 		this.storageAttribute = storageAttribute;
 		this.storageAttribute.addHash(this);
 	}
