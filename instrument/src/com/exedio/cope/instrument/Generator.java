@@ -432,7 +432,7 @@ final class Generator
 	private void writeHash(final CopeHash hash)
 	throws IOException
 	{
-		final CopeAttribute storageAttribute = hash.storageAttribute;
+		final CopeAttribute storage = hash.storageAttribute;
 
 		// checker
 		writeCommentHeader();
@@ -441,11 +441,11 @@ final class Generator
 		o.write(lineSeparator);
 		writeCommentGenerated();
 		writeCommentFooter();
-		o.write(Modifier.toString(storageAttribute.getGeneratedGetterModifier()));
+		o.write(Modifier.toString(storage.getGeneratedGetterModifier()));
 		o.write(" boolean check");
 		o.write(toCamelCase(hash.name));
 		o.write("(final ");
-		o.write(storageAttribute.getBoxedType());
+		o.write(storage.getBoxedType());
 		o.write(' ');
 		o.write(hash.name);
 		o.write(')');
@@ -462,16 +462,16 @@ final class Generator
 		o.write(lineSeparator);
 		writeCommentGenerated();
 		writeCommentFooter();
-		o.write(Modifier.toString(storageAttribute.getGeneratedSetterModifier()));
+		o.write(Modifier.toString(storage.getGeneratedSetterModifier()));
 		o.write(" void set");
 		o.write(toCamelCase(hash.name));
 		o.write("(final ");
-		o.write(storageAttribute.getBoxedType());
+		o.write(storage.getBoxedType());
 		o.write(' ');
 		o.write(hash.name);
 		o.write(')');
 		o.write(lineSeparator);
-		writeThrowsClause(storageAttribute.getSetterExceptions());
+		writeThrowsClause(storage.getSetterExceptions());
 		o.write("\t{");
 		o.write(lineSeparator);
 		writeSetterBody(hash);
