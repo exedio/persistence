@@ -132,6 +132,13 @@ public class GeneratorTest extends InstrumentorTest
 		assertMethod(standard, "getMinorDataData", InputStream.class, PUBLIC|FINAL);
 		assertMethod(standard, "setMinorData", new Class[]{InputStream.class}, PUBLIC|FINAL, new Class[]{IOException.class});
 
+		assertMethod(standard, "checkPublicHash", new Class[]{String.class}, Boolean.TYPE, PUBLIC|FINAL);
+		assertMethod(standard, "checkPrivateHash", new Class[]{String.class}, Boolean.TYPE, PRIVATE|FINAL);
+		assertMethod(standard, "setPublicHash", new Class[]{String.class}, PUBLIC|FINAL);
+		assertMethod(standard, "setPrivateHash", new Class[]{String.class}, PRIVATE|FINAL);
+		assertNoMethod(standard, "getPublicHash");
+		assertNoMethod(standard, "getPrivateHash");
+
 		assertField(standard, "TYPE", Type.class, PUBLIC|STATIC|FINAL);
 
 		final Class typeNone = TypeNone.class;
