@@ -200,8 +200,9 @@
 		</jar>
 	</target>
 	
-	<target name="lib.test.jar" depends="lib.test.compile">
+	<target name="lib.test.jar" depends="dsmf.test.compile, lib.test.compile">
 		<jar jarfile="lib/build/exedio-cope-test.jar">
+			<fileset dir="dsmf/build/testclasses" />
 			<fileset dir="lib/build/testclasses" />
 			<fileset dir="lib/build/testmodelclasses" />
 			<manifest>
