@@ -591,6 +591,7 @@
 		<property name="api.private" value="off" />
 		<property name="api.link.jdk"  value="http://java.sun.com/j2se/1.4.2/docs/api" />
 		<property name="api.link.j2ee" value="http://java.sun.com/j2ee/1.4/docs/api" />
+		<property name="api.link.junit" value="http://junit.sourceforge.net/javadoc" />
 		<property name="api.link.ant"  value="http://searchmorph.com/pub/ant/apache-ant-1.6.2/build/javadocs" />
 
 		<delete dir="api" />
@@ -612,6 +613,7 @@
 			<bottom><![CDATA[<small>Copyright &copy; 2004-2005 <a href="http://www.exedio.com/" target="_top">exedio</a> Gesellschaft f&uuml;r Softwareentwicklung mbH. All rights reserved.</small><!--${label}-${cvstimestamp}-->]]></bottom>
 			<link href="${api.link.jdk}" />
 			<link href="${api.link.j2ee}" />
+			<link href="${api.link.junit}" />
 			<link href="${api.link.ant}" />
 			<link href="../../cops/api" />
 			<fileset file="dsmf/src/com" includes="**/*.java" />
