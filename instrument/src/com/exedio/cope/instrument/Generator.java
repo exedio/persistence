@@ -432,6 +432,8 @@ final class Generator
 	private void writeHash(final CopeHash hash)
 	throws IOException
 	{
+		final CopeAttribute storageAttribute = hash.storageAttribute;
+
 		// checker
 		writeCommentHeader();
 		o.write("\t * ");
@@ -439,11 +441,11 @@ final class Generator
 		o.write(lineSeparator);
 		writeCommentGenerated();
 		writeCommentFooter();
-		o.write(Modifier.toString(hash.storageAttribute.getGeneratedGetterModifier()));
+		o.write(Modifier.toString(storageAttribute.getGeneratedGetterModifier()));
 		o.write(" boolean check");
 		o.write(toCamelCase(hash.name));
 		o.write("(final ");
-		o.write(hash.storageAttribute.getBoxedType());
+		o.write(storageAttribute.getBoxedType());
 		o.write(' ');
 		o.write(hash.name);
 		o.write(')');
@@ -454,7 +456,6 @@ final class Generator
 		o.write("\t}");
 
 		// setter
-		final CopeAttribute storageAttribute = hash.storageAttribute;
 		writeCommentHeader();
 		o.write("\t * ");
 		o.write(format(SETTER, link(hash.name)));
