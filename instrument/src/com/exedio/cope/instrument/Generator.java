@@ -1059,11 +1059,11 @@ final class Generator
 	private void writeSetterBody(final CopeHash hash)
 	throws IOException
 	{
-		final CopeAttribute attribute = hash.storageAttribute;
-		final SortedSet exceptionsToCatch = attribute.getExceptionsToCatchInSetter();
+		final CopeAttribute storage = hash.storageAttribute;
+		final SortedSet exceptionsToCatch = storage.getExceptionsToCatchInSetter();
 		writeTryCatchClausePrefix(exceptionsToCatch);
 		o.write("\t\t");
-		o.write(attribute.copeClass.getName());
+		o.write(storage.copeClass.getName());
 		o.write('.');
 		o.write(hash.name);
 		o.write(".set(this,");
