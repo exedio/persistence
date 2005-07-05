@@ -607,6 +607,7 @@
 				version="on"
 				windowtitle="Cope with Object Persistence"
 				splitindex="on"
+				failonerror="true"
 			>
 			<doctitle><![CDATA[Cope with Object Persistence<br>API Specification]]></doctitle>
 			<header>COPE</header>
