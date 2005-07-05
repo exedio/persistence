@@ -246,7 +246,7 @@ public final class Properties
 		return databaseCustomProperties.getProperty(key);
 	}
 	
-	public boolean hasData() // TODO rename to hasDatadir
+	public boolean hasDatadir()
 	{
 		return datadirPath!=null;
 	}
