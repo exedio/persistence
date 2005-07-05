@@ -51,10 +51,12 @@ public final class MysqlDatabase extends Database
 			throw new NestingRuntimeException(e);
 		}
 	}
+	
+	private static final String TOLOWERCASE = "tolowercase";
 
 	protected MysqlDatabase(final Properties properties)
 	{
-		super(new MysqlDriver(Table.PK_COLUMN_NAME), properties);
+		super(new MysqlDriver(Table.PK_COLUMN_NAME, Boolean.valueOf(properties.getDatabaseCustomProperty(TOLOWERCASE)).booleanValue()), properties);
 	}
 
 	String getIntegerType(final int precision)

@@ -23,6 +23,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Iterator;
 
 public final class Properties
 {
@@ -43,6 +44,7 @@ public final class Properties
 	private final String databaseUrl;
 	private final String databaseUser;
 	private final String databasePassword;
+	private final java.util.Properties databaseCustomProperties;
 
 	private final File datadirPath;
 	private final String datadirUrl;
@@ -135,12 +137,26 @@ public final class Properties
 			{
 				throw new RuntimeException("class "+databaseName+" from "+source+" has no constructor with a single Properties argument.");
 			}
+
+			{
+				// TODO use some kind of prefix property view
+				databaseCustomProperties = new java.util.Properties();
+				final String databaseCustomPropertiesPrefix = "database." + databaseCode + '.';
+				final int databaseCustomPropertiesPrefixLength = databaseCustomPropertiesPrefix.length();
+				for(Iterator i = properties.keySet().iterator(); i.hasNext(); )
+				{
+					final String key = (String)i.next();
+					if(!key.startsWith(databaseCustomPropertiesPrefix))
+						continue;
+					databaseCustomProperties.put(key.substring(databaseCustomPropertiesPrefixLength), properties.getProperty(key));
+				}
+			}
 		}
 
 		databaseUrl = getPropertyNotNull(properties, DATABASE_URL);
 		databaseUser = getPropertyNotNull(properties, DATABASE_USER);
 		databasePassword = getPropertyNotNull(properties, DATABASE_PASSWORD);
-
+		
 		final String datadirPathString  = properties.getProperty(DATADIR_PATH);
 		if(datadirPathString!=null)
 		{
@@ -225,7 +241,12 @@ public final class Properties
 		return databasePassword;
 	}
 	
-	public boolean hasData()
+	String getDatabaseCustomProperty(final String key)
+	{
+		return databaseCustomProperties.getProperty(key);
+	}
+	
+	public boolean hasData() // TODO rename to hasDatadir
 	{
 		return datadirPath!=null;
 	}

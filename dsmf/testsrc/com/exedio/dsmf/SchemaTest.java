@@ -60,7 +60,7 @@ public abstract class SchemaTest extends TestCase
 		else if("mysql".equals(database))
 		{
 			Class.forName("com.mysql.jdbc.Driver");
-			driver = new MysqlDriver("this");
+			driver = new MysqlDriver("this", Boolean.valueOf(config.getProperty("database.mysql.tolowercase")).booleanValue());
 			stringType = "varchar(8) binary";
 			intType = "integer";
 			supportsCheckConstraints = false;

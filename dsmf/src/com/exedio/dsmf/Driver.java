@@ -44,6 +44,11 @@ public abstract class Driver
 		
 		return '"' + name + '"';
 	}
+	
+	public String canonizeTableName(final String tableName)
+	{
+		return tableName;
+	}
 
 	abstract String getColumnType(int dataType, ResultSet resultSet) throws SQLException;
 
