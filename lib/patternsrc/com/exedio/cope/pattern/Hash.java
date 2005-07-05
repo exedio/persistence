@@ -38,6 +38,12 @@ public abstract class Hash extends Pattern
 			throw new NullPointerException("hash storage must not be null");
 	}
 	
+	public void initialize()
+	{
+		if(!storage.isInitialized())
+			initialize(storage, getName()+"Hash");
+	}
+	
 	public final StringAttribute getStorage()
 	{
 		return storage;

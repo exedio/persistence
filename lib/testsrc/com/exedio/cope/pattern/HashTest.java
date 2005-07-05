@@ -37,7 +37,7 @@ public class HashTest extends DatabaseLibTest
 	
 	public void testMD5()
 	{
-		assertEquals(list(item.hashed1, item.hashed1Latin, item.hashed2), item.TYPE.getPatterns());
+		assertEquals(list(item.hashed1, item.hashed1Latin, item.hashed2, item.password), item.TYPE.getPatterns());
 		assertEquals(item.TYPE, item.hashed1.getType());
 		assertEquals(item.TYPE, item.hashed1Latin.getType());
 		assertEquals("hashed1", item.hashed1.getName());
@@ -143,6 +143,25 @@ public class HashTest extends DatabaseLibTest
 		assertTrue(!item.checkHashed2(null));
 		assertTrue(!item.checkHashed2("bello"));
 		assertTrue(item.checkHashed2("knollo"));
+	}
+	
+	public void testImplicit()
+	{
+		assertEquals(item.TYPE, item.password.getType());
+		assertEquals("password", item.password.getName());
+		assertEquals(item.TYPE, item.password.getStorage().getType());
+		assertEquals("passwordHash", item.password.getStorage().getName());
+		
+		assertEquals(null, item.get(item.password.getStorage()));
+		assertTrue(item.checkPassword(null));
+		assertFalse(item.checkPassword(""));
+		assertFalse(item.checkPassword("zack"));
+
+		item.setPassword("zack");
+		assertEquals("[zack]", item.get(item.password.getStorage()));
+		assertFalse(item.checkPassword(null));
+		assertFalse(item.checkPassword(""));
+		assertTrue(item.checkPassword("zack"));
 	}
 
 }

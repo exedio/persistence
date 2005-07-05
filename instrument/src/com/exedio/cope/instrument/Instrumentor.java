@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.io.Writer;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -36,6 +37,7 @@ import com.exedio.cope.Function;
 import com.exedio.cope.IntegerFunction;
 import com.exedio.cope.ItemAttribute;
 import com.exedio.cope.LongAttribute;
+import com.exedio.cope.StringAttribute;
 import com.exedio.cope.StringFunction;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.pattern.Hash;
@@ -261,9 +263,17 @@ final class Instrumentor implements InjectionConsumer
 			throw new InjectorParseException("attribute >"+ja.name+"< has invalid initializer arguments: "+initializerArguments);
 		//System.out.println("---------"+initializerArguments);
 		final String initializerArgument = (String)initializerArguments.get(0);
-		final CopeAttribute storageAttribute = (CopeAttribute)copeClass.getCopeAttribute(initializerArgument);
-		if(storageAttribute==null)
-			throw new InjectorParseException("attribute >"+initializerArgument+"< in hash "+ja.name+" not found.");
+		final CopeAttribute storageAttribute;
+		if("stringAttribute".equals(initializerArgument))
+		{
+			storageAttribute = new CopeNativeAttribute(ja, StringAttribute.class, Collections.singletonList("DEFAULT"), "none", "none");
+		}
+		else
+		{
+			storageAttribute = (CopeAttribute)copeClass.getCopeAttribute(initializerArgument);
+			if(storageAttribute==null)
+				throw new InjectorParseException("attribute >"+initializerArgument+"< in hash "+ja.name+" not found.");
+		}
 		new CopeHash(ja, storageAttribute);
 	}
 

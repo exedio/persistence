@@ -42,6 +42,11 @@ public abstract class Feature
 		this.name = name.intern();
 	}
 	
+	public boolean isInitialized()
+	{
+		return type!=null;
+	}
+	
 	public Type getType()
 	{
 		if(this.type==null)
