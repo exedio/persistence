@@ -33,6 +33,14 @@ public abstract class Hash extends Pattern
 	public Hash(final StringAttribute storage)
 	{
 		this.storage = storage;
+		
+		if(storage==null)
+			throw new NullPointerException("hash storage must not be null");
+	}
+	
+	public final StringAttribute getStorage()
+	{
+		return storage;
 	}
 	
 	public abstract String hash(String plainText);
