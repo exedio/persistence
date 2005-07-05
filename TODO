@@ -10,6 +10,8 @@
 		- group by
 	- Transaktionen / Synchronisierung
 	- optionally use strings in DB for enum attributes
+	- remove mime type from DataAttribute,
+		put this functionality into a pattern
 	- disable empty strings for oracle
 		/ introduce database specific max/min length for strings
 	- analog dsmf: Datenverzeichnisse prüfen
