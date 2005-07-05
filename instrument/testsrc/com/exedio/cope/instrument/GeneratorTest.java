@@ -143,7 +143,7 @@ public class GeneratorTest extends InstrumentorTest
 
 		final Class typeNone = TypeNone.class;
 		assertConstructor(typeNone, new Class[]{}, PRIVATE);
-		assertConstructor(typeNone, new Class[]{attributeValueArrayClass}, PUBLIC); // @cope-generic-constructor public
+		assertConstructor(typeNone, new Class[]{attributeValueArrayClass}, PUBLIC); // @cope.generic.constructor public
 		assertConstructor(typeNone, new Class[]{ReactivationConstructorDummy.class, int.class}, PRIVATE);
 		assertMethod(typeNone, "getDefaultString", String.class, PUBLIC|FINAL);
 		assertMethod(typeNone, "setDefaultString", new Class[]{String.class}, PUBLIC|FINAL);

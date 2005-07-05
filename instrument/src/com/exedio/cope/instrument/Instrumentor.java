@@ -85,27 +85,27 @@ final class Instrumentor implements InjectionConsumer
 	/**
 	 * Tag name for the generated getter option.
 	 */
-	private static final String ATTRIBUTE_GETTER = "cope-getter";
+	private static final String ATTRIBUTE_GETTER = "cope.getter";
 
 	/**
 	 * Tag name for the generated setter option.
 	 */
-	private static final String ATTRIBUTE_SETTER = "cope-setter";
+	private static final String ATTRIBUTE_SETTER = "cope.setter";
 
 	/**
 	 * Tag name for the generated initial constructor option.
 	 */
-	private static final String CLASS_INITIAL_CONSTRUCTOR = "cope-constructor";
+	private static final String CLASS_INITIAL_CONSTRUCTOR = "cope.constructor";
 	
 	/**
 	 * Tag name for the generated generic constructor option.
 	 */
-	private static final String CLASS_GENERIC_CONSTRUCTOR = "cope-generic-constructor";
+	private static final String CLASS_GENERIC_CONSTRUCTOR = "cope.generic.constructor";
 	
 	/**
 	 * Tag name for the generated type option.
 	 */
-	private static final String CLASS_TYPE = "cope-type";
+	private static final String CLASS_TYPE = "cope.type";
 	
 	/**
 	 * All generated class features get this doccomment tag.

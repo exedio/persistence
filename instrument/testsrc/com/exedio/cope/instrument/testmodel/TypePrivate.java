@@ -24,8 +24,8 @@ import com.exedio.cope.StringAttribute;
 
 /**
  * @persistent
- * @cope-type private
- * @cope-generic-constructor none
+ * @cope.type private
+ * @cope.generic.constructor none
  */
 public class TypePrivate extends Item
 {

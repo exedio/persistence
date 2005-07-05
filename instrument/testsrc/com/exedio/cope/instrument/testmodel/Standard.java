@@ -63,41 +63,41 @@ public class Standard extends Item
 	private static final StringAttribute privateString = stringAttribute(DEFAULT);
 
 	/**
-	 * @cope-getter none
+	 * @cope.getter none
 	 */
 	public static final StringAttribute noneGetterString = stringAttribute(DEFAULT);
 
 	/**
-	 * @cope-getter private
+	 * @cope.getter private
 	 */
 	public static final StringAttribute privateGetterString = stringAttribute(DEFAULT);
 
 	/**
-	 * @cope-setter none
-	 * @cope-getter boolean-as-is
+	 * @cope.setter none
+	 * @cope.getter boolean-as-is
 	 */
 	public static final StringAttribute noneSetterString = stringAttribute(DEFAULT);
 
 	/**
-	 * @cope-setter private
-	 * @cope-getter boolean-as-is
+	 * @cope.setter private
+	 * @cope.getter boolean-as-is
 	 */
 	public static final StringAttribute privateSetterString = stringAttribute(DEFAULT);
 
 	/**
-	 * @cope-getter non-final
-	 * @cope-setter protected
+	 * @cope.getter non-final
+	 * @cope.setter protected
 	 */
 	public static final StringAttribute nonfinalGetterString = stringAttribute(DEFAULT);
 
 	/**
-	 * @cope-getter protected
-	 * @cope-setter non-final
+	 * @cope.getter protected
+	 * @cope.setter non-final
 	 */
 	public static final StringAttribute nonfinalSetterString = stringAttribute(DEFAULT);
 
 	/**
-	 * @cope-getter boolean-as-is
+	 * @cope.getter boolean-as-is
 	 */
 	public static final BooleanAttribute asIsBoolean = booleanAttribute(DEFAULT);
 	

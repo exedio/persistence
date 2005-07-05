@@ -23,9 +23,9 @@ import com.exedio.cope.StringAttribute;
 
 /**
  * @persistent
- * @cope-type none
- * @cope-constructor private
- * @cope-generic-constructor public
+ * @cope.type none
+ * @cope.constructor private
+ * @cope.generic.constructor public
  */
 public class TypeNone extends Item
 {
