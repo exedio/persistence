@@ -301,6 +301,7 @@
 				AttributeEmptyItem.java,
 				AttributeItem.java,
 				StringItem.java,
+				HashItem.java,
 				DataItem.java,
 				SumItem.java,
 				VectorItem.java,

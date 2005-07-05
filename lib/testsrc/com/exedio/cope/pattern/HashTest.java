@@ -23,16 +23,16 @@ import java.security.NoSuchAlgorithmException;
 
 import com.exedio.cope.DatabaseLibTest;
 import com.exedio.cope.NestingRuntimeException;
-import com.exedio.cope.testmodel.StringItem;
+import com.exedio.cope.testmodel.HashItem;
 
 public class HashTest extends DatabaseLibTest
 {
-	StringItem item;
+	HashItem item;
 	
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		deleteOnTearDown(item = new StringItem());
+		deleteOnTearDown(item = new HashItem());
 	}
 	
 	public void testMD5()

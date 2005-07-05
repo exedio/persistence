@@ -34,6 +34,7 @@ public class Main
 		AttributeItem.TYPE,
 		AttributeEmptyItem.TYPE,
 		StringItem.TYPE,
+		HashItem.TYPE,
 		DataItem.TYPE,
 		SumItem.TYPE,
 		VectorItem.TYPE,
