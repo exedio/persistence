@@ -441,7 +441,7 @@ final class Generator
 		o.write(lineSeparator);
 		writeCommentGenerated();
 		writeCommentFooter();
-		o.write(Modifier.toString(storage.getGeneratedGetterModifier()));
+		o.write(Modifier.toString(storage.getGeneratedGetterModifier())); // TODO: use modifier from hash, not storage
 		o.write(" boolean check");
 		o.write(toCamelCase(hash.name));
 		o.write("(final ");
@@ -462,7 +462,7 @@ final class Generator
 		o.write(lineSeparator);
 		writeCommentGenerated();
 		writeCommentFooter();
-		o.write(Modifier.toString(storage.getGeneratedSetterModifier()));
+		o.write(Modifier.toString(storage.getGeneratedSetterModifier())); // TODO: use modifier from hash, not storage
 		o.write(" void set");
 		o.write(toCamelCase(hash.name));
 		o.write("(final ");
