@@ -445,7 +445,7 @@ final class Generator
 		o.write(" boolean check");
 		o.write(toCamelCase(hash.name));
 		o.write("(final ");
-		o.write(storage.getBoxedType());
+		o.write(String.class.getName());
 		o.write(' ');
 		o.write(hash.name);
 		o.write(')');
@@ -466,7 +466,7 @@ final class Generator
 		o.write(" void set");
 		o.write(toCamelCase(hash.name));
 		o.write("(final ");
-		o.write(storage.getBoxedType());
+		o.write(String.class.getName());
 		o.write(' ');
 		o.write(hash.name);
 		o.write(')');
