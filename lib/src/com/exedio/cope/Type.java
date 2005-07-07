@@ -216,17 +216,7 @@ public final class Type
 		// Here we don't precompute the constructor parameters
 		// because they are needed in the initialization phase
 		// only.
-		final Class attributeValueArrayClass;
-		try
-		{
-			attributeValueArrayClass = Class.forName("[L"+AttributeValue.class.getName()+';');
-		}
-		catch(ClassNotFoundException e)
-		{
-			e.printStackTrace();
-			throw new NestingRuntimeException(e);
-		}
-		this.creationConstructor = getConstructor(new Class[]{attributeValueArrayClass}, "creation");
+		this.creationConstructor = getConstructor(new Class[]{(new AttributeValue[0]).getClass()}, "creation");
 		this.reactivationConstructor = getConstructor(new Class[]{ReactivationConstructorDummy.class, int.class}, "reactivation");
 	}
 	
