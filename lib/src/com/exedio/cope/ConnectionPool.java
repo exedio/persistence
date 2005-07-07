@@ -75,6 +75,11 @@ final class ConnectionPool implements ConnectionProvider
 		return DriverManager.getConnection(url, user, password);
 	}
 
+	/**
+	 * TODO: If we want to implement changing connection parameters on-the-fly
+	 * somewhere in the future, it's important, that client return connections
+	 * to exactly the same instance of ConnectionPool.
+	 */
 	public final void putConnection(final Connection connection) throws SQLException
 	{
 		counter.put();
