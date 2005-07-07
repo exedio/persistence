@@ -46,8 +46,6 @@ public class GeneratorTest extends InstrumentorTest
 	
 	public void testStandard() throws ClassNotFoundException
 	{
-		final Class attributeValueArrayClass = Class.forName("[L"+AttributeValue.class.getName()+';');
-		
 		final Class standard = Standard.class;
 		assertConstructor(standard, new Class[]{
 				String.class, // notNullString
@@ -57,7 +55,7 @@ public class GeneratorTest extends InstrumentorTest
 				double.class, // nativeDouble
 				boolean.class, // nativeBoolean
 			}, PUBLIC);
-		assertConstructor(standard, new Class[]{attributeValueArrayClass}, PRIVATE);
+		assertConstructor(standard, new Class[]{(new AttributeValue[0]).getClass()}, PRIVATE);
 		assertConstructor(standard, new Class[]{ReactivationConstructorDummy.class, int.class}, PRIVATE);
 
 		assertMethod(standard, "getDefaultString", String.class, PUBLIC|FINAL);
@@ -143,7 +141,7 @@ public class GeneratorTest extends InstrumentorTest
 
 		final Class typeNone = TypeNone.class;
 		assertConstructor(typeNone, new Class[]{}, PRIVATE);
-		assertConstructor(typeNone, new Class[]{attributeValueArrayClass}, PUBLIC); // @cope.generic.constructor public
+		assertConstructor(typeNone, new Class[]{(new AttributeValue[0]).getClass()}, PUBLIC); // @cope.generic.constructor public
 		assertConstructor(typeNone, new Class[]{ReactivationConstructorDummy.class, int.class}, PRIVATE);
 		assertMethod(typeNone, "getDefaultString", String.class, PUBLIC|FINAL);
 		assertMethod(typeNone, "setDefaultString", new Class[]{String.class}, PUBLIC|FINAL);
@@ -151,7 +149,7 @@ public class GeneratorTest extends InstrumentorTest
 
 		final Class typePrivate = TypePrivate.class;
 		assertConstructor(typePrivate, new Class[]{}, PUBLIC);
-		assertConstructor(typePrivate, new Class[]{attributeValueArrayClass}, PRIVATE);
+		assertConstructor(typePrivate, new Class[]{(new AttributeValue[0]).getClass()}, PRIVATE);
 		assertConstructor(typePrivate, new Class[]{ReactivationConstructorDummy.class, int.class}, PRIVATE);
 		assertMethod(typePrivate, "getDefaultString", String.class, PUBLIC|FINAL);
 		assertMethod(typePrivate, "setDefaultString", new Class[]{String.class}, PUBLIC|FINAL);
