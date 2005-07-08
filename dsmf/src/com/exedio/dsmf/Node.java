@@ -70,11 +70,11 @@ public abstract class Node
 			connection = connectionProvider.getConnection();
 			//System.err.println(statement);
 
-			if(GET_TABLES.equals(statement))
+			if(GET_TABLES==statement)
 			{
 				resultSet = connection.getMetaData().getTables(null, driver.schema, null, new String[]{"TABLE"});
 			}
-			else if(GET_COLUMNS.equals(statement))
+			else if(GET_COLUMNS==statement)
 			{
 				resultSet = connection.getMetaData().getColumns(null, driver.schema, null, null);
 			}
