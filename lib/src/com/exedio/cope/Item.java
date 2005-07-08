@@ -38,14 +38,6 @@ public abstract class Item extends Cope
 
 	final int pk;
 	
-	private boolean deleted = false;
-
-	/**
-	 * The row containing the item cache for this item, if this item is active.
-	 * If you want to be sure, that you get a row, use {@link #getRow()}.
-	 */
-	Row rowWhenActive;
-
 	/**
 	 * Returns a string unique for this item in all other items of the model.
 	 * For any item <code>a</code> in its model <code>m</code>
@@ -100,7 +92,8 @@ public abstract class Item extends Cope
 	 */	
 	public final boolean isActiveCopeItem()
 	{
-		return rowWhenActive!=null;
+		final Row row = getRowIfActive();
+		return (row!=null) && (row.item == this);
 	}
 
 	/**
@@ -117,10 +110,7 @@ public abstract class Item extends Cope
 	 */
 	public final Item activeCopeItem()
 	{
-		if(rowWhenActive!=null)
-			return this;
-		else
-			return getRow().item;
+		return getRow().item;
 	}
 
 	/**
@@ -162,8 +152,7 @@ public abstract class Item extends Cope
 			return;
 		}
 
-		final Row row = new Row(this, false);
-		this.rowWhenActive = row; // make active
+		final Row row = getRow(false);
 
 		row.put(initialAttributeValues);
 		try
@@ -189,7 +178,6 @@ public abstract class Item extends Cope
 	{
 		this.type = Type.findByJavaClass(getClass());
 		this.pk = pk;
-		rowWhenActive = null; // make passive
 		//System.out.println("reactivate item:"+type+" "+pk);
 
 		if(reactivationDummy!=Type.REACTIVATION_DUMMY)
@@ -628,36 +616,13 @@ public abstract class Item extends Cope
 	public final void deleteCopeItem()
 			throws IntegrityViolationException
 	{
-		// TODO: additionally we must ensure, that any passive item objects of this item
-		// are marked deleted when they are tried to be loaded.
-		if(rowWhenActive!=null)
-		{
-			if(type.getRow(pk)!=rowWhenActive)
-				throw new RuntimeException();
-			rowWhenActive.delete();
-		}
-		else
-		{
-			final Row row = type.getRow(pk);
-			if(row==null)
-			{
-				type.getModel().getDatabase().delete(type, pk);
-			}
-			else
-			{
-				if(row.item==this)
-					throw new RuntimeException();
-				if(row.item.rowWhenActive!=row)
-					throw new RuntimeException();
-				row.item.deleteCopeItem();
-			}
-		}
-		deleted = true;
+		getRow().delete();
 	}
 	
+	// TODO: rename to existsCopeItem, could have two causes: deleted or created in a transaction rolled back
 	public final boolean isCopeItemDeleted()
 	{
-		return deleted;
+		return getRow().deleted;
 	}
 
 	public static final Attribute.Option DEFAULT = new Attribute.Option(false, false, false);
@@ -674,42 +639,26 @@ public abstract class Item extends Cope
 	
 	// activation/deactivation -----------------------------------------------------
 	
-	/**
-	 * Activates this item.
-	 * After this method, {link #row} is guaranteed to be not null.
-	 */
 	private final Row getRow()
 	{
-		if(rowWhenActive!=null)
-		{
-			if(type.getRow(pk)!=rowWhenActive)
-				throw new RuntimeException();
-			return rowWhenActive;
-		}
-		else
-		{
-			final Row row = type.getRow(pk);
-			if(row==null)
-			{
-				rowWhenActive = new Row(this, true);
-				type.getModel().getDatabase().load(rowWhenActive);
-				return rowWhenActive;
-			}
-			else
-			{
-				if(row.item==this)
-					throw new RuntimeException();
-				if(row.item.rowWhenActive!=row)
-					throw new RuntimeException();
-				return row;
-			}
-		}
+		return getRow(true);
+	}
+
+	private final Row getRow(final boolean present)
+	{
+		return Transaction.get().getRow(this, present);
+	}
+
+	private final Row getRowIfActive()
+	{
+		return Transaction.get().getRowIfActive(this);
 	}
 
 	public final void passivateCopeItem()
 	{
-		if(rowWhenActive!=null)
-			rowWhenActive.close();
+		final Row row = getRowIfActive();
+		if(row!=null)
+			row.close();
 	}
 	
 	//-----------------------------------------

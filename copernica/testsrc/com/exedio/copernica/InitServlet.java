@@ -24,6 +24,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.exedio.cope.Transaction;
+import com.exedio.cope.testmodel.Main;
 import com.exedio.cops.CopsServlet;
 
 public class InitServlet extends CopsServlet
@@ -40,7 +42,18 @@ public class InitServlet extends CopsServlet
 
 		final boolean initialize = (request.getParameter("INIT")!=null);
 		if(initialize)
-			CopernicaTestProvider.initializeExampleSystem();
+		{
+			try
+			{
+				Main.model.startTransaction("initializeExampleSystem");
+				CopernicaTestProvider.initializeExampleSystem();
+				Transaction.commit();
+			}
+			finally
+			{
+				Transaction.rollbackIfNotCommitted();
+			}
+		}
 
 		final PrintStream out = new PrintStream(response.getOutputStream(), false, ENCODING);
 		Init_Jspm.write(out, initialize);

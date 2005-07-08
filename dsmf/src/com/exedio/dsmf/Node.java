@@ -68,6 +68,7 @@ public abstract class Node
 		try
 		{
 			connection = connectionProvider.getConnection();
+			connection.setAutoCommit(true);
 			//System.err.println(statement);
 
 			if(GET_TABLES==statement)
@@ -134,6 +135,7 @@ public abstract class Node
 		try
 		{
 			connection = connectionProvider.getConnection();
+			connection.setAutoCommit(true);
 			//System.err.println(statement);
 			sqlStatement = connection.createStatement();
 			final int rows = sqlStatement.executeUpdate(statement);

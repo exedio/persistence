@@ -73,7 +73,7 @@ public final class ItemAttribute extends ObjectAttribute
 		return 
 			cache==null ? 
 				null : 
-				getTargetType().getItem(((Integer)cache).intValue());
+				getTargetType().createItemObject(((Integer)cache).intValue());
 	}
 		
 	Object surfaceToCache(final Object surface)

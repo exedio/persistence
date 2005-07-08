@@ -22,6 +22,7 @@ import java.util.HashMap;
 
 final class Row
 {
+	final Transaction transaction;
 	final Item item;
 	final Type type;
 	final int pk;
@@ -29,27 +30,28 @@ final class Row
 	// TODO: use arrays for String/int/double instead of the HashMap
 	private final HashMap cache = new HashMap();
 	boolean present;
+	boolean exists;
+	// TODO: rename to notExists, could have two causes: deleted or created in a transaction rolled back
+	boolean deleted;
 	private boolean dirty = false;
 	private boolean discarded = false;
 
-	protected Row(final Item item, final boolean present)
+	protected Row(final Transaction transaction, final Item item, final boolean present)
 	{
+		this.transaction = transaction;
 		this.item = item;
 		this.type = item.getCopeType();
 		this.pk = item.pk;
 		this.present = present;
-		type.putRow(this);
 		//System.out.println("created row "+type+" "+pk);
 
 		if(pk==Type.NOT_A_PK)
 			throw new RuntimeException();
 	}
 	
-	
 	Object get(final ObjectAttribute attribute)
 	{
-		if(discarded)
-			throw new RuntimeException();
+		checkExists();
 
 		return attribute.cacheToSurface(cache.get(attribute.getMainColumn()));
 	}
@@ -58,16 +60,14 @@ final class Row
 	{
 		if(column==null)
 			throw new NullPointerException();
-		if(discarded)
-			throw new RuntimeException();
+		checkExists();
 
 		return cache.get(column);
 	}
 	
 	void put(final AttributeValue[] attributeValues)
 	{
-		if(discarded)
-			throw new RuntimeException();
+		checkExists();
 
 		for(int i = 0; i<attributeValues.length; i++)
 		{
@@ -79,8 +79,7 @@ final class Row
 	
 	void put(final ObjectAttribute attribute, final Object value)
 	{
-		if(discarded)
-			throw new RuntimeException();
+		checkExists();
 
 		cache.put(attribute.getMainColumn(), attribute.surfaceToCache(value));
 		dirty = true; // TODO: check, whether the written attribute got really a new value
@@ -90,8 +89,7 @@ final class Row
 	{
 		if(column==null)
 			throw new NullPointerException();
-		if(discarded)
-			throw new RuntimeException();
+		checkExists();
 
 		cache.put(column, value);
 		dirty = true; // TODO: check, whether the written attribute got really a new value
@@ -101,11 +99,9 @@ final class Row
 	{
 		if(discarded)
 			throw new RuntimeException();
-		if(item.rowWhenActive==null)
-			throw new RuntimeException();
+
+		transaction.rows.remove(item);
 		
-		type.removeRow(this);
-		item.rowWhenActive = null;
 		discarded = true;
 	}
 	
@@ -140,6 +136,22 @@ final class Row
 
 		present = true;
 		dirty = false;
+	}
+	
+	void doesExist()
+	{
+		if(deleted)
+			throw new RuntimeException("does exist");
+		
+		exists = true;
+	}
+	
+	void doesNotExist()
+	{
+		if(exists)
+			throw new RuntimeException("no such pk"); // TODO use a dedicated runtime exception
+		
+		deleted = true;
 	}
 	
 	void load(final StringColumn column, final String value)
@@ -194,17 +206,18 @@ final class Row
 
 	void delete() throws IntegrityViolationException
 	{	
+		checkExists();
+
+		type.getModel().getDatabase().delete(type, pk);
+		deleted = true;
+	}
+	
+	private final void checkExists()
+	{
 		if(discarded)
 			throw new RuntimeException();
-
-		try
-		{
-			type.getModel().getDatabase().delete(type, pk);
-		}
-		finally
-		{
-			discard();
-		}
+		if(deleted)
+			throw new NoSuchItemException(item);
 	}
 
 }

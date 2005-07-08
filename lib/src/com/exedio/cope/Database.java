@@ -406,8 +406,8 @@ abstract class Database
 									}
 									else
 										currentType = type;
-					
-									resultCell = currentType.getItem(pk.intValue());
+
+									resultCell = currentType.createItemObject(pk.intValue());
 								}
 							}
 							if(resultRow!=null)
@@ -448,6 +448,9 @@ abstract class Database
 					append(column.protectedID).defineColumn(column);
 			}
 		}
+		
+		if(first)
+			return; // no columns in type
 
 		bf.append(" from ");
 		first = true;
@@ -484,14 +487,17 @@ abstract class Database
 				public void run(final ResultSet resultSet) throws SQLException
 				{
 					if(!resultSet.next())
-						throw new RuntimeException("no such pk"); // TODO use a dedicated runtime exception
-					int columnIndex = 1;
-					for(Type type = row.type; type!=null; type = type.getSupertype())
+						row.doesNotExist();
+					else
 					{
-						for(Iterator i = type.getTable().getColumns().iterator(); i.hasNext(); )
-							((Column)i.next()).load(resultSet, columnIndex++, row);
+						row.doesExist();
+						int columnIndex = 1;
+						for(Type type = row.type; type!=null; type = type.getSupertype())
+						{
+							for(Iterator i = type.getTable().getColumns().iterator(); i.hasNext(); )
+								((Column)i.next()).load(resultSet, columnIndex++, row);
+						}
 					}
-					return;
 				}
 			}, false);
 	}
@@ -693,12 +699,11 @@ abstract class Database
 		final ResultSetHandler resultSetHandler,
 		final boolean makeStatementInfo)
 	{
-		Connection connection = null;
 		java.sql.Statement sqlStatement = null;
 		ResultSet resultSet = null;
 		try
 		{
-			connection = connectionPool.getConnection();
+			final Connection connection = Transaction.get().getConnection();
 
 			final String sqlText = statement.getText();
 			// TODO: use prepared statements and reuse the statement.
@@ -707,7 +712,7 @@ abstract class Database
 			if(useDefineColumnTypes)
 				((DatabaseColumnTypesDefinable)this).defineColumnTypes(statement.columnTypes, sqlStatement);
 
-			//System.out.println(sqlText);
+			//System.out.println(Transaction.get().toString()+": "+sqlText);
 			//long time = System.currentTimeMillis();
 			resultSet = sqlStatement.executeQuery(sqlText);
 			//long interval = System.currentTimeMillis() - time;
@@ -760,17 +765,6 @@ abstract class Database
 					// exception is already thrown
 				}
 			}
-			if(connection!=null)
-			{
-				try
-				{
-					connectionPool.putConnection(connection);
-				}
-				catch(SQLException e)
-				{
-					// exception is already thrown
-				}
-			}
 		}
 	}
 	
@@ -786,14 +780,13 @@ abstract class Database
 			final ItemAttribute onlyThreatenedIntegrityConstraint)
 		throws ConstraintViolationException
 	{
-		Connection connection = null;
 		java.sql.Statement sqlStatement = null;
 		try
 		{
-			connection = connectionPool.getConnection();
+			final Connection connection = Transaction.get().getConnection();
 			// TODO: use prepared statements and reuse the statement.
 			final String sqlText = statement.getText();
-			//System.err.println(statement.getText());
+			//System.err.println(Transaction.get().toString()+": "+statement.getText());
 			sqlStatement = connection.createStatement();
 			final int rows = sqlStatement.executeUpdate(sqlText);
 
@@ -816,17 +809,6 @@ abstract class Database
 				try
 				{
 					sqlStatement.close();
-				}
-				catch(SQLException e)
-				{
-					// exception is already thrown
-				}
-			}
-			if(connection!=null)
-			{
-				try
-				{
-					connectionPool.putConnection(connection);
 				}
 				catch(SQLException e)
 				{

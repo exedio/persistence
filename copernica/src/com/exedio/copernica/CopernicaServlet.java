@@ -26,7 +26,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.exedio.cope.Model;
 import com.exedio.cope.NestingRuntimeException;
+import com.exedio.cope.Transaction;
 import com.exedio.cops.Cop;
 import com.exedio.cops.CopsServlet;
 
@@ -87,9 +89,14 @@ public final class CopernicaServlet extends CopsServlet
 
 			if(!checked)
 			{
-				provider.getModel().checkDatabase();
+				final Model model = provider.getModel();
+				model.startTransaction("copernica.checkDatabase");
+				model.checkDatabase();
 				checked = true;
+				Transaction.commit();
 			}
+
+			provider.getModel().startTransaction("copernica");
 
 			final CopernicaUser user = checkAccess(request);
 			final CopernicaCop cop = CopernicaCop.getCop(provider, request);
@@ -98,9 +105,12 @@ public final class CopernicaServlet extends CopsServlet
 			out = new PrintStream(response.getOutputStream(), false, ENCODING);
 			Copernica_Jspm.write(out, request, user, cop);
 			out.close();
+			
+			Transaction.commit();
 		}
 		catch(CopernicaAuthorizationFailedException e)
 		{
+			Transaction.rollback();
 			if(out==null)
 				out = new PrintStream(response.getOutputStream(), false, ENCODING);
 
@@ -109,11 +119,16 @@ public final class CopernicaServlet extends CopsServlet
 		}
 		catch(Exception e)
 		{
+			Transaction.rollback();
 			response.setStatus(response.SC_INTERNAL_SERVER_ERROR);
 			if(out==null)
 				out = new PrintStream(response.getOutputStream(), false, ENCODING);
 
 			provider.handleException(out, this, request, e);
+		}
+		finally
+		{
+			Transaction.rollbackIfNotCommitted();
 		}
 	}
 

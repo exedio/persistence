@@ -32,8 +32,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
-import bak.pcj.map.IntKeyOpenHashMap;
-
 import com.exedio.cope.search.Condition;
 import com.exedio.cope.util.ReactivationConstructorDummy;
 
@@ -561,39 +559,13 @@ public final class Type
 	
 	void onDropTable()
 	{
-		rows.clear();
 		getPrimaryKeyIterator().flushPK();
 	}
 
-	// active items of this type ---------------------------------------------
-	
-	private final IntKeyOpenHashMap rows = new IntKeyOpenHashMap();
-	
-	/**
-	 * Returns an item of this type and the given pk, if it's already active.
-	 * Returns null, if either there is no such item with the given pk, or
-	 * such an item is not active.
-	 */
-	Row getRow(final int pk)
-	{
-		return (Row)rows.get(pk);
-	}
-	
-	void putRow(final Row row)
-	{
-		if(rows.put(row.pk, row)!=null)
-			throw new RuntimeException();
-	}
-	
-	void removeRow(final Row row)
-	{
-		if(rows.remove(row.pk)!=row)
-			throw new RuntimeException();
-	}
 	
 	static final ReactivationConstructorDummy REACTIVATION_DUMMY = new ReactivationConstructorDummy();
 
-	private Item createItemObject(final int pk)
+	Item createItemObject(final int pk)
 	{
 		try
 		{
@@ -619,15 +591,6 @@ public final class Type
 		}
 	}
 
-	Item getItem(final int pk)
-	{
-		final Row row = getRow(pk);
-		if(row!=null)
-			return row.item;
-		else
-			return createItemObject(pk);
-	}
-	
 	static final Comparator COMPARATOR = new Comparator()
 	{
 		public int compare(final Object o1, final Object o2)

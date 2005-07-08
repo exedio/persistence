@@ -267,12 +267,27 @@ public final class Model
 		if(!database.check(type, pk))
 			throw new NoSuchIDException(id, "item <"+idNumber+"> does not exist");
 
-		final Item result = type.getItem(pk);
+		final Item result = type.createItemObject(pk);
 		return result;
 	}
 	
 	public PoolCounter getConnectionPoolCounter()
 	{
 		return database.connectionPool.counter;
+	}
+	
+	public Transaction startTransaction()
+	{
+		return new Transaction(this, null);
+	}
+	
+	/**
+	 * @param name
+	 * 	a name for the transaction, useful for debugging.
+	 * 	This name is used in {@link Transaction#toString()}.
+	 */
+	public Transaction startTransaction(final String name)
+	{
+		return new Transaction(this, name);
 	}
 }

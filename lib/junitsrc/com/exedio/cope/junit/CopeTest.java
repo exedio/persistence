@@ -22,6 +22,7 @@ import java.util.Iterator;
 
 import com.exedio.cope.Model;
 import com.exedio.cope.Properties;
+import com.exedio.cope.Transaction;
 import com.exedio.cope.util.PoolCounter;
 
 public abstract class CopeTest extends CopeAssert
@@ -86,6 +87,8 @@ public abstract class CopeTest extends CopeAssert
 
 		super.setUp();
 		createDatabase();
+
+		model.startTransaction("CopeTest");
 		model.checkEmptyDatabase();
 	}
 	
@@ -93,6 +96,8 @@ public abstract class CopeTest extends CopeAssert
 	{
 		super.tearDown();
 		model.checkEmptyDatabase();
+		Transaction.commit();
+
 		dropDatabase();
 	}
 	
