@@ -64,9 +64,9 @@ final class ConnectionPool implements ConnectionProvider
 			if(size>0)
 			{
 				//System.out.println("connection pool: fetch "+(size-1));
-				final Connection connection = pool[--size];
+				final Connection result = pool[--size];
 				pool[size] = null; // do not reference old connections anymore
-				return connection;
+				return result;
 			}
 		}
 		//System.out.println("connection pool: CREATE");
