@@ -82,6 +82,9 @@ final class ConnectionPool implements ConnectionProvider
 	 */
 	public final void putConnection(final Connection connection) throws SQLException
 	{
+		if(connection==null)
+			throw new NullPointerException();
+
 		counter.put();
 		
 		synchronized(lock)
