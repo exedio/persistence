@@ -619,10 +619,24 @@ public abstract class Item extends Cope
 		getRow().delete();
 	}
 	
-	// TODO: rename to existsCopeItem, could have two causes: deleted or created in a transaction rolled back
+	// TODO: replace by existsCopeItem
 	public final boolean isCopeItemDeleted()
 	{
 		return getRow().deleted;
+	}
+
+	/**
+	 * Returns, whether the item does exist.
+	 * There are two possibilities, why an item could not exist:
+	 * <ol>
+	 * <li>the item has been deleted by {@link #deleteCopeItem()}.
+	 * <li>the item has been created in a transaction,
+	 *     that was subsequently rolled back by {@link Transaction#rollback()}.
+	 * </ol>
+	 */
+	public final boolean existsCopeItem()
+	{
+		return !getRow().deleted;
 	}
 
 	public static final Attribute.Option DEFAULT = new Attribute.Option(false, false, false);
