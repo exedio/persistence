@@ -68,7 +68,7 @@ public class TransactionTest extends DatabaseLibTest
 	
 	private void assertNotExists(final AttributeItem actualItem)
 	{
-		assertTrue(actualItem.isCopeItemDeleted());
+		assertTrue(!actualItem.existsCopeItem());
 		try
 		{
 			actualItem.getSomeNotNullString();
@@ -104,17 +104,17 @@ public class TransactionTest extends DatabaseLibTest
 		final AttributeItem itemx = newItem("someStringX");
 		deleteOnTearDown(itemx);
 		assertSomeString(itemx, null);
-		assertTrue(!itemx.isCopeItemDeleted());
+		assertTrue(itemx.existsCopeItem());
 		Transaction.commit();
 		
 		createTransaction("testCommitCreate1");
 		assertSomeString(itemx, null);
-		assertTrue(!itemx.isCopeItemDeleted());
+		assertTrue(itemx.existsCopeItem());
 		final AttributeItem itemy = newItem("someStringY");
 		deleteOnTearDown(itemy);
 		assertSomeString(itemx, null);
 		assertSomeString(itemy, null);
-		assertTrue(!itemy.isCopeItemDeleted());
+		assertTrue(itemy.existsCopeItem());
 		itemx.setSomeString("someStringX");
 		itemy.setSomeString("someStringY");
 		assertSomeString(itemx, "someStringX");
@@ -124,14 +124,14 @@ public class TransactionTest extends DatabaseLibTest
 		createTransaction("testCommitCreate2");
 		assertSomeString(itemx, "someStringX");
 		assertSomeString(itemy, "someStringY");
-		assertTrue(!itemx.isCopeItemDeleted());
-		assertTrue(!itemy.isCopeItemDeleted());
+		assertTrue(itemx.existsCopeItem());
+		assertTrue(itemy.existsCopeItem());
 	}
 	
 	public void testCommitDelete() throws ConstraintViolationException
 	{
 		final AttributeItem itemx = newItem("someStringX");
-		assertTrue(!itemx.isCopeItemDeleted());
+		assertTrue(itemx.existsCopeItem());
 		assertEquals("someStringX", itemx.getSomeNotNullString());
 		itemx.deleteCopeItem();
 		assertNotExists(itemx);
@@ -140,13 +140,13 @@ public class TransactionTest extends DatabaseLibTest
 		createTransaction("testCommitDelete1");
 		assertNotExists(itemx);
 		final AttributeItem itemy = newItem("someStringY");
-		assertTrue(!itemy.isCopeItemDeleted());
+		assertTrue(itemy.existsCopeItem());
 		assertEquals("someStringY", itemy.getSomeNotNullString());
 		Transaction.commit();
 
 		createTransaction("testCommitDelete2");
 		assertNotExists(itemx);
-		assertTrue(!itemy.isCopeItemDeleted());
+		assertTrue(itemy.existsCopeItem());
 		assertEquals("someStringY", itemy.getSomeNotNullString());
 		itemy.deleteCopeItem();
 		assertNotExists(itemy);
@@ -194,19 +194,19 @@ public class TransactionTest extends DatabaseLibTest
 		assertSomeString(itemx, null);
 		assertContains(itemx, itemx.TYPE.search(Cope.equal(itemx.someNotNullString, "someStringX")));
 		assertContains(item.TYPE.search(Cope.equal(item.someNotNullString, "someStringY")));
-		assertTrue(!itemx.isCopeItemDeleted());
+		assertTrue(itemx.existsCopeItem());
 		Transaction.rollback();
 		
 		createTransaction("testRollbackCreate2");
 		assertContains(itemx.TYPE.search(Cope.equal(itemx.someNotNullString, "someStringX")));
 		assertContains(item.TYPE.search(Cope.equal(item.someNotNullString, "someStringY")));
-		assertTrue(itemx.isCopeItemDeleted());
+		assertTrue(!itemx.existsCopeItem());
 		final AttributeItem itemy = newItem("someStringY");
 		assertNotEquals(itemx, itemy);
 		assertSomeString(itemy, null);
 		assertContains(itemx.TYPE.search(Cope.equal(itemx.someNotNullString, "someStringX")));
 		assertContains(itemy, itemy.TYPE.search(Cope.equal(itemx.someNotNullString, "someStringY")));
-		assertTrue(!itemy.isCopeItemDeleted());
+		assertTrue(itemy.existsCopeItem());
 		itemy.setSomeString("someStringYY");
 		assertSomeString(itemy, "someStringYY");
 		assertContains(itemx.TYPE.search(Cope.equal(itemx.someNotNullString, "someStringX")));
@@ -217,8 +217,8 @@ public class TransactionTest extends DatabaseLibTest
 		assertContains(itemx.TYPE.search(Cope.equal(itemx.someNotNullString, "someStringX")));
 		assertContains(itemy.TYPE.search(Cope.equal(itemx.someNotNullString, "someStringY")));
 		assertNotEquals(itemx, itemy);
-		assertTrue(itemx.isCopeItemDeleted());
-		assertTrue(itemy.isCopeItemDeleted());
+		assertTrue(!itemx.existsCopeItem());
+		assertTrue(!itemy.existsCopeItem());
 	}
 
 	public void testRollbackDelete() throws ConstraintViolationException
@@ -227,17 +227,17 @@ public class TransactionTest extends DatabaseLibTest
 		Transaction.commit();
 
 		createTransaction("testRollbackDelete1");
-		assertTrue(!itemx.isCopeItemDeleted());
+		assertTrue(itemx.existsCopeItem());
 		assertEquals("someStringX", itemx.getSomeNotNullString());
 		itemx.deleteCopeItem();
 		assertNotExists(itemx);
 		Transaction.rollback();
 		
 		createTransaction("testRollbackDelete2");
-		assertTrue(!itemx.isCopeItemDeleted());
+		assertTrue(itemx.existsCopeItem());
 		assertEquals("someString", item.getSomeNotNullString());
 		item.setSomeNotNullString("someString2");
-		assertTrue(!item.isCopeItemDeleted());
+		assertTrue(item.existsCopeItem());
 		assertEquals("someString2", item.getSomeNotNullString());
 		item.deleteCopeItem();
 		assertNotExists(item);
@@ -245,7 +245,7 @@ public class TransactionTest extends DatabaseLibTest
 
 		createTransaction("testRollbackDelete3");
 		deleteOnTearDown(itemx);
-		assertTrue(!item.isCopeItemDeleted());
+		assertTrue(item.existsCopeItem());
 		assertEquals("someString", item.getSomeNotNullString());
 	}
 	

@@ -143,7 +143,7 @@ public class AttributeItemTest extends AttributeTest
 			assertEquals(source.empty2, e.getAttribute());
 			assertEquals(null/*TODO someItem*/, e.getItem());
 		}
-		assertTrue(!target.isCopeItemDeleted());
+		assertTrue(target.existsCopeItem());
 	}
 
 }

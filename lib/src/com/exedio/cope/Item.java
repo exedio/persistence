@@ -619,12 +619,6 @@ public abstract class Item extends Cope
 		getRow().delete();
 	}
 	
-	// TODO: replace by existsCopeItem
-	public final boolean isCopeItemDeleted()
-	{
-		return getRow().deleted;
-	}
-
 	/**
 	 * Returns, whether the item does exist.
 	 * There are two possibilities, why an item could not exist:
