@@ -160,15 +160,15 @@ public class Transaction
 	
 	private void commitInternal()
 	{
-		close("commit");
+		close(false);
 	}
 
 	private void rollbackInternal()
 	{
-		close("rollback");
+		close(true);
 	}
 	
-	private void close(final String command)
+	private void close(final boolean rollback)
 	{
 		if(closed)
 			throw new RuntimeException();
@@ -177,15 +177,16 @@ public class Transaction
 		{
 			if(connection!=null)
 			{
-				final Statement bf = database.createStatement();
-				bf.append(command);
 				try
 				{
-					database.executeSQLUpdate(bf, 0);
+					if(rollback)
+						connection.rollback();
+					else
+						connection.commit();
 				}
-				catch(ConstraintViolationException e)
+				catch(SQLException e)
 				{
-					throw new NestingRuntimeException(e);
+					throw new SQLRuntimeException(e, rollback ? "rollback" : "commit");
 				}
 			}
 		}
