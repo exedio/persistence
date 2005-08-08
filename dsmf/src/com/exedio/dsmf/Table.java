@@ -32,6 +32,8 @@ public final class Table extends Node
 	private final boolean required;
 	private boolean exists;
 	private LastAnalyzed lastAnalyzed = null;
+	
+	private boolean defensive = false;
 
 	private final HashMap columnMap = new HashMap();
 	private final ArrayList columnList = new ArrayList();
@@ -59,6 +61,11 @@ public final class Table extends Node
 		this.exists = !required;
 
 		schema.register(this);
+	}
+	
+	public final void makeDefensive()
+	{
+		defensive = true;
 	}
 	
 	public final String getName()
@@ -298,7 +305,20 @@ public final class Table extends Node
 		driver.appendTableCreateStatement(bf);
 
 		//System.out.println("createTable:"+bf.toString());
-		executeSQL(bf.toString());
+		if(defensive)
+		{
+			try
+			{
+				executeSQL(bf.toString());
+			}
+			catch(SQLRuntimeException e)
+			{
+				// ignore it in defensive mode
+			}
+		}
+		else
+			executeSQL(bf.toString());
+			
 	}
 	
 	final void createForeignKeyConstraints()

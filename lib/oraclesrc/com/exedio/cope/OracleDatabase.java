@@ -120,6 +120,7 @@ final class OracleDatabase
 	protected void completeSchema(final Schema schema)
 	{
 		final Table planTable = new Table(schema, "PLAN_TABLE");
+		planTable.makeDefensive();
 		new Column(planTable, STATEMENT_ID, "VARCHAR2(30)");
 		new Column(planTable, "TIMESTAMP", "DATE");
 		new Column(planTable, "REMARKS", "VARCHAR2(80)");
