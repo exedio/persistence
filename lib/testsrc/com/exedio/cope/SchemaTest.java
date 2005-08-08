@@ -26,7 +26,7 @@ import com.exedio.dsmf.PrimaryKeyConstraint;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.UniqueConstraint;
 
-public class SchemaTest extends DatabaseLibTest
+public class SchemaTest extends TestmodelTest
 {
 	private static final String TABLE1 = "SumItem";
 	private static final String TABLE1X = "SumItemX";

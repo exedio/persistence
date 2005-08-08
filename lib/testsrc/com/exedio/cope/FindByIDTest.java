@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-public class FindByIDTest extends DatabaseLibTest
+public class FindByIDTest extends TestmodelTest
 {
 	private void assertFail(final String id, final String message)
 	{

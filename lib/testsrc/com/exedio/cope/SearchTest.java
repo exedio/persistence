@@ -22,7 +22,7 @@ import java.util.Collection;
 import com.exedio.cope.testmodel.AttributeItem;
 import com.exedio.cope.testmodel.EmptyItem;
 
-public class SearchTest extends DatabaseLibTest
+public class SearchTest extends TestmodelTest
 {
 	public void testUnmodifiableSearchResult()
 			throws IntegrityViolationException

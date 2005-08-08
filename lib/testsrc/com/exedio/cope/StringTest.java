@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import com.exedio.cope.testmodel.StringItem;
 
-public class StringTest extends DatabaseLibTest
+public class StringTest extends TestmodelTest
 {
 	StringItem item;
 

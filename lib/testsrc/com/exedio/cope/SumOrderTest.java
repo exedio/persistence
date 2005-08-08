@@ -24,7 +24,7 @@ import java.util.List;
 import com.exedio.cope.testmodel.SumItem;
 
 
-public class SumOrderTest extends DatabaseLibTest
+public class SumOrderTest extends TestmodelTest
 {
 	SumItem item1;
 	SumItem item2;

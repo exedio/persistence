@@ -20,7 +20,7 @@ package com.exedio.cope;
 import com.exedio.cope.testmodel.PointerItem;
 import com.exedio.cope.testmodel.PointerItem2;
 
-public class JoinOuterTest extends DatabaseLibTest
+public class JoinOuterTest extends TestmodelTest
 {
 	PointerItem leftJoined;
 	PointerItem leftLonely;

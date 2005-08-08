@@ -25,7 +25,7 @@ import com.exedio.cope.testmodel.EmptyItem;
  * and how the framework hides such behaviour from the user.
  * @author Ralf Wiebicke
  */
-public class NullEmptyTest extends DatabaseLibTest
+public class NullEmptyTest extends TestmodelTest
 {
 	EmptyItem someItem;
 	AttributeItem item;

@@ -26,6 +26,10 @@ import com.exedio.cope.Properties;
 import com.exedio.cope.Transaction;
 import com.exedio.cope.util.PoolCounter;
 
+/**
+ * An abstract test case class for tests creating/using some persistent data.
+ * @author Ralf Wiebicke
+ */
 public abstract class CopeTest extends CopeAssert
 {
 	private static HashSet createdDatabase = new HashSet();

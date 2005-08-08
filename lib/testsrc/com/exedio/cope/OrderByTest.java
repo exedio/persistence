@@ -25,7 +25,7 @@ import com.exedio.cope.testmodel.AttributeItem;
 import com.exedio.cope.testmodel.EmptyItem;
 
 
-public class OrderByTest extends DatabaseLibTest
+public class OrderByTest extends TestmodelTest
 {
 
 	protected EmptyItem someItem, someItem2;

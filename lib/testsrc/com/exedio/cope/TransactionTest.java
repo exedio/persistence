@@ -22,7 +22,7 @@ import com.exedio.cope.testmodel.AttributeItem;
 import com.exedio.cope.testmodel.EmptyItem;
 
 
-public class TransactionTest extends DatabaseLibTest
+public class TransactionTest extends TestmodelTest
 {
 	protected EmptyItem someItem;
 	protected AttributeItem item;

@@ -25,15 +25,11 @@ import java.io.InputStream;
 import com.exedio.cope.testmodel.AttributeItem;
 import com.exedio.cope.testmodel.Main;
 
-/**
- * An abstract test class for tests creating/using some persistent data.
- * @author Ralf Wiebicke
- */
-public abstract class DatabaseLibTest extends AbstractLibTest // TODO rename to TestmodelTest
+public abstract class TestmodelTest extends AbstractLibTest
 {
 	public static final Type[] modelTypes = Main.modelTypes;
 	
-	public DatabaseLibTest()
+	public TestmodelTest()
 	{
 		super(Main.model);
 	}

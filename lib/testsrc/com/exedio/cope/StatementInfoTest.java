@@ -23,7 +23,7 @@ import java.util.Iterator;
 import com.exedio.cope.testmodel.ItemWithSingleUnique;
 
 
-public class StatementInfoTest extends DatabaseLibTest
+public class StatementInfoTest extends TestmodelTest
 {
 	
 	public void testExecutionPlan()

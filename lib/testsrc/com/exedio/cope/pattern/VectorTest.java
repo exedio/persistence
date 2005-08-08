@@ -22,12 +22,12 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.exedio.cope.ConstraintViolationException;
-import com.exedio.cope.DatabaseLibTest;
+import com.exedio.cope.TestmodelTest;
 import com.exedio.cope.StringAttribute;
 import com.exedio.cope.testmodel.VectorItem;
 
 
-public class VectorTest extends DatabaseLibTest
+public class VectorTest extends TestmodelTest
 {
 	VectorItem item;
 	

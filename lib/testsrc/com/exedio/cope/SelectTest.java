@@ -26,7 +26,7 @@ import com.exedio.cope.testmodel.AttributeItem;
 import com.exedio.cope.testmodel.EmptyItem;
 import com.exedio.cope.testmodel.AttributeItem.SomeEnumeration;
 
-public class SelectTest extends DatabaseLibTest
+public class SelectTest extends TestmodelTest
 {
 	protected EmptyItem someItem, someItem2;
 	protected AttributeItem item1, item2, item3, item4, item5, item;

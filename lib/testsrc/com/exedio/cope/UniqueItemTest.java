@@ -24,7 +24,7 @@ import com.exedio.cope.testmodel.ItemWithSingleUniqueNotNull;
 import com.exedio.cope.testmodel.ItemWithSingleUniqueReadOnly;
 
 
-public class UniqueItemTest extends DatabaseLibTest
+public class UniqueItemTest extends TestmodelTest
 {
 
 	public void testItemWithSingleUnique()

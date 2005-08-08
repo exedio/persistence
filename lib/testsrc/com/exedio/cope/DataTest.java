@@ -22,7 +22,7 @@ import java.io.IOException;
 
 import com.exedio.cope.testmodel.DataItem;
 
-public class DataTest extends DatabaseLibTest
+public class DataTest extends TestmodelTest
 {
 	private DataItem item;
 	private final byte[] data = new byte[]{-86,122,-8,23};

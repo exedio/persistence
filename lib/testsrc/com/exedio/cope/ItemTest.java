@@ -24,7 +24,7 @@ import com.exedio.cope.testmodel.AttributeItem;
 import com.exedio.cope.testmodel.EmptyItem;
 import com.exedio.cope.testmodel.EmptyItem2;
 
-public class ItemTest extends DatabaseLibTest
+public class ItemTest extends TestmodelTest
 {
 	
 	/**

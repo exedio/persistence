@@ -20,7 +20,7 @@ package com.exedio.cope;
 import com.exedio.cope.testmodel.SumItem;
 
 
-public class SumTest extends DatabaseLibTest
+public class SumTest extends TestmodelTest
 {
 	SumItem item;
 	SumItem item2;

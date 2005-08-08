@@ -21,7 +21,7 @@ import com.exedio.cope.testmodel.FirstSub;
 import com.exedio.cope.testmodel.SecondSub;
 import com.exedio.cope.testmodel.Super;
 
-public class HierarchyTest extends DatabaseLibTest
+public class HierarchyTest extends TestmodelTest
 {
 	public void testHierarchy()
 			throws IntegrityViolationException

@@ -23,7 +23,7 @@ import java.util.Date;
 import com.exedio.cope.testmodel.AttributeItem;
 import com.exedio.cope.testmodel.EmptyItem;
 
-public class LiteralConditionTest extends DatabaseLibTest
+public class LiteralConditionTest extends TestmodelTest
 {
 	EmptyItem someItem;
 	AttributeItem item1;

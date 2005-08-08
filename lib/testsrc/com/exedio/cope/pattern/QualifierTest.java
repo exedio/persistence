@@ -18,7 +18,7 @@
 
 package com.exedio.cope.pattern;
 
-import com.exedio.cope.DatabaseLibTest;
+import com.exedio.cope.TestmodelTest;
 import com.exedio.cope.IntegrityViolationException;
 import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.NotNullViolationException;
@@ -30,7 +30,7 @@ import com.exedio.cope.testmodel.QualifiedIntegerEnumQualifier;
 import com.exedio.cope.testmodel.QualifiedItem;
 import com.exedio.cope.testmodel.QualifiedStringQualifier;
 
-public class QualifierTest extends DatabaseLibTest
+public class QualifierTest extends TestmodelTest
 {
 	QualifiedItem item;
 	EmptyItem key1;
