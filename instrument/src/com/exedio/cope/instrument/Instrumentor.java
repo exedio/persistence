@@ -77,35 +77,37 @@ final class Instrumentor implements InjectionConsumer
 	
 	private boolean discardnextfeature=false;
 	
+	private static final String TAG_PREFIX = "cope.";
+
 	/**
 	 * Tag name for persistent classes.
 	 */
-	private static final String PERSISTENT_CLASS = "cope.persistent";
+	private static final String PERSISTENT_CLASS = TAG_PREFIX + "persistent";
 
 	/**
 	 * Tag name for the generated getter option.
 	 */
-	private static final String ATTRIBUTE_GETTER = "cope.getter";
+	private static final String ATTRIBUTE_GETTER = TAG_PREFIX + "getter";
 
 	/**
 	 * Tag name for the generated setter option.
 	 */
-	private static final String ATTRIBUTE_SETTER = "cope.setter";
+	private static final String ATTRIBUTE_SETTER = TAG_PREFIX + "setter";
 
 	/**
 	 * Tag name for the generated initial constructor option.
 	 */
-	private static final String CLASS_INITIAL_CONSTRUCTOR = "cope.constructor";
+	private static final String CLASS_INITIAL_CONSTRUCTOR = TAG_PREFIX + "constructor";
 	
 	/**
 	 * Tag name for the generated generic constructor option.
 	 */
-	private static final String CLASS_GENERIC_CONSTRUCTOR = "cope.generic.constructor";
+	private static final String CLASS_GENERIC_CONSTRUCTOR = TAG_PREFIX + "generic.constructor";
 	
 	/**
 	 * Tag name for the generated type option.
 	 */
-	private static final String CLASS_TYPE = "cope.type";
+	private static final String CLASS_TYPE = TAG_PREFIX + "type";
 	
 	/**
 	 * All generated class features get this doccomment tag.
