@@ -5,7 +5,6 @@
 	- Instrumentierung nur für geänderte Dateien
 	- leave files unmodified, where instrumentation result equals source (CRC)
 	- disable/anderer access modifier für alle Methoden
-	- tag generated code with @cope.generated
 * Lib
 	- search API
 		- oracle statistics
