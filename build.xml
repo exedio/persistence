@@ -87,6 +87,7 @@
 		</javac>
 	</target>
 	
+	<!-- TODO make database specific compiles via a loop -->
 	<target name="lib.hsqldb.compile" depends="lib.compile.mkdir, lib.core.compile">
 		<javac srcdir= "lib/hsqldbsrc"
 				destdir="lib/build/classes"
@@ -100,29 +101,45 @@
 	</target>
 
 	<target name="lib.oracle.compile" depends="lib.compile.mkdir, lib.core.compile">
-		<javac srcdir= "lib/oraclesrc"
-				destdir="lib/build/classes"
-				deprecation="on"
-				debug="on"
-				optimize="off">
-			<classpath>
-				<pathelement location="../lib/pcj.jar" />
-				<pathelement location="../lib/classes12.jar" />
-			</classpath>
-		</javac>
+		<if>
+			<available file="../lib/classes12.jar" />
+			<then>
+				<javac srcdir= "lib/oraclesrc"
+						destdir="lib/build/classes"
+						deprecation="on"
+						debug="on"
+						optimize="off">
+					<classpath>
+						<pathelement location="../lib/pcj.jar" />
+						<pathelement location="../lib/classes12.jar" />
+					</classpath>
+				</javac>
+			</then>
+			<else>
+				<echo message="skipping oracle driver" />
+			</else>
+		</if>
 	</target>
 
 	<target name="lib.mysql.compile" depends="lib.compile.mkdir, lib.core.compile">
-		<javac srcdir= "lib/mysqlsrc"
-				destdir="lib/build/classes"
-				deprecation="on"
-				debug="on"
-				optimize="off">
-			<classpath>
-				<pathelement location="../lib/pcj.jar" />
-				<pathelement location="../lib/mysql-connector-java-bin.jar" />
-			</classpath>
-		</javac>
+		<if>
+			<available file="../lib/mysql-connector-java-bin.jar" />
+			<then>
+				<javac srcdir= "lib/mysqlsrc"
+						destdir="lib/build/classes"
+						deprecation="on"
+						debug="on"
+						optimize="off">
+					<classpath>
+						<pathelement location="../lib/pcj.jar" />
+						<pathelement location="../lib/mysql-connector-java-bin.jar" />
+					</classpath>
+				</javac>
+			</then>
+			<else>
+				<echo message="skipping mysql driver" />
+			</else>
+		</if>
 	</target>
 
 	<target name="lib.pattern.compile" depends="lib.compile.mkdir, lib.core.compile">
