@@ -261,6 +261,7 @@ public final class Table extends Node
 		{
 			final Constraint constraint = (Constraint)i.next();
 
+			// TODO: use inheritance
 			if(constraint instanceof CheckConstraint)
 			{
 				final CheckConstraint check = (CheckConstraint)constraint;
