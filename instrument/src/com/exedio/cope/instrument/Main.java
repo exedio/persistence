@@ -30,13 +30,19 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.zip.CRC32;
+import java.util.zip.CheckedInputStream;
+import java.util.zip.CheckedOutputStream;
 
 import com.exedio.cope.NestingRuntimeException;
 
 public class Main
 {
-	
-	static void inject(final File inputfile, final File outputfile, final JavaRepository repository)
+
+	/**
+	 * @return whether the output file is different to the input file
+	 */
+	static boolean inject(final File inputfile, final File outputfile, final JavaRepository repository)
 	throws IOException, InjectorParseException
 	{
 		//System.out.println("injecting from "+inputfile+" to "+outputfile);
@@ -54,12 +60,14 @@ public class Main
 				throw new RuntimeException("error: output file is not a regular file.");
 		}
 		
+		final CRC32 inputCRC = new CRC32();
+		final CRC32 outputCRC = new CRC32();
 		Reader input=null;
 		Writer output=null;
 		try
 		{
-			input =new InputStreamReader(new FileInputStream(inputfile));
-			output=new OutputStreamWriter(new FileOutputStream(outputfile));
+			input =new InputStreamReader(new CheckedInputStream(new FileInputStream(inputfile), inputCRC));
+			output=new OutputStreamWriter(new CheckedOutputStream(new FileOutputStream(outputfile), outputCRC));
 			(new Injector(input, output, new Instrumentor(), repository)).parseFile();
 			input.close();
 			output.close();
@@ -74,6 +82,7 @@ public class Main
 			if(input!=null)  input.close();
 			if(output!=null) output.close();
 		}
+		return inputCRC.getValue() != outputCRC.getValue();
 	}
 	
 	private static final String TEMPFILE_SUFFIX=".temp_cope_injection";
@@ -81,15 +90,25 @@ public class Main
 	static void inject(final File tobemodifiedfile, final JavaRepository repository)
 	throws IOException, InjectorParseException
 	{
-		System.out.println("Instrumenting "+tobemodifiedfile);
 		final File outputfile=new File(tobemodifiedfile.getAbsolutePath()+TEMPFILE_SUFFIX);
-		inject(tobemodifiedfile, outputfile, repository);
-		if(!outputfile.exists())
-			throw new RuntimeException("not exists "+outputfile+".");
-		if(!tobemodifiedfile.delete())
-			throw new RuntimeException("deleting "+tobemodifiedfile+" failed.");
-		if(!outputfile.renameTo(tobemodifiedfile))
-			throw new RuntimeException("renaming "+outputfile+" to "+tobemodifiedfile+" failed.");
+		if(inject(tobemodifiedfile, outputfile, repository))
+		{
+			System.out.println("Instrumented "+tobemodifiedfile);
+			if(!outputfile.exists())
+				throw new RuntimeException("not exists "+outputfile+".");
+			if(!tobemodifiedfile.delete())
+				throw new RuntimeException("deleting "+tobemodifiedfile+" failed.");
+			if(!outputfile.renameTo(tobemodifiedfile))
+				throw new RuntimeException("renaming "+outputfile+" to "+tobemodifiedfile+" failed.");
+		}
+		else
+		{
+			System.out.println("Skipped "+tobemodifiedfile);
+			if(!outputfile.exists())
+				throw new RuntimeException("not exists "+outputfile+".");
+			if(!outputfile.delete())
+				throw new RuntimeException("deleting "+tobemodifiedfile+" failed.");
+		}
 	}
 	
 	static void expand(Collection files, String pattern)
