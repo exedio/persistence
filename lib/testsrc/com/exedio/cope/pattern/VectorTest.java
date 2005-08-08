@@ -23,19 +23,17 @@ import java.util.List;
 
 import com.exedio.cope.AbstractLibTest;
 import com.exedio.cope.ConstraintViolationException;
-import com.exedio.cope.Model;
 import com.exedio.cope.StringAttribute;
-import com.exedio.cope.Type;
+import com.exedio.cope.testmodel.Main;
 import com.exedio.cope.testmodel.VectorItem;
 
 
 public class VectorTest extends AbstractLibTest
 {
-	static final Model model = new Model(new Type[] { VectorItem.TYPE });
 	
 	public VectorTest()
 	{
-		super(model);
+		super(Main.vectorModel);
 	}
 
 	VectorItem item;

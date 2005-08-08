@@ -22,18 +22,15 @@ import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 
 import com.exedio.cope.AbstractLibTest;
-import com.exedio.cope.Model;
 import com.exedio.cope.NestingRuntimeException;
-import com.exedio.cope.Type;
 import com.exedio.cope.testmodel.HashItem;
+import com.exedio.cope.testmodel.Main;
 
 public class HashTest extends AbstractLibTest
 {
-	static final Model model = new Model(new Type[] { HashItem.TYPE });
-
 	public HashTest()
 	{
-		super(model);
+		super(Main.hashModel);
 	}
 	
 	HashItem item;
