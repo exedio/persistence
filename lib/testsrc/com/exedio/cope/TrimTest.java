@@ -18,7 +18,9 @@
 
 package com.exedio.cope;
 
-public class TrimTest extends AbstractLibTest
+import junit.framework.TestCase;
+
+public class TrimTest extends TestCase
 {
 	private void assertTrim(final String expected, final String actualLongString, final int maxLength)
 	{

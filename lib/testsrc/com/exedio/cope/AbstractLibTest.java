@@ -19,16 +19,13 @@
 package com.exedio.cope;
 
 import com.exedio.cope.junit.CopeTest;
-import com.exedio.cope.testmodel.Main;
 
 public abstract class AbstractLibTest extends CopeTest
 {
 	
-	public static final Type[] modelTypes = Main.modelTypes;
-	
-	public AbstractLibTest()
+	public AbstractLibTest(final Model model)
 	{
-		super(Main.model);
+		super(model);
 	}
 	
 	protected final static Integer i1 = new Integer(1);

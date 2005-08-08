@@ -22,10 +22,10 @@ package com.exedio.cope.util;
 import java.util.Date;
 import java.util.Iterator;
 
-import com.exedio.cope.AbstractLibTest;
+import com.exedio.cope.junit.CopeAssert;
 
 
-public class PoolCounterTest extends AbstractLibTest
+public class PoolCounterTest extends CopeAssert
 {
 	public void testIt()
 	{

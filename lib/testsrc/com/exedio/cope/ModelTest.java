@@ -25,6 +25,7 @@ import com.exedio.cope.testmodel.FirstSub;
 import com.exedio.cope.testmodel.ItemWithSingleUnique;
 import com.exedio.cope.testmodel.ItemWithSingleUniqueNotNull;
 import com.exedio.cope.testmodel.ItemWithSingleUniqueReadOnly;
+import com.exedio.cope.testmodel.Main;
 import com.exedio.cope.testmodel.SecondSub;
 import com.exedio.cope.testmodel.Super;
 import com.exedio.cope.util.ReactivationConstructorDummy;
@@ -35,6 +36,11 @@ import com.exedio.cope.util.ReactivationConstructorDummy;
  */
 public class ModelTest extends AbstractLibTest
 {
+	public ModelTest()
+	{
+		super(Main.model);
+	}
+	
 	public void testType()
 	{
 		final AttributeItem item = null;

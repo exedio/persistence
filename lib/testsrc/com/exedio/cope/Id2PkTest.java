@@ -18,7 +18,9 @@
 
 package com.exedio.cope;
 
-public class Id2PkTest extends AbstractLibTest
+import junit.framework.TestCase;
+
+public class Id2PkTest extends TestCase
 {
 	final PrimaryKeyIterator i = new PrimaryKeyIterator(null);
 	

@@ -23,13 +23,21 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import com.exedio.cope.testmodel.AttributeItem;
+import com.exedio.cope.testmodel.Main;
 
 /**
  * An abstract test class for tests creating/using some persistent data.
  * @author Ralf Wiebicke
  */
-public abstract class DatabaseLibTest extends AbstractLibTest
+public abstract class DatabaseLibTest extends AbstractLibTest // TODO rename to TestmodelTest
 {
+	public static final Type[] modelTypes = Main.modelTypes;
+	
+	public DatabaseLibTest()
+	{
+		super(Main.model);
+	}
+	
 	protected boolean hsqldb;
 	protected boolean mysql;
 	

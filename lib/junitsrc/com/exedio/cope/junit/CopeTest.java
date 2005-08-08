@@ -18,6 +18,7 @@
 
 package com.exedio.cope.junit;
 
+import java.util.HashSet;
 import java.util.Iterator;
 
 import com.exedio.cope.Model;
@@ -27,8 +28,8 @@ import com.exedio.cope.util.PoolCounter;
 
 public abstract class CopeTest extends CopeAssert
 {
-	private static boolean createdDatabase = false;
-	private static boolean registeredDropDatabaseHook = false;
+	private static HashSet createdDatabase = new HashSet();
+	private static HashSet registeredDropDatabaseHook = new HashSet();
 	private static Object lock = new Object();
 
 	public final Model model;
@@ -54,10 +55,10 @@ public abstract class CopeTest extends CopeAssert
 	{
 		synchronized(lock)
 		{
-			if(!createdDatabase)
+			if(!createdDatabase.contains(model))
 			{
 				model.createDatabase();
-				createdDatabase = true;
+				createdDatabase.add(model);
 			}
 		}
 	}
@@ -66,7 +67,7 @@ public abstract class CopeTest extends CopeAssert
 	{
 		synchronized(lock)
 		{
-			if(!registeredDropDatabaseHook)
+			if(!registeredDropDatabaseHook.contains(model))
 			{
 				Runtime.getRuntime().addShutdownHook(new Thread(new Runnable(){
 					public void run()
@@ -76,7 +77,7 @@ public abstract class CopeTest extends CopeAssert
 						model.close();
 					}
 				}));
-				registeredDropDatabaseHook = true;
+				registeredDropDatabaseHook.add(model);
 			}
 		}
 	}
