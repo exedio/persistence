@@ -1,24 +1,44 @@
 * Instrumentor
+	- first load all files, then write alles files
 	- mehrsprachige generierte Comments
 	- mehrsprachige Parametertypen
 	- Instrumentierung nur für geänderte Dateien
+	- leave files unmodified, where instrumentation result equals source (CRC)
 	- disable/anderer access modifier für alle Methoden
+	- tag generated code with @cope.generated
 * Lib
 	- search API
 		- oracle statistics
 		- self joins
 		- group by
-	- Transaktionen / Synchronisierung
+	- Transactions: introduce timestamp and use it in
+		* Item#touch
+		* timestamp of data files
 	- optionally use strings in DB for enum attributes
-	- remove mime type from DataAttribute,
-		put this functionality into a pattern
+	- DataAttribute:
+		* remove mime type, put this functionality into a pattern
+		* allow data attribute in database (BLOB)
+		* implement DataServlet
+		* test reverse proxy functionality of apache
+	- move Item#touch into separate pattern Timestamp
 	- disable empty strings for oracle
 		/ introduce database specific max/min length for strings
 	- analog dsmf: Datenverzeichnisse prüfen
 	- add/drop constraints:
 		* alter table "SumItem" add constraint schnappel check ("num2" is not null)
 		* alter table "ItemWithDoubleUnique" drop constraint "ItemWithDoublUniqu_str_Nn"
-	- all patterns should be able to create attributes
+	- for all patterns:
+		* explicit external source: new Hash(source)
+		* implicit external source: new Hash(stringAttribute(DEFAULT))
+		* internal source: new Hash()
+	- relation pattern
+	- search conditions for patterns Hash/Vector
+	- Vector: allow length terminated instead of null terminated as well
+	- test model:
+		* put classes for patterns into separate package
+		* separate test model for lib tests and testwebapp (webtests)
+		* make small test models for each lib test
+	- make it compile without oracle/mysql driver
 
 * Docs
 	- aus AGENDA
