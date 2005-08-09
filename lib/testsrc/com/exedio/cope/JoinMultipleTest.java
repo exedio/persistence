@@ -43,12 +43,12 @@ public class JoinMultipleTest extends TestmodelTest
 
 			final Join join1 = query.join(target1.TYPE);
 			assertEquals(list(join1), query.getJoins());
-			join1.setCondition(Cope.join(source.pointer, join1));
+			join1.setCondition(Cope.equalTarget(source.pointer, join1));
 			assertEquals(list(source), query.search());
 
 			final Join join2 = query.join(target2.TYPE);
 			assertEquals(list(join1, join2), query.getJoins());
-			join2.setCondition(Cope.join(source.pointer2, join2));
+			join2.setCondition(Cope.equalTarget(source.pointer2, join2));
 			assertEquals(list(source), query.search());
 
 			//query.setCondition(Cope.equal(target1.code, "target1")); TODO

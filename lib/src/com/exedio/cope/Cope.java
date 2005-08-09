@@ -301,12 +301,12 @@ public abstract class Cope
 		return new GreaterEqualCondition(attribute, value);
 	}
 	
-	public static final JoinCondition join(final ItemAttribute attribute) // TODO rename to equalTarget
+	public static final JoinCondition equalTarget(final ItemAttribute attribute)
 	{
 		return new JoinCondition(attribute, null);
 	}
 	
-	public static final JoinCondition join(final ItemAttribute attribute, final Join targetJoin) // TODO rename to equalTarget
+	public static final JoinCondition equalTarget(final ItemAttribute attribute, final Join targetJoin)
 	{
 		return new JoinCondition(attribute, targetJoin);
 	}
