@@ -38,7 +38,7 @@ import com.exedio.cope.testmodel.ItemWithSingleUniqueReadOnly;
 import com.exedio.cope.testmodel.Main;
 import com.exedio.cope.testmodel.DataItem;
 import com.exedio.cope.testmodel.PointerItem;
-import com.exedio.cope.testmodel.PointerItem2;
+import com.exedio.cope.testmodel.PointerTargetItem;
 import com.exedio.cope.testmodel.QualifiedIntegerEnumQualifier;
 import com.exedio.cope.testmodel.QualifiedItem;
 import com.exedio.cope.testmodel.SecondSub;
@@ -214,8 +214,8 @@ public class CopernicaTestProvider extends TransientCopernicaProvider
 			}
 
 			{
-				final PointerItem2 item2a = new PointerItem2("hallo");
-				final PointerItem2 item2b = new PointerItem2("bello");
+				final PointerTargetItem item2a = new PointerTargetItem("hallo");
+				final PointerTargetItem item2b = new PointerTargetItem("bello");
 				final PointerItem item1a = new PointerItem("bello", item2a);
 				final PointerItem item1b = new PointerItem("collo", item2b);
 				item1a.setSelf(item1a);

@@ -40,7 +40,7 @@ public class Main
 		QualifiedEmptyQualifier.TYPE,
 		QualifiedStringQualifier.TYPE,
 		QualifiedIntegerEnumQualifier.TYPE,
-		PointerItem2.TYPE,
+		PointerTargetItem.TYPE,
 		PointerItem.TYPE,
 		FirstSub.TYPE,
 		SecondSub.TYPE,

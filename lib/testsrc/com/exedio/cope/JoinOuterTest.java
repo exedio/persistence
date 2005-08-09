@@ -18,20 +18,20 @@
 package com.exedio.cope;
 
 import com.exedio.cope.testmodel.PointerItem;
-import com.exedio.cope.testmodel.PointerItem2;
+import com.exedio.cope.testmodel.PointerTargetItem;
 
 public class JoinOuterTest extends TestmodelTest
 {
 	PointerItem leftJoined;
 	PointerItem leftLonely;
-	PointerItem2 rightJoined;
-	PointerItem2 rightLonely;
+	PointerTargetItem rightJoined;
+	PointerTargetItem rightLonely;
 
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		deleteOnTearDown(rightLonely = new PointerItem2("right"));
-		deleteOnTearDown(rightJoined = new PointerItem2("joined"));
+		deleteOnTearDown(rightLonely = new PointerTargetItem("right"));
+		deleteOnTearDown(rightJoined = new PointerTargetItem("joined"));
 		deleteOnTearDown(leftJoined = new PointerItem("joined", rightJoined));
 		deleteOnTearDown(leftLonely = new PointerItem("left", rightJoined));
 	}
@@ -41,21 +41,21 @@ public class JoinOuterTest extends TestmodelTest
 		{
 			final Query query = new Query(PointerItem.TYPE, null);
 			assertEquals(list(), query.getJoins());
-			final Join join = query.join(PointerItem2.TYPE, Cope.equal(PointerItem.code, PointerItem2.code));
+			final Join join = query.join(PointerTargetItem.TYPE, Cope.equal(PointerItem.code, PointerTargetItem.code));
 			assertEquals(list(join), query.getJoins());
 			assertContains(leftJoined, query.search());
 		}
 		{
 			final Query query = new Query(PointerItem.TYPE, null);
 			assertEquals(list(), query.getJoins());
-			final Join join = query.joinOuterLeft(PointerItem2.TYPE, Cope.equal(PointerItem.code, PointerItem2.code));
+			final Join join = query.joinOuterLeft(PointerTargetItem.TYPE, Cope.equal(PointerItem.code, PointerTargetItem.code));
 			assertEquals(list(join), query.getJoins());
 			assertContains(leftJoined, leftLonely, query.search());
 		}
 		{
 			final Query query = new Query(PointerItem.TYPE, null);
 			assertEquals(list(), query.getJoins());
-			final Join join = query.joinOuterRight(PointerItem2.TYPE, Cope.equal(PointerItem.code, PointerItem2.code));
+			final Join join = query.joinOuterRight(PointerTargetItem.TYPE, Cope.equal(PointerItem.code, PointerTargetItem.code));
 			assertEquals(list(join), query.getJoins());
 			if(hsqldb)
 			{

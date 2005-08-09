@@ -22,7 +22,7 @@ import com.exedio.cope.testmodel.AttributeItem;
 import com.exedio.cope.testmodel.EmptyItem;
 import com.exedio.cope.testmodel.EmptyItem2;
 import com.exedio.cope.testmodel.PointerItem;
-import com.exedio.cope.testmodel.PointerItem2;
+import com.exedio.cope.testmodel.PointerTargetItem;
 import com.exedio.cope.testmodel.SumItem;
 
 
@@ -127,7 +127,7 @@ public class AttributeItemTest extends AttributeTest
 	{
 		final EmptyItem2 target = new EmptyItem2();
 		deleteOnTearDown(target);
-		final PointerItem2 pointer2 = new PointerItem2("pointer2");
+		final PointerTargetItem pointer2 = new PointerTargetItem("pointer2");
 		deleteOnTearDown(pointer2);
 		final PointerItem source = new PointerItem("source", pointer2);
 		deleteOnTearDown(source);
