@@ -352,7 +352,20 @@ public final class Table extends Node
 		bf.append("drop table ").
 			append(protectName(name));
 
-		executeSQL(bf.toString());
+		if(defensive)
+		{
+			try
+			{
+				executeSQL(bf.toString());
+			}
+			catch(SQLRuntimeException e)
+			{
+				// ignore it in defensive mode
+			}
+		}
+		else
+			executeSQL(bf.toString());
+
 	}
 	
 	final void dropForeignKeyConstraints() 
