@@ -28,7 +28,7 @@ import com.exedio.cope.search.EqualAttributeCondition;
 import com.exedio.cope.search.EqualCondition;
 import com.exedio.cope.search.GreaterCondition;
 import com.exedio.cope.search.GreaterEqualCondition;
-import com.exedio.cope.search.JoinCondition;
+import com.exedio.cope.search.EqualTargetCondition;
 import com.exedio.cope.search.LessCondition;
 import com.exedio.cope.search.LessEqualCondition;
 import com.exedio.cope.search.LikeCondition;
@@ -301,14 +301,14 @@ public abstract class Cope
 		return new GreaterEqualCondition(attribute, value);
 	}
 	
-	public static final JoinCondition equalTarget(final ItemAttribute attribute)
+	public static final EqualTargetCondition equalTarget(final ItemAttribute attribute)
 	{
-		return new JoinCondition(attribute, null);
+		return new EqualTargetCondition(attribute, null);
 	}
 	
-	public static final JoinCondition equalTarget(final ItemAttribute attribute, final Join targetJoin)
+	public static final EqualTargetCondition equalTarget(final ItemAttribute attribute, final Join targetJoin)
 	{
-		return new JoinCondition(attribute, targetJoin);
+		return new EqualTargetCondition(attribute, targetJoin);
 	}
 	
 	public static final AndCondition and(final Condition condition1, final Condition condition2)

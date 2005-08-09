@@ -22,12 +22,12 @@ import com.exedio.cope.Join;
 import com.exedio.cope.Query;
 import com.exedio.cope.Statement;
 
-public final class JoinCondition extends Condition
+public final class EqualTargetCondition extends Condition
 {
 	public final ItemAttribute attribute;
 	final Join targetJoin;
 
-	public JoinCondition(final ItemAttribute attribute, final Join targetJoin)
+	public EqualTargetCondition(final ItemAttribute attribute, final Join targetJoin)
 	{
 		this.attribute = attribute;
 		this.targetJoin = targetJoin;
