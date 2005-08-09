@@ -121,7 +121,7 @@ public final class Main
 	{
 		try
 		{
-			(new Main()).run(new File("."), args);
+			(new Main()).run(new File("."), args, true);
 		}
 		catch(RuntimeException e)
 		{
@@ -167,7 +167,7 @@ public final class Main
 			expand(sourcefiles, args[i]);
 	}
 	
-	final void run(final File dir, final String[] args) throws IllegalParameterException, InjectorParseException, IOException
+	final void run(final File dir, final String[] args, final boolean verbose) throws IllegalParameterException, InjectorParseException, IOException
 	{
 		this.args = args;
 		
@@ -178,7 +178,8 @@ public final class Main
 			throw new IllegalParameterException("nothing to do.");
 		
 		final JavaRepository repository = new JavaRepository();
-		
+
+		this.verbose = verbose;
 		instrumented = 0;
 		skipped = 0;
 		for(Iterator i=sourcefiles.iterator(); i.hasNext(); )
@@ -186,21 +187,28 @@ public final class Main
 			final String s=(String)i.next();
 			inject(new File(dir, s), repository);
 		}
-		System.out.println("Instrumented " + instrumented + " files, skipped " + skipped);
+
+		if(verbose || instrumented>0)
+			System.out.println("Instrumented " + instrumented + ' ' + (instrumented==1 ? "file" : "files") + ", skipped " + skipped + " in " + dir);
 	}
-	
+
+	boolean verbose;
 	int skipped;
 	int instrumented;
 	
 	private void logSkipped(final File file)
 	{
-		System.out.println("Instrumented " + file);
+		if(verbose)
+			System.out.println("Instrumented " + file);
+		
 		skipped++;
 	}
 	
 	private void logInstrumented(final File file)
 	{
-		System.out.println("Skipped " + file);
+		if(verbose)
+			System.out.println("Skipped " + file);
+		
 		instrumented++;
 	}
 	

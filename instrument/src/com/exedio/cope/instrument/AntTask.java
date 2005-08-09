@@ -32,6 +32,7 @@ public final class AntTask extends Task
 {
 	private final ArrayList fileSets = new ArrayList();
 	private final ArrayList fileLists = new ArrayList();
+	private boolean verbose = true;
 
 	public void addFileset(final FileSet fileSet)
 	{
@@ -42,6 +43,11 @@ public final class AntTask extends Task
 	{
 		fileLists.add(fileList);
 	}
+	
+	public void setVerbose(final boolean verbose)
+	{
+		this.verbose = verbose;
+	}
 
    public void execute() throws BuildException
 	{
@@ -51,12 +57,12 @@ public final class AntTask extends Task
 			{
 				final FileSet fileSet = (FileSet)i.next();
 				final DirectoryScanner directoryScanner = fileSet.getDirectoryScanner(getProject());
-				(new Main()).run(fileSet.getDir(getProject()), directoryScanner.getIncludedFiles());
+				(new Main()).run(fileSet.getDir(getProject()), directoryScanner.getIncludedFiles(), verbose);
 			}
 			for(final Iterator i = fileLists.iterator(); i.hasNext(); )
 			{
 				final FileList fileList = (FileList)i.next();
-				(new Main()).run(fileList.getDir(getProject()), fileList.getFiles(getProject()));
+				(new Main()).run(fileList.getDir(getProject()), fileList.getFiles(getProject()), verbose);
 			}
 		}
 		catch(IllegalParameterException e)

@@ -308,7 +308,7 @@
 	</target>
 	
 	<target name="lib.testmodel.instrument" depends="instrument.taskdef">
-		<instrument>
+		<instrument verbose="false">
 			<filelist dir="lib/testmodelsrc/com/exedio/cope/testmodel" files="
 				ItemWithSingleUnique.java,
 				ItemWithSingleUniqueReadOnly.java,
@@ -424,7 +424,7 @@
 
 
 	<target name="instrument.test.instrument" depends="instrument.taskdef">
-		<instrument>
+		<instrument verbose="false">
 			<filelist dir="instrument/testsrc/com/exedio/cope/instrument/testmodel" files="
 				Standard.java,
 				TypePrivate.java,
