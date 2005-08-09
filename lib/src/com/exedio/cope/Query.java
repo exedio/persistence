@@ -129,7 +129,7 @@ public final class Query
 	}
 
 	/**
-	 * @throws RuntimeException if start < 0
+	 * @throws RuntimeException if start is a negative value
 	 */	
 	public void setRange(final int start, final int count)
 	{
