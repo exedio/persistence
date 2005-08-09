@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import com.exedio.cope.search.Condition;
 
-final public class Join
+public final class Join
 {
 	public static final int KIND_INNER = 0;
 	public static final int KIND_OUTER_LEFT = 1;
