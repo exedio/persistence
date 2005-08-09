@@ -265,41 +265,7 @@ public final class Table extends Node
 		}
 		
 		for(Iterator i = constraintList.iterator(); i.hasNext(); )
-		{
-			final Constraint constraint = (Constraint)i.next();
-
-			// TODO: use inheritance
-			if(constraint instanceof CheckConstraint)
-			{
-				final CheckConstraint check = (CheckConstraint)constraint;
-				bf.append(",constraint ").
-					append(protectName(check.name)).
-					append(" check(").
-					append(check.requiredCondition).
-					append(')');
-			}
-			else if(constraint instanceof PrimaryKeyConstraint)
-			{
-				final PrimaryKeyConstraint pk = (PrimaryKeyConstraint)constraint;
-				bf.append(",constraint ").
-					append(protectName(pk.name)).
-					append(" primary key(").
-					append(protectName(pk.primaryKeyColumn)).
-					append(')');
-			}
-			else if(constraint instanceof ForeignKeyConstraint)
-				; // this is done in createForeignKeyConstraints
-			else if(constraint instanceof UniqueConstraint)
-			{
-				final UniqueConstraint unique = (UniqueConstraint)constraint;
-				bf.append(",constraint ").
-					append(protectName(unique.name)).
-					append(" unique").
-					append(unique.clause);
-			}
-			else
-				throw new RuntimeException(constraint.getClass().getName());
-		}
+			((Constraint)i.next()).createInTable(bf);
 
 		bf.append(')');
 		driver.appendTableCreateStatement(bf);

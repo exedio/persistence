@@ -90,4 +90,9 @@ public class ForeignKeyConstraint extends Constraint
 		executeSQL(driver.getDropForeignKeyConstraintStatement(protectName(table.name), protectName(name)));
 	}
 
+	final void createInTable(final StringBuffer bf)
+	{
+		// this is done in Table#createForeignKeyConstraints
+	}
+	
 }

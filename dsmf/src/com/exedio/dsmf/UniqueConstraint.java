@@ -45,4 +45,12 @@ public class UniqueConstraint extends Constraint
 		return clause;
 	}
 
+	final void createInTable(final StringBuffer bf)
+	{
+		bf.append(",constraint ").
+			append(protectName(name)).
+			append(" unique").
+			append(clause);
+	}
+	
 }

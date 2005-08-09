@@ -149,5 +149,7 @@ public abstract class Constraint extends Node
 	{
 		return name;
 	}
+	
+	abstract void createInTable(StringBuffer bf);
 
 }

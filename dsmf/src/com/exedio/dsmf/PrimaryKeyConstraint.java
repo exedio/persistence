@@ -44,4 +44,13 @@ public class PrimaryKeyConstraint extends Constraint
 		return primaryKeyColumn;
 	}
 
+	final void createInTable(final StringBuffer bf)
+	{
+		bf.append(",constraint ").
+			append(protectName(name)).
+			append(" primary key(").
+			append(protectName(primaryKeyColumn)).
+			append(')');
+	}
+	
 }

@@ -35,4 +35,13 @@ public class CheckConstraint extends Constraint
 			throw new RuntimeException(name);
 	}
 
+	final void createInTable(final StringBuffer bf)
+	{
+		bf.append(",constraint ").
+			append(protectName(name)).
+			append(" check(").
+			append(requiredCondition).
+			append(')');
+	}
+	
 }
