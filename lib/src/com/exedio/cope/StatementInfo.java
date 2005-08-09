@@ -49,7 +49,7 @@ public final class StatementInfo
 		childs.add(newChild);
 	}
 	
-	void print(final PrintStream o)
+	public void print(final PrintStream o)
 	{
 		printInternal(o, 0);
 	}

@@ -33,6 +33,7 @@ import junit.framework.TestCase;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.NestingRuntimeException;
+import com.exedio.cope.Query;
 
 public class CopeAssert extends TestCase
 {
@@ -242,6 +243,18 @@ public class CopeAssert extends TestCase
 	protected final static void waitForKey()
 	{
 		waitForKey(null);
+	}
+
+	/**
+	 * Calls {@link Query#search()} on the given query and returns the result.
+	 * Prints the statement info to standard out.
+	 */
+	protected static final Collection infoSearch(final Query query)
+	{
+		query.enableMakeStatementInfo();
+		final Collection result = query.search();
+		query.getStatementInfo().print(System.out);
+		return result;
 	}
 
 }
