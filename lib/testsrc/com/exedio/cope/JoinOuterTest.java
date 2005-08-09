@@ -56,7 +56,7 @@ public class JoinOuterTest extends TestmodelTest
 				try
 				{
 					query.search();
-					fail("should have throws RuntimeException");
+					fail("should have thrown RuntimeException");
 				}
 				catch(RuntimeException e)
 				{
