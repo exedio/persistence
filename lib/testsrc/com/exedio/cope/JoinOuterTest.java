@@ -40,17 +40,23 @@ public class JoinOuterTest extends TestmodelTest
 	{
 		{
 			final Query query = new Query(PointerItem.TYPE, null);
-			query.join(PointerItem2.TYPE, Cope.equal(PointerItem.code, PointerItem2.code));
+			assertEquals(null, query.getJoins());
+			final Join join = query.join(PointerItem2.TYPE, Cope.equal(PointerItem.code, PointerItem2.code));
+			assertEquals(list(join), query.getJoins());
 			assertContains(leftJoined, query.search());
 		}
 		{
 			final Query query = new Query(PointerItem.TYPE, null);
-			query.joinOuterLeft(PointerItem2.TYPE, Cope.equal(PointerItem.code, PointerItem2.code));
+			assertEquals(null, query.getJoins());
+			final Join join = query.joinOuterLeft(PointerItem2.TYPE, Cope.equal(PointerItem.code, PointerItem2.code));
+			assertEquals(list(join), query.getJoins());
 			assertContains(leftJoined, leftLonely, query.search());
 		}
 		{
 			final Query query = new Query(PointerItem.TYPE, null);
-			query.joinOuterRight(PointerItem2.TYPE, Cope.equal(PointerItem.code, PointerItem2.code));
+			assertEquals(null, query.getJoins());
+			final Join join = query.joinOuterRight(PointerItem2.TYPE, Cope.equal(PointerItem.code, PointerItem2.code));
+			assertEquals(list(join), query.getJoins());
 			if(hsqldb)
 			{
 				try
