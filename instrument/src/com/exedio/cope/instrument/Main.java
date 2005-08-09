@@ -36,7 +36,7 @@ import java.util.zip.CheckedOutputStream;
 
 import com.exedio.cope.NestingRuntimeException;
 
-public class Main
+public final class Main
 {
 
 	/**
@@ -87,13 +87,13 @@ public class Main
 	
 	private static final String TEMPFILE_SUFFIX=".temp_cope_injection";
 	
-	static void inject(final File tobemodifiedfile, final JavaRepository repository)
+	private void inject(final File tobemodifiedfile, final JavaRepository repository)
 	throws IOException, InjectorParseException
 	{
 		final File outputfile=new File(tobemodifiedfile.getAbsolutePath()+TEMPFILE_SUFFIX);
 		if(inject(tobemodifiedfile, outputfile, repository))
 		{
-			System.out.println("Instrumented "+tobemodifiedfile);
+			logInstrumented(tobemodifiedfile);
 			if(!outputfile.exists())
 				throw new RuntimeException("not exists "+outputfile+".");
 			if(!tobemodifiedfile.delete())
@@ -103,7 +103,7 @@ public class Main
 		}
 		else
 		{
-			System.out.println("Skipped "+tobemodifiedfile);
+			logSkipped(tobemodifiedfile);
 			if(!outputfile.exists())
 				throw new RuntimeException("not exists "+outputfile+".");
 			if(!outputfile.delete())
@@ -179,11 +179,29 @@ public class Main
 		
 		final JavaRepository repository = new JavaRepository();
 		
+		instrumented = 0;
+		skipped = 0;
 		for(Iterator i=sourcefiles.iterator(); i.hasNext(); )
 		{
 			final String s=(String)i.next();
 			inject(new File(dir, s), repository);
 		}
+		System.out.println("Instrumented " + instrumented + " files, skipped " + skipped);
+	}
+	
+	int skipped;
+	int instrumented;
+	
+	private void logSkipped(final File file)
+	{
+		System.out.println("Instrumented " + file);
+		skipped++;
+	}
+	
+	private void logInstrumented(final File file)
+	{
+		System.out.println("Skipped " + file);
+		instrumented++;
 	}
 	
 }
