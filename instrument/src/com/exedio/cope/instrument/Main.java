@@ -158,7 +158,6 @@ public class Main
 	
 	private int i;
 	private String[] args;
-	private final ArrayList taskConfigs = new ArrayList();
 	
 	private ArrayList sourcefiles=new ArrayList();
 	
