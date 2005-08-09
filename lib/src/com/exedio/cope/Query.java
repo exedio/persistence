@@ -95,6 +95,14 @@ public final class Query
 	}
 	
 	/**
+	 * Does an inner join with the given type without any join condition.
+	 */
+	public Join join(final Type type)
+	{
+		return join(new Join(Join.KIND_INNER, type, null));
+	}
+	
+	/**
 	 * Does an inner join with the given type on the given join condition.
 	 */
 	public Join join(final Type type, final Condition condition)

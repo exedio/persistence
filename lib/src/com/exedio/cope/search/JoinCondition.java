@@ -18,23 +18,29 @@
 package com.exedio.cope.search;
 
 import com.exedio.cope.ItemAttribute;
+import com.exedio.cope.Join;
 import com.exedio.cope.Query;
 import com.exedio.cope.Statement;
 
 public final class JoinCondition extends Condition
 {
 	public final ItemAttribute attribute;
+	final Join targetJoin;
 
-	public JoinCondition(final ItemAttribute attribute)
+	public JoinCondition(final ItemAttribute attribute, final Join targetJoin)
 	{
 		this.attribute = attribute;
+		this.targetJoin = targetJoin;
+		
+		if(targetJoin!=null && targetJoin.getType()!=attribute.getTargetType())
+			throw new RuntimeException("invalid type of join, expected "+targetJoin.getType()+" but was "+attribute.getTargetType());
 	}
 
 	public final void appendStatement(final Statement bf)
 	{
 		bf.append(attribute).
 			append('=').
-			appendPK(attribute.getTargetType());
+			appendPK(attribute.getTargetType(), targetJoin);
 	}
 
 	public final void check(final Query query)

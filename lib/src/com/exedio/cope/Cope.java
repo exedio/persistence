@@ -301,9 +301,14 @@ public abstract class Cope
 		return new GreaterEqualCondition(attribute, value);
 	}
 	
-	public static final JoinCondition join(final ItemAttribute attribute)
+	public static final JoinCondition join(final ItemAttribute attribute) // TODO rename to equalTarget
 	{
-		return new JoinCondition(attribute);
+		return new JoinCondition(attribute, null);
+	}
+	
+	public static final JoinCondition join(final ItemAttribute attribute, final Join targetJoin) // TODO rename to equalTarget
+	{
+		return new JoinCondition(attribute, targetJoin);
 	}
 	
 	public static final AndCondition and(final Condition condition1, final Condition condition2)

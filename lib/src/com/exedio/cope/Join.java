@@ -28,7 +28,7 @@ public final class Join
 	
 	final int kind;
 	final Type type;
-	final Condition condition;
+	Condition condition;
 	
 	Join(final int kind, final Type type, final Condition condition)
 	{
@@ -47,8 +47,11 @@ public final class Join
 		}
 		if(type==null)
 			throw new NullPointerException();
-		if(condition==null)
-			throw new NullPointerException();
+	}
+	
+	public void setCondition(final Condition condition)
+	{
+		this.condition = condition;
 	}
 	
 	public final int getKind()
@@ -75,7 +78,7 @@ public final class Join
 	
 	public final String toString()
 	{
-		return getKindString() + " join "+type+" on "+condition;
+		return getKindString() + " join " + type + (condition!=null ? (" on "+condition) : "");
 	}
 
 }

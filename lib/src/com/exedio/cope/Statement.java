@@ -18,6 +18,9 @@
 
 package com.exedio.cope;
 
+import java.util.HashMap;
+import java.util.Iterator;
+
 import bak.pcj.list.IntArrayList;
 
 public final class Statement
@@ -60,11 +63,11 @@ public final class Statement
 		return this;
 	}
 
-	public Statement appendPK(final Type type)
+	public Statement appendPK(final Type type, final Join join)
 	{
 		final Table table = type.getTable();
 		this.text.
-			append(table.protectedID).
+			append(join!=null ? getName(join) : table.protectedID).
 			append('.').
 			append(table.getPrimaryKey().protectedID);
 			
@@ -135,4 +138,79 @@ public final class Statement
 	{
 		return text.toString();
 	}
+	
+	// join aliases
+	
+	private HashMap joinsToAliases;
+	private String fromAlias;
+	private String fromName;
+	
+	void setJoinsToAliases(final Query query)
+	{
+		if(joinsToAliases!=null)
+			throw new RuntimeException();
+		
+		joinsToAliases = new HashMap();
+		fromName = query.type.getTable().protectedID;
+		if(query.joins==null)
+			return;
+		
+		final HashMap tablesToJoins = new HashMap();
+		int aliasNumber = 0;
+		for(Iterator i = query.joins.iterator(); i.hasNext(); )
+		{
+			final Join join = (Join)i.next();
+			final Table table = join.type.getTable();
+			if(table==null)
+				throw new RuntimeException();
+			
+			//System.out.println("----------------X"+join);
+			final Join oldJoin = (Join)tablesToJoins.put(table, join);
+			if(oldJoin!=null)
+			{
+				final String oldAlias = (String)joinsToAliases.get(oldJoin);
+				if(oldAlias==null)
+					joinsToAliases.put(oldJoin, "alias"+(aliasNumber++));
+				joinsToAliases.put(join, "alias"+(aliasNumber++));
+			}
+		}
+		{
+			final Table table = query.type.getTable();
+			if(table==null)
+				throw new RuntimeException();
+			
+			final Join oldJoin = (Join)tablesToJoins.get(table);
+			if(oldJoin!=null)
+			{
+				final String oldAlias = (String)joinsToAliases.get(oldJoin);
+				if(oldAlias==null)
+					joinsToAliases.put(oldJoin, "alias"+(aliasNumber++));
+				fromName = fromAlias = "alias"+(aliasNumber++);
+			}
+		}
+		//System.out.println("----------------"+joinsToAliases);
+	}
+	
+	String getAlias(final Join join)
+	{
+		if(join!=null)
+			return (String)joinsToAliases.get(join);
+		else
+			return fromAlias;
+	}
+
+	String getName(final Join join)
+	{
+		if(join!=null)
+		{
+			final String alias = (String)joinsToAliases.get(join);
+			if(alias!=null)
+				return alias;
+			else
+				return join.type.getTable().protectedID;
+		}
+		else
+			return fromName;
+	}
+
 }

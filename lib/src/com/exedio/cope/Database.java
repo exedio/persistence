@@ -29,6 +29,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+import com.exedio.cope.search.Condition;
 import com.exedio.dsmf.Driver;
 import com.exedio.dsmf.SQLRuntimeException;
 import com.exedio.dsmf.Schema;
@@ -208,6 +209,7 @@ abstract class Database
 		buildStage = false;
 
 		final Statement bf = createStatement();
+		bf.setJoinsToAliases(query);
 		bf.append("select ");
 
 		final Selectable[] selectables = query.selectables;
@@ -281,6 +283,12 @@ abstract class Database
 
 		bf.append(" from ").
 			append(query.type.getTable().protectedID);
+		final String fromAlias = bf.getAlias(null);
+		if(fromAlias!=null)
+		{
+			bf.append(' ').
+				append(fromAlias);
+		}
 
 		final ArrayList queryJoins = query.joins;
 		if(queryJoins!=null)
@@ -295,9 +303,20 @@ abstract class Database
 				bf.append(' ').
 					append(join.getKindString()).
 					append(" join ").
-					append(join.type.getTable().protectedID).
-					append(" on ");
-				join.condition.appendStatement(bf);
+					append(join.type.getTable().protectedID);
+				final String joinAlias = bf.getAlias(join);
+				if(joinAlias!=null)
+				{
+					bf.append(' ').
+						append(joinAlias);
+				}
+
+				final Condition joinCondition = join.condition;
+				if(joinCondition!=null)
+				{
+					bf.append(" on ");
+					joinCondition.appendStatement(bf);
+				}
 			}
 		}
 

@@ -62,6 +62,7 @@ public class PackageTest extends TestCase
 		suite.addTest(new TestSuite(LiteralConditionTest.class));
 		suite.addTest(new TestSuite(JoinTest.class));
 		suite.addTest(new TestSuite(JoinOuterTest.class));
+		suite.addTest(new TestSuite(JoinMultipleTest.class));
 		suite.addTest(new TestSuite(FindByIDTest.class));
 		suite.addTest(new TestSuite(SchemaTest.class));
 		suite.addTest(new TestSuite(StatementInfoTest.class));
