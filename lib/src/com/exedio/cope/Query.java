@@ -84,30 +84,32 @@ public final class Query
 		return type;
 	}
 	
-	final void join(final Join join)
+	private final Join join(final Join join)
 	{
 		if(joins==null)
 			joins = new ArrayList();
 		
 		joins.add(join);
+
+		return join;
 	}
 	
 	/**
 	 * Does an inner join with the given type on the given join condition.
 	 */
-	public void join(final Type type, final Condition condition)
+	public Join join(final Type type, final Condition condition)
 	{
-		join(new Join(Join.KIND_INNER, type, condition));
+		return join(new Join(Join.KIND_INNER, type, condition));
 	}
 	
-	public void joinOuterLeft(final Type type, final Condition condition)
+	public Join joinOuterLeft(final Type type, final Condition condition)
 	{
-		join(new Join(Join.KIND_OUTER_LEFT, type, condition));
+		return join(new Join(Join.KIND_OUTER_LEFT, type, condition));
 	}
 	
-	public void joinOuterRight(final Type type, final Condition condition)
+	public Join joinOuterRight(final Type type, final Condition condition)
 	{
-		join(new Join(Join.KIND_OUTER_RIGHT, type, condition));
+		return join(new Join(Join.KIND_OUTER_RIGHT, type, condition));
 	}
 	
 	public List getJoins()

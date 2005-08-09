@@ -40,7 +40,9 @@ public class JoinTest extends TestmodelTest
 	{
 		{
 			final Query query = new Query(PointerItem2.TYPE, null);
-			query.join(PointerItem.TYPE, Cope.isNotNull(PointerItem.code));
+			assertEquals(null, query.getJoins());
+			final Join join = query.join(PointerItem.TYPE, Cope.isNotNull(PointerItem.code));
+			assertEquals(list(join), query.getJoins());
 			assertContains(item2b, item2a, item2b, item2a, query.search());
 		}
 		{
