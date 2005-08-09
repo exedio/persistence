@@ -114,7 +114,7 @@ public final class Query
 	
 	public List getJoins()
 	{
-		return joins;
+		return joins==null ? Collections.EMPTY_LIST : joins;
 	}
 	
 	public void setOrderBy(final Function orderBy, final boolean ascending)

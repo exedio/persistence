@@ -71,7 +71,7 @@ public class SearchTest extends TestmodelTest
 		catch(RuntimeException e)
 		{
 			assertEquals(
-				"function AttributeItem#someInteger{} belongs to type "+AttributeItem.class.getName()+", which is not a type of the query: "+EmptyItem.class.getName()+", null",
+				"function AttributeItem#someInteger{} belongs to type "+AttributeItem.class.getName()+", which is not a type of the query: "+EmptyItem.class.getName()+", []",
 				e.getMessage());
 		}
 	}
