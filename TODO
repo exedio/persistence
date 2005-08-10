@@ -36,6 +36,8 @@
 		* put classes for patterns into separate package
 		* separate test model for lib tests and testwebapp (webtests)
 		* make small test models for each lib test
+	- move most methods from class Cope to the classes of it's arguments,
+		e.g. Cope#equal(StringAttribute, String) to StringAttribute#equal(String)
 
 * Docs
 	- aus AGENDA
