@@ -43,7 +43,7 @@ public class HashTest extends AbstractLibTest
 	
 	public void testMD5()
 	{
-		assertEquals(list(item.hashed1, item.hashed1Latin, item.hashed2, item.password), item.TYPE.getPatterns());
+		assertEquals(list(item.hashed1, item.hashed1Latin, item.explicitExternal, item.password), item.TYPE.getPatterns());
 		assertEquals(item.TYPE, item.hashed1.getType());
 		assertEquals(item.TYPE, item.hashed1Latin.getType());
 		assertEquals("hashed1", item.hashed1.getName());
@@ -129,26 +129,26 @@ public class HashTest extends AbstractLibTest
 		}
 	}
 
-	public void testWrap()
+	public void testExplicitExternal()
 	{
-		assertEquals(item.TYPE, item.hashed2.getType());
-		assertEquals("hashed2", item.hashed2.getName());
-		assertEquals(item.hashed2Wrap, item.hashed2.getStorage());
+		assertEquals(item.TYPE, item.explicitExternal.getType());
+		assertEquals("explicitExternal", item.explicitExternal.getName());
+		assertEquals(item.hashed2Wrap, item.explicitExternal.getStorage());
 
 		assertNull(item.getHashed2Wrap());
-		assertTrue(item.checkHashed2(null));
-		assertTrue(!item.checkHashed2("bing"));
+		assertTrue(item.checkExplicitExternal(null));
+		assertTrue(!item.checkExplicitExternal("bing"));
 		
 		item.setHashed2Wrap("bello");
 		assertEquals("bello", item.getHashed2Wrap());
-		assertTrue(!item.checkHashed2(null));
-		assertTrue(!item.checkHashed2("bello"));
+		assertTrue(!item.checkExplicitExternal(null));
+		assertTrue(!item.checkExplicitExternal("bello"));
 		
-		item.setHashed2("knollo");
+		item.setExplicitExternal("knollo");
 		assertEquals("[knollo]", item.getHashed2Wrap());
-		assertTrue(!item.checkHashed2(null));
-		assertTrue(!item.checkHashed2("bello"));
-		assertTrue(item.checkHashed2("knollo"));
+		assertTrue(!item.checkExplicitExternal(null));
+		assertTrue(!item.checkExplicitExternal("bello"));
+		assertTrue(item.checkExplicitExternal("knollo"));
 	}
 	
 	public void testImplicit()
