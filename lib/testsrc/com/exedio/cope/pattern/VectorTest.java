@@ -18,11 +18,13 @@
 
 package com.exedio.cope.pattern;
 
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
 import com.exedio.cope.AbstractLibTest;
 import com.exedio.cope.ConstraintViolationException;
+import com.exedio.cope.DateAttribute;
 import com.exedio.cope.StringAttribute;
 import com.exedio.cope.testmodel.Main;
 import com.exedio.cope.testmodel.VectorItem;
@@ -44,15 +46,31 @@ public class VectorTest extends AbstractLibTest
 		deleteOnTearDown(item = new VectorItem(1, 2, 3));
 	}
 	
-	public void testNums() throws ConstraintViolationException
+	public void testVector() throws ConstraintViolationException
 	{
 		// test model
-		assertEquals(list(item.nums, item.strings), item.TYPE.getPatterns());
+		assertEquals(list(item.nums, item.dates, item.strings), item.TYPE.getPatterns());
 
+		assertEquals(item.TYPE, item.num1.getType());
+		assertEquals(item.TYPE, item.num2.getType());
+		assertEquals(item.TYPE, item.num3.getType());
+		assertEquals("num1", item.num1.getName());
+		assertEquals("num2", item.num2.getName());
+		assertEquals("num3", item.num3.getName());
 		assertEquals(item.TYPE, item.nums.getType());
 		assertEquals("nums", item.nums.getName());
 		assertEquals(list(item.num1, item.num2, item.num3), item.nums.getSources());
 		assertUnmodifiable(item.nums.getSources());
+
+		assertEquals(item.TYPE, item.dates.getType());
+		assertEquals("dates", item.dates.getName());
+		final List dateSources = item.dates.getSources();
+		assertEquals(2, dateSources.size());
+		assertUnmodifiable(dateSources);
+		final Iterator dateSourcesIterator = dateSources.iterator();
+		final DateAttribute date1 = assertDate(dateSourcesIterator, 1);
+		final DateAttribute date2 = assertDate(dateSourcesIterator, 2);
+		assertTrue(!dateSourcesIterator.hasNext());
 
 		assertEquals(item.TYPE, item.strings.getType());
 		assertEquals("strings", item.strings.getName());
@@ -65,8 +83,9 @@ public class VectorTest extends AbstractLibTest
 		final StringAttribute string3 = assertString(stringSourcesIterator, 3);
 		final StringAttribute string4 = assertString(stringSourcesIterator, 4);
 		assertTrue(!stringSourcesIterator.hasNext());
+
 		assertEquals(
-				list(item.num1, item.num2, item.num3, string1, string2, string3, string4),
+				list(item.num1, item.num2, item.num3, date1, date2, string1, string2, string3, string4),
 				item.TYPE.getDeclaredAttributes());
 
 		assertEquals(i1, item.getNum1());
@@ -108,6 +127,13 @@ public class VectorTest extends AbstractLibTest
 		item.setNum3(null);
 		assertEquals(list(), item.getNums());
 		
+		final Date ts1 = new Date(8172541283976l);
+		final Date ts2 = new Date(3874656234632l);
+		item.setDates(list(ts1, ts2));
+		assertEquals(list(ts1, ts2), item.getDates());
+		assertEquals(ts1, item.get(date1));
+		assertEquals(ts2, item.get(date2));
+		
 		item.setStrings(list("hallo", "bello"));
 		assertEquals(list("hallo", "bello"), item.getStrings());
 		assertEquals("hallo", item.get(string1));
@@ -116,6 +142,16 @@ public class VectorTest extends AbstractLibTest
 		assertEquals(null, item.get(string4));
 	}
 	
+	private final DateAttribute assertDate(final Iterator i, final int num)
+	{
+		final DateAttribute date = (DateAttribute)i.next();
+		assertEquals(item.TYPE, date.getType());
+		assertEquals("dates"+num, date.getName());
+		assertEquals(false, date.isNotNull());
+		assertEquals(false, date.isReadOnly());
+		return date;
+	}
+
 	private final StringAttribute assertString(final Iterator i, final int num)
 	{
 		final StringAttribute string = (StringAttribute)i.next();

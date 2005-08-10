@@ -37,22 +37,15 @@ import com.exedio.cope.UniqueViolationException;
 public final class Vector extends Pattern
 {
 	private final ObjectAttribute[] sources;
-	private final boolean initializeSources;
 
-	private Vector(final ObjectAttribute[] sources, final boolean initializeSources)
-	{
-		this.sources = sources;
-		this.initializeSources = initializeSources;
-	}
-	
 	public Vector(final ObjectAttribute[] sources)
 	{
-		this(sources, false);
+		this.sources = sources;
 	}
 	
 	public Vector(final ObjectAttribute template, final int length)
 	{
-		this(template2Sources(template, length), true);
+		this(template2Sources(template, length));
 	}
 	
 	private static final ObjectAttribute[] template2Sources(final ObjectAttribute template, final int length)
@@ -69,10 +62,11 @@ public final class Vector extends Pattern
 	{
 		final String name = getName();
 		
-		if(initializeSources)
+		for(int i = 0; i<sources.length; i++)
 		{
-			for(int i = 0; i<sources.length; i++)
-				initialize(sources[i], name+(i+1/*TODO: make this '1' customizable*/));
+			final ObjectAttribute source = sources[i];
+			if(!source.isInitialized())
+				initialize(source, name+(i+1/*TODO: make this '1' customizable*/));
 		}
 	}
 	
