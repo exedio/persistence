@@ -36,7 +36,7 @@ public class WebTest extends AbstractWebTest
 	String someBoolean;
 	boolean someNotNullBoolean;
 	String someEnum;
-	String someNotNullEnumeration;
+	String someNotNullEnum;
 	String someItem;
 	String someNotNullItem;
 
@@ -56,7 +56,7 @@ public class WebTest extends AbstractWebTest
 		someBoolean = "null";
 		someNotNullBoolean = true;
 		someEnum = "null";
-		someNotNullEnumeration = "enumValue2";
+		someNotNullEnum = "enumValue2";
 		someItem = "";
 		someNotNullItem = "EmptyItem.1";
 	}
@@ -80,7 +80,7 @@ public class WebTest extends AbstractWebTest
 		assertFormElementEquals("someNotNullDouble", someNotNullDouble);
 
 		assertFormElementEquals("someEnum", someEnum);
-		assertFormElementEquals("someNotNullEnumeration", someNotNullEnumeration);
+		assertFormElementEquals("someNotNullEnum", someNotNullEnum);
 	
 		assertFormElementEquals("someDate", someDate);
 		assertFormElementEquals("someBoolean", someBoolean);
@@ -235,7 +235,7 @@ public class WebTest extends AbstractWebTest
 
 		section(SECTION_DATA);
 		assertItemForm();
-		setFormElement("someNotNullEnumeration", "enumValue1"); someNotNullEnumeration = "enumValue1";
+		setFormElement("someNotNullEnum", "enumValue1"); someNotNullEnum = "enumValue1";
 		submitWithValue(SAVE_BUTTON);
 		assertTitleEquals("AttributeItem.103");
 		assertItemForm();
@@ -298,7 +298,7 @@ public class WebTest extends AbstractWebTest
 
 		section(SECTION_DATA);
 		setFormElement("someEnum", "null"); someEnum = "null";
-		setFormElement("someNotNullEnumeration", "enumValue2"); someNotNullEnumeration = "enumValue2";
+		setFormElement("someNotNullEnum", "enumValue2"); someNotNullEnum = "enumValue2";
 		submitWithValue(SAVE_BUTTON);
 		assertTitleEquals("AttributeItem.103");
 		assertItemForm();

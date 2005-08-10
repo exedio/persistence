@@ -262,7 +262,7 @@ public class SchemaTest extends TestmodelTest
 			assertCheckConstraint(attributeItem, "AttribuItem_someBoolea_Ck", "("+protect("someBoolean")+" IN (0,1)) OR ("+protect("someBoolean")+" IS NULL)");
 			assertCheckConstraint(attributeItem, "AttrItem_somNotNullBoo_Ck", "("+protect("someNotNullBoolean")+" IS NOT NULL) AND ("+protect("someNotNullBoolean")+" IN (0,1))");
 			assertCheckConstraint(attributeItem, "AttributeItem_someEnum_Ck", "("+protect("someEnum")+" IN (100,200,300)) OR ("+protect("someEnum")+" IS NULL)");
-			assertCheckConstraint(attributeItem, "AttrItem_somNotNullEnu_Ck", "("+protect("someNotNullEnumeration")+" IS NOT NULL) AND ("+protect("someNotNullEnumeration")+" IN (100,200,300))");
+			assertCheckConstraint(attributeItem, "AttrItem_somNotNullEnu_Ck", "("+protect("someNotNullEnum")+" IS NOT NULL) AND ("+protect("someNotNullEnum")+" IN (100,200,300))");
 			assertCheckConstraint(attributeItem, "AttriItem_someDataMajo_Ck", "((LENGTH("+protect("someDataMajor")+")>=1) AND (LENGTH("+protect("someDataMajor")+")<=30)) OR ("+protect("someDataMajor")+" IS NULL)");
 
 			assertPkConstraint(attributeItem, "AttributeItem_Pk", null, Table.PK_COLUMN_NAME);

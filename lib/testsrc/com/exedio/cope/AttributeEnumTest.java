@@ -81,32 +81,32 @@ public class AttributeEnumTest extends AttributeTest
 	public void testNotNullSomeEnum()
 			throws NotNullViolationException
 	{
-		assertEquals(AttributeItem.SomeEnumeration.enumValue1, item.getSomeNotNullEnumeration());
-		item.setSomeNotNullEnumeration(AttributeItem.SomeEnumeration.enumValue2);
+		assertEquals(AttributeItem.SomeEnumeration.enumValue1, item.getSomeNotNullEnum());
+		item.setSomeNotNullEnum(AttributeItem.SomeEnumeration.enumValue2);
 		assertEquals(
 			AttributeItem.SomeEnumeration.enumValue2,
-			item.getSomeNotNullEnumeration());
-		item.setSomeNotNullEnumeration(
+			item.getSomeNotNullEnum());
+		item.setSomeNotNullEnum(
 			AttributeItem.SomeEnumeration.enumValue3);
 		assertEquals(
 			AttributeItem.SomeEnumeration.enumValue3,
-			item.getSomeNotNullEnumeration());
+			item.getSomeNotNullEnum());
 		item.passivateCopeItem();
 		assertEquals(
 			AttributeItem.SomeEnumeration.enumValue3,
-			item.getSomeNotNullEnumeration());
+			item.getSomeNotNullEnum());
 		try
 		{
-			item.setSomeNotNullEnumeration(null);
+			item.setSomeNotNullEnum(null);
 		}
 		catch(NotNullViolationException e)
 		{
 			assertEquals(item, e.getItem());
-			assertEquals(item.someNotNullEnumeration, e.getNotNullAttribute());
+			assertEquals(item.someNotNullEnum, e.getNotNullAttribute());
 		}
 		assertEquals(
 			AttributeItem.SomeEnumeration.enumValue3,
-			item.getSomeNotNullEnumeration());
+			item.getSomeNotNullEnum());
 
 		try
 		{
@@ -116,7 +116,7 @@ public class AttributeEnumTest extends AttributeTest
 		catch(NotNullViolationException e)
 		{
 			assertEquals(null, e.getItem());
-			assertEquals(item.someNotNullEnumeration, e.getNotNullAttribute());
+			assertEquals(item.someNotNullEnum, e.getNotNullAttribute());
 		}
 	}
 }

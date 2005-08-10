@@ -69,7 +69,7 @@ public class SelectTest extends TestmodelTest
 				new Selectable[]{
 						item.someString, item.someStringUpperCase, item.someStringLength, item.someNotNullString,
 						item.someNotNullInteger, item.someNotNullLong, item.someNotNullDouble,
-						item.someNotNullBoolean, item.someNotNullItem, item.someNotNullEnumeration},
+						item.someNotNullBoolean, item.someNotNullItem, item.someNotNullEnum},
 				item.TYPE,
 				null);
 		query.setOrderBy(item.someNotNullString, false);
