@@ -37,7 +37,7 @@ public class AttributeStringTest extends AttributeTest
 		assertEquals("SOMESTRING", item.getSomeStringUpperCase());
 		assertEquals(new Integer("someString".length()), item.getSomeStringLength());
 		assertContains(item, item.TYPE.search(item.someString.equal("someString")));
-		assertContains(item2, item.TYPE.search(Cope.notEqual(item.someString, "someString")));
+		assertContains(item2, item.TYPE.search(item.someString.notEqual("someString")));
 		assertContains(item.TYPE.search(item.someString.equal("SOMESTRING")));
 		assertContains(item, item.TYPE.search(item.someNotNullString.like("someString")));
 		assertContains(item, item2, item.TYPE.search(item.someNotNullString.like("someString%")));
@@ -45,13 +45,13 @@ public class AttributeStringTest extends AttributeTest
 
 		assertContains(item, item.TYPE.search(item.someStringUpperCase.equal("SOMESTRING")));
 		assertContains(item, item.TYPE.search(Cope.uppercase(item.someString).equal("SOMESTRING")));
-		assertContains(item2, item.TYPE.search(Cope.notEqual(item.someStringUpperCase, "SOMESTRING")));
-		assertContains(item2, item.TYPE.search(Cope.notEqual(Cope.uppercase(item.someString), "SOMESTRING")));
+		assertContains(item2, item.TYPE.search(item.someStringUpperCase.notEqual("SOMESTRING")));
+		assertContains(item2, item.TYPE.search(Cope.uppercase(item.someString).notEqual("SOMESTRING")));
 		assertContains(item.TYPE.search(item.someStringUpperCase.equal("someString")));
 		assertContains(item.TYPE.search(Cope.uppercase(item.someString).equal("someString")));
 		
 		assertContains(item, item.TYPE.search(item.someStringLength.equal("someString".length())));
-		assertContains(item2, item.TYPE.search(Cope.notEqual(item.someStringLength, "someString".length())));
+		assertContains(item2, item.TYPE.search(item.someStringLength.notEqual("someString".length())));
 		assertContains(item.TYPE.search(item.someStringLength.equal("someString".length()+1)));
 
 		assertContains("someString", null, search(item.someString));

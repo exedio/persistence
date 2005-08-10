@@ -23,6 +23,7 @@ import java.sql.SQLException;
 
 import com.exedio.cope.search.EqualCondition;
 import com.exedio.cope.search.LikeCondition;
+import com.exedio.cope.search.NotEqualCondition;
 
 public abstract class ComputedStringFunction
 	extends ComputedFunction
@@ -55,6 +56,11 @@ public abstract class ComputedStringFunction
 	public final EqualCondition equal(final Join join, final String value)
 	{
 		return new EqualCondition(join, this, value);
+	}
+	
+	public final NotEqualCondition notEqual(final String value)
+	{
+		return new NotEqualCondition(this, value);
 	}
 	
 	public final LikeCondition like(final String value)

@@ -18,6 +18,7 @@
 package com.exedio.cope;
 
 import com.exedio.cope.search.EqualCondition;
+import com.exedio.cope.search.NotEqualCondition;
 
 
 public interface IntegerFunction extends Function
@@ -26,4 +27,8 @@ public interface IntegerFunction extends Function
 	
 	public EqualCondition equal(final int value);
 
+	public NotEqualCondition notEqual(Integer value);
+	
+	public NotEqualCondition notEqual(int value);
+	
 }

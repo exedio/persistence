@@ -28,6 +28,7 @@ import com.exedio.cope.search.GreaterEqualCondition;
 import com.exedio.cope.search.LessCondition;
 import com.exedio.cope.search.LessEqualCondition;
 import com.exedio.cope.search.LikeCondition;
+import com.exedio.cope.search.NotEqualCondition;
 
 public final class StringAttribute extends ObjectAttribute implements StringFunction
 {
@@ -123,6 +124,11 @@ public final class StringAttribute extends ObjectAttribute implements StringFunc
 	public final EqualAttributeCondition equal(final StringAttribute other)
 	{
 		return new EqualAttributeCondition(this, other);
+	}
+	
+	public final NotEqualCondition notEqual(final String value)
+	{
+		return new NotEqualCondition(this, value);
 	}
 	
 	public final LikeCondition like(final String value)

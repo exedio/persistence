@@ -26,6 +26,7 @@ import com.exedio.cope.search.GreaterCondition;
 import com.exedio.cope.search.GreaterEqualCondition;
 import com.exedio.cope.search.LessCondition;
 import com.exedio.cope.search.LessEqualCondition;
+import com.exedio.cope.search.NotEqualCondition;
 
 public final class IntegerAttribute extends ObjectAttribute implements IntegerFunction
 {
@@ -65,6 +66,16 @@ public final class IntegerAttribute extends ObjectAttribute implements IntegerFu
 	public final EqualCondition equal(final int value)
 	{
 		return new EqualCondition(null, this, new Integer(value));
+	}
+	
+	public final NotEqualCondition notEqual(final Integer value)
+	{
+		return new NotEqualCondition(this, value);
+	}
+	
+	public final NotEqualCondition notEqual(final int value)
+	{
+		return new NotEqualCondition(this, new Integer(value));
 	}
 	
 	public final LessCondition less(final int value)

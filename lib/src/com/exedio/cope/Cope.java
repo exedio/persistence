@@ -17,8 +17,6 @@
  */
 package com.exedio.cope;
 
-import java.util.Date;
-
 import com.exedio.cope.function.LengthFunction;
 import com.exedio.cope.function.SumFunction;
 import com.exedio.cope.function.UppercaseFunction;
@@ -42,61 +40,6 @@ public abstract class Cope
 	public static final NotEqualCondition isNotNull(final ObjectAttribute attribute)
 	{
 		return new NotEqualCondition(attribute, null);
-	}
-	
-	public static final NotEqualCondition notEqual(final StringFunction function, final String value)
-	{
-		return new NotEqualCondition(function, value);
-	}
-	
-	public static final NotEqualCondition notEqual(final IntegerFunction function, final Integer value)
-	{
-		return new NotEqualCondition(function, value);
-	}
-	
-	public static final NotEqualCondition notEqual(final IntegerFunction function, final int value)
-	{
-		return new NotEqualCondition(function, new Integer(value));
-	}
-	
-	public static final NotEqualCondition notEqual(final LongAttribute attribute, final Long value)
-	{
-		return new NotEqualCondition(attribute, value);
-	}
-	
-	public static final NotEqualCondition notEqual(final LongAttribute attribute, final long value)
-	{
-		return new NotEqualCondition(attribute, new Long(value));
-	}
-	
-	public static final NotEqualCondition notEqual(final BooleanAttribute attribute, final Boolean value)
-	{
-		return new NotEqualCondition(attribute, value);
-	}
-	
-	public static final NotEqualCondition notEqual(final BooleanAttribute attribute, final boolean value)
-	{
-		return new NotEqualCondition(attribute, value ? Boolean.TRUE : Boolean.FALSE);
-	}
-	
-	public static final NotEqualCondition notEqual(final DoubleAttribute attribute, final Double value)
-	{
-		return new NotEqualCondition(attribute, value);
-	}
-	
-	public static final NotEqualCondition notEqual(final DoubleAttribute attribute, final double value)
-	{
-		return new NotEqualCondition(attribute, new Double(value));
-	}
-	
-	public static final NotEqualCondition notEqual(final DateAttribute attribute, final Date value)
-	{
-		return new NotEqualCondition(attribute, value);
-	}
-	
-	public static final NotEqualCondition notEqual(final ItemAttribute attribute, final Item value)
-	{
-		return new NotEqualCondition(attribute, value);
 	}
 	
 	public static final EqualTargetCondition equalTarget(final ItemAttribute attribute)

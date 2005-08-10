@@ -26,6 +26,7 @@ import com.exedio.cope.search.GreaterCondition;
 import com.exedio.cope.search.GreaterEqualCondition;
 import com.exedio.cope.search.LessCondition;
 import com.exedio.cope.search.LessEqualCondition;
+import com.exedio.cope.search.NotEqualCondition;
 
 public final class LongAttribute extends ObjectAttribute
 {
@@ -65,6 +66,16 @@ public final class LongAttribute extends ObjectAttribute
 	public final EqualCondition equal(final long value)
 	{
 		return new EqualCondition(null, this, new Long(value));
+	}
+	
+	public final NotEqualCondition notEqual(final Long value)
+	{
+		return new NotEqualCondition(this, value);
+	}
+	
+	public final NotEqualCondition notEqual(final long value)
+	{
+		return new NotEqualCondition(this, new Long(value));
 	}
 	
 	public final LessCondition less(final long value)

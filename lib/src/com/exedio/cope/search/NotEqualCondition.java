@@ -18,9 +18,21 @@
 
 package com.exedio.cope.search;
 
+import java.util.Date;
+
+import com.exedio.cope.BooleanAttribute;
 import com.exedio.cope.Cope;
+import com.exedio.cope.DateAttribute;
+import com.exedio.cope.DoubleAttribute;
+import com.exedio.cope.EnumAttribute;
+import com.exedio.cope.EnumValue;
 import com.exedio.cope.Function;
+import com.exedio.cope.IntegerFunction;
+import com.exedio.cope.Item;
+import com.exedio.cope.ItemAttribute;
 import com.exedio.cope.Join;
+import com.exedio.cope.LongAttribute;
+import com.exedio.cope.ObjectAttribute;
 import com.exedio.cope.Query;
 import com.exedio.cope.Statement;
 import com.exedio.cope.StringFunction;
@@ -33,9 +45,20 @@ public final class NotEqualCondition extends Condition
 	/**
 	 * Creates a new NotEqualCondition.
 	 * Instead of using this constructor directly,
-	 * you may want to use the more type-safe wrapper methods
-	 * {@link Cope#notEqual(StringFunction, String) Cope.notEqual} or
-	 * {@link Cope#isNotNull(ObjectAttribute) Cope.isNotNull}.
+	 * you may want to use the more type-safe wrapper methods.
+	 * @see Cope#isNotNull(ObjectAttribute)
+	 * @see StringFunction#notEqual(String)
+	 * @see IntegerFunction#notEqual(int)
+	 * @see IntegerFunction#notEqual(Integer)
+	 * @see BooleanAttribute#notEqual(boolean)
+	 * @see BooleanAttribute#notEqual(Boolean)
+	 * @see LongAttribute#notEqual(long)
+	 * @see LongAttribute#notEqual(Long)
+	 * @see DoubleAttribute#notEqual(double)
+	 * @see DoubleAttribute#notEqual(Double)
+	 * @see DateAttribute#notEqual(Date)
+	 * @see EnumAttribute#notEqual(EnumValue)
+	 * @see ItemAttribute#notEqual(Item)
 	 */
 	public NotEqualCondition(final Function function, final Object value)
 	{

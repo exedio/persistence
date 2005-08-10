@@ -19,6 +19,7 @@ package com.exedio.cope;
 
 import com.exedio.cope.search.EqualCondition;
 import com.exedio.cope.search.LikeCondition;
+import com.exedio.cope.search.NotEqualCondition;
 
 
 public interface StringFunction extends Function
@@ -26,6 +27,8 @@ public interface StringFunction extends Function
 	public EqualCondition equal(String value);
 	
 	public EqualCondition equal(Join join, String value);
+	
+	public NotEqualCondition notEqual(String value);
 	
 	public LikeCondition like(String value);
 

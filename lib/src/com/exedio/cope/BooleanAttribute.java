@@ -22,6 +22,7 @@ import java.util.Collections;
 import java.util.List;
 
 import com.exedio.cope.search.EqualCondition;
+import com.exedio.cope.search.NotEqualCondition;
 
 public final class BooleanAttribute extends ObjectAttribute
 {
@@ -82,6 +83,16 @@ public final class BooleanAttribute extends ObjectAttribute
 	public final EqualCondition equal(final boolean value)
 	{
 		return new EqualCondition(null, this, value ? Boolean.TRUE : Boolean.FALSE);
+	}
+	
+	public final NotEqualCondition notEqual(final Boolean value)
+	{
+		return new NotEqualCondition(this, value);
+	}
+	
+	public final NotEqualCondition notEqual(final boolean value)
+	{
+		return new NotEqualCondition(this, value ? Boolean.TRUE : Boolean.FALSE);
 	}
 	
 }

@@ -27,6 +27,7 @@ import com.exedio.cope.search.GreaterCondition;
 import com.exedio.cope.search.GreaterEqualCondition;
 import com.exedio.cope.search.LessCondition;
 import com.exedio.cope.search.LessEqualCondition;
+import com.exedio.cope.search.NotEqualCondition;
 
 public final class DateAttribute extends ObjectAttribute
 {
@@ -81,6 +82,11 @@ public final class DateAttribute extends ObjectAttribute
 	public final EqualCondition equal(final Date value)
 	{
 		return new EqualCondition(null, this, value);
+	}
+	
+	public final NotEqualCondition notEqual(final Date value)
+	{
+		return new NotEqualCondition(this, value);
 	}
 	
 	public final LessCondition less(final Date value)

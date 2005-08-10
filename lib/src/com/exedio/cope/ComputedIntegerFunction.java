@@ -23,6 +23,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.exedio.cope.search.EqualCondition;
+import com.exedio.cope.search.NotEqualCondition;
 
 public abstract class ComputedIntegerFunction
 	extends ComputedFunction
@@ -70,6 +71,16 @@ public abstract class ComputedIntegerFunction
 	public final EqualCondition equal(final int value)
 	{
 		return new EqualCondition(null, this, new Integer(value));
+	}
+	
+	public final NotEqualCondition notEqual(final Integer value)
+	{
+		return new NotEqualCondition(this, value);
+	}
+	
+	public final NotEqualCondition notEqual(final int value)
+	{
+		return new NotEqualCondition(this, new Integer(value));
 	}
 	
 }
