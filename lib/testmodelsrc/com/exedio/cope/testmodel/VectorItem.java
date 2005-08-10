@@ -30,6 +30,8 @@ import com.exedio.cope.pattern.Vector;
  */
 public class VectorItem extends Item
 {
+	// explicit external source
+
 	public static final IntegerAttribute num1 = integerAttribute(DEFAULT);
 
 	public static final IntegerAttribute num2 = integerAttribute(DEFAULT);
@@ -37,6 +39,10 @@ public class VectorItem extends Item
 	public static final IntegerAttribute num3 = integerAttribute(DEFAULT);
 	
 	public static final Vector nums = new Vector(new ObjectAttribute[]{num1, num2, num3});
+
+	// implicit external source TODO
+
+	// internal source
 
 	public static final Vector strings = new Vector(stringAttribute(DEFAULT), 4);
 
