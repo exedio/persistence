@@ -18,6 +18,33 @@
 
 package com.exedio.cope;
 
+/**
+ * A common super class for all patterns.
+ * 
+ * Patterns should be constructable in three different ways
+ * <dl>
+ * <dt>1) by an explicit external source</dt>
+ * <dd>
+ * This is the most verbose kind of defining a pattern.
+ * First the source for the pattern is created, such as:
+ * <pre>static final StringAttribute source = stringAttribute(DEFAULT)</pre>
+ * Then the pattern ist created using the previously defined source:
+ * <pre>static final Hash hash = new MD5Hash(source)</pre>
+ * </dd>
+ * <dt>2) by an implicit external source</dt>
+ * <dd>
+ * More concisely the pattern can be constructed by defining the source
+ * implicitely when the defining the pattern itself.
+ * <pre>static final Hash hash = new MD5Hash(stringAttribute(DEFAULT))</pre>
+ * </dd>
+ * <dt>3) by an internal source</dt>
+ * <dd>
+ * <pre>static final Hash hash = new MD5Hash(DEFAULT)</pre>
+ * </dd>
+ * </dl>
+ * 
+ * @author Ralf Wiebicke
+ */
 public abstract class Pattern extends Feature
 {
 	final void initialize(final Type type, final String name)

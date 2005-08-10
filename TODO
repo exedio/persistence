@@ -29,10 +29,6 @@
 	- add/drop constraints:
 		* alter table "SumItem" add constraint schnappel check ("num2" is not null)
 		* alter table "ItemWithDoubleUnique" drop constraint "ItemWithDoublUniqu_str_Nn"
-	- for all patterns:
-		* explicit external source: new Hash(source)
-		* implicit external source: new Hash(stringAttribute(DEFAULT))
-		* internal source: new Hash(DEFAULT)
 	- relation pattern
 	- search conditions for patterns Hash/Vector
 	- Vector: allow length terminated instead of null terminated as well

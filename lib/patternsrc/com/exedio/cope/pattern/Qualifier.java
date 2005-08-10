@@ -65,6 +65,9 @@ public final class Qualifier extends Pattern
 		this.qualifyUnique = qualifyUnique;
 	}
 	
+	// TODO implicit external source: new Qualifier(QualifiedStringQualifier.key))
+	// TODO internal source: new Qualifier(stringAttribute(DEFAULT))
+
 	public final ItemAttribute getParent()
 	{
 		return parent;
