@@ -21,6 +21,7 @@ package com.exedio.cope;
 import java.util.Collections;
 import java.util.List;
 
+import com.exedio.cope.search.GreaterCondition;
 import com.exedio.cope.search.LessCondition;
 import com.exedio.cope.search.LessEqualCondition;
 
@@ -62,6 +63,11 @@ public class DoubleAttribute extends ObjectAttribute
 	public final LessEqualCondition lessOrEqual(final double value)
 	{
 		return new LessEqualCondition(this, new Double(value));
+	}
+	
+	public final GreaterCondition greater(final double value)
+	{
+		return new GreaterCondition(this, new Double(value));
 	}
 	
 }

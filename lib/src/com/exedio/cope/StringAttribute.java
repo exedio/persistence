@@ -21,6 +21,7 @@ package com.exedio.cope;
 import java.util.Collections;
 import java.util.List;
 
+import com.exedio.cope.search.GreaterCondition;
 import com.exedio.cope.search.LessCondition;
 import com.exedio.cope.search.LessEqualCondition;
 import com.exedio.cope.search.LikeCondition;
@@ -119,6 +120,11 @@ public final class StringAttribute extends ObjectAttribute implements StringFunc
 	public final LessEqualCondition lessOrEqual(final String value)
 	{
 		return new LessEqualCondition(this, value);
+	}
+	
+	public final GreaterCondition greater(final String value)
+	{
+		return new GreaterCondition(this, value);
 	}
 	
 }

@@ -25,6 +25,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+import com.exedio.cope.search.GreaterCondition;
 import com.exedio.cope.search.LessCondition;
 import com.exedio.cope.search.LessEqualCondition;
 
@@ -160,6 +161,11 @@ public final class EnumAttribute extends ObjectAttribute
 	public final LessEqualCondition lessOrEqual(final EnumValue value)
 	{
 		return new LessEqualCondition(this, value);
+	}
+	
+	public final GreaterCondition greater(final EnumValue value)
+	{
+		return new GreaterCondition(this, value);
 	}
 	
 }

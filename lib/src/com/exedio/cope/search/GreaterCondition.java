@@ -18,7 +18,14 @@
 
 package com.exedio.cope.search;
 
-import com.exedio.cope.Cope;
+import java.util.Date;
+
+import com.exedio.cope.DateAttribute;
+import com.exedio.cope.DoubleAttribute;
+import com.exedio.cope.EnumAttribute;
+import com.exedio.cope.EnumValue;
+import com.exedio.cope.IntegerAttribute;
+import com.exedio.cope.LongAttribute;
 import com.exedio.cope.ObjectAttribute;
 import com.exedio.cope.StringAttribute;
 
@@ -27,8 +34,13 @@ public class GreaterCondition extends LiteralCondition
 	/**
 	 * Creates a new GreaterCondition.
 	 * Instead of using this constructor directly,
-	 * you may want to use the more type-safe wrapper methods
-	 * {@link Cope#greater(StringAttribute, String) Cope.greater}.
+	 * you may want to use the more type-safe wrapper methods.
+	 * @see StringAttribute#greater(String)
+	 * @see IntegerAttribute#greater(int)
+	 * @see LongAttribute#greater(long)
+	 * @see DoubleAttribute#greater(double)
+	 * @see DateAttribute#greater(Date)
+	 * @see EnumAttribute#greater(EnumValue)
 	 */
 	public GreaterCondition(final ObjectAttribute attribute, final Object value)
 	{
