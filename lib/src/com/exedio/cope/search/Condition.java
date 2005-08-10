@@ -88,4 +88,14 @@ public abstract class Condition
 				+ queryJoins);
 	}
 
+	public final AndCondition and(final Condition other)
+	{
+		return new AndCondition(new Condition[]{this, other});
+	}
+	
+	public final OrCondition or(final Condition other)
+	{
+		return new OrCondition(new Condition[]{this, other});
+	}
+	
 }
