@@ -51,8 +51,12 @@ public class JoinMultipleTest extends TestmodelTest
 			join2.setCondition(Cope.equalTarget(source.pointer2, join2));
 			assertEquals(list(source), query.search());
 
-			//query.setCondition(Cope.equal(target1.code, "target1")); TODO
-			//assertEquals(list(source), infoSearch(query));
+			query.setCondition(Cope.equal(join1, target1.code, "target1"));
+			assertEquals(list(source), query.search());
+			
+			// TODO test attributes with wrong join
+			// TODO test when join is falsely null
+			// TODO test with functions on joined types
 		}
 	}
 	

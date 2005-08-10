@@ -93,10 +93,10 @@ public abstract class ObjectAttribute
 	{
 	}
 
-	public void append(final Statement bf)
+	public void append(final Statement bf, final Join join)
 	{
 		bf.text.
-			append(getType().getTable().protectedID).
+			append(join!=null ? bf.getName(join) : getType().getTable().protectedID).
 			append('.').
 			append(getMainColumn().protectedID);
 	}
@@ -104,7 +104,7 @@ public abstract class ObjectAttribute
 	public final Item searchUnique(final Object value)
 	{
 		// TODO: search nativly for unique constraints
-		return getType().searchUnique(new EqualCondition(this, value));
+		return getType().searchUnique(new EqualCondition(null, this, value));
 	}
 
 }

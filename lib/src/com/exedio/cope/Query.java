@@ -30,7 +30,7 @@ public final class Query
 	final Selectable[] selectables;
 	final Type type;
 	ArrayList joins = null;
-	final Condition condition;
+	Condition condition;
 
 	Function orderBy = null;
 	
@@ -82,6 +82,11 @@ public final class Query
 	public Type getType()
 	{
 		return type;
+	}
+	
+	public void setCondition(final Condition condition)
+	{
+		this.condition = condition;
 	}
 	
 	private final Join join(final Join join)

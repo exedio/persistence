@@ -18,6 +18,7 @@
 
 package com.exedio.cope.search;
 
+import com.exedio.cope.Join;
 import com.exedio.cope.ObjectAttribute;
 import com.exedio.cope.Query;
 import com.exedio.cope.Statement;
@@ -44,7 +45,7 @@ public class LiteralCondition extends Condition
 	
 	public final void appendStatement(final Statement bf)
 	{
-		bf.append(attribute);
+		bf.append(attribute, (Join)null);
 		if(value!=null)
 			bf.append(operator).
 				appendValue(attribute, value);

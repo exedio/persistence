@@ -19,6 +19,7 @@
 package com.exedio.cope.search;
 
 import com.exedio.cope.Cope;
+import com.exedio.cope.Join;
 import com.exedio.cope.Query;
 import com.exedio.cope.Statement;
 import com.exedio.cope.StringFunction;
@@ -50,7 +51,7 @@ public final class LikeCondition extends Condition
 	
 	public final void appendStatement(final Statement bf)
 	{
-		bf.append(function).
+		bf.append(function, (Join)null).
 			append(" like ").
 			appendValue(function, value);
 	}

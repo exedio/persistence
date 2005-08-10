@@ -184,7 +184,7 @@ final class ItemForm extends Form
 			if(pattern instanceof Qualifier)
 			{
 				final Qualifier qualifier = (Qualifier)pattern;
-				final Collection values = qualifier.getQualifyUnique().getType().search(new EqualCondition(qualifier.getParent(), item));
+				final Collection values = qualifier.getQualifyUnique().getType().search(new EqualCondition(null, qualifier.getParent(), item));
 				for(Iterator k = qualifier.getAttributes().iterator(); k.hasNext(); )
 				{
 					final Attribute anyAttribute = (Attribute)k.next();

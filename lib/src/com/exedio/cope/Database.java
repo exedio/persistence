@@ -244,7 +244,7 @@ abstract class Database
 				{
 					selectColumn = null;
 					final ComputedFunction computedFunction = (ComputedFunction)selectable;
-					bf.append(computedFunction).defineColumn(computedFunction);
+					bf.append(computedFunction, (Join)null).defineColumn(computedFunction);
 				}
 			}
 			else
@@ -334,7 +334,7 @@ abstract class Database
 		{
 			firstOrderBy = false;
 
-			bf.append(query.orderBy);
+			bf.append(query.orderBy, (Join)null);
 			if(!query.orderAscending)
 				bf.append(" desc");
 		}

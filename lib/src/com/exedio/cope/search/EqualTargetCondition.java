@@ -38,7 +38,7 @@ public final class EqualTargetCondition extends Condition
 
 	public final void appendStatement(final Statement bf)
 	{
-		bf.append(attribute).
+		bf.append(attribute, (Join)null).
 			append('=').
 			appendPK(attribute.getTargetType(), targetJoin);
 	}

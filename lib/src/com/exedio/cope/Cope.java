@@ -48,7 +48,7 @@ public abstract class Cope
 
 	public static final EqualCondition isNull(final ObjectAttribute attribute)
 	{
-		return new EqualCondition(attribute, null);
+		return new EqualCondition(null, attribute, null);
 	}
 	
 	public static final NotEqualCondition isNotNull(final ObjectAttribute attribute)
@@ -58,7 +58,12 @@ public abstract class Cope
 	
 	public static final EqualCondition equal(final StringFunction function, final String value)
 	{
-		return new EqualCondition(function, value);
+		return new EqualCondition(null, function, value);
+	}
+	
+	public static final EqualCondition equal(final Join join, final StringFunction function, final String value)
+	{
+		return new EqualCondition(join, function, value);
 	}
 	
 	public static final EqualAttributeCondition equal(final StringAttribute attribute1, final StringAttribute attribute2)
@@ -68,57 +73,57 @@ public abstract class Cope
 	
 	public static final EqualCondition equal(final IntegerFunction function, final Integer value)
 	{
-		return new EqualCondition(function, value);
+		return new EqualCondition(null, function, value);
 	}
 	
 	public static final EqualCondition equal(final IntegerFunction function, final int value)
 	{
-		return new EqualCondition(function, new Integer(value));
+		return new EqualCondition(null, function, new Integer(value));
 	}
 	
 	public static final EqualCondition equal(final LongAttribute attribute, final Long value)
 	{
-		return new EqualCondition(attribute, value);
+		return new EqualCondition(null, attribute, value);
 	}
 	
 	public static final EqualCondition equal(final LongAttribute attribute, final long value)
 	{
-		return new EqualCondition(attribute, new Long(value));
+		return new EqualCondition(null, attribute, new Long(value));
 	}
 	
 	public static final EqualCondition equal(final DoubleAttribute attribute, final Double value)
 	{
-		return new EqualCondition(attribute, value);
+		return new EqualCondition(null, attribute, value);
 	}
 	
 	public static final EqualCondition equal(final DoubleAttribute attribute, final double value)
 	{
-		return new EqualCondition(attribute, new Double(value));
+		return new EqualCondition(null, attribute, new Double(value));
 	}
 	
 	public static final EqualCondition equal(final BooleanAttribute attribute, final Boolean value)
 	{
-		return new EqualCondition(attribute, value);
+		return new EqualCondition(null, attribute, value);
 	}
 	
 	public static final EqualCondition equal(final BooleanAttribute attribute, final boolean value)
 	{
-		return new EqualCondition(attribute, value ? Boolean.TRUE : Boolean.FALSE);
+		return new EqualCondition(null, attribute, value ? Boolean.TRUE : Boolean.FALSE);
 	}
 	
 	public static final EqualCondition equal(final DateAttribute attribute, final Date value)
 	{
-		return new EqualCondition(attribute, value);
+		return new EqualCondition(null, attribute, value);
 	}
 	
 	public static final EqualCondition equal(final ItemAttribute attribute, final Item value)
 	{
-		return new EqualCondition(attribute, value);
+		return new EqualCondition(null, attribute, value);
 	}
 	
 	public static final EqualCondition equal(final EnumAttribute attribute, final EnumValue value)
 	{
-		return new EqualCondition(attribute, value);
+		return new EqualCondition(null, attribute, value);
 	}
 	
 	public static final NotEqualCondition notEqual(final StringFunction function, final String value)

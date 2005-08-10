@@ -20,12 +20,15 @@ package com.exedio.cope.search;
 
 import com.exedio.cope.Cope;
 import com.exedio.cope.Function;
+import com.exedio.cope.Join;
+import com.exedio.cope.ObjectAttribute;
 import com.exedio.cope.Query;
 import com.exedio.cope.Statement;
 import com.exedio.cope.StringFunction;
 
 public final class EqualCondition extends Condition
 {
+	public final Join join;
 	public final Function function;
 	public final Object value;
 
@@ -36,15 +39,16 @@ public final class EqualCondition extends Condition
 	 * {@link Cope#equal(StringFunction, String) Cope.equal} or
 	 * {@link Cope#isNull(ObjectAttribute) Cope.isNull}.
 	 */
-	public EqualCondition(final Function function, final Object value)
+	public EqualCondition(final Join join, final Function function, final Object value)
 	{
+		this.join = join;
 		this.function = function;
 		this.value = value;
 	}
 	
 	public final void appendStatement(final Statement bf)
 	{
-		bf.append(function);
+		bf.append(function, join);
 		if(value!=null)
 			bf.append('=').
 				appendValue(function, value);

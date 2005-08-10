@@ -20,6 +20,7 @@ package com.exedio.cope.search;
 
 import com.exedio.cope.Cope;
 import com.exedio.cope.Function;
+import com.exedio.cope.Join;
 import com.exedio.cope.Query;
 import com.exedio.cope.Statement;
 import com.exedio.cope.StringFunction;
@@ -50,15 +51,15 @@ public final class NotEqualCondition extends Condition
 			// the "or is null" is needed since without this oracle
 			// does not find results with null.
 			bf.append("(").
-				append(function).
+				append(function, (Join)null).
 				append("<>").
 				appendValue(function, value).
 				append(" or ").
-				append(function).
+				append(function, (Join)null).
 				append(" is null)");
 		}
 		else
-			bf.append(function).
+			bf.append(function, (Join)null).
 				append(" is not null");
 	}
 

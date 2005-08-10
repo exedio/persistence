@@ -57,9 +57,9 @@ public final class Statement
 		return this;
 	}
 	
-	public Statement append(final Function function)
+	public Statement append(final Function function, final Join join)
 	{
-		function.append(this);
+		function.append(this, join);
 		return this;
 	}
 

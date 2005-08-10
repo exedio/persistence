@@ -149,7 +149,7 @@ public final class UniqueConstraint extends Feature
 		final Iterator attributeIterator = attributes.iterator();
 		final Condition[] conditions = new Condition[attributes.size()];
 		for(int j = 0; attributeIterator.hasNext(); j++)
-			conditions[j] = new EqualCondition((ObjectAttribute)attributeIterator.next(), values[j]);
+			conditions[j] = new EqualCondition(null, (ObjectAttribute)attributeIterator.next(), values[j]);
 
 		return getType().searchUnique(new AndCondition(conditions));
 	}
