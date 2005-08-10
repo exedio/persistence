@@ -33,7 +33,7 @@ public class LengthFunction
 	 * Creates a new LengthFunction.
 	 * Instead of using this constructor directly,
 	 * you may want to use the more convenient wrapper method
-	 * {@link Cope#length(StringFunction) Cope.length}.
+	 * {@link StringFunction#length()}.
 	 */
 	public LengthFunction(final StringFunction source)
 	{

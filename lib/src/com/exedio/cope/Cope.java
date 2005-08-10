@@ -17,7 +17,6 @@
  */
 package com.exedio.cope;
 
-import com.exedio.cope.function.LengthFunction;
 import com.exedio.cope.function.SumFunction;
 import com.exedio.cope.function.UppercaseFunction;
 import com.exedio.cope.search.AndCondition;
@@ -115,11 +114,6 @@ public abstract class Cope
 	public static final AttributeValue attributeValue(final EnumAttribute attribute, final EnumValue value)
 	{
 		return new AttributeValue(attribute, value);
-	}
-	
-	public static final LengthFunction length(final StringFunction source)
-	{
-		return new LengthFunction(source);
 	}
 	
 	public static final SumFunction sum(final IntegerFunction addend1, final IntegerFunction addend2)

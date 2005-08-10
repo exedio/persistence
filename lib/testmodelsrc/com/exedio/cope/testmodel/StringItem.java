@@ -41,8 +41,8 @@ public class StringItem extends Item
 	public static final UppercaseFunction min4Upper = uppercase(min4);
 	public static final UppercaseFunction max4Upper = uppercase(max4);
 
-	public static final LengthFunction min4UpperLength = length(min4Upper);
-	public static final LengthFunction max4UpperLength = length(max4Upper);
+	public static final LengthFunction min4UpperLength = min4Upper.length();
+	public static final LengthFunction max4UpperLength = max4Upper.length();
 	
 	public static final SumFunction min4AndMax4UpperLength = sum(min4UpperLength, max4UpperLength);
 	

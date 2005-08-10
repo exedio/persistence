@@ -21,6 +21,7 @@ package com.exedio.cope;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.exedio.cope.function.LengthFunction;
 import com.exedio.cope.search.EqualCondition;
 import com.exedio.cope.search.LikeCondition;
 import com.exedio.cope.search.NotEqualCondition;
@@ -66,6 +67,11 @@ public abstract class ComputedStringFunction
 	public final LikeCondition like(final String value)
 	{
 		return new LikeCondition(this, value);
+	}
+	
+	public final LengthFunction length()
+	{
+		return new LengthFunction(this);
 	}
 	
 }

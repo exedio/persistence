@@ -17,6 +17,7 @@
  */
 package com.exedio.cope;
 
+import com.exedio.cope.function.LengthFunction;
 import com.exedio.cope.search.EqualCondition;
 import com.exedio.cope.search.LikeCondition;
 import com.exedio.cope.search.NotEqualCondition;
@@ -31,5 +32,7 @@ public interface StringFunction extends Function
 	public NotEqualCondition notEqual(String value);
 	
 	public LikeCondition like(String value);
+
+	public LengthFunction length();
 
 }
