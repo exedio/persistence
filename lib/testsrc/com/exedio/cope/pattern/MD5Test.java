@@ -66,16 +66,6 @@ public class MD5Test extends AbstractLibTest
 		assertTrue(item.checkHashed1(null));
 		assertTrue(!item.checkHashed1("bing"));
 		
-		// reference example from http://de.wikipedia.org/wiki/MD5
-		item.setPassword("Franz jagt im komplett verwahrlosten Taxi quer durch Bayern");
-		assertEquals("a3cca2b2aa1e3b5b3b5aad99a8529074", item.getPassword());
-		assertTrue(item.checkPassword("Franz jagt im komplett verwahrlosten Taxi quer durch Bayern"));
-		assertTrue(!item.checkPassword("franz jagt im komplett verwahrlosten Taxi quer durch Bayern"));
-		item.setPassword("franz jagt im komplett verwahrlosten Taxi quer durch Bayern");
-		assertEquals("4679e94e07f9a61f42b3d7f50cae0aef", item.getPassword());
-		assertTrue(!item.checkPassword("Franz jagt im komplett verwahrlosten Taxi quer durch Bayern"));
-		assertTrue(item.checkPassword("franz jagt im komplett verwahrlosten Taxi quer durch Bayern"));
-
 		item.setHashed1MD5("bello");
 		assertEquals("bello", item.getHashed1MD5());
 		assertTrue(!item.checkHashed1(null));
@@ -135,6 +125,21 @@ public class MD5Test extends AbstractLibTest
 			assertEquals("NIXUS MessageDigest not available", e.getMessage());
 			assertEquals(NoSuchAlgorithmException.class, e.getNestedCause().getClass());
 		}
+	}
+	
+	/**
+	 * reference example from http://de.wikipedia.org/wiki/MD5
+	 */
+	public void testWikipedia()
+	{
+		item.setPassword("Franz jagt im komplett verwahrlosten Taxi quer durch Bayern");
+		assertEquals("a3cca2b2aa1e3b5b3b5aad99a8529074", item.getPassword());
+		assertTrue(item.checkPassword("Franz jagt im komplett verwahrlosten Taxi quer durch Bayern"));
+		assertTrue(!item.checkPassword("franz jagt im komplett verwahrlosten Taxi quer durch Bayern"));
+		item.setPassword("franz jagt im komplett verwahrlosten Taxi quer durch Bayern");
+		assertEquals("4679e94e07f9a61f42b3d7f50cae0aef", item.getPassword());
+		assertTrue(!item.checkPassword("Franz jagt im komplett verwahrlosten Taxi quer durch Bayern"));
+		assertTrue(item.checkPassword("franz jagt im komplett verwahrlosten Taxi quer durch Bayern"));
 	}
 
 }
