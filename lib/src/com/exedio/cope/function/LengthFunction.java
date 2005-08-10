@@ -19,7 +19,6 @@
 package com.exedio.cope.function;
 
 import com.exedio.cope.ComputedIntegerFunction;
-import com.exedio.cope.Cope;
 import com.exedio.cope.IntegerFunction;
 import com.exedio.cope.StringFunction;
 
