@@ -133,19 +133,19 @@ public class HashTest extends AbstractLibTest
 	{
 		assertEquals(item.TYPE, item.explicitExternal.getType());
 		assertEquals("explicitExternal", item.explicitExternal.getName());
-		assertEquals(item.hashed2Wrap, item.explicitExternal.getStorage());
+		assertEquals(item.explicitExternalWrap, item.explicitExternal.getStorage());
 
-		assertNull(item.getHashed2Wrap());
+		assertNull(item.getExplicitExternalWrap());
 		assertTrue(item.checkExplicitExternal(null));
 		assertTrue(!item.checkExplicitExternal("bing"));
 		
-		item.setHashed2Wrap("bello");
-		assertEquals("bello", item.getHashed2Wrap());
+		item.setExplicitExternalWrap("bello");
+		assertEquals("bello", item.getExplicitExternalWrap());
 		assertTrue(!item.checkExplicitExternal(null));
 		assertTrue(!item.checkExplicitExternal("bello"));
 		
 		item.setExplicitExternal("knollo");
-		assertEquals("[knollo]", item.getHashed2Wrap());
+		assertEquals("[knollo]", item.getExplicitExternalWrap());
 		assertTrue(!item.checkExplicitExternal(null));
 		assertTrue(!item.checkExplicitExternal("bello"));
 		assertTrue(item.checkExplicitExternal("knollo"));
