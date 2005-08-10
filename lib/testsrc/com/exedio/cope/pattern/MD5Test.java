@@ -132,14 +132,18 @@ public class MD5Test extends AbstractLibTest
 	 */
 	public void testWikipedia()
 	{
-		item.setPassword("Franz jagt im komplett verwahrlosten Taxi quer durch Bayern");
+		final String appendix = "ranz jagt im komplett verwahrlosten Taxi quer durch Bayern";
+		final String upper = "F" + appendix;
+		final String lower = "f" + appendix;
+		
+		item.setPassword(upper);
 		assertEquals("a3cca2b2aa1e3b5b3b5aad99a8529074", item.getPassword());
-		assertTrue(item.checkPassword("Franz jagt im komplett verwahrlosten Taxi quer durch Bayern"));
-		assertTrue(!item.checkPassword("franz jagt im komplett verwahrlosten Taxi quer durch Bayern"));
-		item.setPassword("franz jagt im komplett verwahrlosten Taxi quer durch Bayern");
+		assertTrue(item.checkPassword(upper));
+		assertTrue(!item.checkPassword(lower));
+		item.setPassword(lower);
 		assertEquals("4679e94e07f9a61f42b3d7f50cae0aef", item.getPassword());
-		assertTrue(!item.checkPassword("Franz jagt im komplett verwahrlosten Taxi quer durch Bayern"));
-		assertTrue(item.checkPassword("franz jagt im komplett verwahrlosten Taxi quer durch Bayern"));
+		assertTrue(!item.checkPassword(upper));
+		assertTrue(item.checkPassword(lower));
 	}
 
 }
