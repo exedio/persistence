@@ -44,7 +44,7 @@ public class VectorTest extends AbstractLibTest
 		deleteOnTearDown(item = new VectorItem(1, 2, 3));
 	}
 	
-	public void testVector() throws ConstraintViolationException
+	public void testNums() throws ConstraintViolationException
 	{
 		// test model
 		assertEquals(list(item.nums, item.strings), item.TYPE.getPatterns());
@@ -60,23 +60,11 @@ public class VectorTest extends AbstractLibTest
 		assertEquals(4, stringSources.size());
 		assertUnmodifiable(stringSources);
 		final Iterator stringSourcesIterator = stringSources.iterator();
-		final StringAttribute string1 = (StringAttribute)stringSourcesIterator.next();
-		final StringAttribute string2 = (StringAttribute)stringSourcesIterator.next();
-		final StringAttribute string3 = (StringAttribute)stringSourcesIterator.next();
-		final StringAttribute string4 = (StringAttribute)stringSourcesIterator.next();
-		assertEquals(item.TYPE, string1.getType());
-		assertEquals(item.TYPE, string2.getType());
-		assertEquals(item.TYPE, string3.getType());
-		assertEquals(item.TYPE, string4.getType());
-		assertEquals("strings1", string1.getName());
-		assertEquals("strings2", string2.getName());
-		assertEquals("strings3", string3.getName());
-		assertEquals("strings4", string4.getName());
-		assertEquals(false, string4.isNotNull());
-		assertEquals(false, string4.isReadOnly());
-		assertEquals(false, string4.isLengthConstrained());
-		assertEquals(0, string4.getMinimumLength());
-		assertEquals(Integer.MAX_VALUE, string4.getMaximumLength());
+		final StringAttribute string1 = assertString(stringSourcesIterator, 1);
+		final StringAttribute string2 = assertString(stringSourcesIterator, 2);
+		final StringAttribute string3 = assertString(stringSourcesIterator, 3);
+		final StringAttribute string4 = assertString(stringSourcesIterator, 4);
+		assertTrue(!stringSourcesIterator.hasNext());
 		assertEquals(
 				list(item.num1, item.num2, item.num3, string1, string2, string3, string4),
 				item.TYPE.getDeclaredAttributes());
@@ -126,6 +114,19 @@ public class VectorTest extends AbstractLibTest
 		assertEquals("bello", item.get(string2));
 		assertEquals(null, item.get(string3));
 		assertEquals(null, item.get(string4));
+	}
+	
+	private final StringAttribute assertString(final Iterator i, final int num)
+	{
+		final StringAttribute string = (StringAttribute)i.next();
+		assertEquals(item.TYPE, string.getType());
+		assertEquals("strings"+num, string.getName());
+		assertEquals(false, string.isNotNull());
+		assertEquals(false, string.isReadOnly());
+		assertEquals(false, string.isLengthConstrained());
+		assertEquals(0, string.getMinimumLength());
+		assertEquals(Integer.MAX_VALUE, string.getMaximumLength());
+		return string;
 	}
 
 }
