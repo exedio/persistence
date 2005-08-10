@@ -73,7 +73,7 @@ public class ModelTest extends AbstractLibTest
 			item.someNotNullBoolean,
 			item.someItem,
 			item.someNotNullItem,
-			item.someEnumeration,
+			item.someEnum,
 			item.someNotNullEnumeration,
 			item.someData,
 		};
@@ -99,7 +99,7 @@ public class ModelTest extends AbstractLibTest
 			item.someNotNullBoolean,
 			item.someItem,
 			item.someNotNullItem,
-			item.someEnumeration,
+			item.someEnum,
 			item.someNotNullEnumeration,
 			item.someData,
 		};
@@ -160,36 +160,36 @@ public class ModelTest extends AbstractLibTest
 	{
 		final AttributeItem item = null;
 
-		assertEquals(item.TYPE, item.someEnumeration.getType());
+		assertEquals(item.TYPE, item.someEnum.getType());
 		assertEquals(
 			list(
 				AttributeItem.SomeEnumeration.enumValue1,
 				AttributeItem.SomeEnumeration.enumValue2,
 				AttributeItem.SomeEnumeration.enumValue3),
-			item.someEnumeration.getValues());
+			item.someEnum.getValues());
 
 		assertEquals(
 			AttributeItem.SomeEnumeration.enumValue1,
-			item.someEnumeration.getValue(
+			item.someEnum.getValue(
 				AttributeItem.SomeEnumeration.enumValue1NUM));
 		assertEquals(
 			AttributeItem.SomeEnumeration.enumValue2,
-			item.someEnumeration.getValue(
+			item.someEnum.getValue(
 				AttributeItem.SomeEnumeration.enumValue2NUM));
 		assertEquals(
 			AttributeItem.SomeEnumeration.enumValue3,
-			item.someEnumeration.getValue(
+			item.someEnum.getValue(
 				AttributeItem.SomeEnumeration.enumValue3NUM));
 
 		assertEquals(
 			AttributeItem.SomeEnumeration.enumValue1,
-			item.someEnumeration.getValue("enumValue1"));
+			item.someEnum.getValue("enumValue1"));
 		assertEquals(
 			AttributeItem.SomeEnumeration.enumValue2,
-			item.someEnumeration.getValue("enumValue2"));
+			item.someEnum.getValue("enumValue2"));
 		assertEquals(
 			AttributeItem.SomeEnumeration.enumValue3,
-			item.someEnumeration.getValue("enumValue3"));
+			item.someEnum.getValue("enumValue3"));
 
 		assertEquals(AttributeItem.SomeEnumeration.class,
 			AttributeItem.SomeEnumeration.enumValue1.getEnumerationClass());

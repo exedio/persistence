@@ -25,56 +25,56 @@ public class AttributeEnumTest extends AttributeTest
 {
 	public void testSomeEnum() throws ConstraintViolationException
 	{
-		assertEquals(null, item.getSomeEnumeration());
-		item.setSomeEnumeration(AttributeItem.SomeEnumeration.enumValue1);
+		assertEquals(null, item.getSomeEnum());
+		item.setSomeEnum(AttributeItem.SomeEnumeration.enumValue1);
 		assertEquals(
 			AttributeItem.SomeEnumeration.enumValue1,
-			item.getSomeEnumeration());
-		item.setSomeEnumeration(
+			item.getSomeEnum());
+		item.setSomeEnum(
 			AttributeItem.SomeEnumeration.enumValue2);
 		assertEquals(
 			AttributeItem.SomeEnumeration.enumValue2,
-			item.getSomeEnumeration());
+			item.getSomeEnum());
 		
 		assertContains(item,
-				item.TYPE.search(item.someEnumeration.equal(AttributeItem.SomeEnumeration.enumValue2)));
+				item.TYPE.search(item.someEnum.equal(AttributeItem.SomeEnumeration.enumValue2)));
 		assertContains(item2,
-				item.TYPE.search(item.someEnumeration.equal(null)));
+				item.TYPE.search(item.someEnum.equal(null)));
 		assertContains(item, item2,
-				item.TYPE.search(item.someEnumeration.notEqual(AttributeItem.SomeEnumeration.enumValue1)));
+				item.TYPE.search(item.someEnum.notEqual(AttributeItem.SomeEnumeration.enumValue1)));
 		assertContains(item2,
-				item.TYPE.search(item.someEnumeration.notEqual(AttributeItem.SomeEnumeration.enumValue2)));
+				item.TYPE.search(item.someEnum.notEqual(AttributeItem.SomeEnumeration.enumValue2)));
 		assertContains(item,
-				item.TYPE.search(item.someEnumeration.notEqual(null)));
+				item.TYPE.search(item.someEnum.notEqual(null)));
 
-		assertContains(AttributeItem.SomeEnumeration.enumValue2, null, search(item.someEnumeration));
-		assertContains(AttributeItem.SomeEnumeration.enumValue2, search(item.someEnumeration, item.someEnumeration.equal(AttributeItem.SomeEnumeration.enumValue2)));
+		assertContains(AttributeItem.SomeEnumeration.enumValue2, null, search(item.someEnum));
+		assertContains(AttributeItem.SomeEnumeration.enumValue2, search(item.someEnum, item.someEnum.equal(AttributeItem.SomeEnumeration.enumValue2)));
 
 		item.passivateCopeItem();
 		assertEquals(
 			AttributeItem.SomeEnumeration.enumValue2,
-			item.getSomeEnumeration());
-		item.setSomeEnumeration(null);
-		assertEquals(null, item.getSomeEnumeration());
+			item.getSomeEnum());
+		item.setSomeEnum(null);
+		assertEquals(null, item.getSomeEnum());
 		
 		try
 		{
-			item.set(item.someEnumeration, new Integer(10));
+			item.set(item.someEnum, new Integer(10));
 			fail();
 		}
 		catch(ClassCastException e)
 		{
-			assertEquals("expected " + SomeEnumeration.class.getName() + ", got " + Integer.class.getName() + " for someEnumeration", e.getMessage());
+			assertEquals("expected " + SomeEnumeration.class.getName() + ", got " + Integer.class.getName() + " for someEnum", e.getMessage());
 		}
 		
 		try
 		{
-			item.set(item.someEnumeration, AttributeItem.SomeEnum2.enumValue2);
+			item.set(item.someEnum, AttributeItem.SomeEnum2.enumValue2);
 			fail();
 		}
 		catch(ClassCastException e)
 		{
-			assertEquals("expected " + SomeEnumeration.class.getName() + ", got " + AttributeItem.SomeEnum2.class.getName() + " for someEnumeration", e.getMessage());
+			assertEquals("expected " + SomeEnumeration.class.getName() + ", got " + AttributeItem.SomeEnum2.class.getName() + " for someEnum", e.getMessage());
 		}
 	}
 
