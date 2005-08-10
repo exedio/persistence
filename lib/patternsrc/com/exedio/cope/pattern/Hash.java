@@ -25,6 +25,7 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.ReadOnlyViolationException;
 import com.exedio.cope.StringAttribute;
 import com.exedio.cope.UniqueViolationException;
+import com.exedio.cope.Attribute.Option;
 
 public abstract class Hash extends Pattern
 {
@@ -38,6 +39,11 @@ public abstract class Hash extends Pattern
 			throw new NullPointerException("hash storage must not be null");
 	}
 	
+	public Hash(final Option storageOption)
+	{
+		this(Item.stringAttribute(storageOption));
+	}
+
 	public void initialize()
 	{
 		if(!storage.isInitialized())

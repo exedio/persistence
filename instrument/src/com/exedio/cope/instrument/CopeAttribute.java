@@ -325,7 +325,7 @@ abstract class CopeAttribute
 		return this.exceptionsToCatchInToucher;
 	}
 	
-	private final static Attribute.Option getOption(final String optionString)	
+	final static Attribute.Option getOption(final String optionString)	
 	{
 		try
 		{

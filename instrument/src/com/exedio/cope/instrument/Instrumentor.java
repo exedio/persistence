@@ -37,6 +37,7 @@ import com.exedio.cope.Function;
 import com.exedio.cope.IntegerFunction;
 import com.exedio.cope.ItemAttribute;
 import com.exedio.cope.LongAttribute;
+import com.exedio.cope.NestingRuntimeException;
 import com.exedio.cope.StringAttribute;
 import com.exedio.cope.StringFunction;
 import com.exedio.cope.UniqueConstraint;
@@ -268,13 +269,33 @@ final class Instrumentor implements InjectionConsumer
 		final CopeAttribute storageAttribute;
 		if("stringAttribute".equals(initializerArgument))
 		{
+			// implicitExternal
 			storageAttribute = new CopeNativeAttribute(ja, StringAttribute.class, Collections.singletonList("DEFAULT"), "none", "none");
 		}
 		else
 		{
-			storageAttribute = (CopeAttribute)copeClass.getCopeAttribute(initializerArgument);
-			if(storageAttribute==null)
-				throw new InjectorParseException("attribute >"+initializerArgument+"< in hash "+ja.name+" not found.");
+			boolean internal = false;
+			try
+			{
+				CopeAttribute.getOption(initializerArgument);
+				internal = true;
+			}
+			catch(NestingRuntimeException e)
+			{
+			}
+			
+			if(internal)
+			{
+				// internal
+				storageAttribute = new CopeNativeAttribute(ja, StringAttribute.class, Collections.singletonList(initializerArgument), "none", "none");
+			}
+			else
+			{
+				// explicitExternal
+				storageAttribute = (CopeAttribute)copeClass.getCopeAttribute(initializerArgument);
+				if(storageAttribute==null)
+					throw new InjectorParseException("attribute >"+initializerArgument+"< in hash "+ja.name+" not found.");
+			}
 		}
 		new CopeHash(ja, storageAttribute);
 	}

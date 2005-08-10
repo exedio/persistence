@@ -676,7 +676,7 @@ public abstract class Item extends Cope
 		return new ItemAttribute(option, targetTypeClass);
 	}
 	
-	protected static final StringAttribute stringAttribute(final Option option)
+	public static final StringAttribute stringAttribute(final Option option)
 	{
 		return new StringAttribute(option);
 	}

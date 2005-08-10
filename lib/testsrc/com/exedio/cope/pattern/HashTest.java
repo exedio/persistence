@@ -43,7 +43,7 @@ public class HashTest extends AbstractLibTest
 	
 	public void testMD5()
 	{
-		assertEquals(list(item.hashed1, item.hashed1Latin, item.explicitExternal, item.implicitExternal), item.TYPE.getPatterns());
+		assertEquals(list(item.hashed1, item.hashed1Latin, item.explicitExternal, item.implicitExternal, item.internal), item.TYPE.getPatterns());
 		assertEquals(item.TYPE, item.hashed1.getType());
 		assertEquals(item.TYPE, item.hashed1Latin.getType());
 		assertEquals("hashed1", item.hashed1.getName());
@@ -168,6 +168,25 @@ public class HashTest extends AbstractLibTest
 		assertFalse(item.checkImplicitExternal(null));
 		assertFalse(item.checkImplicitExternal(""));
 		assertTrue(item.checkImplicitExternal("zack"));
+	}
+
+	public void testInternal()
+	{
+		assertEquals(item.TYPE, item.internal.getType());
+		assertEquals("internal", item.internal.getName());
+		assertEquals(item.TYPE, item.internal.getStorage().getType());
+		assertEquals("internalHash", item.internal.getStorage().getName());
+		
+		assertEquals(null, item.get(item.internal.getStorage()));
+		assertTrue(item.checkInternal(null));
+		assertFalse(item.checkInternal(""));
+		assertFalse(item.checkInternal("zack"));
+
+		item.setInternal("zack");
+		assertEquals("[zack]", item.get(item.internal.getStorage()));
+		assertFalse(item.checkInternal(null));
+		assertFalse(item.checkInternal(""));
+		assertTrue(item.checkInternal("zack"));
 	}
 
 }
