@@ -22,6 +22,7 @@ import java.util.Collections;
 import java.util.List;
 
 import com.exedio.cope.search.LessCondition;
+import com.exedio.cope.search.LessEqualCondition;
 
 public class DoubleAttribute extends ObjectAttribute
 {
@@ -56,6 +57,11 @@ public class DoubleAttribute extends ObjectAttribute
 	public final LessCondition less(final double value)
 	{
 		return new LessCondition(this, new Double(value));
+	}
+	
+	public final LessEqualCondition lessOrEqual(final double value)
+	{
+		return new LessEqualCondition(this, new Double(value));
 	}
 	
 }

@@ -26,6 +26,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.exedio.cope.search.LessCondition;
+import com.exedio.cope.search.LessEqualCondition;
 
 import bak.pcj.map.IntKeyOpenHashMap;
 
@@ -154,6 +155,11 @@ public final class EnumAttribute extends ObjectAttribute
 	public final LessCondition less(final EnumValue value)
 	{
 		return new LessCondition(this, value);
+	}
+	
+	public final LessEqualCondition lessOrEqual(final EnumValue value)
+	{
+		return new LessEqualCondition(this, value);
 	}
 	
 }

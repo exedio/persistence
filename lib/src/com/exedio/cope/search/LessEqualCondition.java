@@ -18,7 +18,14 @@
 
 package com.exedio.cope.search;
 
-import com.exedio.cope.Cope;
+import java.util.Date;
+
+import com.exedio.cope.DateAttribute;
+import com.exedio.cope.DoubleAttribute;
+import com.exedio.cope.EnumAttribute;
+import com.exedio.cope.EnumValue;
+import com.exedio.cope.IntegerAttribute;
+import com.exedio.cope.LongAttribute;
 import com.exedio.cope.ObjectAttribute;
 import com.exedio.cope.StringAttribute;
 
@@ -27,8 +34,13 @@ public class LessEqualCondition extends LiteralCondition
 	/**
 	 * Creates a new LessEqualCondition.
 	 * Instead of using this constructor directly,
-	 * you may want to use the more type-safe wrapper methods
-	 * {@link Cope#lessOrEqual(StringAttribute, String) Cope.lessOrEqual}.
+	 * you may want to use the more type-safe wrapper methods.
+	 * @see StringAttribute#lessOrEqual(String)
+	 * @see IntegerAttribute#lessOrEqual(int)
+	 * @see LongAttribute#lessOrEqual(long)
+	 * @see DoubleAttribute#lessOrEqual(double)
+	 * @see DateAttribute#lessOrEqual(Date)
+	 * @see EnumAttribute#lessOrEqual(EnumValue)
 	 */
 	public LessEqualCondition(final ObjectAttribute attribute, final Object value)
 	{

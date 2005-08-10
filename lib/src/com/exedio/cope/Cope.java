@@ -29,7 +29,6 @@ import com.exedio.cope.search.EqualCondition;
 import com.exedio.cope.search.EqualTargetCondition;
 import com.exedio.cope.search.GreaterCondition;
 import com.exedio.cope.search.GreaterEqualCondition;
-import com.exedio.cope.search.LessEqualCondition;
 import com.exedio.cope.search.NotEqualCondition;
 import com.exedio.cope.search.OrCondition;
 
@@ -172,36 +171,6 @@ public abstract class Cope
 	public static final NotEqualCondition notEqual(final ItemAttribute attribute, final Item value)
 	{
 		return new NotEqualCondition(attribute, value);
-	}
-	
-	public static final LessEqualCondition lessOrEqual(final StringAttribute attribute, final String value)
-	{
-		return new LessEqualCondition(attribute, value);
-	}
-	
-	public static final LessEqualCondition lessOrEqual(final IntegerAttribute attribute, final int value)
-	{
-		return new LessEqualCondition(attribute, new Integer(value));
-	}
-	
-	public static final LessEqualCondition lessOrEqual(final LongAttribute attribute, final long value)
-	{
-		return new LessEqualCondition(attribute, new Long(value));
-	}
-	
-	public static final LessEqualCondition lessOrEqual(final DoubleAttribute attribute, final double value)
-	{
-		return new LessEqualCondition(attribute, new Double(value));
-	}
-	
-	public static final LessEqualCondition lessOrEqual(final DateAttribute attribute, final Date value)
-	{
-		return new LessEqualCondition(attribute, value);
-	}
-	
-	public static final LessEqualCondition lessOrEqual(final EnumAttribute attribute, final EnumValue value)
-	{
-		return new LessEqualCondition(attribute, value);
 	}
 	
 	public static final GreaterCondition greater(final StringAttribute attribute, final String value)

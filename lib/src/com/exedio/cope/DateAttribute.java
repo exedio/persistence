@@ -23,6 +23,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.exedio.cope.search.LessCondition;
+import com.exedio.cope.search.LessEqualCondition;
 
 public final class DateAttribute extends ObjectAttribute
 {
@@ -77,6 +78,11 @@ public final class DateAttribute extends ObjectAttribute
 	public final LessCondition less(final Date value)
 	{
 		return new LessCondition(this, value);
+	}
+	
+	public final LessEqualCondition lessOrEqual(final Date value)
+	{
+		return new LessEqualCondition(this, value);
 	}
 	
 }

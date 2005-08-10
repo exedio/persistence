@@ -22,6 +22,7 @@ import java.util.Collections;
 import java.util.List;
 
 import com.exedio.cope.search.LessCondition;
+import com.exedio.cope.search.LessEqualCondition;
 import com.exedio.cope.search.LikeCondition;
 
 public final class StringAttribute extends ObjectAttribute implements StringFunction
@@ -113,6 +114,11 @@ public final class StringAttribute extends ObjectAttribute implements StringFunc
 	public final LessCondition less(final String value)
 	{
 		return new LessCondition(this, value);
+	}
+	
+	public final LessEqualCondition lessOrEqual(final String value)
+	{
+		return new LessEqualCondition(this, value);
 	}
 	
 }

@@ -22,6 +22,7 @@ import java.util.Collections;
 import java.util.List;
 
 import com.exedio.cope.search.LessCondition;
+import com.exedio.cope.search.LessEqualCondition;
 
 public final class IntegerAttribute extends ObjectAttribute implements IntegerFunction
 {
@@ -56,6 +57,11 @@ public final class IntegerAttribute extends ObjectAttribute implements IntegerFu
 	public final LessCondition less(final int value)
 	{
 		return new LessCondition(this, new Integer(value));
+	}
+	
+	public final LessEqualCondition lessOrEqual(final int value)
+	{
+		return new LessEqualCondition(this, new Integer(value));
 	}
 	
 }
