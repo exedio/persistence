@@ -107,4 +107,9 @@ public abstract class ObjectAttribute
 		return getType().searchUnique(new EqualCondition(null, this, value));
 	}
 
+	public final EqualCondition isNull()
+	{
+		return new EqualCondition(null, this, null);
+	}
+	
 }

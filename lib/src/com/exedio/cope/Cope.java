@@ -46,11 +46,6 @@ public abstract class Cope
 	Cope()
 	{}
 
-	public static final EqualCondition isNull(final ObjectAttribute attribute)
-	{
-		return new EqualCondition(null, attribute, null);
-	}
-	
 	public static final NotEqualCondition isNotNull(final ObjectAttribute attribute)
 	{
 		return new NotEqualCondition(attribute, null);

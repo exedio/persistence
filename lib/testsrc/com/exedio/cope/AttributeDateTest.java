@@ -31,7 +31,7 @@ public class AttributeDateTest extends AttributeTest
 		assertEquals(item.TYPE, item.someDate.getType());
 		assertEquals(null, item.getSomeDate());
 		assertContains(item, item2, item.TYPE.search(Cope.equal(item.someDate, (Date)null)));
-		assertContains(item, item2, item.TYPE.search(Cope.isNull(item.someDate)));
+		assertContains(item, item2, item.TYPE.search(item.someDate.isNull()));
 		assertContains(item.TYPE.search(Cope.notEqual(item.someDate, (Date)null)));
 		assertContains(item.TYPE.search(Cope.isNotNull(item.someDate)));
 
@@ -50,7 +50,7 @@ public class AttributeDateTest extends AttributeTest
 			list(item2),
 			item.TYPE.search(Cope.notEqual(item.someDate, date)));
 		assertEquals(list(item2), item.TYPE.search(Cope.equal(item.someDate, (Date)null)));
-		assertEquals(list(item2), item.TYPE.search(Cope.isNull(item.someDate)));
+		assertEquals(list(item2), item.TYPE.search(item.someDate.isNull()));
 		assertEquals(list(item), item.TYPE.search(Cope.notEqual(item.someDate, (Date)null)));
 		assertEquals(list(item), item.TYPE.search(Cope.isNotNull(item.someDate)));
 
@@ -89,7 +89,7 @@ public class AttributeDateTest extends AttributeTest
 		assertEquals(item.TYPE, item.someLongDate.getType());
 		assertEquals(null, item.getSomeLongDate());
 		assertContains(item, item2, item.TYPE.search(Cope.equal(item.someLongDate, (Date)null)));
-		assertContains(item, item2, item.TYPE.search(Cope.isNull(item.someLongDate)));
+		assertContains(item, item2, item.TYPE.search(item.someLongDate.isNull()));
 		assertContains(item.TYPE.search(Cope.notEqual(item.someLongDate, (Date)null)));
 		assertContains(item.TYPE.search(Cope.isNotNull(item.someLongDate)));
 
@@ -105,7 +105,7 @@ public class AttributeDateTest extends AttributeTest
 			list(item2),
 			item.TYPE.search(Cope.notEqual(item.someLongDate, date)));
 		assertEquals(list(item2), item.TYPE.search(Cope.equal(item.someLongDate, (Date)null)));
-		assertEquals(list(item2), item.TYPE.search(Cope.isNull(item.someLongDate)));
+		assertEquals(list(item2), item.TYPE.search(item.someLongDate.isNull()));
 		assertEquals(list(item), item.TYPE.search(Cope.notEqual(item.someLongDate, (Date)null)));
 		assertEquals(list(item), item.TYPE.search(Cope.isNotNull(item.someLongDate)));
 
