@@ -30,6 +30,7 @@ import com.exedio.cope.search.GreaterCondition;
 import com.exedio.cope.search.GreaterEqualCondition;
 import com.exedio.cope.search.LessCondition;
 import com.exedio.cope.search.LessEqualCondition;
+import com.exedio.cope.search.NotEqualCondition;
 
 import bak.pcj.map.IntKeyOpenHashMap;
 
@@ -158,6 +159,11 @@ public final class EnumAttribute extends ObjectAttribute
 	public final EqualCondition equal(final EnumValue value)
 	{
 		return new EqualCondition(null, this, value);
+	}
+	
+	public final NotEqualCondition notEqual(final EnumValue value)
+	{
+		return new NotEqualCondition(this, value);
 	}
 	
 	public final LessCondition less(final EnumValue value)
