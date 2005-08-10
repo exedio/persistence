@@ -21,6 +21,8 @@ package com.exedio.cope;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.exedio.cope.search.LikeCondition;
+
 public abstract class ComputedStringFunction
 	extends ComputedFunction
 	implements StringFunction
@@ -42,6 +44,11 @@ public abstract class ComputedStringFunction
 	final Object surface2Database(final Object value)
 	{
 		return StringColumn.cacheToDatabaseStatic(value);
+	}
+	
+	public final LikeCondition like(final String value)
+	{
+		return new LikeCondition(this, value);
 	}
 	
 }

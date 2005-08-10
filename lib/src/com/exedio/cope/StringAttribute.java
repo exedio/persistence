@@ -21,6 +21,8 @@ package com.exedio.cope;
 import java.util.Collections;
 import java.util.List;
 
+import com.exedio.cope.search.LikeCondition;
+
 public final class StringAttribute extends ObjectAttribute implements StringFunction
 {
 	private final int minimumLength;
@@ -100,6 +102,11 @@ public final class StringAttribute extends ObjectAttribute implements StringFunc
 			throw new LengthViolationException(item, this, stringValue, true);
 		if(stringValue.length()>maximumLength)
 			throw new LengthViolationException(item, this, stringValue, false);
+	}
+	
+	public final LikeCondition like(final String value)
+	{
+		return new LikeCondition(this, value);
 	}
 	
 }

@@ -39,9 +39,9 @@ public class AttributeStringTest extends AttributeTest
 		assertContains(item, item.TYPE.search(Cope.equal(item.someString, "someString")));
 		assertContains(item2, item.TYPE.search(Cope.notEqual(item.someString, "someString")));
 		assertContains(item.TYPE.search(Cope.equal(item.someString, "SOMESTRING")));
-		assertContains(item, item.TYPE.search(Cope.like(item.someNotNullString, "someString")));
-		assertContains(item, item2, item.TYPE.search(Cope.like(item.someNotNullString, "someString%")));
-		assertContains(item2, item.TYPE.search(Cope.like(item.someNotNullString, "someString2%")));
+		assertContains(item, item.TYPE.search(item.someNotNullString.like("someString")));
+		assertContains(item, item2, item.TYPE.search(item.someNotNullString.like("someString%")));
+		assertContains(item2, item.TYPE.search(item.someNotNullString.like("someString2%")));
 
 		assertContains(item, item.TYPE.search(Cope.equal(item.someStringUpperCase, "SOMESTRING")));
 		assertContains(item, item.TYPE.search(Cope.equal(Cope.uppercase(item.someString), "SOMESTRING")));

@@ -18,7 +18,6 @@
 
 package com.exedio.cope.search;
 
-import com.exedio.cope.Cope;
 import com.exedio.cope.Join;
 import com.exedio.cope.Query;
 import com.exedio.cope.Statement;
@@ -36,7 +35,7 @@ public final class LikeCondition extends Condition
 	 * Creates a new LikeCondition.
 	 * Instead of using this constructor directly,
 	 * you may want to use the more convenient wrapper method
-	 * {@link Cope#like(StringFunction, String) Cope.like}.
+	 * {@link StringFunction#like(String)}.
 	 */
 	public LikeCondition(final StringFunction function, final String value)
 	{
