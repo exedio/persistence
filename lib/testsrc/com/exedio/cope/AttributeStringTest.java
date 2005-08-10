@@ -74,6 +74,22 @@ public class AttributeStringTest extends AttributeTest
 			assertEquals(10, copy.getMinimumLength());
 			assertEquals(20, copy.getMaximumLength());
 		}
+		try
+		{
+			Item.stringAttribute(Item.DEFAULT, -1, 20);
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals("mimimum length must be positive.", e.getMessage());
+		}
+		try
+		{
+			Item.stringAttribute(Item.DEFAULT, 20, 10);
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals("maximum length must be greater or equal mimimum length.", e.getMessage());
+		}
 
 		assertEquals(null, item.getSomeString());
 		assertEquals(null, item.getSomeStringUpperCase());
