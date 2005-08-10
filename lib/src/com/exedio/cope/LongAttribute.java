@@ -21,6 +21,8 @@ package com.exedio.cope;
 import java.util.Collections;
 import java.util.List;
 
+import com.exedio.cope.search.LessCondition;
+
 public final class LongAttribute extends ObjectAttribute
 {
 	/**
@@ -49,6 +51,11 @@ public final class LongAttribute extends ObjectAttribute
 	Object surfaceToCache(final Object surface)
 	{
 		return (Long)surface;
+	}
+	
+	public final LessCondition less(final long value)
+	{
+		return new LessCondition(this, new Long(value));
 	}
 	
 }

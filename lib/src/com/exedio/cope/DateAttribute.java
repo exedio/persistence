@@ -22,6 +22,8 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import com.exedio.cope.search.LessCondition;
+
 public final class DateAttribute extends ObjectAttribute
 {
 	final boolean forbidTimestampColumn;
@@ -70,6 +72,11 @@ public final class DateAttribute extends ObjectAttribute
 	Object surfaceToCache(final Object surface)
 	{
 		return surface==null ? null : new Long(((Date)surface).getTime());
+	}
+	
+	public final LessCondition less(final Date value)
+	{
+		return new LessCondition(this, value);
 	}
 	
 }

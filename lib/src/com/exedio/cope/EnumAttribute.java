@@ -25,6 +25,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+import com.exedio.cope.search.LessCondition;
+
 import bak.pcj.map.IntKeyOpenHashMap;
 
 public final class EnumAttribute extends ObjectAttribute
@@ -147,6 +149,11 @@ public final class EnumAttribute extends ObjectAttribute
 			surface==null ?
 				null :
 				((EnumValue)surface).getNumberObject();
+	}
+	
+	public final LessCondition less(final EnumValue value)
+	{
+		return new LessCondition(this, value);
 	}
 	
 }

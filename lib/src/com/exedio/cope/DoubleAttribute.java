@@ -21,6 +21,8 @@ package com.exedio.cope;
 import java.util.Collections;
 import java.util.List;
 
+import com.exedio.cope.search.LessCondition;
+
 public class DoubleAttribute extends ObjectAttribute
 {
 	/**
@@ -49,6 +51,11 @@ public class DoubleAttribute extends ObjectAttribute
 	Object surfaceToCache(final Object surface)
 	{
 		return (Double)surface;
+	}
+	
+	public final LessCondition less(final double value)
+	{
+		return new LessCondition(this, new Double(value));
 	}
 	
 }

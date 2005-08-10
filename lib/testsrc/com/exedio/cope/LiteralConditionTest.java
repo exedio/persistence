@@ -67,19 +67,19 @@ public class LiteralConditionTest extends TestmodelTest
 	{
 		// less
 		assertContains(item1, item2,
-			item1.TYPE.search(Cope.less(item1.someNotNullString, "string3")));
+			item1.TYPE.search(item1.someNotNullString.less("string3")));
 		assertContains(item1, item2,
-			item1.TYPE.search(Cope.less(item1.someNotNullInteger, 3)));
+			item1.TYPE.search(item1.someNotNullInteger.less(3)));
 		assertContains(item1, item2,
-			item1.TYPE.search(Cope.less(item1.someNotNullLong, 13l)));
+			item1.TYPE.search(item1.someNotNullLong.less(13l)));
 		assertContains(item1, item2,
-			item1.TYPE.search(Cope.less(item1.someNotNullDouble, 2.3)));
+			item1.TYPE.search(item1.someNotNullDouble.less(2.3)));
 		assertContains(item1, item2,
-			item1.TYPE.search(Cope.less(item1.someDate, date)));
+			item1.TYPE.search(item1.someDate.less(date)));
 		assertContains(item1, item2,
-			item1.TYPE.search(Cope.less(item1.someLongDate, offset(date, LONG_OFFSET))));
+			item1.TYPE.search(item1.someLongDate.less(offset(date, LONG_OFFSET))));
 		assertContains(item1, item2,
-			item1.TYPE.search(Cope.less(item1.someNotNullEnumeration, AttributeItem.SomeEnumeration.enumValue2)));
+			item1.TYPE.search(item1.someNotNullEnumeration.less(AttributeItem.SomeEnumeration.enumValue2)));
 
 		// less or equal
 		assertContains(item1, item2, item3,

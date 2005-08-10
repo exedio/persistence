@@ -21,6 +21,8 @@ package com.exedio.cope;
 import java.util.Collections;
 import java.util.List;
 
+import com.exedio.cope.search.LessCondition;
+
 public final class IntegerAttribute extends ObjectAttribute implements IntegerFunction
 {
 	/**
@@ -49,6 +51,11 @@ public final class IntegerAttribute extends ObjectAttribute implements IntegerFu
 	Object surfaceToCache(final Object surface)
 	{
 		return (Integer)surface;
+	}
+	
+	public final LessCondition less(final int value)
+	{
+		return new LessCondition(this, new Integer(value));
 	}
 	
 }
