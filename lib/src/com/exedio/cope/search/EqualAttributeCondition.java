@@ -17,7 +17,6 @@
  */
 package com.exedio.cope.search;
 
-import com.exedio.cope.Cope;
 import com.exedio.cope.Join;
 import com.exedio.cope.ObjectAttribute;
 import com.exedio.cope.Query;
@@ -32,8 +31,8 @@ public final class EqualAttributeCondition extends Condition
 	/**
 	 * Creates a new EqualAttributeCondition.
 	 * Instead of using this constructor directly,
-	 * you may want to use the more type-safe wrapper methods
-	 * {@link Cope#equal(StringAttribute, StringAttribute) Cope.equal}.
+	 * you may want to use the more type-safe wrapper methods.
+	 * @see StringAttribute#equal(StringAttribute)
 	 */
 	public EqualAttributeCondition(
 				final ObjectAttribute attribute1,

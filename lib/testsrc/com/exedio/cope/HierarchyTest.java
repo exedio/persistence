@@ -58,8 +58,8 @@ public class HierarchyTest extends TestmodelTest
 		deleteOnTearDown(firstItem2);
 		assertID(3, firstItem2);
 		
-		assertEquals(list(firstItem), firstItem.TYPE.search(Cope.equal(firstItem.firstSubString, "firstSubString")));
-		assertEquals(list(), firstItem.TYPE.search(Cope.equal(firstItem.firstSubString, "firstSubStringX")));
+		assertEquals(list(firstItem), firstItem.TYPE.search(firstItem.firstSubString.equal("firstSubString")));
+		assertEquals(list(), firstItem.TYPE.search(firstItem.firstSubString.equal("firstSubStringX")));
 		assertContains(firstItem, secondItem, firstItem2, secondItem2, Super.TYPE.search(null));
 	}
 

@@ -17,11 +17,16 @@
  */
 package com.exedio.cope;
 
+import com.exedio.cope.search.EqualCondition;
 import com.exedio.cope.search.LikeCondition;
 
 
 public interface StringFunction extends Function
 {
+	public EqualCondition equal(String value);
+	
+	public EqualCondition equal(Join join, String value);
+	
 	public LikeCondition like(String value);
 
 }

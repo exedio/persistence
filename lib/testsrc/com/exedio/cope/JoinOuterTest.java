@@ -41,21 +41,21 @@ public class JoinOuterTest extends TestmodelTest
 		{
 			final Query query = new Query(PointerItem.TYPE, null);
 			assertEquals(list(), query.getJoins());
-			final Join join = query.join(PointerTargetItem.TYPE, Cope.equal(PointerItem.code, PointerTargetItem.code));
+			final Join join = query.join(PointerTargetItem.TYPE, PointerItem.code.equal(PointerTargetItem.code));
 			assertEquals(list(join), query.getJoins());
 			assertContains(leftJoined, query.search());
 		}
 		{
 			final Query query = new Query(PointerItem.TYPE, null);
 			assertEquals(list(), query.getJoins());
-			final Join join = query.joinOuterLeft(PointerTargetItem.TYPE, Cope.equal(PointerItem.code, PointerTargetItem.code));
+			final Join join = query.joinOuterLeft(PointerTargetItem.TYPE, PointerItem.code.equal(PointerTargetItem.code));
 			assertEquals(list(join), query.getJoins());
 			assertContains(leftJoined, leftLonely, query.search());
 		}
 		{
 			final Query query = new Query(PointerItem.TYPE, null);
 			assertEquals(list(), query.getJoins());
-			final Join join = query.joinOuterRight(PointerTargetItem.TYPE, Cope.equal(PointerItem.code, PointerTargetItem.code));
+			final Join join = query.joinOuterRight(PointerTargetItem.TYPE, PointerItem.code.equal(PointerTargetItem.code));
 			assertEquals(list(join), query.getJoins());
 			if(hsqldb)
 			{

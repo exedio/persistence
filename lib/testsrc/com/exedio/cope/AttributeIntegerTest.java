@@ -24,7 +24,7 @@ public class AttributeIntegerTest extends AttributeTest
 	{
 		assertEquals(item.TYPE, item.someInteger.getType());
 		assertEquals(null, item.getSomeInteger());
-		assertContains(item, item2, item.TYPE.search(Cope.equal(item.someInteger, null)));
+		assertContains(item, item2, item.TYPE.search(item.someInteger.equal(null)));
 		assertContains(item, item2, item.TYPE.search(item.someInteger.isNull()));
 		assertContains(item.TYPE.search(Cope.notEqual(item.someInteger, null)));
 		assertContains(item.TYPE.search(Cope.isNotNull(item.someInteger)));
@@ -36,17 +36,17 @@ public class AttributeIntegerTest extends AttributeTest
 		assertEquals(new Integer(10), item.getSomeInteger());
 		assertEquals(
 			list(item),
-			item.TYPE.search(Cope.equal(item.someInteger, 10)));
+			item.TYPE.search(item.someInteger.equal(10)));
 		assertEquals(
 			list(item2),
 			item.TYPE.search(Cope.notEqual(item.someInteger, 10)));
-		assertEquals(list(item2), item.TYPE.search(Cope.equal(item.someInteger, null)));
+		assertEquals(list(item2), item.TYPE.search(item.someInteger.equal(null)));
 		assertEquals(list(item2), item.TYPE.search(item.someInteger.isNull()));
 		assertEquals(list(item), item.TYPE.search(Cope.notEqual(item.someInteger, null)));
 		assertEquals(list(item), item.TYPE.search(Cope.isNotNull(item.someInteger)));
 
 		assertContains(new Integer(10), null, search(item.someInteger));
-		assertContains(new Integer(10), search(item.someInteger, Cope.equal(item.someInteger, new Integer(10))));
+		assertContains(new Integer(10), search(item.someInteger, item.someInteger.equal(new Integer(10))));
 
 		item.setSomeInteger(null);
 		assertEquals(null, item.getSomeInteger());
@@ -78,7 +78,7 @@ public class AttributeIntegerTest extends AttributeTest
 		item.passivateCopeItem();
 		assertEquals(0, item.getSomeNotNullInteger());
 		assertContains(item,
-			item.TYPE.search(Cope.equal(item.someNotNullInteger, 0)));
+			item.TYPE.search(item.someNotNullInteger.equal(0)));
 
 		item.setSomeNotNullInteger(Integer.MIN_VALUE);
 		assertEquals(Integer.MIN_VALUE, item.getSomeNotNullInteger());
@@ -86,7 +86,7 @@ public class AttributeIntegerTest extends AttributeTest
 		item.passivateCopeItem();
 		assertEquals(Integer.MIN_VALUE, item.getSomeNotNullInteger());
 		assertContains(item,
-			item.TYPE.search(Cope.equal(item.someNotNullInteger, Integer.MIN_VALUE)));
+			item.TYPE.search(item.someNotNullInteger.equal(Integer.MIN_VALUE)));
 
 		item.setSomeNotNullInteger(Integer.MAX_VALUE);
 		assertEquals(Integer.MAX_VALUE, item.getSomeNotNullInteger());
@@ -94,6 +94,6 @@ public class AttributeIntegerTest extends AttributeTest
 		item.passivateCopeItem();
 		assertEquals(Integer.MAX_VALUE, item.getSomeNotNullInteger());
 		assertContains(item,
-			item.TYPE.search(Cope.equal(item.someNotNullInteger, Integer.MAX_VALUE)));
+			item.TYPE.search(item.someNotNullInteger.equal(Integer.MAX_VALUE)));
 	}
 }

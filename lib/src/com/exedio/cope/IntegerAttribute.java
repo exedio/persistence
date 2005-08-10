@@ -21,6 +21,7 @@ package com.exedio.cope;
 import java.util.Collections;
 import java.util.List;
 
+import com.exedio.cope.search.EqualCondition;
 import com.exedio.cope.search.GreaterCondition;
 import com.exedio.cope.search.GreaterEqualCondition;
 import com.exedio.cope.search.LessCondition;
@@ -54,6 +55,16 @@ public final class IntegerAttribute extends ObjectAttribute implements IntegerFu
 	Object surfaceToCache(final Object surface)
 	{
 		return (Integer)surface;
+	}
+	
+	public final EqualCondition equal(final Integer value)
+	{
+		return new EqualCondition(null, this, value);
+	}
+	
+	public final EqualCondition equal(final int value)
+	{
+		return new EqualCondition(null, this, new Integer(value));
 	}
 	
 	public final LessCondition less(final int value)

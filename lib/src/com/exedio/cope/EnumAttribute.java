@@ -25,6 +25,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+import com.exedio.cope.search.EqualCondition;
 import com.exedio.cope.search.GreaterCondition;
 import com.exedio.cope.search.GreaterEqualCondition;
 import com.exedio.cope.search.LessCondition;
@@ -152,6 +153,11 @@ public final class EnumAttribute extends ObjectAttribute
 			surface==null ?
 				null :
 				((EnumValue)surface).getNumberObject();
+	}
+	
+	public final EqualCondition equal(final EnumValue value)
+	{
+		return new EqualCondition(null, this, value);
 	}
 	
 	public final LessCondition less(final EnumValue value)

@@ -21,6 +21,8 @@ package com.exedio.cope;
 import java.util.Collections;
 import java.util.List;
 
+import com.exedio.cope.search.EqualCondition;
+
 public final class ItemAttribute extends ObjectAttribute
 {
 
@@ -82,6 +84,11 @@ public final class ItemAttribute extends ObjectAttribute
 			surface==null ? 
 				null : 
 				new Integer(((Item)surface).pk);
+	}
+	
+	public final EqualCondition equal(final Item value)
+	{
+		return new EqualCondition(null, this, value);
 	}
 	
 }

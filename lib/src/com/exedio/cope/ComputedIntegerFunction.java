@@ -22,6 +22,8 @@ import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.exedio.cope.search.EqualCondition;
+
 public abstract class ComputedIntegerFunction
 	extends ComputedFunction
 	implements IntegerFunction
@@ -58,6 +60,16 @@ public abstract class ComputedIntegerFunction
 			return "NULL";
 		else
 			return ((Integer)value).toString();
+	}
+	
+	public final EqualCondition equal(final Integer value)
+	{
+		return new EqualCondition(null, this, value);
+	}
+	
+	public final EqualCondition equal(final int value)
+	{
+		return new EqualCondition(null, this, new Integer(value));
 	}
 	
 }

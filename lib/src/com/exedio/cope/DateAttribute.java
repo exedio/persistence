@@ -22,6 +22,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import com.exedio.cope.search.EqualCondition;
 import com.exedio.cope.search.GreaterCondition;
 import com.exedio.cope.search.GreaterEqualCondition;
 import com.exedio.cope.search.LessCondition;
@@ -75,6 +76,11 @@ public final class DateAttribute extends ObjectAttribute
 	Object surfaceToCache(final Object surface)
 	{
 		return surface==null ? null : new Long(((Date)surface).getTime());
+	}
+	
+	public final EqualCondition equal(final Date value)
+	{
+		return new EqualCondition(null, this, value);
 	}
 	
 	public final LessCondition less(final Date value)

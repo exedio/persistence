@@ -59,12 +59,12 @@ public class FunctionTest extends TestmodelTest
 		assertEquals(new Integer(2), item2.getMax4UpperLength());
 		assertEquals(new Integer(8), item2.getMin4AndMax4UpperLength());
 		
-		assertContains(item1, item1.TYPE.search(Cope.equal(item1.min4, "5ffff")));
-		assertContains(item1, item1.TYPE.search(Cope.equal(item1.min4Upper, "5FFFF")));
-		assertContains(item1, item1.TYPE.search(Cope.equal(item1.min4UpperLength, 5)));
-		assertContains(item1, item1.TYPE.search(Cope.equal(Cope.length(item1.min4Upper), 5)));
-		assertContains(item1, item1.TYPE.search(Cope.equal(item1.min4AndMax4UpperLength, 9)));
-		assertContains(item1, item1.TYPE.search(Cope.equal(Cope.sum(Cope.length(item1.min4Upper), Cope.length(item1.max4Upper)), 9)));
+		assertContains(item1, item1.TYPE.search(item1.min4.equal("5ffff")));
+		assertContains(item1, item1.TYPE.search(item1.min4Upper.equal("5FFFF")));
+		assertContains(item1, item1.TYPE.search(item1.min4UpperLength.equal(5)));
+		assertContains(item1, item1.TYPE.search(Cope.length(item1.min4Upper).equal(5)));
+		assertContains(item1, item1.TYPE.search(item1.min4AndMax4UpperLength.equal(9)));
+		assertContains(item1, item1.TYPE.search(Cope.sum(Cope.length(item1.min4Upper), Cope.length(item1.max4Upper)).equal(9)));
 		
 		assertContains(
 				list("5ffff",  "5FFFF",  new Integer(5), "4ddd", "4DDD", new Integer(4), new Integer(9), new Integer(9)),

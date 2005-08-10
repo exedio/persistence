@@ -36,28 +36,28 @@ public class AttributeStringTest extends AttributeTest
 		assertEquals("someString", item.getSomeString());
 		assertEquals("SOMESTRING", item.getSomeStringUpperCase());
 		assertEquals(new Integer("someString".length()), item.getSomeStringLength());
-		assertContains(item, item.TYPE.search(Cope.equal(item.someString, "someString")));
+		assertContains(item, item.TYPE.search(item.someString.equal("someString")));
 		assertContains(item2, item.TYPE.search(Cope.notEqual(item.someString, "someString")));
-		assertContains(item.TYPE.search(Cope.equal(item.someString, "SOMESTRING")));
+		assertContains(item.TYPE.search(item.someString.equal("SOMESTRING")));
 		assertContains(item, item.TYPE.search(item.someNotNullString.like("someString")));
 		assertContains(item, item2, item.TYPE.search(item.someNotNullString.like("someString%")));
 		assertContains(item2, item.TYPE.search(item.someNotNullString.like("someString2%")));
 
-		assertContains(item, item.TYPE.search(Cope.equal(item.someStringUpperCase, "SOMESTRING")));
-		assertContains(item, item.TYPE.search(Cope.equal(Cope.uppercase(item.someString), "SOMESTRING")));
+		assertContains(item, item.TYPE.search(item.someStringUpperCase.equal("SOMESTRING")));
+		assertContains(item, item.TYPE.search(Cope.uppercase(item.someString).equal("SOMESTRING")));
 		assertContains(item2, item.TYPE.search(Cope.notEqual(item.someStringUpperCase, "SOMESTRING")));
 		assertContains(item2, item.TYPE.search(Cope.notEqual(Cope.uppercase(item.someString), "SOMESTRING")));
-		assertContains(item.TYPE.search(Cope.equal(item.someStringUpperCase, "someString")));
-		assertContains(item.TYPE.search(Cope.equal(Cope.uppercase(item.someString), "someString")));
+		assertContains(item.TYPE.search(item.someStringUpperCase.equal("someString")));
+		assertContains(item.TYPE.search(Cope.uppercase(item.someString).equal("someString")));
 		
-		assertContains(item, item.TYPE.search(Cope.equal(item.someStringLength, "someString".length())));
+		assertContains(item, item.TYPE.search(item.someStringLength.equal("someString".length())));
 		assertContains(item2, item.TYPE.search(Cope.notEqual(item.someStringLength, "someString".length())));
-		assertContains(item.TYPE.search(Cope.equal(item.someStringLength, "someString".length()+1)));
+		assertContains(item.TYPE.search(item.someStringLength.equal("someString".length()+1)));
 
 		assertContains("someString", null, search(item.someString));
-		assertContains("someString", search(item.someString, Cope.equal(item.someString, "someString")));
+		assertContains("someString", search(item.someString, item.someString.equal("someString")));
 		// TODO allow functions for select
-		//assertContains("SOMESTRING", search(item.someStringUpperCase, Cope.equal(item.someString, "someString")));
+		//assertContains("SOMESTRING", search(item.someStringUpperCase, item.someString.equal("someString")));
 
 		item.passivateCopeItem();
 		assertEquals("someString", item.getSomeString());

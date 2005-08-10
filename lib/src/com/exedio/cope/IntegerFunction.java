@@ -17,8 +17,13 @@
  */
 package com.exedio.cope;
 
+import com.exedio.cope.search.EqualCondition;
+
 
 public interface IntegerFunction extends Function
 {
+	public EqualCondition equal(final Integer value);
+	
+	public EqualCondition equal(final int value);
 
 }

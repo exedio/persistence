@@ -24,38 +24,38 @@ public class AttributeBooleanTest extends AttributeTest
 	{
 		assertEquals(item.TYPE, item.someBoolean.getType());
 		assertEquals(null, item.getSomeBoolean());
-		assertContains(item, item2, item.TYPE.search(Cope.equal(item.someBoolean, null)));
+		assertContains(item, item2, item.TYPE.search(item.someBoolean.equal(null)));
 		assertContains(item, item2, item.TYPE.search(item.someBoolean.isNull()));
 		assertContains(item.TYPE.search(Cope.notEqual(item.someBoolean, null)));
 		assertContains(item.TYPE.search(Cope.isNotNull(item.someBoolean)));
 
 		item.setSomeBoolean(Boolean.TRUE);
 		assertEquals(Boolean.TRUE, item.getSomeBoolean());
-		assertContains(item, item.TYPE.search(Cope.equal(item.someBoolean, true)));
+		assertContains(item, item.TYPE.search(item.someBoolean.equal(true)));
 		assertContains(item2, item.TYPE.search(item.someBoolean.isNull()));
 		assertContains(item2, item.TYPE.search(Cope.notEqual(item.someBoolean, true)));
 		assertContains(item, item.TYPE.search(Cope.isNotNull(item.someBoolean)));
 
 		item.setSomeBoolean(Boolean.FALSE);
 		assertEquals(Boolean.FALSE, item.getSomeBoolean());
-		assertContains(item, item.TYPE.search(Cope.equal(item.someBoolean, false)));
+		assertContains(item, item.TYPE.search(item.someBoolean.equal(false)));
 		assertContains(item2, item.TYPE.search(item.someBoolean.isNull()));
 		assertContains(item2, item.TYPE.search(Cope.notEqual(item.someBoolean, false)));
 		assertContains(item, item.TYPE.search(Cope.isNotNull(item.someBoolean)));
 		
 		assertContains(Boolean.FALSE, null, search(item.someBoolean));
-		assertContains(Boolean.FALSE, search(item.someBoolean, Cope.equal(item.someBoolean, false)));
+		assertContains(Boolean.FALSE, search(item.someBoolean, item.someBoolean.equal(false)));
 
 		item.passivateCopeItem();
 		assertEquals(Boolean.FALSE, item.getSomeBoolean());
-		assertContains(item, item.TYPE.search(Cope.equal(item.someBoolean, false)));
+		assertContains(item, item.TYPE.search(item.someBoolean.equal(false)));
 		assertContains(item2, item.TYPE.search(item.someBoolean.isNull()));
 		assertContains(item2, item.TYPE.search(Cope.notEqual(item.someBoolean, false)));
 		assertContains(item, item.TYPE.search(Cope.isNotNull(item.someBoolean)));
 
 		item.setSomeBoolean(null);
 		assertEquals(null, item.getSomeBoolean());
-		assertContains(item, item2, item.TYPE.search(Cope.equal(item.someBoolean, null)));
+		assertContains(item, item2, item.TYPE.search(item.someBoolean.equal(null)));
 		assertContains(item, item2, item.TYPE.search(item.someBoolean.isNull()));
 		assertContains(item.TYPE.search(Cope.notEqual(item.someBoolean, null)));
 		assertContains(item.TYPE.search(Cope.isNotNull(item.someBoolean)));
@@ -75,14 +75,14 @@ public class AttributeBooleanTest extends AttributeTest
 	{
 		assertEquals(item.TYPE, item.someNotNullBoolean.getType());
 		assertEquals(true, item.getSomeNotNullBoolean());
-		assertContains(item, item.TYPE.search(Cope.equal(item.someNotNullBoolean, true)));
+		assertContains(item, item.TYPE.search(item.someNotNullBoolean.equal(true)));
 		assertContains(item.TYPE.search(item.someNotNullBoolean.isNull()));
 		assertContains(item, item.TYPE.search(Cope.notEqual(item.someNotNullBoolean, false)));
 		assertContains(item, item2, item.TYPE.search(Cope.isNotNull(item.someNotNullBoolean)));
 		
 		item.setSomeNotNullBoolean(false);
 		assertEquals(false, item.getSomeNotNullBoolean());
-		assertContains(item.TYPE.search(Cope.equal(item.someNotNullBoolean, true)));
+		assertContains(item.TYPE.search(item.someNotNullBoolean.equal(true)));
 		assertContains(item.TYPE.search(item.someNotNullBoolean.isNull()));
 		assertContains(item.TYPE.search(Cope.notEqual(item.someNotNullBoolean, false)));
 		assertContains(item, item2, item.TYPE.search(Cope.isNotNull(item.someNotNullBoolean)));

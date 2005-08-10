@@ -24,7 +24,7 @@ public class AttributeLongTest extends AttributeTest
 	{
 		assertEquals(item.TYPE, item.someLong.getType());
 		assertEquals(null, item.getSomeLong());
-		assertContains(item, item2, item.TYPE.search(Cope.equal(item.someLong, null)));
+		assertContains(item, item2, item.TYPE.search(item.someLong.equal(null)));
 		assertContains(item, item2, item.TYPE.search(item.someLong.isNull()));
 		assertContains(item.TYPE.search(Cope.notEqual(item.someLong, null)));
 		assertContains(item.TYPE.search(Cope.isNotNull(item.someLong)));
@@ -36,18 +36,18 @@ public class AttributeLongTest extends AttributeTest
 		assertEquals(new Long(11), item.getSomeLong());
 		assertEquals(
 			list(item),
-			item.TYPE.search(Cope.equal(item.someLong, 11)));
+			item.TYPE.search(item.someLong.equal(11)));
 		assertEquals(
 			list(item2),
 			item.TYPE.search(Cope.notEqual(item.someLong, 11)));
 
-		assertEquals(list(item2), item.TYPE.search(Cope.equal(item.someLong, null)));
+		assertEquals(list(item2), item.TYPE.search(item.someLong.equal(null)));
 		assertEquals(list(item2), item.TYPE.search(item.someLong.isNull()));
 		assertEquals(list(item), item.TYPE.search(Cope.notEqual(item.someLong, null)));
 		assertEquals(list(item), item.TYPE.search(Cope.isNotNull(item.someLong)));
 
 		assertContains(new Long(11), null, search(item.someLong));
-		assertContains(new Long(11), search(item.someLong, Cope.equal(item.someLong, new Long(11))));
+		assertContains(new Long(11), search(item.someLong, item.someLong.equal(new Long(11))));
 
 		item.setSomeLong(null);
 		assertEquals(null, item.getSomeLong());
@@ -79,7 +79,7 @@ public class AttributeLongTest extends AttributeTest
 		item.passivateCopeItem();
 		assertEquals(0l, item.getSomeNotNullLong());
 		assertContains(item,
-			item.TYPE.search(Cope.equal(item.someNotNullLong, 0l)));
+			item.TYPE.search(item.someNotNullLong.equal(0l)));
 
 		item.setSomeNotNullLong(Long.MIN_VALUE);
 		assertEquals(Long.MIN_VALUE, item.getSomeNotNullLong());
@@ -87,7 +87,7 @@ public class AttributeLongTest extends AttributeTest
 		item.passivateCopeItem();
 		assertEquals(Long.MIN_VALUE, item.getSomeNotNullLong());
 		assertContains(item,
-			item.TYPE.search(Cope.equal(item.someNotNullLong, Long.MIN_VALUE)));
+			item.TYPE.search(item.someNotNullLong.equal(Long.MIN_VALUE)));
 
 		item.setSomeNotNullLong(Long.MAX_VALUE);
 		assertEquals(Long.MAX_VALUE, item.getSomeNotNullLong());
@@ -95,6 +95,6 @@ public class AttributeLongTest extends AttributeTest
 		item.passivateCopeItem();
 		assertEquals(Long.MAX_VALUE, item.getSomeNotNullLong());
 		assertContains(item,
-			item.TYPE.search(Cope.equal(item.someNotNullLong, Long.MAX_VALUE)));
+			item.TYPE.search(item.someNotNullLong.equal(Long.MAX_VALUE)));
 	}
 }

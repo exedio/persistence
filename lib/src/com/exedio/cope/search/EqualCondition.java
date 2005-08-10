@@ -18,9 +18,19 @@
 
 package com.exedio.cope.search;
 
-import com.exedio.cope.Cope;
+import java.util.Date;
+
+import com.exedio.cope.BooleanAttribute;
+import com.exedio.cope.DateAttribute;
+import com.exedio.cope.DoubleAttribute;
+import com.exedio.cope.EnumAttribute;
+import com.exedio.cope.EnumValue;
 import com.exedio.cope.Function;
+import com.exedio.cope.IntegerFunction;
+import com.exedio.cope.Item;
+import com.exedio.cope.ItemAttribute;
 import com.exedio.cope.Join;
+import com.exedio.cope.LongAttribute;
 import com.exedio.cope.ObjectAttribute;
 import com.exedio.cope.Query;
 import com.exedio.cope.Statement;
@@ -35,9 +45,20 @@ public final class EqualCondition extends Condition
 	/**
 	 * Creates a new EqualCondition.
 	 * Instead of using this constructor directly,
-	 * you may want to use the more type-safe wrapper methods
-	 * {@link Cope#equal(StringFunction, String) Cope.equal} or
-	 * {@link ObjectAttribute#isNull()}.
+	 * you may want to use the more type-safe wrapper methods.
+	 * @see ObjectAttribute#isNull()
+	 * @see StringFunction#equal(String)
+	 * @see IntegerFunction#equal(int)
+	 * @see IntegerFunction#equal(Integer)
+	 * @see BooleanAttribute#equal(boolean)
+	 * @see BooleanAttribute#equal(Boolean)
+	 * @see LongAttribute#equal(long)
+	 * @see LongAttribute#equal(Long)
+	 * @see DoubleAttribute#equal(double)
+	 * @see DoubleAttribute#equal(Double)
+	 * @see DateAttribute#equal(Date)
+	 * @see EnumAttribute#equal(EnumValue)
+	 * @see ItemAttribute#equal(Item)
 	 */
 	public EqualCondition(final Join join, final Function function, final Object value)
 	{

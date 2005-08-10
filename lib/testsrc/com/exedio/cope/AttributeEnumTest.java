@@ -37,12 +37,12 @@ public class AttributeEnumTest extends AttributeTest
 			item.getSomeEnumeration());
 		
 		assertContains(item,
-				item.TYPE.search(Cope.equal(item.someEnumeration, AttributeItem.SomeEnumeration.enumValue2)));
+				item.TYPE.search(item.someEnumeration.equal(AttributeItem.SomeEnumeration.enumValue2)));
 		assertContains(item2,
-				item.TYPE.search(Cope.equal(item.someEnumeration, null)));
+				item.TYPE.search(item.someEnumeration.equal(null)));
 
 		assertContains(AttributeItem.SomeEnumeration.enumValue2, null, search(item.someEnumeration));
-		assertContains(AttributeItem.SomeEnumeration.enumValue2, search(item.someEnumeration, Cope.equal(item.someEnumeration, AttributeItem.SomeEnumeration.enumValue2)));
+		assertContains(AttributeItem.SomeEnumeration.enumValue2, search(item.someEnumeration, item.someEnumeration.equal(AttributeItem.SomeEnumeration.enumValue2)));
 
 		item.passivateCopeItem();
 		assertEquals(

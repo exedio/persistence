@@ -21,12 +21,13 @@ package com.exedio.cope;
 import java.util.Collections;
 import java.util.List;
 
+import com.exedio.cope.search.EqualCondition;
 import com.exedio.cope.search.GreaterCondition;
 import com.exedio.cope.search.GreaterEqualCondition;
 import com.exedio.cope.search.LessCondition;
 import com.exedio.cope.search.LessEqualCondition;
 
-public class DoubleAttribute extends ObjectAttribute
+public final class DoubleAttribute extends ObjectAttribute
 {
 	/**
 	 * @see Item#doubleAttribute(Option)
@@ -54,6 +55,16 @@ public class DoubleAttribute extends ObjectAttribute
 	Object surfaceToCache(final Object surface)
 	{
 		return (Double)surface;
+	}
+	
+	public final EqualCondition equal(final Double value)
+	{
+		return new EqualCondition(null, this, value);
+	}
+	
+	public final EqualCondition equal(final double value)
+	{
+		return new EqualCondition(null, this, new Double(value));
 	}
 	
 	public final LessCondition less(final double value)

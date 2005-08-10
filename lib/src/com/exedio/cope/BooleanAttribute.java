@@ -21,6 +21,8 @@ package com.exedio.cope;
 import java.util.Collections;
 import java.util.List;
 
+import com.exedio.cope.search.EqualCondition;
+
 public final class BooleanAttribute extends ObjectAttribute
 {
 	static final int[] ALLOWED_VALUES = new int[]{0, 1};
@@ -70,6 +72,16 @@ public final class BooleanAttribute extends ObjectAttribute
 			surface==null ?
 				null :
 				((Boolean)surface).booleanValue() ? TRUE : FALSE;
+	}
+	
+	public final EqualCondition equal(final Boolean value)
+	{
+		return new EqualCondition(null, this, value);
+	}
+	
+	public final EqualCondition equal(final boolean value)
+	{
+		return new EqualCondition(null, this, value ? Boolean.TRUE : Boolean.FALSE);
 	}
 	
 }

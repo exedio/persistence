@@ -21,6 +21,7 @@ package com.exedio.cope;
 import java.util.Collections;
 import java.util.List;
 
+import com.exedio.cope.search.EqualCondition;
 import com.exedio.cope.search.GreaterCondition;
 import com.exedio.cope.search.GreaterEqualCondition;
 import com.exedio.cope.search.LessCondition;
@@ -54,6 +55,16 @@ public final class LongAttribute extends ObjectAttribute
 	Object surfaceToCache(final Object surface)
 	{
 		return (Long)surface;
+	}
+	
+	public final EqualCondition equal(final Long value)
+	{
+		return new EqualCondition(null, this, value);
+	}
+	
+	public final EqualCondition equal(final long value)
+	{
+		return new EqualCondition(null, this, new Long(value));
 	}
 	
 	public final LessCondition less(final long value)

@@ -24,7 +24,7 @@ public class AttributeDoubleTest extends AttributeTest
 	{
 		assertEquals(item.TYPE, item.someDouble.getType());
 		assertEquals(null, item.getSomeDouble());
-		assertContains(item, item2, item.TYPE.search(Cope.equal(item.someDouble, null)));
+		assertContains(item, item2, item.TYPE.search(item.someDouble.equal(null)));
 		assertContains(item, item2, item.TYPE.search(item.someDouble.isNull()));
 		assertContains(item.TYPE.search(Cope.notEqual(item.someDouble, null)));
 		assertContains(item.TYPE.search(Cope.isNotNull(item.someDouble)));
@@ -36,17 +36,17 @@ public class AttributeDoubleTest extends AttributeTest
 		assertEquals(new Double(22.22), item.getSomeDouble());
 		assertEquals(
 			list(item),
-			item.TYPE.search(Cope.equal(item.someDouble, 22.22)));
+			item.TYPE.search(item.someDouble.equal(22.22)));
 		assertEquals(
 			list(item2),
 			item.TYPE.search(Cope.notEqual(item.someDouble, 22.22)));
-		assertEquals(list(item2), item.TYPE.search(Cope.equal(item.someDouble, null)));
+		assertEquals(list(item2), item.TYPE.search(item.someDouble.equal(null)));
 		assertEquals(list(item2), item.TYPE.search(item.someDouble.isNull()));
 		assertEquals(list(item), item.TYPE.search(Cope.notEqual(item.someDouble, null)));
 		assertEquals(list(item), item.TYPE.search(Cope.isNotNull(item.someDouble)));
 
 		assertContains(new Double(22.22), null, search(item.someDouble));
-		assertContains(new Double(22.22), search(item.someDouble, Cope.equal(item.someDouble, new Double(22.22))));
+		assertContains(new Double(22.22), search(item.someDouble, item.someDouble.equal(new Double(22.22))));
 
 		item.setSomeDouble(null);
 		assertEquals(null, item.getSomeDouble());
@@ -78,7 +78,7 @@ public class AttributeDoubleTest extends AttributeTest
 		item.passivateCopeItem();
 		assertEquals(0.0, item.getSomeNotNullDouble(), 0.0);
 		assertContains(item,
-			item.TYPE.search(Cope.equal(item.someNotNullDouble, 0.0)));
+			item.TYPE.search(item.someNotNullDouble.equal(0.0)));
 
 		// TODO: test with extreme values
 		/*item.setSomeNotNullDouble(Double.MIN_VALUE);

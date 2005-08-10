@@ -40,7 +40,7 @@ public class SearchTest extends TestmodelTest
 			throw new NestingRuntimeException(e);
 		}
 		item.setSomeNotNullInteger(0);
-		final Collection searchResult = item.TYPE.search(Cope.equal(item.someNotNullInteger, 0));
+		final Collection searchResult = item.TYPE.search(item.someNotNullInteger.equal(0));
 		assertContains(item, searchResult);
 		assertUnmodifiable(searchResult);
 		
@@ -48,13 +48,13 @@ public class SearchTest extends TestmodelTest
 		assertContains(item, item2, 
 			item.TYPE.search(
 				Cope.or(
-					Cope.equal(item.someNotNullString, "someString"),
-					Cope.equal(item.someNotNullString, "someString2"))));
+					item.someNotNullString.equal("someString"),
+					item.someNotNullString.equal("someString2"))));
 		assertContains(
 			item.TYPE.search(
 				Cope.and(
-					Cope.equal(item.someNotNullString, "someString"),
-					Cope.equal(item.someNotNullString, "someString2"))));
+					item.someNotNullString.equal("someString"),
+					item.someNotNullString.equal("someString2"))));
 		
 		assertDelete(item);
 		assertDelete(item2);
@@ -65,7 +65,7 @@ public class SearchTest extends TestmodelTest
 	{
 		try
 		{
-			EmptyItem.TYPE.search(Cope.equal(AttributeItem.someInteger, 0));
+			EmptyItem.TYPE.search(AttributeItem.someInteger.equal(0));
 			fail("should have thrown RuntimeException");
 		}
 		catch(RuntimeException e)

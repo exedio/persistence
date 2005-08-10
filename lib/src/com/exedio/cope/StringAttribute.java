@@ -21,6 +21,8 @@ package com.exedio.cope;
 import java.util.Collections;
 import java.util.List;
 
+import com.exedio.cope.search.EqualAttributeCondition;
+import com.exedio.cope.search.EqualCondition;
 import com.exedio.cope.search.GreaterCondition;
 import com.exedio.cope.search.GreaterEqualCondition;
 import com.exedio.cope.search.LessCondition;
@@ -106,6 +108,21 @@ public final class StringAttribute extends ObjectAttribute implements StringFunc
 			throw new LengthViolationException(item, this, stringValue, true);
 		if(stringValue.length()>maximumLength)
 			throw new LengthViolationException(item, this, stringValue, false);
+	}
+	
+	public final EqualCondition equal(final String value)
+	{
+		return new EqualCondition(null, this, value);
+	}
+	
+	public final EqualCondition equal(final Join join, final String value)
+	{
+		return new EqualCondition(join, this, value);
+	}
+	
+	public final EqualAttributeCondition equal(final StringAttribute other)
+	{
+		return new EqualAttributeCondition(this, other);
 	}
 	
 	public final LikeCondition like(final String value)
