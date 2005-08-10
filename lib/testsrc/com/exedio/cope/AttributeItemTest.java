@@ -43,6 +43,10 @@ public class AttributeItemTest extends AttributeTest
 				item.TYPE.search(item.someItem.equal(someItem)));
 		assertContains(item2,
 				item.TYPE.search(item.someItem.equal(null)));
+		assertContains(item2,
+				item.TYPE.search(item.someItem.notEqual(someItem)));
+		assertContains(item,
+				item.TYPE.search(item.someItem.notEqual(null)));
 
 		assertContains(someItem, null, search(item.someItem));
 		assertContains(someItem, search(item.someItem, item.someItem.equal(someItem)));
