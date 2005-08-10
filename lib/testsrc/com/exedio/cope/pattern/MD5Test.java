@@ -43,6 +43,9 @@ public class MD5Test extends AbstractLibTest
 	
 	public void testMD5()
 	{
+		assertEquals("000ff0aa", JavaHash.encodeBytes(new byte[]{0x00, 0x0F, (byte)0xF0, (byte)0xAA}));
+		assertEquals("0123456789abcdef", JavaHash.encodeBytes(new byte[]{0x01, 0x23, 0x45, 0x67, (byte)0x89, (byte)0xab, (byte)0xcd, (byte)0xef}));
+
 		assertEquals(list(item.password, item.hashed1, item.hashed1Latin), item.TYPE.getPatterns());
 
 		assertEquals(item.TYPE, item.password.getType());
@@ -58,9 +61,6 @@ public class MD5Test extends AbstractLibTest
 		assertEquals("hashed1Latin", item.hashed1Latin.getName());
 		assertEquals(item.hashed1MD5, item.hashed1.getStorage());
 		assertEquals(item.hashed1MD5, item.hashed1Latin.getStorage());
-
-		assertEquals("000ff0aa", JavaHash.encodeBytes(new byte[]{0x00, 0x0F, (byte)0xF0, (byte)0xAA}));
-		assertEquals("0123456789abcdef", JavaHash.encodeBytes(new byte[]{0x01, 0x23, 0x45, 0x67, (byte)0x89, (byte)0xab, (byte)0xcd, (byte)0xef}));
 
 		assertNull(item.getHashed1MD5());
 		assertTrue(item.checkHashed1(null));
