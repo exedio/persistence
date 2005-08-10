@@ -44,7 +44,7 @@ public class VectorItem extends Item
 
 	// internal source
 
-	public static final Vector strings = new Vector(stringAttribute(DEFAULT), 4);
+	public static final Vector strings = new Vector(stringAttribute(DEFAULT, 1, 11), 4);
 
 	public VectorItem(final int initialNum1, final int initialNum2, final int initialNum3)
 	{
