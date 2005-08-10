@@ -39,26 +39,6 @@ public abstract class Cope
 		return new NotEqualCondition(attribute, null);
 	}
 	
-	public static final AndCondition and(final Condition condition1, final Condition condition2)
-	{
-		return new AndCondition(new Condition[]{condition1, condition2});
-	}
-	
-	public static final AndCondition and(final Condition condition1, final Condition condition2, final Condition condition3)
-	{
-		return new AndCondition(new Condition[]{condition1, condition2, condition3});
-	}
-	
-	public static final OrCondition or(final Condition condition1, final Condition condition2)
-	{
-		return new OrCondition(new Condition[]{condition1, condition2});
-	}
-	
-	public static final OrCondition or(final Condition condition1, final Condition condition2, final Condition condition3)
-	{
-		return new OrCondition(new Condition[]{condition1, condition2, condition3});
-	}
-	
 	public static final AttributeValue attributeValue(final StringAttribute attribute, final String value)
 	{
 		return new AttributeValue(attribute, value);
@@ -112,6 +92,26 @@ public abstract class Cope
 	public static final AttributeValue attributeValue(final EnumAttribute attribute, final EnumValue value)
 	{
 		return new AttributeValue(attribute, value);
+	}
+	
+	public static final AndCondition and(final Condition condition1, final Condition condition2)
+	{
+		return new AndCondition(new Condition[]{condition1, condition2});
+	}
+	
+	public static final AndCondition and(final Condition condition1, final Condition condition2, final Condition condition3)
+	{
+		return new AndCondition(new Condition[]{condition1, condition2, condition3});
+	}
+	
+	public static final OrCondition or(final Condition condition1, final Condition condition2)
+	{
+		return new OrCondition(new Condition[]{condition1, condition2});
+	}
+	
+	public static final OrCondition or(final Condition condition1, final Condition condition2, final Condition condition3)
+	{
+		return new OrCondition(new Condition[]{condition1, condition2, condition3});
 	}
 	
 	public static final SumFunction sum(final IntegerFunction addend1, final IntegerFunction addend2)
