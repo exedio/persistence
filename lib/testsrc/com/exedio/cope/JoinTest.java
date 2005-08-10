@@ -47,12 +47,12 @@ public class JoinTest extends TestmodelTest
 		}
 		{
 			final Query query = new Query(PointerTargetItem.TYPE, null);
-			query.join(PointerItem.TYPE, Cope.equalTarget(PointerItem.pointer));
+			query.join(PointerItem.TYPE, PointerItem.pointer.equalTarget());
 			assertContains(item2b, item2a, query.search());
 		}
 		{
 			final Query query = new Query(PointerItem.TYPE, PointerTargetItem.TYPE, null);
-			query.join(PointerItem.TYPE, Cope.equalTarget(PointerItem.pointer));
+			query.join(PointerItem.TYPE, PointerItem.pointer.equalTarget());
 			assertContains(item1b, item1a, query.search());
 		}
 		{
@@ -62,12 +62,12 @@ public class JoinTest extends TestmodelTest
 		}
 		{
 			final Query query = new Query(PointerItem.TYPE, PointerTargetItem.code.equal("hallo"));
-			query.join(PointerTargetItem.TYPE, Cope.equalTarget(PointerItem.pointer));
+			query.join(PointerTargetItem.TYPE, PointerItem.pointer.equalTarget());
 			assertContains(item1a, query.search());
 		}
 		{
 			final Query query = new Query(new Selectable[]{PointerTargetItem.code, PointerItem.TYPE, PointerItem.code}, PointerTargetItem.TYPE, null);
-			query.join(PointerItem.TYPE, Cope.equalTarget(PointerItem.pointer));
+			query.join(PointerItem.TYPE, PointerItem.pointer.equalTarget());
 			assertContains(
 					list("bello", item1b, "collo"),
 					list("hallo", item1a, "bello"),

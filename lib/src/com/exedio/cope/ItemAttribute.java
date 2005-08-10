@@ -22,6 +22,7 @@ import java.util.Collections;
 import java.util.List;
 
 import com.exedio.cope.search.EqualCondition;
+import com.exedio.cope.search.EqualTargetCondition;
 import com.exedio.cope.search.NotEqualCondition;
 
 public final class ItemAttribute extends ObjectAttribute
@@ -90,6 +91,16 @@ public final class ItemAttribute extends ObjectAttribute
 	public final EqualCondition equal(final Item value)
 	{
 		return new EqualCondition(null, this, value);
+	}
+	
+	public final EqualTargetCondition equalTarget()
+	{
+		return new EqualTargetCondition(this, null);
+	}
+	
+	public final EqualTargetCondition equalTarget(final Join targetJoin)
+	{
+		return new EqualTargetCondition(this, targetJoin);
 	}
 	
 	public final NotEqualCondition notEqual(final Item value)

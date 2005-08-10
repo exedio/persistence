@@ -27,6 +27,13 @@ public final class EqualTargetCondition extends Condition
 	public final ItemAttribute attribute;
 	final Join targetJoin;
 
+	/**
+	 * Creates a new EqualTargetCondition.
+	 * Instead of using this constructor directly,
+	 * you may want to use the more convenient wrapper methods.
+	 * @see ItemAttribute#equalTarget()
+	 * @see ItemAttribute#equalTarget(Join)
+	 */
 	public EqualTargetCondition(final ItemAttribute attribute, final Join targetJoin)
 	{
 		this.attribute = attribute;
