@@ -117,7 +117,7 @@ public class AttributeItemTest extends AttributeTest
 
 		try
 		{
-			new AttributeItem("someString", 5, 6l, 2.2, true, null, AttributeItem.SomeEnumeration.enumValue1);
+			new AttributeItem("someString", 5, 6l, 2.2, true, null, AttributeItem.SomeEnum.enumValue1);
 			fail("should have thrown NotNullViolationException");
 		}
 		catch(NotNullViolationException e)

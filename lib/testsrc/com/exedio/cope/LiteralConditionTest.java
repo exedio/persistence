@@ -50,11 +50,11 @@ public class LiteralConditionTest extends TestmodelTest
 	{
 		super.setUp();
 		deleteOnTearDown(someItem = new EmptyItem());
-		deleteOnTearDown(item1 = new AttributeItem("string1", 1, 11l, 2.1, true, someItem, AttributeItem.SomeEnumeration.enumValue1));
-		deleteOnTearDown(item2 = new AttributeItem("string2", 2, 12l, 2.2, true, someItem, AttributeItem.SomeEnumeration.enumValue1));
-		deleteOnTearDown(item3 = new AttributeItem("string3", 3, 13l, 2.3, true, someItem, AttributeItem.SomeEnumeration.enumValue2));
-		deleteOnTearDown(item4 = new AttributeItem("string4", 4, 14l, 2.4, true, someItem, AttributeItem.SomeEnumeration.enumValue3));
-		deleteOnTearDown(item5 = new AttributeItem("string5", 5, 15l, 2.5, true, someItem, AttributeItem.SomeEnumeration.enumValue3));
+		deleteOnTearDown(item1 = new AttributeItem("string1", 1, 11l, 2.1, true, someItem, AttributeItem.SomeEnum.enumValue1));
+		deleteOnTearDown(item2 = new AttributeItem("string2", 2, 12l, 2.2, true, someItem, AttributeItem.SomeEnum.enumValue1));
+		deleteOnTearDown(item3 = new AttributeItem("string3", 3, 13l, 2.3, true, someItem, AttributeItem.SomeEnum.enumValue2));
+		deleteOnTearDown(item4 = new AttributeItem("string4", 4, 14l, 2.4, true, someItem, AttributeItem.SomeEnum.enumValue3));
+		deleteOnTearDown(item5 = new AttributeItem("string5", 5, 15l, 2.5, true, someItem, AttributeItem.SomeEnum.enumValue3));
 		date = new Date(1087365298214l);
 		setDate(item1, offset(date, -2));
 		setDate(item2, offset(date, -1));
@@ -79,7 +79,7 @@ public class LiteralConditionTest extends TestmodelTest
 		assertContains(item1, item2,
 			item1.TYPE.search(item1.someLongDate.less(offset(date, LONG_OFFSET))));
 		assertContains(item1, item2,
-			item1.TYPE.search(item1.someNotNullEnum.less(AttributeItem.SomeEnumeration.enumValue2)));
+			item1.TYPE.search(item1.someNotNullEnum.less(AttributeItem.SomeEnum.enumValue2)));
 
 		// less or equal
 		assertContains(item1, item2, item3,
@@ -95,7 +95,7 @@ public class LiteralConditionTest extends TestmodelTest
 		assertContains(item1, item2, item3,
 			item1.TYPE.search(item1.someLongDate.lessOrEqual(offset(date, LONG_OFFSET))));
 		assertContains(item1, item2, item3,
-			item1.TYPE.search(item1.someNotNullEnum.lessOrEqual(AttributeItem.SomeEnumeration.enumValue2)));
+			item1.TYPE.search(item1.someNotNullEnum.lessOrEqual(AttributeItem.SomeEnum.enumValue2)));
 
 		// greater
 		assertContains(item4, item5,
@@ -111,7 +111,7 @@ public class LiteralConditionTest extends TestmodelTest
 		assertContains(item4, item5,
 			item1.TYPE.search(item1.someLongDate.greater(offset(date, LONG_OFFSET))));
 		assertContains(item4, item5,
-			item1.TYPE.search(item1.someNotNullEnum.greater(AttributeItem.SomeEnumeration.enumValue2)));
+			item1.TYPE.search(item1.someNotNullEnum.greater(AttributeItem.SomeEnum.enumValue2)));
 
 		// greater or equal
 		assertContains(item3, item4, item5,
@@ -127,7 +127,7 @@ public class LiteralConditionTest extends TestmodelTest
 		assertContains(item3, item4, item5,
 			item1.TYPE.search(item1.someLongDate.greaterOrEqual(offset(date, LONG_OFFSET))));
 		assertContains(item3, item4, item5,
-			item1.TYPE.search(item1.someNotNullEnum.greaterOrEqual(AttributeItem.SomeEnumeration.enumValue2)));
+			item1.TYPE.search(item1.someNotNullEnum.greaterOrEqual(AttributeItem.SomeEnum.enumValue2)));
 	}
 
 }

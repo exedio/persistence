@@ -106,7 +106,7 @@ public class ItemTest extends TestmodelTest
 			Cope.attributeValue(AttributeItem.someNotNullDouble, 20.2),
 			Cope.attributeValue(AttributeItem.someNotNullBoolean, false),
 			Cope.attributeValue(AttributeItem.someNotNullItem, item1), 
-			Cope.attributeValue(AttributeItem.someNotNullEnum, AttributeItem.SomeEnumeration.enumValue3)});
+			Cope.attributeValue(AttributeItem.someNotNullEnum, AttributeItem.SomeEnum.enumValue3)});
 		
 		assertEquals("someGenericString", item2.getSomeNotNullString());
 		assertEquals(50, item2.getSomeNotNullInteger());
@@ -114,7 +114,7 @@ public class ItemTest extends TestmodelTest
 		assertEquals(20.2, item2.getSomeNotNullDouble(), 0.0);
 		assertEquals(false, item2.getSomeNotNullBoolean());
 		assertEquals(item1, item2.getSomeNotNullItem());
-		assertEquals(AttributeItem.SomeEnumeration.enumValue3, item2.getSomeNotNullEnum());
+		assertEquals(AttributeItem.SomeEnum.enumValue3, item2.getSomeNotNullEnum());
 
 		assertDelete(item2);
 		assertDelete(item1);

@@ -18,7 +18,7 @@
 package com.exedio.cope;
 
 import com.exedio.cope.testmodel.AttributeItem;
-import com.exedio.cope.testmodel.AttributeItem.SomeEnumeration;
+import com.exedio.cope.testmodel.AttributeItem.SomeEnum;
 
 
 public class AttributeEnumTest extends AttributeTest
@@ -26,33 +26,33 @@ public class AttributeEnumTest extends AttributeTest
 	public void testSomeEnum() throws ConstraintViolationException
 	{
 		assertEquals(null, item.getSomeEnum());
-		item.setSomeEnum(AttributeItem.SomeEnumeration.enumValue1);
+		item.setSomeEnum(AttributeItem.SomeEnum.enumValue1);
 		assertEquals(
-			AttributeItem.SomeEnumeration.enumValue1,
+			AttributeItem.SomeEnum.enumValue1,
 			item.getSomeEnum());
 		item.setSomeEnum(
-			AttributeItem.SomeEnumeration.enumValue2);
+			AttributeItem.SomeEnum.enumValue2);
 		assertEquals(
-			AttributeItem.SomeEnumeration.enumValue2,
+			AttributeItem.SomeEnum.enumValue2,
 			item.getSomeEnum());
 		
 		assertContains(item,
-				item.TYPE.search(item.someEnum.equal(AttributeItem.SomeEnumeration.enumValue2)));
+				item.TYPE.search(item.someEnum.equal(AttributeItem.SomeEnum.enumValue2)));
 		assertContains(item2,
 				item.TYPE.search(item.someEnum.equal(null)));
 		assertContains(item, item2,
-				item.TYPE.search(item.someEnum.notEqual(AttributeItem.SomeEnumeration.enumValue1)));
+				item.TYPE.search(item.someEnum.notEqual(AttributeItem.SomeEnum.enumValue1)));
 		assertContains(item2,
-				item.TYPE.search(item.someEnum.notEqual(AttributeItem.SomeEnumeration.enumValue2)));
+				item.TYPE.search(item.someEnum.notEqual(AttributeItem.SomeEnum.enumValue2)));
 		assertContains(item,
 				item.TYPE.search(item.someEnum.notEqual(null)));
 
-		assertContains(AttributeItem.SomeEnumeration.enumValue2, null, search(item.someEnum));
-		assertContains(AttributeItem.SomeEnumeration.enumValue2, search(item.someEnum, item.someEnum.equal(AttributeItem.SomeEnumeration.enumValue2)));
+		assertContains(AttributeItem.SomeEnum.enumValue2, null, search(item.someEnum));
+		assertContains(AttributeItem.SomeEnum.enumValue2, search(item.someEnum, item.someEnum.equal(AttributeItem.SomeEnum.enumValue2)));
 
 		item.passivateCopeItem();
 		assertEquals(
-			AttributeItem.SomeEnumeration.enumValue2,
+			AttributeItem.SomeEnum.enumValue2,
 			item.getSomeEnum());
 		item.setSomeEnum(null);
 		assertEquals(null, item.getSomeEnum());
@@ -64,7 +64,7 @@ public class AttributeEnumTest extends AttributeTest
 		}
 		catch(ClassCastException e)
 		{
-			assertEquals("expected " + SomeEnumeration.class.getName() + ", got " + Integer.class.getName() + " for someEnum", e.getMessage());
+			assertEquals("expected " + SomeEnum.class.getName() + ", got " + Integer.class.getName() + " for someEnum", e.getMessage());
 		}
 		
 		try
@@ -74,26 +74,26 @@ public class AttributeEnumTest extends AttributeTest
 		}
 		catch(ClassCastException e)
 		{
-			assertEquals("expected " + SomeEnumeration.class.getName() + ", got " + AttributeItem.SomeEnum2.class.getName() + " for someEnum", e.getMessage());
+			assertEquals("expected " + SomeEnum.class.getName() + ", got " + AttributeItem.SomeEnum2.class.getName() + " for someEnum", e.getMessage());
 		}
 	}
 
 	public void testNotNullSomeEnum()
 			throws NotNullViolationException
 	{
-		assertEquals(AttributeItem.SomeEnumeration.enumValue1, item.getSomeNotNullEnum());
-		item.setSomeNotNullEnum(AttributeItem.SomeEnumeration.enumValue2);
+		assertEquals(AttributeItem.SomeEnum.enumValue1, item.getSomeNotNullEnum());
+		item.setSomeNotNullEnum(AttributeItem.SomeEnum.enumValue2);
 		assertEquals(
-			AttributeItem.SomeEnumeration.enumValue2,
+			AttributeItem.SomeEnum.enumValue2,
 			item.getSomeNotNullEnum());
 		item.setSomeNotNullEnum(
-			AttributeItem.SomeEnumeration.enumValue3);
+			AttributeItem.SomeEnum.enumValue3);
 		assertEquals(
-			AttributeItem.SomeEnumeration.enumValue3,
+			AttributeItem.SomeEnum.enumValue3,
 			item.getSomeNotNullEnum());
 		item.passivateCopeItem();
 		assertEquals(
-			AttributeItem.SomeEnumeration.enumValue3,
+			AttributeItem.SomeEnum.enumValue3,
 			item.getSomeNotNullEnum());
 		try
 		{
@@ -105,7 +105,7 @@ public class AttributeEnumTest extends AttributeTest
 			assertEquals(item.someNotNullEnum, e.getNotNullAttribute());
 		}
 		assertEquals(
-			AttributeItem.SomeEnumeration.enumValue3,
+			AttributeItem.SomeEnum.enumValue3,
 			item.getSomeNotNullEnum());
 
 		try

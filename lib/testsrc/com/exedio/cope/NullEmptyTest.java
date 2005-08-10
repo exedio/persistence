@@ -36,8 +36,8 @@ public class NullEmptyTest extends TestmodelTest
 	{
 		super.setUp();
 		deleteOnTearDown(someItem = new EmptyItem());
-		deleteOnTearDown(item = new AttributeItem("someString", 5, 6l, 2.2, true, someItem, AttributeItem.SomeEnumeration.enumValue1));
-		deleteOnTearDown(item2 = new AttributeItem("someString", 5, 6l, 2.2, false, someItem, AttributeItem.SomeEnumeration.enumValue2));
+		deleteOnTearDown(item = new AttributeItem("someString", 5, 6l, 2.2, true, someItem, AttributeItem.SomeEnum.enumValue1));
+		deleteOnTearDown(item2 = new AttributeItem("someString", 5, 6l, 2.2, false, someItem, AttributeItem.SomeEnum.enumValue2));
 		// TODO: database must hide this from the user
 		final String databaseName = model.getDatabase().getClass().getName();
 		if(hsqldb||mysql)

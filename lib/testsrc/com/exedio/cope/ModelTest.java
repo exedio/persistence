@@ -163,88 +163,88 @@ public class ModelTest extends AbstractLibTest
 		assertEquals(item.TYPE, item.someEnum.getType());
 		assertEquals(
 			list(
-				AttributeItem.SomeEnumeration.enumValue1,
-				AttributeItem.SomeEnumeration.enumValue2,
-				AttributeItem.SomeEnumeration.enumValue3),
+				AttributeItem.SomeEnum.enumValue1,
+				AttributeItem.SomeEnum.enumValue2,
+				AttributeItem.SomeEnum.enumValue3),
 			item.someEnum.getValues());
 
 		assertEquals(
-			AttributeItem.SomeEnumeration.enumValue1,
+			AttributeItem.SomeEnum.enumValue1,
 			item.someEnum.getValue(
-				AttributeItem.SomeEnumeration.enumValue1NUM));
+				AttributeItem.SomeEnum.enumValue1NUM));
 		assertEquals(
-			AttributeItem.SomeEnumeration.enumValue2,
+			AttributeItem.SomeEnum.enumValue2,
 			item.someEnum.getValue(
-				AttributeItem.SomeEnumeration.enumValue2NUM));
+				AttributeItem.SomeEnum.enumValue2NUM));
 		assertEquals(
-			AttributeItem.SomeEnumeration.enumValue3,
+			AttributeItem.SomeEnum.enumValue3,
 			item.someEnum.getValue(
-				AttributeItem.SomeEnumeration.enumValue3NUM));
+				AttributeItem.SomeEnum.enumValue3NUM));
 
 		assertEquals(
-			AttributeItem.SomeEnumeration.enumValue1,
+			AttributeItem.SomeEnum.enumValue1,
 			item.someEnum.getValue("enumValue1"));
 		assertEquals(
-			AttributeItem.SomeEnumeration.enumValue2,
+			AttributeItem.SomeEnum.enumValue2,
 			item.someEnum.getValue("enumValue2"));
 		assertEquals(
-			AttributeItem.SomeEnumeration.enumValue3,
+			AttributeItem.SomeEnum.enumValue3,
 			item.someEnum.getValue("enumValue3"));
 
-		assertEquals(AttributeItem.SomeEnumeration.class,
-			AttributeItem.SomeEnumeration.enumValue1.getEnumerationClass());
-		assertEquals(AttributeItem.SomeEnumeration.class,
-			AttributeItem.SomeEnumeration.enumValue2.getEnumerationClass());
-		assertEquals(AttributeItem.SomeEnumeration.class,
-			AttributeItem.SomeEnumeration.enumValue3.getEnumerationClass());
+		assertEquals(AttributeItem.SomeEnum.class,
+			AttributeItem.SomeEnum.enumValue1.getEnumerationClass());
+		assertEquals(AttributeItem.SomeEnum.class,
+			AttributeItem.SomeEnum.enumValue2.getEnumerationClass());
+		assertEquals(AttributeItem.SomeEnum.class,
+			AttributeItem.SomeEnum.enumValue3.getEnumerationClass());
 
 		assertEquals("enumValue1",
-			AttributeItem.SomeEnumeration.enumValue1.getCode());
+			AttributeItem.SomeEnum.enumValue1.getCode());
 		assertEquals("enumValue2",
-			AttributeItem.SomeEnumeration.enumValue2.getCode());
+			AttributeItem.SomeEnum.enumValue2.getCode());
 		assertEquals("enumValue3",
-			AttributeItem.SomeEnumeration.enumValue3.getCode());
+			AttributeItem.SomeEnum.enumValue3.getCode());
 
 		assertEquals(100,
-			AttributeItem.SomeEnumeration.enumValue1.getNumber());
+			AttributeItem.SomeEnum.enumValue1.getNumber());
 		assertEquals(200,
-			AttributeItem.SomeEnumeration.enumValue2.getNumber());
+			AttributeItem.SomeEnum.enumValue2.getNumber());
 		assertEquals(300,
-			AttributeItem.SomeEnumeration.enumValue3.getNumber());
+			AttributeItem.SomeEnum.enumValue3.getNumber());
 
 		assertEquals(new Integer(100),
-			AttributeItem.SomeEnumeration.enumValue1.getNumberObject());
+			AttributeItem.SomeEnum.enumValue1.getNumberObject());
 		assertEquals(new Integer(200),
-			AttributeItem.SomeEnumeration.enumValue2.getNumberObject());
+			AttributeItem.SomeEnum.enumValue2.getNumberObject());
 		assertEquals(new Integer(300),
-			AttributeItem.SomeEnumeration.enumValue3.getNumberObject());
+			AttributeItem.SomeEnum.enumValue3.getNumberObject());
 
 		assertTrue(!
-			AttributeItem.SomeEnumeration.enumValue1.equals(
-			AttributeItem.SomeEnumeration.enumValue2));
+			AttributeItem.SomeEnum.enumValue1.equals(
+			AttributeItem.SomeEnum.enumValue2));
 		assertTrue(!
-			AttributeItem.SomeEnumeration.enumValue2.equals(
-			AttributeItem.SomeEnumeration.enumValue3));
+			AttributeItem.SomeEnum.enumValue2.equals(
+			AttributeItem.SomeEnum.enumValue3));
 		assertTrue(!
-			AttributeItem.SomeEnumeration.enumValue3.equals(
-			AttributeItem.SomeEnumeration.enumValue1));
+			AttributeItem.SomeEnum.enumValue3.equals(
+			AttributeItem.SomeEnum.enumValue1));
 
-		AttributeItem.SomeEnumeration someEnumeration = AttributeItem.SomeEnumeration.enumValue1;
+		AttributeItem.SomeEnum someEnumeration = AttributeItem.SomeEnum.enumValue1;
 		switch (someEnumeration.getNumber())
 		{
-			case AttributeItem.SomeEnumeration.enumValue1NUM :
-				someEnumeration = AttributeItem.SomeEnumeration.enumValue2;
+			case AttributeItem.SomeEnum.enumValue1NUM :
+				someEnumeration = AttributeItem.SomeEnum.enumValue2;
 				break;
-			case AttributeItem.SomeEnumeration.enumValue2NUM :
-				someEnumeration = AttributeItem.SomeEnumeration.enumValue3;
+			case AttributeItem.SomeEnum.enumValue2NUM :
+				someEnumeration = AttributeItem.SomeEnum.enumValue3;
 				break;
-			case AttributeItem.SomeEnumeration.enumValue3NUM :
-				someEnumeration = AttributeItem.SomeEnumeration.enumValue1;
+			case AttributeItem.SomeEnum.enumValue3NUM :
+				someEnumeration = AttributeItem.SomeEnum.enumValue1;
 				break;
 			default :
 				throw new RuntimeException("Ooooops");
 		}
-		assertEquals(someEnumeration, AttributeItem.SomeEnumeration.enumValue2);
+		assertEquals(someEnumeration, AttributeItem.SomeEnum.enumValue2);
 		
 		try
 		{

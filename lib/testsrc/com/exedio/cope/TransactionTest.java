@@ -29,7 +29,7 @@ public class TransactionTest extends TestmodelTest
 
 	private final AttributeItem newItem(final String code) throws ConstraintViolationException
 	{
-		return new AttributeItem(code, 5, 6l, 2.2, true, someItem, AttributeItem.SomeEnumeration.enumValue1);
+		return new AttributeItem(code, 5, 6l, 2.2, true, someItem, AttributeItem.SomeEnum.enumValue1);
 	}
 	
 	public void setUp() throws Exception
