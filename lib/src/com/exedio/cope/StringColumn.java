@@ -83,7 +83,10 @@ final class StringColumn extends Column
 		if(minimumLength>0)
 		{
 			if(maximumLength!=Integer.MAX_VALUE)
+			{
+				// TODO: short syntax, if minimumLength==maximumLength
 				bf.append("(LENGTH(" + protectedID + ")>=" + minimumLength + ") AND (LENGTH(" + protectedID + ")<=" + maximumLength + ')');
+			}
 			else
 				bf.append("LENGTH(" + protectedID + ")>=" + minimumLength);
 		}
