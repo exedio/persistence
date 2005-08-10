@@ -30,7 +30,14 @@ public class AttributeStringTest extends AttributeTest
 		assertEquals("someStringUpperCase", item.someStringUpperCase.getName());
 		
 		{
-			final StringAttribute copy = (StringAttribute)Item.stringAttribute(Item.DEFAULT).copyAsTemplate();
+			final StringAttribute orig = Item.stringAttribute(Item.DEFAULT);
+			assertEquals(false, orig.isReadOnly());
+			assertEquals(false, orig.isNotNull());
+			assertEquals(false, orig.isLengthConstrained());
+			assertEquals(0, orig.getMinimumLength());
+			assertEquals(Integer.MAX_VALUE, orig.getMaximumLength());
+
+			final StringAttribute copy = (StringAttribute)orig.copyAsTemplate();
 			assertEquals(false, copy.isReadOnly());
 			assertEquals(false, copy.isNotNull());
 			assertEquals(false, copy.isLengthConstrained());
@@ -38,7 +45,14 @@ public class AttributeStringTest extends AttributeTest
 			assertEquals(Integer.MAX_VALUE, copy.getMaximumLength());
 		}
 		{
-			final StringAttribute copy = (StringAttribute)Item.stringAttribute(Item.READ_ONLY, 10).copyAsTemplate();
+			final StringAttribute orig = Item.stringAttribute(Item.READ_ONLY, 10);
+			assertEquals(true, orig.isReadOnly());
+			assertEquals(false, orig.isNotNull());
+			assertEquals(true, orig.isLengthConstrained());
+			assertEquals(10, orig.getMinimumLength());
+			assertEquals(Integer.MAX_VALUE, orig.getMaximumLength());
+			
+			final StringAttribute copy = (StringAttribute)orig.copyAsTemplate();
 			assertEquals(true, copy.isReadOnly());
 			assertEquals(false, copy.isNotNull());
 			assertEquals(true, copy.isLengthConstrained());
@@ -46,7 +60,14 @@ public class AttributeStringTest extends AttributeTest
 			assertEquals(Integer.MAX_VALUE, copy.getMaximumLength());
 		}
 		{
-			final StringAttribute copy = (StringAttribute)Item.stringAttribute(Item.NOT_NULL, 10, 20).copyAsTemplate();
+			final StringAttribute orig = Item.stringAttribute(Item.NOT_NULL, 10, 20);
+			assertEquals(false, orig.isReadOnly());
+			assertEquals(true, orig.isNotNull());
+			assertEquals(true, orig.isLengthConstrained());
+			assertEquals(10, orig.getMinimumLength());
+			assertEquals(20, orig.getMaximumLength());
+			
+			final StringAttribute copy = (StringAttribute)orig.copyAsTemplate();
 			assertEquals(false, copy.isReadOnly());
 			assertEquals(true, copy.isNotNull());
 			assertEquals(true, copy.isLengthConstrained());
