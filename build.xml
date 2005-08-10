@@ -320,6 +320,7 @@
 				AttributeItem.java,
 				StringItem.java,
 				HashItem.java,
+				MD5Item.java,
 				DataItem.java,
 				SumItem.java,
 				VectorItem.java,

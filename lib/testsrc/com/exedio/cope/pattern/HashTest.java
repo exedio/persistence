@@ -39,6 +39,8 @@ public class HashTest extends AbstractLibTest
 	
 	public void testExplicitExternal()
 	{
+		assertEquals(list(item.explicitExternal, item.implicitExternal, item.internal), item.TYPE.getPatterns());
+
 		assertEquals(item.TYPE, item.explicitExternal.getType());
 		assertEquals("explicitExternal", item.explicitExternal.getName());
 		assertEquals(item.explicitExternalWrap, item.explicitExternal.getStorage());

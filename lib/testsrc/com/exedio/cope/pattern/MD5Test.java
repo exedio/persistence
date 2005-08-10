@@ -23,27 +23,27 @@ import java.security.NoSuchAlgorithmException;
 
 import com.exedio.cope.AbstractLibTest;
 import com.exedio.cope.NestingRuntimeException;
-import com.exedio.cope.testmodel.HashItem;
+import com.exedio.cope.testmodel.MD5Item;
 import com.exedio.cope.testmodel.Main;
 
 public class MD5Test extends AbstractLibTest
 {
 	public MD5Test()
 	{
-		super(Main.hashModel);
+		super(Main.md5Model);
 	}
 	
-	HashItem item;
+	MD5Item item;
 	
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		deleteOnTearDown(item = new HashItem());
+		deleteOnTearDown(item = new MD5Item());
 	}
 	
 	public void testMD5()
 	{
-		assertEquals(list(item.hashed1, item.hashed1Latin, item.explicitExternal, item.implicitExternal, item.internal), item.TYPE.getPatterns());
+		assertEquals(list(item.hashed1, item.hashed1Latin), item.TYPE.getPatterns());
 		assertEquals(item.TYPE, item.hashed1.getType());
 		assertEquals(item.TYPE, item.hashed1Latin.getType());
 		assertEquals("hashed1", item.hashed1.getName());
