@@ -681,12 +681,12 @@ public abstract class Item extends Cope
 		return new StringAttribute(option);
 	}
 
-	protected static final StringAttribute stringAttribute(final Option option, final int minimumLength)
+	public static final StringAttribute stringAttribute(final Option option, final int minimumLength)
 	{
 		return new StringAttribute(option, minimumLength);
 	}
 
-	protected static final StringAttribute stringAttribute(final Option option, final int minimumLength, final int maximumLength)
+	public static final StringAttribute stringAttribute(final Option option, final int minimumLength, final int maximumLength)
 	{
 		return new StringAttribute(option, minimumLength, maximumLength);
 	}
