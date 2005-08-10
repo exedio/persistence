@@ -35,15 +35,15 @@ public class SumItem extends Item
 
 	public static final IntegerAttribute num3 = integerAttribute(DEFAULT);
 	
-	public static final SumFunction sum12 = sum(num1, num2);
+	public static final SumFunction sum12 = num1.sum(num2);
 
-	public static final SumFunction sum13 = sum(num1, num3);
+	public static final SumFunction sum13 = num1.sum(num3);
 
-	public static final SumFunction sum23 = sum(num2, num3);
+	public static final SumFunction sum23 = num2.sum(num3);
 
 	public static final SumFunction sum123 = sum(num1, num2, num3);
 
-	public static final SumFunction sum12a3 = sum(sum12, num3);
+	public static final SumFunction sum12a3 = sum12.sum(num3);
 	
 	public SumItem(final int initialNum1, final int initialNum2, final int initialNum3)
 	{

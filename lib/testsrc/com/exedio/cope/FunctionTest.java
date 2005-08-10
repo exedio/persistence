@@ -64,7 +64,7 @@ public class FunctionTest extends TestmodelTest
 		assertContains(item1, item1.TYPE.search(item1.min4UpperLength.equal(5)));
 		assertContains(item1, item1.TYPE.search(item1.min4Upper.length().equal(5)));
 		assertContains(item1, item1.TYPE.search(item1.min4AndMax4UpperLength.equal(9)));
-		assertContains(item1, item1.TYPE.search(Cope.sum(item1.min4Upper.length(), item1.max4Upper.length()).equal(9)));
+		assertContains(item1, item1.TYPE.search(item1.min4Upper.length().sum(item1.max4Upper.length()).equal(9)));
 		
 		assertContains(
 				list("5ffff",  "5FFFF",  new Integer(5), "4ddd", "4DDD", new Integer(4), new Integer(9), new Integer(9)),
@@ -73,7 +73,7 @@ public class FunctionTest extends TestmodelTest
 						item1.min4, item1.min4Upper, item1.min4UpperLength,
 						item1.max4, item1.max4Upper, item1.max4UpperLength,
 						item1.min4AndMax4UpperLength,
-						Cope.sum(item1.min4Upper.length(), item1.max4Upper.length()),
+						item1.min4Upper.length().sum(item1.max4Upper.length()),
 						}, item1.TYPE, null).search()
 				);
 	}

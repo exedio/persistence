@@ -22,6 +22,7 @@ import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.exedio.cope.function.SumFunction;
 import com.exedio.cope.search.EqualCondition;
 import com.exedio.cope.search.NotEqualCondition;
 
@@ -83,4 +84,9 @@ public abstract class ComputedIntegerFunction
 		return new NotEqualCondition(this, new Integer(value));
 	}
 	
+	public final SumFunction sum(final IntegerFunction other)
+	{
+		return new SumFunction(new IntegerFunction[]{this, other});
+	}
+
 }

@@ -44,7 +44,7 @@ public class StringItem extends Item
 	public static final LengthFunction min4UpperLength = min4Upper.length();
 	public static final LengthFunction max4UpperLength = max4Upper.length();
 	
-	public static final SumFunction min4AndMax4UpperLength = sum(min4UpperLength, max4UpperLength);
+	public static final SumFunction min4AndMax4UpperLength = min4UpperLength.sum(max4UpperLength);
 	
 /**
 

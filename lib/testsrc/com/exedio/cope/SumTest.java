@@ -73,7 +73,7 @@ public class SumTest extends TestmodelTest
 		assertContains(item, item.TYPE.search(item.sum23.equal(5)));
 		assertContains(item, item.TYPE.search(item.sum123.equal(6)));
 		assertContains(item, item.TYPE.search(item.sum12a3.equal(6)));
-		assertContains(item, item.TYPE.search(Cope.sum(item.num1, item.num2).equal(3)));
+		assertContains(item, item.TYPE.search(item.num1.sum(item.num2).equal(3)));
 		
 		// test null propagation
 		item.setNum1(null);

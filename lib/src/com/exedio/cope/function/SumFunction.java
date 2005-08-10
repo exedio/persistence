@@ -29,8 +29,10 @@ public final class SumFunction
 	/**
 	 * Creates a new SumFunction.
 	 * Instead of using this constructor directly,
-	 * you may want to use the more convenient wrapper methods
-	 * {@link Cope#sum(IntegerFunction,IntegerFunction) Cope.sum}.
+	 * you may want to use the more convenient wrapper methods.
+	 * @see IntegerFunction#sum(IntegerFunction)
+	 * @see Cope#sum(IntegerFunction,IntegerFunction)
+	 * @see Cope#sum(IntegerFunction,IntegerFunction,IntegerFunction)
 	 */
 	public SumFunction(final IntegerFunction[] addends)
 	{

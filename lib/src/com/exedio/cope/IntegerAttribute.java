@@ -21,6 +21,7 @@ package com.exedio.cope;
 import java.util.Collections;
 import java.util.List;
 
+import com.exedio.cope.function.SumFunction;
 import com.exedio.cope.search.EqualCondition;
 import com.exedio.cope.search.GreaterCondition;
 import com.exedio.cope.search.GreaterEqualCondition;
@@ -98,4 +99,9 @@ public final class IntegerAttribute extends ObjectAttribute implements IntegerFu
 		return new GreaterEqualCondition(this, new Integer(value));
 	}
 	
+	public final SumFunction sum(final IntegerFunction other)
+	{
+		return new SumFunction(new IntegerFunction[]{this, other});
+	}
+
 }
