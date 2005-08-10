@@ -28,6 +28,31 @@ public class AttributeStringTest extends AttributeTest
 		assertEquals(item.TYPE, item.someStringUpperCase.getType());
 		assertEquals("someString", item.someString.getName());
 		assertEquals("someStringUpperCase", item.someStringUpperCase.getName());
+		
+		{
+			final StringAttribute copy = (StringAttribute)Item.stringAttribute(Item.DEFAULT).copyAsTemplate();
+			assertEquals(false, copy.isReadOnly());
+			assertEquals(false, copy.isNotNull());
+			assertEquals(false, copy.isLengthConstrained());
+			assertEquals(0, copy.getMinimumLength());
+			assertEquals(Integer.MAX_VALUE, copy.getMaximumLength());
+		}
+		{
+			final StringAttribute copy = (StringAttribute)Item.stringAttribute(Item.READ_ONLY, 10).copyAsTemplate();
+			assertEquals(true, copy.isReadOnly());
+			assertEquals(false, copy.isNotNull());
+			assertEquals(true, copy.isLengthConstrained());
+			assertEquals(10, copy.getMinimumLength());
+			assertEquals(Integer.MAX_VALUE, copy.getMaximumLength());
+		}
+		{
+			final StringAttribute copy = (StringAttribute)Item.stringAttribute(Item.NOT_NULL, 10, 20).copyAsTemplate();
+			assertEquals(false, copy.isReadOnly());
+			assertEquals(true, copy.isNotNull());
+			assertEquals(true, copy.isLengthConstrained());
+			assertEquals(10, copy.getMinimumLength());
+			assertEquals(20, copy.getMaximumLength());
+		}
 
 		assertEquals(null, item.getSomeString());
 		assertEquals(null, item.getSomeStringUpperCase());
