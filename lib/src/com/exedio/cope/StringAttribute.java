@@ -22,6 +22,7 @@ import java.util.Collections;
 import java.util.List;
 
 import com.exedio.cope.search.GreaterCondition;
+import com.exedio.cope.search.GreaterEqualCondition;
 import com.exedio.cope.search.LessCondition;
 import com.exedio.cope.search.LessEqualCondition;
 import com.exedio.cope.search.LikeCondition;
@@ -125,6 +126,11 @@ public final class StringAttribute extends ObjectAttribute implements StringFunc
 	public final GreaterCondition greater(final String value)
 	{
 		return new GreaterCondition(this, value);
+	}
+	
+	public final GreaterEqualCondition greaterOrEqual(final String value)
+	{
+		return new GreaterEqualCondition(this, value);
 	}
 	
 }

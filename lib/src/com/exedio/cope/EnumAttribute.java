@@ -26,6 +26,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.exedio.cope.search.GreaterCondition;
+import com.exedio.cope.search.GreaterEqualCondition;
 import com.exedio.cope.search.LessCondition;
 import com.exedio.cope.search.LessEqualCondition;
 
@@ -166,6 +167,11 @@ public final class EnumAttribute extends ObjectAttribute
 	public final GreaterCondition greater(final EnumValue value)
 	{
 		return new GreaterCondition(this, value);
+	}
+	
+	public final GreaterEqualCondition greaterOrEqual(final EnumValue value)
+	{
+		return new GreaterEqualCondition(this, value);
 	}
 	
 }

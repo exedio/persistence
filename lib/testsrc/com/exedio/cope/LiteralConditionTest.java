@@ -115,19 +115,19 @@ public class LiteralConditionTest extends TestmodelTest
 
 		// greater or equal
 		assertContains(item3, item4, item5,
-			item1.TYPE.search(Cope.greaterOrEqual(item1.someNotNullString, "string3")));
+			item1.TYPE.search(item1.someNotNullString.greaterOrEqual("string3")));
 		assertContains(item3, item4, item5,
-			item1.TYPE.search(Cope.greaterOrEqual(item1.someNotNullInteger, 3)));
+			item1.TYPE.search(item1.someNotNullInteger.greaterOrEqual(3)));
 		assertContains(item3, item4, item5,
-			item1.TYPE.search(Cope.greaterOrEqual(item1.someNotNullLong, 13l)));
+			item1.TYPE.search(item1.someNotNullLong.greaterOrEqual(13l)));
 		assertContains(item3, item4, item5,
-			item1.TYPE.search(Cope.greaterOrEqual(item1.someNotNullDouble, 2.3)));
+			item1.TYPE.search(item1.someNotNullDouble.greaterOrEqual(2.3)));
 		assertContains(item3, item4, item5,
-			item1.TYPE.search(Cope.greaterOrEqual(item1.someDate, date)));
+			item1.TYPE.search(item1.someDate.greaterOrEqual(date)));
 		assertContains(item3, item4, item5,
-			item1.TYPE.search(Cope.greaterOrEqual(item1.someLongDate, offset(date, LONG_OFFSET))));
+			item1.TYPE.search(item1.someLongDate.greaterOrEqual(offset(date, LONG_OFFSET))));
 		assertContains(item3, item4, item5,
-			item1.TYPE.search(Cope.greaterOrEqual(item1.someNotNullEnumeration, AttributeItem.SomeEnumeration.enumValue2)));
+			item1.TYPE.search(item1.someNotNullEnumeration.greaterOrEqual(AttributeItem.SomeEnumeration.enumValue2)));
 	}
 
 }

@@ -22,6 +22,7 @@ import java.util.Collections;
 import java.util.List;
 
 import com.exedio.cope.search.GreaterCondition;
+import com.exedio.cope.search.GreaterEqualCondition;
 import com.exedio.cope.search.LessCondition;
 import com.exedio.cope.search.LessEqualCondition;
 
@@ -68,6 +69,11 @@ public final class LongAttribute extends ObjectAttribute
 	public final GreaterCondition greater(final long value)
 	{
 		return new GreaterCondition(this, new Long(value));
+	}
+	
+	public final GreaterEqualCondition greaterOrEqual(final long value)
+	{
+		return new GreaterEqualCondition(this, new Long(value));
 	}
 	
 }

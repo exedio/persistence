@@ -27,7 +27,6 @@ import com.exedio.cope.search.Condition;
 import com.exedio.cope.search.EqualAttributeCondition;
 import com.exedio.cope.search.EqualCondition;
 import com.exedio.cope.search.EqualTargetCondition;
-import com.exedio.cope.search.GreaterEqualCondition;
 import com.exedio.cope.search.NotEqualCondition;
 import com.exedio.cope.search.OrCondition;
 
@@ -170,36 +169,6 @@ public abstract class Cope
 	public static final NotEqualCondition notEqual(final ItemAttribute attribute, final Item value)
 	{
 		return new NotEqualCondition(attribute, value);
-	}
-	
-	public static final GreaterEqualCondition greaterOrEqual(final StringAttribute attribute, final String value)
-	{
-		return new GreaterEqualCondition(attribute, value);
-	}
-	
-	public static final GreaterEqualCondition greaterOrEqual(final IntegerAttribute attribute, final int value)
-	{
-		return new GreaterEqualCondition(attribute, new Integer(value));
-	}
-	
-	public static final GreaterEqualCondition greaterOrEqual(final LongAttribute attribute, final long value)
-	{
-		return new GreaterEqualCondition(attribute, new Long(value));
-	}
-	
-	public static final GreaterEqualCondition greaterOrEqual(final DoubleAttribute attribute, final double value)
-	{
-		return new GreaterEqualCondition(attribute, new Double(value));
-	}
-	
-	public static final GreaterEqualCondition greaterOrEqual(final DateAttribute attribute, final Date value)
-	{
-		return new GreaterEqualCondition(attribute, value);
-	}
-	
-	public static final GreaterEqualCondition greaterOrEqual(final EnumAttribute attribute, final EnumValue value)
-	{
-		return new GreaterEqualCondition(attribute, value);
 	}
 	
 	public static final EqualTargetCondition equalTarget(final ItemAttribute attribute)

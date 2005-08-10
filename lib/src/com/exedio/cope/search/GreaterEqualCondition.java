@@ -18,7 +18,14 @@
 
 package com.exedio.cope.search;
 
-import com.exedio.cope.Cope;
+import java.util.Date;
+
+import com.exedio.cope.DateAttribute;
+import com.exedio.cope.DoubleAttribute;
+import com.exedio.cope.EnumAttribute;
+import com.exedio.cope.EnumValue;
+import com.exedio.cope.IntegerAttribute;
+import com.exedio.cope.LongAttribute;
 import com.exedio.cope.ObjectAttribute;
 import com.exedio.cope.StringAttribute;
 
@@ -27,8 +34,13 @@ public class GreaterEqualCondition extends LiteralCondition
 	/**
 	 * Creates a new GreaterEqualCondition.
 	 * Instead of using this constructor directly,
-	 * you may want to use the more type-safe wrapper methods
-	 * {@link Cope#greaterOrEqual(StringAttribute, String) Cope.greaterOrEqual}.
+	 * you may want to use the more type-safe wrapper methods.
+	 * @see StringAttribute#greaterOrEqual(String)
+	 * @see IntegerAttribute#greaterOrEqual(int)
+	 * @see LongAttribute#greaterOrEqual(long)
+	 * @see DoubleAttribute#greaterOrEqual(double)
+	 * @see DateAttribute#greaterOrEqual(Date)
+	 * @see EnumAttribute#greaterOrEqual(EnumValue)
 	 */
 	public GreaterEqualCondition(final ObjectAttribute attribute, final Object value)
 	{

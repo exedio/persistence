@@ -22,6 +22,7 @@ import java.util.Collections;
 import java.util.List;
 
 import com.exedio.cope.search.GreaterCondition;
+import com.exedio.cope.search.GreaterEqualCondition;
 import com.exedio.cope.search.LessCondition;
 import com.exedio.cope.search.LessEqualCondition;
 
@@ -68,6 +69,11 @@ public final class IntegerAttribute extends ObjectAttribute implements IntegerFu
 	public final GreaterCondition greater(final int value)
 	{
 		return new GreaterCondition(this, new Integer(value));
+	}
+	
+	public final GreaterEqualCondition greaterOrEqual(final int value)
+	{
+		return new GreaterEqualCondition(this, new Integer(value));
 	}
 	
 }
