@@ -54,7 +54,7 @@ public class AttributeItem extends Item
 	/**
 	 * The code of the item in upper case.
 	 */
-	public static final UppercaseFunction someStringUpperCase = uppercase(someString);
+	public static final UppercaseFunction someStringUpperCase = someString.uppercase();
 
 	/**
 	 * The length of code of the item.

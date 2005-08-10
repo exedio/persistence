@@ -18,7 +18,6 @@
 package com.exedio.cope;
 
 import com.exedio.cope.function.SumFunction;
-import com.exedio.cope.function.UppercaseFunction;
 import com.exedio.cope.search.AndCondition;
 import com.exedio.cope.search.Condition;
 import com.exedio.cope.search.EqualTargetCondition;
@@ -126,9 +125,4 @@ public abstract class Cope
 		return new SumFunction(new IntegerFunction[]{addend1, addend2, addend3});
 	}
 
-	public static final UppercaseFunction uppercase(final StringFunction source)
-	{
-		return new UppercaseFunction(source);
-	}
-	
 }

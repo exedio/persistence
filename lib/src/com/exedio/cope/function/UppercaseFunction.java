@@ -19,7 +19,7 @@
 package com.exedio.cope.function;
 
 import com.exedio.cope.ComputedStringFunction;
-import com.exedio.cope.Cope;
+import com.exedio.cope.StringAttribute;
 import com.exedio.cope.StringFunction;
 
 public final class UppercaseFunction
@@ -32,7 +32,7 @@ public final class UppercaseFunction
 	 * Creates a new UppercaseFunction.
 	 * Instead of using this constructor directly,
 	 * you may want to use the more convenient wrapper method
-	 * {@link Cope#uppercase(StringFunction) Cope.uppercase}.
+	 * {@link StringAttribute#uppercase()}.
 	 */
 	public UppercaseFunction(final StringFunction source)
 	{

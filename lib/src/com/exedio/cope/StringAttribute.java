@@ -22,6 +22,7 @@ import java.util.Collections;
 import java.util.List;
 
 import com.exedio.cope.function.LengthFunction;
+import com.exedio.cope.function.UppercaseFunction;
 import com.exedio.cope.search.EqualAttributeCondition;
 import com.exedio.cope.search.EqualCondition;
 import com.exedio.cope.search.GreaterCondition;
@@ -160,6 +161,11 @@ public final class StringAttribute extends ObjectAttribute implements StringFunc
 	public final LengthFunction length()
 	{
 		return new LengthFunction(this);
+	}
+	
+	public final UppercaseFunction uppercase()
+	{
+		return new UppercaseFunction(this);
 	}
 	
 }
