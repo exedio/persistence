@@ -62,6 +62,27 @@ public class MD5Test extends AbstractLibTest
 		assertEquals(item.hashed1MD5, item.hashed1.getStorage());
 		assertEquals(item.hashed1MD5, item.hashed1Latin.getStorage());
 
+		try
+		{
+			new MD5Hash(item.hashed1MD5, "nixus");
+			fail("should have thrown UnsupportedEncodingException");
+		}
+		catch(NestingRuntimeException e)
+		{
+			assertEquals("nixus", e.getMessage());
+			assertEquals(UnsupportedEncodingException.class, e.getNestedCause().getClass());
+		}
+		try
+		{
+			new JavaHash(item.hashed1MD5, "nixus");
+			fail("should have thrown NoSuchAlgorithmException");
+		}
+		catch(NestingRuntimeException e)
+		{
+			assertEquals("NIXUS MessageDigest not available", e.getMessage());
+			assertEquals(NoSuchAlgorithmException.class, e.getNestedCause().getClass());
+		}
+
 		assertNull(item.getHashed1MD5());
 		assertTrue(item.checkHashed1(null));
 		assertTrue(!item.checkHashed1("bing"));
@@ -104,27 +125,6 @@ public class MD5Test extends AbstractLibTest
 		assertTrue(!item.checkHashed1Latin("bello"));
 		assertTrue(item.checkHashed1Latin(specialPlainText));
 		assertTrue(!item.checkHashed1(specialPlainText));
-
-		try
-		{
-			new MD5Hash(item.hashed1MD5, "nixus");
-			fail("should have thrown UnsupportedEncodingException");
-		}
-		catch(NestingRuntimeException e)
-		{
-			assertEquals("nixus", e.getMessage());
-			assertEquals(UnsupportedEncodingException.class, e.getNestedCause().getClass());
-		}
-		try
-		{
-			new JavaHash(item.hashed1MD5, "nixus");
-			fail("should have thrown NoSuchAlgorithmException");
-		}
-		catch(NestingRuntimeException e)
-		{
-			assertEquals("NIXUS MessageDigest not available", e.getMessage());
-			assertEquals(NoSuchAlgorithmException.class, e.getNestedCause().getClass());
-		}
 	}
 	
 	/**
