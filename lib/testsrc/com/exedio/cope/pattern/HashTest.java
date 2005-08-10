@@ -43,7 +43,7 @@ public class HashTest extends AbstractLibTest
 	
 	public void testMD5()
 	{
-		assertEquals(list(item.hashed1, item.hashed1Latin, item.explicitExternal, item.password), item.TYPE.getPatterns());
+		assertEquals(list(item.hashed1, item.hashed1Latin, item.explicitExternal, item.implicitExternal), item.TYPE.getPatterns());
 		assertEquals(item.TYPE, item.hashed1.getType());
 		assertEquals(item.TYPE, item.hashed1Latin.getType());
 		assertEquals("hashed1", item.hashed1.getName());
@@ -151,23 +151,23 @@ public class HashTest extends AbstractLibTest
 		assertTrue(item.checkExplicitExternal("knollo"));
 	}
 	
-	public void testImplicit()
+	public void testImplicitExternal()
 	{
-		assertEquals(item.TYPE, item.password.getType());
-		assertEquals("password", item.password.getName());
-		assertEquals(item.TYPE, item.password.getStorage().getType());
-		assertEquals("passwordHash", item.password.getStorage().getName());
+		assertEquals(item.TYPE, item.implicitExternal.getType());
+		assertEquals("implicitExternal", item.implicitExternal.getName());
+		assertEquals(item.TYPE, item.implicitExternal.getStorage().getType());
+		assertEquals("implicitExternalHash", item.implicitExternal.getStorage().getName());
 		
-		assertEquals(null, item.get(item.password.getStorage()));
-		assertTrue(item.checkPassword(null));
-		assertFalse(item.checkPassword(""));
-		assertFalse(item.checkPassword("zack"));
+		assertEquals(null, item.get(item.implicitExternal.getStorage()));
+		assertTrue(item.checkImplicitExternal(null));
+		assertFalse(item.checkImplicitExternal(""));
+		assertFalse(item.checkImplicitExternal("zack"));
 
-		item.setPassword("zack");
-		assertEquals("[zack]", item.get(item.password.getStorage()));
-		assertFalse(item.checkPassword(null));
-		assertFalse(item.checkPassword(""));
-		assertTrue(item.checkPassword("zack"));
+		item.setImplicitExternal("zack");
+		assertEquals("[zack]", item.get(item.implicitExternal.getStorage()));
+		assertFalse(item.checkImplicitExternal(null));
+		assertFalse(item.checkImplicitExternal(""));
+		assertTrue(item.checkImplicitExternal("zack"));
 	}
 
 }
