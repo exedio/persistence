@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.PrintStream;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -58,7 +59,13 @@ public class DataServlet extends HttpServlet
 			final HttpServletResponse response)
 		throws ServletException, IOException
 	{
+		response.setContentType("text/plain");
+		
 		final OutputStream out = response.getOutputStream();
+		
+		final PrintStream p = new PrintStream(out);
+		p.print("hello");
+		
 		out.close();
 	}
 

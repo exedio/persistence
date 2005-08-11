@@ -6,6 +6,15 @@
 	version="2.4">
 
 	<servlet>
+		<servlet-name>data</servlet-name>
+		<servlet-class>com.exedio.cope.pattern.DataServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>data</servlet-name>
+		<url-pattern>/xdata</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
 		<servlet-name>admin</servlet-name>
 		<servlet-class>com.exedio.copernica.admin.AdminServlet</servlet-class>
 		<init-param>
