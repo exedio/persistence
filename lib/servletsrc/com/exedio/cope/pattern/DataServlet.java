@@ -109,7 +109,14 @@ public class DataServlet extends HttpServlet
 	{
 		if(serveContent(request, response))
 			return;
+		serveDirectory(request, response);
+	}
 		
+	protected final void serveDirectory(
+			final HttpServletRequest request,
+			final HttpServletResponse response)
+		throws ServletException, IOException
+	{
 		response.setContentType("text/html");
 		
 		final String prefix = request.getContextPath()+request.getServletPath();
