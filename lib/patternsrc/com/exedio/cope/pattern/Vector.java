@@ -141,6 +141,14 @@ public final class Vector extends Pattern
 		return new OrCondition(conditions);
 	}
 
-	// TODO contains
+	public final OrCondition contains(final Object value)
+	{
+		final EqualCondition[] conditions = new EqualCondition[sources.length];
+		
+		for(int i = 0; i<sources.length; i++)
+			conditions[i] = new EqualCondition((Join)null, sources[i], value);
+
+		return new OrCondition(conditions);
+	}
 	
 }

@@ -30,7 +30,6 @@
 		* alter table "SumItem" add constraint schnappel check ("num2" is not null)
 		* alter table "ItemWithDoubleUnique" drop constraint "ItemWithDoublUniqu_str_Nn"
 	- relation pattern
-	- search conditions for patterns Vector
 	- Vector: allow length terminated instead of null terminated as well
 	- test model:
 		* put classes for patterns into separate package
