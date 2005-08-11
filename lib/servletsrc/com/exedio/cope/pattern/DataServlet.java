@@ -176,7 +176,7 @@ public class DataServlet extends HttpServlet
 		throws ServletException, IOException
 	{
 		final String pathInfo = request.getPathInfo();
-		System.out.println("pathInfo="+pathInfo);
+		//System.out.println("pathInfo="+pathInfo);
 		if(pathInfo==null)
 			return false;
 
@@ -186,27 +186,27 @@ public class DataServlet extends HttpServlet
 			return false;
 
 		final String attributeString = pathInfo.substring(0, trailingSlash);
-		System.out.println("attributeString="+attributeString);
+		//System.out.println("attributeString="+attributeString);
 
 		final DataAttribute attribute = (DataAttribute)dataAttributes.get(attributeString);
-		System.out.println("attribute="+attribute);
+		//System.out.println("attribute="+attribute);
 		if(attribute==null)
 			return false;
 
 		final String id = attribute.getType().getID()+'.'+pathInfo.substring(trailingSlash+1);
-		System.out.println("ID="+id);
+		//System.out.println("ID="+id);
 		try
 		{
 			model.startTransaction("DataServlet");
 			final Item item = model.findByID(id);
-			System.out.println("item="+item);
+			//System.out.println("item="+item);
 			
 			final String mimeMajor = item.getMimeMajor(attribute);
-			System.out.println("mimeMajor="+mimeMajor);
+			//System.out.println("mimeMajor="+mimeMajor);
 			if(mimeMajor!=null)
 			{
 				final String mimeMinor = item.getMimeMinor(attribute);
-				System.out.println("mimeMinor="+mimeMinor);
+				//System.out.println("mimeMinor="+mimeMinor);
 				response.setContentType(mimeMajor+'/'+mimeMinor);
 				
 				ServletOutputStream out = null;
