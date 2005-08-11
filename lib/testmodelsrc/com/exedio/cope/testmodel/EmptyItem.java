@@ -29,14 +29,14 @@ public class EmptyItem extends Item
 {
 	/**
 	 * This dummy attribute has the same name
-	 * as an attribute in super class item.
+	 * as an attribute in super class {@link Item}.
 	 * This tests, that there are no name collisions.
 	 */
 	boolean type;
 
 	/**
 	 * This dummy attribute has the same name
-	 * as an attribute in super class item.
+	 * as an attribute in super class {@link Item}.
 	 * This tests, that there are no name collisions.
 	 */
 	boolean pk;
