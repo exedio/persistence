@@ -34,7 +34,7 @@ package com.exedio.cope;
  * <dt>2) by an implicit external source</dt>
  * <dd>
  * More concisely the pattern can be constructed by defining the source
- * implicitely when the defining the pattern itself.
+ * implicitely when the defining the pattern itself:
  * <pre>static final Hash hash = new MD5Hash(stringAttribute(DEFAULT))</pre>
  * </dd>
  * <dt>3) by an internal source</dt>
