@@ -20,8 +20,8 @@ package com.exedio.cope;
 
 /**
  * A common super class for all patterns.
- * 
- * Patterns should be constructable in three different ways
+ * <p>
+ * Patterns should be constructable in three different ways:
  * <dl>
  * <dt>1) by an explicit external source</dt>
  * <dd>
