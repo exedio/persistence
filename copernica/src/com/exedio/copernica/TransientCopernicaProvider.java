@@ -17,7 +17,6 @@
  */
 package com.exedio.copernica;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Collection;
@@ -25,19 +24,17 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Properties;
 
 import javax.servlet.ServletConfig;
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import com.exedio.cope.EnumValue;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
-import com.exedio.cope.Model;
 import com.exedio.cope.ObjectAttribute;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
+import com.exedio.cope.util.ServletUtil;
 
 
 public abstract class TransientCopernicaProvider implements CopernicaProvider
@@ -45,33 +42,9 @@ public abstract class TransientCopernicaProvider implements CopernicaProvider
 	
 	public void initialize(final ServletConfig config)
 	{
-		initialize(getModel(), config);
+		ServletUtil.initialize(getModel(), config);
 	}
 	
-	private static final String DATADIR_PATH = com.exedio.cope.Properties.DATADIR_PATH;
-	private static final String DATADIR_URL = com.exedio.cope.Properties.DATADIR_URL;
-	
-	public static final void initialize(final Model model, final ServletConfig config)
-	{
-		final ServletContext context = config.getServletContext();
-		
-		final File propertyFile = new File(context.getRealPath("WEB-INF/cope.properties"));
-		
-		final Properties p = com.exedio.cope.Properties.loadProperties(propertyFile);
-		if("//WEB-APP//".equals(p.getProperty(DATADIR_PATH)))
-		{
-			final String datadirUrl = p.getProperty(DATADIR_URL);
-			// TODO: deal with web applications without data attributes
-			if(datadirUrl==null)
-				throw new RuntimeException("parameter " + DATADIR_URL + " must exist in "+propertyFile.getAbsolutePath());
-			
-			p.setProperty(DATADIR_PATH, context.getRealPath(datadirUrl));
-		}
-			
-		model.setPropertiesInitially(
-			new com.exedio.cope.Properties(p, propertyFile.getAbsolutePath()));
-	}
-
 	// Transient Languages
 	
 	private HashMap transientLanguages = null;

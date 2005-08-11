@@ -20,16 +20,13 @@ package com.exedio.copernica.admin;
 
 import java.io.IOException;
 import java.io.PrintStream;
-import java.lang.reflect.Field;
 
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.exedio.cope.Model;
-import com.exedio.cope.NestingRuntimeException;
-import com.exedio.copernica.TransientCopernicaProvider;
+import com.exedio.cope.util.ServletUtil;
 import com.exedio.cops.CopsServlet;
 
 /**
@@ -72,7 +69,7 @@ public final class AdminServlet extends CopsServlet
 		
 		try
 		{
-			model = getModel();
+			model = ServletUtil.getModel(getServletConfig());
 		}
 		catch(RuntimeException e)
 		{
@@ -94,46 +91,4 @@ public final class AdminServlet extends CopsServlet
 		out.close();
 	}
 
-
-	private final Model getModel()
-	{
-		try
-		{
-			final ServletConfig config = getServletConfig();
-			final String modelName = config.getInitParameter("model");
-			if(modelName==null)
-				throw new NullPointerException("init-param 'model' missing");
-
-			final int pos = modelName.indexOf('#');
-			if(pos<=0)
-				throw new RuntimeException("init-param 'model' does not contain '#', but was "+modelName);
-			final String modelClassName = modelName.substring(0, pos);
-			final String modelAttributeName = modelName.substring(pos+1);
-
-			final Class modelClass = Class.forName(modelClassName);
-
-			final Field modelField;
-			try
-			{
-				modelField = modelClass.getField(modelAttributeName);
-			}
-			catch(NoSuchFieldException e)
-			{
-				throw new NestingRuntimeException(e, "field " + modelAttributeName + " in " + modelClass.toString() + " does not exist or is not public.");
-			}
-			
-			final Model model = (Model)modelField.get(null);
-			TransientCopernicaProvider.initialize(model, config);
-			return model;
-		}
-		catch(ClassNotFoundException e)
-		{
-			throw new NestingRuntimeException(e);
-		}
-		catch(IllegalAccessException e)
-		{
-			throw new NestingRuntimeException(e);
-		}
-	}
-	
 }

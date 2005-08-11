@@ -1,0 +1,98 @@
+/*
+ * Copyright (C) 2004-2005  exedio GmbH (www.exedio.com)
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+
+package com.exedio.cope.util;
+
+import java.io.File;
+import java.lang.reflect.Field;
+import java.util.Properties;
+
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
+
+import com.exedio.cope.Model;
+import com.exedio.cope.NestingRuntimeException;
+
+public class ServletUtil
+{
+
+	public static final Model getModel(final ServletConfig config)
+	{
+		try
+		{
+			final String modelName = config.getInitParameter("model");
+			if(modelName==null)
+				throw new NullPointerException("init-param 'model' missing");
+
+			final int pos = modelName.indexOf('#');
+			if(pos<=0)
+				throw new RuntimeException("init-param 'model' does not contain '#', but was "+modelName);
+			final String modelClassName = modelName.substring(0, pos);
+			final String modelAttributeName = modelName.substring(pos+1);
+
+			final Class modelClass = Class.forName(modelClassName);
+
+			final Field modelField;
+			try
+			{
+				modelField = modelClass.getField(modelAttributeName);
+			}
+			catch(NoSuchFieldException e)
+			{
+				throw new NestingRuntimeException(e, "field " + modelAttributeName + " in " + modelClass.toString() + " does not exist or is not public.");
+			}
+			
+			final Model model = (Model)modelField.get(null);
+			initialize(model, config);
+			return model;
+		}
+		catch(ClassNotFoundException e)
+		{
+			throw new NestingRuntimeException(e);
+		}
+		catch(IllegalAccessException e)
+		{
+			throw new NestingRuntimeException(e);
+		}
+	}
+	
+	private static final String DATADIR_PATH = com.exedio.cope.Properties.DATADIR_PATH;
+	private static final String DATADIR_URL = com.exedio.cope.Properties.DATADIR_URL;
+	
+	public static final void initialize(final Model model, final ServletConfig config)
+	{
+		final ServletContext context = config.getServletContext();
+		
+		final File propertyFile = new File(context.getRealPath("WEB-INF/cope.properties"));
+		
+		final Properties p = com.exedio.cope.Properties.loadProperties(propertyFile);
+		if("//WEB-APP//".equals(p.getProperty(DATADIR_PATH)))
+		{
+			final String datadirUrl = p.getProperty(DATADIR_URL);
+			// TODO: deal with web applications without data attributes
+			if(datadirUrl==null)
+				throw new RuntimeException("parameter " + DATADIR_URL + " must exist in "+propertyFile.getAbsolutePath());
+			
+			p.setProperty(DATADIR_PATH, context.getRealPath(datadirUrl));
+		}
+			
+		model.setPropertiesInitially(
+			new com.exedio.cope.Properties(p, propertyFile.getAbsolutePath()));
+	}
+
+}

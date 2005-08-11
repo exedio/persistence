@@ -150,6 +150,18 @@
 				 optimize="off" />
 	</target>
 	
+	<target name="lib.servlet.compile" depends="lib.compile.mkdir, lib.core.compile">
+		<javac srcdir= "lib/servletsrc"
+				 destdir="lib/build/classes"
+				 deprecation="on"
+				 debug="on"
+				 optimize="off">
+			<classpath>
+				<pathelement location="../tomcat/common/lib/servlet-api.jar" />
+			</classpath>
+		</javac>
+	</target>
+	
 	<target name="lib.junit.compile" depends="lib.compile.mkdir, lib.core.compile">
 		<javac srcdir="lib/junitsrc"
 				destdir="lib/build/classes"
@@ -168,6 +180,7 @@
 							lib.oracle.compile,
 							lib.mysql.compile,
 							lib.pattern.compile,
+							lib.servlet.compile,
 							lib.junit.compile" />
 	
 	<target name="instrument.compile" depends="lib.compile">
@@ -639,6 +652,7 @@
 			<fileset file="dsmf/src/com" includes="**/*.java" />
 			<fileset file="lib/src/com" includes="**/*.java" />
 			<fileset file="lib/patternsrc/com" includes="**/*.java" />
+			<fileset file="lib/servletsrc/com" includes="**/*.java" />
 			<fileset file="lib/junitsrc/com" includes="**/*.java" />
 			<fileset file="instrument/src/com" includes="**/*.java" />
 			<fileset file="copernica/src/com" includes="**/*.java" />
