@@ -19,6 +19,7 @@
 package com.exedio.cope.pattern;
 
 import com.exedio.cope.Item;
+import com.exedio.cope.Join;
 import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.NotNullViolationException;
 import com.exedio.cope.Pattern;
@@ -26,6 +27,7 @@ import com.exedio.cope.ReadOnlyViolationException;
 import com.exedio.cope.StringAttribute;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.Attribute.Option;
+import com.exedio.cope.search.EqualCondition;
 
 public abstract class Hash extends Pattern
 {
@@ -75,6 +77,16 @@ public abstract class Hash extends Pattern
 			return actualHash==null;
 		else
 			return expectedHash.equals(actualHash);
+	}
+	
+	public final EqualCondition equal(final String value)
+	{
+		return new EqualCondition(null, storage, hash(value));
+	}
+	
+	public final EqualCondition equal(final Join join, final String value)
+	{
+		return new EqualCondition(join, storage, hash(value));
 	}
 
 }

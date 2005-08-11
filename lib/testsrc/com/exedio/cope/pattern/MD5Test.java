@@ -86,17 +86,24 @@ public class MD5Test extends AbstractLibTest
 		assertNull(item.getHashed1MD5());
 		assertTrue(item.checkHashed1(null));
 		assertTrue(!item.checkHashed1("bing"));
+		assertContains(item, item.TYPE.search(item.hashed1.equal(null)));
+		assertContains(item.TYPE.search(item.hashed1.equal("bing")));
 		
 		item.setHashed1MD5("bello");
 		assertEquals("bello", item.getHashed1MD5());
 		assertTrue(!item.checkHashed1(null));
 		assertTrue(!item.checkHashed1("bello"));
+		assertContains(item.TYPE.search(item.hashed1.equal(null)));
+		assertContains(item.TYPE.search(item.hashed1.equal("bello")));
 
 		item.setHashed1("knollo");
 		assertEquals("ad373a47d81949f466552edf29499b32", item.getHashed1MD5());
 		assertTrue(!item.checkHashed1(null));
 		assertTrue(!item.checkHashed1("bello"));
 		assertTrue(item.checkHashed1("knollo"));
+		assertContains(item.TYPE.search(item.hashed1.equal(null)));
+		assertContains(item.TYPE.search(item.hashed1.equal("bello")));
+		assertContains(item, item.TYPE.search(item.hashed1.equal("knollo")));
 		
 		final String longPlainText =
 			"knolloknolloknolloknolloknolloknolloknolloknolloknolloknolloknollo" +
@@ -140,10 +147,14 @@ public class MD5Test extends AbstractLibTest
 		assertEquals("a3cca2b2aa1e3b5b3b5aad99a8529074", item.getPassword());
 		assertTrue(item.checkPassword(upper));
 		assertTrue(!item.checkPassword(lower));
+		assertContains(item, item.TYPE.search(item.password.equal(upper)));
+		assertContains(item.TYPE.search(item.password.equal(lower)));
 		item.setPassword(lower);
 		assertEquals("4679e94e07f9a61f42b3d7f50cae0aef", item.getPassword());
 		assertTrue(!item.checkPassword(upper));
 		assertTrue(item.checkPassword(lower));
+		assertContains(item.TYPE.search(item.password.equal(upper)));
+		assertContains(item, item.TYPE.search(item.password.equal(lower)));
 	}
 
 }
