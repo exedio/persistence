@@ -40,7 +40,7 @@ final class Row
 	{
 		this.transaction = transaction;
 		this.item = item;
-		this.type = item.getCopeType();
+		this.type = item.type;
 		this.pk = item.pk;
 		this.present = present;
 		//System.out.println("created row "+type+" "+pk);

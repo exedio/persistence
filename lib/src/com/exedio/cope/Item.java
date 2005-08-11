@@ -40,7 +40,7 @@ import com.exedio.cope.util.ReactivationConstructorDummy;
  */
 public abstract class Item extends Cope
 {
-	private final Type type;
+	final Type type;
 
 	/**
 	 * The primary key of the item,
