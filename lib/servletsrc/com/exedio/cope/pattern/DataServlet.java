@@ -21,13 +21,18 @@ package com.exedio.cope.pattern;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.util.HashMap;
+import java.util.Iterator;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.exedio.cope.Attribute;
+import com.exedio.cope.DataAttribute;
 import com.exedio.cope.Model;
+import com.exedio.cope.Type;
 import com.exedio.cope.util.ServletUtil;
 
 
@@ -58,6 +63,7 @@ import com.exedio.cope.util.ServletUtil;
 public class DataServlet extends HttpServlet
 {
 	Model model = null;
+	final HashMap dataAttributes = new HashMap();
 	
 	public final void init()
 	{
@@ -70,6 +76,18 @@ public class DataServlet extends HttpServlet
 		try
 		{
 			model = ServletUtil.getModel(getServletConfig());
+			for(Iterator i = model.getTypes().iterator(); i.hasNext(); )
+			{
+				final Type type = (Type)i.next();
+				for(Iterator j = type.getDeclaredAttributes().iterator(); j.hasNext(); )
+				{
+					final Attribute attribute = (Attribute)j.next();
+					if(attribute instanceof DataAttribute)
+					{
+						dataAttributes.put('/'+type.getID()+'/'+attribute.getName(), attribute);
+					}
+				}
+			}
 		}
 		catch(RuntimeException e)
 		{
@@ -84,6 +102,28 @@ public class DataServlet extends HttpServlet
 		throws ServletException, IOException
 	{
 		final String pathInfo = request.getPathInfo();
+		final String attributeString;
+		final DataAttribute attribute;
+
+		if(pathInfo!=null)
+		{
+			final int trailingSlash = pathInfo.lastIndexOf('/');
+			if(trailingSlash>0) // null is leading slash, which is not allowed
+			{
+				attributeString = pathInfo.substring(0, trailingSlash);
+				attribute = (DataAttribute)dataAttributes.get(attributeString);
+			}
+			else
+			{
+				attributeString = null;
+				attribute = null;
+			}
+		}
+		else
+		{
+			attributeString = null;
+			attribute = null;
+		}
 		
 		response.setContentType("text/plain");
 		
@@ -92,7 +132,9 @@ public class DataServlet extends HttpServlet
 		final PrintStream p = new PrintStream(out);
 		p.println("This is a dummy data servlet.");
 		p.println("Path Info "+pathInfo);
-		p.println(model.getTypes());
+		p.println("Attribute String "+attributeString);
+		p.println("Attribute "+attribute);
+		p.println(dataAttributes);
 		
 		out.close();
 	}
