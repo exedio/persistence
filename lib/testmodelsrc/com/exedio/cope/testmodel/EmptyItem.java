@@ -27,6 +27,20 @@ import com.exedio.cope.Item;
  */
 public class EmptyItem extends Item
 {
+	/**
+	 * This dummy attribute has the same name
+	 * as an attribute in super class item.
+	 * This tests, that there are no name collisions.
+	 */
+	boolean type;
+
+	/**
+	 * This dummy attribute has the same name
+	 * as an attribute in super class item.
+	 * This tests, that there are no name collisions.
+	 */
+	boolean pk;
+	
 /**
 
 	 **
