@@ -51,16 +51,16 @@ import com.exedio.cope.util.ServletUtil;
  *  
  * <pre>
  * &lt;servlet&gt;
- *    &lt;servlet-name&gt;admin&lt;/servlet-name&gt;
+ *    &lt;servlet-name&gt;data&lt;/servlet-name&gt;
  *    &lt;servlet-class&gt;com.exedio.cope.pattern.DataServlet&lt;/servlet-class&gt;
  *    &lt;init-param&gt;
- *       &lt;param-name&gt;data&lt;/param-name&gt;
+ *       &lt;param-name&gt;model&lt;/param-name&gt;
  *       &lt;param-value&gt;{@link com.exedio.cope.Model com.bigbusiness.shop.Main#model}&lt;/param-value&gt;
  *    &lt;/init-param&gt;
  * &lt;/servlet&gt;
  * &lt;servlet-mapping&gt;
  *    &lt;servlet-name&gt;data&lt;/servlet-name&gt;
- *    &lt;url-pattern&gt;/data&lt;/url-pattern&gt;
+ *    &lt;url-pattern&gt;/data/*&lt;/url-pattern&gt;
  * &lt;/servlet-mapping&gt;
  * </pre>
  * 
