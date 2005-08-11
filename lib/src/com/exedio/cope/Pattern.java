@@ -39,6 +39,7 @@ package com.exedio.cope;
  * </dd>
  * <dt>3) by an internal source</dt>
  * <dd>
+ * Finally, the construction of the source can be done the the pattern itself:
  * <pre>static final Hash hash = new MD5Hash(DEFAULT)</pre>
  * </dd>
  * </dl>
