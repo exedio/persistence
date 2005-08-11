@@ -74,7 +74,7 @@ public abstract class Item extends Cope
 	/**
 	 * Returns true, if <code>o</code> represents the same item as this item.
 	 * Is equivalent to
-	 * <code>(o != null) && (o instanceof Item) && getCopeID().equals(((Item)o).getCopeID())</code>.
+	 * <pre>(o != null) && (o instanceof Item) && getCopeID().equals(((Item)o).getCopeID())</pre>
 	 * Does not activate this item, if it's not already active.
 	 */
 	public final boolean equals(final Object o)
