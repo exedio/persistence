@@ -32,7 +32,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.exedio.cope.Attribute;
 import com.exedio.cope.DataAttribute;
+import com.exedio.cope.Item;
 import com.exedio.cope.Model;
+import com.exedio.cope.NoSuchIDException;
 import com.exedio.cope.Type;
 import com.exedio.cope.util.ServletUtil;
 
@@ -108,10 +110,26 @@ public class DataServlet extends HttpServlet
 		if(pathInfo!=null)
 		{
 			final int trailingSlash = pathInfo.lastIndexOf('/');
-			if(trailingSlash>0) // null is leading slash, which is not allowed
+			if(trailingSlash>0 && // null is leading slash, which is not allowed
+					trailingSlash<pathInfo.length()-1)
 			{
 				final String attributeString = pathInfo.substring(0, trailingSlash);
 				attribute = (DataAttribute)dataAttributes.get(attributeString);
+				if(attribute!=null)
+				{
+					final String id = attribute.getType().getID()+'.'+pathInfo.substring(trailingSlash+1);
+					System.out.println("ID="+id);
+					/*final Item item;
+					try
+					{
+						item = model.findByID(id);
+						System.out.println("item="+item);
+					}
+					catch(NoSuchIDException e)
+					{
+						// do nothing
+					}*/
+				}
 			}
 			else
 			{
