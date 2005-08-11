@@ -107,9 +107,16 @@ public class DataServlet extends HttpServlet
 			final HttpServletResponse response)
 		throws ServletException, IOException
 	{
+		if(request.getPathInfo()==null)
+		{
+			serveDirectory(request, response);
+			return;
+		}
+
 		if(serveContent(request, response))
 			return;
-		serveDirectory(request, response);
+		
+		serveError(request, response);
 	}
 		
 	protected final void serveDirectory(
@@ -138,6 +145,27 @@ public class DataServlet extends HttpServlet
 		p.println("</ol>");
 		p.println("</body>");
 		p.println("</html>");
+		
+		out.close();
+	}
+	
+	protected final void serveError(
+			final HttpServletRequest request,
+			final HttpServletResponse response)
+		throws ServletException, IOException
+	{
+		response.setStatus(response.SC_NOT_FOUND);
+		response.setContentType("text/html");
+		
+		final PrintStream out = new PrintStream(response.getOutputStream());
+		
+		out.print("<html>\n" +
+				"<head><title>Not Found</title><head>\n" +
+				"<body>\n" +
+				"<h1>Not Found</h1>\n" +
+				"The requested URL was not found on this server.\n" +
+				"</body>\n" +
+				"</html>\n");
 		
 		out.close();
 	}
