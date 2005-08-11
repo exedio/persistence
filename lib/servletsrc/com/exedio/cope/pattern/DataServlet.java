@@ -83,12 +83,15 @@ public class DataServlet extends HttpServlet
 			final HttpServletResponse response)
 		throws ServletException, IOException
 	{
+		final String pathInfo = request.getPathInfo();
+		
 		response.setContentType("text/plain");
 		
 		final OutputStream out = response.getOutputStream();
 		
 		final PrintStream p = new PrintStream(out);
 		p.println("This is a dummy data servlet.");
+		p.println("Path Info "+pathInfo);
 		p.println(model.getTypes());
 		
 		out.close();
