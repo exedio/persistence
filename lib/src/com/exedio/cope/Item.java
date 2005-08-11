@@ -32,6 +32,12 @@ import java.util.List;
 import com.exedio.cope.Attribute.Option;
 import com.exedio.cope.util.ReactivationConstructorDummy;
 
+/**
+ * This is the super class for all classes,
+ * that want to store their data persistently with COPE.
+ * 
+ * @author Ralf Wiebicke
+ */
 public abstract class Item extends Cope
 {
 	private final Type type;
