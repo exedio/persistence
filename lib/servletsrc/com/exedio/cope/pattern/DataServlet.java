@@ -35,6 +35,7 @@ import com.exedio.cope.DataAttribute;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.NoSuchIDException;
+import com.exedio.cope.Transaction;
 import com.exedio.cope.Type;
 import com.exedio.cope.util.ServletUtil;
 
@@ -119,16 +120,22 @@ public class DataServlet extends HttpServlet
 				{
 					final String id = attribute.getType().getID()+'.'+pathInfo.substring(trailingSlash+1);
 					System.out.println("ID="+id);
-					/*final Item item;
+					final Item item;
 					try
 					{
+						model.startTransaction("DataServlet");
 						item = model.findByID(id);
 						System.out.println("item="+item);
+						Transaction.commit();
 					}
 					catch(NoSuchIDException e)
 					{
 						// do nothing
-					}*/
+					}
+					finally
+					{
+						Transaction.rollbackIfNotCommitted();
+					}
 				}
 			}
 			else
