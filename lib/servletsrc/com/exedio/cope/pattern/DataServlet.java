@@ -103,7 +103,6 @@ public class DataServlet extends HttpServlet
 		throws ServletException, IOException
 	{
 		final String pathInfo = request.getPathInfo();
-		final String attributeString;
 		final DataAttribute attribute;
 
 		if(pathInfo!=null)
@@ -111,18 +110,16 @@ public class DataServlet extends HttpServlet
 			final int trailingSlash = pathInfo.lastIndexOf('/');
 			if(trailingSlash>0) // null is leading slash, which is not allowed
 			{
-				attributeString = pathInfo.substring(0, trailingSlash);
+				final String attributeString = pathInfo.substring(0, trailingSlash);
 				attribute = (DataAttribute)dataAttributes.get(attributeString);
 			}
 			else
 			{
-				attributeString = null;
 				attribute = null;
 			}
 		}
 		else
 		{
-			attributeString = null;
 			attribute = null;
 		}
 		
@@ -137,7 +134,6 @@ public class DataServlet extends HttpServlet
 		p.println("<head><title>cope data servlet</title><head>");
 		p.println("<body>");
 		p.println("<p>Path Info "+pathInfo);
-		p.println("<p>Attribute String "+attributeString);
 		p.println("<p>Attribute "+attribute);
 		p.println("<ol>");
 		for(Iterator i = dataAttributes.entrySet().iterator(); i.hasNext(); )
