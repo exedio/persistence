@@ -8,6 +8,10 @@
 	<servlet>
 		<servlet-name>data</servlet-name>
 		<servlet-class>com.exedio.cope.pattern.DataServlet</servlet-class>
+		<init-param>
+			<param-name>model</param-name>
+			<param-value>com.exedio.cope.testmodel.Main#model</param-value>
+		</init-param>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>data</servlet-name>

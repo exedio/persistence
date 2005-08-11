@@ -27,6 +27,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.exedio.cope.Model;
+import com.exedio.cope.util.ServletUtil;
+
 
 /**
  * A servlet providing access to the data of cope data attributes.
@@ -54,6 +57,27 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class DataServlet extends HttpServlet
 {
+	Model model = null;
+	
+	public final void init()
+	{
+		if(model!=null)
+		{
+			System.out.println("reinvokation of jspInit");
+			return;
+		}
+		
+		try
+		{
+			model = ServletUtil.getModel(getServletConfig());
+		}
+		catch(RuntimeException e)
+		{
+			e.printStackTrace();
+			throw e;
+		}
+	}
+
 	protected final void doGet(
 			final HttpServletRequest request,
 			final HttpServletResponse response)
@@ -64,7 +88,8 @@ public class DataServlet extends HttpServlet
 		final OutputStream out = response.getOutputStream();
 		
 		final PrintStream p = new PrintStream(out);
-		p.print("hello");
+		p.println("This is a dummy data servlet.");
+		p.println(model.getTypes());
 		
 		out.close();
 	}
