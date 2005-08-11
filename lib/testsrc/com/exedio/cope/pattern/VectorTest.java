@@ -91,6 +91,8 @@ public class VectorTest extends AbstractLibTest
 		assertEquals(i1, item.getNum1());
 		assertEquals(i2, item.getNum2());
 		assertEquals(i3, item.getNum3());
+		assertContains(item, item.TYPE.search(item.nums.equal(list(i1, i2, i3))));
+		assertContains(item.TYPE.search(item.nums.equal(list(i1, i2))));
 
 		item.setNums(list(i3, i2, i1));
 		assertEquals(i3, item.getNum1());
@@ -106,6 +108,8 @@ public class VectorTest extends AbstractLibTest
 		assertEquals(null, item.getNum1());
 		assertEquals(null, item.getNum2());
 		assertEquals(null, item.getNum3());
+		assertContains(item, item.TYPE.search(item.nums.equal(list())));
+		assertContains(item.TYPE.search(item.nums.equal(list(i1))));
 		
 		item.setNum1(i1);
 		item.setNum2(i2);
@@ -140,6 +144,11 @@ public class VectorTest extends AbstractLibTest
 		assertEquals("bello", item.get(string2));
 		assertEquals(null, item.get(string3));
 		assertEquals(null, item.get(string4));
+		assertContains(item.TYPE.search(item.strings.equal(list())));
+		assertContains(item.TYPE.search(item.strings.equal(list("hallo"))));
+		assertContains(item, item.TYPE.search(item.strings.equal(list("hallo", "bello"))));
+		assertContains(item.TYPE.search(item.strings.equal(list("bello", "hallo", "zollo"))));
+		assertContains(item.TYPE.search(item.strings.equal(list("bello", "hallo"))));
 	}
 	
 	private final DateAttribute assertDate(final Iterator i, final int num)

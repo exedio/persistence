@@ -27,12 +27,15 @@ import java.util.List;
 
 import com.exedio.cope.AttributeValue;
 import com.exedio.cope.Item;
+import com.exedio.cope.Join;
 import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.NotNullViolationException;
 import com.exedio.cope.ObjectAttribute;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.ReadOnlyViolationException;
 import com.exedio.cope.UniqueViolationException;
+import com.exedio.cope.search.AndCondition;
+import com.exedio.cope.search.EqualCondition;
 
 public final class Vector extends Pattern
 {
@@ -108,7 +111,20 @@ public final class Vector extends Pattern
 		item.set(attributeValues);
 	}
 	
-	// TODO equal
+	public final AndCondition equal(final Collection values)
+	{
+		int i = 0;
+		final EqualCondition[] conditions = new EqualCondition[sources.length];
+		
+		for(Iterator it = values.iterator(); it.hasNext(); i++)
+			conditions[i] = new EqualCondition((Join)null, sources[i], it.next());
+
+		for(; i<sources.length; i++)
+			conditions[i] = new EqualCondition((Join)null, sources[i], null);
+
+		return new AndCondition(conditions);
+	}
+	
 	// TODO notEqual
 	// TODO contains
 	
