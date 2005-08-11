@@ -105,48 +105,8 @@ public class DataServlet extends HttpServlet
 			final HttpServletResponse response)
 		throws ServletException, IOException
 	{
-		final String pathInfo = request.getPathInfo();
-		final DataAttribute attribute;
-
-		if(pathInfo!=null)
-		{
-			final int trailingSlash = pathInfo.lastIndexOf('/');
-			if(trailingSlash>0 && // null is leading slash, which is not allowed
-					trailingSlash<pathInfo.length()-1)
-			{
-				final String attributeString = pathInfo.substring(0, trailingSlash);
-				attribute = (DataAttribute)dataAttributes.get(attributeString);
-				if(attribute!=null)
-				{
-					final String id = attribute.getType().getID()+'.'+pathInfo.substring(trailingSlash+1);
-					System.out.println("ID="+id);
-					final Item item;
-					try
-					{
-						model.startTransaction("DataServlet");
-						item = model.findByID(id);
-						System.out.println("item="+item);
-						Transaction.commit();
-					}
-					catch(NoSuchIDException e)
-					{
-						// do nothing
-					}
-					finally
-					{
-						Transaction.rollbackIfNotCommitted();
-					}
-				}
-			}
-			else
-			{
-				attribute = null;
-			}
-		}
-		else
-		{
-			attribute = null;
-		}
+		if(serveContent(request, response))
+			return;
 		
 		response.setContentType("text/html");
 		
@@ -158,8 +118,6 @@ public class DataServlet extends HttpServlet
 		p.println("<html>");
 		p.println("<head><title>cope data servlet</title><head>");
 		p.println("<body>");
-		p.println("<p>Path Info "+pathInfo);
-		p.println("<p>Attribute "+attribute);
 		p.println("<ol>");
 		for(Iterator i = dataAttributes.entrySet().iterator(); i.hasNext(); )
 		{
@@ -174,5 +132,57 @@ public class DataServlet extends HttpServlet
 		
 		out.close();
 	}
+	
+	protected final boolean serveContent(
+			final HttpServletRequest request,
+			final HttpServletResponse response)
+		throws ServletException, IOException
+	{
+		final String pathInfo = request.getPathInfo();
+		System.out.println("pathInfo="+pathInfo);
+		if(pathInfo==null)
+			return false;
 
+		final int trailingSlash = pathInfo.lastIndexOf('/');
+		if(trailingSlash<=0 && // null is leading slash, which is not allowed
+			trailingSlash>=pathInfo.length()-1)
+			return false;
+
+		final String attributeString = pathInfo.substring(0, trailingSlash);
+		System.out.println("attributeString="+attributeString);
+
+		final DataAttribute attribute = (DataAttribute)dataAttributes.get(attributeString);
+		System.out.println("attribute="+attribute);
+		if(attribute==null)
+			return false;
+
+		final String id = attribute.getType().getID()+'.'+pathInfo.substring(trailingSlash+1);
+		System.out.println("ID="+id);
+		try
+		{
+			model.startTransaction("DataServlet");
+			final Item item = model.findByID(id);
+			System.out.println("item="+item);
+			
+			response.setContentType("text/plain");
+			final OutputStream out = response.getOutputStream();
+			
+			final PrintStream p = new PrintStream(out);
+			p.println(attribute);
+			p.println(item);
+
+			out.close();
+			Transaction.commit();
+			return true;
+		}
+		catch(NoSuchIDException e)
+		{
+			return false;
+		}
+		finally
+		{
+			Transaction.rollbackIfNotCommitted();
+		}
+	}
+	
 }
