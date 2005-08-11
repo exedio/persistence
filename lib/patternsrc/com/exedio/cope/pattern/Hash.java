@@ -28,6 +28,7 @@ import com.exedio.cope.StringAttribute;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.Attribute.Option;
 import com.exedio.cope.search.EqualCondition;
+import com.exedio.cope.search.NotEqualCondition;
 
 public abstract class Hash extends Pattern
 {
@@ -89,4 +90,9 @@ public abstract class Hash extends Pattern
 		return new EqualCondition(join, storage, hash(value));
 	}
 
+	public final NotEqualCondition notEqual(final String value)
+	{
+		return new NotEqualCondition(storage, hash(value));
+	}
+	
 }

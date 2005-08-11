@@ -50,6 +50,8 @@ public class HashTest extends AbstractLibTest
 		assertTrue(!item.checkExplicitExternal("bing"));
 		assertContains(item, item.TYPE.search(item.explicitExternal.equal(null)));
 		assertContains(item.TYPE.search(item.explicitExternal.equal("bing")));
+		assertContains(item.TYPE.search(item.explicitExternal.notEqual(null)));
+		assertContains(item, item.TYPE.search(item.explicitExternal.notEqual("bing")));
 		
 		item.setExplicitExternalWrap("bello");
 		assertEquals("bello", item.getExplicitExternalWrap());
@@ -57,6 +59,8 @@ public class HashTest extends AbstractLibTest
 		assertTrue(!item.checkExplicitExternal("bello"));
 		assertContains(item.TYPE.search(item.explicitExternal.equal(null)));
 		assertContains(item.TYPE.search(item.explicitExternal.equal("bello")));
+		assertContains(item, item.TYPE.search(item.explicitExternal.notEqual(null)));
+		assertContains(item, item.TYPE.search(item.explicitExternal.notEqual("bello")));
 		
 		item.setExplicitExternal("knollo");
 		assertEquals("[knollo]", item.getExplicitExternalWrap());
@@ -66,6 +70,9 @@ public class HashTest extends AbstractLibTest
 		assertContains(item.TYPE.search(item.explicitExternal.equal(null)));
 		assertContains(item, item.TYPE.search(item.explicitExternal.equal("knollo")));
 		assertContains(item.TYPE.search(item.explicitExternal.equal("bello")));
+		assertContains(item, item.TYPE.search(item.explicitExternal.notEqual(null)));
+		assertContains(item.TYPE.search(item.explicitExternal.notEqual("knollo")));
+		assertContains(item, item.TYPE.search(item.explicitExternal.notEqual("bello")));
 	}
 	
 	public void testImplicitExternal()
