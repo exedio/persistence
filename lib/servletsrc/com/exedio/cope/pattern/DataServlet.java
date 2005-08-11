@@ -23,6 +23,7 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -125,16 +126,30 @@ public class DataServlet extends HttpServlet
 			attribute = null;
 		}
 		
-		response.setContentType("text/plain");
+		response.setContentType("text/html");
+		
+		final String prefix = request.getContextPath()+request.getServletPath();
 		
 		final OutputStream out = response.getOutputStream();
 		
 		final PrintStream p = new PrintStream(out);
-		p.println("This is a dummy data servlet.");
-		p.println("Path Info "+pathInfo);
-		p.println("Attribute String "+attributeString);
-		p.println("Attribute "+attribute);
-		p.println(dataAttributes);
+		p.println("<html>");
+		p.println("<head><title>cope data servlet</title><head>");
+		p.println("<body>");
+		p.println("<p>Path Info "+pathInfo);
+		p.println("<p>Attribute String "+attributeString);
+		p.println("<p>Attribute "+attribute);
+		p.println("<ol>");
+		for(Iterator i = dataAttributes.entrySet().iterator(); i.hasNext(); )
+		{
+			final Map.Entry entry = (Map.Entry)i.next();
+			final String key = (String)entry.getKey();
+			final DataAttribute value = (DataAttribute)entry.getValue();
+			p.println("<li><a href=\""+prefix+key+"/0\">"+value+"</a>");
+		}
+		p.println("</ol>");
+		p.println("</body>");
+		p.println("</html>");
 		
 		out.close();
 	}
