@@ -108,4 +108,8 @@ public final class Vector extends Pattern
 		item.set(attributeValues);
 	}
 	
+	// TODO equal
+	// TODO notEqual
+	// TODO contains
+	
 }
