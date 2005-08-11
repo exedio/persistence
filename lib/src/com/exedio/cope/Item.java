@@ -42,6 +42,10 @@ public abstract class Item extends Cope
 {
 	private final Type type;
 
+	/**
+	 * The primary key of the item,
+	 * that is unique within the {@link #type} of this item.
+	 */
 	final int pk;
 	
 	/**
