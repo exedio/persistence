@@ -36,6 +36,8 @@ import com.exedio.cope.ReadOnlyViolationException;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.search.AndCondition;
 import com.exedio.cope.search.EqualCondition;
+import com.exedio.cope.search.NotEqualCondition;
+import com.exedio.cope.search.OrCondition;
 
 public final class Vector extends Pattern
 {
@@ -125,7 +127,20 @@ public final class Vector extends Pattern
 		return new AndCondition(conditions);
 	}
 	
-	// TODO notEqual
+	public final OrCondition notEqual(final Collection values)
+	{
+		int i = 0;
+		final NotEqualCondition[] conditions = new NotEqualCondition[sources.length];
+		
+		for(Iterator it = values.iterator(); it.hasNext(); i++)
+			conditions[i] = new NotEqualCondition(sources[i], it.next());
+
+		for(; i<sources.length; i++)
+			conditions[i] = new NotEqualCondition(sources[i], null);
+
+		return new OrCondition(conditions);
+	}
+
 	// TODO contains
 	
 }
