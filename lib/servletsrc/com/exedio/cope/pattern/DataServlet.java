@@ -19,6 +19,7 @@
 package com.exedio.cope.pattern;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.HashMap;
@@ -26,6 +27,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -164,16 +166,40 @@ public class DataServlet extends HttpServlet
 			final Item item = model.findByID(id);
 			System.out.println("item="+item);
 			
-			response.setContentType("text/plain");
-			final OutputStream out = response.getOutputStream();
-			
-			final PrintStream p = new PrintStream(out);
-			p.println(attribute);
-			p.println(item);
+			final String mimeMajor = item.getMimeMajor(attribute);
+			System.out.println("mimeMajor="+mimeMajor);
+			if(mimeMajor!=null)
+			{
+				final String mimeMinor = item.getMimeMinor(attribute);
+				System.out.println("mimeMinor="+mimeMinor);
+				response.setContentType(mimeMajor+'/'+mimeMinor);
+				
+				ServletOutputStream out = null;
+				InputStream in = null;
+				try
+				{
+					out = response.getOutputStream();
+					in = item.getData(attribute);
 
-			out.close();
-			Transaction.commit();
-			return true;
+					final byte[] buffer = new byte[50*1024];
+					for(int len = in.read(buffer); len != -1; len = in.read(buffer))
+						out.write(buffer, 0, len);
+				}
+				finally
+				{
+					if(in!=null)
+						in.close();
+					if(out!=null)
+						out.close();
+				}
+				Transaction.commit();
+				return true;
+			}
+			else
+			{
+				Transaction.commit();
+				return false;
+			}
 		}
 		catch(NoSuchIDException e)
 		{
