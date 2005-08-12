@@ -554,6 +554,25 @@ public abstract class Item extends Cope
 	}
 
 	/**
+	 * Returns the date of the last modification
+	 * of the data of this persistent data attribute.
+	 * Returns -1, if there is no data for this attribute.
+	 */
+	public final long getDataLastModified(final DataAttribute attribute)
+	{
+		if(isNull(attribute))
+			return -1;
+
+		final File file = getDataFile(attribute);
+
+		final long result = file.lastModified();
+		if(result<=0)
+			throw new RuntimeException("unexpected lastModified " + result + " for file " + file.getAbsolutePath());
+		
+		return result;
+	}
+
+	/**
 	 * Provides data for this persistent data attribute.
 	 * Closes <data>data</data> after reading the contents of the stream.
 	 * @param data give null to remove data.

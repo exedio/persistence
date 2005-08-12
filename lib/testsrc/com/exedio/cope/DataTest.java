@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import java.io.IOException;
+import java.util.Date;
 
 import com.exedio.cope.testmodel.DataItem;
 
@@ -53,20 +54,27 @@ public class DataTest extends TestmodelTest
 		
 		assertEquals(null, item.getFileData());
 		assertEquals(-1, item.getDataLength(item.file));
+		assertEquals(-1, item.getDataLastModified(item.file));
 		assertEquals(null, item.getFileMimeMajor());
 		assertEquals(null, item.getFileMimeMinor());
 		assertEquals(null, item.getFileURL());
-		
+
+		final Date beforeData = new Date();
 		item.setFile(stream(data), "fileMajor", "fileMinor");
+		final Date afterData = new Date();
 		assertData(data, item.getFileData());
 		assertEquals(data.length, item.getDataLength(item.file));
+		assertWithin(1000, beforeData, afterData, new Date(item.getDataLastModified(item.file)));
 		assertEquals("fileMajor", item.getFileMimeMajor());
 		assertEquals("fileMinor", item.getFileMimeMinor());
 		assertTrue(item.getFileURL().endsWith(".fileMajor.fileMinor"));
 		
+		final Date beforeData2 = new Date();
 		item.setFile(stream(data2), "fileMajor2", "fileMinor2");
+		final Date afterData2 = new Date();
 		assertData(data2, item.getFileData());
 		assertEquals(data2.length, item.getDataLength(item.file));
+		assertWithin(1000, beforeData2, afterData2, new Date(item.getDataLastModified(item.file)));
 		assertEquals("fileMajor2", item.getFileMimeMajor());
 		assertEquals("fileMinor2", item.getFileMimeMinor());
 		assertTrue(item.getFileURL().endsWith(".fileMajor2.fileMinor2"));
@@ -81,6 +89,7 @@ public class DataTest extends TestmodelTest
 		
 		item.setFile(null, null, null);
 		assertEquals(-1, item.getDataLength(item.file));
+		assertEquals(-1, item.getDataLastModified(item.file));
 		assertEquals(null, item.getFileData());
 		assertEquals(null, item.getFileMimeMajor());
 		assertEquals(null, item.getFileMimeMinor());
