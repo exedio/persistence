@@ -238,6 +238,7 @@ public class DataServlet extends HttpServlet
 				response.setDateHeader("Expires", now+EXPIRES_OFFSET);
 				
 				final long ifModifiedSince = request.getDateHeader("If-Modified-Since");
+				//System.out.println("ifModifiedSince="+request.getHeader("If-Modified-Since"));
 				//System.out.println("ifModifiedSince="+ifModifiedSince);
 				
 				if(ifModifiedSince>=0 && ifModifiedSince>=lastModified)
