@@ -541,6 +541,19 @@ public abstract class Item extends Cope
 	}
 
 	/**
+	 * Returns the length of the data of this persistent data attribute.
+	 * Returns -1, if there is no data for this attribute.
+	 */
+	public final long getDataLength(final DataAttribute attribute)
+	{
+		if(isNull(attribute))
+			return -1;
+
+		final File file = getDataFile(attribute);
+		return file.length();
+	}
+
+	/**
 	 * Provides data for this persistent data attribute.
 	 * Closes <data>data</data> after reading the contents of the stream.
 	 * @param data give null to remove data.
