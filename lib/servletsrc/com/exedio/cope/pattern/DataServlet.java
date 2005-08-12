@@ -175,6 +175,16 @@ public class DataServlet extends HttpServlet
 		out.close();
 	}
 	
+	/**
+	 * Sets the offset, the Expires http header is set into the future.
+	 * Together with a http reverse proxy this ensures,
+	 * that for that time no request for that data will reach the servlet.
+	 * This may reduce the load on the server.
+	 * 
+	 * TODO: make this configurable, at best per DataAttribute.
+	 */
+	private static final long EXPIRES_OFFSET = 1000 * 5; // 5 seconds
+	
 	protected final boolean serveContent(
 			final HttpServletRequest request,
 			final HttpServletResponse response)
@@ -218,7 +228,9 @@ public class DataServlet extends HttpServlet
 				final String mimeMinor = item.getMimeMinor(attribute);
 				//System.out.println("mimeMinor="+mimeMinor);
 				response.setContentType(mimeMajor+'/'+mimeMinor);
-				response.setHeader("Last-Modified", formatHttpDate(new Date(System.currentTimeMillis()-10000)));
+				final long now = System.currentTimeMillis();
+				response.setHeader("Last-Modified", formatHttpDate(new Date(now-10000)));
+				response.setHeader("Expires", formatHttpDate(new Date(now+EXPIRES_OFFSET)));
 				
 				ServletOutputStream out = null;
 				InputStream in = null;
