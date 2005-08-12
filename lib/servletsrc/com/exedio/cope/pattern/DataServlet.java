@@ -233,22 +233,17 @@ public class DataServlet extends HttpServlet
 				//System.out.println("mimeMinor="+mimeMinor);
 				response.setContentType(mimeMajor+'/'+mimeMinor);
 
-				final long lastModifiedMillis = item.getDataLastModified(attribute);
-				final Date lastModified = new Date(lastModifiedMillis);
+				final long lastModified = item.getDataLastModified(attribute);
 				//System.out.println("lastModified="+formatHttpDate(lastModified));
-				response.setDateHeader("Last-Modified", lastModifiedMillis);
+				response.setDateHeader("Last-Modified", lastModified);
 
 				final long now = System.currentTimeMillis();
 				response.setDateHeader("Expires", now+EXPIRES_OFFSET);
 				
-				final String ifModifiedSinceString = request.getHeader("If-Modified-Since");
-				//System.out.println("ifModifiedSinceString="+ifModifiedSinceString);
-
-				final Date ifModifiedSince = parseHttpDate(ifModifiedSinceString);
+				final long ifModifiedSince = request.getDateHeader("If-Modified-Since");
 				//System.out.println("ifModifiedSince="+ifModifiedSince);
-				if(ifModifiedSinceString!=null && ifModifiedSince==null) System.out.println("UNPARSABLE HEADER: "+ifModifiedSince);
 				
-				if(ifModifiedSince!=null && !ifModifiedSince.before(lastModified))
+				if(ifModifiedSince>=0 && ifModifiedSince>=lastModified)
 				{
 					//System.out.println("not modified");
 					response.setStatus(response.SC_NOT_MODIFIED);
@@ -301,36 +296,10 @@ public class DataServlet extends HttpServlet
 		}
 	}
 	
-	private static final String DATE_FORMAT = "EEE, dd MMM yyyy HH:mm:ss 'GMT'";
-
-	/**
-	 * Parses a string represantion of a date
-	 * used in http headers,
-	 * such as If-Modified-Since.
-	 */
-	static final Date parseHttpDate(final String string)
-	{
-		// missing headers are silently ignored
-		if(string==null)
-			return null;
-		
-		final SimpleDateFormat df = new SimpleDateFormat(DATE_FORMAT, Locale.US);
-		df.setTimeZone(TimeZone.getTimeZone("GMT"));
-		try
-		{
-			return df.parse(string);
-		}
-		catch(ParseException e)
-		{
-			// wrong headers are silently ignored
-			return null;
-		}
-	}
-	
-	final String format(final Date date)
+	final String format(final long date)
 	{
 		final SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
-		return df.format(date);
+		return df.format(new Date(date));
 	}
 	
 }
