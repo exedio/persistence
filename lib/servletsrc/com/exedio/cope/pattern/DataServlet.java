@@ -270,7 +270,7 @@ public class DataServlet extends HttpServlet
 						out = response.getOutputStream();
 						in = item.getData(attribute);
 	
-						final byte[] buffer = new byte[50*1024];
+						final byte[] buffer = new byte[Math.max((int)contentLength, 50*1024)];
 						for(int len = in.read(buffer); len != -1; len = in.read(buffer))
 							out.write(buffer, 0, len);
 					}
