@@ -207,8 +207,17 @@ public class DataServlet extends HttpServlet
 		//System.out.println("attribute="+attribute);
 		if(attribute==null)
 			return false;
+		
+		final int trailingDot = pathInfo.lastIndexOf('.');
+		//System.out.println("trailingDot="+trailingDot);
 
-		final String id = attribute.getType().getID()+'.'+pathInfo.substring(trailingSlash+1);
+		final String pkString =
+			(trailingDot>trailingSlash)
+			? pathInfo.substring(trailingSlash+1, trailingDot)
+			: pathInfo.substring(trailingSlash+1);
+		//System.out.println("pkString="+pkString);
+
+		final String id = attribute.getType().getID() + '.' + pkString;
 		//System.out.println("ID="+id);
 		try
 		{
