@@ -224,12 +224,7 @@ public class DataServlet extends HttpServlet
 			model.startTransaction("DataServlet");
 			final Item item = model.findByID(id);
 			//System.out.println("item="+item);
-			final String ifModifiedSinceString = request.getHeader("If-Modified-Since");
-			System.out.println("ifModifiedSinceString="+ifModifiedSinceString);
 
-			final Date ifModifiedSince = parseHttpDate(ifModifiedSinceString);
-			System.out.println("ifModifiedSince="+ifModifiedSince);
-			
 			final String mimeMajor = item.getMimeMajor(attribute);
 			//System.out.println("mimeMajor="+mimeMajor);
 			if(mimeMajor!=null)
@@ -245,6 +240,12 @@ public class DataServlet extends HttpServlet
 
 				final long now = System.currentTimeMillis();
 				response.setHeader("Expires", formatHttpDate(new Date(now+EXPIRES_OFFSET)));
+				
+				final String ifModifiedSinceString = request.getHeader("If-Modified-Since");
+				System.out.println("ifModifiedSinceString="+ifModifiedSinceString);
+
+				final Date ifModifiedSince = parseHttpDate(ifModifiedSinceString);
+				System.out.println("ifModifiedSince="+ifModifiedSince);
 				
 				if(ifModifiedSince!=null && !ifModifiedSince.before(lastModified))
 				{
