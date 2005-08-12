@@ -238,34 +238,43 @@ public class DataServlet extends HttpServlet
 				//System.out.println("mimeMinor="+mimeMinor);
 				response.setContentType(mimeMajor+'/'+mimeMinor);
 
-				final long lastModified = item.getDataLastModified(attribute);
-				//System.out.println("lastModified="+formatHttpDate(new Date(lastModified)));
-				response.setHeader("Last-Modified", formatHttpDate(new Date(lastModified)));
+				final long lastModifiedMillis = item.getDataLastModified(attribute);
+				final Date lastModified = new Date(lastModifiedMillis);
+				//System.out.println("lastModified="+formatHttpDate(lastModified));
+				response.setHeader("Last-Modified", formatHttpDate(lastModified));
 
 				final long now = System.currentTimeMillis();
 				response.setHeader("Expires", formatHttpDate(new Date(now+EXPIRES_OFFSET)));
 				
-				final long contentLength = item.getDataLength(attribute);
-				//System.out.println("contentLength="+String.valueOf(contentLength));
-				response.setHeader("Content-Length", String.valueOf(contentLength));
-
-				ServletOutputStream out = null;
-				InputStream in = null;
-				try
+				if(ifModifiedSince!=null && !ifModifiedSince.before(lastModified))
 				{
-					out = response.getOutputStream();
-					in = item.getData(attribute);
-
-					final byte[] buffer = new byte[50*1024];
-					for(int len = in.read(buffer); len != -1; len = in.read(buffer))
-						out.write(buffer, 0, len);
+					System.out.println("not modified");
+					response.setStatus(response.SC_NOT_MODIFIED);
 				}
-				finally
+				else
 				{
-					if(in!=null)
-						in.close();
-					if(out!=null)
-						out.close();
+					final long contentLength = item.getDataLength(attribute);
+					System.out.println("contentLength="+String.valueOf(contentLength));
+					response.setHeader("Content-Length", String.valueOf(contentLength));
+	
+					ServletOutputStream out = null;
+					InputStream in = null;
+					try
+					{
+						out = response.getOutputStream();
+						in = item.getData(attribute);
+	
+						final byte[] buffer = new byte[50*1024];
+						for(int len = in.read(buffer); len != -1; len = in.read(buffer))
+							out.write(buffer, 0, len);
+					}
+					finally
+					{
+						if(in!=null)
+							in.close();
+						if(out!=null)
+							out.close();
+					}
 				}
 				Transaction.commit();
 				return true;
