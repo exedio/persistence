@@ -242,10 +242,11 @@ public class DataServlet extends HttpServlet
 				response.setHeader("Expires", formatHttpDate(new Date(now+EXPIRES_OFFSET)));
 				
 				final String ifModifiedSinceString = request.getHeader("If-Modified-Since");
-				System.out.println("ifModifiedSinceString="+ifModifiedSinceString);
+				//System.out.println("ifModifiedSinceString="+ifModifiedSinceString);
 
 				final Date ifModifiedSince = parseHttpDate(ifModifiedSinceString);
 				System.out.println("ifModifiedSince="+ifModifiedSince);
+				if(ifModifiedSinceString!=null && ifModifiedSince==null) System.out.println("UNPARSABLE HEADER: "+ifModifiedSince);
 				
 				if(ifModifiedSince!=null && !ifModifiedSince.before(lastModified))
 				{
