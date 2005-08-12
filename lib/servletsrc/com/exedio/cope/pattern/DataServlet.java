@@ -231,6 +231,7 @@ public class DataServlet extends HttpServlet
 				final long now = System.currentTimeMillis();
 				response.setHeader("Last-Modified", formatHttpDate(new Date(now-10000)));
 				response.setHeader("Expires", formatHttpDate(new Date(now+EXPIRES_OFFSET)));
+				response.setHeader("Content-Length", String.valueOf(84899));
 				
 				ServletOutputStream out = null;
 				InputStream in = null;
