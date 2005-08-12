@@ -245,20 +245,24 @@ public class DataServlet extends HttpServlet
 				//System.out.println("ifModifiedSinceString="+ifModifiedSinceString);
 
 				final Date ifModifiedSince = parseHttpDate(ifModifiedSinceString);
-				System.out.println("ifModifiedSince="+ifModifiedSince);
+				//System.out.println("ifModifiedSince="+ifModifiedSince);
 				if(ifModifiedSinceString!=null && ifModifiedSince==null) System.out.println("UNPARSABLE HEADER: "+ifModifiedSince);
 				
 				if(ifModifiedSince!=null && !ifModifiedSince.before(lastModified))
 				{
-					System.out.println("not modified");
+					//System.out.println("not modified");
 					response.setStatus(response.SC_NOT_MODIFIED);
+					
+					System.out.println("ifModifiedSince="+format(ifModifiedSince)+"  lastModified="+format(lastModified)+"  NOT modified");
 				}
 				else
 				{
 					final long contentLength = item.getDataLength(attribute);
-					System.out.println("contentLength="+String.valueOf(contentLength));
+					//System.out.println("contentLength="+String.valueOf(contentLength));
 					response.setHeader("Content-Length", String.valueOf(contentLength));
 	
+					System.out.println("ifModifiedSince="+format(ifModifiedSince)+"  lastModified="+format(lastModified)+"  modified: "+contentLength);
+
 					ServletOutputStream out = null;
 					InputStream in = null;
 					try
@@ -333,6 +337,12 @@ public class DataServlet extends HttpServlet
 			// wrong headers are silently ignored
 			return null;
 		}
+	}
+	
+	final String format(final Date date)
+	{
+		final SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+		return df.format(date);
 	}
 	
 }
