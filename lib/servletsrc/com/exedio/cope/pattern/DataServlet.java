@@ -228,10 +228,17 @@ public class DataServlet extends HttpServlet
 				final String mimeMinor = item.getMimeMinor(attribute);
 				//System.out.println("mimeMinor="+mimeMinor);
 				response.setContentType(mimeMajor+'/'+mimeMinor);
+
+				final long lastModified = item.getDataLastModified(attribute);
+				//System.out.println("lastModified="+formatHttpDate(new Date(lastModified)));
+				response.setHeader("Last-Modified", formatHttpDate(new Date(lastModified)));
+
+				final long contentLength = item.getDataLength(attribute);
+				//System.out.println("contentLength="+String.valueOf(contentLength));
+				response.setHeader("Content-Length", String.valueOf(contentLength));
+
 				final long now = System.currentTimeMillis();
-				response.setHeader("Last-Modified", formatHttpDate(new Date(now-10000)));
 				response.setHeader("Expires", formatHttpDate(new Date(now+EXPIRES_OFFSET)));
-				//response.setHeader("Content-Length", String.valueOf(84899));
 				
 				ServletOutputStream out = null;
 				InputStream in = null;
