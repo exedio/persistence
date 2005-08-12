@@ -22,9 +22,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Locale;
 import java.util.Map;
+import java.util.TimeZone;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -200,6 +205,11 @@ public class DataServlet extends HttpServlet
 			model.startTransaction("DataServlet");
 			final Item item = model.findByID(id);
 			//System.out.println("item="+item);
+			final String ifModifiedSinceString = request.getHeader("If-Modified-Since");
+			System.out.println("ifModifiedSinceString="+ifModifiedSinceString);
+
+			final Date ifModifiedSince = parseHttpDate(ifModifiedSinceString);
+			System.out.println("ifModifiedSince="+ifModifiedSince);
 			
 			final String mimeMajor = item.getMimeMajor(attribute);
 			//System.out.println("mimeMajor="+mimeMajor);
@@ -208,6 +218,7 @@ public class DataServlet extends HttpServlet
 				final String mimeMinor = item.getMimeMinor(attribute);
 				//System.out.println("mimeMinor="+mimeMinor);
 				response.setContentType(mimeMajor+'/'+mimeMinor);
+				response.setHeader("Last-Modified", formatHttpDate(new Date(System.currentTimeMillis()-10000)));
 				
 				ServletOutputStream out = null;
 				InputStream in = null;
@@ -243,6 +254,44 @@ public class DataServlet extends HttpServlet
 		finally
 		{
 			Transaction.rollbackIfNotCommitted();
+		}
+	}
+	
+	private static final String DATE_FORMAT = "EEE, dd MMM yyyy HH:mm:ss 'GMT'";
+
+	/**
+	 * Formats a string represention of a date
+	 * suitable for using in http headers,
+	 * such as Last-Modified.
+	 */
+	static final String formatHttpDate(final Date date)
+	{
+		final SimpleDateFormat df = new SimpleDateFormat(DATE_FORMAT, Locale.US);
+		df.setTimeZone(TimeZone.getTimeZone("GMT"));
+		return df.format(date);
+	}
+
+	/**
+	 * Parses a string represantion of a date
+	 * used in http headers,
+	 * such as If-Modified-Since.
+	 */
+	static final Date parseHttpDate(final String string)
+	{
+		// missing headers are silently ignored
+		if(string==null)
+			return null;
+		
+		final SimpleDateFormat df = new SimpleDateFormat(DATE_FORMAT, Locale.US);
+		df.setTimeZone(TimeZone.getTimeZone("GMT"));
+		try
+		{
+			return df.parse(string);
+		}
+		catch(ParseException e)
+		{
+			// wrong headers are silently ignored
+			return null;
 		}
 	}
 	
