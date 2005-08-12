@@ -251,15 +251,16 @@ public class DataServlet extends HttpServlet
 					//System.out.println("not modified");
 					response.setStatus(response.SC_NOT_MODIFIED);
 					
-					System.out.println("ifModifiedSince="+format(ifModifiedSince)+"  lastModified="+format(lastModified)+"  NOT modified");
+					System.out.println(request.getMethod()+' '+request.getProtocol()+" IMS="+format(ifModifiedSince)+"  LM="+format(lastModified)+"  NOT modified");
 				}
 				else
 				{
 					final long contentLength = item.getDataLength(attribute);
 					//System.out.println("contentLength="+String.valueOf(contentLength));
 					response.setHeader(RESPONSE_CONTENT_LENGTH, String.valueOf(contentLength));
+					//response.setHeader("Cache-Control", "public");
 	
-					System.out.println("ifModifiedSince="+format(ifModifiedSince)+"  lastModified="+format(lastModified)+"  modified: "+contentLength);
+					System.out.println(request.getMethod()+' '+request.getProtocol()+" IMS="+format(ifModifiedSince)+"  LM="+format(lastModified)+"  modified: "+contentLength);
 
 					ServletOutputStream out = null;
 					InputStream in = null;
