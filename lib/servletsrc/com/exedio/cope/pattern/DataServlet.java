@@ -236,10 +236,10 @@ public class DataServlet extends HttpServlet
 				final long lastModifiedMillis = item.getDataLastModified(attribute);
 				final Date lastModified = new Date(lastModifiedMillis);
 				//System.out.println("lastModified="+formatHttpDate(lastModified));
-				response.setHeader("Last-Modified", formatHttpDate(lastModified));
+				response.setDateHeader("Last-Modified", lastModifiedMillis);
 
 				final long now = System.currentTimeMillis();
-				response.setHeader("Expires", formatHttpDate(new Date(now+EXPIRES_OFFSET)));
+				response.setDateHeader("Expires", now+EXPIRES_OFFSET);
 				
 				final String ifModifiedSinceString = request.getHeader("If-Modified-Since");
 				//System.out.println("ifModifiedSinceString="+ifModifiedSinceString);
@@ -302,18 +302,6 @@ public class DataServlet extends HttpServlet
 	}
 	
 	private static final String DATE_FORMAT = "EEE, dd MMM yyyy HH:mm:ss 'GMT'";
-
-	/**
-	 * Formats a string represention of a date
-	 * suitable for using in http headers,
-	 * such as Last-Modified.
-	 */
-	static final String formatHttpDate(final Date date)
-	{
-		final SimpleDateFormat df = new SimpleDateFormat(DATE_FORMAT, Locale.US);
-		df.setTimeZone(TimeZone.getTimeZone("GMT"));
-		return df.format(date);
-	}
 
 	/**
 	 * Parses a string represantion of a date
