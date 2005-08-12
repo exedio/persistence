@@ -182,6 +182,11 @@ public class DataServlet extends HttpServlet
 	 */
 	private static final long EXPIRES_OFFSET = 1000 * 5; // 5 seconds
 	
+	private static final String REQUEST_IF_MODIFIED_SINCE = "If-Modified-Since";
+	private static final String RESPONSE_EXPIRES = "Expires";
+	private static final String RESPONSE_LAST_MODIFIED = "Last-Modified";
+	private static final String RESPONSE_CONTENT_LENGTH = "Content-Length";
+	
 	protected final boolean serveContent(
 			final HttpServletRequest request,
 			final HttpServletResponse response)
@@ -232,13 +237,13 @@ public class DataServlet extends HttpServlet
 
 				final long lastModified = item.getDataLastModified(attribute);
 				//System.out.println("lastModified="+formatHttpDate(lastModified));
-				response.setDateHeader("Last-Modified", lastModified);
+				response.setDateHeader(RESPONSE_LAST_MODIFIED, lastModified);
 
 				final long now = System.currentTimeMillis();
-				response.setDateHeader("Expires", now+EXPIRES_OFFSET);
+				response.setDateHeader(RESPONSE_EXPIRES, now+EXPIRES_OFFSET);
 				
-				final long ifModifiedSince = request.getDateHeader("If-Modified-Since");
-				//System.out.println("ifModifiedSince="+request.getHeader("If-Modified-Since"));
+				final long ifModifiedSince = request.getDateHeader(REQUEST_IF_MODIFIED_SINCE);
+				//System.out.println("ifModifiedSince="+request.getHeader(REQUEST_IF_MODIFIED_SINCE));
 				//System.out.println("ifModifiedSince="+ifModifiedSince);
 				
 				if(ifModifiedSince>=0 && ifModifiedSince>=lastModified)
@@ -252,7 +257,7 @@ public class DataServlet extends HttpServlet
 				{
 					final long contentLength = item.getDataLength(attribute);
 					//System.out.println("contentLength="+String.valueOf(contentLength));
-					response.setHeader("Content-Length", String.valueOf(contentLength));
+					response.setHeader(RESPONSE_CONTENT_LENGTH, String.valueOf(contentLength));
 	
 					System.out.println("ifModifiedSince="+format(ifModifiedSince)+"  lastModified="+format(lastModified)+"  modified: "+contentLength);
 
