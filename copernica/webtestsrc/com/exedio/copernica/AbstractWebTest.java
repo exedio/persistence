@@ -18,6 +18,8 @@
 package com.exedio.copernica;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import net.sourceforge.jwebunit.TestContext;
 import net.sourceforge.jwebunit.WebTestCase;
@@ -81,6 +83,36 @@ public class AbstractWebTest extends WebTestCase
 			}
 		}
 		fail("there is no button with value "+buttonValue);
+	}
+	
+	private static final String DATE_FORMAT_FULL = "dd.MM.yyyy HH:mm:ss.SSS";
+
+	/**
+	 * @param resolution the expected resolution of the timestamp saved in param <code>actual</code>, in milliseonds
+	 */
+	protected final static void assertWithin(final long resolution, final Date expectedBefore, final Date expectedAfter, final Date actual)
+	{
+		final Date expectedBeforeFloor = new Date((expectedBefore.getTime() / resolution) * resolution);
+		final Date expectedAfterCeil   = new Date(((expectedAfter.getTime() / resolution) * resolution) + resolution);
+
+		//final SimpleDateFormat df = new SimpleDateFormat(DATE_FORMAT_FULL);
+		//System.out.println();
+		//System.out.println("FLOOR: " + df.format(expectedBefore) + " to " + df.format(expectedBeforeFloor));
+		//System.out.println("CEIL:  " + df.format(expectedAfter)  + " to " + df.format(expectedAfterCeil));
+		
+		assertWithin(expectedBeforeFloor, expectedAfterCeil, actual);
+	}
+
+	protected final static void assertWithin(final Date expectedBefore, final Date expectedAfter, final Date actual)
+	{
+		final SimpleDateFormat df = new SimpleDateFormat(DATE_FORMAT_FULL);
+		final String message =
+			"expected date within " + df.format(expectedBefore) +
+			" and " + df.format(expectedAfter) +
+			", but was " + df.format(actual);
+
+		assertTrue(message, !expectedBefore.after(actual));
+		assertTrue(message, !expectedAfter.before(actual));
 	}
 	
 }
