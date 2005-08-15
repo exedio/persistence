@@ -58,7 +58,6 @@ final class Generator
 	private static final String SETTER_DATA = "Sets the new data for the data attribute {0}.";
 	private static final String SETTER_DATA_IOEXCEPTION = "if accessing {0} throws an IOException.";
 	private static final String GETTER_DATA_URL =     "Returns a URL the data of the data attribute {0} is available under.";
-	private static final String GETTER_DATA_VARIANT = "Returns a URL the data of the {1} variant of the data attribute {0} is available under.";
 	private static final String GETTER_DATA_MAJOR = "Returns the major mime type of the data attribute {0}.";
 	private static final String GETTER_DATA_MINOR = "Returns the minor mime type of the data attribute {0}.";
 	private static final String GETTER_DATA_DATA = "Returns the data of the data attribute {0}.";
@@ -481,15 +480,12 @@ final class Generator
 	private void writeDataGetterMethod(final CopeDataAttribute attribute,
 													final Class returnType,
 													final String part,
-													final CopeDataVariant variant,
 													final String commentPattern)
 	throws IOException
 	{
 		writeCommentHeader();
 		o.write("\t * ");
-		o.write(variant==null
-				? format(commentPattern, link(attribute.getName()))
-				: format(commentPattern, link(attribute.getName()), link(variant.name, variant.shortName)));
+		o.write(format(commentPattern, link(attribute.getName())));
 		o.write(lineSeparator);
 		writeCommentGenerated();
 		writeCommentFooter();
@@ -499,8 +495,6 @@ final class Generator
 		o.write(" get");
 		o.write(toCamelCase(attribute.getName()));
 		o.write(part);
-		if(variant!=null)
-			o.write(variant.methodAppendix);
 		o.write("()");
 		o.write(lineSeparator);
 		o.write("\t{");
@@ -510,10 +504,7 @@ final class Generator
 		o.write('(');
 		o.write(attribute.copeClass.getName());
 		o.write('.');
-		if(variant!=null)
-			o.write(variant.name);
-		else
-			o.write(attribute.getName());
+		o.write(attribute.getName());
 		o.write(");");
 		o.write(lineSeparator);
 		o.write("\t}");
@@ -526,16 +517,10 @@ final class Generator
 		final String mimeMinor = attribute.mimeMinor;
 
 		// getters
-		writeDataGetterMethod(attribute, String.class, "URL", null, GETTER_DATA_URL);
-		final List variants = attribute.getVariants();
-		if(variants!=null)
-		{
-			for(Iterator i = variants.iterator(); i.hasNext(); )
-				writeDataGetterMethod(attribute, String.class, "URL", (CopeDataVariant)i.next(), GETTER_DATA_VARIANT);
-		}
-		writeDataGetterMethod(attribute, String.class, "MimeMajor", null, GETTER_DATA_MAJOR);
-		writeDataGetterMethod(attribute, String.class, "MimeMinor", null, GETTER_DATA_MINOR);
-		writeDataGetterMethod(attribute, InputStream.class, "Data", null, GETTER_DATA_DATA);
+		writeDataGetterMethod(attribute, String.class,      "URL",       GETTER_DATA_URL);
+		writeDataGetterMethod(attribute, String.class,      "MimeMajor", GETTER_DATA_MAJOR);
+		writeDataGetterMethod(attribute, String.class,      "MimeMinor", GETTER_DATA_MINOR);
+		writeDataGetterMethod(attribute, InputStream.class, "Data",      GETTER_DATA_DATA);
 		
 		// setters
 		if(attribute.hasGeneratedSetter())

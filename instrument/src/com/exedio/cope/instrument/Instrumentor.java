@@ -29,7 +29,6 @@ import java.util.List;
 import com.exedio.cope.Attribute;
 import com.exedio.cope.BooleanAttribute;
 import com.exedio.cope.DataAttribute;
-import com.exedio.cope.DataAttributeVariant;
 import com.exedio.cope.DateAttribute;
 import com.exedio.cope.DoubleAttribute;
 import com.exedio.cope.EnumAttribute;
@@ -240,22 +239,6 @@ final class Instrumentor implements InjectionConsumer
 		new CopeQualifier(ja.name, copeClass, initializerArguments);
 	}
 
-	private final void handleDataVariant(final JavaAttribute ja, final Class typeClass)
-		throws InjectorParseException
-	{
-		final JavaClass jc = ja.parent;
-		final CopeClass copeClass = CopeClass.getCopeClass(jc);
-		final List initializerArguments = ja.getInitializerArguments();
-		if(initializerArguments.size()!=1)
-			throw new InjectorParseException("attribute >"+ja.name+"< has invalid initializer arguments: "+initializerArguments);
-		//System.out.println("---------"+initializerArguments);
-		final String initializerArgument = (String)initializerArguments.get(0);
-		final CopeDataAttribute attribute = (CopeDataAttribute)copeClass.getCopeAttribute(initializerArgument);
-		if(attribute==null)
-			throw new InjectorParseException("attribute >"+initializerArgument+"< in data attribute variant "+ja.name+" not found.");
-		new CopeDataVariant(ja, attribute);
-	}
-
 	private final void handleHash(final JavaAttribute ja, final Class typeClass)
 		throws InjectorParseException
 	{
@@ -338,8 +321,6 @@ final class Instrumentor implements InjectionConsumer
 						handleUniqueConstraint(ja, typeClass);
 					else if(Qualifier.class.isAssignableFrom(typeClass))
 						handleQualifier(ja, typeClass);
-					else if(DataAttributeVariant.class.isAssignableFrom(typeClass))
-						handleDataVariant(ja, typeClass);
 					else if(Hash.class.isAssignableFrom(typeClass))
 						handleHash(ja, typeClass);
 					else if(Vector.class.isAssignableFrom(typeClass))

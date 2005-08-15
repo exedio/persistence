@@ -18,13 +18,10 @@
 
 package com.exedio.cope.instrument;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 final class CopeDataAttribute extends CopeAttribute
 {
-	private final List variants;
 	public final String mimeMajor;
 	public final String mimeMinor;
 
@@ -37,22 +34,11 @@ final class CopeDataAttribute extends CopeAttribute
 		throws InjectorParseException
 	{
 		super(javaAttribute, typeClass, DATA_TYPE, initializerArguments, getterOption, setterOption);
-		this.variants = new ArrayList();
 
 		this.mimeMajor = getString(initializerArguments, 1);
 		this.mimeMinor = getString(initializerArguments, 2);
 	}
 	
-	void addVariant(final CopeDataVariant variant)
-	{
-		variants.add(variant);
-	}
-	
-	List getVariants()
-	{
-		return Collections.unmodifiableList(variants);
-	}
-
 	private static String getString(final List initializerArguments, final int pos)
 		throws InjectorParseException
 	{

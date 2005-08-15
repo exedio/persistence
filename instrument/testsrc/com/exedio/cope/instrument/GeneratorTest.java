@@ -115,8 +115,6 @@ public class GeneratorTest extends InstrumentorTest
 		assertMethod(standard, "getAnyDataMimeMinor", String.class, PUBLIC|FINAL);
 		assertMethod(standard, "getAnyDataData", InputStream.class, PUBLIC|FINAL);
 		assertMethod(standard, "setAnyData", new Class[]{InputStream.class, String.class, String.class}, PUBLIC|FINAL, new Class[]{IOException.class});
-		assertMethod(standard, "getAnyDataURLShortVariant", String.class, PUBLIC|FINAL);
-		assertMethod(standard, "getAnyDataURLLongVariant", String.class, PUBLIC|FINAL);
 
 		assertMethod(standard, "getMajorDataURL", String.class, PUBLIC|FINAL);
 		assertMethod(standard, "getMajorDataMimeMajor", String.class, PUBLIC|FINAL);

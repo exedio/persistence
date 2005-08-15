@@ -73,12 +73,6 @@ public abstract class Attribute extends Feature
 
 		if(singleUniqueConstraint!=null)
 			singleUniqueConstraint.initialize(type, name);
-
-		postInitialize();
-	}
-	
-	protected void postInitialize()
-	{
 	}
 	
 	final void materialize(final Table table)

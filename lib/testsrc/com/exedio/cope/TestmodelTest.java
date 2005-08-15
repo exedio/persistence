@@ -83,13 +83,9 @@ public abstract class TestmodelTest extends AbstractLibTest
 		final String prefix = "data/AttributeItem/someData/";
 		final String pkString = pkString(item);
 		final String expectedURL = prefix+pkString+'.'+url;
-		final String expectedURLSomeVariant = prefix+"someVariant/"+pkString+'.'+url;
 		//System.out.println(expectedURL);
 		//System.out.println(item.getSomeDataURL());
 		assertEquals(expectedURL, item.getSomeDataURL());
-		assertEquals(expectedURLSomeVariant, item.getSomeDataURLSomeVariant());
-		//System.out.println(expectedURLSomeVariant);
-		//System.out.println(item.getSomeDataURL());
 		assertData(data, item.getSomeDataData());
 		assertEquals(mimeMajor, item.getSomeDataMimeMajor());
 		assertEquals(mimeMinor, item.getSomeDataMimeMinor());

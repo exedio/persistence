@@ -434,19 +434,13 @@ public abstract class Item extends Cope
 	}
 
 	private final void appendDataPath(
-									final DataAttribute attribute, final DataAttributeVariant variant,
+									final DataAttribute attribute,
 									final StringBuffer bf)
 	{
 		bf.append(attribute.getType().getID()).
 			append('/').
 			append(attribute.getName());
 		
-		if(variant!=null)
-		{
-			bf.append('/').
-				append(variant.getName());
-		}
-
 		bf.append('/').
 			append(type.getPrimaryKeyIterator().pk2id(pk));
 	}
@@ -455,7 +449,7 @@ public abstract class Item extends Cope
 	{
 		final File directory = type.getModel().getProperties().getDatadirPath();
 		final StringBuffer buf = new StringBuffer();
-		appendDataPath(attribute, null, buf);
+		appendDataPath(attribute, buf);
 		return new File(directory, buf.toString());
 	}
 	
@@ -465,28 +459,11 @@ public abstract class Item extends Cope
 	 */
 	public final String getURL(final DataAttribute attribute)
 	{
-		return getURL(attribute, null);
-	}
-
-	/**
-	 * Returns a URL pointing to the data of this persistent data attribute.
-	 * Returns null, if there is no data for this attribute.
-	 */
-	public final String getURL(final DataAttributeVariant variant)
-	{
-		return getURL(variant.attribute, variant);
-	}
-
-	private final String getURL(final DataAttribute attribute, final DataAttributeVariant variant)
-	{
-		if(variant!=null && variant.attribute!=attribute)
-			throw new RuntimeException();
-
 		if(isNull(attribute))
 			return null;
 
 		final StringBuffer bf = new StringBuffer(type.getModel().getProperties().getDatadirUrl());
-		appendDataPath(attribute, variant, bf);
+		appendDataPath(attribute, bf);
 		appendExtension(attribute, bf);
 		return bf.toString();
 	}
@@ -754,11 +731,6 @@ public abstract class Item extends Cope
 	protected static final DataAttribute dataAttribute(final Option option, final String fixedMimeMajor, final String fixedMimeMinor)
 	{
 		return new DataAttribute(option, fixedMimeMajor, fixedMimeMinor);
-	}
-	
-	protected static final DataAttributeVariant dataAttributeVariant(final DataAttribute attribute)
-	{
-		return new DataAttributeVariant(attribute);
 	}
 	
 	protected static final UniqueConstraint uniqueConstraint(final ObjectAttribute uniqueAttribute)

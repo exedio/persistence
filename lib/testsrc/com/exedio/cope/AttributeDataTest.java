@@ -27,17 +27,11 @@ public class AttributeDataTest extends AttributeTest
 		assertEquals("someData", item.someData.getName());
 		assertEquals(null, item.someData.getFixedMimeMajor());
 		assertEquals(null, item.someData.getFixedMimeMinor());
-		assertEquals(list(item.someVariant), item.someData.getVariants());
 		assertEquals(null, item.someData.getSingleUniqueConstraint());
 
-		assertEquals(item.TYPE, item.someVariant.getType());
-		assertEquals("someVariant", item.someVariant.getName());
-		assertEquals(item.someData, item.someVariant.getAttribute());
-		
 		// TODO: test with not null data
 		assertEquals(item.TYPE, item.someData.getType());
 		assertEquals(null, item.getSomeDataURL());
-		assertEquals(null, item.getSomeDataURLSomeVariant());
 		assertEquals(null, item.getSomeDataData());
 		assertEquals(null, item.getSomeDataMimeMajor());
 		assertEquals(null, item.getSomeDataMimeMinor());
@@ -50,19 +44,15 @@ public class AttributeDataTest extends AttributeTest
 		final String pkString = pkString(item);
 		final String expectedURL =
 			prefix + pkString + ".someMimeMajor.someMimeMinor";
-		final String expectedURLSomeVariant =
-			prefix + "someVariant/" + pkString + ".someMimeMajor.someMimeMinor";
 		//System.out.println(expectedURL);
 		//System.out.println(item.getSomeDataURL());
 		assertEquals(expectedURL, item.getSomeDataURL());
-		assertEquals(expectedURLSomeVariant, item.getSomeDataURLSomeVariant());
 		assertData(bytes, item.getSomeDataData());
 		assertEquals("someMimeMajor", item.getSomeDataMimeMajor());
 		assertEquals("someMimeMinor", item.getSomeDataMimeMinor());
 
 		item.passivateCopeItem();
 		assertEquals(expectedURL, item.getSomeDataURL());
-		assertEquals(expectedURLSomeVariant, item.getSomeDataURLSomeVariant());
 		assertData(bytes, item.getSomeDataData());
 		assertEquals("someMimeMajor", item.getSomeDataMimeMajor());
 		assertEquals("someMimeMinor", item.getSomeDataMimeMinor());
@@ -84,7 +74,6 @@ public class AttributeDataTest extends AttributeTest
 
 		item.setSomeData(null, null, null);
 		assertEquals(null, item.getSomeDataURL());
-		assertEquals(null, item.getSomeDataURLSomeVariant());
 		assertEquals(null, item.getSomeDataData());
 		assertEquals(null, item.getSomeDataMimeMajor());
 		assertEquals(null, item.getSomeDataMimeMinor());
