@@ -20,7 +20,6 @@ package com.exedio.cope.util;
 
 import java.io.File;
 import java.lang.reflect.Field;
-import java.util.Properties;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
