@@ -12,7 +12,7 @@
 	- Transactions: introduce timestamp and use it in
 		* Item#touch
 		* timestamp of data files
-	- optionally use strings in DB for enum attributes
+	- EnumAttribute: optionally put strings in DB
 	- DataAttribute:
 		0) test reverse proxy functionality of apache
 		1) write tests for up/downloading data in copernica
