@@ -21,7 +21,9 @@
 		5) write tests for pure data attributes without mime type pattern
 		6) replace Attribute#getColumns/#getMainColumn by #getColumn
 		7) implement data attribute in database (BLOB)
-	- globally use term Content-Type instead of Mime
+	- HttpEntity:
+		* globally use term Content-Type instead of Mime
+		* maintain charset in Content-Type for texts
 	- move Item#touch into separate pattern Timestamp
 	- disable empty strings for oracle
 		/ introduce database specific max/min length for strings
