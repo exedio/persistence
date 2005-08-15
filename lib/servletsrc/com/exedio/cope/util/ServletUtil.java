@@ -78,21 +78,9 @@ public class ServletUtil
 	{
 		final ServletContext context = config.getServletContext();
 		
-		final File propertyFile = new File(context.getRealPath("WEB-INF/cope.properties"));
-		
-		final Properties p = com.exedio.cope.Properties.loadProperties(propertyFile);
-		if("//WEB-APP//".equals(p.getProperty(DATADIR_PATH)))
-		{
-			final String datadirUrl = p.getProperty(DATADIR_URL);
-			// TODO: deal with web applications without data attributes
-			if(datadirUrl==null)
-				throw new RuntimeException("parameter " + DATADIR_URL + " must exist in "+propertyFile.getAbsolutePath());
-			
-			p.setProperty(DATADIR_PATH, context.getRealPath(datadirUrl));
-		}
-			
 		model.setPropertiesInitially(
-			new com.exedio.cope.Properties(p, propertyFile.getAbsolutePath()));
+			new com.exedio.cope.Properties(
+				new File(context.getRealPath("WEB-INF/cope.properties"))));
 	}
 
 }

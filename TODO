@@ -18,7 +18,6 @@
 		1) write tests for up/downloading data in copernica
 		2) implement DataServlet
 		3) remove functionality, that renames files dependending on mime types
-		3b)remove //WEB-APP//-replacement functionality
 		4) remove mime type from data attribute, put this functionality into a pattern
 		5) write tests for pure data attributes without mime type pattern
 		6) replace Attribute#getColumns/#getMainColumn by #getColumn
