@@ -210,12 +210,12 @@ public class DataServlet extends HttpServlet
 		if(attribute==null)
 			return false;
 		
-		final int trailingDot = pathInfo.lastIndexOf('.');
+		final int dotAfterSlash = pathInfo.indexOf('.', trailingSlash);
 		//System.out.println("trailingDot="+trailingDot);
 
 		final String pkString =
-			(trailingDot>trailingSlash)
-			? pathInfo.substring(trailingSlash+1, trailingDot)
+			(dotAfterSlash>=0)
+			? pathInfo.substring(trailingSlash+1, dotAfterSlash)
 			: pathInfo.substring(trailingSlash+1);
 		//System.out.println("pkString="+pkString);
 

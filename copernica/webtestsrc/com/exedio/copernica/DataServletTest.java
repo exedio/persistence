@@ -41,6 +41,8 @@ public class DataServletTest extends AbstractWebTest
 		assertEquals(textLastModified, assertURL(new URL(prefix + "DataItem/file/0"), textLastModified-1, false));
 		assertEquals(textLastModified, assertURL(new URL(prefix + "DataItem/file/0"), textLastModified, true));
 		assertEquals(textLastModified, assertURL(new URL(prefix + "DataItem/file/0"), textLastModified+5000, true));
+
+		assertEquals(textLastModified, assertURL(new URL(prefix + "DataItem/file/2.unknownma.unknownmi"), "unknownma/unknownmi"));
 	}
 	
 	private long assertURL(final URL url) throws IOException
@@ -48,7 +50,17 @@ public class DataServletTest extends AbstractWebTest
 		return assertURL(url, -1, false);
 	}
 	
+	private long assertURL(final URL url, final String contentType) throws IOException
+	{
+		return assertURL(url, contentType, -1, false);
+	}
+	
 	private long assertURL(final URL url, final long ifModifiedSince, final boolean expectNotModified) throws IOException
+	{
+		return assertURL(url, "text/plain", ifModifiedSince, expectNotModified);
+	}
+
+	private long assertURL(final URL url, final String contentType, final long ifModifiedSince, final boolean expectNotModified) throws IOException
 	{
 		final Date before = new Date();
 		final HttpURLConnection conn = (HttpURLConnection)url.openConnection();
@@ -63,7 +75,7 @@ public class DataServletTest extends AbstractWebTest
 		final long lastModified = conn.getLastModified();
 		//System.out.println("LastModified: "+new Date(lastModified));
 		assertTrue((date+1000)>=lastModified);
-		assertEquals(expectNotModified ? null : "text/plain", conn.getContentType()); // TODO: content type should be set on 304
+		assertEquals(expectNotModified ? null : contentType, conn.getContentType()); // TODO: content type should be set on 304
 		//System.out.println("Expires: "+new Date(textConn.getExpiration()));
 		assertWithin(new Date(date+4000), new Date(date+6000), new Date(conn.getExpiration()));
 		assertEquals(expectNotModified ? -1 : 66, conn.getContentLength());
