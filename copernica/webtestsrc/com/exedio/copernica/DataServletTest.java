@@ -55,6 +55,7 @@ public class DataServletTest extends AbstractWebTest
 		assertEquals("text/plain", conn.getContentType());
 		//System.out.println("Expires: "+new Date(textConn.getExpiration()));
 		assertWithin(new Date(date+4000), new Date(date+6000), new Date(conn.getExpiration()));
+		assertEquals(66, conn.getContentLength());
 		
 		final BufferedReader is = new BufferedReader(new InputStreamReader((InputStream)conn.getInputStream()));
 		assertEquals("This is an example file", is.readLine());
