@@ -38,22 +38,24 @@ public class DataServletTest extends AbstractWebTest
 		assertEquals(textLastModified, assertURL(new URL(prefix + "DataItem/file/0.")));
 		assertEquals(textLastModified, assertURL(new URL(prefix + "DataItem/file/0")));
 
-		assertEquals(textLastModified, assertURL(new URL(prefix + "DataItem/file/0"), textLastModified-1));
+		assertEquals(textLastModified, assertURL(new URL(prefix + "DataItem/file/0"), textLastModified-1, false));
+		assertEquals(textLastModified, assertURL(new URL(prefix + "DataItem/file/0"), textLastModified, true));
+		assertEquals(textLastModified, assertURL(new URL(prefix + "DataItem/file/0"), textLastModified+5000, true));
 	}
 	
 	private long assertURL(final URL url) throws IOException
 	{
-		return assertURL(url, -1);
+		return assertURL(url, -1, false);
 	}
 	
-	private long assertURL(final URL url, final long ifModifiedSince) throws IOException
+	private long assertURL(final URL url, final long ifModifiedSince, final boolean expectNotModified) throws IOException
 	{
 		final Date before = new Date();
 		final HttpURLConnection conn = (HttpURLConnection)url.openConnection();
 		if(ifModifiedSince>=0)
 			conn.setIfModifiedSince(ifModifiedSince);
 		conn.connect();
-		assertEquals(200, conn.getResponseCode());
+		assertEquals(expectNotModified ? 304 : 200, conn.getResponseCode());
 		final long date = conn.getDate();
 		final Date after = new Date();
 		//System.out.println("Date: "+new Date(date));
@@ -61,15 +63,18 @@ public class DataServletTest extends AbstractWebTest
 		final long lastModified = conn.getLastModified();
 		//System.out.println("LastModified: "+new Date(lastModified));
 		assertTrue((date+1000)>=lastModified);
-		assertEquals("text/plain", conn.getContentType());
+		assertEquals(expectNotModified ? null : "text/plain", conn.getContentType()); // TODO: content type should be set on 304
 		//System.out.println("Expires: "+new Date(textConn.getExpiration()));
 		assertWithin(new Date(date+4000), new Date(date+6000), new Date(conn.getExpiration()));
-		assertEquals(66, conn.getContentLength());
+		assertEquals(expectNotModified ? -1 : 66, conn.getContentLength());
 		
 		final BufferedReader is = new BufferedReader(new InputStreamReader((InputStream)conn.getInputStream()));
-		assertEquals("This is an example file", is.readLine());
-		assertEquals("for testing data", is.readLine());
-		assertEquals("attributes in copernica.", is.readLine());
+		if(!expectNotModified)
+		{
+			assertEquals("This is an example file", is.readLine());
+			assertEquals("for testing data", is.readLine());
+			assertEquals("attributes in copernica.", is.readLine());
+		}
 		assertEquals(null, is.readLine());
 		is.close();
 		
