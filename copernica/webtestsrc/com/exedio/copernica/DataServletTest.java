@@ -31,7 +31,7 @@ public class DataServletTest extends AbstractWebTest
 
 	public void testError() throws Exception
 	{
-		final String prefix = "http://localhost:8080/copetest-hsqldb/xdata/";
+		final String prefix = "http://localhost:8080/copetest-hsqldb/data/";
 
 		final long textLastModified = assertURL(new URL(prefix + "DataItem/file/0.txt"));
 		assertEquals(textLastModified, assertURL(new URL(prefix + "DataItem/file/0.zick")));

@@ -15,7 +15,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>data</servlet-name>
-		<url-pattern>/xdata/*</url-pattern>
+		<url-pattern>/data/*</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
