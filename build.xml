@@ -535,10 +535,11 @@
 					<fileset file="../lib/@{db.driver}" />
 				</copy>
 				
+				<property name="webdatadir.@{db.file}" location="copernica/build/testwebapp-@{db}-data" />
 				<copy tofile="copernica/build/testwebapp-@{db}/WEB-INF/cope.properties"
 						file="@{db.file}">
 					<filterset>
-						<filter token="DATADIR_PATH" value="//WEB-APP//" />
+						<filter token="DATADIR_PATH" value="${webdatadir.@{db.file}}" />
 					</filterset>
 				</copy>
 				<copy todir="copernica/build/testwebapp-@{db}/WEB-INF/"
@@ -546,7 +547,7 @@
 				<copy todir="copernica/build/testwebapp-@{db}">
 					<fileset dir="copernica/web" />
 				</copy>
-				<mkdir dir="copernica/build/testwebapp-@{db}/data" />
+				<mkdir dir="copernica/build/testwebapp-@{db}-data" />
 				<copy tofile="../tomcat/conf/Catalina/localhost/copetest-@{db}.xml"
 						file="copernica/copetest.xml">
 					<filterset>
