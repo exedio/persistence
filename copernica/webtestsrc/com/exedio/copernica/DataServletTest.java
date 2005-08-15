@@ -18,7 +18,10 @@
 
 package com.exedio.copernica;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Date;
@@ -52,6 +55,14 @@ public class DataServletTest extends AbstractWebTest
 		assertEquals("text/plain", conn.getContentType());
 		//System.out.println("Expires: "+new Date(textConn.getExpiration()));
 		assertWithin(new Date(date+4000), new Date(date+6000), new Date(conn.getExpiration()));
+		
+		final BufferedReader is = new BufferedReader(new InputStreamReader((InputStream)conn.getInputStream()));
+		assertEquals("This is an example file", is.readLine());
+		assertEquals("for testing data", is.readLine());
+		assertEquals("attributes in copernica.", is.readLine());
+		assertEquals(null, is.readLine());
+		is.close();
+		
 		//textConn.setIfModifiedSince();
 		return lastModified;
 	}
