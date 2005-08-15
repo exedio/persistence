@@ -37,12 +37,21 @@ public class DataServletTest extends AbstractWebTest
 		assertEquals(textLastModified, assertURL(new URL(prefix + "DataItem/file/0.zick")));
 		assertEquals(textLastModified, assertURL(new URL(prefix + "DataItem/file/0.")));
 		assertEquals(textLastModified, assertURL(new URL(prefix + "DataItem/file/0")));
+
+		assertEquals(textLastModified, assertURL(new URL(prefix + "DataItem/file/0"), textLastModified-1));
 	}
 	
 	private long assertURL(final URL url) throws IOException
 	{
+		return assertURL(url, -1);
+	}
+	
+	private long assertURL(final URL url, final long ifModifiedSince) throws IOException
+	{
 		final Date before = new Date();
 		final HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+		if(ifModifiedSince>=0)
+			conn.setIfModifiedSince(ifModifiedSince);
 		conn.connect();
 		assertEquals(200, conn.getResponseCode());
 		final long date = conn.getDate();
