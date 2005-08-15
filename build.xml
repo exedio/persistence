@@ -271,7 +271,7 @@
 			</manifest>
 		</jar>
 		<zip zipfile="copernica/build/exedio-copernica-static.zip">
-			<fileset dir="copernica/jsp" />
+			<fileset dir="copernica/web" />
 		</zip>
 	</target>
 	
@@ -544,10 +544,7 @@
 				<copy todir="copernica/build/testwebapp-@{db}/WEB-INF/"
 						file="copernica/web.xml" />
 				<copy todir="copernica/build/testwebapp-@{db}">
-					<fileset dir="copernica/jsp">
-						<exclude name="*.jsp" />
-						<exclude name="*.inc" />
-					</fileset>
+					<fileset dir="copernica/web" />
 				</copy>
 				<mkdir dir="copernica/build/testwebapp-@{db}/data" />
 				<copy tofile="../tomcat/conf/Catalina/localhost/copetest-@{db}.xml"
