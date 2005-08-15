@@ -390,10 +390,8 @@ public abstract class Item extends Cope
 		else
 			return null;
 	}
-
-	private final void appendDataPath(
-									final DataAttribute attribute, final DataAttributeVariant variant,
-									final StringBuffer bf)
+	
+	private final void appendExtension(final DataAttribute attribute, final StringBuffer bf)
 	{
 		final String mimeMajor;
 		final String mimeMinor;
@@ -423,6 +421,22 @@ public abstract class Item extends Cope
 			}
 		}
 
+		final String compactExtension = getCompactExtension(mimeMajor, mimeMinor);
+		if(compactExtension==null)
+		{
+			bf.append('.').
+				append(mimeMajor).
+				append('.').
+				append(mimeMinor);
+		}
+		else
+			bf.append(compactExtension);
+	}
+
+	private final void appendDataPath(
+									final DataAttribute attribute, final DataAttributeVariant variant,
+									final StringBuffer bf)
+	{
 		bf.append(attribute.getType().getID()).
 			append('/').
 			append(attribute.getName());
@@ -435,17 +449,6 @@ public abstract class Item extends Cope
 
 		bf.append('/').
 			append(type.getPrimaryKeyIterator().pk2id(pk));
-
-		final String compactExtension = getCompactExtension(mimeMajor, mimeMinor);
-		if(compactExtension==null)
-		{
-			bf.append('.').
-				append(mimeMajor).
-				append('.').
-				append(mimeMinor);
-		}
-		else
-			bf.append(compactExtension);
 	}
 	
 	private final File getDataFile(final DataAttribute attribute)
@@ -484,6 +487,7 @@ public abstract class Item extends Cope
 
 		final StringBuffer bf = new StringBuffer(type.getModel().getProperties().getDatadirUrl());
 		appendDataPath(attribute, variant, bf);
+		appendExtension(attribute, bf);
 		return bf.toString();
 	}
 
@@ -599,7 +603,6 @@ public abstract class Item extends Cope
 			}
 	
 			final boolean isNullPreviously = isNull(attribute);
-			final File previousFile = isNullPreviously ? null : getDataFile(attribute);
 	
 			final Row row = getRow();
 			if(attribute.fixedMimeMajor==null)
@@ -618,33 +621,23 @@ public abstract class Item extends Cope
 				new NestingRuntimeException(e);
 			}
 	
+			final File file = getDataFile(attribute);
+
 			if(data!=null)
 			{
-				final File file = getDataFile(attribute);
 				final OutputStream out = new FileOutputStream(file);
 				final byte[] b = new byte[20*1024];
 				for(int len = data.read(b); len>=0; len = data.read(b))
 					out.write(b, 0, len);
 				out.close();
 				data.close();
-	
-				// This is done after the new file is written,
-				// to prevent loss of data, if writing the new file fails
-				if(!isNullPreviously)
-				{
-					if(!previousFile.equals(file))
-					{
-						if(!previousFile.delete())
-							throw new RuntimeException("deleting "+previousFile+" failed.");
-					}
-				}
 			}
 			else
 			{
 				if(!isNullPreviously)
 				{
-					if(!previousFile.delete())
-						throw new RuntimeException("deleting "+previousFile+" failed.");
+					if(!file.delete())
+						throw new RuntimeException("deleting "+file+" failed.");
 				}
 			}
 		}
