@@ -31,7 +31,7 @@ public class DataServletTest extends AbstractWebTest
 
 	public void testError() throws Exception
 	{
-		final String prefix = "http://localhost:8080/copetest-mysql/xdata/";
+		final String prefix = "http://localhost:8080/copetest-hsqldb/xdata/";
 
 		final long textLastModified = assertURL(new URL(prefix + "DataItem/file/0.txt"));
 		assertEquals(textLastModified, assertURL(new URL(prefix + "DataItem/file/0.zick")));
@@ -41,17 +41,17 @@ public class DataServletTest extends AbstractWebTest
 	
 	private long assertURL(final URL url) throws IOException
 	{
-		final HttpURLConnection conn = (HttpURLConnection)url.openConnection();
 		final Date before = new Date();
+		final HttpURLConnection conn = (HttpURLConnection)url.openConnection();
 		conn.connect();
-		final Date after = new Date();
-		//System.out.println("Date: "+new Date(date));
 		assertEquals(200, conn.getResponseCode());
 		final long date = conn.getDate();
-		assertWithin(1000, before, after, new Date(date));
+		final Date after = new Date();
+		//System.out.println("Date: "+new Date(date));
+		assertWithin(3000, before, after, new Date(date));
 		final long lastModified = conn.getLastModified();
-		assertTrue(date>lastModified);
-		//System.out.println("LastModified: "+new Date(textLastModified));
+		//System.out.println("LastModified: "+new Date(lastModified));
+		assertTrue((date+1000)>=lastModified);
 		assertEquals("text/plain", conn.getContentType());
 		//System.out.println("Expires: "+new Date(textConn.getExpiration()));
 		assertWithin(new Date(date+4000), new Date(date+6000), new Date(conn.getExpiration()));

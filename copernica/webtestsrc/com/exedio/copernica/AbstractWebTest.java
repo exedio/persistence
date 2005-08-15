@@ -92,8 +92,8 @@ public class AbstractWebTest extends WebTestCase
 	 */
 	protected final static void assertWithin(final long resolution, final Date expectedBefore, final Date expectedAfter, final Date actual)
 	{
-		final Date expectedBeforeFloor = new Date((expectedBefore.getTime() / resolution) * resolution);
-		final Date expectedAfterCeil   = new Date(((expectedAfter.getTime() / resolution) * resolution) + resolution);
+		final Date expectedBeforeFloor = new Date(expectedBefore.getTime() - resolution);
+		final Date expectedAfterCeil   = new Date(expectedAfter.getTime()  + resolution);
 
 		//final SimpleDateFormat df = new SimpleDateFormat(DATE_FORMAT_FULL);
 		//System.out.println();
