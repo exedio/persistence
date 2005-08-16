@@ -28,6 +28,7 @@ public class DataTest extends TestmodelTest
 	private DataItem item;
 	private final byte[] data = new byte[]{-86,122,-8,23};
 	private final byte[] data2 = new byte[]{-97,35,-126,86,19,-8};
+	private final byte[] dataEmpty = new byte[]{};
 	
 	public void setUp() throws Exception
 	{
@@ -47,7 +48,6 @@ public class DataTest extends TestmodelTest
 	public void testData() throws IOException
 	{
 		// TODO: test item.TYPE.getPatterns
-		// TODO: test empty files
 
 		// file
 		assertEquals(null, item.file.getFixedMimeMajor());
@@ -91,6 +91,17 @@ public class DataTest extends TestmodelTest
 		assertExtension("text", "plain", ".txt");
 		assertExtension("text", "css", ".css");
 		
+		final Date beforeDataEmpty = new Date();
+		item.setFile(stream(dataEmpty), "emptyMajor", "emptyMinor");
+		final Date afterDataEmpty = new Date();
+		assertTrue(!item.file.isNull(item));
+		assertData(dataEmpty, item.getFileData());
+		assertEquals(0, item.file.getDataLength(item));
+		assertWithin(1000, beforeData2, afterData2, new Date(item.file.getDataLastModified(item)));
+		assertEquals("emptyMajor", item.getFileMimeMajor());
+		assertEquals("emptyMinor", item.getFileMimeMinor());
+		assertTrue(item.getFileURL().endsWith(".emptyMajor.emptyMinor"));
+
 		item.setFile(null, null, null);
 		assertTrue(item.file.isNull(item));
 		assertEquals(-1, item.file.getDataLength(item));
