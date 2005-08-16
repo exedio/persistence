@@ -100,9 +100,9 @@ public class Standard extends Item
 	 */
 	public static final BooleanAttribute asIsBoolean = booleanAttribute(DEFAULT);
 	
-	public static final HttpEntity anyData = new HttpEntity(DEFAULT, stringAttribute(DEFAULT), stringAttribute(DEFAULT));
+	public static final HttpEntity anyData = new HttpEntity(DEFAULT);
 
-	public static final HttpEntity majorData = new HttpEntity(DEFAULT, "major", stringAttribute(DEFAULT));
+	public static final HttpEntity majorData = new HttpEntity(DEFAULT, "major");
 	
 	public static final HttpEntity minorData = new HttpEntity(DEFAULT, "major", "minor");
 	

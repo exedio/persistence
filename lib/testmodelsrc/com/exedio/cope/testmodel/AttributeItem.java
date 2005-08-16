@@ -132,7 +132,7 @@ public class AttributeItem extends Item
 	/**
 	 * A data attribute.
 	 */
-	public static final HttpEntity someData = new HttpEntity(DEFAULT, stringAttribute(DEFAULT, 1, 30), stringAttribute(DEFAULT));
+	public static final HttpEntity someData = new HttpEntity(DEFAULT);
 	
 	public static final Qualifier emptyItem = new Qualifier(AttributeEmptyItem.parentKey);
 
