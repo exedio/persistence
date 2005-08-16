@@ -34,7 +34,7 @@ public class Main
 		AttributeItem.TYPE,
 		AttributeEmptyItem.TYPE,
 		StringItem.TYPE,
-		DataItem.TYPE,
+		HttpEntityItem.TYPE,
 		SumItem.TYPE,
 		QualifiedItem.TYPE,
 		QualifiedEmptyQualifier.TYPE,

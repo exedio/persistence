@@ -22,11 +22,11 @@ import java.io.IOException;
 import java.util.Date;
 
 import com.exedio.cope.TestmodelTest;
-import com.exedio.cope.testmodel.DataItem;
+import com.exedio.cope.testmodel.HttpEntityItem;
 
 public class HttpEntityTest extends TestmodelTest
 {
-	private DataItem item;
+	private HttpEntityItem item;
 	private final byte[] data = new byte[]{-86,122,-8,23};
 	private final byte[] data2 = new byte[]{-97,35,-126,86,19,-8};
 	private final byte[] dataEmpty = new byte[]{};
@@ -34,7 +34,7 @@ public class HttpEntityTest extends TestmodelTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		deleteOnTearDown(item = new DataItem());
+		deleteOnTearDown(item = new HttpEntityItem());
 	}
 	
 	private void assertExtension(final String mimeMajor, final String mimeMinor, final String extension)
