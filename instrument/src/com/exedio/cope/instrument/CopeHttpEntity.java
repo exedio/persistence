@@ -32,8 +32,8 @@ final class CopeHttpEntity
 		this.name = javaAttribute.name;
 		this.copeClass = CopeClass.getCopeClass(javaAttribute.parent);
 
-		this.mimeMajor = getString(javaAttribute.getInitializerArguments(), 2);
-		this.mimeMinor = getString(javaAttribute.getInitializerArguments(), 3);
+		this.mimeMajor = getString(javaAttribute.getInitializerArguments(), 1);
+		this.mimeMinor = getString(javaAttribute.getInitializerArguments(), 2);
 
 		copeClass.add(this);
 	}

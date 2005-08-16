@@ -46,12 +46,12 @@ public final class HttpEntity extends Pattern
 	final BooleanAttribute exists;
 	final ObjectAttribute isNull;
 
-	public HttpEntity(final Option option, final DataAttribute data, final String fixedMimeMajor, final String fixedMimeMinor)
+	public HttpEntity(final Option option, final String fixedMimeMajor, final String fixedMimeMinor)
 	{
 		this.notNull = option.notNull;
 		this.fixedMimeMajor = fixedMimeMajor;
 		this.fixedMimeMinor = fixedMimeMinor;
-		this.data = data;
+		this.data = Item.dataAttribute(option);
 		this.mimeMajor = null;
 		this.mimeMinor = null;
 		this.exists = option.notNull ? null : Item.booleanAttribute(Item.DEFAULT);
@@ -65,12 +65,12 @@ public final class HttpEntity extends Pattern
 			throw new NullPointerException("fixedMimeMinor must not be null");
 	}
 	
-	public HttpEntity(final Option option, final DataAttribute data, final String fixedMimeMajor, final StringAttribute mimeMinor)
+	public HttpEntity(final Option option, final String fixedMimeMajor, final StringAttribute mimeMinor)
 	{
 		this.notNull = option.notNull;
 		this.fixedMimeMajor = fixedMimeMajor;
 		this.fixedMimeMinor = null;
-		this.data = data;
+		this.data = Item.dataAttribute(option);
 		this.mimeMajor = null;
 		this.mimeMinor = mimeMinor;
 		this.exists = null;
@@ -90,12 +90,12 @@ public final class HttpEntity extends Pattern
 			throw new RuntimeException("mimeMinor cannot be read-only");
 	}
 	
-	public HttpEntity(final Option option, final DataAttribute data, final StringAttribute mimeMajor, final StringAttribute mimeMinor)
+	public HttpEntity(final Option option, final StringAttribute mimeMajor, final StringAttribute mimeMinor)
 	{
 		this.notNull = option.notNull;
 		this.fixedMimeMajor = null;
 		this.fixedMimeMinor = null;
-		this.data = data;
+		this.data = Item.dataAttribute(option);
 		this.mimeMajor = mimeMajor;
 		this.mimeMinor = mimeMinor;
 		this.exists = null;

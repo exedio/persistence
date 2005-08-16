@@ -100,11 +100,11 @@ public class Standard extends Item
 	 */
 	public static final BooleanAttribute asIsBoolean = booleanAttribute(DEFAULT);
 	
-	public static final HttpEntity anyData = new HttpEntity(DEFAULT, dataAttribute(DEFAULT), stringAttribute(DEFAULT), stringAttribute(DEFAULT));
+	public static final HttpEntity anyData = new HttpEntity(DEFAULT, stringAttribute(DEFAULT), stringAttribute(DEFAULT));
 
-	public static final HttpEntity majorData = new HttpEntity(DEFAULT, dataAttribute(DEFAULT), "major", stringAttribute(DEFAULT));
+	public static final HttpEntity majorData = new HttpEntity(DEFAULT, "major", stringAttribute(DEFAULT));
 	
-	public static final HttpEntity minorData = new HttpEntity(DEFAULT, dataAttribute(DEFAULT), "major", "minor");
+	public static final HttpEntity minorData = new HttpEntity(DEFAULT, "major", "minor");
 	
 	public static final Hash publicHash = new MD5Hash(privateString);
 	private static final Hash privateHash = new MD5Hash(defaultString);

@@ -546,7 +546,7 @@ public abstract class Item extends Cope
 		return new DoubleAttribute(option);
 	}
 	
-	protected static final DataAttribute dataAttribute(final Option option)
+	public static final DataAttribute dataAttribute(final Option option)
 	{
 		return new DataAttribute(option);
 	}

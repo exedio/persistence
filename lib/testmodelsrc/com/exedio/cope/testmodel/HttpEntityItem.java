@@ -28,11 +28,11 @@ import com.exedio.cope.pattern.HttpEntity;
 public class HttpEntityItem extends Item
 {
 
-	public static final HttpEntity file = new HttpEntity(DEFAULT, dataAttribute(DEFAULT), stringAttribute(DEFAULT), stringAttribute(DEFAULT));
+	public static final HttpEntity file = new HttpEntity(DEFAULT, stringAttribute(DEFAULT), stringAttribute(DEFAULT));
 
-	public static final HttpEntity image = new HttpEntity(DEFAULT, dataAttribute(DEFAULT), "image", stringAttribute(DEFAULT));
+	public static final HttpEntity image = new HttpEntity(DEFAULT, "image", stringAttribute(DEFAULT));
 	
-	public static final HttpEntity photo = new HttpEntity(DEFAULT, dataAttribute(DEFAULT), "image", "jpeg");
+	public static final HttpEntity photo = new HttpEntity(DEFAULT, "image", "jpeg");
 	
 /**
 
