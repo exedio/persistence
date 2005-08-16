@@ -18,52 +18,24 @@
 
 package com.exedio.cope;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public final class DataAttribute extends Attribute
 {
-	final String fixedMimeMajor;
-	final String fixedMimeMinor;
-	
-	StringColumn mimeMajor = null;
-	StringColumn mimeMinor = null;
-	IntegerColumn exists = null;
-
-	/**
-	 * @see Item#dataAttribute(Option, String, String)
-	 */
-	DataAttribute(final Option option, final String fixedMimeMajor, final String fixedMimeMinor)
-	{
-		super(option);
-		this.fixedMimeMajor = fixedMimeMajor;
-		this.fixedMimeMinor = fixedMimeMinor;
-	}
-	
-	/**
-	 * @see Item#dataAttribute(Option, String)
-	 */
-	DataAttribute(final Option option, final String fixedMimeMajor)
-	{
-		this(option, fixedMimeMajor, null);
-	}
-	
 	/**
 	 * @see Item#dataAttribute(Option)
 	 */
 	DataAttribute(final Option option)
 	{
-		this(option, null, null);
-	}
-	
-	public final String getFixedMimeMajor()
-	{
-		return fixedMimeMajor;
-	}
-	
-	public final String getFixedMimeMinor()
-	{
-		return fixedMimeMinor;
+		super(option);
+
+		if(option.unique)
+			throw new RuntimeException("DataAttribute cannot be unique");
+		if(option.notNull)
+			throw new RuntimeException("DataAttribute cannot be not-null");
+		if(option.readOnly)
+			throw new RuntimeException("DataAttribute cannot be read-only");
 	}
 	
 	// second initialization phase ---------------------------------------------------
@@ -72,25 +44,7 @@ public final class DataAttribute extends Attribute
 	{
 		// make sure, data configuration properties are set
 		getType().getModel().getProperties().getDatadirPath();
-
-		final ArrayList result = new ArrayList(2);
-		if(fixedMimeMajor==null)
-		{
-			mimeMajor = new StringColumn(table, name + "Major", notNull, 1, 30);
-			result.add(mimeMajor);
-		}
-		if(fixedMimeMinor==null)
-		{
-			mimeMinor = new StringColumn(table, name + "Minor", notNull, 1, 30);
-			result.add(mimeMinor);
-		}
-		if(fixedMimeMajor!=null && fixedMimeMinor!=null && !notNull)
-		{
-			// TODO: make that column not-null
-			exists = new IntegerColumn(table, name + "Exists", false, 1, false, BooleanAttribute.ALLOWED_VALUES);
-			result.add(exists);
-		}
-		return result;
+		return Collections.EMPTY_LIST;
 	}
 	
 }

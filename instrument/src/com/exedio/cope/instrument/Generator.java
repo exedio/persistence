@@ -39,6 +39,7 @@ import com.exedio.cope.NotNullViolationException;
 import com.exedio.cope.ReadOnlyViolationException;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueViolationException;
+import com.exedio.cope.util.ClassComparator;
 import com.exedio.cope.util.ReactivationConstructorDummy;
 
 // TODO use jspm
@@ -60,7 +61,7 @@ final class Generator
 	private static final String GETTER_DATA_URL =     "Returns a URL the data of the data attribute {0} is available under.";
 	private static final String GETTER_DATA_MAJOR = "Returns the major mime type of the data attribute {0}.";
 	private static final String GETTER_DATA_MINOR = "Returns the minor mime type of the data attribute {0}.";
-	private static final String GETTER_DATA_DATA = "Returns the data of the data attribute {0}.";
+	//private static final String GETTER_DATA_DATA = "Returns the data of the data attribute {0}."; TODO
 	private static final String TOUCHER = "Sets the current date for the date attribute {0}.";
 	private static final String FINDER_UNIQUE = "Finds a {0} by it''s unique attributes.";
 	private static final String FINDER_UNIQUE_PARAMETER = "shall be equal to attribute {0}.";
@@ -477,7 +478,7 @@ final class Generator
 		o.write("\t}");
 	}
 
-	private void writeDataGetterMethod(final CopeDataAttribute attribute,
+	private void writeDataGetterMethod(final CopeHttpEntity attribute, // TODO rename to entity
 													final Class returnType,
 													final String part,
 													final String commentPattern)
@@ -489,7 +490,7 @@ final class Generator
 		o.write(lineSeparator);
 		writeCommentGenerated();
 		writeCommentFooter();
-		o.write(Modifier.toString(attribute.getGeneratedGetterModifier()));
+		o.write(Modifier.toString(Modifier.PUBLIC|Modifier.FINAL)); // TODO use visibility of entity
 		o.write(' ');
 		o.write(returnType.getName());
 		o.write(" get");
@@ -499,18 +500,18 @@ final class Generator
 		o.write(lineSeparator);
 		o.write("\t{");
 		o.write(lineSeparator);
-		o.write("\t\treturn get");
-		o.write(part);
-		o.write('(');
+		o.write("\t\treturn ");
 		o.write(attribute.copeClass.getName());
 		o.write('.');
 		o.write(attribute.getName());
-		o.write(");");
+		o.write(".get");
+		o.write(part);
+		o.write("(this);");
 		o.write(lineSeparator);
 		o.write("\t}");
 	}
 	
-	private void writeDataAccessMethods(final CopeDataAttribute attribute)
+	private void writeDataAccessMethods(final CopeHttpEntity attribute) // TODO rename to entity
 	throws IOException
 	{
 		final String mimeMajor = attribute.mimeMajor;
@@ -520,10 +521,11 @@ final class Generator
 		writeDataGetterMethod(attribute, String.class,      "URL",       GETTER_DATA_URL);
 		writeDataGetterMethod(attribute, String.class,      "MimeMajor", GETTER_DATA_MAJOR);
 		writeDataGetterMethod(attribute, String.class,      "MimeMinor", GETTER_DATA_MINOR);
-		writeDataGetterMethod(attribute, InputStream.class, "Data",      GETTER_DATA_DATA);
+		//writeDataGetterMethod(attribute, InputStream.class, "Data",      GETTER_DATA_DATA); TODO
+		// TODO generate isNull as well
 		
 		// setters
-		if(attribute.hasGeneratedSetter())
+		if(true) // TODO use option of entity
 		{
 			writeCommentHeader();
 			o.write("\t * ");
@@ -536,7 +538,7 @@ final class Generator
 			o.write(format(SETTER_DATA_IOEXCEPTION, "<code>data</code>"));
 			o.write(lineSeparator);
 			writeCommentFooter();
-			o.write(Modifier.toString(attribute.getGeneratedSetterModifier()));
+			o.write(Modifier.toString(Modifier.PUBLIC|Modifier.FINAL)); // TODO use visibility of entity
 			o.write(" void set");
 			o.write(toCamelCase(attribute.getName()));
 			o.write("(final " + InputStream.class.getName() + " data");
@@ -545,25 +547,22 @@ final class Generator
 			if(mimeMinor==null)
 				o.write(",final "+String.class.getName()+" mimeMinor");
 			o.write(')');
-			final SortedSet setterExceptions = attribute.getSetterExceptions();
-			writeThrowsClause(setterExceptions);
-			if(setterExceptions.isEmpty())
-				o.write("throws ");
-			o.write(IOException.class.getName());
+			final SortedSet setterExceptions = new TreeSet();
+			setterExceptions.addAll(Arrays.asList(new Class[]{IOException.class})); // TODO
 			o.write(lineSeparator);
+			writeThrowsClause(setterExceptions);
 			o.write("\t{");
 			o.write(lineSeparator);
 			
-			final SortedSet exceptionsToCatch = new TreeSet(attribute.getExceptionsToCatchInSetter());
-			exceptionsToCatch.remove(ReadOnlyViolationException.class);
-			exceptionsToCatch.remove(LengthViolationException.class);
-			exceptionsToCatch.remove(UniqueViolationException.class);
+			final SortedSet exceptionsToCatch = new TreeSet(ClassComparator.getInstance());
+			exceptionsToCatch.addAll(setterExceptions); // TODO
+			exceptionsToCatch.remove(IOException.class);
 			writeTryCatchClausePrefix(exceptionsToCatch);
-			o.write("\t\tset(");
+			o.write("\t\t");
 			o.write(attribute.copeClass.getName());
 			o.write('.');
 			o.write(attribute.getName());
-			o.write(",data");
+			o.write(".set(this,data");
 			o.write(mimeMajor==null ? ",mimeMajor" : ",null");
 			o.write(mimeMinor==null ? ",mimeMinor" : ",null");
 			o.write(");");
@@ -894,7 +893,7 @@ final class Generator
 			writeCommentFooter();
 			
 			o.write(Modifier.toString(option.getModifier(Modifier.PUBLIC) | Modifier.STATIC | Modifier.FINAL)); // TODO obey class visibility
-			o.write(" "+Type.class.getName()+" TYPE = ");
+			o.write(" "+Type.class.getName()+" TYPE = "); // TODO remove trailing slash
 			o.write(lineSeparator);
 	
 			o.write("\t\tnew "+Type.class.getName()+"(");
@@ -920,10 +919,7 @@ final class Generator
 				// write setter/getter methods
 				final CopeAttribute copeAttribute = (CopeAttribute)i.next();
 				//System.out.println("onClassEnd("+jc.getName()+") writing attribute "+copeAttribute.getName());
-				if(copeAttribute instanceof CopeDataAttribute)
-					writeDataAccessMethods((CopeDataAttribute)copeAttribute);
-				else
-					writeAccessMethods(copeAttribute);
+				writeAccessMethods(copeAttribute);
 			}
 			for(final Iterator i = copeClass.getUniqueConstraints().iterator(); i.hasNext(); )
 			{
@@ -940,6 +936,11 @@ final class Generator
 			{
 				final CopeVector vector = (CopeVector)i.next();
 				writeVector(vector);
+			}
+			for(final Iterator i = copeClass.getHttpEntities().iterator(); i.hasNext(); )
+			{
+				final CopeHttpEntity entity = (CopeHttpEntity)i.next();
+				writeDataAccessMethods(entity);
 			}
 			writeType(copeClass);
 		}

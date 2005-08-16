@@ -52,6 +52,7 @@ final class CopeClass
 	private ArrayList uniqueConstraints = null;
 	private ArrayList qualifiers = null;
 	private ArrayList vectors = null;
+	private ArrayList entities = null;
 	final Option typeOption;
 	final Option initialConstructorOption;
 	final Option genericConstructorOption;
@@ -191,6 +192,25 @@ final class CopeClass
 			vectors == null ?
 			Collections.EMPTY_LIST :
 			Collections.unmodifiableList(vectors);
+	}
+	
+	public void add(final CopeHttpEntity entity)
+	{
+		if(entities==null)
+			entities=new ArrayList();
+
+		entities.add(entity);
+	}
+	
+	/**
+	 * @return unmodifiable list of {@link HttpEntity}s.
+	 */
+	public List getHttpEntities()
+	{
+		return
+			entities == null ?
+			Collections.EMPTY_LIST :
+			Collections.unmodifiableList(entities);
 	}
 	
 	private ArrayList initialAttributes = null;

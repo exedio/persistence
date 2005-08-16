@@ -41,6 +41,7 @@ import com.exedio.cope.StringAttribute;
 import com.exedio.cope.StringFunction;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.pattern.Hash;
+import com.exedio.cope.pattern.HttpEntity;
 import com.exedio.cope.pattern.Qualifier;
 import com.exedio.cope.pattern.Vector;
 
@@ -291,6 +292,14 @@ final class Instrumentor implements InjectionConsumer
 		new CopeVector(ja);
 	}
 	
+	private final void handleHttpEntity(final JavaAttribute ja, final Class typeClass)
+		throws InjectorParseException
+	{
+		final JavaClass jc = ja.parent;
+		final CopeClass copeClass = CopeClass.getCopeClass(jc);
+		new CopeHttpEntity(ja);
+	}
+
 	public void onClassFeature(final JavaFeature jf, final String docComment)
 	throws IOException, InjectorParseException
 	{
@@ -325,6 +334,8 @@ final class Instrumentor implements InjectionConsumer
 						handleHash(ja, typeClass);
 					else if(Vector.class.isAssignableFrom(typeClass))
 						handleVector(ja, typeClass);
+					else if(HttpEntity.class.isAssignableFrom(typeClass))
+						handleHttpEntity(ja, typeClass);
 				}
 			}
 		}

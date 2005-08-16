@@ -34,11 +34,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.exedio.cope.Attribute;
-import com.exedio.cope.DataAttribute;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.NoSuchIDException;
+import com.exedio.cope.Pattern;
 import com.exedio.cope.Transaction;
 import com.exedio.cope.Type;
 import com.exedio.cope.util.ServletUtil;
@@ -71,7 +70,7 @@ import com.exedio.cope.util.ServletUtil;
 public class DataServlet extends HttpServlet
 {
 	Model model = null;
-	final HashMap dataAttributes = new HashMap();
+	final HashMap entities = new HashMap();
 	
 	public final void init()
 	{
@@ -87,12 +86,12 @@ public class DataServlet extends HttpServlet
 			for(Iterator i = model.getTypes().iterator(); i.hasNext(); )
 			{
 				final Type type = (Type)i.next();
-				for(Iterator j = type.getDeclaredAttributes().iterator(); j.hasNext(); )
+				for(Iterator j = type.getPatterns().iterator(); j.hasNext(); )
 				{
-					final Attribute attribute = (Attribute)j.next();
-					if(attribute instanceof DataAttribute)
+					final Pattern pattern = (Pattern)j.next();
+					if(pattern instanceof HttpEntity)
 					{
-						dataAttributes.put('/'+type.getID()+'/'+attribute.getName(), attribute);
+						entities.put('/'+type.getID()+'/'+pattern.getName(), pattern);
 					}
 				}
 			}
@@ -137,11 +136,11 @@ public class DataServlet extends HttpServlet
 		p.println("<head><title>cope data servlet</title><head>");
 		p.println("<body>");
 		p.println("<ol>");
-		for(Iterator i = dataAttributes.entrySet().iterator(); i.hasNext(); )
+		for(Iterator i = entities.entrySet().iterator(); i.hasNext(); )
 		{
 			final Map.Entry entry = (Map.Entry)i.next();
 			final String key = (String)entry.getKey();
-			final DataAttribute value = (DataAttribute)entry.getValue();
+			final HttpEntity value = (HttpEntity)entry.getValue();
 			p.println("<li><a href=\""+prefix+key+"/0\">"+value+"</a>");
 		}
 		p.println("</ol>");
@@ -205,7 +204,7 @@ public class DataServlet extends HttpServlet
 		final String attributeString = pathInfo.substring(0, trailingSlash);
 		//System.out.println("attributeString="+attributeString);
 
-		final DataAttribute attribute = (DataAttribute)dataAttributes.get(attributeString);
+		final HttpEntity attribute = (HttpEntity)entities.get(attributeString); // TODO rename to entity
 		//System.out.println("attribute="+attribute);
 		if(attribute==null)
 			return false;
@@ -227,15 +226,15 @@ public class DataServlet extends HttpServlet
 			final Item item = model.findByID(id);
 			//System.out.println("item="+item);
 
-			final String mimeMajor = item.getMimeMajor(attribute);
+			final String mimeMajor = attribute.getMimeMajor(item);
 			//System.out.println("mimeMajor="+mimeMajor);
 			if(mimeMajor!=null)
 			{
-				final String mimeMinor = item.getMimeMinor(attribute);
+				final String mimeMinor = attribute.getMimeMinor(item);
 				//System.out.println("mimeMinor="+mimeMinor);
 				response.setContentType(mimeMajor+'/'+mimeMinor);
 
-				final long lastModified = item.getDataLastModified(attribute);
+				final long lastModified = attribute.getDataLastModified(item);
 				//System.out.println("lastModified="+formatHttpDate(lastModified));
 				response.setDateHeader(RESPONSE_LAST_MODIFIED, lastModified);
 
@@ -255,7 +254,7 @@ public class DataServlet extends HttpServlet
 				}
 				else
 				{
-					final long contentLength = item.getDataLength(attribute);
+					final long contentLength = attribute.getDataLength(item);
 					//System.out.println("contentLength="+String.valueOf(contentLength));
 					response.setHeader(RESPONSE_CONTENT_LENGTH, String.valueOf(contentLength));
 					//response.setHeader("Cache-Control", "public");
@@ -267,7 +266,7 @@ public class DataServlet extends HttpServlet
 					try
 					{
 						out = response.getOutputStream();
-						in = item.getData(attribute);
+						in = attribute.getData(item);
 	
 						final byte[] buffer = new byte[Math.max((int)contentLength, 50*1024)];
 						for(int len = in.read(buffer); len != -1; len = in.read(buffer))

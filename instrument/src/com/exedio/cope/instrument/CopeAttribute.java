@@ -40,13 +40,6 @@ import com.exedio.cope.util.ClassComparator;
 
 abstract class CopeAttribute
 {
-	/**
-	 * Defines this attribute as a data attribute.
-	 * The dash prevents this name to be used as a java identifier.
-	 * @see #getPersistentType()
-	 */
-	static final String DATA_TYPE = "Data-";
-
 	final JavaAttribute javaAttribute;
 	final int accessModifier;
 	

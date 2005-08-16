@@ -343,96 +343,6 @@ public abstract class Item extends Cope
 		}
 	}
 
-	private final boolean isNull(final DataAttribute attribute)
-	{
-		if(attribute.isNotNull())
-			return false;
-
-		final Row row = getRow();
-
-		final String mimeMajorFixed = attribute.fixedMimeMajor;
-		if(mimeMajorFixed==null)
-			return row.get(attribute.mimeMajor)==null;
-		else
-		{
-			final String mimeMinorFixed = attribute.fixedMimeMinor;
-			if(mimeMinorFixed==null)
-				return row.get(attribute.mimeMinor)==null;
-			else
-				return row.get(attribute.exists)==null;
-		}
-	}
-	
-	private static final String getCompactExtension(final String mimeMajor, final String mimeMinor)
-	{
-		if("image".equals(mimeMajor))
-		{
-			if("jpeg".equals(mimeMinor) || "pjpeg".equals(mimeMinor))
-				return ".jpg";
-			else if("gif".equals(mimeMinor))
-				return ".gif";
-			else if("png".equals(mimeMinor))
-				return ".png";
-			else
-				return null;
-		}
-		else if("text".equals(mimeMajor))
-		{
-			if("html".equals(mimeMinor))
-				return ".html";
-			else if("plain".equals(mimeMinor))
-				return ".txt";
-			else if("css".equals(mimeMinor))
-				return ".css";
-			else
-				return null;
-		}
-		else
-			return null;
-	}
-	
-	private final void appendExtension(final DataAttribute attribute, final StringBuffer bf)
-	{
-		final String mimeMajor;
-		final String mimeMinor;
-		{
-			final String mimeMajorFixed = attribute.fixedMimeMajor;
-			if(mimeMajorFixed==null)
-			{
-				final Row row = getRow();
-				mimeMajor = (String)row.get(attribute.mimeMajor);
-				final String mimeMinorFixed = attribute.fixedMimeMinor;
-				if(mimeMinorFixed==null)
-					mimeMinor = (String)row.get(attribute.mimeMinor);
-				else
-					mimeMinor = mimeMinorFixed;
-			}
-			else
-			{
-				mimeMajor = mimeMajorFixed;
-				final String mimeMinorFixed = attribute.fixedMimeMinor;
-				if(mimeMinorFixed==null)
-				{
-					final Row row = getRow();
-					mimeMinor = (String)row.get(attribute.mimeMinor);
-				}
-				else
-					mimeMinor = mimeMinorFixed;
-			}
-		}
-
-		final String compactExtension = getCompactExtension(mimeMajor, mimeMinor);
-		if(compactExtension==null)
-		{
-			bf.append('.').
-				append(mimeMajor).
-				append('.').
-				append(mimeMinor);
-		}
-		else
-			bf.append(compactExtension);
-	}
-
 	private final void appendDataPath(
 									final DataAttribute attribute,
 									final StringBuffer bf)
@@ -454,62 +364,12 @@ public abstract class Item extends Cope
 	}
 	
 	/**
-	 * Returns a URL pointing to the data of this persistent data attribute.
-	 * Returns null, if there is no data for this attribute.
-	 */
-	public final String getURL(final DataAttribute attribute)
-	{
-		if(isNull(attribute))
-			return null;
-
-		final StringBuffer bf = new StringBuffer(type.getModel().getProperties().getDatadirUrl());
-		appendDataPath(attribute, bf);
-		appendExtension(attribute, bf);
-		return bf.toString();
-	}
-
-	/**
-	 * Returns the major mime type of this persistent data attribute.
-	 * Returns null, if there is no data for this attribute.
-	 */
-	public final String getMimeMajor(final DataAttribute attribute)
-	{
-		if(isNull(attribute))
-			return null;
-
-		final String fixed = attribute.fixedMimeMajor;
-		if(fixed==null)
-			return (String)getRow().get(attribute.mimeMajor);
-		else
-			return fixed;
-	}
-
-	/**
-	 * Returns the minor mime type of this persistent data attribute.
-	 * Returns null, if there is no data for this attribute.
-	 */
-	public final String getMimeMinor(final DataAttribute attribute)
-	{
-		if(isNull(attribute))
-			return null;
-
-		final String fixed = attribute.fixedMimeMinor;
-		if(fixed==null)
-			return (String)getRow().get(attribute.mimeMinor);
-		else
-			return fixed;
-	}
-
-	/**
 	 * Returns a stream for fetching the data of this persistent data attribute.
 	 * <b>You are responsible for closing the stream, when you are finished!</b>
 	 * Returns null, if there is no data for this attribute.
 	 */
-	public final InputStream getData(final DataAttribute attribute)
+	public final InputStream get(final DataAttribute attribute)
 	{
-		if(isNull(attribute))
-			return null;
-
 		final File file = getDataFile(attribute);
 		try
 		{
@@ -517,7 +377,7 @@ public abstract class Item extends Cope
 		}
 		catch(FileNotFoundException e)
 		{
-			throw new NestingRuntimeException(e);
+			return null;
 		}
 	}
 
@@ -527,11 +387,9 @@ public abstract class Item extends Cope
 	 */
 	public final long getDataLength(final DataAttribute attribute)
 	{
-		if(isNull(attribute))
-			return -1;
-
 		final File file = getDataFile(attribute);
-		return file.length();
+
+		return file.exists() ? file.length() : -1l;
 	}
 
 	/**
@@ -541,16 +399,9 @@ public abstract class Item extends Cope
 	 */
 	public final long getDataLastModified(final DataAttribute attribute)
 	{
-		if(isNull(attribute))
-			return -1;
-
 		final File file = getDataFile(attribute);
 
-		final long result = file.lastModified();
-		if(result<=0)
-			throw new RuntimeException("unexpected lastModified " + result + " for file " + file.getAbsolutePath());
-		
-		return result;
+		return file.exists() ? file.lastModified() : -1l;
 	}
 
 	/**
@@ -561,43 +412,11 @@ public abstract class Item extends Cope
 	 *         if data is null and attribute is {@link Attribute#isNotNull() not-null}.
 	 * @throws IOException if reading data throws an IOException.
 	 */
-	public final void set(final DataAttribute attribute, final InputStream data,
-									final String mimeMajor, final String mimeMinor)
+	public final void set(final DataAttribute attribute, final InputStream data)
 	throws NotNullViolationException, IOException
 	{
 		try
 		{
-			if(data!=null)
-			{
-				if((mimeMajor==null&&attribute.fixedMimeMajor==null) ||
-					(mimeMinor==null&&attribute.fixedMimeMinor==null))
-					throw new RuntimeException("if data is not null, mime types must also be not null");
-			}
-			else
-			{
-				if(mimeMajor!=null||mimeMinor!=null)
-					throw new RuntimeException("if data is null, mime types must also be null");
-			}
-	
-			final boolean isNullPreviously = isNull(attribute);
-	
-			final Row row = getRow();
-			if(attribute.fixedMimeMajor==null)
-				row.put(attribute.mimeMajor, mimeMajor);
-			if(attribute.fixedMimeMinor==null)
-				row.put(attribute.mimeMinor, mimeMinor);
-			if(attribute.exists!=null)
-				row.put(attribute.exists, (data!=null) ? BooleanAttribute.TRUE : null);
-	
-			try
-			{
-				row.write();
-			}
-			catch(UniqueViolationException e)
-			{
-				new NestingRuntimeException(e);
-			}
-	
 			final File file = getDataFile(attribute);
 
 			if(data!=null)
@@ -611,7 +430,7 @@ public abstract class Item extends Cope
 			}
 			else
 			{
-				if(!isNullPreviously)
+				if(file.exists())
 				{
 					if(!file.delete())
 						throw new RuntimeException("deleting "+file+" failed.");
@@ -723,16 +542,6 @@ public abstract class Item extends Cope
 		return new DataAttribute(option);
 	}
 
-	protected static final DataAttribute dataAttribute(final Option option, final String fixedMimeMajor)
-	{
-		return new DataAttribute(option, fixedMimeMajor);
-	}
-
-	protected static final DataAttribute dataAttribute(final Option option, final String fixedMimeMajor, final String fixedMimeMinor)
-	{
-		return new DataAttribute(option, fixedMimeMajor, fixedMimeMinor);
-	}
-	
 	protected static final UniqueConstraint uniqueConstraint(final ObjectAttribute uniqueAttribute)
 	{
 		return new UniqueConstraint(uniqueAttribute);
@@ -764,7 +573,7 @@ public abstract class Item extends Cope
 		return new DateAttribute(option, forbidTimestampColumn);
 	}
 	
-	protected static final BooleanAttribute booleanAttribute(final Option option)
+	public static final BooleanAttribute booleanAttribute(final Option option)
 	{
 		return new BooleanAttribute(option);
 	}

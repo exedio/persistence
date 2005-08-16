@@ -75,7 +75,9 @@ public class ModelTest extends AbstractLibTest
 			item.someNotNullItem,
 			item.someEnum,
 			item.someNotNullEnum,
-			item.someData,
+			item.someData.getData(),
+			item.someData.getMimeMajor(),
+			item.someData.getMimeMinor(),
 		};
 		assertEquals(Arrays.asList(attributes), item.TYPE.getAttributes());
 		assertEquals(Arrays.asList(attributes), item.TYPE.getDeclaredAttributes());
@@ -101,12 +103,16 @@ public class ModelTest extends AbstractLibTest
 			item.someNotNullItem,
 			item.someEnum,
 			item.someNotNullEnum,
-			item.someData,
+			item.someData.getData(),
+			item.someData.getMimeMajor(),
+			item.someData.getMimeMinor(),
 		};
 		assertEquals(Arrays.asList(features), item.TYPE.getFeatures());
 		assertEquals(Arrays.asList(features), item.TYPE.getDeclaredFeatures());
+		assertEquals(Arrays.asList(new Pattern[]{item.someData, item.emptyItem}), item.TYPE.getPatterns()); // TODO: put these into features
 		assertUnmodifiable(item.TYPE.getFeatures());
 		assertUnmodifiable(item.TYPE.getDeclaredFeatures());
+		assertUnmodifiable(item.TYPE.getPatterns());
 		
 		assertEquals(item.someString, item.TYPE.getFeature("someString"));
 		assertEquals(item.someStringUpperCase, item.TYPE.getFeature("someStringUpperCase"));

@@ -54,6 +54,7 @@ import com.exedio.cope.ReadOnlyViolationException;
 import com.exedio.cope.StringAttribute;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueViolationException;
+import com.exedio.cope.pattern.HttpEntity;
 import com.exedio.cope.pattern.Qualifier;
 import com.exedio.cope.search.EqualCondition;
 import com.exedio.cops.CheckboxField;
@@ -474,7 +475,9 @@ final class ItemForm extends Form
 			if(field.key instanceof DataAttribute)
 			{
 				final DataAttribute attribute = (DataAttribute)field.key;
+				final HttpEntity entity = HttpEntity.get(attribute);
 				final FileItem fileItem = getParameterFile(attribute.getName());
+				
 				if(fileItem!=null)
 				{
 					final String contentType = fileItem.getContentType();
@@ -493,13 +496,9 @@ final class ItemForm extends Form
 						try
 						{
 							final InputStream data = fileItem.getInputStream();
-							item.set(attribute, data, mimeMajor, mimeMinor);
+							entity.set(item, data, mimeMajor, mimeMinor);
 						}
 						catch(IOException e)
-						{
-							throw new NestingRuntimeException(e);
-						}
-						catch(NotNullViolationException e)
 						{
 							throw new NestingRuntimeException(e);
 						}

@@ -28,6 +28,7 @@ import com.exedio.cope.NestingRuntimeException;
 import com.exedio.cope.testmodel.AttributeItem;
 import com.exedio.cope.testmodel.CollisionItem1;
 import com.exedio.cope.testmodel.CollisionItem2;
+import com.exedio.cope.testmodel.DataItem;
 import com.exedio.cope.testmodel.EmptyItem;
 import com.exedio.cope.testmodel.EmptyItem2;
 import com.exedio.cope.testmodel.FirstSub;
@@ -36,7 +37,6 @@ import com.exedio.cope.testmodel.ItemWithSingleUnique;
 import com.exedio.cope.testmodel.ItemWithSingleUniqueNotNull;
 import com.exedio.cope.testmodel.ItemWithSingleUniqueReadOnly;
 import com.exedio.cope.testmodel.Main;
-import com.exedio.cope.testmodel.DataItem;
 import com.exedio.cope.testmodel.PointerItem;
 import com.exedio.cope.testmodel.PointerTargetItem;
 import com.exedio.cope.testmodel.QualifiedIntegerEnumQualifier;
@@ -92,7 +92,7 @@ public class CopernicaTestProvider extends TransientCopernicaProvider
 				new TransientSection("data", new Attribute[]{
 						AttributeItem.someEnum,
 						AttributeItem.someNotNullEnum,
-						AttributeItem.someData,
+						AttributeItem.someDataData, // TODO should specify someData here
 						}),
 				new TransientSection("other", new Attribute[]{
 						AttributeItem.someDate,

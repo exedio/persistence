@@ -46,13 +46,17 @@ public class DataTest extends TestmodelTest
 	
 	public void testData() throws IOException
 	{
+		// TODO: test item.TYPE.getPatterns
+		// TODO: test empty files
+
 		// file
 		assertEquals(null, item.file.getFixedMimeMajor());
 		assertEquals(null, item.file.getFixedMimeMinor());
 		
+		assertTrue(item.file.isNull(item));
 		assertEquals(null, item.getFileData());
-		assertEquals(-1, item.getDataLength(item.file));
-		assertEquals(-1, item.getDataLastModified(item.file));
+		assertEquals(-1, item.file.getDataLength(item));
+		assertEquals(-1, item.file.getDataLastModified(item));
 		assertEquals(null, item.getFileMimeMajor());
 		assertEquals(null, item.getFileMimeMinor());
 		assertEquals(null, item.getFileURL());
@@ -60,9 +64,10 @@ public class DataTest extends TestmodelTest
 		final Date beforeData = new Date();
 		item.setFile(stream(data), "fileMajor", "fileMinor");
 		final Date afterData = new Date();
+		assertTrue(!item.file.isNull(item));
 		assertData(data, item.getFileData());
-		assertEquals(data.length, item.getDataLength(item.file));
-		assertWithin(1000, beforeData, afterData, new Date(item.getDataLastModified(item.file)));
+		assertEquals(data.length, item.file.getDataLength(item));
+		assertWithin(1000, beforeData, afterData, new Date(item.file.getDataLastModified(item)));
 		assertEquals("fileMajor", item.getFileMimeMajor());
 		assertEquals("fileMinor", item.getFileMimeMinor());
 		assertTrue(item.getFileURL().endsWith(".fileMajor.fileMinor"));
@@ -70,9 +75,10 @@ public class DataTest extends TestmodelTest
 		final Date beforeData2 = new Date();
 		item.setFile(stream(data2), "fileMajor2", "fileMinor2");
 		final Date afterData2 = new Date();
+		assertTrue(!item.file.isNull(item));
 		assertData(data2, item.getFileData());
-		assertEquals(data2.length, item.getDataLength(item.file));
-		assertWithin(1000, beforeData2, afterData2, new Date(item.getDataLastModified(item.file)));
+		assertEquals(data2.length, item.file.getDataLength(item));
+		assertWithin(1000, beforeData2, afterData2, new Date(item.file.getDataLastModified(item)));
 		assertEquals("fileMajor2", item.getFileMimeMajor());
 		assertEquals("fileMinor2", item.getFileMimeMinor());
 		assertTrue(item.getFileURL().endsWith(".fileMajor2.fileMinor2"));
@@ -86,8 +92,9 @@ public class DataTest extends TestmodelTest
 		assertExtension("text", "css", ".css");
 		
 		item.setFile(null, null, null);
-		assertEquals(-1, item.getDataLength(item.file));
-		assertEquals(-1, item.getDataLastModified(item.file));
+		assertTrue(item.file.isNull(item));
+		assertEquals(-1, item.file.getDataLength(item));
+		assertEquals(-1, item.file.getDataLastModified(item));
 		assertEquals(null, item.getFileData());
 		assertEquals(null, item.getFileMimeMajor());
 		assertEquals(null, item.getFileMimeMinor());
@@ -98,31 +105,35 @@ public class DataTest extends TestmodelTest
 		assertEquals("image", item.image.getFixedMimeMajor());
 		assertEquals(null, item.image.getFixedMimeMinor());
 
+		assertTrue(item.image.isNull(item));
 		assertEquals(null, item.getImageData());
-		assertEquals(-1, item.getDataLength(item.image));
+		assertEquals(-1, item.image.getDataLength(item));
 		assertEquals(null, item.getImageMimeMajor());
 		assertEquals(null, item.getImageMimeMinor());
 		assertEquals(null, item.getImageURL());
 
 		item.setImage(stream(data), "imageMinor");
+		assertTrue(!item.image.isNull(item));
 		assertData(data, item.getImageData());
-		assertEquals(data.length, item.getDataLength(item.image));
+		assertEquals(data.length, item.image.getDataLength(item));
 		assertEquals("image", item.getImageMimeMajor());
 		assertEquals("imageMinor", item.getImageMimeMinor());
 		//System.out.println(item.getImageURL());
 		assertTrue(item.getImageURL().endsWith(".image.imageMinor"));
 
 		item.setImage(stream(data2), "jpeg");
+		assertTrue(!item.image.isNull(item));
 		assertData(data2, item.getImageData());
-		assertEquals(data2.length, item.getDataLength(item.image));
+		assertEquals(data2.length, item.image.getDataLength(item));
 		assertEquals("image", item.getImageMimeMajor());
 		assertEquals("jpeg", item.getImageMimeMinor());
 		//System.out.println(item.getImageURL());
 		assertTrue(item.getImageURL().endsWith(".jpg"));
 
 		item.setImage(null, null);
+		assertTrue(item.image.isNull(item));
 		assertEquals(null, item.getImageData());
-		assertEquals(-1, item.getDataLength(item.image));
+		assertEquals(-1, item.image.getDataLength(item));
 		assertEquals(null, item.getImageMimeMajor());
 		assertEquals(null, item.getImageMimeMinor());
 		assertEquals(null, item.getImageURL());
@@ -132,31 +143,35 @@ public class DataTest extends TestmodelTest
 		assertEquals("image", item.photo.getFixedMimeMajor());
 		assertEquals("jpeg", item.photo.getFixedMimeMinor());
 
+		assertTrue(item.photo.isNull(item));
 		assertEquals(null, item.getPhotoData());
-		assertEquals(-1, item.getDataLength(item.photo));
+		assertEquals(-1, item.photo.getDataLength(item));
 		assertEquals(null, item.getPhotoMimeMajor());
 		assertEquals(null, item.getPhotoMimeMinor());
 		assertEquals(null, item.getPhotoURL());
 
 		item.setPhoto(stream(data));
+		assertTrue(!item.photo.isNull(item));
 		assertData(data, item.getPhotoData());
-		assertEquals(data.length, item.getDataLength(item.photo));
+		assertEquals(data.length, item.photo.getDataLength(item));
 		assertEquals("image", item.getPhotoMimeMajor());
 		assertEquals("jpeg", item.getPhotoMimeMinor());
 		//System.out.println(item.getPhotoURL());
 		assertTrue(item.getPhotoURL().endsWith(".jpg"));
 
 		item.setPhoto(stream(data2));
+		assertTrue(!item.photo.isNull(item));
 		assertData(data2, item.getPhotoData());
-		assertEquals(data2.length, item.getDataLength(item.photo));
+		assertEquals(data2.length, item.photo.getDataLength(item));
 		assertEquals("image", item.getPhotoMimeMajor());
 		assertEquals("jpeg", item.getPhotoMimeMinor());
 		//System.out.println(item.getPhotoURL());
 		assertTrue(item.getPhotoURL().endsWith(".jpg"));
 
 		item.setPhoto(null);
+		assertTrue(item.photo.isNull(item));
 		assertEquals(null, item.getPhotoData());
-		assertEquals(-1, item.getDataLength(item.photo));
+		assertEquals(-1, item.photo.getDataLength(item));
 		assertEquals(null, item.getPhotoMimeMajor());
 		assertEquals(null, item.getPhotoMimeMinor());
 		assertEquals(null, item.getPhotoURL());

@@ -182,6 +182,70 @@ public final class Model
 		}
 	}
 
+	private void dropDataDirectories(final Type type)
+	{
+		File typeDirectory = null;
+
+		for(Iterator i = type.getAttributes().iterator(); i.hasNext(); )
+		{
+			final Attribute attribute = (Attribute)i.next();
+			if(attribute instanceof DataAttribute)
+			{
+				if(typeDirectory==null)
+				{
+					final File directory = properties.getDatadirPath();
+					typeDirectory = new File(directory, type.getID());
+				}
+				final File attributeDirectory = new File(typeDirectory, attribute.getName());
+				final File[] files = attributeDirectory.listFiles();
+				for(int j = 0; j<files.length; j++)
+				{
+					final File file = files[j];
+					if(!file.delete())
+						throw new RuntimeException("delete failed: "+file.getAbsolutePath());
+				}
+				if(!attributeDirectory.delete())
+					throw new RuntimeException("delete failed: "+attributeDirectory.getAbsolutePath());
+			}
+		}
+
+		if(typeDirectory!=null)
+		{
+			if(!typeDirectory.delete())
+				throw new RuntimeException("delete failed: "+typeDirectory.getAbsolutePath());
+		}
+	}
+
+	private void tearDownDataDirectories(final Type type)
+	{
+		File typeDirectory = null;
+
+		for(Iterator i = type.getAttributes().iterator(); i.hasNext(); )
+		{
+			final Attribute attribute = (Attribute)i.next();
+			if(attribute instanceof DataAttribute)
+			{
+				if(typeDirectory==null)
+				{
+					final File directory = properties.getDatadirPath();
+					typeDirectory = new File(directory, type.getID());
+				}
+				final File attributeDirectory = new File(typeDirectory, attribute.getName());
+				if(attributeDirectory.exists())
+				{
+					final File[] files = attributeDirectory.listFiles();
+					for(int j = 0; j<files.length; j++)
+						files[j].delete();
+	
+					attributeDirectory.delete();
+				}
+			}
+		}
+
+		if(typeDirectory!=null)
+			typeDirectory.delete();
+	}
+
 	/**
 	 * Checks the database,
 	 * whether the database tables representing the types do exist.
@@ -212,13 +276,17 @@ public final class Model
 			((Type)i.previous()).onDropTable();
 
 		database.dropDatabase();
-		// TODO: remove data directories
+
+		for(int i = 0; i<this.types.length; i++)
+			dropDataDirectories(this.types[i]);
 	}
 
 	public void tearDownDatabase()
 	{
 		database.tearDownDatabase();
-		// TODO: remove data directories
+
+		for(int i = 0; i<this.types.length; i++)
+			tearDownDataDirectories(this.types[i]);
 	}
 	
 	public void close()

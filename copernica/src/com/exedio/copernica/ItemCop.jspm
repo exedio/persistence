@@ -25,9 +25,10 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import com.exedio.cope.Attribute;
-import com.exedio.cope.Item;
 import com.exedio.cope.DataAttribute;
+import com.exedio.cope.Item;
 import com.exedio.cope.Type;
+import com.exedio.cope.pattern.HttpEntity;
 import com.exedio.cops.CheckboxField;
 import com.exedio.cops.Field;
 import com.exedio.cops.Form;
@@ -101,8 +102,9 @@ class ItemCop_Jspm
 						if(attribute instanceof DataAttribute)
 						{
 							final DataAttribute dataAttribute = (DataAttribute)attribute;
+							final HttpEntity entity = HttpEntity.get(dataAttribute);
 							final String attributeName = attribute.getName();
-							final String url = item.getURL(dataAttribute);
+							final String url = entity.getURL(item);
 							if(url==null)
 							{
 								%><%=cop.getDisplayNameNull()%><%
@@ -110,13 +112,14 @@ class ItemCop_Jspm
 							else
 							{
 								%><a href="<%=url%>"><%
-								if("image".equals(item.getMimeMajor(dataAttribute)))
+								final String major = entity.getMimeMajor(item);
+								if("image".equals(major))
 								{
-									%><img src="<%=url%>" width="250"><small>(<%=item.getMimeMinor(dataAttribute)%>)</small><%
+									%><img src="<%=url%>" width="250"><small>(<%=entity.getMimeMinor(item)%>)</small><%
 								}
 								else
 								{
-									%>download <small>(<%=item.getMimeMajor(dataAttribute)%>/<%=item.getMimeMinor(dataAttribute)%>)</small><%
+									%>download <small>(<%=major%>/<%=entity.getMimeMinor(item)%>)</small><%
 								}
 								%></a><%
 							}

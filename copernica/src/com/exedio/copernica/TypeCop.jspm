@@ -28,6 +28,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.exedio.cope.BooleanAttribute;
+import com.exedio.cope.DataAttribute;
 import com.exedio.cope.DateAttribute;
 import com.exedio.cope.EnumAttribute;
 import com.exedio.cope.EnumValue;
@@ -35,9 +36,9 @@ import com.exedio.cope.Feature;
 import com.exedio.cope.Function;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemAttribute;
-import com.exedio.cope.DataAttribute;
 import com.exedio.cope.StatementInfo;
 import com.exedio.cope.Type;
+import com.exedio.cope.pattern.HttpEntity;
 import com.exedio.cops.DateField;
 
 final class TypeCop_Jspm
@@ -168,7 +169,8 @@ final class TypeCop_Jspm
 						if(feature instanceof DataAttribute)
 						{
 							final DataAttribute dataAttribute = (DataAttribute)feature;
-							final String url = item.getURL(dataAttribute);
+							final HttpEntity entity = HttpEntity.get(dataAttribute);
+							final String url = entity.getURL(item);
 							if(url==null)
 							{
 								%><%=cop.getDisplayNameNull()%><%
@@ -176,7 +178,8 @@ final class TypeCop_Jspm
 							else
 							{
 								%><a href="<%=url%>"><%
-								if("image".equals(item.getMimeMajor(dataAttribute)))
+								final String major = entity.getMimeMajor(item);
+								if("image".equals(major))
 								{
 									%><img src="<%=url%>" width="50"><%
 								}

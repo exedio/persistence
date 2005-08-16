@@ -15,24 +15,47 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-
 package com.exedio.cope.instrument;
 
-import java.io.InputStream;
 import java.util.List;
 
-final class CopeDataAttribute extends CopeAttribute
-{
 
-	public CopeDataAttribute(
-			final JavaAttribute javaAttribute,
-			final Class typeClass,
-			final List initializerArguments,
-			final String setterOption,
-			final String getterOption)
-		throws InjectorParseException
+final class CopeHttpEntity
+{
+	final String name;
+	final CopeClass copeClass;
+	public final String mimeMajor;
+	public final String mimeMinor;
+
+	public CopeHttpEntity(final JavaAttribute javaAttribute)
 	{
-		super(javaAttribute, typeClass, InputStream.class.getName(), initializerArguments, getterOption, setterOption);
+		this.name = javaAttribute.name;
+		this.copeClass = CopeClass.getCopeClass(javaAttribute.parent);
+
+		this.mimeMajor = getString(javaAttribute.getInitializerArguments(), 2);
+		this.mimeMinor = getString(javaAttribute.getInitializerArguments(), 3);
+
+		copeClass.add(this);
+	}
+
+	private static String getString(final List initializerArguments, final int pos)
+	{
+		if(initializerArguments.size()>pos)
+		{
+			final String s = (String)initializerArguments.get(pos);
+			if(!s.startsWith("\""))
+				return null;
+			if(!s.endsWith("\""))
+				return null;
+			return s.substring(1, s.length()-1);
+		}
+		else
+			return null;
 	}
 	
+	final String getName()
+	{
+		return name;
+	}
+
 }
