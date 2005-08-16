@@ -109,7 +109,7 @@ public class StringTest extends TestmodelTest
 		item.setMin4("1234");
 		assertEquals("1234", item.getMin4());
 
-		// max4		
+		// max4
 		item.setMax4("1234");
 		assertEquals("1234", item.getMax4());
 		try
