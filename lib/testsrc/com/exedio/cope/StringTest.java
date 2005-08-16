@@ -128,7 +128,7 @@ public class StringTest extends TestmodelTest
 		item.passivateCopeItem();
 		assertEquals("1234", item.getMax4());
 
-		// min4max8		
+		// min4max8
 		try
 		{
 			item.setMin4Max8("123");
