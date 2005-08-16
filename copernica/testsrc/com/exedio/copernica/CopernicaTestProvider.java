@@ -92,7 +92,7 @@ public class CopernicaTestProvider extends TransientCopernicaProvider
 				new TransientSection("data", new Attribute[]{
 						AttributeItem.someEnum,
 						AttributeItem.someNotNullEnum,
-						AttributeItem.someDataData, // TODO should specify someData here
+						AttributeItem.someData.getData(), // TODO should specify someData here
 						}),
 				new TransientSection("other", new Attribute[]{
 						AttributeItem.someDate,

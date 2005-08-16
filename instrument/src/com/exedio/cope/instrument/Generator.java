@@ -61,7 +61,7 @@ final class Generator
 	private static final String GETTER_DATA_URL =     "Returns a URL the data of the data attribute {0} is available under.";
 	private static final String GETTER_DATA_MAJOR = "Returns the major mime type of the data attribute {0}.";
 	private static final String GETTER_DATA_MINOR = "Returns the minor mime type of the data attribute {0}.";
-	//private static final String GETTER_DATA_DATA = "Returns the data of the data attribute {0}."; TODO
+	private static final String GETTER_DATA_DATA = "Returns the data of the data attribute {0}."; // TODO change texts to HttpEntity
 	private static final String TOUCHER = "Sets the current date for the date attribute {0}.";
 	private static final String FINDER_UNIQUE = "Finds a {0} by it''s unique attributes.";
 	private static final String FINDER_UNIQUE_PARAMETER = "shall be equal to attribute {0}.";
@@ -521,7 +521,7 @@ final class Generator
 		writeDataGetterMethod(attribute, String.class,      "URL",       GETTER_DATA_URL);
 		writeDataGetterMethod(attribute, String.class,      "MimeMajor", GETTER_DATA_MAJOR);
 		writeDataGetterMethod(attribute, String.class,      "MimeMinor", GETTER_DATA_MINOR);
-		//writeDataGetterMethod(attribute, InputStream.class, "Data",      GETTER_DATA_DATA); TODO
+		writeDataGetterMethod(attribute, InputStream.class, "Data",      GETTER_DATA_DATA);
 		// TODO generate isNull as well
 		
 		// setters

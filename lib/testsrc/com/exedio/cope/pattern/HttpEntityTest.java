@@ -53,7 +53,8 @@ public class HttpEntityTest extends TestmodelTest
 		// file
 		assertEquals(null, item.file.getFixedMimeMajor());
 		assertEquals(null, item.file.getFixedMimeMinor());
-		assertSame(item.fileData, item.file.getData());
+		assertSame(item.TYPE, item.file.getData().getType());
+		assertSame("fileData", item.file.getData().getName());
 		assertSame(item.TYPE, item.file.getMimeMajor().getType());
 		assertEquals("fileMajor", item.file.getMimeMajor().getName());
 		assertSame(item.TYPE, item.file.getMimeMinor().getType());
@@ -121,7 +122,8 @@ public class HttpEntityTest extends TestmodelTest
 		// image
 		assertEquals("image", item.image.getFixedMimeMajor());
 		assertEquals(null, item.image.getFixedMimeMinor());
-		assertSame(item.imageData, item.image.getData());
+		assertSame(item.TYPE, item.image.getData().getType());
+		assertSame("imageData", item.image.getData().getName());
 		assertEquals(null, item.image.getMimeMajor());
 		assertSame(item.TYPE, item.image.getMimeMinor().getType());
 		assertEquals("imageMinor", item.image.getMimeMinor().getName());
@@ -163,7 +165,8 @@ public class HttpEntityTest extends TestmodelTest
 		// photo
 		assertEquals("image", item.photo.getFixedMimeMajor());
 		assertEquals("jpeg", item.photo.getFixedMimeMinor());
-		assertSame(item.photoData, item.photo.getData());
+		assertSame(item.TYPE, item.photo.getData().getType());
+		assertSame("photoData", item.photo.getData().getName());
 		assertEquals(null, item.photo.getMimeMajor());
 		assertEquals(null, item.photo.getMimeMinor());
 

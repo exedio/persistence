@@ -149,6 +149,8 @@ public final class HttpEntity extends Pattern
 	public void initialize()
 	{
 		final String name = getName();
+		if(data!=null && !data.isInitialized())
+			initialize(data, name+"Data");
 		if(mimeMajor!=null && !mimeMajor.isInitialized())
 			initialize(mimeMajor, name+"Major");
 		if(mimeMinor!=null && !mimeMinor.isInitialized())

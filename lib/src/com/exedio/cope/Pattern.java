@@ -64,7 +64,7 @@ public abstract class Pattern extends Feature
 	{
 	}
 	
-	protected final void initialize(final ObjectAttribute attribute, final String name)
+	protected final void initialize(final Attribute attribute, final String name)
 	{
 		attribute.initialize(getType(), name);
 	}
