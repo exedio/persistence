@@ -57,7 +57,7 @@ final class Generator
 	private static final String CHECKER = "Returns whether the given value corresponds to the hash in {0}.";
 	private static final String SETTER = "Sets a new value for the persistent attribute {0}.";
 	private static final String SETTER_HTTP_ENTITY = "Sets the new data for the data attribute {0}.";
-	private static final String SETTER_DATA_IOEXCEPTION = "if accessing {0} throws an IOException.";
+	private static final String SETTER_HTTP_ENTITY_IOEXCEPTION = "if accessing {0} throws an IOException.";
 	private static final String GETTER_DATA_URL =     "Returns a URL the data of the data attribute {0} is available under.";
 	private static final String GETTER_DATA_MAJOR = "Returns the major mime type of the data attribute {0}.";
 	private static final String GETTER_DATA_MINOR = "Returns the minor mime type of the data attribute {0}.";
@@ -535,7 +535,7 @@ final class Generator
 			o.write("\t * @throws ");
 			o.write(IOException.class.getName());
 			o.write(' ');
-			o.write(format(SETTER_DATA_IOEXCEPTION, "<code>data</code>"));
+			o.write(format(SETTER_HTTP_ENTITY_IOEXCEPTION, "<code>data</code>"));
 			o.write(lineSeparator);
 			writeCommentFooter();
 			o.write(Modifier.toString(Modifier.PUBLIC|Modifier.FINAL)); // TODO use visibility of entity
