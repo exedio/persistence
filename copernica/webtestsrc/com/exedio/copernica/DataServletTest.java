@@ -33,16 +33,16 @@ public class DataServletTest extends AbstractWebTest
 	{
 		final String prefix = "http://localhost:8080/copetest-hsqldb/data/";
 
-		final long textLastModified = assertURL(new URL(prefix + "DataItem/file/0.txt"));
-		assertEquals(textLastModified, assertURL(new URL(prefix + "DataItem/file/0.zick")));
-		assertEquals(textLastModified, assertURL(new URL(prefix + "DataItem/file/0.")));
-		assertEquals(textLastModified, assertURL(new URL(prefix + "DataItem/file/0")));
+		final long textLastModified = assertURL(new URL(prefix + "HttpEntityItem/file/0.txt"));
+		assertEquals(textLastModified, assertURL(new URL(prefix + "HttpEntityItem/file/0.zick")));
+		assertEquals(textLastModified, assertURL(new URL(prefix + "HttpEntityItem/file/0.")));
+		assertEquals(textLastModified, assertURL(new URL(prefix + "HttpEntityItem/file/0")));
 
-		assertEquals(textLastModified, assertURL(new URL(prefix + "DataItem/file/0"), textLastModified-1, false));
-		assertEquals(textLastModified, assertURL(new URL(prefix + "DataItem/file/0"), textLastModified, true));
-		assertEquals(textLastModified, assertURL(new URL(prefix + "DataItem/file/0"), textLastModified+5000, true));
+		assertEquals(textLastModified, assertURL(new URL(prefix + "HttpEntityItem/file/0"), textLastModified-1, false));
+		assertEquals(textLastModified, assertURL(new URL(prefix + "HttpEntityItem/file/0"), textLastModified, true));
+		assertEquals(textLastModified, assertURL(new URL(prefix + "HttpEntityItem/file/0"), textLastModified+5000, true));
 
-		assertEquals(textLastModified, assertURL(new URL(prefix + "DataItem/file/2.unknownma.unknownmi"), "unknownma/unknownmi"));
+		assertEquals(textLastModified, assertURL(new URL(prefix + "HttpEntityItem/file/2.unknownma.unknownmi"), "unknownma/unknownmi"));
 	}
 	
 	private long assertURL(final URL url) throws IOException
