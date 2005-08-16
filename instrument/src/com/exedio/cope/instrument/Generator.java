@@ -511,17 +511,17 @@ final class Generator
 		o.write("\t}");
 	}
 	
-	private void writeDataAccessMethods(final CopeHttpEntity attribute) // TODO rename to entity
+	private void writeDataAccessMethods(final CopeHttpEntity entity) 
 	throws IOException
 	{
-		final String mimeMajor = attribute.mimeMajor;
-		final String mimeMinor = attribute.mimeMinor;
+		final String mimeMajor = entity.mimeMajor;
+		final String mimeMinor = entity.mimeMinor;
 
 		// getters
-		writeDataGetterMethod(attribute, String.class,      "URL",       GETTER_HTTP_ENTITY_URL);
-		writeDataGetterMethod(attribute, String.class,      "MimeMajor", GETTER_HTTP_ENTITY_MAJOR);
-		writeDataGetterMethod(attribute, String.class,      "MimeMinor", GETTER_HTTP_ENTITY_MINOR);
-		writeDataGetterMethod(attribute, InputStream.class, "Data",      GETTER_HTTP_ENTITY_DATA);
+		writeDataGetterMethod(entity, String.class,      "URL",       GETTER_HTTP_ENTITY_URL);
+		writeDataGetterMethod(entity, String.class,      "MimeMajor", GETTER_HTTP_ENTITY_MAJOR);
+		writeDataGetterMethod(entity, String.class,      "MimeMinor", GETTER_HTTP_ENTITY_MINOR);
+		writeDataGetterMethod(entity, InputStream.class, "Data",      GETTER_HTTP_ENTITY_DATA);
 		// TODO generate isNull as well
 		
 		// setters
@@ -529,7 +529,7 @@ final class Generator
 		{
 			writeCommentHeader();
 			o.write("\t * ");
-			o.write(format(SETTER_HTTP_ENTITY, link(attribute.getName())));
+			o.write(format(SETTER_HTTP_ENTITY, link(entity.getName())));
 			o.write(lineSeparator);
 			writeCommentGenerated();
 			o.write("\t * @throws ");
@@ -540,7 +540,7 @@ final class Generator
 			writeCommentFooter();
 			o.write(Modifier.toString(Modifier.PUBLIC|Modifier.FINAL)); // TODO use visibility of entity
 			o.write(" void set");
-			o.write(toCamelCase(attribute.getName()));
+			o.write(toCamelCase(entity.getName()));
 			o.write("(final " + InputStream.class.getName() + " data");
 			if(mimeMajor==null)
 				o.write(",final "+String.class.getName()+" mimeMajor");
@@ -559,9 +559,9 @@ final class Generator
 			exceptionsToCatch.remove(IOException.class);
 			writeTryCatchClausePrefix(exceptionsToCatch);
 			o.write("\t\t");
-			o.write(attribute.copeClass.getName());
+			o.write(entity.copeClass.getName());
 			o.write('.');
-			o.write(attribute.getName());
+			o.write(entity.getName());
 			o.write(".set(this,data");
 			o.write(mimeMajor==null ? ",mimeMajor" : ",null");
 			o.write(mimeMinor==null ? ",mimeMinor" : ",null");
