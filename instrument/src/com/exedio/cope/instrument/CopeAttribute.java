@@ -237,20 +237,22 @@ abstract class CopeAttribute
 		if(setterExceptions!=null)
 			return setterExceptions;
 		
-		final TreeSet modifyableSetterExceptions = new TreeSet(ClassComparator.getInstance());
-		
-		if(isPartOfUniqueConstraint())
-			modifyableSetterExceptions.add(UniqueViolationException.class);
-		if(readOnly)
-			modifyableSetterExceptions.add(ReadOnlyViolationException.class);
-		if(notNull && !isBoxed())
-			modifyableSetterExceptions.add(NotNullViolationException.class);
-		if(lengthConstrained)
-			modifyableSetterExceptions.add(LengthViolationException.class);
-		
-
-		this.setterExceptions = Collections.unmodifiableSortedSet(modifyableSetterExceptions);
+		final TreeSet result = new TreeSet(ClassComparator.getInstance());
+		fillSetterExceptions(result);
+		this.setterExceptions = Collections.unmodifiableSortedSet(result);
 		return this.setterExceptions;
+	}
+	
+	protected void fillSetterExceptions(final SortedSet result)
+	{
+		if(isPartOfUniqueConstraint())
+			result.add(UniqueViolationException.class);
+		if(readOnly)
+			result.add(ReadOnlyViolationException.class);
+		if(notNull && !isBoxed())
+			result.add(NotNullViolationException.class);
+		if(lengthConstrained)
+			result.add(LengthViolationException.class);
 	}
 
 
@@ -268,14 +270,19 @@ abstract class CopeAttribute
 			return exceptionsToCatchInSetter;
 
 		final TreeSet result = new TreeSet(ClassComparator.getInstance());
-		result.add(UniqueViolationException.class);
-		result.add(NotNullViolationException.class);
-		result.add(ReadOnlyViolationException.class);
-		result.add(LengthViolationException.class);
+		fillExceptionsThrownByGenericSetter(result);
 		result.removeAll(getSetterExceptions());
 		
 		this.exceptionsToCatchInSetter = Collections.unmodifiableSortedSet(result);
 		return this.exceptionsToCatchInSetter;
+	}
+
+	protected void fillExceptionsThrownByGenericSetter(final SortedSet result)
+	{
+		result.add(UniqueViolationException.class);
+		result.add(NotNullViolationException.class);
+		result.add(ReadOnlyViolationException.class);
+		result.add(LengthViolationException.class);
 	}
 
 	private SortedSet toucherExceptions = null;

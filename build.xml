@@ -348,6 +348,8 @@
 				SecondSub.java,
 				CollisionItem1.java,
 				CollisionItem2.java" />
+			<filelist dir="lib/testsrc/com/exedio/cope" files="
+				DataItem.java" />
 		</instrument>
 	</target>
 	

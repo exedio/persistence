@@ -18,6 +18,10 @@
 
 package com.exedio.cope;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
 import com.exedio.cope.junit.CopeTest;
 
 public abstract class AbstractLibTest extends CopeTest
@@ -42,4 +46,26 @@ public abstract class AbstractLibTest extends CopeTest
 		return String.valueOf(item.getCopeType().getPrimaryKeyIterator().pk2id(((Item)item).pk));
 	}
 
+	protected static final InputStream stream(byte[] data)
+	{
+		return new ByteArrayInputStream(data);
+	}
+	
+	protected void assertData(final byte[] expectedData, final InputStream actualData)
+	{
+		try
+		{
+			final byte[] actualDataArray = new byte[2*expectedData.length];
+			final int actualLength = actualData.read(actualDataArray);
+			actualData.close();
+			assertEquals(expectedData.length, actualLength);
+			for(int i = 0; i<actualLength; i++)
+				assertEquals(expectedData[i], actualDataArray[i]);
+		}
+		catch(IOException e)
+		{
+			throw new NestingRuntimeException(e);
+		}
+	}
+	
 }

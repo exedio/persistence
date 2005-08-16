@@ -18,8 +18,12 @@
 
 package com.exedio.cope.instrument;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.SortedSet;
+
+import com.exedio.cope.NotNullViolationException;
 
 final class CopeDataAttribute extends CopeAttribute
 {
@@ -35,4 +39,17 @@ final class CopeDataAttribute extends CopeAttribute
 		super(javaAttribute, typeClass, InputStream.class.getName(), initializerArguments, getterOption, setterOption);
 	}
 	
+	protected void fillSetterExceptions(final SortedSet result)
+	{
+		result.add(IOException.class);
+		if(notNull)
+			result.add(NotNullViolationException.class);
+	}
+
+	protected void fillExceptionsThrownByGenericSetter(final SortedSet result)
+	{
+		result.add(IOException.class);
+		result.add(NotNullViolationException.class);
+	}
+
 }

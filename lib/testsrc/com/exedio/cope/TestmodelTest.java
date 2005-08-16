@@ -20,7 +20,6 @@ package com.exedio.cope;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 
 import com.exedio.cope.testmodel.AttributeItem;
 import com.exedio.cope.testmodel.Main;
@@ -44,28 +43,6 @@ public abstract class TestmodelTest extends AbstractLibTest
 		mysql  = "com.exedio.cope.MysqlDatabase".equals(model.getDatabase().getClass().getName());
 	}
 
-	protected InputStream stream(byte[] data)
-	{
-		return new ByteArrayInputStream(data);
-	}
-	
-	protected void assertData(final byte[] expectedData, final InputStream actualData)
-	{
-		try
-		{
-			final byte[] actualDataArray = new byte[2*expectedData.length];
-			final int actualLength = actualData.read(actualDataArray);
-			actualData.close();
-			assertEquals(expectedData.length, actualLength);
-			for(int i = 0; i<actualLength; i++)
-				assertEquals(expectedData[i], actualDataArray[i]);
-		}
-		catch(IOException e)
-		{
-			throw new NestingRuntimeException(e);
-		}
-	}
-	
 	protected void assertDataMime(final AttributeItem item,
 											final String mimeMajor,
 											final String mimeMinor,
