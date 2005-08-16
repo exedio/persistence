@@ -27,7 +27,6 @@ public class AttributeDataTest extends AttributeTest
 		assertEquals("someData", item.someData.getName());
 		assertEquals(null, item.someData.getFixedMimeMajor());
 		assertEquals(null, item.someData.getFixedMimeMinor());
-		assertEquals(null, item.someData.getData().getSingleUniqueConstraint());
 
 		// TODO: test with not null data
 		assertEquals(item.TYPE, item.someData.getType());

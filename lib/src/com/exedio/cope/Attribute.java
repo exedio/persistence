@@ -22,16 +22,11 @@ public abstract class Attribute extends Feature
 {
 	private final boolean readOnly;
 	private final boolean notNull;
-	private final UniqueConstraint singleUniqueConstraint;
 
 	protected Attribute(final Option option)
 	{
 		this.readOnly = option.readOnly;
 		this.notNull = option.notNull;
-		this.singleUniqueConstraint =
-			option.unique ?
-				new UniqueConstraint((ObjectAttribute)this) :
-				null;
 	}
 	
 	public final boolean isReadOnly()
@@ -44,32 +39,15 @@ public abstract class Attribute extends Feature
 		return notNull;
 	}
 	
-	/**
-	 * Returns the unique constraint of this attribute,
-	 * if there is a unique constraint covering this attribute and this attribute only.
-	 * Does return null, if there is no such unique constraint,
-	 * i.e. this attribute is not covered by any unique constraint,
-	 * or this attribute is covered by a unique constraint covering more
-	 * attributes than this attribute.
-	 */
-	public UniqueConstraint getSingleUniqueConstraint()
-	{
-		return singleUniqueConstraint;
-	}
-	
 
 	// second initialization phase ---------------------------------------------------
 
 	private Column column;
 	
-	final void initialize(final Type type, final String name)
+	void initialize(final Type type, final String name)
 	{
 		super.initialize(type, name);
-
 		type.registerInitialization(this);
-
-		if(singleUniqueConstraint!=null)
-			singleUniqueConstraint.initialize(type, name);
 	}
 	
 	final void materialize(final Table table)

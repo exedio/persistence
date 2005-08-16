@@ -26,12 +26,25 @@ public abstract class ObjectAttribute
 {
 	private final Class valueClass;
 	private final String valueClassName;
+	private final UniqueConstraint singleUniqueConstraint;
 	
 	protected ObjectAttribute(final Option option, final Class valueClass, final String valueClassName)
 	{
 		super(option);
 		this.valueClass = valueClass;
 		this.valueClassName = valueClassName;
+		this.singleUniqueConstraint =
+			option.unique ?
+				new UniqueConstraint((ObjectAttribute)this) :
+				null;
+	}
+	
+	final void initialize(final Type type, final String name)
+	{
+		super.initialize(type, name);
+		
+		if(singleUniqueConstraint!=null)
+			singleUniqueConstraint.initialize(type, name);
 	}
 	
 	public abstract ObjectAttribute copyAsTemplate();
@@ -101,6 +114,19 @@ public abstract class ObjectAttribute
 			append(getColumn().protectedID);
 	}
 		
+	/**
+	 * Returns the unique constraint of this attribute,
+	 * if there is a unique constraint covering this attribute and this attribute only.
+	 * Does return null, if there is no such unique constraint,
+	 * i.e. this attribute is not covered by any unique constraint,
+	 * or this attribute is covered by a unique constraint covering more
+	 * attributes than this attribute.
+	 */
+	public UniqueConstraint getSingleUniqueConstraint()
+	{
+		return singleUniqueConstraint;
+	}
+	
 	public final Item searchUnique(final Object value)
 	{
 		// TODO: search nativly for unique constraints
