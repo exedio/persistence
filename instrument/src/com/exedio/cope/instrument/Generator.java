@@ -56,12 +56,12 @@ final class Generator
 	private static final String GETTER = "Returns the value of the persistent attribute {0}.";
 	private static final String CHECKER = "Returns whether the given value corresponds to the hash in {0}.";
 	private static final String SETTER = "Sets a new value for the persistent attribute {0}.";
-	private static final String SETTER_HTTP_ENTITY = "Sets the new data for the data attribute {0}.";
+	private static final String SETTER_HTTP_ENTITY = "Sets the new data for the http entity {0}.";
 	private static final String SETTER_HTTP_ENTITY_IOEXCEPTION = "if accessing {0} throws an IOException.";
-	private static final String GETTER_HTTP_ENTITY_URL =     "Returns a URL the data of the data attribute {0} is available under.";
-	private static final String GETTER_HTTP_ENTITY_MAJOR = "Returns the major mime type of the data attribute {0}.";
-	private static final String GETTER_HTTP_ENTITY_MINOR = "Returns the minor mime type of the data attribute {0}.";
-	private static final String GETTER_HTTP_ENTITY_DATA = "Returns the data of the data attribute {0}."; // TODO change texts to HttpEntity
+	private static final String GETTER_HTTP_ENTITY_URL   = "Returns a URL the data of the http entity {0} is available under.";
+	private static final String GETTER_HTTP_ENTITY_MAJOR = "Returns the major mime type of the http entity {0}.";
+	private static final String GETTER_HTTP_ENTITY_MINOR = "Returns the minor mime type of the http entity {0}.";
+	private static final String GETTER_HTTP_ENTITY_DATA  = "Returns the data of the http entity {0}.";
 	private static final String TOUCHER = "Sets the current date for the date attribute {0}.";
 	private static final String FINDER_UNIQUE = "Finds a {0} by it''s unique attributes.";
 	private static final String FINDER_UNIQUE_PARAMETER = "shall be equal to attribute {0}.";
