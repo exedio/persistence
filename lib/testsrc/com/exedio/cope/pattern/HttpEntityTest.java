@@ -26,6 +26,8 @@ import com.exedio.cope.testmodel.HttpEntityItem;
 
 public class HttpEntityTest extends TestmodelTest
 {
+	// TODO test various combinations of internal, external implicit, and external explicit source
+
 	private HttpEntityItem item;
 	private final byte[] data = new byte[]{-86,122,-8,23};
 	private final byte[] data2 = new byte[]{-97,35,-126,86,19,-8};
