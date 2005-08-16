@@ -16,14 +16,15 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope;
+package com.exedio.cope.pattern;
 
 import java.io.IOException;
 import java.util.Date;
 
+import com.exedio.cope.TestmodelTest;
 import com.exedio.cope.testmodel.DataItem;
 
-public class DataTest extends TestmodelTest
+public class HttpEntityTest extends TestmodelTest
 {
 	private DataItem item;
 	private final byte[] data = new byte[]{-86,122,-8,23};
