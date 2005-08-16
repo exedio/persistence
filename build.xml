@@ -408,7 +408,7 @@
 	
 	<target name="lib.test" depends="lib.test.run" />
 
-	<target name="lib.test.teardown" depends="lib.compile, lib.testmodel.compile">
+	<target name="lib.test.teardown" depends="lib.compile, lib.test.compile">
 		<foreachdb message="Tearing down">
 			<body>
 				<mkdir dir="lib/build/teardown.@{db}/data" />
@@ -419,11 +419,12 @@
 								  value="lib/build/teardown.@{db}/data" />
 					</filterset>
 				</copy>
-				<java classname="com.exedio.cope.testmodel.Main" taskname="tear down @{db}"
+				<java classname="com.exedio.cope.Main" taskname="tear down @{db}"
 						fork="yes" failonerror="yes">
 					<classpath>
 						<pathelement location="lib/build/classes" />
 						<pathelement location="lib/build/testmodelclasses" />
+						<pathelement location="lib/build/testclasses" />
 						<pathelement location="../lib/pcj.jar" />
 						<pathelement location="../lib/@{db.driver}" />
 					</classpath>

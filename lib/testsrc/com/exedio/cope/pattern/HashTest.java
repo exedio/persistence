@@ -19,8 +19,8 @@
 package com.exedio.cope.pattern;
 
 import com.exedio.cope.AbstractLibTest;
+import com.exedio.cope.Main;
 import com.exedio.cope.testmodel.HashItem;
-import com.exedio.cope.testmodel.Main;
 
 public class HashTest extends AbstractLibTest
 {

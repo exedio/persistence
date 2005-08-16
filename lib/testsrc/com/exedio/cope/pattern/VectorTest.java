@@ -25,10 +25,9 @@ import java.util.List;
 import com.exedio.cope.AbstractLibTest;
 import com.exedio.cope.ConstraintViolationException;
 import com.exedio.cope.DateAttribute;
+import com.exedio.cope.Main;
 import com.exedio.cope.StringAttribute;
-import com.exedio.cope.testmodel.Main;
 import com.exedio.cope.testmodel.VectorItem;
-
 
 public class VectorTest extends AbstractLibTest
 {

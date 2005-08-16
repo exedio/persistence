@@ -22,9 +22,9 @@ import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 
 import com.exedio.cope.AbstractLibTest;
+import com.exedio.cope.Main;
 import com.exedio.cope.NestingRuntimeException;
 import com.exedio.cope.testmodel.MD5Item;
-import com.exedio.cope.testmodel.Main;
 
 public class MD5Test extends AbstractLibTest
 {

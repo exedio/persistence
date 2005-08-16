@@ -18,7 +18,6 @@
 package com.exedio.cope.testmodel;
 
 import com.exedio.cope.Model;
-import com.exedio.cope.Properties;
 import com.exedio.cope.Type;
 
 public class Main
@@ -49,23 +48,6 @@ public class Main
 		CollisionItem2.TYPE,
 	};
 
-	private static final void tearDown(final Model model)
-	{
-		model.setPropertiesInitially(new Properties());
-		model.tearDownDatabase();
-	}
-	
 	public static final Model model = new Model(modelTypes);
-	public static final Model hashModel = new Model(new Type[] { HashItem.TYPE });
-	public static final Model md5Model = new Model(new Type[] { MD5Item.TYPE });
-	public static final Model vectorModel = new Model(new Type[] { VectorItem.TYPE });
-
-	public static void main(String[] args)
-	{
-		tearDown(Main.model);
-		tearDown(hashModel);
-		tearDown(md5Model);
-		tearDown(vectorModel);
-	}
 
 }
