@@ -19,7 +19,6 @@
 package com.exedio.cope.instrument.testmodel;
 
 import com.exedio.cope.BooleanAttribute;
-import com.exedio.cope.DataAttribute;
 import com.exedio.cope.DoubleAttribute;
 import com.exedio.cope.IntegerAttribute;
 import com.exedio.cope.Item;
