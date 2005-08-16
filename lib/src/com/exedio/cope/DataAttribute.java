@@ -42,6 +42,7 @@ public final class DataAttribute extends Attribute
 	{
 		// make sure, data configuration properties are set
 		getType().getModel().getProperties().getDatadirPath();
+		// TODO on some fine day, the BLOB column will be created here
 		return null;
 	}
 	
