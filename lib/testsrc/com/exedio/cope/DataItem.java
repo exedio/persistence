@@ -18,10 +18,6 @@
 
 package com.exedio.cope;
 
-import java.io.IOException;
-import java.io.InputStream;
-
-
 /**
  * @cope.persistent
  * @author Ralf Wiebicke
@@ -33,22 +29,7 @@ public class DataItem extends Item
 	
 	public boolean isDataNull() // TODO generate this
 	{
-		final InputStream data = getData(); // TODO: use a special method
-		final boolean result = data==null;
-		
-		if(!result)
-		{
-			try
-			{
-				data.close();
-			}
-			catch(IOException e)
-			{
-				throw new NestingRuntimeException(e);
-			}
-		}
-		
-		return result;
+		return isNull(data);
 	}
 	
 	

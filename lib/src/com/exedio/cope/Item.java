@@ -364,6 +364,15 @@ public abstract class Item extends Cope
 	}
 	
 	/**
+	 * Returns, whether there is no data for this attribute.
+	 */
+	public final boolean isNull(final DataAttribute attribute)
+	{
+		final File file = getDataFile(attribute);
+		return !file.exists();
+	}
+
+	/**
 	 * Returns a stream for fetching the data of this persistent data attribute.
 	 * <b>You are responsible for closing the stream, when you are finished!</b>
 	 * Returns null, if there is no data for this attribute.
