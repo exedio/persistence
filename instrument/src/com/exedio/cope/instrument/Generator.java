@@ -893,7 +893,7 @@ final class Generator
 			writeCommentFooter();
 			
 			o.write(Modifier.toString(option.getModifier(Modifier.PUBLIC) | Modifier.STATIC | Modifier.FINAL)); // TODO obey class visibility
-			o.write(" "+Type.class.getName()+" TYPE = "); // TODO remove trailing slash
+			o.write(" "+Type.class.getName()+" TYPE =");
 			o.write(lineSeparator);
 	
 			o.write("\t\tnew "+Type.class.getName()+"(");
