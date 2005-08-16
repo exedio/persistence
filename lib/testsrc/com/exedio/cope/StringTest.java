@@ -169,6 +169,45 @@ public class StringTest extends TestmodelTest
 		assertEquals("12345678", item.getMin4Max8());
 		item.passivateCopeItem();
 		assertEquals("12345678", item.getMin4Max8());
+
+		// exact6
+		try
+		{
+			item.setExact6("12345");
+			fail("should have thrown LengthViolationException");
+		}
+		catch(LengthViolationException e)
+		{
+			assertEquals(item, e.getItem());
+			assertEquals(item.exact6, e.getStringAttribute());
+			assertEquals("12345", e.getValue());
+			assertEquals(true, e.isTooShort());
+		}
+		assertEquals(null, item.getExact6());
+		item.passivateCopeItem();
+		assertEquals(null, item.getExact6());
+
+		item.setExact6("123456");
+		assertEquals("123456", item.getExact6());
+
+		item.passivateCopeItem();
+		assertEquals("123456", item.getExact6());
+
+		try
+		{
+			item.setExact6("1234567");
+			fail("should have thrown LengthViolationException");
+		}
+		catch(LengthViolationException e)
+		{
+			assertEquals(item, e.getItem());
+			assertEquals(item.exact6, e.getStringAttribute());
+			assertEquals("1234567", e.getValue());
+			assertEquals(false, e.isTooShort());
+		}
+		assertEquals("123456", item.getExact6());
+		item.passivateCopeItem();
+		assertEquals("123456", item.getExact6());
 	}
 
 }
