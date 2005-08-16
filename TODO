@@ -38,6 +38,8 @@
 		* put classes for patterns into separate package
 		* separate test model for lib tests and testwebapp (webtests)
 		* make small test models for each lib test
+	- globally rename term Attribute#isNotNull to isMandatory/isOptional
+	- put result of Type#getPatterns() into Type#getFeatures, remove getPatterns
 	- move Cope#isNotNull(ObjectAttribute) to ObjectAttribute.isNotNull()
 
 * Docs
