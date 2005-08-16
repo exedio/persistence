@@ -257,7 +257,7 @@ public class SchemaTest extends TestmodelTest
 			assertNotNull(attributeItem);
 			assertEquals(null, attributeItem.getError());
 			assertEquals(Schema.COLOR_OK, attributeItem.getParticularColor());
-			
+
 			assertCheckConstraint(attributeItem, "AttrItem_somNotNullStr_Ck", protect("someNotNullString")+" IS NOT NULL");
 			assertCheckConstraint(attributeItem, "AttribuItem_someBoolea_Ck", "("+protect("someBoolean")+" IN (0,1)) OR ("+protect("someBoolean")+" IS NULL)");
 			assertCheckConstraint(attributeItem, "AttrItem_somNotNullBoo_Ck", "("+protect("someNotNullBoolean")+" IS NOT NULL) AND ("+protect("someNotNullBoolean")+" IN (0,1))");
@@ -301,6 +301,7 @@ public class SchemaTest extends TestmodelTest
 			assertCheckConstraint(stringItem, "StringItem_min4_Ck", "(LENGTH("+protect("min4")+")>=4) OR ("+protect("min4")+" IS NULL)");
 			assertCheckConstraint(stringItem, "StringItem_max4_Ck", "(LENGTH("+protect("max4")+")<=4) OR ("+protect("max4")+" IS NULL)");
 			assertCheckConstraint(stringItem, "StringItem_min4Max8_Ck", "((LENGTH("+protect("min4Max8")+")>=4) AND (LENGTH("+protect("min4Max8")+")<=8)) OR ("+protect("min4Max8")+" IS NULL)");
+			assertCheckConstraint(stringItem, "StringItem_exact6_Ck",   "((LENGTH("+protect("exact6")+")>=6) AND (LENGTH("+protect("exact6")+")<=6)) OR ("+protect("exact6")+" IS NULL)");
 		}
 	}
 	

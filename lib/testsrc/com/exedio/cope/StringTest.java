@@ -48,6 +48,10 @@ public class StringTest extends TestmodelTest
 		assertEquals(8, item.min4Max8.getMaximumLength());
 		assertEquals(true, item.min4Max8.isLengthConstrained());
 		
+		assertEquals(6, item.exact6.getMinimumLength());
+		assertEquals(6, item.exact6.getMaximumLength());
+		assertEquals(true, item.exact6.isLengthConstrained());
+		
 		// any
 		item.setAny("1234");
 		assertEquals("1234", item.getAny());
