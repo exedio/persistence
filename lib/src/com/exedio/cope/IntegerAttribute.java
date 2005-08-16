@@ -18,9 +18,6 @@
 
 package com.exedio.cope;
 
-import java.util.Collections;
-import java.util.List;
-
 import com.exedio.cope.function.SumFunction;
 import com.exedio.cope.search.EqualCondition;
 import com.exedio.cope.search.GreaterCondition;
@@ -44,9 +41,9 @@ public final class IntegerAttribute extends ObjectAttribute implements IntegerFu
 		return new IntegerAttribute(getTemplateOption());
 	}
 	
-	protected List createColumns(final Table table, final String name, final boolean notNull)
+	protected Column createColumn(final Table table, final String name, final boolean notNull)
 	{
-		return Collections.singletonList(new IntegerColumn(table, name, notNull, 10, false, null));
+		return new IntegerColumn(table, name, notNull, 10, false, null);
 	}
 	
 	Object cacheToSurface(final Object cache)

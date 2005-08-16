@@ -18,9 +18,6 @@
 
 package com.exedio.cope;
 
-import java.util.Collections;
-import java.util.List;
-
 import com.exedio.cope.search.EqualCondition;
 import com.exedio.cope.search.NotEqualCondition;
 
@@ -41,9 +38,9 @@ public final class BooleanAttribute extends ObjectAttribute
 		return new BooleanAttribute(getTemplateOption());
 	}
 	
-	protected List createColumns(final Table table, final String name, final boolean notNull)
+	protected Column createColumn(final Table table, final String name, final boolean notNull)
 	{
-		return Collections.singletonList(new IntegerColumn(table, name, notNull, 1, false, ALLOWED_VALUES));
+		return new IntegerColumn(table, name, notNull, 1, false, ALLOWED_VALUES);
 	}
 	
 	Object cacheToSurface(final Object cache)

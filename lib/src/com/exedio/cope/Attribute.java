@@ -17,8 +17,6 @@
  */
 package com.exedio.cope;
 
-import java.util.Collections;
-import java.util.List;
 
 public abstract class Attribute extends Feature
 {
@@ -62,8 +60,7 @@ public abstract class Attribute extends Feature
 
 	// second initialization phase ---------------------------------------------------
 
-	private List columns;
-	private Column mainColumn;
+	private Column column;
 	
 	final void initialize(final Type type, final String name)
 	{
@@ -79,31 +76,18 @@ public abstract class Attribute extends Feature
 	{
 		if(table==null)
 			throw new NullPointerException();
-
-		if(this.columns!=null)
-			throw new RuntimeException();
-		if(this.mainColumn!=null)
+		if(this.column!=null)
 			throw new RuntimeException();
 
-		this.columns =
-				Collections.unmodifiableList(createColumns(table, getName(), notNull));
-		this.mainColumn = this.columns.isEmpty() ? null : (Column)columns.iterator().next();
+		this.column = createColumn(table, getName(), notNull);
 	}
 	
-	final List getColumns()
+	final Column getColumn()
 	{
-		if(this.columns==null)
+		if(this.column==null)
 			throw new RuntimeException();
 
-		return columns;
-	}
-	
-	final Column getMainColumn()
-	{
-		if(this.mainColumn==null)
-			throw new RuntimeException();
-
-		return mainColumn;
+		return column;
 	}
 	
 	public final String toString()
@@ -134,7 +118,7 @@ public abstract class Attribute extends Feature
 		return buf.toString();
 	}
 	
-	protected abstract List createColumns(Table table, String name, boolean notNull);
+	protected abstract Column createColumn(Table table, String name, boolean notNull);
 	
 	public static class Option
 	{

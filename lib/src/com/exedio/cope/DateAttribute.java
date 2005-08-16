@@ -18,9 +18,7 @@
 
 package com.exedio.cope;
 
-import java.util.Collections;
 import java.util.Date;
-import java.util.List;
 
 import com.exedio.cope.search.EqualCondition;
 import com.exedio.cope.search.GreaterCondition;
@@ -55,18 +53,16 @@ public final class DateAttribute extends ObjectAttribute
 		return new DateAttribute(getTemplateOption());
 	}
 	
-	protected List createColumns(final Table table, final String name, final boolean notNull)
+	protected Column createColumn(final Table table, final String name, final boolean notNull)
 	{
 		final boolean useLong =
 			forbidTimestampColumn ||
 			!(getType().getModel().getDatabase() instanceof DatabaseTimestampCapable);
 		
 		return
-			Collections.singletonList(
 				useLong
 				? (Column)new IntegerColumn(table, name, notNull, 20, true, null)
-				: (Column)new TimestampColumn(table, name, notNull)
-			);
+				: (Column)new TimestampColumn(table, name, notNull);
 	}
 	
 	Object cacheToSurface(final Object cache)

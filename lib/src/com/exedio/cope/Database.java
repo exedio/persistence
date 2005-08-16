@@ -233,7 +233,7 @@ abstract class Database
 				
 				if(selectable instanceof ObjectAttribute)
 				{
-					selectColumn = ((ObjectAttribute)selectAttribute).getMainColumn();
+					selectColumn = ((ObjectAttribute)selectAttribute).getColumn();
 					selectTable = selectColumn.table;
 					selectPrimaryKey = selectTable.getPrimaryKey();
 					bf.append(selectColumn.table.protectedID).

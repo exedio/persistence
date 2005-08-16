@@ -18,9 +18,6 @@
 
 package com.exedio.cope;
 
-import java.util.Collections;
-import java.util.List;
-
 import com.exedio.cope.search.EqualCondition;
 import com.exedio.cope.search.EqualTargetCondition;
 import com.exedio.cope.search.NotEqualCondition;
@@ -61,7 +58,7 @@ public final class ItemAttribute extends ObjectAttribute
 		return targetType;
 	}
 	
-	protected List createColumns(final Table table, final String name, final boolean notNull)
+	protected Column createColumn(final Table table, final String name, final boolean notNull)
 	{
 		if(targetType!=null)
 			throw new RuntimeException();
@@ -69,7 +66,7 @@ public final class ItemAttribute extends ObjectAttribute
 		targetType = Type.findByJavaClass(targetTypeClass);
 		targetType.registerReference(this);
 
-		return Collections.singletonList(new ItemColumn(table, name, notNull, targetTypeClass, this));
+		return new ItemColumn(table, name, notNull, targetTypeClass, this);
 	}
 	
 	Object cacheToSurface(final Object cache)

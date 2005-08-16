@@ -18,9 +18,6 @@
 
 package com.exedio.cope;
 
-import java.util.Collections;
-import java.util.List;
-
 import com.exedio.cope.search.EqualCondition;
 import com.exedio.cope.search.GreaterCondition;
 import com.exedio.cope.search.GreaterEqualCondition;
@@ -43,9 +40,9 @@ public final class LongAttribute extends ObjectAttribute
 		return new LongAttribute(getTemplateOption());
 	}
 	
-	protected List createColumns(final Table table, final String name, final boolean notNull)
+	protected Column createColumn(final Table table, final String name, final boolean notNull)
 	{
-		return Collections.singletonList(new IntegerColumn(table, name, notNull, 20, true, null));
+		return new IntegerColumn(table, name, notNull, 20, true, null);
 	}
 	
 	Object cacheToSurface(final Object cache)

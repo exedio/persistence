@@ -83,7 +83,7 @@ public final class Statement
 		else
 		{
 			final ObjectAttribute attribute = (ObjectAttribute)function;
-			appendValue(attribute.getMainColumn(), attribute.surfaceToCache(value));
+			appendValue(attribute.getColumn(), attribute.surfaceToCache(value));
 		}
 		return this;
 	}

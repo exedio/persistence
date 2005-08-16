@@ -53,7 +53,7 @@ final class Row
 	{
 		checkExists();
 
-		return attribute.cacheToSurface(cache.get(attribute.getMainColumn()));
+		return attribute.cacheToSurface(cache.get(attribute.getColumn()));
 	}
 	
 	Object get(final Column column)
@@ -72,7 +72,7 @@ final class Row
 		for(int i = 0; i<attributeValues.length; i++)
 		{
 			final ObjectAttribute attribute = attributeValues[i].attribute;
-			cache.put(attribute.getMainColumn(), attribute.surfaceToCache(attributeValues[i].value));
+			cache.put(attribute.getColumn(), attribute.surfaceToCache(attributeValues[i].value));
 		}
 		dirty = true; // TODO: check, whether the written attribute got really a new value
 	}
@@ -81,7 +81,7 @@ final class Row
 	{
 		checkExists();
 
-		cache.put(attribute.getMainColumn(), attribute.surfaceToCache(value));
+		cache.put(attribute.getColumn(), attribute.surfaceToCache(value));
 		dirty = true; // TODO: check, whether the written attribute got really a new value
 	}
 	

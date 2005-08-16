@@ -98,7 +98,7 @@ public abstract class ObjectAttribute
 		bf.text.
 			append(join!=null ? bf.getName(join) : getType().getTable().protectedID).
 			append('.').
-			append(getMainColumn().protectedID);
+			append(getColumn().protectedID);
 	}
 		
 	public final Item searchUnique(final Object value)

@@ -130,14 +130,14 @@ public final class EnumAttribute extends ObjectAttribute
 		return (EnumValue)codesToValues.get(code);
 	}
 
-	protected List createColumns(final Table table, final String name, final boolean notNull)
+	protected Column createColumn(final Table table, final String name, final boolean notNull)
 	{
 		final int[] allowedValues = new int[values.size()];
 		int in = 0;
 		for(Iterator i = values.iterator(); i.hasNext(); in++)
 			allowedValues[in] = ((EnumValue)i.next()).getNumber();
 
-		return Collections.singletonList(new IntegerColumn(table, name, notNull, 10, false, allowedValues));
+		return new IntegerColumn(table, name, notNull, 10, false, allowedValues);
 	}
 	
 	Object cacheToSurface(final Object cache)

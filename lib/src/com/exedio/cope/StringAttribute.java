@@ -18,9 +18,6 @@
 
 package com.exedio.cope;
 
-import java.util.Collections;
-import java.util.List;
-
 import com.exedio.cope.function.LengthFunction;
 import com.exedio.cope.function.UppercaseFunction;
 import com.exedio.cope.search.EqualAttributeCondition;
@@ -87,9 +84,9 @@ public final class StringAttribute extends ObjectAttribute implements StringFunc
 		return minimumLength!=0 || maximumLength!=Integer.MAX_VALUE;
 	}
 	
-	protected List createColumns(final Table table, final String name, final boolean notNull)
+	protected Column createColumn(final Table table, final String name, final boolean notNull)
 	{
-		return Collections.singletonList(new StringColumn(table, name, notNull, minimumLength, maximumLength));
+		return new StringColumn(table, name, notNull, minimumLength, maximumLength);
 	}
 	
 	Object cacheToSurface(final Object cache)

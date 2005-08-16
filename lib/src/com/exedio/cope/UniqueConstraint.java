@@ -108,7 +108,7 @@ public final class UniqueConstraint extends Feature
 			if(i>0)
 				bf.append(',');
 			final Attribute uniqueAttribute = uniqueAttributes[i];
-			bf.append(uniqueAttribute.getMainColumn().protectedID);
+			bf.append(uniqueAttribute.getColumn().protectedID);
 		}
 		bf.append(')');
 

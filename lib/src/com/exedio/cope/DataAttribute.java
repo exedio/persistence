@@ -18,8 +18,6 @@
 
 package com.exedio.cope;
 
-import java.util.Collections;
-import java.util.List;
 
 public final class DataAttribute extends Attribute
 {
@@ -40,11 +38,11 @@ public final class DataAttribute extends Attribute
 	
 	// second initialization phase ---------------------------------------------------
 
-	protected List createColumns(final Table table, final String name, final boolean notNull)
+	protected Column createColumn(final Table table, final String name, final boolean notNull)
 	{
 		// make sure, data configuration properties are set
 		getType().getModel().getProperties().getDatadirPath();
-		return Collections.EMPTY_LIST;
+		return null;
 	}
 	
 }
