@@ -301,7 +301,7 @@ public class SchemaTest extends TestmodelTest
 			assertCheckConstraint(stringItem, "StringItem_min4_Ck", "(LENGTH("+protect("min4")+")>=4) OR ("+protect("min4")+" IS NULL)");
 			assertCheckConstraint(stringItem, "StringItem_max4_Ck", "(LENGTH("+protect("max4")+")<=4) OR ("+protect("max4")+" IS NULL)");
 			assertCheckConstraint(stringItem, "StringItem_min4Max8_Ck", "((LENGTH("+protect("min4Max8")+")>=4) AND (LENGTH("+protect("min4Max8")+")<=8)) OR ("+protect("min4Max8")+" IS NULL)");
-			assertCheckConstraint(stringItem, "StringItem_exact6_Ck",   "((LENGTH("+protect("exact6")+")>=6) AND (LENGTH("+protect("exact6")+")<=6)) OR ("+protect("exact6")+" IS NULL)");
+			assertCheckConstraint(stringItem, "StringItem_exact6_Ck",   "(LENGTH("+protect("exact6")+")=6) OR ("+protect("exact6")+" IS NULL)");
 		}
 	}
 	
