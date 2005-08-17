@@ -18,6 +18,7 @@
 package com.exedio.cope;
 
 import com.exedio.cope.search.EqualCondition;
+import com.exedio.cope.search.NotEqualCondition;
 
 
 public abstract class ObjectAttribute
@@ -136,6 +137,11 @@ public abstract class ObjectAttribute
 	public final EqualCondition isNull()
 	{
 		return new EqualCondition(null, this, null);
+	}
+	
+	public final NotEqualCondition isNotNull()
+	{
+		return new NotEqualCondition(this, null);
 	}
 	
 }

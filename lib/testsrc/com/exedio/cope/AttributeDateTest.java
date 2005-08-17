@@ -33,7 +33,7 @@ public class AttributeDateTest extends AttributeTest
 		assertContains(item, item2, item.TYPE.search(item.someDate.equal((Date)null)));
 		assertContains(item, item2, item.TYPE.search(item.someDate.isNull()));
 		assertContains(item.TYPE.search(item.someDate.notEqual((Date)null)));
-		assertContains(item.TYPE.search(Cope.isNotNull(item.someDate)));
+		assertContains(item.TYPE.search(item.someDate.isNotNull()));
 
 		item.setSomeDate(date);
 		assertEquals(date, item.getSomeDate());
@@ -52,7 +52,7 @@ public class AttributeDateTest extends AttributeTest
 		assertEquals(list(item2), item.TYPE.search(item.someDate.equal((Date)null)));
 		assertEquals(list(item2), item.TYPE.search(item.someDate.isNull()));
 		assertEquals(list(item), item.TYPE.search(item.someDate.notEqual((Date)null)));
-		assertEquals(list(item), item.TYPE.search(Cope.isNotNull(item.someDate)));
+		assertEquals(list(item), item.TYPE.search(item.someDate.isNotNull()));
 
 		item.setSomeDate(nextDate);
 		item.passivateCopeItem();
@@ -91,7 +91,7 @@ public class AttributeDateTest extends AttributeTest
 		assertContains(item, item2, item.TYPE.search(item.someLongDate.equal((Date)null)));
 		assertContains(item, item2, item.TYPE.search(item.someLongDate.isNull()));
 		assertContains(item.TYPE.search(item.someLongDate.notEqual((Date)null)));
-		assertContains(item.TYPE.search(Cope.isNotNull(item.someLongDate)));
+		assertContains(item.TYPE.search(item.someLongDate.isNotNull()));
 
 		item.setSomeLongDate(date);
 		assertEquals(date, item.getSomeLongDate());
@@ -107,7 +107,7 @@ public class AttributeDateTest extends AttributeTest
 		assertEquals(list(item2), item.TYPE.search(item.someLongDate.equal((Date)null)));
 		assertEquals(list(item2), item.TYPE.search(item.someLongDate.isNull()));
 		assertEquals(list(item), item.TYPE.search(item.someLongDate.notEqual((Date)null)));
-		assertEquals(list(item), item.TYPE.search(Cope.isNotNull(item.someLongDate)));
+		assertEquals(list(item), item.TYPE.search(item.someLongDate.isNotNull()));
 
 		assertContains(date, null, search(item.someLongDate));
 		assertContains(date, search(item.someLongDate, item.someLongDate.equal(date)));

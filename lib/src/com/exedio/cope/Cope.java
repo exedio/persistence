@@ -20,7 +20,6 @@ package com.exedio.cope;
 import com.exedio.cope.function.SumFunction;
 import com.exedio.cope.search.AndCondition;
 import com.exedio.cope.search.Condition;
-import com.exedio.cope.search.NotEqualCondition;
 import com.exedio.cope.search.OrCondition;
 
 /**
@@ -34,11 +33,6 @@ public abstract class Cope
 	Cope()
 	{}
 
-	public static final NotEqualCondition isNotNull(final ObjectAttribute attribute)
-	{
-		return new NotEqualCondition(attribute, null);
-	}
-	
 	public static final AttributeValue attributeValue(final StringAttribute attribute, final String value)
 	{
 		return new AttributeValue(attribute, value);
