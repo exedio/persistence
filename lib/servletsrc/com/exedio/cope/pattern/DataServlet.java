@@ -205,101 +205,11 @@ public class DataServlet extends HttpServlet
 		final Path path = (Path)pathes.get(attributeString);
 		if(path==null)
 			return false;
-		
-		final HttpEntity attribute = path.entity; // TODO rename to entity
-		//System.out.println("attribute="+attribute);
-
-		final int dotAfterSlash = pathInfo.indexOf('.', trailingSlash);
-		//System.out.println("trailingDot="+trailingDot);
-
-		final String pkString =
-			(dotAfterSlash>=0)
-			? pathInfo.substring(trailingSlash+1, dotAfterSlash)
-			: pathInfo.substring(trailingSlash+1);
-		//System.out.println("pkString="+pkString);
-
-		final String id = attribute.getType().getID() + '.' + pkString;
-		//System.out.println("ID="+id);
-		try
-		{
-			model.startTransaction("DataServlet");
-			final Item item = model.findByID(id);
-			//System.out.println("item="+item);
-
-			final String mimeMajor = attribute.getMimeMajor(item);
-			//System.out.println("mimeMajor="+mimeMajor);
-			if(mimeMajor!=null)
-			{
-				final String mimeMinor = attribute.getMimeMinor(item);
-				//System.out.println("mimeMinor="+mimeMinor);
-				response.setContentType(mimeMajor+'/'+mimeMinor);
-
-				final long lastModified = attribute.getDataLastModified(item);
-				//System.out.println("lastModified="+formatHttpDate(lastModified));
-				response.setDateHeader(RESPONSE_LAST_MODIFIED, lastModified);
-
-				final long now = System.currentTimeMillis();
-				response.setDateHeader(RESPONSE_EXPIRES, now+EXPIRES_OFFSET);
-				
-				final long ifModifiedSince = request.getDateHeader(REQUEST_IF_MODIFIED_SINCE);
-				//System.out.println("ifModifiedSince="+request.getHeader(REQUEST_IF_MODIFIED_SINCE));
-				//System.out.println("ifModifiedSince="+ifModifiedSince);
-				
-				if(ifModifiedSince>=0 && ifModifiedSince>=lastModified)
-				{
-					//System.out.println("not modified");
-					response.setStatus(response.SC_NOT_MODIFIED);
-					
-					System.out.println(request.getMethod()+' '+request.getProtocol()+" IMS="+format(ifModifiedSince)+"  LM="+format(lastModified)+"  NOT modified");
-				}
-				else
-				{
-					final long contentLength = attribute.getDataLength(item);
-					//System.out.println("contentLength="+String.valueOf(contentLength));
-					response.setHeader(RESPONSE_CONTENT_LENGTH, String.valueOf(contentLength));
-					//response.setHeader("Cache-Control", "public");
-	
-					System.out.println(request.getMethod()+' '+request.getProtocol()+" IMS="+format(ifModifiedSince)+"  LM="+format(lastModified)+"  modified: "+contentLength);
-
-					ServletOutputStream out = null;
-					InputStream in = null;
-					try
-					{
-						out = response.getOutputStream();
-						in = attribute.getData(item);
-	
-						final byte[] buffer = new byte[Math.max((int)contentLength, 50*1024)];
-						for(int len = in.read(buffer); len != -1; len = in.read(buffer))
-							out.write(buffer, 0, len);
-					}
-					finally
-					{
-						if(in!=null)
-							in.close();
-						if(out!=null)
-							out.close();
-					}
-				}
-				Transaction.commit();
-				return true;
-			}
-			else
-			{
-				Transaction.commit();
-				return false;
-			}
-		}
-		catch(NoSuchIDException e)
-		{
-			return false;
-		}
-		finally
-		{
-			Transaction.rollbackIfNotCommitted();
-		}
+		else
+			return path.serveContent(request, response, pathInfo, trailingSlash);
 	}
 	
-	private static final class Path
+	private final class Path
 	{
 		final String path;
 		final HttpEntity entity;
@@ -308,6 +218,104 @@ public class DataServlet extends HttpServlet
 		{
 			this.path = path;
 			this.entity = entity;
+		}
+
+		boolean serveContent(
+				final HttpServletRequest request, final HttpServletResponse response,
+				final String pathInfo, final int trailingSlash)
+			throws ServletException, IOException
+		{
+			final HttpEntity attribute = entity; // TODO rename to entity
+			//System.out.println("attribute="+attribute);
+
+			final int dotAfterSlash = pathInfo.indexOf('.', trailingSlash);
+			//System.out.println("trailingDot="+trailingDot);
+
+			final String pkString =
+				(dotAfterSlash>=0)
+				? pathInfo.substring(trailingSlash+1, dotAfterSlash)
+				: pathInfo.substring(trailingSlash+1);
+			//System.out.println("pkString="+pkString);
+
+			final String id = attribute.getType().getID() + '.' + pkString;
+			//System.out.println("ID="+id);
+			try
+			{
+				model.startTransaction("DataServlet");
+				final Item item = model.findByID(id);
+				//System.out.println("item="+item);
+
+				final String mimeMajor = attribute.getMimeMajor(item);
+				//System.out.println("mimeMajor="+mimeMajor);
+				if(mimeMajor!=null)
+				{
+					final String mimeMinor = attribute.getMimeMinor(item);
+					//System.out.println("mimeMinor="+mimeMinor);
+					response.setContentType(mimeMajor+'/'+mimeMinor);
+
+					final long lastModified = attribute.getDataLastModified(item);
+					//System.out.println("lastModified="+formatHttpDate(lastModified));
+					response.setDateHeader(RESPONSE_LAST_MODIFIED, lastModified);
+
+					final long now = System.currentTimeMillis();
+					response.setDateHeader(RESPONSE_EXPIRES, now+EXPIRES_OFFSET);
+					
+					final long ifModifiedSince = request.getDateHeader(REQUEST_IF_MODIFIED_SINCE);
+					//System.out.println("ifModifiedSince="+request.getHeader(REQUEST_IF_MODIFIED_SINCE));
+					//System.out.println("ifModifiedSince="+ifModifiedSince);
+					
+					if(ifModifiedSince>=0 && ifModifiedSince>=lastModified)
+					{
+						//System.out.println("not modified");
+						response.setStatus(response.SC_NOT_MODIFIED);
+						
+						System.out.println(request.getMethod()+' '+request.getProtocol()+" IMS="+format(ifModifiedSince)+"  LM="+format(lastModified)+"  NOT modified");
+					}
+					else
+					{
+						final long contentLength = attribute.getDataLength(item);
+						//System.out.println("contentLength="+String.valueOf(contentLength));
+						response.setHeader(RESPONSE_CONTENT_LENGTH, String.valueOf(contentLength));
+						//response.setHeader("Cache-Control", "public");
+		
+						System.out.println(request.getMethod()+' '+request.getProtocol()+" IMS="+format(ifModifiedSince)+"  LM="+format(lastModified)+"  modified: "+contentLength);
+
+						ServletOutputStream out = null;
+						InputStream in = null;
+						try
+						{
+							out = response.getOutputStream();
+							in = attribute.getData(item);
+		
+							final byte[] buffer = new byte[Math.max((int)contentLength, 50*1024)];
+							for(int len = in.read(buffer); len != -1; len = in.read(buffer))
+								out.write(buffer, 0, len);
+						}
+						finally
+						{
+							if(in!=null)
+								in.close();
+							if(out!=null)
+								out.close();
+						}
+					}
+					Transaction.commit();
+					return true;
+				}
+				else
+				{
+					Transaction.commit();
+					return false;
+				}
+			}
+			catch(NoSuchIDException e)
+			{
+				return false;
+			}
+			finally
+			{
+				Transaction.rollbackIfNotCommitted();
+			}
 		}
 	}
 	
