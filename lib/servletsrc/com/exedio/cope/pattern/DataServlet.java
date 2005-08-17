@@ -136,7 +136,9 @@ public class DataServlet extends HttpServlet
 		p.println("<head><title>cope data servlet</title><head>");
 		p.println("<body>");
 		p.println("<table border=\"1\">"+
-							"<tr>" +
+						"<tr><th colspan=\"7\">cope data servlet statistics</th></tr>" +
+						"<tr><td colspan=\"7\">"+format(System.currentTimeMillis())+"</td></tr>" +
+						"<tr>" +
 							"<th>entity</th>" +
 							"<th>hits</th>" +
 							"<th>itemFound</th>" +
@@ -144,7 +146,7 @@ public class DataServlet extends HttpServlet
 							"<th>modified</th>" +
 							"<th>fullyDelivered</th>" +
 							"<th>statisticsFromDate</th>" +
-							"</tr>");
+						"</tr>");
 		
 		for(Iterator i = pathes.values().iterator(); i.hasNext(); )
 			((Path)i.next()).printStatistics(prefix, p);
