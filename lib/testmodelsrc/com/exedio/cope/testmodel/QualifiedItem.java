@@ -29,7 +29,7 @@ import com.exedio.cope.testmodel.QualifiedIntegerEnumQualifier.KeyEnum;
  */
 public class QualifiedItem extends Item
 {
-	public static final IntegerAttribute number = integerAttribute(DEFAULT);
+	public static final IntegerAttribute number = integerAttribute(OPTIONAL);
 	
 	public static final Qualifier qualifier = new Qualifier(QualifiedEmptyQualifier.qualifyUnique);
 	public static final Qualifier stringQualifier = new Qualifier(QualifiedStringQualifier.qualifyUnique);

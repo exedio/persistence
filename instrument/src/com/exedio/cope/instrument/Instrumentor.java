@@ -254,7 +254,7 @@ final class Instrumentor implements InjectionConsumer
 		if("stringAttribute".equals(initializerArgument))
 		{
 			// implicitExternal
-			storageAttribute = new CopeNativeAttribute(ja, StringAttribute.class, Collections.singletonList("DEFAULT"), "none", "none");
+			storageAttribute = new CopeNativeAttribute(ja, StringAttribute.class, Collections.singletonList("OPTIONAL"), "none", "none"); // TODO make some useful assumption about option
 		}
 		else
 		{

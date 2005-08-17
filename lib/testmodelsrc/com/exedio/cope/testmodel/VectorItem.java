@@ -32,21 +32,21 @@ public class VectorItem extends Item
 {
 	// explicit external source
 
-	public static final IntegerAttribute num1 = integerAttribute(DEFAULT);
+	public static final IntegerAttribute num1 = integerAttribute(OPTIONAL);
 
-	public static final IntegerAttribute num2 = integerAttribute(DEFAULT);
+	public static final IntegerAttribute num2 = integerAttribute(OPTIONAL);
 
-	public static final IntegerAttribute num3 = integerAttribute(DEFAULT);
+	public static final IntegerAttribute num3 = integerAttribute(OPTIONAL);
 	
 	public static final Vector nums = new Vector(new ObjectAttribute[]{num1, num2, num3});
 
 	// implicit external source
 
-	public static final Vector dates = new Vector(new ObjectAttribute[]{dateAttribute(DEFAULT), dateAttribute(DEFAULT)});
+	public static final Vector dates = new Vector(new ObjectAttribute[]{dateAttribute(OPTIONAL), dateAttribute(OPTIONAL)});
 
 	// internal source
 
-	public static final Vector strings = new Vector(stringAttribute(DEFAULT, 1, 11), 4);
+	public static final Vector strings = new Vector(stringAttribute(OPTIONAL, 1, 11), 4);
 
 	public VectorItem(final int initialNum1, final int initialNum2, final int initialNum3)
 	{

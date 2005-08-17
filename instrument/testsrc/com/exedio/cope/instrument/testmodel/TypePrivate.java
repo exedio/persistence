@@ -29,7 +29,7 @@ import com.exedio.cope.StringAttribute;
  */
 public class TypePrivate extends Item
 {
-	public static final StringAttribute defaultString = stringAttribute(DEFAULT);
+	public static final StringAttribute defaultString = stringAttribute(OPTIONAL);
 
 	/**
 	 * Creates a new TypeNone and sets the given attributes initially.

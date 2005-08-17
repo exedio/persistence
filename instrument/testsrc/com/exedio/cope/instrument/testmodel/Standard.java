@@ -42,69 +42,69 @@ import com.exedio.cope.pattern.MD5Hash;
  */
 public class Standard extends Item
 {
-	public static final StringAttribute defaultString = stringAttribute(DEFAULT);
+	public static final StringAttribute defaultString = stringAttribute(OPTIONAL);
 	public static final StringAttribute notNullString = stringAttribute(NOT_NULL);
 	public static final StringAttribute readOnlyString = stringAttribute(READ_ONLY);
 	public static final StringAttribute uniqueString = stringAttribute(UNIQUE);
 
-	public static final IntegerAttribute defaultInteger = integerAttribute(DEFAULT);
+	public static final IntegerAttribute defaultInteger = integerAttribute(OPTIONAL);
 	public static final IntegerAttribute nativeInteger = integerAttribute(NOT_NULL);
 
-	public static final LongAttribute defaultLong = longAttribute(DEFAULT);
+	public static final LongAttribute defaultLong = longAttribute(OPTIONAL);
 	public static final LongAttribute nativeLong = longAttribute(NOT_NULL);
 
-	public static final DoubleAttribute defaultDouble = doubleAttribute(DEFAULT);
+	public static final DoubleAttribute defaultDouble = doubleAttribute(OPTIONAL);
 	public static final DoubleAttribute nativeDouble = doubleAttribute(NOT_NULL);
 
-	public static final BooleanAttribute defaultBoolean = booleanAttribute(DEFAULT);
+	public static final BooleanAttribute defaultBoolean = booleanAttribute(OPTIONAL);
 	public static final BooleanAttribute nativeBoolean = booleanAttribute(NOT_NULL);
 
-	private static final StringAttribute privateString = stringAttribute(DEFAULT);
+	private static final StringAttribute privateString = stringAttribute(OPTIONAL);
 
 	/**
 	 * @cope.getter none
 	 */
-	public static final StringAttribute noneGetterString = stringAttribute(DEFAULT);
+	public static final StringAttribute noneGetterString = stringAttribute(OPTIONAL);
 
 	/**
 	 * @cope.getter private
 	 */
-	public static final StringAttribute privateGetterString = stringAttribute(DEFAULT);
+	public static final StringAttribute privateGetterString = stringAttribute(OPTIONAL);
 
 	/**
 	 * @cope.setter none
 	 * @cope.getter boolean-as-is
 	 */
-	public static final StringAttribute noneSetterString = stringAttribute(DEFAULT);
+	public static final StringAttribute noneSetterString = stringAttribute(OPTIONAL);
 
 	/**
 	 * @cope.setter private
 	 * @cope.getter boolean-as-is
 	 */
-	public static final StringAttribute privateSetterString = stringAttribute(DEFAULT);
+	public static final StringAttribute privateSetterString = stringAttribute(OPTIONAL);
 
 	/**
 	 * @cope.getter non-final
 	 * @cope.setter protected
 	 */
-	public static final StringAttribute nonfinalGetterString = stringAttribute(DEFAULT);
+	public static final StringAttribute nonfinalGetterString = stringAttribute(OPTIONAL);
 
 	/**
 	 * @cope.getter protected
 	 * @cope.setter non-final
 	 */
-	public static final StringAttribute nonfinalSetterString = stringAttribute(DEFAULT);
+	public static final StringAttribute nonfinalSetterString = stringAttribute(OPTIONAL);
 
 	/**
 	 * @cope.getter boolean-as-is
 	 */
-	public static final BooleanAttribute asIsBoolean = booleanAttribute(DEFAULT);
+	public static final BooleanAttribute asIsBoolean = booleanAttribute(OPTIONAL);
 	
-	public static final HttpEntity anyData = new HttpEntity(DEFAULT);
+	public static final HttpEntity anyData = new HttpEntity(OPTIONAL);
 
-	public static final HttpEntity majorData = new HttpEntity(DEFAULT, "major");
+	public static final HttpEntity majorData = new HttpEntity(OPTIONAL, "major");
 	
-	public static final HttpEntity minorData = new HttpEntity(DEFAULT, "major", "minor");
+	public static final HttpEntity minorData = new HttpEntity(OPTIONAL, "major", "minor");
 	
 	public static final Hash publicHash = new MD5Hash(privateString);
 	private static final Hash privateHash = new MD5Hash(defaultString);

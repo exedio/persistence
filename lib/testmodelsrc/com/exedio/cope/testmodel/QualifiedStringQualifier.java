@@ -36,8 +36,8 @@ public class QualifiedStringQualifier extends Item
 	
 	public static final UniqueConstraint qualifyUnique = uniqueConstraint(parent, key);
 	
-	public static final IntegerAttribute qualifiedA = integerAttribute(DEFAULT);
-	public static final IntegerAttribute qualifiedB = integerAttribute(DEFAULT);
+	public static final IntegerAttribute qualifiedA = integerAttribute(OPTIONAL);
+	public static final IntegerAttribute qualifiedB = integerAttribute(OPTIONAL);
 	
 
 /**

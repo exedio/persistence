@@ -30,7 +30,7 @@ public class AttributeStringTest extends AttributeTest
 		assertEquals("someStringUpperCase", item.someStringUpperCase.getName());
 		
 		{
-			final StringAttribute orig = Item.stringAttribute(Item.DEFAULT);
+			final StringAttribute orig = Item.stringAttribute(Item.OPTIONAL);
 			assertEquals(false, orig.isReadOnly());
 			assertEquals(false, orig.isNotNull());
 			assertEquals(false, orig.isLengthConstrained());
@@ -76,7 +76,7 @@ public class AttributeStringTest extends AttributeTest
 		}
 		try
 		{
-			Item.stringAttribute(Item.DEFAULT, -1, 20);
+			Item.stringAttribute(Item.OPTIONAL, -1, 20);
 		}
 		catch(RuntimeException e)
 		{
@@ -84,7 +84,7 @@ public class AttributeStringTest extends AttributeTest
 		}
 		try
 		{
-			Item.stringAttribute(Item.DEFAULT, 20, 10);
+			Item.stringAttribute(Item.OPTIONAL, 20, 10);
 		}
 		catch(RuntimeException e)
 		{

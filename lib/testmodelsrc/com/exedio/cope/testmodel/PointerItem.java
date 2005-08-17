@@ -33,11 +33,11 @@ public class PointerItem extends Item
 	
 	public static final ItemAttribute pointer = itemAttribute(NOT_NULL, PointerTargetItem.class);
 
-	public static final ItemAttribute pointer2 = itemAttribute(DEFAULT, PointerTargetItem.class);
+	public static final ItemAttribute pointer2 = itemAttribute(OPTIONAL, PointerTargetItem.class);
 
-	public static final ItemAttribute self = itemAttribute(DEFAULT, PointerItem.class);
+	public static final ItemAttribute self = itemAttribute(OPTIONAL, PointerItem.class);
 
-	public static final ItemAttribute empty2 = itemAttribute(DEFAULT, EmptyItem2.class);
+	public static final ItemAttribute empty2 = itemAttribute(OPTIONAL, EmptyItem2.class);
 
 /**
 

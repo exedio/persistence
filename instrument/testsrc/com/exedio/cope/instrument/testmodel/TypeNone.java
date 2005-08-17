@@ -29,7 +29,7 @@ import com.exedio.cope.StringAttribute;
  */
 public class TypeNone extends Item
 {
-	public static final StringAttribute defaultString = stringAttribute(DEFAULT);
+	public static final StringAttribute defaultString = stringAttribute(OPTIONAL);
 
 /**
 

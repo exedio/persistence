@@ -28,14 +28,14 @@ import com.exedio.cope.pattern.MD5Hash;
  */
 public class MD5Item extends Item
 {
-	public static final MD5Hash password = new MD5Hash(DEFAULT);
+	public static final MD5Hash password = new MD5Hash(OPTIONAL);
 
 	public final String getPassword()
 	{
 		return (String)get(password.getStorage());
 	}
 	
-	public static final StringAttribute hashed1MD5 = stringAttribute(DEFAULT);
+	public static final StringAttribute hashed1MD5 = stringAttribute(OPTIONAL);
 	public static final MD5Hash hashed1 = new MD5Hash(hashed1MD5);
 	public static final MD5Hash hashed1Latin = new MD5Hash(hashed1MD5, "ISO-8859-1");
 

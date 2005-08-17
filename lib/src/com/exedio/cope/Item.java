@@ -473,7 +473,7 @@ public abstract class Item extends Cope
 		return !getRow().deleted;
 	}
 
-	public static final Attribute.Option DEFAULT = new Attribute.Option(false, false, false);
+	public static final Attribute.Option OPTIONAL = new Attribute.Option(false, false, false);
 
 	public static final Attribute.Option READ_ONLY = new Attribute.Option(true, false, false);
 	public static final Attribute.Option NOT_NULL = new Attribute.Option(false, true, false);

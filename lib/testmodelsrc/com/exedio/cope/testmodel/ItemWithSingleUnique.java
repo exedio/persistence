@@ -33,7 +33,7 @@ public class ItemWithSingleUnique extends Item
 	 */
 	public static final StringAttribute uniqueString = stringAttribute(UNIQUE);
 
-	public static final StringAttribute otherString = stringAttribute(DEFAULT);
+	public static final StringAttribute otherString = stringAttribute(OPTIONAL);
 
 /**
 

@@ -66,7 +66,7 @@ public final class Qualifier extends Pattern
 	}
 	
 	// TODO implicit external source: new Qualifier(QualifiedStringQualifier.key))
-	// TODO internal source: new Qualifier(stringAttribute(DEFAULT))
+	// TODO internal source: new Qualifier(stringAttribute(OPTIONAL))
 
 	public final ItemAttribute getParent()
 	{

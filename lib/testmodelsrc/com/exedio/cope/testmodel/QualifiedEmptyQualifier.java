@@ -35,8 +35,8 @@ public class QualifiedEmptyQualifier extends Item
 	
 	public static final UniqueConstraint qualifyUnique = uniqueConstraint(parent, key);
 	
-	public static final StringAttribute qualifiedA = stringAttribute(DEFAULT);
-	public static final StringAttribute qualifiedB = stringAttribute(DEFAULT);
+	public static final StringAttribute qualifiedA = stringAttribute(OPTIONAL);
+	public static final StringAttribute qualifiedB = stringAttribute(OPTIONAL);
 	
 
 /**

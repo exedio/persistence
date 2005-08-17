@@ -27,7 +27,7 @@ package com.exedio.cope;
  * <dd>
  * This is the most verbose kind of defining a pattern.
  * First the source for the pattern is created, such as:
- * <pre>static final StringAttribute source = stringAttribute(DEFAULT)</pre>
+ * <pre>static final StringAttribute source = stringAttribute(OPTIONAL)</pre>
  * Then the pattern ist created using the previously defined source:
  * <pre>static final Hash hash = new MD5Hash(source)</pre>
  * </dd>
@@ -35,12 +35,12 @@ package com.exedio.cope;
  * <dd>
  * More concisely the pattern can be constructed by defining the source
  * implicitely when the defining the pattern itself:
- * <pre>static final Hash hash = new MD5Hash(stringAttribute(DEFAULT))</pre>
+ * <pre>static final Hash hash = new MD5Hash(stringAttribute(OPTIONAL))</pre>
  * </dd>
  * <dt>3) by an internal source</dt>
  * <dd>
  * Finally, the construction of the source can be done the the pattern itself:
- * <pre>static final Hash hash = new MD5Hash(DEFAULT)</pre>
+ * <pre>static final Hash hash = new MD5Hash(OPTIONAL)</pre>
  * </dd>
  * </dl>
  * 

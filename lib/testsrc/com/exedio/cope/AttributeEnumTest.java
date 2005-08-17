@@ -114,7 +114,7 @@ public class AttributeEnumTest extends AttributeTest
 		
 		try
 		{
-			new EnumAttribute(Item.DEFAULT, getClass());
+			new EnumAttribute(Item.OPTIONAL, getClass());
 			fail("should have thrown RuntimeException");
 		}
 		catch(RuntimeException e)

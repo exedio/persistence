@@ -29,11 +29,11 @@ import com.exedio.cope.function.SumFunction;
  */
 public class SumItem extends Item
 {
-	public static final IntegerAttribute num1 = integerAttribute(DEFAULT);
+	public static final IntegerAttribute num1 = integerAttribute(OPTIONAL);
 
-	public static final IntegerAttribute num2 = integerAttribute(DEFAULT);
+	public static final IntegerAttribute num2 = integerAttribute(OPTIONAL);
 
-	public static final IntegerAttribute num3 = integerAttribute(DEFAULT);
+	public static final IntegerAttribute num3 = integerAttribute(OPTIONAL);
 	
 	public static final SumFunction sum12 = num1.sum(num2);
 

@@ -55,7 +55,7 @@ public final class HttpEntity extends Pattern
 		this.data = Item.dataAttribute(option);
 		this.mimeMajor = null;
 		this.mimeMinor = null;
-		this.exists = option.notNull ? null : Item.booleanAttribute(Item.DEFAULT);
+		this.exists = option.notNull ? null : Item.booleanAttribute(Item.OPTIONAL);
 		this.isNull = exists;
 		
 		if(data==null)

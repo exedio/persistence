@@ -43,7 +43,7 @@ public class AttributeItem extends Item
 	/**
 	 * A string attribute.
 	 */
-	public static final StringAttribute someString = stringAttribute(DEFAULT);
+	public static final StringAttribute someString = stringAttribute(OPTIONAL);
 
 	/**
 	 * Test non-persistent static final attributes.
@@ -68,7 +68,7 @@ public class AttributeItem extends Item
 	/**
 	 * An integer attribute
 	 */
-	public static final IntegerAttribute someInteger = integerAttribute(DEFAULT);
+	public static final IntegerAttribute someInteger = integerAttribute(OPTIONAL);
 
 	/**
 	 * A not-null integer attribute
@@ -78,7 +78,7 @@ public class AttributeItem extends Item
 	/**
 	 * An integer attribute
 	 */
-	public static final LongAttribute someLong = longAttribute(DEFAULT);
+	public static final LongAttribute someLong = longAttribute(OPTIONAL);
 
 	/**
 	 * A not-null integer attribute
@@ -88,21 +88,21 @@ public class AttributeItem extends Item
 	/**
 	 * A double attribute
 	 */
-	public static final DoubleAttribute someDouble = doubleAttribute(DEFAULT);
+	public static final DoubleAttribute someDouble = doubleAttribute(OPTIONAL);
 
 	/**
 	 * A not-null double attribute
 	 */
 	public static final DoubleAttribute someNotNullDouble = doubleAttribute(NOT_NULL);
 
-	public static final DateAttribute someDate = dateAttribute(DEFAULT);
+	public static final DateAttribute someDate = dateAttribute(OPTIONAL);
 
-	public static final DateAttribute someLongDate = dateAttribute(DEFAULT, true);
+	public static final DateAttribute someLongDate = dateAttribute(OPTIONAL, true);
 
 	/**
 	 * An boolean attribute
 	 */
-	public static final BooleanAttribute someBoolean = booleanAttribute(DEFAULT);
+	public static final BooleanAttribute someBoolean = booleanAttribute(OPTIONAL);
 
 	/**
 	 * A not-null boolean attribute
@@ -112,7 +112,7 @@ public class AttributeItem extends Item
 	/**
 	 * An attribute referencing another persistent item
 	 */
-	public static final ItemAttribute someItem = itemAttribute(DEFAULT, EmptyItem.class);
+	public static final ItemAttribute someItem = itemAttribute(OPTIONAL, EmptyItem.class);
 
 	/**
 	 * An not-null attribute referencing another persistent item
@@ -122,7 +122,7 @@ public class AttributeItem extends Item
 	/**
 	 * An enumeration attribute
 	 */
-	public static final EnumAttribute someEnum = enumAttribute(DEFAULT, SomeEnum.class);
+	public static final EnumAttribute someEnum = enumAttribute(OPTIONAL, SomeEnum.class);
 
 	/**
 	 * A not-null enumeration attribute
@@ -132,7 +132,7 @@ public class AttributeItem extends Item
 	/**
 	 * A data attribute.
 	 */
-	public static final HttpEntity someData = new HttpEntity(DEFAULT);
+	public static final HttpEntity someData = new HttpEntity(OPTIONAL);
 	
 	public static final Qualifier emptyItem = new Qualifier(AttributeEmptyItem.parentKey);
 

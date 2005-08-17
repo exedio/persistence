@@ -28,7 +28,7 @@ import com.exedio.cope.StringAttribute;
 public class SecondSub extends Super
 {
 
-	public static final StringAttribute firstSubString = stringAttribute(DEFAULT);
+	public static final StringAttribute firstSubString = stringAttribute(OPTIONAL);
 	
 	public SecondSub(final int initialSuperInt)
 	{

@@ -28,12 +28,12 @@ import com.exedio.cope.pattern.Hash;
  */
 public class HashItem extends Item
 {
-	public static final StringAttribute explicitExternalWrap = stringAttribute(DEFAULT);
+	public static final StringAttribute explicitExternalWrap = stringAttribute(OPTIONAL);
 	public static final Hash explicitExternal = new WrapHash(explicitExternalWrap);
 
-	public static final Hash implicitExternal = new WrapHash(stringAttribute(DEFAULT));
+	public static final Hash implicitExternal = new WrapHash(stringAttribute(OPTIONAL));
 
-	public static final Hash internal = new WrapHash(DEFAULT);
+	public static final Hash internal = new WrapHash(OPTIONAL);
 
 /**
 

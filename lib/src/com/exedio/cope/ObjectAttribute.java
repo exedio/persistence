@@ -62,7 +62,7 @@ public abstract class ObjectAttribute
 			if(isNotNull())
 				return Item.NOT_NULL;
 			else
-				return Item.DEFAULT;
+				return Item.OPTIONAL;
 	}
 	
 	/**

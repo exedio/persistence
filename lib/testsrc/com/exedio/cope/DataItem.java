@@ -25,7 +25,7 @@ package com.exedio.cope;
 public class DataItem extends Item
 {
 
-	public static final DataAttribute data = dataAttribute(DEFAULT);
+	public static final DataAttribute data = dataAttribute(OPTIONAL);
 	
 	public boolean isDataNull() // TODO generate this
 	{

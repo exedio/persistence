@@ -30,7 +30,7 @@ public abstract class Super extends Item
 {
 	public static final IntegerAttribute superInt = integerAttribute(NOT_NULL);
 	
-	public static final StringAttribute superString = stringAttribute(DEFAULT);
+	public static final StringAttribute superString = stringAttribute(OPTIONAL);
 	
 /**
 
