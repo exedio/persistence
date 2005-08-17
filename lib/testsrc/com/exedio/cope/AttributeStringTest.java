@@ -45,7 +45,7 @@ public class AttributeStringTest extends AttributeTest
 			assertEquals(Integer.MAX_VALUE, copy.getMaximumLength());
 		}
 		{
-			final StringAttribute orig = Item.stringAttribute(Item.READ_ONLY, 10);
+			final StringAttribute orig = Item.stringAttribute(Item.READ_ONLY_OPTIONAL, 10);
 			assertEquals(true, orig.isReadOnly());
 			assertEquals(false, orig.isNotNull());
 			assertEquals(true, orig.isLengthConstrained());

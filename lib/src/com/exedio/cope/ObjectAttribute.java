@@ -57,7 +57,7 @@ public abstract class ObjectAttribute
 			if(isNotNull())
 				return Item.READ_ONLY_NOT_NULL;
 			else
-				return Item.READ_ONLY;
+				return Item.READ_ONLY_OPTIONAL;
 		else
 			if(isNotNull())
 				return Item.NOT_NULL;
