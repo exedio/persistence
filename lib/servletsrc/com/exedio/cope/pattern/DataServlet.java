@@ -26,7 +26,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -70,7 +69,7 @@ import com.exedio.cope.util.ServletUtil;
 public class DataServlet extends HttpServlet
 {
 	Model model = null;
-	final HashMap entities = new HashMap();
+	final HashMap pathes = new HashMap();
 	
 	public final void init()
 	{
@@ -91,7 +90,8 @@ public class DataServlet extends HttpServlet
 					final Feature feature = (Feature)j.next();
 					if(feature instanceof HttpEntity)
 					{
-						entities.put('/'+type.getID()+'/'+feature.getName(), feature);
+						final String path = '/'+type.getID()+'/'+feature.getName();
+						pathes.put(path, new Path(path, (HttpEntity)feature));
 					}
 				}
 			}
@@ -136,12 +136,10 @@ public class DataServlet extends HttpServlet
 		p.println("<head><title>cope data servlet</title><head>");
 		p.println("<body>");
 		p.println("<ol>");
-		for(Iterator i = entities.entrySet().iterator(); i.hasNext(); )
+		for(Iterator i = pathes.values().iterator(); i.hasNext(); )
 		{
-			final Map.Entry entry = (Map.Entry)i.next();
-			final String key = (String)entry.getKey();
-			final HttpEntity value = (HttpEntity)entry.getValue();
-			p.println("<li><a href=\""+prefix+key+"/0\">"+value+"</a>");
+			final Path path = (Path)i.next();
+			p.println("<li><a href=\""+prefix+path.path+"/0\">"+path.entity+"</a>");
 		}
 		p.println("</ol>");
 		p.println("</body>");
@@ -204,11 +202,13 @@ public class DataServlet extends HttpServlet
 		final String attributeString = pathInfo.substring(0, trailingSlash);
 		//System.out.println("attributeString="+attributeString);
 
-		final HttpEntity attribute = (HttpEntity)entities.get(attributeString); // TODO rename to entity
-		//System.out.println("attribute="+attribute);
-		if(attribute==null)
+		final Path path = (Path)pathes.get(attributeString);
+		if(path==null)
 			return false;
 		
+		final HttpEntity attribute = path.entity; // TODO rename to entity
+		//System.out.println("attribute="+attribute);
+
 		final int dotAfterSlash = pathInfo.indexOf('.', trailingSlash);
 		//System.out.println("trailingDot="+trailingDot);
 
@@ -296,6 +296,18 @@ public class DataServlet extends HttpServlet
 		finally
 		{
 			Transaction.rollbackIfNotCommitted();
+		}
+	}
+	
+	private static final class Path
+	{
+		final String path;
+		final HttpEntity entity;
+		
+		Path(final String path, final HttpEntity entity)
+		{
+			this.path = path;
+			this.entity = entity;
 		}
 	}
 	
