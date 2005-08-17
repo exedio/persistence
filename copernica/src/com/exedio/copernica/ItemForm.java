@@ -230,7 +230,7 @@ final class ItemForm extends Form
 		}
 		else if(attribute instanceof BooleanAttribute)
 		{
-			if(attribute.isNotNull())
+			if(attribute.isMandatory())
 			{
 				if(post)
 					return new CheckboxField(this, attribute, name, readOnly, hidden);
@@ -393,7 +393,7 @@ final class ItemForm extends Form
 		
 		private void addOptions(final ItemCop cop)
 		{
-			if(!attribute.isNotNull())
+			if(!attribute.isMandatory())
 			{
 				addOption(VALUE_NULL, cop.getDisplayNameNull());
 			}

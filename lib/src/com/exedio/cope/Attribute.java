@@ -34,7 +34,7 @@ public abstract class Attribute extends Feature
 		return readOnly;
 	}
 	
-	public final boolean isNotNull()
+	public final boolean isMandatory()
 	{
 		return notNull;
 	}

@@ -190,7 +190,7 @@ public class VectorTest extends AbstractLibTest
 		final DateAttribute date = (DateAttribute)i.next();
 		assertEquals(item.TYPE, date.getType());
 		assertEquals("dates"+num, date.getName());
-		assertEquals(false, date.isNotNull());
+		assertEquals(false, date.isMandatory());
 		assertEquals(false, date.isReadOnly());
 		return date;
 	}
@@ -200,7 +200,7 @@ public class VectorTest extends AbstractLibTest
 		final StringAttribute string = (StringAttribute)i.next();
 		assertEquals(item.TYPE, string.getType());
 		assertEquals("strings"+num, string.getName());
-		assertEquals(false, string.isNotNull());
+		assertEquals(false, string.isMandatory());
 		assertEquals(false, string.isReadOnly());
 		assertEquals(true, string.isLengthConstrained());
 		assertEquals(1, string.getMinimumLength());

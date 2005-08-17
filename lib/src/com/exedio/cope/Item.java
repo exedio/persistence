@@ -203,7 +203,7 @@ public abstract class Item extends Cope
 	 * @throws NotNullViolationException
 	 *         if one of the values in <code>initialAttributeValues</code>
 	 *         is either null or not specified
-	 *         and it's attribute is {@link Attribute#isNotNull() not-null}.
+	 *         and it's attribute is {@link Attribute#isMandatory() mandatory}.
 	 */
 	protected final void throwInitialNotNullViolationException() throws NotNullViolationException
 	{
@@ -263,7 +263,7 @@ public abstract class Item extends Cope
 	/**
 	 * @throws NotNullViolationException
 	 *         if <code>value</code> is null and <code>attribute</code>
-	 *         is {@link Attribute#isNotNull() not-null}.
+	 *         is {@link Attribute#isMandatory() mandatory}.
 	 * @throws ReadOnlyViolationException
 	 *         if <code>attribute</code> is {@link Attribute#isReadOnly() read-only}.
 	 * @throws ClassCastException
@@ -290,7 +290,7 @@ public abstract class Item extends Cope
 	/**
 	 * @throws NotNullViolationException
 	 *         if <code>value</code> is null and <code>attribute</code>
-	 *         is {@link Attribute#isNotNull() not-null}.
+	 *         is {@link Attribute#isMandatory() mandatory}.
 	 * @throws ReadOnlyViolationException
 	 *         if <code>attribute</code> is {@link Attribute#isReadOnly() read-only}.
 	 * @throws ClassCastException
@@ -418,7 +418,7 @@ public abstract class Item extends Cope
 	 * Closes <data>data</data> after reading the contents of the stream.
 	 * @param data give null to remove data.
 	 * @throws NotNullViolationException
-	 *         if data is null and attribute is {@link Attribute#isNotNull() not-null}.
+	 *         if data is null and attribute is {@link Attribute#isMandatory() mandatory}.
 	 * @throws IOException if reading data throws an IOException.
 	 */
 	public final void set(final DataAttribute attribute, final InputStream data)

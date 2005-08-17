@@ -32,14 +32,14 @@ public class AttributeStringTest extends AttributeTest
 		{
 			final StringAttribute orig = Item.stringAttribute(Item.OPTIONAL);
 			assertEquals(false, orig.isReadOnly());
-			assertEquals(false, orig.isNotNull());
+			assertEquals(false, orig.isMandatory());
 			assertEquals(false, orig.isLengthConstrained());
 			assertEquals(0, orig.getMinimumLength());
 			assertEquals(Integer.MAX_VALUE, orig.getMaximumLength());
 
 			final StringAttribute copy = (StringAttribute)orig.copyAsTemplate();
 			assertEquals(false, copy.isReadOnly());
-			assertEquals(false, copy.isNotNull());
+			assertEquals(false, copy.isMandatory());
 			assertEquals(false, copy.isLengthConstrained());
 			assertEquals(0, copy.getMinimumLength());
 			assertEquals(Integer.MAX_VALUE, copy.getMaximumLength());
@@ -47,14 +47,14 @@ public class AttributeStringTest extends AttributeTest
 		{
 			final StringAttribute orig = Item.stringAttribute(Item.READ_ONLY_OPTIONAL, 10);
 			assertEquals(true, orig.isReadOnly());
-			assertEquals(false, orig.isNotNull());
+			assertEquals(false, orig.isMandatory());
 			assertEquals(true, orig.isLengthConstrained());
 			assertEquals(10, orig.getMinimumLength());
 			assertEquals(Integer.MAX_VALUE, orig.getMaximumLength());
 			
 			final StringAttribute copy = (StringAttribute)orig.copyAsTemplate();
 			assertEquals(true, copy.isReadOnly());
-			assertEquals(false, copy.isNotNull());
+			assertEquals(false, copy.isMandatory());
 			assertEquals(true, copy.isLengthConstrained());
 			assertEquals(10, copy.getMinimumLength());
 			assertEquals(Integer.MAX_VALUE, copy.getMaximumLength());
@@ -62,14 +62,14 @@ public class AttributeStringTest extends AttributeTest
 		{
 			final StringAttribute orig = Item.stringAttribute(Item.MANDATORY, 10, 20);
 			assertEquals(false, orig.isReadOnly());
-			assertEquals(true, orig.isNotNull());
+			assertEquals(true, orig.isMandatory());
 			assertEquals(true, orig.isLengthConstrained());
 			assertEquals(10, orig.getMinimumLength());
 			assertEquals(20, orig.getMaximumLength());
 			
 			final StringAttribute copy = (StringAttribute)orig.copyAsTemplate();
 			assertEquals(false, copy.isReadOnly());
-			assertEquals(true, copy.isNotNull());
+			assertEquals(true, copy.isMandatory());
 			assertEquals(true, copy.isLengthConstrained());
 			assertEquals(10, copy.getMinimumLength());
 			assertEquals(20, copy.getMaximumLength());

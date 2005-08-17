@@ -85,7 +85,7 @@ public final class HttpEntity extends Pattern
 			throw new NullPointerException("mimeMinor must not be null");
 		if(mimeMinor.getSingleUniqueConstraint()!=null)
 			throw new RuntimeException("mimeMinor cannot be unique");
-		if(mimeMinor.isNotNull())
+		if(mimeMinor.isMandatory())
 			throw new RuntimeException("mimeMinor cannot be not-null");
 		if(mimeMinor.isReadOnly())
 			throw new RuntimeException("mimeMinor cannot be read-only");
@@ -108,7 +108,7 @@ public final class HttpEntity extends Pattern
 			throw new NullPointerException("mimeMajor must not be null");
 		if(mimeMajor.getSingleUniqueConstraint()!=null)
 			throw new RuntimeException("mimeMajor cannot be unique");
-		if(mimeMajor.isNotNull())
+		if(mimeMajor.isMandatory())
 			throw new RuntimeException("mimeMajor cannot be not-null");
 		if(mimeMajor.isReadOnly())
 			throw new RuntimeException("mimeMajor cannot be read-only");
@@ -116,7 +116,7 @@ public final class HttpEntity extends Pattern
 			throw new NullPointerException("mimeMinor must not be null");
 		if(mimeMinor.getSingleUniqueConstraint()!=null)
 			throw new RuntimeException("mimeMinor cannot be unique");
-		if(mimeMinor.isNotNull())
+		if(mimeMinor.isMandatory())
 			throw new RuntimeException("mimeMinor cannot be not-null");
 		if(mimeMinor.isReadOnly())
 			throw new RuntimeException("mimeMinor cannot be read-only");
@@ -269,7 +269,7 @@ public final class HttpEntity extends Pattern
 	 * Closes <data>data</data> after reading the contents of the stream.
 	 * @param data give null to remove data.
 	 * @throws NotNullViolationException
-	 *         if data is null and attribute is {@link Attribute#isNotNull() not-null}.
+	 *         if data is null and attribute is {@link Attribute#isMandatory() mandatory}.
 	 * @throws IOException if reading data throws an IOException.
 	 */
 	public final void set(final Item item, final InputStream data, final String mimeMajor, final String mimeMinor)

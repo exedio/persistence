@@ -24,7 +24,7 @@ package com.exedio.cope;
  *
  * This exception will be thrown by {@link Item#set(ObjectAttribute,Object) Item.set}
  * and item constructors
- * if that attribute is {@link Attribute#isNotNull() not-null}.
+ * if that attribute is {@link Attribute#isMandatory() mandatory}.
  * 
  * @author Ralf Wiebicke
  */

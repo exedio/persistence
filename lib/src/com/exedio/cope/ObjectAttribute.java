@@ -54,12 +54,12 @@ public abstract class ObjectAttribute
 	final Option getTemplateOption()
 	{
 		if(isReadOnly())
-			if(isNotNull())
+			if(isMandatory())
 				return Item.READ_ONLY;
 			else
 				return Item.READ_ONLY_OPTIONAL;
 		else
-			if(isNotNull())
+			if(isMandatory())
 				return Item.MANDATORY;
 			else
 				return Item.OPTIONAL;
@@ -78,7 +78,7 @@ public abstract class ObjectAttribute
 	{
 		if(value == null)
 		{
-			if(isNotNull())
+			if(isMandatory())
 				throw new NotNullViolationException(item, this);
 		}
 		else
