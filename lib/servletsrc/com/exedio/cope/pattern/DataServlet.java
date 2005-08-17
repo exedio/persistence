@@ -26,6 +26,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.TreeMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -149,7 +150,8 @@ public class DataServlet extends HttpServlet
 							"<th>statisticsFromDate</th>" +
 						"</tr>");
 		
-		for(Iterator i = pathes.values().iterator(); i.hasNext(); )
+		final TreeMap pathesSorted = new TreeMap(pathes);
+		for(Iterator i = pathesSorted.values().iterator(); i.hasNext(); )
 			((Path)i.next()).printStatistics(prefix, p);
 		
 		p.println("</table>");
