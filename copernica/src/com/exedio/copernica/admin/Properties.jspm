@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.io.PrintStream;
 
 import com.exedio.cope.Properties;
+import com.exedio.cope.pattern.DataServlet;
 
 final class Properties_Jspm
 {
@@ -86,7 +87,7 @@ final class Properties_Jspm
 					<%=datadirUrl%>
 					<br>
 					<small>
-					(see also <a href="<%=datadirUrl%>statistics">data servlet statistics</a>,
+					(see also <a href="<%=datadirUrl%><%=DataServlet.STATISTICS%>">data servlet statistics</a>,
 					letting this open to the public may be a security risk).
 					</small>
 				</td>

@@ -69,6 +69,9 @@ import com.exedio.cope.util.ServletUtil;
  */
 public class DataServlet extends HttpServlet
 {
+	public static final String STATISTICS = "statistics";
+	private static final String STATISTICS_COMPLETE = '/' + STATISTICS;
+	
 	Model model = null;
 	final HashMap pathes = new HashMap();
 	
@@ -109,7 +112,7 @@ public class DataServlet extends HttpServlet
 			final HttpServletResponse response)
 		throws ServletException, IOException
 	{
-		if("/statistics".equals(request.getPathInfo()))
+		if(STATISTICS_COMPLETE.equals(request.getPathInfo()))
 		{
 			serveDirectory(request, response);
 			return;
