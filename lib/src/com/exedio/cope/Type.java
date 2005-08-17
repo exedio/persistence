@@ -58,9 +58,6 @@ public final class Type
 	final UniqueConstraint[] uniqueConstraints;
 	private final List uniqueConstraintList;
 
-	private final Pattern[] patterns;
-	private final List patternList;
-	
 	private ArrayList subTypes = null;
 	private ArrayList references = null;
 	
@@ -100,7 +97,6 @@ public final class Type
 	private ArrayList attributesWhileConstruction;
 	private ArrayList featuresWhileConstruction;
 	private ArrayList uniqueConstraintsWhileConstruction;
-	private ArrayList patternsWhileConstruction;
 
 	public Type(final Class javaClass, final Class componentJavaClass, final Class[] ignoreClasses, boolean dontUse)
 	{
@@ -146,7 +142,6 @@ public final class Type
 		this.attributesWhileConstruction = new ArrayList(fields.length);
 		this.featuresWhileConstruction = new ArrayList(fields.length);
 		this.uniqueConstraintsWhileConstruction = new ArrayList(fields.length);
-		this.patternsWhileConstruction = new ArrayList(fields.length);
 		final int expectedModifier = Modifier.STATIC | Modifier.FINAL;
 		try
 		{
@@ -177,14 +172,11 @@ public final class Type
 		this.declaredFeatureList = Collections.unmodifiableList(Arrays.asList(this.declaredFeatures));
 		this.uniqueConstraints = (UniqueConstraint[])uniqueConstraintsWhileConstruction.toArray(new UniqueConstraint[uniqueConstraintsWhileConstruction.size()]);
 		this.uniqueConstraintList = Collections.unmodifiableList(Arrays.asList(this.uniqueConstraints));
-		this.patterns = (Pattern[])patternsWhileConstruction.toArray(new Pattern[patternsWhileConstruction.size()]);
-		this.patternList = Collections.unmodifiableList(Arrays.asList(this.patterns));
 
 		// make sure, register methods fail from now on
 		this.attributesWhileConstruction = null;
 		this.featuresWhileConstruction = null;
 		this.uniqueConstraintsWhileConstruction = null;
-		this.patternsWhileConstruction = null;
 		
 		// attributes
 		if(supertype==null)
@@ -231,18 +223,23 @@ public final class Type
 			throw new NestingRuntimeException(e, javaClass.getName() + " does not have a " + name + " constructor");
 		}
 	}
+	
+	private final void registerInitializationFeature(final Feature feature)
+	{
+		featuresWhileConstruction.add(feature);
+		if(featuresByName.put(feature.getName(), feature)!=null)
+			throw new RuntimeException("duplicate feature "+feature.getName()+" for type "+javaClass.getName());
+	}
 
 	final void registerInitialization(final Attribute attribute)
 	{
 		attributesWhileConstruction.add(attribute);
-		featuresWhileConstruction.add(attribute);
-		featuresByName.put(attribute.getName(), attribute);
+		registerInitializationFeature(attribute);
 	}
 
 	final void registerInitialization(final ComputedFunction function)
 	{
-		featuresWhileConstruction.add(function);
-		featuresByName.put(function.getName(), function);
+		registerInitializationFeature(function);
 	}
 
 	final void registerInitialization(final UniqueConstraint uniqueConstraint)
@@ -252,7 +249,7 @@ public final class Type
 
 	final void registerInitialization(final Pattern pattern)
 	{
-		patternsWhileConstruction.add(pattern);
+		registerInitializationFeature(pattern);
 	}
 	
 	final void registerSubType(final Type subType)
@@ -458,11 +455,6 @@ public final class Type
 	public final List getUniqueConstraints()
 	{
 		return uniqueConstraintList;
-	}
-	
-	public final List getPatterns()
-	{
-		return patternList;
 	}
 	
 	private static final AttributeValue[] EMPTY_ATTRIBUTE_VALUES = new AttributeValue[]{};

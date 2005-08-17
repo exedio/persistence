@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -25,6 +26,7 @@ import java.util.List;
 import com.exedio.cope.AbstractLibTest;
 import com.exedio.cope.ConstraintViolationException;
 import com.exedio.cope.DateAttribute;
+import com.exedio.cope.Feature;
 import com.exedio.cope.Main;
 import com.exedio.cope.StringAttribute;
 import com.exedio.cope.testmodel.VectorItem;
@@ -48,7 +50,20 @@ public class VectorTest extends AbstractLibTest
 	public void testVector() throws ConstraintViolationException
 	{
 		// test model
-		assertEquals(list(item.nums, item.dates, item.strings), item.TYPE.getPatterns());
+		assertEquals(Arrays.asList(new Feature[]{
+				item.num1,
+				item.num2,
+				item.num3,
+				item.nums,
+				item.dates,
+				(Feature)item.dates.getSources().get(0),
+				(Feature)item.dates.getSources().get(1),
+				item.strings,
+				(Feature)item.strings.getSources().get(0),
+				(Feature)item.strings.getSources().get(1),
+				(Feature)item.strings.getSources().get(2),
+				(Feature)item.strings.getSources().get(3),
+			}), item.TYPE.getFeatures());
 
 		assertEquals(item.TYPE, item.num1.getType());
 		assertEquals(item.TYPE, item.num2.getType());

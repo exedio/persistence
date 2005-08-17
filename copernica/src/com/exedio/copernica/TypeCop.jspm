@@ -36,6 +36,7 @@ import com.exedio.cope.Feature;
 import com.exedio.cope.Function;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemAttribute;
+import com.exedio.cope.Pattern;
 import com.exedio.cope.StatementInfo;
 import com.exedio.cope.Type;
 import com.exedio.cope.pattern.HttpEntity;
@@ -240,6 +241,8 @@ final class TypeCop_Jspm
 								%><%=value.booleanValue()?cop.getDisplayNameOn():cop.getDisplayNameOff()%><%
 							}
 						}
+						else if(feature instanceof Pattern)
+							;
 						else
 						{
 							%><%=item.get((Function)feature)%><%

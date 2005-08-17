@@ -26,6 +26,7 @@ import com.exedio.cope.Attribute;
 import com.exedio.cope.BooleanAttribute;
 import com.exedio.cope.ConstraintViolationException;
 import com.exedio.cope.DataAttribute;
+import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
 import com.exedio.cope.NestingRuntimeException;
 import com.exedio.cope.NotNullViolationException;
@@ -370,12 +371,12 @@ public final class HttpEntity extends Pattern
 	
 	public final static HttpEntity get(final DataAttribute attribute) // TODO this is a hack
 	{
-		for(Iterator j = attribute.getType().getPatterns().iterator(); j.hasNext(); )
+		for(Iterator i = attribute.getType().getDeclaredFeatures().iterator(); i.hasNext(); )
 		{
-			final Pattern pattern = (Pattern)j.next();
-			if(pattern instanceof HttpEntity)
+			final Feature feature = (Feature)i.next();
+			if(feature instanceof HttpEntity)
 			{
-				final HttpEntity entity = (HttpEntity)pattern;
+				final HttpEntity entity = (HttpEntity)feature;
 				if(entity.getData()==attribute)
 					return entity;
 			}

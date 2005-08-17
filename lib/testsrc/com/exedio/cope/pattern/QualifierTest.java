@@ -18,6 +18,9 @@
 
 package com.exedio.cope.pattern;
 
+import java.util.Arrays;
+
+import com.exedio.cope.Feature;
 import com.exedio.cope.TestmodelTest;
 import com.exedio.cope.IntegrityViolationException;
 import com.exedio.cope.LengthViolationException;
@@ -53,9 +56,12 @@ public class QualifierTest extends TestmodelTest
 		assertEquals(QualifiedItem.qualifier.getParent(), QualifiedEmptyQualifier.parent);
 		assertEquals(list(QualifiedEmptyQualifier.key), QualifiedItem.qualifier.getKeys());
 		assertEquals(QualifiedItem.qualifier.getQualifyUnique(), QualifiedEmptyQualifier.qualifyUnique);
-		assertEquals(
-				list(QualifiedItem.qualifier, QualifiedItem.stringQualifier, QualifiedItem.intEnumQualifier),
-				QualifiedItem.TYPE.getPatterns());
+		assertEquals(Arrays.asList(new Feature[]{
+				item.number,
+				item.qualifier,
+				item.stringQualifier,
+				item.intEnumQualifier,
+			}), item.TYPE.getFeatures());
 		assertEquals(list(QualifiedEmptyQualifier.qualifiedA, QualifiedEmptyQualifier.qualifiedB),
 							QualifiedItem.qualifier.getAttributes());
 

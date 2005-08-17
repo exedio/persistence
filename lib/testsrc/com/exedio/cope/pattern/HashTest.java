@@ -18,7 +18,10 @@
 
 package com.exedio.cope.pattern;
 
+import java.util.Arrays;
+
 import com.exedio.cope.AbstractLibTest;
+import com.exedio.cope.Feature;
 import com.exedio.cope.Main;
 import com.exedio.cope.testmodel.HashItem;
 
@@ -39,7 +42,14 @@ public class HashTest extends AbstractLibTest
 	
 	public void testExplicitExternal()
 	{
-		assertEquals(list(item.explicitExternal, item.implicitExternal, item.internal), item.TYPE.getPatterns());
+		assertEquals(Arrays.asList(new Feature[]{
+				item.explicitExternalWrap,
+				item.explicitExternal,
+				item.implicitExternal,
+				item.implicitExternal.getStorage(),
+				item.internal,
+				item.internal.getStorage(),
+			}), item.TYPE.getFeatures());
 
 		assertEquals(item.TYPE, item.explicitExternal.getType());
 		assertEquals("explicitExternal", item.explicitExternal.getName());

@@ -34,10 +34,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.NoSuchIDException;
-import com.exedio.cope.Pattern;
 import com.exedio.cope.Transaction;
 import com.exedio.cope.Type;
 import com.exedio.cope.util.ServletUtil;
@@ -86,12 +86,12 @@ public class DataServlet extends HttpServlet
 			for(Iterator i = model.getTypes().iterator(); i.hasNext(); )
 			{
 				final Type type = (Type)i.next();
-				for(Iterator j = type.getPatterns().iterator(); j.hasNext(); )
+				for(Iterator j = type.getDeclaredFeatures().iterator(); j.hasNext(); )
 				{
-					final Pattern pattern = (Pattern)j.next();
-					if(pattern instanceof HttpEntity)
+					final Feature feature = (Feature)j.next();
+					if(feature instanceof HttpEntity)
 					{
-						entities.put('/'+type.getID()+'/'+pattern.getName(), pattern);
+						entities.put('/'+type.getID()+'/'+feature.getName(), feature);
 					}
 				}
 			}

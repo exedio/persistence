@@ -39,6 +39,7 @@ import com.exedio.cope.DateAttribute;
 import com.exedio.cope.DoubleAttribute;
 import com.exedio.cope.EnumAttribute;
 import com.exedio.cope.EnumValue;
+import com.exedio.cope.Feature;
 import com.exedio.cope.IntegerAttribute;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemAttribute;
@@ -49,7 +50,6 @@ import com.exedio.cope.NestingRuntimeException;
 import com.exedio.cope.NoSuchIDException;
 import com.exedio.cope.NotNullViolationException;
 import com.exedio.cope.ObjectAttribute;
-import com.exedio.cope.Pattern;
 import com.exedio.cope.ReadOnlyViolationException;
 import com.exedio.cope.StringAttribute;
 import com.exedio.cope.Type;
@@ -179,12 +179,12 @@ final class ItemForm extends Form
 		}
 		this.hasFiles = hasFilesTemp;
 
-		for(Iterator j = type.getPatterns().iterator(); j.hasNext(); )
+		for(Iterator j = type.getFeatures().iterator(); j.hasNext(); )
 		{
-			final Pattern pattern = (Pattern)j.next();
-			if(pattern instanceof Qualifier)
+			final Feature feature = (Feature)j.next();
+			if(feature instanceof Qualifier)
 			{
-				final Qualifier qualifier = (Qualifier)pattern;
+				final Qualifier qualifier = (Qualifier)feature;
 				final Collection values = qualifier.getQualifyUnique().getType().search(new EqualCondition(null, qualifier.getParent(), item));
 				for(Iterator k = qualifier.getAttributes().iterator(); k.hasNext(); )
 				{
