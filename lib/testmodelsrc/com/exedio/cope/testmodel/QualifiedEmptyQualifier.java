@@ -29,9 +29,9 @@ import com.exedio.cope.UniqueConstraint;
  */
 public class QualifiedEmptyQualifier extends Item
 {
-	public static final ItemAttribute parent = itemAttribute(READ_ONLY_NOT_NULL, QualifiedItem.class);
+	public static final ItemAttribute parent = itemAttribute(READ_ONLY, QualifiedItem.class);
 	
-	public static final ItemAttribute key = itemAttribute(READ_ONLY_NOT_NULL, EmptyItem.class);
+	public static final ItemAttribute key = itemAttribute(READ_ONLY, EmptyItem.class);
 	
 	public static final UniqueConstraint qualifyUnique = uniqueConstraint(parent, key);
 	

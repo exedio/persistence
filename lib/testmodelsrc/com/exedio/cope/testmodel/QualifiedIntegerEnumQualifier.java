@@ -31,10 +31,10 @@ import com.exedio.cope.UniqueConstraint;
  */
 public class QualifiedIntegerEnumQualifier extends Item
 {
-	public static final ItemAttribute up = itemAttribute(READ_ONLY_NOT_NULL, QualifiedItem.class);
+	public static final ItemAttribute up = itemAttribute(READ_ONLY, QualifiedItem.class);
 	
-	public static final IntegerAttribute keyX = integerAttribute(READ_ONLY_NOT_NULL);
-	public static final EnumAttribute keyY = enumAttribute(READ_ONLY_NOT_NULL, KeyEnum.class);
+	public static final IntegerAttribute keyX = integerAttribute(READ_ONLY);
+	public static final EnumAttribute keyY = enumAttribute(READ_ONLY, KeyEnum.class);
 	
 	public static final UniqueConstraint qualifyUnique = uniqueConstraint(up, keyX, keyY);
 	
