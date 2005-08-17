@@ -135,12 +135,20 @@ public class DataServlet extends HttpServlet
 		p.println("<html>");
 		p.println("<head><title>cope data servlet</title><head>");
 		p.println("<body>");
-		p.println("<ol>");
+		p.println("<table border=\"1\">"+
+							"<tr>" +
+							"<th>entity</th>" +
+							"<th>hits</th>" +
+							"<th>itemFound</th>" +
+							"<th>dataNotNull</th>" +
+							"<th>modified</th>" +
+							"<th>fullyDelivered</th>" +
+							"</tr>");
 		
 		for(Iterator i = pathes.values().iterator(); i.hasNext(); )
 			((Path)i.next()).printStatistics(prefix, p);
 		
-		p.println("</ol>");
+		p.println("</table>");
 		p.println("</body>");
 		p.println("</html>");
 		
@@ -330,7 +338,15 @@ public class DataServlet extends HttpServlet
 
 		protected final void printStatistics(final String prefix, final PrintStream p)
 		{
-			p.println("<li><a href=\""+prefix+path+"/0\">"+entity+"</a>: " + hits + '/' + itemFound + '/' + dataNotNull + '/' + modified + '/' + fullyDelivered);
+			p.println(
+					"<tr>" +
+					"<td><a href=\""+prefix+path+"/0\">"+entity+"</a></td>" +
+					"<td>" + hits + "</td>" +
+					"<td>" + itemFound + "</td>" +
+					"<td>" + dataNotNull + "</td>" +
+					"<td>" + modified + "</td>" +
+					"<td>" + fullyDelivered + "</td>" +
+					"</tr>");
 		}
 		
 	}
