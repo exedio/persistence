@@ -136,9 +136,10 @@ public class DataServlet extends HttpServlet
 		p.println("<head><title>cope data servlet</title><head>");
 		p.println("<body>");
 		p.println("<table border=\"1\">"+
-						"<tr><th colspan=\"7\">cope data servlet statistics</th></tr>" +
-						"<tr><td colspan=\"7\">"+format(System.currentTimeMillis())+"</td></tr>" +
+						"<tr><th colspan=\"8\">cope data servlet statistics</th></tr>" +
+						"<tr><td colspan=\"8\">"+format(System.currentTimeMillis())+"</td></tr>" +
 						"<tr>" +
+							"<th>type</th>" +
 							"<th>entity</th>" +
 							"<th>hits</th>" +
 							"<th>itemFound</th>" +
@@ -351,7 +352,8 @@ public class DataServlet extends HttpServlet
 			final int fullyDelivered = this.fullyDelivered;
 			p.println(
 					"<tr>" +
-					"<td><a href=\""+prefix+path+"/0\">"+entity+"</a></td>" +
+					"<td>"+entity.getType().getID()+"</td>" +
+					"<td><a href=\""+prefix+path+"/0\">"+entity.getName()+"</a></td>" +
 					"<td>" + hits + "</td>" +
 					"<td>" + itemFound + "</td>" +
 					"<td>" + dataNotNull + "</td>" +
