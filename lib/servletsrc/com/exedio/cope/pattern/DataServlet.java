@@ -338,6 +338,11 @@ public class DataServlet extends HttpServlet
 
 		protected final void printStatistics(final String prefix, final PrintStream p)
 		{
+			final int hits = this.hits;
+			final int itemFound = this.itemFound;
+			final int dataNotNull = this.dataNotNull;
+			final int modified = this.modified;
+			final int fullyDelivered = this.fullyDelivered;
 			p.println(
 					"<tr>" +
 					"<td><a href=\""+prefix+path+"/0\">"+entity+"</a></td>" +
