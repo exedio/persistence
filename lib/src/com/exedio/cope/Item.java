@@ -477,7 +477,7 @@ public abstract class Item extends Cope
 
 	public static final Attribute.Option READ_ONLY_OPTIONAL = new Attribute.Option(true, false, false);
 	public static final Attribute.Option MANDATORY = new Attribute.Option(false, true, false);
-	public static final Attribute.Option UNIQUE = new Attribute.Option(false, false, true);
+	public static final Attribute.Option UNIQUE_OPTIONAL = new Attribute.Option(false, false, true);
 
 	public static final Attribute.Option READ_ONLY_NOT_NULL = new Attribute.Option(true, true, false);
 	public static final Attribute.Option READ_ONLY_UNIQUE = new Attribute.Option(true, false, true);

@@ -45,7 +45,7 @@ public class Standard extends Item
 	public static final StringAttribute defaultString = stringAttribute(OPTIONAL);
 	public static final StringAttribute notNullString = stringAttribute(MANDATORY);
 	public static final StringAttribute readOnlyString = stringAttribute(READ_ONLY_OPTIONAL);
-	public static final StringAttribute uniqueString = stringAttribute(UNIQUE);
+	public static final StringAttribute uniqueString = stringAttribute(UNIQUE_OPTIONAL);
 
 	public static final IntegerAttribute defaultInteger = integerAttribute(OPTIONAL);
 	public static final IntegerAttribute nativeInteger = integerAttribute(MANDATORY);
