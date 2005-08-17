@@ -212,6 +212,11 @@ public class DataServlet extends HttpServlet
 	{
 		final String path;
 		final HttpEntity entity;
+		int hits = 0;
+		int itemFound = 0;
+		int dataNotNull = 0;
+		int modified = 0;
+		int fullyDelivered = 0;
 		
 		Path(final String path, final HttpEntity entity)
 		{
@@ -225,6 +230,7 @@ public class DataServlet extends HttpServlet
 			throws ServletException, IOException
 		{
 			//System.out.println("entity="+entity);
+			hits++;
 
 			final int dotAfterSlash = pathInfo.indexOf('.', trailingSlash);
 			//System.out.println("trailingDot="+trailingDot);
@@ -242,11 +248,14 @@ public class DataServlet extends HttpServlet
 				model.startTransaction("DataServlet");
 				final Item item = model.findByID(id);
 				//System.out.println("item="+item);
+				itemFound++;
 
 				final String mimeMajor = entity.getMimeMajor(item);
 				//System.out.println("mimeMajor="+mimeMajor);
 				if(mimeMajor!=null)
 				{
+					dataNotNull++;
+					
 					final String mimeMinor = entity.getMimeMinor(item);
 					//System.out.println("mimeMinor="+mimeMinor);
 					response.setContentType(mimeMajor+'/'+mimeMinor);
@@ -271,6 +280,8 @@ public class DataServlet extends HttpServlet
 					}
 					else
 					{
+						modified++;
+						
 						final long contentLength = entity.getDataLength(item);
 						//System.out.println("contentLength="+String.valueOf(contentLength));
 						response.setHeader(RESPONSE_CONTENT_LENGTH, String.valueOf(contentLength));
@@ -296,6 +307,7 @@ public class DataServlet extends HttpServlet
 							if(out!=null)
 								out.close();
 						}
+						fullyDelivered++;
 					}
 					Transaction.commit();
 					return true;
@@ -318,7 +330,7 @@ public class DataServlet extends HttpServlet
 
 		protected final void printStatistics(final String prefix, final PrintStream p)
 		{
-			p.println("<li><a href=\""+prefix+path+"/0\">"+entity+"</a>");
+			p.println("<li><a href=\""+prefix+path+"/0\">"+entity+"</a>: " + hits + '/' + itemFound + '/' + dataNotNull + '/' + modified + '/' + fullyDelivered);
 		}
 		
 	}
