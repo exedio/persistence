@@ -143,6 +143,7 @@ public class DataServlet extends HttpServlet
 							"<th>dataNotNull</th>" +
 							"<th>modified</th>" +
 							"<th>fullyDelivered</th>" +
+							"<th>statisticsFromDate</th>" +
 							"</tr>");
 		
 		for(Iterator i = pathes.values().iterator(); i.hasNext(); )
@@ -220,6 +221,8 @@ public class DataServlet extends HttpServlet
 	{
 		final String path;
 		final HttpEntity entity;
+		
+		final long statisticsFrom;
 		int hits = 0;
 		int itemFound = 0;
 		int dataNotNull = 0;
@@ -230,6 +233,7 @@ public class DataServlet extends HttpServlet
 		{
 			this.path = path;
 			this.entity = entity;
+			statisticsFrom = System.currentTimeMillis();
 		}
 
 		boolean serveContent(
@@ -351,6 +355,7 @@ public class DataServlet extends HttpServlet
 					"<td>" + dataNotNull + "</td>" +
 					"<td>" + modified + "</td>" +
 					"<td>" + fullyDelivered + "</td>" +
+					"<td>" + format(statisticsFrom) + "</td>" +
 					"</tr>");
 		}
 		
