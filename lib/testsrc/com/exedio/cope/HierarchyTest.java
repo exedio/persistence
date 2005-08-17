@@ -26,6 +26,24 @@ public class HierarchyTest extends TestmodelTest
 	public void testHierarchy()
 			throws IntegrityViolationException
 	{
+		// model Super
+		assertEquals(null, Super.TYPE.getSupertype());
+		assertEqualsUnmodifiable(list(FirstSub.TYPE, SecondSub.TYPE), Super.TYPE.getSubTypes());
+		assertEqualsUnmodifiable(list(Super.superInt, Super.superString), Super.TYPE.getDeclaredAttributes());
+		assertEqualsUnmodifiable(list(Super.superInt, Super.superString), Super.TYPE.getAttributes());
+		assertEqualsUnmodifiable(list(Super.superInt, Super.superString), Super.TYPE.getDeclaredFeatures());
+		assertEqualsUnmodifiable(list(Super.superInt, Super.superString), Super.TYPE.getFeatures());
+		assertEquals(Super.TYPE, Super.superInt.getType());
+		
+		// model FirstSub
+		assertEquals(Super.TYPE, FirstSub.TYPE.getSupertype());
+		assertEqualsUnmodifiable(list(), FirstSub.TYPE.getSubTypes());
+		assertEqualsUnmodifiable(list(FirstSub.firstSubString), FirstSub.TYPE.getDeclaredAttributes());
+		assertEqualsUnmodifiable(list(Super.superInt, Super.superString, FirstSub.firstSubString), FirstSub.TYPE.getAttributes());
+		assertEqualsUnmodifiable(list(FirstSub.firstSubString), FirstSub.TYPE.getDeclaredFeatures());
+		assertEqualsUnmodifiable(list(Super.superInt, Super.superString, FirstSub.firstSubString), FirstSub.TYPE.getFeatures());
+		assertEquals(FirstSub.TYPE, FirstSub.firstSubString.getType());
+
 		final FirstSub firstItem = new FirstSub(0);
 		deleteOnTearDown(firstItem);
 		assertID(0, firstItem);

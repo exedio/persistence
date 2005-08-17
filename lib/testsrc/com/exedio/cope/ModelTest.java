@@ -21,13 +21,10 @@ package com.exedio.cope;
 import java.util.Arrays;
 
 import com.exedio.cope.testmodel.AttributeItem;
-import com.exedio.cope.testmodel.FirstSub;
 import com.exedio.cope.testmodel.ItemWithSingleUnique;
 import com.exedio.cope.testmodel.ItemWithSingleUniqueNotNull;
 import com.exedio.cope.testmodel.ItemWithSingleUniqueReadOnly;
 import com.exedio.cope.testmodel.Main;
-import com.exedio.cope.testmodel.SecondSub;
-import com.exedio.cope.testmodel.Super;
 import com.exedio.cope.util.ReactivationConstructorDummy;
 
 /**
@@ -269,27 +266,6 @@ public class ModelTest extends AbstractLibTest
 		assertEqualsUnmodifiable(
 			list(ItemWithSingleUniqueNotNull.uniqueNotNullString),
 			ItemWithSingleUniqueNotNull.uniqueNotNullString.getSingleUniqueConstraint().getUniqueAttributes());
-	}
-
-	public void testHierarchy()
-	{
-		// Super
-		assertEquals(null, Super.TYPE.getSupertype());
-		assertEqualsUnmodifiable(list(FirstSub.TYPE, SecondSub.TYPE), Super.TYPE.getSubTypes());
-		assertEqualsUnmodifiable(list(Super.superInt, Super.superString), Super.TYPE.getDeclaredAttributes());
-		assertEqualsUnmodifiable(list(Super.superInt, Super.superString), Super.TYPE.getAttributes());
-		assertEqualsUnmodifiable(list(Super.superInt, Super.superString), Super.TYPE.getDeclaredFeatures());
-		assertEqualsUnmodifiable(list(Super.superInt, Super.superString), Super.TYPE.getFeatures());
-		assertEquals(Super.TYPE, Super.superInt.getType());
-		
-		// FirstSub
-		assertEquals(Super.TYPE, FirstSub.TYPE.getSupertype());
-		assertEqualsUnmodifiable(list(), FirstSub.TYPE.getSubTypes());
-		assertEqualsUnmodifiable(list(FirstSub.firstSubString), FirstSub.TYPE.getDeclaredAttributes());
-		assertEqualsUnmodifiable(list(Super.superInt, Super.superString, FirstSub.firstSubString), FirstSub.TYPE.getAttributes());
-		assertEqualsUnmodifiable(list(FirstSub.firstSubString), FirstSub.TYPE.getDeclaredFeatures());
-		assertEqualsUnmodifiable(list(Super.superInt, Super.superString, FirstSub.firstSubString), FirstSub.TYPE.getFeatures());
-		assertEquals(FirstSub.TYPE, FirstSub.firstSubString.getType());
 	}
 
 }
