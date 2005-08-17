@@ -83,11 +83,11 @@ final class Properties_Jspm
 			<tr>
 				<th><%=properties.DATADIR_URL%></th>
 				<td>
-					<a href="<%=datadirUrl%>"><%=datadirUrl%></a>
+					<%=datadirUrl%>
 					<br>
 					<small>
-					(link works only if the server allows directory listing,
-					which may be a security risk).
+					(see also <a href="<%=datadirUrl%>statistics">data servlet statistics</a>,
+					letting this open to the public may be a security risk).
 					</small>
 				</td>
 			</tr><%
