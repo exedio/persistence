@@ -17,8 +17,6 @@
  */
 package com.exedio.cope;
 
-import java.util.Collection;
-
 import com.exedio.cope.testmodel.AttributeItem;
 import com.exedio.cope.testmodel.EmptyItem;
 
@@ -40,9 +38,7 @@ public class SearchTest extends TestmodelTest
 			throw new NestingRuntimeException(e);
 		}
 		item.setSomeNotNullInteger(0);
-		final Collection searchResult = item.TYPE.search(item.someNotNullInteger.equal(0));
-		assertContains(item, searchResult);
-		assertUnmodifiable(searchResult);
+		assertContainsUnmodifiable(item, item.TYPE.search(item.someNotNullInteger.equal(0)));
 		
 		assertContains(item, item2, item.TYPE.search(null));
 		assertContains(item, item2, 
