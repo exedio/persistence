@@ -162,7 +162,7 @@ abstract class CopeAttribute
 	
 	/**
 	 * Returns, whether the persistent type is &quot;boxed&quot; into a native type.
-	 * This happens if the attribute has a not-null constraint 
+	 * This happens if the attribute is mandatory
 	 * and the persistent type is convertable to a native types (int, double, boolean).
 	 * @see #getBoxedType()
 	 */
