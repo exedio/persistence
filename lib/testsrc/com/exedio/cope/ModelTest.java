@@ -41,28 +41,28 @@ public class ModelTest extends AbstractLibTest
 		
 		assertEquals(false, item.MANDATORY.readOnly);
 		assertEquals(false, item.MANDATORY.unique);
-		assertEquals(true,  item.MANDATORY.notNull);
+		assertEquals(true,  item.MANDATORY.mandatory);
 		assertEquals(false, item.OPTIONAL.readOnly);
 		assertEquals(false, item.OPTIONAL.unique);
-		assertEquals(false, item.OPTIONAL.notNull);
+		assertEquals(false, item.OPTIONAL.mandatory);
 		assertEquals(false, item.UNIQUE.readOnly);
 		assertEquals(true,  item.UNIQUE.unique);
-		assertEquals(true,  item.UNIQUE.notNull);
+		assertEquals(true,  item.UNIQUE.mandatory);
 		assertEquals(false, item.UNIQUE_OPTIONAL.readOnly);
 		assertEquals(true,  item.UNIQUE_OPTIONAL.unique);
-		assertEquals(false, item.UNIQUE_OPTIONAL.notNull);
+		assertEquals(false, item.UNIQUE_OPTIONAL.mandatory);
 		assertEquals(true,  item.READ_ONLY.readOnly);
 		assertEquals(false, item.READ_ONLY.unique);
-		assertEquals(true,  item.READ_ONLY.notNull);
+		assertEquals(true,  item.READ_ONLY.mandatory);
 		assertEquals(true,  item.READ_ONLY_OPTIONAL.readOnly);
 		assertEquals(false, item.READ_ONLY_OPTIONAL.unique);
-		assertEquals(false, item.READ_ONLY_OPTIONAL.notNull);
+		assertEquals(false, item.READ_ONLY_OPTIONAL.mandatory);
 		assertEquals(true,  item.READ_ONLY_UNIQUE.readOnly);
 		assertEquals(true,  item.READ_ONLY_UNIQUE.unique);
-		assertEquals(true,  item.READ_ONLY_UNIQUE.notNull);
+		assertEquals(true,  item.READ_ONLY_UNIQUE.mandatory);
 		assertEquals(true,  item.READ_ONLY_UNIQUE_OPTIONAL.readOnly);
 		assertEquals(true,  item.READ_ONLY_UNIQUE_OPTIONAL.unique);
-		assertEquals(false, item.READ_ONLY_UNIQUE_OPTIONAL.notNull);
+		assertEquals(false, item.READ_ONLY_UNIQUE_OPTIONAL.mandatory);
 
 		assertEquals(AttributeItem.class, item.TYPE.getJavaClass());
 		assertEquals(item.TYPE, Type.findByJavaClass(AttributeItem.class));

@@ -49,13 +49,13 @@ public final class HttpEntity extends Pattern
 
 	public HttpEntity(final Option option, final String fixedMimeMajor, final String fixedMimeMinor)
 	{
-		this.notNull = option.notNull;
+		this.notNull = option.mandatory;
 		this.fixedMimeMajor = fixedMimeMajor;
 		this.fixedMimeMinor = fixedMimeMinor;
 		this.data = Item.dataAttribute(option);
 		this.mimeMajor = null;
 		this.mimeMinor = null;
-		this.exists = option.notNull ? null : Item.booleanAttribute(Item.OPTIONAL);
+		this.exists = option.mandatory ? null : Item.booleanAttribute(Item.OPTIONAL);
 		this.isNull = exists;
 		
 		if(data==null)
@@ -68,7 +68,7 @@ public final class HttpEntity extends Pattern
 	
 	public HttpEntity(final Option option, final String fixedMimeMajor)
 	{
-		this.notNull = option.notNull;
+		this.notNull = option.mandatory;
 		this.fixedMimeMajor = fixedMimeMajor;
 		this.fixedMimeMinor = null;
 		this.data = Item.dataAttribute(option);
@@ -93,7 +93,7 @@ public final class HttpEntity extends Pattern
 	
 	public HttpEntity(final Option option)
 	{
-		this.notNull = option.notNull;
+		this.notNull = option.mandatory;
 		this.fixedMimeMajor = null;
 		this.fixedMimeMinor = null;
 		this.data = Item.dataAttribute(option);

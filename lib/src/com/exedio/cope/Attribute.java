@@ -26,7 +26,7 @@ public abstract class Attribute extends Feature
 	protected Attribute(final Option option)
 	{
 		this.readOnly = option.readOnly;
-		this.notNull = option.notNull;
+		this.notNull = option.mandatory;
 	}
 	
 	public final boolean isReadOnly()
@@ -101,14 +101,14 @@ public abstract class Attribute extends Feature
 	public static class Option
 	{
 		public final boolean readOnly;
-		public final boolean notNull;
 		public final boolean unique;
+		public final boolean mandatory;
 
-		Option(final boolean readOnly, final boolean unique, final boolean notNull)
+		Option(final boolean readOnly, final boolean unique, final boolean mandatory)
 		{
 			this.readOnly = readOnly;
 			this.unique = unique;
-			this.notNull = notNull;
+			this.mandatory = mandatory;
 		}
 	}
 	

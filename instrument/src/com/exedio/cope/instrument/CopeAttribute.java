@@ -82,7 +82,7 @@ abstract class CopeAttribute
 			final Attribute.Option option = getOption(optionString); 
 	
 			this.readOnly = option.readOnly;
-			this.notNull = option.notNull;
+			this.notNull = option.mandatory;
 			
 			if(initializerArguments.size()>1)
 			{
