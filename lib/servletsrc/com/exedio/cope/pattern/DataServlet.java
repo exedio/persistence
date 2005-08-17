@@ -108,7 +108,7 @@ public class DataServlet extends HttpServlet
 			final HttpServletResponse response)
 		throws ServletException, IOException
 	{
-		if(request.getPathInfo()==null)
+		if("/statistics".equals(request.getPathInfo()))
 		{
 			serveDirectory(request, response);
 			return;
