@@ -124,7 +124,7 @@ public class DataServlet extends HttpServlet
 		serveError(request, response);
 	}
 		
-	protected final void serveDirectory(
+	final void serveDirectory(
 			final HttpServletRequest request,
 			final HttpServletResponse response)
 		throws ServletException, IOException
@@ -164,7 +164,7 @@ public class DataServlet extends HttpServlet
 		out.close();
 	}
 	
-	protected final void serveError(
+	final void serveError(
 			final HttpServletRequest request,
 			final HttpServletResponse response)
 		throws ServletException, IOException
@@ -200,7 +200,7 @@ public class DataServlet extends HttpServlet
 	private static final String RESPONSE_LAST_MODIFIED = "Last-Modified";
 	private static final String RESPONSE_CONTENT_LENGTH = "Content-Length";
 	
-	protected final boolean serveContent(
+	final boolean serveContent(
 			final HttpServletRequest request,
 			final HttpServletResponse response)
 		throws ServletException, IOException
