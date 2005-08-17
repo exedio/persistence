@@ -483,7 +483,7 @@ public abstract class Item extends Cope
 	public static final Attribute.Option READ_ONLY_UNIQUE_OPTIONAL = new Attribute.Option(true, false, true);
 	public static final Attribute.Option UNIQUE = new Attribute.Option(false, true, true);
 	 
-	public static final Attribute.Option READ_ONLY_NOT_NULL_UNIQUE = new Attribute.Option(true, true, true);
+	public static final Attribute.Option READ_ONLY_UNIQUE = new Attribute.Option(true, true, true);
 	
 	// activation/deactivation -----------------------------------------------------
 	
