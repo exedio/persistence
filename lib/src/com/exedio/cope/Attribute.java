@@ -21,12 +21,12 @@ package com.exedio.cope;
 public abstract class Attribute extends Feature
 {
 	private final boolean readOnly;
-	private final boolean notNull;
+	private final boolean mandatory;
 
 	protected Attribute(final Option option)
 	{
 		this.readOnly = option.readOnly;
-		this.notNull = option.mandatory;
+		this.mandatory = option.mandatory;
 	}
 	
 	public final boolean isReadOnly()
@@ -36,7 +36,7 @@ public abstract class Attribute extends Feature
 	
 	public final boolean isMandatory()
 	{
-		return notNull;
+		return mandatory;
 	}
 	
 
@@ -57,7 +57,7 @@ public abstract class Attribute extends Feature
 		if(this.column!=null)
 			throw new RuntimeException();
 
-		this.column = createColumn(table, getName(), notNull);
+		this.column = createColumn(table, getName(), mandatory);
 	}
 	
 	final Column getColumn()
@@ -83,7 +83,7 @@ public abstract class Attribute extends Feature
 				buf.append(',');
 			buf.append("read-only");
 		}
-		if(notNull)
+		if(mandatory)
 		{
 			if(first)
 				first = false;
