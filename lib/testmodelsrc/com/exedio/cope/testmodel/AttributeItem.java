@@ -61,7 +61,7 @@ public class AttributeItem extends Item
 	public static final LengthFunction someStringLength = someString.length();
 
 	/**
-	 * A not-null string attribute.
+	 * A mandatory string attribute.
 	 */
 	public static final StringAttribute someNotNullString = stringAttribute(MANDATORY);
 
@@ -71,7 +71,7 @@ public class AttributeItem extends Item
 	public static final IntegerAttribute someInteger = integerAttribute(OPTIONAL);
 
 	/**
-	 * A not-null integer attribute
+	 * A mandatory integer attribute
 	 */
 	public static final IntegerAttribute someNotNullInteger = integerAttribute(MANDATORY);
 
@@ -81,7 +81,7 @@ public class AttributeItem extends Item
 	public static final LongAttribute someLong = longAttribute(OPTIONAL);
 
 	/**
-	 * A not-null integer attribute
+	 * A mandatory integer attribute
 	 */
 	public static final LongAttribute someNotNullLong = longAttribute(MANDATORY);
 
@@ -91,7 +91,7 @@ public class AttributeItem extends Item
 	public static final DoubleAttribute someDouble = doubleAttribute(OPTIONAL);
 
 	/**
-	 * A not-null double attribute
+	 * A mandatory double attribute
 	 */
 	public static final DoubleAttribute someNotNullDouble = doubleAttribute(MANDATORY);
 
@@ -105,7 +105,7 @@ public class AttributeItem extends Item
 	public static final BooleanAttribute someBoolean = booleanAttribute(OPTIONAL);
 
 	/**
-	 * A not-null boolean attribute
+	 * A mandatory boolean attribute
 	 */
 	public static final BooleanAttribute someNotNullBoolean = booleanAttribute(MANDATORY);
 	
@@ -115,7 +115,7 @@ public class AttributeItem extends Item
 	public static final ItemAttribute someItem = itemAttribute(OPTIONAL, EmptyItem.class);
 
 	/**
-	 * An not-null attribute referencing another persistent item
+	 * An mandatory attribute referencing another persistent item
 	 */
 	public static final ItemAttribute someNotNullItem = itemAttribute(MANDATORY, EmptyItem.class);
 
@@ -125,7 +125,7 @@ public class AttributeItem extends Item
 	public static final EnumAttribute someEnum = enumAttribute(OPTIONAL, SomeEnum.class);
 
 	/**
-	 * A not-null enumeration attribute
+	 * A mandatory enumeration attribute
 	 */
 	public static final EnumAttribute someNotNullEnum = enumAttribute(MANDATORY, SomeEnum.class);
 

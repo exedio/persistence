@@ -22,7 +22,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.StringAttribute;
 
 /**
- * An item having a unique not-null attribute.
+ * An item having a unique mandatory attribute.
  * @cope.persistent
  * @author Ralf Wiebicke
  */

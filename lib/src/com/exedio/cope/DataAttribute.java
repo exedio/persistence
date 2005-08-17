@@ -31,7 +31,7 @@ public final class DataAttribute extends Attribute
 		if(option.unique)
 			throw new RuntimeException("DataAttribute cannot be unique");
 		if(option.mandatory)
-			throw new RuntimeException("DataAttribute cannot be not-null");
+			throw new RuntimeException("DataAttribute cannot be mandatory");
 		if(option.readOnly)
 			throw new RuntimeException("DataAttribute cannot be read-only");
 	}

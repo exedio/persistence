@@ -199,7 +199,7 @@ public abstract class Item extends Cope
 	private MandatoryViolationException initialNotNullViolationException = null;
 
 	/**
-	 * Throws a {@link MandatoryViolationException}, if a not-null violation occured in the constructor.
+	 * Throws a {@link MandatoryViolationException}, if a mandatory violation occured in the constructor.
 	 * @throws MandatoryViolationException
 	 *         if one of the values in <code>initialAttributeValues</code>
 	 *         is either null or not specified

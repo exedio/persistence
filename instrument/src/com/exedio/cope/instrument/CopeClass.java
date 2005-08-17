@@ -234,7 +234,7 @@ final class CopeClass
 
 	/**
 	 * Return all initial attributes of this class.
-	 * Initial attributes are all attributes, which are read-only or not-null.
+	 * Initial attributes are all attributes, which are read-only or mandatory.
 	 */
 	public final List getInitialAttributes()
 	{

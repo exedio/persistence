@@ -89,7 +89,7 @@ public abstract class Attribute extends Feature
 				first = false;
 			else
 				buf.append(',');
-			buf.append("not-null");
+			buf.append("mandatory");
 		}
 		buf.append('}');
 

@@ -86,7 +86,7 @@ public final class HttpEntity extends Pattern
 		if(mimeMinor.getSingleUniqueConstraint()!=null)
 			throw new RuntimeException("mimeMinor cannot be unique");
 		if(mimeMinor.isMandatory())
-			throw new RuntimeException("mimeMinor cannot be not-null");
+			throw new RuntimeException("mimeMinor cannot be mandatory");
 		if(mimeMinor.isReadOnly())
 			throw new RuntimeException("mimeMinor cannot be read-only");
 	}
@@ -109,7 +109,7 @@ public final class HttpEntity extends Pattern
 		if(mimeMajor.getSingleUniqueConstraint()!=null)
 			throw new RuntimeException("mimeMajor cannot be unique");
 		if(mimeMajor.isMandatory())
-			throw new RuntimeException("mimeMajor cannot be not-null");
+			throw new RuntimeException("mimeMajor cannot be mandatory");
 		if(mimeMajor.isReadOnly())
 			throw new RuntimeException("mimeMajor cannot be read-only");
 		if(mimeMinor==null)
@@ -117,7 +117,7 @@ public final class HttpEntity extends Pattern
 		if(mimeMinor.getSingleUniqueConstraint()!=null)
 			throw new RuntimeException("mimeMinor cannot be unique");
 		if(mimeMinor.isMandatory())
-			throw new RuntimeException("mimeMinor cannot be not-null");
+			throw new RuntimeException("mimeMinor cannot be mandatory");
 		if(mimeMinor.isReadOnly())
 			throw new RuntimeException("mimeMinor cannot be read-only");
 	}
