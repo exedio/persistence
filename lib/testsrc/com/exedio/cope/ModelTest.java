@@ -21,9 +21,6 @@ package com.exedio.cope;
 import java.util.Arrays;
 
 import com.exedio.cope.testmodel.AttributeItem;
-import com.exedio.cope.testmodel.ItemWithSingleUnique;
-import com.exedio.cope.testmodel.ItemWithSingleUniqueNotNull;
-import com.exedio.cope.testmodel.ItemWithSingleUniqueReadOnly;
 import com.exedio.cope.testmodel.Main;
 import com.exedio.cope.util.ReactivationConstructorDummy;
 
@@ -153,19 +150,6 @@ public class ModelTest extends AbstractLibTest
 		{
 			super(null);
 		}
-	}
-
-	public void testUniqueConstraints()
-	{
-		assertEqualsUnmodifiable(
-			list(ItemWithSingleUnique.uniqueString),
-			ItemWithSingleUnique.uniqueString.getSingleUniqueConstraint().getUniqueAttributes());
-		assertEqualsUnmodifiable(
-			list(ItemWithSingleUniqueReadOnly.uniqueReadOnlyString),
-			ItemWithSingleUniqueReadOnly.uniqueReadOnlyString.getSingleUniqueConstraint().getUniqueAttributes());
-		assertEqualsUnmodifiable(
-			list(ItemWithSingleUniqueNotNull.uniqueNotNullString),
-			ItemWithSingleUniqueNotNull.uniqueNotNullString.getSingleUniqueConstraint().getUniqueAttributes());
 	}
 
 }

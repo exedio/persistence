@@ -30,6 +30,16 @@ public class UniqueItemTest extends TestmodelTest
 	public void testItemWithSingleUnique()
 			throws IntegrityViolationException, UniqueViolationException
 	{
+		assertEqualsUnmodifiable(
+			list(ItemWithSingleUnique.uniqueString),
+			ItemWithSingleUnique.uniqueString.getSingleUniqueConstraint().getUniqueAttributes());
+		assertEqualsUnmodifiable(
+			list(ItemWithSingleUniqueReadOnly.uniqueReadOnlyString),
+			ItemWithSingleUniqueReadOnly.uniqueReadOnlyString.getSingleUniqueConstraint().getUniqueAttributes());
+		assertEqualsUnmodifiable(
+			list(ItemWithSingleUniqueNotNull.uniqueNotNullString),
+			ItemWithSingleUniqueNotNull.uniqueNotNullString.getSingleUniqueConstraint().getUniqueAttributes());
+
 		assertEquals(null, ItemWithSingleUnique.findByUniqueString("uniqueString"));
 
 		final ItemWithSingleUnique item = new ItemWithSingleUnique();
