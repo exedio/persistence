@@ -21,7 +21,6 @@ package com.exedio.cope.search;
 import java.util.Date;
 
 import com.exedio.cope.BooleanAttribute;
-import com.exedio.cope.Cope;
 import com.exedio.cope.DateAttribute;
 import com.exedio.cope.DoubleAttribute;
 import com.exedio.cope.EnumAttribute;
@@ -46,7 +45,7 @@ public final class NotEqualCondition extends Condition
 	 * Creates a new NotEqualCondition.
 	 * Instead of using this constructor directly,
 	 * you may want to use the more type-safe wrapper methods.
-	 * @see Cope#isNotNull(ObjectAttribute)
+	 * @see ObjectAttribute#isNotNull()
 	 * @see StringFunction#notEqual(String)
 	 * @see IntegerFunction#notEqual(int)
 	 * @see IntegerFunction#notEqual(Integer)
