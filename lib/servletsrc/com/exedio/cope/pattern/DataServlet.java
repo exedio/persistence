@@ -142,10 +142,10 @@ public class DataServlet extends HttpServlet
 							"<th>type</th>" +
 							"<th>entity</th>" +
 							"<th>hits</th>" +
-							"<th>itemFound</th>" +
-							"<th>dataNotNull</th>" +
+							"<th>found</th>" +
+							"<th>notNull</th>" +
 							"<th>modified</th>" +
-							"<th>fullyDelivered</th>" +
+							"<th>delivered</th>" +
 							"<th>statisticsFromDate</th>" +
 						"</tr>");
 		
