@@ -260,13 +260,13 @@ public class ModelTest extends AbstractLibTest
 	
 	public void testUniqueConstraints()
 	{
-		assertEquals(
+		assertEqualsUnmodifiable(
 			list(ItemWithSingleUnique.uniqueString),
 			ItemWithSingleUnique.uniqueString.getSingleUniqueConstraint().getUniqueAttributes());
-		assertEquals(
+		assertEqualsUnmodifiable(
 			list(ItemWithSingleUniqueReadOnly.uniqueReadOnlyString),
 			ItemWithSingleUniqueReadOnly.uniqueReadOnlyString.getSingleUniqueConstraint().getUniqueAttributes());
-		assertEquals(
+		assertEqualsUnmodifiable(
 			list(ItemWithSingleUniqueNotNull.uniqueNotNullString),
 			ItemWithSingleUniqueNotNull.uniqueNotNullString.getSingleUniqueConstraint().getUniqueAttributes());
 	}
