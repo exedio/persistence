@@ -136,11 +136,10 @@ public class DataServlet extends HttpServlet
 		p.println("<head><title>cope data servlet</title><head>");
 		p.println("<body>");
 		p.println("<ol>");
+		
 		for(Iterator i = pathes.values().iterator(); i.hasNext(); )
-		{
-			final Path path = (Path)i.next();
-			p.println("<li><a href=\""+prefix+path.path+"/0\">"+path.entity+"</a>");
-		}
+			((Path)i.next()).printStatistics(prefix, p);
+		
 		p.println("</ol>");
 		p.println("</body>");
 		p.println("</html>");
@@ -316,6 +315,12 @@ public class DataServlet extends HttpServlet
 				Transaction.rollbackIfNotCommitted();
 			}
 		}
+
+		protected final void printStatistics(final String prefix, final PrintStream p)
+		{
+			p.println("<li><a href=\""+prefix+path+"/0\">"+entity+"</a>");
+		}
+		
 	}
 	
 	final String format(final long date)
