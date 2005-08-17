@@ -225,8 +225,7 @@ public class DataServlet extends HttpServlet
 				final String pathInfo, final int trailingSlash)
 			throws ServletException, IOException
 		{
-			final HttpEntity attribute = entity; // TODO rename to entity
-			//System.out.println("attribute="+attribute);
+			//System.out.println("entity="+entity);
 
 			final int dotAfterSlash = pathInfo.indexOf('.', trailingSlash);
 			//System.out.println("trailingDot="+trailingDot);
@@ -237,7 +236,7 @@ public class DataServlet extends HttpServlet
 				: pathInfo.substring(trailingSlash+1);
 			//System.out.println("pkString="+pkString);
 
-			final String id = attribute.getType().getID() + '.' + pkString;
+			final String id = entity.getType().getID() + '.' + pkString;
 			//System.out.println("ID="+id);
 			try
 			{
@@ -245,15 +244,15 @@ public class DataServlet extends HttpServlet
 				final Item item = model.findByID(id);
 				//System.out.println("item="+item);
 
-				final String mimeMajor = attribute.getMimeMajor(item);
+				final String mimeMajor = entity.getMimeMajor(item);
 				//System.out.println("mimeMajor="+mimeMajor);
 				if(mimeMajor!=null)
 				{
-					final String mimeMinor = attribute.getMimeMinor(item);
+					final String mimeMinor = entity.getMimeMinor(item);
 					//System.out.println("mimeMinor="+mimeMinor);
 					response.setContentType(mimeMajor+'/'+mimeMinor);
 
-					final long lastModified = attribute.getDataLastModified(item);
+					final long lastModified = entity.getDataLastModified(item);
 					//System.out.println("lastModified="+formatHttpDate(lastModified));
 					response.setDateHeader(RESPONSE_LAST_MODIFIED, lastModified);
 
@@ -273,7 +272,7 @@ public class DataServlet extends HttpServlet
 					}
 					else
 					{
-						final long contentLength = attribute.getDataLength(item);
+						final long contentLength = entity.getDataLength(item);
 						//System.out.println("contentLength="+String.valueOf(contentLength));
 						response.setHeader(RESPONSE_CONTENT_LENGTH, String.valueOf(contentLength));
 						//response.setHeader("Cache-Control", "public");
@@ -285,7 +284,7 @@ public class DataServlet extends HttpServlet
 						try
 						{
 							out = response.getOutputStream();
-							in = attribute.getData(item);
+							in = entity.getData(item);
 		
 							final byte[] buffer = new byte[Math.max((int)contentLength, 50*1024)];
 							for(int len = in.read(buffer); len != -1; len = in.read(buffer))
