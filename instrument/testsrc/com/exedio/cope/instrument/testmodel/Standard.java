@@ -43,21 +43,21 @@ import com.exedio.cope.pattern.MD5Hash;
 public class Standard extends Item
 {
 	public static final StringAttribute defaultString = stringAttribute(OPTIONAL);
-	public static final StringAttribute notNullString = stringAttribute(NOT_NULL);
+	public static final StringAttribute notNullString = stringAttribute(MANDATORY);
 	public static final StringAttribute readOnlyString = stringAttribute(READ_ONLY_OPTIONAL);
 	public static final StringAttribute uniqueString = stringAttribute(UNIQUE);
 
 	public static final IntegerAttribute defaultInteger = integerAttribute(OPTIONAL);
-	public static final IntegerAttribute nativeInteger = integerAttribute(NOT_NULL);
+	public static final IntegerAttribute nativeInteger = integerAttribute(MANDATORY);
 
 	public static final LongAttribute defaultLong = longAttribute(OPTIONAL);
-	public static final LongAttribute nativeLong = longAttribute(NOT_NULL);
+	public static final LongAttribute nativeLong = longAttribute(MANDATORY);
 
 	public static final DoubleAttribute defaultDouble = doubleAttribute(OPTIONAL);
-	public static final DoubleAttribute nativeDouble = doubleAttribute(NOT_NULL);
+	public static final DoubleAttribute nativeDouble = doubleAttribute(MANDATORY);
 
 	public static final BooleanAttribute defaultBoolean = booleanAttribute(OPTIONAL);
-	public static final BooleanAttribute nativeBoolean = booleanAttribute(NOT_NULL);
+	public static final BooleanAttribute nativeBoolean = booleanAttribute(MANDATORY);
 
 	private static final StringAttribute privateString = stringAttribute(OPTIONAL);
 

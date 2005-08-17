@@ -28,7 +28,7 @@ import com.exedio.cope.StringAttribute;
  */
 public abstract class Super extends Item
 {
-	public static final IntegerAttribute superInt = integerAttribute(NOT_NULL);
+	public static final IntegerAttribute superInt = integerAttribute(MANDATORY);
 	
 	public static final StringAttribute superString = stringAttribute(OPTIONAL);
 	

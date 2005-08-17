@@ -63,7 +63,7 @@ public class AttributeItem extends Item
 	/**
 	 * A not-null string attribute.
 	 */
-	public static final StringAttribute someNotNullString = stringAttribute(NOT_NULL);
+	public static final StringAttribute someNotNullString = stringAttribute(MANDATORY);
 
 	/**
 	 * An integer attribute
@@ -73,7 +73,7 @@ public class AttributeItem extends Item
 	/**
 	 * A not-null integer attribute
 	 */
-	public static final IntegerAttribute someNotNullInteger = integerAttribute(NOT_NULL);
+	public static final IntegerAttribute someNotNullInteger = integerAttribute(MANDATORY);
 
 	/**
 	 * An integer attribute
@@ -83,7 +83,7 @@ public class AttributeItem extends Item
 	/**
 	 * A not-null integer attribute
 	 */
-	public static final LongAttribute someNotNullLong = longAttribute(NOT_NULL);
+	public static final LongAttribute someNotNullLong = longAttribute(MANDATORY);
 
 	/**
 	 * A double attribute
@@ -93,7 +93,7 @@ public class AttributeItem extends Item
 	/**
 	 * A not-null double attribute
 	 */
-	public static final DoubleAttribute someNotNullDouble = doubleAttribute(NOT_NULL);
+	public static final DoubleAttribute someNotNullDouble = doubleAttribute(MANDATORY);
 
 	public static final DateAttribute someDate = dateAttribute(OPTIONAL);
 
@@ -107,7 +107,7 @@ public class AttributeItem extends Item
 	/**
 	 * A not-null boolean attribute
 	 */
-	public static final BooleanAttribute someNotNullBoolean = booleanAttribute(NOT_NULL);
+	public static final BooleanAttribute someNotNullBoolean = booleanAttribute(MANDATORY);
 	
 	/**
 	 * An attribute referencing another persistent item
@@ -117,7 +117,7 @@ public class AttributeItem extends Item
 	/**
 	 * An not-null attribute referencing another persistent item
 	 */
-	public static final ItemAttribute someNotNullItem = itemAttribute(NOT_NULL, EmptyItem.class);
+	public static final ItemAttribute someNotNullItem = itemAttribute(MANDATORY, EmptyItem.class);
 
 	/**
 	 * An enumeration attribute
@@ -127,7 +127,7 @@ public class AttributeItem extends Item
 	/**
 	 * A not-null enumeration attribute
 	 */
-	public static final EnumAttribute someNotNullEnum = enumAttribute(NOT_NULL, SomeEnum.class);
+	public static final EnumAttribute someNotNullEnum = enumAttribute(MANDATORY, SomeEnum.class);
 
 	/**
 	 * A data attribute.

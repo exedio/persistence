@@ -60,7 +60,7 @@ public abstract class ObjectAttribute
 				return Item.READ_ONLY_OPTIONAL;
 		else
 			if(isNotNull())
-				return Item.NOT_NULL;
+				return Item.MANDATORY;
 			else
 				return Item.OPTIONAL;
 	}

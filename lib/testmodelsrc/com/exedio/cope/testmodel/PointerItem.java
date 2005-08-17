@@ -29,9 +29,9 @@ import com.exedio.cope.StringAttribute;
 public class PointerItem extends Item
 {
 
-	public static final StringAttribute code = stringAttribute(NOT_NULL);
+	public static final StringAttribute code = stringAttribute(MANDATORY);
 	
-	public static final ItemAttribute pointer = itemAttribute(NOT_NULL, PointerTargetItem.class);
+	public static final ItemAttribute pointer = itemAttribute(MANDATORY, PointerTargetItem.class);
 
 	public static final ItemAttribute pointer2 = itemAttribute(OPTIONAL, PointerTargetItem.class);
 
