@@ -473,17 +473,18 @@ public abstract class Item extends Cope
 		return !getRow().deleted;
 	}
 
+	public static final Attribute.Option MANDATORY = new Attribute.Option(false, true, false);
 	public static final Attribute.Option OPTIONAL = new Attribute.Option(false, false, false);
 
-	public static final Attribute.Option READ_ONLY_OPTIONAL = new Attribute.Option(true, false, false);
-	public static final Attribute.Option MANDATORY = new Attribute.Option(false, true, false);
+	public static final Attribute.Option UNIQUE = new Attribute.Option(false, true, true);
 	public static final Attribute.Option UNIQUE_OPTIONAL = new Attribute.Option(false, false, true);
 
 	public static final Attribute.Option READ_ONLY = new Attribute.Option(true, true, false);
-	public static final Attribute.Option READ_ONLY_UNIQUE_OPTIONAL = new Attribute.Option(true, false, true);
-	public static final Attribute.Option UNIQUE = new Attribute.Option(false, true, true);
-	 
+	public static final Attribute.Option READ_ONLY_OPTIONAL = new Attribute.Option(true, false, false);
+
 	public static final Attribute.Option READ_ONLY_UNIQUE = new Attribute.Option(true, true, true);
+	public static final Attribute.Option READ_ONLY_UNIQUE_OPTIONAL = new Attribute.Option(true, false, true);
+	 
 	
 	// activation/deactivation -----------------------------------------------------
 	
