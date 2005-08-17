@@ -126,7 +126,7 @@ public abstract class Item extends Cope
 	/**
 	 * Must never be public, since it does not throw exceptions for constraint violations.
 	 * Subclasses (usually generated) must care about throwing these exception by calling
-	 * {@link #throwInitialNotNullViolationException} and/or 
+	 * {@link #throwInitialMandatoryViolationException} and/or 
 	 * {@link #throwInitialUniqueViolationException}.
 	 * All this fiddling is needed, because one cannot wrap a <code>super()</code> call into a
 	 * try-catch statement.
