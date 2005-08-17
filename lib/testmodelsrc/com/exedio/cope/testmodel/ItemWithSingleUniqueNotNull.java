@@ -31,7 +31,7 @@ public class ItemWithSingleUniqueNotNull extends Item
 	/**
 	 * An attribute that is unique and read-only.
 	 */
-	public static final StringAttribute uniqueNotNullString = stringAttribute(NOT_NULL_UNIQUE);
+	public static final StringAttribute uniqueNotNullString = stringAttribute(UNIQUE);
 
 /**
 
