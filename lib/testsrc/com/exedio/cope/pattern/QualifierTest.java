@@ -24,7 +24,7 @@ import com.exedio.cope.Feature;
 import com.exedio.cope.TestmodelTest;
 import com.exedio.cope.IntegrityViolationException;
 import com.exedio.cope.LengthViolationException;
-import com.exedio.cope.NotNullViolationException;
+import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.ReadOnlyViolationException;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.testmodel.EmptyItem;
@@ -48,7 +48,7 @@ public class QualifierTest extends TestmodelTest
 	}
 	
 	public void testQualified()
-		throws UniqueViolationException, NotNullViolationException, IntegrityViolationException,
+		throws UniqueViolationException, MandatoryViolationException, IntegrityViolationException,
 			LengthViolationException, ReadOnlyViolationException
 	{
 		assertEquals(QualifiedItem.TYPE, QualifiedItem.qualifier.getType());

@@ -27,7 +27,7 @@ import java.lang.reflect.Modifier;
 import java.util.Arrays;
 
 import com.exedio.cope.AttributeValue;
-import com.exedio.cope.NotNullViolationException;
+import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.instrument.testmodel.Standard;
@@ -61,7 +61,7 @@ public class GeneratorTest extends InstrumentorTest
 		assertMethod(standard, "getDefaultString", String.class, PUBLIC|FINAL);
 		assertMethod(standard, "setDefaultString", new Class[]{String.class}, PUBLIC|FINAL);
 		assertMethod(standard, "getNotNullString", String.class, PUBLIC|FINAL);
-		assertMethod(standard, "setNotNullString", new Class[]{String.class}, PUBLIC|FINAL, new Class[]{NotNullViolationException.class});
+		assertMethod(standard, "setNotNullString", new Class[]{String.class}, PUBLIC|FINAL, new Class[]{MandatoryViolationException.class});
 		assertMethod(standard, "getReadOnlyString", String.class, PUBLIC|FINAL);
 		assertNoMethod(standard, "setReadOnlyString", new Class[]{String.class});
 		assertMethod(standard, "getUniqueString", String.class, PUBLIC|FINAL);

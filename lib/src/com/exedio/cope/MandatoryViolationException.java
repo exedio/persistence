@@ -28,7 +28,7 @@ package com.exedio.cope;
  * 
  * @author Ralf Wiebicke
  */
-public final class NotNullViolationException extends ConstraintViolationException
+public final class MandatoryViolationException extends ConstraintViolationException
 {
 	private final Item item;
 	private final Attribute notNullAttribute;
@@ -38,7 +38,7 @@ public final class NotNullViolationException extends ConstraintViolationExceptio
 	 * @param item initializes, what is returned by {@link #getItem()}.
 	 * @param notNullAttribute initializes, what is returned by {@link #getNotNullAttribute()}.
 	 */
-	public NotNullViolationException(final Item item, final Attribute notNullAttribute)
+	public MandatoryViolationException(final Item item, final Attribute notNullAttribute)
 	{
 		super(null);
 		this.item = item;

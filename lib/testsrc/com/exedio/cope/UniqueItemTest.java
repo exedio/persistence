@@ -180,7 +180,7 @@ public class UniqueItemTest extends TestmodelTest
 	}
 
 	public void testItemWithSingleUniqueNotNull()
-			throws IntegrityViolationException, UniqueViolationException, NotNullViolationException
+			throws IntegrityViolationException, UniqueViolationException, MandatoryViolationException
 	{
 		assertEquals(null, ItemWithSingleUniqueNotNull.findByUniqueNotNullString("uniqueString"));
 		assertEquals(null, ItemWithSingleUniqueNotNull.findByUniqueNotNullString("uniqueString2"));
@@ -200,7 +200,7 @@ public class UniqueItemTest extends TestmodelTest
 			item.setUniqueNotNullString(null);
 			fail("should have thrown NotNullViolationException");
 		}
-		catch(NotNullViolationException e)
+		catch(MandatoryViolationException e)
 		{
 			assertEquals(item.uniqueNotNullString, e.getNotNullAttribute());
 			assertEquals(item, e.getItem());
@@ -215,7 +215,7 @@ public class UniqueItemTest extends TestmodelTest
 			new ItemWithSingleUniqueNotNull(null);
 			fail();
 		}
-		catch(NotNullViolationException e)
+		catch(MandatoryViolationException e)
 		{
 			assertEquals(item.uniqueNotNullString, e.getNotNullAttribute());
 			assertEquals(null, e.getItem());

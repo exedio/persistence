@@ -48,7 +48,7 @@ import com.exedio.cope.LongAttribute;
 import com.exedio.cope.Model;
 import com.exedio.cope.NestingRuntimeException;
 import com.exedio.cope.NoSuchIDException;
-import com.exedio.cope.NotNullViolationException;
+import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.ObjectAttribute;
 import com.exedio.cope.ReadOnlyViolationException;
 import com.exedio.cope.StringAttribute;
@@ -518,7 +518,7 @@ final class ItemForm extends Form
 		{
 			item.set((AttributeValue[])attributeValues.toArray(new AttributeValue[attributeValues.size()]));
 		}
-		catch(NotNullViolationException e)
+		catch(MandatoryViolationException e)
 		{
 			final Field field = getField(e.getNotNullAttribute().getName());
 			field.error = "error.notnull:"+e.getNotNullAttribute().toString();

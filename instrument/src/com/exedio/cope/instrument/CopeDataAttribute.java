@@ -23,7 +23,7 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.SortedSet;
 
-import com.exedio.cope.NotNullViolationException;
+import com.exedio.cope.MandatoryViolationException;
 
 final class CopeDataAttribute extends CopeAttribute
 {
@@ -43,13 +43,13 @@ final class CopeDataAttribute extends CopeAttribute
 	{
 		result.add(IOException.class);
 		if(notNull)
-			result.add(NotNullViolationException.class);
+			result.add(MandatoryViolationException.class);
 	}
 
 	protected void fillExceptionsThrownByGenericSetter(final SortedSet result)
 	{
 		result.add(IOException.class);
-		result.add(NotNullViolationException.class);
+		result.add(MandatoryViolationException.class);
 	}
 
 }

@@ -30,7 +30,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.ItemAttribute;
 import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.NestingRuntimeException;
-import com.exedio.cope.NotNullViolationException;
+import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.ObjectAttribute;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.ReadOnlyViolationException;
@@ -130,7 +130,7 @@ public final class Qualifier extends Pattern
 	
 	public final void set(final Object[] values, final ObjectAttribute attribute, Object value)
 	throws
-		NotNullViolationException,
+		MandatoryViolationException,
 		LengthViolationException,
 		ReadOnlyViolationException,
 		ClassCastException

@@ -90,7 +90,7 @@ public abstract class Super extends Item
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
-		catch(com.exedio.cope.NotNullViolationException e)
+		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
@@ -127,7 +127,7 @@ public abstract class Super extends Item
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
-		catch(com.exedio.cope.NotNullViolationException e)
+		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}

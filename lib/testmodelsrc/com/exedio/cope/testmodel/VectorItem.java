@@ -112,7 +112,7 @@ public class VectorItem extends Item
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
-		catch(com.exedio.cope.NotNullViolationException e)
+		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
@@ -149,7 +149,7 @@ public class VectorItem extends Item
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
-		catch(com.exedio.cope.NotNullViolationException e)
+		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
@@ -186,7 +186,7 @@ public class VectorItem extends Item
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
-		catch(com.exedio.cope.NotNullViolationException e)
+		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
@@ -216,7 +216,7 @@ public class VectorItem extends Item
  */public final void setNums(final java.util.Collection nums)
 			throws
 				com.exedio.cope.UniqueViolationException,
-				com.exedio.cope.NotNullViolationException,
+				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.LengthViolationException,
 				com.exedio.cope.ReadOnlyViolationException,
 				java.lang.ClassCastException
@@ -240,7 +240,7 @@ public class VectorItem extends Item
  */public final void setDates(final java.util.Collection dates)
 			throws
 				com.exedio.cope.UniqueViolationException,
-				com.exedio.cope.NotNullViolationException,
+				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.LengthViolationException,
 				com.exedio.cope.ReadOnlyViolationException,
 				java.lang.ClassCastException
@@ -264,7 +264,7 @@ public class VectorItem extends Item
  */public final void setStrings(final java.util.Collection strings)
 			throws
 				com.exedio.cope.UniqueViolationException,
-				com.exedio.cope.NotNullViolationException,
+				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.LengthViolationException,
 				com.exedio.cope.ReadOnlyViolationException,
 				java.lang.ClassCastException

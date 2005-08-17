@@ -86,7 +86,7 @@ public class DataItem extends Item
 		{
 			set(DataItem.data,data);
 		}
-		catch(com.exedio.cope.NotNullViolationException e)
+		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}

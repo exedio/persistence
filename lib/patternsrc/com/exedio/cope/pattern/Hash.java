@@ -21,7 +21,7 @@ package com.exedio.cope.pattern;
 import com.exedio.cope.Item;
 import com.exedio.cope.Join;
 import com.exedio.cope.LengthViolationException;
-import com.exedio.cope.NotNullViolationException;
+import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.ReadOnlyViolationException;
 import com.exedio.cope.StringAttribute;
@@ -63,7 +63,7 @@ public abstract class Hash extends Pattern
 	public final void set(final Item item, final String plainText)
 		throws
 			UniqueViolationException,
-			NotNullViolationException,
+			MandatoryViolationException,
 			LengthViolationException,
 			ReadOnlyViolationException
 	{

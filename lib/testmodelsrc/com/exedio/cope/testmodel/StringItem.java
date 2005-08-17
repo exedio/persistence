@@ -103,7 +103,7 @@ public class StringItem extends Item
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
-		catch(com.exedio.cope.NotNullViolationException e)
+		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
@@ -138,7 +138,7 @@ public class StringItem extends Item
 		{
 			set(StringItem.min4,min4);
 		}
-		catch(com.exedio.cope.NotNullViolationException e)
+		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
@@ -173,7 +173,7 @@ public class StringItem extends Item
 		{
 			set(StringItem.max4,max4);
 		}
-		catch(com.exedio.cope.NotNullViolationException e)
+		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
@@ -208,7 +208,7 @@ public class StringItem extends Item
 		{
 			set(StringItem.min4Max8,min4Max8);
 		}
-		catch(com.exedio.cope.NotNullViolationException e)
+		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
@@ -243,7 +243,7 @@ public class StringItem extends Item
 		{
 			set(StringItem.exact6,exact6);
 		}
-		catch(com.exedio.cope.NotNullViolationException e)
+		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}

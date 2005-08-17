@@ -33,7 +33,7 @@ public class SearchTest extends TestmodelTest
 			item = new AttributeItem("someString", 5, 6l, 2.2, true, someItem, AttributeItem.SomeEnum.enumValue1);
 			item2 = new AttributeItem("someString2", 5, 6l, 2.2, false, someItem, AttributeItem.SomeEnum.enumValue2);
 		}
-		catch(NotNullViolationException e)
+		catch(MandatoryViolationException e)
 		{
 			throw new NestingRuntimeException(e);
 		}

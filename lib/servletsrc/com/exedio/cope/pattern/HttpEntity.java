@@ -29,7 +29,7 @@ import com.exedio.cope.DataAttribute;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
 import com.exedio.cope.NestingRuntimeException;
-import com.exedio.cope.NotNullViolationException;
+import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.ObjectAttribute;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.StringAttribute;
@@ -268,7 +268,7 @@ public final class HttpEntity extends Pattern
 	 * Provides data for this persistent http entity.
 	 * Closes <data>data</data> after reading the contents of the stream.
 	 * @param data give null to remove data.
-	 * @throws NotNullViolationException
+	 * @throws MandatoryViolationException
 	 *         if data is null and attribute is {@link Attribute#isMandatory() mandatory}.
 	 * @throws IOException if reading data throws an IOException.
 	 */

@@ -29,7 +29,7 @@ import com.exedio.cope.AttributeValue;
 import com.exedio.cope.Item;
 import com.exedio.cope.Join;
 import com.exedio.cope.LengthViolationException;
-import com.exedio.cope.NotNullViolationException;
+import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.ObjectAttribute;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.ReadOnlyViolationException;
@@ -96,7 +96,7 @@ public final class Vector extends Pattern
 	public void set(final Item item, final Collection values)
 		throws
 			UniqueViolationException,
-			NotNullViolationException,
+			MandatoryViolationException,
 			LengthViolationException,
 			ReadOnlyViolationException,
 			ClassCastException

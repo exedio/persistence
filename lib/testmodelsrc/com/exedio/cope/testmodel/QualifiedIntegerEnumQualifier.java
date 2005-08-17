@@ -60,7 +60,7 @@ public class QualifiedIntegerEnumQualifier extends Item
 	 * @param up the initial value for attribute {@link #up}.
 	 * @param keyX the initial value for attribute {@link #keyX}.
 	 * @param keyY the initial value for attribute {@link #keyY}.
-	 * @throws com.exedio.cope.NotNullViolationException if up, keyY is null.
+	 * @throws com.exedio.cope.MandatoryViolationException if up, keyY is null.
 	 * @throws com.exedio.cope.UniqueViolationException if up, keyX, keyY is not unique.
 	 *
  */public QualifiedIntegerEnumQualifier(
@@ -68,7 +68,7 @@ public class QualifiedIntegerEnumQualifier extends Item
 				final int keyX,
 				final KeyEnum keyY)
 			throws
-				com.exedio.cope.NotNullViolationException,
+				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.UniqueViolationException
 	{
 		this(new com.exedio.cope.AttributeValue[]{
@@ -76,7 +76,7 @@ public class QualifiedIntegerEnumQualifier extends Item
 			new com.exedio.cope.AttributeValue(QualifiedIntegerEnumQualifier.keyX,new java.lang.Integer(keyX)),
 			new com.exedio.cope.AttributeValue(QualifiedIntegerEnumQualifier.keyY,keyY),
 		});
-		throwInitialNotNullViolationException();
+		throwInitialMandatoryViolationException();
 		throwInitialUniqueViolationException();
 	}/**
 
@@ -150,7 +150,7 @@ public class QualifiedIntegerEnumQualifier extends Item
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
-		catch(com.exedio.cope.NotNullViolationException e)
+		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
@@ -187,7 +187,7 @@ public class QualifiedIntegerEnumQualifier extends Item
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
-		catch(com.exedio.cope.NotNullViolationException e)
+		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}

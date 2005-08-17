@@ -151,7 +151,7 @@ public abstract class Item extends Cope
 				av.attribute.checkValue(av.value, null);
 			}
 		}
-		catch(NotNullViolationException e)
+		catch(MandatoryViolationException e)
 		{
 			initialNotNullViolationException = e;
 			return;
@@ -196,16 +196,16 @@ public abstract class Item extends Cope
 			throw new RuntimeException();
 	}
 	
-	private NotNullViolationException initialNotNullViolationException = null;
+	private MandatoryViolationException initialNotNullViolationException = null;
 
 	/**
-	 * Throws a {@link NotNullViolationException}, if a not-null violation occured in the constructor.
-	 * @throws NotNullViolationException
+	 * Throws a {@link MandatoryViolationException}, if a not-null violation occured in the constructor.
+	 * @throws MandatoryViolationException
 	 *         if one of the values in <code>initialAttributeValues</code>
 	 *         is either null or not specified
 	 *         and it's attribute is {@link Attribute#isMandatory() mandatory}.
 	 */
-	protected final void throwInitialNotNullViolationException() throws NotNullViolationException
+	protected final void throwInitialMandatoryViolationException() throws MandatoryViolationException
 	{
 		if(initialNotNullViolationException!=null)
 			throw initialNotNullViolationException;
@@ -261,7 +261,7 @@ public abstract class Item extends Cope
 	}
 	
 	/**
-	 * @throws NotNullViolationException
+	 * @throws MandatoryViolationException
 	 *         if <code>value</code> is null and <code>attribute</code>
 	 *         is {@link Attribute#isMandatory() mandatory}.
 	 * @throws ReadOnlyViolationException
@@ -272,7 +272,7 @@ public abstract class Item extends Cope
 	public final void set(final ObjectAttribute attribute, final Object value)
 		throws
 			UniqueViolationException,
-			NotNullViolationException,
+			MandatoryViolationException,
 			LengthViolationException,
 			ReadOnlyViolationException,
 			ClassCastException
@@ -288,7 +288,7 @@ public abstract class Item extends Cope
 	}
 
 	/**
-	 * @throws NotNullViolationException
+	 * @throws MandatoryViolationException
 	 *         if <code>value</code> is null and <code>attribute</code>
 	 *         is {@link Attribute#isMandatory() mandatory}.
 	 * @throws ReadOnlyViolationException
@@ -299,7 +299,7 @@ public abstract class Item extends Cope
 	public final void set(final AttributeValue[] attributeValues)
 		throws
 			UniqueViolationException,
-			NotNullViolationException,
+			MandatoryViolationException,
 			LengthViolationException,
 			ReadOnlyViolationException,
 			ClassCastException
@@ -333,7 +333,7 @@ public abstract class Item extends Cope
 		{
 			set(attribute, new Date()); // TODO: make a more efficient implementation
 		}
-		catch(NotNullViolationException e)
+		catch(MandatoryViolationException e)
 		{
 			throw new NestingRuntimeException(e);
 		}
@@ -417,12 +417,12 @@ public abstract class Item extends Cope
 	 * Provides data for this persistent data attribute.
 	 * Closes <data>data</data> after reading the contents of the stream.
 	 * @param data give null to remove data.
-	 * @throws NotNullViolationException
+	 * @throws MandatoryViolationException
 	 *         if data is null and attribute is {@link Attribute#isMandatory() mandatory}.
 	 * @throws IOException if reading data throws an IOException.
 	 */
 	public final void set(final DataAttribute attribute, final InputStream data)
-	throws NotNullViolationException, IOException
+	throws MandatoryViolationException, IOException
 	{
 		try
 		{

@@ -32,7 +32,7 @@ import com.exedio.cope.DateAttribute;
 import com.exedio.cope.Item;
 import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.NestingRuntimeException;
-import com.exedio.cope.NotNullViolationException;
+import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.ObjectAttribute;
 import com.exedio.cope.ReadOnlyViolationException;
 import com.exedio.cope.UniqueViolationException;
@@ -250,7 +250,7 @@ abstract class CopeAttribute
 		if(readOnly)
 			result.add(ReadOnlyViolationException.class);
 		if(notNull && !isBoxed())
-			result.add(NotNullViolationException.class);
+			result.add(MandatoryViolationException.class);
 		if(lengthConstrained)
 			result.add(LengthViolationException.class);
 	}
@@ -280,7 +280,7 @@ abstract class CopeAttribute
 	protected void fillExceptionsThrownByGenericSetter(final SortedSet result)
 	{
 		result.add(UniqueViolationException.class);
-		result.add(NotNullViolationException.class);
+		result.add(MandatoryViolationException.class);
 		result.add(ReadOnlyViolationException.class);
 		result.add(LengthViolationException.class);
 	}

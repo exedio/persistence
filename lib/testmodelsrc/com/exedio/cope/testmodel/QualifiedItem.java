@@ -91,7 +91,7 @@ public class QualifiedItem extends Item
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
-		catch(com.exedio.cope.NotNullViolationException e)
+		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
@@ -129,7 +129,7 @@ public class QualifiedItem extends Item
 	 *
  */public final void setQualifiedA(final EmptyItem key,final java.lang.String qualifiedA)
 			throws
-				com.exedio.cope.NotNullViolationException,
+				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.LengthViolationException,
 				com.exedio.cope.ReadOnlyViolationException,
 				java.lang.ClassCastException
@@ -152,7 +152,7 @@ public class QualifiedItem extends Item
 	 *
  */public final void setQualifiedB(final EmptyItem key,final java.lang.String qualifiedB)
 			throws
-				com.exedio.cope.NotNullViolationException,
+				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.LengthViolationException,
 				com.exedio.cope.ReadOnlyViolationException,
 				java.lang.ClassCastException
@@ -184,7 +184,7 @@ public class QualifiedItem extends Item
 	 *
  */public final void setQualifiedA(final java.lang.String key,final java.lang.Integer qualifiedA)
 			throws
-				com.exedio.cope.NotNullViolationException,
+				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.LengthViolationException,
 				com.exedio.cope.ReadOnlyViolationException,
 				java.lang.ClassCastException
@@ -207,7 +207,7 @@ public class QualifiedItem extends Item
 	 *
  */public final void setQualifiedB(final java.lang.String key,final java.lang.Integer qualifiedB)
 			throws
-				com.exedio.cope.NotNullViolationException,
+				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.LengthViolationException,
 				com.exedio.cope.ReadOnlyViolationException,
 				java.lang.ClassCastException
@@ -239,7 +239,7 @@ public class QualifiedItem extends Item
 	 *
  */public final void setQualifiedA(final java.lang.Integer keyX,final KeyEnum keyY,final java.lang.String qualifiedA)
 			throws
-				com.exedio.cope.NotNullViolationException,
+				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.LengthViolationException,
 				com.exedio.cope.ReadOnlyViolationException,
 				java.lang.ClassCastException
@@ -262,7 +262,7 @@ public class QualifiedItem extends Item
 	 *
  */public final void setQualifiedB(final java.lang.Integer keyX,final KeyEnum keyY,final java.lang.String qualifiedB)
 			throws
-				com.exedio.cope.NotNullViolationException,
+				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.LengthViolationException,
 				com.exedio.cope.ReadOnlyViolationException,
 				java.lang.ClassCastException

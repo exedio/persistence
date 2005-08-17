@@ -176,7 +176,7 @@ public class AttributeEnumTest extends AttributeTest
 	}
 
 	public void testNotNullSomeEnum()
-			throws NotNullViolationException
+			throws MandatoryViolationException
 	{
 		assertEquals(AttributeItem.SomeEnum.enumValue1, item.getSomeNotNullEnum());
 		item.setSomeNotNullEnum(AttributeItem.SomeEnum.enumValue2);
@@ -196,7 +196,7 @@ public class AttributeEnumTest extends AttributeTest
 		{
 			item.setSomeNotNullEnum(null);
 		}
-		catch(NotNullViolationException e)
+		catch(MandatoryViolationException e)
 		{
 			assertEquals(item, e.getItem());
 			assertEquals(item.someNotNullEnum, e.getNotNullAttribute());
@@ -210,7 +210,7 @@ public class AttributeEnumTest extends AttributeTest
 			new AttributeItem("someString", 5, 6l, 2.2, true, someItem, null);
 			fail("should have thrown NotNullViolationException");
 		}
-		catch(NotNullViolationException e)
+		catch(MandatoryViolationException e)
 		{
 			assertEquals(null, e.getItem());
 			assertEquals(item.someNotNullEnum, e.getNotNullAttribute());

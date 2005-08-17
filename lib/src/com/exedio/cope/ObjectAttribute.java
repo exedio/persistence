@@ -73,13 +73,13 @@ public abstract class ObjectAttribute
 	 */
 	final void checkValue(final Object value, final Item item)
 		throws
-			NotNullViolationException,
+			MandatoryViolationException,
 			LengthViolationException
 	{
 		if(value == null)
 		{
 			if(isMandatory())
-				throw new NotNullViolationException(item, this);
+				throw new MandatoryViolationException(item, this);
 		}
 		else
 		{

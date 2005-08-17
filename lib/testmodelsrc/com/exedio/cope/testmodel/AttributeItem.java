@@ -176,7 +176,7 @@ public class AttributeItem extends Item
 	 * @param someNotNullBoolean the initial value for attribute {@link #someNotNullBoolean}.
 	 * @param someNotNullItem the initial value for attribute {@link #someNotNullItem}.
 	 * @param someNotNullEnum the initial value for attribute {@link #someNotNullEnum}.
-	 * @throws com.exedio.cope.NotNullViolationException if someNotNullString, someNotNullItem, someNotNullEnum is null.
+	 * @throws com.exedio.cope.MandatoryViolationException if someNotNullString, someNotNullItem, someNotNullEnum is null.
 	 *
  */public AttributeItem(
 				final java.lang.String someNotNullString,
@@ -187,7 +187,7 @@ public class AttributeItem extends Item
 				final EmptyItem someNotNullItem,
 				final SomeEnum someNotNullEnum)
 			throws
-				com.exedio.cope.NotNullViolationException
+				com.exedio.cope.MandatoryViolationException
 	{
 		this(new com.exedio.cope.AttributeValue[]{
 			new com.exedio.cope.AttributeValue(AttributeItem.someNotNullString,someNotNullString),
@@ -198,7 +198,7 @@ public class AttributeItem extends Item
 			new com.exedio.cope.AttributeValue(AttributeItem.someNotNullItem,someNotNullItem),
 			new com.exedio.cope.AttributeValue(AttributeItem.someNotNullEnum,someNotNullEnum),
 		});
-		throwInitialNotNullViolationException();
+		throwInitialMandatoryViolationException();
 	}/**
 
 	 **
@@ -244,7 +244,7 @@ public class AttributeItem extends Item
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
-		catch(com.exedio.cope.NotNullViolationException e)
+		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
@@ -291,7 +291,7 @@ public class AttributeItem extends Item
 	 *
  */public final void setSomeNotNullString(final java.lang.String someNotNullString)
 			throws
-				com.exedio.cope.NotNullViolationException
+				com.exedio.cope.MandatoryViolationException
 	{
 		try
 		{
@@ -334,7 +334,7 @@ public class AttributeItem extends Item
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
-		catch(com.exedio.cope.NotNullViolationException e)
+		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
@@ -371,7 +371,7 @@ public class AttributeItem extends Item
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
-		catch(com.exedio.cope.NotNullViolationException e)
+		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
@@ -408,7 +408,7 @@ public class AttributeItem extends Item
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
-		catch(com.exedio.cope.NotNullViolationException e)
+		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
@@ -445,7 +445,7 @@ public class AttributeItem extends Item
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
-		catch(com.exedio.cope.NotNullViolationException e)
+		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
@@ -482,7 +482,7 @@ public class AttributeItem extends Item
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
-		catch(com.exedio.cope.NotNullViolationException e)
+		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
@@ -519,7 +519,7 @@ public class AttributeItem extends Item
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
-		catch(com.exedio.cope.NotNullViolationException e)
+		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
@@ -556,7 +556,7 @@ public class AttributeItem extends Item
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
-		catch(com.exedio.cope.NotNullViolationException e)
+		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
@@ -613,7 +613,7 @@ public class AttributeItem extends Item
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
-		catch(com.exedio.cope.NotNullViolationException e)
+		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
@@ -670,7 +670,7 @@ public class AttributeItem extends Item
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
-		catch(com.exedio.cope.NotNullViolationException e)
+		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
@@ -707,7 +707,7 @@ public class AttributeItem extends Item
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
-		catch(com.exedio.cope.NotNullViolationException e)
+		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
@@ -744,7 +744,7 @@ public class AttributeItem extends Item
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
-		catch(com.exedio.cope.NotNullViolationException e)
+		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
@@ -773,7 +773,7 @@ public class AttributeItem extends Item
 	 *
  */public final void setSomeNotNullItem(final EmptyItem someNotNullItem)
 			throws
-				com.exedio.cope.NotNullViolationException
+				com.exedio.cope.MandatoryViolationException
 	{
 		try
 		{
@@ -816,7 +816,7 @@ public class AttributeItem extends Item
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
-		catch(com.exedio.cope.NotNullViolationException e)
+		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
@@ -845,7 +845,7 @@ public class AttributeItem extends Item
 	 *
  */public final void setSomeNotNullEnum(final SomeEnum someNotNullEnum)
 			throws
-				com.exedio.cope.NotNullViolationException
+				com.exedio.cope.MandatoryViolationException
 	{
 		try
 		{
@@ -889,7 +889,7 @@ public class AttributeItem extends Item
 	 *
  */public final void setSomeQualifiedString(final EmptyItem key,final java.lang.String someQualifiedString)
 			throws
-				com.exedio.cope.NotNullViolationException,
+				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.LengthViolationException,
 				com.exedio.cope.ReadOnlyViolationException,
 				java.lang.ClassCastException
