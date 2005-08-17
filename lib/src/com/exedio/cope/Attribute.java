@@ -104,11 +104,11 @@ public abstract class Attribute extends Feature
 		public final boolean notNull;
 		public final boolean unique;
 
-		Option(final boolean readOnly, final boolean notNull, final boolean unique)
+		Option(final boolean readOnly, final boolean unique, final boolean notNull)
 		{
 			this.readOnly = readOnly;
-			this.notNull = notNull;
 			this.unique = unique;
+			this.notNull = notNull;
 		}
 	}
 	
