@@ -73,8 +73,7 @@ public class VectorTest extends AbstractLibTest
 		assertEquals("num3", item.num3.getName());
 		assertEquals(item.TYPE, item.nums.getType());
 		assertEquals("nums", item.nums.getName());
-		assertEquals(list(item.num1, item.num2, item.num3), item.nums.getSources());
-		assertUnmodifiable(item.nums.getSources());
+		assertEqualsUnmodifiable(list(item.num1, item.num2, item.num3), item.nums.getSources());
 
 		assertEquals(item.TYPE, item.dates.getType());
 		assertEquals("dates", item.dates.getName());

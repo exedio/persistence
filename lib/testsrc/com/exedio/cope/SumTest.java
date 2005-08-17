@@ -45,16 +45,11 @@ public class SumTest extends TestmodelTest
 		assertEquals("sum23", item.sum23.getName());
 		assertEquals("sum123", item.sum123.getName());
 		assertEquals("sum12a3", item.sum12a3.getName());
-		assertEquals(list(item.num1, item.num2), item.sum12.getSources());
-		assertEquals(list(item.num1, item.num3), item.sum13.getSources());
-		assertEquals(list(item.num2, item.num3), item.sum23.getSources());
-		assertEquals(list(item.num1, item.num2, item.num3), item.sum123.getSources());
-		assertEquals(list(item.sum12, item.num3), item.sum12a3.getSources());
-		assertUnmodifiable(item.sum12.getSources());
-		assertUnmodifiable(item.sum13.getSources());
-		assertUnmodifiable(item.sum23.getSources());
-		assertUnmodifiable(item.sum123.getSources());
-		assertUnmodifiable(item.sum12a3.getSources());
+		assertEqualsUnmodifiable(list(item.num1, item.num2), item.sum12.getSources());
+		assertEqualsUnmodifiable(list(item.num1, item.num3), item.sum13.getSources());
+		assertEqualsUnmodifiable(list(item.num2, item.num3), item.sum23.getSources());
+		assertEqualsUnmodifiable(list(item.num1, item.num2, item.num3), item.sum123.getSources());
+		assertEqualsUnmodifiable(list(item.sum12, item.num3), item.sum12a3.getSources());
 
 		// test normal operation
 		assertEquals(i1, item.getNum1());

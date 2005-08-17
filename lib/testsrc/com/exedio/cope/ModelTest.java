@@ -79,10 +79,8 @@ public class ModelTest extends AbstractLibTest
 			item.someData.getMimeMajor(),
 			item.someData.getMimeMinor(),
 		};
-		assertEquals(Arrays.asList(attributes), item.TYPE.getAttributes());
-		assertEquals(Arrays.asList(attributes), item.TYPE.getDeclaredAttributes());
-		assertUnmodifiable(item.TYPE.getAttributes());
-		assertUnmodifiable(item.TYPE.getDeclaredAttributes());
+		assertEqualsUnmodifiable(Arrays.asList(attributes), item.TYPE.getAttributes());
+		assertEqualsUnmodifiable(Arrays.asList(attributes), item.TYPE.getDeclaredAttributes());
 
 		final Feature[] features = new Feature[]{
 			item.someString,
@@ -109,10 +107,8 @@ public class ModelTest extends AbstractLibTest
 			item.someData.getMimeMinor(),
 			item.emptyItem,
 		};
-		assertEquals(Arrays.asList(features), item.TYPE.getFeatures());
-		assertEquals(Arrays.asList(features), item.TYPE.getDeclaredFeatures());
-		assertUnmodifiable(item.TYPE.getFeatures());
-		assertUnmodifiable(item.TYPE.getDeclaredFeatures());
+		assertEqualsUnmodifiable(Arrays.asList(features), item.TYPE.getFeatures());
+		assertEqualsUnmodifiable(Arrays.asList(features), item.TYPE.getDeclaredFeatures());
 		
 		assertEquals(item.someString, item.TYPE.getFeature("someString"));
 		assertEquals(item.someStringUpperCase, item.TYPE.getFeature("someStringUpperCase"));

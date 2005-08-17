@@ -212,6 +212,12 @@ public class CopeAssert extends TestCase
 		}
 	}
 	
+	protected final static void assertEqualsUnmodifiable(final List expected, final Collection actual)
+	{
+		assertUnmodifiable(actual);
+		assertEquals(expected, actual);
+	}
+	
 	private static final String DATE_FORMAT_FULL = "dd.MM.yyyy HH:mm:ss.SSS";
 	
 	/**

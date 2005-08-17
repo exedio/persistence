@@ -96,14 +96,11 @@ public class SelectTest extends TestmodelTest
 			final EmptyItem someNotNullItem,
 			final SomeEnum someNotNullEnumeration)
 	{
-		final List actual = (List)i.next();
-		assertUnmodifiable(actual);
-		assertEquals(list(
+		assertEqualsUnmodifiable(list(
 				someString, someStringUppercase, new Integer(someStringLength),
 				someNotNullString, new Integer(someNotNullInteger), new Long(someNotNullLong),
 				new Double(someNotNullDouble), new Boolean(someNotNullBoolean), someNotNullItem, someNotNullEnumeration),
-			actual);
-		
+			(List)i.next());
 	}
 
 }
