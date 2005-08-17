@@ -43,6 +43,10 @@ public class DataServletTest extends AbstractWebTest
 		assertEquals(textLastModified, assertURL(new URL(prefix + "HttpEntityItem/file/0"), textLastModified+5000, true));
 
 		assertEquals(textLastModified, assertURL(new URL(prefix + "HttpEntityItem/file/2.unknownma.unknownmi"), "unknownma/unknownmi"));
+
+		final HttpURLConnection conn = (HttpURLConnection)((new URL(prefix + "statistics")).openConnection());
+		conn.connect();
+		assertEquals(200, conn.getResponseCode());
 	}
 	
 	private long assertURL(final URL url) throws IOException
