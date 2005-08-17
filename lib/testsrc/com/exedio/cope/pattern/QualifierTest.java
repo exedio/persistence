@@ -54,15 +54,15 @@ public class QualifierTest extends TestmodelTest
 		assertEquals(QualifiedItem.TYPE, QualifiedItem.qualifier.getType());
 		assertEquals("qualifier", QualifiedItem.qualifier.getName());
 		assertEquals(QualifiedItem.qualifier.getParent(), QualifiedEmptyQualifier.parent);
-		assertEquals(list(QualifiedEmptyQualifier.key), QualifiedItem.qualifier.getKeys());
+		assertEqualsUnmodifiable(list(QualifiedEmptyQualifier.key), QualifiedItem.qualifier.getKeys());
 		assertEquals(QualifiedItem.qualifier.getQualifyUnique(), QualifiedEmptyQualifier.qualifyUnique);
-		assertEquals(Arrays.asList(new Feature[]{
+		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
 				item.number,
 				item.qualifier,
 				item.stringQualifier,
 				item.intEnumQualifier,
 			}), item.TYPE.getFeatures());
-		assertEquals(list(QualifiedEmptyQualifier.qualifiedA, QualifiedEmptyQualifier.qualifiedB),
+		assertEqualsUnmodifiable(list(QualifiedEmptyQualifier.qualifiedA, QualifiedEmptyQualifier.qualifiedB),
 							QualifiedItem.qualifier.getAttributes());
 
 		assertEquals(null, item.getQualifier(key1));
@@ -147,7 +147,7 @@ public class QualifierTest extends TestmodelTest
 		QualifiedStringQualifier.findByQualifyUnique(item, "key2").deleteCopeItem();
 
 		assertEquals(QualifiedIntegerEnumQualifier.up, QualifiedItem.intEnumQualifier.getParent());
-		assertEquals(
+		assertEqualsUnmodifiable(
 				list(QualifiedIntegerEnumQualifier.keyX, QualifiedIntegerEnumQualifier.keyY),
 				QualifiedItem.intEnumQualifier.getKeys());
 		assertEquals(QualifiedIntegerEnumQualifier.qualifyUnique, QualifiedItem.intEnumQualifier.getQualifyUnique());
