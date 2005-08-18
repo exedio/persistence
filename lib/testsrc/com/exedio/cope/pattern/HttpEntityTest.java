@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.util.Date;
 
 import com.exedio.cope.DataAttribute;
+import com.exedio.cope.StringAttribute;
 import com.exedio.cope.TestmodelTest;
 import com.exedio.cope.testmodel.HttpEntityItem;
 
@@ -59,8 +60,9 @@ public class HttpEntityTest extends TestmodelTest
 		final DataAttribute fileData = item.file.getData();
 		assertSame(item.TYPE, fileData.getType());
 		assertSame("fileData", fileData.getName());
-		assertSame(item.TYPE, item.file.getMimeMajor().getType());
-		assertEquals("fileMajor", item.file.getMimeMajor().getName());
+		final StringAttribute fileMajor = item.file.getMimeMajor();
+		assertSame(item.TYPE, fileMajor.getType());
+		assertEquals("fileMajor", fileMajor.getName());
 		assertSame(item.TYPE, item.file.getMimeMinor().getType());
 		assertEquals("fileMinor", item.file.getMimeMinor().getName());
 		assertSame(item.file, HttpEntity.get(fileData));
