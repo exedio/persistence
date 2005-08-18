@@ -19,10 +19,12 @@
 package com.exedio.cope.pattern;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Date;
 
 import com.exedio.cope.BooleanAttribute;
 import com.exedio.cope.DataAttribute;
+import com.exedio.cope.Feature;
 import com.exedio.cope.StringAttribute;
 import com.exedio.cope.TestmodelTest;
 import com.exedio.cope.testmodel.HttpEntityItem;
@@ -53,7 +55,18 @@ public class HttpEntityTest extends TestmodelTest
 	
 	public void testData() throws IOException
 	{
-		// TODO: test item.TYPE.getPatterns
+		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
+				item.file,
+				item.file.getData(),
+				item.file.getMimeMajor(),
+				item.file.getMimeMinor(),
+				item.image,
+				item.image.getData(),
+				item.image.getMimeMinor(),
+				item.photo,
+				item.photo.getData(),
+				item.photo.getExists(),
+			}), item.TYPE.getFeatures());
 
 		// file
 		assertEquals(null, item.file.getFixedMimeMajor());
