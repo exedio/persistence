@@ -347,10 +347,7 @@ public abstract class Item extends Cope
 									final DataAttribute attribute,
 									final StringBuffer bf)
 	{
-		bf.append(attribute.getType().getID()).
-			append('/').
-			append(attribute.getName()).
-			append('/').
+		bf.append(attribute.filePath).
 			append(type.getPrimaryKeyIterator().pk2id(pk));
 	}
 	

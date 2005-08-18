@@ -36,6 +36,15 @@ public final class DataAttribute extends Attribute
 			throw new RuntimeException("DataAttribute cannot be read-only");
 	}
 	
+	String filePath = null;
+	
+	void initialize(final Type type, final String name)
+	{
+		super.initialize(type, name);
+
+		filePath = type.getID() + '/' + name + '/';
+	}
+
 	// second initialization phase ---------------------------------------------------
 
 	protected Column createColumn(final Table table, final String name, final boolean notNull)
