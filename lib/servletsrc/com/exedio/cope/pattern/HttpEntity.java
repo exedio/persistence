@@ -48,6 +48,11 @@ public final class HttpEntity extends Pattern
 
 	public HttpEntity(final Option option, final String fixedMimeMajor, final String fixedMimeMinor)
 	{
+		if(fixedMimeMajor==null)
+			throw new NullPointerException("fixedMimeMajor must not be null");
+		if(fixedMimeMinor==null)
+			throw new NullPointerException("fixedMimeMinor must not be null");
+
 		this.notNull = option.mandatory;
 		this.fixedMimeMajor = fixedMimeMajor;
 		this.fixedMimeMinor = fixedMimeMinor;
@@ -59,10 +64,6 @@ public final class HttpEntity extends Pattern
 
 		if(data==null)
 			throw new NullPointerException("data must not be null");
-		if(fixedMimeMajor==null)
-			throw new NullPointerException("fixedMimeMajor must not be null");
-		if(fixedMimeMinor==null)
-			throw new NullPointerException("fixedMimeMinor must not be null");
 
 		if(this.exists!=null)
 			registerSource(this.exists);
@@ -70,6 +71,9 @@ public final class HttpEntity extends Pattern
 	
 	public HttpEntity(final Option option, final String fixedMimeMajor)
 	{
+		if(fixedMimeMajor==null)
+			throw new NullPointerException("fixedMimeMajor must not be null");
+
 		this.notNull = option.mandatory;
 		this.fixedMimeMajor = fixedMimeMajor;
 		this.fixedMimeMinor = null;
@@ -81,8 +85,6 @@ public final class HttpEntity extends Pattern
 		
 		if(data==null)
 			throw new NullPointerException("data must not be null");
-		if(fixedMimeMajor==null)
-			throw new NullPointerException("fixedMimeMajor must not be null");
 		if(mimeMinor==null)
 			throw new NullPointerException("mimeMinor must not be null");
 		if(mimeMinor.getSingleUniqueConstraint()!=null)
