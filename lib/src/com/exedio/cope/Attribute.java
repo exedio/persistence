@@ -45,7 +45,8 @@ public abstract class Attribute extends Feature
 	
 	// patterns ---------------------------------------------------------------------
 	
-	ArrayList patterns = null;
+	private ArrayList patternsWhileTypeInitialization = null;
+	private List patterns = null;
 	
 	public void registerPattern(final Pattern pattern)
 	{
@@ -54,18 +55,20 @@ public abstract class Attribute extends Feature
 		if(pattern==null)
 			throw new NullPointerException();
 		
-		if(patterns==null)
-			patterns = new ArrayList();
+		if(patternsWhileTypeInitialization==null)
+			patternsWhileTypeInitialization = new ArrayList();
 		
-		patterns.add(pattern);
+		patternsWhileTypeInitialization.add(pattern);
 	}
 	
 	public List getPatterns()
 	{
 		if(!isInitialized())
 			throw new RuntimeException("getPatterns cannot be called before initialization of the attribute.");
+		if(patterns==null)
+			throw new RuntimeException();
 
-		return patterns==null ? Collections.EMPTY_LIST : Collections.unmodifiableList(patterns); // make this permanent
+		return patterns;
 	}
 	
 	// second initialization phase ---------------------------------------------------
@@ -76,6 +79,13 @@ public abstract class Attribute extends Feature
 	{
 		super.initialize(type, name);
 		type.registerInitialization(this);
+		
+		final ArrayList patterns = patternsWhileTypeInitialization;
+		patternsWhileTypeInitialization = null;
+		this.patterns =
+			patterns==null
+			? Collections.EMPTY_LIST
+			: Collections.unmodifiableList(patterns);
 	}
 	
 	final void materialize(final Table table)
