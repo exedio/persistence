@@ -270,15 +270,13 @@ public class DataServlet extends HttpServlet
 				//System.out.println("item="+item);
 				itemFound++;
 
-				final String mimeMajor = entity.getMimeMajor(item);
-				//System.out.println("mimeMajor="+mimeMajor);
-				if(mimeMajor!=null)
+				final String contentType = entity.getContentType(item);
+				//System.out.println("contentType="+contentType);
+				if(contentType!=null)
 				{
 					dataNotNull++;
 					
-					final String mimeMinor = entity.getMimeMinor(item);
-					//System.out.println("mimeMinor="+mimeMinor);
-					response.setContentType(mimeMajor+'/'+mimeMinor);
+					response.setContentType(contentType);
 
 					final long lastModified = entity.getDataLastModified(item);
 					//System.out.println("lastModified="+formatHttpDate(lastModified));
