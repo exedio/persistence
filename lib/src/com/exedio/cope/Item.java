@@ -349,9 +349,8 @@ public abstract class Item extends Cope
 	{
 		bf.append(attribute.getType().getID()).
 			append('/').
-			append(attribute.getName());
-		
-		bf.append('/').
+			append(attribute.getName()).
+			append('/').
 			append(type.getPrimaryKeyIterator().pk2id(pk));
 	}
 	
