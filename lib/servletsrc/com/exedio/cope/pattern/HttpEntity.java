@@ -147,6 +147,11 @@ public final class HttpEntity extends Pattern
 		return mimeMinor;
 	}
 	
+	public final BooleanAttribute getExists()
+	{
+		return exists;
+	}
+	
 	public void initialize()
 	{
 		final String name = getName();

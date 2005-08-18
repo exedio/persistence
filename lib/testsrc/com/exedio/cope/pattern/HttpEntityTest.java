@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import java.io.IOException;
 import java.util.Date;
 
+import com.exedio.cope.BooleanAttribute;
 import com.exedio.cope.DataAttribute;
 import com.exedio.cope.StringAttribute;
 import com.exedio.cope.TestmodelTest;
@@ -67,6 +68,7 @@ public class HttpEntityTest extends TestmodelTest
 		final StringAttribute fileMinor = item.file.getMimeMinor();
 		assertSame(item.TYPE, fileMinor.getType());
 		assertEquals("fileMinor", fileMinor.getName());
+		assertEquals(null, item.file.getExists());
 		
 		assertTrue(item.file.isNull(item));
 		assertEquals(null, item.getFileData());
@@ -138,6 +140,7 @@ public class HttpEntityTest extends TestmodelTest
 		final StringAttribute imageMinor = item.image.getMimeMinor();
 		assertSame(item.TYPE, imageMinor.getType());
 		assertEquals("imageMinor", imageMinor.getName());
+		assertEquals(null, item.image.getExists());
 
 		assertTrue(item.image.isNull(item));
 		assertEquals(null, item.getImageData());
@@ -182,6 +185,9 @@ public class HttpEntityTest extends TestmodelTest
 		assertSame(item.photo, HttpEntity.get(photoData));
 		assertEquals(null, item.photo.getMimeMajor());
 		assertEquals(null, item.photo.getMimeMinor());
+		final BooleanAttribute photoExists = item.photo.getExists();
+		assertSame(item.TYPE, photoExists.getType());
+		assertSame("photoExists", photoExists.getName());
 
 		assertTrue(item.photo.isNull(item));
 		assertEquals(null, item.getPhotoData());
