@@ -63,8 +63,9 @@ public class HttpEntityTest extends TestmodelTest
 		final StringAttribute fileMajor = item.file.getMimeMajor();
 		assertSame(item.TYPE, fileMajor.getType());
 		assertEquals("fileMajor", fileMajor.getName());
-		assertSame(item.TYPE, item.file.getMimeMinor().getType());
-		assertEquals("fileMinor", item.file.getMimeMinor().getName());
+		final StringAttribute fileMinor = item.file.getMimeMinor();
+		assertSame(item.TYPE, fileMinor.getType());
+		assertEquals("fileMinor", fileMinor.getName());
 		assertSame(item.file, HttpEntity.get(fileData));
 		
 		assertTrue(item.file.isNull(item));
