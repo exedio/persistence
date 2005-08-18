@@ -176,11 +176,12 @@ public class HttpEntityTest extends TestmodelTest
 		// photo
 		assertEquals("image", item.photo.getFixedMimeMajor());
 		assertEquals("jpeg", item.photo.getFixedMimeMinor());
-		assertSame(item.TYPE, item.photo.getData().getType());
-		assertSame("photoData", item.photo.getData().getName());
+		final DataAttribute photoData = item.photo.getData();
+		assertSame(item.TYPE, photoData.getType());
+		assertSame("photoData", photoData.getName());
 		assertEquals(null, item.photo.getMimeMajor());
 		assertEquals(null, item.photo.getMimeMinor());
-		assertSame(item.photo, HttpEntity.get(item.photo.getData()));
+		assertSame(item.photo, HttpEntity.get(photoData));
 
 		assertTrue(item.photo.isNull(item));
 		assertEquals(null, item.getPhotoData());
