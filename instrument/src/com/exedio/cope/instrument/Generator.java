@@ -58,6 +58,7 @@ final class Generator
 	private static final String SETTER = "Sets a new value for the persistent attribute {0}.";
 	private static final String SETTER_HTTP_ENTITY = "Sets the new data for the http entity {0}.";
 	private static final String SETTER_HTTP_ENTITY_IOEXCEPTION = "if accessing {0} throws an IOException.";
+	private static final String GETTER_HTTP_ENTITY_IS_NULL = "Returns whether this http entity {0} has data available.";
 	private static final String GETTER_HTTP_ENTITY_URL   = "Returns a URL the data of the http entity {0} is available under.";
 	private static final String GETTER_HTTP_ENTITY_MAJOR = "Returns the major mime type of the http entity {0}.";
 	private static final String GETTER_HTTP_ENTITY_MINOR = "Returns the minor mime type of the http entity {0}.";
@@ -485,6 +486,7 @@ final class Generator
 													final String commentPattern)
 	throws IOException
 	{
+		final String prefix = (boolean.class==returnType) ? "is" : "get";
 		writeCommentHeader();
 		o.write("\t * ");
 		o.write(format(commentPattern, link(attribute.getName())));
@@ -494,7 +496,8 @@ final class Generator
 		o.write(Modifier.toString(Modifier.PUBLIC|Modifier.FINAL)); // TODO use visibility of entity
 		o.write(' ');
 		o.write(returnType.getName());
-		o.write(" get");
+		o.write(' ');
+		o.write(prefix);
 		o.write(toCamelCase(attribute.getName()));
 		o.write(part);
 		o.write("()");
@@ -505,7 +508,8 @@ final class Generator
 		o.write(attribute.copeClass.getName());
 		o.write('.');
 		o.write(attribute.getName());
-		o.write(".get");
+		o.write('.');
+		o.write(prefix);
 		o.write(part);
 		o.write("(this);");
 		o.write(lineSeparator);
@@ -519,12 +523,12 @@ final class Generator
 		final String mimeMinor = entity.mimeMinor;
 
 		// getters
+		writeDataGetterMethod(entity, boolean.class,     "Null",      GETTER_HTTP_ENTITY_IS_NULL);
 		writeDataGetterMethod(entity, String.class,      "URL",       GETTER_HTTP_ENTITY_URL);
 		writeDataGetterMethod(entity, String.class,      "MimeMajor", GETTER_HTTP_ENTITY_MAJOR);
 		writeDataGetterMethod(entity, String.class,      "MimeMinor", GETTER_HTTP_ENTITY_MINOR);
 		writeDataGetterMethod(entity, String.class,      "ContentType",GETTER_HTTP_ENTITY_CONTENT_TYPE);
 		writeDataGetterMethod(entity, InputStream.class, "Data",      GETTER_HTTP_ENTITY_DATA);
-		// TODO generate isNull as well
 		
 		// setters
 		if(true) // TODO use option of entity

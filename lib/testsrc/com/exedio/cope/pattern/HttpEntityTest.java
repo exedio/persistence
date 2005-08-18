@@ -86,7 +86,7 @@ public class HttpEntityTest extends TestmodelTest
 		assertEqualsUnmodifiable(list(item.file), fileMinor.getPatterns());
 		assertEquals(null, item.file.getExists());
 		
-		assertTrue(item.file.isNull(item));
+		assertTrue(item.isFileNull());
 		assertEquals(null, item.getFileData());
 		assertEquals(-1, item.file.getDataLength(item));
 		assertEquals(-1, item.file.getDataLastModified(item));
@@ -98,7 +98,7 @@ public class HttpEntityTest extends TestmodelTest
 		final Date beforeData = new Date();
 		item.setFile(stream(data), "fileMajor", "fileMinor");
 		final Date afterData = new Date();
-		assertTrue(!item.file.isNull(item));
+		assertTrue(!item.isFileNull());
 		assertData(data, item.getFileData());
 		assertEquals(data.length, item.file.getDataLength(item));
 		assertWithin(1000, beforeData, afterData, new Date(item.file.getDataLastModified(item)));
@@ -110,7 +110,7 @@ public class HttpEntityTest extends TestmodelTest
 		final Date beforeData2 = new Date();
 		item.setFile(stream(data2), "fileMajor2", "fileMinor2");
 		final Date afterData2 = new Date();
-		assertTrue(!item.file.isNull(item));
+		assertTrue(!item.isFileNull());
 		assertData(data2, item.getFileData());
 		assertEquals(data2.length, item.file.getDataLength(item));
 		assertWithin(1000, beforeData2, afterData2, new Date(item.file.getDataLastModified(item)));
@@ -130,7 +130,7 @@ public class HttpEntityTest extends TestmodelTest
 		final Date beforeDataEmpty = new Date();
 		item.setFile(stream(dataEmpty), "emptyMajor", "emptyMinor");
 		final Date afterDataEmpty = new Date();
-		assertTrue(!item.file.isNull(item));
+		assertTrue(!item.isFileNull());
 		assertData(dataEmpty, item.getFileData());
 		assertEquals(0, item.file.getDataLength(item));
 		assertWithin(1000, beforeData2, afterData2, new Date(item.file.getDataLastModified(item)));
@@ -140,7 +140,7 @@ public class HttpEntityTest extends TestmodelTest
 		assertTrue(item.getFileURL().endsWith(".emptyMajor.emptyMinor"));
 
 		item.setFile(null, null, null);
-		assertTrue(item.file.isNull(item));
+		assertTrue(item.isFileNull());
 		assertEquals(-1, item.file.getDataLength(item));
 		assertEquals(-1, item.file.getDataLastModified(item));
 		assertEquals(null, item.getFileData());
@@ -165,7 +165,7 @@ public class HttpEntityTest extends TestmodelTest
 		assertEqualsUnmodifiable(list(item.image), imageMinor.getPatterns());
 		assertEquals(null, item.image.getExists());
 
-		assertTrue(item.image.isNull(item));
+		assertTrue(item.isImageNull());
 		assertEquals(null, item.getImageData());
 		assertEquals(-1, item.image.getDataLength(item));
 		assertEquals(null, item.getImageMimeMajor());
@@ -174,7 +174,7 @@ public class HttpEntityTest extends TestmodelTest
 		assertEquals(null, item.getImageURL());
 
 		item.setImage(stream(data), "imageMinor");
-		assertTrue(!item.image.isNull(item));
+		assertTrue(!item.isImageNull());
 		assertData(data, item.getImageData());
 		assertEquals(data.length, item.image.getDataLength(item));
 		assertEquals("image", item.getImageMimeMajor());
@@ -184,7 +184,7 @@ public class HttpEntityTest extends TestmodelTest
 		assertTrue(item.getImageURL().endsWith(".image.imageMinor"));
 
 		item.setImage(stream(data2), "jpeg");
-		assertTrue(!item.image.isNull(item));
+		assertTrue(!item.isImageNull());
 		assertData(data2, item.getImageData());
 		assertEquals(data2.length, item.image.getDataLength(item));
 		assertEquals("image", item.getImageMimeMajor());
@@ -194,7 +194,7 @@ public class HttpEntityTest extends TestmodelTest
 		assertTrue(item.getImageURL().endsWith(".jpg"));
 
 		item.setImage(null, null);
-		assertTrue(item.image.isNull(item));
+		assertTrue(item.isImageNull());
 		assertEquals(null, item.getImageData());
 		assertEquals(-1, item.image.getDataLength(item));
 		assertEquals(null, item.getImageMimeMajor());
@@ -219,6 +219,7 @@ public class HttpEntityTest extends TestmodelTest
 		assertEqualsUnmodifiable(list(item.photo), photoExists.getPatterns());
 
 		assertTrue(item.photo.isNull(item));
+		assertTrue(item.isPhotoNull());
 		assertEquals(null, item.getPhotoData());
 		assertEquals(-1, item.photo.getDataLength(item));
 		assertEquals(null, item.getPhotoMimeMajor());
@@ -227,7 +228,7 @@ public class HttpEntityTest extends TestmodelTest
 		assertEquals(null, item.getPhotoURL());
 
 		item.setPhoto(stream(data));
-		assertTrue(!item.photo.isNull(item));
+		assertTrue(!item.isPhotoNull());
 		assertData(data, item.getPhotoData());
 		assertEquals(data.length, item.photo.getDataLength(item));
 		assertEquals("image", item.getPhotoMimeMajor());
@@ -237,7 +238,7 @@ public class HttpEntityTest extends TestmodelTest
 		assertTrue(item.getPhotoURL().endsWith(".jpg"));
 
 		item.setPhoto(stream(data2));
-		assertTrue(!item.photo.isNull(item));
+		assertTrue(!item.isPhotoNull());
 		assertData(data2, item.getPhotoData());
 		assertEquals(data2.length, item.photo.getDataLength(item));
 		assertEquals("image", item.getPhotoMimeMajor());
@@ -247,7 +248,7 @@ public class HttpEntityTest extends TestmodelTest
 		assertTrue(item.getPhotoURL().endsWith(".jpg"));
 
 		item.setPhoto(null);
-		assertTrue(item.photo.isNull(item));
+		assertTrue(item.isPhotoNull());
 		assertEquals(null, item.getPhotoData());
 		assertEquals(-1, item.photo.getDataLength(item));
 		assertEquals(null, item.getPhotoMimeMajor());

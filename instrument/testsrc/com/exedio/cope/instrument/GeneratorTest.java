@@ -110,21 +110,27 @@ public class GeneratorTest extends InstrumentorTest
 		assertNoMethod(standard, "getAsIsBoolean");
 		assertMethod(standard, "setAsIsBoolean", new Class[]{Boolean.class}, PUBLIC|FINAL);
 
+		assertMethod(standard, "isAnyDataNull", boolean.class, PUBLIC|FINAL);
 		assertMethod(standard, "getAnyDataURL", String.class, PUBLIC|FINAL);
 		assertMethod(standard, "getAnyDataMimeMajor", String.class, PUBLIC|FINAL);
 		assertMethod(standard, "getAnyDataMimeMinor", String.class, PUBLIC|FINAL);
+		assertMethod(standard, "getAnyDataContentType", String.class, PUBLIC|FINAL);
 		assertMethod(standard, "getAnyDataData", InputStream.class, PUBLIC|FINAL);
 		assertMethod(standard, "setAnyData", new Class[]{InputStream.class, String.class, String.class}, PUBLIC|FINAL, new Class[]{IOException.class});
 
+		assertMethod(standard, "isMajorDataNull", boolean.class, PUBLIC|FINAL);
 		assertMethod(standard, "getMajorDataURL", String.class, PUBLIC|FINAL);
 		assertMethod(standard, "getMajorDataMimeMajor", String.class, PUBLIC|FINAL);
 		assertMethod(standard, "getMajorDataMimeMinor", String.class, PUBLIC|FINAL);
+		assertMethod(standard, "getMajorDataContentType", String.class, PUBLIC|FINAL);
 		assertMethod(standard, "getMajorDataData", InputStream.class, PUBLIC|FINAL);
 		assertMethod(standard, "setMajorData", new Class[]{InputStream.class, String.class}, PUBLIC|FINAL, new Class[]{IOException.class});
 
+		assertMethod(standard, "isMinorDataNull", boolean.class, PUBLIC|FINAL);
 		assertMethod(standard, "getMinorDataURL", String.class, PUBLIC|FINAL);
 		assertMethod(standard, "getMinorDataMimeMajor", String.class, PUBLIC|FINAL);
 		assertMethod(standard, "getMinorDataMimeMinor", String.class, PUBLIC|FINAL);
+		assertMethod(standard, "getMinorDataContentType", String.class, PUBLIC|FINAL);
 		assertMethod(standard, "getMinorDataData", InputStream.class, PUBLIC|FINAL);
 		assertMethod(standard, "setMinorData", new Class[]{InputStream.class}, PUBLIC|FINAL, new Class[]{IOException.class});
 
