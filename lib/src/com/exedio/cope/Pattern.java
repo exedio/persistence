@@ -55,6 +55,11 @@ public abstract class Pattern extends Feature
 		initialize();
 	}
 	
+	protected final void registerSource(final Attribute attribute)
+	{
+		attribute.registerPattern(this);
+	}
+
 	/**
 	 * Here you can do additional initialization not yet done in the constructor.
 	 * In this method you can call methods {@link #getType()} and {@link #getName()}
@@ -68,7 +73,7 @@ public abstract class Pattern extends Feature
 	{
 		attribute.initialize(getType(), name);
 	}
-
+	
 	// Make non-final method from super class final
 	public final Type getType()
 	{

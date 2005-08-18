@@ -49,7 +49,7 @@ public abstract class Attribute extends Feature
 	private ArrayList patternsWhileTypeInitialization = null;
 	private List patterns = null;
 	
-	public void registerPattern(final Pattern pattern)
+	void registerPattern(final Pattern pattern)
 	{
 		if(isInitialized())
 			throw new RuntimeException("registerPattern cannot be called after initialization of the attribute.");

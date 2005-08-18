@@ -64,9 +64,9 @@ public final class HttpEntity extends Pattern
 		if(fixedMimeMinor==null)
 			throw new NullPointerException("fixedMimeMinor must not be null");
 
-		this.data.registerPattern(this);
+		registerSource(this.data);
 		if(this.exists!=null)
-			this.exists.registerPattern(this);
+			registerSource(this.exists);
 	}
 	
 	public HttpEntity(final Option option, final String fixedMimeMajor)
@@ -93,8 +93,8 @@ public final class HttpEntity extends Pattern
 		if(mimeMinor.isReadOnly())
 			throw new RuntimeException("mimeMinor cannot be read-only");
 
-		this.data.registerPattern(this);
-		this.mimeMinor.registerPattern(this);
+		registerSource(this.data);
+		registerSource(this.mimeMinor);
 	}
 	
 	public HttpEntity(final Option option)
@@ -127,9 +127,9 @@ public final class HttpEntity extends Pattern
 		if(mimeMinor.isReadOnly())
 			throw new RuntimeException("mimeMinor cannot be read-only");
 
-		this.data.registerPattern(this);
-		this.mimeMajor.registerPattern(this);
-		this.mimeMinor.registerPattern(this);
+		registerSource(this.data);
+		registerSource(this.mimeMajor);
+		registerSource(this.mimeMinor);
 	}
 	
 	public final String getFixedMimeMajor()
