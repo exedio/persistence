@@ -18,6 +18,7 @@
 package com.exedio.cope;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -85,7 +86,7 @@ public abstract class Attribute extends Feature
 		this.patterns =
 			patterns==null
 			? Collections.EMPTY_LIST
-			: Collections.unmodifiableList(patterns);
+			: Collections.unmodifiableList(Arrays.asList(patterns.toArray(new Pattern[patterns.size()])));
 	}
 	
 	final void materialize(final Table table)
