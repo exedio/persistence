@@ -36,12 +36,10 @@ public abstract class Hash extends Pattern
 
 	public Hash(final StringAttribute storage)
 	{
-		this.storage = storage;
-		
 		if(storage==null)
 			throw new NullPointerException("hash storage must not be null");
-		
-		registerSource(storage);
+
+		registerSource(this.storage = storage);
 	}
 	
 	public Hash(final Option storageOption)

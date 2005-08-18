@@ -51,7 +51,7 @@ public final class HttpEntity extends Pattern
 		this.notNull = option.mandatory;
 		this.fixedMimeMajor = fixedMimeMajor;
 		this.fixedMimeMinor = fixedMimeMinor;
-		this.data = Item.dataAttribute(option);
+		registerSource(this.data = Item.dataAttribute(option));
 		this.mimeMajor = null;
 		this.mimeMinor = null;
 		this.exists = option.mandatory ? null : Item.booleanAttribute(Item.OPTIONAL);
@@ -64,7 +64,6 @@ public final class HttpEntity extends Pattern
 		if(fixedMimeMinor==null)
 			throw new NullPointerException("fixedMimeMinor must not be null");
 
-		registerSource(this.data);
 		if(this.exists!=null)
 			registerSource(this.exists);
 	}
@@ -74,9 +73,9 @@ public final class HttpEntity extends Pattern
 		this.notNull = option.mandatory;
 		this.fixedMimeMajor = fixedMimeMajor;
 		this.fixedMimeMinor = null;
-		this.data = Item.dataAttribute(option);
+		registerSource(this.data = Item.dataAttribute(option));
 		this.mimeMajor = null;
-		this.mimeMinor = Item.stringAttribute(option, 1, 30);
+		registerSource(this.mimeMinor = Item.stringAttribute(option, 1, 30));
 		this.exists = null;
 		this.isNull = mimeMinor;
 		
@@ -92,9 +91,6 @@ public final class HttpEntity extends Pattern
 			throw new RuntimeException("mimeMinor cannot be mandatory");
 		if(mimeMinor.isReadOnly())
 			throw new RuntimeException("mimeMinor cannot be read-only");
-
-		registerSource(this.data);
-		registerSource(this.mimeMinor);
 	}
 	
 	public HttpEntity(final Option option)
@@ -102,9 +98,9 @@ public final class HttpEntity extends Pattern
 		this.notNull = option.mandatory;
 		this.fixedMimeMajor = null;
 		this.fixedMimeMinor = null;
-		this.data = Item.dataAttribute(option);
-		this.mimeMajor = Item.stringAttribute(option, 1, 30);
-		this.mimeMinor = Item.stringAttribute(option, 1, 30);
+		registerSource(this.data = Item.dataAttribute(option));
+		registerSource(this.mimeMajor = Item.stringAttribute(option, 1, 30));
+		registerSource(this.mimeMinor = Item.stringAttribute(option, 1, 30));
 		this.exists = null;
 		this.isNull = mimeMajor;
 		
@@ -126,10 +122,6 @@ public final class HttpEntity extends Pattern
 			throw new RuntimeException("mimeMinor cannot be mandatory");
 		if(mimeMinor.isReadOnly())
 			throw new RuntimeException("mimeMinor cannot be read-only");
-
-		registerSource(this.data);
-		registerSource(this.mimeMajor);
-		registerSource(this.mimeMinor);
 	}
 	
 	public final String getFixedMimeMajor()
