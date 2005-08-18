@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import java.io.IOException;
 import java.util.Date;
 
+import com.exedio.cope.DataAttribute;
 import com.exedio.cope.TestmodelTest;
 import com.exedio.cope.testmodel.HttpEntityItem;
 
@@ -55,13 +56,14 @@ public class HttpEntityTest extends TestmodelTest
 		// file
 		assertEquals(null, item.file.getFixedMimeMajor());
 		assertEquals(null, item.file.getFixedMimeMinor());
-		assertSame(item.TYPE, item.file.getData().getType());
-		assertSame("fileData", item.file.getData().getName());
+		final DataAttribute fileData = item.file.getData();
+		assertSame(item.TYPE, fileData.getType());
+		assertSame("fileData", fileData.getName());
 		assertSame(item.TYPE, item.file.getMimeMajor().getType());
 		assertEquals("fileMajor", item.file.getMimeMajor().getName());
 		assertSame(item.TYPE, item.file.getMimeMinor().getType());
 		assertEquals("fileMinor", item.file.getMimeMinor().getName());
-		assertSame(item.file, HttpEntity.get(item.file.getData()));
+		assertSame(item.file, HttpEntity.get(fileData));
 		
 		assertTrue(item.file.isNull(item));
 		assertEquals(null, item.getFileData());
