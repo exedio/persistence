@@ -48,6 +48,8 @@ public final class HttpEntity extends Pattern
 
 	public HttpEntity(final Option option, final String fixedMimeMajor, final String fixedMimeMinor)
 	{
+		if(option==null)
+			throw new NullPointerException("option must not be null");
 		if(fixedMimeMajor==null)
 			throw new NullPointerException("fixedMimeMajor must not be null");
 		if(fixedMimeMinor==null)
@@ -71,6 +73,8 @@ public final class HttpEntity extends Pattern
 	
 	public HttpEntity(final Option option, final String fixedMimeMajor)
 	{
+		if(option==null)
+			throw new NullPointerException("option must not be null");
 		if(fixedMimeMajor==null)
 			throw new NullPointerException("fixedMimeMajor must not be null");
 
@@ -97,6 +101,9 @@ public final class HttpEntity extends Pattern
 	
 	public HttpEntity(final Option option)
 	{
+		if(option==null)
+			throw new NullPointerException("option must not be null");
+
 		this.notNull = option.mandatory;
 		this.fixedMimeMajor = null;
 		this.fixedMimeMinor = null;
