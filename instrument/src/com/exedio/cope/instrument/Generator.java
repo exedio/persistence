@@ -523,12 +523,12 @@ final class Generator
 		final String mimeMinor = entity.mimeMinor;
 
 		// getters
-		writeDataGetterMethod(entity, boolean.class,     "Null",      GETTER_HTTP_ENTITY_IS_NULL);
-		writeDataGetterMethod(entity, String.class,      "URL",       GETTER_HTTP_ENTITY_URL);
-		writeDataGetterMethod(entity, String.class,      "MimeMajor", GETTER_HTTP_ENTITY_MAJOR);
-		writeDataGetterMethod(entity, String.class,      "MimeMinor", GETTER_HTTP_ENTITY_MINOR);
-		writeDataGetterMethod(entity, String.class,      "ContentType",GETTER_HTTP_ENTITY_CONTENT_TYPE);
-		writeDataGetterMethod(entity, InputStream.class, "Data",      GETTER_HTTP_ENTITY_DATA);
+		writeDataGetterMethod(entity, boolean.class,     "Null",        GETTER_HTTP_ENTITY_IS_NULL);
+		writeDataGetterMethod(entity, String.class,      "URL",         GETTER_HTTP_ENTITY_URL);
+		writeDataGetterMethod(entity, String.class,      "MimeMajor",   GETTER_HTTP_ENTITY_MAJOR);
+		writeDataGetterMethod(entity, String.class,      "MimeMinor",   GETTER_HTTP_ENTITY_MINOR);
+		writeDataGetterMethod(entity, String.class,      "ContentType", GETTER_HTTP_ENTITY_CONTENT_TYPE);
+		writeDataGetterMethod(entity, InputStream.class, "Data",        GETTER_HTTP_ENTITY_DATA);
 		
 		// setters
 		if(true) // TODO use option of entity
