@@ -92,6 +92,7 @@ public class HttpEntityTest extends TestmodelTest
 		assertEquals(-1, item.file.getDataLastModified(item));
 		assertEquals(null, item.getFileMimeMajor());
 		assertEquals(null, item.getFileMimeMinor());
+		assertEquals(null, item.getFileContentType());
 		assertEquals(null, item.getFileURL());
 
 		final Date beforeData = new Date();
@@ -103,6 +104,7 @@ public class HttpEntityTest extends TestmodelTest
 		assertWithin(1000, beforeData, afterData, new Date(item.file.getDataLastModified(item)));
 		assertEquals("fileMajor", item.getFileMimeMajor());
 		assertEquals("fileMinor", item.getFileMimeMinor());
+		assertEquals("fileMajor/fileMinor", item.getFileContentType());
 		assertTrue(item.getFileURL().endsWith(".fileMajor.fileMinor"));
 		
 		final Date beforeData2 = new Date();
@@ -114,6 +116,7 @@ public class HttpEntityTest extends TestmodelTest
 		assertWithin(1000, beforeData2, afterData2, new Date(item.file.getDataLastModified(item)));
 		assertEquals("fileMajor2", item.getFileMimeMajor());
 		assertEquals("fileMinor2", item.getFileMimeMinor());
+		assertEquals("fileMajor2/fileMinor2", item.getFileContentType());
 		assertTrue(item.getFileURL().endsWith(".fileMajor2.fileMinor2"));
 		
 		assertExtension("image", "jpeg", ".jpg");
@@ -133,6 +136,7 @@ public class HttpEntityTest extends TestmodelTest
 		assertWithin(1000, beforeData2, afterData2, new Date(item.file.getDataLastModified(item)));
 		assertEquals("emptyMajor", item.getFileMimeMajor());
 		assertEquals("emptyMinor", item.getFileMimeMinor());
+		assertEquals("emptyMajor/emptyMinor", item.getFileContentType());
 		assertTrue(item.getFileURL().endsWith(".emptyMajor.emptyMinor"));
 
 		item.setFile(null, null, null);
@@ -142,6 +146,7 @@ public class HttpEntityTest extends TestmodelTest
 		assertEquals(null, item.getFileData());
 		assertEquals(null, item.getFileMimeMajor());
 		assertEquals(null, item.getFileMimeMinor());
+		assertEquals(null, item.getFileContentType());
 		assertEquals(null, item.getFileURL());
 
 
@@ -165,6 +170,7 @@ public class HttpEntityTest extends TestmodelTest
 		assertEquals(-1, item.image.getDataLength(item));
 		assertEquals(null, item.getImageMimeMajor());
 		assertEquals(null, item.getImageMimeMinor());
+		assertEquals(null, item.getImageContentType());
 		assertEquals(null, item.getImageURL());
 
 		item.setImage(stream(data), "imageMinor");
@@ -173,6 +179,7 @@ public class HttpEntityTest extends TestmodelTest
 		assertEquals(data.length, item.image.getDataLength(item));
 		assertEquals("image", item.getImageMimeMajor());
 		assertEquals("imageMinor", item.getImageMimeMinor());
+		assertEquals("image/imageMinor", item.getImageContentType());
 		//System.out.println(item.getImageURL());
 		assertTrue(item.getImageURL().endsWith(".image.imageMinor"));
 
@@ -182,6 +189,7 @@ public class HttpEntityTest extends TestmodelTest
 		assertEquals(data2.length, item.image.getDataLength(item));
 		assertEquals("image", item.getImageMimeMajor());
 		assertEquals("jpeg", item.getImageMimeMinor());
+		assertEquals("image/jpeg", item.getImageContentType());
 		//System.out.println(item.getImageURL());
 		assertTrue(item.getImageURL().endsWith(".jpg"));
 
@@ -191,6 +199,7 @@ public class HttpEntityTest extends TestmodelTest
 		assertEquals(-1, item.image.getDataLength(item));
 		assertEquals(null, item.getImageMimeMajor());
 		assertEquals(null, item.getImageMimeMinor());
+		assertEquals(null, item.getImageContentType());
 		assertEquals(null, item.getImageURL());
 		
 		
@@ -214,6 +223,7 @@ public class HttpEntityTest extends TestmodelTest
 		assertEquals(-1, item.photo.getDataLength(item));
 		assertEquals(null, item.getPhotoMimeMajor());
 		assertEquals(null, item.getPhotoMimeMinor());
+		assertEquals(null, item.getPhotoContentType());
 		assertEquals(null, item.getPhotoURL());
 
 		item.setPhoto(stream(data));
@@ -222,6 +232,7 @@ public class HttpEntityTest extends TestmodelTest
 		assertEquals(data.length, item.photo.getDataLength(item));
 		assertEquals("image", item.getPhotoMimeMajor());
 		assertEquals("jpeg", item.getPhotoMimeMinor());
+		assertEquals("image/jpeg", item.getPhotoContentType());
 		//System.out.println(item.getPhotoURL());
 		assertTrue(item.getPhotoURL().endsWith(".jpg"));
 
@@ -231,6 +242,7 @@ public class HttpEntityTest extends TestmodelTest
 		assertEquals(data2.length, item.photo.getDataLength(item));
 		assertEquals("image", item.getPhotoMimeMajor());
 		assertEquals("jpeg", item.getPhotoMimeMinor());
+		assertEquals("image/jpeg", item.getPhotoContentType());
 		//System.out.println(item.getPhotoURL());
 		assertTrue(item.getPhotoURL().endsWith(".jpg"));
 
@@ -240,6 +252,7 @@ public class HttpEntityTest extends TestmodelTest
 		assertEquals(-1, item.photo.getDataLength(item));
 		assertEquals(null, item.getPhotoMimeMajor());
 		assertEquals(null, item.getPhotoMimeMinor());
+		assertEquals(null, item.getPhotoContentType());
 		assertEquals(null, item.getPhotoURL());
 	}
 

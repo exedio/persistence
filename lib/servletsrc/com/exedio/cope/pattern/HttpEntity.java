@@ -209,6 +209,18 @@ public final class HttpEntity extends Pattern
 		return (mimeMinor!=null) ? (String)item.get(mimeMinor) : fixedMimeMinor;
 	}
 	
+	/**
+	 * Returns the content type of this http entity.
+	 * Returns null, if there is no data for this http entity.
+	 */
+	public final String getContentType(final Item item)
+	{
+		if(isNull(item))
+			return null;
+
+		return getMimeMajor(item) + '/' + getMimeMinor(item);
+	}
+	
 	private final RuntimeException newNoDataException(final Item item)
 	{
 		return new RuntimeException("missing data for "+this.toString()+" on "+item.toString());
