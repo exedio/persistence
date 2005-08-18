@@ -163,6 +163,8 @@ public final class HttpEntity extends Pattern
 		return exists;
 	}
 	
+	private String urlPath = null;
+	
 	public void initialize()
 	{
 		final String name = getName();
@@ -174,6 +176,8 @@ public final class HttpEntity extends Pattern
 			initialize(mimeMinor, name+"Minor");
 		if(exists!=null && !exists.isInitialized())
 			initialize(exists, name+"Exists");
+		
+		urlPath = getType().getID() + '/' + name + '/';
 	}
 	
 	public boolean isNull(final Item item)
@@ -333,10 +337,7 @@ public final class HttpEntity extends Pattern
 		if(dot<0)
 			throw new RuntimeException(id);
 		
-		bf.append(getType().getID()).
-			append('/').
-			append(getName()).
-			append('/').
+		bf.append(urlPath).
 			append(id.substring(dot+1));
 	}
 
