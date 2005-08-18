@@ -480,7 +480,7 @@ final class Generator
 		o.write("\t}");
 	}
 
-	private void writeDataGetterMethod(final CopeHttpEntity attribute, // TODO rename to entity
+	private void writeDataGetterMethod(final CopeHttpEntity entity,
 													final Class returnType,
 													final String part,
 													final String commentPattern)
@@ -489,7 +489,7 @@ final class Generator
 		final String prefix = (boolean.class==returnType) ? "is" : "get";
 		writeCommentHeader();
 		o.write("\t * ");
-		o.write(format(commentPattern, link(attribute.getName())));
+		o.write(format(commentPattern, link(entity.getName())));
 		o.write(lineSeparator);
 		writeCommentGenerated();
 		writeCommentFooter();
@@ -498,16 +498,16 @@ final class Generator
 		o.write(returnType.getName());
 		o.write(' ');
 		o.write(prefix);
-		o.write(toCamelCase(attribute.getName()));
+		o.write(toCamelCase(entity.getName()));
 		o.write(part);
 		o.write("()");
 		o.write(lineSeparator);
 		o.write("\t{");
 		o.write(lineSeparator);
 		o.write("\t\treturn ");
-		o.write(attribute.copeClass.getName());
+		o.write(entity.copeClass.getName());
 		o.write('.');
-		o.write(attribute.getName());
+		o.write(entity.getName());
 		o.write('.');
 		o.write(prefix);
 		o.write(part);
