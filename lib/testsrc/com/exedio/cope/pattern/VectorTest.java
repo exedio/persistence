@@ -74,6 +74,9 @@ public class VectorTest extends AbstractLibTest
 		assertEquals(item.TYPE, item.nums.getType());
 		assertEquals("nums", item.nums.getName());
 		assertEqualsUnmodifiable(list(item.num1, item.num2, item.num3), item.nums.getSources());
+		assertEqualsUnmodifiable(list(item.nums), item.num1.getPatterns());
+		assertEqualsUnmodifiable(list(item.nums), item.num2.getPatterns());
+		assertEqualsUnmodifiable(list(item.nums), item.num3.getPatterns());
 
 		assertEquals(item.TYPE, item.dates.getType());
 		assertEquals("dates", item.dates.getName());
@@ -84,6 +87,8 @@ public class VectorTest extends AbstractLibTest
 		final DateAttribute date1 = assertDate(dateSourcesIterator, 1);
 		final DateAttribute date2 = assertDate(dateSourcesIterator, 2);
 		assertTrue(!dateSourcesIterator.hasNext());
+		assertEqualsUnmodifiable(list(item.dates), date1.getPatterns());
+		assertEqualsUnmodifiable(list(item.dates), date2.getPatterns());
 
 		assertEquals(item.TYPE, item.strings.getType());
 		assertEquals("strings", item.strings.getName());
@@ -96,6 +101,10 @@ public class VectorTest extends AbstractLibTest
 		final StringAttribute string3 = assertString(stringSourcesIterator, 3);
 		final StringAttribute string4 = assertString(stringSourcesIterator, 4);
 		assertTrue(!stringSourcesIterator.hasNext());
+		assertEqualsUnmodifiable(list(item.strings), string1.getPatterns());
+		assertEqualsUnmodifiable(list(item.strings), string2.getPatterns());
+		assertEqualsUnmodifiable(list(item.strings), string3.getPatterns());
+		assertEqualsUnmodifiable(list(item.strings), string4.getPatterns());
 
 		assertEquals(
 				list(item.num1, item.num2, item.num3, date1, date2, string1, string2, string3, string4),

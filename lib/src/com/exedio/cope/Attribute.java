@@ -17,6 +17,10 @@
  */
 package com.exedio.cope;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 
 public abstract class Attribute extends Feature
 {
@@ -39,7 +43,31 @@ public abstract class Attribute extends Feature
 		return mandatory;
 	}
 	
+	// patterns ---------------------------------------------------------------------
+	
+	ArrayList patterns = null;
+	
+	public void registerPattern(final Pattern pattern)
+	{
+		if(isInitialized())
+			throw new RuntimeException("registerPattern cannot be called after initialization of the attribute.");
+		if(pattern==null)
+			throw new NullPointerException();
+		
+		if(patterns==null)
+			patterns = new ArrayList();
+		
+		patterns.add(pattern);
+	}
+	
+	public List getPatterns()
+	{
+		if(!isInitialized())
+			throw new RuntimeException("getPatterns cannot be called before initialization of the attribute.");
 
+		return patterns==null ? Collections.EMPTY_LIST : Collections.unmodifiableList(patterns); // make this permanent
+	}
+	
 	// second initialization phase ---------------------------------------------------
 
 	private Column column;

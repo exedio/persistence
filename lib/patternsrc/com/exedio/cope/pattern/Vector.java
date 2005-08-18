@@ -46,6 +46,9 @@ public final class Vector extends Pattern
 	public Vector(final ObjectAttribute[] sources)
 	{
 		this.sources = sources;
+
+		for(int i = 0; i<sources.length; i++)
+			sources[i].registerPattern(this);
 	}
 	
 	public Vector(final ObjectAttribute template, final int length)

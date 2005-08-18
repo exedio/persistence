@@ -40,6 +40,8 @@ public abstract class Hash extends Pattern
 		
 		if(storage==null)
 			throw new NullPointerException("hash storage must not be null");
+		
+		storage.registerPattern(this);
 	}
 	
 	public Hash(final Option storageOption)

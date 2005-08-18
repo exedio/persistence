@@ -74,13 +74,16 @@ public class HttpEntityTest extends TestmodelTest
 		final DataAttribute fileData = item.file.getData();
 		assertSame(item.TYPE, fileData.getType());
 		assertSame("fileData", fileData.getName());
+		assertEqualsUnmodifiable(list(item.file), fileData.getPatterns());
 		assertSame(item.file, HttpEntity.get(fileData));
 		final StringAttribute fileMajor = item.file.getMimeMajor();
 		assertSame(item.TYPE, fileMajor.getType());
 		assertEquals("fileMajor", fileMajor.getName());
+		assertEqualsUnmodifiable(list(item.file), fileMajor.getPatterns());
 		final StringAttribute fileMinor = item.file.getMimeMinor();
 		assertSame(item.TYPE, fileMinor.getType());
 		assertEquals("fileMinor", fileMinor.getName());
+		assertEqualsUnmodifiable(list(item.file), fileMinor.getPatterns());
 		assertEquals(null, item.file.getExists());
 		
 		assertTrue(item.file.isNull(item));
@@ -148,11 +151,13 @@ public class HttpEntityTest extends TestmodelTest
 		final DataAttribute imageData = item.image.getData();
 		assertSame(item.TYPE, imageData.getType());
 		assertSame("imageData", imageData.getName());
+		assertEqualsUnmodifiable(list(item.image), imageData.getPatterns());
 		assertSame(item.image, HttpEntity.get(imageData));
 		assertEquals(null, item.image.getMimeMajor());
 		final StringAttribute imageMinor = item.image.getMimeMinor();
 		assertSame(item.TYPE, imageMinor.getType());
 		assertEquals("imageMinor", imageMinor.getName());
+		assertEqualsUnmodifiable(list(item.image), imageMinor.getPatterns());
 		assertEquals(null, item.image.getExists());
 
 		assertTrue(item.image.isNull(item));
@@ -195,12 +200,14 @@ public class HttpEntityTest extends TestmodelTest
 		final DataAttribute photoData = item.photo.getData();
 		assertSame(item.TYPE, photoData.getType());
 		assertSame("photoData", photoData.getName());
+		assertEqualsUnmodifiable(list(item.photo), photoData.getPatterns());
 		assertSame(item.photo, HttpEntity.get(photoData));
 		assertEquals(null, item.photo.getMimeMajor());
 		assertEquals(null, item.photo.getMimeMinor());
 		final BooleanAttribute photoExists = item.photo.getExists();
 		assertSame(item.TYPE, photoExists.getType());
 		assertSame("photoExists", photoExists.getName());
+		assertEqualsUnmodifiable(list(item.photo), photoExists.getPatterns());
 
 		assertTrue(item.photo.isNull(item));
 		assertEquals(null, item.getPhotoData());

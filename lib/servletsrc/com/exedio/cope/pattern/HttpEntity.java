@@ -57,13 +57,17 @@ public final class HttpEntity extends Pattern
 		this.mimeMinor = null;
 		this.exists = option.mandatory ? null : Item.booleanAttribute(Item.OPTIONAL);
 		this.isNull = exists;
-		
+
 		if(data==null)
 			throw new NullPointerException("data must not be null");
 		if(fixedMimeMajor==null)
 			throw new NullPointerException("fixedMimeMajor must not be null");
 		if(fixedMimeMinor==null)
 			throw new NullPointerException("fixedMimeMinor must not be null");
+
+		this.data.registerPattern(this);
+		if(this.exists!=null)
+			this.exists.registerPattern(this);
 	}
 	
 	public HttpEntity(final Option option, final String fixedMimeMajor)
@@ -89,6 +93,9 @@ public final class HttpEntity extends Pattern
 			throw new RuntimeException("mimeMinor cannot be mandatory");
 		if(mimeMinor.isReadOnly())
 			throw new RuntimeException("mimeMinor cannot be read-only");
+
+		this.data.registerPattern(this);
+		this.mimeMinor.registerPattern(this);
 	}
 	
 	public HttpEntity(final Option option)
@@ -120,6 +127,10 @@ public final class HttpEntity extends Pattern
 			throw new RuntimeException("mimeMinor cannot be mandatory");
 		if(mimeMinor.isReadOnly())
 			throw new RuntimeException("mimeMinor cannot be read-only");
+
+		this.data.registerPattern(this);
+		this.mimeMajor.registerPattern(this);
+		this.mimeMinor.registerPattern(this);
 	}
 	
 	public final String getFixedMimeMajor()

@@ -62,6 +62,7 @@ public class MD5Test extends AbstractLibTest
 		assertEquals("passwordHash", item.password.getStorage().getName());
 		assertEquals(32, item.password.getStorage().getMinimumLength());
 		assertEquals(32, item.password.getStorage().getMaximumLength());
+		assertEqualsUnmodifiable(list(item.password), item.password.getStorage().getPatterns());
 		
 		assertEquals(item.TYPE, item.hashed1.getType());
 		assertEquals(item.TYPE, item.hashed1Latin.getType());
@@ -69,6 +70,7 @@ public class MD5Test extends AbstractLibTest
 		assertEquals("hashed1Latin", item.hashed1Latin.getName());
 		assertEquals(item.hashed1MD5, item.hashed1.getStorage());
 		assertEquals(item.hashed1MD5, item.hashed1Latin.getStorage());
+		assertEqualsUnmodifiable(list(item.hashed1, item.hashed1Latin), item.hashed1MD5.getPatterns());
 
 		try
 		{

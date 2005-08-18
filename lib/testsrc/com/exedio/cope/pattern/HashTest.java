@@ -54,6 +54,7 @@ public class HashTest extends AbstractLibTest
 		assertEquals(item.TYPE, item.explicitExternal.getType());
 		assertEquals("explicitExternal", item.explicitExternal.getName());
 		assertEquals(item.explicitExternalWrap, item.explicitExternal.getStorage());
+		assertEqualsUnmodifiable(list(item.explicitExternal), item.explicitExternalWrap.getPatterns());
 
 		assertNull(item.getExplicitExternalWrap());
 		assertTrue(item.checkExplicitExternal(null));
@@ -91,6 +92,7 @@ public class HashTest extends AbstractLibTest
 		assertEquals("implicitExternal", item.implicitExternal.getName());
 		assertEquals(item.TYPE, item.implicitExternal.getStorage().getType());
 		assertEquals("implicitExternalHash", item.implicitExternal.getStorage().getName());
+		assertEqualsUnmodifiable(list(item.implicitExternal), item.implicitExternal.getStorage().getPatterns());
 		
 		assertEquals(null, item.get(item.implicitExternal.getStorage()));
 		assertTrue(item.checkImplicitExternal(null));
@@ -110,6 +112,7 @@ public class HashTest extends AbstractLibTest
 		assertEquals("internal", item.internal.getName());
 		assertEquals(item.TYPE, item.internal.getStorage().getType());
 		assertEquals("internalHash", item.internal.getStorage().getName());
+		assertEqualsUnmodifiable(list(item.internal), item.internal.getStorage().getPatterns());
 		
 		assertEquals(null, item.get(item.internal.getStorage()));
 		assertTrue(item.checkInternal(null));
