@@ -27,6 +27,7 @@ public class AttributeStringTest extends AttributeTest
 		assertEquals(item.TYPE, item.someString.getType());
 		assertEquals(item.TYPE, item.someStringUpperCase.getType());
 		assertEquals("someString", item.someString.getName());
+		assertEqualsUnmodifiable(list(), item.someString.getPatterns());
 		assertEquals("someStringUpperCase", item.someStringUpperCase.getName());
 		
 		{
