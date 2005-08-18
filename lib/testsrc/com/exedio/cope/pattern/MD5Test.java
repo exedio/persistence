@@ -72,7 +72,7 @@ public class MD5Test extends AbstractLibTest
 
 		try
 		{
-			new MD5Hash(item.hashed1MD5, "nixus");
+			new MD5Hash(item.stringAttribute(item.OPTIONAL), "nixus");
 			fail("should have thrown UnsupportedEncodingException");
 		}
 		catch(NestingRuntimeException e)
@@ -82,7 +82,7 @@ public class MD5Test extends AbstractLibTest
 		}
 		try
 		{
-			new JavaHash(item.hashed1MD5, "nixus");
+			new JavaHash(item.stringAttribute(item.OPTIONAL), "nixus");
 			fail("should have thrown NoSuchAlgorithmException");
 		}
 		catch(NestingRuntimeException e)
