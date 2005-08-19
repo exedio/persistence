@@ -255,6 +255,43 @@ public class HttpEntityTest extends TestmodelTest
 		assertEquals(null, item.getPhotoMimeMinor());
 		assertEquals(null, item.getPhotoContentType());
 		assertEquals(null, item.getPhotoURL());
+		
+
+		// logs -----------------------------------------------
+		
+		assertEquals(0, item.photo.entityFound.get());
+		assertEquals(0, item.photo.itemFound.get());
+		assertEquals(0, item.photo.dataNotNull.get());
+		assertEquals(0, item.photo.modified.get());
+		assertEquals(0, item.photo.fullyDelivered.get());
+		
+		item.photo.entityFound.increment();
+		assertEquals(1, item.photo.entityFound.get());
+		assertEquals(0, item.photo.itemFound.get());
+		assertEquals(0, item.photo.dataNotNull.get());
+		assertEquals(0, item.photo.modified.get());
+		assertEquals(0, item.photo.fullyDelivered.get());
+
+		item.photo.entityFound.increment();
+		item.photo.itemFound.increment();
+		item.photo.dataNotNull.increment();
+		item.photo.modified.increment();
+		item.photo.fullyDelivered.increment();
+		assertEquals(2, item.photo.entityFound.get());
+		assertEquals(1, item.photo.itemFound.get());
+		assertEquals(1, item.photo.dataNotNull.get());
+		assertEquals(1, item.photo.modified.get());
+		assertEquals(1, item.photo.fullyDelivered.get());
+
+		final Date beforeReset = new Date();
+		item.photo.resetLogs();
+		final Date afterReset = new Date();
+		assertEquals(0, item.photo.entityFound.get());
+		assertEquals(0, item.photo.itemFound.get());
+		assertEquals(0, item.photo.dataNotNull.get());
+		assertEquals(0, item.photo.modified.get());
+		assertEquals(0, item.photo.fullyDelivered.get());
+		assertWithin(beforeReset, afterReset, item.photo.getStart());
 	}
 
 }

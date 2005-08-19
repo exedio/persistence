@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Date;
 import java.util.Iterator;
 
 import com.exedio.cope.Attribute;
@@ -413,6 +414,74 @@ public final class HttpEntity extends Pattern
 		throw new NullPointerException(attribute.toString());
 	}
 	
+	// logs --------------------------
+	
+	public final class Log
+	{
+		private int counter = 0;
+		private final Object lock = new Object();
+		
+		public final void increment()
+		{
+			synchronized(lock)
+			{
+				counter++;
+			}
+		}
+
+		public final int get()
+		{
+			synchronized(lock)
+			{
+				return counter;
+			}
+		}
+
+		private final void reset()
+		{
+			synchronized(lock)
+			{
+				counter = 0;
+			}
+		}
+	}
+
+	private long start = System.currentTimeMillis();
+	private final Object startLock = new Object();
+	
+	public final Log entityFound = new Log();
+	public final Log itemFound = new Log();
+	public final Log dataNotNull = new Log();
+	public final Log modified = new Log();
+	public final Log fullyDelivered = new Log();
+	
+	public final Date getStart()
+	{
+		final long startLocal;
+		synchronized(startLock)
+		{
+			startLocal = this.start;
+		}
+		return new Date(startLocal);
+	}
+
+	public final void resetLogs()
+	{
+		final long now = System.currentTimeMillis();
+		synchronized(startLock)
+		{
+			start = now;
+		}
+		
+		entityFound.reset();
+		itemFound.reset();
+		dataNotNull.reset();
+		modified.reset();
+		fullyDelivered.reset();
+	}
+
+	// /logs -------------------------
+
 	public String toString()
 	{
 		return getType().getID() + '#' + getName();

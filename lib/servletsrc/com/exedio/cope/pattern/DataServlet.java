@@ -145,9 +145,9 @@ public class DataServlet extends HttpServlet
 						"<tr>" +
 							"<th>type</th>" +
 							"<th>entity</th>" +
-							"<th>hits</th>" +
-							"<th>found</th>" +
-							"<th>notNull</th>" +
+							"<th>entity</th>" +
+							"<th>item</th>" +
+							"<th>data</th>" +
 							"<th>modified</th>" +
 							"<th>delivered</th>" +
 							"<th>statisticsFromDate</th>" +
@@ -230,18 +230,10 @@ public class DataServlet extends HttpServlet
 		final String path;
 		final HttpEntity entity;
 		
-		final long statisticsFrom;
-		int hits = 0;
-		int itemFound = 0;
-		int dataNotNull = 0;
-		int modified = 0;
-		int fullyDelivered = 0;
-		
 		Path(final String path, final HttpEntity entity)
 		{
 			this.path = path;
 			this.entity = entity;
-			statisticsFrom = System.currentTimeMillis();
 		}
 
 		boolean serveContent(
@@ -250,7 +242,7 @@ public class DataServlet extends HttpServlet
 			throws ServletException, IOException
 		{
 			//System.out.println("entity="+entity);
-			hits++;
+			HttpEntity.Log state = entity.entityFound;
 
 			final int dotAfterSlash = pathInfo.indexOf('.', trailingSlash);
 			//System.out.println("trailingDot="+trailingDot);
@@ -268,13 +260,13 @@ public class DataServlet extends HttpServlet
 				model.startTransaction("DataServlet");
 				final Item item = model.findByID(id);
 				//System.out.println("item="+item);
-				itemFound++;
+				state = entity.itemFound;
 
 				final String contentType = entity.getContentType(item);
 				//System.out.println("contentType="+contentType);
 				if(contentType!=null)
 				{
-					dataNotNull++;
+					state = entity.dataNotNull;
 					
 					response.setContentType(contentType);
 
@@ -298,7 +290,7 @@ public class DataServlet extends HttpServlet
 					}
 					else
 					{
-						modified++;
+						state = entity.modified;
 						
 						final long contentLength = entity.getDataLength(item);
 						//System.out.println("contentLength="+String.valueOf(contentLength));
@@ -325,7 +317,7 @@ public class DataServlet extends HttpServlet
 							if(out!=null)
 								out.close();
 						}
-						fullyDelivered++;
+						state = entity.fullyDelivered;
 					}
 					Transaction.commit();
 					return true;
@@ -343,26 +335,27 @@ public class DataServlet extends HttpServlet
 			finally
 			{
 				Transaction.rollbackIfNotCommitted();
+				state.increment();
 			}
 		}
 
 		protected final void printStatistics(final String prefix, final PrintStream p)
 		{
-			final int hits = this.hits;
-			final int itemFound = this.itemFound;
-			final int dataNotNull = this.dataNotNull;
-			final int modified = this.modified;
-			final int fullyDelivered = this.fullyDelivered;
+			final int entityFound = entity.entityFound.get();
+			final int itemFound = entity.itemFound.get();
+			final int dataNotNull = entity.dataNotNull.get();
+			final int modified = entity.modified.get();
+			final int fullyDelivered = entity.fullyDelivered.get();
 			p.println(
 					"<tr>" +
 					"<td>"+entity.getType().getID()+"</td>" +
 					"<td><a href=\""+prefix+path+"/0\">"+entity.getName()+"</a></td>" +
-					"<td>" + hits + "</td>" +
+					"<td>" + entityFound + "</td>" +
 					"<td>" + itemFound + "</td>" +
 					"<td>" + dataNotNull + "</td>" +
 					"<td>" + modified + "</td>" +
 					"<td>" + fullyDelivered + "</td>" +
-					"<td>" + format(statisticsFrom) + "</td>" +
+					"<td>" + format(entity.getStart().getTime()) + "</td>" +
 					"</tr>");
 		}
 		
