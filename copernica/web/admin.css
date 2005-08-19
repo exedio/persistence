@@ -57,6 +57,12 @@ table.statistics tr.inconsistent td
 	background:#C00;
 }
 
+table.statistics th.colored1 { background:#fcf; }
+table.statistics th.colored2 { background:#cff; }
+table.statistics th.colored3 { background:#fcc; }
+table.statistics th.colored4 { background:#cfc; }
+table.statistics th.colored5 { background:#ccf; }
+
 table.statistics td.colored1 { background:#fcf; }
 table.statistics td.colored2 { background:#cff; }
 table.statistics td.colored3 { background:#fcc; }
