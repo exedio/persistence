@@ -228,15 +228,17 @@ final class Admin_Jspm
 			final int dataNotNull = entity.dataNotNull.get();
 			final int modified = entity.modified.get();
 			final int fullyDelivered = entity.fullyDelivered.get();
+			final int[] data = new int[]{entityFound, itemFound, dataNotNull, modified, fullyDelivered};
 			%>
 		<tr>
 			<td><%=type%></td>
-			<td><a href="<%=prefix%><%=entity.getType().getID()%>/<%=name%>/0"><%=name%></a></td>
-			<td style="background:#<%=colors[0]%>"><%=entityFound%></td>
-			<td style="background:#<%=colors[1]%>"><%=itemFound%></td>
-			<td style="background:#<%=colors[2]%>"><%=dataNotNull%></td>
-			<td style="background:#<%=colors[3]%>"><%=modified%></td>
-			<td style="background:#<%=colors[4]%>"><%=fullyDelivered%></td>
+			<td><a href="<%=prefix%><%=entity.getType().getID()%>/<%=name%>/0"><%=name%></a></td><%
+			for(int j = 0; j<names.length; j++)
+			{
+			%>
+			<td style="background:#<%=colors[j]%>"><%=data[j]%></td><%
+			}
+			%>
 			<td><%=df.format(entity.getStart())%></td>
 		</tr><%
 		}
