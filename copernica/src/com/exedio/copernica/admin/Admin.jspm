@@ -127,47 +127,58 @@ final class Admin_Jspm
 		throws IOException
 	{
 	final SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss.SSS");
+	final String[] names = new String[]{
+		"Loss",
+		"Level",
+		"Level Max",
+		"Create",
+		"Destroy",
+	};
 	%>
 	<table class="statistics">
 		<tr>
-			<th colspan="6">Connection Pool Statistics</th>
+			<th colspan="7">Connection Pool Statistics</th>
 		</tr>
 		<tr>
 			<th>From</th>
-			<td colspan="5"><%=df.format(poolCounter.getStart())%></td>
+			<td colspan="6"><%=df.format(poolCounter.getStart())%></td>
 		</tr>
 		<tr>
 			<th>To</th>
-			<td colspan="5"><%=df.format(new Date())%></td>
+			<td colspan="6"><%=df.format(new Date())%></td>
 		</tr>
 		<tr>
 			<th>Get</th>
-			<td colspan="5"><%=poolCounter.getGetCounter()%></td>
+			<td colspan="6"><%=poolCounter.getGetCounter()%></td>
 		</tr>
 		<tr>
 			<th>Put</th>
-			<td colspan="5"><%=poolCounter.getPutCounter()%></td>
-		</tr>
+			<td colspan="6"><%=poolCounter.getPutCounter()%></td>
+		</tr><%
+		writeColouredHeader(out, names, 1);
+		%>
 		<tr>
-			<th>Size</th>
-			<th>Loss</th>
-			<th>Level</th>
-			<th>-Max</th>
-			<th>Create</th>
-			<th>Destroy</th>
+			<th>Size</th><%
+			writeColouredHeaderSchnips(out, names);
+			%>
+			<th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
 		</tr><%
 		for(Iterator i = poolCounter.getPools().iterator(); i.hasNext(); )
 		{
 			final PoolCounter.Pool pool = (PoolCounter.Pool)i.next();
 			final boolean inconsistent = !pool.isConsistent();
+			final int[] data = new int[]{
+					pool.getLoss(),
+					pool.getLevel(),
+					pool.getMaxLevel(),
+					pool.getCreateCounter(),
+					pool.getDestroyCounter(),
+				};
 		%>
 		<tr<%if(inconsistent){%> class="inconsistent"<%}%>>
-			<td><%=pool.getSize()%><%if(inconsistent){%>!<%}%></td>
-			<td><%=pool.getLoss()%>%</td>
-			<td><%=pool.getLevel()%></td>
-			<td><%=pool.getMaxLevel()%></td>
-			<td><%=pool.getCreateCounter()%></td>
-			<td><%=pool.getDestroyCounter()%></td>
+			<td><%=pool.getSize()%><%if(inconsistent){%>!<%}%></td><%
+			writeColouredData(out, data);
+			%>
 		</tr><%
 		}
 	%>
@@ -189,9 +200,7 @@ final class Admin_Jspm
 	<table class="statistics">
 		<tr><th colspan="8">HTTP Entity Statistics</th></tr>
 		<tr><th>To</th><td colspan="7"><%=df.format(new Date())%></td></tr><%
-
-		writeColouredHeader(out, names);
-
+		writeColouredHeader(out, names, 2);
 		%>
 		<tr>
 			<th>type</th>
@@ -224,11 +233,11 @@ final class Admin_Jspm
 	</table><%
 	}
 
-	private static final void writeColouredHeader(final PrintStream out, final String[] names)
+	private static final void writeColouredHeader(final PrintStream out, final String[] names, final int preColumns)
 	{
 		%>
 		<tr>
-			<th colspan="2" rowspan="<%=names.length%>"></th>
+			<th colspan="<%=preColumns%>" rowspan="<%=names.length%>"></th>
 			<th colspan="<%=names.length + 1%>" class="colored1"><%=names[0]%></th>
 		</tr><%
 
