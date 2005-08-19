@@ -183,13 +183,29 @@ final class Admin_Jspm
 		<tr><th colspan="8">HTTP Entity Statistics</th></tr>
 		<tr><th>To</th><td colspan="7"><%=df.format(new Date())%></td></tr>
 		<tr>
+			<th colspan="2" rowspan="5"></th>
+			<th colspan="6" style="background:#fcf">Entity Found, but no Item</th>
+		</tr>
+		<tr>
+			<th rowspan="5" style="background:#fcf"></th>
+			<th colspan="5" style="background:#cff">Item Found, but Data is Null</th>
+		</tr>
+		<tr>
+			<th rowspan="4" style="background:#cff"></th>
+			<th colspan="4" style="background:#fcc">Data is Not Null, but Not Modified</th>
+		</tr>
+		<tr>
+			<th rowspan="3" style="background:#fcc"></th>
+			<th colspan="3" style="background:#cfc">No &quot;Not Modified&quot; 304 Possible </th>
+		</tr>
+		<tr>
+			<th rowspan="2" style="background:#cfc"></th>
+			<th colspan="2" style="background:#ccf">Data Completely Delivered</th>
+		</tr>
+		<tr>
 			<th>type</th>
 			<th>entity</th>
-			<th>entity</th>
-			<th>item</th>
-			<th>data</th>
-			<th>modified</th>
-			<th>delivered</th>
+			<th style="background:#ccf"></th>
 			<th>From</th>
 		</tr><%
 		for(Iterator i = entities.iterator(); i.hasNext(); )
@@ -206,11 +222,11 @@ final class Admin_Jspm
 		<tr>
 			<td><%=type%></td>
 			<td><a href="<%=prefix%><%=entity.getType().getID()%>/<%=name%>/0"><%=name%></a></td>
-			<td><%=entityFound%></td>
-			<td><%=itemFound%></td>
-			<td><%=dataNotNull%></td>
-			<td><%=modified%></td>
-			<td><%=fullyDelivered%></td>
+			<td style="background:#fcf"><%=entityFound%></td>
+			<td style="background:#cff"><%=itemFound%></td>
+			<td style="background:#fcc"><%=dataNotNull%></td>
+			<td style="background:#cfc"><%=modified%></td>
+			<td style="background:#ccf"><%=fullyDelivered%></td>
 			<td><%=df.format(entity.getStart())%></td>
 		</tr><%
 		}
