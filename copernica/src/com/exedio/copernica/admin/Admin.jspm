@@ -202,8 +202,9 @@ final class Admin_Jspm
 		%>
 		<tr>
 			<th>type</th>
-			<th>entity</th>
-			<th style="background:#<%=colors[colors.length-1]%>"></th>
+			<th>entity</th><%
+			writeColouredHeaderSchnips(out, colors);
+			%>
 			<th>From</th>
 		</tr><%
 		for(Iterator i = entities.iterator(); i.hasNext(); )
@@ -250,6 +251,12 @@ final class Admin_Jspm
 			<th colspan="<%=names.length-i+1%>" style="background:#<%=colors[i]%>"><%=names[i]%></th>
 		</tr><%
 		}
+	}
+
+	private static final void writeColouredHeaderSchnips(final PrintStream out, final String[] colors)
+	{
+		%>
+			<th style="background:#<%=colors[colors.length-1]%>"></th><%
 	}
 
 }%>
