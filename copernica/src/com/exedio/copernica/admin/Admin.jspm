@@ -222,11 +222,7 @@ final class Admin_Jspm
 		<tr>
 			<td><%=type%></td>
 			<td><a href="<%=prefix%><%=entity.getType().getID()%>/<%=name%>/0"><%=name%></a></td><%
-			for(int j = 0; j<names.length; j++)
-			{
-			%>
-			<td style="background:#<%=colors[j]%>"><%=data[j]%></td><%
-			}
+			writeColouredData(out, data, colors);
 			%>
 			<td><%=df.format(entity.getStart())%></td>
 		</tr><%
@@ -257,6 +253,15 @@ final class Admin_Jspm
 	{
 		%>
 			<th style="background:#<%=colors[colors.length-1]%>"></th><%
+	}
+
+	private static final void writeColouredData(final PrintStream out, final int[] data, final String[] colors)
+	{
+		for(int j = 0; j<data.length; j++)
+		{
+		%>
+			<td style="background:#<%=colors[j]%>"><%=data[j]%></td><%
+		}
 	}
 
 }%>
