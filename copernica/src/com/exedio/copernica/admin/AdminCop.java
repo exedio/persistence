@@ -46,9 +46,14 @@ abstract class AdminCop extends Cop
 		return new SchemaCop(null, false, false);
 	}
 	
-	final StatisticsCop toStatistics()
+	final StatisticsCop toStatistics() // TODO rename toConnectionPoolStats
 	{
 		return new StatisticsCop();
+	}
+	
+	final HttpEntityStatsCop toHttpEntityStats()
+	{
+		return new HttpEntityStatsCop();
 	}
 	
 	void writeHead(PrintStream out) throws IOException
@@ -62,6 +67,8 @@ abstract class AdminCop extends Cop
 	{
 		if(request.getParameter(StatisticsCop.STATISTICS)!=null)
 			return new StatisticsCop();
+		if(request.getParameter(HttpEntityStatsCop.STATISTICS)!=null)
+			return new HttpEntityStatsCop();
 		
 		final String schemaID = request.getParameter(SchemaCop.SCHEMA);
 		if(schemaID==null)

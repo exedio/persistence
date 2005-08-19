@@ -22,12 +22,14 @@ package com.exedio.copernica.admin;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.text.SimpleDateFormat;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
 
 import javax.servlet.http.HttpServletRequest;
 
 import com.exedio.cope.Model;
+import com.exedio.cope.pattern.HttpEntity;
 import com.exedio.cope.util.PoolCounter;
 
 final class Admin_Jspm
@@ -94,6 +96,7 @@ final class Admin_Jspm
 				cop.toProperties(),
 				cop.toSchema(),
 				cop.toStatistics(),
+				cop.toHttpEntityStats(),
 			};
 			for(int i = 0; i<tabs.length; i++)
 			{
@@ -170,4 +173,49 @@ final class Admin_Jspm
 	%>
 	</table><%
 	}
+
+	final static void writeHttpEntityStats(final PrintStream out, final Collection entities, final String prefix)
+		throws IOException
+	{
+	final SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss.SSS");
+	%>
+	<table class="statistics">
+		<tr><th colspan="8">cope data servlet statistics</th></tr>
+		<tr><td colspan="8"><%=df.format(new Date())%></td></tr>
+		<tr>
+			<th>type</th>
+			<th>entity</th>
+			<th>entity</th>
+			<th>item</th>
+			<th>data</th>
+			<th>modified</th>
+			<th>delivered</th>
+			<th>statisticsFromDate</th>
+		</tr><%
+		for(Iterator i = entities.iterator(); i.hasNext(); )
+		{
+			final HttpEntity entity = (HttpEntity)i.next();
+			final String type = entity.getType().getID();
+			final String name = entity.getName();
+			final int entityFound = entity.entityFound.get();
+			final int itemFound = entity.itemFound.get();
+			final int dataNotNull = entity.dataNotNull.get();
+			final int modified = entity.modified.get();
+			final int fullyDelivered = entity.fullyDelivered.get();
+			%>
+		<tr>
+			<td><%=type%></td>
+			<td><a href="<%=prefix%><%=entity.getType().getID()%>/<%=name%>/0"><%=name%></a></td>
+			<td><%=entityFound%></td>
+			<td><%=itemFound%></td>
+			<td><%=dataNotNull%></td>
+			<td><%=modified%></td>
+			<td><%=fullyDelivered%></td>
+			<td><%=df.format(entity.getStart())%></td>
+		</tr><%
+		}
+	%>
+	</table><%
+	}
+
 }%>

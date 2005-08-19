@@ -20,23 +20,44 @@ package com.exedio.copernica.admin;
 
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.Iterator;
+import java.util.TreeMap;
 
+import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
+import com.exedio.cope.Type;
+import com.exedio.cope.pattern.HttpEntity;
 
 
-final class StatisticsCop extends AdminCop
+final class HttpEntityStatsCop extends AdminCop
 {
-	static final String STATISTICS = "statistics";
+	static final String STATISTICS = "httpentitystats";
 
-	StatisticsCop()
+	HttpEntityStatsCop()
 	{
-		super("connection pool stats");
+		super("http entity stats");
 		addParameter(STATISTICS, "true");
 	}
 
 	final void writeBody(final PrintStream out, final Model model) throws IOException
 	{
-		Admin_Jspm.write(out, model.getConnectionPoolCounter());
+		final TreeMap entities = new TreeMap();
+
+		for(Iterator i = model.getTypes().iterator(); i.hasNext(); )
+		{
+			final Type type = (Type)i.next();
+			for(Iterator j = type.getDeclaredFeatures().iterator(); j.hasNext(); )
+			{
+				final Feature feature = (Feature)j.next();
+				if(feature instanceof HttpEntity)
+				{
+					final String path = type.getID()+'/'+feature.getName();
+					entities.put(path, feature);
+				}
+			}
+		}
+
+		Admin_Jspm.writeHttpEntityStats(out, entities.values(), model.getProperties().getDatadirUrl());
 	}
 	
 }
