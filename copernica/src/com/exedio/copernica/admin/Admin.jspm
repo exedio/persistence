@@ -185,13 +185,6 @@ final class Admin_Jspm
 		"No &quot;Not Modified&quot; 304 Possible",
 		"Data Completely Delivered",
 	};
-	final String[] colors = new String[]{
-		"fcf",
-		"cff",
-		"fcc",
-		"cfc",
-		"ccf",
-	};
 	%>
 	<table class="statistics">
 		<tr><th colspan="8">HTTP Entity Statistics</th></tr>
@@ -203,7 +196,7 @@ final class Admin_Jspm
 		<tr>
 			<th>type</th>
 			<th>entity</th><%
-			writeColouredHeaderSchnips(out, colors);
+			writeColouredHeaderSchnips(out, names);
 			%>
 			<th>From</th>
 		</tr><%
@@ -249,10 +242,10 @@ final class Admin_Jspm
 		}
 	}
 
-	private static final void writeColouredHeaderSchnips(final PrintStream out, final String[] colors)
+	private static final void writeColouredHeaderSchnips(final PrintStream out, final String[] names)
 	{
 		%>
-			<th style="background:#<%=colors[colors.length-1]%>"></th><%
+			<th class="colored<%=names.length%>"></th><%
 	}
 
 	private static final void writeColouredData(final PrintStream out, final int[] data)
