@@ -46,7 +46,7 @@ abstract class AdminCop extends Cop
 		return new SchemaCop(null, false, false);
 	}
 	
-	final StatisticsCop toStatistics() // TODO rename toConnectionPoolStats
+	final StatisticsCop toConnectionPoolStats()
 	{
 		return new StatisticsCop();
 	}
