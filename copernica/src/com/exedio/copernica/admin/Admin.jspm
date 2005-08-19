@@ -180,7 +180,7 @@ final class Admin_Jspm
 	final SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss.SSS");
 	%>
 	<table class="statistics">
-		<tr><th colspan="8">cope data servlet statistics</th></tr>
+		<tr><th colspan="8">HTTP Entity Statistics</th></tr>
 		<tr><td colspan="8"><%=df.format(new Date())%></td></tr>
 		<tr>
 			<th>type</th>
