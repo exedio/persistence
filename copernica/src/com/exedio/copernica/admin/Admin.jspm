@@ -197,20 +197,8 @@ final class Admin_Jspm
 		<tr><th colspan="8">HTTP Entity Statistics</th></tr>
 		<tr><th>To</th><td colspan="7"><%=df.format(new Date())%></td></tr><%
 
-		%>
-		<tr>
-			<th colspan="2" rowspan="<%=names.length%>"></th>
-			<th colspan="<%=names.length + 1%>" style="background:#<%=colors[0]%>"><%=names[0]%></th>
-		</tr><%
+		writeColouredHeader(out, names, colors);
 
-		for(int i = 1; i<names.length; i++)
-		{
-		%>
-		<tr>
-			<th rowspan="<%=names.length-i+1%>" style="background:#<%=colors[i-1]%>"></th>
-			<th colspan="<%=names.length-i+1%>" style="background:#<%=colors[i]%>"><%=names[i]%></th>
-		</tr><%
-		}
 		%>
 		<tr>
 			<th>type</th>
@@ -244,6 +232,24 @@ final class Admin_Jspm
 		}
 	%>
 	</table><%
+	}
+
+	private static final void writeColouredHeader(final PrintStream out, final String[] names, final String[] colors)
+	{
+		%>
+		<tr>
+			<th colspan="2" rowspan="<%=names.length%>"></th>
+			<th colspan="<%=names.length + 1%>" style="background:#<%=colors[0]%>"><%=names[0]%></th>
+		</tr><%
+
+		for(int i = 1; i<names.length; i++)
+		{
+		%>
+		<tr>
+			<th rowspan="<%=names.length-i+1%>" style="background:#<%=colors[i-1]%>"></th>
+			<th colspan="<%=names.length-i+1%>" style="background:#<%=colors[i]%>"><%=names[i]%></th>
+		</tr><%
+		}
 	}
 
 }%>
