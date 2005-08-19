@@ -181,7 +181,7 @@ final class Admin_Jspm
 	%>
 	<table class="statistics">
 		<tr><th colspan="8">HTTP Entity Statistics</th></tr>
-		<tr><td colspan="8"><%=df.format(new Date())%></td></tr>
+		<tr><th>To</th><td colspan="7"><%=df.format(new Date())%></td></tr>
 		<tr>
 			<th>type</th>
 			<th>entity</th>
@@ -190,7 +190,7 @@ final class Admin_Jspm
 			<th>data</th>
 			<th>modified</th>
 			<th>delivered</th>
-			<th>statisticsFromDate</th>
+			<th>From</th>
 		</tr><%
 		for(Iterator i = entities.iterator(); i.hasNext(); )
 		{
