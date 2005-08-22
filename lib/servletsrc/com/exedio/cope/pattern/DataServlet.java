@@ -100,7 +100,7 @@ public class DataServlet extends HttpServlet
 		serveError(request, response);
 	}
 		
-	final void serveError(
+	private final void serveError(
 			final HttpServletRequest request,
 			final HttpServletResponse response)
 		throws ServletException, IOException
@@ -124,7 +124,7 @@ public class DataServlet extends HttpServlet
 		out.close();
 	}
 	
-	final boolean serveContent(
+	private final boolean serveContent(
 			final HttpServletRequest request,
 			final HttpServletResponse response)
 		throws ServletException, IOException
