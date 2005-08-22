@@ -175,7 +175,10 @@ public class DataServlet extends HttpServlet
 		final PrintStream out = new PrintStream(response.getOutputStream());
 		
 		out.print("<html>\n" +
-				"<head><title>Not Found</title><head>\n" +
+				"<head>\n" +
+				"<title>Not Found</title>\n" +
+				"<meta name=\"generator\" content=\"cope data servlet\">\n" +
+				"</head>\n" +
 				"<body>\n" +
 				"<h1>Not Found</h1>\n" +
 				"The requested URL was not found on this server.\n" +
