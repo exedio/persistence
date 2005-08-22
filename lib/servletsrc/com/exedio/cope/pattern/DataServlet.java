@@ -61,20 +61,13 @@ import com.exedio.cope.util.ServletUtil;
 public class DataServlet extends HttpServlet
 {
 	
-	Model model = null;
 	final HashMap pathes = new HashMap();
 	
 	public final void init()
 	{
-		if(model!=null)
-		{
-			System.out.println("reinvokation of jspInit");
-			return;
-		}
-		
 		try
 		{
-			model = ServletUtil.getModel(getServletConfig());
+			final Model model = ServletUtil.getModel(getServletConfig());
 			for(Iterator i = model.getTypes().iterator(); i.hasNext(); )
 			{
 				final Type type = (Type)i.next();
