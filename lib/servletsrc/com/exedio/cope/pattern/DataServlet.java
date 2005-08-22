@@ -20,13 +20,11 @@ package com.exedio.cope.pattern;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.PrintStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.TreeMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -69,8 +67,6 @@ import com.exedio.cope.util.ServletUtil;
  */
 public class DataServlet extends HttpServlet
 {
-	public static final String STATISTICS = "statistics";
-	private static final String STATISTICS_COMPLETE = '/' + STATISTICS;
 	
 	Model model = null;
 	final HashMap pathes = new HashMap();
@@ -112,58 +108,12 @@ public class DataServlet extends HttpServlet
 			final HttpServletResponse response)
 		throws ServletException, IOException
 	{
-		if(STATISTICS_COMPLETE.equals(request.getPathInfo()))
-		{
-			serveDirectory(request, response);
-			return;
-		}
-
 		if(serveContent(request, response))
 			return;
 		
 		serveError(request, response);
 	}
 		
-	final void serveDirectory(
-			final HttpServletRequest request,
-			final HttpServletResponse response)
-		throws ServletException, IOException
-	{
-		response.setContentType("text/html");
-		
-		final String prefix = request.getContextPath()+request.getServletPath();
-		
-		final OutputStream out = response.getOutputStream();
-		
-		final PrintStream p = new PrintStream(out);
-		p.println("<html>");
-		p.println("<head><title>cope data servlet</title><head>");
-		p.println("<body>");
-		p.println("<table border=\"1\">"+
-						"<tr><th colspan=\"8\">cope data servlet statistics</th></tr>" +
-						"<tr><td colspan=\"8\">"+format(System.currentTimeMillis())+"</td></tr>" +
-						"<tr>" +
-							"<th>type</th>" +
-							"<th>entity</th>" +
-							"<th>entity</th>" +
-							"<th>item</th>" +
-							"<th>data</th>" +
-							"<th>modified</th>" +
-							"<th>delivered</th>" +
-							"<th>statisticsFromDate</th>" +
-						"</tr>");
-		
-		final TreeMap pathesSorted = new TreeMap(pathes);
-		for(Iterator i = pathesSorted.values().iterator(); i.hasNext(); )
-			((Path)i.next()).printStatistics(prefix, p);
-		
-		p.println("</table>");
-		p.println("</body>");
-		p.println("</html>");
-		
-		out.close();
-	}
-	
 	final void serveError(
 			final HttpServletRequest request,
 			final HttpServletResponse response)
@@ -342,26 +292,6 @@ public class DataServlet extends HttpServlet
 			}
 		}
 
-		protected final void printStatistics(final String prefix, final PrintStream p)
-		{
-			final int entityFound = entity.entityFound.get();
-			final int itemFound = entity.itemFound.get();
-			final int dataNotNull = entity.dataNotNull.get();
-			final int modified = entity.modified.get();
-			final int fullyDelivered = entity.fullyDelivered.get();
-			p.println(
-					"<tr>" +
-					"<td>"+entity.getType().getID()+"</td>" +
-					"<td><a href=\""+prefix+path+"/0\">"+entity.getName()+"</a></td>" +
-					"<td>" + entityFound + "</td>" +
-					"<td>" + itemFound + "</td>" +
-					"<td>" + dataNotNull + "</td>" +
-					"<td>" + modified + "</td>" +
-					"<td>" + fullyDelivered + "</td>" +
-					"<td>" + format(entity.getStart().getTime()) + "</td>" +
-					"</tr>");
-		}
-		
 	}
 	
 	final String format(final long date)
