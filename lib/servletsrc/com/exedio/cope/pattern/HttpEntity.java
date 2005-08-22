@@ -611,7 +611,7 @@ public final class HttpEntity extends Pattern
 		}
 	}
 
-	private final String format(final long date)
+	private final static String format(final long date)
 	{
 		final SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
 		return df.format(new Date(date));
