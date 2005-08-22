@@ -84,7 +84,7 @@ public class DataServlet extends HttpServlet
 					if(feature instanceof HttpEntity)
 					{
 						final String path = '/'+type.getID()+'/'+feature.getName();
-						pathes.put(path, new Path(path, (HttpEntity)feature));
+						pathes.put(path, feature);
 					}
 				}
 			}
@@ -149,24 +149,11 @@ public class DataServlet extends HttpServlet
 		final String attributeString = pathInfo.substring(0, trailingSlash);
 		//System.out.println("attributeString="+attributeString);
 
-		final Path path = (Path)pathes.get(attributeString);
-		if(path==null)
+		final HttpEntity entity = (HttpEntity)pathes.get(attributeString);
+		if(entity==null)
 			return false;
 		else
-			return path.entity.serveContent(request, response, pathInfo, trailingSlash);
-	}
-	
-	private final class Path
-	{
-		final String path;
-		final HttpEntity entity;
-		
-		Path(final String path, final HttpEntity entity)
-		{
-			this.path = path;
-			this.entity = entity;
-		}
-
+			return entity.serveContent(request, response, pathInfo, trailingSlash);
 	}
 	
 }
