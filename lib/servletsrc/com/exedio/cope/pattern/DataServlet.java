@@ -58,7 +58,7 @@ import com.exedio.cope.util.ServletUtil;
  * 
  * @author Ralf Wiebicke
  */
-public class DataServlet extends HttpServlet
+public final class DataServlet extends HttpServlet
 {
 	
 	private final HashMap pathes = new HashMap();
