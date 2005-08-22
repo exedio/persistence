@@ -19,24 +19,17 @@
 package com.exedio.cope.pattern;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintStream;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 
 import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.exedio.cope.Feature;
-import com.exedio.cope.Item;
 import com.exedio.cope.Model;
-import com.exedio.cope.NoSuchIDException;
-import com.exedio.cope.Transaction;
 import com.exedio.cope.Type;
 import com.exedio.cope.util.ServletUtil;
 
@@ -138,21 +131,6 @@ public class DataServlet extends HttpServlet
 		out.close();
 	}
 	
-	/**
-	 * Sets the offset, the Expires http header is set into the future.
-	 * Together with a http reverse proxy this ensures,
-	 * that for that time no request for that data will reach the servlet.
-	 * This may reduce the load on the server.
-	 * 
-	 * TODO: make this configurable, at best per DataAttribute.
-	 */
-	private static final long EXPIRES_OFFSET = 1000 * 5; // 5 seconds
-	
-	private static final String REQUEST_IF_MODIFIED_SINCE = "If-Modified-Since";
-	private static final String RESPONSE_EXPIRES = "Expires";
-	private static final String RESPONSE_LAST_MODIFIED = "Last-Modified";
-	private static final String RESPONSE_CONTENT_LENGTH = "Content-Length";
-	
 	final boolean serveContent(
 			final HttpServletRequest request,
 			final HttpServletResponse response)
@@ -175,7 +153,7 @@ public class DataServlet extends HttpServlet
 		if(path==null)
 			return false;
 		else
-			return path.serveContent(request, response, pathInfo, trailingSlash);
+			return path.entity.serveContent(request, response, pathInfo, trailingSlash);
 	}
 	
 	private final class Path
@@ -189,115 +167,6 @@ public class DataServlet extends HttpServlet
 			this.entity = entity;
 		}
 
-		boolean serveContent(
-				final HttpServletRequest request, final HttpServletResponse response,
-				final String pathInfo, final int trailingSlash)
-			throws ServletException, IOException
-		{
-			//System.out.println("entity="+entity);
-			HttpEntity.Log state = entity.entityFound;
-
-			final int dotAfterSlash = pathInfo.indexOf('.', trailingSlash);
-			//System.out.println("trailingDot="+trailingDot);
-
-			final String pkString =
-				(dotAfterSlash>=0)
-				? pathInfo.substring(trailingSlash+1, dotAfterSlash)
-				: pathInfo.substring(trailingSlash+1);
-			//System.out.println("pkString="+pkString);
-
-			final String id = entity.getType().getID() + '.' + pkString;
-			//System.out.println("ID="+id);
-			try
-			{
-				model.startTransaction("DataServlet");
-				final Item item = model.findByID(id);
-				//System.out.println("item="+item);
-				state = entity.itemFound;
-
-				final String contentType = entity.getContentType(item);
-				//System.out.println("contentType="+contentType);
-				if(contentType!=null)
-				{
-					state = entity.dataNotNull;
-					
-					response.setContentType(contentType);
-
-					final long lastModified = entity.getDataLastModified(item);
-					//System.out.println("lastModified="+formatHttpDate(lastModified));
-					response.setDateHeader(RESPONSE_LAST_MODIFIED, lastModified);
-
-					final long now = System.currentTimeMillis();
-					response.setDateHeader(RESPONSE_EXPIRES, now+EXPIRES_OFFSET);
-					
-					final long ifModifiedSince = request.getDateHeader(REQUEST_IF_MODIFIED_SINCE);
-					//System.out.println("ifModifiedSince="+request.getHeader(REQUEST_IF_MODIFIED_SINCE));
-					//System.out.println("ifModifiedSince="+ifModifiedSince);
-					
-					if(ifModifiedSince>=0 && ifModifiedSince>=lastModified)
-					{
-						//System.out.println("not modified");
-						response.setStatus(response.SC_NOT_MODIFIED);
-						
-						System.out.println(request.getMethod()+' '+request.getProtocol()+" IMS="+format(ifModifiedSince)+"  LM="+format(lastModified)+"  NOT modified");
-					}
-					else
-					{
-						state = entity.modified;
-						
-						final long contentLength = entity.getDataLength(item);
-						//System.out.println("contentLength="+String.valueOf(contentLength));
-						response.setHeader(RESPONSE_CONTENT_LENGTH, String.valueOf(contentLength));
-						//response.setHeader("Cache-Control", "public");
-		
-						System.out.println(request.getMethod()+' '+request.getProtocol()+" IMS="+format(ifModifiedSince)+"  LM="+format(lastModified)+"  modified: "+contentLength);
-
-						ServletOutputStream out = null;
-						InputStream in = null;
-						try
-						{
-							out = response.getOutputStream();
-							in = entity.getData(item);
-		
-							final byte[] buffer = new byte[Math.max((int)contentLength, 50*1024)];
-							for(int len = in.read(buffer); len != -1; len = in.read(buffer))
-								out.write(buffer, 0, len);
-						}
-						finally
-						{
-							if(in!=null)
-								in.close();
-							if(out!=null)
-								out.close();
-						}
-						state = entity.fullyDelivered;
-					}
-					Transaction.commit();
-					return true;
-				}
-				else
-				{
-					Transaction.commit();
-					return false;
-				}
-			}
-			catch(NoSuchIDException e)
-			{
-				return false;
-			}
-			finally
-			{
-				Transaction.rollbackIfNotCommitted();
-				state.increment();
-			}
-		}
-
-	}
-	
-	final String format(final long date)
-	{
-		final SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
-		return df.format(new Date(date));
 	}
 	
 }
