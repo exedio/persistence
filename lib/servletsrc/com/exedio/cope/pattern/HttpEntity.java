@@ -423,36 +423,6 @@ public final class HttpEntity extends HttpPath
 	
 	// logs --------------------------
 	
-	public final static class Log
-	{
-		private int counter = 0;
-		private final Object lock = new Object();
-		
-		public final void increment()
-		{
-			synchronized(lock)
-			{
-				counter++;
-			}
-		}
-
-		public final int get()
-		{
-			synchronized(lock)
-			{
-				return counter;
-			}
-		}
-
-		final void reset()
-		{
-			synchronized(lock)
-			{
-				counter = 0;
-			}
-		}
-	}
-
 	private long start = System.currentTimeMillis();
 	private final Object startLock = new Object();
 	

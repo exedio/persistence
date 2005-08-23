@@ -42,8 +42,8 @@ public final class HttpRedirect extends HttpPath
 	private long start = System.currentTimeMillis();
 	private final Object startLock = new Object();
 	
-	public final HttpEntity.Log entityFound = new HttpEntity.Log();
-	public final HttpEntity.Log fullyDelivered = new HttpEntity.Log();
+	public final Log entityFound = new Log();
+	public final Log fullyDelivered = new Log();
 	
 	public final Date getStart()
 	{
@@ -78,7 +78,7 @@ public final class HttpRedirect extends HttpPath
 		throws ServletException, IOException
 	{
 		//System.out.println("entity="+this);
-		HttpEntity.Log state = entityFound;
+		Log state = entityFound;
 		
 		try
 		{
