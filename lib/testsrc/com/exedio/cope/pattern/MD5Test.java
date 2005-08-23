@@ -84,7 +84,7 @@ public class MD5Test extends AbstractLibTest
 		}
 		try
 		{
-			new JavaHash(item.stringAttribute(item.OPTIONAL), "nixus");
+			new JavaHash(item.stringAttribute(item.OPTIONAL), "NIXUS");
 			fail("should have thrown NoSuchAlgorithmException");
 		}
 		catch(NestingRuntimeException e)
