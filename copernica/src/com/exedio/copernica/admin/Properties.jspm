@@ -23,7 +23,6 @@ import java.io.IOException;
 import java.io.PrintStream;
 
 import com.exedio.cope.Properties;
-import com.exedio.cope.pattern.DataServlet;
 
 final class Properties_Jspm
 {
