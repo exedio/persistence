@@ -190,6 +190,14 @@ public final class HttpEntity extends Pattern
 		urlPath = getType().getID() + '/' + name + '/';
 	}
 	
+	final String getUrlPath()
+	{
+		if(urlPath==null)
+			throw new RuntimeException("http entity not yet initialized");
+		
+		return urlPath;
+	}
+	
 	public boolean isNull(final Item item)
 	{
 		return notNull ? false : (item.get(isNull)==null);

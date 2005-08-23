@@ -76,8 +76,8 @@ public final class DataServlet extends HttpServlet
 					final Feature feature = (Feature)j.next();
 					if(feature instanceof HttpEntity)
 					{
-						final String path = '/'+type.getID()+'/'+feature.getName();
-						pathes.put(path, feature);
+						final HttpEntity entity = (HttpEntity)feature;
+						pathes.put('/' + entity.getUrlPath(), entity);
 					}
 				}
 			}
@@ -139,7 +139,7 @@ public final class DataServlet extends HttpServlet
 			trailingSlash>=pathInfo.length()-1)
 			return false;
 
-		final String attributeString = pathInfo.substring(0, trailingSlash);
+		final String attributeString = pathInfo.substring(0, trailingSlash+1);
 		//System.out.println("attributeString="+attributeString);
 
 		final HttpEntity entity = (HttpEntity)pathes.get(attributeString);
