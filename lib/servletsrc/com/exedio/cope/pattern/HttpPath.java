@@ -19,6 +19,7 @@
 package com.exedio.cope.pattern;
 
 import java.io.IOException;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -26,7 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.exedio.cope.Pattern;
 
-abstract class HttpPath extends Pattern
+public abstract class HttpPath extends Pattern
 {
 	private String urlPath = null;
 	private String datadirURL = null;
@@ -56,6 +57,8 @@ abstract class HttpPath extends Pattern
 	
 	abstract boolean serveContent(HttpServletRequest request, HttpServletResponse response, String pathInfo, int trailingSlash)
 		throws ServletException, IOException;
+
+	public abstract Date getStart();
 
 	public final static class Log
 	{

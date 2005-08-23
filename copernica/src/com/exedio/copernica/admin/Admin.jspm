@@ -30,6 +30,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.exedio.cope.Model;
 import com.exedio.cope.pattern.HttpEntity;
+import com.exedio.cope.pattern.HttpPath;
+import com.exedio.cope.pattern.HttpRedirect;
 import com.exedio.cope.util.PoolCounter;
 
 final class Admin_Jspm
@@ -211,22 +213,34 @@ final class Admin_Jspm
 		</tr><%
 		for(Iterator i = entities.iterator(); i.hasNext(); )
 		{
-			final HttpEntity entity = (HttpEntity)i.next();
-			final String type = entity.getType().getID();
-			final String name = entity.getName();
-			final int entityFound = entity.entityFound.get();
-			final int itemFound = entity.itemFound.get();
-			final int dataNotNull = entity.dataNotNull.get();
-			final int modified = entity.modified.get();
-			final int fullyDelivered = entity.fullyDelivered.get();
-			final int[] data = new int[]{entityFound, itemFound, dataNotNull, modified, fullyDelivered};
+			final HttpPath path = (HttpPath)i.next();
+			final String type = path.getType().getID();
+			final String name = path.getName();
+			final int[] data;
+			if(path instanceof HttpEntity)
+			{
+				final HttpEntity entity = (HttpEntity)path;
+				final int entityFound = entity.entityFound.get();
+				final int itemFound = entity.itemFound.get();
+				final int dataNotNull = entity.dataNotNull.get();
+				final int modified = entity.modified.get();
+				final int fullyDelivered = entity.fullyDelivered.get();
+				data = new int[]{entityFound, itemFound, dataNotNull, modified, fullyDelivered};
+			}
+			else
+			{
+				final HttpRedirect redirect = (HttpRedirect)path;
+				final int entityFound = redirect.entityFound.get();
+				final int fullyDelivered = redirect.fullyDelivered.get();
+				data = new int[]{entityFound, Integer.MIN_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE, fullyDelivered};
+			}
 			%>
 		<tr>
 			<td><%=type%></td>
-			<td><a href="<%=prefix%><%=entity.getType().getID()%>/<%=name%>/0"><%=name%></a></td><%
+			<td><a href="<%=prefix%><%=path.getType().getID()%>/<%=name%>/0"><%=name%></a></td><%
 			writeColouredData(out, data);
 			%>
-			<td><%=df.format(entity.getStart())%></td>
+			<td><%=df.format(path.getStart())%></td>
 		</tr><%
 		}
 	%>
@@ -262,7 +276,16 @@ final class Admin_Jspm
 		for(int j = 0; j<data.length; j++)
 		{
 		%>
-			<td class="colored<%=j+1%>"><%=data[j]%></td><%
+			<td class="colored<%=j+1%>"><%
+			if(data[j]!=Integer.MIN_VALUE)
+			{
+				%><%=data[j]%><%
+			}
+			else
+			{
+				%>-<%
+			}
+			%></td><%
 		}
 	}
 

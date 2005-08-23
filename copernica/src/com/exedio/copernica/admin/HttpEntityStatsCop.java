@@ -26,7 +26,7 @@ import java.util.Iterator;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
-import com.exedio.cope.pattern.HttpEntity;
+import com.exedio.cope.pattern.HttpPath;
 
 
 final class HttpEntityStatsCop extends AdminCop
@@ -49,7 +49,7 @@ final class HttpEntityStatsCop extends AdminCop
 			for(Iterator j = type.getDeclaredFeatures().iterator(); j.hasNext(); )
 			{
 				final Feature feature = (Feature)j.next();
-				if(feature instanceof HttpEntity)
+				if(feature instanceof HttpPath)
 				{
 					entities.add(feature);
 				}
