@@ -20,8 +20,8 @@ package com.exedio.copernica.admin;
 
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.TreeMap;
 
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
@@ -41,7 +41,7 @@ final class HttpEntityStatsCop extends AdminCop
 
 	final void writeBody(final PrintStream out, final Model model) throws IOException
 	{
-		final TreeMap entities = new TreeMap();
+		final ArrayList entities = new ArrayList();
 
 		for(Iterator i = model.getTypes().iterator(); i.hasNext(); )
 		{
@@ -51,13 +51,12 @@ final class HttpEntityStatsCop extends AdminCop
 				final Feature feature = (Feature)j.next();
 				if(feature instanceof HttpEntity)
 				{
-					final String path = type.getID()+'/'+feature.getName();
-					entities.put(path, feature);
+					entities.add(feature);
 				}
 			}
 		}
 
-		Admin_Jspm.writeHttpEntityStats(out, entities.values(), model.getProperties().getDatadirUrl());
+		Admin_Jspm.writeHttpEntityStats(out, entities, model.getProperties().getDatadirUrl());
 	}
 	
 }
