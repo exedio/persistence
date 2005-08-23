@@ -31,5 +31,5 @@ database.password=yourpassword
 # otherwise you may remove these properties.
 #
 datadir.path=the/path/to/your/directory/for/data/files
-datadir.url=/url/prefix/of/your/data/files/
+httpentity.rooturl=/url/prefix/of/your/http/entities/
 

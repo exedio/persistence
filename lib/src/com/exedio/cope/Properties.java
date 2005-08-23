@@ -36,7 +36,7 @@ public final class Properties
 	private static final String DATABASE_USER = "database.user";
 	private static final String DATABASE_PASSWORD = "database.password";
 	public static final String DATADIR_PATH = "datadir.path";
-	public static final String DATADIR_URL = "datadir.url";
+	public static final String DATADIR_URL = "httpentity.rooturl"; // TODO rename constant
 
 	private final String source;
 
