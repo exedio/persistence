@@ -25,6 +25,30 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * Specifies a http redirect (moved permanently) to
+ * a {@link HttpEntity}.
+ * <p>
+ * Common usage is to maintain old urls after renaming a {@link HttpEntity}.
+ * For instance, if there is a HttpEntity <code>picture</code>:
+ * 
+ * <pre>
+ * static final HttpEntity picture = new HttpEntity(OPTIONAL);
+ * </pre>
+ * and this entity is renamed to <code>image</code>:
+ * 
+ * <pre>
+ * static final HttpEntity image = new HttpEntity(OPTIONAL);
+ * </pre>
+ * then old urls created by <code>picture</code>
+ * can be supported with an additional:
+ * 
+ * <pre>
+ * static final HttpRedirect picture = new HttpRedirect(image);
+ * </pre>
+ *
+ * @author Ralf Wiebicke
+ */
 public final class HttpRedirect extends HttpPath
 {
 	private final HttpEntity target;
