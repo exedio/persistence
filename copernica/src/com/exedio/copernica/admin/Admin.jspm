@@ -237,7 +237,7 @@ final class Admin_Jspm
 			%>
 		<tr>
 			<td><%=type%></td>
-			<td><a href="<%=prefix%><%=path.getType().getID()%>/<%=name%>/0"><%=name%></a></td><%
+			<td><a href="<%=prefix%><%=type%>/<%=name%>/0"><%=name%></a></td><%
 			writeColouredData(out, data);
 			%>
 			<td><%=df.format(path.getStart())%></td>
