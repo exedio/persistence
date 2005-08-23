@@ -66,6 +66,7 @@ public class HttpEntityTest extends TestmodelTest
 				item.photo,
 				item.photo.getData(),
 				item.photo.getExists(),
+				item.foto,
 			}), item.TYPE.getFeatures());
 
 		// file
@@ -255,6 +256,11 @@ public class HttpEntityTest extends TestmodelTest
 		assertEquals(null, item.getPhotoMimeMinor());
 		assertEquals(null, item.getPhotoContentType());
 		assertEquals(null, item.getPhotoURL());
+		
+		
+		// foto
+		assertEquals(item.TYPE, item.foto.getType());
+		assertEquals("foto", item.foto.getName());
 		
 
 		// logs -----------------------------------------------

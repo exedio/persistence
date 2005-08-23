@@ -79,6 +79,11 @@ public final class DataServlet extends HttpServlet
 						final HttpEntity entity = (HttpEntity)feature;
 						pathes.put('/' + entity.getUrlPath(), entity);
 					}
+					else if(feature instanceof HttpRedirect)
+					{
+						final HttpRedirect redirect = (HttpRedirect)feature;
+						pathes.put('/' + redirect.getUrlPath(), redirect);
+					}
 				}
 			}
 		}
@@ -142,11 +147,13 @@ public final class DataServlet extends HttpServlet
 		final String attributeString = pathInfo.substring(0, trailingSlash+1);
 		//System.out.println("attributeString="+attributeString);
 
-		final HttpEntity entity = (HttpEntity)pathes.get(attributeString);
-		if(entity==null)
+		final Object path = pathes.get(attributeString);
+		if(path==null)
 			return false;
+		else if(path instanceof HttpEntity)
+			return ((HttpEntity)path).serveContent(request, response, pathInfo, trailingSlash);
 		else
-			return entity.serveContent(request, response, pathInfo, trailingSlash);
+			return ((HttpRedirect)path).serveContent(request, response, pathInfo, trailingSlash);
 	}
 	
 }

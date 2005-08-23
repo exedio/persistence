@@ -43,6 +43,11 @@ public class DataServletTest extends AbstractWebTest
 		assertEquals(textLastModified, assertURL(new URL(prefix + "HttpEntityItem/file/0"), textLastModified+5000, true));
 
 		assertEquals(textLastModified, assertURL(new URL(prefix + "HttpEntityItem/file/2.unknownma.unknownmi"), "unknownma/unknownmi"));
+
+		assertURLRedirect(new URL(prefix + "HttpEntityItem/foto/0.jpg"), prefix + "HttpEntityItem/foto/0.jpg");
+		assertURLRedirect(new URL(prefix + "HttpEntityItem/foto/0."), prefix + "HttpEntityItem/foto/0.");
+		assertURLRedirect(new URL(prefix + "HttpEntityItem/foto/0"), prefix + "HttpEntityItem/foto/0");
+		assertURLRedirect(new URL(prefix + "HttpEntityItem/foto/schnickschnack"), prefix + "HttpEntityItem/foto/schnickschnack");
 	}
 	
 	private long assertURL(final URL url) throws IOException
@@ -64,6 +69,7 @@ public class DataServletTest extends AbstractWebTest
 	{
 		final Date before = new Date();
 		final HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+		conn.setFollowRedirects(false);
 		if(ifModifiedSince>=0)
 			conn.setIfModifiedSince(ifModifiedSince);
 		conn.connect();
@@ -92,6 +98,19 @@ public class DataServletTest extends AbstractWebTest
 		
 		//textConn.setIfModifiedSince();
 		return lastModified;
+	}
+
+	private void assertURLRedirect(final URL url, final String target) throws IOException
+	{
+		final Date before = new Date();
+		final HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+		conn.setFollowRedirects(false);
+		conn.connect();
+		assertEquals(301, conn.getResponseCode());
+		final long date = conn.getDate();
+		final Date after = new Date();
+		//System.out.println("Date: "+new Date(date));
+		assertWithin(3000, before, after, new Date(date));
 	}
 
 

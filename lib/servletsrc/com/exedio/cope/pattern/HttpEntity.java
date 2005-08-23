@@ -433,7 +433,7 @@ public final class HttpEntity extends Pattern
 	
 	// logs --------------------------
 	
-	public final class Log
+	public final static class Log
 	{
 		private int counter = 0;
 		private final Object lock = new Object();
@@ -454,7 +454,7 @@ public final class HttpEntity extends Pattern
 			}
 		}
 
-		private final void reset()
+		final void reset()
 		{
 			synchronized(lock)
 			{
