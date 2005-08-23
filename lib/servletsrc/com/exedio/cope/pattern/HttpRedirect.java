@@ -61,6 +61,11 @@ public final class HttpRedirect extends HttpPath
 		this.target = target;
 	}
 	
+	public final HttpEntity getTarget()
+	{
+		return target;
+	}
+	
 	// logs --------------------------
 	
 	private long start = System.currentTimeMillis();

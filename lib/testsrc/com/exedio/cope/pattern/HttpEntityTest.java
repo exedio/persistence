@@ -261,6 +261,7 @@ public class HttpEntityTest extends TestmodelTest
 		// foto
 		assertEquals(item.TYPE, item.foto.getType());
 		assertEquals("foto", item.foto.getName());
+		assertSame(item.photo, item.foto.getTarget());
 		
 
 		// logs -----------------------------------------------
