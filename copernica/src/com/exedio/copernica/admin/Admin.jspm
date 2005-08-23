@@ -237,7 +237,13 @@ final class Admin_Jspm
 			%>
 		<tr>
 			<td><%=type%></td>
-			<td><a href="<%=prefix%><%=type%>/<%=name%>/0"><%=name%></a></td><%
+			<td><a href="<%=prefix%><%=type%>/<%=name%>/0"><%=name%></a><%
+			if(path instanceof HttpRedirect)
+			{
+				final HttpRedirect redirect = (HttpRedirect)path;
+				%> --&gt; <%=redirect.getTarget().getName()%><%
+			}
+			%></td><%
 			writeColouredData(out, data);
 			%>
 			<td><%=df.format(path.getStart())%></td>
