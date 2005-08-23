@@ -284,8 +284,6 @@ public final class HttpEntity extends HttpPath
 		return result;
 	}
 
-	private String datadirURL = null;
-	
 	/**
 	 * Returns a URL pointing to the data of this http entity.
 	 * Returns null, if there is no data for this http entity.
@@ -295,10 +293,7 @@ public final class HttpEntity extends HttpPath
 		if(isNull(item))
 			return null;
 
-		if(datadirURL==null)
-			datadirURL = getType().getModel().getProperties().getDatadirUrl();
-		
-		final StringBuffer bf = new StringBuffer(datadirURL);
+		final StringBuffer bf = new StringBuffer(getDatadirURL());
 		appendDataPath(item, bf);
 		appendExtension(item, bf);
 		return bf.toString();

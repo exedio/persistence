@@ -19,16 +19,20 @@
 package com.exedio.cope.pattern;
 
 import com.exedio.cope.Pattern;
+import com.exedio.cope.Type;
 
 class HttpPath extends Pattern
 {
 	private String urlPath = null;
-	
+	private String datadirURL = null;
+
 	public void initialize()
 	{
 		final String name = getName();
 		
-		urlPath = getType().getID() + '/' + name + '/';
+		final Type type = getType();
+		urlPath = type.getID() + '/' + name + '/';
+		datadirURL = type.getModel().getProperties().getDatadirUrl();
 	}
 	
 	final String getUrlPath()
@@ -37,6 +41,14 @@ class HttpPath extends Pattern
 			throw new RuntimeException("http entity not yet initialized");
 		
 		return urlPath;
+	}
+	
+	final String getDatadirURL()
+	{
+		if(datadirURL==null)
+			throw new RuntimeException("http entity not yet initialized");
+		
+		return datadirURL;
 	}
 	
 	public final static class Log

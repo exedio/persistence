@@ -70,8 +70,6 @@ public final class HttpRedirect extends HttpPath
 
 	private static final String RESPONSE_LOCATION = "Location";
 	
-	private String datadirURL = null;
-
 	final boolean serveContent(
 			final HttpServletRequest request, final HttpServletResponse response,
 			final String pathInfo, final int trailingSlash)
@@ -82,14 +80,11 @@ public final class HttpRedirect extends HttpPath
 		
 		try
 		{
-			if(datadirURL==null)
-				datadirURL = getType().getModel().getProperties().getDatadirUrl();
-	
 			final String location =
 				request.getScheme() + "://" +
 				request.getHeader("Host") +
 				request.getContextPath() + '/' +
-				datadirURL +
+				getDatadirURL() +
 				target.getUrlPath() +
 				pathInfo.substring(trailingSlash+1);
 			//System.out.println("location="+location);
