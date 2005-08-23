@@ -44,7 +44,7 @@ import com.exedio.cope.StringAttribute;
 import com.exedio.cope.Transaction;
 import com.exedio.cope.Attribute.Option;
 
-public final class HttpEntity extends Pattern
+public final class HttpEntity extends HttpPath
 {
 	final boolean notNull;
 	final String fixedMimeMajor;
@@ -173,10 +173,10 @@ public final class HttpEntity extends Pattern
 		return exists;
 	}
 	
-	private String urlPath = null;
-	
 	public void initialize()
 	{
+		super.initialize();
+		
 		final String name = getName();
 		if(data!=null && !data.isInitialized())
 			initialize(data, name+"Data");
@@ -186,16 +186,6 @@ public final class HttpEntity extends Pattern
 			initialize(mimeMinor, name+"Minor");
 		if(exists!=null && !exists.isInitialized())
 			initialize(exists, name+"Exists");
-		
-		urlPath = getType().getID() + '/' + name + '/';
-	}
-	
-	final String getUrlPath()
-	{
-		if(urlPath==null)
-			throw new RuntimeException("http entity not yet initialized");
-		
-		return urlPath;
 	}
 	
 	public boolean isNull(final Item item)
@@ -367,7 +357,7 @@ public final class HttpEntity extends Pattern
 		if(dot<0)
 			throw new RuntimeException(id);
 		
-		bf.append(urlPath).
+		bf.append(getUrlPath()).
 			append(id.substring(dot+1));
 	}
 

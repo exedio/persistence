@@ -25,9 +25,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.exedio.cope.Pattern;
-
-public final class HttpRedirect extends Pattern
+public final class HttpRedirect extends HttpPath
 {
 	private final HttpEntity target;
 
@@ -38,24 +36,6 @@ public final class HttpRedirect extends Pattern
 
 		this.target = target;
 	}
-	
-	private String urlPath = null;
-	
-	public void initialize()
-	{
-		final String name = getName();
-		
-		urlPath = getType().getID() + '/' + name + '/';
-	}
-	
-	final String getUrlPath()
-	{
-		if(urlPath==null)
-			throw new RuntimeException("http entity not yet initialized");
-		
-		return urlPath;
-	}
-	
 	
 	// logs --------------------------
 	
