@@ -74,15 +74,10 @@ public final class DataServlet extends HttpServlet
 				for(Iterator j = type.getDeclaredFeatures().iterator(); j.hasNext(); )
 				{
 					final Feature feature = (Feature)j.next();
-					if(feature instanceof HttpEntity)
+					if(feature instanceof HttpPath)
 					{
-						final HttpEntity entity = (HttpEntity)feature;
-						pathes.put('/' + entity.getUrlPath(), entity);
-					}
-					else if(feature instanceof HttpRedirect)
-					{
-						final HttpRedirect redirect = (HttpRedirect)feature;
-						pathes.put('/' + redirect.getUrlPath(), redirect);
+						final HttpPath path = (HttpPath)feature;
+						pathes.put('/' + path.getUrlPath(), path);
 					}
 				}
 			}
@@ -147,13 +142,11 @@ public final class DataServlet extends HttpServlet
 		final String attributeString = pathInfo.substring(0, trailingSlash+1);
 		//System.out.println("attributeString="+attributeString);
 
-		final Object path = pathes.get(attributeString);
+		final HttpPath path = (HttpPath)pathes.get(attributeString);
 		if(path==null)
 			return false;
-		else if(path instanceof HttpEntity)
-			return ((HttpEntity)path).serveContent(request, response, pathInfo, trailingSlash);
 		else
-			return ((HttpRedirect)path).serveContent(request, response, pathInfo, trailingSlash);
+			return path.serveContent(request, response, pathInfo, trailingSlash);
 	}
 	
 }
