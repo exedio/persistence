@@ -283,13 +283,17 @@ final class Admin_Jspm
 		{
 		%>
 			<td class="colored<%=j+1%>"><%
-			if(data[j]!=Integer.MIN_VALUE)
+			switch(data[j])
 			{
-				%><%=data[j]%><%
-			}
-			else
-			{
+			case 0:
+				%>&nbsp;<%
+				break;
+			case Integer.MIN_VALUE:
 				%>-<%
+				break;
+			default:
+				%><%=data[j]%><%
+				break;
 			}
 			%></td><%
 		}
