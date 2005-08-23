@@ -35,12 +35,12 @@ import com.exedio.cope.util.ServletUtil;
 
 
 /**
- * A servlet providing access to the data of cope data attributes.
- * 
+ * A servlet providing access to the data of cope {@link HttpEntity http entities}.
+ *
  * In order to use it, you have to deploy the servlet in your <code>web.xml</code>,
  * providing the name of the cope model via an init-parameter.
  * Typically, your <code>web.xml</code> would contain a snippet like this:  
- *  
+ *
  * <pre>
  * &lt;servlet&gt;
  *    &lt;servlet-name&gt;data&lt;/servlet-name&gt;
@@ -55,7 +55,7 @@ import com.exedio.cope.util.ServletUtil;
  *    &lt;url-pattern&gt;/data/*&lt;/url-pattern&gt;
  * &lt;/servlet-mapping&gt;
  * </pre>
- * 
+ *
  * @author Ralf Wiebicke
  */
 public final class DataServlet extends HttpServlet
