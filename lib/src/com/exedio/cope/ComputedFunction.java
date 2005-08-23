@@ -79,7 +79,7 @@ public abstract class ComputedFunction extends Feature implements Function
 		bf.append(sqlFragments[sqlFragments.length-1]);
 	}
 
-	public final String toString()
+	final String toStringNonInitialized()
 	{
 		final StringBuffer buf = new StringBuffer(functionName);
 		buf.append('(');

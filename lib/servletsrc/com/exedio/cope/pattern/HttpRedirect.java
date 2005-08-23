@@ -127,9 +127,4 @@ public final class HttpRedirect extends Pattern
 		return true;
 	}
 
-	public String toString()
-	{
-		return getType().getID() + '#' + getName();
-	}
-	
 }

@@ -63,9 +63,14 @@ public abstract class Feature
 		return name;
 	}
 	
-	public String toString()
+	String toStringNonInitialized()
 	{
-		return type!=null ? (type.getID()+'#'+name) : super.toString();
+		return super.toString();
+	}
+	
+	public final String toString()
+	{
+		return type!=null ? (type.getID()+'#'+name) : toStringNonInitialized();
 	}
 	
 }

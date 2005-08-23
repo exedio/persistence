@@ -625,9 +625,4 @@ public final class HttpEntity extends Pattern
 		return df.format(new Date(date));
 	}
 	
-	public String toString()
-	{
-		return getType().getID() + '#' + getName();
-	}
-	
 }

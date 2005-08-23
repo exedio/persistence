@@ -118,7 +118,7 @@ public final class UniqueConstraint extends Feature
 
 	private String toStringCache = null;
 	
-	public final String toString()
+	final String toStringNonInitialized()
 	{
 		if(toStringCache!=null)
 			return toStringCache;

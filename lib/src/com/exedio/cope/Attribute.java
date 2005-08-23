@@ -107,34 +107,6 @@ public abstract class Attribute extends Feature
 		return column;
 	}
 	
-	public final String toString()
-	{
-		// should be precomputed
-		final StringBuffer buf = new StringBuffer();
-		buf.append(super.toString());
-		buf.append('{');
-		boolean first = true;
-		if(readOnly)
-		{
-			if(first)
-				first = false;
-			else
-				buf.append(',');
-			buf.append("read-only");
-		}
-		if(mandatory)
-		{
-			if(first)
-				first = false;
-			else
-				buf.append(',');
-			buf.append("mandatory");
-		}
-		buf.append('}');
-
-		return buf.toString();
-	}
-	
 	protected abstract Column createColumn(Table table, String name, boolean notNull);
 	
 	public static class Option
