@@ -88,6 +88,7 @@ public final class HttpRedirect extends HttpPath
 		}
 		
 		entityFound.reset();
+		fullyDelivered.reset();
 	}
 
 	// /logs -------------------------
