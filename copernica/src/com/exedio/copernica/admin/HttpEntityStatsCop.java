@@ -56,7 +56,7 @@ final class HttpEntityStatsCop extends AdminCop
 			}
 		}
 
-		Admin_Jspm.writeHttpEntityStats(out, entities, model.getProperties().getDatadirUrl());
+		Admin_Jspm.writeHttpEntityStats(out, entities, model.getProperties().getHttpEntityRootUrl());
 	}
 	
 }

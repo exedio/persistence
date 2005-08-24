@@ -264,7 +264,7 @@ public final class Properties
 		return datadirPath;
 	}
 
-	public String getDatadirUrl()
+	public String getHttpEntityRootUrl()
 	{
 		if(httpEntityRootUrl==null)
 			throw newNotSetException(HTTP_ENTITY_ROOT_URL);
