@@ -68,7 +68,7 @@ final class Properties_Jspm
 			{
 				final String datadirPath =
 					properties.getDatadirPath().getAbsolutePath();
-				final String datadirUrl = properties.getHttpEntityRootUrl();
+				final String httpEntityRootUrl = properties.getHttpEntityRootUrl();
 			%>
 			<tr>
 				<th><%=properties.DATADIR_PATH%></th>
@@ -83,7 +83,7 @@ final class Properties_Jspm
 			<tr>
 				<th><%=properties.HTTP_ENTITY_ROOT_URL%></th>
 				<td>
-					<%=datadirUrl%>
+					<%=httpEntityRootUrl%>
 				</td>
 			</tr><%
 			}
