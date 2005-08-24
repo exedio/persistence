@@ -293,7 +293,7 @@ public final class HttpEntity extends HttpPath
 		if(isNull(item))
 			return null;
 
-		final StringBuffer bf = new StringBuffer(getDatadirURL());
+		final StringBuffer bf = new StringBuffer(getHttpEntityRootUrl());
 		appendDataPath(item, bf);
 		appendExtension(item, bf);
 		return bf.toString();

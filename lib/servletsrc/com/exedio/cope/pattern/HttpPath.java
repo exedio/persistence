@@ -47,7 +47,7 @@ public abstract class HttpPath extends Pattern
 		return urlPath;
 	}
 	
-	final String getDatadirURL() // TODO rename method
+	final String getHttpEntityRootUrl()
 	{
 		if(datadirURL==null)
 			datadirURL = getType().getModel().getProperties().getHttpEntityRootUrl();
