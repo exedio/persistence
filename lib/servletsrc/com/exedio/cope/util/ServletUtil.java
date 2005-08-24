@@ -70,9 +70,6 @@ public class ServletUtil
 		}
 	}
 	
-	private static final String DATADIR_PATH = com.exedio.cope.Properties.DATADIR_PATH;
-	private static final String DATADIR_URL = com.exedio.cope.Properties.HTTP_ENTITY_ROOT_URL; // TODO rename constant
-	
 	public static final void initialize(final Model model, final ServletConfig config)
 	{
 		final ServletContext context = config.getServletContext();
