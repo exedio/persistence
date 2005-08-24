@@ -81,7 +81,7 @@ final class Properties_Jspm
 				</td>
 			</tr>
 			<tr>
-				<th><%=properties.DATADIR_URL%></th>
+				<th><%=properties.HTTP_ENTITY_ROOT_URL%></th>
 				<td>
 					<%=datadirUrl%>
 				</td>

@@ -36,7 +36,7 @@ public final class Properties
 	private static final String DATABASE_USER = "database.user";
 	private static final String DATABASE_PASSWORD = "database.password";
 	public static final String DATADIR_PATH = "datadir.path";
-	public static final String DATADIR_URL = "httpentity.rooturl"; // TODO rename constant
+	public static final String HTTP_ENTITY_ROOT_URL = "httpentity.rooturl";
 
 	private final String source;
 
@@ -47,7 +47,7 @@ public final class Properties
 	private final java.util.Properties databaseCustomProperties;
 
 	private final File datadirPath;
-	private final String datadirUrl;
+	private final String datadirUrl; // TODO rename to httpEntityRootUrl
 
 	public Properties()
 	{
@@ -178,7 +178,7 @@ public final class Properties
 			{
 				throw new NestingRuntimeException(e);
 			}
-			datadirUrl = getPropertyNotNull(properties, DATADIR_URL);
+			datadirUrl = getPropertyNotNull(properties, HTTP_ENTITY_ROOT_URL);
 		}
 		else
 		{
@@ -301,7 +301,7 @@ public final class Properties
 		if((this.datadirUrl!=null && !this.datadirUrl.equals(other.datadirUrl)) ||
 				(this.datadirUrl==null && other.datadirUrl!=null))
 			throw new RuntimeException(
-					"inconsistent initialization for " + DATADIR_URL + "," +
+					"inconsistent initialization for " + HTTP_ENTITY_ROOT_URL + "," +
 					" expected " + this.datadirUrl +
 					" but got " + other.datadirUrl + '.');
 	}
