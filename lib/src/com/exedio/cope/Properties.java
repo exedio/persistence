@@ -178,13 +178,13 @@ public final class Properties
 			{
 				throw new NestingRuntimeException(e);
 			}
-			httpEntityRootUrl = getPropertyNotNull(properties, HTTP_ENTITY_ROOT_URL);
 		}
 		else
 		{
 			datadirPath = null;
-			httpEntityRootUrl  = null;
 		}
+
+		httpEntityRootUrl = properties.getProperty(HTTP_ENTITY_ROOT_URL);
 	}
 	
 	private final RuntimeException newNotSetException(final String key)
