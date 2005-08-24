@@ -47,7 +47,7 @@ public final class Properties
 	private final java.util.Properties databaseCustomProperties;
 
 	private final File datadirPath;
-	private final String datadirUrl; // TODO rename to httpEntityRootUrl
+	private final String httpEntityRootUrl;
 
 	public Properties()
 	{
@@ -178,12 +178,12 @@ public final class Properties
 			{
 				throw new NestingRuntimeException(e);
 			}
-			datadirUrl = getPropertyNotNull(properties, HTTP_ENTITY_ROOT_URL);
+			httpEntityRootUrl = getPropertyNotNull(properties, HTTP_ENTITY_ROOT_URL);
 		}
 		else
 		{
 			datadirPath = null;
-			datadirUrl  = null;
+			httpEntityRootUrl  = null;
 		}
 	}
 	
@@ -264,7 +264,7 @@ public final class Properties
 		if(datadirPath==null)
 			throw new RuntimeException("property " + DATADIR_PATH + " in " + source + " not set.");
 
-		return datadirUrl;
+		return httpEntityRootUrl;
 	}
 	
 	final void ensureEquality(final Properties other)
@@ -298,12 +298,12 @@ public final class Properties
 					" expected " + this.datadirPath +
 					" but got " + other.datadirPath + '.');
 		
-		if((this.datadirUrl!=null && !this.datadirUrl.equals(other.datadirUrl)) ||
-				(this.datadirUrl==null && other.datadirUrl!=null))
+		if((this.httpEntityRootUrl!=null && !this.httpEntityRootUrl.equals(other.httpEntityRootUrl)) ||
+				(this.httpEntityRootUrl==null && other.httpEntityRootUrl!=null))
 			throw new RuntimeException(
 					"inconsistent initialization for " + HTTP_ENTITY_ROOT_URL + "," +
-					" expected " + this.datadirUrl +
-					" but got " + other.datadirUrl + '.');
+					" expected " + this.httpEntityRootUrl +
+					" but got " + other.httpEntityRootUrl + '.');
 	}
 	
 }
