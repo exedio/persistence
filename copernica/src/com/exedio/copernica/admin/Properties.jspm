@@ -64,7 +64,7 @@ final class Properties_Jspm
 				<th>database.user</th>
 				<td><%=properties.getDatabaseUser()%></td>
 			</tr><%
-			if(properties.hasDatadir())
+			if(properties.hasDatadirPath())
 			{
 				final String datadirPath =
 					properties.getDatadirPath().getAbsolutePath();

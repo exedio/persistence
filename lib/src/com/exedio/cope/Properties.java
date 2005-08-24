@@ -251,7 +251,7 @@ public final class Properties
 		return databaseCustomProperties.getProperty(key);
 	}
 	
-	public boolean hasDatadir()
+	public boolean hasDatadirPath()
 	{
 		return datadirPath!=null;
 	}
