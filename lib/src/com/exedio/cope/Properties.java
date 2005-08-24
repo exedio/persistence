@@ -187,11 +187,16 @@ public final class Properties
 		}
 	}
 	
+	private final RuntimeException newNotSetException(final String key)
+	{
+		return new RuntimeException("property "+key+" in "+source+" not set.");
+	}
+	
 	private String getPropertyNotNull(final java.util.Properties properties, final String key)
 	{
 		final String result = properties.getProperty(key);
 		if(result==null)
-			throw new RuntimeException("property "+key+" in "+source+" not set.");
+			throw newNotSetException(key);
 
 		return result;
 	}
@@ -254,7 +259,7 @@ public final class Properties
 	public File getDatadirPath()
 	{
 		if(datadirPath==null)
-			throw new RuntimeException("property " + DATADIR_PATH + " in " + source + " not set.");
+			throw newNotSetException(DATADIR_PATH);
 
 		return datadirPath;
 	}
@@ -262,7 +267,7 @@ public final class Properties
 	public String getDatadirUrl()
 	{
 		if(httpEntityRootUrl==null)
-			throw new RuntimeException("property " + HTTP_ENTITY_ROOT_URL + " in " + source + " not set.");
+			throw newNotSetException(HTTP_ENTITY_ROOT_URL);
 
 		return httpEntityRootUrl;
 	}
