@@ -31,12 +31,13 @@ import junit.framework.TestCase;
 
 public abstract class SchemaTest extends TestCase
 {
+	String database; // non-local for BatchTest
 	private Driver driver;
 	String stringType;
 	String intType;
 	boolean supportsCheckConstraints = true;
 	private SimpleConnectionProvider provider;
-	private Connection connection1;
+	Connection connection1; // visible for BatchTest
 	private Connection connection2;
 	
 	public void setUp() throws Exception
@@ -45,7 +46,7 @@ public abstract class SchemaTest extends TestCase
 		
 		final Properties config = new Properties();
 		config.load(new FileInputStream(System.getProperty("com.exedio.cope.properties")));
-		final String database = config.getProperty("database");
+		database = config.getProperty("database");
 		final String url = config.getProperty("database.url");
 		final String user = config.getProperty("database.user");
 		final String password = config.getProperty("database.password");

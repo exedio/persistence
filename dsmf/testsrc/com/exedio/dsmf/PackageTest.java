@@ -37,6 +37,8 @@ public class PackageTest extends TestCase
 
 		suite.addTest(new TestSuite(SQLInjectionTest.class));
 		
+		//suite.addTest(new TestSuite(BatchTest.class));
+
 		return suite;
 	}
 
