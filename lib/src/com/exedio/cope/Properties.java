@@ -261,8 +261,8 @@ public final class Properties
 
 	public String getDatadirUrl()
 	{
-		if(datadirPath==null)
-			throw new RuntimeException("property " + DATADIR_PATH + " in " + source + " not set.");
+		if(httpEntityRootUrl==null)
+			throw new RuntimeException("property " + HTTP_ENTITY_ROOT_URL + " in " + source + " not set.");
 
 		return httpEntityRootUrl;
 	}
