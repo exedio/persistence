@@ -263,6 +263,11 @@ public final class Properties
 
 		return datadirPath;
 	}
+	
+	public boolean hasHttpEntityRootUrl()
+	{
+		return httpEntityRootUrl!=null;
+	}
 
 	public String getHttpEntityRootUrl()
 	{
