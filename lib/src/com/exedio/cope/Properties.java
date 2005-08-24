@@ -31,9 +31,9 @@ public final class Properties
 	private static final String FILE_NAME_PROPERTY = "com.exedio.cope.properties";
 	private static final String DEFAULT_FILE_NAME = "cope.properties";
 	
-	private static final String DATABASE = "database";
-	private static final String DATABASE_URL = "database.url";
-	private static final String DATABASE_USER = "database.user";
+	public static final String DATABASE = "database";
+	public static final String DATABASE_URL = "database.url";
+	public static final String DATABASE_USER = "database.user";
 	private static final String DATABASE_PASSWORD = "database.password";
 	public static final String DATADIR_PATH = "datadir.path";
 	public static final String HTTP_ENTITY_ROOT_URL = "httpentity.rooturl";

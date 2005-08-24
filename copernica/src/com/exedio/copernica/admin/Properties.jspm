@@ -53,15 +53,15 @@ final class Properties_Jspm
 				</td>
 			</tr>
 			<tr>
-				<th>database</th>
+				<th><%=properties.DATABASE%></th>
 				<td><%=properties.getDatabase()%></td>
 			</tr>
 			<tr>
-				<th>database.url</th>
+				<th><%=properties.DATABASE_URL%></th>
 				<td><%=properties.getDatabaseUrl()%></td>
 			</tr>
 			<tr>
-				<th>database.user</th>
+				<th><%=properties.DATABASE_USER%></th>
 				<td><%=properties.getDatabaseUser()%></td>
 			</tr>
 			<tr>
