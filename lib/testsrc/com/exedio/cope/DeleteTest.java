@@ -42,16 +42,19 @@ public class DeleteTest extends AbstractLibTest
 		assertEqualsUnmodifiable(list(item.selfForbid, item.selfNullify), item.TYPE.getReferences());
 		assertEqualsUnmodifiable(list(item.otherForbid, item.otherNullify), other.TYPE.getReferences());
 		
+		// other type
 		other = new DeleteOtherItem("other");
 		item = new DeleteItem("item");
 		item.setOtherForbid(other);
 		assertDeleteFails(other, item.otherForbid);
 		
+		// other item
 		DeleteItem item2 = new DeleteItem("item2");
 		item.setOtherForbid(null);
 		item.setSelfForbid(item2);
 		assertDeleteFails(item2, item.selfForbid);
 
+		// same item
 		item.setSelfForbid(item);
 		if(hsqldb||mysql)
 		{
@@ -69,12 +72,20 @@ public class DeleteTest extends AbstractLibTest
 		assertEquals(Item.NULLIFY, item.selfNullify.getDeletePolicy());
 		assertEquals(Item.NULLIFY, item.otherNullify.getDeletePolicy());
 
+		// other type
 		item = new DeleteItem("itema");
 		other = new DeleteOtherItem("other");
 		item.setOtherNullify(other);
 		assertEquals(other, item.getOtherNullify());
 		assertDelete(other);
 		assertEquals(null, item.getOtherNullify());
+		
+		// other item
+		DeleteItem item2 = new DeleteItem("item");
+		item.setSelfNullify(item2);
+		assertEquals(item2, item.getSelfNullify());
+		assertDelete(item2);
+		assertEquals(null, item.getSelfNullify());
 		
 		assertDelete(item);
 	}
