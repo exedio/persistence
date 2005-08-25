@@ -139,9 +139,9 @@ public class DeleteTest extends AbstractLibTest
 
 		// other type with multiple sources
 		item = new DeleteItem("item");
-		final DeleteItem item2 = new DeleteItem("item2");
-		final DeleteItem item3 = new DeleteItem("item3");
-		final DeleteItem item4 = new DeleteItem("item4");
+		DeleteItem item2 = new DeleteItem("item2");
+		DeleteItem item3 = new DeleteItem("item3");
+		DeleteItem item4 = new DeleteItem("item4");
 		other = new DeleteOtherItem("other");
 		item.setOtherCascade(other);
 		item2.setOtherCascade(other);
@@ -153,6 +153,28 @@ public class DeleteTest extends AbstractLibTest
 		assertTrue(item3.existsCopeItem());
 		assertTrue(!item4.existsCopeItem());
 		assertDelete(item3);
+		
+		// other item
+		item = new DeleteItem("item");
+		item2 = new DeleteItem("item2");
+		item3 = new DeleteItem("item3");
+		item4 = new DeleteItem("item4");
+		DeleteItem item5 = new DeleteItem("item5");
+		DeleteItem item6 = new DeleteItem("item6");
+		item2.setSelfCascade(item);
+		item3.setSelfCascade(item);
+		item4.setSelfCascade(item3);
+		item5.setSelfCascade(item3);
+		item6.setSelfCascade(item5);
+		assertDelete(item3);
+		assertTrue(item.existsCopeItem());
+		assertTrue(item2.existsCopeItem());
+		assertTrue(!item3.existsCopeItem());
+		assertTrue(!item4.existsCopeItem());
+		assertTrue(!item5.existsCopeItem());
+		assertTrue(!item6.existsCopeItem());
+		assertDelete(item);
+		assertTrue(!item2.existsCopeItem());
 	}
 	
 	void assertDeleteFails(final Item item, final ItemAttribute attribute)
