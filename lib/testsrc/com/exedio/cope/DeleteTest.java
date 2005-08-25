@@ -45,6 +45,9 @@ public class DeleteTest extends AbstractLibTest
 		assertTrue(!Item.CASCADE.forbid);
 		assertTrue(!Item.CASCADE.nullify);
 		assertTrue(Item.CASCADE.cascade);
+		assertEquals("FORBID",  Item.FORBID.toString());
+		assertEquals("NULLIFY", Item.NULLIFY.toString());
+		assertEquals("CASCADE", Item.CASCADE.toString());
 		
 		assertEqualsUnmodifiable(list(item.selfForbid, item.selfNullify, item.selfCascade), item.TYPE.getReferences());
 		assertEqualsUnmodifiable(list(item.otherForbid, item.otherNullify, item.otherCascade), other.TYPE.getReferences());

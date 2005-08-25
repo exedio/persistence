@@ -161,7 +161,7 @@ public final class ItemAttribute extends ObjectAttribute
 		
 		public final String toString()
 		{
-			return forbid ? "FORBID" : "NULLIFY";
+			return forbid ? "FORBID" : (nullify ? "NULLIFY" : "CASCADE");
 		}
 	}
 	
