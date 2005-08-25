@@ -31,8 +31,7 @@ final class Row
 	private final HashMap cache = new HashMap();
 	boolean present;
 	boolean exists;
-	// TODO: rename to notExists, could have two causes: deleted or created in a transaction rolled back
-	boolean deleted;
+	boolean notExists;
 	private boolean dirty = false;
 	private boolean discarded = false;
 
@@ -143,7 +142,7 @@ final class Row
 	
 	void doesExist()
 	{
-		if(deleted)
+		if(notExists)
 			throw new RuntimeException("does exist");
 		
 		exists = true;
@@ -154,7 +153,7 @@ final class Row
 		if(exists)
 			throw new RuntimeException("no such pk"); // TODO use a dedicated runtime exception
 		
-		deleted = true;
+		notExists = true;
 	}
 	
 	void load(final StringColumn column, final String value)
@@ -212,14 +211,14 @@ final class Row
 		checkExists();
 
 		type.getModel().getDatabase().delete(type, pk);
-		deleted = true;
+		notExists = true;
 	}
 	
 	private final void checkExists()
 	{
 		if(discarded)
 			throw new RuntimeException();
-		if(deleted)
+		if(notExists)
 			throw new NoSuchItemException(item);
 	}
 

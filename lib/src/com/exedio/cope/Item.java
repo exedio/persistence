@@ -528,7 +528,7 @@ public abstract class Item extends Cope
 	 */
 	public final boolean existsCopeItem()
 	{
-		return !getRow().deleted;
+		return !getRow().notExists;
 	}
 
 	public static final Attribute.Option MANDATORY = new Attribute.Option(false, false, true);
