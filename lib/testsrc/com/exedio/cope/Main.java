@@ -25,6 +25,7 @@ import com.exedio.cope.testmodel.VectorItem;
 
 public class Main
 {
+	public static final Model deleteModel = new Model(new Type[]{DeleteItem.TYPE, DeleteOtherItem.TYPE});
 	public static final Model hashModel = new Model(new Type[] { HashItem.TYPE });
 	public static final Model md5Model = new Model(new Type[] { MD5Item.TYPE });
 	public static final Model vectorModel = new Model(new Type[] { VectorItem.TYPE });
@@ -38,6 +39,7 @@ public class Main
 	public static void main(String[] args)
 	{
 		tearDown(com.exedio.cope.testmodel.Main.model);
+		tearDown(deleteModel);
 		tearDown(hashModel);
 		tearDown(md5Model);
 		tearDown(vectorModel);
