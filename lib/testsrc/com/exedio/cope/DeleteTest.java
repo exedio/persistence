@@ -129,6 +129,12 @@ public class DeleteTest extends AbstractLibTest
 		assertSame(Item.CASCADE, item.selfCascade.getDeletePolicy());
 		assertSame(Item.CASCADE, item.otherCascade.getDeletePolicy());
 
+		DeleteItem item2;
+		DeleteItem item3;
+		DeleteItem item4;
+		DeleteItem item5;
+		DeleteItem item6;
+
 		// other type
 		item = new DeleteItem("itema");
 		other = new DeleteOtherItem("other");
@@ -139,9 +145,9 @@ public class DeleteTest extends AbstractLibTest
 
 		// other type with multiple sources
 		item = new DeleteItem("item");
-		DeleteItem item2 = new DeleteItem("item2");
-		DeleteItem item3 = new DeleteItem("item3");
-		DeleteItem item4 = new DeleteItem("item4");
+		item2 = new DeleteItem("item2");
+		item3 = new DeleteItem("item3");
+		item4 = new DeleteItem("item4");
 		other = new DeleteOtherItem("other");
 		item.setOtherCascade(other);
 		item2.setOtherCascade(other);
@@ -159,8 +165,8 @@ public class DeleteTest extends AbstractLibTest
 		item2 = new DeleteItem("item2");
 		item3 = new DeleteItem("item3");
 		item4 = new DeleteItem("item4");
-		DeleteItem item5 = new DeleteItem("item5");
-		DeleteItem item6 = new DeleteItem("item6");
+		item5 = new DeleteItem("item5");
+		item6 = new DeleteItem("item6");
 		item2.setSelfCascade(item);
 		item3.setSelfCascade(item);
 		item4.setSelfCascade(item3);
@@ -175,12 +181,6 @@ public class DeleteTest extends AbstractLibTest
 		assertTrue(!item6.existsCopeItem());
 		assertDelete(item);
 		assertTrue(!item2.existsCopeItem());
-		
-		/*DeleteItem item2;
-		DeleteItem item3;
-		DeleteItem item4;
-		DeleteItem item5;
-		DeleteItem item6;*/
 		
 		// other item with diamond
 		item = new DeleteItem("item");
