@@ -41,6 +41,16 @@ public abstract class AbstractLibTest extends CopeTest
 	protected final static Integer i7 = new Integer(7);
 	protected final static Integer i8 = new Integer(8);
 	
+	protected boolean hsqldb;
+	protected boolean mysql;
+	
+	protected void setUp() throws Exception
+	{
+		super.setUp();
+		hsqldb = model.getDatabase().hsqldb;
+		mysql  = "com.exedio.cope.MysqlDatabase".equals(model.getDatabase().getClass().getName());
+	}
+
 	final String pkString(final Item item)
 	{
 		return String.valueOf(item.getCopeType().getPrimaryKeyIterator().pk2id(((Item)item).pk));

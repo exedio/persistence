@@ -33,16 +33,6 @@ public abstract class TestmodelTest extends AbstractLibTest
 		super(Main.model);
 	}
 	
-	protected boolean hsqldb;
-	protected boolean mysql;
-	
-	protected void setUp() throws Exception
-	{
-		super.setUp();
-		hsqldb = model.getDatabase().hsqldb;
-		mysql  = "com.exedio.cope.MysqlDatabase".equals(model.getDatabase().getClass().getName());
-	}
-
 	protected void assertDataMime(final AttributeItem item,
 											final String mimeMajor,
 											final String mimeMinor,
