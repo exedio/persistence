@@ -82,6 +82,25 @@ public class DeleteTest extends AbstractLibTest
 		assertSame(Item.NULLIFY, item.selfNullify.getDeletePolicy());
 		assertSame(Item.NULLIFY, item.otherNullify.getDeletePolicy());
 
+		try
+		{
+			Item.itemAttribute(Item.MANDATORY, DeleteItem.class, Item.NULLIFY);
+		}
+		catch(RuntimeException e)
+		{
+			assertTrue(e.getMessage(), e.getMessage().startsWith("mandatory attribute "+ItemAttribute.class.getName()+'@'));
+			assertTrue(e.getMessage(), e.getMessage().endsWith(" cannot have delete policy nullify"));
+		}
+		try
+		{
+			Item.itemAttribute(Item.READ_ONLY_OPTIONAL, DeleteItem.class, Item.NULLIFY);
+		}
+		catch(RuntimeException e)
+		{
+			assertTrue(e.getMessage(), e.getMessage().startsWith("read-only attribute "+ItemAttribute.class.getName()+'@'));
+			assertTrue(e.getMessage(), e.getMessage().endsWith(" cannot have delete policy nullify"));
+		}
+
 		// other type
 		item = new DeleteItem("itema");
 		other = new DeleteOtherItem("other");
