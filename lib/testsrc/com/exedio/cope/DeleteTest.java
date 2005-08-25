@@ -87,6 +87,8 @@ public class DeleteTest extends AbstractLibTest
 		assertDelete(item2);
 		assertEquals(null, item.getSelfNullify());
 		
+		// same item
+		item.setSelfNullify(item);
 		assertDelete(item);
 	}
 	
