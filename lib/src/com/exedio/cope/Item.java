@@ -467,6 +467,14 @@ public abstract class Item extends Cope
 						item.set(attribute, null);
 					}
 				}
+				if(attribute.getDeletePolicy().cascade)
+				{
+					for(Iterator j = attribute.getType().search(attribute.equal(this)).iterator(); j.hasNext(); )
+					{
+						final Item item = (Item)j.next();
+						item.deleteCopeItem();
+					}
+				}
 			}
 		}
 		catch(UniqueViolationException e)
@@ -521,6 +529,7 @@ public abstract class Item extends Cope
 	 
 	public static final ItemAttribute.DeletePolicy FORBID = new ItemAttribute.DeletePolicy(0);
 	public static final ItemAttribute.DeletePolicy NULLIFY = new ItemAttribute.DeletePolicy(1);
+	public static final ItemAttribute.DeletePolicy CASCADE = new ItemAttribute.DeletePolicy(2);
 	
 	// activation/deactivation -----------------------------------------------------
 	

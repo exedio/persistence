@@ -36,8 +36,18 @@ public class DeleteTest extends AbstractLibTest
 	
 	public void testForbid() throws ConstraintViolationException
 	{
-		assertEqualsUnmodifiable(list(item.selfForbid, item.selfNullify), item.TYPE.getReferences());
-		assertEqualsUnmodifiable(list(item.otherForbid, item.otherNullify), other.TYPE.getReferences());
+		assertTrue(Item.FORBID.forbid);
+		assertTrue(!Item.FORBID.nullify);
+		assertTrue(!Item.FORBID.cascade);
+		assertTrue(!Item.NULLIFY.forbid);
+		assertTrue(Item.NULLIFY.nullify);
+		assertTrue(!Item.NULLIFY.cascade);
+		assertTrue(!Item.CASCADE.forbid);
+		assertTrue(!Item.CASCADE.nullify);
+		assertTrue(Item.CASCADE.cascade);
+		
+		assertEqualsUnmodifiable(list(item.selfForbid, item.selfNullify, item.selfCascade), item.TYPE.getReferences());
+		assertEqualsUnmodifiable(list(item.otherForbid, item.otherNullify, item.otherCascade), other.TYPE.getReferences());
 		
 		assertEquals(Item.FORBID, item.selfForbid.getDeletePolicy());
 		assertEquals(Item.FORBID, item.otherForbid.getDeletePolicy());
@@ -90,6 +100,20 @@ public class DeleteTest extends AbstractLibTest
 		// same item
 		item.setSelfNullify(item);
 		assertDelete(item);
+	}
+	
+	public void testCascade() throws ConstraintViolationException
+	{
+		assertEquals(Item.CASCADE, item.selfCascade.getDeletePolicy());
+		assertEquals(Item.CASCADE, item.otherCascade.getDeletePolicy());
+
+		// other type
+		item = new DeleteItem("itema");
+		other = new DeleteOtherItem("other");
+		item.setOtherCascade(other);
+		assertEquals(other, item.getOtherCascade());
+		assertDelete(other);
+		assertTrue(!item.existsCopeItem());
 	}
 	
 	void assertDeleteFails(final Item item, final ItemAttribute attribute)

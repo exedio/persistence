@@ -133,6 +133,7 @@ public final class ItemAttribute extends ObjectAttribute
 	{
 		public final boolean forbid;
 		public final boolean nullify;
+		public final boolean cascade;
 
 		DeletePolicy(final int policy)
 		{
@@ -141,10 +142,17 @@ public final class ItemAttribute extends ObjectAttribute
 				case 0:
 					this.forbid = true;
 					this.nullify = false;
+					this.cascade = false;
 					break;
 				case 1:
 					this.forbid = false;
 					this.nullify = true;
+					this.cascade = false;
+					break;
+				case 2:
+					this.forbid = false;
+					this.nullify = false;
+					this.cascade = true;
 					break;
 				default:
 					throw new RuntimeException(String.valueOf(policy));
