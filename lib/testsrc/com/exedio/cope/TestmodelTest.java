@@ -71,12 +71,4 @@ public abstract class TestmodelTest extends AbstractLibTest
 		assertTrue(item.getCopeID()+"/"+id, item.getCopeID().endsWith("."+id));
 	}
 
-	protected void assertDelete(final Item item)
-			throws IntegrityViolationException
-	{
-		assertTrue(item.existsCopeItem());
-		item.deleteCopeItem();
-		assertTrue(!item.existsCopeItem());
-	}
-
 }

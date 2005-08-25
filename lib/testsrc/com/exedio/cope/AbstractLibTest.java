@@ -78,4 +78,12 @@ public abstract class AbstractLibTest extends CopeTest
 		}
 	}
 	
+	protected void assertDelete(final Item item) throws IntegrityViolationException
+	{
+		assertTrue(item.existsCopeItem());
+		item.deleteCopeItem();
+		assertTrue(!item.existsCopeItem());
+	}
+
 }
+
