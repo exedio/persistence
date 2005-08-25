@@ -119,15 +119,18 @@ public class DeleteTest extends AbstractLibTest
 		item = new DeleteItem("item");
 		final DeleteItem item2 = new DeleteItem("item2");
 		final DeleteItem item3 = new DeleteItem("item3");
+		final DeleteItem item4 = new DeleteItem("item4");
 		other = new DeleteOtherItem("other");
 		item.setOtherCascade(other);
 		item2.setOtherCascade(other);
-		item3.setOtherCascade(other);
+		item4.setOtherCascade(other);
 		assertEquals(other, item.getOtherCascade());
 		assertDelete(other);
 		assertTrue(!item.existsCopeItem());
 		assertTrue(!item2.existsCopeItem());
-		assertTrue(!item3.existsCopeItem());
+		assertTrue(item3.existsCopeItem());
+		assertTrue(!item4.existsCopeItem());
+		assertDelete(item3);
 	}
 	
 	void assertDeleteFails(final Item item, final ItemAttribute attribute)
