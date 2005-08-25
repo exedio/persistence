@@ -557,7 +557,7 @@ public final class Type
 	
 	static final ReactivationConstructorDummy REACTIVATION_DUMMY = new ReactivationConstructorDummy();
 
-	Item createItemObject(final int pk) // TODO rename to getItemObject
+	Item getItemObject(final int pk)
 	{
 		final Item newObject;
 		try

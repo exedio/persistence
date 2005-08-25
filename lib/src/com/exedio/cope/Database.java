@@ -426,7 +426,7 @@ abstract class Database
 									else
 										currentType = type;
 
-									resultCell = currentType.createItemObject(pk.intValue());
+									resultCell = currentType.getItemObject(pk.intValue());
 								}
 							}
 							if(resultRow!=null)

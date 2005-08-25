@@ -335,7 +335,7 @@ public final class Model
 		if(!database.check(type, pk))
 			throw new NoSuchIDException(id, "item <"+idNumber+"> does not exist");
 
-		final Item result = type.createItemObject(pk);
+		final Item result = type.getItemObject(pk);
 		return result;
 	}
 	
