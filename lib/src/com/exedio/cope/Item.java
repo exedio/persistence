@@ -26,6 +26,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
@@ -453,6 +454,16 @@ public abstract class Item extends Cope
 	public final void deleteCopeItem()
 			throws IntegrityViolationException
 	{
+		deleteCopeItem(new HashSet());
+	}
+
+	private final void deleteCopeItem(final HashSet toDelete)
+			throws IntegrityViolationException
+	{
+		toDelete.add(this);
+		
+		//final String tostring = toString();
+		//System.out.println("------------delete:"+tostring);
 		try
 		{
 			// TODO make sure, no item is deleted twice
@@ -464,6 +475,7 @@ public abstract class Item extends Cope
 					for(Iterator j = attribute.getType().search(attribute.equal(this)).iterator(); j.hasNext(); )
 					{
 						final Item item = (Item)j.next();
+						//System.out.println("------------nullify:"+item.toString());
 						item.set(attribute, null);
 					}
 				}
@@ -472,7 +484,9 @@ public abstract class Item extends Cope
 					for(Iterator j = attribute.getType().search(attribute.equal(this)).iterator(); j.hasNext(); )
 					{
 						final Item item = (Item)j.next();
-						item.deleteCopeItem();
+						////System.out.println("------------check:"+item.toString());
+						if(!toDelete.contains(item))
+							item.deleteCopeItem(toDelete);
 					}
 				}
 			}
@@ -498,7 +512,9 @@ public abstract class Item extends Cope
 			throw new NestingRuntimeException(e);
 		}
 
+		//System.out.println("------------wipe:"+tostring);
 		getRow().delete();
+		//System.out.println("------------/delete:"+tostring);
 	}
 	
 	/**

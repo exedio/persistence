@@ -49,7 +49,7 @@ public class DeleteTest extends AbstractLibTest
 		assertEquals("NULLIFY", Item.NULLIFY.toString());
 		assertEquals("CASCADE", Item.CASCADE.toString());
 		
-		assertEqualsUnmodifiable(list(item.selfForbid, item.selfNullify, item.selfCascade), item.TYPE.getReferences());
+		assertEqualsUnmodifiable(list(item.selfForbid, item.selfNullify, item.selfCascade, item.selfCascade2), item.TYPE.getReferences());
 		assertEqualsUnmodifiable(list(item.otherForbid, item.otherNullify, item.otherCascade), other.TYPE.getReferences());
 		
 		assertSame(Item.FORBID, item.selfForbid.getDeletePolicy());
@@ -166,6 +166,36 @@ public class DeleteTest extends AbstractLibTest
 		item4.setSelfCascade(item3);
 		item5.setSelfCascade(item3);
 		item6.setSelfCascade(item5);
+		assertDelete(item3);
+		assertTrue(item.existsCopeItem());
+		assertTrue(item2.existsCopeItem());
+		assertTrue(!item3.existsCopeItem());
+		assertTrue(!item4.existsCopeItem());
+		assertTrue(!item5.existsCopeItem());
+		assertTrue(!item6.existsCopeItem());
+		assertDelete(item);
+		assertTrue(!item2.existsCopeItem());
+		
+		/*DeleteItem item2;
+		DeleteItem item3;
+		DeleteItem item4;
+		DeleteItem item5;
+		DeleteItem item6;*/
+		
+		// other item with diamond
+		item = new DeleteItem("item");
+		item2 = new DeleteItem("item2");
+		item3 = new DeleteItem("item3");
+		item4 = new DeleteItem("item4");
+		item5 = new DeleteItem("item5");
+		item6 = new DeleteItem("item6");
+		item2.setSelfCascade(item);
+		item3.setSelfCascade(item);
+		item4.setSelfCascade(item3);
+		item5.setSelfCascade(item3);
+		item6.setSelfCascade(item5);
+		item5.setSelfCascade2(item4); // closes diamond
+		assertTrue(item6.existsCopeItem()); // TODO!!!!!!!!!!!
 		assertDelete(item3);
 		assertTrue(item.existsCopeItem());
 		assertTrue(item2.existsCopeItem());

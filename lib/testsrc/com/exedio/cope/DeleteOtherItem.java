@@ -27,6 +27,11 @@ public class DeleteOtherItem extends Item
 
 	public static final StringAttribute name = stringAttribute(MANDATORY);
 
+	public String toString()
+	{
+		return getName();
+	}
+	
 	
 	
 /**
