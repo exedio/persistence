@@ -38,6 +38,9 @@ final class Row
 
 	protected Row(final Transaction transaction, final Item item, final boolean present)
 	{
+		if(transaction==null)
+			throw new NullPointerException();
+		
 		this.transaction = transaction;
 		this.item = item;
 		this.type = item.type;
