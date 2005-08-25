@@ -25,8 +25,6 @@ package com.exedio.cope;
 public class DeleteItem extends Item
 {
 
-	public String name = null;
-
 	public static final ItemAttribute selfForbid = itemAttribute(OPTIONAL, DeleteItem.class);
 
 	public static final ItemAttribute selfNullify = itemAttribute(OPTIONAL, DeleteItem.class, NULLIFY);
@@ -40,6 +38,9 @@ public class DeleteItem extends Item
 
 	public static final ItemAttribute otherCascade = itemAttribute(OPTIONAL, DeleteOtherItem.class, CASCADE);
 	
+
+	public String name = null;
+
 	public DeleteItem(final String name)
 	{
 		this();
