@@ -36,15 +36,13 @@ public class DeleteTest extends AbstractLibTest
 	
 	public void testForbid() throws ConstraintViolationException
 	{
-		/*
 		assertEquals(Item.FORBID, item.selfForbid.getDeletePolicy());
 		assertEquals(Item.NULLIFY, item.selfNullify.getDeletePolicy());
 		assertEquals(Item.FORBID, item.otherForbid.getDeletePolicy());
 		assertEquals(Item.NULLIFY, item.otherNullify.getDeletePolicy());
-		*/
 
-		assertEquals(list(item.selfForbid/*, item.selfNullify*/), item.TYPE.getReferences());
-		assertEquals(list(item.otherForbid/*, item.otherNullify*/), other.TYPE.getReferences());
+		assertEqualsUnmodifiable(list(item.selfForbid, item.selfNullify), item.TYPE.getReferences());
+		assertEqualsUnmodifiable(list(item.otherForbid, item.otherNullify), other.TYPE.getReferences());
 		
 		other = new DeleteOtherItem("other");
 		item = new DeleteItem("item");
@@ -63,8 +61,14 @@ public class DeleteTest extends AbstractLibTest
 			item.setSelfForbid(null);
 		}
 		assertDelete(item);
+		item = new DeleteItem("itema");
 
+		item.setOtherNullify(other);
+		assertEquals(other, item.getOtherNullify());
 		assertDelete(other);
+		assertEquals(null, item.getOtherNullify());
+
+		assertDelete(item);
 		assertDelete(item2);
 	}
 	
@@ -77,7 +81,7 @@ public class DeleteTest extends AbstractLibTest
 		}
 		catch(IntegrityViolationException e)
 		{
-			assertEquals(false ? null : attribute, e.getAttribute());
+			assertEquals(mysql ? null : attribute, e.getAttribute());
 			assertEquals(null/*TODO*/, e.getItem());
 		}
 		assertTrue(item.existsCopeItem());

@@ -32,8 +32,9 @@ public class AttributeItemTest extends AttributeTest
 	{
 		assertEquals(item.TYPE, item.someItem.getType());
 		assertEquals(EmptyItem.TYPE, item.someItem.getTargetType());
-		assertEquals(list(), SumItem.TYPE.getReferences());
-		assertEquals(list(AttributeEmptyItem.parent), AttributeItem.TYPE.getReferences());
+		assertEquals(Item.FORBID, item.someItem.getDeletePolicy());
+		assertEqualsUnmodifiable(list(), SumItem.TYPE.getReferences());
+		assertEqualsUnmodifiable(list(AttributeEmptyItem.parent), AttributeItem.TYPE.getReferences());
 		
 		assertEquals(null, item.getSomeItem());
 		item.setSomeItem(someItem);
@@ -86,6 +87,7 @@ public class AttributeItemTest extends AttributeTest
 		assertEquals(
 			EmptyItem.TYPE,
 			item.someNotNullItem.getTargetType());
+		assertEquals(Item.FORBID, item.someNotNullItem.getDeletePolicy());
 		assertEquals(someItem, item.getSomeNotNullItem());
 
 		item.setSomeNotNullItem(someItem2);

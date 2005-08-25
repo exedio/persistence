@@ -26,25 +26,36 @@ public final class ItemAttribute extends ObjectAttribute
 {
 
 	private final Class targetTypeClass;
+	private final DeletePolicy policy;
 
 	/**
 	 * @see Item#itemAttribute(Option, Class)
 	 */
-	ItemAttribute(final Option option, final Class targetTypeClass)
+	ItemAttribute(final Option option, final Class targetTypeClass, final DeletePolicy policy)
 	{
 		super(option, targetTypeClass, targetTypeClass.getName());
 		this.targetTypeClass = targetTypeClass;
+		this.policy = policy;
 		if(targetTypeClass==null)
 			throw new RuntimeException("target type class for attribute "+this+" must not be null");
 		if(!Item.class.isAssignableFrom(targetTypeClass))
 			throw new RuntimeException("target type class "+targetTypeClass+" for attribute "+this+" must be a sub class of item");
+		if(policy==null)
+			throw new RuntimeException("delete policy for attribute "+this+" must not be null");
+		if(policy.nullify)
+		{
+			if(option.mandatory)
+				throw new RuntimeException("mandatory attribute "+this+" cannot have delete policy nullify");
+			if(option.readOnly)
+				throw new RuntimeException("read-only attribute "+this+" cannot have delete policy nullify");
+		}
 	}
 	
 	Type targetType = null;
 
 	public ObjectAttribute copyAsTemplate()
 	{
-		return new ItemAttribute(getTemplateOption(), targetTypeClass);
+		return new ItemAttribute(getTemplateOption(), targetTypeClass, policy);
 	}
 	
 	/**
@@ -56,6 +67,14 @@ public final class ItemAttribute extends ObjectAttribute
 			throw new RuntimeException();
 
 		return targetType;
+	}
+	
+	/**
+	 * Returns the delete policy of this attribute.
+	 */
+	public DeletePolicy getDeletePolicy()
+	{
+		return policy;
 	}
 	
 	protected Column createColumn(final Table table, final String name, final boolean notNull)
@@ -108,6 +127,34 @@ public final class ItemAttribute extends ObjectAttribute
 	public final NotEqualCondition notEqual(final Item value)
 	{
 		return new NotEqualCondition(this, value);
+	}
+	
+	public static final class DeletePolicy
+	{
+		public final boolean forbid;
+		public final boolean nullify;
+
+		DeletePolicy(final int policy)
+		{
+			switch(policy)
+			{
+				case 0:
+					this.forbid = true;
+					this.nullify = false;
+					break;
+				case 1:
+					this.forbid = false;
+					this.nullify = true;
+					break;
+				default:
+					throw new RuntimeException(String.valueOf(policy));
+			}
+		}
+		
+		public final String toString()
+		{
+			return forbid ? "FORBID" : "NULLIFY";
+		}
 	}
 	
 }

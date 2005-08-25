@@ -30,6 +30,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.exedio.cope.Attribute.Option;
+import com.exedio.cope.ItemAttribute.DeletePolicy;
 import com.exedio.cope.util.ReactivationConstructorDummy;
 
 /**
@@ -452,6 +453,43 @@ public abstract class Item extends Cope
 	public final void deleteCopeItem()
 			throws IntegrityViolationException
 	{
+		try
+		{
+			// TODO make sure, no item is deleted twice
+			for(Iterator i = type.getReferences().iterator(); i.hasNext(); )
+			{
+				final ItemAttribute attribute = (ItemAttribute)i.next();
+				if(attribute.getDeletePolicy().nullify)
+				{
+					for(Iterator j = attribute.getType().search(attribute.equal(this)).iterator(); j.hasNext(); )
+					{
+						final Item item = (Item)j.next();
+						item.set(attribute, null);
+					}
+				}
+			}
+		}
+		catch(UniqueViolationException e)
+		{
+			// cannot happen, since null does not violate uniqueness
+			throw new NestingRuntimeException(e);
+		}
+		catch(MandatoryViolationException e)
+		{
+			// cannot happen, since nullify ItemAttributes cannot be mandatory
+			throw new NestingRuntimeException(e);
+		}
+		catch(LengthViolationException e)
+		{
+			// cannot happen, since there are no StringAttributes written
+			throw new NestingRuntimeException(e);
+		}
+		catch(ReadOnlyViolationException e)
+		{
+			// cannot happen, since nullify ItemAttributes cannot be readonly
+			throw new NestingRuntimeException(e);
+		}
+
 		getRow().delete();
 	}
 	
@@ -481,6 +519,8 @@ public abstract class Item extends Cope
 	public static final Attribute.Option READ_ONLY_UNIQUE = new Attribute.Option(true, true, true);
 	public static final Attribute.Option READ_ONLY_UNIQUE_OPTIONAL = new Attribute.Option(true, true, false);
 	 
+	public static final ItemAttribute.DeletePolicy FORBID = new ItemAttribute.DeletePolicy(0);
+	public static final ItemAttribute.DeletePolicy NULLIFY = new ItemAttribute.DeletePolicy(1);
 	
 	// activation/deactivation -----------------------------------------------------
 	
@@ -510,7 +550,12 @@ public abstract class Item extends Cope
 	
 	protected static final ItemAttribute itemAttribute(final Option option, final Class targetTypeClass)
 	{
-		return new ItemAttribute(option, targetTypeClass);
+		return new ItemAttribute(option, targetTypeClass, FORBID);
+	}
+	
+	protected static final ItemAttribute itemAttribute(final Option option, final Class targetTypeClass, final DeletePolicy policy)
+	{
+		return new ItemAttribute(option, targetTypeClass, policy);
 	}
 	
 	public static final StringAttribute stringAttribute(final Option option)
