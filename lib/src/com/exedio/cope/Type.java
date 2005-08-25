@@ -557,11 +557,12 @@ public final class Type
 	
 	static final ReactivationConstructorDummy REACTIVATION_DUMMY = new ReactivationConstructorDummy();
 
-	Item createItemObject(final int pk)
+	Item createItemObject(final int pk) // TODO rename to getItemObject
 	{
+		final Item newObject;
 		try
 		{
-			return 
+			newObject =
 				(Item)reactivationConstructor.newInstance(
 					new Object[]{
 						REACTIVATION_DUMMY,
@@ -581,6 +582,13 @@ public final class Type
 		{
 			throw new NestingRuntimeException(e, id);
 		}
+
+		// TODO: check for row without creating an item object before
+		final Row row = Transaction.get().getRowIfActive(newObject);
+		if(row!=null)
+			return row.item;
+		else
+			return newObject;
 	}
 
 	static final Comparator COMPARATOR = new Comparator()
