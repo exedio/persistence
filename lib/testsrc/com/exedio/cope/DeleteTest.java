@@ -36,12 +36,12 @@ public class DeleteTest extends AbstractLibTest
 	
 	public void testForbid() throws ConstraintViolationException
 	{
-		assertEquals(Item.FORBID, item.selfForbid.getDeletePolicy());
-		assertEquals(Item.FORBID, item.otherForbid.getDeletePolicy());
-
 		assertEqualsUnmodifiable(list(item.selfForbid, item.selfNullify), item.TYPE.getReferences());
 		assertEqualsUnmodifiable(list(item.otherForbid, item.otherNullify), other.TYPE.getReferences());
 		
+		assertEquals(Item.FORBID, item.selfForbid.getDeletePolicy());
+		assertEquals(Item.FORBID, item.otherForbid.getDeletePolicy());
+
 		// other type
 		other = new DeleteOtherItem("other");
 		item = new DeleteItem("item");
