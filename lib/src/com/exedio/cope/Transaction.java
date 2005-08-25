@@ -22,6 +22,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
 
+import bak.pcj.map.IntKeyOpenHashMap;
+
 import com.exedio.dsmf.SQLRuntimeException;
 
 
@@ -109,7 +111,7 @@ public class Transaction
 	
 	// ----------------------- the transaction itself
 	
-	final HashMap rows = new HashMap();
+	final HashMap rowMaps = new HashMap();
 	private Connection connection = null;
 	private ConnectionPool connectionPool = null;
 	private boolean closed = false;
@@ -118,17 +120,34 @@ public class Transaction
 	{
 		if(closed)
 			throw new RuntimeException();
+		
+		final Type type = item.type;
+		final int pk = item.pk;
 
-		Row result = (Row)rows.get(item);
-		if(result!=null)
-			return result;
-		else
+		IntKeyOpenHashMap rowMap = (IntKeyOpenHashMap)rowMaps.get(type);
+		if(rowMap==null)
 		{
-			result = new Row(this, item, present);
+			rowMap = new IntKeyOpenHashMap();
+			rowMaps.put(type, rowMap);
+			final Row result = new Row(this, item, present);
 			if(present)
 				database.load(result);
-			rows.put(item, result);
+			rowMap.put(pk, result);
 			return result;
+		}
+		else
+		{
+			Row result = (Row)rowMap.get(pk);
+			if(result!=null)
+				return result;
+			else
+			{
+				result = new Row(this, item, present);
+				if(present)
+					database.load(result);
+				rowMap.put(pk, result);
+				return result;
+			}
 		}
 	}
 
@@ -137,7 +156,13 @@ public class Transaction
 		if(closed)
 			throw new RuntimeException();
 
-		return (Row)rows.get(item);
+		final Type type = item.type;
+		final int pk = item.pk;
+
+		final IntKeyOpenHashMap rowMap = (IntKeyOpenHashMap)rowMaps.get(type);
+		if(rowMap==null)
+			return null;
+		return (Row)rowMap.get(pk);
 	}
 
 	Connection getConnection() throws SQLException
@@ -205,7 +230,7 @@ public class Transaction
 				connection = null;
 				connectionPool = null;
 			}
-			rows.clear();
+			rowMaps.clear();
 			closed = true;
 		}
 	}

@@ -20,6 +20,8 @@ package com.exedio.cope;
 
 import java.util.HashMap;
 
+import bak.pcj.map.IntKeyOpenHashMap;
+
 final class Row
 {
 	final Transaction transaction;
@@ -102,7 +104,9 @@ final class Row
 		if(discarded)
 			throw new RuntimeException();
 
-		transaction.rows.remove(item);
+		final IntKeyOpenHashMap rowMap = (IntKeyOpenHashMap)transaction.rowMaps.get(type);
+		if(rowMap!=null)
+			rowMap.remove(pk);
 		
 		discarded = true;
 	}
