@@ -133,6 +133,19 @@ public class DeleteTest extends AbstractLibTest
 		// same item
 		item.setSelfNullify(item);
 		assertDelete(item);
+
+		// indirect nullify
+		item = new DeleteItem("itemb");
+		item2 = new DeleteItem("item2b");
+		item2.setSelfCascade(item);
+		DeleteItem item3 = new DeleteItem("item3b");
+		item3.setSelfNullify(item2);
+		assertEquals(item2, item3.getSelfNullify());
+		assertDelete(item);
+		assertTrue(!item2.existsCopeItem());
+		assertEquals(null, item3.getSelfNullify());
+
+		assertDelete(item3);
 	}
 	
 	public void testCascade() throws ConstraintViolationException
@@ -232,7 +245,9 @@ public class DeleteTest extends AbstractLibTest
 		assertSame(item2, item.getSelfNullify());
 		
 		// test Query.search
-		final Collection searchResult = item.TYPE.search(null);
+		final Query query1 = new Query(item.TYPE, null);
+		query1.setDeterministicOrder(true);
+		final Collection searchResult = query1.search();
 		assertEquals(list(item, item2), searchResult);
 		assertSame(item, searchResult.iterator().next());
 
