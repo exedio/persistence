@@ -222,7 +222,7 @@ public class DeleteTest extends AbstractLibTest
 		assertTrue(item.existsCopeItem());
 	}
 	
-	public void testItemObjectPool()
+	public void testItemObjectPool() throws NoSuchIDException
 	{
 		item = new DeleteItem("item1");
 		DeleteItem item2 = new DeleteItem("item2");
@@ -240,6 +240,9 @@ public class DeleteTest extends AbstractLibTest
 		// test Item.get(ItemAttribute)
 		item.setSelfNullify(item2);
 		assertSame(item2, item.getSelfNullify());
+		
+		// test Model.findByID
+		assertSame(item, item.TYPE.getModel().findByID(item.getCopeID()));
 		
 		
 	}
