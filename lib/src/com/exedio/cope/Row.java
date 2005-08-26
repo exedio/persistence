@@ -214,7 +214,7 @@ final class Row
 	{	
 		checkExists();
 
-		type.getModel().getDatabase().delete(type, pk);
+		type.getModel().getDatabase().delete(item);
 		notExists = true;
 	}
 	

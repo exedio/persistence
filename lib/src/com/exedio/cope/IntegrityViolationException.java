@@ -34,19 +34,23 @@ import java.sql.SQLException;
 public class IntegrityViolationException extends ConstraintViolationException
 {
 	private final ItemAttribute attribute;
+	private final Item item;
 
 	/**
 	 * Creates a new UniqueViolationException with the neccessary information about the violation.
 	 * @param item initializes, what is returned by {@link #getItem()}.
 	 * @param attribute initializes, what is returned by {@link #getAttribute()}.
-	 * @throws NullPointerException if <code>cause</code> is null.
+	 * @throws NullPointerException if <code>cause</code> or <code>item</code> is null.
 	 */
 	IntegrityViolationException(final SQLException cause, final Item item, final ItemAttribute attribute)
 	{
 		super(cause);
 		if(cause==null)
 			throw new NullPointerException();
+		if(item==null)
+			throw new NullPointerException();
 		this.attribute = attribute;
+		this.item = item;
 	}
 
 	/**
@@ -54,7 +58,7 @@ public class IntegrityViolationException extends ConstraintViolationException
 	 */
 	public final Item getItem()
 	{
-		return null;
+		return item;
 	}
 
 	/**

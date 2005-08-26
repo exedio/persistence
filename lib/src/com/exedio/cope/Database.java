@@ -651,7 +651,7 @@ abstract class Database
 		{
 			//System.out.println("storing "+bf.toString());
 			final UniqueConstraint[] uqs = type.uniqueConstraints;
-			executeSQLUpdate(bf, 1, uqs.length==1?uqs[0]:null, null);
+			executeSQLUpdate(bf, 1, uqs.length==1?uqs[0]:null, null, null);
 		}
 		catch(UniqueViolationException e)
 		{
@@ -663,10 +663,12 @@ abstract class Database
 		}
 	}
 
-	void delete(final Type type, final int pk)
+	void delete(final Item item)
 			throws IntegrityViolationException
 	{
 		buildStage = false;
+		final Type type = item.type;
+		final int pk = item.pk;
 
 		for(Type currentType = type; currentType!=null; currentType = currentType.getSupertype())
 		{
@@ -683,7 +685,7 @@ abstract class Database
 
 			try
 			{
-				executeSQLUpdate(bf, 1, null, type.onlyReference);
+				executeSQLUpdate(bf, 1, null, type.onlyReference, item);
 			}
 			catch(IntegrityViolationException e)
 			{
@@ -790,13 +792,14 @@ abstract class Database
 	protected final void executeSQLUpdate(final Statement statement, final int expectedRows)
 			throws ConstraintViolationException
 	{
-		executeSQLUpdate(statement, expectedRows, null, null);
+		executeSQLUpdate(statement, expectedRows, null, null, null);
 	}
 
 	protected final void executeSQLUpdate(
 			final Statement statement, final int expectedRows,
 			final UniqueConstraint onlyThreatenedUniqueConstraint,
-			final ItemAttribute onlyThreatenedIntegrityConstraint)
+			final ItemAttribute onlyThreatenedIntegrityConstraint,
+			final Item itemToBeDeleted)
 		throws ConstraintViolationException
 	{
 		java.sql.Statement sqlStatement = null;
@@ -815,7 +818,7 @@ abstract class Database
 		}
 		catch(SQLException e)
 		{
-			final ConstraintViolationException wrappedException = wrapException(e, onlyThreatenedUniqueConstraint, onlyThreatenedIntegrityConstraint);
+			final ConstraintViolationException wrappedException = wrapException(e, onlyThreatenedUniqueConstraint, onlyThreatenedIntegrityConstraint, itemToBeDeleted);
 			if(wrappedException!=null)
 				throw wrappedException;
 			else
@@ -850,7 +853,8 @@ abstract class Database
 	private final ConstraintViolationException wrapException(
 			final SQLException e,
 			final UniqueConstraint onlyThreatenedUniqueConstraint,
-			final ItemAttribute onlyThreatenedIntegrityConstraint)
+			final ItemAttribute onlyThreatenedIntegrityConstraint,
+			final Item itemToBeDeleted)
 	{
 		{		
 			final String uniqueConstraintID = extractUniqueConstraintName(e);
@@ -888,7 +892,7 @@ abstract class Database
 						throw new SQLRuntimeException(e, "no item attribute for column "+column);
 				}
 
-				return new IntegrityViolationException(e, null, attribute);
+				return new IntegrityViolationException(e, itemToBeDeleted, attribute);
 			}
 		}
 		return null;

@@ -100,7 +100,7 @@ public abstract class AbstractLibTest extends CopeTest
 		catch(IntegrityViolationException e)
 		{
 			assertEquals((mysql&&!onlyReference) ? null : attribute, e.getAttribute());
-			assertEquals(null/*TODO*/, e.getItem());
+			assertEquals(item, e.getItem());
 		}
 		assertTrue(item.existsCopeItem());
 	}
