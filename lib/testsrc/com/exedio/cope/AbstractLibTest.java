@@ -85,5 +85,25 @@ public abstract class AbstractLibTest extends CopeTest
 		assertTrue(!item.existsCopeItem());
 	}
 
+	void assertDeleteFails(final Item item, final ItemAttribute attribute)
+	{
+		assertDeleteFails(item, attribute, false);
+	}
+	
+	void assertDeleteFails(final Item item, final ItemAttribute attribute, final boolean onlyReference)
+	{
+		try
+		{
+			item.deleteCopeItem();
+			fail("should have thrown IntegrityViolationException");
+		}
+		catch(IntegrityViolationException e)
+		{
+			assertEquals((mysql&&!onlyReference) ? null : attribute, e.getAttribute());
+			assertEquals(null/*TODO*/, e.getItem());
+		}
+		assertTrue(item.existsCopeItem());
+	}
+	
 }
 

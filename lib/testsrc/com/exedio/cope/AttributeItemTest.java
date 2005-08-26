@@ -106,16 +106,7 @@ public class AttributeItemTest extends AttributeTest
 			assertEquals(item.someNotNullItem, e.getNotNullAttribute());
 		}
 		assertEquals(someItem2, item.getSomeNotNullItem());
-		try
-		{
-			someItem2.deleteCopeItem();
-			fail("should have thrown IntegrityViolationException");
-		}
-		catch(IntegrityViolationException e)
-		{
-			assertEquals(mysql?null/*TODO*/:item.someNotNullItem, e.getAttribute());
-			assertEquals(null/*TODO someItem*/, e.getItem());
-		}
+		assertDeleteFails(someItem2, item.someNotNullItem, false);
 
 		try
 		{
@@ -139,17 +130,7 @@ public class AttributeItemTest extends AttributeTest
 		deleteOnTearDown(source);
 		source.setEmpty2(target);
 
-		try
-		{
-			target.deleteCopeItem();
-			fail("should have thrown IntegrityViolationException");
-		}
-		catch(IntegrityViolationException e)
-		{
-			assertEquals(source.empty2, e.getAttribute());
-			assertEquals(null/*TODO someItem*/, e.getItem());
-		}
-		assertTrue(target.existsCopeItem());
+		assertDeleteFails(target, source.empty2, true);
 	}
 
 }

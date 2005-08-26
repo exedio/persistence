@@ -208,21 +208,6 @@ public class DeleteTest extends AbstractLibTest
 		assertTrue(!item2.existsCopeItem());
 	}
 	
-	void assertDeleteFails(final Item item, final ItemAttribute attribute)
-	{
-		try
-		{
-			item.deleteCopeItem();
-			fail("should have thrown IntegrityViolationException");
-		}
-		catch(IntegrityViolationException e)
-		{
-			assertEquals(mysql ? null : attribute, e.getAttribute());
-			assertEquals(null/*TODO*/, e.getItem());
-		}
-		assertTrue(item.existsCopeItem());
-	}
-	
 	public void testItemObjectPool() throws NoSuchIDException
 	{
 		item = new DeleteItem("item1");
