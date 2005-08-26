@@ -197,7 +197,6 @@ public class DeleteTest extends AbstractLibTest
 		item5.setSelfCascade(item3);
 		item6.setSelfCascade(item5);
 		item5.setSelfCascade2(item4); // closes diamond
-		assertTrue(item6.existsCopeItem()); // TODO!!!!!!!!!!!
 		assertDelete(item3);
 		assertTrue(item.existsCopeItem());
 		assertTrue(item2.existsCopeItem());
