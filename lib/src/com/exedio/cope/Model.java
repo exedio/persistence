@@ -36,6 +36,7 @@ public final class Model
 	private final Type[] types;
 	private final List typeList;
 	private final HashMap typesByID = new HashMap();
+	final int numberOfTypes;
 	
 	public Model(final Type[] types)
 	{
@@ -45,8 +46,9 @@ public final class Model
 		for(int i = 0; i<types.length; i++)
 		{
 			final Type type = types[i];
-			type.initialize(this);
+			type.initialize(this, i);
 		}
+		this.numberOfTypes = types.length;
 	}
 	
 	private Properties properties;

@@ -20,7 +20,6 @@ package com.exedio.cope;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.HashMap;
 
 import bak.pcj.map.IntKeyOpenHashMap;
 
@@ -40,6 +39,7 @@ public class Transaction
 		this.name = name;
 		threadLocal.set(this);
 		boundThread = Thread.currentThread();
+		rowMaps = new IntKeyOpenHashMap[model.numberOfTypes];
 	}
 	
 	public static void rollback()
@@ -111,7 +111,7 @@ public class Transaction
 	
 	// ----------------------- the transaction itself
 	
-	final HashMap rowMaps = new HashMap();
+	final IntKeyOpenHashMap[] rowMaps;
 	private Connection connection = null;
 	private ConnectionPool connectionPool = null;
 	private boolean closed = false;
@@ -124,11 +124,11 @@ public class Transaction
 		final Type type = item.type;
 		final int pk = item.pk;
 
-		IntKeyOpenHashMap rowMap = (IntKeyOpenHashMap)rowMaps.get(type);
+		IntKeyOpenHashMap rowMap = rowMaps[type.transientNumber];
 		if(rowMap==null)
 		{
 			rowMap = new IntKeyOpenHashMap();
-			rowMaps.put(type, rowMap);
+			rowMaps[type.transientNumber] = rowMap;
 			final Row result = new Row(this, item, present);
 			if(present)
 				database.load(result);
@@ -159,7 +159,7 @@ public class Transaction
 		final Type type = item.type;
 		final int pk = item.pk;
 
-		final IntKeyOpenHashMap rowMap = (IntKeyOpenHashMap)rowMaps.get(type);
+		final IntKeyOpenHashMap rowMap = rowMaps[type.transientNumber];
 		if(rowMap==null)
 			return null;
 		return (Row)rowMap.get(pk);
@@ -230,7 +230,9 @@ public class Transaction
 				connection = null;
 				connectionPool = null;
 			}
-			rowMaps.clear();
+			for(int i = 0; i<rowMaps.length; i++)
+				if(rowMaps[i]!=null)
+					rowMaps[i].clear();
 			closed = true;
 		}
 	}

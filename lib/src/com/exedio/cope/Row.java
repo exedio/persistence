@@ -104,7 +104,7 @@ final class Row
 		if(discarded)
 			throw new RuntimeException();
 
-		final IntKeyOpenHashMap rowMap = (IntKeyOpenHashMap)transaction.rowMaps.get(type);
+		final IntKeyOpenHashMap rowMap = transaction.rowMaps[type.transientNumber];
 		if(rowMap!=null)
 			rowMap.remove(pk);
 		

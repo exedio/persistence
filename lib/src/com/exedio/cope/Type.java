@@ -68,6 +68,14 @@ public final class Type
 
 	private final Constructor creationConstructor;
 	private final Constructor reactivationConstructor;
+	
+	/**
+	 * This number unqiquely identifies a type within its model.
+	 * However, this number is not stable across JVM restarts.
+	 * So never put this number into any persistent storage,
+	 * nor otherwise make this number accessible outside the library.
+	 */
+	int transientNumber = -1;
 
 	/**
 	 * @throws RuntimeException if there is no type for the given java class.
@@ -280,9 +288,11 @@ public final class Type
 		references.add(reference);
 	}
 	
-	final void initialize(final Model model)
+	final void initialize(final Model model, final int transientNumber)
 	{
 		if(model==null)
+			throw new RuntimeException();
+		if(transientNumber<0)
 			throw new RuntimeException();
 
 		if(this.model!=null)
@@ -293,6 +303,7 @@ public final class Type
 			throw new RuntimeException();
 		
 		this.model = model;
+		this.transientNumber = transientNumber;
 	}
 	
 	final void materialize(final Database database)
