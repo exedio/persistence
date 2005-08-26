@@ -44,6 +44,12 @@ public abstract class CopeTest extends CopeAssert
 		this(model, false);
 	}
 	
+	/**
+	 * @param exclusive
+	 * if true, the database schema for the model will be created before each test
+	 * and dropped after each test.
+	 * This will make tests last much longer, so this is useful for debugging only.
+	 */
 	protected CopeTest(final Model model, final boolean exclusive)
 	{
 		this.model = model;
