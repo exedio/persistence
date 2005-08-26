@@ -17,8 +17,6 @@
  */
 package com.exedio.cope;
 
-import java.util.Iterator;
-
 import com.exedio.cope.testmodel.AttributeEmptyItem;
 import com.exedio.cope.testmodel.EmptyItem;
 
@@ -45,14 +43,4 @@ public class AttributeQualifiedTest extends AttributeTest
 		assertDelete(someItem2);
 	}
 
-	public void tearDown() throws Exception
-	{
-		for(Iterator i = AttributeEmptyItem.TYPE.search(null).iterator(); i.hasNext(); )
-		{
-			final Item item = (Item)i.next();
-			item.deleteCopeItem();
-		}
-
-		super.tearDown();
-	}
 }

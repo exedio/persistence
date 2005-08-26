@@ -29,7 +29,7 @@ import com.exedio.cope.UniqueConstraint;
  */
 public class QualifiedEmptyQualifier extends Item
 {
-	public static final ItemAttribute parent = itemAttribute(READ_ONLY, QualifiedItem.class);
+	public static final ItemAttribute parent = itemAttribute(READ_ONLY, QualifiedItem.class, CASCADE);
 	
 	public static final ItemAttribute key = itemAttribute(READ_ONLY, EmptyItem.class);
 	

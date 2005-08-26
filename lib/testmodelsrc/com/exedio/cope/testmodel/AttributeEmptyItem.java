@@ -30,7 +30,7 @@ import com.exedio.cope.UniqueConstraint;
  */
 public class AttributeEmptyItem extends Item
 {
-	public static final ItemAttribute parent = itemAttribute(OPTIONAL, AttributeItem.class);
+	public static final ItemAttribute parent = itemAttribute(OPTIONAL, AttributeItem.class, CASCADE);
 
 	public static final ItemAttribute key = itemAttribute(OPTIONAL, EmptyItem.class);
 	
