@@ -77,9 +77,18 @@ public class DeleteTest extends AbstractLibTest
 			item.setSelfForbid(null);
 		}
 		assertDelete(item);
+		
+		// indirect forbid
+		item = new DeleteItem("itemb");
+		item2.setSelfCascade(item);
+		DeleteItem item3 = new DeleteItem("item3");
+		item3.setSelfForbid(item2);
+		assertDeleteFails(item, item.selfForbid, item2);
 
 		assertDelete(other);
+		assertDelete(item3);
 		assertDelete(item2);
+		assertDelete(item);
 	}
 	
 	public void testNullify() throws ConstraintViolationException
