@@ -221,5 +221,27 @@ public class DeleteTest extends AbstractLibTest
 		}
 		assertTrue(item.existsCopeItem());
 	}
+	
+	public void testItemObjectPool()
+	{
+		item = new DeleteItem("item1");
+		DeleteItem item2 = new DeleteItem("item2");
+		DeleteItem item3 = new DeleteItem("item3");
+		DeleteItem item4 = new DeleteItem("item4");
+		DeleteItem item5 = new DeleteItem("item5");
+		DeleteItem item6 = new DeleteItem("item6");
+		deleteOnTearDown(item);
+		deleteOnTearDown(item2);
+		deleteOnTearDown(item3);
+		deleteOnTearDown(item4);
+		deleteOnTearDown(item5);
+		deleteOnTearDown(item6);
+		
+		// test Item.get(ItemAttribute)
+		item.setSelfNullify(item2);
+		assertSame(item2, item.getSelfNullify());
+		
+		
+	}
 
 }
