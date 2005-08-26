@@ -651,7 +651,7 @@ abstract class Database
 		{
 			//System.out.println("storing "+bf.toString());
 			final UniqueConstraint[] uqs = type.uniqueConstraints;
-			executeSQLUpdate(bf, 1, uqs.length==1?uqs[0]:null, null, null);
+			executeSQLUpdate(bf, 1, uqs.length==1?uqs[0]:null);
 		}
 		catch(UniqueViolationException e)
 		{
@@ -685,7 +685,7 @@ abstract class Database
 
 			try
 			{
-				executeSQLUpdate(bf, 1, null, type.onlyReference, item);
+				executeSQLUpdate(bf, 1, type.onlyReference, item);
 			}
 			catch(IntegrityViolationException e)
 			{
@@ -789,13 +789,31 @@ abstract class Database
 		}
 	}
 	
-	protected final void executeSQLUpdate(final Statement statement, final int expectedRows)
+	private final void executeSQLUpdate(final Statement statement, final int expectedRows)
 			throws ConstraintViolationException
 	{
 		executeSQLUpdate(statement, expectedRows, null, null, null);
 	}
 
-	protected final void executeSQLUpdate(
+	private final void executeSQLUpdate(
+			final Statement statement, final int expectedRows,
+			final UniqueConstraint onlyThreatenedUniqueConstraint)
+		throws ConstraintViolationException
+	{
+		executeSQLUpdate(statement, expectedRows, onlyThreatenedUniqueConstraint, null, null);
+		
+	}
+	
+	private final void executeSQLUpdate(
+			final Statement statement, final int expectedRows,
+			final ItemAttribute onlyThreatenedIntegrityConstraint,
+			final Item itemToBeDeleted)
+		throws ConstraintViolationException
+	{
+		executeSQLUpdate(statement, expectedRows, null, onlyThreatenedIntegrityConstraint, itemToBeDeleted);
+	}
+	
+	private final void executeSQLUpdate(
 			final Statement statement, final int expectedRows,
 			final UniqueConstraint onlyThreatenedUniqueConstraint,
 			final ItemAttribute onlyThreatenedIntegrityConstraint,
