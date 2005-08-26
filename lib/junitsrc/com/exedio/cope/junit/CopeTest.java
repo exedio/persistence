@@ -37,10 +37,17 @@ public abstract class CopeTest extends CopeAssert
 	private static Object lock = new Object();
 
 	public final Model model;
+	public final boolean exclusive;
 	
 	protected CopeTest(final Model model)
 	{
+		this(model, false);
+	}
+	
+	protected CopeTest(final Model model, final boolean exclusive)
+	{
 		this.model = model;
+		this.exclusive = exclusive;
 	}
 	
 	protected final void printConnectionPoolCounter()
@@ -57,31 +64,41 @@ public abstract class CopeTest extends CopeAssert
 
 	private final void createDatabase()
 	{
-		synchronized(lock)
+		if(exclusive)
+			model.createDatabase();
+		else
 		{
-			if(!createdDatabase.contains(model))
+			synchronized(lock)
 			{
-				model.createDatabase();
-				createdDatabase.add(model);
+				if(!createdDatabase.contains(model))
+				{
+					model.createDatabase();
+					createdDatabase.add(model);
+				}
 			}
 		}
 	}
 	
 	private final void dropDatabase()
 	{
-		synchronized(lock)
+		if(exclusive)
+			model.dropDatabase();
+		else
 		{
-			if(!registeredDropDatabaseHook.contains(model))
+			synchronized(lock)
 			{
-				Runtime.getRuntime().addShutdownHook(new Thread(new Runnable(){
-					public void run()
-					{
-						//printConnectionPoolCounter();
-						model.dropDatabase();
-						model.close();
-					}
-				}));
-				registeredDropDatabaseHook.add(model);
+				if(!registeredDropDatabaseHook.contains(model))
+				{
+					Runtime.getRuntime().addShutdownHook(new Thread(new Runnable(){
+						public void run()
+						{
+							//printConnectionPoolCounter();
+							model.dropDatabase();
+							model.close();
+						}
+					}));
+					registeredDropDatabaseHook.add(model);
+				}
 			}
 		}
 	}
@@ -100,7 +117,8 @@ public abstract class CopeTest extends CopeAssert
 	protected void tearDown() throws Exception
 	{
 		super.tearDown();
-		model.checkEmptyDatabase();
+		if(!exclusive)
+			model.checkEmptyDatabase();
 		Transaction.commit();
 
 		dropDatabase();

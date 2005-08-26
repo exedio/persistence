@@ -32,6 +32,11 @@ public abstract class AbstractLibTest extends CopeTest
 		super(model);
 	}
 	
+	public AbstractLibTest(final Model model, final boolean exclusive)
+	{
+		super(model, exclusive);
+	}
+	
 	protected final static Integer i1 = new Integer(1);
 	protected final static Integer i2 = new Integer(2);
 	protected final static Integer i3 = new Integer(3);
