@@ -58,6 +58,9 @@ final class ItemCop extends CopernicaCop
 
 	final String getTitle()
 	{
+		if(form!=null && form.deletedName!=null)
+			return form.deletedName;
+		
 		return provider.getDisplayName(this, language, item);
 	}
 
