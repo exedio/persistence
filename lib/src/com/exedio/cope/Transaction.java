@@ -151,13 +151,10 @@ public class Transaction
 		}
 	}
 
-	final Row getRowIfActive(final Item item)
+	final Row getRowIfActive(final Type type, final int pk)
 	{
 		if(closed)
 			throw new RuntimeException();
-
-		final Type type = item.type;
-		final int pk = item.pk;
 
 		final IntKeyOpenHashMap rowMap = rowMaps[type.transientNumber];
 		if(rowMap==null)

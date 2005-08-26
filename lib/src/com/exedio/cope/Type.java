@@ -570,10 +570,14 @@ public final class Type
 
 	Item getItemObject(final int pk)
 	{
+		final Row row = Transaction.get().getRowIfActive(this, pk);
+		if(row!=null)
+			return row.item;
+
 		final Item newObject;
 		try
 		{
-			newObject =
+			return
 				(Item)reactivationConstructor.newInstance(
 					new Object[]{
 						REACTIVATION_DUMMY,
@@ -593,13 +597,6 @@ public final class Type
 		{
 			throw new NestingRuntimeException(e, id);
 		}
-
-		// TODO: check for row without creating an item object before
-		final Row row = Transaction.get().getRowIfActive(newObject);
-		if(row!=null)
-			return row.item;
-		else
-			return newObject;
 	}
 
 	static final Comparator COMPARATOR = new Comparator()

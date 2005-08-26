@@ -561,7 +561,7 @@ public abstract class Item extends Cope
 
 	private final Row getRowIfActive()
 	{
-		return Transaction.get().getRowIfActive(this);
+		return Transaction.get().getRowIfActive(type, pk);
 	}
 
 	public final void passivateCopeItem()
