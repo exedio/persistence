@@ -41,6 +41,7 @@ import com.exedio.cope.EnumAttribute;
 import com.exedio.cope.EnumValue;
 import com.exedio.cope.Feature;
 import com.exedio.cope.IntegerAttribute;
+import com.exedio.cope.IntegrityViolationException;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemAttribute;
 import com.exedio.cope.LengthViolationException;
@@ -72,6 +73,7 @@ final class ItemForm extends Form
 {
 	static final String SAVE_BUTTON = "SAVE";
 	static final String CHECK_BUTTON = "CHECK";
+	static final String DELETE_BUTTON = "DELETE";
 	static final String SECTION = "section";
 	
 	final Item item;
@@ -80,6 +82,9 @@ final class ItemForm extends Form
 	boolean toSave = false;
 	final CopernicaSection currentSection;
 	final ArrayList visibleFields;
+	boolean deleted = false;
+	String deletedName = null;
+	String deletedError = null;
 	
 	ItemForm(final ItemCop cop, final HttpServletRequest request)
 	{
@@ -150,6 +155,22 @@ final class ItemForm extends Form
 		final ArrayList attributes = new ArrayList(displayedAttributes.size()+hiddenAttributes.size());
 		attributes.addAll(displayedAttributes);
 		attributes.addAll(hiddenAttributes);
+
+		final boolean delete = getParameter(DELETE_BUTTON)!=null;
+		if(delete)
+		{
+			deletedName = cop.provider.getDisplayName(cop, cop.language, item);
+			try
+			{
+				item.deleteCopeItem();
+				deleted = true;
+				return;
+			}
+			catch(IntegrityViolationException e)
+			{
+				deletedError = deletedName + " could not be deleted.";
+			}
+		}
 
 		final boolean save = getParameter(SAVE_BUTTON)!=null;
 		final boolean post = save || sectionButton || getParameter(CHECK_BUTTON)!=null;
