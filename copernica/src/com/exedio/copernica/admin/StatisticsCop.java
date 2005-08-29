@@ -30,7 +30,7 @@ final class StatisticsCop extends AdminCop
 
 	StatisticsCop()
 	{
-		super("connection pool stats");
+		super("connection pool");
 		addParameter(STATISTICS, "true");
 	}
 
