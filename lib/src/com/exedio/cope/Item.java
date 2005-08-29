@@ -104,8 +104,8 @@ public abstract class Item extends Cope
 	 */	
 	public final boolean isActiveCopeItem()
 	{
-		final Row row = getRowIfActive();
-		return (row!=null) && (row.item == this);
+		final Entity entity = getEntityIfActive();
+		return (entity!=null) && (entity.getItem() == this);
 	}
 
 	/**
@@ -122,7 +122,7 @@ public abstract class Item extends Cope
 	 */
 	public final Item activeCopeItem()
 	{
-		return getRow().item;
+		return getEntity().getItem();
 	}
 
 	/**
@@ -164,12 +164,11 @@ public abstract class Item extends Cope
 			return;
 		}
 
-		final Row row = getRow(false);
-
-		row.put(initialAttributeValues);
+		final Entity entity = getEntity(false);
+		entity.put( initialAttributeValues );
 		try
 		{
-			row.write();
+			entity.write();
 		}
 		catch(UniqueViolationException e)
 		{
@@ -248,7 +247,7 @@ public abstract class Item extends Cope
 
 	public final Object get(final ObjectAttribute attribute)
 	{
-		return getRow().get(attribute);
+		return getEntity().get(attribute);
 	}
 	
 	public final Object get(final ComputedFunction function)
@@ -284,9 +283,9 @@ public abstract class Item extends Cope
 
 		attribute.checkValue(value, this);
 
-		final Row row = getRow();
-		row.put(attribute, value);
-		row.write();
+		final Entity entity = getEntity();
+		entity.put(attribute, value);
+		entity.write();
 	}
 
 	/**
@@ -317,9 +316,9 @@ public abstract class Item extends Cope
 			attribute.checkValue(attributeValue.value, this);
 		}
 
-		final Row row = getRow();
-		row.put(attributeValues);
-		row.write();
+		final Entity entity = getEntity();		
+		entity.put(attributeValues);
+		entity.write();
 	}
 
 	/**
@@ -513,7 +512,7 @@ public abstract class Item extends Cope
 		}
 
 		//System.out.println("------------wipe:"+tostring);
-		getRow().delete();
+		getEntity().delete();
 		//System.out.println("------------/delete:"+tostring);
 	}
 	
@@ -528,7 +527,7 @@ public abstract class Item extends Cope
 	 */
 	public final boolean existsCopeItem()
 	{
-		return !getRow().notExists;
+		return getEntity().exists();
 	}
 
 	public static final Attribute.Option MANDATORY = new Attribute.Option(false, false, true);
@@ -549,26 +548,30 @@ public abstract class Item extends Cope
 	
 	// activation/deactivation -----------------------------------------------------
 	
-	private final Row getRow()
+	private final Entity getEntity()
 	{
-		return getRow(true);
+		return getEntity(true);
 	}
 
-	private final Row getRow(final boolean present)
+	private final Entity getEntity(final boolean present)
 	{
-		return Transaction.get().getRow(this, present);
+		return Transaction.get().getEntity(this, present);
 	}
 
-	private final Row getRowIfActive()
+	private final Entity getEntityIfActive()
 	{
-		return Transaction.get().getRowIfActive(type, pk);
+		return Transaction.get().getEntityIfActive(type, pk);
 	}
 
 	public final void passivateCopeItem()
 	{
-		final Row row = getRowIfActive();
-		if(row!=null)
-			row.close();
+		// TODO find better, global-cache-proof solution
+		Transaction.get().removeEntity(type, pk);
+		/*
+		final Entity entity = getEntityIfActive();
+		if(entity!=null)
+			entity.close();
+		 */
 	}
 	
 	//-----------------------------------------

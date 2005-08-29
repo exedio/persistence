@@ -22,7 +22,7 @@ import java.util.HashMap;
 
 import bak.pcj.map.IntKeyOpenHashMap;
 
-final class Row
+final class State
 {
 	final Transaction transaction;
 	final Item item;
@@ -34,10 +34,10 @@ final class Row
 	boolean present;
 	boolean exists;
 	boolean notExists;
-	private boolean dirty = false;
+	private boolean dirty;
 	private boolean discarded = false;
 
-	protected Row(final Transaction transaction, final Item item, final boolean present)
+	protected State(final Transaction transaction, final Item item, final boolean present)
 	{
 		if(transaction==null)
 			throw new NullPointerException();
@@ -47,7 +47,7 @@ final class Row
 		this.type = item.type;
 		this.pk = item.pk;
 		this.present = present;
-		//System.out.println("created row "+type+" "+pk);
+		this.dirty = !present;
 
 		if(pk==Type.NOT_A_PK)
 			throw new RuntimeException();
@@ -60,24 +60,14 @@ final class Row
 		return attribute.cacheToSurface(cache.get(attribute.getColumn()));
 	}
 	
-	void put(final AttributeValue[] attributeValues)
-	{
-		checkExists();
-
-		for(int i = 0; i<attributeValues.length; i++)
-		{
-			final ObjectAttribute attribute = attributeValues[i].attribute;
-			cache.put(attribute.getColumn(), attribute.surfaceToCache(attributeValues[i].value));
-		}
-		dirty = true; // TODO: check, whether the written attribute got really a new value
-	}
-	
-	void put(final ObjectAttribute attribute, final Object value)
+	State put(final ObjectAttribute attribute, final Object value)
 	{
 		checkExists();
 
 		cache.put(attribute.getColumn(), attribute.surfaceToCache(value));
 		dirty = true; // TODO: check, whether the written attribute got really a new value
+		
+		return this;
 	}
 	
 	private void discard()
@@ -92,14 +82,14 @@ final class Row
 		discarded = true;
 	}
 	
-	void write()
+	State write()
 		throws UniqueViolationException
 	{
 		if(discarded)
 			throw new RuntimeException();
 
 		if(!dirty)
-			return;
+			return this;
 		
 		try
 		{
@@ -123,6 +113,8 @@ final class Row
 
 		present = true;
 		dirty = false;
+		
+		return this;
 	}
 	
 	void doesExist()
@@ -191,12 +183,14 @@ final class Row
 		discard();
 	}
 
-	void delete() throws IntegrityViolationException
+	State delete() throws IntegrityViolationException
 	{	
 		checkExists();
 
-		type.getModel().getDatabase().delete(item);
+		type.getModel().getDatabase().delete( item );
 		notExists = true;
+		
+		return this;
 	}
 	
 	private final void checkExists()

@@ -66,9 +66,9 @@ abstract class Column
 	/**
 	 * Loads the value of the column from a result set,
 	 * that loads the item into memory, and put the results into
-	 * a row.
+	 * a state.
 	 */
-	abstract void load(ResultSet resultSet, int columnIndex, Row row) throws SQLException;
+	abstract void load(ResultSet resultSet, int columnIndex, State state) throws SQLException;
 
 	/**
 	 * Loads the value of the column from a result set,

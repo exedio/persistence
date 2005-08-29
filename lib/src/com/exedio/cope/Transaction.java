@@ -111,12 +111,18 @@ public class Transaction
 	
 	// ----------------------- the transaction itself
 	
+	/**
+	 *	index in array is {@link Type#transientNumber transient type number};
+	 * value in array is a map, where the keys are {@link Item#pk item pks} 
+	 * and the values are {@link Entity}s
+	 *	TODO rename to entityMaps
+	 */
 	final IntKeyOpenHashMap[] rowMaps;
 	private Connection connection = null;
 	private ConnectionPool connectionPool = null;
 	private boolean closed = false;
 	
-	final Row getRow(final Item item, final boolean present)
+	final Entity getEntity(final Item item, final boolean present)
 	{
 		if(closed)
 			throw new RuntimeException();
@@ -129,29 +135,25 @@ public class Transaction
 		{
 			rowMap = new IntKeyOpenHashMap();
 			rowMaps[type.transientNumber] = rowMap;
-			final Row result = new Row(this, item, present);
+		}
+
+		Entity result = (Entity)rowMap.get(pk);
+		if(result==null)
+		{
+			State state = new State(this, item, present);
 			if(present)
-				database.load(result);
+				database.load(state);
+			result = new Entity(this, state);
 			rowMap.put(pk, result);
 			return result;
 		}
 		else
 		{
-			Row result = (Row)rowMap.get(pk);
-			if(result!=null)
-				return result;
-			else
-			{
-				result = new Row(this, item, present);
-				if(present)
-					database.load(result);
-				rowMap.put(pk, result);
-				return result;
-			}
+			return result;
 		}
 	}
 
-	final Row getRowIfActive(final Type type, final int pk)
+	final Entity getEntityIfActive(final Type type, final int pk)
 	{
 		if(closed)
 			throw new RuntimeException();
@@ -159,7 +161,19 @@ public class Transaction
 		final IntKeyOpenHashMap rowMap = rowMaps[type.transientNumber];
 		if(rowMap==null)
 			return null;
-		return (Row)rowMap.get(pk);
+		return (Entity)rowMap.get(pk);
+	}
+	
+	// TODO this method is a hack; should be removed with a better solution for passivateCopeItem
+	final void removeEntity(final Type type, final int pk)
+	{
+		if(closed)
+			throw new RuntimeException();
+
+		final IntKeyOpenHashMap rowMap = rowMaps[type.transientNumber];
+		if(rowMap==null)
+			return;
+		rowMap.remove(pk);
 	}
 
 	Connection getConnection() throws SQLException

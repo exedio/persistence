@@ -442,7 +442,7 @@ abstract class Database
 		return result;
 	}
 
-	void load(final Row row)
+	void load(final State state)
 	{
 		buildStage = false;
 
@@ -450,7 +450,7 @@ abstract class Database
 		bf.append("select ");
 
 		boolean first = true;
-		for(Type type = row.type; type!=null; type = type.getSupertype())
+		for(Type type = state.type; type!=null; type = type.getSupertype())
 		{
 			final Table table = type.getTable();
 			final List columns = table.getColumns();
@@ -473,7 +473,7 @@ abstract class Database
 
 		bf.append(" from ");
 		first = true;
-		for(Type type = row.type; type!=null; type = type.getSupertype())
+		for(Type type = state.type; type!=null; type = type.getSupertype())
 		{
 			if(first)
 				first = false;
@@ -485,7 +485,7 @@ abstract class Database
 			
 		bf.append(" where ");
 		first = true;
-		for(Type type = row.type; type!=null; type = type.getSupertype())
+		for(Type type = state.type; type!=null; type = type.getSupertype())
 		{
 			if(first)
 				first = false;
@@ -497,7 +497,7 @@ abstract class Database
 				append('.').
 				append(table.getPrimaryKey().protectedID).
 				append('=').
-				append(row.pk);
+				append(state.pk);
 		}
 
 		//System.out.println("loading "+bf.toString());
@@ -506,15 +506,15 @@ abstract class Database
 				public void run(final ResultSet resultSet) throws SQLException
 				{
 					if(!resultSet.next())
-						row.doesNotExist();
+						state.doesNotExist();
 					else
 					{
-						row.doesExist();
+						state.doesExist();
 						int columnIndex = 1;
-						for(Type type = row.type; type!=null; type = type.getSupertype())
+						for(Type type = state.type; type!=null; type = type.getSupertype())
 						{
 							for(Iterator i = type.getTable().getColumns().iterator(); i.hasNext(); )
-								((Column)i.next()).load(resultSet, columnIndex++, row);
+								((Column)i.next()).load(resultSet, columnIndex++, state);
 						}
 					}
 				}
@@ -560,27 +560,27 @@ abstract class Database
 		}
 	}
 	
-	void store(final Row row)
+	void store(final State state)
 			throws UniqueViolationException
 	{
-		store(row, row.type);
+		store(state, state.type);
 	}
 
-	private void store(final Row row, final Type type)
+	private void store(final State state, final Type type)
 			throws UniqueViolationException
 	{
 		buildStage = false;
 
 		final Type supertype = type.getSupertype();
 		if(supertype!=null)
-			store(row, supertype);
+			store(state, supertype);
 			
 		final Table table = type.getTable();
 
 		final List columns = table.getColumns();
 
 		final Statement bf = createStatement();
-		if(row.present)
+		if(state.present)
 		{
 			bf.append("update ").
 				append(table.protectedID).
@@ -598,13 +598,13 @@ abstract class Database
 				bf.append(column.protectedID).
 					append('=');
 
-				final Object value = row.store(column);
+				final Object value = state.store(column);
 				bf.append(column.cacheToDatabase(value));
 			}
 			bf.append(" where ").
 				append(table.getPrimaryKey().protectedID).
 				append('=').
-				append(row.pk);
+				append(state.pk);
 		}
 		else
 		{
@@ -628,12 +628,12 @@ abstract class Database
 			}
 
 			bf.append(")values(").
-				append(row.pk);
+				append(state.pk);
 			
 			if(typeColumn!=null)
 			{
 				bf.append(",'").
-					append(row.type.getID()).
+					append(state.type.getID()).
 					append('\'');
 			}
 
@@ -641,7 +641,7 @@ abstract class Database
 			{
 				bf.append(',');
 				final Column column = (Column)i.next();
-				final Object value = row.store(column);
+				final Object value = state.store(column);
 				bf.append(column.cacheToDatabase(value));
 			}
 			bf.append(')');

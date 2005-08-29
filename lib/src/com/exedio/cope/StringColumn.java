@@ -101,13 +101,13 @@ final class StringColumn extends Column
 		return bf.length()==0 ? null : bf.toString();
 	}
 
-	void load(final ResultSet resultSet, final int columnIndex, final Row row)
+	void load(final ResultSet resultSet, final int columnIndex, final State state)
 			throws SQLException
 	{
 		final String loadedString = resultSet.getString(columnIndex);
 		//System.out.println("StringColumn.load:"+loadedString);
 		if(loadedString!=null)
-			row.load(this, loadedString);
+			state.load(this, loadedString);
 	}
 
 	Object load(final ResultSet resultSet, final int columnIndex)

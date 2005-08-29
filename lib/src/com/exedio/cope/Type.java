@@ -570,9 +570,9 @@ public final class Type
 
 	Item getItemObject(final int pk)
 	{
-		final Row row = Transaction.get().getRowIfActive(this, pk);
-		if(row!=null)
-			return row.item;
+		final Entity entity = Transaction.get().getEntityIfActive(this, pk);
+		if(entity!=null)
+			return entity.getItem();
 
 		final Item newObject;
 		try

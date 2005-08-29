@@ -84,14 +84,14 @@ final class TimestampColumn extends Column
 		return result;
 	}
 	
-	final void load(final ResultSet resultSet, final int columnIndex, final Row row)
+	final void load(final ResultSet resultSet, final int columnIndex, final State state)
 			throws SQLException
 	{
 		final Object loadedTimestamp = resultSet.getObject(columnIndex);
 		//System.out.println("TimestampColumn.load "+columnIndex+" "+loadedTimestamp);
 		if(loadedTimestamp!=null)
 		{
-			row.load(this, getTime(((Date)loadedTimestamp)));
+			state.load(this, getTime(((Date)loadedTimestamp)));
 		}
 	}
 	
