@@ -31,7 +31,7 @@ public class PackageTest extends TestCase
 		suite.addTest(new TestSuite(HashTest.class));
 		suite.addTest(new TestSuite(MD5Test.class));
 		suite.addTest(new TestSuite(VectorTest.class));
-		suite.addTest(new TestSuite(HttpEntityTest.class));
+		suite.addTest(new TestSuite(MediaTest.class));
 		suite.addTest(new TestSuite(QualifierTest.class));
 		return suite;
 	}

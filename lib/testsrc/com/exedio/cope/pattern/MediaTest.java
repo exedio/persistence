@@ -29,7 +29,7 @@ import com.exedio.cope.StringAttribute;
 import com.exedio.cope.TestmodelTest;
 import com.exedio.cope.testmodel.MediaItem;
 
-public class HttpEntityTest extends TestmodelTest
+public class MediaTest extends TestmodelTest
 {
 	// TODO test various combinations of internal, external implicit, and external explicit source
 
