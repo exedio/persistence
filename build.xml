@@ -394,6 +394,18 @@
 						<filter token="DATADIR_PATH" value="lib/build/test.@{db}/data" />
 					</filterset>
 				</copy>
+				<!--
+				<nbjpdastart addressproperty="jpda.address" name="cope" transport="dt_socket">
+					<classpath>
+						<pathelement location="lib/build/classes" />
+						<pathelement location="lib/build/testmodelclasses" />
+						<pathelement location="lib/build/testclasses" />
+						<pathelement location="../lib/junit.jar" />
+						<pathelement location="../lib/pcj.jar" />
+						<pathelement location="../lib/@{db.driver}" />
+					</classpath>
+				</nbjpdastart>
+				-->
 				<java classname="junit.textui.TestRunner" taskname="junit @{db}" fork="yes" failonerror="yes">
 					<classpath>
 						<pathelement location="lib/build/classes" />
@@ -405,6 +417,12 @@
 					</classpath>
 					<arg value="com.exedio.cope.PackageTest" />
 					<sysproperty key="com.exedio.cope.properties" file="lib/build/test.@{db}/cope.properties" />
+					<!--
+					<jvmarg value="-Xdebug"/>
+					<jvmarg value="-Xnoagent"/>
+					<jvmarg value="-Djava.compiler=none"/>
+					<jvmarg value="-Xrunjdwp:transport=dt_socket,address=${jpda.address}"/>
+					-->
 				</java>
 			</body>
 		</foreachdb>
