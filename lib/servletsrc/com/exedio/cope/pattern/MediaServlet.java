@@ -44,7 +44,7 @@ import com.exedio.cope.util.ServletUtil;
  * <pre>
  * &lt;servlet&gt;
  *    &lt;servlet-name&gt;data&lt;/servlet-name&gt;
- *    &lt;servlet-class&gt;com.exedio.cope.pattern.DataServlet&lt;/servlet-class&gt;
+ *    &lt;servlet-class&gt;com.exedio.cope.pattern.MediaServlet&lt;/servlet-class&gt;
  *    &lt;init-param&gt;
  *       &lt;param-name&gt;model&lt;/param-name&gt;
  *       &lt;param-value&gt;{@link com.exedio.cope.Model com.bigbusiness.shop.Main#model}&lt;/param-value&gt;
@@ -58,7 +58,7 @@ import com.exedio.cope.util.ServletUtil;
  *
  * @author Ralf Wiebicke
  */
-public final class DataServlet extends HttpServlet
+public final class MediaServlet extends HttpServlet
 {
 	
 	private final HashMap pathes = new HashMap();

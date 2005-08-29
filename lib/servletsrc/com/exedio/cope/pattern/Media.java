@@ -492,7 +492,7 @@ public final class Media extends HttpPath
 		{
 			final Model model = getType().getModel();
 			
-			model.startTransaction("DataServlet");
+			model.startTransaction("MediaServlet");
 			final Item item = model.findByID(id);
 			//System.out.println("item="+item);
 			state = itemFound;
