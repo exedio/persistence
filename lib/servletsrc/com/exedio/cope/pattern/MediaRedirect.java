@@ -102,7 +102,7 @@ public final class MediaRedirect extends MediaPath
 	
 	final boolean serveContent(
 			final HttpServletRequest request, final HttpServletResponse response,
-			final String pathInfo, final int trailingSlash)
+			final String subPath)
 		throws ServletException, IOException
 	{
 		//System.out.println("media="+this);
@@ -116,7 +116,7 @@ public final class MediaRedirect extends MediaPath
 				request.getContextPath() + '/' +
 				getMediaRootUrl() +
 				target.getUrlPath() +
-				pathInfo.substring(trailingSlash+1);
+				subPath;
 			//System.out.println("location="+location);
 			
 			response.setStatus(response.SC_MOVED_PERMANENTLY);

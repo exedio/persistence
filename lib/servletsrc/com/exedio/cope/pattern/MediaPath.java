@@ -55,7 +55,7 @@ public abstract class MediaPath extends Pattern
 		return mediaRootUrl;
 	}
 	
-	abstract boolean serveContent(HttpServletRequest request, HttpServletResponse response, String pathInfo, int trailingSlash)
+	abstract boolean serveContent(HttpServletRequest request, HttpServletResponse response, String subPath)
 		throws ServletException, IOException;
 
 	public abstract Date getStart();

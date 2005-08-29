@@ -146,7 +146,10 @@ public final class MediaServlet extends HttpServlet
 		if(path==null)
 			return false;
 		else
-			return path.serveContent(request, response, pathInfo, trailingSlash);
+		{
+			final String subPath = pathInfo.substring(trailingSlash+1);
+			return path.serveContent(request, response, subPath);
+		}
 	}
 	
 }

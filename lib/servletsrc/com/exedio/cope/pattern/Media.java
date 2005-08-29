@@ -471,19 +471,19 @@ public final class Media extends MediaPath
 	
 	final boolean serveContent(
 			final HttpServletRequest request, final HttpServletResponse response,
-			final String pathInfo, final int trailingSlash)
+			final String subPath)
 		throws ServletException, IOException
 	{
 		//System.out.println("media="+this);
 		Log state = mediumFound;
 
-		final int dotAfterSlash = pathInfo.indexOf('.', trailingSlash);
+		final int dotAfterSlash = subPath.indexOf('.'); // TODO rename variable
 		//System.out.println("trailingDot="+trailingDot);
 
 		final String pkString =
 			(dotAfterSlash>=0)
-			? pathInfo.substring(trailingSlash+1, dotAfterSlash)
-			: pathInfo.substring(trailingSlash+1);
+			? subPath.substring(0, dotAfterSlash)
+			: subPath;
 		//System.out.println("pkString="+pkString);
 
 		final String id = getType().getID() + '.' + pkString;
