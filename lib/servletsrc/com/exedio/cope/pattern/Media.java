@@ -469,7 +469,7 @@ public final class Media extends MediaPath
 	private static final String RESPONSE_LAST_MODIFIED = "Last-Modified";
 	private static final String RESPONSE_CONTENT_LENGTH = "Content-Length";
 	
-	final boolean doGet(
+	public final boolean doGet(
 			final HttpServletRequest request, final HttpServletResponse response,
 			final String subPath)
 		throws ServletException, IOException
