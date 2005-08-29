@@ -531,7 +531,7 @@ final class Generator
 		writeDataGetterMethod(media, InputStream.class, "Data",        GETTER_HTTP_ENTITY_DATA);
 		
 		// setters
-		if(true) // TODO use option of entity
+		if(true) // TODO use option of media
 		{
 			writeCommentHeader();
 			o.write("\t * ");
