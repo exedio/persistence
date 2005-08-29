@@ -114,7 +114,7 @@ public final class HttpRedirect extends HttpPath
 				request.getScheme() + "://" +
 				request.getHeader("Host") +
 				request.getContextPath() + '/' +
-				getHttpEntityRootUrl() +
+				getMediaRootUrl() +
 				target.getUrlPath() +
 				pathInfo.substring(trailingSlash+1);
 			//System.out.println("location="+location);

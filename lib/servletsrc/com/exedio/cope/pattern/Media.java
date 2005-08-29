@@ -293,7 +293,7 @@ public final class Media extends HttpPath
 		if(isNull(item))
 			return null;
 
-		final StringBuffer bf = new StringBuffer(getHttpEntityRootUrl());
+		final StringBuffer bf = new StringBuffer(getMediaRootUrl());
 		appendDataPath(item, bf);
 		appendExtension(item, bf);
 		return bf.toString();

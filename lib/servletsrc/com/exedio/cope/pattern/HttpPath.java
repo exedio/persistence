@@ -47,7 +47,7 @@ public abstract class HttpPath extends Pattern
 		return urlPath;
 	}
 	
-	final String getHttpEntityRootUrl()
+	final String getMediaRootUrl()
 	{
 		if(httpEntityRootUrl==null)
 			httpEntityRootUrl = getType().getModel().getProperties().getMediaRootUrl();
