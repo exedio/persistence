@@ -47,7 +47,7 @@ public final class Properties
 	private final java.util.Properties databaseCustomProperties;
 
 	private final File datadirPath;
-	private final String httpEntityRootUrl;
+	private final String mediaRootUrl;
 
 	public Properties()
 	{
@@ -184,7 +184,7 @@ public final class Properties
 			datadirPath = null;
 		}
 
-		httpEntityRootUrl = properties.getProperty(MEDIA_ROOT_URL);
+		mediaRootUrl = properties.getProperty(MEDIA_ROOT_URL);
 	}
 	
 	private final RuntimeException newNotSetException(final String key)
@@ -266,15 +266,15 @@ public final class Properties
 	
 	public boolean hasMediaRootUrl()
 	{
-		return httpEntityRootUrl!=null;
+		return mediaRootUrl!=null;
 	}
 
 	public String getMediaRootUrl()
 	{
-		if(httpEntityRootUrl==null)
+		if(mediaRootUrl==null)
 			throw newNotSetException(MEDIA_ROOT_URL);
 
-		return httpEntityRootUrl;
+		return mediaRootUrl;
 	}
 	
 	final void ensureEquality(final Properties other)
@@ -308,12 +308,12 @@ public final class Properties
 					" expected " + this.datadirPath +
 					" but got " + other.datadirPath + '.');
 		
-		if((this.httpEntityRootUrl!=null && !this.httpEntityRootUrl.equals(other.httpEntityRootUrl)) ||
-				(this.httpEntityRootUrl==null && other.httpEntityRootUrl!=null))
+		if((this.mediaRootUrl!=null && !this.mediaRootUrl.equals(other.mediaRootUrl)) ||
+				(this.mediaRootUrl==null && other.mediaRootUrl!=null))
 			throw new RuntimeException(
 					"inconsistent initialization for " + MEDIA_ROOT_URL + "," +
-					" expected " + this.httpEntityRootUrl +
-					" but got " + other.httpEntityRootUrl + '.');
+					" expected " + this.mediaRootUrl +
+					" but got " + other.mediaRootUrl + '.');
 	}
 	
 }

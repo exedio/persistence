@@ -90,8 +90,8 @@ final class Properties_Jspm
 				<td><%
 				if(properties.hasMediaRootUrl())
 				{
-					final String httpEntityRootUrl = properties.getMediaRootUrl();
-					%><%=httpEntityRootUrl%><%
+					final String mediaRootUrl = properties.getMediaRootUrl();
+					%><%=mediaRootUrl%><%
 				}
 				else
 				{
