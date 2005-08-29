@@ -206,7 +206,7 @@ final class Admin_Jspm
 		%>
 		<tr>
 			<th>type</th>
-			<th>entity</th><%
+			<th>media</th><%
 			writeColouredHeaderSchnips(out, names);
 			%>
 			<th>From</th>
