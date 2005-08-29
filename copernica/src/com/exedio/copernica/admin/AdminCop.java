@@ -51,7 +51,7 @@ abstract class AdminCop extends Cop
 		return new StatisticsCop();
 	}
 	
-	final MediaStatsCop toHttpEntityStats()
+	final MediaStatsCop toMediaStats()
 	{
 		return new MediaStatsCop();
 	}
