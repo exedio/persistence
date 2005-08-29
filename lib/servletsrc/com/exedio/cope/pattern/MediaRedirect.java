@@ -100,7 +100,7 @@ public final class MediaRedirect extends MediaPath
 
 	private static final String RESPONSE_LOCATION = "Location";
 	
-	final boolean serveContent(
+	final boolean doGet(
 			final HttpServletRequest request, final HttpServletResponse response,
 			final String subPath)
 		throws ServletException, IOException

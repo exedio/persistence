@@ -148,7 +148,7 @@ public final class MediaServlet extends HttpServlet
 		else
 		{
 			final String subPath = pathInfo.substring(trailingSlash+1);
-			return path.serveContent(request, response, subPath);
+			return path.doGet(request, response, subPath);
 		}
 	}
 	
