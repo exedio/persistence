@@ -187,7 +187,7 @@ final class Admin_Jspm
 	</table><%
 	}
 
-	final static void writeMediaStats(final PrintStream out, final Collection entities, final String prefix)
+	final static void writeMediaStats(final PrintStream out, final Collection media, final String prefix)
 		throws IOException
 	{
 	final SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss.SSS");
@@ -211,7 +211,7 @@ final class Admin_Jspm
 			%>
 			<th>From</th>
 		</tr><%
-		for(Iterator i = entities.iterator(); i.hasNext(); )
+		for(Iterator i = media.iterator(); i.hasNext(); )
 		{
 			final HttpPath path = (HttpPath)i.next();
 			final String type = path.getType().getID();
