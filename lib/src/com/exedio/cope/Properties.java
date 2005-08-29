@@ -36,7 +36,7 @@ public final class Properties
 	public static final String DATABASE_USER = "database.user";
 	private static final String DATABASE_PASSWORD = "database.password";
 	public static final String DATADIR_PATH = "datadir.path";
-	public static final String MEDIA_ROOT_URL = "httpentity.rooturl"; // TODO change string value
+	public static final String MEDIA_ROOT_URL = "media.rooturl";
 
 	private final String source;
 
