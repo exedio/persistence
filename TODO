@@ -22,6 +22,7 @@
 		* globally use term Content-Type instead of Mime
 		* allow Content-Type specified by EnumAttribute
 		* maintain charset in Content-Type for texts
+		* implement MediaAlias
 	- move Item#touch into separate pattern Timestamp
 	- disable empty strings for oracle
 		/ introduce database specific max/min length for strings
