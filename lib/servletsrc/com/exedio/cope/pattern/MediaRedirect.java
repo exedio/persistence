@@ -44,16 +44,16 @@ import javax.servlet.http.HttpServletResponse;
  * can be supported with an additional:
  * 
  * <pre>
- * static final HttpRedirect picture = new HttpRedirect(image);
+ * static final MediaRedirect picture = new MediaRedirect(image);
  * </pre>
  *
  * @author Ralf Wiebicke
  */
-public final class HttpRedirect extends HttpPath
+public final class MediaRedirect extends HttpPath
 {
 	private final Media target;
 
-	public HttpRedirect(final Media target)
+	public MediaRedirect(final Media target)
 	{
 		if(target==null)
 			throw new NullPointerException("target must not be null");

@@ -20,7 +20,7 @@ package com.exedio.cope.testmodel;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.pattern.Media;
-import com.exedio.cope.pattern.HttpRedirect;
+import com.exedio.cope.pattern.MediaRedirect;
 
 /**
  * @cope.persistent
@@ -35,7 +35,7 @@ public class MediaItem extends Item
 	
 	public static final Media photo = new Media(OPTIONAL, "image", "jpeg");
 
-	public static final HttpRedirect foto = new HttpRedirect(photo);
+	public static final MediaRedirect foto = new MediaRedirect(photo);
 	
 /**
 
