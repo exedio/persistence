@@ -408,9 +408,9 @@ public final class Media extends HttpPath
 			final Pattern pattern = (Pattern)i.next();
 			if(pattern instanceof Media)
 			{
-				final Media entity = (Media)pattern;
-				if(entity.getData()==attribute)
-					return entity;
+				final Media media = (Media)pattern;
+				if(media.getData()==attribute)
+					return media;
 			}
 		}
 		throw new NullPointerException(attribute.toString());
