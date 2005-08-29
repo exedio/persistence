@@ -297,7 +297,7 @@ final class Instrumentor implements InjectionConsumer
 	{
 		final JavaClass jc = ja.parent;
 		final CopeClass copeClass = CopeClass.getCopeClass(jc);
-		new CopeHttpEntity(ja);
+		new CopeMedia(ja);
 	}
 
 	public void onClassFeature(final JavaFeature jf, final String docComment)

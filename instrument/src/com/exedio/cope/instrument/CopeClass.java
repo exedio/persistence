@@ -194,7 +194,7 @@ final class CopeClass
 			Collections.unmodifiableList(vectors);
 	}
 	
-	public void add(final CopeHttpEntity entity)
+	public void add(final CopeMedia entity)
 	{
 		if(entities==null)
 			entities=new ArrayList();

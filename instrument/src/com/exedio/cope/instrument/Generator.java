@@ -480,7 +480,7 @@ final class Generator
 		o.write("\t}");
 	}
 
-	private void writeDataGetterMethod(final CopeHttpEntity entity,
+	private void writeDataGetterMethod(final CopeMedia entity,
 													final Class returnType,
 													final String part,
 													final String commentPattern)
@@ -516,7 +516,7 @@ final class Generator
 		o.write("\t}");
 	}
 	
-	private void writeDataAccessMethods(final CopeHttpEntity entity) 
+	private void writeDataAccessMethods(final CopeMedia entity) 
 	throws IOException
 	{
 		final String mimeMajor = entity.mimeMajor;
@@ -945,7 +945,7 @@ final class Generator
 			}
 			for(final Iterator i = copeClass.getHttpEntities().iterator(); i.hasNext(); )
 			{
-				final CopeHttpEntity entity = (CopeHttpEntity)i.next();
+				final CopeMedia entity = (CopeMedia)i.next();
 				writeDataAccessMethods(entity);
 			}
 			writeType(copeClass);

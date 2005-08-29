@@ -20,14 +20,14 @@ package com.exedio.cope.instrument;
 import java.util.List;
 
 
-final class CopeHttpEntity
+final class CopeMedia
 {
 	final String name;
 	final CopeClass copeClass;
 	public final String mimeMajor;
 	public final String mimeMinor;
 
-	public CopeHttpEntity(final JavaAttribute javaAttribute)
+	public CopeMedia(final JavaAttribute javaAttribute)
 	{
 		this.name = javaAttribute.name;
 		this.copeClass = CopeClass.getCopeClass(javaAttribute.parent);
