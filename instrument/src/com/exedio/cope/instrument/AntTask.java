@@ -18,7 +18,6 @@
 
 package com.exedio.cope.instrument;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -65,16 +64,9 @@ public final class AntTask extends Task
 				(new Main()).run(fileList.getDir(getProject()), fileList.getFiles(getProject()), verbose);
 			}
 		}
-		catch(IllegalParameterException e)
+		catch(Exception e)
 		{
-			throw new BuildException(e);
-		}
-		catch(InjectorParseException e)
-		{
-			throw new BuildException(e);
-		}
-		catch(IOException e)
-		{
+			e.printStackTrace();
 			throw new BuildException(e);
 		}
 	}
