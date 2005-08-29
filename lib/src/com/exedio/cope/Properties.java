@@ -37,6 +37,7 @@ public final class Properties
 	private static final String DATABASE_PASSWORD = "database.password";
 	public static final String DATADIR_PATH = "datadir.path";
 	public static final String MEDIA_ROOT_URL = "media.rooturl";
+	public static final String MEDIA_ROOT_URL_DEFAULT = "data/";
 
 	private final String source;
 
@@ -185,7 +186,7 @@ public final class Properties
 		}
 
 		final String explicitMediaRootUrl = properties.getProperty(MEDIA_ROOT_URL);
-		mediaRootUrl = explicitMediaRootUrl!=null ? explicitMediaRootUrl : "data/";
+		mediaRootUrl = explicitMediaRootUrl!=null ? explicitMediaRootUrl : MEDIA_ROOT_URL_DEFAULT;
 	}
 	
 	private final RuntimeException newNotSetException(final String key)
