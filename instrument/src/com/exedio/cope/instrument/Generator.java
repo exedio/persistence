@@ -516,26 +516,26 @@ final class Generator
 		o.write("\t}");
 	}
 	
-	private void writeDataAccessMethods(final CopeMedia entity) 
+	private void writeDataAccessMethods(final CopeMedia media) 
 	throws IOException
 	{
-		final String mimeMajor = entity.mimeMajor;
-		final String mimeMinor = entity.mimeMinor;
+		final String mimeMajor = media.mimeMajor;
+		final String mimeMinor = media.mimeMinor;
 
 		// getters
-		writeDataGetterMethod(entity, boolean.class,     "Null",        GETTER_HTTP_ENTITY_IS_NULL);
-		writeDataGetterMethod(entity, String.class,      "URL",         GETTER_HTTP_ENTITY_URL);
-		writeDataGetterMethod(entity, String.class,      "MimeMajor",   GETTER_HTTP_ENTITY_MAJOR);
-		writeDataGetterMethod(entity, String.class,      "MimeMinor",   GETTER_HTTP_ENTITY_MINOR);
-		writeDataGetterMethod(entity, String.class,      "ContentType", GETTER_HTTP_ENTITY_CONTENT_TYPE);
-		writeDataGetterMethod(entity, InputStream.class, "Data",        GETTER_HTTP_ENTITY_DATA);
+		writeDataGetterMethod(media, boolean.class,     "Null",        GETTER_HTTP_ENTITY_IS_NULL);
+		writeDataGetterMethod(media, String.class,      "URL",         GETTER_HTTP_ENTITY_URL);
+		writeDataGetterMethod(media, String.class,      "MimeMajor",   GETTER_HTTP_ENTITY_MAJOR);
+		writeDataGetterMethod(media, String.class,      "MimeMinor",   GETTER_HTTP_ENTITY_MINOR);
+		writeDataGetterMethod(media, String.class,      "ContentType", GETTER_HTTP_ENTITY_CONTENT_TYPE);
+		writeDataGetterMethod(media, InputStream.class, "Data",        GETTER_HTTP_ENTITY_DATA);
 		
 		// setters
 		if(true) // TODO use option of entity
 		{
 			writeCommentHeader();
 			o.write("\t * ");
-			o.write(format(SETTER_HTTP_ENTITY, link(entity.getName())));
+			o.write(format(SETTER_HTTP_ENTITY, link(media.getName())));
 			o.write(lineSeparator);
 			writeCommentGenerated();
 			o.write("\t * @throws ");
@@ -546,7 +546,7 @@ final class Generator
 			writeCommentFooter();
 			o.write(Modifier.toString(Modifier.PUBLIC|Modifier.FINAL)); // TODO use visibility of entity
 			o.write(" void set");
-			o.write(toCamelCase(entity.getName()));
+			o.write(toCamelCase(media.getName()));
 			o.write("(final " + InputStream.class.getName() + " data");
 			if(mimeMajor==null)
 				o.write(",final "+String.class.getName()+" mimeMajor");
@@ -565,9 +565,9 @@ final class Generator
 			exceptionsToCatch.remove(IOException.class);
 			writeTryCatchClausePrefix(exceptionsToCatch);
 			o.write("\t\t");
-			o.write(entity.copeClass.getName());
+			o.write(media.copeClass.getName());
 			o.write('.');
-			o.write(entity.getName());
+			o.write(media.getName());
 			o.write(".set(this,data");
 			o.write(mimeMajor==null ? ",mimeMajor" : ",null");
 			o.write(mimeMinor==null ? ",mimeMinor" : ",null");

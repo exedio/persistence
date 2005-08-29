@@ -474,7 +474,7 @@ public final class Media extends HttpPath
 			final String pathInfo, final int trailingSlash)
 		throws ServletException, IOException
 	{
-		//System.out.println("entity="+this);
+		//System.out.println("media="+this);
 		Log state = mediumFound;
 
 		final int dotAfterSlash = pathInfo.indexOf('.', trailingSlash);
