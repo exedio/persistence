@@ -27,7 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.exedio.cope.Pattern;
 
-public abstract class HttpPath extends Pattern
+public abstract class MediaPath extends Pattern
 {
 	private String urlPath = null;
 	private String mediaRootUrl = null;

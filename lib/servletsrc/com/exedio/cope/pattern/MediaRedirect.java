@@ -49,7 +49,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Ralf Wiebicke
  */
-public final class MediaRedirect extends HttpPath
+public final class MediaRedirect extends MediaPath
 {
 	private final Media target;
 

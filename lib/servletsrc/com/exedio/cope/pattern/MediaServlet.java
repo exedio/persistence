@@ -74,9 +74,9 @@ public final class MediaServlet extends HttpServlet
 				for(Iterator j = type.getDeclaredFeatures().iterator(); j.hasNext(); )
 				{
 					final Feature feature = (Feature)j.next();
-					if(feature instanceof HttpPath)
+					if(feature instanceof MediaPath)
 					{
-						final HttpPath path = (HttpPath)feature;
+						final MediaPath path = (MediaPath)feature;
 						pathes.put('/' + path.getUrlPath(), path);
 					}
 				}
@@ -142,7 +142,7 @@ public final class MediaServlet extends HttpServlet
 		final String attributeString = pathInfo.substring(0, trailingSlash+1);
 		//System.out.println("attributeString="+attributeString);
 
-		final HttpPath path = (HttpPath)pathes.get(attributeString);
+		final MediaPath path = (MediaPath)pathes.get(attributeString);
 		if(path==null)
 			return false;
 		else

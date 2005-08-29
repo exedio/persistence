@@ -30,7 +30,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.exedio.cope.Model;
 import com.exedio.cope.pattern.Media;
-import com.exedio.cope.pattern.HttpPath;
+import com.exedio.cope.pattern.MediaPath;
 import com.exedio.cope.pattern.MediaRedirect;
 import com.exedio.cope.util.PoolCounter;
 
@@ -213,7 +213,7 @@ final class Admin_Jspm
 		</tr><%
 		for(Iterator i = media.iterator(); i.hasNext(); )
 		{
-			final HttpPath path = (HttpPath)i.next();
+			final MediaPath path = (MediaPath)i.next();
 			final String type = path.getType().getID();
 			final String name = path.getName();
 			final int[] data;

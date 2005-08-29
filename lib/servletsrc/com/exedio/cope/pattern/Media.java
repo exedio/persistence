@@ -44,7 +44,7 @@ import com.exedio.cope.StringAttribute;
 import com.exedio.cope.Transaction;
 import com.exedio.cope.Attribute.Option;
 
-public final class Media extends HttpPath
+public final class Media extends MediaPath
 {
 	final boolean notNull;
 	final String fixedMimeMajor;

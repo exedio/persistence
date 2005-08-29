@@ -26,7 +26,7 @@ import java.util.Iterator;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
-import com.exedio.cope.pattern.HttpPath;
+import com.exedio.cope.pattern.MediaPath;
 
 
 final class MediaStatsCop extends AdminCop
@@ -49,7 +49,7 @@ final class MediaStatsCop extends AdminCop
 			for(Iterator j = type.getDeclaredFeatures().iterator(); j.hasNext(); )
 			{
 				final Feature feature = (Feature)j.next();
-				if(feature instanceof HttpPath)
+				if(feature instanceof MediaPath)
 				{
 					medias.add(feature);
 				}
