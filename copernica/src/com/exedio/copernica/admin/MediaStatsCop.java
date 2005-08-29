@@ -31,7 +31,7 @@ import com.exedio.cope.pattern.HttpPath;
 
 final class MediaStatsCop extends AdminCop
 {
-	static final String STATISTICS = "httpentitystats";
+	static final String STATISTICS = "mediastats";
 
 	MediaStatsCop()
 	{
