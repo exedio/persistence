@@ -219,12 +219,12 @@ final class Admin_Jspm
 			final int[] data;
 			if(path instanceof Media)
 			{
-				final Media entity = (Media)path;
-				final int entityFound = entity.entityFound.get();
-				final int itemFound = entity.itemFound.get();
-				final int dataNotNull = entity.dataNotNull.get();
-				final int modified = entity.modified.get();
-				final int fullyDelivered = entity.fullyDelivered.get();
+				final Media medium = (Media)path;
+				final int entityFound = medium.entityFound.get();
+				final int itemFound = medium.itemFound.get();
+				final int dataNotNull = medium.dataNotNull.get();
+				final int modified = medium.modified.get();
+				final int fullyDelivered = medium.fullyDelivered.get();
 				data = new int[]{entityFound, itemFound, dataNotNull, modified, fullyDelivered};
 			}
 			else
