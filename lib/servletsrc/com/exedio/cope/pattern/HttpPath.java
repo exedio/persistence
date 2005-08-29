@@ -30,7 +30,7 @@ import com.exedio.cope.Pattern;
 public abstract class HttpPath extends Pattern
 {
 	private String urlPath = null;
-	private String httpEntityRootUrl = null;
+	private String mediaRootUrl = null;
 
 	public void initialize()
 	{
@@ -49,10 +49,10 @@ public abstract class HttpPath extends Pattern
 	
 	final String getMediaRootUrl()
 	{
-		if(httpEntityRootUrl==null)
-			httpEntityRootUrl = getType().getModel().getProperties().getMediaRootUrl();
+		if(mediaRootUrl==null)
+			mediaRootUrl = getType().getModel().getProperties().getMediaRootUrl();
 		
-		return httpEntityRootUrl;
+		return mediaRootUrl;
 	}
 	
 	abstract boolean serveContent(HttpServletRequest request, HttpServletResponse response, String pathInfo, int trailingSlash)
