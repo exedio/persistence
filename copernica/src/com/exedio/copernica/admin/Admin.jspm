@@ -200,7 +200,7 @@ final class Admin_Jspm
 	};
 	%>
 	<table class="statistics">
-		<tr><th colspan="8">HTTP Entity Statistics</th></tr>
+		<tr><th colspan="8">Media Statistics</th></tr>
 		<tr><th>To</th><td colspan="7"><%=df.format(new Date())%></td></tr><%
 		writeColouredHeader(out, names, 2);
 		%>
