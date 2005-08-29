@@ -192,7 +192,7 @@ final class Admin_Jspm
 	{
 	final SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss.SSS");
 	final String[] names = new String[]{
-		"Entity Found, but no Item",
+		"Media Found, but no Item",
 		"Item Found, but Data is Null",
 		"Data is Not Null, but Not Modified",
 		"No &quot;Not Modified&quot; 304 Possible",
