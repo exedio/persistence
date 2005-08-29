@@ -264,12 +264,12 @@ public final class Properties
 		return datadirPath;
 	}
 	
-	public boolean hasHttpEntityRootUrl()
+	public boolean hasMediaRootUrl()
 	{
 		return httpEntityRootUrl!=null;
 	}
 
-	public String getHttpEntityRootUrl()
+	public String getMediaRootUrl()
 	{
 		if(httpEntityRootUrl==null)
 			throw newNotSetException(MEDIA_ROOT_URL);

@@ -56,7 +56,7 @@ final class MediaStatsCop extends AdminCop
 			}
 		}
 
-		Admin_Jspm.writeHttpEntityStats(out, entities, model.getProperties().getHttpEntityRootUrl());
+		Admin_Jspm.writeHttpEntityStats(out, entities, model.getProperties().getMediaRootUrl());
 	}
 	
 }
