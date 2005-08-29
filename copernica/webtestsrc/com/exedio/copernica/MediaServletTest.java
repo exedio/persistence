@@ -26,7 +26,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Date;
 
-public class DataServletTest extends AbstractWebTest
+public class MediaServletTest extends AbstractWebTest
 {
 
 	public void testError() throws Exception

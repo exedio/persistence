@@ -27,7 +27,7 @@ public class PackageTest extends TestCase
 	public static Test suite()
 	{
 		final TestSuite suite = new TestSuite();
-		suite.addTest(new TestSuite(DataServletTest.class));
+		suite.addTest(new TestSuite(MediaServletTest.class));
 		suite.addTest(new TestSuite(ErrorTest.class));
 		suite.addTest(new TestSuite(AuthorizationTest.class));
 		suite.addTest(new TestSuite(WebTest.class));
