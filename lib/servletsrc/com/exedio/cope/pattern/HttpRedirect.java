@@ -30,15 +30,15 @@ import javax.servlet.http.HttpServletResponse;
  * a {@link Media}.
  * <p>
  * Common usage is to maintain old urls after renaming a {@link Media}.
- * For instance, if there is a HttpEntity <code>picture</code>:
+ * For instance, if there is a media <code>picture</code>:
  * 
  * <pre>
- * static final HttpEntity picture = new HttpEntity(OPTIONAL);
+ * static final Media picture = new Media(OPTIONAL);
  * </pre>
  * and this entity is renamed to <code>image</code>:
  * 
  * <pre>
- * static final HttpEntity image = new HttpEntity(OPTIONAL);
+ * static final Media image = new Media(OPTIONAL);
  * </pre>
  * then old urls created by <code>picture</code>
  * can be supported with an additional:
