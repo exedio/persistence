@@ -196,7 +196,7 @@ final class CopeClass
 	
 	public void add(final CopeMedia media)
 	{
-		if(media==null)
+		if(this.media==null)
 			this.media=new ArrayList();
 
 		this.media.add(media);
