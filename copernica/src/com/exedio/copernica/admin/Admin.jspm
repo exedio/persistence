@@ -230,9 +230,9 @@ final class Admin_Jspm
 			else
 			{
 				final HttpRedirect redirect = (HttpRedirect)path;
-				final int entityFound = redirect.redirectFound.get();
+				final int redirectFound = redirect.redirectFound.get();
 				final int fullyDelivered = redirect.fullyDelivered.get();
-				data = new int[]{entityFound, Integer.MIN_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE, fullyDelivered};
+				data = new int[]{redirectFound, Integer.MIN_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE, fullyDelivered};
 			}
 			%>
 		<tr>
