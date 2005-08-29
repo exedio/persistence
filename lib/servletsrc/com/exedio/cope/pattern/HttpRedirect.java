@@ -71,7 +71,7 @@ public final class HttpRedirect extends HttpPath
 	private long start = System.currentTimeMillis();
 	private final Object startLock = new Object();
 	
-	public final Log entityFound = new Log();
+	public final Log redirectFound = new Log();
 	public final Log fullyDelivered = new Log();
 	
 	public final Date getStart()
@@ -92,7 +92,7 @@ public final class HttpRedirect extends HttpPath
 			start = now;
 		}
 		
-		entityFound.reset();
+		redirectFound.reset();
 		fullyDelivered.reset();
 	}
 
@@ -106,7 +106,7 @@ public final class HttpRedirect extends HttpPath
 		throws ServletException, IOException
 	{
 		//System.out.println("entity="+this);
-		Log state = entityFound;
+		Log state = redirectFound;
 		
 		try
 		{
