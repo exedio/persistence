@@ -269,7 +269,7 @@ public final class Media extends HttpPath
 
 	/**
 	 * Returns the date of the last modification
-	 * of the data of this http entity.
+	 * of the data of this media.
 	 * Returns -1, if there is no data for this media.
 	 */
 	public final long getDataLastModified(final Item item)
