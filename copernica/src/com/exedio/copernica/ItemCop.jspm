@@ -116,9 +116,9 @@ class ItemCop_Jspm
 						if(attribute instanceof DataAttribute)
 						{
 							final DataAttribute dataAttribute = (DataAttribute)attribute;
-							final Media entity = Media.get(dataAttribute);
+							final Media media = Media.get(dataAttribute);
 							final String attributeName = attribute.getName();
-							final String url = entity.getURL(item);
+							final String url = media.getURL(item);
 							if(url==null)
 							{
 								%><%=cop.getDisplayNameNull()%><%
@@ -126,14 +126,14 @@ class ItemCop_Jspm
 							else
 							{
 								%><a href="<%=url%>"><%
-								final String major = entity.getMimeMajor(item);
+								final String major = media.getMimeMajor(item);
 								if("image".equals(major))
 								{
-									%><img src="<%=url%>" width="250"><small>(<%=entity.getMimeMinor(item)%>)</small><%
+									%><img src="<%=url%>" width="250"><small>(<%=media.getMimeMinor(item)%>)</small><%
 								}
 								else
 								{
-									%>download <small>(<%=major%>/<%=entity.getMimeMinor(item)%>)</small><%
+									%>download <small>(<%=major%>/<%=media.getMimeMinor(item)%>)</small><%
 								}
 								%></a><%
 							}

@@ -35,7 +35,7 @@ import javax.servlet.http.HttpServletResponse;
  * <pre>
  * static final Media picture = new Media(OPTIONAL);
  * </pre>
- * and this entity is renamed to <code>image</code>:
+ * and this media is renamed to <code>image</code>:
  * 
  * <pre>
  * static final Media image = new Media(OPTIONAL);
@@ -105,7 +105,7 @@ public final class HttpRedirect extends HttpPath
 			final String pathInfo, final int trailingSlash)
 		throws ServletException, IOException
 	{
-		//System.out.println("entity="+this);
+		//System.out.println("media="+this);
 		Log state = redirectFound;
 		
 		try

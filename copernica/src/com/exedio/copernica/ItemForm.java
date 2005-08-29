@@ -501,7 +501,7 @@ final class ItemForm extends Form
 			if(field.key instanceof DataAttribute)
 			{
 				final DataAttribute attribute = (DataAttribute)field.key;
-				final Media entity = Media.get(attribute);
+				final Media media = Media.get(attribute);
 				final FileItem fileItem = getParameterFile(attribute.getName());
 				
 				if(fileItem!=null)
@@ -522,7 +522,7 @@ final class ItemForm extends Form
 						try
 						{
 							final InputStream data = fileItem.getInputStream();
-							entity.set(item, data, mimeMajor, mimeMinor);
+							media.set(item, data, mimeMajor, mimeMinor);
 						}
 						catch(IOException e)
 						{

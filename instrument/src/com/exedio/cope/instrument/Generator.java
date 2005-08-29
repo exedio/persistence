@@ -480,7 +480,7 @@ final class Generator
 		o.write("\t}");
 	}
 
-	private void writeDataGetterMethod(final CopeMedia entity,
+	private void writeDataGetterMethod(final CopeMedia media,
 													final Class returnType,
 													final String part,
 													final String commentPattern)
@@ -489,25 +489,25 @@ final class Generator
 		final String prefix = (boolean.class==returnType) ? "is" : "get";
 		writeCommentHeader();
 		o.write("\t * ");
-		o.write(format(commentPattern, link(entity.getName())));
+		o.write(format(commentPattern, link(media.getName())));
 		o.write(lineSeparator);
 		writeCommentGenerated();
 		writeCommentFooter();
-		o.write(Modifier.toString(Modifier.PUBLIC|Modifier.FINAL)); // TODO use visibility of entity
+		o.write(Modifier.toString(Modifier.PUBLIC|Modifier.FINAL)); // TODO use visibility of media
 		o.write(' ');
 		o.write(returnType.getName());
 		o.write(' ');
 		o.write(prefix);
-		o.write(toCamelCase(entity.getName()));
+		o.write(toCamelCase(media.getName()));
 		o.write(part);
 		o.write("()");
 		o.write(lineSeparator);
 		o.write("\t{");
 		o.write(lineSeparator);
 		o.write("\t\treturn ");
-		o.write(entity.copeClass.getName());
+		o.write(media.copeClass.getName());
 		o.write('.');
-		o.write(entity.getName());
+		o.write(media.getName());
 		o.write('.');
 		o.write(prefix);
 		o.write(part);
@@ -544,7 +544,7 @@ final class Generator
 			o.write(format(SETTER_MEDIA_IOEXCEPTION, "<code>data</code>"));
 			o.write(lineSeparator);
 			writeCommentFooter();
-			o.write(Modifier.toString(Modifier.PUBLIC|Modifier.FINAL)); // TODO use visibility of entity
+			o.write(Modifier.toString(Modifier.PUBLIC|Modifier.FINAL)); // TODO use visibility of media
 			o.write(" void set");
 			o.write(toCamelCase(media.getName()));
 			o.write("(final " + InputStream.class.getName() + " data");
@@ -945,8 +945,8 @@ final class Generator
 			}
 			for(final Iterator i = copeClass.getHttpEntities().iterator(); i.hasNext(); )
 			{
-				final CopeMedia entity = (CopeMedia)i.next();
-				writeDataAccessMethods(entity);
+				final CopeMedia media = (CopeMedia)i.next();
+				writeDataAccessMethods(media);
 			}
 			writeType(copeClass);
 		}

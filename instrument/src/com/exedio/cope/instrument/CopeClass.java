@@ -194,12 +194,12 @@ final class CopeClass
 			Collections.unmodifiableList(vectors);
 	}
 	
-	public void add(final CopeMedia entity)
+	public void add(final CopeMedia media)
 	{
 		if(entities==null)
 			entities=new ArrayList();
 
-		entities.add(entity);
+		entities.add(media);
 	}
 	
 	/**

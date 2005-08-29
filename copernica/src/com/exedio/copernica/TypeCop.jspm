@@ -170,8 +170,8 @@ final class TypeCop_Jspm
 						if(feature instanceof DataAttribute)
 						{
 							final DataAttribute dataAttribute = (DataAttribute)feature;
-							final Media entity = Media.get(dataAttribute);
-							final String url = entity.getURL(item);
+							final Media media = Media.get(dataAttribute);
+							final String url = media.getURL(item);
 							if(url==null)
 							{
 								%><%=cop.getDisplayNameNull()%><%
@@ -179,7 +179,7 @@ final class TypeCop_Jspm
 							else
 							{
 								%><a href="<%=url%>"><%
-								final String major = entity.getMimeMajor(item);
+								final String major = media.getMimeMajor(item);
 								if("image".equals(major))
 								{
 									%><img src="<%=url%>" width="50"><%
