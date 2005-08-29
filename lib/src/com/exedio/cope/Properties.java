@@ -36,7 +36,7 @@ public final class Properties
 	public static final String DATABASE_USER = "database.user";
 	private static final String DATABASE_PASSWORD = "database.password";
 	public static final String DATADIR_PATH = "datadir.path";
-	public static final String HTTP_ENTITY_ROOT_URL = "httpentity.rooturl";
+	public static final String MEDIA_ROOT_URL = "httpentity.rooturl"; // TODO change string value
 
 	private final String source;
 
@@ -184,7 +184,7 @@ public final class Properties
 			datadirPath = null;
 		}
 
-		httpEntityRootUrl = properties.getProperty(HTTP_ENTITY_ROOT_URL);
+		httpEntityRootUrl = properties.getProperty(MEDIA_ROOT_URL);
 	}
 	
 	private final RuntimeException newNotSetException(final String key)
@@ -272,7 +272,7 @@ public final class Properties
 	public String getHttpEntityRootUrl()
 	{
 		if(httpEntityRootUrl==null)
-			throw newNotSetException(HTTP_ENTITY_ROOT_URL);
+			throw newNotSetException(MEDIA_ROOT_URL);
 
 		return httpEntityRootUrl;
 	}
@@ -311,7 +311,7 @@ public final class Properties
 		if((this.httpEntityRootUrl!=null && !this.httpEntityRootUrl.equals(other.httpEntityRootUrl)) ||
 				(this.httpEntityRootUrl==null && other.httpEntityRootUrl!=null))
 			throw new RuntimeException(
-					"inconsistent initialization for " + HTTP_ENTITY_ROOT_URL + "," +
+					"inconsistent initialization for " + MEDIA_ROOT_URL + "," +
 					" expected " + this.httpEntityRootUrl +
 					" but got " + other.httpEntityRootUrl + '.');
 	}
