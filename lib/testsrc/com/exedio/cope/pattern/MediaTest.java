@@ -266,25 +266,25 @@ public class MediaTest extends TestmodelTest
 
 		// logs -----------------------------------------------
 		
-		assertEquals(0, item.photo.entityFound.get());
+		assertEquals(0, item.photo.mediumFound.get());
 		assertEquals(0, item.photo.itemFound.get());
 		assertEquals(0, item.photo.dataNotNull.get());
 		assertEquals(0, item.photo.modified.get());
 		assertEquals(0, item.photo.fullyDelivered.get());
 		
-		item.photo.entityFound.increment();
-		assertEquals(1, item.photo.entityFound.get());
+		item.photo.mediumFound.increment();
+		assertEquals(1, item.photo.mediumFound.get());
 		assertEquals(0, item.photo.itemFound.get());
 		assertEquals(0, item.photo.dataNotNull.get());
 		assertEquals(0, item.photo.modified.get());
 		assertEquals(0, item.photo.fullyDelivered.get());
 
-		item.photo.entityFound.increment();
+		item.photo.mediumFound.increment();
 		item.photo.itemFound.increment();
 		item.photo.dataNotNull.increment();
 		item.photo.modified.increment();
 		item.photo.fullyDelivered.increment();
-		assertEquals(2, item.photo.entityFound.get());
+		assertEquals(2, item.photo.mediumFound.get());
 		assertEquals(1, item.photo.itemFound.get());
 		assertEquals(1, item.photo.dataNotNull.get());
 		assertEquals(1, item.photo.modified.get());
@@ -293,7 +293,7 @@ public class MediaTest extends TestmodelTest
 		final Date beforeReset = new Date();
 		item.photo.resetLogs();
 		final Date afterReset = new Date();
-		assertEquals(0, item.photo.entityFound.get());
+		assertEquals(0, item.photo.mediumFound.get());
 		assertEquals(0, item.photo.itemFound.get());
 		assertEquals(0, item.photo.dataNotNull.get());
 		assertEquals(0, item.photo.modified.get());

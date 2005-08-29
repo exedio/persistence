@@ -220,7 +220,7 @@ final class Admin_Jspm
 			if(path instanceof Media)
 			{
 				final Media medium = (Media)path;
-				final int entityFound = medium.entityFound.get();
+				final int entityFound = medium.mediumFound.get();
 				final int itemFound = medium.itemFound.get();
 				final int dataNotNull = medium.dataNotNull.get();
 				final int modified = medium.modified.get();

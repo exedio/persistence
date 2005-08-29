@@ -421,7 +421,7 @@ public final class Media extends HttpPath
 	private long start = System.currentTimeMillis();
 	private final Object startLock = new Object();
 	
-	public final Log entityFound = new Log();
+	public final Log mediumFound = new Log();
 	public final Log itemFound = new Log();
 	public final Log dataNotNull = new Log();
 	public final Log modified = new Log();
@@ -445,7 +445,7 @@ public final class Media extends HttpPath
 			start = now;
 		}
 		
-		entityFound.reset();
+		mediumFound.reset();
 		itemFound.reset();
 		dataNotNull.reset();
 		modified.reset();
@@ -475,7 +475,7 @@ public final class Media extends HttpPath
 		throws ServletException, IOException
 	{
 		//System.out.println("entity="+this);
-		Log state = entityFound;
+		Log state = mediumFound;
 
 		final int dotAfterSlash = pathInfo.indexOf('.', trailingSlash);
 		//System.out.println("trailingDot="+trailingDot);
