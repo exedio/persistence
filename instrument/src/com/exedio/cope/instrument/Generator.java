@@ -56,14 +56,14 @@ final class Generator
 	private static final String GETTER = "Returns the value of the persistent attribute {0}.";
 	private static final String CHECKER = "Returns whether the given value corresponds to the hash in {0}.";
 	private static final String SETTER = "Sets a new value for the persistent attribute {0}.";
-	private static final String SETTER_HTTP_ENTITY = "Sets the new data for the media {0}.";
-	private static final String SETTER_HTTP_ENTITY_IOEXCEPTION = "if accessing {0} throws an IOException.";
-	private static final String GETTER_HTTP_ENTITY_IS_NULL = "Returns whether this media {0} has data available.";
-	private static final String GETTER_HTTP_ENTITY_URL   = "Returns a URL the data of the media {0} is available under.";
-	private static final String GETTER_HTTP_ENTITY_MAJOR = "Returns the major mime type of the media {0}.";
-	private static final String GETTER_HTTP_ENTITY_MINOR = "Returns the minor mime type of the media {0}.";
-	private static final String GETTER_HTTP_ENTITY_CONTENT_TYPE = "Returns the content type of the media {0}.";
-	private static final String GETTER_HTTP_ENTITY_DATA  = "Returns the data of the media {0}.";
+	private static final String SETTER_MEDIA = "Sets the new data for the media {0}.";
+	private static final String SETTER_MEDIA_IOEXCEPTION = "if accessing {0} throws an IOException.";
+	private static final String GETTER_MEDIA_IS_NULL = "Returns whether this media {0} has data available.";
+	private static final String GETTER_MEDIA_URL   = "Returns a URL the data of the media {0} is available under.";
+	private static final String GETTER_MEDIA_MAJOR = "Returns the major mime type of the media {0}.";
+	private static final String GETTER_MEDIA_MINOR = "Returns the minor mime type of the media {0}.";
+	private static final String GETTER_MEDIA_CONTENT_TYPE = "Returns the content type of the media {0}.";
+	private static final String GETTER_MEDIA_DATA  = "Returns the data of the media {0}.";
 	private static final String TOUCHER = "Sets the current date for the date attribute {0}.";
 	private static final String FINDER_UNIQUE = "Finds a {0} by it''s unique attributes.";
 	private static final String FINDER_UNIQUE_PARAMETER = "shall be equal to attribute {0}.";
@@ -523,25 +523,25 @@ final class Generator
 		final String mimeMinor = media.mimeMinor;
 
 		// getters
-		writeDataGetterMethod(media, boolean.class,     "Null",        GETTER_HTTP_ENTITY_IS_NULL);
-		writeDataGetterMethod(media, String.class,      "URL",         GETTER_HTTP_ENTITY_URL);
-		writeDataGetterMethod(media, String.class,      "MimeMajor",   GETTER_HTTP_ENTITY_MAJOR);
-		writeDataGetterMethod(media, String.class,      "MimeMinor",   GETTER_HTTP_ENTITY_MINOR);
-		writeDataGetterMethod(media, String.class,      "ContentType", GETTER_HTTP_ENTITY_CONTENT_TYPE);
-		writeDataGetterMethod(media, InputStream.class, "Data",        GETTER_HTTP_ENTITY_DATA);
+		writeDataGetterMethod(media, boolean.class,     "Null",        GETTER_MEDIA_IS_NULL);
+		writeDataGetterMethod(media, String.class,      "URL",         GETTER_MEDIA_URL);
+		writeDataGetterMethod(media, String.class,      "MimeMajor",   GETTER_MEDIA_MAJOR);
+		writeDataGetterMethod(media, String.class,      "MimeMinor",   GETTER_MEDIA_MINOR);
+		writeDataGetterMethod(media, String.class,      "ContentType", GETTER_MEDIA_CONTENT_TYPE);
+		writeDataGetterMethod(media, InputStream.class, "Data",        GETTER_MEDIA_DATA);
 		
 		// setters
 		if(true) // TODO use option of media
 		{
 			writeCommentHeader();
 			o.write("\t * ");
-			o.write(format(SETTER_HTTP_ENTITY, link(media.getName())));
+			o.write(format(SETTER_MEDIA, link(media.getName())));
 			o.write(lineSeparator);
 			writeCommentGenerated();
 			o.write("\t * @throws ");
 			o.write(IOException.class.getName());
 			o.write(' ');
-			o.write(format(SETTER_HTTP_ENTITY_IOEXCEPTION, "<code>data</code>"));
+			o.write(format(SETTER_MEDIA_IOEXCEPTION, "<code>data</code>"));
 			o.write(lineSeparator);
 			writeCommentFooter();
 			o.write(Modifier.toString(Modifier.PUBLIC|Modifier.FINAL)); // TODO use visibility of entity
