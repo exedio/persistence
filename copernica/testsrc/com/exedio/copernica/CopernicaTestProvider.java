@@ -28,7 +28,7 @@ import com.exedio.cope.NestingRuntimeException;
 import com.exedio.cope.testmodel.AttributeItem;
 import com.exedio.cope.testmodel.CollisionItem1;
 import com.exedio.cope.testmodel.CollisionItem2;
-import com.exedio.cope.testmodel.HttpEntityItem;
+import com.exedio.cope.testmodel.MediaItem;
 import com.exedio.cope.testmodel.EmptyItem;
 import com.exedio.cope.testmodel.EmptyItem2;
 import com.exedio.cope.testmodel.FirstSub;
@@ -170,16 +170,16 @@ public class CopernicaTestProvider extends TransientCopernicaProvider
 				item3.setAny("Herzliche Gr\u00fc\u00dfe!");
 			}
 			
-			final HttpEntityItem dataItem1 = new HttpEntityItem();
+			final MediaItem dataItem1 = new MediaItem();
 			dataItem1.setFile(thisClass.getResourceAsStream("dummy.txt"), "text", "plain");
 			dataItem1.setImage(thisClass.getResourceAsStream("osorno.png"), "png");
 			dataItem1.setPhoto(thisClass.getResourceAsStream("tree.jpg"));
 
-			final HttpEntityItem dataItem2 = new HttpEntityItem();
+			final MediaItem dataItem2 = new MediaItem();
 			dataItem2.setFile(thisClass.getResourceAsStream("osorno.png"), "image", "png");
 			dataItem2.setImage(thisClass.getResourceAsStream("tree.jpg"), "jpeg");
 
-			final HttpEntityItem dataItem3 = new HttpEntityItem();
+			final MediaItem dataItem3 = new MediaItem();
 			dataItem3.setFile(thisClass.getResourceAsStream("dummy.txt"), "unknownma", "unknownmi");
 			
 			new SumItem(1, 2, 3);

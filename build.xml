@@ -334,7 +334,7 @@
 				StringItem.java,
 				HashItem.java,
 				MD5Item.java,
-				HttpEntityItem.java,
+				MediaItem.java,
 				SumItem.java,
 				VectorItem.java,
 				PointerItem.java,

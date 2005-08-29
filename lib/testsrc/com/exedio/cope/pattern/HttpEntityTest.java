@@ -27,13 +27,13 @@ import com.exedio.cope.DataAttribute;
 import com.exedio.cope.Feature;
 import com.exedio.cope.StringAttribute;
 import com.exedio.cope.TestmodelTest;
-import com.exedio.cope.testmodel.HttpEntityItem;
+import com.exedio.cope.testmodel.MediaItem;
 
 public class HttpEntityTest extends TestmodelTest
 {
 	// TODO test various combinations of internal, external implicit, and external explicit source
 
-	private HttpEntityItem item;
+	private MediaItem item;
 	private final byte[] data = new byte[]{-86,122,-8,23};
 	private final byte[] data2 = new byte[]{-97,35,-126,86,19,-8};
 	private final byte[] dataEmpty = new byte[]{};
@@ -41,7 +41,7 @@ public class HttpEntityTest extends TestmodelTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		deleteOnTearDown(item = new HttpEntityItem());
+		deleteOnTearDown(item = new MediaItem());
 	}
 	
 	private void assertExtension(final String mimeMajor, final String mimeMinor, final String extension)

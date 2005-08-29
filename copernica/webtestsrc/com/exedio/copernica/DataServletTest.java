@@ -33,21 +33,21 @@ public class DataServletTest extends AbstractWebTest
 	{
 		final String prefix = "http://localhost:8080/copetest-hsqldb/data/";
 
-		final long textLastModified = assertURL(new URL(prefix + "HttpEntityItem/file/0.txt"));
-		assertEquals(textLastModified, assertURL(new URL(prefix + "HttpEntityItem/file/0.zick")));
-		assertEquals(textLastModified, assertURL(new URL(prefix + "HttpEntityItem/file/0.")));
-		assertEquals(textLastModified, assertURL(new URL(prefix + "HttpEntityItem/file/0")));
+		final long textLastModified = assertURL(new URL(prefix + "MediaItem/file/0.txt"));
+		assertEquals(textLastModified, assertURL(new URL(prefix + "MediaItem/file/0.zick")));
+		assertEquals(textLastModified, assertURL(new URL(prefix + "MediaItem/file/0.")));
+		assertEquals(textLastModified, assertURL(new URL(prefix + "MediaItem/file/0")));
 
-		assertEquals(textLastModified, assertURL(new URL(prefix + "HttpEntityItem/file/0"), textLastModified-1, false));
-		assertEquals(textLastModified, assertURL(new URL(prefix + "HttpEntityItem/file/0"), textLastModified, true));
-		assertEquals(textLastModified, assertURL(new URL(prefix + "HttpEntityItem/file/0"), textLastModified+5000, true));
+		assertEquals(textLastModified, assertURL(new URL(prefix + "MediaItem/file/0"), textLastModified-1, false));
+		assertEquals(textLastModified, assertURL(new URL(prefix + "MediaItem/file/0"), textLastModified, true));
+		assertEquals(textLastModified, assertURL(new URL(prefix + "MediaItem/file/0"), textLastModified+5000, true));
 
-		assertEquals(textLastModified, assertURL(new URL(prefix + "HttpEntityItem/file/2.unknownma.unknownmi"), "unknownma/unknownmi"));
+		assertEquals(textLastModified, assertURL(new URL(prefix + "MediaItem/file/2.unknownma.unknownmi"), "unknownma/unknownmi"));
 
-		assertURLRedirect(new URL(prefix + "HttpEntityItem/foto/0.jpg"), prefix + "HttpEntityItem/foto/0.jpg");
-		assertURLRedirect(new URL(prefix + "HttpEntityItem/foto/0."), prefix + "HttpEntityItem/foto/0.");
-		assertURLRedirect(new URL(prefix + "HttpEntityItem/foto/0"), prefix + "HttpEntityItem/foto/0");
-		assertURLRedirect(new URL(prefix + "HttpEntityItem/foto/schnickschnack"), prefix + "HttpEntityItem/foto/schnickschnack");
+		assertURLRedirect(new URL(prefix + "MediaItem/foto/0.jpg"), prefix + "MediaItem/foto/0.jpg");
+		assertURLRedirect(new URL(prefix + "MediaItem/foto/0."), prefix + "MediaItem/foto/0.");
+		assertURLRedirect(new URL(prefix + "MediaItem/foto/0"), prefix + "MediaItem/foto/0");
+		assertURLRedirect(new URL(prefix + "MediaItem/foto/schnickschnack"), prefix + "MediaItem/foto/schnickschnack");
 	}
 	
 	private long assertURL(final URL url) throws IOException

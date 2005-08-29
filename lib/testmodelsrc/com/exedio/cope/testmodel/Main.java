@@ -33,7 +33,7 @@ public class Main
 		AttributeItem.TYPE,
 		AttributeEmptyItem.TYPE,
 		StringItem.TYPE,
-		HttpEntityItem.TYPE,
+		MediaItem.TYPE,
 		SumItem.TYPE,
 		QualifiedItem.TYPE,
 		QualifiedEmptyQualifier.TYPE,
