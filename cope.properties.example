@@ -19,8 +19,11 @@ database.password=yourpassword
 
 # Example properties for MySQL
 #
+# the connection parameters concerning character sets are needed
+# for proper handling of non-ascii characters
+#
 database=mysql
-database.url=jdbc:mysql://yourdatabase.yoursite.com/yourDB
+database.url=jdbc:mysql://yourdatabase.yoursite.com/yourDB?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8
 database.user=youruser
 database.password=yourpassword
 
