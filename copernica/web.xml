@@ -6,7 +6,7 @@
 	version="2.4">
 
 	<servlet>
-		<servlet-name>data</servlet-name>
+		<servlet-name>media</servlet-name>
 		<servlet-class>com.exedio.cope.pattern.MediaServlet</servlet-class>
 		<init-param>
 			<param-name>model</param-name>
@@ -14,8 +14,8 @@
 		</init-param>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>data</servlet-name>
-		<url-pattern>/data/*</url-pattern>
+		<servlet-name>media</servlet-name>
+		<url-pattern>/media/*</url-pattern>
 	</servlet-mapping>
 
 	<servlet>

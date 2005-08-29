@@ -47,7 +47,7 @@ public abstract class TestmodelTest extends AbstractLibTest
 		{
 			throw new NestingRuntimeException(e);
 		}
-		final String prefix = "data/AttributeItem/someData/";
+		final String prefix = model.getProperties().getMediaRootUrl() + "AttributeItem/someData/";
 		final String pkString = pkString(item);
 		final String expectedURL = prefix+pkString+'.'+url;
 		//System.out.println(expectedURL);

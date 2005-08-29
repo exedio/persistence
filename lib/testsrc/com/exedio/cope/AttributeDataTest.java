@@ -39,7 +39,7 @@ public class AttributeDataTest extends AttributeTest
 		item.setSomeData(stream(bytes),"someMimeMajor", "someMimeMinor");
 
 		final String prefix =
-			"data/AttributeItem/someData/";
+			model.getProperties().getMediaRootUrl() + "AttributeItem/someData/";
 		final String pkString = pkString(item);
 		final String expectedURL =
 			prefix + pkString + ".someMimeMajor.someMimeMinor";

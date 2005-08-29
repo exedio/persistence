@@ -43,7 +43,7 @@ import com.exedio.cope.util.ServletUtil;
  *
  * <pre>
  * &lt;servlet&gt;
- *    &lt;servlet-name&gt;data&lt;/servlet-name&gt;
+ *    &lt;servlet-name&gt;media&lt;/servlet-name&gt;
  *    &lt;servlet-class&gt;com.exedio.cope.pattern.MediaServlet&lt;/servlet-class&gt;
  *    &lt;init-param&gt;
  *       &lt;param-name&gt;model&lt;/param-name&gt;
@@ -51,8 +51,8 @@ import com.exedio.cope.util.ServletUtil;
  *    &lt;/init-param&gt;
  * &lt;/servlet&gt;
  * &lt;servlet-mapping&gt;
- *    &lt;servlet-name&gt;data&lt;/servlet-name&gt;
- *    &lt;url-pattern&gt;/data/*&lt;/url-pattern&gt;
+ *    &lt;servlet-name&gt;media&lt;/servlet-name&gt;
+ *    &lt;url-pattern&gt;/media/*&lt;/url-pattern&gt;
  * &lt;/servlet-mapping&gt;
  * </pre>
  *

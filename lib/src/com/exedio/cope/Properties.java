@@ -37,7 +37,7 @@ public final class Properties
 	private static final String DATABASE_PASSWORD = "database.password";
 	public static final String DATADIR_PATH = "datadir.path";
 	public static final String MEDIA_ROOT_URL = "media.rooturl";
-	public static final String MEDIA_ROOT_URL_DEFAULT = "data/";
+	public static final String MEDIA_ROOT_URL_DEFAULT = "media/";
 
 	private final String source;
 
