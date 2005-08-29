@@ -53,12 +53,12 @@ public class NullEmptyTest extends TestmodelTest
 
 		item.setSomeString("");
 		assertEquals("", item.getSomeString());
-		item.passivateCopeItem();
+		restartTransaction();
 		assertEquals(emptyString, item.getSomeString());
 
 		item.setSomeString(null);
 		assertEquals(null, item.getSomeString());
-		item.passivateCopeItem();
+		restartTransaction();
 		assertEquals(null, item.getSomeString());
 	}
 

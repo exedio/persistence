@@ -33,7 +33,7 @@ public class AttributeQualifiedTest extends AttributeTest
 		item.setSomeQualifiedString(someItem, "someQualifiedValue");
 		assertEquals("someQualifiedValue", item.getSomeQualifiedString(someItem));
 		assertEquals(null, item.getSomeQualifiedString(someItem2));
-		item.passivateCopeItem();
+		restartTransaction();
 		assertEquals("someQualifiedValue", item.getSomeQualifiedString(someItem));
 		assertEquals(null, item.getSomeQualifiedString(someItem2));
 		item.setSomeQualifiedString(someItem, null);

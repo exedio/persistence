@@ -64,7 +64,7 @@ public class StringTest extends TestmodelTest
 		// due to column "hijackedColumn" not found
 		item.setAny("value',hijackedColumn='otherValue");
 		assertEquals("value',hijackedColumn='otherValue", item.getAny());
-		item.passivateCopeItem();
+		restartTransaction();
 		// TODO: sql injection protection just swallows apostrophes,
 		// should be escaped or wrapped into prepared statements
 		assertEquals("value,hijackedColumn=otherValue", item.getAny());
@@ -86,7 +86,7 @@ public class StringTest extends TestmodelTest
 		//System.out.println(unicodeString);
 		item.setAny(unicodeString);
 		assertEquals(unicodeString, item.getAny());
-		item.passivateCopeItem();
+		restartTransaction();
 		assertEquals(unicodeString, item.getAny());
 		
 		// min4
@@ -103,7 +103,7 @@ public class StringTest extends TestmodelTest
 			assertEquals(true, e.isTooShort());
 		}
 		assertEquals(null, item.getMin4());
-		item.passivateCopeItem();
+		restartTransaction();
 		assertEquals(null, item.getMin4());
 
 		item.setMin4("1234");
@@ -125,7 +125,7 @@ public class StringTest extends TestmodelTest
 			assertEquals(false, e.isTooShort());
 		}
 		assertEquals("1234", item.getMax4());
-		item.passivateCopeItem();
+		restartTransaction();
 		assertEquals("1234", item.getMax4());
 
 		// min4max8
@@ -142,7 +142,7 @@ public class StringTest extends TestmodelTest
 			assertEquals(true, e.isTooShort());
 		}
 		assertEquals(null, item.getMin4Max8());
-		item.passivateCopeItem();
+		restartTransaction();
 		assertEquals(null, item.getMin4Max8());
 
 		item.setMin4Max8("1234");
@@ -151,7 +151,7 @@ public class StringTest extends TestmodelTest
 		item.setMin4Max8("12345678");
 		assertEquals("12345678", item.getMin4Max8());
 
-		item.passivateCopeItem();
+		restartTransaction();
 		assertEquals("12345678", item.getMin4Max8());
 
 		try
@@ -167,7 +167,7 @@ public class StringTest extends TestmodelTest
 			assertEquals(false, e.isTooShort());
 		}
 		assertEquals("12345678", item.getMin4Max8());
-		item.passivateCopeItem();
+		restartTransaction();
 		assertEquals("12345678", item.getMin4Max8());
 
 		// exact6
@@ -184,13 +184,13 @@ public class StringTest extends TestmodelTest
 			assertEquals(true, e.isTooShort());
 		}
 		assertEquals(null, item.getExact6());
-		item.passivateCopeItem();
+		restartTransaction();
 		assertEquals(null, item.getExact6());
 
 		item.setExact6("123456");
 		assertEquals("123456", item.getExact6());
 
-		item.passivateCopeItem();
+		restartTransaction();
 		assertEquals("123456", item.getExact6());
 
 		try
@@ -206,7 +206,7 @@ public class StringTest extends TestmodelTest
 			assertEquals(false, e.isTooShort());
 		}
 		assertEquals("123456", item.getExact6());
-		item.passivateCopeItem();
+		restartTransaction();
 		assertEquals("123456", item.getExact6());
 	}
 

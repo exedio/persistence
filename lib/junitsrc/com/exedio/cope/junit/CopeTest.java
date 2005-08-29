@@ -130,4 +130,11 @@ public abstract class CopeTest extends CopeAssert
 		dropDatabase();
 	}
 	
+	protected void restartTransaction()
+	{
+		final String oldName = Transaction.get().getName();
+		Transaction.commit();
+		model.startTransaction( oldName+"-restart" );
+	}
+	
 }

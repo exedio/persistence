@@ -58,7 +58,7 @@ public class HierarchyTest extends TestmodelTest
 		assertEquals(2, firstItem.getSuperInt());
 		assertEquals("firstSubString", firstItem.getFirstSubString());
 		
-		firstItem.passivateCopeItem();
+		restartTransaction();
 		assertEquals(2, firstItem.getSuperInt());
 		assertEquals("firstSubString", firstItem.getFirstSubString());
 		

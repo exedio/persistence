@@ -69,7 +69,7 @@ public class Transaction
 	private Thread boundThread = null;
 	private static final ThreadLocal threadLocal = new ThreadLocal();
 	
-	static final Transaction get()
+	public static final Transaction get()
 	{
 		final Transaction result = (Transaction)threadLocal.get();
 		
@@ -164,18 +164,6 @@ public class Transaction
 		return (Entity)rowMap.get(pk);
 	}
 	
-	// TODO this method is a hack; should be removed with a better solution for passivateCopeItem
-	final void removeEntity(final Type type, final int pk)
-	{
-		if(closed)
-			throw new RuntimeException();
-
-		final IntKeyOpenHashMap rowMap = rowMaps[type.transientNumber];
-		if(rowMap==null)
-			return;
-		rowMap.remove(pk);
-	}
-
 	Connection getConnection() throws SQLException
 	{
 		if(closed)
@@ -246,6 +234,11 @@ public class Transaction
 					rowMaps[i].clear();
 			closed = true;
 		}
+	}
+	
+	public String getName()
+	{
+		return name;
 	}
 	
 	public String toString()

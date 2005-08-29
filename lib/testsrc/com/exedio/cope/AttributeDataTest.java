@@ -50,7 +50,7 @@ public class AttributeDataTest extends AttributeTest
 		assertEquals("someMimeMajor", item.getSomeDataMimeMajor());
 		assertEquals("someMimeMinor", item.getSomeDataMimeMinor());
 
-		item.passivateCopeItem();
+		restartTransaction();
 		assertEquals(expectedURL, item.getSomeDataURL());
 		assertData(bytes, item.getSomeDataData());
 		assertEquals("someMimeMajor", item.getSomeDataMimeMajor());

@@ -32,7 +32,7 @@ public class AttributeIntegerTest extends AttributeTest
 		item.setSomeInteger(new Integer(10));
 		assertEquals(new Integer(10), item.getSomeInteger());
 
-		item.passivateCopeItem();
+		restartTransaction();
 		assertEquals(new Integer(10), item.getSomeInteger());
 		assertEquals(
 			list(item),
@@ -51,7 +51,7 @@ public class AttributeIntegerTest extends AttributeTest
 		item.setSomeInteger(null);
 		assertEquals(null, item.getSomeInteger());
 		
-		item.passivateCopeItem();
+		restartTransaction();
 		assertEquals(null, item.getSomeInteger());
 
 		try
@@ -75,7 +75,7 @@ public class AttributeIntegerTest extends AttributeTest
 		item.setSomeNotNullInteger(0);
 		assertEquals(0, item.getSomeNotNullInteger());
 
-		item.passivateCopeItem();
+		restartTransaction();
 		assertEquals(0, item.getSomeNotNullInteger());
 		assertContains(item,
 			item.TYPE.search(item.someNotNullInteger.equal(0)));
@@ -83,7 +83,7 @@ public class AttributeIntegerTest extends AttributeTest
 		item.setSomeNotNullInteger(Integer.MIN_VALUE);
 		assertEquals(Integer.MIN_VALUE, item.getSomeNotNullInteger());
 
-		item.passivateCopeItem();
+		restartTransaction();
 		assertEquals(Integer.MIN_VALUE, item.getSomeNotNullInteger());
 		assertContains(item,
 			item.TYPE.search(item.someNotNullInteger.equal(Integer.MIN_VALUE)));
@@ -91,7 +91,7 @@ public class AttributeIntegerTest extends AttributeTest
 		item.setSomeNotNullInteger(Integer.MAX_VALUE);
 		assertEquals(Integer.MAX_VALUE, item.getSomeNotNullInteger());
 
-		item.passivateCopeItem();
+		restartTransaction();
 		assertEquals(Integer.MAX_VALUE, item.getSomeNotNullInteger());
 		assertContains(item,
 			item.TYPE.search(item.someNotNullInteger.equal(Integer.MAX_VALUE)));

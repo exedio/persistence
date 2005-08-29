@@ -563,17 +563,6 @@ public abstract class Item extends Cope
 		return Transaction.get().getEntityIfActive(type, pk);
 	}
 
-	public final void passivateCopeItem()
-	{
-		// TODO find better, global-cache-proof solution
-		Transaction.get().removeEntity(type, pk);
-		/*
-		final Entity entity = getEntityIfActive();
-		if(entity!=null)
-			entity.close();
-		 */
-	}
-	
 	//-----------------------------------------
 	
 	protected static final ItemAttribute itemAttribute(final Option option, final Class targetTypeClass)

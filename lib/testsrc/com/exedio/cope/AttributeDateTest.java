@@ -41,7 +41,7 @@ public class AttributeDateTest extends AttributeTest
 		assertContains(date, null, search(item.someDate));
 		assertContains(date, search(item.someDate, item.someDate.equal(date)));
 
-		item.passivateCopeItem();
+		restartTransaction();
 		assertEquals(date, item.getSomeDate());
 		assertEquals(
 			list(item),
@@ -55,13 +55,13 @@ public class AttributeDateTest extends AttributeTest
 		assertEquals(list(item), item.TYPE.search(item.someDate.isNotNull()));
 
 		item.setSomeDate(nextDate);
-		item.passivateCopeItem();
+		restartTransaction();
 		assertEquals(nextDate, item.getSomeDate());
 
 		item.setSomeDate(null);
 		assertEquals(null, item.getSomeDate());
 		
-		item.passivateCopeItem();
+		restartTransaction();
 		assertEquals(null, item.getSomeDate());
 		
 		final Date beforeTouch = new Date();
@@ -96,7 +96,7 @@ public class AttributeDateTest extends AttributeTest
 		item.setSomeLongDate(date);
 		assertEquals(date, item.getSomeLongDate());
 
-		item.passivateCopeItem();
+		restartTransaction();
 		assertEquals(date, item.getSomeLongDate());
 		assertEquals(
 			list(item),
@@ -113,13 +113,13 @@ public class AttributeDateTest extends AttributeTest
 		assertContains(date, search(item.someLongDate, item.someLongDate.equal(date)));
 
 		item.setSomeLongDate(nextDate);
-		item.passivateCopeItem();
+		restartTransaction();
 		assertEquals(nextDate, item.getSomeLongDate());
 
 		item.setSomeLongDate(null);
 		assertEquals(null, item.getSomeLongDate());
 		
-		item.passivateCopeItem();
+		restartTransaction();
 		assertEquals(null, item.getSomeLongDate());
 	}
 	

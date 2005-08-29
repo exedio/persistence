@@ -147,7 +147,7 @@ public class AttributeEnumTest extends AttributeTest
 		assertContains(AttributeItem.SomeEnum.enumValue2, null, search(item.someEnum));
 		assertContains(AttributeItem.SomeEnum.enumValue2, search(item.someEnum, item.someEnum.equal(AttributeItem.SomeEnum.enumValue2)));
 
-		item.passivateCopeItem();
+		restartTransaction();
 		assertEquals(
 			AttributeItem.SomeEnum.enumValue2,
 			item.getSomeEnum());
@@ -188,7 +188,7 @@ public class AttributeEnumTest extends AttributeTest
 		assertEquals(
 			AttributeItem.SomeEnum.enumValue3,
 			item.getSomeNotNullEnum());
-		item.passivateCopeItem();
+		restartTransaction();
 		assertEquals(
 			AttributeItem.SomeEnum.enumValue3,
 			item.getSomeNotNullEnum());

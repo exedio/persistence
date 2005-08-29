@@ -28,7 +28,7 @@ public class UniqueItemTest extends TestmodelTest
 {
 
 	public void testItemWithSingleUnique()
-			throws IntegrityViolationException, UniqueViolationException
+			throws IntegrityViolationException, UniqueViolationException, NoSuchIDException
 	{
 		assertEqualsUnmodifiable(
 			list(ItemWithSingleUnique.uniqueString),
@@ -69,14 +69,15 @@ public class UniqueItemTest extends TestmodelTest
 			assertDelete(item2);
 		}
 
-		item.passivateCopeItem();
+		restartTransaction();
 		assertTrue(!item.isActiveCopeItem());
+		assertNotSame(item, model.findByID(item.getCopeID()));
 		assertEquals("uniqueString", item.getUniqueString());
 		assertTrue(item.isActiveCopeItem());
 
 		final ItemWithSingleUnique firstFoundItem;
 		{
-			item.passivateCopeItem();
+			restartTransaction();
 			assertTrue(!item.isActiveCopeItem());
 			final ItemWithSingleUnique foundItem = ItemWithSingleUnique.findByUniqueString("uniqueString");
 			assertEquals(item, foundItem);
@@ -97,7 +98,7 @@ public class UniqueItemTest extends TestmodelTest
 			firstFoundItem = foundItem;
 		}
 		{
-			item.passivateCopeItem();
+			restartTransaction();
 			assertTrue(!item.isActiveCopeItem());
 			final ItemWithSingleUnique foundItem = ItemWithSingleUnique.findByUniqueString("uniqueString");
 			assertEquals("uniqueString", foundItem.getUniqueString());
