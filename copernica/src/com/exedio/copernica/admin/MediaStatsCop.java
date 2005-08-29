@@ -35,7 +35,7 @@ final class MediaStatsCop extends AdminCop
 
 	MediaStatsCop()
 	{
-		super("http entity stats");
+		super("media stats");
 		addParameter(STATISTICS, "true");
 	}
 
