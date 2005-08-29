@@ -477,13 +477,10 @@ public final class Media extends MediaPath
 		//System.out.println("media="+this);
 		Log state = mediumFound;
 
-		final int dotAfterSlash = subPath.indexOf('.'); // TODO rename variable
+		final int dot = subPath.indexOf('.');
 		//System.out.println("trailingDot="+trailingDot);
 
-		final String pkString =
-			(dotAfterSlash>=0)
-			? subPath.substring(0, dotAfterSlash)
-			: subPath;
+		final String pkString = (dot>=0) ? subPath.substring(0, dot) : subPath;
 		//System.out.println("pkString="+pkString);
 
 		final String id = getType().getID() + '.' + pkString;
