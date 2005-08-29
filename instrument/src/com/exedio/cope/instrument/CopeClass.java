@@ -205,7 +205,7 @@ final class CopeClass
 	/**
 	 * @return unmodifiable list of {@link Media}s.
 	 */
-	public List getHttpEntities()
+	public List getMedia()
 	{
 		return
 			media == null ?

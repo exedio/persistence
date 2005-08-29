@@ -42,7 +42,7 @@ public abstract class HttpPath extends Pattern
 	final String getUrlPath()
 	{
 		if(urlPath==null)
-			throw new RuntimeException("http entity not yet initialized");
+			throw new RuntimeException("not yet initialized");
 		
 		return urlPath;
 	}
