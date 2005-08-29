@@ -29,11 +29,11 @@ import com.exedio.cope.Type;
 import com.exedio.cope.pattern.HttpPath;
 
 
-final class HttpEntityStatsCop extends AdminCop
+final class MediaStatsCop extends AdminCop
 {
 	static final String STATISTICS = "httpentitystats";
 
-	HttpEntityStatsCop()
+	MediaStatsCop()
 	{
 		super("http entity stats");
 		addParameter(STATISTICS, "true");
