@@ -28,11 +28,17 @@ database.user=youruser
 database.password=yourpassword
 
 
-# Example properties for the data directory
+# Example property for the data directory
 #
 # Is needed only if the project uses DataAttribute,
-# otherwise you may remove these properties.
+# otherwise you may remove this property.
 #
 datadir.path=the/path/to/your/directory/for/data/files
-httpentity.rooturl=/url/prefix/of/your/http/entities/
 
+
+# Example property for the media root url
+#
+# Is needed only if the project uses Media,
+# and you want a different value, than the default "data/".
+#
+#httpentity.rooturl=data/

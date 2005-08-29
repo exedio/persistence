@@ -184,7 +184,8 @@ public final class Properties
 			datadirPath = null;
 		}
 
-		mediaRootUrl = properties.getProperty(MEDIA_ROOT_URL);
+		final String explicitMediaRootUrl = properties.getProperty(MEDIA_ROOT_URL);
+		mediaRootUrl = explicitMediaRootUrl!=null ? explicitMediaRootUrl : "data/";
 	}
 	
 	private final RuntimeException newNotSetException(final String key)
@@ -271,9 +272,6 @@ public final class Properties
 
 	public String getMediaRootUrl()
 	{
-		if(mediaRootUrl==null)
-			throw newNotSetException(MEDIA_ROOT_URL);
-
 		return mediaRootUrl;
 	}
 	
