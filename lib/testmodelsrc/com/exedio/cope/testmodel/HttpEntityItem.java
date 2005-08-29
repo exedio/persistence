@@ -19,7 +19,7 @@
 package com.exedio.cope.testmodel;
 
 import com.exedio.cope.Item;
-import com.exedio.cope.pattern.HttpEntity;
+import com.exedio.cope.pattern.Media;
 import com.exedio.cope.pattern.HttpRedirect;
 
 /**
@@ -29,11 +29,11 @@ import com.exedio.cope.pattern.HttpRedirect;
 public class HttpEntityItem extends Item
 {
 
-	public static final HttpEntity file = new HttpEntity(OPTIONAL);
+	public static final Media file = new Media(OPTIONAL);
 
-	public static final HttpEntity image = new HttpEntity(OPTIONAL, "image");
+	public static final Media image = new Media(OPTIONAL, "image");
 	
-	public static final HttpEntity photo = new HttpEntity(OPTIONAL, "image", "jpeg");
+	public static final Media photo = new Media(OPTIONAL, "image", "jpeg");
 
 	public static final HttpRedirect foto = new HttpRedirect(photo);
 	

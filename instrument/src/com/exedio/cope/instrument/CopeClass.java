@@ -203,7 +203,7 @@ final class CopeClass
 	}
 	
 	/**
-	 * @return unmodifiable list of {@link HttpEntity}s.
+	 * @return unmodifiable list of {@link Media}s.
 	 */
 	public List getHttpEntities()
 	{

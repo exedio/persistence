@@ -44,7 +44,7 @@ import com.exedio.cope.StringAttribute;
 import com.exedio.cope.Transaction;
 import com.exedio.cope.Attribute.Option;
 
-public final class HttpEntity extends HttpPath
+public final class Media extends HttpPath
 {
 	final boolean notNull;
 	final String fixedMimeMajor;
@@ -56,7 +56,7 @@ public final class HttpEntity extends HttpPath
 	final BooleanAttribute exists;
 	final ObjectAttribute isNull;
 
-	public HttpEntity(final Option option, final String fixedMimeMajor, final String fixedMimeMinor)
+	public Media(final Option option, final String fixedMimeMajor, final String fixedMimeMinor)
 	{
 		if(option==null)
 			throw new NullPointerException("option must not be null");
@@ -81,7 +81,7 @@ public final class HttpEntity extends HttpPath
 			registerSource(this.exists);
 	}
 	
-	public HttpEntity(final Option option, final String fixedMimeMajor)
+	public Media(final Option option, final String fixedMimeMajor)
 	{
 		if(option==null)
 			throw new NullPointerException("option must not be null");
@@ -109,7 +109,7 @@ public final class HttpEntity extends HttpPath
 			throw new RuntimeException("mimeMinor cannot be read-only");
 	}
 	
-	public HttpEntity(final Option option)
+	public Media(final Option option)
 	{
 		if(option==null)
 			throw new NullPointerException("option must not be null");
@@ -401,14 +401,14 @@ public final class HttpEntity extends HttpPath
 			return null;
 	}
 	
-	public final static HttpEntity get(final DataAttribute attribute)
+	public final static Media get(final DataAttribute attribute)
 	{
 		for(Iterator i = attribute.getPatterns().iterator(); i.hasNext(); )
 		{
 			final Pattern pattern = (Pattern)i.next();
-			if(pattern instanceof HttpEntity)
+			if(pattern instanceof Media)
 			{
-				final HttpEntity entity = (HttpEntity)pattern;
+				final Media entity = (Media)pattern;
 				if(entity.getData()==attribute)
 					return entity;
 			}
@@ -475,7 +475,7 @@ public final class HttpEntity extends HttpPath
 		throws ServletException, IOException
 	{
 		//System.out.println("entity="+this);
-		HttpEntity.Log state = entityFound;
+		Log state = entityFound;
 
 		final int dotAfterSlash = pathInfo.indexOf('.', trailingSlash);
 		//System.out.println("trailingDot="+trailingDot);

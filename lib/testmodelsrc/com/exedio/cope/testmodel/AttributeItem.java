@@ -30,7 +30,7 @@ import com.exedio.cope.LongAttribute;
 import com.exedio.cope.StringAttribute;
 import com.exedio.cope.function.LengthFunction;
 import com.exedio.cope.function.UppercaseFunction;
-import com.exedio.cope.pattern.HttpEntity;
+import com.exedio.cope.pattern.Media;
 import com.exedio.cope.pattern.Qualifier;
 
 /**
@@ -132,7 +132,7 @@ public class AttributeItem extends Item
 	/**
 	 * A data attribute.
 	 */
-	public static final HttpEntity someData = new HttpEntity(OPTIONAL);
+	public static final Media someData = new Media(OPTIONAL);
 	
 	public static final Qualifier emptyItem = new Qualifier(AttributeEmptyItem.parentKey);
 

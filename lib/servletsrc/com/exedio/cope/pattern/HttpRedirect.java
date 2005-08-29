@@ -27,9 +27,9 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * Specifies a http redirect (moved permanently) to
- * a {@link HttpEntity}.
+ * a {@link Media}.
  * <p>
- * Common usage is to maintain old urls after renaming a {@link HttpEntity}.
+ * Common usage is to maintain old urls after renaming a {@link Media}.
  * For instance, if there is a HttpEntity <code>picture</code>:
  * 
  * <pre>
@@ -51,9 +51,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 public final class HttpRedirect extends HttpPath
 {
-	private final HttpEntity target;
+	private final Media target;
 
-	public HttpRedirect(final HttpEntity target)
+	public HttpRedirect(final Media target)
 	{
 		if(target==null)
 			throw new NullPointerException("target must not be null");
@@ -61,7 +61,7 @@ public final class HttpRedirect extends HttpPath
 		this.target = target;
 	}
 	
-	public final HttpEntity getTarget()
+	public final Media getTarget()
 	{
 		return target;
 	}

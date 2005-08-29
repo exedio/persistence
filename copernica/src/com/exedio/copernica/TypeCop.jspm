@@ -39,7 +39,7 @@ import com.exedio.cope.ItemAttribute;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.StatementInfo;
 import com.exedio.cope.Type;
-import com.exedio.cope.pattern.HttpEntity;
+import com.exedio.cope.pattern.Media;
 import com.exedio.cops.DateField;
 
 final class TypeCop_Jspm
@@ -170,7 +170,7 @@ final class TypeCop_Jspm
 						if(feature instanceof DataAttribute)
 						{
 							final DataAttribute dataAttribute = (DataAttribute)feature;
-							final HttpEntity entity = HttpEntity.get(dataAttribute);
+							final Media entity = Media.get(dataAttribute);
 							final String url = entity.getURL(item);
 							if(url==null)
 							{

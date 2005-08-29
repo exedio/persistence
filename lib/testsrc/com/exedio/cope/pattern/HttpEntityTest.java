@@ -76,7 +76,7 @@ public class HttpEntityTest extends TestmodelTest
 		assertSame(item.TYPE, fileData.getType());
 		assertSame("fileData", fileData.getName());
 		assertEqualsUnmodifiable(list(item.file), fileData.getPatterns());
-		assertSame(item.file, HttpEntity.get(fileData));
+		assertSame(item.file, Media.get(fileData));
 		final StringAttribute fileMajor = item.file.getMimeMajor();
 		assertSame(item.TYPE, fileMajor.getType());
 		assertEquals("fileMajor", fileMajor.getName());
@@ -158,7 +158,7 @@ public class HttpEntityTest extends TestmodelTest
 		assertSame(item.TYPE, imageData.getType());
 		assertSame("imageData", imageData.getName());
 		assertEqualsUnmodifiable(list(item.image), imageData.getPatterns());
-		assertSame(item.image, HttpEntity.get(imageData));
+		assertSame(item.image, Media.get(imageData));
 		assertEquals(null, item.image.getMimeMajor());
 		final StringAttribute imageMinor = item.image.getMimeMinor();
 		assertSame(item.TYPE, imageMinor.getType());
@@ -211,7 +211,7 @@ public class HttpEntityTest extends TestmodelTest
 		assertSame(item.TYPE, photoData.getType());
 		assertSame("photoData", photoData.getName());
 		assertEqualsUnmodifiable(list(item.photo), photoData.getPatterns());
-		assertSame(item.photo, HttpEntity.get(photoData));
+		assertSame(item.photo, Media.get(photoData));
 		assertEquals(null, item.photo.getMimeMajor());
 		assertEquals(null, item.photo.getMimeMinor());
 		final BooleanAttribute photoExists = item.photo.getExists();

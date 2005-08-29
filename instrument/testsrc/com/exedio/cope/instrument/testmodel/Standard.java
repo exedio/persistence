@@ -25,7 +25,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.LongAttribute;
 import com.exedio.cope.StringAttribute;
 import com.exedio.cope.pattern.Hash;
-import com.exedio.cope.pattern.HttpEntity;
+import com.exedio.cope.pattern.Media;
 import com.exedio.cope.pattern.MD5Hash;
 
 /**
@@ -100,11 +100,11 @@ public class Standard extends Item
 	 */
 	public static final BooleanAttribute asIsBoolean = booleanAttribute(OPTIONAL);
 	
-	public static final HttpEntity anyData = new HttpEntity(OPTIONAL);
+	public static final Media anyData = new Media(OPTIONAL);
 
-	public static final HttpEntity majorData = new HttpEntity(OPTIONAL, "major");
+	public static final Media majorData = new Media(OPTIONAL, "major");
 	
-	public static final HttpEntity minorData = new HttpEntity(OPTIONAL, "major", "minor");
+	public static final Media minorData = new Media(OPTIONAL, "major", "minor");
 	
 	public static final Hash publicHash = new MD5Hash(privateString);
 	private static final Hash privateHash = new MD5Hash(defaultString);

@@ -55,7 +55,7 @@ import com.exedio.cope.ReadOnlyViolationException;
 import com.exedio.cope.StringAttribute;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueViolationException;
-import com.exedio.cope.pattern.HttpEntity;
+import com.exedio.cope.pattern.Media;
 import com.exedio.cope.pattern.Qualifier;
 import com.exedio.cope.search.EqualCondition;
 import com.exedio.cops.CheckboxField;
@@ -501,7 +501,7 @@ final class ItemForm extends Form
 			if(field.key instanceof DataAttribute)
 			{
 				final DataAttribute attribute = (DataAttribute)field.key;
-				final HttpEntity entity = HttpEntity.get(attribute);
+				final Media entity = Media.get(attribute);
 				final FileItem fileItem = getParameterFile(attribute.getName());
 				
 				if(fileItem!=null)

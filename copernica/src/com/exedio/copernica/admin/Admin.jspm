@@ -29,7 +29,7 @@ import java.util.Iterator;
 import javax.servlet.http.HttpServletRequest;
 
 import com.exedio.cope.Model;
-import com.exedio.cope.pattern.HttpEntity;
+import com.exedio.cope.pattern.Media;
 import com.exedio.cope.pattern.HttpPath;
 import com.exedio.cope.pattern.HttpRedirect;
 import com.exedio.cope.util.PoolCounter;
@@ -217,9 +217,9 @@ final class Admin_Jspm
 			final String type = path.getType().getID();
 			final String name = path.getName();
 			final int[] data;
-			if(path instanceof HttpEntity)
+			if(path instanceof Media)
 			{
-				final HttpEntity entity = (HttpEntity)path;
+				final Media entity = (Media)path;
 				final int entityFound = entity.entityFound.get();
 				final int itemFound = entity.itemFound.get();
 				final int dataNotNull = entity.dataNotNull.get();
