@@ -292,7 +292,7 @@ final class Instrumentor implements InjectionConsumer
 		new CopeVector(ja);
 	}
 	
-	private final void handleHttpEntity(final JavaAttribute ja, final Class typeClass)
+	private final void handleMedia(final JavaAttribute ja, final Class typeClass)
 		throws InjectorParseException
 	{
 		final JavaClass jc = ja.parent;
@@ -335,7 +335,7 @@ final class Instrumentor implements InjectionConsumer
 					else if(Vector.class.isAssignableFrom(typeClass))
 						handleVector(ja, typeClass);
 					else if(Media.class.isAssignableFrom(typeClass))
-						handleHttpEntity(ja, typeClass);
+						handleMedia(ja, typeClass);
 				}
 			}
 		}
