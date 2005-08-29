@@ -41,7 +41,7 @@ final class MediaStatsCop extends AdminCop
 
 	final void writeBody(final PrintStream out, final Model model) throws IOException
 	{
-		final ArrayList entities = new ArrayList();
+		final ArrayList medias = new ArrayList();
 
 		for(Iterator i = model.getTypes().iterator(); i.hasNext(); )
 		{
@@ -51,12 +51,12 @@ final class MediaStatsCop extends AdminCop
 				final Feature feature = (Feature)j.next();
 				if(feature instanceof HttpPath)
 				{
-					entities.add(feature);
+					medias.add(feature);
 				}
 			}
 		}
 
-		Admin_Jspm.writeMediaStats(out, entities, model.getProperties().getMediaRootUrl());
+		Admin_Jspm.writeMediaStats(out, medias, model.getProperties().getMediaRootUrl());
 	}
 	
 }
