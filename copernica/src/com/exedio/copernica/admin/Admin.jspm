@@ -31,7 +31,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.exedio.cope.Model;
 import com.exedio.cope.pattern.Media;
 import com.exedio.cope.pattern.HttpPath;
-import com.exedio.cope.pattern.HttpRedirect;
+import com.exedio.cope.pattern.MediaRedirect;
 import com.exedio.cope.util.PoolCounter;
 
 final class Admin_Jspm
@@ -229,7 +229,7 @@ final class Admin_Jspm
 			}
 			else
 			{
-				final HttpRedirect redirect = (HttpRedirect)path;
+				final MediaRedirect redirect = (MediaRedirect)path;
 				final int redirectFound = redirect.redirectFound.get();
 				final int fullyDelivered = redirect.fullyDelivered.get();
 				data = new int[]{redirectFound, Integer.MIN_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE, fullyDelivered};
@@ -238,9 +238,9 @@ final class Admin_Jspm
 		<tr>
 			<td><%=type%></td>
 			<td><a href="<%=prefix%><%=type%>/<%=name%>/0"><%=name%></a><%
-			if(path instanceof HttpRedirect)
+			if(path instanceof MediaRedirect)
 			{
-				final HttpRedirect redirect = (HttpRedirect)path;
+				final MediaRedirect redirect = (MediaRedirect)path;
 				%> --&gt; <%=redirect.getTarget().getName()%><%
 			}
 			%></td><%
