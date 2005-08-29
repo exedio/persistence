@@ -149,6 +149,10 @@ public class Transaction
 		}
 		else
 		{
+			if ( !present ) 
+			{
+				throw new RuntimeException("tried to create entity that is already in cache: "+item.getCopeID());
+			}
 			return result;
 		}
 	}
