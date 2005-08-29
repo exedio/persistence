@@ -943,7 +943,7 @@ final class Generator
 				final CopeVector vector = (CopeVector)i.next();
 				writeVector(vector);
 			}
-			for(final Iterator i = copeClass.getHttpEntities().iterator(); i.hasNext(); )
+			for(final Iterator i = copeClass.getMedia().iterator(); i.hasNext(); )
 			{
 				final CopeMedia media = (CopeMedia)i.next();
 				writeDataAccessMethods(media);

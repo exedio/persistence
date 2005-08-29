@@ -52,7 +52,7 @@ final class CopeClass
 	private ArrayList uniqueConstraints = null;
 	private ArrayList qualifiers = null;
 	private ArrayList vectors = null;
-	private ArrayList entities = null;
+	private ArrayList media = null;
 	final Option typeOption;
 	final Option initialConstructorOption;
 	final Option genericConstructorOption;
@@ -196,10 +196,10 @@ final class CopeClass
 	
 	public void add(final CopeMedia media)
 	{
-		if(entities==null)
-			entities=new ArrayList();
+		if(media==null)
+			this.media=new ArrayList();
 
-		entities.add(media);
+		this.media.add(media);
 	}
 	
 	/**
@@ -208,9 +208,9 @@ final class CopeClass
 	public List getHttpEntities()
 	{
 		return
-			entities == null ?
+			media == null ?
 			Collections.EMPTY_LIST :
-			Collections.unmodifiableList(entities);
+			Collections.unmodifiableList(media);
 	}
 	
 	private ArrayList initialAttributes = null;
