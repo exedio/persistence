@@ -194,8 +194,8 @@ public final class Media extends HttpPath
 	}
 	
 	/**
-	 * Returns the major mime type of this http entity.
-	 * Returns null, if there is no data for this http entity.
+	 * Returns the major mime type of this media.
+	 * Returns null, if there is no data for this media.
 	 */
 	public final String getMimeMajor(final Item item)
 	{
@@ -206,8 +206,8 @@ public final class Media extends HttpPath
 	}
 
 	/**
-	 * Returns the minor mime type of this http entity.
-	 * Returns null, if there is no data for this http entity.
+	 * Returns the minor mime type of this media.
+	 * Returns null, if there is no data for this media.
 	 */
 	public final String getMimeMinor(final Item item)
 	{
@@ -218,8 +218,8 @@ public final class Media extends HttpPath
 	}
 	
 	/**
-	 * Returns the content type of this http entity.
-	 * Returns null, if there is no data for this http entity.
+	 * Returns the content type of this media.
+	 * Returns null, if there is no data for this media.
 	 */
 	public final String getContentType(final Item item)
 	{
@@ -235,9 +235,9 @@ public final class Media extends HttpPath
 	}
 
 	/**
-	 * Returns a stream for fetching the data of this http entity.
+	 * Returns a stream for fetching the data of this media.
 	 * <b>You are responsible for closing the stream, when you are finished!</b>
-	 * Returns null, if there is no data for this http entity.
+	 * Returns null, if there is no data for this media.
 	 */
 	public final InputStream getData(final Item item)
 	{
@@ -252,8 +252,8 @@ public final class Media extends HttpPath
 	}
 
 	/**
-	 * Returns the length of the data of this http entity.
-	 * Returns -1, if there is no data for this http entity.
+	 * Returns the length of the data of this media.
+	 * Returns -1, if there is no data for this media.
 	 */
 	public final long getDataLength(final Item item)
 	{
@@ -270,7 +270,7 @@ public final class Media extends HttpPath
 	/**
 	 * Returns the date of the last modification
 	 * of the data of this http entity.
-	 * Returns -1, if there is no data for this http entity.
+	 * Returns -1, if there is no data for this media.
 	 */
 	public final long getDataLastModified(final Item item)
 	{
@@ -285,8 +285,8 @@ public final class Media extends HttpPath
 	}
 
 	/**
-	 * Returns a URL pointing to the data of this http entity.
-	 * Returns null, if there is no data for this http entity.
+	 * Returns a URL pointing to the data of this media.
+	 * Returns null, if there is no data for this media.
 	 */
 	public final String getURL(final Item item)
 	{
@@ -300,7 +300,7 @@ public final class Media extends HttpPath
 	}
 
 	/**
-	 * Provides data for this persistent http entity.
+	 * Provides data for this persistent media.
 	 * Closes <data>data</data> after reading the contents of the stream.
 	 * @param data give null to remove data.
 	 * @throws MandatoryViolationException
@@ -460,7 +460,7 @@ public final class Media extends HttpPath
 	 * that for that time no request for that data will reach the servlet.
 	 * This may reduce the load on the server.
 	 * 
-	 * TODO: make this configurable, at best per HttpEntity.
+	 * TODO: make this configurable, at best per media.
 	 */
 	private static final long EXPIRES_OFFSET = 1000 * 5; // 5 seconds
 	
