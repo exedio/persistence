@@ -113,7 +113,7 @@ public final class MediaServlet extends HttpServlet
 		out.print("<html>\n" +
 				"<head>\n" +
 				"<title>Not Found</title>\n" +
-				"<meta name=\"generator\" content=\"cope data servlet\">\n" +
+				"<meta name=\"generator\" content=\"cope media servlet\">\n" +
 				"</head>\n" +
 				"<body>\n" +
 				"<h1>Not Found</h1>\n" +
