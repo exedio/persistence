@@ -266,11 +266,6 @@ public final class Properties
 		return datadirPath;
 	}
 	
-	public boolean hasMediaRootUrl()
-	{
-		return mediaRootUrl!=null;
-	}
-
 	public String getMediaRootUrl()
 	{
 		return mediaRootUrl;

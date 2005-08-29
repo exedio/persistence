@@ -87,17 +87,13 @@ final class Properties_Jspm
 			</tr>
 			<tr>
 				<th><%=properties.MEDIA_ROOT_URL%></th>
-				<td><%
-				if(properties.hasMediaRootUrl())
-				{
-					final String mediaRootUrl = properties.getMediaRootUrl();
-					%><%=mediaRootUrl%><%
-				}
-				else
-				{
-					%><b>n/a</b><%
-				}
-				%></td>
+				<td>
+					<%=properties.getMediaRootUrl()%>
+					<br>
+					<small>
+					(default is &quot;<%=properties.MEDIA_ROOT_URL_DEFAULT%>&quot;)
+					</small>
+				</td>
 			</tr><%
 
 			for(int i = 0; i<systemProperties.length; i++)
