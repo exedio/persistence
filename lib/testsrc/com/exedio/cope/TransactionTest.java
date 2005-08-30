@@ -87,6 +87,9 @@ public class TransactionTest extends TestmodelTest
 		{
 			assertSame(actualItem, e.getItem());
 		}
+		assertNotNull(actualItem.getCopeID());
+		assertTrue(actualItem.equals(actualItem));
+		actualItem.hashCode(); // test, that hashCode works
 	}
 	
 	public void testCommitChange() throws ConstraintViolationException
