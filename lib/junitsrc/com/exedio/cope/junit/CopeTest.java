@@ -18,6 +18,7 @@
 
 package com.exedio.cope.junit;
 
+import com.exedio.cope.NestingRuntimeException;
 import java.util.HashSet;
 import java.util.Iterator;
 
@@ -38,6 +39,8 @@ public abstract class CopeTest extends CopeAssert
 
 	public final Model model;
 	public final boolean exclusive;
+	
+	private boolean testMethodFinished = false;
 	
 	protected CopeTest(final Model model)
 	{
@@ -109,6 +112,21 @@ public abstract class CopeTest extends CopeAssert
 		}
 	}
 
+	public void runBare() throws Throwable 
+	{
+		setUp();
+		try 
+		{
+			testMethodFinished = false;
+			runTest();
+			testMethodFinished = true;
+		}
+		finally 
+		{
+			tearDown();
+		}
+	}
+	
 	protected void setUp() throws Exception
 	{
 		model.setPropertiesInitially(new Properties());
@@ -123,8 +141,25 @@ public abstract class CopeTest extends CopeAssert
 	protected void tearDown() throws Exception
 	{
 		super.tearDown();
-		if(!exclusive)
-			model.checkEmptyDatabase();
+		if( !exclusive )
+		{
+			try
+			{
+				model.checkEmptyDatabase();
+			}
+			catch ( RuntimeException e )
+			{
+				if ( testMethodFinished )
+				{
+					throw new NestingRuntimeException( e, "test completed successfully but didn't clean up database" );
+				}
+				else
+				{
+					model.tearDownDatabase();
+					model.createDatabase();
+				}
+			}
+		}
 		Transaction.commit();
 
 		dropDatabase();
