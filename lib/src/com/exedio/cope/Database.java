@@ -442,7 +442,7 @@ abstract class Database
 		return result;
 	}
 
-	void load(final State state)
+	void load(final PersistentState state)
 	{
 		buildStage = false;
 
@@ -469,7 +469,10 @@ abstract class Database
 		}
 		
 		if(first)
-			return; // no columns in type
+		{
+			// no columns in type
+			bf.append(state.type.getTable().getPrimaryKey().protectedID);
+		}
 
 		bf.append(" from ");
 		first = true;
@@ -501,15 +504,15 @@ abstract class Database
 		}
 
 		//System.out.println("loading "+bf.toString());
+		// TODO: let PersistentState be its own ResultSetHandler
 		executeSQLQuery(bf, new ResultSetHandler()
 			{
 				public void run(final ResultSet resultSet) throws SQLException
 				{
 					if(!resultSet.next())
-						state.doesNotExist();
+						throw new NoSuchItemException( state.item );
 					else
 					{
-						state.doesExist();
 						int columnIndex = 1;
 						for(Type type = state.type; type!=null; type = type.getSupertype())
 						{
@@ -560,27 +563,27 @@ abstract class Database
 		}
 	}
 	
-	void store(final State state)
+	void store(final State state, final boolean present)
 			throws UniqueViolationException
 	{
-		store(state, state.type);
+		store(state, state.type, present);
 	}
 
-	private void store(final State state, final Type type)
+	private void store(final State state, final Type type, final boolean present)
 			throws UniqueViolationException
 	{
 		buildStage = false;
 
 		final Type supertype = type.getSupertype();
 		if(supertype!=null)
-			store(state, supertype);
+			store(state, supertype, present);
 			
 		final Table table = type.getTable();
 
 		final List columns = table.getColumns();
 
 		final Statement bf = createStatement();
-		if(state.present)
+		if(present)
 		{
 			bf.append("update ").
 				append(table.protectedID).

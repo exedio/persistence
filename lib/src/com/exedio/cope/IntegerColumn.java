@@ -90,7 +90,7 @@ class IntegerColumn extends Column
 			return null;
 	}
 	
-	final void load(final ResultSet resultSet, final int columnIndex, final State state)
+	final void load(final ResultSet resultSet, final int columnIndex, final PersistentState state)
 			throws SQLException
 	{
 		final Object loadedInteger = resultSet.getObject(columnIndex);

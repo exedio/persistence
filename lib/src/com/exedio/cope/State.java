@@ -21,184 +21,48 @@ package com.exedio.cope;
 import java.util.HashMap;
 
 import bak.pcj.map.IntKeyOpenHashMap;
+import java.util.Map;
 
-final class State
+abstract class State
 {
-	final Transaction transaction;
 	final Item item;
 	final Type type;
 	final int pk;
 
-	// TODO: use arrays for String/int/double instead of the HashMap
-	private final HashMap cache = new HashMap();
-	boolean present;
-	boolean exists;
-	boolean notExists;
-	private boolean dirty;
-	private boolean discarded = false;
 
-	protected State(final Transaction transaction, final Item item, final boolean present)
+	protected State(final Item item)
 	{
-		if(transaction==null)
-			throw new NullPointerException();
-		
-		this.transaction = transaction;
 		this.item = item;
 		this.type = item.type;
 		this.pk = item.pk;
-		this.present = present;
-		this.dirty = !present;
 
 		if(pk==Type.NOT_A_PK)
 			throw new RuntimeException();
 	}
 	
-	Object get(final ObjectAttribute attribute)
-	{
-		checkExists();
+	abstract Object get(ObjectAttribute attribute);
+	
+	abstract State put(Transaction transaction, ObjectAttribute attribute, Object value);
+	
+	abstract State write( Transaction transaction ) throws UniqueViolationException, IntegrityViolationException;
+	
+	
+	abstract Object store(final Column column);
 
-		return attribute.cacheToSurface(cache.get(attribute.getColumn()));
+	abstract State delete( Transaction transaction );
+	
+	void discard( final Transaction transaction )
+	{
+		transaction.removeEntity( item );
 	}
 	
-	State put(final ObjectAttribute attribute, final Object value)
-	{
-		checkExists();
+	abstract Map stealValues();
+	
+	abstract boolean exists();
 
-		cache.put(attribute.getColumn(), attribute.surfaceToCache(value));
-		dirty = true; // TODO: check, whether the written attribute got really a new value
+	public String toString()
+	{
+		return getClass().getName()+"-"+item.getCopeID();
+	}
 		
-		return this;
-	}
-	
-	private void discard()
-	{
-		if(discarded)
-			throw new RuntimeException();
-
-		final IntKeyOpenHashMap rowMap = transaction.rowMaps[type.transientNumber];
-		if(rowMap!=null)
-			rowMap.remove(pk);
-		
-		discarded = true;
-	}
-	
-	State write()
-		throws UniqueViolationException
-	{
-		if(discarded)
-			throw new RuntimeException();
-
-		if(!dirty)
-			return this;
-		
-		try
-		{
-			type.getModel().getDatabase().store(this);
-		}
-		catch(UniqueViolationException e)
-		{
-			discard();
-			throw e;
-		}
-		catch(RuntimeException e)
-		{
-			discard();
-			throw e;
-		}
-		catch(Error e)
-		{
-			discard();
-			throw e;
-		}
-
-		present = true;
-		dirty = false;
-		
-		return this;
-	}
-	
-	void doesExist()
-	{
-		if(notExists)
-			throw new RuntimeException("does exist");
-		
-		exists = true;
-	}
-	
-	void doesNotExist()
-	{
-		if(exists)
-			throw new RuntimeException("no such pk"); // TODO use a dedicated runtime exception
-		
-		notExists = true;
-	}
-	
-	void load(final StringColumn column, final String value)
-	{
-		if(discarded)
-			throw new RuntimeException();
-
-		cache.put(column, value);
-	}
-	
-	void load(final IntegerColumn column, final long value)
-	{
-		if(discarded)
-			throw new RuntimeException();
-
-		cache.put(column, column.longInsteadOfInt ? (Number)new Long(value) : new Integer((int)value));
-	}
-	
-	void load(final DoubleColumn column, final double value)
-	{
-		if(discarded)
-			throw new RuntimeException();
-
-		cache.put(column, new Double(value));
-	}
-	
-	void load(final TimestampColumn column, final long value)
-	{
-		if(discarded)
-			throw new RuntimeException();
-
-		//System.out.println("Row.load TimestampColumn "+value);
-		cache.put(column, new Long(value));
-	}
-	
-	Object store(final Column column)
-	{
-		if(discarded)
-			throw new RuntimeException();
-
-		return cache.get(column);
-	}
-
-	void close()
-	{	
-		if(discarded)
-			throw new RuntimeException();
-		if(dirty)
-			throw new RuntimeException();
-		discard();
-	}
-
-	State delete() throws IntegrityViolationException
-	{	
-		checkExists();
-
-		type.getModel().getDatabase().delete( item );
-		notExists = true;
-		
-		return this;
-	}
-	
-	private final void checkExists()
-	{
-		if(discarded)
-			throw new RuntimeException();
-		if(notExists)
-			throw new NoSuchItemException(item);
-	}
-
 }

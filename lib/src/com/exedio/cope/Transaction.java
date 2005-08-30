@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import bak.pcj.set.IntOpenHashSet;
+import bak.pcj.set.IntSet;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -40,6 +42,7 @@ public class Transaction
 		threadLocal.set(this);
 		boundThread = Thread.currentThread();
 		rowMaps = new IntKeyOpenHashMap[model.numberOfTypes];
+		invalidations = new IntSet[model.numberOfTypes];
 	}
 	
 	public static void rollback()
@@ -121,6 +124,7 @@ public class Transaction
 	private Connection connection = null;
 	private ConnectionPool connectionPool = null;
 	private boolean closed = false;
+	final IntSet[] invalidations;
 	
 	final Entity getEntity(final Item item, final boolean present)
 	{
@@ -140,9 +144,15 @@ public class Transaction
 		Entity result = (Entity)rowMap.get(pk);
 		if(result==null)
 		{
-			State state = new State(this, item, present);
-			if(present)
-				database.load(state);
+			final State state;
+			if ( present )
+			{
+				state = new PersistentState( item );
+			}
+			else
+			{
+				state = new CreatedState( this, item );
+			}
 			result = new Entity(this, state);
 			rowMap.put(pk, result);
 			return result;
@@ -155,6 +165,26 @@ public class Transaction
 			}
 			return result;
 		}
+	}
+	
+	final void removeEntity(final Item item)
+	{
+		IntKeyOpenHashMap rowMap = rowMaps[item.type.transientNumber];
+		if(rowMap!=null)
+		{
+			rowMap.remove( item.pk );
+		}		
+	}
+	
+	void addInvalidation(final Type type, final int pk)
+	{
+		IntSet invalidationsForType = invalidations[ type.transientNumber ];
+		if ( invalidationsForType==null )
+		{
+			invalidationsForType = new IntOpenHashSet();
+			invalidations[ type.transientNumber ] = invalidationsForType;
+		}
+		invalidationsForType.add( pk );
 	}
 
 	final Entity getEntityIfActive(final Type type, final int pk)

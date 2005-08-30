@@ -18,7 +18,7 @@ final class Entity
 	
 	void put(final ObjectAttribute attribute, final Object value)
 	{
-		state = state.put( attribute, value );
+		state = state.put( transaction, attribute, value );
 	}
 	
 	final void put( AttributeValue[] attributeValues )
@@ -30,14 +30,14 @@ final class Entity
 		}	
 	}
 	
-	void write() throws UniqueViolationException
+	void write() throws UniqueViolationException, IntegrityViolationException
 	{
-		state = state.write();
+		state = state.write( transaction );
 	}
 	
 	void delete() throws IntegrityViolationException
 	{
-		state = state.delete();
+		state = state.delete( transaction );
 	}
 	
 	Item getItem()
@@ -47,6 +47,11 @@ final class Entity
 	
 	boolean exists()
 	{
-		return !state.notExists;
+		return state.exists();
+	}
+	
+	public String toString()
+	{
+		return "Entity["+(state==null?"no state":state.toString())+"]";
 	}
 }

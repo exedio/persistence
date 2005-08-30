@@ -175,6 +175,10 @@ public abstract class Item extends Cope
 			initialUniqueViolationException = e;
 			return;
 		}
+		catch(IntegrityViolationException e)
+		{
+			throw new NestingRuntimeException( e );
+		}
 	}
 	
 	/**
@@ -285,7 +289,14 @@ public abstract class Item extends Cope
 
 		final Entity entity = getEntity();
 		entity.put(attribute, value);
-		entity.write();
+		try
+		{
+			entity.write();
+		}
+		catch (IntegrityViolationException e)
+		{
+			throw new NestingRuntimeException( e );
+		}
 	}
 
 	/**
@@ -318,7 +329,14 @@ public abstract class Item extends Cope
 
 		final Entity entity = getEntity();		
 		entity.put(attributeValues);
-		entity.write();
+		try
+		{
+			entity.write();
+		}
+		catch (IntegrityViolationException e)
+		{
+			throw new NestingRuntimeException( e );
+		}
 	}
 
 	/**
@@ -489,6 +507,9 @@ public abstract class Item extends Cope
 					}
 				}
 			}
+			Entity entity = getEntity();
+			entity.delete();
+			entity.write();
 		}
 		catch(UniqueViolationException e)
 		{
@@ -510,10 +531,6 @@ public abstract class Item extends Cope
 			// cannot happen, since nullify ItemAttributes cannot be readonly
 			throw new NestingRuntimeException(e);
 		}
-
-		//System.out.println("------------wipe:"+tostring);
-		getEntity().delete();
-		//System.out.println("------------/delete:"+tostring);
 	}
 	
 	/**
@@ -527,7 +544,14 @@ public abstract class Item extends Cope
 	 */
 	public final boolean existsCopeItem()
 	{
-		return getEntity().exists();
+		try
+		{
+			return getEntity().exists();
+		}
+		catch ( NoSuchItemException e )
+		{
+			return false;
+		}
 	}
 
 	public static final Attribute.Option MANDATORY = new Attribute.Option(false, false, true);

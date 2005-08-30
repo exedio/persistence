@@ -101,7 +101,7 @@ final class StringColumn extends Column
 		return bf.length()==0 ? null : bf.toString();
 	}
 
-	void load(final ResultSet resultSet, final int columnIndex, final State state)
+	void load(final ResultSet resultSet, final int columnIndex, final PersistentState state)
 			throws SQLException
 	{
 		final String loadedString = resultSet.getString(columnIndex);

@@ -84,7 +84,7 @@ final class TimestampColumn extends Column
 		return result;
 	}
 	
-	final void load(final ResultSet resultSet, final int columnIndex, final State state)
+	final void load(final ResultSet resultSet, final int columnIndex, final PersistentState state)
 			throws SQLException
 	{
 		final Object loadedTimestamp = resultSet.getObject(columnIndex);
