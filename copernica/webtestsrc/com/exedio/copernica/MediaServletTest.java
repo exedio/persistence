@@ -44,10 +44,10 @@ public class MediaServletTest extends AbstractWebTest
 
 		assertEquals(textLastModified, assertURL(new URL(prefix + "MediaItem/file/2.unknownma.unknownmi"), "unknownma/unknownmi"));
 
-		assertURLRedirect(new URL(prefix + "MediaItem/foto/0.jpg"), prefix + "MediaItem/foto/0.jpg");
-		assertURLRedirect(new URL(prefix + "MediaItem/foto/0."), prefix + "MediaItem/foto/0.");
-		assertURLRedirect(new URL(prefix + "MediaItem/foto/0"), prefix + "MediaItem/foto/0");
-		assertURLRedirect(new URL(prefix + "MediaItem/foto/schnickschnack"), prefix + "MediaItem/foto/schnickschnack");
+		assertURLRedirect(new URL(prefix + "MediaItem/foto/0.jpg"), prefix + "MediaItem/photo/0.jpg");
+		assertURLRedirect(new URL(prefix + "MediaItem/foto/0."), prefix + "MediaItem/photo/0.jpg");
+		assertURLRedirect(new URL(prefix + "MediaItem/foto/0"), prefix + "MediaItem/photo/0.jpg");
+		assertNotFound(new URL(prefix + "MediaItem/foto/schnickschnack"));
 
 		assertNameURL(new URL(prefix + "MediaItem/nameServer/0.txt"));
 		assertNameURL(new URL(prefix + "MediaItem/nameServer/0."));
@@ -111,6 +111,20 @@ public class MediaServletTest extends AbstractWebTest
 		conn.setFollowRedirects(false);
 		conn.connect();
 		assertEquals(301, conn.getResponseCode());
+		assertEquals(target, conn.getHeaderField("Location"));
+		final long date = conn.getDate();
+		final Date after = new Date();
+		//System.out.println("Date: "+new Date(date));
+		assertWithin(3000, before, after, new Date(date));
+	}
+
+	private void assertNotFound(final URL url) throws IOException
+	{
+		final Date before = new Date();
+		final HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+		conn.setFollowRedirects(false);
+		conn.connect();
+		assertEquals(404, conn.getResponseCode());
 		final long date = conn.getDate();
 		final Date after = new Date();
 		//System.out.println("Date: "+new Date(date));

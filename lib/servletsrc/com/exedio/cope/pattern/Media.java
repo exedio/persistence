@@ -35,13 +35,10 @@ import com.exedio.cope.ConstraintViolationException;
 import com.exedio.cope.DataAttribute;
 import com.exedio.cope.Item;
 import com.exedio.cope.MandatoryViolationException;
-import com.exedio.cope.Model;
 import com.exedio.cope.NestingRuntimeException;
-import com.exedio.cope.NoSuchIDException;
 import com.exedio.cope.ObjectAttribute;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.StringAttribute;
-import com.exedio.cope.Transaction;
 import com.exedio.cope.Attribute.Option;
 
 public final class Media extends MediaPath
@@ -421,8 +418,6 @@ public final class Media extends MediaPath
 	private long start = System.currentTimeMillis();
 	private final Object startLock = new Object();
 	
-	public final Log mediumFound = new Log();
-	public final Log itemFound = new Log();
 	public final Log dataNotNull = new Log();
 	public final Log modified = new Log();
 	public final Log fullyDelivered = new Log();
@@ -471,104 +466,70 @@ public final class Media extends MediaPath
 	
 	public final boolean doGet(
 			final HttpServletRequest request, final HttpServletResponse response,
-			final String subPath)
+			final Item item, final String extension)
 		throws ServletException, IOException
 	{
-		//System.out.println("media="+this);
-		Log state = mediumFound;
-
-		final int dot = subPath.indexOf('.');
-		//System.out.println("trailingDot="+trailingDot);
-
-		final String pkString = (dot>=0) ? subPath.substring(0, dot) : subPath;
-		//System.out.println("pkString="+pkString);
-
-		final String id = getType().getID() + '.' + pkString;
-		//System.out.println("ID="+id);
-		try
-		{
-			final Model model = getType().getModel();
-			
-			model.startTransaction("MediaServlet");
-			final Item item = model.findByID(id);
-			//System.out.println("item="+item);
-			state = itemFound;
-
-			final String contentType = getContentType(item);
-			//System.out.println("contentType="+contentType);
-			if(contentType!=null)
-			{
-				state = dataNotNull;
-				
-				response.setContentType(contentType);
-
-				final long lastModified = getDataLastModified(item);
-				//System.out.println("lastModified="+formatHttpDate(lastModified));
-				response.setDateHeader(RESPONSE_LAST_MODIFIED, lastModified);
-
-				final long now = System.currentTimeMillis();
-				response.setDateHeader(RESPONSE_EXPIRES, now+EXPIRES_OFFSET);
-				
-				final long ifModifiedSince = request.getDateHeader(REQUEST_IF_MODIFIED_SINCE);
-				//System.out.println("ifModifiedSince="+request.getHeader(REQUEST_IF_MODIFIED_SINCE));
-				//System.out.println("ifModifiedSince="+ifModifiedSince);
-				
-				if(ifModifiedSince>=0 && ifModifiedSince>=lastModified)
-				{
-					//System.out.println("not modified");
-					response.setStatus(response.SC_NOT_MODIFIED);
-					
-					System.out.println(request.getMethod()+' '+request.getProtocol()+" IMS="+format(ifModifiedSince)+"  LM="+format(lastModified)+"  NOT modified");
-				}
-				else
-				{
-					state = modified;
-					
-					final long contentLength = getDataLength(item);
-					//System.out.println("contentLength="+String.valueOf(contentLength));
-					response.setHeader(RESPONSE_CONTENT_LENGTH, String.valueOf(contentLength));
-					//response.setHeader("Cache-Control", "public");
-	
-					System.out.println(request.getMethod()+' '+request.getProtocol()+" IMS="+format(ifModifiedSince)+"  LM="+format(lastModified)+"  modified: "+contentLength);
-
-					ServletOutputStream out = null;
-					InputStream in = null;
-					try
-					{
-						out = response.getOutputStream();
-						in = getData(item);
-	
-						final byte[] buffer = new byte[Math.max((int)contentLength, 50*1024)];
-						for(int len = in.read(buffer); len != -1; len = in.read(buffer))
-							out.write(buffer, 0, len);
-					}
-					finally
-					{
-						if(in!=null)
-							in.close();
-						if(out!=null)
-							out.close();
-					}
-					state = fullyDelivered;
-				}
-				Transaction.commit();
-				return true;
-			}
-			else
-			{
-				Transaction.commit();
-				return false;
-			}
-		}
-		catch(NoSuchIDException e)
-		{
+		Log state = itemFound;
+		
+		final String contentType = getContentType(item);
+		//System.out.println("contentType="+contentType);
+		if(contentType==null)
 			return false;
-		}
-		finally
+
+		state = dataNotNull;
+			
+		response.setContentType(contentType);
+
+		final long lastModified = getDataLastModified(item);
+		//System.out.println("lastModified="+formatHttpDate(lastModified));
+		response.setDateHeader(RESPONSE_LAST_MODIFIED, lastModified);
+
+		final long now = System.currentTimeMillis();
+		response.setDateHeader(RESPONSE_EXPIRES, now+EXPIRES_OFFSET);
+		
+		final long ifModifiedSince = request.getDateHeader(REQUEST_IF_MODIFIED_SINCE);
+		//System.out.println("ifModifiedSince="+request.getHeader(REQUEST_IF_MODIFIED_SINCE));
+		//System.out.println("ifModifiedSince="+ifModifiedSince);
+		
+		if(ifModifiedSince>=0 && ifModifiedSince>=lastModified)
 		{
-			Transaction.rollbackIfNotCommitted();
-			state.increment();
+			//System.out.println("not modified");
+			response.setStatus(response.SC_NOT_MODIFIED);
+			
+			System.out.println(request.getMethod()+' '+request.getProtocol()+" IMS="+format(ifModifiedSince)+"  LM="+format(lastModified)+"  NOT modified");
 		}
+		else
+		{
+			state = modified;
+			
+			final long contentLength = getDataLength(item);
+			//System.out.println("contentLength="+String.valueOf(contentLength));
+			response.setHeader(RESPONSE_CONTENT_LENGTH, String.valueOf(contentLength));
+			//response.setHeader("Cache-Control", "public");
+
+			System.out.println(request.getMethod()+' '+request.getProtocol()+" IMS="+format(ifModifiedSince)+"  LM="+format(lastModified)+"  modified: "+contentLength);
+
+			ServletOutputStream out = null;
+			InputStream in = null;
+			try
+			{
+				out = response.getOutputStream();
+				in = getData(item);
+
+				final byte[] buffer = new byte[Math.max((int)contentLength, 50*1024)];
+				for(int len = in.read(buffer); len != -1; len = in.read(buffer))
+					out.write(buffer, 0, len);
+			}
+			finally
+			{
+				if(in!=null)
+					in.close();
+				if(out!=null)
+					out.close();
+			}
+			state = fullyDelivered;
+		}
+		return true;
 	}
 
 	private final static String format(final long date)

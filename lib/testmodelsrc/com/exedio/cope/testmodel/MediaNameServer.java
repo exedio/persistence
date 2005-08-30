@@ -29,10 +29,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.exedio.cope.Item;
-import com.exedio.cope.Model;
-import com.exedio.cope.NoSuchIDException;
 import com.exedio.cope.StringAttribute;
-import com.exedio.cope.Transaction;
 import com.exedio.cope.pattern.MediaPath;
 
 /**
@@ -76,78 +73,44 @@ public final class MediaNameServer extends MediaPath
 	
 	public final boolean doGet(
 			final HttpServletRequest request, final HttpServletResponse response,
-			final String subPath)
+			final Item item, final String extension)
 		throws ServletException, IOException
 	{
-		//System.out.println("media="+this);
+		final String content = (String)item.get(source);
+		//System.out.println("contentType="+contentType);
+		if(content==null)
+			return false;
 
-		final int dot = subPath.indexOf('.');
-		//System.out.println("trailingDot="+trailingDot);
+		response.setContentType("text/plain");
 
-		final String pkString = (dot>=0) ? subPath.substring(0, dot) : subPath;
-		//System.out.println("pkString="+pkString);
+		final long now = System.currentTimeMillis();
+		response.setDateHeader(RESPONSE_EXPIRES, now+EXPIRES_OFFSET);
+		
+		final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		final OutputStreamWriter osw = new OutputStreamWriter(baos);
+		osw.write(content);
+		osw.close();
+		final byte[] contentBytes = baos.toByteArray();
+		
+		final long contentLength = contentBytes.length;
+		//System.out.println("contentLength="+String.valueOf(contentLength));
+		response.setHeader(RESPONSE_CONTENT_LENGTH, String.valueOf(contentLength));
+		//response.setHeader("Cache-Control", "public");
 
-		final String id = getType().getID() + '.' + pkString;
-		//System.out.println("ID="+id);
+		System.out.println(request.getMethod()+' '+request.getProtocol()+" modified: "+contentLength);
+
+		ServletOutputStream out = null;
 		try
 		{
-			final Model model = getType().getModel();
-			
-			model.startTransaction("MediaNameServer");
-			final Item item = model.findByID(id);
-			//System.out.println("item="+item);
-
-			final String content = (String)item.get(source);
-			//System.out.println("contentType="+contentType);
-			if(content!=null)
-			{
-				response.setContentType("text/plain");
-
-				final long now = System.currentTimeMillis();
-				response.setDateHeader(RESPONSE_EXPIRES, now+EXPIRES_OFFSET);
-				
-				final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-				final OutputStreamWriter osw = new OutputStreamWriter(baos);
-				osw.write(content);
-				osw.close();
-				final byte[] contentBytes = baos.toByteArray();
-				
-				
-				final long contentLength = contentBytes.length;
-				//System.out.println("contentLength="+String.valueOf(contentLength));
-				response.setHeader(RESPONSE_CONTENT_LENGTH, String.valueOf(contentLength));
-				//response.setHeader("Cache-Control", "public");
-
-				System.out.println(request.getMethod()+' '+request.getProtocol()+" modified: "+contentLength);
-
-				ServletOutputStream out = null;
-				try
-				{
-					out = response.getOutputStream();
-					out.write(contentBytes);
-				}
-				finally
-				{
-					if(out!=null)
-						out.close();
-				}
-				Transaction.commit();
-				return true;
-			}
-			else
-			{
-				Transaction.commit();
-				return false;
-			}
-		}
-		catch(NoSuchIDException e)
-		{
-			return false;
+			out = response.getOutputStream();
+			out.write(contentBytes);
 		}
 		finally
 		{
-			Transaction.rollbackIfNotCommitted();
+			if(out!=null)
+				out.close();
 		}
+		return true;
 	}
 
 }

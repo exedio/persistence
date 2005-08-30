@@ -25,6 +25,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.exedio.cope.Item;
+
 /**
  * Specifies a http redirect (moved permanently) to
  * a {@link Media}.
@@ -102,7 +104,7 @@ public final class MediaRedirect extends MediaPath
 	
 	public final boolean doGet(
 			final HttpServletRequest request, final HttpServletResponse response,
-			final String subPath)
+			final Item item, final String extension)
 		throws ServletException, IOException
 	{
 		//System.out.println("media="+this);
@@ -114,9 +116,7 @@ public final class MediaRedirect extends MediaPath
 				request.getScheme() + "://" +
 				request.getHeader("Host") +
 				request.getContextPath() + '/' +
-				getMediaRootUrl() +
-				target.getUrlPath() +
-				subPath;
+				target.getURL(item);
 			//System.out.println("location="+location);
 			
 			response.setStatus(response.SC_MOVED_PERMANENTLY);

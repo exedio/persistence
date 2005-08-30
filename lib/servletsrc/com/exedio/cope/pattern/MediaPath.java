@@ -25,7 +25,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.exedio.cope.Item;
+import com.exedio.cope.Model;
+import com.exedio.cope.NoSuchIDException;
 import com.exedio.cope.Pattern;
+import com.exedio.cope.Transaction;
 
 public abstract class MediaPath extends Pattern
 {
@@ -55,7 +59,62 @@ public abstract class MediaPath extends Pattern
 		return mediaRootUrl;
 	}
 	
-	public abstract boolean doGet(HttpServletRequest request, HttpServletResponse response, String subPath)
+	public final Log mediumFound = new Log();
+	public final Log itemFound = new Log();
+
+	final boolean doGet(
+			final HttpServletRequest request, final HttpServletResponse response,
+			final String subPath)
+		throws ServletException, IOException
+	{
+		//System.out.println("media="+this);
+		Log state = mediumFound;
+
+		final int dot = subPath.indexOf('.');
+		//System.out.println("trailingDot="+trailingDot);
+
+		final String pkString;
+		final String extension;
+		if(dot>=0)
+		{
+			pkString = subPath.substring(0, dot);
+			extension = subPath.substring(dot);
+		}
+		else
+		{
+			pkString = subPath;
+			extension = "";
+		}
+		
+		//System.out.println("pkString="+pkString);
+
+		final String id = getType().getID() + '.' + pkString;
+		//System.out.println("ID="+id);
+		try
+		{
+			final Model model = getType().getModel();
+			
+			model.startTransaction("MediaServlet");
+			final Item item = model.findByID(id);
+			//System.out.println("item="+item);
+			state = itemFound;
+			
+			final boolean result = doGet(request, response, item, extension);
+			Transaction.commit();
+			return result;
+		}
+		catch(NoSuchIDException e)
+		{
+			return false;
+		}
+		finally
+		{
+			Transaction.rollbackIfNotCommitted();
+			state.increment();
+		}
+	}
+
+	public abstract boolean doGet(HttpServletRequest request, HttpServletResponse response, Item item, String extension)
 		throws ServletException, IOException;
 
 	public abstract Date getStart();
