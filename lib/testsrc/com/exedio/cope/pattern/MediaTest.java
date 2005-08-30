@@ -41,7 +41,7 @@ public class MediaTest extends TestmodelTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		deleteOnTearDown(item = new MediaItem());
+		deleteOnTearDown(item = new MediaItem("test media item"));
 	}
 	
 	private void assertExtension(final String mimeMajor, final String mimeMinor, final String extension)
@@ -56,6 +56,7 @@ public class MediaTest extends TestmodelTest
 	public void testData() throws IOException
 	{
 		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
+				item.name,
 				item.file,
 				item.file.getData(),
 				item.file.getMimeMajor(),
@@ -67,6 +68,7 @@ public class MediaTest extends TestmodelTest
 				item.photo.getData(),
 				item.photo.getExists(),
 				item.foto,
+				item.nameServer,
 			}), item.TYPE.getFeatures());
 
 		// file
@@ -262,6 +264,12 @@ public class MediaTest extends TestmodelTest
 		assertEquals(item.TYPE, item.foto.getType());
 		assertEquals("foto", item.foto.getName());
 		assertSame(item.photo, item.foto.getTarget());
+		
+		
+		// nameServer
+		assertEquals(item.TYPE, item.nameServer.getType());
+		assertEquals("nameServer", item.nameServer.getName());
+		assertSame(item.name, item.nameServer.getSource());
 		
 
 		// logs -----------------------------------------------

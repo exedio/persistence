@@ -211,6 +211,7 @@ final class Admin_Jspm
 			%>
 			<th>From</th>
 		</tr><%
+
 		for(Iterator i = media.iterator(); i.hasNext(); )
 		{
 			final MediaPath path = (MediaPath)i.next();
@@ -227,13 +228,16 @@ final class Admin_Jspm
 				final int fullyDelivered = medium.fullyDelivered.get();
 				data = new int[]{mediumFound, itemFound, dataNotNull, modified, fullyDelivered};
 			}
-			else
+			else if(path instanceof MediaRedirect)
 			{
 				final MediaRedirect redirect = (MediaRedirect)path;
 				final int redirectFound = redirect.redirectFound.get();
 				final int fullyDelivered = redirect.fullyDelivered.get();
 				data = new int[]{redirectFound, Integer.MIN_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE, fullyDelivered};
 			}
+			else
+				data = new int[]{Integer.MIN_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE};
+
 			%>
 		<tr>
 			<td><%=type%></td>

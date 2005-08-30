@@ -364,6 +364,7 @@
 				optimize="off">
 			<classpath>
 				<pathelement location="lib/build/classes" />
+				<pathelement location="../tomcat/common/lib/servlet-api.jar" />
 			</classpath>
 		</javac>
 	</target>

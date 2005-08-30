@@ -48,6 +48,10 @@ public class MediaServletTest extends AbstractWebTest
 		assertURLRedirect(new URL(prefix + "MediaItem/foto/0."), prefix + "MediaItem/foto/0.");
 		assertURLRedirect(new URL(prefix + "MediaItem/foto/0"), prefix + "MediaItem/foto/0");
 		assertURLRedirect(new URL(prefix + "MediaItem/foto/schnickschnack"), prefix + "MediaItem/foto/schnickschnack");
+
+		assertNameURL(new URL(prefix + "MediaItem/nameServer/0.txt"));
+		assertNameURL(new URL(prefix + "MediaItem/nameServer/0."));
+		assertNameURL(new URL(prefix + "MediaItem/nameServer/0"));
 	}
 	
 	private long assertURL(final URL url) throws IOException
@@ -113,5 +117,20 @@ public class MediaServletTest extends AbstractWebTest
 		assertWithin(3000, before, after, new Date(date));
 	}
 
+	private void assertNameURL(final URL url) throws IOException
+	{
+		final Date before = new Date();
+		final HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+		conn.setFollowRedirects(false);
+		conn.connect();
+		assertEquals(200, conn.getResponseCode());
+		assertEquals("text/plain", conn.getContentType());
+		assertEquals(12, conn.getContentLength());
+		
+		final BufferedReader is = new BufferedReader(new InputStreamReader((InputStream)conn.getInputStream()));
+		assertEquals("media item 1", is.readLine());
+		assertEquals(null, is.readLine());
+		is.close();
+	}
 
 }
