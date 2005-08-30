@@ -524,45 +524,6 @@ abstract class Database
 			}, false);
 	}
 
-	boolean check(final Type type, final int pk)
-	{
-		buildStage = false;
-
-		final Statement bf = createStatement();
-		final Table table = type.getTable();
-		final Column primaryKey = table.getPrimaryKey();
-		final String tableProtectedID = table.protectedID;
-		final String primaryKeyProtectedID = primaryKey.protectedID;
-
-		bf.append("select ").
-			append(tableProtectedID).
-			append('.').
-			append(primaryKeyProtectedID).defineColumnInteger().
-			append(" from ").
-			append(tableProtectedID).
-			append(" where ").
-			append(tableProtectedID).
-			append('.').
-			append(primaryKeyProtectedID).
-			append('=').
-			append(pk);
-
-		//System.out.println("loading "+bf.toString());
-		final CheckResultSetHandler handler = new CheckResultSetHandler();
-		executeSQLQuery(bf, handler, false);
-		return handler.result;
-	}
-
-	private static class CheckResultSetHandler implements ResultSetHandler
-	{
-		private boolean result = false;
-
-		public void run(final ResultSet resultSet) throws SQLException
-		{
-			result = resultSet.next();
-		}
-	}
-	
 	void store(final State state, final boolean present)
 			throws UniqueViolationException
 	{

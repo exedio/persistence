@@ -71,9 +71,13 @@ public class UniqueItemTest extends TestmodelTest
 
 		restartTransaction();
 		assertTrue(!item.isActiveCopeItem());
-		assertNotSame(item, model.findByID(item.getCopeID()));
+		Item otheritem = model.findByID(item.getCopeID());
+		assertNotSame(item, otheritem);
+		assertTrue(otheritem.isActiveCopeItem());
+		assertTrue(!item.isActiveCopeItem());
 		assertEquals("uniqueString", item.getUniqueString());
-		assertTrue(item.isActiveCopeItem());
+		assertTrue(otheritem.isActiveCopeItem());
+		assertTrue(!item.isActiveCopeItem());
 
 		final ItemWithSingleUnique firstFoundItem;
 		{

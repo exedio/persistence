@@ -334,10 +334,11 @@ public final class Model
 
 		final int pk = type.getPrimaryKeyIterator().id2pk(idNumber);
 		
-		if(!database.check(type, pk))
-			throw new NoSuchIDException(id, "item <"+idNumber+"> does not exist");
-
 		final Item result = type.getItemObject(pk);
+		if ( ! result.existsCopeItem() )
+		{
+			throw new NoSuchIDException(id, "item <"+idNumber+"> does not exist");
+		}
 		return result;
 	}
 	
