@@ -66,7 +66,7 @@ public class TransactionTest extends TestmodelTest
 		assertSomeString(item, someString);
 	}
 	
-	private void assertNotExists(final AttributeItem actualItem) throws MandatoryViolationException
+	private void assertNotExists(final AttributeItem actualItem) throws MandatoryViolationException, IntegrityViolationException
 	{
 		assertTrue(!actualItem.existsCopeItem());
 		try
@@ -81,6 +81,15 @@ public class TransactionTest extends TestmodelTest
 		try
 		{
 			actualItem.setSomeNotNullString("hallo");
+			fail();
+		}
+		catch(NoSuchItemException e)
+		{
+			assertSame(actualItem, e.getItem());
+		}
+		try
+		{
+			actualItem.deleteCopeItem();
 			fail();
 		}
 		catch(NoSuchItemException e)
