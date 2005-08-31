@@ -361,10 +361,15 @@ public final class Model
 	 * @param name
 	 * 	a name for the transaction, useful for debugging.
 	 * 	This name is used in {@link Transaction#toString()}.
+	 * @throws RuntimeException
+	 *    if there is already a transaction bound
+	 *    to the current thread for this model
 	 */
 	public Transaction startTransaction(final String name)
 	{
 		final Transaction result = new Transaction(this, name);
+		if(transactionThreads.get()!=null)
+			throw new RuntimeException("there is already a transaction bound to current thread");
 		result.boundThread = Thread.currentThread();
 		transactionThreads.set(result);
 		return new Transaction(this, name);
