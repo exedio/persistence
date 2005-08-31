@@ -43,6 +43,7 @@ public class MediaServletTest extends AbstractWebTest
 		assertNotFound(new URL(prefix + "file/15."));
 		assertNotFound(new URL(prefix + "file/15"));
 		assertNotFound(new URL(prefix + "file/"));
+		assertNotFound(new URL(prefix + "file"));
 		assertNotFound(new URL(prefix + "file/zapp"));
 		
 		assertEquals(textLastModified, assertURL(new URL(prefix + "file/0"), textLastModified-1, false));
@@ -55,10 +56,20 @@ public class MediaServletTest extends AbstractWebTest
 		assertURLRedirect(new URL(prefix + "foto/0."), prefix + "photo/0.jpg");
 		assertURLRedirect(new URL(prefix + "foto/0"), prefix + "photo/0.jpg");
 		assertNotFound(new URL(prefix + "foto/schnickschnack"));
+		assertNotFound(new URL(prefix + "foto/20.jpg"));
+		assertNotFound(new URL(prefix + "foto/20."));
+		assertNotFound(new URL(prefix + "foto/20"));
+		assertNotFound(new URL(prefix + "foto/"));
+		assertNotFound(new URL(prefix + "foto"));
 
 		assertNameURL(new URL(prefix + "nameServer/0.txt"));
 		assertNameURL(new URL(prefix + "nameServer/0."));
 		assertNameURL(new URL(prefix + "nameServer/0"));
+		assertNotFound(new URL(prefix + "nameServer/20.txt"));
+		assertNotFound(new URL(prefix + "nameServer/20."));
+		assertNotFound(new URL(prefix + "nameServer/20"));
+		assertNotFound(new URL(prefix + "nameServer/"));
+		assertNotFound(new URL(prefix + "nameServer"));
 	}
 	
 	private long assertURL(final URL url) throws IOException
