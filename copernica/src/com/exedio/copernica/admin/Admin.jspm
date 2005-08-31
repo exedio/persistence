@@ -129,7 +129,7 @@ final class Admin_Jspm
 	{
 	final SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss.SSS");
 	final String[] names = new String[]{
-		"Loss",
+		"Loss = 100 * Destroy / Get",
 		"Level",
 		"Level Max",
 		"Create",
