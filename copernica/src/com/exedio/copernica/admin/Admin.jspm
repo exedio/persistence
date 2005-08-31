@@ -218,14 +218,14 @@ final class Admin_Jspm
 			final MediaPath path = (MediaPath)i.next();
 			final String type = path.getType().getID();
 			final String name = path.getName();
-			final int[] data;
-			final int exception = path.exception.get();
-			final int notAnItem = path.notAnItem.get();
-			final int noSuchItem = path.noSuchItem.get();
-			final int dataIsNull = path.dataIsNull.get();
-			final int notModified = path.notModified.get();
-			final int delivered = path.delivered.get();
-			data = new int[]{exception, notAnItem, noSuchItem, dataIsNull, notModified, delivered};
+			final int[] data = new int[]{
+				path.exception.get(),
+				path.notAnItem.get(),
+				path.noSuchItem.get(),
+				path.dataIsNull.get(),
+				path.notModified.get(),
+				path.delivered.get(),
+			};
 
 			%>
 		<tr>
