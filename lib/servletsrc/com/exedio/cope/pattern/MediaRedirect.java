@@ -102,34 +102,22 @@ public final class MediaRedirect extends MediaPath
 
 	private static final String RESPONSE_LOCATION = "Location";
 	
-	public final boolean doGet(
+	public final Media.Log doGet(
 			final HttpServletRequest request, final HttpServletResponse response,
 			final Item item, final String extension)
 		throws ServletException, IOException
 	{
 		//System.out.println("media="+this);
-		Log state = redirectFound;
+		final String location =
+			request.getScheme() + "://" +
+			request.getHeader("Host") +
+			request.getContextPath() + '/' +
+			target.getURL(item);
+		//System.out.println("location="+location);
 		
-		try
-		{
-			final String location =
-				request.getScheme() + "://" +
-				request.getHeader("Host") +
-				request.getContextPath() + '/' +
-				target.getURL(item);
-			//System.out.println("location="+location);
-			
-			response.setStatus(response.SC_MOVED_PERMANENTLY);
-			response.setHeader(RESPONSE_LOCATION, location);
-			
-			state = fullyDelivered;
-		}
-		finally
-		{
-			state.increment();
-		}
-		
-		return true;
+		response.setStatus(response.SC_MOVED_PERMANENTLY);
+		response.setHeader(RESPONSE_LOCATION, location);
+		return redirectFound;
 	}
 
 }

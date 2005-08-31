@@ -30,6 +30,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.StringAttribute;
+import com.exedio.cope.pattern.Media;
+import com.exedio.cope.pattern.MediaException;
 import com.exedio.cope.pattern.MediaPath;
 
 /**
@@ -71,15 +73,15 @@ public final class MediaNameServer extends MediaPath
 	private static final String RESPONSE_EXPIRES = "Expires";
 	private static final String RESPONSE_CONTENT_LENGTH = "Content-Length";
 	
-	public final boolean doGet(
+	public Media.Log doGet(
 			final HttpServletRequest request, final HttpServletResponse response,
 			final Item item, final String extension)
-		throws ServletException, IOException
+		throws ServletException, IOException, MediaException
 	{
 		final String content = (String)item.get(source);
 		//System.out.println("contentType="+contentType);
 		if(content==null)
-			return false;
+			throw new MediaException(itemFound);
 
 		response.setContentType("text/plain");
 
@@ -110,7 +112,7 @@ public final class MediaNameServer extends MediaPath
 			if(out!=null)
 				out.close();
 		}
-		return true;
+		return null;
 	}
 
 }

@@ -61,14 +61,11 @@ public abstract class MediaPath extends Pattern
 	public final Log mediumFound = new Log();
 	public final Log itemFound = new Log();
 
-	final boolean doGet(
+	final Media.Log doGet(
 			final HttpServletRequest request, final HttpServletResponse response,
 			final String subPath)
-		throws ServletException, IOException
+		throws ServletException, IOException, MediaException
 	{
-		//System.out.println("media="+this);
-		Log state = mediumFound;
-
 		final int dot = subPath.indexOf('.');
 		//System.out.println("trailingDot="+trailingDot);
 
@@ -95,25 +92,23 @@ public abstract class MediaPath extends Pattern
 			model.startTransaction("MediaServlet");
 			final Item item = model.findByID(id);
 			//System.out.println("item="+item);
-			state = itemFound;
 			
-			final boolean result = doGet(request, response, item, extension);
+			final Media.Log result = doGet(request, response, item, extension);
 			model.commit();
 			return result;
 		}
 		catch(NoSuchIDException e)
 		{
-			return false;
+			throw new MediaException(mediumFound);
 		}
 		finally
 		{
 			model.rollbackIfNotCommitted();
-			state.increment();
 		}
 	}
 
-	public abstract boolean doGet(HttpServletRequest request, HttpServletResponse response, Item item, String extension)
-		throws ServletException, IOException;
+	public abstract Media.Log doGet(HttpServletRequest request, HttpServletResponse response, Item item, String extension)
+		throws ServletException, IOException, MediaException;
 
 	public abstract Date getStart();
 

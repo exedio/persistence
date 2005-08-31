@@ -464,20 +464,16 @@ public final class Media extends MediaPath
 	private static final String RESPONSE_LAST_MODIFIED = "Last-Modified";
 	private static final String RESPONSE_CONTENT_LENGTH = "Content-Length";
 	
-	public final boolean doGet(
+	public final Media.Log doGet(
 			final HttpServletRequest request, final HttpServletResponse response,
 			final Item item, final String extension)
-		throws ServletException, IOException
+		throws ServletException, IOException, MediaException
 	{
-		Log state = itemFound;
-		
 		final String contentType = getContentType(item);
 		//System.out.println("contentType="+contentType);
 		if(contentType==null)
-			return false;
+			throw new MediaException(itemFound);
 
-		state = dataNotNull;
-			
 		response.setContentType(contentType);
 
 		final long lastModified = getDataLastModified(item);
@@ -497,11 +493,11 @@ public final class Media extends MediaPath
 			response.setStatus(response.SC_NOT_MODIFIED);
 			
 			System.out.println(request.getMethod()+' '+request.getProtocol()+" IMS="+format(ifModifiedSince)+"  LM="+format(lastModified)+"  NOT modified");
+			
+			return dataNotNull;
 		}
 		else
 		{
-			state = modified;
-			
 			final long contentLength = getDataLength(item);
 			//System.out.println("contentLength="+String.valueOf(contentLength));
 			response.setHeader(RESPONSE_CONTENT_LENGTH, String.valueOf(contentLength));
@@ -527,9 +523,8 @@ public final class Media extends MediaPath
 				if(out!=null)
 					out.close();
 			}
-			state = fullyDelivered;
+			return modified;
 		}
-		return true;
 	}
 
 	private final static String format(final long date)

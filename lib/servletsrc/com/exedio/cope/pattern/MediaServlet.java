@@ -94,10 +94,20 @@ public final class MediaServlet extends HttpServlet
 			final HttpServletResponse response)
 		throws ServletException, IOException
 	{
-		if(serveContent(request, response))
+		try
+		{
+			final Media.Log log = serveContent(request, response);
+			log.increment();
 			return;
+		}
+		catch(MediaException e)
+		{
+			if(e.log!=null) // TODO make e.log mandatory
+				e.log.increment();
+		}
 		
 		serveError(request, response);
+		// TODO make 500 error page without stack trace
 	}
 		
 	private final void serveError(
@@ -124,32 +134,30 @@ public final class MediaServlet extends HttpServlet
 		out.close();
 	}
 	
-	private final boolean serveContent(
+	private final Media.Log serveContent(
 			final HttpServletRequest request,
 			final HttpServletResponse response)
-		throws ServletException, IOException
+		throws ServletException, IOException, MediaException
 	{
 		final String pathInfo = request.getPathInfo();
 		//System.out.println("pathInfo="+pathInfo);
 		if(pathInfo==null)
-			return false;
+			throw new MediaException(null); // TODO make a log for this case
 
 		final int trailingSlash = pathInfo.lastIndexOf('/');
 		if(trailingSlash<=0 && // null is leading slash, which is not allowed
 			trailingSlash>=pathInfo.length()-1)
-			return false;
+			throw new MediaException(null); // TODO make a log for this case
 
 		final String attributeString = pathInfo.substring(0, trailingSlash+1);
 		//System.out.println("attributeString="+attributeString);
 
 		final MediaPath path = (MediaPath)pathes.get(attributeString);
 		if(path==null)
-			return false;
-		else
-		{
-			final String subPath = pathInfo.substring(trailingSlash+1);
-			return path.doGet(request, response, subPath);
-		}
+			throw new MediaException(null); // TODO make a log for this case
+
+		final String subPath = pathInfo.substring(trailingSlash+1);
+		return path.doGet(request, response, subPath);
 	}
 	
 }
