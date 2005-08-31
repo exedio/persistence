@@ -59,6 +59,7 @@ public abstract class MediaPath extends Pattern
 	}
 	
 	public static final Log noSuchPath = new Log("no such path");
+	public final Log notAnItem = new Log("not an item");
 	public final Log noSuchItem = new Log("no such item");
 	public final Log dataIsNull = new Log("data is null");
 	public final Log notModified = new Log("not modified");
@@ -102,7 +103,7 @@ public abstract class MediaPath extends Pattern
 		}
 		catch(NoSuchIDException e)
 		{
-			throw new MediaException(noSuchItem);
+			throw new MediaException(e.notAnID() ? notAnItem : noSuchItem);
 		}
 		finally
 		{

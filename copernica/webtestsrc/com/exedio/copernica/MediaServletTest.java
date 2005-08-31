@@ -29,6 +29,7 @@ import java.util.Date;
 public class MediaServletTest extends AbstractWebTest
 {
 	private static final String NO_SUCH_PATH = "no such path";
+	private static final String NOT_AN_ITEM = "not an item";
 	private static final String NO_SUCH_ITEM = "no such item";
 	private static final String DATA_IS_NULL = "data is null";
 
@@ -45,9 +46,9 @@ public class MediaServletTest extends AbstractWebTest
 		assertNotFound(new URL(prefix + "file/15.zick"), NO_SUCH_ITEM);
 		assertNotFound(new URL(prefix + "file/15."), NO_SUCH_ITEM);
 		assertNotFound(new URL(prefix + "file/15"), NO_SUCH_ITEM);
-		assertNotFound(new URL(prefix + "file/"), NO_SUCH_ITEM);
+		assertNotFound(new URL(prefix + "file/"), NOT_AN_ITEM);
 		assertNotFound(new URL(prefix + "file"), NO_SUCH_PATH);
-		assertNotFound(new URL(prefix + "file/zapp"), NO_SUCH_ITEM);
+		assertNotFound(new URL(prefix + "file/zapp"), NOT_AN_ITEM);
 		assertNotFound(new URL(prefix + "photo/1.jpg"), DATA_IS_NULL);
 		assertNotFound(new URL(prefix + "photo/1."), DATA_IS_NULL);
 		assertNotFound(new URL(prefix + "photo/1"), DATA_IS_NULL);
@@ -62,11 +63,11 @@ public class MediaServletTest extends AbstractWebTest
 		assertURLRedirect(new URL(prefix + "foto/0.jpg"), prefix + "photo/0.jpg");
 		assertURLRedirect(new URL(prefix + "foto/0."), prefix + "photo/0.jpg");
 		assertURLRedirect(new URL(prefix + "foto/0"), prefix + "photo/0.jpg");
-		assertNotFound(new URL(prefix + "foto/schnickschnack"), NO_SUCH_ITEM);
+		assertNotFound(new URL(prefix + "foto/schnickschnack"), NOT_AN_ITEM);
 		assertNotFound(new URL(prefix + "foto/20.jpg"), NO_SUCH_ITEM);
 		assertNotFound(new URL(prefix + "foto/20."), NO_SUCH_ITEM);
 		assertNotFound(new URL(prefix + "foto/20"), NO_SUCH_ITEM);
-		assertNotFound(new URL(prefix + "foto/"), NO_SUCH_ITEM);
+		assertNotFound(new URL(prefix + "foto/"), NOT_AN_ITEM);
 		assertNotFound(new URL(prefix + "foto"), NO_SUCH_PATH);
 		assertNotFound(new URL(prefix + "foto/1.jpg"), DATA_IS_NULL);
 		assertNotFound(new URL(prefix + "foto/1."), DATA_IS_NULL);
@@ -79,7 +80,7 @@ public class MediaServletTest extends AbstractWebTest
 		assertNotFound(new URL(prefix + "nameServer/20.txt"), NO_SUCH_ITEM);
 		assertNotFound(new URL(prefix + "nameServer/20."), NO_SUCH_ITEM);
 		assertNotFound(new URL(prefix + "nameServer/20"), NO_SUCH_ITEM);
-		assertNotFound(new URL(prefix + "nameServer/"), NO_SUCH_ITEM);
+		assertNotFound(new URL(prefix + "nameServer/"), NOT_AN_ITEM);
 		assertNotFound(new URL(prefix + "nameServer"), NO_SUCH_PATH);
 	}
 	
