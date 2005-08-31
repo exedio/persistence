@@ -314,12 +314,12 @@ public final class Model
 	{
 		final int pos = id.lastIndexOf('.');
 		if(pos<=0)
-			throw new NoSuchIDException(id, "no dot in id");
+			throw new NoSuchIDException(id, true, "no dot in id");
 
 		final String typeID = id.substring(0, pos);
 		final Type type = findTypeByID(typeID);
 		if(type==null)
-			throw new NoSuchIDException(id, "no such type "+typeID);
+			throw new NoSuchIDException(id, true, "no such type "+typeID);
 		
 		final String idString = id.substring(pos+1);
 
@@ -338,7 +338,7 @@ public final class Model
 		final Item result = type.getItemObject(pk);
 		if ( ! result.existsCopeItem() )
 		{
-			throw new NoSuchIDException(id, "item <"+idNumber+"> does not exist");
+			throw new NoSuchIDException(id, false, "item <"+idNumber+"> does not exist");
 		}
 		return result;
 	}

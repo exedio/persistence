@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 public class FindByIDTest extends TestmodelTest
 {
-	private void assertFail(final String id, final String message)
+	private void assertFail(final String id, final String message, final boolean notAnID)
 	{
 		try
 		{
@@ -30,19 +30,20 @@ public class FindByIDTest extends TestmodelTest
 		catch(NoSuchIDException e)
 		{
 			assertEquals(message, e.getMessage());
+			assertEquals(notAnID, e.notAnID());
 		}
 	}
 
 	public void testFindbyID()
 	{
-		assertFail("noDotInThisString", "no such id <noDotInThisString>, no dot in id");
-		assertFail("noSuchType.x", "no such id <noSuchType.x>, no such type noSuchType");
-		assertFail("EmptyItem.x", "no such id <EmptyItem.x>, wrong number format <x>");
-		assertFail("EmptyItem.92386591832651832659213865193456293456", "no such id <EmptyItem.92386591832651832659213865193456293456>, wrong number format <92386591832651832659213865193456293456>");
+		assertFail("noDotInThisString", "no such id <noDotInThisString>, no dot in id", true);
+		assertFail("noSuchType.x", "no such id <noSuchType.x>, no such type noSuchType", true);
+		assertFail("EmptyItem.x", "no such id <EmptyItem.x>, wrong number format <x>", true);
+		assertFail("EmptyItem.92386591832651832659213865193456293456", "no such id <EmptyItem.92386591832651832659213865193456293456>, wrong number format <92386591832651832659213865193456293456>", true);
 		// special test for items without any attributes
-		assertFail("EmptyItem.51", "no such id <EmptyItem.51>, item <51> does not exist");
-		assertFail("AttributeItem.-1", "no such id number <-1>, must be positive");
-		assertFail("AttributeItem.50", "no such id <AttributeItem.50>, item <50> does not exist");
+		assertFail("EmptyItem.51", "no such id <EmptyItem.51>, item <51> does not exist", false);
+		assertFail("AttributeItem.-1", "no such id number <-1>, must be positive", true);
+		assertFail("AttributeItem.50", "no such id <AttributeItem.50>, item <50> does not exist", false);
 	}
 	
 }

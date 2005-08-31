@@ -29,18 +29,34 @@ package com.exedio.cope;
  */
 public class NoSuchIDException extends Exception
 {
-	NoSuchIDException(final String id, final String detail)
+	final boolean notAnID;
+	
+	NoSuchIDException(final String id, final boolean notAnID, final String detail)
 	{
 		super("no such id <"+id+">, "+detail);
+		this.notAnID = notAnID;
 	}
 
 	NoSuchIDException(final String id, final NumberFormatException cause, final String numberString)
 	{
 		super("no such id <"+id+">, wrong number format <"+numberString+">");
+		this.notAnID = true;
 	}
 
 	NoSuchIDException(final long id, final String detail)
 	{
 		super("no such id number <"+id+">, "+detail);
+		this.notAnID = true;
+	}
+
+	/**
+	 * Returns, whether the id is invalid on principle
+	 * within the currently deployed model,
+	 * this means, the will never be and has never been an
+	 * item for this id.
+	 */
+	public final boolean notAnID()
+	{
+		return notAnID;
 	}
 }
