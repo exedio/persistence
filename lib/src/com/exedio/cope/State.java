@@ -18,9 +18,6 @@
 
 package com.exedio.cope;
 
-import java.util.HashMap;
-
-import bak.pcj.map.IntKeyOpenHashMap;
 import java.util.Map;
 
 abstract class State

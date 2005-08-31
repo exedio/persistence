@@ -1,6 +1,5 @@
 package com.exedio.cope;
 
-import java.util.HashMap;
 import java.util.Map;
 
 final class ModifiedState extends State
