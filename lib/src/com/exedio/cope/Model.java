@@ -375,6 +375,11 @@ public final class Model
 		return new Transaction(this, name);
 	}
 
+	/**
+	 * Returns the transaction for this model,
+	 * that is bound to the currently running thread.
+	 * @see Thread#currentThread()
+	 */
 	public final Transaction getCurrentTransaction()
 	{
 		final Transaction result = (Transaction)transactionThreads.get();
