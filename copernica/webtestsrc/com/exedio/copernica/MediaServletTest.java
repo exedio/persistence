@@ -45,6 +45,10 @@ public class MediaServletTest extends AbstractWebTest
 		assertNotFound(new URL(prefix + "file/"));
 		assertNotFound(new URL(prefix + "file"));
 		assertNotFound(new URL(prefix + "file/zapp"));
+		assertNotFound(new URL(prefix + "photo/1.jpg"));
+		assertNotFound(new URL(prefix + "photo/1."));
+		assertNotFound(new URL(prefix + "photo/1"));
+		assertNotFound(new URL(prefix + "photo/1.zick"));
 		
 		assertEquals(textLastModified, assertURL(new URL(prefix + "file/0"), textLastModified-1, false));
 		assertEquals(textLastModified, assertURL(new URL(prefix + "file/0"), textLastModified, true));
@@ -61,6 +65,10 @@ public class MediaServletTest extends AbstractWebTest
 		assertNotFound(new URL(prefix + "foto/20"));
 		assertNotFound(new URL(prefix + "foto/"));
 		assertNotFound(new URL(prefix + "foto"));
+		assertNotFound(new URL(prefix + "foto/1.jpg"));
+		assertNotFound(new URL(prefix + "foto/1."));
+		assertNotFound(new URL(prefix + "foto/1"));
+		assertNotFound(new URL(prefix + "foto/1.zick"));
 
 		assertNameURL(new URL(prefix + "nameServer/0.txt"));
 		assertNameURL(new URL(prefix + "nameServer/0."));
