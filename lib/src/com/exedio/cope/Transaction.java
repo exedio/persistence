@@ -28,7 +28,7 @@ import bak.pcj.map.IntKeyOpenHashMap;
 import com.exedio.dsmf.SQLRuntimeException;
 
 
-public class Transaction
+public final class Transaction
 {
 	final Model model;
 	final Database database;
@@ -39,10 +39,10 @@ public class Transaction
 		this.model = model;
 		this.database = model.getDatabase();
 		this.name = name;
-		threadLocal.set(this);
 		boundThread = Thread.currentThread();
 		rowMaps = new IntKeyOpenHashMap[model.numberOfTypes];
 		invalidations = new IntSet[model.numberOfTypes];
+		threadLocal.set(this);
 	}
 	
 	public static void rollback()
