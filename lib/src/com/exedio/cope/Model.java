@@ -83,6 +83,7 @@ public final class Model
 	
 			this.properties = properties;
 			this.database = properties.createDatabase();
+			database.model = this;
 			
 			final HashSet typeSet = new HashSet(Arrays.asList(types));
 			final HashSet materialized = new HashSet();
@@ -347,6 +348,10 @@ public final class Model
 		return database.connectionPool.counter;
 	}
 	
+	// ----------------------- transaction
+	
+	private final ThreadLocal transactionThreads = new ThreadLocal();
+	
 	public Transaction startTransaction()
 	{
 		return new Transaction(this, null);
@@ -359,6 +364,72 @@ public final class Model
 	 */
 	public Transaction startTransaction(final String name)
 	{
+		final Transaction result = new Transaction(this, name);
+		result.boundThread = Thread.currentThread();
+		transactionThreads.set(result);
 		return new Transaction(this, name);
 	}
+
+	public final Transaction get()
+	{
+		final Transaction result = (Transaction)transactionThreads.get();
+		
+		if(result==null)
+			throw new RuntimeException("there is no cope transaction bound to this thread, see Model#startTransaction");
+		
+		if(result.boundThread!=Thread.currentThread())
+			throw new RuntimeException();
+		
+		return result;
+	}
+	
+	private final Transaction getOrNot()
+	{
+		final Transaction result = (Transaction)transactionThreads.get();
+		
+		if(result!=null && result.boundThread!=Thread.currentThread())
+			throw new RuntimeException();
+
+		return result;
+	}
+	
+	private final void set(final Transaction transaction)
+	{
+		transactionThreads.set(transaction);
+		
+		if(transaction!=null)
+			transaction.boundThread = Thread.currentThread();
+	}
+	
+	final Transaction hop(final Transaction transaction)
+	{
+		final Transaction result = get();
+		if(result==null)
+			throw new RuntimeException();
+		set(transaction);
+		return result;
+	}
+	
+	public void rollback()
+	{
+		get().rollback();
+		set(null);
+	}
+	
+	public void rollbackIfNotCommitted()
+	{
+		final Transaction t = getOrNot();
+		if(t!=null)
+		{
+			t.rollback();
+			set(null);
+		}
+	}
+	
+	public void commit()
+	{
+		get().commit();
+		set(null);
+	}
+	
 }

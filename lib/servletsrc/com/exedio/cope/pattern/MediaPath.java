@@ -29,7 +29,6 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.NoSuchIDException;
 import com.exedio.cope.Pattern;
-import com.exedio.cope.Transaction;
 
 public abstract class MediaPath extends Pattern
 {
@@ -90,17 +89,16 @@ public abstract class MediaPath extends Pattern
 
 		final String id = getType().getID() + '.' + pkString;
 		//System.out.println("ID="+id);
+		final Model model = getType().getModel();
 		try
 		{
-			final Model model = getType().getModel();
-			
 			model.startTransaction("MediaServlet");
 			final Item item = model.findByID(id);
 			//System.out.println("item="+item);
 			state = itemFound;
 			
 			final boolean result = doGet(request, response, item, extension);
-			Transaction.commit();
+			model.commit();
 			return result;
 		}
 		catch(NoSuchIDException e)
@@ -109,7 +107,7 @@ public abstract class MediaPath extends Pattern
 		}
 		finally
 		{
-			Transaction.rollbackIfNotCommitted();
+			model.rollbackIfNotCommitted();
 			state.increment();
 		}
 	}

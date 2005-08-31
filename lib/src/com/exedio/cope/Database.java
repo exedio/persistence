@@ -44,6 +44,7 @@ abstract class Database
 	private final boolean useDefineColumnTypes;
 	final ConnectionPool connectionPool;
 	final boolean hsqldb; // TODO remove hsqldb-specific stuff
+	Model model; // TODO hack
 	
 	protected Database(final Driver driver, final Properties properties)
 	{
@@ -688,7 +689,7 @@ abstract class Database
 		ResultSet resultSet = null;
 		try
 		{
-			final Connection connection = Transaction.get().getConnection();
+			final Connection connection = model.get().getConnection();
 
 			final String sqlText = statement.getText();
 			// TODO: use prepared statements and reuse the statement.
@@ -787,7 +788,7 @@ abstract class Database
 		java.sql.Statement sqlStatement = null;
 		try
 		{
-			final Connection connection = Transaction.get().getConnection();
+			final Connection connection = model.get().getConnection();
 			// TODO: use prepared statements and reuse the statement.
 			final String sqlText = statement.getText();
 			//System.err.println(Transaction.get().toString()+": "+statement.getText());

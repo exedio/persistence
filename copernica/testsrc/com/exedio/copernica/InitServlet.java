@@ -24,7 +24,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.exedio.cope.Transaction;
 import com.exedio.cope.testmodel.Main;
 import com.exedio.cops.CopsServlet;
 
@@ -47,11 +46,11 @@ public class InitServlet extends CopsServlet
 			{
 				Main.model.startTransaction("initializeExampleSystem");
 				CopernicaTestProvider.initializeExampleSystem();
-				Transaction.commit();
+				Main.model.commit();
 			}
 			finally
 			{
-				Transaction.rollbackIfNotCommitted();
+				Main.model.rollbackIfNotCommitted();
 			}
 		}
 

@@ -18,13 +18,12 @@
 
 package com.exedio.cope.junit;
 
-import com.exedio.cope.NestingRuntimeException;
 import java.util.HashSet;
 import java.util.Iterator;
 
 import com.exedio.cope.Model;
+import com.exedio.cope.NestingRuntimeException;
 import com.exedio.cope.Properties;
-import com.exedio.cope.Transaction;
 import com.exedio.cope.util.PoolCounter;
 
 /**
@@ -160,15 +159,15 @@ public abstract class CopeTest extends CopeAssert
 				}
 			}
 		}
-		Transaction.commit();
+		model.commit();
 
 		dropDatabase();
 	}
 	
 	protected void restartTransaction()
 	{
-		final String oldName = Transaction.get().getName();
-		Transaction.commit();
+		final String oldName = model.get().getName();
+		model.commit();
 		model.startTransaction( oldName+"-restart" );
 	}
 	

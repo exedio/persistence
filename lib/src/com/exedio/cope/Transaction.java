@@ -33,86 +33,16 @@ public final class Transaction
 	final Model model;
 	final Database database;
 	final String name;
+	Thread boundThread = null;
 	
 	Transaction(final Model model, final String name)
 	{
 		this.model = model;
 		this.database = model.getDatabase();
 		this.name = name;
-		boundThread = Thread.currentThread();
 		rowMaps = new IntKeyOpenHashMap[model.numberOfTypes];
 		invalidations = new IntSet[model.numberOfTypes];
-		threadLocal.set(this);
 	}
-	
-	public static void rollback()
-	{
-		get().rollbackInternal();
-		set(null);
-	}
-	
-	public static void rollbackIfNotCommitted()
-	{
-		final Transaction t = getOrNot();
-		if(t!=null)
-		{
-			t.rollbackInternal();
-			set(null);
-		}
-	}
-	
-	public static void commit()
-	{
-		get().commitInternal();
-		set(null);
-	}
-	
-	// ----------------------- thread local
-	
-	private Thread boundThread = null;
-	private static final ThreadLocal threadLocal = new ThreadLocal();
-	
-	public static final Transaction get()
-	{
-		final Transaction result = (Transaction)threadLocal.get();
-		
-		if(result==null)
-			throw new RuntimeException("there is no cope transaction bound to this thread, see Model#startTransaction");
-		
-		if(result.boundThread!=Thread.currentThread())
-			throw new RuntimeException();
-		
-		return result;
-	}
-	
-	private static final Transaction getOrNot()
-	{
-		final Transaction result = (Transaction)threadLocal.get();
-		
-		if(result!=null && result.boundThread!=Thread.currentThread())
-			throw new RuntimeException();
-
-		return result;
-	}
-	
-	private static final void set(final Transaction transaction)
-	{
-		threadLocal.set(transaction);
-		
-		if(transaction!=null)
-			transaction.boundThread = Thread.currentThread();
-	}
-	
-	static final Transaction hop(final Transaction transaction)
-	{
-		final Transaction result = get();
-		if(result==null)
-			throw new RuntimeException();
-		set(transaction);
-		return result;
-	}
-	
-	// ----------------------- the transaction itself
 	
 	/**
 	 *	index in array is {@link Type#transientNumber transient type number};
@@ -216,12 +146,12 @@ public final class Transaction
 		return connection;
 	}
 	
-	private void commitInternal()
+	void commit()
 	{
 		close(false);
 	}
 
-	private void rollbackInternal()
+	void rollback()
 	{
 		close(true);
 	}
