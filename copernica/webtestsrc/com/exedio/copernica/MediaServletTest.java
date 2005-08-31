@@ -28,6 +28,7 @@ import java.util.Date;
 
 public class MediaServletTest extends AbstractWebTest
 {
+	private static final String NO_SUCH_PATH = "no such path";
 
 	public void testError() throws Exception
 	{
@@ -37,13 +38,13 @@ public class MediaServletTest extends AbstractWebTest
 		assertEquals(textLastModified, assertURL(new URL(prefix + "file/0.zick")));
 		assertEquals(textLastModified, assertURL(new URL(prefix + "file/0.")));
 		assertEquals(textLastModified, assertURL(new URL(prefix + "file/0")));
-		assertNotFound(new URL(prefix + "kile/0.txt"), "no such path");
+		assertNotFound(new URL(prefix + "kile/0.txt"), NO_SUCH_PATH);
 		assertNotFound(new URL(prefix + "file/15.txt"), "no such item");
 		assertNotFound(new URL(prefix + "file/15.zick"), "no such item");
 		assertNotFound(new URL(prefix + "file/15."), "no such item");
 		assertNotFound(new URL(prefix + "file/15"), "no such item");
 		assertNotFound(new URL(prefix + "file/"), "no such item");
-		assertNotFound(new URL(prefix + "file"), "no such path");
+		assertNotFound(new URL(prefix + "file"), NO_SUCH_PATH);
 		assertNotFound(new URL(prefix + "file/zapp"), "no such item");
 		assertNotFound(new URL(prefix + "photo/1.jpg"), "data is null");
 		assertNotFound(new URL(prefix + "photo/1."), "data is null");
@@ -64,7 +65,7 @@ public class MediaServletTest extends AbstractWebTest
 		assertNotFound(new URL(prefix + "foto/20."), "no such item");
 		assertNotFound(new URL(prefix + "foto/20"), "no such item");
 		assertNotFound(new URL(prefix + "foto/"), "no such item");
-		assertNotFound(new URL(prefix + "foto"), "no such path");
+		assertNotFound(new URL(prefix + "foto"), NO_SUCH_PATH);
 		assertNotFound(new URL(prefix + "foto/1.jpg"), "data is null");
 		assertNotFound(new URL(prefix + "foto/1."), "data is null");
 		assertNotFound(new URL(prefix + "foto/1"), "data is null");
@@ -77,7 +78,7 @@ public class MediaServletTest extends AbstractWebTest
 		assertNotFound(new URL(prefix + "nameServer/20."), "no such item");
 		assertNotFound(new URL(prefix + "nameServer/20"), "no such item");
 		assertNotFound(new URL(prefix + "nameServer/"), "no such item");
-		assertNotFound(new URL(prefix + "nameServer"), "no such path");
+		assertNotFound(new URL(prefix + "nameServer"), NO_SUCH_PATH);
 	}
 	
 	private long assertURL(final URL url) throws IOException
