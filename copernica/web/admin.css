@@ -62,9 +62,11 @@ table.statistics th.colored2 { background:#cff; text-align:left; padding-left:0.
 table.statistics th.colored3 { background:#fcc; text-align:left; padding-left:0.3em; }
 table.statistics th.colored4 { background:#cfc; text-align:left; padding-left:0.3em; }
 table.statistics th.colored5 { background:#ccf; text-align:left; padding-left:0.3em; }
+table.statistics th.colored6 { background:#ffc; text-align:left; padding-left:0.3em; }
 
 table.statistics td.colored1 { background:#fcf; }
 table.statistics td.colored2 { background:#cff; }
 table.statistics td.colored3 { background:#fcc; }
 table.statistics td.colored4 { background:#cfc; }
 table.statistics td.colored5 { background:#ccf; }
+table.statistics td.colored6 { background:#ffc; }
