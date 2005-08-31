@@ -274,38 +274,33 @@ public class MediaTest extends TestmodelTest
 
 		// logs -----------------------------------------------
 		
-		assertEquals(0, item.photo.mediumFound.get());
-		assertEquals(0, item.photo.itemFound.get());
-		assertEquals(0, item.photo.dataNotNull.get());
-		assertEquals(0, item.photo.modified.get());
-		assertEquals(0, item.photo.fullyDelivered.get());
+		assertEquals(0, item.photo.noSuchItem.get());
+		assertEquals(0, item.photo.dataIsNull.get());
+		assertEquals(0, item.photo.notModified.get());
+		assertEquals(0, item.photo.delivered.get());
 		
-		item.photo.mediumFound.increment();
-		assertEquals(1, item.photo.mediumFound.get());
-		assertEquals(0, item.photo.itemFound.get());
-		assertEquals(0, item.photo.dataNotNull.get());
-		assertEquals(0, item.photo.modified.get());
-		assertEquals(0, item.photo.fullyDelivered.get());
+		item.photo.noSuchItem.increment();
+		assertEquals(1, item.photo.noSuchItem.get());
+		assertEquals(0, item.photo.dataIsNull.get());
+		assertEquals(0, item.photo.notModified.get());
+		assertEquals(0, item.photo.delivered.get());
 
-		item.photo.mediumFound.increment();
-		item.photo.itemFound.increment();
-		item.photo.dataNotNull.increment();
-		item.photo.modified.increment();
-		item.photo.fullyDelivered.increment();
-		assertEquals(2, item.photo.mediumFound.get());
-		assertEquals(1, item.photo.itemFound.get());
-		assertEquals(1, item.photo.dataNotNull.get());
-		assertEquals(1, item.photo.modified.get());
-		assertEquals(1, item.photo.fullyDelivered.get());
+		item.photo.noSuchItem.increment();
+		item.photo.dataIsNull.increment();
+		item.photo.notModified.increment();
+		item.photo.delivered.increment();
+		assertEquals(2, item.photo.noSuchItem.get());
+		assertEquals(1, item.photo.dataIsNull.get());
+		assertEquals(1, item.photo.notModified.get());
+		assertEquals(1, item.photo.delivered.get());
 
 		final Date beforeReset = new Date();
 		item.photo.resetLogs();
 		final Date afterReset = new Date();
-		assertEquals(0, item.photo.mediumFound.get());
-		assertEquals(0, item.photo.itemFound.get());
-		assertEquals(0, item.photo.dataNotNull.get());
-		assertEquals(0, item.photo.modified.get());
-		assertEquals(0, item.photo.fullyDelivered.get());
+		assertEquals(0, item.photo.noSuchItem.get());
+		assertEquals(0, item.photo.dataIsNull.get());
+		assertEquals(0, item.photo.notModified.get());
+		assertEquals(0, item.photo.delivered.get());
 		assertWithin(beforeReset, afterReset, item.photo.getStart());
 	}
 

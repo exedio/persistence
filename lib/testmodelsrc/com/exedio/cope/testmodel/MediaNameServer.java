@@ -81,7 +81,7 @@ public final class MediaNameServer extends MediaPath
 		final String content = (String)item.get(source);
 		//System.out.println("contentType="+contentType);
 		if(content==null)
-			throw new MediaException(itemFound);
+			throw new MediaException(dataIsNull);
 
 		response.setContentType("text/plain");
 
@@ -112,7 +112,7 @@ public final class MediaNameServer extends MediaPath
 			if(out!=null)
 				out.close();
 		}
-		return null;
+		return delivered;
 	}
 
 }

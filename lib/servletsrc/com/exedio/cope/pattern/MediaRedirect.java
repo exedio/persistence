@@ -68,13 +68,8 @@ public final class MediaRedirect extends MediaPath
 		return target;
 	}
 	
-	// logs --------------------------
-	
 	private long start = System.currentTimeMillis();
 	private final Object startLock = new Object();
-	
-	public final Log redirectFound = new Log();
-	public final Log fullyDelivered = new Log();
 	
 	public final Date getStart()
 	{
@@ -86,38 +81,27 @@ public final class MediaRedirect extends MediaPath
 		return new Date(startLocal);
 	}
 
-	public final void resetLogs()
-	{
-		final long now = System.currentTimeMillis();
-		synchronized(startLock)
-		{
-			start = now;
-		}
-		
-		redirectFound.reset();
-		fullyDelivered.reset();
-	}
-
-	// /logs -------------------------
-
 	private static final String RESPONSE_LOCATION = "Location";
 	
 	public final Media.Log doGet(
 			final HttpServletRequest request, final HttpServletResponse response,
 			final Item item, final String extension)
-		throws ServletException, IOException
+		throws ServletException, IOException, MediaException
 	{
-		//System.out.println("media="+this);
+		final String url = target.getURL(item);
+		if(url==null)
+			throw new MediaException(dataIsNull);
+		
 		final String location =
 			request.getScheme() + "://" +
 			request.getHeader("Host") +
 			request.getContextPath() + '/' +
-			target.getURL(item);
+			url;
 		//System.out.println("location="+location);
 		
 		response.setStatus(response.SC_MOVED_PERMANENTLY);
 		response.setHeader(RESPONSE_LOCATION, location);
-		return redirectFound;
+		return delivered;
 	}
 
 }

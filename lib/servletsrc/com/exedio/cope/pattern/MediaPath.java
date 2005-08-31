@@ -58,8 +58,10 @@ public abstract class MediaPath extends Pattern
 		return mediaRootUrl;
 	}
 	
-	public final Log mediumFound = new Log();
-	public final Log itemFound = new Log();
+	public final Log noSuchItem = new Log();
+	public final Log dataIsNull = new Log();
+	public final Log notModified = new Log();
+	public final Log delivered = new Log();
 
 	final Media.Log doGet(
 			final HttpServletRequest request, final HttpServletResponse response,
@@ -99,7 +101,7 @@ public abstract class MediaPath extends Pattern
 		}
 		catch(NoSuchIDException e)
 		{
-			throw new MediaException(mediumFound);
+			throw new MediaException(noSuchItem);
 		}
 		finally
 		{

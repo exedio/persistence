@@ -418,10 +418,6 @@ public final class Media extends MediaPath
 	private long start = System.currentTimeMillis();
 	private final Object startLock = new Object();
 	
-	public final Log dataNotNull = new Log();
-	public final Log modified = new Log();
-	public final Log fullyDelivered = new Log();
-	
 	public final Date getStart()
 	{
 		final long startLocal;
@@ -440,11 +436,10 @@ public final class Media extends MediaPath
 			start = now;
 		}
 		
-		mediumFound.reset();
-		itemFound.reset();
-		dataNotNull.reset();
-		modified.reset();
-		fullyDelivered.reset();
+		noSuchItem.reset();
+		dataIsNull.reset();
+		notModified.reset();
+		delivered.reset();
 	}
 
 	// /logs -------------------------
@@ -472,7 +467,7 @@ public final class Media extends MediaPath
 		final String contentType = getContentType(item);
 		//System.out.println("contentType="+contentType);
 		if(contentType==null)
-			throw new MediaException(itemFound);
+			throw new MediaException(dataIsNull);
 
 		response.setContentType(contentType);
 
@@ -494,7 +489,7 @@ public final class Media extends MediaPath
 			
 			System.out.println(request.getMethod()+' '+request.getProtocol()+" IMS="+format(ifModifiedSince)+"  LM="+format(lastModified)+"  NOT modified");
 			
-			return dataNotNull;
+			return notModified;
 		}
 		else
 		{
@@ -515,6 +510,8 @@ public final class Media extends MediaPath
 				final byte[] buffer = new byte[Math.max((int)contentLength, 50*1024)];
 				for(int len = in.read(buffer); len != -1; len = in.read(buffer))
 					out.write(buffer, 0, len);
+
+				return delivered;
 			}
 			finally
 			{
@@ -523,7 +520,6 @@ public final class Media extends MediaPath
 				if(out!=null)
 					out.close();
 			}
-			return modified;
 		}
 	}
 

@@ -29,7 +29,6 @@ import java.util.Iterator;
 import javax.servlet.http.HttpServletRequest;
 
 import com.exedio.cope.Model;
-import com.exedio.cope.pattern.Media;
 import com.exedio.cope.pattern.MediaPath;
 import com.exedio.cope.pattern.MediaRedirect;
 import com.exedio.cope.util.PoolCounter;
@@ -192,11 +191,11 @@ final class Admin_Jspm
 	{
 	final SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss.SSS");
 	final String[] names = new String[]{
-		"Media Found, but no Item",
-		"Item Found, but Data is Null",
-		"Data is Not Null, but Not Modified",
-		"No &quot;Not Modified&quot; 304 Possible",
-		"Data Completely Delivered",
+		"Error (500)",
+		"No Such Item (404)",
+		"Data Is Null (404)",
+		"Not Modified (304)",
+		"Delivered (200/301)",
 	};
 	%>
 	<table class="statistics">
@@ -218,25 +217,11 @@ final class Admin_Jspm
 			final String type = path.getType().getID();
 			final String name = path.getName();
 			final int[] data;
-			if(path instanceof Media)
-			{
-				final Media medium = (Media)path;
-				final int mediumFound = medium.mediumFound.get();
-				final int itemFound = medium.itemFound.get();
-				final int dataNotNull = medium.dataNotNull.get();
-				final int modified = medium.modified.get();
-				final int fullyDelivered = medium.fullyDelivered.get();
-				data = new int[]{mediumFound, itemFound, dataNotNull, modified, fullyDelivered};
-			}
-			else if(path instanceof MediaRedirect)
-			{
-				final MediaRedirect redirect = (MediaRedirect)path;
-				final int redirectFound = redirect.redirectFound.get();
-				final int fullyDelivered = redirect.fullyDelivered.get();
-				data = new int[]{redirectFound, Integer.MIN_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE, fullyDelivered};
-			}
-			else
-				data = new int[]{Integer.MIN_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE};
+			final int noSuchItem = path.noSuchItem.get();
+			final int dataIsNull = path.dataIsNull.get();
+			final int notModified = path.notModified.get();
+			final int delivered = path.delivered.get();
+			data = new int[]{Integer.MIN_VALUE, noSuchItem, dataIsNull, notModified, delivered};
 
 			%>
 		<tr>
