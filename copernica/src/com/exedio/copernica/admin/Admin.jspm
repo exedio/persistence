@@ -191,7 +191,7 @@ final class Admin_Jspm
 	{
 	final SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss.SSS");
 	final String[] names = new String[]{
-		"Error (500)",
+		"Not An Item (404)",
 		"No Such Item (404)",
 		"Data Is Null (404)",
 		"Not Modified (304)",
@@ -218,11 +218,12 @@ final class Admin_Jspm
 			final String type = path.getType().getID();
 			final String name = path.getName();
 			final int[] data;
+			final int notAnItem = path.notAnItem.get();
 			final int noSuchItem = path.noSuchItem.get();
 			final int dataIsNull = path.dataIsNull.get();
 			final int notModified = path.notModified.get();
 			final int delivered = path.delivered.get();
-			data = new int[]{Integer.MIN_VALUE, noSuchItem, dataIsNull, notModified, delivered};
+			data = new int[]{notAnItem, noSuchItem, dataIsNull, notModified, delivered};
 
 			%>
 		<tr>
