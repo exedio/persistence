@@ -31,27 +31,27 @@ public class MediaServletTest extends AbstractWebTest
 
 	public void testError() throws Exception
 	{
-		final String prefix = "http://localhost:8080/copetest-hsqldb/media/";
+		final String prefix = "http://localhost:8080/copetest-hsqldb/media/MediaItem/";
 
-		final long textLastModified = assertURL(new URL(prefix + "MediaItem/file/0.txt"));
-		assertEquals(textLastModified, assertURL(new URL(prefix + "MediaItem/file/0.zick")));
-		assertEquals(textLastModified, assertURL(new URL(prefix + "MediaItem/file/0.")));
-		assertEquals(textLastModified, assertURL(new URL(prefix + "MediaItem/file/0")));
+		final long textLastModified = assertURL(new URL(prefix + "file/0.txt"));
+		assertEquals(textLastModified, assertURL(new URL(prefix + "file/0.zick")));
+		assertEquals(textLastModified, assertURL(new URL(prefix + "file/0.")));
+		assertEquals(textLastModified, assertURL(new URL(prefix + "file/0")));
 
-		assertEquals(textLastModified, assertURL(new URL(prefix + "MediaItem/file/0"), textLastModified-1, false));
-		assertEquals(textLastModified, assertURL(new URL(prefix + "MediaItem/file/0"), textLastModified, true));
-		assertEquals(textLastModified, assertURL(new URL(prefix + "MediaItem/file/0"), textLastModified+5000, true));
+		assertEquals(textLastModified, assertURL(new URL(prefix + "file/0"), textLastModified-1, false));
+		assertEquals(textLastModified, assertURL(new URL(prefix + "file/0"), textLastModified, true));
+		assertEquals(textLastModified, assertURL(new URL(prefix + "file/0"), textLastModified+5000, true));
 
-		assertEquals(textLastModified, assertURL(new URL(prefix + "MediaItem/file/2.unknownma.unknownmi"), "unknownma/unknownmi"));
+		assertEquals(textLastModified, assertURL(new URL(prefix + "file/2.unknownma.unknownmi"), "unknownma/unknownmi"));
 
-		assertURLRedirect(new URL(prefix + "MediaItem/foto/0.jpg"), prefix + "MediaItem/photo/0.jpg");
-		assertURLRedirect(new URL(prefix + "MediaItem/foto/0."), prefix + "MediaItem/photo/0.jpg");
-		assertURLRedirect(new URL(prefix + "MediaItem/foto/0"), prefix + "MediaItem/photo/0.jpg");
-		assertNotFound(new URL(prefix + "MediaItem/foto/schnickschnack"));
+		assertURLRedirect(new URL(prefix + "foto/0.jpg"), prefix + "photo/0.jpg");
+		assertURLRedirect(new URL(prefix + "foto/0."), prefix + "photo/0.jpg");
+		assertURLRedirect(new URL(prefix + "foto/0"), prefix + "photo/0.jpg");
+		assertNotFound(new URL(prefix + "foto/schnickschnack"));
 
-		assertNameURL(new URL(prefix + "MediaItem/nameServer/0.txt"));
-		assertNameURL(new URL(prefix + "MediaItem/nameServer/0."));
-		assertNameURL(new URL(prefix + "MediaItem/nameServer/0"));
+		assertNameURL(new URL(prefix + "nameServer/0.txt"));
+		assertNameURL(new URL(prefix + "nameServer/0."));
+		assertNameURL(new URL(prefix + "nameServer/0"));
 	}
 	
 	private long assertURL(final URL url) throws IOException
