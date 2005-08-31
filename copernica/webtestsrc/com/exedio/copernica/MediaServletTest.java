@@ -143,6 +143,17 @@ public class MediaServletTest extends AbstractWebTest
 		conn.setFollowRedirects(false);
 		conn.connect();
 		assertEquals(404, conn.getResponseCode());
+		assertEquals("text/html", conn.getContentType());
+		/*assertEquals("<html>\n" +
+				"<head>\n" +
+				"<title>Not Found</title>\n" +
+				"<meta name=\"generator\" content=\"cope media servlet\">\n" +
+				"</head>\n" +
+				"<body>\n" +
+				"<h1>Not Found</h1>\n" +
+				"The requested URL was not found on this server.\n" +
+				"</body>\n" +
+				"</html>\n", conn.getContent());*/
 		final long date = conn.getDate();
 		final Date after = new Date();
 		//System.out.println("Date: "+new Date(date));
