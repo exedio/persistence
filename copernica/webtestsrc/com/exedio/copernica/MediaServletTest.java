@@ -144,6 +144,12 @@ public class MediaServletTest extends AbstractWebTest
 		conn.connect();
 		assertEquals(404, conn.getResponseCode());
 		assertEquals("text/html", conn.getContentType());
+		/*final BufferedReader is = new BufferedReader(new InputStreamReader((InputStream)conn.getInputStream()));
+		assertEquals("<html>", is.readLine());
+		assertEquals("<head>", is.readLine());
+		assertEquals("<title>Not Found</title>", is.readLine());
+		assertEquals(null, is.readLine());
+		is.close();*/
 		/*assertEquals("<html>\n" +
 				"<head>\n" +
 				"<title>Not Found</title>\n" +
