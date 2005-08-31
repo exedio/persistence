@@ -37,7 +37,14 @@ public class MediaServletTest extends AbstractWebTest
 		assertEquals(textLastModified, assertURL(new URL(prefix + "file/0.zick")));
 		assertEquals(textLastModified, assertURL(new URL(prefix + "file/0.")));
 		assertEquals(textLastModified, assertURL(new URL(prefix + "file/0")));
-
+		assertNotFound(new URL(prefix + "kile/0.txt"));
+		assertNotFound(new URL(prefix + "file/15.txt"));
+		assertNotFound(new URL(prefix + "file/15.zick"));
+		assertNotFound(new URL(prefix + "file/15."));
+		assertNotFound(new URL(prefix + "file/15"));
+		assertNotFound(new URL(prefix + "file/"));
+		assertNotFound(new URL(prefix + "file/zapp"));
+		
 		assertEquals(textLastModified, assertURL(new URL(prefix + "file/0"), textLastModified-1, false));
 		assertEquals(textLastModified, assertURL(new URL(prefix + "file/0"), textLastModified, true));
 		assertEquals(textLastModified, assertURL(new URL(prefix + "file/0"), textLastModified+5000, true));
