@@ -85,6 +85,10 @@ public class MediaServletTest extends AbstractWebTest
 		assertNotFound(new URL(prefix + "nameServer/20"), NO_SUCH_ITEM);
 		assertNotFound(new URL(prefix + "nameServer/"), NOT_AN_ITEM);
 		assertNotFound(new URL(prefix + "nameServer"), NO_SUCH_PATH);
+
+		assertInternalError(new URL(prefix + "nameServer/2.txt"));
+		assertInternalError(new URL(prefix + "nameServer/2."));
+		assertInternalError(new URL(prefix + "nameServer/2"));
 	}
 	
 	private long assertURL(final URL url) throws IOException
@@ -172,6 +176,36 @@ public class MediaServletTest extends AbstractWebTest
 		assertEquals("<body>", is.readLine());
 		assertEquals("<h1>Not Found</h1>", is.readLine());
 		assertEquals("The requested URL was not found on this server ("+detail+").", is.readLine());
+		assertEquals("</body>", is.readLine());
+		assertEquals("</html>", is.readLine());
+		assertEquals(null, is.readLine());
+		is.close();
+
+		final long date = conn.getDate();
+		final Date after = new Date();
+		//System.out.println("Date: "+new Date(date));
+		assertWithin(3000, before, after, new Date(date));
+	}
+
+	private void assertInternalError(final URL url) throws IOException
+	{
+		final Date before = new Date();
+		final HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+		conn.setFollowRedirects(false);
+		conn.connect();
+		assertEquals(conn.HTTP_INTERNAL_ERROR, conn.getResponseCode());
+		assertEquals("Internal Server Error", conn.getResponseMessage());
+		assertEquals("text/html", conn.getContentType());
+		
+		final BufferedReader is = new BufferedReader(new InputStreamReader((InputStream)conn.getErrorStream()));
+		assertEquals("<html>", is.readLine());
+		assertEquals("<head>", is.readLine());
+		assertEquals("<title>Internal Server Error</title>", is.readLine());
+		assertEquals("<meta name=\"generator\" content=\"cope media servlet\">", is.readLine());
+		assertEquals("</head>", is.readLine());
+		assertEquals("<body>", is.readLine());
+		assertEquals("<h1>Internal Server Error</h1>", is.readLine());
+		assertEquals("An internal error occured on the server.", is.readLine());
 		assertEquals("</body>", is.readLine());
 		assertEquals("</html>", is.readLine());
 		assertEquals(null, is.readLine());

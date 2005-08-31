@@ -59,6 +59,7 @@ public abstract class MediaPath extends Pattern
 	}
 	
 	public static final Log noSuchPath = new Log("no such path");
+	public final Log exception = new Log("exception", true);
 	public final Log notAnItem = new Log("not an item");
 	public final Log noSuchItem = new Log("no such item");
 	public final Log dataIsNull = new Log("data is null");
@@ -121,13 +122,20 @@ public abstract class MediaPath extends Pattern
 		private int counter = 0;
 		private final Object lock = new Object();
 		final String name;
+		public final boolean internalServerError;
 		
 		public Log(final String name)
+		{
+			this(name, false);
+		}
+		
+		Log(final String name, final boolean internalServerError)
 		{
 			if(name==null)
 				throw new NullPointerException();
 			
 			this.name = name;
+			this.internalServerError = internalServerError;
 		}
 		
 		public final void increment()

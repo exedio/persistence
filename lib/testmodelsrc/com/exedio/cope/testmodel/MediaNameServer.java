@@ -82,6 +82,9 @@ public final class MediaNameServer extends MediaPath
 		//System.out.println("contentType="+contentType);
 		if(content==null)
 			throw new MediaException(dataIsNull);
+		
+		if(content.endsWith(" error"))
+			throw new RuntimeException("test error in MediaNameServer");
 
 		response.setContentType("text/plain");
 
