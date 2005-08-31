@@ -95,7 +95,7 @@ public class MediaServletTest extends AbstractWebTest
 		if(ifModifiedSince>=0)
 			conn.setIfModifiedSince(ifModifiedSince);
 		conn.connect();
-		assertEquals(expectNotModified ? 304 : 200, conn.getResponseCode());
+		assertEquals(expectNotModified ? conn.HTTP_NOT_MODIFIED : conn.HTTP_OK, conn.getResponseCode());
 		assertEquals(expectNotModified ? "Not Modified" : "OK", conn.getResponseMessage());
 		final long date = conn.getDate();
 		final Date after = new Date();
@@ -129,7 +129,7 @@ public class MediaServletTest extends AbstractWebTest
 		final HttpURLConnection conn = (HttpURLConnection)url.openConnection();
 		conn.setFollowRedirects(false);
 		conn.connect();
-		assertEquals(301, conn.getResponseCode());
+		assertEquals(conn.HTTP_MOVED_PERM, conn.getResponseCode());
 		assertEquals("Moved Permanently", conn.getResponseMessage());
 		assertEquals(target, conn.getHeaderField("Location"));
 		final long date = conn.getDate();
@@ -144,7 +144,7 @@ public class MediaServletTest extends AbstractWebTest
 		final HttpURLConnection conn = (HttpURLConnection)url.openConnection();
 		conn.setFollowRedirects(false);
 		conn.connect();
-		assertEquals(404, conn.getResponseCode());
+		assertEquals(conn.HTTP_NOT_FOUND, conn.getResponseCode());
 		assertEquals("Not Found", conn.getResponseMessage());
 		assertEquals("text/html", conn.getContentType());
 		/*final BufferedReader is = new BufferedReader(new InputStreamReader((InputStream)conn.getInputStream()));
