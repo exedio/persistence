@@ -37,18 +37,18 @@ public class MediaServletTest extends AbstractWebTest
 		assertEquals(textLastModified, assertURL(new URL(prefix + "file/0.zick")));
 		assertEquals(textLastModified, assertURL(new URL(prefix + "file/0.")));
 		assertEquals(textLastModified, assertURL(new URL(prefix + "file/0")));
-		assertNotFound(new URL(prefix + "kile/0.txt"));
-		assertNotFound(new URL(prefix + "file/15.txt"));
-		assertNotFound(new URL(prefix + "file/15.zick"));
-		assertNotFound(new URL(prefix + "file/15."));
-		assertNotFound(new URL(prefix + "file/15"));
-		assertNotFound(new URL(prefix + "file/"));
-		assertNotFound(new URL(prefix + "file"));
-		assertNotFound(new URL(prefix + "file/zapp"));
-		assertNotFound(new URL(prefix + "photo/1.jpg"));
-		assertNotFound(new URL(prefix + "photo/1."));
-		assertNotFound(new URL(prefix + "photo/1"));
-		assertNotFound(new URL(prefix + "photo/1.zick"));
+		assertNotFound(new URL(prefix + "kile/0.txt"), "no such path");
+		assertNotFound(new URL(prefix + "file/15.txt"), "no such item");
+		assertNotFound(new URL(prefix + "file/15.zick"), "no such item");
+		assertNotFound(new URL(prefix + "file/15."), "no such item");
+		assertNotFound(new URL(prefix + "file/15"), "no such item");
+		assertNotFound(new URL(prefix + "file/"), "no such item");
+		assertNotFound(new URL(prefix + "file"), "no such path");
+		assertNotFound(new URL(prefix + "file/zapp"), "no such item");
+		assertNotFound(new URL(prefix + "photo/1.jpg"), "data is null");
+		assertNotFound(new URL(prefix + "photo/1."), "data is null");
+		assertNotFound(new URL(prefix + "photo/1"), "data is null");
+		assertNotFound(new URL(prefix + "photo/1.zick"), "data is null");
 		
 		assertEquals(textLastModified, assertURL(new URL(prefix + "file/0"), textLastModified-1, false));
 		assertEquals(textLastModified, assertURL(new URL(prefix + "file/0"), textLastModified, true));
@@ -59,25 +59,25 @@ public class MediaServletTest extends AbstractWebTest
 		assertURLRedirect(new URL(prefix + "foto/0.jpg"), prefix + "photo/0.jpg");
 		assertURLRedirect(new URL(prefix + "foto/0."), prefix + "photo/0.jpg");
 		assertURLRedirect(new URL(prefix + "foto/0"), prefix + "photo/0.jpg");
-		assertNotFound(new URL(prefix + "foto/schnickschnack"));
-		assertNotFound(new URL(prefix + "foto/20.jpg"));
-		assertNotFound(new URL(prefix + "foto/20."));
-		assertNotFound(new URL(prefix + "foto/20"));
-		assertNotFound(new URL(prefix + "foto/"));
-		assertNotFound(new URL(prefix + "foto"));
-		assertNotFound(new URL(prefix + "foto/1.jpg"));
-		assertNotFound(new URL(prefix + "foto/1."));
-		assertNotFound(new URL(prefix + "foto/1"));
-		assertNotFound(new URL(prefix + "foto/1.zick"));
+		assertNotFound(new URL(prefix + "foto/schnickschnack"), "no such item");
+		assertNotFound(new URL(prefix + "foto/20.jpg"), "no such item");
+		assertNotFound(new URL(prefix + "foto/20."), "no such item");
+		assertNotFound(new URL(prefix + "foto/20"), "no such item");
+		assertNotFound(new URL(prefix + "foto/"), "no such item");
+		assertNotFound(new URL(prefix + "foto"), "no such path");
+		assertNotFound(new URL(prefix + "foto/1.jpg"), "data is null");
+		assertNotFound(new URL(prefix + "foto/1."), "data is null");
+		assertNotFound(new URL(prefix + "foto/1"), "data is null");
+		assertNotFound(new URL(prefix + "foto/1.zick"), "data is null");
 
 		assertNameURL(new URL(prefix + "nameServer/0.txt"));
 		assertNameURL(new URL(prefix + "nameServer/0."));
 		assertNameURL(new URL(prefix + "nameServer/0"));
-		assertNotFound(new URL(prefix + "nameServer/20.txt"));
-		assertNotFound(new URL(prefix + "nameServer/20."));
-		assertNotFound(new URL(prefix + "nameServer/20"));
-		assertNotFound(new URL(prefix + "nameServer/"));
-		assertNotFound(new URL(prefix + "nameServer"));
+		assertNotFound(new URL(prefix + "nameServer/20.txt"), "no such item");
+		assertNotFound(new URL(prefix + "nameServer/20."), "no such item");
+		assertNotFound(new URL(prefix + "nameServer/20"), "no such item");
+		assertNotFound(new URL(prefix + "nameServer/"), "no such item");
+		assertNotFound(new URL(prefix + "nameServer"), "no such path");
 	}
 	
 	private long assertURL(final URL url) throws IOException
@@ -146,7 +146,7 @@ public class MediaServletTest extends AbstractWebTest
 		assertWithin(3000, before, after, new Date(date));
 	}
 
-	private void assertNotFound(final URL url) throws IOException
+	private void assertNotFound(final URL url, final String detail) throws IOException
 	{
 		final Date before = new Date();
 		final HttpURLConnection conn = (HttpURLConnection)url.openConnection();
@@ -164,7 +164,7 @@ public class MediaServletTest extends AbstractWebTest
 		assertEquals("</head>", is.readLine());
 		assertEquals("<body>", is.readLine());
 		assertEquals("<h1>Not Found</h1>", is.readLine());
-		assertEquals("The requested URL was not found on this server.", is.readLine());
+		assertEquals("The requested URL was not found on this server ("+detail+").", is.readLine());
 		assertEquals("</body>", is.readLine());
 		assertEquals("</html>", is.readLine());
 		assertEquals(null, is.readLine());

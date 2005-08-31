@@ -103,15 +103,17 @@ public final class MediaServlet extends HttpServlet
 		catch(MediaException e)
 		{
 			e.log.increment();
+			serveError(request, response, e.log);
+			return;
 		}
 		
-		serveError(request, response);
 		// TODO make 500 error page without stack trace
 	}
 		
 	private final void serveError(
 			final HttpServletRequest request,
-			final HttpServletResponse response)
+			final HttpServletResponse response,
+			final Media.Log log)
 		throws ServletException, IOException
 	{
 		response.setStatus(response.SC_NOT_FOUND);
@@ -126,7 +128,14 @@ public final class MediaServlet extends HttpServlet
 				"</head>\n" +
 				"<body>\n" +
 				"<h1>Not Found</h1>\n" +
-				"The requested URL was not found on this server.\n" +
+				"The requested URL was not found on this server");
+		if(log!=null)
+		{
+			out.print(" (");
+			out.print(log.name);
+			out.print(')');
+		}
+		out.print(".\n" +
 				"</body>\n" +
 				"</html>\n");
 		

@@ -58,11 +58,11 @@ public abstract class MediaPath extends Pattern
 		return mediaRootUrl;
 	}
 	
-	public static final Log noSuchPath = new Log();
-	public final Log noSuchItem = new Log();
-	public final Log dataIsNull = new Log();
-	public final Log notModified = new Log();
-	public final Log delivered = new Log();
+	public static final Log noSuchPath = new Log("no such path");
+	public final Log noSuchItem = new Log("no such item");
+	public final Log dataIsNull = new Log("data is null");
+	public final Log notModified = new Log("not modified");
+	public final Log delivered = new Log("delivered");
 
 	final Media.Log doGet(
 			final HttpServletRequest request, final HttpServletResponse response,
@@ -119,6 +119,15 @@ public abstract class MediaPath extends Pattern
 	{
 		private int counter = 0;
 		private final Object lock = new Object();
+		final String name;
+		
+		public Log(final String name)
+		{
+			if(name==null)
+				throw new NullPointerException();
+			
+			this.name = name;
+		}
 		
 		public final void increment()
 		{
