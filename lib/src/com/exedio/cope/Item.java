@@ -539,7 +539,7 @@ public abstract class Item extends Cope
 	 * <ol>
 	 * <li>the item has been deleted by {@link #deleteCopeItem()}.
 	 * <li>the item has been created in a transaction,
-	 *     that was subsequently rolled back by {@link Transaction#rollback()}.
+	 *     that was subsequently rolled back by {@link Model#rollback()}.
 	 * </ol>
 	 */
 	public final boolean existsCopeItem()
