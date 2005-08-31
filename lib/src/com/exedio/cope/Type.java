@@ -570,7 +570,7 @@ public final class Type
 
 	Item getItemObject(final int pk)
 	{
-		final Entity entity = getModel().get().getEntityIfActive(this, pk);
+		final Entity entity = getModel().getCurrentTransaction().getEntityIfActive(this, pk);
 		if(entity!=null)
 			return entity.getItem();
 

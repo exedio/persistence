@@ -579,12 +579,12 @@ public abstract class Item extends Cope
 
 	private final Entity getEntity(final boolean present)
 	{
-		return type.getModel().get().getEntity(this, present);
+		return type.getModel().getCurrentTransaction().getEntity(this, present);
 	}
 
 	private final Entity getEntityIfActive()
 	{
-		return type.getModel().get().getEntityIfActive(type, pk);
+		return type.getModel().getCurrentTransaction().getEntityIfActive(type, pk);
 	}
 
 	//-----------------------------------------

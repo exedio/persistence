@@ -375,7 +375,7 @@ public final class Model
 		return new Transaction(this, name);
 	}
 
-	public final Transaction get()
+	public final Transaction getCurrentTransaction()
 	{
 		final Transaction result = (Transaction)transactionThreads.get();
 		
@@ -408,7 +408,7 @@ public final class Model
 	
 	final Transaction hop(final Transaction transaction)
 	{
-		final Transaction result = get();
+		final Transaction result = getCurrentTransaction();
 		if(result==null)
 			throw new RuntimeException();
 		set(transaction);
@@ -417,7 +417,7 @@ public final class Model
 	
 	public void rollback()
 	{
-		get().rollback();
+		getCurrentTransaction().rollback();
 		set(null);
 	}
 	
@@ -433,7 +433,7 @@ public final class Model
 	
 	public void commit()
 	{
-		get().commit();
+		getCurrentTransaction().commit();
 		set(null);
 	}
 	

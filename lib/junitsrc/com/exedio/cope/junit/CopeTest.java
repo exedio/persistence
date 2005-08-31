@@ -166,7 +166,7 @@ public abstract class CopeTest extends CopeAssert
 	
 	protected void restartTransaction()
 	{
-		final String oldName = model.get().getName();
+		final String oldName = model.getCurrentTransaction().getName();
 		model.commit();
 		model.startTransaction( oldName+"-restart" );
 	}

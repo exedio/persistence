@@ -689,7 +689,7 @@ abstract class Database
 		ResultSet resultSet = null;
 		try
 		{
-			final Connection connection = model.get().getConnection();
+			final Connection connection = model.getCurrentTransaction().getConnection();
 
 			final String sqlText = statement.getText();
 			// TODO: use prepared statements and reuse the statement.
@@ -788,7 +788,7 @@ abstract class Database
 		java.sql.Statement sqlStatement = null;
 		try
 		{
-			final Connection connection = model.get().getConnection();
+			final Connection connection = model.getCurrentTransaction().getConnection();
 			// TODO: use prepared statements and reuse the statement.
 			final String sqlText = statement.getText();
 			//System.err.println(Transaction.get().toString()+": "+statement.getText());

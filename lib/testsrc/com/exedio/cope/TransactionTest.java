@@ -282,7 +282,7 @@ public class TransactionTest extends TestmodelTest
 	
 	public void xxtestIsolation() throws ConstraintViolationException // TODO enable testIsolation
 	{
-		final Transaction t1 = model.get();
+		final Transaction t1 = model.getCurrentTransaction();
 		final Transaction t2 = createTransaction("testIsolation1");
 
 		activate(t1);
