@@ -211,6 +211,7 @@ final class Admin_Jspm
 			writeColouredHeaderSchnips(out, names);
 			%>
 			<th>From</th>
+			<th>class</th>
 		</tr><%
 
 		for(Iterator i = media.iterator(); i.hasNext(); )
@@ -240,6 +241,7 @@ final class Admin_Jspm
 			writeColouredData(out, data);
 			%>
 			<td><%=df.format(path.getStart())%></td>
+			<td><%=path.getClass().getName()%></td>
 		</tr><%
 		}
 	%>
