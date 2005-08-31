@@ -25,6 +25,9 @@ public final class MediaException extends Exception
 	
 	public MediaException(final Media.Log log)
 	{
+		if(log==null)
+			throw new NullPointerException();
+
 		this.log = log;
 	}
 

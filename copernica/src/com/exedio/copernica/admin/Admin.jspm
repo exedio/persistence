@@ -200,7 +200,8 @@ final class Admin_Jspm
 	%>
 	<table class="statistics">
 		<tr><th colspan="8">Media Statistics</th></tr>
-		<tr><th>To</th><td colspan="7"><%=df.format(new Date())%></td></tr><%
+		<tr><th>To</th><td colspan="7"><%=df.format(new Date())%></td></tr>
+		<tr><th>No Such Path (404)</th><td colspan="7"><%=MediaPath.noSuchPath.get()%></td></tr><%
 		writeColouredHeader(out, names, 2);
 		%>
 		<tr>

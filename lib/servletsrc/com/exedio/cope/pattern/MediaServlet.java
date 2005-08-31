@@ -102,8 +102,7 @@ public final class MediaServlet extends HttpServlet
 		}
 		catch(MediaException e)
 		{
-			if(e.log!=null) // TODO make e.log mandatory
-				e.log.increment();
+			e.log.increment();
 		}
 		
 		serveError(request, response);
@@ -142,19 +141,19 @@ public final class MediaServlet extends HttpServlet
 		final String pathInfo = request.getPathInfo();
 		//System.out.println("pathInfo="+pathInfo);
 		if(pathInfo==null)
-			throw new MediaException(null); // TODO make a log for this case
+			throw new MediaException(MediaPath.noSuchPath);
 
 		final int trailingSlash = pathInfo.lastIndexOf('/');
 		if(trailingSlash<=0 && // null is leading slash, which is not allowed
 			trailingSlash>=pathInfo.length()-1)
-			throw new MediaException(null); // TODO make a log for this case
+			throw new MediaException(MediaPath.noSuchPath);
 
 		final String attributeString = pathInfo.substring(0, trailingSlash+1);
 		//System.out.println("attributeString="+attributeString);
 
 		final MediaPath path = (MediaPath)pathes.get(attributeString);
 		if(path==null)
-			throw new MediaException(null); // TODO make a log for this case
+			throw new MediaException(MediaPath.noSuchPath);
 
 		final String subPath = pathInfo.substring(trailingSlash+1);
 		return path.doGet(request, response, subPath);

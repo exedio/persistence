@@ -58,6 +58,7 @@ public abstract class MediaPath extends Pattern
 		return mediaRootUrl;
 	}
 	
+	public static final Log noSuchPath = new Log();
 	public final Log noSuchItem = new Log();
 	public final Log dataIsNull = new Log();
 	public final Log notModified = new Log();
