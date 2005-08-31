@@ -77,6 +77,9 @@ public class MediaServletTest extends AbstractWebTest
 		assertNameURL(new URL(prefix + "nameServer/0.txt"));
 		assertNameURL(new URL(prefix + "nameServer/0."));
 		assertNameURL(new URL(prefix + "nameServer/0"));
+		assertNotFound(new URL(prefix + "nameServer/1.txt"), DATA_IS_NULL);
+		assertNotFound(new URL(prefix + "nameServer/1."), DATA_IS_NULL);
+		assertNotFound(new URL(prefix + "nameServer/1"), DATA_IS_NULL);
 		assertNotFound(new URL(prefix + "nameServer/20.txt"), NO_SUCH_ITEM);
 		assertNotFound(new URL(prefix + "nameServer/20."), NO_SUCH_ITEM);
 		assertNotFound(new URL(prefix + "nameServer/20"), NO_SUCH_ITEM);

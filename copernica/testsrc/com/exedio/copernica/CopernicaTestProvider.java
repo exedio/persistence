@@ -175,7 +175,7 @@ public class CopernicaTestProvider extends TransientCopernicaProvider
 			dataItem1.setImage(thisClass.getResourceAsStream("osorno.png"), "png");
 			dataItem1.setPhoto(thisClass.getResourceAsStream("tree.jpg"));
 
-			final MediaItem dataItem2 = new MediaItem("media item 2");
+			final MediaItem dataItem2 = new MediaItem(null);
 			dataItem2.setFile(thisClass.getResourceAsStream("osorno.png"), "image", "png");
 			dataItem2.setImage(thisClass.getResourceAsStream("tree.jpg"), "jpeg");
 
