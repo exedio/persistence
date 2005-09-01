@@ -82,6 +82,11 @@ public final class Transaction
 	private boolean closed = false;
 	final IntSet[] invalidations;
 	
+	public boolean isClosed()
+	{
+		return closed;
+	}
+	
 	final Entity getEntity(final Item item, final boolean present)
 	{
 		if(closed)
