@@ -27,6 +27,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 import com.exedio.cope.search.Condition;
@@ -44,6 +45,7 @@ abstract class Database
 	private final boolean useDefineColumnTypes;
 	final ConnectionPool connectionPool;
 	final boolean hsqldb; // TODO remove hsqldb-specific stuff
+	private List expectedCalls = null;
 	
 	protected Database(final Driver driver, final Properties properties)
 	{
@@ -441,9 +443,35 @@ abstract class Database
 			}, query.makeStatementInfo);
 		return result;
 	}
+	
+	void expectLoad( Transaction tx, Item item )
+	{
+		if ( expectedCalls==null ) expectedCalls = new LinkedList();
+		expectedCalls.add( new LoadCall(tx, item) );
+	}
+	
+	void verifyExpectations()
+	{
+		if ( expectedCalls==null ) throw new RuntimeException("no expectations set");
+		if ( !expectedCalls.isEmpty() )
+		{
+			throw new RuntimeException( "missing calls: "+expectedCalls );
+		}
+		expectedCalls = null;
+	}
 
 	void load(final Connection connection, final PersistentState state)
 	{
+		if ( expectedCalls!=null )
+		{
+			if ( expectedCalls.isEmpty() )
+			{
+				throw new RuntimeException( "no more calls expected" );
+			}
+			LoadCall expected = (LoadCall)expectedCalls.remove(0);
+			expected.check( connection, state );
+		}
+		
 		buildStage = false;
 
 		final Statement bf = createStatement();
@@ -1107,4 +1135,32 @@ abstract class Database
 		}
 	};
 
+	static class LoadCall
+	{
+		final Transaction tx;
+		final Item item;
+		
+		LoadCall( Transaction tx, Item item )
+		{
+			this.tx = tx;
+			this.item = item;
+		}
+		
+		void check( Connection connection, PersistentState state )
+		{
+			if ( ! tx.getConnection().equals(connection) )
+			{
+				throw new RuntimeException( "connection mismatch in "+toString() );
+			}
+			if ( !item.equals(state.item) )
+			{
+				throw new RuntimeException( "item mismatch in "+toString()+" (got "+state.item+")" );
+			}
+		}
+		
+		public String toString()
+		{
+			return tx.getName()+"/"+item;
+		}
+	}
 }
