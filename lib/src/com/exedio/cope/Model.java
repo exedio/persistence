@@ -371,7 +371,7 @@ public final class Model
 		if( hasCurrentTransaction() )
 			throw new RuntimeException("there is already a transaction bound to current thread");
 		final Transaction result = new Transaction(this, name);
-		result.boundThread = Thread.currentThread();
+		result.bindToCurrentThread();
 		transactionThreads.set(result);
 		return result;
 	}
@@ -379,7 +379,7 @@ public final class Model
 	public Transaction leaveTransaction()
 	{
 		Transaction tx = getCurrentTransaction();
-		tx.boundThread = null;
+		tx.unbindThread();
 		transactionThreads.set( null );
 		return tx;
 	}
@@ -388,7 +388,7 @@ public final class Model
 	{
 		if ( hasCurrentTransaction() )
 			throw new RuntimeException("there is already a transaction bound to current thread");
-		tx.boundThread = Thread.currentThread();
+		tx.bindToCurrentThread();
 		transactionThreads.set(tx);		
 	}
 	
@@ -412,10 +412,8 @@ public final class Model
 		final Transaction result = (Transaction)transactionThreads.get();
 		
 		if(result==null)
-			throw new RuntimeException("there is no cope transaction bound to this thread, see Model#startTransaction");
-		
-		if(result.boundThread!=Thread.currentThread())
-			throw new RuntimeException();
+			throw new RuntimeException("there is no cope transaction bound to this thread, see Model#startTransaction");		
+		result.assertBoundToCurrentThread();
 		
 		return result;
 	}
@@ -424,8 +422,10 @@ public final class Model
 	{
 		final Transaction result = (Transaction)transactionThreads.get();
 		
-		if(result!=null && result.boundThread!=Thread.currentThread())
-			throw new RuntimeException();
+		if( result!=null )
+		{
+			result.assertBoundToCurrentThread();
+		}
 
 		return result;
 	}
@@ -435,7 +435,7 @@ public final class Model
 		transactionThreads.set(transaction);
 		
 		if(transaction!=null)
-			transaction.boundThread = Thread.currentThread();
+			transaction.bindToCurrentThread();
 	}
 	
 	final Transaction hop(final Transaction transaction)

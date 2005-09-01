@@ -28,6 +28,7 @@ public class CacheIsolationTest extends AbstractLibTest
 			// forced preload as work-around of hsql shortcoming:
 			assertEquals( "collision", collisionItem.getName() );
 		}
+		assertEquals( true, model.hasCurrentTransaction() );
 		model.leaveTransaction();
 		Transaction txChangeCollisionItem = model.startTransaction( "change collision item" );
 		collisionItem.setName( "othercollision" );

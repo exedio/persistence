@@ -33,7 +33,7 @@ public final class Transaction
 	final Model model;
 	final Database database;
 	final String name;
-	Thread boundThread = null;
+	private Thread boundThread = null;
 	
 	Transaction(final Model model, final String name)
 	{
@@ -42,6 +42,32 @@ public final class Transaction
 		this.name = name;
 		rowMaps = new IntKeyOpenHashMap[model.numberOfTypes];
 		invalidations = new IntSet[model.numberOfTypes];
+	}
+	
+	void bindToCurrentThread()
+	{
+		if ( boundThread!=null && !boundThread.equals(Thread.currentThread()) )
+		{
+			throw new RuntimeException("transaction already bound to other thread");
+		}
+		boundThread = Thread.currentThread();
+	}
+	
+	void assertBoundToCurrentThread()
+	{
+		if ( ! Thread.currentThread().equals(boundThread) )
+		{
+			throw new RuntimeException();
+		}
+	}
+	
+	void unbindThread()
+	{
+		if ( boundThread==null )
+		{
+			throw new RuntimeException( "transaction not bound to any thread" );
+		}
+		boundThread = null;
 	}
 	
 	/**
