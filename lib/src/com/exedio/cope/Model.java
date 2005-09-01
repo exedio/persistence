@@ -18,6 +18,8 @@
 package com.exedio.cope;
 
 import java.io.File;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -466,6 +468,20 @@ public final class Model
 	{
 		getCurrentTransaction().commit();
 		set(null);
+	}
+	
+	boolean supportsReadCommited()
+	{
+		try
+		{
+			return getCurrentTransaction().getConnection().getMetaData().supportsTransactionIsolationLevel( 
+				Connection.TRANSACTION_READ_COMMITTED 
+			);
+		}
+		catch (SQLException e)
+		{
+			throw new NestingRuntimeException( e );
+		}
 	}
 	
 }
