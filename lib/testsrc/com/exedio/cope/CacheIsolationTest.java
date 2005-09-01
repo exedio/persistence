@@ -23,12 +23,11 @@ public class CacheIsolationTest extends AbstractLibTest
 	{
 		model.commit();
 		Transaction txChangeItem = model.startTransaction( "change item" );
-		if ( ! model.supportsReadCommited() )
+		if ( ! model.supportsReadCommitted() )
 		{
 			// forced preload as work-around of hsql shortcoming:
 			assertEquals( "collision", collisionItem.getName() );
 		}
-		assertEquals( true, model.hasCurrentTransaction() );
 		model.leaveTransaction();
 		Transaction txChangeCollisionItem = model.startTransaction( "change collision item" );
 		collisionItem.setName( "othercollision" );

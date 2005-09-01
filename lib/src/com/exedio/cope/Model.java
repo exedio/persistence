@@ -472,7 +472,7 @@ public final class Model
 	/**
 	 *	Returns true if the database supports READ_COMMITTED or any more strict transaction isolation level.
 	 */
-	boolean supportsReadCommited()
+	boolean supportsReadCommitted()
 	{
 		try
 		{
