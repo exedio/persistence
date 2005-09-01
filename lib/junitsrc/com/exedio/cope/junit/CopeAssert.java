@@ -20,18 +20,15 @@ package com.exedio.cope.junit;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 import junit.framework.TestCase;
 
-import com.exedio.cope.Item;
 import com.exedio.cope.NestingRuntimeException;
 import com.exedio.cope.Query;
 
