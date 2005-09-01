@@ -27,10 +27,8 @@ import com.exedio.cope.search.NotEqualCondition;
 
 public final class LongAttribute extends ObjectAttribute
 {
-	/**
-	 * @see Item#longAttribute(Option)
-	 */
-	LongAttribute(final Option option)
+
+	public LongAttribute(final Option option)
 	{
 		super(option, Long.class, "long");
 	}

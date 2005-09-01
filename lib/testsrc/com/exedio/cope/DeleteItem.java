@@ -25,18 +25,18 @@ package com.exedio.cope;
 public class DeleteItem extends Item
 {
 
-	public static final ItemAttribute selfForbid = itemAttribute(OPTIONAL, DeleteItem.class);
+	public static final ItemAttribute selfForbid = new ItemAttribute(OPTIONAL, DeleteItem.class);
 
-	public static final ItemAttribute selfNullify = itemAttribute(OPTIONAL, DeleteItem.class, NULLIFY);
+	public static final ItemAttribute selfNullify = new ItemAttribute(OPTIONAL, DeleteItem.class, NULLIFY);
 
-	public static final ItemAttribute selfCascade = itemAttribute(OPTIONAL, DeleteItem.class, CASCADE);
-	public static final ItemAttribute selfCascade2 = itemAttribute(OPTIONAL, DeleteItem.class, CASCADE);
+	public static final ItemAttribute selfCascade = new ItemAttribute(OPTIONAL, DeleteItem.class, CASCADE);
+	public static final ItemAttribute selfCascade2 = new ItemAttribute(OPTIONAL, DeleteItem.class, CASCADE);
 	
-	public static final ItemAttribute otherForbid = itemAttribute(OPTIONAL, DeleteOtherItem.class);
+	public static final ItemAttribute otherForbid = new ItemAttribute(OPTIONAL, DeleteOtherItem.class);
 
-	public static final ItemAttribute otherNullify = itemAttribute(OPTIONAL, DeleteOtherItem.class, NULLIFY);
+	public static final ItemAttribute otherNullify = new ItemAttribute(OPTIONAL, DeleteOtherItem.class, NULLIFY);
 
-	public static final ItemAttribute otherCascade = itemAttribute(OPTIONAL, DeleteOtherItem.class, CASCADE);
+	public static final ItemAttribute otherCascade = new ItemAttribute(OPTIONAL, DeleteOtherItem.class, CASCADE);
 	
 
 	public String name = null;

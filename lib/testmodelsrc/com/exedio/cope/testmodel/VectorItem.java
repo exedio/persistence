@@ -19,9 +19,11 @@
 package com.exedio.cope.testmodel;
 
 import com.exedio.cope.AttributeValue;
+import com.exedio.cope.DateAttribute;
 import com.exedio.cope.IntegerAttribute;
 import com.exedio.cope.Item;
 import com.exedio.cope.ObjectAttribute;
+import com.exedio.cope.StringAttribute;
 import com.exedio.cope.pattern.Vector;
 
 /**
@@ -32,21 +34,21 @@ public class VectorItem extends Item
 {
 	// explicit external source
 
-	public static final IntegerAttribute num1 = integerAttribute(OPTIONAL);
+	public static final IntegerAttribute num1 = new IntegerAttribute(OPTIONAL);
 
-	public static final IntegerAttribute num2 = integerAttribute(OPTIONAL);
+	public static final IntegerAttribute num2 = new IntegerAttribute(OPTIONAL);
 
-	public static final IntegerAttribute num3 = integerAttribute(OPTIONAL);
+	public static final IntegerAttribute num3 = new IntegerAttribute(OPTIONAL);
 	
 	public static final Vector nums = new Vector(new ObjectAttribute[]{num1, num2, num3});
 
 	// implicit external source
 
-	public static final Vector dates = new Vector(new ObjectAttribute[]{dateAttribute(OPTIONAL), dateAttribute(OPTIONAL)});
+	public static final Vector dates = new Vector(new ObjectAttribute[]{new DateAttribute(OPTIONAL), new DateAttribute(OPTIONAL)});
 
 	// internal source
 
-	public static final Vector strings = new Vector(stringAttribute(OPTIONAL, 1, 11), 4);
+	public static final Vector strings = new Vector(new StringAttribute(OPTIONAL, 1, 11), 4);
 
 	public VectorItem(final int initialNum1, final int initialNum2, final int initialNum3)
 	{

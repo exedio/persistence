@@ -29,15 +29,15 @@ import com.exedio.cope.StringAttribute;
 public class PointerItem extends Item
 {
 
-	public static final StringAttribute code = stringAttribute(MANDATORY);
+	public static final StringAttribute code = new StringAttribute(MANDATORY);
 	
-	public static final ItemAttribute pointer = itemAttribute(MANDATORY, PointerTargetItem.class);
+	public static final ItemAttribute pointer = new ItemAttribute(MANDATORY, PointerTargetItem.class);
 
-	public static final ItemAttribute pointer2 = itemAttribute(OPTIONAL, PointerTargetItem.class);
+	public static final ItemAttribute pointer2 = new ItemAttribute(OPTIONAL, PointerTargetItem.class);
 
-	public static final ItemAttribute self = itemAttribute(OPTIONAL, PointerItem.class);
+	public static final ItemAttribute self = new ItemAttribute(OPTIONAL, PointerItem.class);
 
-	public static final ItemAttribute empty2 = itemAttribute(OPTIONAL, EmptyItem2.class);
+	public static final ItemAttribute empty2 = new ItemAttribute(OPTIONAL, EmptyItem2.class);
 
 /**
 

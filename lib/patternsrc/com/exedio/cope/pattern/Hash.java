@@ -44,7 +44,7 @@ public abstract class Hash extends Pattern
 	
 	public Hash(final Option storageOption)
 	{
-		this(Item.stringAttribute(storageOption));
+		this(new StringAttribute(storageOption));
 	}
 
 	public void initialize()

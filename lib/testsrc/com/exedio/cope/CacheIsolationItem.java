@@ -5,9 +5,9 @@ package com.exedio.cope;
  */
 public class CacheIsolationItem extends Item
 {
-	public static final StringAttribute uniqueString = stringAttribute( UNIQUE_OPTIONAL );
+	public static final StringAttribute uniqueString = new StringAttribute( UNIQUE_OPTIONAL );
 	
-	public static final StringAttribute name = stringAttribute( MANDATORY );
+	public static final StringAttribute name = new StringAttribute( MANDATORY );
 	
 /**
 

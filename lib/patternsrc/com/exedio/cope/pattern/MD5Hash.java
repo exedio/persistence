@@ -17,7 +17,6 @@
  */
 package com.exedio.cope.pattern;
 
-import com.exedio.cope.Item;
 import com.exedio.cope.StringAttribute;
 import com.exedio.cope.Attribute.Option;
 
@@ -37,7 +36,7 @@ public final class MD5Hash extends JavaHash
 
 	public MD5Hash(final Option storageOption)
 	{
-		this(Item.stringAttribute(storageOption, 32, 32));
+		this(new StringAttribute(storageOption, 32, 32));
 	}
 
 }

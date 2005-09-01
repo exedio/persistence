@@ -34,26 +34,17 @@ public final class StringAttribute extends ObjectAttribute implements StringFunc
 	private final int minimumLength;
 	private final int maximumLength;
 
-	/**
-	 * @see Item#stringAttribute(Option)
-	 */
-	StringAttribute(final Option option)
+	public StringAttribute(final Option option)
 	{
 		this(option, 0, Integer.MAX_VALUE);
 	}
 	
-	/**
-	 * @see Item#stringAttribute(Option, int)
-	 */
-	StringAttribute(final Option option, final int minimumLength)
+	public StringAttribute(final Option option, final int minimumLength)
 	{
 		this(option, minimumLength, Integer.MAX_VALUE);
 	}
 	
-	/**
-	 * @see Item#stringAttribute(Option, int, int)
-	 */
-	StringAttribute(final Option option, final int minimumLength, final int maximumLength)
+	public StringAttribute(final Option option, final int minimumLength, final int maximumLength)
 	{
 		super(option, String.class, "string");
 		this.minimumLength = minimumLength;

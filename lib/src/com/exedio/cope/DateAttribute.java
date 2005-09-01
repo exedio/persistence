@@ -31,18 +31,18 @@ public final class DateAttribute extends ObjectAttribute
 {
 	final boolean forbidTimestampColumn;
 
-	/**
-	 * @see Item#dateAttribute(Option)
-	 */
-	DateAttribute(final Option option)
+	public DateAttribute(final Option option)
 	{
 		this(option, false);
 	}
 	
 	/**
-	 * @see Item#dateAttribute(Option, boolean)
+	 * @param forbidTimestampColumn
+	 * 		forces the new date attribute to be implemented with an integer column
+	 * 		holding the time value of the dates,
+	 * 		even if the database supports timestamp columns.
 	 */
-	DateAttribute(final Option option, final boolean forbidTimestampColumn)
+	public DateAttribute(final Option option, final boolean forbidTimestampColumn)
 	{
 		super(option, Date.class, "date");
 		this.forbidTimestampColumn = forbidTimestampColumn;

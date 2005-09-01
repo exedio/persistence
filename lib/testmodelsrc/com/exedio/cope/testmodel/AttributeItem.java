@@ -43,7 +43,7 @@ public class AttributeItem extends Item
 	/**
 	 * A string attribute.
 	 */
-	public static final StringAttribute someString = stringAttribute(OPTIONAL);
+	public static final StringAttribute someString = new StringAttribute(OPTIONAL);
 
 	/**
 	 * Test non-persistent static final attributes.
@@ -63,71 +63,71 @@ public class AttributeItem extends Item
 	/**
 	 * A mandatory string attribute.
 	 */
-	public static final StringAttribute someNotNullString = stringAttribute(MANDATORY);
+	public static final StringAttribute someNotNullString = new StringAttribute(MANDATORY);
 
 	/**
 	 * An integer attribute
 	 */
-	public static final IntegerAttribute someInteger = integerAttribute(OPTIONAL);
+	public static final IntegerAttribute someInteger = new IntegerAttribute(OPTIONAL);
 
 	/**
 	 * A mandatory integer attribute
 	 */
-	public static final IntegerAttribute someNotNullInteger = integerAttribute(MANDATORY);
+	public static final IntegerAttribute someNotNullInteger = new IntegerAttribute(MANDATORY);
 
 	/**
 	 * An integer attribute
 	 */
-	public static final LongAttribute someLong = longAttribute(OPTIONAL);
+	public static final LongAttribute someLong = new LongAttribute(OPTIONAL);
 
 	/**
 	 * A mandatory integer attribute
 	 */
-	public static final LongAttribute someNotNullLong = longAttribute(MANDATORY);
+	public static final LongAttribute someNotNullLong = new LongAttribute(MANDATORY);
 
 	/**
 	 * A double attribute
 	 */
-	public static final DoubleAttribute someDouble = doubleAttribute(OPTIONAL);
+	public static final DoubleAttribute someDouble = new DoubleAttribute(OPTIONAL);
 
 	/**
 	 * A mandatory double attribute
 	 */
-	public static final DoubleAttribute someNotNullDouble = doubleAttribute(MANDATORY);
+	public static final DoubleAttribute someNotNullDouble = new DoubleAttribute(MANDATORY);
 
-	public static final DateAttribute someDate = dateAttribute(OPTIONAL);
+	public static final DateAttribute someDate = new DateAttribute(OPTIONAL);
 
-	public static final DateAttribute someLongDate = dateAttribute(OPTIONAL, true);
+	public static final DateAttribute someLongDate = new DateAttribute(OPTIONAL, true);
 
 	/**
 	 * An boolean attribute
 	 */
-	public static final BooleanAttribute someBoolean = booleanAttribute(OPTIONAL);
+	public static final BooleanAttribute someBoolean = new BooleanAttribute(OPTIONAL);
 
 	/**
 	 * A mandatory boolean attribute
 	 */
-	public static final BooleanAttribute someNotNullBoolean = booleanAttribute(MANDATORY);
+	public static final BooleanAttribute someNotNullBoolean = new BooleanAttribute(MANDATORY);
 	
 	/**
 	 * An attribute referencing another persistent item
 	 */
-	public static final ItemAttribute someItem = itemAttribute(OPTIONAL, EmptyItem.class);
+	public static final ItemAttribute someItem = new ItemAttribute(OPTIONAL, EmptyItem.class);
 
 	/**
 	 * An mandatory attribute referencing another persistent item
 	 */
-	public static final ItemAttribute someNotNullItem = itemAttribute(MANDATORY, EmptyItem.class);
+	public static final ItemAttribute someNotNullItem = new ItemAttribute(MANDATORY, EmptyItem.class);
 
 	/**
 	 * An enumeration attribute
 	 */
-	public static final EnumAttribute someEnum = enumAttribute(OPTIONAL, SomeEnum.class);
+	public static final EnumAttribute someEnum = new EnumAttribute(OPTIONAL, SomeEnum.class);
 
 	/**
 	 * A mandatory enumeration attribute
 	 */
-	public static final EnumAttribute someNotNullEnum = enumAttribute(MANDATORY, SomeEnum.class);
+	public static final EnumAttribute someNotNullEnum = new EnumAttribute(MANDATORY, SomeEnum.class);
 
 	/**
 	 * A data attribute.

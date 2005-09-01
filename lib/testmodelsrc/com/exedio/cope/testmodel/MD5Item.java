@@ -35,7 +35,7 @@ public class MD5Item extends Item
 		return (String)get(password.getStorage());
 	}
 	
-	public static final StringAttribute hashed1MD5 = stringAttribute(OPTIONAL);
+	public static final StringAttribute hashed1MD5 = new StringAttribute(OPTIONAL);
 	public static final MD5Hash hashed1 = new MD5Hash(hashed1MD5);
 	public static final MD5Hash hashed1Latin = new MD5Hash(hashed1MD5, "ISO-8859-1");
 

@@ -42,63 +42,63 @@ import com.exedio.cope.pattern.MD5Hash;
  */
 public class Standard extends Item
 {
-	public static final StringAttribute defaultString = stringAttribute(OPTIONAL);
-	public static final StringAttribute notNullString = stringAttribute(MANDATORY);
-	public static final StringAttribute readOnlyString = stringAttribute(READ_ONLY_OPTIONAL);
-	public static final StringAttribute uniqueString = stringAttribute(UNIQUE_OPTIONAL);
+	public static final StringAttribute defaultString = new StringAttribute(OPTIONAL);
+	public static final StringAttribute notNullString = new StringAttribute(MANDATORY);
+	public static final StringAttribute readOnlyString = new StringAttribute(READ_ONLY_OPTIONAL);
+	public static final StringAttribute uniqueString = new StringAttribute(UNIQUE_OPTIONAL);
 
-	public static final IntegerAttribute defaultInteger = integerAttribute(OPTIONAL);
-	public static final IntegerAttribute nativeInteger = integerAttribute(MANDATORY);
+	public static final IntegerAttribute defaultInteger = new IntegerAttribute(OPTIONAL);
+	public static final IntegerAttribute nativeInteger = new IntegerAttribute(MANDATORY);
 
-	public static final LongAttribute defaultLong = longAttribute(OPTIONAL);
-	public static final LongAttribute nativeLong = longAttribute(MANDATORY);
+	public static final LongAttribute defaultLong = new LongAttribute(OPTIONAL);
+	public static final LongAttribute nativeLong = new LongAttribute(MANDATORY);
 
-	public static final DoubleAttribute defaultDouble = doubleAttribute(OPTIONAL);
-	public static final DoubleAttribute nativeDouble = doubleAttribute(MANDATORY);
+	public static final DoubleAttribute defaultDouble = new DoubleAttribute(OPTIONAL);
+	public static final DoubleAttribute nativeDouble = new DoubleAttribute(MANDATORY);
 
-	public static final BooleanAttribute defaultBoolean = booleanAttribute(OPTIONAL);
-	public static final BooleanAttribute nativeBoolean = booleanAttribute(MANDATORY);
+	public static final BooleanAttribute defaultBoolean = new BooleanAttribute(OPTIONAL);
+	public static final BooleanAttribute nativeBoolean = new BooleanAttribute(MANDATORY);
 
-	private static final StringAttribute privateString = stringAttribute(OPTIONAL);
+	private static final StringAttribute privateString = new StringAttribute(OPTIONAL);
 
 	/**
 	 * @cope.getter none
 	 */
-	public static final StringAttribute noneGetterString = stringAttribute(OPTIONAL);
+	public static final StringAttribute noneGetterString = new StringAttribute(OPTIONAL);
 
 	/**
 	 * @cope.getter private
 	 */
-	public static final StringAttribute privateGetterString = stringAttribute(OPTIONAL);
+	public static final StringAttribute privateGetterString = new StringAttribute(OPTIONAL);
 
 	/**
 	 * @cope.setter none
 	 * @cope.getter boolean-as-is
 	 */
-	public static final StringAttribute noneSetterString = stringAttribute(OPTIONAL);
+	public static final StringAttribute noneSetterString = new StringAttribute(OPTIONAL);
 
 	/**
 	 * @cope.setter private
 	 * @cope.getter boolean-as-is
 	 */
-	public static final StringAttribute privateSetterString = stringAttribute(OPTIONAL);
+	public static final StringAttribute privateSetterString = new StringAttribute(OPTIONAL);
 
 	/**
 	 * @cope.getter non-final
 	 * @cope.setter protected
 	 */
-	public static final StringAttribute nonfinalGetterString = stringAttribute(OPTIONAL);
+	public static final StringAttribute nonfinalGetterString = new StringAttribute(OPTIONAL);
 
 	/**
 	 * @cope.getter protected
 	 * @cope.setter non-final
 	 */
-	public static final StringAttribute nonfinalSetterString = stringAttribute(OPTIONAL);
+	public static final StringAttribute nonfinalSetterString = new StringAttribute(OPTIONAL);
 
 	/**
 	 * @cope.getter boolean-as-is
 	 */
-	public static final BooleanAttribute asIsBoolean = booleanAttribute(OPTIONAL);
+	public static final BooleanAttribute asIsBoolean = new BooleanAttribute(OPTIONAL);
 	
 	public static final Media anyData = new Media(OPTIONAL);
 

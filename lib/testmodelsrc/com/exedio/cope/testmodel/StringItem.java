@@ -30,15 +30,15 @@ import com.exedio.cope.function.UppercaseFunction;
  */
 public class StringItem extends Item
 {
-	public static final StringAttribute any = stringAttribute(OPTIONAL);
+	public static final StringAttribute any = new StringAttribute(OPTIONAL);
 
-	public static final StringAttribute min4 = stringAttribute(OPTIONAL, 4);
+	public static final StringAttribute min4 = new StringAttribute(OPTIONAL, 4);
 
-	public static final StringAttribute max4 = stringAttribute(OPTIONAL, 0, 4);
+	public static final StringAttribute max4 = new StringAttribute(OPTIONAL, 0, 4);
 
-	public static final StringAttribute min4Max8 = stringAttribute(OPTIONAL, 4, 8);
+	public static final StringAttribute min4Max8 = new StringAttribute(OPTIONAL, 4, 8);
 
-	public static final StringAttribute exact6 = stringAttribute(OPTIONAL, 6, 6);
+	public static final StringAttribute exact6 = new StringAttribute(OPTIONAL, 6, 6);
 	
 	public static final UppercaseFunction min4Upper = min4.uppercase();
 	public static final UppercaseFunction max4Upper = max4.uppercase();

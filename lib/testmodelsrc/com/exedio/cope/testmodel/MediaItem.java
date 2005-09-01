@@ -30,7 +30,7 @@ import com.exedio.cope.pattern.MediaRedirect;
 public class MediaItem extends Item
 {
 	
-	public static final StringAttribute name = stringAttribute(OPTIONAL);
+	public static final StringAttribute name = new StringAttribute(OPTIONAL);
 
 	public static final Media file = new Media(OPTIONAL);
 

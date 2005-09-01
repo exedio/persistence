@@ -30,13 +30,13 @@ import com.exedio.cope.UniqueConstraint;
  */
 public class AttributeEmptyItem extends Item
 {
-	public static final ItemAttribute parent = itemAttribute(OPTIONAL, AttributeItem.class, CASCADE);
+	public static final ItemAttribute parent = new ItemAttribute(OPTIONAL, AttributeItem.class, CASCADE);
 
-	public static final ItemAttribute key = itemAttribute(OPTIONAL, EmptyItem.class);
+	public static final ItemAttribute key = new ItemAttribute(OPTIONAL, EmptyItem.class);
 	
-	public static final UniqueConstraint parentKey = uniqueConstraint(parent, key);
+	public static final UniqueConstraint parentKey = new UniqueConstraint(parent, key);
 
-	public static final StringAttribute someQualifiedString = stringAttribute(OPTIONAL);
+	public static final StringAttribute someQualifiedString = new StringAttribute(OPTIONAL);
 
 /**
 

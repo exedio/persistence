@@ -41,10 +41,7 @@ public final class EnumAttribute extends ObjectAttribute
 	private final IntKeyOpenHashMap numbersToValues;
 	private final HashMap codesToValues;
 	
-	/**
-	 * @see Item#enumAttribute(Option, Class)
-	 */
-	EnumAttribute(final Option option, final Class enumClass)
+	public EnumAttribute(final Option option, final Class enumClass)
 	{
 		super(option, enumClass, enumClass.getName());
 		this.enumClass = enumClass;

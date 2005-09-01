@@ -21,10 +21,8 @@ package com.exedio.cope;
 
 public final class DataAttribute extends Attribute
 {
-	/**
-	 * @see Item#dataAttribute(Option)
-	 */
-	DataAttribute(final Option option)
+
+	public DataAttribute(final Option option)
 	{
 		super(option);
 

@@ -65,10 +65,10 @@ public final class Media extends MediaPath
 		this.notNull = option.mandatory;
 		this.fixedMimeMajor = fixedMimeMajor;
 		this.fixedMimeMinor = fixedMimeMinor;
-		registerSource(this.data = Item.dataAttribute(option));
+		registerSource(this.data = new DataAttribute(option));
 		this.mimeMajor = null;
 		this.mimeMinor = null;
-		this.exists = option.mandatory ? null : Item.booleanAttribute(Item.OPTIONAL);
+		this.exists = option.mandatory ? null : new BooleanAttribute(Item.OPTIONAL);
 		this.isNull = exists;
 
 		if(data==null)
@@ -88,9 +88,9 @@ public final class Media extends MediaPath
 		this.notNull = option.mandatory;
 		this.fixedMimeMajor = fixedMimeMajor;
 		this.fixedMimeMinor = null;
-		registerSource(this.data = Item.dataAttribute(option));
+		registerSource(this.data = new DataAttribute(option));
 		this.mimeMajor = null;
-		registerSource(this.mimeMinor = Item.stringAttribute(option, 1, 30));
+		registerSource(this.mimeMinor = new StringAttribute(option, 1, 30));
 		this.exists = null;
 		this.isNull = mimeMinor;
 		
@@ -114,9 +114,9 @@ public final class Media extends MediaPath
 		this.notNull = option.mandatory;
 		this.fixedMimeMajor = null;
 		this.fixedMimeMinor = null;
-		registerSource(this.data = Item.dataAttribute(option));
-		registerSource(this.mimeMajor = Item.stringAttribute(option, 1, 30));
-		registerSource(this.mimeMinor = Item.stringAttribute(option, 1, 30));
+		registerSource(this.data = new DataAttribute(option));
+		registerSource(this.mimeMajor = new StringAttribute(option, 1, 30));
+		registerSource(this.mimeMinor = new StringAttribute(option, 1, 30));
 		this.exists = null;
 		this.isNull = mimeMajor;
 		

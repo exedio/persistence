@@ -28,10 +28,8 @@ import com.exedio.cope.search.NotEqualCondition;
 
 public final class IntegerAttribute extends ObjectAttribute implements IntegerFunction
 {
-	/**
-	 * @see Item#integerAttribute(Option)
-	 */
-	IntegerAttribute(final Option option)
+
+	public IntegerAttribute(final Option option)
 	{
 		super(option, Integer.class, "integer");
 	}

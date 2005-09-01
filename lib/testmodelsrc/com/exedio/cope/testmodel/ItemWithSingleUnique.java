@@ -31,9 +31,9 @@ public class ItemWithSingleUnique extends Item
 	/**
 	 * An attribute that is unique.
 	 */
-	public static final StringAttribute uniqueString = stringAttribute(UNIQUE_OPTIONAL);
+	public static final StringAttribute uniqueString = new StringAttribute(UNIQUE_OPTIONAL);
 
-	public static final StringAttribute otherString = stringAttribute(OPTIONAL);
+	public static final StringAttribute otherString = new StringAttribute(OPTIONAL);
 
 /**
 

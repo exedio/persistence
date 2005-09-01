@@ -28,10 +28,12 @@ public final class ItemAttribute extends ObjectAttribute
 	private final Class targetTypeClass;
 	private final DeletePolicy policy;
 
-	/**
-	 * @see Item#itemAttribute(Option, Class)
-	 */
-	ItemAttribute(final Option option, final Class targetTypeClass, final DeletePolicy policy)
+	public ItemAttribute(final Option option, final Class targetTypeClass)
+	{
+		this(option, targetTypeClass, Item.FORBID);
+	}
+	
+	public ItemAttribute(final Option option, final Class targetTypeClass, final DeletePolicy policy)
 	{
 		super(option, targetTypeClass, targetTypeClass.getName());
 		this.targetTypeClass = targetTypeClass;

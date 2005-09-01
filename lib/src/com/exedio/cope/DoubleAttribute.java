@@ -27,10 +27,8 @@ import com.exedio.cope.search.NotEqualCondition;
 
 public final class DoubleAttribute extends ObjectAttribute
 {
-	/**
-	 * @see Item#doubleAttribute(Option)
-	 */
-	DoubleAttribute(final Option option)
+
+	public DoubleAttribute(final Option option)
 	{
 		super(option, Double.class, "double");
 	}

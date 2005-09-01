@@ -26,6 +26,7 @@ import com.exedio.cope.AbstractLibTest;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Main;
 import com.exedio.cope.NestingRuntimeException;
+import com.exedio.cope.StringAttribute;
 import com.exedio.cope.testmodel.MD5Item;
 
 public class MD5Test extends AbstractLibTest
@@ -74,7 +75,7 @@ public class MD5Test extends AbstractLibTest
 
 		try
 		{
-			new MD5Hash(item.stringAttribute(item.OPTIONAL), "nixus");
+			new MD5Hash(new StringAttribute(item.OPTIONAL), "nixus");
 			fail("should have thrown UnsupportedEncodingException");
 		}
 		catch(NestingRuntimeException e)
@@ -84,7 +85,7 @@ public class MD5Test extends AbstractLibTest
 		}
 		try
 		{
-			new JavaHash(item.stringAttribute(item.OPTIONAL), "NIXUS");
+			new JavaHash(new StringAttribute(item.OPTIONAL), "NIXUS");
 			fail("should have thrown NoSuchAlgorithmException");
 		}
 		catch(NestingRuntimeException e)

@@ -30,8 +30,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
-import com.exedio.cope.Attribute.Option;
-import com.exedio.cope.ItemAttribute.DeletePolicy;
 import com.exedio.cope.util.ReactivationConstructorDummy;
 
 /**
@@ -585,94 +583,6 @@ public abstract class Item extends Cope
 	private final Entity getEntityIfActive()
 	{
 		return type.getModel().getCurrentTransaction().getEntityIfActive(type, pk);
-	}
-
-	//-----------------------------------------
-	
-	protected static final ItemAttribute itemAttribute(final Option option, final Class targetTypeClass)
-	{
-		return new ItemAttribute(option, targetTypeClass, FORBID);
-	}
-	
-	protected static final ItemAttribute itemAttribute(final Option option, final Class targetTypeClass, final DeletePolicy policy)
-	{
-		return new ItemAttribute(option, targetTypeClass, policy);
-	}
-	
-	public static final StringAttribute stringAttribute(final Option option)
-	{
-		return new StringAttribute(option);
-	}
-
-	public static final StringAttribute stringAttribute(final Option option, final int minimumLength)
-	{
-		return new StringAttribute(option, minimumLength);
-	}
-
-	public static final StringAttribute stringAttribute(final Option option, final int minimumLength, final int maximumLength)
-	{
-		return new StringAttribute(option, minimumLength, maximumLength);
-	}
-
-	protected static final IntegerAttribute integerAttribute(final Option option)
-	{
-		return new IntegerAttribute(option);
-	}
-	
-	protected static final LongAttribute longAttribute(final Option option)
-	{
-		return new LongAttribute(option);
-	}
-	
-	protected static final DoubleAttribute doubleAttribute(final Option option)
-	{
-		return new DoubleAttribute(option);
-	}
-	
-	public static final DataAttribute dataAttribute(final Option option)
-	{
-		return new DataAttribute(option);
-	}
-
-	protected static final UniqueConstraint uniqueConstraint(final ObjectAttribute uniqueAttribute)
-	{
-		return new UniqueConstraint(uniqueAttribute);
-	}
-
-	protected static final UniqueConstraint uniqueConstraint(final ObjectAttribute uniqueAttribute1, final ObjectAttribute uniqueAttribute2)
-	{
-		return new UniqueConstraint(uniqueAttribute1, uniqueAttribute2);
-	}
-	
-	protected static final UniqueConstraint uniqueConstraint(final ObjectAttribute uniqueAttribute1, final ObjectAttribute uniqueAttribute2, final ObjectAttribute uniqueAttribute3)
-	{
-		return new UniqueConstraint(uniqueAttribute1, uniqueAttribute2, uniqueAttribute3);
-	}
-	
-	protected static final DateAttribute dateAttribute(final Option option)
-	{
-		return new DateAttribute(option);
-	}
-
-	/**
-	 * @param forbidTimestampColumn
-	 * 		forces the new date attribute to be implemented with an integer column
-	 * 		holding the time value of the dates,
-	 * 		even if the database supports timestamp columns.
-	 */
-	protected static final DateAttribute dateAttribute(final Option option, final boolean forbidTimestampColumn)
-	{
-		return new DateAttribute(option, forbidTimestampColumn);
-	}
-	
-	public static final BooleanAttribute booleanAttribute(final Option option)
-	{
-		return new BooleanAttribute(option);
-	}
-
-	protected static final EnumAttribute enumAttribute(final Option option, final Class enumClass)
-	{
-		return new EnumAttribute(option, enumClass);
 	}
 
 }

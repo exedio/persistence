@@ -44,26 +44,18 @@ public final class UniqueConstraint extends Feature
 				throw new RuntimeException(String.valueOf(i));
 	}
 	
-	/**
-	 * @see Item#uniqueConstraint(ObjectAttribute)
-	 */
+	// is not public, because one should use Item.UNIQUE etc
 	UniqueConstraint(final ObjectAttribute uniqueAttribute)
 	{
 		this(new ObjectAttribute[]{uniqueAttribute});
 	}
 	
-	/**
-	 * @see Item#uniqueConstraint(ObjectAttribute, ObjectAttribute)
-	 */
-	UniqueConstraint(final ObjectAttribute uniqueAttribute1, final ObjectAttribute uniqueAttribute2)
+	public UniqueConstraint(final ObjectAttribute uniqueAttribute1, final ObjectAttribute uniqueAttribute2)
 	{
 		this(new ObjectAttribute[]{uniqueAttribute1, uniqueAttribute2});
 	}
 	
-	/**
-	 * @see Item#uniqueConstraint(ObjectAttribute, ObjectAttribute, ObjectAttribute)
-	 */
-	UniqueConstraint(final ObjectAttribute uniqueAttribute1, final ObjectAttribute uniqueAttribute2, final ObjectAttribute uniqueAttribute3)
+	public UniqueConstraint(final ObjectAttribute uniqueAttribute1, final ObjectAttribute uniqueAttribute2, final ObjectAttribute uniqueAttribute3)
 	{
 		this(new ObjectAttribute[]{uniqueAttribute1, uniqueAttribute2, uniqueAttribute3});
 	}

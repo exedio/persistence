@@ -30,11 +30,11 @@ import com.exedio.cope.UniqueConstraint;
  */
 public class ItemWithDoubleUnique extends Item
 {
-	public static final StringAttribute string = stringAttribute(MANDATORY);
+	public static final StringAttribute string = new StringAttribute(MANDATORY);
 	
-	public static final IntegerAttribute integer = integerAttribute(MANDATORY);
+	public static final IntegerAttribute integer = new IntegerAttribute(MANDATORY);
 	
-	public static final UniqueConstraint doubleUnique = uniqueConstraint(string, integer);
+	public static final UniqueConstraint doubleUnique = new UniqueConstraint(string, integer);
 
 /**
 

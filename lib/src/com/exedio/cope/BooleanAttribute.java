@@ -25,10 +25,7 @@ public final class BooleanAttribute extends ObjectAttribute
 {
 	static final int[] ALLOWED_VALUES = new int[]{0, 1};
 
-	/**
-	 * see Item#booleanAttribute(Option)
-	 */
-	BooleanAttribute(final Option option)
+	public BooleanAttribute(final Option option)
 	{
 		super(option, Boolean.class, "boolean");
 	}

@@ -30,14 +30,14 @@ import com.exedio.cope.UniqueConstraint;
  */
 public class QualifiedStringQualifier extends Item
 {
-	public static final ItemAttribute parent = itemAttribute(READ_ONLY, QualifiedItem.class);
+	public static final ItemAttribute parent = new ItemAttribute(READ_ONLY, QualifiedItem.class);
 	
-	public static final StringAttribute key = stringAttribute(READ_ONLY);
+	public static final StringAttribute key = new StringAttribute(READ_ONLY);
 	
-	public static final UniqueConstraint qualifyUnique = uniqueConstraint(parent, key);
+	public static final UniqueConstraint qualifyUnique = new UniqueConstraint(parent, key);
 	
-	public static final IntegerAttribute qualifiedA = integerAttribute(OPTIONAL);
-	public static final IntegerAttribute qualifiedB = integerAttribute(OPTIONAL);
+	public static final IntegerAttribute qualifiedA = new IntegerAttribute(OPTIONAL);
+	public static final IntegerAttribute qualifiedB = new IntegerAttribute(OPTIONAL);
 	
 
 /**

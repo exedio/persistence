@@ -251,7 +251,7 @@ final class Instrumentor implements InjectionConsumer
 		//System.out.println("---------"+initializerArguments);
 		final String initializerArgument = (String)initializerArguments.get(0);
 		final CopeAttribute storageAttribute;
-		if("stringAttribute".equals(initializerArgument))
+		if("newStringAttribute".equals(initializerArgument))
 		{
 			// implicitExternal
 			storageAttribute = new CopeNativeAttribute(ja, StringAttribute.class, Collections.singletonList("OPTIONAL"), "none", "none"); // TODO make some useful assumption about option
