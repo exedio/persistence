@@ -469,7 +469,10 @@ public final class Model
 		getCurrentTransaction().commit();
 		set(null);
 	}
-	
+
+	/**
+	 *	Returns true if the database supports READ_COMMITTED or any more strict transaction isolation level.
+	 */
 	boolean supportsReadCommited()
 	{
 		try
