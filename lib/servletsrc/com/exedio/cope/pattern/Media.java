@@ -462,12 +462,12 @@ public final class Media extends MediaPath
 	public final Media.Log doGet(
 			final HttpServletRequest request, final HttpServletResponse response,
 			final Item item, final String extension)
-		throws ServletException, IOException, MediaException
+		throws ServletException, IOException
 	{
 		final String contentType = getContentType(item);
 		//System.out.println("contentType="+contentType);
 		if(contentType==null)
-			throw new MediaException(dataIsNull);
+			return dataIsNull;
 
 		response.setContentType(contentType);
 

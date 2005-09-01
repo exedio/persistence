@@ -58,18 +58,18 @@ public abstract class MediaPath extends Pattern
 		return mediaRootUrl;
 	}
 	
-	public static final Log noSuchPath = new Log("no such path");
-	public final Log exception = new Log("exception", true);
-	public final Log notAnItem = new Log("not an item");
-	public final Log noSuchItem = new Log("no such item");
-	public final Log dataIsNull = new Log("data is null");
-	public final Log notModified = new Log("not modified");
-	public final Log delivered = new Log("delivered");
+	public static final Log noSuchPath = new Log("no such path", HttpServletResponse.SC_NOT_FOUND);
+	public final Log exception = new Log("exception", HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+	public final Log notAnItem = new Log("not an item", HttpServletResponse.SC_NOT_FOUND);
+	public final Log noSuchItem = new Log("no such item", HttpServletResponse.SC_NOT_FOUND);
+	public final Log dataIsNull = new Log("data is null", HttpServletResponse.SC_NOT_FOUND);
+	public final Log notModified = new Log("not modified", HttpServletResponse.SC_OK);
+	public final Log delivered = new Log("delivered", HttpServletResponse.SC_OK);
 
 	final Media.Log doGet(
 			final HttpServletRequest request, final HttpServletResponse response,
 			final String subPath)
-		throws ServletException, IOException, MediaException
+		throws ServletException, IOException
 	{
 		final int dot = subPath.indexOf('.');
 		//System.out.println("trailingDot="+trailingDot);
@@ -104,7 +104,7 @@ public abstract class MediaPath extends Pattern
 		}
 		catch(NoSuchIDException e)
 		{
-			throw new MediaException(e.notAnID() ? notAnItem : noSuchItem);
+			return e.notAnID() ? notAnItem : noSuchItem;
 		}
 		finally
 		{
@@ -113,7 +113,7 @@ public abstract class MediaPath extends Pattern
 	}
 
 	public abstract Media.Log doGet(HttpServletRequest request, HttpServletResponse response, Item item, String extension)
-		throws ServletException, IOException, MediaException;
+		throws ServletException, IOException;
 
 	public abstract Date getStart();
 
@@ -122,20 +122,24 @@ public abstract class MediaPath extends Pattern
 		private int counter = 0;
 		private final Object lock = new Object();
 		final String name;
-		public final boolean internalServerError;
+		public final int responseStatus;
 		
-		public Log(final String name)
-		{
-			this(name, false);
-		}
-		
-		Log(final String name, final boolean internalServerError)
+		Log(final String name, final int responseStatus)
 		{
 			if(name==null)
 				throw new NullPointerException();
+			switch(responseStatus)
+			{
+				case HttpServletResponse.SC_OK:
+				case HttpServletResponse.SC_NOT_FOUND:
+				case HttpServletResponse.SC_INTERNAL_SERVER_ERROR:
+					break;
+				default:
+					throw new RuntimeException(String.valueOf(responseStatus));
+			}
 			
 			this.name = name;
-			this.internalServerError = internalServerError;
+			this.responseStatus = responseStatus;
 		}
 		
 		public final void increment()

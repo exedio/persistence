@@ -94,18 +94,9 @@ public final class MediaServlet extends HttpServlet
 			final HttpServletResponse response)
 		throws ServletException, IOException
 	{
-		try
-		{
-			final Media.Log log = serveContent(request, response);
-			log.increment();
-			return;
-		}
-		catch(MediaException e)
-		{
-			e.log.increment();
-			serveError(request, response, e.log);
-			return;
-		}
+		final Media.Log log = serveContent(request, response);
+		log.increment();
+		serveError(request, response, log);
 		
 		// TODO make 500 error page without stack trace
 	}
@@ -116,43 +107,51 @@ public final class MediaServlet extends HttpServlet
 			final Media.Log log)
 		throws ServletException, IOException
 	{
-		response.setStatus(log.internalServerError ? response.SC_INTERNAL_SERVER_ERROR : response.SC_NOT_FOUND);
+		if(log.responseStatus==HttpServletResponse.SC_OK)
+			return;
+		
+		response.setStatus(log.responseStatus);
 		response.setContentType("text/html");
 		
 		final PrintStream out = new PrintStream(response.getOutputStream());
 
-		if(log.internalServerError)
+		switch(log.responseStatus)
 		{
-			out.print("<html>\n" +
-					"<head>\n" +
-					"<title>Internal Server Error</title>\n" +
-					"<meta name=\"generator\" content=\"cope media servlet\">\n" +
-					"</head>\n" +
-					"<body>\n" +
-					"<h1>Internal Server Error</h1>\n" +
-					"An internal error occured on the server.\n" +
-					"</body>\n" +
-					"</html>\n");
-		}
-		else
-		{
-			out.print("<html>\n" +
-					"<head>\n" +
-					"<title>Not Found</title>\n" +
-					"<meta name=\"generator\" content=\"cope media servlet\">\n" +
-					"</head>\n" +
-					"<body>\n" +
-					"<h1>Not Found</h1>\n" +
-					"The requested URL was not found on this server");
-			if(log!=null)
-			{
-				out.print(" (");
-				out.print(log.name);
-				out.print(')');
-			}
-			out.print(".\n" +
-					"</body>\n" +
-					"</html>\n");
+			case HttpServletResponse.SC_INTERNAL_SERVER_ERROR:
+				out.print("<html>\n" +
+						"<head>\n" +
+						"<title>Internal Server Error</title>\n" +
+						"<meta name=\"generator\" content=\"cope media servlet\">\n" +
+						"</head>\n" +
+						"<body>\n" +
+						"<h1>Internal Server Error</h1>\n" +
+						"An internal error occured on the server.\n" +
+						"</body>\n" +
+						"</html>\n");
+				break;
+
+			case HttpServletResponse.SC_NOT_FOUND:
+				out.print("<html>\n" +
+						"<head>\n" +
+						"<title>Not Found</title>\n" +
+						"<meta name=\"generator\" content=\"cope media servlet\">\n" +
+						"</head>\n" +
+						"<body>\n" +
+						"<h1>Not Found</h1>\n" +
+						"The requested URL was not found on this server");
+				if(log!=null)
+				{
+					out.print(" (");
+					out.print(log.name);
+					out.print(')');
+				}
+				out.print(".\n" +
+						"</body>\n" +
+						"</html>\n");
+				break;
+			
+			default:
+				throw new RuntimeException(String.valueOf(log.responseStatus));
 		}
 		
 		out.close();
@@ -161,24 +160,24 @@ public final class MediaServlet extends HttpServlet
 	private final Media.Log serveContent(
 			final HttpServletRequest request,
 			final HttpServletResponse response)
-		throws ServletException, IOException, MediaException
+		throws ServletException, IOException
 	{
 		final String pathInfo = request.getPathInfo();
 		//System.out.println("pathInfo="+pathInfo);
 		if(pathInfo==null)
-			throw new MediaException(MediaPath.noSuchPath);
+			return MediaPath.noSuchPath;
 
 		final int trailingSlash = pathInfo.lastIndexOf('/');
 		if(trailingSlash<=0 && // null is leading slash, which is not allowed
 			trailingSlash>=pathInfo.length()-1)
-			throw new MediaException(MediaPath.noSuchPath);
+			return MediaPath.noSuchPath;
 
 		final String attributeString = pathInfo.substring(0, trailingSlash+1);
 		//System.out.println("attributeString="+attributeString);
 
 		final MediaPath path = (MediaPath)pathes.get(attributeString);
 		if(path==null)
-			throw new MediaException(MediaPath.noSuchPath);
+			return MediaPath.noSuchPath;
 		
 		try
 		{
@@ -188,7 +187,7 @@ public final class MediaServlet extends HttpServlet
 		catch(RuntimeException e)
 		{
 			e.printStackTrace(); // TODO better logging
-			throw new MediaException(path.exception);
+			return path.exception;
 		}
 	}
 	

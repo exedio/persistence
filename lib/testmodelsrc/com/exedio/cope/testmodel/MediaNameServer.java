@@ -31,7 +31,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringAttribute;
 import com.exedio.cope.pattern.Media;
-import com.exedio.cope.pattern.MediaException;
 import com.exedio.cope.pattern.MediaPath;
 
 /**
@@ -76,12 +75,12 @@ public final class MediaNameServer extends MediaPath
 	public Media.Log doGet(
 			final HttpServletRequest request, final HttpServletResponse response,
 			final Item item, final String extension)
-		throws ServletException, IOException, MediaException
+		throws ServletException, IOException
 	{
 		final String content = (String)item.get(source);
 		//System.out.println("contentType="+contentType);
 		if(content==null)
-			throw new MediaException(dataIsNull);
+			return dataIsNull;
 		
 		if(content.endsWith(" error"))
 			throw new RuntimeException("test error in MediaNameServer");
