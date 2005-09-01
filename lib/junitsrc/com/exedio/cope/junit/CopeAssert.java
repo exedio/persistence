@@ -35,37 +35,8 @@ import com.exedio.cope.Item;
 import com.exedio.cope.NestingRuntimeException;
 import com.exedio.cope.Query;
 
-public class CopeAssert extends TestCase
+public abstract class CopeAssert extends TestCase
 {
-	private ArrayList deleteOnTearDown = null;
-	
-	protected final void deleteOnTearDown(final Item item)
-	{
-		deleteOnTearDown.add(item);
-	}
-	
-	protected void setUp() throws Exception
-	{
-		super.setUp();
-
-		// ensure, that last test did call tearDown()
-		assertEquals(null, deleteOnTearDown);
-		deleteOnTearDown = new ArrayList();
-	}
-	
-	protected void tearDown() throws Exception
-	{
-		if(!deleteOnTearDown.isEmpty())
-		{
-			for(ListIterator i = deleteOnTearDown.listIterator(deleteOnTearDown.size()); i.hasPrevious(); )
-				((Item)i.previous()).deleteCopeItem();
-			deleteOnTearDown.clear();
-		}
-		deleteOnTearDown = null;
-
-		super.tearDown();
-	}
-	
 	protected final static void assertContainsList(final List expected, final Collection actual)
 	{
 		if(expected.size()!=actual.size() ||

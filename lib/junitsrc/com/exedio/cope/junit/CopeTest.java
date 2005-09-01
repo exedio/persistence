@@ -18,6 +18,7 @@
 
 package com.exedio.cope.junit;
 
+import com.exedio.cope.Item;
 import java.util.HashSet;
 import java.util.Iterator;
 
@@ -25,6 +26,8 @@ import com.exedio.cope.Model;
 import com.exedio.cope.NestingRuntimeException;
 import com.exedio.cope.Properties;
 import com.exedio.cope.util.PoolCounter;
+import java.util.ArrayList;
+import java.util.ListIterator;
 
 /**
  * An abstract test case class for tests creating/using some persistent data.
@@ -40,6 +43,8 @@ public abstract class CopeTest extends CopeAssert
 	public final boolean exclusive;
 	
 	private boolean testMethodFinished = false;
+	private ArrayList deleteOnTearDown = null;
+	
 	
 	protected CopeTest(final Model model)
 	{
@@ -56,6 +61,11 @@ public abstract class CopeTest extends CopeAssert
 	{
 		this.model = model;
 		this.exclusive = exclusive;
+	}
+	
+	protected final void deleteOnTearDown(final Item item)
+	{
+		deleteOnTearDown.add(item);
 	}
 	
 	protected final void printConnectionPoolCounter()
@@ -131,6 +141,7 @@ public abstract class CopeTest extends CopeAssert
 		model.setPropertiesInitially(new Properties());
 
 		super.setUp();
+		deleteOnTearDown = new ArrayList();
 		createDatabase();
 
 		model.startTransaction("CopeTest");
@@ -139,11 +150,17 @@ public abstract class CopeTest extends CopeAssert
 	
 	protected void tearDown() throws Exception
 	{
-		super.tearDown();
 		if( !exclusive )
 		{
 			try
 			{
+				if(!deleteOnTearDown.isEmpty())
+				{
+					for(ListIterator i = deleteOnTearDown.listIterator(deleteOnTearDown.size()); i.hasPrevious(); )
+						((Item)i.previous()).deleteCopeItem();
+					deleteOnTearDown.clear();
+				}
+				deleteOnTearDown = null;
 				model.checkEmptyDatabase();
 			}
 			catch ( RuntimeException e )
@@ -159,9 +176,13 @@ public abstract class CopeTest extends CopeAssert
 				}
 			}
 		}
-		model.commit();
+		if ( testMethodFinished || model.hasCurrentTransaction() )
+		{
+			model.commit();
+		}
 
 		dropDatabase();
+		super.tearDown();
 	}
 	
 	protected void restartTransaction()
