@@ -367,12 +367,38 @@ public final class Model
 	 */
 	public Transaction startTransaction(final String name)
 	{
-		final Transaction result = new Transaction(this, name);
-		if(transactionThreads.get()!=null)
+		if( hasCurrentTransaction() )
 			throw new RuntimeException("there is already a transaction bound to current thread");
+		final Transaction result = new Transaction(this, name);
 		result.boundThread = Thread.currentThread();
 		transactionThreads.set(result);
 		return result;
+	}
+	
+	public Transaction leaveTransaction()
+	{
+		Transaction tx = getCurrentTransaction();
+		tx.boundThread = null;
+		transactionThreads.set( null );
+		return tx;
+	}
+	
+	public void joinTransaction( Transaction tx )
+	{
+		if ( hasCurrentTransaction() )
+			throw new RuntimeException("there is already a transaction bound to current thread");
+		tx.boundThread = Thread.currentThread();
+		transactionThreads.set(tx);		
+	}
+	
+	public boolean hasCurrentTransaction()
+	{
+		boolean hasCurrentTransaction = transactionThreads.get()!=null;
+		if ( hasCurrentTransaction )
+		{
+			getCurrentTransaction();
+		}
+		return hasCurrentTransaction;
 	}
 
 	/**
