@@ -29,6 +29,7 @@ public class Main
 	public static final Model hashModel = new Model(new Type[] { HashItem.TYPE });
 	public static final Model md5Model = new Model(new Type[] { MD5Item.TYPE });
 	public static final Model vectorModel = new Model(new Type[] { VectorItem.TYPE });
+	public static final Model cacheIsolationModel = new Model(new Type[] { CacheIsolationItem.TYPE });
 
 	private static final void tearDown(final Model model)
 	{
@@ -43,6 +44,7 @@ public class Main
 		tearDown(hashModel);
 		tearDown(md5Model);
 		tearDown(vectorModel);
+		tearDown(cacheIsolationModel);
 	}
 
 }

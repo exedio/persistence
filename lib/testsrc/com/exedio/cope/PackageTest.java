@@ -67,6 +67,7 @@ public class PackageTest extends TestCase
 		suite.addTest(new TestSuite(SchemaTest.class));
 		suite.addTest(new TestSuite(StatementInfoTest.class));
 		suite.addTest(new TestSuite(TransactionTest.class));
+		suite.addTestSuite( CacheIsolationTest.class );
 
 		suite.addTest(com.exedio.cope.pattern.PackageTest.suite());
 
