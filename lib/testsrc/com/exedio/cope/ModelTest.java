@@ -38,15 +38,15 @@ public class ModelTest extends AbstractLibTest
 	public void testSupportsReadCommitted()
 	{
 		assertEquals( true, model.hasCurrentTransaction() );
-		if ( model.getDatabase().getClass().equals("com.exedio.cope.HsqldbDatabase") )
+		if ( model.getDatabase().getClass().getName().equals("com.exedio.cope.HsqldbDatabase") )
 		{
 			assertEquals( false, model.supportsReadCommitted() );
 		}
-		else if ( model.getDatabase().getClass().equals("com.exedio.cope.OracleDatabase") )
+		else if ( model.getDatabase().getClass().getName().equals("com.exedio.cope.OracleDatabase") )
 		{
 			assertEquals( true, model.supportsReadCommitted() );
 		}
-		else if ( model.getDatabase().getClass().equals("com.exedio.cope.MysqlDatabase") )
+		else if ( model.getDatabase().getClass().getName().equals("com.exedio.cope.MysqlDatabase") )
 		{
 			assertEquals( true, model.supportsReadCommitted() );
 		}
