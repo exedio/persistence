@@ -174,7 +174,7 @@ public final class Query
 		//System.out.println("select " + type.getJavaClass().getName() + " where " + condition);
 		if(condition!=null)
 			condition.check(this);
-		return Collections.unmodifiableList(model.getDatabase().search(this));
+		return Collections.unmodifiableList(model.getDatabase().search(model.getCurrentTransaction().getConnection(), this));
 	}
 	
 }

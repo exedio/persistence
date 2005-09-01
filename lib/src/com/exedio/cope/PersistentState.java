@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import java.sql.Connection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,11 +28,11 @@ final class PersistentState extends State
 	// TODO: use arrays for String/int/double instead of the HashMap
 	private final Map cache;
 	
-	PersistentState( final Item item )
+	PersistentState( final Connection connection, final Item item )
 	{
 		super( item );
 		cache = new HashMap();
-		type.getModel().getDatabase().load( this );
+		type.getModel().getDatabase().load( connection, this );
 	}
 	
 	PersistentState( final State original )

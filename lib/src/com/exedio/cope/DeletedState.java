@@ -43,7 +43,7 @@ final class DeletedState extends State
 	{
 		try
 		{
-			type.getModel().getDatabase().delete( item );
+			type.getModel().getDatabase().delete( transaction.getConnection(), item );
 		}
 		finally
 		{

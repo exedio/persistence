@@ -44,7 +44,6 @@ abstract class Database
 	private final boolean useDefineColumnTypes;
 	final ConnectionPool connectionPool;
 	final boolean hsqldb; // TODO remove hsqldb-specific stuff
-	Model model; // TODO hack
 	
 	protected Database(final Driver driver, final Properties properties)
 	{
@@ -94,7 +93,7 @@ abstract class Database
 
 	//private static int checkTableTime = 0;
 
-	void checkDatabase()
+	void checkDatabase(final Connection connection)
 	{
 		buildStage = false;
 
@@ -157,7 +156,7 @@ abstract class Database
 		}
 		
 		//System.out.println("checkDatabase:"+bf.toString());
-		executeSQLQuery(bf,
+		executeSQLQuery(connection, bf,
 			new ResultSetHandler()
 			{
 				public void run(final ResultSet resultSet) throws SQLException
@@ -188,7 +187,7 @@ abstract class Database
 		makeSchema().tearDown();
 	}
 
-	void checkEmptyDatabase()
+	void checkEmptyDatabase(final Connection connection)
 	{
 		buildStage = false;
 
@@ -196,7 +195,7 @@ abstract class Database
 		for(Iterator i = tables.iterator(); i.hasNext(); )
 		{
 			final Table table = (Table)i.next();
-			final int count = countTable(table);
+			final int count = countTable(connection, table);
 			if(count>0)
 				throw new RuntimeException("there are "+count+" items left for table "+table.id);
 		}
@@ -205,7 +204,7 @@ abstract class Database
 		//System.out.println("CHECK EMPTY TABLES "+amount+"ms  accumulated "+checkEmptyTableTime);
 	}
 	
-	final ArrayList search(final Query query)
+	final ArrayList search(final Connection connection, final Query query)
 	{
 		buildStage = false;
 
@@ -367,7 +366,7 @@ abstract class Database
 		if(selectables.length!=types.length)
 			throw new RuntimeException();
 
-		query.statementInfo = executeSQLQuery(bf, new ResultSetHandler()
+		query.statementInfo = executeSQLQuery(connection, bf, new ResultSetHandler()
 			{
 				public void run(final ResultSet resultSet) throws SQLException
 				{
@@ -443,7 +442,7 @@ abstract class Database
 		return result;
 	}
 
-	void load(final PersistentState state)
+	void load(final Connection connection, final PersistentState state)
 	{
 		buildStage = false;
 
@@ -506,7 +505,7 @@ abstract class Database
 
 		//System.out.println("loading "+bf.toString());
 		// TODO: let PersistentState be its own ResultSetHandler
-		executeSQLQuery(bf, new ResultSetHandler()
+		executeSQLQuery(connection, bf, new ResultSetHandler()
 			{
 				public void run(final ResultSet resultSet) throws SQLException
 				{
@@ -525,20 +524,20 @@ abstract class Database
 			}, false);
 	}
 
-	void store(final State state, final boolean present)
+	void store(final Connection connection, final State state, final boolean present)
 			throws UniqueViolationException
 	{
-		store(state, state.type, present);
+		store(connection, state, state.type, present);
 	}
 
-	private void store(final State state, final Type type, final boolean present)
+	private void store(final Connection connection, final State state, final Type type, final boolean present)
 			throws UniqueViolationException
 	{
 		buildStage = false;
 
 		final Type supertype = type.getSupertype();
 		if(supertype!=null)
-			store(state, supertype, present);
+			store(connection, state, supertype, present);
 			
 		final Table table = type.getTable();
 
@@ -616,7 +615,7 @@ abstract class Database
 		{
 			//System.out.println("storing "+bf.toString());
 			final UniqueConstraint[] uqs = type.uniqueConstraints;
-			executeSQLUpdate(bf, 1, uqs.length==1?uqs[0]:null);
+			executeSQLUpdate(connection, bf, 1, uqs.length==1?uqs[0]:null);
 		}
 		catch(UniqueViolationException e)
 		{
@@ -628,7 +627,7 @@ abstract class Database
 		}
 	}
 
-	void delete(final Item item)
+	void delete(final Connection connection, final Item item)
 			throws IntegrityViolationException
 	{
 		buildStage = false;
@@ -650,7 +649,7 @@ abstract class Database
 
 			try
 			{
-				executeSQLUpdate(bf, 1, type.onlyReference, item);
+				executeSQLUpdate(connection, bf, 1, type.onlyReference, item);
 			}
 			catch(IntegrityViolationException e)
 			{
@@ -681,6 +680,7 @@ abstract class Database
 	//private static int timeExecuteQuery = 0;
 
 	private final StatementInfo executeSQLQuery(
+		final Connection connection,
 		final Statement statement,
 		final ResultSetHandler resultSetHandler,
 		final boolean makeStatementInfo)
@@ -689,8 +689,6 @@ abstract class Database
 		ResultSet resultSet = null;
 		try
 		{
-			final Connection connection = model.getCurrentTransaction().getConnection();
-
 			final String sqlText = statement.getText();
 			// TODO: use prepared statements and reuse the statement.
 			sqlStatement = connection.createStatement();
@@ -754,31 +752,34 @@ abstract class Database
 		}
 	}
 	
-	private final void executeSQLUpdate(final Statement statement, final int expectedRows)
+	private final void executeSQLUpdate(final Connection connection, final Statement statement, final int expectedRows)
 			throws ConstraintViolationException
 	{
-		executeSQLUpdate(statement, expectedRows, null, null, null);
+		executeSQLUpdate(connection, statement, expectedRows, null, null, null);
 	}
 
 	private final void executeSQLUpdate(
+			final Connection connection,
 			final Statement statement, final int expectedRows,
 			final UniqueConstraint onlyThreatenedUniqueConstraint)
 		throws ConstraintViolationException
 	{
-		executeSQLUpdate(statement, expectedRows, onlyThreatenedUniqueConstraint, null, null);
+		executeSQLUpdate(connection, statement, expectedRows, onlyThreatenedUniqueConstraint, null, null);
 		
 	}
 	
 	private final void executeSQLUpdate(
+			final Connection connection,
 			final Statement statement, final int expectedRows,
 			final ItemAttribute onlyThreatenedIntegrityConstraint,
 			final Item itemToBeDeleted)
 		throws ConstraintViolationException
 	{
-		executeSQLUpdate(statement, expectedRows, null, onlyThreatenedIntegrityConstraint, itemToBeDeleted);
+		executeSQLUpdate(connection, statement, expectedRows, null, onlyThreatenedIntegrityConstraint, itemToBeDeleted);
 	}
 	
 	private final void executeSQLUpdate(
+			final Connection connection,
 			final Statement statement, final int expectedRows,
 			final UniqueConstraint onlyThreatenedUniqueConstraint,
 			final ItemAttribute onlyThreatenedIntegrityConstraint,
@@ -788,7 +789,6 @@ abstract class Database
 		java.sql.Statement sqlStatement = null;
 		try
 		{
-			final Connection connection = model.getCurrentTransaction().getConnection();
 			// TODO: use prepared statements and reuse the statement.
 			final String sqlText = statement.getText();
 			//System.err.println(Transaction.get().toString()+": "+statement.getText());
@@ -976,14 +976,14 @@ abstract class Database
 	abstract String getDoubleType(int precision);
 	abstract String getStringType(int maxLength);
 	
-	private int countTable(final Table table)
+	private int countTable(final Connection connection, final Table table)
 	{
 		final Statement bf = createStatement();
 		bf.append("select count(*) from ").defineColumnInteger().
 			append(table.protectedID);
 
 		final CountResultSetHandler handler = new CountResultSetHandler();
-		executeSQLQuery(bf, handler, false);
+		executeSQLQuery(connection, bf, handler, false);
 		return handler.result;
 	}
 	
@@ -1001,7 +1001,7 @@ abstract class Database
 	}
 
 
-	final int[] getMinMaxPK(final Table table)
+	final int[] getMinMaxPK(final Connection connection, final Table table)
 	{
 		buildStage = false;
 
@@ -1015,7 +1015,7 @@ abstract class Database
 			append(table.protectedID);
 			
 		final NextPKResultSetHandler handler = new NextPKResultSetHandler();
-		executeSQLQuery(bf, handler, false);
+		executeSQLQuery(connection, bf, handler, false);
 		//System.err.println("select max("+type.primaryKey.trimmedName+") from "+type.trimmedName+" : "+handler.result);
 		return handler.result;
 	}

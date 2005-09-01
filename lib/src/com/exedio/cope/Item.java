@@ -140,7 +140,7 @@ public abstract class Item extends Cope
 		throws ClassCastException
 	{
 		this.type = Type.findByJavaClass(getClass());
-		this.pk = type.getPrimaryKeyIterator().nextPK();
+		this.pk = type.getPrimaryKeyIterator().nextPK(type.getModel().getCurrentTransaction().getConnection());
 		if(pk==Type.NOT_A_PK)
 			throw new RuntimeException();
 		//System.out.println("create item "+type+" "+pk);

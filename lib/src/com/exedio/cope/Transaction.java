@@ -77,7 +77,7 @@ public final class Transaction
 			final State state;
 			if ( present )
 			{
-				state = new PersistentState( item );
+				state = new PersistentState( this.getConnection(), item );
 			}
 			else
 			{
@@ -128,7 +128,7 @@ public final class Transaction
 		return (Entity)rowMap.get(pk);
 	}
 	
-	Connection getConnection() throws SQLException
+	Connection getConnection()
 	{
 		if(closed)
 			throw new RuntimeException();
@@ -140,8 +140,15 @@ public final class Transaction
 			throw new RuntimeException();
 
 		connectionPool = database.connectionPool;
-		connection = connectionPool.getConnection();
-		connection.setAutoCommit(false);
+		try
+		{
+			connection = connectionPool.getConnection();
+			connection.setAutoCommit(false);
+		}
+		catch(SQLException e)
+		{
+			throw new SQLRuntimeException(e, "create connection");
+		}
 		
 		return connection;
 	}

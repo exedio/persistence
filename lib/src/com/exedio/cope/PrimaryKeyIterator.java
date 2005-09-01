@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import java.sql.Connection;
+
 final class PrimaryKeyIterator
 {
 	private final Table table;
@@ -41,13 +43,13 @@ final class PrimaryKeyIterator
 		}
 	}
 
-	int nextPK()
+	int nextPK(final Connection connection)
 	{
 		synchronized(lock)
 		{
 			if(nextPkLo==Type.NOT_A_PK)
 			{
-				final int[] minMaxPks = table.database.getMinMaxPK(table);
+				final int[] minMaxPks = table.database.getMinMaxPK(connection, table);
 				if(minMaxPks==null)
 				{
 					nextPkLo = -1;

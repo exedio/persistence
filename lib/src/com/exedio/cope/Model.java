@@ -85,7 +85,6 @@ public final class Model
 	
 			this.properties = properties;
 			this.database = properties.createDatabase();
-			database.model = this;
 			
 			final HashSet typeSet = new HashSet(Arrays.asList(types));
 			final HashSet materialized = new HashSet();
@@ -265,12 +264,12 @@ public final class Model
 	public void checkDatabase()
 	{
 		// TODO: check for data attribute directories
-		database.checkDatabase();
+		database.checkDatabase(getCurrentTransaction().getConnection());
 	}
 
 	public void checkEmptyDatabase()
 	{
-		database.checkEmptyDatabase();
+		database.checkEmptyDatabase(getCurrentTransaction().getConnection());
 	}
 
 	public void dropDatabase()

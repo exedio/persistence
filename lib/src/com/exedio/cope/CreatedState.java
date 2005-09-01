@@ -54,7 +54,7 @@ final class CreatedState extends State
 	{
 		try
 		{
-			type.getModel().getDatabase().store( this, false );
+			type.getModel().getDatabase().store( transaction.getConnection(), this, false );
 			return new PersistentState( this );
 		}
 		catch ( UniqueViolationException e )

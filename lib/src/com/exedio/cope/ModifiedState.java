@@ -53,7 +53,7 @@ final class ModifiedState extends State
 	{
 		try
 		{
-			type.getModel().getDatabase().store( this, true );
+			type.getModel().getDatabase().store( transaction.getConnection(), this, true );
 			return new PersistentState( this );
 		}
 		catch ( UniqueViolationException e )
