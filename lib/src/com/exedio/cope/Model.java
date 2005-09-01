@@ -354,7 +354,7 @@ public final class Model
 	
 	public Transaction startTransaction()
 	{
-		return new Transaction(this, null);
+		return startTransaction(null);
 	}
 	
 	/**
@@ -372,7 +372,7 @@ public final class Model
 			throw new RuntimeException("there is already a transaction bound to current thread");
 		result.boundThread = Thread.currentThread();
 		transactionThreads.set(result);
-		return new Transaction(this, name);
+		return result;
 	}
 
 	/**
