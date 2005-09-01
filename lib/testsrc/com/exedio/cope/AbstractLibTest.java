@@ -120,5 +120,9 @@ public abstract class AbstractLibTest extends CopeTest
 		assertTrue(item.existsCopeItem());
 	}
 	
+	protected void activate(final Transaction transaction)
+	{
+		model.hop(transaction);
+	}	
 }
 

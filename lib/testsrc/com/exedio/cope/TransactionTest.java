@@ -59,11 +59,6 @@ public class TransactionTest extends TestmodelTest
 		model.rollback();
 	}
 	
-	private void activate(final Transaction transaction)
-	{
-		model.hop(transaction);
-	}
-	
 	private void assertSomeString(final AttributeItem actualItem, final String someString)
 	{
 		assertEquals(someString, actualItem.getSomeString());
