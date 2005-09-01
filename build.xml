@@ -16,6 +16,22 @@
 					classpath="../jspm/build/classes" />
 	</target>
 	
+	<macrodef name="ljavac">
+		<attribute name="srcdir" />
+		<attribute name="destdir" />
+		<element name="classpath" optional="true" implicit="true" />
+		<sequential>
+			<echo message="local compile @{srcdir} to @{destdir}" />
+			<javac srcdir="@{srcdir}"
+					 destdir="@{destdir}"
+					 deprecation="on"
+					 debug="on"
+					 optimize="off">
+				<classpath />
+			</javac>
+		</sequential>
+	</macrodef>
+	
 	<macrodef name="foreachdb">
 		<attribute name="message" />
 		<element name="body" optional="false" />
@@ -68,52 +84,36 @@
 	</target>
 
 	<target name="dsmf.compile" depends="lib.compile.mkdir">
-		<javac srcdir="dsmf/src"
-				 destdir="lib/build/classes"
-				 deprecation="on"
-				 debug="on"
-				 optimize="off" />
+		<ljavac srcdir="dsmf/src" destdir="lib/build/classes" />
 	</target>
 	
 	<target name="lib.core.compile" depends="lib.compile.mkdir, dsmf.compile">
-		<javac srcdir="lib/src"
-				destdir="lib/build/classes"
-				deprecation="on"
-				debug="on"
-				optimize="off">
+		<ljavac srcdir="lib/src" destdir="lib/build/classes">
 			<classpath>
 				<pathelement location="../lib/pcj.jar" />
 			</classpath>
-		</javac>
+		</ljavac>
 	</target>
 	
 	<!-- TODO make database specific compiles via a loop -->
 	<target name="lib.hsqldb.compile" depends="lib.compile.mkdir, lib.core.compile">
-		<javac srcdir= "lib/hsqldbsrc"
-				destdir="lib/build/classes"
-				deprecation="on"
-				debug="on"
-				optimize="off">
+		<ljavac srcdir="lib/hsqldbsrc" destdir="lib/build/classes">
 			<classpath>
 				<pathelement location="../lib/hsqldb.jar" />
 			</classpath>
-		</javac>
+		</ljavac>
 	</target>
 
 	<target name="lib.oracle.compile" depends="lib.compile.mkdir, lib.core.compile">
 		<if>
 			<available file="../lib/classes12.jar" />
 			<then>
-				<javac srcdir= "lib/oraclesrc"
-						destdir="lib/build/classes"
-						deprecation="on"
-						debug="on"
-						optimize="off">
+				<ljavac srcdir="lib/oraclesrc" destdir="lib/build/classes">
 					<classpath>
 						<pathelement location="../lib/pcj.jar" />
 						<pathelement location="../lib/classes12.jar" />
 					</classpath>
-				</javac>
+				</ljavac>
 			</then>
 			<else>
 				<echo message="skipping oracle driver" />
@@ -125,16 +125,12 @@
 		<if>
 			<available file="../lib/mysql-connector-java-bin.jar" />
 			<then>
-				<javac srcdir= "lib/mysqlsrc"
-						destdir="lib/build/classes"
-						deprecation="on"
-						debug="on"
-						optimize="off">
+				<ljavac srcdir="lib/mysqlsrc" destdir="lib/build/classes">
 					<classpath>
 						<pathelement location="../lib/pcj.jar" />
 						<pathelement location="../lib/mysql-connector-java-bin.jar" />
 					</classpath>
-				</javac>
+				</ljavac>
 			</then>
 			<else>
 				<echo message="skipping mysql driver" />
@@ -143,35 +139,23 @@
 	</target>
 
 	<target name="lib.pattern.compile" depends="lib.compile.mkdir, lib.core.compile">
-		<javac srcdir= "lib/patternsrc"
-				 destdir="lib/build/classes"
-				 deprecation="on"
-				 debug="on"
-				 optimize="off" />
+		<ljavac srcdir="lib/patternsrc" destdir="lib/build/classes" />
 	</target>
 	
 	<target name="lib.servlet.compile" depends="lib.compile.mkdir, lib.core.compile">
-		<javac srcdir= "lib/servletsrc"
-				 destdir="lib/build/classes"
-				 deprecation="on"
-				 debug="on"
-				 optimize="off">
+		<ljavac srcdir="lib/servletsrc" destdir="lib/build/classes">
 			<classpath>
 				<pathelement location="../tomcat/common/lib/servlet-api.jar" />
 			</classpath>
-		</javac>
+		</ljavac>
 	</target>
 	
 	<target name="lib.junit.compile" depends="lib.compile.mkdir, lib.core.compile">
-		<javac srcdir="lib/junitsrc"
-				destdir="lib/build/classes"
-				deprecation="on"
-				debug="on"
-				optimize="off">
+		<ljavac srcdir="lib/junitsrc" destdir="lib/build/classes">
 			<classpath>
 				<pathelement location="../lib/junit.jar" />
 			</classpath>
-		</javac>
+		</ljavac>
 	</target>
 	
 	<target name="lib.compile"
@@ -185,31 +169,23 @@
 	
 	<target name="instrument.compile" depends="lib.compile">
 		<mkdir dir="instrument/build/classes" />
-		<javac srcdir="instrument/src"
-				destdir="instrument/build/classes"
-				deprecation="on"
-				debug="on"
-				optimize="off">
+		<ljavac srcdir="instrument/src" destdir="instrument/build/classes">
 			<classpath>
 				<pathelement location="lib/build/classes" />
 			</classpath>
-		</javac>
+		</ljavac>
 	</target>
 	
 	<target name="copernica.compile" depends="lib.compile, copernica.jspm">
 		<mkdir dir="copernica/build/classes" />
-		<javac srcdir="copernica/src"
-				destdir="copernica/build/classes"
-				deprecation="on"
-				debug="on"
-				optimize="off">
+		<ljavac srcdir="copernica/src" destdir="copernica/build/classes">
 			<classpath>
 				<pathelement location="lib/build/classes" />
 				<pathelement location="../cops/build/classes" />
 				<pathelement location="../tomcat/common/lib/servlet-api.jar" />
 				<pathelement location="../tomcat/server/lib/commons-fileupload-1.0.jar" />
 			</classpath>
-		</javac>
+		</ljavac>
 	</target>
 	
 	<target name="compile"
@@ -279,16 +255,12 @@
 	
 	<target name="dsmf.test.compile" depends="dsmf.compile, lib.compile">
 		<mkdir dir="dsmf/build/testclasses" />
-		<javac srcdir="dsmf/testsrc"
-				 destdir="dsmf/build/testclasses"
-				 deprecation="on"
-				 debug="on"
-				 optimize="off">
+		<ljavac srcdir="dsmf/testsrc" destdir="dsmf/build/testclasses">
 			<classpath>
 				<pathelement location="lib/build/classes" />
 				<pathelement location="../lib/junit.jar" />
 			</classpath>
-		</javac>
+		</ljavac>
 	</target>
 	
 	<target name="dsmf.test.run" depends="dsmf.test.compile">
@@ -358,32 +330,24 @@
 	
 	<target name="lib.testmodel.compile" depends="lib.testmodel.instrument">
 		<mkdir dir="lib/build/testmodelclasses" />
-		<javac srcdir="lib/testmodelsrc"
-				destdir="lib/build/testmodelclasses"
-				deprecation="on"
-				debug="on"
-				optimize="off">
+		<ljavac srcdir="lib/testmodelsrc" destdir="lib/build/testmodelclasses">
 			<classpath>
 				<pathelement location="lib/build/classes" />
 				<pathelement location="../tomcat/common/lib/servlet-api.jar" />
 			</classpath>
-		</javac>
+		</ljavac>
 	</target>
 	
 	<target name="lib.test.compile"
 				depends="lib.testmodel.compile, lib.junit.compile">
 		<mkdir dir="lib/build/testclasses" />
-		<javac srcdir="lib/testsrc"
-				destdir="lib/build/testclasses"
-				deprecation="on"
-				debug="on"
-				optimize="off">
+		<ljavac srcdir="lib/testsrc" destdir="lib/build/testclasses">
 			<classpath>
 				<pathelement location="lib/build/classes" />
 				<pathelement location="lib/build/testmodelclasses" />
 				<pathelement location="../lib/junit.jar" />
 			</classpath>
-		</javac>
+		</ljavac>
 	</target>
 	
 	<target name="lib.test.run" depends="lib.test.compile">
@@ -473,17 +437,13 @@
 	
 	<target name="instrument.test.compile" depends="instrument.test.instrument, lib.compile, instrument.compile">
 		<mkdir dir="instrument/build/testclasses" />
-		<javac srcdir="instrument/testsrc"
-				destdir="instrument/build/testclasses"
-				deprecation="on"
-				debug="on"
-				optimize="off">
+		<ljavac srcdir="instrument/testsrc" destdir="instrument/build/testclasses">
 			<classpath>
 				<pathelement location="lib/build/classes" />
 				<pathelement location="instrument/build/classes" />
 				<pathelement location="../lib/junit.jar" />
 			</classpath>
-		</javac>
+		</ljavac>
 		<copy
 			file="instrument/testsrc/com/exedio/cope/instrument/Example.java"
 			todir="instrument/build/testclasses/com/exedio/cope/instrument" />
@@ -523,11 +483,7 @@
 	<target name="copernica.test.compile"
 				depends="lib.compile, lib.test.compile, copernica.compile, copernica.test.jspm">
 		<mkdir dir="copernica/build/testclasses" />
-		<javac srcdir="copernica/testsrc"
-				destdir="copernica/build/testclasses"
-				deprecation="on"
-				debug="on"
-				optimize="off">
+		<ljavac srcdir="copernica/testsrc" destdir="copernica/build/testclasses">
 			<classpath>
 				<pathelement location="lib/build/classes" />
 				<pathelement location="lib/build/testmodelclasses" />
@@ -536,7 +492,7 @@
 				<pathelement location="../lib/junit.jar" />
 				<pathelement location="../tomcat/common/lib/servlet-api.jar" />
 			</classpath>
-		</javac>
+		</ljavac>
 		<copy todir="copernica/build/testclasses/com/exedio/copernica">
 			<fileset dir="copernica/testresources" />
 		</copy>
@@ -588,17 +544,13 @@
 	
 	<target name="copernica.webtest.compile">
 		<mkdir dir="copernica/build/webtestclasses" />
-		<javac srcdir="copernica/webtestsrc"
-				destdir="copernica/build/webtestclasses"
-				deprecation="on"
-				debug="on"
-				optimize="off">
+		<ljavac srcdir="copernica/webtestsrc" destdir="copernica/build/webtestclasses">
 			<classpath>
 				<fileset dir="../lib/jwebunit">
 					<include name="*.jar" />
 				</fileset> 
 			</classpath>
-		</javac>
+		</ljavac>
 	</target>
 	
 	<target name="copernica.webtest" depends="copernica.webtest.compile">
