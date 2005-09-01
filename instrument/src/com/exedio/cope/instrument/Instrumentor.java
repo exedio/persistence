@@ -213,6 +213,7 @@ final class Instrumentor implements InjectionConsumer
 	{
 		final String type = ja.type;
 		final JavaClass jc = ja.parent;
+		//System.out.println("---------------"+jc.name+"- "+ja.name+"--"+ja.getInitializer());
 		final List initializerArguments = ja.getInitializerArguments();
 		//System.out.println(initializerArguments);
 		final CopeClass copeClass = CopeClass.getCopeClass(jc);

@@ -335,6 +335,8 @@ final class Injector
 					//System.out.print("<("+bracketdepth+")>");
 					if(tokenConsumer!=null && curlyBracketDepth==0)
 						tokenConsumer.addToken(c);
+					if(tokenConsumer!=null)
+						tokenConsumer.addChar(c);
 					c = read();
 					break;
 				case '}' :
@@ -349,6 +351,8 @@ final class Injector
 						throw new ParseException("';' expected.");
 					if (tokenConsumer!=null && curlyBracketDepth==0)
 						tokenConsumer.addToken(c);
+					if(tokenConsumer!=null)
+						tokenConsumer.addChar(c);
 					c = read();
 					break;
 				case ';' :
@@ -364,12 +368,16 @@ final class Injector
 						return ',';
 					if (tokenConsumer!=null && curlyBracketDepth==0)
 						tokenConsumer.addToken(c);
+					if(tokenConsumer!=null)
+						tokenConsumer.addChar(c);
 					c = read();
 					break;
 					// ignore brackets inside of literal String's
 				case '"' :
 					if (tokenConsumer!=null && curlyBracketDepth==0)
 						tokenConsumer.addToken(c);
+					if(tokenConsumer!=null)
+						tokenConsumer.addChar(c);
 					il : while (true)
 					{
 						switch (c=read())
@@ -377,6 +385,8 @@ final class Injector
 							case '"' :
 								if (tokenConsumer!=null && curlyBracketDepth==0)
 									tokenConsumer.addToken(c);
+								if(tokenConsumer!=null)
+									tokenConsumer.addChar(c);
 								break il;
 							case '\\' :
 								read();
@@ -384,6 +394,8 @@ final class Injector
 						}
 						if (tokenConsumer!=null && curlyBracketDepth==0)
 							tokenConsumer.addToken(c);
+						if(tokenConsumer!=null)
+							tokenConsumer.addChar(c);
 					}
 					c = read();
 					break;
@@ -405,6 +417,8 @@ final class Injector
 				default :
 					if (tokenConsumer!=null && curlyBracketDepth==0)
 						tokenConsumer.addToken(c);
+					if(tokenConsumer!=null)
+						tokenConsumer.addChar(c);
 					c = read();
 					break;
 			}

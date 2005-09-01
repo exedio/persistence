@@ -142,5 +142,19 @@ final class JavaAttribute
 	{
 		return initializerArguments;
 	}
+	
+	// --------------------
+	
+	private StringBuffer initializer = new StringBuffer();
 
+	public void addChar(char c)
+	{
+		initializer.append(c);
+	}
+	
+	String getInitializer()
+	{
+		return initializer.toString();
+	}
+	
 }
