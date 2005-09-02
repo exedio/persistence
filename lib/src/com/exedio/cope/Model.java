@@ -22,6 +22,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -446,6 +447,7 @@ public final class Model
 	public void rollback()
 	{
 		Transaction tx = getCurrentTransaction();
+		openTransactions.remove( tx );
 		tx.rollback();
 		setTransaction(null);
 	}
@@ -455,8 +457,7 @@ public final class Model
 		final Transaction t = getCurrentTransactionIfAvailable();
 		if( t!=null )
 		{
-			t.rollback();
-			setTransaction(null);
+			rollback();
 		}
 	}
 	
@@ -483,6 +484,11 @@ public final class Model
 		{
 			throw new NestingRuntimeException( e );
 		}
+	}
+	
+	public Collection getOpenTransactions()
+	{
+		return Collections.unmodifiableCollection( openTransactions );
 	}
 	
 }
