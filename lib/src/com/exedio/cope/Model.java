@@ -42,6 +42,12 @@ public final class Model
 	private final HashMap typesByID = new HashMap();
 	final int numberOfTypes;
 	
+	private Properties properties;
+	private Database database;
+
+	private final ThreadLocal transactionThreads = new ThreadLocal();
+	private final Set openTransactions = new HashSet();
+	
 	public Model(final Type[] types)
 	{
 		this.types = types;
@@ -55,9 +61,6 @@ public final class Model
 		this.numberOfTypes = types.length;
 	}
 	
-	private Properties properties;
-	private Database database;
-
 	/**
 	 * Initially sets the properties for this model.
 	 * Can be called multiple times, but only the first time
@@ -352,9 +355,6 @@ public final class Model
 	}
 	
 	// ----------------------- transaction
-	
-	private final ThreadLocal transactionThreads = new ThreadLocal();
-	private final Set openTransactions = new HashSet();
 	
 	public Transaction startTransaction()
 	{
