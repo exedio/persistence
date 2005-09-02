@@ -19,6 +19,8 @@
 package com.exedio.cope.junit;
 
 import com.exedio.cope.Item;
+import com.exedio.cope.Transaction;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 
@@ -150,6 +152,26 @@ public abstract class CopeTest extends CopeAssert
 	
 	protected void tearDown() throws Exception
 	{
+		final boolean hadTransaction = model.hasCurrentTransaction();
+		if ( ! hadTransaction )
+		{
+			model.startTransaction( "started by tearDown" );
+		}
+		Transaction current = model.getCurrentTransaction();
+		Collection openTransactions = null;
+		for ( Iterator iter = model.getOpenTransactions().iterator(); iter.hasNext(); )
+		{
+			Transaction nextTransaction = (Transaction)iter.next();
+			if ( ! nextTransaction.equals(current) )
+			{
+				if ( openTransactions==null ) openTransactions = new ArrayList();
+				openTransactions.add( nextTransaction );
+				model.leaveTransaction();
+				model.joinTransaction( nextTransaction );
+				model.rollback();
+				model.joinTransaction( current );
+			}
+		}
 		if( !exclusive )
 		{
 			try
@@ -179,6 +201,14 @@ public abstract class CopeTest extends CopeAssert
 		if ( testMethodFinished || model.hasCurrentTransaction() )
 		{
 			model.commit();
+		}
+		if ( testMethodFinished && !hadTransaction )
+		{
+			fail( "test completed successfully but didn't have current transaction in tearDown" );
+		}
+		if ( testMethodFinished && openTransactions!=null )
+		{
+			fail( "test completed successfully but left open transactions: "+openTransactions );
 		}
 
 		dropDatabase();
