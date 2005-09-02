@@ -46,6 +46,10 @@ public final class Transaction
 	
 	void bindToCurrentThread()
 	{
+		if ( closed )
+		{
+			throw new RuntimeException("cannot bind to closed transaction");
+		}
 		if ( boundThread!=null && !boundThread.equals(Thread.currentThread()) )
 		{
 			throw new RuntimeException("transaction already bound to other thread");
@@ -89,8 +93,7 @@ public final class Transaction
 	
 	final Entity getEntity(final Item item, final boolean present)
 	{
-		if(closed)
-			throw new RuntimeException();
+		assertNotClosed();
 		
 		final Type type = item.type;
 		final int pk = item.pk;
@@ -150,8 +153,7 @@ public final class Transaction
 
 	final Entity getEntityIfActive(final Type type, final int pk)
 	{
-		if(closed)
-			throw new RuntimeException();
+		assertNotClosed();
 
 		final IntKeyOpenHashMap rowMap = rowMaps[type.transientNumber];
 		if(rowMap==null)
@@ -161,8 +163,7 @@ public final class Transaction
 	
 	Connection getConnection()
 	{
-		if(closed)
-			throw new RuntimeException();
+		assertNotClosed();
 
 		if(connection!=null)
 			return connection;
@@ -194,10 +195,15 @@ public final class Transaction
 		close(true);
 	}
 	
-	private void close(final boolean rollback)
+	private void assertNotClosed()
 	{
 		if(closed)
-			throw new RuntimeException();
+			throw new RuntimeException("transaction "+name+" has already been closed");
+	}	
+	
+	private void close(final boolean rollback)
+	{
+		assertNotClosed();
 
 		try
 		{
