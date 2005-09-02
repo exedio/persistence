@@ -47,41 +47,70 @@ public class TransactionOnlyTest extends AbstractLibTest
 		assertContains( copeTest, model.getOpenTransactions() );
 		assertUnmodifiable( model.getOpenTransactions() );
 		assertEquals( false, copeTest.isClosed() );
+		assertCurrentTransaction( copeTest );
 		
 		model.leaveTransaction();
 		assertContains( copeTest, model.getOpenTransactions() );
 		assertEquals( false, copeTest.isClosed() );
+		assertCurrentTransaction( null );
 		
 		final Transaction tx1 = model.startTransaction( "tx1" );
 		assertContains( copeTest, tx1, model.getOpenTransactions() );
 		assertEquals( false, copeTest.isClosed() );
 		assertEquals( false, tx1.isClosed() );
+		assertCurrentTransaction( tx1 );
 		
 		model.leaveTransaction();
 		assertContains( copeTest, tx1, model.getOpenTransactions() );
 		assertEquals( false, copeTest.isClosed() );
 		assertEquals( false, tx1.isClosed() );
+		assertCurrentTransaction( null );
 		
 		model.joinTransaction( copeTest );
 		assertContains( copeTest, tx1, model.getOpenTransactions() );
 		assertEquals( false, copeTest.isClosed() );
 		assertEquals( false, tx1.isClosed() );
+		assertCurrentTransaction( copeTest );
 		
 		model.commit();
 		assertContains( tx1, model.getOpenTransactions() );
 		assertEquals( true, copeTest.isClosed() );
 		assertEquals( false, tx1.isClosed() );
+		assertCurrentTransaction( null );
 		
 		model.joinTransaction( tx1 );
 		assertContains( tx1, model.getOpenTransactions() );
 		assertEquals( true, copeTest.isClosed() );
 		assertEquals( false, tx1.isClosed() );
+		assertCurrentTransaction( tx1 );
 		
 		model.rollback();
 		assertContains( model.getOpenTransactions() );
 		assertEquals( true, copeTest.isClosed() );
 		assertEquals( true, tx1.isClosed() );
+		assertCurrentTransaction( null );
 		
 		model.startTransaction( "forTearDown" );
+	}
+	
+	private void assertCurrentTransaction( Transaction tx )
+	{
+		assertEquals( tx!=null, model.hasCurrentTransaction() );
+		if ( tx==null )
+		{
+			try
+			{
+				model.getCurrentTransaction();
+				fail();
+			}
+			catch ( RuntimeException e )
+			{
+				assertEquals( "there is no cope transaction bound to this thread, see Model#startTransaction", e.getMessage() );
+			}
+		}
+		else
+		{
+			assertEquals( tx, model.getCurrentTransaction() );
+		}
 	}
 }
