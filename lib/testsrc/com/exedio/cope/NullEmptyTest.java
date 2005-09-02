@@ -17,8 +17,7 @@
  */
 package com.exedio.cope;
 
-import com.exedio.cope.testmodel.AttributeItem;
-import com.exedio.cope.testmodel.EmptyItem;
+import com.exedio.cope.testmodel.StringItem;
 
 /**
  * Test, whether database converts empty strings to null,
@@ -27,17 +26,13 @@ import com.exedio.cope.testmodel.EmptyItem;
  */
 public class NullEmptyTest extends TestmodelTest
 {
-	EmptyItem someItem;
-	AttributeItem item;
-	AttributeItem item2;
+	StringItem item;
 	String emptyString;
 
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		deleteOnTearDown(someItem = new EmptyItem());
-		deleteOnTearDown(item = new AttributeItem("someString", 5, 6l, 2.2, true, someItem, AttributeItem.SomeEnum.enumValue1));
-		deleteOnTearDown(item2 = new AttributeItem("someString", 5, 6l, 2.2, false, someItem, AttributeItem.SomeEnum.enumValue2));
+		deleteOnTearDown(item = new StringItem());
 
 		if(model.supportsEmptyStrings())
 			emptyString = "";
@@ -48,17 +43,17 @@ public class NullEmptyTest extends TestmodelTest
 	public void testNullEmpty()
 			throws IntegrityViolationException
 	{
-		assertEquals(null, item.getSomeString());
+		assertEquals(null, item.getAny());
 
-		item.setSomeString("");
-		assertEquals("", item.getSomeString()); // TODO empty to null conversion must take effect immediately
+		item.setAny("");
+		assertEquals("", item.getAny()); // TODO empty to null conversion must take effect immediately
 		restartTransaction();
-		assertEquals(emptyString, item.getSomeString());
+		assertEquals(emptyString, item.getAny());
 
-		item.setSomeString(null);
-		assertEquals(null, item.getSomeString());
+		item.setAny(null);
+		assertEquals(null, item.getAny());
 		restartTransaction();
-		assertEquals(null, item.getSomeString());
+		assertEquals(null, item.getAny());
 	}
 
 }
