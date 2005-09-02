@@ -84,6 +84,11 @@ public abstract class ObjectAttribute
 		}
 		else
 		{
+			if(value.equals("") &&
+					isMandatory() &&
+					!getType().getModel().supportsEmptyStrings()) // TODO dont call supportsEmptyStrings that often
+				throw new MandatoryViolationException(item, this);
+				
 			if(!(valueClass.isAssignableFrom(value.getClass())))
 			{
 				throw new ClassCastException(

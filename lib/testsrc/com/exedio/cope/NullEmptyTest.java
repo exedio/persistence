@@ -27,6 +27,7 @@ import com.exedio.cope.testmodel.StringItem;
 public class NullEmptyTest extends TestmodelTest
 {
 	StringItem item;
+	boolean supports;
 	String emptyString;
 
 	public void setUp() throws Exception
@@ -34,14 +35,15 @@ public class NullEmptyTest extends TestmodelTest
 		super.setUp();
 		deleteOnTearDown(item = new StringItem("NullEmptyTest"));
 
-		if(model.supportsEmptyStrings())
+		supports = model.supportsEmptyStrings();
+		if(supports)
 			emptyString = "";
 		else
 			emptyString = null;
 	}
 
 	public void testNullEmpty()
-			throws IntegrityViolationException
+			throws IntegrityViolationException, MandatoryViolationException
 	{
 		assertEquals(null, item.getAny());
 
@@ -54,6 +56,20 @@ public class NullEmptyTest extends TestmodelTest
 		assertEquals(null, item.getAny());
 		restartTransaction();
 		assertEquals(null, item.getAny());
+		
+		try
+		{
+			item.setMandatory("");
+			if(supports)
+				assertEquals("", item.getMandatory());
+			else
+				fail();
+		}
+		catch(MandatoryViolationException e)
+		{
+			assertTrue(!supports);
+			assertEquals(item.mandatory, e.getNotNullAttribute());
+		}
 		
 		final StringItem item2 = new StringItem("", false);
 		deleteOnTearDown(item2);
