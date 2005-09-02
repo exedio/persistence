@@ -87,7 +87,15 @@ public final class StringAttribute extends ObjectAttribute implements StringFunc
 		
 	Object surfaceToCache(final Object surface)
 	{
-		return (String)surface;
+		if(getType().getModel().supportsEmptyStrings()) // TODO dont fetch this that often
+			return (String)surface;
+		else
+		{
+			if(surface!=null && ((String)surface).length()==0)
+				return null;
+			else
+				return surface;
+		}
 	}
 	
 	void checkNotNullValue(final Object value, final Item item)

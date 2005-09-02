@@ -46,7 +46,7 @@ public class NullEmptyTest extends TestmodelTest
 		assertEquals(null, item.getAny());
 
 		item.setAny("");
-		assertEquals("", item.getAny()); // TODO empty to null conversion must take effect immediately
+		assertEquals(emptyString, item.getAny());
 		restartTransaction();
 		assertEquals(emptyString, item.getAny());
 
@@ -57,7 +57,7 @@ public class NullEmptyTest extends TestmodelTest
 		
 		final StringItem item2 = new StringItem("");
 		deleteOnTearDown(item2);
-		assertEquals("", item2.getAny()); // TODO empty to null conversion must take effect immediately
+		assertEquals(emptyString, item2.getAny());
 		restartTransaction();
 		assertEquals(emptyString, item2.getAny());
 	}
