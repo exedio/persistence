@@ -34,18 +34,18 @@ package com.exedio.cope;
 public final class MandatoryViolationException extends ConstraintViolationException
 {
 	private final Item item;
-	private final Attribute notNullAttribute;
+	private final Attribute mandatoryAttribute;
 	
 	/**
 	 * Creates a new NotNullViolationException with the neccessary information about the violation.
 	 * @param item initializes, what is returned by {@link #getItem()}.
-	 * @param notNullAttribute initializes, what is returned by {@link #getMandatoryAttribute()}.
+	 * @param mandatoryAttribute initializes, what is returned by {@link #getMandatoryAttribute()}.
 	 */
-	public MandatoryViolationException(final Item item, final Attribute notNullAttribute)
+	public MandatoryViolationException(final Item item, final Attribute mandatoryAttribute)
 	{
 		super(null);
 		this.item = item;
-		this.notNullAttribute = notNullAttribute;
+		this.mandatoryAttribute = mandatoryAttribute;
 	}
 	
 	/**
@@ -61,7 +61,7 @@ public final class MandatoryViolationException extends ConstraintViolationExcept
 	 */
 	public Attribute getMandatoryAttribute()
 	{
-		return notNullAttribute;
+		return mandatoryAttribute;
 	}
 
 }
