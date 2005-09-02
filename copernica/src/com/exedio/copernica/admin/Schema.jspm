@@ -94,6 +94,7 @@ if(narrow)
 %></span>
 <input type="submit" name="APPLY" value="apply"/>
 supports check constraints: <i><%if(model.supportsCheckConstraints()){%>yes<%}else{%>no<%}%></i>
+supports empty strings: <i><%if(model.supportsEmptyStrings()){%>yes<%}else{%>no<%}%></i>
 <ul class="<%=schemaColor%>"><%
 
 int tableCount = 1;
