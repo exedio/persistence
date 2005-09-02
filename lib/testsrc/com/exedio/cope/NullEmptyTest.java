@@ -69,6 +69,7 @@ public class NullEmptyTest extends TestmodelTest
 		{
 			assertTrue(!supports);
 			assertEquals(item.mandatory, e.getMandatoryAttribute());
+			assertEquals(item, e.getItem());
 		}
 		
 		final StringItem item2 = new StringItem("", false);
