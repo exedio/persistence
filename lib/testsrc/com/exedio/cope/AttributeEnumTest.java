@@ -199,7 +199,7 @@ public class AttributeEnumTest extends AttributeTest
 		catch(MandatoryViolationException e)
 		{
 			assertEquals(item, e.getItem());
-			assertEquals(item.someNotNullEnum, e.getNotNullAttribute());
+			assertEquals(item.someNotNullEnum, e.getMandatoryAttribute());
 		}
 		assertEquals(
 			AttributeItem.SomeEnum.enumValue3,
@@ -213,7 +213,7 @@ public class AttributeEnumTest extends AttributeTest
 		catch(MandatoryViolationException e)
 		{
 			assertEquals(null, e.getItem());
-			assertEquals(item.someNotNullEnum, e.getNotNullAttribute());
+			assertEquals(item.someNotNullEnum, e.getMandatoryAttribute());
 		}
 	}
 }

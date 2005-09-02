@@ -159,7 +159,7 @@ public class AttributeStringTest extends AttributeTest
 		catch (MandatoryViolationException e)
 		{
 			assertEquals(item, e.getItem());
-			assertEquals(item.someNotNullString, e.getNotNullAttribute());
+			assertEquals(item.someNotNullString, e.getMandatoryAttribute());
 		}
 
 		try
@@ -170,7 +170,7 @@ public class AttributeStringTest extends AttributeTest
 		catch(MandatoryViolationException e)
 		{
 			assertEquals(null, e.getItem());
-			assertEquals(item.someNotNullString, e.getNotNullAttribute());
+			assertEquals(item.someNotNullString, e.getMandatoryAttribute());
 		}
 	}
 

@@ -39,7 +39,7 @@ public final class MandatoryViolationException extends ConstraintViolationExcept
 	/**
 	 * Creates a new NotNullViolationException with the neccessary information about the violation.
 	 * @param item initializes, what is returned by {@link #getItem()}.
-	 * @param notNullAttribute initializes, what is returned by {@link #getNotNullAttribute()}.
+	 * @param notNullAttribute initializes, what is returned by {@link #getMandatoryAttribute()}.
 	 */
 	public MandatoryViolationException(final Item item, final Attribute notNullAttribute)
 	{
@@ -59,7 +59,7 @@ public final class MandatoryViolationException extends ConstraintViolationExcept
 	/**
 	 * Returns the attribute, that was attempted to be written.
 	 */
-	public Attribute getNotNullAttribute() // TODO rename to getMandatoryAttribute
+	public Attribute getMandatoryAttribute()
 	{
 		return notNullAttribute;
 	}

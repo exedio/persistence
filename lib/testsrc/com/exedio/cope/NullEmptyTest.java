@@ -68,7 +68,7 @@ public class NullEmptyTest extends TestmodelTest
 		catch(MandatoryViolationException e)
 		{
 			assertTrue(!supports);
-			assertEquals(item.mandatory, e.getNotNullAttribute());
+			assertEquals(item.mandatory, e.getMandatoryAttribute());
 		}
 		
 		final StringItem item2 = new StringItem("", false);

@@ -103,7 +103,7 @@ public class AttributeItemTest extends AttributeTest
 		catch (MandatoryViolationException e)
 		{
 			assertEquals(item, e.getItem());
-			assertEquals(item.someNotNullItem, e.getNotNullAttribute());
+			assertEquals(item.someNotNullItem, e.getMandatoryAttribute());
 		}
 		assertEquals(someItem2, item.getSomeNotNullItem());
 		assertDeleteFails(someItem2, item.someNotNullItem, false);
@@ -116,7 +116,7 @@ public class AttributeItemTest extends AttributeTest
 		catch(MandatoryViolationException e)
 		{
 			assertEquals(null, e.getItem());
-			assertEquals(item.someNotNullItem, e.getNotNullAttribute());
+			assertEquals(item.someNotNullItem, e.getMandatoryAttribute());
 		}
 	}
 	

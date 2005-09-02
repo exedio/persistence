@@ -210,7 +210,7 @@ public class UniqueItemTest extends TestmodelTest
 		}
 		catch(MandatoryViolationException e)
 		{
-			assertEquals(item.uniqueNotNullString, e.getNotNullAttribute());
+			assertEquals(item.uniqueNotNullString, e.getMandatoryAttribute());
 			assertEquals(item, e.getItem());
 		}
 		assertEquals("uniqueString2", item.getUniqueNotNullString());
@@ -225,7 +225,7 @@ public class UniqueItemTest extends TestmodelTest
 		}
 		catch(MandatoryViolationException e)
 		{
-			assertEquals(item.uniqueNotNullString, e.getNotNullAttribute());
+			assertEquals(item.uniqueNotNullString, e.getMandatoryAttribute());
 			assertEquals(null, e.getItem());
 		}
 		assertContains(item, item.TYPE.search(null));

@@ -546,8 +546,8 @@ final class ItemForm extends Form
 		}
 		catch(MandatoryViolationException e)
 		{
-			final Field field = getField(e.getNotNullAttribute().getName());
-			field.error = "error.notnull:"+e.getNotNullAttribute().toString();
+			final Field field = getField(e.getMandatoryAttribute().getName());
+			field.error = "error.notnull:"+e.getMandatoryAttribute().toString();
 		}
 		catch(ReadOnlyViolationException e)
 		{
