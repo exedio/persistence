@@ -153,9 +153,9 @@ public class CopernicaTestProvider extends TransientCopernicaProvider
 				attributeItem.setSomeDate(date);
 			}
 			{			
-				final StringItem item1 = new StringItem();
-				final StringItem item2 = new StringItem();
-				final StringItem item3 = new StringItem();
+				final StringItem item1 = new StringItem("Test Provider 1");
+				final StringItem item2 = new StringItem("Test Provider 2");
+				final StringItem item3 = new StringItem("Test Provider 3");
 				
 				item1.setAny("any1");
 				item1.setMin4("min4");

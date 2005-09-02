@@ -32,7 +32,7 @@ public class NullEmptyTest extends TestmodelTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		deleteOnTearDown(item = new StringItem());
+		deleteOnTearDown(item = new StringItem("NullEmptyTest"));
 
 		if(model.supportsEmptyStrings())
 			emptyString = "";
@@ -55,7 +55,7 @@ public class NullEmptyTest extends TestmodelTest
 		restartTransaction();
 		assertEquals(null, item.getAny());
 		
-		final StringItem item2 = new StringItem("");
+		final StringItem item2 = new StringItem("", false);
 		deleteOnTearDown(item2);
 		assertEquals(emptyString, item2.getAny());
 		restartTransaction();

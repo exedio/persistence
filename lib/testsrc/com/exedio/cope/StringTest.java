@@ -27,7 +27,7 @@ public class StringTest extends TestmodelTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		deleteOnTearDown(item = new StringItem());
+		deleteOnTearDown(item = new StringItem("StringTest"));
 	}
 	
 	public void testStrings() throws LengthViolationException
