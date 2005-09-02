@@ -312,19 +312,4 @@ public class TransactionTest extends TestmodelTest
 		// TODO: test item creation/deletion
 	}
 
-	public void testNesting() 
-	{
-		assertEquals( true, model.hasCurrentTransaction() );
-		Transaction tx = model.getCurrentTransaction();
-		try
-		{
-			model.startTransaction("nested");
-			fail();
-		}
-		catch ( RuntimeException e )
-		{
-			assertEquals( "there is already a transaction bound to current thread", e.getMessage() );
-		}
-		assertEquals( tx, model.getCurrentTransaction() );
-	}
 }

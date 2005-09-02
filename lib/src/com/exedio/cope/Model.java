@@ -31,6 +31,7 @@ import java.util.ListIterator;
 
 import com.exedio.cope.util.PoolCounter;
 import com.exedio.dsmf.Schema;
+import java.util.Set;
 
 
 public final class Model
@@ -352,6 +353,7 @@ public final class Model
 	// ----------------------- transaction
 	
 	private final ThreadLocal transactionThreads = new ThreadLocal();
+	private final Set openTransactions = new HashSet();
 	
 	public Transaction startTransaction()
 	{
@@ -371,8 +373,8 @@ public final class Model
 		if( hasCurrentTransaction() )
 			throw new RuntimeException("there is already a transaction bound to current thread");
 		final Transaction result = new Transaction(this, name);
-		result.bindToCurrentThread();
-		transactionThreads.set(result);
+		setTransaction( result );
+		openTransactions.add( result );
 		return result;
 	}
 	
@@ -380,7 +382,7 @@ public final class Model
 	{
 		Transaction tx = getCurrentTransaction();
 		tx.unbindThread();
-		transactionThreads.set( null );
+		setTransaction( null );
 		return tx;
 	}
 	
@@ -388,18 +390,12 @@ public final class Model
 	{
 		if ( hasCurrentTransaction() )
 			throw new RuntimeException("there is already a transaction bound to current thread");
-		tx.bindToCurrentThread();
-		transactionThreads.set(tx);		
+		setTransaction(tx);		
 	}
 	
 	public boolean hasCurrentTransaction()
 	{
-		boolean hasCurrentTransaction = transactionThreads.get()!=null;
-		if ( hasCurrentTransaction )
-		{
-			getCurrentTransaction();
-		}
-		return hasCurrentTransaction;
+		return getCurrentTransactionIfAvailable()!=null;
 	}
 
 	/**
@@ -409,16 +405,15 @@ public final class Model
 	 */
 	public final Transaction getCurrentTransaction()
 	{
-		final Transaction result = (Transaction)transactionThreads.get();
-		
+		final Transaction result = getCurrentTransactionIfAvailable();
 		if(result==null)
-			throw new RuntimeException("there is no cope transaction bound to this thread, see Model#startTransaction");		
-		result.assertBoundToCurrentThread();
-		
+		{
+			throw new RuntimeException("there is no cope transaction bound to this thread, see Model#startTransaction");
+		}
 		return result;
 	}
 	
-	private final Transaction getOrNot()
+	private final Transaction getCurrentTransactionIfAvailable()
 	{
 		final Transaction result = (Transaction)transactionThreads.get();
 		
@@ -430,12 +425,13 @@ public final class Model
 		return result;
 	}
 	
-	private final void set(final Transaction transaction)
+	private final void setTransaction(final Transaction transaction)
 	{
-		transactionThreads.set(transaction);
-		
 		if(transaction!=null)
+		{
 			transaction.bindToCurrentThread();
+		}
+		transactionThreads.set(transaction);
 	}
 	
 	final Transaction hop(final Transaction transaction)
@@ -443,30 +439,33 @@ public final class Model
 		final Transaction result = getCurrentTransaction();
 		if(result==null)
 			throw new RuntimeException();
-		set(transaction);
+		setTransaction(transaction);
 		return result;
 	}
 	
 	public void rollback()
 	{
-		getCurrentTransaction().rollback();
-		set(null);
+		Transaction tx = getCurrentTransaction();
+		tx.rollback();
+		setTransaction(null);
 	}
 	
 	public void rollbackIfNotCommitted()
 	{
-		final Transaction t = getOrNot();
-		if(t!=null)
+		final Transaction t = getCurrentTransactionIfAvailable();
+		if( t!=null )
 		{
 			t.rollback();
-			set(null);
+			setTransaction(null);
 		}
 	}
 	
 	public void commit()
 	{
-		getCurrentTransaction().commit();
-		set(null);
+		Transaction tx = getCurrentTransaction();
+		openTransactions.remove( tx );
+		tx.commit();
+		setTransaction(null);
 	}
 
 	/**
