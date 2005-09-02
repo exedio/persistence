@@ -277,8 +277,11 @@ public class TransactionTest extends TestmodelTest
 	
 	public void xxtestIsolation() throws ConstraintViolationException // TODO enable testIsolation
 	{
-		final Transaction t1 = model.getCurrentTransaction();
-		final Transaction t2 = createTransaction("testIsolation1");
+		if ( ! model.supportsReadCommitted() ) return;
+		model.commit();
+		final Transaction t1 = createTransaction("testIsolation1");
+		model.leaveTransaction();
+		final Transaction t2 = createTransaction("testIsolation2");
 
 		activate(t1);
 		assertSomeString(null);
@@ -309,4 +312,19 @@ public class TransactionTest extends TestmodelTest
 		// TODO: test item creation/deletion
 	}
 
+	public void testNesting() 
+	{
+		assertEquals( true, model.hasCurrentTransaction() );
+		Transaction tx = model.getCurrentTransaction();
+		try
+		{
+			model.startTransaction("nested");
+			fail();
+		}
+		catch ( RuntimeException e )
+		{
+			assertEquals( "there is already a transaction bound to current thread", e.getMessage() );
+		}
+		assertEquals( tx, model.getCurrentTransaction() );
+	}
 }
