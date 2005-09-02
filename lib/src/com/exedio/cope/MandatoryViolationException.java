@@ -56,7 +56,7 @@ public final class MandatoryViolationException extends ConstraintViolationExcept
 	/**
 	 * Returns the attribute, that was attempted to be written.
 	 */
-	public Attribute getNotNullAttribute()
+	public Attribute getNotNullAttribute() // TODO rename to getMandatoryAttribute
 	{
 		return notNullAttribute;
 	}
