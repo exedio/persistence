@@ -54,6 +54,12 @@ public class NullEmptyTest extends TestmodelTest
 		assertEquals(null, item.getAny());
 		restartTransaction();
 		assertEquals(null, item.getAny());
+		
+		final StringItem item2 = new StringItem("");
+		deleteOnTearDown(item2);
+		assertEquals("", item2.getAny()); // TODO empty to null conversion must take effect immediately
+		restartTransaction();
+		assertEquals(emptyString, item2.getAny());
 	}
 
 }

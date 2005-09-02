@@ -18,6 +18,7 @@
 
 package com.exedio.cope.testmodel;
 
+import com.exedio.cope.AttributeValue;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringAttribute;
 import com.exedio.cope.function.LengthFunction;
@@ -47,6 +48,13 @@ public class StringItem extends Item
 	public static final LengthFunction max4UpperLength = max4Upper.length();
 	
 	public static final SumFunction min4AndMax4UpperLength = min4UpperLength.sum(max4UpperLength);
+	
+	public StringItem(final String any)
+	{
+		this(new AttributeValue[]{
+				new AttributeValue(StringItem.any, any),
+		});
+	}
 	
 /**
 
