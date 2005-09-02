@@ -37,7 +37,7 @@ public final class MandatoryViolationException extends ConstraintViolationExcept
 	private final Attribute mandatoryAttribute;
 	
 	/**
-	 * Creates a new NotNullViolationException with the neccessary information about the violation.
+	 * Creates a new MandatoryViolationException with the neccessary information about the violation.
 	 * @param item initializes, what is returned by {@link #getItem()}.
 	 * @param mandatoryAttribute initializes, what is returned by {@link #getMandatoryAttribute()}.
 	 */
