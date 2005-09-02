@@ -77,6 +77,23 @@ public class NullEmptyTest extends TestmodelTest
 		assertEquals(emptyString, item2.getAny());
 		restartTransaction();
 		assertEquals(emptyString, item2.getAny());
+		
+		StringItem item3 = null;
+		try
+		{
+			item3 = new StringItem("", 0.0);
+			deleteOnTearDown(item3);
+			if(supports)
+				assertEquals("", item3.getMandatory());
+			else
+				fail();
+		}
+		catch(MandatoryViolationException e)
+		{
+			assertTrue(!supports);
+			assertEquals(item3.mandatory, e.getMandatoryAttribute());
+			assertEquals(item3, e.getItem());
+		}
 	}
 
 }

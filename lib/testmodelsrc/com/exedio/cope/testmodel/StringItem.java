@@ -20,6 +20,7 @@ package com.exedio.cope.testmodel;
 
 import com.exedio.cope.AttributeValue;
 import com.exedio.cope.Item;
+import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.StringAttribute;
 import com.exedio.cope.function.LengthFunction;
 import com.exedio.cope.function.SumFunction;
@@ -57,6 +58,14 @@ public class StringItem extends Item
 				new AttributeValue(StringItem.any, any),
 				new AttributeValue(StringItem.mandatory, "dummy"),
 		});
+	}
+	
+	public StringItem(final String mandatory, double dummy) throws MandatoryViolationException
+	{
+		this(new AttributeValue[]{
+				new AttributeValue(StringItem.mandatory, mandatory),
+		});
+		throwInitialMandatoryViolationException();
 	}
 	
 /**
