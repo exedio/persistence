@@ -249,12 +249,21 @@ public final class Transaction
 		return name;
 	}
 	
+	private String getID()
+	{
+		if ( name==null )
+		{
+			return String.valueOf( System.identityHashCode(this) );
+		}
+		else
+		{
+			return name;
+		}
+	}
+	
 	public String toString()
 	{
-		if(name==null)
-			return "CT." + System.identityHashCode(this);
-		else
-			return "CT." + name;
+		return "CT." + getID() + (closed?"(closed)":"");
 	}
 
 }
