@@ -44,6 +44,9 @@ public final class Transaction
 		invalidations = new IntSet[model.numberOfTypes];
 	}
 	
+	/**
+	 *	calling this method directly break model.transactionThreads
+	 */
 	void bindToCurrentThread()
 	{
 		if ( closed )
@@ -65,6 +68,9 @@ public final class Transaction
 		}
 	}
 	
+	/**
+	 *	calling this method directly break model.transactionThreads
+	 */
 	void unbindThread()
 	{
 		if ( boundThread==null )
@@ -111,7 +117,14 @@ public final class Transaction
 			final State state;
 			if ( present )
 			{
-				state = new PersistentState( this.getConnection(), item );
+				if ( isInvalidated(item) )
+				{
+					state = new PersistentState( this.getConnection(), item );
+				}
+				else
+				{
+					state = model.getCache().getPersistentState( this, item );
+				}
 			}
 			else
 			{
@@ -140,6 +153,13 @@ public final class Transaction
 		}		
 	}
 	
+	private boolean isInvalidated( final Item item )
+	{
+		IntSet invalidationsForType = invalidations[ item.type.transientNumber ];
+		return invalidationsForType!=null && invalidationsForType.contains(item.pk);
+	}
+	
+	// TODO change parameters to Item
 	void addInvalidation(final Type type, final int pk)
 	{
 		IntSet invalidationsForType = invalidations[ type.transientNumber ];
@@ -185,12 +205,26 @@ public final class Transaction
 		return connection;
 	}
 	
-	void commit()
+	/**
+	 *	calling this method directly break model.openTransactions
+	 */
+	void commitInternal()
 	{
 		close(false);
+		for ( int transientTypeNumber=0; transientTypeNumber<invalidations.length; transientTypeNumber++ )
+		{
+			IntSet invalidatedPKs = invalidations[transientTypeNumber];
+			if ( invalidatedPKs!=null )
+			{				
+				model.getCache().invalidate( transientTypeNumber, invalidatedPKs );
+			}
+		}
 	}
 
-	void rollback()
+	/**
+	 *	calling this method directly break model.openTransactions
+	 */
+	void rollbackInternal()
 	{
 		close(true);
 	}

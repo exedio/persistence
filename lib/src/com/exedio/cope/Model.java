@@ -38,10 +38,11 @@ import java.util.Set;
 public final class Model
 {
 	private final Type[] types;
+	final int numberOfTypes;
 	private final List typeList;
 	private final HashMap typesByID = new HashMap();
-	final int numberOfTypes;
-	
+	private final Cache cache;
+		
 	private Properties properties;
 	private Database database;
 
@@ -51,14 +52,15 @@ public final class Model
 	public Model(final Type[] types)
 	{
 		this.types = types;
+		this.numberOfTypes = types.length;
 		this.typeList = Collections.unmodifiableList(Arrays.asList(types));
+		this.cache = new Cache( numberOfTypes );
 
 		for(int i = 0; i<types.length; i++)
 		{
 			final Type type = types[i];
 			type.initialize(this, i);
 		}
-		this.numberOfTypes = types.length;
 	}
 	
 	/**
@@ -466,7 +468,7 @@ public final class Model
 	{
 		Transaction tx = getCurrentTransaction();
 		openTransactions.remove( tx );
-		tx.rollback();
+		tx.rollbackInternal();
 		setTransaction(null);
 	}
 	
@@ -483,7 +485,7 @@ public final class Model
 	{
 		Transaction tx = getCurrentTransaction();
 		openTransactions.remove( tx );
-		tx.commit();
+		tx.commitInternal();
 		setTransaction(null);
 	}
 
@@ -507,6 +509,11 @@ public final class Model
 	public Collection getOpenTransactions()
 	{
 		return Collections.unmodifiableCollection( openTransactions );
+	}
+	
+	Cache getCache()
+	{
+		return cache;
 	}
 	
 }
