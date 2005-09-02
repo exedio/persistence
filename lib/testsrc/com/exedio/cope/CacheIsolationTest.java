@@ -67,6 +67,7 @@ public class CacheIsolationTest extends AbstractLibTest
 		model.leaveTransaction();
 		model.clearCache();
 		final Transaction txLoadCache = model.startTransaction("loadcache");
+		model.getDatabase().expectLoad( txLoadCache, item );
 		if ( model.supportsReadCommitted() )
 		{
 			assertEquals( "blub", item.getName() );
@@ -75,11 +76,46 @@ public class CacheIsolationTest extends AbstractLibTest
 		{
 			assertEquals( "somenewname", item.getName() );
 		}
+		model.getDatabase().verifyExpectations();
 		model.commit();
 		model.joinTransaction( txRollback );
 		model.rollback();
-		model.startTransaction( "check" );
+		Transaction txCheck = model.startTransaction( "check" );
+		if ( model.supportsReadCommitted() )
+		{
+			model.getDatabase().expectNoCall();
+		}
+		else
+		{
+			model.getDatabase().expectLoad( txCheck, item );
+		}
 		assertEquals( "blub", item.getName() );
+		model.getDatabase().verifyExpectations();
 	}
-	
+
+	public void testSearch() throws MandatoryViolationException
+	{
+		if ( ! model.supportsReadCommitted() ) return;
+		
+		assertContains( item, CacheIsolationItem.TYPE.search(CacheIsolationItem.name.equal("blub")) );
+		model.commit();
+		Transaction txChange = model.startTransaction("change");
+		item.setName("notblub");
+		model.getDatabase().expectSearch( txChange, CacheIsolationItem.TYPE );
+		assertContains( CacheIsolationItem.TYPE.search(CacheIsolationItem.name.equal("blub")) );
+		model.getDatabase().verifyExpectations();
+		assertContains( item, CacheIsolationItem.TYPE.search(CacheIsolationItem.name.equal("notblub")) );
+		model.leaveTransaction();
+		Transaction txSearch = model.startTransaction("search");
+		// TODO:
+		// model.getDatabase().expectNoCall();
+		model.getDatabase().expectSearch( txSearch, CacheIsolationItem.TYPE );
+		assertContains( item, CacheIsolationItem.TYPE.search(CacheIsolationItem.name.equal("blub")) );
+		model.getDatabase().verifyExpectations();
+		model.getDatabase().expectSearch( txSearch, CacheIsolationItem.TYPE );
+		assertContains( CacheIsolationItem.TYPE.search(CacheIsolationItem.name.equal("notblub")) );
+		model.getDatabase().verifyExpectations();
+		model.commit();
+		model.joinTransaction( txChange );
+	}
 }

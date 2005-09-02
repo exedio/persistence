@@ -208,6 +208,11 @@ abstract class Database
 	
 	final ArrayList search(final Connection connection, final Query query)
 	{
+		if ( expectedCalls!=null )
+		{
+			nextExpectedCall().checkSearch( connection, query );
+		}
+		
 		buildStage = false;
 
 		final Statement bf = createStatement();
@@ -444,10 +449,29 @@ abstract class Database
 		return result;
 	}
 	
+	private List getExpectedCalls()
+	{
+		if ( expectedCalls==null ) 
+		{
+			expectedCalls = new LinkedList();
+		}
+		return expectedCalls;
+	}
+	
+	void expectNoCall()
+	{
+		if ( expectedCalls!=null ) throw new RuntimeException( expectedCalls.toString() );
+		expectedCalls = Collections.EMPTY_LIST;
+	}
+	
 	void expectLoad( Transaction tx, Item item )
 	{
-		if ( expectedCalls==null ) expectedCalls = new LinkedList();
-		expectedCalls.add( new LoadCall(tx, item) );
+		getExpectedCalls().add( new LoadCall(tx, item) );
+	}
+	
+	void expectSearch( Transaction tx, Type type )
+	{
+		getExpectedCalls().add( new SearchCall(tx, type) );
 	}
 	
 	void verifyExpectations()
@@ -459,17 +483,31 @@ abstract class Database
 		}
 		expectedCalls = null;
 	}
+	
+	Call nextExpectedCall()
+	{
+		if ( expectedCalls.isEmpty() )
+		{
+			throw new RuntimeException( "no more calls expected" );
+		}
+		return (Call)expectedCalls.remove(0);
+	}
+	
+	/**
+	 *	return true if the database was in expectation checking mode
+	 */
+	boolean clearExpectedCalls()
+	{
+		boolean result = expectedCalls!=null;
+		expectedCalls = null;
+		return result;
+	}
 
 	void load(final Connection connection, final PersistentState state)
 	{
 		if ( expectedCalls!=null )
 		{
-			if ( expectedCalls.isEmpty() )
-			{
-				throw new RuntimeException( "no more calls expected" );
-			}
-			LoadCall expected = (LoadCall)expectedCalls.remove(0);
-			expected.check( connection, state );
+			nextExpectedCall().checkLoad( connection, state );
 		}
 		
 		buildStage = false;
@@ -1139,33 +1177,82 @@ abstract class Database
 			}
 		}
 	};
-
-	static class LoadCall
+	
+	static abstract class Call 
 	{
 		final Transaction tx;
-		final Item item;
-		
-		LoadCall( Transaction tx, Item item )
+
+		Call( Transaction tx )
 		{
 			this.tx = tx;
-			this.item = item;
 		}
 		
-		void check( Connection connection, PersistentState state )
+		void checkLoad( Connection connection, PersistentState state )
+		{
+			throw new RuntimeException( "load in "+toString() );
+		}
+		
+		void checkSearch( Connection connection, Query query )
+		{
+			throw new RuntimeException( "search in "+toString() );
+		}
+		
+		void checkConnection( Connection connection )
 		{
 			if ( ! tx.getConnection().equals(connection) )
 			{
 				throw new RuntimeException( "connection mismatch in "+toString() );
 			}
+		}
+	}
+
+	static class LoadCall extends Call
+	{
+		final Item item;
+		
+		LoadCall( Transaction tx, Item item )
+		{
+			super( tx );
+			this.item = item;
+		}
+		
+		void checkLoad( Connection connection, PersistentState state )
+		{
+			checkConnection( connection );
 			if ( !item.equals(state.item) )
 			{
-				throw new RuntimeException( "item mismatch in "+toString()+" (got "+state.item+")" );
+				throw new RuntimeException( "item mismatch in "+toString()+" (got "+state.item.getCopeID()+")" );
 			}
 		}
 		
 		public String toString()
 		{
-			return tx.getName()+"/"+item;
+			return "Load("+tx.getName()+"/"+item.getCopeID()+")";
+		}
+	}
+	
+	static class SearchCall extends Call
+	{
+		final Type type;
+		
+		SearchCall( Transaction tx, Type type )
+		{
+			super( tx );
+			this.type = type;
+		}
+		
+		void checkSearch( Connection connection, Query query )
+		{
+			checkConnection( connection );
+			if ( !type.equals(query.getType()) )
+			{
+				throw new RuntimeException( "search type mismatch in "+toString()+" (got "+query.getType()+")" );
+			}
+		}
+		
+		public String toString()
+		{
+			return "Search("+tx.getName()+"/"+type+")";
 		}
 	}
 }

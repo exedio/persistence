@@ -55,6 +55,16 @@ public abstract class AbstractLibTest extends CopeTest
 		hsqldb = model.getDatabase().hsqldb;
 		mysql  = "com.exedio.cope.MysqlDatabase".equals(model.getDatabase().getClass().getName());
 	}
+	
+	protected void tearDown() throws Exception
+	{
+		final boolean hadExpectations = model.getDatabase().clearExpectedCalls();
+		if ( hadExpectations && testCompletedSuccessfully() )
+		{
+			fail( "database still had expected calls; missing call to verifyExpectations" );
+		}
+		super.tearDown();
+	}
 
 	final String pkString(final Item item)
 	{

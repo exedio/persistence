@@ -159,7 +159,7 @@ public abstract class CopeTest extends CopeAssert
 		}
 		Transaction current = model.getCurrentTransaction();
 		Collection openTransactions = null;
-		for ( Iterator iter = model.getOpenTransactions().iterator(); iter.hasNext(); )
+		for ( Iterator iter = new HashSet(model.getOpenTransactions()).iterator(); iter.hasNext(); )
 		{
 			Transaction nextTransaction = (Transaction)iter.next();
 			if ( ! nextTransaction.equals(current) )
@@ -213,6 +213,11 @@ public abstract class CopeTest extends CopeAssert
 
 		dropDatabase();
 		super.tearDown();
+	}
+	
+	protected boolean testCompletedSuccessfully()
+	{
+		return testMethodFinished;
 	}
 	
 	protected void restartTransaction()
