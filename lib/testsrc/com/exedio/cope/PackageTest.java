@@ -31,47 +31,47 @@ public class PackageTest extends TestCase
 	{
 		final TestSuite suite = new TestSuite();
 		
-		suite.addTest(new TestSuite(TrimTest.class));
-		suite.addTest(new TestSuite(Id2PkTest.class));
-		suite.addTest(new TestSuite(ModelTest.class));
-		suite.addTest(new TestSuite(ItemTest.class));
+		suite.addTestSuite( TrimTest.class );
+		suite.addTestSuite( Id2PkTest.class );
+		suite.addTestSuite( ModelTest.class );
+		suite.addTestSuite( ItemTest.class );
 		
-		suite.addTest(new TestSuite(AttributeStringTest.class));
-		suite.addTest(new TestSuite(AttributeIntegerTest.class));
-		suite.addTest(new TestSuite(AttributeLongTest.class));
-		suite.addTest(new TestSuite(AttributeDoubleTest.class));
-		suite.addTest(new TestSuite(AttributeBooleanTest.class));
-		suite.addTest(new TestSuite(AttributeDateTest.class));
-		suite.addTest(new TestSuite(AttributeItemTest.class));
-		suite.addTest(new TestSuite(AttributeEnumTest.class));
-		suite.addTest(new TestSuite(AttributeDataTest.class));
-		suite.addTest(new TestSuite(AttributeQualifiedTest.class));
+		suite.addTestSuite( AttributeStringTest.class );
+		suite.addTestSuite( AttributeIntegerTest.class );
+		suite.addTestSuite( AttributeLongTest.class );
+		suite.addTestSuite( AttributeDoubleTest.class );
+		suite.addTestSuite( AttributeBooleanTest.class );
+		suite.addTestSuite( AttributeDateTest.class );
+		suite.addTestSuite( AttributeItemTest.class );
+		suite.addTestSuite( AttributeEnumTest.class );
+		suite.addTestSuite( AttributeDataTest.class );
+		suite.addTestSuite( AttributeQualifiedTest.class );
 		
-		suite.addTest(new TestSuite(DeleteTest.class));
-		suite.addTest(new TestSuite(StringTest.class));
-		suite.addTest(new TestSuite(DataTest.class));
-		suite.addTest(new TestSuite(NullEmptyTest.class));
-		suite.addTest(new TestSuite(UniqueItemTest.class));
-		suite.addTest(new TestSuite(HierarchyTest.class));
-		suite.addTest(new TestSuite(SearchTest.class));
-		suite.addTest(new TestSuite(SumTest.class));
-		suite.addTest(new TestSuite(SumOrderTest.class));
-		suite.addTest(new TestSuite(OrderByTest.class));
-		suite.addTest(new TestSuite(SelectTest.class));
-		suite.addTest(new TestSuite(FunctionTest.class));
-		suite.addTest(new TestSuite(LiteralConditionTest.class));
-		suite.addTest(new TestSuite(JoinTest.class));
-		suite.addTest(new TestSuite(JoinOuterTest.class));
-		suite.addTest(new TestSuite(JoinMultipleTest.class));
-		suite.addTest(new TestSuite(FindByIDTest.class));
-		suite.addTest(new TestSuite(SchemaTest.class));
-		suite.addTest(new TestSuite(StatementInfoTest.class));
-		suite.addTest(new TestSuite(TransactionTest.class));
+		suite.addTestSuite( DeleteTest.class );
+		suite.addTestSuite( StringTest.class );
+		suite.addTestSuite( DataTest.class );
+		suite.addTestSuite( NullEmptyTest.class );
+		suite.addTestSuite( UniqueItemTest.class );
+		suite.addTestSuite( HierarchyTest.class );
+		suite.addTestSuite( SearchTest.class );
+		suite.addTestSuite( SumTest.class );
+		suite.addTestSuite( SumOrderTest.class );
+		suite.addTestSuite( OrderByTest.class );
+		suite.addTestSuite( SelectTest.class );
+		suite.addTestSuite( FunctionTest.class );
+		suite.addTestSuite( LiteralConditionTest.class );
+		suite.addTestSuite( JoinTest.class );
+		suite.addTestSuite( JoinOuterTest.class );
+		suite.addTestSuite( JoinMultipleTest.class );
+		suite.addTestSuite( FindByIDTest.class );
+		suite.addTestSuite( SchemaTest.class );
+		suite.addTestSuite( StatementInfoTest.class );
+		suite.addTestSuite( TransactionTest.class );
 		suite.addTestSuite( CacheIsolationTest.class );
 
-		suite.addTest(com.exedio.cope.pattern.PackageTest.suite());
+		suite.addTest( com.exedio.cope.pattern.PackageTest.suite() );
 
-		suite.addTest(new TestSuite(PoolCounterTest.class));
+		suite.addTestSuite( PoolCounterTest.class );
 		
 		return suite;
 	}
