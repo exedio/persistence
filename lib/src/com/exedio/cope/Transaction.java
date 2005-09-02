@@ -211,6 +211,11 @@ public final class Transaction
 	void commitInternal()
 	{
 		close(false);
+		fireInvalidations();
+	}
+	
+	private void fireInvalidations()
+	{
 		for ( int transientTypeNumber=0; transientTypeNumber<invalidations.length; transientTypeNumber++ )
 		{
 			IntSet invalidatedPKs = invalidations[transientTypeNumber];
@@ -226,7 +231,13 @@ public final class Transaction
 	 */
 	void rollbackInternal()
 	{
+		boolean supportsReadCommitted = model.supportsReadCommitted();
 		close(true);
+		if ( ! supportsReadCommitted )
+		{
+			// please send any complaints to derschuldige@hsqldb.org
+			fireInvalidations();
+		}
 	}
 	
 	private void assertNotClosed()

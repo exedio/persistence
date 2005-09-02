@@ -59,5 +59,27 @@ public class CacheIsolationTest extends AbstractLibTest
 		model.startTransaction("just for tearDown");
 	}
 	
+	public void testRollback() throws MandatoryViolationException
+	{
+		model.commit();
+		final Transaction txRollback = model.startTransaction("rollback");
+		item.setName( "somenewname" );
+		model.leaveTransaction();
+		model.clearCache();
+		final Transaction txLoadCache = model.startTransaction("loadcache");
+		if ( model.supportsReadCommitted() )
+		{
+			assertEquals( "blub", item.getName() );
+		}
+		else
+		{
+			assertEquals( "somenewname", item.getName() );
+		}
+		model.commit();
+		model.joinTransaction( txRollback );
+		model.rollback();
+		model.startTransaction( "check" );
+		assertEquals( "blub", item.getName() );
+	}
 	
 }

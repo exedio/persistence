@@ -516,4 +516,9 @@ public final class Model
 		return cache;
 	}
 	
+	public void clearCache()
+	{
+		cache.clear();
+	}
+	
 }

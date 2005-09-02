@@ -59,5 +59,16 @@ final class Cache
 			stateMap.keySet().removeAll( invalidatedPKs );
 		}
 	}
-	
+
+	void clear()
+	{
+		for ( int i=0; i<stateMaps.length; i++ )
+		{
+			IntKeyMap stateMap = getStateMap( i );
+			synchronized ( stateMap )
+			{
+				stateMap.clear();
+			}
+		}
+	}
 }
