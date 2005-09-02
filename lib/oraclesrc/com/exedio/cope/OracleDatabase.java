@@ -79,6 +79,11 @@ final class OracleDatabase
 		return "TIMESTAMP(3)";
 	}
 
+	protected boolean supportsEmptyStrings()
+	{
+		return false;
+	}
+
 	private String extractConstraintName(final SQLException e, final int vendorCode, final String start, final String end)
 	{
 		if(e.getErrorCode()!=vendorCode)

@@ -1000,6 +1000,11 @@ abstract class Database
 		return true;
 	}
 
+	protected boolean supportsEmptyStrings()
+	{
+		return true;
+	}
+
 	abstract String getIntegerType(int precision);
 	abstract String getDoubleType(int precision);
 	abstract String getStringType(int maxLength);

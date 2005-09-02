@@ -38,9 +38,8 @@ public class NullEmptyTest extends TestmodelTest
 		deleteOnTearDown(someItem = new EmptyItem());
 		deleteOnTearDown(item = new AttributeItem("someString", 5, 6l, 2.2, true, someItem, AttributeItem.SomeEnum.enumValue1));
 		deleteOnTearDown(item2 = new AttributeItem("someString", 5, 6l, 2.2, false, someItem, AttributeItem.SomeEnum.enumValue2));
-		// TODO: database must hide this from the user
-		final String databaseName = model.getDatabase().getClass().getName();
-		if(hsqldb||mysql)
+
+		if(model.supportsEmptyStrings())
 			emptyString = "";
 		else
 			emptyString = null;
@@ -52,7 +51,7 @@ public class NullEmptyTest extends TestmodelTest
 		assertEquals(null, item.getSomeString());
 
 		item.setSomeString("");
-		assertEquals("", item.getSomeString());
+		assertEquals("", item.getSomeString()); // TODO empty to null conversion must take effect immediately
 		restartTransaction();
 		assertEquals(emptyString, item.getSomeString());
 

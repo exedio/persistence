@@ -153,6 +153,24 @@ public final class Model
 	{
 		return database.supportsCheckConstraints();
 	}
+	
+	/**
+	 * Returns, whether the database can store empty strings.
+	 * <p>
+	 * If true, an empty string can be stored into a {@link StringAttribute}
+	 * like any other string via {@link Item#set(ObjectAttribute,Object)}.
+	 * A subsequent retrieval of that string via {@link Item#get(ObjectAttribute)}
+	 * returns an empty string.
+	 * If false, an empty string stored into a {@link StringAttribute}
+	 * converted to null, thus a subsequent retrieval of that string returns
+	 * null.
+	 * <p>
+	 * Up to now, only Oracle does not support empty strings,
+	 */
+	public final boolean supportsEmptyStrings()
+	{
+		return database.supportsEmptyStrings();
+	}
 
 	final Database getDatabase()
 	{
