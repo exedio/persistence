@@ -58,7 +58,7 @@ public class MediaServletTest extends AbstractWebTest
 		assertEquals(textLastModified, assertURL(new URL(prefix + "file/0"), textLastModified, true));
 		assertEquals(textLastModified, assertURL(new URL(prefix + "file/0"), textLastModified+5000, true));
 
-		assertEquals(textLastModified, assertURL(new URL(prefix + "file/2.unknownma.unknownmi"), "unknownma/unknownmi"));
+		assertURL(new URL(prefix + "file/2.unknownma.unknownmi"), "unknownma/unknownmi");
 
 		assertURLRedirect(new URL(prefix + "foto/0.jpg"), prefix + "photo/0.jpg");
 		assertURLRedirect(new URL(prefix + "foto/0."), prefix + "photo/0.jpg");
