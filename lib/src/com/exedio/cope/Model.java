@@ -47,7 +47,7 @@ public final class Model
 	private Database database;
 
 	private final ThreadLocal transactionThreads = new ThreadLocal();
-	private final Set openTransactions = new HashSet();
+	private final Set openTransactions = Collections.synchronizedSet( new HashSet() );
 	
 	public Model(final Type[] types)
 	{
