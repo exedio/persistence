@@ -32,5 +32,6 @@ public class AssertWithinTest extends CopeAssert
 		assertWithin(1000, date(45000), date(45000), date(45000));
 		assertWithin(1000, date(45010), date(45020), date(45000));
 		assertWithin(1000, date(45010), date(45020), date(46000));
+		assertWithin(1000, date(46000), date(46000), date(46000));
 	}
 }
