@@ -219,7 +219,14 @@ public abstract class CopeAssert extends TestCase
 		//System.out.println("FLOOR: " + df.format(expectedBefore) + " to " + df.format(expectedBeforeFloor));
 		//System.out.println("CEIL:  " + df.format(expectedAfter)  + " to " + df.format(expectedAfterCeil));
 		
-		assertWithin(expectedBeforeFloor, expectedAfterCeil, actual);
+		final SimpleDateFormat df = new SimpleDateFormat(DATE_FORMAT_FULL);
+		final String message =
+			"expected date within " + df.format(expectedBeforeFloor) + " (" + df.format(expectedBefore) + ")" +
+			" and " + df.format(expectedAfterCeil) + " (" + df.format(expectedAfter) + ")" +
+			", but was " + df.format(actual);
+
+		assertTrue(message, !expectedBeforeFloor.after(actual));
+		assertTrue(message, !expectedAfterCeil.before(actual));
 	}
 
 	protected final static void assertWithin(final Date expectedBefore, final Date expectedAfter, final Date actual)
