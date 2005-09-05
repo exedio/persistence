@@ -70,6 +70,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( CacheIsolationTest.class );
 		suite.addTestSuite( TransactionOnlyTest.class );
 
+		suite.addTest( com.exedio.cope.junit.PackageTest.suite() );
 		suite.addTest( com.exedio.cope.pattern.PackageTest.suite() );
 
 		suite.addTestSuite( PoolCounterTest.class );
