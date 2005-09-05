@@ -455,15 +455,6 @@ public final class Model
 		transactionThreads.set(transaction);
 	}
 	
-	final Transaction hop(final Transaction transaction)
-	{
-		final Transaction result = getCurrentTransaction();
-		if(result==null)
-			throw new RuntimeException();
-		setTransaction(transaction);
-		return result;
-	}
-	
 	public void rollback()
 	{
 		Transaction tx = getCurrentTransaction();

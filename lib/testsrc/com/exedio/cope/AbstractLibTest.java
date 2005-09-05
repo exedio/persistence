@@ -132,7 +132,8 @@ public abstract class AbstractLibTest extends CopeTest
 	
 	protected void activate(final Transaction transaction)
 	{
-		model.hop(transaction);
+		model.leaveTransaction();
+		model.joinTransaction( transaction );
 	}	
 }
 
