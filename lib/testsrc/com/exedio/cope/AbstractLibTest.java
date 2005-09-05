@@ -52,7 +52,7 @@ public abstract class AbstractLibTest extends CopeTest
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		hsqldb = model.getDatabase().hsqldb;
+		hsqldb = "com.exedio.cope.HsqldbDatabase".equals(model.getDatabase().getClass().getName()); 
 		mysql  = "com.exedio.cope.MysqlDatabase".equals(model.getDatabase().getClass().getName());
 	}
 	

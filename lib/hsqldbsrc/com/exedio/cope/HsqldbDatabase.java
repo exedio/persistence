@@ -67,6 +67,11 @@ final class HsqldbDatabase
 		return "timestamp";
 	}
 
+	protected boolean supportsRightOuterJoins()
+	{
+		return false;
+	}
+
 	private final String extractConstraintName(final SQLException e, final int vendorCode, final String start, final char end)
 	{
 		//System.out.println("-u-"+e.getClass()+" "+e.getCause()+" "+e.getErrorCode()+" "+e.getLocalizedMessage()+" "+e.getSQLState()+" "+e.getNextException());

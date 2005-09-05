@@ -20,6 +20,7 @@ package com.exedio.cope;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 import com.exedio.cope.search.Condition;
@@ -174,6 +175,17 @@ public final class Query
 		//System.out.println("select " + type.getJavaClass().getName() + " where " + condition);
 		if(condition!=null)
 			condition.check(this);
+
+		if(joins!=null && !model.supportsRightOuterJoins())
+		{
+			for(Iterator i = joins.iterator(); i.hasNext(); )
+			{
+				final Join join = (Join)i.next();
+				if(join.getKind()==Join.KIND_OUTER_RIGHT)
+					throw new RuntimeException("hsqldb not support right outer joins");
+			}
+		}
+
 		return Collections.unmodifiableList(model.getDatabase().search(model.getCurrentTransaction().getConnection(), this));
 	}
 	

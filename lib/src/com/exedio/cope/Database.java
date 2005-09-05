@@ -44,7 +44,6 @@ abstract class Database
 	final Driver driver;
 	private final boolean useDefineColumnTypes;
 	final ConnectionPool connectionPool;
-	final boolean hsqldb; // TODO remove hsqldb-specific stuff
 	private List expectedCalls = null;
 	
 	protected Database(final Driver driver, final Properties properties)
@@ -52,7 +51,6 @@ abstract class Database
 		this.driver = driver;
 		this.useDefineColumnTypes = this instanceof DatabaseColumnTypesDefinable;
 		this.connectionPool = new ConnectionPool(properties);
-		this.hsqldb = "com.exedio.cope.HsqldbDatabase".equals(getClass().getName()); 
 		//System.out.println("using database "+getClass());
 	}
 	
@@ -304,9 +302,6 @@ abstract class Database
 			{
 				final Join join = (Join)i.next();
 				
-				if(hsqldb && join.getKind()==Join.KIND_OUTER_RIGHT)
-					throw new RuntimeException("hsqldb not support right outer joins");
-	
 				bf.append(' ').
 					append(join.getKindString()).
 					append(" join ").
@@ -1039,6 +1034,11 @@ abstract class Database
 	}
 
 	protected boolean supportsEmptyStrings()
+	{
+		return true;
+	}
+
+	protected boolean supportsRightOuterJoins()
 	{
 		return true;
 	}

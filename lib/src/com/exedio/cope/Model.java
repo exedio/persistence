@@ -174,6 +174,11 @@ public final class Model
 		return !getProperties().getDatabaseDontSupportEmptyStrings() && database.supportsEmptyStrings();
 	}
 
+	public final boolean supportsRightOuterJoins()
+	{
+		return database.supportsRightOuterJoins();
+	}
+
 	final Database getDatabase()
 	{
 		if(database==null)
