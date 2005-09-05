@@ -22,8 +22,6 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-import com.exedio.cope.util.PoolCounterTest;
-
 public class PackageTest extends TestCase
 {
 
@@ -72,8 +70,7 @@ public class PackageTest extends TestCase
 
 		suite.addTest( com.exedio.cope.junit.PackageTest.suite() );
 		suite.addTest( com.exedio.cope.pattern.PackageTest.suite() );
-
-		suite.addTestSuite( PoolCounterTest.class );
+		suite.addTest( com.exedio.cope.util.PackageTest.suite() );
 		
 		return suite;
 	}
