@@ -35,6 +35,7 @@ public final class Properties
 	public static final String DATABASE_URL = "database.url";
 	public static final String DATABASE_USER = "database.user";
 	private static final String DATABASE_PASSWORD = "database.password";
+	public static final String DATABASE_DONT_SUPPORT_EMPTY_STRINGS = "database.dont.support.empty.strings";
 	public static final String DATADIR_PATH = "datadir.path";
 	public static final String MEDIA_ROOT_URL = "media.rooturl";
 	public static final String MEDIA_ROOT_URL_DEFAULT = "media/";
@@ -45,6 +46,7 @@ public final class Properties
 	private final String databaseUrl;
 	private final String databaseUser;
 	private final String databasePassword;
+	private final boolean databaseDontSupportEmptyStrings;
 	private final java.util.Properties databaseCustomProperties;
 
 	private final File datadirPath;
@@ -187,6 +189,8 @@ public final class Properties
 
 		final String explicitMediaRootUrl = properties.getProperty(MEDIA_ROOT_URL);
 		mediaRootUrl = explicitMediaRootUrl!=null ? explicitMediaRootUrl : MEDIA_ROOT_URL_DEFAULT;
+		
+		this.databaseDontSupportEmptyStrings = getPropertyBoolean(properties, DATABASE_DONT_SUPPORT_EMPTY_STRINGS, false);
 	}
 	
 	private final RuntimeException newNotSetException(final String key)
@@ -201,6 +205,22 @@ public final class Properties
 			throw newNotSetException(key);
 
 		return result;
+	}
+
+	private boolean getPropertyBoolean(final java.util.Properties properties, final String key, final boolean defaultValue)
+	{
+		final String s = properties.getProperty(key);
+		if(s==null)
+			return defaultValue;
+		else
+		{
+			if(s.equals("true"))
+				return true;
+			else if(s.equals("false"))
+				return false;
+			else
+				throw new RuntimeException("property "+key+" in "+source+" has invalid value, expected >true< or >false< bot got >"+s+"<.");
+		}
 	}
 
 	Database createDatabase()
@@ -246,6 +266,11 @@ public final class Properties
 	public String getDatabasePassword()
 	{
 		return databasePassword;
+	}
+	
+	public boolean getDatabaseDontSupportEmptyStrings()
+	{
+		return databaseDontSupportEmptyStrings;
 	}
 	
 	String getDatabaseCustomProperty(final String key)

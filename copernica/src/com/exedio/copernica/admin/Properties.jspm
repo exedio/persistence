@@ -65,6 +65,10 @@ final class Properties_Jspm
 				<td><%=properties.getDatabaseUser()%></td>
 			</tr>
 			<tr>
+				<th><%=properties.DATABASE_DONT_SUPPORT_EMPTY_STRINGS%></th>
+				<td><%=properties.getDatabaseDontSupportEmptyStrings()%></td>
+			</tr>
+			<tr>
 				<th><%=properties.DATADIR_PATH%></th>
 				<td><%
 				if(properties.hasDatadirPath())

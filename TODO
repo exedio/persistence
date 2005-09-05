@@ -24,8 +24,6 @@
 		* maintain charset in Content-Type for texts
 		* implement MediaAlias
 	- move Item#touch into separate pattern Timestamp
-	- disable empty strings for oracle
-		/ introduce database specific max/min length for strings
 	- analog dsmf: Datenverzeichnisse prüfen
 	- add/drop constraints:
 		* alter table "SumItem" add constraint schnappel check ("num2" is not null)

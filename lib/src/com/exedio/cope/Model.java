@@ -171,7 +171,7 @@ public final class Model
 	 */
 	public final boolean supportsEmptyStrings()
 	{
-		return database.supportsEmptyStrings();
+		return !getProperties().getDatabaseDontSupportEmptyStrings() && database.supportsEmptyStrings();
 	}
 
 	final Database getDatabase()
