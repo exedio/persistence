@@ -28,11 +28,11 @@ public class PackageTest extends TestCase
 	public static Test suite()
 	{
 		final TestSuite suite = new TestSuite();
-		suite.addTest(new TestSuite(HashTest.class));
-		suite.addTest(new TestSuite(MD5Test.class));
-		suite.addTest(new TestSuite(VectorTest.class));
-		suite.addTest(new TestSuite(MediaTest.class));
-		suite.addTest(new TestSuite(QualifierTest.class));
+		suite.addTestSuite(HashTest.class);
+		suite.addTestSuite(MD5Test.class);
+		suite.addTestSuite(VectorTest.class);
+		suite.addTestSuite(MediaTest.class);
+		suite.addTestSuite(QualifierTest.class);
 		return suite;
 	}
 

@@ -30,14 +30,14 @@ public class PackageTest extends TestCase
 	{
 		final TestSuite suite = new TestSuite();
 		
-		suite.addTest(new TestSuite(TableTest.class));
-		suite.addTest(new TestSuite(ColumnTest.class));
-		suite.addTest(new TestSuite(ConstraintTest.class));
-		suite.addTest(new TestSuite(CircleTest.class));
+		suite.addTestSuite(TableTest.class);
+		suite.addTestSuite(ColumnTest.class);
+		suite.addTestSuite(ConstraintTest.class);
+		suite.addTestSuite(CircleTest.class);
 
-		suite.addTest(new TestSuite(SQLInjectionTest.class));
+		suite.addTestSuite(SQLInjectionTest.class);
 		
-		//suite.addTest(new TestSuite(BatchTest.class));
+		//suite.addTestSuite(BatchTest.class);
 
 		return suite;
 	}
