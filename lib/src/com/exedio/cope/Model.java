@@ -506,6 +506,15 @@ public final class Model
 		}
 	}
 	
+	/**
+	 * Returns the collection of open {@link Transaction}s
+	 * on this model. 
+	 * <p>
+	 * Returns a unmodifiable synchronized view on the actual data,
+	 * so iterating over the collection on a live server may cause
+	 * {@link java.util.ConcurrentModificationException}s.
+	 * For such cases you may want to create a copy of the collection first.
+	 */
 	public Collection getOpenTransactions()
 	{
 		return Collections.unmodifiableCollection( openTransactions );
