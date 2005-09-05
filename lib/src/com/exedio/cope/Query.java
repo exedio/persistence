@@ -182,7 +182,7 @@ public final class Query
 			{
 				final Join join = (Join)i.next();
 				if(join.getKind()==Join.KIND_OUTER_RIGHT)
-					throw new RuntimeException("hsqldb not support right outer joins");
+					throw new RuntimeException("right outer joins not supported, see Model#supportsRightOuterJoins");
 			}
 		}
 

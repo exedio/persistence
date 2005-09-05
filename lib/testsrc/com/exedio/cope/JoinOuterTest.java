@@ -66,7 +66,7 @@ public class JoinOuterTest extends TestmodelTest
 				}
 				catch(RuntimeException e)
 				{
-					assertEquals("hsqldb not support right outer joins", e.getMessage());
+					assertEquals("right outer joins not supported, see Model#supportsRightOuterJoins", e.getMessage());
 				}
 			}
 			else
