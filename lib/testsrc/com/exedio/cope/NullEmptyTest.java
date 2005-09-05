@@ -36,10 +36,7 @@ public class NullEmptyTest extends TestmodelTest
 		deleteOnTearDown(item = new StringItem("NullEmptyTest"));
 
 		supports = model.supportsEmptyStrings();
-		if(supports)
-			emptyString = "";
-		else
-			emptyString = null;
+		emptyString = supports ? "" : null;
 	}
 
 	public void testNullEmpty()
