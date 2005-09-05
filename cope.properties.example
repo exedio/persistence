@@ -39,6 +39,6 @@ datadir.path=the/path/to/your/directory/for/data/files
 # Example property for the media root url
 #
 # Is needed only if the project uses Media,
-# and you want a different value, than the default "data/".
+# and you want a different value, than the default "media/".
 #
-#httpentity.rooturl=data/
+#httpentity.rooturl=media/
