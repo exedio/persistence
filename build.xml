@@ -21,7 +21,7 @@
 		<attribute name="destdir" />
 		<element name="classpath" optional="true" implicit="true" />
 		<sequential>
-			<echo message="local compile @{srcdir} to @{destdir}" />
+			<!--<echo message="local compile @{srcdir} to @{destdir}" />-->
 			<javac srcdir="@{srcdir}"
 					 destdir="@{destdir}"
 					 deprecation="on"
