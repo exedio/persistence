@@ -157,4 +157,9 @@ final class JavaAttribute
 		return initializer.toString();
 	}
 	
+	void evaluate()
+	{
+		parent.evaluate(getInitializer());
+	}
+
 }

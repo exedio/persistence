@@ -18,7 +18,14 @@
 
 package com.exedio.cope.instrument;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+
+import com.exedio.cope.Feature;
+import com.exedio.cope.Item;
 
 /**
  * Represents a class parsed by the java parser.
@@ -29,6 +36,7 @@ import java.lang.reflect.Modifier;
  */
 class JavaClass extends JavaFeature
 {
+	private HashMap features = new HashMap();
 
 	/**
 	 * @param parent may be null for non-inner classes
@@ -37,6 +45,11 @@ class JavaClass extends JavaFeature
 	throws InjectorParseException
 	{
 		super(file, parent, modifiers, null, name);
+	}
+	
+	void add(final JavaFeature f)
+	{
+		features.put(f.name, f);
 	}
 	
 	/**
@@ -111,4 +124,100 @@ class JavaClass extends JavaFeature
 		Modifier.ABSTRACT;
 	}
 	
+	private static final String NEW = "new ";
+	private static final String CLASS = ".class";
+	void evaluate(String s)
+	{
+		System.out.println("--------------evaluate-"+name+"--"+s);
+
+		s = s.trim();
+		final JavaFeature feature;
+
+		if(s.startsWith(NEW))
+		{
+			s = s.substring(NEW.length());
+			final int openParent = s.indexOf('(');
+			if(openParent<=0)
+				throw new RuntimeException(s);
+			final String newClassName = s.substring(0, openParent);
+			final Class newClass;
+			try
+			{
+				newClass = file.findType(newClassName.trim());
+			}
+			catch(InjectorParseException e)
+			{
+				throw new RuntimeException(e);
+			}
+			if(!Feature.class.isAssignableFrom(newClass))
+				throw new RuntimeException(newClass.toString());
+			final int closeParent = s.lastIndexOf(')');
+			if(closeParent<=openParent)
+				throw new RuntimeException(s);
+			s = s.substring(openParent+1, closeParent);
+			System.out.println("++"+s);
+			final ArrayList arguments = new ArrayList();
+			int lastcomma = 0;
+			for(int comma = s.indexOf(','); comma>0; comma = s.indexOf(',', lastcomma))
+			{
+				final String si = s.substring(lastcomma, comma);
+				arguments.add(si);
+				lastcomma = comma+1;
+			}
+			final String sl = s.substring(lastcomma);
+			arguments.add(sl);
+			System.out.println("------"+arguments);
+			for(Iterator i = arguments.iterator(); i.hasNext(); )
+			{
+				final String argument = (String)i.next();
+				evaluate(argument);
+			}
+		}
+		else if((feature = (JavaFeature)features.get(s))!=null)
+		{
+			if(!(feature instanceof JavaAttribute))
+				throw new RuntimeException(feature.toString());
+			final JavaAttribute a = (JavaAttribute)feature;
+			if((a.modifier & (Modifier.STATIC|Modifier.FINAL))!=(Modifier.STATIC|Modifier.FINAL))
+				throw new RuntimeException(feature.toString()+'-'+Modifier.toString(a.modifier));
+			System.out.println("----------"+feature.toString());
+			a.evaluate();
+		}
+		else if(s.endsWith(CLASS))
+		{
+			final String className = s.substring(0, s.length()-CLASS.length());
+			Class aClass;
+			try
+			{
+				aClass = file.findType(className.trim());
+			}
+			catch(InjectorParseException e)
+			{
+				aClass = Item.class;
+			}
+			System.out.println("----------"+aClass.toString());
+		}
+		else
+		{
+			try
+			{
+				final Field f = Item.class.getField(s);
+				final int m = f.getModifiers();
+				if((m & (Modifier.STATIC|Modifier.FINAL))!=(Modifier.STATIC|Modifier.FINAL))
+					throw new RuntimeException(feature.toString()+'-'+Modifier.toString(m));
+				System.out.println("----------"+f.getName());
+				final Object value = f.get(null);
+				System.out.println("----------"+value.toString());
+			}
+			catch(NoSuchFieldException e)
+			{
+				throw new RuntimeException(e);
+			}
+			catch(IllegalAccessException e)
+			{
+				throw new RuntimeException(e);
+			}
+		}
+	}
+
 }

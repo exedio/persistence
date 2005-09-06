@@ -91,6 +91,8 @@ abstract class JavaFeature
 			" not allowed for class feature "+name+
 			" of type "+getClass().getName()+'.');
 		
+		if(parent!=null)
+			parent.add(this);
 	}
 
 	/**
