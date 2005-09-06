@@ -80,13 +80,17 @@ public class ModelTest extends AbstractLibTest
 		{
 			final java.util.Properties props = (java.util.Properties)newProps.clone();
 			props.setProperty(Properties.DATABASE_USER, "zick");
+			final String source = file.getAbsolutePath()+'/'+Properties.DATABASE_USER+"=zick";
 			try
 			{
-				model.setPropertiesInitially(new Properties(props, file.getAbsolutePath()+'/'+Properties.DATABASE_USER+"=zick"));
+				model.setPropertiesInitially(new Properties(props, source));
 			}
 			catch(RuntimeException e)
 			{
-				assertEquals("inconsistent initialization for "+Properties.DATABASE_USER+", expected "+model.getProperties().getDatabaseUser()+" but got zick.", e.getMessage());
+				assertEquals(
+						"inconsistent initialization for " + Properties.DATABASE_USER +
+						" between " + model.getProperties().getSource() + " and " + source +
+						", expected "+model.getProperties().getDatabaseUser()+" but got zick.", e.getMessage());
 			}
 		}
 		{

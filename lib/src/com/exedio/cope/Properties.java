@@ -34,7 +34,7 @@ public final class Properties
 	public static final String DATABASE = "database";
 	public static final String DATABASE_URL = "database.url";
 	public static final String DATABASE_USER = "database.user";
-	private static final String DATABASE_PASSWORD = "database.password";
+	static final String DATABASE_PASSWORD = "database.password";
 	public static final String DATABASE_DONT_SUPPORT_EMPTY_STRINGS = "database.dont.support.empty.strings";
 	public static final String DATADIR_PATH = "datadir.path";
 	public static final String MEDIA_ROOT_URL = "media.rooturl";
@@ -312,10 +312,12 @@ public final class Properties
 		
 		if(!this.databaseUser.equals(other.databaseUser))
 			throw new RuntimeException(
-					"inconsistent initialization for "+DATABASE_USER+"," +
+					"inconsistent initialization for " + DATABASE_USER +
+					" between " + source + " and " + other.source + "," +
 					" expected " + this.databaseUser +
 					" but got " + other.databaseUser + '.');
 		
+		// dont put password into exception message
 		if(!this.databasePassword.equals(other.databasePassword))
 			throw new RuntimeException(
 					"inconsistent initialization for "+DATABASE_PASSWORD+".");
