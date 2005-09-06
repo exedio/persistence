@@ -42,7 +42,6 @@ import com.exedio.cope.ItemAttribute;
 class JavaClass extends JavaFeature
 {
 	private HashMap attributes = new HashMap();
-	private HashMap rtvalues = new HashMap();
 
 	/**
 	 * @param parent may be null for non-inner classes
@@ -275,16 +274,6 @@ class JavaClass extends JavaFeature
 				throw new RuntimeException(e);
 			}
 		}
-	}
-	
-	void putRtValue(final JavaAttribute attribute, final Object rtvalue)
-	{
-		rtvalues.put(rtvalue, attribute);
-	}
-	
-	final JavaAttribute getByRtValue(final Object rtvalue)
-	{
-		return (JavaAttribute)rtvalues.get(rtvalue);
 	}
 	
 	private static final Constructor findConstructor(final Class aClass, final Class[] params) throws NoSuchMethodException

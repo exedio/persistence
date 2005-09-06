@@ -25,6 +25,7 @@ final class JavaRepository
 {
 	private final ArrayList files = new ArrayList();
 	private final HashMap copeClasses = new HashMap();
+	private HashMap rtvalues = new HashMap();
 
 	void add(final JavaFile file)
 	{
@@ -52,4 +53,14 @@ final class JavaRepository
 		return result;
 	}
 
+	void putRtValue(final JavaAttribute attribute, final Object rtvalue)
+	{
+		rtvalues.put(rtvalue, attribute);
+	}
+	
+	final JavaAttribute getByRtValue(final Object rtvalue)
+	{
+		return (JavaAttribute)rtvalues.get(rtvalue);
+	}
+	
 }

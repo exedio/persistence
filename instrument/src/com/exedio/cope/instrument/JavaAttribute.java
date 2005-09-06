@@ -163,7 +163,7 @@ final class JavaAttribute
 		if(rtvalue==null)
 		{
 			rtvalue = parent.evaluate(getInitializer());
-			parent.putRtValue(this, rtvalue);
+			parent.file.repository.putRtValue(this, rtvalue);
 		}
 		
 		return rtvalue;

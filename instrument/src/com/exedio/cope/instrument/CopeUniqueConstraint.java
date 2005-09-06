@@ -62,7 +62,7 @@ final class CopeUniqueConstraint
 			for(Iterator i = rtvalue.getUniqueAttributes().iterator(); i.hasNext(); )
 			{
 				final ObjectAttribute attribute = (ObjectAttribute)i.next();
-				final JavaAttribute ja = (JavaAttribute)javaAttribute.parent.getByRtValue(attribute);
+				final JavaAttribute ja = (JavaAttribute)javaAttribute.parent.file.repository.getByRtValue(attribute);
 				rtAttributeNames.add(ja.name);
 			}
 			System.out.println("------uniqueconstraint:"+name+rtAttributeNames);
@@ -70,7 +70,7 @@ final class CopeUniqueConstraint
 		else if(rtvalueF instanceof ObjectAttribute)
 		{
 			final ObjectAttribute rtvalue = (ObjectAttribute)rtvalueF;
-			final JavaAttribute ja = (JavaAttribute)javaAttribute.parent.getByRtValue(rtvalue);
+			final JavaAttribute ja = (JavaAttribute)javaAttribute.parent.file.repository.getByRtValue(rtvalue);
 			System.out.println("------uniqueconstraint:"+name+'/'+ja.name);
 		}
 		else
