@@ -77,6 +77,19 @@ public class ModelTest extends AbstractLibTest
 				assertEquals("inconsistent initialization for "+Properties.DATABASE_URL+", expected "+model.getProperties().getDatabaseUrl()+" but got zack.", e.getMessage());
 			}
 		}
+		
+		{
+			final java.util.Properties props = (java.util.Properties)newProps.clone();
+			props.setProperty(Properties.DATABASE_USER, "zick");
+			try
+			{
+				model.setPropertiesInitially(new Properties(props, file.getAbsolutePath()+'/'+Properties.DATABASE_USER+"=zick"));
+			}
+			catch(RuntimeException e)
+			{
+				assertEquals("inconsistent initialization for "+Properties.DATABASE_USER+", expected "+model.getProperties().getDatabaseUser()+" but got zick.", e.getMessage());
+			}
+		}
 	}
 	
 	public void testType()
