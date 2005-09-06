@@ -59,6 +59,7 @@ public class ModelTest extends AbstractLibTest
 	
 	public void testSetPropertiesInitially()
 	{
+		final Properties mp = model.getProperties();
 		final Properties defaultProps = new Properties();
 		model.setPropertiesInitially(defaultProps);
 
@@ -77,8 +78,8 @@ public class ModelTest extends AbstractLibTest
 			{
 				assertEquals(
 						"inconsistent initialization for " + Properties.DATABASE_URL +
-						" between " + model.getProperties().getSource() + " and " + source +
-						", expected " + model.getProperties().getDatabaseUrl() +
+						" between " + mp.getSource() + " and " + source +
+						", expected " + mp.getDatabaseUrl() +
 						" but got zack.", e.getMessage());
 			}
 		}
@@ -94,8 +95,8 @@ public class ModelTest extends AbstractLibTest
 			{
 				assertEquals(
 						"inconsistent initialization for " + Properties.DATABASE_USER +
-						" between " + model.getProperties().getSource() + " and " + source +
-						", expected "+model.getProperties().getDatabaseUser()+" but got zick.", e.getMessage());
+						" between " + mp.getSource() + " and " + source +
+						", expected "+mp.getDatabaseUser()+" but got zick.", e.getMessage());
 			}
 		}
 		{
@@ -111,12 +112,12 @@ public class ModelTest extends AbstractLibTest
 				// dont put password into exception message
 				assertEquals(
 						"inconsistent initialization for " + Properties.DATABASE_PASSWORD +
-						" between " + model.getProperties().getSource() + " and " + source, e.getMessage());
+						" between " + mp.getSource() + " and " + source, e.getMessage());
 			}
 		}
 		{
 			final java.util.Properties props = (java.util.Properties)newProps.clone();
-			final String newValue = model.getProperties().getDatabaseDontSupportEmptyStrings()?"false":"true";
+			final String newValue = mp.getDatabaseDontSupportEmptyStrings()?"false":"true";
 			props.setProperty(Properties.DATABASE_DONT_SUPPORT_EMPTY_STRINGS, newValue);
 			final String source = file.getAbsolutePath()+'/'+Properties.DATABASE_PASSWORD+"=zock";
 			try
@@ -127,8 +128,8 @@ public class ModelTest extends AbstractLibTest
 			{
 				assertEquals(
 						"inconsistent initialization for " + Properties.DATABASE_DONT_SUPPORT_EMPTY_STRINGS +
-						" between " + model.getProperties().getSource() + " and " + source +
-						", expected " + model.getProperties().getDatabaseDontSupportEmptyStrings() +
+						" between " + mp.getSource() + " and " + source +
+						", expected " + mp.getDatabaseDontSupportEmptyStrings() +
 						" but got " + newValue + ".", e.getMessage());
 			}
 
@@ -168,8 +169,8 @@ public class ModelTest extends AbstractLibTest
 			{
 				assertEquals(
 						"inconsistent initialization for " + Properties.DATADIR_PATH +
-						" between " + model.getProperties().getSource() + " and " + source +
-						", expected " + model.getProperties().getDatadirPath() + " but got " + model.getProperties().getDatadirPath() + "/AttributeItem.", e.getMessage());
+						" between " + mp.getSource() + " and " + source +
+						", expected " + mp.getDatadirPath() + " but got " + mp.getDatadirPath() + "/AttributeItem.", e.getMessage());
 			}
 		}
 		{
@@ -184,8 +185,8 @@ public class ModelTest extends AbstractLibTest
 			{
 				assertEquals(
 						"inconsistent initialization for " + Properties.MEDIA_ROOT_URL +
-						" between " + model.getProperties().getSource() + " and " + source +
-						", expected " + model.getProperties().getMediaRootUrl() +
+						" between " + mp.getSource() + " and " + source +
+						", expected " + mp.getMediaRootUrl() +
 						" but got zosch.", e.getMessage());
 			}
 
