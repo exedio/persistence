@@ -793,14 +793,15 @@ final class Generator
 		o.write(')');
 		o.write(lineSeparator);
 		
-		writeThrowsClause(Arrays.asList(new Class[]{
-			MandatoryViolationException.class,
-			LengthViolationException.class,
-			ReadOnlyViolationException.class,
-			ClassCastException.class}));
+		writeThrowsClause(attribute.getSetterExceptions());
 
 		o.write("\t{");
 		o.write(lineSeparator);
+
+		final SortedSet exceptionsToCatch = new TreeSet(ClassComparator.getInstance());
+		exceptionsToCatch.addAll(attribute.getExceptionsToCatchInSetter());
+		exceptionsToCatch.remove(UniqueViolationException.class);
+		writeTryCatchClausePrefix(exceptionsToCatch);
 
 		o.write("\t\t");
 		o.write(qualifier.name);
@@ -815,6 +816,7 @@ final class Generator
 		o.write(");");
 		o.write(lineSeparator);
 
+		writeTryCatchClausePostfix(exceptionsToCatch);
 		o.write("\t}");
 	}
 	

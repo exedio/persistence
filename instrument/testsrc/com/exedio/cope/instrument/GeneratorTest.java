@@ -27,9 +27,7 @@ import java.lang.reflect.Modifier;
 import java.util.Arrays;
 
 import com.exedio.cope.AttributeValue;
-import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.MandatoryViolationException;
-import com.exedio.cope.ReadOnlyViolationException;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.instrument.testmodel.Qualified;
@@ -170,9 +168,9 @@ public class GeneratorTest extends InstrumentorTest
 		final Class qualifiedString = QualifiedName.class;
 		assertMethod(qualified, "getNameQualifier", new Class[]{String.class}, qualifiedString, PUBLIC|FINAL);
 		assertMethod(qualified, "getNumber", new Class[]{String.class}, Integer/*TODO:int*/.class, PUBLIC|FINAL);
-		assertMethod(qualified, "setNumber", new Class[]{String.class, Integer/*TODO:int*/.class}, PUBLIC|FINAL, new Class[]{MandatoryViolationException.class, LengthViolationException.class, ReadOnlyViolationException.class, ClassCastException.class}); // TODO: exceptions are a bug
+		assertMethod(qualified, "setNumber", new Class[]{String.class, Integer/*TODO:int*/.class}, PUBLIC|FINAL);
 		assertMethod(qualified, "getOptionalNumber", new Class[]{String.class}, Integer.class, PUBLIC|FINAL);
-		assertMethod(qualified, "setOptionalNumber", new Class[]{String.class, Integer.class}, PUBLIC|FINAL, new Class[]{MandatoryViolationException.class, LengthViolationException.class, ReadOnlyViolationException.class, ClassCastException.class}); // exceptions are a bug
+		assertMethod(qualified, "setOptionalNumber", new Class[]{String.class, Integer.class}, PUBLIC|FINAL);
 	}
 	
 	void assertField(
