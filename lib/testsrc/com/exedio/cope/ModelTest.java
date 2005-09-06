@@ -125,12 +125,35 @@ public class ModelTest extends AbstractLibTest
 			}
 			catch(RuntimeException e)
 			{
-				// dont put password into exception message
 				assertEquals(
 						"inconsistent initialization for " + Properties.DATABASE_DONT_SUPPORT_EMPTY_STRINGS +
 						" between " + model.getProperties().getSource() + " and " + source +
 						", expected " + model.getProperties().getDatabaseDontSupportEmptyStrings() +
 						" but got " + newValue + ".", e.getMessage());
+			}
+
+			props.setProperty(Properties.DATABASE_DONT_SUPPORT_EMPTY_STRINGS, "True");
+			try
+			{
+				new Properties(props, "sourceTrue");
+			}
+			catch(RuntimeException e)
+			{
+				assertEquals(
+						"property " + Properties.DATABASE_DONT_SUPPORT_EMPTY_STRINGS + " in sourceTrue has invalid value," +
+						" expected >true< or >false< bot got >True<.", e.getMessage());
+			}
+
+			props.setProperty(Properties.DATABASE_DONT_SUPPORT_EMPTY_STRINGS, "falsE");
+			try
+			{
+				new Properties(props, "sourcefalsE");
+			}
+			catch(RuntimeException e)
+			{
+				assertEquals(
+						"property " + Properties.DATABASE_DONT_SUPPORT_EMPTY_STRINGS + " in sourcefalsE has invalid value," +
+						" expected >true< or >false< bot got >falsE<.", e.getMessage());
 			}
 		}
 		{
