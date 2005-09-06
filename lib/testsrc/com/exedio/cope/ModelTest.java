@@ -124,7 +124,6 @@ public class ModelTest extends AbstractLibTest
 			}
 			catch(RuntimeException e)
 			{
-				// dont put password into exception message
 				assertEquals(
 						"inconsistent initialization for " + Properties.DATADIR_PATH +
 						" between " + model.getProperties().getSource() + " and " + source +
