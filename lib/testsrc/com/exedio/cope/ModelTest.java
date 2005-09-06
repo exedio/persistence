@@ -77,6 +77,7 @@ public class ModelTest extends AbstractLibTest
 			{
 				assertEquals(
 						"inconsistent initialization for " + Properties.DATABASE_URL +
+						" between " + model.getProperties().getSource() + " and " + source +
 						", expected " + model.getProperties().getDatabaseUrl() +
 						" but got zack.", e.getMessage());
 			}
@@ -109,8 +110,8 @@ public class ModelTest extends AbstractLibTest
 			{
 				// dont put password into exception message
 				assertEquals(
-						"inconsistent initialization for " +
-						Properties.DATABASE_PASSWORD + ".", e.getMessage());
+						"inconsistent initialization for " + Properties.DATABASE_PASSWORD +
+						" between " + model.getProperties().getSource() + " and " + source, e.getMessage());
 			}
 		}
 	}

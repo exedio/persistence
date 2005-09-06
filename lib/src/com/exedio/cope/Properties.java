@@ -300,13 +300,15 @@ public final class Properties
 	{
 		if(!this.database.equals(other.database))
 			throw new RuntimeException(
-					"inconsistent initialization for "+DATABASE+"," +
+					"inconsistent initialization for " + DATABASE +
+					" between " + source + " and " + other.source + "," +
 					" expected " + this.database.getDeclaringClass().getName() +
 					" but got " + other.database.getDeclaringClass().getName() + '.');
 
 		if(!this.databaseUrl.equals(other.databaseUrl))
 			throw new RuntimeException(
-					"inconsistent initialization for "+DATABASE_URL+"," +
+					"inconsistent initialization for " + DATABASE_URL +
+					" between " + source + " and " + other.source + "," +
 					" expected " + this.databaseUrl +
 					" but got " + other.databaseUrl + '.');
 		
@@ -320,19 +322,22 @@ public final class Properties
 		// dont put password into exception message
 		if(!this.databasePassword.equals(other.databasePassword))
 			throw new RuntimeException(
-					"inconsistent initialization for "+DATABASE_PASSWORD+".");
+					"inconsistent initialization for " + DATABASE_PASSWORD +
+					" between " + source + " and " + other.source);
 		
 		if((this.datadirPath!=null && !this.datadirPath.equals(other.datadirPath)) ||
 				(this.datadirPath==null && other.datadirPath!=null))
 			throw new RuntimeException(
-					"inconsistent initialization for " + DATADIR_PATH + "," +
+					"inconsistent initialization for " + DATADIR_PATH +
+					" between " + source + " and " + other.source + "," +
 					" expected " + this.datadirPath +
 					" but got " + other.datadirPath + '.');
 		
 		if((this.mediaRootUrl!=null && !this.mediaRootUrl.equals(other.mediaRootUrl)) ||
 				(this.mediaRootUrl==null && other.mediaRootUrl!=null))
 			throw new RuntimeException(
-					"inconsistent initialization for " + MEDIA_ROOT_URL + "," +
+					"inconsistent initialization for " + MEDIA_ROOT_URL +
+					" between " + source + " and " + other.source + "," +
 					" expected " + this.mediaRootUrl +
 					" but got " + other.mediaRootUrl + '.');
 	}
