@@ -119,11 +119,11 @@ public final class UniqueConstraint extends Feature
 		
 		//buf.append(super.toString());
 		buf.append("unique(");
-		buf.append(uniqueAttributes[0].getName());
+		buf.append(uniqueAttributes[0].toString());
 		for(int i = 1; i<uniqueAttributes.length; i++)
 		{
 			buf.append(',');
-			buf.append(uniqueAttributes[i].getName());
+			buf.append(uniqueAttributes[i].toString());
 		}
 		buf.append(')');
 		
