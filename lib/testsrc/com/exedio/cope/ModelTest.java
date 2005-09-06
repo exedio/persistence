@@ -74,7 +74,10 @@ public class ModelTest extends AbstractLibTest
 			}
 			catch(RuntimeException e)
 			{
-				assertEquals("inconsistent initialization for "+Properties.DATABASE_URL+", expected "+model.getProperties().getDatabaseUrl()+" but got zack.", e.getMessage());
+				assertEquals(
+						"inconsistent initialization for " + Properties.DATABASE_URL +
+						", expected " + model.getProperties().getDatabaseUrl() +
+						" but got zack.", e.getMessage());
 			}
 		}
 		{
@@ -103,7 +106,9 @@ public class ModelTest extends AbstractLibTest
 			catch(RuntimeException e)
 			{
 				// dont put password into exception message
-				assertEquals("inconsistent initialization for "+Properties.DATABASE_PASSWORD+".", e.getMessage());
+				assertEquals(
+						"inconsistent initialization for " +
+						Properties.DATABASE_PASSWORD + ".", e.getMessage());
 			}
 		}
 	}
