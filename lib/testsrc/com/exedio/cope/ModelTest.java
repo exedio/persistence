@@ -68,9 +68,10 @@ public class ModelTest extends AbstractLibTest
 		{
 			final java.util.Properties props = (java.util.Properties)newProps.clone();
 			props.setProperty(Properties.DATABASE_URL, "zack");
+			final String source = file.getAbsolutePath()+'/'+Properties.DATABASE_URL+"=zack";
 			try
 			{
-				model.setPropertiesInitially(new Properties(props, file.getAbsolutePath()+'/'+Properties.DATABASE_URL+"=zack"));
+				model.setPropertiesInitially(new Properties(props, source));
 			}
 			catch(RuntimeException e)
 			{
@@ -99,9 +100,10 @@ public class ModelTest extends AbstractLibTest
 		{
 			final java.util.Properties props = (java.util.Properties)newProps.clone();
 			props.setProperty(Properties.DATABASE_PASSWORD, "zock");
+			final String source = file.getAbsolutePath()+'/'+Properties.DATABASE_PASSWORD+"=zock";
 			try
 			{
-				model.setPropertiesInitially(new Properties(props, file.getAbsolutePath()+'/'+Properties.DATABASE_PASSWORD+"=zock"));
+				model.setPropertiesInitially(new Properties(props, source));
 			}
 			catch(RuntimeException e)
 			{
