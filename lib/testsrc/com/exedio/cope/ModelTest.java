@@ -130,6 +130,23 @@ public class ModelTest extends AbstractLibTest
 						", expected " + model.getProperties().getDatadirPath() + " but got " + model.getProperties().getDatadirPath() + "/AttributeItem.", e.getMessage());
 			}
 		}
+		{
+			final java.util.Properties props = (java.util.Properties)newProps.clone();
+			props.setProperty(Properties.MEDIA_ROOT_URL, "zosch");
+			final String source = file.getAbsolutePath()+'/'+Properties.MEDIA_ROOT_URL+"=zosch";
+			try
+			{
+				model.setPropertiesInitially(new Properties(props, source));
+			}
+			catch(RuntimeException e)
+			{
+				assertEquals(
+						"inconsistent initialization for " + Properties.MEDIA_ROOT_URL +
+						" between " + model.getProperties().getSource() + " and " + source +
+						", expected " + model.getProperties().getMediaRootUrl() +
+						" but got zosch.", e.getMessage());
+			}
+		}
 	}
 	
 	public void testType()
