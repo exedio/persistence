@@ -333,8 +333,7 @@ public final class Properties
 					" expected " + this.datadirPath +
 					" but got " + other.datadirPath + '.');
 		
-		if((this.mediaRootUrl!=null && !this.mediaRootUrl.equals(other.mediaRootUrl)) ||
-				(this.mediaRootUrl==null && other.mediaRootUrl!=null))
+		if(!this.mediaRootUrl.equals(other.mediaRootUrl))
 			throw new RuntimeException(
 					"inconsistent initialization for " + MEDIA_ROOT_URL +
 					" between " + source + " and " + other.source + "," +
