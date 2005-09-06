@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import java.io.File;
 import java.util.Arrays;
 
 import com.exedio.cope.testmodel.AttributeItem;
@@ -53,6 +54,28 @@ public class ModelTest extends AbstractLibTest
 		else
 		{
 			fail( model.getDatabase().getClass().getName() );
+		}
+	}
+	
+	public void testSetPropertiesInitially()
+	{
+		final Properties defaultProps = new Properties();
+		model.setPropertiesInitially(defaultProps);
+
+		final File file = new File(defaultProps.getSource());
+		final java.util.Properties newProps = Properties.loadProperties(file);
+		
+		{
+			final java.util.Properties props = (java.util.Properties)newProps.clone();
+			props.setProperty(Properties.DATABASE_URL, "zack");
+			try
+			{
+				model.setPropertiesInitially(new Properties(props, file.getAbsolutePath()+'/'+Properties.DATABASE_URL+"=zack"));
+			}
+			catch(RuntimeException e)
+			{
+				assertEquals("inconsistent initialization for "+Properties.DATABASE_URL+", expected "+model.getProperties().getDatabaseUrl()+" but got zack.", e.getMessage());
+			}
 		}
 	}
 	
