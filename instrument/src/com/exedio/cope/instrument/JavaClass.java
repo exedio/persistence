@@ -18,14 +18,19 @@
 
 package com.exedio.cope.instrument;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import com.exedio.cope.EnumAttribute;
+import com.exedio.cope.EnumValue;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
+import com.exedio.cope.ItemAttribute;
 
 /**
  * Represents a class parsed by the java parser.
@@ -128,9 +133,13 @@ class JavaClass extends JavaFeature
 		Modifier.ABSTRACT;
 	}
 	
+
+	
 	private static final String NEW = "new ";
 	private static final String CLASS = ".class";
-	void evaluate(String s)
+	private static final Object ANY_CLASS = new Object(){public String toString(){return "ANY_CLASS";}};
+	
+	Object evaluate(String s)
 	{
 		System.out.println("--------------evaluate-"+name+"--"+s);
 
@@ -171,10 +180,54 @@ class JavaClass extends JavaFeature
 			final String sl = s.substring(lastcomma);
 			arguments.add(sl);
 			System.out.println("------"+arguments);
-			for(Iterator i = arguments.iterator(); i.hasNext(); )
+			final Object[] argumentObjects = new Object[arguments.size()];
+			final Class[] argumentClasses = new Class[arguments.size()];
+			int j = 0;
+			for(Iterator i = arguments.iterator(); i.hasNext(); j++)
 			{
 				final String argument = (String)i.next();
-				evaluate(argument);
+				final Object argumentValue = evaluate(argument);
+				argumentObjects[j] = argumentValue;
+				argumentClasses[j] = argumentValue==ANY_CLASS ? Class.class : argumentObjects[j].getClass();
+			}
+			final Constructor constructor;
+			try
+			{
+				constructor = findConstructor(newClass, argumentClasses);
+			}
+			catch(NoSuchMethodException e)
+			{
+				throw new RuntimeException(e);
+			}
+			
+			for(int i = 0; i<argumentClasses.length; i++)
+			{
+				if(argumentObjects[i]==ANY_CLASS)
+				{
+					if(newClass==EnumAttribute.class)
+						argumentObjects[i] = EnumValue.class;
+					else if(newClass==ItemAttribute.class)
+						argumentObjects[i] = Item.class;
+					else
+						throw new RuntimeException(newClass.toString());
+				}
+			}
+			
+			try
+			{
+				return constructor.newInstance(argumentObjects);
+			}
+			catch(InstantiationException e)
+			{
+				throw new RuntimeException(e);
+			}
+			catch(InvocationTargetException e)
+			{
+				throw new RuntimeException(e.getTargetException());
+			}
+			catch(IllegalAccessException e)
+			{
+				throw new RuntimeException(e);
 			}
 		}
 		else if((feature = (JavaFeature)attributes.get(s))!=null)
@@ -185,21 +238,19 @@ class JavaClass extends JavaFeature
 			if((a.modifier & (Modifier.STATIC|Modifier.FINAL))!=(Modifier.STATIC|Modifier.FINAL))
 				throw new RuntimeException(feature.toString()+'-'+Modifier.toString(a.modifier));
 			System.out.println("----------"+feature.toString());
-			a.evaluate();
+			return a.evaluate();
 		}
 		else if(s.endsWith(CLASS))
 		{
 			final String className = s.substring(0, s.length()-CLASS.length());
-			Class aClass;
 			try
 			{
-				aClass = file.findType(className.trim());
+				return file.findType(className.trim());
 			}
 			catch(InjectorParseException e)
 			{
-				aClass = Item.class;
+				return ANY_CLASS;
 			}
-			System.out.println("----------"+aClass.toString());
 		}
 		else
 		{
@@ -212,6 +263,7 @@ class JavaClass extends JavaFeature
 				System.out.println("----------"+f.getName());
 				final Object value = f.get(null);
 				System.out.println("----------"+value.toString());
+				return value;
 			}
 			catch(NoSuchFieldException e)
 			{
@@ -222,6 +274,40 @@ class JavaClass extends JavaFeature
 				throw new RuntimeException(e);
 			}
 		}
+	}
+	
+	private static final Constructor findConstructor(final Class aClass, final Class[] params) throws NoSuchMethodException
+	{
+		final int paramsLength = params.length;
+		final Constructor[] all = aClass.getConstructors();
+		Constructor result = null;
+		
+		System.out.println("------------"+params);
+		constructorloop:
+		for(int i = 0; i<all.length; i++)
+		{
+			final Constructor c = all[i];
+			System.out.println("--------------"+c);
+			final Class[] currentParams = c.getParameterTypes();
+			if(paramsLength!=currentParams.length)
+				continue;
+
+			for(int j = 0; j<paramsLength; j++)
+			{
+				if(!currentParams[j].isAssignableFrom(params[j]))
+					continue constructorloop;
+			}
+			if(result!=null)
+				throw new RuntimeException("ambigous constructor");
+			result = c;
+		}
+		if(result==null)
+		{
+			aClass.getConstructor(params);
+			throw new RuntimeException(); // must not happen
+		}
+		
+		return result;
 	}
 
 }
