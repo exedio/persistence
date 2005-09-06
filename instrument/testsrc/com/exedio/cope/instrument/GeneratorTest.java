@@ -169,6 +169,8 @@ public class GeneratorTest extends InstrumentorTest
 		final Class qualified = Qualified.class;
 		final Class qualifiedString = QualifiedString.class;
 		assertMethod(qualified, "getEmptyItem", new Class[]{String.class}, qualifiedString, PUBLIC|FINAL);
+		assertMethod(qualified, "getInteger", new Class[]{String.class}, Integer/*TODO:int*/.class, PUBLIC|FINAL);
+		assertMethod(qualified, "setInteger", new Class[]{String.class, Integer/*TODO:int*/.class}, PUBLIC|FINAL, new Class[]{MandatoryViolationException.class, LengthViolationException.class, ReadOnlyViolationException.class, ClassCastException.class}); // TODO: exceptions are a bug
 		assertMethod(qualified, "getOptionalInteger", new Class[]{String.class}, Integer.class, PUBLIC|FINAL);
 		assertMethod(qualified, "setOptionalInteger", new Class[]{String.class, Integer.class}, PUBLIC|FINAL, new Class[]{MandatoryViolationException.class, LengthViolationException.class, ReadOnlyViolationException.class, ClassCastException.class}); // exceptions are a bug
 	}
