@@ -72,10 +72,10 @@ final class CopeQualifier
 	
 	void show() // TODO remove
 	{
-		System.out.println("------qualifier:"+name+'/'+uniqueConstraint.name);
+		System.out.println("------qualifier:"+name+'/'+uniqueConstraint.javaAttribute.parent.name+'.'+uniqueConstraint.name);
 		final Qualifier rtvalue = (Qualifier)javaAttribute.evaluate();
 		final JavaAttribute uniqueAttr = (JavaAttribute)javaAttribute.parent.file.repository.getByRtValue(rtvalue.getQualifyUnique());
-		System.out.println("------qualifier:"+name+'/'+uniqueAttr.name);
+		System.out.println("------qualifier:"+name+'/'+uniqueAttr.parent.name+'.'+uniqueAttr.name);
 		System.out.println("------");
 	}
 
