@@ -18,6 +18,12 @@
 
 package com.exedio.cope.instrument;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
+import com.exedio.cope.ObjectAttribute;
+import com.exedio.cope.UniqueConstraint;
+
 
 final class CopeUniqueConstraint
 {
@@ -37,7 +43,11 @@ final class CopeUniqueConstraint
 		final CopeClass copeClass = CopeClass.getCopeClass(copeAttributes[0].javaAttribute.parent);
 		copeClass.add(this);
 
-		/*
+		//show(javaAttribute);
+	}
+	
+	private void show(final JavaAttribute javaAttribute)
+	{
 		final ArrayList xAttributeNames = new ArrayList();
 		for(int i = 0; i<copeAttributes.length; i++)
 			xAttributeNames.add(copeAttributes[i].javaAttribute.name);
@@ -52,7 +62,6 @@ final class CopeUniqueConstraint
 			rtAttributeNames.add(ja.name);
 		}
 		System.out.println("------uniqueconstraint:"+name+rtAttributeNames);
-		*/
 	}
 	
 	/**
