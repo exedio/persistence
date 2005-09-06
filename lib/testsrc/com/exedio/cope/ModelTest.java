@@ -114,6 +114,23 @@ public class ModelTest extends AbstractLibTest
 						" between " + model.getProperties().getSource() + " and " + source, e.getMessage());
 			}
 		}
+		{
+			final java.util.Properties props = (java.util.Properties)newProps.clone();
+			props.setProperty(Properties.DATADIR_PATH, props.getProperty(Properties.DATADIR_PATH)+"/AttributeItem");
+			final String source = file.getAbsolutePath()+'/'+Properties.DATADIR_PATH+"=/AttributeItem";
+			try
+			{
+				model.setPropertiesInitially(new Properties(props, source));
+			}
+			catch(RuntimeException e)
+			{
+				// dont put password into exception message
+				assertEquals(
+						"inconsistent initialization for " + Properties.DATADIR_PATH +
+						" between " + model.getProperties().getSource() + " and " + source +
+						", expected " + model.getProperties().getDatadirPath() + " but got " + model.getProperties().getDatadirPath() + "/AttributeItem.", e.getMessage());
+			}
+		}
 	}
 	
 	public void testType()
