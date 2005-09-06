@@ -18,6 +18,7 @@
 
 package com.exedio.cope.instrument;
 
+
 final class CopeUniqueConstraint
 {
 	final String name;
@@ -36,7 +37,22 @@ final class CopeUniqueConstraint
 		final CopeClass copeClass = CopeClass.getCopeClass(copeAttributes[0].javaAttribute.parent);
 		copeClass.add(this);
 
-		//javaAttribute.evaluate();
+		/*
+		final ArrayList xAttributeNames = new ArrayList();
+		for(int i = 0; i<copeAttributes.length; i++)
+			xAttributeNames.add(copeAttributes[i].javaAttribute.name);
+		System.out.println("------uniqueconstraint:"+name+xAttributeNames);
+
+		final UniqueConstraint rtvalue = (UniqueConstraint)javaAttribute.evaluate();
+		final ArrayList rtAttributeNames = new ArrayList();
+		for(Iterator i = rtvalue.getUniqueAttributes().iterator(); i.hasNext(); )
+		{
+			final ObjectAttribute attribute = (ObjectAttribute)i.next();
+			final JavaAttribute ja = (JavaAttribute)javaAttribute.parent.getByRtValue(attribute);
+			rtAttributeNames.add(ja.name);
+		}
+		System.out.println("------uniqueconstraint:"+name+rtAttributeNames);
+		*/
 	}
 	
 	/**

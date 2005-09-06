@@ -42,6 +42,7 @@ import com.exedio.cope.ItemAttribute;
 class JavaClass extends JavaFeature
 {
 	private HashMap attributes = new HashMap();
+	private HashMap rtvalues = new HashMap();
 
 	/**
 	 * @param parent may be null for non-inner classes
@@ -141,7 +142,7 @@ class JavaClass extends JavaFeature
 	
 	Object evaluate(String s)
 	{
-		System.out.println("--------------evaluate-"+name+"--"+s);
+		//System.out.println("--------------evaluate-"+name+"--"+s);
 
 		s = s.trim();
 		final JavaFeature feature;
@@ -168,7 +169,7 @@ class JavaClass extends JavaFeature
 			if(closeParent<=openParent)
 				throw new RuntimeException(s);
 			s = s.substring(openParent+1, closeParent);
-			System.out.println("++"+s);
+			//System.out.println("++"+s);
 			final ArrayList arguments = new ArrayList();
 			int lastcomma = 0;
 			for(int comma = s.indexOf(','); comma>0; comma = s.indexOf(',', lastcomma))
@@ -179,7 +180,7 @@ class JavaClass extends JavaFeature
 			}
 			final String sl = s.substring(lastcomma);
 			arguments.add(sl);
-			System.out.println("------"+arguments);
+			//System.out.println("------"+arguments);
 			final Object[] argumentObjects = new Object[arguments.size()];
 			final Class[] argumentClasses = new Class[arguments.size()];
 			int j = 0;
@@ -237,7 +238,7 @@ class JavaClass extends JavaFeature
 			final JavaAttribute a = (JavaAttribute)feature;
 			if((a.modifier & (Modifier.STATIC|Modifier.FINAL))!=(Modifier.STATIC|Modifier.FINAL))
 				throw new RuntimeException(feature.toString()+'-'+Modifier.toString(a.modifier));
-			System.out.println("----------"+feature.toString());
+			//System.out.println("----------"+feature.toString());
 			return a.evaluate();
 		}
 		else if(s.endsWith(CLASS))
@@ -260,9 +261,9 @@ class JavaClass extends JavaFeature
 				final int m = f.getModifiers();
 				if((m & (Modifier.STATIC|Modifier.FINAL))!=(Modifier.STATIC|Modifier.FINAL))
 					throw new RuntimeException(feature.toString()+'-'+Modifier.toString(m));
-				System.out.println("----------"+f.getName());
+				//System.out.println("----------"+f.getName());
 				final Object value = f.get(null);
-				System.out.println("----------"+value.toString());
+				//System.out.println("----------"+value.toString());
 				return value;
 			}
 			catch(NoSuchFieldException e)
@@ -276,18 +277,28 @@ class JavaClass extends JavaFeature
 		}
 	}
 	
+	void putRtValue(final JavaAttribute attribute, final Object rtvalue)
+	{
+		rtvalues.put(rtvalue, attribute);
+	}
+	
+	final JavaAttribute getByRtValue(final Object rtvalue)
+	{
+		return (JavaAttribute)rtvalues.get(rtvalue);
+	}
+	
 	private static final Constructor findConstructor(final Class aClass, final Class[] params) throws NoSuchMethodException
 	{
 		final int paramsLength = params.length;
 		final Constructor[] all = aClass.getConstructors();
 		Constructor result = null;
 		
-		System.out.println("------------"+params);
+		//System.out.println("------------"+params);
 		constructorloop:
 		for(int i = 0; i<all.length; i++)
 		{
 			final Constructor c = all[i];
-			System.out.println("--------------"+c);
+			//System.out.println("--------------"+c);
 			final Class[] currentParams = c.getParameterTypes();
 			if(paramsLength!=currentParams.length)
 				continue;

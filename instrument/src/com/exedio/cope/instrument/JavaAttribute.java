@@ -34,6 +34,7 @@ final class JavaAttribute
 	extends JavaFeature
 	implements TokenConsumer
 {
+	private Object rtvalue = null;
 
 	JavaAttribute(
 		JavaClass parent,
@@ -159,7 +160,13 @@ final class JavaAttribute
 	
 	Object evaluate()
 	{
-		return parent.evaluate(getInitializer());
+		if(rtvalue==null)
+		{
+			rtvalue = parent.evaluate(getInitializer());
+			parent.putRtValue(this, rtvalue);
+		}
+		
+		return rtvalue;
 	}
 
 }
