@@ -67,6 +67,7 @@ final class Generator
 	private static final String TOUCHER = "Sets the current date for the date attribute {0}.";
 	private static final String FINDER_UNIQUE = "Finds a {0} by it''s unique attributes.";
 	private static final String FINDER_UNIQUE_PARAMETER = "shall be equal to attribute {0}.";
+	private static final String FINDER_UNIQUE_RETURN = "null if there is no matching item.";
 	private static final String QUALIFIER = "Returns the qualifier.";
 	private static final String QUALIFIER_GETTER = "Returns the qualifier.";
 	private static final String QUALIFIER_SETTER = "Sets the qualifier.";
@@ -597,6 +598,10 @@ final class Generator
 			o.write(format(FINDER_UNIQUE_PARAMETER, link(copeAttributes[i].getName())));
 			o.write(lineSeparator);
 		}
+		o.write("\t * @return ");
+		o.write(FINDER_UNIQUE_RETURN);
+		o.write(lineSeparator);
+
 		writeCommentFooter();
 		o.write(Modifier.toString((constraint.modifier & (Modifier.PRIVATE|Modifier.PROTECTED|Modifier.PUBLIC)) | (Modifier.STATIC|Modifier.FINAL) ));
 		o.write(' ');

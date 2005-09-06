@@ -207,6 +207,7 @@ public class QualifiedIntegerEnumQualifier extends Item
 	 * @param up shall be equal to attribute {@link #up}.
 	 * @param keyX shall be equal to attribute {@link #keyX}.
 	 * @param keyY shall be equal to attribute {@link #keyY}.
+	 * @return null if there is no matching item.
 	 *
  */public static final QualifiedIntegerEnumQualifier findByQualifyUnique(final QualifiedItem up,final int keyX,final KeyEnum keyY)
 	{
