@@ -75,6 +75,8 @@ final class CopeUniqueConstraint
 		}
 		else
 			throw new RuntimeException(rtvalueF.toString());
+		
+		System.out.println("------");
 	}
 	
 	/**
