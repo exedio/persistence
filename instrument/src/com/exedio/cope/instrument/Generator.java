@@ -582,6 +582,8 @@ final class Generator
 	private void writeUniqueFinder(final CopeUniqueConstraint constraint)
 	throws IOException
 	{
+		//constraint.show();
+
 		final CopeAttribute[] copeAttributes = constraint.copeAttributes;
 		final String className = copeAttributes[0].getParent().name;
 		

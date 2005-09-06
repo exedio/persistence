@@ -21,12 +21,14 @@ package com.exedio.cope.instrument;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import com.exedio.cope.Feature;
 import com.exedio.cope.ObjectAttribute;
 import com.exedio.cope.UniqueConstraint;
 
 
 final class CopeUniqueConstraint
 {
+	final JavaAttribute javaAttribute;
 	final String name;
 	final int modifier;
 	final CopeAttribute[] copeAttributes;
@@ -36,32 +38,35 @@ final class CopeUniqueConstraint
 	 */
 	CopeUniqueConstraint(final JavaAttribute javaAttribute, final CopeAttribute[] copeAttributes)
 	{
+		this.javaAttribute = javaAttribute;
 		this.name = javaAttribute.name;
 		this.modifier = javaAttribute.modifier;
 		this.copeAttributes = copeAttributes;
 
 		final CopeClass copeClass = CopeClass.getCopeClass(copeAttributes[0].javaAttribute.parent);
 		copeClass.add(this);
-
-		//show(javaAttribute);
 	}
 	
-	private void show(final JavaAttribute javaAttribute) // TODO remove
+	void show() // TODO remove
 	{
 		final ArrayList xAttributeNames = new ArrayList();
 		for(int i = 0; i<copeAttributes.length; i++)
 			xAttributeNames.add(copeAttributes[i].javaAttribute.name);
 		System.out.println("------uniqueconstraint:"+name+xAttributeNames);
 
-		final UniqueConstraint rtvalue = (UniqueConstraint)javaAttribute.evaluate();
-		final ArrayList rtAttributeNames = new ArrayList();
-		for(Iterator i = rtvalue.getUniqueAttributes().iterator(); i.hasNext(); )
+		final Feature rtvalueF = (Feature)javaAttribute.evaluate();
+		if(rtvalueF instanceof UniqueConstraint)
 		{
-			final ObjectAttribute attribute = (ObjectAttribute)i.next();
-			final JavaAttribute ja = (JavaAttribute)javaAttribute.parent.getByRtValue(attribute);
-			rtAttributeNames.add(ja.name);
+			final UniqueConstraint rtvalue = (UniqueConstraint)rtvalueF;
+			final ArrayList rtAttributeNames = new ArrayList();
+			for(Iterator i = rtvalue.getUniqueAttributes().iterator(); i.hasNext(); )
+			{
+				final ObjectAttribute attribute = (ObjectAttribute)i.next();
+				final JavaAttribute ja = (JavaAttribute)javaAttribute.parent.getByRtValue(attribute);
+				rtAttributeNames.add(ja.name);
+			}
+			System.out.println("------uniqueconstraint:"+name+rtAttributeNames);
 		}
-		System.out.println("------uniqueconstraint:"+name+rtAttributeNames);
 	}
 	
 	/**
@@ -69,6 +74,7 @@ final class CopeUniqueConstraint
 	 */
 	CopeUniqueConstraint(final CopeAttribute copeAttribute)
 	{
+		this.javaAttribute = copeAttribute.javaAttribute;
 		this.name = copeAttribute.getName();
 		this.modifier = copeAttribute.javaAttribute.modifier;
 		this.copeAttributes = new CopeAttribute[]{copeAttribute};
