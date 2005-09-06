@@ -36,7 +36,7 @@ import com.exedio.cope.Item;
  */
 class JavaClass extends JavaFeature
 {
-	private HashMap features = new HashMap();
+	private HashMap attributes = new HashMap();
 
 	/**
 	 * @param parent may be null for non-inner classes
@@ -49,7 +49,11 @@ class JavaClass extends JavaFeature
 	
 	void add(final JavaFeature f)
 	{
-		features.put(f.name, f);
+		if(!(f instanceof JavaAttribute))
+			return;
+		
+		if(attributes.put(f.name, f)!=null)
+			throw new RuntimeException(name+'/'+f.name);
 	}
 	
 	/**
@@ -173,7 +177,7 @@ class JavaClass extends JavaFeature
 				evaluate(argument);
 			}
 		}
-		else if((feature = (JavaFeature)features.get(s))!=null)
+		else if((feature = (JavaFeature)attributes.get(s))!=null)
 		{
 			if(!(feature instanceof JavaAttribute))
 				throw new RuntimeException(feature.toString());
