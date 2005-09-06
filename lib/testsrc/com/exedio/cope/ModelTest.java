@@ -146,9 +146,7 @@ public class ModelTest extends AbstractLibTest
 						", expected " + model.getProperties().getMediaRootUrl() +
 						" but got zosch.", e.getMessage());
 			}
-		}
-		{
-			final java.util.Properties props = (java.util.Properties)newProps.clone();
+
 			props.remove(Properties.MEDIA_ROOT_URL);
 			assertEquals(Properties.MEDIA_ROOT_URL_DEFAULT, new Properties(props, "source").getMediaRootUrl());
 
