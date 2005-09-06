@@ -518,7 +518,7 @@ public final class Type
 	}
 	
 	/**
-	 * @return null if there is no item matching the condition
+	 * @return null if there is no item matching the condition.
 	 */
 	final Item searchUnique(final Condition condition)
 	{
