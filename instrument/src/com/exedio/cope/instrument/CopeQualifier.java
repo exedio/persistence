@@ -19,8 +19,11 @@ package com.exedio.cope.instrument;
 
 import java.util.List;
 
+import com.exedio.cope.pattern.Qualifier;
+
 final class CopeQualifier
 {
+	final JavaAttribute javaAttribute;
 	final String name;
 	final String qualifierClassString;
 
@@ -29,10 +32,11 @@ final class CopeQualifier
 
 	final CopeAttribute[] keyAttributes;
 
-	public CopeQualifier(final String name, final CopeClass copeClass, final List initializerArguments)
+	public CopeQualifier(final JavaAttribute javaAttribute, final CopeClass copeClass, final List initializerArguments)
 		throws InjectorParseException
 	{
-		this.name = name;
+		this.javaAttribute = javaAttribute;
+		this.name = javaAttribute.name;
 		if(initializerArguments.size()!=1)
 			throw new InjectorParseException("Qualifier must have 1 argument, but has "+initializerArguments);
 		final String uniqueConstraintString = (String)initializerArguments.get(0);
@@ -64,6 +68,15 @@ final class CopeQualifier
 			this.keyAttributes[i] = uniqueAttributes[i+1];
 
 		copeClass.add(this);
+	}
+	
+	void show() // TODO remove
+	{
+		System.out.println("------qualifier:"+name+'/'+uniqueConstraint.name);
+		final Qualifier rtvalue = (Qualifier)javaAttribute.evaluate();
+		final JavaAttribute uniqueAttr = (JavaAttribute)javaAttribute.parent.file.repository.getByRtValue(rtvalue.getQualifyUnique());
+		System.out.println("------qualifier:"+name+'/'+uniqueAttr.name);
+		System.out.println("------");
 	}
 
 }

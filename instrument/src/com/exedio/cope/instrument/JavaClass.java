@@ -254,24 +254,34 @@ class JavaClass extends JavaFeature
 		}
 		else
 		{
-			try
+			final int dot = s.indexOf('.');
+			if(dot>=0)
 			{
-				final Field f = Item.class.getField(s);
-				final int m = f.getModifiers();
-				if((m & (Modifier.STATIC|Modifier.FINAL))!=(Modifier.STATIC|Modifier.FINAL))
-					throw new RuntimeException(feature.toString()+'-'+Modifier.toString(m));
-				//System.out.println("----------"+f.getName());
-				final Object value = f.get(null);
-				//System.out.println("----------"+value.toString());
-				return value;
+				final String className = s.substring(0, dot);
+				final CopeClass aClass = file.repository.getCopeClass(className);
+				return aClass.javaClass.evaluate(s.substring(dot+1));
 			}
-			catch(NoSuchFieldException e)
+			else
 			{
-				throw new RuntimeException(e);
-			}
-			catch(IllegalAccessException e)
-			{
-				throw new RuntimeException(e);
+				try
+				{
+					final Field f = Item.class.getField(s);
+					final int m = f.getModifiers();
+					if((m & (Modifier.STATIC|Modifier.FINAL))!=(Modifier.STATIC|Modifier.FINAL))
+						throw new RuntimeException(feature.toString()+'-'+Modifier.toString(m));
+					//System.out.println("----------"+f.getName());
+					final Object value = f.get(null);
+					//System.out.println("----------"+value.toString());
+					return value;
+				}
+				catch(NoSuchFieldException e)
+				{
+					throw new RuntimeException(e);
+				}
+				catch(IllegalAccessException e)
+				{
+					throw new RuntimeException(e);
+				}
 			}
 		}
 	}
