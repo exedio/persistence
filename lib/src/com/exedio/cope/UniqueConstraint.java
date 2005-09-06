@@ -131,6 +131,10 @@ public final class UniqueConstraint extends Feature
 		return toStringCache;
 	}
 	
+	/**
+	 * Finds an item by it's unique attributes.
+	 * @return null if there is no matching item
+	 */
 	public final Item searchUnique(final Object[] values)
 	{
 		// TODO: search nativly for unique constraints

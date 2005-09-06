@@ -132,7 +132,11 @@ public abstract class ObjectAttribute
 	{
 		return singleUniqueConstraint;
 	}
-	
+
+	/**
+	 * Finds an item by it's unique attributes.
+	 * @return null if there is no matching item
+	 */
 	public final Item searchUnique(final Object value)
 	{
 		// TODO: search nativly for unique constraints

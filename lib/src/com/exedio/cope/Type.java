@@ -517,6 +517,9 @@ public final class Type
 		return query.search();
 	}
 	
+	/**
+	 * @return null if there is no item matching the condition
+	 */
 	final Item searchUnique(final Condition condition)
 	{
 		final Iterator searchResult = search(condition).iterator();
