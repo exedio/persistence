@@ -431,7 +431,9 @@
 			<filelist dir="instrument/testsrc/com/exedio/cope/instrument/testmodel" files="
 				Standard.java,
 				TypePrivate.java,
-				TypeNone.java" />
+				TypeNone.java,
+				QualifiedString.java,
+				Qualified.java" />
 		</instrument>
 	</target>
 	

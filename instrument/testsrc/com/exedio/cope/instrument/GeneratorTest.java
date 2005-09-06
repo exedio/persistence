@@ -27,9 +27,13 @@ import java.lang.reflect.Modifier;
 import java.util.Arrays;
 
 import com.exedio.cope.AttributeValue;
+import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.MandatoryViolationException;
+import com.exedio.cope.ReadOnlyViolationException;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueViolationException;
+import com.exedio.cope.instrument.testmodel.Qualified;
+import com.exedio.cope.instrument.testmodel.QualifiedString;
 import com.exedio.cope.instrument.testmodel.Standard;
 import com.exedio.cope.instrument.testmodel.TypeNone;
 import com.exedio.cope.instrument.testmodel.TypePrivate;
@@ -159,6 +163,15 @@ public class GeneratorTest extends InstrumentorTest
 		assertMethod(typePrivate, "setDefaultString", new Class[]{String.class}, PUBLIC|FINAL);
 		assertField(typePrivate, "TYPE", Type.class, PRIVATE|STATIC|FINAL);
 	}
+
+	public void testQualified() throws ClassNotFoundException
+	{
+		final Class qualified = Qualified.class;
+		final Class qualifiedString = QualifiedString.class;
+		assertMethod(qualified, "getEmptyItem", new Class[]{String.class}, qualifiedString, PUBLIC|FINAL);
+		assertMethod(qualified, "getOptionalInteger", new Class[]{String.class}, Integer.class, PUBLIC|FINAL);
+		assertMethod(qualified, "setOptionalInteger", new Class[]{String.class, Integer.class}, PUBLIC|FINAL, new Class[]{MandatoryViolationException.class, LengthViolationException.class, ReadOnlyViolationException.class, ClassCastException.class}); // exceptions are a bug
+	}
 	
 	void assertField(
 			final Class javaClass, final String name,
@@ -176,7 +189,7 @@ public class GeneratorTest extends InstrumentorTest
 		assertEquals(returnType, field.getType());
 		assertEquals(modifiers, field.getModifiers());
 	}
-
+	
 	void assertNoField(final Class javaClass, final String name)
 	{
 		try
