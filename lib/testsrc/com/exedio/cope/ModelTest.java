@@ -77,7 +77,6 @@ public class ModelTest extends AbstractLibTest
 				assertEquals("inconsistent initialization for "+Properties.DATABASE_URL+", expected "+model.getProperties().getDatabaseUrl()+" but got zack.", e.getMessage());
 			}
 		}
-		
 		{
 			final java.util.Properties props = (java.util.Properties)newProps.clone();
 			props.setProperty(Properties.DATABASE_USER, "zick");
@@ -88,6 +87,19 @@ public class ModelTest extends AbstractLibTest
 			catch(RuntimeException e)
 			{
 				assertEquals("inconsistent initialization for "+Properties.DATABASE_USER+", expected "+model.getProperties().getDatabaseUser()+" but got zick.", e.getMessage());
+			}
+		}
+		{
+			final java.util.Properties props = (java.util.Properties)newProps.clone();
+			props.setProperty(Properties.DATABASE_PASSWORD, "zock");
+			try
+			{
+				model.setPropertiesInitially(new Properties(props, file.getAbsolutePath()+'/'+Properties.DATABASE_PASSWORD+"=zock"));
+			}
+			catch(RuntimeException e)
+			{
+				// dont put password into exception message
+				assertEquals("inconsistent initialization for "+Properties.DATABASE_PASSWORD+".", e.getMessage());
 			}
 		}
 	}
