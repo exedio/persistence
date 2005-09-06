@@ -79,6 +79,8 @@ final class Generator
 	private final Writer o;
 	private final String lineSeparator;
 	
+	private static final boolean show = false;
+	
 	Generator(final Writer output)
 	{
 		this.o=output;
@@ -582,7 +584,7 @@ final class Generator
 	private void writeUniqueFinder(final CopeUniqueConstraint constraint)
 	throws IOException
 	{
-		//constraint.show();
+		if(show) constraint.show();
 
 		final CopeAttribute[] copeAttributes = constraint.copeAttributes;
 		final String className = copeAttributes[0].getParent().name;
@@ -698,6 +700,8 @@ final class Generator
 	private void writeQualifier(final CopeQualifier qualifier)
 	throws IOException
 	{
+		if(show) qualifier.show();
+		
 		writeCommentHeader();
 		o.write("\t * ");
 		o.write(QUALIFIER);
