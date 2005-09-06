@@ -167,8 +167,8 @@ public class GeneratorTest extends InstrumentorTest
 		final Class qualified = Qualified.class;
 		final Class qualifiedString = QualifiedName.class;
 		assertMethod(qualified, "getNameQualifier", new Class[]{String.class}, qualifiedString, PUBLIC|FINAL);
-		assertMethod(qualified, "getNumber", new Class[]{String.class}, Integer/*TODO:int*/.class, PUBLIC|FINAL);
-		assertMethod(qualified, "setNumber", new Class[]{String.class, Integer/*TODO:int*/.class}, PUBLIC|FINAL);
+		assertMethod(qualified, "getNumber", new Class[]{String.class}, Integer.class, PUBLIC|FINAL);
+		assertMethod(qualified, "setNumber", new Class[]{String.class, Integer.class}, PUBLIC|FINAL);
 		assertMethod(qualified, "getOptionalNumber", new Class[]{String.class}, Integer.class, PUBLIC|FINAL);
 		assertMethod(qualified, "setOptionalNumber", new Class[]{String.class, Integer.class}, PUBLIC|FINAL);
 	}
