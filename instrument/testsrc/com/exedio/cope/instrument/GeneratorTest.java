@@ -33,7 +33,7 @@ import com.exedio.cope.ReadOnlyViolationException;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.instrument.testmodel.Qualified;
-import com.exedio.cope.instrument.testmodel.QualifiedString;
+import com.exedio.cope.instrument.testmodel.QualifiedName;
 import com.exedio.cope.instrument.testmodel.Standard;
 import com.exedio.cope.instrument.testmodel.TypeNone;
 import com.exedio.cope.instrument.testmodel.TypePrivate;
@@ -167,7 +167,7 @@ public class GeneratorTest extends InstrumentorTest
 	public void testQualified() throws ClassNotFoundException
 	{
 		final Class qualified = Qualified.class;
-		final Class qualifiedString = QualifiedString.class;
+		final Class qualifiedString = QualifiedName.class;
 		assertMethod(qualified, "getEmptyItem", new Class[]{String.class}, qualifiedString, PUBLIC|FINAL);
 		assertMethod(qualified, "getNumber", new Class[]{String.class}, Integer/*TODO:int*/.class, PUBLIC|FINAL);
 		assertMethod(qualified, "setNumber", new Class[]{String.class, Integer/*TODO:int*/.class}, PUBLIC|FINAL, new Class[]{MandatoryViolationException.class, LengthViolationException.class, ReadOnlyViolationException.class, ClassCastException.class}); // TODO: exceptions are a bug
