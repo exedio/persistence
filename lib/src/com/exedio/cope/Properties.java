@@ -42,6 +42,10 @@ public final class Properties
 
 	private final String source;
 
+	// NOTE:
+	// If you another attributes here,
+	// you probably have to add another
+	// test to ensureEquality as well.
 	private final Constructor database;
 	private final String databaseUrl;
 	private final String databaseUser;
@@ -324,6 +328,13 @@ public final class Properties
 			throw new RuntimeException(
 					"inconsistent initialization for " + DATABASE_PASSWORD +
 					" between " + source + " and " + other.source);
+		
+		if(this.databaseDontSupportEmptyStrings!=other.databaseDontSupportEmptyStrings)
+			throw new RuntimeException(
+					"inconsistent initialization for " + DATABASE_DONT_SUPPORT_EMPTY_STRINGS +
+					" between " + source + " and " + other.source + "," +
+					" expected " + this.databaseDontSupportEmptyStrings +
+					" but got " + other.databaseDontSupportEmptyStrings + '.');
 		
 		if((this.datadirPath!=null && !this.datadirPath.equals(other.datadirPath)) ||
 				(this.datadirPath==null && other.datadirPath!=null))

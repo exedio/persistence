@@ -116,6 +116,25 @@ public class ModelTest extends AbstractLibTest
 		}
 		{
 			final java.util.Properties props = (java.util.Properties)newProps.clone();
+			final String newValue = model.getProperties().getDatabaseDontSupportEmptyStrings()?"false":"true";
+			props.setProperty(Properties.DATABASE_DONT_SUPPORT_EMPTY_STRINGS, newValue);
+			final String source = file.getAbsolutePath()+'/'+Properties.DATABASE_PASSWORD+"=zock";
+			try
+			{
+				model.setPropertiesInitially(new Properties(props, source));
+			}
+			catch(RuntimeException e)
+			{
+				// dont put password into exception message
+				assertEquals(
+						"inconsistent initialization for " + Properties.DATABASE_DONT_SUPPORT_EMPTY_STRINGS +
+						" between " + model.getProperties().getSource() + " and " + source +
+						", expected " + model.getProperties().getDatabaseDontSupportEmptyStrings() +
+						" but got " + newValue + ".", e.getMessage());
+			}
+		}
+		{
+			final java.util.Properties props = (java.util.Properties)newProps.clone();
 			props.setProperty(Properties.DATADIR_PATH, props.getProperty(Properties.DATADIR_PATH)+"/AttributeItem");
 			final String source = file.getAbsolutePath()+'/'+Properties.DATADIR_PATH+"=/AttributeItem";
 			try
