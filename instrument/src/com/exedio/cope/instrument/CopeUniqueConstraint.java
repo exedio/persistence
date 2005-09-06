@@ -46,7 +46,7 @@ final class CopeUniqueConstraint
 		//show(javaAttribute);
 	}
 	
-	private void show(final JavaAttribute javaAttribute)
+	private void show(final JavaAttribute javaAttribute) // TODO remove
 	{
 		final ArrayList xAttributeNames = new ArrayList();
 		for(int i = 0; i<copeAttributes.length; i++)
