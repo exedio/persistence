@@ -44,6 +44,7 @@ public final class Model
 	private final Cache cache;
 		
 	private Properties properties;
+	private Object propertiesLock = new Object();
 	private Database database;
 
 	private final ThreadLocal transactionThreads = new ThreadLocal();
@@ -81,53 +82,57 @@ public final class Model
 		if(properties==null)
 			throw new NullPointerException();
 
-		if(this.properties!=null)
+		synchronized(propertiesLock)
 		{
-			this.properties.ensureEquality(properties);
-		}
-		else
-		{
-			if(this.database!=null)
-				throw new RuntimeException();
-	
-			this.properties = properties;
-			this.database = properties.createDatabase();
-			
-			final HashSet typeSet = new HashSet(Arrays.asList(types));
-			final HashSet materialized = new HashSet();
-	
-			for(int i = 0; i<types.length; i++)
+			if(this.properties==null)
 			{
-				final ArrayList stack = new ArrayList();
-
-				//System.out.println("------------------------------ "+types[i].getID());
-
-				for(Type type = types[i]; type!=null; type=type.getSupertype())
-				{
-					//System.out.println("-------------------------------> "+type.getID());
-					if(!typeSet.contains(type))
-						throw new RuntimeException("type "+type.getID()+ " is supertype of " + types[i].getID() + " but not part of the model");
-					stack.add(type);
-				}
+				if(this.database!=null)
+					throw new RuntimeException();
+		
+				this.properties = properties;
+				this.database = properties.createDatabase();
 				
-				for(ListIterator j = stack.listIterator(stack.size()); j.hasPrevious(); )
+				final HashSet typeSet = new HashSet(Arrays.asList(types));
+				final HashSet materialized = new HashSet();
+		
+				for(int i = 0; i<types.length; i++)
 				{
-					final Type type = (Type)j.previous();
-					//System.out.println("-------------------------------) "+type.getID());
-
-					if(!materialized.contains(type))
+					final ArrayList stack = new ArrayList();
+	
+					//System.out.println("------------------------------ "+types[i].getID());
+	
+					for(Type type = types[i]; type!=null; type=type.getSupertype())
 					{
-						//System.out.println("-------------------------------] "+type.getID());
-						type.materialize(database);
-						if(typesByID.put(type.getID(), type)!=null)
-							throw new RuntimeException(type.getID());
-						materialized.add(type);
+						//System.out.println("-------------------------------> "+type.getID());
+						if(!typeSet.contains(type))
+							throw new RuntimeException("type "+type.getID()+ " is supertype of " + types[i].getID() + " but not part of the model");
+						stack.add(type);
+					}
+					
+					for(ListIterator j = stack.listIterator(stack.size()); j.hasPrevious(); )
+					{
+						final Type type = (Type)j.previous();
+						//System.out.println("-------------------------------) "+type.getID());
+	
+						if(!materialized.contains(type))
+						{
+							//System.out.println("-------------------------------] "+type.getID());
+							type.materialize(database);
+							if(typesByID.put(type.getID(), type)!=null)
+								throw new RuntimeException(type.getID());
+							materialized.add(type);
+						}
 					}
 				}
+				if(!materialized.equals(typeSet))
+					throw new RuntimeException(materialized.toString()+"<->"+typeSet.toString());
+				
+				return;
 			}
-			if(!materialized.equals(typeSet))
-				throw new RuntimeException(materialized.toString()+"<->"+typeSet.toString());
 		}
+		
+		// can be done outside the synchronized block
+		this.properties.ensureEquality(properties);
 	}
 
 	public final List getTypes()
