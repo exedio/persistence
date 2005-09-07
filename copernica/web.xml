@@ -36,7 +36,7 @@
 		<servlet-class>com.exedio.copernica.CopernicaServlet</servlet-class>
 		<init-param>
 			<param-name>provider</param-name>
-			<param-value>com.exedio.copernica.CopernicaTestProvider</param-value>
+			<param-value>com.exedio.copernica.test.CopernicaTestProvider</param-value>
 		</init-param>
 	</servlet>
 	<servlet-mapping>
@@ -46,7 +46,7 @@
 
 	<servlet>
 		<servlet-name>init</servlet-name>
-		<servlet-class>com.exedio.copernica.InitServlet</servlet-class>
+		<servlet-class>com.exedio.copernica.test.InitServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>init</servlet-name>

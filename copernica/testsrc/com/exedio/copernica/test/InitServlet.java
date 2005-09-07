@@ -15,7 +15,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-package com.exedio.copernica;
+package com.exedio.copernica.test;
 
 import java.io.IOException;
 import java.io.PrintStream;
@@ -26,6 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.exedio.cope.testmodel.Main;
 import com.exedio.cops.CopsServlet;
+
 
 public class InitServlet extends CopsServlet
 {

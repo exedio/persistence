@@ -15,7 +15,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-package com.exedio.copernica;
+package com.exedio.copernica.test;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -28,7 +28,6 @@ import com.exedio.cope.NestingRuntimeException;
 import com.exedio.cope.testmodel.AttributeItem;
 import com.exedio.cope.testmodel.CollisionItem1;
 import com.exedio.cope.testmodel.CollisionItem2;
-import com.exedio.cope.testmodel.MediaItem;
 import com.exedio.cope.testmodel.EmptyItem;
 import com.exedio.cope.testmodel.EmptyItem2;
 import com.exedio.cope.testmodel.FirstSub;
@@ -37,6 +36,7 @@ import com.exedio.cope.testmodel.ItemWithSingleUnique;
 import com.exedio.cope.testmodel.ItemWithSingleUniqueNotNull;
 import com.exedio.cope.testmodel.ItemWithSingleUniqueReadOnly;
 import com.exedio.cope.testmodel.Main;
+import com.exedio.cope.testmodel.MediaItem;
 import com.exedio.cope.testmodel.PointerItem;
 import com.exedio.cope.testmodel.PointerTargetItem;
 import com.exedio.cope.testmodel.QualifiedIntegerEnumQualifier;
@@ -44,6 +44,11 @@ import com.exedio.cope.testmodel.QualifiedItem;
 import com.exedio.cope.testmodel.SecondSub;
 import com.exedio.cope.testmodel.StringItem;
 import com.exedio.cope.testmodel.SumItem;
+import com.exedio.copernica.CopernicaProvider;
+import com.exedio.copernica.TransientCopernicaProvider;
+import com.exedio.copernica.TransientLanguage;
+import com.exedio.copernica.TransientSection;
+import com.exedio.copernica.TransientUser;
 
 public class CopernicaTestProvider extends TransientCopernicaProvider
 {
