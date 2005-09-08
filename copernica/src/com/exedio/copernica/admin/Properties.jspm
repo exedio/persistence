@@ -96,6 +96,7 @@ final class Properties_Jspm
 					</small>
 				</td>
 			</tr><%
+
 			if(sourceContent!=null)
 			{
 			%>
