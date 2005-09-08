@@ -518,10 +518,10 @@
 					<fileset file="../lib/@{db.driver}" />
 				</copy>
 				
-				<path id="webdatadir.@{db.file}1">
-					<pathelement location="copernica/build/testwebapp-@{db}-data"/>
+				<path id="webdatadir.@{db.file}.path">
+					<pathelement location="copernica/build/testwebapp-@{db}-data" />
 				</path>
-				<pathconvert targetos="unix" property="webdatadir.@{db.file}" refid="webdatadir.@{db.file}1"/>
+				<pathconvert targetos="unix" property="webdatadir.@{db.file}" refid="webdatadir.@{db.file}.path" />
 				
 				<copy tofile="copernica/build/testwebapp-@{db}/WEB-INF/cope.properties"
 						file="@{db.file}">
