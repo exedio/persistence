@@ -53,7 +53,7 @@ final class Entity
 		state = state.write( transaction );
 	}
 	
-	void delete() throws IntegrityViolationException
+	void delete()
 	{
 		state = state.delete( transaction );
 	}
