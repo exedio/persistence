@@ -54,6 +54,19 @@ import com.exedio.cops.CopsServlet;
  * &lt;/servlet-mapping&gt;
  * </pre>
  * 
+ * If you want to use copernica &quot;purely&quot;,
+ * without any customizations,
+ * you may just configure the model to be used.
+ * Then replace the init-param <code>provider</code> by
+ * the following snippet.
+ * 
+ * <pre>
+ *    &lt;init-param&gt;
+ *       &lt;param-name&gt;model&lt;/param-name&gt;
+ *       &lt;param-value&gt;{@link com.exedio.cope.Model com.bigbusiness.shop.Main#model}&lt;/param-value&gt;
+ *    &lt;/init-param&gt;
+ * </pre>
+ * 
  * @author Ralf Wiebicke
  */
 public final class CopernicaServlet extends CopsServlet
