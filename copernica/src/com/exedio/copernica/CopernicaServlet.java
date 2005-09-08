@@ -28,6 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.exedio.cope.Model;
 import com.exedio.cope.NestingRuntimeException;
+import com.exedio.cope.util.ServletUtil;
 import com.exedio.cops.Cop;
 import com.exedio.cops.CopsServlet;
 
@@ -138,11 +139,17 @@ public final class CopernicaServlet extends CopsServlet
 			final ServletConfig config = getServletConfig();
 			final String providerName = config.getInitParameter("provider");
 			if(providerName==null)
-				throw new NullPointerException("init-param 'provider' missing");
-			final Class providerClass = Class.forName(providerName);
-			final CopernicaProvider provider = (CopernicaProvider)providerClass.newInstance();
-			provider.initialize(config);
-			return provider;
+			{
+				final Model model = ServletUtil.getModel(config);
+				return new PureCopernicaProvider(model);
+			}
+			else
+			{
+				final Class providerClass = Class.forName(providerName);
+				final CopernicaProvider provider = (CopernicaProvider)providerClass.newInstance();
+				provider.initialize(config);
+				return provider;
+			}
 		}
 		catch(ClassNotFoundException e)
 		{
