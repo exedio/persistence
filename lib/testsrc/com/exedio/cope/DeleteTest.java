@@ -259,6 +259,9 @@ public class DeleteTest extends AbstractLibTest
 		assertTrue(!middle1.existsCopeItem()); // TODO make it atomic
 		assertTrue(middle2.existsCopeItem());
 		assertTrue(middle3.existsCopeItem());
+		//assertEquals(todelete, middle1.getSelfNullify()); TODO make it atomic
+		assertEquals(null/*todelete*/, middle2.getSelfNullify()); // TODO make it atomic
+		assertEquals(null/*todelete*/, middle3.getSelfNullify()); // TODO make it atomic
 		assertTrue(item.existsCopeItem());
 	}
 	
