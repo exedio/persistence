@@ -859,22 +859,20 @@ abstract class Database
 			final SQLException e,
 			final UniqueConstraint onlyThreatenedUniqueConstraint)
 	{
-		{		
-			final String uniqueConstraintID = extractUniqueConstraintName(e);
-			if(uniqueConstraintID!=null)
+		final String uniqueConstraintID = extractUniqueConstraintName(e);
+		if(uniqueConstraintID!=null)
+		{
+			final UniqueConstraint constraint;
+			if(ANY_CONSTRAINT.equals(uniqueConstraintID))
+				constraint = onlyThreatenedUniqueConstraint;
+			else
 			{
-				final UniqueConstraint constraint;
-				if(ANY_CONSTRAINT.equals(uniqueConstraintID))
-					constraint = onlyThreatenedUniqueConstraint;
-				else
-				{
-					constraint = (UniqueConstraint)uniqueConstraintsByID.get(uniqueConstraintID);
-					if(constraint==null)
-						throw new SQLRuntimeException(e, "no unique constraint found for >"+uniqueConstraintID
-																				+"<, has only "+uniqueConstraintsByID.keySet());
-				}
-				return new UniqueViolationException(e, null, constraint);
+				constraint = (UniqueConstraint)uniqueConstraintsByID.get(uniqueConstraintID);
+				if(constraint==null)
+					throw new SQLRuntimeException(e, "no unique constraint found for >"+uniqueConstraintID
+																			+"<, has only "+uniqueConstraintsByID.keySet());
 			}
+			return new UniqueViolationException(e, null, constraint);
 		}
 		return null;
 	}
