@@ -230,6 +230,38 @@ public class DeleteTest extends AbstractLibTest
 		assertTrue(!item2.existsCopeItem());
 	}
 	
+	public void testAtomicity()
+	{
+		final DeleteItem todelete = new DeleteItem("todelete");
+		deleteOnTearDown(todelete);
+
+		final DeleteItem middle1 = new DeleteItem("middle1");
+		//deleteOnTearDown(middle1); TODO make it atomic
+		middle1.setSelfCascade(todelete);
+		middle1.setSelfNullify(todelete);
+		
+		final DeleteItem middle2 = new DeleteItem("middle2");
+		deleteOnTearDown(middle2);
+		middle2.setSelfCascade(todelete);
+		middle2.setSelfNullify(todelete);
+		
+		final DeleteItem middle3 = new DeleteItem("middle3");
+		deleteOnTearDown(middle3);
+		middle3.setSelfCascade(todelete);
+		middle3.setSelfNullify(todelete);
+		
+		final DeleteItem item = new DeleteItem("forbid");
+		deleteOnTearDown(item);
+		item.setSelfForbid(middle2);
+
+		assertDeleteFails(todelete, item.selfForbid, middle2);
+		assertTrue(todelete.existsCopeItem());
+		assertTrue(!middle1.existsCopeItem()); // TODO make it atomic
+		assertTrue(middle2.existsCopeItem());
+		assertTrue(middle3.existsCopeItem());
+		assertTrue(item.existsCopeItem());
+	}
+	
 	public void testItemObjectPool() throws NoSuchIDException
 	{
 		item = new DeleteItem("item1");

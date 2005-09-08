@@ -487,7 +487,9 @@ public abstract class Item extends Cope
 				final ItemAttribute attribute = (ItemAttribute)i.next();
 				if(attribute.getDeletePolicy().nullify)
 				{
-					for(Iterator j = attribute.getType().search(attribute.equal(this)).iterator(); j.hasNext(); )
+					final Query q = new Query(attribute.getType(), attribute.equal(this));
+					q.setDeterministicOrder(true); // TODO deterministic order needed only for DeleteTest#testAtomicy until atomicy has been fixed
+					for(Iterator j = q.search().iterator(); j.hasNext(); )
 					{
 						final Item item = (Item)j.next();
 						//System.out.println("------------nullify:"+item.toString());
@@ -496,7 +498,9 @@ public abstract class Item extends Cope
 				}
 				if(attribute.getDeletePolicy().cascade)
 				{
-					for(Iterator j = attribute.getType().search(attribute.equal(this)).iterator(); j.hasNext(); )
+					final Query q = new Query(attribute.getType(), attribute.equal(this));
+					q.setDeterministicOrder(true); // TODO deterministic order needed only for DeleteTest#testAtomicy until atomicy has been fixed
+					for(Iterator j = q.search().iterator(); j.hasNext(); )
 					{
 						final Item item = (Item)j.next();
 						////System.out.println("------------check:"+item.toString());
