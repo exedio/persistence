@@ -270,20 +270,13 @@ public final class Type
 		subTypes.add(subType);
 	}
 	
-	ItemAttribute onlyReference = null;
-	
 	final void registerReference(final ItemAttribute reference)
 	{
 		if(this.model==null)
 			throw new RuntimeException();
 
 		if(references==null)
-		{
 			references = new ArrayList();
-			onlyReference = reference;
-		}
-		else
-			onlyReference = null;
 			
 		references.add(reference);
 	}

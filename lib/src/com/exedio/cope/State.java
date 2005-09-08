@@ -41,7 +41,7 @@ abstract class State
 	
 	abstract State put(Transaction transaction, ObjectAttribute attribute, Object value);
 	
-	abstract State write( Transaction transaction ) throws UniqueViolationException, IntegrityViolationException;
+	abstract State write( Transaction transaction ) throws UniqueViolationException;
 	
 	
 	abstract Object store(final Column column);

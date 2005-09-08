@@ -103,9 +103,4 @@ public final class MysqlDatabase extends Database
 		return extractConstraintName(e, 1062, "Duplicate entry ");
 	}
 
-	protected String extractIntegrityConstraintName(final SQLException e)
-	{
-		return extractConstraintName(e, 1217, "Cannot delete or update a parent row: a foreign key constraint fails");
-	}
-
 }

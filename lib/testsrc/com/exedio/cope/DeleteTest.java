@@ -71,7 +71,7 @@ public class DeleteTest extends AbstractLibTest
 
 		// same item
 		item.setSelfForbid(item);
-		if(hsqldb||mysql)
+		if(true) // TODO allow self references
 		{
 			assertDeleteFails(item, item.selfForbid);
 			item.setSelfForbid(null);
@@ -236,7 +236,7 @@ public class DeleteTest extends AbstractLibTest
 		deleteOnTearDown(todelete);
 
 		final DeleteItem middle1 = new DeleteItem("middle1");
-		//deleteOnTearDown(middle1); TODO make it atomic
+		deleteOnTearDown(middle1);
 		middle1.setSelfCascade(todelete);
 		middle1.setSelfNullify(todelete);
 		
@@ -256,12 +256,12 @@ public class DeleteTest extends AbstractLibTest
 
 		assertDeleteFails(todelete, item.selfForbid, middle2);
 		assertTrue(todelete.existsCopeItem());
-		assertTrue(!middle1.existsCopeItem()); // TODO make it atomic
+		assertTrue(middle1.existsCopeItem());
 		assertTrue(middle2.existsCopeItem());
 		assertTrue(middle3.existsCopeItem());
-		//assertEquals(todelete, middle1.getSelfNullify()); TODO make it atomic
-		assertEquals(null/*todelete*/, middle2.getSelfNullify()); // TODO make it atomic
-		assertEquals(null/*todelete*/, middle3.getSelfNullify()); // TODO make it atomic
+		assertEquals(todelete, middle1.getSelfNullify());
+		assertEquals(todelete, middle2.getSelfNullify());
+		assertEquals(todelete, middle3.getSelfNullify());
 		assertTrue(item.existsCopeItem());
 	}
 	

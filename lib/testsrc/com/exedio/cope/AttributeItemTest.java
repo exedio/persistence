@@ -106,7 +106,7 @@ public class AttributeItemTest extends AttributeTest
 			assertEquals(item.someNotNullItem, e.getMandatoryAttribute());
 		}
 		assertEquals(someItem2, item.getSomeNotNullItem());
-		assertDeleteFails(someItem2, item.someNotNullItem, false);
+		assertDeleteFails(someItem2, item.someNotNullItem);
 
 		try
 		{
@@ -130,7 +130,7 @@ public class AttributeItemTest extends AttributeTest
 		deleteOnTearDown(source);
 		source.setEmpty2(target);
 
-		assertDeleteFails(target, source.empty2, true);
+		assertDeleteFails(target, source.empty2);
 	}
 
 }

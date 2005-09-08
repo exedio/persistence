@@ -102,20 +102,10 @@ public abstract class AbstractLibTest extends CopeTest
 
 	void assertDeleteFails(final Item item, final ItemAttribute attribute)
 	{
-		assertDeleteFails(item, attribute, false, item);
+		assertDeleteFails(item, attribute, item);
 	}
 	
 	void assertDeleteFails(final Item item, final ItemAttribute attribute, final Item itemToBeDeleted)
-	{
-		assertDeleteFails(item, attribute, false, itemToBeDeleted);
-	}
-	
-	void assertDeleteFails(final Item item, final ItemAttribute attribute, final boolean onlyReference)
-	{
-		assertDeleteFails(item, attribute, onlyReference, item);
-	}
-	
-	private void assertDeleteFails(final Item item, final ItemAttribute attribute, final boolean onlyReference, final Item itemToBeDeleted)
 	{
 		try
 		{
@@ -124,13 +114,9 @@ public abstract class AbstractLibTest extends CopeTest
 		}
 		catch(IntegrityViolationException e)
 		{
-			assertEquals((mysql&&!onlyReference) ? null : attribute, e.getAttribute());
+			assertEquals(attribute, e.getAttribute());
 			assertEquals(itemToBeDeleted, e.getItem());
-			assertEquals(
-					e.getAttribute()!=null
-					? ("integrity violation on deletion of " + itemToBeDeleted.getCopeID() + " because of " + e.getAttribute())
-					: ("integrity violation on deletion of " + itemToBeDeleted.getCopeID()),
-				e.getMessage());
+			assertEquals("integrity violation on deletion of " + itemToBeDeleted.getCopeID() + " because of " + e.getAttribute(), e.getMessage());
 		}
 		assertTrue(item.existsCopeItem());
 	}

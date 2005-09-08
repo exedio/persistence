@@ -48,7 +48,7 @@ final class Entity
 		}	
 	}
 	
-	void write() throws UniqueViolationException, IntegrityViolationException
+	void write() throws UniqueViolationException
 	{
 		state = state.write( transaction );
 	}

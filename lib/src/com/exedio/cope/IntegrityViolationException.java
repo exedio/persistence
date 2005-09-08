@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-import java.sql.SQLException;
 
 /**
  * Signals, that an attempt to delete an item has been failed,
@@ -40,15 +39,17 @@ public final class IntegrityViolationException extends ConstraintViolationExcept
 	 * Creates a new UniqueViolationException with the neccessary information about the violation.
 	 * @param item initializes, what is returned by {@link #getItem()}.
 	 * @param attribute initializes, what is returned by {@link #getAttribute()}.
-	 * @throws NullPointerException if <code>cause</code> or <code>item</code> is null.
+	 * @throws NullPointerException if <code>item</code> or <code>attribute</code> is null.
 	 */
-	IntegrityViolationException(final SQLException cause, final Item item, final ItemAttribute attribute)
+	IntegrityViolationException(final Item item, final ItemAttribute attribute)
 	{
-		super(cause);
-		if(cause==null)
-			throw new NullPointerException();
+		super(null);
+		
 		if(item==null)
 			throw new NullPointerException();
+		if(attribute==null)
+			throw new NullPointerException();
+		
 		this.attribute = attribute;
 		this.item = item;
 	}
@@ -72,10 +73,7 @@ public final class IntegrityViolationException extends ConstraintViolationExcept
 	
 	public String getMessage()
 	{
-		return
-			attribute!=null
-			? "integrity violation on deletion of " + item.getCopeID() + " because of " + attribute
-			: "integrity violation on deletion of " + item.getCopeID();
+		return "integrity violation on deletion of " + item.getCopeID() + " because of " + attribute;
 	}
 	
 }

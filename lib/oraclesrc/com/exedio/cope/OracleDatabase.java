@@ -104,11 +104,6 @@ final class OracleDatabase
 		return extractConstraintName(e, 1, "ORA-00001: unique constraint (", ") violated\n");
 	}
 
-	protected String extractIntegrityConstraintName(final SQLException e)
-	{
-		return extractConstraintName(e, 2292, "ORA-02292: integrity constraint (", ") violated - child record found\n");
-	}
-
 	public void defineColumnTypes(final IntList columnTypes, final java.sql.Statement statement)
 			throws SQLException
 	{

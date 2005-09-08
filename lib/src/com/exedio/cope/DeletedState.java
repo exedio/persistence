@@ -39,7 +39,7 @@ final class DeletedState extends State
 		throw new NoSuchItemException(item);
 	}
 	
-	State write( Transaction transaction ) throws IntegrityViolationException
+	State write( Transaction transaction )
 	{
 		try
 		{

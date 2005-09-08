@@ -25,6 +25,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -173,10 +174,6 @@ public abstract class Item extends Cope
 			initialUniqueViolationException = e;
 			return;
 		}
-		catch(IntegrityViolationException e)
-		{
-			throw new NestingRuntimeException( e );
-		}
 	}
 	
 	/**
@@ -287,14 +284,7 @@ public abstract class Item extends Cope
 
 		final Entity entity = getEntity();
 		entity.put(attribute, value);
-		try
-		{
-			entity.write();
-		}
-		catch (IntegrityViolationException e)
-		{
-			throw new NestingRuntimeException( e );
-		}
+		entity.write();
 	}
 
 	/**
@@ -327,14 +317,7 @@ public abstract class Item extends Cope
 
 		final Entity entity = getEntity();		
 		entity.put(attributeValues);
-		try
-		{
-			entity.write();
-		}
-		catch (IntegrityViolationException e)
-		{
-			throw new NestingRuntimeException( e );
-		}
+		entity.write();
 	}
 
 	/**
@@ -469,11 +452,38 @@ public abstract class Item extends Cope
 	public final void deleteCopeItem()
 			throws IntegrityViolationException
 	{
+		checkDeleteCopeItem(new HashSet());
 		deleteCopeItem(new HashSet());
 	}
 
-	private final void deleteCopeItem(final HashSet toDelete)
+	private final void checkDeleteCopeItem(final HashSet toDelete)
 			throws IntegrityViolationException
+	{
+		toDelete.add(this);
+		
+		for(Iterator i = type.getReferences().iterator(); i.hasNext(); )
+		{
+			final ItemAttribute attribute = (ItemAttribute)i.next();
+			if(attribute.getDeletePolicy().forbid)
+			{
+				final Collection s = attribute.getType().search(attribute.equal(this));
+				if(!s.isEmpty())
+					throw new IntegrityViolationException(this, attribute);
+			}
+			if(attribute.getDeletePolicy().cascade)
+			{
+				for(Iterator j = attribute.getType().search(attribute.equal(this)).iterator(); j.hasNext(); )
+				{
+					final Item item = (Item)j.next();
+					////System.out.println("------------check:"+item.toString());
+					if(!toDelete.contains(item))
+						item.checkDeleteCopeItem(toDelete);
+				}
+			}
+		}
+	}
+		
+	private final void deleteCopeItem(final HashSet toDelete)
 	{
 		toDelete.add(this);
 		

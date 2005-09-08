@@ -101,9 +101,4 @@ final class HsqldbDatabase
 		return extractConstraintName(e, -104, "Unique constraint violation: ", '\0');
 	}
 
-	protected String extractIntegrityConstraintName(final SQLException e)
-	{
-		return extractConstraintName(e, -8, "Integrity constraint violation ", ' ');
-	}
-
 }

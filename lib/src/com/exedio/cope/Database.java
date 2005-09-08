@@ -672,24 +672,12 @@ abstract class Database
 			bf.append(')');
 		}
 
-		try
-		{
-			//System.out.println("storing "+bf.toString());
-			final UniqueConstraint[] uqs = type.uniqueConstraints;
-			executeSQLUpdate(connection, bf, 1, uqs.length==1?uqs[0]:null);
-		}
-		catch(UniqueViolationException e)
-		{
-			throw e;
-		}
-		catch(ConstraintViolationException e)
-		{
-			throw new NestingRuntimeException(e);
-		}
+		//System.out.println("storing "+bf.toString());
+		final UniqueConstraint[] uqs = type.uniqueConstraints;
+		executeSQLUpdate(connection, bf, 1, uqs.length==1?uqs[0]:null);
 	}
 
 	void delete(final Connection connection, final Item item)
-			throws IntegrityViolationException
 	{
 		buildStage = false;
 		final Type type = item.type;
@@ -710,13 +698,9 @@ abstract class Database
 
 			try
 			{
-				executeSQLUpdate(connection, bf, 1, type.onlyReference, item);
+				executeSQLUpdate(connection, bf, 1);
 			}
-			catch(IntegrityViolationException e)
-			{
-				throw e;
-			}
-			catch(ConstraintViolationException e)
+			catch(UniqueViolationException e)
 			{
 				throw new NestingRuntimeException(e);
 			}
@@ -814,38 +798,16 @@ abstract class Database
 	}
 	
 	private final void executeSQLUpdate(final Connection connection, final Statement statement, final int expectedRows)
-			throws ConstraintViolationException
+			throws UniqueViolationException
 	{
-		executeSQLUpdate(connection, statement, expectedRows, null, null, null);
+		executeSQLUpdate(connection, statement, expectedRows, null);
 	}
 
 	private final void executeSQLUpdate(
 			final Connection connection,
 			final Statement statement, final int expectedRows,
 			final UniqueConstraint onlyThreatenedUniqueConstraint)
-		throws ConstraintViolationException
-	{
-		executeSQLUpdate(connection, statement, expectedRows, onlyThreatenedUniqueConstraint, null, null);
-		
-	}
-	
-	private final void executeSQLUpdate(
-			final Connection connection,
-			final Statement statement, final int expectedRows,
-			final ItemAttribute onlyThreatenedIntegrityConstraint,
-			final Item itemToBeDeleted)
-		throws ConstraintViolationException
-	{
-		executeSQLUpdate(connection, statement, expectedRows, null, onlyThreatenedIntegrityConstraint, itemToBeDeleted);
-	}
-	
-	private final void executeSQLUpdate(
-			final Connection connection,
-			final Statement statement, final int expectedRows,
-			final UniqueConstraint onlyThreatenedUniqueConstraint,
-			final ItemAttribute onlyThreatenedIntegrityConstraint,
-			final Item itemToBeDeleted)
-		throws ConstraintViolationException
+		throws UniqueViolationException
 	{
 		java.sql.Statement sqlStatement = null;
 		try
@@ -862,7 +824,7 @@ abstract class Database
 		}
 		catch(SQLException e)
 		{
-			final ConstraintViolationException wrappedException = wrapException(e, onlyThreatenedUniqueConstraint, onlyThreatenedIntegrityConstraint, itemToBeDeleted);
+			final UniqueViolationException wrappedException = wrapException(e, onlyThreatenedUniqueConstraint);
 			if(wrappedException!=null)
 				throw wrappedException;
 			else
@@ -890,15 +852,12 @@ abstract class Database
 	}
 	
 	protected abstract String extractUniqueConstraintName(SQLException e);
-	protected abstract String extractIntegrityConstraintName(SQLException e);
 	
 	protected final static String ANY_CONSTRAINT = "--ANY--";
 
-	private final ConstraintViolationException wrapException(
+	private final UniqueViolationException wrapException(
 			final SQLException e,
-			final UniqueConstraint onlyThreatenedUniqueConstraint,
-			final ItemAttribute onlyThreatenedIntegrityConstraint,
-			final Item itemToBeDeleted)
+			final UniqueConstraint onlyThreatenedUniqueConstraint)
 	{
 		{		
 			final String uniqueConstraintID = extractUniqueConstraintName(e);
@@ -915,28 +874,6 @@ abstract class Database
 																				+"<, has only "+uniqueConstraintsByID.keySet());
 				}
 				return new UniqueViolationException(e, null, constraint);
-			}
-		}
-		{		
-			final String integrityConstraintName = extractIntegrityConstraintName(e);
-			if(integrityConstraintName!=null)
-			{
-				final ItemAttribute attribute;
-				if(ANY_CONSTRAINT.equals(integrityConstraintName))
-					attribute = onlyThreatenedIntegrityConstraint;
-				else
-				{
-					final ItemColumn column =
-						(ItemColumn)itemColumnsByIntegrityConstraintName.get(integrityConstraintName);
-					if(column==null)
-						throw new SQLRuntimeException(e, "no column attribute found for >"+integrityConstraintName
-																				+"<, has only "+itemColumnsByIntegrityConstraintName.keySet());
-					attribute = column.attribute;
-					if(attribute==null)
-						throw new SQLRuntimeException(e, "no item attribute for column "+column);
-				}
-
-				return new IntegrityViolationException(e, itemToBeDeleted, attribute);
 			}
 		}
 		return null;
