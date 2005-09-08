@@ -36,7 +36,10 @@ final class Properties_Jspm
 			"java.vm.version",
 		};
 	
-	final static void write(final PrintStream out, final Properties properties)
+	final static void write(
+				final PrintStream out,
+				final Properties properties,
+				final String sourceContent)
 		throws IOException
 	{
 		%>
@@ -46,11 +49,15 @@ final class Properties_Jspm
 				<td><%
 					final String source = properties.getSource();
 					%>
-					<a href="file://<%=source%>"><%=source%></a>
-					<br>
-					<small>
-					(link works only if the server is running locally).
-					</small>
+					<%=source%><%
+					if(sourceContent!=null)
+					{
+					%>
+					<pre>
+<%=sourceContent%>
+					</pre><%
+					}
+					%>
 				</td>
 			</tr>
 			<tr>

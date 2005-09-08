@@ -18,10 +18,14 @@
 
 package com.exedio.copernica.admin;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintStream;
 
 import com.exedio.cope.Model;
+import com.exedio.cope.Properties;
 
 
 final class PropertiesCop extends AdminCop
@@ -33,7 +37,31 @@ final class PropertiesCop extends AdminCop
 
 	final void writeBody(final PrintStream out, final Model model) throws IOException
 	{
-		Properties_Jspm.write(out, model.getProperties());
+		final Properties props = model.getProperties();
+		final String source = props.getSource();
+		String sourceContent = null;
+		try
+		{
+			final File f = new File(source);
+			final FileReader r = new FileReader(f);
+			final StringBuffer bf = new StringBuffer();
+
+			final char[] b = new char[20*1024];
+			for(int len = r.read(b); len>=0; len = r.read(b))
+				bf.append(b, 0, len);
+
+			sourceContent = bf.toString();
+		}
+		catch(FileNotFoundException e)
+		{
+			// sourceContent is still null
+		}
+		catch(IOException e)
+		{
+			throw new RuntimeException(e);
+		}
+		
+		Properties_Jspm.write(out, props, sourceContent);
 	}
 	
 }
