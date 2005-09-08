@@ -46,19 +46,7 @@ final class Properties_Jspm
 		<table class="properties">
 			<tr>
 				<th>source</th>
-				<td><%
-					final String source = properties.getSource();
-					%>
-					<%=source%><%
-					if(sourceContent!=null)
-					{
-					%>
-					<pre>
-<%=sourceContent%>
-					</pre><%
-					}
-					%>
-				</td>
+				<td><%=properties.getSource()%></td>
 			</tr>
 			<tr>
 				<th><%=properties.DATABASE%></th>
@@ -108,6 +96,18 @@ final class Properties_Jspm
 					</small>
 				</td>
 			</tr><%
+			if(sourceContent!=null)
+			{
+			%>
+			<tr>
+				<th>source content</th>
+				<td>
+					<pre>
+<%=sourceContent%>
+					</pre>
+				</td>
+			</tr><%
+			}
 
 			for(int i = 0; i<systemProperties.length; i++)
 			{
