@@ -19,6 +19,7 @@
 
 package com.exedio.copernica.admin;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
 
@@ -73,10 +74,11 @@ final class Properties_Jspm
 				<td><%
 				if(properties.hasDatadirPath())
 				{
-					final String datadirPath =
-						properties.getDatadirPath().getAbsolutePath();
+					final File datadir = properties.getDatadirPath();
 					%>
-					<a href="file://<%=datadirPath%>"><%=datadirPath%></a>
+					<a href="<%=
+							datadir.toURL().toString()%>"><%=
+							datadir.getAbsolutePath()%></a>
 					<br>
 					<small>
 					(link works only if the server is running locally).
