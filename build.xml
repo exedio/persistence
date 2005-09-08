@@ -520,8 +520,8 @@
 				
 				<!--property name="webdatadir.@{db.file}" location="copernica/build/testwebapp-@{db}-data" /-->
 				<path id="webdatadir.@{db.file}1">
-		      			<pathelement location="copernica/build/testwebapp-@{db}-data"/>
-		      		</path>
+					<pathelement location="copernica/build/testwebapp-@{db}-data"/>
+				</path>
 				<pathconvert targetos="unix" property="webdatadir.@{db.file}" refid="webdatadir.@{db.file}1"/>
 				
 				<copy tofile="copernica/build/testwebapp-@{db}/WEB-INF/cope.properties"
