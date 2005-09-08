@@ -119,7 +119,7 @@ public class MediaServletTest extends AbstractWebTest
 		final long date = conn.getDate();
 		final Date after = new Date();
 		//System.out.println("Date: "+new Date(date));
-		assertWithin(3000, before, after, new Date(date));
+		assertWithinHttpDate(before, after, new Date(date));
 		final long lastModified = conn.getLastModified();
 		//System.out.println("LastModified: "+new Date(lastModified));
 		assertTrue((date+1000)>=lastModified);
@@ -154,7 +154,7 @@ public class MediaServletTest extends AbstractWebTest
 		final long date = conn.getDate();
 		final Date after = new Date();
 		//System.out.println("Date: "+new Date(date));
-		assertWithin(3000, before, after, new Date(date));
+		assertWithinHttpDate(before, after, new Date(date));
 	}
 
 	private void assertNotFound(final URL url, final String detail) throws IOException
@@ -184,7 +184,7 @@ public class MediaServletTest extends AbstractWebTest
 		final long date = conn.getDate();
 		final Date after = new Date();
 		//System.out.println("Date: "+new Date(date));
-		assertWithin(3000, before, after, new Date(date));
+		assertWithinHttpDate(before, after, new Date(date));
 	}
 
 	private void assertInternalError(final URL url) throws IOException
@@ -214,7 +214,7 @@ public class MediaServletTest extends AbstractWebTest
 		final long date = conn.getDate();
 		final Date after = new Date();
 		//System.out.println("Date: "+new Date(date));
-		assertWithin(3000, before, after, new Date(date));
+		assertWithinHttpDate(before, after, new Date(date));
 	}
 
 	private void assertNameURL(final URL url) throws IOException

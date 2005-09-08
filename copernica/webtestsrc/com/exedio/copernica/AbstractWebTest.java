@@ -86,23 +86,17 @@ public class AbstractWebTest extends WebTestCase
 	}
 	
 	
-	// ----------------------------------- copied from CopeAssert
+	// ----------------------------------- adapted from CopeAssert
 	
 	private static final String DATE_FORMAT_FULL = "dd.MM.yyyy HH:mm:ss.SSS";
 
-	/**
-	 * @param resolution the expected resolution of the timestamp saved in param <code>actual</code>, in milliseonds
-	 */
-	public final static void assertWithin(final long resolution, final Date expectedBefore, final Date expectedAfter, final Date actual)
+	public final static void assertWithinHttpDate(final Date expectedBefore, final Date expectedAfter, final Date actual)
 	{
-		final Date expectedBeforeFloor = new Date((expectedBefore.getTime() / resolution) * resolution);
+		final long resolution = 1000;
+		final long leftTolerance = 600;
+		final Date expectedBeforeFloor = new Date(((expectedBefore.getTime()-leftTolerance) / resolution) * resolution);
 		final Date expectedAfterCeil   = new Date(((expectedAfter.getTime() / resolution) * resolution) + resolution);
 
-		//final SimpleDateFormat df = new SimpleDateFormat(DATE_FORMAT_FULL);
-		//System.out.println();
-		//System.out.println("FLOOR: " + df.format(expectedBefore) + " to " + df.format(expectedBeforeFloor));
-		//System.out.println("CEIL:  " + df.format(expectedAfter)  + " to " + df.format(expectedAfterCeil));
-		
 		final SimpleDateFormat df = new SimpleDateFormat(DATE_FORMAT_FULL);
 		final String message =
 			"expected date within " + df.format(expectedBeforeFloor) + " (" + df.format(expectedBefore) + ")" +
