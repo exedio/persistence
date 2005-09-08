@@ -518,7 +518,6 @@
 					<fileset file="../lib/@{db.driver}" />
 				</copy>
 				
-				<!--property name="webdatadir.@{db.file}" location="copernica/build/testwebapp-@{db}-data" /-->
 				<path id="webdatadir.@{db.file}1">
 					<pathelement location="copernica/build/testwebapp-@{db}-data"/>
 				</path>
