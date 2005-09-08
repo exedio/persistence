@@ -46,30 +46,36 @@ public class DataTest extends AbstractLibTest
 		assertEquals(-1, item.getDataLength(item.data));
 		assertEquals(-1, item.getDataLastModified(item.data));
 
-		final Date beforeData = new Date();
-		item.setData(stream(data));
-		final Date afterData = new Date();
-		assertTrue(!item.isDataNull());
-		assertData(data, item.getData());
-		assertEquals(data.length, item.getDataLength(item.data));
-		assertWithin(1000, beforeData, afterData, new Date(item.getDataLastModified(item.data)));
-		
-		final Date beforeData2 = new Date();
-		item.setData(stream(data2));
-		final Date afterData2 = new Date();
-		assertTrue(!item.isDataNull());
-		assertData(data2, item.getData());
-		assertEquals(data2.length, item.getDataLength(item.data));
-		assertWithin(1000, beforeData2, afterData2, new Date(item.getDataLastModified(item.data)));
-		
-		final Date beforeDataEmpty = new Date();
-		item.setData(stream(dataEmpty));
-		final Date afterDataEmpty = new Date();
-		assertTrue(!item.isDataNull());
-		assertData(dataEmpty, item.getData());
-		assertEquals(0, item.getDataLength(item.data));
-		assertWithin(1000, beforeData2, afterData2, new Date(item.getDataLastModified(item.data)));
-
+		{
+			sleepForFileLastModified();
+			final Date beforeData = new Date();
+			item.setData(stream(data));
+			final Date afterData = new Date();
+			assertTrue(!item.isDataNull());
+			assertData(data, item.getData());
+			assertEquals(data.length, item.getDataLength(item.data));
+			assertWithinFileLastModified(beforeData, afterData, new Date(item.getDataLastModified(item.data)));
+		}
+		{
+			sleepForFileLastModified();
+			final Date beforeData2 = new Date();
+			item.setData(stream(data2));
+			final Date afterData2 = new Date();
+			assertTrue(!item.isDataNull());
+			assertData(data2, item.getData());
+			assertEquals(data2.length, item.getDataLength(item.data));
+			assertWithinFileLastModified(beforeData2, afterData2, new Date(item.getDataLastModified(item.data)));
+		}
+		{
+			sleepForFileLastModified();
+			final Date beforeDataEmpty = new Date();
+			item.setData(stream(dataEmpty));
+			final Date afterDataEmpty = new Date();
+			assertTrue(!item.isDataNull());
+			assertData(dataEmpty, item.getData());
+			assertEquals(0, item.getDataLength(item.data));
+			assertWithinFileLastModified(beforeDataEmpty, afterDataEmpty, new Date(item.getDataLastModified(item.data)));
+		}
 		item.setData(null);
 		assertTrue(item.isDataNull());
 		assertEquals(-1, item.getDataLength(item.data));

@@ -29,9 +29,10 @@ public class AssertWithinTest extends CopeAssert
 	
 	public void test()
 	{
-		assertWithin(1000, date(45000), date(45000), date(45000));
-		assertWithin(1000, date(45010), date(45020), date(45000));
-		assertWithin(1000, date(45010), date(45020), date(46000));
-		assertWithin(1000, date(46000), date(46000), date(46000));
+		assertWithinFileLastModified(date(45000), date(45000), date(45000));
+		assertWithinFileLastModified(date(45010), date(45000), date(45000));
+		assertWithinFileLastModified(date(45010), date(45020), date(45000));
+		assertWithinFileLastModified(date(45010), date(45020), date(46000));
+		assertWithinFileLastModified(date(46000), date(46000), date(46000));
 	}
 }
