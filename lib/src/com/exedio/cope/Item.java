@@ -475,7 +475,7 @@ public abstract class Item extends Cope
 				for(Iterator j = attribute.getType().search(attribute.equal(this)).iterator(); j.hasNext(); )
 				{
 					final Item item = (Item)j.next();
-					////System.out.println("------------check:"+item.toString());
+					//System.out.println("------------check:"+item.toString());
 					if(!toDelete.contains(item))
 						item.checkDeleteCopeItem(toDelete);
 				}
@@ -513,7 +513,7 @@ public abstract class Item extends Cope
 					for(Iterator j = q.search().iterator(); j.hasNext(); )
 					{
 						final Item item = (Item)j.next();
-						////System.out.println("------------check:"+item.toString());
+						//System.out.println("------------check:"+item.toString());
 						if(!toDelete.contains(item))
 							item.deleteCopeItem(toDelete);
 					}
