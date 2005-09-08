@@ -57,6 +57,11 @@ public class ModelTest extends AbstractLibTest
 		}
 	}
 	
+	public static final void assertEquals(final String expected, final String actual)
+	{
+		assertEquals("-----"+expected+"-----"+actual+"-----", expected, actual);
+	}
+	
 	public void testSetPropertiesInitially()
 	{
 		final Properties mp = model.getProperties();
