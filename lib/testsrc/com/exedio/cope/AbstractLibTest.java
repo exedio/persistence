@@ -126,6 +126,11 @@ public abstract class AbstractLibTest extends CopeTest
 		{
 			assertEquals((mysql&&!onlyReference) ? null : attribute, e.getAttribute());
 			assertEquals(itemToBeDeleted, e.getItem());
+			assertEquals(
+					e.getAttribute()!=null
+					? ("integrity violation on deletion of " + itemToBeDeleted.getCopeID() + " because of " + e.getAttribute())
+					: ("integrity violation on deletion of " + itemToBeDeleted.getCopeID()),
+				e.getMessage());
 		}
 		assertTrue(item.existsCopeItem());
 	}

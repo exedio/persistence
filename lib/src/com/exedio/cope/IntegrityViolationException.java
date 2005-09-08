@@ -31,7 +31,7 @@ import java.sql.SQLException;
  * 
  * @author Ralf Wiebicke
  */
-public class IntegrityViolationException extends ConstraintViolationException
+public final class IntegrityViolationException extends ConstraintViolationException
 {
 	private final ItemAttribute attribute;
 	private final Item item;
@@ -68,6 +68,14 @@ public class IntegrityViolationException extends ConstraintViolationException
 	public ItemAttribute getAttribute()
 	{
 		return attribute;
+	}
+	
+	public String getMessage()
+	{
+		return
+			attribute!=null
+			? "integrity violation on deletion of " + item.getCopeID() + " because of " + attribute
+			: "integrity violation on deletion of " + item.getCopeID();
 	}
 	
 }
