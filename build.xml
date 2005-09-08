@@ -548,6 +548,8 @@
 		</foreachdb>
 	</target>
 	
+	<target name="testwebapp" depends="copernica.testwebapp" />
+	
 	
 	<target name="copernica.webtest.compile">
 		<mkdir dir="copernica/build/webtestclasses" />
