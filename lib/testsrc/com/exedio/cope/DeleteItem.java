@@ -49,7 +49,7 @@ public class DeleteItem extends Item
 	
 	public String toString()
 	{
-		return name;
+		return name!=null ? name : getCopeID();
 	}
 	
 	
