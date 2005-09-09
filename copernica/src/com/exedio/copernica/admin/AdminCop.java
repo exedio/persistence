@@ -32,7 +32,6 @@ abstract class AdminCop extends Cop
 
 	protected AdminCop(final String name)
 	{
-		super("");
 		this.name = name;
 	}
 	

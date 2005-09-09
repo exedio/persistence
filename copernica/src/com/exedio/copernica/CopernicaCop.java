@@ -48,7 +48,6 @@ abstract class CopernicaCop extends Cop implements RequestCache
 
 	CopernicaCop(final CopernicaProvider provider, final CopernicaLanguage language)
 	{
-		super("");
 		this.language = language;
 		this.provider = provider;
 		if(language!=null)
