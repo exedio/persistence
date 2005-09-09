@@ -32,7 +32,7 @@ abstract class AdminCop extends Cop
 
 	protected AdminCop(final String name)
 	{
-		super("admin.jsp");
+		super("");
 		this.name = name;
 	}
 	

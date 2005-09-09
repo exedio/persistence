@@ -48,7 +48,7 @@ abstract class CopernicaCop extends Cop implements RequestCache
 
 	CopernicaCop(final CopernicaProvider provider, final CopernicaLanguage language)
 	{
-		super("copernica.jsp"); // TODO: make the jsp name flexible or retrieve it automatically
+		super("");
 		this.language = language;
 		this.provider = provider;
 		if(language!=null)
