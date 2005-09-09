@@ -163,8 +163,9 @@ public class ModelTest extends AbstractLibTest
 			}
 		}
 		{
+			final char SEP = File.separatorChar;
 			final java.util.Properties props = (java.util.Properties)newProps.clone();
-			props.setProperty(Properties.DATADIR_PATH, props.getProperty(Properties.DATADIR_PATH)+"/AttributeItem");
+			props.setProperty(Properties.DATADIR_PATH, props.getProperty(Properties.DATADIR_PATH)+SEP+"AttributeItem");
 			final String source = file.getAbsolutePath()+'/'+Properties.DATADIR_PATH+"=/AttributeItem";
 			try
 			{
@@ -175,7 +176,7 @@ public class ModelTest extends AbstractLibTest
 				assertEquals(
 						"inconsistent initialization for " + Properties.DATADIR_PATH +
 						" between " + mp.getSource() + " and " + source +
-						", expected " + mp.getDatadirPath() + " but got " + mp.getDatadirPath() + "/AttributeItem.", e.getMessage());
+						", expected " + mp.getDatadirPath() + " but got " + mp.getDatadirPath() + SEP + "AttributeItem.", e.getMessage());
 			}
 		}
 		{
