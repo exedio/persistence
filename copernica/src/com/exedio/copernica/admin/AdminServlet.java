@@ -18,6 +18,7 @@
 
 package com.exedio.copernica.admin;
 
+
 import java.io.IOException;
 import java.io.PrintStream;
 
@@ -28,6 +29,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.exedio.cope.Model;
 import com.exedio.cope.util.ServletUtil;
 import com.exedio.cops.CopsServlet;
+import com.exedio.cops.Resource;
+import com.exedio.cops.ResourceSet;
 
 /**
  * The servlet providing the COPE Database Administration application.
@@ -59,11 +62,12 @@ public final class AdminServlet extends CopsServlet
 
 	Model model = null;
 	
-	static final ResourceSet resources = new ResourceSet();
+	static final ResourceSet resources = new ResourceSet(AdminServlet.class);
 	static final Resource stylesheet = new Resource(resources, "admin.css", "text/css");
 	
 	public final void init()
 	{
+		// TODO: should call super
 		resources.init();
 		
 		if(model!=null)
