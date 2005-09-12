@@ -189,6 +189,7 @@
 		<copy todir="copernica/build/classes">
 			<fileset dir="copernica/src">
 				<include name="com/exedio/copernica/admin/admin.css" />
+				<include name="com/exedio/copernica/admin/admin-report.js" />
 			</fileset>
 		</copy>
 	</target>

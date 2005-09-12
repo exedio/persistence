@@ -55,9 +55,9 @@ final class SchemaCop extends AdminCop
 			addParameter(SHOW, SHOW_RENAME_FIELDS);
 	}
 	
-	void writeHead(final PrintStream out) throws IOException
+	void writeHead(final HttpServletRequest request, final PrintStream out) throws IOException
 	{
-		Schema_Jspm.writeHead(out);
+		Schema_Jspm.writeHead(request, out);
 	}
 
 	final void writeBody(final PrintStream out, final Model model) throws IOException

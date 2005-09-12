@@ -24,6 +24,8 @@ import java.io.PrintStream;
 import java.util.Date;
 import java.util.Iterator;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.exedio.cope.Model;
 import com.exedio.dsmf.CheckConstraint;
 import com.exedio.dsmf.Column;
@@ -278,10 +280,10 @@ for(Iterator i = schema.getTables().iterator(); i.hasNext(); tableCount++)
 
 	}
 	
-	final static void writeHead(final PrintStream out) throws IOException
+	final static void writeHead(final HttpServletRequest request, final PrintStream out) throws IOException
 	{
 		%>
-		<script src="admin-report.js" type="text/javascript"></script><%
+		<script src="<%=AdminServlet.reportScript.url(request)%>" type="text/javascript"></script><%
 	}
 	
 	final static void writeDone(final PrintStream out, final long startTime)

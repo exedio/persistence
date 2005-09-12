@@ -55,7 +55,7 @@ abstract class AdminCop extends Cop
 		return new MediaStatsCop();
 	}
 	
-	void writeHead(PrintStream out) throws IOException
+	void writeHead(HttpServletRequest request, PrintStream out) throws IOException
 	{
 		// default implementation does nothing
 	}
