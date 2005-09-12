@@ -47,7 +47,7 @@ import com.exedio.cops.CopsServlet;
  * &lt;/servlet&gt;
  * &lt;servlet-mapping&gt;
  *    &lt;servlet-name&gt;admin&lt;/servlet-name&gt;
- *    &lt;url-pattern&gt;/admin.jsp&lt;/url-pattern&gt;
+ *    &lt;url-pattern&gt;/admin.jsp/*&lt;/url-pattern&gt;
  * &lt;/servlet-mapping&gt;
  * </pre>
  * 
@@ -59,8 +59,13 @@ public final class AdminServlet extends CopsServlet
 
 	Model model = null;
 	
+	static final ResourceSet resources = new ResourceSet();
+	static final Resource stylesheet = new Resource(resources, "admin.css", "text/css");
+	
 	public final void init()
 	{
+		resources.init();
+		
 		if(model!=null)
 		{
 			System.out.println("reinvokation of jspInit");
@@ -83,6 +88,14 @@ public final class AdminServlet extends CopsServlet
 			final HttpServletResponse response)
 		throws ServletException, IOException
 	{
+		// resource handling
+		if("GET".equals(request.getMethod()))
+		{
+			if(resources.doGet(request, response))
+				return;
+		}
+		// /resource handling
+
 		request.setCharacterEncoding(ENCODING);
 		response.setContentType("text/html; charset="+ENCODING);
 

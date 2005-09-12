@@ -28,7 +28,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>admin</servlet-name>
-		<url-pattern>/admin.jsp</url-pattern>
+		<url-pattern>/admin.jsp/*</url-pattern>
 	</servlet-mapping>
 
 	<servlet>

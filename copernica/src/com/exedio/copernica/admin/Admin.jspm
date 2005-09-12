@@ -47,7 +47,7 @@ final class Admin_Jspm
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=<%=AdminServlet.ENCODING%>">
 		<title>COPE Administration</title>
-		<link rel="STYLESHEET" type="text/css" href="admin.css"><%
+		<link rel="STYLESHEET" type="text/css" href="<%=AdminServlet.stylesheet.url(request)%>"><%
 		cop.writeHead(out);
 		%>
 	</head>

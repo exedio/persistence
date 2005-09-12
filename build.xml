@@ -186,6 +186,11 @@
 				<pathelement location="../tomcat/server/lib/commons-fileupload-1.0.jar" />
 			</classpath>
 		</ljavac>
+		<copy todir="copernica/build/classes">
+			<fileset dir="copernica/src">
+				<include name="com/exedio/copernica/admin/admin.css" />
+			</fileset>
+		</copy>
 	</target>
 	
 	<target name="compile"
