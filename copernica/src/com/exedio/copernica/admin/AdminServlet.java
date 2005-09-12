@@ -66,9 +66,9 @@ public final class AdminServlet extends CopsServlet
 	static final Resource stylesheet = new Resource(resources, "admin.css");
 	static final Resource reportScript = new Resource(resources, "admin-report.js");
 	
-	public final void init()
+	public final void init() throws ServletException
 	{
-		// TODO: should call super
+		super.init();
 		resources.init();
 		
 		if(model!=null)

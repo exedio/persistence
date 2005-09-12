@@ -83,7 +83,7 @@ public final class CopernicaServlet extends CopsServlet
 	
 	public void init() throws ServletException
 	{
-		// TODO: should call super
+		super.init();
 		resources.init();
 		
 		if(this.provider!=null)
