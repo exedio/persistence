@@ -66,7 +66,7 @@ public final class Copernica_Jspm
 		}
 		
 		%>
-		<link rel="STYLESHEET" type="text/css" href="copernica.css">
+		<link rel="STYLESHEET" type="text/css" href="<%=CopernicaServlet.stylesheet.url(request)%>">
 	</head>
 	<body>
 		<div id="langcontainer">

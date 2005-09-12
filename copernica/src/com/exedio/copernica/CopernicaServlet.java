@@ -31,6 +31,8 @@ import com.exedio.cope.NestingRuntimeException;
 import com.exedio.cope.util.ServletUtil;
 import com.exedio.cops.Cop;
 import com.exedio.cops.CopsServlet;
+import com.exedio.cops.Resource;
+import com.exedio.cops.ResourceSet;
 
 /**
  * The servlet providing Copernica, the Generic Backoffice for COPE.
@@ -50,7 +52,7 @@ import com.exedio.cops.CopsServlet;
  * &lt;/servlet&gt;
  * &lt;servlet-mapping&gt;
  *    &lt;servlet-name&gt;copernica&lt;/servlet-name&gt;
- *    &lt;url-pattern&gt;/copernica.jsp&lt;/url-pattern&gt;
+ *    &lt;url-pattern&gt;/copernica.jsp/*&lt;/url-pattern&gt;
  * &lt;/servlet-mapping&gt;
  * </pre>
  * 
@@ -76,9 +78,14 @@ public final class CopernicaServlet extends CopsServlet
 	CopernicaProvider provider = null;
 	boolean checked;
 
+	private static final ResourceSet resources = new ResourceSet(CopernicaServlet.class);
+	static final Resource stylesheet = new Resource(resources, "copernica.css");
 	
 	public void init() throws ServletException
 	{
+		// TODO: should call super
+		resources.init();
+		
 		if(this.provider!=null)
 		{
 			System.out.println("reinvokation of jspInit");
@@ -94,6 +101,14 @@ public final class CopernicaServlet extends CopsServlet
 			final HttpServletResponse response)
 		throws ServletException, IOException
 	{
+		// resource handling
+		if("GET".equals(request.getMethod()))
+		{
+			if(resources.doGet(request, response))
+				return;
+		}
+		// /resource handling
+
 		PrintStream out = null;
 		try
 		{

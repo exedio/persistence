@@ -41,7 +41,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>copernica</servlet-name>
-		<url-pattern>/copernica.jsp</url-pattern>
+		<url-pattern>/copernica.jsp/*</url-pattern>
 	</servlet-mapping>
 
 	<!--
@@ -62,7 +62,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>copernica.pure</servlet-name>
-		<url-pattern>/copernica-pure.jsp</url-pattern>
+		<url-pattern>/copernica-pure.jsp/*</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>
