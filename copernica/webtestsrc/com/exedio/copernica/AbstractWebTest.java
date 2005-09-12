@@ -93,7 +93,7 @@ public class AbstractWebTest extends WebTestCase
 	public final static void assertWithinHttpDate(final Date expectedBefore, final Date expectedAfter, final Date actual)
 	{
 		final long resolution = 1000;
-		final long leftTolerance = 600;
+		final long leftTolerance = 900;
 		final Date expectedBeforeFloor = new Date(((expectedBefore.getTime()-leftTolerance) / resolution) * resolution);
 		final Date expectedAfterCeil   = new Date(((expectedAfter.getTime() / resolution) * resolution) + resolution);
 
