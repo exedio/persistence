@@ -63,8 +63,8 @@ public final class AdminServlet extends CopsServlet
 	Model model = null;
 	
 	private static final ResourceSet resources = new ResourceSet(AdminServlet.class);
-	static final Resource stylesheet = new Resource(resources, "admin.css", "text/css");
-	static final Resource reportScript = new Resource(resources, "admin-report.js", "application/x-javascript");
+	static final Resource stylesheet = new Resource(resources, "admin.css");
+	static final Resource reportScript = new Resource(resources, "admin-report.js");
 	
 	public final void init()
 	{
