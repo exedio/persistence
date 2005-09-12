@@ -31,7 +31,6 @@ final class Init_Jspm
 		<title>
 			Copernica - Database Administration
 		</title>
-		<link rel="STYLESHEET" type="text/css" href="admin.css">
 	</head>
 	<body>
 		<h1>Copernica</h1>
