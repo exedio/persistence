@@ -457,7 +457,6 @@ public final class Media extends MediaPath
 	private static final String REQUEST_IF_MODIFIED_SINCE = "If-Modified-Since";
 	private static final String RESPONSE_EXPIRES = "Expires";
 	private static final String RESPONSE_LAST_MODIFIED = "Last-Modified";
-	private static final String RESPONSE_CONTENT_LENGTH = "Content-Length";
 	
 	public final Media.Log doGet(
 			final HttpServletRequest request, final HttpServletResponse response,
@@ -495,7 +494,7 @@ public final class Media extends MediaPath
 		{
 			final long contentLength = getDataLength(item);
 			//System.out.println("contentLength="+String.valueOf(contentLength));
-			response.setHeader(RESPONSE_CONTENT_LENGTH, String.valueOf(contentLength));
+			response.setContentLength((int)contentLength);
 			//response.setHeader("Cache-Control", "public");
 
 			System.out.println(request.getMethod()+' '+request.getProtocol()+" IMS="+format(ifModifiedSince)+"  LM="+format(lastModified)+"  modified: "+contentLength);
