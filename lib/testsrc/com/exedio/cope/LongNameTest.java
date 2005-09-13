@@ -38,6 +38,13 @@ public class LongNameTest extends AbstractLibTest
 	public void test() throws ConstraintViolationException
 	{
 		assertEquals("long name item", item.getCode());
+		assertEquals(null, item.getPointerLoooooooooooooooooooooooooooooooooooooooooooooooooooongName());
+
+		item.setPointerLoooooooooooooooooooooooooooooooooooooooooooooooooooongName(item);
+		assertEquals(item, item.getPointerLoooooooooooooooooooooooooooooooooooooooooooooooooooongName());
+
+		item.setPointerLoooooooooooooooooooooooooooooooooooooooooooooooooooongName(null);
+		assertEquals(null, item.getPointerLoooooooooooooooooooooooooooooooooooooooooooooooooooongName());
 	}
 
 }
