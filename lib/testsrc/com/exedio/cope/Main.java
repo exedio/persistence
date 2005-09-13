@@ -30,6 +30,7 @@ public class Main
 	public static final Model md5Model = new Model(new Type[] { MD5Item.TYPE });
 	public static final Model vectorModel = new Model(new Type[] { VectorItem.TYPE });
 	public static final Model cacheIsolationModel = new Model(new Type[] { CacheIsolationItem.TYPE });
+	public static final Model longNameModel = new Model(new Type[] { LongNameLongNameLongNameLongNameLongNameLongNameItem.TYPE });
 
 	private static final void tearDown(final Model model)
 	{
@@ -45,6 +46,7 @@ public class Main
 		tearDown(md5Model);
 		tearDown(vectorModel);
 		tearDown(cacheIsolationModel);
+		tearDown(longNameModel);
 	}
 
 }

@@ -328,6 +328,7 @@
 				DataItem.java,
 				DeleteItem.java,
 				DeleteOtherItem.java,
+				LongNameLongNameLongNameLongNameLongNameLongNameItem.java,
 				CacheIsolationItem.java" />
 		</instrument>
 	</target>

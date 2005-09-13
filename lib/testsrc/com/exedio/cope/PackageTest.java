@@ -46,6 +46,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( AttributeQualifiedTest.class );
 		
 		suite.addTestSuite( DeleteTest.class );
+		suite.addTestSuite( LongNameTest.class );
 		suite.addTestSuite( StringTest.class );
 		suite.addTestSuite( DataTest.class );
 		suite.addTestSuite( NullEmptyTest.class );
