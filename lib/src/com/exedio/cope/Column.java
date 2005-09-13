@@ -38,8 +38,8 @@ abstract class Column
 			final int jdbcType)
 	{
 		this.table = table;
-		this.id = id.intern();
-		this.protectedID = table.database.driver.protectName(id).intern();
+		this.id = table.database.trimName(id).intern();
+		this.protectedID = table.database.driver.protectName(this.id).intern();
 		this.primaryKey = primaryKey;
 		this.notNull = notNull;
 		this.jdbcType = jdbcType;
