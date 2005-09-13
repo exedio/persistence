@@ -253,9 +253,6 @@
 				<attribute name="Implementation-Vendor" value="exedio GmbH" />
 			</manifest>
 		</jar>
-		<zip zipfile="copernica/build/exedio-copernica-static.zip">
-			<fileset dir="copernica/web" />
-		</zip>
 	</target>
 	
 	<target name="jar" depends="lib.jar, lib.test.jar, instrument.jar, copernica.jar" />
@@ -538,9 +535,6 @@
 				</copy>
 				<copy todir="copernica/build/testwebapp-@{db}/WEB-INF/"
 						file="copernica/web.xml" />
-				<copy todir="copernica/build/testwebapp-@{db}">
-					<fileset dir="copernica/web" />
-				</copy>
 				<mkdir dir="copernica/build/testwebapp-@{db}-data" />
 				<copy tofile="../tomcat/conf/Catalina/localhost/copetest-@{db}.xml"
 						file="copernica/copetest.xml">
