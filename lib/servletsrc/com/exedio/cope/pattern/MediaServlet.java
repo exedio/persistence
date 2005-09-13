@@ -63,8 +63,10 @@ public final class MediaServlet extends HttpServlet
 	
 	private final HashMap pathes = new HashMap();
 	
-	public final void init()
+	public final void init() throws ServletException
 	{
+		super.init();
+
 		try
 		{
 			final Model model = ServletUtil.getModel(getServletConfig());
