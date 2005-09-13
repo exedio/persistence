@@ -77,13 +77,15 @@ public class ResourceTest extends AbstractWebTest
 		assertEquals(expectNotModified ? null : contentType, conn.getContentType()); // TODO: content type should be set on 304
 		//System.out.println("Expires: "+new Date(textConn.getExpiration()));
 		assertWithin(new Date(date+(4*60*1000)), new Date(date+(6*60*1000)), new Date(conn.getExpiration()));
-		assertEquals(expectNotModified ? -1 : 1888, conn.getContentLength());
+		assertEquals(expectNotModified ? -1 : 1890, conn.getContentLength());
 		
 		final BufferedReader is = new BufferedReader(new InputStreamReader((InputStream)conn.getInputStream()));
 		if(!expectNotModified)
 		{
-			assertEquals("# This is the default style sheet for the", is.readLine());
-			assertEquals("# cope admin application", is.readLine());
+			assertEquals("/*", is.readLine());
+			assertEquals("This is the default style sheet for the", is.readLine());
+			assertEquals("cope admin application", is.readLine());
+			assertEquals("*/", is.readLine());
 			assertEquals("", is.readLine());
 		}
 		is.close();
