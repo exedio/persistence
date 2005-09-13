@@ -45,6 +45,9 @@ public class LongNameTest extends AbstractLibTest
 
 		item.setPointerLoooooooooooooooooooooooooooooooooooooooooooooooooooongName(null);
 		assertEquals(null, item.getPointerLoooooooooooooooooooooooooooooooooooooooooooooooooooongName());
+
+		item.setCodeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName("long name item");
+		assertEquals(item, item.findByCodeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName("long name item"));
 	}
 
 }
