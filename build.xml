@@ -190,6 +190,7 @@
 			<fileset dir="copernica/src">
 				<include name="**/*.css" />
 				<include name="**/*.js" />
+				<include name="**/*.png" />
 			</fileset>
 		</copy>
 	</target>

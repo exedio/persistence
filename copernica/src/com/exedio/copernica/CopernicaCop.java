@@ -213,6 +213,6 @@ abstract class CopernicaCop extends Cop implements RequestCache
 		//System.out.println("nullNameMisses: "+nullNameMisses+", onNameMisses: "+onNameMisses+", offNameMisses: "+offNameMisses);
 	}
 	
-	abstract void writeBody(PrintStream out) throws IOException;
+	abstract void writeBody(HttpServletRequest request, PrintStream out) throws IOException;
 	
 }

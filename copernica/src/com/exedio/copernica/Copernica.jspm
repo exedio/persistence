@@ -91,7 +91,7 @@ public final class Copernica_Jspm
 		Copernica_Jspm.writeTypeList(out, cop);
 		%>
 		<div id="main"><%
-		cop.writeBody(out);
+		cop.writeBody(request, out);
 		//cop.log();
 		%>
 		</div>
@@ -197,13 +197,13 @@ public final class Copernica_Jspm
 <%
 	}
 	
-	static final void writeEmptyBody(final PrintStream out)
+	static final void writeEmptyBody(final HttpServletRequest request, final PrintStream out)
 		throws IOException
 	{
 			%>
 			<h1>Copernica</h1>
 			<h2>Generic Backoffice for COPE</h2>
-			<img src="exedio.png" width="200" height="66"><%
+			<img src="<%=CopernicaServlet.logo.url(request)%>" width="200" height="66"><%
 	}
 
 	public static final void writeParameters(final PrintStream out, final HttpServletRequest request)

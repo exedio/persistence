@@ -166,7 +166,7 @@ final class TypeCop extends CopernicaCop
 		statementInfo = query.getStatementInfo();
 	}
 	
-	void writeBody(final PrintStream out)
+	void writeBody(final HttpServletRequest request, final PrintStream out)
 		throws IOException
 	{
 		TypeCop_Jspm.writeBody(out, this);

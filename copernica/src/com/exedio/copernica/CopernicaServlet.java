@@ -80,6 +80,7 @@ public final class CopernicaServlet extends CopsServlet
 
 	private static final ResourceSet resources = new ResourceSet(CopernicaServlet.class);
 	static final Resource stylesheet = new Resource(resources, "copernica.css");
+	static final Resource logo = new Resource(resources, "exedio.png");
 	
 	public void init() throws ServletException
 	{

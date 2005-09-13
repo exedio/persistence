@@ -64,7 +64,7 @@ final class ItemCop extends CopernicaCop
 		return provider.getDisplayName(this, language, item);
 	}
 
-	void writeBody(final PrintStream out)
+	void writeBody(final HttpServletRequest request, final PrintStream out)
 		throws IOException
 	{
 		ItemCop_Jspm.writeBody(out, this);
