@@ -52,6 +52,7 @@ final class Admin_Jspm
 		%>
 	</head>
 	<body>
+		<img src="<%=AdminServlet.logo.url(request)%>" width="200" height="66" align="right">
 		<h1>COPE Administration</h3>
 
 		<form action="<%=cop%>" method="POST">
