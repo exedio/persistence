@@ -70,7 +70,7 @@ public final class Type
 	private final Constructor reactivationConstructor;
 	
 	/**
-	 * This number unqiquely identifies a type within its model.
+	 * This number uniquely identifies a type within its model.
 	 * However, this number is not stable across JVM restarts.
 	 * So never put this number into any persistent storage,
 	 * nor otherwise make this number accessible outside the library.
@@ -293,6 +293,8 @@ public final class Type
 		if(this.table!=null)
 			throw new RuntimeException();
 		if(this.primaryKeyIterator!=null)
+			throw new RuntimeException();
+		if(this.transientNumber>=0)
 			throw new RuntimeException();
 		
 		this.model = model;
