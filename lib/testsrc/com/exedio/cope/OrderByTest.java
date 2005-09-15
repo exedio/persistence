@@ -18,6 +18,7 @@
 package com.exedio.cope;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -63,6 +64,17 @@ public class OrderByTest extends TestmodelTest
 		assertOrder(list(item1, item3, item5, item2, item4), item.someNotNullDouble);
 
 		// range
+		{
+			final Query q = new Query(item1.TYPE, null);
+			try
+			{
+				q.setRange(-1, 10);
+			}
+			catch(RuntimeException e)
+			{
+				assertEquals(null, e.getMessage());
+			}
+		}
 		assertOrder(list(item1, item5, item2, item4, item3), list(item3, item4, item2, item5, item1), item.someNotNullInteger, 0, -1);
 		assertOrder(list(item1, item5), list(item3, item4), item.someNotNullInteger, 0, 2);
 		assertOrder(list(), list(), item.someNotNullInteger, 0, 0);
@@ -98,6 +110,14 @@ public class OrderByTest extends TestmodelTest
 
 		query.setOrderBy(searchAttribute, false);
 		assertEquals(expectedReverseOrder, query.search());
+		query.setOrderBy(searchAttribute, true);
+		
+		final Query.Result resultWithSizeWithoutRange = query.searchWithSizeWithoutRange();
+		assertEquals(expectedOrder, resultWithSizeWithoutRange.getData());
+		query.setRange(0, -1);
+		final Collection resultWithoutRange = query.search();
+		assertEquals(resultWithoutRange.size(), resultWithSizeWithoutRange.getSizeWithoutRange());
+		query.setRange(start, count);
 	}
 	
 }

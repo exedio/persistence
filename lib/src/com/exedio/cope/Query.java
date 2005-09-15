@@ -143,6 +143,7 @@ public final class Query
 	}
 
 	/**
+	 * @param count the maximum number of items to be found, or -1 if there is no limit for finding items.
 	 * @throws RuntimeException if start is a negative value
 	 */	
 	public void setRange(final int start, final int count)
@@ -189,4 +190,73 @@ public final class Query
 		return Collections.unmodifiableList(model.getDatabase().search(model.getCurrentTransaction().getConnection(), this));
 	}
 	
+	/**
+	 * Searches for items matching this query.
+	 * <p>
+	 * Returns a {@link Result} containing the
+	 * {@link Result#getData() data} and the
+	 * {@link Result#getSizeWithoutRange() sizeWithoutRange}.
+	 * The {@link Result#getData() data} is equal to
+	 * what {@link #search()} would have returned for this query.
+	 * The {@link Result#getSizeWithoutRange() sizeWithoutRange} is equal to the
+	 * {@link Collection#size() size} of what
+	 * {@link #search()} would have returned for this query with
+	 * {@link #setRange(int, int)} set to <code>(0, -1)</code>.
+	 */
+	public final Result searchWithSizeWithoutRange()
+	{
+		// TODO more efficient implementation using database count function and try to avoid second sql query
+		
+		final Collection data = search();
+
+		final int start = this.start;
+		final int count = this.count;
+		if(start==0 && count<0)
+			return new Result(data, data.size());
+		
+		this.start = 0;
+		this.count = -1;
+		final Collection dataWithoutRange = search();
+		this.start = start;
+		this.count = count;
+		
+		return new Result(data, dataWithoutRange.size());
+	}
+	
+	public static final class Result
+	{
+		final Collection data;
+		final int sizeWithoutRange;
+		
+		private Result(final Collection data, final int sizeWithoutRange)
+		{
+			if(data==null)
+				throw new RuntimeException();
+			
+			this.data = data;
+			this.sizeWithoutRange = sizeWithoutRange;
+		}
+		
+		public Collection getData()
+		{
+			return data;
+		}
+		
+		public int getSizeWithoutRange()
+		{
+			return sizeWithoutRange;
+		}
+		
+		public boolean equals(final Object o)
+		{
+			final Result or = (Result)o;
+
+			return sizeWithoutRange==or.sizeWithoutRange && data.equals(or.data);
+		}
+		
+		public String toString()
+		{
+			return data.toString() + '(' + sizeWithoutRange + ')';
+		}
+	}
 }
