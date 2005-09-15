@@ -379,6 +379,22 @@ public final class Type
 	}
 	
 	/**
+	 * Returns the name of database table for this type - use with care!
+	 * <p>
+	 * This information is needed only, if you want to access
+	 * the database without cope.
+	 * In this case you should really know, what you are doing.
+	 * Please note, that this string may vary,
+	 * if a cope model is configured for different databases.
+	 * 
+	 * @see Attribute#getColumnName()
+	 */
+	public final String getTableName()
+	{
+		return table.id;
+	}
+	
+	/**
 	 * Returns the type representing the {@link Class#getSuperclass() superclass}
 	 * of this type's {@link #getJavaClass() java class}.
 	 * If this type has no super type

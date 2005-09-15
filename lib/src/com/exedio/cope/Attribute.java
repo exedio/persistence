@@ -107,6 +107,22 @@ public abstract class Attribute extends Feature
 		return column;
 	}
 	
+	/**
+	 * Returns the name of database column for this attribute - use with care!
+	 * <p>
+	 * This information is needed only, if you want to access
+	 * the database without cope.
+	 * In this case you should really know, what you are doing.
+	 * Please note, that this string may vary,
+	 * if a cope model is configured for different databases.
+	 * 
+	 * @see Type#getTableName()
+	 */
+	public final String getColumnName()
+	{
+		return column.id;
+	}
+	
 	protected abstract Column createColumn(Table table, String name, boolean notNull);
 	
 	public static class Option
