@@ -38,6 +38,7 @@ import com.exedio.cope.ObjectAttribute;
 import com.exedio.cope.ReadOnlyViolationException;
 import com.exedio.cope.StringAttribute;
 import com.exedio.cope.UniqueViolationException;
+import com.exedio.cope.pattern.Hash;
 import com.exedio.cope.util.ClassComparator;
 
 abstract class CopeAttribute
@@ -52,7 +53,6 @@ abstract class CopeAttribute
 	 */
 	final String persistentType;
 
-	final boolean computed;
 	final Option getterOption;
 	final Option setterOption;
 
@@ -69,7 +69,7 @@ abstract class CopeAttribute
 		this.accessModifier = javaAttribute.accessModifier;
 		this.copeClass = CopeClass.getCopeClass(javaAttribute.parent);
 		this.persistentType = persistentType;
-		this.computed = ComputedFunction.class.isAssignableFrom(typeClass);
+		final boolean computed = ComputedFunction.class.isAssignableFrom(typeClass);
 		
 		if(!computed)
 		{
@@ -183,6 +183,7 @@ abstract class CopeAttribute
 		final Object instance = value.instance;
 		final boolean readOnly = instance instanceof Attribute && ((Attribute)instance).isReadOnly();
 		final boolean notNull = instance instanceof Attribute && ((Attribute)instance).isMandatory();
+		final boolean computed = instance instanceof ComputedFunction;
 
 		return (readOnly || notNull) && !computed;
 	}
@@ -193,6 +194,7 @@ abstract class CopeAttribute
 		final JavaClass.Value value = javaAttribute.evaluate();
 		final Object instance = value.instance;
 		final boolean readOnly = instance instanceof Attribute && ((Attribute)instance).isReadOnly();
+		final boolean computed = instance instanceof ComputedFunction;
 
 		return !readOnly && !computed;
 	}
@@ -237,12 +239,14 @@ abstract class CopeAttribute
 		return this.setterExceptions;
 	}
 	
+	// TODO put this into rtlib
 	protected void fillSetterExceptions(final SortedSet result)
 	{
 		final JavaClass.Value value = javaAttribute.evaluate();
 		final Object instance = value.instance;
 		final boolean readOnly = instance instanceof Attribute && ((Attribute)instance).isReadOnly();
-		final boolean notNull = instance instanceof Attribute && ((Attribute)instance).isMandatory();
+		final boolean notNull = (instance instanceof Attribute && ((Attribute)instance).isMandatory()) ||
+										(instance instanceof Hash && ((Hash)instance).getStorage().isMandatory());
 		final boolean isLengthConstrained = instance instanceof StringAttribute && ((StringAttribute)instance).isLengthConstrained();
 
 		if(isPartOfUniqueConstraint())
