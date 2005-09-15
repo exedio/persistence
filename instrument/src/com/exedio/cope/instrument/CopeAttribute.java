@@ -36,6 +36,7 @@ import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.NestingRuntimeException;
 import com.exedio.cope.ObjectAttribute;
 import com.exedio.cope.ReadOnlyViolationException;
+import com.exedio.cope.StringAttribute;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.util.ClassComparator;
 
@@ -53,7 +54,6 @@ abstract class CopeAttribute
 
 	final boolean readOnly;
 	final boolean notNull;
-	final boolean lengthConstrained;
 	final boolean computed;
 	final Option getterOption;
 	final Option setterOption;
@@ -85,23 +85,6 @@ abstract class CopeAttribute
 			this.readOnly = option.readOnly;
 			this.notNull = option.mandatory;
 			
-			if(initializerArguments.size()>1)
-			{
-				final String secondArgument = (String)initializerArguments.get(1);
-				boolean lengthConstrained = true;
-				try
-				{
-					Integer.parseInt(secondArgument);
-				}
-				catch(NumberFormatException e)
-				{
-					lengthConstrained = false;
-				}
-				this.lengthConstrained = lengthConstrained;
-			}
-			else
-				this.lengthConstrained = false;
-
 			if(option.unique)
 				copeClass.makeUnique(new CopeUniqueConstraint(this));
 		}
@@ -109,7 +92,6 @@ abstract class CopeAttribute
 		{
 			this.readOnly = false;
 			this.notNull = false;
-			this.lengthConstrained = false;
 		}
 		
 		this.getterOption = new Option(getterOption, true);
@@ -252,7 +234,9 @@ abstract class CopeAttribute
 			result.add(ReadOnlyViolationException.class);
 		if(notNull && !isBoxed())
 			result.add(MandatoryViolationException.class);
-		if(lengthConstrained)
+		
+		final JavaClass.Value value = javaAttribute.evaluate();
+		if(value.instance instanceof StringAttribute && ((StringAttribute)value.instance).isLengthConstrained())
 			result.add(LengthViolationException.class);
 	}
 
