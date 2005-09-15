@@ -356,6 +356,8 @@ final class Generator
 	private void writeAccessMethods(final CopeAttribute copeAttribute)
 	throws IOException
 	{
+		if(show) copeAttribute.show();
+
 		final String type = copeAttribute.getBoxedType();
 
 		// getter

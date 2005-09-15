@@ -29,10 +29,11 @@ import com.exedio.cope.Attribute;
 import com.exedio.cope.BooleanAttribute;
 import com.exedio.cope.ComputedFunction;
 import com.exedio.cope.DateAttribute;
+import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
 import com.exedio.cope.LengthViolationException;
-import com.exedio.cope.NestingRuntimeException;
 import com.exedio.cope.MandatoryViolationException;
+import com.exedio.cope.NestingRuntimeException;
 import com.exedio.cope.ObjectAttribute;
 import com.exedio.cope.ReadOnlyViolationException;
 import com.exedio.cope.UniqueViolationException;
@@ -346,4 +347,14 @@ abstract class CopeAttribute
 		}
 	}
 	
+	void show() // TODO remove
+	{
+		System.out.println("------attribute:"+javaAttribute.name+'/'+notNull);
+		final Feature rtvalue = (Feature)javaAttribute.evaluate().instance;
+		final JavaAttribute ja = (JavaAttribute)javaAttribute.parent.file.repository.getByRtValue(rtvalue);
+		final Attribute a = rtvalue instanceof Attribute ? (Attribute)rtvalue : null;
+		System.out.println("------attribute:"+ja.name+'/'+(a!=null&&a.isMandatory()));
+	
+		System.out.println("------");
+	}
 }

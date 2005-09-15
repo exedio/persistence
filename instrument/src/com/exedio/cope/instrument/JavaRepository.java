@@ -53,9 +53,9 @@ final class JavaRepository
 		return result;
 	}
 
-	void putRtValue(final JavaAttribute attribute, final Object rtvalue)
+	void putRtValue(final JavaAttribute attribute, final JavaClass.Value rtvalue)
 	{
-		rtvalues.put(rtvalue, attribute);
+		rtvalues.put(rtvalue.instance, attribute);
 	}
 	
 	final JavaAttribute getByRtValue(final Object rtvalue)

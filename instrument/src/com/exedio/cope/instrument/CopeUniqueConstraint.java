@@ -54,7 +54,7 @@ final class CopeUniqueConstraint
 			xAttributeNames.add(copeAttributes[i].javaAttribute.name);
 		System.out.println("------uniqueconstraint:"+name+xAttributeNames);
 
-		final Feature rtvalueF = (Feature)javaAttribute.evaluate();
+		final Feature rtvalueF = (Feature)javaAttribute.evaluate().instance;
 		if(rtvalueF instanceof UniqueConstraint)
 		{
 			final UniqueConstraint rtvalue = (UniqueConstraint)rtvalueF;
