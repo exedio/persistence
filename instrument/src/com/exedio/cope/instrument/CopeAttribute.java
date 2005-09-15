@@ -52,7 +52,6 @@ abstract class CopeAttribute
 	 */
 	final String persistentType;
 
-	final boolean readOnly;
 	final boolean notNull;
 	final boolean computed;
 	final Option getterOption;
@@ -82,7 +81,6 @@ abstract class CopeAttribute
 			//System.out.println(optionString);
 			final Attribute.Option option = getOption(optionString); 
 	
-			this.readOnly = option.readOnly;
 			this.notNull = option.mandatory;
 			
 			if(option.unique)
@@ -90,7 +88,6 @@ abstract class CopeAttribute
 		}
 		else
 		{
-			this.readOnly = false;
 			this.notNull = false;
 		}
 		
@@ -188,13 +185,23 @@ abstract class CopeAttribute
 		return false;
 	}
 	
+	// TODO: put into rtlib
 	final boolean isInitial()
 	{
+		final JavaClass.Value value = javaAttribute.evaluate();
+		final Object instance = value.instance;
+		final boolean readOnly = instance instanceof Attribute && ((Attribute)instance).isReadOnly();
+
 		return (readOnly || notNull) && !computed;
 	}
-	
+
+	// TODO: put into rtlib
 	private final boolean isWriteable()
 	{
+		final JavaClass.Value value = javaAttribute.evaluate();
+		final Object instance = value.instance;
+		final boolean readOnly = instance instanceof Attribute && ((Attribute)instance).isReadOnly();
+
 		return !readOnly && !computed;
 	}
 	
@@ -228,15 +235,19 @@ abstract class CopeAttribute
 	
 	protected void fillSetterExceptions(final SortedSet result)
 	{
+		final JavaClass.Value value = javaAttribute.evaluate();
+		final Object instance = value.instance;
+		final boolean readOnly = instance instanceof Attribute && ((Attribute)instance).isReadOnly();
+		final boolean isLengthConstrained = instance instanceof StringAttribute && ((StringAttribute)instance).isLengthConstrained();
+
+
 		if(isPartOfUniqueConstraint())
 			result.add(UniqueViolationException.class);
 		if(readOnly)
 			result.add(ReadOnlyViolationException.class);
 		if(notNull && !isBoxed())
 			result.add(MandatoryViolationException.class);
-		
-		final JavaClass.Value value = javaAttribute.evaluate();
-		if(value.instance instanceof StringAttribute && ((StringAttribute)value.instance).isLengthConstrained())
+		if(isLengthConstrained)
 			result.add(LengthViolationException.class);
 	}
 
@@ -274,6 +285,10 @@ abstract class CopeAttribute
 
 	final SortedSet getToucherExceptions()
 	{
+		final JavaClass.Value value = javaAttribute.evaluate();
+		final Object instance = value.instance;
+		final boolean readOnly = instance instanceof Attribute && ((Attribute)instance).isReadOnly();
+
 		if(toucherExceptions!=null)
 			return toucherExceptions;
 		
