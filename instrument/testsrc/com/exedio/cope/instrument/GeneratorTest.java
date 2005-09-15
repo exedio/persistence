@@ -95,6 +95,10 @@ public class GeneratorTest extends InstrumentorTest
 		assertMethod(standard, "setDefaultDate", new Class[]{Date.class}, PUBLIC|FINAL);
 		assertMethod(standard, "touchDefaultDate", new Class[]{}, PUBLIC|FINAL);
 
+		assertMethod(standard, "getPrivateDate", Date.class, PRIVATE|FINAL);
+		assertMethod(standard, "setPrivateDate", new Class[]{Date.class}, PRIVATE|FINAL);
+		assertMethod(standard, "touchPrivateDate", new Class[]{}, PRIVATE|FINAL);
+
 		assertMethod(standard, "getPrivateString", String.class, PRIVATE|FINAL);
 		assertMethod(standard, "setPrivateString", new Class[]{String.class}, PRIVATE|FINAL);
 
