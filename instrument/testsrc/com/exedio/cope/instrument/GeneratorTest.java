@@ -57,7 +57,7 @@ public class GeneratorTest extends InstrumentorTest
 				long.class, // nativeLong
 				double.class, // nativeDouble
 				boolean.class, // nativeBoolean
-				Date.class, // defaultDate
+				Date.class, // mandatoryDate
 			}, PUBLIC);
 		assertConstructor(standard, new Class[]{(new AttributeValue[0]).getClass()}, PRIVATE);
 		assertConstructor(standard, new Class[]{ReactivationConstructorDummy.class, int.class}, PRIVATE);
@@ -92,9 +92,9 @@ public class GeneratorTest extends InstrumentorTest
 		assertMethod(standard, "getNativeBoolean", boolean.class, PUBLIC|FINAL);
 		assertMethod(standard, "setNativeBoolean", new Class[]{boolean.class}, PUBLIC|FINAL);
 
-		assertMethod(standard, "getDefaultDate", Date.class, PUBLIC|FINAL);
-		assertMethod(standard, "setDefaultDate", new Class[]{Date.class}, PUBLIC|FINAL, new Class[]{MandatoryViolationException.class});
-		assertMethod(standard, "touchDefaultDate", new Class[]{}, PUBLIC|FINAL);
+		assertMethod(standard, "getMandatoryDate", Date.class, PUBLIC|FINAL);
+		assertMethod(standard, "setMandatoryDate", new Class[]{Date.class}, PUBLIC|FINAL, new Class[]{MandatoryViolationException.class});
+		assertMethod(standard, "touchMandatoryDate", new Class[]{}, PUBLIC|FINAL);
 
 		assertMethod(standard, "getPrivateDate", Date.class, PRIVATE|FINAL);
 		assertMethod(standard, "setPrivateDate", new Class[]{Date.class}, PRIVATE|FINAL);
