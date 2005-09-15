@@ -22,6 +22,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import com.exedio.cope.Attribute;
 import com.exedio.cope.BooleanAttribute;
 import com.exedio.cope.DateAttribute;
 import com.exedio.cope.DoubleAttribute;
@@ -31,10 +32,9 @@ import com.exedio.cope.StringFunction;
 
 final class CopeNativeAttribute extends CopeAttribute
 {
+	final Class typeClass;
+	final String nativeType;
 	final boolean touchable;
-	private final String boxedType;
-	private final boolean boxed;
-	private final String boxingPrefix, boxingPostfix, unboxingPrefix, unboxingPostfix;
 
 	public CopeNativeAttribute(
 			final JavaAttribute javaAttribute,
@@ -46,25 +46,9 @@ final class CopeNativeAttribute extends CopeAttribute
 	{
 		super(javaAttribute, typeClass, getPersistentType(typeClass), initializerArguments, getterOption, setterOption);
 		
-		this.touchable = DateAttribute.class.isAssignableFrom(typeClass);
-
-		typeClass = normalizeTypeClass(typeClass);
-		final String nativeType = (String)toNativeTypeMapping.get(typeClass);
-		if(notNull && nativeType!=null)
-		{
-			boxedType = nativeType;
-			boxed = true;
-			boxingPrefix = (String)toBoxingPrefixMapping.get(typeClass);
-			boxingPostfix = (String)toBoxingPostfixMapping.get(typeClass);
-			unboxingPrefix = (String)toUnboxingPrefixMapping.get(typeClass);
-			unboxingPostfix = (String)toUnboxingPostfixMapping.get(typeClass);
-		}
-		else
-		{
-			boxedType = persistentType;
-			boxed = false;
-			boxingPrefix = boxingPostfix = unboxingPrefix = unboxingPostfix = null;
-		}
+		this.typeClass = normalizeTypeClass(typeClass);
+		this.nativeType = (String)toNativeTypeMapping.get(this.typeClass);
+		this.touchable = DateAttribute.class.isAssignableFrom(this.typeClass);
 	}
 	
 	private static final Class normalizeTypeClass(final Class typeClass)
@@ -137,47 +121,51 @@ final class CopeNativeAttribute extends CopeAttribute
 		fillNativeTypeMap(StringFunction.class,   String.class);
 		fillNativeTypeMap(DateAttribute.class,    Date.class);
 	}
-
+	
 	public final String getBoxedType()
 	{
-		return boxedType;
+		return isBoxed() ? nativeType : persistentType;
 	}
 	
 	public final boolean isBoxed()
 	{
-		return boxed;
+		final JavaClass.Value value = javaAttribute.evaluate();
+		final Object instance = value.instance;
+		final boolean notNull = instance instanceof Attribute && ((Attribute)instance).isMandatory();
+
+		return (notNull && nativeType!=null);
 	}
 	
 	public final String getBoxingPrefix()
 	{
-		if(!boxed)
+		if(!isBoxed())
 			throw new RuntimeException();
 
-		return boxingPrefix;
+		return (String)toBoxingPrefixMapping.get(typeClass);
 	}
 	
 	public final String getBoxingPostfix()
 	{
-		if(!boxed)
+		if(!isBoxed())
 			throw new RuntimeException();
 
-		return boxingPostfix;
+		return (String)toBoxingPostfixMapping.get(typeClass);
 	}
 	
 	public final String getUnBoxingPrefix()
 	{
-		if(!boxed)
+		if(!isBoxed())
 			throw new RuntimeException();
 
-		return unboxingPrefix;
+		return (String)toUnboxingPrefixMapping.get(typeClass);
 	}
 	
 	public final String getUnBoxingPostfix()
 	{
-		if(!boxed)
+		if(!isBoxed())
 			throw new RuntimeException();
 
-		return unboxingPostfix;
+		return (String)toUnboxingPostfixMapping.get(typeClass);
 	}
 	
 }

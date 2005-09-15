@@ -23,6 +23,7 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.SortedSet;
 
+import com.exedio.cope.Attribute;
 import com.exedio.cope.MandatoryViolationException;
 
 final class CopeDataAttribute extends CopeAttribute
@@ -41,6 +42,10 @@ final class CopeDataAttribute extends CopeAttribute
 	
 	protected void fillSetterExceptions(final SortedSet result)
 	{
+		final JavaClass.Value value = javaAttribute.evaluate();
+		final Object instance = value.instance;
+		final boolean notNull = instance instanceof Attribute && ((Attribute)instance).isMandatory();
+
 		result.add(IOException.class);
 		if(notNull)
 			result.add(MandatoryViolationException.class);

@@ -52,7 +52,6 @@ abstract class CopeAttribute
 	 */
 	final String persistentType;
 
-	final boolean notNull;
 	final boolean computed;
 	final Option getterOption;
 	final Option setterOption;
@@ -81,14 +80,8 @@ abstract class CopeAttribute
 			//System.out.println(optionString);
 			final Attribute.Option option = getOption(optionString); 
 	
-			this.notNull = option.mandatory;
-			
 			if(option.unique)
 				copeClass.makeUnique(new CopeUniqueConstraint(this));
-		}
-		else
-		{
-			this.notNull = false;
 		}
 		
 		this.getterOption = new Option(getterOption, true);
@@ -191,6 +184,7 @@ abstract class CopeAttribute
 		final JavaClass.Value value = javaAttribute.evaluate();
 		final Object instance = value.instance;
 		final boolean readOnly = instance instanceof Attribute && ((Attribute)instance).isReadOnly();
+		final boolean notNull = instance instanceof Attribute && ((Attribute)instance).isMandatory();
 
 		return (readOnly || notNull) && !computed;
 	}
@@ -238,8 +232,8 @@ abstract class CopeAttribute
 		final JavaClass.Value value = javaAttribute.evaluate();
 		final Object instance = value.instance;
 		final boolean readOnly = instance instanceof Attribute && ((Attribute)instance).isReadOnly();
+		final boolean notNull = instance instanceof Attribute && ((Attribute)instance).isMandatory();
 		final boolean isLengthConstrained = instance instanceof StringAttribute && ((StringAttribute)instance).isLengthConstrained();
-
 
 		if(isPartOfUniqueConstraint())
 			result.add(UniqueViolationException.class);
@@ -348,7 +342,7 @@ abstract class CopeAttribute
 	
 	void show() // TODO remove
 	{
-		System.out.println("------attribute:"+javaAttribute.name+'/'+notNull);
+		System.out.println("------attribute:"+javaAttribute.name);
 		final Feature rtvalue = (Feature)javaAttribute.evaluate().instance;
 		final JavaAttribute ja = (JavaAttribute)javaAttribute.parent.file.repository.getByRtValue(rtvalue);
 		final Attribute a = rtvalue instanceof Attribute ? (Attribute)rtvalue : null;
