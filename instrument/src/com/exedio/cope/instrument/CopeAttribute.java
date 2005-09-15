@@ -197,6 +197,14 @@ abstract class CopeAttribute
 		return !readOnly && !computed;
 	}
 	
+	final boolean isTouchable()
+	{
+		final JavaClass.Value value = javaAttribute.evaluate();
+		final Object instance = value.instance;
+
+		return instance instanceof DateAttribute;
+	}
+
 	final boolean hasIsGetter()
 	{
 		final JavaClass.Value value = javaAttribute.evaluate();

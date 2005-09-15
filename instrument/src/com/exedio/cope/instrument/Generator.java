@@ -409,8 +409,7 @@ final class Generator
 			o.write("\t}");
 			
 			// touch for date attributes
-			if(copeAttribute instanceof CopeNativeAttribute &&
-				((CopeNativeAttribute)copeAttribute).touchable)
+			if(copeAttribute.isTouchable())
 			{
 				writeCommentHeader();
 				o.write("\t * ");

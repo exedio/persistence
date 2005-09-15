@@ -34,7 +34,6 @@ final class CopeNativeAttribute extends CopeAttribute
 {
 	final Class typeClass;
 	final String nativeType;
-	final boolean touchable;
 
 	public CopeNativeAttribute(
 			final JavaAttribute javaAttribute,
@@ -48,7 +47,6 @@ final class CopeNativeAttribute extends CopeAttribute
 		
 		this.typeClass = normalizeTypeClass(typeClass);
 		this.nativeType = (String)toNativeTypeMapping.get(this.typeClass);
-		this.touchable = DateAttribute.class.isAssignableFrom(this.typeClass);
 	}
 	
 	private static final Class normalizeTypeClass(final Class typeClass)
