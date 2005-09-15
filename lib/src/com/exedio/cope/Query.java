@@ -151,7 +151,7 @@ public final class Query
 		this.start = start;
 		this.count = count;
 		if(start<0)
-			throw new RuntimeException();
+			throw new RuntimeException("start must not be negative");
 	}
 	
 	public void enableMakeStatementInfo()

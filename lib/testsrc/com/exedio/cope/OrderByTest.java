@@ -72,7 +72,7 @@ public class OrderByTest extends TestmodelTest
 			}
 			catch(RuntimeException e)
 			{
-				assertEquals(null, e.getMessage());
+				assertEquals("start must not be negative", e.getMessage());
 			}
 		}
 		assertOrder(list(item1, item5, item2, item4, item3), list(item3, item4, item2, item5, item1), item.someNotNullInteger, 0, -1);
