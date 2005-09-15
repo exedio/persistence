@@ -148,10 +148,13 @@ public class GeneratorTest extends InstrumentorTest
 
 		assertMethod(standard, "checkPublicHash", new Class[]{String.class}, Boolean.TYPE, PUBLIC|FINAL);
 		assertMethod(standard, "checkPrivateHash", new Class[]{String.class}, Boolean.TYPE, PRIVATE|FINAL);
+		assertMethod(standard, "checkMandatoryHash", new Class[]{String.class}, Boolean.TYPE, PUBLIC|FINAL);
 		assertMethod(standard, "setPublicHash", new Class[]{String.class}, PUBLIC|FINAL);
 		assertMethod(standard, "setPrivateHash", new Class[]{String.class}, PRIVATE|FINAL);
+		assertMethod(standard, "setMandatoryHash", new Class[]{String.class}, PUBLIC|FINAL/*TODO , new Class[]{MandatoryViolationException.class}*/);
 		assertNoMethod(standard, "getPublicHash");
 		assertNoMethod(standard, "getPrivateHash");
+		assertNoMethod(standard, "getMandatoryHash");
 
 		assertField(standard, "TYPE", Type.class, PUBLIC|STATIC|FINAL);
 
