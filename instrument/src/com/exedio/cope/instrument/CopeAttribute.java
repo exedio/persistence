@@ -55,7 +55,6 @@ abstract class CopeAttribute
 	final boolean computed;
 	final Option getterOption;
 	final Option setterOption;
-	final boolean isBoolean;
 
 	CopeAttribute(
 			final JavaAttribute javaAttribute,
@@ -86,7 +85,6 @@ abstract class CopeAttribute
 		
 		this.getterOption = new Option(getterOption, true);
 		this.setterOption = new Option(setterOption, true);
-		this.isBoolean = BooleanAttribute.class.equals(typeClass);
 
 		copeClass.add(this);
 	}
@@ -201,6 +199,10 @@ abstract class CopeAttribute
 	
 	final boolean hasIsGetter()
 	{
+		final JavaClass.Value value = javaAttribute.evaluate();
+		final Object instance = value.instance;
+		final boolean isBoolean = instance instanceof BooleanAttribute;
+
 		return isBoolean && getterOption.booleanAsIs;
 	}
 
