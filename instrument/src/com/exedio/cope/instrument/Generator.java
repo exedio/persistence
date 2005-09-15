@@ -42,7 +42,6 @@ import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.util.ClassComparator;
 import com.exedio.cope.util.ReactivationConstructorDummy;
 
-// TODO use jspm
 final class Generator
 {
 	private static final String THROWS_NULL   = "if {0} is null.";
