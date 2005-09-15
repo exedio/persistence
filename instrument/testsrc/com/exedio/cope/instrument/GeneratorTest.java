@@ -25,6 +25,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
+import java.util.Date;
 
 import com.exedio.cope.AttributeValue;
 import com.exedio.cope.MandatoryViolationException;
@@ -89,6 +90,10 @@ public class GeneratorTest extends InstrumentorTest
 		assertMethod(standard, "setDefaultBoolean", new Class[]{Boolean.class}, PUBLIC|FINAL);
 		assertMethod(standard, "getNativeBoolean", boolean.class, PUBLIC|FINAL);
 		assertMethod(standard, "setNativeBoolean", new Class[]{boolean.class}, PUBLIC|FINAL);
+
+		assertMethod(standard, "getDefaultDate", Date.class, PUBLIC|FINAL);
+		assertMethod(standard, "setDefaultDate", new Class[]{Date.class}, PUBLIC|FINAL);
+		assertMethod(standard, "touchDefaultDate", new Class[]{}, PUBLIC|FINAL);
 
 		assertMethod(standard, "getPrivateString", String.class, PRIVATE|FINAL);
 		assertMethod(standard, "setPrivateString", new Class[]{String.class}, PRIVATE|FINAL);
