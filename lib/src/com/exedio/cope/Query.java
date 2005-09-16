@@ -250,15 +250,12 @@ public final class Query
 	public final Result searchAndCountWithoutRange()
 	{
 		final Collection data = search();
-
-		final int start = this.start;
-		final int count = this.count;
-
 		final int dataSize = data.size();
+
 		if(dataSize<count || count==UNLIMITED_COUNT)
 			return new Result(data, start+dataSize);
-		
-		return new Result(data, countWithoutRange());
+		else
+			return new Result(data, countWithoutRange());
 	}
 	
 	public static final class Result
