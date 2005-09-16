@@ -204,7 +204,7 @@ abstract class Database
 		//System.out.println("CHECK EMPTY TABLES "+amount+"ms  accumulated "+checkEmptyTableTime);
 	}
 	
-	final ArrayList search(final Connection connection, final Query query)
+	final ArrayList search(final Connection connection, final Query query, final boolean doCountOnly)
 	{
 		if ( expectedCalls!=null )
 		{
@@ -221,69 +221,76 @@ abstract class Database
 		final Column[] selectColumns = new Column[selectables.length];
 		final Type[] selectTypes = new Type[selectables.length];
 
-		for(int selectableIndex = 0; selectableIndex<selectables.length; selectableIndex++)
+		if(doCountOnly)
 		{
-			final Selectable selectable = selectables[selectableIndex];
-			final Column selectColumn;
-			final Type selectType;
-			final Table selectTable;
-			final Column selectPrimaryKey;
-			if(selectable instanceof Function)
+			bf.append("count(*)");
+		}
+		else
+		{
+			for(int selectableIndex = 0; selectableIndex<selectables.length; selectableIndex++)
 			{
-				final Function selectAttribute = (Function)selectable;
-				selectType = selectAttribute.getType();
-
-				if(selectableIndex>0)
-					bf.append(',');
-				
-				if(selectable instanceof ObjectAttribute)
+				final Selectable selectable = selectables[selectableIndex];
+				final Column selectColumn;
+				final Type selectType;
+				final Table selectTable;
+				final Column selectPrimaryKey;
+				if(selectable instanceof Function)
 				{
-					selectColumn = ((ObjectAttribute)selectAttribute).getColumn();
-					selectTable = selectColumn.table;
-					selectPrimaryKey = selectTable.getPrimaryKey();
-					bf.append(selectColumn.table.protectedID).
-						append('.').
-						append(selectColumn.protectedID).defineColumn(selectColumn);
+					final Function selectAttribute = (Function)selectable;
+					selectType = selectAttribute.getType();
+	
+					if(selectableIndex>0)
+						bf.append(',');
+					
+					if(selectable instanceof ObjectAttribute)
+					{
+						selectColumn = ((ObjectAttribute)selectAttribute).getColumn();
+						selectTable = selectColumn.table;
+						selectPrimaryKey = selectTable.getPrimaryKey();
+						bf.append(selectColumn.table.protectedID).
+							append('.').
+							append(selectColumn.protectedID).defineColumn(selectColumn);
+					}
+					else
+					{
+						selectColumn = null;
+						final ComputedFunction computedFunction = (ComputedFunction)selectable;
+						bf.append(computedFunction, (Join)null).defineColumn(computedFunction);
+					}
 				}
 				else
 				{
-					selectColumn = null;
-					final ComputedFunction computedFunction = (ComputedFunction)selectable;
-					bf.append(computedFunction, (Join)null).defineColumn(computedFunction);
-				}
-			}
-			else
-			{
-				selectType = (Type)selectable;
-				selectTable = selectType.getTable();
-				selectPrimaryKey = selectTable.getPrimaryKey();
-				selectColumn = selectPrimaryKey;
-
-				if(selectableIndex>0)
-					bf.append(',');
-				
-				bf.append(selectColumn.table.protectedID).
-					append('.').
-					append(selectColumn.protectedID).defineColumn(selectColumn);
-
-				if(selectColumn.primaryKey)
-				{
-					final StringColumn selectTypeColumn = selectColumn.getTypeColumn();
-					if(selectTypeColumn!=null)
+					selectType = (Type)selectable;
+					selectTable = selectType.getTable();
+					selectPrimaryKey = selectTable.getPrimaryKey();
+					selectColumn = selectPrimaryKey;
+	
+					if(selectableIndex>0)
+						bf.append(',');
+					
+					bf.append(selectColumn.table.protectedID).
+						append('.').
+						append(selectColumn.protectedID).defineColumn(selectColumn);
+	
+					if(selectColumn.primaryKey)
 					{
-						bf.append(',').
-							append(selectTable.protectedID).
-							append('.').
-							append(selectTypeColumn.protectedID).defineColumn(selectTypeColumn);
+						final StringColumn selectTypeColumn = selectColumn.getTypeColumn();
+						if(selectTypeColumn!=null)
+						{
+							bf.append(',').
+								append(selectTable.protectedID).
+								append('.').
+								append(selectTypeColumn.protectedID).defineColumn(selectTypeColumn);
+						}
+						else
+							selectTypes[selectableIndex] = selectType;
 					}
 					else
 						selectTypes[selectableIndex] = selectType;
 				}
-				else
-					selectTypes[selectableIndex] = selectType;
+	
+				selectColumns[selectableIndex] = selectColumn;
 			}
-
-			selectColumns[selectableIndex] = selectColumn;
 		}
 
 		bf.append(" from ").
@@ -328,30 +335,33 @@ abstract class Database
 			query.condition.appendStatement(bf);
 		}
 
-		boolean firstOrderBy = true;		
-		if(query.orderBy!=null || query.deterministicOrder)
-			bf.append(" order by ");
-
-		if(query.orderBy!=null)
+		if(!doCountOnly)
 		{
-			firstOrderBy = false;
-
-			bf.append(query.orderBy, (Join)null);
-			if(!query.orderAscending)
-				bf.append(" desc");
-		}
-		
-		if(query.deterministicOrder)
-		{
-			if(!firstOrderBy)
-				bf.append(',');
+			boolean firstOrderBy = true;		
+			if(query.orderBy!=null || query.deterministicOrder)
+				bf.append(" order by ");
+	
+			if(query.orderBy!=null)
+			{
+				firstOrderBy = false;
+	
+				bf.append(query.orderBy, (Join)null);
+				if(!query.orderAscending)
+					bf.append(" desc");
+			}
 			
-			final Table deterministicOrderTable = query.type.getTable();
-			bf.append("abs(").
-				append(deterministicOrderTable.protectedID).
-				append('.').
-				append(deterministicOrderTable.getPrimaryKey().protectedID).
-				append("*4+1)");
+			if(query.deterministicOrder)
+			{
+				if(!firstOrderBy)
+					bf.append(',');
+				
+				final Table deterministicOrderTable = query.type.getTable();
+				bf.append("abs(").
+					append(deterministicOrderTable.protectedID).
+					append('.').
+					append(deterministicOrderTable.getPrimaryKey().protectedID).
+					append("*4+1)");
+			}
 		}
 
 		//System.out.println("searching "+bf.toString());
@@ -372,6 +382,15 @@ abstract class Database
 			{
 				public void run(final ResultSet resultSet) throws SQLException
 				{
+					if(doCountOnly)
+					{
+						resultSet.next();
+						result.add(new Integer(resultSet.getInt(1)));
+						if(resultSet.next())
+							throw new RuntimeException();
+						return;
+					}
+					
 					if(start>0)
 					{
 						// TODO: ResultSet.relative

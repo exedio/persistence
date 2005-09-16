@@ -193,6 +193,31 @@ public final class Query
 	 */
 	public final Collection search()
 	{
+		check();
+		
+		if(count==0)
+			return Collections.EMPTY_LIST;
+
+		return Collections.unmodifiableList(model.getDatabase().search(model.getCurrentTransaction().getConnection(), this, false));
+	}
+	
+	/**
+	 * Counts the items matching this query.
+	 * <p>
+	 * Returns the
+	 * {@link Collection#size() size} of what
+	 * {@link #search()} would have returned for this query with
+	 * {@link #setRange(int)} reset set to <code>(0)</code>.
+	 */
+	public final int countWithoutRange()
+	{
+		check();
+		final Collection result = model.getDatabase().search(model.getCurrentTransaction().getConnection(), this, true);
+		return ((Integer)result.iterator().next()).intValue();
+	}
+
+	private final void check()
+	{
 		//System.out.println("select " + type.getJavaClass().getName() + " where " + condition);
 		if(condition!=null)
 			condition.check(this);
@@ -206,11 +231,6 @@ public final class Query
 					throw new RuntimeException("right outer joins not supported, see Model#supportsRightOuterJoins");
 			}
 		}
-		
-		if(count==0)
-			return Collections.EMPTY_LIST;
-
-		return Collections.unmodifiableList(model.getDatabase().search(model.getCurrentTransaction().getConnection(), this));
 	}
 	
 	/**
@@ -221,10 +241,8 @@ public final class Query
 	 * {@link Result#getSizeWithoutRange() sizeWithoutRange}.
 	 * The {@link Result#getData() data} is equal to
 	 * what {@link #search()} would have returned for this query.
-	 * The {@link Result#getSizeWithoutRange() sizeWithoutRange} is equal to the
-	 * {@link Collection#size() size} of what
-	 * {@link #search()} would have returned for this query with
-	 * {@link #setRange(int)} reset set to <code>(0)</code>.
+	 * The {@link Result#getSizeWithoutRange() sizeWithoutRange} is equal to what
+	 * {@link #countWithoutRange()} would have returned for this query.
 	 */
 	public final Result searchWithSizeWithoutRange()
 	{
@@ -237,21 +255,7 @@ public final class Query
 		if(dataSize<count || count==UNLIMITED_COUNT)
 			return new Result(data, start+dataSize);
 		
-		final Collection dataWithoutRange;
-		try
-		{
-			// TODO more efficient implementation using database count function
-			this.start = 0;
-			this.count = UNLIMITED_COUNT;
-			dataWithoutRange = search();
-		}
-		finally // TODO this is not really nice
-		{
-			this.start = start;
-			this.count = count;
-		}
-		
-		return new Result(data, dataWithoutRange.size());
+		return new Result(data, countWithoutRange());
 	}
 	
 	public static final class Result
@@ -275,7 +279,7 @@ public final class Query
 			return data;
 		}
 		
-		public int getSizeWithoutRange()
+		public int getSizeWithoutRange() // TODO rename to getCountWithoutRange
 		{
 			return sizeWithoutRange;
 		}
