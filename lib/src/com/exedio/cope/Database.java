@@ -465,14 +465,24 @@ abstract class Database
 
 		if(statementInfo!=null)
 		{
+			final String ROOT_FOR_MULTIPLE = "- multiple statements -";
 			if(query.statementInfo!=null)
 			{
 				final StatementInfo previous = query.statementInfo;
-				final StatementInfo previousComment = new StatementInfo("--- previous statement ---");
-				previousComment.addChild(previous);
-				statementInfo.addChild(previousComment);
+				if(ROOT_FOR_MULTIPLE.equals(previous.text))
+				{
+					previous.addChild(statementInfo);
+				}
+				else
+				{
+					final StatementInfo rootForMultiple = new StatementInfo(ROOT_FOR_MULTIPLE);
+					rootForMultiple.addChild(previous);
+					rootForMultiple.addChild(statementInfo);
+					query.statementInfo = rootForMultiple;
+				}
 			}
-			query.statementInfo = statementInfo;
+			else
+				query.statementInfo = statementInfo;
 		}
 		
 		return result;
