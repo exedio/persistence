@@ -378,7 +378,7 @@ abstract class Database
 		if(selectables.length!=types.length)
 			throw new RuntimeException();
 
-		query.statementInfo = executeSQLQuery(connection, bf, new ResultSetHandler()
+		final StatementInfo statementInfo = executeSQLQuery(connection, bf, new ResultSetHandler()
 			{
 				public void run(final ResultSet resultSet) throws SQLException
 				{
@@ -462,6 +462,19 @@ abstract class Database
 					}
 				}
 			}, query.makeStatementInfo);
+
+		if(statementInfo!=null)
+		{
+			if(query.statementInfo!=null)
+			{
+				final StatementInfo previous = query.statementInfo;
+				final StatementInfo previousComment = new StatementInfo("--- previous statement ---");
+				previousComment.addChild(previous);
+				statementInfo.addChild(previousComment);
+			}
+			query.statementInfo = statementInfo;
+		}
+		
 		return result;
 	}
 	
