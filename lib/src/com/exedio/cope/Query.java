@@ -224,7 +224,7 @@ public final class Query
 	 * The {@link Result#getSizeWithoutRange() sizeWithoutRange} is equal to the
 	 * {@link Collection#size() size} of what
 	 * {@link #search()} would have returned for this query with
-	 * {@link #setRange(int, int)} set to <code>(0, -1)</code>.
+	 * {@link #setRange(int)} reset set to <code>(0)</code>.
 	 */
 	public final Result searchWithSizeWithoutRange()
 	{
