@@ -465,7 +465,7 @@ abstract class Database
 
 		if(statementInfo!=null)
 		{
-			final String ROOT_FOR_MULTIPLE = "- multiple statements -";
+			final String ROOT_FOR_MULTIPLE = "--- multiple statements ---";
 			if(query.statementInfo!=null)
 			{
 				final StatementInfo previous = query.statementInfo;
