@@ -104,7 +104,7 @@ final class TypeCop extends CopernicaCop
 	final boolean isLastPage()
 	{
 		computeItems();
-		return (start+count)>=queryResult.getSizeWithoutRange();
+		return (start+count)>=queryResult.getCountWithoutRange();
 	}
 	
 	final TypeCop firstPage()
@@ -115,7 +115,7 @@ final class TypeCop extends CopernicaCop
 	final TypeCop lastPage()
 	{
 		computeItems();
-		return new TypeCop(provider, language, type, orderBy, orderAscending, ((queryResult.getSizeWithoutRange()-1)/count)*count, count);
+		return new TypeCop(provider, language, type, orderBy, orderAscending, ((queryResult.getCountWithoutRange()-1)/count)*count, count);
 	}
 	
 	final TypeCop previousPage()
@@ -151,7 +151,7 @@ final class TypeCop extends CopernicaCop
 	final int getTotal()
 	{
 		computeItems();
-		return queryResult.getSizeWithoutRange();
+		return queryResult.getCountWithoutRange();
 	}
 
 	final StatementInfo getStatementInfo()

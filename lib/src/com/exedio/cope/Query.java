@@ -238,10 +238,10 @@ public final class Query
 	 * <p>
 	 * Returns a {@link Result} containing the
 	 * {@link Result#getData() data} and the
-	 * {@link Result#getSizeWithoutRange() sizeWithoutRange}.
+	 * {@link Result#getCountWithoutRange() countWithoutRange}.
 	 * The {@link Result#getData() data} is equal to
 	 * what {@link #search()} would have returned for this query.
-	 * The {@link Result#getSizeWithoutRange() sizeWithoutRange} is equal to what
+	 * The {@link Result#getCountWithoutRange() countWithoutRange} is equal to what
 	 * {@link #countWithoutRange()} would have returned for this query.
 	 */
 	public final Result searchWithSizeWithoutRange()
@@ -279,7 +279,7 @@ public final class Query
 			return data;
 		}
 		
-		public int getSizeWithoutRange() // TODO rename to getCountWithoutRange
+		public int getCountWithoutRange()
 		{
 			return sizeWithoutRange;
 		}
