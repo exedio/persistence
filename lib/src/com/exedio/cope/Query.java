@@ -206,6 +206,9 @@ public final class Query
 					throw new RuntimeException("right outer joins not supported, see Model#supportsRightOuterJoins");
 			}
 		}
+		
+		if(count==0)
+			return Collections.EMPTY_LIST;
 
 		return Collections.unmodifiableList(model.getDatabase().search(model.getCurrentTransaction().getConnection(), this));
 	}
