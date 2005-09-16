@@ -232,6 +232,8 @@ public final class Query
 		{
 			if(data==null)
 				throw new RuntimeException();
+			if(sizeWithoutRange<0)
+				throw new RuntimeException(String.valueOf(sizeWithoutRange));
 			
 			this.data = data;
 			this.sizeWithoutRange = sizeWithoutRange;
