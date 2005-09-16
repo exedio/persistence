@@ -73,7 +73,7 @@ public class OrderByTest extends TestmodelTest
 			}
 			catch(RuntimeException e)
 			{
-				assertEquals("start must not be negative", e.getMessage());
+				assertEquals("start must not be negative, but was -1", e.getMessage());
 				assertEquals(0, q.start);
 				assertEquals(q.UNLIMITED_COUNT, q.count);
 			}
@@ -84,7 +84,7 @@ public class OrderByTest extends TestmodelTest
 			}
 			catch(RuntimeException e)
 			{
-				assertEquals("start must not be negative", e.getMessage());
+				assertEquals("start must not be negative, but was -1", e.getMessage());
 				assertEquals(0, q.start);
 				assertEquals(q.UNLIMITED_COUNT, q.count);
 			}
@@ -95,7 +95,7 @@ public class OrderByTest extends TestmodelTest
 			}
 			catch(RuntimeException e)
 			{
-				assertEquals("count must not be negative", e.getMessage());
+				assertEquals("count must not be negative, but was -1", e.getMessage());
 				assertEquals(0, q.start);
 				assertEquals(q.UNLIMITED_COUNT, q.count);
 			}

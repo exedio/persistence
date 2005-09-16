@@ -152,9 +152,9 @@ public final class Query
 	public void setRange(final int start, final int count)
 	{
 		if(start<0)
-			throw new RuntimeException("start must not be negative");
+			throw new RuntimeException("start must not be negative, but was " + start);
 		if(count<0)
-			throw new RuntimeException("count must not be negative");
+			throw new RuntimeException("count must not be negative, but was " + count);
 
 		this.start = start;
 		this.count = count;
@@ -166,7 +166,7 @@ public final class Query
 	public void setRange(final int start)
 	{
 		if(start<0)
-			throw new RuntimeException("start must not be negative");
+			throw new RuntimeException("start must not be negative, but was " + start);
 
 		this.start = start;
 		this.count = UNLIMITED_COUNT;
