@@ -350,7 +350,7 @@ abstract class Database
 					bf.append(" desc");
 			}
 			
-			if(query.deterministicOrder)
+			if(query.deterministicOrder) // TODO skip this, if orderBy already orders by some unique condition
 			{
 				if(!firstOrderBy)
 					bf.append(',');
