@@ -236,12 +236,19 @@ public final class Query
 		if(start==0 && count==UNLIMITED_COUNT)
 			return new Result(data);
 		
-		// TODO more efficient implementation using database count function
-		this.start = 0;
-		this.count = UNLIMITED_COUNT;
-		final Collection dataWithoutRange = search();
-		this.start = start;
-		this.count = count;
+		final Collection dataWithoutRange;
+		try
+		{
+			// TODO more efficient implementation using database count function
+			this.start = 0;
+			this.count = UNLIMITED_COUNT;
+			dataWithoutRange = search();
+		}
+		finally // TODO this is not really nice
+		{
+			this.start = start;
+			this.count = count;
+		}
 		
 		return new Result(data, dataWithoutRange.size());
 	}
