@@ -228,15 +228,15 @@ public final class Query
 	 */
 	public final Result searchWithSizeWithoutRange()
 	{
-		// TODO more efficient implementation using database count function and try to avoid second sql query
-		
 		final Collection data = search();
 
 		final int start = this.start;
 		final int count = this.count;
+		// TODO condition for avoiding second sql query could be more strict
 		if(start==0 && count==UNLIMITED_COUNT)
 			return new Result(data);
 		
+		// TODO more efficient implementation using database count function
 		this.start = 0;
 		this.count = UNLIMITED_COUNT;
 		final Collection dataWithoutRange = search();
