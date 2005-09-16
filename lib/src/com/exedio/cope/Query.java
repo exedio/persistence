@@ -232,9 +232,10 @@ public final class Query
 
 		final int start = this.start;
 		final int count = this.count;
-		// TODO condition for avoiding second sql query could be more strict
-		if(start==0 && count==UNLIMITED_COUNT)
-			return new Result(data);
+
+		final int dataSize = data.size();
+		if(dataSize<count || count==UNLIMITED_COUNT)
+			return new Result(data, start+dataSize);
 		
 		final Collection dataWithoutRange;
 		try
@@ -255,8 +256,6 @@ public final class Query
 	
 	public static final class Result
 	{
-		private static final int SIZE_OF_DATA = -1;
-		
 		final Collection data;
 		final int sizeWithoutRange;
 		
@@ -271,15 +270,6 @@ public final class Query
 			this.sizeWithoutRange = sizeWithoutRange;
 		}
 		
-		private Result(final Collection data)
-		{
-			if(data==null)
-				throw new RuntimeException();
-			
-			this.data = data;
-			this.sizeWithoutRange = SIZE_OF_DATA;
-		}
-		
 		public Collection getData()
 		{
 			return data;
@@ -287,7 +277,7 @@ public final class Query
 		
 		public int getSizeWithoutRange()
 		{
-			return sizeWithoutRange==SIZE_OF_DATA ? data.size() : sizeWithoutRange;
+			return sizeWithoutRange;
 		}
 		
 		public boolean equals(final Object o)
