@@ -244,7 +244,7 @@ public final class Query
 	 * The {@link Result#getCountWithoutRange() countWithoutRange} is equal to what
 	 * {@link #countWithoutRange()} would have returned for this query.
 	 */
-	public final Result searchWithSizeWithoutRange()
+	public final Result searchAndCountWithoutRange()
 	{
 		final Collection data = search();
 

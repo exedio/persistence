@@ -172,7 +172,7 @@ final class TypeCop extends CopernicaCop
 		query.setRange(start, count);
 		query.enableMakeStatementInfo();
 		
-		queryResult = query.searchWithSizeWithoutRange();
+		queryResult = query.searchAndCountWithoutRange();
 		statementInfo = query.getStatementInfo();
 	}
 	
