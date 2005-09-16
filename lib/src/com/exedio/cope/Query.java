@@ -252,10 +252,10 @@ public final class Query
 		final Collection data = search();
 		final int dataSize = data.size();
 
-		if(dataSize<count || count==UNLIMITED_COUNT)
-			return new Result(data, start+dataSize);
-		else
-			return new Result(data, countWithoutRange());
+		return new Result(data,
+				(dataSize<count || count==UNLIMITED_COUNT)
+				? (start+dataSize)
+				: countWithoutRange());
 	}
 	
 	public static final class Result
