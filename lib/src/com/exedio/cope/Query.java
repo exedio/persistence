@@ -261,17 +261,17 @@ public final class Query
 	public static final class Result
 	{
 		final Collection data;
-		final int sizeWithoutRange;
+		final int countWithoutRange;
 		
-		private Result(final Collection data, final int sizeWithoutRange)
+		private Result(final Collection data, final int countWithoutRange)
 		{
 			if(data==null)
 				throw new RuntimeException();
-			if(sizeWithoutRange<0)
-				throw new RuntimeException(String.valueOf(sizeWithoutRange));
+			if(countWithoutRange<0)
+				throw new RuntimeException(String.valueOf(countWithoutRange));
 			
 			this.data = data;
-			this.sizeWithoutRange = sizeWithoutRange;
+			this.countWithoutRange = countWithoutRange;
 		}
 		
 		public Collection getData()
@@ -281,19 +281,19 @@ public final class Query
 		
 		public int getCountWithoutRange()
 		{
-			return sizeWithoutRange;
+			return countWithoutRange;
 		}
 		
 		public boolean equals(final Object o)
 		{
 			final Result or = (Result)o;
 
-			return sizeWithoutRange==or.sizeWithoutRange && data.equals(or.data);
+			return countWithoutRange==or.countWithoutRange && data.equals(or.data);
 		}
 		
 		public String toString()
 		{
-			return data.toString() + '(' + sizeWithoutRange + ')';
+			return data.toString() + '(' + countWithoutRange + ')';
 		}
 	}
 }
