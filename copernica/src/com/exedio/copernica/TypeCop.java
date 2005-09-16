@@ -39,7 +39,7 @@ final class TypeCop extends CopernicaCop
 	final int count;
 
 	private boolean lastPage;
-	private Collection items = null;
+	private Query.Result queryResult = null;
 	private StatementInfo statementInfo;
 
 	TypeCop(final CopernicaProvider provider, final CopernicaLanguage language, final Type type)
@@ -113,6 +113,12 @@ final class TypeCop extends CopernicaCop
 		return new TypeCop(provider, language, type, orderBy, orderAscending, 0, count);
 	}
 	
+	final TypeCop lastPage()
+	{
+		computeItems();
+		return new TypeCop(provider, language, type, orderBy, orderAscending, ((queryResult.getSizeWithoutRange()-1)/count)*count, count);
+	}
+	
 	final TypeCop previousPage()
 	{
 		int newStart = start - count;
@@ -140,7 +146,13 @@ final class TypeCop extends CopernicaCop
 	final Collection getItems()
 	{
 		computeItems();
-		return items;
+		return queryResult.getData();
+	}
+
+	final int getTotal()
+	{
+		computeItems();
+		return queryResult.getSizeWithoutRange();
 	}
 
 	final StatementInfo getStatementInfo()
@@ -151,7 +163,7 @@ final class TypeCop extends CopernicaCop
 
 	private final void computeItems()
 	{
-		if(items!=null)
+		if(queryResult!=null)
 			return;
 		
 		final Query query = new Query(type, null);
@@ -161,8 +173,8 @@ final class TypeCop extends CopernicaCop
 		query.setRange(start, count);
 		query.enableMakeStatementInfo();
 		
-		items = query.search();
-		lastPage = count>items.size();
+		queryResult = query.searchWithSizeWithoutRange();
+		lastPage = (start+count)>=queryResult.getSizeWithoutRange();
 		statementInfo = query.getStatementInfo();
 	}
 	

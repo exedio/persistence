@@ -101,7 +101,9 @@ final class TypeCop_Jspm
 					if(firstPage){%> id="disabled"<%}%>>&lt;</a>
 				<a href="<%=cop.nextPage()%>"<%
 					if(lastPage) {%> id="disabled"<%}%>>&gt;</a>
-				<%=cop.start+1%> - <%=cop.start+itemsSize%>
+				<a href="<%=cop.lastPage()%>"<%
+					if(lastPage) {%> id="disabled"<%}%>>&gt;&gt;</a>
+				<%=cop.start+1%> - <%=cop.start+itemsSize%> / <%=cop.getTotal()%>
 				(<%
 				for(int i = 10; i<=50; i+=10)
 				{
