@@ -243,6 +243,9 @@ public final class Query
 	 * what {@link #search()} would have returned for this query.
 	 * The {@link Result#getCountWithoutRange() countWithoutRange} is equal to what
 	 * {@link #countWithoutRange()} would have returned for this query.
+	 * <p>
+	 * This method does it's best to avoid issuing two queries
+	 * for searching and counting.
 	 */
 	public final Result searchAndCountWithoutRange()
 	{
