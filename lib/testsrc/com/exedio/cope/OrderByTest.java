@@ -115,6 +115,7 @@ public class OrderByTest extends TestmodelTest
 		assertOrder(list(), list(), item.someNotNullInteger, 5, -1);
 		assertOrder(list(), list(), item.someNotNullInteger, 5, 2);
 		assertOrder(list(), list(), item.someNotNullInteger, 5, 0);
+		assertOrder(list(), list(), item.someNotNullInteger, 0, 0);
 	}
 	
 	private void assertOrder(final List expectedOrder, final ObjectAttribute searchAttribute)
