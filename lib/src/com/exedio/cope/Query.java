@@ -145,6 +145,7 @@ public final class Query
 	}
 
 	/**
+	 * @see #setRange(int)
 	 * @param count the maximum number of items to be found.
 	 * @throws RuntimeException if start is a negative value
 	 * @throws RuntimeException if count is a negative value
@@ -161,6 +162,7 @@ public final class Query
 	}
 	
 	/**
+	 * @see #setRange(int, int)
 	 * @throws RuntimeException if start is a negative value
 	 */	
 	public void setRange(final int start)
