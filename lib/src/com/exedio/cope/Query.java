@@ -27,6 +27,8 @@ import com.exedio.cope.search.Condition;
 
 public final class Query
 {
+	final static int UNLIMITED_COUNT = -66;
+	
 	final Model model;
 	final Selectable[] selectables;
 	final Type type;
@@ -39,7 +41,7 @@ public final class Query
 	boolean deterministicOrder = false;
 
 	int start = 0;
-	int count = -1;
+	int count = UNLIMITED_COUNT;
 	
 	boolean makeStatementInfo = false;
 	StatementInfo statementInfo = null;
@@ -143,15 +145,31 @@ public final class Query
 	}
 
 	/**
-	 * @param count the maximum number of items to be found, or -1 if there is no limit for finding items.
+	 * @param count the maximum number of items to be found.
 	 * @throws RuntimeException if start is a negative value
+	 * @throws RuntimeException if count is a negative value
 	 */	
 	public void setRange(final int start, final int count)
 	{
-		this.start = start;
-		this.count = count;
 		if(start<0)
 			throw new RuntimeException("start must not be negative");
+		if(count<0)
+			throw new RuntimeException("count must not be negative");
+
+		this.start = start;
+		this.count = count;
+	}
+	
+	/**
+	 * @throws RuntimeException if start is a negative value
+	 */	
+	public void setRange(final int start)
+	{
+		if(start<0)
+			throw new RuntimeException("start must not be negative");
+
+		this.start = start;
+		this.count = UNLIMITED_COUNT;
 	}
 	
 	public void enableMakeStatementInfo()
@@ -211,11 +229,11 @@ public final class Query
 
 		final int start = this.start;
 		final int count = this.count;
-		if(start==0 && count<0)
+		if(start==0 && count==UNLIMITED_COUNT)
 			return new Result(data);
 		
 		this.start = 0;
-		this.count = -1;
+		this.count = UNLIMITED_COUNT;
 		final Collection dataWithoutRange = search();
 		this.start = start;
 		this.count = count;

@@ -69,10 +69,35 @@ public class OrderByTest extends TestmodelTest
 			try
 			{
 				q.setRange(-1, 10);
+				fail();
 			}
 			catch(RuntimeException e)
 			{
 				assertEquals("start must not be negative", e.getMessage());
+				assertEquals(0, q.start);
+				assertEquals(q.UNLIMITED_COUNT, q.count);
+			}
+			try
+			{
+				q.setRange(-1);
+				fail();
+			}
+			catch(RuntimeException e)
+			{
+				assertEquals("start must not be negative", e.getMessage());
+				assertEquals(0, q.start);
+				assertEquals(q.UNLIMITED_COUNT, q.count);
+			}
+			try
+			{
+				q.setRange(0, -1);
+				fail();
+			}
+			catch(RuntimeException e)
+			{
+				assertEquals("count must not be negative", e.getMessage());
+				assertEquals(0, q.start);
+				assertEquals(q.UNLIMITED_COUNT, q.count);
 			}
 		}
 		assertOrder(list(item1, item5, item2, item4, item3), list(item3, item4, item2, item5, item1), item.someNotNullInteger, 0, -1);
@@ -105,7 +130,12 @@ public class OrderByTest extends TestmodelTest
 		final Query query = new Query(item1.TYPE, null);
 		query.setOrderBy(searchAttribute, true);
 		query.setDeterministicOrder(true);
-		query.setRange(start, count);
+
+		if(count==-1)
+			query.setRange(start);
+		else
+			query.setRange(start, count);
+		
 		assertEquals(expectedOrder, query.search());
 
 		query.setOrderBy(searchAttribute, false);
@@ -114,10 +144,14 @@ public class OrderByTest extends TestmodelTest
 		
 		final Query.Result resultWithSizeWithoutRange = query.searchWithSizeWithoutRange();
 		assertEquals(expectedOrder, resultWithSizeWithoutRange.getData());
-		query.setRange(0, -1);
+		query.setRange(0);
 		final Collection resultWithoutRange = query.search();
 		assertEquals(resultWithoutRange.size(), resultWithSizeWithoutRange.getSizeWithoutRange());
-		query.setRange(start, count);
+
+		if(count==-1)
+			query.setRange(start);
+		else
+			query.setRange(start, count);
 	}
 	
 }

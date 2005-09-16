@@ -383,7 +383,9 @@ abstract class Database
 							resultSet.next();
 					}
 						
-					int i = (count>=0 ? count : Integer.MAX_VALUE);
+					int i = (count==Query.UNLIMITED_COUNT ? Integer.MAX_VALUE : count );
+					if(i<0)
+						throw new RuntimeException(String.valueOf(count));
 
 					while(resultSet.next() && (--i)>=0)
 					{
