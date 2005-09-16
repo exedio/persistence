@@ -156,6 +156,13 @@ final class TypeCop_Jspm
 				}
 			%>
 				</tr><%
+				if(cop.start==0 && itemsSize==0)
+				{
+					%>
+				<tr><td colspan="<%=features.size()+1%>">No Data Found.</td></tr><%
+				}
+				else
+				{
 				SimpleDateFormat df = null;
 				
 				for(Iterator i = items.iterator(); i.hasNext(); )
@@ -253,6 +260,7 @@ final class TypeCop_Jspm
 					}
 					%>
 				</tr><%
+				}
 				}
 			%>
 			</table>
