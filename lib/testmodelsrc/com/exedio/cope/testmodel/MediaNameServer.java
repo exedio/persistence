@@ -18,9 +18,7 @@
 
 package com.exedio.cope.testmodel;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.util.Date;
 
 import javax.servlet.ServletException;
@@ -90,12 +88,7 @@ public final class MediaNameServer extends MediaPath
 		final long now = System.currentTimeMillis();
 		response.setDateHeader(RESPONSE_EXPIRES, now+EXPIRES_OFFSET);
 		
-		final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		final OutputStreamWriter osw = new OutputStreamWriter(baos);
-		osw.write(content);
-		osw.close();
-		final byte[] contentBytes = baos.toByteArray();
-		
+		final byte[] contentBytes = content.getBytes("utf-8");
 		final long contentLength = contentBytes.length;
 		//System.out.println("contentLength="+String.valueOf(contentLength));
 		response.setHeader(RESPONSE_CONTENT_LENGTH, String.valueOf(contentLength));
