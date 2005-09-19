@@ -66,6 +66,15 @@ public class JoinTest extends TestmodelTest
 			assertContains(item1a, query.search());
 		}
 		{
+			// test join needed for orderby only
+			final Query query = new Query(PointerItem.TYPE, null);
+			query.join(PointerTargetItem.TYPE, PointerItem.pointer.equalTarget());
+			query.setOrderBy(PointerTargetItem.code, true);
+			assertEquals(list(item1b, item1a), query.search());
+			query.setOrderBy(PointerTargetItem.code, false);
+			assertEquals(list(item1a, item1b), query.search());
+		}
+		{
 			final Query query = new Query(new Selectable[]{PointerTargetItem.code, PointerItem.TYPE, PointerItem.code}, PointerTargetItem.TYPE, null);
 			query.join(PointerItem.TYPE, PointerItem.pointer.equalTarget());
 			assertContains(
