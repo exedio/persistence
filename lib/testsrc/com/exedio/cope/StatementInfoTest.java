@@ -34,7 +34,7 @@ public class StatementInfoTest extends TestmodelTest
 		final StatementInfo root = query.getStatementInfo();
 		//root.print(System.out);
 		
-		final String firstStatementText = root.text;
+		final String firstStatementText = root.getText();
 		assertTrue(firstStatementText, firstStatementText.startsWith("select "));
 		
 		final String database = model.getDatabase().getClass().getName();
@@ -47,22 +47,22 @@ public class StatementInfoTest extends TestmodelTest
 			final Iterator rootChilds = root.getChilds().iterator();
 			{
 				final StatementInfo planId = (StatementInfo)rootChilds.next();
-				assertTrue(planId.text, planId.text.startsWith("execution plan statement_id = cope"));
+				assertTrue(planId.getText(), planId.getText().startsWith("execution plan statement_id = cope"));
 				{
 					final Iterator planIdChilds = planId.getChilds().iterator();
 					{
 						final StatementInfo planSelect = (StatementInfo)planIdChilds.next();
-						assertEquals("SELECT STATEMENT optimizer=CHOOSE", planSelect.text);
+						assertEquals("SELECT STATEMENT optimizer=CHOOSE", planSelect.getText());
 						{
 							final Iterator planSelectChilds = planSelect.getChilds().iterator();
 							{
 								final StatementInfo planTableAccess = (StatementInfo)planSelectChilds.next();
-								assertEquals("TABLE ACCESS (BY INDEX ROWID) on ItemWithSingleUnique[1]", planTableAccess.text);
+								assertEquals("TABLE ACCESS (BY INDEX ROWID) on ItemWithSingleUnique[1]", planTableAccess.getText());
 								{
 									final Iterator planTableAccessChilds = planTableAccess.getChilds().iterator();
 									{
 										final StatementInfo planUnique = (StatementInfo)planTableAccessChilds.next();
-										assertEquals("INDEX (UNIQUE SCAN) on ItemWithSingUni_unStr_Unq[UNIQUE] search_columns=1", planUnique.text);
+										assertEquals("INDEX (UNIQUE SCAN) on ItemWithSingUni_unStr_Unq[UNIQUE] search_columns=1", planUnique.getText());
 										assertEquals(list(), planUnique.getChilds());
 									}
 									assertTrue(!planTableAccessChilds.hasNext());
@@ -85,13 +85,13 @@ public class StatementInfoTest extends TestmodelTest
 		query.search();
 		final StatementInfo rootOrdered = query.getStatementInfo();
 		//rootOrdered.print(System.out);
-		assertEquals("--- multiple statements ---", rootOrdered.text);
+		assertEquals("--- multiple statements ---", rootOrdered.getText());
 		final Iterator rootOrderedIterator = rootOrdered.getChilds().iterator();
 		final StatementInfo ordered1 = (StatementInfo)rootOrderedIterator.next();
-		assertEquals(firstStatementText, ordered1.text);
+		assertEquals(firstStatementText, ordered1.getText());
 		final StatementInfo ordered2 = (StatementInfo)rootOrderedIterator.next();
-		assertTrue(!firstStatementText.equals(ordered2.text));
-		assertTrue(ordered2.text, ordered2.text.startsWith("select "));
+		assertTrue(!firstStatementText.equals(ordered2.getText()));
+		assertTrue(ordered2.getText(), ordered2.getText().startsWith("select "));
 		assertTrue(!rootOrderedIterator.hasNext());
 		
 		query.clearStatementInfo();
