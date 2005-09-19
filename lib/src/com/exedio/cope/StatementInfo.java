@@ -26,7 +26,7 @@ import java.util.Iterator;
 
 public final class StatementInfo
 {
-	final ArrayList childs = new ArrayList();
+	private final ArrayList childs = new ArrayList();
 	final String text;
 	
 	StatementInfo(final String text)
