@@ -93,6 +93,9 @@ public class StatementInfoTest extends TestmodelTest
 		assertTrue(!firstStatementText.equals(ordered2.text));
 		assertTrue(ordered2.text, ordered2.text.startsWith("select "));
 		assertTrue(!rootOrderedIterator.hasNext());
+		
+		query.clearStatementInfo();
+		assertNull(query.getStatementInfo());
 	}
 	
 }

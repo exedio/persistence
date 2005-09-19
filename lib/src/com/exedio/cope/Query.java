@@ -184,6 +184,11 @@ public final class Query
 		return statementInfo;
 	}
 	
+	public void clearStatementInfo()
+	{
+		statementInfo = null;;
+	}
+	
 	void addStatementInfo(final StatementInfo newInfo)
 	{
 		if(makeStatementInfo != (newInfo!=null))
