@@ -30,10 +30,10 @@ public class JoinTest extends TestmodelTest
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		deleteOnTearDown(item2a = new PointerTargetItem("hallo"));
-		deleteOnTearDown(item2b = new PointerTargetItem("bello"));
-		deleteOnTearDown(item1a = new PointerItem("bello", item2a));
-		deleteOnTearDown(item1b = new PointerItem("collo", item2b));
+		deleteOnTearDown(item2a = new PointerTargetItem("item2a"));
+		deleteOnTearDown(item2b = new PointerTargetItem("item1a2b"));
+		deleteOnTearDown(item1a = new PointerItem("item1a2b", item2a));
+		deleteOnTearDown(item1b = new PointerItem("item1b", item2b));
 	}
 
 	public void testJoin()
@@ -61,7 +61,7 @@ public class JoinTest extends TestmodelTest
 			assertContains(item2b, query.search());
 		}
 		{
-			final Query query = new Query(PointerItem.TYPE, PointerTargetItem.code.equal("hallo"));
+			final Query query = new Query(PointerItem.TYPE, PointerTargetItem.code.equal("item2a"));
 			query.join(PointerTargetItem.TYPE, PointerItem.pointer.equalTarget());
 			assertContains(item1a, query.search());
 		}
@@ -69,8 +69,8 @@ public class JoinTest extends TestmodelTest
 			final Query query = new Query(new Selectable[]{PointerTargetItem.code, PointerItem.TYPE, PointerItem.code}, PointerTargetItem.TYPE, null);
 			query.join(PointerItem.TYPE, PointerItem.pointer.equalTarget());
 			assertContains(
-					list("bello", item1b, "collo"),
-					list("hallo", item1a, "bello"),
+					list("item1a2b", item1b, "item1b"),
+					list("item2a", item1a, "item1a2b"),
 					query.search());
 		}
 	}
