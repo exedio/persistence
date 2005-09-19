@@ -186,6 +186,9 @@ public final class Query
 	
 	void addStatementInfo(final StatementInfo newInfo)
 	{
+		if(makeStatementInfo != (newInfo!=null))
+			throw new RuntimeException(String.valueOf(makeStatementInfo));
+		
 		if(newInfo!=null)
 		{
 			final String ROOT_FOR_MULTIPLE = "--- multiple statements ---";
