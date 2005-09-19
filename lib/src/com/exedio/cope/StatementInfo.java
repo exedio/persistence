@@ -26,7 +26,7 @@ import java.util.Iterator;
 
 public final class StatementInfo
 {
-	private ArrayList childs;
+	private ArrayList childsLazilyInitialized;
 	final String text;
 	
 	StatementInfo(final String text)
@@ -42,17 +42,17 @@ public final class StatementInfo
 	public Collection getChilds()
 	{
 		return
-			childs==null
+			childsLazilyInitialized==null
 			? Collections.EMPTY_LIST
-			: Collections.unmodifiableList(childs);
+			: Collections.unmodifiableList(childsLazilyInitialized);
 	}
 	
 	void addChild(final StatementInfo newChild)
 	{
-		if(childs==null)
-			childs = new ArrayList();
+		if(childsLazilyInitialized==null)
+			childsLazilyInitialized = new ArrayList();
 
-		childs.add(newChild);
+		childsLazilyInitialized.add(newChild);
 	}
 	
 	public void print(final PrintStream o)
@@ -66,7 +66,7 @@ public final class StatementInfo
 			o.print("  ");
 		o.println(text);
 		level++;
-		for(Iterator i = childs.iterator(); i.hasNext(); )
+		for(Iterator i = childsLazilyInitialized.iterator(); i.hasNext(); )
 			((StatementInfo)i.next()).print(o, level);
 	}
 
