@@ -44,7 +44,7 @@ public final class Query
 	int count = UNLIMITED_COUNT;
 	
 	boolean makeStatementInfo = false;
-	StatementInfo statementInfo = null;
+	private StatementInfo statementInfo = null;
 	
 	public Query(final Type type, final Condition condition)
 	{
@@ -182,6 +182,31 @@ public final class Query
 	public StatementInfo getStatementInfo()
 	{
 		return statementInfo;
+	}
+	
+	void addStatementInfo(final StatementInfo newInfo)
+	{
+		if(newInfo!=null)
+		{
+			final String ROOT_FOR_MULTIPLE = "--- multiple statements ---";
+			final StatementInfo previousInfo = this.statementInfo;
+			if(previousInfo!=null)
+			{
+				if(ROOT_FOR_MULTIPLE.equals(previousInfo.text))
+				{
+					previousInfo.addChild(newInfo);
+				}
+				else
+				{
+					final StatementInfo rootForMultiple = new StatementInfo(ROOT_FOR_MULTIPLE);
+					rootForMultiple.addChild(previousInfo);
+					rootForMultiple.addChild(newInfo);
+					this.statementInfo = rootForMultiple;
+				}
+			}
+			else
+				this.statementInfo = newInfo;
+		}
 	}
 	
 	/**

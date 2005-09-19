@@ -378,7 +378,7 @@ abstract class Database
 		if(selectables.length!=types.length)
 			throw new RuntimeException();
 
-		final StatementInfo statementInfo = executeSQLQuery(connection, bf, new ResultSetHandler()
+		query.addStatementInfo(executeSQLQuery(connection, bf, new ResultSetHandler()
 			{
 				public void run(final ResultSet resultSet) throws SQLException
 				{
@@ -461,29 +461,7 @@ abstract class Database
 							result.add(Collections.unmodifiableList(Arrays.asList(resultRow)));
 					}
 				}
-			}, query.makeStatementInfo);
-
-		if(statementInfo!=null)
-		{
-			final String ROOT_FOR_MULTIPLE = "--- multiple statements ---";
-			if(query.statementInfo!=null)
-			{
-				final StatementInfo previous = query.statementInfo;
-				if(ROOT_FOR_MULTIPLE.equals(previous.text))
-				{
-					previous.addChild(statementInfo);
-				}
-				else
-				{
-					final StatementInfo rootForMultiple = new StatementInfo(ROOT_FOR_MULTIPLE);
-					rootForMultiple.addChild(previous);
-					rootForMultiple.addChild(statementInfo);
-					query.statementInfo = rootForMultiple;
-				}
-			}
-			else
-				query.statementInfo = statementInfo;
-		}
+			}, query.makeStatementInfo));
 		
 		return result;
 	}
