@@ -51,17 +51,17 @@ public final class StatementInfo
 	
 	public void print(final PrintStream o)
 	{
-		printInternal(o, 0);
+		print(o, 0);
 	}
 
-	private void printInternal(final PrintStream o, int level)
+	private void print(final PrintStream o, int level)
 	{
 		for(int i=0; i<level; i++)
 			o.print("  ");
 		o.println(text);
 		level++;
 		for(Iterator i = childs.iterator(); i.hasNext(); )
-			((StatementInfo)i.next()).printInternal(o, level);
+			((StatementInfo)i.next()).print(o, level);
 	}
 
 }
