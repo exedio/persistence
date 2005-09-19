@@ -78,6 +78,21 @@ public class StatementInfoTest extends TestmodelTest
 		}
 		else
 			fail(database);
+		
+
+		// test multiple queries
+		query.setOrderBy(ItemWithSingleUnique.uniqueString, true);
+		query.search();
+		final StatementInfo rootOrdered = query.getStatementInfo();
+		//rootOrdered.print(System.out);
+		assertEquals("--- multiple statements ---", rootOrdered.text);
+		final Iterator rootOrderedIterator = rootOrdered.getChilds().iterator();
+		final StatementInfo ordered1 = (StatementInfo)rootOrderedIterator.next();
+		assertEquals(firstStatementText, ordered1.text);
+		final StatementInfo ordered2 = (StatementInfo)rootOrderedIterator.next();
+		assertTrue(!firstStatementText.equals(ordered2.text));
+		assertTrue(ordered2.text, ordered2.text.startsWith("select "));
+		assertTrue(!rootOrderedIterator.hasNext());
 	}
 	
 }
