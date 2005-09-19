@@ -34,7 +34,8 @@ public class StatementInfoTest extends TestmodelTest
 		final StatementInfo root = query.getStatementInfo();
 		//root.print(System.out);
 		
-		assertTrue(root.text, root.text.startsWith("select "));
+		final String firstStatementText = root.text;
+		assertTrue(firstStatementText, firstStatementText.startsWith("select "));
 		
 		final String database = model.getDatabase().getClass().getName();
 		if(database.indexOf("HsqldbDatabase")>=0 || database.indexOf("MysqlDatabase")>=0)
