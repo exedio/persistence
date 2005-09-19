@@ -54,7 +54,7 @@ public final class StatementInfo
 		printInternal(o, 0);
 	}
 
-	void printInternal(final PrintStream o, int level)
+	private void printInternal(final PrintStream o, int level)
 	{
 		for(int i=0; i<level; i++)
 			o.print("  ");
