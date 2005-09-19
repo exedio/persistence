@@ -32,6 +32,7 @@ public class StatementInfoTest extends TestmodelTest
 		query.enableMakeStatementInfo();
 		query.search();
 		final StatementInfo root = query.getStatementInfo();
+		assertUnmodifiable(root.getChilds());
 		//root.print(System.out);
 		
 		final String firstStatementText = root.getText();
