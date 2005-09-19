@@ -26,7 +26,7 @@ import java.util.Iterator;
 
 public final class StatementInfo
 {
-	private final ArrayList childs = new ArrayList();
+	private ArrayList childs;
 	final String text;
 	
 	StatementInfo(final String text)
@@ -41,11 +41,17 @@ public final class StatementInfo
 	
 	public Collection getChilds()
 	{
-		return Collections.unmodifiableList(childs);
+		return
+			childs==null
+			? Collections.EMPTY_LIST
+			: Collections.unmodifiableList(childs);
 	}
 	
 	void addChild(final StatementInfo newChild)
 	{
+		if(childs==null)
+			childs = new ArrayList();
+
 		childs.add(newChild);
 	}
 	
