@@ -6,6 +6,10 @@
 	- disable/anderer access modifier für alle Methoden
 * Lib
 	- search API
+		- introduce Condition#TRUE/#FALSE and use it for:
+			+ empty composite conditions
+			+ conditions contradicting constraints
+			+ skipping db searches at all
 		- oracle statistics
 		- self joins
 		- group by
