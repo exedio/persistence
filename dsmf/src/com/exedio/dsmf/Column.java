@@ -174,5 +174,10 @@ public final class Column extends Node
 		executeSQL(bf.toString());
 	}
 	
+	public final String toString()
+	{
+		return name;
+	}
+	
 }
 	
