@@ -22,19 +22,14 @@ import java.io.File;
 import java.util.Arrays;
 
 import com.exedio.cope.testmodel.AttributeItem;
-import com.exedio.cope.testmodel.Main;
 import com.exedio.cope.util.ReactivationConstructorDummy;
 
 /**
  * Tests the model itself, without creating/using any persistent data.
  * @author Ralf Wiebicke
  */
-public class ModelTest extends AbstractLibTest
+public class ModelTest extends TestmodelTest
 {
-	public ModelTest()
-	{
-		super(Main.model);
-	}
 	
 	public void testSupportsReadCommitted()
 	{
