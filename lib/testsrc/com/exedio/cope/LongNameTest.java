@@ -41,13 +41,13 @@ public class LongNameTest extends AbstractLibTest
 		return new Properties(dp, dpf.getAbsolutePath()+" plus LongNameTest forced names");
 	}
 	
-	LongNameLongNameLongNameLongNameLongNameLongNameItem item;
+	NameLongNameLongNameLongNameLongNameLongNameLongItem item;
 	NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem itemca, itemcb;
 	
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		deleteOnTearDown(item = new LongNameLongNameLongNameLongNameLongNameLongNameItem("long name item"));
+		deleteOnTearDown(item = new NameLongNameLongNameLongNameLongNameLongNameLongItem("long name item"));
 		deleteOnTearDown(itemca = new NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem("collision A"));
 		deleteOnTearDown(itemcb = new NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem("collision B"));
 	}

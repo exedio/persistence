@@ -33,7 +33,7 @@ public class Main
 	public static final Model vectorModel = new Model(new Type[] { VectorItem.TYPE });
 	public static final Model cacheIsolationModel = new Model(new Type[] { CacheIsolationItem.TYPE });
 	public static final Model longNameModel = new Model(new Type[] {
-			LongNameLongNameLongNameLongNameLongNameLongNameItem.TYPE,
+			NameLongNameLongNameLongNameLongNameLongNameLongItem.TYPE,
 			NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem.TYPE,
 			NameCollisionlooooooooooooooooooooooooooooooooooooooooongbItem.TYPE });
 
