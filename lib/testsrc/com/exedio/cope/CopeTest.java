@@ -39,8 +39,8 @@ public class CopeTest extends TestCase
 		try
 		{
 			final Class c = Class.forName("com.exedio.dsmf.PackageTest");
-			final Method m = c.getDeclaredMethod("suite", null);
-			final Test test = (Test)m.invoke(null, null);
+			final Method m = c.getDeclaredMethod("suite", (Class[])null);
+			final Test test = (Test)m.invoke(null, (Object[])null);
 			suite.addTest(test);
 		}
 		catch(ClassNotFoundException e)
