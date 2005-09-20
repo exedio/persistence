@@ -38,7 +38,7 @@ abstract class Column
 			final int jdbcType)
 	{
 		this.table = table;
-		this.id = table.database.trimName(table.id, id).intern();
+		this.id = table.database.makeName(table.id, id).intern();
 		this.protectedID = table.database.driver.protectName(this.id).intern();
 		this.primaryKey = primaryKey;
 		this.notNull = notNull;
@@ -83,7 +83,7 @@ abstract class Column
 		final com.exedio.dsmf.Column result = new com.exedio.dsmf.Column(dsmfTable, id, getDatabaseType());
 
 		if(primaryKey)
-			new PrimaryKeyConstraint(dsmfTable, table.database.trimName(table.id + "_" + "Pk"), id);
+			new PrimaryKeyConstraint(dsmfTable, table.database.makeName(table.id + "_" + "Pk"), id);
 		else
 		{
 			if(table.database.supportsCheckConstraints())
@@ -107,7 +107,7 @@ abstract class Column
 				}
 	
 				if(checkConstraint!=null)
-					new CheckConstraint(dsmfTable, table.database.trimName(table.id + "_" + id + "_Ck"), checkConstraint);
+					new CheckConstraint(dsmfTable, table.database.makeName(table.id + "_" + id + "_Ck"), checkConstraint);
 			}
 		}
 	}

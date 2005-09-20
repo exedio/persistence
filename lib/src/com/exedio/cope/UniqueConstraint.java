@@ -79,7 +79,7 @@ public final class UniqueConstraint extends Feature
 		if(this.databaseID!=null)
 			throw new RuntimeException();
 
-		this.databaseID = database.trimName(getType().getID()+"_"+getName()+"_Unq").intern();
+		this.databaseID = database.makeName(getType().getID()+"_"+getName()+"_Unq").intern();
 		database.addUniqueConstraint(databaseID, this);
 	}
 

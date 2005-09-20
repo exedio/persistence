@@ -901,6 +901,10 @@ abstract class Database
 		return null;
 	}
 	
+	/**
+	 * Trims a name to length for being a suitable qualifier for database entities,
+	 * such as tables, columns, indexes, constraints, partitions etc.
+	 */
 	protected static final String trimString(final String longString, final int maxLength)
 	{
 		if(maxLength<=0)
@@ -978,20 +982,12 @@ abstract class Database
 		return result.toString();
 	}
 	
-	/**
-	 * Trims a name to length for being a suitable qualifier for database entities,
-	 * such as tables, columns, indexes, constraints, partitions etc.
-	 */
-	String trimName(final String longName)
+	String makeName(final String longName)
 	{
-		return trimName(null, longName);
+		return makeName(null, longName);
 	}
 
-	/**
-	 * Trims a name to length for being a suitable qualifier for database entities,
-	 * such as tables, columns, indexes, constraints, partitions etc.
-	 */
-	String trimName(final String prefix, final String longName)
+	String makeName(final String prefix, final String longName)
 	{
 		final String query = prefix==null ? longName : prefix+'.'+longName;
 		final String forcedName = (String)forcedNames.get(query);

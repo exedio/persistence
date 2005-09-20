@@ -34,7 +34,7 @@ final class Table
 	Table(final Database database, final String id)
 	{
 		this.database = database;
-		this.id = database.trimName(id).intern();
+		this.id = database.makeName(id).intern();
 		this.protectedID = database.driver.protectName(this.id).intern();
 		database.addTable(this);
 	}
