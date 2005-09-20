@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.testmodel.AttributeItem;
 import com.exedio.cope.testmodel.SumItem;
 import com.exedio.dsmf.CheckConstraint;
 import com.exedio.dsmf.Column;
@@ -257,17 +258,17 @@ public class SchemaTest extends TestmodelTest
 			assertEquals(!mysql, model.supportsCheckConstraints());
 			final Schema schema = model.getVerifiedSchema();
 
-			final com.exedio.dsmf.Table attributeItem = schema.getTable("AttributeItem");
+			final com.exedio.dsmf.Table attributeItem = schema.getTable(AttributeItem.TYPE.getTableName());
 			assertNotNull(attributeItem);
 			assertEquals(null, attributeItem.getError());
 			assertEquals(Schema.COLOR_OK, attributeItem.getParticularColor());
 
-			assertCheckConstraint(attributeItem, "AttrItem_somNotNullStr_Ck", protect("someNotNullString")+" IS NOT NULL");
-			assertCheckConstraint(attributeItem, "AttribuItem_someBoolea_Ck", "("+protect("someBoolean")+" IN (0,1)) OR ("+protect("someBoolean")+" IS NULL)");
-			assertCheckConstraint(attributeItem, "AttrItem_somNotNullBoo_Ck", "("+protect("someNotNullBoolean")+" IS NOT NULL) AND ("+protect("someNotNullBoolean")+" IN (0,1))");
-			assertCheckConstraint(attributeItem, "AttributeItem_someEnum_Ck", "("+protect("someEnum")+" IN (100,200,300)) OR ("+protect("someEnum")+" IS NULL)");
-			assertCheckConstraint(attributeItem, "AttrItem_somNotNullEnu_Ck", "("+protect("someNotNullEnum")+" IS NOT NULL) AND ("+protect("someNotNullEnum")+" IN (100,200,300))");
-			assertCheckConstraint(attributeItem, "AttriItem_someDataMajo_Ck", "((LENGTH("+protect("someDataMajor")+")>=1) AND (LENGTH("+protect("someDataMajor")+")<=30)) OR ("+protect("someDataMajor")+" IS NULL)");
+			assertCheckConstraint(attributeItem, "AttrItem_somNotNullStr_Ck", protect(AttributeItem.someNotNullString)+" IS NOT NULL");
+			assertCheckConstraint(attributeItem, "AttribuItem_someBoolea_Ck", "("+protect(AttributeItem.someBoolean)+" IN (0,1)) OR ("+protect(AttributeItem.someBoolean)+" IS NULL)");
+			assertCheckConstraint(attributeItem, "AttrItem_somNotNullBoo_Ck", "("+protect(AttributeItem.someNotNullBoolean)+" IS NOT NULL) AND ("+protect(AttributeItem.someNotNullBoolean)+" IN (0,1))");
+			assertCheckConstraint(attributeItem, "AttributeItem_someEnum_Ck", "("+protect(AttributeItem.someEnum)+" IN (100,200,300)) OR ("+protect(AttributeItem.someEnum)+" IS NULL)");
+			assertCheckConstraint(attributeItem, "AttrItem_somNotNullEnu_Ck", "("+protect(AttributeItem.someNotNullEnum)+" IS NOT NULL) AND ("+protect(AttributeItem.someNotNullEnum)+" IN (100,200,300))");
+			assertCheckConstraint(attributeItem, "AttriItem_someDataMajo_Ck", "((LENGTH("+protect(AttributeItem.someData.getMimeMajor())+")>=1) AND (LENGTH("+protect(AttributeItem.someData.getMimeMajor())+")<=30)) OR ("+protect(AttributeItem.someData.getMimeMajor())+" IS NULL)");
 
 			assertPkConstraint(attributeItem, "AttributeItem_Pk", null, Table.PK_COLUMN_NAME);
 
@@ -356,6 +357,16 @@ public class SchemaTest extends TestmodelTest
 			assertEquals(constraintName, null, constraint);
 
 		return constraint;
+	}
+	
+	private final String protect(final Type type)
+	{
+		return protect(type.getTableName());
+	}
+	
+	private final String protect(final Attribute attribute)
+	{
+		return protect(attribute.getColumnName());
 	}
 	
 	private final String protect(final String name)
