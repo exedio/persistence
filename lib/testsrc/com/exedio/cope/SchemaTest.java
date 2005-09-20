@@ -273,12 +273,12 @@ public class SchemaTest extends TestmodelTest
 
 			assertFkConstraint(attributeItem, "AttributeItem_someItem_Fk", "someItem", "EmptyItem", Table.PK_COLUMN_NAME);
 
-			final com.exedio.dsmf.Table uniqueItem = schema.getTable("ItemWithSingleUnique");
+			final com.exedio.dsmf.Table uniqueItem = schema.getTable("UNIQUE_ITEMS");
 			assertNotNull(uniqueItem);
 			assertEquals(null, uniqueItem.getError());
 			assertEquals(Schema.COLOR_OK, uniqueItem.getParticularColor());
 			
-			assertUniqueConstraint(uniqueItem, "ItemWithSingUni_unStr_Unq", "("+protect("uniqueString")+")");
+			assertUniqueConstraint(uniqueItem, "IX_ITEMWSU_US", "("+protect("UNIQUE_STRING")+")");
 			
 			final com.exedio.dsmf.Table doubleUniqueItem = schema.getTable("ItemWithDoubleUnique");
 			assertNotNull(doubleUniqueItem);
@@ -287,12 +287,12 @@ public class SchemaTest extends TestmodelTest
 			
 			assertUniqueConstraint(doubleUniqueItem, "ItemWithDoubUni_doUni_Unq", "("+protect("string")+","+protect("integer")+")");
 			
-			final com.exedio.dsmf.Table stringItem = schema.getTable("StringItem");
+			final com.exedio.dsmf.Table stringItem = schema.getTable("STRINGITEMS");
 			assertNotNull(stringItem);
 			assertEquals(null, stringItem.getError());
 			assertEquals(Schema.COLOR_OK, stringItem.getParticularColor());
 
-			final Column min4Max8 = stringItem.getColumn("min4Max8");
+			final Column min4Max8 = stringItem.getColumn("MIN4_MAX8");
 			assertEquals(null, min4Max8.getError());
 			assertEquals(Schema.COLOR_OK, min4Max8.getParticularColor());
 			if(hsqldb)
@@ -302,10 +302,10 @@ public class SchemaTest extends TestmodelTest
 			else
 				assertEquals("VARCHAR2(8)", min4Max8.getType());
 
-			assertCheckConstraint(stringItem, "StringItem_min4_Ck", "(LENGTH("+protect("min4")+")>=4) OR ("+protect("min4")+" IS NULL)");
-			assertCheckConstraint(stringItem, "StringItem_max4_Ck", "(LENGTH("+protect("max4")+")<=4) OR ("+protect("max4")+" IS NULL)");
-			assertCheckConstraint(stringItem, "StringItem_min4Max8_Ck", "((LENGTH("+protect("min4Max8")+")>=4) AND (LENGTH("+protect("min4Max8")+")<=8)) OR ("+protect("min4Max8")+" IS NULL)");
-			assertCheckConstraint(stringItem, "StringItem_exact6_Ck",   "(LENGTH("+protect("exact6")+")=6) OR ("+protect("exact6")+" IS NULL)");
+			assertCheckConstraint(stringItem, "STRINGITEMS_MIN_4_Ck",     "(LENGTH("+protect("MIN_4")+")>=4) OR ("+protect("MIN_4")+" IS NULL)");
+			assertCheckConstraint(stringItem, "STRINGITEMS_MAX_4_Ck",     "(LENGTH("+protect("MAX_4")+")<=4) OR ("+protect("MAX_4")+" IS NULL)");
+			assertCheckConstraint(stringItem, "STRINGITEMS_MIN4_MAX8_Ck", "((LENGTH("+protect("MIN4_MAX8")+")>=4) AND (LENGTH("+protect("MIN4_MAX8")+")<=8)) OR ("+protect("MIN4_MAX8")+" IS NULL)");
+			assertCheckConstraint(stringItem, "STRINGITEMS_EXACT_6_Ck",   "(LENGTH("+protect("EXACT_6")+")=6) OR ("+protect("EXACT_6")+" IS NULL)");
 		}
 	}
 	

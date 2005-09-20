@@ -329,6 +329,8 @@
 				DeleteItem.java,
 				DeleteOtherItem.java,
 				LongNameLongNameLongNameLongNameLongNameLongNameItem.java,
+				NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem.java,
+				NameCollisionlooooooooooooooooooooooooooooooooooooooooongbItem.java,
 				CacheIsolationItem.java" />
 		</instrument>
 	</target>

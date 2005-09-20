@@ -18,18 +18,18 @@
 
 package com.exedio.cope.junit;
 
-import com.exedio.cope.Item;
-import com.exedio.cope.Transaction;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.ListIterator;
 
+import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.NestingRuntimeException;
 import com.exedio.cope.Properties;
+import com.exedio.cope.Transaction;
 import com.exedio.cope.util.PoolCounter;
-import java.util.ArrayList;
-import java.util.ListIterator;
 
 /**
  * An abstract test case class for tests creating/using some persistent data.
@@ -138,9 +138,14 @@ public abstract class CopeTest extends CopeAssert
 		}
 	}
 	
+	protected Properties getProperties()
+	{
+		return new Properties();
+	}
+	
 	protected void setUp() throws Exception
 	{
-		model.setPropertiesInitially(new Properties());
+		model.setPropertiesInitially(getProperties());
 
 		super.setUp();
 		deleteOnTearDown = new ArrayList();

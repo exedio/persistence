@@ -36,6 +36,7 @@ public final class Properties
 	public static final String DATABASE_USER = "database.user";
 	public static final String DATABASE_PASSWORD = "database.password";
 	public static final String DATABASE_DONT_SUPPORT_EMPTY_STRINGS = "database.dont.support.empty.strings";
+	static final String DATABASE_FORCE_NAME = "database.forcename";
 	public static final String DATADIR_PATH = "datadir.path";
 	public static final String MEDIA_ROOT_URL = "media.rooturl";
 	public static final String MEDIA_ROOT_URL_DEFAULT = "media/";
@@ -51,6 +52,7 @@ public final class Properties
 	private final String databaseUser;
 	private final String databasePassword;
 	private final boolean databaseDontSupportEmptyStrings;
+	private final java.util.Properties databaseForcedNames;
 	private final java.util.Properties databaseCustomProperties;
 
 	private final File datadirPath;
@@ -61,7 +63,7 @@ public final class Properties
 		this(getDefaultPropertyFile());
 	}
 	
-	private static final File getDefaultPropertyFile()
+	public static final File getDefaultPropertyFile()
 	{
 		String filename = System.getProperty(FILE_NAME_PROPERTY);
 		if(filename==null)
@@ -147,15 +149,21 @@ public final class Properties
 
 			{
 				// TODO use some kind of prefix property view
+				databaseForcedNames = new java.util.Properties();
+				final String databaseForceNamePrefix = DATABASE_FORCE_NAME + '.';
+				final int databaseForceNamePrefixLength = databaseForceNamePrefix.length();
+
 				databaseCustomProperties = new java.util.Properties();
 				final String databaseCustomPropertiesPrefix = "database." + databaseCode + '.';
 				final int databaseCustomPropertiesPrefixLength = databaseCustomPropertiesPrefix.length();
+
 				for(Iterator i = properties.keySet().iterator(); i.hasNext(); )
 				{
 					final String key = (String)i.next();
-					if(!key.startsWith(databaseCustomPropertiesPrefix))
-						continue;
-					databaseCustomProperties.put(key.substring(databaseCustomPropertiesPrefixLength), properties.getProperty(key));
+					if(key.startsWith(databaseForceNamePrefix))
+						databaseForcedNames.put(key.substring(databaseForceNamePrefixLength), properties.getProperty(key));
+					if(key.startsWith(databaseCustomPropertiesPrefix))
+						databaseCustomProperties.put(key.substring(databaseCustomPropertiesPrefixLength), properties.getProperty(key));
 				}
 			}
 		}
@@ -277,6 +285,11 @@ public final class Properties
 		return databaseDontSupportEmptyStrings;
 	}
 	
+	java.util.Properties getDatabaseForcedNames()
+	{
+		return databaseForcedNames;
+	}
+	
 	String getDatabaseCustomProperty(final String key)
 	{
 		return databaseCustomProperties.getProperty(key);
@@ -335,6 +348,13 @@ public final class Properties
 					" between " + source + " and " + other.source + "," +
 					" expected " + this.databaseDontSupportEmptyStrings +
 					" but got " + other.databaseDontSupportEmptyStrings + '.');
+		
+		if(!this.databaseForcedNames.equals(other.databaseForcedNames))
+			throw new RuntimeException(
+					"inconsistent initialization for " + DATABASE_FORCE_NAME +
+					".* between " + source + " and " + other.source + "," +
+					" expected " + this.databaseForcedNames +
+					" but got " + other.databaseForcedNames + '.');
 		
 		if((this.datadirPath!=null && !this.datadirPath.equals(other.datadirPath)) ||
 				(this.datadirPath==null && other.datadirPath!=null))

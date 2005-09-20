@@ -44,6 +44,7 @@ abstract class Database
 	final Driver driver;
 	private final boolean useDefineColumnTypes;
 	final ConnectionPool connectionPool;
+	private java.util.Properties forcedNames;
 	private List expectedCalls = null;
 	
 	protected Database(final Driver driver, final Properties properties)
@@ -51,6 +52,7 @@ abstract class Database
 		this.driver = driver;
 		this.useDefineColumnTypes = this instanceof DatabaseColumnTypesDefinable;
 		this.connectionPool = new ConnectionPool(properties);
+		this.forcedNames = properties.getDatabaseForcedNames();
 		//System.out.println("using database "+getClass());
 	}
 	
@@ -982,6 +984,21 @@ abstract class Database
 	 */
 	String trimName(final String longName)
 	{
+		return trimName(null, longName);
+	}
+
+	/**
+	 * Trims a name to length for being a suitable qualifier for database entities,
+	 * such as tables, columns, indexes, constraints, partitions etc.
+	 */
+	String trimName(final String prefix, final String longName)
+	{
+		final String query = prefix==null ? longName : prefix+'.'+longName;
+		final String forcedName = (String)forcedNames.get(query);
+		//System.out.println("---------"+query+"--"+forcedName);
+		if(forcedName!=null)
+			return forcedName;
+		
 		return trimString(longName, 25);
 	}
 

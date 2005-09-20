@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import java.io.File;
+
 
 public class LongNameTest extends AbstractLibTest
 {
@@ -27,12 +29,27 @@ public class LongNameTest extends AbstractLibTest
 		super(Main.longNameModel);
 	}
 
+	protected Properties getProperties()
+	{
+		final File dpf = Properties.getDefaultPropertyFile();
+		final java.util.Properties dp = Properties.loadProperties(dpf);
+		
+		dp.setProperty("database.forcename.NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem", "NameCollisionlongAItem_F");
+		dp.setProperty("database.forcename.NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem_code_Unq", "NameCollisionA_code_Unq_F");
+		dp.setProperty("database.forcename.NameCollisionlongAItem_F.collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber", "collisionlongANumber_F");
+		
+		return new Properties(dp, dpf.getAbsolutePath()+" plus LongNameTest forced names");
+	}
+	
 	LongNameLongNameLongNameLongNameLongNameLongNameItem item;
+	NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem itemca, itemcb;
 	
 	public void setUp() throws Exception
 	{
 		super.setUp();
 		deleteOnTearDown(item = new LongNameLongNameLongNameLongNameLongNameLongNameItem("long name item"));
+		deleteOnTearDown(itemca = new NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem("collision A"));
+		deleteOnTearDown(itemcb = new NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem("collision B"));
 	}
 	
 	public void test() throws ConstraintViolationException
@@ -48,6 +65,19 @@ public class LongNameTest extends AbstractLibTest
 
 		item.setCodeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName("long name item");
 		assertEquals(item, item.findByCodeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName("long name item"));
+		
+		assertEquals("NameCollisionlongAItem_F", itemca.TYPE.getTableName());
+		assertEquals("collisionlongANumber_F", itemca.collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber.getColumnName());
+		assertEquals(null, itemca.getCollisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber());
+		assertEquals(null, itemcb.getCollisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber());
+		assertContains(itemca, itemcb, itemca.TYPE.search(itemca.collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber.equal(null)));
+		assertContains(itemca.TYPE.search(itemca.collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber.equal(new Integer(5))));
+
+		itemca.setCollisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber(new Integer(5));
+		assertEquals(new Integer(5), itemca.getCollisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber());
+		assertEquals(null, itemcb.getCollisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber());
+		assertContains(itemcb, itemca.TYPE.search(itemca.collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber.equal(null)));
+		assertContains(itemca, itemca.TYPE.search(itemca.collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber.equal(new Integer(5))));
 	}
 
 }

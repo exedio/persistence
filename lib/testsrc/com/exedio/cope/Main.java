@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import java.io.File;
+
 import com.exedio.cope.testmodel.HashItem;
 import com.exedio.cope.testmodel.MD5Item;
 import com.exedio.cope.testmodel.VectorItem;
@@ -30,11 +32,34 @@ public class Main
 	public static final Model md5Model = new Model(new Type[] { MD5Item.TYPE });
 	public static final Model vectorModel = new Model(new Type[] { VectorItem.TYPE });
 	public static final Model cacheIsolationModel = new Model(new Type[] { CacheIsolationItem.TYPE });
-	public static final Model longNameModel = new Model(new Type[] { LongNameLongNameLongNameLongNameLongNameLongNameItem.TYPE });
+	public static final Model longNameModel = new Model(new Type[] {
+			LongNameLongNameLongNameLongNameLongNameLongNameItem.TYPE,
+			NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem.TYPE,
+			NameCollisionlooooooooooooooooooooooooooooooooooooooooongbItem.TYPE });
 
 	private static final void tearDown(final Model model)
 	{
-		model.setPropertiesInitially(new Properties());
+		final File dpf = Properties.getDefaultPropertyFile();
+		final java.util.Properties dp = Properties.loadProperties(dpf);
+		
+		dp.setProperty("database.forcename.StringItem", "STRINGITEMS");
+		dp.setProperty("database.forcename.STRINGITEMS.this", "STRINGITEM_ID");
+		dp.setProperty("database.forcename.STRINGITEMS.any", "ANY");
+		dp.setProperty("database.forcename.STRINGITEMS.mandatory", "MANDATORY");
+		dp.setProperty("database.forcename.STRINGITEMS.min4", "MIN_4");
+		dp.setProperty("database.forcename.STRINGITEMS.max4", "MAX_4");
+		dp.setProperty("database.forcename.STRINGITEMS.min4Max8", "MIN4_MAX8");
+		dp.setProperty("database.forcename.STRINGITEMS.exact6", "EXACT_6");
+		dp.setProperty("database.forcename.ItemWithSingleUnique", "UNIQUE_ITEMS");
+		dp.setProperty("database.forcename.UNIQUE_ITEMS.this", "UNIQUE_ITEM_ID");
+		dp.setProperty("database.forcename.UNIQUE_ITEMS.uniqueString", "UNIQUE_STRING");
+		dp.setProperty("database.forcename.UNIQUE_ITEMS.otherString", "OTHER_STRING");
+		dp.setProperty("database.forcename.ItemWithSingleUnique_uniqueString_Unq", "IX_ITEMWSU_US");
+		dp.setProperty("database.forcename.NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem", "NameCollisionlongAItem_F");
+		dp.setProperty("database.forcename.NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem_code_Unq", "NameCollisionA_code_Unq_F");
+		dp.setProperty("database.forcename.NameCollisionlongAItem_F.collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber", "collisionlongANumber_F");
+		
+		model.setPropertiesInitially(new Properties(dp, dpf.getAbsolutePath()+" plus teardown forced names"));
 		model.tearDownDatabase();
 	}
 	
