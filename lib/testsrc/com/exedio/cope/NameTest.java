@@ -21,10 +21,10 @@ package com.exedio.cope;
 import java.io.File;
 
 
-public class LongNameTest extends AbstractLibTest
+public class NameTest extends AbstractLibTest
 {
 	
-	public LongNameTest()
+	public NameTest()
 	{
 		super(Main.longNameModel);
 	}
@@ -38,7 +38,7 @@ public class LongNameTest extends AbstractLibTest
 		dp.setProperty("database.forcename.NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem_code_Unq", "NameCollisionA_code_Unq_F");
 		dp.setProperty("database.forcename.NameCollisionlongAItem_F.collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber", "collisionlongANumber_F");
 		
-		return new Properties(dp, dpf.getAbsolutePath()+" plus LongNameTest forced names");
+		return new Properties(dp, dpf.getAbsolutePath()+" plus NameTest forced names");
 	}
 	
 	NameLongNameLongNameLongNameLongNameLongNameLongItem item;
