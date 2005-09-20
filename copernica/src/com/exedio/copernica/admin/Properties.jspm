@@ -45,8 +45,7 @@ final class Properties_Jspm
 		%>
 		<table class="properties">
 			<tr>
-				<th>source</th>
-				<td><%=properties.getSource()%></td>
+				<th colspan="2"><%=properties.getSource()%></th>
 			</tr>
 			<tr>
 				<th><%=properties.DATABASE%></th>
@@ -101,14 +100,21 @@ final class Properties_Jspm
 			{
 			%>
 			<tr>
-				<th>source content</th>
-				<td>
+				<td colspan="2">
 					<pre>
 <%=sourceContent%>
 					</pre>
 				</td>
 			</tr><%
 			}
+		%>
+		</table>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<table class="properties"><%
 
 			for(int i = 0; i<systemProperties.length; i++)
 			{
