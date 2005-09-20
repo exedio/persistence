@@ -17,6 +17,9 @@
  */
 package com.exedio.cope;
 
+import com.exedio.cope.search.AndCondition;
+import com.exedio.cope.search.Condition;
+import com.exedio.cope.search.OrCondition;
 import com.exedio.cope.testmodel.AttributeItem;
 import com.exedio.cope.testmodel.EmptyItem;
 
@@ -69,6 +72,43 @@ public class SearchTest extends TestmodelTest
 			assertEquals(
 				"function AttributeItem#someInteger belongs to type "+AttributeItem.class.getName()+", which is not a type of the query: "+EmptyItem.class.getName()+", []",
 				e.getMessage());
+		}
+		
+		try
+		{
+			new AndCondition(null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			// fine
+		}
+		try
+		{
+			new OrCondition(null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			// fine
+		}
+		try
+		{
+			new AndCondition(new Condition[0]);
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals("composite condition must have at least one subcondition", e.getMessage());
+		}
+		try
+		{
+			new OrCondition(new Condition[0]);
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals("composite condition must have at least one subcondition", e.getMessage());
 		}
 	}
 	

@@ -28,6 +28,9 @@ public abstract class CompositeCondition extends Condition
 
 	CompositeCondition(final String operator, final Condition[] conditions)
 	{
+		if(conditions.length==0)
+			throw new RuntimeException("composite condition must have at least one subcondition");
+
 		this.operator = operator;
 		this.conditions = conditions;
 	}

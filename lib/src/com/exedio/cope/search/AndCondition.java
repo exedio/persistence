@@ -20,6 +20,10 @@ package com.exedio.cope.search;
 
 public final class AndCondition extends CompositeCondition
 {
+	/**
+	 * @throws NullPointerException if <code>conditions==null</code>
+	 * @throws RuntimeException if <code>conditions.length==0</code>
+	 */
 	public AndCondition(final Condition[] conditions)
 	{
 		super(" and ", conditions);
