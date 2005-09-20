@@ -51,6 +51,7 @@ final class PropertiesCop extends AdminCop
 				bf.append(b, 0, len);
 
 			sourceContent = bf.toString();
+			sourceContent = sourceContent.replaceAll(props.DATABASE_PASSWORD+".*", props.DATABASE_PASSWORD+"=<i>hidden</i>");
 		}
 		catch(FileNotFoundException e)
 		{

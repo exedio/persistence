@@ -34,7 +34,7 @@ public final class Properties
 	public static final String DATABASE = "database";
 	public static final String DATABASE_URL = "database.url";
 	public static final String DATABASE_USER = "database.user";
-	static final String DATABASE_PASSWORD = "database.password";
+	public static final String DATABASE_PASSWORD = "database.password";
 	public static final String DATABASE_DONT_SUPPORT_EMPTY_STRINGS = "database.dont.support.empty.strings";
 	public static final String DATADIR_PATH = "datadir.path";
 	public static final String MEDIA_ROOT_URL = "media.rooturl";
