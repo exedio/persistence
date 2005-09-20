@@ -26,7 +26,7 @@ public class NameTest extends AbstractLibTest
 	
 	public NameTest()
 	{
-		super(Main.longNameModel);
+		super(Main.nameModel);
 	}
 
 	protected Properties getProperties()
