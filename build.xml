@@ -106,12 +106,16 @@
 
 	<target name="lib.oracle.compile" depends="lib.compile.mkdir, lib.core.compile">
 		<if>
-			<available file="../lib/classes12.jar" />
+			<or>
+				<available file="../lib/classes12.jar" />
+				<available file="../lib/ojdbc14.jar" />
+			</or>
 			<then>
 				<ljavac srcdir="lib/oraclesrc" destdir="lib/build/classes">
 					<classpath>
 						<pathelement location="../lib/pcj.jar" />
 						<pathelement location="../lib/classes12.jar" />
+						<pathelement location="../lib/ojdbc14.jar" />
 					</classpath>
 				</ljavac>
 			</then>
