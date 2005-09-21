@@ -71,8 +71,7 @@ public class AttributeDateTest extends AttributeTest
 		final Date beforeTouch = new Date();
 		item.touchSomeDate();
 		final Date afterTouch = new Date();
-		assertTrue(!beforeTouch.after(item.getSomeDate()));
-		assertTrue(!afterTouch.before(item.getSomeDate()));
+		assertWithin(beforeTouch, afterTouch, item.getSomeDate());
 
 		try
 		{
