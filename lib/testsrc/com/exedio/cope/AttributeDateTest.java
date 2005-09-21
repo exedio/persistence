@@ -43,12 +43,8 @@ public class AttributeDateTest extends AttributeTest
 
 		restartTransaction();
 		assertEquals(date, item.getSomeDate());
-		assertEquals(
-			list(item),
-			item.TYPE.search(item.someDate.equal(date)));
-		assertEquals(
-			list(item2),
-			item.TYPE.search(item.someDate.notEqual(date)));
+		assertEquals(list(item), item.TYPE.search(item.someDate.equal(date)));
+		assertEquals(list(item2), item.TYPE.search(item.someDate.notEqual(date)));
 		assertEquals(list(item2), item.TYPE.search(item.someDate.equal((Date)null)));
 		assertEquals(list(item2), item.TYPE.search(item.someDate.isNull()));
 		assertEquals(list(item), item.TYPE.search(item.someDate.notEqual((Date)null)));
@@ -98,12 +94,8 @@ public class AttributeDateTest extends AttributeTest
 
 		restartTransaction();
 		assertEquals(date, item.getSomeLongDate());
-		assertEquals(
-			list(item),
-			item.TYPE.search(item.someLongDate.equal(date)));
-		assertEquals(
-			list(item2),
-			item.TYPE.search(item.someLongDate.notEqual(date)));
+		assertEquals(list(item), item.TYPE.search(item.someLongDate.equal(date)));
+		assertEquals(list(item2), item.TYPE.search(item.someLongDate.notEqual(date)));
 		assertEquals(list(item2), item.TYPE.search(item.someLongDate.equal((Date)null)));
 		assertEquals(list(item2), item.TYPE.search(item.someLongDate.isNull()));
 		assertEquals(list(item), item.TYPE.search(item.someLongDate.notEqual((Date)null)));
