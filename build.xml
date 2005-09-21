@@ -586,6 +586,10 @@
 	
 	<target name="copernica" depends="copernica.compile" />
 	
+	<target name="dsmf.clean">
+		<delete dir="dsmf/build" />
+	</target>
+	
 	<target name="lib.clean">
 		<delete dir="lib/build" />
 	</target>
@@ -609,7 +613,7 @@
 		</delete>
 	</target>
 
-	<target name="clean" depends="lib.clean, instrument.clean, copernica.clean" />
+	<target name="clean" depends="dsmf.clean, lib.clean, instrument.clean, copernica.clean" />
 	
 	
 	<target name="api" depends="properties">
