@@ -40,8 +40,8 @@
 		* separate test model for lib tests and testwebapp (webtests)
 		* make small test models for each lib test
 	- decide, whether JDK 1.3 should be supported, otherwise remove compatibility hacks:
-			* exception nesting in NestingRuntimeException and SQLRuntimeException
-			* milliseconds workaround in TimestampColumn#getTime
+		* exception nesting in NestingRuntimeException and SQLRuntimeException
+		* milliseconds workaround in TimestampColumn#getTime
 
 * Docs
 	- aus AGENDA
