@@ -71,7 +71,7 @@ final class OracleDatabase
 
 	String getStringType(final int maxLength)
 	{
-		return "VARCHAR2("+(maxLength!=Integer.MAX_VALUE ? maxLength : 2000)+")";
+		return "NVARCHAR2("+(maxLength!=Integer.MAX_VALUE ? maxLength : 2000)+")";
 	}
 	
 	public String getDateTimestampType()
