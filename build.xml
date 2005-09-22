@@ -642,10 +642,10 @@
 			<header>COPE</header>
 			<footer><![CDATA[Cope with<br>Object<br>Persistence]]></footer>
 			<bottom><![CDATA[<small>Copyright &copy; 2004-2005 <a href="http://www.exedio.com/" target="_top">exedio</a> Gesellschaft f&uuml;r Softwareentwicklung mbH. All rights reserved.</small><!--${label}-${cvstimestamp}-->]]></bottom>
-			<link href="${api.link.jdk}" />
-			<link href="${api.link.j2ee}" />
-			<link href="${api.link.junit}" />
-			<link href="${api.link.ant}" />
+			<link href="${api.link.jdk}"   packagelistLoc="package-list/jdk"   offline="true" />
+			<link href="${api.link.j2ee}"  packagelistLoc="package-list/j2ee"  offline="true" />
+			<link href="${api.link.junit}" packagelistLoc="package-list/junit" offline="true" />
+			<link href="${api.link.ant}"   packagelistLoc="package-list/ant"   offline="true" />
 			<link href="../../cops/api" />
 			<fileset file="dsmf/src/com" includes="**/*.java" />
 			<fileset file="lib/src/com" includes="**/*.java" />
