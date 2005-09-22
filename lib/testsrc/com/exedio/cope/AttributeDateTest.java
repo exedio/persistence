@@ -17,11 +17,12 @@
  */
 package com.exedio.cope;
 
-import com.exedio.cope.testmodel.AttributeItem;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import com.exedio.cope.testmodel.AttributeItem;
 
 
 public class AttributeDateTest extends AttributeTest
@@ -65,6 +66,11 @@ public class AttributeDateTest extends AttributeTest
 		item.setSomeDate(nextDate);
 		restartTransaction();
 		assertEquals(nextDate, item.getSomeDate());
+
+		final Date dateWithLittleMilliseconds = new Date(1087365298004l);
+		item.setSomeDate(dateWithLittleMilliseconds);
+		restartTransaction();
+		assertEquals(dateWithLittleMilliseconds, item.getSomeDate());
 
 		item.setSomeDate(null);
 		assertEquals(null, item.getSomeDate());
@@ -233,7 +239,8 @@ public class AttributeDateTest extends AttributeTest
 	
 	public static String toString(final Date date)
 	{
-		return date==null ? "NULL" : String.valueOf(date.getTime());
+		final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+		return date==null ? "NULL" : df.format(date);
 	}
 	
 	public static void assertEquals(final Date expectedDate, final Date actualDate)
