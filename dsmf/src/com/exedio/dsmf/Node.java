@@ -132,17 +132,19 @@ public abstract class Node
 	{
 		Connection connection = null;
 		java.sql.Statement sqlStatement = null;
+		final boolean logAllStatements = false;
 		try
 		{
 			connection = connectionProvider.getConnection();
 			connection.setAutoCommit(true);
-			//System.err.println(statement);
+			if ( logAllStatements ) System.out.println(statement);
 			sqlStatement = connection.createStatement();
 			final int rows = sqlStatement.executeUpdate(statement);
-			//System.out.println("("+rows+"): "+statement);
+			if ( logAllStatements ) System.out.println("  ("+rows+")");
 		}
 		catch(SQLException e)
 		{
+			if ( logAllStatements ) System.out.println("  -> "+e.getMessage());
 			throw new SQLRuntimeException(e, statement.toString());
 		}
 		finally
