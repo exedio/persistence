@@ -301,7 +301,7 @@ public class SchemaTest extends TestmodelTest
 			else if(mysql)
 				assertEquals("varchar(8) binary", min4Max8.getType());
 			else
-				assertEquals("VARCHAR2(8)", min4Max8.getType());
+				assertEquals("NVARCHAR2(8)", min4Max8.getType());
 
 			assertCheckConstraint(stringItem, "STRINGITEMS_MIN_4_Ck",     "(LENGTH("+protect("MIN_4")+")>=4) OR ("+protect("MIN_4")+" IS NULL)");
 			assertCheckConstraint(stringItem, "STRINGITEMS_MAX_4_Ck",     "(LENGTH("+protect("MAX_4")+")<=4) OR ("+protect("MAX_4")+" IS NULL)");

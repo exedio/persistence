@@ -47,7 +47,20 @@ public final class OracleDriver extends Driver
 				else
 					return "NUMBER("+columnSize+')';
 			case Types.OTHER:
-				return "TIMESTAMP(3)";
+			{
+				final String typeName = resultSet.getString("TYPE_NAME");
+				if("NVARCHAR2".equals(typeName))
+				{
+					if((columnSize%2)!=0)
+						return "error: NVARCHAR2 with an odd COLUMN_SIZE: "+columnSize;
+
+					return "NVARCHAR2("+(columnSize/2)+')';
+				}
+				else if("TIMESTAMP(3)".equals(typeName))
+					return "TIMESTAMP(3)";
+				
+				return "error: unknown TYPE_NAME for Types.OTHER: "+typeName;
+			}
 			case Types.VARCHAR:
 				return "VARCHAR2("+columnSize+')';
 			case Types.TIMESTAMP:
