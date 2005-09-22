@@ -107,7 +107,7 @@ final class TimestampColumn extends Column
 	{
 		// Don't use a static instance,
 		// since then access must be synchronized
-		final SimpleDateFormat df = new SimpleDateFormat("{'ts' ''yyyy-MM-dd HH:mm:ss.S''}");
+		final SimpleDateFormat df = new SimpleDateFormat("{'ts' ''yyyy-MM-dd HH:mm:ss.SSS''}");
 
 		if(cache==null)
 			return "NULL";

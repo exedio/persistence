@@ -17,6 +17,10 @@
  */
 package com.exedio.cope;
 
+import com.exedio.cope.testmodel.AttributeItem;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
@@ -128,6 +132,103 @@ public class AttributeDateTest extends AttributeTest
 		
 		restartTransaction();
 		assertEquals(null, item.getSomeLongDate());
+	}
+	
+	public void testOrder() throws MandatoryViolationException
+	{
+		Date[] dates = new Date[9];
+		AttributeItem item3, item4;
+		deleteOnTearDown( item3 = new AttributeItem("item3", 0, 0L, 0.0, true, someItem, AttributeItem.SomeEnum.enumValue1) );
+		deleteOnTearDown( item4 = new AttributeItem("item4", 0, 0L, 0.0, true, someItem, AttributeItem.SomeEnum.enumValue1) );
+		dates[0] = new Date();
+		for ( int i=1; i<dates.length; i++ )
+		{
+			do 
+			{
+				dates[i] = new Date();
+			}
+			while ( ! dates[i].after(dates[i-1]) );
+		}
+		item.setSomeDate( dates[1] );
+		item2.setSomeDate( dates[3] );
+		item3.setSomeDate( dates[5] );
+		item4.setSomeDate( dates[7] );
+		StringBuffer message = new StringBuffer();
+		DateFormat format = new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss.SSS" );
+		for ( int i=0; i<dates.length; i++ )
+		{
+			if ( i!=0 ) message.append( "; " );
+			message.append( "date"+i+": "+format.format(dates[i]) );
+		}
+		assertEquals(
+			message.toString(),
+			list( item, item2, item3, item4 ),
+			AttributeItem.TYPE.search( null, AttributeItem.someDate, true )
+		);
+		assertEquals(
+			message.toString(),
+			list( item4, item3, item2, item ),
+			AttributeItem.TYPE.search( null, AttributeItem.someDate, false )
+		);
+		assertEquals(
+			message.toString(),
+			list( item3, item4 ),
+			AttributeItem.TYPE.search( AttributeItem.someDate.greater(dates[4]), AttributeItem.someDate, true )
+		);
+		assertEquals(
+			message.toString(),
+			list( item, item2, item3 ),
+			AttributeItem.TYPE.search( AttributeItem.someDate.less(dates[6]), AttributeItem.someDate, true )
+		);
+	}
+	
+	public void testOrderWithFixedDates() throws MandatoryViolationException, ParseException
+	{
+		Date[] dates = new Date[9];
+		AttributeItem item3, item4;
+		deleteOnTearDown( item3 = new AttributeItem("item3", 0, 0L, 0.0, true, someItem, AttributeItem.SomeEnum.enumValue1) );
+		deleteOnTearDown( item4 = new AttributeItem("item4", 0, 0L, 0.0, true, someItem, AttributeItem.SomeEnum.enumValue1) );
+		DateFormat format = new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss.SSS" );
+		dates[0] = format.parse("2005-09-22 10:26:46.031");
+		dates[1] = format.parse("2005-09-22 10:26:46.046"); // item
+		dates[2] = format.parse("2005-09-22 10:26:46.062");
+		dates[3] = format.parse("2005-09-22 10:26:46.078"); // item2
+		dates[4] = format.parse("2005-09-22 10:26:46.093");
+		dates[5] = format.parse("2005-09-22 10:26:46.109"); // item3
+		dates[6] = format.parse("2005-09-22 10:26:46.125");
+		dates[7] = format.parse("2005-09-22 10:26:46.140"); // item4
+		dates[8] = format.parse("2005-09-22 10:26:46.156");
+
+		item.setSomeDate( dates[1] );
+		item2.setSomeDate( dates[3] );
+		item3.setSomeDate( dates[5] );
+		item4.setSomeDate( dates[7] );
+		StringBuffer message = new StringBuffer();
+		for ( int i=0; i<dates.length; i++ )
+		{
+			if ( i!=0 ) message.append( "; " );
+			message.append( "date"+i+": "+format.format(dates[i]) );
+		}
+		assertEquals(
+			message.toString(),
+			list( item, item2, item3, item4 ),
+			AttributeItem.TYPE.search( null, AttributeItem.someDate, true )
+		);
+		assertEquals(
+			message.toString(),
+			list( item4, item3, item2, item ),
+			AttributeItem.TYPE.search( null, AttributeItem.someDate, false )
+		);
+		assertEquals(
+			message.toString(),
+			list( item3, item4 ),
+			AttributeItem.TYPE.search( AttributeItem.someDate.greater(dates[4]), AttributeItem.someDate, true )
+		);
+		assertEquals(
+			message.toString(),
+			list( item, item2, item3 ),
+			AttributeItem.TYPE.search( AttributeItem.someDate.less(dates[6]), AttributeItem.someDate, true )
+		);
 	}
 	
 	public static String toString(final Date date)
