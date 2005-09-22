@@ -18,6 +18,7 @@
 
 package com.exedio.cope.junit;
 
+import com.exedio.cope.IntegrityViolationException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -183,9 +184,26 @@ public abstract class CopeTest extends CopeAssert
 			{
 				if(!deleteOnTearDown.isEmpty())
 				{
+					IntegrityViolationException ive = null;
 					for(ListIterator i = deleteOnTearDown.listIterator(deleteOnTearDown.size()); i.hasPrevious(); )
-						((Item)i.previous()).deleteCopeItem();
+					{
+						try
+						{
+							((Item)i.previous()).deleteCopeItem();
+						}
+						catch ( IntegrityViolationException e )
+						{
+							if ( ive==null && testMethodFinished )
+							{
+								ive = e;
+							}
+						}
+					}
 					deleteOnTearDown.clear();
+					if ( ive!=null )
+					{
+						throw new NestingRuntimeException( ive, "test completed successfully but failed to delete a 'deleteOnTearDown' item" );
+					}
 				}
 				deleteOnTearDown = null;
 				model.checkEmptyDatabase();
@@ -198,8 +216,10 @@ public abstract class CopeTest extends CopeAssert
 				}
 				else
 				{
+					model.rollbackIfNotCommitted();
 					model.tearDownDatabase();
 					model.createDatabase();
+					model.startTransaction();
 				}
 			}
 		}
