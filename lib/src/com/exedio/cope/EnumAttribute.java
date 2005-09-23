@@ -70,7 +70,7 @@ public final class EnumAttribute extends ObjectAttribute
 					{
 						final String code = field.getName(); 
 						final String numName = code+"NUM";
-						final int num;
+						final int number;
 						try
 						{
 							final Field numField = enumClass.getDeclaredField(numName);
@@ -81,13 +81,13 @@ public final class EnumAttribute extends ObjectAttribute
 							if(numField.getType()!=int.class)
 								throw new RuntimeException("field "+enumClass.getName()+"#"+numName+" must have type int, but has "+numField.getClass());
 							
-							num = ((Integer)numField.get(null)).intValue();
+							number = ((Integer)numField.get(null)).intValue();
 						}
 						catch(NoSuchFieldException e)
 						{
 							throw new RuntimeException("no such field "+enumClass.getName()+"#"+numName);
 						}
-						value.initialize(enumClass, code, num);
+						value.initialize(enumClass, code, number);
 					}
 					values.add(value);
 
