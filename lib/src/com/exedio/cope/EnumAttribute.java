@@ -68,8 +68,8 @@ public final class EnumAttribute extends ObjectAttribute
 					//System.out.println("-------------value:"+value);
 					if(!value.isInitialized())
 					{
-						final String name = field.getName(); // TODO rename to code
-						final String numName = name+"NUM";
+						final String code = field.getName(); 
+						final String numName = code+"NUM";
 						final int num;
 						try
 						{
@@ -87,7 +87,7 @@ public final class EnumAttribute extends ObjectAttribute
 						{
 							throw new RuntimeException("no such field "+enumClass.getName()+"#"+numName);
 						}
-						value.initialize(enumClass, name, num);
+						value.initialize(enumClass, code, num);
 					}
 					values.add(value);
 
