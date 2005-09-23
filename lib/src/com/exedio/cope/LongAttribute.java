@@ -38,7 +38,7 @@ public final class LongAttribute extends ObjectAttribute
 		return new LongAttribute(getTemplateOption());
 	}
 	
-	protected Column createColumn(final Table table, final String name, final boolean notNull)
+	Column createColumn(final Table table, final String name, final boolean notNull)
 	{
 		return new IntegerColumn(table, name, notNull, 20, true, null);
 	}

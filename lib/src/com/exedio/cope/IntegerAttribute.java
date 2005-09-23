@@ -39,7 +39,7 @@ public final class IntegerAttribute extends ObjectAttribute implements IntegerFu
 		return new IntegerAttribute(getTemplateOption());
 	}
 	
-	protected Column createColumn(final Table table, final String name, final boolean notNull)
+	Column createColumn(final Table table, final String name, final boolean notNull)
 	{
 		return new IntegerColumn(table, name, notNull, 10, false, null);
 	}

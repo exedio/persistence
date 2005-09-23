@@ -123,7 +123,7 @@ public abstract class Attribute extends Feature
 		return column.id;
 	}
 	
-	protected abstract Column createColumn(Table table, String name, boolean notNull);
+	abstract Column createColumn(Table table, String name, boolean notNull);
 	
 	public static class Option
 	{

@@ -38,7 +38,7 @@ public final class DayAttribute extends ObjectAttribute
 		return new DayAttribute(getTemplateOption());
 	}
 	
-	protected Column createColumn(final Table table, final String name, final boolean notNull)
+	Column createColumn(final Table table, final String name, final boolean notNull)
 	{
 		return new DayColumn(table, name, notNull);
 	}

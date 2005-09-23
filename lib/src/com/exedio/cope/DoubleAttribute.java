@@ -38,7 +38,7 @@ public final class DoubleAttribute extends ObjectAttribute
 		return new DoubleAttribute(getTemplateOption());
 	}
 	
-	protected Column createColumn(final Table table, final String name, final boolean notNull)
+	Column createColumn(final Table table, final String name, final boolean notNull)
 	{
 		return new DoubleColumn(table, name, notNull, 30);
 	}

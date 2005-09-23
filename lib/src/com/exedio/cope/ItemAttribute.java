@@ -79,7 +79,7 @@ public final class ItemAttribute extends ObjectAttribute
 		return policy;
 	}
 	
-	protected Column createColumn(final Table table, final String name, final boolean notNull)
+	Column createColumn(final Table table, final String name, final boolean notNull)
 	{
 		if(targetType!=null)
 			throw new RuntimeException();

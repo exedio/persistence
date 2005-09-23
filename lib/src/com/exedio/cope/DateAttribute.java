@@ -53,7 +53,7 @@ public final class DateAttribute extends ObjectAttribute
 		return new DateAttribute(getTemplateOption());
 	}
 	
-	protected Column createColumn(final Table table, final String name, final boolean notNull)
+	Column createColumn(final Table table, final String name, final boolean notNull)
 	{
 		final boolean useLong =
 			forbidTimestampColumn ||

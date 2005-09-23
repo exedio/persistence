@@ -75,7 +75,7 @@ public final class StringAttribute extends ObjectAttribute implements StringFunc
 		return minimumLength!=0 || maximumLength!=Integer.MAX_VALUE;
 	}
 	
-	protected Column createColumn(final Table table, final String name, final boolean notNull)
+	Column createColumn(final Table table, final String name, final boolean notNull)
 	{
 		return new StringColumn(table, name, notNull, minimumLength, maximumLength);
 	}

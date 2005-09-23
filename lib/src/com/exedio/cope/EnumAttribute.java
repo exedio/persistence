@@ -133,7 +133,7 @@ public final class EnumAttribute extends ObjectAttribute
 		return (EnumValue)codesToValues.get(code);
 	}
 
-	protected Column createColumn(final Table table, final String name, final boolean notNull)
+	Column createColumn(final Table table, final String name, final boolean notNull)
 	{
 		final int[] allowedValues = new int[values.size()];
 		int in = 0;

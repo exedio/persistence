@@ -45,7 +45,7 @@ public final class DataAttribute extends Attribute
 
 	// second initialization phase ---------------------------------------------------
 
-	protected Column createColumn(final Table table, final String name, final boolean notNull)
+	Column createColumn(final Table table, final String name, final boolean notNull)
 	{
 		// make sure, data configuration properties are set
 		getType().getModel().getProperties().getDatadirPath();

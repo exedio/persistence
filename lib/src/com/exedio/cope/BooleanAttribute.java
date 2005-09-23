@@ -35,7 +35,7 @@ public final class BooleanAttribute extends ObjectAttribute
 		return new BooleanAttribute(getTemplateOption());
 	}
 	
-	protected Column createColumn(final Table table, final String name, final boolean notNull)
+	Column createColumn(final Table table, final String name, final boolean notNull)
 	{
 		return new IntegerColumn(table, name, notNull, 1, false, ALLOWED_VALUES);
 	}
