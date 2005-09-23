@@ -40,6 +40,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( AttributeDoubleTest.class );
 		suite.addTestSuite( AttributeBooleanTest.class );
 		suite.addTestSuite( AttributeDateTest.class );
+		suite.addTestSuite( DayAttributeTest.class );
 		suite.addTestSuite( AttributeItemTest.class );
 		suite.addTestSuite( AttributeEnumTest.class );
 		suite.addTestSuite( AttributeDataTest.class );

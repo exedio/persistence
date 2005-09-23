@@ -74,6 +74,11 @@ final class OracleDatabase
 		return "NVARCHAR2("+(maxLength!=Integer.MAX_VALUE ? maxLength : 2000)+")";
 	}
 	
+	String getDayType()
+	{
+		return "DATE";
+	}
+	
 	public String getDateTimestampType()
 	{
 		return "TIMESTAMP(3)";

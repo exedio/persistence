@@ -84,6 +84,11 @@ final class PersistentState extends State
 		cache.put(column, new Long(value));
 	}
 	
+	void load(final DayColumn column, final int value)
+	{
+		cache.put(column, new Integer(value));
+	}
+	
 	Object store(final Column column)
 	{
 		throw new RuntimeException();

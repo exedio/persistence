@@ -81,6 +81,11 @@ public final class MysqlDatabase extends Database
 		return "varchar("+(maxLength!=Integer.MAX_VALUE ? maxLength : 255)+") binary";
 	}
 	
+	String getDayType()
+	{
+		return "DATE";
+	}
+	
 	protected boolean supportsCheckConstraints()
 	{
 		return false;

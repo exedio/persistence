@@ -30,6 +30,7 @@ import com.exedio.cope.Attribute;
 import com.exedio.cope.BooleanAttribute;
 import com.exedio.cope.DataAttribute;
 import com.exedio.cope.DateAttribute;
+import com.exedio.cope.DayAttribute;
 import com.exedio.cope.DoubleAttribute;
 import com.exedio.cope.EnumAttribute;
 import com.exedio.cope.Function;
@@ -184,6 +185,7 @@ final class Instrumentor implements InjectionConsumer
 			DoubleAttribute.class.equals(typeClass) ||
 			BooleanAttribute.class.equals(typeClass) ||
 			DateAttribute.class.equals(typeClass) ||
+			DayAttribute.class.equals(typeClass) ||
 			StringFunction.class.isAssignableFrom(typeClass))
 		{
 			new CopeNativeAttribute(

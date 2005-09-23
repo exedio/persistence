@@ -1,0 +1,89 @@
+/*
+ * Copyright (C) 2004-2005  exedio GmbH (www.exedio.com)
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+
+package com.exedio.cope.util;
+
+/**
+ * The class <code>Day</code> represents a specific day.
+ * It is similar to {@link Date},
+ * but with &quot;day precision&quot; instead of millisecond precision.
+ * Like {@link Date} its immutable,
+ * so you cannot change the value of an instance of this class.
+ * <p>
+ * This class is used within cope as a value class for
+ * {@link DayAttribute}.
+ * 
+ * @author Ralf Wiebicke
+ */
+public final class Day // TODO implement Comparable
+{
+	private final int year;
+	private final int month;
+	private final int day;
+	
+	public Day(final int year, final int month, final int day)
+	{
+		// mysql supports 1000/01/01 to 9999/12/31
+		// oracle supports 4712/01/01 BC to 9999/12/31
+		if(year<1000 || year>9999)
+			throw new RuntimeException("year must be in range 1000..9999, but was: " + year);
+		if(month<1 || month>12)
+			throw new RuntimeException("month must be in range 1..12, but was: " + month);
+		if(day<1 || day>31)
+			throw new RuntimeException("day must be in range 1..31, but was: " + day);
+
+		this.year = year;
+		this.month = month;
+		this.day = day;
+	}
+	
+	public int getYear()
+	{
+		return year;
+	}
+	
+	public int getMonth()
+	{
+		return month;
+	}
+	
+	public int getDay()
+	{
+		return day;
+	}
+	
+	public boolean equals(final Object o)
+	{
+		if(!(o instanceof Day))
+			return false;
+
+		final Day d = (Day)o;
+		return day==d.day && month==d.month && year==d.year;
+	}
+	
+	public int hashCode()
+	{
+		return day ^ month ^ year;
+	}
+	
+	public String toString()
+	{
+		return String.valueOf(year) + '/' + month + '/' + day;
+	}
+	
+}

@@ -62,6 +62,11 @@ final class HsqldbDatabase
 		return "varchar("+maxLength+")";
 	}
 	
+	String getDayType()
+	{
+		return "date";
+	}
+	
 	public String getDateTimestampType()
 	{
 		return "timestamp";

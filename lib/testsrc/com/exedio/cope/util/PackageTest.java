@@ -28,6 +28,7 @@ public class PackageTest extends TestCase
 	public static Test suite()
 	{
 		final TestSuite suite = new TestSuite();
+		suite.addTestSuite(DayTest.class);
 		suite.addTestSuite(PoolCounterTest.class);
 		return suite;
 	}

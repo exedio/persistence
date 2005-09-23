@@ -329,6 +329,7 @@
 				CollisionItem1.java,
 				CollisionItem2.java" />
 			<filelist dir="lib/testsrc/com/exedio/cope" files="
+				DayItem.java,
 				DataItem.java,
 				DeleteItem.java,
 				DeleteOtherItem.java,
