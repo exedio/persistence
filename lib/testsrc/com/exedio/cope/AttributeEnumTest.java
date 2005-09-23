@@ -132,6 +132,15 @@ public class AttributeEnumTest extends AttributeTest
 		
 		try
 		{
+			new EnumAttribute(Item.OPTIONAL, null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			// fine
+		}
+		try
+		{
 			new EnumAttribute(Item.OPTIONAL, getClass());
 			fail("should have thrown RuntimeException");
 		}
