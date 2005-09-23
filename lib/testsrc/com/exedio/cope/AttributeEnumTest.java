@@ -32,6 +32,15 @@ public class AttributeEnumTest extends AttributeTest
 		public static final DuplicateNumberEnum enumValue2 = new DuplicateNumberEnum();
 	}
 
+	public static final class NullEnum extends EnumValue
+	{
+		public static final int enumValue1NUM = 100;
+		public static final NullEnum enumValue1 = null;
+
+		public static final int enumValue2NUM = 100;
+		public static final NullEnum enumValue2 = new NullEnum();
+	}
+
 	public static final class SomeEnum2 extends EnumValue
 	{
 		public static final int enumValue1NUM = 150;
@@ -142,7 +151,7 @@ public class AttributeEnumTest extends AttributeTest
 		try
 		{
 			new EnumAttribute(Item.OPTIONAL, getClass());
-			fail("should have thrown RuntimeException");
+			fail();
 		}
 		catch(RuntimeException e)
 		{
@@ -150,8 +159,17 @@ public class AttributeEnumTest extends AttributeTest
 		}
 		try
 		{
+			new EnumAttribute(Item.OPTIONAL, NullEnum.class);
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals("is null: public static final " + NullEnum.class.getName() + " " + NullEnum.class.getName() + ".enumValue1", e.getMessage());
+		}
+		try
+		{
 			new EnumAttribute(Item.OPTIONAL, DuplicateNumberEnum.class);
-			fail("should have thrown RuntimeException");
+			fail();
 		}
 		catch(RuntimeException e)
 		{
