@@ -24,13 +24,13 @@ import com.exedio.cope.search.NotEqualCondition;
 
 public interface IntegerFunction extends Function
 {
-	public EqualCondition equal(final Integer value);
+	EqualCondition equal(Integer value);
 	
-	public EqualCondition equal(final int value);
+	EqualCondition equal(int value);
 
-	public NotEqualCondition notEqual(Integer value);
+	NotEqualCondition notEqual(Integer value);
 	
-	public NotEqualCondition notEqual(int value);
+	NotEqualCondition notEqual(int value);
 	
-	public SumFunction sum(IntegerFunction other);
+	SumFunction sum(IntegerFunction other);
 }

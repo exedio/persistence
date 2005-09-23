@@ -34,60 +34,60 @@ import com.exedio.cope.Type;
 public interface CopernicaProvider
 {
 
-	public Model getModel();
+	Model getModel();
 
 	/**
 	 * Is called once after the constructor.
 	 */
-	public void initialize(ServletConfig config);
+	void initialize(ServletConfig config);
 	
 	/**
 	 * @return a collection of {@link CopernicaLanguage languages}.
 	 */
-	public Collection getDisplayLanguages();
+	Collection getDisplayLanguages();
 	
 	/**
 	 * @return a collection of {@link CopernicaCategory categories}.
 	 */
-	public Collection getRootCategories();
+	Collection getRootCategories();
 	
 	/**
 	 * @return a collection of {@link com.exedio.cope.Attribute attributes}.
 	 */
-	public Collection getMainAttributes(Type type);
+	Collection getMainAttributes(Type type);
 
 	/**
 	 * @return a collection of {@link CopernicaSection sections}.
 	 */
-	public Collection getSections(Type type);
+	Collection getSections(Type type);
 	
-	public String getDisplayNameNull(CopernicaLanguage displayLanguage);
+	String getDisplayNameNull(CopernicaLanguage displayLanguage);
 
-	public String getDisplayNameOn(CopernicaLanguage displayLanguage);
+	String getDisplayNameOn(CopernicaLanguage displayLanguage);
 	
-	public String getDisplayNameOff(CopernicaLanguage displayLanguage);
+	String getDisplayNameOff(CopernicaLanguage displayLanguage);
 
-	public String getDisplayName(CopernicaLanguage displayLanguage, Type type);
+	String getDisplayName(CopernicaLanguage displayLanguage, Type type);
 
-	public String getDisplayName(CopernicaLanguage displayLanguage, Feature feature);
+	String getDisplayName(CopernicaLanguage displayLanguage, Feature feature);
 	
-	public String getDisplayName(RequestCache cache, CopernicaLanguage displayLanguage, Item item);
+	String getDisplayName(RequestCache cache, CopernicaLanguage displayLanguage, Item item);
 
-	public String getDisplayName(CopernicaLanguage displayLanguage, EnumValue value);
+	String getDisplayName(CopernicaLanguage displayLanguage, EnumValue value);
 
-	public String getIconURL(Type type);
+	String getIconURL(Type type);
 
-	public CopernicaLanguage findLanguageByID(String copernicaID);
+	CopernicaLanguage findLanguageByID(String copernicaID);
 	
-	public CopernicaUser findUserByID(String copernicaID);
+	CopernicaUser findUserByID(String copernicaID);
 
-	public CopernicaCategory findCategoryByID(String copernicaID);
+	CopernicaCategory findCategoryByID(String copernicaID);
 	
-	public CopernicaSection findSectionByID(String copernicaID);
+	CopernicaSection findSectionByID(String copernicaID);
 
-	public void handleException(PrintStream out, CopernicaServlet servlet, HttpServletRequest request, Exception e)
+	void handleException(PrintStream out, CopernicaServlet servlet, HttpServletRequest request, Exception e)
 		throws IOException;
 	
-	public int getCountCeiling(final Type type);
+	int getCountCeiling(Type type);
 	
 }

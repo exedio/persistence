@@ -25,14 +25,14 @@ import com.exedio.cope.search.NotEqualCondition;
 
 public interface StringFunction extends Function
 {
-	public EqualCondition equal(String value);
+	EqualCondition equal(String value);
 	
-	public EqualCondition equal(Join join, String value);
+	EqualCondition equal(Join join, String value);
 	
-	public NotEqualCondition notEqual(String value);
+	NotEqualCondition notEqual(String value);
 	
-	public LikeCondition like(String value);
+	LikeCondition like(String value);
 
-	public LengthFunction length();
+	LengthFunction length();
 
 }
