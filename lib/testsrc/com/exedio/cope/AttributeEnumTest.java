@@ -32,6 +32,15 @@ public class AttributeEnumTest extends AttributeTest
 		public static final DuplicateNumberEnum enumValue2 = new DuplicateNumberEnum();
 	}
 
+	public static final class SomeEnum2 extends EnumValue
+	{
+		public static final int enumValue1NUM = 150;
+		public static final SomeEnum2 enumValue1 = new SomeEnum2();
+
+		public static final int enumValue2NUM = 250;
+		public static final SomeEnum2 enumValue2 = new SomeEnum2();
+	}
+
 	public void testSomeEnum() throws ConstraintViolationException
 	{
 		// model
@@ -187,12 +196,12 @@ public class AttributeEnumTest extends AttributeTest
 		
 		try
 		{
-			item.set(item.someEnum, AttributeItem.SomeEnum2.enumValue2);
+			item.set(item.someEnum, SomeEnum2.enumValue2);
 			fail();
 		}
 		catch(ClassCastException e)
 		{
-			assertEquals("expected " + SomeEnum.class.getName() + ", got " + AttributeItem.SomeEnum2.class.getName() + " for someEnum", e.getMessage());
+			assertEquals("expected " + SomeEnum.class.getName() + ", got " + SomeEnum2.class.getName() + " for someEnum", e.getMessage());
 		}
 	}
 
