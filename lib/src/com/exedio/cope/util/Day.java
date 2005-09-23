@@ -20,13 +20,13 @@ package com.exedio.cope.util;
 
 /**
  * The class <code>Day</code> represents a specific day.
- * It is similar to {@link Date},
+ * It is similar to {@link java.util.Date},
  * but with &quot;day precision&quot; instead of millisecond precision.
- * Like {@link Date} its immutable,
+ * Like {@link java.util.Date} its immutable,
  * so you cannot change the value of an instance of this class.
  * <p>
  * This class is used within cope as a value class for
- * {@link DayAttribute}.
+ * {@link com.exedio.cope.DayAttribute}.
  * 
  * @author Ralf Wiebicke
  */
