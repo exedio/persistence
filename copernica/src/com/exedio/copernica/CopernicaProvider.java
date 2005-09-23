@@ -87,4 +87,7 @@ public interface CopernicaProvider
 
 	public void handleException(PrintStream out, CopernicaServlet servlet, HttpServletRequest request, Exception e)
 		throws IOException;
+	
+	public int getCountCeiling(final Type type);
+	
 }

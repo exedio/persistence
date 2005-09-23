@@ -268,4 +268,9 @@ public abstract class TransientCopernicaProvider implements CopernicaProvider
 		Copernica_Jspm.writeException(out, servlet, e, onPage);
 	}
 
+
+	public int getCountCeiling(final Type type)
+	{
+		return 500;
+	}
 }

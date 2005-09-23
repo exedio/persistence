@@ -18,6 +18,7 @@
 package com.exedio.copernica;
 
 import com.exedio.cope.Model;
+import com.exedio.cope.Type;
 
 final class PureCopernicaProvider extends TransientCopernicaProvider
 {
@@ -41,4 +42,8 @@ final class PureCopernicaProvider extends TransientCopernicaProvider
 		return model;
 	}
 
+	public int getCountCeiling(final Type type)
+	{
+		return Integer.MAX_VALUE;
+	}
 }

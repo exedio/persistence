@@ -30,8 +30,6 @@ import com.exedio.cope.Type;
 
 final class TypeCop extends CopernicaCop
 {
-	private static final int COUNT_CEILING = 500;
-	
 	final Type type;
 	final Function orderBy; 
 	final boolean orderAscending;
@@ -52,8 +50,9 @@ final class TypeCop extends CopernicaCop
 	{
 		super(provider, language);
 		
-		if(count>COUNT_CEILING)
-			count = COUNT_CEILING;
+		final int countCeiling = provider.getCountCeiling(type);
+		if(count>countCeiling)
+			count = countCeiling;
 
 		this.type = type;
 		this.orderBy = orderBy;
