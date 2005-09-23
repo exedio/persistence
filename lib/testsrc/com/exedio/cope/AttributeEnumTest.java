@@ -23,6 +23,15 @@ import com.exedio.cope.testmodel.AttributeItem.SomeEnum;
 
 public class AttributeEnumTest extends AttributeTest
 {
+	public static final class DuplicateNumberEnum extends EnumValue
+	{
+		public static final int enumValue1NUM = 100;
+		public static final DuplicateNumberEnum enumValue1 = new DuplicateNumberEnum();
+
+		public static final int enumValue2NUM = 100;
+		public static final DuplicateNumberEnum enumValue2 = new DuplicateNumberEnum();
+	}
+
 	public void testSomeEnum() throws ConstraintViolationException
 	{
 		// model
@@ -119,6 +128,18 @@ public class AttributeEnumTest extends AttributeTest
 		}
 		catch(RuntimeException e)
 		{
+			assertEquals("is not an enumeration value class: "+getClass().getName(), e.getMessage());
+		}
+		try
+		{
+			new EnumAttribute(Item.OPTIONAL, DuplicateNumberEnum.class);
+			fail("should have thrown RuntimeException");
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals(
+					"duplicate number " + DuplicateNumberEnum.enumValue1NUM + " for enum attribute on class " + DuplicateNumberEnum.class.getName(),
+					e.getMessage());
 		}
 
 

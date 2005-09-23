@@ -68,7 +68,7 @@ public final class EnumAttribute extends ObjectAttribute
 					//System.out.println("-------------value:"+value);
 					if(!value.isInitialized())
 					{
-						final String name = field.getName();
+						final String name = field.getName(); // TODO rename to code
 						final String numName = name+"NUM";
 						final int num;
 						try
@@ -90,8 +90,14 @@ public final class EnumAttribute extends ObjectAttribute
 						value.initialize(enumClass, name, num);
 					}
 					values.add(value);
-					numbersToValues.put(value.getNumber(), value);
-					codesToValues.put(value.getCode(), value);
+
+					final int number = value.getNumber();
+					if(numbersToValues.put(number, value)!=null)
+						throw new RuntimeException("duplicate number " + number + " for enum attribute on "+enumClass.toString());
+					
+					final String code = value.getCode();
+					if(codesToValues.put(code, value)!=null)
+						throw new RuntimeException("duplicate code " + code + " for enum attribute on "+enumClass.toString());
 				}
 			}
 			values.trimToSize();
