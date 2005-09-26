@@ -33,13 +33,13 @@ public class AuthorizationTest extends WebTestCase
 		super.setUp();
 		final TestContext ctx = getTestContext();
 		ctx.setBaseUrl("http://127.0.0.1:8080/copetest-hsqldb/");
-		beginAt("admin.jsp");
+		beginAt("admin.jsp?schema=");
 		submit("CREATE");
 	}
 	
 	public void tearDown() throws Exception
 	{
-		beginAt("admin.jsp");
+		beginAt("admin.jsp?schema=");
 		submit("DROP");
 		super.tearDown();
 	}
