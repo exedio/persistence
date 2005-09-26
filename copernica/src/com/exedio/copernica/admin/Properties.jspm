@@ -34,6 +34,13 @@ final class Properties_Jspm
 			"java.vm.name",
 			"java.vm.info",
 			"java.vm.version",
+			"user.name",
+			"user.dir",
+			"user.home",
+			"user.language",
+			"os.name",
+			"os.arch",
+			"os.version",
 		};
 	
 	final static void write(
