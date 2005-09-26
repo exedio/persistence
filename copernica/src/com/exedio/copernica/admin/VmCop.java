@@ -20,13 +20,8 @@ package com.exedio.copernica.admin;
 
 import java.io.IOException;
 import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.Iterator;
 
-import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
-import com.exedio.cope.Type;
-import com.exedio.cope.pattern.MediaPath;
 
 
 final class VmCop extends AdminCop
