@@ -18,6 +18,9 @@
 
 package com.exedio.cope.util;
 
+import java.util.Date;
+import java.util.GregorianCalendar;
+
 /**
  * The class <code>Day</code> represents a specific day.
  * It is similar to {@link java.util.Date},
@@ -35,6 +38,32 @@ public final class Day // TODO implement Comparable
 	private final int year;
 	private final int month;
 	private final int day;
+	
+   /**
+    * Creates a new <code>Day</code> object,
+    * that represents today.
+    */
+	public Day()
+	{
+		this(makeCalendar(System.currentTimeMillis()));
+	}
+	
+	public Day(final Date date)
+	{
+		this(makeCalendar(date.getTime()));
+	}
+	
+	private static final GregorianCalendar makeCalendar(final long time)
+	{
+		final GregorianCalendar result = new GregorianCalendar();
+		result.setTimeInMillis(time);
+		return result;
+	}
+	
+	private Day(final GregorianCalendar c)
+	{
+		this(c.get(GregorianCalendar.YEAR), c.get(GregorianCalendar.MONTH)+1, c.get(GregorianCalendar.DAY_OF_MONTH));
+	}
 	
 	public Day(final int year, final int month, final int day)
 	{

@@ -19,12 +19,15 @@
 
 package com.exedio.cope.util;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 import com.exedio.cope.junit.CopeAssert;
 
 
 public class DayTest extends CopeAssert
 {
-	public void testIt()
+	public void testIt() throws ParseException
 	{
 		try
 		{
@@ -87,6 +90,10 @@ public class DayTest extends CopeAssert
 		assertNotEquals(d, new Day(2005, 9, 22));
 		assertTrue(!d.equals("hallo"));
 		assertTrue(!d.equals(new Integer(22)));
+		
+		final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+		assertEquals(new Day(2005, 2, 22), new Day(df.parse("2005-02-22 00:00:00.000")));
+		assertEquals(new Day(2005, 2, 22), new Day(df.parse("2005-02-22 23:59:59.999")));
 	}
 	
 	static final void assertEquals(final Day expected, final Day actual)
