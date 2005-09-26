@@ -35,24 +35,34 @@ abstract class AdminCop extends Cop
 		this.name = name;
 	}
 	
-	final PropertiesCop toProperties()
+	private final PropertiesCop toProperties()
 	{
 		return new PropertiesCop();
 	}
 	
-	final SchemaCop toSchema()
+	private final SchemaCop toSchema()
 	{
 		return new SchemaCop(null, false, false);
 	}
 	
-	final StatisticsCop toConnectionPoolStats()
+	private final StatisticsCop toConnectionPoolStats()
 	{
 		return new StatisticsCop();
 	}
 	
-	final MediaStatsCop toMediaStats()
+	private final MediaStatsCop toMediaStats()
 	{
 		return new MediaStatsCop();
+	}
+	
+	final AdminCop[] getTabs()
+	{
+		return new AdminCop[]{
+				toProperties(),
+				toSchema(),
+				toConnectionPoolStats(),
+				toMediaStats(),
+			};
 	}
 	
 	void writeHead(HttpServletRequest request, PrintStream out) throws IOException
