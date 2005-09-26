@@ -35,33 +35,13 @@ abstract class AdminCop extends Cop
 		this.name = name;
 	}
 	
-	private final PropertiesCop toProperties()
-	{
-		return new PropertiesCop();
-	}
-	
-	private final SchemaCop toSchema()
-	{
-		return new SchemaCop(null, false, false);
-	}
-	
-	private final StatisticsCop toConnectionPoolStats()
-	{
-		return new StatisticsCop();
-	}
-	
-	private final MediaStatsCop toMediaStats()
-	{
-		return new MediaStatsCop();
-	}
-	
 	final AdminCop[] getTabs()
 	{
 		return new AdminCop[]{
-				toProperties(),
-				toSchema(),
-				toConnectionPoolStats(),
-				toMediaStats(),
+				new PropertiesCop(),
+				new SchemaCop(null, false, false),
+				new StatisticsCop(),
+				new MediaStatsCop(),
 			};
 	}
 	
