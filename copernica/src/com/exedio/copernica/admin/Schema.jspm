@@ -68,9 +68,47 @@ final class Schema_Jspm
 			throw new RuntimeException(constraint.getClass().getName());
 	}
 	
-	final static void writeSchema(final PrintStream out, final Model model, final SchemaCop cop)
+	final static void writeSchema(final PrintStream out, final Model model, final SchemaCop cop, final HttpServletRequest request)
 		throws IOException
 	{
+		%>
+		<form action="<%=cop%>" method="POST">
+			Database:
+			<br>
+			<input type="submit" name="CREATE" value="create" />
+			<input type="submit" name="TEARDOWN" value="tear down"/>
+			<input type="submit" name="DROP" value="drop"/>
+			<br>
+			<%
+				if(request.getParameter("CREATE")!=null)
+				{
+					model.createDatabase();
+					%><div class="message">Database successfully created!</div><%
+				}
+				else if(request.getParameter("TEARDOWN")!= null)
+				{
+					model.tearDownDatabase();
+					%><div class="message">Database successfully torn down!</div><%
+				}
+				else if(request.getParameter("DROP")!=null)
+				{
+					model.dropDatabase();
+					%><div class="message">Database successfully dropped!</div><%
+				}
+				else if(request.getParameter("APPLY")!=null)
+				{
+					%><hr>
+					<a href="<%=cop%>">flush log</a><%
+	%>
+	<ol><%
+					SchemaCop.writeApply(out, request, model);
+	%>
+	</ol><%
+					%>
+					<a href="<%=cop%>">flush log</a>
+					<hr><%
+				}
+
 		final Schema schema = model.getVerifiedSchema();
 		final String schemaColor = color(schema.getCumulativeColor());
 		final boolean narrow = cop.isNarrow();
@@ -276,8 +314,8 @@ for(Iterator i = schema.getTables().iterator(); i.hasNext(); tableCount++)
 	</li><%
 }
 %>
-</ul><%
-
+</ul>
+		</form><%
 	}
 	
 	final static void writeHead(final HttpServletRequest request, final PrintStream out) throws IOException

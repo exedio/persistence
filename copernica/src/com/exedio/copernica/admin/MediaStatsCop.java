@@ -23,6 +23,8 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
@@ -38,7 +40,7 @@ final class MediaStatsCop extends AdminCop
 		addParameter(TAB, TAB_MEDIA_STATS);
 	}
 
-	final void writeBody(final PrintStream out, final Model model) throws IOException
+	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request) throws IOException
 	{
 		final ArrayList medias = new ArrayList();
 

@@ -86,9 +86,9 @@ final class SchemaCop extends AdminCop
 		Schema_Jspm.writeHead(request, out);
 	}
 
-	final void writeBody(final PrintStream out, final Model model) throws IOException
+	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request) throws IOException
 	{
-		Schema_Jspm.writeSchema(out, model, this);
+		Schema_Jspm.writeSchema(out, model, this, request);
 	}
 	
 	final SchemaCop narrow(final Table table)

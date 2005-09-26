@@ -21,6 +21,8 @@ package com.exedio.copernica.admin;
 import java.io.IOException;
 import java.io.PrintStream;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.exedio.cope.Model;
 
 
@@ -33,7 +35,7 @@ final class VmCop extends AdminCop
 		addParameter(TAB, TAB_VM);
 	}
 
-	final void writeBody(final PrintStream out, final Model model) throws IOException
+	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request) throws IOException
 	{
 		Properties_Jspm.writeVm(out);
 	}

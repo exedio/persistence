@@ -51,7 +51,7 @@ abstract class AdminCop extends Cop
 		// default implementation does nothing
 	}
 	
-	abstract void writeBody(PrintStream out, Model model) throws IOException;
+	abstract void writeBody(PrintStream out, Model model, HttpServletRequest request) throws IOException;
 	
 	static final String TAB = "t";
 	static final String TAB_CONNECTION_STATS = "cp";

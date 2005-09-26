@@ -55,43 +55,6 @@ final class Admin_Jspm
 		<img src="<%=AdminServlet.logo.url(request)%>" width="200" height="66" align="right">
 		<h1>COPE Administration</h3>
 
-		<form action="<%=cop%>" method="POST">
-			Database:
-			<br>
-			<input type="submit" name="CREATE" value="create" />
-			<input type="submit" name="TEARDOWN" value="tear down"/>
-			<input type="submit" name="DROP" value="drop"/>
-			<br>
-			<%
-				if(request.getParameter("CREATE")!=null)
-				{
-					model.createDatabase();
-					%><div class="message">Database successfully created!</div><%
-				}
-				else if(request.getParameter("TEARDOWN")!= null)
-				{
-					model.tearDownDatabase();
-					%><div class="message">Database successfully torn down!</div><%
-				}
-				else if(request.getParameter("DROP")!=null)
-				{
-					model.dropDatabase();
-					%><div class="message">Database successfully dropped!</div><%
-				}
-				else if(request.getParameter("APPLY")!=null)
-				{
-					%><hr>
-					<a href="<%=cop%>">flush log</a><%
-	%>
-	<ol><%
-					SchemaCop.writeApply(out, request, model);
-	%>
-	</ol><%
-					%>
-					<a href="<%=cop%>">flush log</a>
-					<hr><%
-				}
-			%>
 			<p><%
 			
 			final AdminCop[] tabs = cop.getTabs();
@@ -109,13 +72,11 @@ final class Admin_Jspm
 				| <a href="<%=tab%>"><%=tab.name%></a><%
 				}
 			}
-			
 			%>
 			</p>
 			<hr><%
-			cop.writeBody(out, model);
+			cop.writeBody(out, model, request);
 			%>
-		</form>
 	</body>
 </html>
 <%

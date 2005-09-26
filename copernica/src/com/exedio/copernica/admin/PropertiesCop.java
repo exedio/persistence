@@ -24,6 +24,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintStream;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.exedio.cope.Model;
 import com.exedio.cope.Properties;
 
@@ -35,7 +37,7 @@ final class PropertiesCop extends AdminCop
 		super("properties");
 	}
 
-	final void writeBody(final PrintStream out, final Model model) throws IOException
+	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request) throws IOException
 	{
 		final Properties props = model.getProperties();
 		final String source = props.getSource();
