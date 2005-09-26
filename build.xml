@@ -363,6 +363,7 @@
 	</target>
 	
 	<target name="lib.test.run" depends="lib.test.compile">
+		<delete file="lib/build/testprotocol.properties" />
 		<foreachdb message="Testing">
 			<body>
 				<mkdir dir="lib/build/test.@{db}/data" />
@@ -395,6 +396,8 @@
 					</classpath>
 					<arg value="com.exedio.cope.PackageTest" />
 					<sysproperty key="com.exedio.cope.properties" file="lib/build/test.@{db}/cope.properties" />
+					<sysproperty key="com.exedio.cope.testprotocol.file" file="lib/build/testprotocol.properties" />
+					<sysproperty key="com.exedio.cope.testprotocol.prefix" value="@{db}" />
 					<!--
 					<jvmarg value="-Xdebug"/>
 					<jvmarg value="-Xnoagent"/>

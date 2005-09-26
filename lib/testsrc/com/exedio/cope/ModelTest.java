@@ -19,7 +19,11 @@
 package com.exedio.cope;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.PrintStream;
 import java.util.Arrays;
+import java.util.Iterator;
 
 import com.exedio.cope.testmodel.AttributeItem;
 import com.exedio.cope.util.ReactivationConstructorDummy;
@@ -215,7 +219,7 @@ public class ModelTest extends TestmodelTest
 		}
 	}
 	
-	public void testType()
+	public void testType() throws IOException
 	{
 		final AttributeItem item = null;
 		
@@ -340,6 +344,21 @@ public class ModelTest extends TestmodelTest
 					" does not have a reactivation constructor:" + NoReactivationConstructor.class.getName() +
 					".<init>(" + ReactivationConstructorDummy.class.getName() + ", int)", e.getMessage());
 			assertEquals(NoSuchMethodException.class, e.getNestedCause().getClass());
+		}
+
+		{
+			final java.util.Properties databaseInfo = model.getDatabaseInfo();
+			final java.util.Properties prefixed = new java.util.Properties();
+			final File file = new File(System.getProperty("com.exedio.cope.testprotocol.file"));
+			final String prefix = System.getProperty("com.exedio.cope.testprotocol.prefix");
+			for(Iterator i = databaseInfo.keySet().iterator(); i.hasNext(); )
+			{
+				final String name = (String)i.next();
+				prefixed.setProperty(prefix+'.'+name, databaseInfo.getProperty(name));
+			}
+			final PrintStream out = new PrintStream(new FileOutputStream(file, true));
+			prefixed.store(out, null);
+			out.close();
 		}
 	}
 	
