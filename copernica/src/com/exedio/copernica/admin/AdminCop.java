@@ -58,37 +58,12 @@ abstract class AdminCop extends Cop
 			return new ConnectionStatsCop();
 		if(request.getParameter(MediaStatsCop.STATISTICS)!=null)
 			return new MediaStatsCop();
-		
-		final String schemaID = request.getParameter(SchemaCop.SCHEMA);
-		if(schemaID==null)
-		{
-			return new PropertiesCop();
-		}
-		else
-		{
-			boolean showDropBoxes = false;
-			boolean showRenameFields = false;
 
-			final String[] showIDs = request.getParameterValues(SchemaCop.SHOW);
-			if(showIDs!=null)
-			{
-				for(int i = 0; i<showIDs.length; i++)
-				{
-					final String showID = showIDs[i];
-					if(SchemaCop.SHOW_DROP_BOXES.equals(showID))
-						showDropBoxes = true;
-					else if(SchemaCop.SHOW_RENAME_FIELDS.equals(showID))
-						showRenameFields = true;
-					else
-						throw new RuntimeException(showID);
-				}
-			}
-			
-			if(schemaID.length()==0)
-				return new SchemaCop(null, showDropBoxes, showRenameFields);
-			else
-				return new SchemaCop(schemaID, showDropBoxes, showRenameFields);
-		}
+		final String schemaID = request.getParameter(SchemaCop.SCHEMA);
+		if(schemaID!=null)
+			return SchemaCop.getCop(schemaID, request);
+		
+		return new PropertiesCop();
 	}
 
 }

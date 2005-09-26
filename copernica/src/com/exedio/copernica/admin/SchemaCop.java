@@ -55,6 +55,32 @@ final class SchemaCop extends AdminCop
 			addParameter(SHOW, SHOW_RENAME_FIELDS);
 	}
 	
+	static SchemaCop getCop(final String schemaID, final HttpServletRequest request)
+	{
+		boolean showDropBoxes = false;
+		boolean showRenameFields = false;
+
+		final String[] showIDs = request.getParameterValues(SchemaCop.SHOW);
+		if(showIDs!=null)
+		{
+			for(int i = 0; i<showIDs.length; i++)
+			{
+				final String showID = showIDs[i];
+				if(SchemaCop.SHOW_DROP_BOXES.equals(showID))
+					showDropBoxes = true;
+				else if(SchemaCop.SHOW_RENAME_FIELDS.equals(showID))
+					showRenameFields = true;
+				else
+					throw new RuntimeException(showID);
+			}
+		}
+		
+		if(schemaID.length()==0)
+			return new SchemaCop(null, showDropBoxes, showRenameFields);
+		else
+			return new SchemaCop(schemaID, showDropBoxes, showRenameFields);
+	}
+	
 	void writeHead(final HttpServletRequest request, final PrintStream out) throws IOException
 	{
 		Schema_Jspm.writeHead(request, out);
