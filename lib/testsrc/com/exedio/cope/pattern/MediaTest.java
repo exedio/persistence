@@ -299,15 +299,6 @@ public class MediaTest extends TestmodelTest
 		assertEquals(1, item.photo.dataIsNull.get());
 		assertEquals(1, item.photo.notModified.get());
 		assertEquals(1, item.photo.delivered.get());
-
-		final Date beforeReset = new Date();
-		item.photo.resetLogs();
-		final Date afterReset = new Date();
-		assertEquals(0, item.photo.noSuchItem.get());
-		assertEquals(0, item.photo.dataIsNull.get());
-		assertEquals(0, item.photo.notModified.get());
-		assertEquals(0, item.photo.delivered.get());
-		assertWithin(beforeReset, afterReset, item.photo.getStart());
 	}
 
 }

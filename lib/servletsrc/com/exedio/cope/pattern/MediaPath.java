@@ -158,13 +158,6 @@ public abstract class MediaPath extends Pattern
 			}
 		}
 
-		final void reset()
-		{
-			synchronized(lock)
-			{
-				counter = 0;
-			}
-		}
 	}
 
 }

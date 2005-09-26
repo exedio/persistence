@@ -416,30 +416,10 @@ public final class Media extends MediaPath
 	// logs --------------------------
 	
 	private long start = System.currentTimeMillis();
-	private final Object startLock = new Object();
 	
 	public final Date getStart()
 	{
-		final long startLocal;
-		synchronized(startLock)
-		{
-			startLocal = this.start;
-		}
-		return new Date(startLocal);
-	}
-
-	public final void resetLogs()
-	{
-		final long now = System.currentTimeMillis();
-		synchronized(startLock)
-		{
-			start = now;
-		}
-		
-		noSuchItem.reset();
-		dataIsNull.reset();
-		notModified.reset();
-		delivered.reset();
+		return new Date(start);
 	}
 
 	// /logs -------------------------
