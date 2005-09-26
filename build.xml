@@ -60,19 +60,6 @@
 		</sequential>
 	</macrodef>
 	
-	<target name="databases.property">
-		<mkdir dir="lib/build" />
-		<delete file="lib/build/databases.tmp" />
-		<foreachdb message="Found">
-			<body>
-				<echo message=" @{db}" file="lib/build/databases.tmp" append="true" />
-			</body>
-		</foreachdb>
-		<loadfile property="databases" srcFile="lib/build/databases.tmp" />
-		<echo message="Found Databases:${databases}" />
-		<delete file="lib/build/databases.tmp" />
-	</target>
-	
 	<target name="lib.compile.mkdir">
 		<mkdir dir="lib/build/classes" />
 		<!-- test for cruisecontrol -->
@@ -204,14 +191,17 @@
 							instrument.compile,
 							copernica.compile, copernica.test.compile" />
 	
-	<target name="lib.jar" depends="databases.property, lib.compile">
+	<target name="lib.jar" depends="lib.compile">
+		<copy file="lib/build/testprotocol.properties"
+				todir="lib/build/classes/com/exedio/cope"
+				failonerror="false" />
 		<jar jarfile="lib/build/exedio-cope.jar" basedir="lib/build/classes">
 			<manifest>
 				<attribute name="Specification-Title" value="exedio cope" />
 				<attribute name="Specification-Version" value="cruisecontrol ${label} ${cvstimestamp}" />
 				<attribute name="Specification-Vendor" value="exedio GmbH" />
 				<attribute name="Implementation-Title" value="exedio cope" />
-				<attribute name="Implementation-Version" value="cruisecontrol ${label} ${cvstimestamp} tested with${databases}" />
+				<attribute name="Implementation-Version" value="cruisecontrol ${label} ${cvstimestamp}" />
 				<attribute name="Implementation-Vendor" value="exedio GmbH" />
 			</manifest>
 		</jar>
