@@ -31,6 +31,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.exedio.cope.search.Condition;
+import com.exedio.cope.util.Day;
 import com.exedio.dsmf.Driver;
 import com.exedio.dsmf.SQLRuntimeException;
 import com.exedio.dsmf.Schema;
@@ -116,6 +117,7 @@ abstract class Database
 		}
 		
 		final Long testDate = new Long(System.currentTimeMillis());
+		final Integer testDay = new Integer(DayColumn.getTransientNumber(new Day(2005, 9, 26)));
 		
 		bf.append(" where ");
 		first = true;
@@ -152,6 +154,8 @@ abstract class Database
 					bf.appendValue(column, "z");
 				else if(column instanceof TimestampColumn)
 					bf.appendValue(column, testDate);
+				else if(column instanceof DayColumn)
+					bf.appendValue(column, testDay);
 				else
 					throw new RuntimeException(column.toString());
 			}
