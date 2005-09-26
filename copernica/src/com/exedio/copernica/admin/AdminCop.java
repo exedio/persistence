@@ -52,11 +52,16 @@ abstract class AdminCop extends Cop
 	
 	abstract void writeBody(PrintStream out, Model model) throws IOException;
 	
+	static final String TAB = "t";
+	static final String TAB_CONNECTION_STATS = "cp";
+	static final String TAB_MEDIA_STATS = "m";
+	
 	static final AdminCop getCop(final HttpServletRequest request)
 	{
-		if(request.getParameter(ConnectionStatsCop.STATISTICS)!=null)
+		final String tab = request.getParameter(TAB);
+		if(TAB_CONNECTION_STATS.equals(tab))
 			return new ConnectionStatsCop();
-		if(request.getParameter(MediaStatsCop.STATISTICS)!=null)
+		if(TAB_MEDIA_STATS.equals(tab))
 			return new MediaStatsCop();
 
 		final String schemaID = request.getParameter(SchemaCop.SCHEMA);

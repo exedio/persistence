@@ -31,12 +31,11 @@ import com.exedio.cope.pattern.MediaPath;
 
 final class MediaStatsCop extends AdminCop
 {
-	static final String STATISTICS = "mediastats";
 
 	MediaStatsCop()
 	{
 		super("media");
-		addParameter(STATISTICS, "true");
+		addParameter(TAB, TAB_MEDIA_STATS);
 	}
 
 	final void writeBody(final PrintStream out, final Model model) throws IOException

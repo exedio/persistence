@@ -26,12 +26,11 @@ import com.exedio.cope.Model;
 
 final class ConnectionStatsCop extends AdminCop
 {
-	static final String STATISTICS = "statistics";
 
 	ConnectionStatsCop()
 	{
 		super("connection pool");
-		addParameter(STATISTICS, "true");
+		addParameter(TAB, TAB_CONNECTION_STATS);
 	}
 
 	final void writeBody(final PrintStream out, final Model model) throws IOException
