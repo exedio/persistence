@@ -529,9 +529,14 @@ public final class Type
 	}
 	
 	/**
-	 * @return null if there is no item matching the condition.
+	 * Searches equivalently to {@link #search(Condition)},
+	 * but assumes that the condition forces the search result to have at most one element.
+	 * <p>
+	 * Returns null, if the search result is {@link Collection#isEmpty() empty},
+	 * returns the only element of the search result, if the result {@link Collection#size() size} is exactly one.
+	 * @throws RuntimeException if the search result size is greater than one.
 	 */
-	final Item searchUnique(final Condition condition)
+	public final Item searchUnique(final Condition condition)
 	{
 		final Iterator searchResult = search(condition).iterator();
 		if(searchResult.hasNext())
