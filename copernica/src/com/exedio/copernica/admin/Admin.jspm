@@ -83,63 +83,63 @@ final class Admin_Jspm
 	final static void write(final PrintStream out, final PoolCounter poolCounter)
 		throws IOException
 	{
-	final SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss.SSS");
-	final String[] names = new String[]{
-		"Loss = 100 * Destroy / Get",
-		"Level",
-		"Level Max",
-		"Create",
-		"Destroy",
-	};
-	%>
-	<table class="statistics">
-		<tr>
-			<th colspan="7">Connection Pool Statistics</th>
-		</tr>
-		<tr>
-			<th>From</th>
-			<td colspan="6"><%=df.format(poolCounter.getStart())%></td>
-		</tr>
-		<tr>
-			<th>To</th>
-			<td colspan="6"><%=df.format(new Date())%></td>
-		</tr>
-		<tr>
-			<th>Get</th>
-			<td colspan="6"><%=poolCounter.getGetCounter()%></td>
-		</tr>
-		<tr>
-			<th>Put</th>
-			<td colspan="6"><%=poolCounter.getPutCounter()%></td>
-		</tr><%
-		writeColouredHeader(out, names, 1);
+		final SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss.SSS");
+		final String[] names = new String[]{
+			"Loss = 100 * Destroy / Get",
+			"Level",
+			"Level Max",
+			"Create",
+			"Destroy",
+		};
 		%>
-		<tr>
-			<th>Size</th><%
-			writeColouredHeaderSchnips(out, names);
+		<table class="statistics">
+			<tr>
+				<th colspan="7">Connection Pool Statistics</th>
+			</tr>
+			<tr>
+				<th>From</th>
+				<td colspan="6"><%=df.format(poolCounter.getStart())%></td>
+			</tr>
+			<tr>
+				<th>To</th>
+				<td colspan="6"><%=df.format(new Date())%></td>
+			</tr>
+			<tr>
+				<th>Get</th>
+				<td colspan="6"><%=poolCounter.getGetCounter()%></td>
+			</tr>
+			<tr>
+				<th>Put</th>
+				<td colspan="6"><%=poolCounter.getPutCounter()%></td>
+			</tr><%
+			writeColouredHeader(out, names, 1);
 			%>
-			<th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-		</tr><%
-		for(Iterator i = poolCounter.getPools().iterator(); i.hasNext(); )
-		{
-			final PoolCounter.Pool pool = (PoolCounter.Pool)i.next();
-			final boolean inconsistent = !pool.isConsistent();
-			final int[] data = new int[]{
-					pool.getLoss(),
-					pool.getLevel(),
-					pool.getMaxLevel(),
-					pool.getCreateCounter(),
-					pool.getDestroyCounter(),
-				};
+			<tr>
+				<th>Size</th><%
+				writeColouredHeaderSchnips(out, names);
+				%>
+				<th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+			</tr><%
+			for(Iterator i = poolCounter.getPools().iterator(); i.hasNext(); )
+			{
+				final PoolCounter.Pool pool = (PoolCounter.Pool)i.next();
+				final boolean inconsistent = !pool.isConsistent();
+				final int[] data = new int[]{
+						pool.getLoss(),
+						pool.getLevel(),
+						pool.getMaxLevel(),
+						pool.getCreateCounter(),
+						pool.getDestroyCounter(),
+					};
+			%>
+			<tr<%if(inconsistent){%> class="inconsistent"<%}%>>
+				<td><%=pool.getSize()%><%if(inconsistent){%>!<%}%></td><%
+				writeColouredData(out, data);
+				%>
+			</tr><%
+			}
 		%>
-		<tr<%if(inconsistent){%> class="inconsistent"<%}%>>
-			<td><%=pool.getSize()%><%if(inconsistent){%>!<%}%></td><%
-			writeColouredData(out, data);
-			%>
-		</tr><%
-		}
-	%>
-	</table><%
+		</table><%
 	}
 
 	final static void writeMediaStats(final PrintStream out, final Collection media, final String prefix)
@@ -206,48 +206,48 @@ final class Admin_Jspm
 
 	private static final void writeColouredHeader(final PrintStream out, final String[] names, final int preColumns)
 	{
-		%>
-		<tr>
-			<th colspan="<%=preColumns%>" rowspan="<%=names.length%>"></th>
-			<th colspan="<%=names.length + 1%>" class="colored1"><%=names[0]%></th>
-		</tr><%
-
-		for(int i = 1; i<names.length; i++)
-		{
-		%>
-		<tr>
-			<th rowspan="<%=names.length-i+1%>" class="colored<%=i%>"></th>
-			<th colspan="<%=names.length-i+1%>" class="colored<%=i+1%>"><%=names[i]%></th>
-		</tr><%
-		}
+			%>
+			<tr>
+				<th colspan="<%=preColumns%>" rowspan="<%=names.length%>"></th>
+				<th colspan="<%=names.length + 1%>" class="colored1"><%=names[0]%></th>
+			</tr><%
+	
+			for(int i = 1; i<names.length; i++)
+			{
+			%>
+			<tr>
+				<th rowspan="<%=names.length-i+1%>" class="colored<%=i%>"></th>
+				<th colspan="<%=names.length-i+1%>" class="colored<%=i+1%>"><%=names[i]%></th>
+			</tr><%
+			}
 	}
 
 	private static final void writeColouredHeaderSchnips(final PrintStream out, final String[] names)
 	{
-		%>
-			<th class="colored<%=names.length%>"></th><%
+				%>
+				<th class="colored<%=names.length%>"></th><%
 	}
 
 	private static final void writeColouredData(final PrintStream out, final int[] data)
 	{
-		for(int j = 0; j<data.length; j++)
-		{
-		%>
-			<td class="colored<%=j+1%>"><%
-			switch(data[j])
+			for(int j = 0; j<data.length; j++)
 			{
-			case 0:
-				%>&nbsp;<%
-				break;
-			case Integer.MIN_VALUE:
-				%>-<%
-				break;
-			default:
-				%><%=data[j]%><%
-				break;
+			%>
+				<td class="colored<%=j+1%>"><%
+				switch(data[j])
+				{
+				case 0:
+					%>&nbsp;<%
+					break;
+				case Integer.MIN_VALUE:
+					%>-<%
+					break;
+				default:
+					%><%=data[j]%><%
+					break;
+				}
+				%></td><%
 			}
-			%></td><%
-		}
 	}
 
 }%>
