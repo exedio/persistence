@@ -40,7 +40,7 @@ abstract class AdminCop extends Cop
 		return new AdminCop[]{
 				new PropertiesCop(),
 				new SchemaCop(null, false, false),
-				new StatisticsCop(),
+				new ConnectionStatsCop(),
 				new MediaStatsCop(),
 			};
 	}
@@ -54,8 +54,8 @@ abstract class AdminCop extends Cop
 	
 	static final AdminCop getCop(final HttpServletRequest request)
 	{
-		if(request.getParameter(StatisticsCop.STATISTICS)!=null)
-			return new StatisticsCop();
+		if(request.getParameter(ConnectionStatsCop.STATISTICS)!=null)
+			return new ConnectionStatsCop();
 		if(request.getParameter(MediaStatsCop.STATISTICS)!=null)
 			return new MediaStatsCop();
 		

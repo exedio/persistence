@@ -24,11 +24,11 @@ import java.io.PrintStream;
 import com.exedio.cope.Model;
 
 
-final class StatisticsCop extends AdminCop
+final class ConnectionStatsCop extends AdminCop
 {
 	static final String STATISTICS = "statistics";
 
-	StatisticsCop()
+	ConnectionStatsCop()
 	{
 		super("connection pool");
 		addParameter(STATISTICS, "true");
