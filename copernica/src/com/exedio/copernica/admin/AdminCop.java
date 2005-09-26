@@ -42,6 +42,7 @@ abstract class AdminCop extends Cop
 				new SchemaCop(null, false, false),
 				new ConnectionStatsCop(),
 				new MediaStatsCop(),
+				new VmCop(),
 			};
 	}
 	
@@ -55,6 +56,7 @@ abstract class AdminCop extends Cop
 	static final String TAB = "t";
 	static final String TAB_CONNECTION_STATS = "cp";
 	static final String TAB_MEDIA_STATS = "m";
+	static final String TAB_VM = "vm";
 	
 	static final AdminCop getCop(final HttpServletRequest request)
 	{
@@ -63,6 +65,8 @@ abstract class AdminCop extends Cop
 			return new ConnectionStatsCop();
 		if(TAB_MEDIA_STATS.equals(tab))
 			return new MediaStatsCop();
+		if(TAB_VM.equals(tab))
+			return new VmCop();
 
 		final String schemaID = request.getParameter(SchemaCop.SCHEMA);
 		if(schemaID!=null)

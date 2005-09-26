@@ -115,12 +115,13 @@ final class Properties_Jspm
 			</tr><%
 			}
 		%>
-		</table>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
+		</table><%
+	}
+
+	final static void writeVm(final PrintStream out)
+		throws IOException
+	{
+		%>
 		<table class="properties"><%
 
 			for(int i = 0; i<systemProperties.length; i++)
