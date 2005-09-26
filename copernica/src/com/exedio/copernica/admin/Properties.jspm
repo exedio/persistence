@@ -134,8 +134,7 @@ final class Properties_Jspm
 			</tr><%
 			}
 			%>
-		</table>
-<%
+		</table><%
 	}
 }
 %>

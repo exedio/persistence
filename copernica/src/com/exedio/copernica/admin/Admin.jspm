@@ -54,29 +54,28 @@ final class Admin_Jspm
 	<body>
 		<img src="<%=AdminServlet.logo.url(request)%>" width="200" height="66" align="right">
 		<h1>COPE Administration</h3>
-
-			<p><%
-			
-			final AdminCop[] tabs = cop.getTabs();
-			for(int i = 0; i<tabs.length; i++)
+		<p><%
+		
+		final AdminCop[] tabs = cop.getTabs();
+		for(int i = 0; i<tabs.length; i++)
+		{
+			final AdminCop tab = tabs[i];
+			if(cop.name.equals(tab.name))
 			{
-				final AdminCop tab = tabs[i];
-				if(cop.name.equals(tab.name))
-				{
-				%>
-				| <b><%=tab.name%></b><%
-				}
-				else
-				{
-				%>
-				| <a href="<%=tab%>"><%=tab.name%></a><%
-				}
+			%>
+			| <b><%=tab.name%></b><%
 			}
+			else
+			{
 			%>
-			</p>
-			<hr><%
-			cop.writeBody(out, model, request);
-			%>
+			| <a href="<%=tab%>"><%=tab.name%></a><%
+			}
+		}
+		%>
+		</p>
+		<hr><%
+		cop.writeBody(out, model, request);
+		%>
 	</body>
 </html>
 <%
