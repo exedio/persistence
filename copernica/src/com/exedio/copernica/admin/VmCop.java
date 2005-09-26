@@ -38,6 +38,7 @@ final class VmCop extends AdminCop
 	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request) throws IOException
 	{
 		Properties_Jspm.writeVm(out);
+		Properties_Jspm.writeDatabaseInfo(out, model.getDatabaseInfo());
 	}
 	
 }

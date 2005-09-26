@@ -19,6 +19,7 @@ package com.exedio.cope;
 
 import java.io.File;
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,10 +30,11 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Set;
 
 import com.exedio.cope.util.PoolCounter;
+import com.exedio.dsmf.SQLRuntimeException;
 import com.exedio.dsmf.Schema;
-import java.util.Set;
 
 
 public final class Model
@@ -384,6 +386,39 @@ public final class Model
 		return database.connectionPool.counter;
 	}
 	
+	public java.util.Properties getDatabaseInfo()
+	{
+		final ConnectionPool cp = database.connectionPool;
+		Connection c = null;
+		try
+		{
+			c = cp.getConnection();
+			final DatabaseMetaData dmd = c.getMetaData();
+			final java.util.Properties result = new java.util.Properties();
+			result.setProperty("database.name", dmd.getDatabaseProductName());
+			result.setProperty("database.version", dmd.getDatabaseProductVersion());
+			result.setProperty("driver.name", dmd.getDriverName());
+			result.setProperty("driver.version", dmd.getDriverVersion());
+			return result;
+		}
+		catch(SQLException e)
+		{
+			throw new SQLRuntimeException(e, "getMetaData");
+		}
+		finally
+		{
+			try
+			{
+				if(c!=null)
+					cp.putConnection(c);
+			}
+			catch(SQLException e)
+			{
+				// ooops
+			}
+		}
+	}
+
 	// ----------------------- transaction
 	
 	public Transaction startTransaction()
