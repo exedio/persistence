@@ -43,6 +43,8 @@ public final class HsqldbDriver extends Driver
 				return "double";
 			case Types.TIMESTAMP:
 				return "timestamp";
+			case Types.DATE:
+				return "date";
 			case Types.VARCHAR:
 				final int columnSize = resultSet.getInt("COLUMN_SIZE");
 				return "varchar("+columnSize+')';

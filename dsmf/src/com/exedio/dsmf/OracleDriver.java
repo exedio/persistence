@@ -64,6 +64,7 @@ public final class OracleDriver extends Driver
 			case Types.VARCHAR:
 				return "VARCHAR2("+columnSize+')';
 			case Types.TIMESTAMP:
+			case Types.DATE:
 				return "DATE";
 			case Types.LONGVARCHAR:
 				return "LONG";

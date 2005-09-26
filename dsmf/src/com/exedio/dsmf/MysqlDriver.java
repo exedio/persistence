@@ -70,6 +70,8 @@ public final class MysqlDriver extends Driver
 				return "double";
 			case Types.TIMESTAMP:
 				return "timestamp";
+			case Types.DATE:
+				return "DATE";
 			case Types.VARCHAR:
 				final int columnSize = resultSet.getInt("COLUMN_SIZE");
 				return "varchar("+columnSize+") binary";
