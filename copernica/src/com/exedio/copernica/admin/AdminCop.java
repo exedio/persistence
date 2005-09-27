@@ -42,7 +42,7 @@ abstract class AdminCop extends Cop
 				new SchemaCop(null, false, false),
 				new ConnectionStatsCop(),
 				new MediaStatsCop(),
-				new VmCop(),
+				new VmCop(false),
 			};
 	}
 	
@@ -66,7 +66,7 @@ abstract class AdminCop extends Cop
 		if(TAB_MEDIA_STATS.equals(tab))
 			return new MediaStatsCop();
 		if(TAB_VM.equals(tab))
-			return new VmCop();
+			return VmCop.getVmCop(request);
 
 		final String schemaID = request.getParameter(SchemaCop.SCHEMA);
 		if(schemaID!=null)

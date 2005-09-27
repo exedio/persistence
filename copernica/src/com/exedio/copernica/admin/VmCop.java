@@ -34,11 +34,28 @@ import com.exedio.cope.Model;
 
 final class VmCop extends AdminCop
 {
+	static final String ALL_PACKAGES = "ap";
+	
+	final boolean allPackages;
 
-	VmCop()
+	VmCop(final boolean allPackages)
 	{
 		super("vm");
+		this.allPackages = allPackages;
+		
 		addParameter(TAB, TAB_VM);
+		if(allPackages)
+			addParameter(ALL_PACKAGES, "t");
+	}
+	
+	static final VmCop getVmCop(final HttpServletRequest request)
+	{
+		return new VmCop(request.getParameter(ALL_PACKAGES)!=null);
+	}
+	
+	VmCop toToggleAllPackages()
+	{
+		return new VmCop(!allPackages);
 	}
 	
 	private static final String replaceLineBreaks(final String s)
@@ -48,7 +65,7 @@ final class VmCop extends AdminCop
 
 	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request) throws IOException
 	{
-		Properties_Jspm.writeVm(out, new Package[]{Cope.class.getPackage(), VmCop.class.getPackage()} /*Package.getPackages()*/);
+		Properties_Jspm.writeVm(out, this, allPackages ? Package.getPackages() : new Package[]{Cope.class.getPackage(), VmCop.class.getPackage()});
 		
 		final java.util.Properties current = model.getDatabaseInfo();
 		for(Iterator i = current.keySet().iterator(); i.hasNext(); )

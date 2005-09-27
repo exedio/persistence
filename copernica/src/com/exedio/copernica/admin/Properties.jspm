@@ -236,10 +236,11 @@ final class Properties_Jspm
 			write(out, "implementation.vendor", thePackage.getImplementationVendor());
 	}
 
-	final static void writeVm(final PrintStream out, final Package[] packages)
+	final static void writeVm(final PrintStream out, final VmCop cop, final Package[] packages)
 		throws IOException
 	{
 		%>
+		
 		<table class="properties">
 			<tr>
 				<th colspan="2">System.getProperty()</th>
@@ -254,6 +255,11 @@ final class Properties_Jspm
 				<td><%=System.getProperty(name)%></td>
 			</tr><%
 			}
+			%>
+			<tr>
+				<th colspan="2"><a href="<%=cop.toToggleAllPackages()%>"><%if(cop.allPackages){%>hide<%}else{%>show<%}%> none-cope</a></th>
+			</tr><%
+
 			for(int i = 0; i<packages.length; i++)
 				write(out, packages[i]);
 			%>
