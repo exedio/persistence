@@ -48,7 +48,7 @@ final class VmCop extends AdminCop
 
 	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request) throws IOException
 	{
-		Properties_Jspm.writeVm(out, Cope.class.getPackage(), VmCop.class.getPackage());
+		Properties_Jspm.writeVm(out, new Package[]{Cope.class.getPackage(), VmCop.class.getPackage()} /*Package.getPackages()*/);
 		
 		final java.util.Properties current = model.getDatabaseInfo();
 		for(Iterator i = current.keySet().iterator(); i.hasNext(); )

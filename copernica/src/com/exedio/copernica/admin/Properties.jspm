@@ -241,7 +241,7 @@ final class Properties_Jspm
 			</tr><%
 	}
 
-	final static void writeVm(final PrintStream out, final Package copePackage, final Package adminPackage)
+	final static void writeVm(final PrintStream out, final Package[] packages)
 		throws IOException
 	{
 		%>
@@ -259,8 +259,8 @@ final class Properties_Jspm
 				<td><%=System.getProperty(name)%></td>
 			</tr><%
 			}
-			write(out, copePackage);
-			write(out, adminPackage);
+			for(int i = 0; i<packages.length; i++)
+				write(out, packages[i]);
 			%>
 		</table><%
 	}
