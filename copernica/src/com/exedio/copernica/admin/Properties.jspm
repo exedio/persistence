@@ -157,14 +157,15 @@ final class Properties_Jspm
 		%>
 		<table class="properties">
 			<tr>
-				<th colspan="5">testprotocol.properties</th>
+				<th colspan="<%=TEST_INFO_KEYS.length%>">testprotocol.properties</th>
 			</tr>
-			<tr>
-				<th>db</th>
-				<th>database.name</th>
-				<th>database.version</th>
-				<th>driver.name</th>
-				<th>driver.version</th>
+			<tr><%
+				for(int j = 0; j<TEST_INFO_KEYS.length; j++)
+				{
+				%>
+				<th><%=TEST_INFO_KEYS[j]%></th><%
+				}
+				%>
 			</tr><%
 
 			for(int i = 0; i<properties.length; i++)
