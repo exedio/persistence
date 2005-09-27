@@ -21,7 +21,9 @@ package com.exedio.copernica.admin;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
+import java.util.Iterator;
 import java.util.Properties;
+import java.util.TreeMap;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -56,7 +58,38 @@ final class VmCop extends AdminCop
 				in.close();
 		}
 		
-		Properties_Jspm.writeTestInfo(out, p);
+		final TreeMap testedDatabases = new TreeMap();
+		for(Iterator i = p.keySet().iterator(); i.hasNext(); )
+		{
+			final String name = (String)i.next();
+			final String value = p.getProperty(name);
+			
+			final int nameDot = name.indexOf('.');
+			if(nameDot<=0)
+				throw new RuntimeException(name);
+			
+			final String databaseName = name.substring(0, nameDot);
+			TestedDatabase database = (TestedDatabase)testedDatabases.get(databaseName);
+			if(database==null)
+			{
+				database = new TestedDatabase(databaseName);
+				testedDatabases.put(databaseName, database);
+			}
+			
+			final String key = name.substring(nameDot+1);
+			if("database.name".equals(key))
+				database.databaseName = value;
+			else if("database.version".equals(key))
+				database.databaseVersion = value;
+			else if("driver.name".equals(key))
+				database.driverName = value;
+			else if("driver.version".equals(key))
+				database.driverVersion = value;
+			else
+				throw new RuntimeException(key);
+		}
+		
+		Properties_Jspm.writeTestInfo(out, (TestedDatabase[])testedDatabases.values().toArray(new TestedDatabase[0]));
 	}
 	
 }

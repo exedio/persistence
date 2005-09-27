@@ -142,22 +142,32 @@ final class Properties_Jspm
 		</table><%
 	}
 
-	final static void writeTestInfo(final PrintStream out, final java.util.Properties properties)
+	final static void writeTestInfo(final PrintStream out, final TestedDatabase[] properties)
 		throws IOException
 	{
 		%>
 		<table class="properties">
 			<tr>
-				<th colspan="2">testprotocol.properties</th>
+				<th colspan="5">testprotocol.properties</th>
+			</tr>
+			<tr>
+				<th>db</th>
+				<th>database.name</th>
+				<th>database.version</th>
+				<th>driver.name</th>
+				<th>driver.version</th>
 			</tr><%
 
-			for(Iterator i = new TreeSet(properties.keySet()).iterator(); i.hasNext(); )
+			for(int i = 0; i<properties.length; i++)
 			{
-				final String name = (String)i.next();
+				final TestedDatabase db = properties[i];
 			%>
 			<tr>
-				<th><%=name%></th>
-				<td><%=properties.getProperty(name)%></td>
+				<td><%=db.name%></td>
+				<td><%=db.databaseName%></td>
+				<td><%=db.databaseVersion%></td>
+				<td><%=db.driverName%></td>
+				<td><%=db.driverVersion%></td>
 			</tr><%
 			}
 			%>
