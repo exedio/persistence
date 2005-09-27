@@ -21,6 +21,7 @@ package com.exedio.copernica.admin;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Properties;
 import java.util.TreeMap;
@@ -69,27 +70,19 @@ final class VmCop extends AdminCop
 				throw new RuntimeException(name);
 			
 			final String databaseName = name.substring(0, nameDot);
-			TestedDatabase database = (TestedDatabase)testedDatabases.get(databaseName);
+			HashMap database = (HashMap)testedDatabases.get(databaseName);
 			if(database==null)
 			{
-				database = new TestedDatabase(databaseName);
+				database = new HashMap();
+				database.put("name", databaseName);
 				testedDatabases.put(databaseName, database);
 			}
 			
 			final String key = name.substring(nameDot+1);
-			if("database.name".equals(key))
-				database.databaseName = value;
-			else if("database.version".equals(key))
-				database.databaseVersion = value;
-			else if("driver.name".equals(key))
-				database.driverName = value;
-			else if("driver.version".equals(key))
-				database.driverVersion = value;
-			else
-				throw new RuntimeException(key);
+			database.put(key, value);
 		}
 		
-		Properties_Jspm.writeTestInfo(out, (TestedDatabase[])testedDatabases.values().toArray(new TestedDatabase[0]));
+		Properties_Jspm.writeTestInfo(out, (HashMap[])testedDatabases.values().toArray(new HashMap[0]));
 	}
 	
 }

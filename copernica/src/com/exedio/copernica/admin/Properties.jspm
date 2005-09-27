@@ -22,6 +22,7 @@ package com.exedio.copernica.admin;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.TreeSet;
 
@@ -142,7 +143,7 @@ final class Properties_Jspm
 		</table><%
 	}
 
-	final static void writeTestInfo(final PrintStream out, final TestedDatabase[] properties)
+	final static void writeTestInfo(final PrintStream out, final HashMap[] properties)
 		throws IOException
 	{
 		%>
@@ -160,14 +161,14 @@ final class Properties_Jspm
 
 			for(int i = 0; i<properties.length; i++)
 			{
-				final TestedDatabase db = properties[i];
+				final HashMap db = properties[i];
 			%>
 			<tr>
-				<td><%=db.name%></td>
-				<td><%=db.databaseName%></td>
-				<td><%=db.databaseVersion%></td>
-				<td><%=db.driverName%></td>
-				<td><%=db.driverVersion%></td>
+				<td><%=db.get("name")%></td>
+				<td><%=db.get("database.name")%></td>
+				<td><%=db.get("database.version")%></td>
+				<td><%=db.get("driver.name")%></td>
+				<td><%=db.get("driver.version")%></td>
 			</tr><%
 			}
 			%>
