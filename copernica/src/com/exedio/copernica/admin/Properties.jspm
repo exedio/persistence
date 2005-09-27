@@ -152,7 +152,7 @@ final class Properties_Jspm
 			"cope.properties",
 		};
 
-	final static void writeTestInfo(final PrintStream out, final HashMap[] properties)
+	final static void writeTestInfo(final PrintStream out, final java.util.Properties current, final HashMap[] properties)
 		throws IOException
 	{
 		%>
@@ -193,7 +193,10 @@ final class Properties_Jspm
 					if(i==0 || !value.equals(properties[i-1].get(key)))
 					{
 				%>
-				<td<% if(rowspan!=1){ %> rowspan="<%=rowspan%>"<% } %>><%=value%></td><%
+				<td<% 
+					if(rowspan!=1){ %> rowspan="<%=rowspan%>"<% }
+					if(value.equals(current.get(key))){ %> bgcolor="#cff"<% }
+					%>><%=value%></td><%
 					}
 				}
 				%>

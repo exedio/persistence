@@ -40,11 +40,24 @@ final class VmCop extends AdminCop
 		super("vm");
 		addParameter(TAB, TAB_VM);
 	}
+	
+	private static final String replaceLineBreaks(final String s)
+	{
+		return (s==null) ? "n/a" : s.replaceAll("\n", "<br>");
+	}
 
 	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request) throws IOException
 	{
 		Properties_Jspm.writeVm(out);
-		Properties_Jspm.writeDatabaseInfo(out, model.getDatabaseInfo());
+		
+		final java.util.Properties current = model.getDatabaseInfo();
+		for(Iterator i = current.keySet().iterator(); i.hasNext(); )
+		{
+			final String name = (String)i.next();
+			current.setProperty(name, replaceLineBreaks(current.getProperty(name)));
+		}
+
+		Properties_Jspm.writeDatabaseInfo(out, current);
 		
 		final java.util.Properties p = new Properties();
 		InputStream in = null;
@@ -63,8 +76,7 @@ final class VmCop extends AdminCop
 		for(Iterator i = p.keySet().iterator(); i.hasNext(); )
 		{
 			final String name = (String)i.next();
-			final String valueRaw = p.getProperty(name);
-			final String value = (valueRaw==null) ? "n/a" : valueRaw.replaceAll("\n", "<br>");
+			final String value = replaceLineBreaks(p.getProperty(name));
 			
 			final int nameDot = name.indexOf('.');
 			if(nameDot<=0)
@@ -90,7 +102,7 @@ final class VmCop extends AdminCop
 				database.put(key, value);
 		}
 		
-		Properties_Jspm.writeTestInfo(out, (HashMap[])testedDatabases.values().toArray(new HashMap[0]));
+		Properties_Jspm.writeTestInfo(out, current, (HashMap[])testedDatabases.values().toArray(new HashMap[0]));
 	}
 	
 }
