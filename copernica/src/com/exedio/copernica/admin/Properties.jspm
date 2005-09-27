@@ -149,6 +149,7 @@ final class Properties_Jspm
 			"database.version",
 			"driver.name",
 			"driver.version",
+			"cope.properties",
 		};
 
 	final static void writeTestInfo(final PrintStream out, final HashMap[] properties)

@@ -80,7 +80,14 @@ final class VmCop extends AdminCop
 			}
 			
 			final String key = name.substring(nameDot+1);
-			database.put(key, value);
+			if(key.startsWith("cope."))
+			{
+				final String copeValue = key.substring("cope.".length())+"="+value;
+				final String previousValue = (String)database.get("cope.properties");
+				database.put("cope.properties", (previousValue==null) ? copeValue : (previousValue + "<br>" + copeValue));
+			}
+			else
+				database.put(key, value);
 		}
 		
 		Properties_Jspm.writeTestInfo(out, (HashMap[])testedDatabases.values().toArray(new HashMap[0]));

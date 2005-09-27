@@ -358,6 +358,8 @@ public class ModelTest extends TestmodelTest
 					final String name = (String)i.next();
 					prefixed.setProperty(prefix+'.'+name, databaseInfo.getProperty(name));
 				}
+				final Properties p = model.getProperties();
+				prefixed.setProperty(prefix+".cope."+p.DATABASE_DONT_SUPPORT_EMPTY_STRINGS, String.valueOf(p.getDatabaseDontSupportEmptyStrings()));
 				final PrintStream out = new PrintStream(new FileOutputStream(file, true));
 				prefixed.store(out, null);
 				out.close();
