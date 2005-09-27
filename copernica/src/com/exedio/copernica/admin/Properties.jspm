@@ -208,7 +208,37 @@ final class Properties_Jspm
 		</table><%
 	}
 
-	final static void writeVm(final PrintStream out)
+	final static void write(final PrintStream out, final Package thePackage)
+		throws IOException
+	{
+			%>
+			<tr>
+				<th>specification.title</th>
+				<td><%=thePackage.getSpecificationTitle()%></td>
+			</tr>
+			<tr>
+				<th>specification.version</th>
+				<td><%=thePackage.getSpecificationVersion()%></td>
+			</tr>
+			<tr>
+				<th>specification.vendor</th>
+				<td><%=thePackage.getSpecificationVendor()%></td>
+			</tr>
+			<tr>
+				<th>implementation.title</th>
+				<td><%=thePackage.getImplementationTitle()%></td>
+			</tr>
+			<tr>
+				<th>implementation.version</th>
+				<td><%=thePackage.getImplementationVersion()%></td>
+			</tr>
+			<tr>
+				<th>implementation.vendor</th>
+				<td><%=thePackage.getImplementationVendor()%></td>
+			</tr><%
+	}
+
+	final static void writeVm(final PrintStream out, final Package copePackage, final Package adminPackage)
 		throws IOException
 	{
 		%>
@@ -226,6 +256,16 @@ final class Properties_Jspm
 				<td><%=System.getProperty(name)%></td>
 			</tr><%
 			}
+			%>
+			<tr>
+				<th colspan="2">exedio-cope.jar</th>
+			</tr><%
+			write(out, copePackage);
+			%>
+			<tr>
+				<th colspan="2">exedio-copernica.jar</th>
+			</tr><%
+			write(out, adminPackage);
 			%>
 		</table><%
 	}
