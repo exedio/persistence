@@ -63,7 +63,8 @@ final class VmCop extends AdminCop
 		for(Iterator i = p.keySet().iterator(); i.hasNext(); )
 		{
 			final String name = (String)i.next();
-			final String value = p.getProperty(name).replaceAll("\n", "<br>");
+			final String valueRaw = p.getProperty(name);
+			final String value = (valueRaw==null) ? "n/a" : valueRaw.replaceAll("\n", "<br>");
 			
 			final int nameDot = name.indexOf('.');
 			if(nameDot<=0)
