@@ -125,6 +125,7 @@ final class Properties_Jspm
 		throws IOException
 	{
 		%>
+		<hr>
 		<table class="properties">
 			<tr>
 				<th colspan="2">Connection.getMetaData()</th>
@@ -156,6 +157,7 @@ final class Properties_Jspm
 		throws IOException
 	{
 		%>
+		<hr>
 		<table class="properties">
 			<tr>
 				<th colspan="<%=TEST_INFO_KEYS.length%>">testprotocol.properties</th>
