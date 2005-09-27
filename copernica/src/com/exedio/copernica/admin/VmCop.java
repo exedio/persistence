@@ -19,10 +19,13 @@
 package com.exedio.copernica.admin;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintStream;
+import java.util.Properties;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.exedio.cope.Cope;
 import com.exedio.cope.Model;
 
 
@@ -39,6 +42,21 @@ final class VmCop extends AdminCop
 	{
 		Properties_Jspm.writeVm(out);
 		Properties_Jspm.writeDatabaseInfo(out, model.getDatabaseInfo());
+		
+		final java.util.Properties p = new Properties();
+		InputStream in = null;
+		try
+		{
+			in = Cope.class.getResourceAsStream("testprotocol.properties");
+			p.load(in);
+		}
+		finally
+		{
+			if(in!=null)
+				in.close();
+		}
+		
+		Properties_Jspm.writeTestInfo(out, p);
 	}
 	
 }

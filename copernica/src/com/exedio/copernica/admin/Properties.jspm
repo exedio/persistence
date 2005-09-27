@@ -142,6 +142,28 @@ final class Properties_Jspm
 		</table><%
 	}
 
+	final static void writeTestInfo(final PrintStream out, final java.util.Properties properties)
+		throws IOException
+	{
+		%>
+		<table class="properties">
+			<tr>
+				<th colspan="2">testprotocol.properties</th>
+			</tr><%
+
+			for(Iterator i = new TreeSet(properties.keySet()).iterator(); i.hasNext(); )
+			{
+				final String name = (String)i.next();
+			%>
+			<tr>
+				<th><%=name%></th>
+				<td><%=properties.getProperty(name)%></td>
+			</tr><%
+			}
+			%>
+		</table><%
+	}
+
 	final static void writeVm(final PrintStream out)
 		throws IOException
 	{
