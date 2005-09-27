@@ -124,7 +124,10 @@ final class Properties_Jspm
 		throws IOException
 	{
 		%>
-		<table class="properties"><%
+		<table class="properties">
+			<tr>
+				<th colspan="2">Connection.getMetaData()</th>
+			</tr><%
 
 			for(Iterator i = new TreeSet(properties.keySet()).iterator(); i.hasNext(); )
 			{
