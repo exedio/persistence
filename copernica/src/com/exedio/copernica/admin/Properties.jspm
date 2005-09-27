@@ -213,6 +213,9 @@ final class Properties_Jspm
 	{
 			%>
 			<tr>
+				<th colspan="2"><%=thePackage.getName()%></th>
+			</tr>
+			<tr>
 				<th>specification.title</th>
 				<td><%=thePackage.getSpecificationTitle()%></td>
 			</tr>
@@ -256,15 +259,7 @@ final class Properties_Jspm
 				<td><%=System.getProperty(name)%></td>
 			</tr><%
 			}
-			%>
-			<tr>
-				<th colspan="2">exedio-cope.jar</th>
-			</tr><%
 			write(out, copePackage);
-			%>
-			<tr>
-				<th colspan="2">exedio-copernica.jar</th>
-			</tr><%
 			write(out, adminPackage);
 			%>
 		</table><%
