@@ -174,8 +174,25 @@ final class Properties_Jspm
 			<tr><%
 				for(int j = 0; j<TEST_INFO_KEYS.length; j++)
 				{
+					final String key = TEST_INFO_KEYS[j];
+					final String value = (String)db.get(key);
+					int rowspan = properties.length - i;
+					for(int k = i+1; k<properties.length; k++)
+					{
+						if(!value.equals(properties[k].get(key)))
+						{
+							rowspan = k - i;
+							break;
+						}
+					}
+					if(rowspan<=0)
+						throw new RuntimeException();
+
+					if(i==0 || !value.equals(properties[i-1].get(key)))
+					{
 				%>
-				<td><%=db.get(TEST_INFO_KEYS[j])%></td><%
+				<td<% if(rowspan!=1){ %> rowspan="<%=rowspan%>"<% } %>><%=value%></td><%
+					}
 				}
 				%>
 			</tr><%
