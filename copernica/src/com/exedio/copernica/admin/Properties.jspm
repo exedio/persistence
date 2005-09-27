@@ -143,6 +143,14 @@ final class Properties_Jspm
 		</table><%
 	}
 
+	private static final String[] TEST_INFO_KEYS = new String[] {
+			"name",
+			"database.name",
+			"database.version",
+			"driver.name",
+			"driver.version",
+		};
+
 	final static void writeTestInfo(final PrintStream out, final HashMap[] properties)
 		throws IOException
 	{
@@ -163,12 +171,13 @@ final class Properties_Jspm
 			{
 				final HashMap db = properties[i];
 			%>
-			<tr>
-				<td><%=db.get("name")%></td>
-				<td><%=db.get("database.name")%></td>
-				<td><%=db.get("database.version")%></td>
-				<td><%=db.get("driver.name")%></td>
-				<td><%=db.get("driver.version")%></td>
+			<tr><%
+				for(int j = 0; j<TEST_INFO_KEYS.length; j++)
+				{
+				%>
+				<td><%=db.get(TEST_INFO_KEYS[j])%></td><%
+				}
+				%>
 			</tr><%
 			}
 			%>
