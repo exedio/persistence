@@ -143,7 +143,10 @@ final class Properties_Jspm
 		throws IOException
 	{
 		%>
-		<table class="properties"><%
+		<table class="properties">
+			<tr>
+				<th colspan="2">System.getProperty()</th>
+			</tr><%
 
 			for(int i = 0; i<systemProperties.length; i++)
 			{
