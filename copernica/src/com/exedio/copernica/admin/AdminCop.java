@@ -20,6 +20,8 @@ package com.exedio.copernica.admin;
 
 import java.io.IOException;
 import java.io.PrintStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -35,6 +37,16 @@ abstract class AdminCop extends Cop
 		this.name = name;
 	}
 	
+	long start = 0;
+	long end = 0;
+	SimpleDateFormat df;
+	
+	final void initialize()
+	{
+		start = System.currentTimeMillis();
+		df = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss.SSS");
+	}
+	
 	final AdminCop[] getTabs()
 	{
 		return new AdminCop[]{
@@ -45,6 +57,33 @@ abstract class AdminCop extends Cop
 				new VmCop(false),
 				new DbCop(),
 			};
+	}
+	
+	final String getStart()
+	{
+		if(start==0)
+			throw new RuntimeException();
+		
+		return df.format(new Date(start));
+	}
+	
+	final String getEnd()
+	{
+		if(end!=0)
+			throw new RuntimeException();
+		
+		end = System.currentTimeMillis();
+		return df.format(new Date(end));
+	}
+	
+	final long getDuration()
+	{
+		if(start==0)
+			throw new RuntimeException();
+		if(end==0)
+			throw new RuntimeException();
+
+		return end-start;
 	}
 	
 	void writeHead(HttpServletRequest request, PrintStream out) throws IOException

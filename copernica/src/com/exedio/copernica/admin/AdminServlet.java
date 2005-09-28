@@ -105,8 +105,10 @@ public final class AdminServlet extends CopsServlet
 		request.setCharacterEncoding(ENCODING);
 		response.setContentType("text/html; charset="+ENCODING);
 
+		final AdminCop cop = AdminCop.getCop(request);
+		cop.initialize();
 		final PrintStream out = new PrintStream(response.getOutputStream(), false, ENCODING);
-		Admin_Jspm.write(out, request, model);
+		Admin_Jspm.write(out, request, model, cop);
 		out.close();
 	}
 
