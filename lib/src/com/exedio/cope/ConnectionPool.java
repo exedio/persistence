@@ -44,7 +44,7 @@ final class ConnectionPool implements ConnectionProvider
 	//       jdbc driver or the database itself.
 	
 	private final Connection[] idleConnections = new Connection[10];
-	private int size = 0;
+	private int idleConnectionCount = 0;
 	private int due = 0;
 	private final Object lock = new Object();
 
@@ -72,11 +72,11 @@ final class ConnectionPool implements ConnectionProvider
 		{
 			due++;
 			
-			if(size>0)
+			if(idleConnectionCount>0)
 			{
 				//System.out.println("connection pool: fetch "+(size-1));
-				final Connection result = idleConnections[--size];
-				idleConnections[size] = null; // do not reference old connections anymore
+				final Connection result = idleConnections[--idleConnectionCount];
+				idleConnections[idleConnectionCount] = null; // do not reference old connections anymore
 				return result;
 			}
 		}
@@ -102,10 +102,10 @@ final class ConnectionPool implements ConnectionProvider
 		{
 			due--;
 
-			if(size<idleConnections.length)
+			if(idleConnectionCount<idleConnections.length)
 			{
 				//System.out.println("connection pool: store "+size);
-				idleConnections[size++] = connection;
+				idleConnections[idleConnectionCount++] = connection;
 				return;
 			}
 		}
@@ -122,16 +122,16 @@ final class ConnectionPool implements ConnectionProvider
 
 		synchronized(lock)
 		{
-			if(size==0)
+			if(idleConnectionCount==0)
 				return;
 
 			//System.out.println("connection pool: FLUSH "+size);
-			for(int i = 0; i<size; i++)
+			for(int i = 0; i<idleConnectionCount; i++)
 			{
 				connections.add(idleConnections[i]);
 				idleConnections[i] = null; // do not reference old connections anymore
 			}
-			size = 0;
+			idleConnectionCount = 0;
 		}
 		
 		try
