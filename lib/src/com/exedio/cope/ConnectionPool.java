@@ -43,7 +43,7 @@ final class ConnectionPool implements ConnectionProvider
 	//       running into some idle timeout implemented by the
 	//       jdbc driver or the database itself.
 	
-	private final Connection[] pool = new Connection[10];
+	private final Connection[] idleConnections = new Connection[10];
 	private int size = 0;
 	private int due = 0;
 	private final Object lock = new Object();
@@ -75,8 +75,8 @@ final class ConnectionPool implements ConnectionProvider
 			if(size>0)
 			{
 				//System.out.println("connection pool: fetch "+(size-1));
-				final Connection result = pool[--size];
-				pool[size] = null; // do not reference old connections anymore
+				final Connection result = idleConnections[--size];
+				idleConnections[size] = null; // do not reference old connections anymore
 				return result;
 			}
 		}
@@ -102,10 +102,10 @@ final class ConnectionPool implements ConnectionProvider
 		{
 			due--;
 
-			if(size<pool.length)
+			if(size<idleConnections.length)
 			{
 				//System.out.println("connection pool: store "+size);
-				pool[size++] = connection;
+				idleConnections[size++] = connection;
 				return;
 			}
 		}
@@ -118,7 +118,7 @@ final class ConnectionPool implements ConnectionProvider
 	
 	final void flush()
 	{
-		final ArrayList connections = new ArrayList(pool.length);
+		final ArrayList connections = new ArrayList(idleConnections.length);
 
 		synchronized(lock)
 		{
@@ -128,8 +128,8 @@ final class ConnectionPool implements ConnectionProvider
 			//System.out.println("connection pool: FLUSH "+size);
 			for(int i = 0; i<size; i++)
 			{
-				connections.add(pool[i]);
-				pool[i] = null; // do not reference old connections anymore
+				connections.add(idleConnections[i]);
+				idleConnections[i] = null; // do not reference old connections anymore
 			}
 			size = 0;
 		}
