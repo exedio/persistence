@@ -116,9 +116,6 @@ final class ConnectionPool implements ConnectionProvider
 
 		synchronized(lock)
 		{
-			if(due!=0)
-				throw new RuntimeException("still "+due+" connection outside");
-			
 			if(size==0)
 				return;
 
@@ -129,6 +126,9 @@ final class ConnectionPool implements ConnectionProvider
 				pool[i] = null; // do not reference old connections anymore
 			}
 			size = 0;
+
+			if(due!=0)
+				throw new RuntimeException("still "+due+" connections outside");
 		}
 		
 		try
