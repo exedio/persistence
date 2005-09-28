@@ -88,7 +88,7 @@ final class Admin_Jspm
 		final String[] names = new String[]{
 			"Loss = 100 * Destroy / Get",
 			"Idle",
-			"Level Max",
+			"Idle Max",
 			"Create",
 			"Destroy",
 		};
@@ -128,7 +128,7 @@ final class Admin_Jspm
 				final int[] data = new int[]{
 						pool.getLoss(),
 						pool.getIdleCount(),
-						pool.getMaxLevel(),
+						pool.getIdleCountMax(),
 						pool.getCreateCounter(),
 						pool.getDestroyCounter(),
 					};

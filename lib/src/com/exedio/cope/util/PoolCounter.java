@@ -92,7 +92,7 @@ public final class PoolCounter
 		final int size;
 
 		private int idleCount = 0;
-		private int maxLevel = 0;
+		private int idleCountMax = 0;
 
 		private int createCounter = 0;
 		private int destroyCounter = 0;
@@ -117,8 +117,8 @@ public final class PoolCounter
 		{
 			if(idleCount<size)
 			{
-				if((++idleCount)>maxLevel)
-					maxLevel = idleCount;
+				if((++idleCount)>idleCountMax)
+					idleCountMax = idleCount;
 			}
 			else
 				destroyCounter++;
@@ -134,9 +134,9 @@ public final class PoolCounter
 			return idleCount;
 		}
 		
-		public final int getMaxLevel()
+		public final int getIdleCountMax()
 		{
-			return maxLevel;
+			return idleCountMax;
 		}
 		
 		public final int getCreateCounter()
