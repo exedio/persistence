@@ -42,6 +42,7 @@ final class ConnectionPool implements ConnectionProvider
 	//       but are closed after a certain time to avoid
 	//       running into some idle timeout implemented by the
 	//       jdbc driver or the database itself.
+	//       maybe then no ring buffer is needed.
 	
 	private final Connection[] idle = new Connection[10];
 	private int idleCount = 0;
