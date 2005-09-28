@@ -62,7 +62,8 @@ final class DbCop extends AdminCop
 		try
 		{
 			in = Cope.class.getResourceAsStream("testprotocol.properties");
-			p.load(in);
+			if(in!=null)
+				p.load(in);
 		}
 		finally
 		{
