@@ -36,6 +36,12 @@ final class ConnectionPool implements ConnectionProvider
 	//       staying idle for a very long time and possibly
 	//       running into some idle timeout implemented by the
 	//       jdbc driver or the database itself.
+	// TODO: implement idle timout
+	//       ensure, that idle connections in the pool do
+	//       not stay idle for a indefinite time,
+	//       but are closed after a certain time to avoid
+	//       running into some idle timeout implemented by the
+	//       jdbc driver or the database itself.
 	
 	private final Connection[] pool = new Connection[10];
 	private int size = 0;
