@@ -45,7 +45,7 @@ final class ConnectionPool implements ConnectionProvider
 	
 	private final Connection[] idleConnections = new Connection[10];
 	private int idleConnectionCount = 0;
-	private int due = 0;
+	private int activeCount = 0;
 	private final Object lock = new Object();
 
 	private final String url;
@@ -70,7 +70,7 @@ final class ConnectionPool implements ConnectionProvider
 
 		synchronized(lock)
 		{
-			due++;
+			activeCount++;
 			
 			if(idleConnectionCount>0)
 			{
@@ -100,7 +100,7 @@ final class ConnectionPool implements ConnectionProvider
 		
 		synchronized(lock)
 		{
-			due--;
+			activeCount--;
 
 			if(idleConnectionCount<idleConnections.length)
 			{
@@ -144,8 +144,8 @@ final class ConnectionPool implements ConnectionProvider
 			throw new NestingRuntimeException(e);
 		}
 
-		if(due!=0)
-			throw new RuntimeException("still "+due+" connections outside");
+		if(activeCount!=0)
+			throw new RuntimeException("still "+activeCount+" connections active");
 	}
 
 }
