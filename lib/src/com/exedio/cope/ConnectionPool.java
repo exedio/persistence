@@ -118,7 +118,9 @@ final class ConnectionPool implements ConnectionProvider
 	
 	final void flush()
 	{
-		final ArrayList connections = new ArrayList(idle.length);
+		// make a copy of idle to avoid closing idle connections
+		// inside the synchronized block
+		final ArrayList copyOfIdle = new ArrayList(idle.length);
 
 		synchronized(lock)
 		{
@@ -128,7 +130,7 @@ final class ConnectionPool implements ConnectionProvider
 			//System.out.println("connection pool: FLUSH "+size);
 			for(int i = 0; i<idleCount; i++)
 			{
-				connections.add(idle[i]);
+				copyOfIdle.add(idle[i]);
 				idle[i] = null; // do not reference closed connections
 			}
 			idleCount = 0;
@@ -136,7 +138,7 @@ final class ConnectionPool implements ConnectionProvider
 		
 		try
 		{
-			for(Iterator i = connections.iterator(); i.hasNext(); )
+			for(Iterator i = copyOfIdle.iterator(); i.hasNext(); )
 				((Connection)i.next()).close();
 		}
 		catch(SQLException e)
