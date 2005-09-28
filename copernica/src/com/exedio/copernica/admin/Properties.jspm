@@ -161,8 +161,8 @@ final class Properties_Jspm
 			<tr>
 				<th colspan="<%=TEST_INFO_KEYS.length%>">testprotocol.properties</th>
 			</tr><%
-			if(properties!=null)
-			{
+		if(properties!=null)
+		{
 			%>
 			<tr><%
 				for(int j = 0; j<TEST_INFO_KEYS.length; j++)
@@ -206,9 +206,9 @@ final class Properties_Jspm
 				%>
 			</tr><%
 			}
-			}
-			else
-			{
+		}
+		else
+		{
 			%>
 			<tr>
 				<td colspan="<%=TEST_INFO_KEYS.length%>">
@@ -217,8 +217,8 @@ final class Properties_Jspm
 					This should not happen with any officially distributed jar files for cope.
 				</td>
 			</tr><%
-			}
-			%>
+		}
+		%>
 		</table><%
 	}
 
