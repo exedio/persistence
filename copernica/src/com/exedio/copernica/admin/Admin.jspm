@@ -87,7 +87,7 @@ final class Admin_Jspm
 		final SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss.SSS");
 		final String[] names = new String[]{
 			"Loss = 100 * Destroy / Get",
-			"Level",
+			"Idle",
 			"Level Max",
 			"Create",
 			"Destroy",
@@ -127,7 +127,7 @@ final class Admin_Jspm
 				final boolean inconsistent = !pool.isConsistent();
 				final int[] data = new int[]{
 						pool.getLoss(),
-						pool.getLevel(),
+						pool.getIdleCount(),
 						pool.getMaxLevel(),
 						pool.getCreateCounter(),
 						pool.getDestroyCounter(),

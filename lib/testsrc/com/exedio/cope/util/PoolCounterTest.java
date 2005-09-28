@@ -69,12 +69,12 @@ public class PoolCounterTest extends CopeAssert
 
 	static final void assertIt(
 			final PoolCounter.Pool p, final int size,
-			final int level, final int maxLevel,
+			final int idleCount, final int maxLevel,
 			final int createCounter, final int destroyCounter,
 			final int loss)
 	{
 		assertEquals(size, p.getSize());
-		assertEquals(level, p.getLevel());
+		assertEquals(idleCount, p.getIdleCount());
 		assertEquals(maxLevel, p.getMaxLevel());
 		assertEquals(createCounter, p.getCreateCounter());
 		assertEquals(destroyCounter, p.getDestroyCounter());

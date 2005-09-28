@@ -91,7 +91,7 @@ public final class PoolCounter
 	{
 		final int size;
 
-		private int level = 0;
+		private int idleCount = 0;
 		private int maxLevel = 0;
 
 		private int createCounter = 0;
@@ -107,18 +107,18 @@ public final class PoolCounter
 
 		private final void get()
 		{
-			if(level>0)
-				level--;
+			if(idleCount>0)
+				idleCount--;
 			else
 				createCounter++;
 		}
 
 		private final void put()
 		{
-			if(level<size)
+			if(idleCount<size)
 			{
-				if((++level)>maxLevel)
-					maxLevel = level;
+				if((++idleCount)>maxLevel)
+					maxLevel = idleCount;
 			}
 			else
 				destroyCounter++;
@@ -129,9 +129,9 @@ public final class PoolCounter
 			return size;
 		}
 		
-		public final int getLevel()
+		public final int getIdleCount()
 		{
-			return level;
+			return idleCount;
 		}
 		
 		public final int getMaxLevel()
@@ -151,7 +151,7 @@ public final class PoolCounter
 		
 		public final boolean isConsistent()
 		{
-			return (getCounter - putCounter) == (createCounter - destroyCounter - level);
+			return (getCounter - putCounter) == (createCounter - destroyCounter - idleCount);
 		}
 
 		public final int getLoss()
