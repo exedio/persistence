@@ -126,9 +126,6 @@ final class ConnectionPool implements ConnectionProvider
 				pool[i] = null; // do not reference old connections anymore
 			}
 			size = 0;
-
-			if(due!=0)
-				throw new RuntimeException("still "+due+" connections outside");
 		}
 		
 		try
@@ -140,6 +137,9 @@ final class ConnectionPool implements ConnectionProvider
 		{
 			throw new NestingRuntimeException(e);
 		}
+
+		if(due!=0)
+			throw new RuntimeException("still "+due+" connections outside");
 	}
 
 }
