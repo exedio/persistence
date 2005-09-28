@@ -31,6 +31,11 @@ final class ConnectionPool implements ConnectionProvider
 {
 	// TODO: allow changing pool size
 	// TODO: gather pool effectivity statistics
+	// TODO: use a ring buffer instead of a stack
+	//       to avoid connections at the bottom of the stack
+	//       staying idle for a very long time and possibly
+	//       running into some idle timeout implemented by the
+	//       jdbc driver or the database itself.
 	
 	private final Connection[] pool = new Connection[10];
 	private int size = 0;
