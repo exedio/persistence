@@ -56,19 +56,40 @@ final class DbCop extends AdminCop
 		}
 
 		Properties_Jspm.writeDatabaseInfo(out, current);
-		
+		Properties_Jspm.writeTestInfo(out, current, makeTestedDatabases());
+	}
+	
+	private final HashMap[] makeTestedDatabases()
+	{
 		final java.util.Properties p = new Properties();
 		InputStream in = null;
 		try
 		{
 			in = Cope.class.getResourceAsStream("testprotocol.properties");
-			if(in!=null)
-				p.load(in);
+			if(in==null)
+				return null;
+			
+			p.load(in);
+			in.close();
+			in = null;
+		}
+		catch(IOException e)
+		{
+			throw new RuntimeException(e);
 		}
 		finally
 		{
 			if(in!=null)
-				in.close();
+			{
+				try
+				{
+					in.close();
+				}
+				catch(IOException e)
+				{
+					// oops
+				}
+			}
 		}
 		
 		final TreeMap testedDatabases = new TreeMap();
@@ -101,7 +122,7 @@ final class DbCop extends AdminCop
 				database.put(key, value);
 		}
 		
-		Properties_Jspm.writeTestInfo(out, current, (HashMap[])testedDatabases.values().toArray(new HashMap[0]));
+		return (HashMap[])testedDatabases.values().toArray(new HashMap[0]);
 	}
 	
 }

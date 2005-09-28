@@ -160,7 +160,10 @@ final class Properties_Jspm
 		<table class="properties">
 			<tr>
 				<th colspan="<%=TEST_INFO_KEYS.length%>">testprotocol.properties</th>
-			</tr>
+			</tr><%
+			if(properties!=null)
+			{
+			%>
 			<tr><%
 				for(int j = 0; j<TEST_INFO_KEYS.length; j++)
 				{
@@ -201,6 +204,18 @@ final class Properties_Jspm
 					}
 				}
 				%>
+			</tr><%
+			}
+			}
+			else
+			{
+			%>
+			<tr>
+				<td colspan="<%=TEST_INFO_KEYS.length%>">
+					No such file available from class loader.
+					<br>
+					This should not happen with any officially distributed jar files for cope.
+				</td>
 			</tr><%
 			}
 			%>
