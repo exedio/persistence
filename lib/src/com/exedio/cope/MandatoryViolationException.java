@@ -67,7 +67,7 @@ public final class MandatoryViolationException extends ConstraintViolationExcept
 
 	public String getMessage()
 	{
-		return "mandatory violation on " + (item!=null ? item.getCopeID() : "a newly created item") + " for "+ mandatoryAttribute;
+		return "mandatory violation on " + (item!=null ? item.getCopeID() : "a newly created item") + " for " + mandatoryAttribute;
 	}
 	
 }
