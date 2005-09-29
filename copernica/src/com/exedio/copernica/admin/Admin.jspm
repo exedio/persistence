@@ -21,9 +21,7 @@ package com.exedio.copernica.admin;
 
 import java.io.IOException;
 import java.io.PrintStream;
-import java.text.SimpleDateFormat;
 import java.util.Collection;
-import java.util.Date;
 import java.util.Iterator;
 
 import javax.servlet.http.HttpServletRequest;
@@ -82,10 +80,9 @@ final class Admin_Jspm
 </html>
 <%
 	}
-	final static void write(final PrintStream out, final PoolCounter poolCounter)
+	final static void write(final PrintStream out, final PoolCounter poolCounter, final ConnectionStatsCop cop)
 		throws IOException
 	{
-		final SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss.SSS");
 		final String[] names = new String[]{
 			"Loss = 100 * Destroy / Get",
 			"Idle",
@@ -100,11 +97,7 @@ final class Admin_Jspm
 			</tr>
 			<tr>
 				<th>From</th>
-				<td colspan="6"><%=df.format(poolCounter.getStart())%></td>
-			</tr>
-			<tr>
-				<th>To</th>
-				<td colspan="6"><%=df.format(new Date())%></td>
+				<td colspan="6"><%=cop.format(poolCounter.getStart())%></td>
 			</tr>
 			<tr>
 				<th>Get</th>
@@ -144,10 +137,9 @@ final class Admin_Jspm
 		</table><%
 	}
 
-	final static void writeMediaStats(final PrintStream out, final Collection media, final String prefix)
+	final static void writeMediaStats(final PrintStream out, final Collection media, final String prefix, final MediaStatsCop cop)
 		throws IOException
 	{
-		final SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss.SSS");
 		final String[] names = new String[]{
 			"Exception (500)",
 			"Not An Item (404)",
@@ -159,7 +151,6 @@ final class Admin_Jspm
 		%>
 		<table class="statistics">
 			<tr><th colspan="<%=names.length+3%>">Media Statistics</th></tr>
-			<tr><th>To</th><td colspan="<%=names.length+2%>"><%=df.format(new Date())%></td></tr>
 			<tr><th>No Such Path (404)</th><td colspan="<%=names.length+2%>"><%=MediaPath.noSuchPath.get()%></td></tr><%
 			writeColouredHeader(out, names, 2);
 			%>
@@ -198,7 +189,7 @@ final class Admin_Jspm
 				%></td><%
 				writeColouredData(out, data);
 				%>
-				<td><%=df.format(path.getStart())%></td>
+				<td><%=cop.format(path.getStart())%></td>
 				<td><%=path.getClass().getName()%></td>
 			</tr><%
 			}

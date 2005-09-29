@@ -86,6 +86,11 @@ abstract class AdminCop extends Cop
 		return end-start;
 	}
 	
+	final String format(final Date date)
+	{
+		return df.format(date);
+	}
+	
 	void writeHead(HttpServletRequest request, PrintStream out) throws IOException
 	{
 		// default implementation does nothing

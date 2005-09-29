@@ -57,7 +57,7 @@ final class MediaStatsCop extends AdminCop
 			}
 		}
 
-		Admin_Jspm.writeMediaStats(out, medias, model.getProperties().getMediaRootUrl());
+		Admin_Jspm.writeMediaStats(out, medias, model.getProperties().getMediaRootUrl(), this);
 	}
 	
 }
