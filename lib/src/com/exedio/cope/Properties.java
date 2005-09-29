@@ -324,13 +324,7 @@ public final class Properties
 	
 	final void ensureEquality(final Properties other)
 	{
-		if(!this.database.equals(other.database))
-			throw new RuntimeException(
-					"inconsistent initialization for " + DATABASE +
-					" between " + source + " and " + other.source + "," +
-					" expected " + this.database.getDeclaringClass().getName() +
-					" but got " + other.database.getDeclaringClass().getName() + '.');
-
+		ensureEquality(other, DATABASE, this.getDatabase(), other.getDatabase());
 		ensureEquality(other, DATABASE_URL, this.databaseUrl, other.databaseUrl);
 		ensureEquality(other, DATABASE_USER, this.databaseUser, other.databaseUser);
 		
