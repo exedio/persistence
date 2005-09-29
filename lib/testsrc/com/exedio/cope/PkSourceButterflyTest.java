@@ -19,9 +19,9 @@
 package com.exedio.cope;
 
 
-public class ButterflyPkSourceTest extends PkSourceAbstractTest
+public class PkSourceButterflyTest extends PkSourceAbstractTest
 {
-	public ButterflyPkSourceTest()
+	public PkSourceButterflyTest()
 	{
 		super(new ButterflyPkSource(null));
 	}
