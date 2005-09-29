@@ -48,5 +48,18 @@ public abstract class PkSourceAbstractTest extends TestCase
 			assertEquals("no such id number <"+id+">, "+detail, e.getMessage());
 		}
 	}
+	
+	public void testPk2Id()
+	{
+		try
+		{
+			i.pk2id(Type.NOT_A_PK);
+			fail("should have thrown RuntimeException");
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals("not a pk", e.getMessage());
+		}
+	}
 
 }

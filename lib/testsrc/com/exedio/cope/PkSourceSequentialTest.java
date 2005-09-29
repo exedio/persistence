@@ -46,16 +46,6 @@ public class PkSourceSequentialTest extends PkSourceAbstractTest
 		assertIDFails(2147483648l, "does not fit in 31 bit"); // 2^31
 		assertIDFails(2147483649l, "does not fit in 31 bit"); // 2^31 + 1
 		assertIDFails(Long.MAX_VALUE, "does not fit in 31 bit");
-		
-		try
-		{
-			i.pk2id(Type.NOT_A_PK);
-			fail("should have thrown RuntimeException");
-		}
-		catch(RuntimeException e)
-		{
-			assertEquals("not a pk", e.getMessage());
-		}
 	}
 	
 }

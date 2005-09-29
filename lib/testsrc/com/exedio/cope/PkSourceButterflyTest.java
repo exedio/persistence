@@ -46,16 +46,6 @@ public class PkSourceButterflyTest extends PkSourceAbstractTest
 		assertIDFails(4294967296l, "does not fit in 32 bit"); // 2^32
 		assertIDFails(4294967297l, "does not fit in 32 bit"); // 2^32 + 1
 		assertIDFails(Long.MAX_VALUE, "does not fit in 32 bit");
-		
-		try
-		{
-			i.pk2id(Type.NOT_A_PK);
-			fail("should have thrown RuntimeException");
-		}
-		catch(RuntimeException e)
-		{
-			assertEquals("not a pk", e.getMessage());
-		}
 	}
 	
 }
