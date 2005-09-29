@@ -129,10 +129,9 @@ public class ModelTest extends TestmodelTest
 			}
 			catch(RuntimeException e)
 			{
-				// dont put password into exception message
 				assertEquals(
 						"inconsistent initialization for " + Properties.DATABASE_PASSWORD +
-						" between " + mp.getSource() + " and " + source, e.getMessage());
+						" between " + mp.getSource() + " and " + source + ".", e.getMessage());
 			}
 		}
 		{

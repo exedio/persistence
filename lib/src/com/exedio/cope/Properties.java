@@ -360,6 +360,6 @@ public final class Properties
 			throw new RuntimeException(
 					"inconsistent initialization for " + name +
 					" between " + source + " and " + other.source +
-					(hideValues ? "" : "," + " expected " + thisValue + " but got " + otherValue + '.'));
+					(hideValues ? "." : "," + " expected " + thisValue + " but got " + otherValue + '.'));
 	}
 }
