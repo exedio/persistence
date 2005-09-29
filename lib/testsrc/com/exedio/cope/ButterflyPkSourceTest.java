@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import junit.framework.TestCase;
 
-public class Id2PkTest extends TestCase
+public class ButterflyPkSourceTest extends TestCase
 {
 	final ButterflyPkSource i = new ButterflyPkSource(null);
 	
