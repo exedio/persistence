@@ -57,13 +57,14 @@ public class UniqueItemTest extends TestmodelTest
 			try
 			{
 				item2.setUniqueString("uniqueString");
-				fail("should have thrown UniqueViolationException");
+				fail();
 			}
 			catch(UniqueViolationException e)
 			{
 				assertEquals(item2.uniqueString.getSingleUniqueConstraint(), e.getConstraint());
-				assertEquals("uniqueString2", item2.getUniqueString());
+				assertEquals("unique violation for ItemWithSingleUnique#uniqueString", e.getMessage());
 			}
+			assertEquals("uniqueString2", item2.getUniqueString());
 			assertEquals(item2, ItemWithSingleUnique.findByUniqueString("uniqueString2"));
 
 			assertDelete(item2);
@@ -152,11 +153,12 @@ public class UniqueItemTest extends TestmodelTest
 					new AttributeValue(item1.uniqueString, "uniqueString1"),
 					new AttributeValue(item1.otherString, "otherString1"),
 			});
-			fail("should have thrown UniqueViolationException");
+			fail();
 		}
 		catch(UniqueViolationException e)
 		{
 			assertEquals(item2.uniqueString.getSingleUniqueConstraint(), e.getConstraint());
+			assertEquals("unique violation for ItemWithSingleUnique#uniqueString", e.getMessage());
 		}
 		assertEquals("uniqueString2", item2.getUniqueString());
 		assertEquals("otherString2", item2.getOtherString());
@@ -267,6 +269,7 @@ public class UniqueItemTest extends TestmodelTest
 		{
 			assertEquals(a1.doubleUnique, e.getConstraint());
 			assertEquals(null, e.getItem());
+			assertEquals("unique violation for ItemWithDoubleUnique#doubleUnique", e.getMessage());
 		}
 		assertEquals(b1, ItemWithDoubleUnique.findByDoubleUnique("b", 1));
 		

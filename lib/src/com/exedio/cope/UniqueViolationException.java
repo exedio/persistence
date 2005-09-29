@@ -68,4 +68,9 @@ public final class UniqueViolationException extends ConstraintViolationException
 		return constraint;
 	}
 	
+	public String getMessage()
+	{
+		return "unique violation for " + constraint;
+	}
+	
 }
