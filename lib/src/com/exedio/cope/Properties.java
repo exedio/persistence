@@ -351,12 +351,7 @@ public final class Properties
 					"inconsistent initialization for " + DATABASE_PASSWORD +
 					" between " + source + " and " + other.source);
 		
-		if(this.databaseDontSupportEmptyStrings!=other.databaseDontSupportEmptyStrings)
-			throw new RuntimeException(
-					"inconsistent initialization for " + DATABASE_DONT_SUPPORT_EMPTY_STRINGS +
-					" between " + source + " and " + other.source + "," +
-					" expected " + this.databaseDontSupportEmptyStrings +
-					" but got " + other.databaseDontSupportEmptyStrings + '.');
+		ensureEquality(other, DATABASE_DONT_SUPPORT_EMPTY_STRINGS, this.databaseDontSupportEmptyStrings, other.databaseDontSupportEmptyStrings);
 		
 		if(!this.databaseForcedNames.equals(other.databaseForcedNames))
 			throw new RuntimeException(
@@ -364,13 +359,8 @@ public final class Properties
 					".* between " + source + " and " + other.source + "," +
 					" expected " + this.databaseForcedNames +
 					" but got " + other.databaseForcedNames + '.');
-		
-		if(this.pkSourceButterfly!=other.pkSourceButterfly)
-			throw new RuntimeException(
-					"inconsistent initialization for " + PKSOURCE_BUTTERFLY +
-					" between " + source + " and " + other.source + "," +
-					" expected " + this.pkSourceButterfly +
-					" but got " + other.pkSourceButterfly + '.');
+
+		ensureEquality(other, PKSOURCE_BUTTERFLY, this.pkSourceButterfly, other.pkSourceButterfly);
 		
 		if((this.datadirPath!=null && !this.datadirPath.equals(other.datadirPath)) ||
 				(this.datadirPath==null && other.datadirPath!=null))
@@ -388,4 +378,15 @@ public final class Properties
 					" but got " + other.mediaRootUrl + '.');
 	}
 	
+	private final void ensureEquality(
+			final Properties other, final String name,
+			final boolean thisValue, final boolean otherValue)
+	{
+		if(thisValue!=otherValue)
+			throw new RuntimeException(
+					"inconsistent initialization for " + name +
+					" between " + source + " and " + other.source + "," +
+					" expected " + thisValue +
+					" but got " + otherValue + '.');
+	}
 }
