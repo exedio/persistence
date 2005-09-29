@@ -61,4 +61,9 @@ public final class ReadOnlyViolationException extends ConstraintViolationExcepti
 		return readOnlyAttribute;
 	}
 
+	public String getMessage()
+	{
+		return "read-only violation on " + item.getCopeID() + " for "+ readOnlyAttribute;
+	}
+	
 }

@@ -56,5 +56,8 @@ public abstract class ConstraintViolationException extends Exception
 		if(cause!=null)
 			cause.printStackTrace(s);
 	}
+	
+	// force subclasses to implement a getMessage()
+	public abstract String getMessage();
 
 }

@@ -182,6 +182,7 @@ public class UniqueItemTest extends TestmodelTest
 		{
 			assertEquals(item.uniqueReadOnlyString, e.getReadOnlyAttribute());
 			assertEquals(item, e.getItem());
+			assertEquals("read-only violation on " + item + " for ItemWithSingleUniqueReadOnly#uniqueReadOnlyString", e.getMessage());
 		}
 		assertEquals("uniqueString", item.getUniqueReadOnlyString());
 		assertEquals(item, ItemWithSingleUniqueReadOnly.findByUniqueReadOnlyString("uniqueString"));
