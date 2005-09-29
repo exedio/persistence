@@ -68,7 +68,7 @@ public abstract class AbstractLibTest extends CopeTest
 
 	final String pkString(final Item item)
 	{
-		return String.valueOf(item.getCopeType().getPrimaryKeyIterator().pk2id(((Item)item).pk));
+		return String.valueOf(item.getCopeType().getPkSource().pk2id(((Item)item).pk));
 	}
 
 	protected static final InputStream stream(byte[] data)

@@ -60,7 +60,7 @@ public abstract class Item extends Cope
 	 */
 	public final String getCopeID()
 	{
-		return type.getID() + '.' + type.getPrimaryKeyIterator().pk2id(pk);
+		return type.getID() + '.' + type.getPkSource().pk2id(pk);
 	}
 	
 	/**
@@ -139,7 +139,7 @@ public abstract class Item extends Cope
 		throws ClassCastException
 	{
 		this.type = Type.findByJavaClass(getClass());
-		this.pk = type.getPrimaryKeyIterator().nextPK(type.getModel().getCurrentTransaction().getConnection());
+		this.pk = type.getPkSource().nextPK(type.getModel().getCurrentTransaction().getConnection());
 		if(pk==Type.NOT_A_PK)
 			throw new RuntimeException();
 		//System.out.println("create item "+type+" "+pk);
@@ -348,7 +348,7 @@ public abstract class Item extends Cope
 									final StringBuffer bf)
 	{
 		bf.append(attribute.filePath).
-			append(type.getPrimaryKeyIterator().pk2id(pk));
+			append(type.getPkSource().pk2id(pk));
 	}
 	
 	private final File getDataFile(final DataAttribute attribute)

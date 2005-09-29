@@ -64,7 +64,7 @@ public final class Type
 	private Model model;
 
 	private Table table;
-	private ButterflyPkSource primaryKeyIterator;
+	private ButterflyPkSource pkSource;
 
 	private final Constructor creationConstructor;
 	private final Constructor reactivationConstructor;
@@ -292,7 +292,7 @@ public final class Type
 			throw new RuntimeException();
 		if(this.table!=null)
 			throw new RuntimeException();
-		if(this.primaryKeyIterator!=null)
+		if(this.pkSource!=null)
 			throw new RuntimeException();
 		if(this.transientNumber>=0)
 			throw new RuntimeException();
@@ -310,19 +310,19 @@ public final class Type
 			throw new RuntimeException();
 		if(this.table!=null)
 			throw new RuntimeException();
-		if(this.primaryKeyIterator!=null)
+		if(this.pkSource!=null)
 			throw new RuntimeException();
 
 		this.table = new Table(database, id);
 
 		if(supertype!=null)
 		{
-			primaryKeyIterator = supertype.getPrimaryKeyIterator();
+			pkSource = supertype.getPkSource();
 			new ItemColumn(table, supertype.getJavaClass());
 		}
 		else
 		{
-			primaryKeyIterator = new ButterflyPkSource(table);
+			pkSource = new ButterflyPkSource(table);
 			new IntegerColumn(table);
 		}
 		
@@ -571,17 +571,17 @@ public final class Type
 		return toStringCache;
 	}
 	
-	ButterflyPkSource getPrimaryKeyIterator()
+	ButterflyPkSource getPkSource()
 	{
-		if(primaryKeyIterator==null)
-			throw new RuntimeException( "no primary key iterator in "+getID()+"; maybe you have to initialize the model first" );
+		if(pkSource==null)
+			throw new RuntimeException( "no primary key source in "+getID()+"; maybe you have to initialize the model first" );
 		
-		return primaryKeyIterator;
+		return pkSource;
 	}
 	
 	void onDropTable()
 	{
-		getPrimaryKeyIterator().flushPK();
+		getPkSource().flushPK();
 	}
 
 	
