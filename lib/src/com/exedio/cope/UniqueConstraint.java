@@ -107,17 +107,10 @@ public final class UniqueConstraint extends Feature
 		new com.exedio.dsmf.UniqueConstraint(dsmfTable, getDatabaseID(), bf.toString());
 	}
 	
-
-	private String toStringCache = null;
-	
 	final String toStringNonInitialized()
 	{
-		if(toStringCache!=null)
-			return toStringCache;
-		
 		final StringBuffer buf = new StringBuffer();
 		
-		//buf.append(super.toString());
 		buf.append("unique(");
 		buf.append(uniqueAttributes[0].toString());
 		for(int i = 1; i<uniqueAttributes.length; i++)
@@ -127,8 +120,7 @@ public final class UniqueConstraint extends Feature
 		}
 		buf.append(')');
 		
-		toStringCache = buf.toString();
-		return toStringCache;
+		return buf.toString();
 	}
 	
 	/**
