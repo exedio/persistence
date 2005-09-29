@@ -20,13 +20,12 @@ package com.exedio.cope;
 
 import java.sql.Connection;
 
-final class ButterflyPkSource
+final class ButterflyPkSource extends PkSource
 {
-	private final Table table;
 	
 	ButterflyPkSource(final Table table)
 	{
-		this.table = table;
+		super(table);
 	}
 
 	private int nextPkLo = Type.NOT_A_PK;

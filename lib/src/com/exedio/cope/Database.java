@@ -1047,6 +1047,11 @@ abstract class Database
 	}
 
 
+	final PkSource makePkSource(final Table table)
+	{
+		return new ButterflyPkSource(table);
+	}
+	
 	final int[] getMinMaxPK(final Connection connection, final Table table)
 	{
 		buildStage = false;

@@ -64,7 +64,7 @@ public final class Type
 	private Model model;
 
 	private Table table;
-	private ButterflyPkSource pkSource;
+	private PkSource pkSource;
 
 	private final Constructor creationConstructor;
 	private final Constructor reactivationConstructor;
@@ -322,7 +322,7 @@ public final class Type
 		}
 		else
 		{
-			pkSource = new ButterflyPkSource(table);
+			pkSource = database.makePkSource(table);
 			new IntegerColumn(table);
 		}
 		
@@ -571,7 +571,7 @@ public final class Type
 		return toStringCache;
 	}
 	
-	ButterflyPkSource getPkSource()
+	PkSource getPkSource()
 	{
 		if(pkSource==null)
 			throw new RuntimeException( "no primary key source in "+getID()+"; maybe you have to initialize the model first" );
