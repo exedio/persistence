@@ -331,19 +331,8 @@ public final class Properties
 					" expected " + this.database.getDeclaringClass().getName() +
 					" but got " + other.database.getDeclaringClass().getName() + '.');
 
-		if(!this.databaseUrl.equals(other.databaseUrl))
-			throw new RuntimeException(
-					"inconsistent initialization for " + DATABASE_URL +
-					" between " + source + " and " + other.source + "," +
-					" expected " + this.databaseUrl +
-					" but got " + other.databaseUrl + '.');
-		
-		if(!this.databaseUser.equals(other.databaseUser))
-			throw new RuntimeException(
-					"inconsistent initialization for " + DATABASE_USER +
-					" between " + source + " and " + other.source + "," +
-					" expected " + this.databaseUser +
-					" but got " + other.databaseUser + '.');
+		ensureEquality(other, DATABASE_URL, this.databaseUrl, other.databaseUrl);
+		ensureEquality(other, DATABASE_USER, this.databaseUser, other.databaseUser);
 		
 		// dont put password into exception message
 		if(!this.databasePassword.equals(other.databasePassword))
@@ -370,12 +359,7 @@ public final class Properties
 					" expected " + this.datadirPath +
 					" but got " + other.datadirPath + '.');
 		
-		if(!this.mediaRootUrl.equals(other.mediaRootUrl))
-			throw new RuntimeException(
-					"inconsistent initialization for " + MEDIA_ROOT_URL +
-					" between " + source + " and " + other.source + "," +
-					" expected " + this.mediaRootUrl +
-					" but got " + other.mediaRootUrl + '.');
+		ensureEquality(other, MEDIA_ROOT_URL, this.mediaRootUrl, other.mediaRootUrl);
 	}
 	
 	private final void ensureEquality(
@@ -383,6 +367,18 @@ public final class Properties
 			final boolean thisValue, final boolean otherValue)
 	{
 		if(thisValue!=otherValue)
+			throw new RuntimeException(
+					"inconsistent initialization for " + name +
+					" between " + source + " and " + other.source + "," +
+					" expected " + thisValue +
+					" but got " + otherValue + '.');
+	}
+	
+	private final void ensureEquality(
+			final Properties other, final String name,
+			final String thisValue, final String otherValue)
+	{
+		if(!thisValue.equals(otherValue))
 			throw new RuntimeException(
 					"inconsistent initialization for " + name +
 					" between " + source + " and " + other.source + "," +
