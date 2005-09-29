@@ -335,14 +335,7 @@ public final class Properties
 					" between " + source + " and " + other.source);
 		
 		ensureEquality(other, DATABASE_DONT_SUPPORT_EMPTY_STRINGS, this.databaseDontSupportEmptyStrings, other.databaseDontSupportEmptyStrings);
-		
-		if(!this.databaseForcedNames.equals(other.databaseForcedNames))
-			throw new RuntimeException(
-					"inconsistent initialization for " + DATABASE_FORCE_NAME +
-					".* between " + source + " and " + other.source + "," +
-					" expected " + this.databaseForcedNames +
-					" but got " + other.databaseForcedNames + '.');
-
+		ensureEquality(other, DATABASE_FORCE_NAME, this.databaseForcedNames, other.databaseForcedNames);
 		ensureEquality(other, PKSOURCE_BUTTERFLY, this.pkSourceButterfly, other.pkSourceButterfly);
 		
 		if((this.datadirPath!=null && !this.datadirPath.equals(other.datadirPath)) ||
