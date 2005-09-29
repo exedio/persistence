@@ -336,16 +336,9 @@ public final class Properties
 		
 		ensureEquality(other, DATABASE_DONT_SUPPORT_EMPTY_STRINGS, this.databaseDontSupportEmptyStrings, other.databaseDontSupportEmptyStrings);
 		ensureEquality(other, DATABASE_FORCE_NAME, this.databaseForcedNames, other.databaseForcedNames);
+		
 		ensureEquality(other, PKSOURCE_BUTTERFLY, this.pkSourceButterfly, other.pkSourceButterfly);
-		
-		if((this.datadirPath!=null && !this.datadirPath.equals(other.datadirPath)) ||
-				(this.datadirPath==null && other.datadirPath!=null))
-			throw new RuntimeException(
-					"inconsistent initialization for " + DATADIR_PATH +
-					" between " + source + " and " + other.source + "," +
-					" expected " + this.datadirPath +
-					" but got " + other.datadirPath + '.');
-		
+		ensureEquality(other, DATADIR_PATH, this.datadirPath, other.datadirPath);
 		ensureEquality(other, MEDIA_ROOT_URL, this.mediaRootUrl, other.mediaRootUrl);
 	}
 	
@@ -360,7 +353,8 @@ public final class Properties
 			final Properties other, final String name,
 			final Object thisValue, final Object otherValue)
 	{
-		if(!thisValue.equals(otherValue))
+		if((thisValue!=null && !thisValue.equals(otherValue)) ||
+			(thisValue==null && otherValue!=null))
 			throw new RuntimeException(
 					"inconsistent initialization for " + name +
 					" between " + source + " and " + other.source + "," +
