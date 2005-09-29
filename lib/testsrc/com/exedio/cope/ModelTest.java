@@ -178,6 +178,49 @@ public class ModelTest extends TestmodelTest
 			}
 		}
 		{
+			// TODO: reuse code for boolean properties
+			final java.util.Properties props = (java.util.Properties)newProps.clone();
+			final String newValue = mp.getPkSourceButterfly()?"false":"true";
+			props.setProperty(Properties.PKSOURCE_BUTTERFLY, newValue);
+			final String source = file.getAbsolutePath()+'/'+Properties.DATABASE_PASSWORD+"=zock";
+			try
+			{
+				model.setPropertiesInitially(new Properties(props, source));
+			}
+			catch(RuntimeException e)
+			{
+				assertEquals(
+						"inconsistent initialization for " + Properties.PKSOURCE_BUTTERFLY +
+						" between " + mp.getSource() + " and " + source +
+						", expected " + mp.getPkSourceButterfly() +
+						" but got " + newValue + ".", e.getMessage());
+			}
+
+			props.setProperty(Properties.PKSOURCE_BUTTERFLY, "True");
+			try
+			{
+				new Properties(props, "sourceTrue");
+			}
+			catch(RuntimeException e)
+			{
+				assertEquals(
+						"property " + Properties.PKSOURCE_BUTTERFLY + " in sourceTrue has invalid value," +
+						" expected >true< or >false< bot got >True<.", e.getMessage());
+			}
+
+			props.setProperty(Properties.PKSOURCE_BUTTERFLY, "falsE");
+			try
+			{
+				new Properties(props, "sourcefalsE");
+			}
+			catch(RuntimeException e)
+			{
+				assertEquals(
+						"property " + Properties.PKSOURCE_BUTTERFLY + " in sourcefalsE has invalid value," +
+						" expected >true< or >false< bot got >falsE<.", e.getMessage());
+			}
+		}
+		{
 			final char SEP = File.separatorChar;
 			final java.util.Properties props = (java.util.Properties)newProps.clone();
 			props.setProperty(Properties.DATADIR_PATH, props.getProperty(Properties.DATADIR_PATH)+SEP+"AttributeItem");
@@ -360,6 +403,7 @@ public class ModelTest extends TestmodelTest
 				}
 				final Properties p = model.getProperties();
 				prefixed.setProperty(prefix+".cope."+p.DATABASE_DONT_SUPPORT_EMPTY_STRINGS, String.valueOf(p.getDatabaseDontSupportEmptyStrings()));
+				prefixed.setProperty(prefix+".cope."+p.PKSOURCE_BUTTERFLY, String.valueOf(p.getPkSourceButterfly()));
 				final PrintStream out = new PrintStream(new FileOutputStream(file, true));
 				prefixed.store(out, null);
 				out.close();

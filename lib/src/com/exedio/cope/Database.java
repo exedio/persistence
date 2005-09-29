@@ -44,14 +44,16 @@ abstract class Database
 	private boolean buildStage = true;
 	final Driver driver;
 	private final boolean useDefineColumnTypes;
+	private final boolean butterflyPkSource;
 	final ConnectionPool connectionPool;
-	private java.util.Properties forcedNames;
+	private final java.util.Properties forcedNames;
 	private List expectedCalls = null;
 	
 	protected Database(final Driver driver, final Properties properties)
 	{
 		this.driver = driver;
 		this.useDefineColumnTypes = this instanceof DatabaseColumnTypesDefinable;
+		this.butterflyPkSource = properties.getPkSourceButterfly();
 		this.connectionPool = new ConnectionPool(properties);
 		this.forcedNames = properties.getDatabaseForcedNames();
 		//System.out.println("using database "+getClass());
@@ -1044,7 +1046,7 @@ abstract class Database
 
 	final PkSource makePkSource(final Table table)
 	{
-		return new ButterflyPkSource(table);
+		return butterflyPkSource ? (PkSource)new ButterflyPkSource(table) : new SequentialPkSource(table);
 	}
 	
 	final int[] getMinMaxPK(final Connection connection, final Table table)

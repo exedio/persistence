@@ -37,6 +37,7 @@ public final class Properties
 	public static final String DATABASE_PASSWORD = "database.password";
 	public static final String DATABASE_DONT_SUPPORT_EMPTY_STRINGS = "database.dont.support.empty.strings";
 	static final String DATABASE_FORCE_NAME = "database.forcename";
+	public static final String PKSOURCE_BUTTERFLY = "pksource.butterfly";
 	public static final String DATADIR_PATH = "datadir.path";
 	public static final String MEDIA_ROOT_URL = "media.rooturl";
 	public static final String MEDIA_ROOT_URL_DEFAULT = "media/";
@@ -54,6 +55,8 @@ public final class Properties
 	private final boolean databaseDontSupportEmptyStrings;
 	private final java.util.Properties databaseForcedNames;
 	private final java.util.Properties databaseCustomProperties;
+	
+	private final boolean pkSourceButterfly;
 
 	private final File datadirPath;
 	private final String mediaRootUrl;
@@ -203,6 +206,7 @@ public final class Properties
 		mediaRootUrl = explicitMediaRootUrl!=null ? explicitMediaRootUrl : MEDIA_ROOT_URL_DEFAULT;
 		
 		this.databaseDontSupportEmptyStrings = getPropertyBoolean(properties, DATABASE_DONT_SUPPORT_EMPTY_STRINGS, false);
+		this.pkSourceButterfly = getPropertyBoolean(properties, PKSOURCE_BUTTERFLY, false);
 	}
 	
 	private final RuntimeException newNotSetException(final String key)
@@ -295,6 +299,11 @@ public final class Properties
 		return databaseCustomProperties.getProperty(key);
 	}
 	
+	public boolean getPkSourceButterfly()
+	{
+		return pkSourceButterfly;
+	}
+	
 	public boolean hasDatadirPath()
 	{
 		return datadirPath!=null;
@@ -355,6 +364,13 @@ public final class Properties
 					".* between " + source + " and " + other.source + "," +
 					" expected " + this.databaseForcedNames +
 					" but got " + other.databaseForcedNames + '.');
+		
+		if(this.pkSourceButterfly!=other.pkSourceButterfly)
+			throw new RuntimeException(
+					"inconsistent initialization for " + PKSOURCE_BUTTERFLY +
+					" between " + source + " and " + other.source + "," +
+					" expected " + this.pkSourceButterfly +
+					" but got " + other.pkSourceButterfly + '.');
 		
 		if((this.datadirPath!=null && !this.datadirPath.equals(other.datadirPath)) ||
 				(this.datadirPath==null && other.datadirPath!=null))

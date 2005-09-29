@@ -74,6 +74,10 @@ final class Properties_Jspm
 				<td><%=properties.getDatabaseDontSupportEmptyStrings()%></td>
 			</tr>
 			<tr>
+				<th><%=properties.PKSOURCE_BUTTERFLY%></th>
+				<td><%=properties.getPkSourceButterfly()%></td>
+			</tr>
+			<tr>
 				<th><%=properties.DATADIR_PATH%></th>
 				<td><%
 				if(properties.hasDatadirPath())
