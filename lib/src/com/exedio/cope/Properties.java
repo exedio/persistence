@@ -366,17 +366,12 @@ public final class Properties
 			final Properties other, final String name,
 			final boolean thisValue, final boolean otherValue)
 	{
-		if(thisValue!=otherValue)
-			throw new RuntimeException(
-					"inconsistent initialization for " + name +
-					" between " + source + " and " + other.source + "," +
-					" expected " + thisValue +
-					" but got " + otherValue + '.');
+		ensureEquality(other, name, Boolean.valueOf(this.mediaRootUrl), Boolean.valueOf(other.mediaRootUrl));
 	}
 	
 	private final void ensureEquality(
 			final Properties other, final String name,
-			final String thisValue, final String otherValue)
+			final Object thisValue, final Object otherValue)
 	{
 		if(!thisValue.equals(otherValue))
 			throw new RuntimeException(
