@@ -53,8 +53,7 @@ public final class UniqueViolationException extends ConstraintViolationException
 	
 	/**
 	 * Returns the item that was attempted to be modified.
-	 * Is null, if the item has not yet been created,
-	 * e.g. the collision occured in the constructor.
+	 * Returns null, if the violation occured on the creation of an item.
 	 */
 	public final Item getItem()
 	{

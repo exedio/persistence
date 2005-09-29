@@ -98,12 +98,13 @@ public class AttributeItemTest extends AttributeTest
 		try
 		{
 			item.setSomeNotNullItem(null);
-			fail("should have thrown NotNullViolationException");
+			fail();
 		}
 		catch (MandatoryViolationException e)
 		{
 			assertEquals(item, e.getItem());
 			assertEquals(item.someNotNullItem, e.getMandatoryAttribute());
+			assertEquals("mandatory violation on " + item + " for AttributeItem#someNotNullItem", e.getMessage());
 		}
 		assertEquals(someItem2, item.getSomeNotNullItem());
 		assertDeleteFails(someItem2, item.someNotNullItem);
@@ -111,12 +112,13 @@ public class AttributeItemTest extends AttributeTest
 		try
 		{
 			new AttributeItem("someString", 5, 6l, 2.2, true, null, AttributeItem.SomeEnum.enumValue1);
-			fail("should have thrown NotNullViolationException");
+			fail();
 		}
 		catch(MandatoryViolationException e)
 		{
 			assertEquals(null, e.getItem());
 			assertEquals(item.someNotNullItem, e.getMandatoryAttribute());
+			assertEquals("mandatory violation on a newly created item for AttributeItem#someNotNullItem", e.getMessage());
 		}
 	}
 	

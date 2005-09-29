@@ -67,6 +67,7 @@ public class NullEmptyTest extends TestmodelTest
 			assertTrue(!supports);
 			assertEquals(item.mandatory, e.getMandatoryAttribute());
 			assertEquals(item, e.getItem());
+			assertEquals("mandatory violation on " + item + " for StringItem#mandatory", e.getMessage());
 		}
 		
 		final StringItem item2 = new StringItem("", false);
@@ -90,6 +91,7 @@ public class NullEmptyTest extends TestmodelTest
 			assertTrue(!supports);
 			assertEquals(item3.mandatory, e.getMandatoryAttribute());
 			assertEquals(item3, e.getItem());
+			assertEquals("mandatory violation on a newly created item for StringItem#mandatory", e.getMessage());
 		}
 	}
 

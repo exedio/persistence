@@ -41,7 +41,7 @@ public final class MandatoryViolationException extends ConstraintViolationExcept
 	 * @param item initializes, what is returned by {@link #getItem()}.
 	 * @param mandatoryAttribute initializes, what is returned by {@link #getMandatoryAttribute()}.
 	 */
-	public MandatoryViolationException(final Item item, final Attribute mandatoryAttribute)
+	MandatoryViolationException(final Item item, final Attribute mandatoryAttribute)
 	{
 		super(null);
 		this.item = item;
@@ -50,6 +50,7 @@ public final class MandatoryViolationException extends ConstraintViolationExcept
 	
 	/**
 	 * Returns the item that was attempted to be modified.
+	 * Returns null, if the mandatory violation occured on the creation of an item.
 	 */
 	public final Item getItem()
 	{
@@ -64,4 +65,9 @@ public final class MandatoryViolationException extends ConstraintViolationExcept
 		return mandatoryAttribute;
 	}
 
+	public String getMessage()
+	{
+		return "mandatory violation on " + (item!=null ? item.getCopeID() : "a newly created item") + " for "+ mandatoryAttribute;
+	}
+	
 }

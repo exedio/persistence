@@ -206,12 +206,13 @@ public class UniqueItemTest extends TestmodelTest
 		try
 		{
 			item.setUniqueNotNullString(null);
-			fail("should have thrown NotNullViolationException");
+			fail();
 		}
 		catch(MandatoryViolationException e)
 		{
 			assertEquals(item.uniqueNotNullString, e.getMandatoryAttribute());
 			assertEquals(item, e.getItem());
+			assertEquals("mandatory violation on " + item + " for ItemWithSingleUniqueNotNull#uniqueNotNullString", e.getMessage());
 		}
 		assertEquals("uniqueString2", item.getUniqueNotNullString());
 		assertEquals(null, ItemWithSingleUniqueNotNull.findByUniqueNotNullString("uniqueString"));
@@ -227,6 +228,7 @@ public class UniqueItemTest extends TestmodelTest
 		{
 			assertEquals(item.uniqueNotNullString, e.getMandatoryAttribute());
 			assertEquals(null, e.getItem());
+			assertEquals("mandatory violation on a newly created item for ItemWithSingleUniqueNotNull#uniqueNotNullString", e.getMessage());
 		}
 		assertContains(item, item.TYPE.search(null));
 
@@ -259,7 +261,7 @@ public class UniqueItemTest extends TestmodelTest
 		try
 		{		
 			new ItemWithDoubleUnique("b", 1);
-			fail("should have thrown UniqueViolationException");
+			fail();
 		}
 		catch(UniqueViolationException e)
 		{

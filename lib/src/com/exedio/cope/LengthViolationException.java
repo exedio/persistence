@@ -52,6 +52,7 @@ public final class LengthViolationException extends ConstraintViolationException
 	
 	/**
 	 * Returns the item that was attempted to be modified.
+	 * Returns null, if the violation occured on the creation of an item.
 	 */
 	public final Item getItem()
 	{

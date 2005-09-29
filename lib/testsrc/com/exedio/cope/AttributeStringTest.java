@@ -154,23 +154,25 @@ public class AttributeStringTest extends AttributeTest
 		try
 		{
 			item.setSomeNotNullString(null);
-			fail("should have thrown NotNullViolationException");
+			fail();
 		}
 		catch (MandatoryViolationException e)
 		{
 			assertEquals(item, e.getItem());
 			assertEquals(item.someNotNullString, e.getMandatoryAttribute());
+			assertEquals("mandatory violation on " + item + " for AttributeItem#someNotNullString", e.getMessage());
 		}
 
 		try
 		{
 			new AttributeItem(null, 5, 6l, 2.2, true, someItem, AttributeItem.SomeEnum.enumValue1);
-			fail("should have thrown NotNullViolationException");
+			fail();
 		}
 		catch(MandatoryViolationException e)
 		{
 			assertEquals(null, e.getItem());
 			assertEquals(item.someNotNullString, e.getMandatoryAttribute());
+			assertEquals("mandatory violation on a newly created item for AttributeItem#someNotNullString", e.getMessage());
 		}
 	}
 
