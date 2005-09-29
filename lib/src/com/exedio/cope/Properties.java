@@ -327,13 +327,7 @@ public final class Properties
 		ensureEquality(other, DATABASE, this.getDatabase(), other.getDatabase());
 		ensureEquality(other, DATABASE_URL, this.databaseUrl, other.databaseUrl);
 		ensureEquality(other, DATABASE_USER, this.databaseUser, other.databaseUser);
-		
-		// dont put password into exception message
-		if(!this.databasePassword.equals(other.databasePassword))
-			throw new RuntimeException(
-					"inconsistent initialization for " + DATABASE_PASSWORD +
-					" between " + source + " and " + other.source);
-		
+		ensureEquality(other, DATABASE_PASSWORD, this.databasePassword, other.databasePassword, true);
 		ensureEquality(other, DATABASE_DONT_SUPPORT_EMPTY_STRINGS, this.databaseDontSupportEmptyStrings, other.databaseDontSupportEmptyStrings);
 		ensureEquality(other, DATABASE_FORCE_NAME, this.databaseForcedNames, other.databaseForcedNames);
 		
@@ -346,19 +340,26 @@ public final class Properties
 			final Properties other, final String name,
 			final boolean thisValue, final boolean otherValue)
 	{
-		ensureEquality(other, name, Boolean.valueOf(this.mediaRootUrl), Boolean.valueOf(other.mediaRootUrl));
+		ensureEquality(other, name, Boolean.valueOf(thisValue), Boolean.valueOf(otherValue), false);
 	}
 	
 	private final void ensureEquality(
 			final Properties other, final String name,
 			final Object thisValue, final Object otherValue)
 	{
+		ensureEquality(other, name, thisValue, otherValue, false);
+	}
+	
+	private final void ensureEquality(
+			final Properties other, final String name,
+			final Object thisValue, final Object otherValue,
+			final boolean hideValues)
+	{
 		if((thisValue!=null && !thisValue.equals(otherValue)) ||
 			(thisValue==null && otherValue!=null))
 			throw new RuntimeException(
 					"inconsistent initialization for " + name +
-					" between " + source + " and " + other.source + "," +
-					" expected " + thisValue +
-					" but got " + otherValue + '.');
+					" between " + source + " and " + other.source +
+					(hideValues ? "" : "," + " expected " + thisValue + " but got " + otherValue + '.'));
 	}
 }
