@@ -64,7 +64,7 @@ public final class Type
 	private Model model;
 
 	private Table table;
-	private PrimaryKeyIterator primaryKeyIterator;
+	private ButterflyPkSource primaryKeyIterator;
 
 	private final Constructor creationConstructor;
 	private final Constructor reactivationConstructor;
@@ -322,7 +322,7 @@ public final class Type
 		}
 		else
 		{
-			primaryKeyIterator = new PrimaryKeyIterator(table);
+			primaryKeyIterator = new ButterflyPkSource(table);
 			new IntegerColumn(table);
 		}
 		
@@ -571,7 +571,7 @@ public final class Type
 		return toStringCache;
 	}
 	
-	PrimaryKeyIterator getPrimaryKeyIterator()
+	ButterflyPkSource getPrimaryKeyIterator()
 	{
 		if(primaryKeyIterator==null)
 			throw new RuntimeException( "no primary key iterator in "+getID()+"; maybe you have to initialize the model first" );

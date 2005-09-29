@@ -20,11 +20,11 @@ package com.exedio.cope;
 
 import java.sql.Connection;
 
-final class PrimaryKeyIterator
+final class ButterflyPkSource
 {
 	private final Table table;
 	
-	PrimaryKeyIterator(final Table table)
+	ButterflyPkSource(final Table table)
 	{
 		this.table = table;
 	}
