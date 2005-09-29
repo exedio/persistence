@@ -361,12 +361,7 @@ abstract class Database
 				if(!firstOrderBy)
 					bf.append(',');
 				
-				final Table deterministicOrderTable = query.type.getTable();
-				bf.append("abs(").
-					append(deterministicOrderTable.protectedID).
-					append('.').
-					append(deterministicOrderTable.getPrimaryKey().protectedID).
-					append("*4+1)");
+				query.type.getPkSource().appendDeterministicOrderByExpression(bf, query.type.getTable());
 			}
 		}
 

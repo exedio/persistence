@@ -33,4 +33,11 @@ abstract class PkSource
 	abstract int nextPK(Connection connection);
 	abstract long pk2id(int pk);
 	abstract int id2pk(long id) throws NoSuchIDException;
+
+	/**
+	 * There may be one PkSource for many tables (in a inheritance tree),
+	 * so we have to specify the orderByTable here,
+	 * since it may not be equal to this.table.
+	 */
+	abstract void appendDeterministicOrderByExpression(Statement bf, Table orderByTable);
 }
