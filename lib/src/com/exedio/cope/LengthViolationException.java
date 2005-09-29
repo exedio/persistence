@@ -79,4 +79,13 @@ public final class LengthViolationException extends ConstraintViolationException
 		return isTooShort;
 	}
 
+	public String getMessage()
+	{
+		return
+			"length violation on " + item.getCopeID() +
+			", '" + value + "' is too " +
+			(isTooShort?"short":"long") +
+			" for "+ stringAttribute;
+	}
+	
 }
