@@ -34,7 +34,7 @@ final class TypeCop extends CopernicaCop
 	final Function orderBy; 
 	final boolean orderAscending;
 	final int limitStart;
-	final int count;
+	final int limitCount;
 
 	private Query.Result queryResult = null;
 	private StatementInfo statementInfo;
@@ -58,7 +58,7 @@ final class TypeCop extends CopernicaCop
 		this.orderBy = orderBy;
 		this.orderAscending = orderAscending;
 		this.limitStart = start;
-		this.count = count;
+		this.limitCount = count;
 
 		addParameter(TYPE, type.getID());
 		if(orderBy!=null)
@@ -71,7 +71,7 @@ final class TypeCop extends CopernicaCop
 	
 	final CopernicaCop switchLanguage(final CopernicaLanguage newLanguage)
 	{
-		return new TypeCop(provider, newLanguage, type, orderBy, orderAscending, limitStart, count);
+		return new TypeCop(provider, newLanguage, type, orderBy, orderAscending, limitStart, limitCount);
 	}
 	
 	final boolean isType(final Type type)
@@ -103,32 +103,32 @@ final class TypeCop extends CopernicaCop
 	final boolean isLastPage()
 	{
 		computeItems();
-		return (limitStart+count)>=queryResult.getCountWithoutRange();
+		return (limitStart+limitCount)>=queryResult.getCountWithoutRange();
 	}
 	
 	final TypeCop firstPage()
 	{
-		return new TypeCop(provider, language, type, orderBy, orderAscending, 0, count);
+		return new TypeCop(provider, language, type, orderBy, orderAscending, 0, limitCount);
 	}
 	
 	final TypeCop lastPage()
 	{
 		computeItems();
-		return new TypeCop(provider, language, type, orderBy, orderAscending, ((queryResult.getCountWithoutRange()-1)/count)*count, count);
+		return new TypeCop(provider, language, type, orderBy, orderAscending, ((queryResult.getCountWithoutRange()-1)/limitCount)*limitCount, limitCount);
 	}
 	
 	final TypeCop previousPage()
 	{
-		int newStart = limitStart - count;
+		int newStart = limitStart - limitCount;
 		if(newStart<0)
 			newStart = 0;
-		return new TypeCop(provider, language, type, orderBy, orderAscending, newStart, count);
+		return new TypeCop(provider, language, type, orderBy, orderAscending, newStart, limitCount);
 	}
 	
 	final TypeCop nextPage()
 	{
-		int newStart = limitStart + count;
-		return new TypeCop(provider, language, type, orderBy, orderAscending, newStart, count);
+		int newStart = limitStart + limitCount;
+		return new TypeCop(provider, language, type, orderBy, orderAscending, newStart, limitCount);
 	}
 	
 	final TypeCop switchCount(final int newCount)
@@ -138,7 +138,7 @@ final class TypeCop extends CopernicaCop
 	
 	final TypeCop orderBy(final Function newOrderBy, final boolean ascending) 
 	{
-		return new TypeCop(provider, language, type, newOrderBy, ascending, limitStart, count);
+		return new TypeCop(provider, language, type, newOrderBy, ascending, limitStart, limitCount);
 	}
 	
 	final Collection getItems()
@@ -168,7 +168,7 @@ final class TypeCop extends CopernicaCop
 		if(orderBy!=null)
 			query.setOrderBy(orderBy, orderAscending);
 		query.setDeterministicOrder(true);
-		query.setLimit(limitStart, count); // TODO append limit
+		query.setLimit(limitStart, limitCount);
 		query.enableMakeStatementInfo();
 		
 		queryResult = query.searchAndCountWithoutRange();

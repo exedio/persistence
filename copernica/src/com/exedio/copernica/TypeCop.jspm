@@ -109,7 +109,7 @@ final class TypeCop_Jspm
 				{
 				%>
 				<a href="<%=cop.switchCount(i)%>"<%
-					if(i==cop.count){%> id="disabled"<%}%>><%=i%></a><%
+					if(i==cop.limitCount){%> id="disabled"<%}%>><%=i%></a><%
 				}%>
 				)
 			</div><%
