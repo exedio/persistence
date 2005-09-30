@@ -294,7 +294,7 @@ public final class Query
 	public static final class Result
 	{
 		final Collection data;
-		final int countWithoutRange;
+		final int countWithoutLimit;
 		
 		private Result(final Collection data, final int countWithoutRange)
 		{
@@ -304,7 +304,7 @@ public final class Query
 				throw new RuntimeException(String.valueOf(countWithoutRange));
 			
 			this.data = data;
-			this.countWithoutRange = countWithoutRange;
+			this.countWithoutLimit = countWithoutRange;
 		}
 		
 		public Collection getData()
@@ -314,19 +314,19 @@ public final class Query
 		
 		public int getCountWithoutLimit()
 		{
-			return countWithoutRange;
+			return countWithoutLimit;
 		}
 		
 		public boolean equals(final Object o)
 		{
 			final Result or = (Result)o;
 
-			return countWithoutRange==or.countWithoutRange && data.equals(or.data);
+			return countWithoutLimit==or.countWithoutLimit && data.equals(or.data);
 		}
 		
 		public String toString()
 		{
-			return data.toString() + '(' + countWithoutRange + ')';
+			return data.toString() + '(' + countWithoutLimit + ')';
 		}
 	}
 }
