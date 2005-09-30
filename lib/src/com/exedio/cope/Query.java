@@ -147,14 +147,13 @@ public final class Query
 	}
 
 	/**
-	 * @see #setRange(int)
+	 * @see #setLimit(int)
 	 * @param count the maximum number of items to be found.
 	 * @throws RuntimeException if start is a negative value
 	 * @throws RuntimeException if count is a negative value
 	 */	
-	public void setRange(final int start, final int count)
+	public void setLimit(final int start, final int count)
 	{
-		// TODO: rename to setLimit
 		if(start<0)
 			throw new RuntimeException("start must not be negative, but was " + start);
 		if(count<0)
@@ -165,10 +164,10 @@ public final class Query
 	}
 	
 	/**
-	 * @see #setRange(int, int)
+	 * @see #setLimit(int, int)
 	 * @throws RuntimeException if start is a negative value
 	 */	
-	public void setRange(final int start)
+	public void setLimit(final int start)
 	{
 		if(start<0)
 			throw new RuntimeException("start must not be negative, but was " + start);
@@ -243,7 +242,7 @@ public final class Query
 	 * Returns the
 	 * {@link Collection#size() size} of what
 	 * {@link #search()} would have returned for this query with
-	 * {@link #setRange(int)} reset set to <code>(0)</code>.
+	 * {@link #setLimit(int)} reset set to <code>(0)</code>.
 	 */
 	public final int countWithoutRange()
 	{

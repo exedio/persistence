@@ -68,7 +68,7 @@ public class OrderByTest extends TestmodelTest
 			final Query q = new Query(item1.TYPE, null);
 			try
 			{
-				q.setRange(-1, 10);
+				q.setLimit(-1, 10);
 				fail();
 			}
 			catch(RuntimeException e)
@@ -79,7 +79,7 @@ public class OrderByTest extends TestmodelTest
 			}
 			try
 			{
-				q.setRange(-1);
+				q.setLimit(-1);
 				fail();
 			}
 			catch(RuntimeException e)
@@ -90,7 +90,7 @@ public class OrderByTest extends TestmodelTest
 			}
 			try
 			{
-				q.setRange(0, -1);
+				q.setLimit(0, -1);
 				fail();
 			}
 			catch(RuntimeException e)
@@ -133,9 +133,9 @@ public class OrderByTest extends TestmodelTest
 		query.setDeterministicOrder(true);
 
 		if(count==-1)
-			query.setRange(start);
+			query.setLimit(start);
 		else
-			query.setRange(start, count);
+			query.setLimit(start, count);
 		
 		assertEquals(expectedOrder, query.search());
 
@@ -145,14 +145,14 @@ public class OrderByTest extends TestmodelTest
 		
 		final Query.Result resultWithSizeWithoutRange = query.searchAndCountWithoutRange();
 		assertEquals(expectedOrder, resultWithSizeWithoutRange.getData());
-		query.setRange(0);
+		query.setLimit(0);
 		final Collection resultWithoutRange = query.search();
 		assertEquals(resultWithoutRange.size(), resultWithSizeWithoutRange.getCountWithoutRange());
 
 		if(count==-1)
-			query.setRange(start);
+			query.setLimit(start); // append limit to name
 		else
-			query.setRange(start, count);
+			query.setLimit(start, count);
 	}
 	
 }

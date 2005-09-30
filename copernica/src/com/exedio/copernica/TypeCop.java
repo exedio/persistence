@@ -168,7 +168,7 @@ final class TypeCop extends CopernicaCop
 		if(orderBy!=null)
 			query.setOrderBy(orderBy, orderAscending);
 		query.setDeterministicOrder(true);
-		query.setRange(start, count);
+		query.setLimit(start, count); // TODO append limit
 		query.enableMakeStatementInfo();
 		
 		queryResult = query.searchAndCountWithoutRange();
