@@ -46,27 +46,27 @@ final class TypeCop extends CopernicaCop
 	
 	TypeCop(final CopernicaProvider provider, final CopernicaLanguage language, final Type type,
 					final Function orderBy, final boolean orderAscending,
-					final int start, int count)
+					final int limitStart, int limitCount)
 	{
 		super(provider, language);
 		
 		final int countCeiling = provider.getCountCeiling(type);
-		if(count>countCeiling)
-			count = countCeiling;
+		if(limitCount>countCeiling)
+			limitCount = countCeiling;
 
 		this.type = type;
 		this.orderBy = orderBy;
 		this.orderAscending = orderAscending;
-		this.limitStart = start;
-		this.limitCount = count;
+		this.limitStart = limitStart;
+		this.limitCount = limitCount;
 
 		addParameter(TYPE, type.getID());
 		if(orderBy!=null)
 			addParameter(orderAscending ? ORDER_ASCENDING : ORDER_DESCENDING, orderBy.getName());
-		if(start!=0)
-			addParameter(START, String.valueOf(start));
-		if(count!=10)
-			addParameter(COUNT, String.valueOf(count));
+		if(limitStart!=0)
+			addParameter(START, String.valueOf(limitStart));
+		if(limitCount!=10)
+			addParameter(COUNT, String.valueOf(limitCount));
 	}
 	
 	final CopernicaCop switchLanguage(final CopernicaLanguage newLanguage)
