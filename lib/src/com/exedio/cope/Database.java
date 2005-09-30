@@ -212,6 +212,14 @@ abstract class Database
 		//System.out.println("CHECK EMPTY TABLES "+amount+"ms  accumulated "+checkEmptyTableTime);
 	}
 	
+	private final boolean appendLimitClauseInSearch(final Statement bf, final int start, final int count)
+	{
+		if(start>0 || count!=Query.UNLIMITED_COUNT)
+			return appendLimitClause(bf, start, count);
+		else
+			return false;
+	}
+	
 	final ArrayList search(final Connection connection, final Query query, final boolean doCountOnly)
 	{
 		if ( expectedCalls!=null )
@@ -220,6 +228,10 @@ abstract class Database
 		}
 		
 		buildStage = false;
+
+		final int start = query.start;
+		final int count = query.count;
+		final boolean limitByDatabase;
 
 		final Statement bf = createStatement();
 		bf.setJoinsToAliases(query);
@@ -343,10 +355,6 @@ abstract class Database
 			query.condition.appendStatement(bf);
 		}
 
-		final int start = query.start;
-		final int count = query.count;
-		final boolean limitByDatabase;
-
 		if(doCountOnly)
 		{
 			limitByDatabase = false;
@@ -373,11 +381,8 @@ abstract class Database
 				
 				query.type.getPkSource().appendDeterministicOrderByExpression(bf, query.type.getTable());
 			}
-			
-			if(start>0 || count!=Query.UNLIMITED_COUNT)
-				limitByDatabase = appendLimitClause(bf, start, count);
-			else
-				limitByDatabase = false;
+
+			limitByDatabase = appendLimitClauseInSearch(bf, start, count);
 		}
 
 		//System.out.println("searching "+bf.toString());
