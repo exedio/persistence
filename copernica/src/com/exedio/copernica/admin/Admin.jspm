@@ -30,6 +30,7 @@ import com.exedio.cope.Model;
 import com.exedio.cope.pattern.MediaPath;
 import com.exedio.cope.pattern.MediaRedirect;
 import com.exedio.cope.util.PoolCounter;
+import com.exedio.cope.util.CacheInfo;
 
 final class Admin_Jspm
 {
@@ -80,6 +81,7 @@ final class Admin_Jspm
 </html>
 <%
 	}
+
 	final static void write(final PrintStream out, final PoolCounter poolCounter, final ConnectionStatsCop cop)
 		throws IOException
 	{
@@ -131,6 +133,43 @@ final class Admin_Jspm
 				<td><%=pool.getSize()%><%if(inconsistent){%>!<%}%></td><%
 				writeColouredData(out, data);
 				%>
+			</tr><%
+			}
+		%>
+		</table><%
+	}
+
+	final static void write(final PrintStream out, final CacheInfo[] infos, final CacheStatsCop cop)
+		throws IOException
+	{
+		final String[] names = new String[]{
+			"Number Of Items In Cache",
+		};
+		%>
+		<table class="statistics">
+			<tr>
+				<th colspan="7">Cache Statistics</th>
+			</tr><%
+			writeColouredHeader(out, names, 1);
+			%>
+			<tr>
+				<th>Type</th><%
+				writeColouredHeaderSchnips(out, names);
+				%>
+				<th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+			</tr><%
+			for(int i = 0; i<infos.length; i++)
+			{
+				final CacheInfo info = infos[i];
+				final int[] data = new int[]{
+						info.getNumberOfItemsInCache(),
+					};
+			%>
+			<tr>
+				<td><%=info.getType().getID()%></td><%
+				writeColouredData(out, data);
+				%>
+				<td></td>
 			</tr><%
 			}
 		%>

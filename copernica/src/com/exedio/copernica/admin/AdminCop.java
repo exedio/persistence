@@ -53,6 +53,7 @@ abstract class AdminCop extends Cop
 				new PropertiesCop(),
 				new SchemaCop(null, false, false),
 				new ConnectionStatsCop(),
+				new CacheStatsCop(),
 				new MediaStatsCop(),
 				new VmCop(false),
 				new DbCop(),
@@ -100,6 +101,7 @@ abstract class AdminCop extends Cop
 	
 	static final String TAB = "t";
 	static final String TAB_CONNECTION_STATS = "cp";
+	static final String TAB_CACHE_STATS = "ca";
 	static final String TAB_MEDIA_STATS = "m";
 	static final String TAB_VM = "vm";
 	static final String TAB_DB = "db";
@@ -109,6 +111,8 @@ abstract class AdminCop extends Cop
 		final String tab = request.getParameter(TAB);
 		if(TAB_CONNECTION_STATS.equals(tab))
 			return new ConnectionStatsCop();
+		if(TAB_CACHE_STATS.equals(tab))
+			return new CacheStatsCop();
 		if(TAB_MEDIA_STATS.equals(tab))
 			return new MediaStatsCop();
 		if(TAB_VM.equals(tab))

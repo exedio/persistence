@@ -32,6 +32,7 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Set;
 
+import com.exedio.cope.util.CacheInfo;
 import com.exedio.cope.util.PoolCounter;
 import com.exedio.dsmf.SQLRuntimeException;
 import com.exedio.dsmf.Schema;
@@ -379,6 +380,11 @@ public final class Model
 			throw new NoSuchIDException(id, false, "item <"+idNumber+"> does not exist");
 		}
 		return result;
+	}
+	
+	public CacheInfo[] getCacheInfo()
+	{
+		return cache.getInfo(types);
 	}
 	
 	public PoolCounter getConnectionPoolCounter()

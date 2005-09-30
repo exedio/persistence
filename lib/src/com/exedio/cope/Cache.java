@@ -22,6 +22,8 @@ import bak.pcj.map.IntKeyMap;
 import bak.pcj.map.IntKeyOpenHashMap;
 import bak.pcj.set.IntSet;
 
+import com.exedio.cope.util.CacheInfo;
+
 final class Cache
 {
 	private final IntKeyMap[] stateMaps;
@@ -88,5 +90,25 @@ final class Cache
 				stateMap.clear();
 			}
 		}
+	}
+
+	CacheInfo[] getInfo(final Type[] types)
+	{
+		final CacheInfo[] result = new CacheInfo[stateMaps.length];
+		
+		for(int i=0; i<stateMaps.length; i++ )
+		{
+			final IntKeyMap stateMap = getStateMap(i);
+			final int numberOfItemsInCache;
+
+			synchronized(stateMap)
+			{
+				numberOfItemsInCache = stateMap.size();
+			}
+			
+			result[i] = new CacheInfo(types[i], numberOfItemsInCache);
+		}
+		
+		return result;
 	}
 }
