@@ -229,7 +229,7 @@ abstract class Database
 		
 		buildStage = false;
 
-		final int start = query.start;
+		final int limitStart = query.start;
 		final int count = query.count;
 		final boolean limitClauseInSelect = doCountOnly ? false : isLimitClauseInSelect();
 		boolean limitByDatabaseTemp = false;
@@ -239,7 +239,7 @@ abstract class Database
 		bf.append("select");
 		
 		if(!doCountOnly && limitClauseInSelect)
-			limitByDatabaseTemp = appendLimitClauseInSearch(bf, start, count);
+			limitByDatabaseTemp = appendLimitClauseInSearch(bf, limitStart, count);
 		
 		bf.append(' ');
 
@@ -385,7 +385,7 @@ abstract class Database
 			}
 
 			if(!limitClauseInSelect)
-				limitByDatabaseTemp = appendLimitClauseInSearch(bf, start, count);
+				limitByDatabaseTemp = appendLimitClauseInSearch(bf, limitStart, count);
 		}
 
 		//System.out.println("searching "+bf.toString());
@@ -394,7 +394,7 @@ abstract class Database
 		final Model model = query.model;
 		final ArrayList result = new ArrayList();
 
-		if(start<0)
+		if(limitStart<0)
 			throw new RuntimeException();
 		if(selectables.length!=selectColumns.length)
 			throw new RuntimeException();
@@ -414,14 +414,14 @@ abstract class Database
 						return;
 					}
 					
-					if(!limitByDatabase && start>0)
+					if(!limitByDatabase && limitStart>0)
 					{
 						// TODO: ResultSet.relative
 						// Would like to use
-						//    resultSet.relative(start+1);
+						//    resultSet.relative(limitStart+1);
 						// but this throws a java.sql.SQLException:
 						// Invalid operation for forward only resultset : relative
-						for(int i = start; i>0; i--)
+						for(int i = limitStart; i>0; i--)
 							resultSet.next();
 					}
 						
