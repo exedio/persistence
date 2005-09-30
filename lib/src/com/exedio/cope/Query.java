@@ -40,7 +40,9 @@ public final class Query
 	boolean orderAscending;
 	boolean deterministicOrder = false;
 
+	// TODO: rename to limitStart
 	int start = 0;
+	// TODO: rename to limitCount
 	int count = UNLIMITED_COUNT;
 	
 	boolean makeStatementInfo = false;
@@ -152,6 +154,7 @@ public final class Query
 	 */	
 	public void setRange(final int start, final int count)
 	{
+		// TODO: rename to setLimit
 		if(start<0)
 			throw new RuntimeException("start must not be negative, but was " + start);
 		if(count<0)
