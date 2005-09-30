@@ -112,7 +112,7 @@ final class Admin_Jspm
 			writeColouredHeader(out, names, 1);
 			%>
 			<tr>
-				<th>Size</th><%
+				<th>maxIdle</th><%
 				writeColouredHeaderSchnips(out, names);
 				%>
 				<th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
