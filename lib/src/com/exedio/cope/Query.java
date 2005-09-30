@@ -41,8 +41,7 @@ public final class Query
 	boolean deterministicOrder = false;
 
 	int limitStart = 0;
-	// TODO: rename to limitCount
-	int count = UNLIMITED_COUNT;
+	int limitCount = UNLIMITED_COUNT;
 	
 	boolean makeStatementInfo = false;
 	private StatementInfo statementInfo = null;
@@ -159,7 +158,7 @@ public final class Query
 			throw new RuntimeException("count must not be negative, but was " + count);
 
 		this.limitStart = start;
-		this.count = count;
+		this.limitCount = count;
 	}
 	
 	/**
@@ -172,7 +171,7 @@ public final class Query
 			throw new RuntimeException("start must not be negative, but was " + start);
 
 		this.limitStart = start;
-		this.count = UNLIMITED_COUNT;
+		this.limitCount = UNLIMITED_COUNT;
 	}
 	
 	public void enableMakeStatementInfo()
@@ -229,7 +228,7 @@ public final class Query
 	{
 		check();
 		
-		if(count==0)
+		if(limitCount==0)
 			return Collections.EMPTY_LIST;
 
 		return Collections.unmodifiableList(model.getDatabase().search(model.getCurrentTransaction().getConnection(), this, false));
@@ -287,7 +286,7 @@ public final class Query
 		final int dataSize = data.size();
 
 		return new Result(data,
-				(dataSize<count || count==UNLIMITED_COUNT)
+				(dataSize<limitCount || limitCount==UNLIMITED_COUNT)
 				? (limitStart+dataSize)
 				: countWithoutRange());
 	}

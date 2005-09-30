@@ -75,7 +75,7 @@ public class OrderByTest extends TestmodelTest
 			{
 				assertEquals("start must not be negative, but was -1", e.getMessage());
 				assertEquals(0, q.limitStart);
-				assertEquals(q.UNLIMITED_COUNT, q.count);
+				assertEquals(q.UNLIMITED_COUNT, q.limitCount);
 			}
 			try
 			{
@@ -86,7 +86,7 @@ public class OrderByTest extends TestmodelTest
 			{
 				assertEquals("start must not be negative, but was -1", e.getMessage());
 				assertEquals(0, q.limitStart);
-				assertEquals(q.UNLIMITED_COUNT, q.count);
+				assertEquals(q.UNLIMITED_COUNT, q.limitCount);
 			}
 			try
 			{
@@ -97,7 +97,7 @@ public class OrderByTest extends TestmodelTest
 			{
 				assertEquals("count must not be negative, but was -1", e.getMessage());
 				assertEquals(0, q.limitStart);
-				assertEquals(q.UNLIMITED_COUNT, q.count);
+				assertEquals(q.UNLIMITED_COUNT, q.limitCount);
 			}
 		}
 		assertOrder(list(item1, item5, item2, item4, item3), list(item3, item4, item2, item5, item1), item.someNotNullInteger, 0, -1);
