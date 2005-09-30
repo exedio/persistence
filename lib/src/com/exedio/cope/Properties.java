@@ -38,6 +38,7 @@ public final class Properties
 	public static final String DATABASE_DONT_SUPPORT_EMPTY_STRINGS = "database.dont.support.empty.strings";
 	static final String DATABASE_FORCE_NAME = "database.forcename";
 	public static final String PKSOURCE_BUTTERFLY = "pksource.butterfly";
+	public static final String CONNECTION_POOL_MAX_IDLE = "connectionPool.maxIdle";
 	public static final String DATADIR_PATH = "datadir.path";
 	public static final String MEDIA_ROOT_URL = "media.rooturl";
 	public static final String MEDIA_ROOT_URL_DEFAULT = "media/";
@@ -57,6 +58,7 @@ public final class Properties
 	private final java.util.Properties databaseCustomProperties;
 	
 	private final boolean pkSourceButterfly;
+	private final int connectionPoolMaxIdle;
 
 	private final File datadirPath;
 	private final String mediaRootUrl;
@@ -207,6 +209,7 @@ public final class Properties
 		
 		this.databaseDontSupportEmptyStrings = getPropertyBoolean(properties, DATABASE_DONT_SUPPORT_EMPTY_STRINGS, false);
 		this.pkSourceButterfly = getPropertyBoolean(properties, PKSOURCE_BUTTERFLY, false);
+		this.connectionPoolMaxIdle = getPropertyInt(properties, CONNECTION_POOL_MAX_IDLE, 10, 5);
 	}
 	
 	private final RuntimeException newNotSetException(final String key)
@@ -236,6 +239,38 @@ public final class Properties
 				return false;
 			else
 				throw new RuntimeException("property "+key+" in "+source+" has invalid value, expected >true< or >false< bot got >"+s+"<.");
+		}
+	}
+
+	private int getPropertyInt(final java.util.Properties properties, final String key, final int defaultValue, final int minimumValue)
+	{
+		if(defaultValue<minimumValue)
+			throw new RuntimeException(key+defaultValue+','+minimumValue);
+		
+		final String s = properties.getProperty(key);
+		if(s==null)
+			return defaultValue;
+		else
+		{
+			final int result;
+			
+			try
+			{
+				result = Integer.parseInt(s);
+			}
+			catch(NumberFormatException e)
+			{
+				throw new RuntimeException(
+						"property " + key + " in " + source + " has invalid value, " +
+						"expected an integer greater " + minimumValue + ", but got >" + s + "<.", e);
+			}
+
+			if(result<minimumValue)
+				throw new RuntimeException(
+						"property " + key + " in " + source + " has invalid value, " +
+						"expected an integer greater " + minimumValue + ", but got " +result + '.');
+
+			return result;
 		}
 	}
 
@@ -304,6 +339,11 @@ public final class Properties
 		return pkSourceButterfly;
 	}
 	
+	public int getConnectionPoolMaxIdle()
+	{
+		return connectionPoolMaxIdle;
+	}
+	
 	public boolean hasDatadirPath()
 	{
 		return datadirPath!=null;
@@ -332,6 +372,7 @@ public final class Properties
 		ensureEquality(other, DATABASE_FORCE_NAME, this.databaseForcedNames, other.databaseForcedNames);
 		
 		ensureEquality(other, PKSOURCE_BUTTERFLY, this.pkSourceButterfly, other.pkSourceButterfly);
+		ensureEquality(other, CONNECTION_POOL_MAX_IDLE, this.connectionPoolMaxIdle, other.connectionPoolMaxIdle);
 		ensureEquality(other, DATADIR_PATH, this.datadirPath, other.datadirPath);
 		ensureEquality(other, MEDIA_ROOT_URL, this.mediaRootUrl, other.mediaRootUrl);
 	}
@@ -341,6 +382,13 @@ public final class Properties
 			final boolean thisValue, final boolean otherValue)
 	{
 		ensureEquality(other, name, Boolean.valueOf(thisValue), Boolean.valueOf(otherValue), false);
+	}
+	
+	private final void ensureEquality(
+			final Properties other, final String name,
+			final int thisValue, final int otherValue)
+	{
+		ensureEquality(other, name, new Integer(thisValue), new Integer(otherValue), false);
 	}
 	
 	private final void ensureEquality(

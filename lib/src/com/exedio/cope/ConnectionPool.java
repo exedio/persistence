@@ -44,7 +44,7 @@ final class ConnectionPool implements ConnectionProvider
 	//       jdbc driver or the database itself.
 	//       maybe then no ring buffer is needed.
 	
-	private final Connection[] idle = new Connection[10];
+	private final Connection[] idle;
 	private int idleCount = 0;
 	private int activeCount = 0;
 	private final Object lock = new Object();
@@ -60,6 +60,7 @@ final class ConnectionPool implements ConnectionProvider
 		this.url = properties.getDatabaseUrl();
 		this.user = properties.getDatabaseUser();
 		this.password = properties.getDatabasePassword();
+		this.idle = new Connection[properties.getConnectionPoolMaxIdle()];
 		
 		// TODO: make this customizable and disableable
 		this.counter = new PoolCounter(new int[]{0,1,2,3,4,5,6,7,8,9,10,12,15,16,18,20,25,30,35,40,45,50,60,70,80,90,100,120,140,160,180,200,250,300,350,400,450,500,600,700,800,900,1000});

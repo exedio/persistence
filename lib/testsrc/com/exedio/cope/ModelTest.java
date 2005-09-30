@@ -220,6 +220,48 @@ public class ModelTest extends TestmodelTest
 			}
 		}
 		{
+			final java.util.Properties props = (java.util.Properties)newProps.clone();
+			final String newValue = "88";
+			props.setProperty(Properties.CONNECTION_POOL_MAX_IDLE, newValue);
+			final String source = file.getAbsolutePath()+'/'+Properties.CONNECTION_POOL_MAX_IDLE+"=88";
+			try
+			{
+				model.setPropertiesInitially(new Properties(props, source));
+			}
+			catch(RuntimeException e)
+			{
+				assertEquals(
+						"inconsistent initialization for " + Properties.CONNECTION_POOL_MAX_IDLE +
+						" between " + mp.getSource() + " and " + source +
+						", expected " + mp.getConnectionPoolMaxIdle() +
+						" but got " + newValue + ".", e.getMessage());
+			}
+
+			props.setProperty(Properties.CONNECTION_POOL_MAX_IDLE, "-1");
+			try
+			{
+				new Properties(props, "minusOne");
+			}
+			catch(RuntimeException e)
+			{
+				assertEquals(
+						"property " + Properties.CONNECTION_POOL_MAX_IDLE + " in minusOne has invalid value," +
+						" expected an integer greater 5, but got -1.", e.getMessage());
+			}
+
+			props.setProperty(Properties.CONNECTION_POOL_MAX_IDLE, "88x");
+			try
+			{
+				new Properties(props, "wrongInt");
+			}
+			catch(RuntimeException e)
+			{
+				assertEquals(
+						"property " + Properties.CONNECTION_POOL_MAX_IDLE + " in wrongInt has invalid value," +
+						" expected an integer greater 5, but got >88x<.", e.getMessage());
+			}
+		}
+		{
 			final char SEP = File.separatorChar;
 			final java.util.Properties props = (java.util.Properties)newProps.clone();
 			props.setProperty(Properties.DATADIR_PATH, props.getProperty(Properties.DATADIR_PATH)+SEP+"AttributeItem");

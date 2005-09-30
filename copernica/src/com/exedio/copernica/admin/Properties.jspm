@@ -78,6 +78,10 @@ final class Properties_Jspm
 				<td><%=properties.getPkSourceButterfly()%></td>
 			</tr>
 			<tr>
+				<th><%=properties.CONNECTION_POOL_MAX_IDLE%></th>
+				<td><%=properties.getConnectionPoolMaxIdle()%></td>
+			</tr>
+			<tr>
 				<th><%=properties.DATADIR_PATH%></th>
 				<td><%
 				if(properties.hasDatadirPath())
