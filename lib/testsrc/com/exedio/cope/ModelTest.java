@@ -161,7 +161,7 @@ public class ModelTest extends TestmodelTest
 			{
 				assertEquals(
 						"property " + Properties.DATABASE_DONT_SUPPORT_EMPTY_STRINGS + " in sourceTrue has invalid value," +
-						" expected >true< or >false< bot got >True<.", e.getMessage());
+						" expected >true< or >false<, but got >True<.", e.getMessage());
 			}
 
 			props.setProperty(Properties.DATABASE_DONT_SUPPORT_EMPTY_STRINGS, "falsE");
@@ -173,7 +173,7 @@ public class ModelTest extends TestmodelTest
 			{
 				assertEquals(
 						"property " + Properties.DATABASE_DONT_SUPPORT_EMPTY_STRINGS + " in sourcefalsE has invalid value," +
-						" expected >true< or >false< bot got >falsE<.", e.getMessage());
+						" expected >true< or >false<, but got >falsE<.", e.getMessage());
 			}
 		}
 		{
@@ -204,7 +204,7 @@ public class ModelTest extends TestmodelTest
 			{
 				assertEquals(
 						"property " + Properties.PKSOURCE_BUTTERFLY + " in sourceTrue has invalid value," +
-						" expected >true< or >false< bot got >True<.", e.getMessage());
+						" expected >true< or >false<, but got >True<.", e.getMessage());
 			}
 
 			props.setProperty(Properties.PKSOURCE_BUTTERFLY, "falsE");
@@ -216,7 +216,7 @@ public class ModelTest extends TestmodelTest
 			{
 				assertEquals(
 						"property " + Properties.PKSOURCE_BUTTERFLY + " in sourcefalsE has invalid value," +
-						" expected >true< or >false< bot got >falsE<.", e.getMessage());
+						" expected >true< or >false<, but got >falsE<.", e.getMessage());
 			}
 		}
 		{

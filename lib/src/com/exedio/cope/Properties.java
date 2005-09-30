@@ -238,7 +238,7 @@ public final class Properties
 			else if(s.equals("false"))
 				return false;
 			else
-				throw new RuntimeException("property "+key+" in "+source+" has invalid value, expected >true< or >false< bot got >"+s+"<.");
+				throw new RuntimeException("property "+key+" in "+source+" has invalid value, expected >true< or >false<, but got >"+s+"<.");
 		}
 	}
 
