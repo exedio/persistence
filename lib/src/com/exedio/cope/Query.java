@@ -280,7 +280,7 @@ public final class Query
 	 * This method does it's best to avoid issuing two queries
 	 * for searching and counting.
 	 */
-	public final Result searchAndCountWithoutRange()
+	public final Result searchAndCountWithoutLimit()
 	{
 		final Collection data = search();
 		final int dataSize = data.size();
