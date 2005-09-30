@@ -86,7 +86,7 @@ final class OracleDatabase
 
 	boolean appendLimitClause(final Statement bf, final int start, final int count)
 	{
-		// ROWNUMs cannot be supported through the interface of this method
+		// TODO: ROWNUMs cannot be supported through the interface of this method
 		return false;
 	}
 	
