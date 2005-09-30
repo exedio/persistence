@@ -229,7 +229,7 @@ abstract class Database
 		
 		buildStage = false;
 
-		final int limitStart = query.start;
+		final int limitStart = query.limitStart;
 		final int limitCount = query.count;
 		final boolean limitClauseInSelect = doCountOnly ? false : isLimitClauseInSelect();
 		boolean limitByDatabaseTemp = false;

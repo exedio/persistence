@@ -40,8 +40,7 @@ public final class Query
 	boolean orderAscending;
 	boolean deterministicOrder = false;
 
-	// TODO: rename to limitStart
-	int start = 0;
+	int limitStart = 0;
 	// TODO: rename to limitCount
 	int count = UNLIMITED_COUNT;
 	
@@ -159,7 +158,7 @@ public final class Query
 		if(count<0)
 			throw new RuntimeException("count must not be negative, but was " + count);
 
-		this.start = start;
+		this.limitStart = start;
 		this.count = count;
 	}
 	
@@ -172,7 +171,7 @@ public final class Query
 		if(start<0)
 			throw new RuntimeException("start must not be negative, but was " + start);
 
-		this.start = start;
+		this.limitStart = start;
 		this.count = UNLIMITED_COUNT;
 	}
 	
@@ -289,7 +288,7 @@ public final class Query
 
 		return new Result(data,
 				(dataSize<count || count==UNLIMITED_COUNT)
-				? (start+dataSize)
+				? (limitStart+dataSize)
 				: countWithoutRange());
 	}
 	
