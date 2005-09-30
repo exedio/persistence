@@ -242,7 +242,7 @@ public final class Query
 	 * {@link #search()} would have returned for this query with
 	 * {@link #setLimit(int)} reset set to <code>(0)</code>.
 	 */
-	public final int countWithoutRange()
+	public final int countWithoutLimit()
 	{
 		check();
 		final Collection result = model.getDatabase().search(model.getCurrentTransaction().getConnection(), this, true);
@@ -275,7 +275,7 @@ public final class Query
 	 * The {@link Result#getData() data} is equal to
 	 * what {@link #search()} would have returned for this query.
 	 * The {@link Result#getCountWithoutRange() countWithoutRange} is equal to what
-	 * {@link #countWithoutRange()} would have returned for this query.
+	 * {@link #countWithoutLimit()} would have returned for this query.
 	 * <p>
 	 * This method does it's best to avoid issuing two queries
 	 * for searching and counting.
@@ -288,7 +288,7 @@ public final class Query
 		return new Result(data,
 				(dataSize<limitCount || limitCount==UNLIMITED_COUNT)
 				? (limitStart+dataSize)
-				: countWithoutRange());
+				: countWithoutLimit());
 	}
 	
 	public static final class Result
