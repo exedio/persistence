@@ -127,16 +127,16 @@ public class OrderByTest extends TestmodelTest
 	
 	private void assertOrder(final List expectedOrder, final List expectedReverseOrder,
 													final ObjectAttribute searchAttribute,
-													final int limitStart, final int count)
+													final int limitStart, final int limitCount)
 	{
 		final Query query = new Query(item1.TYPE, null);
 		query.setOrderBy(searchAttribute, true);
 		query.setDeterministicOrder(true);
 
-		if(count==-1)
+		if(limitCount==-1)
 			query.setLimit(limitStart);
 		else
-			query.setLimit(limitStart, count);
+			query.setLimit(limitStart, limitCount);
 		
 		assertEquals(expectedOrder, query.search());
 
@@ -150,10 +150,10 @@ public class OrderByTest extends TestmodelTest
 		final Collection resultWithoutRange = query.search();
 		assertEquals(resultWithoutRange.size(), resultWithSizeWithoutRange.getCountWithoutRange());
 
-		if(count==-1)
+		if(limitCount==-1)
 			query.setLimit(limitStart);
 		else
-			query.setLimit(limitStart, count); // append limit to name
+			query.setLimit(limitStart, limitCount);
 	}
 	
 }
