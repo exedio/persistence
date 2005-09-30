@@ -230,7 +230,7 @@ abstract class Database
 		buildStage = false;
 
 		final int limitStart = query.start;
-		final int count = query.count;
+		final int limitCount = query.count;
 		final boolean limitClauseInSelect = doCountOnly ? false : isLimitClauseInSelect();
 		boolean limitByDatabaseTemp = false;
 
@@ -239,7 +239,7 @@ abstract class Database
 		bf.append("select");
 		
 		if(!doCountOnly && limitClauseInSelect)
-			limitByDatabaseTemp = appendLimitClauseInSearch(bf, limitStart, count);
+			limitByDatabaseTemp = appendLimitClauseInSearch(bf, limitStart, limitCount);
 		
 		bf.append(' ');
 
@@ -385,7 +385,7 @@ abstract class Database
 			}
 
 			if(!limitClauseInSelect)
-				limitByDatabaseTemp = appendLimitClauseInSearch(bf, limitStart, count);
+				limitByDatabaseTemp = appendLimitClauseInSearch(bf, limitStart, limitCount);
 		}
 
 		//System.out.println("searching "+bf.toString());
@@ -425,9 +425,9 @@ abstract class Database
 							resultSet.next();
 					}
 						
-					int i = ((count==Query.UNLIMITED_COUNT||limitByDatabase) ? Integer.MAX_VALUE : count );
+					int i = ((limitCount==Query.UNLIMITED_COUNT||limitByDatabase) ? Integer.MAX_VALUE : limitCount );
 					if(i<=0)
-						throw new RuntimeException(String.valueOf(count));
+						throw new RuntimeException(String.valueOf(limitCount));
 
 					while(resultSet.next() && (--i)>=0)
 					{
