@@ -147,8 +147,8 @@ public class OrderByTest extends TestmodelTest
 		final Query.Result resultWithSizeWithoutLimit = query.searchAndCountWithoutLimit();
 		assertEquals(expectedOrder, resultWithSizeWithoutLimit.getData());
 		query.setLimit(0);
-		final Collection resultWithoutRange = query.search();
-		assertEquals(resultWithoutRange.size(), resultWithSizeWithoutLimit.getCountWithoutLimit());
+		final Collection resultWithoutLimit = query.search();
+		assertEquals(resultWithoutLimit.size(), resultWithSizeWithoutLimit.getCountWithoutLimit());
 
 		if(limitCount==-1)
 			query.setLimit(limitStart);
