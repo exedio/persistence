@@ -271,10 +271,10 @@ public final class Query
 	 * <p>
 	 * Returns a {@link Result} containing the
 	 * {@link Result#getData() data} and the
-	 * {@link Result#getCountWithoutRange() countWithoutRange}.
+	 * {@link Result#getCountWithoutLimit() countWithoutLimit}.
 	 * The {@link Result#getData() data} is equal to
 	 * what {@link #search()} would have returned for this query.
-	 * The {@link Result#getCountWithoutRange() countWithoutRange} is equal to what
+	 * The {@link Result#getCountWithoutLimit() countWithoutLimit} is equal to what
 	 * {@link #countWithoutLimit()} would have returned for this query.
 	 * <p>
 	 * This method does it's best to avoid issuing two queries
@@ -312,7 +312,7 @@ public final class Query
 			return data;
 		}
 		
-		public int getCountWithoutRange()
+		public int getCountWithoutLimit()
 		{
 			return countWithoutRange;
 		}
