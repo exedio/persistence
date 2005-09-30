@@ -86,6 +86,21 @@ public final class MysqlDatabase extends Database
 		return "DATE";
 	}
 	
+	boolean appendLimitClause(final Statement bf, final int start, final int count)
+	{
+		bf.append(" limit ");
+
+		if(start>0)
+			bf.append(start).append(',');
+
+		if(count!=Query.UNLIMITED_COUNT)
+			bf.append(count);
+		else
+			bf.append("18446744073709551615"); // this is really the recommended usage, see MySQL doc.
+		
+		return true;
+	}
+	
 	protected boolean supportsCheckConstraints()
 	{
 		return false;

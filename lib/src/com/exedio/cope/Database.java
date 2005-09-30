@@ -343,7 +343,15 @@ abstract class Database
 			query.condition.appendStatement(bf);
 		}
 
-		if(!doCountOnly)
+		final int start = query.start;
+		final int count = query.count;
+		final boolean limitByDatabase;
+
+		if(doCountOnly)
+		{
+			limitByDatabase = false;
+		}
+		else
 		{
 			boolean firstOrderBy = true;		
 			if(query.orderBy!=null || query.deterministicOrder)
@@ -365,11 +373,14 @@ abstract class Database
 				
 				query.type.getPkSource().appendDeterministicOrderByExpression(bf, query.type.getTable());
 			}
+			
+			if(start>0 || count!=Query.UNLIMITED_COUNT)
+				limitByDatabase = appendLimitClause(bf, start, count);
+			else
+				limitByDatabase = false;
 		}
 
 		//System.out.println("searching "+bf.toString());
-		final int start = query.start;
-		final int count = query.count;
 		final Type[] types = selectTypes;
 		final Model model = query.model;
 		final ArrayList result = new ArrayList();
@@ -394,7 +405,7 @@ abstract class Database
 						return;
 					}
 					
-					if(start>0)
+					if(!limitByDatabase && start>0)
 					{
 						// TODO: ResultSet.relative
 						// Would like to use
@@ -405,7 +416,7 @@ abstract class Database
 							resultSet.next();
 					}
 						
-					int i = (count==Query.UNLIMITED_COUNT ? Integer.MAX_VALUE : count );
+					int i = ((count==Query.UNLIMITED_COUNT||limitByDatabase) ? Integer.MAX_VALUE : count );
 					if(i<=0)
 						throw new RuntimeException(String.valueOf(count));
 
@@ -1018,6 +1029,20 @@ abstract class Database
 	abstract String getDoubleType(int precision);
 	abstract String getStringType(int maxLength);
 	abstract String getDayType();
+
+	/**
+	 * Appends a clause to the statement causing the database limiting the query result.
+	 * This method is never called for <code>start==0 && count=={@link Query#UNLIMITED_COUNT}</code>.
+	 * NOTE: Don't forget the space before the keyword 'limit'!
+	 * @param start the number of rows to be skipped
+	 *        or zero, if no rows to be skipped.
+	 *        Is never negative.
+	 * @param count the number of rows to be returned
+	 *        or {@link Query#UNLIMITED_COUNT} if all rows to be returned.
+	 * @return whether the database does support limiting with the given parameters.
+	 *         if returns false, the statement must be left unmodified.
+	 */
+	abstract boolean appendLimitClause(Statement bf, int start, int count);
 	
 	private int countTable(final Connection connection, final Table table)
 	{

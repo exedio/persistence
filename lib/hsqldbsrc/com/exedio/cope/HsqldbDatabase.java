@@ -72,6 +72,19 @@ final class HsqldbDatabase
 		return "timestamp";
 	}
 
+	boolean appendLimitClause(final Statement bf, final int start, final int count)
+	{
+		// TODO: the hsqldb limit clause cannot be supported through the interface of this method,
+		//       because it must be inserted direclty after the SELECT keyword 
+		return false;
+		// this is the clause to be inserted after the SELECT
+		/*bf.append(" limit ").
+			append(start).
+			append(' ').
+			append(count!=Query.UNLIMITED_COUNT ? count : 0);
+		return true;*/
+	}
+	
 	protected boolean supportsRightOuterJoins()
 	{
 		return false;
