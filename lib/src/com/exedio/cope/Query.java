@@ -296,15 +296,15 @@ public final class Query
 		final Collection data;
 		final int countWithoutLimit;
 		
-		private Result(final Collection data, final int countWithoutRange)
+		private Result(final Collection data, final int countWithoutLimit)
 		{
 			if(data==null)
 				throw new RuntimeException();
-			if(countWithoutRange<0)
-				throw new RuntimeException(String.valueOf(countWithoutRange));
+			if(countWithoutLimit<0)
+				throw new RuntimeException(String.valueOf(countWithoutLimit));
 			
 			this.data = data;
-			this.countWithoutLimit = countWithoutRange;
+			this.countWithoutLimit = countWithoutLimit;
 		}
 		
 		public Collection getData()
