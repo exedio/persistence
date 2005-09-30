@@ -24,11 +24,18 @@ public final class CacheInfo
 {
 	private final Type type;
 	private final int numberOfItemsInCache;
+	private final int hits;
+	private final int misses;
 	
-	public CacheInfo(final Type type, final int numberOfItemsInCache)
+	public CacheInfo(
+			final Type type,
+			final int numberOfItemsInCache,
+			final int hits, final int misses)
 	{
 		this.type = type;
 		this.numberOfItemsInCache = numberOfItemsInCache;
+		this.hits = hits;
+		this.misses = misses;
 	}
 	
 	public Type getType()
@@ -39,6 +46,16 @@ public final class CacheInfo
 	public int getNumberOfItemsInCache()
 	{
 		return numberOfItemsInCache;
+	}
+
+	public int getHits()
+	{
+		return hits;
+	}
+
+	public int getMisses()
+	{
+		return misses;
 	}
 
 }

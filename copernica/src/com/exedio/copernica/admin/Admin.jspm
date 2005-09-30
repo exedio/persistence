@@ -144,6 +144,8 @@ final class Admin_Jspm
 	{
 		final String[] names = new String[]{
 			"Number Of Items In Cache",
+			"Hits",
+			"Misses",
 		};
 		%>
 		<table class="statistics">
@@ -163,6 +165,8 @@ final class Admin_Jspm
 				final CacheInfo info = infos[i];
 				final int[] data = new int[]{
 						info.getNumberOfItemsInCache(),
+						info.getHits(),
+						info.getMisses(),
 					};
 			%>
 			<tr>

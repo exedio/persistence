@@ -27,6 +27,7 @@ import com.exedio.cope.util.CacheInfo;
 final class Cache
 {
 	private final IntKeyMap[] stateMaps;
+	private final int[] hits, misses;
 	
 	Cache( int numberOfTypes )
 	{
@@ -35,6 +36,8 @@ final class Cache
 		{
 			stateMaps[i] = new IntKeyOpenHashMap();
 		}
+		hits = new int[numberOfTypes];
+		misses = new int[numberOfTypes];
 	}
 	
 	private IntKeyMap getStateMap( Type type )
@@ -55,6 +58,9 @@ final class Cache
 		{
 			state = (PersistentState)stateMap.get( item.pk );
 		}
+		
+		boolean hit = true;
+		
 		if ( state==null )
 		{
 			state = new PersistentState( connectionSource.getConnection(), item );
@@ -67,7 +73,11 @@ final class Cache
 			{
 				System.out.println("warning: duplicate computation of state "+item.getCopeID());
 			}
+			hit = false;
 		}
+		
+		(hit ? hits : misses)[item.type.transientNumber]++;
+		
 		return state;
 	}
 	
@@ -106,7 +116,7 @@ final class Cache
 				numberOfItemsInCache = stateMap.size();
 			}
 			
-			result[i] = new CacheInfo(types[i], numberOfItemsInCache);
+			result[i] = new CacheInfo(types[i], numberOfItemsInCache, hits[i], misses[i]);
 		}
 		
 		return result;
