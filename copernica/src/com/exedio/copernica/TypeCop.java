@@ -50,9 +50,9 @@ final class TypeCop extends CopernicaCop
 	{
 		super(provider, language);
 		
-		final int countCeiling = provider.getLimitCountCeiling(type);
-		if(limitCount>countCeiling)
-			limitCount = countCeiling;
+		final int limitCountCeiling = provider.getLimitCountCeiling(type);
+		if(limitCount>limitCountCeiling)
+			limitCount = limitCountCeiling;
 
 		this.type = type;
 		this.orderBy = orderBy;
