@@ -231,11 +231,17 @@ abstract class Database
 
 		final int start = query.start;
 		final int count = query.count;
-		final boolean limitByDatabase;
+		final boolean limitClauseInSelect = doCountOnly ? false : isLimitClauseInSelect();
+		boolean limitByDatabaseTemp = false;
 
 		final Statement bf = createStatement();
 		bf.setJoinsToAliases(query);
-		bf.append("select ");
+		bf.append("select");
+		
+		if(!doCountOnly && limitClauseInSelect)
+			limitByDatabaseTemp = appendLimitClauseInSearch(bf, start, count);
+		
+		bf.append(' ');
 
 		final Selectable[] selectables = query.selectables;
 		final Column[] selectColumns = new Column[selectables.length];
@@ -355,11 +361,7 @@ abstract class Database
 			query.condition.appendStatement(bf);
 		}
 
-		if(doCountOnly)
-		{
-			limitByDatabase = false;
-		}
-		else
+		if(!doCountOnly)
 		{
 			boolean firstOrderBy = true;		
 			if(query.orderBy!=null || query.deterministicOrder)
@@ -382,10 +384,12 @@ abstract class Database
 				query.type.getPkSource().appendDeterministicOrderByExpression(bf, query.type.getTable());
 			}
 
-			limitByDatabase = appendLimitClauseInSearch(bf, start, count);
+			if(!limitClauseInSelect)
+				limitByDatabaseTemp = appendLimitClauseInSearch(bf, start, count);
 		}
 
 		//System.out.println("searching "+bf.toString());
+		final boolean limitByDatabase = limitByDatabaseTemp; // must be final for usage in ResultSetHandler
 		final Type[] types = selectTypes;
 		final Model model = query.model;
 		final ArrayList result = new ArrayList();
@@ -1034,6 +1038,11 @@ abstract class Database
 	abstract String getDoubleType(int precision);
 	abstract String getStringType(int maxLength);
 	abstract String getDayType();
+	
+	boolean isLimitClauseInSelect()
+	{
+		return false;
+	}
 
 	/**
 	 * Appends a clause to the statement causing the database limiting the query result.
