@@ -199,7 +199,6 @@ final class Generator
 		o.write("\t * ");
 		o.write(format(CONSTRUCTOR_INITIAL, copeClass.getName()));
 		o.write(lineSeparator);
-		writeCommentGenerated();
 		for(Iterator i = initialAttributes.iterator(); i.hasNext(); )
 		{
 			final CopeAttribute initialAttribute = (CopeAttribute)i.next();
@@ -244,6 +243,7 @@ final class Generator
 			o.write(format(pattern, initialAttributesBuf.toString()));
 			o.write(lineSeparator);
 		}
+		writeCommentGenerated();
 		writeCommentFooter();
 		final String modifier = Modifier.toString(copeClass.getInitialConstructorModifier());
 		if(modifier.length()>0)
@@ -336,10 +336,10 @@ final class Generator
 		o.write("\t * ");
 		o.write(CONSTRUCTOR_REACTIVATION);
 		o.write(lineSeparator);
-		writeCommentGenerated();
 		o.write("\t * @see Item#Item("
 			+ ReactivationConstructorDummy.class.getName() + ",int)");
 		o.write(lineSeparator);
+		writeCommentGenerated();
 		writeCommentFooter();
 		o.write( copeClass.isAbstract() ? "protected " : "private " );
 		o.write(copeClass.getName());
@@ -540,12 +540,12 @@ final class Generator
 			o.write("\t * ");
 			o.write(format(SETTER_MEDIA, link(media.getName())));
 			o.write(lineSeparator);
-			writeCommentGenerated();
 			o.write("\t * @throws ");
 			o.write(IOException.class.getName());
 			o.write(' ');
 			o.write(format(SETTER_MEDIA_IOEXCEPTION, "<code>data</code>"));
 			o.write(lineSeparator);
+			writeCommentGenerated();
 			writeCommentFooter();
 			o.write(Modifier.toString(Modifier.PUBLIC|Modifier.FINAL)); // TODO use visibility of media
 			o.write(" void set");
@@ -593,7 +593,6 @@ final class Generator
 		o.write("\t * ");
 		o.write(format(FINDER_UNIQUE, lowerCamelCase(className)));
 		o.write(lineSeparator);
-		writeCommentGenerated();
 		for(int i=0; i<copeAttributes.length; i++)
 		{
 			o.write("\t * @param ");
@@ -606,6 +605,7 @@ final class Generator
 		o.write(FINDER_UNIQUE_RETURN);
 		o.write(lineSeparator);
 
+		writeCommentGenerated();
 		writeCommentFooter();
 		o.write(Modifier.toString((constraint.modifier & (Modifier.PRIVATE|Modifier.PROTECTED|Modifier.PUBLIC)) | (Modifier.STATIC|Modifier.FINAL) ));
 		o.write(' ');
