@@ -94,7 +94,7 @@ final class Instrumentor implements InjectionConsumer
 	/**
 	 * Tag name for the generated setter option.
 	 */
-	private static final String ATTRIBUTE_SETTER = TAG_PREFIX + "setter";
+	static final String ATTRIBUTE_SETTER = TAG_PREFIX + "setter";
 
 	/**
 	 * Tag name for the generated initial option.

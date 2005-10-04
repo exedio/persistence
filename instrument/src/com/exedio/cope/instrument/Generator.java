@@ -58,6 +58,9 @@ final class Generator
 																  "in the comment of the attribute.";
 	private static final String CHECKER = "Returns whether the given value corresponds to the hash in {0}.";
 	private static final String SETTER = "Sets a new value for the persistent attribute {0}.";
+	private static final String SETTER_CUSTOMIZE = "It can be customized with the tag " +
+																  "<code>@"+Instrumentor.ATTRIBUTE_SETTER+" public|package|protected|private|none|non-final</code> " +
+																  "in the comment of the attribute.";
 	private static final String SETTER_MEDIA = "Sets the new data for the media {0}.";
 	private static final String SETTER_MEDIA_IOEXCEPTION = "if accessing {0} throws an IOException.";
 	private static final String GETTER_MEDIA_IS_NULL = "Returns whether this media {0} has data available.";
@@ -400,7 +403,7 @@ final class Generator
 			o.write("\t * ");
 			o.write(format(SETTER, link(copeAttribute.getName())));
 			o.write(lineSeparator);
-			writeCommentFooter();
+			writeCommentFooter(SETTER_CUSTOMIZE);
 			o.write(Modifier.toString(copeAttribute.getGeneratedSetterModifier()));
 			o.write(" void set");
 			o.write(toCamelCase(copeAttribute.getName()));
