@@ -399,6 +399,7 @@ public final class Properties
 		ensureEquality(other, DATABASE_PASSWORD, this.databasePassword, other.databasePassword, true);
 		ensureEquality(other, DATABASE_DONT_SUPPORT_EMPTY_STRINGS, this.databaseDontSupportEmptyStrings, other.databaseDontSupportEmptyStrings);
 		ensureEquality(other, DATABASE_FORCE_NAME, this.databaseForcedNames, other.databaseForcedNames);
+		ensureEquality(other, "database.DATABASE.*", this.databaseCustomProperties, other.databaseCustomProperties);
 		
 		ensureEquality(other, PKSOURCE_BUTTERFLY, this.pkSourceButterfly, other.pkSourceButterfly);
 		ensureEquality(other, CONNECTION_POOL_MAX_IDLE, this.connectionPoolMaxIdle, other.connectionPoolMaxIdle);
