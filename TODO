@@ -11,8 +11,7 @@
 			+ conditions contradicting constraints
 			+ skipping db searches at all
 		- oracle statistics
-		- self joins
-		- group by
+		- group by / aggregates
 	- Transactions: introduce timestamp and use it in
 		* Item#touch
 		* timestamp of data files
@@ -34,7 +33,6 @@
 		* alter table "ItemWithDoubleUnique" drop constraint "ItemWithDoublUniqu_str_Nn"
 	- relation pattern
 	- Vector: allow length terminated instead of null terminated as well
-	- DayAttribute
 	- test model:
 		* put classes for patterns into separate package
 		* separate test model for lib tests and testwebapp (webtests)
