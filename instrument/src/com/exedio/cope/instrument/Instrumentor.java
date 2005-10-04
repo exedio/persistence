@@ -89,7 +89,7 @@ final class Instrumentor implements InjectionConsumer
 	/**
 	 * Tag name for the generated getter option.
 	 */
-	private static final String ATTRIBUTE_GETTER = TAG_PREFIX + "getter";
+	static final String ATTRIBUTE_GETTER = TAG_PREFIX + "getter";
 
 	/**
 	 * Tag name for the generated setter option.

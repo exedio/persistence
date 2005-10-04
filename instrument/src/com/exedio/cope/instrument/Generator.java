@@ -53,6 +53,9 @@ final class Generator
 	private static final String CONSTRUCTOR_GENERIC_CALLED = "This constructor is called by {0}.";
 	private static final String CONSTRUCTOR_REACTIVATION = "Reactivation constructor. Used for internal purposes only.";
 	private static final String GETTER = "Returns the value of the persistent attribute {0}.";
+	private static final String GETTER_CUSTOMIZE = "It can be customized with the tag " +
+																  "<code>@"+Instrumentor.ATTRIBUTE_GETTER+" public|package|protected|private|none</code> " +
+																  "in the comment of the attribute.";
 	private static final String CHECKER = "Returns whether the given value corresponds to the hash in {0}.";
 	private static final String SETTER = "Sets a new value for the persistent attribute {0}.";
 	private static final String SETTER_MEDIA = "Sets the new data for the media {0}.";
@@ -373,7 +376,7 @@ final class Generator
 			o.write("\t * ");
 			o.write(format(GETTER, link(copeAttribute.getName())));
 			o.write(lineSeparator);
-			writeCommentFooter();
+			writeCommentFooter(GETTER_CUSTOMIZE);
 			o.write(Modifier.toString(copeAttribute.getGeneratedGetterModifier()));
 			o.write(' ');
 			o.write(type);
