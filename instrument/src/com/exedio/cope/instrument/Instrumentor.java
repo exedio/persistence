@@ -109,7 +109,7 @@ final class Instrumentor implements InjectionConsumer
 	/**
 	 * Tag name for the generated generic constructor option.
 	 */
-	private static final String CLASS_GENERIC_CONSTRUCTOR = TAG_PREFIX + "generic.constructor";
+	static final String CLASS_GENERIC_CONSTRUCTOR = TAG_PREFIX + "generic.constructor";
 	
 	/**
 	 * Tag name for the generated type option.

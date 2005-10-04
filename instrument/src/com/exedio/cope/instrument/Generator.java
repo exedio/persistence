@@ -55,6 +55,9 @@ final class Generator
 																					"<code>@"+Instrumentor.ATTRIBUTE_INITIAL+"</code> in the comment of attributes.";
 	private static final String CONSTRUCTOR_GENERIC = "Creates a new {0} and sets the given attributes initially.";
 	private static final String CONSTRUCTOR_GENERIC_CALLED = "This constructor is called by {0}.";
+	private static final String CONSTRUCTOR_GENERIC_CUSTOMIZE = "It can be customized with the tag " +
+																					"<code>@"+Instrumentor.CLASS_GENERIC_CONSTRUCTOR+" public|package|protected|private|none</code> " +
+																					"in the class comment.";
 	private static final String CONSTRUCTOR_REACTIVATION = "Reactivation constructor. Used for internal purposes only.";
 	private static final String GETTER = "Returns the value of the persistent attribute {0}.";
 	private static final String GETTER_CUSTOMIZE = "It can be customized with the tag " +
@@ -334,7 +337,7 @@ final class Generator
 		o.write("\t * ");
 		o.write(format(CONSTRUCTOR_GENERIC_CALLED, "{@link " + Type.class.getName() + "#newItem Type.newItem}"));
 		o.write(lineSeparator);
-		writeCommentFooter();
+		writeCommentFooter(CONSTRUCTOR_GENERIC_CUSTOMIZE);
 		o.write( Modifier.toString( option.getModifier(copeClass.isAbstract() ? Modifier.PROTECTED : Modifier.PRIVATE) ) );
 		o.write(' ');
 		o.write(copeClass.getName());
