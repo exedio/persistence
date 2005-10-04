@@ -49,6 +49,10 @@ final class Generator
 	private static final String THROWS_LENGTH = "if {0} violates its length constraint.";
 	private static final String CONSTRUCTOR_INITIAL = "Creates a new {0} with all the attributes initially needed.";
 	private static final String CONSTRUCTOR_INITIAL_PARAMETER = "the initial value for attribute {0}.";
+	private static final String CONSTRUCTOR_INITIAL_CUSTOMIZE = "It can be customized with the tags " +
+																					"<code>@"+Instrumentor.CLASS_INITIAL_CONSTRUCTOR+" public|package|protected|private|none</code> " +
+																					"in the class comment and " +
+																					"<code>@"+Instrumentor.ATTRIBUTE_INITIAL+"</code> in the comment of attributes.";
 	private static final String CONSTRUCTOR_GENERIC = "Creates a new {0} and sets the given attributes initially.";
 	private static final String CONSTRUCTOR_GENERIC_CALLED = "This constructor is called by {0}.";
 	private static final String CONSTRUCTOR_REACTIVATION = "Reactivation constructor. Used for internal purposes only.";
@@ -259,7 +263,7 @@ final class Generator
 			o.write(format(pattern, initialAttributesBuf.toString()));
 			o.write(lineSeparator);
 		}
-		writeCommentFooter();
+		writeCommentFooter(CONSTRUCTOR_INITIAL_CUSTOMIZE);
 		final String modifier = Modifier.toString(copeClass.getInitialConstructorModifier());
 		if(modifier.length()>0)
 		{

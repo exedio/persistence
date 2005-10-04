@@ -99,12 +99,12 @@ final class Instrumentor implements InjectionConsumer
 	/**
 	 * Tag name for the generated initial option.
 	 */
-	private static final String ATTRIBUTE_INITIAL = TAG_PREFIX + "initial";
+	static final String ATTRIBUTE_INITIAL = TAG_PREFIX + "initial";
 
 	/**
 	 * Tag name for the generated initial constructor option.
 	 */
-	private static final String CLASS_INITIAL_CONSTRUCTOR = TAG_PREFIX + "constructor";
+	static final String CLASS_INITIAL_CONSTRUCTOR = TAG_PREFIX + "constructor";
 	
 	/**
 	 * Tag name for the generated generic constructor option.
