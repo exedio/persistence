@@ -150,17 +150,12 @@ final class Generator
 		o.write(lineSeparator);
 	}
 
-	private final void writeCommentGenerated()
+	private final void writeCommentFooter()
 	throws IOException
 	{
 		o.write("\t * @"+Instrumentor.GENERATED+' ');
 		o.write(GENERATED);
 		o.write(lineSeparator);
-	}
-	
-	private final void writeCommentFooter()
-	throws IOException
-	{
 		o.write("\t *");
 		o.write(lineSeparator);
 		o.write(" */");
@@ -243,7 +238,6 @@ final class Generator
 			o.write(format(pattern, initialAttributesBuf.toString()));
 			o.write(lineSeparator);
 		}
-		writeCommentGenerated();
 		writeCommentFooter();
 		final String modifier = Modifier.toString(copeClass.getInitialConstructorModifier());
 		if(modifier.length()>0)
@@ -315,7 +309,6 @@ final class Generator
 		o.write("\t * ");
 		o.write(format(CONSTRUCTOR_GENERIC_CALLED, "{@link " + Type.class.getName() + "#newItem Type.newItem}"));
 		o.write(lineSeparator);
-		writeCommentGenerated();
 		writeCommentFooter();
 		o.write( Modifier.toString( option.getModifier(copeClass.isAbstract() ? Modifier.PROTECTED : Modifier.PRIVATE) ) );
 		o.write(' ');
@@ -339,7 +332,6 @@ final class Generator
 		o.write("\t * @see Item#Item("
 			+ ReactivationConstructorDummy.class.getName() + ",int)");
 		o.write(lineSeparator);
-		writeCommentGenerated();
 		writeCommentFooter();
 		o.write( copeClass.isAbstract() ? "protected " : "private " );
 		o.write(copeClass.getName());
@@ -366,7 +358,6 @@ final class Generator
 			o.write("\t * ");
 			o.write(format(GETTER, link(copeAttribute.getName())));
 			o.write(lineSeparator);
-			writeCommentGenerated();
 			writeCommentFooter();
 			o.write(Modifier.toString(copeAttribute.getGeneratedGetterModifier()));
 			o.write(' ');
@@ -391,7 +382,6 @@ final class Generator
 			o.write("\t * ");
 			o.write(format(SETTER, link(copeAttribute.getName())));
 			o.write(lineSeparator);
-			writeCommentGenerated();
 			writeCommentFooter();
 			o.write(Modifier.toString(copeAttribute.getGeneratedSetterModifier()));
 			o.write(" void set");
@@ -415,7 +405,6 @@ final class Generator
 				o.write("\t * ");
 				o.write(format(TOUCHER, link(copeAttribute.getName())));
 				o.write(lineSeparator);
-				writeCommentGenerated();
 				writeCommentFooter();
 				o.write(Modifier.toString(copeAttribute.getGeneratedSetterModifier()));
 				o.write(" void touch");
@@ -444,7 +433,6 @@ final class Generator
 		o.write("\t * ");
 		o.write(format(CHECKER, link(hash.name)));
 		o.write(lineSeparator);
-		writeCommentGenerated();
 		writeCommentFooter();
 		o.write(Modifier.toString(hash.getGeneratedCheckerModifier()));
 		o.write(" boolean check");
@@ -465,7 +453,6 @@ final class Generator
 		o.write("\t * ");
 		o.write(format(SETTER, link(hash.name)));
 		o.write(lineSeparator);
-		writeCommentGenerated();
 		writeCommentFooter();
 		o.write(Modifier.toString(hash.getGeneratedSetterModifier()));
 		o.write(" void set");
@@ -494,7 +481,6 @@ final class Generator
 		o.write("\t * ");
 		o.write(format(commentPattern, link(media.getName())));
 		o.write(lineSeparator);
-		writeCommentGenerated();
 		writeCommentFooter();
 		o.write(Modifier.toString(Modifier.PUBLIC|Modifier.FINAL)); // TODO use visibility of media
 		o.write(' ');
@@ -545,7 +531,6 @@ final class Generator
 			o.write(' ');
 			o.write(format(SETTER_MEDIA_IOEXCEPTION, "<code>data</code>"));
 			o.write(lineSeparator);
-			writeCommentGenerated();
 			writeCommentFooter();
 			o.write(Modifier.toString(Modifier.PUBLIC|Modifier.FINAL)); // TODO use visibility of media
 			o.write(" void set");
@@ -605,7 +590,6 @@ final class Generator
 		o.write(FINDER_UNIQUE_RETURN);
 		o.write(lineSeparator);
 
-		writeCommentGenerated();
 		writeCommentFooter();
 		o.write(Modifier.toString((constraint.modifier & (Modifier.PRIVATE|Modifier.PROTECTED|Modifier.PUBLIC)) | (Modifier.STATIC|Modifier.FINAL) ));
 		o.write(' ');
@@ -706,7 +690,6 @@ final class Generator
 		o.write("\t * ");
 		o.write(QUALIFIER);
 		o.write(lineSeparator);
-		writeCommentGenerated();
 		writeCommentFooter();
 
 		o.write("public final "); // TODO: obey attribute visibility
@@ -750,7 +733,6 @@ final class Generator
 		o.write("\t * ");
 		o.write(QUALIFIER_GETTER);
 		o.write(lineSeparator);
-		writeCommentGenerated();
 		writeCommentFooter();
 
 		final String resultType = attribute.persistentType;
@@ -789,7 +771,6 @@ final class Generator
 		o.write("\t * ");
 		o.write(QUALIFIER_SETTER);
 		o.write(lineSeparator);
-		writeCommentGenerated();
 		writeCommentFooter();
 
 		final String resultType = attribute.persistentType;
@@ -838,7 +819,6 @@ final class Generator
 		o.write("\t * ");
 		o.write(VECTOR_GETTER);
 		o.write(lineSeparator);
-		writeCommentGenerated();
 		writeCommentFooter();
 
 		o.write("public final "); // TODO: obey attribute visibility
@@ -864,7 +844,6 @@ final class Generator
 		o.write("\t * ");
 		o.write(VECTOR_SETTER);
 		o.write(lineSeparator);
-		writeCommentGenerated();
 		writeCommentFooter();
 
 		o.write("public final void set"); // TODO: obey attribute visibility
@@ -908,7 +887,6 @@ final class Generator
 			o.write("\t * ");
 			o.write(format(TYPE, lowerCamelCase(copeClass.getName())));
 			o.write(lineSeparator);
-			writeCommentGenerated();
 			writeCommentFooter();
 			
 			o.write(Modifier.toString(option.getModifier(Modifier.PUBLIC) | Modifier.STATIC | Modifier.FINAL)); // TODO obey class visibility
