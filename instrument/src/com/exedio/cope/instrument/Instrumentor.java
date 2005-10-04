@@ -114,7 +114,7 @@ final class Instrumentor implements InjectionConsumer
 	/**
 	 * Tag name for the generated type option.
 	 */
-	private static final String CLASS_TYPE = TAG_PREFIX + "type";
+	static final String CLASS_TYPE = TAG_PREFIX + "type";
 	
 	/**
 	 * All generated class features get this doccomment tag.
