@@ -97,6 +97,11 @@ final class Instrumentor implements InjectionConsumer
 	private static final String ATTRIBUTE_SETTER = TAG_PREFIX + "setter";
 
 	/**
+	 * Tag name for the generated initial option.
+	 */
+	private static final String ATTRIBUTE_INITIAL = TAG_PREFIX + "initial";
+
+	/**
 	 * Tag name for the generated initial constructor option.
 	 */
 	private static final String CLASS_INITIAL_CONSTRUCTOR = TAG_PREFIX + "constructor";
@@ -178,6 +183,7 @@ final class Instrumentor implements InjectionConsumer
 					
 		final String getterOption = Injector.findDocTagLine(docComment, ATTRIBUTE_GETTER);
 		final String setterOption = Injector.findDocTagLine(docComment, ATTRIBUTE_SETTER);
+		final boolean initial = Injector.findDocTagLine(docComment, ATTRIBUTE_INITIAL)!=null;
 
 		if(
 			IntegerFunction.class.isAssignableFrom(typeClass) ||
@@ -190,7 +196,7 @@ final class Instrumentor implements InjectionConsumer
 		{
 			new CopeNativeAttribute(
 				ja, typeClass,
-				initializerArguments, getterOption, setterOption);
+				initializerArguments, getterOption, setterOption, initial);
 		}
 		else if(
 			EnumAttribute.class.equals(typeClass)||
@@ -198,13 +204,13 @@ final class Instrumentor implements InjectionConsumer
 		{
 			new CopeObjectAttribute(
 				ja, typeClass,
-				initializerArguments, getterOption, setterOption);
+				initializerArguments, getterOption, setterOption, initial);
 		}
 		else if(DataAttribute.class.equals(typeClass))
 		{
 			new CopeDataAttribute(
 				ja, typeClass,
-				initializerArguments, getterOption, setterOption);
+				initializerArguments, getterOption, setterOption, initial);
 		}
 		else
 			throw new RuntimeException(typeClass.toString());
@@ -256,7 +262,7 @@ final class Instrumentor implements InjectionConsumer
 		if("newStringAttribute".equals(initializerArgument))
 		{
 			// implicitExternal
-			storageAttribute = new CopeNativeAttribute(ja, StringAttribute.class, Collections.singletonList("OPTIONAL"), "none", "none"); // TODO make some useful assumption about option
+			storageAttribute = new CopeNativeAttribute(ja, StringAttribute.class, Collections.singletonList("OPTIONAL"), "none", "none", false); // TODO make some useful assumption about option
 		}
 		else
 		{
@@ -273,7 +279,7 @@ final class Instrumentor implements InjectionConsumer
 			if(internal)
 			{
 				// internal
-				storageAttribute = new CopeNativeAttribute(ja, StringAttribute.class, Collections.singletonList(initializerArgument), "none", "none");
+				storageAttribute = new CopeNativeAttribute(ja, StringAttribute.class, Collections.singletonList(initializerArgument), "none", "none", false);
 			}
 			else
 			{

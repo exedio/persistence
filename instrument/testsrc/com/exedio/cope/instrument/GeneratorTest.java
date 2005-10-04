@@ -53,6 +53,7 @@ public class GeneratorTest extends InstrumentorTest
 		assertConstructor(standard, new Class[]{
 				String.class, // notNullString
 				String.class, // readOnlyString
+				String.class, // initialString
 				int.class, // nativeInteger
 				long.class, // nativeLong
 				double.class, // nativeDouble
@@ -71,6 +72,8 @@ public class GeneratorTest extends InstrumentorTest
 		assertMethod(standard, "getUniqueString", String.class, PUBLIC|FINAL);
 		assertMethod(standard, "setUniqueString", new Class[]{String.class}, PUBLIC|FINAL, new Class[]{UniqueViolationException.class});
 		assertMethod(standard, "findByUniqueString", new Class[]{String.class}, Standard.class, PUBLIC|STATIC|FINAL);
+		assertMethod(standard, "getInitialString", String.class, PUBLIC|FINAL);
+		assertMethod(standard, "setInitialString", new Class[]{String.class}, PUBLIC|FINAL);
 
 		assertMethod(standard, "getDefaultInteger", Integer.class, PUBLIC|FINAL);
 		assertMethod(standard, "setDefaultInteger", new Class[]{Integer.class}, PUBLIC|FINAL);

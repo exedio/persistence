@@ -55,6 +55,7 @@ abstract class CopeAttribute
 
 	final Option getterOption;
 	final Option setterOption;
+	final boolean initial;
 
 	CopeAttribute(
 			final JavaAttribute javaAttribute,
@@ -62,7 +63,8 @@ abstract class CopeAttribute
 			final String persistentType,
 			final List initializerArguments,
 			final String setterOption,
-			final String getterOption)
+			final String getterOption,
+			final boolean initial)
 		throws InjectorParseException
 	{
 		this.javaAttribute = javaAttribute;
@@ -85,6 +87,7 @@ abstract class CopeAttribute
 		
 		this.getterOption = new Option(getterOption, true);
 		this.setterOption = new Option(setterOption, true);
+		this.initial = initial;
 
 		copeClass.add(this);
 	}
@@ -179,6 +182,9 @@ abstract class CopeAttribute
 	// TODO: put into rtlib
 	final boolean isInitial()
 	{
+		if(initial)
+			return true;
+		
 		final JavaClass.Value value = javaAttribute.evaluate();
 		final Object instance = value.instance;
 		final boolean readOnly = instance instanceof Attribute && ((Attribute)instance).isReadOnly();
