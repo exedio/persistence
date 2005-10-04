@@ -301,6 +301,19 @@ public class ModelTest extends TestmodelTest
 			props.setProperty(Properties.MEDIA_ROOT_URL, "klack");
 			assertEquals("klack", new Properties(props, "source").getMediaRootUrl());
 		}
+		{
+			final java.util.Properties props = (java.util.Properties)newProps.clone();
+			props.setProperty("zack", "zosch");
+			final String source = file.getAbsolutePath()+"/zack=zosch";
+			try
+			{
+				new Properties(props, "wrongKey");
+			}
+			catch(RuntimeException e)
+			{
+				assertEquals("property zack in wrongKey is not allowed.", e.getMessage());
+			}
+		}
 	}
 	
 	public void testType() throws IOException

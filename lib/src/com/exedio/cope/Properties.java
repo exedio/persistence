@@ -23,6 +23,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Iterator;
 
 public final class Properties
@@ -118,6 +120,9 @@ public final class Properties
 	{
 		this.source = source;
 
+		final String databaseForceNamePrefix;
+		final String databaseCustomPropertiesPrefix;
+		
 		{
 			final String databaseCode = getPropertyNotNull(properties, DATABASE);
 			if(databaseCode.length()<=2)
@@ -155,11 +160,11 @@ public final class Properties
 			{
 				// TODO use some kind of prefix property view
 				databaseForcedNames = new java.util.Properties();
-				final String databaseForceNamePrefix = DATABASE_FORCE_NAME + '.';
+				databaseForceNamePrefix = DATABASE_FORCE_NAME + '.';
 				final int databaseForceNamePrefixLength = databaseForceNamePrefix.length();
 
 				databaseCustomProperties = new java.util.Properties();
-				final String databaseCustomPropertiesPrefix = "database." + databaseCode + '.';
+				databaseCustomPropertiesPrefix = "database." + databaseCode + '.';
 				final int databaseCustomPropertiesPrefixLength = databaseCustomPropertiesPrefix.length();
 
 				for(Iterator i = properties.keySet().iterator(); i.hasNext(); )
@@ -210,6 +215,30 @@ public final class Properties
 		this.databaseDontSupportEmptyStrings = getPropertyBoolean(properties, DATABASE_DONT_SUPPORT_EMPTY_STRINGS, false);
 		this.pkSourceButterfly = getPropertyBoolean(properties, PKSOURCE_BUTTERFLY, false);
 		this.connectionPoolMaxIdle = getPropertyInt(properties, CONNECTION_POOL_MAX_IDLE, 10, 5);
+		
+		{
+			final HashSet allowedValues = new HashSet(Arrays.asList(new String[]{
+					DATABASE,
+					DATABASE_URL,
+					DATABASE_USER,
+					DATABASE_PASSWORD,
+					DATABASE_DONT_SUPPORT_EMPTY_STRINGS,
+					PKSOURCE_BUTTERFLY,
+					CONNECTION_POOL_MAX_IDLE,
+					DATADIR_PATH,
+					MEDIA_ROOT_URL,
+				}));
+			for(Iterator i = properties.keySet().iterator(); i.hasNext(); )
+			{
+				final String key = (String)i.next();
+				if(!allowedValues.contains(key)
+					&&	!key.startsWith(databaseCustomPropertiesPrefix)
+					&&	!key.startsWith(databaseForceNamePrefix)
+					&&	!key.startsWith("x-build."))
+					throw new RuntimeException("property "+key+" in "+source+" is not allowed.");
+			}
+		}
+
 	}
 	
 	private final RuntimeException newNotSetException(final String key)
