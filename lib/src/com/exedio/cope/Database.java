@@ -44,6 +44,7 @@ abstract class Database
 	private boolean buildStage = true;
 	final Driver driver;
 	private final boolean useDefineColumnTypes;
+	private final boolean log;
 	private final boolean butterflyPkSource;
 	final ConnectionPool connectionPool;
 	private final java.util.Properties forcedNames;
@@ -53,6 +54,7 @@ abstract class Database
 	{
 		this.driver = driver;
 		this.useDefineColumnTypes = this instanceof DatabaseColumnTypesDefinable;
+		this.log = properties.getDatabaseLog();
 		this.butterflyPkSource = properties.getPkSourceButterfly();
 		this.connectionPool = new ConnectionPool(properties);
 		this.forcedNames = properties.getDatabaseForcedNames();

@@ -37,6 +37,7 @@ public final class Properties
 	public static final String DATABASE_URL = "database.url";
 	public static final String DATABASE_USER = "database.user";
 	public static final String DATABASE_PASSWORD = "database.password";
+	public static final String DATABASE_LOG = "database.log";
 	public static final String DATABASE_DONT_SUPPORT_EMPTY_STRINGS = "database.dont.support.empty.strings";
 	static final String DATABASE_FORCE_NAME = "database.forcename";
 	public static final String PKSOURCE_BUTTERFLY = "pksource.butterfly";
@@ -55,6 +56,7 @@ public final class Properties
 	private final String databaseUrl;
 	private final String databaseUser;
 	private final String databasePassword;
+	private final boolean databaseLog;
 	private final boolean databaseDontSupportEmptyStrings;
 	private final java.util.Properties databaseForcedNames;
 	private final java.util.Properties databaseCustomProperties;
@@ -215,6 +217,7 @@ public final class Properties
 		this.databaseDontSupportEmptyStrings = getPropertyBoolean(properties, DATABASE_DONT_SUPPORT_EMPTY_STRINGS, false);
 		this.pkSourceButterfly = getPropertyBoolean(properties, PKSOURCE_BUTTERFLY, false);
 		this.connectionPoolMaxIdle = getPropertyInt(properties, CONNECTION_POOL_MAX_IDLE, 10, 5);
+		this.databaseLog = getPropertyBoolean(properties, DATABASE_LOG, false);
 		
 		{
 			final HashSet allowedValues = new HashSet(Arrays.asList(new String[]{
@@ -222,6 +225,7 @@ public final class Properties
 					DATABASE_URL,
 					DATABASE_USER,
 					DATABASE_PASSWORD,
+					DATABASE_LOG,
 					DATABASE_DONT_SUPPORT_EMPTY_STRINGS,
 					PKSOURCE_BUTTERFLY,
 					CONNECTION_POOL_MAX_IDLE,
@@ -348,6 +352,11 @@ public final class Properties
 		return databasePassword;
 	}
 	
+	public boolean getDatabaseLog()
+	{
+		return databaseLog;
+	}
+	
 	public boolean getDatabaseDontSupportEmptyStrings()
 	{
 		return databaseDontSupportEmptyStrings;
@@ -397,6 +406,7 @@ public final class Properties
 		ensureEquality(other, DATABASE_URL, this.databaseUrl, other.databaseUrl);
 		ensureEquality(other, DATABASE_USER, this.databaseUser, other.databaseUser);
 		ensureEquality(other, DATABASE_PASSWORD, this.databasePassword, other.databasePassword, true);
+		ensureEquality(other, DATABASE_LOG, this.databaseLog, other.databaseLog);
 		ensureEquality(other, DATABASE_DONT_SUPPORT_EMPTY_STRINGS, this.databaseDontSupportEmptyStrings, other.databaseDontSupportEmptyStrings);
 		ensureEquality(other, DATABASE_FORCE_NAME, this.databaseForcedNames, other.databaseForcedNames);
 		ensureEquality(other, "database.DATABASE.*", this.databaseCustomProperties, other.databaseCustomProperties);
