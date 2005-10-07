@@ -387,12 +387,7 @@ final class Generator
 			o.write("\t * ");
 			o.write(format(GETTER, link(copeAttribute.getName())));
 			o.write(lineSeparator);
-			if(InputStream.class.getName().equals(type))
-			{
-				o.write("\t * ");
-				o.write(GETTER_STREAM_WARNING);
-				o.write(lineSeparator);
-			}
+			writeStreamWarning(type);
 			writeCommentFooter(GETTER_CUSTOMIZE);
 			o.write(Modifier.toString(copeAttribute.getGeneratedGetterModifier()));
 			o.write(' ');
@@ -504,7 +499,7 @@ final class Generator
 		writeSetterBody(hash);
 		o.write("\t}");
 	}
-
+	
 	private void writeDataGetterMethod(final CopeMedia media,
 													final Class returnType,
 													final String part,
@@ -516,12 +511,7 @@ final class Generator
 		o.write("\t * ");
 		o.write(format(commentPattern, link(media.getName())));
 		o.write(lineSeparator);
-		if(GETTER_MEDIA_DATA==commentPattern)
-		{
-			o.write("\t * ");
-			o.write(GETTER_STREAM_WARNING);
-			o.write(lineSeparator);
-		}
+		writeStreamWarning(returnType.getName());
 		writeCommentFooter();
 		o.write(Modifier.toString(Modifier.PUBLIC|Modifier.FINAL)); // TODO use visibility of media
 		o.write(' ');
@@ -1133,4 +1123,14 @@ final class Generator
 		}
 	}
 	
+	private void writeStreamWarning(final String type) throws IOException
+	{
+		if(InputStream.class.getName().equals(type))
+		{
+			o.write("\t * ");
+			o.write(GETTER_STREAM_WARNING);
+			o.write(lineSeparator);
+		}
+	}
+
 }
