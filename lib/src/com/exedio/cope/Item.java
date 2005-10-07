@@ -420,13 +420,14 @@ public abstract class Item extends Cope
 	public final void set(final DataAttribute attribute, final InputStream data)
 	throws MandatoryViolationException, IOException
 	{
+		OutputStream out = null;
 		try
 		{
 			final File file = getDataFile(attribute);
 
 			if(data!=null)
 			{
-				final OutputStream out = new FileOutputStream(file);
+				out = new FileOutputStream(file);
 				final byte[] b = new byte[20*1024];
 				for(int len = data.read(b); len>=0; len = data.read(b))
 					out.write(b, 0, len);
@@ -446,6 +447,8 @@ public abstract class Item extends Cope
 		{
 			if(data!=null)
 				data.close();
+			if(out!=null)
+				out.close();
 		}
 	}
 	
