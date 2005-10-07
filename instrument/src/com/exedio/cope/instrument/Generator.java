@@ -76,6 +76,7 @@ final class Generator
 	private static final String GETTER_MEDIA_MINOR = "Returns the minor mime type of the media {0}.";
 	private static final String GETTER_MEDIA_CONTENT_TYPE = "Returns the content type of the media {0}.";
 	private static final String GETTER_MEDIA_DATA  = "Returns the data of the media {0}.";
+	private static final String GETTER_STREAM_WARNING  = "<b>You are responsible for closing the stream, when you are finished!</b>";
 	private static final String TOUCHER = "Sets the current date for the date attribute {0}.";
 	private static final String FINDER_UNIQUE = "Finds a {0} by it''s unique attributes.";
 	private static final String FINDER_UNIQUE_PARAMETER = "shall be equal to attribute {0}.";
@@ -386,6 +387,12 @@ final class Generator
 			o.write("\t * ");
 			o.write(format(GETTER, link(copeAttribute.getName())));
 			o.write(lineSeparator);
+			if(InputStream.class.getName().equals(type))
+			{
+				o.write("\t * ");
+				o.write(GETTER_STREAM_WARNING);
+				o.write(lineSeparator);
+			}
 			writeCommentFooter(GETTER_CUSTOMIZE);
 			o.write(Modifier.toString(copeAttribute.getGeneratedGetterModifier()));
 			o.write(' ');
@@ -509,6 +516,12 @@ final class Generator
 		o.write("\t * ");
 		o.write(format(commentPattern, link(media.getName())));
 		o.write(lineSeparator);
+		if(GETTER_MEDIA_DATA==commentPattern)
+		{
+			o.write("\t * ");
+			o.write(GETTER_STREAM_WARNING);
+			o.write(lineSeparator);
+		}
 		writeCommentFooter();
 		o.write(Modifier.toString(Modifier.PUBLIC|Modifier.FINAL)); // TODO use visibility of media
 		o.write(' ');
