@@ -167,7 +167,8 @@ abstract class Database
 			}
 		}
 		
-		//System.out.println("checkDatabase:"+bf.toString());
+		final long logStart = log ? System.currentTimeMillis() : 0;
+		
 		executeSQLQuery(connection, bf,
 			new ResultSetHandler()
 			{
@@ -179,10 +180,9 @@ abstract class Database
 			},
 			false
 		);
-
-		//final long amount = (System.currentTimeMillis()-time);
-		//checkTableTime += amount;
-		//System.out.println("CHECK TABLES "+amount+"ms  accumulated "+checkTableTime);
+		
+		if(log)
+			log(logStart, bf);
 	}	
 
 	void dropDatabase()
@@ -392,7 +392,6 @@ abstract class Database
 				limitByDatabaseTemp = appendLimitClauseInSearch(bf, limitStart, limitCount);
 		}
 
-		//System.out.println("searching "+bf.toString());
 		final boolean limitByDatabase = limitByDatabaseTemp; // must be final for usage in ResultSetHandler
 		final Type[] types = selectTypes;
 		final Model model = query.model;
@@ -625,7 +624,8 @@ abstract class Database
 				append(state.pk);
 		}
 
-		//System.out.println("loading "+bf.toString());
+		final long logStart = log ? System.currentTimeMillis() : 0;
+
 		// TODO: let PersistentState be its own ResultSetHandler
 		executeSQLQuery(connection, bf, new ResultSetHandler()
 			{
@@ -644,6 +644,9 @@ abstract class Database
 					}
 				}
 			}, false);
+		
+		if(log)
+			log(logStart, bf);
 	}
 
 	void store(final Connection connection, final State state, final boolean present)
@@ -735,7 +738,10 @@ abstract class Database
 
 		//System.out.println("storing "+bf.toString());
 		final UniqueConstraint[] uqs = type.uniqueConstraints;
+		final long logStart = log ? System.currentTimeMillis() : 0;
 		executeSQLUpdate(connection, bf, 1, uqs.length==1?uqs[0]:null);
+		if(log)
+			log(logStart, bf);
 	}
 
 	void delete(final Connection connection, final Item item)
@@ -759,7 +765,10 @@ abstract class Database
 
 			try
 			{
+				final long logStart = log ? System.currentTimeMillis() : 0;
 				executeSQLUpdate(connection, bf, 1);
+				if(log)
+					log(logStart, bf);
 			}
 			catch(UniqueViolationException e)
 			{
@@ -1081,7 +1090,10 @@ abstract class Database
 			append(table.protectedID);
 
 		final CountResultSetHandler handler = new CountResultSetHandler();
+		final long logStart = log ? System.currentTimeMillis() : 0;
 		executeSQLQuery(connection, bf, handler, false);
+		if(log)
+			log(logStart, bf);
 		return handler.result;
 	}
 	
@@ -1118,8 +1130,10 @@ abstract class Database
 			append(table.protectedID);
 			
 		final NextPKResultSetHandler handler = new NextPKResultSetHandler();
+		final long logStart = log ? System.currentTimeMillis() : 0;
 		executeSQLQuery(connection, bf, handler, false);
-		//System.err.println("select max("+type.primaryKey.trimmedName+") from "+type.trimmedName+" : "+handler.result);
+		if(log)
+			log(logStart, bf);
 		return handler.result;
 	}
 	
