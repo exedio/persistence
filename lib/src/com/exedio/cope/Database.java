@@ -22,9 +22,11 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -403,6 +405,8 @@ abstract class Database
 		if(selectables.length!=types.length)
 			throw new RuntimeException();
 
+		final long logStart = log ? System.currentTimeMillis() : 0;
+		
 		query.addStatementInfo(executeSQLQuery(connection, bf, new ResultSetHandler()
 			{
 				public void run(final ResultSet resultSet) throws SQLException
@@ -487,6 +491,13 @@ abstract class Database
 					}
 				}
 			}, query.makeStatementInfo));
+
+		if(log)
+		{
+			final SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss.SSS");
+			final long end = System.currentTimeMillis();
+			System.out.println(df.format(new Date(logStart)) + "  " + bf.getText() + "  " +(end-logStart) + "ms.");
+		}
 		
 		return result;
 	}
