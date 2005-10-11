@@ -167,8 +167,6 @@ abstract class Database
 			}
 		}
 		
-		final long logStart = log ? System.currentTimeMillis() : 0;
-		
 		executeSQLQuery(connection, bf,
 			new ResultSetHandler()
 			{
@@ -180,9 +178,6 @@ abstract class Database
 			},
 			false
 		);
-		
-		if(log)
-			log(logStart, bf);
 	}	
 
 	void dropDatabase()
@@ -404,8 +399,6 @@ abstract class Database
 		if(selectables.length!=types.length)
 			throw new RuntimeException();
 
-		final long logStart = log ? System.currentTimeMillis() : 0;
-		
 		query.addStatementInfo(executeSQLQuery(connection, bf, new ResultSetHandler()
 			{
 				public void run(final ResultSet resultSet) throws SQLException
@@ -491,17 +484,14 @@ abstract class Database
 				}
 			}, query.makeStatementInfo));
 
-		if(log)
-			log(logStart, bf);
-		
 		return result;
 	}
 	
-	private void log(final long start, final Statement bf)
+	private void log(final long start, final String sqlText)
 	{
 		final SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss.SSS");
 		final long end = System.currentTimeMillis();
-		System.out.println(df.format(new Date(start)) + "  " + bf.getText() + "  " +(end-start) + "ms.");
+		System.out.println(df.format(new Date(start)) + "  " + sqlText + "  " +(end-start) + "ms.");
 	}
 	
 	private List getExpectedCalls()
@@ -624,8 +614,6 @@ abstract class Database
 				append(state.pk);
 		}
 
-		final long logStart = log ? System.currentTimeMillis() : 0;
-
 		// TODO: let PersistentState be its own ResultSetHandler
 		executeSQLQuery(connection, bf, new ResultSetHandler()
 			{
@@ -644,9 +632,6 @@ abstract class Database
 					}
 				}
 			}, false);
-		
-		if(log)
-			log(logStart, bf);
 	}
 
 	void store(final Connection connection, final State state, final boolean present)
@@ -738,10 +723,7 @@ abstract class Database
 
 		//System.out.println("storing "+bf.toString());
 		final UniqueConstraint[] uqs = type.uniqueConstraints;
-		final long logStart = log ? System.currentTimeMillis() : 0;
 		executeSQLUpdate(connection, bf, 1, uqs.length==1?uqs[0]:null);
-		if(log)
-			log(logStart, bf);
 	}
 
 	void delete(final Connection connection, final Item item)
@@ -765,10 +747,7 @@ abstract class Database
 
 			try
 			{
-				final long logStart = log ? System.currentTimeMillis() : 0;
 				executeSQLUpdate(connection, bf, 1);
-				if(log)
-					log(logStart, bf);
 			}
 			catch(UniqueViolationException e)
 			{
@@ -805,18 +784,15 @@ abstract class Database
 		try
 		{
 			final String sqlText = statement.getText();
+			final long logStart = log ? System.currentTimeMillis() : 0;
+			
 			// TODO: use prepared statements and reuse the statement.
 			sqlStatement = connection.createStatement();
 			
 			if(useDefineColumnTypes)
 				((DatabaseColumnTypesDefinable)this).defineColumnTypes(statement.columnTypes, sqlStatement);
 
-			//System.out.println(Transaction.get().toString()+": "+sqlText);
-			//long time = System.currentTimeMillis();
 			resultSet = sqlStatement.executeQuery(sqlText);
-			//long interval = System.currentTimeMillis() - time;
-			//timeExecuteQuery += interval;
-			//System.out.println("executeQuery: "+interval+"ms sum "+timeExecuteQuery+"ms");
 
 			resultSetHandler.run(resultSet);
 			
@@ -830,6 +806,8 @@ abstract class Database
 				sqlStatement.close();
 				sqlStatement = null;
 			}
+			if(log)
+				log(logStart, sqlText);
 			
 			if(makeStatementInfo)
 				return makeStatementInfo(statement, connection);
@@ -884,9 +862,11 @@ abstract class Database
 		{
 			// TODO: use prepared statements and reuse the statement.
 			final String sqlText = statement.getText();
-			//System.err.println(Transaction.get().toString()+": "+statement.getText());
+			final long logStart = log ? System.currentTimeMillis() : 0;
 			sqlStatement = connection.createStatement();
 			final int rows = sqlStatement.executeUpdate(sqlText);
+			if(log)
+				log(logStart, sqlText);
 
 			//System.out.println("("+rows+"): "+statement.getText());
 			if(rows!=expectedRows)
@@ -1090,10 +1070,7 @@ abstract class Database
 			append(table.protectedID);
 
 		final CountResultSetHandler handler = new CountResultSetHandler();
-		final long logStart = log ? System.currentTimeMillis() : 0;
 		executeSQLQuery(connection, bf, handler, false);
-		if(log)
-			log(logStart, bf);
 		return handler.result;
 	}
 	
@@ -1130,10 +1107,7 @@ abstract class Database
 			append(table.protectedID);
 			
 		final NextPKResultSetHandler handler = new NextPKResultSetHandler();
-		final long logStart = log ? System.currentTimeMillis() : 0;
 		executeSQLQuery(connection, bf, handler, false);
-		if(log)
-			log(logStart, bf);
 		return handler.result;
 	}
 	
