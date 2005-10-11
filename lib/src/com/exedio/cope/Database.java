@@ -493,13 +493,16 @@ abstract class Database
 			}, query.makeStatementInfo));
 
 		if(log)
-		{
-			final SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss.SSS");
-			final long end = System.currentTimeMillis();
-			System.out.println(df.format(new Date(logStart)) + "  " + bf.getText() + "  " +(end-logStart) + "ms.");
-		}
+			log(logStart, bf);
 		
 		return result;
+	}
+	
+	private void log(final long start, final Statement bf)
+	{
+		final SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss.SSS");
+		final long end = System.currentTimeMillis();
+		System.out.println(df.format(new Date(start)) + "  " + bf.getText() + "  " +(end-start) + "ms.");
 	}
 	
 	private List getExpectedCalls()
