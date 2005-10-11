@@ -491,7 +491,7 @@ abstract class Database
 	{
 		final SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss.SSS");
 		final long end = System.currentTimeMillis();
-		System.out.println(df.format(new Date(start)) + "  " + sqlText + "  " +(end-start) + "ms.");
+		System.out.println(df.format(new Date(start)) + "  " +(end-start) + "ms:  " + sqlText);
 	}
 	
 	private List getExpectedCalls()
