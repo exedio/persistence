@@ -551,24 +551,9 @@ public final class Type
 			return null;
 	}
 	
-	private String toStringCache = null;
-	
 	public final String toString()
 	{
-		if(toStringCache!=null)
-			return toStringCache;
-		
-		final StringBuffer buf = new StringBuffer();
-		
-		buf.append(javaClass.getName());
-		for(int i = 0; i<uniqueConstraints.length; i++)
-		{
-			buf.append(' ');
-			buf.append(uniqueConstraints[i].toString());
-		}
-		
-		toStringCache = buf.toString();
-		return toStringCache;
+		return id;
 	}
 	
 	PkSource getPkSource()
