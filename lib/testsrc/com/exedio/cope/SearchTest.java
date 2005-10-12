@@ -28,6 +28,22 @@ public class SearchTest extends TestmodelTest
 	public void testUnmodifiableSearchResult()
 			throws IntegrityViolationException
 	{
+		// test conditions
+		final AttributeItem x = null;
+		assertEquals(
+				Cope.and(x.someString.equal("a"),x.someNotNullString.equal("b")),
+				Cope.and(x.someString.equal("a"),x.someNotNullString.equal("b")));
+		assertNotEquals(
+				Cope.and(x.someString.equal("aX"),x.someNotNullString.equal("b")),
+				Cope.and(x.someString.equal("a"),x.someNotNullString.equal("b")));
+		assertNotEquals(
+				Cope.and(x.someString.equal("a"),x.someNotNullString.like("b")),
+				Cope.and(x.someString.equal("a"),x.someNotNullString.equal("b")));
+		assertNotEquals( // not commutative
+				Cope.and(x.someString.equal("a"),x.someNotNullString.equal("b")),
+				Cope.and(x.someNotNullString.equal("b"),x.someString.equal("a")));
+		
+
 		final EmptyItem someItem = new EmptyItem();
 		final AttributeItem item;
 		final AttributeItem item2;
