@@ -94,6 +94,36 @@ public abstract class ComputedFunction extends Feature implements Function
 		return buf.toString();
 	}
 	
+	public boolean equals(final Object other)
+	{
+		if(!(other instanceof ComputedFunction))
+			return false;
+		
+		final ComputedFunction o = (ComputedFunction)other;
+		
+		if(!functionName.equals(o.functionName) || sources.length!=o.sources.length)
+			return false;
+		
+		for(int i = 0; i<sources.length; i++)
+		{
+			if(!sources[i].equals(o.sources[i]))
+				return false;
+		}
+
+		return true;
+	}
+	
+	public int hashCode()
+	{
+		int result = functionName.hashCode();
+		
+		for(int i = 0; i<sources.length; i++)
+			result ^= sources[i].hashCode();
+
+		return result;
+	}
+
+
 	// second initialization phase ---------------------------------------------------
 
 	final void initialize(final Type type, final String name)
