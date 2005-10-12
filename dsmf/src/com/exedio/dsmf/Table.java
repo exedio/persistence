@@ -259,16 +259,8 @@ public final class Table extends Node
 		final StringBuffer bf = new StringBuffer();
 
 		bf.append("create table ").
-			append(protectName(name));
-		
-		if(options!=null)
-		{
-			bf.append(' ').
-				append(options).
-				append(' ');
-		}
-			
-		bf.append('(');
+			append(protectName(name)).
+			append('(');
 
 		boolean firstColumn = true;
 		for(Iterator i = columnList.iterator(); i.hasNext(); )
@@ -288,8 +280,16 @@ public final class Table extends Node
 			((Constraint)i.next()).createInTable(bf);
 
 		bf.append(')');
+
+		// TODO: may be this should be done using this.options
 		driver.appendTableCreateStatement(bf);
 
+		if(options!=null)
+		{
+			bf.append(' ').
+				append(options);
+		}
+			
 		//System.out.println("createTable:"+bf.toString());
 		if(defensive)
 		{
