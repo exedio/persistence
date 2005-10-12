@@ -229,6 +229,15 @@ for(Iterator i = schema.getTables().iterator(); i.hasNext(); tableCount++)
 			</li><%
 		}
 		
+		final String options = table.getOptions();
+		if(options!=null)
+		{
+			%>
+			<li class="<%=color(Schema.COLOR_OK)%>">
+				options: <pre><%=options%></pre>
+			</li><%
+		}
+		
 		int columnCount = 1;
 		for(Iterator j = table.getColumns().iterator(); j.hasNext(); columnCount++)
 		{

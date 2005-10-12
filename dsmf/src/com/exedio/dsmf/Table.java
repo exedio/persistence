@@ -80,6 +80,11 @@ public final class Table extends Node
 		return name;
 	}
 
+	public final String getOptions()
+	{
+		return options;
+	}
+
 	final void register(final Column column)
 	{
 		if(columnMap.put(column.name, column)!=null)
