@@ -85,7 +85,7 @@ public abstract class CompositeCondition extends Condition
 		int result = operator.hashCode();
 		
 		for(int i = 0; i<conditions.length; i++)
-			result ^= (conditions[i].hashCode()+i); // may not be commutative
+			result ^= (conditions[i].hashCode()+(i+13)); // may not be commutative
 
 		return result;
 	}
