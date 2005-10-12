@@ -50,6 +50,13 @@ public class SumTest extends TestmodelTest
 		assertEqualsUnmodifiable(list(item.num2, item.num3), item.sum23.getSources());
 		assertEqualsUnmodifiable(list(item.num1, item.num2, item.num3), item.sum123.getSources());
 		assertEqualsUnmodifiable(list(item.sum12, item.num3), item.sum12a3.getSources());
+		
+		// test equals/hashCode
+		assertEquals(item.sum12, item.sum12);
+		assertEquals(item.sum12, item.num1.sum(item.num2));
+		assertNotEquals(item.sum12, item.num2.sum(item.num1));
+		assertNotEquals(item.sum12, item.sum23);
+		assertNotEquals(item.sum12, item.num1);
 
 		// test normal operation
 		assertEquals(i1, item.getNum1());
@@ -90,5 +97,17 @@ public class SumTest extends TestmodelTest
 		assertContains(item, item.TYPE.search(item.sum123.equal(null)));
 		assertContains(item, item.TYPE.search(item.sum12a3.equal(null)));
 	}
-
+	
+	private static void assertEquals(final Function f1, final Function f2)
+	{
+		assertEquals((Object)f1, (Object)f2);
+		assertEquals(f1.hashCode(), f2.hashCode());
+	}
+	
+	private static void assertNotEquals(final Function f1, final Function f2)
+	{
+		assertTrue(!f1.equals(f2));
+		assertTrue(f1.hashCode()!=f2.hashCode());
+	}
+	
 }
