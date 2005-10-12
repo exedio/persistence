@@ -46,7 +46,7 @@ public final class Schema extends Node
 	{
 		Table result = (Table)tableMap.get(driver.canonizeTableName(tableName));
 		if(result==null)
-			result = new Table(this, tableName, false);
+			result = new Table(this, tableName, null, false);
 		else
 			result.notifyExists();
 

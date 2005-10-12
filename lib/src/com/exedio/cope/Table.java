@@ -164,7 +164,7 @@ final class Table
 	
 	void makeSchema(final Schema schema)
 	{
-		final com.exedio.dsmf.Table result = new com.exedio.dsmf.Table(schema, id);
+		final com.exedio.dsmf.Table result = new com.exedio.dsmf.Table(schema, id, database.tableOptions.getProperty(id));
 		
 		for(Iterator i = getAllColumns().iterator(); i.hasNext(); )
 			((Column)i.next()).makeSchema(result);

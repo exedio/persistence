@@ -40,6 +40,7 @@ public final class Properties
 	public static final String DATABASE_LOG = "database.log";
 	public static final String DATABASE_DONT_SUPPORT_EMPTY_STRINGS = "database.dont.support.empty.strings";
 	static final String DATABASE_FORCE_NAME = "database.forcename";
+	static final String DATABASE_TABLE_OPTION = "database.tableOption";
 	public static final String PKSOURCE_BUTTERFLY = "pksource.butterfly";
 	public static final String CONNECTION_POOL_MAX_IDLE = "connectionPool.maxIdle";
 	public static final String DATADIR_PATH = "datadir.path";
@@ -59,6 +60,7 @@ public final class Properties
 	private final boolean databaseLog;
 	private final boolean databaseDontSupportEmptyStrings;
 	private final java.util.Properties databaseForcedNames;
+	private final java.util.Properties databaseTableOptions;
 	private final java.util.Properties databaseCustomProperties;
 	
 	private final boolean pkSourceButterfly;
@@ -122,13 +124,13 @@ public final class Properties
 	{
 		this.source = source;
 
-		final String databaseForceNamePrefix;
 		final String databaseCustomPropertiesPrefix;
-		
 		{
 			final String databaseCode = getPropertyNotNull(properties, DATABASE);
 			if(databaseCode.length()<=2)
 				throw new RuntimeException("database from "+source+" must have at least two characters, but was "+databaseCode);
+
+			databaseCustomPropertiesPrefix = "database." + databaseCode;
 
 			final String databaseName =
 				"com.exedio.cope." +
@@ -158,28 +160,11 @@ public final class Properties
 			{
 				throw new RuntimeException("class "+databaseName+" from "+source+" has no constructor with a single Properties argument.");
 			}
-
-			{
-				// TODO use some kind of prefix property view
-				databaseForcedNames = new java.util.Properties();
-				databaseForceNamePrefix = DATABASE_FORCE_NAME + '.';
-				final int databaseForceNamePrefixLength = databaseForceNamePrefix.length();
-
-				databaseCustomProperties = new java.util.Properties();
-				databaseCustomPropertiesPrefix = "database." + databaseCode + '.';
-				final int databaseCustomPropertiesPrefixLength = databaseCustomPropertiesPrefix.length();
-
-				for(Iterator i = properties.keySet().iterator(); i.hasNext(); )
-				{
-					final String key = (String)i.next();
-					if(key.startsWith(databaseForceNamePrefix))
-						databaseForcedNames.put(key.substring(databaseForceNamePrefixLength), properties.getProperty(key));
-					if(key.startsWith(databaseCustomPropertiesPrefix))
-						databaseCustomProperties.put(key.substring(databaseCustomPropertiesPrefixLength), properties.getProperty(key));
-				}
-			}
 		}
 
+		databaseForcedNames = getPropertyMap(properties, DATABASE_FORCE_NAME);
+		databaseCustomProperties = getPropertyMap(properties, databaseCustomPropertiesPrefix);
+		databaseTableOptions = getPropertyMap(properties, DATABASE_TABLE_OPTION);
 		databaseUrl = getPropertyNotNull(properties, DATABASE_URL);
 		databaseUser = getPropertyNotNull(properties, DATABASE_USER);
 		databasePassword = getPropertyNotNull(properties, DATABASE_PASSWORD);
@@ -236,8 +221,9 @@ public final class Properties
 			{
 				final String key = (String)i.next();
 				if(!allowedValues.contains(key)
-					&&	!key.startsWith(databaseCustomPropertiesPrefix)
-					&&	!key.startsWith(databaseForceNamePrefix)
+					&&	!key.startsWith(databaseCustomPropertiesPrefix+'.')
+					&&	!key.startsWith(DATABASE_FORCE_NAME+'.')
+					&&	!key.startsWith(DATABASE_TABLE_OPTION+'.')
 					&&	!key.startsWith("x-build."))
 					throw new RuntimeException("property "+key+" in "+source+" is not allowed.");
 			}
@@ -306,6 +292,21 @@ public final class Properties
 			return result;
 		}
 	}
+	
+	private java.util.Properties getPropertyMap(final java.util.Properties properties, String prefix)
+	{
+		final java.util.Properties result = new java.util.Properties();
+		prefix = prefix + '.';
+		final int length = prefix.length();
+
+		for(Iterator i = properties.keySet().iterator(); i.hasNext(); )
+		{
+			final String key = (String)i.next();
+			if(key.startsWith(prefix))
+				result.put(key.substring(length), properties.getProperty(key));
+		}
+		return result;
+	}
 
 	Database createDatabase()
 	{
@@ -365,6 +366,11 @@ public final class Properties
 	java.util.Properties getDatabaseForcedNames()
 	{
 		return databaseForcedNames;
+	}
+	
+	java.util.Properties getDatabaseTableOptions()
+	{
+		return databaseTableOptions;
 	}
 	
 	String getDatabaseCustomProperty(final String key)

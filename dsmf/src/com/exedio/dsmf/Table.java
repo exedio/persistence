@@ -29,6 +29,7 @@ public final class Table extends Node
 {
 	private final Schema schema;
 	final String name;
+	final String options;
 	private final boolean required;
 	private boolean exists;
 	private LastAnalyzed lastAnalyzed = null;
@@ -41,12 +42,17 @@ public final class Table extends Node
 	private final HashMap constraintMap = new HashMap();
 	private final ArrayList constraintList = new ArrayList();
 
-	public Table(final Schema schema, final String name)
+	public Table(final Schema schema, final String name, final String options)
 	{
-		this(schema, name, true);
+		this(schema, name, options, true);
 	}
 	
-	Table(final Schema schema, final String name, final boolean required)
+	public Table(final Schema schema, final String name)
+	{
+		this(schema, name, null, true);
+	}
+	
+	Table(final Schema schema, final String name, final String options, final boolean required)
 	{
 		super(schema.driver, schema.connectionProvider);
 		
@@ -57,6 +63,7 @@ public final class Table extends Node
 
 		this.schema = schema;
 		this.name = name;
+		this.options = options;
 		this.required = required;
 		this.exists = !required;
 
@@ -247,8 +254,16 @@ public final class Table extends Node
 		final StringBuffer bf = new StringBuffer();
 
 		bf.append("create table ").
-			append(protectName(name)).
-			append('(');
+			append(protectName(name));
+		
+		if(options!=null)
+		{
+			bf.append(' ').
+				append(options).
+				append(' ');
+		}
+			
+		bf.append('(');
 
 		boolean firstColumn = true;
 		for(Iterator i = columnList.iterator(); i.hasNext(); )

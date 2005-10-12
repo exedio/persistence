@@ -50,6 +50,7 @@ abstract class Database
 	private final boolean butterflyPkSource;
 	final ConnectionPool connectionPool;
 	private final java.util.Properties forcedNames;
+	final java.util.Properties tableOptions;
 	private List expectedCalls = null;
 	
 	protected Database(final Driver driver, final Properties properties)
@@ -60,6 +61,7 @@ abstract class Database
 		this.butterflyPkSource = properties.getPkSourceButterfly();
 		this.connectionPool = new ConnectionPool(properties);
 		this.forcedNames = properties.getDatabaseForcedNames();
+		this.tableOptions = properties.getDatabaseTableOptions();
 		//System.out.println("using database "+getClass());
 	}
 	
