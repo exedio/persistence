@@ -118,7 +118,7 @@ public abstract class ComputedFunction extends Feature implements Function
 		int result = functionName.hashCode();
 		
 		for(int i = 0; i<sources.length; i++)
-			result ^= (sources[i].hashCode()*(i+17)); // may not be commutative
+			result = (31*result) + sources[i].hashCode(); // may not be commutative
 
 		return result;
 	}
