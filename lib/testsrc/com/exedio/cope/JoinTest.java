@@ -38,6 +38,10 @@ public class JoinTest extends TestmodelTest
 
 	public void testJoin()
 	{
+		// test conditions
+		assertEquals(PointerItem.pointer.equalTarget(), PointerItem.pointer.equalTarget());
+		assertNotEquals(PointerItem.pointer.equalTarget(), PointerItem.pointer2.equalTarget());
+		
 		{
 			final Query query = new Query(PointerTargetItem.TYPE, null);
 			assertEquals(list(), query.getJoins());
