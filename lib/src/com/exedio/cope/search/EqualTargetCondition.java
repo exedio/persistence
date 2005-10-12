@@ -36,6 +36,9 @@ public final class EqualTargetCondition extends Condition
 	 */
 	public EqualTargetCondition(final ItemAttribute attribute, final Join targetJoin)
 	{
+		if(attribute==null)
+			throw new NullPointerException("attribute must not be null");
+
 		this.attribute = attribute;
 		this.targetJoin = targetJoin;
 		
@@ -54,6 +57,21 @@ public final class EqualTargetCondition extends Condition
 	{
 		check(attribute, query);
 		check(attribute.getTargetType(), query);
+	}
+
+	public boolean equals(final Object other)
+	{
+		if(!(other instanceof EqualTargetCondition))
+			return false;
+		
+		final EqualTargetCondition o = (EqualTargetCondition)other;
+		
+		return attribute.equals(o.attribute) && equals(targetJoin, o.targetJoin);
+	}
+	
+	public int hashCode()
+	{
+		return attribute.hashCode() ^ hashCode(targetJoin) ^ 283471239;
 	}
 
 	public final String toString()

@@ -62,6 +62,9 @@ public final class EqualCondition extends Condition
 	 */
 	public EqualCondition(final Join join, final Function function, final Object value)
 	{
+		if(function==null)
+			throw new NullPointerException("function must not be null");
+
 		this.join = join;
 		this.function = function;
 		this.value = value;
@@ -80,6 +83,21 @@ public final class EqualCondition extends Condition
 	public final void check(final Query query)
 	{
 		check(function, query);
+	}
+
+	public boolean equals(final Object other)
+	{
+		if(!(other instanceof EqualCondition))
+			return false;
+		
+		final EqualCondition o = (EqualCondition)other;
+		
+		return equals(join, o.join) && function.equals(o.function) && equals(value, o.value);
+	}
+	
+	public int hashCode()
+	{
+		return hashCode(join) ^ function.hashCode() ^ hashCode(value);
 	}
 
 	public final String toString()

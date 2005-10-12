@@ -38,6 +38,11 @@ public final class EqualAttributeCondition extends Condition
 				final ObjectAttribute attribute1,
 				final ObjectAttribute attribute2)
 	{
+		if(attribute1==null)
+			throw new NullPointerException("attribute1 must not be null");
+		if(attribute2==null)
+			throw new NullPointerException("attribute2 must not be null");
+
 		this.attribute1 = attribute1;
 		this.attribute2 = attribute2;
 	}
@@ -53,6 +58,21 @@ public final class EqualAttributeCondition extends Condition
 	{
 		check(attribute1, query);
 		check(attribute2, query);
+	}
+
+	public boolean equals(final Object other)
+	{
+		if(!(other instanceof EqualAttributeCondition))
+			return false;
+		
+		final EqualAttributeCondition o = (EqualAttributeCondition)other;
+		
+		return attribute1.equals(o.attribute1) && attribute2.equals(o.attribute2);
+	}
+	
+	public int hashCode()
+	{
+		return attribute1.hashCode() ^ attribute2.hashCode();
 	}
 
 	public final String toString()

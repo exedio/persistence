@@ -28,8 +28,16 @@ public abstract class CompositeCondition extends Condition
 
 	CompositeCondition(final String operator, final Condition[] conditions)
 	{
+		if(operator==null)
+			throw new NullPointerException("operator must not be null");
+		if(conditions==null)
+			throw new NullPointerException("conditions must not be null");
 		if(conditions.length==0)
 			throw new RuntimeException("composite condition must have at least one subcondition");
+		for(int i = 0; i<conditions.length; i++)
+			if(conditions[i]==null)
+				throw new NullPointerException("condition " + i + " must not be null");
+				
 
 		this.operator = operator;
 		this.conditions = conditions;
@@ -51,6 +59,35 @@ public abstract class CompositeCondition extends Condition
 	{
 		for(int i = 0; i<conditions.length; i++)
 			conditions[i].check(query);
+	}
+	
+	public boolean equals(final Object other)
+	{
+		if(!(other instanceof CompositeCondition))
+			return false;
+		
+		final CompositeCondition o = (CompositeCondition)other;
+		
+		if(!operator.equals(o.operator) || conditions.length!=o.conditions.length)
+			return false;
+		
+		for(int i = 0; i<conditions.length; i++)
+		{
+			if(!conditions[i].equals(o.conditions[i]))
+				return false;
+		}
+
+		return true;
+	}
+	
+	public int hashCode()
+	{
+		int result = operator.hashCode();
+		
+		for(int i = 0; i<conditions.length; i++)
+			result ^= conditions[i].hashCode();
+
+		return result;
 	}
 
 	public final String toString()

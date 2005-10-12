@@ -23,7 +23,7 @@ import com.exedio.cope.ObjectAttribute;
 import com.exedio.cope.Query;
 import com.exedio.cope.Statement;
 
-public class LiteralCondition extends Condition
+public abstract class LiteralCondition extends Condition
 {
 	private final String operator; 
 	public final ObjectAttribute attribute;
@@ -56,6 +56,21 @@ public class LiteralCondition extends Condition
 	public final void check(final Query query)
 	{
 		check(attribute, query);
+	}
+
+	public boolean equals(final Object other)
+	{
+		if(!(other instanceof LiteralCondition))
+			return false;
+		
+		final LiteralCondition o = (LiteralCondition)other;
+		
+		return operator.equals(o.operator) && attribute.equals(o.attribute) && value.equals(o.value);
+	}
+	
+	public int hashCode()
+	{
+		return operator.hashCode() ^ attribute.hashCode() ^ value.hashCode() ^ 918276;
 	}
 
 	public final String toString()

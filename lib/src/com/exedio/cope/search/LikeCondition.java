@@ -60,6 +60,21 @@ public final class LikeCondition extends Condition
 		check(function, query);
 	}
 
+	public boolean equals(final Object other)
+	{
+		if(!(other instanceof LikeCondition))
+			return false;
+		
+		final LikeCondition o = (LikeCondition)other;
+		
+		return function.equals(o.function) && value.equals(o.value);
+	}
+	
+	public int hashCode()
+	{
+		return function.hashCode() ^ value.hashCode() ^ 1872643;
+	}
+
 	public final String toString()
 	{
 		return function.getName() + " like '" + value + '\'';

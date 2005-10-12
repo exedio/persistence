@@ -61,6 +61,9 @@ public final class NotEqualCondition extends Condition
 	 */
 	public NotEqualCondition(final Function function, final Object value)
 	{
+		if(function==null)
+			throw new NullPointerException("function must ot be null");
+
 		this.function = function;
 		this.value = value;
 	}
@@ -88,6 +91,21 @@ public final class NotEqualCondition extends Condition
 	public final void check(final Query query)
 	{
 		check(function, query);
+	}
+
+	public boolean equals(final Object other)
+	{
+		if(!(other instanceof NotEqualCondition))
+			return false;
+		
+		final NotEqualCondition o = (NotEqualCondition)other;
+		
+		return function.equals(o.function) && equals(value, o.value);
+	}
+	
+	public int hashCode()
+	{
+		return function.hashCode() ^ hashCode(value) ^ 1276534;
 	}
 
 	public final String toString()

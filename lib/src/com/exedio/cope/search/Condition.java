@@ -98,4 +98,16 @@ public abstract class Condition
 		return new OrCondition(new Condition[]{this, other});
 	}
 	
+	public abstract boolean equals(Object o);
+	public abstract int hashCode();
+	
+	static final boolean equals(final Object o1, final Object o2)
+	{
+		return o1==null ? o2==null : o1.equals(o2);
+	}
+	
+	static int hashCode(final Object o)
+	{
+		return o==null ? 0 : o.hashCode();
+	}
 }
