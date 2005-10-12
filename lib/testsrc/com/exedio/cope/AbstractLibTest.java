@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import com.exedio.cope.junit.CopeTest;
+import com.exedio.cope.search.Condition;
 
 public abstract class AbstractLibTest extends CopeTest
 {
@@ -96,13 +97,29 @@ public abstract class AbstractLibTest extends CopeTest
 	protected static void assertEquals(final Function f1, final Function f2)
 	{
 		assertEquals((Object)f1, (Object)f2);
+		assertEquals((Object)f2, (Object)f1);
 		assertEquals(f1.hashCode(), f2.hashCode());
 	}
 	
 	protected static void assertNotEquals(final Function f1, final Function f2)
 	{
 		assertTrue(!f1.equals(f2));
+		assertTrue(!f2.equals(f1));
 		assertTrue(f1.hashCode()!=f2.hashCode());
+	}
+	
+	protected static void assertEquals(final Condition c1, final Condition c2)
+	{
+		assertEquals((Object)c1, (Object)c2);
+		assertEquals((Object)c2, (Object)c1);
+		assertEquals(c1.hashCode(), c2.hashCode());
+	}
+	
+	protected static void assertNotEquals(final Condition c1, final Condition c2)
+	{
+		assertTrue(!c1.equals(c2));
+		assertTrue(!c2.equals(c1));
+		assertTrue(c1.hashCode()!=c2.hashCode());
 	}
 	
 	protected void assertDelete(final Item item) throws IntegrityViolationException
