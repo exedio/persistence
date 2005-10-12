@@ -93,6 +93,8 @@ public class ItemTest extends TestmodelTest
 	public void testCheckDatabase()
 	{
 		model.checkDatabase();
+		model.dropDatabaseConstraints();
+		model.createDatabaseConstraints();
 	}
 	
 	public void testItemCreation()

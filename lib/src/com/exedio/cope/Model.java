@@ -203,6 +203,11 @@ public final class Model
 		database.createDatabase();
 	}
 
+	public void createDatabaseConstraints()
+	{
+		database.createDatabaseConstraints();
+	}
+
 	private void createDataDirectories(final Type type)
 	{
 		File typeDirectory = null;
@@ -321,6 +326,11 @@ public final class Model
 
 		for(int i = 0; i<this.types.length; i++)
 			dropDataDirectories(this.types[i]);
+	}
+
+	public void dropDatabaseConstraints()
+	{
+		database.dropDatabaseConstraints();
 	}
 
 	public void tearDownDatabase()

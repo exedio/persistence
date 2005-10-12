@@ -99,6 +99,15 @@ public class ConstraintTest extends SchemaReadyTest
 		assertFkConstraint(table, FK_NAME, FK_COLUMN, FK_TARGET_TABLE, FK_TARGET_COLUMN);
 		assertUniqueConstraint(table, UNIQUE_SINGLE_NAME, "("+p(UNIQUE_SINGLE_COLUMN)+")");
 		assertUniqueConstraint(table, UNIQUE_DOUBLE_NAME, "("+p(UNIQUE_DOUBLE_COLUMN1)+","+p(UNIQUE_DOUBLE_COLUMN2)+")");
+		
+		((ForeignKeyConstraint)table.getConstraint(FK_NAME)).drop();
+		((ForeignKeyConstraint)table.getConstraint(FK_NAME)).create();
+		
+		if(supportsCheckConstraints)
+		{
+			((CheckConstraint)table.getConstraint(CHECK_NAME)).drop();
+			((CheckConstraint)table.getConstraint(CHECK_NAME)).create();
+		}
 	}
 
 	private void assertCheckConstraint(final Table table, final String constraintName, final String requiredCondition)

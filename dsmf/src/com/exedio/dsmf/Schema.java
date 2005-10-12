@@ -105,6 +105,14 @@ public final class Schema extends Node
 		//System.out.println("CREATE TABLES "+amount+"ms  accumulated "+createTableTime);
 	}
 
+	public final void createConstraints()
+	{
+		for(Iterator i = tableList.iterator(); i.hasNext(); )
+			((Table)i.next()).createCheckConstraints();
+		for(Iterator i = tableList.iterator(); i.hasNext(); )
+			((Table)i.next()).createForeignKeyConstraints();
+	}
+
 	public final void drop()
 	{
 		//final long time = System.currentTimeMillis();
@@ -116,6 +124,14 @@ public final class Schema extends Node
 		//final long amount = (System.currentTimeMillis()-time);
 		//dropTableTime += amount;
 		//System.out.println("DROP TABLES "+amount+"ms  accumulated "+dropTableTime);
+	}
+	
+	public final void dropConstraints()
+	{
+		for(ListIterator i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
+			((Table)i.previous()).dropForeignKeyConstraints();
+		for(ListIterator i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
+			((Table)i.previous()).dropCheckConstraints();
 	}
 	
 	public final void tearDown()

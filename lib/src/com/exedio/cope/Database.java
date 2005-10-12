@@ -100,6 +100,13 @@ abstract class Database
 		makeSchema().create();
 	}
 
+	void createDatabaseConstraints()
+	{
+		buildStage = false;
+		
+		makeSchema().createConstraints();
+	}
+
 	//private static int checkTableTime = 0;
 
 	void checkDatabase(final Connection connection)
@@ -185,6 +192,13 @@ abstract class Database
 		buildStage = false;
 
 		makeSchema().drop();
+	}
+	
+	void dropDatabaseConstraints()
+	{
+		buildStage = false;
+
+		makeSchema().dropConstraints();
 	}
 	
 	void tearDownDatabase()

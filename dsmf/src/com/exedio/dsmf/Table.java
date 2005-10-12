@@ -287,6 +287,16 @@ public final class Table extends Node
 			
 	}
 	
+	final void createCheckConstraints()
+	{
+		for(Iterator i = constraintList.iterator(); i.hasNext(); )
+		{
+			final Constraint constraint = (Constraint)i.next();
+			if(constraint instanceof CheckConstraint)
+				((CheckConstraint)constraint).create();
+		}
+	}
+	
 	final void createForeignKeyConstraints()
 	{
 		//System.out.println("createForeignKeyConstraints:"+bf);
@@ -334,6 +344,16 @@ public final class Table extends Node
 
 	}
 	
+	final void dropCheckConstraints() 
+	{
+		for(Iterator i = constraintList.iterator(); i.hasNext(); )
+		{
+			final Constraint constraint = (Constraint)i.next();
+			if(constraint instanceof CheckConstraint)
+				((CheckConstraint)constraint).drop();
+		}
+	}
+	
 	final void dropForeignKeyConstraints() 
 	{
 		for(Iterator i = constraintList.iterator(); i.hasNext(); )
@@ -341,11 +361,7 @@ public final class Table extends Node
 			final Constraint constraint = (Constraint)i.next();
 			//System.out.println("dropForeignKeyConstraints("+column+")");
 			if(constraint instanceof ForeignKeyConstraint)
-			{
-				final ForeignKeyConstraint fk = (ForeignKeyConstraint)constraint;
-				//System.err.println("DROPPING FOREIGN KEY CONSTRAINTS "+name+" "+fk.name+"... ");
-				fk.drop();
-			}
+				((ForeignKeyConstraint)constraint).drop();
 		}
 	}
 	

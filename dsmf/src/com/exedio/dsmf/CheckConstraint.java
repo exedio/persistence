@@ -44,4 +44,29 @@ public class CheckConstraint extends Constraint
 			append(')');
 	}
 	
+	final void create()
+	{
+		final StringBuffer bf = new StringBuffer();
+		bf.append("alter table ").
+			append(protectName(table.name)).
+			append(" add constraint ").
+			append(protectName(name)).
+			append(" check(").
+			append(requiredCondition).
+			append(')');
+
+		executeSQL(bf.toString());
+	}
+	
+	final void drop()
+	{
+		final StringBuffer bf = new StringBuffer();
+		bf.append("alter table ").
+			append(protectName(table.name)).
+			append(" drop constraint ").
+			append(protectName(name));
+
+		executeSQL(bf.toString());
+	}
+	
 }
