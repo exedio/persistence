@@ -65,6 +65,13 @@ public class LiteralConditionTest extends TestmodelTest
 	
 	public void testLiteralConditions()
 	{
+		// test equals/hashCode
+		assertEquals(item1.someString.less("a"), item1.someString.less("a"));
+		assertNotEquals(item1.someString.less("a"), item1.someString.less("b"));
+		assertNotEquals(item1.someString.less("a"), item1.someNotNullString.less("a"));
+		assertNotEquals(item1.someString.less("a"), item1.someString.lessOrEqual("a"));
+		
+		
 		// less
 		assertContains(item1, item2,
 			item1.TYPE.search(item1.someNotNullString.less("string3")));
