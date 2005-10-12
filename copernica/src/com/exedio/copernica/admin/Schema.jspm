@@ -78,6 +78,9 @@ final class Schema_Jspm
 			<input type="submit" name="CREATE" value="create" />
 			<input type="submit" name="TEARDOWN" value="tear down"/>
 			<input type="submit" name="DROP" value="drop"/>
+			constraints:
+			<input type="submit" name="CREATE_CONSTRAINTS" value="create" />
+			<input type="submit" name="DROP_CONSTRAINTS" value="drop"/>
 			<br>
 			<%
 				if(request.getParameter("CREATE")!=null)
@@ -94,6 +97,16 @@ final class Schema_Jspm
 				{
 					model.dropDatabase();
 					%><div class="message">Database successfully dropped!</div><%
+				}
+				else if(request.getParameter("CREATE_CONSTRAINTS")!=null)
+				{
+					model.createDatabaseConstraints();
+					%><div class="message">Database constraints successfully created!</div><%
+				}
+				else if(request.getParameter("DROP_CONSTRAINTS")!=null)
+				{
+					model.dropDatabaseConstraints();
+					%><div class="message">Database constraints successfully dropped!</div><%
 				}
 				else if(request.getParameter("APPLY")!=null)
 				{
