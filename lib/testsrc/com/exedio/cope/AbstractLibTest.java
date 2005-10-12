@@ -98,7 +98,8 @@ public abstract class AbstractLibTest extends CopeTest
 	{
 		assertEquals((Object)f1, (Object)f2);
 		assertEquals((Object)f2, (Object)f1);
-		assertEquals(f1.hashCode(), f2.hashCode());
+		if(f1!=null)
+			assertEquals(f1.hashCode(), f2.hashCode());
 	}
 	
 	protected static void assertNotEquals(final Function f1, final Function f2)
@@ -112,7 +113,8 @@ public abstract class AbstractLibTest extends CopeTest
 	{
 		assertEquals((Object)c1, (Object)c2);
 		assertEquals((Object)c2, (Object)c1);
-		assertEquals(c1.hashCode(), c2.hashCode());
+		if(c1!=null)
+			assertEquals(c1.hashCode(), c2.hashCode());
 	}
 	
 	protected static void assertNotEquals(final Condition c1, final Condition c2)
