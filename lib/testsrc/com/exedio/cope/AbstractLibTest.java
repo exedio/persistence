@@ -93,6 +93,18 @@ public abstract class AbstractLibTest extends CopeTest
 		}
 	}
 	
+	protected static void assertEquals(final Function f1, final Function f2)
+	{
+		assertEquals((Object)f1, (Object)f2);
+		assertEquals(f1.hashCode(), f2.hashCode());
+	}
+	
+	protected static void assertNotEquals(final Function f1, final Function f2)
+	{
+		assertTrue(!f1.equals(f2));
+		assertTrue(f1.hashCode()!=f2.hashCode());
+	}
+	
 	protected void assertDelete(final Item item) throws IntegrityViolationException
 	{
 		assertTrue(item.existsCopeItem());
