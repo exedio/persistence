@@ -24,11 +24,20 @@ public class AttributeStringTest extends AttributeTest
 {
 	public void testSomeString() throws ConstraintViolationException
 	{
+		// test model
 		assertEquals(item.TYPE, item.someString.getType());
 		assertEquals(item.TYPE, item.someStringUpperCase.getType());
 		assertEquals("someString", item.someString.getName());
 		assertEqualsUnmodifiable(list(), item.someString.getPatterns());
 		assertEquals("someStringUpperCase", item.someStringUpperCase.getName());
+
+		// test conditions
+		assertEquals(item.someString.equal("hallo"), item.someString.equal("hallo"));
+		assertNotEquals(item.someString.equal("hallo"), item.someString.equal("bello"));
+		assertNotEquals(item.someString.equal("hallo"), item.someString.equal((String)null));
+		assertNotEquals(item.someString.equal("hallo"), item.someString.like("hallo"));
+		assertEquals(item.someString.equal(item.someNotNullString), item.someString.equal(item.someNotNullString));
+		assertNotEquals(item.someString.equal(item.someNotNullString), item.someString.equal(item.someString));
 		
 		{
 			final StringAttribute orig = new StringAttribute(Item.OPTIONAL);
