@@ -5,6 +5,9 @@
 	- Instrumentierung nur für geänderte Dateien
 	- disable/anderer access modifier für alle Methoden
 * Lib
+	- default values for attributes
+	- range (minimum/maximum) for integers/doubles
+	- precision (number of fractional digits) for doubles
 	- search API
 		- introduce Condition#TRUE/#FALSE and use it for:
 			+ empty composite conditions
