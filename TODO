@@ -43,6 +43,7 @@
 			- SQLRuntimeException
 			- ConstraintViolationException
 		* milliseconds workaround in TimestampColumn#getTime
+	- support JMX for information displayed by AdminServlet
 	- write documention
 		* support for Defining Column Types on oracle
 			http://download-west.oracle.com/docs/cd/B10501_01/java.920/a96654/oraperf.htm#1002524
