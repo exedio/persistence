@@ -1,5 +1,5 @@
 * Instrumentor
-	- first load all files, then write alles files
+	- first load all files, then write all files
 	- mehrsprachige generierte Comments
 	- mehrsprachige Parametertypen
 	- Instrumentierung nur für geänderte Dateien
@@ -43,9 +43,6 @@
 			- SQLRuntimeException
 			- ConstraintViolationException
 		* milliseconds workaround in TimestampColumn#getTime
-
-* Docs
-	- aus AGENDA
 * Copernica
 	- query designer
 	- schönere Darstellung der Qualifiers
