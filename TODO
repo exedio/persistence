@@ -38,6 +38,8 @@
 		* alter table "ItemWithDoubleUnique" drop constraint "ItemWithDoublUniqu_str_Nn"
 	- relation pattern
 	- Vector: allow length terminated instead of null terminated as well
+	- allow indexes to be declared in java source code,
+		and generated useful finders for index.
 	- test model:
 		* put classes for patterns into separate package
 		* separate test model for lib tests and testwebapp (webtests)
