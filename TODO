@@ -47,6 +47,8 @@
 	- write documention
 		* support for Defining Column Types on oracle
 			http://download-west.oracle.com/docs/cd/B10501_01/java.920/a96654/oraperf.htm#1002524
+* AdminServlet
+	- allow changing the database connection parameters
 * Copernica
 	- query designer
 	- schönere Darstellung der Qualifiers
