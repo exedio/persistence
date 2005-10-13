@@ -27,6 +27,7 @@
 		* maintain charset in Content-Type for texts
 		* implement MediaAlias
 		* implement redundant (computed) medias, such as thumbnails
+		* redundantly maintain width/height for images
 	- move Item#touch into separate pattern Timestamp
 	- analog dsmf: Datenverzeichnisse prüfen
 	- add/drop constraints:
