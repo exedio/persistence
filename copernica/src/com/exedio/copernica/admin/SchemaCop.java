@@ -26,6 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.exedio.cope.Model;
 import com.exedio.dsmf.Column;
+import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Table;
 
@@ -138,11 +139,30 @@ final class SchemaCop extends AdminCop
 		return column;
 	}
 	
+	static final String DROP_CONSTRAINT = "DROP_CONSTRAINT";
+	static final String CREATE_CONSTRAINT = "CREATE_CONSTRAINT";
+	
 	final static void writeApply(final PrintStream out,
 			final HttpServletRequest request, final Model model)
 			throws IOException
 	{
 		final Schema schema = model.getVerifiedSchema();
+		{
+			final String[] dropConstraints = (String[]) request.getParameterMap().get(DROP_CONSTRAINT);
+			if (dropConstraints != null)
+			{
+				for (int i = 0; i < dropConstraints.length; i++)
+				{
+					final String dropConstraint = dropConstraints[i];
+					final Constraint constraint = schema.getConstraint(dropConstraint);
+					Schema_Jspm.writeDrop(out, constraint);
+					out.flush();
+					final long startTime = System.currentTimeMillis();
+					constraint.drop();
+					Schema_Jspm.writeDone(out, startTime);
+				}
+			}
+		}
 		{
 			final String[] dropColumns = (String[]) request.getParameterMap().get(
 					"DROP_COLUMN");
@@ -296,6 +316,7 @@ final class SchemaCop extends AdminCop
 			}
 		}
 		{
+			// TODO fix typo in name
 			final String[] createColums = (String[]) request.getParameterMap()
 					.get("CREATE_COLUMN");
 			if (createColums != null)
@@ -308,6 +329,22 @@ final class SchemaCop extends AdminCop
 					out.flush();
 					final long startTime = System.currentTimeMillis();
 					column.create();
+					Schema_Jspm.writeDone(out, startTime);
+				}
+			}
+		}
+		{
+			final String[] createConstraints = (String[]) request.getParameterMap().get("CREATE_CONSTRAINT");
+			if (createConstraints != null)
+			{
+				for (int i = 0; i < createConstraints.length; i++)
+				{
+					final String createConstraint = createConstraints[i];
+					final Constraint constraint = schema.getConstraint(createConstraint);
+					Schema_Jspm.writeCreate(out, constraint);
+					out.flush();
+					final long startTime = System.currentTimeMillis();
+					constraint.create();
 					Schema_Jspm.writeDone(out, startTime);
 				}
 			}

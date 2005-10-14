@@ -153,7 +153,7 @@ public abstract class Constraint extends Node
 	}
 	
 	abstract void createInTable(StringBuffer bf);
-	abstract void create();
-	abstract void drop();
+	public abstract void create();
+	public abstract void drop();
 
 }

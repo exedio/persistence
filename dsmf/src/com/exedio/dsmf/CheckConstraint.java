@@ -44,7 +44,7 @@ public class CheckConstraint extends Constraint
 			append(')');
 	}
 	
-	final void create()
+	public final void create()
 	{
 		final StringBuffer bf = new StringBuffer();
 		bf.append("alter table ").
@@ -58,7 +58,7 @@ public class CheckConstraint extends Constraint
 		executeSQL(bf.toString());
 	}
 	
-	final void drop()
+	public final void drop()
 	{
 		final StringBuffer bf = new StringBuffer();
 		bf.append("alter table ").

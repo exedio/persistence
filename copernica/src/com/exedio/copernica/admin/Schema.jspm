@@ -360,6 +360,15 @@ for(Iterator i = schema.getTables().iterator(); i.hasNext(); tableCount++)
 		out.flush();
 	}
 	
+	final static void writeDrop(final PrintStream out, final Constraint constraint)
+		throws IOException
+	{
+		%>
+		<li>schema.getTable(&quot;<b><%=
+			constraint.getTable().getName()%></b>&quot;).getConstraint(&quot;<b><%=
+			constraint.getName()%></b>&quot;).drop();</li><%
+	}
+
 	final static void writeDrop(final PrintStream out, final Column column)
 		throws IOException
 	{
@@ -429,6 +438,15 @@ for(Iterator i = schema.getTables().iterator(); i.hasNext(); tableCount++)
 		<li>schema.getTable(&quot;<b><%=
 			column.getTable().getName()%></b>&quot;).getColumn(&quot;<b><%=
 			column.getName()%></b>&quot;).create();</li><%
+	}
+
+	final static void writeCreate(final PrintStream out, final Constraint constraint)
+		throws IOException
+	{
+		%>
+		<li>schema.getTable(&quot;<b><%=
+			constraint.getTable().getName()%></b>&quot;).getConstraint(&quot;<b><%=
+			constraint.getName()%></b>&quot;).create();</li><%
 	}
 
 }

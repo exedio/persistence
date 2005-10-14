@@ -53,7 +53,7 @@ public class UniqueConstraint extends Constraint
 			append(clause);
 	}
 	
-	final void create()
+	public final void create()
 	{
 		if(!driver.canDropUniqueConstraints())
 			return;
@@ -69,7 +69,7 @@ public class UniqueConstraint extends Constraint
 		executeSQL(bf.toString());
 	}
 	
-	final void drop()
+	public final void drop()
 	{
 		if(!driver.canDropUniqueConstraints())
 			return;

@@ -53,7 +53,7 @@ public class PrimaryKeyConstraint extends Constraint
 			append(')');
 	}
 	
-	final void create()
+	public final void create()
 	{
 		if(!driver.canDropPrimaryKeyConstraints())
 			return;
@@ -70,7 +70,7 @@ public class PrimaryKeyConstraint extends Constraint
 		executeSQL(bf.toString());
 	}
 	
-	final void drop()
+	public final void drop()
 	{
 		if(!driver.canDropPrimaryKeyConstraints())
 			return;
