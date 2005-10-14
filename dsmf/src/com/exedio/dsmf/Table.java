@@ -307,8 +307,7 @@ public final class Table extends Node
 			
 	}
 	
-	final void createCheckConstraints()
-	// TODO rename to createNonForeignKeyConstraints
+	final void createNonForeignKeyConstraints()
 	{
 		for(Iterator i = constraintList.iterator(); i.hasNext(); )
 		{

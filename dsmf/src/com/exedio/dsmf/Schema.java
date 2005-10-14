@@ -108,7 +108,7 @@ public final class Schema extends Node
 	public final void createConstraints()
 	{
 		for(Iterator i = tableList.iterator(); i.hasNext(); )
-			((Table)i.next()).createCheckConstraints();
+			((Table)i.next()).createNonForeignKeyConstraints();
 		for(Iterator i = tableList.iterator(); i.hasNext(); )
 			((Table)i.next()).createForeignKeyConstraints();
 	}
