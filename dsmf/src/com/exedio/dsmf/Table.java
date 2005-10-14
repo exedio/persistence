@@ -311,28 +311,6 @@ public final class Table extends Node
 			
 	}
 	
-	final void createConstraints(final boolean secondPhase)
-	{
-		for(Iterator i = constraintList.iterator(); i.hasNext(); )
-		{
-			final Constraint constraint = (Constraint)i.next();
-			if(constraint.secondPhase==secondPhase)
-				constraint.create();
-		}
-	}
-	
-	public final void renameTo(final String newName)
-	{
-		final StringBuffer bf = new StringBuffer();
-		bf.append("alter table ").
-			append(protectName(name)).
-			append(" rename to ").
-			append(protectName(newName));
-
-		//System.out.println("renameTable:"+bf);
-		executeSQL(bf.toString());
-	}
-
 	public final void drop()
 	{
 		final StringBuffer bf = new StringBuffer();
@@ -353,6 +331,16 @@ public final class Table extends Node
 		else
 			executeSQL(bf.toString());
 
+	}
+	
+	final void createConstraints(final boolean secondPhase)
+	{
+		for(Iterator i = constraintList.iterator(); i.hasNext(); )
+		{
+			final Constraint constraint = (Constraint)i.next();
+			if(constraint.secondPhase==secondPhase)
+				constraint.create();
+		}
 	}
 	
 	final void dropConstraints(final boolean secondPhase)
@@ -385,6 +373,18 @@ public final class Table extends Node
 		}
 	}
 	
+	public final void renameTo(final String newName)
+	{
+		final StringBuffer bf = new StringBuffer();
+		bf.append("alter table ").
+			append(protectName(name)).
+			append(" rename to ").
+			append(protectName(newName));
+
+		//System.out.println("renameTable:"+bf);
+		executeSQL(bf.toString());
+	}
+
 	public final void analyze()
 	{
 		final StringBuffer bf = new StringBuffer();
