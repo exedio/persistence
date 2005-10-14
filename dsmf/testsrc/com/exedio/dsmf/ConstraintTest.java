@@ -100,6 +100,7 @@ public class ConstraintTest extends SchemaReadyTest
 		assertUniqueConstraint(table, UNIQUE_SINGLE_NAME, "("+p(UNIQUE_SINGLE_COLUMN)+")");
 		assertUniqueConstraint(table, UNIQUE_DOUBLE_NAME, "("+p(UNIQUE_DOUBLE_COLUMN1)+","+p(UNIQUE_DOUBLE_COLUMN2)+")");
 		
+		// TODO introduce Constraint#create/drop and use it here
 		((ForeignKeyConstraint)table.getConstraint(FK_NAME)).drop();
 		((ForeignKeyConstraint)table.getConstraint(FK_NAME)).create();
 		
@@ -109,6 +110,8 @@ public class ConstraintTest extends SchemaReadyTest
 			((CheckConstraint)table.getConstraint(CHECK_NAME)).create();
 		}
 		
+		((PrimaryKeyConstraint)table.getConstraint(PK_NAME)).drop();
+		((PrimaryKeyConstraint)table.getConstraint(PK_NAME)).create();
 		((UniqueConstraint)table.getConstraint(UNIQUE_SINGLE_NAME)).drop();
 		((UniqueConstraint)table.getConstraint(UNIQUE_SINGLE_NAME)).create();
 		((UniqueConstraint)table.getConstraint(UNIQUE_DOUBLE_NAME)).drop();

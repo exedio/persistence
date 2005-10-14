@@ -53,4 +53,35 @@ public class PrimaryKeyConstraint extends Constraint
 			append(')');
 	}
 	
+	final void create()
+	{
+		if(!driver.canDropPrimaryKeyConstraints())
+			return;
+		
+		final StringBuffer bf = new StringBuffer();
+		bf.append("alter table ").
+			append(protectName(table.name)).
+			append(" add constraint ").
+			append(protectName(name)).
+			append(" primary key(").
+			append(protectName(primaryKeyColumn)).
+			append(')');
+
+		executeSQL(bf.toString());
+	}
+	
+	final void drop()
+	{
+		if(!driver.canDropPrimaryKeyConstraints())
+			return;
+		
+		final StringBuffer bf = new StringBuffer();
+		bf.append("alter table ").
+			append(protectName(table.name)).
+			append(" drop constraint ").
+			append(protectName(name));
+		
+		executeSQL(bf.toString());
+	}
+
 }

@@ -268,4 +268,9 @@ public final class MysqlDriver extends Driver
 		return false;
 	}
 	
+	boolean canDropPrimaryKeyConstraints()
+	{
+		return false;
+	}
+	
 }

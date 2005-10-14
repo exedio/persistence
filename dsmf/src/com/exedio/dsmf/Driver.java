@@ -119,5 +119,10 @@ public abstract class Driver
 	{
 		return true;
 	}
+
+	boolean canDropPrimaryKeyConstraints()
+	{
+		return true;
+	}
 	
 }

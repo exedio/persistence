@@ -308,14 +308,18 @@ public final class Table extends Node
 	}
 	
 	final void createCheckConstraints()
+	// TODO rename to createNonForeignKeyConstraints
 	{
 		for(Iterator i = constraintList.iterator(); i.hasNext(); )
 		{
 			final Constraint constraint = (Constraint)i.next();
+			// TODO introduce Constraint#create/drop and use in this method
 			if(constraint instanceof CheckConstraint)
 				((CheckConstraint)constraint).create();
 			else if(constraint instanceof UniqueConstraint)
 				((UniqueConstraint)constraint).create();
+			else if(constraint instanceof PrimaryKeyConstraint)
+				((PrimaryKeyConstraint)constraint).create();
 		}
 	}
 	
@@ -366,15 +370,19 @@ public final class Table extends Node
 
 	}
 	
-	final void dropCheckConstraints() 
+	final void dropCheckConstraints()
+	// TODO rename to dropNonForeignKeyConstraints
 	{
 		for(Iterator i = constraintList.iterator(); i.hasNext(); )
 		{
 			final Constraint constraint = (Constraint)i.next();
+			// TODO introduce Constraint#create/drop and use in this method
 			if(constraint instanceof CheckConstraint)
 				((CheckConstraint)constraint).drop();
 			else if(constraint instanceof UniqueConstraint)
 				((UniqueConstraint)constraint).drop();
+			else if(constraint instanceof PrimaryKeyConstraint)
+				((PrimaryKeyConstraint)constraint).drop();
 		}
 	}
 	
