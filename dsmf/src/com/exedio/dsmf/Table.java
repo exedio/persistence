@@ -314,6 +314,8 @@ public final class Table extends Node
 			final Constraint constraint = (Constraint)i.next();
 			if(constraint instanceof CheckConstraint)
 				((CheckConstraint)constraint).create();
+			else if(constraint instanceof UniqueConstraint)
+				((UniqueConstraint)constraint).create();
 		}
 	}
 	
@@ -371,6 +373,8 @@ public final class Table extends Node
 			final Constraint constraint = (Constraint)i.next();
 			if(constraint instanceof CheckConstraint)
 				((CheckConstraint)constraint).drop();
+			else if(constraint instanceof UniqueConstraint)
+				((UniqueConstraint)constraint).drop();
 		}
 	}
 	

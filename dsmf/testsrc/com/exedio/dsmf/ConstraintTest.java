@@ -108,6 +108,11 @@ public class ConstraintTest extends SchemaReadyTest
 			((CheckConstraint)table.getConstraint(CHECK_NAME)).drop();
 			((CheckConstraint)table.getConstraint(CHECK_NAME)).create();
 		}
+		
+		((UniqueConstraint)table.getConstraint(UNIQUE_SINGLE_NAME)).drop();
+		((UniqueConstraint)table.getConstraint(UNIQUE_SINGLE_NAME)).create();
+		((UniqueConstraint)table.getConstraint(UNIQUE_DOUBLE_NAME)).drop();
+		((UniqueConstraint)table.getConstraint(UNIQUE_DOUBLE_NAME)).create();
 	}
 
 	private void assertCheckConstraint(final Table table, final String constraintName, final String requiredCondition)

@@ -53,4 +53,34 @@ public class UniqueConstraint extends Constraint
 			append(clause);
 	}
 	
+	final void create()
+	{
+		if(!driver.canDropUniqueConstraints())
+			return;
+		
+		final StringBuffer bf = new StringBuffer();
+		bf.append("alter table ").
+			append(protectName(table.name)).
+			append(" add constraint ").
+			append(protectName(name)).
+			append(" unique").
+			append(clause);
+
+		executeSQL(bf.toString());
+	}
+	
+	final void drop()
+	{
+		if(!driver.canDropUniqueConstraints())
+			return;
+		
+		final StringBuffer bf = new StringBuffer();
+		bf.append("alter table ").
+			append(protectName(table.name)).
+			append(" drop constraint ").
+			append(protectName(name));
+		
+		executeSQL(bf.toString());
+	}
+
 }

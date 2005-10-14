@@ -263,4 +263,9 @@ public final class MysqlDriver extends Driver
 		return bf.toString();
 	}
 	
+	boolean canDropUniqueConstraints()
+	{
+		return false;
+	}
+	
 }

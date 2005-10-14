@@ -115,4 +115,9 @@ public abstract class Driver
 		return bf.toString();
 	}
 	
+	boolean canDropUniqueConstraints()
+	{
+		return true;
+	}
+	
 }
