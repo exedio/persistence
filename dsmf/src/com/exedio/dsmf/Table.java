@@ -312,13 +312,10 @@ public final class Table extends Node
 		for(Iterator i = constraintList.iterator(); i.hasNext(); )
 		{
 			final Constraint constraint = (Constraint)i.next();
-			// TODO introduce Constraint#create/drop and use in this method
-			if(constraint instanceof CheckConstraint)
-				((CheckConstraint)constraint).create();
-			else if(constraint instanceof UniqueConstraint)
-				((UniqueConstraint)constraint).create();
-			else if(constraint instanceof PrimaryKeyConstraint)
-				((PrimaryKeyConstraint)constraint).create();
+			if(constraint instanceof CheckConstraint ||
+					constraint instanceof UniqueConstraint ||
+					constraint instanceof PrimaryKeyConstraint)
+				constraint.create();
 		}
 	}
 	
@@ -331,7 +328,7 @@ public final class Table extends Node
 			final Constraint constraint = (Constraint)i.next();
 			//System.out.println("createForeignKeyConstraints("+column+"):"+bf);
 			if(constraint instanceof ForeignKeyConstraint)
-				((ForeignKeyConstraint)constraint).create();
+				constraint.create();
 		}
 	}
 	
@@ -374,13 +371,10 @@ public final class Table extends Node
 		for(Iterator i = constraintList.iterator(); i.hasNext(); )
 		{
 			final Constraint constraint = (Constraint)i.next();
-			// TODO introduce Constraint#create/drop and use in this method
-			if(constraint instanceof CheckConstraint)
-				((CheckConstraint)constraint).drop();
-			else if(constraint instanceof UniqueConstraint)
-				((UniqueConstraint)constraint).drop();
-			else if(constraint instanceof PrimaryKeyConstraint)
-				((PrimaryKeyConstraint)constraint).drop();
+			if(constraint instanceof CheckConstraint ||
+					constraint instanceof UniqueConstraint ||
+					constraint instanceof PrimaryKeyConstraint)
+				constraint.drop();
 		}
 	}
 	
@@ -391,7 +385,7 @@ public final class Table extends Node
 			final Constraint constraint = (Constraint)i.next();
 			//System.out.println("dropForeignKeyConstraints("+column+")");
 			if(constraint instanceof ForeignKeyConstraint)
-				((ForeignKeyConstraint)constraint).drop();
+				constraint.drop();
 		}
 	}
 	
