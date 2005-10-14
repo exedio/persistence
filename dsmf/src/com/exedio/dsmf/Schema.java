@@ -131,7 +131,7 @@ public final class Schema extends Node
 		for(ListIterator i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
 			((Table)i.previous()).dropForeignKeyConstraints();
 		for(ListIterator i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
-			((Table)i.previous()).dropCheckConstraints();
+			((Table)i.previous()).dropNonForeignKeyConstraints();
 	}
 	
 	public final void tearDown()

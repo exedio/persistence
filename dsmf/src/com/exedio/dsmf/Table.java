@@ -369,8 +369,7 @@ public final class Table extends Node
 
 	}
 	
-	final void dropCheckConstraints()
-	// TODO rename to dropNonForeignKeyConstraints
+	final void dropNonForeignKeyConstraints()
 	{
 		for(Iterator i = constraintList.iterator(); i.hasNext(); )
 		{
