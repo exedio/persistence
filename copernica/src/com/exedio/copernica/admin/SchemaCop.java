@@ -316,14 +316,13 @@ final class SchemaCop extends AdminCop
 			}
 		}
 		{
-			// TODO fix typo in name
-			final String[] createColums = (String[]) request.getParameterMap()
+			final String[] createColumns = (String[]) request.getParameterMap()
 					.get("CREATE_COLUMN");
-			if (createColums != null)
+			if (createColumns != null)
 			{
-				for (int i = 0; i < createColums.length; i++)
+				for (int i = 0; i < createColumns.length; i++)
 				{
-					final String createColumn = createColums[i];
+					final String createColumn = createColumns[i];
 					final Column column = getColumn(schema, createColumn);
 					Schema_Jspm.writeCreate(out, column);
 					out.flush();
