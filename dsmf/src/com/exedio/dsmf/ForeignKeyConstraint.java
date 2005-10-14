@@ -92,7 +92,19 @@ public class ForeignKeyConstraint extends Constraint
 
 	final void createInTable(final StringBuffer bf)
 	{
-		// this is done in Table#createForeignKeyConstraints
+		bf.append(",constraint ").
+			append(protectName(name)).
+			append(" foreign key (").
+			append(protectName(foreignKeyColumn)).
+			append(") references ").
+			append(protectName(targetTable));
+	
+		if(driver.needsTargetColumnName())
+		{
+			bf.append('(').
+				append(protectName(targetColumn)).
+				append(')');
+		}
 	}
 	
 }
