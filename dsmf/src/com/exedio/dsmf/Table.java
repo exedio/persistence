@@ -389,6 +389,48 @@ public final class Table extends Node
 		}
 	}
 	
+	final void tearDownNonForeignKeyConstraints()
+	{
+		for(Iterator i = constraintList.iterator(); i.hasNext(); )
+		{
+			final Constraint constraint = (Constraint)i.next();
+			if(constraint instanceof CheckConstraint ||
+					constraint instanceof UniqueConstraint ||
+					constraint instanceof PrimaryKeyConstraint)
+			{
+				try
+				{
+					constraint.drop();
+				}
+				catch(SQLRuntimeException e2)
+				{
+					// ignored in teardown
+					//System.err.println("failed:"+e2.getMessage());
+				}
+			}
+		}
+	}
+	
+	final void tearDownForeignKeyConstraints() 
+	{
+		for(Iterator i = constraintList.iterator(); i.hasNext(); )
+		{
+			final Constraint constraint = (Constraint)i.next();
+			if(constraint instanceof ForeignKeyConstraint)
+			{
+				try
+				{
+					constraint.drop();
+				}
+				catch(SQLRuntimeException e2)
+				{
+					// ignored in teardown
+					//System.err.println("failed:"+e2.getMessage());
+				}
+			}
+		}
+	}
+	
 	public final void analyze()
 	{
 		final StringBuffer bf = new StringBuffer();

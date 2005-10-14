@@ -80,6 +80,7 @@ final class Schema_Jspm
 			<input type="submit" name="DROP" value="drop"/>
 			constraints:
 			<input type="submit" name="CREATE_CONSTRAINTS" value="create" />
+			<input type="submit" name="TEARDOWN_CONSTRAINTS" value="tear down"/>
 			<input type="submit" name="DROP_CONSTRAINTS" value="drop"/>
 			<br>
 			<%
@@ -102,6 +103,11 @@ final class Schema_Jspm
 				{
 					model.createDatabaseConstraints();
 					%><div class="message">Database constraints successfully created!</div><%
+				}
+				else if(request.getParameter("TEARDOWN_CONSTRAINTS")!=null)
+				{
+					model.tearDownDatabaseConstraints();
+					%><div class="message">Database constraints successfully torn down!</div><%
 				}
 				else if(request.getParameter("DROP_CONSTRAINTS")!=null)
 				{

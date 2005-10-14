@@ -183,4 +183,13 @@ public final class Schema extends Node
 		while(deleted);
 	}
 
+	public final void tearDownConstraints()
+	{
+		System.err.println("TEAR DOWN CONSTRAINTS");
+		for(ListIterator i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
+			((Table)i.previous()).tearDownForeignKeyConstraints();
+		for(ListIterator i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
+			((Table)i.previous()).tearDownNonForeignKeyConstraints();
+	}
+
 }

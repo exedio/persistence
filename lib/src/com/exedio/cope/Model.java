@@ -341,6 +341,11 @@ public final class Model
 			tearDownDataDirectories(this.types[i]);
 	}
 	
+	public void tearDownDatabaseConstraints()
+	{
+		database.tearDownDatabaseConstraints();
+	}
+
 	public void close()
 	{
 		database.connectionPool.flush();

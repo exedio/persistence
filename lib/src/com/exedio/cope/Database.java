@@ -210,6 +210,13 @@ abstract class Database
 		makeSchema().tearDown();
 	}
 
+	void tearDownDatabaseConstraints()
+	{
+		buildStage = false;
+
+		makeSchema().tearDownConstraints();
+	}
+	
 	void checkEmptyDatabase(final Connection connection)
 	{
 		buildStage = false;
