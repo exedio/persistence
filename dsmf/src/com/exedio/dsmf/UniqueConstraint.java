@@ -31,7 +31,7 @@ public class UniqueConstraint extends Constraint
 
 	UniqueConstraint(final Table table, final String name, final boolean required, final String clause)
 	{
-		super(table, name, required, clause);
+		super(table, name, false, required, clause);
 
 		if(clause==null)
 			throw new RuntimeException(name);

@@ -23,17 +23,18 @@ public abstract class Constraint extends Node
 {
 	final Table table;
 	final String name;
+	final boolean secondPhase;
 	private final boolean required;
 	final String requiredCondition;
 	private boolean exists = false;
 	private String existingCondition;
 		
-	Constraint(final Table table, final String name, final boolean required)
+	Constraint(final Table table, final String name, final boolean secondPhase, final boolean required)
 	{
-		this(table, name, required, null);
+		this(table, name, secondPhase, required, null);
 	}
 
-	Constraint(final Table table, final String name, final boolean required, final String condition)
+	Constraint(final Table table, final String name, final boolean secondPhase, final boolean required, final String condition)
 	{
 		super(table.driver, table.connectionProvider);
 		
@@ -44,6 +45,7 @@ public abstract class Constraint extends Node
 
 		this.table = table;
 		this.name = name;
+		this.secondPhase = secondPhase;
 		this.required = required;
 		if(required)
 			this.requiredCondition = condition;

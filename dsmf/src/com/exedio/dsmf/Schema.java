@@ -98,7 +98,7 @@ public final class Schema extends Node
 			((Table)i.next()).create();
 	
 		for(Iterator i = tableList.iterator(); i.hasNext(); )
-			((Table)i.next()).createForeignKeyConstraints();
+			((Table)i.next()).createConstraints(true);
 	
 		//final long amount = (System.currentTimeMillis()-time);
 		//createTableTime += amount;
@@ -108,9 +108,9 @@ public final class Schema extends Node
 	public final void createConstraints()
 	{
 		for(Iterator i = tableList.iterator(); i.hasNext(); )
-			((Table)i.next()).createNonForeignKeyConstraints();
+			((Table)i.next()).createConstraints(false);
 		for(Iterator i = tableList.iterator(); i.hasNext(); )
-			((Table)i.next()).createForeignKeyConstraints();
+			((Table)i.next()).createConstraints(true);
 	}
 
 	public final void drop()
@@ -118,7 +118,7 @@ public final class Schema extends Node
 		//final long time = System.currentTimeMillis();
 		// must delete in reverse order, to obey integrity constraints
 		for(ListIterator i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
-			((Table)i.previous()).dropForeignKeyConstraints();
+			((Table)i.previous()).dropConstraints(true);
 		for(ListIterator i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
 			((Table)i.previous()).drop();
 		//final long amount = (System.currentTimeMillis()-time);
@@ -129,9 +129,9 @@ public final class Schema extends Node
 	public final void dropConstraints()
 	{
 		for(ListIterator i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
-			((Table)i.previous()).dropForeignKeyConstraints();
+			((Table)i.previous()).dropConstraints(true);
 		for(ListIterator i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
-			((Table)i.previous()).dropNonForeignKeyConstraints();
+			((Table)i.previous()).dropConstraints(false);
 	}
 	
 	public final void tearDown()
@@ -142,7 +142,7 @@ public final class Schema extends Node
 			try
 			{
 				final Table table = (Table)i.next();
-				table.dropForeignKeyConstraints();
+				table.dropConstraints(true);
 			}
 			catch(SQLRuntimeException e2)
 			{
@@ -187,9 +187,9 @@ public final class Schema extends Node
 	{
 		System.err.println("TEAR DOWN CONSTRAINTS");
 		for(ListIterator i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
-			((Table)i.previous()).tearDownForeignKeyConstraints();
+			((Table)i.previous()).tearDownConstraints(true);
 		for(ListIterator i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
-			((Table)i.previous()).tearDownNonForeignKeyConstraints();
+			((Table)i.previous()).tearDownConstraints(false);
 	}
 
 }

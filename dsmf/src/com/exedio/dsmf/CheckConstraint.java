@@ -29,7 +29,7 @@ public class CheckConstraint extends Constraint
 
 	CheckConstraint(final Table table, final String name, final boolean required, final String condition)
 	{
-		super(table, name, required, condition);
+		super(table, name, false, required, condition);
 		
 		if(condition==null)
 			throw new RuntimeException(name);

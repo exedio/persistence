@@ -277,7 +277,11 @@ public final class Table extends Node
 		}
 		
 		for(Iterator i = constraintList.iterator(); i.hasNext(); )
-			((Constraint)i.next()).createInTable(bf);
+		{
+			final Constraint c = (Constraint)i.next();
+			if(!c.secondPhase)
+				c.createInTable(bf);
+		}
 
 		bf.append(')');
 
@@ -307,27 +311,12 @@ public final class Table extends Node
 			
 	}
 	
-	final void createNonForeignKeyConstraints()
+	final void createConstraints(final boolean secondPhase)
 	{
 		for(Iterator i = constraintList.iterator(); i.hasNext(); )
 		{
 			final Constraint constraint = (Constraint)i.next();
-			if(constraint instanceof CheckConstraint ||
-					constraint instanceof UniqueConstraint ||
-					constraint instanceof PrimaryKeyConstraint)
-				constraint.create();
-		}
-	}
-	
-	final void createForeignKeyConstraints()
-	{
-		//System.out.println("createForeignKeyConstraints:"+bf);
-
-		for(Iterator i = constraintList.iterator(); i.hasNext(); )
-		{
-			final Constraint constraint = (Constraint)i.next();
-			//System.out.println("createForeignKeyConstraints("+column+"):"+bf);
-			if(constraint instanceof ForeignKeyConstraint)
+			if(constraint.secondPhase==secondPhase)
 				constraint.create();
 		}
 	}
@@ -366,57 +355,22 @@ public final class Table extends Node
 
 	}
 	
-	final void dropNonForeignKeyConstraints()
+	final void dropConstraints(final boolean secondPhase)
 	{
 		for(Iterator i = constraintList.iterator(); i.hasNext(); )
 		{
 			final Constraint constraint = (Constraint)i.next();
-			if(constraint instanceof CheckConstraint ||
-					constraint instanceof UniqueConstraint ||
-					constraint instanceof PrimaryKeyConstraint)
+			if(constraint.secondPhase==secondPhase)
 				constraint.drop();
 		}
 	}
 	
-	final void dropForeignKeyConstraints() 
+	final void tearDownConstraints(final boolean secondPhase)
 	{
 		for(Iterator i = constraintList.iterator(); i.hasNext(); )
 		{
 			final Constraint constraint = (Constraint)i.next();
-			//System.out.println("dropForeignKeyConstraints("+column+")");
-			if(constraint instanceof ForeignKeyConstraint)
-				constraint.drop();
-		}
-	}
-	
-	final void tearDownNonForeignKeyConstraints()
-	{
-		for(Iterator i = constraintList.iterator(); i.hasNext(); )
-		{
-			final Constraint constraint = (Constraint)i.next();
-			if(constraint instanceof CheckConstraint ||
-					constraint instanceof UniqueConstraint ||
-					constraint instanceof PrimaryKeyConstraint)
-			{
-				try
-				{
-					constraint.drop();
-				}
-				catch(SQLRuntimeException e2)
-				{
-					// ignored in teardown
-					//System.err.println("failed:"+e2.getMessage());
-				}
-			}
-		}
-	}
-	
-	final void tearDownForeignKeyConstraints() 
-	{
-		for(Iterator i = constraintList.iterator(); i.hasNext(); )
-		{
-			final Constraint constraint = (Constraint)i.next();
-			if(constraint instanceof ForeignKeyConstraint)
+			if(constraint.secondPhase==secondPhase)
 			{
 				try
 				{
