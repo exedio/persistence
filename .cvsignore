@@ -3,3 +3,4 @@ oracle12.test.cope.properties
 oracle14.test.cope.properties
 mysql-lowercase.test.cope.properties
 mysql.test.cope.properties
+mysql5.test.cope.properties
