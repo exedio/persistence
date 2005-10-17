@@ -182,7 +182,7 @@ final class SchemaCop extends AdminCop
 		}
 		{
 			final String[] dropColumns = (String[]) request.getParameterMap().get(
-					"DROP_COLUMN");
+					"DROP_COLUMN"); // TODO use constant and use the constant in Schema.jspm
 			if (dropColumns != null)
 			{
 				for (int i = 0; i < dropColumns.length; i++)
@@ -199,7 +199,7 @@ final class SchemaCop extends AdminCop
 		}
 		{
 			final String[] dropTables = (String[]) request.getParameterMap().get(
-					"DROP_TABLE");
+					"DROP_TABLE"); // TODO use constant and use the constant in Schema.jspm
 			if (dropTables != null)
 			{
 				for (int i = 0; i < dropTables.length; i++)
@@ -221,14 +221,14 @@ final class SchemaCop extends AdminCop
 					.hasNext();)
 			{
 				final String parameterName = (String) i.next();
-				if (!parameterName.startsWith("RENAME_TABLE_"))
+				if (!parameterName.startsWith("RENAME_TABLE_")) // TODO use constant and use the constant in Schema.jspm
 					continue;
 
 				final String targetName = request.getParameter(parameterName).trim();
 				if (targetName.length() == 0)
 					continue;
 
-				final String sourceName = parameterName.substring("RENAME_TABLE_"
+				final String sourceName = parameterName.substring("RENAME_TABLE_" // TODO use constant and use the constant in Schema.jspm
 						.length());
 				final Table table = schema.getTable(sourceName);
 				if (table == null)
@@ -246,14 +246,14 @@ final class SchemaCop extends AdminCop
 					.hasNext();)
 			{
 				final String parameterName = (String) i.next();
-				if (!parameterName.startsWith("MODIFY_COLUMN_"))
+				if (!parameterName.startsWith("MODIFY_COLUMN_")) // TODO use constant and use the constant in Schema.jspm
 					continue;
 
 				final String targetType = request.getParameter(parameterName).trim();
 				if (targetType.length() == 0)
 					continue;
 
-				final String sourceName = parameterName.substring("MODIFY_COLUMN_"
+				final String sourceName = parameterName.substring("MODIFY_COLUMN_" // TODO use constant and use the constant in Schema.jspm
 						.length());
 
 				final Column column = getColumn(schema, sourceName);
@@ -272,14 +272,14 @@ final class SchemaCop extends AdminCop
 					.hasNext();)
 			{
 				final String parameterName = (String) i.next();
-				if (!parameterName.startsWith("RENAME_COLUMN_"))
+				if (!parameterName.startsWith("RENAME_COLUMN_")) // TODO use constant and use the constant in Schema.jspm
 					continue;
 
 				final String targetName = request.getParameter(parameterName).trim();
 				if (targetName.length() == 0)
 					continue;
 
-				final String sourceName = parameterName.substring("RENAME_COLUMN_"
+				final String sourceName = parameterName.substring("RENAME_COLUMN_" // TODO use constant and use the constant in Schema.jspm
 						.length());
 
 				final Column column = getColumn(schema, sourceName);
@@ -295,7 +295,7 @@ final class SchemaCop extends AdminCop
 		}
 		{
 			final String[] createTables = (String[]) request.getParameterMap()
-					.get("CREATE_TABLE");
+					.get("CREATE_TABLE"); // TODO use constant and use the constant in Schema.jspm
 			if (createTables != null)
 			{
 				for (int i = 0; i < createTables.length; i++)
@@ -315,7 +315,7 @@ final class SchemaCop extends AdminCop
 		}
 		{
 			final String[] analyzeTables = (String[]) request.getParameterMap()
-					.get("ANALYZE_TABLE");
+					.get("ANALYZE_TABLE"); // TODO use constant and use the constant in Schema.jspm
 			if (analyzeTables != null)
 			{
 				for (int i = 0; i < analyzeTables.length; i++)
@@ -334,7 +334,7 @@ final class SchemaCop extends AdminCop
 		}
 		{
 			final String[] createColumns = (String[]) request.getParameterMap()
-					.get("CREATE_COLUMN");
+					.get("CREATE_COLUMN"); // TODO use constant and use the constant in Schema.jspm
 			if (createColumns != null)
 			{
 				for (int i = 0; i < createColumns.length; i++)
@@ -350,7 +350,7 @@ final class SchemaCop extends AdminCop
 			}
 		}
 		{
-			final String[] createConstraints = (String[]) request.getParameterMap().get("CREATE_CONSTRAINT");
+			final String[] createConstraints = (String[]) request.getParameterMap().get(CREATE_CONSTRAINT);
 			if (createConstraints != null)
 			{
 				for (int i = 0; i < createConstraints.length; i++)
