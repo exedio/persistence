@@ -343,6 +343,7 @@ public abstract class Item extends Cope
 		}
 	}
 
+	// TODO move to DataAttribute
 	private final void appendDataPath(
 									final DataAttribute attribute,
 									final StringBuffer bf)
@@ -351,6 +352,7 @@ public abstract class Item extends Cope
 			append(type.getPkSource().pk2id(pk));
 	}
 	
+	// TODO move to DataAttribute
 	private final File getDataFile(final DataAttribute attribute)
 	{
 		final File directory = type.getModel().getProperties().getDatadirPath();
@@ -364,6 +366,7 @@ public abstract class Item extends Cope
 	 */
 	public final boolean isNull(final DataAttribute attribute)
 	{
+		// TODO move to DataAttribute
 		final File file = getDataFile(attribute);
 		return !file.exists();
 	}
@@ -375,6 +378,7 @@ public abstract class Item extends Cope
 	 */
 	public final InputStream get(final DataAttribute attribute)
 	{
+		// TODO move to DataAttribute
 		final File file = getDataFile(attribute);
 		try
 		{
@@ -392,6 +396,7 @@ public abstract class Item extends Cope
 	 */
 	public final long getDataLength(final DataAttribute attribute)
 	{
+		// TODO move to DataAttribute
 		final File file = getDataFile(attribute);
 
 		return file.exists() ? file.length() : -1l;
@@ -404,6 +409,7 @@ public abstract class Item extends Cope
 	 */
 	public final long getDataLastModified(final DataAttribute attribute)
 	{
+		// TODO move to DataAttribute
 		final File file = getDataFile(attribute);
 
 		return file.exists() ? file.lastModified() : -1l;
@@ -420,6 +426,7 @@ public abstract class Item extends Cope
 	public final void set(final DataAttribute attribute, final InputStream data)
 	throws MandatoryViolationException, IOException
 	{
+		// TODO move to DataAttribute
 		OutputStream out = null;
 		try
 		{
