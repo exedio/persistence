@@ -132,11 +132,11 @@ final class SchemaCop extends AdminCop
 		if(table==null)
 			throw new RuntimeException(columnParameter);
 		
-		final Column column = table.getColumn(columnParameter.substring(pos+1));
-		if(column==null)
+		final Column result = table.getColumn(columnParameter.substring(pos+1));
+		if(result==null)
 			throw new RuntimeException(columnParameter);
 		
-		return column;
+		return result;
 	}
 	
 	private static final Constraint getConstraint(final Schema schema, final String constraintParameter)
