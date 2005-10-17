@@ -76,7 +76,7 @@ abstract class Column
 	 */
 	abstract Object load(ResultSet resultSet, int columnIndex) throws SQLException;
 
-	abstract Object cacheToDatabase(Object cache);
+	abstract String cacheToDatabase(Object cache);
 
 	void makeSchema(final com.exedio.dsmf.Table dsmfTable)
 	{

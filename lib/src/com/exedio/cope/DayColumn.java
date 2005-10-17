@@ -87,7 +87,7 @@ final class DayColumn extends Column
 		return (loadedDate!=null) ? new Integer(getTransientNumber(loadedDate)) : null;
 	}
 
-	final Object cacheToDatabase(final Object cache)
+	final String cacheToDatabase(final Object cache)
 	{
 		if(cache==null)
 			return "NULL";

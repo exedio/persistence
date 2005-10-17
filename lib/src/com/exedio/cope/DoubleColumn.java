@@ -63,7 +63,7 @@ final class DoubleColumn extends Column
 		return (loadedDouble!=null) ? (Double)loadedDouble : null;
 	}
 
-	final Object cacheToDatabase(final Object cache)
+	final String cacheToDatabase(final Object cache)
 	{
 		if(cache==null)
 			return "NULL";

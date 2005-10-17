@@ -103,7 +103,7 @@ final class TimestampColumn extends Column
 		return (loadedTimestamp!=null) ? new Long(getTime(((Date)loadedTimestamp))) : null;
 	}
 
-	final Object cacheToDatabase(final Object cache)
+	final String cacheToDatabase(final Object cache)
 	{
 		// Don't use a static instance,
 		// since then access must be synchronized

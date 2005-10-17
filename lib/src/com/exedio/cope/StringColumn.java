@@ -116,12 +116,12 @@ final class StringColumn extends Column
 		return resultSet.getString(columnIndex);
 	}
 
-	Object cacheToDatabase(final Object cache)
+	String cacheToDatabase(final Object cache)
 	{
 		return cacheToDatabaseStatic(cache);
 	}
 	
-	static Object cacheToDatabaseStatic(final Object cache)
+	static String cacheToDatabaseStatic(final Object cache)
 	{
 		if(cache==null)
 			return "NULL";
