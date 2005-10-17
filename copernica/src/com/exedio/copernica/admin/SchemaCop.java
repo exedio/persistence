@@ -139,19 +139,19 @@ final class SchemaCop extends AdminCop
 		return result;
 	}
 	
-	private static final Constraint getConstraint(final Schema schema, final String constraintParameter)
+	private static final Constraint getConstraint(final Schema schema, final String param)
 	{
-		final int pos = constraintParameter.indexOf('#');
+		final int pos = param.indexOf('#');
 		if(pos<=0)
-			throw new RuntimeException(constraintParameter);
+			throw new RuntimeException(param);
 		
-		final Table table = schema.getTable(constraintParameter.substring(0, pos));
+		final Table table = schema.getTable(param.substring(0, pos));
 		if(table==null)
-			throw new RuntimeException(constraintParameter);
+			throw new RuntimeException(param);
 		
-		final Constraint result = table.getConstraint(constraintParameter.substring(pos+1));
+		final Constraint result = table.getConstraint(param.substring(pos+1));
 		if(result==null)
-			throw new RuntimeException(constraintParameter);
+			throw new RuntimeException(param);
 		
 		return result;
 	}
