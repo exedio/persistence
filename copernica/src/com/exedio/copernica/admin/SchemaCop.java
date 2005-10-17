@@ -122,19 +122,19 @@ final class SchemaCop extends AdminCop
 		return this.table!=null && !this.table.equals(table.getName());
 	}
 
-	private static final Column getColumn(final Schema schema, final String columnParameter)
+	private static final Column getColumn(final Schema schema, final String param)
 	{
-		final int pos = columnParameter.indexOf('#');
+		final int pos = param.indexOf('#');
 		if(pos<=0)
-			throw new RuntimeException(columnParameter);
+			throw new RuntimeException(param);
 		
-		final Table table = schema.getTable(columnParameter.substring(0, pos));
+		final Table table = schema.getTable(param.substring(0, pos));
 		if(table==null)
-			throw new RuntimeException(columnParameter);
+			throw new RuntimeException(param);
 		
-		final Column result = table.getColumn(columnParameter.substring(pos+1));
+		final Column result = table.getColumn(param.substring(pos+1));
 		if(result==null)
-			throw new RuntimeException(columnParameter);
+			throw new RuntimeException(param);
 		
 		return result;
 	}
