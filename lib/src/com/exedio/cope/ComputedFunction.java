@@ -67,7 +67,7 @@ public abstract class ComputedFunction extends Feature implements Function
 
 	abstract Object load(ResultSet resultSet, int columnIndex) throws SQLException;
 
-	abstract Object surface2Database(Object value);
+	abstract String surface2Database(Object value);
 	
 	public final void append(final Statement bf, final Join join)
 	{

@@ -44,7 +44,7 @@ public abstract class ComputedStringFunction
 		return resultSet.getString(columnIndex);
 	}
 
-	final Object surface2Database(final Object value)
+	final String surface2Database(final Object value)
 	{
 		return StringColumn.cacheToDatabaseStatic(value);
 	}

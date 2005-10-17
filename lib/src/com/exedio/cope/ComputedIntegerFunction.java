@@ -56,7 +56,7 @@ public abstract class ComputedIntegerFunction
 			return null;
 	}
 
-	final Object surface2Database(final Object value)
+	final String surface2Database(final Object value)
 	{
 		if(value==null)
 			return "NULL";
