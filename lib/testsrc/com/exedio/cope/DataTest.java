@@ -25,7 +25,7 @@ public class DataTest extends AbstractLibTest
 {
 	public DataTest()
 	{
-		super(new Model(new Type[]{DataItem.TYPE}));
+		super(Main.dataModel);
 	}
 	
 	private DataItem item;
