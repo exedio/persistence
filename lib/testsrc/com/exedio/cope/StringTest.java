@@ -66,8 +66,8 @@ public class StringTest extends TestmodelTest
 		assertEquals("value',hijackedColumn='otherValue", item.getAny());
 		restartTransaction();
 		// TODO: sql injection protection just swallows apostrophes,
-		// should be escaped or wrapped into prepared statements
-		assertEquals("value,hijackedColumn=otherValue", item.getAny());
+		// when not using prepared statements, should be escaped
+		assertEquals(model.getProperties().getPrepare() ? "value',hijackedColumn='otherValue" : "value,hijackedColumn=otherValue", item.getAny());
 
 		// test full unicode support
 		final String unicodeString =

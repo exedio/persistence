@@ -71,4 +71,9 @@ final class DoubleColumn extends Column
 			return ((Double)cache).toString();
 	}
 	
+	Object cacheToDatabasePrepared(final Object cache)
+	{
+		return (Double)cache;
+	}
+	
 }

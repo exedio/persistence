@@ -154,6 +154,11 @@ final class StringColumn extends Column
 		}
 	}
 
+	Object cacheToDatabasePrepared(final Object cache)
+	{
+		return (String)cache;
+	}
+	
 }
 
 

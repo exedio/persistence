@@ -49,6 +49,11 @@ public abstract class ComputedStringFunction
 		return StringColumn.cacheToDatabaseStatic(value);
 	}
 	
+	final void surface2DatabasePrepared(final Statement bf, final Object value)
+	{
+		bf.appendValue((String)value);
+	}
+	
 	public final EqualCondition equal(final String value)
 	{
 		return new EqualCondition(null, this, value);

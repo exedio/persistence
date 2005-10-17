@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -45,6 +46,7 @@ abstract class Database
 	private final HashMap itemColumnsByIntegrityConstraintName = new HashMap();
 	private boolean buildStage = true;
 	final Driver driver;
+	private final boolean prepare;
 	private final boolean useDefineColumnTypes;
 	private final boolean log;
 	private final boolean butterflyPkSource;
@@ -56,6 +58,7 @@ abstract class Database
 	protected Database(final Driver driver, final Properties properties)
 	{
 		this.driver = driver;
+		this.prepare = properties.getPrepare();
 		this.useDefineColumnTypes = this instanceof DatabaseColumnTypesDefinable;
 		this.log = properties.getDatabaseLog();
 		this.butterflyPkSource = properties.getPkSourceButterfly();
@@ -92,7 +95,7 @@ abstract class Database
 	
 	protected final Statement createStatement()
 	{
-		return new Statement(useDefineColumnTypes);
+		return new Statement(prepare, useDefineColumnTypes);
 	}
 	
 	void createDatabase()
@@ -634,7 +637,7 @@ abstract class Database
 				append('.').
 				append(table.getPrimaryKey().protectedID).
 				append('=').
-				append(state.pk);
+				appendValue(state.pk);
 		}
 
 		// TODO: let PersistentState be its own ResultSetHandler
@@ -693,15 +696,13 @@ abstract class Database
 
 				final Column column = (Column)i.next();
 				bf.append(column.protectedID).
-					append('=');
-
-				final Object value = state.store(column);
-				bf.append(column.cacheToDatabase(value));
+					append('=').
+					appendValue(column, state.store(column));
 			}
 			bf.append(" where ").
 				append(table.getPrimaryKey().protectedID).
 				append('=').
-				append(state.pk);
+				appendValue(state.pk);
 		}
 		else
 		{
@@ -725,21 +726,19 @@ abstract class Database
 			}
 
 			bf.append(")values(").
-				append(state.pk);
+				appendValue(state.pk);
 			
 			if(typeColumn!=null)
 			{
-				bf.append(",'").
-					append(state.type.getID()).
-					append('\'');
+				bf.append(',').
+					appendValue(state.type.getID());
 			}
 
 			for(Iterator i = columns.iterator(); i.hasNext(); )
 			{
-				bf.append(',');
 				final Column column = (Column)i.next();
-				final Object value = state.store(column);
-				bf.append(column.cacheToDatabase(value));
+				bf.append(',').
+				   appendValue(column, state.store(column));
 			}
 			bf.append(')');
 		}
@@ -809,15 +808,30 @@ abstract class Database
 			final String sqlText = statement.getText();
 			final long logStart = log ? System.currentTimeMillis() : 0;
 			
-			// TODO: use prepared statements and reuse the statement.
-			sqlStatement = connection.createStatement();
-			
-			if(useDefineColumnTypes)
-				((DatabaseColumnTypesDefinable)this).defineColumnTypes(statement.columnTypes, sqlStatement);
+			if(!prepare)
+			{
+				sqlStatement = connection.createStatement();
 
-			resultSet = sqlStatement.executeQuery(sqlText);
+				if(useDefineColumnTypes)
+					((DatabaseColumnTypesDefinable)this).defineColumnTypes(statement.columnTypes, sqlStatement);
+				
+				resultSet = sqlStatement.executeQuery(sqlText);
+				resultSetHandler.run(resultSet);
+			}
+			else
+			{
+				final PreparedStatement prepared = connection.prepareStatement(sqlText);
+				sqlStatement = prepared;
+				int parameterIndex = 1;
+				for(Iterator i = statement.params.iterator(); i.hasNext(); parameterIndex++)
+					setObject(sqlText, prepared, parameterIndex, i.next());
 
-			resultSetHandler.run(resultSet);
+				if(useDefineColumnTypes)
+					((DatabaseColumnTypesDefinable)this).defineColumnTypes(statement.columnTypes, sqlStatement);
+				
+				resultSet = prepared.executeQuery();
+				resultSetHandler.run(resultSet);
+			}
 			
 			if(resultSet!=null)
 			{
@@ -886,8 +900,22 @@ abstract class Database
 			// TODO: use prepared statements and reuse the statement.
 			final String sqlText = statement.getText();
 			final long logStart = log ? System.currentTimeMillis() : 0;
-			sqlStatement = connection.createStatement();
-			final int rows = sqlStatement.executeUpdate(sqlText);
+			final int rows;
+			if(!prepare)
+			{
+				sqlStatement = connection.createStatement();
+				rows = sqlStatement.executeUpdate(sqlText);
+			}
+			else
+			{
+				final PreparedStatement prepared = connection.prepareStatement(sqlText);
+				sqlStatement = prepared;
+				int parameterIndex = 1;
+				for(Iterator i = statement.params.iterator(); i.hasNext(); parameterIndex++)
+					setObject(sqlText, prepared, parameterIndex, i.next());
+				rows = prepared.executeUpdate();
+			}
+			
 			if(log)
 				log(logStart, sqlText);
 
@@ -917,6 +945,14 @@ abstract class Database
 				}
 			}
 		}
+	}
+	
+	private static final void setObject(String s, final PreparedStatement statement, final int parameterIndex, final Object value)
+		throws SQLException
+	{
+		//try{
+		statement.setObject(parameterIndex, value);
+		//}catch(SQLException e){ throw new SQLRuntimeException(e, "setObject("+parameterIndex+","+value+")"+s); }
 	}
 	
 	protected StatementInfo makeStatementInfo(final Statement statement, final Connection connection)

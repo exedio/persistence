@@ -19,6 +19,7 @@ package com.exedio.cope;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.sql.Types;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -117,4 +118,9 @@ final class TimestampColumn extends Column
 		}
 	}
 	
+	Object cacheToDatabasePrepared(final Object cache)
+	{
+		return (cache==null) ? null : new Timestamp(((Long)cache).longValue());
+	}
+
 }

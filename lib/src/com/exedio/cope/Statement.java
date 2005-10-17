@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -26,10 +27,12 @@ import bak.pcj.list.IntArrayList;
 public final class Statement
 {
 	final StringBuffer text = new StringBuffer();
+	final ArrayList params;
 	final IntArrayList columnTypes;
 		
-	Statement(final boolean useDefineColumnTypes)
+	Statement(final boolean prepare, final boolean useDefineColumnTypes)
 	{
+		params = prepare ? new ArrayList() : null;
 		columnTypes = useDefineColumnTypes ? new IntArrayList() : null;
 	}
 
@@ -78,7 +81,11 @@ public final class Statement
 	{
 		if(function instanceof ComputedFunction)
 		{
-			this.text.append(((ComputedFunction)function).surface2Database(value));
+			final ComputedFunction computedFunction = ((ComputedFunction)function);
+			if(params==null)
+				this.text.append(computedFunction.surface2Database(value));
+			else
+				computedFunction.surface2DatabasePrepared(this, value);
 		}
 		else
 		{
@@ -88,9 +95,41 @@ public final class Statement
 		return this;
 	}
 	
+	private static final char QUESTION_MARK = '?';
+	
 	public Statement appendValue(final Column column, final Object value)
 	{
-		this.text.append(column.cacheToDatabase(value));
+		if(params==null)
+			this.text.append(column.cacheToDatabase(value));
+		else
+		{
+			this.text.append(QUESTION_MARK);
+			this.params.add(column.cacheToDatabasePrepared(value));
+		}
+		return this;
+	}
+	
+	public Statement appendValue(final int value)
+	{
+		if(params==null)
+			this.text.append(Integer.toString(value));
+		else
+		{
+			this.text.append(QUESTION_MARK);
+			this.params.add(new Integer(value));
+		}
+		return this;
+	}
+	
+	public Statement appendValue(final String value)
+	{
+		if(params==null)
+			this.text.append('\'').append(value).append('\'');
+		else
+		{
+			this.text.append(QUESTION_MARK);
+			this.params.add(value);
+		}
 		return this;
 	}
 	

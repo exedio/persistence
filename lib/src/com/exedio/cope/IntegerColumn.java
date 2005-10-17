@@ -140,6 +140,11 @@ class IntegerColumn extends Column
 		}
 	}
 	
+	Object cacheToDatabasePrepared(final Object cache)
+	{
+		return longInsteadOfInt ? (Long)cache : (Object)(Integer)cache;
+	}
+	
 	private final long convertSQLResult(final Object sqlInteger)
 	{
 		// IMPLEMENTATION NOTE for Oracle

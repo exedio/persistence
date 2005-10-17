@@ -64,6 +64,11 @@ public abstract class ComputedIntegerFunction
 			return ((Integer)value).toString();
 	}
 	
+	final void surface2DatabasePrepared(final Statement bf, final Object value)
+	{
+		bf.appendValue(((Integer)value).intValue());
+	}
+	
 	public final EqualCondition equal(final Integer value)
 	{
 		return new EqualCondition(null, this, value);

@@ -17,6 +17,7 @@
  */
 package com.exedio.cope;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
@@ -98,4 +99,9 @@ final class DayColumn extends Column
 		}
 	}
 	
+	Object cacheToDatabasePrepared(final Object cache)
+	{
+		return (cache==null) ? null : new Date(getDay(((Integer)cache).intValue()).getTimeInMillis());
+	}
+
 }
