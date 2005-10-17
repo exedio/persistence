@@ -139,6 +139,23 @@ final class SchemaCop extends AdminCop
 		return column;
 	}
 	
+	private static final Constraint getConstraint(final Schema schema, final String constraintParameter)
+	{
+		final int pos = constraintParameter.indexOf('#');
+		if(pos<=0)
+			throw new RuntimeException(constraintParameter);
+		
+		final Table table = schema.getTable(constraintParameter.substring(0, pos));
+		if(table==null)
+			throw new RuntimeException(constraintParameter);
+		
+		final Constraint result = table.getConstraint(constraintParameter.substring(pos+1));
+		if(result==null)
+			throw new RuntimeException(constraintParameter);
+		
+		return result;
+	}
+	
 	static final String DROP_CONSTRAINT = "DROP_CONSTRAINT";
 	static final String CREATE_CONSTRAINT = "CREATE_CONSTRAINT";
 	
@@ -154,7 +171,7 @@ final class SchemaCop extends AdminCop
 				for (int i = 0; i < dropConstraints.length; i++)
 				{
 					final String dropConstraint = dropConstraints[i];
-					final Constraint constraint = schema.getConstraint(dropConstraint);
+					final Constraint constraint = getConstraint(schema, dropConstraint);
 					Schema_Jspm.writeDrop(out, constraint);
 					out.flush();
 					final long startTime = System.currentTimeMillis();
@@ -339,7 +356,7 @@ final class SchemaCop extends AdminCop
 				for (int i = 0; i < createConstraints.length; i++)
 				{
 					final String createConstraint = createConstraints[i];
-					final Constraint constraint = schema.getConstraint(createConstraint);
+					final Constraint constraint = getConstraint(schema, createConstraint);
 					Schema_Jspm.writeCreate(out, constraint);
 					out.flush();
 					final long startTime = System.currentTimeMillis();

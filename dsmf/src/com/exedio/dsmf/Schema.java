@@ -28,7 +28,6 @@ public final class Schema extends Node
 {
 	private final HashMap tableMap = new HashMap();
 	private final ArrayList tableList = new ArrayList();
-	private final HashMap constraintMap = new HashMap();
 	private boolean verified = false;
 	
 	public Schema(final Driver driver, final ConnectionProvider connectionProvider)
@@ -54,12 +53,6 @@ public final class Schema extends Node
 		return result;
 	}
 	
-	final void register(final Constraint constraint)
-	{
-		if(constraintMap.put(driver.canonizeTableName(constraint.name), constraint)!=null)
-			throw new RuntimeException(constraint.name);
-	}
-	
 	public Table getTable(final String name)
 	{
 		return (Table)tableMap.get(driver.canonizeTableName(name));
@@ -68,11 +61,6 @@ public final class Schema extends Node
 	public List getTables()
 	{
 		return tableList;
-	}
-	
-	public Constraint getConstraint(final String name)
-	{
-		return (Constraint)constraintMap.get(name);
 	}
 	
 	public void verify()

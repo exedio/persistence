@@ -97,7 +97,6 @@ public final class Table extends Node
 		if(constraintMap.put(constraint.name, constraint)!=null)
 			throw new RuntimeException(constraint.name);
 		constraintList.add(constraint);
-		schema.register(constraint);
 	}
 	
 	final void setLastAnalyzed(final Date lastAnalyzed)
