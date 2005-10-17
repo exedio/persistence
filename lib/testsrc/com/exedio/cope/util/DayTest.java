@@ -78,10 +78,13 @@ public class DayTest extends CopeAssert
 			assertEquals("day must be in range 1..31, but was: 32", e.getMessage());
 		}
 
+		final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+
 		final Day d = new Day(2005, 9, 23);
 		assertEquals(2005, d.getYear());
 		assertEquals(9, d.getMonth());
 		assertEquals(23, d.getDay());
+		assertEquals(df.parse("2005-09-23 00:00:00.000").getTime(), d.getTimeInMillis());
 		assertEquals("2005/9/23", d.toString());
 		
 		assertEquals(d, new Day(2005, 9, 23));
@@ -91,7 +94,6 @@ public class DayTest extends CopeAssert
 		assertTrue(!d.equals("hallo"));
 		assertTrue(!d.equals(new Integer(22)));
 		
-		final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 		assertEquals(new Day(2005, 2, 22), new Day(df.parse("2005-02-22 00:00:00.000")));
 		assertEquals(new Day(2005, 2, 22), new Day(df.parse("2005-02-22 23:59:59.999")));
 	}
@@ -99,12 +101,14 @@ public class DayTest extends CopeAssert
 	static final void assertEquals(final Day expected, final Day actual)
 	{
 		assertEquals((Object)expected, (Object)actual);
+		assertEquals((Object)actual, (Object)expected);
 		assertEquals(expected.hashCode(), actual.hashCode());
 	}
 	
 	static final void assertNotEquals(final Day expected, final Day actual)
 	{
 		assertTrue(!expected.equals(actual));
+		assertTrue(!actual.equals(expected));
 		assertTrue(expected.hashCode()!=actual.hashCode());
 	}
 	

@@ -96,6 +96,11 @@ public final class Day // TODO implement Comparable
 		return day;
 	}
 	
+	public long getTimeInMillis()
+	{
+		return new GregorianCalendar(year, month-1, day).getTimeInMillis();
+	}
+	
 	public boolean equals(final Object o)
 	{
 		if(!(o instanceof Day))
