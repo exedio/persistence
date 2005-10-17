@@ -323,14 +323,14 @@ for(Iterator i = schema.getTables().iterator(); i.hasNext(); tableCount++)
 				if(cop.showDropBoxes)
 				{
 					%>
-				<input type="checkbox" name="DROP_CONSTRAINT" value="<%=constraint.getName()%>"/>drop<%
+				<input type="checkbox" name="DROP_CONSTRAINT" value="<%=table.getName()%>#<%=constraint.getName()%>"/>drop<%
 				}
 			}
 			else if( constraint.required() &&
 						constraint.getTable().exists() )
 			{
 				%>
-				<input type="checkbox" name="CREATE_CONSTRAINT" value="<%=constraint.getName()%>"/>create<%
+				<input type="checkbox" name="CREATE_CONSTRAINT" value="<%=table.getName()%>#<%=constraint.getName()%>"/>create<%
 			}
 			%>
 			</li><%
