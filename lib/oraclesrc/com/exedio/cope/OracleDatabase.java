@@ -240,14 +240,13 @@ final class OracleDatabase
 			}
 		}
 		{
-			final Statement fetchStatement = createStatement();
-			fetchStatement.
-				append("select * from "+PLAN_TABLE+" where "+STATEMENT_ID+'=').
+			final Statement bf = createStatement();
+			bf.append("select * from "+PLAN_TABLE+" where "+STATEMENT_ID+'=').
 				appendValue(statementID).
 				append(" order by "+ID);
 
 			final PlanResultSetHandler handler = new PlanResultSetHandler();
-			executeSQLQuery(connection, fetchStatement, handler, false);
+			executeSQLQuery(connection, bf, handler, false);
 			root = handler.root;
 		}
 		if(root==null)
