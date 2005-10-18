@@ -199,18 +199,19 @@ final class OracleDatabase
 		if(statementText.startsWith("alter table "))
 			return null;
 		
-		final int statementID;
+		final int statementIDNumber;
 		synchronized(statementIDCounter)
 		{
-			statementID = Math.abs(statementIDCounter.nextInt());
+			statementIDNumber = statementIDCounter.nextInt();
 		}
+		final String statementID = STATEMENT_ID_PREFIX + Integer.toString(Math.abs(statementIDNumber));
 		
 		final StatementInfo root;
 		{
 			final Statement explainStatement = createStatement();
 			explainStatement.
-				append("explain plan set "+STATEMENT_ID+"='"+STATEMENT_ID_PREFIX).
-				append(Integer.toString(statementID)). // TODO use placeholders for prepared statements
+				append("explain plan set "+STATEMENT_ID+"='").
+				append(statementID). // TODO use placeholders for prepared statements
 				append("' for ").
 				append(statementText);
 			java.sql.Statement sqlExplainStatement = null;
@@ -244,9 +245,9 @@ final class OracleDatabase
 			fetchStatement.
 				append(
 						"select * from "+PLAN_TABLE+' ' +
-						"where "+STATEMENT_ID+"='"+STATEMENT_ID_PREFIX).
-				append(Integer.toString(statementID)). // TODO use placeholders for prepared statements
-				append("' order by "+ID);
+						"where "+STATEMENT_ID+"=").
+				appendValue(statementID).
+				append(" order by "+ID);
 
 			final PlanResultSetHandler handler = new PlanResultSetHandler();
 			executeSQLQuery(connection, fetchStatement, handler, false);
@@ -255,7 +256,7 @@ final class OracleDatabase
 		if(root==null)
 			throw new RuntimeException();
 		
-		final StatementInfo result = new StatementInfo("execution plan statement_id = " + STATEMENT_ID_PREFIX + statementID);
+		final StatementInfo result = new StatementInfo("execution plan statement_id = " + statementID);
 		result.addChild(root);
 		
 		//System.out.println("######################");
