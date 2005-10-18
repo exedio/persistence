@@ -62,12 +62,14 @@ public class StringTest extends TestmodelTest
 		// if SQL injection is not prevented properly,
 		// the following line will throw a SQLException
 		// due to column "hijackedColumn" not found
-		item.setAny("value',hijackedColumn='otherValue");
-		assertEquals("value',hijackedColumn='otherValue", item.getAny());
+		final String BAD_STRING = "value',hijackedColumn='otherValue";
+		final String BAD_STRING_CLEAN = "value,hijackedColumn=otherValue";
+		item.setAny(BAD_STRING);
+		assertEquals(BAD_STRING, item.getAny());
 		restartTransaction();
 		// TODO: sql injection protection just swallows apostrophes,
 		// when not using prepared statements, should be escaped
-		assertEquals(model.getProperties().getDatabaseDontSupportPreparedStatements() ? "value,hijackedColumn=otherValue" : "value',hijackedColumn='otherValue", item.getAny());
+		assertEquals(model.getProperties().getDatabaseDontSupportPreparedStatements() ? BAD_STRING_CLEAN : BAD_STRING, item.getAny());
 
 		// test full unicode support
 		final String unicodeString =
