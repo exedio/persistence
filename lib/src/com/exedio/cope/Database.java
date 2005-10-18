@@ -53,6 +53,7 @@ abstract class Database
 	final ConnectionPool connectionPool;
 	private final java.util.Properties forcedNames;
 	final java.util.Properties tableOptions;
+	final int limitSupport;
 	private List expectedCalls = null;
 	
 	protected Database(final Driver driver, final Properties properties)
@@ -65,6 +66,17 @@ abstract class Database
 		this.connectionPool = new ConnectionPool(properties);
 		this.forcedNames = properties.getDatabaseForcedNames();
 		this.tableOptions = properties.getDatabaseTableOptions();
+		this.limitSupport = getLimitSupport();
+
+		switch(limitSupport)
+		{
+			case LIMIT_SUPPORT_NONE:
+			case LIMIT_SUPPORT_CLAUSE_AFTER_SELECT:
+			case LIMIT_SUPPORT_CLAUSE_AFTER_WHERE:
+				break;
+			default:
+				throw new RuntimeException(Integer.toString(limitSupport));
+		}
 		//System.out.println("using database "+getClass());
 	}
 	
@@ -237,12 +249,10 @@ abstract class Database
 		//System.out.println("CHECK EMPTY TABLES "+amount+"ms  accumulated "+checkEmptyTableTime);
 	}
 	
-	private final boolean appendLimitClauseInSearch(final Statement bf, final int start, final int count)
+	private final void appendLimitClauseInSearch(final Statement bf, final int start, final int count)
 	{
 		if(start>0 || count!=Query.UNLIMITED_COUNT)
-			return appendLimitClause(bf, start, count);
-		else
-			return false;
+			appendLimitClause(bf, start, count);
 	}
 	
 	final ArrayList search(final Connection connection, final Query query, final boolean doCountOnly)
@@ -256,15 +266,13 @@ abstract class Database
 
 		final int limitStart = query.limitStart;
 		final int limitCount = query.limitCount;
-		final boolean limitClauseInSelect = doCountOnly ? false : isLimitClauseInSelect();
-		boolean limitByDatabaseTemp = false;
 
 		final Statement bf = createStatement();
 		bf.setJoinsToAliases(query);
 		bf.append("select");
 		
-		if(!doCountOnly && limitClauseInSelect)
-			limitByDatabaseTemp = appendLimitClauseInSearch(bf, limitStart, limitCount);
+		if(!doCountOnly && limitSupport==LIMIT_SUPPORT_CLAUSE_AFTER_SELECT)
+			appendLimitClauseInSearch(bf, limitStart, limitCount);
 		
 		bf.append(' ');
 
@@ -409,11 +417,10 @@ abstract class Database
 				query.type.getPkSource().appendDeterministicOrderByExpression(bf, query.type.getTable());
 			}
 
-			if(!limitClauseInSelect)
-				limitByDatabaseTemp = appendLimitClauseInSearch(bf, limitStart, limitCount);
+			if(limitSupport==LIMIT_SUPPORT_CLAUSE_AFTER_WHERE)
+				appendLimitClauseInSearch(bf, limitStart, limitCount);
 		}
 
-		final boolean limitByDatabase = limitByDatabaseTemp; // must be final for usage in ResultSetHandler
 		final Type[] types = selectTypes;
 		final Model model = query.model;
 		final ArrayList result = new ArrayList();
@@ -438,7 +445,7 @@ abstract class Database
 						return;
 					}
 					
-					if(!limitByDatabase && limitStart>0)
+					if(limitStart>0 && limitSupport==LIMIT_SUPPORT_NONE)
 					{
 						// TODO: ResultSet.relative
 						// Would like to use
@@ -449,7 +456,7 @@ abstract class Database
 							resultSet.next();
 					}
 						
-					int i = ((limitCount==Query.UNLIMITED_COUNT||limitByDatabase) ? Integer.MAX_VALUE : limitCount );
+					int i = ((limitCount==Query.UNLIMITED_COUNT||(limitSupport!=LIMIT_SUPPORT_NONE)) ? Integer.MAX_VALUE : limitCount );
 					if(i<=0)
 						throw new RuntimeException(String.valueOf(limitCount));
 
@@ -1102,11 +1109,11 @@ abstract class Database
 	abstract String getDoubleType(int precision);
 	abstract String getStringType(int maxLength);
 	abstract String getDayType();
+	abstract int getLimitSupport();
 	
-	boolean isLimitClauseInSelect()
-	{
-		return false;
-	}
+	protected static final int LIMIT_SUPPORT_NONE = 26;
+	protected static final int LIMIT_SUPPORT_CLAUSE_AFTER_SELECT = 63;
+	protected static final int LIMIT_SUPPORT_CLAUSE_AFTER_WHERE = 93;
 
 	/**
 	 * Appends a clause to the statement causing the database limiting the query result.
@@ -1117,10 +1124,8 @@ abstract class Database
 	 *        Is never negative.
 	 * @param count the number of rows to be returned
 	 *        or {@link Query#UNLIMITED_COUNT} if all rows to be returned.
-	 * @return whether the database does support limiting with the given parameters.
-	 *         if returns false, the statement must be left unmodified.
 	 */
-	abstract boolean appendLimitClause(Statement bf, int start, int count);
+	abstract void appendLimitClause(Statement bf, int start, int count);
 	
 	private int countTable(final Connection connection, final Table table)
 	{

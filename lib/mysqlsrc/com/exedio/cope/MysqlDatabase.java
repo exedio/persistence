@@ -93,7 +93,12 @@ public final class MysqlDatabase extends Database
 		return "DATE";
 	}
 	
-	boolean appendLimitClause(final Statement bf, final int start, final int count)
+	int getLimitSupport()
+	{
+		return LIMIT_SUPPORT_CLAUSE_AFTER_WHERE;
+	}
+
+	void appendLimitClause(final Statement bf, final int start, final int count)
 	{
 		bf.append(" limit ");
 
@@ -112,8 +117,6 @@ public final class MysqlDatabase extends Database
 			bf.appendValue(countInStatement);
 		else
 			bf.append(Integer.toString(countInStatement));
-		
-		return true;
 	}
 	
 	protected boolean supportsCheckConstraints()

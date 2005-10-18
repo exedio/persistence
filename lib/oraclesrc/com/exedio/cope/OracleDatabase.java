@@ -83,11 +83,16 @@ final class OracleDatabase
 	{
 		return "TIMESTAMP(3)";
 	}
-
-	boolean appendLimitClause(final Statement bf, final int start, final int count)
+	
+	int getLimitSupport()
 	{
 		// TODO: ROWNUMs cannot be supported through the interface of this method
-		return false;
+		return LIMIT_SUPPORT_NONE;
+	}
+
+	void appendLimitClause(final Statement bf, final int start, final int count)
+	{
+		throw new RuntimeException(bf.toString());
 	}
 	
 	protected boolean supportsEmptyStrings()

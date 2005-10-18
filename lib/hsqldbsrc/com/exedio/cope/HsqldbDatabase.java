@@ -72,18 +72,17 @@ final class HsqldbDatabase
 		return "timestamp";
 	}
 
-	boolean isLimitClauseInSelect()
+	int getLimitSupport()
 	{
-		return true;
+		return LIMIT_SUPPORT_CLAUSE_AFTER_SELECT;
 	}
 
-	boolean appendLimitClause(final Statement bf, final int start, final int count)
+	void appendLimitClause(final Statement bf, final int start, final int count)
 	{
 		bf.append(" limit ").
 			appendValue(start).
 			append(' ').
 			appendValue(count!=Query.UNLIMITED_COUNT ? count : 0);
-		return true;
 	}
 	
 	protected boolean supportsRightOuterJoins()
