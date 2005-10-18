@@ -205,7 +205,7 @@ final class OracleDatabase
 			statementID = Math.abs(statementIDCounter.nextInt());
 		}
 		
-		StatementInfo root = null;
+		final StatementInfo root;
 		{
 			final Statement explainStatement = createStatement();
 			explainStatement.
@@ -247,107 +247,10 @@ final class OracleDatabase
 						"where "+STATEMENT_ID+"='"+STATEMENT_ID_PREFIX).
 				append(Integer.toString(statementID)). // TODO use placeholders for prepared statements
 				append("' order by "+ID);
-			java.sql.Statement sqlFetchStatement = null;
-			ResultSet sqlFetchResultSet = null;
-			try
-			{
-				// TODO: use executeSQLQuery
-				sqlFetchStatement = connection.createStatement();
-				defineColumnTypes(fetchStatement.columnTypes, sqlFetchStatement);
-				sqlFetchResultSet = sqlFetchStatement.executeQuery(fetchStatement.getText());
-				final IntKeyChainedHashMap infos = new IntKeyChainedHashMap();
 
-				final ResultSetMetaData metaData = sqlFetchResultSet.getMetaData();
-				final int columnCount = metaData.getColumnCount();
-
-				while(sqlFetchResultSet.next())
-				{
-					final String operation = sqlFetchResultSet.getString(OPERATION);
-					final String options = sqlFetchResultSet.getString(OPTIONS);
-					final String objectName = sqlFetchResultSet.getString(OBJECT_NAME);
-					final int objectInstance = sqlFetchResultSet.getInt(OBJECT_INSTANCE);
-					final String objectType = sqlFetchResultSet.getString(OBJECT_TYPE);
-					final int id = sqlFetchResultSet.getInt(ID);
-					final Number parentID = (Number)sqlFetchResultSet.getObject(PARENT_ID);
-					
-					final StringBuffer bf = new StringBuffer(operation);
-
-					if(options!=null)
-						bf.append(" (").append(options).append(')');
-
-					if(objectName!=null)
-						bf.append(" on ").append(objectName);
-					
-					if(objectInstance!=0)
-						bf.append('[').append(objectInstance).append(']');
-
-					if(objectType!=null)
-						bf.append('[').append(objectType).append(']');
-					
-
-					for(int i = 1; i<=columnCount; i++)
-					{
-						final String columnName = metaData.getColumnName(i);
-						if(!skippedColumnNames.contains(columnName))
-						{
-							final Object value = sqlFetchResultSet.getObject(i);
-							if(value!=null)
-							{
-								bf.append(' ').
-									append(columnName.toLowerCase()).
-									append('=').
-									append(value.toString());
-							}
-						}
-					}
-
-					final StatementInfo info = new StatementInfo(bf.toString());
-					if(parentID==null)
-					{
-						if(root!=null)
-							throw new RuntimeException(String.valueOf(id));
-						root = info;
-					}
-					else
-					{
-						final StatementInfo parent = (StatementInfo)infos.get(parentID.intValue());
-						if(parent==null)
-							throw new RuntimeException();
-						parent.addChild(info);
-					}
-					infos.put(id, info);
-					
-				}
-			}
-			catch(SQLException e)
-			{
-				throw new SQLRuntimeException(e, fetchStatement.toString());
-			}
-			finally
-			{
-				if(sqlFetchResultSet!=null)
-				{
-					try
-					{
-						sqlFetchResultSet.close();
-					}
-					catch(SQLException e)
-					{
-						// exception is already thrown
-					}
-				}
-				if(sqlFetchStatement!=null)
-				{
-					try
-					{
-						sqlFetchStatement.close();
-					}
-					catch(SQLException e)
-					{
-						// exception is already thrown
-					}
-				}
-			}
+			final PlanResultSetHandler handler = new PlanResultSetHandler();
+			executeSQLQuery(connection, fetchStatement, handler, false);
+			root = handler.root;
 		}
 		if(root==null)
 			throw new RuntimeException();
@@ -360,6 +263,78 @@ final class OracleDatabase
 		//root.print(System.out);
 		//System.out.println("######################");
 		return result;
+	}
+	
+	private static class PlanResultSetHandler implements ResultSetHandler
+	{
+		StatementInfo root;
+
+		public void run(final ResultSet sqlFetchResultSet) throws SQLException
+		{
+			final IntKeyChainedHashMap infos = new IntKeyChainedHashMap();
+
+			final ResultSetMetaData metaData = sqlFetchResultSet.getMetaData();
+			final int columnCount = metaData.getColumnCount();
+
+			while(sqlFetchResultSet.next())
+			{
+				final String operation = sqlFetchResultSet.getString(OPERATION);
+				final String options = sqlFetchResultSet.getString(OPTIONS);
+				final String objectName = sqlFetchResultSet.getString(OBJECT_NAME);
+				final int objectInstance = sqlFetchResultSet.getInt(OBJECT_INSTANCE);
+				final String objectType = sqlFetchResultSet.getString(OBJECT_TYPE);
+				final int id = sqlFetchResultSet.getInt(ID);
+				final Number parentID = (Number)sqlFetchResultSet.getObject(PARENT_ID);
+				
+				final StringBuffer bf = new StringBuffer(operation);
+
+				if(options!=null)
+					bf.append(" (").append(options).append(')');
+
+				if(objectName!=null)
+					bf.append(" on ").append(objectName);
+				
+				if(objectInstance!=0)
+					bf.append('[').append(objectInstance).append(']');
+
+				if(objectType!=null)
+					bf.append('[').append(objectType).append(']');
+				
+
+				for(int i = 1; i<=columnCount; i++)
+				{
+					final String columnName = metaData.getColumnName(i);
+					if(!skippedColumnNames.contains(columnName))
+					{
+						final Object value = sqlFetchResultSet.getObject(i);
+						if(value!=null)
+						{
+							bf.append(' ').
+								append(columnName.toLowerCase()).
+								append('=').
+								append(value.toString());
+						}
+					}
+				}
+
+				final StatementInfo info = new StatementInfo(bf.toString());
+				if(parentID==null)
+				{
+					if(root!=null)
+						throw new RuntimeException(String.valueOf(id));
+					root = info;
+				}
+				else
+				{
+					final StatementInfo parent = (StatementInfo)infos.get(parentID.intValue());
+					if(parent==null)
+						throw new RuntimeException();
+					parent.addChild(info);
+				}
+				infos.put(id, info);
+			}
+		}
+		
 	}
 	
 }

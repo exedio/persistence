@@ -795,7 +795,7 @@ abstract class Database
 
 	//private static int timeExecuteQuery = 0;
 
-	private final StatementInfo executeSQLQuery(
+	protected final StatementInfo executeSQLQuery(
 		final Connection connection,
 		final Statement statement,
 		final ResultSetHandler resultSetHandler,
