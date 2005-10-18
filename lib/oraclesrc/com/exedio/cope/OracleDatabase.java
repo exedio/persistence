@@ -208,9 +208,8 @@ final class OracleDatabase
 		
 		final StatementInfo root;
 		{
-			final Statement explainStatement = createStatement();
-			explainStatement.
-				append("explain plan set "+STATEMENT_ID+"='").
+			final Statement bf = createStatement();
+			bf.append("explain plan set "+STATEMENT_ID+"='").
 				append(statementID). // TODO use placeholders for prepared statements
 				append("' for ").
 				append(statementText);
@@ -219,11 +218,11 @@ final class OracleDatabase
 			{
 				// TODO: use executeSQLUpdate
 				sqlExplainStatement = connection.createStatement();
-				sqlExplainStatement.executeUpdate(explainStatement.getText());
+				sqlExplainStatement.executeUpdate(bf.getText());
 			}
 			catch(SQLException e)
 			{
-				throw new SQLRuntimeException(e, explainStatement.toString());
+				throw new SQLRuntimeException(e, bf.toString());
 			}
 			finally
 			{
