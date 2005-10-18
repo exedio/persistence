@@ -38,7 +38,8 @@ public final class Properties
 	public static final String DATABASE_USER = "database.user";
 	public static final String DATABASE_PASSWORD = "database.password";
 	public static final String DATABASE_LOG = "database.log";
-	public static final String PREPARE = "x-prepare";
+	public static final String DATABASE_DONT_SUPPORT_PREPARED_STATEMENTS = "database.dontSupport.preparedStatements";
+	// TODO rename to database.dontSupport.emptyStrings
 	public static final String DATABASE_DONT_SUPPORT_EMPTY_STRINGS = "database.dont.support.empty.strings";
 	static final String DATABASE_FORCE_NAME = "database.forcename";
 	static final String DATABASE_TABLE_OPTION = "database.tableOption";
@@ -58,8 +59,8 @@ public final class Properties
 	private final String databaseUrl;
 	private final String databaseUser;
 	private final String databasePassword;
-	private final boolean prepare;
 	private final boolean databaseLog;
+	private final boolean databaseDontSupportPreparedStatements;
 	private final boolean databaseDontSupportEmptyStrings;
 	private final java.util.Properties databaseForcedNames;
 	private final java.util.Properties databaseTableOptions;
@@ -201,11 +202,11 @@ public final class Properties
 		final String explicitMediaRootUrl = properties.getProperty(MEDIA_ROOT_URL);
 		mediaRootUrl = explicitMediaRootUrl!=null ? explicitMediaRootUrl : MEDIA_ROOT_URL_DEFAULT;
 		
+		this.databaseDontSupportPreparedStatements = getPropertyBoolean(properties, DATABASE_DONT_SUPPORT_PREPARED_STATEMENTS, false);
 		this.databaseDontSupportEmptyStrings = getPropertyBoolean(properties, DATABASE_DONT_SUPPORT_EMPTY_STRINGS, false);
 		this.pkSourceButterfly = getPropertyBoolean(properties, PKSOURCE_BUTTERFLY, false);
 		this.connectionPoolMaxIdle = getPropertyInt(properties, CONNECTION_POOL_MAX_IDLE, 10, 5);
 		this.databaseLog = getPropertyBoolean(properties, DATABASE_LOG, false);
-		this.prepare = getPropertyBoolean(properties, PREPARE, false);
 		
 		{
 			final HashSet allowedValues = new HashSet(Arrays.asList(new String[]{
@@ -213,8 +214,8 @@ public final class Properties
 					DATABASE_URL,
 					DATABASE_USER,
 					DATABASE_PASSWORD,
-					PREPARE,
 					DATABASE_LOG,
+					DATABASE_DONT_SUPPORT_PREPARED_STATEMENTS,
 					DATABASE_DONT_SUPPORT_EMPTY_STRINGS,
 					PKSOURCE_BUTTERFLY,
 					CONNECTION_POOL_MAX_IDLE,
@@ -362,9 +363,9 @@ public final class Properties
 		return databaseLog;
 	}
 	
-	public boolean getPrepare()
+	public boolean getDatabaseDontSupportPreparedStatements()
 	{
-		return prepare;
+		return databaseDontSupportPreparedStatements;
 	}
 	
 	public boolean getDatabaseDontSupportEmptyStrings()
@@ -421,8 +422,8 @@ public final class Properties
 		ensureEquality(other, DATABASE_URL, this.databaseUrl, other.databaseUrl);
 		ensureEquality(other, DATABASE_USER, this.databaseUser, other.databaseUser);
 		ensureEquality(other, DATABASE_PASSWORD, this.databasePassword, other.databasePassword, true);
-		ensureEquality(other, PREPARE, this.prepare, other.prepare);
 		ensureEquality(other, DATABASE_LOG, this.databaseLog, other.databaseLog);
+		ensureEquality(other, DATABASE_DONT_SUPPORT_PREPARED_STATEMENTS, this.databaseDontSupportPreparedStatements, other.databaseDontSupportPreparedStatements);
 		ensureEquality(other, DATABASE_DONT_SUPPORT_EMPTY_STRINGS, this.databaseDontSupportEmptyStrings, other.databaseDontSupportEmptyStrings);
 		ensureEquality(other, DATABASE_FORCE_NAME, this.databaseForcedNames, other.databaseForcedNames);
 		ensureEquality(other, "database.DATABASE.*", this.databaseCustomProperties, other.databaseCustomProperties);

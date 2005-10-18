@@ -74,6 +74,10 @@ final class Properties_Jspm
 				<td><%=properties.getDatabaseLog()%></td>
 			</tr>
 			<tr>
+				<th><%=properties.DATABASE_DONT_SUPPORT_PREPARED_STATEMENTS%></th>
+				<td><%=properties.getDatabaseDontSupportPreparedStatements()%></td>
+			</tr>
+			<tr>
 				<th><%=properties.DATABASE_DONT_SUPPORT_EMPTY_STRINGS%></th>
 				<td><%=properties.getDatabaseDontSupportEmptyStrings()%></td>
 			</tr>

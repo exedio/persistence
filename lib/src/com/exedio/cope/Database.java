@@ -58,7 +58,7 @@ abstract class Database
 	protected Database(final Driver driver, final Properties properties)
 	{
 		this.driver = driver;
-		this.prepare = properties.getPrepare();
+		this.prepare = !properties.getDatabaseDontSupportPreparedStatements();
 		this.useDefineColumnTypes = this instanceof DatabaseColumnTypesDefinable;
 		this.log = properties.getDatabaseLog();
 		this.butterflyPkSource = properties.getPkSourceButterfly();
