@@ -243,9 +243,7 @@ final class OracleDatabase
 		{
 			final Statement fetchStatement = createStatement();
 			fetchStatement.
-				append(
-						"select * from "+PLAN_TABLE+' ' +
-						"where "+STATEMENT_ID+"=").
+				append("select * from "+PLAN_TABLE+" where "+STATEMENT_ID+'=').
 				appendValue(statementID).
 				append(" order by "+ID);
 
