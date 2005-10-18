@@ -269,22 +269,22 @@ final class OracleDatabase
 	{
 		StatementInfo root;
 
-		public void run(final ResultSet sqlFetchResultSet) throws SQLException
+		public void run(final ResultSet resultSet) throws SQLException
 		{
 			final IntKeyChainedHashMap infos = new IntKeyChainedHashMap();
 
-			final ResultSetMetaData metaData = sqlFetchResultSet.getMetaData();
+			final ResultSetMetaData metaData = resultSet.getMetaData();
 			final int columnCount = metaData.getColumnCount();
 
-			while(sqlFetchResultSet.next())
+			while(resultSet.next())
 			{
-				final String operation = sqlFetchResultSet.getString(OPERATION);
-				final String options = sqlFetchResultSet.getString(OPTIONS);
-				final String objectName = sqlFetchResultSet.getString(OBJECT_NAME);
-				final int objectInstance = sqlFetchResultSet.getInt(OBJECT_INSTANCE);
-				final String objectType = sqlFetchResultSet.getString(OBJECT_TYPE);
-				final int id = sqlFetchResultSet.getInt(ID);
-				final Number parentID = (Number)sqlFetchResultSet.getObject(PARENT_ID);
+				final String operation = resultSet.getString(OPERATION);
+				final String options = resultSet.getString(OPTIONS);
+				final String objectName = resultSet.getString(OBJECT_NAME);
+				final int objectInstance = resultSet.getInt(OBJECT_INSTANCE);
+				final String objectType = resultSet.getString(OBJECT_TYPE);
+				final int id = resultSet.getInt(ID);
+				final Number parentID = (Number)resultSet.getObject(PARENT_ID);
 				
 				final StringBuffer bf = new StringBuffer(operation);
 
@@ -306,7 +306,7 @@ final class OracleDatabase
 					final String columnName = metaData.getColumnName(i);
 					if(!skippedColumnNames.contains(columnName))
 					{
-						final Object value = sqlFetchResultSet.getObject(i);
+						final Object value = resultSet.getObject(i);
 						if(value!=null)
 						{
 							bf.append(' ').
