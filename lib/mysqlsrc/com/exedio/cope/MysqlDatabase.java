@@ -90,9 +90,11 @@ public final class MysqlDatabase extends Database
 	{
 		bf.append(" limit ");
 
+		// TODO: use appendValue to support prepared statements
 		if(start>0)
 			bf.append(start).append(',');
 
+		// TODO: use appendValue to support prepared statements
 		if(count!=Query.UNLIMITED_COUNT)
 			bf.append(count);
 		else
