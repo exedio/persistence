@@ -92,7 +92,7 @@ final class HsqldbDatabase
 		return false;
 	}
 
-	private final String extractConstraintName(final SQLException e, final int vendorCode, final String start, final char end)
+	private final String extractConstraintName(final SQLException e, final int vendorCode, final String start)
 	{
 		//System.out.println("-u-"+e.getClass()+" "+e.getCause()+" "+e.getErrorCode()+" "+e.getLocalizedMessage()+" "+e.getSQLState()+" "+e.getNextException());
 
@@ -102,15 +102,9 @@ final class HsqldbDatabase
 		final String m = e.getMessage();
 		if(m.startsWith(start))
 		{
-			if(end=='\0')
-				return m.substring(start.length());
-			else
-			{
-				final int pos = m.indexOf(end, start.length());
-				if(pos<0)
-					return null;
-				return m.substring(start.length(), pos);
-			}
+			final int startLength = start.length();
+			final int pos = m.indexOf(' ', startLength);
+			return (pos<0) ? m.substring(startLength) : m.substring(startLength, pos);
 		}
 		else
 			return null;
@@ -118,7 +112,7 @@ final class HsqldbDatabase
 	
 	protected String extractUniqueConstraintName(final SQLException e)
 	{
-		return extractConstraintName(e, -104, "Unique constraint violation: ", '\0');
+		return extractConstraintName(e, -104, "Unique constraint violation: ");
 	}
 
 }
