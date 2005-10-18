@@ -47,7 +47,8 @@ public final class Statement
 		this.text.append(text);
 		return this;
 	}
-		
+	
+	// TODO: remove method, appendValue(int) should be used to support prepared statements
 	public Statement append(final int text)
 	{
 		this.text.append(text);
