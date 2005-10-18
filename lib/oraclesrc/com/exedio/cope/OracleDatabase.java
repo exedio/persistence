@@ -210,12 +210,13 @@ final class OracleDatabase
 			final Statement explainStatement = createStatement();
 			explainStatement.
 				append("explain plan set "+STATEMENT_ID+"='"+STATEMENT_ID_PREFIX).
-				append(statementID).
+				append(Integer.toString(statementID)). // TODO use placeholders for prepared statements
 				append("' for ").
 				append(statementText);
 			java.sql.Statement sqlExplainStatement = null;
 			try
 			{
+				// TODO: use executeSQLUpdate
 				sqlExplainStatement = connection.createStatement();
 				sqlExplainStatement.executeUpdate(explainStatement.getText());
 			}
@@ -244,12 +245,13 @@ final class OracleDatabase
 				append(
 						"select * from "+PLAN_TABLE+' ' +
 						"where "+STATEMENT_ID+"='"+STATEMENT_ID_PREFIX).
-				append(statementID).
+				append(Integer.toString(statementID)). // TODO use placeholders for prepared statements
 				append("' order by "+ID);
 			java.sql.Statement sqlFetchStatement = null;
 			ResultSet sqlFetchResultSet = null;
 			try
 			{
+				// TODO: use executeSQLQuery
 				sqlFetchStatement = connection.createStatement();
 				defineColumnTypes(fetchStatement.columnTypes, sqlFetchStatement);
 				sqlFetchResultSet = sqlFetchStatement.executeQuery(fetchStatement.getText());

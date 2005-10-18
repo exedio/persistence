@@ -153,7 +153,7 @@ abstract class Database
 				append('.').
 				append(primaryKey.protectedID).
 				append('=').
-				append(Type.NOT_A_PK);
+				appendValue(Type.NOT_A_PK);
 			
 			for(Iterator j = table.getColumns().iterator(); j.hasNext(); )
 			{
@@ -763,7 +763,7 @@ abstract class Database
 				append(" where ").
 				append(currentTable.getPrimaryKey().protectedID).
 				append('=').
-				append(pk);
+				appendValue(pk);
 
 			//System.out.println("deleting "+bf.toString());
 

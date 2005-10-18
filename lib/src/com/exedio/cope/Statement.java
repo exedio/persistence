@@ -48,19 +48,6 @@ public final class Statement
 		return this;
 	}
 	
-	// TODO: remove method, appendValue(int) should be used to support prepared statements
-	public Statement append(final int text)
-	{
-		this.text.append(text);
-		return this;
-	}
-		
-	public Statement append(final Object text)
-	{
-		this.text.append(text);
-		return this;
-	}
-	
 	public Statement append(final Function function, final Join join)
 	{
 		function.append(this, join);

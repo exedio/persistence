@@ -79,11 +79,10 @@ final class HsqldbDatabase
 
 	boolean appendLimitClause(final Statement bf, final int start, final int count)
 	{
-		// TODO: use appendValue to support prepared statements
 		bf.append(" limit ").
-			append(start).
+			appendValue(start).
 			append(' ').
-			append(count!=Query.UNLIMITED_COUNT ? count : 0);
+			appendValue(count!=Query.UNLIMITED_COUNT ? count : 0);
 		return true;
 	}
 	

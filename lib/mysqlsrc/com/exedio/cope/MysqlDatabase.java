@@ -53,10 +53,17 @@ public final class MysqlDatabase extends Database
 	}
 	
 	private static final String TOLOWERCASE = "tolowercase";
+	private static final String PLACEHOLDERS_IN_LIMIT = "placeholdersInLimit";
+	
+	/**
+	 * mysql supports placeholders in version 5.0.7 and higher
+	 */
+	private final boolean placeholdersInLimit;
 
 	protected MysqlDatabase(final Properties properties)
 	{
 		super(new MysqlDriver(Table.PK_COLUMN_NAME, Boolean.valueOf(properties.getDatabaseCustomProperty(TOLOWERCASE)).booleanValue()), properties);
+		this.placeholdersInLimit = "true".equalsIgnoreCase(properties.getDatabaseCustomProperty(PLACEHOLDERS_IN_LIMIT));
 	}
 
 	String getIntegerType(final int precision)
@@ -90,15 +97,21 @@ public final class MysqlDatabase extends Database
 	{
 		bf.append(" limit ");
 
-		// TODO: use appendValue to support prepared statements
 		if(start>0)
-			bf.append(start).append(',');
+		{
+			if(placeholdersInLimit)
+				bf.appendValue(start).append(',');
+			else
+				bf.append(Integer.toString(start)).append(',');
+		}
 
-		// TODO: use appendValue to support prepared statements
-		if(count!=Query.UNLIMITED_COUNT)
-			bf.append(count);
+		// using MAX_VALUE is really the recommended usage, see MySQL doc.
+		final int countInStatement = count!=Query.UNLIMITED_COUNT ? count : Integer.MAX_VALUE;
+
+		if(placeholdersInLimit)
+			bf.appendValue(countInStatement);
 		else
-			bf.append("18446744073709551615"); // this is really the recommended usage, see MySQL doc.
+			bf.append(Integer.toString(countInStatement));
 		
 		return true;
 	}
