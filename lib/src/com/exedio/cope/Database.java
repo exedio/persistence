@@ -250,13 +250,6 @@ abstract class Database
 		//System.out.println("CHECK EMPTY TABLES "+amount+"ms  accumulated "+checkEmptyTableTime);
 	}
 	
-	// TODO remove
-	private final void appendLimitClauseInSearch(final Statement bf, final int start, final int count)
-	{
-		if(start>0 || count!=Query.UNLIMITED_COUNT)
-			appendLimitClause(bf, start, count);
-	}
-	
 	final ArrayList search(final Connection connection, final Query query, final boolean doCountOnly)
 	{
 		if ( expectedCalls!=null )
@@ -284,8 +277,8 @@ abstract class Database
 		
 		bf.append("select");
 		
-		if(!doCountOnly && limitSupport==LIMIT_SUPPORT_CLAUSE_AFTER_SELECT)
-			appendLimitClauseInSearch(bf, limitStart, limitCount);
+		if(!doCountOnly && limitActive && limitSupport==LIMIT_SUPPORT_CLAUSE_AFTER_SELECT)
+			appendLimitClause(bf, limitStart, limitCount);
 		
 		bf.append(' ');
 
@@ -430,8 +423,8 @@ abstract class Database
 				query.type.getPkSource().appendDeterministicOrderByExpression(bf, query.type.getTable());
 			}
 
-			if(limitSupport==LIMIT_SUPPORT_CLAUSE_AFTER_WHERE)
-				appendLimitClauseInSearch(bf, limitStart, limitCount);
+			if(limitActive && limitSupport==LIMIT_SUPPORT_CLAUSE_AFTER_WHERE)
+				appendLimitClause(bf, limitStart, limitCount);
 		}
 
 		if(!doCountOnly && limitActive && limitSupport==LIMIT_SUPPORT_ROWNUM)
@@ -1147,6 +1140,7 @@ abstract class Database
 	 *        Is never negative.
 	 * @param count the number of rows to be returned
 	 *        or {@link Query#UNLIMITED_COUNT} if all rows to be returned.
+	 *        Is always positive (greater zero).
 	 */
 	abstract void appendLimitClause(Statement bf, int start, int count);
 	

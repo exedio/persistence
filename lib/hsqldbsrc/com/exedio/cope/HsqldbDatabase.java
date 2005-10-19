@@ -79,6 +79,9 @@ final class HsqldbDatabase
 
 	void appendLimitClause(final Statement bf, final int start, final int count)
 	{
+		if((start==0&&count==Query.UNLIMITED_COUNT)||(count<=0&&count!=Query.UNLIMITED_COUNT)||start<0)
+			throw new RuntimeException(start+"-"+count);
+
 		bf.append(" limit ").
 			appendValue(start).
 			append(' ').
