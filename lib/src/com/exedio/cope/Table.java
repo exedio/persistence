@@ -79,6 +79,15 @@ final class Table
 	 */
 	static final String ROWNUM_INNER_ALIAS = "return";
 
+	/**
+	 * The name of the alias for inner view for ROWNUMs in oracle.
+	 * The value "break" prevents name collisions
+	 * with columns for cope attributes,
+	 * since "break" is a reserved java keyword,
+	 * which cannot be used for java attributes.
+	 */
+	static final String ROWNUM_INNER_VIEW_ALIAS = "break";
+
 	void addColumn(final Column column)
 	{
 		if(!buildStage)

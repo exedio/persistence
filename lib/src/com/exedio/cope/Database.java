@@ -272,7 +272,7 @@ abstract class Database
 			// see http://www.php-faq.de/q/q-oracle-limit.html
 			bf.append("select * from(");
 			if(limitStart>0)
-				bf.append("select "+query.type.getTable().getPrimaryKey().protectedID+','+"ROWNUM "+Table.ROWNUM_INNER_ALIAS+" from(");
+				bf.append("select "+Table.ROWNUM_INNER_VIEW_ALIAS+".*,ROWNUM "+Table.ROWNUM_INNER_ALIAS+" from(");
 		}
 		
 		bf.append("select");
@@ -430,6 +430,8 @@ abstract class Database
 		if(!doCountOnly && limitActive && limitSupport==LIMIT_SUPPORT_ROWNUM)
 		{
 			bf.append(')');
+			if(limitStart>0)
+				bf.append(Table.ROWNUM_INNER_VIEW_ALIAS+' ');
 			if(limitCount!=Query.UNLIMITED_COUNT)
 				bf.append("where ROWNUM<=").appendValue(limitStart+limitCount);
 			if(limitStart>0)

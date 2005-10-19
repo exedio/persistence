@@ -20,6 +20,7 @@ package com.exedio.cope;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 import com.exedio.cope.testmodel.AttributeItem;
@@ -143,6 +144,23 @@ public class OrderByTest extends TestmodelTest
 		query.setOrderBy(searchAttribute, false);
 		assertEquals(expectedReverseOrder, query.search());
 		query.setOrderBy(searchAttribute, true);
+		
+		{
+			final Query query2 = new Query(item.someNotNullString, item1.TYPE, null);
+			query2.setOrderBy(searchAttribute, true);
+			query2.setDeterministicOrder(true);
+
+			if(limitCount==-1)
+				query2.setLimit(limitStart);
+			else
+				query2.setLimit(limitStart, limitCount);
+			
+			final ArrayList expected = new ArrayList(expectedOrder.size());
+			for(Iterator i = expectedOrder.iterator(); i.hasNext(); )
+				expected.add(((AttributeItem)i.next()).getSomeNotNullString());
+
+			assertEquals(expected, query2.search());
+		}
 		
 		final Query.Result resultWithSizeWithoutLimit = query.searchAndCountWithoutLimit();
 		assertEquals(expectedOrder, resultWithSizeWithoutLimit.getData());
