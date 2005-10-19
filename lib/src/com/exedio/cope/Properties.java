@@ -39,8 +39,7 @@ public final class Properties
 	public static final String DATABASE_PASSWORD = "database.password";
 	public static final String DATABASE_LOG = "database.log";
 	public static final String DATABASE_DONT_SUPPORT_PREPARED_STATEMENTS = "database.dontSupport.preparedStatements";
-	// TODO rename to database.dontSupport.emptyStrings
-	public static final String DATABASE_DONT_SUPPORT_EMPTY_STRINGS = "database.dont.support.empty.strings";
+	public static final String DATABASE_DONT_SUPPORT_EMPTY_STRINGS = "database.dontSupport.emptyStrings";
 	public static final String DATABASE_DONT_SUPPORT_LIMIT = "database.dontSupport.limit";
 	static final String DATABASE_FORCE_NAME = "database.forcename";
 	static final String DATABASE_TABLE_OPTION = "database.tableOption";
