@@ -70,6 +70,15 @@ final class Table
 	 */
 	private static final String TYPE_COLUMN_NAME = "class";
 
+	/**
+	 * The name of the alias for inner ROWNUMs in oracle.
+	 * The value "return" prevents name collisions
+	 * with columns for cope attributes,
+	 * since "return" is a reserved java keyword,
+	 * which cannot be used for java attributes.
+	 */
+	static final String ROWNUM_INNER_ALIAS = "return";
+
 	void addColumn(final Column column)
 	{
 		if(!buildStage)

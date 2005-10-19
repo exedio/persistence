@@ -86,8 +86,7 @@ final class OracleDatabase
 	
 	int getLimitSupport()
 	{
-		// TODO: ROWNUMs cannot be supported through the interface of this method
-		return LIMIT_SUPPORT_NONE;
+		return LIMIT_SUPPORT_ROWNUM;
 	}
 
 	void appendLimitClause(final Statement bf, final int start, final int count)

@@ -73,6 +73,7 @@ abstract class Database
 			case LIMIT_SUPPORT_NONE:
 			case LIMIT_SUPPORT_CLAUSE_AFTER_SELECT:
 			case LIMIT_SUPPORT_CLAUSE_AFTER_WHERE:
+			case LIMIT_SUPPORT_ROWNUM:
 				break;
 			default:
 				throw new RuntimeException(Integer.toString(limitSupport));
@@ -266,9 +267,18 @@ abstract class Database
 
 		final int limitStart = query.limitStart;
 		final int limitCount = query.limitCount;
+		final boolean limitActive = limitStart>0 || limitCount!=Query.UNLIMITED_COUNT;
 
 		final Statement bf = createStatement();
 		bf.setJoinsToAliases(query);
+		
+		if(!doCountOnly && limitActive && limitSupport==LIMIT_SUPPORT_ROWNUM)
+		{
+			// TODO: check, whether ROW_NUMBER() OVER is faster,
+			// see http://www.php-faq.de/q/q-oracle-limit.html
+			bf.append("select * from(select "+query.type.getTable().getPrimaryKey().protectedID+','+"ROWNUM "+Table.ROWNUM_INNER_ALIAS+" from(");
+		}
+		
 		bf.append("select");
 		
 		if(!doCountOnly && limitSupport==LIMIT_SUPPORT_CLAUSE_AFTER_SELECT)
@@ -421,6 +431,16 @@ abstract class Database
 				appendLimitClauseInSearch(bf, limitStart, limitCount);
 		}
 
+		if(!doCountOnly && limitActive && limitSupport==LIMIT_SUPPORT_ROWNUM)
+		{
+			bf.append(')');
+			if(limitCount!=Query.UNLIMITED_COUNT)
+				bf.append("where ROWNUM<=").appendValue(limitStart+limitCount);
+			bf.append(')');
+			if(limitStart>0)
+				bf.append("where "+Table.ROWNUM_INNER_ALIAS+'>').appendValue(limitStart);
+		}
+		
 		final Type[] types = selectTypes;
 		final Model model = query.model;
 		final ArrayList result = new ArrayList();
@@ -459,7 +479,7 @@ abstract class Database
 					int i = ((limitCount==Query.UNLIMITED_COUNT||(limitSupport!=LIMIT_SUPPORT_NONE)) ? Integer.MAX_VALUE : limitCount );
 					if(i<=0)
 						throw new RuntimeException(String.valueOf(limitCount));
-
+					
 					while(resultSet.next() && (--i)>=0)
 					{
 						int columnIndex = 1;
@@ -1114,6 +1134,7 @@ abstract class Database
 	protected static final int LIMIT_SUPPORT_NONE = 26;
 	protected static final int LIMIT_SUPPORT_CLAUSE_AFTER_SELECT = 63;
 	protected static final int LIMIT_SUPPORT_CLAUSE_AFTER_WHERE = 93;
+	protected static final int LIMIT_SUPPORT_ROWNUM = 134;
 
 	/**
 	 * Appends a clause to the statement causing the database limiting the query result.
