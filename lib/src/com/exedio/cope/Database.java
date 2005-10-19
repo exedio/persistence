@@ -250,6 +250,7 @@ abstract class Database
 		//System.out.println("CHECK EMPTY TABLES "+amount+"ms  accumulated "+checkEmptyTableTime);
 	}
 	
+	// TODO remove
 	private final void appendLimitClauseInSearch(final Statement bf, final int start, final int count)
 	{
 		if(start>0 || count!=Query.UNLIMITED_COUNT)
@@ -276,7 +277,9 @@ abstract class Database
 		{
 			// TODO: check, whether ROW_NUMBER() OVER is faster,
 			// see http://www.php-faq.de/q/q-oracle-limit.html
-			bf.append("select * from(select "+query.type.getTable().getPrimaryKey().protectedID+','+"ROWNUM "+Table.ROWNUM_INNER_ALIAS+" from(");
+			bf.append("select * from(");
+			if(limitStart>0)
+				bf.append("select "+query.type.getTable().getPrimaryKey().protectedID+','+"ROWNUM "+Table.ROWNUM_INNER_ALIAS+" from(");
 		}
 		
 		bf.append("select");
@@ -436,9 +439,8 @@ abstract class Database
 			bf.append(')');
 			if(limitCount!=Query.UNLIMITED_COUNT)
 				bf.append("where ROWNUM<=").appendValue(limitStart+limitCount);
-			bf.append(')');
 			if(limitStart>0)
-				bf.append("where "+Table.ROWNUM_INNER_ALIAS+'>').appendValue(limitStart);
+				bf.append(")where "+Table.ROWNUM_INNER_ALIAS+'>').appendValue(limitStart);
 		}
 		
 		final Type[] types = selectTypes;
