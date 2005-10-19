@@ -229,7 +229,11 @@ public final class Query
 		check();
 		
 		if(limitCount==0)
+		{
+			if(makeStatementInfo)
+				addStatementInfo(new StatementInfo("skipped search because limitCount==0"));
 			return Collections.EMPTY_LIST;
+		}
 
 		return Collections.unmodifiableList(model.getDatabase().search(model.getCurrentTransaction().getConnection(), this, false));
 	}
