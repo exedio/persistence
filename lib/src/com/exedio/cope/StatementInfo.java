@@ -66,8 +66,9 @@ public final class StatementInfo
 			o.print("  ");
 		o.println(text);
 		level++;
-		for(Iterator i = childsLazilyInitialized.iterator(); i.hasNext(); )
-			((StatementInfo)i.next()).print(o, level);
+		if(childsLazilyInitialized!=null)
+			for(Iterator i = childsLazilyInitialized.iterator(); i.hasNext(); )
+				((StatementInfo)i.next()).print(o, level);
 	}
 
 }
