@@ -66,7 +66,7 @@ abstract class Database
 		this.connectionPool = new ConnectionPool(properties);
 		this.forcedNames = properties.getDatabaseForcedNames();
 		this.tableOptions = properties.getDatabaseTableOptions();
-		this.limitSupport = getLimitSupport();
+		this.limitSupport = properties.getDatabaseDontSupportLimit() ? LIMIT_SUPPORT_NONE : getLimitSupport();
 
 		switch(limitSupport)
 		{
