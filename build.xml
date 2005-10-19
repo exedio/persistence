@@ -22,6 +22,7 @@
 		<element name="classpath" optional="true" implicit="true" />
 		<sequential>
 			<!--<echo message="local compile @{srcdir} to @{destdir}" />-->
+			<mkdir dir="@{destdir}" />
 			<javac srcdir="@{srcdir}"
 					 destdir="@{destdir}"
 					 deprecation="on"
@@ -60,21 +61,11 @@
 		</sequential>
 	</macrodef>
 	
-	<target name="lib.compile.mkdir">
-		<mkdir dir="lib/build/classes" />
-		<!-- test for cruisecontrol -->
-		<echo message="test message level error"   level="error" />
-		<echo message="test message level warning" level="warning" />
-		<echo message="test message level info"    level="info" />
-		<echo message="test message level verbose" level="verbose" />
-		<echo message="test message level debug"   level="debug" />
-	</target>
-
-	<target name="dsmf.compile" depends="lib.compile.mkdir">
+	<target name="dsmf.compile">
 		<ljavac srcdir="dsmf/src" destdir="lib/build/classes" />
 	</target>
 	
-	<target name="lib.core.compile" depends="lib.compile.mkdir, dsmf.compile">
+	<target name="lib.core.compile" depends="dsmf.compile">
 		<ljavac srcdir="lib/src" destdir="lib/build/classes">
 			<classpath>
 				<pathelement location="../lib/pcj.jar" />
@@ -83,7 +74,7 @@
 	</target>
 	
 	<!-- TODO make database specific compiles via a loop -->
-	<target name="lib.hsqldb.compile" depends="lib.compile.mkdir, lib.core.compile">
+	<target name="lib.hsqldb.compile" depends="lib.core.compile">
 		<ljavac srcdir="lib/hsqldbsrc" destdir="lib/build/classes">
 			<classpath>
 				<pathelement location="../lib/hsqldb.jar" />
@@ -91,7 +82,7 @@
 		</ljavac>
 	</target>
 
-	<target name="lib.oracle.compile" depends="lib.compile.mkdir, lib.core.compile">
+	<target name="lib.oracle.compile" depends="lib.core.compile">
 		<if>
 			<or>
 				<available file="../lib/classes12.jar" />
@@ -112,7 +103,7 @@
 		</if>
 	</target>
 
-	<target name="lib.mysql.compile" depends="lib.compile.mkdir, lib.core.compile">
+	<target name="lib.mysql.compile" depends="lib.core.compile">
 		<if>
 			<available file="../lib/mysql-connector-java-bin.jar" />
 			<then>
@@ -129,11 +120,11 @@
 		</if>
 	</target>
 
-	<target name="lib.pattern.compile" depends="lib.compile.mkdir, lib.core.compile">
+	<target name="lib.pattern.compile" depends="lib.core.compile">
 		<ljavac srcdir="lib/patternsrc" destdir="lib/build/classes" />
 	</target>
 	
-	<target name="lib.servlet.compile" depends="lib.compile.mkdir, lib.core.compile">
+	<target name="lib.servlet.compile" depends="lib.core.compile">
 		<ljavac srcdir="lib/servletsrc" destdir="lib/build/classes">
 			<classpath>
 				<pathelement location="../tomcat/common/lib/servlet-api.jar" />
@@ -141,7 +132,7 @@
 		</ljavac>
 	</target>
 	
-	<target name="lib.junit.compile" depends="lib.compile.mkdir, lib.core.compile">
+	<target name="lib.junit.compile" depends="lib.core.compile">
 		<ljavac srcdir="lib/junitsrc" destdir="lib/build/classes">
 			<classpath>
 				<pathelement location="../lib/junit.jar" />
@@ -159,7 +150,6 @@
 							lib.junit.compile" />
 	
 	<target name="instrument.compile" depends="lib.compile">
-		<mkdir dir="instrument/build/classes" />
 		<ljavac srcdir="instrument/src" destdir="instrument/build/classes">
 			<classpath>
 				<pathelement location="lib/build/classes" />
@@ -168,7 +158,6 @@
 	</target>
 	
 	<target name="copernica.compile" depends="lib.compile, copernica.jspm">
-		<mkdir dir="copernica/build/classes" />
 		<ljavac srcdir="copernica/src" destdir="copernica/build/classes">
 			<classpath>
 				<pathelement location="lib/build/classes" />
@@ -252,7 +241,6 @@
 	<target name="jar" depends="lib.jar, lib.test.jar, instrument.jar, copernica.jar" />
 	
 	<target name="dsmf.test.compile" depends="dsmf.compile, lib.compile">
-		<mkdir dir="dsmf/build/testclasses" />
 		<ljavac srcdir="dsmf/testsrc" destdir="dsmf/build/testclasses">
 			<classpath>
 				<pathelement location="lib/build/classes" />
@@ -331,7 +319,6 @@
 	</target>
 	
 	<target name="lib.testmodel.compile" depends="lib.testmodel.instrument">
-		<mkdir dir="lib/build/testmodelclasses" />
 		<ljavac srcdir="lib/testmodelsrc" destdir="lib/build/testmodelclasses">
 			<classpath>
 				<pathelement location="lib/build/classes" />
@@ -342,7 +329,6 @@
 	
 	<target name="lib.test.compile"
 				depends="lib.testmodel.compile, lib.junit.compile">
-		<mkdir dir="lib/build/testclasses" />
 		<ljavac srcdir="lib/testsrc" destdir="lib/build/testclasses">
 			<classpath>
 				<pathelement location="lib/build/classes" />
@@ -439,7 +425,6 @@
 	</target>
 	
 	<target name="instrument.test.compile" depends="instrument.test.instrument, lib.compile, instrument.compile">
-		<mkdir dir="instrument/build/testclasses" />
 		<ljavac srcdir="instrument/testsrc" destdir="instrument/build/testclasses">
 			<classpath>
 				<pathelement location="lib/build/classes" />
@@ -485,7 +470,6 @@
 	
 	<target name="copernica.test.compile"
 				depends="lib.compile, lib.test.compile, copernica.compile, copernica.test.jspm">
-		<mkdir dir="copernica/build/testclasses" />
 		<ljavac srcdir="copernica/testsrc" destdir="copernica/build/testclasses">
 			<classpath>
 				<pathelement location="lib/build/classes" />
@@ -549,7 +533,6 @@
 	
 	
 	<target name="copernica.webtest.compile">
-		<mkdir dir="copernica/build/webtestclasses" />
 		<ljavac srcdir="copernica/webtestsrc" destdir="copernica/build/webtestclasses">
 			<classpath>
 				<fileset dir="../lib/jwebunit">
