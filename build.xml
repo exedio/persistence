@@ -21,7 +21,7 @@
 		<attribute name="destdir" />
 		<element name="classpath" optional="true" implicit="true" />
 		<sequential>
-			<!--<echo message="local compile @{srcdir} to @{destdir}" />-->
+			<!--echo message="local compile @{srcdir} to @{destdir}" /-->
 			<mkdir dir="@{destdir}" />
 			<javac srcdir="@{srcdir}"
 					 destdir="@{destdir}"
@@ -30,6 +30,26 @@
 					 optimize="off">
 				<classpath />
 			</javac>
+		</sequential>
+	</macrodef>
+	
+	<macrodef name="ljar">
+		<attribute name="jarfile" />
+		<attribute name="name" />
+		<element name="fileset" optional="true" implicit="true" />
+		<sequential>
+			<!--echo message="local jar @{jarfile}" /-->
+			<jar jarfile="@{jarfile}">
+				<fileset />
+				<manifest>
+					<attribute name="Specification-Title" value="exedio @{name}" />
+					<attribute name="Specification-Version" value="cruisecontrol ${label} ${cvstimestamp}" />
+					<attribute name="Specification-Vendor" value="exedio GmbH" />
+					<attribute name="Implementation-Title" value="exedio @{name}" />
+					<attribute name="Implementation-Version" value="cruisecontrol ${label} ${cvstimestamp}" />
+					<attribute name="Implementation-Vendor" value="exedio GmbH" />
+				</manifest>
+			</jar>
 		</sequential>
 	</macrodef>
 	
@@ -184,58 +204,29 @@
 		<copy file="lib/build/testprotocol.properties"
 				todir="lib/build/classes/com/exedio/cope"
 				failonerror="false" />
-		<jar jarfile="lib/build/exedio-cope.jar" basedir="lib/build/classes">
-			<manifest>
-				<attribute name="Specification-Title" value="exedio cope" />
-				<attribute name="Specification-Version" value="cruisecontrol ${label} ${cvstimestamp}" />
-				<attribute name="Specification-Vendor" value="exedio GmbH" />
-				<attribute name="Implementation-Title" value="exedio cope" />
-				<attribute name="Implementation-Version" value="cruisecontrol ${label} ${cvstimestamp}" />
-				<attribute name="Implementation-Vendor" value="exedio GmbH" />
-			</manifest>
-		</jar>
+		<ljar name="cope" jarfile="lib/build/exedio-cope.jar">
+			<fileset dir="lib/build/classes" />
+		</ljar>
 	</target>
 	
 	<target name="lib.test.jar" depends="dsmf.test.compile, lib.test.compile">
-		<jar jarfile="lib/build/exedio-cope-test.jar">
+		<ljar name="cope test" jarfile="lib/build/exedio-cope-test.jar">
 			<fileset dir="dsmf/build/testclasses" />
 			<fileset dir="lib/build/testclasses" />
 			<fileset dir="lib/build/testmodelclasses" />
-			<manifest>
-				<attribute name="Specification-Title" value="exedio cope test" />
-				<attribute name="Specification-Version" value="cruisecontrol ${label} ${cvstimestamp}" />
-				<attribute name="Specification-Vendor" value="exedio GmbH" />
-				<attribute name="Implementation-Title" value="exedio cope test" />
-				<attribute name="Implementation-Version" value="cruisecontrol ${label} ${cvstimestamp}" />
-				<attribute name="Implementation-Vendor" value="exedio GmbH" />
-			</manifest>
-		</jar>
+		</ljar>
 	</target>
 	
 	<target name="instrument.jar" depends="instrument.compile">
-		<jar jarfile="instrument/build/exedio-cope-instrument.jar" basedir="instrument/build/classes">
-			<manifest>
-				<attribute name="Specification-Title" value="exedio cope instrumentor" />
-				<attribute name="Specification-Version" value="cruisecontrol ${label} ${cvstimestamp}" />
-				<attribute name="Specification-Vendor" value="exedio GmbH" />
-				<attribute name="Implementation-Title" value="exedio cope instrumentor" />
-				<attribute name="Implementation-Version" value="cruisecontrol ${label} ${cvstimestamp}" />
-				<attribute name="Implementation-Vendor" value="exedio GmbH" />
-			</manifest>
-		</jar>
+		<ljar name="cope instrumentor" jarfile="instrument/build/exedio-cope-instrument.jar">
+			<fileset dir="instrument/build/classes" />
+		</ljar>
 	</target>
 	
 	<target name="copernica.jar" depends="copernica.compile">
-		<jar jarfile="copernica/build/exedio-copernica.jar" basedir="copernica/build/classes">
-			<manifest>
-				<attribute name="Specification-Title" value="exedio copernica" />
-				<attribute name="Specification-Version" value="cruisecontrol ${label} ${cvstimestamp}" />
-				<attribute name="Specification-Vendor" value="exedio GmbH" />
-				<attribute name="Implementation-Title" value="exedio copernica" />
-				<attribute name="Implementation-Version" value="cruisecontrol ${label} ${cvstimestamp}" />
-				<attribute name="Implementation-Vendor" value="exedio GmbH" />
-			</manifest>
-		</jar>
+		<ljar name="copernica" jarfile="copernica/build/exedio-copernica.jar">
+			<fileset dir="copernica/build/classes" />
+		</ljar>
 	</target>
 	
 	<target name="jar" depends="lib.jar, lib.test.jar, instrument.jar, copernica.jar" />
