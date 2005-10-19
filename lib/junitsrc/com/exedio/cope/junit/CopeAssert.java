@@ -31,6 +31,7 @@ import junit.framework.TestCase;
 
 import com.exedio.cope.NestingRuntimeException;
 import com.exedio.cope.Query;
+import com.exedio.cope.StatementInfo;
 
 public abstract class CopeAssert extends TestCase
 {
@@ -274,7 +275,12 @@ public abstract class CopeAssert extends TestCase
 	{
 		query.enableMakeStatementInfo();
 		final Collection result = query.search();
-		query.getStatementInfo().print(System.out);
+		System.out.println("INFO-------------------");
+		final StatementInfo info = query.getStatementInfo();
+		if(info==null)
+			System.out.println("NONE !!");
+		else
+			info.print(System.out);
 		return result;
 	}
 
