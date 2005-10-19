@@ -250,6 +250,32 @@ abstract class Database
 		//System.out.println("CHECK EMPTY TABLES "+amount+"ms  accumulated "+checkEmptyTableTime);
 	}
 	
+	private final void appendLimitClauseAroundPrefix(final Statement bf, final int start, final int count)
+	{
+		if((start==0&&count==Query.UNLIMITED_COUNT)||(count<=0&&count!=Query.UNLIMITED_COUNT)||start<0)
+			throw new RuntimeException(start+"-"+count);
+
+		// TODO: check, whether ROW_NUMBER() OVER is faster,
+		// see http://www.php-faq.de/q/q-oracle-limit.html
+		bf.append("select * from(");
+		if(start>0)
+			bf.append("select "+Table.ROWNUM_INNER_VIEW_ALIAS+".*,ROWNUM "+Table.ROWNUM_INNER_ALIAS+" from(");
+	}
+	
+	private final void appendLimitClauseAroundSuffix(final Statement bf, final int start, final int count)
+	{
+		if((start==0&&count==Query.UNLIMITED_COUNT)||(count<=0&&count!=Query.UNLIMITED_COUNT)||start<0)
+			throw new RuntimeException(start+"-"+count);
+
+		bf.append(')');
+		if(start>0)
+			bf.append(Table.ROWNUM_INNER_VIEW_ALIAS+' ');
+		if(count!=Query.UNLIMITED_COUNT)
+			bf.append("where ROWNUM<=").appendValue(start+count);
+		if(start>0)
+			bf.append(")where "+Table.ROWNUM_INNER_ALIAS+'>').appendValue(start);
+	}
+	
 	final ArrayList search(final Connection connection, final Query query, final boolean doCountOnly)
 	{
 		if ( expectedCalls!=null )
@@ -267,13 +293,7 @@ abstract class Database
 		bf.setJoinsToAliases(query);
 		
 		if(!doCountOnly && limitActive && limitSupport==LIMIT_SUPPORT_ROWNUM)
-		{
-			// TODO: check, whether ROW_NUMBER() OVER is faster,
-			// see http://www.php-faq.de/q/q-oracle-limit.html
-			bf.append("select * from(");
-			if(limitStart>0)
-				bf.append("select "+Table.ROWNUM_INNER_VIEW_ALIAS+".*,ROWNUM "+Table.ROWNUM_INNER_ALIAS+" from(");
-		}
+			appendLimitClauseAroundPrefix(bf, limitStart, limitCount);
 		
 		bf.append("select");
 		
@@ -428,15 +448,7 @@ abstract class Database
 		}
 
 		if(!doCountOnly && limitActive && limitSupport==LIMIT_SUPPORT_ROWNUM)
-		{
-			bf.append(')');
-			if(limitStart>0)
-				bf.append(Table.ROWNUM_INNER_VIEW_ALIAS+' ');
-			if(limitCount!=Query.UNLIMITED_COUNT)
-				bf.append("where ROWNUM<=").appendValue(limitStart+limitCount);
-			if(limitStart>0)
-				bf.append(")where "+Table.ROWNUM_INNER_ALIAS+'>').appendValue(limitStart);
-		}
+			appendLimitClauseAroundSuffix(bf, limitStart, limitCount);
 		
 		final Type[] types = selectTypes;
 		final Model model = query.model;
