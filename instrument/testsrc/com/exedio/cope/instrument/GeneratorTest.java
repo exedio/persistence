@@ -141,13 +141,14 @@ public class GeneratorTest extends InstrumentorTest
 		assertMethod(standard, "getMajorMediaData", InputStream.class, PUBLIC|FINAL);
 		assertMethod(standard, "setMajorMedia", new Class[]{InputStream.class, String.class}, PUBLIC|FINAL, new Class[]{IOException.class});
 
+		// TODO should all be protected instead of public
 		assertMethod(standard, "isMinorMediaNull", boolean.class, PUBLIC|FINAL);
 		assertMethod(standard, "getMinorMediaURL", String.class, PUBLIC|FINAL);
 		assertMethod(standard, "getMinorMediaMimeMajor", String.class, PUBLIC|FINAL);
 		assertMethod(standard, "getMinorMediaMimeMinor", String.class, PUBLIC|FINAL);
 		assertMethod(standard, "getMinorMediaContentType", String.class, PUBLIC|FINAL);
 		assertMethod(standard, "getMinorMediaData", InputStream.class, PUBLIC|FINAL);
-		assertMethod(standard, "setMinorMedia", new Class[]{InputStream.class}, PUBLIC|FINAL, new Class[]{IOException.class});
+		assertMethod(standard, "setMinorMedia", new Class[]{InputStream.class}, PROTECTED|FINAL, new Class[]{IOException.class});
 
 		assertMethod(standard, "isNoSetterMediaNull", boolean.class, PUBLIC|FINAL);
 		assertMethod(standard, "getNoSetterMediaURL", String.class, PUBLIC|FINAL);
