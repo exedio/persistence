@@ -57,6 +57,7 @@ public final class DateAttribute extends ObjectAttribute
 	{
 		final boolean useLong =
 			forbidTimestampColumn ||
+			getType().getModel().getProperties().getDatabaseDontSupportNativeDate() ||
 			!(getType().getModel().getDatabase() instanceof DatabaseTimestampCapable);
 		
 		return

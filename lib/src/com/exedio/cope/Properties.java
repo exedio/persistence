@@ -40,6 +40,7 @@ public final class Properties
 	public static final String DATABASE_LOG = "database.log";
 	public static final String DATABASE_DONT_SUPPORT_PREPARED_STATEMENTS = "database.dontSupport.preparedStatements";
 	public static final String DATABASE_DONT_SUPPORT_EMPTY_STRINGS = "database.dontSupport.emptyStrings";
+	public static final String DATABASE_DONT_SUPPORT_NATIVE_DATE = "database.dontSupport.nativeDate";
 	public static final String DATABASE_DONT_SUPPORT_LIMIT = "database.dontSupport.limit";
 	static final String DATABASE_FORCE_NAME = "database.forcename";
 	static final String DATABASE_TABLE_OPTION = "database.tableOption";
@@ -62,6 +63,7 @@ public final class Properties
 	private final boolean databaseLog;
 	private final boolean databaseDontSupportPreparedStatements;
 	private final boolean databaseDontSupportEmptyStrings;
+	private final boolean databaseDontSupportNativeDate;
 	private final boolean databaseDontSupportLimit;
 	private final java.util.Properties databaseForcedNames;
 	private final java.util.Properties databaseTableOptions;
@@ -205,6 +207,7 @@ public final class Properties
 		
 		this.databaseDontSupportPreparedStatements = getPropertyBoolean(properties, DATABASE_DONT_SUPPORT_PREPARED_STATEMENTS, false);
 		this.databaseDontSupportEmptyStrings = getPropertyBoolean(properties, DATABASE_DONT_SUPPORT_EMPTY_STRINGS, false);
+		this.databaseDontSupportNativeDate = getPropertyBoolean(properties, DATABASE_DONT_SUPPORT_NATIVE_DATE, false);
 		this.databaseDontSupportLimit = getPropertyBoolean(properties, DATABASE_DONT_SUPPORT_LIMIT, false);
 		this.pkSourceButterfly = getPropertyBoolean(properties, PKSOURCE_BUTTERFLY, false);
 		this.connectionPoolMaxIdle = getPropertyInt(properties, CONNECTION_POOL_MAX_IDLE, 10, 5);
@@ -219,6 +222,7 @@ public final class Properties
 					DATABASE_LOG,
 					DATABASE_DONT_SUPPORT_PREPARED_STATEMENTS,
 					DATABASE_DONT_SUPPORT_EMPTY_STRINGS,
+					DATABASE_DONT_SUPPORT_NATIVE_DATE,
 					DATABASE_DONT_SUPPORT_LIMIT,
 					PKSOURCE_BUTTERFLY,
 					CONNECTION_POOL_MAX_IDLE,
@@ -381,6 +385,11 @@ public final class Properties
 		return databaseDontSupportLimit;
 	}
 	
+	public boolean getDatabaseDontSupportNativeDate()
+	{
+		return databaseDontSupportNativeDate;
+	}
+	
 	java.util.Properties getDatabaseForcedNames()
 	{
 		return databaseForcedNames;
@@ -433,6 +442,7 @@ public final class Properties
 		ensureEquality(other, DATABASE_LOG, this.databaseLog, other.databaseLog);
 		ensureEquality(other, DATABASE_DONT_SUPPORT_PREPARED_STATEMENTS, this.databaseDontSupportPreparedStatements, other.databaseDontSupportPreparedStatements);
 		ensureEquality(other, DATABASE_DONT_SUPPORT_EMPTY_STRINGS, this.databaseDontSupportEmptyStrings, other.databaseDontSupportEmptyStrings);
+		ensureEquality(other, DATABASE_DONT_SUPPORT_NATIVE_DATE, this.databaseDontSupportNativeDate, other.databaseDontSupportNativeDate);
 		ensureEquality(other, DATABASE_DONT_SUPPORT_LIMIT, this.databaseDontSupportLimit, other.databaseDontSupportLimit);
 		ensureEquality(other, DATABASE_FORCE_NAME, this.databaseForcedNames, other.databaseForcedNames);
 		ensureEquality(other, "database.DATABASE.*", this.databaseCustomProperties, other.databaseCustomProperties);

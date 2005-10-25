@@ -82,6 +82,10 @@ final class Properties_Jspm
 				<td><%=properties.getDatabaseDontSupportEmptyStrings()%></td>
 			</tr>
 			<tr>
+				<th><%=properties.DATABASE_DONT_SUPPORT_NATIVE_DATE%></th>
+				<td><%=properties.getDatabaseDontSupportNativeDate()%></td>
+			</tr>
+			<tr>
 				<th><%=properties.DATABASE_DONT_SUPPORT_LIMIT%></th>
 				<td><%=properties.getDatabaseDontSupportLimit()%></td>
 			</tr>
