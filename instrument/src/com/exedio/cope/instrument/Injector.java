@@ -519,8 +519,6 @@ final class Injector
 		String featuretype = buf.toString();
 		String featurename;
 
-		int position_name_end = collector.length();
-
 		char c = readToken();
 
 		if (c != '\0')
@@ -543,7 +541,6 @@ final class Injector
 		else
 		{
 			featurename = buf.toString();
-			position_name_end = collector.length();
 			c = readToken();
 		}
 

@@ -107,7 +107,7 @@ public class InitServlet extends CopsServlet
 			
 			final EmptyItem emptyItem1 = new EmptyItem();
 			final EmptyItem emptyItem2 = new EmptyItem();
-			final EmptyItem emptyItem3 = new EmptyItem();
+			new EmptyItem();
 			new EmptyItem2();
 			
 			final AttributeItem attributeItem1 = new AttributeItem("someString1", 5, 6l, 2.2, true, emptyItem1, AttributeItem.SomeEnum.enumValue1);

@@ -25,7 +25,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.exedio.cope.EnumValue;
 import com.exedio.cope.Item;
-import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 import com.exedio.cops.Cop;
 
@@ -89,7 +88,6 @@ abstract class CopernicaCop extends Cop implements RequestCache
 	
 	static final CopernicaCop getCop(final CopernicaProvider provider, final HttpServletRequest request)
 	{	
-		final Model model = provider.getModel();
 		final String typeID = request.getParameter(TYPE);
 		final String itemID = request.getParameter(ITEM);
 		final String langID = request.getParameter(LANGUAGE);

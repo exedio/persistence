@@ -61,7 +61,7 @@ public abstract class Driver
 					while(resultSet.next())
 					{
 						final String tableName = resultSet.getString("TABLE_NAME");
-						final Table table = schema.notifyExistentTable(tableName);
+						schema.notifyExistentTable(tableName);
 						//System.out.println("EXISTS:"+tableName);
 					}
 				}

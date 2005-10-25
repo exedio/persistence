@@ -304,7 +304,6 @@ public class ModelTest extends TestmodelTest
 		{
 			final java.util.Properties props = (java.util.Properties)newProps.clone();
 			props.setProperty("zack", "zosch");
-			final String source = file.getAbsolutePath()+"/zack=zosch";
 			try
 			{
 				new Properties(props, "wrongKey");

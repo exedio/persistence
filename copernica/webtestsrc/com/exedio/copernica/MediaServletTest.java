@@ -219,7 +219,6 @@ public class MediaServletTest extends AbstractWebTest
 
 	private void assertNameURL(final URL url) throws IOException
 	{
-		final Date before = new Date();
 		final HttpURLConnection conn = (HttpURLConnection)url.openConnection();
 		conn.setFollowRedirects(false);
 		conn.connect();

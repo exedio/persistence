@@ -235,7 +235,6 @@ class JavaClass extends JavaFeature
 
 		s = s.trim();
 		final JavaFeature feature;
-		final int intValue;
 
 		if("true".equals(s))
 			return TRUE;

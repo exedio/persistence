@@ -578,7 +578,6 @@ public final class Type
 		if(entity!=null)
 			return entity.getItem();
 
-		final Item newObject;
 		try
 		{
 			return

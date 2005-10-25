@@ -138,7 +138,7 @@ public final class Schema extends Node
 		final ArrayList tablesToDelete = new ArrayList(tableList);
 
 		boolean deleted;
-		int run = 1;
+		//int run = 1;
 		do
 		{
 			deleted = false;

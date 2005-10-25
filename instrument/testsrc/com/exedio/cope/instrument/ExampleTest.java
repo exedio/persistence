@@ -200,6 +200,8 @@ public class ExampleTest extends InjectorTest
 				+ "\t\t  \"some'Thing{some\\\"Thing;Else\"\n"
 				+ "\t\t};\n"
 				+ "\t\tchar[]   uglyAttribute7={';','{','\"','\\\''};\n"
+				+ "\t\t\n"
+				+ "\t\tSystem.out.println(uglyVariable1+uglyVariable2+uglyVariable3+uglyVariable4+uglyVariable5+uglyVariable6+uglyAttribute7[0]);\n"
 				+ "\t }\n\t // ugly ; { \" ' comment"
 				+ "\n  };");
 		assertAttribute("uglyAttribute8", null, uglyAttribute8);
@@ -287,6 +289,8 @@ public class ExampleTest extends InjectorTest
 				+ "\t\tint a=20;// some other comment\n"
 				+ "\t\tint b=10;\n"
 				+ "\t\ta=a/(a+b); // ugly expression\n"
+				+ "\t\t\n"
+				+ "\t\tSystem.out.println(x+c);\n"
 				+ "\t}");
 		assertMethod("set", null, setter);
 		assertText("\n\n  "+"abstract void abstractMethod()");
@@ -411,7 +415,15 @@ public class ExampleTest extends InjectorTest
 				"main",
 				"void",
 				Modifier.PUBLIC|Modifier.STATIC);
-		assertText("{\n\t\t// use imports\n\t\tList l;\n\t\tFormat f;\n\t}");
+		assertText(
+				"{\n" +
+				"\t\t// use imports\n" +
+				"\t\tList l;\n" +
+				"\t\tFormat f;\n" +
+				"\t\tl=null;\n" +
+				"\t\tf=null;\n" +
+			   "\t\tSystem.out.println(l.toString()+f.toString());\n" +
+				"\t}");
 		assertMethod("main", null, main);
 		assertText("\n\n");
 		

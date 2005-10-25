@@ -66,6 +66,8 @@ public abstract class Example implements Runnable
 		  "some'Thing{some\"Thing;Else"
 		};
 		char[]   uglyAttribute7={';','{','"','\''};
+		
+		System.out.println(uglyVariable1+uglyVariable2+uglyVariable3+uglyVariable4+uglyVariable5+uglyVariable6+uglyAttribute7[0]);
 	 }
 	 // ugly ; { " ' comment
   };
@@ -114,6 +116,8 @@ public abstract class Example implements Runnable
 		int a=20;// some other comment
 		int b=10;
 		a=a/(a+b); // ugly expression
+		
+		System.out.println(x+c);
 	}
 
   abstract void abstractMethod();
@@ -167,6 +171,9 @@ public abstract class Example implements Runnable
 		// use imports
 		List l;
 		Format f;
+		l=null;
+		f=null;
+		System.out.println(l.toString()+f.toString());
 	}
 
 }

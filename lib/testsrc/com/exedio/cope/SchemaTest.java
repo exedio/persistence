@@ -310,9 +310,9 @@ public class SchemaTest extends TestmodelTest
 		}
 	}
 	
-	private void assertCheckConstraint(final com.exedio.dsmf.Table table, final String constraintName, final String requiredCondition)
+	private CheckConstraint assertCheckConstraint(final com.exedio.dsmf.Table table, final String constraintName, final String requiredCondition)
 	{
-		final CheckConstraint constraint =
+		return
 			(CheckConstraint)assertConstraint(table, CHECK, constraintName, requiredCondition);
 	}
 	

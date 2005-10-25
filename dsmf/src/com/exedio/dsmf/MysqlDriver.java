@@ -170,16 +170,19 @@ public final class MysqlDriver extends Driver
 												!t.hasMoreTokens() || !"KEY".equals(t.nextToken()) ||
 												!t.hasMoreTokens())
 												continue;
-											final String source = t.nextToken();
+											//final String source =
+											t.nextToken();
 											//System.out.println("----------"+tableName+"--------------------source:"+source);
 											if(!t.hasMoreTokens() || !"REFERENCES".equals(t.nextToken()) ||
 												!t.hasMoreTokens())
 												continue;
-											final String targetTable = t.nextToken();
+											//final String targetTable =
+											t.nextToken();
 											//System.out.println("----------"+tableName+"--------------------targetTable:"+targetTable);
 											if(!t.hasMoreTokens())
 												continue;
-											final String targetAttribute = t.nextToken();
+											//final String targetAttribute =
+											t.nextToken();
 											//System.out.println("----------"+tableName+"--------------------targetAttribute:"+targetAttribute);
 											
 											table.notifyExistentForeignKeyConstraint(name);

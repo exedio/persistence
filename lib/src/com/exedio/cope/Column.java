@@ -81,7 +81,7 @@ abstract class Column
 
 	void makeSchema(final com.exedio.dsmf.Table dsmfTable)
 	{
-		final com.exedio.dsmf.Column result = new com.exedio.dsmf.Column(dsmfTable, id, getDatabaseType());
+		new com.exedio.dsmf.Column(dsmfTable, id, getDatabaseType());
 
 		if(primaryKey)
 			new PrimaryKeyConstraint(dsmfTable, table.database.makeName(table.id + "_" + "Pk"), id);

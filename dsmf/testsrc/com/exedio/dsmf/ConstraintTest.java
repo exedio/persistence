@@ -117,9 +117,9 @@ public class ConstraintTest extends SchemaReadyTest
 		table.getConstraint(UNIQUE_DOUBLE_NAME).create();
 	}
 
-	private void assertCheckConstraint(final Table table, final String constraintName, final String requiredCondition)
+	private CheckConstraint assertCheckConstraint(final Table table, final String constraintName, final String requiredCondition)
 	{
-		final CheckConstraint constraint =
+		return
 			(CheckConstraint)assertConstraint(table, CHECK, constraintName, requiredCondition);
 	}
 	
