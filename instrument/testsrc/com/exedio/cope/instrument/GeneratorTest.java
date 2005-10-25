@@ -125,29 +125,29 @@ public class GeneratorTest extends InstrumentorTest
 		assertNoMethod(standard, "getAsIsBoolean");
 		assertMethod(standard, "setAsIsBoolean", new Class[]{Boolean.class}, PUBLIC|FINAL);
 
-		assertMethod(standard, "isAnyDataNull", boolean.class, PUBLIC|FINAL);
-		assertMethod(standard, "getAnyDataURL", String.class, PUBLIC|FINAL);
-		assertMethod(standard, "getAnyDataMimeMajor", String.class, PUBLIC|FINAL);
-		assertMethod(standard, "getAnyDataMimeMinor", String.class, PUBLIC|FINAL);
-		assertMethod(standard, "getAnyDataContentType", String.class, PUBLIC|FINAL);
-		assertMethod(standard, "getAnyDataData", InputStream.class, PUBLIC|FINAL);
-		assertMethod(standard, "setAnyData", new Class[]{InputStream.class, String.class, String.class}, PUBLIC|FINAL, new Class[]{IOException.class});
+		assertMethod(standard, "isAnyMediaNull", boolean.class, PUBLIC|FINAL);
+		assertMethod(standard, "getAnyMediaURL", String.class, PUBLIC|FINAL);
+		assertMethod(standard, "getAnyMediaMimeMajor", String.class, PUBLIC|FINAL);
+		assertMethod(standard, "getAnyMediaMimeMinor", String.class, PUBLIC|FINAL);
+		assertMethod(standard, "getAnyMediaContentType", String.class, PUBLIC|FINAL);
+		assertMethod(standard, "getAnyMediaData", InputStream.class, PUBLIC|FINAL);
+		assertMethod(standard, "setAnyMedia", new Class[]{InputStream.class, String.class, String.class}, PUBLIC|FINAL, new Class[]{IOException.class});
 
-		assertMethod(standard, "isMajorDataNull", boolean.class, PUBLIC|FINAL);
-		assertMethod(standard, "getMajorDataURL", String.class, PUBLIC|FINAL);
-		assertMethod(standard, "getMajorDataMimeMajor", String.class, PUBLIC|FINAL);
-		assertMethod(standard, "getMajorDataMimeMinor", String.class, PUBLIC|FINAL);
-		assertMethod(standard, "getMajorDataContentType", String.class, PUBLIC|FINAL);
-		assertMethod(standard, "getMajorDataData", InputStream.class, PUBLIC|FINAL);
-		assertMethod(standard, "setMajorData", new Class[]{InputStream.class, String.class}, PUBLIC|FINAL, new Class[]{IOException.class});
+		assertMethod(standard, "isMajorMediaNull", boolean.class, PUBLIC|FINAL);
+		assertMethod(standard, "getMajorMediaURL", String.class, PUBLIC|FINAL);
+		assertMethod(standard, "getMajorMediaMimeMajor", String.class, PUBLIC|FINAL);
+		assertMethod(standard, "getMajorMediaMimeMinor", String.class, PUBLIC|FINAL);
+		assertMethod(standard, "getMajorMediaContentType", String.class, PUBLIC|FINAL);
+		assertMethod(standard, "getMajorMediaData", InputStream.class, PUBLIC|FINAL);
+		assertMethod(standard, "setMajorMedia", new Class[]{InputStream.class, String.class}, PUBLIC|FINAL, new Class[]{IOException.class});
 
-		assertMethod(standard, "isMinorDataNull", boolean.class, PUBLIC|FINAL);
-		assertMethod(standard, "getMinorDataURL", String.class, PUBLIC|FINAL);
-		assertMethod(standard, "getMinorDataMimeMajor", String.class, PUBLIC|FINAL);
-		assertMethod(standard, "getMinorDataMimeMinor", String.class, PUBLIC|FINAL);
-		assertMethod(standard, "getMinorDataContentType", String.class, PUBLIC|FINAL);
-		assertMethod(standard, "getMinorDataData", InputStream.class, PUBLIC|FINAL);
-		assertMethod(standard, "setMinorData", new Class[]{InputStream.class}, PUBLIC|FINAL, new Class[]{IOException.class});
+		assertMethod(standard, "isMinorMediaNull", boolean.class, PUBLIC|FINAL);
+		assertMethod(standard, "getMinorMediaURL", String.class, PUBLIC|FINAL);
+		assertMethod(standard, "getMinorMediaMimeMajor", String.class, PUBLIC|FINAL);
+		assertMethod(standard, "getMinorMediaMimeMinor", String.class, PUBLIC|FINAL);
+		assertMethod(standard, "getMinorMediaContentType", String.class, PUBLIC|FINAL);
+		assertMethod(standard, "getMinorMediaData", InputStream.class, PUBLIC|FINAL);
+		assertMethod(standard, "setMinorMedia", new Class[]{InputStream.class}, PUBLIC|FINAL, new Class[]{IOException.class});
 
 		assertMethod(standard, "isNoSetterMediaNull", boolean.class, PUBLIC|FINAL);
 		assertMethod(standard, "getNoSetterMediaURL", String.class, PUBLIC|FINAL);
