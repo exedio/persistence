@@ -29,23 +29,10 @@ import com.exedio.cope.search.NotEqualCondition;
 
 public final class DateAttribute extends ObjectAttribute
 {
-	final boolean forbidTimestampColumn;
 
 	public DateAttribute(final Option option)
 	{
-		this(option, false);
-	}
-	
-	/**
-	 * @param forbidTimestampColumn
-	 * 		forces the new date attribute to be implemented with an integer column
-	 * 		holding the time value of the dates,
-	 * 		even if the database supports timestamp columns.
-	 */
-	public DateAttribute(final Option option, final boolean forbidTimestampColumn)
-	{
 		super(option, Date.class, "date");
-		this.forbidTimestampColumn = forbidTimestampColumn;
 	}
 	
 	public ObjectAttribute copyAsTemplate()
@@ -56,7 +43,6 @@ public final class DateAttribute extends ObjectAttribute
 	Column createColumn(final Table table, final String name, final boolean notNull)
 	{
 		final boolean useLong =
-			forbidTimestampColumn ||
 			getType().getModel().getProperties().getDatabaseDontSupportNativeDate() ||
 			!(getType().getModel().getDatabase() instanceof DatabaseTimestampCapable);
 		

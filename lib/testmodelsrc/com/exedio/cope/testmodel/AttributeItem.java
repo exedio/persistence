@@ -98,7 +98,7 @@ public class AttributeItem extends Item
 
 	public static final DateAttribute someDate = new DateAttribute(OPTIONAL);
 
-	public static final DateAttribute someLongDate = new DateAttribute(OPTIONAL, true);
+	public static final DateAttribute someLongDate = new DateAttribute(OPTIONAL);
 
 	public static final DayAttribute day = new DayAttribute(OPTIONAL);
 
