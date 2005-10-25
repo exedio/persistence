@@ -163,7 +163,7 @@ public class GeneratorTest extends InstrumentorTest
 		assertMethod(standard, "getPrivateSetterMediaMimeMinor", String.class, PUBLIC|FINAL);
 		assertMethod(standard, "getPrivateSetterMediaContentType", String.class, PUBLIC|FINAL);
 		assertMethod(standard, "getPrivateSetterMediaData", InputStream.class, PUBLIC|FINAL);
-		assertMethod(standard, "setPrivateSetterMedia", new Class[]{InputStream.class,String.class,String.class}, PUBLIC|FINAL, new Class[]{IOException.class});
+		assertMethod(standard, "setPrivateSetterMedia", new Class[]{InputStream.class,String.class,String.class}, PRIVATE|FINAL, new Class[]{IOException.class});
 
 		assertMethod(standard, "checkPublicHash", new Class[]{String.class}, Boolean.TYPE, PUBLIC|FINAL);
 		assertMethod(standard, "checkPrivateHash", new Class[]{String.class}, Boolean.TYPE, PRIVATE|FINAL);

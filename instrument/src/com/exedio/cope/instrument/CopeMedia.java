@@ -22,6 +22,7 @@ import java.util.List;
 
 final class CopeMedia
 {
+	final JavaAttribute javaAttribute;
 	final String name;
 	final CopeClass copeClass;
 	public final String mimeMajor;
@@ -30,6 +31,7 @@ final class CopeMedia
 
 	public CopeMedia(final JavaAttribute javaAttribute, final String setterOption)
 	{
+		this.javaAttribute = javaAttribute;
 		this.name = javaAttribute.name;
 		this.copeClass = CopeClass.getCopeClass(javaAttribute.parent);
 
@@ -61,4 +63,9 @@ final class CopeMedia
 		return name;
 	}
 
+	final int getGeneratedSetterModifier()
+	{
+		return setterOption.getModifier(javaAttribute.modifier);
+	}
+	
 }

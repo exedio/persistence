@@ -561,7 +561,7 @@ final class Generator
 			o.write(format(SETTER_MEDIA_IOEXCEPTION, "<code>data</code>"));
 			o.write(lineSeparator);
 			writeCommentFooter();
-			o.write(Modifier.toString(Modifier.PUBLIC|Modifier.FINAL)); // TODO use visibility of media
+			o.write(Modifier.toString(media.getGeneratedSetterModifier()));
 			o.write(" void set");
 			o.write(toCamelCase(media.getName()));
 			o.write("(final " + InputStream.class.getName() + " data");
