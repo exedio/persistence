@@ -94,52 +94,6 @@ public class AttributeDateTest extends AttributeTest
 		}
 	}
 	
-	public void testSomeLongDate()
-	{
-		final Date date = new Date(1087368298214l);
-		final Date beforeDate = new Date(date.getTime()-1l);
-		final Date nextDate = new Date(date.getTime()+1l);
-
-		assertEquals(item.TYPE, item.someLongDate.getType());
-		assertEquals(null, item.getSomeLongDate());
-		assertContains(item, item2, item.TYPE.search(item.someLongDate.equal((Date)null)));
-		assertContains(item, item2, item.TYPE.search(item.someLongDate.isNull()));
-		assertContains(item.TYPE.search(item.someLongDate.notEqual((Date)null)));
-		assertContains(item.TYPE.search(item.someLongDate.isNotNull()));
-
-		item.setSomeLongDate(date);
-		assertEquals(date, item.getSomeLongDate());
-
-		restartTransaction();
-		assertEquals(date, item.getSomeLongDate());
-		assertEquals(list(item), item.TYPE.search(item.someLongDate.equal(date)));
-		assertEquals(list(item), item.TYPE.search(item.someLongDate.greaterOrEqual(date).and(item.someLongDate.lessOrEqual(date))));
-		assertEquals(list(item2), item.TYPE.search(item.someLongDate.notEqual(date)));
-		assertEquals(list(item2), item.TYPE.search(item.someLongDate.equal((Date)null)));
-		assertEquals(list(item2), item.TYPE.search(item.someLongDate.isNull()));
-		assertEquals(list(item), item.TYPE.search(item.someLongDate.notEqual((Date)null)));
-		assertEquals(list(item), item.TYPE.search(item.someLongDate.isNotNull()));
-		assertEquals(list(), item.TYPE.search(item.someLongDate.equal(beforeDate)));
-		assertEquals(list(), item.TYPE.search(item.someLongDate.equal(nextDate)));
-		assertEquals(list(), item.TYPE.search(item.someLongDate.greaterOrEqual(beforeDate).and(item.someLongDate.lessOrEqual(beforeDate))));
-		assertEquals(list(), item.TYPE.search(item.someLongDate.greaterOrEqual(nextDate).and(item.someLongDate.lessOrEqual(nextDate))));
-		assertEquals(list(item), item.TYPE.search(item.someLongDate.greaterOrEqual(date).and(item.someLongDate.lessOrEqual(nextDate))));
-		assertEquals(list(item), item.TYPE.search(item.someLongDate.greaterOrEqual(beforeDate).and(item.someLongDate.lessOrEqual(date))));
-
-		assertContains(date, null, search(item.someLongDate));
-		assertContains(date, search(item.someLongDate, item.someLongDate.equal(date)));
-
-		item.setSomeLongDate(nextDate);
-		restartTransaction();
-		assertEquals(nextDate, item.getSomeLongDate());
-
-		item.setSomeLongDate(null);
-		assertEquals(null, item.getSomeLongDate());
-		
-		restartTransaction();
-		assertEquals(null, item.getSomeLongDate());
-	}
-	
 	public void testOrder() throws MandatoryViolationException
 	{
 		Date[] dates = new Date[9];

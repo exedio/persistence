@@ -79,7 +79,6 @@ public class CopernicaTestProvider extends TransientCopernicaProvider
 						}),
 				new TransientSection("other", new Attribute[]{
 						AttributeItem.someDate,
-						AttributeItem.someLongDate,
 						AttributeItem.someBoolean,
 						AttributeItem.someNotNullBoolean,
 						AttributeItem.someItem,

@@ -33,12 +33,9 @@ public class LiteralConditionTest extends TestmodelTest
 	AttributeItem item5;
 	Date date;
 	
-	private static int LONG_OFFSET = 4000;
-	
 	private void setDate(final AttributeItem item, final Date date)
 	{
 		item.setSomeDate(date);
-		item.setSomeLongDate(offset(date, LONG_OFFSET));
 	}
 	
 	private Date offset(final Date date, final long offset)
@@ -84,8 +81,6 @@ public class LiteralConditionTest extends TestmodelTest
 		assertContains(item1, item2,
 			item1.TYPE.search(item1.someDate.less(date)));
 		assertContains(item1, item2,
-			item1.TYPE.search(item1.someLongDate.less(offset(date, LONG_OFFSET))));
-		assertContains(item1, item2,
 			item1.TYPE.search(item1.someNotNullEnum.less(AttributeItem.SomeEnum.enumValue2)));
 
 		// less or equal
@@ -99,8 +94,6 @@ public class LiteralConditionTest extends TestmodelTest
 			item1.TYPE.search(item1.someNotNullDouble.lessOrEqual(2.3)));
 		assertContains(item1, item2, item3,
 			item1.TYPE.search(item1.someDate.lessOrEqual(date)));
-		assertContains(item1, item2, item3,
-			item1.TYPE.search(item1.someLongDate.lessOrEqual(offset(date, LONG_OFFSET))));
 		assertContains(item1, item2, item3,
 			item1.TYPE.search(item1.someNotNullEnum.lessOrEqual(AttributeItem.SomeEnum.enumValue2)));
 
@@ -116,8 +109,6 @@ public class LiteralConditionTest extends TestmodelTest
 		assertContains(item4, item5,
 			item1.TYPE.search(item1.someDate.greater(date)));
 		assertContains(item4, item5,
-			item1.TYPE.search(item1.someLongDate.greater(offset(date, LONG_OFFSET))));
-		assertContains(item4, item5,
 			item1.TYPE.search(item1.someNotNullEnum.greater(AttributeItem.SomeEnum.enumValue2)));
 
 		// greater or equal
@@ -131,8 +122,6 @@ public class LiteralConditionTest extends TestmodelTest
 			item1.TYPE.search(item1.someNotNullDouble.greaterOrEqual(2.3)));
 		assertContains(item3, item4, item5,
 			item1.TYPE.search(item1.someDate.greaterOrEqual(date)));
-		assertContains(item3, item4, item5,
-			item1.TYPE.search(item1.someLongDate.greaterOrEqual(offset(date, LONG_OFFSET))));
 		assertContains(item3, item4, item5,
 			item1.TYPE.search(item1.someNotNullEnum.greaterOrEqual(AttributeItem.SomeEnum.enumValue2)));
 	}
