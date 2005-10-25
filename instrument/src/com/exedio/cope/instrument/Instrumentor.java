@@ -296,10 +296,11 @@ final class Instrumentor implements InjectionConsumer
 		new CopeVector(ja);
 	}
 	
-	private final void handleMedia(final JavaAttribute ja, final Class typeClass)
+	private final void handleMedia(final JavaAttribute ja, final String docComment)
 		throws InjectorParseException
 	{
-		new CopeMedia(ja);
+		final String setterOption = Injector.findDocTagLine(docComment, ATTRIBUTE_SETTER);
+		new CopeMedia(ja, setterOption);
 	}
 
 	public void onClassFeature(final JavaFeature jf, final String docComment)
@@ -337,7 +338,7 @@ final class Instrumentor implements InjectionConsumer
 					else if(Vector.class.isAssignableFrom(typeClass))
 						handleVector(ja, typeClass);
 					else if(Media.class.isAssignableFrom(typeClass))
-						handleMedia(ja, typeClass);
+						handleMedia(ja, docComment);
 				}
 			}
 		}

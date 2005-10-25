@@ -26,14 +26,17 @@ final class CopeMedia
 	final CopeClass copeClass;
 	public final String mimeMajor;
 	public final String mimeMinor;
+	public final Option setterOption;
 
-	public CopeMedia(final JavaAttribute javaAttribute)
+	public CopeMedia(final JavaAttribute javaAttribute, final String setterOption)
 	{
 		this.name = javaAttribute.name;
 		this.copeClass = CopeClass.getCopeClass(javaAttribute.parent);
 
 		this.mimeMajor = getString(javaAttribute.getInitializerArguments(), 1);
 		this.mimeMinor = getString(javaAttribute.getInitializerArguments(), 2);
+
+		this.setterOption = new Option(setterOption, true);
 
 		copeClass.add(this);
 	}

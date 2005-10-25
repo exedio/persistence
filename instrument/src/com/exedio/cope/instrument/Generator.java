@@ -549,7 +549,7 @@ final class Generator
 		writeDataGetterMethod(media, InputStream.class, "Data",        GETTER_MEDIA_DATA);
 		
 		// setters
-		if(true) // TODO use option of media
+		if(media.setterOption.exists)
 		{
 			writeCommentHeader();
 			o.write("\t * ");
