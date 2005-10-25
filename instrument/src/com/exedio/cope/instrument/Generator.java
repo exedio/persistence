@@ -501,7 +501,8 @@ final class Generator
 	private void writeDataGetterMethod(final CopeMedia media,
 													final Class returnType,
 													final String part,
-													final String commentPattern)
+													final String commentPattern,
+													final int getterModifier)
 	throws IOException
 	{
 		final String prefix = (boolean.class==returnType) ? "is" : "get";
@@ -511,7 +512,7 @@ final class Generator
 		o.write(lineSeparator);
 		writeStreamWarning(returnType.getName());
 		writeCommentFooter();
-		o.write(Modifier.toString(Modifier.PUBLIC|Modifier.FINAL)); // TODO use visibility of media
+		o.write(Modifier.toString(getterModifier|Modifier.FINAL));
 		o.write(' ');
 		o.write(returnType.getName());
 		o.write(' ');
@@ -541,12 +542,13 @@ final class Generator
 		final String mimeMinor = media.mimeMinor;
 
 		// getters
-		writeDataGetterMethod(media, boolean.class,     "Null",        GETTER_MEDIA_IS_NULL);
-		writeDataGetterMethod(media, String.class,      "URL",         GETTER_MEDIA_URL);
-		writeDataGetterMethod(media, String.class,      "MimeMajor",   GETTER_MEDIA_MAJOR);
-		writeDataGetterMethod(media, String.class,      "MimeMinor",   GETTER_MEDIA_MINOR);
-		writeDataGetterMethod(media, String.class,      "ContentType", GETTER_MEDIA_CONTENT_TYPE);
-		writeDataGetterMethod(media, InputStream.class, "Data",        GETTER_MEDIA_DATA);
+		final int getterModifier = media.getGeneratedGetterModifier();
+		writeDataGetterMethod(media, boolean.class,     "Null",        GETTER_MEDIA_IS_NULL,      getterModifier);
+		writeDataGetterMethod(media, String.class,      "URL",         GETTER_MEDIA_URL,          getterModifier);
+		writeDataGetterMethod(media, String.class,      "MimeMajor",   GETTER_MEDIA_MAJOR,        getterModifier);
+		writeDataGetterMethod(media, String.class,      "MimeMinor",   GETTER_MEDIA_MINOR,        getterModifier);
+		writeDataGetterMethod(media, String.class,      "ContentType", GETTER_MEDIA_CONTENT_TYPE, getterModifier);
+		writeDataGetterMethod(media, InputStream.class, "Data",        GETTER_MEDIA_DATA,         getterModifier);
 		
 		// setters
 		if(media.setterOption.exists)

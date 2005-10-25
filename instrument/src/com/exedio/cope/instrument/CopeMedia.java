@@ -17,6 +17,7 @@
  */
 package com.exedio.cope.instrument;
 
+import java.lang.reflect.Modifier;
 import java.util.List;
 
 
@@ -61,6 +62,11 @@ final class CopeMedia
 	final String getName()
 	{
 		return name;
+	}
+
+	final int getGeneratedGetterModifier()
+	{
+		return javaAttribute.modifier & (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE);
 	}
 
 	final int getGeneratedSetterModifier()

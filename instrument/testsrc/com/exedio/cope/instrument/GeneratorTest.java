@@ -133,22 +133,20 @@ public class GeneratorTest extends InstrumentorTest
 		assertMethod(standard, "getAnyMediaData", InputStream.class, PUBLIC|FINAL);
 		assertMethod(standard, "setAnyMedia", new Class[]{InputStream.class, String.class, String.class}, PUBLIC|FINAL, new Class[]{IOException.class});
 
-		// TODO should all be package private instead of public
-		assertMethod(standard, "isMajorMediaNull", boolean.class, PUBLIC|FINAL);
-		assertMethod(standard, "getMajorMediaURL", String.class, PUBLIC|FINAL);
-		assertMethod(standard, "getMajorMediaMimeMajor", String.class, PUBLIC|FINAL);
-		assertMethod(standard, "getMajorMediaMimeMinor", String.class, PUBLIC|FINAL);
-		assertMethod(standard, "getMajorMediaContentType", String.class, PUBLIC|FINAL);
-		assertMethod(standard, "getMajorMediaData", InputStream.class, PUBLIC|FINAL);
+		assertMethod(standard, "isMajorMediaNull", boolean.class, FINAL);
+		assertMethod(standard, "getMajorMediaURL", String.class, FINAL);
+		assertMethod(standard, "getMajorMediaMimeMajor", String.class, FINAL);
+		assertMethod(standard, "getMajorMediaMimeMinor", String.class, FINAL);
+		assertMethod(standard, "getMajorMediaContentType", String.class, FINAL);
+		assertMethod(standard, "getMajorMediaData", InputStream.class, FINAL);
 		assertMethod(standard, "setMajorMedia", new Class[]{InputStream.class, String.class}, FINAL, new Class[]{IOException.class});
 
-		// TODO should all be protected instead of public
-		assertMethod(standard, "isMinorMediaNull", boolean.class, PUBLIC|FINAL);
-		assertMethod(standard, "getMinorMediaURL", String.class, PUBLIC|FINAL);
-		assertMethod(standard, "getMinorMediaMimeMajor", String.class, PUBLIC|FINAL);
-		assertMethod(standard, "getMinorMediaMimeMinor", String.class, PUBLIC|FINAL);
-		assertMethod(standard, "getMinorMediaContentType", String.class, PUBLIC|FINAL);
-		assertMethod(standard, "getMinorMediaData", InputStream.class, PUBLIC|FINAL);
+		assertMethod(standard, "isMinorMediaNull", boolean.class, PROTECTED|FINAL);
+		assertMethod(standard, "getMinorMediaURL", String.class, PROTECTED|FINAL);
+		assertMethod(standard, "getMinorMediaMimeMajor", String.class, PROTECTED|FINAL);
+		assertMethod(standard, "getMinorMediaMimeMinor", String.class, PROTECTED|FINAL);
+		assertMethod(standard, "getMinorMediaContentType", String.class, PROTECTED|FINAL);
+		assertMethod(standard, "getMinorMediaData", InputStream.class, PROTECTED|FINAL);
 		assertMethod(standard, "setMinorMedia", new Class[]{InputStream.class}, PROTECTED|FINAL, new Class[]{IOException.class});
 
 		assertMethod(standard, "isNoSetterMediaNull", boolean.class, PUBLIC|FINAL);
