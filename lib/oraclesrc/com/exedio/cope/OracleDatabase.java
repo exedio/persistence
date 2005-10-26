@@ -54,9 +54,17 @@ final class OracleDatabase
 		}
 	}
 	
+	private static final String VARCHAR = "varchar";
+
+	/**
+	 * whether to use varchar instead of nvarchar
+	 */
+	private final boolean varchar;
+
 	protected OracleDatabase(final Properties properties)
 	{
 		super(new OracleDriver(properties.getDatabaseUser().toUpperCase()), properties);
+		this.varchar = "true".equalsIgnoreCase(properties.getDatabaseCustomProperty(VARCHAR));
 	}
 	
 	String getIntegerType(final int precision)
@@ -71,7 +79,7 @@ final class OracleDatabase
 
 	String getStringType(final int maxLength)
 	{
-		return "NVARCHAR2("+(maxLength!=Integer.MAX_VALUE ? maxLength : 2000)+")";
+		return (varchar?"VARCHAR2(":"NVARCHAR2(")+(maxLength!=Integer.MAX_VALUE ? maxLength : 2000)+")";
 	}
 	
 	String getDayType()
