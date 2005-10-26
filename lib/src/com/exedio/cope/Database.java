@@ -618,7 +618,7 @@ abstract class Database
 		
 		buildStage = false;
 
-		final Statement bf = createStatement();
+		final Statement bf = createStatement(state.type.getSupertype()!=null);
 		bf.append("select ");
 
 		boolean first = true;
@@ -634,16 +634,14 @@ abstract class Database
 					bf.append(',');
 
 				final Column column = (Column)i.next();
-				bf.append(table.protectedID).
-					append('.').
-					append(column.protectedID).defineColumn(column);
+				bf.append(column, (Join)null).defineColumn(column);
 			}
 		}
 		
 		if(first)
 		{
 			// no columns in type
-			bf.append(state.type.getTable().getPrimaryKey().protectedID);
+			bf.appendPK(state.type, (Join)null);
 		}
 
 		bf.append(" from ");
@@ -667,14 +665,13 @@ abstract class Database
 			else
 				bf.append(" and ");
 
-			final Table table = type.getTable();
-			bf.append(table.protectedID).
-				append('.').
-				append(table.getPrimaryKey().protectedID).
+			bf.appendPK(type, (Join)null).
 				append('=').
 				appendValue(state.pk);
 		}
 
+		//System.out.println(bf.toString());
+		
 		// TODO: let PersistentState be its own ResultSetHandler
 		executeSQLQuery(connection, bf, new ResultSetHandler()
 			{
