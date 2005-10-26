@@ -19,10 +19,13 @@
 package com.exedio.cope;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
-final class PersistentState extends State
+final class PersistentState extends State implements Database.ResultSetHandler
 {
 	
 	// TODO: use arrays for String/int/double instead of the HashMap
@@ -103,4 +106,21 @@ final class PersistentState extends State
 	{
 		return true;
 	}
+	
+	// implementation of ResultSetHandler
+	public void run(final ResultSet resultSet) throws SQLException
+	{
+		if(!resultSet.next())
+			throw new NoSuchItemException(item);
+		else
+		{
+			int columnIndex = 1;
+			for(Type itype = type; itype!=null; itype = itype.getSupertype())
+			{
+				for(Iterator i = itype.getTable().getColumns().iterator(); i.hasNext(); )
+					((Column)i.next()).load(resultSet, columnIndex++, this);
+			}
+		}
+	}
+	
 }

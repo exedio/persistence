@@ -669,25 +669,7 @@ abstract class Database
 		}
 
 		//System.out.println(bf.toString());
-		
-		// TODO: let PersistentState be its own ResultSetHandler
-		executeSQLQuery(connection, bf, new ResultSetHandler()
-			{
-				public void run(final ResultSet resultSet) throws SQLException
-				{
-					if(!resultSet.next())
-						throw new NoSuchItemException( state.item );
-					else
-					{
-						int columnIndex = 1;
-						for(Type type = state.type; type!=null; type = type.getSupertype())
-						{
-							for(Iterator i = type.getTable().getColumns().iterator(); i.hasNext(); )
-								((Column)i.next()).load(resultSet, columnIndex++, state);
-						}
-					}
-				}
-			}, false);
+		executeSQLQuery(connection, bf, state, false);
 	}
 
 	void store(final Connection connection, final State state, final boolean present)
