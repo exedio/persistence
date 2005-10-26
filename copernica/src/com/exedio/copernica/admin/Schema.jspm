@@ -21,6 +21,7 @@ package com.exedio.copernica.admin;
 
 import java.io.IOException;
 import java.io.PrintStream;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
 
@@ -215,7 +216,7 @@ for(Iterator i = schema.getTables().iterator(); i.hasNext(); tableCount++)
 		if(lastAnalyzed!=null)
 		{
 			final Date date = lastAnalyzed.getDate();
-			final String lastAnalyzedString = date!=null ? date.toString() : "NEVER";
+			final String lastAnalyzedString = date!=null ? (new SimpleDateFormat("dd.MM.yyyy HH:mm:ss")).format(date) : "NEVER";
 			%>
 			<input type="checkbox" name="ANALYZE_TABLE" value="<%=table.getName()%>"/>analyze (<%=lastAnalyzedString%>)<%
 		}
@@ -227,7 +228,7 @@ for(Iterator i = schema.getTables().iterator(); i.hasNext(); tableCount++)
 		if(lastAnalyzed!=null)
 		{
 			final Date date = lastAnalyzed.getDate();
-			final String lastAnalyzedString = date!=null ? date.toString() : "NEVER";
+			final String lastAnalyzedString = date!=null ? (new SimpleDateFormat("dd.MM.yyyy HH:mm:ss")).format(date) : "NEVER";
 			%>
 			<li class="<%=color(lastAnalyzed.getCumulativeColor())%>">
 				last analyzed: <%=lastAnalyzedString%>
