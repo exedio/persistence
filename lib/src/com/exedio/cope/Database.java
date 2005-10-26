@@ -291,6 +291,8 @@ abstract class Database
 
 		final Statement bf = createStatement();
 		bf.setJoinsToAliases(query);
+		final ArrayList queryJoins = query.joins;
+		final boolean qualifyTable = queryJoins!=null;
 		
 		if(!doCountOnly && limitActive && limitSupport==LIMIT_SUPPORT_ROWNUM)
 			appendLimitClauseAroundPrefix(bf, limitStart, limitCount);
@@ -340,7 +342,7 @@ abstract class Database
 					{
 						selectColumn = null;
 						final ComputedFunction computedFunction = (ComputedFunction)selectable;
-						bf.append(computedFunction, (Join)null).defineColumn(computedFunction);
+						bf.append(computedFunction, (Join)null, qualifyTable).defineColumn(computedFunction);
 					}
 				}
 				else
@@ -387,7 +389,6 @@ abstract class Database
 				append(fromAlias);
 		}
 
-		final ArrayList queryJoins = query.joins;
 		if(queryJoins!=null)
 		{
 			for(Iterator i = queryJoins.iterator(); i.hasNext(); )
@@ -409,7 +410,7 @@ abstract class Database
 				if(joinCondition!=null)
 				{
 					bf.append(" on ");
-					joinCondition.appendStatement(bf);
+					joinCondition.appendStatement(bf, qualifyTable);
 				}
 			}
 		}
@@ -417,7 +418,7 @@ abstract class Database
 		if(query.condition!=null)
 		{
 			bf.append(" where ");
-			query.condition.appendStatement(bf);
+			query.condition.appendStatement(bf, qualifyTable);
 		}
 
 		if(!doCountOnly)
@@ -430,7 +431,7 @@ abstract class Database
 			{
 				firstOrderBy = false;
 	
-				bf.append(query.orderBy, (Join)null);
+				bf.append(query.orderBy, (Join)null, qualifyTable);
 				if(!query.orderAscending)
 					bf.append(" desc");
 			}

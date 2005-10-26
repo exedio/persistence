@@ -48,9 +48,9 @@ public final class LikeCondition extends Condition
 			throw new NullPointerException("value must ot be null");
 	}
 	
-	public final void appendStatement(final Statement bf)
+	public final void appendStatement(final Statement bf, final boolean qualifyTable)
 	{
-		bf.append(function, (Join)null).
+		bf.append(function, (Join)null, qualifyTable).
 			append(" like ").
 			appendValue(function, value);
 	}

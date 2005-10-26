@@ -70,9 +70,9 @@ public final class EqualCondition extends Condition
 		this.value = value;
 	}
 	
-	public final void appendStatement(final Statement bf)
+	public final void appendStatement(final Statement bf, final boolean qualifyTable)
 	{
-		bf.append(function, join);
+		bf.append(function, join, qualifyTable);
 		if(value!=null)
 			bf.append('=').
 				appendValue(function, value);

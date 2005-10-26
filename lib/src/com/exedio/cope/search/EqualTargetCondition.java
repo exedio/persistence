@@ -46,11 +46,11 @@ public final class EqualTargetCondition extends Condition
 			throw new RuntimeException("invalid type of join, expected "+targetJoin.getType()+" but was "+attribute.getTargetType());
 	}
 
-	public final void appendStatement(final Statement bf)
+	public final void appendStatement(final Statement bf, final boolean qualifyTable)
 	{
-		bf.append(attribute, (Join)null).
+		bf.append(attribute, (Join)null, qualifyTable).
 			append('=').
-			appendPK(attribute.getTargetType(), targetJoin);
+			appendPK(attribute.getTargetType(), targetJoin, qualifyTable);
 	}
 
 	public final void check(final Query query)

@@ -71,12 +71,12 @@ public abstract class ComputedFunction extends Feature implements Function
 	
 	abstract void surface2DatabasePrepared(Statement bf, Object value);
 	
-	public final void append(final Statement bf, final Join join)
+	public final void append(final Statement bf, final Join join, final boolean qualifyTable)
 	{
 		for(int i = 0; i<sources.length; i++)
 		{
 			bf.append(sqlFragments[i]).
-				append(sources[i], join);
+				append(sources[i], join, qualifyTable);
 		}
 		bf.append(sqlFragments[sqlFragments.length-1]);
 	}

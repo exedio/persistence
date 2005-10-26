@@ -48,18 +48,22 @@ public final class Statement
 		return this;
 	}
 	
-	public Statement append(final Function function, final Join join)
+	public Statement append(final Function function, final Join join, final boolean qualifyTable)
 	{
-		function.append(this, join);
+		function.append(this, join, qualifyTable);
 		return this;
 	}
 
-	public Statement appendPK(final Type type, final Join join)
+	public Statement appendPK(final Type type, final Join join, final boolean qualifyTable)
 	{
 		final Table table = type.getTable();
+		if(qualifyTable)
+		{
+			this.text.
+				append(join!=null ? getName(join) : table.protectedID).
+				append('.');
+		}
 		this.text.
-			append(join!=null ? getName(join) : table.protectedID).
-			append('.').
 			append(table.getPrimaryKey().protectedID);
 			
 		return this;

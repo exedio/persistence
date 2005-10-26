@@ -68,7 +68,7 @@ public final class NotEqualCondition extends Condition
 		this.value = value;
 	}
 	
-	public final void appendStatement(final Statement bf)
+	public final void appendStatement(final Statement bf, final boolean qualifyTable)
 	{
 		if(value!=null)
 		{
@@ -76,15 +76,15 @@ public final class NotEqualCondition extends Condition
 			// the "or is null" is needed since without this oracle
 			// does not find results with null.
 			bf.append("(").
-				append(function, (Join)null).
+				append(function, (Join)null, qualifyTable).
 				append("<>").
 				appendValue(function, value).
 				append(" or ").
-				append(function, (Join)null).
+				append(function, (Join)null, qualifyTable).
 				append(" is null)");
 		}
 		else
-			bf.append(function, (Join)null).
+			bf.append(function, (Join)null, qualifyTable).
 				append(" is not null");
 	}
 
