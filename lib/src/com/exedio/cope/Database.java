@@ -363,9 +363,7 @@ abstract class Database
 						if(selectTypeColumn!=null)
 						{
 							bf.append(',').
-								append(selectTable.protectedID).
-								append('.').
-								append(selectTypeColumn.protectedID).defineColumn(selectTypeColumn);
+								append(selectTypeColumn, (Join)null).defineColumn(selectTypeColumn);
 						}
 						else
 							selectTypes[selectableIndex] = selectType;
