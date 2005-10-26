@@ -58,15 +58,19 @@ public final class Statement
 
 	public Statement appendPK(final Type type, final Join join)
 	{
-		final Table table = type.getTable();
+		return append(type.getTable().getPrimaryKey(), join);
+	}
+		
+	public Statement append(final Column column, final Join join)
+	{
 		if(qualifyTable)
 		{
 			this.text.
-				append(join!=null ? getName(join) : table.protectedID).
+				append(join!=null ? getName(join) : column.table.protectedID).
 				append('.');
 		}
 		this.text.
-			append(table.getPrimaryKey().protectedID);
+			append(column.protectedID);
 			
 		return this;
 	}

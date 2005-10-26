@@ -114,14 +114,7 @@ public abstract class ObjectAttribute
 
 	public void append(final Statement bf, final Join join)
 	{
-		if(bf.qualifyTable)
-		{
-			bf.text.
-				append(join!=null ? bf.getName(join) : getType().getTable().protectedID).
-				append('.');
-		}
-		bf.text.
-			append(getColumn().protectedID);
+		bf.append(getColumn(), join);
 	}
 		
 	/**
