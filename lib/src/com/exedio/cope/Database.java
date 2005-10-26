@@ -73,7 +73,7 @@ abstract class Database
 			case LIMIT_SUPPORT_NONE:
 			case LIMIT_SUPPORT_CLAUSE_AFTER_SELECT:
 			case LIMIT_SUPPORT_CLAUSE_AFTER_WHERE:
-			case LIMIT_SUPPORT_ROWNUM:
+			case LIMIT_SUPPORT_CLAUSES_AROUND:
 				break;
 			default:
 				throw new RuntimeException(Integer.toString(limitSupport));
@@ -272,7 +272,7 @@ abstract class Database
 		final Statement bf = createStatement(queryJoins!=null);
 		bf.setJoinsToAliases(query);
 		
-		if(!doCountOnly && limitActive && limitSupport==LIMIT_SUPPORT_ROWNUM)
+		if(!doCountOnly && limitActive && limitSupport==LIMIT_SUPPORT_CLAUSES_AROUND)
 			appendLimitClause(bf, limitStart, limitCount);
 		
 		bf.append("select");
@@ -418,7 +418,7 @@ abstract class Database
 				appendLimitClause(bf, limitStart, limitCount);
 		}
 
-		if(!doCountOnly && limitActive && limitSupport==LIMIT_SUPPORT_ROWNUM)
+		if(!doCountOnly && limitActive && limitSupport==LIMIT_SUPPORT_CLAUSES_AROUND)
 			appendLimitClause2(bf, limitStart, limitCount);
 		
 		final Type[] types = selectTypes;
@@ -1093,7 +1093,7 @@ abstract class Database
 	protected static final int LIMIT_SUPPORT_NONE = 26;
 	protected static final int LIMIT_SUPPORT_CLAUSE_AFTER_SELECT = 63;
 	protected static final int LIMIT_SUPPORT_CLAUSE_AFTER_WHERE = 93;
-	protected static final int LIMIT_SUPPORT_ROWNUM = 134;
+	protected static final int LIMIT_SUPPORT_CLAUSES_AROUND = 134;
 
 	/**
 	 * Appends a clause to the statement causing the database limiting the query result.

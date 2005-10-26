@@ -94,7 +94,7 @@ final class OracleDatabase
 	
 	int getLimitSupport()
 	{
-		return LIMIT_SUPPORT_ROWNUM;
+		return LIMIT_SUPPORT_CLAUSES_AROUND;
 	}
 
 	void appendLimitClause(final Statement bf, final int start, final int count)
