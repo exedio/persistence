@@ -47,11 +47,11 @@ public final class EqualAttributeCondition extends Condition
 		this.attribute2 = attribute2;
 	}
 
-	public final void appendStatement(final Statement bf, final boolean qualifyTable)
+	public final void appendStatement(final Statement bf)
 	{
-		bf.append(attribute1, (Join)null, qualifyTable).
+		bf.append(attribute1, (Join)null).
 			append('=').
-			append(attribute2, (Join)null, qualifyTable);
+			append(attribute2, (Join)null);
 	}
 
 	public final void check(final Query query)

@@ -43,9 +43,9 @@ public abstract class LiteralCondition extends Condition
 			throw new NullPointerException();
 	}
 	
-	public final void appendStatement(final Statement bf, final boolean qualifyTable)
+	public final void appendStatement(final Statement bf)
 	{
-		bf.append(attribute, (Join)null, qualifyTable);
+		bf.append(attribute, (Join)null);
 		if(value!=null)
 			bf.append(operator).
 				appendValue(attribute, value);

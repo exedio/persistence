@@ -28,11 +28,13 @@ public final class Statement
 {
 	final StringBuffer text = new StringBuffer();
 	final ArrayList params;
+	final boolean qualifyTable;
 	final IntArrayList columnTypes;
 		
-	Statement(final boolean prepare, final boolean useDefineColumnTypes)
+	Statement(final boolean prepare, final boolean qualifyTable, final boolean useDefineColumnTypes)
 	{
 		params = prepare ? new ArrayList() : null;
+		this.qualifyTable = qualifyTable;
 		columnTypes = useDefineColumnTypes ? new IntArrayList() : null;
 	}
 
@@ -48,13 +50,13 @@ public final class Statement
 		return this;
 	}
 	
-	public Statement append(final Function function, final Join join, final boolean qualifyTable)
+	public Statement append(final Function function, final Join join)
 	{
-		function.append(this, join, qualifyTable);
+		function.append(this, join);
 		return this;
 	}
 
-	public Statement appendPK(final Type type, final Join join, final boolean qualifyTable)
+	public Statement appendPK(final Type type, final Join join)
 	{
 		final Table table = type.getTable();
 		if(qualifyTable)

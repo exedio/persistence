@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 public interface Function extends Selectable
 {
-	void append(Statement bf, Join join, boolean qualifyTable);
+	void append(Statement bf, Join join);
 	
 	Type getType();
 

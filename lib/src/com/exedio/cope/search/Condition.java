@@ -29,7 +29,7 @@ import com.exedio.cope.Type;
 
 public abstract class Condition
 {
-	public abstract void appendStatement(Statement statment, boolean qualifyTable);
+	public abstract void appendStatement(Statement statment);
 	
 	public abstract void check(Query query);
 

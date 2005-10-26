@@ -98,9 +98,9 @@ final class SequentialPkSource extends PkSource
 		return (int)id;
 	}
 	
-	void appendDeterministicOrderByExpression(final Statement bf, final Type orderBy, final boolean qualifyTable)
+	void appendDeterministicOrderByExpression(final Statement bf, final Type orderBy)
 	{
-		bf.appendPK(orderBy, (Join)null, qualifyTable);
+		bf.appendPK(orderBy, (Join)null);
 	}
 
 }

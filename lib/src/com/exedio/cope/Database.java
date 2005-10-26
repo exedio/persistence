@@ -108,7 +108,12 @@ abstract class Database
 	
 	protected final Statement createStatement()
 	{
-		return new Statement(prepare, useDefineColumnTypes);
+		return createStatement(true);
+	}
+	
+	protected final Statement createStatement(final boolean qualifyTable)
+	{
+		return new Statement(prepare, qualifyTable, useDefineColumnTypes);
 	}
 	
 	void createDatabase()
@@ -132,7 +137,7 @@ abstract class Database
 		buildStage = false;
 
 		//final long time = System.currentTimeMillis();
-		final Statement bf = createStatement();
+		final Statement bf = createStatement(true);
 		bf.append("select count(*) from ").defineColumnInteger();
 		boolean first = true;
 
@@ -289,10 +294,9 @@ abstract class Database
 		final int limitCount = query.limitCount;
 		final boolean limitActive = limitStart>0 || limitCount!=Query.UNLIMITED_COUNT;
 
-		final Statement bf = createStatement();
-		bf.setJoinsToAliases(query);
 		final ArrayList queryJoins = query.joins;
-		final boolean qualifyTable = queryJoins!=null;
+		final Statement bf = createStatement(queryJoins!=null);
+		bf.setJoinsToAliases(query);
 		
 		if(!doCountOnly && limitActive && limitSupport==LIMIT_SUPPORT_ROWNUM)
 			appendLimitClauseAroundPrefix(bf, limitStart, limitCount);
@@ -332,13 +336,13 @@ abstract class Database
 					if(selectable instanceof ObjectAttribute)
 					{
 						selectColumn = ((ObjectAttribute)selectAttribute).getColumn();
-						bf.append((ObjectAttribute)selectable, (Join)null, qualifyTable).defineColumn(selectColumn);
+						bf.append((ObjectAttribute)selectable, (Join)null).defineColumn(selectColumn);
 					}
 					else
 					{
 						selectColumn = null;
 						final ComputedFunction computedFunction = (ComputedFunction)selectable;
-						bf.append(computedFunction, (Join)null, qualifyTable).defineColumn(computedFunction);
+						bf.append(computedFunction, (Join)null).defineColumn(computedFunction);
 					}
 				}
 				else
@@ -351,7 +355,7 @@ abstract class Database
 					if(selectableIndex>0)
 						bf.append(',');
 					
-					bf.appendPK(selectType, (Join)null, qualifyTable).defineColumn(selectColumn);
+					bf.appendPK(selectType, (Join)null).defineColumn(selectColumn);
 	
 					if(selectColumn.primaryKey)
 					{
@@ -404,7 +408,7 @@ abstract class Database
 				if(joinCondition!=null)
 				{
 					bf.append(" on ");
-					joinCondition.appendStatement(bf, qualifyTable);
+					joinCondition.appendStatement(bf);
 				}
 			}
 		}
@@ -412,7 +416,7 @@ abstract class Database
 		if(query.condition!=null)
 		{
 			bf.append(" where ");
-			query.condition.appendStatement(bf, qualifyTable);
+			query.condition.appendStatement(bf);
 		}
 
 		if(!doCountOnly)
@@ -425,7 +429,7 @@ abstract class Database
 			{
 				firstOrderBy = false;
 	
-				bf.append(query.orderBy, (Join)null, qualifyTable);
+				bf.append(query.orderBy, (Join)null);
 				if(!query.orderAscending)
 					bf.append(" desc");
 			}
@@ -435,7 +439,7 @@ abstract class Database
 				if(!firstOrderBy)
 					bf.append(',');
 				
-				query.type.getPkSource().appendDeterministicOrderByExpression(bf, query.type, qualifyTable);
+				query.type.getPkSource().appendDeterministicOrderByExpression(bf, query.type);
 			}
 
 			if(limitActive && limitSupport==LIMIT_SUPPORT_CLAUSE_AFTER_WHERE)

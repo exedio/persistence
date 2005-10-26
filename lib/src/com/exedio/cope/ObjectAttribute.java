@@ -112,9 +112,9 @@ public abstract class ObjectAttribute
 	{
 	}
 
-	public void append(final Statement bf, final Join join, final boolean qualifyTable)
+	public void append(final Statement bf, final Join join)
 	{
-		if(qualifyTable)
+		if(bf.qualifyTable)
 		{
 			bf.text.
 				append(join!=null ? bf.getName(join) : getType().getTable().protectedID).

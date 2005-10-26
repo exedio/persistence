@@ -116,10 +116,10 @@ final class ButterflyPkSource extends PkSource
 		return (int)result;
 	}
 	
-	void appendDeterministicOrderByExpression(final Statement bf, final Type orderBy, final boolean qualifyTable)
+	void appendDeterministicOrderByExpression(final Statement bf, final Type orderBy)
 	{
 		bf.append("abs(").
-			appendPK(orderBy, (Join)null, qualifyTable).
+			appendPK(orderBy, (Join)null).
 			append("*4+1)");
 	}
 

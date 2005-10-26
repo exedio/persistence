@@ -39,5 +39,5 @@ abstract class PkSource
 	 * so we have to specify the orderByType here,
 	 * since orderByType.getTable() may not be equal to this.table.
 	 */
-	abstract void appendDeterministicOrderByExpression(Statement bf, Type orderBy, boolean qualifyTable);
+	abstract void appendDeterministicOrderByExpression(Statement bf, Type orderBy);
 }
