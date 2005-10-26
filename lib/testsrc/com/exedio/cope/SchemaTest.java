@@ -297,17 +297,19 @@ public class SchemaTest extends TestmodelTest
 			assertEquals(null, min4Max8.getError());
 			assertEquals(Schema.COLOR_OK, min4Max8.getParticularColor());
 			
+			final String string8;
 			if(hsqldb)
-				assertEquals("varchar(8)", min4Max8.getType());
+				string8 = "varchar(8)";
 			else if(mysql)
-				assertEquals("varchar(8) binary", min4Max8.getType());
+				string8 = "varchar(8) binary";
 			else
 			{
 				if(model.getProperties().getDatabaseCustomProperty("varchar")!=null)
-					assertEquals("VARCHAR2(8)", min4Max8.getType());
+					string8 = "VARCHAR2(8)";
 				else
-					assertEquals("NVARCHAR2(8)", min4Max8.getType());
+					string8 = "NVARCHAR2(8)";
 			}
+			assertEquals(string8, min4Max8.getType());
 
 			assertCheckConstraint(stringItem, "STRINGITEMS_MIN_4_Ck",     "(LENGTH("+protect("MIN_4")+")>=4) OR ("+protect("MIN_4")+" IS NULL)");
 			assertCheckConstraint(stringItem, "STRINGITEMS_MAX_4_Ck",     "(LENGTH("+protect("MAX_4")+")<=4) OR ("+protect("MAX_4")+" IS NULL)");
