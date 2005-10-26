@@ -332,11 +332,7 @@ abstract class Database
 					if(selectable instanceof ObjectAttribute)
 					{
 						selectColumn = ((ObjectAttribute)selectAttribute).getColumn();
-						selectTable = selectColumn.table;
-						selectPrimaryKey = selectTable.getPrimaryKey();
-						bf.append(selectColumn.table.protectedID).
-							append('.').
-							append(selectColumn.protectedID).defineColumn(selectColumn);
+						bf.append((ObjectAttribute)selectable, (Join)null, qualifyTable).defineColumn(selectColumn);
 					}
 					else
 					{
@@ -355,9 +351,7 @@ abstract class Database
 					if(selectableIndex>0)
 						bf.append(',');
 					
-					bf.append(selectColumn.table.protectedID).
-						append('.').
-						append(selectColumn.protectedID).defineColumn(selectColumn);
+					bf.appendPK(selectType, (Join)null, qualifyTable).defineColumn(selectColumn);
 	
 					if(selectColumn.primaryKey)
 					{
