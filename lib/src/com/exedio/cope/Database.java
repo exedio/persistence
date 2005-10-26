@@ -624,9 +624,7 @@ abstract class Database
 		boolean first = true;
 		for(Type type = state.type; type!=null; type = type.getSupertype())
 		{
-			final Table table = type.getTable();
-			final List columns = table.getColumns();
-			for(Iterator i = columns.iterator(); i.hasNext(); )
+			for(Iterator i = type.getTable().getColumns().iterator(); i.hasNext(); )
 			{
 				if(first)
 					first = false;
