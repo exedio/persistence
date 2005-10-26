@@ -1107,6 +1107,12 @@ abstract class Database
 	 *        Is always positive (greater zero).
 	 */
 	abstract void appendLimitClause(Statement bf, int start, int count);
+	
+	/**
+	 * Same as {@link #appendLimitClause(Statement, int, int}.
+	 * Is used for {@link #LIMIT_SUPPORT_CLAUSES_AROUND} only,
+	 * for the postfix.
+	 */
 	abstract void appendLimitClause2(Statement bf, int start, int count);
 	
 	private int countTable(final Connection connection, final Table table)
