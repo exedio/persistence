@@ -122,6 +122,11 @@ public final class MysqlDatabase extends Database
 			bf.append(Integer.toString(countInStatement));
 	}
 	
+	void appendLimitClause2(final Statement bf, final int start, final int count)
+	{
+		throw new RuntimeException(bf.toString());
+	}
+	
 	protected boolean supportsCheckConstraints()
 	{
 		return false;

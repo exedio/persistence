@@ -88,6 +88,11 @@ final class HsqldbDatabase
 			appendValue(count!=Query.UNLIMITED_COUNT ? count : 0);
 	}
 	
+	void appendLimitClause2(final Statement bf, final int start, final int count)
+	{
+		throw new RuntimeException(bf.toString());
+	}
+	
 	protected boolean supportsRightOuterJoins()
 	{
 		return false;

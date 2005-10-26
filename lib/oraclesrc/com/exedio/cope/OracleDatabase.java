@@ -99,7 +99,28 @@ final class OracleDatabase
 
 	void appendLimitClause(final Statement bf, final int start, final int count)
 	{
-		throw new RuntimeException(bf.toString());
+		if((start==0&&count==Query.UNLIMITED_COUNT)||(count<=0&&count!=Query.UNLIMITED_COUNT)||start<0)
+			throw new RuntimeException(start+"-"+count);
+
+		// TODO: check, whether ROW_NUMBER() OVER is faster,
+		// see http://www.php-faq.de/q/q-oracle-limit.html
+		bf.append("select * from(");
+		if(start>0)
+			bf.append("select "+com.exedio.cope.Table.ROWNUM_INNER_VIEW_ALIAS+".*,ROWNUM "+com.exedio.cope.Table.ROWNUM_INNER_ALIAS+" from(");
+	}
+	
+	void appendLimitClause2(final Statement bf, final int start, final int count)
+	{
+		if((start==0&&count==Query.UNLIMITED_COUNT)||(count<=0&&count!=Query.UNLIMITED_COUNT)||start<0)
+			throw new RuntimeException(start+"-"+count);
+
+		bf.append(')');
+		if(start>0)
+			bf.append(com.exedio.cope.Table.ROWNUM_INNER_VIEW_ALIAS+' ');
+		if(count!=Query.UNLIMITED_COUNT)
+			bf.append("where ROWNUM<=").appendValue(start+count);
+		if(start>0)
+			bf.append(")where "+com.exedio.cope.Table.ROWNUM_INNER_ALIAS+'>').appendValue(start);
 	}
 	
 	protected boolean supportsEmptyStrings()
