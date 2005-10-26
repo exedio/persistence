@@ -435,7 +435,7 @@ abstract class Database
 				if(!firstOrderBy)
 					bf.append(',');
 				
-				query.type.getPkSource().appendDeterministicOrderByExpression(bf, query.type.getTable());
+				query.type.getPkSource().appendDeterministicOrderByExpression(bf, query.type, qualifyTable);
 			}
 
 			if(limitActive && limitSupport==LIMIT_SUPPORT_CLAUSE_AFTER_WHERE)
@@ -455,6 +455,8 @@ abstract class Database
 			throw new RuntimeException();
 		if(selectables.length!=types.length)
 			throw new RuntimeException();
+		
+		//System.out.println(bf.toString());
 
 		query.addStatementInfo(executeSQLQuery(connection, bf, new ResultSetHandler()
 			{

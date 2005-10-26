@@ -36,8 +36,8 @@ abstract class PkSource
 
 	/**
 	 * There may be one PkSource for many tables (in a inheritance tree),
-	 * so we have to specify the orderByTable here,
-	 * since it may not be equal to this.table.
+	 * so we have to specify the orderByType here,
+	 * since orderByType.getTable() may not be equal to this.table.
 	 */
-	abstract void appendDeterministicOrderByExpression(Statement bf, Table orderByTable);
+	abstract void appendDeterministicOrderByExpression(Statement bf, Type orderBy, boolean qualifyTable);
 }
