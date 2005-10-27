@@ -522,10 +522,9 @@ abstract class Database
 		return result;
 	}
 	
-	private void log(final long start, final String sqlText)
+	private void log(final long start, final long end, final String sqlText)
 	{
 		final SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss.SSS");
-		final long end = System.currentTimeMillis();
 		System.out.println(df.format(new Date(start)) + "  " + (end-start) + "ms:  " + sqlText);
 	}
 	
@@ -792,7 +791,7 @@ abstract class Database
 		try
 		{
 			final String sqlText = statement.getText();
-			final long logStart = log ? System.currentTimeMillis() : 0;
+			final long logStart = (log||makeStatementInfo) ? System.currentTimeMillis() : 0;
 			
 			if(!prepare)
 			{
@@ -829,11 +828,14 @@ abstract class Database
 				sqlStatement.close();
 				sqlStatement = null;
 			}
+
+			final long logEnd = (log||makeStatementInfo) ? System.currentTimeMillis() : 0;
+			
 			if(log)
-				log(logStart, sqlText);
+				log(logStart, logEnd, sqlText);
 			
 			if(makeStatementInfo)
-				return makeStatementInfo(statement, connection);
+				return makeStatementInfo(statement, connection, logStart, logEnd);
 			else
 				return null;
 		}
@@ -902,8 +904,10 @@ abstract class Database
 				rows = prepared.executeUpdate();
 			}
 			
+			final long logEnd = log ? System.currentTimeMillis() : 0;
+
 			if(log)
-				log(logStart, sqlText);
+				log(logStart, logEnd, sqlText);
 
 			//System.out.println("("+rows+"): "+statement.getText());
 			if(rows!=expectedRows)
@@ -941,9 +945,11 @@ abstract class Database
 		//}catch(SQLException e){ throw new SQLRuntimeException(e, "setObject("+parameterIndex+","+value+")"+s); }
 	}
 	
-	protected StatementInfo makeStatementInfo(final Statement statement, final Connection connection)
+	protected StatementInfo makeStatementInfo(final Statement statement, final Connection connection, final long start, final long end)
 	{
-		return new StatementInfo(statement.getText());
+		final StatementInfo result = new StatementInfo(statement.getText());
+		result.addChild(new StatementInfo("time: "+(end-start)+"ms"));
+		return result;
 	}
 	
 	protected abstract String extractUniqueConstraintName(SQLException e);
