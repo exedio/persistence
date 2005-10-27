@@ -189,9 +189,9 @@ final class OracleDatabase
 	
 	protected StatementInfo makeStatementInfo(
 			final Statement statement, final Connection connection,
-			final long start, final long prepared, final long executed, final long end)
+			final long start, final long prepared, final long executed, final long resultRead, final long end)
 	{
-		final StatementInfo result = super.makeStatementInfo(statement, connection, start, prepared, executed, end);
+		final StatementInfo result = super.makeStatementInfo(statement, connection, start, prepared, executed, resultRead, end);
 
 		final StatementInfo planInfo = makePlanInfo(statement, connection);
 		if(planInfo!=null)

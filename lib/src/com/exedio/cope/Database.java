@@ -823,6 +823,7 @@ abstract class Database
 				logExecuted = (log||makeStatementInfo) ? System.currentTimeMillis() : 0;
 				resultSetHandler.run(resultSet);
 			}
+			final long logResultRead = (log||makeStatementInfo) ? System.currentTimeMillis() : 0;
 			
 			if(resultSet!=null)
 			{
@@ -841,7 +842,7 @@ abstract class Database
 				log(logStart, logEnd, sqlText);
 			
 			if(makeStatementInfo)
-				return makeStatementInfo(statement, connection, logStart, logPrepared, logExecuted, logEnd);
+				return makeStatementInfo(statement, connection, logStart, logPrepared, logExecuted, logResultRead, logEnd);
 			else
 				return null;
 		}
@@ -953,10 +954,10 @@ abstract class Database
 	
 	protected StatementInfo makeStatementInfo(
 			final Statement statement, final Connection connection,
-			final long start, final long prepared, final long executed, final long end)
+			final long start, final long prepared, final long executed, final long resultRead, final long end)
 	{
 		final StatementInfo result = new StatementInfo(statement.getText());
-		result.addChild(new StatementInfo("time: total:"+(end-start)+"ms, prepare:"+(prepared-start)+"ms, execute:"+(executed-prepared)+"ms, close:"+(end-executed)+"ms"));
+		result.addChild(new StatementInfo("time: total:"+(end-start)+"ms, prepare:"+(prepared-start)+"ms, execute:"+(executed-prepared)+"ms, read result:"+(resultRead-executed)+"ms, close:"+(end-resultRead)+"ms"));
 		return result;
 	}
 	
