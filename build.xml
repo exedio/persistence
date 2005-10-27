@@ -305,6 +305,7 @@
 				NameLongNameLongNameLongNameLongNameLongNameLongItem.java,
 				NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem.java,
 				NameCollisionlooooooooooooooooooooooooooooooooooooooooongbItem.java,
+				MatchItem.java,
 				CacheIsolationItem.java" />
 		</instrument>
 	</target>

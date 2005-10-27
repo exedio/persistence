@@ -123,6 +123,15 @@ final class OracleDatabase
 			bf.append(")where "+com.exedio.cope.Table.ROWNUM_INNER_ALIAS+'>').appendValue(start);
 	}
 	
+	protected void appendMatchClauseFullTextIndex(final Statement bf, final StringFunction function, final String value)
+	{
+		bf.append("(contains(").
+			append(function, (Join)null).
+			append(',').
+			appendValue(function, value).
+			append(")>0)");
+	}
+	
 	protected boolean supportsEmptyStrings()
 	{
 		return false;

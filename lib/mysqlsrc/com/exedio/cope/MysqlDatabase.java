@@ -127,6 +127,15 @@ public final class MysqlDatabase extends Database
 		throw new RuntimeException(bf.toString());
 	}
 	
+	protected void appendMatchClauseFullTextIndex(final Statement bf, final StringFunction function, final String value)
+	{
+		bf.append("(match(").
+			append(function, (Join)null).
+			append(")against(").
+			appendValue(function, value).
+			append("))");
+	}
+	
 	protected boolean supportsCheckConstraints()
 	{
 		return false;

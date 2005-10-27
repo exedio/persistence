@@ -50,6 +50,7 @@ abstract class Database
 	private final boolean useDefineColumnTypes;
 	private final boolean log;
 	private final boolean butterflyPkSource;
+	private final boolean fulltextIndex;
 	final ConnectionPool connectionPool;
 	private final java.util.Properties forcedNames;
 	final java.util.Properties tableOptions;
@@ -63,6 +64,7 @@ abstract class Database
 		this.useDefineColumnTypes = this instanceof DatabaseColumnTypesDefinable;
 		this.log = properties.getDatabaseLog();
 		this.butterflyPkSource = properties.getPkSourceButterfly();
+		this.fulltextIndex = properties.getFulltextIndex();
 		this.connectionPool = new ConnectionPool(properties);
 		this.forcedNames = properties.getDatabaseForcedNames();
 		this.tableOptions = properties.getDatabaseTableOptions();
@@ -113,7 +115,7 @@ abstract class Database
 	
 	protected final Statement createStatement(final boolean qualifyTable)
 	{
-		return new Statement(prepare, qualifyTable, useDefineColumnTypes);
+		return new Statement(this, prepare, qualifyTable, useDefineColumnTypes);
 	}
 	
 	void createDatabase()
@@ -1129,6 +1131,28 @@ abstract class Database
 	 * for the postfix.
 	 */
 	abstract void appendLimitClause2(Statement bf, int start, int count);
+
+	/**
+	 * Search full text.
+	 */
+	final void appendMatchClause(final Statement bf, final StringFunction function, final String value)
+	{
+		if(fulltextIndex)
+			appendMatchClauseFullTextIndex(bf, function, value);
+		else
+		{
+			bf.append(function, (Join)null).
+				append(" like ").
+				appendValue(function, '%'+value+'%');
+		}
+	}
+	
+	protected void appendMatchClauseFullTextIndex(final Statement bf, final StringFunction function, final String value)
+	{
+		bf.append(function, (Join)null).
+			append(" like ").
+			appendValue(function, '%'+value+'%');
+	}
 	
 	private int countTable(final Connection connection, final Table table)
 	{

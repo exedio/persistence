@@ -26,13 +26,18 @@ import bak.pcj.list.IntArrayList;
 
 public final class Statement
 {
+	private final Database database;
 	final StringBuffer text = new StringBuffer();
 	final ArrayList params;
 	final boolean qualifyTable;
 	final IntArrayList columnTypes;
 		
-	Statement(final boolean prepare, final boolean qualifyTable, final boolean useDefineColumnTypes)
+	Statement(final Database database, final boolean prepare, final boolean qualifyTable, final boolean useDefineColumnTypes)
 	{
+		if(database==null)
+			throw new NullPointerException();
+
+		this.database = database;
 		params = prepare ? new ArrayList() : null;
 		this.qualifyTable = qualifyTable;
 		columnTypes = useDefineColumnTypes ? new IntArrayList() : null;
@@ -129,6 +134,11 @@ public final class Statement
 			this.params.add(value);
 		}
 		return this;
+	}
+	
+	public void appendMatch(final StringFunction function, final String value)
+	{
+		database.appendMatchClause(this, function, value);
 	}
 	
 	public Statement defineColumn(final ComputedFunction function)

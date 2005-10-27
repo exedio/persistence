@@ -38,6 +38,7 @@ public class Main
 			NameLongNameLongNameLongNameLongNameLongNameLongItem.TYPE,
 			NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem.TYPE,
 			NameCollisionlooooooooooooooooooooooooooooooooooooooooongbItem.TYPE });
+	public static final Model matchModel = new Model(new Type[] { MatchItem.TYPE });
 
 	private static final void tearDown(final Model model)
 	{
@@ -76,6 +77,7 @@ public class Main
 		tearDown(vectorModel);
 		tearDown(cacheIsolationModel);
 		tearDown(nameModel);
+		tearDown(matchModel);
 	}
 
 }

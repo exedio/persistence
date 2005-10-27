@@ -45,6 +45,7 @@ public final class Properties
 	static final String DATABASE_FORCE_NAME = "database.forcename";
 	static final String DATABASE_TABLE_OPTION = "database.tableOption";
 	public static final String PKSOURCE_BUTTERFLY = "pksource.butterfly";
+	public static final String FULLTEXT_INDEX = "fulltextIndex";
 	public static final String CONNECTION_POOL_MAX_IDLE = "connectionPool.maxIdle";
 	public static final String DATADIR_PATH = "datadir.path";
 	public static final String MEDIA_ROOT_URL = "media.rooturl";
@@ -70,6 +71,7 @@ public final class Properties
 	private final java.util.Properties databaseCustomProperties;
 	
 	private final boolean pkSourceButterfly;
+	private final boolean fulltextIndex;
 	private final int connectionPoolMaxIdle;
 
 	private final File datadirPath;
@@ -210,6 +212,7 @@ public final class Properties
 		this.databaseDontSupportNativeDate = getPropertyBoolean(properties, DATABASE_DONT_SUPPORT_NATIVE_DATE, false);
 		this.databaseDontSupportLimit = getPropertyBoolean(properties, DATABASE_DONT_SUPPORT_LIMIT, false);
 		this.pkSourceButterfly = getPropertyBoolean(properties, PKSOURCE_BUTTERFLY, false);
+		this.fulltextIndex = getPropertyBoolean(properties, FULLTEXT_INDEX, false);
 		this.connectionPoolMaxIdle = getPropertyInt(properties, CONNECTION_POOL_MAX_IDLE, 10, 5);
 		this.databaseLog = getPropertyBoolean(properties, DATABASE_LOG, false);
 		
@@ -225,6 +228,7 @@ public final class Properties
 					DATABASE_DONT_SUPPORT_NATIVE_DATE,
 					DATABASE_DONT_SUPPORT_LIMIT,
 					PKSOURCE_BUTTERFLY,
+					FULLTEXT_INDEX,
 					CONNECTION_POOL_MAX_IDLE,
 					DATADIR_PATH,
 					MEDIA_ROOT_URL,
@@ -410,6 +414,11 @@ public final class Properties
 		return pkSourceButterfly;
 	}
 	
+	public boolean getFulltextIndex()
+	{
+		return fulltextIndex;
+	}
+	
 	public int getConnectionPoolMaxIdle()
 	{
 		return connectionPoolMaxIdle;
@@ -448,6 +457,7 @@ public final class Properties
 		ensureEquality(other, "database.DATABASE.*", this.databaseCustomProperties, other.databaseCustomProperties);
 		
 		ensureEquality(other, PKSOURCE_BUTTERFLY, this.pkSourceButterfly, other.pkSourceButterfly);
+		ensureEquality(other, FULLTEXT_INDEX, this.fulltextIndex, other.fulltextIndex);
 		ensureEquality(other, CONNECTION_POOL_MAX_IDLE, this.connectionPoolMaxIdle, other.connectionPoolMaxIdle);
 		ensureEquality(other, DATADIR_PATH, this.datadirPath, other.datadirPath);
 		ensureEquality(other, MEDIA_ROOT_URL, this.mediaRootUrl, other.mediaRootUrl);
