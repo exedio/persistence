@@ -44,7 +44,7 @@ public class StatementInfoTest extends TestmodelTest
 			final Iterator rootChilds = root.getChilds().iterator();
 			{
 				final StatementInfo time = (StatementInfo)rootChilds.next();
-				assertTrue(time.getText(), time.getText().startsWith("time:"));
+				assertTrue(time.getText(), time.getText().startsWith("time: total:"));
 			}
 			assertTrue(!rootChilds.hasNext());
 		}
@@ -53,7 +53,7 @@ public class StatementInfoTest extends TestmodelTest
 			final Iterator rootChilds = root.getChilds().iterator();
 			{
 				final StatementInfo time = (StatementInfo)rootChilds.next();
-				assertTrue(time.getText(), time.getText().startsWith("time:"));
+				assertTrue(time.getText(), time.getText().startsWith("time: total:"));
 				final StatementInfo planId = (StatementInfo)rootChilds.next();
 				assertTrue(planId.getText(), planId.getText().startsWith("execution plan statement_id = cope"));
 				{

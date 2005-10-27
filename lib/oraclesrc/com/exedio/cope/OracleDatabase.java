@@ -187,9 +187,11 @@ final class OracleDatabase
 		new Column(planTable, "OTHER", "LONG");
 	}
 	
-	protected StatementInfo makeStatementInfo(final Statement statement, final Connection connection, final long start, final long end)
+	protected StatementInfo makeStatementInfo(
+			final Statement statement, final Connection connection,
+			final long start, final long prepared, final long executed, final long end)
 	{
-		final StatementInfo result = super.makeStatementInfo(statement, connection, start, end);
+		final StatementInfo result = super.makeStatementInfo(statement, connection, start, prepared, executed, end);
 
 		final StatementInfo planInfo = makePlanInfo(statement, connection);
 		if(planInfo!=null)

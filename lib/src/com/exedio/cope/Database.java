@@ -792,6 +792,8 @@ abstract class Database
 		{
 			final String sqlText = statement.getText();
 			final long logStart = (log||makeStatementInfo) ? System.currentTimeMillis() : 0;
+			final long logPrepared;
+			final long logExecuted;
 			
 			if(!prepare)
 			{
@@ -800,7 +802,9 @@ abstract class Database
 				if(useDefineColumnTypes)
 					((DatabaseColumnTypesDefinable)this).defineColumnTypes(statement.columnTypes, sqlStatement);
 				
+				logPrepared = (log||makeStatementInfo) ? System.currentTimeMillis() : 0;
 				resultSet = sqlStatement.executeQuery(sqlText);
+				logExecuted = (log||makeStatementInfo) ? System.currentTimeMillis() : 0;
 				resultSetHandler.run(resultSet);
 			}
 			else
@@ -814,7 +818,9 @@ abstract class Database
 				if(useDefineColumnTypes)
 					((DatabaseColumnTypesDefinable)this).defineColumnTypes(statement.columnTypes, sqlStatement);
 				
+				logPrepared = (log||makeStatementInfo) ? System.currentTimeMillis() : 0;
 				resultSet = prepared.executeQuery();
+				logExecuted = (log||makeStatementInfo) ? System.currentTimeMillis() : 0;
 				resultSetHandler.run(resultSet);
 			}
 			
@@ -835,7 +841,7 @@ abstract class Database
 				log(logStart, logEnd, sqlText);
 			
 			if(makeStatementInfo)
-				return makeStatementInfo(statement, connection, logStart, logEnd);
+				return makeStatementInfo(statement, connection, logStart, logPrepared, logExecuted, logEnd);
 			else
 				return null;
 		}
@@ -945,10 +951,12 @@ abstract class Database
 		//}catch(SQLException e){ throw new SQLRuntimeException(e, "setObject("+parameterIndex+","+value+")"+s); }
 	}
 	
-	protected StatementInfo makeStatementInfo(final Statement statement, final Connection connection, final long start, final long end)
+	protected StatementInfo makeStatementInfo(
+			final Statement statement, final Connection connection,
+			final long start, final long prepared, final long executed, final long end)
 	{
 		final StatementInfo result = new StatementInfo(statement.getText());
-		result.addChild(new StatementInfo("time: "+(end-start)+"ms"));
+		result.addChild(new StatementInfo("time: total:"+(end-start)+"ms, prepare:"+(prepared-start)+"ms, execute:"+(executed-prepared)+"ms, close:"+(end-executed)+"ms"));
 		return result;
 	}
 	
