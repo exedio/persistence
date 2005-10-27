@@ -957,7 +957,7 @@ abstract class Database
 			final long start, final long prepared, final long executed, final long resultRead, final long end)
 	{
 		final StatementInfo result = new StatementInfo(statement.getText());
-		result.addChild(new StatementInfo("time: total:"+(end-start)+"ms, prepare:"+(prepared-start)+"ms, execute:"+(executed-prepared)+"ms, read result:"+(resultRead-executed)+"ms, close:"+(end-resultRead)+"ms"));
+		result.addChild(new StatementInfo("timing "+(end-start)+'/'+(prepared-start)+'/'+(executed-prepared)+'/'+(resultRead-executed)+'/'+(end-resultRead)+" (total/prepare/execute/readResult/close in ms)"));
 		return result;
 	}
 	

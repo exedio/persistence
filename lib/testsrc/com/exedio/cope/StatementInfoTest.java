@@ -39,7 +39,7 @@ public class StatementInfoTest extends TestmodelTest
 		assertTrue(firstStatementText, firstStatementText.startsWith("select "));
 		
 		final String database = model.getDatabase().getClass().getName();
-		final String timePrefix = "time: total:";
+		final String timePrefix = "timing ";
 		if(database.indexOf("HsqldbDatabase")>=0 || database.indexOf("MysqlDatabase")>=0)
 		{
 			final Iterator rootChilds = root.getChilds().iterator();
