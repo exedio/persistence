@@ -130,21 +130,30 @@ public class OrderByTest extends TestmodelTest
 													final ObjectAttribute searchAttribute,
 													final int limitStart, final int limitCount)
 	{
-		final Query query = new Query(item1.TYPE, null);
-		query.setOrderBy(searchAttribute, true);
-		query.setDeterministicOrder(true);
+		{
+			final Query query = new Query(item1.TYPE, null);
+			query.setOrderBy(searchAttribute, true);
+			query.setDeterministicOrder(true);
+	
+			if(limitCount==-1)
+				query.setLimit(limitStart);
+			else
+				query.setLimit(limitStart, limitCount);
+			
+			assertEquals(expectedOrder, query.search());
+		}
+		{
+			final Query query = new Query(item1.TYPE, null);
+			query.setOrderBy(searchAttribute, false);
+			query.setDeterministicOrder(true);
+	
+			if(limitCount==-1)
+				query.setLimit(limitStart);
+			else
+				query.setLimit(limitStart, limitCount);
 
-		if(limitCount==-1)
-			query.setLimit(limitStart);
-		else
-			query.setLimit(limitStart, limitCount);
-		
-		assertEquals(expectedOrder, query.search());
-
-		query.setOrderBy(searchAttribute, false);
-		assertEquals(expectedReverseOrder, query.search());
-		query.setOrderBy(searchAttribute, true);
-		
+			assertEquals(expectedReverseOrder, query.search());
+		}
 		{
 			final Query query2 = new Query(item.someNotNullString, item1.TYPE, null);
 			query2.setOrderBy(searchAttribute, true);
@@ -161,17 +170,22 @@ public class OrderByTest extends TestmodelTest
 
 			assertEquals(expected, query2.search());
 		}
-		
-		final Query.Result resultWithSizeWithoutLimit = query.searchAndCountWithoutLimit();
-		assertEquals(expectedOrder, resultWithSizeWithoutLimit.getData());
-		query.setLimit(0);
-		final Collection resultWithoutLimit = query.search();
-		assertEquals(resultWithoutLimit.size(), resultWithSizeWithoutLimit.getCountWithoutLimit());
-
-		if(limitCount==-1)
-			query.setLimit(limitStart);
-		else
-			query.setLimit(limitStart, limitCount);
+		{
+			final Query query = new Query(item1.TYPE, null);
+			query.setOrderBy(searchAttribute, true);
+			query.setDeterministicOrder(true);
+	
+			if(limitCount==-1)
+				query.setLimit(limitStart);
+			else
+				query.setLimit(limitStart, limitCount);
+			
+			final Query.Result resultWithSizeWithoutLimit = query.searchAndCountWithoutLimit();
+			assertEquals(expectedOrder, resultWithSizeWithoutLimit.getData());
+			query.setLimit(0);
+			final Collection resultWithoutLimit = query.search();
+			assertEquals(resultWithoutLimit.size(), resultWithSizeWithoutLimit.getCountWithoutLimit());
+		}
 	}
 	
 }
