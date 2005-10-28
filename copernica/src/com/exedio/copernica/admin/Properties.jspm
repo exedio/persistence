@@ -98,6 +98,10 @@ final class Properties_Jspm
 				<td><%=properties.getConnectionPoolMaxIdle()%></td>
 			</tr>
 			<tr>
+				<th><%=properties.CACHE_LIMIT%></th>
+				<td><%=properties.getCacheLimit()%></td>
+			</tr>
+			<tr>
 				<th><%=properties.DATADIR_PATH%></th>
 				<td><%
 				if(properties.hasDatadirPath())
