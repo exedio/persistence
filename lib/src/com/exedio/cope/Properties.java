@@ -215,7 +215,7 @@ public final class Properties
 		this.databaseDontSupportLimit = getPropertyBoolean(properties, DATABASE_DONT_SUPPORT_LIMIT, false);
 		this.pkSourceButterfly = getPropertyBoolean(properties, PKSOURCE_BUTTERFLY, false);
 		this.fulltextIndex = getPropertyBoolean(properties, FULLTEXT_INDEX, false);
-		this.connectionPoolMaxIdle = getPropertyInt(properties, CONNECTION_POOL_MAX_IDLE, 10, 5);
+		this.connectionPoolMaxIdle = getPropertyInt(properties, CONNECTION_POOL_MAX_IDLE, 10, 0);
 		this.cacheLimit = getPropertyInt(properties, CACHE_LIMIT, 10000, 0);
 		this.databaseLog = getPropertyBoolean(properties, DATABASE_LOG, false);
 		

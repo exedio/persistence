@@ -246,7 +246,7 @@ public class ModelTest extends TestmodelTest
 			{
 				assertEquals(
 						"property " + Properties.CONNECTION_POOL_MAX_IDLE + " in minusOne has invalid value," +
-						" expected an integer greater 5, but got -1.", e.getMessage());
+						" expected an integer greater 0, but got -1.", e.getMessage());
 			}
 
 			props.setProperty(Properties.CONNECTION_POOL_MAX_IDLE, "88x");
@@ -258,7 +258,7 @@ public class ModelTest extends TestmodelTest
 			{
 				assertEquals(
 						"property " + Properties.CONNECTION_POOL_MAX_IDLE + " in wrongInt has invalid value," +
-						" expected an integer greater 5, but got >88x<.", e.getMessage());
+						" expected an integer greater 0, but got >88x<.", e.getMessage());
 			}
 		}
 		{
