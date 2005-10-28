@@ -151,11 +151,15 @@ final class Admin_Jspm
 			"Age Average (s)",
 			"Age Max (s)",
 		};
+		final Runtime rt = Runtime.getRuntime();
 		%>
 		<table class="statistics">
 			<tr>
-				<th colspan="7">Cache Statistics</th>
-			</tr><%
+				<th colspan="<%=names.length+2%>">Cache Statistics</th>
+			</tr>
+			<tr><th>Max Memory</th><td colspan="<%=names.length+1%>"><%=rt.maxMemory()%></td></tr>
+			<tr><th>Total Memory</th><td colspan="<%=names.length+1%>"><%=rt.totalMemory()%></td></tr>
+			<tr><th>Free Memory</th><td colspan="<%=names.length+1%>"><%=rt.freeMemory()%></td></tr><%
 			writeColouredHeader(out, names, 1);
 			%>
 			<tr>
