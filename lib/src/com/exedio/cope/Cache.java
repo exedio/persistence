@@ -70,11 +70,12 @@ final class Cache
 			state = new PersistentState( connectionSource.getConnection(), item );
 			final Object oldValue;
 			
+			final int mapSize, newMapSize;
 			synchronized (stateMap)
 			{
 				oldValue = stateMap.put( item.pk, state );
 
-				final int mapSize = stateMap.size();
+				mapSize = stateMap.size();
 				final int mapSizeLimit = 2000;
 				if(mapSize>=mapSizeLimit)
 				{
@@ -96,9 +97,16 @@ final class Cache
 						if(timeLimit>currentLastUsage)
 							i.remove();
 					}
-					System.out.println("cleanup "+item.type.getID()+": "+mapSize+"->"+stateMap.size()); // TODO move outside synchronized block !!!
+					newMapSize = stateMap.size();
 				}
+				else
+					newMapSize = -1;
 			}
+			
+			// logging must be outside synchronized block
+			if(newMapSize>=0)
+				System.out.println("cleanup "+item.type.getID()+": "+mapSize+"->"+newMapSize);
+			
 			if ( oldValue!=null )
 			{
 				System.out.println("warning: duplicate computation of state "+item.getCopeID());
