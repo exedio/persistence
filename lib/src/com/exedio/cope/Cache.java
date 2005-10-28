@@ -38,7 +38,7 @@ final class Cache
 		stateMaps = new IntKeyOpenHashMap[numberOfTypes];
 		for ( int i=0; i<numberOfTypes; i++ )
 		{
-			stateMaps[i] = new IntKeyOpenHashMap();
+			stateMaps[i] = (mapSizeLimits[i]>0) ? new IntKeyOpenHashMap() : null;
 		}
 		hits = new int[numberOfTypes];
 		misses = new int[numberOfTypes];
@@ -58,13 +58,18 @@ final class Cache
 	{
 		PersistentState state;
 		final IntKeyOpenHashMap stateMap = getStateMap( item.type );
-		synchronized (stateMap)
+		if(stateMap!=null)
 		{
-			state = (PersistentState)stateMap.get( item.pk );
-		}
+			synchronized (stateMap)
+			{
+				state = (PersistentState)stateMap.get( item.pk );
+			}
 
-		if(state!=null)
-			state.notifyUsed();
+			if(state!=null)
+				state.notifyUsed();
+		}
+		else
+			state = null;
 		
 		boolean hit = true;
 		
@@ -72,9 +77,9 @@ final class Cache
 		{
 			state = new PersistentState( connectionSource.getConnection(), item );
 
-			final int mapSizeLimit = mapSizeLimits[item.type.transientNumber];
-			if(mapSizeLimit>0)
+			if(stateMap!=null)
 			{
+				final int mapSizeLimit = mapSizeLimits[item.type.transientNumber];
 				final Object oldValue;
 				final int mapSize, newMapSize;
 				synchronized (stateMap)
@@ -128,9 +133,12 @@ final class Cache
 	void invalidate( int transientTypeNumber, IntOpenHashSet invalidatedPKs )
 	{
 		final IntKeyOpenHashMap stateMap = getStateMap( transientTypeNumber );
-		synchronized ( stateMap )
+		if(stateMap!=null)
 		{
-			stateMap.keySet().removeAll( invalidatedPKs );
+			synchronized ( stateMap )
+			{
+				stateMap.keySet().removeAll( invalidatedPKs );
+			}
 		}
 	}
 
@@ -139,9 +147,12 @@ final class Cache
 		for ( int i=0; i<stateMaps.length; i++ )
 		{
 			final IntKeyOpenHashMap stateMap = getStateMap( i );
-			synchronized ( stateMap )
+			if(stateMap!=null)
 			{
-				stateMap.clear();
+				synchronized ( stateMap )
+				{
+					stateMap.clear();
+				}
 			}
 		}
 	}
@@ -152,28 +163,34 @@ final class Cache
 		
 		for(int i=0; i<stateMaps.length; i++ )
 		{
-			final IntKeyOpenHashMap stateMap = getStateMap(i);
 			final long now = System.currentTimeMillis();
 			final int numberOfItemsInCache;
 			long ageSum = 0;
 			long ageMin = Integer.MAX_VALUE;
 			long ageMax = 0;
 
-			synchronized(stateMap)
+			final IntKeyOpenHashMap stateMap = getStateMap(i);
+			if(stateMap!=null)
 			{
-				numberOfItemsInCache = stateMap.size();
-				for(Iterator stateMapI = stateMap.values().iterator(); stateMapI.hasNext(); )
+				synchronized(stateMap)
 				{
-					final PersistentState currentState = (PersistentState)stateMapI.next();
-					final long currentLastUsage = currentState.getLastUsageMillis();
-					final long age = now-currentLastUsage;
-					ageSum += age;
-					if(ageMin>age)
-						ageMin = age;
-					if(ageMax<age)
-						ageMax = age;
+					numberOfItemsInCache = stateMap.size();
+					for(Iterator stateMapI = stateMap.values().iterator(); stateMapI.hasNext(); )
+					{
+						final PersistentState currentState = (PersistentState)stateMapI.next();
+						final long currentLastUsage = currentState.getLastUsageMillis();
+						final long age = now-currentLastUsage;
+						ageSum += age;
+						if(ageMin>age)
+							ageMin = age;
+						if(ageMax<age)
+							ageMax = age;
+					}
 				}
 			}
+			else
+				numberOfItemsInCache = 0;
+			
 			if(ageMin==Integer.MAX_VALUE)
 				ageMin = 0;
 			
