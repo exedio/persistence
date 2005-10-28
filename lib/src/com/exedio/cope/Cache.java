@@ -28,12 +28,12 @@ import com.exedio.cope.util.CacheInfo;
 
 final class Cache
 {
-	private final IntKeyMap[] stateMaps;
+	private final IntKeyOpenHashMap[] stateMaps;
 	private final int[] hits, misses;
 	
 	Cache( int numberOfTypes )
 	{
-		stateMaps = new IntKeyMap[numberOfTypes];
+		stateMaps = new IntKeyOpenHashMap[numberOfTypes];
 		for ( int i=0; i<numberOfTypes; i++ )
 		{
 			stateMaps[i] = new IntKeyOpenHashMap();
