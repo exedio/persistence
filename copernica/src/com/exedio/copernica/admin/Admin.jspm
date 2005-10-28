@@ -146,6 +146,7 @@ final class Admin_Jspm
 			"Number Of Items In Cache",
 			"Hits",
 			"Misses",
+			"Age Min (s)",
 			"Age Average (s)",
 			"Age Max (s)",
 		};
@@ -169,6 +170,7 @@ final class Admin_Jspm
 						info.getNumberOfItemsInCache(),
 						info.getHits(),
 						info.getMisses(),
+						(int)(info.getAgeMinMillis()/1000l),
 						(int)(info.getAgeAverageMillis()/1000l),
 						(int)(info.getAgeMaxMillis()/1000l),
 					};

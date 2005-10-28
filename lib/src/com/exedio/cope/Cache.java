@@ -150,6 +150,7 @@ final class Cache
 			final long now = System.currentTimeMillis();
 			final int numberOfItemsInCache;
 			long ageSum = 0;
+			long ageMin = Integer.MAX_VALUE;
 			long ageMax = 0;
 
 			synchronized(stateMap)
@@ -161,12 +162,16 @@ final class Cache
 					final long currentLastUsage = currentState.getLastUsageMillis();
 					final long age = now-currentLastUsage;
 					ageSum += age;
+					if(ageMin>age)
+						ageMin = age;
 					if(ageMax<age)
 						ageMax = age;
 				}
 			}
+			if(ageMin==Integer.MAX_VALUE)
+				ageMin = 0;
 			
-			result[i] = new CacheInfo(types[i], numberOfItemsInCache, hits[i], misses[i], ageSum, ageMax);
+			result[i] = new CacheInfo(types[i], numberOfItemsInCache, hits[i], misses[i], ageSum, ageMin, ageMax);
 		}
 		
 		return result;
