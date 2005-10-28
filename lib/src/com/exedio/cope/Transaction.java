@@ -19,7 +19,6 @@
 package com.exedio.cope;
 
 import bak.pcj.set.IntOpenHashSet;
-import bak.pcj.set.IntSet;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -41,7 +40,7 @@ public final class Transaction
 		this.database = model.getDatabase();
 		this.name = name;
 		rowMaps = new IntKeyOpenHashMap[model.numberOfTypes];
-		invalidations = new IntSet[model.numberOfTypes];
+		invalidations = new IntOpenHashSet[model.numberOfTypes];
 	}
 	
 	/**
@@ -90,7 +89,7 @@ public final class Transaction
 	private Connection connection = null;
 	private ConnectionPool connectionPool = null;
 	private boolean closed = false;
-	final IntSet[] invalidations;
+	final IntOpenHashSet[] invalidations;
 	
 	public boolean isClosed()
 	{
@@ -155,14 +154,14 @@ public final class Transaction
 	
 	private boolean isInvalidated( final Item item )
 	{
-		IntSet invalidationsForType = invalidations[ item.type.transientNumber ];
+		final IntOpenHashSet invalidationsForType = invalidations[ item.type.transientNumber ];
 		return invalidationsForType!=null && invalidationsForType.contains(item.pk);
 	}
 	
 	// TODO change parameters to Item
 	void addInvalidation(final Type type, final int pk)
 	{
-		IntSet invalidationsForType = invalidations[ type.transientNumber ];
+		IntOpenHashSet invalidationsForType = invalidations[ type.transientNumber ];
 		if ( invalidationsForType==null )
 		{
 			invalidationsForType = new IntOpenHashSet();
@@ -218,7 +217,7 @@ public final class Transaction
 	{
 		for ( int transientTypeNumber=0; transientTypeNumber<invalidations.length; transientTypeNumber++ )
 		{
-			IntSet invalidatedPKs = invalidations[transientTypeNumber];
+			final IntOpenHashSet invalidatedPKs = invalidations[transientTypeNumber];
 			if ( invalidatedPKs!=null )
 			{				
 				model.getCache().invalidate( transientTypeNumber, invalidatedPKs );

@@ -21,7 +21,7 @@ package com.exedio.cope;
 import java.util.Iterator;
 
 import bak.pcj.map.IntKeyOpenHashMap;
-import bak.pcj.set.IntSet;
+import bak.pcj.set.IntOpenHashSet;
 
 import com.exedio.cope.util.CacheInfo;
 
@@ -125,7 +125,7 @@ final class Cache
 		return state;
 	}
 	
-	void invalidate( int transientTypeNumber, IntSet invalidatedPKs )
+	void invalidate( int transientTypeNumber, IntOpenHashSet invalidatedPKs )
 	{
 		final IntKeyOpenHashMap stateMap = getStateMap( transientTypeNumber );
 		synchronized ( stateMap )
