@@ -147,14 +147,26 @@ final class Cache
 		for(int i=0; i<stateMaps.length; i++ )
 		{
 			final IntKeyOpenHashMap stateMap = getStateMap(i);
+			final long now = System.currentTimeMillis();
 			final int numberOfItemsInCache;
+			long ageSum = 0;
+			long ageMax = 0;
 
 			synchronized(stateMap)
 			{
 				numberOfItemsInCache = stateMap.size();
+				for(Iterator stateMapI = stateMap.values().iterator(); stateMapI.hasNext(); )
+				{
+					final PersistentState currentState = (PersistentState)stateMapI.next();
+					final long currentLastUsage = currentState.getLastUsageMillis();
+					final long age = now-currentLastUsage;
+					ageSum += age;
+					if(ageMax<age)
+						ageMax = age;
+				}
 			}
 			
-			result[i] = new CacheInfo(types[i], numberOfItemsInCache, hits[i], misses[i]);
+			result[i] = new CacheInfo(types[i], numberOfItemsInCache, hits[i], misses[i], ageSum, ageMax);
 		}
 		
 		return result;

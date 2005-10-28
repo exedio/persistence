@@ -26,16 +26,21 @@ public final class CacheInfo
 	private final int numberOfItemsInCache;
 	private final int hits;
 	private final int misses;
+	private final long ageSum;
+	private final long ageMax;
 	
 	public CacheInfo(
 			final Type type,
 			final int numberOfItemsInCache,
-			final int hits, final int misses)
+			final int hits, final int misses,
+			final long ageSum, final long ageMax)
 	{
 		this.type = type;
 		this.numberOfItemsInCache = numberOfItemsInCache;
 		this.hits = hits;
 		this.misses = misses;
+		this.ageSum = ageSum;
+		this.ageMax = ageMax;
 	}
 	
 	public Type getType()
@@ -56,6 +61,16 @@ public final class CacheInfo
 	public int getMisses()
 	{
 		return misses;
+	}
+	
+	public long getAgeAverageMillis()
+	{
+		return (numberOfItemsInCache!=0) ? (ageSum / ((long)numberOfItemsInCache)) : 0l;
+	}
+	
+	public long getAgeMaxMillis()
+	{
+		return ageMax;
 	}
 
 }
