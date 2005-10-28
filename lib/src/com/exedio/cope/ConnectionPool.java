@@ -60,7 +60,8 @@ final class ConnectionPool implements ConnectionProvider
 		this.url = properties.getDatabaseUrl();
 		this.user = properties.getDatabaseUser();
 		this.password = properties.getDatabasePassword();
-		this.idle = new Connection[properties.getConnectionPoolMaxIdle()];
+		final int idleLength = properties.getConnectionPoolMaxIdle();
+		this.idle = idleLength>0 ? new Connection[idleLength] : null;
 		
 		// TODO: make this customizable and disableable
 		this.counter = new PoolCounter(new int[]{0,1,2,3,4,5,6,7,8,9,10,12,15,16,18,20,25,30,35,40,45,50,60,70,80,90,100,120,140,160,180,200,250,300,350,400,450,500,600,700,800,900,1000});
@@ -70,18 +71,23 @@ final class ConnectionPool implements ConnectionProvider
 	{
 		counter.get();
 
-		synchronized(lock)
+		if(idle!=null)
 		{
-			activeCount++;
-			
-			if(idleCount>0)
+			synchronized(lock)
 			{
-				//System.out.println("connection pool: fetch "+(size-1));
-				final Connection result = idle[--idleCount];
-				idle[idleCount] = null; // do not reference active connections
-				return result;
+				activeCount++;
+				
+				if(idleCount>0)
+				{
+					//System.out.println("connection pool: fetch "+(size-1));
+					final Connection result = idle[--idleCount];
+					idle[idleCount] = null; // do not reference active connections
+					return result;
+				}
 			}
 		}
+		else
+			activeCount++;
 		//System.out.println("connection pool: CREATE");
 
 		// Important to do this outside the synchronized block!
@@ -100,17 +106,22 @@ final class ConnectionPool implements ConnectionProvider
 
 		counter.put();
 		
-		synchronized(lock)
+		if(idle!=null)
 		{
-			activeCount--;
-
-			if(idleCount<idle.length)
+			synchronized(lock)
 			{
-				//System.out.println("connection pool: store "+size);
-				idle[idleCount++] = connection;
-				return;
+				activeCount--;
+	
+				if(idleCount<idle.length)
+				{
+					//System.out.println("connection pool: store "+size);
+					idle[idleCount++] = connection;
+					return;
+				}
 			}
 		}
+		else
+			activeCount--;
 		
 		//System.out.println("connection pool: CLOSE ");
 
@@ -120,32 +131,35 @@ final class ConnectionPool implements ConnectionProvider
 	
 	final void flush()
 	{
-		// make a copy of idle to avoid closing idle connections
-		// inside the synchronized block
-		final ArrayList copyOfIdle = new ArrayList(idle.length);
-
-		synchronized(lock)
+		if(idle!=null)
 		{
-			if(idleCount==0)
-				return;
-
-			//System.out.println("connection pool: FLUSH "+size);
-			for(int i = 0; i<idleCount; i++)
+			// make a copy of idle to avoid closing idle connections
+			// inside the synchronized block
+			final ArrayList copyOfIdle = new ArrayList(idle.length);
+	
+			synchronized(lock)
 			{
-				copyOfIdle.add(idle[i]);
-				idle[i] = null; // do not reference closed connections
+				if(idleCount==0)
+					return;
+	
+				//System.out.println("connection pool: FLUSH "+size);
+				for(int i = 0; i<idleCount; i++)
+				{
+					copyOfIdle.add(idle[i]);
+					idle[i] = null; // do not reference closed connections
+				}
+				idleCount = 0;
 			}
-			idleCount = 0;
-		}
-		
-		try
-		{
-			for(Iterator i = copyOfIdle.iterator(); i.hasNext(); )
-				((Connection)i.next()).close();
-		}
-		catch(SQLException e)
-		{
-			throw new NestingRuntimeException(e);
+			
+			try
+			{
+				for(Iterator i = copyOfIdle.iterator(); i.hasNext(); )
+					((Connection)i.next()).close();
+			}
+			catch(SQLException e)
+			{
+				throw new NestingRuntimeException(e);
+			}
 		}
 
 		if(activeCount!=0)
