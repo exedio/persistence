@@ -79,7 +79,7 @@ public class UniqueItemTest extends TestmodelTest
 		assertEquals("uniqueString", item.getUniqueString());
 		assertTrue(otheritem.isActiveCopeItem());
 		assertTrue(!item.isActiveCopeItem());
-
+		
 		final ItemWithSingleUnique firstFoundItem;
 		{
 			restartTransaction();
@@ -92,15 +92,15 @@ public class UniqueItemTest extends TestmodelTest
 			assertTrue(!item.isActiveCopeItem());
 			assertTrue(!foundItem.isActiveCopeItem());
 
-			assertSame(otheritem, item.activeCopeItem());
-			assertFalse(item.isActiveCopeItem());
+			assertSameCache(otheritem, item.activeCopeItem());
+			assertEquals(!cache, item.isActiveCopeItem());
 			assertTrue(!foundItem.isActiveCopeItem());
-			assertTrue(otheritem.isActiveCopeItem());
+			assertEquals(cache, otheritem.isActiveCopeItem());
 
-			assertSame(otheritem, foundItem.activeCopeItem());
-			assertTrue(!item.isActiveCopeItem());
+			assertSameCache(otheritem, foundItem.activeCopeItem());
+			assertEquals(cache, !item.isActiveCopeItem());
 			assertTrue(!foundItem.isActiveCopeItem());
-			assertTrue(otheritem.isActiveCopeItem());
+			assertEquals(cache, otheritem.isActiveCopeItem());
 
 			firstFoundItem = foundItem;
 		}
@@ -117,10 +117,10 @@ public class UniqueItemTest extends TestmodelTest
 			assertNotSame(item, firstFoundItem);
 			assertNotSame(foundItem, firstFoundItem);
 			assertTrue(!item.isActiveCopeItem());
-			assertTrue(!foundItem.isActiveCopeItem());
-			assertTrue(otheritem.isActiveCopeItem());
-			assertSame(otheritem, item.activeCopeItem());
-			assertSame(otheritem, foundItem.activeCopeItem());
+			assertEquals(cache, !foundItem.isActiveCopeItem());
+			assertEquals(cache, otheritem.isActiveCopeItem());
+			assertSameCache(otheritem, item.activeCopeItem());
+			assertSameCache(otheritem, foundItem.activeCopeItem());
 		}
 		assertDelete(item);
 	}

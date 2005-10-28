@@ -49,12 +49,14 @@ public abstract class AbstractLibTest extends CopeTest
 	
 	protected boolean hsqldb;
 	protected boolean mysql;
+	protected boolean cache;
 	
 	protected void setUp() throws Exception
 	{
 		super.setUp();
 		hsqldb = "com.exedio.cope.HsqldbDatabase".equals(model.getDatabase().getClass().getName()); 
 		mysql  = "com.exedio.cope.MysqlDatabase".equals(model.getDatabase().getClass().getName());
+		cache = model.getProperties().getCacheLimit()>0;
 	}
 	
 	protected void tearDown() throws Exception
@@ -156,6 +158,15 @@ public abstract class AbstractLibTest extends CopeTest
 	{
 		model.leaveTransaction();
 		model.joinTransaction( transaction );
-	}	
+	}
+	
+	void assertSameCache(final Object o1, final Object o2)
+	{
+		if(cache)
+			assertSame(o1, o2);
+		else
+			assertNotSame(o1, o2);
+	}
+	
 }
 
