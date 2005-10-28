@@ -37,12 +37,12 @@ public final class ConnectionPoolInfo
 		this.counter = counter;
 	}
 	
-	public int getIdleCount()
+	public int getIdleCounter()
 	{
 		return idleCount;
 	}
 	
-	public int getActiveCount()
+	public int getActiveCounter()
 	{
 		return activeCount;
 	}
