@@ -95,6 +95,7 @@ public class ItemTest extends TestmodelTest
 		model.checkDatabase();
 		model.dropDatabaseConstraints();
 		model.createDatabaseConstraints();
+		model.getCacheInfo();
 	}
 	
 	public void testItemCreation()
