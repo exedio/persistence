@@ -80,7 +80,7 @@
 	<display-name>Copernica Test Application</display-name>
 	
 	<session-config>
-		<session-timeout>30 <!--minutes--></session-timeout>
+		<session-timeout>1<!--minute--></session-timeout>
 	</session-config>
 	
 </web-app>
