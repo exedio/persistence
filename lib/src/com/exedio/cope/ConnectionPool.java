@@ -24,6 +24,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import com.exedio.cope.util.ConnectionPoolInfo;
 import com.exedio.cope.util.PoolCounter;
 import com.exedio.dsmf.ConnectionProvider;
 
@@ -53,7 +54,7 @@ final class ConnectionPool implements ConnectionProvider
 	private final String user;
 	private final String password;
 	
-	final PoolCounter counter;
+	private final PoolCounter counter;
 
 	ConnectionPool(final Properties properties)
 	{
@@ -164,6 +165,11 @@ final class ConnectionPool implements ConnectionProvider
 
 		if(activeCount!=0)
 			throw new RuntimeException("still "+activeCount+" connections active");
+	}
+	
+	final ConnectionPoolInfo getInfo()
+	{
+		return new ConnectionPoolInfo(idleCount, activeCount, new PoolCounter(counter));
 	}
 
 }

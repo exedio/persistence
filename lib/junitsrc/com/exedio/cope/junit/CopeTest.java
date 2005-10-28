@@ -73,7 +73,7 @@ public abstract class CopeTest extends CopeAssert
 	
 	protected final void printConnectionPoolCounter()
 	{
-		final PoolCounter connectionPoolCounter = model.getConnectionPoolCounter();
+		final PoolCounter connectionPoolCounter = model.getConnectionPoolInfo().getCounter();
 
 		System.out.println("ConnectionPool: "+connectionPoolCounter.getGetCounter()+", "+connectionPoolCounter.getPutCounter());
 		for(Iterator i = connectionPoolCounter.getPools().iterator(); i.hasNext(); )

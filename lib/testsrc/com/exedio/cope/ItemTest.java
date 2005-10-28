@@ -96,7 +96,8 @@ public class ItemTest extends TestmodelTest
 		model.dropDatabaseConstraints();
 		model.createDatabaseConstraints();
 		assertNotNull(model.getCacheInfo());
-		assertNotNull(model.getConnectionPoolCounter());
+		assertNotNull(model.getConnectionPoolInfo());
+		assertNotNull(model.getConnectionPoolInfo().getCounter());
 	}
 	
 	public void testItemCreation()

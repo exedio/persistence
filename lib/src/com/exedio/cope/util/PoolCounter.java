@@ -32,7 +32,7 @@ import java.util.List;
  */
 public final class PoolCounter
 {
-	private final long start = System.currentTimeMillis();
+	private final long start;
 	private final Object lock = new Object();
 	private final Pool[] pools;
 
@@ -41,10 +41,22 @@ public final class PoolCounter
 
 	public PoolCounter(final int[] sizes)
 	{
+		this.start = System.currentTimeMillis();
 		final Pool[] pools = new Pool[sizes.length];
 		for(int i = 0; i<sizes.length; i++)
 			pools[i] = new Pool(sizes[i]);
 		this.pools = pools;
+	}
+
+	public PoolCounter(final PoolCounter source)
+	{
+		this.start = source.start;
+		final Pool[] pools = new Pool[source.pools.length];
+		for(int i = 0; i<pools.length; i++)
+			pools[i] = new Pool(source.pools[i]);
+		this.pools = pools;
+		this.getCounter = source.getCounter;
+		this.putCounter = source.putCounter;
 	}
 
 	public final void get()
@@ -103,6 +115,15 @@ public final class PoolCounter
 
 			if(size<0)
 				throw new RuntimeException(String.valueOf(size));
+		}
+
+		private Pool(final Pool source)
+		{
+			this.size = source.size;
+			this.idleCount = source.idleCount;
+			this.idleCountMax = source.idleCountMax;
+			this.createCounter = source.createCounter;
+			this.destroyCounter = source.destroyCounter;
 		}
 
 		private final void get()

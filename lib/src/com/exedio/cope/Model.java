@@ -33,7 +33,7 @@ import java.util.ListIterator;
 import java.util.Set;
 
 import com.exedio.cope.util.CacheInfo;
-import com.exedio.cope.util.PoolCounter;
+import com.exedio.cope.util.ConnectionPoolInfo;
 import com.exedio.dsmf.SQLRuntimeException;
 import com.exedio.dsmf.Schema;
 
@@ -407,9 +407,9 @@ public final class Model
 		return cache.getInfo(types);
 	}
 	
-	public PoolCounter getConnectionPoolCounter()
+	public ConnectionPoolInfo getConnectionPoolInfo()
 	{
-		return database.connectionPool.counter;
+		return database.connectionPool.getInfo();
 	}
 	
 	public java.util.Properties getDatabaseInfo()

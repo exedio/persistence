@@ -16,28 +16,40 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.copernica.admin;
-
-import java.io.IOException;
-import java.io.PrintStream;
-
-import javax.servlet.http.HttpServletRequest;
-
-import com.exedio.cope.Model;
+package com.exedio.cope.util;
 
 
-final class ConnectionStatsCop extends AdminCop
+public final class ConnectionPoolInfo
 {
-
-	ConnectionStatsCop()
+	private final int idleCount;
+	private final int activeCount;
+	private final PoolCounter counter;
+	
+	public ConnectionPoolInfo(
+			final int idleCount, final int activeCount,
+			final PoolCounter counter)
 	{
-		super("connection pool");
-		addParameter(TAB, TAB_CONNECTION_STATS);
-	}
-
-	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request) throws IOException
-	{
-		Admin_Jspm.write(out, model.getConnectionPoolInfo().getCounter(), this);
+		if(counter==null)
+			throw new NullPointerException();
+		
+		this.idleCount = idleCount;
+		this.activeCount = activeCount;
+		this.counter = counter;
 	}
 	
+	public int getIdleCount()
+	{
+		return idleCount;
+	}
+	
+	public int getActiveCount()
+	{
+		return activeCount;
+	}
+	
+	public PoolCounter getCounter()
+	{
+		return counter;
+	}
+
 }
