@@ -20,7 +20,6 @@ package com.exedio.cope;
 
 import java.util.Iterator;
 
-import bak.pcj.map.IntKeyMap;
 import bak.pcj.map.IntKeyOpenHashMap;
 import bak.pcj.set.IntSet;
 
@@ -42,12 +41,12 @@ final class Cache
 		misses = new int[numberOfTypes];
 	}
 	
-	private IntKeyMap getStateMap( Type type )
+	private IntKeyOpenHashMap getStateMap( Type type )
 	{
 		return getStateMap( type.transientNumber );
 	}
 	
-	private IntKeyMap getStateMap( int transientTypeNumber )
+	private IntKeyOpenHashMap getStateMap( int transientTypeNumber )
 	{
 		return stateMaps[ transientTypeNumber ];
 	}
@@ -55,7 +54,7 @@ final class Cache
 	PersistentState getPersistentState( final Transaction connectionSource, final Item item )
 	{
 		PersistentState state;
-		IntKeyMap stateMap = getStateMap( item.type );
+		final IntKeyOpenHashMap stateMap = getStateMap( item.type );
 		synchronized (stateMap)
 		{
 			state = (PersistentState)stateMap.get( item.pk );
@@ -114,7 +113,7 @@ final class Cache
 	
 	void invalidate( int transientTypeNumber, IntSet invalidatedPKs )
 	{
-		IntKeyMap stateMap = getStateMap( transientTypeNumber );
+		final IntKeyOpenHashMap stateMap = getStateMap( transientTypeNumber );
 		synchronized ( stateMap )
 		{
 			stateMap.keySet().removeAll( invalidatedPKs );
@@ -125,7 +124,7 @@ final class Cache
 	{
 		for ( int i=0; i<stateMaps.length; i++ )
 		{
-			IntKeyMap stateMap = getStateMap( i );
+			final IntKeyOpenHashMap stateMap = getStateMap( i );
 			synchronized ( stateMap )
 			{
 				stateMap.clear();
@@ -139,7 +138,7 @@ final class Cache
 		
 		for(int i=0; i<stateMaps.length; i++ )
 		{
-			final IntKeyMap stateMap = getStateMap(i);
+			final IntKeyOpenHashMap stateMap = getStateMap(i);
 			final int numberOfItemsInCache;
 
 			synchronized(stateMap)
