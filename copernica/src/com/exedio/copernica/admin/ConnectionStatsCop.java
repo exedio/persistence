@@ -37,7 +37,7 @@ final class ConnectionStatsCop extends AdminCop
 
 	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request) throws IOException
 	{
-		Admin_Jspm.write(out, model.getConnectionPoolInfo().getCounter(), this);
+		Admin_Jspm.write(out, model.getConnectionPoolInfo(), this);
 	}
 	
 }

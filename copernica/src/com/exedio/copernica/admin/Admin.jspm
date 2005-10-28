@@ -29,6 +29,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.exedio.cope.Model;
 import com.exedio.cope.pattern.MediaPath;
 import com.exedio.cope.pattern.MediaRedirect;
+import com.exedio.cope.util.ConnectionPoolInfo;
 import com.exedio.cope.util.PoolCounter;
 import com.exedio.cope.util.CacheInfo;
 
@@ -82,9 +83,10 @@ final class Admin_Jspm
 <%
 	}
 
-	final static void write(final PrintStream out, final PoolCounter poolCounter, final ConnectionStatsCop cop)
+	final static void write(final PrintStream out, final ConnectionPoolInfo info, final ConnectionStatsCop cop)
 		throws IOException
 	{
+		final PoolCounter poolCounter = info.getCounter();
 		final String[] names = new String[]{
 			"Loss = 100 * Destroy / Get",
 			"Idle",
@@ -100,6 +102,14 @@ final class Admin_Jspm
 			<tr>
 				<th>From</th>
 				<td colspan="6"><%=cop.format(poolCounter.getStart())%></td>
+			</tr>
+			<tr>
+				<th>Idle</th>
+				<td colspan="6"><%=info.getIdleCounter()%></td>
+			</tr>
+			<tr>
+				<th>Active</th>
+				<td colspan="6"><%=info.getActiveCounter()%></td>
 			</tr>
 			<tr>
 				<th>Get</th>
