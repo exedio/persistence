@@ -116,6 +116,7 @@ public class OrderByTest extends TestmodelTest
 		assertOrder(list(), list(), item.someNotNullInteger, 5, -1);
 		assertOrder(list(), list(), item.someNotNullInteger, 5, 2);
 		assertOrder(list(), list(), item.someNotNullInteger, 9, 2); // important test for searchAndCountWithoutLimit
+		assertOrder(list(), list(), item.someNotNullInteger, 9, -1); // important test for searchAndCountWithoutLimit
 		assertOrder(list(), list(), item.someNotNullInteger, 5, 0);
 		assertOrder(list(), list(), item.someNotNullInteger, 0, 0);
 	}

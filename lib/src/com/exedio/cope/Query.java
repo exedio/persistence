@@ -290,7 +290,7 @@ public final class Query
 		final int dataSize = data.size();
 
 		return new Result(data,
-				((dataSize>0&&dataSize<limitCount) || limitCount==UNLIMITED_COUNT)
+				((dataSize>0) && ((dataSize<limitCount) || limitCount==UNLIMITED_COUNT))
 				? (limitStart+dataSize)
 				: countWithoutLimit());
 	}
