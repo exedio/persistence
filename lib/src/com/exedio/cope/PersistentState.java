@@ -30,12 +30,14 @@ final class PersistentState extends State implements Database.ResultSetHandler
 	
 	// TODO: use arrays for String/int/double instead of the HashMap
 	private final Map cache;
+	private long lastUsageMillis;
 	
 	PersistentState( final Connection connection, final Item item )
 	{
 		super( item );
 		cache = new HashMap();
 		type.getModel().getDatabase().load( connection, this );
+		lastUsageMillis = System.currentTimeMillis();
 	}
 	
 	PersistentState( final State original )
@@ -43,6 +45,7 @@ final class PersistentState extends State implements Database.ResultSetHandler
 		super( original.item );
 		cache = original.stealValues();
 		if ( cache==null ) throw new RuntimeException( original.getClass().getName() );
+		lastUsageMillis = System.currentTimeMillis();
 	}
 	
 	Object get(ObjectAttribute attribute)
@@ -121,6 +124,16 @@ final class PersistentState extends State implements Database.ResultSetHandler
 					((Column)i.next()).load(resultSet, columnIndex++, this);
 			}
 		}
+	}
+	
+	void notifyUsed()
+	{
+		lastUsageMillis = System.currentTimeMillis();
+	}
+	
+	long getLastUsageMillis()
+	{
+		return lastUsageMillis;
 	}
 	
 }

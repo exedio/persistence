@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import java.util.Iterator;
+
 import bak.pcj.map.IntKeyMap;
 import bak.pcj.map.IntKeyOpenHashMap;
 import bak.pcj.set.IntSet;
@@ -58,16 +60,45 @@ final class Cache
 		{
 			state = (PersistentState)stateMap.get( item.pk );
 		}
+
+		if(state!=null)
+			state.notifyUsed();
 		
 		boolean hit = true;
 		
 		if ( state==null )
 		{
 			state = new PersistentState( connectionSource.getConnection(), item );
-			Object oldValue;
+			final Object oldValue;
+			
 			synchronized (stateMap)
 			{
 				oldValue = stateMap.put( item.pk, state );
+
+				final int mapSize = stateMap.size();
+				final int mapSizeLimit = 2000;
+				if(mapSize>=mapSizeLimit)
+				{
+					final long now = System.currentTimeMillis();
+					long ageSum = 0;
+					for(Iterator i = stateMap.values().iterator(); i.hasNext(); )
+					{
+						final PersistentState currentState = (PersistentState)i.next();
+						final long currentLastUsage = currentState.getLastUsageMillis();
+						ageSum+=(now-currentLastUsage);
+					}
+					final long age = ageSum / mapSize;
+					final long ageLimit = (mapSizeLimit * age) / mapSize;
+					final long timeLimit = now-ageLimit;
+					for(Iterator i = stateMap.values().iterator(); i.hasNext(); )
+					{
+						final PersistentState currentState = (PersistentState)i.next();
+						final long currentLastUsage = currentState.getLastUsageMillis();
+						if(timeLimit>currentLastUsage)
+							i.remove();
+					}
+					System.out.println("cleanup "+item.type.getID()+": "+mapSize+"->"+stateMap.size()); // TODO move outside synchronized block !!!
+				}
 			}
 			if ( oldValue!=null )
 			{
