@@ -44,11 +44,12 @@ public final class Model
 	final int numberOfTypes;
 	private final List typeList;
 	private final HashMap typesByID = new HashMap();
-	private final Cache cache;
-		
+
+	// set by setPropertiesInitially
 	private Properties properties;
 	private Object propertiesLock = new Object();
 	private Database database;
+	private Cache cache;
 
 	private final ThreadLocal transactionThreads = new ThreadLocal();
 	private final Set openTransactions = Collections.synchronizedSet( new HashSet() );
@@ -58,8 +59,7 @@ public final class Model
 		this.types = types;
 		this.numberOfTypes = types.length;
 		this.typeList = Collections.unmodifiableList(Arrays.asList(types));
-		this.cache = new Cache( numberOfTypes );
-
+		
 		for(int i = 0; i<types.length; i++)
 		{
 			final Type type = types[i];
@@ -130,6 +130,11 @@ public final class Model
 				if(!materialized.equals(typeSet))
 					throw new RuntimeException(materialized.toString()+"<->"+typeSet.toString());
 				
+				final int[] cacheMapSizeLimits = new int[numberOfTypes];
+				final int cacheMapSizeLimit = properties.getCacheLimit() / numberOfTypes;
+				Arrays.fill(cacheMapSizeLimits, cacheMapSizeLimit);
+				this.cache = new Cache(cacheMapSizeLimits);
+
 				return;
 			}
 		}

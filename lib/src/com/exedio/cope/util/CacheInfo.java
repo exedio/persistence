@@ -23,6 +23,7 @@ import com.exedio.cope.Type;
 public final class CacheInfo
 {
 	private final Type type;
+	private final int mapSizeLimit;
 	private final int numberOfItemsInCache;
 	private final int hits;
 	private final int misses;
@@ -32,11 +33,13 @@ public final class CacheInfo
 	
 	public CacheInfo(
 			final Type type,
+			final int mapSizeLimit,
 			final int numberOfItemsInCache,
 			final int hits, final int misses,
 			final long ageSum, final long ageMin, final long ageMax)
 	{
 		this.type = type;
+		this.mapSizeLimit = mapSizeLimit;
 		this.numberOfItemsInCache = numberOfItemsInCache;
 		this.hits = hits;
 		this.misses = misses;
@@ -48,6 +51,11 @@ public final class CacheInfo
 	public Type getType()
 	{
 		return type;
+	}
+
+	public int getMapSizeLimit()
+	{
+		return mapSizeLimit;
 	}
 
 	public int getNumberOfItemsInCache()

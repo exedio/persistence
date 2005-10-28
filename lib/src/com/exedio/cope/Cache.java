@@ -27,11 +27,14 @@ import com.exedio.cope.util.CacheInfo;
 
 final class Cache
 {
+	private final int[] mapSizeLimits;
 	private final IntKeyOpenHashMap[] stateMaps;
 	private final int[] hits, misses;
 	
-	Cache( int numberOfTypes )
+	Cache(final int[] mapSizeLimits)
 	{
+		this.mapSizeLimits = mapSizeLimits;
+		final int numberOfTypes = mapSizeLimits.length;
 		stateMaps = new IntKeyOpenHashMap[numberOfTypes];
 		for ( int i=0; i<numberOfTypes; i++ )
 		{
@@ -68,48 +71,51 @@ final class Cache
 		if ( state==null )
 		{
 			state = new PersistentState( connectionSource.getConnection(), item );
-			final Object oldValue;
-			
-			final int mapSize, newMapSize;
-			synchronized (stateMap)
-			{
-				oldValue = stateMap.put( item.pk, state );
 
-				mapSize = stateMap.size();
-				final int mapSizeLimit = 2000;
-				if(mapSize>=mapSizeLimit)
-				{
-					final long now = System.currentTimeMillis();
-					long ageSum = 0;
-					for(Iterator i = stateMap.values().iterator(); i.hasNext(); )
-					{
-						final PersistentState currentState = (PersistentState)i.next();
-						final long currentLastUsage = currentState.getLastUsageMillis();
-						ageSum+=(now-currentLastUsage);
-					}
-					final long age = ageSum / mapSize;
-					final long ageLimit = (mapSizeLimit * age) / mapSize;
-					final long timeLimit = now-ageLimit;
-					for(Iterator i = stateMap.values().iterator(); i.hasNext(); )
-					{
-						final PersistentState currentState = (PersistentState)i.next();
-						final long currentLastUsage = currentState.getLastUsageMillis();
-						if(timeLimit>currentLastUsage)
-							i.remove();
-					}
-					newMapSize = stateMap.size();
-				}
-				else
-					newMapSize = -1;
-			}
-			
-			// logging must be outside synchronized block
-			if(newMapSize>=0)
-				System.out.println("cope cache cleanup "+item.type.getID()+": "+mapSize+"->"+newMapSize);
-			
-			if ( oldValue!=null )
+			final int mapSizeLimit = mapSizeLimits[item.type.transientNumber];
+			if(mapSizeLimit>0)
 			{
-				System.out.println("warning: duplicate computation of state "+item.getCopeID());
+				final Object oldValue;
+				final int mapSize, newMapSize;
+				synchronized (stateMap)
+				{
+					oldValue = stateMap.put( item.pk, state );
+	
+					mapSize = stateMap.size();
+					if(mapSize>=mapSizeLimit)
+					{
+						final long now = System.currentTimeMillis();
+						long ageSum = 0;
+						for(Iterator i = stateMap.values().iterator(); i.hasNext(); )
+						{
+							final PersistentState currentState = (PersistentState)i.next();
+							final long currentLastUsage = currentState.getLastUsageMillis();
+							ageSum+=(now-currentLastUsage);
+						}
+						final long age = ageSum / mapSize;
+						final long ageLimit = (mapSizeLimit * age) / mapSize;
+						final long timeLimit = now-ageLimit;
+						for(Iterator i = stateMap.values().iterator(); i.hasNext(); )
+						{
+							final PersistentState currentState = (PersistentState)i.next();
+							final long currentLastUsage = currentState.getLastUsageMillis();
+							if(timeLimit>currentLastUsage)
+								i.remove();
+						}
+						newMapSize = stateMap.size();
+					}
+					else
+						newMapSize = -1;
+				}
+				
+				// logging must be outside synchronized block
+				if(newMapSize>=0)
+					System.out.println("cope cache cleanup "+item.type.getID()+": "+mapSize+"->"+newMapSize);
+				
+				if ( oldValue!=null )
+				{
+					System.out.println("warning: duplicate computation of state "+item.getCopeID());
+				}
 			}
 			hit = false;
 		}
@@ -171,7 +177,7 @@ final class Cache
 			if(ageMin==Integer.MAX_VALUE)
 				ageMin = 0;
 			
-			result[i] = new CacheInfo(types[i], numberOfItemsInCache, hits[i], misses[i], ageSum, ageMin, ageMax);
+			result[i] = new CacheInfo(types[i], mapSizeLimits[i], numberOfItemsInCache, hits[i], misses[i], ageSum, ageMin, ageMax);
 		}
 		
 		return result;

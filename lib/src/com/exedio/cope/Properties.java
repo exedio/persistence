@@ -47,6 +47,7 @@ public final class Properties
 	public static final String PKSOURCE_BUTTERFLY = "pksource.butterfly";
 	public static final String FULLTEXT_INDEX = "fulltextIndex";
 	public static final String CONNECTION_POOL_MAX_IDLE = "connectionPool.maxIdle";
+	public static final String CACHE_LIMIT = "cache.limit";
 	public static final String DATADIR_PATH = "datadir.path";
 	public static final String MEDIA_ROOT_URL = "media.rooturl";
 	public static final String MEDIA_ROOT_URL_DEFAULT = "media/";
@@ -73,6 +74,7 @@ public final class Properties
 	private final boolean pkSourceButterfly;
 	private final boolean fulltextIndex;
 	private final int connectionPoolMaxIdle;
+	private final int cacheLimit;
 
 	private final File datadirPath;
 	private final String mediaRootUrl;
@@ -214,6 +216,7 @@ public final class Properties
 		this.pkSourceButterfly = getPropertyBoolean(properties, PKSOURCE_BUTTERFLY, false);
 		this.fulltextIndex = getPropertyBoolean(properties, FULLTEXT_INDEX, false);
 		this.connectionPoolMaxIdle = getPropertyInt(properties, CONNECTION_POOL_MAX_IDLE, 10, 5);
+		this.cacheLimit = getPropertyInt(properties, CACHE_LIMIT, 10000, 0);
 		this.databaseLog = getPropertyBoolean(properties, DATABASE_LOG, false);
 		
 		{
@@ -230,6 +233,7 @@ public final class Properties
 					PKSOURCE_BUTTERFLY,
 					FULLTEXT_INDEX,
 					CONNECTION_POOL_MAX_IDLE,
+					CACHE_LIMIT,
 					DATADIR_PATH,
 					MEDIA_ROOT_URL,
 				}));
@@ -422,6 +426,11 @@ public final class Properties
 	public int getConnectionPoolMaxIdle()
 	{
 		return connectionPoolMaxIdle;
+	}
+	
+	public int getCacheLimit()
+	{
+		return cacheLimit;
 	}
 	
 	public boolean hasDatadirPath()

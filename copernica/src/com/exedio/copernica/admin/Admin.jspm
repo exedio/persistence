@@ -143,6 +143,7 @@ final class Admin_Jspm
 		throws IOException
 	{
 		final String[] names = new String[]{
+			"Max Number Of Items In Cache",
 			"Number Of Items In Cache",
 			"Hits",
 			"Misses",
@@ -167,6 +168,7 @@ final class Admin_Jspm
 			{
 				final CacheInfo info = infos[i];
 				final int[] data = new int[]{
+						info.getMapSizeLimit(),
 						info.getNumberOfItemsInCache(),
 						info.getHits(),
 						info.getMisses(),
