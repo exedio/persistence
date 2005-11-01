@@ -40,8 +40,10 @@
 		* alter table "ItemWithDoubleUnique" drop constraint "ItemWithDoublUniqu_str_Nn"
 	- relation pattern
 	- Vector: allow length terminated instead of null terminated as well
-	- allow indexes to be declared in java source code,
-		and generated useful finders for index.
+	- allow (fulltext) indexes to be declared in java source code,
+		and generate useful finders for index.
+	- ConnectionPool should limit activeCount to a configurable value,
+		throw exception if exceeded, default to 100
 	- test model:
 		* put classes for patterns into separate package
 		* separate test model for lib tests and testwebapp (webtests)
