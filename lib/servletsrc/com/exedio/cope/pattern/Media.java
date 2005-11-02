@@ -170,6 +170,11 @@ public final class Media extends MediaPath
 		return exists;
 	}
 	
+	public final ObjectAttribute getIsNull()
+	{
+		return isNull;
+	}
+	
 	public void initialize()
 	{
 		super.initialize();

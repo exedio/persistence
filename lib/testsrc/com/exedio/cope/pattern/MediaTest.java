@@ -88,6 +88,7 @@ public class MediaTest extends TestmodelTest
 		assertEquals("fileMinor", fileMinor.getName());
 		assertEqualsUnmodifiable(list(item.file), fileMinor.getPatterns());
 		assertEquals(null, item.file.getExists());
+		assertSame(fileMajor, item.file.getIsNull());
 		
 		assertTrue(item.isFileNull());
 		assertEquals(null, item.getFileData());
@@ -173,6 +174,7 @@ public class MediaTest extends TestmodelTest
 		assertEquals("imageMinor", imageMinor.getName());
 		assertEqualsUnmodifiable(list(item.image), imageMinor.getPatterns());
 		assertEquals(null, item.image.getExists());
+		assertSame(imageMinor, item.image.getIsNull());
 
 		assertTrue(item.isImageNull());
 		assertEquals(null, item.getImageData());
@@ -226,6 +228,7 @@ public class MediaTest extends TestmodelTest
 		assertSame(item.TYPE, photoExists.getType());
 		assertSame("photoExists", photoExists.getName());
 		assertEqualsUnmodifiable(list(item.photo), photoExists.getPatterns());
+		assertSame(photoExists, item.photo.getIsNull());
 
 		assertTrue(item.photo.isNull(item));
 		assertTrue(item.isPhotoNull());
