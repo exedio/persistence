@@ -79,7 +79,7 @@ final class OracleDatabase
 
 	String getStringType(final int maxLength)
 	{
-		return (varchar?"VARCHAR2(":"NVARCHAR2(")+(maxLength!=Integer.MAX_VALUE ? maxLength : 2000)+")";
+		return (varchar?"VARCHAR2(":"NVARCHAR2(")+(maxLength!=Integer.MAX_VALUE ? maxLength : 2000)+')';
 	}
 	
 	String getDayType()
