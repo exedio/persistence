@@ -93,6 +93,11 @@ final class HsqldbDatabase
 		throw new RuntimeException(bf.toString());
 	}
 	
+	protected void appendMatchClauseFullTextIndex(final Statement bf, final StringFunction function, final String value)
+	{
+		appendMatchClauseByLike(bf, function, value);
+	}
+	
 	protected boolean supportsRightOuterJoins()
 	{
 		return false;

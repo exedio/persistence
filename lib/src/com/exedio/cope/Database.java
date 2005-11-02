@@ -1132,6 +1132,8 @@ abstract class Database
 	 */
 	abstract void appendLimitClause2(Statement bf, int start, int count);
 
+	abstract void appendMatchClauseFullTextIndex(Statement bf, StringFunction function, String value);
+	
 	/**
 	 * Search full text.
 	 */
@@ -1140,14 +1142,10 @@ abstract class Database
 		if(fulltextIndex)
 			appendMatchClauseFullTextIndex(bf, function, value);
 		else
-		{
-			bf.append(function, (Join)null).
-				append(" like ").
-				appendValue(function, '%'+value+'%');
-		}
+			appendMatchClauseByLike(bf, function, value);
 	}
 	
-	protected void appendMatchClauseFullTextIndex(final Statement bf, final StringFunction function, final String value)
+	protected final void appendMatchClauseByLike(final Statement bf, final StringFunction function, final String value)
 	{
 		bf.append(function, (Join)null).
 			append(" like ").
