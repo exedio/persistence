@@ -55,7 +55,7 @@ public final class PostgresqlDriver extends Driver
 				"uc.consrc " +
 				"from pg_constraint uc " +
 				"inner join pg_class ut on uc.conrelid=ut.oid " +
-				"where ut.relowner=100",
+				"where ut.relname not like 'pg_%' and ut.relname not like 'pga_%'",
 			new ResultSetHandler()
 			{
 				public void run(final ResultSet resultSet) throws SQLException
