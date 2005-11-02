@@ -55,6 +55,7 @@
 	
 	<macrodef name="foreachdb">
 		<attribute name="message" />
+		<attribute name="skipSwitch" />
 		<element name="body" optional="false" />
 		<sequential>
 			<for param="db.file">
@@ -66,14 +67,24 @@
 					<!-- this is a dummy loop to create the attribute @{db} -->
 					<for param="db" list="${@{db.file}.db}">
 						<sequential>
-							<echo message="@{message} @{db}" />
 							<property file="@{db.file}" prefix="@{db.file}." />
-							<!-- this is a dummy loop to create the attribute @{db.driver} -->
-							<for param="db.driver" list="${@{db.file}.x-build.driver}">
-								<sequential>
-									<body />
-								</sequential>
-							</for>
+							<!--echo message="@{message} @{db} skip switch:${@{db.file}.x-build.skip.@{skipSwitch}}." /-->
+							<if>
+								<equals casesensitive="false" trim="true" arg1="true"
+										arg2="${@{db.file}.x-build.skip.@{skipSwitch}}"/>
+								<then>
+									<echo level="warning" message="@{message} @{db} skipped because skip switch." />
+								</then>
+								<else>
+									<echo message="@{message} @{db}" />
+									<!-- this is a dummy loop to create the attribute @{db.driver} -->
+									<for param="db.driver" list="${@{db.file}.x-build.driver}">
+										<sequential>
+											<body />
+										</sequential>
+									</for>
+								</else>
+							</if>
 						</sequential>
 					</for>
 				</sequential>
@@ -212,7 +223,7 @@
 	</target>
 	
 	<target name="dsmf.test.run" depends="dsmf.test.compile">
-		<foreachdb message="Testing">
+		<foreachdb message="Testing" skipSwitch="dsmf.test">
 			<body>
 				<java classname="junit.textui.TestRunner" taskname="junit @{db}" fork="yes" failonerror="yes">
 					<classpath>
@@ -303,7 +314,7 @@
 	
 	<target name="lib.test.run" depends="lib.test.compile">
 		<delete file="lib/build/testprotocol.properties" />
-		<foreachdb message="Testing">
+		<foreachdb message="Testing" skipSwitch="lib.test">
 			<body>
 				<mkdir dir="lib/build/test.@{db}/data" />
 				<copy file="@{db.file}"
@@ -347,7 +358,7 @@
 	<target name="lib.test" depends="lib.test.run" />
 
 	<target name="lib.test.teardown" depends="lib.compile, lib.test.compile">
-		<foreachdb message="Tearing down">
+		<foreachdb message="Tearing down" skipSwitch="lib.teardown">
 			<body>
 				<mkdir dir="lib/build/teardown.@{db}/data" />
 				<copy file="@{db.file}"
@@ -449,7 +460,7 @@
 	</target>
 	
 	<target name="copernica.testwebapp" depends="copernica.compile, copernica.test.compile">
-		<foreachdb message="Using">
+		<foreachdb message="Using" skipSwitch="copernica.testwebapp">
 			<body>
 				<mkdir dir="copernica/build/testwebapp-@{db}" />
 				
