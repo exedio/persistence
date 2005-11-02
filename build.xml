@@ -70,8 +70,7 @@
 							<property file="@{db.file}" prefix="@{db.file}." />
 							<!--echo message="@{message} @{db} skip switch:${@{db.file}.x-build.skip.@{skipSwitch}}." /-->
 							<if>
-								<equals casesensitive="false" trim="true" arg1="true"
-										arg2="${@{db.file}.x-build.skip.@{skipSwitch}}"/>
+								<istrue value="${@{db.file}.x-build.skip.@{skipSwitch}}"/>
 								<then>
 									<echo level="warning" message="@{message} @{db} skipped because skip switch." />
 								</then>
