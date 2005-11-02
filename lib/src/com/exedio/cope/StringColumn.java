@@ -132,15 +132,13 @@ final class StringColumn extends Column
 			final String cleanCache;
 			if(taintedCache.indexOf('\'')>=0)
 			{
-				// TODO: sql injection protection just swallows quotes,
-				// should be escaped by two quotes
 				final StringBuffer buf = new StringBuffer(taintedCache.length());
 				int pos;
 				int lastpos = 0;
 				for(pos = taintedCache.indexOf('\''); pos>=0; pos = taintedCache.indexOf('\'', lastpos))
 				{
 					//System.out.println("---"+lastpos+"-"+pos+">"+taintedCache.substring(lastpos, pos)+"<");
-					buf.append(taintedCache.substring(lastpos, pos));
+					buf.append(taintedCache.substring(lastpos, pos)).append("''");
 					lastpos = pos+1;
 				}
 				//System.out.println("---"+lastpos+"-END>"+taintedCache.substring(lastpos)+"<");
