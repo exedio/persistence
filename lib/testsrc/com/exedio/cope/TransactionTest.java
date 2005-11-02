@@ -39,11 +39,6 @@ public class TransactionTest extends TestmodelTest
 		deleteOnTearDown(item = newItem("someString"));
 	}
 	
-	public void tearDown() throws Exception // TODO: remove !!!!
-	{
-		super.tearDown();
-	}
-	
 	private Transaction createTransaction(final String name)
 	{
 		return model.startTransaction(name);
