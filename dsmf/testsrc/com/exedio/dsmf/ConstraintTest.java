@@ -94,11 +94,9 @@ public class ConstraintTest extends SchemaReadyTest
 		assertEquals(null, table.getError());
 		assertEquals(Schema.COLOR_OK, table.getParticularColor());
 		
+		assertCheckConstraint(table, NOT_NULL_NAME, p(NOT_NULL_COLUMN)+" IS NOT NULL");
 		if(!postgresql)
-		{
-			assertCheckConstraint(table, NOT_NULL_NAME, p(NOT_NULL_COLUMN)+" IS NOT NULL"); // TODO why error on postgresql ?
 			assertCheckConstraint(table, CHECK_NAME, "("+p(CHECK_COLUMN)+" IS NOT NULL) AND ("+p(CHECK_COLUMN)+" IN (0,1))");
-		}
 		assertPkConstraint(table, PK_NAME, null, PK_COLUMN);
 		assertFkConstraint(table, FK_NAME, FK_COLUMN, FK_TARGET_TABLE, FK_TARGET_COLUMN);
 		if(!postgresql)
