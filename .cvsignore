@@ -1,4 +1,6 @@
 api
+mysql.driver.properties
+oracle.driver.properties
 oracle12.test.cope.properties
 oracle14.test.cope.properties
 oracle14varchar.test.cope.properties

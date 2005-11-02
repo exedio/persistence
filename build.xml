@@ -93,51 +93,24 @@
 		</ljavac>
 	</target>
 	
-	<!-- TODO make database specific compiles via a loop -->
-	<target name="lib.hsqldb.compile" depends="lib.core.compile">
-		<ljavac srcdir="lib/hsqldbsrc" destdir="lib/build/classes">
-			<classpath>
-				<pathelement location="../lib/hsqldb.jar" />
-			</classpath>
-		</ljavac>
-	</target>
-
-	<target name="lib.oracle.compile" depends="lib.core.compile">
-		<if>
-			<or>
-				<available file="../lib/classes12.jar" />
-				<available file="../lib/ojdbc14.jar" />
-			</or>
-			<then>
-				<ljavac srcdir="lib/oraclesrc" destdir="lib/build/classes">
+	<target name="lib.driver.compile" depends="lib.core.compile">
+		<for param="driver.file">
+			<path>
+				<fileset dir="${basedir}" includes="*.driver.properties" />
+			</path>
+			<sequential>
+				<basename file="@{driver.file}" property="@{driver.file}.name" suffix=".driver.properties" />
+				<property file="@{driver.file}" prefix="@{driver.file}." />
+				<echo message="compiling driver ${@{driver.file}.name} with ${@{driver.file}.jar}." />
+				<!--echo message="file=@{driver.file},driver=${@{driver.file}.name},jar=${@{driver.file}.jar}." /-->
+				<ljavac srcdir="lib/${@{driver.file}.name}src" destdir="lib/build/classes">
 					<classpath>
 						<pathelement location="../lib/pcj.jar" />
-						<pathelement location="../lib/classes12.jar" />
-						<pathelement location="../lib/ojdbc14.jar" />
+						<pathelement location="../lib/${@{driver.file}.jar}" />
 					</classpath>
 				</ljavac>
-			</then>
-			<else>
-				<echo message="skipping oracle driver" />
-			</else>
-		</if>
-	</target>
-
-	<target name="lib.mysql.compile" depends="lib.core.compile">
-		<if>
-			<available file="../lib/mysql-connector-java-bin.jar" />
-			<then>
-				<ljavac srcdir="lib/mysqlsrc" destdir="lib/build/classes">
-					<classpath>
-						<pathelement location="../lib/pcj.jar" />
-						<pathelement location="../lib/mysql-connector-java-bin.jar" />
-					</classpath>
-				</ljavac>
-			</then>
-			<else>
-				<echo message="skipping mysql driver" />
-			</else>
-		</if>
+			</sequential>
+		</for>
 	</target>
 
 	<target name="lib.pattern.compile" depends="lib.core.compile">
@@ -162,9 +135,7 @@
 	
 	<target name="lib.compile"
 				depends="lib.core.compile,
-							lib.hsqldb.compile,
-							lib.oracle.compile,
-							lib.mysql.compile,
+							lib.driver.compile,
 							lib.pattern.compile,
 							lib.servlet.compile,
 							lib.junit.compile" />
