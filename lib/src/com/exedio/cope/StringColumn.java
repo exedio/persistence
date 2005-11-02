@@ -133,7 +133,7 @@ final class StringColumn extends Column
 			if(taintedCache.indexOf('\'')>=0)
 			{
 				// TODO: sql injection protection just swallows quotes,
-				// should be escaped by double quotes
+				// should be escaped by two quotes
 				final StringBuffer buf = new StringBuffer(taintedCache.length());
 				int pos;
 				int lastpos = 0;
