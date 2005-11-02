@@ -73,6 +73,13 @@ public abstract class SchemaTest extends TestCase
 			stringType = "VARCHAR2(8)";
 			intType = "NUMBER(12)";
 		}
+		else if("postgresql".equals(database))
+		{
+			Class.forName("org.postgresql.Driver");
+			driver = new PostgresqlDriver();
+			stringType = "VARCHAR(8)";
+			intType = "INTEGER";
+		}
 		else
 			throw new RuntimeException(database);
 		

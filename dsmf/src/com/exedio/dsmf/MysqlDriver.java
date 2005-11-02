@@ -34,7 +34,7 @@ public final class MysqlDriver extends Driver
 	
 	public MysqlDriver(final String primaryKeyColumnName, final boolean toLowerCase)
 	{
-		super(null);
+		super(null, null);
 		this.primaryKeyColumnName = primaryKeyColumnName;
 		this.toLowerCase = toLowerCase;
 		//System.out.println("toLowerCase:"+toLowerCase);

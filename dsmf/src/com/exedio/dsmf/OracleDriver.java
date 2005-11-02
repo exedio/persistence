@@ -32,7 +32,7 @@ public final class OracleDriver extends Driver
 {
 	public OracleDriver(final String schema)
 	{
-		super(schema);
+		super(schema, null);
 	}
 
 	String getColumnType(final int dataType, final ResultSet resultSet) throws SQLException

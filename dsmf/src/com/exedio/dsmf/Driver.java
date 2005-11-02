@@ -19,6 +19,7 @@
 package com.exedio.dsmf;
 
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
 
@@ -26,10 +27,12 @@ import java.sql.SQLException;
 public abstract class Driver
 {
 	final String schema;
+	final String systemTableNamePrefix;
 
-	Driver(final String schema)
+	Driver(final String schema, final String systemTableNamePrefix)
 	{
 		this.schema = schema;
+		this.systemTableNamePrefix = systemTableNamePrefix;
 	}
 	
 	/**
@@ -58,11 +61,16 @@ public abstract class Driver
 			{
 				public void run(final ResultSet resultSet) throws SQLException
 				{
+					//printMeta(resultSet);
 					while(resultSet.next())
 					{
 						final String tableName = resultSet.getString("TABLE_NAME");
-						schema.notifyExistentTable(tableName);
-						//System.out.println("EXISTS:"+tableName);
+						if(systemTableNamePrefix==null || !tableName.startsWith(systemTableNamePrefix))
+						{
+							//printRow(resultSet);
+							schema.notifyExistentTable(tableName);
+							//System.out.println("EXISTS:"+tableName);
+						}
 					}
 				}
 			});
@@ -123,6 +131,28 @@ public abstract class Driver
 	boolean canDropPrimaryKeyConstraints()
 	{
 		return true;
+	}
+	
+	/**
+	 * @deprecated for debugging only, should never be used in committed code
+	 */
+	protected static final void printMeta(final ResultSet resultSet) throws SQLException
+	{
+		final ResultSetMetaData metaData = resultSet.getMetaData();;
+		final int columnCount = metaData.getColumnCount();
+		for(int i = 1; i<=columnCount; i++)
+			System.out.println("------"+i+":"+metaData.getColumnName(i)+":"+metaData.getColumnType(i));
+	}
+	
+	/**
+	 * @deprecated for debugging only, should never be used in committed code
+	 */
+	protected static final void printRow(final ResultSet resultSet) throws SQLException
+	{
+		final ResultSetMetaData metaData = resultSet.getMetaData();;
+		final int columnCount = metaData.getColumnCount();
+		for(int i = 1; i<=columnCount; i++)
+			System.out.println("----------"+i+":"+resultSet.getObject(i));
 	}
 	
 }

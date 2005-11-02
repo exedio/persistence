@@ -28,7 +28,7 @@ public final class HsqldbDriver extends Driver
 {
 	public HsqldbDriver()
 	{
-		super(null);
+		super(null, null);
 	}
 
 	String getColumnType(final int dataType, final ResultSet resultSet) throws SQLException
