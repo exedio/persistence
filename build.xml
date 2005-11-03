@@ -19,12 +19,14 @@
 	<macrodef name="ljavac">
 		<attribute name="srcdir" />
 		<attribute name="destdir" />
+		<attribute name="includeAntRuntime" default="false" />
 		<element name="classpath" optional="true" implicit="true" />
 		<sequential>
 			<!--echo message="local compile @{srcdir} to @{destdir}" /-->
 			<mkdir dir="@{destdir}" />
 			<javac srcdir="@{srcdir}"
 					 destdir="@{destdir}"
+					 includeAntRuntime="@{includeAntRuntime}"
 					 deprecation="on"
 					 debug="on"
 					 optimize="off">
@@ -151,7 +153,7 @@
 							lib.junit.compile" />
 	
 	<target name="instrument.compile" depends="lib.compile">
-		<ljavac srcdir="instrument/src" destdir="instrument/build/classes">
+		<ljavac srcdir="instrument/src" destdir="instrument/build/classes" includeAntRuntime="true">
 			<classpath>
 				<pathelement location="lib/build/classes" />
 			</classpath>
