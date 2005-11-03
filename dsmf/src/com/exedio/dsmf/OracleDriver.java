@@ -95,7 +95,7 @@ public final class OracleDriver extends Driver
 	{
 		super.verify(schema);
 
-		schema.querySQL("select TABLE_NAME, LAST_ANALYZED from user_tables", new Node.ResultSetHandler()
+		schema.querySQL("select TABLE_NAME,LAST_ANALYZED from user_tables", new Node.ResultSetHandler()
 			{
 				public void run(final ResultSet resultSet) throws SQLException
 				{
