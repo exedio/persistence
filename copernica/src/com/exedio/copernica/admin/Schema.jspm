@@ -74,16 +74,17 @@ final class Schema_Jspm
 	{
 		%>
 		<form action="<%=cop%>" method="POST">
-			Database:
-			<br>
+			<h4>Database</h4>
 			<input type="submit" name="CREATE" value="create" />
 			<input type="submit" name="TEARDOWN" value="tear down"/>
 			<input type="submit" name="DROP" value="drop"/>
-			constraints:
+			<hr>
+			<h4>Constraints</h4>
 			<input type="submit" name="CREATE_CONSTRAINTS" value="create" />
 			<input type="submit" name="TEARDOWN_CONSTRAINTS" value="tear down"/>
 			<input type="submit" name="DROP_CONSTRAINTS" value="drop"/>
-			<br>
+			<hr>
+			<h4>Details</h4>
 			<%
 				if(request.getParameter("CREATE")!=null)
 				{
