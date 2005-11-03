@@ -954,6 +954,8 @@ abstract class Database
 		//}catch(SQLException e){ throw new SQLRuntimeException(e, "setObject("+parameterIndex+","+value+")"+s); }
 	}
 	
+	protected static final String EXPLAIN_PLAN = "explain plan";
+	
 	protected StatementInfo makeStatementInfo(
 			final Statement statement, final Connection connection,
 			final long start, final long prepared, final long executed, final long resultRead, final long end)

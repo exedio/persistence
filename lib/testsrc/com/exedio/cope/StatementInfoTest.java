@@ -40,12 +40,25 @@ public class StatementInfoTest extends TestmodelTest
 		
 		final String database = model.getDatabase().getClass().getName();
 		final String timePrefix = "timing ";
-		if(database.indexOf("HsqldbDatabase")>=0 || database.indexOf("MysqlDatabase")>=0)
+		if(database.indexOf("HsqldbDatabase")>=0)
 		{
 			final Iterator rootChilds = root.getChilds().iterator();
 			{
 				final StatementInfo time = (StatementInfo)rootChilds.next();
 				assertTrue(time.getText(), time.getText().startsWith(timePrefix));
+			}
+			assertTrue(!rootChilds.hasNext());
+		}
+		else if(database.indexOf("MysqlDatabase")>=0)
+		{
+			final Iterator rootChilds = root.getChilds().iterator();
+			{
+				final StatementInfo time = (StatementInfo)rootChilds.next();
+				assertTrue(time.getText(), time.getText().startsWith(timePrefix));
+			}
+			{
+				final StatementInfo plan = (StatementInfo)rootChilds.next();
+				assertEquals("explain plan", plan.getText());
 			}
 			assertTrue(!rootChilds.hasNext());
 		}
@@ -56,7 +69,7 @@ public class StatementInfoTest extends TestmodelTest
 				final StatementInfo time = (StatementInfo)rootChilds.next();
 				assertTrue(time.getText(), time.getText().startsWith(timePrefix));
 				final StatementInfo planId = (StatementInfo)rootChilds.next();
-				assertTrue(planId.getText(), planId.getText().startsWith("execution plan statement_id = cope"));
+				assertTrue(planId.getText(), planId.getText().startsWith("explain plan statement_id=cope"));
 				{
 					final Iterator planIdChilds = planId.getChilds().iterator();
 					{

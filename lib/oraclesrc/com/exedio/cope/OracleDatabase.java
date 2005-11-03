@@ -296,7 +296,7 @@ final class OracleDatabase
 		if(root==null)
 			throw new RuntimeException();
 		
-		final StatementInfo result = new StatementInfo("execution plan statement_id = " + statementID);
+		final StatementInfo result = new StatementInfo(EXPLAIN_PLAN + " statement_id=" + statementID);
 		result.addChild(root);
 		
 		//System.out.println("######################");

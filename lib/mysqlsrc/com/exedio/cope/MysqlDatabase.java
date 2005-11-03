@@ -18,6 +18,9 @@
 
 package com.exedio.cope;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
 import com.exedio.dsmf.MysqlDriver;
@@ -158,4 +161,63 @@ public final class MysqlDatabase extends Database
 		return extractConstraintName(e, 1062, "Duplicate entry ");
 	}
 
+	protected StatementInfo makeStatementInfo(
+			final Statement statement, final Connection connection,
+			final long start, final long prepared, final long executed, final long resultRead, final long end)
+	{
+		final StatementInfo result = super.makeStatementInfo(statement, connection, start, prepared, executed, resultRead, end);
+
+		final StatementInfo planInfo = makePlanInfo(statement, connection);
+		if(planInfo!=null)
+			result.addChild(planInfo);
+		
+		return result;
+	}
+	
+	private StatementInfo makePlanInfo(final Statement statement, final Connection connection)
+	{
+		final String statementText = statement.getText();
+		if(statementText.startsWith("alter table "))
+			return null;
+		
+		final StatementInfo root = new StatementInfo(EXPLAIN_PLAN);
+		{
+			final Statement bf = createStatement();
+			bf.append("explain ").
+				append(statementText).
+				appendValues(statement);
+
+			executeSQLQuery(connection, bf, new ResultSetHandler(){
+				public void run(final ResultSet resultSet) throws SQLException
+				{
+					final ResultSetMetaData metaData = resultSet.getMetaData();
+					final int columnCount = metaData.getColumnCount();
+
+					while(resultSet.next())
+					{
+						final StringBuffer bf = new StringBuffer();
+
+						for(int i = 1; i<=columnCount; i++)
+						{
+							final Object value = resultSet.getObject(i);
+							if(value!=null)
+							{
+								if(bf.length()>0)
+									bf.append(", ");
+								
+								bf.append(metaData.getColumnName(i)).
+									append('=').
+									append(value.toString());
+							}
+						}
+						root.addChild(new StatementInfo(bf.toString()));
+					}
+				}
+				
+			}, false);
+		}
+		
+		return root;
+	}
+	
 }

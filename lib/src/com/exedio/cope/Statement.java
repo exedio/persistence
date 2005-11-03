@@ -136,6 +136,19 @@ public final class Statement
 		return this;
 	}
 	
+	 // TODO rename to appendParameters
+	public Statement appendValues(final Statement other)
+	{
+		if(params==null)
+			throw new RuntimeException();
+		if(other.params==null)
+			throw new RuntimeException();
+
+		params.addAll(other.params);
+		
+		return this;
+	}
+	
 	public void appendMatch(final StringFunction function, final String value)
 	{
 		database.appendMatchClause(this, function, value);
