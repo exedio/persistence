@@ -46,7 +46,7 @@ public class DataTest extends AbstractLibTest
 	{
 		assertTrue(item.isDataNull());
 		assertEquals(null, item.getData());
-		assertEquals(-1, item.data.getLength(item));
+		assertEquals(-1, item.getDataLength());
 		assertEquals(-1, item.data.getLastModified(item));
 
 		{
@@ -56,7 +56,7 @@ public class DataTest extends AbstractLibTest
 			final Date afterData = new Date();
 			assertTrue(!item.isDataNull());
 			assertData(data, item.getData());
-			assertEquals(data.length, item.data.getLength(item));
+			assertEquals(data.length, item.getDataLength());
 			assertWithinFileLastModified(beforeData, afterData, new Date(item.data.getLastModified(item)));
 		}
 		{
@@ -66,7 +66,7 @@ public class DataTest extends AbstractLibTest
 			final Date afterData2 = new Date();
 			assertTrue(!item.isDataNull());
 			assertData(data2, item.getData());
-			assertEquals(data2.length, item.data.getLength(item));
+			assertEquals(data2.length, item.getDataLength());
 			assertWithinFileLastModified(beforeData2, afterData2, new Date(item.data.getLastModified(item)));
 		}
 		{
@@ -76,12 +76,12 @@ public class DataTest extends AbstractLibTest
 			final Date afterDataEmpty = new Date();
 			assertTrue(!item.isDataNull());
 			assertData(dataEmpty, item.getData());
-			assertEquals(0, item.data.getLength(item));
+			assertEquals(0, item.getDataLength());
 			assertWithinFileLastModified(beforeDataEmpty, afterDataEmpty, new Date(item.data.getLastModified(item)));
 		}
 		item.setData((InputStream)null);
 		assertTrue(item.isDataNull());
-		assertEquals(-1, item.data.getLength(item));
+		assertEquals(-1, item.getDataLength());
 		assertEquals(-1, item.data.getLastModified(item));
 		assertEquals(null, item.getData());
 		{
@@ -91,12 +91,12 @@ public class DataTest extends AbstractLibTest
 			final Date after = new Date();
 			assertTrue(!item.isDataNull());
 			assertData(dataFile, item.getData());
-			assertEquals(dataFile.length, item.data.getLength(item));
+			assertEquals(dataFile.length, item.getDataLength());
 			assertWithinFileLastModified(before, after, new Date(item.data.getLastModified(item)));
 		}
 		item.setData((File)null);
 		assertTrue(item.isDataNull());
-		assertEquals(-1, item.data.getLength(item));
+		assertEquals(-1, item.getDataLength());
 		assertEquals(-1, item.data.getLastModified(item));
 		assertEquals(null, item.getData());
 	}

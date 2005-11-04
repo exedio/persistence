@@ -35,6 +35,11 @@ public class DataItem extends Item
 		return data.isNull(this);
 	}
 	
+	public long getDataLength() // TODO generate this
+	{
+		return data.getLength(this);
+	}
+	
 	public void setData(final File data) // TODO generate this
 	throws IOException
 	{
