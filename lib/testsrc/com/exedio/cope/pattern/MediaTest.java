@@ -109,7 +109,7 @@ public class MediaTest extends TestmodelTest
 			assertTrue(!item.isFileNull());
 			assertData(data, item.getFileData());
 			assertEquals(data.length, item.getFileLength());
-			assertWithinFileLastModified(beforeData, afterData, new Date(item.file.getDataLastModified(item)));
+			assertWithinFileLastModified(beforeData, afterData, new Date(item.getFileLastModified()));
 			assertEquals("fileMajor", item.getFileMimeMajor());
 			assertEquals("fileMinor", item.getFileMimeMinor());
 			assertEquals("fileMajor/fileMinor", item.getFileContentType());
@@ -123,7 +123,7 @@ public class MediaTest extends TestmodelTest
 			assertTrue(!item.isFileNull());
 			assertData(data2, item.getFileData());
 			assertEquals(data2.length, item.getFileLength());
-			assertWithinFileLastModified(beforeData2, afterData2, new Date(item.file.getDataLastModified(item)));
+			assertWithinFileLastModified(beforeData2, afterData2, new Date(item.getFileLastModified()));
 			assertEquals("fileMajor2", item.getFileMimeMajor());
 			assertEquals("fileMinor2", item.getFileMimeMinor());
 			assertEquals("fileMajor2/fileMinor2", item.getFileContentType());
@@ -144,7 +144,7 @@ public class MediaTest extends TestmodelTest
 			assertTrue(!item.isFileNull());
 			assertData(dataEmpty, item.getFileData());
 			assertEquals(0, item.getFileLength());
-			assertWithinFileLastModified(beforeDataEmpty, afterDataEmpty, new Date(item.file.getDataLastModified(item)));
+			assertWithinFileLastModified(beforeDataEmpty, afterDataEmpty, new Date(item.getFileLastModified()));
 			assertEquals("emptyMajor", item.getFileMimeMajor());
 			assertEquals("emptyMinor", item.getFileMimeMinor());
 			assertEquals("emptyMajor/emptyMinor", item.getFileContentType());
@@ -167,7 +167,7 @@ public class MediaTest extends TestmodelTest
 			assertTrue(!item.isFileNull());
 			assertData(dataFile, item.getFileData());
 			assertEquals(dataFile.length, item.getFileLength());
-			assertWithinFileLastModified(before, after, new Date(item.file.getDataLastModified(item)));
+			assertWithinFileLastModified(before, after, new Date(item.getFileLastModified()));
 			assertEquals("emptyMajor", item.getFileMimeMajor());
 			assertEquals("emptyMinor", item.getFileMimeMinor());
 			assertEquals("emptyMajor/emptyMinor", item.getFileContentType());

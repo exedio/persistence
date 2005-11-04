@@ -72,6 +72,12 @@ public class MediaItem extends Item
 	}
 	
 	 // TODO generate this
+	public final long getFileLastModified()
+	{
+		return MediaItem.file.getDataLastModified(this);
+	}
+	
+	 // TODO generate this
 	public final void setFile(final File data, final String mimeMajor, final String mimeMinor) throws IOException
 	{
 		MediaItem.file.set(this,data,mimeMajor,mimeMinor);
