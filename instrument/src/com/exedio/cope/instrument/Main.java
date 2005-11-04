@@ -156,6 +156,11 @@ public final class Main
 		for(int i=0; i<args.length; i++)
 			sourcefiles.add(new File(dir, args[i]));
 		
+		run(sourcefiles, verbose);
+	}
+		
+	final void run(final ArrayList sourcefiles, final boolean verbose) throws IllegalParameterException, InjectorParseException, IOException
+	{
 		if(sourcefiles.isEmpty())
 			throw new IllegalParameterException("nothing to do.");
 		
@@ -168,7 +173,7 @@ public final class Main
 			inject((File)i.next(), repository);
 
 		if(verbose || instrumented>0)
-			System.out.println("Instrumented " + instrumented + ' ' + (instrumented==1 ? "file" : "files") + ", skipped " + skipped + " in " + dir);
+			System.out.println("Instrumented " + instrumented + ' ' + (instrumented==1 ? "file" : "files") + ", skipped " + skipped + " in " + ((File)sourcefiles.iterator().next()).getParentFile().getAbsolutePath());
 	}
 
 	boolean verbose;
