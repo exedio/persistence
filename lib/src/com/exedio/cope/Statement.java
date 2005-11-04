@@ -66,7 +66,7 @@ public final class Statement
 		return append(type.getTable().getPrimaryKey(), join);
 	}
 		
-	public Statement append(final Column column, final Join join)
+	Statement append(final Column column, final Join join)
 	{
 		if(qualifyTable)
 		{
@@ -100,7 +100,7 @@ public final class Statement
 	
 	private static final char QUESTION_MARK = '?';
 	
-	public Statement appendParameter(final Column column, final Object value)
+	Statement appendParameter(final Column column, final Object value)
 	{
 		if(parameters==null)
 			this.text.append(column.cacheToDatabase(value));
@@ -112,7 +112,7 @@ public final class Statement
 		return this;
 	}
 	
-	public Statement appendParameter(final int value)
+	Statement appendParameter(final int value)
 	{
 		if(parameters==null)
 			this.text.append(Integer.toString(value));
@@ -124,7 +124,7 @@ public final class Statement
 		return this;
 	}
 	
-	public Statement appendParameter(final String value)
+	Statement appendParameter(final String value)
 	{
 		if(parameters==null)
 			this.text.append('\'').append(value).append('\'');
@@ -136,7 +136,7 @@ public final class Statement
 		return this;
 	}
 	
-	public Statement appendParameters(final Statement other)
+	Statement appendParameters(final Statement other)
 	{
 		if(parameters==null)
 			throw new RuntimeException();
@@ -153,42 +153,28 @@ public final class Statement
 		database.appendMatchClause(this, function, value);
 	}
 	
-	public Statement defineColumn(final ComputedFunction function)
+	Statement defineColumn(final ComputedFunction function)
 	{
 		if(columnTypes!=null)
 			columnTypes.add(function.jdbcType);
 		return this;
 	}
 		
-	public Statement defineColumn(final Column column)
+	Statement defineColumn(final Column column)
 	{
 		if(columnTypes!=null)
 			columnTypes.add(column.jdbcType);
 		return this;
 	}
 		
-	public Statement defineColumnInteger()
+	Statement defineColumnInteger()
 	{
 		if(columnTypes!=null)
 			columnTypes.add(IntegerColumn.JDBC_TYPE_INT);
 		return this;
 	}
 		
-	public Statement defineColumnString()
-	{
-		if(columnTypes!=null)
-			columnTypes.add(StringColumn.JDBC_TYPE);
-		return this;
-	}
-		
-	public Statement defineColumnTimestamp()
-	{
-		if(columnTypes!=null)
-			columnTypes.add(TimestampColumn.JDBC_TYPE);
-		return this;
-	}
-		
-	public String getText()
+	String getText()
 	{
 		return text.toString();
 	}
