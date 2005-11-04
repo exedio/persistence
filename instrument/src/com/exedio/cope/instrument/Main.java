@@ -154,7 +154,7 @@ public final class Main
 		final ArrayList sourcefiles = new ArrayList();
 		
 		for(int i=0; i<args.length; i++)
-			sourcefiles.add(args[i]);
+			sourcefiles.add(new File(dir, args[i]));
 		
 		if(sourcefiles.isEmpty())
 			throw new IllegalParameterException("nothing to do.");
@@ -165,10 +165,7 @@ public final class Main
 		instrumented = 0;
 		skipped = 0;
 		for(Iterator i=sourcefiles.iterator(); i.hasNext(); )
-		{
-			final String s=(String)i.next();
-			inject(new File(dir, s), repository);
-		}
+			inject((File)i.next(), repository);
 
 		if(verbose || instrumented>0)
 			System.out.println("Instrumented " + instrumented + ' ' + (instrumented==1 ? "file" : "files") + ", skipped " + skipped + " in " + dir);
