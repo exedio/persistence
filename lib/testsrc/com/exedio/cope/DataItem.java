@@ -18,6 +18,9 @@
 
 package com.exedio.cope;
 
+import java.io.File;
+import java.io.IOException;
+
 /**
  * @cope.persistent
  * @author Ralf Wiebicke
@@ -30,6 +33,19 @@ public class DataItem extends Item
 	public boolean isDataNull() // TODO generate this
 	{
 		return data.isNull(this);
+	}
+	
+	public void setData(final File data) // TODO generate this
+	throws IOException
+	{
+		try
+		{
+			DataItem.data.set(this, data);
+		}
+		catch(MandatoryViolationException e)
+		{
+			throw new RuntimeException(e);
+		}
 	}
 	
 	

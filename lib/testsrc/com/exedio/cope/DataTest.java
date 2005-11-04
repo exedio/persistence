@@ -42,7 +42,7 @@ public class DataTest extends AbstractLibTest
 		deleteOnTearDown(item = new DataItem());
 	}
 	
-	public void testData() throws IOException, MandatoryViolationException
+	public void testData() throws IOException
 	{
 		assertTrue(item.isDataNull());
 		assertEquals(null, item.getData());
@@ -87,14 +87,14 @@ public class DataTest extends AbstractLibTest
 		{
 			sleepForFileLastModified();
 			final Date before = new Date();
-			item.data.set(item, file(dataFile));
+			item.setData(file(dataFile));
 			final Date after = new Date();
 			assertTrue(!item.isDataNull());
 			assertData(dataFile, item.getData());
 			assertEquals(dataFile.length, item.data.getLength(item));
 			assertWithinFileLastModified(before, after, new Date(item.data.getLastModified(item)));
 		}
-		item.data.set(item, (File)null);
+		item.setData((File)null);
 		assertTrue(item.isDataNull());
 		assertEquals(-1, item.data.getLength(item));
 		assertEquals(-1, item.data.getLastModified(item));
