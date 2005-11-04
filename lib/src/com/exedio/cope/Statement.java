@@ -29,7 +29,7 @@ public final class Statement
 	private final Database database;
 	final StringBuffer text = new StringBuffer();
 	final ArrayList parameters;
-	final boolean qualifyTable;
+	private final boolean qualifyTable;
 	final IntArrayList columnTypes;
 		
 	Statement(final Database database, final boolean prepare, final boolean qualifyTable, final boolean useDefineColumnTypes)
