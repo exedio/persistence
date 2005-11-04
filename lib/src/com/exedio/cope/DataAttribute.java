@@ -191,9 +191,21 @@ public final class DataAttribute extends Attribute
 		}
 		else if(length==0)
 		{
-			// TODO make this more efficient, if file does not exist or is already empty
-			target.delete();
-			target.createNewFile();
+			if(target.exists())
+			{
+				final long targetLength = target.length();
+				if(targetLength==0)
+					; // do nothing
+				else if(targetLength<0)
+					throw new RuntimeException(String.valueOf(targetLength));
+				else
+				{
+					target.delete();
+					target.createNewFile();
+				}
+			}
+			else
+				target.createNewFile();
 		}
 		else
 			throw new RuntimeException(String.valueOf(length));
