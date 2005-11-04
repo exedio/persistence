@@ -18,6 +18,7 @@
 package com.exedio.cope;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 public class AttributeDataTest extends AttributeTest
 {
@@ -71,7 +72,7 @@ public class AttributeDataTest extends AttributeTest
 		item.setSomeData(stream(manyBytes),"someMimeMajor", "someMimeMinor");
 		assertData(manyBytes, item.getSomeDataData());
 
-		item.setSomeData(null, null, null);
+		item.setSomeData((InputStream)null, null, null);
 		assertEquals(null, item.getSomeDataURL());
 		assertEquals(null, item.getSomeDataData());
 		assertEquals(null, item.getSomeDataMimeMajor());
