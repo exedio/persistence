@@ -254,32 +254,15 @@
 	
 	<target name="lib.testmodel.instrument" depends="instrument.taskdef">
 		<instrument verbose="false">
-			<filelist dir="lib/testmodelsrc/com/exedio/cope/testmodel" files="
-				ItemWithSingleUnique.java,
-				ItemWithSingleUniqueReadOnly.java,
-				ItemWithSingleUniqueNotNull.java,
-				ItemWithDoubleUnique.java,
-				EmptyItem.java,
-				EmptyItem2.java,
-				AttributeEmptyItem.java,
-				AttributeItem.java,
-				StringItem.java,
-				HashItem.java,
-				MD5Item.java,
-				MediaItem.java,
-				SumItem.java,
-				VectorItem.java,
-				PointerItem.java,
-				PointerTargetItem.java,
-				QualifiedEmptyQualifier.java,
-				QualifiedStringQualifier.java,
-				QualifiedIntegerEnumQualifier.java,
-				QualifiedItem.java,
-				Super.java,
-				FirstSub.java,
-				SecondSub.java,
-				CollisionItem1.java,
-				CollisionItem2.java" />
+			<fileset dir="lib/testmodelsrc/com/exedio/cope/testmodel">
+				<include name="*Qualifier.java" />
+				<include name="AttributeEmptyItem.java" />
+			</fileset>
+			<fileset dir="lib/testmodelsrc/com/exedio/cope/testmodel">
+				<include name="**/*.java" />
+				<exclude name="*Qualifier.java" />
+				<exclude name="AttributeEmptyItem.java" />
+			</fileset>
 			<filelist dir="lib/testsrc/com/exedio/cope" files="
 				DayItem.java,
 				DataItem.java,
