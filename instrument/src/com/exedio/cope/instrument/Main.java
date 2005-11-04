@@ -149,10 +149,10 @@ public final class Main
 		o.println(" tobemodified1.java ...");
 	}
 	
-	private ArrayList sourcefiles=new ArrayList();
-	
 	final void run(final File dir, final String[] args, final boolean verbose) throws IllegalParameterException, InjectorParseException, IOException
 	{
+		final ArrayList sourcefiles = new ArrayList();
+		
 		for(int i=0; i<args.length; i++)
 			sourcefiles.add(args[i]);
 		
