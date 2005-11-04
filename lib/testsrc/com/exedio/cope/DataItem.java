@@ -29,7 +29,7 @@ public class DataItem extends Item
 	
 	public boolean isDataNull() // TODO generate this
 	{
-		return isNull(data);
+		return data.isNull(this);
 	}
 	
 	
@@ -75,7 +75,7 @@ public class DataItem extends Item
 	 *
  */public final java.io.InputStream getData()
 	{
-		return (java.io.InputStream)get(DataItem.data);
+		return DataItem.data.get(this);
 	}/**
 
 	 **
@@ -89,7 +89,7 @@ public class DataItem extends Item
 	{
 		try
 		{
-			set(DataItem.data,data);
+			DataItem.data.set(this,data);
 		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{

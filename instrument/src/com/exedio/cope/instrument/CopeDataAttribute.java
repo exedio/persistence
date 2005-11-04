@@ -38,7 +38,7 @@ final class CopeDataAttribute extends CopeAttribute
 			final boolean initial)
 		throws InjectorParseException
 	{
-		super(javaAttribute, typeClass, InputStream.class.getName(), initializerArguments, getterOption, setterOption, initial);
+		super(javaAttribute, typeClass, InputStream.class.getName(), initializerArguments, getterOption, setterOption, initial, false);
 	}
 	
 	protected void fillSetterExceptions(final SortedSet result)

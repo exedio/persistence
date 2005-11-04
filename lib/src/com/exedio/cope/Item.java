@@ -18,13 +18,6 @@
 
 package com.exedio.cope;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
@@ -343,122 +336,6 @@ public abstract class Item extends Cope
 		}
 	}
 
-	// TODO move to DataAttribute
-	private final void appendDataPath(
-									final DataAttribute attribute,
-									final StringBuffer bf)
-	{
-		bf.append(attribute.filePath).
-			append(type.getPkSource().pk2id(pk));
-	}
-	
-	// TODO move to DataAttribute
-	private final File getDataFile(final DataAttribute attribute)
-	{
-		final File directory = type.getModel().getProperties().getDatadirPath();
-		final StringBuffer buf = new StringBuffer();
-		appendDataPath(attribute, buf);
-		return new File(directory, buf.toString());
-	}
-	
-	/**
-	 * Returns, whether there is no data for this attribute.
-	 */
-	public final boolean isNull(final DataAttribute attribute)
-	{
-		// TODO move to DataAttribute
-		final File file = getDataFile(attribute);
-		return !file.exists();
-	}
-
-	/**
-	 * Returns a stream for fetching the data of this persistent data attribute.
-	 * <b>You are responsible for closing the stream, when you are finished!</b>
-	 * Returns null, if there is no data for this attribute.
-	 */
-	public final InputStream get(final DataAttribute attribute)
-	{
-		// TODO move to DataAttribute
-		final File file = getDataFile(attribute);
-		try
-		{
-			return new FileInputStream(file);
-		}
-		catch(FileNotFoundException e)
-		{
-			return null;
-		}
-	}
-
-	/**
-	 * Returns the length of the data of this persistent data attribute.
-	 * Returns -1, if there is no data for this attribute.
-	 */
-	public final long getDataLength(final DataAttribute attribute)
-	{
-		// TODO move to DataAttribute
-		final File file = getDataFile(attribute);
-
-		return file.exists() ? file.length() : -1l;
-	}
-
-	/**
-	 * Returns the date of the last modification
-	 * of the data of this persistent data attribute.
-	 * Returns -1, if there is no data for this attribute.
-	 */
-	public final long getDataLastModified(final DataAttribute attribute)
-	{
-		// TODO move to DataAttribute
-		final File file = getDataFile(attribute);
-
-		return file.exists() ? file.lastModified() : -1l;
-	}
-
-	/**
-	 * Provides data for this persistent data attribute.
-	 * Closes <data>data</data> after reading the contents of the stream.
-	 * @param data give null to remove data.
-	 * @throws MandatoryViolationException
-	 *         if data is null and attribute is {@link Attribute#isMandatory() mandatory}.
-	 * @throws IOException if reading data throws an IOException.
-	 */
-	public final void set(final DataAttribute attribute, final InputStream data)
-	throws MandatoryViolationException, IOException
-	{
-		// TODO move to DataAttribute
-		OutputStream out = null;
-		try
-		{
-			final File file = getDataFile(attribute);
-
-			if(data!=null)
-			{
-				out = new FileOutputStream(file);
-				final byte[] b = new byte[20*1024];
-				for(int len = data.read(b); len>=0; len = data.read(b))
-					out.write(b, 0, len);
-				out.close();
-				data.close();
-			}
-			else
-			{
-				if(file.exists())
-				{
-					if(!file.delete())
-						throw new RuntimeException("deleting "+file+" failed.");
-				}
-			}
-		}
-		finally
-		{
-			if(data!=null)
-				data.close();
-			if(out!=null)
-				out.close();
-		}
-	}
-	
 	public final void deleteCopeItem()
 			throws IntegrityViolationException
 	{

@@ -983,17 +983,31 @@ final class Generator
 	throws IOException
 	{
 		o.write("\t\treturn ");
-		if(attribute.isBoxed())
-			o.write(attribute.getUnBoxingPrefix());
-		o.write('(');
-		o.write(attribute.persistentType);
-		o.write(")get(");
-		o.write(attribute.copeClass.getName());
-		o.write('.');
-		o.write(attribute.getName());
-		o.write(')');
-		if(attribute.isBoxed())
-			o.write(attribute.getUnBoxingPostfix());
+		if(attribute.accessOnItem)
+		{
+			if(attribute.isBoxed())
+				o.write(attribute.getUnBoxingPrefix());
+			o.write('(');
+			o.write(attribute.persistentType);
+			o.write(")get(");
+			o.write(attribute.copeClass.getName());
+			o.write('.');
+			o.write(attribute.getName());
+			o.write(')');
+			if(attribute.isBoxed())
+				o.write(attribute.getUnBoxingPostfix());
+		}
+		else
+		{
+			if(attribute.isBoxed())
+				o.write(attribute.getUnBoxingPrefix());
+			o.write(attribute.copeClass.getName());
+			o.write('.');
+			o.write(attribute.getName());
+			o.write(".get(this)");
+			if(attribute.isBoxed())
+				o.write(attribute.getUnBoxingPostfix());
+		}
 		o.write(';');
 		o.write(lineSeparator);
 	}
@@ -1009,16 +1023,32 @@ final class Generator
 	{
 		final SortedSet exceptionsToCatch = attribute.getExceptionsToCatchInSetter();
 		writeTryCatchClausePrefix(exceptionsToCatch);
-		o.write("\t\tset(");
-		o.write(attribute.copeClass.getName());
-		o.write('.');
-		o.write(attribute.getName());
-		o.write(',');
-		if(attribute.isBoxed())
-			o.write(attribute.getBoxingPrefix());
-		o.write(attribute.getName());
-		if(attribute.isBoxed())
-			o.write(attribute.getBoxingPostfix());
+		if(attribute.accessOnItem)
+		{
+			o.write("\t\tset(");
+			o.write(attribute.copeClass.getName());
+			o.write('.');
+			o.write(attribute.getName());
+			o.write(',');
+			if(attribute.isBoxed())
+				o.write(attribute.getBoxingPrefix());
+			o.write(attribute.getName());
+			if(attribute.isBoxed())
+				o.write(attribute.getBoxingPostfix());
+		}
+		else
+		{
+			o.write("\t\t");
+			o.write(attribute.copeClass.getName());
+			o.write('.');
+			o.write(attribute.getName());
+			o.write(".set(this,");
+			if(attribute.isBoxed())
+				o.write(attribute.getBoxingPrefix());
+			o.write(attribute.getName());
+			if(attribute.isBoxed())
+				o.write(attribute.getBoxingPostfix());
+		}
 		o.write(");");
 		o.write(lineSeparator);
 		writeTryCatchClausePostfix(exceptionsToCatch);

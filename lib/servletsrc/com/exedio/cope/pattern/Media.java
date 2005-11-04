@@ -246,7 +246,7 @@ public final class Media extends MediaPath
 		if(isNull(item))
 			return null;
 
-		final InputStream result = item.get(data);
+		final InputStream result = data.get(item);
 		if(result==null)
 			throw newNoDataException(item);
 		
@@ -262,7 +262,7 @@ public final class Media extends MediaPath
 		if(isNull(item))
 			return -1;
 		
-		final long result = item.getDataLength(data);
+		final long result = data.getDataLength(item);
 		if(result<0)
 			throw newNoDataException(item);
 
@@ -279,7 +279,7 @@ public final class Media extends MediaPath
 		if(isNull(item))
 			return -1;
 
-		final long result = item.getDataLastModified(data);
+		final long result = data.getDataLastModified(item);
 		if(result<=0)
 			throw newNoDataException(item);
 
@@ -333,7 +333,7 @@ public final class Media extends MediaPath
 				item.set(this.mimeMinor, mimeMinor);
 			if(this.exists!=null)
 				item.set(this.exists, (data!=null) ? Boolean.TRUE : null);
-			item.set(this.data, data);
+			this.data.set(item, data);
 	
 		}
 		catch(ConstraintViolationException e)
