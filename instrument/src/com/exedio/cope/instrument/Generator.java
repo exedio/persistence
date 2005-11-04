@@ -535,12 +535,58 @@ final class Generator
 		o.write("\t}");
 	}
 	
-	private void writeDataAccessMethods(final CopeMedia media) 
+	private void writeDataSetterMethod(final CopeMedia media, final Class dataType)
 	throws IOException
 	{
 		final String mimeMajor = media.mimeMajor;
 		final String mimeMinor = media.mimeMinor;
 
+		writeCommentHeader();
+		o.write("\t * ");
+		o.write(format(SETTER_MEDIA, link(media.getName())));
+		o.write(lineSeparator);
+		o.write("\t * @throws ");
+		o.write(IOException.class.getName());
+		o.write(' ');
+		o.write(format(SETTER_MEDIA_IOEXCEPTION, "<code>data</code>"));
+		o.write(lineSeparator);
+		writeCommentFooter();
+		o.write(Modifier.toString(media.getGeneratedSetterModifier()));
+		o.write(" void set");
+		o.write(toCamelCase(media.getName()));
+		o.write("(final " + dataType.getName() + " data");
+		if(mimeMajor==null)
+			o.write(",final "+String.class.getName()+" mimeMajor");
+		if(mimeMinor==null)
+			o.write(",final "+String.class.getName()+" mimeMinor");
+		o.write(')');
+		final SortedSet setterExceptions = new TreeSet();
+		setterExceptions.addAll(Arrays.asList(new Class[]{IOException.class})); // TODO
+		o.write(lineSeparator);
+		writeThrowsClause(setterExceptions);
+		o.write("\t{");
+		o.write(lineSeparator);
+		
+		final SortedSet exceptionsToCatch = new TreeSet(ClassComparator.getInstance());
+		exceptionsToCatch.addAll(setterExceptions); // TODO
+		exceptionsToCatch.remove(IOException.class);
+		writeTryCatchClausePrefix(exceptionsToCatch);
+		o.write("\t\t");
+		o.write(media.copeClass.getName());
+		o.write('.');
+		o.write(media.getName());
+		o.write(".set(this,data");
+		o.write(mimeMajor==null ? ",mimeMajor" : ",null");
+		o.write(mimeMinor==null ? ",mimeMinor" : ",null");
+		o.write(");");
+		o.write(lineSeparator);
+		writeTryCatchClausePostfix(exceptionsToCatch);
+		o.write("\t}");
+	}
+	
+	private void writeDataAccessMethods(final CopeMedia media)
+	throws IOException
+	{
 		// getters
 		final int getterModifier = media.getGeneratedGetterModifier();
 		writeDataGetterMethod(media, boolean.class,     "Null",        GETTER_MEDIA_IS_NULL,      getterModifier);
@@ -553,47 +599,7 @@ final class Generator
 		// setters
 		if(media.setterOption.exists)
 		{
-			writeCommentHeader();
-			o.write("\t * ");
-			o.write(format(SETTER_MEDIA, link(media.getName())));
-			o.write(lineSeparator);
-			o.write("\t * @throws ");
-			o.write(IOException.class.getName());
-			o.write(' ');
-			o.write(format(SETTER_MEDIA_IOEXCEPTION, "<code>data</code>"));
-			o.write(lineSeparator);
-			writeCommentFooter();
-			o.write(Modifier.toString(media.getGeneratedSetterModifier()));
-			o.write(" void set");
-			o.write(toCamelCase(media.getName()));
-			o.write("(final " + InputStream.class.getName() + " data");
-			if(mimeMajor==null)
-				o.write(",final "+String.class.getName()+" mimeMajor");
-			if(mimeMinor==null)
-				o.write(",final "+String.class.getName()+" mimeMinor");
-			o.write(')');
-			final SortedSet setterExceptions = new TreeSet();
-			setterExceptions.addAll(Arrays.asList(new Class[]{IOException.class})); // TODO
-			o.write(lineSeparator);
-			writeThrowsClause(setterExceptions);
-			o.write("\t{");
-			o.write(lineSeparator);
-			
-			final SortedSet exceptionsToCatch = new TreeSet(ClassComparator.getInstance());
-			exceptionsToCatch.addAll(setterExceptions); // TODO
-			exceptionsToCatch.remove(IOException.class);
-			writeTryCatchClausePrefix(exceptionsToCatch);
-			o.write("\t\t");
-			o.write(media.copeClass.getName());
-			o.write('.');
-			o.write(media.getName());
-			o.write(".set(this,data");
-			o.write(mimeMajor==null ? ",mimeMajor" : ",null");
-			o.write(mimeMinor==null ? ",mimeMinor" : ",null");
-			o.write(");");
-			o.write(lineSeparator);
-			writeTryCatchClausePostfix(exceptionsToCatch);
-			o.write("\t}");
+			writeDataSetterMethod(media, InputStream.class);
 		}
 	}
 	
