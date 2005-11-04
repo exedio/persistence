@@ -83,9 +83,9 @@ final class HsqldbDatabase
 			throw new RuntimeException(start+"-"+count);
 
 		bf.append(" limit ").
-			appendValue(start).
+			appendParameter(start).
 			append(' ').
-			appendValue(count!=Query.UNLIMITED_COUNT ? count : 0);
+			appendParameter(count!=Query.UNLIMITED_COUNT ? count : 0);
 	}
 	
 	void appendLimitClause2(final Statement bf, final int start, final int count)

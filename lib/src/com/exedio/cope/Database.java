@@ -173,7 +173,7 @@ abstract class Database
 				append('.').
 				append(primaryKey.protectedID).
 				append('=').
-				appendValue(Type.NOT_A_PK);
+				appendParameter(Type.NOT_A_PK);
 			
 			for(Iterator j = table.getColumns().iterator(); j.hasNext(); )
 			{
@@ -640,7 +640,7 @@ abstract class Database
 
 			bf.appendPK(type, (Join)null).
 				append('=').
-				appendValue(state.pk);
+				appendParameter(state.pk);
 		}
 
 		//System.out.println(bf.toString());
@@ -689,7 +689,7 @@ abstract class Database
 			bf.append(" where ").
 				append(table.getPrimaryKey().protectedID).
 				append('=').
-				appendValue(state.pk);
+				appendParameter(state.pk);
 		}
 		else
 		{
@@ -713,7 +713,7 @@ abstract class Database
 			}
 
 			bf.append(")values(").
-				appendValue(state.pk);
+				appendParameter(state.pk);
 			
 			if(typeColumn!=null)
 			{
@@ -750,7 +750,7 @@ abstract class Database
 				append(" where ").
 				append(currentTable.getPrimaryKey().protectedID).
 				append('=').
-				appendValue(pk);
+				appendParameter(pk);
 
 			//System.out.println("deleting "+bf.toString());
 

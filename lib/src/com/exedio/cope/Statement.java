@@ -112,7 +112,7 @@ public final class Statement
 		return this;
 	}
 	
-	public Statement appendValue(final int value)
+	public Statement appendParameter(final int value)
 	{
 		if(params==null)
 			this.text.append(Integer.toString(value));

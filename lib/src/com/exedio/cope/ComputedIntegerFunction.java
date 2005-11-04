@@ -66,7 +66,7 @@ public abstract class ComputedIntegerFunction
 	
 	final void surface2DatabasePrepared(final Statement bf, final Object value)
 	{
-		bf.appendValue(((Integer)value).intValue());
+		bf.appendParameter(((Integer)value).intValue());
 	}
 	
 	public final EqualCondition equal(final Integer value)

@@ -118,9 +118,9 @@ final class OracleDatabase
 		if(start>0)
 			bf.append(com.exedio.cope.Table.ROWNUM_INNER_VIEW_ALIAS+' ');
 		if(count!=Query.UNLIMITED_COUNT)
-			bf.append("where ROWNUM<=").appendValue(start+count);
+			bf.append("where ROWNUM<=").appendParameter(start+count);
 		if(start>0)
-			bf.append(")where "+com.exedio.cope.Table.ROWNUM_INNER_ALIAS+'>').appendValue(start);
+			bf.append(")where "+com.exedio.cope.Table.ROWNUM_INNER_ALIAS+'>').appendParameter(start);
 	}
 	
 	protected void appendMatchClauseFullTextIndex(final Statement bf, final StringFunction function, final String value)

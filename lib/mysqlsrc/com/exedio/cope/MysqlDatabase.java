@@ -111,7 +111,7 @@ public final class MysqlDatabase extends Database
 		if(start>0)
 		{
 			if(placeholdersInLimit)
-				bf.appendValue(start).append(',');
+				bf.appendParameter(start).append(',');
 			else
 				bf.append(Integer.toString(start)).append(',');
 		}
@@ -120,7 +120,7 @@ public final class MysqlDatabase extends Database
 		final int countInStatement = count!=Query.UNLIMITED_COUNT ? count : Integer.MAX_VALUE;
 
 		if(placeholdersInLimit)
-			bf.appendValue(countInStatement);
+			bf.appendParameter(countInStatement);
 		else
 			bf.append(Integer.toString(countInStatement));
 	}
