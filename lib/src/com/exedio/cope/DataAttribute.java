@@ -162,6 +162,29 @@ public final class DataAttribute extends Attribute
 		}
 	}
 	
+	private static final void copy(final File source, final File target) throws IOException
+	{
+		InputStream sourceS = null;
+		OutputStream targetS = null;
+		try
+		{
+			final long length = source.length();
+			sourceS = new FileInputStream(source);
+			targetS = new FileOutputStream(target);
+			final byte[] b = new byte[Math.min(1024*1024, (int)Math.min((long)Integer.MAX_VALUE, length))];
+			//System.out.println("-------------- "+length+" ----- "+b.length);
+			for(int len = sourceS.read(b); len>=0; len = sourceS.read(b))
+				targetS.write(b, 0, len);
+		}
+		finally
+		{
+			if(sourceS!=null)
+				sourceS.close();
+			if(targetS!=null)
+				targetS.close();
+		}
+	}
+	
 	/**
 	 * Provides data for this persistent data attribute.
 	 * @param data give null to remove data.
@@ -172,39 +195,17 @@ public final class DataAttribute extends Attribute
 	public final void set(final Item item, final File data)
 	throws MandatoryViolationException, IOException
 	{
-		InputStream in = null;
-		OutputStream out = null;
-		try
-		{
-			final File file = getPrivateStorageFile(item);
+		final File file = getPrivateStorageFile(item);
 
-			if(data!=null)
-			{
-				in = new FileInputStream(data);
-				out = new FileOutputStream(file);
-				final long length = data.length();
-				final byte[] b = new byte[Math.min(1024*1024, (int)Math.min((long)Integer.MAX_VALUE, length))];
-				//System.out.println("-------------- "+length+" ----- "+b.length);
-				for(int len = in.read(b); len>=0; len = in.read(b))
-					out.write(b, 0, len);
-				out.close();
-				in.close();
-			}
-			else
-			{
-				if(file.exists())
-				{
-					if(!file.delete())
-						throw new RuntimeException("deleting "+file+" failed.");
-				}
-			}
-		}
-		finally
+		if(data!=null)
+			copy(data, file);
+		else
 		{
-			if(in!=null)
-				in.close();
-			if(out!=null)
-				out.close();
+			if(file.exists())
+			{
+				if(!file.delete())
+					throw new RuntimeException("deleting "+file+" failed.");
+			}
 		}
 	}
 	
