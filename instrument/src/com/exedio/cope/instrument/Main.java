@@ -28,7 +28,6 @@ import java.io.PrintStream;
 import java.io.Reader;
 import java.io.Writer;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.zip.CRC32;
 import java.util.zip.CheckedInputStream;
@@ -111,12 +110,6 @@ public final class Main
 		}
 	}
 	
-	static void expand(Collection files, String pattern)
-	throws IOException
-	{
-		files.add(pattern);
-	}
-	
 	public static void main(final String[] args)
 	{
 		try
@@ -164,7 +157,7 @@ public final class Main
 	private void processParameter() throws IOException, IllegalParameterException
 	{
 		for(; i<args.length; i++)
-			expand(sourcefiles, args[i]);
+			sourcefiles.add(args[i]);
 	}
 	
 	final void run(final File dir, final String[] args, final boolean verbose) throws IllegalParameterException, InjectorParseException, IOException
