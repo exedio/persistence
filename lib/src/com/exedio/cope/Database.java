@@ -894,7 +894,6 @@ abstract class Database
 		java.sql.Statement sqlStatement = null;
 		try
 		{
-			// TODO: use prepared statements and reuse the statement.
 			final String sqlText = statement.getText();
 			final long logStart = log ? System.currentTimeMillis() : 0;
 			final int rows;
