@@ -18,6 +18,7 @@
 
 package com.exedio.cope.instrument;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -52,17 +53,27 @@ public final class AntTask extends Task
 	{
 		try
 		{
+			final ArrayList sourcefiles = new ArrayList();
+			
 			for(final Iterator i = fileSets.iterator(); i.hasNext(); )
 			{
 				final FileSet fileSet = (FileSet)i.next();
 				final DirectoryScanner directoryScanner = fileSet.getDirectoryScanner(getProject());
-				(new Main()).run(fileSet.getDir(getProject()), directoryScanner.getIncludedFiles(), verbose);
+				final File dir = fileSet.getDir(getProject());
+				final String[] fileNames = directoryScanner.getIncludedFiles();
+				for(int j = 0; j<fileNames.length; j++)
+					sourcefiles.add(new File(dir, fileNames[j]));
 			}
 			for(final Iterator i = fileLists.iterator(); i.hasNext(); )
 			{
 				final FileList fileList = (FileList)i.next();
-				(new Main()).run(fileList.getDir(getProject()), fileList.getFiles(getProject()), verbose);
+				final File dir = fileList.getDir(getProject());
+				final String[] fileNames = fileList.getFiles(getProject());
+				for(int j = 0; j<fileNames.length; j++)
+					sourcefiles.add(new File(dir, fileNames[j]));
 			}
+
+			(new Main()).run(sourcefiles, verbose);
 		}
 		catch(Exception e)
 		{
