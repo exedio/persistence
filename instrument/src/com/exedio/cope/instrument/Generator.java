@@ -18,6 +18,7 @@
 
 package com.exedio.cope.instrument;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Writer;
@@ -32,8 +33,8 @@ import java.util.TreeSet;
 
 import com.exedio.cope.AttributeValue;
 import com.exedio.cope.LengthViolationException;
-import com.exedio.cope.NestingRuntimeException;
 import com.exedio.cope.MandatoryViolationException;
+import com.exedio.cope.NestingRuntimeException;
 import com.exedio.cope.ReadOnlyViolationException;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueViolationException;
@@ -600,6 +601,7 @@ final class Generator
 		if(media.setterOption.exists)
 		{
 			writeDataSetterMethod(media, InputStream.class);
+			writeDataSetterMethod(media, File.class);
 		}
 	}
 	

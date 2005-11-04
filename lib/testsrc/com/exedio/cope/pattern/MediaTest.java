@@ -228,7 +228,7 @@ public class MediaTest extends TestmodelTest
 		//System.out.println(item.getImageURL());
 		assertTrue(item.getImageURL().endsWith(".jpg"));
 
-		item.setImage(null, null);
+		item.setImage((InputStream)null, null);
 		assertTrue(item.isImageNull());
 		assertEquals(null, item.getImageData());
 		assertEquals(-1, item.getImageLength());
@@ -283,7 +283,7 @@ public class MediaTest extends TestmodelTest
 		//System.out.println(item.getPhotoURL());
 		assertTrue(item.getPhotoURL().endsWith(".jpg"));
 
-		item.setPhoto(null);
+		item.setPhoto((InputStream)null);
 		assertTrue(item.isPhotoNull());
 		assertEquals(null, item.getPhotoData());
 		assertEquals(-1, item.getPhotoLength());

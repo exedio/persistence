@@ -18,6 +18,7 @@
 
 package com.exedio.cope.instrument;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Constructor;
@@ -132,6 +133,7 @@ public class GeneratorTest extends InstrumentorTest
 		assertMethod(standard, "getAnyMediaContentType", String.class, PUBLIC|FINAL);
 		assertMethod(standard, "getAnyMediaData", InputStream.class, PUBLIC|FINAL);
 		assertMethod(standard, "setAnyMedia", new Class[]{InputStream.class, String.class, String.class}, PUBLIC|FINAL, new Class[]{IOException.class});
+		assertMethod(standard, "setAnyMedia", new Class[]{File.class, String.class, String.class}, PUBLIC|FINAL, new Class[]{IOException.class});
 
 		assertMethod(standard, "isMajorMediaNull", boolean.class, FINAL);
 		assertMethod(standard, "getMajorMediaURL", String.class, FINAL);
@@ -140,6 +142,7 @@ public class GeneratorTest extends InstrumentorTest
 		assertMethod(standard, "getMajorMediaContentType", String.class, FINAL);
 		assertMethod(standard, "getMajorMediaData", InputStream.class, FINAL);
 		assertMethod(standard, "setMajorMedia", new Class[]{InputStream.class, String.class}, FINAL, new Class[]{IOException.class});
+		assertMethod(standard, "setMajorMedia", new Class[]{File.class, String.class}, FINAL, new Class[]{IOException.class});
 
 		assertMethod(standard, "isMinorMediaNull", boolean.class, PROTECTED|FINAL);
 		assertMethod(standard, "getMinorMediaURL", String.class, PROTECTED|FINAL);
@@ -148,6 +151,7 @@ public class GeneratorTest extends InstrumentorTest
 		assertMethod(standard, "getMinorMediaContentType", String.class, PROTECTED|FINAL);
 		assertMethod(standard, "getMinorMediaData", InputStream.class, PROTECTED|FINAL);
 		assertMethod(standard, "setMinorMedia", new Class[]{InputStream.class}, PROTECTED|FINAL, new Class[]{IOException.class});
+		assertMethod(standard, "setMinorMedia", new Class[]{File.class}, PROTECTED|FINAL, new Class[]{IOException.class});
 
 		assertMethod(standard, "isNoSetterMediaNull", boolean.class, PUBLIC|FINAL);
 		assertMethod(standard, "getNoSetterMediaURL", String.class, PUBLIC|FINAL);
@@ -156,6 +160,7 @@ public class GeneratorTest extends InstrumentorTest
 		assertMethod(standard, "getNoSetterMediaContentType", String.class, PUBLIC|FINAL);
 		assertMethod(standard, "getNoSetterMediaData", InputStream.class, PUBLIC|FINAL);
 		assertNoMethod(standard, "setNoSetterMedia", new Class[]{InputStream.class,String.class,String.class});
+		assertNoMethod(standard, "setNoSetterMedia", new Class[]{File.class,String.class,String.class});
 
 		assertMethod(standard, "isPrivateSetterMediaNull", boolean.class, PUBLIC|FINAL);
 		assertMethod(standard, "getPrivateSetterMediaURL", String.class, PUBLIC|FINAL);
@@ -164,6 +169,7 @@ public class GeneratorTest extends InstrumentorTest
 		assertMethod(standard, "getPrivateSetterMediaContentType", String.class, PUBLIC|FINAL);
 		assertMethod(standard, "getPrivateSetterMediaData", InputStream.class, PUBLIC|FINAL);
 		assertMethod(standard, "setPrivateSetterMedia", new Class[]{InputStream.class,String.class,String.class}, PRIVATE|FINAL, new Class[]{IOException.class});
+		assertMethod(standard, "setPrivateSetterMedia", new Class[]{File.class,String.class,String.class}, PRIVATE|FINAL, new Class[]{IOException.class});
 
 		assertMethod(standard, "checkPublicHash", new Class[]{String.class}, Boolean.TYPE, PUBLIC|FINAL);
 		assertMethod(standard, "checkPrivateHash", new Class[]{String.class}, Boolean.TYPE, PRIVATE|FINAL);
