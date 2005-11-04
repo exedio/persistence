@@ -40,7 +40,7 @@ public final class Statement
 		this.database = database;
 		this.parameters = prepare ? new ArrayList() : null;
 		this.qualifyTable = qualifyTable;
-		columnTypes = useDefineColumnTypes ? new IntArrayList() : null;
+		this.columnTypes = useDefineColumnTypes ? new IntArrayList() : null;
 	}
 
 	public Statement append(final String text)
