@@ -185,15 +185,15 @@ abstract class Database
 					append('=');
 
 				if(column instanceof IntegerColumn)
-					bf.appendValue(column, ((IntegerColumn)column).longInsteadOfInt ? (Number)new Long(1) : new Integer(1));
+					bf.appendParameter(column, ((IntegerColumn)column).longInsteadOfInt ? (Number)new Long(1) : new Integer(1));
 				else if(column instanceof DoubleColumn)
-					bf.appendValue(column, new Double(2.2));
+					bf.appendParameter(column, new Double(2.2));
 				else if(column instanceof StringColumn)
-					bf.appendValue(column, "z");
+					bf.appendParameter(column, "z");
 				else if(column instanceof TimestampColumn)
-					bf.appendValue(column, testDate);
+					bf.appendParameter(column, testDate);
 				else if(column instanceof DayColumn)
-					bf.appendValue(column, testDay);
+					bf.appendParameter(column, testDay);
 				else
 					throw new RuntimeException(column.toString());
 			}
@@ -684,7 +684,7 @@ abstract class Database
 				final Column column = (Column)i.next();
 				bf.append(column.protectedID).
 					append('=').
-					appendValue(column, state.store(column));
+					appendParameter(column, state.store(column));
 			}
 			bf.append(" where ").
 				append(table.getPrimaryKey().protectedID).
@@ -725,7 +725,7 @@ abstract class Database
 			{
 				final Column column = (Column)i.next();
 				bf.append(',').
-				   appendValue(column, state.store(column));
+				   appendParameter(column, state.store(column));
 			}
 			bf.append(')');
 		}

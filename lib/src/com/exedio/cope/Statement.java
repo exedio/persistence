@@ -93,14 +93,14 @@ public final class Statement
 		else
 		{
 			final ObjectAttribute attribute = (ObjectAttribute)function;
-			appendValue(attribute.getColumn(), attribute.surfaceToCache(value));
+			appendParameter(attribute.getColumn(), attribute.surfaceToCache(value));
 		}
 		return this;
 	}
 	
 	private static final char QUESTION_MARK = '?';
 	
-	public Statement appendValue(final Column column, final Object value)
+	public Statement appendParameter(final Column column, final Object value)
 	{
 		if(params==null)
 			this.text.append(column.cacheToDatabase(value));
