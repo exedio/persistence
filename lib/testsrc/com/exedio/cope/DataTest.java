@@ -140,23 +140,23 @@ public class DataTest extends AbstractLibTest
 		assertEqualContent(expectedData, tempFile);
 	}
 	
-	private static final void assertEqualContent(final byte[] expectedData, final File tempFile) throws IOException
+	private static final void assertEqualContent(final byte[] expectedData, final File actualFile) throws IOException
 	{
 		if(expectedData==null)
-			assertFalse(tempFile.exists());
+			assertFalse(actualFile.exists());
 		else
 		{
-			assertTrue(tempFile.exists());
-			assertEquals(expectedData.length, tempFile.length());
+			assertTrue(actualFile.exists());
+			assertEquals(expectedData.length, actualFile.length());
 
 			final byte[] actualData = new byte[20];
-			FileInputStream in = new FileInputStream(tempFile);
+			FileInputStream in = new FileInputStream(actualFile);
 			in.read(actualData);
 			
 			for(int i = 0; i<expectedData.length; i++)
 				assertEquals(expectedData[i], actualData[i]);
 			
-			assertTrue(tempFile.delete());
+			assertTrue(actualFile.delete());
 		}
 	}
 
