@@ -263,16 +263,9 @@
 				<exclude name="*Qualifier.java" />
 				<exclude name="AttributeEmptyItem.java" />
 			</fileset>
-			<filelist dir="lib/testsrc/com/exedio/cope" files="
-				DayItem.java,
-				DataItem.java,
-				DeleteItem.java,
-				DeleteOtherItem.java,
-				NameLongNameLongNameLongNameLongNameLongNameLongItem.java,
-				NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem.java,
-				NameCollisionlooooooooooooooooooooooooooooooooooooooooongbItem.java,
-				MatchItem.java,
-				CacheIsolationItem.java" />
+			<fileset dir="lib/testsrc/com/exedio/cope">
+				<include name="**/*Item.java" />
+			</fileset>
 		</instrument>
 	</target>
 	
