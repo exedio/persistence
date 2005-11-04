@@ -28,7 +28,7 @@ public final class Statement
 {
 	private final Database database;
 	final StringBuffer text = new StringBuffer();
-	final ArrayList params;
+	final ArrayList parameters;
 	final boolean qualifyTable;
 	final IntArrayList columnTypes;
 		
@@ -38,7 +38,7 @@ public final class Statement
 			throw new NullPointerException();
 
 		this.database = database;
-		params = prepare ? new ArrayList() : null;
+		this.parameters = prepare ? new ArrayList() : null;
 		this.qualifyTable = qualifyTable;
 		columnTypes = useDefineColumnTypes ? new IntArrayList() : null;
 	}
@@ -85,7 +85,7 @@ public final class Statement
 		if(function instanceof ComputedFunction)
 		{
 			final ComputedFunction computedFunction = ((ComputedFunction)function);
-			if(params==null)
+			if(parameters==null)
 				this.text.append(computedFunction.surface2Database(value));
 			else
 				computedFunction.surface2DatabasePrepared(this, value);
@@ -102,48 +102,48 @@ public final class Statement
 	
 	public Statement appendParameter(final Column column, final Object value)
 	{
-		if(params==null)
+		if(parameters==null)
 			this.text.append(column.cacheToDatabase(value));
 		else
 		{
 			this.text.append(QUESTION_MARK);
-			this.params.add(column.cacheToDatabasePrepared(value));
+			this.parameters.add(column.cacheToDatabasePrepared(value));
 		}
 		return this;
 	}
 	
 	public Statement appendParameter(final int value)
 	{
-		if(params==null)
+		if(parameters==null)
 			this.text.append(Integer.toString(value));
 		else
 		{
 			this.text.append(QUESTION_MARK);
-			this.params.add(new Integer(value));
+			this.parameters.add(new Integer(value));
 		}
 		return this;
 	}
 	
 	public Statement appendParameter(final String value)
 	{
-		if(params==null)
+		if(parameters==null)
 			this.text.append('\'').append(value).append('\'');
 		else
 		{
 			this.text.append(QUESTION_MARK);
-			this.params.add(value);
+			this.parameters.add(value);
 		}
 		return this;
 	}
 	
 	public Statement appendParameters(final Statement other)
 	{
-		if(params==null)
+		if(parameters==null)
 			throw new RuntimeException();
-		if(other.params==null)
+		if(other.parameters==null)
 			throw new RuntimeException();
 
-		params.addAll(other.params);
+		parameters.addAll(other.parameters);
 		
 		return this;
 	}

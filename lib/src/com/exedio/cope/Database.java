@@ -814,7 +814,7 @@ abstract class Database
 				final PreparedStatement prepared = connection.prepareStatement(sqlText);
 				sqlStatement = prepared;
 				int parameterIndex = 1;
-				for(Iterator i = statement.params.iterator(); i.hasNext(); parameterIndex++)
+				for(Iterator i = statement.parameters.iterator(); i.hasNext(); parameterIndex++)
 					setObject(sqlText, prepared, parameterIndex, i.next());
 
 				if(useDefineColumnTypes)
@@ -908,7 +908,7 @@ abstract class Database
 				final PreparedStatement prepared = connection.prepareStatement(sqlText);
 				sqlStatement = prepared;
 				int parameterIndex = 1;
-				for(Iterator i = statement.params.iterator(); i.hasNext(); parameterIndex++)
+				for(Iterator i = statement.parameters.iterator(); i.hasNext(); parameterIndex++)
 					setObject(sqlText, prepared, parameterIndex, i.next());
 				rows = prepared.executeUpdate();
 			}
