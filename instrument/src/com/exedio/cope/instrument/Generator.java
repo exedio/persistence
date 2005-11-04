@@ -77,6 +77,8 @@ final class Generator
 	private static final String GETTER_MEDIA_LENGTH_TYPE = "Returns the data length of the media {0}.";
 	private static final String GETTER_MEDIA_LASTMODIFIED_TYPE = "Returns the last modification date of the media {0}.";
 	private static final String GETTER_MEDIA_DATA  = "Returns the data of the media {0}.";
+	private static final String GETTER_MEDIA_DATA_FILE = "Reads data of media {0}, and writes it into the given file.";
+	private static final String GETTER_MEDIA_DATA_FILE2 = "Does nothing, if there is no data for the media.";
 	private static final String GETTER_STREAM_WARNING  = "<b>You are responsible for closing the stream, when you are finished!</b>";
 	private static final String TOUCHER = "Sets the current date for the date attribute {0}.";
 	private static final String FINDER_UNIQUE = "Finds a {0} by it''s unique attributes.";
@@ -601,6 +603,40 @@ final class Generator
 		writeDataGetterMethod(media, long.class,        "LastModified",GETTER_MEDIA_LASTMODIFIED_TYPE, getterModifier);
 		writeDataGetterMethod(media, InputStream.class, "Data",        GETTER_MEDIA_DATA,         getterModifier);
 		
+		// file getter
+		{
+			writeCommentHeader();
+			o.write("\t * ");
+			o.write(format(GETTER_MEDIA_DATA_FILE, link(media.getName())));
+			o.write(lineSeparator);
+			o.write("\t * ");
+			o.write(GETTER_MEDIA_DATA_FILE2);
+			o.write(lineSeparator);
+			o.write("\t * @throws ");
+			o.write(IOException.class.getName());
+			o.write(' ');
+			o.write(format(SETTER_MEDIA_IOEXCEPTION, "<code>data</code>"));
+			o.write(lineSeparator);
+			writeCommentFooter();
+			o.write(Modifier.toString(media.getGeneratedGetterModifier()|Modifier.FINAL));
+			o.write(" void get");
+			o.write(toCamelCase(media.getName()));
+			o.write("Data(final " + File.class.getName() + " data)");
+			o.write(lineSeparator);
+			final SortedSet setterExceptions = new TreeSet();
+			setterExceptions.addAll(Arrays.asList(new Class[]{IOException.class})); // TODO
+			writeThrowsClause(setterExceptions);
+			o.write("\t{");
+			o.write(lineSeparator);
+			o.write("\t\t");
+			o.write(media.copeClass.getName());
+			o.write('.');
+			o.write(media.getName());
+			o.write(".getData(this,data);");
+			o.write(lineSeparator);
+			o.write("\t}");
+		}
+
 		// setters
 		if(media.setterOption.exists)
 		{
