@@ -167,12 +167,12 @@ public final class DataAttribute extends Attribute
 	
 	private static final void copy(final File source, final File target) throws IOException
 	{
-		InputStream sourceS = null;
-		OutputStream targetS = null;
-		try
+		final long length = source.length();
+		if(length>0)
 		{
-			final long length = source.length();
-			if(length>0)
+			InputStream sourceS = null;
+			OutputStream targetS = null;
+			try
 			{
 				sourceS = new FileInputStream(source);
 				targetS = new FileOutputStream(target);
@@ -181,22 +181,22 @@ public final class DataAttribute extends Attribute
 				for(int len = sourceS.read(b); len>=0; len = sourceS.read(b))
 					targetS.write(b, 0, len);
 			}
-			else if(length==0)
+			finally
 			{
-				// TODO make this more efficient, if file does not exist or is already empty
-				target.delete();
-				target.createNewFile();
+				if(sourceS!=null)
+					sourceS.close();
+				if(targetS!=null)
+					targetS.close();
 			}
-			else
-				throw new RuntimeException(String.valueOf(length));
 		}
-		finally
+		else if(length==0)
 		{
-			if(sourceS!=null)
-				sourceS.close();
-			if(targetS!=null)
-				targetS.close();
+			// TODO make this more efficient, if file does not exist or is already empty
+			target.delete();
+			target.createNewFile();
 		}
+		else
+			throw new RuntimeException(String.valueOf(length));
 	}
 	
 	/**
