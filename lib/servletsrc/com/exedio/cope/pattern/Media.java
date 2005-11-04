@@ -262,7 +262,7 @@ public final class Media extends MediaPath
 		if(isNull(item))
 			return -1;
 		
-		final long result = data.getDataLength(item);
+		final long result = data.getLength(item);
 		if(result<0)
 			throw newNoDataException(item);
 

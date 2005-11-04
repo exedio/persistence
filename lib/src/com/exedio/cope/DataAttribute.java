@@ -100,7 +100,7 @@ public final class DataAttribute extends Attribute
 	 * Returns the length of the data of this persistent data attribute.
 	 * Returns -1, if there is no data for this attribute.
 	 */
-	public final long getDataLength(final Item item)
+	public final long getLength(final Item item)
 	{
 		final File file = getPrivateStorageFile(item);
 
