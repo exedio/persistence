@@ -30,18 +30,17 @@ import org.apache.tools.ant.types.FileSet;
 
 public final class AntTask extends Task
 {
-	private final ArrayList fileSets = new ArrayList();
-	private final ArrayList fileLists = new ArrayList();
+	private final ArrayList fileSetsOrLists = new ArrayList();
 	private boolean verbose = true;
 
 	public void addFileset(final FileSet fileSet)
 	{
-		fileSets.add(fileSet);
+		fileSetsOrLists.add(fileSet);
 	}
 
 	public void addFilelist(final FileList fileList)
 	{
-		fileLists.add(fileList);
+		fileSetsOrLists.add(fileList);
 	}
 	
 	public void setVerbose(final boolean verbose)
@@ -55,20 +54,25 @@ public final class AntTask extends Task
 		{
 			final ArrayList sourcefiles = new ArrayList();
 			
-			for(final Iterator i = fileSets.iterator(); i.hasNext(); )
+			for(final Iterator i = fileSetsOrLists.iterator(); i.hasNext(); )
 			{
-				final FileSet fileSet = (FileSet)i.next();
-				final DirectoryScanner directoryScanner = fileSet.getDirectoryScanner(getProject());
-				final File dir = fileSet.getDir(getProject());
-				final String[] fileNames = directoryScanner.getIncludedFiles();
-				for(int j = 0; j<fileNames.length; j++)
-					sourcefiles.add(new File(dir, fileNames[j]));
-			}
-			for(final Iterator i = fileLists.iterator(); i.hasNext(); )
-			{
-				final FileList fileList = (FileList)i.next();
-				final File dir = fileList.getDir(getProject());
-				final String[] fileNames = fileList.getFiles(getProject());
+				final Object fileSetOrList = i.next();
+				final File dir;
+				final String[] fileNames;
+				
+				if(fileSetOrList instanceof FileSet)
+				{
+					final FileSet fileSet = (FileSet)fileSetOrList;
+					final DirectoryScanner directoryScanner = fileSet.getDirectoryScanner(getProject());
+					dir = fileSet.getDir(getProject());
+					fileNames = directoryScanner.getIncludedFiles();
+				}
+				else
+				{
+					final FileList fileList = (FileList)fileSetOrList;
+					dir = fileList.getDir(getProject());
+					fileNames = fileList.getFiles(getProject());
+				}
 				for(int j = 0; j<fileNames.length; j++)
 					sourcefiles.add(new File(dir, fileNames[j]));
 			}
