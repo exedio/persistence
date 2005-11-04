@@ -366,12 +366,13 @@
 
 	<target name="instrument.test.instrument" depends="instrument.taskdef">
 		<instrument verbose="false">
-			<filelist dir="instrument/testsrc/com/exedio/cope/instrument/testmodel" files="
-				Standard.java,
-				TypePrivate.java,
-				TypeNone.java,
-				QualifiedName.java,
-				Qualified.java" />
+			<fileset dir="instrument/testsrc/com/exedio/cope/instrument/testmodel">
+				<include name="QualifiedName.java" />
+			</fileset>
+			<fileset dir="instrument/testsrc/com/exedio/cope/instrument/testmodel">
+				<include name="*.java" />
+				<exclude name="QualifiedName.java" />
+			</fileset>
 		</instrument>
 	</target>
 	
