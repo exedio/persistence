@@ -24,6 +24,7 @@ import java.util.Iterator;
 
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.DirectoryScanner;
+import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Task;
 import org.apache.tools.ant.types.FileList;
 import org.apache.tools.ant.types.FileSet;
@@ -52,6 +53,7 @@ public final class AntTask extends Task
 	{
 		try
 		{
+			final Project project = getProject();
 			final ArrayList sourcefiles = new ArrayList();
 			
 			for(final Iterator i = fileSetsOrLists.iterator(); i.hasNext(); )
@@ -63,15 +65,15 @@ public final class AntTask extends Task
 				if(fileSetOrList instanceof FileSet)
 				{
 					final FileSet fileSet = (FileSet)fileSetOrList;
-					final DirectoryScanner directoryScanner = fileSet.getDirectoryScanner(getProject());
-					dir = fileSet.getDir(getProject());
+					final DirectoryScanner directoryScanner = fileSet.getDirectoryScanner(project);
+					dir = fileSet.getDir(project);
 					fileNames = directoryScanner.getIncludedFiles();
 				}
 				else
 				{
 					final FileList fileList = (FileList)fileSetOrList;
-					dir = fileList.getDir(getProject());
-					fileNames = fileList.getFiles(getProject());
+					dir = fileList.getDir(project);
+					fileNames = fileList.getFiles(project);
 				}
 				for(int j = 0; j<fileNames.length; j++)
 					sourcefiles.add(new File(dir, fileNames[j]));
