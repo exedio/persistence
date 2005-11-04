@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import org.apache.tools.ant.BuildException;
-import org.apache.tools.ant.DirectoryScanner;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Task;
 import org.apache.tools.ant.types.FileList;
@@ -65,9 +64,8 @@ public final class AntTask extends Task
 				if(fileSetOrList instanceof FileSet)
 				{
 					final FileSet fileSet = (FileSet)fileSetOrList;
-					final DirectoryScanner directoryScanner = fileSet.getDirectoryScanner(project);
 					dir = fileSet.getDir(project);
-					fileNames = directoryScanner.getIncludedFiles();
+					fileNames = fileSet.getDirectoryScanner(project).getIncludedFiles();
 				}
 				else
 				{
