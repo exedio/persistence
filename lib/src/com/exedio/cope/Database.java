@@ -1151,7 +1151,7 @@ abstract class Database
 	{
 		bf.append(function, (Join)null).
 			append(" like ").
-			appendValue(function, '%'+value+'%');
+			appendParameter(function, '%'+value+'%');
 	}
 	
 	private int countTable(final Connection connection, final Table table)

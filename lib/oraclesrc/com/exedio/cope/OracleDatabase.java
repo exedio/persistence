@@ -128,7 +128,7 @@ final class OracleDatabase
 		bf.append("(contains(").
 			append(function, (Join)null).
 			append(',').
-			appendValue(function, value).
+			appendParameter(function, value).
 			append(")>0)");
 	}
 	

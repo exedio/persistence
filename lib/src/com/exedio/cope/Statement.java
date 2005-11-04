@@ -80,7 +80,7 @@ public final class Statement
 		return this;
 	}
 		
-	public Statement appendValue(final Function function, final Object value)
+	public Statement appendParameter(final Function function, final Object value)
 	{
 		if(function instanceof ComputedFunction)
 		{

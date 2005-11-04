@@ -135,7 +135,7 @@ public final class MysqlDatabase extends Database
 		bf.append("(match(").
 			append(function, (Join)null).
 			append(")against(").
-			appendValue(function, value).
+			appendParameter(function, value).
 			append("))");
 	}
 	

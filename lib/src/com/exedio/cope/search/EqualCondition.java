@@ -75,7 +75,7 @@ public final class EqualCondition extends Condition
 		bf.append(function, join);
 		if(value!=null)
 			bf.append('=').
-				appendValue(function, value);
+				appendParameter(function, value);
 		else
 			bf.append(" is null");
 	}

@@ -48,7 +48,7 @@ public abstract class LiteralCondition extends Condition
 		bf.append(attribute, (Join)null);
 		if(value!=null)
 			bf.append(operator).
-				appendValue(attribute, value);
+				appendParameter(attribute, value);
 		else
 			bf.append(" is null");
 	}

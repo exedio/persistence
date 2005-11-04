@@ -78,7 +78,7 @@ public final class NotEqualCondition extends Condition
 			bf.append("(").
 				append(function, (Join)null).
 				append("<>").
-				appendValue(function, value).
+				appendParameter(function, value).
 				append(" or ").
 				append(function, (Join)null).
 				append(" is null)");

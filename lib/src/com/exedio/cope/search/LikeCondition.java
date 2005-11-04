@@ -52,7 +52,7 @@ public final class LikeCondition extends Condition
 	{
 		bf.append(function, (Join)null).
 			append(" like ").
-			appendValue(function, value);
+			appendParameter(function, value);
 	}
 
 	public final void check(final Query query)
