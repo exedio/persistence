@@ -45,6 +45,12 @@ public class DataItem extends Item
 		return data.getLastModified(this);
 	}
 	
+	public void getData(final File data) // TODO generate this
+	throws IOException
+	{
+		DataItem.data.get(this, data);
+	}
+	
 	public void setData(final File data) // TODO generate this
 	throws IOException
 	{

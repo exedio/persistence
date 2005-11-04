@@ -162,6 +162,9 @@ public final class DataAttribute extends Attribute
 		}
 	}
 	
+
+	// access by file -----------------------------------
+	
 	private static final void copy(final File source, final File target) throws IOException
 	{
 		InputStream sourceS = null;
@@ -169,12 +172,23 @@ public final class DataAttribute extends Attribute
 		try
 		{
 			final long length = source.length();
-			sourceS = new FileInputStream(source);
-			targetS = new FileOutputStream(target);
-			final byte[] b = new byte[Math.min(1024*1024, (int)Math.min((long)Integer.MAX_VALUE, length))];
-			//System.out.println("-------------- "+length+" ----- "+b.length);
-			for(int len = sourceS.read(b); len>=0; len = sourceS.read(b))
-				targetS.write(b, 0, len);
+			if(length>0)
+			{
+				sourceS = new FileInputStream(source);
+				targetS = new FileOutputStream(target);
+				final byte[] b = new byte[Math.min(1024*1024, (int)Math.min((long)Integer.MAX_VALUE, length))];
+				//System.out.println("-------------- "+length+" ----- "+b.length);
+				for(int len = sourceS.read(b); len>=0; len = sourceS.read(b))
+					targetS.write(b, 0, len);
+			}
+			else if(length==0)
+			{
+				// TODO make this more efficient, if file does not exist or is already empty
+				target.delete();
+				target.createNewFile();
+			}
+			else
+				throw new RuntimeException(String.valueOf(length));
 		}
 		finally
 		{
@@ -183,6 +197,24 @@ public final class DataAttribute extends Attribute
 			if(targetS!=null)
 				targetS.close();
 		}
+	}
+	
+	/**
+	 * Reads data for this persistent data attribute
+	 * and writes it into the given file.
+	 * Does nothing, if there is no data for this attribute.
+	 * @throws NullPointerException
+	 *         if data is null.
+	 * @throws IOException if writing data throws an IOException.
+	 */
+	public final void get(final Item item, final File data) throws IOException
+	{
+		if(data==null)
+			throw new NullPointerException();
+		
+		final File file = getPrivateStorageFile(item);
+		if(file.exists())
+			copy(file, data);
 	}
 	
 	/**

@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
@@ -46,6 +47,7 @@ public class DataTest extends AbstractLibTest
 	{
 		assertTrue(item.isDataNull());
 		assertEquals(null, item.getData());
+		assertDataFile(null);
 		assertEquals(-1, item.getDataLength());
 		assertEquals(-1, item.getDataLastModified());
 
@@ -56,6 +58,7 @@ public class DataTest extends AbstractLibTest
 			final Date after = new Date();
 			assertTrue(!item.isDataNull());
 			assertData(data, item.getData());
+			assertDataFile(data);
 			assertEquals(data.length, item.getDataLength());
 			assertWithinFileLastModified(before, after, new Date(item.getDataLastModified()));
 		}
@@ -66,6 +69,7 @@ public class DataTest extends AbstractLibTest
 			final Date after = new Date();
 			assertTrue(!item.isDataNull());
 			assertData(data2, item.getData());
+			assertDataFile(data2);
 			assertEquals(data2.length, item.getDataLength());
 			assertWithinFileLastModified(before, after, new Date(item.getDataLastModified()));
 		}
@@ -76,6 +80,7 @@ public class DataTest extends AbstractLibTest
 			final Date after = new Date();
 			assertTrue(!item.isDataNull());
 			assertData(dataEmpty, item.getData());
+			assertDataFile(dataEmpty);
 			assertEquals(0, item.getDataLength());
 			assertWithinFileLastModified(before, after, new Date(item.getDataLastModified()));
 		}
@@ -84,6 +89,7 @@ public class DataTest extends AbstractLibTest
 		assertEquals(-1, item.getDataLength());
 		assertEquals(-1, item.getDataLastModified());
 		assertEquals(null, item.getData());
+		assertDataFile(null);
 		{
 			sleepForFileLastModified();
 			final Date before = new Date();
@@ -91,6 +97,7 @@ public class DataTest extends AbstractLibTest
 			final Date after = new Date();
 			assertTrue(!item.isDataNull());
 			assertData(dataFile, item.getData());
+			assertDataFile(dataFile);
 			assertEquals(dataFile.length, item.getDataLength());
 			assertWithinFileLastModified(before, after, new Date(item.getDataLastModified()));
 		}
@@ -99,6 +106,42 @@ public class DataTest extends AbstractLibTest
 		assertEquals(-1, item.getDataLength());
 		assertEquals(-1, item.getDataLastModified());
 		assertEquals(null, item.getData());
+		assertDataFile(null);
+		
+		try
+		{
+			item.getData(null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
+	}
+	
+	private final void assertDataFile(final byte[] expectedData) throws IOException
+	{
+		final File tempFile = File.createTempFile("cope-DataTest.", ".tmp");
+		assertTrue(tempFile.delete());
+		assertFalse(tempFile.exists());
+		
+		item.getData(tempFile);
+		if(expectedData==null)
+			assertFalse(tempFile.exists());
+		else
+		{
+			assertTrue(tempFile.exists());
+			assertEquals(expectedData.length, tempFile.length());
+
+			final byte[] actualData = new byte[20];
+			FileInputStream in = new FileInputStream(tempFile);
+			in.read(actualData);
+			
+			for(int i = 0; i<expectedData.length; i++)
+				assertEquals(expectedData[i], actualData[i]);
+			
+			assertTrue(tempFile.delete());
+		}
 	}
 
 }
