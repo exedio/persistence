@@ -112,7 +112,7 @@ public final class DataAttribute extends Attribute
 	 * of the data of this persistent data attribute.
 	 * Returns -1, if there is no data for this attribute.
 	 */
-	public final long getDataLastModified(final Item item)
+	public final long getLastModified(final Item item)
 	{
 		final File file = getPrivateStorageFile(item);
 

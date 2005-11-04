@@ -279,7 +279,7 @@ public final class Media extends MediaPath
 		if(isNull(item))
 			return -1;
 
-		final long result = data.getDataLastModified(item);
+		final long result = data.getLastModified(item);
 		if(result<=0)
 			throw newNoDataException(item);
 
