@@ -149,23 +149,16 @@ public final class Main
 		o.println(" tobemodified1.java ...");
 	}
 	
-	private int i;
 	private String[] args;
 	
 	private ArrayList sourcefiles=new ArrayList();
-	
-	private void processParameter() throws IOException, IllegalParameterException
-	{
-		for(; i<args.length; i++)
-			sourcefiles.add(args[i]);
-	}
 	
 	final void run(final File dir, final String[] args, final boolean verbose) throws IllegalParameterException, InjectorParseException, IOException
 	{
 		this.args = args;
 		
-		for(i=0; i<args.length; i++)
-			processParameter();
+		for(int i=0; i<args.length; i++)
+			sourcefiles.add(args[i]);
 		
 		if(sourcefiles.isEmpty())
 			throw new IllegalParameterException("nothing to do.");
