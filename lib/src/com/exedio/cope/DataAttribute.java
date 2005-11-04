@@ -63,7 +63,7 @@ public final class DataAttribute extends Attribute
 	
 	// public methods ---------------------------------------------------------------
 	
-	private final void appendDataPath(final Item item, final StringBuffer bf)
+	private final void appendPath(final Item item, final StringBuffer bf)
 	{
 		bf.append(filePath).
 			append(item.type.getPkSource().pk2id(item.pk));
@@ -73,7 +73,7 @@ public final class DataAttribute extends Attribute
 	{
 		final File directory = item.type.getModel().getProperties().getDatadirPath();
 		final StringBuffer buf = new StringBuffer();
-		appendDataPath(item, buf);
+		appendPath(item, buf);
 		return new File(directory, buf.toString());
 	}
 	
