@@ -19,7 +19,6 @@
 package com.exedio.cope;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
@@ -140,24 +139,4 @@ public class DataTest extends AbstractLibTest
 		assertEqualContent(expectedData, tempFile);
 	}
 	
-	private static final void assertEqualContent(final byte[] expectedData, final File actualFile) throws IOException
-	{
-		if(expectedData==null)
-			assertFalse(actualFile.exists());
-		else
-		{
-			assertTrue(actualFile.exists());
-			assertEquals(expectedData.length, actualFile.length());
-
-			final byte[] actualData = new byte[20];
-			FileInputStream in = new FileInputStream(actualFile);
-			in.read(actualData);
-			
-			for(int i = 0; i<expectedData.length; i++)
-				assertEquals(expectedData[i], actualData[i]);
-			
-			assertTrue(actualFile.delete());
-		}
-	}
-
 }
