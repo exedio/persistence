@@ -137,6 +137,11 @@ public class DataTest extends AbstractLibTest
 		assertFalse(tempFile.exists());
 		
 		item.getData(tempFile);
+		assertEqualContent(expectedData, tempFile);
+	}
+	
+	private static final void assertEqualContent(final byte[] expectedData, final File tempFile) throws IOException
+	{
 		if(expectedData==null)
 			assertFalse(tempFile.exists());
 		else
