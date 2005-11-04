@@ -54,6 +54,24 @@ public class MediaItem extends Item
 	}
 	
 	 // TODO generate this
+	public final long getFileLength()
+	{
+		return MediaItem.file.getDataLength(this);
+	}
+	
+	 // TODO generate this
+	public final long getImageLength()
+	{
+		return MediaItem.image.getDataLength(this);
+	}
+	
+	 // TODO generate this
+	public final long getPhotoLength()
+	{
+		return MediaItem.photo.getDataLength(this);
+	}
+	
+	 // TODO generate this
 	public final void setFile(final File data, final String mimeMajor, final String mimeMinor) throws IOException
 	{
 		MediaItem.file.set(this,data,mimeMajor,mimeMinor);
