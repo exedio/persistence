@@ -131,6 +131,8 @@ public class GeneratorTest extends InstrumentorTest
 		assertMethod(standard, "getAnyMediaMimeMajor", String.class, PUBLIC|FINAL);
 		assertMethod(standard, "getAnyMediaMimeMinor", String.class, PUBLIC|FINAL);
 		assertMethod(standard, "getAnyMediaContentType", String.class, PUBLIC|FINAL);
+		assertMethod(standard, "getAnyMediaLength", long.class, PUBLIC|FINAL);
+		assertMethod(standard, "getAnyMediaLastModified", long.class, PUBLIC|FINAL);
 		assertMethod(standard, "getAnyMediaData", InputStream.class, PUBLIC|FINAL);
 		assertMethod(standard, "setAnyMedia", new Class[]{InputStream.class, String.class, String.class}, PUBLIC|FINAL, new Class[]{IOException.class});
 		assertMethod(standard, "setAnyMedia", new Class[]{File.class, String.class, String.class}, PUBLIC|FINAL, new Class[]{IOException.class});
@@ -140,6 +142,8 @@ public class GeneratorTest extends InstrumentorTest
 		assertMethod(standard, "getMajorMediaMimeMajor", String.class, FINAL);
 		assertMethod(standard, "getMajorMediaMimeMinor", String.class, FINAL);
 		assertMethod(standard, "getMajorMediaContentType", String.class, FINAL);
+		assertMethod(standard, "getMajorMediaLength", long.class, FINAL);
+		assertMethod(standard, "getMajorMediaLastModified", long.class, FINAL);
 		assertMethod(standard, "getMajorMediaData", InputStream.class, FINAL);
 		assertMethod(standard, "setMajorMedia", new Class[]{InputStream.class, String.class}, FINAL, new Class[]{IOException.class});
 		assertMethod(standard, "setMajorMedia", new Class[]{File.class, String.class}, FINAL, new Class[]{IOException.class});
@@ -149,6 +153,8 @@ public class GeneratorTest extends InstrumentorTest
 		assertMethod(standard, "getMinorMediaMimeMajor", String.class, PROTECTED|FINAL);
 		assertMethod(standard, "getMinorMediaMimeMinor", String.class, PROTECTED|FINAL);
 		assertMethod(standard, "getMinorMediaContentType", String.class, PROTECTED|FINAL);
+		assertMethod(standard, "getMinorMediaLength", long.class, PROTECTED|FINAL);
+		assertMethod(standard, "getMinorMediaLastModified", long.class, PROTECTED|FINAL);
 		assertMethod(standard, "getMinorMediaData", InputStream.class, PROTECTED|FINAL);
 		assertMethod(standard, "setMinorMedia", new Class[]{InputStream.class}, PROTECTED|FINAL, new Class[]{IOException.class});
 		assertMethod(standard, "setMinorMedia", new Class[]{File.class}, PROTECTED|FINAL, new Class[]{IOException.class});
@@ -158,6 +164,8 @@ public class GeneratorTest extends InstrumentorTest
 		assertMethod(standard, "getNoSetterMediaMimeMajor", String.class, PUBLIC|FINAL);
 		assertMethod(standard, "getNoSetterMediaMimeMinor", String.class, PUBLIC|FINAL);
 		assertMethod(standard, "getNoSetterMediaContentType", String.class, PUBLIC|FINAL);
+		assertMethod(standard, "getNoSetterMediaLength", long.class, PUBLIC|FINAL);
+		assertMethod(standard, "getNoSetterMediaLastModified", long.class, PUBLIC|FINAL);
 		assertMethod(standard, "getNoSetterMediaData", InputStream.class, PUBLIC|FINAL);
 		assertNoMethod(standard, "setNoSetterMedia", new Class[]{InputStream.class,String.class,String.class});
 		assertNoMethod(standard, "setNoSetterMedia", new Class[]{File.class,String.class,String.class});
@@ -167,6 +175,8 @@ public class GeneratorTest extends InstrumentorTest
 		assertMethod(standard, "getPrivateSetterMediaMimeMajor", String.class, PUBLIC|FINAL);
 		assertMethod(standard, "getPrivateSetterMediaMimeMinor", String.class, PUBLIC|FINAL);
 		assertMethod(standard, "getPrivateSetterMediaContentType", String.class, PUBLIC|FINAL);
+		assertMethod(standard, "getPrivateSetterMediaLength", long.class, PUBLIC|FINAL);
+		assertMethod(standard, "getPrivateSetterMediaLastModified", long.class, PUBLIC|FINAL);
 		assertMethod(standard, "getPrivateSetterMediaData", InputStream.class, PUBLIC|FINAL);
 		assertMethod(standard, "setPrivateSetterMedia", new Class[]{InputStream.class,String.class,String.class}, PRIVATE|FINAL, new Class[]{IOException.class});
 		assertMethod(standard, "setPrivateSetterMedia", new Class[]{File.class,String.class,String.class}, PRIVATE|FINAL, new Class[]{IOException.class});

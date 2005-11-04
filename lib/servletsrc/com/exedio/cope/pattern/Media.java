@@ -258,7 +258,7 @@ public final class Media extends MediaPath
 	 * Returns the length of the data of this media.
 	 * Returns -1, if there is no data for this media.
 	 */
-	public final long getDataLength(final Item item)
+	public final long getLength(final Item item)
 	{
 		if(isNull(item))
 			return -1;
@@ -275,7 +275,7 @@ public final class Media extends MediaPath
 	 * of the data of this media.
 	 * Returns -1, if there is no data for this media.
 	 */
-	public final long getDataLastModified(final Item item)
+	public final long getLastModified(final Item item)
 	{
 		if(isNull(item))
 			return -1;
@@ -482,7 +482,7 @@ public final class Media extends MediaPath
 
 		response.setContentType(contentType);
 
-		final long lastModified = getDataLastModified(item);
+		final long lastModified = getLastModified(item);
 		//System.out.println("lastModified="+formatHttpDate(lastModified));
 		response.setDateHeader(RESPONSE_LAST_MODIFIED, lastModified);
 
@@ -504,7 +504,7 @@ public final class Media extends MediaPath
 		}
 		else
 		{
-			final long contentLength = getDataLength(item);
+			final long contentLength = getLength(item);
 			//System.out.println("contentLength="+String.valueOf(contentLength));
 			response.setContentLength((int)contentLength);
 			//response.setHeader("Cache-Control", "public");

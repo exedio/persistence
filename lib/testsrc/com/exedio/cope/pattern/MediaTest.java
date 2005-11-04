@@ -96,7 +96,7 @@ public class MediaTest extends TestmodelTest
 		assertTrue(item.isFileNull());
 		assertEquals(null, item.getFileData());
 		assertEquals(-1, item.getFileLength());
-		assertEquals(-1, item.file.getDataLastModified(item));
+		assertEquals(-1, item.getFileLastModified());
 		assertEquals(null, item.getFileMimeMajor());
 		assertEquals(null, item.getFileMimeMinor());
 		assertEquals(null, item.getFileContentType());
@@ -153,7 +153,7 @@ public class MediaTest extends TestmodelTest
 		item.setFile((InputStream)null, null, null);
 		assertTrue(item.isFileNull());
 		assertEquals(-1, item.getFileLength());
-		assertEquals(-1, item.file.getDataLastModified(item));
+		assertEquals(-1, item.getFileLastModified());
 		assertEquals(null, item.getFileData());
 		assertEquals(null, item.getFileMimeMajor());
 		assertEquals(null, item.getFileMimeMinor());
@@ -176,7 +176,7 @@ public class MediaTest extends TestmodelTest
 		item.setFile((File)null, null, null);
 		assertTrue(item.isFileNull());
 		assertEquals(-1, item.getFileLength());
-		assertEquals(-1, item.file.getDataLastModified(item));
+		assertEquals(-1, item.getFileLastModified());
 		assertEquals(null, item.getFileData());
 		assertEquals(null, item.getFileMimeMajor());
 		assertEquals(null, item.getFileMimeMinor());
