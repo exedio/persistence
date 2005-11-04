@@ -136,8 +136,7 @@ public final class Statement
 		return this;
 	}
 	
-	 // TODO rename to appendParameters
-	public Statement appendValues(final Statement other)
+	public Statement appendParameters(final Statement other)
 	{
 		if(params==null)
 			throw new RuntimeException();

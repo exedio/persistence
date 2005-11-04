@@ -185,7 +185,7 @@ public final class MysqlDatabase extends Database
 			final Statement bf = createStatement();
 			bf.append("explain ").
 				append(statementText).
-				appendValues(statement);
+				appendParameters(statement);
 
 			executeSQLQuery(connection, bf, new ResultSetHandler(){
 				public void run(final ResultSet resultSet) throws SQLException
