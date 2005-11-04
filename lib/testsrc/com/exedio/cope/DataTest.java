@@ -101,6 +101,17 @@ public class DataTest extends AbstractLibTest
 			assertEquals(dataFile.length, item.getDataLength());
 			assertWithinFileLastModified(before, after, new Date(item.getDataLastModified()));
 		}
+		{
+			sleepForFileLastModified();
+			final Date before = new Date();
+			item.setData(file(dataEmpty));
+			final Date after = new Date();
+			assertTrue(!item.isDataNull());
+			assertData(dataEmpty, item.getData());
+			assertDataFile(dataEmpty);
+			assertEquals(dataEmpty.length, item.getDataLength());
+			assertWithinFileLastModified(before, after, new Date(item.getDataLastModified()));
+		}
 		item.setData((File)null);
 		assertTrue(item.isDataNull());
 		assertEquals(-1, item.getDataLength());
