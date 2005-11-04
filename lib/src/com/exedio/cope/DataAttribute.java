@@ -162,4 +162,50 @@ public final class DataAttribute extends Attribute
 		}
 	}
 	
+	/**
+	 * Provides data for this persistent data attribute.
+	 * @param data give null to remove data.
+	 * @throws MandatoryViolationException
+	 *         if data is null and attribute is {@link Attribute#isMandatory() mandatory}.
+	 * @throws IOException if reading data throws an IOException.
+	 */
+	public final void set(final Item item, final File data)
+	throws MandatoryViolationException, IOException
+	{
+		InputStream in = null;
+		OutputStream out = null;
+		try
+		{
+			final File file = getPrivateStorageFile(item);
+
+			if(data!=null)
+			{
+				in = new FileInputStream(data);
+				out = new FileOutputStream(file);
+				final long length = data.length();
+				final byte[] b = new byte[Math.min(1024*1024, (int)Math.min((long)Integer.MAX_VALUE, length))];
+				//System.out.println("-------------- "+length+" ----- "+b.length);
+				for(int len = in.read(b); len>=0; len = in.read(b))
+					out.write(b, 0, len);
+				out.close();
+				in.close();
+			}
+			else
+			{
+				if(file.exists())
+				{
+					if(!file.delete())
+						throw new RuntimeException("deleting "+file+" failed.");
+				}
+			}
+		}
+		finally
+		{
+			if(in!=null)
+				in.close();
+			if(out!=null)
+				out.close();
+		}
+	}
+	
 }

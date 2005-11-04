@@ -19,8 +19,12 @@
 package com.exedio.cope;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import com.exedio.cope.junit.CopeTest;
 import com.exedio.cope.search.Condition;
@@ -51,16 +55,23 @@ public abstract class AbstractLibTest extends CopeTest
 	protected boolean mysql;
 	protected boolean cache;
 	
+	final ArrayList files = new ArrayList();
+	
 	protected void setUp() throws Exception
 	{
 		super.setUp();
 		hsqldb = "com.exedio.cope.HsqldbDatabase".equals(model.getDatabase().getClass().getName()); 
 		mysql  = "com.exedio.cope.MysqlDatabase".equals(model.getDatabase().getClass().getName());
 		cache = model.getProperties().getCacheLimit()>0;
+		files.clear();
 	}
 	
 	protected void tearDown() throws Exception
 	{
+		for(Iterator i = files.iterator(); i.hasNext(); )
+			((File)i.next()).delete();
+		files.clear();
+		
 		final boolean hadExpectations = model.getDatabase().clearExpectedCalls();
 		if ( hadExpectations && testCompletedSuccessfully() )
 		{
@@ -74,9 +85,41 @@ public abstract class AbstractLibTest extends CopeTest
 		return String.valueOf(item.getCopeType().getPkSource().pk2id(((Item)item).pk));
 	}
 
-	protected static final InputStream stream(byte[] data)
+	protected static final InputStream stream(final byte[] data)
 	{
 		return new ByteArrayInputStream(data);
+	}
+	
+	protected final File file(final byte[] data)
+	{
+		final File result;
+		FileOutputStream s = null;
+		try
+		{
+			result = File.createTempFile("cope-AbstractLibTest-", ".tmp");
+			s = new FileOutputStream(result);
+			s.write(data);
+		}
+		catch(IOException e)
+		{
+			throw new RuntimeException(e);
+		}
+		finally
+		{
+			if(s!=null)
+			{
+				try
+				{
+					s.close();
+				}
+				catch(IOException e)
+				{
+					throw new RuntimeException(e);
+				}
+			}
+		}
+		files.add(result);
+		return result;
 	}
 	
 	protected void assertData(final byte[] expectedData, final InputStream actualData)
