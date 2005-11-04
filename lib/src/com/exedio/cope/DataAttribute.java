@@ -61,21 +61,13 @@ public final class DataAttribute extends Attribute
 		return null;
 	}
 	
-	// public methods ---------------------------------------------------------------
-	
-	private final void appendPath(final Item item, final StringBuffer bf)
-	{
-		bf.append(filePath).
-			append(item.type.getPkSource().pk2id(item.pk));
-	}
-	
 	private final File getPrivateStorageFile(final Item item)
 	{
 		final File directory = item.type.getModel().getProperties().getDatadirPath();
-		final StringBuffer buf = new StringBuffer();
-		appendPath(item, buf);
-		return new File(directory, buf.toString());
+		return new File(directory, filePath + item.type.getPkSource().pk2id(item.pk));
 	}
+	
+	// public methods ---------------------------------------------------------------
 	
 	/**
 	 * Returns, whether there is no data for this attribute.
