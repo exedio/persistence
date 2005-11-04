@@ -169,9 +169,7 @@ abstract class Database
 			final Table table = (Table)i.next();
 
 			final Column primaryKey = table.getPrimaryKey();
-			bf.append(table.protectedID).
-				append('.').
-				append(primaryKey.protectedID).
+			bf.append(primaryKey, null).
 				append('=').
 				appendParameter(Type.NOT_A_PK);
 			
@@ -179,9 +177,7 @@ abstract class Database
 			{
 				final Column column = (Column)j.next();
 				bf.append(" and ").
-					append(table.protectedID).
-					append('.').
-					append(column.protectedID).
+					append(column, null).
 					append('=');
 
 				if(column instanceof IntegerColumn)
