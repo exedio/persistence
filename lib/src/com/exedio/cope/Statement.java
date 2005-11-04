@@ -32,7 +32,7 @@ public final class Statement
 	private final boolean qualifyTable;
 	final IntArrayList columnTypes;
 		
-	Statement(final Database database, final boolean prepare, final boolean qualifyTable, final boolean useDefineColumnTypes)
+	Statement(final Database database, final boolean prepare, final boolean qualifyTable, final boolean defineColumnTypes)
 	{
 		if(database==null)
 			throw new NullPointerException();
@@ -40,7 +40,7 @@ public final class Statement
 		this.database = database;
 		this.parameters = prepare ? new ArrayList() : null;
 		this.qualifyTable = qualifyTable;
-		this.columnTypes = useDefineColumnTypes ? new IntArrayList() : null;
+		this.columnTypes = defineColumnTypes ? new IntArrayList() : null;
 	}
 
 	public Statement append(final String text)

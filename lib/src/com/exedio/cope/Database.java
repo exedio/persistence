@@ -47,7 +47,7 @@ abstract class Database
 	private boolean buildStage = true;
 	final Driver driver;
 	private final boolean prepare;
-	private final boolean useDefineColumnTypes;
+	private final boolean defineColumnTypes;
 	private final boolean log;
 	private final boolean butterflyPkSource;
 	private final boolean fulltextIndex;
@@ -61,7 +61,7 @@ abstract class Database
 	{
 		this.driver = driver;
 		this.prepare = !properties.getDatabaseDontSupportPreparedStatements();
-		this.useDefineColumnTypes = this instanceof DatabaseColumnTypesDefinable;
+		this.defineColumnTypes = this instanceof DatabaseColumnTypesDefinable;
 		this.log = properties.getDatabaseLog();
 		this.butterflyPkSource = properties.getPkSourceButterfly();
 		this.fulltextIndex = properties.getFulltextIndex();
@@ -115,7 +115,7 @@ abstract class Database
 	
 	protected final Statement createStatement(final boolean qualifyTable)
 	{
-		return new Statement(this, prepare, qualifyTable, useDefineColumnTypes);
+		return new Statement(this, prepare, qualifyTable, defineColumnTypes);
 	}
 	
 	void createDatabase()
@@ -801,7 +801,7 @@ abstract class Database
 			{
 				sqlStatement = connection.createStatement();
 
-				if(useDefineColumnTypes)
+				if(defineColumnTypes)
 					((DatabaseColumnTypesDefinable)this).defineColumnTypes(statement.columnTypes, sqlStatement);
 				
 				logPrepared = (log||makeStatementInfo) ? System.currentTimeMillis() : 0;
@@ -817,7 +817,7 @@ abstract class Database
 				for(Iterator i = statement.parameters.iterator(); i.hasNext(); parameterIndex++)
 					setObject(sqlText, prepared, parameterIndex, i.next());
 
-				if(useDefineColumnTypes)
+				if(defineColumnTypes)
 					((DatabaseColumnTypesDefinable)this).defineColumnTypes(statement.columnTypes, sqlStatement);
 				
 				logPrepared = (log||makeStatementInfo) ? System.currentTimeMillis() : 0;
