@@ -28,7 +28,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
@@ -88,33 +87,16 @@ public final class Type
 		return result;
 	}
 	
-	public Type(final Class javaClass)
-	{
-		this(javaClass, javaClass, new Class[]{}, true);
-	}
-	
-	/**
-	 * @deprecated BEWARE: use this constructor only, if you know what you are doing.
-	 * @see #Type(Class)
-	 */
-	public Type(final Class javaClass, final Class componentJavaClass, final Class[] ignoreClasses)
-	{
-		this(javaClass, componentJavaClass, ignoreClasses, true);
-	}
-
 	private ArrayList attributesWhileConstruction;
 	private ArrayList featuresWhileConstruction;
 	private ArrayList uniqueConstraintsWhileConstruction;
 
-	public Type(final Class javaClass, final Class componentJavaClass, final Class[] ignoreClasses, boolean dontUse)
+	public Type(final Class javaClass)
 	{
 		this.javaClass = javaClass;
 		if(!Item.class.isAssignableFrom(javaClass))
 			throw new IllegalArgumentException(javaClass.toString()+" is not a subclass of Item");
 		typesByClass.put(javaClass, this);
-
-		if(!Item.class.isAssignableFrom(componentJavaClass))
-			throw new IllegalArgumentException(componentJavaClass.toString()+" is not a subclass of Item");
 
 		{
 			final String className = javaClass.getName();
@@ -123,19 +105,7 @@ public final class Type
 		}
 
 		// supertype
-		final Class superClass;
-		{
-			Class superClassTemp;
-			final HashSet ignoreClassesSet = new HashSet(Arrays.asList(ignoreClasses));
-			ignoreClassesSet.add(componentJavaClass);
-			for(superClassTemp = javaClass.getSuperclass();
-					ignoreClassesSet.contains(superClassTemp);
-					superClassTemp = superClassTemp.getSuperclass() )
-			{
-				// nothing to do here
-			}
-			superClass = superClassTemp;
-		}
+		final Class superClass = javaClass.getSuperclass();
 		
 		if(superClass.equals(Item.class))
 			supertype = null;
@@ -146,7 +116,7 @@ public final class Type
 		}
 
 		// declaredAttributes
-		final Field[] fields = componentJavaClass.getDeclaredFields();
+		final Field[] fields = javaClass.getDeclaredFields();
 		this.attributesWhileConstruction = new ArrayList(fields.length);
 		this.featuresWhileConstruction = new ArrayList(fields.length);
 		this.uniqueConstraintsWhileConstruction = new ArrayList(fields.length);
