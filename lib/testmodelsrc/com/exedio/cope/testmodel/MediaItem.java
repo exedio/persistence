@@ -18,6 +18,9 @@
 
 package com.exedio.cope.testmodel;
 
+import java.io.File;
+import java.io.IOException;
+
 import com.exedio.cope.Item;
 import com.exedio.cope.StringAttribute;
 import com.exedio.cope.pattern.Media;
@@ -48,6 +51,11 @@ public class MediaItem extends Item
 		this(new com.exedio.cope.AttributeValue[]{
 			new com.exedio.cope.AttributeValue(MediaItem.name,name),
 		});
+	}
+	
+	public void getFileData(final File data) throws IOException // TODO generate this
+	{
+		MediaItem.file.getData(this, data);
 	}
 	
 /**

@@ -288,6 +288,19 @@ public final class Media extends MediaPath
 	}
 
 	/**
+	 * Reads data of this media
+	 * and writes it into the given file.
+	 * Does nothing, if there is no data for this media.
+	 * @throws NullPointerException
+	 *         if data is null.
+	 * @throws IOException if writing data throws an IOException.
+	 */
+	public final void getData(final Item item, final File data) throws IOException
+	{
+		this.data.get(item, data);
+	}
+
+	/**
 	 * Returns a URL pointing to the data of this media.
 	 * Returns null, if there is no data for this media.
 	 */
