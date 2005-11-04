@@ -69,7 +69,7 @@ public final class DataAttribute extends Attribute
 			append(item.type.getPkSource().pk2id(item.pk));
 	}
 	
-	private final File getDataFile(final Item item)
+	private final File getPrivateStorageFile(final Item item)
 	{
 		final File directory = item.type.getModel().getProperties().getDatadirPath();
 		final StringBuffer buf = new StringBuffer();
@@ -82,7 +82,7 @@ public final class DataAttribute extends Attribute
 	 */
 	public final boolean isNull(final Item item)
 	{
-		final File file = getDataFile(item);
+		final File file = getPrivateStorageFile(item);
 		return !file.exists();
 	}
 
@@ -93,7 +93,7 @@ public final class DataAttribute extends Attribute
 	 */
 	public final InputStream get(final Item item)
 	{
-		final File file = getDataFile(item);
+		final File file = getPrivateStorageFile(item);
 		try
 		{
 			return new FileInputStream(file);
@@ -110,7 +110,7 @@ public final class DataAttribute extends Attribute
 	 */
 	public final long getDataLength(final Item item)
 	{
-		final File file = getDataFile(item);
+		final File file = getPrivateStorageFile(item);
 
 		return file.exists() ? file.length() : -1l;
 	}
@@ -122,7 +122,7 @@ public final class DataAttribute extends Attribute
 	 */
 	public final long getDataLastModified(final Item item)
 	{
-		final File file = getDataFile(item);
+		final File file = getPrivateStorageFile(item);
 
 		return file.exists() ? file.lastModified() : -1l;
 	}
@@ -141,7 +141,7 @@ public final class DataAttribute extends Attribute
 		OutputStream out = null;
 		try
 		{
-			final File file = getDataFile(item);
+			final File file = getPrivateStorageFile(item);
 
 			if(data!=null)
 			{
