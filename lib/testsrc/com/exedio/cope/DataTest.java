@@ -51,33 +51,33 @@ public class DataTest extends AbstractLibTest
 
 		{
 			sleepForFileLastModified();
-			final Date beforeData = new Date();
+			final Date before = new Date();
 			item.setData(stream(data));
-			final Date afterData = new Date();
+			final Date after = new Date();
 			assertTrue(!item.isDataNull());
 			assertData(data, item.getData());
 			assertEquals(data.length, item.getDataLength());
-			assertWithinFileLastModified(beforeData, afterData, new Date(item.getDataLastModified()));
+			assertWithinFileLastModified(before, after, new Date(item.getDataLastModified()));
 		}
 		{
 			sleepForFileLastModified();
-			final Date beforeData2 = new Date();
+			final Date before = new Date();
 			item.setData(stream(data2));
-			final Date afterData2 = new Date();
+			final Date after = new Date();
 			assertTrue(!item.isDataNull());
 			assertData(data2, item.getData());
 			assertEquals(data2.length, item.getDataLength());
-			assertWithinFileLastModified(beforeData2, afterData2, new Date(item.getDataLastModified()));
+			assertWithinFileLastModified(before, after, new Date(item.getDataLastModified()));
 		}
 		{
 			sleepForFileLastModified();
-			final Date beforeDataEmpty = new Date();
+			final Date before = new Date();
 			item.setData(stream(dataEmpty));
-			final Date afterDataEmpty = new Date();
+			final Date after = new Date();
 			assertTrue(!item.isDataNull());
 			assertData(dataEmpty, item.getData());
 			assertEquals(0, item.getDataLength());
-			assertWithinFileLastModified(beforeDataEmpty, afterDataEmpty, new Date(item.getDataLastModified()));
+			assertWithinFileLastModified(before, after, new Date(item.getDataLastModified()));
 		}
 		item.setData((InputStream)null);
 		assertTrue(item.isDataNull());
