@@ -718,7 +718,7 @@ abstract class Database
 			if(typeColumn!=null)
 			{
 				bf.append(',').
-					appendValue(state.type.getID());
+					appendParameter(state.type.getID());
 			}
 
 			for(Iterator i = columns.iterator(); i.hasNext(); )

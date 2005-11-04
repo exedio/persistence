@@ -124,7 +124,7 @@ public final class Statement
 		return this;
 	}
 	
-	public Statement appendValue(final String value)
+	public Statement appendParameter(final String value)
 	{
 		if(params==null)
 			this.text.append('\'').append(value).append('\'');

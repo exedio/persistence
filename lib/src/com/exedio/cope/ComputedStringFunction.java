@@ -51,7 +51,7 @@ public abstract class ComputedStringFunction
 	
 	final void surface2DatabasePrepared(final Statement bf, final Object value)
 	{
-		bf.appendValue((String)value);
+		bf.appendParameter((String)value);
 	}
 	
 	public final EqualCondition equal(final String value)

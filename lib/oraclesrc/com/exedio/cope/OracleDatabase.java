@@ -286,7 +286,7 @@ final class OracleDatabase
 		{
 			final Statement bf = createStatement();
 			bf.append("select * from "+PLAN_TABLE+" where "+STATEMENT_ID+'=').
-				appendValue(statementID).
+				appendParameter(statementID).
 				append(" order by "+ID);
 
 			final PlanResultSetHandler handler = new PlanResultSetHandler();
