@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
@@ -314,6 +315,33 @@ public final class Media extends MediaPath
 	{
 		try
 		{
+			set(item, (Object)data, mimeMajor, mimeMinor);
+		}
+		finally
+		{
+			if(data!=null)
+				data.close();
+		}
+	}
+	
+	/**
+	 * Provides data for this persistent media.
+	 * @param data give null to remove data.
+	 * @throws MandatoryViolationException
+	 *         if data is null and attribute is {@link Attribute#isMandatory() mandatory}.
+	 * @throws IOException if reading data throws an IOException.
+	 */
+	public final void set(final Item item, final File data, final String mimeMajor, final String mimeMinor)
+		throws IOException
+	{
+		set(item, (Object)data, mimeMajor, mimeMinor);
+	}
+	
+	private final void set(final Item item, final Object data, final String mimeMajor, final String mimeMinor)
+		throws IOException
+	{
+		try
+		{
 			if(data!=null)
 			{
 				if((mimeMajor==null&&fixedMimeMajor==null) ||
@@ -333,17 +361,16 @@ public final class Media extends MediaPath
 				item.set(this.mimeMinor, mimeMinor);
 			if(this.exists!=null)
 				item.set(this.exists, (data!=null) ? Boolean.TRUE : null);
-			this.data.set(item, data);
+			
+			if(data instanceof InputStream)
+				this.data.set(item, (InputStream)data);
+			else
+				this.data.set(item, (File)data);
 	
 		}
 		catch(ConstraintViolationException e)
 		{
 			throw new NestingRuntimeException(e);
-		}
-		finally
-		{
-			if(data!=null)
-				data.close();
 		}
 	}
 	

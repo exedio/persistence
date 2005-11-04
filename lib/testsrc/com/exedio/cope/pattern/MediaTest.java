@@ -18,7 +18,9 @@
 
 package com.exedio.cope.pattern;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Date;
 
@@ -36,6 +38,7 @@ public class MediaTest extends TestmodelTest
 	private MediaItem item;
 	private final byte[] data = new byte[]{-86,122,-8,23};
 	private final byte[] data2 = new byte[]{-97,35,-126,86,19,-8};
+	private final byte[] dataFile = new byte[]{-54,104,-63,23,19,-45,71,-23};
 	private final byte[] dataEmpty = new byte[]{};
 	
 	public void setUp() throws Exception
@@ -148,8 +151,30 @@ public class MediaTest extends TestmodelTest
 			assertEquals("emptyMajor/emptyMinor", item.getFileContentType());
 			assertTrue(item.getFileURL().endsWith(".emptyMajor.emptyMinor"));
 		}
-
-		item.setFile(null, null, null);
+		item.setFile((InputStream)null, null, null);
+		assertTrue(item.isFileNull());
+		assertEquals(-1, item.file.getDataLength(item));
+		assertEquals(-1, item.file.getDataLastModified(item));
+		assertEquals(null, item.getFileData());
+		assertEquals(null, item.getFileMimeMajor());
+		assertEquals(null, item.getFileMimeMinor());
+		assertEquals(null, item.getFileContentType());
+		assertEquals(null, item.getFileURL());
+		{
+			sleepForFileLastModified();
+			final Date before = new Date();
+			item.setFile(file(dataFile), "emptyMajor", "emptyMinor");
+			final Date after = new Date();
+			assertTrue(!item.isFileNull());
+			assertData(dataFile, item.getFileData());
+			assertEquals(dataFile.length, item.file.getDataLength(item));
+			assertWithinFileLastModified(before, after, new Date(item.file.getDataLastModified(item)));
+			assertEquals("emptyMajor", item.getFileMimeMajor());
+			assertEquals("emptyMinor", item.getFileMimeMinor());
+			assertEquals("emptyMajor/emptyMinor", item.getFileContentType());
+			assertTrue(item.getFileURL().endsWith(".emptyMajor.emptyMinor"));
+		}
+		item.setFile((File)null, null, null);
 		assertTrue(item.isFileNull());
 		assertEquals(-1, item.file.getDataLength(item));
 		assertEquals(-1, item.file.getDataLastModified(item));
