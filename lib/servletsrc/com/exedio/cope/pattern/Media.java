@@ -486,8 +486,14 @@ public final class Media extends MediaPath
 
 		response.setContentType(contentType);
 
-		final long lastModified = getLastModified(item);
-		//System.out.println("lastModified="+formatHttpDate(lastModified));
+		// NOTE:
+		//
+		// Last Modification Date must be rounded to full seconds,
+		// otherwise comparison for SC_NOT_MODIFIED doesn't work
+		// correctly on systems, where file timestamps
+		// have a resolution more precise than seconds.
+		final long lastModified = (getLastModified(item) / 1000) * 1000;
+		//System.out.println("lastModified="+lastModified+"("+getLastModified(item)+")");
 		response.setDateHeader(RESPONSE_LAST_MODIFIED, lastModified);
 
 		final int mediaOffsetExpires = getType().getModel().getProperties().getMediaOffsetExpires();
