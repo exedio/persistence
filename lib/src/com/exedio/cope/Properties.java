@@ -51,6 +51,7 @@ public final class Properties
 	public static final String DATADIR_PATH = "datadir.path";
 	public static final String MEDIA_ROOT_URL = "media.rooturl";
 	public static final String MEDIA_ROOT_URL_DEFAULT = "media/";
+	public static final String MEDIA_OFFSET_EXPIRES = "media.offsetExpires";
 
 	private final String source;
 
@@ -78,6 +79,7 @@ public final class Properties
 
 	private final File datadirPath;
 	private final String mediaRootUrl;
+	private final int mediaOffsetExpires;
 
 	public Properties()
 	{
@@ -208,6 +210,7 @@ public final class Properties
 
 		final String explicitMediaRootUrl = properties.getProperty(MEDIA_ROOT_URL);
 		mediaRootUrl = explicitMediaRootUrl!=null ? explicitMediaRootUrl : MEDIA_ROOT_URL_DEFAULT;
+		mediaOffsetExpires = getPropertyInt(properties, MEDIA_OFFSET_EXPIRES, 1000 * 5, 0);
 		
 		this.databaseDontSupportPreparedStatements = getPropertyBoolean(properties, DATABASE_DONT_SUPPORT_PREPARED_STATEMENTS, false);
 		this.databaseDontSupportEmptyStrings = getPropertyBoolean(properties, DATABASE_DONT_SUPPORT_EMPTY_STRINGS, false);
@@ -236,6 +239,7 @@ public final class Properties
 					CACHE_LIMIT,
 					DATADIR_PATH,
 					MEDIA_ROOT_URL,
+					MEDIA_OFFSET_EXPIRES,
 				}));
 			for(Iterator i = properties.keySet().iterator(); i.hasNext(); )
 			{
@@ -451,6 +455,21 @@ public final class Properties
 		return mediaRootUrl;
 	}
 	
+	/**
+	 * Returns the offset, the Expires http header of media
+	 * is set into the future.
+	 * Together with a http reverse proxy this ensures,
+	 * that for that time no request for that data will reach the servlet.
+	 * This may reduce the load on the server.
+	 * If zero, no Expires header is sent.
+	 * 
+	 * TODO: make this configurable per media as well.
+	 */
+	public int getMediaOffsetExpires()
+	{
+		return mediaOffsetExpires;
+	}
+	
 	final void ensureEquality(final Properties other)
 	{
 		ensureEquality(other, DATABASE, this.getDatabase(), other.getDatabase());
@@ -470,6 +489,7 @@ public final class Properties
 		ensureEquality(other, CONNECTION_POOL_MAX_IDLE, this.connectionPoolMaxIdle, other.connectionPoolMaxIdle);
 		ensureEquality(other, DATADIR_PATH, this.datadirPath, other.datadirPath);
 		ensureEquality(other, MEDIA_ROOT_URL, this.mediaRootUrl, other.mediaRootUrl);
+		ensureEquality(other, MEDIA_OFFSET_EXPIRES, this.mediaOffsetExpires, other.mediaOffsetExpires);
 	}
 	
 	private final void ensureEquality(

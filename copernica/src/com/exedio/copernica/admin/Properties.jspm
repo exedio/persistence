@@ -132,6 +132,10 @@ final class Properties_Jspm
 					(default is &quot;<%=properties.MEDIA_ROOT_URL_DEFAULT%>&quot;)
 					</small>
 				</td>
+			</tr>
+			<tr>
+				<th><%=properties.MEDIA_OFFSET_EXPIRES%></th>
+				<td><%=properties.getMediaOffsetExpires()%></td>
 			</tr><%
 
 			if(sourceContent!=null)

@@ -469,15 +469,6 @@ public final class Media extends MediaPath
 
 	// /logs -------------------------
 
-	/**
-	 * Sets the offset, the Expires http header is set into the future.
-	 * Together with a http reverse proxy this ensures,
-	 * that for that time no request for that data will reach the servlet.
-	 * This may reduce the load on the server.
-	 * 
-	 * TODO: make this configurable, at best per media.
-	 */
-	private static final long EXPIRES_OFFSET = 1000 * 5; // 5 seconds
 	
 	private static final String REQUEST_IF_MODIFIED_SINCE = "If-Modified-Since";
 	private static final String RESPONSE_EXPIRES = "Expires";
@@ -499,8 +490,12 @@ public final class Media extends MediaPath
 		//System.out.println("lastModified="+formatHttpDate(lastModified));
 		response.setDateHeader(RESPONSE_LAST_MODIFIED, lastModified);
 
-		final long now = System.currentTimeMillis();
-		response.setDateHeader(RESPONSE_EXPIRES, now+EXPIRES_OFFSET);
+		final int mediaOffsetExpires = getType().getModel().getProperties().getMediaOffsetExpires();
+		if(mediaOffsetExpires>0)
+		{
+			final long now = System.currentTimeMillis();
+			response.setDateHeader(RESPONSE_EXPIRES, now+mediaOffsetExpires);
+		}
 		
 		final long ifModifiedSince = request.getDateHeader(REQUEST_IF_MODIFIED_SINCE);
 		//System.out.println("ifModifiedSince="+request.getHeader(REQUEST_IF_MODIFIED_SINCE));
