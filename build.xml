@@ -260,8 +260,6 @@
 			</fileset>
 			<fileset dir="lib/testmodelsrc/com/exedio/cope/testmodel">
 				<include name="**/*.java" />
-				<exclude name="*Qualifier.java" />
-				<exclude name="AttributeEmptyItem.java" />
 			</fileset>
 			<fileset dir="lib/testsrc/com/exedio/cope">
 				<include name="**/*Item.java" />
@@ -371,7 +369,6 @@
 			</fileset>
 			<fileset dir="instrument/testsrc/com/exedio/cope/instrument/testmodel">
 				<include name="*.java" />
-				<exclude name="QualifiedName.java" />
 			</fileset>
 		</instrument>
 	</target>
