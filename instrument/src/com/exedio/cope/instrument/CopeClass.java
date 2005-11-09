@@ -89,10 +89,10 @@ final class CopeClass
 		return javaClass.isInterface();
 	}
 
-	public void add(final CopeAttribute copeAttribute)
+	public void add(final CopeAttribute attribute)
 	{
-		attributes.add(copeAttribute);
-		attributeMap.put(copeAttribute.getName(), copeAttribute);
+		attributes.add(attribute);
+		attributeMap.put(attribute.getName(), attribute);
 	}
 	
 	/**
