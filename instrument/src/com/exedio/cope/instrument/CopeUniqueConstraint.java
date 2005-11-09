@@ -36,14 +36,14 @@ final class CopeUniqueConstraint
 	/**
 	 * For constraints covering more than one attribute.
 	 */
-	CopeUniqueConstraint(final JavaAttribute javaAttribute, final CopeAttribute[] copeAttributes)
+	CopeUniqueConstraint(final JavaAttribute javaAttribute, final CopeAttribute[] attributes)
 	{
 		this.javaAttribute = javaAttribute;
 		this.name = javaAttribute.name;
 		this.modifier = javaAttribute.modifier;
-		this.attributes = copeAttributes;
+		this.attributes = attributes;
 
-		final CopeClass copeClass = CopeClass.getCopeClass(copeAttributes[0].javaAttribute.parent);
+		final CopeClass copeClass = CopeClass.getCopeClass(attributes[0].javaAttribute.parent);
 		copeClass.add(this);
 	}
 	
