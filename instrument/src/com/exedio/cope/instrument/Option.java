@@ -24,6 +24,7 @@ class Option
 {
 	final boolean exists;
 	final int visibility;
+	final String suffix;
 	final boolean booleanAsIs;
 	final boolean isFinal;
 	
@@ -33,6 +34,7 @@ class Option
 		{
 			exists = true;
 			visibility = Option.INHERITED;
+			suffix = "";
 			booleanAsIs = false;
 			isFinal = allowFinal;
 		}
@@ -42,31 +44,43 @@ class Option
 			{
 				exists = false;
 				visibility = -1;
+				suffix = null;
+			}
+			else if(optionString.indexOf("internal")>=0)
+			{
+				exists = true;
+				visibility = PRIVATE;
+				suffix = "Internal";
 			}
 			else if(optionString.indexOf("private")>=0)
 			{
 				exists = true;
 				visibility = PRIVATE;
+				suffix = "";
 			}
 			else if(optionString.indexOf("protected")>=0)
 			{
 				exists = true;
 				visibility = PROTECTED;
+				suffix = "";
 			}
 			else if(optionString.indexOf("package")>=0)
 			{
 				exists = true;
 				visibility = PACKAGE;
+				suffix = "";
 			}
 			else if(optionString.indexOf("public")>=0)
 			{
 				exists = true;
 				visibility = PUBLIC;
+				suffix = "";
 			}
 			else
 			{
 				exists = true;
 				visibility = INHERITED;
+				suffix = "";
 			}
 
 			booleanAsIs = (optionString.indexOf("boolean-as-is")>=0);

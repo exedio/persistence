@@ -399,6 +399,7 @@ final class Generator
 			else
 				o.write(" get");
 			o.write(toCamelCase(attribute.getName()));
+			o.write(attribute.getterOption.suffix);
 			o.write("()");
 			o.write(lineSeparator);
 			o.write("\t{");
@@ -418,6 +419,7 @@ final class Generator
 			attribute.writeGeneratedSetterModifier(o);
 			o.write("void set");
 			o.write(toCamelCase(attribute.getName()));
+			o.write(attribute.setterOption.suffix);
 			o.write("(final ");
 			o.write(type);
 			o.write(' ');
@@ -819,6 +821,7 @@ final class Generator
 			o.write(resultType);
 			o.write(" get");
 			o.write(toCamelCase(attribute.getName()));
+			o.write(attribute.getterOption.suffix);
 			o.write('(');
 			writeQualifierParameters(qualifier);
 			o.write(')');
@@ -859,6 +862,7 @@ final class Generator
 			attribute.writeGeneratedSetterModifier(o);
 			o.write("void set");
 			o.write(toCamelCase(attribute.getName()));
+			o.write(attribute.setterOption.suffix);
 			o.write('(');
 			writeQualifierParameters(qualifier);
 			o.write(",final ");
