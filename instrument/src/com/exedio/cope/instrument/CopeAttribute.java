@@ -18,6 +18,9 @@
 
 package com.exedio.cope.instrument;
 
+import java.io.IOException;
+import java.io.Writer;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -119,9 +122,19 @@ abstract class CopeAttribute
 		return javaAttribute.name;
 	}
 	
-	final int getGeneratedGetterModifier()
+	private final void writeGeneratedModifier(final Writer o, final int modifier) throws IOException
 	{
-		return getterOption.getModifier(javaAttribute.modifier);
+		final String modifierString = Modifier.toString(modifier);
+		if(modifierString.length()>0)
+		{
+			o.write(modifierString);
+			o.write(' ');
+		}
+	}
+
+	final void writeGeneratedGetterModifier(final Writer o) throws IOException
+	{
+		writeGeneratedModifier(o, getterOption.getModifier(javaAttribute.modifier));
 	}
 
 	final JavaClass getParent()
@@ -232,9 +245,9 @@ abstract class CopeAttribute
 		return isWriteable() && setterOption.exists;
 	}
 	
-	final int getGeneratedSetterModifier()
+	final void writeGeneratedSetterModifier(final Writer o) throws IOException
 	{
-		return setterOption.getModifier(javaAttribute.modifier);
+		writeGeneratedModifier(o, setterOption.getModifier(javaAttribute.modifier));
 	}
 	
 	private SortedSet setterExceptions = null;

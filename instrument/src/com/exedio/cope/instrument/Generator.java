@@ -392,8 +392,7 @@ final class Generator
 			o.write(lineSeparator);
 			writeStreamWarning(type);
 			writeCommentFooter(GETTER_CUSTOMIZE);
-			o.write(Modifier.toString(copeAttribute.getGeneratedGetterModifier()));
-			o.write(' ');
+			copeAttribute.writeGeneratedGetterModifier(o);
 			o.write(type);
 			if(copeAttribute.hasIsGetter())
 				o.write(" is");
@@ -416,8 +415,8 @@ final class Generator
 			o.write(format(SETTER, link(copeAttribute.getName())));
 			o.write(lineSeparator);
 			writeCommentFooter(SETTER_CUSTOMIZE);
-			o.write(Modifier.toString(copeAttribute.getGeneratedSetterModifier()));
-			o.write(" void set");
+			copeAttribute.writeGeneratedSetterModifier(o);
+			o.write("void set");
 			o.write(toCamelCase(copeAttribute.getName()));
 			o.write("(final ");
 			o.write(type);
@@ -439,8 +438,8 @@ final class Generator
 				o.write(format(TOUCHER, link(copeAttribute.getName())));
 				o.write(lineSeparator);
 				writeCommentFooter();
-				o.write(Modifier.toString(copeAttribute.getGeneratedSetterModifier()));
-				o.write(" void touch");
+				copeAttribute.writeGeneratedSetterModifier(o);
+				o.write("void touch");
 				o.write(toCamelCase(copeAttribute.getName()));
 				o.write("()");
 				o.write(lineSeparator);
@@ -816,8 +815,7 @@ final class Generator
 			writeCommentFooter();
 	
 			final String resultType = attribute.persistentType;
-			o.write(Modifier.toString(attribute.getGeneratedGetterModifier()));
-			o.write(' ');
+			attribute.writeGeneratedGetterModifier(o);
 			o.write(resultType);
 			o.write(" get");
 			o.write(toCamelCase(attribute.getName()));
@@ -858,8 +856,8 @@ final class Generator
 			writeCommentFooter();
 	
 			final String resultType = attribute.persistentType;
-			o.write(Modifier.toString(attribute.getGeneratedSetterModifier()));
-			o.write(" void set");
+			attribute.writeGeneratedSetterModifier(o);
+			o.write("void set");
 			o.write(toCamelCase(attribute.getName()));
 			o.write('(');
 			writeQualifierParameters(qualifier);
