@@ -849,49 +849,52 @@ final class Generator
 	private void writeQualifierSetter(final CopeQualifier qualifier, final CopeAttribute attribute)
 	throws IOException
 	{
-		writeCommentHeader();
-		o.write("\t * ");
-		o.write(QUALIFIER_SETTER);
-		o.write(lineSeparator);
-		writeCommentFooter();
-
-		final String resultType = attribute.persistentType;
-		o.write("public final void set"); // TODO: obey attribute visibility
-		o.write(toCamelCase(attribute.getName()));
-		o.write('(');
-		writeQualifierParameters(qualifier);
-		o.write(",final ");
-		o.write(resultType);
-		o.write(' ');
-		o.write(attribute.getName());
-		o.write(')');
-		o.write(lineSeparator);
-		
-		writeThrowsClause(attribute.getSetterExceptions());
-
-		o.write("\t{");
-		o.write(lineSeparator);
-
-		final SortedSet exceptionsToCatch = new TreeSet(ClassComparator.getInstance());
-		exceptionsToCatch.addAll(attribute.getExceptionsToCatchInSetter());
-		exceptionsToCatch.remove(UniqueViolationException.class);
-		writeTryCatchClausePrefix(exceptionsToCatch);
-
-		o.write("\t\t");
-		o.write(qualifier.name);
-		o.write(".set(new Object[]{this");
-		writeQualifierCall(qualifier);
-		o.write("},");
-		o.write(qualifier.qualifierClassString);
-		o.write('.');
-		o.write(attribute.getName());
-		o.write(',');
-		o.write(attribute.getName());
-		o.write(");");
-		o.write(lineSeparator);
-
-		writeTryCatchClausePostfix(exceptionsToCatch);
-		o.write("\t}");
+		if(attribute.setterOption.exists)
+		{
+			writeCommentHeader();
+			o.write("\t * ");
+			o.write(QUALIFIER_SETTER);
+			o.write(lineSeparator);
+			writeCommentFooter();
+	
+			final String resultType = attribute.persistentType;
+			o.write("public final void set"); // TODO: obey attribute visibility
+			o.write(toCamelCase(attribute.getName()));
+			o.write('(');
+			writeQualifierParameters(qualifier);
+			o.write(",final ");
+			o.write(resultType);
+			o.write(' ');
+			o.write(attribute.getName());
+			o.write(')');
+			o.write(lineSeparator);
+			
+			writeThrowsClause(attribute.getSetterExceptions());
+	
+			o.write("\t{");
+			o.write(lineSeparator);
+	
+			final SortedSet exceptionsToCatch = new TreeSet(ClassComparator.getInstance());
+			exceptionsToCatch.addAll(attribute.getExceptionsToCatchInSetter());
+			exceptionsToCatch.remove(UniqueViolationException.class);
+			writeTryCatchClausePrefix(exceptionsToCatch);
+	
+			o.write("\t\t");
+			o.write(qualifier.name);
+			o.write(".set(new Object[]{this");
+			writeQualifierCall(qualifier);
+			o.write("},");
+			o.write(qualifier.qualifierClassString);
+			o.write('.');
+			o.write(attribute.getName());
+			o.write(',');
+			o.write(attribute.getName());
+			o.write(");");
+			o.write(lineSeparator);
+	
+			writeTryCatchClausePostfix(exceptionsToCatch);
+			o.write("\t}");
+		}
 	}
 	
 	private void writeVector(final CopeVector vector)
