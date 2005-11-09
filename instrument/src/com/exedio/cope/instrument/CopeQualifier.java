@@ -59,7 +59,7 @@ final class CopeQualifier
 		if(uniqueConstraint==null)
 			throw new InjectorParseException("unique constraint not found "+uniqueConstraintString);
 		
-		final CopeAttribute[] uniqueAttributes = uniqueConstraint.copeAttributes;
+		final CopeAttribute[] uniqueAttributes = uniqueConstraint.attributes;
 		if(uniqueAttributes.length<2)
 			throw new RuntimeException(uniqueAttributes.toString());
 		

@@ -649,7 +649,7 @@ final class Generator
 	{
 		if(show) constraint.show();
 
-		final CopeAttribute[] atributes = constraint.copeAttributes;
+		final CopeAttribute[] atributes = constraint.attributes;
 		final String className = atributes[0].getParent().name;
 		
 		writeCommentHeader();
@@ -792,7 +792,7 @@ final class Generator
 
 		o.write("\t}");
 		
-		final List qualifierAttributes = Arrays.asList(qualifier.uniqueConstraint.copeAttributes);
+		final List qualifierAttributes = Arrays.asList(qualifier.uniqueConstraint.attributes);
 		for(Iterator i = qualifier.qualifierClass.getCopeAttributes().iterator(); i.hasNext(); )
 		{
 			final CopeAttribute attribute = (CopeAttribute)i.next();

@@ -31,7 +31,7 @@ final class CopeUniqueConstraint
 	final JavaAttribute javaAttribute;
 	final String name;
 	final int modifier;
-	final CopeAttribute[] copeAttributes;
+	final CopeAttribute[] attributes;
 	
 	/**
 	 * For constraints covering more than one attribute.
@@ -41,7 +41,7 @@ final class CopeUniqueConstraint
 		this.javaAttribute = javaAttribute;
 		this.name = javaAttribute.name;
 		this.modifier = javaAttribute.modifier;
-		this.copeAttributes = copeAttributes;
+		this.attributes = copeAttributes;
 
 		final CopeClass copeClass = CopeClass.getCopeClass(copeAttributes[0].javaAttribute.parent);
 		copeClass.add(this);
@@ -50,8 +50,8 @@ final class CopeUniqueConstraint
 	void show() // TODO remove
 	{
 		final ArrayList xAttributeNames = new ArrayList();
-		for(int i = 0; i<copeAttributes.length; i++)
-			xAttributeNames.add(copeAttributes[i].javaAttribute.name);
+		for(int i = 0; i<attributes.length; i++)
+			xAttributeNames.add(attributes[i].javaAttribute.name);
 		System.out.println("------uniqueconstraint:"+name+xAttributeNames);
 
 		final Feature rtvalueF = (Feature)javaAttribute.evaluate().instance;
@@ -87,7 +87,7 @@ final class CopeUniqueConstraint
 		this.javaAttribute = copeAttribute.javaAttribute;
 		this.name = copeAttribute.getName();
 		this.modifier = copeAttribute.javaAttribute.modifier;
-		this.copeAttributes = new CopeAttribute[]{copeAttribute};
+		this.attributes = new CopeAttribute[]{copeAttribute};
 	}
 	
 }
