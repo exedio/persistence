@@ -816,7 +816,8 @@ final class Generator
 			writeCommentFooter();
 	
 			final String resultType = attribute.persistentType;
-			o.write("public final "); // TODO: obey attribute visibility
+			o.write(Modifier.toString(attribute.getGeneratedGetterModifier()));
+			o.write(' ');
 			o.write(resultType);
 			o.write(" get");
 			o.write(toCamelCase(attribute.getName()));

@@ -226,7 +226,7 @@ public class GeneratorTest extends InstrumentorTest
 		assertMethod(qualified, "setOptionalNumber", new Class[]{String.class, Integer.class}, PUBLIC|FINAL);
 		assertNoMethod(qualified, "getNoneGetterNumber", new Class[]{String.class});
 		assertMethod(qualified, "setNoneGetterNumber", new Class[]{String.class, Integer.class}, PUBLIC|FINAL);
-		assertMethod(qualified, "getPrivateGetterNumber", new Class[]{String.class}, Integer.class, PUBLIC|FINAL); // TODO must be private
+		assertMethod(qualified, "getPrivateGetterNumber", new Class[]{String.class}, Integer.class, PRIVATE|FINAL);
 		assertMethod(qualified, "setPrivateGetterNumber", new Class[]{String.class, Integer.class}, PUBLIC|FINAL);
 	}
 	
