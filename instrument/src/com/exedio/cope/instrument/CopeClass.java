@@ -47,7 +47,7 @@ final class CopeClass
 	final int accessModifier;
 
 	private final ArrayList attributes = new ArrayList();
-	private final Map copeAttributeMap = new TreeMap();
+	private final Map attributeMap = new TreeMap();
 	private final Map copeUniqueConstraintMap = new TreeMap();
 	private ArrayList uniqueConstraints = null;
 	private ArrayList qualifiers = null;
@@ -92,7 +92,7 @@ final class CopeClass
 	public void add(final CopeAttribute copeAttribute)
 	{
 		attributes.add(copeAttribute);
-		copeAttributeMap.put(copeAttribute.getName(), copeAttribute);
+		attributeMap.put(copeAttribute.getName(), copeAttribute);
 	}
 	
 	/**
@@ -105,7 +105,7 @@ final class CopeClass
 	
 	public CopeAttribute getAttribute(final String name)
 	{
-		return (CopeAttribute)copeAttributeMap.get(name);
+		return (CopeAttribute)attributeMap.get(name);
 	}
 	
 	public void add(final CopeUniqueConstraint copeUniqueConstraint)
