@@ -550,7 +550,7 @@ public final class Media extends MediaPath
 
 	private final static String format(final long date)
 	{
-		final SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+		final SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss.S");
 		return df.format(new Date(date));
 	}
 	
