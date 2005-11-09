@@ -807,39 +807,42 @@ final class Generator
 	private void writeQualifierGetter(final CopeQualifier qualifier, final CopeAttribute attribute)
 	throws IOException
 	{
-		writeCommentHeader();
-		o.write("\t * ");
-		o.write(QUALIFIER_GETTER);
-		o.write(lineSeparator);
-		writeCommentFooter();
-
-		final String resultType = attribute.persistentType;
-		o.write("public final "); // TODO: obey attribute visibility
-		o.write(resultType);
-		o.write(" get");
-		o.write(toCamelCase(attribute.getName()));
-		o.write('(');
-		writeQualifierParameters(qualifier);
-		o.write(')');
-		o.write(lineSeparator);
-
-		o.write("\t{");
-		o.write(lineSeparator);
-
-		o.write("\t\treturn (");
-		o.write(resultType);
-		o.write(')');
-		o.write(qualifier.name);
-		o.write(".get(new Object[]{this");
-		writeQualifierCall(qualifier);
-		o.write("},");
-		o.write(qualifier.qualifierClassString);
-		o.write('.');
-		o.write(attribute.getName());
-		o.write(");");
-		o.write(lineSeparator);
-
-		o.write("\t}");
+		if(attribute.getterOption.exists)
+		{
+			writeCommentHeader();
+			o.write("\t * ");
+			o.write(QUALIFIER_GETTER);
+			o.write(lineSeparator);
+			writeCommentFooter();
+	
+			final String resultType = attribute.persistentType;
+			o.write("public final "); // TODO: obey attribute visibility
+			o.write(resultType);
+			o.write(" get");
+			o.write(toCamelCase(attribute.getName()));
+			o.write('(');
+			writeQualifierParameters(qualifier);
+			o.write(')');
+			o.write(lineSeparator);
+	
+			o.write("\t{");
+			o.write(lineSeparator);
+	
+			o.write("\t\treturn (");
+			o.write(resultType);
+			o.write(')');
+			o.write(qualifier.name);
+			o.write(".get(new Object[]{this");
+			writeQualifierCall(qualifier);
+			o.write("},");
+			o.write(qualifier.qualifierClassString);
+			o.write('.');
+			o.write(attribute.getName());
+			o.write(");");
+			o.write(lineSeparator);
+	
+			o.write("\t}");
+		}
 	}
 
 	private void writeQualifierSetter(final CopeQualifier qualifier, final CopeAttribute attribute)
