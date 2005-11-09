@@ -793,7 +793,7 @@ final class Generator
 		o.write("\t}");
 		
 		final List qualifierAttributes = Arrays.asList(qualifier.uniqueConstraint.attributes);
-		for(Iterator i = qualifier.qualifierClass.getCopeAttributes().iterator(); i.hasNext(); )
+		for(Iterator i = qualifier.qualifierClass.getAttributes().iterator(); i.hasNext(); )
 		{
 			final CopeAttribute attribute = (CopeAttribute)i.next();
 			if(qualifierAttributes.contains(attribute))
@@ -995,7 +995,7 @@ final class Generator
 			writeInitialConstructor(copeClass);
 			writeGenericConstructor(copeClass);
 			writeReactivationConstructor(copeClass);
-			for(final Iterator i = copeClass.getCopeAttributes().iterator(); i.hasNext(); )
+			for(final Iterator i = copeClass.getAttributes().iterator(); i.hasNext(); )
 			{
 				// write setter/getter methods
 				final CopeAttribute attribute = (CopeAttribute)i.next();

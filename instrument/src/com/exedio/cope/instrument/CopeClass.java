@@ -98,7 +98,7 @@ final class CopeClass
 	/**
 	 * @return unmodifiable list of {@link JavaAttribute}
 	 */
-	public List getCopeAttributes()
+	public List getAttributes()
 	{
 		return Collections.unmodifiableList(copeAttributes);
 	}
@@ -220,7 +220,7 @@ final class CopeClass
 	{
 		initialAttributes = new ArrayList();
 		constructorExceptions = new TreeSet(ClassComparator.getInstance());
-		for(Iterator i = getCopeAttributes().iterator(); i.hasNext(); )
+		for(Iterator i = getAttributes().iterator(); i.hasNext(); )
 		{
 			final CopeAttribute copeAttribute = (CopeAttribute)i.next();
 			if(copeAttribute.isInitial())
