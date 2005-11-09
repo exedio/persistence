@@ -182,6 +182,7 @@ public abstract class AbstractLibTest extends CopeTest
 			final byte[] actualData = new byte[20];
 			FileInputStream in = new FileInputStream(actualFile);
 			in.read(actualData);
+			in.close();
 			
 			for(int i = 0; i<expectedData.length; i++)
 				assertEquals(expectedData[i], actualData[i]);
