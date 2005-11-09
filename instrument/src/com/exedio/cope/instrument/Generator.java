@@ -649,19 +649,19 @@ final class Generator
 	{
 		if(show) constraint.show();
 
-		final CopeAttribute[] copeAttributes = constraint.copeAttributes;
-		final String className = copeAttributes[0].getParent().name;
+		final CopeAttribute[] atributes = constraint.copeAttributes;
+		final String className = atributes[0].getParent().name;
 		
 		writeCommentHeader();
 		o.write("\t * ");
 		o.write(format(FINDER_UNIQUE, lowerCamelCase(className)));
 		o.write(lineSeparator);
-		for(int i=0; i<copeAttributes.length; i++)
+		for(int i=0; i<atributes.length; i++)
 		{
 			o.write("\t * @param ");
-			o.write(copeAttributes[i].getName());
+			o.write(atributes[i].getName());
 			o.write(' ');
-			o.write(format(FINDER_UNIQUE_PARAMETER, link(copeAttributes[i].getName())));
+			o.write(format(FINDER_UNIQUE_PARAMETER, link(atributes[i].getName())));
 			o.write(lineSeparator);
 		}
 		o.write("\t * @return ");
@@ -676,11 +676,11 @@ final class Generator
 		o.write(toCamelCase(constraint.name));
 		
 		o.write('(');
-		for(int i=0; i<copeAttributes.length; i++)
+		for(int i=0; i<atributes.length; i++)
 		{
 			if(i>0)
 				o.write(',');
-			final CopeAttribute copeAttribute = copeAttributes[i];
+			final CopeAttribute copeAttribute = atributes[i];
 			o.write("final ");
 			o.write(copeAttribute.getBoxedType());
 			o.write(' ');
@@ -694,25 +694,25 @@ final class Generator
 		o.write(className);
 		o.write(')');
 
-		if(copeAttributes.length==1)
+		if(atributes.length==1)
 		{
-			o.write(copeAttributes[0].copeClass.getName());
+			o.write(atributes[0].copeClass.getName());
 			o.write('.');
-			o.write(copeAttributes[0].getName());
+			o.write(atributes[0].getName());
 			o.write(".searchUnique(");
-			writeAttribute(copeAttributes[0]);
+			writeAttribute(atributes[0]);
 		}
 		else
 		{
-			o.write(copeAttributes[0].copeClass.getName());
+			o.write(atributes[0].copeClass.getName());
 			o.write('.');
 			o.write(constraint.name);
 			o.write(".searchUnique(new Object[]{");
-			writeAttribute(copeAttributes[0]);
-			for(int i = 1; i<copeAttributes.length; i++)
+			writeAttribute(atributes[0]);
+			for(int i = 1; i<atributes.length; i++)
 			{
 				o.write(',');
-				writeAttribute(copeAttributes[i]);
+				writeAttribute(atributes[i]);
 			}
 			o.write('}');
 		}
