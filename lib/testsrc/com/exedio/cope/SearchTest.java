@@ -42,42 +42,8 @@ public class SearchTest extends TestmodelTest
 		assertNotEquals( // not commutative
 				Cope.and(x.someString.equal("a"),x.someNotNullString.equal("b")),
 				Cope.and(x.someNotNullString.equal("b"),x.someString.equal("a")));
-		
 
-		final EmptyItem someItem = new EmptyItem();
-		final AttributeItem item;
-		final AttributeItem item2;
-		try
-		{
-			item = new AttributeItem("someString", 5, 6l, 2.2, true, someItem, AttributeItem.SomeEnum.enumValue1);
-			item2 = new AttributeItem("someString2", 5, 6l, 2.2, false, someItem, AttributeItem.SomeEnum.enumValue2);
-		}
-		catch(MandatoryViolationException e)
-		{
-			throw new NestingRuntimeException(e);
-		}
-		item.setSomeNotNullInteger(0);
-		assertContainsUnmodifiable(item, item.TYPE.search(item.someNotNullInteger.equal(0)));
-		
-		assertContainsUnmodifiable(item, item2, item.TYPE.search(null));
-		assertContainsUnmodifiable(item, item2, 
-			item.TYPE.search(
-				Cope.or(
-					item.someNotNullString.equal("someString"),
-					item.someNotNullString.equal("someString2"))));
-		assertContainsUnmodifiable(
-			item.TYPE.search(
-				Cope.and(
-					item.someNotNullString.equal("someString"),
-					item.someNotNullString.equal("someString2"))));
-		
-		assertDelete(item);
-		assertDelete(item2);
-		assertDelete(someItem);
-	}
-
-	public void testIllegalSearch()
-	{
+		// test illegal searches
 		try
 		{
 			EmptyItem.TYPE.search(AttributeItem.someInteger.equal(0));
@@ -126,6 +92,37 @@ public class SearchTest extends TestmodelTest
 		{
 			assertEquals("composite condition must have at least one subcondition", e.getMessage());
 		}
+
+		final EmptyItem someItem = new EmptyItem();
+		final AttributeItem item;
+		final AttributeItem item2;
+		try
+		{
+			item = new AttributeItem("someString", 5, 6l, 2.2, true, someItem, AttributeItem.SomeEnum.enumValue1);
+			item2 = new AttributeItem("someString2", 5, 6l, 2.2, false, someItem, AttributeItem.SomeEnum.enumValue2);
+		}
+		catch(MandatoryViolationException e)
+		{
+			throw new NestingRuntimeException(e);
+		}
+		item.setSomeNotNullInteger(0);
+		assertContainsUnmodifiable(item, item.TYPE.search(item.someNotNullInteger.equal(0)));
+		
+		assertContainsUnmodifiable(item, item2, item.TYPE.search(null));
+		assertContainsUnmodifiable(item, item2, 
+			item.TYPE.search(
+				Cope.or(
+					item.someNotNullString.equal("someString"),
+					item.someNotNullString.equal("someString2"))));
+		assertContainsUnmodifiable(
+			item.TYPE.search(
+				Cope.and(
+					item.someNotNullString.equal("someString"),
+					item.someNotNullString.equal("someString2"))));
+		
+		assertDelete(item);
+		assertDelete(item2);
+		assertDelete(someItem);
 	}
-	
+
 }
