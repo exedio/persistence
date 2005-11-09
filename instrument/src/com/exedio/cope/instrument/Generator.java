@@ -858,7 +858,8 @@ final class Generator
 			writeCommentFooter();
 	
 			final String resultType = attribute.persistentType;
-			o.write("public final void set"); // TODO: obey attribute visibility
+			o.write(Modifier.toString(attribute.getGeneratedSetterModifier()));
+			o.write(" void set");
 			o.write(toCamelCase(attribute.getName()));
 			o.write('(');
 			writeQualifierParameters(qualifier);
