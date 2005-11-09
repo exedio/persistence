@@ -48,6 +48,7 @@ public final class Properties
 	public static final String FULLTEXT_INDEX = "fulltextIndex";
 	public static final String CONNECTION_POOL_MAX_IDLE = "connectionPool.maxIdle";
 	public static final String CACHE_LIMIT = "cache.limit";
+	public static final String CACHE_QUERY_LIMIT = "cache.queryLimit";
 	public static final String DATADIR_PATH = "datadir.path";
 	public static final String MEDIA_ROOT_URL = "media.rooturl";
 	public static final String MEDIA_ROOT_URL_DEFAULT = "media/";
@@ -76,6 +77,7 @@ public final class Properties
 	private final boolean fulltextIndex;
 	private final int connectionPoolMaxIdle;
 	private final int cacheLimit;
+	private final int cacheQueryLimit;
 
 	private final File datadirPath;
 	private final String mediaRootUrl;
@@ -220,6 +222,7 @@ public final class Properties
 		this.fulltextIndex = getPropertyBoolean(properties, FULLTEXT_INDEX, false);
 		this.connectionPoolMaxIdle = getPropertyInt(properties, CONNECTION_POOL_MAX_IDLE, 10, 0);
 		this.cacheLimit = getPropertyInt(properties, CACHE_LIMIT, 10000, 0);
+		this.cacheQueryLimit = getPropertyInt(properties, CACHE_QUERY_LIMIT, 10000, 0);
 		this.databaseLog = getPropertyBoolean(properties, DATABASE_LOG, false);
 		
 		{
@@ -237,6 +240,7 @@ public final class Properties
 					FULLTEXT_INDEX,
 					CONNECTION_POOL_MAX_IDLE,
 					CACHE_LIMIT,
+					CACHE_QUERY_LIMIT,
 					DATADIR_PATH,
 					MEDIA_ROOT_URL,
 					MEDIA_OFFSET_EXPIRES,
@@ -437,6 +441,11 @@ public final class Properties
 		return cacheLimit;
 	}
 	
+	public int getCacheQueryLimit()
+	{
+		return cacheQueryLimit;
+	}
+	
 	public boolean hasDatadirPath()
 	{
 		return datadirPath!=null;
@@ -487,6 +496,8 @@ public final class Properties
 		ensureEquality(other, PKSOURCE_BUTTERFLY, this.pkSourceButterfly, other.pkSourceButterfly);
 		ensureEquality(other, FULLTEXT_INDEX, this.fulltextIndex, other.fulltextIndex);
 		ensureEquality(other, CONNECTION_POOL_MAX_IDLE, this.connectionPoolMaxIdle, other.connectionPoolMaxIdle);
+		ensureEquality(other, CACHE_LIMIT, this.cacheLimit, other.cacheLimit);
+		ensureEquality(other, CACHE_QUERY_LIMIT, this.cacheQueryLimit, other.cacheQueryLimit);
 		ensureEquality(other, DATADIR_PATH, this.datadirPath, other.datadirPath);
 		ensureEquality(other, MEDIA_ROOT_URL, this.mediaRootUrl, other.mediaRootUrl);
 		ensureEquality(other, MEDIA_OFFSET_EXPIRES, this.mediaOffsetExpires, other.mediaOffsetExpires);

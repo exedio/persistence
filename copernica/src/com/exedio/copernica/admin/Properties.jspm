@@ -102,6 +102,10 @@ final class Properties_Jspm
 				<td><%=properties.getCacheLimit()%></td>
 			</tr>
 			<tr>
+				<th><%=properties.CACHE_QUERY_LIMIT%></th>
+				<td><%=properties.getCacheQueryLimit()%></td>
+			</tr>
+			<tr>
 				<th><%=properties.DATADIR_PATH%></th>
 				<td><%
 				if(properties.hasDatadirPath())
