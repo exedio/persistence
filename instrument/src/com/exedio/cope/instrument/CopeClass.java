@@ -23,12 +23,12 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
 import com.exedio.cope.ReadOnlyViolationException;
+import com.exedio.cope.pattern.Media;
 import com.exedio.cope.util.ClassComparator;
 
 final class CopeClass
@@ -47,9 +47,9 @@ final class CopeClass
 	final int accessModifier;
 
 	private final ArrayList attributes = new ArrayList();
-	private final Map attributeMap = new TreeMap();
-	private final Map copeUniqueConstraintMap = new TreeMap();
+	private final TreeMap attributeMap = new TreeMap();
 	private ArrayList uniqueConstraints = null;
+	private final TreeMap uniqueConstraintMap = new TreeMap();
 	private ArrayList qualifiers = null;
 	private ArrayList vectors = null;
 	private ArrayList media = null;
@@ -110,12 +110,12 @@ final class CopeClass
 	
 	public void add(final CopeUniqueConstraint copeUniqueConstraint)
 	{
-		copeUniqueConstraintMap.put(copeUniqueConstraint.name, copeUniqueConstraint);
+		uniqueConstraintMap.put(copeUniqueConstraint.name, copeUniqueConstraint);
 	}
 	
 	public CopeUniqueConstraint getUniqueConstraint(final String name)
 	{
-		return (CopeUniqueConstraint)copeUniqueConstraintMap.get(name);
+		return (CopeUniqueConstraint)uniqueConstraintMap.get(name);
 	}
 
 	public boolean hasInitialConstructor()
