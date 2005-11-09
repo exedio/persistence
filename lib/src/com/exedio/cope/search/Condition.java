@@ -88,6 +88,11 @@ public abstract class Condition
 				+ queryJoins);
 	}
 
+	public final NotCondition not()
+	{
+		return new NotCondition(this);
+	}
+	
 	public final AndCondition and(final Condition other)
 	{
 		return new AndCondition(new Condition[]{this, other});
