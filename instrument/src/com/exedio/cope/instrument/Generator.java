@@ -376,81 +376,81 @@ final class Generator
 		o.write("\t}");
 	}
 	
-	private void writeAccessMethods(final CopeAttribute copeAttribute)
+	private void writeAccessMethods(final CopeAttribute attribute)
 	throws IOException
 	{
-		if(show) copeAttribute.show();
+		if(show) attribute.show();
 
-		final String type = copeAttribute.getBoxedType();
+		final String type = attribute.getBoxedType();
 
 		// getter
-		if(copeAttribute.getterOption.exists)
+		if(attribute.getterOption.exists)
 		{
 			writeCommentHeader();
 			o.write("\t * ");
-			o.write(format(GETTER, link(copeAttribute.getName())));
+			o.write(format(GETTER, link(attribute.getName())));
 			o.write(lineSeparator);
 			writeStreamWarning(type);
 			writeCommentFooter(GETTER_CUSTOMIZE);
-			copeAttribute.writeGeneratedGetterModifier(o);
+			attribute.writeGeneratedGetterModifier(o);
 			o.write(type);
-			if(copeAttribute.hasIsGetter())
+			if(attribute.hasIsGetter())
 				o.write(" is");
 			else
 				o.write(" get");
-			o.write(toCamelCase(copeAttribute.getName()));
+			o.write(toCamelCase(attribute.getName()));
 			o.write("()");
 			o.write(lineSeparator);
 			o.write("\t{");
 			o.write(lineSeparator);
-			writeGetterBody(copeAttribute);
+			writeGetterBody(attribute);
 			o.write("\t}");
 		}
 		
 		// setter
-		if(copeAttribute.hasGeneratedSetter())
+		if(attribute.hasGeneratedSetter())
 		{
 			writeCommentHeader();
 			o.write("\t * ");
-			o.write(format(SETTER, link(copeAttribute.getName())));
+			o.write(format(SETTER, link(attribute.getName())));
 			o.write(lineSeparator);
 			writeCommentFooter(SETTER_CUSTOMIZE);
-			copeAttribute.writeGeneratedSetterModifier(o);
+			attribute.writeGeneratedSetterModifier(o);
 			o.write("void set");
-			o.write(toCamelCase(copeAttribute.getName()));
+			o.write(toCamelCase(attribute.getName()));
 			o.write("(final ");
 			o.write(type);
 			o.write(' ');
-			o.write(copeAttribute.getName());
+			o.write(attribute.getName());
 			o.write(')');
 			o.write(lineSeparator);
-			writeThrowsClause(copeAttribute.getSetterExceptions());
+			writeThrowsClause(attribute.getSetterExceptions());
 			o.write("\t{");
 			o.write(lineSeparator);
-			writeSetterBody(copeAttribute);
+			writeSetterBody(attribute);
 			o.write("\t}");
 			
 			// touch for date attributes
-			if(copeAttribute.isTouchable())
+			if(attribute.isTouchable())
 			{
 				writeCommentHeader();
 				o.write("\t * ");
-				o.write(format(TOUCHER, link(copeAttribute.getName())));
+				o.write(format(TOUCHER, link(attribute.getName())));
 				o.write(lineSeparator);
 				writeCommentFooter();
-				copeAttribute.writeGeneratedSetterModifier(o);
+				attribute.writeGeneratedSetterModifier(o);
 				o.write("void touch");
-				o.write(toCamelCase(copeAttribute.getName()));
+				o.write(toCamelCase(attribute.getName()));
 				o.write("()");
 				o.write(lineSeparator);
-				writeThrowsClause(copeAttribute.getToucherExceptions());
+				writeThrowsClause(attribute.getToucherExceptions());
 				o.write("\t{");
 				o.write(lineSeparator);
-				writeToucherBody(copeAttribute);
+				writeToucherBody(attribute);
 				o.write("\t}");
 			}
 		}
-		for(Iterator i = copeAttribute.getHashes().iterator(); i.hasNext(); )
+		for(Iterator i = attribute.getHashes().iterator(); i.hasNext(); )
 		{
 			final CopeHash hash = (CopeHash)i.next();
 			writeHash(hash);
