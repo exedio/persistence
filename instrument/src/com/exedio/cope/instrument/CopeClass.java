@@ -103,7 +103,7 @@ final class CopeClass
 		return Collections.unmodifiableList(copeAttributes);
 	}
 	
-	public CopeAttribute getCopeAttribute(final String name)
+	public CopeAttribute getAttribute(final String name)
 	{
 		return (CopeAttribute)copeAttributeMap.get(name);
 	}

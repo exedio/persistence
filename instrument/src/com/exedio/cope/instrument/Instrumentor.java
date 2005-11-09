@@ -226,7 +226,7 @@ final class Instrumentor implements InjectionConsumer
 		for(Iterator i = initializerArguments.iterator(); i.hasNext(); )
 		{
 			final String initializerArgument = (String)i.next();
-			final CopeAttribute copeAttribute = copeClass.getCopeAttribute(initializerArgument);
+			final CopeAttribute copeAttribute = copeClass.getAttribute(initializerArgument);
 			if(copeAttribute==null)
 				throw new InjectorParseException("attribute >"+initializerArgument+"< in unique constraint "+ja.name+" not found.");
 			copeAttributes.add(copeAttribute);
@@ -282,7 +282,7 @@ final class Instrumentor implements InjectionConsumer
 			else
 			{
 				// explicitExternal
-				storageAttribute = (CopeAttribute)copeClass.getCopeAttribute(initializerArgument);
+				storageAttribute = (CopeAttribute)copeClass.getAttribute(initializerArgument);
 				if(storageAttribute==null)
 					throw new InjectorParseException("attribute >"+initializerArgument+"< in hash "+ja.name+" not found.");
 			}
