@@ -113,7 +113,7 @@ final class CopeClass
 		copeUniqueConstraintMap.put(copeUniqueConstraint.name, copeUniqueConstraint);
 	}
 	
-	public CopeUniqueConstraint getCopeUniqueConstraint(final String name)
+	public CopeUniqueConstraint getUniqueConstraint(final String name)
 	{
 		return (CopeUniqueConstraint)copeUniqueConstraintMap.get(name);
 	}

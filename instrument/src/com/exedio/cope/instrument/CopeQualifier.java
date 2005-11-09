@@ -55,7 +55,7 @@ final class CopeQualifier
 		final String constraintName = uniqueConstraintString.substring(dot+1);
 		//System.out.println("--------- keyString: "+keyString);
 		
-		this.uniqueConstraint = qualifierClass.getCopeUniqueConstraint(constraintName);
+		this.uniqueConstraint = qualifierClass.getUniqueConstraint(constraintName);
 		if(uniqueConstraint==null)
 			throw new InjectorParseException("unique constraint not found "+uniqueConstraintString);
 		
