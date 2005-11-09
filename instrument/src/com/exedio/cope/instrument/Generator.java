@@ -998,9 +998,9 @@ final class Generator
 			for(final Iterator i = copeClass.getCopeAttributes().iterator(); i.hasNext(); )
 			{
 				// write setter/getter methods
-				final CopeAttribute copeAttribute = (CopeAttribute)i.next();
-				//System.out.println("onClassEnd("+jc.getName()+") writing attribute "+copeAttribute.getName());
-				writeAccessMethods(copeAttribute);
+				final CopeAttribute attribute = (CopeAttribute)i.next();
+				//System.out.println("onClassEnd("+jc.getName()+") writing attribute "+attribute.getName());
+				writeAccessMethods(attribute);
 			}
 			for(final Iterator i = copeClass.getUniqueConstraints().iterator(); i.hasNext(); )
 			{
