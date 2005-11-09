@@ -680,11 +680,11 @@ final class Generator
 		{
 			if(i>0)
 				o.write(',');
-			final CopeAttribute copeAttribute = atributes[i];
+			final CopeAttribute attribute = atributes[i];
 			o.write("final ");
-			o.write(copeAttribute.getBoxedType());
+			o.write(attribute.getBoxedType());
 			o.write(' ');
-			o.write(copeAttribute.getName());
+			o.write(attribute.getName());
 		}
 		o.write(')');
 		o.write(lineSeparator);
