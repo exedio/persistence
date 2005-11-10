@@ -407,6 +407,11 @@ public final class Model
 		return cache.getInfo(types);
 	}
 	
+	public int[] getCacheQueryInfo()
+	{
+		return cache.getQueryInfo();
+	}
+	
 	public ConnectionPoolInfo getConnectionPoolInfo()
 	{
 		return database.connectionPool.getInfo();

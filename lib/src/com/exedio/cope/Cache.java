@@ -34,6 +34,7 @@ final class Cache
 	private final IntKeyOpenHashMap[] stateMaps;
 	private final int[] hits, misses;
 	private final Map queryCaches;
+	private int queryHits=0, queryMisses=0;
 	
 	Cache(final int[] mapSizeLimits, int queryCacheSizeLimit)
 	{
@@ -159,7 +160,11 @@ final class Cache
 			{
 				queryCaches.put( key, result );				
 			}
+			queryMisses++;
 		}
+		else
+			queryHits++;
+		
 		return result;		
 	}
 	
@@ -258,5 +263,10 @@ final class Cache
 		}
 		
 		return result;
+	}
+	
+	int[] getQueryInfo()
+	{
+		return new int[]{queryHits, queryMisses};
 	}
 }

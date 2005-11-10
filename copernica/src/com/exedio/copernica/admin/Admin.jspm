@@ -149,7 +149,10 @@ final class Admin_Jspm
 		</table><%
 	}
 
-	final static void write(final PrintStream out, final CacheInfo[] infos, final CacheStatsCop cop)
+	final static void write(final PrintStream out,
+									final CacheInfo[] infos,
+									final int[] queryInfos,
+									final CacheStatsCop cop)
 		throws IOException
 	{
 		final String[] names = new String[]{
@@ -167,6 +170,8 @@ final class Admin_Jspm
 			<tr>
 				<th colspan="<%=names.length+2%>">Cache Statistics</th>
 			</tr>
+			<tr><th>Query Hits</th><td colspan="<%=names.length+1%>"><%=queryInfos[0]%></td></tr>
+			<tr><th>Query Misses</th><td colspan="<%=names.length+1%>"><%=queryInfos[1]%></td></tr>
 			<tr><th>Max Memory</th><td colspan="<%=names.length+1%>"><%=rt.maxMemory()%></td></tr>
 			<tr><th>Total Memory</th><td colspan="<%=names.length+1%>"><%=rt.totalMemory()%></td></tr>
 			<tr><th>Free Memory</th><td colspan="<%=names.length+1%>"><%=rt.freeMemory()%></td></tr><%
