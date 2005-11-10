@@ -153,15 +153,20 @@ public final class Model
 	public final Type findTypeByID(final String id)
 	{
 		if(this.properties==null)
-			throw new RuntimeException();
+			throw newNotInitializedException();
 
 		return (Type)typesByID.get(id);
+	}
+	
+	private final RuntimeException newNotInitializedException()
+	{
+		throw new RuntimeException("model not yet initialized, use setPropertiesInitially");
 	}
 	
 	public final Properties getProperties()
 	{
 		if(properties==null)
-			throw new RuntimeException();
+			throw newNotInitializedException();
 
 		return properties;
 	}
@@ -197,7 +202,7 @@ public final class Model
 	final Database getDatabase()
 	{
 		if(database==null)
-			throw new RuntimeException();
+			throw newNotInitializedException();
 
 		return database;
 	}
@@ -406,26 +411,41 @@ public final class Model
 	
 	public CacheInfo[] getCacheInfo()
 	{
+		if(cache==null)
+			throw newNotInitializedException();
+		
 		return cache.getInfo(types);
 	}
 	
 	public int[] getCacheQueryInfo()
 	{
+		if(cache==null)
+			throw newNotInitializedException();
+		
 		return cache.getQueryInfo();
 	}
 	
 	public SortedMap getCacheQueryHistogram()
 	{
+		if(cache==null)
+			throw newNotInitializedException();
+		
 		return cache.getQueryHistogram();
 	}
 	
 	public ConnectionPoolInfo getConnectionPoolInfo()
 	{
+		if(database==null)
+			throw newNotInitializedException();
+		
 		return database.connectionPool.getInfo();
 	}
 	
 	public java.util.Properties getDatabaseInfo()
 	{
+		if(database==null)
+			throw newNotInitializedException();
+		
 		final ConnectionPool cp = database.connectionPool;
 		Connection c = null;
 		try
@@ -474,6 +494,9 @@ public final class Model
 	 */
 	public Transaction startTransaction(final String name)
 	{
+		if(database==null)
+			throw newNotInitializedException();
+		
 		if( hasCurrentTransaction() )
 			throw new RuntimeException("there is already a transaction bound to current thread");
 		final Transaction result = new Transaction(this, name);
@@ -596,6 +619,9 @@ public final class Model
 	
 	Cache getCache()
 	{
+		if(cache==null)
+			throw newNotInitializedException();
+		
 		return cache;
 	}
 	
