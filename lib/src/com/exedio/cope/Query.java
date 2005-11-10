@@ -241,7 +241,7 @@ public final class Query
 		);
 	}
 	
-	protected Collection searchUncached()
+	Collection searchUncached()
 	{
 		return Collections.unmodifiableList(model.getDatabase().search(model.getCurrentTransaction().getConnection(), this, false));
 	}
