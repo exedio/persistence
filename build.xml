@@ -306,6 +306,7 @@
 						<pathelement location="lib/build/testclasses" />
 						<pathelement location="../lib/junit.jar" />
 						<pathelement location="../lib/pcj.jar" />
+						<pathelement location="../lib/commons-collections.jar" />
 						<pathelement location="../lib/@{db.driver}" />
 					</classpath>
 				</nbjpdastart-->
@@ -352,6 +353,7 @@
 						<pathelement location="lib/build/testmodelclasses" />
 						<pathelement location="lib/build/testclasses" />
 						<pathelement location="../lib/pcj.jar" />
+						<pathelement location="../lib/commons-collections.jar" />
 						<pathelement location="../lib/@{db.driver}" />
 					</classpath>
 					<sysproperty key="com.exedio.cope.properties"
@@ -451,6 +453,7 @@
 				
 				<copy todir="copernica/build/testwebapp-@{db}/WEB-INF/lib">
 					<fileset file="../lib/pcj.jar" />
+					<fileset file="../lib/commons-collections.jar" />
 					<fileset file="../lib/@{db.driver}" />
 				</copy>
 				
@@ -580,6 +583,7 @@
 			<fileset file="copernica/src/com" includes="**/*.java" />
 			<classpath>
 				<pathelement location="../lib/pcj.jar" />
+				<pathelement location="../lib/commons-collections.jar" />
 				<pathelement location="../lib/junit.jar" />
 				<pathelement location="../tomcat/common/lib/ant.jar" />
 				<pathelement location="../cops/build/classes" />
