@@ -50,6 +50,10 @@ public class ModelTest extends TestmodelTest
 		{
 			assertEquals( true, model.supportsReadCommitted() );
 		}
+		else if ( model.getDatabase().getClass().getName().equals("com.exedio.cope.PostgresqlDatabase") )
+		{
+			assertEquals( true, model.supportsReadCommitted() );
+		}
 		else
 		{
 			fail( model.getDatabase().getClass().getName() );
