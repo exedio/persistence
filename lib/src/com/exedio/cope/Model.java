@@ -133,7 +133,7 @@ public final class Model
 				final int[] cacheMapSizeLimits = new int[numberOfTypes];
 				final int cacheMapSizeLimit = properties.getCacheLimit() / numberOfTypes;
 				Arrays.fill(cacheMapSizeLimits, cacheMapSizeLimit);
-				this.cache = new Cache(cacheMapSizeLimits);
+				this.cache = new Cache(cacheMapSizeLimits, getProperties().getCacheQueryLimit());
 
 				return;
 			}

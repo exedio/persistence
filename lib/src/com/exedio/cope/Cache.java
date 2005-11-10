@@ -18,22 +18,28 @@
 
 package com.exedio.cope;
 
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
 
 import bak.pcj.map.IntKeyOpenHashMap;
 import bak.pcj.set.IntOpenHashSet;
 
 import com.exedio.cope.util.CacheInfo;
+import java.util.Map;
+import org.apache.commons.collections.map.LRUMap;
 
 final class Cache
 {
 	private final int[] mapSizeLimits;
 	private final IntKeyOpenHashMap[] stateMaps;
 	private final int[] hits, misses;
+	private final Map queryCaches;
 	
-	Cache(final int[] mapSizeLimits)
+	Cache(final int[] mapSizeLimits, int queryCacheSizeLimit)
 	{
 		this.mapSizeLimits = mapSizeLimits;
+		queryCaches = queryCacheSizeLimit>0 ? new LRUMap(queryCacheSizeLimit) : null;
 		final int numberOfTypes = mapSizeLimits.length;
 		stateMaps = new IntKeyOpenHashMap[numberOfTypes];
 		for ( int i=0; i<numberOfTypes; i++ )
@@ -130,6 +136,34 @@ final class Cache
 		return state;
 	}
 	
+	boolean supportsQueryCaching()
+	{
+		return queryCaches!=null;
+	}
+	
+	Collection search( Query query )
+	{
+		if ( queryCaches==null )
+		{
+			throw new RuntimeException( "search in cache must not be called if query caching is disabled" );
+		}
+		Query.QueryKey key = new Query.QueryKey( query );
+		Collection result;
+		synchronized ( queryCaches )
+		{
+			result = (Collection)queryCaches.get( key );
+		}
+		if ( result==null )
+		{
+			result = query.searchUncached();
+			synchronized ( queryCaches )
+			{
+				queryCaches.put( key, result );				
+			}
+		}
+		return result;		
+	}
+	
 	void invalidate( int transientTypeNumber, IntOpenHashSet invalidatedPKs )
 	{
 		final IntKeyOpenHashMap stateMap = getStateMap( transientTypeNumber );
@@ -138,6 +172,33 @@ final class Cache
 			synchronized ( stateMap )
 			{
 				stateMap.keySet().removeAll( invalidatedPKs );
+			}
+		}
+		if ( queryCaches!=null )
+		{
+			synchronized ( queryCaches )
+			{
+				Iterator keys = queryCaches.keySet().iterator();
+				while ( keys.hasNext() )
+				{
+					Query.QueryKey key = (Query.QueryKey)keys.next();
+					if ( key.type.transientNumber==transientTypeNumber )
+					{
+						keys.remove();
+					}
+					else if ( key.joins!=null )
+					{
+						for ( Iterator iter = key.joins.iterator(); iter.hasNext(); )
+						{
+							Join nextJoin = (Join)iter.next();
+							if ( nextJoin.type.transientNumber==transientTypeNumber )
+							{
+								keys.remove();
+								break;
+							}
+						}
+					}					
+				}
 			}
 		}
 	}

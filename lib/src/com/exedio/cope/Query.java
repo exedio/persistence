@@ -18,6 +18,7 @@
 package com.exedio.cope;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
@@ -234,7 +235,14 @@ public final class Query
 				addStatementInfo(new StatementInfo("skipped search because limitCount==0"));
 			return Collections.EMPTY_LIST;
 		}
-
+		
+		return model.getCurrentTransaction().search(
+			this
+		);
+	}
+	
+	protected Collection searchUncached()
+	{
 		return Collections.unmodifiableList(model.getDatabase().search(model.getCurrentTransaction().getConnection(), this, false));
 	}
 	
@@ -332,5 +340,106 @@ public final class Query
 		{
 			return data.toString() + '(' + countWithoutLimit + ')';
 		}
+	}
+	
+	static final class QueryKey
+	{
+		final Model model;
+		final Selectable[] selectables;
+		final Type type;
+		final ArrayList joins;
+		final Condition condition;
+
+		final Function orderBy;
+
+		final boolean orderAscending;
+		final boolean deterministicOrder;
+
+		final int limitStart;
+		final int limitCount;
+
+		final boolean makeStatementInfo;
+		
+		QueryKey( Query query )
+		{
+			model = query.model;
+			selectables = query.selectables;
+			type = query.type;
+			joins = query.joins==null ? null : new ArrayList( query.joins );
+			condition = query.condition;
+			orderBy = query.orderBy;
+			orderAscending = query.orderAscending;
+			deterministicOrder = query.deterministicOrder;
+			limitStart = query.limitStart;
+			limitCount = query.limitCount;
+			makeStatementInfo = query.makeStatementInfo;
+		}
+		
+		public boolean equals( Object obj )
+		{
+			if ( obj==null )
+			{
+				throw new NullPointerException( "must not compare QueryKey to null" );
+			}
+			QueryKey other = (QueryKey)obj;
+			return equals( model, other.model )
+				&& Arrays.equals( selectables, other.selectables )
+				&& equals( type, other.type )
+				&& equals( joins, other.joins )
+				&& equals( condition, other.condition )
+				&& equals( orderBy, other.orderBy )
+				&& orderAscending==other.orderAscending
+				&& deterministicOrder==other.deterministicOrder
+				&& limitStart == other.limitStart
+				&& limitCount == other.limitCount
+				&& makeStatementInfo == other.makeStatementInfo;
+		}
+		
+		private static boolean equals( Object a, Object b )
+		{
+			return a==null ? b==null : ( b!=null && a.equals(b) );
+		}
+		
+		private static int hashCode( Object obj )
+		{
+			return obj==null ? 0 : obj.hashCode();
+		}
+		
+		private static int hashCode( boolean b )
+		{
+			return b ? 1 : 0;
+		}
+		
+		private static int hashCode( Selectable[] selectables )
+		{
+			if ( selectables==null )
+			{
+				return 0;
+			}
+			else
+			{
+				int hash = 0;
+				for ( int i=0; i<selectables.length; i++ )
+				{
+					hash ^= hashCode( selectables[i] );
+				}
+				return hash;
+			}
+		}
+		
+		public int hashCode()
+		{
+			return hashCode(model) 
+					^ hashCode(selectables)
+					^ hashCode(type)
+					^ hashCode(joins)
+					^ hashCode(condition)
+					^ hashCode(orderBy)
+					^ hashCode(orderAscending)
+					^ hashCode(deterministicOrder)
+					^ limitStart
+					^ limitCount
+					^ hashCode(makeStatementInfo);
+		}		
 	}
 }

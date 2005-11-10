@@ -25,6 +25,9 @@ import java.sql.SQLException;
 import bak.pcj.map.IntKeyOpenHashMap;
 
 import com.exedio.dsmf.SQLRuntimeException;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
 
 
 public final class Transaction
@@ -150,6 +153,44 @@ public final class Transaction
 		{
 			rowMap.remove( item.pk );
 		}		
+	}
+	
+	final Collection search( Query query )
+	{
+		if ( !model.getCache().supportsQueryCaching() || isInvalidated(query) )
+		{
+			return query.searchUncached();
+		}
+		else
+		{
+			return model.getCache().search( query );
+		}
+	}
+	
+	private boolean isInvalidated( Query query )
+	{
+		if ( isInvalidated(query.type) )
+		{
+			return true;
+		}
+		if ( query.joins==null )
+		{
+			return false;
+		}
+		for ( Iterator iter = query.joins.iterator(); iter.hasNext(); )
+		{
+			Join nextJoin = (Join)iter.next();
+			if ( isInvalidated(nextJoin.type) )
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	private boolean isInvalidated( Type type )
+	{
+		return invalidations[type.transientNumber]!=null && !invalidations[type.transientNumber].isEmpty();
 	}
 	
 	private boolean isInvalidated( final Item item )
