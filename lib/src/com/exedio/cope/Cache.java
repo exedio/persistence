@@ -267,6 +267,17 @@ final class Cache
 	
 	int[] getQueryInfo()
 	{
-		return new int[]{queryHits, queryMisses};
+		final int queriesInCache;
+		if(queryCaches!=null)
+		{
+			synchronized(queryCaches)
+			{
+				queriesInCache = queryCaches.size();
+			}
+		}
+		else
+			queriesInCache = 0;
+		
+		return new int[]{queryHits, queryMisses, queriesInCache};
 	}
 }

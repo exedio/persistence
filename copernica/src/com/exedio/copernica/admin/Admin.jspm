@@ -172,6 +172,7 @@ final class Admin_Jspm
 			</tr>
 			<tr><th>Query Hits</th><td colspan="<%=names.length+1%>"><%=queryInfos[0]%></td></tr>
 			<tr><th>Query Misses</th><td colspan="<%=names.length+1%>"><%=queryInfos[1]%></td></tr>
+			<tr><th>Queries in Cache</th><td colspan="<%=names.length+1%>"><%=queryInfos[2]%></td></tr>
 			<tr><th>Max Memory</th><td colspan="<%=names.length+1%>"><%=rt.maxMemory()%></td></tr>
 			<tr><th>Total Memory</th><td colspan="<%=names.length+1%>"><%=rt.totalMemory()%></td></tr>
 			<tr><th>Free Memory</th><td colspan="<%=names.length+1%>"><%=rt.freeMemory()%></td></tr><%
