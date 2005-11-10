@@ -20,13 +20,15 @@ package com.exedio.cope;
 
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.Map;
+import java.util.TreeMap;
+
+import org.apache.commons.collections.map.LRUMap;
 
 import bak.pcj.map.IntKeyOpenHashMap;
 import bak.pcj.set.IntOpenHashSet;
 
 import com.exedio.cope.util.CacheInfo;
-import java.util.Map;
-import org.apache.commons.collections.map.LRUMap;
 
 final class Cache
 {
@@ -35,8 +37,9 @@ final class Cache
 	private final int[] hits, misses;
 	private final Map queryCaches;
 	private int queryHits=0, queryMisses=0;
+	private final boolean logQueryCache;
 	
-	Cache(final int[] mapSizeLimits, int queryCacheSizeLimit)
+	Cache(final int[] mapSizeLimits, final int queryCacheSizeLimit, final boolean logQueryCache)
 	{
 		this.mapSizeLimits = mapSizeLimits;
 		queryCaches = queryCacheSizeLimit>0 ? new LRUMap(queryCacheSizeLimit) : null;
@@ -48,6 +51,7 @@ final class Cache
 		}
 		hits = new int[numberOfTypes];
 		misses = new int[numberOfTypes];
+		this.logQueryCache = logQueryCache;
 	}
 	
 	private IntKeyOpenHashMap getStateMap( Type type )
@@ -160,6 +164,8 @@ final class Cache
 			{
 				queryCaches.put( key, result );				
 			}
+			if(logQueryCache)
+				key.name = query.toString();
 			queryMisses++;
 		}
 		else
@@ -268,6 +274,7 @@ final class Cache
 	int[] getQueryInfo()
 	{
 		final int queriesInCache;
+		
 		if(queryCaches!=null)
 		{
 			synchronized(queryCaches)
@@ -279,5 +286,29 @@ final class Cache
 			queriesInCache = 0;
 		
 		return new int[]{queryHits, queryMisses, queriesInCache};
+	}
+	
+	TreeMap getQueryHistogram()
+	{
+		if(!logQueryCache)
+			return null;
+		
+		final TreeMap result = new TreeMap();
+		
+		if(queryCaches!=null)
+		{
+			synchronized(queryCaches)
+			{
+				for(Iterator i = queryCaches.keySet().iterator(); i.hasNext(); )
+				{
+					final Query.QueryKey key = (Query.QueryKey)i.next();
+					final Integer numold = (Integer)result.get(key.name);
+					final Integer numnew = (numold==null) ? new Integer(1) : new Integer(numold.intValue()+1);
+					result.put(key.name, numnew);
+				}
+			}
+		}
+		
+		return result;
 	}
 }

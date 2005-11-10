@@ -37,7 +37,7 @@ final class CacheStatsCop extends AdminCop
 
 	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request) throws IOException
 	{
-		Admin_Jspm.write(out, model.getCacheInfo(), model.getCacheQueryInfo(), this);
+		Admin_Jspm.write(out, model.getCacheInfo(), model.getCacheQueryInfo(), model.getCacheQueryHistogram(), this);
 	}
 	
 }

@@ -31,6 +31,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Set;
+import java.util.SortedMap;
 
 import com.exedio.cope.util.CacheInfo;
 import com.exedio.cope.util.ConnectionPoolInfo;
@@ -133,7 +134,8 @@ public final class Model
 				final int[] cacheMapSizeLimits = new int[numberOfTypes];
 				final int cacheMapSizeLimit = properties.getCacheLimit() / numberOfTypes;
 				Arrays.fill(cacheMapSizeLimits, cacheMapSizeLimit);
-				this.cache = new Cache(cacheMapSizeLimits, getProperties().getCacheQueryLimit());
+				final Properties p = getProperties();
+				this.cache = new Cache(cacheMapSizeLimits, p.getCacheQueryLimit(), p.getCacheQueryLogging());
 
 				return;
 			}
@@ -410,6 +412,11 @@ public final class Model
 	public int[] getCacheQueryInfo()
 	{
 		return cache.getQueryInfo();
+	}
+	
+	public SortedMap getCacheQueryHistogram()
+	{
+		return cache.getQueryHistogram();
 	}
 	
 	public ConnectionPoolInfo getConnectionPoolInfo()

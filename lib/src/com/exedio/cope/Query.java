@@ -429,6 +429,8 @@ public final class Query
 
 		final boolean makeStatementInfo;
 		
+		String name = null;
+		
 		QueryKey( Query query )
 		{
 			model = query.model;

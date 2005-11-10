@@ -23,6 +23,8 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.Map;
+import java.util.SortedMap;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -152,6 +154,7 @@ final class Admin_Jspm
 	final static void write(final PrintStream out,
 									final CacheInfo[] infos,
 									final int[] queryInfos,
+									final SortedMap queryHistogram,
 									final CacheStatsCop cop)
 		throws IOException
 	{
@@ -206,6 +209,25 @@ final class Admin_Jspm
 			}
 		%>
 		</table><%
+
+		if(queryHistogram!=null)
+		{
+		%>
+		<table class="statistics">
+			<tr><th colspan="2">Query Cache Histogram</th></tr>
+			<tr><th>Count</th><th>Query</th></tr><%
+
+		for(Iterator i = queryHistogram.entrySet().iterator(); i.hasNext(); )
+		{
+			final Map.Entry entry = (Map.Entry)i.next();
+			final String query = (String)entry.getKey();
+			final Integer count = (Integer)entry.getValue();
+			%>
+			<tr><th><%=count%></th><td><%=query%></td></tr><%
+		}
+		%>
+		</table><%
+		}
 	}
 
 	final static void writeMediaStats(final PrintStream out, final Collection media, final String prefix, final MediaStatsCop cop)
