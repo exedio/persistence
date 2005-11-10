@@ -342,6 +342,75 @@ public final class Query
 		}
 	}
 	
+	public String toString()
+	{
+		final StringBuffer bf = new StringBuffer();
+		
+		bf.append("select ");
+		
+		for(int i = 0; i<selectables.length; i++)
+		{
+			if(i>0)
+				bf.append(',');
+
+			final Selectable selectable = selectables[i];
+			bf.append(selectable);
+			if(selectable instanceof Type)
+				bf.append(".PK");
+		}
+
+		bf.append(" from ").
+			append(type);
+
+		if(joins!=null)
+		{
+			for(Iterator i = joins.iterator(); i.hasNext(); )
+			{
+				final Join join = (Join)i.next();
+				
+				bf.append(' ').
+					append(join.getKindString()).
+					append(" join ").
+					append(join.type);
+
+				final Condition joinCondition = join.condition;
+				if(joinCondition!=null)
+				{
+					bf.append(" on ").
+						append(joinCondition);
+				}
+			}
+		}
+
+		if(condition!=null)
+		{
+			bf.append(" where ").
+				append(condition);
+		}
+
+		if(orderBy!=null)
+		{
+			bf.append(" order by ").
+				append(orderBy);
+			
+			if(orderAscending)
+				bf.append(" desc");
+		}
+		
+		if(deterministicOrder)
+			bf.append(" order deterministically");
+
+		if(limitStart>0 || limitCount!=UNLIMITED_COUNT)
+		{
+			bf.append(" limit ").
+				append(limitStart).
+				append(' ').
+				append(limitCount);
+		}
+		
+		return bf.toString();
+	}
+	
 	static final class QueryKey
 	{
 		final Model model;

@@ -143,6 +143,7 @@ public class OrderByTest extends TestmodelTest
 				query.setLimit(limitStart, limitCount);
 			
 			assertEquals(expectedOrder, query.search());
+			assertNotNull(query.toString());
 		}
 		{
 			final Query query = new Query(item1.TYPE, null);

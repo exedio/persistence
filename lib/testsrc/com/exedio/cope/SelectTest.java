@@ -74,6 +74,7 @@ public class SelectTest extends TestmodelTest
 				null);
 		query.setOrderBy(item.someNotNullString, false);
 		final Collection result = query.search();
+		assertNotNull(query.toString());
 		final Iterator i = result.iterator();
 		
 		assertRow(i, "1z",     "1Z",     2, "someString9", 1, 4l, 2.1, true, someItem, AttributeItem.SomeEnum.enumValue1);
