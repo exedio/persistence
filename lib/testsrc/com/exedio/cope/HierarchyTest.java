@@ -31,8 +31,8 @@ public class HierarchyTest extends TestmodelTest
 		assertEqualsUnmodifiable(list(FirstSub.TYPE, SecondSub.TYPE), Super.TYPE.getSubTypes());
 		assertEqualsUnmodifiable(list(Super.superInt, Super.superString), Super.TYPE.getDeclaredAttributes());
 		assertEqualsUnmodifiable(list(Super.superInt, Super.superString), Super.TYPE.getAttributes());
-		assertEqualsUnmodifiable(list(Super.superInt, Super.superString), Super.TYPE.getDeclaredFeatures());
-		assertEqualsUnmodifiable(list(Super.superInt, Super.superString), Super.TYPE.getFeatures());
+		assertEqualsUnmodifiable(list(Super.superInt, Super.superString, Super.superStringUpper), Super.TYPE.getDeclaredFeatures());
+		assertEqualsUnmodifiable(list(Super.superInt, Super.superString, Super.superStringUpper), Super.TYPE.getFeatures());
 		assertEquals(Super.TYPE, Super.superInt.getType());
 		
 		// model FirstSub
@@ -40,8 +40,8 @@ public class HierarchyTest extends TestmodelTest
 		assertEqualsUnmodifiable(list(), FirstSub.TYPE.getSubTypes());
 		assertEqualsUnmodifiable(list(FirstSub.firstSubString), FirstSub.TYPE.getDeclaredAttributes());
 		assertEqualsUnmodifiable(list(Super.superInt, Super.superString, FirstSub.firstSubString), FirstSub.TYPE.getAttributes());
-		assertEqualsUnmodifiable(list(FirstSub.firstSubString), FirstSub.TYPE.getDeclaredFeatures());
-		assertEqualsUnmodifiable(list(Super.superInt, Super.superString, FirstSub.firstSubString), FirstSub.TYPE.getFeatures());
+		assertEqualsUnmodifiable(list(FirstSub.firstSubString, FirstSub.firstSubStringUpper), FirstSub.TYPE.getDeclaredFeatures());
+		assertEqualsUnmodifiable(list(Super.superInt, Super.superString, Super.superStringUpper, FirstSub.firstSubString, FirstSub.firstSubStringUpper), FirstSub.TYPE.getFeatures());
 		assertEquals(FirstSub.TYPE, FirstSub.firstSubString.getType());
 
 		final FirstSub firstItem = new FirstSub(0);
