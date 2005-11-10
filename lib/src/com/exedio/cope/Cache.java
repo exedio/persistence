@@ -19,7 +19,6 @@
 package com.exedio.cope;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Iterator;
 
 import bak.pcj.map.IntKeyOpenHashMap;

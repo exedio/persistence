@@ -26,7 +26,6 @@ import bak.pcj.map.IntKeyOpenHashMap;
 
 import com.exedio.dsmf.SQLRuntimeException;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Iterator;
 
 
