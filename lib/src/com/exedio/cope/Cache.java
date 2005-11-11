@@ -151,7 +151,7 @@ final class Cache
 		{
 			throw new RuntimeException( "search in cache must not be called if query caching is disabled" );
 		}
-		Query.QueryKey key = new Query.QueryKey( query );
+		Query.Key key = new Query.Key( query );
 		Collection result;
 		synchronized ( queryCaches )
 		{
@@ -173,10 +173,10 @@ final class Cache
 		{
 			if(logQueryCache)
 			{
-				final Query.QueryKey originalKey;
+				final Query.Key originalKey;
 				synchronized(queryCaches)
 				{
-					originalKey = (Query.QueryKey)queryCaches.getKey(key);
+					originalKey = (Query.Key)queryCaches.getKey(key);
 				} 
 				originalKey.hits++;
 			}
@@ -203,7 +203,7 @@ final class Cache
 				Iterator keys = queryCaches.keySet().iterator();
 				while ( keys.hasNext() )
 				{
-					Query.QueryKey key = (Query.QueryKey)keys.next();
+					Query.Key key = (Query.Key)keys.next();
 					if ( key.type.transientNumber==transientTypeNumber )
 					{
 						keys.remove();
@@ -313,7 +313,7 @@ final class Cache
 			{
 				for(Iterator i = queryCaches.keySet().iterator(); i.hasNext(); )
 				{
-					final Query.QueryKey key = (Query.QueryKey)i.next();
+					final Query.Key key = (Query.Key)i.next();
 					result.add(new CacheQueryInfo(key.name, key.hits));
 				}
 			}

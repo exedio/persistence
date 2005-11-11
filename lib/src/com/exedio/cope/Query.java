@@ -411,7 +411,7 @@ public final class Query
 		return bf.toString();
 	}
 	
-	static final class QueryKey
+	static final class Key
 	{
 		final Model model;
 		final Selectable[] selectables;
@@ -432,7 +432,7 @@ public final class Query
 		String name = null;
 		int hits = 0;
 		
-		QueryKey( Query query )
+		Key( final Query query )
 		{
 			model = query.model;
 			selectables = query.selectables;
@@ -451,9 +451,9 @@ public final class Query
 		{
 			if ( obj==null )
 			{
-				throw new NullPointerException( "must not compare QueryKey to null" );
+				throw new NullPointerException( "must not compare Query.Key to null" );
 			}
-			QueryKey other = (QueryKey)obj;
+			Key other = (Key)obj;
 			return equals( model, other.model )
 				&& Arrays.equals( selectables, other.selectables )
 				&& equals( type, other.type )
