@@ -430,6 +430,7 @@ public final class Query
 		final boolean makeStatementInfo;
 		
 		String name = null;
+		int hits = 0;
 		
 		QueryKey( Query query )
 		{

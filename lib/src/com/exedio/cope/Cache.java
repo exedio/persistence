@@ -20,8 +20,7 @@ package com.exedio.cope;
 
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.TreeSet;
 
 import org.apache.commons.collections.map.LRUMap;
 
@@ -29,20 +28,21 @@ import bak.pcj.map.IntKeyOpenHashMap;
 import bak.pcj.set.IntOpenHashSet;
 
 import com.exedio.cope.util.CacheInfo;
+import com.exedio.cope.util.CacheQueryInfo;
 
 final class Cache
 {
 	private final int[] mapSizeLimits;
 	private final IntKeyOpenHashMap[] stateMaps;
 	private final int[] hits, misses;
-	private final Map queryCaches;
+	private final MyLRUMap queryCaches;
 	private int queryHits=0, queryMisses=0;
 	private final boolean logQueryCache;
 	
 	Cache(final int[] mapSizeLimits, final int queryCacheSizeLimit, final boolean logQueryCache)
 	{
 		this.mapSizeLimits = mapSizeLimits;
-		queryCaches = queryCacheSizeLimit>0 ? new LRUMap(queryCacheSizeLimit) : null;
+		queryCaches = queryCacheSizeLimit>0 ? new MyLRUMap(queryCacheSizeLimit) : null;
 		final int numberOfTypes = mapSizeLimits.length;
 		stateMaps = new IntKeyOpenHashMap[numberOfTypes];
 		for ( int i=0; i<numberOfTypes; i++ )
@@ -166,10 +166,22 @@ final class Cache
 			}
 			if(logQueryCache)
 				key.name = query.toString();
+			
 			queryMisses++;
 		}
 		else
+		{
+			if(logQueryCache)
+			{
+				final Query.QueryKey originalKey;
+				synchronized(queryCaches)
+				{
+					originalKey = (Query.QueryKey)queryCaches.getKey(key);
+				} 
+				originalKey.hits++;
+			}
 			queryHits++;
+		}
 		
 		return result;		
 	}
@@ -288,12 +300,12 @@ final class Cache
 		return new int[]{queryHits, queryMisses, queriesInCache};
 	}
 	
-	TreeMap getQueryHistogram()
+	CacheQueryInfo[] getQueryHistogram()
 	{
 		if(!logQueryCache)
 			return null;
 		
-		final TreeMap result = new TreeMap();
+		final TreeSet result = new TreeSet();
 		
 		if(queryCaches!=null)
 		{
@@ -302,13 +314,26 @@ final class Cache
 				for(Iterator i = queryCaches.keySet().iterator(); i.hasNext(); )
 				{
 					final Query.QueryKey key = (Query.QueryKey)i.next();
-					final Integer numold = (Integer)result.get(key.name);
-					final Integer numnew = (numold==null) ? new Integer(1) : new Integer(numold.intValue()+1);
-					result.put(key.name, numnew);
+					result.add(new CacheQueryInfo(key.name, key.hits));
 				}
 			}
 		}
 		
-		return result;
+		return (CacheQueryInfo[])result.toArray(new CacheQueryInfo[result.size()]);
 	}
+	
+	private static final class MyLRUMap extends LRUMap
+	{
+		MyLRUMap(final int maxSize)
+		{
+			super(maxSize);
+		}
+		
+		Object getKey(final Object key)
+		{
+			final HashEntry entry = getEntry(key);
+			return (entry == null) ? null : entry.getKey();
+		}
+	}
+
 }

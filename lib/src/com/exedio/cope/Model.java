@@ -31,9 +31,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Set;
-import java.util.SortedMap;
 
 import com.exedio.cope.util.CacheInfo;
+import com.exedio.cope.util.CacheQueryInfo;
 import com.exedio.cope.util.ConnectionPoolInfo;
 import com.exedio.dsmf.SQLRuntimeException;
 import com.exedio.dsmf.Schema;
@@ -425,7 +425,7 @@ public final class Model
 		return cache.getQueryInfo();
 	}
 	
-	public SortedMap getCacheQueryHistogram()
+	public CacheQueryInfo[] getCacheQueryHistogram()
 	{
 		if(cache==null)
 			throw newNotInitializedException();
