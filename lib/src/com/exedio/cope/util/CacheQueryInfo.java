@@ -65,13 +65,13 @@ public final class CacheQueryInfo implements Comparable
 		final CacheQueryInfo o = (CacheQueryInfo)other;
 		
 		if(hits<o.hits)
-			return -1;
+			return 1;
 		else
 		{
 			if(hits==o.hits)
 				return query.compareTo(o.query);
 			else
-				return 1;
+				return -1;
 		}
 	}
 
