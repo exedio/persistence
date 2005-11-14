@@ -25,7 +25,7 @@ import com.exedio.cope.StringAttribute;
  * @cope.persistent
  * @author Ralf Wiebicke
  */
-public class HierarchySecondSub extends Super
+public class HierarchySecondSub extends HierarchySuper
 {
 
 	public static final StringAttribute firstSubString = new StringAttribute(OPTIONAL);

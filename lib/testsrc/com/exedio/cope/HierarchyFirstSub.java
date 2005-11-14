@@ -26,7 +26,7 @@ import com.exedio.cope.function.UppercaseFunction;
  * @cope.persistent
  * @author Ralf Wiebicke
  */
-public class HierarchyFirstSub extends Super
+public class HierarchyFirstSub extends HierarchySuper
 {
 
 	public static final StringAttribute firstSubString = new StringAttribute(OPTIONAL);

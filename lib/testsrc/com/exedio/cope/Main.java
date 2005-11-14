@@ -42,7 +42,7 @@ public class Main
 	public static final Model hierarchyModel = new Model(new Type[] {
 			HierarchyFirstSub.TYPE,
 			HierarchySecondSub.TYPE,
-			Super.TYPE, // deliberately put this type below it's sub types to test correct functionality
+			HierarchySuper.TYPE, // deliberately put this type below it's sub types to test correct functionality
 		});
 
 	private static final void tearDown(final Model model)

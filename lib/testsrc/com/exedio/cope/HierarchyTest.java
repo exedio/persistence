@@ -28,22 +28,22 @@ public class HierarchyTest extends AbstractLibTest
 	public void testHierarchy()
 			throws IntegrityViolationException
 	{
-		// model Super
-		assertEquals(null, Super.TYPE.getSupertype());
-		assertEqualsUnmodifiable(list(HierarchyFirstSub.TYPE, HierarchySecondSub.TYPE), Super.TYPE.getSubTypes());
-		assertEqualsUnmodifiable(list(Super.superInt, Super.superString), Super.TYPE.getDeclaredAttributes());
-		assertEqualsUnmodifiable(list(Super.superInt, Super.superString), Super.TYPE.getAttributes());
-		assertEqualsUnmodifiable(list(Super.superInt, Super.superString, Super.superStringUpper), Super.TYPE.getDeclaredFeatures());
-		assertEqualsUnmodifiable(list(Super.superInt, Super.superString, Super.superStringUpper), Super.TYPE.getFeatures());
-		assertEquals(Super.TYPE, Super.superInt.getType());
+		// model HierarchySuper
+		assertEquals(null, HierarchySuper.TYPE.getSupertype());
+		assertEqualsUnmodifiable(list(HierarchyFirstSub.TYPE, HierarchySecondSub.TYPE), HierarchySuper.TYPE.getSubTypes());
+		assertEqualsUnmodifiable(list(HierarchySuper.superInt, HierarchySuper.superString), HierarchySuper.TYPE.getDeclaredAttributes());
+		assertEqualsUnmodifiable(list(HierarchySuper.superInt, HierarchySuper.superString), HierarchySuper.TYPE.getAttributes());
+		assertEqualsUnmodifiable(list(HierarchySuper.superInt, HierarchySuper.superString, HierarchySuper.superStringUpper), HierarchySuper.TYPE.getDeclaredFeatures());
+		assertEqualsUnmodifiable(list(HierarchySuper.superInt, HierarchySuper.superString, HierarchySuper.superStringUpper), HierarchySuper.TYPE.getFeatures());
+		assertEquals(HierarchySuper.TYPE, HierarchySuper.superInt.getType());
 		
 		// model HierarchyFirstSub
-		assertEquals(Super.TYPE, HierarchyFirstSub.TYPE.getSupertype());
+		assertEquals(HierarchySuper.TYPE, HierarchyFirstSub.TYPE.getSupertype());
 		assertEqualsUnmodifiable(list(), HierarchyFirstSub.TYPE.getSubTypes());
 		assertEqualsUnmodifiable(list(HierarchyFirstSub.firstSubString), HierarchyFirstSub.TYPE.getDeclaredAttributes());
-		assertEqualsUnmodifiable(list(Super.superInt, Super.superString, HierarchyFirstSub.firstSubString), HierarchyFirstSub.TYPE.getAttributes());
+		assertEqualsUnmodifiable(list(HierarchySuper.superInt, HierarchySuper.superString, HierarchyFirstSub.firstSubString), HierarchyFirstSub.TYPE.getAttributes());
 		assertEqualsUnmodifiable(list(HierarchyFirstSub.firstSubString, HierarchyFirstSub.firstSubStringUpper), HierarchyFirstSub.TYPE.getDeclaredFeatures());
-		assertEqualsUnmodifiable(list(Super.superInt, Super.superString, Super.superStringUpper, HierarchyFirstSub.firstSubString, HierarchyFirstSub.firstSubStringUpper), HierarchyFirstSub.TYPE.getFeatures());
+		assertEqualsUnmodifiable(list(HierarchySuper.superInt, HierarchySuper.superString, HierarchySuper.superStringUpper, HierarchyFirstSub.firstSubString, HierarchyFirstSub.firstSubStringUpper), HierarchyFirstSub.TYPE.getFeatures());
 		assertEquals(HierarchyFirstSub.TYPE, HierarchyFirstSub.firstSubString.getType());
 
 		final HierarchyFirstSub firstItem = new HierarchyFirstSub(0);
@@ -80,7 +80,7 @@ public class HierarchyTest extends AbstractLibTest
 		
 		assertEquals(list(firstItem), firstItem.TYPE.search(firstItem.firstSubString.equal("firstSubString")));
 		assertEquals(list(), firstItem.TYPE.search(firstItem.firstSubString.equal("firstSubStringX")));
-		assertContains(firstItem, secondItem, firstItem2, secondItem2, Super.TYPE.search(null));
+		assertContains(firstItem, secondItem, firstItem2, secondItem2, HierarchySuper.TYPE.search(null));
 	}
 
 	public void testInheritedSearch() throws IntegrityViolationException
@@ -91,12 +91,12 @@ public class HierarchyTest extends AbstractLibTest
 		
 		try
 		{
-			assertContains( firstSubItem1, firstSubItem2, HierarchyFirstSub.TYPE.search( Super.superInt.equal( 10 ) ) );
+			assertContains( firstSubItem1, firstSubItem2, HierarchyFirstSub.TYPE.search( HierarchySuper.superInt.equal( 10 ) ) );
 		}
 		catch(RuntimeException e)
 		{
 			// TODO this is a bug
-			assertEquals("function Super#superInt belongs to type Super, which is not a type of the query: HierarchyFirstSub, []", e.getMessage());
+			assertEquals("function HierarchySuper#superInt belongs to type HierarchySuper, which is not a type of the query: HierarchyFirstSub, []", e.getMessage());
 		}
 		
 		assertDelete( firstSubItem1 );
