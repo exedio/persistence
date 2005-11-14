@@ -29,7 +29,6 @@ import com.exedio.cope.DateAttribute;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Main;
 import com.exedio.cope.StringAttribute;
-import com.exedio.cope.testmodel.VectorItem;
 
 public class VectorTest extends AbstractLibTest
 {
