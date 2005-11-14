@@ -89,6 +89,11 @@
 		</sequential>
 	</macrodef>
 	
+	<target name="catalina.home">
+		<property name="catalina.home" value="../tomcat" />
+		<echo message="assuming tomcat in directory ${catalina.home}" />
+	</target>
+	
 	<target name="dsmf.compile">
 		<ljavac srcdir="dsmf/src" destdir="lib/build/classes" />
 	</target>
@@ -434,7 +439,7 @@
 		</copy>
 	</target>
 	
-	<target name="copernica.testwebapp" depends="copernica.compile, copernica.test.compile">
+	<target name="copernica.testwebapp" depends="copernica.compile, copernica.test.compile, catalina.home">
 		<foreachdb message="Using" skipSwitch="copernica.testwebapp">
 			<body>
 				<mkdir dir="copernica/build/testwebapp-@{db}" />
@@ -467,7 +472,7 @@
 				<copy todir="copernica/build/testwebapp-@{db}/WEB-INF/"
 						file="copernica/web.xml" />
 				<mkdir dir="copernica/build/testwebapp-@{db}-data" />
-				<copy tofile="../tomcat/conf/Catalina/localhost/copetest-@{db}.xml"
+				<copy tofile="${catalina.home}/conf/Catalina/localhost/copetest-@{db}.xml"
 						file="copernica/copetest.xml">
 					<filterset>
 						<filter token="DATABASE" value="@{db}" />
@@ -521,7 +526,7 @@
 		<delete dir="instrument/build" />
 	</target>
 
-	<target name="copernica.clean">
+	<target name="copernica.clean" depends="catalina.home">
 		<delete dir="copernica/build" />
 		<delete>
 			<fileset dir="copernica/src">
@@ -530,7 +535,7 @@
 			<fileset dir="copernica/testsrc">
 				<include name="**/*_Jspm.java" />
 			</fileset>
-			<fileset dir="../tomcat/conf/Catalina/localhost">
+			<fileset dir="${catalina.home}/conf/Catalina/localhost">
 				<include name="copetest-*.xml" />
 			</fileset>
 		</delete>
