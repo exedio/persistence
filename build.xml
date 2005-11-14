@@ -268,7 +268,7 @@
 				<include name="**/*.java" />
 			</fileset>
 			<fileset dir="lib/testsrc/com/exedio/cope">
-				<include name="**/*Item.java" />
+				<include name="**/*.java" />
 			</fileset>
 		</instrument>
 	</target>
