@@ -16,11 +16,12 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.testmodel;
+package com.exedio.cope.pattern;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.StringAttribute;
 import com.exedio.cope.pattern.Hash;
+import com.exedio.cope.testmodel.WrapHash;
 
 /**
  * @cope.persistent
