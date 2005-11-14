@@ -41,7 +41,7 @@ public class Main
 	public static final Model matchModel = new Model(new Type[] { MatchItem.TYPE });
 	public static final Model hierarchyModel = new Model(new Type[] {
 			HierarchyFirstSub.TYPE,
-			SecondSub.TYPE,
+			HierarchySecondSub.TYPE,
 			Super.TYPE, // deliberately put this type below it's sub types to test correct functionality
 		});
 

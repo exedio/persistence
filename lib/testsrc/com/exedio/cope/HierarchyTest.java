@@ -30,7 +30,7 @@ public class HierarchyTest extends AbstractLibTest
 	{
 		// model Super
 		assertEquals(null, Super.TYPE.getSupertype());
-		assertEqualsUnmodifiable(list(HierarchyFirstSub.TYPE, SecondSub.TYPE), Super.TYPE.getSubTypes());
+		assertEqualsUnmodifiable(list(HierarchyFirstSub.TYPE, HierarchySecondSub.TYPE), Super.TYPE.getSubTypes());
 		assertEqualsUnmodifiable(list(Super.superInt, Super.superString), Super.TYPE.getDeclaredAttributes());
 		assertEqualsUnmodifiable(list(Super.superInt, Super.superString), Super.TYPE.getAttributes());
 		assertEqualsUnmodifiable(list(Super.superInt, Super.superString, Super.superStringUpper), Super.TYPE.getDeclaredFeatures());
@@ -64,13 +64,13 @@ public class HierarchyTest extends AbstractLibTest
 		assertEquals(2, firstItem.getSuperInt());
 		assertEquals("firstSubString", firstItem.getFirstSubString());
 		
-		final SecondSub secondItem = new SecondSub(2);
+		final HierarchySecondSub secondItem = new HierarchySecondSub(2);
 		deleteOnTearDown(secondItem);
 		assertID(1, secondItem);
 		assertEquals(2, secondItem.getSuperInt());
 		assertEquals(null, secondItem.getFirstSubString());
 
-		final SecondSub secondItem2 = new SecondSub(3);
+		final HierarchySecondSub secondItem2 = new HierarchySecondSub(3);
 		deleteOnTearDown(secondItem2);
 		assertID(2, secondItem2);
 
