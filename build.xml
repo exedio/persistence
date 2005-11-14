@@ -161,7 +161,7 @@
 		<ljavac srcdir="copernica/src" destdir="copernica/build/classes">
 			<classpath>
 				<pathelement location="lib/build/classes" />
-				<pathelement location="../cops/build/classes" />
+				<pathelement location="xlib/exedio-cops.jar" />
 				<pathelement location="../tomcat/common/lib/servlet-api.jar" />
 				<pathelement location="../tomcat/server/lib/commons-fileupload-1.0.jar" />
 			</classpath>
@@ -424,7 +424,7 @@
 				<pathelement location="lib/build/classes" />
 				<pathelement location="lib/build/testmodelclasses" />
 				<pathelement location="copernica/build/classes" />
-				<pathelement location="../cops/build/classes" />
+				<pathelement location="xlib/exedio-cops.jar" />
 				<pathelement location="xlib/junit.jar" />
 				<pathelement location="../tomcat/common/lib/servlet-api.jar" />
 			</classpath>
@@ -444,12 +444,12 @@
 					<fileset dir="lib/build/testmodelclasses" />
 					<fileset dir="copernica/build/classes" />
 					<fileset dir="copernica/build/testclasses" />
-					<fileset dir="../cops/build/classes" />
 				</copy>
 				
 				<copy todir="copernica/build/testwebapp-@{db}/WEB-INF/lib">
 					<fileset file="xlib/pcj.jar" />
 					<fileset file="xlib/commons-collections.jar" />
+					<fileset file="xlib/exedio-cops.jar" />
 					<fileset file="xlib/@{db.driver}" />
 				</copy>
 				
@@ -582,7 +582,7 @@
 				<pathelement location="xlib/commons-collections.jar" />
 				<pathelement location="xlib/junit.jar" />
 				<pathelement location="../tomcat/common/lib/ant.jar" />
-				<pathelement location="../cops/build/classes" />
+				<pathelement location="xlib/exedio-cops.jar" />
 				<pathelement location="../tomcat/common/lib/servlet-api.jar" />
 				<pathelement location="../tomcat/server/lib/commons-fileupload-1.0.jar" />
 			</classpath>
