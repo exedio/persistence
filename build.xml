@@ -129,7 +129,7 @@
 	<target name="lib.servlet.compile" depends="lib.core.compile">
 		<ljavac srcdir="lib/servletsrc" destdir="lib/build/classes">
 			<classpath>
-				<pathelement location="../tomcat/common/lib/servlet-api.jar" />
+				<pathelement location="xlib/servlet-api.jar" />
 			</classpath>
 		</ljavac>
 	</target>
@@ -162,8 +162,8 @@
 			<classpath>
 				<pathelement location="lib/build/classes" />
 				<pathelement location="xlib/exedio-cops.jar" />
-				<pathelement location="../tomcat/common/lib/servlet-api.jar" />
-				<pathelement location="../tomcat/server/lib/commons-fileupload-1.0.jar" />
+				<pathelement location="xlib/servlet-api.jar" />
+				<pathelement location="xlib/commons-fileupload-1.0.jar" />
 			</classpath>
 		</ljavac>
 		<copy todir="copernica/build/classes">
@@ -268,7 +268,7 @@
 		<ljavac srcdir="lib/testmodelsrc" destdir="lib/build/testmodelclasses">
 			<classpath>
 				<pathelement location="lib/build/classes" />
-				<pathelement location="../tomcat/common/lib/servlet-api.jar" />
+				<pathelement location="xlib/servlet-api.jar" />
 			</classpath>
 		</ljavac>
 	</target>
@@ -426,7 +426,7 @@
 				<pathelement location="copernica/build/classes" />
 				<pathelement location="xlib/exedio-cops.jar" />
 				<pathelement location="xlib/junit.jar" />
-				<pathelement location="../tomcat/common/lib/servlet-api.jar" />
+				<pathelement location="xlib/servlet-api.jar" />
 			</classpath>
 		</ljavac>
 		<copy todir="copernica/build/testclasses/com/exedio/copernica">
@@ -581,10 +581,10 @@
 				<pathelement location="xlib/pcj.jar" />
 				<pathelement location="xlib/commons-collections.jar" />
 				<pathelement location="xlib/junit.jar" />
-				<pathelement location="../tomcat/common/lib/ant.jar" />
+				<pathelement location="xlib/ant.jar" />
 				<pathelement location="xlib/exedio-cops.jar" />
-				<pathelement location="../tomcat/common/lib/servlet-api.jar" />
-				<pathelement location="../tomcat/server/lib/commons-fileupload-1.0.jar" />
+				<pathelement location="xlib/servlet-api.jar" />
+				<pathelement location="xlib/commons-fileupload-1.0.jar" />
 			</classpath>
 			<group title="Cope Runtime Library" packages="com.exedio.cope:com.exedio.cope.*" />
 			<group title="Copernica - Generic Backoffice" packages="com.exedio.copernica*" />
