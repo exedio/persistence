@@ -27,7 +27,6 @@ import com.exedio.cope.Feature;
 import com.exedio.cope.Main;
 import com.exedio.cope.NestingRuntimeException;
 import com.exedio.cope.StringAttribute;
-import com.exedio.cope.testmodel.MD5Item;
 
 public class MD5Test extends AbstractLibTest
 {

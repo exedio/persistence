@@ -21,8 +21,8 @@ package com.exedio.cope;
 import java.io.File;
 
 import com.exedio.cope.pattern.HashItem;
+import com.exedio.cope.pattern.MD5Item;
 import com.exedio.cope.testmodel.FirstSub;
-import com.exedio.cope.testmodel.MD5Item;
 import com.exedio.cope.testmodel.SecondSub;
 import com.exedio.cope.testmodel.Super;
 import com.exedio.cope.testmodel.VectorItem;
