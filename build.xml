@@ -4,7 +4,7 @@
 
 	<taskdef
 			resource="net/sf/antcontrib/antcontrib.properties"
-			classpath="../lib/ant-contrib.jar" />
+			classpath="xlib/ant-contrib.jar" />
 
 	<target name="properties">
 		<property file="../local.properties" />
@@ -100,8 +100,8 @@
 	<target name="lib.core.compile" depends="dsmf.compile">
 		<ljavac srcdir="lib/src" destdir="lib/build/classes">
 			<classpath>
-				<pathelement location="../lib/pcj.jar" />
-				<pathelement location="../lib/commons-collections.jar" />
+				<pathelement location="xlib/pcj.jar" />
+				<pathelement location="xlib/commons-collections.jar" />
 			</classpath>
 		</ljavac>
 	</target>
@@ -118,8 +118,8 @@
 				<!--echo message="file=@{driver.file},driver=${@{driver.file}.name},jar=${@{driver.file}.jar}." /-->
 				<ljavac srcdir="lib/${@{driver.file}.name}src" destdir="lib/build/classes">
 					<classpath>
-						<pathelement location="../lib/pcj.jar" />
-						<pathelement location="../lib/${@{driver.file}.jar}" />
+						<pathelement location="xlib/pcj.jar" />
+						<pathelement location="xlib/${@{driver.file}.jar}" />
 					</classpath>
 				</ljavac>
 			</sequential>
@@ -141,7 +141,7 @@
 	<target name="lib.junit.compile" depends="lib.core.compile">
 		<ljavac srcdir="lib/junitsrc" destdir="lib/build/classes">
 			<classpath>
-				<pathelement location="../lib/junit.jar" />
+				<pathelement location="xlib/junit.jar" />
 			</classpath>
 		</ljavac>
 	</target>
@@ -219,7 +219,7 @@
 		<ljavac srcdir="dsmf/testsrc" destdir="dsmf/build/testclasses">
 			<classpath>
 				<pathelement location="lib/build/classes" />
-				<pathelement location="../lib/junit.jar" />
+				<pathelement location="xlib/junit.jar" />
 			</classpath>
 		</ljavac>
 	</target>
@@ -231,8 +231,8 @@
 					<classpath>
 						<pathelement location="lib/build/classes" />
 						<pathelement location="dsmf/build/testclasses" />
-						<pathelement location="../lib/junit.jar" />
-						<pathelement location="../lib/@{db.driver}" />
+						<pathelement location="xlib/junit.jar" />
+						<pathelement location="xlib/@{db.driver}" />
 					</classpath>
 					<arg value="com.exedio.dsmf.PackageTest" />
 					<sysproperty key="com.exedio.cope.properties" file="@{db.file}" />
@@ -246,7 +246,7 @@
 	<target name="instrument.taskdef" depends="lib.compile, instrument.compile">
 		<taskdef name="instrument" classname="com.exedio.cope.instrument.AntTask">
 			<classpath>
-				<pathelement location="../lib/pcj.jar" />
+				<pathelement location="xlib/pcj.jar" />
 				<pathelement location="lib/build/classes" />
 				<pathelement location="instrument/build/classes" />
 			</classpath>
@@ -283,7 +283,7 @@
 			<classpath>
 				<pathelement location="lib/build/classes" />
 				<pathelement location="lib/build/testmodelclasses" />
-				<pathelement location="../lib/junit.jar" />
+				<pathelement location="xlib/junit.jar" />
 			</classpath>
 		</ljavac>
 	</target>
@@ -304,10 +304,10 @@
 						<pathelement location="lib/build/classes" />
 						<pathelement location="lib/build/testmodelclasses" />
 						<pathelement location="lib/build/testclasses" />
-						<pathelement location="../lib/junit.jar" />
-						<pathelement location="../lib/pcj.jar" />
-						<pathelement location="../lib/commons-collections.jar" />
-						<pathelement location="../lib/@{db.driver}" />
+						<pathelement location="xlib/junit.jar" />
+						<pathelement location="xlib/pcj.jar" />
+						<pathelement location="xlib/commons-collections.jar" />
+						<pathelement location="xlib/@{db.driver}" />
 					</classpath>
 				</nbjpdastart-->
 				<java classname="junit.textui.TestRunner" taskname="junit @{db}" fork="yes" failonerror="yes">
@@ -315,10 +315,10 @@
 						<pathelement location="lib/build/classes" />
 						<pathelement location="lib/build/testmodelclasses" />
 						<pathelement location="lib/build/testclasses" />
-						<pathelement location="../lib/junit.jar" />
-						<pathelement location="../lib/pcj.jar" />
-						<pathelement location="../lib/commons-collections.jar" />
-						<pathelement location="../lib/@{db.driver}" />
+						<pathelement location="xlib/junit.jar" />
+						<pathelement location="xlib/pcj.jar" />
+						<pathelement location="xlib/commons-collections.jar" />
+						<pathelement location="xlib/@{db.driver}" />
 					</classpath>
 					<arg value="com.exedio.cope.PackageTest" />
 					<sysproperty key="com.exedio.cope.properties" file="lib/build/test.@{db}/cope.properties" />
@@ -352,9 +352,9 @@
 						<pathelement location="lib/build/classes" />
 						<pathelement location="lib/build/testmodelclasses" />
 						<pathelement location="lib/build/testclasses" />
-						<pathelement location="../lib/pcj.jar" />
-						<pathelement location="../lib/commons-collections.jar" />
-						<pathelement location="../lib/@{db.driver}" />
+						<pathelement location="xlib/pcj.jar" />
+						<pathelement location="xlib/commons-collections.jar" />
+						<pathelement location="xlib/@{db.driver}" />
 					</classpath>
 					<sysproperty key="com.exedio.cope.properties"
 									 file="lib/build/teardown.@{db}/cope.properties" />
@@ -382,7 +382,7 @@
 			<classpath>
 				<pathelement location="lib/build/classes" />
 				<pathelement location="instrument/build/classes" />
-				<pathelement location="../lib/junit.jar" />
+				<pathelement location="xlib/junit.jar" />
 			</classpath>
 		</ljavac>
 		<copy
@@ -397,8 +397,8 @@
 				<pathelement location="lib/build/classes" />
 				<pathelement location="instrument/build/classes" />
 				<pathelement location="instrument/build/testclasses" />
-				<pathelement location="../lib/junit.jar" />
-				<pathelement location="../lib/pcj.jar" />
+				<pathelement location="xlib/junit.jar" />
+				<pathelement location="xlib/pcj.jar" />
 			</classpath>
 			<arg value="com.exedio.cope.instrument.PackageTest" />
 		</java>
@@ -429,7 +429,7 @@
 				<pathelement location="lib/build/testmodelclasses" />
 				<pathelement location="copernica/build/classes" />
 				<pathelement location="../cops/build/classes" />
-				<pathelement location="../lib/junit.jar" />
+				<pathelement location="xlib/junit.jar" />
 				<pathelement location="../tomcat/common/lib/servlet-api.jar" />
 			</classpath>
 		</ljavac>
@@ -452,9 +452,9 @@
 				</copy>
 				
 				<copy todir="copernica/build/testwebapp-@{db}/WEB-INF/lib">
-					<fileset file="../lib/pcj.jar" />
-					<fileset file="../lib/commons-collections.jar" />
-					<fileset file="../lib/@{db.driver}" />
+					<fileset file="xlib/pcj.jar" />
+					<fileset file="xlib/commons-collections.jar" />
+					<fileset file="xlib/@{db.driver}" />
 				</copy>
 				
 				<path id="webdatadir.@{db.file}.path">
@@ -489,7 +489,7 @@
 	<target name="copernica.webtest.compile">
 		<ljavac srcdir="copernica/webtestsrc" destdir="copernica/build/webtestclasses">
 			<classpath>
-				<fileset dir="../lib/jwebunit">
+				<fileset dir="xlib/jwebunit">
 					<include name="*.jar" />
 				</fileset> 
 			</classpath>
@@ -501,7 +501,7 @@
 				failonerror="yes" fork="yes">
 			<classpath>
 				<pathelement location="copernica/build/webtestclasses" />
-				<fileset dir="../lib/jwebunit">
+				<fileset dir="xlib/jwebunit">
 					<include name="*.jar" />
 				</fileset> 
 			</classpath>
@@ -582,9 +582,9 @@
 			<fileset file="instrument/src/com" includes="**/*.java" />
 			<fileset file="copernica/src/com" includes="**/*.java" />
 			<classpath>
-				<pathelement location="../lib/pcj.jar" />
-				<pathelement location="../lib/commons-collections.jar" />
-				<pathelement location="../lib/junit.jar" />
+				<pathelement location="xlib/pcj.jar" />
+				<pathelement location="xlib/commons-collections.jar" />
+				<pathelement location="xlib/junit.jar" />
 				<pathelement location="../tomcat/common/lib/ant.jar" />
 				<pathelement location="../cops/build/classes" />
 				<pathelement location="../tomcat/common/lib/servlet-api.jar" />
