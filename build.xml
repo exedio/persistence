@@ -6,10 +6,6 @@
 			resource="net/sf/antcontrib/antcontrib.properties"
 			classpath="xlib/ant-contrib.jar" />
 
-	<target name="properties">
-		<property file="../local.properties" />
-	</target>
-
 	<target name="jspm.taskdef">
 		<taskdef name="jspm"
 					classname="com.exedio.jspm.AntTask"
@@ -543,7 +539,7 @@
 	<target name="clean" depends="dsmf.clean, lib.clean, instrument.clean, copernica.clean" />
 	
 	
-	<target name="api" depends="properties">
+	<target name="api">
 
 		<property name="api.private" value="off" />
 		<property name="api.link.jdk"  value="http://java.sun.com/j2se/1.4.2/docs/api" />
