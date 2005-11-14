@@ -17,9 +17,6 @@
  */
 package com.exedio.cope;
 
-import com.exedio.cope.testmodel.FirstSub;
-import com.exedio.cope.testmodel.SecondSub;
-import com.exedio.cope.testmodel.Super;
 
 public class HierarchyTest extends AbstractLibTest
 {
