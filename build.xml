@@ -13,7 +13,7 @@
 	<target name="jspm.taskdef">
 		<taskdef name="jspm"
 					classname="com.exedio.jspm.AntTask"
-					classpath="../jspm/build/classes" />
+					classpath="xlib/exedio-jspm.jar" />
 	</target>
 	
 	<macrodef name="ljavac">
