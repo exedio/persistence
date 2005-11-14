@@ -641,7 +641,16 @@
 		</tar>
 	</target>
 	
-	<target name="dist" depends="dist.tar" />
+	<target name="dist.test" depends="dist.tar">
+		<delete dir="lib/build/dist-test" />
+		<mkdir dir="lib/build/dist-test" />
+		<untar src="lib/build/exedio-cope-src.tar.gz"
+				 dest="lib/build/dist-test"
+				 compression="gzip" />
+		<ant dir="lib/build/dist-test" target="build" />
+	</target>
+	
+	<target name="dist" depends="dist.tar, dist.test" />
 	
 	<target name="all" depends="build, dist" />
 
