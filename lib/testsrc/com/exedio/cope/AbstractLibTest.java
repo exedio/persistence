@@ -219,6 +219,11 @@ public abstract class AbstractLibTest extends CopeTest
 		assertTrue(item.existsCopeItem());
 	}
 	
+	protected void assertID(final int id, final Item item)
+	{
+		assertTrue(item.getCopeID()+"/"+id, item.getCopeID().endsWith("."+id));
+	}
+
 	protected void activate(final Transaction transaction)
 	{
 		model.leaveTransaction();

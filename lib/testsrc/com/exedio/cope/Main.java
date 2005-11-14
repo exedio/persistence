@@ -20,8 +20,11 @@ package com.exedio.cope;
 
 import java.io.File;
 
+import com.exedio.cope.testmodel.FirstSub;
 import com.exedio.cope.testmodel.HashItem;
 import com.exedio.cope.testmodel.MD5Item;
+import com.exedio.cope.testmodel.SecondSub;
+import com.exedio.cope.testmodel.Super;
 import com.exedio.cope.testmodel.VectorItem;
 
 
@@ -39,6 +42,11 @@ public class Main
 			NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem.TYPE,
 			NameCollisionlooooooooooooooooooooooooooooooooooooooooongbItem.TYPE });
 	public static final Model matchModel = new Model(new Type[] { MatchItem.TYPE });
+	public static final Model hierarchyModel = new Model(new Type[] {
+			FirstSub.TYPE,
+			SecondSub.TYPE,
+			Super.TYPE, // deliberately put this type below it's sub types to test correct functionality
+		});
 
 	private static final void tearDown(final Model model)
 	{

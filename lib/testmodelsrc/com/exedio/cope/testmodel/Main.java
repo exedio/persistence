@@ -41,9 +41,6 @@ public class Main
 		QualifiedIntegerEnumQualifier.TYPE,
 		PointerTargetItem.TYPE,
 		PointerItem.TYPE,
-		FirstSub.TYPE,
-		SecondSub.TYPE,
-		Super.TYPE, // deliberately put this type below it's sub types to test correct functionality
 		CollisionItem1.TYPE,
 		CollisionItem2.TYPE,
 	};

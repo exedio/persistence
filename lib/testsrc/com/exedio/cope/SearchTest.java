@@ -22,8 +22,6 @@ import com.exedio.cope.search.Condition;
 import com.exedio.cope.search.OrCondition;
 import com.exedio.cope.testmodel.AttributeItem;
 import com.exedio.cope.testmodel.EmptyItem;
-import com.exedio.cope.testmodel.FirstSub;
-import com.exedio.cope.testmodel.Super;
 
 public class SearchTest extends TestmodelTest
 {
@@ -128,25 +126,4 @@ public class SearchTest extends TestmodelTest
 		assertDelete(someItem);
 	}
 	
-	public void testInheritedSearch() throws IntegrityViolationException
-	{
-		final FirstSub firstSubItem1 = new FirstSub( 10 );
-		final FirstSub firstSubItem2 = new FirstSub( 10 );
-		final FirstSub firstSubItem3 = new FirstSub( 11 );
-		
-		try
-		{
-			assertContains( firstSubItem1, firstSubItem2, FirstSub.TYPE.search( Super.superInt.equal( 10 ) ) );
-		}
-		catch(RuntimeException e)
-		{
-			// TODO this is a bug
-			assertEquals("function Super#superInt belongs to type Super, which is not a type of the query: FirstSub, []", e.getMessage());
-		}
-		
-		assertDelete( firstSubItem1 );
-		assertDelete( firstSubItem2 );
-		assertDelete( firstSubItem3 );		
-	}
-
 }

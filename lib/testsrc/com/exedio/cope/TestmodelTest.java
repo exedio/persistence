@@ -89,9 +89,4 @@ public abstract class TestmodelTest extends AbstractLibTest
 		assertFalse(item1.hashCode()==item2.hashCode());
 	}
 	
-	protected void assertID(final int id, final Item item)
-	{
-		assertTrue(item.getCopeID()+"/"+id, item.getCopeID().endsWith("."+id));
-	}
-
 }
