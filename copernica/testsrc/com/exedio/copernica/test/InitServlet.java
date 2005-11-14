@@ -193,10 +193,6 @@ public class InitServlet extends CopsServlet
 				item1b.setSelf(item1a);
 			}
 			
-			new FirstSub(1);
-			new FirstSub(2);
-			new SecondSub(11);
-			
 			new CollisionItem1(emptyItem1);
 			new CollisionItem1(emptyItem2);
 			new CollisionItem2(emptyItem1);
