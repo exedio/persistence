@@ -89,7 +89,11 @@
 		</sequential>
 	</macrodef>
 	
-	<target name="catalina.home">
+	<target name="local.properties">
+		<property file="local.properties" />
+	</target>
+	
+	<target name="catalina.home" depends="local.properties">
 		<property name="catalina.home" value="../tomcat" />
 		<echo message="assuming tomcat in directory ${catalina.home}" />
 	</target>
