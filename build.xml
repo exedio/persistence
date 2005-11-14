@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<project name="cope.persistence" default="all" basedir=".">
+<project name="cope.persistence" default="build" basedir=".">
 
 	<taskdef
 			resource="net/sf/antcontrib/antcontrib.properties"
@@ -604,9 +604,45 @@
 
 	<target name="jspm" depends="copernica.jspm, copernica.test.jspm" />
 	
-	<target name="all"
+	<target name="build"
 			depends="compile, test, jar, api,
 						copernica.testwebapp,
 						copernica.webtest.compile" />
+	
+	<target name="dist.tar">
+		<mkdir dir="lib/build" />
+		<echo file="lib/build/build.number"
+				message="cruisecontrol ${label} ${cvstimestamp}" />
+		<tar destfile="lib/build/exedio-cope-src.tar.gz"
+			  compression="gzip">
+			<tarfileset file="${basedir}/lib/build/build.number" />
+			<tarfileset dir="${basedir}">
+				<exclude name="dsmf/build/**" />
+				<exclude name="lib/build/**" />
+				<exclude name="instrument/build/**" />
+				<exclude name="copernica/build/**" />
+				<exclude name="api/**" />
+				<exclude name="**/*_Jspm.java" />
+				
+				<exclude name="*.driver.properties" />
+				
+				<exclude name="*.test.cope.properties" />
+				
+				<exclude name="xlib/mysql-connector-java*.jar" />
+				<exclude name="xlib/classes12.jar" />
+				<exclude name="xlib/ojdbc14*.jar" />
+				<exclude name="xlib/pg74.*.jdbc*.jar" />
+			</tarfileset>
+			<tarfileset dir="${basedir}">
+				<include name="hsqldb.driver.properties" />
+				<include name="hsqldb.test.cope.properties" />
+				<include name="hsqldbextra.test.cope.properties" />
+			</tarfileset>
+		</tar>
+	</target>
+	
+	<target name="dist" depends="dist.tar" />
+	
+	<target name="all" depends="build, dist" />
 
 </project>
