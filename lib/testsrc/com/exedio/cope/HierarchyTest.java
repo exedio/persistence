@@ -30,23 +30,23 @@ public class HierarchyTest extends AbstractLibTest
 	{
 		// model Super
 		assertEquals(null, Super.TYPE.getSupertype());
-		assertEqualsUnmodifiable(list(FirstSub.TYPE, SecondSub.TYPE), Super.TYPE.getSubTypes());
+		assertEqualsUnmodifiable(list(HierarchyFirstSub.TYPE, SecondSub.TYPE), Super.TYPE.getSubTypes());
 		assertEqualsUnmodifiable(list(Super.superInt, Super.superString), Super.TYPE.getDeclaredAttributes());
 		assertEqualsUnmodifiable(list(Super.superInt, Super.superString), Super.TYPE.getAttributes());
 		assertEqualsUnmodifiable(list(Super.superInt, Super.superString, Super.superStringUpper), Super.TYPE.getDeclaredFeatures());
 		assertEqualsUnmodifiable(list(Super.superInt, Super.superString, Super.superStringUpper), Super.TYPE.getFeatures());
 		assertEquals(Super.TYPE, Super.superInt.getType());
 		
-		// model FirstSub
-		assertEquals(Super.TYPE, FirstSub.TYPE.getSupertype());
-		assertEqualsUnmodifiable(list(), FirstSub.TYPE.getSubTypes());
-		assertEqualsUnmodifiable(list(FirstSub.firstSubString), FirstSub.TYPE.getDeclaredAttributes());
-		assertEqualsUnmodifiable(list(Super.superInt, Super.superString, FirstSub.firstSubString), FirstSub.TYPE.getAttributes());
-		assertEqualsUnmodifiable(list(FirstSub.firstSubString, FirstSub.firstSubStringUpper), FirstSub.TYPE.getDeclaredFeatures());
-		assertEqualsUnmodifiable(list(Super.superInt, Super.superString, Super.superStringUpper, FirstSub.firstSubString, FirstSub.firstSubStringUpper), FirstSub.TYPE.getFeatures());
-		assertEquals(FirstSub.TYPE, FirstSub.firstSubString.getType());
+		// model HierarchyFirstSub
+		assertEquals(Super.TYPE, HierarchyFirstSub.TYPE.getSupertype());
+		assertEqualsUnmodifiable(list(), HierarchyFirstSub.TYPE.getSubTypes());
+		assertEqualsUnmodifiable(list(HierarchyFirstSub.firstSubString), HierarchyFirstSub.TYPE.getDeclaredAttributes());
+		assertEqualsUnmodifiable(list(Super.superInt, Super.superString, HierarchyFirstSub.firstSubString), HierarchyFirstSub.TYPE.getAttributes());
+		assertEqualsUnmodifiable(list(HierarchyFirstSub.firstSubString, HierarchyFirstSub.firstSubStringUpper), HierarchyFirstSub.TYPE.getDeclaredFeatures());
+		assertEqualsUnmodifiable(list(Super.superInt, Super.superString, Super.superStringUpper, HierarchyFirstSub.firstSubString, HierarchyFirstSub.firstSubStringUpper), HierarchyFirstSub.TYPE.getFeatures());
+		assertEquals(HierarchyFirstSub.TYPE, HierarchyFirstSub.firstSubString.getType());
 
-		final FirstSub firstItem = new FirstSub(0);
+		final HierarchyFirstSub firstItem = new HierarchyFirstSub(0);
 		deleteOnTearDown(firstItem);
 		assertID(0, firstItem);
 		assertEquals(0, firstItem.getSuperInt());
@@ -74,7 +74,7 @@ public class HierarchyTest extends AbstractLibTest
 		deleteOnTearDown(secondItem2);
 		assertID(2, secondItem2);
 
-		final FirstSub firstItem2 = new FirstSub(4);
+		final HierarchyFirstSub firstItem2 = new HierarchyFirstSub(4);
 		deleteOnTearDown(firstItem2);
 		assertID(3, firstItem2);
 		
@@ -85,18 +85,18 @@ public class HierarchyTest extends AbstractLibTest
 
 	public void testInheritedSearch() throws IntegrityViolationException
 	{
-		final FirstSub firstSubItem1 = new FirstSub( 10 );
-		final FirstSub firstSubItem2 = new FirstSub( 10 );
-		final FirstSub firstSubItem3 = new FirstSub( 11 );
+		final HierarchyFirstSub firstSubItem1 = new HierarchyFirstSub( 10 );
+		final HierarchyFirstSub firstSubItem2 = new HierarchyFirstSub( 10 );
+		final HierarchyFirstSub firstSubItem3 = new HierarchyFirstSub( 11 );
 		
 		try
 		{
-			assertContains( firstSubItem1, firstSubItem2, FirstSub.TYPE.search( Super.superInt.equal( 10 ) ) );
+			assertContains( firstSubItem1, firstSubItem2, HierarchyFirstSub.TYPE.search( Super.superInt.equal( 10 ) ) );
 		}
 		catch(RuntimeException e)
 		{
 			// TODO this is a bug
-			assertEquals("function Super#superInt belongs to type Super, which is not a type of the query: FirstSub, []", e.getMessage());
+			assertEquals("function Super#superInt belongs to type Super, which is not a type of the query: HierarchyFirstSub, []", e.getMessage());
 		}
 		
 		assertDelete( firstSubItem1 );
