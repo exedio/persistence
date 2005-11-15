@@ -577,7 +577,7 @@
 				failonerror="true"
 			>
 			<doctitle><![CDATA[Cope with Object Persistence<br>API Specification]]></doctitle>
-			<header>COPE</header>
+			<header>exedio cope</header>
 			<footer><![CDATA[Cope with<br>Object<br>Persistence]]></footer>
 			<bottom><![CDATA[<small>Copyright &copy; 2004-2005 <a href="http://www.exedio.com/" target="_top">exedio</a> Gesellschaft f&uuml;r Softwareentwicklung mbH. All rights reserved.</small><!--${label}-${cvstimestamp}-->]]></bottom>
 			<link href="${api.link.jdk}"   packagelistLoc="package-list/jdk"   offline="true" />
