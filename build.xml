@@ -544,8 +544,8 @@
 			<fileset dir="copernica/testsrc">
 				<include name="**/*_Jspm.java" />
 			</fileset>
-			<fileset dir="${catalina.home}/conf/Catalina/localhost">
-				<include name="copetest-*.xml" />
+			<fileset dir="${catalina.home}">
+				<include name="conf/Catalina/localhost/copetest-*.xml" />
 			</fileset>
 		</delete>
 	</target>
