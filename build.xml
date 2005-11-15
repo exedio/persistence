@@ -443,7 +443,7 @@
 		</copy>
 	</target>
 	
-	<target name="copernica.testwebapp" depends="copernica.compile, copernica.test.compile, catalina.home">
+	<target name="copernica.testwebapp" depends="copernica.compile, copernica.test.compile">
 		<foreachdb message="Using" skipSwitch="copernica.testwebapp">
 			<body>
 				<mkdir dir="copernica/build/testwebapp-@{db}" />
@@ -476,13 +476,6 @@
 				<copy todir="copernica/build/testwebapp-@{db}/WEB-INF/"
 						file="copernica/web.xml" />
 				<mkdir dir="copernica/build/testwebapp-@{db}-data" />
-				<copy tofile="${catalina.home}/conf/Catalina/localhost/copetest-@{db}.xml"
-						file="copernica/copetest.xml">
-					<filterset>
-						<filter token="DATABASE" value="@{db}" />
-					</filterset>
-				</copy>
-				
 				<touch file="copernica/build/testwebapp-@{db}/WEB-INF/web.xml" />
 			</body>
 		</foreachdb>
@@ -490,6 +483,18 @@
 	
 	<target name="testwebapp" depends="copernica.testwebapp" />
 	
+	<target name="tomcat" depends="testwebapp, catalina.home">
+		<foreachdb message="Using" skipSwitch="copernica.testwebapp">
+			<body>
+				<copy tofile="${catalina.home}/conf/Catalina/localhost/copetest-@{db}.xml"
+						file="copernica/copetest.xml">
+					<filterset>
+						<filter token="DATABASE" value="@{db}" />
+					</filterset>
+				</copy>
+			</body>
+		</foreachdb>
+	</target>
 	
 	<target name="copernica.webtest.compile">
 		<ljavac srcdir="copernica/webtestsrc" destdir="copernica/build/webtestclasses">
@@ -606,7 +611,7 @@
 	
 	<target name="build"
 			depends="compile, test, jar, api,
-						copernica.testwebapp,
+						tomcat,
 						copernica.webtest.compile" />
 	
 	<target name="dist.tar">
