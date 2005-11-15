@@ -556,6 +556,7 @@
 	<target name="api">
 
 		<property name="api.private" value="off" />
+		<property name="api.link.cops"  value="http://download.exedio.com/api/cops" />
 		<property name="api.link.jdk"  value="http://java.sun.com/j2se/1.4.2/docs/api" />
 		<property name="api.link.j2ee" value="http://java.sun.com/j2ee/1.4/docs/api" />
 		<property name="api.link.junit" value="http://junit.sourceforge.net/javadoc" />
@@ -583,7 +584,7 @@
 			<link href="${api.link.j2ee}"  packagelistLoc="package-list/j2ee"  offline="true" />
 			<link href="${api.link.junit}" packagelistLoc="package-list/junit" offline="true" />
 			<link href="${api.link.ant}"   packagelistLoc="package-list/ant"   offline="true" />
-			<link href="../../../../../cops/api" packagelistLoc="package-list/cops"  offline="true" />
+			<link href="${api.link.cops}"  packagelistLoc="package-list/cops"  offline="true" />
 			<fileset file="dsmf/src/com" includes="**/*.java" />
 			<fileset file="lib/src/com" includes="**/*.java" />
 			<fileset file="lib/patternsrc/com" includes="**/*.java" />
