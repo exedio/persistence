@@ -369,6 +369,11 @@ public final class Model
 		return database.makeVerifiedSchema();
 	}
 
+	public Schema getSchema()
+	{
+		return database.makeSchema();
+	}
+
 	/**
 	 * Returns the item with the given ID.
 	 * Always returns {@link Item#activeCopeItem() active} objects.

@@ -67,6 +67,20 @@ public class SchemaTest extends TestmodelTest
 			
 			column.renameTo(COLUMN1X);
 		}
+		// OK without verify
+		{
+			final Schema schema = model.getSchema();
+
+			final com.exedio.dsmf.Table table = schema.getTable(TABLE1);
+			assertNotNull(table);
+			assertEquals(true, table.required());
+			assertEquals(false, table.exists());
+
+			final Column column = table.getColumn(COLUMN1);
+			assertEquals(true, column.required());
+			assertEquals(false, column.exists());
+			assertEquals(column1Type, column.getType());
+		}
 		// COLUMN RENAMED
 		{
 			final Schema schema = model.getVerifiedSchema();
