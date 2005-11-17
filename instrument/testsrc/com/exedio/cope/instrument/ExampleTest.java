@@ -56,9 +56,9 @@ public class ExampleTest extends InjectorTest
 			"/**\n	Represents an attribute or association partner of a class.\n"
 				+ "	Note: type==Model.AMIGOUS means, the attribute cannot be used in OCL due to attribute ambiguities.\n"
 				+ "	See OCL spec 5.4.1. for details.\n*/");
-		assertText("\npublic abstract class Example");
+		assertText("\npublic abstract class Example implements Runnable\n");
 		final JavaClass exampleClass = assertClass("Example");
-		assertText(" implements Runnable\n{\n  ");
+		assertText("{\n  ");
 
 		final JavaAttribute name =
 			assertAttributeHeader("name", "String", Modifier.PRIVATE);
@@ -434,9 +434,9 @@ public class ExampleTest extends InjectorTest
 		assertText("\n\n");
 		
 		assertClassEnd("Example", exampleClass);
-		assertText("}\n\nclass SecondExample");
+		assertText("}\n\nclass SecondExample extends Example");
 		final JavaClass secondExampleClass = assertClass("SecondExample");
-		assertText(" extends Example{"+"void abstractMethod()");
+		assertText("{"+"void abstractMethod()");
 		
 		final JavaBehaviour abstractMethod2 =
 			assertBehaviourHeader(

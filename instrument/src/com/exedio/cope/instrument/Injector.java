@@ -712,8 +712,37 @@ final class Injector
 			throw new ParseException("class name expected.");
 		String classname = buf.toString();
 		//System.out.println("class ("+Modifier.toString(modifiers)+") >"+classname+"<");
+		
+		char extendsOrImplements = '-';
+		final ArrayList classExtends = new ArrayList();
+		final ArrayList classImplements = new ArrayList();
+		while(readToken() != '{')
+		{
+			final String s = buf.toString();
+			
+			if("extends".equals(s))
+				extendsOrImplements = 'e';
+			else if("implements".equals(s))
+				extendsOrImplements = 'i';
+			else
+			{
+				switch(extendsOrImplements)
+				{
+					case '-':
+						throw new ParseException("expected extends or implements");
+					case 'e':
+						classExtends.add(s);
+						break;
+					case 'i':
+						classImplements.add(s);
+						break;
+					default:
+						throw new RuntimeException(String.valueOf(extendsOrImplements));
+				}
+			}
+		}
 
-		JavaClass jc = new JavaClass(javafile, parent, modifiers, classname);
+		JavaClass jc = new JavaClass(javafile, parent, modifiers, classname, classExtends, classImplements);
 		//cc.print(System.out);
 
 		consumer.onClass(jc);
@@ -722,8 +751,6 @@ final class Injector
 			write(getCollector());
 		if (do_block)
 			getCollector();
-
-		while (readToken() != '{');
 
 		scheduleBlock(true);
 		ml : while (true)

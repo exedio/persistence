@@ -24,7 +24,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 
 import com.exedio.cope.EnumAttribute;
 import com.exedio.cope.EnumValue;
@@ -46,14 +48,21 @@ import com.exedio.cope.pattern.Hash;
 class JavaClass extends JavaFeature
 {
 	private HashMap attributes = new HashMap();
+	final List classExtends;
+	final List classImplements;
 
 	/**
 	 * @param parent may be null for non-inner classes
 	 */
-	public JavaClass(JavaFile file, JavaClass parent, int modifiers, String name)
+	public JavaClass(
+			final JavaFile file, final JavaClass parent,
+			final int modifiers, final String name,
+			final List classExtends, final List classImplements)
 	throws InjectorParseException
 	{
 		super(file, parent, modifiers, null, name);
+		this.classExtends = Collections.unmodifiableList(classExtends);
+		this.classImplements = Collections.unmodifiableList(classImplements);
 	}
 	
 	void add(final JavaFeature f)
