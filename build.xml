@@ -608,6 +608,14 @@
 		</javadoc>
 	</target>
 
+	<target name="api.zip" depends="api">
+		<mkdir dir="lib/build" />
+		<tar destfile="lib/build/exedio-cope-api.tar.gz"
+			  compression="gzip">
+			<tarfileset dir="${basedir}/api" />
+		</tar>
+	</target>
+	
 	<target name="jspm" depends="copernica.jspm, copernica.test.jspm" />
 	
 	<target name="build"
@@ -658,6 +666,6 @@
 	
 	<target name="dist" depends="dist.tar, dist.test" />
 	
-	<target name="all" depends="build, dist" />
+	<target name="all" depends="build, api.zip, dist" />
 
 </project>
