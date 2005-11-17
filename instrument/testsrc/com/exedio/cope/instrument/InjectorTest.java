@@ -137,6 +137,8 @@ public abstract class InjectorTest extends InstrumentorTest
 	protected JavaClass assertClass(final String className)
 	{
 		final InjectionEvent event = fetchEvent();
+		if(!(event instanceof ClassEvent))
+			throw new RuntimeException(event.toString());
 		final JavaClass javaClass = ((ClassEvent)event).javaClass;
 		assertEquals(className, javaClass.name);
 		return javaClass;
@@ -319,6 +321,11 @@ public abstract class InjectorTest extends InstrumentorTest
 		AttributeHeaderEvent(final JavaAttribute javaAttribute)
 		{
 			this.javaAttribute = javaAttribute;
+		}
+		
+		public String toString()
+		{
+			return "AttributeHeaderEvent:"+javaAttribute.toString();
 		}
 	}
 	
