@@ -94,18 +94,9 @@ final class Table
 		if(!buildStage)
 			throw new RuntimeException();
 
-		if(column.primaryKey)
-		{
-			// do not add it to columnsModifiable
-		}
-		else if(TYPE_COLUMN_NAME.equals(column.id))
-		{
-			// do not add it to columnsModifiable
-		}
-		else
-		{
+		if(!column.primaryKey && !TYPE_COLUMN_NAME.equals(column.id))
 			columnsModifiable.add(column);
-		}
+		
 		allColumnsModifiable.add(column);
 	}
 	
