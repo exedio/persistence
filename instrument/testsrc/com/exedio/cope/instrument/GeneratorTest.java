@@ -62,7 +62,10 @@ public class GeneratorTest extends InstrumentorTest
 				double.class, // nativeDouble
 				boolean.class, // nativeBoolean
 				Date.class, // mandatoryDate
-			}, PUBLIC);
+			}, PUBLIC,
+			new Class[]{
+				MandatoryViolationException.class,
+			});
 		assertConstructor(standard, new Class[]{(new AttributeValue[0]).getClass()}, PRIVATE);
 		assertConstructor(standard, new Class[]{ReactivationConstructorDummy.class, int.class}, PRIVATE);
 
@@ -257,7 +260,10 @@ public class GeneratorTest extends InstrumentorTest
 		assertConstructor(superc, new Class[]{
 				String.class, // superMandatory
 				Integer.class, // superInitial
-			}, PUBLIC);
+			}, PUBLIC,
+			new Class[]{
+				MandatoryViolationException.class,
+			});
 		assertConstructor(superc, new Class[]{(new AttributeValue[0]).getClass()}, PROTECTED);
 		assertConstructor(superc, new Class[]{ReactivationConstructorDummy.class, int.class}, PROTECTED);
 
@@ -359,6 +365,12 @@ public class GeneratorTest extends InstrumentorTest
 	void assertConstructor(
 			final Class javaClass, final Class[] parameterTypes, final int modifiers)
 	{
+		assertConstructor(javaClass, parameterTypes, modifiers, new Class[]{});
+	}
+	
+	void assertConstructor(
+			final Class javaClass, final Class[] parameterTypes, final int modifiers, final Class[] exceptionTypes)
+	{
 		final Constructor constructor;
 		try
 		{
@@ -369,6 +381,7 @@ public class GeneratorTest extends InstrumentorTest
 			throw new AssertionError(e);
 		}
 		assertEquals(modifiers, constructor.getModifiers());
+		assertEquals(Arrays.asList(exceptionTypes), Arrays.asList(constructor.getExceptionTypes()));
 	}
 
 }

@@ -37,7 +37,6 @@ import com.exedio.cope.pattern.Media;
  * TODO: enum attributes
  * TODO: functions
  * TODO: qualifiers
- * TODO: creation constructor with different exceptions
  */
 public class Standard extends Item
 {
