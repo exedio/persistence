@@ -118,7 +118,8 @@ final class Table
 		if(typeColumn!=null)
 			throw new RuntimeException();
 		
-		typeColumn = new StringColumn(this, TYPE_COLUMN_NAME, true, (String[])typeIDs.toArray(new String[typeIDs.size()]));
+		if(typeIDs.size()>1)
+			typeColumn = new StringColumn(this, TYPE_COLUMN_NAME, true, (String[])typeIDs.toArray(new String[typeIDs.size()]));
 	}
 	
 	/**

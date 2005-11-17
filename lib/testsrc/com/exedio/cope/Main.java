@@ -43,6 +43,8 @@ public class Main
 			HierarchyFirstSub.TYPE,
 			HierarchySecondSub.TYPE,
 			HierarchySuper.TYPE, // deliberately put this type below it's sub types to test correct functionality
+			HierarchySingleSuper.TYPE,
+			HierarchySingleSub.TYPE,
 		});
 
 	private static final void tearDown(final Model model)
