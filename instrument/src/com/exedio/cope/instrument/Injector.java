@@ -893,6 +893,20 @@ final class Injector
 
 	}
 
+	public final static boolean hasTag(String doccomment, String tagname)
+	{
+		if(doccomment==null)
+			return false;
+
+		final String s = '@' + tagname;
+		final int pos = doccomment.indexOf(s);
+		if(pos<0)
+			return false;
+		if(pos+s.length()==doccomment.length())
+			return true;
+		return Character.isWhitespace(doccomment.charAt(pos+s.length()));
+	}
+
 	/**
 	 * @param tagname the tag name without the '@' prefix
 	 * @return the first line following the tag

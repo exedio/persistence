@@ -182,7 +182,7 @@ final class Instrumentor implements InjectionConsumer
 					
 		final String getterOption = Injector.findDocTagLine(docComment, ATTRIBUTE_GETTER);
 		final String setterOption = Injector.findDocTagLine(docComment, ATTRIBUTE_SETTER);
-		final boolean initial = Injector.findDocTagLine(docComment, ATTRIBUTE_INITIAL)!=null;
+		final boolean initial = Injector.hasTag(docComment, ATTRIBUTE_INITIAL);
 
 		if(
 			IntegerFunction.class.isAssignableFrom(typeClass) ||
