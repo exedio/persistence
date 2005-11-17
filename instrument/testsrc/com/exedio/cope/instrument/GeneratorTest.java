@@ -263,7 +263,7 @@ public class GeneratorTest extends InstrumentorTest
 
 		// TODO: should include superMandatory, superInitial, subInitial
 		assertConstructor(sub, new Class[]{
-				String.class, // subMandatory
+				boolean.class, // subMandatory
 			}, PUBLIC);
 		assertConstructor(sub, new Class[]{(new AttributeValue[0]).getClass()}, PRIVATE);
 		assertConstructor(sub, new Class[]{ReactivationConstructorDummy.class, int.class}, PRIVATE);
