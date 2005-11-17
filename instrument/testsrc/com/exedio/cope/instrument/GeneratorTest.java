@@ -35,6 +35,8 @@ import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.instrument.testmodel.Qualified;
 import com.exedio.cope.instrument.testmodel.QualifiedName;
 import com.exedio.cope.instrument.testmodel.Standard;
+import com.exedio.cope.instrument.testmodel.Sub;
+import com.exedio.cope.instrument.testmodel.Super;
 import com.exedio.cope.instrument.testmodel.TypeNone;
 import com.exedio.cope.instrument.testmodel.TypePrivate;
 import com.exedio.cope.util.ReactivationConstructorDummy;
@@ -245,6 +247,26 @@ public class GeneratorTest extends InstrumentorTest
 		assertMethod(qualified, "getInternalSetterNumber", new Class[]{String.class}, Integer.class, PUBLIC|FINAL);
 		assertMethod(qualified, "setInternalSetterNumberInternal", new Class[]{String.class, Integer.class}, PRIVATE|FINAL);
 		assertNoMethod(qualified, "setInternalSetterNumber", new Class[]{String.class, Integer.class});
+	}
+	
+	public void testHierarchy() throws ClassNotFoundException
+	{
+		final Class superc = Super.class;
+		final Class sub = Sub.class;
+
+		// TODO: should include superInitial
+		assertConstructor(superc, new Class[]{
+				String.class, // superMandatory
+			}, PUBLIC);
+		assertConstructor(superc, new Class[]{(new AttributeValue[0]).getClass()}, PROTECTED);
+		assertConstructor(superc, new Class[]{ReactivationConstructorDummy.class, int.class}, PROTECTED);
+
+		// TODO: should include superMandatory, superInitial, subInitial
+		assertConstructor(sub, new Class[]{
+				String.class, // subMandatory
+			}, PUBLIC);
+		assertConstructor(sub, new Class[]{(new AttributeValue[0]).getClass()}, PRIVATE);
+		assertConstructor(sub, new Class[]{ReactivationConstructorDummy.class, int.class}, PRIVATE);
 	}
 	
 	void assertField(
