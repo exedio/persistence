@@ -63,7 +63,7 @@ public final class Statement
 
 	public Statement appendPK(final Type type, final Join join)
 	{
-		return append(type.getTable().getPrimaryKey(), join);
+		return append(type.getTable().primaryKey, join);
 	}
 		
 	Statement append(final Column column, final Join join)

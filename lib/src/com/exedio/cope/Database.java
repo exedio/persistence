@@ -168,7 +168,7 @@ abstract class Database
 
 			final Table table = (Table)i.next();
 
-			final Column primaryKey = table.getPrimaryKey();
+			final Column primaryKey = table.primaryKey;
 			bf.append(primaryKey, null).
 				append('=').
 				appendParameter(Type.NOT_A_PK);
@@ -321,7 +321,7 @@ abstract class Database
 				{
 					selectType = (Type)selectable;
 					selectTable = selectType.getTable();
-					selectPrimaryKey = selectTable.getPrimaryKey();
+					selectPrimaryKey = selectTable.primaryKey;
 					selectColumn = selectPrimaryKey;
 	
 					if(selectableIndex>0)
@@ -683,7 +683,7 @@ abstract class Database
 					appendParameter(column, state.store(column));
 			}
 			bf.append(" where ").
-				append(table.getPrimaryKey().protectedID).
+				append(table.primaryKey.protectedID).
 				append('=').
 				appendParameter(state.pk);
 		}
@@ -692,7 +692,7 @@ abstract class Database
 			bf.append("insert into ").
 				append(table.protectedID).
 				append("(").
-				append(table.getPrimaryKey().protectedID);
+				append(table.primaryKey.protectedID);
 			
 			final StringColumn typeColumn = table.typeColumn;
 			if(typeColumn!=null)
@@ -744,7 +744,7 @@ abstract class Database
 			bf.append("delete from ").
 				append(currentTable.protectedID).
 				append(" where ").
-				append(currentTable.getPrimaryKey().protectedID).
+				append(currentTable.primaryKey.protectedID).
 				append('=').
 				appendParameter(pk);
 
@@ -1184,7 +1184,7 @@ abstract class Database
 		buildStage = false;
 
 		final Statement bf = createStatement();
-		final String primaryKeyProtectedID = table.getPrimaryKey().protectedID;
+		final String primaryKeyProtectedID = table.primaryKey.protectedID;
 		bf.append("select min(").
 			append(primaryKeyProtectedID).defineColumnInteger().
 			append("),max(").

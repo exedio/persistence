@@ -292,18 +292,12 @@ public final class Type
 		else
 			typeIDs = null;
 
-		this.table = new Table(database, id, typeIDs);
+		this.table = new Table(database, id, supertype, typeIDs);
 
 		if(supertype!=null)
-		{
 			pkSource = supertype.getPkSource();
-			new ItemColumn(table, supertype.getJavaClass());
-		}
 		else
-		{
 			pkSource = database.makePkSource(table);
-			new IntegerColumn(table);
-		}
 		
 		for(int i = 0; i<declaredAttributes.length; i++)
 			declaredAttributes[i].materialize(table);

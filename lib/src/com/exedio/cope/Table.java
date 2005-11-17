@@ -30,13 +30,15 @@ final class Table
 	final Database database;
 	final String id;
 	final String protectedID;
+	final IntegerColumn primaryKey;
 	final StringColumn typeColumn;
 
-	Table(final Database database, final String id, final ArrayList typeIDs)
+	Table(final Database database, final String id, final Type supertype, final ArrayList typeIDs)
 	{
 		this.database = database;
 		this.id = database.makeName(id).intern();
 		this.protectedID = database.driver.protectName(this.id).intern();
+		this.primaryKey = (supertype!=null) ? new ItemColumn(this, supertype.getJavaClass()) : new IntegerColumn(this);
 		this.typeColumn = (typeIDs!=null && typeIDs.size()>1) ? new StringColumn(this, TYPE_COLUMN_NAME, true, (String[])typeIDs.toArray(new String[typeIDs.size()])) : null;
 		database.addTable(this);
 	}
@@ -45,8 +47,6 @@ final class Table
 
 	private final ArrayList columnsModifiable = new ArrayList();
 	private final List columns = Collections.unmodifiableList(columnsModifiable);
-	
-	private Column primaryKey;
 	
 	private final List allColumnsModifiable = new ArrayList();
 	private final List allColumns = Collections.unmodifiableList(allColumnsModifiable);
@@ -96,10 +96,7 @@ final class Table
 
 		if(column.primaryKey)
 		{
-			if(primaryKey!=null)
-				throw new RuntimeException(column.id);
-
-			primaryKey = column;
+			// do not add it to columnsModifiable
 		}
 		else if(TYPE_COLUMN_NAME.equals(column.id))
 		{
@@ -122,12 +119,6 @@ final class Table
 	{
 		buildStage = false;
 		return columns;
-	}
-	
-	Column getPrimaryKey()
-	{
-		buildStage = false;
-		return primaryKey;
 	}
 	
 	/**
