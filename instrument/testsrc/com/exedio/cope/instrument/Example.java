@@ -92,7 +92,7 @@ public abstract class Example implements Runnable
 	 }
   }  
 
-  static class InnerSub extends ExampleTest
+  static class InnerSub extends ExampleTest implements java.io.Serializable, Cloneable
   {
   }
 

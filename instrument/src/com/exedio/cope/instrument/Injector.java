@@ -713,32 +713,38 @@ final class Injector
 		String classname = buf.toString();
 		//System.out.println("class ("+Modifier.toString(modifiers)+") >"+classname+"<");
 		
+		char imc;
 		char extendsOrImplements = '-';
 		final ArrayList classExtends = new ArrayList();
 		final ArrayList classImplements = new ArrayList();
-		while(readToken() != '{')
+		while((imc=readToken()) != '{')
 		{
-			final String s = buf.toString();
-			
-			if("extends".equals(s))
-				extendsOrImplements = 'e';
-			else if("implements".equals(s))
-				extendsOrImplements = 'i';
-			else
+			if(imc=='\0')
 			{
-				switch(extendsOrImplements)
+				final String s = buf.toString();
+				
+				if("extends".equals(s))
+					extendsOrImplements = 'e';
+				else if("implements".equals(s))
+					extendsOrImplements = 'i';
+				else
 				{
-					case '-':
-						throw new ParseException("expected extends or implements");
-					case 'e':
-						classExtends.add(s);
-						break;
-					case 'i':
-						classImplements.add(s);
-						break;
-					default:
-						throw new RuntimeException(String.valueOf(extendsOrImplements));
+					switch(extendsOrImplements)
+					{
+						case '-':
+							throw new ParseException("expected extends or implements");
+						case 'e':
+							classExtends.add(s);
+							break;
+						case 'i':
+							classImplements.add(s);
+							break;
+						default:
+							throw new RuntimeException(String.valueOf(extendsOrImplements));
+					}
 				}
+				
+				//System.out.println("---------------"+s+"---"+extendsOrImplements+"---------------"+classExtends+"--------"+classImplements);
 			}
 		}
 

@@ -251,8 +251,8 @@ public class ExampleTest extends InjectorTest
 		assertInnerClassAttribute("Inner", null);
 
 		assertText("}  \n\n  ");
-		final JavaClass subClass = assertClass("InnerSub", "ExampleTest", null);
-		assertText("static class InnerSub extends ExampleTest\n  {\n  ");
+		final JavaClass subClass = assertClass("InnerSub", "ExampleTest", new String[]{"java.io.Serializable", "Cloneable"});
+		assertText("static class InnerSub extends ExampleTest implements java.io.Serializable, Cloneable\n  {\n  ");
 		assertClassEnd("InnerSub", subClass);
 		assertInnerClassAttribute("InnerSub", null);
 		assertText("}\n\n  public Example()\n  ");
