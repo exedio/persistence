@@ -304,6 +304,7 @@ public final class Type
 		for(int i = 0; i<uniqueConstraints.length; i++)
 			uniqueConstraints[i].materialize(database);
 		this.table.setUniqueConstraints(this.uniqueConstraintList);
+		this.table.finish();
 	}
 	
 	private static final void addRecursive(final List subTypes, final ArrayList typeIDs, int levelLimit)

@@ -43,13 +43,11 @@ final class Table
 		database.addTable(this);
 	}
 	
-	private boolean buildStage = true;
-
-	private final ArrayList columnsModifiable = new ArrayList();
-	private final List columns = Collections.unmodifiableList(columnsModifiable);
+	private ArrayList columnsModifiable = new ArrayList();
+	private List columns = null;
 	
-	private final List allColumnsModifiable = new ArrayList();
-	private final List allColumns = Collections.unmodifiableList(allColumnsModifiable);
+	private List allColumnsModifiable = new ArrayList();
+	private List allColumns = null;
 
 	private List uniqueConstraints = null;
 	
@@ -91,9 +89,6 @@ final class Table
 
 	void addColumn(final Column column)
 	{
-		if(!buildStage)
-			throw new RuntimeException();
-
 		if(!column.primaryKey && !TYPE_COLUMN_NAME.equals(column.id))
 			columnsModifiable.add(column);
 		
@@ -108,7 +103,9 @@ final class Table
 	 */
 	List getColumns()
 	{
-		buildStage = false;
+		if(columns==null)
+			throw new RuntimeException();
+		
 		return columns;
 	}
 	
@@ -120,7 +117,9 @@ final class Table
 	 */
 	List getAllColumns()
 	{
-		buildStage = false;
+		if(allColumns==null)
+			throw new RuntimeException();
+		
 		return allColumns;
 	}
 	
@@ -128,7 +127,7 @@ final class Table
 	{
 		if(uniqueConstraints==null)
 			throw new IllegalArgumentException();
-		if(!buildStage)
+		if(allColumns!=null)
 			throw new RuntimeException();
 		if(this.uniqueConstraints!=null)
 			throw new RuntimeException();
@@ -138,8 +137,18 @@ final class Table
 	
 	List getUniqueConstraints()
 	{
-		buildStage = false;
+		if(uniqueConstraints==null)
+			throw new RuntimeException();
+		
 		return uniqueConstraints;
+	}
+	
+	final void finish()
+	{
+		columns = Collections.unmodifiableList(columnsModifiable);
+		allColumns = Collections.unmodifiableList(allColumnsModifiable);
+		columnsModifiable = null;
+		allColumnsModifiable = null;
 	}
 	
 	public final String toString()
