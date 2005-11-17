@@ -30,12 +30,14 @@ final class Table
 	final Database database;
 	final String id;
 	final String protectedID;
+	final StringColumn typeColumn;
 
-	Table(final Database database, final String id)
+	Table(final Database database, final String id, final ArrayList typeIDs)
 	{
 		this.database = database;
 		this.id = database.makeName(id).intern();
 		this.protectedID = database.driver.protectName(this.id).intern();
+		this.typeColumn = (typeIDs!=null && typeIDs.size()>1) ? new StringColumn(this, TYPE_COLUMN_NAME, true, (String[])typeIDs.toArray(new String[typeIDs.size()])) : null;
 		database.addTable(this);
 	}
 	
@@ -45,7 +47,6 @@ final class Table
 	private final List columns = Collections.unmodifiableList(columnsModifiable);
 	
 	private Column primaryKey;
-	private StringColumn typeColumn = null;
 	
 	private final List allColumnsModifiable = new ArrayList();
 	private final List allColumns = Collections.unmodifiableList(allColumnsModifiable);
@@ -111,17 +112,6 @@ final class Table
 		allColumnsModifiable.add(column);
 	}
 	
-	void addTypeColumn(final ArrayList typeIDs)
-	{
-		if(!buildStage)
-			throw new RuntimeException();
-		if(typeColumn!=null)
-			throw new RuntimeException();
-		
-		if(typeIDs.size()>1)
-			typeColumn = new StringColumn(this, TYPE_COLUMN_NAME, true, (String[])typeIDs.toArray(new String[typeIDs.size()]));
-	}
-	
 	/**
 	 * Returns &quot;payload&quot; columns of this type only,
 	 * excluding primary key column.
@@ -138,12 +128,6 @@ final class Table
 	{
 		buildStage = false;
 		return primaryKey;
-	}
-	
-	StringColumn getTypeColumn()
-	{
-		buildStage = false;
-		return typeColumn;
 	}
 	
 	/**

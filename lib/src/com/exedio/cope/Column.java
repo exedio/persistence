@@ -53,7 +53,7 @@ abstract class Column
 		if(!primaryKey)
 			throw new RuntimeException(id);
 		
-		return table.getTypeColumn();
+		return table.typeColumn;
 	}
 
 	abstract String getCheckConstraintIfNotNull();

@@ -283,7 +283,16 @@ public final class Type
 		if(this.pkSource!=null)
 			throw new RuntimeException();
 
-		this.table = new Table(database, id);
+		final ArrayList typeIDs;
+		if(subTypes!=null)
+		{
+			typeIDs = new ArrayList();
+			addRecursive(subTypes, typeIDs, 15);
+		}
+		else
+			typeIDs = null;
+
+		this.table = new Table(database, id, typeIDs);
 
 		if(supertype!=null)
 		{
@@ -296,13 +305,6 @@ public final class Type
 			new IntegerColumn(table);
 		}
 		
-		if(subTypes!=null)
-		{
-			final ArrayList typeIDs = new ArrayList();
-			addRecursive(subTypes, typeIDs, 15);
-			table.addTypeColumn(typeIDs);
-		}
-
 		for(int i = 0; i<declaredAttributes.length; i++)
 			declaredAttributes[i].materialize(table);
 		for(int i = 0; i<uniqueConstraints.length; i++)

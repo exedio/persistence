@@ -694,7 +694,7 @@ abstract class Database
 				append("(").
 				append(table.getPrimaryKey().protectedID);
 			
-			final StringColumn typeColumn = table.getTypeColumn();
+			final StringColumn typeColumn = table.typeColumn;
 			if(typeColumn!=null)
 			{
 				bf.append(',').
