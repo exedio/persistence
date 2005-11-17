@@ -249,7 +249,13 @@ public class ExampleTest extends InjectorTest
 
 		assertClassEnd("Inner", innerClass);
 		assertInnerClassAttribute("Inner", null);
-		assertText("}  \n\n  "+"public Example()\n  ");
+
+		assertText("}  \n\n  ");
+		final JavaClass subClass = assertClass("InnerSub");
+		assertText("static class InnerSub extends ExampleTest\n  {\n  ");
+		assertClassEnd("InnerSub", subClass);
+		assertInnerClassAttribute("InnerSub", null);
+		assertText("}\n\n  public Example()\n  ");
 
 		final JavaBehaviour emptyConstructor =
 			assertBehaviourHeader(

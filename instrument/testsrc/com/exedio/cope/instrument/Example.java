@@ -92,6 +92,10 @@ public abstract class Example implements Runnable
 	 }
   }  
 
+  static class InnerSub extends ExampleTest
+  {
+  }
+
   public Example()
   {
 	 new Integer(5);
