@@ -57,7 +57,7 @@ public class ExampleTest extends InjectorTest
 				+ "	Note: type==Model.AMIGOUS means, the attribute cannot be used in OCL due to attribute ambiguities.\n"
 				+ "	See OCL spec 5.4.1. for details.\n*/");
 		assertText("\npublic abstract class Example implements Runnable\n");
-		final JavaClass exampleClass = assertClass("Example");
+		final JavaClass exampleClass = assertClass("Example", null, new String[]{"Runnable"});
 		assertText("{\n  ");
 
 		final JavaAttribute name =
@@ -207,10 +207,10 @@ public class ExampleTest extends InjectorTest
 		assertAttribute("uglyAttribute8", null, uglyAttribute8);
 		assertText("\n  // end of ugly attributes\n  \n\n  ");
 
-		final JavaClass innerClass = assertClass("Inner");
+		final JavaClass innerClass = assertClass("Inner", null, new String[]{"Runnable"});
 		assertText("class Inner implements Runnable\n  {\n\t ");
 
-		final JavaClass drinnerClass = assertClass("Drinner");
+		final JavaClass drinnerClass = assertClass("Drinner", null, new String[]{"Runnable"});
 		assertText("class Drinner implements Runnable\n\t {\n\t\t");
 
 		final JavaAttribute someDrinnerBoolean =
@@ -251,7 +251,7 @@ public class ExampleTest extends InjectorTest
 		assertInnerClassAttribute("Inner", null);
 
 		assertText("}  \n\n  ");
-		final JavaClass subClass = assertClass("InnerSub");
+		final JavaClass subClass = assertClass("InnerSub", "ExampleTest", null);
 		assertText("static class InnerSub extends ExampleTest\n  {\n  ");
 		assertClassEnd("InnerSub", subClass);
 		assertInnerClassAttribute("InnerSub", null);
@@ -435,7 +435,7 @@ public class ExampleTest extends InjectorTest
 		
 		assertClassEnd("Example", exampleClass);
 		assertText("}\n\nclass SecondExample extends Example");
-		final JavaClass secondExampleClass = assertClass("SecondExample");
+		final JavaClass secondExampleClass = assertClass("SecondExample", "Example", null);
 		assertText("{"+"void abstractMethod()");
 		
 		final JavaBehaviour abstractMethod2 =

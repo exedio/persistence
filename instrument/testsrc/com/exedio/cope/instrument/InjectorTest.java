@@ -24,6 +24,8 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedList;
 
 import junit.framework.AssertionFailedError;
@@ -134,13 +136,15 @@ public abstract class InjectorTest extends InstrumentorTest
 		assertEquals(replaceLineBreaks(docComment), ((FileDocCommentEvent)event).docComment);
 	}
 
-	protected JavaClass assertClass(final String className)
+	protected JavaClass assertClass(final String className, final String classExtends, final String[] classImplements)
 	{
 		final InjectionEvent event = fetchEvent();
 		if(!(event instanceof ClassEvent))
 			throw new RuntimeException(event.toString());
 		final JavaClass javaClass = ((ClassEvent)event).javaClass;
 		assertEquals(className, javaClass.name);
+		assertEquals(classExtends==null ? Collections.EMPTY_LIST : Collections.singletonList(classExtends), javaClass.classExtends);
+		assertEquals(classImplements==null ? Collections.EMPTY_LIST : Arrays.asList(classImplements), javaClass.classImplements);
 		return javaClass;
 	}
 	
