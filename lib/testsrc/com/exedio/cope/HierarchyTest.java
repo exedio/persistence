@@ -17,6 +17,8 @@
  */
 package com.exedio.cope;
 
+import com.exedio.dsmf.SQLRuntimeException;
+
 
 public class HierarchyTest extends AbstractLibTest
 {
@@ -31,6 +33,8 @@ public class HierarchyTest extends AbstractLibTest
 		// model HierarchySuper
 		assertEquals(null, HierarchySuper.TYPE.getSupertype());
 		assertEqualsUnmodifiable(list(HierarchyFirstSub.TYPE, HierarchySecondSub.TYPE), HierarchySuper.TYPE.getSubTypes());
+		assertTrue(HierarchySuper.TYPE.isAssignableFrom(HierarchySuper.TYPE));
+		assertTrue(HierarchySuper.TYPE.isAssignableFrom(HierarchyFirstSub.TYPE));
 		assertEqualsUnmodifiable(list(HierarchySuper.superInt, HierarchySuper.superString), HierarchySuper.TYPE.getDeclaredAttributes());
 		assertEqualsUnmodifiable(list(HierarchySuper.superInt, HierarchySuper.superString), HierarchySuper.TYPE.getAttributes());
 		assertEqualsUnmodifiable(list(HierarchySuper.superInt, HierarchySuper.superString, HierarchySuper.superStringUpper), HierarchySuper.TYPE.getDeclaredFeatures());
@@ -40,6 +44,10 @@ public class HierarchyTest extends AbstractLibTest
 		// model HierarchyFirstSub
 		assertEquals(HierarchySuper.TYPE, HierarchyFirstSub.TYPE.getSupertype());
 		assertEqualsUnmodifiable(list(), HierarchyFirstSub.TYPE.getSubTypes());
+		assertFalse(HierarchyFirstSub.TYPE.isAssignableFrom(HierarchySuper.TYPE));
+		assertTrue(HierarchyFirstSub.TYPE.isAssignableFrom(HierarchyFirstSub.TYPE));
+		assertFalse(HierarchyFirstSub.TYPE.isAssignableFrom(HierarchySecondSub.TYPE));
+		assertFalse(HierarchySecondSub.TYPE.isAssignableFrom(HierarchyFirstSub.TYPE));
 		assertEqualsUnmodifiable(list(HierarchyFirstSub.firstSubString), HierarchyFirstSub.TYPE.getDeclaredAttributes());
 		assertEqualsUnmodifiable(list(HierarchySuper.superInt, HierarchySuper.superString, HierarchyFirstSub.firstSubString), HierarchyFirstSub.TYPE.getAttributes());
 		assertEqualsUnmodifiable(list(HierarchyFirstSub.firstSubString, HierarchyFirstSub.firstSubStringUpper), HierarchyFirstSub.TYPE.getDeclaredFeatures());
@@ -101,10 +109,9 @@ public class HierarchyTest extends AbstractLibTest
 		{
 			assertContains( firstSubItem1, firstSubItem2, HierarchyFirstSub.TYPE.search( HierarchySuper.superInt.equal( 10 ) ) );
 		}
-		catch(RuntimeException e)
+		catch(SQLRuntimeException e)
 		{
 			// TODO this is a bug
-			assertEquals("function HierarchySuper#superInt belongs to type HierarchySuper, which is not a type of the query: HierarchyFirstSub, []", e.getMessage());
 		}
 	}
 

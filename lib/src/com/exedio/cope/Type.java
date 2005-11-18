@@ -382,6 +382,12 @@ public final class Type
 	{
 		return subTypes==null ? Collections.EMPTY_LIST : Collections.unmodifiableList(subTypes);
 	}
+	
+	public boolean isAssignableFrom(final Type type)
+	{
+		return javaClass.isAssignableFrom(type.javaClass);
+	}
+	
 
 	/**
 	 * @return a list of {@link ItemAttribute}s.

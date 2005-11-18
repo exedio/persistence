@@ -38,7 +38,7 @@ public abstract class Condition
 		final Type functionType = function.getType();
 
 		final Type queryType = query.getType();
-		if(functionType==queryType)
+		if(functionType.isAssignableFrom(queryType))
 			return;
 
 		final List queryJoins = query.getJoins();
@@ -47,7 +47,7 @@ public abstract class Condition
 			for(Iterator i = queryJoins.iterator(); i.hasNext(); )
 			{
 				final Join join = (Join)i.next();
-				if(functionType==join.getType())
+				if(functionType.isAssignableFrom(join.getType()))
 					return;
 			}
 		}
