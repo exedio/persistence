@@ -29,6 +29,7 @@ import java.util.Arrays;
 import java.util.Date;
 
 import com.exedio.cope.AttributeValue;
+import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueViolationException;
@@ -262,6 +263,7 @@ public class GeneratorTest extends InstrumentorTest
 				Integer.class, // superInitial
 			}, PUBLIC,
 			new Class[]{
+				LengthViolationException.class,
 				MandatoryViolationException.class,
 			});
 		assertConstructor(superc, new Class[]{(new AttributeValue[0]).getClass()}, PROTECTED);
@@ -274,6 +276,7 @@ public class GeneratorTest extends InstrumentorTest
 				Long.class, // subInitial
 			}, PUBLIC,
 			new Class[]{
+				LengthViolationException.class,
 				MandatoryViolationException.class,
 			});
 		assertConstructor(sub, new Class[]{(new AttributeValue[0]).getClass()}, PRIVATE);
