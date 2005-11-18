@@ -27,6 +27,7 @@ import java.util.SortedSet;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
+import com.exedio.cope.NestingRuntimeException;
 import com.exedio.cope.ReadOnlyViolationException;
 import com.exedio.cope.pattern.Media;
 import com.exedio.cope.util.ClassComparator;
@@ -87,6 +88,33 @@ final class CopeClass
 	public boolean isInterface()
 	{
 		return javaClass.isInterface();
+	}
+	
+	public CopeClass getSuperclass()
+	{
+		final List exts = javaClass.classExtends;
+		switch(exts.size())
+		{
+			case 0:
+				return null;
+			case 1:
+			{
+				final String extname = (String)exts.iterator().next();
+				try
+				{
+					return javaClass.file.repository.getCopeClass(extname);
+				}
+				catch(RuntimeException e)
+				{
+					if(!e.getMessage().startsWith("no cope class for ")) // TODO better exception
+						throw new NestingRuntimeException(e, "bad exception");
+					else
+						return null;
+				}
+			}
+			default:
+				throw new RuntimeException(exts.toString());
+		}
 	}
 
 	public void add(final CopeAttribute attribute)
@@ -220,6 +248,14 @@ final class CopeClass
 	{
 		initialAttributes = new ArrayList();
 		constructorExceptions = new TreeSet(ClassComparator.getInstance());
+		
+		final CopeClass superclass = getSuperclass();
+		if(superclass!=null)
+		{
+			initialAttributes.addAll(superclass.getInitialAttributes());
+			constructorExceptions.addAll(superclass.getConstructorExceptions());
+		}
+		
 		for(Iterator i = getAttributes().iterator(); i.hasNext(); )
 		{
 			final CopeAttribute copeAttribute = (CopeAttribute)i.next();
