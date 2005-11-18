@@ -62,6 +62,21 @@ public final class DateAttribute extends ObjectAttribute
 		return surface==null ? null : new Long(((Date)surface).getTime());
 	}
 	
+	public final Date get(final Item item)
+	{
+		return (Date)item.get(this);
+	}
+	
+	public final void set(final Item item, final Date value)
+		throws
+			UniqueViolationException,
+			MandatoryViolationException,
+			LengthViolationException, // TODO remove
+			ReadOnlyViolationException
+	{
+		item.set(this, value);
+	}
+
 	public final EqualCondition equal(final Date value)
 	{
 		return new EqualCondition(null, this, value);

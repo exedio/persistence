@@ -159,6 +159,21 @@ public final class EnumAttribute extends ObjectAttribute
 				((EnumValue)surface).getNumberObject();
 	}
 	
+	public final EnumValue get(final Item item)
+	{
+		return (EnumValue)item.get(this);
+	}
+	
+	public final void set(final Item item, final EnumValue value)
+		throws
+			UniqueViolationException,
+			MandatoryViolationException,
+			LengthViolationException, // TODO remove
+			ReadOnlyViolationException
+	{
+		item.set(this, value);
+	}
+
 	public final EqualCondition equal(final EnumValue value)
 	{
 		return new EqualCondition(null, this, value);

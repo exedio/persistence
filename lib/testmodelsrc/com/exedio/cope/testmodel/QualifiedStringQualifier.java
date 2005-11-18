@@ -94,7 +94,7 @@ public class QualifiedStringQualifier extends Item
 	 *
  */public final QualifiedItem getParent()
 	{
-		return (QualifiedItem)get(QualifiedStringQualifier.parent);
+		return (QualifiedItem)QualifiedStringQualifier.parent.get(this);
 	}/**
 
 	 **
@@ -104,7 +104,7 @@ public class QualifiedStringQualifier extends Item
 	 *
  */public final java.lang.String getKey()
 	{
-		return (java.lang.String)get(QualifiedStringQualifier.key);
+		return QualifiedStringQualifier.key.get(this);
 	}/**
 
 	 **
@@ -114,7 +114,7 @@ public class QualifiedStringQualifier extends Item
 	 *
  */public final java.lang.Integer getQualifiedA()
 	{
-		return (java.lang.Integer)get(QualifiedStringQualifier.qualifiedA);
+		return QualifiedStringQualifier.qualifiedA.get(this);
 	}/**
 
 	 **
@@ -126,7 +126,7 @@ public class QualifiedStringQualifier extends Item
 	{
 		try
 		{
-			set(QualifiedStringQualifier.qualifiedA,qualifiedA);
+			QualifiedStringQualifier.qualifiedA.set(this,qualifiedA);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -153,7 +153,7 @@ public class QualifiedStringQualifier extends Item
 	 *
  */public final java.lang.Integer getQualifiedB()
 	{
-		return (java.lang.Integer)get(QualifiedStringQualifier.qualifiedB);
+		return QualifiedStringQualifier.qualifiedB.get(this);
 	}/**
 
 	 **
@@ -165,7 +165,7 @@ public class QualifiedStringQualifier extends Item
 	{
 		try
 		{
-			set(QualifiedStringQualifier.qualifiedB,qualifiedB);
+			QualifiedStringQualifier.qualifiedB.set(this,qualifiedB);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{

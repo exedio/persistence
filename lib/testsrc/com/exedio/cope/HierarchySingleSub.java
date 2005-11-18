@@ -77,7 +77,7 @@ public class HierarchySingleSub extends HierarchySingleSuper
 	 *
  */public final java.lang.String getSubString()
 	{
-		return (java.lang.String)get(HierarchySingleSub.subString);
+		return HierarchySingleSub.subString.get(this);
 	}/**
 
 	 **
@@ -89,7 +89,7 @@ public class HierarchySingleSub extends HierarchySingleSuper
 	{
 		try
 		{
-			set(HierarchySingleSub.subString,subString);
+			HierarchySingleSub.subString.set(this,subString);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{

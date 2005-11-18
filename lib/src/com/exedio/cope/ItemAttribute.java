@@ -106,6 +106,21 @@ public final class ItemAttribute extends ObjectAttribute
 				new Integer(((Item)surface).pk);
 	}
 	
+	public final Item get(final Item item)
+	{
+		return (Item)item.get(this);
+	}
+	
+	public final void set(final Item item, final Item value)
+		throws
+			UniqueViolationException,
+			MandatoryViolationException,
+			LengthViolationException, // TODO remove
+			ReadOnlyViolationException
+	{
+		item.set(this, value);
+	}
+
 	public final EqualCondition equal(final Item value)
 	{
 		return new EqualCondition(null, this, value);

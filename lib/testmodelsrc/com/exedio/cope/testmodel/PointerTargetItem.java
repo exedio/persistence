@@ -78,7 +78,7 @@ public class PointerTargetItem extends Item
 	 *
  */public final java.lang.String getCode()
 	{
-		return (java.lang.String)get(PointerTargetItem.code);
+		return PointerTargetItem.code.get(this);
 	}/**
 
 	 **
@@ -92,7 +92,7 @@ public class PointerTargetItem extends Item
 	{
 		try
 		{
-			set(PointerTargetItem.code,code);
+			PointerTargetItem.code.set(this,code);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{

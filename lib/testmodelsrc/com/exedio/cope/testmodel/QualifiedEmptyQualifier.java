@@ -93,7 +93,7 @@ public class QualifiedEmptyQualifier extends Item
 	 *
  */public final QualifiedItem getParent()
 	{
-		return (QualifiedItem)get(QualifiedEmptyQualifier.parent);
+		return (QualifiedItem)QualifiedEmptyQualifier.parent.get(this);
 	}/**
 
 	 **
@@ -103,7 +103,7 @@ public class QualifiedEmptyQualifier extends Item
 	 *
  */public final EmptyItem getKey()
 	{
-		return (EmptyItem)get(QualifiedEmptyQualifier.key);
+		return (EmptyItem)QualifiedEmptyQualifier.key.get(this);
 	}/**
 
 	 **
@@ -113,7 +113,7 @@ public class QualifiedEmptyQualifier extends Item
 	 *
  */public final java.lang.String getQualifiedA()
 	{
-		return (java.lang.String)get(QualifiedEmptyQualifier.qualifiedA);
+		return QualifiedEmptyQualifier.qualifiedA.get(this);
 	}/**
 
 	 **
@@ -125,7 +125,7 @@ public class QualifiedEmptyQualifier extends Item
 	{
 		try
 		{
-			set(QualifiedEmptyQualifier.qualifiedA,qualifiedA);
+			QualifiedEmptyQualifier.qualifiedA.set(this,qualifiedA);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -152,7 +152,7 @@ public class QualifiedEmptyQualifier extends Item
 	 *
  */public final java.lang.String getQualifiedB()
 	{
-		return (java.lang.String)get(QualifiedEmptyQualifier.qualifiedB);
+		return QualifiedEmptyQualifier.qualifiedB.get(this);
 	}/**
 
 	 **
@@ -164,7 +164,7 @@ public class QualifiedEmptyQualifier extends Item
 	{
 		try
 		{
-			set(QualifiedEmptyQualifier.qualifiedB,qualifiedB);
+			QualifiedEmptyQualifier.qualifiedB.set(this,qualifiedB);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{

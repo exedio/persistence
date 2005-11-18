@@ -24,6 +24,8 @@ import com.exedio.cope.search.NotEqualCondition;
 
 public interface IntegerFunction extends Function
 {
+	Integer get(Item item);
+	
 	EqualCondition equal(Integer value);
 	
 	EqualCondition equal(int value);

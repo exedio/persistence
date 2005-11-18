@@ -93,7 +93,7 @@ public class NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem exte
 	 *
  */public final java.lang.String getCode()
 	{
-		return (java.lang.String)get(NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem.code);
+		return NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem.code.get(this);
 	}/**
 
 	 **
@@ -108,7 +108,7 @@ public class NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem exte
 	{
 		try
 		{
-			set(NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem.code,code);
+			NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem.code.set(this,code);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -127,7 +127,7 @@ public class NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem exte
 	 *
  */public final java.lang.Integer getCollisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber()
 	{
-		return (java.lang.Integer)get(NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem.collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber);
+		return NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem.collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber.get(this);
 	}/**
 
 	 **
@@ -139,7 +139,7 @@ public class NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem exte
 	{
 		try
 		{
-			set(NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem.collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber,collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber);
+			NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem.collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber.set(this,collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -166,7 +166,7 @@ public class NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem exte
 	 *
  */public final java.lang.Integer getCollisionloooooooooooooooooooooooooooooooooooooooooooooooongbNumber()
 	{
-		return (java.lang.Integer)get(NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem.collisionloooooooooooooooooooooooooooooooooooooooooooooooongbNumber);
+		return NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem.collisionloooooooooooooooooooooooooooooooooooooooooooooooongbNumber.get(this);
 	}/**
 
 	 **
@@ -178,7 +178,7 @@ public class NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem exte
 	{
 		try
 		{
-			set(NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem.collisionloooooooooooooooooooooooooooooooooooooooooooooooongbNumber,collisionloooooooooooooooooooooooooooooooooooooooooooooooongbNumber);
+			NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem.collisionloooooooooooooooooooooooooooooooooooooooooooooooongbNumber.set(this,collisionloooooooooooooooooooooooooooooooooooooooooooooooongbNumber);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{

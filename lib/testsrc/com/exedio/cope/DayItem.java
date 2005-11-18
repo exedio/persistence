@@ -77,7 +77,7 @@ public class DayItem extends Item
 	 *
  */public final com.exedio.cope.util.Day getDay()
 	{
-		return (com.exedio.cope.util.Day)get(DayItem.day);
+		return DayItem.day.get(this);
 	}/**
 
 	 **
@@ -91,7 +91,7 @@ public class DayItem extends Item
 	{
 		try
 		{
-			set(DayItem.day,day);
+			DayItem.day.set(this,day);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -114,7 +114,7 @@ public class DayItem extends Item
 	 *
  */public final com.exedio.cope.util.Day getOptionalDay()
 	{
-		return (com.exedio.cope.util.Day)get(DayItem.optionalDay);
+		return DayItem.optionalDay.get(this);
 	}/**
 
 	 **
@@ -126,7 +126,7 @@ public class DayItem extends Item
 	{
 		try
 		{
-			set(DayItem.optionalDay,optionalDay);
+			DayItem.optionalDay.set(this,optionalDay);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{

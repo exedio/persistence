@@ -219,7 +219,7 @@ public class AttributeItem extends Item
 	 *
  */public final java.lang.String getSomeString()
 	{
-		return (java.lang.String)get(AttributeItem.someString);
+		return AttributeItem.someString.get(this);
 	}/**
 
 	 **
@@ -231,7 +231,7 @@ public class AttributeItem extends Item
 	{
 		try
 		{
-			set(AttributeItem.someString,someString);
+			AttributeItem.someString.set(this,someString);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -258,7 +258,7 @@ public class AttributeItem extends Item
 	 *
  */public final java.lang.String getSomeStringUpperCase()
 	{
-		return (java.lang.String)get(AttributeItem.someStringUpperCase);
+		return AttributeItem.someStringUpperCase.get(this);
 	}/**
 
 	 **
@@ -268,7 +268,7 @@ public class AttributeItem extends Item
 	 *
  */public final java.lang.Integer getSomeStringLength()
 	{
-		return (java.lang.Integer)get(AttributeItem.someStringLength);
+		return AttributeItem.someStringLength.get(this);
 	}/**
 
 	 **
@@ -278,7 +278,7 @@ public class AttributeItem extends Item
 	 *
  */public final java.lang.String getSomeNotNullString()
 	{
-		return (java.lang.String)get(AttributeItem.someNotNullString);
+		return AttributeItem.someNotNullString.get(this);
 	}/**
 
 	 **
@@ -292,7 +292,7 @@ public class AttributeItem extends Item
 	{
 		try
 		{
-			set(AttributeItem.someNotNullString,someNotNullString);
+			AttributeItem.someNotNullString.set(this,someNotNullString);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -315,7 +315,7 @@ public class AttributeItem extends Item
 	 *
  */public final java.lang.Integer getSomeInteger()
 	{
-		return (java.lang.Integer)get(AttributeItem.someInteger);
+		return AttributeItem.someInteger.get(this);
 	}/**
 
 	 **
@@ -327,7 +327,7 @@ public class AttributeItem extends Item
 	{
 		try
 		{
-			set(AttributeItem.someInteger,someInteger);
+			AttributeItem.someInteger.set(this,someInteger);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -354,7 +354,7 @@ public class AttributeItem extends Item
 	 *
  */public final int getSomeNotNullInteger()
 	{
-		return ((java.lang.Integer)get(AttributeItem.someNotNullInteger)).intValue();
+		return (AttributeItem.someNotNullInteger.get(this)).intValue();
 	}/**
 
 	 **
@@ -366,7 +366,7 @@ public class AttributeItem extends Item
 	{
 		try
 		{
-			set(AttributeItem.someNotNullInteger,new java.lang.Integer(someNotNullInteger));
+			AttributeItem.someNotNullInteger.set(this,new java.lang.Integer(someNotNullInteger));
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -393,7 +393,7 @@ public class AttributeItem extends Item
 	 *
  */public final java.lang.Long getSomeLong()
 	{
-		return (java.lang.Long)get(AttributeItem.someLong);
+		return AttributeItem.someLong.get(this);
 	}/**
 
 	 **
@@ -405,7 +405,7 @@ public class AttributeItem extends Item
 	{
 		try
 		{
-			set(AttributeItem.someLong,someLong);
+			AttributeItem.someLong.set(this,someLong);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -432,7 +432,7 @@ public class AttributeItem extends Item
 	 *
  */public final long getSomeNotNullLong()
 	{
-		return ((java.lang.Long)get(AttributeItem.someNotNullLong)).longValue();
+		return (AttributeItem.someNotNullLong.get(this)).longValue();
 	}/**
 
 	 **
@@ -444,7 +444,7 @@ public class AttributeItem extends Item
 	{
 		try
 		{
-			set(AttributeItem.someNotNullLong,new java.lang.Long(someNotNullLong));
+			AttributeItem.someNotNullLong.set(this,new java.lang.Long(someNotNullLong));
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -471,7 +471,7 @@ public class AttributeItem extends Item
 	 *
  */public final java.lang.Double getSomeDouble()
 	{
-		return (java.lang.Double)get(AttributeItem.someDouble);
+		return AttributeItem.someDouble.get(this);
 	}/**
 
 	 **
@@ -483,7 +483,7 @@ public class AttributeItem extends Item
 	{
 		try
 		{
-			set(AttributeItem.someDouble,someDouble);
+			AttributeItem.someDouble.set(this,someDouble);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -510,7 +510,7 @@ public class AttributeItem extends Item
 	 *
  */public final double getSomeNotNullDouble()
 	{
-		return ((java.lang.Double)get(AttributeItem.someNotNullDouble)).doubleValue();
+		return (AttributeItem.someNotNullDouble.get(this)).doubleValue();
 	}/**
 
 	 **
@@ -522,7 +522,7 @@ public class AttributeItem extends Item
 	{
 		try
 		{
-			set(AttributeItem.someNotNullDouble,new java.lang.Double(someNotNullDouble));
+			AttributeItem.someNotNullDouble.set(this,new java.lang.Double(someNotNullDouble));
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -549,7 +549,7 @@ public class AttributeItem extends Item
 	 *
  */public final java.util.Date getSomeDate()
 	{
-		return (java.util.Date)get(AttributeItem.someDate);
+		return AttributeItem.someDate.get(this);
 	}/**
 
 	 **
@@ -561,7 +561,7 @@ public class AttributeItem extends Item
 	{
 		try
 		{
-			set(AttributeItem.someDate,someDate);
+			AttributeItem.someDate.set(this,someDate);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -608,7 +608,7 @@ public class AttributeItem extends Item
 	 *
  */public final com.exedio.cope.util.Day getDay()
 	{
-		return (com.exedio.cope.util.Day)get(AttributeItem.day);
+		return AttributeItem.day.get(this);
 	}/**
 
 	 **
@@ -620,7 +620,7 @@ public class AttributeItem extends Item
 	{
 		try
 		{
-			set(AttributeItem.day,day);
+			AttributeItem.day.set(this,day);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -647,7 +647,7 @@ public class AttributeItem extends Item
 	 *
  */public final java.lang.Boolean getSomeBoolean()
 	{
-		return (java.lang.Boolean)get(AttributeItem.someBoolean);
+		return AttributeItem.someBoolean.get(this);
 	}/**
 
 	 **
@@ -659,7 +659,7 @@ public class AttributeItem extends Item
 	{
 		try
 		{
-			set(AttributeItem.someBoolean,someBoolean);
+			AttributeItem.someBoolean.set(this,someBoolean);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -686,7 +686,7 @@ public class AttributeItem extends Item
 	 *
  */public final boolean getSomeNotNullBoolean()
 	{
-		return ((java.lang.Boolean)get(AttributeItem.someNotNullBoolean)).booleanValue();
+		return (AttributeItem.someNotNullBoolean.get(this)).booleanValue();
 	}/**
 
 	 **
@@ -698,7 +698,7 @@ public class AttributeItem extends Item
 	{
 		try
 		{
-			set(AttributeItem.someNotNullBoolean,(someNotNullBoolean?java.lang.Boolean.TRUE:java.lang.Boolean.FALSE));
+			AttributeItem.someNotNullBoolean.set(this,(someNotNullBoolean?java.lang.Boolean.TRUE:java.lang.Boolean.FALSE));
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -725,7 +725,7 @@ public class AttributeItem extends Item
 	 *
  */public final EmptyItem getSomeItem()
 	{
-		return (EmptyItem)get(AttributeItem.someItem);
+		return (EmptyItem)AttributeItem.someItem.get(this);
 	}/**
 
 	 **
@@ -737,7 +737,7 @@ public class AttributeItem extends Item
 	{
 		try
 		{
-			set(AttributeItem.someItem,someItem);
+			AttributeItem.someItem.set(this,someItem);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -764,7 +764,7 @@ public class AttributeItem extends Item
 	 *
  */public final EmptyItem getSomeNotNullItem()
 	{
-		return (EmptyItem)get(AttributeItem.someNotNullItem);
+		return (EmptyItem)AttributeItem.someNotNullItem.get(this);
 	}/**
 
 	 **
@@ -778,7 +778,7 @@ public class AttributeItem extends Item
 	{
 		try
 		{
-			set(AttributeItem.someNotNullItem,someNotNullItem);
+			AttributeItem.someNotNullItem.set(this,someNotNullItem);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -801,7 +801,7 @@ public class AttributeItem extends Item
 	 *
  */public final SomeEnum getSomeEnum()
 	{
-		return (SomeEnum)get(AttributeItem.someEnum);
+		return (SomeEnum)AttributeItem.someEnum.get(this);
 	}/**
 
 	 **
@@ -813,7 +813,7 @@ public class AttributeItem extends Item
 	{
 		try
 		{
-			set(AttributeItem.someEnum,someEnum);
+			AttributeItem.someEnum.set(this,someEnum);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -840,7 +840,7 @@ public class AttributeItem extends Item
 	 *
  */public final SomeEnum getSomeNotNullEnum()
 	{
-		return (SomeEnum)get(AttributeItem.someNotNullEnum);
+		return (SomeEnum)AttributeItem.someNotNullEnum.get(this);
 	}/**
 
 	 **
@@ -854,7 +854,7 @@ public class AttributeItem extends Item
 	{
 		try
 		{
-			set(AttributeItem.someNotNullEnum,someNotNullEnum);
+			AttributeItem.someNotNullEnum.set(this,someNotNullEnum);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{

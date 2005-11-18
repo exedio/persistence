@@ -1059,6 +1059,12 @@ final class Generator
 		{
 			if(attribute.isBoxed())
 				o.write(attribute.getUnBoxingPrefix());
+			if(attribute instanceof CopeObjectAttribute)
+			{
+				o.write('(');
+				o.write(attribute.persistentType);
+				o.write(')');
+			}
 			o.write(attribute.copeClass.getName());
 			o.write('.');
 			o.write(attribute.getName());

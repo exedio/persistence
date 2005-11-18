@@ -57,7 +57,7 @@ public class CacheIsolationItem extends Item
 	 *
  */public final java.lang.String getUniqueString()
 	{
-		return (java.lang.String)get(CacheIsolationItem.uniqueString);
+		return CacheIsolationItem.uniqueString.get(this);
 	}/**
 
 	 **
@@ -71,7 +71,7 @@ public class CacheIsolationItem extends Item
 	{
 		try
 		{
-			set(CacheIsolationItem.uniqueString,uniqueString);
+			CacheIsolationItem.uniqueString.set(this,uniqueString);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -94,7 +94,7 @@ public class CacheIsolationItem extends Item
 	 *
  */public final java.lang.String getName()
 	{
-		return (java.lang.String)get(CacheIsolationItem.name);
+		return CacheIsolationItem.name.get(this);
 	}/**
 
 	 **
@@ -108,7 +108,7 @@ public class CacheIsolationItem extends Item
 	{
 		try
 		{
-			set(CacheIsolationItem.name,name);
+			CacheIsolationItem.name.set(this,name);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{

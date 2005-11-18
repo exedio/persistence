@@ -76,7 +76,7 @@ public class ItemWithSingleUnique extends Item
 	 *
  */public final java.lang.String getUniqueString()
 	{
-		return (java.lang.String)get(ItemWithSingleUnique.uniqueString);
+		return ItemWithSingleUnique.uniqueString.get(this);
 	}/**
 
 	 **
@@ -90,7 +90,7 @@ public class ItemWithSingleUnique extends Item
 	{
 		try
 		{
-			set(ItemWithSingleUnique.uniqueString,uniqueString);
+			ItemWithSingleUnique.uniqueString.set(this,uniqueString);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -113,7 +113,7 @@ public class ItemWithSingleUnique extends Item
 	 *
  */public final java.lang.String getOtherString()
 	{
-		return (java.lang.String)get(ItemWithSingleUnique.otherString);
+		return ItemWithSingleUnique.otherString.get(this);
 	}/**
 
 	 **
@@ -125,7 +125,7 @@ public class ItemWithSingleUnique extends Item
 	{
 		try
 		{
-			set(ItemWithSingleUnique.otherString,otherString);
+			ItemWithSingleUnique.otherString.set(this,otherString);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{

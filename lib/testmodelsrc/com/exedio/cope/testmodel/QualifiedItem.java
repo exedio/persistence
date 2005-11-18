@@ -77,7 +77,7 @@ public class QualifiedItem extends Item
 	 *
  */public final java.lang.Integer getNumber()
 	{
-		return (java.lang.Integer)get(QualifiedItem.number);
+		return QualifiedItem.number.get(this);
 	}/**
 
 	 **
@@ -89,7 +89,7 @@ public class QualifiedItem extends Item
 	{
 		try
 		{
-			set(QualifiedItem.number,number);
+			QualifiedItem.number.set(this,number);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{

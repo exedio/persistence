@@ -54,6 +54,11 @@ public abstract class ComputedStringFunction
 		bf.appendParameter((String)value);
 	}
 	
+	public final String get(final Item item)
+	{
+		return (String)item.get(this);
+	}
+	
 	public final EqualCondition equal(final String value)
 	{
 		return new EqualCondition(null, this, value);

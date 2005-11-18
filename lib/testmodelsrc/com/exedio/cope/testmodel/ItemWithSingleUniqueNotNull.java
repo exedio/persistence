@@ -84,7 +84,7 @@ public class ItemWithSingleUniqueNotNull extends Item
 	 *
  */public final java.lang.String getUniqueNotNullString()
 	{
-		return (java.lang.String)get(ItemWithSingleUniqueNotNull.uniqueNotNullString);
+		return ItemWithSingleUniqueNotNull.uniqueNotNullString.get(this);
 	}/**
 
 	 **
@@ -99,7 +99,7 @@ public class ItemWithSingleUniqueNotNull extends Item
 	{
 		try
 		{
-			set(ItemWithSingleUniqueNotNull.uniqueNotNullString,uniqueNotNullString);
+			ItemWithSingleUniqueNotNull.uniqueNotNullString.set(this,uniqueNotNullString);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{

@@ -68,7 +68,7 @@ public abstract class HierarchySingleSuper extends Item
 	 *
  */public final java.lang.Integer getSuperInt()
 	{
-		return (java.lang.Integer)get(HierarchySingleSuper.superInt);
+		return HierarchySingleSuper.superInt.get(this);
 	}/**
 
 	 **
@@ -80,7 +80,7 @@ public abstract class HierarchySingleSuper extends Item
 	{
 		try
 		{
-			set(HierarchySingleSuper.superInt,superInt);
+			HierarchySingleSuper.superInt.set(this,superInt);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{

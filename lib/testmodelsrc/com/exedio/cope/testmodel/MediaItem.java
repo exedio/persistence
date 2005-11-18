@@ -91,7 +91,7 @@ public class MediaItem extends Item
 	 *
  */public final java.lang.String getName()
 	{
-		return (java.lang.String)get(MediaItem.name);
+		return MediaItem.name.get(this);
 	}/**
 
 	 **
@@ -103,7 +103,7 @@ public class MediaItem extends Item
 	{
 		try
 		{
-			set(MediaItem.name,name);
+			MediaItem.name.set(this,name);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{

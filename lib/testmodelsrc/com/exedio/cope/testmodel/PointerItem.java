@@ -90,7 +90,7 @@ public class PointerItem extends Item
 	 *
  */public final java.lang.String getCode()
 	{
-		return (java.lang.String)get(PointerItem.code);
+		return PointerItem.code.get(this);
 	}/**
 
 	 **
@@ -104,7 +104,7 @@ public class PointerItem extends Item
 	{
 		try
 		{
-			set(PointerItem.code,code);
+			PointerItem.code.set(this,code);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -127,7 +127,7 @@ public class PointerItem extends Item
 	 *
  */public final PointerTargetItem getPointer()
 	{
-		return (PointerTargetItem)get(PointerItem.pointer);
+		return (PointerTargetItem)PointerItem.pointer.get(this);
 	}/**
 
 	 **
@@ -141,7 +141,7 @@ public class PointerItem extends Item
 	{
 		try
 		{
-			set(PointerItem.pointer,pointer);
+			PointerItem.pointer.set(this,pointer);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -164,7 +164,7 @@ public class PointerItem extends Item
 	 *
  */public final PointerTargetItem getPointer2()
 	{
-		return (PointerTargetItem)get(PointerItem.pointer2);
+		return (PointerTargetItem)PointerItem.pointer2.get(this);
 	}/**
 
 	 **
@@ -176,7 +176,7 @@ public class PointerItem extends Item
 	{
 		try
 		{
-			set(PointerItem.pointer2,pointer2);
+			PointerItem.pointer2.set(this,pointer2);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -203,7 +203,7 @@ public class PointerItem extends Item
 	 *
  */public final PointerItem getSelf()
 	{
-		return (PointerItem)get(PointerItem.self);
+		return (PointerItem)PointerItem.self.get(this);
 	}/**
 
 	 **
@@ -215,7 +215,7 @@ public class PointerItem extends Item
 	{
 		try
 		{
-			set(PointerItem.self,self);
+			PointerItem.self.set(this,self);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -242,7 +242,7 @@ public class PointerItem extends Item
 	 *
  */public final EmptyItem2 getEmpty2()
 	{
-		return (EmptyItem2)get(PointerItem.empty2);
+		return (EmptyItem2)PointerItem.empty2.get(this);
 	}/**
 
 	 **
@@ -254,7 +254,7 @@ public class PointerItem extends Item
 	{
 		try
 		{
-			set(PointerItem.empty2,empty2);
+			PointerItem.empty2.set(this,empty2);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{

@@ -53,6 +53,21 @@ public final class DayAttribute extends ObjectAttribute
 		return surface==null ? null : new Integer(DayColumn.getTransientNumber((Day)surface));
 	}
 	
+	public final Day get(final Item item)
+	{
+		return (Day)item.get(this);
+	}
+	
+	public final void set(final Item item, final Day value)
+		throws
+			UniqueViolationException,
+			MandatoryViolationException,
+			LengthViolationException, // TODO remove
+			ReadOnlyViolationException
+	{
+		item.set(this, value);
+	}
+
 	public final EqualCondition equal(final Day value)
 	{
 		return new EqualCondition(null, this, value);

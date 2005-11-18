@@ -54,6 +54,21 @@ public final class IntegerAttribute extends ObjectAttribute implements IntegerFu
 		return (Integer)surface;
 	}
 	
+	public final Integer get(final Item item)
+	{
+		return (Integer)item.get(this);
+	}
+	
+	public final void set(final Item item, final Integer value)
+		throws
+			UniqueViolationException,
+			MandatoryViolationException,
+			LengthViolationException, // TODO remove
+			ReadOnlyViolationException
+	{
+		item.set(this, value);
+	}
+
 	public final EqualCondition equal(final Integer value)
 	{
 		return new EqualCondition(null, this, value);

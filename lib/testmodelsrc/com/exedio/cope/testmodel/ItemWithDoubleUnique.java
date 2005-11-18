@@ -90,7 +90,7 @@ public class ItemWithDoubleUnique extends Item
 	 *
  */public final java.lang.String getString()
 	{
-		return (java.lang.String)get(ItemWithDoubleUnique.string);
+		return ItemWithDoubleUnique.string.get(this);
 	}/**
 
 	 **
@@ -105,7 +105,7 @@ public class ItemWithDoubleUnique extends Item
 	{
 		try
 		{
-			set(ItemWithDoubleUnique.string,string);
+			ItemWithDoubleUnique.string.set(this,string);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -124,7 +124,7 @@ public class ItemWithDoubleUnique extends Item
 	 *
  */public final int getInteger()
 	{
-		return ((java.lang.Integer)get(ItemWithDoubleUnique.integer)).intValue();
+		return (ItemWithDoubleUnique.integer.get(this)).intValue();
 	}/**
 
 	 **
@@ -138,7 +138,7 @@ public class ItemWithDoubleUnique extends Item
 	{
 		try
 		{
-			set(ItemWithDoubleUnique.integer,new java.lang.Integer(integer));
+			ItemWithDoubleUnique.integer.set(this,new java.lang.Integer(integer));
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{

@@ -94,7 +94,7 @@ public class DeleteItem extends Item
 	 *
  */public final DeleteItem getSelfForbid()
 	{
-		return (DeleteItem)get(DeleteItem.selfForbid);
+		return (DeleteItem)DeleteItem.selfForbid.get(this);
 	}/**
 
 	 **
@@ -106,7 +106,7 @@ public class DeleteItem extends Item
 	{
 		try
 		{
-			set(DeleteItem.selfForbid,selfForbid);
+			DeleteItem.selfForbid.set(this,selfForbid);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -133,7 +133,7 @@ public class DeleteItem extends Item
 	 *
  */public final DeleteItem getSelfNullify()
 	{
-		return (DeleteItem)get(DeleteItem.selfNullify);
+		return (DeleteItem)DeleteItem.selfNullify.get(this);
 	}/**
 
 	 **
@@ -145,7 +145,7 @@ public class DeleteItem extends Item
 	{
 		try
 		{
-			set(DeleteItem.selfNullify,selfNullify);
+			DeleteItem.selfNullify.set(this,selfNullify);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -172,7 +172,7 @@ public class DeleteItem extends Item
 	 *
  */public final DeleteItem getSelfCascade()
 	{
-		return (DeleteItem)get(DeleteItem.selfCascade);
+		return (DeleteItem)DeleteItem.selfCascade.get(this);
 	}/**
 
 	 **
@@ -184,7 +184,7 @@ public class DeleteItem extends Item
 	{
 		try
 		{
-			set(DeleteItem.selfCascade,selfCascade);
+			DeleteItem.selfCascade.set(this,selfCascade);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -211,7 +211,7 @@ public class DeleteItem extends Item
 	 *
  */public final DeleteItem getSelfCascade2()
 	{
-		return (DeleteItem)get(DeleteItem.selfCascade2);
+		return (DeleteItem)DeleteItem.selfCascade2.get(this);
 	}/**
 
 	 **
@@ -223,7 +223,7 @@ public class DeleteItem extends Item
 	{
 		try
 		{
-			set(DeleteItem.selfCascade2,selfCascade2);
+			DeleteItem.selfCascade2.set(this,selfCascade2);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -250,7 +250,7 @@ public class DeleteItem extends Item
 	 *
  */public final DeleteOtherItem getOtherForbid()
 	{
-		return (DeleteOtherItem)get(DeleteItem.otherForbid);
+		return (DeleteOtherItem)DeleteItem.otherForbid.get(this);
 	}/**
 
 	 **
@@ -262,7 +262,7 @@ public class DeleteItem extends Item
 	{
 		try
 		{
-			set(DeleteItem.otherForbid,otherForbid);
+			DeleteItem.otherForbid.set(this,otherForbid);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -289,7 +289,7 @@ public class DeleteItem extends Item
 	 *
  */public final DeleteOtherItem getOtherNullify()
 	{
-		return (DeleteOtherItem)get(DeleteItem.otherNullify);
+		return (DeleteOtherItem)DeleteItem.otherNullify.get(this);
 	}/**
 
 	 **
@@ -301,7 +301,7 @@ public class DeleteItem extends Item
 	{
 		try
 		{
-			set(DeleteItem.otherNullify,otherNullify);
+			DeleteItem.otherNullify.set(this,otherNullify);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -328,7 +328,7 @@ public class DeleteItem extends Item
 	 *
  */public final DeleteOtherItem getOtherCascade()
 	{
-		return (DeleteOtherItem)get(DeleteItem.otherCascade);
+		return (DeleteOtherItem)DeleteItem.otherCascade.get(this);
 	}/**
 
 	 **
@@ -340,7 +340,7 @@ public class DeleteItem extends Item
 	{
 		try
 		{
-			set(DeleteItem.otherCascade,otherCascade);
+			DeleteItem.otherCascade.set(this,otherCascade);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{

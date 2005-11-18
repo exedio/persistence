@@ -109,7 +109,7 @@ public class QualifiedIntegerEnumQualifier extends Item
 	 *
  */public final QualifiedItem getUp()
 	{
-		return (QualifiedItem)get(QualifiedIntegerEnumQualifier.up);
+		return (QualifiedItem)QualifiedIntegerEnumQualifier.up.get(this);
 	}/**
 
 	 **
@@ -119,7 +119,7 @@ public class QualifiedIntegerEnumQualifier extends Item
 	 *
  */public final int getKeyX()
 	{
-		return ((java.lang.Integer)get(QualifiedIntegerEnumQualifier.keyX)).intValue();
+		return (QualifiedIntegerEnumQualifier.keyX.get(this)).intValue();
 	}/**
 
 	 **
@@ -129,7 +129,7 @@ public class QualifiedIntegerEnumQualifier extends Item
 	 *
  */public final KeyEnum getKeyY()
 	{
-		return (KeyEnum)get(QualifiedIntegerEnumQualifier.keyY);
+		return (KeyEnum)QualifiedIntegerEnumQualifier.keyY.get(this);
 	}/**
 
 	 **
@@ -139,7 +139,7 @@ public class QualifiedIntegerEnumQualifier extends Item
 	 *
  */public final java.lang.String getQualifiedA()
 	{
-		return (java.lang.String)get(QualifiedIntegerEnumQualifier.qualifiedA);
+		return QualifiedIntegerEnumQualifier.qualifiedA.get(this);
 	}/**
 
 	 **
@@ -151,7 +151,7 @@ public class QualifiedIntegerEnumQualifier extends Item
 	{
 		try
 		{
-			set(QualifiedIntegerEnumQualifier.qualifiedA,qualifiedA);
+			QualifiedIntegerEnumQualifier.qualifiedA.set(this,qualifiedA);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -178,7 +178,7 @@ public class QualifiedIntegerEnumQualifier extends Item
 	 *
  */public final java.lang.String getQualifiedB()
 	{
-		return (java.lang.String)get(QualifiedIntegerEnumQualifier.qualifiedB);
+		return QualifiedIntegerEnumQualifier.qualifiedB.get(this);
 	}/**
 
 	 **
@@ -190,7 +190,7 @@ public class QualifiedIntegerEnumQualifier extends Item
 	{
 		try
 		{
-			set(QualifiedIntegerEnumQualifier.qualifiedB,qualifiedB);
+			QualifiedIntegerEnumQualifier.qualifiedB.set(this,qualifiedB);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{

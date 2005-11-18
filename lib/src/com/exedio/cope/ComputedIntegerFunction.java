@@ -69,6 +69,11 @@ public abstract class ComputedIntegerFunction
 		bf.appendParameter(((Integer)value).intValue());
 	}
 	
+	public final Integer get(final Item item)
+	{
+		return (Integer)item.get(this);
+	}
+	
 	public final EqualCondition equal(final Integer value)
 	{
 		return new EqualCondition(null, this, value);

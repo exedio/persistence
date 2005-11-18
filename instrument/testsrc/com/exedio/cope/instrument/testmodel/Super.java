@@ -91,7 +91,7 @@ public abstract class Super extends Item
 	 *
  */public final java.lang.String getSuperMandatory()
 	{
-		return (java.lang.String)get(Super.superMandatory);
+		return Super.superMandatory.get(this);
 	}/**
 
 	 **
@@ -106,7 +106,7 @@ public abstract class Super extends Item
 	{
 		try
 		{
-			set(Super.superMandatory,superMandatory);
+			Super.superMandatory.set(this,superMandatory);
 		}
 		catch(com.exedio.cope.ReadOnlyViolationException e)
 		{
@@ -125,7 +125,7 @@ public abstract class Super extends Item
 	 *
  */public final java.lang.Integer getSuperInitial()
 	{
-		return (java.lang.Integer)get(Super.superInitial);
+		return Super.superInitial.get(this);
 	}/**
 
 	 **
@@ -137,7 +137,7 @@ public abstract class Super extends Item
 	{
 		try
 		{
-			set(Super.superInitial,superInitial);
+			Super.superInitial.set(this,superInitial);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -164,7 +164,7 @@ public abstract class Super extends Item
 	 *
  */public final com.exedio.cope.util.Day getSuperNonInitial()
 	{
-		return (com.exedio.cope.util.Day)get(Super.superNonInitial);
+		return Super.superNonInitial.get(this);
 	}/**
 
 	 **
@@ -176,7 +176,7 @@ public abstract class Super extends Item
 	{
 		try
 		{
-			set(Super.superNonInitial,superNonInitial);
+			Super.superNonInitial.set(this,superNonInitial);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{

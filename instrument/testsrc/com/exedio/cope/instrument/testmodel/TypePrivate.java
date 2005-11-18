@@ -71,7 +71,7 @@ public class TypePrivate extends Item
 	 *
  */public final java.lang.String getDefaultString()
 	{
-		return (java.lang.String)get(TypePrivate.defaultString);
+		return TypePrivate.defaultString.get(this);
 	}/**
 
 	 **
@@ -83,7 +83,7 @@ public class TypePrivate extends Item
 	{
 		try
 		{
-			set(TypePrivate.defaultString,defaultString);
+			TypePrivate.defaultString.set(this,defaultString);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{

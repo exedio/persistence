@@ -78,7 +78,7 @@ public class NameCollisionlooooooooooooooooooooooooooooooooooooooooongbItem exte
 	 *
  */public final java.lang.String getCode()
 	{
-		return (java.lang.String)get(NameCollisionlooooooooooooooooooooooooooooooooooooooooongbItem.code);
+		return NameCollisionlooooooooooooooooooooooooooooooooooooooooongbItem.code.get(this);
 	}/**
 
 	 **
@@ -93,7 +93,7 @@ public class NameCollisionlooooooooooooooooooooooooooooooooooooooooongbItem exte
 	{
 		try
 		{
-			set(NameCollisionlooooooooooooooooooooooooooooooooooooooooongbItem.code,code);
+			NameCollisionlooooooooooooooooooooooooooooooooooooooooongbItem.code.set(this,code);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{

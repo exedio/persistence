@@ -116,7 +116,7 @@ public class StringItem extends Item
 	 *
  */public final java.lang.String getAny()
 	{
-		return (java.lang.String)get(StringItem.any);
+		return StringItem.any.get(this);
 	}/**
 
 	 **
@@ -128,7 +128,7 @@ public class StringItem extends Item
 	{
 		try
 		{
-			set(StringItem.any,any);
+			StringItem.any.set(this,any);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -155,7 +155,7 @@ public class StringItem extends Item
 	 *
  */public final java.lang.String getMandatory()
 	{
-		return (java.lang.String)get(StringItem.mandatory);
+		return StringItem.mandatory.get(this);
 	}/**
 
 	 **
@@ -169,7 +169,7 @@ public class StringItem extends Item
 	{
 		try
 		{
-			set(StringItem.mandatory,mandatory);
+			StringItem.mandatory.set(this,mandatory);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -192,7 +192,7 @@ public class StringItem extends Item
 	 *
  */public final java.lang.String getMin4()
 	{
-		return (java.lang.String)get(StringItem.min4);
+		return StringItem.min4.get(this);
 	}/**
 
 	 **
@@ -206,7 +206,7 @@ public class StringItem extends Item
 	{
 		try
 		{
-			set(StringItem.min4,min4);
+			StringItem.min4.set(this,min4);
 		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{
@@ -229,7 +229,7 @@ public class StringItem extends Item
 	 *
  */public final java.lang.String getMax4()
 	{
-		return (java.lang.String)get(StringItem.max4);
+		return StringItem.max4.get(this);
 	}/**
 
 	 **
@@ -243,7 +243,7 @@ public class StringItem extends Item
 	{
 		try
 		{
-			set(StringItem.max4,max4);
+			StringItem.max4.set(this,max4);
 		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{
@@ -266,7 +266,7 @@ public class StringItem extends Item
 	 *
  */public final java.lang.String getMin4Max8()
 	{
-		return (java.lang.String)get(StringItem.min4Max8);
+		return StringItem.min4Max8.get(this);
 	}/**
 
 	 **
@@ -280,7 +280,7 @@ public class StringItem extends Item
 	{
 		try
 		{
-			set(StringItem.min4Max8,min4Max8);
+			StringItem.min4Max8.set(this,min4Max8);
 		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{
@@ -303,7 +303,7 @@ public class StringItem extends Item
 	 *
  */public final java.lang.String getExact6()
 	{
-		return (java.lang.String)get(StringItem.exact6);
+		return StringItem.exact6.get(this);
 	}/**
 
 	 **
@@ -317,7 +317,7 @@ public class StringItem extends Item
 	{
 		try
 		{
-			set(StringItem.exact6,exact6);
+			StringItem.exact6.set(this,exact6);
 		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{
@@ -340,7 +340,7 @@ public class StringItem extends Item
 	 *
  */public final java.lang.String getMin4Upper()
 	{
-		return (java.lang.String)get(StringItem.min4Upper);
+		return StringItem.min4Upper.get(this);
 	}/**
 
 	 **
@@ -350,7 +350,7 @@ public class StringItem extends Item
 	 *
  */public final java.lang.String getMax4Upper()
 	{
-		return (java.lang.String)get(StringItem.max4Upper);
+		return StringItem.max4Upper.get(this);
 	}/**
 
 	 **
@@ -360,7 +360,7 @@ public class StringItem extends Item
 	 *
  */public final java.lang.Integer getMin4UpperLength()
 	{
-		return (java.lang.Integer)get(StringItem.min4UpperLength);
+		return StringItem.min4UpperLength.get(this);
 	}/**
 
 	 **
@@ -370,7 +370,7 @@ public class StringItem extends Item
 	 *
  */public final java.lang.Integer getMax4UpperLength()
 	{
-		return (java.lang.Integer)get(StringItem.max4UpperLength);
+		return StringItem.max4UpperLength.get(this);
 	}/**
 
 	 **
@@ -380,7 +380,7 @@ public class StringItem extends Item
 	 *
  */public final java.lang.Integer getMin4AndMax4UpperLength()
 	{
-		return (java.lang.Integer)get(StringItem.min4AndMax4UpperLength);
+		return StringItem.min4AndMax4UpperLength.get(this);
 	}/**
 
 	 **

@@ -25,6 +25,8 @@ import com.exedio.cope.search.NotEqualCondition;
 
 public interface StringFunction extends Function
 {
+	String get(Item item);
+	
 	EqualCondition equal(String value);
 	
 	EqualCondition equal(Join join, String value);

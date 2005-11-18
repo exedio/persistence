@@ -53,6 +53,21 @@ public final class DoubleAttribute extends ObjectAttribute
 		return (Double)surface;
 	}
 	
+	public final Double get(final Item item)
+	{
+		return (Double)item.get(this);
+	}
+	
+	public final void set(final Item item, final Double value)
+		throws
+			UniqueViolationException,
+			MandatoryViolationException,
+			LengthViolationException, // TODO remove
+			ReadOnlyViolationException
+	{
+		item.set(this, value);
+	}
+
 	public final EqualCondition equal(final Double value)
 	{
 		return new EqualCondition(null, this, value);

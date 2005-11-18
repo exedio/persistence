@@ -109,6 +109,21 @@ public final class StringAttribute extends ObjectAttribute implements StringFunc
 			throw new LengthViolationException(item, this, stringValue, false);
 	}
 	
+	public final String get(final Item item)
+	{
+		return (String)item.get(this);
+	}
+	
+	public final void set(final Item item, final String value)
+		throws
+			UniqueViolationException,
+			MandatoryViolationException,
+			LengthViolationException,
+			ReadOnlyViolationException
+	{
+		item.set(this, value);
+	}
+
 	public final EqualCondition equal(final String value)
 	{
 		return new EqualCondition(null, this, value);

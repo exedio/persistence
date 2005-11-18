@@ -77,7 +77,7 @@ public class HashItem extends Item
 	 *
  */public final java.lang.String getExplicitExternalWrap()
 	{
-		return (java.lang.String)get(HashItem.explicitExternalWrap);
+		return HashItem.explicitExternalWrap.get(this);
 	}/**
 
 	 **
@@ -89,7 +89,7 @@ public class HashItem extends Item
 	{
 		try
 		{
-			set(HashItem.explicitExternalWrap,explicitExternalWrap);
+			HashItem.explicitExternalWrap.set(this,explicitExternalWrap);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{

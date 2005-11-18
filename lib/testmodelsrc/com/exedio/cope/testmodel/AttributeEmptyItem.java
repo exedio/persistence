@@ -79,7 +79,7 @@ public class AttributeEmptyItem extends Item
 	 *
  */public final AttributeItem getParent()
 	{
-		return (AttributeItem)get(AttributeEmptyItem.parent);
+		return (AttributeItem)AttributeEmptyItem.parent.get(this);
 	}/**
 
 	 **
@@ -93,7 +93,7 @@ public class AttributeEmptyItem extends Item
 	{
 		try
 		{
-			set(AttributeEmptyItem.parent,parent);
+			AttributeEmptyItem.parent.set(this,parent);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -116,7 +116,7 @@ public class AttributeEmptyItem extends Item
 	 *
  */public final EmptyItem getKey()
 	{
-		return (EmptyItem)get(AttributeEmptyItem.key);
+		return (EmptyItem)AttributeEmptyItem.key.get(this);
 	}/**
 
 	 **
@@ -130,7 +130,7 @@ public class AttributeEmptyItem extends Item
 	{
 		try
 		{
-			set(AttributeEmptyItem.key,key);
+			AttributeEmptyItem.key.set(this,key);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -153,7 +153,7 @@ public class AttributeEmptyItem extends Item
 	 *
  */public final java.lang.String getSomeQualifiedString()
 	{
-		return (java.lang.String)get(AttributeEmptyItem.someQualifiedString);
+		return AttributeEmptyItem.someQualifiedString.get(this);
 	}/**
 
 	 **
@@ -165,7 +165,7 @@ public class AttributeEmptyItem extends Item
 	{
 		try
 		{
-			set(AttributeEmptyItem.someQualifiedString,someQualifiedString);
+			AttributeEmptyItem.someQualifiedString.set(this,someQualifiedString);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{

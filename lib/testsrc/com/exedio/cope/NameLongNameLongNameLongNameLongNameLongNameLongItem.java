@@ -84,7 +84,7 @@ public class NameLongNameLongNameLongNameLongNameLongNameLongItem extends Item
 	 *
  */public final java.lang.String getCode()
 	{
-		return (java.lang.String)get(NameLongNameLongNameLongNameLongNameLongNameLongItem.code);
+		return NameLongNameLongNameLongNameLongNameLongNameLongItem.code.get(this);
 	}/**
 
 	 **
@@ -99,7 +99,7 @@ public class NameLongNameLongNameLongNameLongNameLongNameLongItem extends Item
 	{
 		try
 		{
-			set(NameLongNameLongNameLongNameLongNameLongNameLongItem.code,code);
+			NameLongNameLongNameLongNameLongNameLongNameLongItem.code.set(this,code);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -118,7 +118,7 @@ public class NameLongNameLongNameLongNameLongNameLongNameLongItem extends Item
 	 *
  */public final java.lang.String getCodeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName()
 	{
-		return (java.lang.String)get(NameLongNameLongNameLongNameLongNameLongNameLongItem.codeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName);
+		return NameLongNameLongNameLongNameLongNameLongNameLongItem.codeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName.get(this);
 	}/**
 
 	 **
@@ -132,7 +132,7 @@ public class NameLongNameLongNameLongNameLongNameLongNameLongItem extends Item
 	{
 		try
 		{
-			set(NameLongNameLongNameLongNameLongNameLongNameLongItem.codeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName,codeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName);
+			NameLongNameLongNameLongNameLongNameLongNameLongItem.codeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName.set(this,codeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -155,7 +155,7 @@ public class NameLongNameLongNameLongNameLongNameLongNameLongItem extends Item
 	 *
  */public final NameLongNameLongNameLongNameLongNameLongNameLongItem getPointerLoooooooooooooooooooooooooooooooooooooooooooooooooooongName()
 	{
-		return (NameLongNameLongNameLongNameLongNameLongNameLongItem)get(NameLongNameLongNameLongNameLongNameLongNameLongItem.pointerLoooooooooooooooooooooooooooooooooooooooooooooooooooongName);
+		return (NameLongNameLongNameLongNameLongNameLongNameLongItem)NameLongNameLongNameLongNameLongNameLongNameLongItem.pointerLoooooooooooooooooooooooooooooooooooooooooooooooooooongName.get(this);
 	}/**
 
 	 **
@@ -167,7 +167,7 @@ public class NameLongNameLongNameLongNameLongNameLongNameLongItem extends Item
 	{
 		try
 		{
-			set(NameLongNameLongNameLongNameLongNameLongNameLongItem.pointerLoooooooooooooooooooooooooooooooooooooooooooooooooooongName,pointerLoooooooooooooooooooooooooooooooooooooooooooooooooooongName);
+			NameLongNameLongNameLongNameLongNameLongNameLongItem.pointerLoooooooooooooooooooooooooooooooooooooooooooooooooooongName.set(this,pointerLoooooooooooooooooooooooooooooooooooooooooooooooooooongName);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{

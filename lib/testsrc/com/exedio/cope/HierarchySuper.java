@@ -79,7 +79,7 @@ public abstract class HierarchySuper extends Item
 	 *
  */public final int getSuperInt()
 	{
-		return ((java.lang.Integer)get(HierarchySuper.superInt)).intValue();
+		return (HierarchySuper.superInt.get(this)).intValue();
 	}/**
 
 	 **
@@ -91,7 +91,7 @@ public abstract class HierarchySuper extends Item
 	{
 		try
 		{
-			set(HierarchySuper.superInt,new java.lang.Integer(superInt));
+			HierarchySuper.superInt.set(this,new java.lang.Integer(superInt));
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -118,7 +118,7 @@ public abstract class HierarchySuper extends Item
 	 *
  */public final java.lang.String getSuperString()
 	{
-		return (java.lang.String)get(HierarchySuper.superString);
+		return HierarchySuper.superString.get(this);
 	}/**
 
 	 **
@@ -130,7 +130,7 @@ public abstract class HierarchySuper extends Item
 	{
 		try
 		{
-			set(HierarchySuper.superString,superString);
+			HierarchySuper.superString.set(this,superString);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -157,7 +157,7 @@ public abstract class HierarchySuper extends Item
 	 *
  */public final java.lang.String getSuperStringUpper()
 	{
-		return (java.lang.String)get(HierarchySuper.superStringUpper);
+		return HierarchySuper.superStringUpper.get(this);
 	}/**
 
 	 **

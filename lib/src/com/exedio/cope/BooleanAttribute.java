@@ -69,6 +69,21 @@ public final class BooleanAttribute extends ObjectAttribute
 				((Boolean)surface).booleanValue() ? TRUE : FALSE;
 	}
 	
+	public final Boolean get(final Item item)
+	{
+		return (Boolean)item.get(this);
+	}
+	
+	public final void set(final Item item, final Boolean value)
+		throws
+			UniqueViolationException,
+			MandatoryViolationException,
+			LengthViolationException, // TODO remove
+			ReadOnlyViolationException
+	{
+		item.set(this, value);
+	}
+
 	public final EqualCondition equal(final Boolean value)
 	{
 		return new EqualCondition(null, this, value);

@@ -200,7 +200,7 @@ public class Standard extends Item
 	 *
  */public final java.lang.String getDefaultString()
 	{
-		return (java.lang.String)get(Standard.defaultString);
+		return Standard.defaultString.get(this);
 	}/**
 
 	 **
@@ -212,7 +212,7 @@ public class Standard extends Item
 	{
 		try
 		{
-			set(Standard.defaultString,defaultString);
+			Standard.defaultString.set(this,defaultString);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -276,7 +276,7 @@ public class Standard extends Item
 	 *
  */public final java.lang.String getNotNullString()
 	{
-		return (java.lang.String)get(Standard.notNullString);
+		return Standard.notNullString.get(this);
 	}/**
 
 	 **
@@ -290,7 +290,7 @@ public class Standard extends Item
 	{
 		try
 		{
-			set(Standard.notNullString,notNullString);
+			Standard.notNullString.set(this,notNullString);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -313,7 +313,7 @@ public class Standard extends Item
 	 *
  */public final java.lang.String getReadOnlyString()
 	{
-		return (java.lang.String)get(Standard.readOnlyString);
+		return Standard.readOnlyString.get(this);
 	}/**
 
 	 **
@@ -323,7 +323,7 @@ public class Standard extends Item
 	 *
  */public final java.lang.String getUniqueString()
 	{
-		return (java.lang.String)get(Standard.uniqueString);
+		return Standard.uniqueString.get(this);
 	}/**
 
 	 **
@@ -337,7 +337,7 @@ public class Standard extends Item
 	{
 		try
 		{
-			set(Standard.uniqueString,uniqueString);
+			Standard.uniqueString.set(this,uniqueString);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -360,7 +360,7 @@ public class Standard extends Item
 	 *
  */public final java.lang.String getInitialString()
 	{
-		return (java.lang.String)get(Standard.initialString);
+		return Standard.initialString.get(this);
 	}/**
 
 	 **
@@ -372,7 +372,7 @@ public class Standard extends Item
 	{
 		try
 		{
-			set(Standard.initialString,initialString);
+			Standard.initialString.set(this,initialString);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -399,7 +399,7 @@ public class Standard extends Item
 	 *
  */public final java.lang.Integer getDefaultInteger()
 	{
-		return (java.lang.Integer)get(Standard.defaultInteger);
+		return Standard.defaultInteger.get(this);
 	}/**
 
 	 **
@@ -411,7 +411,7 @@ public class Standard extends Item
 	{
 		try
 		{
-			set(Standard.defaultInteger,defaultInteger);
+			Standard.defaultInteger.set(this,defaultInteger);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -438,7 +438,7 @@ public class Standard extends Item
 	 *
  */public final int getNativeInteger()
 	{
-		return ((java.lang.Integer)get(Standard.nativeInteger)).intValue();
+		return (Standard.nativeInteger.get(this)).intValue();
 	}/**
 
 	 **
@@ -450,7 +450,7 @@ public class Standard extends Item
 	{
 		try
 		{
-			set(Standard.nativeInteger,new java.lang.Integer(nativeInteger));
+			Standard.nativeInteger.set(this,new java.lang.Integer(nativeInteger));
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -477,7 +477,7 @@ public class Standard extends Item
 	 *
  */public final java.lang.Long getDefaultLong()
 	{
-		return (java.lang.Long)get(Standard.defaultLong);
+		return Standard.defaultLong.get(this);
 	}/**
 
 	 **
@@ -489,7 +489,7 @@ public class Standard extends Item
 	{
 		try
 		{
-			set(Standard.defaultLong,defaultLong);
+			Standard.defaultLong.set(this,defaultLong);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -516,7 +516,7 @@ public class Standard extends Item
 	 *
  */public final long getNativeLong()
 	{
-		return ((java.lang.Long)get(Standard.nativeLong)).longValue();
+		return (Standard.nativeLong.get(this)).longValue();
 	}/**
 
 	 **
@@ -528,7 +528,7 @@ public class Standard extends Item
 	{
 		try
 		{
-			set(Standard.nativeLong,new java.lang.Long(nativeLong));
+			Standard.nativeLong.set(this,new java.lang.Long(nativeLong));
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -555,7 +555,7 @@ public class Standard extends Item
 	 *
  */public final java.lang.Double getDefaultDouble()
 	{
-		return (java.lang.Double)get(Standard.defaultDouble);
+		return Standard.defaultDouble.get(this);
 	}/**
 
 	 **
@@ -567,7 +567,7 @@ public class Standard extends Item
 	{
 		try
 		{
-			set(Standard.defaultDouble,defaultDouble);
+			Standard.defaultDouble.set(this,defaultDouble);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -594,7 +594,7 @@ public class Standard extends Item
 	 *
  */public final double getNativeDouble()
 	{
-		return ((java.lang.Double)get(Standard.nativeDouble)).doubleValue();
+		return (Standard.nativeDouble.get(this)).doubleValue();
 	}/**
 
 	 **
@@ -606,7 +606,7 @@ public class Standard extends Item
 	{
 		try
 		{
-			set(Standard.nativeDouble,new java.lang.Double(nativeDouble));
+			Standard.nativeDouble.set(this,new java.lang.Double(nativeDouble));
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -633,7 +633,7 @@ public class Standard extends Item
 	 *
  */public final java.lang.Boolean getDefaultBoolean()
 	{
-		return (java.lang.Boolean)get(Standard.defaultBoolean);
+		return Standard.defaultBoolean.get(this);
 	}/**
 
 	 **
@@ -645,7 +645,7 @@ public class Standard extends Item
 	{
 		try
 		{
-			set(Standard.defaultBoolean,defaultBoolean);
+			Standard.defaultBoolean.set(this,defaultBoolean);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -672,7 +672,7 @@ public class Standard extends Item
 	 *
  */public final boolean getNativeBoolean()
 	{
-		return ((java.lang.Boolean)get(Standard.nativeBoolean)).booleanValue();
+		return (Standard.nativeBoolean.get(this)).booleanValue();
 	}/**
 
 	 **
@@ -684,7 +684,7 @@ public class Standard extends Item
 	{
 		try
 		{
-			set(Standard.nativeBoolean,(nativeBoolean?java.lang.Boolean.TRUE:java.lang.Boolean.FALSE));
+			Standard.nativeBoolean.set(this,(nativeBoolean?java.lang.Boolean.TRUE:java.lang.Boolean.FALSE));
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -711,7 +711,7 @@ public class Standard extends Item
 	 *
  */public final java.util.Date getMandatoryDate()
 	{
-		return (java.util.Date)get(Standard.mandatoryDate);
+		return Standard.mandatoryDate.get(this);
 	}/**
 
 	 **
@@ -725,7 +725,7 @@ public class Standard extends Item
 	{
 		try
 		{
-			set(Standard.mandatoryDate,mandatoryDate);
+			Standard.mandatoryDate.set(this,mandatoryDate);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -768,7 +768,7 @@ public class Standard extends Item
 	 *
  */private final java.util.Date getPrivateDate()
 	{
-		return (java.util.Date)get(Standard.privateDate);
+		return Standard.privateDate.get(this);
 	}/**
 
 	 **
@@ -780,7 +780,7 @@ public class Standard extends Item
 	{
 		try
 		{
-			set(Standard.privateDate,privateDate);
+			Standard.privateDate.set(this,privateDate);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -827,7 +827,7 @@ public class Standard extends Item
 	 *
  */private final java.lang.String getPrivateString()
 	{
-		return (java.lang.String)get(Standard.privateString);
+		return Standard.privateString.get(this);
 	}/**
 
 	 **
@@ -839,7 +839,7 @@ public class Standard extends Item
 	{
 		try
 		{
-			set(Standard.privateString,privateString);
+			Standard.privateString.set(this,privateString);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -905,7 +905,7 @@ public class Standard extends Item
 	{
 		try
 		{
-			set(Standard.noneGetterString,noneGetterString);
+			Standard.noneGetterString.set(this,noneGetterString);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -932,7 +932,7 @@ public class Standard extends Item
 	 *
  */private final java.lang.String getPrivateGetterString()
 	{
-		return (java.lang.String)get(Standard.privateGetterString);
+		return Standard.privateGetterString.get(this);
 	}/**
 
 	 **
@@ -944,7 +944,7 @@ public class Standard extends Item
 	{
 		try
 		{
-			set(Standard.privateGetterString,privateGetterString);
+			Standard.privateGetterString.set(this,privateGetterString);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -971,7 +971,7 @@ public class Standard extends Item
 	 *
  */private final java.lang.String getInternalGetterStringInternal()
 	{
-		return (java.lang.String)get(Standard.internalGetterString);
+		return Standard.internalGetterString.get(this);
 	}/**
 
 	 **
@@ -983,7 +983,7 @@ public class Standard extends Item
 	{
 		try
 		{
-			set(Standard.internalGetterString,internalGetterString);
+			Standard.internalGetterString.set(this,internalGetterString);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -1010,7 +1010,7 @@ public class Standard extends Item
 	 *
  */public final java.lang.String getNoneSetterString()
 	{
-		return (java.lang.String)get(Standard.noneSetterString);
+		return Standard.noneSetterString.get(this);
 	}/**
 
 	 **
@@ -1020,7 +1020,7 @@ public class Standard extends Item
 	 *
  */public final java.lang.String getPrivateSetterString()
 	{
-		return (java.lang.String)get(Standard.privateSetterString);
+		return Standard.privateSetterString.get(this);
 	}/**
 
 	 **
@@ -1032,7 +1032,7 @@ public class Standard extends Item
 	{
 		try
 		{
-			set(Standard.privateSetterString,privateSetterString);
+			Standard.privateSetterString.set(this,privateSetterString);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -1059,7 +1059,7 @@ public class Standard extends Item
 	 *
  */public final java.lang.String getInternalSetterString()
 	{
-		return (java.lang.String)get(Standard.internalSetterString);
+		return Standard.internalSetterString.get(this);
 	}/**
 
 	 **
@@ -1071,7 +1071,7 @@ public class Standard extends Item
 	{
 		try
 		{
-			set(Standard.internalSetterString,internalSetterString);
+			Standard.internalSetterString.set(this,internalSetterString);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -1098,7 +1098,7 @@ public class Standard extends Item
 	 *
  */public java.lang.String getNonfinalGetterString()
 	{
-		return (java.lang.String)get(Standard.nonfinalGetterString);
+		return Standard.nonfinalGetterString.get(this);
 	}/**
 
 	 **
@@ -1110,7 +1110,7 @@ public class Standard extends Item
 	{
 		try
 		{
-			set(Standard.nonfinalGetterString,nonfinalGetterString);
+			Standard.nonfinalGetterString.set(this,nonfinalGetterString);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -1137,7 +1137,7 @@ public class Standard extends Item
 	 *
  */protected final java.lang.String getNonfinalSetterString()
 	{
-		return (java.lang.String)get(Standard.nonfinalSetterString);
+		return Standard.nonfinalSetterString.get(this);
 	}/**
 
 	 **
@@ -1149,7 +1149,7 @@ public class Standard extends Item
 	{
 		try
 		{
-			set(Standard.nonfinalSetterString,nonfinalSetterString);
+			Standard.nonfinalSetterString.set(this,nonfinalSetterString);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -1176,7 +1176,7 @@ public class Standard extends Item
 	 *
  */public final java.lang.Boolean isAsIsBoolean()
 	{
-		return (java.lang.Boolean)get(Standard.asIsBoolean);
+		return Standard.asIsBoolean.get(this);
 	}/**
 
 	 **
@@ -1188,7 +1188,7 @@ public class Standard extends Item
 	{
 		try
 		{
-			set(Standard.asIsBoolean,asIsBoolean);
+			Standard.asIsBoolean.set(this,asIsBoolean);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{

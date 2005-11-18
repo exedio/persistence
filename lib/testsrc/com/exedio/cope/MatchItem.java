@@ -69,7 +69,7 @@ public class MatchItem extends Item
 	 *
  */public final java.lang.String getText()
 	{
-		return (java.lang.String)get(MatchItem.text);
+		return MatchItem.text.get(this);
 	}/**
 
 	 **
@@ -81,7 +81,7 @@ public class MatchItem extends Item
 	{
 		try
 		{
-			set(MatchItem.text,text);
+			MatchItem.text.set(this,text);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{

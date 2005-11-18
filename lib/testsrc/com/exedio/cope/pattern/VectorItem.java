@@ -100,7 +100,7 @@ public class VectorItem extends Item
 	 *
  */public final java.lang.Integer getNum1()
 	{
-		return (java.lang.Integer)get(VectorItem.num1);
+		return VectorItem.num1.get(this);
 	}/**
 
 	 **
@@ -112,7 +112,7 @@ public class VectorItem extends Item
 	{
 		try
 		{
-			set(VectorItem.num1,num1);
+			VectorItem.num1.set(this,num1);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -139,7 +139,7 @@ public class VectorItem extends Item
 	 *
  */public final java.lang.Integer getNum2()
 	{
-		return (java.lang.Integer)get(VectorItem.num2);
+		return VectorItem.num2.get(this);
 	}/**
 
 	 **
@@ -151,7 +151,7 @@ public class VectorItem extends Item
 	{
 		try
 		{
-			set(VectorItem.num2,num2);
+			VectorItem.num2.set(this,num2);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -178,7 +178,7 @@ public class VectorItem extends Item
 	 *
  */public final java.lang.Integer getNum3()
 	{
-		return (java.lang.Integer)get(VectorItem.num3);
+		return VectorItem.num3.get(this);
 	}/**
 
 	 **
@@ -190,7 +190,7 @@ public class VectorItem extends Item
 	{
 		try
 		{
-			set(VectorItem.num3,num3);
+			VectorItem.num3.set(this,num3);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{

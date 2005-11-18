@@ -31,7 +31,7 @@ final class CopeObjectAttribute extends CopeAttribute
 			final boolean initial)
 		throws InjectorParseException
 	{
-		super(javaAttribute, typeClass, getPersistentType(initializerArguments), initializerArguments, getterOption, setterOption, initial, true);
+		super(javaAttribute, typeClass, getPersistentType(initializerArguments), initializerArguments, getterOption, setterOption, initial, false);
 	}
 	
 	private static final String getPersistentType(final List initializerArguments)

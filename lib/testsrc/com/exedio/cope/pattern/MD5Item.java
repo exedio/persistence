@@ -117,7 +117,7 @@ public class MD5Item extends Item
 	 *
  */public final java.lang.String getHashed1MD5()
 	{
-		return (java.lang.String)get(MD5Item.hashed1MD5);
+		return MD5Item.hashed1MD5.get(this);
 	}/**
 
 	 **
@@ -129,7 +129,7 @@ public class MD5Item extends Item
 	{
 		try
 		{
-			set(MD5Item.hashed1MD5,hashed1MD5);
+			MD5Item.hashed1MD5.set(this,hashed1MD5);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{

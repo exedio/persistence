@@ -74,7 +74,7 @@ public class HierarchySecondSub extends HierarchySuper
 	 *
  */public final java.lang.String getFirstSubString()
 	{
-		return (java.lang.String)get(HierarchySecondSub.firstSubString);
+		return HierarchySecondSub.firstSubString.get(this);
 	}/**
 
 	 **
@@ -86,7 +86,7 @@ public class HierarchySecondSub extends HierarchySuper
 	{
 		try
 		{
-			set(HierarchySecondSub.firstSubString,firstSubString);
+			HierarchySecondSub.firstSubString.set(this,firstSubString);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{

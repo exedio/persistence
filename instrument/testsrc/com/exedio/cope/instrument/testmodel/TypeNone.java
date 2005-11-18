@@ -72,7 +72,7 @@ public class TypeNone extends Item
 	 *
  */public final java.lang.String getDefaultString()
 	{
-		return (java.lang.String)get(TypeNone.defaultString);
+		return TypeNone.defaultString.get(this);
 	}/**
 
 	 **
@@ -84,7 +84,7 @@ public class TypeNone extends Item
 	{
 		try
 		{
-			set(TypeNone.defaultString,defaultString);
+			TypeNone.defaultString.set(this,defaultString);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{

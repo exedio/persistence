@@ -46,7 +46,7 @@ final class CopeNativeAttribute extends CopeAttribute
 			final boolean initial)
 		throws InjectorParseException
 	{
-		super(javaAttribute, typeClass, getPersistentType(typeClass), initializerArguments, getterOption, setterOption, initial, true);
+		super(javaAttribute, typeClass, getPersistentType(typeClass), initializerArguments, getterOption, setterOption, initial, false);
 		
 		this.typeClass = normalizeTypeClass(typeClass);
 		this.nativeType = (String)toNativeTypeMapping.get(this.typeClass);

@@ -53,6 +53,21 @@ public final class LongAttribute extends ObjectAttribute
 		return (Long)surface;
 	}
 	
+	public final Long get(final Item item)
+	{
+		return (Long)item.get(this);
+	}
+	
+	public final void set(final Item item, final Long value)
+		throws
+			UniqueViolationException,
+			MandatoryViolationException,
+			LengthViolationException, // TODO remove
+			ReadOnlyViolationException
+	{
+		item.set(this, value);
+	}
+
 	public final EqualCondition equal(final Long value)
 	{
 		return new EqualCondition(null, this, value);

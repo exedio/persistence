@@ -97,7 +97,7 @@ public class Sub extends Super
 	 *
  */public final boolean getSubMandatory()
 	{
-		return ((java.lang.Boolean)get(Sub.subMandatory)).booleanValue();
+		return (Sub.subMandatory.get(this)).booleanValue();
 	}/**
 
 	 **
@@ -109,7 +109,7 @@ public class Sub extends Super
 	{
 		try
 		{
-			set(Sub.subMandatory,(subMandatory?java.lang.Boolean.TRUE:java.lang.Boolean.FALSE));
+			Sub.subMandatory.set(this,(subMandatory?java.lang.Boolean.TRUE:java.lang.Boolean.FALSE));
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -136,7 +136,7 @@ public class Sub extends Super
 	 *
  */public final java.lang.Long getSubInitial()
 	{
-		return (java.lang.Long)get(Sub.subInitial);
+		return Sub.subInitial.get(this);
 	}/**
 
 	 **
@@ -148,7 +148,7 @@ public class Sub extends Super
 	{
 		try
 		{
-			set(Sub.subInitial,subInitial);
+			Sub.subInitial.set(this,subInitial);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -175,7 +175,7 @@ public class Sub extends Super
 	 *
  */public final java.util.Date getSubNonInitial()
 	{
-		return (java.util.Date)get(Sub.subNonInitial);
+		return Sub.subNonInitial.get(this);
 	}/**
 
 	 **
@@ -187,7 +187,7 @@ public class Sub extends Super
 	{
 		try
 		{
-			set(Sub.subNonInitial,subNonInitial);
+			Sub.subNonInitial.set(this,subNonInitial);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
