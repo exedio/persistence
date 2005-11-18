@@ -93,6 +93,9 @@ public class HierarchyTest extends AbstractLibTest
 		final HierarchyFirstSub firstSubItem1 = new HierarchyFirstSub( 10 );
 		final HierarchyFirstSub firstSubItem2 = new HierarchyFirstSub( 10 );
 		final HierarchyFirstSub firstSubItem3 = new HierarchyFirstSub( 11 );
+		deleteOnTearDown(firstSubItem1);
+		deleteOnTearDown(firstSubItem2);
+		deleteOnTearDown(firstSubItem3);
 		
 		try
 		{
@@ -103,10 +106,6 @@ public class HierarchyTest extends AbstractLibTest
 			// TODO this is a bug
 			assertEquals("function HierarchySuper#superInt belongs to type HierarchySuper, which is not a type of the query: HierarchyFirstSub, []", e.getMessage());
 		}
-		
-		assertDelete( firstSubItem1 );
-		assertDelete( firstSubItem2 );
-		assertDelete( firstSubItem3 );		
 	}
 
 }
