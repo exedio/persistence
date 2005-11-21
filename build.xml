@@ -527,6 +527,8 @@
 	
 	<target name="copernica" depends="copernica.compile" />
 	
+	<target name="instrument" depends="instrument.test.instrument, lib.testmodel.instrument" />
+	
 	<target name="dsmf.clean">
 		<delete dir="dsmf/build" />
 	</target>
