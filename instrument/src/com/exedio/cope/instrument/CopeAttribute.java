@@ -60,9 +60,6 @@ abstract class CopeAttribute
 	final Option setterOption;
 	final boolean initial;
 	
-	// TODO accessOnItem==true is old style and should be obsoleted somewhere in the future
-	final boolean accessOnItem;
-
 	CopeAttribute(
 			final JavaAttribute javaAttribute,
 			final Class typeClass,
@@ -70,8 +67,7 @@ abstract class CopeAttribute
 			final List initializerArguments,
 			final String setterOption,
 			final String getterOption,
-			final boolean initial,
-			final boolean accessOnItem)
+			final boolean initial)
 		throws InjectorParseException
 	{
 		this.javaAttribute = javaAttribute;
@@ -95,7 +91,6 @@ abstract class CopeAttribute
 		this.getterOption = new Option(getterOption, true);
 		this.setterOption = new Option(setterOption, true);
 		this.initial = initial;
-		this.accessOnItem = accessOnItem;
 
 		copeClass.add(this);
 	}
