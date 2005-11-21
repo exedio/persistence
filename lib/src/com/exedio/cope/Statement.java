@@ -255,7 +255,7 @@ public final class Statement
 			return fromAlias;
 	}
 
-	String getName(final Join join)
+	private String getName(final Join join)
 	{
 		if(join!=null)
 		{
