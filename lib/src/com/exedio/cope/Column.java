@@ -78,6 +78,8 @@ abstract class Column
 
 	abstract String cacheToDatabase(Object cache);
 	abstract Object cacheToDatabasePrepared(Object cache);
+	
+	abstract Object getCheckValue();
 
 	void makeSchema(final com.exedio.dsmf.Table dsmfTable)
 	{

@@ -123,4 +123,9 @@ final class TimestampColumn extends Column
 		return (cache==null) ? null : new Timestamp(((Long)cache).longValue());
 	}
 
+	Object getCheckValue()
+	{
+		return new Long(System.currentTimeMillis());
+	}
+	
 }

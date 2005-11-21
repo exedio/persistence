@@ -145,6 +145,11 @@ class IntegerColumn extends Column
 		return longInsteadOfInt ? (Long)cache : (Object)(Integer)cache;
 	}
 	
+	final Object getCheckValue()
+	{
+		return longInsteadOfInt ? (Object)new Long(1) : new Integer(1);
+	}
+	
 	private final long convertSQLResult(final Object sqlInteger)
 	{
 		// IMPLEMENTATION NOTE for Oracle

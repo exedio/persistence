@@ -157,6 +157,9 @@ final class StringColumn extends Column
 		return (String)cache;
 	}
 	
+	Object getCheckValue()
+	{
+		return "z";
+	}
+	
 }
-
-

@@ -104,4 +104,9 @@ final class DayColumn extends Column
 		return (cache==null) ? null : new Date(getDay(((Integer)cache).intValue()).getTimeInMillis());
 	}
 
+	Object getCheckValue()
+	{
+		return new Integer(DayColumn.getTransientNumber(new Day(2005, 9, 26)));
+	}
+	
 }

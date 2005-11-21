@@ -34,7 +34,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.exedio.cope.search.Condition;
-import com.exedio.cope.util.Day;
 import com.exedio.dsmf.Driver;
 import com.exedio.dsmf.SQLRuntimeException;
 import com.exedio.dsmf.Schema;
@@ -154,9 +153,6 @@ abstract class Database
 			bf.append(table.protectedID);
 		}
 		
-		final Long testDate = new Long(System.currentTimeMillis());
-		final Integer testDay = new Integer(DayColumn.getTransientNumber(new Day(2005, 9, 26)));
-		
 		bf.append(" where ");
 		first = true;
 		for(Iterator i = tables.iterator(); i.hasNext(); )
@@ -178,20 +174,8 @@ abstract class Database
 				final Column column = (Column)j.next();
 				bf.append(" and ").
 					append(column, null).
-					append('=');
-
-				if(column instanceof IntegerColumn)
-					bf.appendParameter(column, ((IntegerColumn)column).longInsteadOfInt ? (Number)new Long(1) : new Integer(1));
-				else if(column instanceof DoubleColumn)
-					bf.appendParameter(column, new Double(2.2));
-				else if(column instanceof StringColumn)
-					bf.appendParameter(column, "z");
-				else if(column instanceof TimestampColumn)
-					bf.appendParameter(column, testDate);
-				else if(column instanceof DayColumn)
-					bf.appendParameter(column, testDay);
-				else
-					throw new RuntimeException(column.toString());
+					append('=').
+					appendParameter(column, column.getCheckValue());
 			}
 		}
 		

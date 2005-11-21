@@ -76,4 +76,9 @@ final class DoubleColumn extends Column
 		return (Double)cache;
 	}
 	
+	Object getCheckValue()
+	{
+		return new Double(2.2);
+	}
+	
 }
