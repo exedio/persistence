@@ -91,11 +91,11 @@ public class HierarchyTest extends AbstractLibTest
 		
 		final HierarchySingleSub singleSub = new HierarchySingleSub();
 		deleteOnTearDown(singleSub);
-		singleSub.setSubString("zack");
+		singleSub.setSubString("a");
 		singleSub.setSuperInt(new Integer(1));
 		assertEquals(list(singleSub), singleSub.TYPE.search(HierarchySingleSuper.superInt.equal(1)));
-		assertEquals(list(singleSub), singleSub.TYPE.search(singleSub.subString.equal("zack")));
-		assertEquals(list(singleSub), singleSub.TYPE.search(HierarchySingleSuper.superInt.equal(1).and(singleSub.subString.equal("zack"))));
+		assertEquals(list(singleSub), singleSub.TYPE.search(singleSub.subString.equal("a")));
+		assertEquals(list(singleSub), singleSub.TYPE.search(HierarchySingleSuper.superInt.equal(1).and(singleSub.subString.equal("a"))));
 	}
 
 	public void testInheritedSearch() throws IntegrityViolationException
