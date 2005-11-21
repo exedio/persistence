@@ -566,7 +566,7 @@
 		<property name="api.link.jdk"   value="http://java.sun.com/j2se/1.4.2/docs/api" />
 		<property name="api.link.j2ee"  value="http://java.sun.com/j2ee/1.4/docs/api" />
 		<property name="api.link.junit" value="http://junit.sourceforge.net/javadoc" />
-		<property name="api.link.ant"   value="http://searchmorph.com/pub/ant/apache-ant-1.6.2/build/javadocs" />
+		<property name="api.link.ant"   value="http://www.dpml.net/api/ant/1.6.5" />
 
 		<delete dir="api" />
 		<mkdir  dir="api" />
