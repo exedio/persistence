@@ -117,6 +117,11 @@ abstract class Database
 		return new Statement(this, prepare, qualifyTable, defineColumnTypes);
 	}
 	
+	protected final Statement createStatement(final Query query)
+	{
+		return new Statement(this, prepare, query, defineColumnTypes);
+	}
+	
 	void createDatabase()
 	{
 		buildStage = false;
@@ -251,8 +256,7 @@ abstract class Database
 		final boolean limitActive = limitStart>0 || limitCount!=Query.UNLIMITED_COUNT;
 
 		final ArrayList queryJoins = query.joins;
-		final Statement bf = createStatement(queryJoins!=null);
-		bf.setJoinsToAliases(query);
+		final Statement bf = createStatement(query);
 		
 		if(!doCountOnly && limitActive && limitSupport==LIMIT_SUPPORT_CLAUSES_AROUND)
 			appendLimitClause(bf, limitStart, limitCount);
@@ -333,7 +337,7 @@ abstract class Database
 		}
 
 		bf.append(" from ").
-			appendTableDefinition((Join)null, query.type.getTable());
+			appendTypeDefinition((Join)null, query.type);
 
 		if(queryJoins!=null)
 		{
@@ -344,7 +348,7 @@ abstract class Database
 				bf.append(' ').
 					append(join.getKindString()).
 					append(" join ").
-					appendTableDefinition(join, join.type.getTable());
+					appendTypeDefinition(join, join.type);
 				
 				final Condition joinCondition = join.condition;
 				if(joinCondition!=null)
@@ -352,6 +356,7 @@ abstract class Database
 					bf.append(" on ");
 					joinCondition.appendStatement(bf);
 				}
+				bf.appendTypeJoinCondition(joinCondition!=null ? " and " : " on ", join, join.type);
 			}
 		}
 
@@ -360,7 +365,8 @@ abstract class Database
 			bf.append(" where ");
 			query.condition.appendStatement(bf);
 		}
-
+		bf.appendTypeJoinCondition(query.condition!=null ? " and " : " where ", (Join)null, query.type);
+		
 		if(!doCountOnly)
 		{
 			boolean firstOrderBy = true;		

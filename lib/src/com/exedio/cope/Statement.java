@@ -21,6 +21,7 @@ package com.exedio.cope;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 import bak.pcj.list.IntArrayList;
 
@@ -29,9 +30,10 @@ public final class Statement
 	private final Database database;
 	final StringBuffer text = new StringBuffer();
 	final ArrayList parameters;
+	private final HashMap joinTables;
 	private final boolean qualifyTable;
 	final IntArrayList columnTypes;
-		
+	
 	Statement(final Database database, final boolean prepare, final boolean qualifyTable, final boolean defineColumnTypes)
 	{
 		if(database==null)
@@ -39,7 +41,81 @@ public final class Statement
 
 		this.database = database;
 		this.parameters = prepare ? new ArrayList() : null;
+		this.joinTables = null;
 		this.qualifyTable = qualifyTable;
+		this.columnTypes = defineColumnTypes ? new IntArrayList() : null;
+	}
+
+	Statement(final Database database, final boolean prepare, final Query query, final boolean defineColumnTypes)
+	{
+		if(database==null)
+			throw new NullPointerException();
+
+		this.database = database;
+		this.parameters = prepare ? new ArrayList() : null;
+		
+		// TODO: implementation is far from optimal
+		// TODO: all tables for each type are joined, also tables with no columns used
+		
+		final ArrayList types = new ArrayList();
+		
+		types.add(new JoinType(null, query.type));
+		for(Iterator i = query.getJoins().iterator(); i.hasNext(); )
+		{
+			final Join join = (Join)i.next();
+			types.add(new JoinType(join, join.type));
+		}
+
+		final HashMap joinTypeTableByTable = new HashMap();
+		this.joinTables = new HashMap();
+		for(Iterator i = types.iterator(); i.hasNext(); )
+		{
+			final JoinType joinType = (JoinType)i.next();
+			for(Type type = joinType.type; type!=null; type=type.getSupertype())
+			{
+				final Table table = type.getTable();
+				final Object previous = joinTypeTableByTable.get(table);
+				final JoinTable current = new JoinTable(joinType.join, table);
+				if(joinTables.put(current, current)!=null)
+					throw new RuntimeException();
+				if(previous==null)
+					joinTypeTableByTable.put(table, current);
+				else if(previous instanceof JoinTable)
+				{
+					if(table!=((JoinTable)previous).table)
+						throw new RuntimeException();
+
+					final ArrayList list = new ArrayList(2);
+					list.add(previous);
+					list.add(current);
+					joinTypeTableByTable.put(table, list);
+				}
+				else
+				{
+					((ArrayList)previous).add(current);
+				}
+			}
+		}
+		
+		for(Iterator i = joinTypeTableByTable.entrySet().iterator(); i.hasNext(); )
+		{
+			final Map.Entry entry = (Map.Entry)i.next();
+			final Table table = (Table)entry.getKey();
+			final Object value = entry.getValue();
+			if(value instanceof ArrayList)
+			{
+				final ArrayList list = (ArrayList)value;
+				int aliasNumber = 0;
+				for(Iterator j = list.iterator(); j.hasNext(); )
+				{
+					final JoinTable joinType = (JoinTable)j.next();
+					joinType.alias = table.id + (aliasNumber++);
+				}
+			}
+		}
+		//System.out.println("-------"+joinTables.keySet().toString());
+		
+		this.qualifyTable = joinTables.size()>1;
 		this.columnTypes = defineColumnTypes ? new IntArrayList() : null;
 	}
 
@@ -71,7 +147,7 @@ public final class Statement
 		if(qualifyTable)
 		{
 			this.text.
-				append(join!=null ? getName(join) : column.table.protectedID).
+				append(join!=null ? getName(join, column.table) : column.table.protectedID).
 				append('.');
 		}
 		this.text.
@@ -186,87 +262,105 @@ public final class Statement
 	
 	// join aliases
 	
-	private HashMap joinsToAliases;
-	private String fromAlias;
-	private String fromName;
-	
-	void setJoinsToAliases(final Query query)
+	private static class JoinTable
 	{
-		if(joinsToAliases!=null)
-			throw new RuntimeException();
-		
-		joinsToAliases = new HashMap();
-		fromName = query.type.getTable().protectedID;
-		if(query.joins==null)
-			return;
-		
-		final HashMap tablesToJoins = new HashMap();
-		int aliasNumber = 0;
-		for(Iterator i = query.joins.iterator(); i.hasNext(); )
-		{
-			final Join join = (Join)i.next();
-			final Table table = join.type.getTable();
-			if(table==null)
-				throw new RuntimeException();
-			
-			//System.out.println("----------------X"+join);
-			final Join oldJoin = (Join)tablesToJoins.put(table, join);
-			if(oldJoin!=null)
-			{
-				final String oldAlias = (String)joinsToAliases.get(oldJoin);
-				if(oldAlias==null)
-					joinsToAliases.put(oldJoin, "alias"+(aliasNumber++));
-				joinsToAliases.put(join, "alias"+(aliasNumber++));
-			}
-		}
-		{
-			final Table table = query.type.getTable();
-			if(table==null)
-				throw new RuntimeException();
-			
-			final Join oldJoin = (Join)tablesToJoins.get(table);
-			if(oldJoin!=null)
-			{
-				final String oldAlias = (String)joinsToAliases.get(oldJoin);
-				if(oldAlias==null)
-					joinsToAliases.put(oldJoin, "alias"+(aliasNumber++));
-				fromName = fromAlias = "alias"+(aliasNumber++);
-			}
-		}
-		//System.out.println("----------------"+joinsToAliases);
-	}
+		final Join join;
+		final Table table;
 
-	void appendTableDefinition(final Join join, final Table table)
-	{
-		append(table.protectedID);
-		final String alias = getAlias(join);
-		if(alias!=null)
+		String alias = null;
+		
+		JoinTable(final Join join, final Table table)
 		{
-			append(' ').
-			append(alias);
+			if(table==null)
+				throw new NullPointerException();
+			
+			this.join = join;
+			this.table = table;
+		}
+		
+		public int hashCode()
+		{
+			return (join==null ? 1982763 : System.identityHashCode(join)) ^ System.identityHashCode(table);
+		}
+		
+		public boolean equals(final Object other)
+		{
+			final JoinTable o = (JoinTable)other;
+			return join==o.join && table==o.table;
+		}
+		
+		public String toString()
+		{
+			return (join==null?"-":join.type.getID()) + '/' + table.id;
 		}
 	}
 	
-	private String getAlias(final Join join)
+	private static class JoinType
 	{
-		if(join!=null)
-			return (String)joinsToAliases.get(join);
-		else
-			return fromAlias;
-	}
-
-	private String getName(final Join join)
-	{
-		if(join!=null)
+		final Join join;
+		final Type type;
+		
+		JoinType(final Join join, final Type type)
 		{
-			final String alias = (String)joinsToAliases.get(join);
-			if(alias!=null)
-				return alias;
+			this.join = join;
+			this.type = type;
+		}
+	}
+	
+	void appendTypeDefinition(final Join join, final Type type)
+	{
+		boolean first = true;
+		for(Type currentType = type; currentType!=null; currentType=currentType.getSupertype())
+		{
+			if(first)
+				first = false;
 			else
-				return join.type.getTable().protectedID;
+				append(',');
+			
+			final Table table = currentType.getTable();
+			append(table.protectedID);
+			final String alias = getAlias(join, table);
+			if(alias!=null)
+			{
+				append(' ').
+				append(alias);
+			}
 		}
+	}
+	
+	void appendTypeJoinCondition(final String prefix, final Join join, final Type type)
+	{
+		boolean first = true;
+		for(Type currentType = type.getSupertype(); currentType!=null; currentType=currentType.getSupertype())
+		{
+			if(first)
+			{
+				append(prefix);
+				first = false;
+			}
+			else
+				append(" and ");
+			
+			final Table table = currentType.getTable();
+
+			append(table.primaryKey, join);
+			append('=');
+			append(type.getTable().primaryKey, join);
+		}
+	}
+	
+	private String getAlias(final Join join, final Table table)
+	{
+		return ((JoinTable)joinTables.get(new JoinTable(join, table))).alias;
+	}
+
+	private String getName(final Join join, final Table table)
+	{
+		final String alias = getAlias(join, table);
+		if(alias!=null)
+			return alias;
 		else
-			return fromName;
+			return table.protectedID;
 	}
 
 }

@@ -17,7 +17,6 @@
  */
 package com.exedio.cope;
 
-import com.exedio.dsmf.SQLRuntimeException;
 
 
 public class HierarchyTest extends AbstractLibTest
@@ -105,14 +104,7 @@ public class HierarchyTest extends AbstractLibTest
 		deleteOnTearDown(firstSubItem2);
 		deleteOnTearDown(firstSubItem3);
 		
-		try
-		{
-			assertContains( firstSubItem1, firstSubItem2, HierarchyFirstSub.TYPE.search( HierarchySuper.superInt.equal( 10 ) ) );
-		}
-		catch(SQLRuntimeException e)
-		{
-			// TODO this is a bug
-		}
+		assertContains( firstSubItem1, firstSubItem2, HierarchyFirstSub.TYPE.search( HierarchySuper.superInt.equal( 10 ) ) );
 	}
 
 }
