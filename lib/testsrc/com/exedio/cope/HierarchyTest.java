@@ -107,16 +107,4 @@ public class HierarchyTest extends AbstractLibTest
 		assertEquals(new Integer(1), singleSub1b.getSuperInt());
 	}
 
-	public void testInheritedSearch() throws IntegrityViolationException
-	{
-		final HierarchyFirstSub firstSubItem1 = new HierarchyFirstSub( 10 );
-		final HierarchyFirstSub firstSubItem2 = new HierarchyFirstSub( 10 );
-		final HierarchyFirstSub firstSubItem3 = new HierarchyFirstSub( 11 );
-		deleteOnTearDown(firstSubItem1);
-		deleteOnTearDown(firstSubItem2);
-		deleteOnTearDown(firstSubItem3);
-		
-		assertContains( firstSubItem1, firstSubItem2, HierarchyFirstSub.TYPE.search( HierarchySuper.superInt.equal( 10 ) ) );
-	}
-
 }
