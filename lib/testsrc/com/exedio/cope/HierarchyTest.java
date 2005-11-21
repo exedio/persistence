@@ -93,14 +93,10 @@ public class HierarchyTest extends AbstractLibTest
 		deleteOnTearDown(singleSub1a);
 		singleSub1a.setSubString("a");
 		singleSub1a.setSuperInt(new Integer(1));
-		final HierarchySingleSub singleSub1b = new HierarchySingleSub();
+		final HierarchySingleSub singleSub1b = new HierarchySingleSub(1, "b");
 		deleteOnTearDown(singleSub1b);
-		singleSub1b.setSubString("b");
-		singleSub1b.setSuperInt(new Integer(1));
-		final HierarchySingleSub singleSub2a = new HierarchySingleSub();
+		final HierarchySingleSub singleSub2a = new HierarchySingleSub(2, "a");
 		deleteOnTearDown(singleSub2a);
-		singleSub2a.setSubString("a");
-		singleSub2a.setSuperInt(new Integer(2));
 		assertContains(singleSub1a, singleSub1b, singleSub1a.TYPE.search(HierarchySingleSuper.superInt.equal(1)));
 		assertContains(singleSub1a, singleSub2a, singleSub1a.TYPE.search(singleSub1a.subString.equal("a")));
 		assertContains(singleSub1a, singleSub1a.TYPE.search(HierarchySingleSuper.superInt.equal(1).and(singleSub1a.subString.equal("a"))));

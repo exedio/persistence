@@ -29,10 +29,11 @@ public class HierarchySingleSub extends HierarchySingleSuper
 	public static final StringAttribute subString = new StringAttribute(OPTIONAL);
 	
 	
-	public HierarchySingleSub(final int initialSuperInt)
+	public HierarchySingleSub(final int initialSuperInt, final String subString)
 	{
 		super(new com.exedio.cope.AttributeValue[]{
 			new com.exedio.cope.AttributeValue(superInt,new Integer(initialSuperInt)),
+			new com.exedio.cope.AttributeValue(HierarchySingleSub.subString,subString),
 		});
 	} 
 
