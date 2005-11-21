@@ -43,6 +43,7 @@ final class Injector
 	private final Reader input;
 	private final Writer output;
 	private final InjectionConsumer consumer;
+	private final String filename;
 
 	private final StringBuffer buf = new StringBuffer();
 
@@ -68,11 +69,12 @@ final class Injector
 	 * @see InjectionConsumer
 	 */
 	public Injector(final Reader input, final Writer output,
-								final InjectionConsumer consumer, final JavaRepository repository)
+								final InjectionConsumer consumer, final JavaRepository repository, final String filename)
 	{
 		this.input = input;
 		this.output = output;
 		this.consumer = consumer;
+		this.filename = filename;
 		this.javafile = new JavaFile(repository);
 	}
 
@@ -891,6 +893,10 @@ final class Injector
 		{
 			throw new ParseException("Unexpected End-of-File.");
 		}
+		catch (RuntimeException e)
+		{
+			throw new ParseException(e);
+		}
 	}
 
 	private class EndException extends Exception
@@ -913,13 +919,24 @@ final class Injector
 			lp = lineposition;
 		}
 
+		private ParseException(final RuntimeException cause)
+		{
+			//super("["+linenumber+':'+lineposition+']'+' '+message);
+			super(cause);
+			ln = linenumber;
+			lp = lineposition;
+		}
+
 		public String getMessage()
 		{
-			return "["
+			return
+				"("
+				+ filename
+				+ ':'
 				+ linenumber
 				+ ':'
 				+ lineposition
-				+ ']'
+				+ ')'
 				+ ' '
 				+ super.getMessage();
 		}

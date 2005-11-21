@@ -32,4 +32,9 @@ class InjectorParseException extends Exception
 	{
 		super(message);
 	}
+
+	protected InjectorParseException(final RuntimeException cause)
+	{
+		super(cause);
+	}
 }

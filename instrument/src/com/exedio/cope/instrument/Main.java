@@ -68,7 +68,7 @@ public final class Main
 		{
 			input =new InputStreamReader(new CheckedInputStream(new FileInputStream(inputfile), inputCRC));
 			output=new OutputStreamWriter(new CheckedOutputStream(new FileOutputStream(outputfile), outputCRC));
-			(new Injector(input, output, new Instrumentor(), repository)).parseFile();
+			(new Injector(input, output, new Instrumentor(), repository, inputfile.getName())).parseFile();
 			input.close();
 			output.close();
 		}
