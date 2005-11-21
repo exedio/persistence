@@ -349,13 +349,7 @@ abstract class Database
 		}
 
 		bf.append(" from ").
-			append(query.type.getTable().protectedID);
-		final String fromAlias = bf.getAlias(null);
-		if(fromAlias!=null)
-		{
-			bf.append(' ').
-				append(fromAlias);
-		}
+			appendTableDefinition((Join)null, query.type.getTable());
 
 		if(queryJoins!=null)
 		{
@@ -366,14 +360,8 @@ abstract class Database
 				bf.append(' ').
 					append(join.getKindString()).
 					append(" join ").
-					append(join.type.getTable().protectedID);
-				final String joinAlias = bf.getAlias(join);
-				if(joinAlias!=null)
-				{
-					bf.append(' ').
-						append(joinAlias);
-				}
-
+					appendTableDefinition(join, join.type.getTable());
+				
 				final Condition joinCondition = join.condition;
 				if(joinCondition!=null)
 				{

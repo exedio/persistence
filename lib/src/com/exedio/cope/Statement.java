@@ -235,8 +235,19 @@ public final class Statement
 		}
 		//System.out.println("----------------"+joinsToAliases);
 	}
+
+	void appendTableDefinition(final Join join, final Table table)
+	{
+		append(table.protectedID);
+		final String alias = getAlias(join);
+		if(alias!=null)
+		{
+			append(' ').
+			append(alias);
+		}
+	}
 	
-	String getAlias(final Join join)
+	private String getAlias(final Join join)
 	{
 		if(join!=null)
 			return (String)joinsToAliases.get(join);
