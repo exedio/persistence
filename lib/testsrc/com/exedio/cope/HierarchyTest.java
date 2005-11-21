@@ -89,6 +89,9 @@ public class HierarchyTest extends AbstractLibTest
 		assertEquals(list(), firstItem.TYPE.search(firstItem.firstSubString.equal("firstSubStringX")));
 		assertContains(firstItem, secondItem, firstItem2, secondItem2, HierarchySuper.TYPE.search(null));
 		
+		// model HierarchySingle
+		assertEquals(list(HierarchySingleSub.TYPE), HierarchySingleSuper.TYPE.getSubTypes());
+		
 		final HierarchySingleSub singleSub1a = new HierarchySingleSub();
 		deleteOnTearDown(singleSub1a);
 		singleSub1a.setSubString("a");
