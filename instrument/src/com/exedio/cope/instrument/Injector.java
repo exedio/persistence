@@ -91,7 +91,7 @@ final class Injector
 	 */
 	private int lineposition = 0;
 
-	public final char read() throws IOException, EndException
+	private final char read() throws IOException, EndException
 	{
 		int c = input.read();
 
