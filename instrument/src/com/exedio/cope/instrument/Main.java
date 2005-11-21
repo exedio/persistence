@@ -33,6 +33,7 @@ import java.util.zip.CRC32;
 import java.util.zip.CheckedInputStream;
 import java.util.zip.CheckedOutputStream;
 
+import com.exedio.cope.Cope;
 import com.exedio.cope.NestingRuntimeException;
 
 public final class Main
@@ -161,6 +162,20 @@ public final class Main
 		
 	final void run(final ArrayList sourcefiles, final boolean verbose) throws IllegalParameterException, InjectorParseException, IOException
 	{
+		{
+			final Package runtimePackage = Cope.class.getPackage();
+			final Package instrumentorPackage = Main.class.getPackage();
+			final String runtimeVersion = runtimePackage.getImplementationVersion();
+			final String instrumentorVersion = instrumentorPackage.getImplementationVersion();
+			if(verbose)
+			{
+				System.out.println("Instrumentor version: "+instrumentorVersion);
+				System.out.println("Runtime version: "+runtimeVersion);
+			}
+			if(runtimeVersion!=null && instrumentorVersion!=null && !runtimeVersion.equals(instrumentorVersion))
+				throw new RuntimeException("version of cope runtime library ("+runtimeVersion+") does dot match version of cope instrumentor: "+instrumentorVersion);
+		}
+		
 		if(sourcefiles.isEmpty())
 			throw new IllegalParameterException("nothing to do.");
 		
