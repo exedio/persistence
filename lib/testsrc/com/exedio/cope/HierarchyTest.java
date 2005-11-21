@@ -89,13 +89,13 @@ public class HierarchyTest extends AbstractLibTest
 		assertEquals(list(), firstItem.TYPE.search(firstItem.firstSubString.equal("firstSubStringX")));
 		assertContains(firstItem, secondItem, firstItem2, secondItem2, HierarchySuper.TYPE.search(null));
 		
-		final HierarchySingleSub singleSub = new HierarchySingleSub();
-		deleteOnTearDown(singleSub);
-		singleSub.setSubString("a");
-		singleSub.setSuperInt(new Integer(1));
-		assertEquals(list(singleSub), singleSub.TYPE.search(HierarchySingleSuper.superInt.equal(1)));
-		assertEquals(list(singleSub), singleSub.TYPE.search(singleSub.subString.equal("a")));
-		assertEquals(list(singleSub), singleSub.TYPE.search(HierarchySingleSuper.superInt.equal(1).and(singleSub.subString.equal("a"))));
+		final HierarchySingleSub singleSub1a = new HierarchySingleSub();
+		deleteOnTearDown(singleSub1a);
+		singleSub1a.setSubString("a");
+		singleSub1a.setSuperInt(new Integer(1));
+		assertEquals(list(singleSub1a), singleSub1a.TYPE.search(HierarchySingleSuper.superInt.equal(1)));
+		assertEquals(list(singleSub1a), singleSub1a.TYPE.search(singleSub1a.subString.equal("a")));
+		assertEquals(list(singleSub1a), singleSub1a.TYPE.search(HierarchySingleSuper.superInt.equal(1).and(singleSub1a.subString.equal("a"))));
 	}
 
 	public void testInheritedSearch() throws IntegrityViolationException
