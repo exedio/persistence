@@ -108,6 +108,25 @@ public class HierarchyTest extends AbstractLibTest
 		assertContains(singleSub1a, singleSub1a.TYPE.search(HierarchySingleSuper.superInt.equal(1).and(singleSub1a.subString.equal("a"))));
 		assertEquals("a", singleSub2a.getSubString());
 		assertEquals(new Integer(1), singleSub1b.getSuperInt());
+		
+		
+		singleSub1a.setHierarchySuper( firstItem );
+		
+		try
+		{
+			singleSub1a.getHierarchySuper();
+		}
+		catch( NestingRuntimeException e )
+		{
+			if( e.getNestedCause() instanceof InstantiationException)
+			{
+				//TODO: this is a bug
+			}
+			else
+			{
+				throw e;
+			}
+		}		
 	}
 
 }
