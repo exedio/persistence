@@ -38,29 +38,30 @@ public class ModelTest extends TestmodelTest
 	public void testSupportsReadCommitted()
 	{
 		assertEquals( true, model.hasCurrentTransaction() );
-		if ( model.getDatabase().getClass().getName().equals("com.exedio.cope.HsqldbDatabase") )
+		Database realDatabase = model.getDatabase();
+		if ( realDatabase instanceof WrappingDatabase )
+		{
+			realDatabase = ((WrappingDatabase)realDatabase).getWrappedDatabase();
+		}
+		if ( realDatabase.getClass().getName().equals("com.exedio.cope.HsqldbDatabase") )
 		{
 			assertEquals( false, model.supportsReadCommitted() );
 		}
-		else if ( model.getDatabase().getClass().getName().equals("com.exedio.cope.OracleDatabase") )
+		else if ( realDatabase.getClass().getName().equals("com.exedio.cope.OracleDatabase") )
 		{
 			assertEquals( true, model.supportsReadCommitted() );
 		}
-		else if ( model.getDatabase().getClass().getName().equals("com.exedio.cope.MysqlDatabase") )
+		else if ( realDatabase.getClass().getName().equals("com.exedio.cope.MysqlDatabase") )
 		{
 			assertEquals( true, model.supportsReadCommitted() );
 		}
-		else if ( model.getDatabase().getClass().getName().equals("com.exedio.cope.PostgresqlDatabase") )
+		else if ( realDatabase.getClass().getName().equals("com.exedio.cope.PostgresqlDatabase") )
 		{
 			assertEquals( true, model.supportsReadCommitted() );
-		}
-		else if ( model.getDatabase().getClass().getName().equals("com.exedio.cope.P6spyDatabase") )
-		{
-			// is delegated, tested with nested database
 		}
 		else
 		{
-			fail( model.getDatabase().getClass().getName() );
+			fail( realDatabase.getClass().getName() );
 		}
 	}
 	

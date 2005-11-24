@@ -61,8 +61,13 @@ public abstract class AbstractLibTest extends CopeTest
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		hsqldb = "com.exedio.cope.HsqldbDatabase".equals(model.getDatabase().getClass().getName()); 
-		mysql  = "com.exedio.cope.MysqlDatabase".equals(model.getDatabase().getClass().getName());
+		Database realDatabase = model.getDatabase();
+		if ( realDatabase instanceof WrappingDatabase )
+		{
+			realDatabase = ((WrappingDatabase)realDatabase).getWrappedDatabase();
+		}
+		hsqldb = "com.exedio.cope.HsqldbDatabase".equals(realDatabase.getClass().getName()); 
+		mysql  = "com.exedio.cope.MysqlDatabase".equals(realDatabase.getClass().getName());
 		cache = model.getProperties().getCacheLimit()>0;
 		files.clear();
 	}
@@ -76,7 +81,7 @@ public abstract class AbstractLibTest extends CopeTest
 		if ( model.getDatabase() instanceof ExpectingDatabase )
 		{
 			ExpectingDatabase expectingDB = (ExpectingDatabase)model.getDatabase();
-			model.replaceDatabase( expectingDB.getNestedDatabase() );
+			model.replaceDatabase( expectingDB.getWrappedDatabase() );
 			if ( testCompletedSuccessfully() )
 			{
 				fail( "test didn't un-install ExpectingDatabase" );

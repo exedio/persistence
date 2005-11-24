@@ -15,7 +15,7 @@ public class WrappingDatabase implements Database
 		this.nested = nested;
 	}
 	
-	Database getNestedDatabase()
+	Database getWrappedDatabase()
 	{
 		return nested;
 	}

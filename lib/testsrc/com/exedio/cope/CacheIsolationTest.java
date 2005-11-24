@@ -59,7 +59,7 @@ public class CacheIsolationTest extends AbstractLibTest
 		model.joinTransaction( txChangeCollisionItem );
 		model.commit();
 		model.startTransaction("just for tearDown");
-		model.replaceDatabase( expectingDB.getNestedDatabase() );
+		model.replaceDatabase( expectingDB.getWrappedDatabase() );
 	}
 	
 	public void testRollback() throws MandatoryViolationException
@@ -96,7 +96,7 @@ public class CacheIsolationTest extends AbstractLibTest
 		}
 		assertEquals( "blub", item.getName() );
 		expectingDB.verifyExpectations();
-		model.replaceDatabase( expectingDB.getNestedDatabase() );
+		model.replaceDatabase( expectingDB.getWrappedDatabase() );
 	}
 
 	public void testSearch() throws MandatoryViolationException
@@ -127,6 +127,6 @@ public class CacheIsolationTest extends AbstractLibTest
 		expectingDB.verifyExpectations();
 		model.commit();
 		model.joinTransaction( txChange );
-		model.replaceDatabase( expectingDB.getNestedDatabase() );
+		model.replaceDatabase( expectingDB.getWrappedDatabase() );
 	}
 }
