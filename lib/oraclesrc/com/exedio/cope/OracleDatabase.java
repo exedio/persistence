@@ -37,7 +37,7 @@ import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Table;
 
 final class OracleDatabase
-		extends Database
+		extends AbstractDatabase
 		implements
 			DatabaseColumnTypesDefinable,
 			DatabaseTimestampCapable
@@ -67,22 +67,22 @@ final class OracleDatabase
 		this.varchar = "true".equalsIgnoreCase(properties.getDatabaseCustomProperty(VARCHAR));
 	}
 	
-	String getIntegerType(final int precision)
+	public String getIntegerType(final int precision)
 	{
 		return "NUMBER(" + precision + ')';
 	}
 
-	String getDoubleType(final int precision)
+	public String getDoubleType(final int precision)
 	{
 		return "NUMBER(" + precision + ",8)";
 	}
 
-	String getStringType(final int maxLength)
+	public String getStringType(final int maxLength)
 	{
 		return (varchar?"VARCHAR2(":"NVARCHAR2(")+(maxLength!=Integer.MAX_VALUE ? maxLength : 2000)+')';
 	}
 	
-	String getDayType()
+	public String getDayType()
 	{
 		return "DATE";
 	}
@@ -132,7 +132,7 @@ final class OracleDatabase
 			append(")>0)");
 	}
 	
-	protected boolean supportsEmptyStrings()
+	public boolean supportsEmptyStrings()
 	{
 		return false;
 	}

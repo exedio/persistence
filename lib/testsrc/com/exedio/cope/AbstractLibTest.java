@@ -73,10 +73,14 @@ public abstract class AbstractLibTest extends CopeTest
 			((File)i.next()).delete();
 		files.clear();
 		
-		final boolean hadExpectations = model.getDatabase().clearExpectedCalls();
-		if ( hadExpectations && testCompletedSuccessfully() )
+		if ( model.getDatabase() instanceof ExpectingDatabase )
 		{
-			fail( "database still had expected calls; missing call to verifyExpectations" );
+			ExpectingDatabase expectingDB = (ExpectingDatabase)model.getDatabase();
+			model.replaceDatabase( expectingDB.getNestedDatabase() );
+			if ( testCompletedSuccessfully() )
+			{
+				fail( "test didn't un-install ExpectingDatabase" );
+			}
 		}
 		super.tearDown();
 	}

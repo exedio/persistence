@@ -393,7 +393,7 @@ public class SchemaTest extends TestmodelTest
 	
 	private final String protect(final String name)
 	{
-		return model.getDatabase().driver.protectName(name);
+		return model.getDatabase().getDriver().protectName(name);
 	}
 	
 }

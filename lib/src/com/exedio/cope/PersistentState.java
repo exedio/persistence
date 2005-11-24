@@ -25,7 +25,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-final class PersistentState extends State implements Database.ResultSetHandler
+final class PersistentState extends State implements AbstractDatabase.ResultSetHandler
 {
 	
 	// TODO: use arrays for String/int/double instead of the HashMap

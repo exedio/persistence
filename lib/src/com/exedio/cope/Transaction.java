@@ -230,7 +230,7 @@ public final class Transaction
 		if(connectionPool!=null)
 			throw new RuntimeException();
 
-		connectionPool = database.connectionPool;
+		connectionPool = database.getConnectionPool();
 		try
 		{
 			connection = connectionPool.getConnection();

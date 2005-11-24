@@ -124,7 +124,7 @@ public final class UniqueConstraint extends Feature
 	}
 	
 	/**
-	 * Finds an item by it's unique attributes.
+	 * Finds an item by its unique attributes.
 	 * @return null if there is no matching item.
 	 */
 	public final Item searchUnique(final Object[] values)

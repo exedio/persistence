@@ -54,6 +54,10 @@ public class ModelTest extends TestmodelTest
 		{
 			assertEquals( true, model.supportsReadCommitted() );
 		}
+		else if ( model.getDatabase().getClass().getName().equals("com.exedio.cope.P6spyDatabase") )
+		{
+			// is delegated, tested with nested database
+		}
 		else
 		{
 			fail( model.getDatabase().getClass().getName() );

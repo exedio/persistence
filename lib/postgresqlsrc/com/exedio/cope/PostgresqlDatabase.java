@@ -29,7 +29,7 @@ import com.exedio.dsmf.PostgresqlDriver;
 /**
  * Still does not work.
  */
-final class PostgresqlDatabase extends Database
+final class PostgresqlDatabase extends AbstractDatabase
 {
 	static
 	{
@@ -48,22 +48,22 @@ final class PostgresqlDatabase extends Database
 		super(new PostgresqlDriver(), properties);
 	}
 	
-	String getIntegerType(final int precision)
+	public String getIntegerType(final int precision)
 	{
 		return "INTEGER";
 	}
 
-	String getDoubleType(final int precision)
+	public String getDoubleType(final int precision)
 	{
 		return "DOUBLE PRECISION";
 	}
 
-	String getStringType(final int maxLength)
+	public String getStringType(final int maxLength)
 	{
 		return "VARCHAR("+(maxLength!=Integer.MAX_VALUE ? maxLength : 2000)+')';
 	}
 	
-	String getDayType()
+	public String getDayType()
 	{
 		return "DATE";
 	}

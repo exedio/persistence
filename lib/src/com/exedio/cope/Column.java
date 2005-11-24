@@ -39,7 +39,7 @@ abstract class Column
 	{
 		this.table = table;
 		this.id = table.database.makeName(table.id, id).intern();
-		this.protectedID = table.database.driver.protectName(this.id).intern();
+		this.protectedID = table.database.getDriver().protectName(this.id).intern();
 		this.primaryKey = primaryKey;
 		this.notNull = notNull;
 		this.jdbcType = jdbcType;

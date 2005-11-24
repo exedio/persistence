@@ -207,6 +207,14 @@ public final class Model
 		return database;
 	}
 	
+	/**
+	 *	This method should only be used to (un-)install an ExpectingDatabase.
+	 */
+	final void replaceDatabase( Database newDatabase )
+	{
+		database = newDatabase;
+	}
+	
 	public void createDatabase()
 	{
 		for(int i = 0; i<types.length; i++)
@@ -360,7 +368,7 @@ public final class Model
 
 	public void close()
 	{
-		database.connectionPool.flush();
+		database.getConnectionPool().flush();
 	}
 
 	public Schema getVerifiedSchema()
@@ -443,7 +451,7 @@ public final class Model
 		if(database==null)
 			throw newNotInitializedException();
 		
-		return database.connectionPool.getInfo();
+		return database.getConnectionPool().getInfo();
 	}
 	
 	public java.util.Properties getDatabaseInfo()
@@ -451,7 +459,7 @@ public final class Model
 		if(database==null)
 			throw newNotInitializedException();
 		
-		final ConnectionPool cp = database.connectionPool;
+		final ConnectionPool cp = database.getConnectionPool();
 		Connection c = null;
 		try
 		{

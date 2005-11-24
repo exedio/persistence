@@ -37,7 +37,7 @@ final class Table
 	{
 		this.database = database;
 		this.id = database.makeName(id).intern();
-		this.protectedID = database.driver.protectName(this.id).intern();
+		this.protectedID = database.getDriver().protectName(this.id).intern();
 		this.primaryKey = (supertype!=null) ? new ItemColumn(this, supertype.getJavaClass()) : new IntegerColumn(this);
 		this.typeColumn = (typeIDs!=null && typeIDs.size()>1) ? new StringColumn(this, TYPE_COLUMN_NAME, true, (String[])typeIDs.toArray(new String[typeIDs.size()])) : null;
 		database.addTable(this);
@@ -158,7 +158,7 @@ final class Table
 	
 	void makeSchema(final Schema schema)
 	{
-		final com.exedio.dsmf.Table result = new com.exedio.dsmf.Table(schema, id, database.tableOptions.getProperty(id));
+		final com.exedio.dsmf.Table result = new com.exedio.dsmf.Table(schema, id, database.getTableOptions().getProperty(id));
 		
 		for(Iterator i = getAllColumns().iterator(); i.hasNext(); )
 			((Column)i.next()).makeSchema(result);

@@ -32,7 +32,7 @@ import com.mysql.jdbc.Driver;
  * since cope heavily depends on foreign key constraints.
  * @author Ralf Wiebicke
  */
-public final class MysqlDatabase extends Database
+public final class MysqlDatabase extends AbstractDatabase
 
 // TODO
 //	implements DatabaseTimestampCapable

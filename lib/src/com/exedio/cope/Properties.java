@@ -148,34 +148,7 @@ public final class Properties
 
 			databaseCustomPropertiesPrefix = "database." + databaseCode;
 
-			final String databaseName =
-				"com.exedio.cope." +
-				Character.toUpperCase(databaseCode.charAt(0)) +
-				databaseCode.substring(1) +
-				"Database";
-
-			final Class databaseClass;
-			try
-			{
-				databaseClass = Class.forName(databaseName);
-			}
-			catch(ClassNotFoundException e)
-			{
-				throw new RuntimeException("class "+databaseName+" from "+source+" not found.");
-			}
-			
-			if(!Database.class.isAssignableFrom(databaseClass))
-			{
-				throw new RuntimeException("class "+databaseName+" from "+source+" not a subclass of "+Database.class.getName()+".");
-			}
-			try
-			{
-				database = databaseClass.getDeclaredConstructor(new Class[]{Properties.class});
-			}
-			catch(NoSuchMethodException e)
-			{
-				throw new RuntimeException("class "+databaseName+" from "+source+" has no constructor with a single Properties argument.");
-			}
+			database = getDatabaseConstructor( databaseCode, source );
 		}
 
 		databaseForcedNames = getPropertyMap(properties, DATABASE_FORCE_NAME);
@@ -261,6 +234,38 @@ public final class Properties
 			}
 		}
 
+	}
+	
+	private static Constructor getDatabaseConstructor( String databaseCode, String source )
+	{
+		final String databaseName =
+			"com.exedio.cope." +
+			Character.toUpperCase(databaseCode.charAt(0)) +
+			databaseCode.substring(1) +
+			"Database";
+
+		final Class databaseClass;
+		try
+		{
+			databaseClass = Class.forName(databaseName);
+		}
+		catch(ClassNotFoundException e)
+		{
+			throw new RuntimeException("class "+databaseName+" from "+source+" not found.");
+		}
+
+		if(!Database.class.isAssignableFrom(databaseClass))
+		{
+			throw new RuntimeException("class "+databaseName+" from "+source+" not a subclass of "+Database.class.getName()+".");
+		}
+		try
+		{
+			return databaseClass.getDeclaredConstructor(new Class[]{Properties.class});
+		}
+		catch(NoSuchMethodException e)
+		{
+			throw new RuntimeException("class "+databaseName+" from "+source+" has no constructor with a single Properties argument.");
+		}
 	}
 	
 	private final RuntimeException newNotSetException(final String key)

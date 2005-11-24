@@ -92,7 +92,7 @@ final class ConnectionPool implements ConnectionProvider
 		//System.out.println("connection pool: CREATE");
 
 		// Important to do this outside the synchronized block!
-		return DriverManager.getConnection(url, user, password);
+		return  DriverManager.getConnection(url, user, password);
 	}
 
 	/**

@@ -25,7 +25,7 @@ import org.hsqldb.jdbcDriver;
 import com.exedio.dsmf.HsqldbDriver;
 
 final class HsqldbDatabase
-		extends Database
+		extends AbstractDatabase
 		implements
 			DatabaseTimestampCapable
 {
@@ -46,23 +46,23 @@ final class HsqldbDatabase
 		super(new HsqldbDriver(), properties);
 	}
 
-	String getIntegerType(final int precision)
+	public String getIntegerType(final int precision)
 	{
 		// TODO: use precision to select between TINYINT, SMALLINT, INTEGER, BIGINT, NUMBER
 		return (precision <= 10) ? "integer" : "bigint";
 	}
 
-	String getDoubleType(final int precision)
+	public String getDoubleType(final int precision)
 	{
 		return "double";
 	}
 
-	String getStringType(final int maxLength)
+	public String getStringType(final int maxLength)
 	{
 		return "varchar("+maxLength+")";
 	}
 	
-	String getDayType()
+	public String getDayType()
 	{
 		return "date";
 	}
@@ -98,7 +98,7 @@ final class HsqldbDatabase
 		appendMatchClauseByLike(bf, function, value);
 	}
 	
-	protected boolean supportsRightOuterJoins()
+	public boolean supportsRightOuterJoins()
 	{
 		return false;
 	}

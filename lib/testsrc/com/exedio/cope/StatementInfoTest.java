@@ -98,6 +98,10 @@ public class StatementInfoTest extends TestmodelTest
 			}
 			assertTrue(!rootChilds.hasNext());
 		}
+		else if(database.indexOf("P6spyDatabase")>=0)
+		{
+			// is delegated
+		}
 		else
 			fail(database);
 		
