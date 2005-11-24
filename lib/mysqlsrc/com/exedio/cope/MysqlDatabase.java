@@ -69,18 +69,18 @@ public final class MysqlDatabase extends AbstractDatabase
 		this.placeholdersInLimit = "true".equalsIgnoreCase(properties.getDatabaseCustomProperty(PLACEHOLDERS_IN_LIMIT));
 	}
 
-	String getIntegerType(final int precision)
+	public String getIntegerType(final int precision)
 	{
 		// TODO: use precision to select between TINYINT, SMALLINT, INTEGER, BIGINT, NUMBER
 		return (precision <= 10) ? "integer" : "bigint";
 	}
 
-	String getDoubleType(final int precision)
+	public String getDoubleType(final int precision)
 	{
 		return "double";
 	}
 
-	String getStringType(final int maxLength)
+	public String getStringType(final int maxLength)
 	{
 		// TODO:
 		// 255 is needed for unique columns only,
@@ -91,7 +91,7 @@ public final class MysqlDatabase extends AbstractDatabase
 		return "varchar("+(maxLength!=Integer.MAX_VALUE ? maxLength : 255)+") binary";
 	}
 	
-	String getDayType()
+	public String getDayType()
 	{
 		return "DATE";
 	}
@@ -139,7 +139,7 @@ public final class MysqlDatabase extends AbstractDatabase
 			append("))");
 	}
 	
-	protected boolean supportsCheckConstraints()
+	public boolean supportsCheckConstraints()
 	{
 		return false;
 	}
