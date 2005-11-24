@@ -47,6 +47,10 @@ public abstract class SchemaTest extends TestCase
 		final Properties config = new Properties();
 		config.load(new FileInputStream(System.getProperty("com.exedio.cope.properties")));
 		database = config.getProperty("database");
+		if ( database.equals("log") )
+		{
+			database = config.getProperty("database.log.wrapped");
+		}
 		final String url = config.getProperty("database.url");
 		final String user = config.getProperty("database.user");
 		final String password = config.getProperty("database.password");
