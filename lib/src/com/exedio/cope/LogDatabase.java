@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public class LogDatabase extends WrappingDatabase
 {
 	final PrintWriter writer;
+	final boolean disable;
 	
 	public LogDatabase( Properties properties )
 	{
@@ -22,7 +23,7 @@ public class LogDatabase extends WrappingDatabase
 			}
 			if ( target.equals("out") )
 			{
-				writer = new PrintWriter( System.out );
+				writer = new PrintWriter( System.out, true );
 			}
 			else if ( target.equals("err") )
 			{
@@ -32,6 +33,8 @@ public class LogDatabase extends WrappingDatabase
 			{
 				writer = new PrintWriter( new FileWriter(target), true );
 			}
+			final String disableString = properties.getDatabaseCustomProperty("disable");
+			disable = disableString!=null && disableString.equalsIgnoreCase("true");
 		}
 		catch ( IOException e )
 		{
@@ -47,19 +50,28 @@ public class LogDatabase extends WrappingDatabase
 	
 	public void load( Connection connection, PersistentState state )
 	{
-		writer.println( "load: "+state.toString() );
+		if ( ! disable )
+		{
+			writer.println( "load: "+state.toString() );
+		}
 		super.load( connection, state );
 	}
 	
 	public void store( Connection connection, State state, boolean present ) throws UniqueViolationException
 	{
-		writer.println( "store("+(present?"update":"insert")+"): "+state.toString() );
+		if ( ! disable )
+		{
+			writer.println( "store("+(present?"update":"insert")+"): "+state.toStringWithValues() );
+		}
 		super.store( connection, state, present );
 	}
 	
 	public ArrayList search( Connection connection, Query query, boolean doCountOnly )
 	{
-		writer.println( "search(countOnly="+doCountOnly+"): "+query.getType() );
+		if ( ! disable )
+		{
+			writer.println( "search(countOnly="+doCountOnly+"): "+query.getType() );
+		}
 		// TODO: should be as follows, but that causes tests to fail with a FeatureNotInitializedException
 		// writer.println( "search(countOnly="+doCountOnly+"): "+query.toString() );
 		return super.search( connection, query, doCountOnly );
