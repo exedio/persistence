@@ -136,4 +136,9 @@ final class PersistentState extends State implements AbstractDatabase.ResultSetH
 		return lastUsageMillis;
 	}
 	
+	public String toStringWithValues()
+	{
+		return toString()+cache.toString();
+	}
+	
 }

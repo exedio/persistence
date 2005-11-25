@@ -90,4 +90,10 @@ final class CreatedState extends State
 	{
 		return true;
 	}
+
+	public String toStringWithValues()
+	{
+		return toString()+cache.toString();
+	}
+	
 }

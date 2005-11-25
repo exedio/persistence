@@ -71,4 +71,10 @@ final class DeletedState extends State
 	{
 		return false;
 	}
+
+	public String toStringWithValues()
+	{
+		return toString();
+	}
+	
 }

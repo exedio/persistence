@@ -89,4 +89,10 @@ final class ModifiedState extends State
 	{
 		return true;
 	}
+
+	public String toStringWithValues()
+	{
+		return toString()+cache.toString();
+	}
+	
 }
