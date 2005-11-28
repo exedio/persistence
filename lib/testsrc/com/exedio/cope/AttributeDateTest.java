@@ -219,10 +219,13 @@ public class AttributeDateTest extends AttributeTest
 		{
 			throw new RuntimeException( realDatabase.getClass().getName() );
 		}
-		assertEquals( expectedColumnType, ((DatabaseTimestampCapable)model.getDatabase()).getDateTimestampType() );
-		assertEquals( expectedColumnType, ((DatabaseTimestampCapable)realDatabase).getDateTimestampType() );
-		LogDatabase wrapping = new LogDatabase( model.getDatabase(), "out", "true" );
-		assertEquals( expectedColumnType, ((DatabaseTimestampCapable)wrapping).getDateTimestampType() );
+		if ( model.getDatabase() instanceof DatabaseTimestampCapable )
+		{
+			assertEquals( expectedColumnType, ((DatabaseTimestampCapable)model.getDatabase()).getDateTimestampType() );
+			assertEquals( expectedColumnType, ((DatabaseTimestampCapable)realDatabase).getDateTimestampType() );
+			LogDatabase wrapping = new LogDatabase( model.getDatabase(), "out", "true" );
+			assertEquals( expectedColumnType, ((DatabaseTimestampCapable)wrapping).getDateTimestampType() );
+		}
 	}
 	
 	public static String toString(final Date date)
