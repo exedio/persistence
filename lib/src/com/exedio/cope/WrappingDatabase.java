@@ -1,12 +1,14 @@
 package com.exedio.cope;
 
+import bak.pcj.list.IntList;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-public class WrappingDatabase implements Database
+public class WrappingDatabase implements Database, DatabaseTimestampCapable
 {
 	private final Database nested;
 	
@@ -178,5 +180,20 @@ public class WrappingDatabase implements Database
 	public void tearDownDatabaseConstraints()
 	{
 		nested.tearDownDatabaseConstraints();
+	}
+
+	public void defineColumnTypes(IntList columnTypes, java.sql.Statement statement) throws SQLException
+	{
+		nested.defineColumnTypes( columnTypes, statement );
+	}
+
+	public boolean isDefiningColumnTypes()
+	{
+		return nested.isDefiningColumnTypes();
+	}
+
+	public String getDateTimestampType()
+	{
+		return ((DatabaseTimestampCapable)nested).getDateTimestampType();
 	}
 }

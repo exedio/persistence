@@ -18,9 +18,11 @@
 
 package com.exedio.cope;
 
+import bak.pcj.list.IntList;
 import com.exedio.dsmf.Driver;
 import com.exedio.dsmf.Schema;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 interface Database
@@ -73,4 +75,7 @@ interface Database
 	void delete(final Connection connection, final Item item);
 	
 	Schema makeSchema();
+
+	void defineColumnTypes(IntList columnTypes, java.sql.Statement statement) throws SQLException;
+	boolean isDefiningColumnTypes();
 }

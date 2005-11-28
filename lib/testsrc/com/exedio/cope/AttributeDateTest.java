@@ -191,6 +191,40 @@ public class AttributeDateTest extends AttributeTest
 		);
 	}
 	
+	public void testDateColumnType()
+	{
+		Database realDatabase = model.getDatabase();
+		if ( realDatabase instanceof WrappingDatabase )
+		{
+			realDatabase = ((WrappingDatabase)realDatabase).getWrappedDatabase();
+		}
+		final String expectedColumnType;
+		if ( realDatabase.getClass().getName().endsWith("OracleDatabase") )
+		{
+			expectedColumnType = "TIMESTAMP(3)";
+		}
+		else if ( realDatabase.getClass().getName().endsWith("MysqlDatabase") )
+		{
+			expectedColumnType = "NUMBER(20)";
+		}
+		else if ( realDatabase.getClass().getName().endsWith("HsqldbDatabase") )
+		{
+			expectedColumnType = "timestamp";
+		}
+		else if ( realDatabase.getClass().getName().endsWith("PostgresqlDatabase") )
+		{
+			expectedColumnType = "NUMBER(20)";
+		}
+		else
+		{
+			throw new RuntimeException( realDatabase.getClass().getName() );
+		}
+		assertEquals( expectedColumnType, ((DatabaseTimestampCapable)model.getDatabase()).getDateTimestampType() );
+		assertEquals( expectedColumnType, ((DatabaseTimestampCapable)realDatabase).getDateTimestampType() );
+		LogDatabase wrapping = new LogDatabase( model.getDatabase(), "out", "true" );
+		assertEquals( expectedColumnType, ((DatabaseTimestampCapable)wrapping).getDateTimestampType() );
+	}
+	
 	public static String toString(final Date date)
 	{
 		final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");

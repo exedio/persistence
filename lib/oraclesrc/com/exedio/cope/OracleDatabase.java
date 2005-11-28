@@ -39,7 +39,6 @@ import com.exedio.dsmf.Table;
 final class OracleDatabase
 		extends AbstractDatabase
 		implements
-			DatabaseColumnTypesDefinable,
 			DatabaseTimestampCapable
 {
 	static
@@ -157,6 +156,11 @@ final class OracleDatabase
 		return extractConstraintName(e, 1, "ORA-00001: unique constraint (", ") violated\n");
 	}
 
+	public boolean isDefiningColumnTypes()
+	{
+		return true;
+	}
+	
 	public void defineColumnTypes(final IntList columnTypes, final java.sql.Statement statement)
 			throws SQLException
 	{
@@ -305,7 +309,7 @@ final class OracleDatabase
 		//System.out.println("######################");
 		return result;
 	}
-	
+
 	private static class PlanResultSetHandler implements ResultSetHandler
 	{
 		StatementInfo root;

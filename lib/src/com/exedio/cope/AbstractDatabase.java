@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import bak.pcj.list.IntList;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -46,7 +47,6 @@ abstract class AbstractDatabase implements Database
 	private boolean buildStage = true;
 	final Driver driver;
 	private final boolean prepare;
-	private final boolean defineColumnTypes;
 	private final boolean log;
 	private final boolean butterflyPkSource;
 	private final boolean fulltextIndex;
@@ -59,7 +59,6 @@ abstract class AbstractDatabase implements Database
 	{
 		this.driver = driver;
 		this.prepare = !properties.getDatabaseDontSupportPreparedStatements();
-		this.defineColumnTypes = this instanceof DatabaseColumnTypesDefinable;
 		this.log = properties.getDatabaseLog();
 		this.butterflyPkSource = properties.getPkSourceButterfly();
 		this.fulltextIndex = properties.getFulltextIndex();
@@ -128,12 +127,12 @@ abstract class AbstractDatabase implements Database
 	
 	protected final Statement createStatement(final boolean qualifyTable)
 	{
-		return new Statement(this, prepare, qualifyTable, defineColumnTypes);
+		return new Statement(this, prepare, qualifyTable, isDefiningColumnTypes());
 	}
 	
 	protected final Statement createStatement(final Query query)
 	{
-		return new Statement(this, prepare, query, defineColumnTypes);
+		return new Statement(this, prepare, query, isDefiningColumnTypes());
 	}
 	
 	public void createDatabase()
@@ -725,8 +724,7 @@ abstract class AbstractDatabase implements Database
 			{
 				sqlStatement = connection.createStatement();
 
-				if(defineColumnTypes)
-					((DatabaseColumnTypesDefinable)this).defineColumnTypes(statement.columnTypes, sqlStatement);
+				defineColumnTypes(statement.columnTypes, sqlStatement);
 				
 				logPrepared = (log||makeStatementInfo) ? System.currentTimeMillis() : 0;
 				resultSet = sqlStatement.executeQuery(sqlText);
@@ -741,8 +739,7 @@ abstract class AbstractDatabase implements Database
 				for(Iterator i = statement.parameters.iterator(); i.hasNext(); parameterIndex++)
 					setObject(sqlText, prepared, parameterIndex, i.next());
 
-				if(defineColumnTypes)
-					((DatabaseColumnTypesDefinable)this).defineColumnTypes(statement.columnTypes, sqlStatement);
+				defineColumnTypes(statement.columnTypes, sqlStatement);
 				
 				logPrepared = (log||makeStatementInfo) ? System.currentTimeMillis() : 0;
 				resultSet = prepared.executeQuery();
@@ -1212,4 +1209,14 @@ abstract class AbstractDatabase implements Database
 		}
 	};
 	
+	public boolean isDefiningColumnTypes()
+	{
+		return false;
+	}
+	
+	public void defineColumnTypes(IntList columnTypes, java.sql.Statement statement)
+			throws SQLException
+	{
+		// default implementation does nothing, may be overwritten by subclasses
+	}
 }

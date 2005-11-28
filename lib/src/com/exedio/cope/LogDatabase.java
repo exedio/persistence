@@ -11,13 +11,12 @@ public class LogDatabase extends WrappingDatabase
 	final PrintWriter writer;
 	final boolean disable;
 	
-	public LogDatabase( Properties properties )
+	LogDatabase( Database wrapped, String target, String disableString )
 	{
-		super( getWrappedDatabase(properties) );
+		super( wrapped );
 		try
 		{
-			final String target = properties.getDatabaseCustomProperty("target");
-			if ( target==null || target.equals("") )
+			if ( target==null || "".equals(target) )
 			{
 				throw new RuntimeException( "database.log.target not set" );
 			}
@@ -33,13 +32,17 @@ public class LogDatabase extends WrappingDatabase
 			{
 				writer = new PrintWriter( new FileWriter(target), true );
 			}
-			final String disableString = properties.getDatabaseCustomProperty("disable");
 			disable = disableString!=null && disableString.equalsIgnoreCase("true");
 		}
 		catch ( IOException e )
 		{
 			throw new RuntimeException( e );
 		}
+	}
+	
+	public LogDatabase( Properties properties )
+	{
+		this( getWrappedDatabase(properties), properties.getDatabaseCustomProperty("target"), properties.getDatabaseCustomProperty("disable") );
 	}
 	
 	private static Database getWrappedDatabase( Properties properties )
