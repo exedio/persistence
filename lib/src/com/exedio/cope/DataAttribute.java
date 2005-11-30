@@ -48,7 +48,7 @@ public final class DataAttribute extends Attribute
 	{
 		super.initialize(type, name);
 
-		filePath = type.getID() + '/' + name + '/';
+		filePath = type.id + '/' + name + '/';
 	}
 
 	// second initialization phase ---------------------------------------------------

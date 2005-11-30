@@ -109,7 +109,7 @@ public final class Model
 					{
 						//System.out.println("-------------------------------> "+type.getID());
 						if(!typeSet.contains(type))
-							throw new RuntimeException("type "+type.getID()+ " is supertype of " + types[i].getID() + " but not part of the model");
+							throw new RuntimeException("type "+type.id+ " is supertype of " + types[i].id + " but not part of the model");
 						stack.add(type);
 					}
 					
@@ -122,8 +122,8 @@ public final class Model
 						{
 							//System.out.println("-------------------------------] "+type.getID());
 							type.materialize(database);
-							if(typesByID.put(type.getID(), type)!=null)
-								throw new RuntimeException(type.getID());
+							if(typesByID.put(type.id, type)!=null)
+								throw new RuntimeException(type.id);
 							materialized.add(type);
 						}
 					}
@@ -240,7 +240,7 @@ public final class Model
 				if(typeDirectory==null)
 				{
 					final File directory = properties.getDatadirPath();
-					typeDirectory = new File(directory, type.getID());
+					typeDirectory = new File(directory, type.id);
 					typeDirectory.mkdir();
 				}
 				final File attributeDirectory = new File(typeDirectory, attribute.getName());
@@ -261,7 +261,7 @@ public final class Model
 				if(typeDirectory==null)
 				{
 					final File directory = properties.getDatadirPath();
-					typeDirectory = new File(directory, type.getID());
+					typeDirectory = new File(directory, type.id);
 				}
 				final File attributeDirectory = new File(typeDirectory, attribute.getName());
 				final File[] files = attributeDirectory.listFiles();
@@ -295,7 +295,7 @@ public final class Model
 				if(typeDirectory==null)
 				{
 					final File directory = properties.getDatadirPath();
-					typeDirectory = new File(directory, type.getID());
+					typeDirectory = new File(directory, type.id);
 				}
 				final File attributeDirectory = new File(typeDirectory, attribute.getName());
 				if(attributeDirectory.exists())

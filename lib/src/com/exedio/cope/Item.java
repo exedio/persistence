@@ -53,7 +53,7 @@ public abstract class Item extends Cope
 	 */
 	public final String getCopeID()
 	{
-		return type.getID() + '.' + type.getPkSource().pk2id(pk);
+		return type.id + '.' + type.getPkSource().pk2id(pk);
 	}
 	
 	/**

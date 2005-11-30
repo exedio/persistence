@@ -70,7 +70,7 @@ public abstract class Feature
 	
 	public final String toString()
 	{
-		return type!=null ? (type.getID()+'#'+name) : toStringNonInitialized();
+		return type!=null ? (type.id+'#'+name) : toStringNonInitialized();
 	}
 	
 }

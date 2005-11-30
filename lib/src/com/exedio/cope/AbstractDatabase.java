@@ -640,7 +640,7 @@ abstract class AbstractDatabase implements Database
 			if(typeColumn!=null)
 			{
 				bf.append(',').
-					appendParameter(state.type.getID());
+					appendParameter(state.type.id);
 			}
 
 			for(Iterator i = columns.iterator(); i.hasNext(); )

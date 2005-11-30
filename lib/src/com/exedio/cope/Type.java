@@ -40,7 +40,7 @@ public final class Type
 	private static final HashMap typesByClass = new HashMap();
 
 	final Class javaClass;
-	private final String id;
+	final String id;
 	private final Type supertype;
 	
 	private final Attribute[] declaredAttributes;
@@ -286,7 +286,7 @@ public final class Type
 				typesOfInstancesColumnValues = new String[typesOfInstances.size()];
 				int i = 0;
 				for(Iterator iter = typesOfInstances.iterator(); iter.hasNext(); i++)
-					typesOfInstancesColumnValues[i] = ((Type)iter.next()).getID();
+					typesOfInstancesColumnValues[i] = ((Type)iter.next()).id;
 				break;
 		}
 	}
@@ -563,7 +563,7 @@ public final class Type
 	PkSource getPkSource()
 	{
 		if(pkSource==null)
-			throw new RuntimeException( "no primary key source in "+getID()+"; maybe you have to initialize the model first" );
+			throw new RuntimeException( "no primary key source in "+id+"; maybe you have to initialize the model first" );
 		
 		return pkSource;
 	}

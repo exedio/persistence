@@ -291,7 +291,7 @@ public final class Statement
 		
 		public String toString()
 		{
-			return (join==null?"-":join.type.getID()) + '/' + table.id;
+			return (join==null?"-":join.type.id) + '/' + table.id;
 		}
 	}
 	

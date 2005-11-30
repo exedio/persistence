@@ -125,7 +125,7 @@ final class Cache
 				
 				// logging must be outside synchronized block
 				if(newMapSize>=0)
-					System.out.println("cope cache cleanup "+item.type.getID()+": "+mapSize+"->"+newMapSize);
+					System.out.println("cope cache cleanup "+item.type.id+": "+mapSize+"->"+newMapSize);
 				
 				if ( oldValue!=null )
 				{
