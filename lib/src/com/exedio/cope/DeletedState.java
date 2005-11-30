@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-import java.util.Map;
 
 
 final class DeletedState extends State
@@ -62,7 +61,7 @@ final class DeletedState extends State
 		throw new RuntimeException();
 	}
 
-	Map stealValues()
+	Row stealValues()
 	{
 		throw new RuntimeException();
 	}

@@ -21,21 +21,18 @@ package com.exedio.cope;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
 
 final class PersistentState extends State implements AbstractDatabase.ResultSetHandler
 {
 	
-	// TODO: use arrays for String/int/double instead of the HashMap
-	private final Map cache;
+	private final Row cache;
 	private long lastUsageMillis;
 	
 	PersistentState( final Connection connection, final Item item )
 	{
 		super( item );
-		cache = new HashMap();
+		cache = new Row();
 		type.getModel().getDatabase().load( connection, this );
 		lastUsageMillis = System.currentTimeMillis();
 	}
@@ -100,9 +97,9 @@ final class PersistentState extends State implements AbstractDatabase.ResultSetH
 		throw new RuntimeException();
 	}
 
-	Map stealValues()
+	Row stealValues()
 	{
-		return new HashMap( cache );
+		return new Row(cache);
 	}
 
 	boolean exists()

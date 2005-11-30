@@ -18,48 +18,36 @@
 
 package com.exedio.cope;
 
+import java.util.HashMap;
 
-abstract class State
+/**
+ * This is essentially a typed map from {@link Column}s to {@link Object}s.
+ * @author Ralf Wiebicke
+ */
+final class Row
 {
-	final Item item;
-	final Type type;
-	final int pk;
-
-
-	protected State(final Item item)
+	
+	// TODO: use arrays for String/int/double instead of the HashMap
+	private final HashMap impl;
+	
+	Row()
 	{
-		this.item = item;
-		this.type = item.type;
-		this.pk = item.pk;
-
-		if(pk==Type.NOT_A_PK)
-			throw new RuntimeException();
+		impl = new HashMap();
 	}
 	
-	abstract Object get(ObjectAttribute attribute);
-	
-	abstract State put(Transaction transaction, ObjectAttribute attribute, Object value);
-	
-	abstract State write( Transaction transaction ) throws UniqueViolationException;
-	
-	
-	abstract Object store(final Column column);
-
-	abstract State delete( Transaction transaction );
-	
-	void discard( final Transaction transaction )
+	Row(final Row row)
 	{
-		transaction.removeEntity( item );
+		impl = new HashMap(row.impl);
 	}
 	
-	abstract Row stealValues();
-	
-	abstract boolean exists();
-
-	public String toString()
+	Object get(final Column column)
 	{
-		return getClass().getName()+"-"+item.getCopeID();
+		return impl.get(column);
 	}
-
-	public abstract String toStringWithValues();
+	
+	void put(final Column column, final Object value)
+	{
+		impl.put(column, value);
+	}
+	
 }

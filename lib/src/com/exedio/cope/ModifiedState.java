@@ -18,13 +18,11 @@
 
 package com.exedio.cope;
 
-import java.util.Map;
 
 final class ModifiedState extends State
 {
 	
-	// TODO: use arrays for String/int/double instead of the HashMap
-	private Map cache;
+	private Row cache;
 	
 	ModifiedState( final Transaction transaction, final State original )
 	{
@@ -78,9 +76,9 @@ final class ModifiedState extends State
 		return cache.get(column);
 	}
 
-	Map stealValues()
+	Row stealValues()
 	{
-		Map result = cache;
+		Row result = cache;
 		cache = null;
 		return result;
 	}

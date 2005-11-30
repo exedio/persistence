@@ -18,14 +18,11 @@
 
 package com.exedio.cope;
 
-import java.util.HashMap;
-import java.util.Map;
 
 final class CreatedState extends State
 {
 	
-	// TODO: use arrays for String/int/double instead of the HashMap
-	private HashMap cache = new HashMap();
+	private Row cache = new Row();
 	
 	CreatedState(final Transaction transaction, final Item item)
 	{
@@ -79,9 +76,9 @@ final class CreatedState extends State
 		return cache.get(column);
 	}
 	
-	Map stealValues()
+	Row stealValues()
 	{
-		Map result = cache;
+		Row result = cache;
 		cache = null;
 		return result;
 	}
