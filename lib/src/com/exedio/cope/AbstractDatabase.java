@@ -449,6 +449,7 @@ abstract class AbstractDatabase implements Database
 					{
 						int columnIndex = 1;
 						final Object[] resultRow = (selectables.length > 1) ? new Object[selectables.length] : null;
+						final Row dummyRow = new Row();
 							
 						for(int selectableIndex = 0; selectableIndex<selectables.length; selectableIndex++)
 						{
@@ -456,9 +457,10 @@ abstract class AbstractDatabase implements Database
 							final Object resultCell;
 							if(selectable instanceof ObjectAttribute)
 							{
-								final Object selectValue = selectColumns[selectableIndex].load(resultSet, columnIndex++);
+								final Column selectColumn = selectColumns[selectableIndex];
+								dummyRow.put(selectColumn, selectColumn.load(resultSet, columnIndex++));
 								final ObjectAttribute selectAttribute = (ObjectAttribute)selectable;
-								resultCell = selectAttribute.cacheToSurface(selectValue);
+								resultCell = selectAttribute.cacheToSurface(dummyRow);
 							}
 							else if(selectable instanceof ComputedFunction)
 							{

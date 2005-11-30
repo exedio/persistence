@@ -49,8 +49,8 @@ public abstract class ObjectAttribute
 	}
 	
 	public abstract ObjectAttribute copyAsTemplate();
-	abstract Object cacheToSurface(Object cache);
-	abstract Object surfaceToCache(Object surface);
+	abstract Object cacheToSurface(Row row);
+	abstract void surfaceToCache(Row row, Object surface);
 	
 	final Option getTemplateOption()
 	{

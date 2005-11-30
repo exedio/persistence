@@ -40,20 +40,21 @@ public final class BooleanAttribute extends ObjectAttribute
 		return new IntegerColumn(table, name, notNull, 1, false, ALLOWED_VALUES);
 	}
 	
-	Object cacheToSurface(final Object cache)
+	Object cacheToSurface(final Row row)
 	{
-		if(cache==null)
+		final Object cell = row.get(getColumn());
+		if(cell==null)
 			return null;
 		else
 		{
-			switch(((Integer)cache).intValue())
+			switch(((Integer)cell).intValue())
 			{
 				case 0:
 					return Boolean.FALSE;
 				case 1:
 					return Boolean.TRUE;
 				default:
-					throw new RuntimeException("cacheToSurface:"+cache);
+					throw new RuntimeException("cacheToSurface:"+cell);
 			}
 		}
 	}
@@ -61,12 +62,9 @@ public final class BooleanAttribute extends ObjectAttribute
 	static final Integer FALSE = new Integer(0);
 	static final Integer TRUE = new Integer(1);
 		
-	Object surfaceToCache(final Object surface)
+	void surfaceToCache(final Row row, final Object surface)
 	{
-		return
-			surface==null ?
-				null :
-				((Boolean)surface).booleanValue() ? TRUE : FALSE;
+		row.put(getColumn(), 	surface==null ? 	null : 	((Boolean)surface).booleanValue() ? TRUE : FALSE);
 	}
 	
 	public final Boolean get(final Item item)

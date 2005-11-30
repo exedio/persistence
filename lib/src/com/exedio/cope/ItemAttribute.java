@@ -90,20 +90,15 @@ public final class ItemAttribute extends ObjectAttribute
 		return new ItemColumn(table, name, notNull, targetTypeClass, this);
 	}
 	
-	Object cacheToSurface(final Object cache)
+	Object cacheToSurface(final Row row)
 	{
-		return 
-			cache==null ? 
-				null : 
-				getTargetType().getItemObject(((Integer)cache).intValue());
+		final Object cell = row.get(getColumn());
+		return cell==null ? null : getTargetType().getItemObject(((Integer)cell).intValue());
 	}
 		
-	Object surfaceToCache(final Object surface)
+	void surfaceToCache(final Row row, final Object surface)
 	{
-		return
-			surface==null ? 
-				null : 
-				new Integer(((Item)surface).pk);
+		row.put(getColumn(), surface==null ? null : new Integer(((Item)surface).pk));
 	}
 	
 	public final Item get(final Item item)

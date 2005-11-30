@@ -47,7 +47,10 @@ final class Row
 	
 	void put(final Column column, final Object value)
 	{
-		impl.put(column, value);
+		if(value!=null)
+			impl.put(column, value);
+		else
+			impl.remove(column);
 	}
 	
 	public String toString()

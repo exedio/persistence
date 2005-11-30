@@ -43,14 +43,15 @@ public final class DayAttribute extends ObjectAttribute
 		return new DayColumn(table, name, notNull);
 	}
 	
-	Object cacheToSurface(final Object cache)
+	Object cacheToSurface(final Row row)
 	{
-		return cache==null ? null : DayColumn.getDay(((Integer)cache).intValue());
+		final Object cell = row.get(getColumn());
+		return cell==null ? null : DayColumn.getDay(((Integer)cell).intValue());
 	}
 		
-	Object surfaceToCache(final Object surface)
+	void surfaceToCache(final Row row, final Object surface)
 	{
-		return surface==null ? null : new Integer(DayColumn.getTransientNumber((Day)surface));
+		row.put(getColumn(), surface==null ? null : new Integer(DayColumn.getTransientNumber((Day)surface)));
 	}
 	
 	public final Day get(final Item item)

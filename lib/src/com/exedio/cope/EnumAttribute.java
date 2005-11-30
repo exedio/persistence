@@ -143,20 +143,18 @@ public final class EnumAttribute extends ObjectAttribute
 		return new IntegerColumn(table, name, notNull, 10, false, allowedValues);
 	}
 	
-	Object cacheToSurface(final Object cache)
+	Object cacheToSurface(final Row row)
 	{
+		final Object cell = row.get(getColumn());
 		return
-			cache==null ?
+			cell==null ?
 				null :
-				getValue(((Integer)cache).intValue());
+				getValue(((Integer)cell).intValue());
 	}
 		
-	Object surfaceToCache(final Object surface)
+	void surfaceToCache(final Row row, final Object surface)
 	{
-		return
-			surface==null ?
-				null :
-				((EnumValue)surface).getNumberObject();
+		row.put(getColumn(), surface==null ? null : ((EnumValue)surface).getNumberObject());
 	}
 	
 	public final EnumValue get(final Item item)

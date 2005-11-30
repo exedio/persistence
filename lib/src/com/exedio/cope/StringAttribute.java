@@ -80,22 +80,24 @@ public final class StringAttribute extends ObjectAttribute implements StringFunc
 		return new StringColumn(table, name, notNull, minimumLength, maximumLength);
 	}
 	
-	Object cacheToSurface(final Object cache)
+	Object cacheToSurface(final Row row)
 	{
-		return (String)cache;
+		return (String)row.get(getColumn());
 	}
 		
-	Object surfaceToCache(final Object surface)
+	void surfaceToCache(final Row row, final Object surface)
 	{
+		final String cell;
 		if(getType().getModel().supportsEmptyStrings()) // TODO dont fetch this that often
-			return (String)surface;
+			cell = (String)surface;
 		else
 		{
 			if(surface!=null && ((String)surface).length()==0)
-				return null;
+				cell = null;
 			else
-				return surface;
+				cell = (String)surface;
 		}
+		row.put(getColumn(), cell);
 	}
 	
 	void checkNotNullValue(final Object value, final Item item)

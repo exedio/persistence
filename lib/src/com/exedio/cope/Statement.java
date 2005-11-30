@@ -169,7 +169,10 @@ public final class Statement
 		else
 		{
 			final ObjectAttribute attribute = (ObjectAttribute)function;
-			appendParameter(attribute.getColumn(), attribute.surfaceToCache(value));
+			final Row dummyRow = new Row();
+			attribute.surfaceToCache(dummyRow, value);
+			final Column column = attribute.getColumn();
+			appendParameter(column, dummyRow.get(column));
 		}
 		return this;
 	}
