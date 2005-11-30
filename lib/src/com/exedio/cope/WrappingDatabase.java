@@ -8,7 +8,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-public class WrappingDatabase implements Database, DatabaseTimestampCapable
+class WrappingDatabase implements Database, DatabaseTimestampCapable
 {
 	private final Database nested;
 	

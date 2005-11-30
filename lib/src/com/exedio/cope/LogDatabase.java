@@ -6,7 +6,7 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.util.ArrayList;
 
-public class LogDatabase extends WrappingDatabase
+class LogDatabase extends WrappingDatabase
 {
 	final PrintWriter writer;
 	final boolean disable;
