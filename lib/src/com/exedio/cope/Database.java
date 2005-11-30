@@ -28,17 +28,17 @@ import java.util.ArrayList;
 interface Database
 {
 	
-	void load(final Connection connection, final PersistentState state);
+	void load(Connection connection, PersistentState state);
 	
-	String makeName(final String longName);
-	String makeName(final String prefix, final String longName);
+	String makeName(String longName);
+	String makeName(String prefix, String longName);
 	
 	Driver getDriver();
 	ConnectionPool getConnectionPool();
 	
 	void addTable( Table table );
 	void addUniqueConstraint( String databaseID, UniqueConstraint constraint );
-	void addIntegrityConstraint(final ItemColumn column);
+	void addIntegrityConstraint(ItemColumn column);
 	
 	java.util.Properties getTableOptions();
 
@@ -51,16 +51,16 @@ interface Database
 	boolean supportsEmptyStrings();
 	boolean supportsRightOuterJoins();
 
-	void appendMatchClause(final Statement bf, final StringFunction function, final String value);
+	void appendMatchClause(Statement bf, StringFunction function, String value);
 	
-	ArrayList search(final Connection connection, final Query query, final boolean doCountOnly);
+	ArrayList search(Connection connection, Query query, boolean doCountOnly);
 	
-	PkSource makePkSource(final Table table);
+	PkSource makePkSource(Table table);
 	
 	void createDatabase();
 	void createDatabaseConstraints();
-	void checkDatabase(final Connection connection);
-	void checkEmptyDatabase(final Connection connection);
+	void checkDatabase(Connection connection);
+	void checkEmptyDatabase(Connection connection);
 	void dropDatabase();
 	void dropDatabaseConstraints();
 	void tearDownDatabase();
@@ -69,10 +69,10 @@ interface Database
 	
 	Schema makeVerifiedSchema();
 	
-	int[] getMinMaxPK(final Connection connection, final Table table);
+	int[] getMinMaxPK(Connection connection, Table table);
 	
-	void store(final Connection connection, final State state, final boolean present) throws UniqueViolationException;
-	void delete(final Connection connection, final Item item);
+	void store(Connection connection, State state, boolean present) throws UniqueViolationException;
+	void delete(Connection connection, Item item);
 	
 	Schema makeSchema();
 
