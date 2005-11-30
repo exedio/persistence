@@ -33,13 +33,13 @@ final class Table
 	final IntegerColumn primaryKey;
 	final StringColumn typeColumn;
 
-	Table(final Database database, final String id, final Type supertype, final ArrayList typeIDs)
+	Table(final Database database, final String id, final Type supertype, final String[] typesOfInstancesColumnValues)
 	{
 		this.database = database;
 		this.id = database.makeName(id).intern();
 		this.protectedID = database.getDriver().protectName(this.id).intern();
 		this.primaryKey = (supertype!=null) ? new ItemColumn(this, supertype.getJavaClass()) : new IntegerColumn(this);
-		this.typeColumn = (typeIDs!=null && typeIDs.size()>1) ? new StringColumn(this, TYPE_COLUMN_NAME, true, (String[])typeIDs.toArray(new String[typeIDs.size()])) : null;
+		this.typeColumn = (typesOfInstancesColumnValues!=null) ? new StringColumn(this, TYPE_COLUMN_NAME, true, typesOfInstancesColumnValues) : null;
 		database.addTable(this);
 	}
 	

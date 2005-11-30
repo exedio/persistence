@@ -61,7 +61,9 @@ public final class Type
 	private ArrayList references = null;
 	
 	private Model model;
-
+	private ArrayList typesOfInstances;
+	private String[] typesOfInstancesColumnValues;
+	
 	private Table table;
 	private PkSource pkSource;
 
@@ -260,6 +262,8 @@ public final class Type
 
 		if(this.model!=null)
 			throw new RuntimeException();
+		if(this.typesOfInstances!=null)
+			throw new RuntimeException();
 		if(this.table!=null)
 			throw new RuntimeException();
 		if(this.pkSource!=null)
@@ -269,6 +273,35 @@ public final class Type
 		
 		this.model = model;
 		this.transientNumber = transientNumber;
+		
+		typesOfInstances = new ArrayList();
+		collectTypesOfInstances(typesOfInstances, 15);
+		switch(typesOfInstances.size())
+		{
+			case 0:
+			case 1:
+				typesOfInstancesColumnValues = null;
+				break;
+			default:
+				typesOfInstancesColumnValues = new String[typesOfInstances.size()];
+				int i = 0;
+				for(Iterator iter = typesOfInstances.iterator(); iter.hasNext(); i++)
+					typesOfInstancesColumnValues[i] = ((Type)iter.next()).getID();
+				break;
+		}
+	}
+	
+	private final void collectTypesOfInstances(final ArrayList result, int levelLimit)
+	{
+		if(levelLimit<=0)
+			throw new RuntimeException(result.toString());
+		levelLimit--;
+		
+		if(!isAbstract())
+			result.add(this);
+		
+		for(Iterator i = getSubTypes().iterator(); i.hasNext(); )
+			((Type)i.next()).collectTypesOfInstances(result, levelLimit);
 	}
 	
 	final void materialize(final Database database)
@@ -283,16 +316,7 @@ public final class Type
 		if(this.pkSource!=null)
 			throw new RuntimeException();
 
-		final ArrayList typeIDs;
-		if(subTypes!=null)
-		{
-			typeIDs = new ArrayList();
-			addRecursive(subTypes, typeIDs, 15);
-		}
-		else
-			typeIDs = null;
-
-		this.table = new Table(database, id, supertype, typeIDs);
+		this.table = new Table(database, id, supertype, typesOfInstancesColumnValues);
 
 		if(supertype!=null)
 			pkSource = supertype.getPkSource();
@@ -307,20 +331,6 @@ public final class Type
 		this.table.finish();
 	}
 	
-	private static final void addRecursive(final List subTypes, final ArrayList typeIDs, int levelLimit)
-	{
-		if(levelLimit<=0)
-			throw new RuntimeException(typeIDs.toString());
-		levelLimit--;
-		
-		for(Iterator i = subTypes.iterator(); i.hasNext(); )
-		{
-			final Type type = (Type)i.next();
-			typeIDs.add(type.getID());
-			addRecursive(type.getSubTypes(), typeIDs, levelLimit);
-		}
-	}
-
 	public final Class getJavaClass()
 	{
 		return javaClass;
@@ -337,6 +347,22 @@ public final class Type
 			throw new RuntimeException("model not set for type "+id+", probably you forgot to put this type into the model.");
 
 		return model;
+	}
+	
+	/**
+	 * Returns a list of types,
+	 * that instances (items) of this type can have.
+	 * These are all subtypes of this type,
+	 * including indirect subtypes,
+	 * and including this type itself,
+	 * which are not abstract.
+	 */
+	final List getTypesOfInstances()
+	{
+		if(typesOfInstances==null)
+			throw new RuntimeException();
+
+		return Collections.unmodifiableList(typesOfInstances);
 	}
 	
 	final Table getTable()
@@ -386,6 +412,11 @@ public final class Type
 	public boolean isAssignableFrom(final Type type)
 	{
 		return javaClass.isAssignableFrom(type.javaClass);
+	}
+	
+	public boolean isAbstract()
+	{
+		return ( javaClass.getModifiers() & Modifier.ABSTRACT ) > 0;
 	}
 	
 

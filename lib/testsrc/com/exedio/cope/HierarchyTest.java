@@ -32,17 +32,20 @@ public class HierarchyTest extends AbstractLibTest
 		// model HierarchySuper
 		assertEquals(null, HierarchySuper.TYPE.getSupertype());
 		assertEqualsUnmodifiable(list(HierarchyFirstSub.TYPE, HierarchySecondSub.TYPE), HierarchySuper.TYPE.getSubTypes());
+		assertEqualsUnmodifiable(list(HierarchyFirstSub.TYPE, HierarchySecondSub.TYPE), HierarchySuper.TYPE.getTypesOfInstances());
 		assertTrue(HierarchySuper.TYPE.isAssignableFrom(HierarchySuper.TYPE));
 		assertTrue(HierarchySuper.TYPE.isAssignableFrom(HierarchyFirstSub.TYPE));
 		assertEqualsUnmodifiable(list(HierarchySuper.superInt, HierarchySuper.superString), HierarchySuper.TYPE.getDeclaredAttributes());
 		assertEqualsUnmodifiable(list(HierarchySuper.superInt, HierarchySuper.superString), HierarchySuper.TYPE.getAttributes());
 		assertEqualsUnmodifiable(list(HierarchySuper.superInt, HierarchySuper.superString, HierarchySuper.superStringUpper), HierarchySuper.TYPE.getDeclaredFeatures());
 		assertEqualsUnmodifiable(list(HierarchySuper.superInt, HierarchySuper.superString, HierarchySuper.superStringUpper), HierarchySuper.TYPE.getFeatures());
+		assertTrue(HierarchySuper.TYPE.isAbstract());
 		assertEquals(HierarchySuper.TYPE, HierarchySuper.superInt.getType());
 		
 		// model HierarchyFirstSub
 		assertEquals(HierarchySuper.TYPE, HierarchyFirstSub.TYPE.getSupertype());
 		assertEqualsUnmodifiable(list(), HierarchyFirstSub.TYPE.getSubTypes());
+		assertEqualsUnmodifiable(list(HierarchyFirstSub.TYPE), HierarchyFirstSub.TYPE.getTypesOfInstances());
 		assertFalse(HierarchyFirstSub.TYPE.isAssignableFrom(HierarchySuper.TYPE));
 		assertTrue(HierarchyFirstSub.TYPE.isAssignableFrom(HierarchyFirstSub.TYPE));
 		assertFalse(HierarchyFirstSub.TYPE.isAssignableFrom(HierarchySecondSub.TYPE));
@@ -51,6 +54,7 @@ public class HierarchyTest extends AbstractLibTest
 		assertEqualsUnmodifiable(list(HierarchySuper.superInt, HierarchySuper.superString, HierarchyFirstSub.firstSubString), HierarchyFirstSub.TYPE.getAttributes());
 		assertEqualsUnmodifiable(list(HierarchyFirstSub.firstSubString, HierarchyFirstSub.firstSubStringUpper), HierarchyFirstSub.TYPE.getDeclaredFeatures());
 		assertEqualsUnmodifiable(list(HierarchySuper.superInt, HierarchySuper.superString, HierarchySuper.superStringUpper, HierarchyFirstSub.firstSubString, HierarchyFirstSub.firstSubStringUpper), HierarchyFirstSub.TYPE.getFeatures());
+		assertFalse(HierarchyFirstSub.TYPE.isAbstract());
 		assertEquals(HierarchyFirstSub.TYPE, HierarchyFirstSub.firstSubString.getType());
 
 		final HierarchyFirstSub firstItem = new HierarchyFirstSub(0);
@@ -91,6 +95,11 @@ public class HierarchyTest extends AbstractLibTest
 		
 		// model HierarchySingle
 		assertEquals(list(HierarchySingleSub.TYPE), HierarchySingleSuper.TYPE.getSubTypes());
+		assertEquals(list(HierarchySingleSub.TYPE), HierarchySingleSuper.TYPE.getTypesOfInstances());
+		assertEquals(list(), HierarchySingleSub.TYPE.getSubTypes());
+		assertEquals(list(HierarchySingleSub.TYPE), HierarchySingleSub.TYPE.getTypesOfInstances());
+		assertTrue(HierarchySingleSuper.TYPE.isAbstract());
+		assertFalse(HierarchySingleSub.TYPE.isAbstract());
 		
 		final HierarchySingleSub singleSub1a = new HierarchySingleSub();
 		deleteOnTearDown(singleSub1a);
@@ -126,7 +135,7 @@ public class HierarchyTest extends AbstractLibTest
 			{
 				throw e;
 			}
-		}		
+		}
 	}
 
 }
