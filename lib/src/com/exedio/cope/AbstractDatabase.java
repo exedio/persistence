@@ -457,8 +457,7 @@ abstract class AbstractDatabase implements Database
 							final Object resultCell;
 							if(selectable instanceof ObjectAttribute)
 							{
-								final Column selectColumn = selectColumns[selectableIndex];
-								dummyRow.put(selectColumn, selectColumn.load(resultSet, columnIndex++));
+								selectColumns[selectableIndex].load(resultSet, columnIndex++, dummyRow);
 								final ObjectAttribute selectAttribute = (ObjectAttribute)selectable;
 								resultCell = selectAttribute.cacheToSurface(dummyRow);
 							}

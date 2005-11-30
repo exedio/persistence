@@ -90,41 +90,12 @@ class IntegerColumn extends Column
 			return null;
 	}
 	
-	final void load(final ResultSet resultSet, final int columnIndex, final PersistentState state)
+	final void load(final ResultSet resultSet, final int columnIndex, final Row row)
 			throws SQLException
 	{
 		final Object loadedInteger = resultSet.getObject(columnIndex);
 		//System.out.println("IntegerColumn.load "+trimmedName+" "+loadedInteger);
-		if(loadedInteger!=null)
-		{
-			state.load(this, convertSQLResult(loadedInteger));
-		}
-	}
-
-	final Object load(final ResultSet resultSet, final int columnIndex)
-			throws SQLException
-	{
-		final Object loadedInteger = resultSet.getObject(columnIndex);
-		//System.out.println("IntegerColumn.load "+trimmedName+" "+loadedInteger);
-		if(loadedInteger!=null)
-		{
-			if(loadedInteger instanceof BigDecimal)
-			{
-				if (longInsteadOfInt)
-					return new Long(((BigDecimal)loadedInteger).longValue());
-				else
-					return new Integer(((BigDecimal)loadedInteger).intValue());
-			}
-			else
-			{
-				if (longInsteadOfInt)
-					return (Long)loadedInteger;
-				else
-					return (Integer)loadedInteger;
-			}
-		}
-		else
-			return null;
+		row.put(this, (loadedInteger!=null) ? convertSQLResult(loadedInteger) : null);
 	}
 
 	final String cacheToDatabase(final Object cache)
@@ -150,20 +121,25 @@ class IntegerColumn extends Column
 		return longInsteadOfInt ? (Object)new Long(1) : new Integer(1);
 	}
 	
-	private final long convertSQLResult(final Object sqlInteger)
+	private final Number convertSQLResult(final Object sqlInteger)
 	{
 		// IMPLEMENTATION NOTE for Oracle
 		// Whether the returned object is an Integer or a BigDecimal,
 		// depends on whether OracleStatement.defineColumnType is used or not,
 		// so we support both here.
 		if(sqlInteger instanceof BigDecimal)
-			return ((BigDecimal)sqlInteger).intValue();
+		{
+			if (longInsteadOfInt)
+				return new Long(((BigDecimal)sqlInteger).longValue());
+			else
+				return new Integer(((BigDecimal)sqlInteger).intValue());
+		}
 		else
 		{
 			if (longInsteadOfInt)
-				return ((Long)sqlInteger).longValue();
+				return (Long)sqlInteger;
 			else
-				return ((Integer)sqlInteger).longValue();
+				return (Integer)sqlInteger;
 		}
 	}
 

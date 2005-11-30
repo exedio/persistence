@@ -85,25 +85,14 @@ final class TimestampColumn extends Column
 		return result;
 	}
 	
-	final void load(final ResultSet resultSet, final int columnIndex, final PersistentState state)
+	final void load(final ResultSet resultSet, final int columnIndex, final Row row)
 			throws SQLException
 	{
 		final Object loadedTimestamp = resultSet.getObject(columnIndex);
 		//System.out.println("TimestampColumn.load "+columnIndex+" "+loadedTimestamp);
-		if(loadedTimestamp!=null)
-		{
-			state.load(this, getTime(((Date)loadedTimestamp)));
-		}
+		row.put(this, (loadedTimestamp!=null) ? new Long(getTime(((Date)loadedTimestamp))) : null);
 	}
 	
-	final Object load(final ResultSet resultSet, final int columnIndex)
-			throws SQLException
-	{
-		final Object loadedTimestamp = resultSet.getObject(columnIndex);
-		//System.out.println("TimestampColumn.load "+columnIndex+" "+loadedTimestamp);
-		return (loadedTimestamp!=null) ? new Long(getTime(((Date)loadedTimestamp))) : null;
-	}
-
 	final String cacheToDatabase(final Object cache)
 	{
 		// Don't use a static instance,

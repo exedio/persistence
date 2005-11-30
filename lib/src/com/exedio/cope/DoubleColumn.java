@@ -44,23 +44,12 @@ final class DoubleColumn extends Column
 		return null;
 	}
 
-	final void load(final ResultSet resultSet, final int columnIndex, final PersistentState state)
+	final void load(final ResultSet resultSet, final int columnIndex, final Row row)
 			throws SQLException
 	{
 		final Object loadedDouble = resultSet.getObject(columnIndex);
 		//System.out.println("IntegerColumn.load "+trimmedName+" "+loadedInteger);
-		if(loadedDouble!=null)
-		{
-			state.load(this, ((Double)loadedDouble).doubleValue());
-		}
-	}
-
-	final Object load(final ResultSet resultSet, final int columnIndex)
-			throws SQLException
-	{
-		final Object loadedDouble = resultSet.getObject(columnIndex);
-		//System.out.println("IntegerColumn.load "+trimmedName+" "+loadedInteger);
-		return (loadedDouble!=null) ? (Double)loadedDouble : null;
+		row.put(this, (loadedDouble!=null) ? (Double)loadedDouble : null);
 	}
 
 	final String cacheToDatabase(final Object cache)

@@ -71,23 +71,14 @@ final class DayColumn extends Column
 		return new Day(m/12, (m%12)+1, (transientNumber%31)+1);
 	}
 	
-	final void load(final ResultSet resultSet, final int columnIndex, final PersistentState state)
+	final void load(final ResultSet resultSet, final int columnIndex, final Row row)
 			throws SQLException
 	{
 		final java.sql.Date loadedDate = resultSet.getDate(columnIndex);
 		//System.out.println("DayColumn.load "+columnIndex+" "+loadedDate);
-		if(loadedDate!=null)
-			state.load(this, getTransientNumber(loadedDate));
+		row.put(this, (loadedDate!=null) ? new Integer(getTransientNumber(loadedDate)) : null);
 	}
 	
-	final Object load(final ResultSet resultSet, final int columnIndex)
-			throws SQLException
-	{
-		final java.sql.Date loadedDate = resultSet.getDate(columnIndex);
-		//System.out.println("DayColumn.load "+columnIndex+" "+loadedDate);
-		return (loadedDate!=null) ? new Integer(getTransientNumber(loadedDate)) : null;
-	}
-
 	final String cacheToDatabase(final Object cache)
 	{
 		if(cache==null)

@@ -101,20 +101,11 @@ final class StringColumn extends Column
 		return bf.length()==0 ? null : bf.toString();
 	}
 
-	void load(final ResultSet resultSet, final int columnIndex, final PersistentState state)
+	void load(final ResultSet resultSet, final int columnIndex, final Row row)
 			throws SQLException
 	{
 		// TODO: should have numbers in cache instead of strings if allowedValues!=null
-		final String loadedString = resultSet.getString(columnIndex);
-		//System.out.println("StringColumn.load:"+loadedString);
-		if(loadedString!=null)
-			state.load(this, loadedString);
-	}
-
-	Object load(final ResultSet resultSet, final int columnIndex)
-			throws SQLException
-	{
-		return resultSet.getString(columnIndex);
+		row.put(this, resultSet.getString(columnIndex));
 	}
 
 	String cacheToDatabase(final Object cache)

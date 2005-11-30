@@ -66,19 +66,11 @@ abstract class Column
 	/**
 	 * Loads the value of the column from a result set,
 	 * that loads the item into memory, and put the results into
-	 * a state.
+	 * a row.
 	 */
-	abstract void load(ResultSet resultSet, int columnIndex, PersistentState state) throws SQLException;
-
-	/**
-	 * Loads the value of the column from a result set,
-	 * that selects that column in a search, and returns the results.
-	 */
-	abstract Object load(ResultSet resultSet, int columnIndex) throws SQLException;
-
+	abstract void load(ResultSet resultSet, int columnIndex, Row row) throws SQLException;
 	abstract String cacheToDatabase(Object cache);
 	abstract Object cacheToDatabasePrepared(Object cache);
-	
 	abstract Object getCheckValue();
 
 	void makeSchema(final com.exedio.dsmf.Table dsmfTable)

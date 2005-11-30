@@ -65,31 +65,6 @@ final class PersistentState extends State implements AbstractDatabase.ResultSetH
 		return new DeletedState( transaction, this );
 	}
 
-	void load(final StringColumn column, final String value)
-	{
-		row.put(column, value);
-	}
-	
-	void load(final IntegerColumn column, final long value)
-	{
-		row.put(column, column.longInsteadOfInt ? (Number)new Long(value) : new Integer((int)value));
-	}
-	
-	void load(final DoubleColumn column, final double value)
-	{
-		row.put(column, new Double(value));
-	}
-	
-	void load(final TimestampColumn column, final long value)
-	{
-		row.put(column, new Long(value));
-	}
-	
-	void load(final DayColumn column, final int value)
-	{
-		row.put(column, new Integer(value));
-	}
-	
 	Object store(final Column column)
 	{
 		throw new RuntimeException();
@@ -116,7 +91,7 @@ final class PersistentState extends State implements AbstractDatabase.ResultSetH
 			for(Type itype = type; itype!=null; itype = itype.getSupertype())
 			{
 				for(Iterator i = itype.getTable().getColumns().iterator(); i.hasNext(); )
-					((Column)i.next()).load(resultSet, columnIndex++, this);
+					((Column)i.next()).load(resultSet, columnIndex++, row);
 			}
 		}
 	}
