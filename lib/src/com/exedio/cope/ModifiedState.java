@@ -22,23 +22,23 @@ package com.exedio.cope;
 final class ModifiedState extends State
 {
 	
-	private Row cache;
+	private Row row;
 	
 	ModifiedState( final Transaction transaction, final State original )
 	{
 		super( original.item );
-		cache = original.stealValues();
+		row = original.stealValues();
 		transaction.addInvalidation( item.type, item.pk );
 	}
 
 	Object get(ObjectAttribute attribute)
 	{
-		return attribute.cacheToSurface(cache.get(attribute.getColumn()));
+		return attribute.cacheToSurface(row.get(attribute.getColumn()));
 	}
 
 	public final State put(Transaction transaction, ObjectAttribute attribute, Object value)
 	{
-		cache.put(attribute.getColumn(), attribute.surfaceToCache(value));
+		row.put(attribute.getColumn(), attribute.surfaceToCache(value));
 		return this;
 	}
 
@@ -73,13 +73,13 @@ final class ModifiedState extends State
 	
 	Object store(final Column column)
 	{
-		return cache.get(column);
+		return row.get(column);
 	}
 
 	Row stealValues()
 	{
-		Row result = cache;
-		cache = null;
+		final Row result = row;
+		row = null;
 		return result;
 	}
 
@@ -90,7 +90,7 @@ final class ModifiedState extends State
 
 	public String toStringWithValues()
 	{
-		return toString()+cache.toString();
+		return toString()+row.toString();
 	}
 	
 }

@@ -50,4 +50,9 @@ final class Row
 		impl.put(column, value);
 	}
 	
+	public String toString()
+	{
+		return impl.toString();
+	}
+	
 }

@@ -26,13 +26,13 @@ import java.util.Iterator;
 final class PersistentState extends State implements AbstractDatabase.ResultSetHandler
 {
 	
-	private final Row cache;
+	private final Row row;
 	private long lastUsageMillis;
 	
 	PersistentState( final Connection connection, final Item item )
 	{
 		super( item );
-		cache = new Row();
+		row = new Row();
 		type.getModel().getDatabase().load( connection, this );
 		lastUsageMillis = System.currentTimeMillis();
 	}
@@ -40,15 +40,15 @@ final class PersistentState extends State implements AbstractDatabase.ResultSetH
 	PersistentState( final State original )
 	{
 		super( original.item );
-		cache = original.stealValues();
-		if ( cache==null ) throw new RuntimeException( original.getClass().getName() );
+		row = original.stealValues();
+		if(row==null) throw new RuntimeException(original.getClass().getName());
 		lastUsageMillis = System.currentTimeMillis();
 	}
 	
 	Object get(ObjectAttribute attribute)
 	{
 		final Column column = attribute.getColumn();
-		final Object cachedValue = cache.get(column);
+		final Object cachedValue = row.get(column);
 		return attribute.cacheToSurface( cachedValue );
 	}
 
@@ -69,27 +69,27 @@ final class PersistentState extends State implements AbstractDatabase.ResultSetH
 
 	void load(final StringColumn column, final String value)
 	{
-		cache.put(column, value);
+		row.put(column, value);
 	}
 	
 	void load(final IntegerColumn column, final long value)
 	{
-		cache.put(column, column.longInsteadOfInt ? (Number)new Long(value) : new Integer((int)value));
+		row.put(column, column.longInsteadOfInt ? (Number)new Long(value) : new Integer((int)value));
 	}
 	
 	void load(final DoubleColumn column, final double value)
 	{
-		cache.put(column, new Double(value));
+		row.put(column, new Double(value));
 	}
 	
 	void load(final TimestampColumn column, final long value)
 	{
-		cache.put(column, new Long(value));
+		row.put(column, new Long(value));
 	}
 	
 	void load(final DayColumn column, final int value)
 	{
-		cache.put(column, new Integer(value));
+		row.put(column, new Integer(value));
 	}
 	
 	Object store(final Column column)
@@ -99,7 +99,7 @@ final class PersistentState extends State implements AbstractDatabase.ResultSetH
 
 	Row stealValues()
 	{
-		return new Row(cache);
+		return new Row(row);
 	}
 
 	boolean exists()
@@ -135,7 +135,7 @@ final class PersistentState extends State implements AbstractDatabase.ResultSetH
 	
 	public String toStringWithValues()
 	{
-		return toString()+cache.toString();
+		return toString()+row.toString();
 	}
 	
 }
