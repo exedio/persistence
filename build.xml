@@ -392,15 +392,15 @@
 					<fileset file="xlib/@{db.driver}" />
 				</copy>
 				
-				<path id="webdatadir.@{db.file}.path">
+				<path id="lib.webdatadir.@{db.file}.path">
 					<pathelement location="lib/build/testwebapp-@{db}-data" />
 				</path>
-				<pathconvert targetos="unix" property="webdatadir.@{db.file}" refid="webdatadir.@{db.file}.path" />
+				<pathconvert targetos="unix" property="lib.webdatadir.@{db.file}" refid="lib.webdatadir.@{db.file}.path" />
 				
 				<copy tofile="lib/build/testwebapp-@{db}/WEB-INF/cope.properties"
 						file="@{db.file}">
 					<filterset>
-						<filter token="DATADIR_PATH" value="${webdatadir.@{db.file}}" />
+						<filter token="DATADIR_PATH" value="${lib.webdatadir.@{db.file}}" />
 					</filterset>
 				</copy>
 				<copy todir="lib/build/testwebapp-@{db}/WEB-INF/"
@@ -516,15 +516,15 @@
 					<fileset file="xlib/@{db.driver}" />
 				</copy>
 				
-				<path id="webdatadir.@{db.file}.path">
+				<path id="copernica.webdatadir.@{db.file}.path">
 					<pathelement location="copernica/build/testwebapp-@{db}-data" />
 				</path>
-				<pathconvert targetos="unix" property="webdatadir.@{db.file}" refid="webdatadir.@{db.file}.path" />
+				<pathconvert targetos="unix" property="copernica.webdatadir.@{db.file}" refid="copernica.webdatadir.@{db.file}.path" />
 				
 				<copy tofile="copernica/build/testwebapp-@{db}/WEB-INF/cope.properties"
 						file="@{db.file}">
 					<filterset>
-						<filter token="DATADIR_PATH" value="${webdatadir.@{db.file}}" />
+						<filter token="DATADIR_PATH" value="${copernica.webdatadir.@{db.file}}" />
 					</filterset>
 				</copy>
 				<copy todir="copernica/build/testwebapp-@{db}/WEB-INF/"
