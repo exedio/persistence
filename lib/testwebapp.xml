@@ -1,0 +1,18 @@
+
+<Context
+		path="/copelibtest-@DATABASE@"
+		docBase="../../persistence/lib/build/testwebapp-@DATABASE@"
+		debug="0"
+		privileged="true">
+	<Logger
+			className="org.apache.catalina.logger.FileLogger"
+			prefix="localhost_copelibtest_@DATABASE@_log."
+			suffix=".txt"
+			timestamp="true"/>
+
+	<!-- Disables session persistence in SESSIONS.ser -->
+	<Manager
+			className="org.apache.catalina.session.StandardManager"
+			pathname="" />
+
+</Context>

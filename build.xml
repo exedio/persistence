@@ -373,7 +373,57 @@
 
 	<target name="teardown" depends="lib.test.teardown" />
 
+	<target name="lib.testwebapp" depends="lib.compile, lib.test.compile, lib.testmodel.compile, copernica.compile">
+		<foreachdb message="Using" skipSwitch="lib.testwebapp">
+			<body>
+				<mkdir dir="lib/build/testwebapp-@{db}" />
+				
+				<copy todir="lib/build/testwebapp-@{db}/WEB-INF/classes">
+					<fileset dir="lib/build/classes" />
+					<fileset dir="lib/build/testclasses" />
+					<fileset dir="lib/build/testmodelclasses" />
+					<fileset dir="copernica/build/classes" />
+				</copy>
+				
+				<copy todir="lib/build/testwebapp-@{db}/WEB-INF/lib">
+					<fileset file="xlib/pcj.jar" />
+					<fileset file="xlib/commons-collections.jar" />
+					<fileset file="xlib/exedio-cops.jar" />
+					<fileset file="xlib/@{db.driver}" />
+				</copy>
+				
+				<path id="webdatadir.@{db.file}.path">
+					<pathelement location="lib/build/testwebapp-@{db}-data" />
+				</path>
+				<pathconvert targetos="unix" property="webdatadir.@{db.file}" refid="webdatadir.@{db.file}.path" />
+				
+				<copy tofile="lib/build/testwebapp-@{db}/WEB-INF/cope.properties"
+						file="@{db.file}">
+					<filterset>
+						<filter token="DATADIR_PATH" value="${webdatadir.@{db.file}}" />
+					</filterset>
+				</copy>
+				<copy todir="lib/build/testwebapp-@{db}/WEB-INF/"
+						file="lib/web.xml" />
+				<mkdir dir="lib/build/testwebapp-@{db}-data" />
+				<touch file="lib/build/testwebapp-@{db}/WEB-INF/web.xml" />
+			</body>
+		</foreachdb>
+	</target>
 
+	<target name="lib.tomcat" depends="lib.testwebapp, catalina.home">
+		<foreachdb message="Using" skipSwitch="lib.tomcat">
+			<body>
+				<copy tofile="${catalina.home}/conf/Catalina/localhost/copelibtest-@{db}.xml"
+						file="lib/testwebapp.xml">
+					<filterset>
+						<filter token="DATABASE" value="@{db}" />
+					</filterset>
+				</copy>
+			</body>
+		</foreachdb>
+	</target>
+	
 	<target name="instrument.test.instrument" depends="instrument.taskdef">
 		<instrument verbose="false">
 			<fileset dir="instrument/testsrc/com/exedio/cope/instrument/testmodel">
@@ -485,10 +535,8 @@
 		</foreachdb>
 	</target>
 	
-	<target name="testwebapp" depends="copernica.testwebapp" />
-	
-	<target name="tomcat" depends="testwebapp, catalina.home">
-		<foreachdb message="Using" skipSwitch="copernica.testwebapp">
+	<target name="copernica.tomcat" depends="copernica.testwebapp, catalina.home">
+		<foreachdb message="Using" skipSwitch="copernica.tomcat">
 			<body>
 				<copy tofile="${catalina.home}/conf/Catalina/localhost/copetest-@{db}.xml"
 						file="copernica/copetest.xml">
@@ -529,12 +577,19 @@
 	
 	<target name="instrument" depends="instrument.test.instrument, lib.testmodel.instrument" />
 	
+	<target name="testwebapp" depends="lib.testwebapp, copernica.testwebapp" />
+	
+	<target name="tomcat" depends="lib.tomcat, copernica.tomcat" />
+	
 	<target name="dsmf.clean">
 		<delete dir="dsmf/build" />
 	</target>
 	
-	<target name="lib.clean">
+	<target name="lib.clean" depends="catalina.home">
 		<delete dir="lib/build" />
+		<fileset dir="${catalina.home}">
+			<include name="conf/Catalina/localhost/copelibtest-*.xml" />
+		</fileset>
 	</target>
 
 	<target name="instrument.clean">
