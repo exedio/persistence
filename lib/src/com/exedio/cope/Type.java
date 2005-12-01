@@ -62,6 +62,7 @@ public final class Type
 	
 	private Model model;
 	private ArrayList typesOfInstances;
+	private Type onlyPossibleTypeOfInstances;
 	private String[] typesOfInstancesColumnValues;
 	
 	private Table table;
@@ -264,6 +265,10 @@ public final class Type
 			throw new RuntimeException();
 		if(this.typesOfInstances!=null)
 			throw new RuntimeException();
+		if(this.onlyPossibleTypeOfInstances!=null)
+			throw new RuntimeException();
+		if(this.typesOfInstancesColumnValues!=null)
+			throw new RuntimeException();
 		if(this.table!=null)
 			throw new RuntimeException();
 		if(this.pkSource!=null)
@@ -281,7 +286,7 @@ public final class Type
 			case 0:
 				throw new RuntimeException("type "+id+" is abstract and has no non-abstract (even indirect) subtypes");
 			case 1:
-				typesOfInstancesColumnValues = null;
+				onlyPossibleTypeOfInstances = (Type)typesOfInstances.iterator().next();
 				break;
 			default:
 				typesOfInstancesColumnValues = new String[typesOfInstances.size()];
@@ -364,6 +369,14 @@ public final class Type
 			throw new RuntimeException();
 
 		return Collections.unmodifiableList(typesOfInstances);
+	}
+	
+	final Type getOnlyPossibleTypeOfInstances()
+	{
+		if(typesOfInstances==null)
+			throw new RuntimeException();
+
+		return onlyPossibleTypeOfInstances;
 	}
 	
 	final String[] getTypesOfInstancesColumnValues()

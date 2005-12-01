@@ -333,10 +333,10 @@ abstract class AbstractDatabase implements Database
 								append(selectTypeColumn, (Join)null).defineColumn(selectTypeColumn);
 						}
 						else
-							selectTypes[selectableIndex] = selectType;
+							selectTypes[selectableIndex] = selectType.getOnlyPossibleTypeOfInstances();
 					}
 					else
-						selectTypes[selectableIndex] = selectType;
+						selectTypes[selectableIndex] = selectType.getOnlyPossibleTypeOfInstances();
 				}
 	
 				selectColumns[selectableIndex] = selectColumn;

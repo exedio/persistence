@@ -18,8 +18,6 @@
 
 package com.exedio.cope;
 
-import java.util.List;
-
 import com.exedio.cope.search.EqualCondition;
 import com.exedio.cope.search.EqualTargetCondition;
 import com.exedio.cope.search.NotEqualCondition;
@@ -99,16 +97,9 @@ public final class ItemAttribute extends ObjectAttribute
 		
 		final String[] typeColumnValues = targetType.getTypesOfInstancesColumnValues();
 		if(typeColumnValues==null)
-		{
-			final List typesOfTargetInstances = targetType.getTypesOfInstances();
-			if(typesOfTargetInstances.size()!=1)
-				throw new RuntimeException(typesOfTargetInstances.toString());
-			onlyPossibleTargetType = (Type)typesOfTargetInstances.iterator().next();
-		}
+			onlyPossibleTargetType = targetType.getOnlyPossibleTypeOfInstances();
 		else
-		{
 			typeColumn = new StringColumn(table, name+"Type", notNull, typeColumnValues);
-		}
 
 		return result;
 	}
