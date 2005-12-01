@@ -43,12 +43,12 @@ public final class LongAttribute extends ObjectAttribute
 		return new IntegerColumn(table, name, notNull, 20, true, null);
 	}
 	
-	Object cacheToSurface(final Row row)
+	Object get(final Row row)
 	{
 		return (Long)row.get(getColumn());
 	}
 		
-	void surfaceToCache(final Row row, final Object surface)
+	void set(final Row row, final Object surface)
 	{
 		row.put(getColumn(), (Long)surface);
 	}

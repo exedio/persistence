@@ -52,13 +52,13 @@ public final class DateAttribute extends ObjectAttribute
 				: (Column)new TimestampColumn(table, name, notNull);
 	}
 	
-	Object cacheToSurface(final Row row)
+	Object get(final Row row)
 	{
 		final Object cell = row.get(getColumn());
 		return cell==null ? null : new Date(((Long)cell).longValue());
 	}
 		
-	void surfaceToCache(final Row row, final Object surface)
+	void set(final Row row, final Object surface)
 	{
 		row.put(getColumn(), surface==null ? null : new Long(((Date)surface).getTime()));
 	}

@@ -47,7 +47,7 @@ final class PersistentState extends State implements AbstractDatabase.ResultSetH
 	
 	Object get(ObjectAttribute attribute)
 	{
-		return attribute.cacheToSurface(row);
+		return attribute.get(row);
 	}
 
 	public final State put(final Transaction transaction, final ObjectAttribute attribute, final Object value)

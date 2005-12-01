@@ -40,7 +40,7 @@ public final class BooleanAttribute extends ObjectAttribute
 		return new IntegerColumn(table, name, notNull, 1, false, ALLOWED_VALUES);
 	}
 	
-	Object cacheToSurface(final Row row)
+	Object get(final Row row)
 	{
 		final Object cell = row.get(getColumn());
 		if(cell==null)
@@ -62,7 +62,7 @@ public final class BooleanAttribute extends ObjectAttribute
 	static final Integer FALSE = new Integer(0);
 	static final Integer TRUE = new Integer(1);
 		
-	void surfaceToCache(final Row row, final Object surface)
+	void set(final Row row, final Object surface)
 	{
 		row.put(getColumn(), 	surface==null ? 	null : 	((Boolean)surface).booleanValue() ? TRUE : FALSE);
 	}

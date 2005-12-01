@@ -43,12 +43,12 @@ public final class DoubleAttribute extends ObjectAttribute
 		return new DoubleColumn(table, name, notNull, 30);
 	}
 
-	Object cacheToSurface(final Row row)
+	Object get(final Row row)
 	{
 		return (Double)row.get(getColumn());
 	}
 	
-	void surfaceToCache(final Row row, final Object surface)
+	void set(final Row row, final Object surface)
 	{
 		row.put(getColumn(), (Double)surface);
 	}

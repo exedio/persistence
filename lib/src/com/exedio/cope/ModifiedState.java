@@ -33,12 +33,12 @@ final class ModifiedState extends State
 
 	Object get(ObjectAttribute attribute)
 	{
-		return attribute.cacheToSurface(row);
+		return attribute.get(row);
 	}
 
 	public final State put(Transaction transaction, ObjectAttribute attribute, Object value)
 	{
-		attribute.surfaceToCache(row, value);
+		attribute.set(row, value);
 		return this;
 	}
 

@@ -44,12 +44,12 @@ public final class IntegerAttribute extends ObjectAttribute implements IntegerFu
 		return new IntegerColumn(table, name, notNull, 10, false, null);
 	}
 	
-	Object cacheToSurface(final Row row)
+	Object get(final Row row)
 	{
 		return (Integer)row.get(getColumn());
 	}
 		
-	void surfaceToCache(final Row row, final Object surface)
+	void set(final Row row, final Object surface)
 	{
 		row.put(getColumn(), (Integer)surface);
 	}

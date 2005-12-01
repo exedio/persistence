@@ -170,7 +170,7 @@ public final class Statement
 		{
 			final ObjectAttribute attribute = (ObjectAttribute)function;
 			final Row dummyRow = new Row();
-			attribute.surfaceToCache(dummyRow, value);
+			attribute.set(dummyRow, value);
 			final Column column = attribute.getColumn();
 			appendParameter(column, dummyRow.get(column));
 		}

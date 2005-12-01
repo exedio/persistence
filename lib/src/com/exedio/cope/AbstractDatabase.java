@@ -459,7 +459,7 @@ abstract class AbstractDatabase implements Database
 							{
 								selectColumns[selectableIndex].load(resultSet, columnIndex++, dummyRow);
 								final ObjectAttribute selectAttribute = (ObjectAttribute)selectable;
-								resultCell = selectAttribute.cacheToSurface(dummyRow);
+								resultCell = selectAttribute.get(dummyRow);
 							}
 							else if(selectable instanceof ComputedFunction)
 							{
