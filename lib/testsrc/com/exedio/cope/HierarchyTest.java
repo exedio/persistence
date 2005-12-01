@@ -118,24 +118,21 @@ public class HierarchyTest extends AbstractLibTest
 		assertEquals("a", singleSub2a.getSubString());
 		assertEquals(new Integer(1), singleSub1b.getSuperInt());
 		
-		
+		assertEquals(null, singleSub1a.getHierarchySuper());
 		singleSub1a.setHierarchySuper( firstItem );
-		
-		try
-		{
-			singleSub1a.getHierarchySuper();
-		}
-		catch( NestingRuntimeException e )
-		{
-			if( e.getNestedCause() instanceof InstantiationException)
-			{
-				//TODO: this is a bug
-			}
-			else
-			{
-				throw e;
-			}
-		}
+		assertEquals(firstItem, singleSub1a.getHierarchySuper());
+		restartTransaction();
+		assertEquals(firstItem, singleSub1a.getHierarchySuper());
+
+		singleSub1a.setHierarchySuper(secondItem2);
+		assertEquals(secondItem2, singleSub1a.getHierarchySuper());
+		restartTransaction();
+		assertEquals(secondItem2, singleSub1a.getHierarchySuper());
+
+		singleSub1a.setHierarchySuper(null);
+		assertEquals(null, singleSub1a.getHierarchySuper());
+		restartTransaction();
+		assertEquals(null, singleSub1a.getHierarchySuper());
 	}
 
 }

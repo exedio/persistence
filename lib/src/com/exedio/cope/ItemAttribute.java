@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import java.util.List;
+
 import com.exedio.cope.search.EqualCondition;
 import com.exedio.cope.search.EqualTargetCondition;
 import com.exedio.cope.search.NotEqualCondition;
@@ -54,6 +56,8 @@ public final class ItemAttribute extends ObjectAttribute
 	}
 	
 	Type targetType = null;
+	Type onlyPossibleTargetType = null;
+	StringColumn typeColumn = null;
 
 	public ObjectAttribute copyAsTemplate()
 	{
@@ -83,22 +87,85 @@ public final class ItemAttribute extends ObjectAttribute
 	{
 		if(targetType!=null)
 			throw new RuntimeException();
+		if(onlyPossibleTargetType!=null)
+			throw new RuntimeException();
+		if(typeColumn!=null)
+			throw new RuntimeException();
 		
 		targetType = Type.findByJavaClass(targetTypeClass);
 		targetType.registerReference(this);
+		
+		final ItemColumn result = new ItemColumn(table, name, notNull, targetTypeClass, this);
+		
+		final String[] typeColumnValues = targetType.getTypesOfInstancesColumnValues();
+		if(typeColumnValues==null)
+		{
+			final List typesOfTargetInstances = targetType.getTypesOfInstances();
+			if(typesOfTargetInstances.size()!=1)
+				throw new RuntimeException(typesOfTargetInstances.toString());
+			onlyPossibleTargetType = (Type)typesOfTargetInstances.iterator().next();
+		}
+		else
+		{
+			typeColumn = new StringColumn(table, name+"Type", notNull, typeColumnValues);
+		}
 
-		return new ItemColumn(table, name, notNull, targetTypeClass, this);
+		return result;
 	}
 	
 	Object get(final Row row)
 	{
 		final Object cell = row.get(getColumn());
-		return cell==null ? null : getTargetType().getItemObject(((Integer)cell).intValue());
+
+		if(cell==null)
+		{
+			if(typeColumn!=null && row.get(typeColumn)!=null)
+				throw new RuntimeException("inconsistent type column: "+row.get(typeColumn));
+			
+			return null;
+		}
+		else
+		{
+			final Type cellType;
+			if(typeColumn!=null)
+			{
+				final String cellTypeID = (String)row.get(typeColumn);
+				
+				if(cellTypeID==null)
+					throw new RuntimeException("inconsistent type column");
+				
+				cellType = getTargetType().getModel().findTypeByID(cellTypeID);
+				
+				if(cellType==null)
+					throw new RuntimeException(cellTypeID);
+			}
+			else
+			{
+				cellType = onlyPossibleTargetType;
+				
+				if(cellType==null)
+					throw new RuntimeException();
+			}
+			
+			return cellType.getItemObject(((Integer)cell).intValue());
+		}
 	}
 		
 	void set(final Row row, final Object surface)
 	{
-		row.put(getColumn(), surface==null ? null : new Integer(((Item)surface).pk));
+		if(surface==null)
+		{
+			row.put(getColumn(), null);
+			if(typeColumn!=null)
+				row.put(typeColumn, null);
+		}
+		else
+		{
+			final Item valueItem = (Item)surface;
+			row.put(getColumn(), new Integer(valueItem.pk));
+			if(typeColumn!=null)
+				row.put(typeColumn, valueItem.type.id);
+		}
 	}
 	
 	public final Item get(final Item item)

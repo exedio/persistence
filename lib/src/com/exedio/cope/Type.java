@@ -279,6 +279,7 @@ public final class Type
 		switch(typesOfInstances.size())
 		{
 			case 0:
+				throw new RuntimeException("type "+id+" is abstract and has no non-abstract (even indirect) subtypes");
 			case 1:
 				typesOfInstancesColumnValues = null;
 				break;
@@ -363,6 +364,21 @@ public final class Type
 			throw new RuntimeException();
 
 		return Collections.unmodifiableList(typesOfInstances);
+	}
+	
+	final String[] getTypesOfInstancesColumnValues()
+	{
+		if(typesOfInstances==null)
+			throw new RuntimeException();
+		
+		if(typesOfInstancesColumnValues==null)
+			return null;
+		else
+		{
+			final String[] result = new String[typesOfInstancesColumnValues.length];
+			System.arraycopy(typesOfInstancesColumnValues, 0, result, 0, result.length);
+			return result;
+		}
 	}
 	
 	final Table getTable()
