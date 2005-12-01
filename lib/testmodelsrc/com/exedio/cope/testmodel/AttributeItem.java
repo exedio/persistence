@@ -589,7 +589,7 @@ public class AttributeItem extends Item
 	{
 		try
 		{
-			touch(AttributeItem.someDate);
+			AttributeItem.someDate.touch(this);
 		}
 		catch(com.exedio.cope.ReadOnlyViolationException e)
 		{

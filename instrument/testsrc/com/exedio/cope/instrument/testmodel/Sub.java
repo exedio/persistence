@@ -215,7 +215,7 @@ public class Sub extends Super
 	{
 		try
 		{
-			touch(Sub.subNonInitial);
+			Sub.subNonInitial.touch(this);
 		}
 		catch(com.exedio.cope.ReadOnlyViolationException e)
 		{

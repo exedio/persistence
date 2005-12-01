@@ -78,6 +78,29 @@ public final class DateAttribute extends ObjectAttribute
 		item.set(this, value);
 	}
 
+	/**
+	 * @throws ReadOnlyViolationException
+	 *         if this attribute is {@link #isReadOnly() read-only}.
+	 */
+	public final void touch(final Item item)
+		throws
+			UniqueViolationException,
+			ReadOnlyViolationException
+	{
+		try
+		{
+			set(item, new Date()); // TODO: make a more efficient implementation
+		}
+		catch(MandatoryViolationException e)
+		{
+			throw new NestingRuntimeException(e);
+		}
+		catch(LengthViolationException e)
+		{
+			throw new NestingRuntimeException(e);
+		}
+	}
+
 	public final EqualCondition equal(final Date value)
 	{
 		return new EqualCondition(null, this, value);

@@ -749,7 +749,7 @@ public class Standard extends Item
 	{
 		try
 		{
-			touch(Standard.mandatoryDate);
+			Standard.mandatoryDate.touch(this);
 		}
 		catch(com.exedio.cope.ReadOnlyViolationException e)
 		{
@@ -808,7 +808,7 @@ public class Standard extends Item
 	{
 		try
 		{
-			touch(Standard.privateDate);
+			Standard.privateDate.touch(this);
 		}
 		catch(com.exedio.cope.ReadOnlyViolationException e)
 		{

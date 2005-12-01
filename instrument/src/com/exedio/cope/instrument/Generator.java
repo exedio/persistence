@@ -1096,11 +1096,11 @@ final class Generator
 	{
 		final SortedSet exceptionsToCatch = attribute.getExceptionsToCatchInToucher();
 		writeTryCatchClausePrefix(exceptionsToCatch);
-		o.write("\t\ttouch(");
+		o.write("\t\t");
 		o.write(attribute.copeClass.getName());
 		o.write('.');
 		o.write(attribute.getName());
-		o.write(");");
+		o.write(".touch(this);");
 		o.write(lineSeparator);
 		writeTryCatchClausePostfix(exceptionsToCatch);
 	}

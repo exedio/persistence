@@ -19,7 +19,6 @@
 package com.exedio.cope;
 
 import java.util.Collection;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -311,29 +310,6 @@ public abstract class Item extends Cope
 		final Entity entity = getEntity();		
 		entity.put(attributeValues);
 		entity.write();
-	}
-
-	/**
-	 * @throws ReadOnlyViolationException
-	 *         if <code>attribute</code> is {@link Attribute#isReadOnly() read-only}.
-	 */
-	public final void touch(final DateAttribute attribute)
-		throws
-			UniqueViolationException,
-			ReadOnlyViolationException
-	{
-		try
-		{
-			set(attribute, new Date()); // TODO: make a more efficient implementation
-		}
-		catch(MandatoryViolationException e)
-		{
-			throw new NestingRuntimeException(e);
-		}
-		catch(LengthViolationException e)
-		{
-			throw new NestingRuntimeException(e);
-		}
 	}
 
 	public final void deleteCopeItem()
