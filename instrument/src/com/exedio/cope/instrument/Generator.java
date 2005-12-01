@@ -306,7 +306,7 @@ final class Generator
 		{
 			final CopeAttribute initialAttribute = (CopeAttribute)i.next();
 			o.write("\t\t\tnew "+AttributeValue.class.getName()+"(");
-			o.write(initialAttribute.copeClass.getName());
+			o.write(copeClass.getName());
 			o.write('.');
 			o.write(initialAttribute.getName());
 			o.write(',');

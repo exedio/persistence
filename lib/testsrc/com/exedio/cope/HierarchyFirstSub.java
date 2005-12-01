@@ -46,7 +46,7 @@ public class HierarchyFirstSub extends HierarchySuper
 				final int superInt)
 	{
 		this(new com.exedio.cope.AttributeValue[]{
-			new com.exedio.cope.AttributeValue(HierarchySuper.superInt,new java.lang.Integer(superInt)),
+			new com.exedio.cope.AttributeValue(HierarchyFirstSub.superInt,new java.lang.Integer(superInt)),
 		});
 	}/**
 
