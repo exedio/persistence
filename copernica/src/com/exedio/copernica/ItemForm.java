@@ -81,7 +81,7 @@ final class ItemForm extends Form
 	/*TODO final*/ boolean hasFiles;
 	boolean toSave = false;
 	final CopernicaSection currentSection;
-	final ArrayList visibleFields;
+	final List displayedAttributes;
 	boolean deleted = false;
 	String deletedName = null;
 	String deletedError = null;
@@ -94,10 +94,9 @@ final class ItemForm extends Form
 		this.type = item.getCopeType();
 		final CopernicaProvider provider = cop.provider;
 		final Model model = provider.getModel();
-		final List displayedAttributes;
 		final List hiddenAttributes;
 		final Collection sections = provider.getSections(type);
-		this.visibleFields = new ArrayList();
+		final ArrayList visibleFields = new ArrayList();
 
 		boolean sectionButton = false;
 		if(sections!=null)
@@ -179,29 +178,21 @@ final class ItemForm extends Form
 		for(Iterator j = attributes.iterator(); j.hasNext(); )
 		{
 			final Attribute anyAttribute = (Attribute)j.next();
-			final Field field;
-			if(anyAttribute instanceof ObjectAttribute)
+			if(!anyAttribute.isReadOnly())
 			{
-				field = createField((ObjectAttribute)anyAttribute, post, cop, model);
-			}
-			else if(anyAttribute instanceof DataAttribute)
-			{
-				final DataAttribute attribute = (DataAttribute)anyAttribute;
-				field = new StringField(this, attribute, null, true, "");
-				if(!attribute.isReadOnly())
+				if(anyAttribute instanceof ObjectAttribute)
+				{
+					final Field field = createField((ObjectAttribute)anyAttribute, post, cop, model);
+					toSave = true;
+					if(displayedAttributes.contains(anyAttribute))
+						visibleFields.add(field);
+				}
+				else if(anyAttribute instanceof DataAttribute)
 				{
 					toSave = true;
 					hasFilesTemp = true;
 				}
 			}
-			else
-				continue;
-			
-			if(displayedAttributes.contains(anyAttribute))
-				visibleFields.add(field);
-
-			if(!field.isReadOnly())
-				toSave = true;
 		}
 		this.hasFiles = hasFilesTemp;
 
@@ -259,9 +250,9 @@ final class ItemForm extends Form
 			if(attribute.isMandatory())
 			{
 				if(post)
-					return new CheckboxField(this, attribute, name, readOnly);
+					return new CheckboxField(this, attribute, name);
 				else
-					return new CheckboxField(this, attribute, name, readOnly, ((Boolean)item.get(attribute)).booleanValue());
+					return new CheckboxField(this, attribute, name, ((Boolean)item.get(attribute)).booleanValue());
 			}
 			else
 			{
@@ -274,44 +265,44 @@ final class ItemForm extends Form
 		else if(attribute instanceof IntegerAttribute)
 		{
 			if(post)
-				return new IntegerField(this, attribute, name, readOnly);
+				return new IntegerField(this, attribute, name);
 			else
-				return new IntegerField(this, attribute, name, readOnly, (Integer)item.get(attribute));
+				return new IntegerField(this, attribute, name, (Integer)item.get(attribute));
 		}
 		else if(attribute instanceof LongAttribute)
 		{
 			if(post)
-				return new LongField(this, attribute, name, readOnly);
+				return new LongField(this, attribute, name);
 			else
-				return new LongField(this, attribute, name, readOnly, (Long)item.get(attribute));
+				return new LongField(this, attribute, name, (Long)item.get(attribute));
 		}
 		else if(attribute instanceof DoubleAttribute)
 		{
 			if(post)
-				return new DoubleField(this, attribute, name, readOnly);
+				return new DoubleField(this, attribute, name);
 			else
-				return new DoubleField(this, attribute, name, readOnly, (Double)item.get(attribute));
+				return new DoubleField(this, attribute, name, (Double)item.get(attribute));
 		}
 		else if(attribute instanceof DateAttribute)
 		{
 			if(post)
-				return new DateField(this, attribute, name, readOnly);
+				return new DateField(this, attribute, name);
 			else
-				return new DateField(this, attribute, name, readOnly, (Date)item.get(attribute));
+				return new DateField(this, attribute, name, (Date)item.get(attribute));
 		}
 		else if(attribute instanceof StringAttribute)
 		{
 			if(post)
-				return new StringField(this, attribute, name, readOnly);
+				return new StringField(this, attribute, name);
 			else
-				return new StringField(this, attribute, name, readOnly, (String)item.get(attribute));
+				return new StringField(this, attribute, name, (String)item.get(attribute));
 		}
 		else if(attribute instanceof ItemAttribute)
 		{
 			if(post)
-				return new ItemField(attribute, name, readOnly, model, cop);
+				return new ItemField(attribute, name, model, cop);
 			else
-				return new ItemField(attribute, name, readOnly, (Item)item.get(attribute), model, cop);
+				return new ItemField(attribute, name, (Item)item.get(attribute), model, cop);
 		}
 		else
 		{
@@ -328,9 +319,9 @@ final class ItemForm extends Form
 		/**
 		 * Constructs a form field with an initial value.
 		 */
-		public ItemField(final Object key, final String name, final boolean readOnly, final Item value, final Model model, final ItemCop cop)
+		public ItemField(final Object key, final String name, final Item value, final Model model, final ItemCop cop)
 		{
-			super(ItemForm.this, key, name, readOnly, (value==null) ? "" : value.getCopeID());
+			super(ItemForm.this, key, name, (value==null) ? "" : value.getCopeID());
 
 			this.model = model;
 			this.cop = cop;
@@ -340,9 +331,9 @@ final class ItemForm extends Form
 		/**
 		 * Constructs a form field with a value obtained from the submitted form.
 		 */
-		public ItemField(final Object key, final String name, final boolean readOnly, final Model model, final ItemCop cop)
+		public ItemField(final Object key, final String name, final Model model, final ItemCop cop)
 		{
-			super(ItemForm.this, key, name, readOnly);
+			super(ItemForm.this, key, name);
 			this.model = model;
 			this.cop = cop;
 
@@ -389,7 +380,7 @@ final class ItemForm extends Form
 		 */
 		EnumField(final EnumAttribute attribute, final EnumValue value, final ItemCop cop)
 		{
-			super(ItemForm.this, attribute, attribute.getName(), attribute.isReadOnly(), (value==null) ? VALUE_NULL : value.getCode());
+			super(ItemForm.this, attribute, attribute.getName(), (value==null) ? VALUE_NULL : value.getCode());
 			
 			this.attribute = attribute;
 			this.content = value;
@@ -401,7 +392,7 @@ final class ItemForm extends Form
 		 */
 		EnumField(final EnumAttribute attribute, final ItemCop cop)
 		{
-			super(ItemForm.this, attribute, attribute.getName(), attribute.isReadOnly());
+			super(ItemForm.this, attribute, attribute.getName());
 			
 			this.attribute = attribute;
 			addOptions(cop);
@@ -452,7 +443,7 @@ final class ItemForm extends Form
 		 */
 		BooleanEnumField(final BooleanAttribute attribute, final Boolean value, final ItemCop cop)
 		{
-			super(ItemForm.this, attribute, attribute.getName(), attribute.isReadOnly(), value==null ? VALUE_NULL : value.booleanValue() ? VALUE_ON : VALUE_OFF);
+			super(ItemForm.this, attribute, attribute.getName(), value==null ? VALUE_NULL : value.booleanValue() ? VALUE_ON : VALUE_OFF);
 			
 			this.content = value;
 			addOptions(cop);
@@ -463,7 +454,7 @@ final class ItemForm extends Form
 		 */
 		BooleanEnumField(final BooleanAttribute attribute, final ItemCop cop)
 		{
-			super(ItemForm.this, attribute, attribute.getName(), attribute.isReadOnly());
+			super(ItemForm.this, attribute, attribute.getName());
 			addOptions(cop);
 
 			final String value = this.value;
@@ -531,13 +522,10 @@ final class ItemForm extends Form
 					}
 				}
 			}
-			if(!field.isReadOnly())
+			if(field.error==null)
 			{
-				if(field.error==null)
-				{
-					final ObjectAttribute attribute = (ObjectAttribute)field.key;
-					attributeValues.add(new AttributeValue(attribute, field.getContent()));
-				}
+				final ObjectAttribute attribute = (ObjectAttribute)field.key;
+				attributeValues.add(new AttributeValue(attribute, field.getContent()));
 			}
 		}
 		try
@@ -546,7 +534,7 @@ final class ItemForm extends Form
 		}
 		catch(MandatoryViolationException e)
 		{
-			final Field field = getField(e.getMandatoryAttribute().getName());
+			final Field field = getFieldByKey(e.getMandatoryAttribute());
 			field.error = "error.notnull:"+e.getMandatoryAttribute().toString();
 		}
 		catch(ReadOnlyViolationException e)
@@ -555,12 +543,12 @@ final class ItemForm extends Form
 		}
 		catch(UniqueViolationException e)
 		{
-			final Field field = getField(((ObjectAttribute)e.getConstraint().getUniqueAttributes().iterator().next()).getName());
+			final Field field = getFieldByKey((ObjectAttribute)e.getConstraint().getUniqueAttributes().iterator().next());
 			field.error = e.getClass().getName();
 		}
 		catch(LengthViolationException e)
 		{
-			final Field field = getField(e.getStringAttribute().getName());
+			final Field field = getFieldByKey(e.getStringAttribute());
 			field.error = e.getClass().getName();
 		}
 	}

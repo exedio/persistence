@@ -32,6 +32,7 @@ import com.exedio.cope.testmodel.CollisionItem1;
 import com.exedio.cope.testmodel.CollisionItem2;
 import com.exedio.cope.testmodel.EmptyItem;
 import com.exedio.cope.testmodel.EmptyItem2;
+import com.exedio.cope.testmodel.FinalItem;
 import com.exedio.cope.testmodel.ItemWithDoubleUnique;
 import com.exedio.cope.testmodel.ItemWithSingleUnique;
 import com.exedio.cope.testmodel.ItemWithSingleUniqueNotNull;
@@ -190,6 +191,9 @@ public class InitServlet extends CopsServlet
 				item1a.setSelf(item1a);
 				item1b.setSelf(item1a);
 			}
+			
+			new FinalItem("finalString1", 1);
+			new FinalItem("finalString2", 2);
 			
 			new CollisionItem1(emptyItem1);
 			new CollisionItem1(emptyItem2);

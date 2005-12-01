@@ -41,6 +41,7 @@ public class Main
 		QualifiedIntegerEnumQualifier.TYPE,
 		PointerTargetItem.TYPE,
 		PointerItem.TYPE,
+		FinalItem.TYPE,
 		CollisionItem1.TYPE,
 		CollisionItem2.TYPE,
 	};

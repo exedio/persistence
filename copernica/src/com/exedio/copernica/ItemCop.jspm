@@ -27,6 +27,7 @@ import java.util.Iterator;
 import com.exedio.cope.Attribute;
 import com.exedio.cope.DataAttribute;
 import com.exedio.cope.Item;
+import com.exedio.cope.ObjectAttribute;
 import com.exedio.cope.Type;
 import com.exedio.cope.pattern.Media;
 import com.exedio.cops.CheckboxField;
@@ -105,10 +106,10 @@ class ItemCop_Jspm
 				}
 				%>
 				<table border="1"><%
-				for(Iterator j = form.visibleFields.iterator(); j.hasNext(); )
+				for(Iterator j = form.displayedAttributes.iterator(); j.hasNext(); )
 				{
-					final Field field = (Field)j.next();
-					final Attribute attribute = (Attribute)field.key;
+					final Attribute attribute = (Attribute)j.next();
+					final Field field = (Field)form.getFieldByKey(attribute);
 					%>
 					<tr>
 						<td><%=provider.getDisplayName(null, attribute)%></td>
@@ -139,6 +140,10 @@ class ItemCop_Jspm
 							}
 							%>
 							<input type="file" name="<%=attributeName%>" size="20"><%
+						}
+						else if(attribute.isReadOnly() && attribute instanceof ObjectAttribute)
+						{
+							%><b><%=item.get((ObjectAttribute)attribute)%></b><%
 						}
 						else if(field instanceof RadioField
 									|| field instanceof CheckboxField
