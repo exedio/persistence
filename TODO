@@ -1,9 +1,8 @@
 * Instrumentor
 	- first load all files, then write all files
-	- mehrsprachige generierte Comments
-	- mehrsprachige Parametertypen
-	- Instrumentierung nur für geänderte Dateien
-	- disable/anderer access modifier für alle Methoden
+	- localized generated comments
+	- instrumentation for modified files only
+	- disable/different access modifier for all generated methods
 * Lib
 	- default values for attributes
 	- range (minimum/maximum) for integers/doubles
@@ -36,7 +35,7 @@
 		* implement redundant (computed) medias, such as thumbnails
 		* redundantly maintain width/height for images
 	- move Item#touch into separate pattern Timestamp
-	- analog dsmf: Datenverzeichnisse prüfen
+	- as in dsmf: check data directories
 	- add/drop constraints:
 		* alter table "SumItem" add constraint schnappel check ("num2" is not null)
 		* alter table "ItemWithDoubleUnique" drop constraint "ItemWithDoublUniqu_str_Nn"
@@ -64,8 +63,8 @@
 	- allow changing the database connection parameters
 * Copernica
 	- query designer
-	- schönere Darstellung der Qualifiers
-	- Restriktionen
-	- hochgeladene DataAttributes erst beim "Save" speichern
+	- improve presentation of qualified attributes
+	- restrictions
+	- save medias on "Save", not on upload
 	- use <link rel="prev/next/copyright/home"
 	- show warning on website, if account runs with empty/default/bad password
