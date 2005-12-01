@@ -23,7 +23,6 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -46,10 +45,10 @@ import com.exedio.cope.Item;
 import com.exedio.cope.ItemAttribute;
 import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.LongAttribute;
+import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.NestingRuntimeException;
 import com.exedio.cope.NoSuchIDException;
-import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.ObjectAttribute;
 import com.exedio.cope.ReadOnlyViolationException;
 import com.exedio.cope.StringAttribute;
@@ -240,26 +239,28 @@ final class ItemForm extends Form
 	{
 		if(attribute instanceof EnumAttribute)
 		{
+			final EnumAttribute enumAttribute = (EnumAttribute)attribute;
 			if(post)
-				return new EnumField((EnumAttribute)attribute, cop);
+				return new EnumField(enumAttribute, cop);
 			else
-				return new EnumField((EnumAttribute)attribute, (EnumValue)item.get(attribute), cop);
+				return new EnumField(enumAttribute, enumAttribute.get(item), cop);
 		}
 		else if(attribute instanceof BooleanAttribute)
 		{
+			final BooleanAttribute boolAttribute = (BooleanAttribute)attribute;
 			if(attribute.isMandatory())
 			{
 				if(post)
 					return new CheckboxField(this, attribute, name);
 				else
-					return new CheckboxField(this, attribute, name, ((Boolean)item.get(attribute)).booleanValue());
+					return new CheckboxField(this, attribute, name, boolAttribute.get(item).booleanValue());
 			}
 			else
 			{
 				if(post)
-					return new BooleanEnumField((BooleanAttribute)attribute, cop);
+					return new BooleanEnumField(boolAttribute, cop);
 				else
-					return new BooleanEnumField((BooleanAttribute)attribute, (Boolean)item.get(attribute), cop);
+					return new BooleanEnumField(boolAttribute, boolAttribute.get(item), cop);
 			}
 		}
 		else if(attribute instanceof IntegerAttribute)
@@ -267,42 +268,42 @@ final class ItemForm extends Form
 			if(post)
 				return new IntegerField(this, attribute, name);
 			else
-				return new IntegerField(this, attribute, name, (Integer)item.get(attribute));
+				return new IntegerField(this, attribute, name, ((IntegerAttribute)attribute).get(item));
 		}
 		else if(attribute instanceof LongAttribute)
 		{
 			if(post)
 				return new LongField(this, attribute, name);
 			else
-				return new LongField(this, attribute, name, (Long)item.get(attribute));
+				return new LongField(this, attribute, name, ((LongAttribute)attribute).get(item));
 		}
 		else if(attribute instanceof DoubleAttribute)
 		{
 			if(post)
 				return new DoubleField(this, attribute, name);
 			else
-				return new DoubleField(this, attribute, name, (Double)item.get(attribute));
+				return new DoubleField(this, attribute, name, ((DoubleAttribute)attribute).get(item));
 		}
 		else if(attribute instanceof DateAttribute)
 		{
 			if(post)
 				return new DateField(this, attribute, name);
 			else
-				return new DateField(this, attribute, name, (Date)item.get(attribute));
+				return new DateField(this, attribute, name, ((DateAttribute)attribute).get(item));
 		}
 		else if(attribute instanceof StringAttribute)
 		{
 			if(post)
 				return new StringField(this, attribute, name);
 			else
-				return new StringField(this, attribute, name, (String)item.get(attribute));
+				return new StringField(this, attribute, name, ((StringAttribute)attribute).get(item));
 		}
 		else if(attribute instanceof ItemAttribute)
 		{
 			if(post)
 				return new ItemField(attribute, name, model, cop);
 			else
-				return new ItemField(attribute, name, (Item)item.get(attribute), model, cop);
+				return new ItemField(attribute, name, ((ItemAttribute)attribute).get(item), model, cop);
 		}
 		else
 		{

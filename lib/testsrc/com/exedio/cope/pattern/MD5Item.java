@@ -32,7 +32,7 @@ public class MD5Item extends Item
 
 	public final String getPassword()
 	{
-		return (String)get(password.getStorage());
+		return password.getStorage().get(this);
 	}
 	
 	public static final StringAttribute hashed1MD5 = new StringAttribute(OPTIONAL);

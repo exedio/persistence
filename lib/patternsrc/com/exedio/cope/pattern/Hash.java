@@ -67,12 +67,12 @@ public abstract class Hash extends Pattern
 			LengthViolationException,
 			ReadOnlyViolationException
 	{
-		item.set(storage, hash(plainText));
+		storage.set(item, hash(plainText));
 	}
 	
 	public final boolean check(final Item item, final String actualPlainText)
 	{
-		final String expectedHash = (String)item.get(storage);
+		final String expectedHash = storage.get(item);
 		final String actualHash = hash(actualPlainText);
 		if(expectedHash==null)
 			return actualHash==null;

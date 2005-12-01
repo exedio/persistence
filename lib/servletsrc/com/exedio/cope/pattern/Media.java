@@ -205,7 +205,7 @@ public final class Media extends MediaPath
 		if(isNull(item))
 			return null;
 
-		return (mimeMajor!=null) ? (String)item.get(mimeMajor) : fixedMimeMajor;
+		return (mimeMajor!=null) ? mimeMajor.get(item) : fixedMimeMajor;
 	}
 
 	/**
@@ -217,7 +217,7 @@ public final class Media extends MediaPath
 		if(isNull(item))
 			return null;
 
-		return (mimeMinor!=null) ? (String)item.get(mimeMinor) : fixedMimeMinor;
+		return (mimeMinor!=null) ? (String)mimeMinor.get(item) : fixedMimeMinor;
 	}
 	
 	/**
@@ -369,11 +369,11 @@ public final class Media extends MediaPath
 	
 			// TODO use Item.set(AttributeValue[])
 			if(this.mimeMajor!=null)
-				item.set(this.mimeMajor, mimeMajor);
+				this.mimeMajor.set(item, mimeMajor);
 			if(this.mimeMinor!=null)
-				item.set(this.mimeMinor, mimeMinor);
+				this.mimeMinor.set(item, mimeMinor);
 			if(this.exists!=null)
-				item.set(this.exists, (data!=null) ? Boolean.TRUE : null);
+				this.exists.set(item, (data!=null) ? Boolean.TRUE : null);
 			
 			if(data instanceof InputStream)
 				this.data.set(item, (InputStream)data);

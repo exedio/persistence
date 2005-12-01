@@ -75,7 +75,7 @@ public final class MediaNameServer extends MediaPath
 			final Item item, final String extension)
 		throws ServletException, IOException
 	{
-		final String content = (String)item.get(source);
+		final String content = source.get(item);
 		//System.out.println("contentType="+contentType);
 		if(content==null)
 			return dataIsNull;

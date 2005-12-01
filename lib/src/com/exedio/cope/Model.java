@@ -180,8 +180,8 @@ public final class Model
 	 * Returns, whether the database can store empty strings.
 	 * <p>
 	 * If true, an empty string can be stored into a {@link StringAttribute}
-	 * like any other string via {@link Item#set(ObjectAttribute,Object)}.
-	 * A subsequent retrieval of that string via {@link Item#get(ObjectAttribute)}
+	 * like any other string via {@link StringAttribute#set(Item,String)}.
+	 * A subsequent retrieval of that string via {@link StringAttribute#get(Item)}
 	 * returns an empty string.
 	 * If false, an empty string stored into a {@link StringAttribute}
 	 * converted to null, thus a subsequent retrieval of that string returns
