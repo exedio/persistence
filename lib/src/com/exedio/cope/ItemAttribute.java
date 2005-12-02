@@ -53,9 +53,9 @@ public final class ItemAttribute extends ObjectAttribute
 		}
 	}
 	
-	Type targetType = null;
-	Type onlyPossibleTargetType = null;
-	StringColumn typeColumn = null;
+	private Type targetType = null;
+	private Type onlyPossibleTargetType = null;
+	private StringColumn typeColumn = null;
 
 	public ObjectAttribute copyAsTemplate()
 	{
@@ -102,6 +102,14 @@ public final class ItemAttribute extends ObjectAttribute
 			typeColumn = new StringColumn(table, name+"Type", notNull, typeColumnValues);
 
 		return result;
+	}
+	
+	StringColumn getTypeColumn()
+	{
+		if(targetType==null)
+			throw new RuntimeException();
+
+		return typeColumn;
 	}
 	
 	Object get(final Row row)

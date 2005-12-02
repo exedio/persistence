@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-import bak.pcj.list.IntList;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -32,6 +31,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+
+import bak.pcj.list.IntList;
 
 import com.exedio.cope.search.Condition;
 import com.exedio.dsmf.Driver;
@@ -304,6 +305,12 @@ abstract class AbstractDatabase implements Database
 					{
 						selectColumn = ((ObjectAttribute)selectAttribute).getColumn();
 						bf.append((ObjectAttribute)selectable, (Join)null).defineColumn(selectColumn);
+						if(selectable instanceof ItemAttribute)
+						{
+							final StringColumn typeColumn = ((ItemAttribute)selectAttribute).getTypeColumn();
+							if(typeColumn!=null)
+								bf.append(',').	append(typeColumn, (Join)null).defineColumn(typeColumn);
+						}
 					}
 					else
 					{
@@ -459,6 +466,12 @@ abstract class AbstractDatabase implements Database
 							{
 								selectColumns[selectableIndex].load(resultSet, columnIndex++, dummyRow);
 								final ObjectAttribute selectAttribute = (ObjectAttribute)selectable;
+								if(selectable instanceof ItemAttribute)
+								{
+									final StringColumn typeColumn = ((ItemAttribute)selectAttribute).getTypeColumn();
+									if(typeColumn!=null)
+										typeColumn.load(resultSet, columnIndex++, dummyRow);
+								}
 								resultCell = selectAttribute.get(dummyRow);
 							}
 							else if(selectable instanceof ComputedFunction)
