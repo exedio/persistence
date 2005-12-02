@@ -329,10 +329,6 @@ public class AttributeItem extends Item
 		{
 			AttributeItem.someInteger.set(this,someInteger);
 		}
-		catch(com.exedio.cope.LengthViolationException e)
-		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
-		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
@@ -367,10 +363,6 @@ public class AttributeItem extends Item
 		try
 		{
 			AttributeItem.someNotNullInteger.set(this,new java.lang.Integer(someNotNullInteger));
-		}
-		catch(com.exedio.cope.LengthViolationException e)
-		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{
@@ -407,10 +399,6 @@ public class AttributeItem extends Item
 		{
 			AttributeItem.someLong.set(this,someLong);
 		}
-		catch(com.exedio.cope.LengthViolationException e)
-		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
-		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
@@ -445,10 +433,6 @@ public class AttributeItem extends Item
 		try
 		{
 			AttributeItem.someNotNullLong.set(this,new java.lang.Long(someNotNullLong));
-		}
-		catch(com.exedio.cope.LengthViolationException e)
-		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{
@@ -485,10 +469,6 @@ public class AttributeItem extends Item
 		{
 			AttributeItem.someDouble.set(this,someDouble);
 		}
-		catch(com.exedio.cope.LengthViolationException e)
-		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
-		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
@@ -524,10 +504,6 @@ public class AttributeItem extends Item
 		{
 			AttributeItem.someNotNullDouble.set(this,new java.lang.Double(someNotNullDouble));
 		}
-		catch(com.exedio.cope.LengthViolationException e)
-		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
-		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
@@ -562,10 +538,6 @@ public class AttributeItem extends Item
 		try
 		{
 			AttributeItem.someDate.set(this,someDate);
-		}
-		catch(com.exedio.cope.LengthViolationException e)
-		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{
@@ -622,10 +594,6 @@ public class AttributeItem extends Item
 		{
 			AttributeItem.day.set(this,day);
 		}
-		catch(com.exedio.cope.LengthViolationException e)
-		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
-		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
@@ -660,10 +628,6 @@ public class AttributeItem extends Item
 		try
 		{
 			AttributeItem.someBoolean.set(this,someBoolean);
-		}
-		catch(com.exedio.cope.LengthViolationException e)
-		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{
@@ -700,10 +664,6 @@ public class AttributeItem extends Item
 		{
 			AttributeItem.someNotNullBoolean.set(this,(someNotNullBoolean?java.lang.Boolean.TRUE:java.lang.Boolean.FALSE));
 		}
-		catch(com.exedio.cope.LengthViolationException e)
-		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
-		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
@@ -738,10 +698,6 @@ public class AttributeItem extends Item
 		try
 		{
 			AttributeItem.someItem.set(this,someItem);
-		}
-		catch(com.exedio.cope.LengthViolationException e)
-		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{
@@ -780,10 +736,6 @@ public class AttributeItem extends Item
 		{
 			AttributeItem.someNotNullItem.set(this,someNotNullItem);
 		}
-		catch(com.exedio.cope.LengthViolationException e)
-		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
-		}
 		catch(com.exedio.cope.ReadOnlyViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
@@ -814,10 +766,6 @@ public class AttributeItem extends Item
 		try
 		{
 			AttributeItem.someEnum.set(this,someEnum);
-		}
-		catch(com.exedio.cope.LengthViolationException e)
-		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{
@@ -855,10 +803,6 @@ public class AttributeItem extends Item
 		try
 		{
 			AttributeItem.someNotNullEnum.set(this,someNotNullEnum);
-		}
-		catch(com.exedio.cope.LengthViolationException e)
-		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
 		catch(com.exedio.cope.ReadOnlyViolationException e)
 		{

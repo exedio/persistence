@@ -305,7 +305,6 @@ abstract class CopeAttribute
 		result.add(UniqueViolationException.class);
 		result.add(MandatoryViolationException.class);
 		result.add(ReadOnlyViolationException.class);
-		result.add(LengthViolationException.class);
 	}
 
 	private SortedSet toucherExceptions = null;

@@ -132,10 +132,6 @@ public class HierarchySingleSub extends HierarchySingleSuper
 		{
 			HierarchySingleSub.hierarchySuper.set(this,hierarchySuper);
 		}
-		catch(com.exedio.cope.LengthViolationException e)
-		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
-		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);

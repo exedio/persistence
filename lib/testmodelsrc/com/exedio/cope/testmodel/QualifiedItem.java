@@ -91,10 +91,6 @@ public class QualifiedItem extends Item
 		{
 			QualifiedItem.number.set(this,number);
 		}
-		catch(com.exedio.cope.LengthViolationException e)
-		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
-		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
@@ -220,10 +216,6 @@ public class QualifiedItem extends Item
 		{
 			QualifiedStringQualifier.qualifiedA.set(stringQualifier.getForSet(new Object[]{this,key}),qualifiedA);
 		}
-		catch(com.exedio.cope.LengthViolationException e)
-		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
-		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
@@ -256,10 +248,6 @@ public class QualifiedItem extends Item
 		try
 		{
 			QualifiedStringQualifier.qualifiedB.set(stringQualifier.getForSet(new Object[]{this,key}),qualifiedB);
-		}
-		catch(com.exedio.cope.LengthViolationException e)
-		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{

@@ -143,10 +143,6 @@ public class PointerItem extends Item
 		{
 			PointerItem.pointer.set(this,pointer);
 		}
-		catch(com.exedio.cope.LengthViolationException e)
-		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
-		}
 		catch(com.exedio.cope.ReadOnlyViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
@@ -177,10 +173,6 @@ public class PointerItem extends Item
 		try
 		{
 			PointerItem.pointer2.set(this,pointer2);
-		}
-		catch(com.exedio.cope.LengthViolationException e)
-		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{
@@ -217,10 +209,6 @@ public class PointerItem extends Item
 		{
 			PointerItem.self.set(this,self);
 		}
-		catch(com.exedio.cope.LengthViolationException e)
-		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
-		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
@@ -255,10 +243,6 @@ public class PointerItem extends Item
 		try
 		{
 			PointerItem.empty2.set(this,empty2);
-		}
-		catch(com.exedio.cope.LengthViolationException e)
-		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{

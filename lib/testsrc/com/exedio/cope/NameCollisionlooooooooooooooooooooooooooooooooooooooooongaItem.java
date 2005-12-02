@@ -141,10 +141,6 @@ public class NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem exte
 		{
 			NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem.collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber.set(this,collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber);
 		}
-		catch(com.exedio.cope.LengthViolationException e)
-		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
-		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
@@ -179,10 +175,6 @@ public class NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem exte
 		try
 		{
 			NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem.collisionloooooooooooooooooooooooooooooooooooooooooooooooongbNumber.set(this,collisionloooooooooooooooooooooooooooooooooooooooooooooooongbNumber);
-		}
-		catch(com.exedio.cope.LengthViolationException e)
-		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{

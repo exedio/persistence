@@ -128,10 +128,6 @@ public class QualifiedStringQualifier extends Item
 		{
 			QualifiedStringQualifier.qualifiedA.set(this,qualifiedA);
 		}
-		catch(com.exedio.cope.LengthViolationException e)
-		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
-		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
@@ -166,10 +162,6 @@ public class QualifiedStringQualifier extends Item
 		try
 		{
 			QualifiedStringQualifier.qualifiedB.set(this,qualifiedB);
-		}
-		catch(com.exedio.cope.LengthViolationException e)
-		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{

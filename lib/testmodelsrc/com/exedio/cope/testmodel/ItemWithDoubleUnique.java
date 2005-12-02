@@ -140,10 +140,6 @@ public class ItemWithDoubleUnique extends Item
 		{
 			ItemWithDoubleUnique.integer.set(this,new java.lang.Integer(integer));
 		}
-		catch(com.exedio.cope.LengthViolationException e)
-		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
-		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);

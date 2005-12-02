@@ -145,10 +145,6 @@ public class QualifiedName extends Item
 		{
 			QualifiedName.parent.set(this,parent);
 		}
-		catch(com.exedio.cope.LengthViolationException e)
-		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
-		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
@@ -217,10 +213,6 @@ public class QualifiedName extends Item
 		{
 			QualifiedName.number.set(this,new java.lang.Integer(number));
 		}
-		catch(com.exedio.cope.LengthViolationException e)
-		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
-		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
@@ -256,10 +248,6 @@ public class QualifiedName extends Item
 		{
 			QualifiedName.optionalNumber.set(this,optionalNumber);
 		}
-		catch(com.exedio.cope.LengthViolationException e)
-		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
-		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
@@ -284,10 +272,6 @@ public class QualifiedName extends Item
 		try
 		{
 			QualifiedName.noneGetterNumber.set(this,new java.lang.Integer(noneGetterNumber));
-		}
-		catch(com.exedio.cope.LengthViolationException e)
-		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{
@@ -324,10 +308,6 @@ public class QualifiedName extends Item
 		{
 			QualifiedName.privateGetterNumber.set(this,new java.lang.Integer(privateGetterNumber));
 		}
-		catch(com.exedio.cope.LengthViolationException e)
-		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
-		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
@@ -362,10 +342,6 @@ public class QualifiedName extends Item
 		try
 		{
 			QualifiedName.internalGetterNumber.set(this,new java.lang.Integer(internalGetterNumber));
-		}
-		catch(com.exedio.cope.LengthViolationException e)
-		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{
@@ -412,10 +388,6 @@ public class QualifiedName extends Item
 		{
 			QualifiedName.privateSetterNumber.set(this,new java.lang.Integer(privateSetterNumber));
 		}
-		catch(com.exedio.cope.LengthViolationException e)
-		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
-		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
@@ -450,10 +422,6 @@ public class QualifiedName extends Item
 		try
 		{
 			QualifiedName.internalSetterNumber.set(this,new java.lang.Integer(internalSetterNumber));
-		}
-		catch(com.exedio.cope.LengthViolationException e)
-		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{

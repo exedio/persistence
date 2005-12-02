@@ -108,10 +108,6 @@ public class DeleteItem extends Item
 		{
 			DeleteItem.selfForbid.set(this,selfForbid);
 		}
-		catch(com.exedio.cope.LengthViolationException e)
-		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
-		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
@@ -146,10 +142,6 @@ public class DeleteItem extends Item
 		try
 		{
 			DeleteItem.selfNullify.set(this,selfNullify);
-		}
-		catch(com.exedio.cope.LengthViolationException e)
-		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{
@@ -186,10 +178,6 @@ public class DeleteItem extends Item
 		{
 			DeleteItem.selfCascade.set(this,selfCascade);
 		}
-		catch(com.exedio.cope.LengthViolationException e)
-		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
-		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
@@ -224,10 +212,6 @@ public class DeleteItem extends Item
 		try
 		{
 			DeleteItem.selfCascade2.set(this,selfCascade2);
-		}
-		catch(com.exedio.cope.LengthViolationException e)
-		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{
@@ -264,10 +248,6 @@ public class DeleteItem extends Item
 		{
 			DeleteItem.otherForbid.set(this,otherForbid);
 		}
-		catch(com.exedio.cope.LengthViolationException e)
-		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
-		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
@@ -303,10 +283,6 @@ public class DeleteItem extends Item
 		{
 			DeleteItem.otherNullify.set(this,otherNullify);
 		}
-		catch(com.exedio.cope.LengthViolationException e)
-		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
-		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
@@ -341,10 +317,6 @@ public class DeleteItem extends Item
 		try
 		{
 			DeleteItem.otherCascade.set(this,otherCascade);
-		}
-		catch(com.exedio.cope.LengthViolationException e)
-		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{

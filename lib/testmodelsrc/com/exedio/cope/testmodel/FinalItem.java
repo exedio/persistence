@@ -107,10 +107,6 @@ public class FinalItem extends Item
 		{
 			FinalItem.nonFinalInteger.set(this,new java.lang.Integer(nonFinalInteger));
 		}
-		catch(com.exedio.cope.LengthViolationException e)
-		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
-		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);

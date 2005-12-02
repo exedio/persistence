@@ -93,10 +93,6 @@ public abstract class HierarchySuper extends Item
 		{
 			HierarchySuper.superInt.set(this,new java.lang.Integer(superInt));
 		}
-		catch(com.exedio.cope.LengthViolationException e)
-		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
-		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);

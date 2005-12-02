@@ -93,10 +93,6 @@ public class DayItem extends Item
 		{
 			DayItem.day.set(this,day);
 		}
-		catch(com.exedio.cope.LengthViolationException e)
-		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
-		}
 		catch(com.exedio.cope.ReadOnlyViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
@@ -127,10 +123,6 @@ public class DayItem extends Item
 		try
 		{
 			DayItem.optionalDay.set(this,optionalDay);
-		}
-		catch(com.exedio.cope.LengthViolationException e)
-		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{

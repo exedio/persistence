@@ -76,10 +76,16 @@ public final class BooleanAttribute extends ObjectAttribute
 		throws
 			UniqueViolationException,
 			MandatoryViolationException,
-			LengthViolationException, // TODO remove
 			ReadOnlyViolationException
 	{
-		item.set(this, value);
+		try
+		{
+			item.set(this, value);
+		}
+		catch(LengthViolationException e)
+		{
+			throw new NestingRuntimeException(e);
+		}
 	}
 
 	public final EqualCondition equal(final Boolean value)

@@ -111,10 +111,6 @@ public class Sub extends Super
 		{
 			Sub.subMandatory.set(this,(subMandatory?java.lang.Boolean.TRUE:java.lang.Boolean.FALSE));
 		}
-		catch(com.exedio.cope.LengthViolationException e)
-		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
-		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
@@ -150,10 +146,6 @@ public class Sub extends Super
 		{
 			Sub.subInitial.set(this,subInitial);
 		}
-		catch(com.exedio.cope.LengthViolationException e)
-		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
-		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
@@ -188,10 +180,6 @@ public class Sub extends Super
 		try
 		{
 			Sub.subNonInitial.set(this,subNonInitial);
-		}
-		catch(com.exedio.cope.LengthViolationException e)
-		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{

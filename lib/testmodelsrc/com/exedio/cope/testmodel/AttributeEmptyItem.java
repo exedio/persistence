@@ -95,10 +95,6 @@ public class AttributeEmptyItem extends Item
 		{
 			AttributeEmptyItem.parent.set(this,parent);
 		}
-		catch(com.exedio.cope.LengthViolationException e)
-		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
-		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
@@ -131,10 +127,6 @@ public class AttributeEmptyItem extends Item
 		try
 		{
 			AttributeEmptyItem.key.set(this,key);
-		}
-		catch(com.exedio.cope.LengthViolationException e)
-		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{

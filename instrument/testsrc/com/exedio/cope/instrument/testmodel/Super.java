@@ -139,10 +139,6 @@ public abstract class Super extends Item
 		{
 			Super.superInitial.set(this,superInitial);
 		}
-		catch(com.exedio.cope.LengthViolationException e)
-		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
-		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
@@ -177,10 +173,6 @@ public abstract class Super extends Item
 		try
 		{
 			Super.superNonInitial.set(this,superNonInitial);
-		}
-		catch(com.exedio.cope.LengthViolationException e)
-		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{
