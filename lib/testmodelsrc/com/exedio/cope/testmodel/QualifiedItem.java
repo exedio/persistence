@@ -135,7 +135,7 @@ public class QualifiedItem extends Item
 	{
 		try
 		{
-			qualifier.set(new Object[]{this,key},QualifiedEmptyQualifier.qualifiedA,qualifiedA);
+			QualifiedEmptyQualifier.qualifiedA.set(qualifier.getForSet(new Object[]{this,key}),qualifiedA);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -146,6 +146,10 @@ public class QualifiedItem extends Item
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
 		catch(com.exedio.cope.ReadOnlyViolationException e)
+		{
+			throw new com.exedio.cope.NestingRuntimeException(e);
+		}
+		catch(com.exedio.cope.UniqueViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
@@ -168,7 +172,7 @@ public class QualifiedItem extends Item
 	{
 		try
 		{
-			qualifier.set(new Object[]{this,key},QualifiedEmptyQualifier.qualifiedB,qualifiedB);
+			QualifiedEmptyQualifier.qualifiedB.set(qualifier.getForSet(new Object[]{this,key}),qualifiedB);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -179,6 +183,10 @@ public class QualifiedItem extends Item
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
 		catch(com.exedio.cope.ReadOnlyViolationException e)
+		{
+			throw new com.exedio.cope.NestingRuntimeException(e);
+		}
+		catch(com.exedio.cope.UniqueViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
@@ -210,7 +218,7 @@ public class QualifiedItem extends Item
 	{
 		try
 		{
-			stringQualifier.set(new Object[]{this,key},QualifiedStringQualifier.qualifiedA,qualifiedA);
+			QualifiedStringQualifier.qualifiedA.set(stringQualifier.getForSet(new Object[]{this,key}),qualifiedA);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -221,6 +229,10 @@ public class QualifiedItem extends Item
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
 		catch(com.exedio.cope.ReadOnlyViolationException e)
+		{
+			throw new com.exedio.cope.NestingRuntimeException(e);
+		}
+		catch(com.exedio.cope.UniqueViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
@@ -243,7 +255,7 @@ public class QualifiedItem extends Item
 	{
 		try
 		{
-			stringQualifier.set(new Object[]{this,key},QualifiedStringQualifier.qualifiedB,qualifiedB);
+			QualifiedStringQualifier.qualifiedB.set(stringQualifier.getForSet(new Object[]{this,key}),qualifiedB);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -254,6 +266,10 @@ public class QualifiedItem extends Item
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
 		catch(com.exedio.cope.ReadOnlyViolationException e)
+		{
+			throw new com.exedio.cope.NestingRuntimeException(e);
+		}
+		catch(com.exedio.cope.UniqueViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
@@ -285,7 +301,7 @@ public class QualifiedItem extends Item
 	{
 		try
 		{
-			intEnumQualifier.set(new Object[]{this,keyX,keyY},QualifiedIntegerEnumQualifier.qualifiedA,qualifiedA);
+			QualifiedIntegerEnumQualifier.qualifiedA.set(intEnumQualifier.getForSet(new Object[]{this,keyX,keyY}),qualifiedA);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -296,6 +312,10 @@ public class QualifiedItem extends Item
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
 		catch(com.exedio.cope.ReadOnlyViolationException e)
+		{
+			throw new com.exedio.cope.NestingRuntimeException(e);
+		}
+		catch(com.exedio.cope.UniqueViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
@@ -318,7 +338,7 @@ public class QualifiedItem extends Item
 	{
 		try
 		{
-			intEnumQualifier.set(new Object[]{this,keyX,keyY},QualifiedIntegerEnumQualifier.qualifiedB,qualifiedB);
+			QualifiedIntegerEnumQualifier.qualifiedB.set(intEnumQualifier.getForSet(new Object[]{this,keyX,keyY}),qualifiedB);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -329,6 +349,10 @@ public class QualifiedItem extends Item
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
 		catch(com.exedio.cope.ReadOnlyViolationException e)
+		{
+			throw new com.exedio.cope.NestingRuntimeException(e);
+		}
+		catch(com.exedio.cope.UniqueViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}

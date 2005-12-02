@@ -28,15 +28,10 @@ import com.exedio.cope.Attribute;
 import com.exedio.cope.AttributeValue;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemAttribute;
-import com.exedio.cope.LengthViolationException;
-import com.exedio.cope.NestingRuntimeException;
-import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.ObjectAttribute;
 import com.exedio.cope.Pattern;
-import com.exedio.cope.ReadOnlyViolationException;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
-import com.exedio.cope.UniqueViolationException;
 
 public final class Qualifier extends Pattern
 {
@@ -127,12 +122,7 @@ public final class Qualifier extends Pattern
 			return null;
 	}
 	
-	public final void set(final Object[] values, final ObjectAttribute attribute, Object value)
-	throws
-		MandatoryViolationException,
-		LengthViolationException,
-		ReadOnlyViolationException,
-		ClassCastException
+	public Item getForSet(final Object[] values)
 	{
 		Item item = qualifyUnique.searchUnique(values);
 		if(item==null)
@@ -146,15 +136,7 @@ public final class Qualifier extends Pattern
 			}
 			item = qualifyUnique.getType().newItem(initialAttributeValues);
 		}
-
-		try
-		{
-			item.set(attribute, value);
-		}
-		catch(UniqueViolationException e)
-		{
-			throw new NestingRuntimeException(e);
-		}
+		return item;
 	}
-		
+
 }

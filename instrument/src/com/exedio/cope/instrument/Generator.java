@@ -879,22 +879,19 @@ final class Generator
 	
 			final SortedSet exceptionsToCatch = new TreeSet(ClassComparator.getInstance());
 			exceptionsToCatch.addAll(attribute.getExceptionsToCatchInSetter());
-			exceptionsToCatch.remove(UniqueViolationException.class);
 			writeTryCatchClausePrefix(exceptionsToCatch);
-	
 			o.write("\t\t");
-			o.write(qualifier.name);
-			o.write(".set(new Object[]{this");
-			writeQualifierCall(qualifier);
-			o.write("},");
 			o.write(qualifier.qualifierClassString);
 			o.write('.');
 			o.write(attribute.getName());
-			o.write(',');
+			o.write(".set(");
+			o.write(qualifier.name);
+			o.write(".getForSet(new Object[]{this");
+			writeQualifierCall(qualifier);
+			o.write("}),");
 			o.write(attribute.getName());
 			o.write(");");
 			o.write(lineSeparator);
-	
 			writeTryCatchClausePostfix(exceptionsToCatch);
 			o.write("\t}");
 		}

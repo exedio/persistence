@@ -87,7 +87,7 @@ public class Qualified extends Item
 	{
 		try
 		{
-			nameQualifier.set(new Object[]{this,key},QualifiedName.number,number);
+			QualifiedName.number.set(nameQualifier.getForSet(new Object[]{this,key}),number);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -98,6 +98,10 @@ public class Qualified extends Item
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
 		catch(com.exedio.cope.ReadOnlyViolationException e)
+		{
+			throw new com.exedio.cope.NestingRuntimeException(e);
+		}
+		catch(com.exedio.cope.UniqueViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
@@ -120,7 +124,7 @@ public class Qualified extends Item
 	{
 		try
 		{
-			nameQualifier.set(new Object[]{this,key},QualifiedName.optionalNumber,optionalNumber);
+			QualifiedName.optionalNumber.set(nameQualifier.getForSet(new Object[]{this,key}),optionalNumber);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -131,6 +135,10 @@ public class Qualified extends Item
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
 		catch(com.exedio.cope.ReadOnlyViolationException e)
+		{
+			throw new com.exedio.cope.NestingRuntimeException(e);
+		}
+		catch(com.exedio.cope.UniqueViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
@@ -144,7 +152,7 @@ public class Qualified extends Item
 	{
 		try
 		{
-			nameQualifier.set(new Object[]{this,key},QualifiedName.noneGetterNumber,noneGetterNumber);
+			QualifiedName.noneGetterNumber.set(nameQualifier.getForSet(new Object[]{this,key}),noneGetterNumber);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -155,6 +163,10 @@ public class Qualified extends Item
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
 		catch(com.exedio.cope.ReadOnlyViolationException e)
+		{
+			throw new com.exedio.cope.NestingRuntimeException(e);
+		}
+		catch(com.exedio.cope.UniqueViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
@@ -177,7 +189,7 @@ public class Qualified extends Item
 	{
 		try
 		{
-			nameQualifier.set(new Object[]{this,key},QualifiedName.privateGetterNumber,privateGetterNumber);
+			QualifiedName.privateGetterNumber.set(nameQualifier.getForSet(new Object[]{this,key}),privateGetterNumber);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -188,6 +200,10 @@ public class Qualified extends Item
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
 		catch(com.exedio.cope.ReadOnlyViolationException e)
+		{
+			throw new com.exedio.cope.NestingRuntimeException(e);
+		}
+		catch(com.exedio.cope.UniqueViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
@@ -210,7 +226,7 @@ public class Qualified extends Item
 	{
 		try
 		{
-			nameQualifier.set(new Object[]{this,key},QualifiedName.internalGetterNumber,internalGetterNumber);
+			QualifiedName.internalGetterNumber.set(nameQualifier.getForSet(new Object[]{this,key}),internalGetterNumber);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -221,6 +237,10 @@ public class Qualified extends Item
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
 		catch(com.exedio.cope.ReadOnlyViolationException e)
+		{
+			throw new com.exedio.cope.NestingRuntimeException(e);
+		}
+		catch(com.exedio.cope.UniqueViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
@@ -252,7 +272,7 @@ public class Qualified extends Item
 	{
 		try
 		{
-			nameQualifier.set(new Object[]{this,key},QualifiedName.privateSetterNumber,privateSetterNumber);
+			QualifiedName.privateSetterNumber.set(nameQualifier.getForSet(new Object[]{this,key}),privateSetterNumber);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -263,6 +283,10 @@ public class Qualified extends Item
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
 		catch(com.exedio.cope.ReadOnlyViolationException e)
+		{
+			throw new com.exedio.cope.NestingRuntimeException(e);
+		}
+		catch(com.exedio.cope.UniqueViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
@@ -285,7 +309,7 @@ public class Qualified extends Item
 	{
 		try
 		{
-			nameQualifier.set(new Object[]{this,key},QualifiedName.internalSetterNumber,internalSetterNumber);
+			QualifiedName.internalSetterNumber.set(nameQualifier.getForSet(new Object[]{this,key}),internalSetterNumber);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -296,6 +320,10 @@ public class Qualified extends Item
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
 		catch(com.exedio.cope.ReadOnlyViolationException e)
+		{
+			throw new com.exedio.cope.NestingRuntimeException(e);
+		}
+		catch(com.exedio.cope.UniqueViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}

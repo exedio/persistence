@@ -896,7 +896,7 @@ public class AttributeItem extends Item
 	{
 		try
 		{
-			emptyItem.set(new Object[]{this,key},AttributeEmptyItem.someQualifiedString,someQualifiedString);
+			AttributeEmptyItem.someQualifiedString.set(emptyItem.getForSet(new Object[]{this,key}),someQualifiedString);
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
@@ -907,6 +907,10 @@ public class AttributeItem extends Item
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
 		catch(com.exedio.cope.ReadOnlyViolationException e)
+		{
+			throw new com.exedio.cope.NestingRuntimeException(e);
+		}
+		catch(com.exedio.cope.UniqueViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
