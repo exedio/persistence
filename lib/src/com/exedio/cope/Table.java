@@ -89,6 +89,7 @@ final class Table
 
 	void addColumn(final Column column)
 	{
+		// TODO dont use TYPE_COLUMN_NAME
 		if(!column.primaryKey && !TYPE_COLUMN_NAME.equals(column.id))
 			columnsModifiable.add(column);
 		
@@ -97,7 +98,8 @@ final class Table
 	
 	/**
 	 * Returns &quot;payload&quot; columns of this type only,
-	 * excluding primary key column.
+	 * excluding primary key column
+	 * and the optional type column for the primary key.
 	 * @see #getAllColumns()
 	 * @see #getPrimaryKey()
 	 */
