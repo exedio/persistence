@@ -72,6 +72,17 @@ public final class BooleanAttribute extends ObjectAttribute
 		return (Boolean)item.get(this);
 	}
 	
+	/**
+	 * @throws RuntimeException if this attribute is not {@link #isMandatory() mandatory}.
+	 */
+	public final boolean getMandatory(final Item item)
+	{
+		if(!mandatory)
+			throw new RuntimeException("attribute " + toString() + " is not mandatory");
+		
+		return get(item).booleanValue();
+	}
+	
 	public final void set(final Item item, final Boolean value)
 		throws
 			UniqueViolationException,
@@ -88,6 +99,15 @@ public final class BooleanAttribute extends ObjectAttribute
 		}
 	}
 
+	public final void set(final Item item, final boolean value)
+		throws
+			UniqueViolationException,
+			MandatoryViolationException, // TODO remove
+			ReadOnlyViolationException
+	{
+		set(item, new Boolean(value));
+	}
+	
 	public final EqualCondition equal(final Boolean value)
 	{
 		return new EqualCondition(null, this, value);

@@ -29,8 +29,24 @@ public class AttributeBooleanTest extends AttributeTest
 		assertContains(item.TYPE.search(item.someBoolean.notEqual(null)));
 		assertContains(item.TYPE.search(item.someBoolean.isNotNull()));
 
+		item.someBoolean.set(item, Boolean.TRUE);
+		assertEquals(Boolean.TRUE, item.getSomeBoolean());
+		
+		item.someBoolean.set(item, false);
+		assertEquals(Boolean.FALSE, item.getSomeBoolean());
+		
 		item.setSomeBoolean(Boolean.TRUE);
 		assertEquals(Boolean.TRUE, item.getSomeBoolean());
+		assertEquals(Boolean.TRUE, item.someBoolean.get(item));
+		try
+		{
+			item.someBoolean.getMandatory(item);
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals("attribute "+item.someBoolean+" is not mandatory", e.getMessage());
+		}
 		assertContains(item, item.TYPE.search(item.someBoolean.equal(true)));
 		assertContains(item2, item.TYPE.search(item.someBoolean.isNull()));
 		assertContains(item2, item.TYPE.search(item.someBoolean.notEqual(true)));
@@ -71,7 +87,7 @@ public class AttributeBooleanTest extends AttributeTest
 		}
 	}
 
-	public void testSomeNotNullBoolean()
+	public void testSomeNotNullBoolean() throws ConstraintViolationException
 	{
 		assertEquals(item.TYPE, item.someNotNullBoolean.getType());
 		assertEquals(true, item.getSomeNotNullBoolean());
@@ -80,8 +96,16 @@ public class AttributeBooleanTest extends AttributeTest
 		assertContains(item, item.TYPE.search(item.someNotNullBoolean.notEqual(false)));
 		assertContains(item, item2, item.TYPE.search(item.someNotNullBoolean.isNotNull()));
 		
+		item.someNotNullBoolean.set(item, Boolean.FALSE);
+		assertEquals(false, item.getSomeNotNullBoolean());
+		
+		item.someNotNullBoolean.set(item, true);
+		assertEquals(true, item.getSomeNotNullBoolean());
+		
 		item.setSomeNotNullBoolean(false);
 		assertEquals(false, item.getSomeNotNullBoolean());
+		assertEquals(Boolean.FALSE, item.someNotNullBoolean.get(item));
+		assertEquals(false, item.someNotNullBoolean.getMandatory(item));
 		assertContains(item.TYPE.search(item.someNotNullBoolean.equal(true)));
 		assertContains(item.TYPE.search(item.someNotNullBoolean.isNull()));
 		assertContains(item.TYPE.search(item.someNotNullBoolean.notEqual(false)));

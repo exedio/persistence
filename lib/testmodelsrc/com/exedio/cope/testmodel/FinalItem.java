@@ -93,7 +93,7 @@ public class FinalItem extends Item
 	 *
  */public final int getNonFinalInteger()
 	{
-		return (FinalItem.nonFinalInteger.get(this)).intValue();
+		return FinalItem.nonFinalInteger.getMandatory(this);
 	}/**
 
 	 **
@@ -105,7 +105,7 @@ public class FinalItem extends Item
 	{
 		try
 		{
-			FinalItem.nonFinalInteger.set(this,new java.lang.Integer(nonFinalInteger));
+			FinalItem.nonFinalInteger.set(this,nonFinalInteger);
 		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{

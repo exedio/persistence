@@ -199,7 +199,7 @@ public class QualifiedName extends Item
 	 *
  */public final int getNumber()
 	{
-		return (QualifiedName.number.get(this)).intValue();
+		return QualifiedName.number.getMandatory(this);
 	}/**
 
 	 **
@@ -211,7 +211,7 @@ public class QualifiedName extends Item
 	{
 		try
 		{
-			QualifiedName.number.set(this,new java.lang.Integer(number));
+			QualifiedName.number.set(this,number);
 		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{
@@ -271,7 +271,7 @@ public class QualifiedName extends Item
 	{
 		try
 		{
-			QualifiedName.noneGetterNumber.set(this,new java.lang.Integer(noneGetterNumber));
+			QualifiedName.noneGetterNumber.set(this,noneGetterNumber);
 		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{
@@ -294,7 +294,7 @@ public class QualifiedName extends Item
 	 *
  */private final int getPrivateGetterNumber()
 	{
-		return (QualifiedName.privateGetterNumber.get(this)).intValue();
+		return QualifiedName.privateGetterNumber.getMandatory(this);
 	}/**
 
 	 **
@@ -306,7 +306,7 @@ public class QualifiedName extends Item
 	{
 		try
 		{
-			QualifiedName.privateGetterNumber.set(this,new java.lang.Integer(privateGetterNumber));
+			QualifiedName.privateGetterNumber.set(this,privateGetterNumber);
 		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{
@@ -329,7 +329,7 @@ public class QualifiedName extends Item
 	 *
  */private final int getInternalGetterNumberInternal()
 	{
-		return (QualifiedName.internalGetterNumber.get(this)).intValue();
+		return QualifiedName.internalGetterNumber.getMandatory(this);
 	}/**
 
 	 **
@@ -341,7 +341,7 @@ public class QualifiedName extends Item
 	{
 		try
 		{
-			QualifiedName.internalGetterNumber.set(this,new java.lang.Integer(internalGetterNumber));
+			QualifiedName.internalGetterNumber.set(this,internalGetterNumber);
 		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{
@@ -364,7 +364,7 @@ public class QualifiedName extends Item
 	 *
  */public final int getNoneSetterNumber()
 	{
-		return (QualifiedName.noneSetterNumber.get(this)).intValue();
+		return QualifiedName.noneSetterNumber.getMandatory(this);
 	}/**
 
 	 **
@@ -374,7 +374,7 @@ public class QualifiedName extends Item
 	 *
  */public final int getPrivateSetterNumber()
 	{
-		return (QualifiedName.privateSetterNumber.get(this)).intValue();
+		return QualifiedName.privateSetterNumber.getMandatory(this);
 	}/**
 
 	 **
@@ -386,7 +386,7 @@ public class QualifiedName extends Item
 	{
 		try
 		{
-			QualifiedName.privateSetterNumber.set(this,new java.lang.Integer(privateSetterNumber));
+			QualifiedName.privateSetterNumber.set(this,privateSetterNumber);
 		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{
@@ -409,7 +409,7 @@ public class QualifiedName extends Item
 	 *
  */public final int getInternalSetterNumber()
 	{
-		return (QualifiedName.internalSetterNumber.get(this)).intValue();
+		return QualifiedName.internalSetterNumber.getMandatory(this);
 	}/**
 
 	 **
@@ -421,7 +421,7 @@ public class QualifiedName extends Item
 	{
 		try
 		{
-			QualifiedName.internalSetterNumber.set(this,new java.lang.Integer(internalSetterNumber));
+			QualifiedName.internalSetterNumber.set(this,internalSetterNumber);
 		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{

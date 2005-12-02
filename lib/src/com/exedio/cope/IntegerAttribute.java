@@ -59,6 +59,17 @@ public final class IntegerAttribute extends ObjectAttribute implements IntegerFu
 		return (Integer)item.get(this);
 	}
 	
+	/**
+	 * @throws RuntimeException if this attribute is not {@link #isMandatory() mandatory}.
+	 */
+	public final int getMandatory(final Item item)
+	{
+		if(!mandatory)
+			throw new RuntimeException("attribute " + toString() + " is not mandatory");
+		
+		return get(item).intValue();
+	}
+	
 	public final void set(final Item item, final Integer value)
 		throws
 			UniqueViolationException,
@@ -73,6 +84,15 @@ public final class IntegerAttribute extends ObjectAttribute implements IntegerFu
 		{
 			throw new NestingRuntimeException(e);
 		}
+	}
+
+	public final void set(final Item item, final int value)
+		throws
+			UniqueViolationException,
+			MandatoryViolationException, // TODO remove
+			ReadOnlyViolationException
+	{
+		set(item, new Integer(value));
 	}
 
 	public final EqualCondition equal(final Integer value)

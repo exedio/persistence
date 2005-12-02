@@ -1038,8 +1038,6 @@ final class Generator
 	throws IOException
 	{
 		o.write("\t\treturn ");
-		if(attribute.isBoxed())
-			o.write(attribute.getUnBoxingPrefix());
 		if(attribute instanceof CopeObjectAttribute)
 		{
 			o.write('(');
@@ -1049,9 +1047,10 @@ final class Generator
 		o.write(attribute.copeClass.getName());
 		o.write('.');
 		o.write(attribute.getName());
-		o.write(".get(this)");
+		o.write(".get");
 		if(attribute.isBoxed())
-			o.write(attribute.getUnBoxingPostfix());
+			o.write("Mandatory");
+		o.write("(this)");
 		o.write(';');
 		o.write(lineSeparator);
 	}
@@ -1072,11 +1071,7 @@ final class Generator
 		o.write('.');
 		o.write(attribute.getName());
 		o.write(".set(this,");
-		if(attribute.isBoxed())
-			o.write(attribute.getBoxingPrefix());
 		o.write(attribute.getName());
-		if(attribute.isBoxed())
-			o.write(attribute.getBoxingPostfix());
 		o.write(");");
 		o.write(lineSeparator);
 		writeTryCatchClausePostfix(exceptionsToCatch);

@@ -79,7 +79,7 @@ public abstract class HierarchySuper extends Item
 	 *
  */public final int getSuperInt()
 	{
-		return (HierarchySuper.superInt.get(this)).intValue();
+		return HierarchySuper.superInt.getMandatory(this);
 	}/**
 
 	 **
@@ -91,7 +91,7 @@ public abstract class HierarchySuper extends Item
 	{
 		try
 		{
-			HierarchySuper.superInt.set(this,new java.lang.Integer(superInt));
+			HierarchySuper.superInt.set(this,superInt);
 		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{

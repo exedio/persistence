@@ -29,8 +29,24 @@ public class AttributeLongTest extends AttributeTest
 		assertContains(item.TYPE.search(item.someLong.notEqual(null)));
 		assertContains(item.TYPE.search(item.someLong.isNotNull()));
 
+		item.someLong.set(item, new Long(22));
+		assertEquals(new Long(22), item.getSomeLong());
+		
+		item.someLong.set(item, 22l);
+		assertEquals(new Long(22), item.getSomeLong());
+		
 		item.setSomeLong(new Long(11));
 		assertEquals(new Long(11), item.getSomeLong());
+		assertEquals(new Long(11), item.someLong.get(item));
+		try
+		{
+			item.someLong.getMandatory(item);
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals("attribute "+item.someLong+" is not mandatory", e.getMessage());
+		}
 
 		restartTransaction();
 		assertEquals(new Long(11), item.getSomeLong());
@@ -66,12 +82,21 @@ public class AttributeLongTest extends AttributeTest
 		}
 	}
 
-	public void testSomeNotNullLong()
+	public void testSomeNotNullLong() throws ConstraintViolationException
 	{
 		assertEquals(item.TYPE, item.someNotNullLong.getType());
 		assertEquals(6l, item.getSomeNotNullLong());
+
+		item.someNotNullLong.set(item, 27l);
+		assertEquals(27l, item.getSomeNotNullLong());
+
+		item.someNotNullLong.set(item, new Long(24));
+		assertEquals(24l, item.getSomeNotNullLong());
+
 		item.setSomeNotNullLong(21l);
 		assertEquals(21l, item.getSomeNotNullLong());
+		assertEquals(new Long(21), item.someNotNullLong.get(item));
+		assertEquals(21l, item.someNotNullLong.getMandatory(item));
 
 		item.setSomeNotNullLong(0l);
 		assertEquals(0l, item.getSomeNotNullLong());

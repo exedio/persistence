@@ -119,7 +119,7 @@ public class QualifiedIntegerEnumQualifier extends Item
 	 *
  */public final int getKeyX()
 	{
-		return (QualifiedIntegerEnumQualifier.keyX.get(this)).intValue();
+		return QualifiedIntegerEnumQualifier.keyX.getMandatory(this);
 	}/**
 
 	 **

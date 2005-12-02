@@ -124,7 +124,7 @@ public class ItemWithDoubleUnique extends Item
 	 *
  */public final int getInteger()
 	{
-		return (ItemWithDoubleUnique.integer.get(this)).intValue();
+		return ItemWithDoubleUnique.integer.getMandatory(this);
 	}/**
 
 	 **
@@ -138,7 +138,7 @@ public class ItemWithDoubleUnique extends Item
 	{
 		try
 		{
-			ItemWithDoubleUnique.integer.set(this,new java.lang.Integer(integer));
+			ItemWithDoubleUnique.integer.set(this,integer);
 		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{

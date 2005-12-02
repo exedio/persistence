@@ -350,7 +350,7 @@ public class AttributeItem extends Item
 	 *
  */public final int getSomeNotNullInteger()
 	{
-		return (AttributeItem.someNotNullInteger.get(this)).intValue();
+		return AttributeItem.someNotNullInteger.getMandatory(this);
 	}/**
 
 	 **
@@ -362,7 +362,7 @@ public class AttributeItem extends Item
 	{
 		try
 		{
-			AttributeItem.someNotNullInteger.set(this,new java.lang.Integer(someNotNullInteger));
+			AttributeItem.someNotNullInteger.set(this,someNotNullInteger);
 		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{
@@ -420,7 +420,7 @@ public class AttributeItem extends Item
 	 *
  */public final long getSomeNotNullLong()
 	{
-		return (AttributeItem.someNotNullLong.get(this)).longValue();
+		return AttributeItem.someNotNullLong.getMandatory(this);
 	}/**
 
 	 **
@@ -432,7 +432,7 @@ public class AttributeItem extends Item
 	{
 		try
 		{
-			AttributeItem.someNotNullLong.set(this,new java.lang.Long(someNotNullLong));
+			AttributeItem.someNotNullLong.set(this,someNotNullLong);
 		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{
@@ -490,7 +490,7 @@ public class AttributeItem extends Item
 	 *
  */public final double getSomeNotNullDouble()
 	{
-		return (AttributeItem.someNotNullDouble.get(this)).doubleValue();
+		return AttributeItem.someNotNullDouble.getMandatory(this);
 	}/**
 
 	 **
@@ -502,7 +502,7 @@ public class AttributeItem extends Item
 	{
 		try
 		{
-			AttributeItem.someNotNullDouble.set(this,new java.lang.Double(someNotNullDouble));
+			AttributeItem.someNotNullDouble.set(this,someNotNullDouble);
 		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{
@@ -650,7 +650,7 @@ public class AttributeItem extends Item
 	 *
  */public final boolean getSomeNotNullBoolean()
 	{
-		return (AttributeItem.someNotNullBoolean.get(this)).booleanValue();
+		return AttributeItem.someNotNullBoolean.getMandatory(this);
 	}/**
 
 	 **
@@ -662,7 +662,7 @@ public class AttributeItem extends Item
 	{
 		try
 		{
-			AttributeItem.someNotNullBoolean.set(this,(someNotNullBoolean?java.lang.Boolean.TRUE:java.lang.Boolean.FALSE));
+			AttributeItem.someNotNullBoolean.set(this,someNotNullBoolean);
 		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{

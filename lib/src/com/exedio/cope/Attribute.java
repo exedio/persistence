@@ -26,7 +26,7 @@ import java.util.List;
 public abstract class Attribute extends Feature
 {
 	private final boolean readOnly;
-	private final boolean mandatory;
+	final boolean mandatory;
 
 	protected Attribute(final Option option)
 	{

@@ -97,7 +97,7 @@ public class Sub extends Super
 	 *
  */public final boolean getSubMandatory()
 	{
-		return (Sub.subMandatory.get(this)).booleanValue();
+		return Sub.subMandatory.getMandatory(this);
 	}/**
 
 	 **
@@ -109,7 +109,7 @@ public class Sub extends Super
 	{
 		try
 		{
-			Sub.subMandatory.set(this,(subMandatory?java.lang.Boolean.TRUE:java.lang.Boolean.FALSE));
+			Sub.subMandatory.set(this,subMandatory);
 		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{

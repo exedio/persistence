@@ -29,8 +29,24 @@ public class AttributeIntegerTest extends AttributeTest
 		assertContains(item.TYPE.search(item.someInteger.notEqual(null)));
 		assertContains(item.TYPE.search(item.someInteger.isNotNull()));
 
+		item.someInteger.set(item, new Integer(14));
+		assertEquals(new Integer(14), item.getSomeInteger());
+
+		item.someInteger.set(item, 12);
+		assertEquals(new Integer(12), item.getSomeInteger());
+
 		item.setSomeInteger(new Integer(10));
 		assertEquals(new Integer(10), item.getSomeInteger());
+		assertEquals(new Integer(10), item.someInteger.get(item));
+		try
+		{
+			item.someInteger.getMandatory(item);
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals("attribute "+item.someInteger+" is not mandatory", e.getMessage());
+		}
 
 		restartTransaction();
 		assertEquals(new Integer(10), item.getSomeInteger());
@@ -65,12 +81,21 @@ public class AttributeIntegerTest extends AttributeTest
 		}
 	}
 
-	public void testSomeNotNullInteger()
+	public void testSomeNotNullInteger() throws ConstraintViolationException
 	{
 		assertEquals(item.TYPE, item.someNotNullInteger.getType());
 		assertEquals(5, item.getSomeNotNullInteger());
+		
+		item.someNotNullInteger.set(item, new Integer(24));
+		assertEquals(24, item.getSomeNotNullInteger());
+		
+		item.someNotNullInteger.set(item, 22);
+		assertEquals(22, item.getSomeNotNullInteger());
+
 		item.setSomeNotNullInteger(20);
 		assertEquals(20, item.getSomeNotNullInteger());
+		assertEquals(new Integer(20), item.someNotNullInteger.get(item));
+		assertEquals(20, item.someNotNullInteger.getMandatory(item));
 
 		item.setSomeNotNullInteger(0);
 		assertEquals(0, item.getSomeNotNullInteger());

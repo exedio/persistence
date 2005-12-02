@@ -29,8 +29,24 @@ public class AttributeDoubleTest extends AttributeTest
 		assertContains(item.TYPE.search(item.someDouble.notEqual(null)));
 		assertContains(item.TYPE.search(item.someDouble.isNotNull()));
 
+		item.someDouble.set(item, new Double(44.44));
+		assertEquals(new Double(44.44), item.getSomeDouble());
+
+		item.someDouble.set(item, 33.33);
+		assertEquals(new Double(33.33), item.getSomeDouble());
+
 		item.setSomeDouble(new Double(22.22));
 		assertEquals(new Double(22.22), item.getSomeDouble());
+		assertEquals(new Double(22.22), item.someDouble.get(item));
+		try
+		{
+			item.someDouble.getMandatory(item);
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals("attribute "+item.someDouble+" is not mandatory", e.getMessage());
+		}
 
 		restartTransaction();
 		assertEquals(new Double(22.22), item.getSomeDouble());
@@ -65,12 +81,21 @@ public class AttributeDoubleTest extends AttributeTest
 		}
 	}
 
-	public void testSomeNotNullDouble()
+	public void testSomeNotNullDouble() throws ConstraintViolationException
 	{
 		assertEquals(item.TYPE, item.someNotNullDouble.getType());
 		assertEquals(2.2, item.getSomeNotNullDouble(), 0.0);
+
 		item.setSomeNotNullDouble(2.5);
 		assertEquals(2.5, item.getSomeNotNullDouble(), 0.0);
+		assertEquals(new Double(2.5), item.someNotNullDouble.get(item));
+		assertEquals(2.5, item.someNotNullDouble.getMandatory(item), 0.0);
+		
+		item.someNotNullDouble.set(item, 2.9);
+		assertEquals(2.9, item.getSomeNotNullDouble(), 0.0);
+
+		item.someNotNullDouble.set(item, new Double(3.1));
+		assertEquals(3.1, item.getSomeNotNullDouble(), 0.0);
 
 		item.setSomeNotNullDouble(0.0);
 		assertEquals(0.0, item.getSomeNotNullDouble(), 0.0);

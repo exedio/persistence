@@ -58,6 +58,17 @@ public final class DoubleAttribute extends ObjectAttribute
 		return (Double)item.get(this);
 	}
 	
+	/**
+	 * @throws RuntimeException if this attribute is not {@link #isMandatory() mandatory}.
+	 */
+	public final double getMandatory(final Item item)
+	{
+		if(!mandatory)
+			throw new RuntimeException("attribute " + toString() + " is not mandatory");
+		
+		return get(item).doubleValue();
+	}
+	
 	public final void set(final Item item, final Double value)
 		throws
 			UniqueViolationException,
@@ -74,6 +85,15 @@ public final class DoubleAttribute extends ObjectAttribute
 		}
 	}
 
+	public final void set(final Item item, final double value)
+		throws
+			UniqueViolationException,
+			MandatoryViolationException, // TODO remove
+			ReadOnlyViolationException
+	{
+		set(item, new Double(value));
+	}
+	
 	public final EqualCondition equal(final Double value)
 	{
 		return new EqualCondition(null, this, value);

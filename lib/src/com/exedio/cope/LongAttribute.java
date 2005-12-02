@@ -58,6 +58,17 @@ public final class LongAttribute extends ObjectAttribute
 		return (Long)item.get(this);
 	}
 	
+	/**
+	 * @throws RuntimeException if this attribute is not {@link #isMandatory() mandatory}.
+	 */
+	public final long getMandatory(final Item item)
+	{
+		if(!mandatory)
+			throw new RuntimeException("attribute " + toString() + " is not mandatory");
+		
+		return get(item).longValue();
+	}
+	
 	public final void set(final Item item, final Long value)
 		throws
 			UniqueViolationException,
@@ -74,6 +85,15 @@ public final class LongAttribute extends ObjectAttribute
 		}
 	}
 
+	public final void set(final Item item, final long value)
+		throws
+			UniqueViolationException,
+			MandatoryViolationException, // TODO remove
+			ReadOnlyViolationException
+	{
+		set(item, new Long(value));
+	}
+	
 	public final EqualCondition equal(final Long value)
 	{
 		return new EqualCondition(null, this, value);

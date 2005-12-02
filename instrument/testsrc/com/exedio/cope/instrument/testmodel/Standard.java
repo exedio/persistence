@@ -434,7 +434,7 @@ public class Standard extends Item
 	 *
  */public final int getNativeInteger()
 	{
-		return (Standard.nativeInteger.get(this)).intValue();
+		return Standard.nativeInteger.getMandatory(this);
 	}/**
 
 	 **
@@ -446,7 +446,7 @@ public class Standard extends Item
 	{
 		try
 		{
-			Standard.nativeInteger.set(this,new java.lang.Integer(nativeInteger));
+			Standard.nativeInteger.set(this,nativeInteger);
 		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{
@@ -504,7 +504,7 @@ public class Standard extends Item
 	 *
  */public final long getNativeLong()
 	{
-		return (Standard.nativeLong.get(this)).longValue();
+		return Standard.nativeLong.getMandatory(this);
 	}/**
 
 	 **
@@ -516,7 +516,7 @@ public class Standard extends Item
 	{
 		try
 		{
-			Standard.nativeLong.set(this,new java.lang.Long(nativeLong));
+			Standard.nativeLong.set(this,nativeLong);
 		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{
@@ -574,7 +574,7 @@ public class Standard extends Item
 	 *
  */public final double getNativeDouble()
 	{
-		return (Standard.nativeDouble.get(this)).doubleValue();
+		return Standard.nativeDouble.getMandatory(this);
 	}/**
 
 	 **
@@ -586,7 +586,7 @@ public class Standard extends Item
 	{
 		try
 		{
-			Standard.nativeDouble.set(this,new java.lang.Double(nativeDouble));
+			Standard.nativeDouble.set(this,nativeDouble);
 		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{
@@ -644,7 +644,7 @@ public class Standard extends Item
 	 *
  */public final boolean getNativeBoolean()
 	{
-		return (Standard.nativeBoolean.get(this)).booleanValue();
+		return Standard.nativeBoolean.getMandatory(this);
 	}/**
 
 	 **
@@ -656,7 +656,7 @@ public class Standard extends Item
 	{
 		try
 		{
-			Standard.nativeBoolean.set(this,(nativeBoolean?java.lang.Boolean.TRUE:java.lang.Boolean.FALSE));
+			Standard.nativeBoolean.set(this,nativeBoolean);
 		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{
