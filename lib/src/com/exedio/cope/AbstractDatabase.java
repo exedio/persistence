@@ -590,6 +590,7 @@ abstract class AbstractDatabase implements Database
 		final List columns = table.getColumns();
 
 		final Statement bf = createStatement();
+		final StringColumn typeColumn = table.typeColumn;
 		if(present)
 		{
 			bf.append("update ").
@@ -613,6 +614,18 @@ abstract class AbstractDatabase implements Database
 				append(table.primaryKey.protectedID).
 				append('=').
 				appendParameter(state.pk);
+			
+			// Additionally check correctness of type column
+			// If type column is inconsistent, the database
+			// will return "0 rows affected" and executeSQLUpdate
+			// will fail
+			if(typeColumn!=null)
+			{
+				bf.append(" and ").
+					append(typeColumn.protectedID).
+					append('=').
+					appendParameter(state.type.id);
+			}
 		}
 		else
 		{
@@ -621,7 +634,6 @@ abstract class AbstractDatabase implements Database
 				append("(").
 				append(table.primaryKey.protectedID);
 			
-			final StringColumn typeColumn = table.typeColumn;
 			if(typeColumn!=null)
 			{
 				bf.append(',').
