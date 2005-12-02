@@ -85,24 +85,27 @@ class ItemCop_Jspm
 						}
 						%>
 						</td>
-					</tr>
-				<%
+					</tr><%
 				final Collection sections = form.getSections();
-				if(sections!=null)
+				if(!sections.isEmpty())
 				{
 					%>
-					<tr><td><%
+					<tr>
+						<td><%
 					for(Iterator i = sections.iterator(); i.hasNext(); )
 					{
 						final Form.Section section = (Form.Section)i.next();
 						final String id = section.id;
 						final String name = section.name;
-						%><input type="submit" name="<%=id%>" value="<%=name%>" /><%
+						%>
+							<input type="submit" name="<%=id%>" value="<%=name%>" /><%
 					}
 					%>
-					</td></tr><%
+						</td>
+					</tr><%
 				}
-				%></table><%
+				%>
+				</table><%
 				if(form.deletedError!=null)
 				{
 					%><%=form.deletedError%><%
