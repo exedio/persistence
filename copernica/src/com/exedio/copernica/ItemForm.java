@@ -38,7 +38,6 @@ import com.exedio.cope.DateAttribute;
 import com.exedio.cope.DoubleAttribute;
 import com.exedio.cope.EnumAttribute;
 import com.exedio.cope.EnumValue;
-import com.exedio.cope.Feature;
 import com.exedio.cope.IntegerAttribute;
 import com.exedio.cope.IntegrityViolationException;
 import com.exedio.cope.Item;
@@ -55,8 +54,6 @@ import com.exedio.cope.StringAttribute;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.pattern.Media;
-import com.exedio.cope.pattern.Qualifier;
-import com.exedio.cope.search.EqualCondition;
 import com.exedio.cops.CheckboxField;
 import com.exedio.cops.DateField;
 import com.exedio.cops.DoubleField;
@@ -195,48 +192,24 @@ final class ItemForm extends Form
 		}
 		this.hasFiles = hasFilesTemp;
 
-		for(Iterator j = type.getFeatures().iterator(); j.hasNext(); )
-		{
-			final Feature feature = (Feature)j.next();
-			if(feature instanceof Qualifier)
-			{
-				final Qualifier qualifier = (Qualifier)feature;
-				final Collection values = qualifier.getQualifyUnique().getType().search(new EqualCondition(null, qualifier.getParent(), item));
-				for(Iterator k = qualifier.getAttributes().iterator(); k.hasNext(); )
-				{
-					final Attribute anyAttribute = (Attribute)k.next();
-					for(Iterator l = values.iterator(); l.hasNext(); )
-					{
-						final Item value = (Item)l.next();
-						if(anyAttribute instanceof ObjectAttribute)
-						{
-							final ObjectAttribute attribute = (ObjectAttribute)anyAttribute;
-							final Object qualifiedValue = value.get(attribute);
-							if(qualifiedValue!=null)
-								createField(attribute, value, value.getCopeID()+'.'+attribute.getName(), true, false, cop, model);
-						}
-					}
-				}
-			}
-		}
-		
 		if(save)
-		{
 			save();
-		}
 	}
 	
 	private final Field createField(
 			final ObjectAttribute attribute,
 			final boolean post, final ItemCop cop, final Model model)
 	{
-		return createField(attribute, this.item, attribute.getName(), attribute.isReadOnly(), post, cop, model);
+		return createField(attribute, this.item, attribute.getName(), post, cop, model);
 	}
 	
 	private final Field createField(
-			final ObjectAttribute attribute, final Item item, final String name, final boolean readOnly,
+			final ObjectAttribute attribute, final Item item, final String name,
 			final boolean post, final ItemCop cop, final Model model)
 	{
+		if(attribute.isReadOnly())
+			throw new RuntimeException(attribute.toString());
+		
 		if(attribute instanceof EnumAttribute)
 		{
 			final EnumAttribute enumAttribute = (EnumAttribute)attribute;
