@@ -52,7 +52,7 @@ final class CopeQualifier extends CopeFeature
 		final String constraintName = uniqueConstraintString.substring(dot+1);
 		//System.out.println("--------- keyString: "+keyString);
 		
-		this.uniqueConstraint = qualifierClass.getUniqueConstraint(constraintName);
+		this.uniqueConstraint = (CopeUniqueConstraint)qualifierClass.getFeature(constraintName);
 		if(uniqueConstraint==null)
 			throw new InjectorParseException("unique constraint not found "+uniqueConstraintString);
 		
@@ -63,8 +63,6 @@ final class CopeQualifier extends CopeFeature
 		this.keyAttributes = new CopeAttribute[uniqueAttributes.length-1];
 		for(int i = 0; i<this.keyAttributes.length; i++)
 			this.keyAttributes[i] = uniqueAttributes[i+1];
-
-		copeClass.add(this);
 	}
 	
 	void show() // TODO remove

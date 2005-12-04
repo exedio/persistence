@@ -795,13 +795,17 @@ final class Generator
 		o.write("\t}");
 		
 		final List qualifierAttributes = Arrays.asList(qualifier.uniqueConstraint.attributes);
-		for(Iterator i = qualifier.qualifierClass.getAttributes().iterator(); i.hasNext(); )
+		for(Iterator i = qualifier.qualifierClass.getFeatures().iterator(); i.hasNext(); )
 		{
-			final CopeAttribute attribute = (CopeAttribute)i.next();
-			if(qualifierAttributes.contains(attribute))
-				continue;
-			writeQualifierGetter(qualifier, attribute);
-			writeQualifierSetter(qualifier, attribute);
+			final CopeFeature feature = (CopeFeature)i.next();
+			if(feature instanceof CopeAttribute)
+			{
+				final CopeAttribute attribute = (CopeAttribute)feature;
+				if(qualifierAttributes.contains(attribute))
+					continue;
+				writeQualifierGetter(qualifier, attribute);
+				writeQualifierSetter(qualifier, attribute);
+			}
 		}
 	}
 
@@ -991,31 +995,31 @@ final class Generator
 		if(!copeClass.isInterface())
 		{
 			//System.out.println("onClassEnd("+jc.getName()+") writing");
-			for(final Iterator i = copeClass.getUniqueConstraints().iterator(); i.hasNext(); )
-			{
-				final CopeUniqueConstraint constraint = (CopeUniqueConstraint)i.next();
-				constraint.getInstance();
-			}
+			for(final Iterator i = copeClass.getFeatures().iterator(); i.hasNext(); )
+				((CopeFeature)i.next()).getInstance();
+			
 			writeInitialConstructor(copeClass);
 			writeGenericConstructor(copeClass);
 			writeReactivationConstructor(copeClass);
-			for(final Iterator i = copeClass.getAttributes().iterator(); i.hasNext(); )
+			
+			// TODO make one loop for correct order
+			for(final Iterator i = copeClass.getFeatures().iterator(); i.hasNext(); )
 			{
-				// write setter/getter methods
-				final CopeAttribute attribute = (CopeAttribute)i.next();
-				//System.out.println("onClassEnd("+jc.getName()+") writing attribute "+attribute.getName());
-				writeAccessMethods(attribute);
+				final CopeFeature feature = (CopeFeature)i.next();
+				if(feature instanceof CopeAttribute)
+					writeAccessMethods((CopeAttribute)feature);
 			}
-			for(final Iterator i = copeClass.getUniqueConstraints().iterator(); i.hasNext(); )
+			for(final Iterator i = copeClass.getFeatures().iterator(); i.hasNext(); )
 			{
-				// write unique finder methods
-				final CopeUniqueConstraint constraint = (CopeUniqueConstraint)i.next();
-				writeUniqueFinder(constraint);
+				final CopeFeature feature = (CopeFeature)i.next();
+				if(feature instanceof CopeUniqueConstraint)
+					writeUniqueFinder((CopeUniqueConstraint)feature);
 			}
-			for(final Iterator i = copeClass.getQualifiers().iterator(); i.hasNext(); )
+			for(final Iterator i = copeClass.getFeatures().iterator(); i.hasNext(); )
 			{
-				final CopeQualifier qualifier = (CopeQualifier)i.next();
-				writeQualifier(qualifier);
+				final CopeFeature feature = (CopeFeature)i.next();
+				if(feature instanceof CopeQualifier)
+					writeQualifier((CopeQualifier)feature);
 			}
 			for(final Iterator i = copeClass.getVectors().iterator(); i.hasNext(); )
 			{

@@ -37,7 +37,6 @@ final class CopeUniqueConstraint extends CopeFeature
 	{
 		super(javaAttribute);
 		this.attributes = attributes;
-		copeClass.add(this);
 	}
 	
 	void show() // TODO remove

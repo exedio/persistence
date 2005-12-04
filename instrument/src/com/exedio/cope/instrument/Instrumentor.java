@@ -226,14 +226,13 @@ final class Instrumentor implements InjectionConsumer
 		for(Iterator i = initializerArguments.iterator(); i.hasNext(); )
 		{
 			final String initializerArgument = (String)i.next();
-			final CopeAttribute copeAttribute = copeClass.getAttribute(initializerArgument);
+			final CopeAttribute copeAttribute = (CopeAttribute)copeClass.getFeature(initializerArgument);
 			if(copeAttribute==null)
 				throw new InjectorParseException("attribute >"+initializerArgument+"< in unique constraint "+ja.name+" not found.");
 			copeAttributes.add(copeAttribute);
 		}
-		copeClass.makeUnique(
-			new CopeUniqueConstraint(ja,
-				(CopeAttribute[])copeAttributes.toArray(new CopeAttribute[copeAttributes.size()])));
+		new CopeUniqueConstraint(ja,
+			(CopeAttribute[])copeAttributes.toArray(new CopeAttribute[copeAttributes.size()]));
 	}
 	
 	private final void handleQualifier(final JavaAttribute ja, final Class typeClass)
@@ -280,7 +279,7 @@ final class Instrumentor implements InjectionConsumer
 			else
 			{
 				// explicitExternal
-				storageAttribute = (CopeAttribute)copeClass.getAttribute(initializerArgument);
+				storageAttribute = (CopeAttribute)copeClass.getFeature(initializerArgument);
 				if(storageAttribute==null)
 					throw new InjectorParseException("attribute >"+initializerArgument+"< in hash "+ja.name+" not found.");
 			}

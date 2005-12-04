@@ -77,14 +77,12 @@ abstract class CopeAttribute extends CopeFeature
 			final Attribute.Option option = getOption(optionString); 
 	
 			if(option.unique)
-				copeClass.makeUnique(new CopeUniqueConstraint(this, javaAttribute));
+				new CopeUniqueConstraint(this, javaAttribute);
 		}
 		
 		this.getterOption = new Option(getterOption, true);
 		this.setterOption = new Option(setterOption, true);
 		this.initial = initial;
-
-		copeClass.add(this);
 	}
 	
 	private ArrayList hashes;

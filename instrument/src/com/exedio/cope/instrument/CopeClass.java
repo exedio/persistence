@@ -32,6 +32,7 @@ import com.exedio.cope.ReadOnlyViolationException;
 import com.exedio.cope.pattern.Media;
 import com.exedio.cope.util.ClassComparator;
 
+// TODO rename to CopeType
 final class CopeClass
 {
 	private static final HashMap copeClassByJavaClass = new HashMap();
@@ -47,11 +48,6 @@ final class CopeClass
 	final JavaClass javaClass;
 	final int accessModifier;
 
-	private final ArrayList attributes = new ArrayList();
-	private final TreeMap attributeMap = new TreeMap();
-	private ArrayList uniqueConstraints = null;
-	private final TreeMap uniqueConstraintMap = new TreeMap();
-	private ArrayList qualifiers = null;
 	private ArrayList vectors = null;
 	private ArrayList media = null;
 	final Option typeOption;
@@ -120,39 +116,15 @@ final class CopeClass
 		}
 	}
 
-	public void add(final CopeAttribute attribute)
-	{
-		attributes.add(attribute);
-		attributeMap.put(attribute.getName(), attribute);
-	}
-	
-	/**
-	 * @return unmodifiable list of {@link JavaAttribute}
-	 */
-	public List getAttributes()
-	{
-		return Collections.unmodifiableList(attributes);
-	}
-	
-	public CopeAttribute getAttribute(final String name)
-	{
-		return (CopeAttribute)attributeMap.get(name);
-	}
-	
-	public void add(final CopeUniqueConstraint uniqueConstraint)
-	{
-		uniqueConstraintMap.put(uniqueConstraint.name, uniqueConstraint);
-	}
-	
-	public CopeUniqueConstraint getUniqueConstraint(final String name)
-	{
-		return (CopeUniqueConstraint)uniqueConstraintMap.get(name);
-	}
-
 	public void register(final CopeFeature feature)
 	{
 		features.add(feature);
 		featureMap.put(feature.name, feature);
+	}
+	
+	public CopeFeature getFeature(final String name)
+	{
+		return (CopeFeature)featureMap.get(name);
 	}
 	
 	public List getFeatures()
@@ -177,44 +149,6 @@ final class CopeClass
 		}
 		
 		return initialConstructorOption.getModifier(JavaFeature.toReflectionModifier(inheritedModifier));
-	}
-	
-	public void makeUnique(final CopeUniqueConstraint constraint)
-	{
-		if(uniqueConstraints==null)
-			uniqueConstraints=new ArrayList();
-		
-		uniqueConstraints.add(constraint);
-	}
-	
-	/**
-	 * @return unmodifiable list of {@link JavaAttribute}
-	 */
-	public List getUniqueConstraints()
-	{
-		return
-			uniqueConstraints == null ? 
-			Collections.EMPTY_LIST :
-			Collections.unmodifiableList(uniqueConstraints);
-	}
-	
-	public void add(final CopeQualifier qualifier)
-	{
-		if(qualifiers==null)
-			qualifiers=new ArrayList();
-		
-		qualifiers.add(qualifier);
-	}
-	
-	/**
-	 * @return unmodifiable list of {@link JavaAttribute}
-	 */
-	public List getQualifiers()
-	{
-		return
-			qualifiers == null ?
-			Collections.EMPTY_LIST :
-			Collections.unmodifiableList(qualifiers);
 	}
 	
 	public void add(final CopeVector vector)
@@ -270,13 +204,17 @@ final class CopeClass
 			constructorExceptions.addAll(superclass.getConstructorExceptions());
 		}
 		
-		for(Iterator i = getAttributes().iterator(); i.hasNext(); )
+		for(Iterator i = getFeatures().iterator(); i.hasNext(); )
 		{
-			final CopeAttribute copeAttribute = (CopeAttribute)i.next();
-			if(copeAttribute.isInitial())
+			final CopeFeature feature = (CopeFeature)i.next();
+			if(feature instanceof CopeAttribute)
 			{
-				initialAttributes.add(copeAttribute);
-				constructorExceptions.addAll(copeAttribute.getSetterExceptions());
+				final CopeAttribute copeAttribute = (CopeAttribute)feature;
+				if(copeAttribute.isInitial())
+				{
+					initialAttributes.add(copeAttribute);
+					constructorExceptions.addAll(copeAttribute.getSetterExceptions());
+				}
 			}
 		}
 		constructorExceptions.remove(ReadOnlyViolationException.class);
