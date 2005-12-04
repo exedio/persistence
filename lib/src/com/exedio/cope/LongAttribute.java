@@ -88,10 +88,16 @@ public final class LongAttribute extends ObjectAttribute
 	public final void set(final Item item, final long value)
 		throws
 			UniqueViolationException,
-			MandatoryViolationException, // TODO remove
 			ReadOnlyViolationException
 	{
-		set(item, new Long(value));
+		try
+		{
+			set(item, new Long(value));
+		}
+		catch(MandatoryViolationException e)
+		{
+			throw new NestingRuntimeException(e);
+		}
 	}
 	
 	public final EqualCondition equal(final Long value)

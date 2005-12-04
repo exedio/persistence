@@ -102,10 +102,16 @@ public final class BooleanAttribute extends ObjectAttribute
 	public final void set(final Item item, final boolean value)
 		throws
 			UniqueViolationException,
-			MandatoryViolationException, // TODO remove
 			ReadOnlyViolationException
 	{
-		set(item, new Boolean(value));
+		try
+		{
+			set(item, new Boolean(value));
+		}
+		catch(MandatoryViolationException e)
+		{
+			throw new NestingRuntimeException(e);
+		}
 	}
 	
 	public final EqualCondition equal(final Boolean value)

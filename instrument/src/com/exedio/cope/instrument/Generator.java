@@ -858,7 +858,6 @@ final class Generator
 			o.write(lineSeparator);
 			writeCommentFooter();
 	
-			final String resultType = attribute.persistentType;
 			attribute.writeGeneratedSetterModifier(o);
 			o.write("void set");
 			o.write(toCamelCase(attribute.getName()));
@@ -866,7 +865,7 @@ final class Generator
 			o.write('(');
 			writeQualifierParameters(qualifier);
 			o.write(",final ");
-			o.write(resultType);
+			o.write(attribute.getBoxedType());
 			o.write(' ');
 			o.write(attribute.getName());
 			o.write(')');
@@ -877,8 +876,7 @@ final class Generator
 			o.write("\t{");
 			o.write(lineSeparator);
 	
-			final SortedSet exceptionsToCatch = new TreeSet(ClassComparator.getInstance());
-			exceptionsToCatch.addAll(attribute.getExceptionsToCatchInSetter());
+			final SortedSet exceptionsToCatch = attribute.getExceptionsToCatchInSetter();
 			writeTryCatchClausePrefix(exceptionsToCatch);
 			o.write("\t\t");
 			o.write(qualifier.qualifierClassString);

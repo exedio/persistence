@@ -233,23 +233,25 @@ public class GeneratorTest extends InstrumentorTest
 		final Class qualifiedString = QualifiedName.class;
 		assertMethod(qualified, "getNameQualifier", new Class[]{String.class}, qualifiedString, PUBLIC|FINAL);
 		assertMethod(qualified, "getNumber", new Class[]{String.class}, Integer.class, PUBLIC|FINAL);
-		assertMethod(qualified, "setNumber", new Class[]{String.class, Integer.class}, PUBLIC|FINAL);
+		assertMethod(qualified, "setNumber", new Class[]{String.class, int.class}, PUBLIC|FINAL);
 		assertMethod(qualified, "getOptionalNumber", new Class[]{String.class}, Integer.class, PUBLIC|FINAL);
 		assertMethod(qualified, "setOptionalNumber", new Class[]{String.class, Integer.class}, PUBLIC|FINAL);
 		assertNoMethod(qualified, "getNoneGetterNumber", new Class[]{String.class});
-		assertMethod(qualified, "setNoneGetterNumber", new Class[]{String.class, Integer.class}, PUBLIC|FINAL);
+		assertMethod(qualified, "setNoneGetterNumber", new Class[]{String.class, int.class}, PUBLIC|FINAL);
 		assertMethod(qualified, "getPrivateGetterNumber", new Class[]{String.class}, Integer.class, PRIVATE|FINAL);
-		assertMethod(qualified, "setPrivateGetterNumber", new Class[]{String.class, Integer.class}, PUBLIC|FINAL);
+		assertMethod(qualified, "setPrivateGetterNumber", new Class[]{String.class, int.class}, PUBLIC|FINAL);
 		assertMethod(qualified, "getInternalGetterNumberInternal", new Class[]{String.class}, Integer.class, PRIVATE|FINAL);
-		assertMethod(qualified, "setInternalGetterNumber", new Class[]{String.class, Integer.class}, PUBLIC|FINAL);
+		assertMethod(qualified, "setInternalGetterNumber", new Class[]{String.class, int.class}, PUBLIC|FINAL);
 		assertNoMethod(qualified, "getInternalGetterNumber", new Class[]{String.class});
 		
 		assertMethod(qualified, "getNoneSetterNumber", new Class[]{String.class}, Integer.class, PUBLIC|FINAL);
+		assertNoMethod(qualified, "setNoneSetterNumber", new Class[]{String.class, int.class});
 		assertNoMethod(qualified, "setNoneSetterNumber", new Class[]{String.class, Integer.class});
 		assertMethod(qualified, "getPrivateSetterNumber", new Class[]{String.class}, Integer.class, PUBLIC|FINAL);
-		assertMethod(qualified, "setPrivateSetterNumber", new Class[]{String.class, Integer.class}, PRIVATE|FINAL);
+		assertMethod(qualified, "setPrivateSetterNumber", new Class[]{String.class, int.class}, PRIVATE|FINAL);
 		assertMethod(qualified, "getInternalSetterNumber", new Class[]{String.class}, Integer.class, PUBLIC|FINAL);
-		assertMethod(qualified, "setInternalSetterNumberInternal", new Class[]{String.class, Integer.class}, PRIVATE|FINAL);
+		assertMethod(qualified, "setInternalSetterNumberInternal", new Class[]{String.class, int.class}, PRIVATE|FINAL);
+		assertNoMethod(qualified, "setInternalSetterNumber", new Class[]{String.class, int.class});
 		assertNoMethod(qualified, "setInternalSetterNumber", new Class[]{String.class, Integer.class});
 	}
 	

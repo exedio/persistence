@@ -303,7 +303,8 @@ abstract class CopeAttribute
 	protected void fillExceptionsThrownByGenericSetter(final SortedSet result)
 	{
 		result.add(UniqueViolationException.class);
-		result.add(MandatoryViolationException.class);
+		if(!isBoxed())
+			result.add(MandatoryViolationException.class);
 		result.add(ReadOnlyViolationException.class);
 	}
 

@@ -89,10 +89,16 @@ public final class IntegerAttribute extends ObjectAttribute implements IntegerFu
 	public final void set(final Item item, final int value)
 		throws
 			UniqueViolationException,
-			MandatoryViolationException, // TODO remove
 			ReadOnlyViolationException
 	{
-		set(item, new Integer(value));
+		try
+		{
+			set(item, new Integer(value));
+		}
+		catch(MandatoryViolationException e)
+		{
+			throw new NestingRuntimeException(e);
+		}
 	}
 
 	public final EqualCondition equal(final Integer value)

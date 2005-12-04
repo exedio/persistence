@@ -111,10 +111,6 @@ public class Sub extends Super
 		{
 			Sub.subMandatory.set(this,subMandatory);
 		}
-		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
-		}
 		catch(com.exedio.cope.ReadOnlyViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);

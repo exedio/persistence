@@ -213,10 +213,6 @@ public class QualifiedName extends Item
 		{
 			QualifiedName.number.set(this,number);
 		}
-		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
-		}
 		catch(com.exedio.cope.ReadOnlyViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
@@ -273,10 +269,6 @@ public class QualifiedName extends Item
 		{
 			QualifiedName.noneGetterNumber.set(this,noneGetterNumber);
 		}
-		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
-		}
 		catch(com.exedio.cope.ReadOnlyViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
@@ -308,10 +300,6 @@ public class QualifiedName extends Item
 		{
 			QualifiedName.privateGetterNumber.set(this,privateGetterNumber);
 		}
-		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
-		}
 		catch(com.exedio.cope.ReadOnlyViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
@@ -342,10 +330,6 @@ public class QualifiedName extends Item
 		try
 		{
 			QualifiedName.internalGetterNumber.set(this,internalGetterNumber);
-		}
-		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
 		catch(com.exedio.cope.ReadOnlyViolationException e)
 		{
@@ -388,10 +372,6 @@ public class QualifiedName extends Item
 		{
 			QualifiedName.privateSetterNumber.set(this,privateSetterNumber);
 		}
-		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
-		}
 		catch(com.exedio.cope.ReadOnlyViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
@@ -422,10 +402,6 @@ public class QualifiedName extends Item
 		try
 		{
 			QualifiedName.internalSetterNumber.set(this,internalSetterNumber);
-		}
-		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
 		catch(com.exedio.cope.ReadOnlyViolationException e)
 		{

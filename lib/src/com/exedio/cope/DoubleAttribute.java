@@ -88,10 +88,16 @@ public final class DoubleAttribute extends ObjectAttribute
 	public final void set(final Item item, final double value)
 		throws
 			UniqueViolationException,
-			MandatoryViolationException, // TODO remove
 			ReadOnlyViolationException
 	{
-		set(item, new Double(value));
+		try
+		{
+			set(item, new Double(value));
+		}
+		catch(MandatoryViolationException e)
+		{
+			throw new NestingRuntimeException(e);
+		}
 	}
 	
 	public final EqualCondition equal(final Double value)

@@ -448,10 +448,6 @@ public class Standard extends Item
 		{
 			Standard.nativeInteger.set(this,nativeInteger);
 		}
-		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
-		}
 		catch(com.exedio.cope.ReadOnlyViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
@@ -517,10 +513,6 @@ public class Standard extends Item
 		try
 		{
 			Standard.nativeLong.set(this,nativeLong);
-		}
-		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
 		catch(com.exedio.cope.ReadOnlyViolationException e)
 		{
@@ -588,10 +580,6 @@ public class Standard extends Item
 		{
 			Standard.nativeDouble.set(this,nativeDouble);
 		}
-		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
-		}
 		catch(com.exedio.cope.ReadOnlyViolationException e)
 		{
 			throw new com.exedio.cope.NestingRuntimeException(e);
@@ -657,10 +645,6 @@ public class Standard extends Item
 		try
 		{
 			Standard.nativeBoolean.set(this,nativeBoolean);
-		}
-		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
 		}
 		catch(com.exedio.cope.ReadOnlyViolationException e)
 		{
