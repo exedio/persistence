@@ -137,6 +137,12 @@ public class GeneratorTest extends InstrumentorTest
 		assertMethod(standard, "isAsIsBoolean", Boolean.class, PUBLIC|FINAL);
 		assertNoMethod(standard, "getAsIsBoolean");
 		assertMethod(standard, "setAsIsBoolean", new Class[]{Boolean.class}, PUBLIC|FINAL);
+		
+		assertMethod(standard, "getDoubleUnique1", String.class, PUBLIC|FINAL);
+		assertMethod(standard, "setDoubleUnique1", new Class[]{String.class}, PUBLIC|FINAL, new Class[]{UniqueViolationException.class});
+		assertMethod(standard, "getDoubleUnique2", Integer.class, PUBLIC|FINAL);
+		assertMethod(standard, "setDoubleUnique2", new Class[]{Integer.class}, PUBLIC|FINAL, new Class[]{UniqueViolationException.class});
+		assertMethod(standard, "findByDoubleUnique", new Class[]{String.class, Integer.class}, standard, PUBLIC|STATIC|FINAL);
 
 		assertMethod(standard, "isAnyMediaNull", boolean.class, PUBLIC|FINAL);
 		assertMethod(standard, "getAnyMediaURL", String.class, PUBLIC|FINAL);
