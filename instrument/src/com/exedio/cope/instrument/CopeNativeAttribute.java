@@ -28,6 +28,7 @@ import com.exedio.cope.BooleanAttribute;
 import com.exedio.cope.DateAttribute;
 import com.exedio.cope.DayAttribute;
 import com.exedio.cope.DoubleAttribute;
+import com.exedio.cope.Feature;
 import com.exedio.cope.IntegerFunction;
 import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.LongAttribute;
@@ -133,8 +134,7 @@ final class CopeNativeAttribute extends CopeAttribute
 	
 	public final boolean isBoxed()
 	{
-		final JavaClass.Value value = javaAttribute.evaluate();
-		final Object instance = value.instance;
+		final Feature instance = getInstance();
 		final boolean notNull = instance instanceof Attribute && ((Attribute)instance).isMandatory();
 
 		return (notNull && nativeType!=null);

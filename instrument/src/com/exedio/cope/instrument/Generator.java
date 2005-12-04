@@ -745,7 +745,7 @@ final class Generator
 			o.write("final ");
 			o.write(keys[i].persistentType);
 			o.write(' ');
-			o.write(keys[i].javaAttribute.name);
+			o.write(keys[i].name);
 		}
 	}
 	
@@ -756,7 +756,7 @@ final class Generator
 		for(int i = 0; i<keys.length; i++)
 		{
 			o.write(',');
-			o.write(keys[i].javaAttribute.name);
+			o.write(keys[i].name);
 		}
 	}
 	
@@ -994,7 +994,7 @@ final class Generator
 			for(final Iterator i = copeClass.getUniqueConstraints().iterator(); i.hasNext(); )
 			{
 				final CopeUniqueConstraint constraint = (CopeUniqueConstraint)i.next();
-				constraint.evaluate();
+				constraint.getInstance();
 			}
 			writeInitialConstructor(copeClass);
 			writeGenericConstructor(copeClass);

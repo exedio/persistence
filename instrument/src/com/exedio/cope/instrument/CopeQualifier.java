@@ -21,10 +21,8 @@ import java.util.List;
 
 import com.exedio.cope.pattern.Qualifier;
 
-final class CopeQualifier
+final class CopeQualifier extends CopeFeature
 {
-	final JavaAttribute javaAttribute;
-	final String name;
 	final String qualifierClassString;
 
 	final CopeClass qualifierClass;
@@ -32,11 +30,10 @@ final class CopeQualifier
 
 	final CopeAttribute[] keyAttributes;
 
-	public CopeQualifier(final JavaAttribute javaAttribute, final CopeClass copeClass, final List initializerArguments)
+	public CopeQualifier(final JavaAttribute javaAttribute, final List initializerArguments)
 		throws InjectorParseException
 	{
-		this.javaAttribute = javaAttribute;
-		this.name = javaAttribute.name;
+		super(javaAttribute);
 		if(initializerArguments.size()!=1)
 			throw new InjectorParseException("Qualifier must have 1 argument, but has "+initializerArguments);
 		final String uniqueConstraintString = (String)initializerArguments.get(0);
@@ -72,9 +69,9 @@ final class CopeQualifier
 	
 	void show() // TODO remove
 	{
-		System.out.println("------qualifier:"+name+'/'+uniqueConstraint.javaAttribute.parent.name+'.'+uniqueConstraint.name);
-		final Qualifier rtvalue = (Qualifier)javaAttribute.evaluate().instance;
-		final JavaAttribute uniqueAttr = (JavaAttribute)javaAttribute.parent.file.repository.getByRtValue(rtvalue.getQualifyUnique());
+		System.out.println("------qualifier:"+name+'/'+uniqueConstraint.getParent().name+'.'+uniqueConstraint.name);
+		final Qualifier rtvalue = (Qualifier)getInstance();
+		final JavaAttribute uniqueAttr = (JavaAttribute)getParent().file.repository.getByRtValue(rtvalue.getQualifyUnique());
 		System.out.println("------qualifier:"+name+'/'+uniqueAttr.parent.name+'.'+uniqueAttr.name);
 		System.out.println("------");
 	}

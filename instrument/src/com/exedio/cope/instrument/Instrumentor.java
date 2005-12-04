@@ -239,11 +239,9 @@ final class Instrumentor implements InjectionConsumer
 	private final void handleQualifier(final JavaAttribute ja, final Class typeClass)
 		throws InjectorParseException
 	{
-		final JavaClass jc = ja.parent;
-		final CopeClass copeClass = CopeClass.getCopeClass(jc);
 		final List initializerArguments = ja.getInitializerArguments();
 		//System.out.println("---------"+initializerArguments);
-		new CopeQualifier(ja, copeClass, initializerArguments);
+		new CopeQualifier(ja, initializerArguments);
 	}
 
 	private final void handleHash(final JavaAttribute ja, final Class typeClass)

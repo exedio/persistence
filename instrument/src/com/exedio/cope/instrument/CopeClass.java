@@ -58,6 +58,9 @@ final class CopeClass
 	final Option initialConstructorOption;
 	final Option genericConstructorOption;
 
+	private final ArrayList features = new ArrayList();
+	private final TreeMap featureMap = new TreeMap();
+	
 	public CopeClass(
 			final JavaClass javaClass,
 			final String typeOption,
@@ -146,6 +149,17 @@ final class CopeClass
 		return (CopeUniqueConstraint)uniqueConstraintMap.get(name);
 	}
 
+	public void register(final CopeFeature feature)
+	{
+		features.add(feature);
+		featureMap.put(feature.name, feature);
+	}
+	
+	public List getFeatures()
+	{
+		return Collections.unmodifiableList(features);
+	}
+	
 	public boolean hasInitialConstructor()
 	{
 		return initialConstructorOption.exists;

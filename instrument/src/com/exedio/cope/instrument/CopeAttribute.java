@@ -43,13 +43,8 @@ import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.pattern.Hash;
 import com.exedio.cope.util.ClassComparator;
 
-abstract class CopeAttribute
+abstract class CopeAttribute extends CopeFeature
 {
-	final JavaAttribute javaAttribute;
-	final int accessModifier;
-
-	final CopeClass copeClass;
-
 	/**
 	 * The persistent type of this attribute.
 	 */
@@ -69,9 +64,7 @@ abstract class CopeAttribute
 			final boolean initial)
 		throws InjectorParseException
 	{
-		this.javaAttribute = javaAttribute;
-		this.accessModifier = javaAttribute.accessModifier;
-		this.copeClass = CopeClass.getCopeClass(javaAttribute.parent);
+		super(javaAttribute);
 		this.persistentType = persistentType;
 		final boolean computed = ComputedFunction.class.isAssignableFrom(typeClass);
 		
@@ -84,7 +77,7 @@ abstract class CopeAttribute
 			final Attribute.Option option = getOption(optionString); 
 	
 			if(option.unique)
-				copeClass.makeUnique(new CopeUniqueConstraint(this));
+				copeClass.makeUnique(new CopeUniqueConstraint(this, javaAttribute));
 		}
 		
 		this.getterOption = new Option(getterOption, true);
@@ -113,7 +106,7 @@ abstract class CopeAttribute
 	
 	final String getName()
 	{
-		return javaAttribute.name;
+		return name;
 	}
 	
 	private final void writeGeneratedModifier(final Writer o, final int modifier) throws IOException
@@ -128,14 +121,9 @@ abstract class CopeAttribute
 
 	final void writeGeneratedGetterModifier(final Writer o) throws IOException
 	{
-		writeGeneratedModifier(o, getterOption.getModifier(javaAttribute.modifier));
+		writeGeneratedModifier(o, getterOption.getModifier(modifier));
 	}
 
-	final JavaClass getParent()
-	{
-		return javaAttribute.parent;
-	}
-	
 	/**
 	 * Returns the type of this attribute to be used in accessor (setter/getter) methods.
 	 * Differs from {@link #getPersistentType() the persistent type},
@@ -183,8 +171,7 @@ abstract class CopeAttribute
 		if(initial)
 			return true;
 		
-		final JavaClass.Value value = javaAttribute.evaluate();
-		final Object instance = value.instance;
+		final Feature instance = getInstance();
 		final boolean readOnly = instance instanceof Attribute && ((Attribute)instance).isReadOnly();
 		final boolean notNull = instance instanceof Attribute && ((Attribute)instance).isMandatory();
 		final boolean computed = instance instanceof ComputedFunction;
@@ -195,8 +182,7 @@ abstract class CopeAttribute
 	// TODO: put into rtlib
 	private final boolean isWriteable()
 	{
-		final JavaClass.Value value = javaAttribute.evaluate();
-		final Object instance = value.instance;
+		final Feature instance = getInstance();
 		final boolean readOnly = instance instanceof Attribute && ((Attribute)instance).isReadOnly();
 		final boolean computed = instance instanceof ComputedFunction;
 
@@ -205,16 +191,14 @@ abstract class CopeAttribute
 	
 	final boolean isTouchable()
 	{
-		final JavaClass.Value value = javaAttribute.evaluate();
-		final Object instance = value.instance;
+		final Object instance = getInstance();
 
 		return instance instanceof DateAttribute;
 	}
 
 	final boolean hasIsGetter()
 	{
-		final JavaClass.Value value = javaAttribute.evaluate();
-		final Object instance = value.instance;
+		final Feature instance = getInstance();
 		final boolean isBoolean = instance instanceof BooleanAttribute;
 
 		return isBoolean && getterOption.booleanAsIs;
@@ -227,7 +211,7 @@ abstract class CopeAttribute
 	
 	final void writeGeneratedSetterModifier(final Writer o) throws IOException
 	{
-		writeGeneratedModifier(o, setterOption.getModifier(javaAttribute.modifier));
+		writeGeneratedModifier(o, setterOption.getModifier(modifier));
 	}
 	
 	private SortedSet setterExceptions = null;
@@ -246,8 +230,7 @@ abstract class CopeAttribute
 	// TODO put this into rtlib
 	protected void fillSetterExceptions(final SortedSet result)
 	{
-		final JavaClass.Value value = javaAttribute.evaluate();
-		final Object instance = value.instance;
+		final Feature instance = getInstance();
 		final boolean readOnly = instance instanceof Attribute && ((Attribute)instance).isReadOnly();
 		final boolean notNull = (instance instanceof Attribute && ((Attribute)instance).isMandatory()) ||
 										(instance instanceof Hash && ((Hash)instance).getStorage().isMandatory());
@@ -298,8 +281,7 @@ abstract class CopeAttribute
 
 	final SortedSet getToucherExceptions()
 	{
-		final JavaClass.Value value = javaAttribute.evaluate();
-		final Object instance = value.instance;
+		final Feature instance = getInstance();
 		final boolean readOnly = instance instanceof Attribute && ((Attribute)instance).isReadOnly();
 		final boolean unique = instance instanceof ObjectAttribute && !((ObjectAttribute)instance).getUniqueConstraints().isEmpty();
 
@@ -362,9 +344,9 @@ abstract class CopeAttribute
 	
 	void show() // TODO remove
 	{
-		System.out.println("------attribute:"+javaAttribute.name);
-		final Feature rtvalue = (Feature)javaAttribute.evaluate().instance;
-		final JavaAttribute ja = (JavaAttribute)javaAttribute.parent.file.repository.getByRtValue(rtvalue);
+		System.out.println("------attribute:"+name);
+		final Feature rtvalue = getInstance();
+		final JavaAttribute ja = (JavaAttribute)getParent().file.repository.getByRtValue(rtvalue);
 		final Attribute a = rtvalue instanceof Attribute ? (Attribute)rtvalue : null;
 		System.out.println("------attribute:"+ja.name+'/'+(a!=null&&a.isMandatory()));
 	
