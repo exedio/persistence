@@ -33,6 +33,8 @@ final class CopeUniqueConstraint
 	final int modifier;
 	final CopeAttribute[] attributes;
 	
+	JavaClass.Value value;
+	
 	/**
 	 * For constraints covering more than one attribute.
 	 */
@@ -45,6 +47,14 @@ final class CopeUniqueConstraint
 
 		final CopeClass copeClass = CopeClass.getCopeClass(attributes[0].javaAttribute.parent);
 		copeClass.add(this);
+	}
+	
+	JavaClass.Value evaluate()
+	{
+		if(value==null)
+			value = javaAttribute.evaluate();
+		
+		return value;
 	}
 	
 	void show() // TODO remove

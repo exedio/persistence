@@ -991,6 +991,11 @@ final class Generator
 		if(!copeClass.isInterface())
 		{
 			//System.out.println("onClassEnd("+jc.getName()+") writing");
+			for(final Iterator i = copeClass.getUniqueConstraints().iterator(); i.hasNext(); )
+			{
+				final CopeUniqueConstraint constraint = (CopeUniqueConstraint)i.next();
+				constraint.evaluate();
+			}
 			writeInitialConstructor(copeClass);
 			writeGenericConstructor(copeClass);
 			writeReactivationConstructor(copeClass);

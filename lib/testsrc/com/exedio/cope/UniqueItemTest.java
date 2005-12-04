@@ -34,11 +34,22 @@ public class UniqueItemTest extends TestmodelTest
 			list(ItemWithSingleUnique.uniqueString),
 			ItemWithSingleUnique.uniqueString.getSingleUniqueConstraint().getUniqueAttributes());
 		assertEqualsUnmodifiable(
+			list(ItemWithSingleUnique.uniqueString.getSingleUniqueConstraint()),
+			ItemWithSingleUnique.uniqueString.getUniqueConstraints());
+		
+		assertEqualsUnmodifiable(
 			list(ItemWithSingleUniqueReadOnly.uniqueReadOnlyString),
 			ItemWithSingleUniqueReadOnly.uniqueReadOnlyString.getSingleUniqueConstraint().getUniqueAttributes());
 		assertEqualsUnmodifiable(
+			list(ItemWithSingleUniqueReadOnly.uniqueReadOnlyString.getSingleUniqueConstraint()),
+			ItemWithSingleUniqueReadOnly.uniqueReadOnlyString.getUniqueConstraints());
+		
+		assertEqualsUnmodifiable(
 			list(ItemWithSingleUniqueNotNull.uniqueNotNullString),
 			ItemWithSingleUniqueNotNull.uniqueNotNullString.getSingleUniqueConstraint().getUniqueAttributes());
+		assertEqualsUnmodifiable(
+			list(ItemWithSingleUniqueNotNull.uniqueNotNullString.getSingleUniqueConstraint()),
+			ItemWithSingleUniqueNotNull.uniqueNotNullString.getUniqueConstraints());
 
 		assertEquals(null, ItemWithSingleUnique.findByUniqueString("uniqueString"));
 
@@ -253,6 +264,12 @@ public class UniqueItemTest extends TestmodelTest
 		assertEquals(
 			list(ItemWithDoubleUnique.string, ItemWithDoubleUnique.integer),
 			ItemWithDoubleUnique.doubleUnique.getUniqueAttributes());
+		assertEquals(
+			list(ItemWithDoubleUnique.doubleUnique),
+			ItemWithDoubleUnique.string.getUniqueConstraints());
+		assertEquals(
+			list(ItemWithDoubleUnique.doubleUnique),
+			ItemWithDoubleUnique.integer.getUniqueConstraints());
 
 		assertEquals(null, ItemWithDoubleUnique.findByDoubleUnique("a", 1));
 		

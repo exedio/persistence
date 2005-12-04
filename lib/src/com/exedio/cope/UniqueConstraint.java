@@ -40,8 +40,7 @@ public final class UniqueConstraint extends Feature
 		this.uniqueAttributes = uniqueAttributes;
 		this.uniqueAttributeList = Collections.unmodifiableList(Arrays.asList(uniqueAttributes));
 		for(int i = 0; i<uniqueAttributes.length; i++)
-			if(uniqueAttributes[i]==null)
-				throw new RuntimeException(String.valueOf(i));
+			uniqueAttributes[i].registerUniqueConstraint(this);
 	}
 	
 	// is not public, because one should use Item.UNIQUE etc

@@ -23,7 +23,6 @@ import java.io.Writer;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -178,20 +177,6 @@ abstract class CopeAttribute
 		throw new RuntimeException();
 	}
 	
-	final boolean isPartOfUniqueConstraint()
-	{
-		for( final Iterator i = copeClass.getUniqueConstraints().iterator(); i.hasNext(); )
-		{
-			final CopeAttribute[] uniqueConstraint = ((CopeUniqueConstraint)i.next()).attributes;
-			for(int j=0; j<uniqueConstraint.length; j++)
-			{
-				if(this == uniqueConstraint[j])
-					return true;
-			}
-		}
-		return false;
-	}
-	
 	// TODO: put into rtlib
 	final boolean isInitial()
 	{
@@ -266,9 +251,10 @@ abstract class CopeAttribute
 		final boolean readOnly = instance instanceof Attribute && ((Attribute)instance).isReadOnly();
 		final boolean notNull = (instance instanceof Attribute && ((Attribute)instance).isMandatory()) ||
 										(instance instanceof Hash && ((Hash)instance).getStorage().isMandatory());
+		final boolean unique = instance instanceof ObjectAttribute && !((ObjectAttribute)instance).getUniqueConstraints().isEmpty();
 		final boolean isLengthConstrained = instance instanceof StringAttribute && ((StringAttribute)instance).isLengthConstrained();
 
-		if(isPartOfUniqueConstraint())
+		if(unique)
 			result.add(UniqueViolationException.class);
 		if(readOnly)
 			result.add(ReadOnlyViolationException.class);
@@ -315,13 +301,14 @@ abstract class CopeAttribute
 		final JavaClass.Value value = javaAttribute.evaluate();
 		final Object instance = value.instance;
 		final boolean readOnly = instance instanceof Attribute && ((Attribute)instance).isReadOnly();
+		final boolean unique = instance instanceof ObjectAttribute && !((ObjectAttribute)instance).getUniqueConstraints().isEmpty();
 
 		if(toucherExceptions!=null)
 			return toucherExceptions;
 		
 		final TreeSet modifyableToucherExceptions = new TreeSet(ClassComparator.getInstance());
 		
-		if(isPartOfUniqueConstraint())
+		if(unique)
 			modifyableToucherExceptions.add(UniqueViolationException.class);
 		if(readOnly)
 			modifyableToucherExceptions.add(ReadOnlyViolationException.class);

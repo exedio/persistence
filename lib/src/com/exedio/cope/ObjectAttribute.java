@@ -17,6 +17,10 @@
  */
 package com.exedio.cope;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import com.exedio.cope.search.EqualCondition;
 import com.exedio.cope.search.NotEqualCondition;
 
@@ -28,6 +32,7 @@ public abstract class ObjectAttribute
 	private final Class valueClass;
 	private final String valueClassName;
 	private final UniqueConstraint singleUniqueConstraint;
+	private ArrayList uniqueConstraints;
 	
 	protected ObjectAttribute(final Option option, final Class valueClass, final String valueClassName)
 	{
@@ -128,6 +133,36 @@ public abstract class ObjectAttribute
 	public UniqueConstraint getSingleUniqueConstraint()
 	{
 		return singleUniqueConstraint;
+	}
+
+	/**
+	 * Returns a list of unique constraints this attribute is part of.
+	 * This includes a
+	 * {@link #getSingleUniqueConstraint() single unique constraint},
+	 * if there is one for this attribute.
+	 * 
+	 */
+	public List getUniqueConstraints()
+	{
+		return uniqueConstraints!=null ? Collections.unmodifiableList(uniqueConstraints) : Collections.EMPTY_LIST;
+	}
+	
+	final void registerUniqueConstraint(final UniqueConstraint constraint)
+	{
+		if(constraint==null)
+			throw new NullPointerException();
+		
+		if(uniqueConstraints==null)
+		{
+			uniqueConstraints = new ArrayList();
+		}
+		else
+		{
+			if(uniqueConstraints.contains(constraint))
+				throw new RuntimeException(constraint.toString());
+		}
+		
+		uniqueConstraints.add(constraint);
 	}
 
 	/**
