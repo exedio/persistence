@@ -159,7 +159,7 @@ final class ConnectionPool implements ConnectionProvider
 			}
 			catch(SQLException e)
 			{
-				throw new NestingRuntimeException(e);
+				throw new RuntimeException(e);
 			}
 		}
 

@@ -35,7 +35,6 @@ import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
 import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.MandatoryViolationException;
-import com.exedio.cope.NestingRuntimeException;
 import com.exedio.cope.ObjectAttribute;
 import com.exedio.cope.ReadOnlyViolationException;
 import com.exedio.cope.StringAttribute;
@@ -332,11 +331,11 @@ abstract class CopeAttribute extends CopeFeature
 		}
 		catch(NoSuchFieldException e)
 		{
-			throw new NestingRuntimeException(e, optionString);
+			throw new RuntimeException(optionString, e);
 		}
 		catch(IllegalAccessException e)
 		{
-			throw new NestingRuntimeException(e, optionString);
+			throw new RuntimeException(optionString, e);
 		}
 	}
 	

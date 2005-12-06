@@ -37,7 +37,7 @@ final class HsqldbDatabase
 		}
 		catch(ClassNotFoundException e)
 		{
-			throw new NestingRuntimeException(e);
+			throw new RuntimeException(e);
 		}
 	}
 

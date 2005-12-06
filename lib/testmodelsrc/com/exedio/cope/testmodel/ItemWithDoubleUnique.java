@@ -109,11 +109,11 @@ public class ItemWithDoubleUnique extends Item
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
+			throw new java.lang.RuntimeException(e);
 		}
 		catch(com.exedio.cope.ReadOnlyViolationException e)
 		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
+			throw new java.lang.RuntimeException(e);
 		}
 	}/**
 
@@ -142,7 +142,7 @@ public class ItemWithDoubleUnique extends Item
 		}
 		catch(com.exedio.cope.ReadOnlyViolationException e)
 		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
+			throw new java.lang.RuntimeException(e);
 		}
 	}/**
 

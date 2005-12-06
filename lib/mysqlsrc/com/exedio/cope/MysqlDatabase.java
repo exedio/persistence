@@ -51,7 +51,7 @@ public final class MysqlDatabase extends AbstractDatabase
 		}
 		catch(ClassNotFoundException e)
 		{
-			throw new NestingRuntimeException(e);
+			throw new RuntimeException(e);
 		}
 	}
 	

@@ -108,15 +108,15 @@ public class PointerItem extends Item
 		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
+			throw new java.lang.RuntimeException(e);
 		}
 		catch(com.exedio.cope.ReadOnlyViolationException e)
 		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
+			throw new java.lang.RuntimeException(e);
 		}
 		catch(com.exedio.cope.UniqueViolationException e)
 		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
+			throw new java.lang.RuntimeException(e);
 		}
 	}/**
 
@@ -145,11 +145,11 @@ public class PointerItem extends Item
 		}
 		catch(com.exedio.cope.ReadOnlyViolationException e)
 		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
+			throw new java.lang.RuntimeException(e);
 		}
 		catch(com.exedio.cope.UniqueViolationException e)
 		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
+			throw new java.lang.RuntimeException(e);
 		}
 	}/**
 
@@ -176,15 +176,15 @@ public class PointerItem extends Item
 		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
+			throw new java.lang.RuntimeException(e);
 		}
 		catch(com.exedio.cope.ReadOnlyViolationException e)
 		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
+			throw new java.lang.RuntimeException(e);
 		}
 		catch(com.exedio.cope.UniqueViolationException e)
 		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
+			throw new java.lang.RuntimeException(e);
 		}
 	}/**
 
@@ -211,15 +211,15 @@ public class PointerItem extends Item
 		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
+			throw new java.lang.RuntimeException(e);
 		}
 		catch(com.exedio.cope.ReadOnlyViolationException e)
 		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
+			throw new java.lang.RuntimeException(e);
 		}
 		catch(com.exedio.cope.UniqueViolationException e)
 		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
+			throw new java.lang.RuntimeException(e);
 		}
 	}/**
 
@@ -246,15 +246,15 @@ public class PointerItem extends Item
 		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
+			throw new java.lang.RuntimeException(e);
 		}
 		catch(com.exedio.cope.ReadOnlyViolationException e)
 		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
+			throw new java.lang.RuntimeException(e);
 		}
 		catch(com.exedio.cope.UniqueViolationException e)
 		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
+			throw new java.lang.RuntimeException(e);
 		}
 	}/**
 

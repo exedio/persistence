@@ -71,7 +71,7 @@ public final class DayAttribute extends ObjectAttribute
 		}
 		catch(LengthViolationException e)
 		{
-			throw new NestingRuntimeException(e);
+			throw new RuntimeException(e);
 		}
 	}
 

@@ -29,7 +29,6 @@ import java.util.List;
 
 import junit.framework.TestCase;
 
-import com.exedio.cope.NestingRuntimeException;
 import com.exedio.cope.Query;
 import com.exedio.cope.StatementInfo;
 
@@ -257,7 +256,7 @@ public abstract class CopeAssert extends TestCase
 		}
 		catch(IOException e)
 		{
-			throw new NestingRuntimeException(e);
+			throw new RuntimeException(e);
 		}
 		return o;
 	}

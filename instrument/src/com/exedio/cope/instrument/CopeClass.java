@@ -27,7 +27,6 @@ import java.util.SortedSet;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
-import com.exedio.cope.NestingRuntimeException;
 import com.exedio.cope.ReadOnlyViolationException;
 import com.exedio.cope.pattern.Media;
 import com.exedio.cope.util.ClassComparator;
@@ -106,7 +105,7 @@ final class CopeClass
 				catch(RuntimeException e)
 				{
 					if(!e.getMessage().startsWith("no cope class for ")) // TODO better exception
-						throw new NestingRuntimeException(e, "bad exception");
+						throw new RuntimeException("bad exception", e);
 					else
 						return null;
 				}

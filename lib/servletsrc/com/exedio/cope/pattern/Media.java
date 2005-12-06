@@ -36,7 +36,6 @@ import com.exedio.cope.ConstraintViolationException;
 import com.exedio.cope.DataAttribute;
 import com.exedio.cope.Item;
 import com.exedio.cope.MandatoryViolationException;
-import com.exedio.cope.NestingRuntimeException;
 import com.exedio.cope.ObjectAttribute;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.StringAttribute;
@@ -383,7 +382,7 @@ public final class Media extends MediaPath
 		}
 		catch(ConstraintViolationException e)
 		{
-			throw new NestingRuntimeException(e);
+			throw new RuntimeException(e);
 		}
 	}
 	

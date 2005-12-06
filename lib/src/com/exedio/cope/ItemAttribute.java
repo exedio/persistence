@@ -184,7 +184,7 @@ public final class ItemAttribute extends ObjectAttribute
 		}
 		catch(LengthViolationException e)
 		{
-			throw new NestingRuntimeException(e);
+			throw new RuntimeException(e);
 		}
 	}
 

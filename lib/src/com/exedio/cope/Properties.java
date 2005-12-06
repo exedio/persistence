@@ -116,7 +116,7 @@ public final class Properties
 		}
 		catch(IOException e)
 		{
-			throw new NestingRuntimeException(e, "property file "+propertyFile.getAbsolutePath()+" not found.");
+			throw new RuntimeException("property file "+propertyFile.getAbsolutePath()+" not found.", e);
 		}
 		finally
 		{
@@ -177,7 +177,7 @@ public final class Properties
 			}
 			catch(IOException e)
 			{
-				throw new NestingRuntimeException(e);
+				throw new RuntimeException(e);
 			}
 		}
 		else
@@ -363,15 +363,15 @@ public final class Properties
 		}
 		catch(InstantiationException e)
 		{
-			throw new NestingRuntimeException(e);
+			throw new RuntimeException(e);
 		}
 		catch(IllegalAccessException e)
 		{
-			throw new NestingRuntimeException(e);
+			throw new RuntimeException(e);
 		}
 		catch(InvocationTargetException e)
 		{
-			throw new NestingRuntimeException(e);
+			throw new RuntimeException(e);
 		}
 	}
 	

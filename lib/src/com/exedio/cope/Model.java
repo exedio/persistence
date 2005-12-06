@@ -612,7 +612,7 @@ public final class Model
 		}
 		catch (SQLException e)
 		{
-			throw new NestingRuntimeException( e );
+			throw new RuntimeException( e );
 		}
 	}
 	

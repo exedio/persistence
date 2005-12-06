@@ -82,7 +82,7 @@ public final class IntegerAttribute extends ObjectAttribute implements IntegerFu
 		}
 		catch(LengthViolationException e)
 		{
-			throw new NestingRuntimeException(e);
+			throw new RuntimeException(e);
 		}
 	}
 
@@ -97,7 +97,7 @@ public final class IntegerAttribute extends ObjectAttribute implements IntegerFu
 		}
 		catch(MandatoryViolationException e)
 		{
-			throw new NestingRuntimeException(e);
+			throw new RuntimeException(e);
 		}
 	}
 

@@ -103,7 +103,7 @@ public class SearchTest extends TestmodelTest
 		}
 		catch(MandatoryViolationException e)
 		{
-			throw new NestingRuntimeException(e);
+			throw new RuntimeException(e);
 		}
 		item.setSomeNotNullInteger(0);
 		assertContainsUnmodifiable(item, item.TYPE.search(item.someNotNullInteger.equal(0)));

@@ -109,11 +109,11 @@ public class FinalItem extends Item
 		}
 		catch(com.exedio.cope.ReadOnlyViolationException e)
 		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
+			throw new java.lang.RuntimeException(e);
 		}
 		catch(com.exedio.cope.UniqueViolationException e)
 		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
+			throw new java.lang.RuntimeException(e);
 		}
 	}/**
 

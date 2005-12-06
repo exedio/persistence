@@ -27,7 +27,6 @@ import java.util.ListIterator;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
-import com.exedio.cope.NestingRuntimeException;
 import com.exedio.cope.Properties;
 import com.exedio.cope.Transaction;
 import com.exedio.cope.util.PoolCounter;
@@ -202,7 +201,7 @@ public abstract class CopeTest extends CopeAssert
 					deleteOnTearDown.clear();
 					if ( ive!=null )
 					{
-						throw new NestingRuntimeException( ive, "test completed successfully but failed to delete a 'deleteOnTearDown' item" );
+						throw new RuntimeException("test completed successfully but failed to delete a 'deleteOnTearDown' item", ive);
 					}
 				}
 				deleteOnTearDown = null;
@@ -212,7 +211,7 @@ public abstract class CopeTest extends CopeAssert
 			{
 				if ( testMethodFinished )
 				{
-					throw new NestingRuntimeException( e, "test completed successfully but didn't clean up database" );
+					throw new RuntimeException("test completed successfully but didn't clean up database", e);
 				}
 				else
 				{

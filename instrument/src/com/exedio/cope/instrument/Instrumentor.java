@@ -37,7 +37,6 @@ import com.exedio.cope.Function;
 import com.exedio.cope.IntegerFunction;
 import com.exedio.cope.ItemAttribute;
 import com.exedio.cope.LongAttribute;
-import com.exedio.cope.NestingRuntimeException;
 import com.exedio.cope.StringAttribute;
 import com.exedio.cope.StringFunction;
 import com.exedio.cope.UniqueConstraint;
@@ -267,7 +266,7 @@ final class Instrumentor implements InjectionConsumer
 				CopeAttribute.getOption(initializerArgument);
 				internal = true;
 			}
-			catch(NestingRuntimeException e)
+			catch(RuntimeException e)
 			{
 			}
 			

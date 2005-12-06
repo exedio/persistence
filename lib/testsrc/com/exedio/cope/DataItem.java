@@ -125,7 +125,7 @@ public class DataItem extends Item
 		}
 		catch(com.exedio.cope.MandatoryViolationException e)
 		{
-			throw new com.exedio.cope.NestingRuntimeException(e);
+			throw new java.lang.RuntimeException(e);
 		}
 	}/**
 

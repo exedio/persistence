@@ -145,7 +145,7 @@ public abstract class AbstractLibTest extends CopeTest
 		}
 		catch(IOException e)
 		{
-			throw new NestingRuntimeException(e);
+			throw new RuntimeException(e);
 		}
 	}
 	

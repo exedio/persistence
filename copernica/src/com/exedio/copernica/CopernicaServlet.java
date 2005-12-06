@@ -27,7 +27,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.exedio.cope.Model;
-import com.exedio.cope.NestingRuntimeException;
 import com.exedio.cope.util.ServletUtil;
 import com.exedio.cops.Cop;
 import com.exedio.cops.CopsServlet;
@@ -182,15 +181,15 @@ public final class CopernicaServlet extends CopsServlet
 		}
 		catch(ClassNotFoundException e)
 		{
-			throw new NestingRuntimeException(e);
+			throw new RuntimeException(e);
 		}
 		catch(InstantiationException e)
 		{
-			throw new NestingRuntimeException(e);
+			throw new RuntimeException(e);
 		}
 		catch(IllegalAccessException e)
 		{
-			throw new NestingRuntimeException(e);
+			throw new RuntimeException(e);
 		}
 	}
 	

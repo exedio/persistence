@@ -708,7 +708,7 @@ abstract class AbstractDatabase implements Database
 			}
 			catch(UniqueViolationException e)
 			{
-				throw new NestingRuntimeException(e);
+				throw new RuntimeException(e);
 			}
 		}
 	}

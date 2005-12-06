@@ -49,7 +49,7 @@ final class OracleDatabase
 		}
 		catch(ClassNotFoundException e)
 		{
-			throw new NestingRuntimeException(e);
+			throw new RuntimeException(e);
 		}
 	}
 	

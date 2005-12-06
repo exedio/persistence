@@ -23,7 +23,6 @@ import java.io.PrintStream;
 import javax.servlet.http.HttpServletRequest;
 
 import com.exedio.cope.Item;
-import com.exedio.cope.NestingRuntimeException;
 import com.exedio.cope.NoSuchIDException;
 import com.exedio.cope.Type;
 
@@ -81,7 +80,7 @@ final class ItemCop extends CopernicaCop
 		}
 		catch(NoSuchIDException e)
 		{
-			throw new NestingRuntimeException(e);
+			throw new RuntimeException(e);
 		}
 	}
 

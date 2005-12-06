@@ -145,7 +145,7 @@ public final class Type
 		}
 		catch(IllegalAccessException e)
 		{
-			throw new NestingRuntimeException(e);
+			throw new RuntimeException(e);
 		}
 		this.declaredAttributes = (Attribute[])attributesWhileConstruction.toArray(new Attribute[attributesWhileConstruction.size()]);
 		this.declaredAttributeList = Collections.unmodifiableList(Arrays.asList(this.declaredAttributes));
@@ -201,7 +201,7 @@ public final class Type
 		}
 		catch(NoSuchMethodException e)
 		{
-			throw new NestingRuntimeException(e, javaClass.getName() + " does not have a " + name + " constructor");
+			throw new RuntimeException(javaClass.getName() + " does not have a " + name + " constructor", e);
 		}
 	}
 	
@@ -529,15 +529,15 @@ public final class Type
 		}
 		catch(InstantiationException e)
 		{
-			throw new NestingRuntimeException(e);
+			throw new RuntimeException(e);
 		}
 		catch(IllegalAccessException e)
 		{
-			throw new NestingRuntimeException(e);
+			throw new RuntimeException(e);
 		}
 		catch(InvocationTargetException e)
 		{
-			throw new NestingRuntimeException(e);
+			throw new RuntimeException(e);
 		}
 	}
 
@@ -623,15 +623,15 @@ public final class Type
 		}
 		catch(InstantiationException e)
 		{
-			throw new NestingRuntimeException(e, id);
+			throw new RuntimeException(id, e);
 		}
 		catch(IllegalAccessException e)
 		{
-			throw new NestingRuntimeException(e, id);
+			throw new RuntimeException(id, e);
 		}
 		catch(InvocationTargetException e)
 		{
-			throw new NestingRuntimeException(e, id);
+			throw new RuntimeException(id, e);
 		}
 	}
 

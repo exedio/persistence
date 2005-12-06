@@ -46,7 +46,6 @@ import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.LongAttribute;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
-import com.exedio.cope.NestingRuntimeException;
 import com.exedio.cope.NoSuchIDException;
 import com.exedio.cope.ObjectAttribute;
 import com.exedio.cope.ReadOnlyViolationException;
@@ -491,7 +490,7 @@ final class ItemForm extends Form
 						}
 						catch(IOException e)
 						{
-							throw new NestingRuntimeException(e);
+							throw new RuntimeException(e);
 						}
 					}
 				}
@@ -513,7 +512,7 @@ final class ItemForm extends Form
 		}
 		catch(ReadOnlyViolationException e)
 		{
-			throw new NestingRuntimeException(e);
+			throw new RuntimeException(e);
 		}
 		catch(UniqueViolationException e)
 		{

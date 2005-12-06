@@ -33,7 +33,6 @@ import com.exedio.cope.EnumValue;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemAttribute;
-import com.exedio.cope.NestingRuntimeException;
 import com.exedio.cope.StringAttribute;
 import com.exedio.cope.Attribute.Option;
 import com.exedio.cope.pattern.Hash;
@@ -366,7 +365,7 @@ class JavaClass extends JavaFeature
 				catch(RuntimeException e)
 				{
 					if(!e.getMessage().startsWith("no cope class for ")) // TODO better exception
-						throw new NestingRuntimeException(e, "bad exception");
+						throw new RuntimeException("bad exception", e);
 				}
 
 				if(aClass!=null)

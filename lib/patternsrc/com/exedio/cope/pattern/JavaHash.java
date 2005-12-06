@@ -22,7 +22,6 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import com.exedio.cope.NestingRuntimeException;
 import com.exedio.cope.StringAttribute;
 
 /**
@@ -48,11 +47,11 @@ public class JavaHash extends Hash
 		}
 		catch(NoSuchAlgorithmException e)
 		{
-			throw new NestingRuntimeException(e);
+			throw new RuntimeException(e);
 		}
 		catch(UnsupportedEncodingException e)
 		{
-			throw new NestingRuntimeException(e);
+			throw new RuntimeException(e);
 		}
 	}
 
@@ -90,11 +89,11 @@ public class JavaHash extends Hash
 		}
 		catch(NoSuchAlgorithmException e)
 		{
-			throw new NestingRuntimeException(e);
+			throw new RuntimeException(e);
 		}
 		catch(UnsupportedEncodingException e)
 		{
-			throw new NestingRuntimeException(e);
+			throw new RuntimeException(e);
 		}
 	}
 	

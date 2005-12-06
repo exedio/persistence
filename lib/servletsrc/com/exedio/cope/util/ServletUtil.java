@@ -25,7 +25,6 @@ import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 
 import com.exedio.cope.Model;
-import com.exedio.cope.NestingRuntimeException;
 
 public class ServletUtil
 {
@@ -53,7 +52,7 @@ public class ServletUtil
 			}
 			catch(NoSuchFieldException e)
 			{
-				throw new NestingRuntimeException(e, "field " + modelAttributeName + " in " + modelClass.toString() + " does not exist or is not public.");
+				throw new RuntimeException("field " + modelAttributeName + " in " + modelClass.toString() + " does not exist or is not public.", e);
 			}
 			
 			final Model model = (Model)modelField.get(null);
@@ -62,11 +61,11 @@ public class ServletUtil
 		}
 		catch(ClassNotFoundException e)
 		{
-			throw new NestingRuntimeException(e);
+			throw new RuntimeException(e);
 		}
 		catch(IllegalAccessException e)
 		{
-			throw new NestingRuntimeException(e);
+			throw new RuntimeException(e);
 		}
 	}
 	

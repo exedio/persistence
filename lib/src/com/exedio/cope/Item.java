@@ -389,22 +389,22 @@ public abstract class Item extends Cope
 		catch(UniqueViolationException e)
 		{
 			// cannot happen, since null does not violate uniqueness
-			throw new NestingRuntimeException(e);
+			throw new RuntimeException(e);
 		}
 		catch(MandatoryViolationException e)
 		{
 			// cannot happen, since nullify ItemAttributes cannot be mandatory
-			throw new NestingRuntimeException(e);
+			throw new RuntimeException(e);
 		}
 		catch(LengthViolationException e)
 		{
 			// cannot happen, since there are no StringAttributes written
-			throw new NestingRuntimeException(e);
+			throw new RuntimeException(e);
 		}
 		catch(ReadOnlyViolationException e)
 		{
 			// cannot happen, since nullify ItemAttributes cannot be readonly
-			throw new NestingRuntimeException(e);
+			throw new RuntimeException(e);
 		}
 	}
 	

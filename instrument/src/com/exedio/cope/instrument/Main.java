@@ -34,7 +34,6 @@ import java.util.zip.CheckedInputStream;
 import java.util.zip.CheckedOutputStream;
 
 import com.exedio.cope.Cope;
-import com.exedio.cope.NestingRuntimeException;
 
 public final class Main
 {
@@ -125,17 +124,17 @@ public final class Main
 		catch(IllegalParameterException e)
 		{
 			e.printStackTrace();
-			throw new NestingRuntimeException(e);
+			throw new RuntimeException(e);
 		}
 		catch(InjectorParseException e)
 		{
 			e.printStackTrace();
-			throw new NestingRuntimeException(e);
+			throw new RuntimeException(e);
 		}
 		catch(IOException e)
 		{
 			e.printStackTrace();
-			throw new NestingRuntimeException(e);
+			throw new RuntimeException(e);
 		}
 	}
 	

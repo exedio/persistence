@@ -25,7 +25,6 @@ import java.util.Arrays;
 import com.exedio.cope.AbstractLibTest;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Main;
-import com.exedio.cope.NestingRuntimeException;
 import com.exedio.cope.StringAttribute;
 
 public class MD5Test extends AbstractLibTest
@@ -77,20 +76,20 @@ public class MD5Test extends AbstractLibTest
 			new MD5Hash(new StringAttribute(item.OPTIONAL), "nixus");
 			fail("should have thrown UnsupportedEncodingException");
 		}
-		catch(NestingRuntimeException e)
+		catch(RuntimeException e)
 		{
-			assertEquals("nixus", e.getMessage());
-			assertEquals(UnsupportedEncodingException.class, e.getNestedCause().getClass());
+			assertEquals(UnsupportedEncodingException.class.getName()+": nixus", e.getMessage());
+			assertEquals(UnsupportedEncodingException.class, e.getCause().getClass());
 		}
 		try
 		{
 			new JavaHash(new StringAttribute(item.OPTIONAL), "NIXUS");
 			fail("should have thrown NoSuchAlgorithmException");
 		}
-		catch(NestingRuntimeException e)
+		catch(RuntimeException e)
 		{
-			assertEquals("NIXUS MessageDigest not available", e.getMessage());
-			assertEquals(NoSuchAlgorithmException.class, e.getNestedCause().getClass());
+			assertEquals(NoSuchAlgorithmException.class.getName()+": NIXUS MessageDigest not available", e.getMessage());
+			assertEquals(NoSuchAlgorithmException.class, e.getCause().getClass());
 		}
 
 		assertNull(item.getHashed1MD5());

@@ -108,7 +108,7 @@ public final class EnumAttribute extends ObjectAttribute
 		}
 		catch(IllegalAccessException e)
 		{
-			throw new NestingRuntimeException(e);
+			throw new RuntimeException(e);
 		}
 	}
 	
@@ -174,7 +174,7 @@ public final class EnumAttribute extends ObjectAttribute
 		}
 		catch(LengthViolationException e)
 		{
-			throw new NestingRuntimeException(e);
+			throw new RuntimeException(e);
 		}
 	}
 

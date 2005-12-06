@@ -34,7 +34,6 @@ import java.util.TreeSet;
 import com.exedio.cope.AttributeValue;
 import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.MandatoryViolationException;
-import com.exedio.cope.NestingRuntimeException;
 import com.exedio.cope.ReadOnlyViolationException;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueViolationException;
@@ -1174,7 +1173,7 @@ final class Generator
 				o.write(lineSeparator);
 				o.write("\t\t{");
 				o.write(lineSeparator);
-				o.write("\t\t\tthrow new "+NestingRuntimeException.class.getName()+"(e);");
+				o.write("\t\t\tthrow new "+RuntimeException.class.getName()+"(e);");
 				o.write(lineSeparator);
 				o.write("\t\t}");
 				o.write(lineSeparator);

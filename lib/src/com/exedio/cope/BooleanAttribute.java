@@ -95,7 +95,7 @@ public final class BooleanAttribute extends ObjectAttribute
 		}
 		catch(LengthViolationException e)
 		{
-			throw new NestingRuntimeException(e);
+			throw new RuntimeException(e);
 		}
 	}
 
@@ -110,7 +110,7 @@ public final class BooleanAttribute extends ObjectAttribute
 		}
 		catch(MandatoryViolationException e)
 		{
-			throw new NestingRuntimeException(e);
+			throw new RuntimeException(e);
 		}
 	}
 	

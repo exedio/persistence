@@ -68,7 +68,7 @@ public abstract class TestmodelTest extends AbstractLibTest
 		}
 		catch(IOException e)
 		{
-			throw new NestingRuntimeException(e);
+			throw new RuntimeException(e);
 		}
 		final String prefix = model.getProperties().getMediaRootUrl() + "AttributeItem/someData/";
 		final String pkString = pkString(item);
