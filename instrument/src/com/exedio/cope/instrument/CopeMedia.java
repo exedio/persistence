@@ -21,27 +21,18 @@ import java.lang.reflect.Modifier;
 import java.util.List;
 
 
-final class CopeMedia
+final class CopeMedia extends CopeFeature
 {
-	final JavaAttribute javaAttribute;
-	final String name;
-	final CopeClass copeClass;
 	public final String mimeMajor;
 	public final String mimeMinor;
 	public final Option setterOption;
 
 	public CopeMedia(final JavaAttribute javaAttribute, final String setterOption)
 	{
-		this.javaAttribute = javaAttribute;
-		this.name = javaAttribute.name;
-		this.copeClass = CopeClass.getCopeClass(javaAttribute.parent);
-
+		super(javaAttribute);
 		this.mimeMajor = getString(javaAttribute.getInitializerArguments(), 1);
 		this.mimeMinor = getString(javaAttribute.getInitializerArguments(), 2);
-
 		this.setterOption = new Option(setterOption, true);
-
-		copeClass.add(this);
 	}
 
 	private static String getString(final List initializerArguments, final int pos)
@@ -66,12 +57,12 @@ final class CopeMedia
 
 	final int getGeneratedGetterModifier()
 	{
-		return javaAttribute.modifier & (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE);
+		return modifier & (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE);
 	}
 
 	final int getGeneratedSetterModifier()
 	{
-		return setterOption.getModifier(javaAttribute.modifier);
+		return setterOption.getModifier(modifier);
 	}
 	
 }

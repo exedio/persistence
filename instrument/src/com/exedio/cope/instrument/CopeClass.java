@@ -28,7 +28,6 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 
 import com.exedio.cope.ReadOnlyViolationException;
-import com.exedio.cope.pattern.Media;
 import com.exedio.cope.util.ClassComparator;
 
 // TODO rename to CopeType
@@ -46,8 +45,6 @@ final class CopeClass
 
 	final JavaClass javaClass;
 	final int accessModifier;
-
-	private ArrayList media = null;
 	final Option typeOption;
 	final Option initialConstructorOption;
 	final Option genericConstructorOption;
@@ -147,25 +144,6 @@ final class CopeClass
 		}
 		
 		return initialConstructorOption.getModifier(JavaFeature.toReflectionModifier(inheritedModifier));
-	}
-	
-	public void add(final CopeMedia media)
-	{
-		if(this.media==null)
-			this.media=new ArrayList();
-
-		this.media.add(media);
-	}
-	
-	/**
-	 * @return unmodifiable list of {@link Media}s.
-	 */
-	public List getMedia()
-	{
-		return
-			media == null ?
-			Collections.EMPTY_LIST :
-			Collections.unmodifiableList(media);
 	}
 	
 	private ArrayList initialAttributes = null;

@@ -997,7 +997,7 @@ final class Generator
 			for(final Iterator i = copeClass.getFeatures().iterator(); i.hasNext(); )
 			{
 				final CopeFeature feature = (CopeFeature)i.next();
-				if(!(feature instanceof CopeVector))
+				if(!(feature instanceof CopeVector) && !(feature instanceof CopeMedia)) // TODO make it work for all
 					feature.getInstance();
 			}
 			
@@ -1030,10 +1030,11 @@ final class Generator
 				if(feature instanceof CopeVector)
 					writeVector((CopeVector)feature);
 			}
-			for(final Iterator i = copeClass.getMedia().iterator(); i.hasNext(); )
+			for(final Iterator i = copeClass.getFeatures().iterator(); i.hasNext(); )
 			{
-				final CopeMedia media = (CopeMedia)i.next();
-				writeDataAccessMethods(media);
+				final CopeFeature feature = (CopeFeature)i.next();
+				if(feature instanceof CopeMedia)
+					writeDataAccessMethods((CopeMedia)feature);
 			}
 			writeType(copeClass);
 		}
