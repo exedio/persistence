@@ -18,8 +18,6 @@
 
 package com.exedio.dsmf;
 
-import java.io.PrintStream;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 
 /**
@@ -29,49 +27,9 @@ import java.sql.SQLException;
  */
 public final class SQLRuntimeException extends RuntimeException
 {
-	private final SQLException cause;
-	private final String statement;
-	
 	public SQLRuntimeException(final SQLException cause, final String statement)
 	{
-		if(cause==null)
-			throw new NullPointerException();
-		if(statement==null)
-			throw new NullPointerException();
-
-		this.cause = cause;
-		this.statement = statement;
+		super(statement, cause);
 	}
 	
-	public SQLException getNestedCause()
-	{
-		return cause;
-	}
-	
-	public String getMessage()
-	{
-		return statement + ":" + cause.getMessage();
-	}
-	
-	public void printStackTrace()
-	{
-		super.printStackTrace();
-		System.out.println(statement);
-		cause.printStackTrace();
-	}
-
-	public void printStackTrace(final PrintStream s)
-	{
-		super.printStackTrace(s);
-		s.println(statement);
-		cause.printStackTrace(s);
-	}
-
-	public void printStackTrace(final PrintWriter s)
-	{
-		super.printStackTrace(s);
-		s.println(statement);
-		cause.printStackTrace(s);
-	}
-
 }
