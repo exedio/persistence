@@ -18,8 +18,6 @@
 
 package com.exedio.cope;
 
-import java.io.PrintStream;
-import java.io.PrintWriter;
 
 /**
  * Is thrown, when a fatal unspecified error occurs.
