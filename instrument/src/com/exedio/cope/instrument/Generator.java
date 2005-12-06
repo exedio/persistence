@@ -1005,37 +1005,21 @@ final class Generator
 			writeGenericConstructor(copeClass);
 			writeReactivationConstructor(copeClass);
 			
-			// TODO make one loop for correct order
 			for(final Iterator i = copeClass.getFeatures().iterator(); i.hasNext(); )
 			{
 				final CopeFeature feature = (CopeFeature)i.next();
 				if(feature instanceof CopeAttribute)
 					writeAccessMethods((CopeAttribute)feature);
-			}
-			for(final Iterator i = copeClass.getFeatures().iterator(); i.hasNext(); )
-			{
-				final CopeFeature feature = (CopeFeature)i.next();
 				if(feature instanceof CopeUniqueConstraint)
 					writeUniqueFinder((CopeUniqueConstraint)feature);
-			}
-			for(final Iterator i = copeClass.getFeatures().iterator(); i.hasNext(); )
-			{
-				final CopeFeature feature = (CopeFeature)i.next();
 				if(feature instanceof CopeQualifier)
 					writeQualifier((CopeQualifier)feature);
-			}
-			for(final Iterator i = copeClass.getFeatures().iterator(); i.hasNext(); )
-			{
-				final CopeFeature feature = (CopeFeature)i.next();
 				if(feature instanceof CopeVector)
 					writeVector((CopeVector)feature);
-			}
-			for(final Iterator i = copeClass.getFeatures().iterator(); i.hasNext(); )
-			{
-				final CopeFeature feature = (CopeFeature)i.next();
 				if(feature instanceof CopeMedia)
 					writeDataAccessMethods((CopeMedia)feature);
 			}
+			
 			writeType(copeClass);
 		}
 	}
