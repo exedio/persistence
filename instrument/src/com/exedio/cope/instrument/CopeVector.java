@@ -18,16 +18,12 @@
 package com.exedio.cope.instrument;
 
 
-final class CopeVector
+final class CopeVector extends CopeFeature
 {
-	final String name;
-	final CopeClass copeClass;
 
 	public CopeVector(final JavaAttribute javaAttribute)
 	{
-		this.name = javaAttribute.name;
-		this.copeClass = CopeClass.getCopeClass(javaAttribute.parent);
-		copeClass.add(this);
+		super(javaAttribute);
 	}
 
 }

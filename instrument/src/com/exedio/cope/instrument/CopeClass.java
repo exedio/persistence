@@ -47,7 +47,6 @@ final class CopeClass
 	final JavaClass javaClass;
 	final int accessModifier;
 
-	private ArrayList vectors = null;
 	private ArrayList media = null;
 	final Option typeOption;
 	final Option initialConstructorOption;
@@ -148,25 +147,6 @@ final class CopeClass
 		}
 		
 		return initialConstructorOption.getModifier(JavaFeature.toReflectionModifier(inheritedModifier));
-	}
-	
-	public void add(final CopeVector vector)
-	{
-		if(vectors==null)
-			vectors=new ArrayList();
-
-		vectors.add(vector);
-	}
-	
-	/**
-	 * @return unmodifiable list of {@link CopeVector}s.
-	 */
-	public List getVectors()
-	{
-		return
-			vectors == null ?
-			Collections.EMPTY_LIST :
-			Collections.unmodifiableList(vectors);
 	}
 	
 	public void add(final CopeMedia media)

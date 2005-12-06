@@ -995,7 +995,11 @@ final class Generator
 		{
 			//System.out.println("onClassEnd("+jc.getName()+") writing");
 			for(final Iterator i = copeClass.getFeatures().iterator(); i.hasNext(); )
-				((CopeFeature)i.next()).getInstance();
+			{
+				final CopeFeature feature = (CopeFeature)i.next();
+				if(!(feature instanceof CopeVector))
+					feature.getInstance();
+			}
 			
 			writeInitialConstructor(copeClass);
 			writeGenericConstructor(copeClass);
@@ -1020,10 +1024,11 @@ final class Generator
 				if(feature instanceof CopeQualifier)
 					writeQualifier((CopeQualifier)feature);
 			}
-			for(final Iterator i = copeClass.getVectors().iterator(); i.hasNext(); )
+			for(final Iterator i = copeClass.getFeatures().iterator(); i.hasNext(); )
 			{
-				final CopeVector vector = (CopeVector)i.next();
-				writeVector(vector);
+				final CopeFeature feature = (CopeFeature)i.next();
+				if(feature instanceof CopeVector)
+					writeVector((CopeVector)feature);
 			}
 			for(final Iterator i = copeClass.getMedia().iterator(); i.hasNext(); )
 			{
