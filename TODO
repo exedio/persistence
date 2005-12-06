@@ -54,7 +54,6 @@
 			- NestingRuntimeException
 			- SQLRuntimeException
 			- ConstraintViolationException
-		* milliseconds workaround in TimestampColumn#getTime
 	- support JMX for information displayed by AdminServlet
 	- write documention
 		* support for Defining Column Types on oracle
