@@ -21,7 +21,6 @@ package com.exedio.cope.instrument;
 import java.io.IOException;
 import java.io.Writer;
 import java.lang.reflect.Modifier;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.SortedSet;
@@ -82,23 +81,6 @@ abstract class CopeAttribute extends CopeFeature
 		this.getterOption = new Option(getterOption, true);
 		this.setterOption = new Option(setterOption, true);
 		this.initial = initial;
-	}
-	
-	private ArrayList hashes;
-
-	final void addHash(final CopeHash hash)
-	{
-		if(hashes==null)
-			hashes = new ArrayList();
-		hashes.add(hash);
-	}
-	
-	final List getHashes()
-	{
-		if(hashes==null)
-			return Collections.EMPTY_LIST;
-		else
-			return hashes;
 	}
 	
 	final String getName()

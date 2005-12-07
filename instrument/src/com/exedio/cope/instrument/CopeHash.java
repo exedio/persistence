@@ -20,31 +20,25 @@ package com.exedio.cope.instrument;
 import java.lang.reflect.Modifier;
 
 
-final class CopeHash
+final class CopeHash extends CopeFeature
 {
-	final String name;
-	final JavaAttribute javaAttribute;
-	final CopeClass copeClass;
 	final CopeAttribute storageAttribute;
 
 	public CopeHash(final JavaAttribute javaAttribute, final CopeAttribute storageAttribute)
 	{
-		this.name = javaAttribute.name;
-		this.javaAttribute = javaAttribute;
-		this.copeClass = CopeClass.getCopeClass(javaAttribute.parent);
+		super(javaAttribute);
 		this.storageAttribute = storageAttribute;
-		this.storageAttribute.addHash(this);
 	}
 
 	final int getGeneratedCheckerModifier()
 	{
-		return (javaAttribute.modifier & (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE)) | Modifier.FINAL;
+		return (modifier & (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE)) | Modifier.FINAL;
 		// TODO: implement checker option: return checkerOption.getModifier(javaAttribute.modifier);
 	}
 
 	final int getGeneratedSetterModifier()
 	{
-		return (javaAttribute.modifier & (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE)) | Modifier.FINAL;
+		return (modifier & (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE)) | Modifier.FINAL;
 		// TODO: implement getter option: return setterOption.getModifier(javaAttribute.modifier);
 	}
 	

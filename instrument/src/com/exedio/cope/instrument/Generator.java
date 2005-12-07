@@ -451,11 +451,6 @@ final class Generator
 				o.write("\t}");
 			}
 		}
-		for(Iterator i = attribute.getHashes().iterator(); i.hasNext(); )
-		{
-			final CopeHash hash = (CopeHash)i.next();
-			writeHash(hash);
-		}
 	}
 	
 	private void writeHash(final CopeHash hash)
@@ -1018,6 +1013,8 @@ final class Generator
 					writeVector((CopeVector)feature);
 				if(feature instanceof CopeMedia)
 					writeDataAccessMethods((CopeMedia)feature);
+				if(feature instanceof CopeHash)
+					writeHash((CopeHash)feature);
 			}
 			
 			writeType(copeClass);
