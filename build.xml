@@ -23,6 +23,7 @@
 			<javac srcdir="@{srcdir}"
 					 destdir="@{destdir}"
 					 includeAntRuntime="@{includeAntRuntime}"
+					 source="1.4"
 					 deprecation="on"
 					 debug="on"
 					 optimize="off">
