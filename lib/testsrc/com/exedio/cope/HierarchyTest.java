@@ -153,14 +153,14 @@ public class HierarchyTest extends AbstractLibTest
 		final HierarchyFirstSub item = new HierarchyFirstSub(10);
 		deleteOnTearDown(item);
 		
-		final Query q1 = new Query(item.TYPE, item.superInt.equal(10));
-		final Query q2 = new Query(item.TYPE, item.superInt.equal(20));
+		final Query q1 = new Query(HierarchySuper.TYPE, item.superInt.equal(10));
+		final Query q2 = new Query(HierarchySuper.TYPE, item.superInt.equal(20));
 		assertEquals(list(item), q1.search());
 		assertEquals(list(), q2.search());
 		
 		item.setSuperInt(20);
-		assertEquals(list(), q1.search()); // TODO: assertEquals(list(item), q1.search());
-		assertEquals(list(item), q2.search()); // TODO: assertEquals(list(), q2.search());
+		assertEquals(list(), q1.search());
+		assertEquals(list(item), q2.search());
 	}
 
 }

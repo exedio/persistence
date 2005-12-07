@@ -187,9 +187,19 @@ public final class Transaction
 		return false;
 	}
 	
-	private boolean isInvalidated( Type type )
+	private boolean isInvalidated(final Type type)
 	{
-		return invalidations[type.transientNumber]!=null && !invalidations[type.transientNumber].isEmpty();
+		if(type==null)
+			throw new NullPointerException();
+		
+		for(Iterator i = type.getTypesOfInstances().iterator(); i.hasNext(); )
+		{
+			final IntOpenHashSet invalidationsForType = invalidations[((Type)i.next()).transientNumber];
+			if(invalidationsForType!=null && !invalidationsForType.isEmpty())
+				return true;
+		}
+		
+		return false;
 	}
 	
 	private boolean isInvalidated( final Item item )
