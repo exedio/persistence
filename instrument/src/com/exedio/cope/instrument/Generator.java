@@ -997,7 +997,7 @@ final class Generator
 			for(final Iterator i = copeClass.getFeatures().iterator(); i.hasNext(); )
 			{
 				final CopeFeature feature = (CopeFeature)i.next();
-				if(!(feature instanceof CopeVector) && !(feature instanceof CopeMedia)) // TODO make it work for all
+				if(!(feature instanceof CopeVector)) // TODO make it work for all
 					feature.getInstance();
 			}
 			

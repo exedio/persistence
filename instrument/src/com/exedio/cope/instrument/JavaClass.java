@@ -175,6 +175,12 @@ class JavaClass extends JavaFeature
 			this.instance = new Integer(instance);
 			this.clazz = int.class;
 		}
+		
+		Value(final String instance)
+		{
+			this.instance = instance;
+			this.clazz = String.class;
+		}
 	}
 	
 	boolean isInt(final String s)
@@ -188,6 +194,11 @@ class JavaClass extends JavaFeature
 		{
 			return false;
 		}
+	}
+	
+	boolean isString(final String s)
+	{
+		return s.length()>=2 && s.charAt(0)=='"' && s.charAt(s.length()-1)=='"';
 	}
 	
 	Value[] evaluateArgumentList(String s)
@@ -258,6 +269,10 @@ class JavaClass extends JavaFeature
 			{
 				throw new RuntimeException(e);
 			}
+		}
+		else if(isString(s))
+		{
+			return new Value(s.substring(1, s.length()-1));
 		}
 		else if(s.startsWith(NEW))
 		{
