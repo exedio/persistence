@@ -147,5 +147,20 @@ public class HierarchyTest extends AbstractLibTest
 		assertEquals(null, singleSub1a.getHierarchySuper());
 		assertEquals(list(null), new Query(singleSub1a.hierarchySuper, singleSub1a.TYPE, singleSub1a.superInt.equal(1).and(singleSub1a.subString.equal("a"))).search());
 	}
+	
+	public void testPolymorphicQueryInvalidation()
+	{
+		final HierarchyFirstSub item = new HierarchyFirstSub(10);
+		deleteOnTearDown(item);
+		
+		final Query q1 = new Query(item.TYPE, item.superInt.equal(10));
+		final Query q2 = new Query(item.TYPE, item.superInt.equal(20));
+		assertEquals(list(item), q1.search());
+		assertEquals(list(), q2.search());
+		
+		item.setSuperInt(20);
+		assertEquals(list(), q1.search()); // TODO: assertEquals(list(item), q1.search());
+		assertEquals(list(item), q2.search()); // TODO: assertEquals(list(), q2.search());
+	}
 
 }
