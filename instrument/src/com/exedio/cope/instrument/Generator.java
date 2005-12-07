@@ -1005,16 +1005,18 @@ final class Generator
 				final CopeFeature feature = (CopeFeature)i.next();
 				if(feature instanceof CopeAttribute)
 					writeAccessMethods((CopeAttribute)feature);
-				if(feature instanceof CopeUniqueConstraint)
+				else if(feature instanceof CopeUniqueConstraint)
 					writeUniqueFinder((CopeUniqueConstraint)feature);
-				if(feature instanceof CopeQualifier)
+				else if(feature instanceof CopeQualifier)
 					writeQualifier((CopeQualifier)feature);
-				if(feature instanceof CopeVector)
+				else if(feature instanceof CopeVector)
 					writeVector((CopeVector)feature);
-				if(feature instanceof CopeMedia)
+				else if(feature instanceof CopeMedia)
 					writeDataAccessMethods((CopeMedia)feature);
-				if(feature instanceof CopeHash)
+				else if(feature instanceof CopeHash)
 					writeHash((CopeHash)feature);
+				else
+					throw new RuntimeException(feature.getClass().getName());
 			}
 			
 			writeType(copeClass);
