@@ -17,6 +17,8 @@
  */
 package com.exedio.cope;
 
+import com.exedio.cope.util.CacheInfo;
+
 
 
 public class HierarchyTest extends AbstractLibTest
@@ -163,4 +165,34 @@ public class HierarchyTest extends AbstractLibTest
 		assertEquals(list(item), q2.search());
 	}
 
+	public void testModel()
+	{
+		model.checkDatabase();
+		model.dropDatabaseConstraints();
+		model.createDatabaseConstraints();
+		
+		assertEquals(list(
+				HierarchyFirstSub.TYPE,
+				HierarchySecondSub.TYPE,
+				HierarchySuper.TYPE,
+				HierarchySingleSuper.TYPE,
+				HierarchySingleSub.TYPE
+			), model.getTypes());
+		assertEquals(list(
+				HierarchyFirstSub.TYPE,
+				HierarchySecondSub.TYPE,
+				HierarchySingleSub.TYPE
+			), model.getConcreteTypes());
+		
+		final CacheInfo[] cacheInfo = model.getCacheInfo();
+		assertEquals(HierarchyFirstSub.TYPE, cacheInfo[0].getType());
+		assertEquals(HierarchySecondSub.TYPE, cacheInfo[1].getType());
+		assertEquals(HierarchySingleSub.TYPE, cacheInfo[2].getType());
+		
+		assertNotNull(model.getCacheQueryInfo());
+		model.getCacheQueryHistogram();
+		assertNotNull(model.getConnectionPoolInfo());
+		assertNotNull(model.getConnectionPoolInfo().getCounter());
+	}
+	
 }

@@ -41,8 +41,8 @@ public final class Transaction
 		this.model = model;
 		this.database = model.getDatabase();
 		this.name = name;
-		rowMaps = new IntKeyOpenHashMap[model.numberOfTypes];
-		invalidations = new IntOpenHashSet[model.numberOfTypes];
+		rowMaps = new IntKeyOpenHashMap[model.numberOfConcreteTypes];
+		invalidations = new IntOpenHashSet[model.numberOfConcreteTypes];
 	}
 	
 	/**

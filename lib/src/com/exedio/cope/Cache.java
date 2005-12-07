@@ -43,14 +43,14 @@ final class Cache
 	{
 		this.mapSizeLimits = mapSizeLimits;
 		queryCaches = queryCacheSizeLimit>0 ? new MyLRUMap(queryCacheSizeLimit) : null;
-		final int numberOfTypes = mapSizeLimits.length;
-		stateMaps = new IntKeyOpenHashMap[numberOfTypes];
-		for ( int i=0; i<numberOfTypes; i++ )
+		final int numberOfConcreteTypes = mapSizeLimits.length;
+		stateMaps = new IntKeyOpenHashMap[numberOfConcreteTypes];
+		for(int i=0; i<numberOfConcreteTypes; i++)
 		{
 			stateMaps[i] = (mapSizeLimits[i]>0) ? new IntKeyOpenHashMap() : null;
 		}
-		hits = new int[numberOfTypes];
-		misses = new int[numberOfTypes];
+		hits = new int[numberOfConcreteTypes];
+		misses = new int[numberOfConcreteTypes];
 		this.logQueryCache = logQueryCache;
 	}
 	
@@ -240,8 +240,10 @@ final class Cache
 		}
 	}
 
-	CacheInfo[] getInfo(final Type[] types)
+	CacheInfo[] getInfo(final Type[] concreteTypes)
 	{
+		assert concreteTypes.length!=stateMaps.length;
+		
 		final CacheInfo[] result = new CacheInfo[stateMaps.length];
 		
 		for(int i=0; i<stateMaps.length; i++ )
@@ -277,7 +279,7 @@ final class Cache
 			if(ageMin==Integer.MAX_VALUE)
 				ageMin = 0;
 			
-			result[i] = new CacheInfo(types[i], mapSizeLimits[i], numberOfItemsInCache, hits[i], misses[i], ageSum, ageMin, ageMax);
+			result[i] = new CacheInfo(concreteTypes[i], mapSizeLimits[i], numberOfItemsInCache, hits[i], misses[i], ageSum, ageMin, ageMax);
 		}
 		
 		return result;

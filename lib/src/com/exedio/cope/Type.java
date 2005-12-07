@@ -258,8 +258,7 @@ public final class Type
 	{
 		if(model==null)
 			throw new RuntimeException();
-		if(transientNumber<0)
-			throw new RuntimeException();
+		assert (transientNumber<0) == isAbstract();
 
 		if(this.model!=null)
 			throw new RuntimeException();

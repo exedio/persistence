@@ -42,8 +42,10 @@ import com.exedio.dsmf.Schema;
 public final class Model
 {
 	private final Type[] types;
-	final int numberOfTypes;
+	private final Type[] concreteTypes;
+	final int numberOfConcreteTypes;
 	private final List typeList;
+	private final List concreteTypeList;
 	private final HashMap typesByID = new HashMap();
 
 	// set by setPropertiesInitially
@@ -58,14 +60,24 @@ public final class Model
 	public Model(final Type[] types)
 	{
 		this.types = types;
-		this.numberOfTypes = types.length;
 		this.typeList = Collections.unmodifiableList(Arrays.asList(types));
-		
+
+		int numberOfConcreteTypes = 0;
+		int numberOfAbstractTypes = -1;
+		final ArrayList concreteTypes = new ArrayList();
 		for(int i = 0; i<types.length; i++)
 		{
 			final Type type = types[i];
-			type.initialize(this, i);
+			final boolean isAbstract = type.isAbstract();
+			type.initialize(this, isAbstract ? numberOfAbstractTypes-- : numberOfConcreteTypes++);
+			if(!isAbstract)
+				concreteTypes.add(type);
 		}
+		this.numberOfConcreteTypes = numberOfConcreteTypes;
+		this.concreteTypes = (Type[])concreteTypes.toArray(new Type[numberOfConcreteTypes]);
+		this.concreteTypeList = Collections.unmodifiableList(Arrays.asList(this.concreteTypes));
+		
+		assert this.numberOfConcreteTypes==this.concreteTypes.length;
 	}
 	
 	/**
@@ -131,8 +143,8 @@ public final class Model
 				if(!materialized.equals(typeSet))
 					throw new RuntimeException(materialized.toString()+"<->"+typeSet.toString());
 				
-				final int[] cacheMapSizeLimits = new int[numberOfTypes];
-				final int cacheMapSizeLimit = properties.getCacheLimit() / numberOfTypes;
+				final int[] cacheMapSizeLimits = new int[numberOfConcreteTypes];
+				final int cacheMapSizeLimit = properties.getCacheLimit() / numberOfConcreteTypes;
 				Arrays.fill(cacheMapSizeLimits, cacheMapSizeLimit);
 				final Properties p = getProperties();
 				this.cache = new Cache(cacheMapSizeLimits, p.getCacheQueryLimit(), p.getCacheQueryLogging());
@@ -148,6 +160,11 @@ public final class Model
 	public final List getTypes()
 	{
 		return typeList;
+	}
+	
+	public final List getConcreteTypes()
+	{
+		return concreteTypeList;
 	}
 	
 	public final Type findTypeByID(final String id)
@@ -427,7 +444,7 @@ public final class Model
 		if(cache==null)
 			throw newNotInitializedException();
 		
-		return cache.getInfo(types);
+		return cache.getInfo(concreteTypes);
 	}
 	
 	public int[] getCacheQueryInfo()
