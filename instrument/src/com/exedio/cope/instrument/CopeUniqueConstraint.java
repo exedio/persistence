@@ -18,12 +18,6 @@
 
 package com.exedio.cope.instrument;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-
-import com.exedio.cope.Feature;
-import com.exedio.cope.ObjectAttribute;
-import com.exedio.cope.UniqueConstraint;
 
 
 final class CopeUniqueConstraint extends CopeFeature
@@ -37,38 +31,6 @@ final class CopeUniqueConstraint extends CopeFeature
 	{
 		super(javaAttribute);
 		this.attributes = attributes;
-	}
-	
-	void show() // TODO remove
-	{
-		final ArrayList xAttributeNames = new ArrayList();
-		for(int i = 0; i<attributes.length; i++)
-			xAttributeNames.add(attributes[i].name);
-		System.out.println("------uniqueconstraint:"+name+xAttributeNames);
-
-		final Feature rtvalueF = getInstance();
-		if(rtvalueF instanceof UniqueConstraint)
-		{
-			final UniqueConstraint rtvalue = (UniqueConstraint)rtvalueF;
-			final ArrayList rtAttributeNames = new ArrayList();
-			for(Iterator i = rtvalue.getUniqueAttributes().iterator(); i.hasNext(); )
-			{
-				final ObjectAttribute attribute = (ObjectAttribute)i.next();
-				final JavaAttribute ja = (JavaAttribute)getParent().file.repository.getByRtValue(attribute);
-				rtAttributeNames.add(ja.name);
-			}
-			System.out.println("------uniqueconstraint:"+name+rtAttributeNames);
-		}
-		else if(rtvalueF instanceof ObjectAttribute)
-		{
-			final ObjectAttribute rtvalue = (ObjectAttribute)rtvalueF;
-			final JavaAttribute ja = (JavaAttribute)getParent().file.repository.getByRtValue(rtvalue);
-			System.out.println("------uniqueconstraint:"+name+'/'+ja.name);
-		}
-		else
-			throw new RuntimeException(rtvalueF.toString());
-		
-		System.out.println("------");
 	}
 	
 	/**

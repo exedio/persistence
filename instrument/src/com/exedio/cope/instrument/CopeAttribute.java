@@ -321,14 +321,4 @@ abstract class CopeAttribute extends CopeFeature
 		}
 	}
 	
-	void show() // TODO remove
-	{
-		System.out.println("------attribute:"+name);
-		final Feature rtvalue = getInstance();
-		final JavaAttribute ja = (JavaAttribute)getParent().file.repository.getByRtValue(rtvalue);
-		final Attribute a = rtvalue instanceof Attribute ? (Attribute)rtvalue : null;
-		System.out.println("------attribute:"+ja.name+'/'+(a!=null&&a.isMandatory()));
-	
-		System.out.println("------");
-	}
 }

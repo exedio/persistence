@@ -15,11 +15,10 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
+
 package com.exedio.cope.instrument;
 
 import java.util.List;
-
-import com.exedio.cope.pattern.Qualifier;
 
 final class CopeQualifier extends CopeFeature
 {
@@ -65,13 +64,4 @@ final class CopeQualifier extends CopeFeature
 			this.keyAttributes[i] = uniqueAttributes[i+1];
 	}
 	
-	void show() // TODO remove
-	{
-		System.out.println("------qualifier:"+name+'/'+uniqueConstraint.getParent().name+'.'+uniqueConstraint.name);
-		final Qualifier rtvalue = (Qualifier)getInstance();
-		final JavaAttribute uniqueAttr = (JavaAttribute)getParent().file.repository.getByRtValue(rtvalue.getQualifyUnique());
-		System.out.println("------qualifier:"+name+'/'+uniqueAttr.parent.name+'.'+uniqueAttr.name);
-		System.out.println("------");
-	}
-
 }
