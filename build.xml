@@ -688,8 +688,7 @@
 	
 	<target name="dist.tar">
 		<mkdir dir="runtime/build" />
-		<echo file="runtime/build/build.number"
-				message="${build.tag}" />
+		<echo file="runtime/build/build.number" message="${build.tag}" />
 		<tar destfile="runtime/build/exedio-cope-src.tar.gz"
 			  compression="gzip">
 			<tarfileset file="${basedir}/runtime/build/build.number" />
