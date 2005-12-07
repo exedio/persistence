@@ -42,10 +42,10 @@
 				<fileset />
 				<manifest>
 					<attribute name="Specification-Title" value="exedio @{name}" />
-					<attribute name="Specification-Version" value="cruisecontrol ${label} ${cvstimestamp}" />
+					<attribute name="Specification-Version" value="${build.tag}" />
 					<attribute name="Specification-Vendor" value="exedio GmbH" />
 					<attribute name="Implementation-Title" value="exedio @{name}" />
-					<attribute name="Implementation-Version" value="cruisecontrol ${label} ${cvstimestamp}" />
+					<attribute name="Implementation-Version" value="${build.tag}" />
 					<attribute name="Implementation-Vendor" value="exedio GmbH" />
 				</manifest>
 			</jar>
@@ -642,7 +642,7 @@
 			<doctitle><![CDATA[Cope with Object Persistence<br>API Specification]]></doctitle>
 			<header>exedio cope</header>
 			<footer><![CDATA[Cope with<br>Object<br>Persistence]]></footer>
-			<bottom><![CDATA[<small>Copyright &copy; 2004-2005 <a href="http://www.exedio.com/" target="_top">exedio</a> Gesellschaft f&uuml;r Softwareentwicklung mbH. All rights reserved.</small><!--${label}-${cvstimestamp}-->]]></bottom>
+			<bottom><![CDATA[<small>Copyright &copy; 2004-2005 <a href="http://www.exedio.com/" target="_top">exedio</a> Gesellschaft f&uuml;r Softwareentwicklung mbH. All rights reserved.</small><!--${build.tag}-->]]></bottom>
 			<link href="${api.link.jdk}"   packagelistLoc="package-list/jdk"   offline="true" />
 			<link href="${api.link.j2ee}"  packagelistLoc="package-list/j2ee"  offline="true" />
 			<link href="${api.link.junit}" packagelistLoc="package-list/junit" offline="true" />
@@ -689,7 +689,7 @@
 	<target name="dist.tar">
 		<mkdir dir="runtime/build" />
 		<echo file="runtime/build/build.number"
-				message="cruisecontrol ${label} ${cvstimestamp}" />
+				message="${build.tag}" />
 		<tar destfile="runtime/build/exedio-cope-src.tar.gz"
 			  compression="gzip">
 			<tarfileset file="${basedir}/runtime/build/build.number" />
