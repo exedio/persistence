@@ -53,8 +53,6 @@ abstract class JavaFeature
 	 */
 	final int modifier;
 	
-	final int accessModifier;
-	
 	/**
 	 * The return type of the method.
 	 * Is null, if it is a constructor, or a class.
@@ -74,7 +72,6 @@ abstract class JavaFeature
 		this.file=file;
 		this.parent=parent;
 		this.modifier=modifier;
-		this.accessModifier=toAccessModifier(modifier);
 		this.type=type;
 		this.name=name;
 		
@@ -120,7 +117,12 @@ abstract class JavaFeature
 		return (modifier & Modifier.ABSTRACT) > 0;
 	}
 	
-	static final int toAccessModifier(final int reflectionModifier)
+	final int getAccessModifier()
+	{
+		return toAccessModifier(modifier);
+	}
+	
+	private static final int toAccessModifier(final int reflectionModifier)
 	{
 		switch(reflectionModifier & (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE))
 		{

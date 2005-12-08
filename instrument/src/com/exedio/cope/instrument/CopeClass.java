@@ -60,7 +60,7 @@ final class CopeClass
 		throws InjectorParseException
 	{
 		this.javaClass = javaClass;
-		this.accessModifier = javaClass.accessModifier;
+		this.accessModifier = javaClass.getAccessModifier();
 		copeClassByJavaClass.put(javaClass, this);	
 		this.typeOption = new Option(typeOption, false);
 		this.initialConstructorOption = new Option(initialConstructorOption, false);
@@ -134,7 +134,7 @@ final class CopeClass
 	
 	public int getInitialConstructorModifier()
 	{
-		int inheritedModifier = javaClass.accessModifier;
+		int inheritedModifier = accessModifier;
 		for(Iterator i = getInitialAttributes().iterator(); i.hasNext(); )
 		{
 			final CopeAttribute initialAttribute = (CopeAttribute)i.next();
