@@ -723,9 +723,9 @@ final class Generator
 	}
 	
 	private void writeQualifierParameters(final CopeQualifier qualifier)
-	throws IOException
+	throws IOException, InjectorParseException
 	{
-		final CopeAttribute[] keys = qualifier.keyAttributes;
+		final CopeAttribute[] keys = qualifier.getKeyAttributes();
 		for(int i = 0; i<keys.length; i++)
 		{
 			if(i>0)
@@ -738,9 +738,9 @@ final class Generator
 	}
 	
 	private void writeQualifierCall(final CopeQualifier qualifier)
-	throws IOException
+	throws IOException, InjectorParseException
 	{
-		final CopeAttribute[] keys = qualifier.keyAttributes;
+		final CopeAttribute[] keys = qualifier.getKeyAttributes();
 		for(int i = 0; i<keys.length; i++)
 		{
 			o.write(',');
@@ -749,7 +749,7 @@ final class Generator
 	}
 	
 	private void writeQualifier(final CopeQualifier qualifier)
-	throws IOException
+	throws IOException, InjectorParseException
 	{
 		writeCommentHeader();
 		o.write("\t * ");
@@ -780,8 +780,8 @@ final class Generator
 
 		o.write("\t}");
 		
-		final List qualifierAttributes = Arrays.asList(qualifier.uniqueConstraint.attributes);
-		for(Iterator i = qualifier.qualifierClass.getFeatures().iterator(); i.hasNext(); )
+		final List qualifierAttributes = Arrays.asList(qualifier.getUniqueConstraint().attributes);
+		for(Iterator i = qualifier.getQualifierClass().getFeatures().iterator(); i.hasNext(); )
 		{
 			final CopeFeature feature = (CopeFeature)i.next();
 			if(feature instanceof CopeAttribute)
@@ -796,7 +796,7 @@ final class Generator
 	}
 
 	private void writeQualifierGetter(final CopeQualifier qualifier, final CopeAttribute attribute)
-	throws IOException
+	throws IOException, InjectorParseException
 	{
 		if(attribute.getterOption.exists)
 		{
@@ -838,7 +838,7 @@ final class Generator
 	}
 
 	private void writeQualifierSetter(final CopeQualifier qualifier, final CopeAttribute attribute)
-	throws IOException
+	throws IOException, InjectorParseException
 	{
 		if(attribute.setterOption.exists)
 		{

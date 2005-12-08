@@ -23,11 +23,8 @@ import java.util.List;
 final class CopeQualifier extends CopeFeature
 {
 	final String qualifierClassString;
-
-	final CopeClass qualifierClass;
-	final CopeUniqueConstraint uniqueConstraint;
-
-	final CopeAttribute[] keyAttributes;
+	final String uniqueConstraintString;
+	final String constraintName;
 
 	public CopeQualifier(final JavaAttribute javaAttribute, final List initializerArguments)
 		throws InjectorParseException
@@ -35,33 +32,38 @@ final class CopeQualifier extends CopeFeature
 		super(javaAttribute);
 		if(initializerArguments.size()!=1)
 			throw new InjectorParseException("Qualifier must have 1 argument, but has "+initializerArguments);
-		final String uniqueConstraintString = (String)initializerArguments.get(0);
+		uniqueConstraintString = (String)initializerArguments.get(0);
 
 		final int dot = uniqueConstraintString.lastIndexOf('.');
 		if(dot<0)
 			throw new InjectorParseException("Qualifier argument must have dot, but is "+uniqueConstraintString);
 		this.qualifierClassString = uniqueConstraintString.substring(0, dot);
 
-		//System.out.println("--------- qualifierClassString: "+qualifierClassString);
-		//Sstem.out.println("--------- key: "+key);
-		//System.out.println("--------- qualifyUnique: "+qualifyUnique);
-		this.qualifierClass = copeClass.javaClass.file.repository.getCopeClass(qualifierClassString);
-		//System.out.println("--------- qualifierClass: "+qualifierClass.javaClass.name);
-		
-		final String constraintName = uniqueConstraintString.substring(dot+1);
-		//System.out.println("--------- keyString: "+keyString);
-		
-		this.uniqueConstraint = (CopeUniqueConstraint)qualifierClass.getFeature(constraintName);
-		if(uniqueConstraint==null)
+		this.constraintName = uniqueConstraintString.substring(dot+1);
+	}
+	
+	CopeClass getQualifierClass()
+	{
+		return copeClass.javaClass.file.repository.getCopeClass(qualifierClassString);
+	}
+	
+	CopeUniqueConstraint getUniqueConstraint() throws InjectorParseException
+	{
+		final CopeUniqueConstraint result = (CopeUniqueConstraint)getQualifierClass().getFeature(constraintName);
+		if(result==null)
 			throw new InjectorParseException("unique constraint not found "+uniqueConstraintString);
-		
-		final CopeAttribute[] uniqueAttributes = uniqueConstraint.attributes;
+		return result;
+	}
+	
+	CopeAttribute[] getKeyAttributes() throws InjectorParseException
+	{
+		final CopeAttribute[] uniqueAttributes = getUniqueConstraint().attributes;
 		if(uniqueAttributes.length<2)
 			throw new RuntimeException(uniqueAttributes.toString());
 		
-		this.keyAttributes = new CopeAttribute[uniqueAttributes.length-1];
-		for(int i = 0; i<this.keyAttributes.length; i++)
-			this.keyAttributes[i] = uniqueAttributes[i+1];
+		final CopeAttribute[] result = new CopeAttribute[uniqueAttributes.length-1];
+		for(int i = 0; i<result.length; i++)
+			result[i] = uniqueAttributes[i+1];
+		return result;
 	}
-	
 }
