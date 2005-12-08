@@ -32,12 +32,11 @@ import com.exedio.cope.util.ClassComparator;
 
 final class CopeType
 {
-	// TODO rename to copeTypeByJavaClass
-	private static final HashMap copeClassByJavaClass = new HashMap();
+	private static final HashMap copeTypeByJavaClass = new HashMap();
 	
 	static final CopeType getCopeType(final JavaClass javaClass)
 	{
-		final CopeType result = (CopeType)copeClassByJavaClass.get(javaClass);
+		final CopeType result = (CopeType)copeTypeByJavaClass.get(javaClass);
 		//System.out.println("getCopeClass "+javaClass.getFullName()+" "+(result==null?"NULL":result.getName()));
 		return result;
 	}
@@ -61,11 +60,11 @@ final class CopeType
 	{
 		this.javaClass = javaClass;
 		this.accessModifier = javaClass.getAccessModifier();
-		copeClassByJavaClass.put(javaClass, this);	
+		copeTypeByJavaClass.put(javaClass, this);	
 		this.typeOption = new Option(typeOption, false);
 		this.initialConstructorOption = new Option(initialConstructorOption, false);
 		this.genericConstructorOption = new Option(genericConstructorOption, false);
-		//System.out.println("copeClassByJavaClass "+javaClass.getName());
+		//System.out.println("copeTypeByJavaClass "+javaClass.getName());
 		javaClass.file.repository.add(this);
 	}
 	
