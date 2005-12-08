@@ -78,6 +78,7 @@ public final class Main
 		{
 			output = new OutputStreamWriter(new CheckedOutputStream(new FileOutputStream(outputfile), outputCRC));
 			//System.out.println("onClassEnd("+javaClass.getName()+")");
+			final Generator generator = new Generator(output);
 
 			final String buffer = javaFile.buffer.getBuffer().toString();
 			int previousClassEndPosition = 0;
@@ -91,8 +92,8 @@ public final class Main
 					assert previousClassEndPosition<=classEndPosition;
 					if(previousClassEndPosition<classEndPosition)
 						output.write(buffer, previousClassEndPosition, classEndPosition-previousClassEndPosition);
-					
-					(new Generator(output)).writeClassFeatures(copeClass);
+
+					generator.writeClassFeatures(copeClass);
 					previousClassEndPosition = classEndPosition;
 				}
 			}
