@@ -253,30 +253,30 @@ public class GeneratorTest extends InstrumentorTest
 	
 	public void testQualified() throws ClassNotFoundException
 	{
-		final Class qualified = Qualified.class;
+		final Class QUALIFIED = Qualified.class;
 		final Class qualifiedString = QualifiedName.class;
-		assertMethod(qualified, "getNameQualifier", new Class[]{STRING}, qualifiedString, PUBLIC|FINAL);
-		assertMethod(qualified, "getNumber", new Class[]{STRING}, Integer.class, PUBLIC|FINAL);
-		assertMethod(qualified, "setNumber", new Class[]{STRING, int.class}, PUBLIC|FINAL);
-		assertMethod(qualified, "getOptionalNumber", new Class[]{STRING}, Integer.class, PUBLIC|FINAL);
-		assertMethod(qualified, "setOptionalNumber", new Class[]{STRING, Integer.class}, PUBLIC|FINAL);
-		assertNoMethod(qualified, "getNoneGetterNumber", new Class[]{STRING});
-		assertMethod(qualified, "setNoneGetterNumber", new Class[]{STRING, int.class}, PUBLIC|FINAL);
-		assertMethod(qualified, "getPrivateGetterNumber", new Class[]{STRING}, Integer.class, PRIVATE|FINAL);
-		assertMethod(qualified, "setPrivateGetterNumber", new Class[]{STRING, int.class}, PUBLIC|FINAL);
-		assertMethod(qualified, "getInternalGetterNumberInternal", new Class[]{STRING}, Integer.class, PRIVATE|FINAL);
-		assertMethod(qualified, "setInternalGetterNumber", new Class[]{STRING, int.class}, PUBLIC|FINAL);
-		assertNoMethod(qualified, "getInternalGetterNumber", new Class[]{STRING});
+		assertMethod(QUALIFIED, "getNameQualifier", new Class[]{STRING}, qualifiedString, PUBLIC|FINAL);
+		assertMethod(QUALIFIED, "getNumber", new Class[]{STRING}, Integer.class, PUBLIC|FINAL);
+		assertMethod(QUALIFIED, "setNumber", new Class[]{STRING, int.class}, PUBLIC|FINAL);
+		assertMethod(QUALIFIED, "getOptionalNumber", new Class[]{STRING}, Integer.class, PUBLIC|FINAL);
+		assertMethod(QUALIFIED, "setOptionalNumber", new Class[]{STRING, Integer.class}, PUBLIC|FINAL);
+		assertNoMethod(QUALIFIED, "getNoneGetterNumber", new Class[]{STRING});
+		assertMethod(QUALIFIED, "setNoneGetterNumber", new Class[]{STRING, int.class}, PUBLIC|FINAL);
+		assertMethod(QUALIFIED, "getPrivateGetterNumber", new Class[]{STRING}, Integer.class, PRIVATE|FINAL);
+		assertMethod(QUALIFIED, "setPrivateGetterNumber", new Class[]{STRING, int.class}, PUBLIC|FINAL);
+		assertMethod(QUALIFIED, "getInternalGetterNumberInternal", new Class[]{STRING}, Integer.class, PRIVATE|FINAL);
+		assertMethod(QUALIFIED, "setInternalGetterNumber", new Class[]{STRING, int.class}, PUBLIC|FINAL);
+		assertNoMethod(QUALIFIED, "getInternalGetterNumber", new Class[]{STRING});
 		
-		assertMethod(qualified, "getNoneSetterNumber", new Class[]{STRING}, Integer.class, PUBLIC|FINAL);
-		assertNoMethod(qualified, "setNoneSetterNumber", new Class[]{STRING, int.class});
-		assertNoMethod(qualified, "setNoneSetterNumber", new Class[]{STRING, Integer.class});
-		assertMethod(qualified, "getPrivateSetterNumber", new Class[]{STRING}, Integer.class, PUBLIC|FINAL);
-		assertMethod(qualified, "setPrivateSetterNumber", new Class[]{STRING, int.class}, PRIVATE|FINAL);
-		assertMethod(qualified, "getInternalSetterNumber", new Class[]{STRING}, Integer.class, PUBLIC|FINAL);
-		assertMethod(qualified, "setInternalSetterNumberInternal", new Class[]{STRING, int.class}, PRIVATE|FINAL);
-		assertNoMethod(qualified, "setInternalSetterNumber", new Class[]{STRING, int.class});
-		assertNoMethod(qualified, "setInternalSetterNumber", new Class[]{STRING, Integer.class});
+		assertMethod(QUALIFIED, "getNoneSetterNumber", new Class[]{STRING}, Integer.class, PUBLIC|FINAL);
+		assertNoMethod(QUALIFIED, "setNoneSetterNumber", new Class[]{STRING, int.class});
+		assertNoMethod(QUALIFIED, "setNoneSetterNumber", new Class[]{STRING, Integer.class});
+		assertMethod(QUALIFIED, "getPrivateSetterNumber", new Class[]{STRING}, Integer.class, PUBLIC|FINAL);
+		assertMethod(QUALIFIED, "setPrivateSetterNumber", new Class[]{STRING, int.class}, PRIVATE|FINAL);
+		assertMethod(QUALIFIED, "getInternalSetterNumber", new Class[]{STRING}, Integer.class, PUBLIC|FINAL);
+		assertMethod(QUALIFIED, "setInternalSetterNumberInternal", new Class[]{STRING, int.class}, PRIVATE|FINAL);
+		assertNoMethod(QUALIFIED, "setInternalSetterNumber", new Class[]{STRING, int.class});
+		assertNoMethod(QUALIFIED, "setInternalSetterNumber", new Class[]{STRING, Integer.class});
 	}
 	
 	public void testHierarchy() throws ClassNotFoundException
