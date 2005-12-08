@@ -54,6 +54,7 @@ public class GeneratorTest extends InstrumentorTest
 	public static final int FINAL = Modifier.FINAL;
 	
 	final static Class MANDATORY_VIOLATION = MandatoryViolationException.class;
+	final static Class UNIQUE_VIOLATION = UniqueViolationException.class;
 	
 	public void testStandard() throws ClassNotFoundException
 	{
@@ -81,7 +82,7 @@ public class GeneratorTest extends InstrumentorTest
 		assertMethod(standard, "getReadOnlyString", String.class, PUBLIC|FINAL);
 		assertNoMethod(standard, "setReadOnlyString", new Class[]{String.class});
 		assertMethod(standard, "getUniqueString", String.class, PUBLIC|FINAL);
-		assertMethod(standard, "setUniqueString", new Class[]{String.class}, PUBLIC|FINAL, new Class[]{UniqueViolationException.class});
+		assertMethod(standard, "setUniqueString", new Class[]{String.class}, PUBLIC|FINAL, new Class[]{UNIQUE_VIOLATION});
 		assertMethod(standard, "findByUniqueString", new Class[]{String.class}, Standard.class, PUBLIC|STATIC|FINAL);
 		assertMethod(standard, "getInitialString", String.class, PUBLIC|FINAL);
 		assertMethod(standard, "setInitialString", new Class[]{String.class}, PUBLIC|FINAL);
@@ -143,9 +144,9 @@ public class GeneratorTest extends InstrumentorTest
 		assertMethod(standard, "setAsIsBoolean", new Class[]{Boolean.class}, PUBLIC|FINAL);
 		
 		assertMethod(standard, "getDoubleUnique1", String.class, PUBLIC|FINAL);
-		assertMethod(standard, "setDoubleUnique1", new Class[]{String.class}, PUBLIC|FINAL, new Class[]{UniqueViolationException.class});
+		assertMethod(standard, "setDoubleUnique1", new Class[]{String.class}, PUBLIC|FINAL, new Class[]{UNIQUE_VIOLATION});
 		assertMethod(standard, "getDoubleUnique2", Integer.class, PUBLIC|FINAL);
-		assertMethod(standard, "setDoubleUnique2", new Class[]{Integer.class}, PUBLIC|FINAL, new Class[]{UniqueViolationException.class});
+		assertMethod(standard, "setDoubleUnique2", new Class[]{Integer.class}, PUBLIC|FINAL, new Class[]{UNIQUE_VIOLATION});
 		assertMethod(standard, "findByDoubleUnique", new Class[]{String.class, Integer.class}, standard, PUBLIC|STATIC|FINAL);
 
 		assertMethod(standard, "isAnyMediaNull", boolean.class, PUBLIC|FINAL);
@@ -241,7 +242,7 @@ public class GeneratorTest extends InstrumentorTest
 	{
 		final Class doubleUnique = DoubleUnique.class;
 		final Class subTarget = SubTarget.class;
-		assertConstructor(doubleUnique, new Class[]{String.class, subTarget}, PUBLIC, new Class[]{MANDATORY_VIOLATION, UniqueViolationException.class});
+		assertConstructor(doubleUnique, new Class[]{String.class, subTarget}, PUBLIC, new Class[]{MANDATORY_VIOLATION, UNIQUE_VIOLATION});
 		assertMethod(doubleUnique, "getString", String.class, PUBLIC|FINAL);
 		assertMethod(doubleUnique, "getItem", subTarget, PUBLIC|FINAL);
 		assertMethod(doubleUnique, "findByUnique", new Class[]{String.class, subTarget}, doubleUnique, PUBLIC|STATIC|FINAL);
