@@ -50,33 +50,20 @@ public final class Main
 				throw new RuntimeException("error: output file is not a regular file.");
 		}
 		
-		Injector injector = null;
+		final Injector injector = new Injector(inputfile, new Instrumentor(), repository);
 		try
 		{
-			injector = new Injector(inputfile, new Instrumentor(), repository);
 			injector.parseFile();
-		}
-		catch(InjectorParseException e)
-		{
-			e.printStackTrace();
-			throw new InjectorParseException(inputfile.getAbsolutePath() + " does not exist");
 		}
 		finally
 		{
 			if(injector!=null) injector.close();
 		}
 		
-		final JavaFile javaFile = injector.javafile;
-		Generator generator = null;
+		final Generator generator = new Generator(injector.javafile, outputfile);
 		try
 		{
-			generator = new Generator(javaFile, outputfile);
 			generator.write();
-		}
-		catch(InjectorParseException e)
-		{
-			e.printStackTrace();
-			throw new InjectorParseException(inputfile.getAbsolutePath() + " does not exist");
 		}
 		finally
 		{
