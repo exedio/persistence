@@ -57,6 +57,7 @@ public class GeneratorTest extends InstrumentorTest
 	final static Class INPUT_STREAM = InputStream.class;
 	final static Class IO_EXCEPTION = IOException.class;
 	
+	final static Class ATTRIBUTE_VALUE_ARRAY = (new AttributeValue[0]).getClass();
 	final static Class MANDATORY_VIOLATION = MandatoryViolationException.class;
 	final static Class UNIQUE_VIOLATION = UniqueViolationException.class;
 	final static Class REACTIVATION_DUMMY = ReactivationConstructorDummy.class;
@@ -86,7 +87,7 @@ public class GeneratorTest extends InstrumentorTest
 			new Class[]{
 				MANDATORY_VIOLATION,
 			});
-		assertConstructor(STANDARD, new Class[]{(new AttributeValue[0]).getClass()}, PRIVATE);
+		assertConstructor(STANDARD, new Class[]{ATTRIBUTE_VALUE_ARRAY}, PRIVATE);
 		assertConstructor(STANDARD, new Class[]{REACTIVATION_DUMMY, int.class}, PRIVATE);
 
 		assertMethod(STANDARD, "getDefaultString", STRING, PUBLIC|FINAL);
@@ -236,14 +237,14 @@ public class GeneratorTest extends InstrumentorTest
 		assertField(STANDARD, "TYPE", Type.class, PUBLIC|STATIC|FINAL);
 
 		assertConstructor(TYPE_NONE, new Class[]{}, PRIVATE);
-		assertConstructor(TYPE_NONE, new Class[]{(new AttributeValue[0]).getClass()}, PUBLIC); // @cope.generic.constructor public
+		assertConstructor(TYPE_NONE, new Class[]{ATTRIBUTE_VALUE_ARRAY}, PUBLIC); // @cope.generic.constructor public
 		assertConstructor(TYPE_NONE, new Class[]{REACTIVATION_DUMMY, int.class}, PRIVATE);
 		assertMethod(TYPE_NONE, "getDefaultString", STRING, PUBLIC|FINAL);
 		assertMethod(TYPE_NONE, "setDefaultString", new Class[]{STRING}, PUBLIC|FINAL);
 		assertNoField(TYPE_NONE, "TYPE");
 
 		assertConstructor(TYPE_PRIVATE, new Class[]{}, PUBLIC);
-		assertConstructor(TYPE_PRIVATE, new Class[]{(new AttributeValue[0]).getClass()}, PRIVATE);
+		assertConstructor(TYPE_PRIVATE, new Class[]{ATTRIBUTE_VALUE_ARRAY}, PRIVATE);
 		assertConstructor(TYPE_PRIVATE, new Class[]{REACTIVATION_DUMMY, int.class}, PRIVATE);
 		assertMethod(TYPE_PRIVATE, "getDefaultString", STRING, PUBLIC|FINAL);
 		assertMethod(TYPE_PRIVATE, "setDefaultString", new Class[]{STRING}, PUBLIC|FINAL);
@@ -294,7 +295,7 @@ public class GeneratorTest extends InstrumentorTest
 				LengthViolationException.class,
 				MANDATORY_VIOLATION,
 			});
-		assertConstructor(SUPER, new Class[]{(new AttributeValue[0]).getClass()}, PROTECTED);
+		assertConstructor(SUPER, new Class[]{ATTRIBUTE_VALUE_ARRAY}, PROTECTED);
 		assertConstructor(SUPER, new Class[]{REACTIVATION_DUMMY, int.class}, PROTECTED);
 
 		assertConstructor(SUB, new Class[]{
@@ -307,7 +308,7 @@ public class GeneratorTest extends InstrumentorTest
 				LengthViolationException.class,
 				MANDATORY_VIOLATION,
 			});
-		assertConstructor(SUB, new Class[]{(new AttributeValue[0]).getClass()}, PRIVATE);
+		assertConstructor(SUB, new Class[]{ATTRIBUTE_VALUE_ARRAY}, PRIVATE);
 		assertConstructor(SUB, new Class[]{REACTIVATION_DUMMY, int.class}, PRIVATE);
 	}
 	
