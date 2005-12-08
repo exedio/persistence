@@ -39,7 +39,7 @@ class CopeFeature
 		this.name = javaAttribute.name;
 		this.modifier = javaAttribute.modifier;
 		this.accessModifier = javaAttribute.getAccessModifier();
-		this.copeClass = CopeType.getCopeClass(javaAttribute.parent);
+		this.copeClass = CopeType.getCopeType(javaAttribute.parent);
 		copeClass.register(this);
 	}
 	

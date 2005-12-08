@@ -154,7 +154,7 @@ final class Instrumentor implements InjectionConsumer
 	throws IOException, InjectorParseException
 	{
 		//System.out.println("onClassEnd("+javaClass.getName()+")");
-		final CopeType copeClass = CopeType.getCopeClass(javaClass);
+		final CopeType copeClass = CopeType.getCopeType(javaClass);
 
 		if(copeClass!=null)
 			(new Generator(output)).writeClassFeatures(copeClass);
@@ -220,7 +220,7 @@ final class Instrumentor implements InjectionConsumer
 		final JavaClass jc = ja.parent;
 		final List initializerArguments = ja.getInitializerArguments();
 		//System.out.println(initializerArguments);
-		final CopeType copeClass = CopeType.getCopeClass(jc);
+		final CopeType copeClass = CopeType.getCopeType(jc);
 		final ArrayList copeAttributes = new ArrayList(initializerArguments.size());
 		for(Iterator i = initializerArguments.iterator(); i.hasNext(); )
 		{
@@ -246,7 +246,7 @@ final class Instrumentor implements InjectionConsumer
 		throws InjectorParseException
 	{
 		final JavaClass jc = ja.parent;
-		final CopeType copeClass = CopeType.getCopeClass(jc);
+		final CopeType copeClass = CopeType.getCopeType(jc);
 		final List initializerArguments = ja.getInitializerArguments();
 		if(initializerArguments.size()<1)
 			throw new InjectorParseException("attribute >"+ja.name+"< has invalid initializer arguments: "+initializerArguments);

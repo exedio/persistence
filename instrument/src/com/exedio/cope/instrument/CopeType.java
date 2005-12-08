@@ -35,7 +35,7 @@ final class CopeType
 	// TODO rename to copeTypeByJavaClass
 	private static final HashMap copeClassByJavaClass = new HashMap();
 	
-	static final CopeType getCopeClass(final JavaClass javaClass)
+	static final CopeType getCopeType(final JavaClass javaClass)
 	{
 		final CopeType result = (CopeType)copeClassByJavaClass.get(javaClass);
 		//System.out.println("getCopeClass "+javaClass.getFullName()+" "+(result==null?"NULL":result.getName()));
