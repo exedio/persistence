@@ -61,8 +61,8 @@ public class GeneratorTest extends InstrumentorTest
 	
 	public void testStandard() throws ClassNotFoundException
 	{
-		final Class standard = Standard.class;
-		assertConstructor(standard, new Class[]{
+		final Class STANDARD = Standard.class;
+		assertConstructor(STANDARD, new Class[]{
 				STRING, // notNullString
 				STRING, // readOnlyString
 				STRING, // initialString
@@ -75,154 +75,154 @@ public class GeneratorTest extends InstrumentorTest
 			new Class[]{
 				MANDATORY_VIOLATION,
 			});
-		assertConstructor(standard, new Class[]{(new AttributeValue[0]).getClass()}, PRIVATE);
-		assertConstructor(standard, new Class[]{REACTIVATION_DUMMY, int.class}, PRIVATE);
+		assertConstructor(STANDARD, new Class[]{(new AttributeValue[0]).getClass()}, PRIVATE);
+		assertConstructor(STANDARD, new Class[]{REACTIVATION_DUMMY, int.class}, PRIVATE);
 
-		assertMethod(standard, "getDefaultString", STRING, PUBLIC|FINAL);
-		assertMethod(standard, "setDefaultString", new Class[]{STRING}, PUBLIC|FINAL);
-		assertMethod(standard, "getNotNullString", STRING, PUBLIC|FINAL);
-		assertMethod(standard, "setNotNullString", new Class[]{STRING}, PUBLIC|FINAL, new Class[]{MANDATORY_VIOLATION});
-		assertMethod(standard, "getReadOnlyString", STRING, PUBLIC|FINAL);
-		assertNoMethod(standard, "setReadOnlyString", new Class[]{STRING});
-		assertMethod(standard, "getUniqueString", STRING, PUBLIC|FINAL);
-		assertMethod(standard, "setUniqueString", new Class[]{STRING}, PUBLIC|FINAL, new Class[]{UNIQUE_VIOLATION});
-		assertMethod(standard, "findByUniqueString", new Class[]{STRING}, standard, PUBLIC|STATIC|FINAL);
-		assertMethod(standard, "getInitialString", STRING, PUBLIC|FINAL);
-		assertMethod(standard, "setInitialString", new Class[]{STRING}, PUBLIC|FINAL);
+		assertMethod(STANDARD, "getDefaultString", STRING, PUBLIC|FINAL);
+		assertMethod(STANDARD, "setDefaultString", new Class[]{STRING}, PUBLIC|FINAL);
+		assertMethod(STANDARD, "getNotNullString", STRING, PUBLIC|FINAL);
+		assertMethod(STANDARD, "setNotNullString", new Class[]{STRING}, PUBLIC|FINAL, new Class[]{MANDATORY_VIOLATION});
+		assertMethod(STANDARD, "getReadOnlyString", STRING, PUBLIC|FINAL);
+		assertNoMethod(STANDARD, "setReadOnlyString", new Class[]{STRING});
+		assertMethod(STANDARD, "getUniqueString", STRING, PUBLIC|FINAL);
+		assertMethod(STANDARD, "setUniqueString", new Class[]{STRING}, PUBLIC|FINAL, new Class[]{UNIQUE_VIOLATION});
+		assertMethod(STANDARD, "findByUniqueString", new Class[]{STRING}, STANDARD, PUBLIC|STATIC|FINAL);
+		assertMethod(STANDARD, "getInitialString", STRING, PUBLIC|FINAL);
+		assertMethod(STANDARD, "setInitialString", new Class[]{STRING}, PUBLIC|FINAL);
 
-		assertMethod(standard, "getDefaultInteger", Integer.class, PUBLIC|FINAL);
-		assertMethod(standard, "setDefaultInteger", new Class[]{Integer.class}, PUBLIC|FINAL);
-		assertMethod(standard, "getNativeInteger", int.class, PUBLIC|FINAL);
-		assertMethod(standard, "setNativeInteger", new Class[]{int.class}, PUBLIC|FINAL);
+		assertMethod(STANDARD, "getDefaultInteger", Integer.class, PUBLIC|FINAL);
+		assertMethod(STANDARD, "setDefaultInteger", new Class[]{Integer.class}, PUBLIC|FINAL);
+		assertMethod(STANDARD, "getNativeInteger", int.class, PUBLIC|FINAL);
+		assertMethod(STANDARD, "setNativeInteger", new Class[]{int.class}, PUBLIC|FINAL);
 
-		assertMethod(standard, "getDefaultLong", Long.class, PUBLIC|FINAL);
-		assertMethod(standard, "setDefaultLong", new Class[]{Long.class}, PUBLIC|FINAL);
-		assertMethod(standard, "getNativeLong", long.class, PUBLIC|FINAL);
-		assertMethod(standard, "setNativeLong", new Class[]{long.class}, PUBLIC|FINAL);
+		assertMethod(STANDARD, "getDefaultLong", Long.class, PUBLIC|FINAL);
+		assertMethod(STANDARD, "setDefaultLong", new Class[]{Long.class}, PUBLIC|FINAL);
+		assertMethod(STANDARD, "getNativeLong", long.class, PUBLIC|FINAL);
+		assertMethod(STANDARD, "setNativeLong", new Class[]{long.class}, PUBLIC|FINAL);
 
-		assertMethod(standard, "getDefaultDouble", Double.class, PUBLIC|FINAL);
-		assertMethod(standard, "setDefaultDouble", new Class[]{Double.class}, PUBLIC|FINAL);
-		assertMethod(standard, "getNativeDouble", double.class, PUBLIC|FINAL);
-		assertMethod(standard, "setNativeDouble", new Class[]{double.class}, PUBLIC|FINAL);
+		assertMethod(STANDARD, "getDefaultDouble", Double.class, PUBLIC|FINAL);
+		assertMethod(STANDARD, "setDefaultDouble", new Class[]{Double.class}, PUBLIC|FINAL);
+		assertMethod(STANDARD, "getNativeDouble", double.class, PUBLIC|FINAL);
+		assertMethod(STANDARD, "setNativeDouble", new Class[]{double.class}, PUBLIC|FINAL);
 
-		assertMethod(standard, "getDefaultBoolean", Boolean.class, PUBLIC|FINAL);
-		assertMethod(standard, "setDefaultBoolean", new Class[]{Boolean.class}, PUBLIC|FINAL);
-		assertMethod(standard, "getNativeBoolean", boolean.class, PUBLIC|FINAL);
-		assertMethod(standard, "setNativeBoolean", new Class[]{boolean.class}, PUBLIC|FINAL);
+		assertMethod(STANDARD, "getDefaultBoolean", Boolean.class, PUBLIC|FINAL);
+		assertMethod(STANDARD, "setDefaultBoolean", new Class[]{Boolean.class}, PUBLIC|FINAL);
+		assertMethod(STANDARD, "getNativeBoolean", boolean.class, PUBLIC|FINAL);
+		assertMethod(STANDARD, "setNativeBoolean", new Class[]{boolean.class}, PUBLIC|FINAL);
 
-		assertMethod(standard, "getMandatoryDate", Date.class, PUBLIC|FINAL);
-		assertMethod(standard, "setMandatoryDate", new Class[]{Date.class}, PUBLIC|FINAL, new Class[]{MANDATORY_VIOLATION});
-		assertMethod(standard, "touchMandatoryDate", new Class[]{}, PUBLIC|FINAL);
+		assertMethod(STANDARD, "getMandatoryDate", Date.class, PUBLIC|FINAL);
+		assertMethod(STANDARD, "setMandatoryDate", new Class[]{Date.class}, PUBLIC|FINAL, new Class[]{MANDATORY_VIOLATION});
+		assertMethod(STANDARD, "touchMandatoryDate", new Class[]{}, PUBLIC|FINAL);
 
-		assertMethod(standard, "getPrivateDate", Date.class, PRIVATE|FINAL);
-		assertMethod(standard, "setPrivateDate", new Class[]{Date.class}, PRIVATE|FINAL);
-		assertMethod(standard, "touchPrivateDate", new Class[]{}, PRIVATE|FINAL);
+		assertMethod(STANDARD, "getPrivateDate", Date.class, PRIVATE|FINAL);
+		assertMethod(STANDARD, "setPrivateDate", new Class[]{Date.class}, PRIVATE|FINAL);
+		assertMethod(STANDARD, "touchPrivateDate", new Class[]{}, PRIVATE|FINAL);
 
-		assertMethod(standard, "getPrivateString", STRING, PRIVATE|FINAL);
-		assertMethod(standard, "setPrivateString", new Class[]{STRING}, PRIVATE|FINAL);
+		assertMethod(STANDARD, "getPrivateString", STRING, PRIVATE|FINAL);
+		assertMethod(STANDARD, "setPrivateString", new Class[]{STRING}, PRIVATE|FINAL);
 
-		assertNoMethod(standard, "getNoneGetterString");
-		assertMethod(standard, "setNoneGetterString", new Class[]{STRING}, PUBLIC|FINAL);
-		assertMethod(standard, "getPrivateGetterString", STRING, PRIVATE|FINAL);
-		assertMethod(standard, "setPrivateGetterString", new Class[]{STRING}, PUBLIC|FINAL);
-		assertMethod(standard, "getInternalGetterStringInternal", STRING, PRIVATE|FINAL);
-		assertMethod(standard, "setInternalGetterString", new Class[]{STRING}, PUBLIC|FINAL);
-		assertNoMethod(standard, "getInternalGetterString");
+		assertNoMethod(STANDARD, "getNoneGetterString");
+		assertMethod(STANDARD, "setNoneGetterString", new Class[]{STRING}, PUBLIC|FINAL);
+		assertMethod(STANDARD, "getPrivateGetterString", STRING, PRIVATE|FINAL);
+		assertMethod(STANDARD, "setPrivateGetterString", new Class[]{STRING}, PUBLIC|FINAL);
+		assertMethod(STANDARD, "getInternalGetterStringInternal", STRING, PRIVATE|FINAL);
+		assertMethod(STANDARD, "setInternalGetterString", new Class[]{STRING}, PUBLIC|FINAL);
+		assertNoMethod(STANDARD, "getInternalGetterString");
 
-		assertMethod(standard, "getNoneSetterString", STRING, PUBLIC|FINAL);
-		assertNoMethod(standard, "setNoneSetterString", new Class[]{STRING});
-		assertMethod(standard, "getPrivateSetterString", STRING, PUBLIC|FINAL);
-		assertMethod(standard, "setPrivateSetterString", new Class[]{STRING}, PRIVATE|FINAL);
-		assertMethod(standard, "getInternalSetterString", STRING, PUBLIC|FINAL);
-		assertMethod(standard, "setInternalSetterStringInternal", new Class[]{STRING}, PRIVATE|FINAL);
-		assertNoMethod(standard, "setInternalSetterString", new Class[]{STRING});
+		assertMethod(STANDARD, "getNoneSetterString", STRING, PUBLIC|FINAL);
+		assertNoMethod(STANDARD, "setNoneSetterString", new Class[]{STRING});
+		assertMethod(STANDARD, "getPrivateSetterString", STRING, PUBLIC|FINAL);
+		assertMethod(STANDARD, "setPrivateSetterString", new Class[]{STRING}, PRIVATE|FINAL);
+		assertMethod(STANDARD, "getInternalSetterString", STRING, PUBLIC|FINAL);
+		assertMethod(STANDARD, "setInternalSetterStringInternal", new Class[]{STRING}, PRIVATE|FINAL);
+		assertNoMethod(STANDARD, "setInternalSetterString", new Class[]{STRING});
 
-		assertMethod(standard, "getNonfinalGetterString", STRING, PUBLIC);
-		assertMethod(standard, "setNonfinalGetterString", new Class[]{STRING}, PROTECTED|FINAL);
-		assertMethod(standard, "getNonfinalSetterString", STRING, PROTECTED|FINAL);
-		assertMethod(standard, "setNonfinalSetterString", new Class[]{STRING}, PUBLIC);
+		assertMethod(STANDARD, "getNonfinalGetterString", STRING, PUBLIC);
+		assertMethod(STANDARD, "setNonfinalGetterString", new Class[]{STRING}, PROTECTED|FINAL);
+		assertMethod(STANDARD, "getNonfinalSetterString", STRING, PROTECTED|FINAL);
+		assertMethod(STANDARD, "setNonfinalSetterString", new Class[]{STRING}, PUBLIC);
 
-		assertMethod(standard, "isAsIsBoolean", Boolean.class, PUBLIC|FINAL);
-		assertNoMethod(standard, "getAsIsBoolean");
-		assertMethod(standard, "setAsIsBoolean", new Class[]{Boolean.class}, PUBLIC|FINAL);
+		assertMethod(STANDARD, "isAsIsBoolean", Boolean.class, PUBLIC|FINAL);
+		assertNoMethod(STANDARD, "getAsIsBoolean");
+		assertMethod(STANDARD, "setAsIsBoolean", new Class[]{Boolean.class}, PUBLIC|FINAL);
 		
-		assertMethod(standard, "getDoubleUnique1", STRING, PUBLIC|FINAL);
-		assertMethod(standard, "setDoubleUnique1", new Class[]{STRING}, PUBLIC|FINAL, new Class[]{UNIQUE_VIOLATION});
-		assertMethod(standard, "getDoubleUnique2", Integer.class, PUBLIC|FINAL);
-		assertMethod(standard, "setDoubleUnique2", new Class[]{Integer.class}, PUBLIC|FINAL, new Class[]{UNIQUE_VIOLATION});
-		assertMethod(standard, "findByDoubleUnique", new Class[]{STRING, Integer.class}, standard, PUBLIC|STATIC|FINAL);
+		assertMethod(STANDARD, "getDoubleUnique1", STRING, PUBLIC|FINAL);
+		assertMethod(STANDARD, "setDoubleUnique1", new Class[]{STRING}, PUBLIC|FINAL, new Class[]{UNIQUE_VIOLATION});
+		assertMethod(STANDARD, "getDoubleUnique2", Integer.class, PUBLIC|FINAL);
+		assertMethod(STANDARD, "setDoubleUnique2", new Class[]{Integer.class}, PUBLIC|FINAL, new Class[]{UNIQUE_VIOLATION});
+		assertMethod(STANDARD, "findByDoubleUnique", new Class[]{STRING, Integer.class}, STANDARD, PUBLIC|STATIC|FINAL);
 
-		assertMethod(standard, "isAnyMediaNull", boolean.class, PUBLIC|FINAL);
-		assertMethod(standard, "getAnyMediaURL", STRING, PUBLIC|FINAL);
-		assertMethod(standard, "getAnyMediaMimeMajor", STRING, PUBLIC|FINAL);
-		assertMethod(standard, "getAnyMediaMimeMinor", STRING, PUBLIC|FINAL);
-		assertMethod(standard, "getAnyMediaContentType", STRING, PUBLIC|FINAL);
-		assertMethod(standard, "getAnyMediaLength", long.class, PUBLIC|FINAL);
-		assertMethod(standard, "getAnyMediaLastModified", long.class, PUBLIC|FINAL);
-		assertMethod(standard, "getAnyMediaData", InputStream.class, PUBLIC|FINAL);
-		assertMethod(standard, "getAnyMediaData", new Class[]{File.class}, PUBLIC|FINAL, new Class[]{IOException.class});
-		assertMethod(standard, "setAnyMedia", new Class[]{InputStream.class, STRING, STRING}, PUBLIC|FINAL, new Class[]{IOException.class});
-		assertMethod(standard, "setAnyMedia", new Class[]{File.class, STRING, STRING}, PUBLIC|FINAL, new Class[]{IOException.class});
+		assertMethod(STANDARD, "isAnyMediaNull", boolean.class, PUBLIC|FINAL);
+		assertMethod(STANDARD, "getAnyMediaURL", STRING, PUBLIC|FINAL);
+		assertMethod(STANDARD, "getAnyMediaMimeMajor", STRING, PUBLIC|FINAL);
+		assertMethod(STANDARD, "getAnyMediaMimeMinor", STRING, PUBLIC|FINAL);
+		assertMethod(STANDARD, "getAnyMediaContentType", STRING, PUBLIC|FINAL);
+		assertMethod(STANDARD, "getAnyMediaLength", long.class, PUBLIC|FINAL);
+		assertMethod(STANDARD, "getAnyMediaLastModified", long.class, PUBLIC|FINAL);
+		assertMethod(STANDARD, "getAnyMediaData", InputStream.class, PUBLIC|FINAL);
+		assertMethod(STANDARD, "getAnyMediaData", new Class[]{File.class}, PUBLIC|FINAL, new Class[]{IOException.class});
+		assertMethod(STANDARD, "setAnyMedia", new Class[]{InputStream.class, STRING, STRING}, PUBLIC|FINAL, new Class[]{IOException.class});
+		assertMethod(STANDARD, "setAnyMedia", new Class[]{File.class, STRING, STRING}, PUBLIC|FINAL, new Class[]{IOException.class});
 
-		assertMethod(standard, "isMajorMediaNull", boolean.class, FINAL);
-		assertMethod(standard, "getMajorMediaURL", STRING, FINAL);
-		assertMethod(standard, "getMajorMediaMimeMajor", STRING, FINAL);
-		assertMethod(standard, "getMajorMediaMimeMinor", STRING, FINAL);
-		assertMethod(standard, "getMajorMediaContentType", STRING, FINAL);
-		assertMethod(standard, "getMajorMediaLength", long.class, FINAL);
-		assertMethod(standard, "getMajorMediaLastModified", long.class, FINAL);
-		assertMethod(standard, "getMajorMediaData", InputStream.class, FINAL);
-		assertMethod(standard, "getMajorMediaData", new Class[]{File.class}, FINAL, new Class[]{IOException.class});
-		assertMethod(standard, "setMajorMedia", new Class[]{InputStream.class, STRING}, FINAL, new Class[]{IOException.class});
-		assertMethod(standard, "setMajorMedia", new Class[]{File.class, STRING}, FINAL, new Class[]{IOException.class});
+		assertMethod(STANDARD, "isMajorMediaNull", boolean.class, FINAL);
+		assertMethod(STANDARD, "getMajorMediaURL", STRING, FINAL);
+		assertMethod(STANDARD, "getMajorMediaMimeMajor", STRING, FINAL);
+		assertMethod(STANDARD, "getMajorMediaMimeMinor", STRING, FINAL);
+		assertMethod(STANDARD, "getMajorMediaContentType", STRING, FINAL);
+		assertMethod(STANDARD, "getMajorMediaLength", long.class, FINAL);
+		assertMethod(STANDARD, "getMajorMediaLastModified", long.class, FINAL);
+		assertMethod(STANDARD, "getMajorMediaData", InputStream.class, FINAL);
+		assertMethod(STANDARD, "getMajorMediaData", new Class[]{File.class}, FINAL, new Class[]{IOException.class});
+		assertMethod(STANDARD, "setMajorMedia", new Class[]{InputStream.class, STRING}, FINAL, new Class[]{IOException.class});
+		assertMethod(STANDARD, "setMajorMedia", new Class[]{File.class, STRING}, FINAL, new Class[]{IOException.class});
 
-		assertMethod(standard, "isMinorMediaNull", boolean.class, PROTECTED|FINAL);
-		assertMethod(standard, "getMinorMediaURL", STRING, PROTECTED|FINAL);
-		assertMethod(standard, "getMinorMediaMimeMajor", STRING, PROTECTED|FINAL);
-		assertMethod(standard, "getMinorMediaMimeMinor", STRING, PROTECTED|FINAL);
-		assertMethod(standard, "getMinorMediaContentType", STRING, PROTECTED|FINAL);
-		assertMethod(standard, "getMinorMediaLength", long.class, PROTECTED|FINAL);
-		assertMethod(standard, "getMinorMediaLastModified", long.class, PROTECTED|FINAL);
-		assertMethod(standard, "getMinorMediaData", InputStream.class, PROTECTED|FINAL);
-		assertMethod(standard, "getMinorMediaData", new Class[]{File.class}, PROTECTED|FINAL, new Class[]{IOException.class});
-		assertMethod(standard, "setMinorMedia", new Class[]{InputStream.class}, PROTECTED|FINAL, new Class[]{IOException.class});
-		assertMethod(standard, "setMinorMedia", new Class[]{File.class}, PROTECTED|FINAL, new Class[]{IOException.class});
+		assertMethod(STANDARD, "isMinorMediaNull", boolean.class, PROTECTED|FINAL);
+		assertMethod(STANDARD, "getMinorMediaURL", STRING, PROTECTED|FINAL);
+		assertMethod(STANDARD, "getMinorMediaMimeMajor", STRING, PROTECTED|FINAL);
+		assertMethod(STANDARD, "getMinorMediaMimeMinor", STRING, PROTECTED|FINAL);
+		assertMethod(STANDARD, "getMinorMediaContentType", STRING, PROTECTED|FINAL);
+		assertMethod(STANDARD, "getMinorMediaLength", long.class, PROTECTED|FINAL);
+		assertMethod(STANDARD, "getMinorMediaLastModified", long.class, PROTECTED|FINAL);
+		assertMethod(STANDARD, "getMinorMediaData", InputStream.class, PROTECTED|FINAL);
+		assertMethod(STANDARD, "getMinorMediaData", new Class[]{File.class}, PROTECTED|FINAL, new Class[]{IOException.class});
+		assertMethod(STANDARD, "setMinorMedia", new Class[]{InputStream.class}, PROTECTED|FINAL, new Class[]{IOException.class});
+		assertMethod(STANDARD, "setMinorMedia", new Class[]{File.class}, PROTECTED|FINAL, new Class[]{IOException.class});
 
-		assertMethod(standard, "isNoSetterMediaNull", boolean.class, PUBLIC|FINAL);
-		assertMethod(standard, "getNoSetterMediaURL", STRING, PUBLIC|FINAL);
-		assertMethod(standard, "getNoSetterMediaMimeMajor", STRING, PUBLIC|FINAL);
-		assertMethod(standard, "getNoSetterMediaMimeMinor", STRING, PUBLIC|FINAL);
-		assertMethod(standard, "getNoSetterMediaContentType", STRING, PUBLIC|FINAL);
-		assertMethod(standard, "getNoSetterMediaLength", long.class, PUBLIC|FINAL);
-		assertMethod(standard, "getNoSetterMediaLastModified", long.class, PUBLIC|FINAL);
-		assertMethod(standard, "getNoSetterMediaData", InputStream.class, PUBLIC|FINAL);
-		assertMethod(standard, "getNoSetterMediaData", new Class[]{File.class}, PUBLIC|FINAL, new Class[]{IOException.class});
-		assertNoMethod(standard, "setNoSetterMedia", new Class[]{InputStream.class,STRING,STRING});
-		assertNoMethod(standard, "setNoSetterMedia", new Class[]{File.class,STRING,STRING});
+		assertMethod(STANDARD, "isNoSetterMediaNull", boolean.class, PUBLIC|FINAL);
+		assertMethod(STANDARD, "getNoSetterMediaURL", STRING, PUBLIC|FINAL);
+		assertMethod(STANDARD, "getNoSetterMediaMimeMajor", STRING, PUBLIC|FINAL);
+		assertMethod(STANDARD, "getNoSetterMediaMimeMinor", STRING, PUBLIC|FINAL);
+		assertMethod(STANDARD, "getNoSetterMediaContentType", STRING, PUBLIC|FINAL);
+		assertMethod(STANDARD, "getNoSetterMediaLength", long.class, PUBLIC|FINAL);
+		assertMethod(STANDARD, "getNoSetterMediaLastModified", long.class, PUBLIC|FINAL);
+		assertMethod(STANDARD, "getNoSetterMediaData", InputStream.class, PUBLIC|FINAL);
+		assertMethod(STANDARD, "getNoSetterMediaData", new Class[]{File.class}, PUBLIC|FINAL, new Class[]{IOException.class});
+		assertNoMethod(STANDARD, "setNoSetterMedia", new Class[]{InputStream.class,STRING,STRING});
+		assertNoMethod(STANDARD, "setNoSetterMedia", new Class[]{File.class,STRING,STRING});
 
-		assertMethod(standard, "isPrivateSetterMediaNull", boolean.class, PUBLIC|FINAL);
-		assertMethod(standard, "getPrivateSetterMediaURL", STRING, PUBLIC|FINAL);
-		assertMethod(standard, "getPrivateSetterMediaMimeMajor", STRING, PUBLIC|FINAL);
-		assertMethod(standard, "getPrivateSetterMediaMimeMinor", STRING, PUBLIC|FINAL);
-		assertMethod(standard, "getPrivateSetterMediaContentType", STRING, PUBLIC|FINAL);
-		assertMethod(standard, "getPrivateSetterMediaLength", long.class, PUBLIC|FINAL);
-		assertMethod(standard, "getPrivateSetterMediaLastModified", long.class, PUBLIC|FINAL);
-		assertMethod(standard, "getPrivateSetterMediaData", InputStream.class, PUBLIC|FINAL);
-		assertMethod(standard, "getPrivateSetterMediaData", new Class[]{File.class}, PUBLIC|FINAL, new Class[]{IOException.class});
-		assertMethod(standard, "setPrivateSetterMedia", new Class[]{InputStream.class,STRING,STRING}, PRIVATE|FINAL, new Class[]{IOException.class});
-		assertMethod(standard, "setPrivateSetterMedia", new Class[]{File.class,STRING,STRING}, PRIVATE|FINAL, new Class[]{IOException.class});
+		assertMethod(STANDARD, "isPrivateSetterMediaNull", boolean.class, PUBLIC|FINAL);
+		assertMethod(STANDARD, "getPrivateSetterMediaURL", STRING, PUBLIC|FINAL);
+		assertMethod(STANDARD, "getPrivateSetterMediaMimeMajor", STRING, PUBLIC|FINAL);
+		assertMethod(STANDARD, "getPrivateSetterMediaMimeMinor", STRING, PUBLIC|FINAL);
+		assertMethod(STANDARD, "getPrivateSetterMediaContentType", STRING, PUBLIC|FINAL);
+		assertMethod(STANDARD, "getPrivateSetterMediaLength", long.class, PUBLIC|FINAL);
+		assertMethod(STANDARD, "getPrivateSetterMediaLastModified", long.class, PUBLIC|FINAL);
+		assertMethod(STANDARD, "getPrivateSetterMediaData", InputStream.class, PUBLIC|FINAL);
+		assertMethod(STANDARD, "getPrivateSetterMediaData", new Class[]{File.class}, PUBLIC|FINAL, new Class[]{IOException.class});
+		assertMethod(STANDARD, "setPrivateSetterMedia", new Class[]{InputStream.class,STRING,STRING}, PRIVATE|FINAL, new Class[]{IOException.class});
+		assertMethod(STANDARD, "setPrivateSetterMedia", new Class[]{File.class,STRING,STRING}, PRIVATE|FINAL, new Class[]{IOException.class});
 
-		assertMethod(standard, "checkPublicHash", new Class[]{STRING}, Boolean.TYPE, PUBLIC|FINAL);
-		assertMethod(standard, "checkPrivateHash", new Class[]{STRING}, Boolean.TYPE, PRIVATE|FINAL);
-		assertMethod(standard, "checkMandatoryHash", new Class[]{STRING}, Boolean.TYPE, PUBLIC|FINAL);
-		assertMethod(standard, "setPublicHash", new Class[]{STRING}, PUBLIC|FINAL);
-		assertMethod(standard, "setPrivateHash", new Class[]{STRING}, PRIVATE|FINAL);
-		assertMethod(standard, "setMandatoryHash", new Class[]{STRING}, PUBLIC|FINAL, new Class[]{MANDATORY_VIOLATION});
-		assertNoMethod(standard, "getPublicHash");
-		assertNoMethod(standard, "getPrivateHash");
-		assertNoMethod(standard, "getMandatoryHash");
+		assertMethod(STANDARD, "checkPublicHash", new Class[]{STRING}, Boolean.TYPE, PUBLIC|FINAL);
+		assertMethod(STANDARD, "checkPrivateHash", new Class[]{STRING}, Boolean.TYPE, PRIVATE|FINAL);
+		assertMethod(STANDARD, "checkMandatoryHash", new Class[]{STRING}, Boolean.TYPE, PUBLIC|FINAL);
+		assertMethod(STANDARD, "setPublicHash", new Class[]{STRING}, PUBLIC|FINAL);
+		assertMethod(STANDARD, "setPrivateHash", new Class[]{STRING}, PRIVATE|FINAL);
+		assertMethod(STANDARD, "setMandatoryHash", new Class[]{STRING}, PUBLIC|FINAL, new Class[]{MANDATORY_VIOLATION});
+		assertNoMethod(STANDARD, "getPublicHash");
+		assertNoMethod(STANDARD, "getPrivateHash");
+		assertNoMethod(STANDARD, "getMandatoryHash");
 
-		assertField(standard, "TYPE", Type.class, PUBLIC|STATIC|FINAL);
+		assertField(STANDARD, "TYPE", Type.class, PUBLIC|STATIC|FINAL);
 
 		final Class typeNone = TypeNone.class;
 		assertConstructor(typeNone, new Class[]{}, PRIVATE);
