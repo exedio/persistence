@@ -46,7 +46,7 @@ import java.util.zip.CheckedInputStream;
  */
 final class Injector
 {
-	final CRC32 inputCRC = new CRC32(); // TODO make private
+	private final CRC32 inputCRC = new CRC32();
 	private final Reader input;
 	private final StringWriter output; // TODO use StringBuffer
 	private final InjectionConsumer consumer;
@@ -92,6 +92,11 @@ final class Injector
 			input.close();
 	}
 	
+	long getCRC()
+	{
+		return inputCRC.getValue();
+	}
+
 	private char outbuf;
 	private boolean outbufvalid = false;
 

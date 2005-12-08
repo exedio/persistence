@@ -82,7 +82,7 @@ public final class Main
 		{
 			if(generator!=null) generator.close();
 		}
-		return injector.inputCRC.getValue() != generator.getCRC();
+		return injector.getCRC() != generator.getCRC();
 	}
 	
 	private static final String TEMPFILE_SUFFIX=".temp_cope_injection";
