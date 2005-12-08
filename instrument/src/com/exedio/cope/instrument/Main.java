@@ -19,15 +19,10 @@
 package com.exedio.cope.instrument;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.io.PrintStream;
-import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.zip.CRC32;
-import java.util.zip.CheckedOutputStream;
 
 import com.exedio.cope.Cope;
 
@@ -72,32 +67,11 @@ public final class Main
 		}
 		
 		final JavaFile javaFile = injector.javafile;
-		final CRC32 outputCRC = new CRC32();
-		Writer output=null;
+		Generator generator = null;
 		try
 		{
-			output = new OutputStreamWriter(new CheckedOutputStream(new FileOutputStream(outputfile), outputCRC));
-			//System.out.println("onClassEnd("+javaClass.getName()+")");
-			final Generator generator = new Generator(output);
-
-			final String buffer = javaFile.buffer.getBuffer().toString();
-			int previousClassEndPosition = 0;
-			for(Iterator i = javaFile.getClasses().iterator(); i.hasNext(); )
-			{
-				final JavaClass javaClass = (JavaClass)i.next();
-				final CopeType copeClass = CopeType.getCopeType(javaClass);
-				final int classEndPosition = javaClass.getClassEndPosition();
-				if(copeClass!=null)
-				{
-					assert previousClassEndPosition<=classEndPosition;
-					if(previousClassEndPosition<classEndPosition)
-						output.write(buffer, previousClassEndPosition, classEndPosition-previousClassEndPosition);
-
-					generator.writeClassFeatures(copeClass);
-					previousClassEndPosition = classEndPosition;
-				}
-			}
-			output.write(buffer, previousClassEndPosition, buffer.length()-previousClassEndPosition);
+			generator = new Generator(javaFile, outputfile);
+			generator.write();
 		}
 		catch(InjectorParseException e)
 		{
@@ -106,9 +80,9 @@ public final class Main
 		}
 		finally
 		{
-			if(output!=null) output.close();
+			if(generator!=null) generator.close();
 		}
-		return injector.inputCRC.getValue() != outputCRC.getValue();
+		return injector.inputCRC.getValue() != generator.getCRC();
 	}
 	
 	private static final String TEMPFILE_SUFFIX=".temp_cope_injection";
