@@ -53,6 +53,8 @@ public class GeneratorTest extends InstrumentorTest
 	public static final int STATIC = Modifier.STATIC;
 	public static final int FINAL = Modifier.FINAL;
 	
+	final static Class MANDATORY_VIOLATION = MandatoryViolationException.class;
+	
 	public void testStandard() throws ClassNotFoundException
 	{
 		final Class standard = Standard.class;
@@ -67,7 +69,7 @@ public class GeneratorTest extends InstrumentorTest
 				Date.class, // mandatoryDate
 			}, PUBLIC,
 			new Class[]{
-				MandatoryViolationException.class,
+				MANDATORY_VIOLATION,
 			});
 		assertConstructor(standard, new Class[]{(new AttributeValue[0]).getClass()}, PRIVATE);
 		assertConstructor(standard, new Class[]{ReactivationConstructorDummy.class, int.class}, PRIVATE);
@@ -75,7 +77,7 @@ public class GeneratorTest extends InstrumentorTest
 		assertMethod(standard, "getDefaultString", String.class, PUBLIC|FINAL);
 		assertMethod(standard, "setDefaultString", new Class[]{String.class}, PUBLIC|FINAL);
 		assertMethod(standard, "getNotNullString", String.class, PUBLIC|FINAL);
-		assertMethod(standard, "setNotNullString", new Class[]{String.class}, PUBLIC|FINAL, new Class[]{MandatoryViolationException.class});
+		assertMethod(standard, "setNotNullString", new Class[]{String.class}, PUBLIC|FINAL, new Class[]{MANDATORY_VIOLATION});
 		assertMethod(standard, "getReadOnlyString", String.class, PUBLIC|FINAL);
 		assertNoMethod(standard, "setReadOnlyString", new Class[]{String.class});
 		assertMethod(standard, "getUniqueString", String.class, PUBLIC|FINAL);
@@ -105,7 +107,7 @@ public class GeneratorTest extends InstrumentorTest
 		assertMethod(standard, "setNativeBoolean", new Class[]{boolean.class}, PUBLIC|FINAL);
 
 		assertMethod(standard, "getMandatoryDate", Date.class, PUBLIC|FINAL);
-		assertMethod(standard, "setMandatoryDate", new Class[]{Date.class}, PUBLIC|FINAL, new Class[]{MandatoryViolationException.class});
+		assertMethod(standard, "setMandatoryDate", new Class[]{Date.class}, PUBLIC|FINAL, new Class[]{MANDATORY_VIOLATION});
 		assertMethod(standard, "touchMandatoryDate", new Class[]{}, PUBLIC|FINAL);
 
 		assertMethod(standard, "getPrivateDate", Date.class, PRIVATE|FINAL);
@@ -211,7 +213,7 @@ public class GeneratorTest extends InstrumentorTest
 		assertMethod(standard, "checkMandatoryHash", new Class[]{String.class}, Boolean.TYPE, PUBLIC|FINAL);
 		assertMethod(standard, "setPublicHash", new Class[]{String.class}, PUBLIC|FINAL);
 		assertMethod(standard, "setPrivateHash", new Class[]{String.class}, PRIVATE|FINAL);
-		assertMethod(standard, "setMandatoryHash", new Class[]{String.class}, PUBLIC|FINAL, new Class[]{MandatoryViolationException.class});
+		assertMethod(standard, "setMandatoryHash", new Class[]{String.class}, PUBLIC|FINAL, new Class[]{MANDATORY_VIOLATION});
 		assertNoMethod(standard, "getPublicHash");
 		assertNoMethod(standard, "getPrivateHash");
 		assertNoMethod(standard, "getMandatoryHash");
@@ -239,7 +241,7 @@ public class GeneratorTest extends InstrumentorTest
 	{
 		final Class doubleUnique = DoubleUnique.class;
 		final Class subTarget = SubTarget.class;
-		assertConstructor(doubleUnique, new Class[]{String.class, subTarget}, PUBLIC, new Class[]{MandatoryViolationException.class, UniqueViolationException.class});
+		assertConstructor(doubleUnique, new Class[]{String.class, subTarget}, PUBLIC, new Class[]{MANDATORY_VIOLATION, UniqueViolationException.class});
 		assertMethod(doubleUnique, "getString", String.class, PUBLIC|FINAL);
 		assertMethod(doubleUnique, "getItem", subTarget, PUBLIC|FINAL);
 		assertMethod(doubleUnique, "findByUnique", new Class[]{String.class, subTarget}, doubleUnique, PUBLIC|STATIC|FINAL);
@@ -284,7 +286,7 @@ public class GeneratorTest extends InstrumentorTest
 			}, PUBLIC,
 			new Class[]{
 				LengthViolationException.class,
-				MandatoryViolationException.class,
+				MANDATORY_VIOLATION,
 			});
 		assertConstructor(superc, new Class[]{(new AttributeValue[0]).getClass()}, PROTECTED);
 		assertConstructor(superc, new Class[]{ReactivationConstructorDummy.class, int.class}, PROTECTED);
@@ -297,7 +299,7 @@ public class GeneratorTest extends InstrumentorTest
 			}, PUBLIC,
 			new Class[]{
 				LengthViolationException.class,
-				MandatoryViolationException.class,
+				MANDATORY_VIOLATION,
 			});
 		assertConstructor(sub, new Class[]{(new AttributeValue[0]).getClass()}, PRIVATE);
 		assertConstructor(sub, new Class[]{ReactivationConstructorDummy.class, int.class}, PRIVATE);
