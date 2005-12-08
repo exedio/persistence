@@ -123,16 +123,16 @@ public final class Main
 				if(injector!=null) injector.close();
 			}
 			
-			final File outputfile = new File(inputFile.getAbsolutePath()+TEMPFILE_SUFFIX);
-			if(outputfile.exists())
+			final File outputFile = new File(inputFile.getAbsolutePath()+TEMPFILE_SUFFIX);
+			if(outputFile.exists())
 			{
-				if(inputFile.getCanonicalPath().equals(outputfile.getCanonicalPath()))
+				if(inputFile.getCanonicalPath().equals(outputFile.getCanonicalPath()))
 					throw new RuntimeException("error: input file and output file are the same.");
-				if(!outputfile.isFile())
+				if(!outputFile.isFile())
 					throw new RuntimeException("error: output file is not a regular file.");
 			}
 			
-			final Generator generator = new Generator(injector.javafile, outputfile);
+			final Generator generator = new Generator(injector.javafile, outputFile);
 			try
 			{
 				generator.write();
@@ -145,19 +145,19 @@ public final class Main
 			if(injector.getCRC()!=generator.getCRC())
 			{
 				logInstrumented(inputFile);
-				if(!outputfile.exists())
-					throw new RuntimeException("not exists "+outputfile+".");
+				if(!outputFile.exists())
+					throw new RuntimeException("not exists "+outputFile+".");
 				if(!inputFile.delete())
 					throw new RuntimeException("deleting "+inputFile+" failed.");
-				if(!outputfile.renameTo(inputFile))
-					throw new RuntimeException("renaming "+outputfile+" to "+inputFile+" failed.");
+				if(!outputFile.renameTo(inputFile))
+					throw new RuntimeException("renaming "+outputFile+" to "+inputFile+" failed.");
 			}
 			else
 			{
 				logSkipped(inputFile);
-				if(!outputfile.exists())
-					throw new RuntimeException("not exists "+outputfile+".");
-				if(!outputfile.delete())
+				if(!outputFile.exists())
+					throw new RuntimeException("not exists "+outputFile+".");
+				if(!outputFile.delete())
 					throw new RuntimeException("deleting "+inputFile+" failed.");
 			}
 		}
