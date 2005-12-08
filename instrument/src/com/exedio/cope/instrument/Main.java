@@ -107,21 +107,12 @@ public final class Main
 		for(Iterator i=sourcefiles.iterator(); i.hasNext(); )
 		{
 			final File inputfile = (File)i.next();
-			final File outputfile = new File(inputfile.getAbsolutePath()+TEMPFILE_SUFFIX);
 
 			if(!inputfile.exists())
 				throw new RuntimeException("error: input file " + inputfile.getAbsolutePath() + " does not exist.");
 			if(!inputfile.isFile())
 				throw new RuntimeException("error: input file " + inputfile.getAbsolutePath() + " is not a regular file.");
 				
-			if(outputfile.exists())
-			{
-				if(inputfile.getCanonicalPath().equals(outputfile.getCanonicalPath()))
-					throw new RuntimeException("error: input file and output file are the same.");
-				if(!outputfile.isFile())
-					throw new RuntimeException("error: output file is not a regular file.");
-			}
-			
 			final Injector injector = new Injector(inputfile, new Instrumentor(), repository);
 			try
 			{
@@ -130,6 +121,15 @@ public final class Main
 			finally
 			{
 				if(injector!=null) injector.close();
+			}
+			
+			final File outputfile = new File(inputfile.getAbsolutePath()+TEMPFILE_SUFFIX);
+			if(outputfile.exists())
+			{
+				if(inputfile.getCanonicalPath().equals(outputfile.getCanonicalPath()))
+					throw new RuntimeException("error: input file and output file are the same.");
+				if(!outputfile.isFile())
+					throw new RuntimeException("error: output file is not a regular file.");
 			}
 			
 			final Generator generator = new Generator(injector.javafile, outputfile);
