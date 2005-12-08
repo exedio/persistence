@@ -33,6 +33,7 @@ import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueViolationException;
+import com.exedio.cope.instrument.testmodel.DoubleUnique;
 import com.exedio.cope.instrument.testmodel.Qualified;
 import com.exedio.cope.instrument.testmodel.QualifiedName;
 import com.exedio.cope.instrument.testmodel.Standard;
@@ -40,6 +41,7 @@ import com.exedio.cope.instrument.testmodel.Sub;
 import com.exedio.cope.instrument.testmodel.Super;
 import com.exedio.cope.instrument.testmodel.TypeNone;
 import com.exedio.cope.instrument.testmodel.TypePrivate;
+import com.exedio.cope.instrument.testmodel.sub.SubTarget;
 import com.exedio.cope.util.ReactivationConstructorDummy;
 
 
@@ -233,6 +235,13 @@ public class GeneratorTest extends InstrumentorTest
 		assertField(typePrivate, "TYPE", Type.class, PRIVATE|STATIC|FINAL);
 	}
 
+	public void testDoubleUnique() throws ClassNotFoundException
+	{
+		final Class doubleUnique = DoubleUnique.class;
+		final Class subTarget = SubTarget.class;
+		assertConstructor(doubleUnique, new Class[]{String.class, subTarget}, PUBLIC, new Class[]{MandatoryViolationException.class, UniqueViolationException.class});
+	}
+	
 	public void testQualified() throws ClassNotFoundException
 	{
 		final Class qualified = Qualified.class;

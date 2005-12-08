@@ -424,7 +424,7 @@
 	<target name="instrument.test.instrument" depends="instrument.taskdef">
 		<instrument verbose="false">
 			<fileset dir="instrument/testsrc/com/exedio/cope/instrument/testmodel">
-				<include name="*.java" />
+				<include name="**/*.java" />
 			</fileset>
 		</instrument>
 	</target>
