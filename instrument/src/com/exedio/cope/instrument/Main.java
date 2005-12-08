@@ -106,9 +106,8 @@ public final class Main
 		skipped = 0;
 		for(Iterator i=sourcefiles.iterator(); i.hasNext(); )
 		{
-			final File tobemodifiedfile = (File)i.next();
-			final File outputfile=new File(tobemodifiedfile.getAbsolutePath()+TEMPFILE_SUFFIX);
-			final File inputfile = tobemodifiedfile;
+			final File inputfile = (File)i.next();
+			final File outputfile = new File(inputfile.getAbsolutePath()+TEMPFILE_SUFFIX);
 
 			if(!inputfile.exists())
 				throw new RuntimeException("error: input file " + inputfile.getAbsolutePath() + " does not exist.");
@@ -145,21 +144,21 @@ public final class Main
 			
 			if(injector.getCRC()!=generator.getCRC())
 			{
-				logInstrumented(tobemodifiedfile);
+				logInstrumented(inputfile);
 				if(!outputfile.exists())
 					throw new RuntimeException("not exists "+outputfile+".");
-				if(!tobemodifiedfile.delete())
-					throw new RuntimeException("deleting "+tobemodifiedfile+" failed.");
-				if(!outputfile.renameTo(tobemodifiedfile))
-					throw new RuntimeException("renaming "+outputfile+" to "+tobemodifiedfile+" failed.");
+				if(!inputfile.delete())
+					throw new RuntimeException("deleting "+inputfile+" failed.");
+				if(!outputfile.renameTo(inputfile))
+					throw new RuntimeException("renaming "+outputfile+" to "+inputfile+" failed.");
 			}
 			else
 			{
-				logSkipped(tobemodifiedfile);
+				logSkipped(inputfile);
 				if(!outputfile.exists())
 					throw new RuntimeException("not exists "+outputfile+".");
 				if(!outputfile.delete())
-					throw new RuntimeException("deleting "+tobemodifiedfile+" failed.");
+					throw new RuntimeException("deleting "+inputfile+" failed.");
 			}
 		}
 
