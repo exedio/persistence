@@ -60,7 +60,7 @@ interface InjectionConsumer
 	 * the same object as in the corresponding call to onClass
 	 * @see #onClass(JavaClass)
 	 */
-	void onClassEnd(JavaClass cc, Writer output)
+	void onClassEnd(JavaClass cc, Writer output) // TODO remove output
 	throws java.io.IOException, InjectorParseException;
 	
 	/**
@@ -105,7 +105,7 @@ interface InjectionConsumer
 	 * @return
 	 * if false is returned, the next class feature is ignored.
 	 */
-	boolean onDocComment(String doccomment, Writer output)
+	boolean onDocComment(String doccomment, Writer output) // TODO remove output
 	throws java.io.IOException;
 	
 	/**
@@ -113,7 +113,7 @@ interface InjectionConsumer
 	 * Is called for comments on file level only,
 	 * i.e. outside of any classes.
 	 */
-	void onFileDocComment(String doccomment, Writer output)
+	void onFileDocComment(String doccomment, Writer output) // TODO remove output
 	throws java.io.IOException, InjectorParseException;
 	
 }
