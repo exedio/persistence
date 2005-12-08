@@ -282,7 +282,7 @@ public class GeneratorTest extends InstrumentorTest
 	public void testHierarchy() throws ClassNotFoundException
 	{
 		final Class SUPER = Super.class;
-		final Class sub = Sub.class;
+		final Class SUB = Sub.class;
 
 		assertConstructor(SUPER, new Class[]{
 				STRING, // superMandatory
@@ -295,7 +295,7 @@ public class GeneratorTest extends InstrumentorTest
 		assertConstructor(SUPER, new Class[]{(new AttributeValue[0]).getClass()}, PROTECTED);
 		assertConstructor(SUPER, new Class[]{REACTIVATION_DUMMY, int.class}, PROTECTED);
 
-		assertConstructor(sub, new Class[]{
+		assertConstructor(SUB, new Class[]{
 				STRING, // superMandatory
 				Integer.class, // superInitial
 				boolean.class, // subMandatory
@@ -305,8 +305,8 @@ public class GeneratorTest extends InstrumentorTest
 				LengthViolationException.class,
 				MANDATORY_VIOLATION,
 			});
-		assertConstructor(sub, new Class[]{(new AttributeValue[0]).getClass()}, PRIVATE);
-		assertConstructor(sub, new Class[]{REACTIVATION_DUMMY, int.class}, PRIVATE);
+		assertConstructor(SUB, new Class[]{(new AttributeValue[0]).getClass()}, PRIVATE);
+		assertConstructor(SUB, new Class[]{REACTIVATION_DUMMY, int.class}, PRIVATE);
 	}
 	
 	void assertField(
