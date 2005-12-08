@@ -263,14 +263,7 @@
 	<target name="runtime.testmodel.instrument" depends="instrument.taskdef">
 		<instrument verbose="false">
 			<fileset dir="runtime/testmodelsrc/com/exedio/cope/testmodel">
-				<include name="*Qualifier.java" />
-				<include name="AttributeEmptyItem.java" />
-			</fileset>
-			<fileset dir="runtime/testmodelsrc/com/exedio/cope/testmodel">
 				<include name="**/*.java" />
-			</fileset>
-			<fileset dir="runtime/testsrc/com/exedio/cope">
-				<include name="*Super.java" />
 			</fileset>
 			<fileset dir="runtime/testsrc/com/exedio/cope">
 				<include name="**/*.java" />
@@ -430,10 +423,6 @@
 	
 	<target name="instrument.test.instrument" depends="instrument.taskdef">
 		<instrument verbose="false">
-			<fileset dir="instrument/testsrc/com/exedio/cope/instrument/testmodel">
-				<include name="QualifiedName.java" />
-				<include name="Super.java" />
-			</fileset>
 			<fileset dir="instrument/testsrc/com/exedio/cope/instrument/testmodel">
 				<include name="*.java" />
 			</fileset>

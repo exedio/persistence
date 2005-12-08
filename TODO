@@ -1,5 +1,4 @@
 * Instrumentor
-	- first load all files, then write all files
 	- localized generated comments
 	- instrumentation for modified files only
 	- disable/different access modifier for all generated methods
