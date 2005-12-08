@@ -59,9 +59,18 @@ public class GeneratorTest extends InstrumentorTest
 	final static Class UNIQUE_VIOLATION = UniqueViolationException.class;
 	final static Class REACTIVATION_DUMMY = ReactivationConstructorDummy.class;
 	
+	final static Class STANDARD = Standard.class;
+	final static Class TYPE_NONE = TypeNone.class;
+	final static Class TYPE_PRIVATE = TypePrivate.class;
+	final static Class DOUBLE_UNIQUE = DoubleUnique.class;
+	final static Class SUB_TARGET = SubTarget.class;
+	final static Class QUALIFIED = Qualified.class;
+	final static Class QUALIFIED_NAME = QualifiedName.class;
+	final static Class SUPER = Super.class;
+	final static Class SUB = Sub.class;
+
 	public void testStandard() throws ClassNotFoundException
 	{
-		final Class STANDARD = Standard.class;
 		assertConstructor(STANDARD, new Class[]{
 				STRING, // notNullString
 				STRING, // readOnlyString
@@ -224,7 +233,6 @@ public class GeneratorTest extends InstrumentorTest
 
 		assertField(STANDARD, "TYPE", Type.class, PUBLIC|STATIC|FINAL);
 
-		final Class TYPE_NONE = TypeNone.class;
 		assertConstructor(TYPE_NONE, new Class[]{}, PRIVATE);
 		assertConstructor(TYPE_NONE, new Class[]{(new AttributeValue[0]).getClass()}, PUBLIC); // @cope.generic.constructor public
 		assertConstructor(TYPE_NONE, new Class[]{REACTIVATION_DUMMY, int.class}, PRIVATE);
@@ -232,7 +240,6 @@ public class GeneratorTest extends InstrumentorTest
 		assertMethod(TYPE_NONE, "setDefaultString", new Class[]{STRING}, PUBLIC|FINAL);
 		assertNoField(TYPE_NONE, "TYPE");
 
-		final Class TYPE_PRIVATE = TypePrivate.class;
 		assertConstructor(TYPE_PRIVATE, new Class[]{}, PUBLIC);
 		assertConstructor(TYPE_PRIVATE, new Class[]{(new AttributeValue[0]).getClass()}, PRIVATE);
 		assertConstructor(TYPE_PRIVATE, new Class[]{REACTIVATION_DUMMY, int.class}, PRIVATE);
@@ -243,8 +250,6 @@ public class GeneratorTest extends InstrumentorTest
 
 	public void testDoubleUnique() throws ClassNotFoundException
 	{
-		final Class DOUBLE_UNIQUE = DoubleUnique.class;
-		final Class SUB_TARGET = SubTarget.class;
 		assertConstructor(DOUBLE_UNIQUE, new Class[]{STRING, SUB_TARGET}, PUBLIC, new Class[]{MANDATORY_VIOLATION, UNIQUE_VIOLATION});
 		assertMethod(DOUBLE_UNIQUE, "getString", STRING, PUBLIC|FINAL);
 		assertMethod(DOUBLE_UNIQUE, "getItem", SUB_TARGET, PUBLIC|FINAL);
@@ -253,8 +258,6 @@ public class GeneratorTest extends InstrumentorTest
 	
 	public void testQualified() throws ClassNotFoundException
 	{
-		final Class QUALIFIED = Qualified.class;
-		final Class QUALIFIED_NAME = QualifiedName.class;
 		assertMethod(QUALIFIED, "getNameQualifier", new Class[]{STRING}, QUALIFIED_NAME, PUBLIC|FINAL);
 		assertMethod(QUALIFIED, "getNumber", new Class[]{STRING}, Integer.class, PUBLIC|FINAL);
 		assertMethod(QUALIFIED, "setNumber", new Class[]{STRING, int.class}, PUBLIC|FINAL);
@@ -281,9 +284,6 @@ public class GeneratorTest extends InstrumentorTest
 	
 	public void testHierarchy() throws ClassNotFoundException
 	{
-		final Class SUPER = Super.class;
-		final Class SUB = Sub.class;
-
 		assertConstructor(SUPER, new Class[]{
 				STRING, // superMandatory
 				Integer.class, // superInitial
