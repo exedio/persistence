@@ -74,30 +74,6 @@ public final class Main
 	
 	private static final String TEMPFILE_SUFFIX=".temp_cope_injection";
 	
-	private void inject(final File tobemodifiedfile, final JavaRepository repository)
-	throws IOException, InjectorParseException
-	{
-		final File outputfile=new File(tobemodifiedfile.getAbsolutePath()+TEMPFILE_SUFFIX);
-		if(inject(tobemodifiedfile, outputfile, repository))
-		{
-			logInstrumented(tobemodifiedfile);
-			if(!outputfile.exists())
-				throw new RuntimeException("not exists "+outputfile+".");
-			if(!tobemodifiedfile.delete())
-				throw new RuntimeException("deleting "+tobemodifiedfile+" failed.");
-			if(!outputfile.renameTo(tobemodifiedfile))
-				throw new RuntimeException("renaming "+outputfile+" to "+tobemodifiedfile+" failed.");
-		}
-		else
-		{
-			logSkipped(tobemodifiedfile);
-			if(!outputfile.exists())
-				throw new RuntimeException("not exists "+outputfile+".");
-			if(!outputfile.delete())
-				throw new RuntimeException("deleting "+tobemodifiedfile+" failed.");
-		}
-	}
-	
 	public static void main(final String[] args)
 	{
 		try
@@ -172,7 +148,28 @@ public final class Main
 		instrumented = 0;
 		skipped = 0;
 		for(Iterator i=sourcefiles.iterator(); i.hasNext(); )
-			inject((File)i.next(), repository);
+		{
+			final File tobemodifiedfile = (File)i.next();
+			final File outputfile=new File(tobemodifiedfile.getAbsolutePath()+TEMPFILE_SUFFIX);
+			if(inject(tobemodifiedfile, outputfile, repository))
+			{
+				logInstrumented(tobemodifiedfile);
+				if(!outputfile.exists())
+					throw new RuntimeException("not exists "+outputfile+".");
+				if(!tobemodifiedfile.delete())
+					throw new RuntimeException("deleting "+tobemodifiedfile+" failed.");
+				if(!outputfile.renameTo(tobemodifiedfile))
+					throw new RuntimeException("renaming "+outputfile+" to "+tobemodifiedfile+" failed.");
+			}
+			else
+			{
+				logSkipped(tobemodifiedfile);
+				if(!outputfile.exists())
+					throw new RuntimeException("not exists "+outputfile+".");
+				if(!outputfile.delete())
+					throw new RuntimeException("deleting "+tobemodifiedfile+" failed.");
+			}
+		}
 
 		if(verbose || instrumented>0)
 			System.out.println("Instrumented " + instrumented + ' ' + (instrumented==1 ? "file" : "files") + ", skipped " + skipped + " in " + ((File)sourcefiles.iterator().next()).getParentFile().getAbsolutePath());
