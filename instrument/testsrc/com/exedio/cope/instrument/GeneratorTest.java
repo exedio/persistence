@@ -55,6 +55,7 @@ public class GeneratorTest extends InstrumentorTest
 	
 	final static Class MANDATORY_VIOLATION = MandatoryViolationException.class;
 	final static Class UNIQUE_VIOLATION = UniqueViolationException.class;
+	final static Class REACTIVATION_DUMMY = ReactivationConstructorDummy.class;
 	
 	public void testStandard() throws ClassNotFoundException
 	{
@@ -73,7 +74,7 @@ public class GeneratorTest extends InstrumentorTest
 				MANDATORY_VIOLATION,
 			});
 		assertConstructor(standard, new Class[]{(new AttributeValue[0]).getClass()}, PRIVATE);
-		assertConstructor(standard, new Class[]{ReactivationConstructorDummy.class, int.class}, PRIVATE);
+		assertConstructor(standard, new Class[]{REACTIVATION_DUMMY, int.class}, PRIVATE);
 
 		assertMethod(standard, "getDefaultString", String.class, PUBLIC|FINAL);
 		assertMethod(standard, "setDefaultString", new Class[]{String.class}, PUBLIC|FINAL);
@@ -224,7 +225,7 @@ public class GeneratorTest extends InstrumentorTest
 		final Class typeNone = TypeNone.class;
 		assertConstructor(typeNone, new Class[]{}, PRIVATE);
 		assertConstructor(typeNone, new Class[]{(new AttributeValue[0]).getClass()}, PUBLIC); // @cope.generic.constructor public
-		assertConstructor(typeNone, new Class[]{ReactivationConstructorDummy.class, int.class}, PRIVATE);
+		assertConstructor(typeNone, new Class[]{REACTIVATION_DUMMY, int.class}, PRIVATE);
 		assertMethod(typeNone, "getDefaultString", String.class, PUBLIC|FINAL);
 		assertMethod(typeNone, "setDefaultString", new Class[]{String.class}, PUBLIC|FINAL);
 		assertNoField(typeNone, "TYPE");
@@ -232,7 +233,7 @@ public class GeneratorTest extends InstrumentorTest
 		final Class typePrivate = TypePrivate.class;
 		assertConstructor(typePrivate, new Class[]{}, PUBLIC);
 		assertConstructor(typePrivate, new Class[]{(new AttributeValue[0]).getClass()}, PRIVATE);
-		assertConstructor(typePrivate, new Class[]{ReactivationConstructorDummy.class, int.class}, PRIVATE);
+		assertConstructor(typePrivate, new Class[]{REACTIVATION_DUMMY, int.class}, PRIVATE);
 		assertMethod(typePrivate, "getDefaultString", String.class, PUBLIC|FINAL);
 		assertMethod(typePrivate, "setDefaultString", new Class[]{String.class}, PUBLIC|FINAL);
 		assertField(typePrivate, "TYPE", Type.class, PRIVATE|STATIC|FINAL);
@@ -290,7 +291,7 @@ public class GeneratorTest extends InstrumentorTest
 				MANDATORY_VIOLATION,
 			});
 		assertConstructor(superc, new Class[]{(new AttributeValue[0]).getClass()}, PROTECTED);
-		assertConstructor(superc, new Class[]{ReactivationConstructorDummy.class, int.class}, PROTECTED);
+		assertConstructor(superc, new Class[]{REACTIVATION_DUMMY, int.class}, PROTECTED);
 
 		assertConstructor(sub, new Class[]{
 				String.class, // superMandatory
@@ -303,7 +304,7 @@ public class GeneratorTest extends InstrumentorTest
 				MANDATORY_VIOLATION,
 			});
 		assertConstructor(sub, new Class[]{(new AttributeValue[0]).getClass()}, PRIVATE);
-		assertConstructor(sub, new Class[]{ReactivationConstructorDummy.class, int.class}, PRIVATE);
+		assertConstructor(sub, new Class[]{REACTIVATION_DUMMY, int.class}, PRIVATE);
 	}
 	
 	void assertField(
