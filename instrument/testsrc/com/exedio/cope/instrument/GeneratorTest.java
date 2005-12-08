@@ -240,6 +240,9 @@ public class GeneratorTest extends InstrumentorTest
 		final Class doubleUnique = DoubleUnique.class;
 		final Class subTarget = SubTarget.class;
 		assertConstructor(doubleUnique, new Class[]{String.class, subTarget}, PUBLIC, new Class[]{MandatoryViolationException.class, UniqueViolationException.class});
+		assertMethod(doubleUnique, "getString", String.class, PUBLIC|FINAL);
+		assertMethod(doubleUnique, "getItem", subTarget, PUBLIC|FINAL);
+		assertMethod(doubleUnique, "findByUnique", new Class[]{String.class, subTarget}, doubleUnique, PUBLIC|STATIC|FINAL);
 	}
 	
 	public void testQualified() throws ClassNotFoundException
