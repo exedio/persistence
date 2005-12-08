@@ -29,49 +29,6 @@ import com.exedio.cope.Cope;
 public final class Main
 {
 
-	/**
-	 * @return whether the output file is different to the input file
-	 */
-	static boolean inject(final File inputfile, final File outputfile, final JavaRepository repository)
-	throws IOException, InjectorParseException
-	{
-		//System.out.println("injecting from "+inputfile+" to "+outputfile);
-		
-		if(!inputfile.exists())
-			throw new RuntimeException("error: input file " + inputfile.getAbsolutePath() + " does not exist.");
-		if(!inputfile.isFile())
-			throw new RuntimeException("error: input file " + inputfile.getAbsolutePath() + " is not a regular file.");
-			
-		if(outputfile.exists())
-		{
-			if(inputfile.getCanonicalPath().equals(outputfile.getCanonicalPath()))
-				throw new RuntimeException("error: input file and output file are the same.");
-			if(!outputfile.isFile())
-				throw new RuntimeException("error: output file is not a regular file.");
-		}
-		
-		final Injector injector = new Injector(inputfile, new Instrumentor(), repository);
-		try
-		{
-			injector.parseFile();
-		}
-		finally
-		{
-			if(injector!=null) injector.close();
-		}
-		
-		final Generator generator = new Generator(injector.javafile, outputfile);
-		try
-		{
-			generator.write();
-		}
-		finally
-		{
-			if(generator!=null) generator.close();
-		}
-		return injector.getCRC() != generator.getCRC();
-	}
-	
 	private static final String TEMPFILE_SUFFIX=".temp_cope_injection";
 	
 	public static void main(final String[] args)
@@ -151,7 +108,42 @@ public final class Main
 		{
 			final File tobemodifiedfile = (File)i.next();
 			final File outputfile=new File(tobemodifiedfile.getAbsolutePath()+TEMPFILE_SUFFIX);
-			if(inject(tobemodifiedfile, outputfile, repository))
+			final File inputfile = tobemodifiedfile;
+
+			if(!inputfile.exists())
+				throw new RuntimeException("error: input file " + inputfile.getAbsolutePath() + " does not exist.");
+			if(!inputfile.isFile())
+				throw new RuntimeException("error: input file " + inputfile.getAbsolutePath() + " is not a regular file.");
+				
+			if(outputfile.exists())
+			{
+				if(inputfile.getCanonicalPath().equals(outputfile.getCanonicalPath()))
+					throw new RuntimeException("error: input file and output file are the same.");
+				if(!outputfile.isFile())
+					throw new RuntimeException("error: output file is not a regular file.");
+			}
+			
+			final Injector injector = new Injector(inputfile, new Instrumentor(), repository);
+			try
+			{
+				injector.parseFile();
+			}
+			finally
+			{
+				if(injector!=null) injector.close();
+			}
+			
+			final Generator generator = new Generator(injector.javafile, outputfile);
+			try
+			{
+				generator.write();
+			}
+			finally
+			{
+				if(generator!=null) generator.close();
+			}
+			
+			if(injector.getCRC()!=generator.getCRC())
 			{
 				logInstrumented(tobemodifiedfile);
 				if(!outputfile.exists())
