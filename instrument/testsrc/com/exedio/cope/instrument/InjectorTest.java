@@ -52,9 +52,11 @@ public abstract class InjectorTest extends InstrumentorTest
 		output = new StringWriter();
 
 		injectionEvents = new LinkedList();
-		testInjectionConsumer = new TestInjectionConsumer(output);
+		testInjectionConsumer = new TestInjectionConsumer();
 		final JavaRepository repository = new JavaRepository();
-		final Injector injector = new Injector(inputFile, output, testInjectionConsumer, repository);
+		final Injector injector = new Injector(inputFile, testInjectionConsumer, repository);
+		output = injector.javafile.buffer;
+		testInjectionConsumer.output = output;
 		injector.parseFile();
 		injector.close();
 		output.close();
@@ -348,13 +350,8 @@ public abstract class InjectorTest extends InstrumentorTest
 	
 	private class TestInjectionConsumer implements InjectionConsumer
 	{
-		final StringWriter output;
+		StringWriter output;
 		
-		TestInjectionConsumer(final StringWriter output)
-		{
-			this.output = output;
-		}
-
 		public void onPackage(final JavaFile javaFile) throws InjectorParseException
 		{
 			//System.out.println("PACKAGE"+javaFile.getPackageName()+"--------------"+output.getBuffer());

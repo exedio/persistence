@@ -23,7 +23,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.io.Writer;
+import java.io.StringWriter;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.zip.CRC32;
@@ -48,7 +48,7 @@ final class Injector
 {
 	final CRC32 inputCRC = new CRC32();
 	private final Reader input;
-	private final Writer output;
+	private final StringWriter output;
 	private final InjectionConsumer consumer;
 	private final String filename;
 
@@ -61,7 +61,7 @@ final class Injector
 
 	private String doccomment = null;
 
-	private final JavaFile javafile;
+	final JavaFile javafile;
 
 	/**
 	 * Constructs a new java parser.
@@ -75,15 +75,15 @@ final class Injector
 	 * listening to parsed elements of the input stream.
 	 * @see InjectionConsumer
 	 */
-	public Injector(final File inputFile, final Writer output,
+	public Injector(final File inputFile,
 								final InjectionConsumer consumer, final JavaRepository repository)
 		throws FileNotFoundException
 	{
 		this.input = new InputStreamReader(new CheckedInputStream(new FileInputStream(inputFile), inputCRC));
-		this.output = output;
 		this.consumer = consumer;
 		this.filename = inputFile.getName();
 		this.javafile = new JavaFile(repository);
+		this.output = javafile.buffer;
 	}
 	
 	void close() throws IOException
@@ -91,7 +91,7 @@ final class Injector
 		if(input!=null)
 			input.close();
 	}
-
+	
 	private char outbuf;
 	private boolean outbufvalid = false;
 

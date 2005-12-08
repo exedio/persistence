@@ -153,12 +153,7 @@ final class Instrumentor implements InjectionConsumer
 	public void onClassEnd(final JavaClass javaClass, final Writer output)
 	throws IOException, InjectorParseException
 	{
-		//System.out.println("onClassEnd("+javaClass.getName()+")");
-		final CopeType copeClass = CopeType.getCopeType(javaClass);
-
-		if(copeClass!=null)
-			(new Generator(output)).writeClassFeatures(copeClass);
-		
+		javaClass.notifyClassEnd();
 		if(class_state!=javaClass)
 			throw new RuntimeException();
 		class_state=(JavaClass)(class_state_stack.remove(class_state_stack.size()-1));

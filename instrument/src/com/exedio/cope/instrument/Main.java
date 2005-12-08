@@ -55,13 +55,10 @@ public final class Main
 				throw new RuntimeException("error: output file is not a regular file.");
 		}
 		
-		final CRC32 outputCRC = new CRC32();
 		Injector injector = null;
-		Writer output=null;
 		try
 		{
-			output=new OutputStreamWriter(new CheckedOutputStream(new FileOutputStream(outputfile), outputCRC));
-			injector = new Injector(inputfile, output, new Instrumentor(), repository);
+			injector = new Injector(inputfile, new Instrumentor(), repository);
 			injector.parseFile();
 		}
 		catch(InjectorParseException e)
@@ -72,6 +69,42 @@ public final class Main
 		finally
 		{
 			if(injector!=null) injector.close();
+		}
+		
+		final JavaFile javaFile = injector.javafile;
+		final CRC32 outputCRC = new CRC32();
+		Writer output=null;
+		try
+		{
+			output = new OutputStreamWriter(new CheckedOutputStream(new FileOutputStream(outputfile), outputCRC));
+			//System.out.println("onClassEnd("+javaClass.getName()+")");
+
+			final String buffer = javaFile.buffer.getBuffer().toString();
+			int previousClassEndPosition = 0;
+			for(Iterator i = javaFile.getClasses().iterator(); i.hasNext(); )
+			{
+				final JavaClass javaClass = (JavaClass)i.next();
+				final CopeType copeClass = CopeType.getCopeType(javaClass);
+				final int classEndPosition = javaClass.getClassEndPosition();
+				if(copeClass!=null)
+				{
+					assert previousClassEndPosition<=classEndPosition;
+					if(previousClassEndPosition<classEndPosition)
+						output.write(buffer, previousClassEndPosition, classEndPosition-previousClassEndPosition);
+					
+					(new Generator(output)).writeClassFeatures(copeClass);
+					previousClassEndPosition = classEndPosition;
+				}
+			}
+			output.write(buffer, previousClassEndPosition, buffer.length()-previousClassEndPosition);
+		}
+		catch(InjectorParseException e)
+		{
+			e.printStackTrace();
+			throw new InjectorParseException(inputfile.getAbsolutePath() + " does not exist");
+		}
+		finally
+		{
 			if(output!=null) output.close();
 		}
 		return injector.inputCRC.getValue() != outputCRC.getValue();

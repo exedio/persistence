@@ -49,6 +49,7 @@ class JavaClass extends JavaFeature
 	private HashMap attributes = new HashMap();
 	final List classExtends;
 	final List classImplements;
+	private int classEndPosition = -1;
 
 	/**
 	 * @param parent may be null for non-inner classes
@@ -62,6 +63,7 @@ class JavaClass extends JavaFeature
 		super(file, parent, modifiers, null, name);
 		this.classExtends = Collections.unmodifiableList(classExtends);
 		this.classImplements = Collections.unmodifiableList(classImplements);
+		file.add(this);
 	}
 	
 	void add(final JavaFeature f)
@@ -143,6 +145,22 @@ class JavaClass extends JavaFeature
 		Modifier.FINAL |
 		Modifier.STATIC |
 		Modifier.ABSTRACT;
+	}
+	
+	void notifyClassEnd()
+	{
+		assert classEndPosition==-1;
+		
+		classEndPosition = file.getBufferPosition();
+		
+		assert classEndPosition>=0;
+	}
+	
+	int getClassEndPosition()
+	{
+		assert classEndPosition>=0;
+		
+		return classEndPosition;
 	}
 	
 

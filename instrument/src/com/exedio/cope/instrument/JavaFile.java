@@ -18,10 +18,13 @@
 
 package com.exedio.cope.instrument;
 
+import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.TreeSet;
 
 /**
@@ -79,6 +82,9 @@ final class JavaFile
 	private boolean buildStage=true;
 	
 	final JavaRepository repository;
+	final ArrayList classes = new ArrayList();
+	
+	final StringWriter buffer = new StringWriter();
 
 	public JavaFile(final JavaRepository repository)
 	{
@@ -86,6 +92,16 @@ final class JavaFile
 		import_demand.add("java.lang.");
 		this.repository = repository;
 		repository.add(this);
+	}
+	
+	void add(JavaClass javaClass)
+	{
+		classes.add(javaClass);
+	}
+	
+	List getClasses()
+	{
+		return Collections.unmodifiableList(classes);
 	}
 	
 	/**
@@ -303,6 +319,11 @@ final class JavaFile
 			return fullclassname.substring(0, pos);
 		else
 			return null;
+	}
+	
+	int getBufferPosition()
+	{
+		return buffer.getBuffer().length();
 	}
 	
 }
