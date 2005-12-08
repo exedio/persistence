@@ -106,14 +106,14 @@ public final class Main
 		skipped = 0;
 		for(Iterator i=sourcefiles.iterator(); i.hasNext(); )
 		{
-			final File inputfile = (File)i.next();
+			final File inputFile = (File)i.next();
 
-			if(!inputfile.exists())
-				throw new RuntimeException("error: input file " + inputfile.getAbsolutePath() + " does not exist.");
-			if(!inputfile.isFile())
-				throw new RuntimeException("error: input file " + inputfile.getAbsolutePath() + " is not a regular file.");
+			if(!inputFile.exists())
+				throw new RuntimeException("error: input file " + inputFile.getAbsolutePath() + " does not exist.");
+			if(!inputFile.isFile())
+				throw new RuntimeException("error: input file " + inputFile.getAbsolutePath() + " is not a regular file.");
 				
-			final Injector injector = new Injector(inputfile, new Instrumentor(), repository);
+			final Injector injector = new Injector(inputFile, new Instrumentor(), repository);
 			try
 			{
 				injector.parseFile();
@@ -123,10 +123,10 @@ public final class Main
 				if(injector!=null) injector.close();
 			}
 			
-			final File outputfile = new File(inputfile.getAbsolutePath()+TEMPFILE_SUFFIX);
+			final File outputfile = new File(inputFile.getAbsolutePath()+TEMPFILE_SUFFIX);
 			if(outputfile.exists())
 			{
-				if(inputfile.getCanonicalPath().equals(outputfile.getCanonicalPath()))
+				if(inputFile.getCanonicalPath().equals(outputfile.getCanonicalPath()))
 					throw new RuntimeException("error: input file and output file are the same.");
 				if(!outputfile.isFile())
 					throw new RuntimeException("error: output file is not a regular file.");
@@ -144,21 +144,21 @@ public final class Main
 			
 			if(injector.getCRC()!=generator.getCRC())
 			{
-				logInstrumented(inputfile);
+				logInstrumented(inputFile);
 				if(!outputfile.exists())
 					throw new RuntimeException("not exists "+outputfile+".");
-				if(!inputfile.delete())
-					throw new RuntimeException("deleting "+inputfile+" failed.");
-				if(!outputfile.renameTo(inputfile))
-					throw new RuntimeException("renaming "+outputfile+" to "+inputfile+" failed.");
+				if(!inputFile.delete())
+					throw new RuntimeException("deleting "+inputFile+" failed.");
+				if(!outputfile.renameTo(inputFile))
+					throw new RuntimeException("renaming "+outputfile+" to "+inputFile+" failed.");
 			}
 			else
 			{
-				logSkipped(inputfile);
+				logSkipped(inputFile);
 				if(!outputfile.exists())
 					throw new RuntimeException("not exists "+outputfile+".");
 				if(!outputfile.delete())
-					throw new RuntimeException("deleting "+inputfile+" failed.");
+					throw new RuntimeException("deleting "+inputFile+" failed.");
 			}
 		}
 
