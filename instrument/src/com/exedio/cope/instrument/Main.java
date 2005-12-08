@@ -100,11 +100,12 @@ public final class Main
 			throw new IllegalParameterException("nothing to do.");
 		
 		final JavaRepository repository = new JavaRepository();
+		final ArrayList injectors = new ArrayList(inputFiles.size());
 
 		this.verbose = verbose;
 		instrumented = 0;
 		skipped = 0;
-		for(Iterator i=inputFiles.iterator(); i.hasNext(); )
+		for(Iterator i = inputFiles.iterator(); i.hasNext(); )
 		{
 			final File inputFile = (File)i.next();
 
@@ -122,6 +123,14 @@ public final class Main
 			{
 				if(injector!=null) injector.close();
 			}
+			injectors.add(injector);
+		}
+		
+		final Iterator injectorsIter = injectors.iterator();
+		for(Iterator i = inputFiles.iterator(); i.hasNext(); )
+		{
+			final File inputFile = (File)i.next();
+			final Injector injector = (Injector)injectorsIter.next();
 			
 			final File outputFile = new File(inputFile.getAbsolutePath()+TEMPFILE_SUFFIX);
 			if(outputFile.exists())
