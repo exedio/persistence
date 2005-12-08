@@ -48,7 +48,7 @@ final class Injector
 {
 	final CRC32 inputCRC = new CRC32();
 	private final Reader input;
-	private final StringWriter output;
+	private final StringWriter output; // TODO use StringBuffer
 	private final InjectionConsumer consumer;
 	private final String filename;
 
