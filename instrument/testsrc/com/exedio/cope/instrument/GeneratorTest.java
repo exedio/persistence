@@ -232,13 +232,13 @@ public class GeneratorTest extends InstrumentorTest
 		assertMethod(TYPE_NONE, "setDefaultString", new Class[]{STRING}, PUBLIC|FINAL);
 		assertNoField(TYPE_NONE, "TYPE");
 
-		final Class typePrivate = TypePrivate.class;
-		assertConstructor(typePrivate, new Class[]{}, PUBLIC);
-		assertConstructor(typePrivate, new Class[]{(new AttributeValue[0]).getClass()}, PRIVATE);
-		assertConstructor(typePrivate, new Class[]{REACTIVATION_DUMMY, int.class}, PRIVATE);
-		assertMethod(typePrivate, "getDefaultString", STRING, PUBLIC|FINAL);
-		assertMethod(typePrivate, "setDefaultString", new Class[]{STRING}, PUBLIC|FINAL);
-		assertField(typePrivate, "TYPE", Type.class, PRIVATE|STATIC|FINAL);
+		final Class TYPE_PRIVATE = TypePrivate.class;
+		assertConstructor(TYPE_PRIVATE, new Class[]{}, PUBLIC);
+		assertConstructor(TYPE_PRIVATE, new Class[]{(new AttributeValue[0]).getClass()}, PRIVATE);
+		assertConstructor(TYPE_PRIVATE, new Class[]{REACTIVATION_DUMMY, int.class}, PRIVATE);
+		assertMethod(TYPE_PRIVATE, "getDefaultString", STRING, PUBLIC|FINAL);
+		assertMethod(TYPE_PRIVATE, "setDefaultString", new Class[]{STRING}, PUBLIC|FINAL);
+		assertField(TYPE_PRIVATE, "TYPE", Type.class, PRIVATE|STATIC|FINAL);
 	}
 
 	public void testDoubleUnique() throws ClassNotFoundException
