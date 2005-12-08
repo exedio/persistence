@@ -80,7 +80,7 @@ public final class Main
 		run(sourcefiles, verbose);
 	}
 		
-	final void run(final ArrayList sourcefiles, final boolean verbose) throws IllegalParameterException, InjectorParseException, IOException
+	final void run(final ArrayList inputFiles, final boolean verbose) throws IllegalParameterException, InjectorParseException, IOException
 	{
 		{
 			final Package runtimePackage = Cope.class.getPackage();
@@ -96,7 +96,7 @@ public final class Main
 				throw new RuntimeException("version of cope runtime library ("+runtimeVersion+") does dot match version of cope instrumentor: "+instrumentorVersion);
 		}
 		
-		if(sourcefiles.isEmpty())
+		if(inputFiles.isEmpty())
 			throw new IllegalParameterException("nothing to do.");
 		
 		final JavaRepository repository = new JavaRepository();
@@ -104,7 +104,7 @@ public final class Main
 		this.verbose = verbose;
 		instrumented = 0;
 		skipped = 0;
-		for(Iterator i=sourcefiles.iterator(); i.hasNext(); )
+		for(Iterator i=inputFiles.iterator(); i.hasNext(); )
 		{
 			final File inputFile = (File)i.next();
 
@@ -163,7 +163,7 @@ public final class Main
 		}
 
 		if(verbose || instrumented>0)
-			System.out.println("Instrumented " + instrumented + ' ' + (instrumented==1 ? "file" : "files") + ", skipped " + skipped + " in " + ((File)sourcefiles.iterator().next()).getParentFile().getAbsolutePath());
+			System.out.println("Instrumented " + instrumented + ' ' + (instrumented==1 ? "file" : "files") + ", skipped " + skipped + " in " + ((File)inputFiles.iterator().next()).getParentFile().getAbsolutePath());
 	}
 
 	boolean verbose;
