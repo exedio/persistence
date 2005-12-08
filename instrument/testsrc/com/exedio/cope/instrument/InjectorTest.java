@@ -18,10 +18,8 @@
 
 package com.exedio.cope.instrument;
 
-import java.io.FileInputStream;
+import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Arrays;
@@ -49,18 +47,16 @@ public abstract class InjectorTest extends InstrumentorTest
 	public void testInjection()
 		throws IOException, InjectorParseException
 	{	
-		Reader input = null;
 		StringWriter output = null;
-		String inputfile = InjectorTest.class.getResource(resourceName).getFile();
-		input = new InputStreamReader(new FileInputStream(inputfile));
+		final File inputFile = new File(InjectorTest.class.getResource(resourceName).getFile());
 		output = new StringWriter();
 
 		injectionEvents = new LinkedList();
 		testInjectionConsumer = new TestInjectionConsumer(output);
 		final JavaRepository repository = new JavaRepository();
-		(new Injector(input, output, testInjectionConsumer, repository, resourceName)).parseFile();
-		input.close();
-		input = null;
+		final Injector injector = new Injector(inputFile, output, testInjectionConsumer, repository);
+		injector.parseFile();
+		injector.close();
 		output.close();
 		output = null;
 		

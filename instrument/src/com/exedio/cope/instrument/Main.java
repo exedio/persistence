@@ -19,18 +19,14 @@
 package com.exedio.cope.instrument;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintStream;
-import java.io.Reader;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.zip.CRC32;
-import java.util.zip.CheckedInputStream;
 import java.util.zip.CheckedOutputStream;
 
 import com.exedio.cope.Cope;
@@ -59,17 +55,14 @@ public final class Main
 				throw new RuntimeException("error: output file is not a regular file.");
 		}
 		
-		final CRC32 inputCRC = new CRC32();
 		final CRC32 outputCRC = new CRC32();
-		Reader input=null;
+		Injector injector = null;
 		Writer output=null;
 		try
 		{
-			input =new InputStreamReader(new CheckedInputStream(new FileInputStream(inputfile), inputCRC));
 			output=new OutputStreamWriter(new CheckedOutputStream(new FileOutputStream(outputfile), outputCRC));
-			(new Injector(input, output, new Instrumentor(), repository, inputfile.getName())).parseFile();
-			input.close();
-			output.close();
+			injector = new Injector(inputfile, output, new Instrumentor(), repository);
+			injector.parseFile();
 		}
 		catch(InjectorParseException e)
 		{
@@ -78,10 +71,10 @@ public final class Main
 		}
 		finally
 		{
-			if(input!=null)  input.close();
+			if(injector!=null) injector.close();
 			if(output!=null) output.close();
 		}
-		return inputCRC.getValue() != outputCRC.getValue();
+		return injector.inputCRC.getValue() != outputCRC.getValue();
 	}
 	
 	private static final String TEMPFILE_SUFFIX=".temp_cope_injection";

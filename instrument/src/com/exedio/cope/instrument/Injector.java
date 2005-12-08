@@ -17,11 +17,17 @@
  */
 package com.exedio.cope.instrument;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.Writer;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
+import java.util.zip.CRC32;
+import java.util.zip.CheckedInputStream;
 
 /**
  * Implements a modifying java parser.
@@ -40,6 +46,7 @@ import java.util.ArrayList;
  */
 final class Injector
 {
+	final CRC32 inputCRC = new CRC32();
 	private final Reader input;
 	private final Writer output;
 	private final InjectionConsumer consumer;
@@ -68,14 +75,21 @@ final class Injector
 	 * listening to parsed elements of the input stream.
 	 * @see InjectionConsumer
 	 */
-	public Injector(final Reader input, final Writer output,
-								final InjectionConsumer consumer, final JavaRepository repository, final String filename)
+	public Injector(final File inputFile, final Writer output,
+								final InjectionConsumer consumer, final JavaRepository repository)
+		throws FileNotFoundException
 	{
-		this.input = input;
+		this.input = new InputStreamReader(new CheckedInputStream(new FileInputStream(inputFile), inputCRC));
 		this.output = output;
 		this.consumer = consumer;
-		this.filename = filename;
+		this.filename = inputFile.getName();
 		this.javafile = new JavaFile(repository);
+	}
+	
+	void close() throws IOException
+	{
+		if(input!=null)
+			input.close();
 	}
 
 	private char outbuf;
