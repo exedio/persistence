@@ -254,8 +254,8 @@ public class GeneratorTest extends InstrumentorTest
 	public void testQualified() throws ClassNotFoundException
 	{
 		final Class QUALIFIED = Qualified.class;
-		final Class qualifiedString = QualifiedName.class;
-		assertMethod(QUALIFIED, "getNameQualifier", new Class[]{STRING}, qualifiedString, PUBLIC|FINAL);
+		final Class QUALIFIED_NAME = QualifiedName.class;
+		assertMethod(QUALIFIED, "getNameQualifier", new Class[]{STRING}, QUALIFIED_NAME, PUBLIC|FINAL);
 		assertMethod(QUALIFIED, "getNumber", new Class[]{STRING}, Integer.class, PUBLIC|FINAL);
 		assertMethod(QUALIFIED, "setNumber", new Class[]{STRING, int.class}, PUBLIC|FINAL);
 		assertMethod(QUALIFIED, "getOptionalNumber", new Class[]{STRING}, Integer.class, PUBLIC|FINAL);
