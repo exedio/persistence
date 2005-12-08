@@ -129,7 +129,7 @@ final class Instrumentor implements InjectionConsumer
 			final String typeOption = Injector.findDocTagLine(docComment, CLASS_TYPE);
 			final String initialConstructorOption = Injector.findDocTagLine(docComment, CLASS_INITIAL_CONSTRUCTOR);
 			final String genericConstructorOption = Injector.findDocTagLine(docComment, CLASS_GENERIC_CONSTRUCTOR);
-			new CopeClass(jc, typeOption, initialConstructorOption, genericConstructorOption);
+			new CopeType(jc, typeOption, initialConstructorOption, genericConstructorOption);
 		}
 	}
 	
@@ -154,7 +154,7 @@ final class Instrumentor implements InjectionConsumer
 	throws IOException, InjectorParseException
 	{
 		//System.out.println("onClassEnd("+javaClass.getName()+")");
-		final CopeClass copeClass = CopeClass.getCopeClass(javaClass);
+		final CopeType copeClass = CopeType.getCopeClass(javaClass);
 
 		if(copeClass!=null)
 			(new Generator(output)).writeClassFeatures(copeClass);
@@ -220,7 +220,7 @@ final class Instrumentor implements InjectionConsumer
 		final JavaClass jc = ja.parent;
 		final List initializerArguments = ja.getInitializerArguments();
 		//System.out.println(initializerArguments);
-		final CopeClass copeClass = CopeClass.getCopeClass(jc);
+		final CopeType copeClass = CopeType.getCopeClass(jc);
 		final ArrayList copeAttributes = new ArrayList(initializerArguments.size());
 		for(Iterator i = initializerArguments.iterator(); i.hasNext(); )
 		{
@@ -246,7 +246,7 @@ final class Instrumentor implements InjectionConsumer
 		throws InjectorParseException
 	{
 		final JavaClass jc = ja.parent;
-		final CopeClass copeClass = CopeClass.getCopeClass(jc);
+		final CopeType copeClass = CopeType.getCopeClass(jc);
 		final List initializerArguments = ja.getInitializerArguments();
 		if(initializerArguments.size()<1)
 			throw new InjectorParseException("attribute >"+ja.name+"< has invalid initializer arguments: "+initializerArguments);

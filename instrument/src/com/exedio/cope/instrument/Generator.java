@@ -210,7 +210,7 @@ final class Generator
 		return MessageFormat.format(pattern, new Object[]{ parameter1, parameter2 });
 	}
 
-	private void writeInitialConstructor(final CopeClass copeClass) 
+	private void writeInitialConstructor(final CopeType copeClass) 
 	throws IOException
 	{
 		if(!copeClass.hasInitialConstructor())
@@ -324,7 +324,7 @@ final class Generator
 		o.write("\t}");
 	}
 	
-	private void writeGenericConstructor(final CopeClass copeClass)
+	private void writeGenericConstructor(final CopeType copeClass)
 	throws IOException
 	{
 		final Option option = copeClass.genericConstructorOption;
@@ -351,7 +351,7 @@ final class Generator
 		o.write("\t}");
 	}
 	
-	private void writeReactivationConstructor(final CopeClass copeClass)
+	private void writeReactivationConstructor(final CopeType copeClass)
 	throws IOException
 	{
 		writeCommentHeader();
@@ -950,7 +950,7 @@ final class Generator
 		o.write("\t}");
 	}
 
-	private final void writeType(final CopeClass copeClass)
+	private final void writeType(final CopeType copeClass)
 	throws IOException
 	{
 		final Option option = copeClass.typeOption;
@@ -975,7 +975,7 @@ final class Generator
 		}
 	}
 
-	void writeClassFeatures(final CopeClass copeClass)
+	void writeClassFeatures(final CopeType copeClass)
 			throws IOException, InjectorParseException
 	{
 		if(!copeClass.isInterface())

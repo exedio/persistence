@@ -30,14 +30,14 @@ import java.util.TreeSet;
 import com.exedio.cope.ReadOnlyViolationException;
 import com.exedio.cope.util.ClassComparator;
 
-// TODO rename to CopeType
-final class CopeClass
+final class CopeType
 {
+	// TODO rename to copeTypeByJavaClass
 	private static final HashMap copeClassByJavaClass = new HashMap();
 	
-	static final CopeClass getCopeClass(final JavaClass javaClass)
+	static final CopeType getCopeClass(final JavaClass javaClass)
 	{
-		final CopeClass result = (CopeClass)copeClassByJavaClass.get(javaClass);
+		final CopeType result = (CopeType)copeClassByJavaClass.get(javaClass);
 		//System.out.println("getCopeClass "+javaClass.getFullName()+" "+(result==null?"NULL":result.getName()));
 		return result;
 	}
@@ -52,7 +52,7 @@ final class CopeClass
 	private final ArrayList features = new ArrayList();
 	private final TreeMap featureMap = new TreeMap();
 	
-	public CopeClass(
+	public CopeType(
 			final JavaClass javaClass,
 			final String typeOption,
 			final String initialConstructorOption,
@@ -84,7 +84,7 @@ final class CopeClass
 		return javaClass.isInterface();
 	}
 	
-	public CopeClass getSuperclass()
+	public CopeType getSuperclass()
 	{
 		final List exts = javaClass.classExtends;
 		switch(exts.size())
@@ -100,7 +100,7 @@ final class CopeClass
 				}
 				catch(RuntimeException e)
 				{
-					if(!e.getMessage().startsWith("no cope class for ")) // TODO better exception
+					if(!e.getMessage().startsWith("no cope type for ")) // TODO better exception
 						throw new RuntimeException("bad exception", e);
 					else
 						return null;
@@ -154,7 +154,7 @@ final class CopeClass
 		initialAttributes = new ArrayList();
 		constructorExceptions = new TreeSet(ClassComparator.getInstance());
 		
-		final CopeClass superclass = getSuperclass();
+		final CopeType superclass = getSuperclass();
 		if(superclass!=null)
 		{
 			initialAttributes.addAll(superclass.getInitialAttributes());

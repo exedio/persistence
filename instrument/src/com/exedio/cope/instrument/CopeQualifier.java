@@ -42,7 +42,7 @@ final class CopeQualifier extends CopeFeature
 		this.constraintName = uniqueConstraintString.substring(dot+1);
 	}
 	
-	CopeClass getQualifierClass()
+	CopeType getQualifierClass()
 	{
 		return copeClass.javaClass.file.repository.getCopeClass(qualifierClassString);
 	}

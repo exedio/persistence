@@ -37,7 +37,7 @@ final class JavaRepository
 		return files;
 	}
 	
-	void add(final CopeClass copeClass)
+	void add(final CopeType copeClass)
 	{
 		final String name = JavaFile.extractClassName(copeClass.javaClass.name);
 		if(copeClasses.put(name, copeClass)!=null)
@@ -45,11 +45,11 @@ final class JavaRepository
 		//System.out.println("--------- put cope class: "+name);
 	}
 	
-	CopeClass getCopeClass(final String className)
+	CopeType getCopeClass(final String className)
 	{
-		final CopeClass result = (CopeClass)copeClasses.get(className);
+		final CopeType result = (CopeType)copeClasses.get(className);
 		if(result==null)
-			throw new RuntimeException("no cope class for "+className);
+			throw new RuntimeException("no cope type for "+className);
 		return result;
 	}
 

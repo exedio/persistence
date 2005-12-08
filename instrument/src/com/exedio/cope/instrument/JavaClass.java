@@ -372,14 +372,14 @@ class JavaClass extends JavaFeature
 			{
 				final String prefix = s.substring(0, dot);
 				final String postfix = s.substring(dot+1);
-				CopeClass aClass = null;
+				CopeType aClass = null;
 				try
 				{
 					aClass = file.repository.getCopeClass(prefix);
 				}
 				catch(RuntimeException e)
 				{
-					if(!e.getMessage().startsWith("no cope class for ")) // TODO better exception
+					if(!e.getMessage().startsWith("no cope type for ")) // TODO better exception
 						throw new RuntimeException("bad exception", e);
 				}
 
