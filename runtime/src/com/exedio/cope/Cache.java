@@ -242,7 +242,7 @@ final class Cache
 
 	CacheInfo[] getInfo(final Type[] concreteTypes)
 	{
-		assert concreteTypes.length!=stateMaps.length;
+		assert concreteTypes.length==stateMaps.length;
 		
 		final CacheInfo[] result = new CacheInfo[stateMaps.length];
 		

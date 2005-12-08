@@ -242,6 +242,7 @@
 					</classpath>
 					<arg value="com.exedio.dsmf.PackageTest" />
 					<sysproperty key="com.exedio.cope.properties" file="@{db.file}" />
+					<assertions><enable/></assertions>
 				</java>
 			</body>
 		</foreachdb>
@@ -337,6 +338,7 @@
 					<jvmarg value="-Xnoagent"/>
 					<jvmarg value="-Djava.compiler=none"/>
 					<jvmarg value="-Xrunjdwp:transport=dt_socket,address=${jpda.address}"/-->
+					<assertions><enable/></assertions>
 				</java>
 			</body>
 		</foreachdb>
@@ -367,6 +369,7 @@
 					</classpath>
 					<sysproperty key="com.exedio.cope.properties"
 									 file="runtime/build/teardown.@{db}/cope.properties" />
+					<assertions><enable/></assertions>
 				</java>
 			</body>
 		</foreachdb>
@@ -461,6 +464,7 @@
 				<pathelement location="lib/pcj.jar" />
 			</classpath>
 			<arg value="com.exedio.cope.instrument.PackageTest" />
+			<assertions><enable/></assertions>
 		</java>
 	</target>
 	
@@ -569,6 +573,7 @@
 				</fileset> 
 			</classpath>
 			<arg value="com.exedio.copernica.PackageTest" />
+			<assertions><enable/></assertions>
 		</java>
 	</target>
 
