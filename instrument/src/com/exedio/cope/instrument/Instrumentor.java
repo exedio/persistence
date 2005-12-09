@@ -19,7 +19,6 @@
 package com.exedio.cope.instrument;
 
 import java.io.IOException;
-import java.io.Writer;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -340,12 +339,10 @@ final class Instrumentor implements InjectionConsumer
 		}
 	}
 	
-	public void onFileDocComment(String docComment, final Writer output)
+	public void onFileDocComment(final String docComment)
 	throws IOException, InjectorParseException
 	{
 		//System.out.println("onFileDocComment("+docComment+")");
-		
-		output.write(docComment);
 		
 		if (class_state != null)
 		{

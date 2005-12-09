@@ -895,7 +895,8 @@ final class Injector
 						{
 							doccomment = comment;
 							//System.out.println ("file level doccomment: "+doccomment);
-							consumer.onFileDocComment(doccomment, output);
+							consumer.onFileDocComment(doccomment);
+							output.write(doccomment);
 							doccomment = null; // Mark doccomment as handled...
 						}
 						else

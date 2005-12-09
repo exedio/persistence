@@ -21,7 +21,6 @@ package com.exedio.cope.instrument;
 import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
-import java.io.Writer;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -398,7 +397,7 @@ public abstract class InjectorTest extends InstrumentorTest
 			return doccomment.indexOf("DO_DISCARD")<0;
 		}
 
-		public void onFileDocComment(final String doccomment, final Writer output)
+		public void onFileDocComment(final String doccomment)
 			throws java.io.IOException
 		{
 			addInjectionEvent(new FileDocCommentEvent(doccomment));

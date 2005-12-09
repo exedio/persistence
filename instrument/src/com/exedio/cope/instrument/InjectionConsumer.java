@@ -18,7 +18,6 @@
 
 package com.exedio.cope.instrument;
 
-import java.io.Writer;
 
 /**
  * Implementors of this interface get the results of the
@@ -114,7 +113,7 @@ interface InjectionConsumer
 	 * Is called for comments on file level only,
 	 * i.e. outside of any classes.
 	 */
-	void onFileDocComment(String doccomment, Writer output) // TODO remove output
+	void onFileDocComment(String doccomment)
 	throws java.io.IOException, InjectorParseException;
 	
 }
