@@ -343,24 +343,24 @@ final class Generator
 		o.write("\t}");
 	}
 	
-	private void writeGenericConstructor(final CopeType copeClass)
+	private void writeGenericConstructor(final CopeType type)
 	throws IOException
 	{
-		final Option option = copeClass.genericConstructorOption;
+		final Option option = type.genericConstructorOption;
 		if(!option.exists)
 			return;
 
 		writeCommentHeader();
 		o.write("\t * ");
-		o.write(format(CONSTRUCTOR_GENERIC, copeClass.getName()));
+		o.write(format(CONSTRUCTOR_GENERIC, type.getName()));
 		o.write(lineSeparator);
 		o.write("\t * ");
 		o.write(format(CONSTRUCTOR_GENERIC_CALLED, "{@link " + Type.class.getName() + "#newItem Type.newItem}"));
 		o.write(lineSeparator);
 		writeCommentFooter(CONSTRUCTOR_GENERIC_CUSTOMIZE);
-		o.write( Modifier.toString( option.getModifier(copeClass.isAbstract() ? Modifier.PROTECTED : Modifier.PRIVATE) ) );
+		o.write( Modifier.toString( option.getModifier(type.isAbstract() ? Modifier.PROTECTED : Modifier.PRIVATE) ) );
 		o.write(' ');
-		o.write(copeClass.getName());
+		o.write(type.getName());
 		o.write("(final "+AttributeValue.class.getName()+"[] initialAttributes)");
 		o.write(lineSeparator);
 		o.write("\t{");
