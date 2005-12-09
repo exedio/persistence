@@ -39,6 +39,7 @@ import com.exedio.cope.ItemAttribute;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.StatementInfo;
 import com.exedio.cope.Type;
+import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.pattern.Media;
 import com.exedio.cops.DateField;
 
@@ -251,6 +252,8 @@ final class TypeCop_Jspm
 							}
 						}
 						else if(feature instanceof Pattern)
+							;
+						else if(feature instanceof UniqueConstraint)
 							;
 						else
 						{
