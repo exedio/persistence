@@ -150,7 +150,7 @@ final class Instrumentor implements InjectionConsumer
 		}
 	}
 
-	public void onClassEnd(final JavaClass javaClass, final Writer output)
+	public void onClassEnd(final JavaClass javaClass)
 	throws IOException, InjectorParseException
 	{
 		javaClass.notifyClassEnd();

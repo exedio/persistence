@@ -60,7 +60,7 @@ interface InjectionConsumer
 	 * the same object as in the corresponding call to onClass
 	 * @see #onClass(JavaClass)
 	 */
-	void onClassEnd(JavaClass cc, Writer output) // TODO remove output
+	void onClassEnd(JavaClass cc)
 	throws java.io.IOException, InjectorParseException;
 	
 	/**

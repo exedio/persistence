@@ -368,7 +368,7 @@ public abstract class InjectorTest extends InstrumentorTest
 			addInjectionEvent(new ClassEvent(cc));
 		}
 
-		public void onClassEnd(final JavaClass cc, final Writer output)
+		public void onClassEnd(final JavaClass cc)
 			throws java.io.IOException, InjectorParseException
 		{
 			addInjectionEvent(new ClassEndEvent(cc));

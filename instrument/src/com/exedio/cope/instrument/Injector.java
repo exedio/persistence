@@ -827,7 +827,7 @@ final class Injector
 			}
 		}
 
-		consumer.onClassEnd(jc, output);
+		consumer.onClassEnd(jc);
 		return jc;
 	}
 
