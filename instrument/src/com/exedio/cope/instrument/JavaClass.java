@@ -393,7 +393,7 @@ class JavaClass extends JavaFeature
 				CopeType aClass = null;
 				try
 				{
-					aClass = file.repository.getCopeClass(prefix);
+					aClass = file.repository.getCopeType(prefix);
 				}
 				catch(RuntimeException e)
 				{

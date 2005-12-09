@@ -56,8 +56,7 @@ final class JavaRepository
 		//System.out.println("--------- put cope class: "+name);
 	}
 	
-	// TODO rename to getCopeType
-	CopeType getCopeClass(final String className)
+	CopeType getCopeType(final String className)
 	{
 		assert !buildStage;
 		final CopeType result = (CopeType)copeClasses.get(className);

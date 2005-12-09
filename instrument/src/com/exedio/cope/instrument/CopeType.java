@@ -95,7 +95,7 @@ final class CopeType
 				final String extname = (String)exts.iterator().next();
 				try
 				{
-					return javaClass.file.repository.getCopeClass(extname);
+					return javaClass.file.repository.getCopeType(extname);
 				}
 				catch(RuntimeException e)
 				{
