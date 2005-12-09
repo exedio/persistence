@@ -34,6 +34,11 @@ final class JavaRepository
 		assert buildStage;
 		buildStage = false;
 	}
+	
+	boolean isBuildStage()
+	{
+		return buildStage;
+	}
 
 	void add(final JavaFile file)
 	{

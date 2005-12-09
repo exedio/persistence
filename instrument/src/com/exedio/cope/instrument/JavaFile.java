@@ -96,11 +96,13 @@ final class JavaFile
 	
 	void add(JavaClass javaClass)
 	{
+		assert repository.isBuildStage();
 		classes.add(javaClass);
 	}
 	
 	List getClasses()
 	{
+		assert !repository.isBuildStage();
 		return Collections.unmodifiableList(classes);
 	}
 	
