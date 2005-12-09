@@ -1001,15 +1001,15 @@ final class Generator
 		for(Iterator i = javaFile.getClasses().iterator(); i.hasNext(); )
 		{
 			final JavaClass javaClass = (JavaClass)i.next();
-			final CopeType copeClass = CopeType.getCopeType(javaClass);
+			final CopeType type = CopeType.getCopeType(javaClass);
 			final int classEndPosition = javaClass.getClassEndPosition();
-			if(copeClass!=null)
+			if(type!=null)
 			{
 				assert previousClassEndPosition<=classEndPosition;
 				if(previousClassEndPosition<classEndPosition)
 					o.write(buffer, previousClassEndPosition, classEndPosition-previousClassEndPosition);
 
-				writeClassFeatures(copeClass);
+				writeClassFeatures(type);
 				previousClassEndPosition = classEndPosition;
 			}
 		}
