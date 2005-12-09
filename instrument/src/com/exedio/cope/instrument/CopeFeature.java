@@ -27,7 +27,7 @@ class CopeFeature
 	final String name;
 	final int modifier;
 	final int accessModifier;
-	final CopeType copeClass;
+	final CopeType type;
 	private JavaClass.Value value;
 	
 	CopeFeature(final JavaAttribute javaAttribute, final String name)
@@ -36,8 +36,8 @@ class CopeFeature
 		this.name = name;
 		this.modifier = javaAttribute.modifier;
 		this.accessModifier = javaAttribute.getAccessModifier();
-		this.copeClass = CopeType.getCopeType(javaAttribute.parent);
-		copeClass.register(this);
+		this.type = CopeType.getCopeType(javaAttribute.parent);
+		type.register(this);
 	}
 	
 	CopeFeature(final JavaAttribute javaAttribute)

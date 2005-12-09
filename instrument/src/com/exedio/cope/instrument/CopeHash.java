@@ -58,7 +58,7 @@ final class CopeHash extends CopeFeature
 			return storageAttribute;
 		else
 		{
-			final CopeAttribute result = (CopeAttribute)copeClass.getFeature(initializerArgument);
+			final CopeAttribute result = (CopeAttribute)type.getFeature(initializerArgument);
 			if(result==null)
 				throw new InjectorParseException("attribute >"+initializerArgument+"< in hash "+name+" not found.");
 			return result;

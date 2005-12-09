@@ -50,7 +50,7 @@ final class CopeUniqueConstraint extends CopeFeature
 		final CopeAttribute[] result = new CopeAttribute[attributes.length];
 		for(int i = 0; i<attributes.length; i++ )
 		{
-			final CopeFeature feature = copeClass.getFeature(attributes[i]);
+			final CopeFeature feature = type.getFeature(attributes[i]);
 			if(feature==null)
 				throw new InjectorParseException("attribute >"+attributes[i]+"< in unique constraint "+name+" not found.");
 			if(!(feature instanceof CopeAttribute))

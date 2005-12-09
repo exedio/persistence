@@ -539,7 +539,7 @@ final class Generator
 		o.write("\t{");
 		o.write(lineSeparator);
 		o.write("\t\treturn ");
-		o.write(media.copeClass.getName());
+		o.write(media.type.getName());
 		o.write('.');
 		o.write(media.getName());
 		o.write('.');
@@ -587,7 +587,7 @@ final class Generator
 		exceptionsToCatch.remove(IOException.class);
 		writeTryCatchClausePrefix(exceptionsToCatch);
 		o.write("\t\t");
-		o.write(media.copeClass.getName());
+		o.write(media.type.getName());
 		o.write('.');
 		o.write(media.getName());
 		o.write(".set(this,data");
@@ -639,7 +639,7 @@ final class Generator
 			o.write("\t{");
 			o.write(lineSeparator);
 			o.write("\t\t");
-			o.write(media.copeClass.getName());
+			o.write(media.type.getName());
 			o.write('.');
 			o.write(media.getName());
 			o.write(".getData(this,data);");
@@ -705,7 +705,7 @@ final class Generator
 
 		if(attributes.length==1)
 		{
-			o.write(attributes[0].copeClass.getName());
+			o.write(attributes[0].type.getName());
 			o.write('.');
 			o.write(attributes[0].getName());
 			o.write(".searchUnique(");
@@ -713,7 +713,7 @@ final class Generator
 		}
 		else
 		{
-			o.write(attributes[0].copeClass.getName());
+			o.write(attributes[0].type.getName());
 			o.write('.');
 			o.write(constraint.name);
 			o.write(".searchUnique(new Object[]{");
@@ -924,7 +924,7 @@ final class Generator
 		o.write(lineSeparator);
 
 		o.write("\t\treturn ");
-		o.write(vector.copeClass.getName());
+		o.write(vector.type.getName());
 		o.write('.');
 		o.write(vector.name);
 		o.write(".get(this);");
@@ -958,7 +958,7 @@ final class Generator
 		o.write(lineSeparator);
 
 		o.write("\t\t");
-		o.write(vector.copeClass.getName());
+		o.write(vector.type.getName());
 		o.write('.');
 		o.write(vector.name);
 		o.write(".set(this,");
@@ -1064,7 +1064,7 @@ final class Generator
 			o.write(attribute.persistentType);
 			o.write(')');
 		}
-		o.write(attribute.copeClass.getName());
+		o.write(attribute.type.getName());
 		o.write('.');
 		o.write(attribute.getName());
 		o.write(".get");
@@ -1087,7 +1087,7 @@ final class Generator
 		final SortedSet exceptionsToCatch = attribute.getExceptionsToCatchInSetter();
 		writeTryCatchClausePrefix(exceptionsToCatch);
 		o.write("\t\t");
-		o.write(attribute.copeClass.getName());
+		o.write(attribute.type.getName());
 		o.write('.');
 		o.write(attribute.getName());
 		o.write(".set(this,");
@@ -1109,7 +1109,7 @@ final class Generator
 		final SortedSet exceptionsToCatch = attribute.getExceptionsToCatchInToucher();
 		writeTryCatchClausePrefix(exceptionsToCatch);
 		o.write("\t\t");
-		o.write(attribute.copeClass.getName());
+		o.write(attribute.type.getName());
 		o.write('.');
 		o.write(attribute.getName());
 		o.write(".touch(this);");
@@ -1127,7 +1127,7 @@ final class Generator
 	throws IOException
 	{
 		o.write("\t\treturn ");
-		o.write(hash.copeClass.getName());
+		o.write(hash.type.getName());
 		o.write('.');
 		o.write(hash.name);
 		o.write(".check(this,");
@@ -1149,7 +1149,7 @@ final class Generator
 		final SortedSet exceptionsToCatch = storage.getExceptionsToCatchInSetter();
 		writeTryCatchClausePrefix(exceptionsToCatch);
 		o.write("\t\t");
-		o.write(hash.copeClass.getName());
+		o.write(hash.type.getName());
 		o.write('.');
 		o.write(hash.name);
 		o.write(".set(this,");

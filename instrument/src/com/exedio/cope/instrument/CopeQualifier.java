@@ -44,7 +44,7 @@ final class CopeQualifier extends CopeFeature
 	
 	CopeType getQualifierClass()
 	{
-		return copeClass.javaClass.file.repository.getCopeType(qualifierClassString);
+		return type.javaClass.file.repository.getCopeType(qualifierClassString);
 	}
 	
 	CopeUniqueConstraint getUniqueConstraint() throws InjectorParseException
