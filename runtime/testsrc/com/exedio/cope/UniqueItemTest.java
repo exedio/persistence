@@ -30,12 +30,19 @@ public class UniqueItemTest extends TestmodelTest
 	public void testItemWithSingleUnique()
 			throws IntegrityViolationException, UniqueViolationException, NoSuchIDException
 	{
-		// TODO shouldnt this contain unique constraints as well?
 		assertEqualsUnmodifiable(
-			list(ItemWithSingleUnique.uniqueString, ItemWithSingleUnique.otherString),
+			list(
+				ItemWithSingleUnique.uniqueString,
+				ItemWithSingleUnique.uniqueString.getSingleUniqueConstraint(),
+				ItemWithSingleUnique.otherString
+			),
 			ItemWithSingleUnique.TYPE.getDeclaredFeatures());
 		assertEqualsUnmodifiable(
-			list(ItemWithSingleUnique.uniqueString, ItemWithSingleUnique.otherString),
+			list(
+				ItemWithSingleUnique.uniqueString,
+				ItemWithSingleUnique.uniqueString.getSingleUniqueConstraint(),
+				ItemWithSingleUnique.otherString
+			),
 			ItemWithSingleUnique.TYPE.getFeatures());
 		assertEqualsUnmodifiable(
 			list(ItemWithSingleUnique.uniqueString),
@@ -80,7 +87,7 @@ public class UniqueItemTest extends TestmodelTest
 			catch(UniqueViolationException e)
 			{
 				assertEquals(item2.uniqueString.getSingleUniqueConstraint(), e.getConstraint());
-				assertEquals("unique violation for ItemWithSingleUnique#uniqueString", e.getMessage());
+				assertEquals("unique violation for "+item2.uniqueString.getSingleUniqueConstraint().toString(), e.getMessage());
 			}
 			assertEquals("uniqueString2", item2.getUniqueString());
 			assertEquals(item2, ItemWithSingleUnique.findByUniqueString("uniqueString2"));
@@ -183,7 +190,7 @@ public class UniqueItemTest extends TestmodelTest
 		catch(UniqueViolationException e)
 		{
 			assertEquals(item2.uniqueString.getSingleUniqueConstraint(), e.getConstraint());
-			assertEquals("unique violation for ItemWithSingleUnique#uniqueString", e.getMessage());
+			assertEquals("unique violation for "+item2.uniqueString.getSingleUniqueConstraint().toString(), e.getMessage());
 		}
 		assertEquals("uniqueString2", item2.getUniqueString());
 		assertEquals("otherString2", item2.getOtherString());
@@ -266,12 +273,19 @@ public class UniqueItemTest extends TestmodelTest
 	public void testDoubleUnique()
 		throws ConstraintViolationException
 	{
-		// TODO shouldnt this contain unique constraints as well?
 		assertEqualsUnmodifiable(
-			list(ItemWithDoubleUnique.string, ItemWithDoubleUnique.integer),
+			list(
+				ItemWithDoubleUnique.string,
+				ItemWithDoubleUnique.integer,
+				ItemWithDoubleUnique.doubleUnique
+			),
 			ItemWithDoubleUnique.TYPE.getDeclaredFeatures());
 		assertEqualsUnmodifiable(
-			list(ItemWithDoubleUnique.string, ItemWithDoubleUnique.integer),
+			list(
+				ItemWithDoubleUnique.string,
+				ItemWithDoubleUnique.integer,
+				ItemWithDoubleUnique.doubleUnique
+			),
 			ItemWithDoubleUnique.TYPE.getFeatures());
 		assertEquals("doubleUnique", ItemWithDoubleUnique.doubleUnique.getName());
 		assertEquals(ItemWithDoubleUnique.TYPE, ItemWithDoubleUnique.doubleUnique.getType());

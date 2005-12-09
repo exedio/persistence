@@ -51,7 +51,6 @@ public abstract class Pattern extends Feature
 	final void initialize(final Type type, final String name)
 	{
 		super.initialize(type, name);
-		type.registerInitialization(this);
 		initialize();
 	}
 	

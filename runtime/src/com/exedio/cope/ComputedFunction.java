@@ -134,8 +134,6 @@ public abstract class ComputedFunction extends Feature implements Function
 			throw new RuntimeException();
 			
 		super.initialize(type, name);
-
-		type.registerInitialization(this);
 	}
 	
 	public final Type getType()

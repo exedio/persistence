@@ -79,7 +79,6 @@ public abstract class Attribute extends Feature
 	void initialize(final Type type, final String name)
 	{
 		super.initialize(type, name);
-		type.registerInitialization(this);
 		
 		final ArrayList patterns = patternsWhileTypeInitialization;
 		patternsWhileTypeInitialization = null;

@@ -50,7 +50,7 @@ public abstract class ObjectAttribute
 		super.initialize(type, name);
 		
 		if(singleUniqueConstraint!=null)
-			singleUniqueConstraint.initialize(type, name);
+			singleUniqueConstraint.initialize(type, name + UniqueConstraint.SINGLE_UNIQUE_SUFFIX);
 	}
 	
 	public abstract ObjectAttribute copyAsTemplate();

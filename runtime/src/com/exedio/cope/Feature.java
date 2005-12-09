@@ -40,6 +40,8 @@ public abstract class Feature
 
 		this.type = type;
 		this.name = name.intern();
+		
+		type.registerInitialization(this);
 	}
 	
 	public boolean isInitialized()

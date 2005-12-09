@@ -59,12 +59,6 @@ public final class UniqueConstraint extends Feature
 		this(new ObjectAttribute[]{uniqueAttribute1, uniqueAttribute2, uniqueAttribute3});
 	}
 	
-	void initialize(final Type type, final String name)
-	{
-		super.initialize(type, name);
-		type.registerInitialization(this);
-	}
-
 	/**
 	 * @return a list of {@link ObjectAttribute}s.
 	 */
@@ -73,12 +67,19 @@ public final class UniqueConstraint extends Feature
 		return uniqueAttributeList;
 	}
 	
+	static final String SINGLE_UNIQUE_SUFFIX = "SingleUnique";
+	
 	final void materialize(final Database database)
 	{
 		if(this.databaseID!=null)
 			throw new RuntimeException();
 
-		this.databaseID = database.makeName(getType().id+"_"+getName()+"_Unq").intern();
+		final String featureName = getName();
+		final String databaseName =
+			featureName.endsWith(SINGLE_UNIQUE_SUFFIX)
+			? featureName.substring(0, featureName.length()-SINGLE_UNIQUE_SUFFIX.length())
+			: featureName;
+		this.databaseID = database.makeName(getType().id + '_' + databaseName + "_Unq").intern();
 		database.addUniqueConstraint(databaseID, this);
 	}
 

@@ -205,34 +205,17 @@ public final class Type
 		}
 	}
 	
-	private final void registerInitializationFeature(final Feature feature)
+	final void registerInitialization(final Feature feature)
 	{
 		featuresWhileConstruction.add(feature);
+		if(feature instanceof Attribute)
+			attributesWhileConstruction.add(feature);
+		if(feature instanceof UniqueConstraint)
+			uniqueConstraintsWhileConstruction.add(feature);
 		if(featuresByName.put(feature.getName(), feature)!=null)
 			throw new RuntimeException("duplicate feature "+feature.getName()+" for type "+javaClass.getName());
 	}
 
-	final void registerInitialization(final Attribute attribute)
-	{
-		attributesWhileConstruction.add(attribute);
-		registerInitializationFeature(attribute);
-	}
-
-	final void registerInitialization(final ComputedFunction function)
-	{
-		registerInitializationFeature(function);
-	}
-
-	final void registerInitialization(final UniqueConstraint uniqueConstraint)
-	{
-		uniqueConstraintsWhileConstruction.add(uniqueConstraint);
-	}
-
-	final void registerInitialization(final Pattern pattern)
-	{
-		registerInitializationFeature(pattern);
-	}
-	
 	final void registerSubType(final Type subType)
 	{
 		if(this.model!=null)
