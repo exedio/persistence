@@ -174,10 +174,6 @@ final class Instrumentor implements InjectionConsumer
 		final List initializerArguments = ja.getInitializerArguments();
 		//System.out.println(initializerArguments);
 					
-		final String getterOption = Injector.findDocTagLine(docComment, ATTRIBUTE_GETTER);
-		final String setterOption = Injector.findDocTagLine(docComment, ATTRIBUTE_SETTER);
-		final boolean initial = Injector.hasTag(docComment, ATTRIBUTE_INITIAL);
-
 		if(
 			IntegerFunction.class.isAssignableFrom(typeClass) ||
 			LongAttribute.class.equals(typeClass) ||
@@ -189,7 +185,7 @@ final class Instrumentor implements InjectionConsumer
 		{
 			new CopeNativeAttribute(
 				ja, typeClass,
-				initializerArguments, getterOption, setterOption, initial);
+				initializerArguments, docComment);
 		}
 		else if(
 			EnumAttribute.class.equals(typeClass)||
@@ -197,13 +193,13 @@ final class Instrumentor implements InjectionConsumer
 		{
 			new CopeObjectAttribute(
 				ja, typeClass,
-				initializerArguments, getterOption, setterOption, initial);
+				initializerArguments, docComment);
 		}
 		else if(DataAttribute.class.equals(typeClass))
 		{
 			new CopeDataAttribute(
 				ja, typeClass,
-				initializerArguments, getterOption, setterOption, initial);
+				initializerArguments, docComment);
 		}
 		else
 			throw new RuntimeException(typeClass.toString());
@@ -243,7 +239,7 @@ final class Instrumentor implements InjectionConsumer
 		if("newStringAttribute".equals(initializerArgument))
 		{
 			// implicitExternal
-			storageAttribute = new CopeNativeAttribute(ja, ja.name+"Hash", StringAttribute.class, Collections.singletonList("OPTIONAL"), "none", "none", false); // TODO make some useful assumption about option
+			storageAttribute = new CopeNativeAttribute(ja, ja.name+"Hash", StringAttribute.class, Collections.singletonList("OPTIONAL"), "/** @"+ATTRIBUTE_GETTER+" none @"+ATTRIBUTE_SETTER+" none */"); // TODO make some useful assumption about option
 			new CopeHash(ja, storageAttribute);
 		}
 		else
@@ -261,7 +257,7 @@ final class Instrumentor implements InjectionConsumer
 			if(internal)
 			{
 				// internal
-				storageAttribute = new CopeNativeAttribute(ja, ja.name+"Hash", StringAttribute.class, Collections.singletonList(initializerArgument), "none", "none", false);
+				storageAttribute = new CopeNativeAttribute(ja, ja.name+"Hash", StringAttribute.class, Collections.singletonList(initializerArgument), "/** @"+ATTRIBUTE_GETTER+" none @"+ATTRIBUTE_SETTER+" none */");
 				new CopeHash(ja, storageAttribute);
 			}
 			else
@@ -281,8 +277,7 @@ final class Instrumentor implements InjectionConsumer
 	private final void handleMedia(final JavaAttribute ja, final String docComment)
 		throws InjectorParseException
 	{
-		final String setterOption = Injector.findDocTagLine(docComment, ATTRIBUTE_SETTER);
-		new CopeMedia(ja, setterOption);
+		new CopeMedia(ja, docComment);
 	}
 
 	public void onClassFeature(final JavaFeature jf, final String docComment)

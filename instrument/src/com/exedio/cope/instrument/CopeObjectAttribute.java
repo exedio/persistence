@@ -26,12 +26,10 @@ final class CopeObjectAttribute extends CopeAttribute
 			final JavaAttribute javaAttribute,
 			final Class typeClass,
 			final List initializerArguments,
-			final String getterOption,
-			final String setterOption,
-			final boolean initial)
+			final String docComment)
 		throws InjectorParseException
 	{
-		super(javaAttribute, typeClass, getPersistentType(initializerArguments), initializerArguments, getterOption, setterOption, initial);
+		super(javaAttribute, typeClass, getPersistentType(initializerArguments), initializerArguments, docComment);
 	}
 	
 	private static final String getPersistentType(final List initializerArguments)

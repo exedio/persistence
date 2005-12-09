@@ -58,9 +58,7 @@ abstract class CopeAttribute extends CopeFeature
 			final Class typeClass,
 			final String persistentType,
 			final List initializerArguments,
-			final String getterOption,
-			final String setterOption,
-			final boolean initial)
+			final String docComment)
 		throws InjectorParseException
 	{
 		super(javaAttribute, name);
@@ -79,9 +77,9 @@ abstract class CopeAttribute extends CopeFeature
 				new CopeUniqueConstraint(javaAttribute, name);
 		}
 		
-		this.getterOption = new Option(getterOption, true);
-		this.setterOption = new Option(setterOption, true);
-		this.initial = initial;
+		this.getterOption = new Option(Injector.findDocTagLine(docComment, Instrumentor.ATTRIBUTE_GETTER), true);
+		this.setterOption = new Option(Injector.findDocTagLine(docComment, Instrumentor.ATTRIBUTE_SETTER), true);
+		this.initial = Injector.hasTag(docComment, Instrumentor.ATTRIBUTE_INITIAL);
 	}
 	
 	CopeAttribute(
@@ -89,12 +87,10 @@ abstract class CopeAttribute extends CopeFeature
 			final Class typeClass,
 			final String persistentType,
 			final List initializerArguments,
-			final String getterOption,
-			final String setterOption,
-			final boolean initial)
+			final String docComment)
 		throws InjectorParseException
 	{
-		this(javaAttribute, javaAttribute.name, typeClass, persistentType, initializerArguments, getterOption, setterOption, initial);
+		this(javaAttribute, javaAttribute.name, typeClass, persistentType, initializerArguments, docComment);
 	}
 	
 	final String getName()
