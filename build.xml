@@ -582,9 +582,11 @@
 	
 	<target name="runtime.clean" depends="catalina.home">
 		<delete dir="runtime/build" />
-		<fileset dir="${catalina.home}">
-			<include name="conf/Catalina/localhost/copelibtest-*.xml" />
-		</fileset>
+		<delete>
+			<fileset dir="${catalina.home}">
+				<include name="conf/Catalina/localhost/copelibtest-*.xml" />
+			</fileset>
+		</delete>
 	</target>
 
 	<target name="instrument.clean">
