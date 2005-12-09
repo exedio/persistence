@@ -47,13 +47,13 @@ final class JavaRepository
 		return files;
 	}
 	
-	void add(final CopeType copeClass)
+	void add(final CopeType copeType)
 	{
 		assert buildStage;
-		final String name = JavaFile.extractClassName(copeClass.javaClass.name);
-		if(copeTypeByShortClassName.put(name, copeClass)!=null)
+		final String name = JavaFile.extractClassName(copeType.javaClass.name);
+		if(copeTypeByShortClassName.put(name, copeType)!=null)
 			throw new RuntimeException(name);
-		//System.out.println("--------- put cope class: "+name);
+		//System.out.println("--------- put cope type: "+name);
 	}
 	
 	CopeType getCopeType(final String className)
