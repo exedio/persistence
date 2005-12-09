@@ -370,7 +370,7 @@ final class Generator
 		o.write("\t}");
 	}
 	
-	private void writeReactivationConstructor(final CopeType copeClass)
+	private void writeReactivationConstructor(final CopeType type)
 	throws IOException
 	{
 		writeCommentHeader();
@@ -381,8 +381,8 @@ final class Generator
 			+ ReactivationConstructorDummy.class.getName() + ",int)");
 		o.write(lineSeparator);
 		writeCommentFooter();
-		o.write( copeClass.isAbstract() ? "protected " : "private " );
-		o.write(copeClass.getName());
+		o.write( type.isAbstract() ? "protected " : "private " );
+		o.write(type.getName());
 		o.write("("+ReactivationConstructorDummy.class.getName()+" d,final int pk)");
 		o.write(lineSeparator);
 		o.write("\t{");
