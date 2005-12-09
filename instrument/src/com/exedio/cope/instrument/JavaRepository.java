@@ -26,7 +26,7 @@ final class JavaRepository
 	private boolean buildStage = true;
 	
 	private final ArrayList files = new ArrayList();
-	private final HashMap copeClasses = new HashMap();
+	private final HashMap copeTypeByShortClassName = new HashMap();
 	private HashMap rtvalues = new HashMap();
 	
 	void endBuildStage()
@@ -51,7 +51,7 @@ final class JavaRepository
 	{
 		assert buildStage;
 		final String name = JavaFile.extractClassName(copeClass.javaClass.name);
-		if(copeClasses.put(name, copeClass)!=null)
+		if(copeTypeByShortClassName.put(name, copeClass)!=null)
 			throw new RuntimeException(name);
 		//System.out.println("--------- put cope class: "+name);
 	}
@@ -59,7 +59,7 @@ final class JavaRepository
 	CopeType getCopeType(final String className)
 	{
 		assert !buildStage;
-		final CopeType result = (CopeType)copeClasses.get(className);
+		final CopeType result = (CopeType)copeTypeByShortClassName.get(className);
 		if(result==null)
 			throw new RuntimeException("no cope type for "+className);
 		return result;
