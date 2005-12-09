@@ -79,7 +79,7 @@ final class JavaFile
 	 * @see #addImport
 	 * @see #findType
 	 */
-	private boolean buildStage=true;
+	private boolean buildStageForImports = true;
 	
 	final JavaRepository repository;
 	final ArrayList classes = new ArrayList();
@@ -115,7 +115,7 @@ final class JavaFile
 	public final void setPackage(String packagename)
 	throws InjectorParseException
 	{
-		if(!buildStage)
+		if(!buildStageForImports)
 			throw new RuntimeException();
 		if(this.packagename!=null)
 			throw new InjectorParseException("only one package statement allowed.");
@@ -139,7 +139,7 @@ final class JavaFile
 	public final void addImport(String importname)
 	throws InjectorParseException
 	{
-		if(!buildStage)
+		if(!buildStageForImports)
 			throw new RuntimeException();
 		
 		if(importname.endsWith(".*"))
@@ -201,7 +201,7 @@ final class JavaFile
 	{
 		//System.out.println("findtype: >"+typename+"<");
 		
-		buildStage=false;
+		buildStageForImports=false;
 		
 		final ClassLoader classLoader = getClass().getClassLoader();
 
