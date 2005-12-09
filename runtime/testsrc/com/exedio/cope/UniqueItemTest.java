@@ -30,6 +30,13 @@ public class UniqueItemTest extends TestmodelTest
 	public void testItemWithSingleUnique()
 			throws IntegrityViolationException, UniqueViolationException, NoSuchIDException
 	{
+		// TODO shouldnt this contain unique constraints as well?
+		assertEqualsUnmodifiable(
+			list(ItemWithSingleUnique.uniqueString, ItemWithSingleUnique.otherString),
+			ItemWithSingleUnique.TYPE.getDeclaredFeatures());
+		assertEqualsUnmodifiable(
+			list(ItemWithSingleUnique.uniqueString, ItemWithSingleUnique.otherString),
+			ItemWithSingleUnique.TYPE.getFeatures());
 		assertEqualsUnmodifiable(
 			list(ItemWithSingleUnique.uniqueString),
 			ItemWithSingleUnique.uniqueString.getSingleUniqueConstraint().getUniqueAttributes());
@@ -259,6 +266,13 @@ public class UniqueItemTest extends TestmodelTest
 	public void testDoubleUnique()
 		throws ConstraintViolationException
 	{
+		// TODO shouldnt this contain unique constraints as well?
+		assertEqualsUnmodifiable(
+			list(ItemWithDoubleUnique.string, ItemWithDoubleUnique.integer),
+			ItemWithDoubleUnique.TYPE.getDeclaredFeatures());
+		assertEqualsUnmodifiable(
+			list(ItemWithDoubleUnique.string, ItemWithDoubleUnique.integer),
+			ItemWithDoubleUnique.TYPE.getFeatures());
 		assertEquals("doubleUnique", ItemWithDoubleUnique.doubleUnique.getName());
 		assertEquals(ItemWithDoubleUnique.TYPE, ItemWithDoubleUnique.doubleUnique.getType());
 		assertEquals(
