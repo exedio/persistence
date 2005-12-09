@@ -23,22 +23,33 @@ import java.util.List;
 
 final class JavaRepository
 {
+	private boolean buildStage = true;
+	
 	private final ArrayList files = new ArrayList();
 	private final HashMap copeClasses = new HashMap();
 	private HashMap rtvalues = new HashMap();
+	
+	void endBuildStage()
+	{
+		assert buildStage;
+		buildStage = false;
+	}
 
 	void add(final JavaFile file)
 	{
+		assert buildStage;
 		files.add(file);
 	}
 	
 	final List getFiles()
 	{
+		assert !buildStage;
 		return files;
 	}
 	
 	void add(final CopeType copeClass)
 	{
+		assert buildStage;
 		final String name = JavaFile.extractClassName(copeClass.javaClass.name);
 		if(copeClasses.put(name, copeClass)!=null)
 			throw new RuntimeException(name);
@@ -48,6 +59,7 @@ final class JavaRepository
 	// TODO rename to getCopeType
 	CopeType getCopeClass(final String className)
 	{
+		assert !buildStage;
 		final CopeType result = (CopeType)copeClasses.get(className);
 		if(result==null)
 			throw new RuntimeException("no cope type for "+className);

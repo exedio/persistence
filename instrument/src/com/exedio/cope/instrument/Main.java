@@ -126,6 +126,8 @@ public final class Main
 			injectors.add(injector);
 		}
 		
+		repository.endBuildStage();
+		
 		final Iterator injectorsIter = injectors.iterator();
 		for(Iterator i = inputFiles.iterator(); i.hasNext(); )
 		{

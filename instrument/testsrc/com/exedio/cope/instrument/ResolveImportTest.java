@@ -31,13 +31,16 @@ public class ResolveImportTest extends InstrumentorTest
 	{
 		final JavaRepository repository = new JavaRepository();
 		final JavaFile file = new JavaFile(repository);
-		assertEquals(list(file), repository.getFiles());
 		file.setPackage("com.exedio.cope.instrument.findtype");
 		
 		file.addImport("com.exedio.cope.instrument.findtype.subfindtype.*");
 		file.addImport("com.exedio.cope.instrument.findtype.subfindtype2.SubFindType2");
 		file.addImport(com.exedio.cope.instrument.findtype.subfindtype.BothFindType.class.getName());
 		file.addImport("com.exedio.cope.instrument.findtype.collide.*");
+		
+		repository.endBuildStage();
+		
+		assertEquals(list(file), repository.getFiles());
 		
 		assertEquals(FindType.class, file.findType("FindType"));
 		assertEquals(FindType.class, file.findType(FindType.class.getName()));
