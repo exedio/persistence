@@ -90,6 +90,11 @@ public final class AntTask extends Task
 			e.printStackTrace();
 			throw new BuildException(e);
 		}
+		catch(AssertionError e)
+		{
+			e.printStackTrace();
+			throw new BuildException(e);
+		}
 	}
 
 }
