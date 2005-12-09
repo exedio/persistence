@@ -23,6 +23,11 @@ import java.util.List;
 
 final class JavaRepository
 {
+	/**
+	 * Distiguishes two stages in life cycle of this repository,
+	 * and its contents:
+	 * building the repository and querying the repository.
+	 */
 	private boolean buildStage = true;
 	
 	private final ArrayList files = new ArrayList();
