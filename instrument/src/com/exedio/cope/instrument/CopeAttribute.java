@@ -58,8 +58,8 @@ abstract class CopeAttribute extends CopeFeature
 			final Class typeClass,
 			final String persistentType,
 			final List initializerArguments,
-			final String setterOption,
 			final String getterOption,
+			final String setterOption,
 			final boolean initial)
 		throws InjectorParseException
 	{
@@ -89,12 +89,12 @@ abstract class CopeAttribute extends CopeFeature
 			final Class typeClass,
 			final String persistentType,
 			final List initializerArguments,
-			final String setterOption,
 			final String getterOption,
+			final String setterOption,
 			final boolean initial)
 		throws InjectorParseException
 	{
-		this(javaAttribute, javaAttribute.name, typeClass, persistentType, initializerArguments, setterOption, getterOption, initial);
+		this(javaAttribute, javaAttribute.name, typeClass, persistentType, initializerArguments, getterOption, setterOption, initial);
 	}
 	
 	final String getName()
