@@ -282,7 +282,6 @@ class JavaClass extends JavaFeature
 		//System.out.println("--------------evaluate-"+name+"--"+s+"--");
 
 		s = s.trim();
-		final JavaFeature feature;
 
 		if("true".equals(s))
 			return TRUE;
@@ -372,13 +371,11 @@ class JavaClass extends JavaFeature
 				throw new RuntimeException(e);
 			}
 		}
-		else if((feature = (JavaFeature)getAttribute(s))!=null)
+		else if(getAttribute(s)!=null)
 		{
-			if(!(feature instanceof JavaAttribute))
-				throw new RuntimeException(feature.toString());
-			final JavaAttribute a = (JavaAttribute)feature;
+			final JavaAttribute a = getAttribute(s);
 			if((a.modifier & (Modifier.STATIC|Modifier.FINAL))!=(Modifier.STATIC|Modifier.FINAL))
-				throw new RuntimeException(feature.toString()+'-'+Modifier.toString(a.modifier));
+				throw new RuntimeException(a.toString()+'-'+Modifier.toString(a.modifier));
 			//System.out.println("----------"+feature.toString());
 			return a.evaluate();
 		}
@@ -505,7 +502,7 @@ class JavaClass extends JavaFeature
 						final Field f = Item.class.getField(s);
 						final int m = f.getModifiers();
 						if((m & (Modifier.STATIC|Modifier.FINAL))!=(Modifier.STATIC|Modifier.FINAL))
-							throw new RuntimeException(feature.toString()+'-'+Modifier.toString(m));
+							throw new RuntimeException(f.toString()+'-'+Modifier.toString(m));
 						//System.out.println("----------"+f.getName());
 						final Object value = f.get(null);
 						//System.out.println("----------"+value.toString());
