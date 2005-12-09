@@ -147,11 +147,11 @@ public final class Type
 		{
 			throw new RuntimeException(e);
 		}
-		this.declaredAttributes = (Attribute[])attributesWhileConstruction.toArray(new Attribute[attributesWhileConstruction.size()]);
+		this.declaredAttributes = (Attribute[])attributesWhileConstruction.toArray(new Attribute[0]);
 		this.declaredAttributeList = Collections.unmodifiableList(Arrays.asList(this.declaredAttributes));
-		this.declaredFeatures = (Feature[])featuresWhileConstruction.toArray(new Feature[featuresWhileConstruction.size()]);
+		this.declaredFeatures = (Feature[])featuresWhileConstruction.toArray(new Feature[0]);
 		this.declaredFeatureList = Collections.unmodifiableList(Arrays.asList(this.declaredFeatures));
-		this.uniqueConstraints = (UniqueConstraint[])uniqueConstraintsWhileConstruction.toArray(new UniqueConstraint[uniqueConstraintsWhileConstruction.size()]);
+		this.uniqueConstraints = (UniqueConstraint[])uniqueConstraintsWhileConstruction.toArray(new UniqueConstraint[0]);
 		this.uniqueConstraintList = Collections.unmodifiableList(Arrays.asList(this.uniqueConstraints));
 
 		// make sure, register methods fail from now on
