@@ -26,8 +26,8 @@ final class CopeObjectAttribute extends CopeAttribute
 			final JavaAttribute javaAttribute,
 			final Class typeClass,
 			final List initializerArguments,
-			final String setterOption,
 			final String getterOption,
+			final String setterOption,
 			final boolean initial)
 		throws InjectorParseException
 	{
