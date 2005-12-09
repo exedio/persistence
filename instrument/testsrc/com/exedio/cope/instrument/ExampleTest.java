@@ -88,7 +88,7 @@ public class ExampleTest extends InjectorTest
 		assertText("\n  \n  ");
 
 		assertDocComment("/**TestCommentCommaSeparated123*/");
-		assertText("\n  ");
+		assertText("/**TestCommentCommaSeparated123*/\n  ");
 		final JavaAttribute commaSeparated1 =
 			assertAttributeHeader("commaSeparated1", "int", 0);
 		assertText("int commaSeparated1,commaSeparated2=0,commaSeparated3;");
@@ -105,7 +105,7 @@ public class ExampleTest extends InjectorTest
 		assertText(" \n  ");
 
 		assertDocComment("/**TestCommentCommaSeparated456*/");
-		assertText("\n  ");
+		assertText("/**TestCommentCommaSeparated456*/\n  ");
 		final JavaAttribute commaSeparated4 =
 			assertAttributeHeader("commaSeparated4", "int", 0);
 		assertText("int commaSeparated4=80,commaSeparated5,commaSeparated6=200;");
@@ -312,7 +312,7 @@ public class ExampleTest extends InjectorTest
 
 		final String runComment = "/**\n\t  Some example doc-comment.\n  */";
 		assertDocComment(runComment);
-		assertText("\n  "+"public void run()\n  ");
+		assertText("/**\n\t  Some example doc-comment.\n  */\n  "+"public void run()\n  ");
 		final JavaBehaviour emptyMethod =
 			assertBehaviourHeader(
 				"run",

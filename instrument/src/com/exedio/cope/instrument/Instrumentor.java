@@ -322,7 +322,7 @@ final class Instrumentor implements InjectionConsumer
 		discardnextfeature=false;
 	}
 	
-	public boolean onDocComment(final String docComment, final Writer output)
+	public boolean onDocComment(final String docComment)
 	throws IOException
 	{
 		//System.out.println("onDocComment("+docComment+")");
@@ -336,7 +336,6 @@ final class Instrumentor implements InjectionConsumer
 		}
 		else
 		{
-			output.write(docComment);
 			return true;
 		}
 	}

@@ -103,9 +103,10 @@ interface InjectionConsumer
 	 * i.e. inside a class, but outside of methods and attributes.
 	 *
 	 * @return
-	 * if false is returned, the next class feature is ignored.
+	 * if false is returned, the next class feature is ignored,
+	 * and the doccomment itself should not appear in the output.
 	 */
-	boolean onDocComment(String doccomment, Writer output) // TODO remove output
+	boolean onDocComment(String doccomment)
 	throws java.io.IOException;
 	
 	/**

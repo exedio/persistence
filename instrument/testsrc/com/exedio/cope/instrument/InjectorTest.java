@@ -392,7 +392,7 @@ public abstract class InjectorTest extends InstrumentorTest
 			addInjectionEvent(new ClassFeatureEvent(cf, doccomment));
 		}
 
-		public boolean onDocComment(final String doccomment, final Writer output) throws java.io.IOException
+		public boolean onDocComment(final String doccomment) throws java.io.IOException
 		{
 			addInjectionEvent(new DocCommentEvent(doccomment));
 			return doccomment.indexOf("DO_DISCARD")<0;

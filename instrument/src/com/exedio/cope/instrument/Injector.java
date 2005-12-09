@@ -792,7 +792,10 @@ final class Injector
 					{
 						doccomment = comment;
 						//System.out.println("doccomment: "+doccomment);
-						scheduleBlock(consumer.onDocComment(doccomment, output));
+						final boolean onDocCommentResult = consumer.onDocComment(doccomment);
+						if(onDocCommentResult)
+							output.write(doccomment);
+						scheduleBlock(onDocCommentResult);
 					}
 					else
 					{
