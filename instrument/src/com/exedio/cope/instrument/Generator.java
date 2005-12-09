@@ -229,18 +229,18 @@ final class Generator
 		return MessageFormat.format(pattern, new Object[]{ parameter1, parameter2 });
 	}
 
-	private void writeInitialConstructor(final CopeType copeClass) 
+	private void writeInitialConstructor(final CopeType type) 
 	throws IOException
 	{
-		if(!copeClass.hasInitialConstructor())
+		if(!type.hasInitialConstructor())
 			return;
 
-		final List initialAttributes = copeClass.getInitialAttributes();
-		final SortedSet constructorExceptions = copeClass.getConstructorExceptions();
+		final List initialAttributes = type.getInitialAttributes();
+		final SortedSet constructorExceptions = type.getConstructorExceptions();
 		
 		writeCommentHeader();
 		o.write("\t * ");
-		o.write(format(CONSTRUCTOR_INITIAL, copeClass.getName()));
+		o.write(format(CONSTRUCTOR_INITIAL, type.getName()));
 		o.write(lineSeparator);
 		for(Iterator i = initialAttributes.iterator(); i.hasNext(); )
 		{
@@ -287,13 +287,13 @@ final class Generator
 			o.write(lineSeparator);
 		}
 		writeCommentFooter(CONSTRUCTOR_INITIAL_CUSTOMIZE);
-		final String modifier = Modifier.toString(copeClass.getInitialConstructorModifier());
+		final String modifier = Modifier.toString(type.getInitialConstructorModifier());
 		if(modifier.length()>0)
 		{
 			o.write(modifier);
 			o.write(' ');
 		}
-		o.write(copeClass.getName());
+		o.write(type.getName());
 		o.write('(');
 		
 		boolean first = true;
@@ -322,7 +322,7 @@ final class Generator
 		{
 			final CopeAttribute initialAttribute = (CopeAttribute)i.next();
 			o.write("\t\t\tnew "+AttributeValue.class.getName()+"(");
-			o.write(copeClass.getName());
+			o.write(type.getName());
 			o.write('.');
 			o.write(initialAttribute.getName());
 			o.write(',');
@@ -332,7 +332,7 @@ final class Generator
 		}
 		o.write("\t\t});");
 		o.write(lineSeparator);
-		for(Iterator i = copeClass.getConstructorExceptions().iterator(); i.hasNext(); )
+		for(Iterator i = type.getConstructorExceptions().iterator(); i.hasNext(); )
 		{
 			final Class exception = (Class)i.next();
 			o.write("\t\tthrowInitial");
