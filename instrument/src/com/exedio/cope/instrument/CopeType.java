@@ -169,11 +169,11 @@ final class CopeType
 			final CopeFeature feature = (CopeFeature)i.next();
 			if(feature instanceof CopeAttribute)
 			{
-				final CopeAttribute copeAttribute = (CopeAttribute)feature;
-				if(copeAttribute.isInitial())
+				final CopeAttribute attribute = (CopeAttribute)feature;
+				if(attribute.isInitial())
 				{
-					initialAttributes.add(copeAttribute);
-					constructorExceptions.addAll(copeAttribute.getSetterExceptions());
+					initialAttributes.add(attribute);
+					constructorExceptions.addAll(attribute.getSetterExceptions());
 				}
 			}
 		}
