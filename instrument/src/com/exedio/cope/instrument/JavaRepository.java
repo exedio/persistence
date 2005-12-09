@@ -32,7 +32,6 @@ final class JavaRepository
 	
 	private final ArrayList files = new ArrayList();
 	private final HashMap copeTypeByShortClassName = new HashMap();
-	private HashMap rtvalues = new HashMap();
 	
 	void endBuildStage()
 	{
@@ -75,14 +74,4 @@ final class JavaRepository
 		return result;
 	}
 
-	void putRtValue(final JavaAttribute attribute, final JavaClass.Value rtvalue)
-	{
-		rtvalues.put(rtvalue.instance, attribute);
-	}
-	
-	final JavaAttribute getByRtValue(final Object rtvalue)
-	{
-		return (JavaAttribute)rtvalues.get(rtvalue);
-	}
-	
 }

@@ -165,7 +165,7 @@ final class JavaAttribute
 		if(rtvalue==null)
 		{
 			rtvalue = parent.evaluate(getInitializer());
-			parent.file.repository.putRtValue(this, rtvalue);
+			assert rtvalue!=null;
 		}
 		
 		return rtvalue;
