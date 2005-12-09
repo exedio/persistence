@@ -658,20 +658,19 @@ final class Generator
 	private void writeUniqueFinder(final CopeUniqueConstraint constraint)
 	throws IOException, InjectorParseException
 	{
-		// TODO fix spelling
-		final CopeAttribute[] atributes = constraint.getAttributes();
-		final String className = atributes[0].getParent().name;
+		final CopeAttribute[] attributes = constraint.getAttributes();
+		final String className = attributes[0].getParent().name;
 		
 		writeCommentHeader();
 		o.write("\t * ");
 		o.write(format(FINDER_UNIQUE, lowerCamelCase(className)));
 		o.write(lineSeparator);
-		for(int i=0; i<atributes.length; i++)
+		for(int i=0; i<attributes.length; i++)
 		{
 			o.write("\t * @param ");
-			o.write(atributes[i].getName());
+			o.write(attributes[i].getName());
 			o.write(' ');
-			o.write(format(FINDER_UNIQUE_PARAMETER, link(atributes[i].getName())));
+			o.write(format(FINDER_UNIQUE_PARAMETER, link(attributes[i].getName())));
 			o.write(lineSeparator);
 		}
 		o.write("\t * @return ");
@@ -686,11 +685,11 @@ final class Generator
 		o.write(toCamelCase(constraint.nameForOutput));
 		
 		o.write('(');
-		for(int i=0; i<atributes.length; i++)
+		for(int i=0; i<attributes.length; i++)
 		{
 			if(i>0)
 				o.write(',');
-			final CopeAttribute attribute = atributes[i];
+			final CopeAttribute attribute = attributes[i];
 			o.write("final ");
 			o.write(attribute.getBoxedType());
 			o.write(' ');
@@ -704,25 +703,25 @@ final class Generator
 		o.write(className);
 		o.write(')');
 
-		if(atributes.length==1)
+		if(attributes.length==1)
 		{
-			o.write(atributes[0].copeClass.getName());
+			o.write(attributes[0].copeClass.getName());
 			o.write('.');
-			o.write(atributes[0].getName());
+			o.write(attributes[0].getName());
 			o.write(".searchUnique(");
-			writeAttribute(atributes[0]);
+			writeAttribute(attributes[0]);
 		}
 		else
 		{
-			o.write(atributes[0].copeClass.getName());
+			o.write(attributes[0].copeClass.getName());
 			o.write('.');
 			o.write(constraint.name);
 			o.write(".searchUnique(new Object[]{");
-			writeAttribute(atributes[0]);
-			for(int i = 1; i<atributes.length; i++)
+			writeAttribute(attributes[0]);
+			for(int i = 1; i<attributes.length; i++)
 			{
 				o.write(',');
-				writeAttribute(atributes[i]);
+				writeAttribute(attributes[i]);
 			}
 			o.write('}');
 		}
