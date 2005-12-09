@@ -162,7 +162,20 @@ final class JavaFile
 		}
 	}
 	
-	private static HashMap nativeTypes;
+	private static final HashMap nativeTypes = new HashMap(10);
+	
+	static
+	{
+		nativeTypes.put("boolean", boolean.class);
+		nativeTypes.put("byte", byte.class);
+		nativeTypes.put("short", short.class);
+		nativeTypes.put("int", int.class);
+		nativeTypes.put("long", long.class);
+		nativeTypes.put("float", float.class);
+		nativeTypes.put("double", double.class);
+		nativeTypes.put("char", char.class);
+		nativeTypes.put("void", void.class);
+	}
 	
 	/**
 	 * Maps type names to types.
@@ -205,21 +218,6 @@ final class JavaFile
 			{
 				throw new InjectorParseException(e.toString());
 			}
-		}
-		
-		// prepare native types
-		if(nativeTypes==null)
-		{
-			nativeTypes = new HashMap(10);
-			nativeTypes.put("boolean", boolean.class);
-			nativeTypes.put("byte", byte.class);
-			nativeTypes.put("short", short.class);
-			nativeTypes.put("int", int.class);
-			nativeTypes.put("long", long.class);
-			nativeTypes.put("float", float.class);
-			nativeTypes.put("double", double.class);
-			nativeTypes.put("char", char.class);
-			nativeTypes.put("void", void.class);
 		}
 		
 		// native types
