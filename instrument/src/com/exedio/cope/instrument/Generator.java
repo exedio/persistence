@@ -969,15 +969,15 @@ final class Generator
 		o.write("\t}");
 	}
 
-	private final void writeType(final CopeType copeClass)
+	private final void writeType(final CopeType type)
 	throws IOException
 	{
-		final Option option = copeClass.typeOption;
+		final Option option = type.typeOption;
 		if(option.exists)
 		{
 			writeCommentHeader();
 			o.write("\t * ");
-			o.write(format(TYPE, lowerCamelCase(copeClass.getName())));
+			o.write(format(TYPE, lowerCamelCase(type.getName())));
 			o.write(lineSeparator);
 			writeCommentFooter(TYPE_CUSTOMIZE);
 			
@@ -986,7 +986,7 @@ final class Generator
 			o.write(lineSeparator);
 	
 			o.write("\t\tnew "+Type.class.getName()+"(");
-			o.write(copeClass.getName());
+			o.write(type.getName());
 			o.write(".class)");
 			o.write(lineSeparator);
 	
