@@ -120,7 +120,7 @@ final class CopeType
 	
 	public CopeFeature getFeature(final String name)
 	{
-		//assert !javaClass.file.repository.isBuildStage(); TODO!!!
+		assert !javaClass.file.repository.isBuildStage();
 		return (CopeFeature)featureMap.get(name);
 	}
 	
