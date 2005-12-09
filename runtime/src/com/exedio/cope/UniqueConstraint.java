@@ -43,7 +43,9 @@ public final class UniqueConstraint extends Feature
 			uniqueAttributes[i].registerUniqueConstraint(this);
 	}
 	
-	// is not public, because one should use Item.UNIQUE etc
+	/**
+	 * Is not public, because one should use {@link Item#UNIQUE} etc.
+	 */
 	UniqueConstraint(final ObjectAttribute uniqueAttribute)
 	{
 		this(new ObjectAttribute[]{uniqueAttribute});
