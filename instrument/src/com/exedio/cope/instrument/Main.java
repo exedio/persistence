@@ -128,6 +128,29 @@ public final class Main
 		
 		repository.endBuildStage();
 		
+		for(Iterator i = injectors.iterator(); i.hasNext(); )
+		{
+			final JavaFile javaFile = ((Injector)i.next()).javafile;
+			for(Iterator j = javaFile.getClasses().iterator(); j.hasNext(); )
+			{
+				final JavaClass javaClass = (JavaClass)j.next();
+				final CopeType type = CopeType.getCopeType(javaClass);
+				if(type!=null)
+				{
+					if(!type.isInterface())
+					{
+						//System.out.println("onClassEnd("+jc.getName()+") writing");
+						for(final Iterator k = type.getFeatures().iterator(); k.hasNext(); )
+						{
+							final CopeFeature feature = (CopeFeature)k.next();
+							if(!(feature instanceof CopeVector)) // TODO make it work for all
+								feature.getInstance();
+						}
+					}
+				}
+			}
+		}
+		
 		final Iterator injectorsIter = injectors.iterator();
 		for(Iterator i = inputFiles.iterator(); i.hasNext(); )
 		{

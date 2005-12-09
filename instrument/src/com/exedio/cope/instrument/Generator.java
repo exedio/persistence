@@ -1016,19 +1016,11 @@ final class Generator
 		o.write(buffer, previousClassEndPosition, buffer.length()-previousClassEndPosition);
 	}
 
-	private void writeClassFeatures(final CopeType copeClass)
+	private void writeClassFeatures(final CopeType copeClass) // TODO rename to type
 			throws IOException, InjectorParseException
 	{
 		if(!copeClass.isInterface())
 		{
-			//System.out.println("onClassEnd("+jc.getName()+") writing");
-			for(final Iterator i = copeClass.getFeatures().iterator(); i.hasNext(); )
-			{
-				final CopeFeature feature = (CopeFeature)i.next();
-				if(!(feature instanceof CopeVector)) // TODO make it work for all
-					feature.getInstance();
-			}
-			
 			writeInitialConstructor(copeClass);
 			writeGenericConstructor(copeClass);
 			writeReactivationConstructor(copeClass);
