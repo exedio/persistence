@@ -112,17 +112,21 @@ final class CopeType
 
 	public void register(final CopeFeature feature)
 	{
+		assert javaClass.file.repository.isBuildStage();
 		features.add(feature);
-		featureMap.put(feature.name, feature);
+		/*final Object old = TODO */featureMap.put(feature.name, feature);
+		//assert old==null : feature.name;
 	}
 	
 	public CopeFeature getFeature(final String name)
 	{
+		//assert !javaClass.file.repository.isBuildStage(); TODO!!!
 		return (CopeFeature)featureMap.get(name);
 	}
 	
 	public List getFeatures()
 	{
+		assert !javaClass.file.repository.isBuildStage();
 		return Collections.unmodifiableList(features);
 	}
 	

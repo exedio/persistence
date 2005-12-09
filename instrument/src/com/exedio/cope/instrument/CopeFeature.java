@@ -30,17 +30,19 @@ class CopeFeature
 	final CopeType copeClass;
 	private JavaClass.Value value;
 	
-	/**
-	 * For constraints covering more than one attribute.
-	 */
-	CopeFeature(final JavaAttribute javaAttribute)
+	CopeFeature(final JavaAttribute javaAttribute, final String name)
 	{
 		this.javaAttribute = javaAttribute;
-		this.name = javaAttribute.name;
+		this.name = name;
 		this.modifier = javaAttribute.modifier;
 		this.accessModifier = javaAttribute.getAccessModifier();
 		this.copeClass = CopeType.getCopeType(javaAttribute.parent);
 		copeClass.register(this);
+	}
+	
+	CopeFeature(final JavaAttribute javaAttribute)
+	{
+		this(javaAttribute, javaAttribute.name);
 	}
 	
 	final JavaClass getParent()

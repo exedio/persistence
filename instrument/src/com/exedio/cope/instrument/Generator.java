@@ -656,9 +656,10 @@ final class Generator
 	}
 	
 	private void writeUniqueFinder(final CopeUniqueConstraint constraint)
-	throws IOException
+	throws IOException, InjectorParseException
 	{
-		final CopeAttribute[] atributes = constraint.attributes;
+		// TODO fix spelling
+		final CopeAttribute[] atributes = constraint.getAttributes();
 		final String className = atributes[0].getParent().name;
 		
 		writeCommentHeader();
@@ -682,7 +683,7 @@ final class Generator
 		o.write(' ');
 		o.write(className);
 		o.write(" findBy");
-		o.write(toCamelCase(constraint.name));
+		o.write(toCamelCase(constraint.nameForOutput));
 		
 		o.write('(');
 		for(int i=0; i<atributes.length; i++)
@@ -799,7 +800,7 @@ final class Generator
 
 		o.write("\t}");
 		
-		final List qualifierAttributes = Arrays.asList(qualifier.getUniqueConstraint().attributes);
+		final List qualifierAttributes = Arrays.asList(qualifier.getUniqueConstraint().getAttributes());
 		for(Iterator i = qualifier.getQualifierClass().getFeatures().iterator(); i.hasNext(); )
 		{
 			final CopeFeature feature = (CopeFeature)i.next();

@@ -19,27 +19,46 @@
 package com.exedio.cope.instrument;
 
 
-
 final class CopeUniqueConstraint extends CopeFeature
 {
-	final CopeAttribute[] attributes;
+	static final String SINGLE_UNIQUE_SUFFIX = "SingleUnique";
+	private final String[] attributes;
+	final String nameForOutput;
 	
 	/**
 	 * For constraints covering more than one attribute.
 	 */
-	CopeUniqueConstraint(final JavaAttribute javaAttribute, final CopeAttribute[] attributes)
+	CopeUniqueConstraint(final JavaAttribute javaAttribute, final String[] attributes)
 	{
 		super(javaAttribute);
+		this.nameForOutput = javaAttribute.name;
 		this.attributes = attributes;
 	}
 	
 	/**
 	 * For constraints covering exactly one attribute.
 	 */
-	CopeUniqueConstraint(final CopeAttribute copeAttribute, final JavaAttribute javaAttribute)
+	CopeUniqueConstraint(final JavaAttribute javaAttribute, final String attribute)
 	{
-		super(javaAttribute);
-		this.attributes = new CopeAttribute[]{copeAttribute};
+		super(javaAttribute, javaAttribute.name+SINGLE_UNIQUE_SUFFIX);
+		this.nameForOutput = javaAttribute.name;
+		this.attributes = new String[]{attribute};
+	}
+	
+	CopeAttribute[] getAttributes() throws InjectorParseException
+	{
+		final CopeAttribute[] result = new CopeAttribute[attributes.length];
+		for(int i = 0; i<attributes.length; i++ )
+		{
+			final CopeFeature feature = copeClass.getFeature(attributes[i]);
+			if(feature==null)
+				throw new InjectorParseException("attribute >"+attributes[i]+"< in unique constraint "+name+" not found.");
+			if(!(feature instanceof CopeAttribute))
+				throw new InjectorParseException("attribute >"+attributes[i]+"< in unique constraint "+name+" is not an attribute, but "+feature.getClass().getName());
+			final CopeAttribute attribute = (CopeAttribute)feature;
+			result[i] = attribute;
+		}
+		return result;
 	}
 	
 }

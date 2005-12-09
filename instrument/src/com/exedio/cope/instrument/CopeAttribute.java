@@ -75,7 +75,7 @@ abstract class CopeAttribute extends CopeFeature
 			final Attribute.Option option = getOption(optionString); 
 	
 			if(option.unique)
-				new CopeUniqueConstraint(this, javaAttribute);
+				new CopeUniqueConstraint(javaAttribute, name);
 		}
 		
 		this.getterOption = new Option(getterOption, true);

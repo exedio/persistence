@@ -57,7 +57,7 @@ final class CopeQualifier extends CopeFeature
 	
 	CopeAttribute[] getKeyAttributes() throws InjectorParseException
 	{
-		final CopeAttribute[] uniqueAttributes = getUniqueConstraint().attributes;
+		final CopeAttribute[] uniqueAttributes = getUniqueConstraint().getAttributes();
 		if(uniqueAttributes.length<2)
 			throw new RuntimeException(uniqueAttributes.toString());
 		
