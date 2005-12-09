@@ -15,6 +15,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
+
 package com.exedio.cope.instrument;
 
 import java.lang.reflect.Modifier;
@@ -22,12 +23,21 @@ import java.lang.reflect.Modifier;
 
 final class CopeHash extends CopeFeature
 {
-	final CopeAttribute storageAttribute;
+	private final CopeAttribute storageAttribute;
+	private final String initializerArgument;
 
 	public CopeHash(final JavaAttribute javaAttribute, final CopeAttribute storageAttribute)
 	{
 		super(javaAttribute);
 		this.storageAttribute = storageAttribute;
+		this.initializerArgument = null;
+	}
+
+	public CopeHash(final JavaAttribute javaAttribute, final String initializerArgument)
+	{
+		super(javaAttribute);
+		this.storageAttribute = null;
+		this.initializerArgument = initializerArgument;
 	}
 
 	final int getGeneratedCheckerModifier()
@@ -40,6 +50,19 @@ final class CopeHash extends CopeFeature
 	{
 		return (modifier & (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE)) | Modifier.FINAL;
 		// TODO: implement getter option: return setterOption.getModifier(javaAttribute.modifier);
+	}
+	
+	CopeAttribute getStorageAttribute() throws InjectorParseException
+	{
+		if(storageAttribute!=null)
+			return storageAttribute;
+		else
+		{
+			final CopeAttribute result = (CopeAttribute)copeClass.getFeature(initializerArgument);
+			if(result==null)
+				throw new InjectorParseException("attribute >"+initializerArgument+"< in hash "+name+" not found.");
+			return result;
+		}
 	}
 	
 }

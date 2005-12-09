@@ -234,8 +234,6 @@ final class Instrumentor implements InjectionConsumer
 	private final void handleHash(final JavaAttribute ja, final Class typeClass)
 		throws InjectorParseException
 	{
-		final JavaClass jc = ja.parent;
-		final CopeType copeClass = CopeType.getCopeType(jc);
 		final List initializerArguments = ja.getInitializerArguments();
 		if(initializerArguments.size()<1)
 			throw new InjectorParseException("attribute >"+ja.name+"< has invalid initializer arguments: "+initializerArguments);
@@ -245,7 +243,8 @@ final class Instrumentor implements InjectionConsumer
 		if("newStringAttribute".equals(initializerArgument))
 		{
 			// implicitExternal
-			storageAttribute = new CopeNativeAttribute(ja, StringAttribute.class, Collections.singletonList("OPTIONAL"), "none", "none", false); // TODO make some useful assumption about option
+			storageAttribute = new CopeNativeAttribute(ja, ja.name+"Hash", StringAttribute.class, Collections.singletonList("OPTIONAL"), "none", "none", false); // TODO make some useful assumption about option
+			new CopeHash(ja, storageAttribute);
 		}
 		else
 		{
@@ -262,17 +261,15 @@ final class Instrumentor implements InjectionConsumer
 			if(internal)
 			{
 				// internal
-				storageAttribute = new CopeNativeAttribute(ja, StringAttribute.class, Collections.singletonList(initializerArgument), "none", "none", false);
+				storageAttribute = new CopeNativeAttribute(ja, ja.name+"Hash", StringAttribute.class, Collections.singletonList(initializerArgument), "none", "none", false);
+				new CopeHash(ja, storageAttribute);
 			}
 			else
 			{
 				// explicitExternal
-				storageAttribute = (CopeAttribute)copeClass.getFeature(initializerArgument);
-				if(storageAttribute==null)
-					throw new InjectorParseException("attribute >"+initializerArgument+"< in hash "+ja.name+" not found.");
+				new CopeHash(ja, initializerArgument);
 			}
 		}
-		new CopeHash(ja, storageAttribute);
 	}
 
 	private final void handleVector(final JavaAttribute ja, final Class typeClass)

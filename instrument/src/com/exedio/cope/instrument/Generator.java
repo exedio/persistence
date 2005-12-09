@@ -469,7 +469,7 @@ final class Generator
 	}
 	
 	private void writeHash(final CopeHash hash)
-	throws IOException
+	throws IOException, InjectorParseException
 	{
 		// checker
 		writeCommentHeader();
@@ -506,7 +506,7 @@ final class Generator
 		o.write(hash.name);
 		o.write(')');
 		o.write(lineSeparator);
-		writeThrowsClause(hash.storageAttribute.getSetterExceptions());
+		writeThrowsClause(hash.getStorageAttribute().getSetterExceptions());
 		o.write("\t{");
 		o.write(lineSeparator);
 		writeSetterBody(hash);
@@ -1151,9 +1151,9 @@ final class Generator
 	 * This means, doing nothing fullfils the contract.
 	 */
 	private void writeSetterBody(final CopeHash hash)
-	throws IOException
+	throws IOException, InjectorParseException
 	{
-		final CopeAttribute storage = hash.storageAttribute;
+		final CopeAttribute storage = hash.getStorageAttribute();
 		final SortedSet exceptionsToCatch = storage.getExceptionsToCatchInSetter();
 		writeTryCatchClausePrefix(exceptionsToCatch);
 		o.write("\t\t");

@@ -54,6 +54,7 @@ abstract class CopeAttribute extends CopeFeature
 	
 	CopeAttribute(
 			final JavaAttribute javaAttribute,
+			final String name,
 			final Class typeClass,
 			final String persistentType,
 			final List initializerArguments,
@@ -62,7 +63,7 @@ abstract class CopeAttribute extends CopeFeature
 			final boolean initial)
 		throws InjectorParseException
 	{
-		super(javaAttribute);
+		super(javaAttribute, name);
 		this.persistentType = persistentType;
 		final boolean computed = ComputedFunction.class.isAssignableFrom(typeClass);
 		
@@ -81,6 +82,19 @@ abstract class CopeAttribute extends CopeFeature
 		this.getterOption = new Option(getterOption, true);
 		this.setterOption = new Option(setterOption, true);
 		this.initial = initial;
+	}
+	
+	CopeAttribute(
+			final JavaAttribute javaAttribute,
+			final Class typeClass,
+			final String persistentType,
+			final List initializerArguments,
+			final String setterOption,
+			final String getterOption,
+			final boolean initial)
+		throws InjectorParseException
+	{
+		this(javaAttribute, javaAttribute.name, typeClass, persistentType, initializerArguments, setterOption, getterOption, initial);
 	}
 	
 	final String getName()

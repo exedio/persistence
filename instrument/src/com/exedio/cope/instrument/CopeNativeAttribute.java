@@ -42,6 +42,7 @@ final class CopeNativeAttribute extends CopeAttribute
 
 	public CopeNativeAttribute(
 			final JavaAttribute javaAttribute,
+			final String name,
 			Class typeClass,
 			final List initializerArguments,
 			final String setterOption,
@@ -49,10 +50,22 @@ final class CopeNativeAttribute extends CopeAttribute
 			final boolean initial)
 		throws InjectorParseException
 	{
-		super(javaAttribute, typeClass, getPersistentType(typeClass), initializerArguments, getterOption, setterOption, initial);
+		super(javaAttribute, name, typeClass, getPersistentType(typeClass), initializerArguments, setterOption, getterOption, initial);
 		
 		this.typeClass = normalizeTypeClass(typeClass);
 		this.nativeType = (String)toNativeTypeMapping.get(this.typeClass);
+	}
+	
+	public CopeNativeAttribute(
+			final JavaAttribute javaAttribute,
+			Class typeClass,
+			final List initializerArguments,
+			final String setterOption,
+			final String getterOption,
+			final boolean initial)
+		throws InjectorParseException
+	{
+		this(javaAttribute, javaAttribute.name, typeClass, initializerArguments, getterOption, setterOption, initial);
 	}
 	
 	private static final Class normalizeTypeClass(final Class typeClass)

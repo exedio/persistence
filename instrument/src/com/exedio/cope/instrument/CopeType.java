@@ -114,8 +114,8 @@ final class CopeType
 	{
 		assert javaClass.file.repository.isBuildStage();
 		features.add(feature);
-		/*final Object old = TODO */featureMap.put(feature.name, feature);
-		//assert old==null : feature.name;
+		final Object collision = featureMap.put(feature.name, feature);
+		assert collision==null : feature.name;
 	}
 	
 	public CopeFeature getFeature(final String name)
