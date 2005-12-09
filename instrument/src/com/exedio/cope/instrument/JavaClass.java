@@ -68,11 +68,20 @@ class JavaClass extends JavaFeature
 	
 	void add(final JavaFeature f)
 	{
+		assert file.repository.isBuildStage();
+		
 		if(!(f instanceof JavaAttribute))
 			return;
 		
 		if(attributes.put(f.name, f)!=null)
 			throw new RuntimeException(name+'/'+f.name);
+	}
+	
+	JavaAttribute getAttribute(final String name)
+	{
+		assert !file.repository.isBuildStage();
+		
+		return (JavaAttribute)attributes.get(name);
 	}
 	
 	/**
@@ -149,6 +158,7 @@ class JavaClass extends JavaFeature
 	
 	void notifyClassEnd()
 	{
+		assert file.repository.isBuildStage();
 		assert classEndPosition==-1;
 		
 		classEndPosition = file.getBufferPosition();
@@ -268,6 +278,7 @@ class JavaClass extends JavaFeature
 	
 	Value evaluate(String s)
 	{
+		assert !file.repository.isBuildStage();
 		//System.out.println("--------------evaluate-"+name+"--"+s+"--");
 
 		s = s.trim();
@@ -361,7 +372,7 @@ class JavaClass extends JavaFeature
 				throw new RuntimeException(e);
 			}
 		}
-		else if((feature = (JavaFeature)attributes.get(s))!=null)
+		else if((feature = (JavaFeature)getAttribute(s))!=null)
 		{
 			if(!(feature instanceof JavaAttribute))
 				throw new RuntimeException(feature.toString());

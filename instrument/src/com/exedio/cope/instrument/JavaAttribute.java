@@ -160,6 +160,8 @@ final class JavaAttribute
 	
 	JavaClass.Value evaluate()
 	{
+		assert !file.repository.isBuildStage();
+		
 		if(rtvalue==null)
 		{
 			rtvalue = parent.evaluate(getInitializer());
