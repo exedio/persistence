@@ -59,8 +59,7 @@ interface InjectionConsumer
 	 * the same object as in the corresponding call to onClass
 	 * @see #onClass(JavaClass)
 	 */
-	void onClassEnd(JavaClass cc)
-	throws java.io.IOException, InjectorParseException;
+	void onClassEnd(JavaClass cc) throws InjectorParseException;
 	
 	/**
 	 * Encountered the header of a java method.
@@ -70,8 +69,7 @@ interface InjectionConsumer
 	 * @param jb
 	 * contains all parsed information about the method
 	 */
-	void onBehaviourHeader(JavaBehaviour jb)
-	throws java.io.IOException;
+	void onBehaviourHeader(JavaBehaviour jb);
 	
 	/**
 	 * Encountered the header of a java attribute.
@@ -81,8 +79,7 @@ interface InjectionConsumer
 	 * @param ja
 	 * contains all parsed information about the attribute
 	 */
-	void onAttributeHeader(JavaAttribute ja)
-	throws java.io.IOException;
+	void onAttributeHeader(JavaAttribute ja);
 	
 	/**
 	 * Called for attributes and methods.
@@ -93,8 +90,7 @@ interface InjectionConsumer
 	 * the doccomment associated to this feature.
 	 * Is null, if there was none.
 	 */
-	void onClassFeature(JavaFeature cf, String doccomment)
-	throws java.io.IOException, InjectorParseException;
+	void onClassFeature(JavaFeature cf, String doccomment) throws InjectorParseException;
 	
 	/**
 	 * Encountered a java documentation comment.
@@ -105,15 +101,13 @@ interface InjectionConsumer
 	 * if false is returned, the next class feature is ignored,
 	 * and the doccomment itself should not appear in the output.
 	 */
-	boolean onDocComment(String doccomment)
-	throws java.io.IOException;
+	boolean onDocComment(String doccomment);
 	
 	/**
 	 * Encountered a java documentation comment.
 	 * Is called for comments on file level only,
 	 * i.e. outside of any classes.
 	 */
-	void onFileDocComment(String doccomment)
-	throws java.io.IOException, InjectorParseException;
+	void onFileDocComment(String doccomment) throws InjectorParseException;
 	
 }

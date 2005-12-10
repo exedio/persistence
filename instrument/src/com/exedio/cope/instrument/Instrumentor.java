@@ -18,7 +18,6 @@
 
 package com.exedio.cope.instrument;
 
-import java.io.IOException;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -150,7 +149,7 @@ final class Instrumentor implements InjectionConsumer
 	}
 
 	public void onClassEnd(final JavaClass javaClass)
-	throws IOException, InjectorParseException
+	throws InjectorParseException
 	{
 		javaClass.notifyClassEnd();
 		if(class_state!=javaClass)
@@ -159,7 +158,6 @@ final class Instrumentor implements InjectionConsumer
 	}
 
 	public void onBehaviourHeader(JavaBehaviour jb)
-	throws java.io.IOException
 	{
 	}
 	
@@ -280,7 +278,7 @@ final class Instrumentor implements InjectionConsumer
 	}
 
 	public void onClassFeature(final JavaFeature jf, final String docComment)
-	throws IOException, InjectorParseException
+	throws InjectorParseException
 	{
 		//System.out.println("onClassFeature("+jf.getName()+" "+docComment+")");
 		if(!class_state.isInterface() &&
@@ -322,7 +320,6 @@ final class Instrumentor implements InjectionConsumer
 	}
 	
 	public boolean onDocComment(final String docComment)
-	throws IOException
 	{
 		//System.out.println("onDocComment("+docComment+")");
 
@@ -340,7 +337,7 @@ final class Instrumentor implements InjectionConsumer
 	}
 	
 	public void onFileDocComment(final String docComment)
-	throws IOException, InjectorParseException
+	throws InjectorParseException
 	{
 		//System.out.println("onFileDocComment("+docComment+")");
 		
