@@ -343,14 +343,12 @@ public class ExampleTest extends InjectorTest
 		assertText("\n\t\n\t");
 
 		assertDocComment("/** DO_DISCARD */");
-		assertText("\n\t");
 		final JavaAttribute discardAttribute =
 			assertAttributeHeader("discardAttribute", "int", 0);
 		assertAttribute("discardAttribute", "/** DO_DISCARD */", discardAttribute);
 		assertText("\n\t\n\t");
 
 		assertDocComment("/** DO_DISCARD */");
-		assertText("\n\t");
 		assertMethodDiscarded("discardMethod", "/** DO_DISCARD */");
 
 		assertText("\n\t\n\t"+"public Integer getUnqualifiedType() throws IllegalArgumentException\n\t");

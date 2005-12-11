@@ -120,7 +120,7 @@ final class Injector
 	{
 		int c = input.read();
 
-		if (output != null && !do_block && outbufvalid)
+		if (output != null && !do_block && outbufvalid && !discardnextfeature)
 			output.write(outbuf);
 
 		if (c >= 0)

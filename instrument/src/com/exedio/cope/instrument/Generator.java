@@ -204,9 +204,9 @@ final class Generator
 			o.write(extraComment);
 			o.write(lineSeparator);
 		}
-		o.write("\t *");
+		o.write("\t */");
 		o.write(lineSeparator);
-		o.write(" */");
+		o.write('\t'); // TODO put this into calling methods
 	}
 	
 	private static final String link(final String target)
