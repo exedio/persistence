@@ -51,6 +51,7 @@ final class Injector
 	private final Reader input;
 	private final StringWriter output; // TODO use StringBuffer
 	private final InjectionConsumer consumer;
+	// TODO rename
 	private final String filename;
 
 	private final StringBuffer buf = new StringBuffer();
@@ -61,7 +62,9 @@ final class Injector
 	private final StringBuffer collector = new StringBuffer();
 
 	private String doccomment = null;
-
+	// TODO rename
+	private boolean discardnextfeature = false;
+	
 	final JavaFile javafile;
 
 	/**
@@ -103,11 +106,13 @@ final class Injector
 
 	/**
 	 * The line number in the current file.
+	 * TODO rename
 	 */
 	private int linenumber = 1;
 
 	/**
 	 * The character in the current line.
+	 * TODO rename
 	 */
 	private int lineposition = 0;
 
@@ -774,7 +779,8 @@ final class Injector
 		//cc.print(System.out);
 
 		consumer.onClass(jc);
-
+		discardnextfeature=false;
+		
 		if (collect_when_blocking)
 			write(getCollector());
 		if (do_block)
@@ -794,6 +800,7 @@ final class Injector
 						doccomment = comment;
 						//System.out.println("doccomment: "+doccomment);
 						final boolean onDocCommentResult = consumer.onDocComment(doccomment);
+						discardnextfeature = !onDocCommentResult;
 						if(onDocCommentResult)
 							output.write(doccomment);
 						scheduleBlock(onDocCommentResult);
@@ -809,6 +816,7 @@ final class Injector
 					JavaFeature[] jfarray = parseFeature(jc);
 					for (int i = 0; i < jfarray.length; i++)
 						consumer.onClassFeature(jfarray[i], doccomment);
+					discardnextfeature=false;
 					doccomment = null;
 					scheduleBlock(true);
 					break;
@@ -932,8 +940,9 @@ final class Injector
 
 	private class ParseException extends InjectorParseException
 	{
-		int ln;
-		int lp;
+		// TODO rename
+		final int ln;
+		final int lp;
 
 		private ParseException(String message)
 		{
