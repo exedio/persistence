@@ -181,10 +181,17 @@ public final class Type
 	
 	private static final List inherit(final List inherited, final List own)
 	{
-		final ArrayList result = new ArrayList(inherited);
-		result.addAll(own);
-		result.trimToSize();
-		return Collections.unmodifiableList(result);
+		assert inherited!=null;
+		
+		if(own.isEmpty())
+			return inherited;
+		else
+		{
+			final ArrayList result = new ArrayList(inherited);
+			result.addAll(own);
+			result.trimToSize();
+			return Collections.unmodifiableList(result);
+		}
 	}
 	
 	private final Constructor getConstructor(final Class[] params, final String name)
