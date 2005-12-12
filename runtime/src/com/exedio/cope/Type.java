@@ -42,13 +42,12 @@ public final class Type
 	final String id;
 	private final Type supertype;
 	
-	private final List declaredAttributes;
-	private final List attributes;
-
 	private final List declaredFeatures;
 	private final List features;
 	private final HashMap featuresByName = new HashMap();
 
+	private final List declaredAttributes;
+	private final List attributes;
 	final List uniqueConstraints;
 
 	private ArrayList subTypes = null;
@@ -110,7 +109,7 @@ public final class Type
 			supertype.registerSubType(this);
 		}
 
-		// declaredAttributes
+		// declaredFeatures
 		final Field[] fields = javaClass.getDeclaredFields();
 		this.featuresWhileConstruction = new ArrayList(fields.length);
 		final int expectedModifier = Modifier.STATIC | Modifier.FINAL;
@@ -137,6 +136,10 @@ public final class Type
 		{
 			throw new RuntimeException(e);
 		}
+		featuresWhileConstruction.trimToSize();
+		this.declaredFeatures = Collections.unmodifiableList(featuresWhileConstruction);
+
+		// declaredAttributes / uniqueConstraints
 		{
 			final ArrayList attributesWhileConstruction = new ArrayList(featuresWhileConstruction.size());
 			final ArrayList uniqueConstraintsWhileConstruction = new ArrayList(featuresWhileConstruction.size());
@@ -153,12 +156,10 @@ public final class Type
 			this.declaredAttributes = Collections.unmodifiableList(attributesWhileConstruction);
 			this.uniqueConstraints = Collections.unmodifiableList(uniqueConstraintsWhileConstruction);
 		}
-		featuresWhileConstruction.trimToSize();
-		this.declaredFeatures = Collections.unmodifiableList(featuresWhileConstruction);
-
 		// make sure, method registerInitialization fails from now on
 		this.featuresWhileConstruction = null;
-		
+
+		// inherit features / attributes
 		if(supertype==null)
 		{
 			attributes = this.declaredAttributes;
