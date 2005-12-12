@@ -48,6 +48,15 @@ interface Database
 	String getDoubleType(int precision);
 	String getStringType(int maxLength);
 	String getDayType();
+	
+	/**
+	 * Returns a column type suitable for storing timestamps
+	 * with milliseconds resolution.
+	 * This method may return null,
+	 * if the database does not support such a column type.
+	 * The framework will then fall back to store the number of milliseconds.
+	 */
+	String getDateTimestampType();
 	boolean supportsEmptyStrings();
 	boolean supportsRightOuterJoins();
 

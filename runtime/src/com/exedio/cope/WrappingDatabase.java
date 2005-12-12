@@ -23,11 +23,11 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-class WrappingDatabase implements Database, DatabaseTimestampCapable
+class WrappingDatabase implements Database
 {
 	private final Database nested;
 	
-	public WrappingDatabase( Database nested )
+	public WrappingDatabase( final Database nested )
 	{
 		this.nested = nested;
 	}
@@ -209,6 +209,6 @@ class WrappingDatabase implements Database, DatabaseTimestampCapable
 
 	public String getDateTimestampType()
 	{
-		return ((DatabaseTimestampCapable)nested).getDateTimestampType();
+		return nested.getDateTimestampType();
 	}
 }

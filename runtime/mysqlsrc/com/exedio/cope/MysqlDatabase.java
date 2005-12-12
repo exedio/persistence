@@ -96,6 +96,11 @@ public final class MysqlDatabase extends AbstractDatabase
 		return "DATE";
 	}
 	
+	public String getDateTimestampType()
+	{
+		return null;
+	}
+	
 	int getLimitSupport()
 	{
 		return LIMIT_SUPPORT_CLAUSE_AFTER_WHERE;

@@ -36,10 +36,7 @@ import com.exedio.dsmf.SQLRuntimeException;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Table;
 
-final class OracleDatabase
-		extends AbstractDatabase
-		implements
-			DatabaseTimestampCapable
+final class OracleDatabase extends AbstractDatabase
 {
 	static
 	{

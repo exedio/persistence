@@ -24,10 +24,7 @@ import org.hsqldb.jdbcDriver;
 
 import com.exedio.dsmf.HsqldbDriver;
 
-final class HsqldbDatabase
-		extends AbstractDatabase
-		implements
-			DatabaseTimestampCapable
+final class HsqldbDatabase extends AbstractDatabase
 {
 	static
 	{

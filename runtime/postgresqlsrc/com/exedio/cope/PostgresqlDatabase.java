@@ -68,6 +68,12 @@ final class PostgresqlDatabase extends AbstractDatabase
 		return "DATE";
 	}
 	
+	// TODO check if there is a suitable column type
+	public String getDateTimestampType()
+	{
+		return null;
+	}
+	
 	int getLimitSupport()
 	{
 		// TODO support limit clause

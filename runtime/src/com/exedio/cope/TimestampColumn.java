@@ -31,11 +31,12 @@ final class TimestampColumn extends Column
 	TimestampColumn(final Table table, final String id, final boolean notNull)
 	{
 		super(table, id, false, notNull, JDBC_TYPE);
+		assert table.database.getDateTimestampType()!=null;
 	}
 	
 	final String getDatabaseType()
 	{
-		return ((DatabaseTimestampCapable)table.database).getDateTimestampType(); 
+		return table.database.getDateTimestampType();
 	}
 
 	final String getCheckConstraintIfNotNull()

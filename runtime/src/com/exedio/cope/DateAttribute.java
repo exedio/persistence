@@ -44,7 +44,7 @@ public final class DateAttribute extends ObjectAttribute
 	{
 		final boolean useLong =
 			getType().getModel().getProperties().getDatabaseDontSupportNativeDate() ||
-			!(getType().getModel().getDatabase() instanceof DatabaseTimestampCapable);
+			!(getType().getModel().getDatabase().getDateTimestampType()!=null);
 		
 		return
 				useLong

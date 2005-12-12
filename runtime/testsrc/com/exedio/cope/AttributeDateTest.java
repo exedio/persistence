@@ -205,7 +205,7 @@ public class AttributeDateTest extends AttributeTest
 		}
 		else if ( realDatabase.getClass().getName().endsWith("MysqlDatabase") )
 		{
-			expectedColumnType = "NUMBER(20)";
+			expectedColumnType = null;
 		}
 		else if ( realDatabase.getClass().getName().endsWith("HsqldbDatabase") )
 		{
@@ -213,19 +213,16 @@ public class AttributeDateTest extends AttributeTest
 		}
 		else if ( realDatabase.getClass().getName().endsWith("PostgresqlDatabase") )
 		{
-			expectedColumnType = "NUMBER(20)";
+			expectedColumnType = null;
 		}
 		else
 		{
 			throw new RuntimeException( realDatabase.getClass().getName() );
 		}
-		if ( model.getDatabase() instanceof DatabaseTimestampCapable )
-		{
-			assertEquals( expectedColumnType, ((DatabaseTimestampCapable)model.getDatabase()).getDateTimestampType() );
-			assertEquals( expectedColumnType, ((DatabaseTimestampCapable)realDatabase).getDateTimestampType() );
-			LogDatabase wrapping = new LogDatabase( model.getDatabase(), "out", "true" );
-			assertEquals( expectedColumnType, ((DatabaseTimestampCapable)wrapping).getDateTimestampType() );
-		}
+		assertEquals(expectedColumnType, model.getDatabase().getDateTimestampType());
+		assertEquals(expectedColumnType, realDatabase.getDateTimestampType());
+		LogDatabase wrapping = new LogDatabase( model.getDatabase(), "out", "true" );
+		assertEquals(expectedColumnType, wrapping.getDateTimestampType());
 	}
 	
 	public static String toString(final Date date)
