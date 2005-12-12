@@ -167,18 +167,8 @@ public final class Type
 		}
 		else
 		{
-			{
-				final ArrayList result = new ArrayList(supertype.getFeatures());
-				result.addAll(this.declaredFeatures);
-				result.trimToSize();
-				this.features = Collections.unmodifiableList(result);
-			}
-			{
-				final ArrayList result = new ArrayList(supertype.getAttributes());
-				result.addAll(this.declaredAttributes);
-				result.trimToSize();
-				this.attributes = Collections.unmodifiableList(result);
-			}
+			this.features = inherit(supertype.getFeatures(), this.declaredFeatures);
+			this.attributes = inherit(supertype.getAttributes(), this.declaredAttributes);
 		}
 
 		// IMPLEMENTATION NOTE
@@ -187,6 +177,14 @@ public final class Type
 		// only.
 		this.creationConstructor = getConstructor(new Class[]{(new AttributeValue[0]).getClass()}, "creation");
 		this.reactivationConstructor = getConstructor(new Class[]{ReactivationConstructorDummy.class, int.class}, "reactivation");
+	}
+	
+	private static final List inherit(final List inherited, final List own)
+	{
+		final ArrayList result = new ArrayList(inherited);
+		result.addAll(own);
+		result.trimToSize();
+		return Collections.unmodifiableList(result);
 	}
 	
 	private final Constructor getConstructor(final Class[] params, final String name)
