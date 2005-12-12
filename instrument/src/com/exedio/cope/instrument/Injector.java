@@ -63,7 +63,7 @@ final class Injector
 	private String docComment = null;
 	private boolean discardNextFeature = false;
 	
-	final JavaFile javafile;
+	final JavaFile javaFile;
 
 	/**
 	 * Constructs a new java parser.
@@ -84,8 +84,8 @@ final class Injector
 		this.input = new InputStreamReader(new CheckedInputStream(new FileInputStream(inputFile), inputCRC));
 		this.consumer = consumer;
 		this.fileName = inputFile.getName();
-		this.javafile = new JavaFile(repository);
-		this.output = javafile.buffer;
+		this.javaFile = new JavaFile(repository);
+		this.output = javaFile.buffer;
 	}
 	
 	void close() throws IOException
@@ -773,7 +773,7 @@ final class Injector
 			}
 		}
 
-		JavaClass jc = new JavaClass(javafile, parent, modifiers, classname, classExtends, classImplements);
+		JavaClass jc = new JavaClass(javaFile, parent, modifiers, classname, classExtends, classImplements);
 		//cc.print(System.out);
 
 		consumer.onClass(jc);
@@ -872,8 +872,8 @@ final class Injector
 							c = readToken();
 							if (c != '\0')
 								throw new ParseException("package name expected.");
-							javafile.setPackage(buf.toString());
-							consumer.onPackage(javafile);
+							javaFile.setPackage(buf.toString());
+							consumer.onPackage(javaFile);
 							//System.out.println("package >"+buf.toString()+"<");
 							c = readToken();
 							if (c != ';')
@@ -886,7 +886,7 @@ final class Injector
 								throw new ParseException("class name expected.");
 							String importstring = buf.toString();
 							//System.out.println("import >"+importstring+"<");
-							javafile.addImport(importstring);
+							javaFile.addImport(importstring);
 							consumer.onImport(importstring);
 							c = readToken();
 							if (c != ';')

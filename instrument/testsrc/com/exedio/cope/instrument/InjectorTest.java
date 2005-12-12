@@ -54,7 +54,7 @@ public abstract class InjectorTest extends InstrumentorTest
 		testInjectionConsumer = new TestInjectionConsumer();
 		final JavaRepository repository = new JavaRepository();
 		final Injector injector = new Injector(inputFile, testInjectionConsumer, repository);
-		output = injector.javafile.buffer;
+		output = injector.javaFile.buffer;
 		testInjectionConsumer.output = output;
 		injector.parseFile();
 		injector.close();

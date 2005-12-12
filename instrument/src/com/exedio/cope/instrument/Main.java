@@ -130,7 +130,7 @@ public final class Main
 		
 		for(Iterator i = injectors.iterator(); i.hasNext(); )
 		{
-			final JavaFile javaFile = ((Injector)i.next()).javafile;
+			final JavaFile javaFile = ((Injector)i.next()).javaFile;
 			for(Iterator j = javaFile.getClasses().iterator(); j.hasNext(); )
 			{
 				final JavaClass javaClass = (JavaClass)j.next();
@@ -166,7 +166,7 @@ public final class Main
 					throw new RuntimeException("error: output file is not a regular file.");
 			}
 			
-			final Generator generator = new Generator(injector.javafile, outputFile);
+			final Generator generator = new Generator(injector.javaFile, outputFile);
 			try
 			{
 				generator.write();
