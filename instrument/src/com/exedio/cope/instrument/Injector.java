@@ -937,14 +937,14 @@ final class Injector
 	private class ParseException extends InjectorParseException
 	{
 		// TODO rename
-		final int ln;
+		final int line;
 		final int lp;
 
 		private ParseException(String message)
 		{
 			//super("["+positionLine+':'+positionColumn+']'+' '+message);
 			super(message);
-			ln = positionLine;
+			line = positionLine;
 			lp = positionColumn;
 		}
 
@@ -952,7 +952,7 @@ final class Injector
 		{
 			//super("["+positionLine+':'+positionColumn+']'+' '+message);
 			super(cause);
-			ln = positionLine;
+			line = positionLine;
 			lp = positionColumn;
 		}
 
