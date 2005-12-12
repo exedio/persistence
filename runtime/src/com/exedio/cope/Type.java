@@ -23,7 +23,6 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -43,19 +42,14 @@ public final class Type
 	final String id;
 	private final Type supertype;
 	
-	private final Attribute[] declaredAttributes;
-	private final List declaredAttributeList;
-	private final Attribute[] attributes;
-	private final List attributeList;
+	private final List declaredAttributes;
+	private final List attributes;
 
-	private final Feature[] declaredFeatures;
-	private final List declaredFeatureList;
-	private final Feature[] features;
-	private final List featureList;
+	private final List declaredFeatures;
+	private final List features;
 	private final HashMap featuresByName = new HashMap();
 
-	final UniqueConstraint[] uniqueConstraints;
-	private final List uniqueConstraintList;
+	final List uniqueConstraints;
 
 	private ArrayList subTypes = null;
 	private ArrayList references = null;
@@ -154,18 +148,17 @@ public final class Type
 				if(feature instanceof UniqueConstraint)
 					uniqueConstraintsWhileConstruction.add(feature);
 			}
-			this.declaredAttributes = (Attribute[])attributesWhileConstruction.toArray(new Attribute[0]);
-			this.declaredAttributeList = Collections.unmodifiableList(Arrays.asList(this.declaredAttributes));
-			this.uniqueConstraints = (UniqueConstraint[])uniqueConstraintsWhileConstruction.toArray(new UniqueConstraint[0]);
-			this.uniqueConstraintList = Collections.unmodifiableList(Arrays.asList(this.uniqueConstraints));
+			attributesWhileConstruction.trimToSize();
+			uniqueConstraintsWhileConstruction.trimToSize();
+			this.declaredAttributes = Collections.unmodifiableList(attributesWhileConstruction);
+			this.uniqueConstraints = Collections.unmodifiableList(uniqueConstraintsWhileConstruction);
 		}
-		this.declaredFeatures = (Feature[])featuresWhileConstruction.toArray(new Feature[0]);
-		this.declaredFeatureList = Collections.unmodifiableList(Arrays.asList(this.declaredFeatures));
+		featuresWhileConstruction.trimToSize();
+		this.declaredFeatures = Collections.unmodifiableList(featuresWhileConstruction);
 
-		// make sure, register methods fail from now on
+		// make sure, method registerInitialization fails from now on
 		this.featuresWhileConstruction = null;
 		
-		// attributes
 		if(supertype==null)
 		{
 			attributes = this.declaredAttributes;
@@ -174,20 +167,18 @@ public final class Type
 		else
 		{
 			{
-				final Attribute[] supertypeAttributes = supertype.attributes;
-				attributes = new Attribute[supertypeAttributes.length+this.declaredAttributes.length];
-				System.arraycopy(supertypeAttributes, 0, attributes, 0, supertypeAttributes.length);
-				System.arraycopy(this.declaredAttributes, 0, attributes, supertypeAttributes.length, this.declaredAttributes.length);
+				final ArrayList result = new ArrayList(supertype.getAttributes());
+				result.addAll(this.declaredAttributes);
+				result.trimToSize();
+				this.attributes = Collections.unmodifiableList(result);
 			}
 			{
-				final Feature[] supertypeFeatures = supertype.features;
-				features = new Feature[supertypeFeatures.length+this.declaredFeatures.length];
-				System.arraycopy(supertypeFeatures, 0, features, 0, supertypeFeatures.length);
-				System.arraycopy(this.declaredFeatures, 0, features, supertypeFeatures.length, this.declaredFeatures.length);
+				final ArrayList result = new ArrayList(supertype.getFeatures());
+				result.addAll(this.declaredFeatures);
+				result.trimToSize();
+				this.features = Collections.unmodifiableList(result);
 			}
 		}
-		this.attributeList = Collections.unmodifiableList(Arrays.asList(attributes));
-		this.featureList = Collections.unmodifiableList(Arrays.asList(features));
 
 		// IMPLEMENTATION NOTE
 		// Here we don't precompute the constructor parameters
@@ -313,11 +304,11 @@ public final class Type
 		else
 			pkSource = database.makePkSource(table);
 		
-		for(int i = 0; i<declaredAttributes.length; i++)
-			declaredAttributes[i].materialize(table);
-		for(int i = 0; i<uniqueConstraints.length; i++)
-			uniqueConstraints[i].materialize(database);
-		this.table.setUniqueConstraints(this.uniqueConstraintList);
+		for(Iterator i = declaredAttributes.iterator(); i.hasNext(); )
+			((Attribute)i.next()).materialize(table);
+		for(Iterator i = uniqueConstraints.iterator(); i.hasNext(); )
+			((UniqueConstraint)i.next()).materialize(database);
+		this.table.setUniqueConstraints(this.uniqueConstraints);
 		this.table.finish();
 	}
 	
@@ -456,7 +447,7 @@ public final class Type
 	 */
 	public final List getDeclaredAttributes()
 	{
-		return declaredAttributeList;
+		return declaredAttributes;
 	}
 	
 	/**
@@ -473,17 +464,17 @@ public final class Type
 	 */
 	public final List getAttributes()
 	{
-		return attributeList;
+		return attributes;
 	}
 	
 	public final List getDeclaredFeatures()
 	{
-		return declaredFeatureList;
+		return declaredFeatures;
 	}
 
 	public final List getFeatures()
 	{
-		return featureList;
+		return features;
 	}
 	
 	public final Feature getFeature(final String name)
@@ -493,7 +484,7 @@ public final class Type
 
 	public final List getDeclaredUniqueConstraints()
 	{
-		return uniqueConstraintList;
+		return uniqueConstraints;
 	}
 	
 	private static final AttributeValue[] EMPTY_ATTRIBUTE_VALUES = new AttributeValue[]{};
