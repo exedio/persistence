@@ -51,8 +51,7 @@ final class Injector
 	private final Reader input;
 	private final StringWriter output; // TODO use StringBuffer
 	private final InjectionConsumer consumer;
-	// TODO rename
-	private final String filename;
+	private final String fileName;
 
 	private final StringBuffer buf = new StringBuffer();
 
@@ -85,7 +84,7 @@ final class Injector
 	{
 		this.input = new InputStreamReader(new CheckedInputStream(new FileInputStream(inputFile), inputCRC));
 		this.consumer = consumer;
-		this.filename = inputFile.getName();
+		this.fileName = inputFile.getName();
 		this.javafile = new JavaFile(repository);
 		this.output = javafile.buffer;
 	}
@@ -964,7 +963,7 @@ final class Injector
 		{
 			return
 				"("
-				+ filename
+				+ fileName
 				+ ':'
 				+ linenumber
 				+ ':'
