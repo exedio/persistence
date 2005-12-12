@@ -138,12 +138,14 @@ public final class Type
 		}
 		featuresWhileConstruction.trimToSize();
 		this.declaredFeatures = Collections.unmodifiableList(featuresWhileConstruction);
+		// make sure, method registerInitialization fails from now on
+		this.featuresWhileConstruction = null;
 
 		// declared attributes / unique constraints
 		{
-			final ArrayList declaredAttributes = new ArrayList(featuresWhileConstruction.size());
-			final ArrayList declaredUniqueConstraints = new ArrayList(featuresWhileConstruction.size());
-			for(Iterator i = featuresWhileConstruction.iterator(); i.hasNext(); )
+			final ArrayList declaredAttributes = new ArrayList(declaredFeatures.size());
+			final ArrayList declaredUniqueConstraints = new ArrayList(declaredFeatures.size());
+			for(Iterator i = declaredFeatures.iterator(); i.hasNext(); )
 			{
 				final Feature feature = (Feature)i.next();
 				if(feature instanceof Attribute)
@@ -156,8 +158,6 @@ public final class Type
 			this.declaredAttributes = Collections.unmodifiableList(declaredAttributes);
 			this.declaredUniqueConstraints = Collections.unmodifiableList(declaredUniqueConstraints);
 		}
-		// make sure, method registerInitialization fails from now on
-		this.featuresWhileConstruction = null;
 
 		// inherit features / attributes
 		if(supertype==null)
