@@ -109,9 +109,8 @@ final class Injector
 
 	/**
 	 * The character in the current line.
-	 * TODO rename
 	 */
-	private int lineposition = 0;
+	private int positionColumn = 0;
 
 	private final char read() throws IOException, EndException
 	{
@@ -125,11 +124,11 @@ final class Injector
 			if (c == '\n')
 			{
 				positionLine++;
-				lineposition = -1;
+				positionColumn = -1;
 			}
 			else
 			{
-				lineposition++;
+				positionColumn++;
 			}
 
 			if (do_block && collect_when_blocking)
@@ -943,18 +942,18 @@ final class Injector
 
 		private ParseException(String message)
 		{
-			//super("["+positionLine+':'+lineposition+']'+' '+message);
+			//super("["+positionLine+':'+positionColumn+']'+' '+message);
 			super(message);
 			ln = positionLine;
-			lp = lineposition;
+			lp = positionColumn;
 		}
 
 		private ParseException(final RuntimeException cause)
 		{
-			//super("["+positionLine+':'+lineposition+']'+' '+message);
+			//super("["+positionLine+':'+positionColumn+']'+' '+message);
 			super(cause);
 			ln = positionLine;
-			lp = lineposition;
+			lp = positionColumn;
 		}
 
 		public String getMessage()
@@ -965,7 +964,7 @@ final class Injector
 				+ ':'
 				+ positionLine
 				+ ':'
-				+ lineposition
+				+ positionColumn
 				+ ')'
 				+ ' '
 				+ super.getMessage();
