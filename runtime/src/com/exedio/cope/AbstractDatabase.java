@@ -679,7 +679,7 @@ abstract class AbstractDatabase implements Database
 		}
 
 		//System.out.println("storing "+bf.toString());
-		final List uqs = type.uniqueConstraints;
+		final List uqs = type.declaredUniqueConstraints;
 		executeSQLUpdate(connection, bf, 1, uqs.size()==1?(UniqueConstraint)uqs.iterator().next():null);
 	}
 

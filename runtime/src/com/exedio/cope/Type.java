@@ -48,7 +48,7 @@ public final class Type
 
 	private final List declaredAttributes;
 	private final List attributes;
-	final List uniqueConstraints;
+	final List declaredUniqueConstraints;
 
 	private ArrayList subTypes = null;
 	private ArrayList references = null;
@@ -139,7 +139,7 @@ public final class Type
 		featuresWhileConstruction.trimToSize();
 		this.declaredFeatures = Collections.unmodifiableList(featuresWhileConstruction);
 
-		// declaredAttributes / uniqueConstraints
+		// declaredAttributes / declaredUniqueConstraints
 		{
 			final ArrayList attributesWhileConstruction = new ArrayList(featuresWhileConstruction.size());
 			final ArrayList uniqueConstraintsWhileConstruction = new ArrayList(featuresWhileConstruction.size());
@@ -154,7 +154,7 @@ public final class Type
 			attributesWhileConstruction.trimToSize();
 			uniqueConstraintsWhileConstruction.trimToSize();
 			this.declaredAttributes = Collections.unmodifiableList(attributesWhileConstruction);
-			this.uniqueConstraints = Collections.unmodifiableList(uniqueConstraintsWhileConstruction);
+			this.declaredUniqueConstraints = Collections.unmodifiableList(uniqueConstraintsWhileConstruction);
 		}
 		// make sure, method registerInitialization fails from now on
 		this.featuresWhileConstruction = null;
@@ -307,9 +307,9 @@ public final class Type
 		
 		for(Iterator i = declaredAttributes.iterator(); i.hasNext(); )
 			((Attribute)i.next()).materialize(table);
-		for(Iterator i = uniqueConstraints.iterator(); i.hasNext(); )
+		for(Iterator i = declaredUniqueConstraints.iterator(); i.hasNext(); )
 			((UniqueConstraint)i.next()).materialize(database);
-		this.table.setUniqueConstraints(this.uniqueConstraints);
+		this.table.setUniqueConstraints(this.declaredUniqueConstraints);
 		this.table.finish();
 	}
 	
@@ -485,7 +485,7 @@ public final class Type
 
 	public final List getDeclaredUniqueConstraints()
 	{
-		return uniqueConstraints;
+		return declaredUniqueConstraints;
 	}
 	
 	private static final AttributeValue[] EMPTY_ATTRIBUTE_VALUES = new AttributeValue[]{};
