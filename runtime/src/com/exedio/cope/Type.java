@@ -141,19 +141,19 @@ public final class Type
 
 		// declared attributes / unique constraints
 		{
-			final ArrayList attributesWhileConstruction = new ArrayList(featuresWhileConstruction.size());
+			final ArrayList declaredAttributes = new ArrayList(featuresWhileConstruction.size());
 			final ArrayList uniqueConstraintsWhileConstruction = new ArrayList(featuresWhileConstruction.size());
 			for(Iterator i = featuresWhileConstruction.iterator(); i.hasNext(); )
 			{
 				final Feature feature = (Feature)i.next();
 				if(feature instanceof Attribute)
-					attributesWhileConstruction.add(feature);
+					declaredAttributes.add(feature);
 				if(feature instanceof UniqueConstraint)
 					uniqueConstraintsWhileConstruction.add(feature);
 			}
-			attributesWhileConstruction.trimToSize();
+			declaredAttributes.trimToSize();
 			uniqueConstraintsWhileConstruction.trimToSize();
-			this.declaredAttributes = Collections.unmodifiableList(attributesWhileConstruction);
+			this.declaredAttributes = Collections.unmodifiableList(declaredAttributes);
 			this.declaredUniqueConstraints = Collections.unmodifiableList(uniqueConstraintsWhileConstruction);
 		}
 		// make sure, method registerInitialization fails from now on
