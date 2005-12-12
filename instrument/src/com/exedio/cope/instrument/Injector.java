@@ -61,8 +61,7 @@ final class Injector
 	private final StringBuffer collector = new StringBuffer();
 
 	private String doccomment = null;
-	// TODO rename
-	private boolean discardnextfeature = false;
+	private boolean discardNextFeature = false;
 	
 	final JavaFile javafile;
 
@@ -119,7 +118,7 @@ final class Injector
 	{
 		int c = input.read();
 
-		if (output != null && !do_block && outbufvalid && !discardnextfeature)
+		if (output != null && !do_block && outbufvalid && !discardNextFeature)
 			output.write(outbuf);
 
 		if (c >= 0)
@@ -778,7 +777,7 @@ final class Injector
 		//cc.print(System.out);
 
 		consumer.onClass(jc);
-		discardnextfeature=false;
+		discardNextFeature=false;
 		
 		if (collect_when_blocking)
 			write(getCollector());
@@ -799,7 +798,7 @@ final class Injector
 						doccomment = comment;
 						//System.out.println("doccomment: "+doccomment);
 						final boolean onDocCommentResult = consumer.onDocComment(doccomment);
-						discardnextfeature = !onDocCommentResult;
+						discardNextFeature = !onDocCommentResult;
 						if(onDocCommentResult)
 							output.write(doccomment);
 						scheduleBlock(onDocCommentResult);
@@ -815,7 +814,7 @@ final class Injector
 					JavaFeature[] jfarray = parseFeature(jc);
 					for (int i = 0; i < jfarray.length; i++)
 						consumer.onClassFeature(jfarray[i], doccomment);
-					discardnextfeature=false;
+					discardNextFeature=false;
 					doccomment = null;
 					scheduleBlock(true);
 					break;
