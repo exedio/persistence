@@ -60,7 +60,7 @@ final class Injector
 	private boolean collect_when_blocking = false;
 	private final StringBuffer collector = new StringBuffer();
 
-	private String doccomment = null;
+	private String docComment = null;
 	private boolean discardNextFeature = false;
 	
 	final JavaFile javafile;
@@ -530,7 +530,7 @@ final class Injector
 						flushOutbuf();
 						parseBody(false, null);
 						scheduleBlock(true);
-						doccomment = null;
+						docComment = null;
 						return new JavaClass[0];
 					}
 					else
@@ -795,12 +795,12 @@ final class Injector
 				case 'c' :
 					if (comment.startsWith("/**"))
 					{
-						doccomment = comment;
-						//System.out.println("doccomment: "+doccomment);
-						final boolean onDocCommentResult = consumer.onDocComment(doccomment);
+						docComment = comment;
+						//System.out.println("docComment: "+docComment);
+						final boolean onDocCommentResult = consumer.onDocComment(docComment);
 						discardNextFeature = !onDocCommentResult;
 						if(onDocCommentResult)
-							output.write(doccomment);
+							output.write(docComment);
 						scheduleBlock(onDocCommentResult);
 					}
 					else
@@ -813,9 +813,9 @@ final class Injector
 				case '\0' :
 					JavaFeature[] jfarray = parseFeature(jc);
 					for (int i = 0; i < jfarray.length; i++)
-						consumer.onClassFeature(jfarray[i], doccomment);
+						consumer.onClassFeature(jfarray[i], docComment);
 					discardNextFeature=false;
-					doccomment = null;
+					docComment = null;
 					scheduleBlock(true);
 					break;
 				case ';' :
@@ -900,11 +900,11 @@ final class Injector
 					case 'c' :
 						if (comment.startsWith("/**"))
 						{
-							doccomment = comment;
-							//System.out.println ("file level doccomment: "+doccomment);
-							consumer.onFileDocComment(doccomment);
-							output.write(doccomment);
-							doccomment = null; // Mark doccomment as handled...
+							docComment = comment;
+							//System.out.println ("file level docComment: "+docComment);
+							consumer.onFileDocComment(docComment);
+							output.write(docComment);
+							docComment = null; // Mark docComment as handled...
 						}
 						else
 						{
@@ -1015,7 +1015,7 @@ final class Injector
 			}
 		}
 		String result = doccomment.substring(start, end).trim();
-		//System.out.println("doctag:>"+tagname+"< >"+doccomment.substring(start, end)+"<");
+		//System.out.println("doctag:>"+tagname+"< >"+docComment.substring(start, end)+"<");
 		return result;
 	}
 
