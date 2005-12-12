@@ -388,7 +388,7 @@ public class ModelTest extends TestmodelTest
 		};
 		assertEqualsUnmodifiable(Arrays.asList(attributes), item.TYPE.getAttributes());
 		assertEqualsUnmodifiable(Arrays.asList(attributes), item.TYPE.getDeclaredAttributes());
-		assertEqualsUnmodifiable(list(), item.TYPE.getUniqueConstraints());
+		assertEqualsUnmodifiable(list(), item.TYPE.getDeclaredUniqueConstraints());
 
 		final Feature[] features = new Feature[]{
 			item.someString,

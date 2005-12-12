@@ -489,7 +489,7 @@ public final class Type
 		return (Feature)featuresByName.get(name);
 	}
 
-	public final List getUniqueConstraints()
+	public final List getDeclaredUniqueConstraints()
 	{
 		return uniqueConstraintList;
 	}
