@@ -76,6 +76,7 @@ public class HierarchyTest extends AbstractLibTest
 		restartTransaction();
 		assertEquals(2, firstItem.getSuperInt());
 		assertEquals("firstSubString", firstItem.getFirstSubString());
+		firstItem.setSuperInt(0);
 		
 		final HierarchySecondSub secondItem = new HierarchySecondSub(2);
 		deleteOnTearDown(secondItem);
