@@ -90,9 +90,7 @@ public final class Type
 		return result;
 	}
 	
-	private ArrayList attributesWhileConstruction;
 	private ArrayList featuresWhileConstruction;
-	private ArrayList uniqueConstraintsWhileConstruction;
 
 	public Type(final Class javaClass)
 	{
@@ -120,9 +118,7 @@ public final class Type
 
 		// declaredAttributes
 		final Field[] fields = javaClass.getDeclaredFields();
-		this.attributesWhileConstruction = new ArrayList(fields.length);
 		this.featuresWhileConstruction = new ArrayList(fields.length);
-		this.uniqueConstraintsWhileConstruction = new ArrayList(fields.length);
 		final int expectedModifier = Modifier.STATIC | Modifier.FINAL;
 		try
 		{
@@ -147,17 +143,27 @@ public final class Type
 		{
 			throw new RuntimeException(e);
 		}
-		this.declaredAttributes = (Attribute[])attributesWhileConstruction.toArray(new Attribute[0]);
-		this.declaredAttributeList = Collections.unmodifiableList(Arrays.asList(this.declaredAttributes));
+		{
+			final ArrayList attributesWhileConstruction = new ArrayList(featuresWhileConstruction.size());
+			final ArrayList uniqueConstraintsWhileConstruction = new ArrayList(featuresWhileConstruction.size());
+			for(Iterator i = featuresWhileConstruction.iterator(); i.hasNext(); )
+			{
+				final Feature feature = (Feature)i.next();
+				if(feature instanceof Attribute)
+					attributesWhileConstruction.add(feature);
+				if(feature instanceof UniqueConstraint)
+					uniqueConstraintsWhileConstruction.add(feature);
+			}
+			this.declaredAttributes = (Attribute[])attributesWhileConstruction.toArray(new Attribute[0]);
+			this.declaredAttributeList = Collections.unmodifiableList(Arrays.asList(this.declaredAttributes));
+			this.uniqueConstraints = (UniqueConstraint[])uniqueConstraintsWhileConstruction.toArray(new UniqueConstraint[0]);
+			this.uniqueConstraintList = Collections.unmodifiableList(Arrays.asList(this.uniqueConstraints));
+		}
 		this.declaredFeatures = (Feature[])featuresWhileConstruction.toArray(new Feature[0]);
 		this.declaredFeatureList = Collections.unmodifiableList(Arrays.asList(this.declaredFeatures));
-		this.uniqueConstraints = (UniqueConstraint[])uniqueConstraintsWhileConstruction.toArray(new UniqueConstraint[0]);
-		this.uniqueConstraintList = Collections.unmodifiableList(Arrays.asList(this.uniqueConstraints));
 
 		// make sure, register methods fail from now on
-		this.attributesWhileConstruction = null;
 		this.featuresWhileConstruction = null;
-		this.uniqueConstraintsWhileConstruction = null;
 		
 		// attributes
 		if(supertype==null)
@@ -208,10 +214,6 @@ public final class Type
 	final void registerInitialization(final Feature feature)
 	{
 		featuresWhileConstruction.add(feature);
-		if(feature instanceof Attribute)
-			attributesWhileConstruction.add(feature);
-		if(feature instanceof UniqueConstraint)
-			uniqueConstraintsWhileConstruction.add(feature);
 		if(featuresByName.put(feature.getName(), feature)!=null)
 			throw new RuntimeException("duplicate feature "+feature.getName()+" for type "+javaClass.getName());
 	}
