@@ -29,7 +29,7 @@ public class HierarchyTest extends AbstractLibTest
 	}
 	
 	public void testHierarchy()
-			throws IntegrityViolationException
+			throws IntegrityViolationException, UniqueViolationException
 	{
 		// model HierarchySuper
 		assertEquals(null, HierarchySuper.TYPE.getSupertype());
@@ -39,8 +39,21 @@ public class HierarchyTest extends AbstractLibTest
 		assertTrue(HierarchySuper.TYPE.isAssignableFrom(HierarchyFirstSub.TYPE));
 		assertEqualsUnmodifiable(list(HierarchySuper.superInt, HierarchySuper.superString), HierarchySuper.TYPE.getDeclaredAttributes());
 		assertEqualsUnmodifiable(list(HierarchySuper.superInt, HierarchySuper.superString), HierarchySuper.TYPE.getAttributes());
-		assertEqualsUnmodifiable(list(HierarchySuper.superInt, HierarchySuper.superString, HierarchySuper.superStringUpper), HierarchySuper.TYPE.getDeclaredFeatures());
-		assertEqualsUnmodifiable(list(HierarchySuper.superInt, HierarchySuper.superString, HierarchySuper.superStringUpper), HierarchySuper.TYPE.getFeatures());
+		assertEqualsUnmodifiable(list(
+				HierarchySuper.superInt.getSingleUniqueConstraint()
+			), HierarchySuper.TYPE.getUniqueConstraints());
+		assertEqualsUnmodifiable(list(
+				HierarchySuper.superInt,
+				HierarchySuper.superInt.getSingleUniqueConstraint(),
+				HierarchySuper.superString,
+				HierarchySuper.superStringUpper
+			), HierarchySuper.TYPE.getDeclaredFeatures());
+		assertEqualsUnmodifiable(list(
+				HierarchySuper.superInt,
+				HierarchySuper.superInt.getSingleUniqueConstraint(),
+				HierarchySuper.superString,
+				HierarchySuper.superStringUpper
+			), HierarchySuper.TYPE.getFeatures());
 		assertTrue(HierarchySuper.TYPE.isAbstract());
 		assertEquals(HierarchySuper.TYPE, HierarchySuper.superInt.getType());
 		
@@ -54,8 +67,23 @@ public class HierarchyTest extends AbstractLibTest
 		assertFalse(HierarchySecondSub.TYPE.isAssignableFrom(HierarchyFirstSub.TYPE));
 		assertEqualsUnmodifiable(list(HierarchyFirstSub.firstSubString), HierarchyFirstSub.TYPE.getDeclaredAttributes());
 		assertEqualsUnmodifiable(list(HierarchySuper.superInt, HierarchySuper.superString, HierarchyFirstSub.firstSubString), HierarchyFirstSub.TYPE.getAttributes());
-		assertEqualsUnmodifiable(list(HierarchyFirstSub.firstSubString, HierarchyFirstSub.firstSubStringUpper), HierarchyFirstSub.TYPE.getDeclaredFeatures());
-		assertEqualsUnmodifiable(list(HierarchySuper.superInt, HierarchySuper.superString, HierarchySuper.superStringUpper, HierarchyFirstSub.firstSubString, HierarchyFirstSub.firstSubStringUpper), HierarchyFirstSub.TYPE.getFeatures());
+		assertEqualsUnmodifiable(list(
+				HierarchyFirstSub.firstSubString.getSingleUniqueConstraint()
+			), HierarchyFirstSub.TYPE.getUniqueConstraints());
+		assertEqualsUnmodifiable(list(
+				HierarchyFirstSub.firstSubString,
+				HierarchyFirstSub.firstSubString.getSingleUniqueConstraint(),
+				HierarchyFirstSub.firstSubStringUpper
+			), HierarchyFirstSub.TYPE.getDeclaredFeatures());
+		assertEqualsUnmodifiable(list(
+				HierarchySuper.superInt,
+				HierarchySuper.superInt.getSingleUniqueConstraint(),
+				HierarchySuper.superString,
+				HierarchySuper.superStringUpper,
+				HierarchyFirstSub.firstSubString,
+				HierarchyFirstSub.firstSubString.getSingleUniqueConstraint(),
+				HierarchyFirstSub.firstSubStringUpper
+			), HierarchyFirstSub.TYPE.getFeatures());
 		assertFalse(HierarchyFirstSub.TYPE.isAbstract());
 		assertEquals(HierarchyFirstSub.TYPE, HierarchyFirstSub.firstSubString.getType());
 
@@ -151,7 +179,7 @@ public class HierarchyTest extends AbstractLibTest
 		assertEquals(list(null), new Query(singleSub1a.hierarchySuper, singleSub1a.TYPE, singleSub1a.superInt.equal(1).and(singleSub1a.subString.equal("a"))).search());
 	}
 	
-	public void testPolymorphicQueryInvalidation()
+	public void testPolymorphicQueryInvalidation() throws UniqueViolationException
 	{
 		final HierarchyFirstSub item = new HierarchyFirstSub(10);
 		deleteOnTearDown(item);
