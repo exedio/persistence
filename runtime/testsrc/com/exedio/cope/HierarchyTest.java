@@ -43,6 +43,9 @@ public class HierarchyTest extends AbstractLibTest
 				HierarchySuper.superInt.getSingleUniqueConstraint()
 			), HierarchySuper.TYPE.getDeclaredUniqueConstraints());
 		assertEqualsUnmodifiable(list(
+				HierarchySuper.superInt.getSingleUniqueConstraint()
+			), HierarchySuper.TYPE.getUniqueConstraints());
+		assertEqualsUnmodifiable(list(
 				HierarchySuper.superInt,
 				HierarchySuper.superInt.getSingleUniqueConstraint(),
 				HierarchySuper.superString,
@@ -70,6 +73,10 @@ public class HierarchyTest extends AbstractLibTest
 		assertEqualsUnmodifiable(list(
 				HierarchyFirstSub.firstSubString.getSingleUniqueConstraint()
 			), HierarchyFirstSub.TYPE.getDeclaredUniqueConstraints());
+		assertEqualsUnmodifiable(list(
+				HierarchyFirstSub.superInt.getSingleUniqueConstraint(),
+				HierarchyFirstSub.firstSubString.getSingleUniqueConstraint()
+			), HierarchyFirstSub.TYPE.getUniqueConstraints());
 		assertEqualsUnmodifiable(list(
 				HierarchyFirstSub.firstSubString,
 				HierarchyFirstSub.firstSubString.getSingleUniqueConstraint(),

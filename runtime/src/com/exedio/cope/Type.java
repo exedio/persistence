@@ -49,6 +49,7 @@ public final class Type
 	private final List declaredAttributes;
 	private final List attributes;
 	final List declaredUniqueConstraints;
+	private final List uniqueConstraints;
 
 	private ArrayList subTypes = null;
 	private ArrayList references = null;
@@ -162,13 +163,15 @@ public final class Type
 		// inherit features / attributes
 		if(supertype==null)
 		{
-			attributes = this.declaredAttributes;
-			features = this.declaredFeatures;
+			this.features = this.declaredFeatures;
+			this.attributes = this.declaredAttributes;
+			this.uniqueConstraints = this.declaredUniqueConstraints;
 		}
 		else
 		{
 			this.features = inherit(supertype.getFeatures(), this.declaredFeatures);
 			this.attributes = inherit(supertype.getAttributes(), this.declaredAttributes);
+			this.uniqueConstraints = inherit(supertype.getUniqueConstraints(), this.declaredUniqueConstraints);
 		}
 
 		// IMPLEMENTATION NOTE
@@ -491,6 +494,11 @@ public final class Type
 	public final List getDeclaredUniqueConstraints()
 	{
 		return declaredUniqueConstraints;
+	}
+	
+	public final List getUniqueConstraints()
+	{
+		return uniqueConstraints;
 	}
 	
 	private static final AttributeValue[] EMPTY_ATTRIBUTE_VALUES = new AttributeValue[]{};
