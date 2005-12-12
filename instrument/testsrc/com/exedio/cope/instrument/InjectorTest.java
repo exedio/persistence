@@ -20,7 +20,6 @@ package com.exedio.cope.instrument;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.StringWriter;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -46,20 +45,16 @@ public abstract class InjectorTest extends InstrumentorTest
 	public void testInjection()
 		throws IOException, InjectorParseException
 	{	
-		StringWriter output = null;
 		final File inputFile = new File(InjectorTest.class.getResource(resourceName).getFile());
-		output = new StringWriter();
 
 		injectionEvents = new LinkedList();
 		testInjectionConsumer = new TestInjectionConsumer();
 		final JavaRepository repository = new JavaRepository();
 		final Injector injector = new Injector(inputFile, testInjectionConsumer, repository);
-		output = injector.javaFile.buffer;
+		final StringBuffer output = injector.javaFile.buffer;
 		testInjectionConsumer.output = output;
 		injector.parseFile();
 		injector.close();
-		output.close();
-		output = null;
 		
 		assertInjection();
 		injectionEvents = null;
@@ -349,7 +344,7 @@ public abstract class InjectorTest extends InstrumentorTest
 	
 	private class TestInjectionConsumer implements InjectionConsumer
 	{
-		StringWriter output;
+		StringBuffer output;
 		
 		public void onPackage(final JavaFile javaFile) throws InjectorParseException
 		{
@@ -406,11 +401,10 @@ public abstract class InjectorTest extends InstrumentorTest
 
 		private void flushOutput()
 		{
-			final StringBuffer outputBuffer = output.getBuffer();
-			if(outputBuffer.length()>0)
+			if(output.length()>0)
 			{
-				injectionEvents.add(new TextEvent(outputBuffer.toString()));
-				outputBuffer.setLength(0);
+				injectionEvents.add(new TextEvent(output.toString()));
+				output.setLength(0);
 			}
 		}
 	}

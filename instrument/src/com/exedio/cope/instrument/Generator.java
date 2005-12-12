@@ -996,7 +996,7 @@ final class Generator
 	
 	void write() throws IOException, InjectorParseException
 	{
-		final String buffer = javaFile.buffer.getBuffer().toString();
+		final String buffer = javaFile.buffer.toString();
 		int previousClassEndPosition = 0;
 		for(Iterator i = javaFile.getClasses().iterator(); i.hasNext(); )
 		{

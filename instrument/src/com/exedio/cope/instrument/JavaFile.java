@@ -18,7 +18,6 @@
 
 package com.exedio.cope.instrument;
 
-import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -84,7 +83,7 @@ final class JavaFile
 	final JavaRepository repository;
 	final ArrayList classes = new ArrayList();
 	
-	final StringWriter buffer = new StringWriter();
+	final StringBuffer buffer = new StringBuffer();
 
 	public JavaFile(final JavaRepository repository)
 	{
@@ -324,7 +323,7 @@ final class JavaFile
 	int getBufferPosition()
 	{
 		assert repository.isBuildStage();
-		return buffer.getBuffer().length();
+		return buffer.length();
 	}
 	
 }

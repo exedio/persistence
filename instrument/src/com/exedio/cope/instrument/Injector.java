@@ -24,7 +24,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.io.StringWriter;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.zip.CRC32;
@@ -49,7 +48,7 @@ final class Injector
 {
 	private final CRC32 inputCRC = new CRC32();
 	private final Reader input;
-	private final StringWriter output; // TODO use StringBuffer
+	private final StringBuffer output;
 	private final InjectionConsumer consumer;
 	private final String fileName;
 
@@ -117,7 +116,7 @@ final class Injector
 		int c = input.read();
 
 		if (output != null && !do_block && outbufvalid && !discardNextFeature)
-			output.write(outbuf);
+			output.append(outbuf);
 
 		if (c >= 0)
 		{
@@ -172,7 +171,7 @@ final class Injector
 			else
 			{
 				if (output != null)
-					output.write(outbuf);
+					output.append(outbuf);
 			}
 			outbufvalid = false;
 		}
@@ -181,7 +180,7 @@ final class Injector
 	private void write(String s) throws IOException
 	{
 		if (output != null)
-			output.write(s);
+			output.append(s);
 	}
 
 	/**
@@ -640,7 +639,7 @@ final class Injector
 				case '{' :
 					if (collect_when_blocking)
 					{
-						output.write(getCollector());
+						output.append(getCollector());
 						consumer.onBehaviourHeader(jb);
 					}
 					parseBody(false, null);
@@ -649,7 +648,7 @@ final class Injector
 				case ';' :
 					if (collect_when_blocking)
 					{
-						output.write(getCollector());
+						output.append(getCollector());
 						consumer.onBehaviourHeader(jb);
 					}
 					flushOutbuf();
@@ -798,7 +797,7 @@ final class Injector
 						final boolean onDocCommentResult = consumer.onDocComment(docComment);
 						discardNextFeature = !onDocCommentResult;
 						if(onDocCommentResult)
-							output.write(docComment);
+							output.append(docComment);
 						scheduleBlock(onDocCommentResult);
 					}
 					else
@@ -901,7 +900,7 @@ final class Injector
 							docComment = comment;
 							//System.out.println ("file level docComment: "+docComment);
 							consumer.onFileDocComment(docComment);
-							output.write(docComment);
+							output.append(docComment);
 							docComment = null; // Mark docComment as handled...
 						}
 						else
