@@ -168,16 +168,16 @@ public final class Type
 		else
 		{
 			{
-				final ArrayList result = new ArrayList(supertype.getAttributes());
-				result.addAll(this.declaredAttributes);
-				result.trimToSize();
-				this.attributes = Collections.unmodifiableList(result);
-			}
-			{
 				final ArrayList result = new ArrayList(supertype.getFeatures());
 				result.addAll(this.declaredFeatures);
 				result.trimToSize();
 				this.features = Collections.unmodifiableList(result);
+			}
+			{
+				final ArrayList result = new ArrayList(supertype.getAttributes());
+				result.addAll(this.declaredAttributes);
+				result.trimToSize();
+				this.attributes = Collections.unmodifiableList(result);
 			}
 		}
 
