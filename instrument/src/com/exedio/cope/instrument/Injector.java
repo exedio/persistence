@@ -961,9 +961,9 @@ final class Injector
 				"("
 				+ fileName
 				+ ':'
-				+ positionLine
+				+ line
 				+ ':'
-				+ positionColumn
+				+ column
 				+ ')'
 				+ ' '
 				+ super.getMessage();
