@@ -109,7 +109,7 @@ public final class Type
 			supertype.registerSubType(this);
 		}
 
-		// declaredFeatures
+		// declared features
 		final Field[] fields = javaClass.getDeclaredFields();
 		this.featuresWhileConstruction = new ArrayList(fields.length);
 		final int expectedModifier = Modifier.STATIC | Modifier.FINAL;
@@ -139,7 +139,7 @@ public final class Type
 		featuresWhileConstruction.trimToSize();
 		this.declaredFeatures = Collections.unmodifiableList(featuresWhileConstruction);
 
-		// declaredAttributes / declaredUniqueConstraints
+		// declared attributes / unique constraints
 		{
 			final ArrayList attributesWhileConstruction = new ArrayList(featuresWhileConstruction.size());
 			final ArrayList uniqueConstraintsWhileConstruction = new ArrayList(featuresWhileConstruction.size());
