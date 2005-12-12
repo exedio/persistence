@@ -104,9 +104,8 @@ final class Injector
 
 	/**
 	 * The line number in the current file.
-	 * TODO rename
 	 */
-	private int linenumber = 1;
+	private int positionLine = 1;
 
 	/**
 	 * The character in the current line.
@@ -125,7 +124,7 @@ final class Injector
 		{
 			if (c == '\n')
 			{
-				linenumber++;
+				positionLine++;
 				lineposition = -1;
 			}
 			else
@@ -944,17 +943,17 @@ final class Injector
 
 		private ParseException(String message)
 		{
-			//super("["+linenumber+':'+lineposition+']'+' '+message);
+			//super("["+positionLine+':'+lineposition+']'+' '+message);
 			super(message);
-			ln = linenumber;
+			ln = positionLine;
 			lp = lineposition;
 		}
 
 		private ParseException(final RuntimeException cause)
 		{
-			//super("["+linenumber+':'+lineposition+']'+' '+message);
+			//super("["+positionLine+':'+lineposition+']'+' '+message);
 			super(cause);
-			ln = linenumber;
+			ln = positionLine;
 			lp = lineposition;
 		}
 
@@ -964,7 +963,7 @@ final class Injector
 				"("
 				+ fileName
 				+ ':'
-				+ linenumber
+				+ positionLine
 				+ ':'
 				+ lineposition
 				+ ')'
