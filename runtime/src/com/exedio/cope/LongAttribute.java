@@ -100,6 +100,16 @@ public final class LongAttribute extends ObjectAttribute
 		}
 	}
 	
+	public final AttributeValue map(final Long value)
+	{
+		return new AttributeValue(this, value);
+	}
+	
+	public final AttributeValue map(final long value)
+	{
+		return new AttributeValue(this, new Long(value));
+	}
+	
 	public final EqualCondition equal(final Long value)
 	{
 		return new EqualCondition(null, this, value);

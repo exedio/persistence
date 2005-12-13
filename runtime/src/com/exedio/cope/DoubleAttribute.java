@@ -100,6 +100,16 @@ public final class DoubleAttribute extends ObjectAttribute
 		}
 	}
 	
+	public final AttributeValue map(final Double value)
+	{
+		return new AttributeValue(this, value);
+	}
+	
+	public final AttributeValue map(final double value)
+	{
+		return new AttributeValue(this, new Double(value));
+	}
+	
 	public final EqualCondition equal(final Double value)
 	{
 		return new EqualCondition(null, this, value);

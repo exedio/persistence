@@ -178,6 +178,11 @@ public final class EnumAttribute extends ObjectAttribute
 		}
 	}
 
+	public final AttributeValue map(final EnumValue value)
+	{
+		return new AttributeValue(this, value);
+	}
+	
 	public final EqualCondition equal(final EnumValue value)
 	{
 		return new EqualCondition(null, this, value);

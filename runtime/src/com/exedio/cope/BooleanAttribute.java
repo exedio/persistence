@@ -114,6 +114,16 @@ public final class BooleanAttribute extends ObjectAttribute
 		}
 	}
 	
+	public final AttributeValue map(final Boolean value)
+	{
+		return new AttributeValue(this, value);
+	}
+	
+	public final AttributeValue map(final boolean value)
+	{
+		return new AttributeValue(this, value ? Boolean.TRUE : Boolean.FALSE);
+	}
+	
 	public final EqualCondition equal(final Boolean value)
 	{
 		return new EqualCondition(null, this, value);

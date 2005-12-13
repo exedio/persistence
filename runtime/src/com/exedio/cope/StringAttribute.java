@@ -126,6 +126,11 @@ public final class StringAttribute extends ObjectAttribute implements StringFunc
 		item.set(this, value);
 	}
 
+	public final AttributeValue map(final String value)
+	{
+		return new AttributeValue(this, value);
+	}
+	
 	public final EqualCondition equal(final String value)
 	{
 		return new EqualCondition(null, this, value);

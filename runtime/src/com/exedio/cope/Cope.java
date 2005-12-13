@@ -15,6 +15,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
+
 package com.exedio.cope;
 
 import com.exedio.cope.function.SumFunction;
@@ -33,61 +34,6 @@ public abstract class Cope
 	Cope()
 	{}
 
-	public static final AttributeValue attributeValue(final StringAttribute attribute, final String value)
-	{
-		return new AttributeValue(attribute, value);
-	}
-	
-	public static final AttributeValue attributeValue(final BooleanAttribute attribute, final Boolean value)
-	{
-		return new AttributeValue(attribute, value);
-	}
-	
-	public static final AttributeValue attributeValue(final BooleanAttribute attribute, final boolean value)
-	{
-		return new AttributeValue(attribute, value ? Boolean.TRUE : Boolean.FALSE);
-	}
-	
-	public static final AttributeValue attributeValue(final IntegerAttribute attribute, final Integer value)
-	{
-		return new AttributeValue(attribute, value);
-	}
-	
-	public static final AttributeValue attributeValue(final IntegerAttribute attribute, final int value)
-	{
-		return new AttributeValue(attribute, new Integer(value));
-	}
-	
-	public static final AttributeValue attributeValue(final LongAttribute attribute, final Long value)
-	{
-		return new AttributeValue(attribute, value);
-	}
-	
-	public static final AttributeValue attributeValue(final LongAttribute attribute, final long value)
-	{
-		return new AttributeValue(attribute, new Long(value));
-	}
-	
-	public static final AttributeValue attributeValue(final DoubleAttribute attribute, final Double value)
-	{
-		return new AttributeValue(attribute, value);
-	}
-	
-	public static final AttributeValue attributeValue(final DoubleAttribute attribute, final double value)
-	{
-		return new AttributeValue(attribute, new Double(value));
-	}
-	
-	public static final AttributeValue attributeValue(final ItemAttribute attribute, final Item value)
-	{
-		return new AttributeValue(attribute, value);
-	}
-	
-	public static final AttributeValue attributeValue(final EnumAttribute attribute, final EnumValue value)
-	{
-		return new AttributeValue(attribute, value);
-	}
-	
 	public static final AndCondition and(final Condition condition1, final Condition condition2)
 	{
 		return new AndCondition(new Condition[]{condition1, condition2});

@@ -101,6 +101,16 @@ public final class IntegerAttribute extends ObjectAttribute implements IntegerFu
 		}
 	}
 
+	public final AttributeValue map(final Integer value)
+	{
+		return new AttributeValue(this, value);
+	}
+	
+	public final AttributeValue map(final int value)
+	{
+		return new AttributeValue(this, new Integer(value));
+	}
+	
 	public final EqualCondition equal(final Integer value)
 	{
 		return new EqualCondition(null, this, value);

@@ -188,6 +188,11 @@ public final class ItemAttribute extends ObjectAttribute
 		}
 	}
 
+	public final AttributeValue map(final Item value)
+	{
+		return new AttributeValue(this, value);
+	}
+	
 	public final EqualCondition equal(final Item value)
 	{
 		return new EqualCondition(null, this, value);
