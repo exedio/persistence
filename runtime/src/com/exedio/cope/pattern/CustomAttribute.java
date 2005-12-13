@@ -110,7 +110,7 @@ public final class CustomAttribute extends Pattern
 		return valueType;
 	}
 	
-	final Object get(final Item item)
+	public final Object get(final Item item)
 	{
 		try
 		{
@@ -130,7 +130,7 @@ public final class CustomAttribute extends Pattern
 		}
 	}
 
-	final void set(final Item item, final Object value)
+	public final void set(final Item item, final Object value)
 	throws
 		UniqueViolationException,
 		MandatoryViolationException,
