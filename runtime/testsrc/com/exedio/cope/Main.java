@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import java.io.File;
 
+import com.exedio.cope.pattern.CustomItem;
 import com.exedio.cope.pattern.HashItem;
 import com.exedio.cope.pattern.MD5Item;
 import com.exedio.cope.pattern.VectorItem;
@@ -33,6 +34,7 @@ public class Main
 	public static final Model hashModel = new Model(new Type[] { HashItem.TYPE });
 	public static final Model md5Model = new Model(new Type[] { MD5Item.TYPE });
 	public static final Model vectorModel = new Model(new Type[] { VectorItem.TYPE });
+	public static final Model customModel = new Model(new Type[] { CustomItem.TYPE });
 	public static final Model cacheIsolationModel = new Model(new Type[] { CacheIsolationItem.TYPE });
 	public static final Model nameModel = new Model(new Type[] {
 			NameLongNameLongNameLongNameLongNameLongNameLongItem.TYPE,
@@ -82,6 +84,7 @@ public class Main
 		tearDown(hashModel);
 		tearDown(md5Model);
 		tearDown(vectorModel);
+		tearDown(customModel);
 		tearDown(cacheIsolationModel);
 		tearDown(nameModel);
 		tearDown(matchModel);
