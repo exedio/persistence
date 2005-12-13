@@ -49,8 +49,8 @@ public class FinalItem extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		this(new com.exedio.cope.AttributeValue[]{
-			new com.exedio.cope.AttributeValue(FinalItem.finalString,finalString),
-			new com.exedio.cope.AttributeValue(FinalItem.nonFinalInteger,new java.lang.Integer(nonFinalInteger)),
+			FinalItem.finalString.map(finalString),
+			FinalItem.nonFinalInteger.map(nonFinalInteger),
 		});
 		throwInitialMandatoryViolationException();
 	}/**

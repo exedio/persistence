@@ -180,13 +180,13 @@ public class AttributeItem extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		this(new com.exedio.cope.AttributeValue[]{
-			new com.exedio.cope.AttributeValue(AttributeItem.someNotNullString,someNotNullString),
-			new com.exedio.cope.AttributeValue(AttributeItem.someNotNullInteger,new java.lang.Integer(someNotNullInteger)),
-			new com.exedio.cope.AttributeValue(AttributeItem.someNotNullLong,new java.lang.Long(someNotNullLong)),
-			new com.exedio.cope.AttributeValue(AttributeItem.someNotNullDouble,new java.lang.Double(someNotNullDouble)),
-			new com.exedio.cope.AttributeValue(AttributeItem.someNotNullBoolean,(someNotNullBoolean?java.lang.Boolean.TRUE:java.lang.Boolean.FALSE)),
-			new com.exedio.cope.AttributeValue(AttributeItem.someNotNullItem,someNotNullItem),
-			new com.exedio.cope.AttributeValue(AttributeItem.someNotNullEnum,someNotNullEnum),
+			AttributeItem.someNotNullString.map(someNotNullString),
+			AttributeItem.someNotNullInteger.map(someNotNullInteger),
+			AttributeItem.someNotNullLong.map(someNotNullLong),
+			AttributeItem.someNotNullDouble.map(someNotNullDouble),
+			AttributeItem.someNotNullBoolean.map(someNotNullBoolean),
+			AttributeItem.someNotNullItem.map(someNotNullItem),
+			AttributeItem.someNotNullEnum.map(someNotNullEnum),
 		});
 		throwInitialMandatoryViolationException();
 	}/**

@@ -48,7 +48,7 @@ public class ItemWithSingleUniqueReadOnly extends Item
 				com.exedio.cope.UniqueViolationException
 	{
 		this(new com.exedio.cope.AttributeValue[]{
-			new com.exedio.cope.AttributeValue(ItemWithSingleUniqueReadOnly.uniqueReadOnlyString,uniqueReadOnlyString),
+			ItemWithSingleUniqueReadOnly.uniqueReadOnlyString.map(uniqueReadOnlyString),
 		});
 		throwInitialUniqueViolationException();
 	}/**

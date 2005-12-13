@@ -321,12 +321,12 @@ final class Generator
 		for(Iterator i = initialAttributes.iterator(); i.hasNext(); )
 		{
 			final CopeAttribute initialAttribute = (CopeAttribute)i.next();
-			o.write("\t\t\tnew "+AttributeValue.class.getName()+"(");
+			o.write("\t\t\t");
 			o.write(type.getName());
 			o.write('.');
 			o.write(initialAttribute.getName());
-			o.write(',');
-			writeAttribute(initialAttribute);
+			o.write(".map(");
+			o.write(initialAttribute.getName());
 			o.write("),");
 			o.write(lineSeparator);
 		}

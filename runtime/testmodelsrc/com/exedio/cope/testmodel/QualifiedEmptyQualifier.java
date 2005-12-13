@@ -58,8 +58,8 @@ public class QualifiedEmptyQualifier extends Item
 				com.exedio.cope.UniqueViolationException
 	{
 		this(new com.exedio.cope.AttributeValue[]{
-			new com.exedio.cope.AttributeValue(QualifiedEmptyQualifier.parent,parent),
-			new com.exedio.cope.AttributeValue(QualifiedEmptyQualifier.key,key),
+			QualifiedEmptyQualifier.parent.map(parent),
+			QualifiedEmptyQualifier.key.map(key),
 		});
 		throwInitialMandatoryViolationException();
 		throwInitialUniqueViolationException();

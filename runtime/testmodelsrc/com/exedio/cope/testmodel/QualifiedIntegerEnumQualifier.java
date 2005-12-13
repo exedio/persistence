@@ -73,9 +73,9 @@ public class QualifiedIntegerEnumQualifier extends Item
 				com.exedio.cope.UniqueViolationException
 	{
 		this(new com.exedio.cope.AttributeValue[]{
-			new com.exedio.cope.AttributeValue(QualifiedIntegerEnumQualifier.up,up),
-			new com.exedio.cope.AttributeValue(QualifiedIntegerEnumQualifier.keyX,new java.lang.Integer(keyX)),
-			new com.exedio.cope.AttributeValue(QualifiedIntegerEnumQualifier.keyY,keyY),
+			QualifiedIntegerEnumQualifier.up.map(up),
+			QualifiedIntegerEnumQualifier.keyX.map(keyX),
+			QualifiedIntegerEnumQualifier.keyY.map(keyY),
 		});
 		throwInitialMandatoryViolationException();
 		throwInitialUniqueViolationException();

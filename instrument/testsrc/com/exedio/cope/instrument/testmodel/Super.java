@@ -56,8 +56,8 @@ public abstract class Super extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		this(new com.exedio.cope.AttributeValue[]{
-			new com.exedio.cope.AttributeValue(Super.superMandatory,superMandatory),
-			new com.exedio.cope.AttributeValue(Super.superInitial,superInitial),
+			Super.superMandatory.map(superMandatory),
+			Super.superInitial.map(superInitial),
 		});
 		throwInitialLengthViolationException();
 		throwInitialMandatoryViolationException();

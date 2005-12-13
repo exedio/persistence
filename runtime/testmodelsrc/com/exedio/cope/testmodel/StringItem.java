@@ -83,7 +83,7 @@ public class StringItem extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		this(new com.exedio.cope.AttributeValue[]{
-			new com.exedio.cope.AttributeValue(StringItem.mandatory,mandatory),
+			StringItem.mandatory.map(mandatory),
 		});
 		throwInitialMandatoryViolationException();
 	}/**

@@ -45,8 +45,8 @@ public class DefaultTextInput extends Input
 				com.exedio.cope.UniqueViolationException
 	{
 		this(new com.exedio.cope.AttributeValue[]{
-			new com.exedio.cope.AttributeValue(DefaultTextInput.string,string),
-			new com.exedio.cope.AttributeValue(DefaultTextInput.integer,new java.lang.Integer(integer)),
+			DefaultTextInput.string.map(string),
+			DefaultTextInput.integer.map(integer),
 		});
 		throwInitialMandatoryViolationException();
 		throwInitialUniqueViolationException();

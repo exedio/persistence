@@ -59,7 +59,7 @@ public class NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem exte
 				com.exedio.cope.UniqueViolationException
 	{
 		this(new com.exedio.cope.AttributeValue[]{
-			new com.exedio.cope.AttributeValue(NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem.code,code),
+			NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem.code.map(code),
 		});
 		throwInitialMandatoryViolationException();
 		throwInitialUniqueViolationException();

@@ -91,13 +91,13 @@ public class QualifiedName extends Item
 				final int internalSetterNumber)
 	{
 		this(new com.exedio.cope.AttributeValue[]{
-			new com.exedio.cope.AttributeValue(QualifiedName.number,new java.lang.Integer(number)),
-			new com.exedio.cope.AttributeValue(QualifiedName.noneGetterNumber,new java.lang.Integer(noneGetterNumber)),
-			new com.exedio.cope.AttributeValue(QualifiedName.privateGetterNumber,new java.lang.Integer(privateGetterNumber)),
-			new com.exedio.cope.AttributeValue(QualifiedName.internalGetterNumber,new java.lang.Integer(internalGetterNumber)),
-			new com.exedio.cope.AttributeValue(QualifiedName.noneSetterNumber,new java.lang.Integer(noneSetterNumber)),
-			new com.exedio.cope.AttributeValue(QualifiedName.privateSetterNumber,new java.lang.Integer(privateSetterNumber)),
-			new com.exedio.cope.AttributeValue(QualifiedName.internalSetterNumber,new java.lang.Integer(internalSetterNumber)),
+			QualifiedName.number.map(number),
+			QualifiedName.noneGetterNumber.map(noneGetterNumber),
+			QualifiedName.privateGetterNumber.map(privateGetterNumber),
+			QualifiedName.internalGetterNumber.map(internalGetterNumber),
+			QualifiedName.noneSetterNumber.map(noneSetterNumber),
+			QualifiedName.privateSetterNumber.map(privateSetterNumber),
+			QualifiedName.internalSetterNumber.map(internalSetterNumber),
 		});
 	}/**
 

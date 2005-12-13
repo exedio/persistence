@@ -165,14 +165,14 @@ public class Standard extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		this(new com.exedio.cope.AttributeValue[]{
-			new com.exedio.cope.AttributeValue(Standard.notNullString,notNullString),
-			new com.exedio.cope.AttributeValue(Standard.readOnlyString,readOnlyString),
-			new com.exedio.cope.AttributeValue(Standard.initialString,initialString),
-			new com.exedio.cope.AttributeValue(Standard.nativeInteger,new java.lang.Integer(nativeInteger)),
-			new com.exedio.cope.AttributeValue(Standard.nativeLong,new java.lang.Long(nativeLong)),
-			new com.exedio.cope.AttributeValue(Standard.nativeDouble,new java.lang.Double(nativeDouble)),
-			new com.exedio.cope.AttributeValue(Standard.nativeBoolean,(nativeBoolean?java.lang.Boolean.TRUE:java.lang.Boolean.FALSE)),
-			new com.exedio.cope.AttributeValue(Standard.mandatoryDate,mandatoryDate),
+			Standard.notNullString.map(notNullString),
+			Standard.readOnlyString.map(readOnlyString),
+			Standard.initialString.map(initialString),
+			Standard.nativeInteger.map(nativeInteger),
+			Standard.nativeLong.map(nativeLong),
+			Standard.nativeDouble.map(nativeDouble),
+			Standard.nativeBoolean.map(nativeBoolean),
+			Standard.mandatoryDate.map(mandatoryDate),
 		});
 		throwInitialMandatoryViolationException();
 	}/**

@@ -55,8 +55,8 @@ public class ItemWithDoubleUnique extends Item
 				com.exedio.cope.UniqueViolationException
 	{
 		this(new com.exedio.cope.AttributeValue[]{
-			new com.exedio.cope.AttributeValue(ItemWithDoubleUnique.string,string),
-			new com.exedio.cope.AttributeValue(ItemWithDoubleUnique.integer,new java.lang.Integer(integer)),
+			ItemWithDoubleUnique.string.map(string),
+			ItemWithDoubleUnique.integer.map(integer),
 		});
 		throwInitialMandatoryViolationException();
 		throwInitialUniqueViolationException();

@@ -75,6 +75,11 @@ public final class DayAttribute extends ObjectAttribute
 		}
 	}
 
+	public final AttributeValue map(final Day value)
+	{
+		return new AttributeValue(this, value);
+	}
+	
 	public final EqualCondition equal(final Day value)
 	{
 		return new EqualCondition(null, this, value);

@@ -59,8 +59,8 @@ public class QualifiedStringQualifier extends Item
 				com.exedio.cope.UniqueViolationException
 	{
 		this(new com.exedio.cope.AttributeValue[]{
-			new com.exedio.cope.AttributeValue(QualifiedStringQualifier.parent,parent),
-			new com.exedio.cope.AttributeValue(QualifiedStringQualifier.key,key),
+			QualifiedStringQualifier.parent.map(parent),
+			QualifiedStringQualifier.key.map(key),
 		});
 		throwInitialMandatoryViolationException();
 		throwInitialUniqueViolationException();

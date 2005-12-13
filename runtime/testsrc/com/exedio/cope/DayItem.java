@@ -44,7 +44,7 @@ public class DayItem extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		this(new com.exedio.cope.AttributeValue[]{
-			new com.exedio.cope.AttributeValue(DayItem.day,day),
+			DayItem.day.map(day),
 		});
 		throwInitialMandatoryViolationException();
 	}/**

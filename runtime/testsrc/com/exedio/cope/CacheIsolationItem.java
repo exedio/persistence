@@ -24,7 +24,7 @@ public class CacheIsolationItem extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		this(new com.exedio.cope.AttributeValue[]{
-			new com.exedio.cope.AttributeValue(CacheIsolationItem.name,name),
+			CacheIsolationItem.name.map(name),
 		});
 		throwInitialMandatoryViolationException();
 	}/**

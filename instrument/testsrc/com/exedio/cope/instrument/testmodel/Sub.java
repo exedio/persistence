@@ -60,10 +60,10 @@ public class Sub extends Super
 				com.exedio.cope.MandatoryViolationException
 	{
 		this(new com.exedio.cope.AttributeValue[]{
-			new com.exedio.cope.AttributeValue(Sub.superMandatory,superMandatory),
-			new com.exedio.cope.AttributeValue(Sub.superInitial,superInitial),
-			new com.exedio.cope.AttributeValue(Sub.subMandatory,(subMandatory?java.lang.Boolean.TRUE:java.lang.Boolean.FALSE)),
-			new com.exedio.cope.AttributeValue(Sub.subInitial,subInitial),
+			Sub.superMandatory.map(superMandatory),
+			Sub.superInitial.map(superInitial),
+			Sub.subMandatory.map(subMandatory),
+			Sub.subInitial.map(subInitial),
 		});
 		throwInitialLengthViolationException();
 		throwInitialMandatoryViolationException();

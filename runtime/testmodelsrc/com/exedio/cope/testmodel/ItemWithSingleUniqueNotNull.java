@@ -50,7 +50,7 @@ public class ItemWithSingleUniqueNotNull extends Item
 				com.exedio.cope.UniqueViolationException
 	{
 		this(new com.exedio.cope.AttributeValue[]{
-			new com.exedio.cope.AttributeValue(ItemWithSingleUniqueNotNull.uniqueNotNullString,uniqueNotNullString),
+			ItemWithSingleUniqueNotNull.uniqueNotNullString.map(uniqueNotNullString),
 		});
 		throwInitialMandatoryViolationException();
 		throwInitialUniqueViolationException();

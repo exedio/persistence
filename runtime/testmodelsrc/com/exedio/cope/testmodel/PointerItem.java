@@ -56,8 +56,8 @@ public class PointerItem extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		this(new com.exedio.cope.AttributeValue[]{
-			new com.exedio.cope.AttributeValue(PointerItem.code,code),
-			new com.exedio.cope.AttributeValue(PointerItem.pointer,pointer),
+			PointerItem.code.map(code),
+			PointerItem.pointer.map(pointer),
 		});
 		throwInitialMandatoryViolationException();
 	}/**

@@ -43,7 +43,7 @@ public class SubTarget extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		this(new com.exedio.cope.AttributeValue[]{
-			new com.exedio.cope.AttributeValue(SubTarget.string,string),
+			SubTarget.string.map(string),
 		});
 		throwInitialMandatoryViolationException();
 	}/**

@@ -103,6 +103,11 @@ public final class DateAttribute extends ObjectAttribute
 		}
 	}
 
+	public final AttributeValue map(final Date value)
+	{
+		return new AttributeValue(this, value);
+	}
+	
 	public final EqualCondition equal(final Date value)
 	{
 		return new EqualCondition(null, this, value);

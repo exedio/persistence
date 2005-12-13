@@ -51,8 +51,8 @@ public abstract class Input extends Item
 				com.exedio.cope.UniqueViolationException
 	{
 		this(new com.exedio.cope.AttributeValue[]{
-			new com.exedio.cope.AttributeValue(Input.string,string),
-			new com.exedio.cope.AttributeValue(Input.integer,new java.lang.Integer(integer)),
+			Input.string.map(string),
+			Input.integer.map(integer),
 		});
 		throwInitialMandatoryViolationException();
 		throwInitialUniqueViolationException();

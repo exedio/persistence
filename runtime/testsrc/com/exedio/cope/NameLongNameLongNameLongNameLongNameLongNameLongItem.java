@@ -50,7 +50,7 @@ public class NameLongNameLongNameLongNameLongNameLongNameLongItem extends Item
 				com.exedio.cope.UniqueViolationException
 	{
 		this(new com.exedio.cope.AttributeValue[]{
-			new com.exedio.cope.AttributeValue(NameLongNameLongNameLongNameLongNameLongNameLongItem.code,code),
+			NameLongNameLongNameLongNameLongNameLongNameLongItem.code.map(code),
 		});
 		throwInitialMandatoryViolationException();
 		throwInitialUniqueViolationException();
