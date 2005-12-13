@@ -22,6 +22,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 
@@ -31,6 +32,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.exedio.cope.Attribute;
+import com.exedio.cope.AttributeValue;
 import com.exedio.cope.BooleanAttribute;
 import com.exedio.cope.ConstraintViolationException;
 import com.exedio.cope.DataAttribute;
@@ -366,14 +368,16 @@ public final class Media extends MediaPath
 					throw new RuntimeException("if data is null, mime types must also be null");
 			}
 	
-			// TODO use Item.set(AttributeValue[])
+			final ArrayList values = new ArrayList(3);
 			if(this.mimeMajor!=null)
-				this.mimeMajor.set(item, mimeMajor);
+				values.add(this.mimeMajor.map(mimeMajor));
 			if(this.mimeMinor!=null)
-				this.mimeMinor.set(item, mimeMinor);
+				values.add(this.mimeMinor.map(mimeMinor));
 			if(this.exists!=null)
-				this.exists.set(item, (data!=null) ? Boolean.TRUE : null);
+				values.add(this.exists.map((data!=null) ? Boolean.TRUE : null));
+			item.set((AttributeValue[])values.toArray(new AttributeValue[values.size()]));
 			
+			// TODO set this via Item.set(AttributeValue[]) as well
 			if(data instanceof InputStream)
 				this.data.set(item, (InputStream)data);
 			else
