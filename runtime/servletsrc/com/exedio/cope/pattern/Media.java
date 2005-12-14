@@ -149,18 +149,34 @@ public final class Media extends MediaPath
 	 * Returns the major mime type for the given content type.
 	 * Returns null, if content type is null.
 	 */
-	public final static String toMajor(final String contentType)
+	public final static String toMajor(final String contentType) throws IllegalContentTypeException
 	{
-		return contentType!=null ? contentType.substring(0, contentType.indexOf('/')) : null;
+		if(contentType!=null)
+		{
+			final int pos = contentType.indexOf('/');
+			if(pos<0)
+				throw new IllegalContentTypeException(contentType);
+			return contentType.substring(0, pos);
+		}
+		else
+			return null;
 	}
 	
 	/**
 	 * Returns the minor mime type for the given content type.
 	 * Returns null, if content type is null.
 	 */
-	public final static String toMinor(final String contentType)
+	public final static String toMinor(final String contentType) throws IllegalContentTypeException
 	{
-		return contentType!=null ? contentType.substring(contentType.indexOf('/')+1) : null;
+		if(contentType!=null)
+		{
+			final int pos = contentType.indexOf('/');
+			if(pos<0)
+				throw new IllegalContentTypeException(contentType);
+			return contentType.substring(contentType.indexOf('/')+1);
+		}
+		else
+			return null;
 	}
           
 	/**
@@ -535,6 +551,8 @@ public final class Media extends MediaPath
 		
 		void map(final ArrayList values, final String contentType)
 		{
+			// enforce valid content type
+			toMinor(contentType);
 		}
 	}
 
