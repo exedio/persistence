@@ -462,9 +462,9 @@ public final class Media extends MediaPath
 		}
 		else
 		{
-			final long contentLength = getLength(item);
+			final int contentLength = (int)getLength(item);
 			//System.out.println("contentLength="+String.valueOf(contentLength));
-			response.setContentLength((int)contentLength);
+			response.setContentLength(contentLength);
 			//response.setHeader("Cache-Control", "public");
 
 			System.out.println(request.getMethod()+' '+request.getProtocol()+" IMS="+format(ifModifiedSince)+"  LM="+format(lastModified)+"  modified: "+contentLength);
@@ -476,7 +476,7 @@ public final class Media extends MediaPath
 				out = response.getOutputStream();
 				in = getData(item);
 
-				final byte[] buffer = new byte[Math.max((int)contentLength, 50*1024)];
+				final byte[] buffer = new byte[Math.min(contentLength, 50*1024)];
 				for(int len = in.read(buffer); len != -1; len = in.read(buffer))
 					out.write(buffer, 0, len);
 
