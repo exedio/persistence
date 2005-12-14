@@ -62,46 +62,32 @@ public final class CustomAttribute extends Pattern
 		final String nameGetter = "get" + nameUpper;
 		final String nameSetter = "set" + nameUpper;
 		
-		Method getter = null; 
-		Method setter = null; 
-		final Method[] methods = getType().getJavaClass().getDeclaredMethods();
-		for(int i = 0; i<methods.length; i++)
+		final Class javaClass = getType().getJavaClass();
+		final Method getter; 
+		try
 		{
-			final Method m = methods[i];
-			if(nameGetter.equals(m.getName()))
-			{
-				final Class[] params = m.getParameterTypes();
-				if(params.length==0 && m.getReturnType()!=void.class)
-				{
-					if(getter!=null)
-						throw new RuntimeException("ambigous getter: "+getter+" and "+m);
-					getter = m;
-				}
-			}
-			if(nameSetter.equals(m.getName()))
-			{
-				final Class[] params = m.getParameterTypes();
-				if(params.length==1 && m.getReturnType()==void.class)
-				{
-					if(setter!=null)
-						throw new RuntimeException("ambigous setter: "+setter+" and "+m);
-					setter = m;
-				}
-			}
+			getter = javaClass.getDeclaredMethod(nameGetter, (Class[])null); 
 		}
-		if(getter==null)
-			throw new RuntimeException("no getter found");
-		if(setter==null)
-			throw new RuntimeException("no setter found");
-
-		final Class getterType = getter.getReturnType();
-		final Class setterType = setter.getParameterTypes()[0];
-		if(getterType!=setterType)
-			throw new RuntimeException("getter incompatible to setter: "+getterType.getName()+" - "+setterType.getName());
+		catch(NoSuchMethodException e)
+		{
+			throw new RuntimeException("no suitable getter method found for custom attribute "+name, e);
+		}
 		
+		final Class valueType = getter.getReturnType();
+		
+		final Method setter;
+		try
+		{
+			setter = javaClass.getDeclaredMethod(nameSetter, new Class[]{valueType});
+		}
+		catch(NoSuchMethodException e)
+		{
+			throw new RuntimeException("no suitable setter method found for custom attribute "+name, e);
+		}
+
 		this.getter = getter;
 		this.setter = setter;
-		this.valueType = getterType;
+		this.valueType = valueType;
 	}
 	
 	final Class getValueType()
