@@ -151,15 +151,7 @@ public final class Media extends MediaPath
 	 */
 	public final static String toMajor(final String contentType) throws IllegalContentTypeException
 	{
-		if(contentType!=null)
-		{
-			final int pos = contentType.indexOf('/');
-			if(pos<0)
-				throw new IllegalContentTypeException(contentType);
-			return contentType.substring(0, pos);
-		}
-		else
-			return null;
+		return toMajorMinor(contentType, true);
 	}
 	
 	/**
@@ -168,12 +160,20 @@ public final class Media extends MediaPath
 	 */
 	public final static String toMinor(final String contentType) throws IllegalContentTypeException
 	{
+		return toMajorMinor(contentType, false);
+	}
+          
+	private final static String toMajorMinor(final String contentType, final boolean major) throws IllegalContentTypeException
+	{
 		if(contentType!=null)
 		{
 			final int pos = contentType.indexOf('/');
 			if(pos<0)
 				throw new IllegalContentTypeException(contentType);
-			return contentType.substring(contentType.indexOf('/')+1);
+			return
+				major
+				? contentType.substring(0, pos)
+				: contentType.substring(contentType.indexOf('/')+1);
 		}
 		else
 			return null;
