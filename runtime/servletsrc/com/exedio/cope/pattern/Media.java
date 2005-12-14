@@ -619,21 +619,21 @@ public final class Media extends MediaPath
 
 	final class StoredContentType extends ContentType
 	{
-		final StringAttribute mimeMajor;
-		final StringAttribute mimeMinor;
+		private final StringAttribute major;
+		private final StringAttribute minor;
 		
 		StoredContentType(final StringAttribute mimeMajor, final StringAttribute mimeMinor)
 		{
-			this.mimeMajor = mimeMajor;
-			this.mimeMinor = mimeMinor;
+			this.major = mimeMajor;
+			this.minor = mimeMinor;
 			
 			if(mimeMajor==null)
 				throw new NullPointerException("mimeMajor must not be null");
 			if(mimeMajor==null)
 				throw new NullPointerException("mimeMinor must not be null");
 
-			registerSource(this.mimeMajor);
-			registerSource(this.mimeMinor);
+			registerSource(this.major);
+			registerSource(this.minor);
 		}
 		
 		String getFixedMimeMajor()
@@ -648,31 +648,31 @@ public final class Media extends MediaPath
 		
 		StringAttribute getMimeMajor()
 		{
-			return mimeMajor;
+			return major;
 		}
 		
 		StringAttribute getMimeMinor()
 		{
-			return mimeMinor;
+			return minor;
 		}
 		
 		void initialize(final String name)
 		{
-			if(!mimeMajor.isInitialized())
-				Media.this.initialize(mimeMajor, name+"Major");
-			if(!mimeMinor.isInitialized())
-				Media.this.initialize(mimeMinor, name+"Minor");
+			if(!major.isInitialized())
+				Media.this.initialize(major, name+"Major");
+			if(!minor.isInitialized())
+				Media.this.initialize(minor, name+"Minor");
 		}
 		
 		String getContentType(final Item item)
 		{
-			return mimeMajor.get(item) + '/' + mimeMinor.get(item);
+			return major.get(item) + '/' + minor.get(item);
 		}
 		
 		void map(final ArrayList values, final String contentType)
 		{
-			values.add(this.mimeMajor.map(toMajor(contentType)));
-			values.add(this.mimeMinor.map(toMinor(contentType)));
+			values.add(this.major.map(toMajor(contentType)));
+			values.add(this.minor.map(toMinor(contentType)));
 		}
 	}
 	
