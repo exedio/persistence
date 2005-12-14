@@ -166,8 +166,6 @@ public class GeneratorTest extends InstrumentorTest
 
 		assertMethod(STANDARD, "isAnyMediaNull", boolean.class, PUBLIC|FINAL);
 		assertMethod(STANDARD, "getAnyMediaURL", STRING, PUBLIC|FINAL);
-		assertMethod(STANDARD, "getAnyMediaMimeMajor", STRING, PUBLIC|FINAL);
-		assertMethod(STANDARD, "getAnyMediaMimeMinor", STRING, PUBLIC|FINAL);
 		assertMethod(STANDARD, "getAnyMediaContentType", STRING, PUBLIC|FINAL);
 		assertMethod(STANDARD, "getAnyMediaLength", long.class, PUBLIC|FINAL);
 		assertMethod(STANDARD, "getAnyMediaLastModified", long.class, PUBLIC|FINAL);
@@ -178,8 +176,6 @@ public class GeneratorTest extends InstrumentorTest
 
 		assertMethod(STANDARD, "isMajorMediaNull", boolean.class, FINAL);
 		assertMethod(STANDARD, "getMajorMediaURL", STRING, FINAL);
-		assertMethod(STANDARD, "getMajorMediaMimeMajor", STRING, FINAL);
-		assertMethod(STANDARD, "getMajorMediaMimeMinor", STRING, FINAL);
 		assertMethod(STANDARD, "getMajorMediaContentType", STRING, FINAL);
 		assertMethod(STANDARD, "getMajorMediaLength", long.class, FINAL);
 		assertMethod(STANDARD, "getMajorMediaLastModified", long.class, FINAL);
@@ -190,8 +186,6 @@ public class GeneratorTest extends InstrumentorTest
 
 		assertMethod(STANDARD, "isMinorMediaNull", boolean.class, PROTECTED|FINAL);
 		assertMethod(STANDARD, "getMinorMediaURL", STRING, PROTECTED|FINAL);
-		assertMethod(STANDARD, "getMinorMediaMimeMajor", STRING, PROTECTED|FINAL);
-		assertMethod(STANDARD, "getMinorMediaMimeMinor", STRING, PROTECTED|FINAL);
 		assertMethod(STANDARD, "getMinorMediaContentType", STRING, PROTECTED|FINAL);
 		assertMethod(STANDARD, "getMinorMediaLength", long.class, PROTECTED|FINAL);
 		assertMethod(STANDARD, "getMinorMediaLastModified", long.class, PROTECTED|FINAL);
@@ -202,8 +196,6 @@ public class GeneratorTest extends InstrumentorTest
 
 		assertMethod(STANDARD, "isNoSetterMediaNull", boolean.class, PUBLIC|FINAL);
 		assertMethod(STANDARD, "getNoSetterMediaURL", STRING, PUBLIC|FINAL);
-		assertMethod(STANDARD, "getNoSetterMediaMimeMajor", STRING, PUBLIC|FINAL);
-		assertMethod(STANDARD, "getNoSetterMediaMimeMinor", STRING, PUBLIC|FINAL);
 		assertMethod(STANDARD, "getNoSetterMediaContentType", STRING, PUBLIC|FINAL);
 		assertMethod(STANDARD, "getNoSetterMediaLength", long.class, PUBLIC|FINAL);
 		assertMethod(STANDARD, "getNoSetterMediaLastModified", long.class, PUBLIC|FINAL);
@@ -214,8 +206,6 @@ public class GeneratorTest extends InstrumentorTest
 
 		assertMethod(STANDARD, "isPrivateSetterMediaNull", boolean.class, PUBLIC|FINAL);
 		assertMethod(STANDARD, "getPrivateSetterMediaURL", STRING, PUBLIC|FINAL);
-		assertMethod(STANDARD, "getPrivateSetterMediaMimeMajor", STRING, PUBLIC|FINAL);
-		assertMethod(STANDARD, "getPrivateSetterMediaMimeMinor", STRING, PUBLIC|FINAL);
 		assertMethod(STANDARD, "getPrivateSetterMediaContentType", STRING, PUBLIC|FINAL);
 		assertMethod(STANDARD, "getPrivateSetterMediaLength", long.class, PUBLIC|FINAL);
 		assertMethod(STANDARD, "getPrivateSetterMediaLastModified", long.class, PUBLIC|FINAL);

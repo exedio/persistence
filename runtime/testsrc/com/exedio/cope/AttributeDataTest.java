@@ -34,8 +34,7 @@ public class AttributeDataTest extends AttributeTest
 		assertEquals(item.TYPE, item.someData.getType());
 		assertEquals(null, item.getSomeDataURL());
 		assertEquals(null, item.getSomeDataData());
-		assertEquals(null, item.getSomeDataMimeMajor());
-		assertEquals(null, item.getSomeDataMimeMinor());
+		assertEquals(null, item.getSomeDataContentType());
 
 		final byte[] bytes = new byte[]{3,7,1,4};
 		item.setSomeData(stream(bytes),"someMimeMajor", "someMimeMinor");
@@ -49,20 +48,18 @@ public class AttributeDataTest extends AttributeTest
 		//System.out.println(item.getSomeDataURL());
 		assertEquals(expectedURL, item.getSomeDataURL());
 		assertData(bytes, item.getSomeDataData());
-		assertEquals("someMimeMajor", item.getSomeDataMimeMajor());
-		assertEquals("someMimeMinor", item.getSomeDataMimeMinor());
+		assertEquals("someMimeMajor/someMimeMinor", item.getSomeDataContentType());
 
 		restartTransaction();
 		assertEquals(expectedURL, item.getSomeDataURL());
 		assertData(bytes, item.getSomeDataData());
-		assertEquals("someMimeMajor", item.getSomeDataMimeMajor());
-		assertEquals("someMimeMinor", item.getSomeDataMimeMinor());
+		assertEquals("someMimeMajor/someMimeMinor", item.getSomeDataContentType());
 
-		assertDataMime(item, "image", "jpeg", bytes, "jpg");
-		assertDataMime(item, "image", "pjpeg", bytes, "jpg");
-		assertDataMime(item, "image", "gif", bytes, "gif");
-		assertDataMime(item, "image", "png", bytes, "png");
-		assertDataMime(item, "image", "someMinor", bytes, "image.someMinor");
+		assertDataMime(item, "image/jpeg", bytes, "jpg");
+		assertDataMime(item, "image/pjpeg", bytes, "jpg");
+		assertDataMime(item, "image/gif", bytes, "gif");
+		assertDataMime(item, "image/png", bytes, "png");
+		assertDataMime(item, "image/someMinor", bytes, "image.someMinor");
 
 		final byte[] manyBytes = new byte[49467];
 		for(int i = 0; i<manyBytes.length; i++)
@@ -76,8 +73,7 @@ public class AttributeDataTest extends AttributeTest
 		item.setSomeData((InputStream)null, null, null);
 		assertEquals(null, item.getSomeDataURL());
 		assertEquals(null, item.getSomeDataData());
-		assertEquals(null, item.getSomeDataMimeMajor());
-		assertEquals(null, item.getSomeDataMimeMinor());
+		assertEquals(null, item.getSomeDataContentType());
 	}
 
 

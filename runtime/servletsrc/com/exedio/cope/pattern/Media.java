@@ -146,22 +146,20 @@ public final class Media extends MediaPath
 	}
 
 	/**
-	 * Returns the major mime type of this media.
-	 * Returns null, if there is no data for this media.
+	 * Returns the major mime type for the given content type.
+	 * Returns null, if content type is null.
 	 */
-	public final String getMimeMajor(final Item item)
+	public final static String toMajor(final String contentType)
 	{
-		final String contentType = getContentType(item);
 		return contentType!=null ? contentType.substring(0, contentType.indexOf('/')) : null;
 	}
 	
 	/**
-	 * Returns the minor mime type of this media.
-	 * Returns null, if there is no data for this media.
+	 * Returns the minor mime type for the given content type.
+	 * Returns null, if content type is null.
 	 */
-	public final String getMimeMinor(final Item item)
+	public final static String toMinor(final String contentType)
 	{
-		final String contentType = getContentType(item);
 		return contentType!=null ? contentType.substring(contentType.indexOf('/')+1) : null;
 	}
           
@@ -646,7 +644,7 @@ public final class Media extends MediaPath
 		
 		String getContentType(final Item item)
 		{
-			return  mimeMajor.get(item) + '/' + mimeMinor.get(item);
+			return mimeMajor.get(item) + '/' + mimeMinor.get(item);
 		}
 		
 		void map(final ArrayList values, final String mimeMajor, final String mimeMinor)

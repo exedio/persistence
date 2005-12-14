@@ -75,8 +75,6 @@ final class Generator
 	private static final String SETTER_MEDIA_IOEXCEPTION = "if accessing {0} throws an IOException.";
 	private static final String GETTER_MEDIA_IS_NULL = "Returns whether this media {0} has data available.";
 	private static final String GETTER_MEDIA_URL   = "Returns a URL the data of the media {0} is available under.";
-	private static final String GETTER_MEDIA_MAJOR = "Returns the major mime type of the media {0}.";
-	private static final String GETTER_MEDIA_MINOR = "Returns the minor mime type of the media {0}.";
 	private static final String GETTER_MEDIA_CONTENT_TYPE = "Returns the content type of the media {0}.";
 	private static final String GETTER_MEDIA_LENGTH_TYPE = "Returns the data length of the media {0}.";
 	private static final String GETTER_MEDIA_LASTMODIFIED_TYPE = "Returns the last modification date of the media {0}.";
@@ -606,8 +604,6 @@ final class Generator
 		final int getterModifier = media.getGeneratedGetterModifier();
 		writeDataGetterMethod(media, boolean.class,     "Null",        GETTER_MEDIA_IS_NULL,      getterModifier);
 		writeDataGetterMethod(media, String.class,      "URL",         GETTER_MEDIA_URL,          getterModifier);
-		writeDataGetterMethod(media, String.class,      "MimeMajor",   GETTER_MEDIA_MAJOR,        getterModifier);
-		writeDataGetterMethod(media, String.class,      "MimeMinor",   GETTER_MEDIA_MINOR,        getterModifier);
 		writeDataGetterMethod(media, String.class,      "ContentType", GETTER_MEDIA_CONTENT_TYPE, getterModifier);
 		writeDataGetterMethod(media, long.class,        "Length",      GETTER_MEDIA_LENGTH_TYPE, getterModifier);
 		writeDataGetterMethod(media, long.class,        "LastModified",GETTER_MEDIA_LASTMODIFIED_TYPE, getterModifier);

@@ -133,14 +133,15 @@ class ItemCop_Jspm
 							else
 							{
 								%><a href="<%=url%>"><%
-								final String major = media.getMimeMajor(item);
+								final String contentType = media.getContentType(item);
+								final String major = Media.toMajor(contentType);
 								if("image".equals(major))
 								{
-									%><img src="<%=url%>" width="250"><small>(<%=media.getMimeMinor(item)%>)</small><%
+									%><img src="<%=url%>" width="250"><small>(<%=Media.toMinor(contentType)%>)</small><%
 								}
 								else
 								{
-									%>download <small>(<%=major%>/<%=media.getMimeMinor(item)%>)</small><%
+									%>download <small>(<%=contentType%>)</small><%
 								}
 								%></a><%
 							}

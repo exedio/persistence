@@ -189,8 +189,7 @@ final class TypeCop_Jspm
 							else
 							{
 								%><a href="<%=url%>"><%
-								final String major = media.getMimeMajor(item);
-								if("image".equals(major))
+								if("image".equals(Media.toMajor(media.getContentType(item))))
 								{
 									%><img src="<%=url%>" width="50"><%
 								}

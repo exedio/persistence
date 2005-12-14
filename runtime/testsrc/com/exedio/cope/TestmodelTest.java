@@ -22,6 +22,7 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 
+import com.exedio.cope.pattern.Media;
 import com.exedio.cope.testmodel.AttributeItem;
 import com.exedio.cope.testmodel.Main;
 
@@ -57,14 +58,13 @@ public abstract class TestmodelTest extends AbstractLibTest
 	}
 	
 	protected void assertDataMime(final AttributeItem item,
-											final String mimeMajor,
-											final String mimeMinor,
+											final String contentType,
 											final byte[] data,
 											final String url)
 	{
 		try
 		{
-			item.setSomeData(new ByteArrayInputStream(data), mimeMajor, mimeMinor);
+			item.setSomeData(new ByteArrayInputStream(data), Media.toMajor(contentType), Media.toMinor(contentType));
 		}
 		catch(IOException e)
 		{
@@ -77,8 +77,7 @@ public abstract class TestmodelTest extends AbstractLibTest
 		//System.out.println(item.getSomeDataURL());
 		assertEquals(expectedURL, item.getSomeDataURL());
 		assertData(data, item.getSomeDataData());
-		assertEquals(mimeMajor, item.getSomeDataMimeMajor());
-		assertEquals(mimeMinor, item.getSomeDataMimeMinor());
+		assertEquals(contentType, item.getSomeDataContentType());
 	}
 
 	protected void assertNotEquals(final Item item1, final Item item2)
