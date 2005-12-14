@@ -171,8 +171,8 @@ public class GeneratorTest extends InstrumentorTest
 		assertMethod(STANDARD, "getAnyMediaLastModified", long.class, PUBLIC|FINAL);
 		assertMethod(STANDARD, "getAnyMediaData", INPUT_STREAM, PUBLIC|FINAL);
 		assertMethod(STANDARD, "getAnyMediaData", new Class[]{File.class}, PUBLIC|FINAL, new Class[]{IO_EXCEPTION});
-		assertMethod(STANDARD, "setAnyMedia", new Class[]{INPUT_STREAM, STRING, STRING}, PUBLIC|FINAL, new Class[]{IO_EXCEPTION});
-		assertMethod(STANDARD, "setAnyMedia", new Class[]{File.class, STRING, STRING}, PUBLIC|FINAL, new Class[]{IO_EXCEPTION});
+		assertMethod(STANDARD, "setAnyMedia", new Class[]{INPUT_STREAM, STRING}, PUBLIC|FINAL, new Class[]{IO_EXCEPTION});
+		assertMethod(STANDARD, "setAnyMedia", new Class[]{File.class, STRING}, PUBLIC|FINAL, new Class[]{IO_EXCEPTION});
 
 		assertMethod(STANDARD, "isMajorMediaNull", boolean.class, FINAL);
 		assertMethod(STANDARD, "getMajorMediaURL", STRING, FINAL);
@@ -191,8 +191,8 @@ public class GeneratorTest extends InstrumentorTest
 		assertMethod(STANDARD, "getMinorMediaLastModified", long.class, PROTECTED|FINAL);
 		assertMethod(STANDARD, "getMinorMediaData", INPUT_STREAM, PROTECTED|FINAL);
 		assertMethod(STANDARD, "getMinorMediaData", new Class[]{File.class}, PROTECTED|FINAL, new Class[]{IO_EXCEPTION});
-		assertMethod(STANDARD, "setMinorMedia", new Class[]{INPUT_STREAM}, PROTECTED|FINAL, new Class[]{IO_EXCEPTION});
-		assertMethod(STANDARD, "setMinorMedia", new Class[]{File.class}, PROTECTED|FINAL, new Class[]{IO_EXCEPTION});
+		assertMethod(STANDARD, "setMinorMedia", new Class[]{INPUT_STREAM, STRING}, PROTECTED|FINAL, new Class[]{IO_EXCEPTION});
+		assertMethod(STANDARD, "setMinorMedia", new Class[]{File.class, STRING}, PROTECTED|FINAL, new Class[]{IO_EXCEPTION});
 
 		assertMethod(STANDARD, "isNoSetterMediaNull", boolean.class, PUBLIC|FINAL);
 		assertMethod(STANDARD, "getNoSetterMediaURL", STRING, PUBLIC|FINAL);
@@ -201,8 +201,8 @@ public class GeneratorTest extends InstrumentorTest
 		assertMethod(STANDARD, "getNoSetterMediaLastModified", long.class, PUBLIC|FINAL);
 		assertMethod(STANDARD, "getNoSetterMediaData", INPUT_STREAM, PUBLIC|FINAL);
 		assertMethod(STANDARD, "getNoSetterMediaData", new Class[]{File.class}, PUBLIC|FINAL, new Class[]{IO_EXCEPTION});
-		assertNoMethod(STANDARD, "setNoSetterMedia", new Class[]{INPUT_STREAM,STRING,STRING});
-		assertNoMethod(STANDARD, "setNoSetterMedia", new Class[]{File.class,STRING,STRING});
+		assertNoMethod(STANDARD, "setNoSetterMedia", new Class[]{INPUT_STREAM,STRING});
+		assertNoMethod(STANDARD, "setNoSetterMedia", new Class[]{File.class,STRING});
 
 		assertMethod(STANDARD, "isPrivateSetterMediaNull", boolean.class, PUBLIC|FINAL);
 		assertMethod(STANDARD, "getPrivateSetterMediaURL", STRING, PUBLIC|FINAL);
@@ -211,8 +211,8 @@ public class GeneratorTest extends InstrumentorTest
 		assertMethod(STANDARD, "getPrivateSetterMediaLastModified", long.class, PUBLIC|FINAL);
 		assertMethod(STANDARD, "getPrivateSetterMediaData", INPUT_STREAM, PUBLIC|FINAL);
 		assertMethod(STANDARD, "getPrivateSetterMediaData", new Class[]{File.class}, PUBLIC|FINAL, new Class[]{IO_EXCEPTION});
-		assertMethod(STANDARD, "setPrivateSetterMedia", new Class[]{INPUT_STREAM,STRING,STRING}, PRIVATE|FINAL, new Class[]{IO_EXCEPTION});
-		assertMethod(STANDARD, "setPrivateSetterMedia", new Class[]{File.class,STRING,STRING}, PRIVATE|FINAL, new Class[]{IO_EXCEPTION});
+		assertMethod(STANDARD, "setPrivateSetterMedia", new Class[]{INPUT_STREAM,STRING}, PRIVATE|FINAL, new Class[]{IO_EXCEPTION});
+		assertMethod(STANDARD, "setPrivateSetterMedia", new Class[]{File.class,STRING}, PRIVATE|FINAL, new Class[]{IO_EXCEPTION});
 
 		assertMethod(STANDARD, "checkPublicHash", new Class[]{STRING}, Boolean.TYPE, PUBLIC|FINAL);
 		assertMethod(STANDARD, "checkPrivateHash", new Class[]{STRING}, Boolean.TYPE, PRIVATE|FINAL);

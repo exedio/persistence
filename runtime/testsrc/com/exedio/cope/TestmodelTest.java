@@ -22,7 +22,6 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 
-import com.exedio.cope.pattern.Media;
 import com.exedio.cope.testmodel.AttributeItem;
 import com.exedio.cope.testmodel.Main;
 
@@ -64,7 +63,7 @@ public abstract class TestmodelTest extends AbstractLibTest
 	{
 		try
 		{
-			item.setSomeData(new ByteArrayInputStream(data), Media.toMajor(contentType), Media.toMinor(contentType));
+			item.setSomeData(new ByteArrayInputStream(data), contentType);
 		}
 		catch(IOException e)
 		{

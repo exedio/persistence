@@ -551,9 +551,6 @@ final class Generator
 	private void writeDataSetterMethod(final CopeMedia media, final Class dataType)
 	throws IOException
 	{
-		final String mimeMajor = media.mimeMajor;
-		final String mimeMinor = media.mimeMinor;
-
 		writeCommentHeader();
 		o.write("\t * ");
 		o.write(format(SETTER_MEDIA, link(media.getName())));
@@ -567,11 +564,7 @@ final class Generator
 		o.write(Modifier.toString(media.getGeneratedSetterModifier()));
 		o.write(" void set");
 		o.write(toCamelCase(media.getName()));
-		o.write("(final " + dataType.getName() + " data");
-		if(mimeMajor==null)
-			o.write(",final "+String.class.getName()+" mimeMajor");
-		if(mimeMinor==null)
-			o.write(",final "+String.class.getName()+" mimeMinor");
+		o.write("(final " + dataType.getName() + " data,final "+String.class.getName()+" contentType");
 		o.write(')');
 		final SortedSet setterExceptions = new TreeSet();
 		setterExceptions.addAll(Arrays.asList(new Class[]{IOException.class})); // TODO
@@ -588,10 +581,7 @@ final class Generator
 		o.write(media.type.getName());
 		o.write('.');
 		o.write(media.getName());
-		o.write(".set(this,data");
-		o.write(mimeMajor==null ? ",mimeMajor" : ",null");
-		o.write(mimeMinor==null ? ",mimeMinor" : ",null");
-		o.write(");");
+		o.write(".set(this,data,contentType);");
 		o.write(lineSeparator);
 		writeTryCatchClausePostfix(exceptionsToCatch);
 		o.write("\t}");

@@ -266,12 +266,12 @@ public final class Media extends MediaPath
 	 *         if data is null and attribute is {@link Attribute#isMandatory() mandatory}.
 	 * @throws IOException if reading data throws an IOException.
 	 */
-	public final void set(final Item item, final InputStream data, final String mimeMajor, final String mimeMinor)
+	public final void set(final Item item, final InputStream data, final String contentType)
 		throws IOException
 	{
 		try
 		{
-			set(item, (Object)data, mimeMajor, mimeMinor);
+			set(item, (Object)data, contentType);
 		}
 		finally
 		{
@@ -287,31 +287,30 @@ public final class Media extends MediaPath
 	 *         if data is null and attribute is {@link Attribute#isMandatory() mandatory}.
 	 * @throws IOException if reading data throws an IOException.
 	 */
-	public final void set(final Item item, final File data, final String mimeMajor, final String mimeMinor)
+	public final void set(final Item item, final File data, final String contentType)
 		throws IOException
 	{
-		set(item, (Object)data, mimeMajor, mimeMinor);
+		set(item, (Object)data, contentType);
 	}
 	
-	private final void set(final Item item, final Object data, final String mimeMajor, final String mimeMinor)
+	private final void set(final Item item, final Object data, final String contentType)
 		throws IOException
 	{
 		try
 		{
 			if(data!=null)
 			{
-				if((mimeMajor==null&&contentType.getFixedMimeMajor()==null) ||
-					(mimeMinor==null&&contentType.getFixedMimeMinor()==null))
-					throw new RuntimeException("if data is not null, mime types must also be not null");
+				if(contentType==null)
+					throw new RuntimeException("if data is not null, content type must also be not null");
 			}
 			else
 			{
-				if(mimeMajor!=null||mimeMinor!=null)
-					throw new RuntimeException("if data is null, mime types must also be null");
+				if(contentType!=null)
+					throw new RuntimeException("if data is null, content type must also be null");
 			}
 	
 			final ArrayList values = new ArrayList(3);
-			contentType.map(values, mimeMajor, mimeMinor);
+			this.contentType.map(values, contentType);
 			if(this.exists!=null)
 				values.add(this.exists.map((data!=null) ? Boolean.TRUE : null));
 			item.set((AttributeValue[])values.toArray(new AttributeValue[values.size()]));
@@ -485,7 +484,7 @@ public final class Media extends MediaPath
 		abstract StringAttribute getMimeMinor();
 		abstract void initialize(String name);
 		abstract String getContentType(Item item);
-		abstract void map(ArrayList values, String mimeMajor, String mimeMinor);
+		abstract void map(ArrayList values, String contentType);
 	}
 	
 	final class FixedContentType extends ContentType
@@ -534,7 +533,7 @@ public final class Media extends MediaPath
 			return mimeMajor + '/' + mimeMinor;
 		}
 		
-		void map(final ArrayList values, final String mimeMajor, final String mimeMinor)
+		void map(final ArrayList values, final String contentType)
 		{
 		}
 	}
@@ -589,9 +588,9 @@ public final class Media extends MediaPath
 			return mimeMajor + '/' + mimeMinor.get(item);
 		}
 		
-		void map(final ArrayList values, final String mimeMajor, final String mimeMinor)
+		void map(final ArrayList values, final String contentType)
 		{
-			values.add(this.mimeMinor.map(mimeMinor));
+			values.add(this.mimeMinor.map(toMinor(contentType)));
 		}
 	}
 
@@ -647,10 +646,10 @@ public final class Media extends MediaPath
 			return mimeMajor.get(item) + '/' + mimeMinor.get(item);
 		}
 		
-		void map(final ArrayList values, final String mimeMajor, final String mimeMinor)
+		void map(final ArrayList values, final String contentType)
 		{
-			values.add(this.mimeMajor.map(mimeMajor));
-			values.add(this.mimeMinor.map(mimeMinor));
+			values.add(this.mimeMajor.map(toMajor(contentType)));
+			values.add(this.mimeMinor.map(toMinor(contentType)));
 		}
 	}
 	

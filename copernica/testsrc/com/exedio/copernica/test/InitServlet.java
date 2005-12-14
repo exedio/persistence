@@ -111,9 +111,9 @@ public class InitServlet extends CopsServlet
 			final AttributeItem attributeItem1 = new AttributeItem("someString1", 5, 6l, 2.2, true, emptyItem1, AttributeItem.SomeEnum.enumValue1);
 			final AttributeItem attributeItem2 = new AttributeItem("someString2", 6, 7l, 2.3, true, emptyItem2, AttributeItem.SomeEnum.enumValue2);
 			final AttributeItem attributeItem3 = new AttributeItem("someString3", 7, 8l, 2.4, false, emptyItem2, AttributeItem.SomeEnum.enumValue2);
-			attributeItem1.setSomeData(thisClass.getResourceAsStream("dummy.txt"), "text", "plain");
-			attributeItem2.setSomeData(thisClass.getResourceAsStream("osorno.png"), "image", "png");
-			attributeItem3.setSomeData(thisClass.getResourceAsStream("tree.jpg"), "image", "jpeg");
+			attributeItem1.setSomeData(thisClass.getResourceAsStream("dummy.txt"), "text/plain");
+			attributeItem2.setSomeData(thisClass.getResourceAsStream("osorno.png"), "image/png");
+			attributeItem3.setSomeData(thisClass.getResourceAsStream("tree.jpg"), "image/jpeg");
 			
 			final Date date = new Date(1087368238214l);
 			for(int i = 0; i<102; i++)
@@ -140,16 +140,16 @@ public class InitServlet extends CopsServlet
 			}
 			
 			final MediaItem dataItem1 = new MediaItem("media item 1");
-			dataItem1.setFile(thisClass.getResourceAsStream("dummy.txt"), "text", "plain");
-			dataItem1.setImage(thisClass.getResourceAsStream("osorno.png"), "png");
-			dataItem1.setPhoto(thisClass.getResourceAsStream("tree.jpg"));
+			dataItem1.setFile(thisClass.getResourceAsStream("dummy.txt"), "text/plain");
+			dataItem1.setImage(thisClass.getResourceAsStream("osorno.png"), "image/png");
+			dataItem1.setPhoto(thisClass.getResourceAsStream("tree.jpg"), "image/jpeg");
 
 			final MediaItem dataItem2 = new MediaItem(null);
-			dataItem2.setFile(thisClass.getResourceAsStream("osorno.png"), "image", "png");
-			dataItem2.setImage(thisClass.getResourceAsStream("tree.jpg"), "jpeg");
+			dataItem2.setFile(thisClass.getResourceAsStream("osorno.png"), "image/png");
+			dataItem2.setImage(thisClass.getResourceAsStream("tree.jpg"), "image/jpeg");
 
 			final MediaItem dataItem3 = new MediaItem("media item 3 error");
-			dataItem3.setFile(thisClass.getResourceAsStream("dummy.txt"), "unknownma", "unknownmi");
+			dataItem3.setFile(thisClass.getResourceAsStream("dummy.txt"), "unknownma/unknownmi");
 			
 			new SumItem(1, 2, 3);
 			new SumItem(4, 5, 4);

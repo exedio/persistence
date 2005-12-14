@@ -24,15 +24,11 @@ import java.util.List;
 
 final class CopeMedia extends CopeFeature
 {
-	public final String mimeMajor;
-	public final String mimeMinor;
 	public final Option setterOption;
 
 	public CopeMedia(final JavaAttribute javaAttribute, final String docComment)
 	{
 		super(javaAttribute);
-		this.mimeMajor = getString(javaAttribute.getInitializerArguments(), 1);
-		this.mimeMinor = getString(javaAttribute.getInitializerArguments(), 2);
 		this.setterOption = new Option(Injector.findDocTagLine(docComment, Instrumentor.ATTRIBUTE_SETTER), true);
 	}
 

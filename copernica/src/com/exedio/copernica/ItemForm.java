@@ -470,23 +470,17 @@ final class ItemForm extends Form
 				
 				if(fileItem!=null)
 				{
-					final String contentType = fileItem.getContentType();
+					String contentType = fileItem.getContentType();
 					if(contentType!=null)
 					{
-						final int pos = contentType.indexOf('/');
-						if(pos<=0)
-							throw new RuntimeException("invalid content type "+contentType);
-						final String mimeMajor = contentType.substring(0, pos);
-						String mimeMinor = contentType.substring(pos+1);
-						
 						// fix for MSIE behaviour
-						if("image".equals(mimeMajor) && "pjpeg".equals(mimeMinor))
-							mimeMinor = "jpeg";
+						if("image/pjpeg".equals(contentType))
+							contentType = "image/jpeg";
 						
 						try
 						{
 							final InputStream data = fileItem.getInputStream();
-							media.set(item, data, mimeMajor, mimeMinor);
+							media.set(item, data, contentType);
 						}
 						catch(IOException e)
 						{

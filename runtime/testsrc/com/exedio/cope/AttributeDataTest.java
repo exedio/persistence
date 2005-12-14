@@ -37,7 +37,7 @@ public class AttributeDataTest extends AttributeTest
 		assertEquals(null, item.getSomeDataContentType());
 
 		final byte[] bytes = new byte[]{3,7,1,4};
-		item.setSomeData(stream(bytes),"someMimeMajor", "someMimeMinor");
+		item.setSomeData(stream(bytes), "someMimeMajor/someMimeMinor");
 
 		final String prefix =
 			model.getProperties().getMediaRootUrl() + "AttributeItem/someData/";
@@ -67,10 +67,10 @@ public class AttributeDataTest extends AttributeTest
 			manyBytes[i] = (byte)((121*i)%253);
 			//System.out.print(manyBytes[i]+", ");
 		}
-		item.setSomeData(stream(manyBytes),"someMimeMajor", "someMimeMinor");
+		item.setSomeData(stream(manyBytes),"someMimeMajor/someMimeMinor");
 		assertData(manyBytes, item.getSomeDataData());
 
-		item.setSomeData((InputStream)null, null, null);
+		item.setSomeData((InputStream)null, null);
 		assertEquals(null, item.getSomeDataURL());
 		assertEquals(null, item.getSomeDataData());
 		assertEquals(null, item.getSomeDataContentType());
