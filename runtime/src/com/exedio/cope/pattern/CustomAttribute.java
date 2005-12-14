@@ -31,10 +31,10 @@ import com.exedio.cope.UniqueViolationException;
 
 public final class CustomAttribute extends Pattern
 {
-	final ObjectAttribute storage;
-	Method getter; 
-	Method setter; 
-	Class valueType;
+	private final ObjectAttribute storage;
+	private Method getter;
+	private Method setter;
+	private Class valueType;
 	
 	public CustomAttribute(final ObjectAttribute storage)
 	{
