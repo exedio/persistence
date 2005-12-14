@@ -505,14 +505,15 @@ public final class Media extends MediaPath
 	
 	final class FixedContentType extends ContentType
 	{
-		// TODO save one string
 		private final String major;
 		private final String minor;
+		private final String full;
 		
 		FixedContentType(final String mimeMajor, final String mimeMinor)
 		{
 			this.major = mimeMajor;
 			this.minor = mimeMinor;
+			this.full = major + '/' + minor;
 			
 			if(mimeMajor==null)
 				throw new NullPointerException("fixedMimeMajor must not be null");
@@ -546,13 +547,12 @@ public final class Media extends MediaPath
 		
 		String getContentType(final Item item)
 		{
-			return major + '/' + minor;
+			return full;
 		}
 		
 		void map(final ArrayList values, final String contentType)
 		{
-			if(contentType!=null &&
-				(!major.equals(toMajor(contentType)) || !minor.equals(toMinor(contentType))))
+			if(contentType!=null && !full.equals(contentType))
 				throw new IllegalContentTypeException(contentType);
 		}
 	}
