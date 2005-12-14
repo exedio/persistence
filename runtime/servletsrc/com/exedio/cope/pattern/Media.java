@@ -46,12 +46,8 @@ import com.exedio.cope.Attribute.Option;
 public final class Media extends MediaPath
 {
 	final boolean notNull;
-	final String fixedMimeMajor;
-	final String fixedMimeMinor;
-
 	final DataAttribute data;
-	final StringAttribute mimeMajor;
-	final StringAttribute mimeMinor;
+	final ContentType contentType;
 	final BooleanAttribute exists;
 	final ObjectAttribute isNull;
 
@@ -59,23 +55,12 @@ public final class Media extends MediaPath
 	{
 		if(option==null)
 			throw new NullPointerException("option must not be null");
-		if(fixedMimeMajor==null)
-			throw new NullPointerException("fixedMimeMajor must not be null");
-		if(fixedMimeMinor==null)
-			throw new NullPointerException("fixedMimeMinor must not be null");
-
+		
 		this.notNull = option.mandatory;
-		this.fixedMimeMajor = fixedMimeMajor;
-		this.fixedMimeMinor = fixedMimeMinor;
 		registerSource(this.data = new DataAttribute(option));
-		this.mimeMajor = null;
-		this.mimeMinor = null;
+		this.contentType = new FixedContentType(fixedMimeMajor, fixedMimeMinor);
 		this.exists = option.mandatory ? null : new BooleanAttribute(Item.OPTIONAL);
 		this.isNull = exists;
-
-		if(data==null)
-			throw new NullPointerException("data must not be null");
-
 		if(this.exists!=null)
 			registerSource(this.exists);
 	}
@@ -84,28 +69,13 @@ public final class Media extends MediaPath
 	{
 		if(option==null)
 			throw new NullPointerException("option must not be null");
-		if(fixedMimeMajor==null)
-			throw new NullPointerException("fixedMimeMajor must not be null");
 
 		this.notNull = option.mandatory;
-		this.fixedMimeMajor = fixedMimeMajor;
-		this.fixedMimeMinor = null;
 		registerSource(this.data = new DataAttribute(option));
-		this.mimeMajor = null;
-		registerSource(this.mimeMinor = new StringAttribute(option, 1, 30));
+		final StringAttribute mimeMinor = new StringAttribute(option, 1, 30);
+		this.contentType = new HalfFixedContentType(fixedMimeMajor, mimeMinor);
 		this.exists = null;
 		this.isNull = mimeMinor;
-		
-		if(data==null)
-			throw new NullPointerException("data must not be null");
-		if(mimeMinor==null)
-			throw new NullPointerException("mimeMinor must not be null");
-		if(mimeMinor.getSingleUniqueConstraint()!=null)
-			throw new RuntimeException("mimeMinor cannot be unique");
-		if(mimeMinor.isMandatory())
-			throw new RuntimeException("mimeMinor cannot be mandatory");
-		if(mimeMinor.isReadOnly())
-			throw new RuntimeException("mimeMinor cannot be read-only");
 	}
 	
 	public Media(final Option option)
@@ -114,42 +84,22 @@ public final class Media extends MediaPath
 			throw new NullPointerException("option must not be null");
 
 		this.notNull = option.mandatory;
-		this.fixedMimeMajor = null;
-		this.fixedMimeMinor = null;
 		registerSource(this.data = new DataAttribute(option));
-		registerSource(this.mimeMajor = new StringAttribute(option, 1, 30));
-		registerSource(this.mimeMinor = new StringAttribute(option, 1, 30));
+		final StringAttribute mimeMajor = new StringAttribute(option, 1, 30);
+		final StringAttribute mimeMinor = new StringAttribute(option, 1, 30);
+		this.contentType = new StoredContentType(mimeMajor, mimeMinor);
 		this.exists = null;
 		this.isNull = mimeMajor;
-		
-		if(data==null)
-			throw new NullPointerException("data must not be null");
-		if(mimeMajor==null)
-			throw new NullPointerException("mimeMajor must not be null");
-		if(mimeMajor.getSingleUniqueConstraint()!=null)
-			throw new RuntimeException("mimeMajor cannot be unique");
-		if(mimeMajor.isMandatory())
-			throw new RuntimeException("mimeMajor cannot be mandatory");
-		if(mimeMajor.isReadOnly())
-			throw new RuntimeException("mimeMajor cannot be read-only");
-		if(mimeMinor==null)
-			throw new NullPointerException("mimeMinor must not be null");
-		if(mimeMinor.getSingleUniqueConstraint()!=null)
-			throw new RuntimeException("mimeMinor cannot be unique");
-		if(mimeMinor.isMandatory())
-			throw new RuntimeException("mimeMinor cannot be mandatory");
-		if(mimeMinor.isReadOnly())
-			throw new RuntimeException("mimeMinor cannot be read-only");
 	}
 	
 	public final String getFixedMimeMajor()
 	{
-		return fixedMimeMajor;
+		return contentType.getFixedMimeMajor();
 	}
 	
 	public final String getFixedMimeMinor()
 	{
-		return fixedMimeMinor;
+		return contentType.getFixedMimeMinor();
 	}
 	
 	public final DataAttribute getData()
@@ -159,12 +109,12 @@ public final class Media extends MediaPath
 	
 	public final StringAttribute getMimeMajor()
 	{
-		return mimeMajor;
+		return contentType.getMimeMajor();
 	}
 	
 	public final StringAttribute getMimeMinor()
 	{
-		return mimeMinor;
+		return contentType.getMimeMinor();
 	}
 	
 	public final BooleanAttribute getExists()
@@ -184,10 +134,7 @@ public final class Media extends MediaPath
 		final String name = getName();
 		if(data!=null && !data.isInitialized())
 			initialize(data, name+"Data");
-		if(mimeMajor!=null && !mimeMajor.isInitialized())
-			initialize(mimeMajor, name+"Major");
-		if(mimeMinor!=null && !mimeMinor.isInitialized())
-			initialize(mimeMinor, name+"Minor");
+		contentType.initialize(name);
 		if(exists!=null && !exists.isInitialized())
 			initialize(exists, name+"Exists");
 	}
@@ -206,7 +153,7 @@ public final class Media extends MediaPath
 		if(isNull(item))
 			return null;
 
-		return (mimeMajor!=null) ? mimeMajor.get(item) : fixedMimeMajor;
+		return contentType.getMimeMajor(item);
 	}
 
 	/**
@@ -218,7 +165,7 @@ public final class Media extends MediaPath
 		if(isNull(item))
 			return null;
 
-		return (mimeMinor!=null) ? (String)mimeMinor.get(item) : fixedMimeMinor;
+		return contentType.getMimeMinor(item);
 	}
 	
 	/**
@@ -358,8 +305,8 @@ public final class Media extends MediaPath
 		{
 			if(data!=null)
 			{
-				if((mimeMajor==null&&fixedMimeMajor==null) ||
-					(mimeMinor==null&&fixedMimeMinor==null))
+				if((mimeMajor==null&&contentType.getFixedMimeMajor()==null) ||
+					(mimeMinor==null&&contentType.getFixedMimeMinor()==null))
 					throw new RuntimeException("if data is not null, mime types must also be not null");
 			}
 			else
@@ -369,10 +316,7 @@ public final class Media extends MediaPath
 			}
 	
 			final ArrayList values = new ArrayList(3);
-			if(this.mimeMajor!=null)
-				values.add(this.mimeMajor.map(mimeMajor));
-			if(this.mimeMinor!=null)
-				values.add(this.mimeMinor.map(mimeMinor));
+			contentType.map(values, mimeMajor, mimeMinor);
 			if(this.exists!=null)
 				values.add(this.exists.map((data!=null) ? Boolean.TRUE : null));
 			item.set((AttributeValue[])values.toArray(new AttributeValue[values.size()]));
@@ -550,6 +494,198 @@ public final class Media extends MediaPath
 			}
 		}
 	}
+	
+	abstract class ContentType
+	{
+		abstract String getFixedMimeMajor();
+		abstract String getFixedMimeMinor();
+		abstract StringAttribute getMimeMajor();
+		abstract StringAttribute getMimeMinor();
+		abstract void initialize(String name);
+		abstract String getMimeMajor(Item item);
+		abstract String getMimeMinor(Item item);
+		abstract void map(ArrayList values, String mimeMajor, String mimeMinor);
+	}
+	
+	final class FixedContentType extends ContentType
+	{
+		final String mimeMajor;
+		final String mimeMinor;
+		
+		FixedContentType(final String mimeMajor, final String mimeMinor)
+		{
+			this.mimeMajor = mimeMajor;
+			this.mimeMinor = mimeMinor;
+			
+			if(mimeMajor==null)
+				throw new NullPointerException("fixedMimeMajor must not be null");
+			if(mimeMajor==null)
+				throw new NullPointerException("fixedMimeMinor must not be null");
+		}
+		
+		String getFixedMimeMajor()
+		{
+			return mimeMajor;
+		}
+		
+		String getFixedMimeMinor()
+		{
+			return mimeMinor;
+		}
+		
+		StringAttribute getMimeMajor()
+		{
+			return null;
+		}
+		
+		StringAttribute getMimeMinor()
+		{
+			return null;
+		}
+		
+		void initialize(final String name)
+		{
+		}
+		
+		String getMimeMajor(final Item item)
+		{
+			return mimeMajor;
+		}
+		
+		String getMimeMinor(final Item item)
+		{
+			return mimeMinor;
+		}
+		
+		void map(final ArrayList values, final String mimeMajor, final String mimeMinor)
+		{
+		}
+	}
+
+	final class HalfFixedContentType extends ContentType
+	{
+		final String mimeMajor;
+		final StringAttribute mimeMinor;
+		
+		HalfFixedContentType(final String mimeMajor, final StringAttribute mimeMinor)
+		{
+			this.mimeMajor = mimeMajor;
+			this.mimeMinor = mimeMinor;
+			
+			if(mimeMajor==null)
+				throw new NullPointerException("fixedMimeMajor must not be null");
+			if(mimeMajor==null)
+				throw new NullPointerException("mimeMinor must not be null");
+			
+			registerSource(this.mimeMinor);
+		}
+		
+		String getFixedMimeMajor()
+		{
+			return mimeMajor;
+		}
+		
+		String getFixedMimeMinor()
+		{
+			return null;
+		}
+		
+		StringAttribute getMimeMajor()
+		{
+			return null;
+		}
+		
+		StringAttribute getMimeMinor()
+		{
+			return mimeMinor;
+		}
+		
+		void initialize(final String name)
+		{
+			if(!mimeMinor.isInitialized())
+				Media.this.initialize(mimeMinor, name+"Minor");
+		}
+		
+		String getMimeMajor(final Item item)
+		{
+			return mimeMajor;
+		}
+		
+		String getMimeMinor(final Item item)
+		{
+			return mimeMinor.get(item);
+		}
+		
+		void map(final ArrayList values, final String mimeMajor, final String mimeMinor)
+		{
+			values.add(this.mimeMinor.map(mimeMinor));
+		}
+	}
+
+	final class StoredContentType extends ContentType
+	{
+		final StringAttribute mimeMajor;
+		final StringAttribute mimeMinor;
+		
+		StoredContentType(final StringAttribute mimeMajor, final StringAttribute mimeMinor)
+		{
+			this.mimeMajor = mimeMajor;
+			this.mimeMinor = mimeMinor;
+			
+			if(mimeMajor==null)
+				throw new NullPointerException("mimeMajor must not be null");
+			if(mimeMajor==null)
+				throw new NullPointerException("mimeMinor must not be null");
+
+			registerSource(this.mimeMajor);
+			registerSource(this.mimeMinor);
+		}
+		
+		String getFixedMimeMajor()
+		{
+			return null;
+		}
+		
+		String getFixedMimeMinor()
+		{
+			return null;
+		}
+		
+		StringAttribute getMimeMajor()
+		{
+			return mimeMajor;
+		}
+		
+		StringAttribute getMimeMinor()
+		{
+			return mimeMinor;
+		}
+		
+		void initialize(final String name)
+		{
+			if(!mimeMajor.isInitialized())
+				Media.this.initialize(mimeMajor, name+"Major");
+			if(!mimeMinor.isInitialized())
+				Media.this.initialize(mimeMinor, name+"Minor");
+		}
+		
+		String getMimeMajor(final Item item)
+		{
+			return mimeMajor.get(item);
+		}
+		
+		String getMimeMinor(final Item item)
+		{
+			return mimeMinor.get(item);
+		}
+		
+		void map(final ArrayList values, final String mimeMajor, final String mimeMinor)
+		{
+			values.add(this.mimeMajor.map(mimeMajor));
+			values.add(this.mimeMinor.map(mimeMinor));
+		}
+	}
+	
 
 	private final static String format(final long date)
 	{
