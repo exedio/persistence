@@ -24,6 +24,7 @@ import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 
 import javax.servlet.ServletException;
@@ -143,31 +144,27 @@ public final class Media extends MediaPath
 	{
 		return notNull ? false : (item.get(isNull)==null);
 	}
-	
+
 	/**
 	 * Returns the major mime type of this media.
 	 * Returns null, if there is no data for this media.
 	 */
 	public final String getMimeMajor(final Item item)
 	{
-		if(isNull(item))
-			return null;
-
-		return contentType.getMimeMajor(item);
+		final String contentType = getContentType(item);
+		return contentType!=null ? contentType.substring(0, contentType.indexOf('/')) : null;
 	}
-
+	
 	/**
 	 * Returns the minor mime type of this media.
 	 * Returns null, if there is no data for this media.
 	 */
 	public final String getMimeMinor(final Item item)
 	{
-		if(isNull(item))
-			return null;
-
-		return contentType.getMimeMinor(item);
+		final String contentType = getContentType(item);
+		return contentType!=null ? contentType.substring(contentType.indexOf('/')+1) : null;
 	}
-	
+          
 	/**
 	 * Returns the content type of this media.
 	 * Returns null, if there is no data for this media.
@@ -177,7 +174,7 @@ public final class Media extends MediaPath
 		if(isNull(item))
 			return null;
 
-		return getMimeMajor(item) + '/' + getMimeMinor(item);
+		return contentType.getContentType(item);
 	}
 	
 	private final RuntimeException newNoDataException(final Item item)
@@ -347,47 +344,34 @@ public final class Media extends MediaPath
 
 	private final void appendExtension(final Item item, final StringBuffer bf)
 	{
-		final String major = getMimeMajor(item);
-		final String minor = getMimeMinor(item);
+		final String contentType = getContentType(item);
 
-		final String compactExtension = getCompactExtension(major, minor);
+		final String compactExtension = getCompactExtension(contentType);
 		if(compactExtension==null)
 		{
 			bf.append('.').
-				append(major).
-				append('.').
-				append(minor);
+				append(contentType.replace('/', '.'));
 		}
 		else
 			bf.append(compactExtension);
 	}
-
-	private static final String getCompactExtension(final String mimeMajor, final String mimeMinor)
+	
+	private static final HashMap compactExtensions = new HashMap();
+	
+	static
 	{
-		if("image".equals(mimeMajor))
-		{
-			if("jpeg".equals(mimeMinor) || "pjpeg".equals(mimeMinor))
-				return ".jpg";
-			else if("gif".equals(mimeMinor))
-				return ".gif";
-			else if("png".equals(mimeMinor))
-				return ".png";
-			else
-				return null;
-		}
-		else if("text".equals(mimeMajor))
-		{
-			if("html".equals(mimeMinor))
-				return ".html";
-			else if("plain".equals(mimeMinor))
-				return ".txt";
-			else if("css".equals(mimeMinor))
-				return ".css";
-			else
-				return null;
-		}
-		else
-			return null;
+		compactExtensions.put("image/jpeg", ".jpg");
+		compactExtensions.put("image/pjpeg", ".jpg");
+		compactExtensions.put("image/gif", ".gif");
+		compactExtensions.put("image/png", ".png");
+		compactExtensions.put("text/html", ".html");
+		compactExtensions.put("text/plain", ".txt");
+		compactExtensions.put("text/css", ".css");
+	}
+
+	private static final String getCompactExtension(final String contentType)
+	{
+		return (String)compactExtensions.get(contentType);
 	}
 	
 	public final static Media get(final DataAttribute attribute)
@@ -502,13 +486,13 @@ public final class Media extends MediaPath
 		abstract StringAttribute getMimeMajor();
 		abstract StringAttribute getMimeMinor();
 		abstract void initialize(String name);
-		abstract String getMimeMajor(Item item);
-		abstract String getMimeMinor(Item item);
+		abstract String getContentType(Item item);
 		abstract void map(ArrayList values, String mimeMajor, String mimeMinor);
 	}
 	
 	final class FixedContentType extends ContentType
 	{
+		// TODO save one string
 		final String mimeMajor;
 		final String mimeMinor;
 		
@@ -547,14 +531,9 @@ public final class Media extends MediaPath
 		{
 		}
 		
-		String getMimeMajor(final Item item)
+		String getContentType(final Item item)
 		{
-			return mimeMajor;
-		}
-		
-		String getMimeMinor(final Item item)
-		{
-			return mimeMinor;
+			return mimeMajor + '/' + mimeMinor;
 		}
 		
 		void map(final ArrayList values, final String mimeMajor, final String mimeMinor)
@@ -564,6 +543,7 @@ public final class Media extends MediaPath
 
 	final class HalfFixedContentType extends ContentType
 	{
+		// TODO save string with slash
 		final String mimeMajor;
 		final StringAttribute mimeMinor;
 		
@@ -606,14 +586,9 @@ public final class Media extends MediaPath
 				Media.this.initialize(mimeMinor, name+"Minor");
 		}
 		
-		String getMimeMajor(final Item item)
+		String getContentType(final Item item)
 		{
-			return mimeMajor;
-		}
-		
-		String getMimeMinor(final Item item)
-		{
-			return mimeMinor.get(item);
+			return mimeMajor + '/' + mimeMinor.get(item);
 		}
 		
 		void map(final ArrayList values, final String mimeMajor, final String mimeMinor)
@@ -669,14 +644,9 @@ public final class Media extends MediaPath
 				Media.this.initialize(mimeMinor, name+"Minor");
 		}
 		
-		String getMimeMajor(final Item item)
+		String getContentType(final Item item)
 		{
-			return mimeMajor.get(item);
-		}
-		
-		String getMimeMinor(final Item item)
-		{
-			return mimeMinor.get(item);
+			return  mimeMajor.get(item) + '/' + mimeMinor.get(item);
 		}
 		
 		void map(final ArrayList values, final String mimeMajor, final String mimeMinor)
