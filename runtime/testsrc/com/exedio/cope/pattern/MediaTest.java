@@ -246,6 +246,21 @@ public class MediaTest extends TestmodelTest
 			assertTrue(item.getImageURL().endsWith(".jpg"));
 		}
 
+		try
+		{
+			item.setImage(stream(data), "text/html");
+			fail();
+		}
+		catch(IllegalContentTypeException e)
+		{
+			assertEquals("text/html", e.getMessage());
+			assertTrue(!item.isImageNull());
+			assertData(data2, item.getImageData());
+			assertEquals(data2.length, item.getImageLength());
+			assertEquals("image/jpeg", item.getImageContentType());
+			assertTrue(item.getImageURL().endsWith(".jpg"));
+		}
+
 		item.setImage((InputStream)null, null);
 		assertTrue(item.isImageNull());
 		assertEquals(null, item.getImageData());
@@ -301,6 +316,21 @@ public class MediaTest extends TestmodelTest
 		catch(IllegalContentTypeException e)
 		{
 			assertEquals("illegalContentType", e.getMessage());
+			assertTrue(!item.isPhotoNull());
+			assertData(data2, item.getPhotoData());
+			assertEquals(data2.length, item.getPhotoLength());
+			assertEquals("image/jpeg", item.getPhotoContentType());
+			assertTrue(item.getPhotoURL().endsWith(".jpg"));
+		}
+
+		try
+		{
+			item.setPhoto(stream(data), "image/png");
+			fail();
+		}
+		catch(IllegalContentTypeException e)
+		{
+			assertEquals("image/png", e.getMessage());
 			assertTrue(!item.isPhotoNull());
 			assertData(data2, item.getPhotoData());
 			assertEquals(data2.length, item.getPhotoLength());

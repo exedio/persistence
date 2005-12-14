@@ -551,8 +551,9 @@ public final class Media extends MediaPath
 		
 		void map(final ArrayList values, final String contentType)
 		{
-			// enforce valid content type
-			toMinor(contentType);
+			if(contentType!=null &&
+				(!mimeMajor.equals(toMajor(contentType)) || !mimeMinor.equals(toMinor(contentType))))
+				throw new IllegalContentTypeException(contentType);
 		}
 	}
 
@@ -608,6 +609,9 @@ public final class Media extends MediaPath
 		
 		void map(final ArrayList values, final String contentType)
 		{
+			if(contentType!=null && !mimeMajor.equals(toMajor(contentType)))
+				throw new IllegalContentTypeException(contentType);
+			
 			values.add(this.mimeMinor.map(toMinor(contentType)));
 		}
 	}
