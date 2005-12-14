@@ -509,15 +509,15 @@ public final class Media extends MediaPath
 		private final String minor;
 		private final String full;
 		
-		FixedContentType(final String mimeMajor, final String mimeMinor)
+		FixedContentType(final String major, final String minor)
 		{
-			this.major = mimeMajor;
-			this.minor = mimeMinor;
+			this.major = major;
+			this.minor = minor;
 			this.full = major + '/' + minor;
 			
-			if(mimeMajor==null)
+			if(major==null)
 				throw new NullPointerException("fixedMimeMajor must not be null");
-			if(mimeMajor==null)
+			if(minor==null)
 				throw new NullPointerException("fixedMimeMinor must not be null");
 		}
 		
@@ -563,15 +563,15 @@ public final class Media extends MediaPath
 		private final String prefix;
 		private final StringAttribute minor;
 		
-		HalfFixedContentType(final String mimeMajor, final StringAttribute mimeMinor)
+		HalfFixedContentType(final String major, final StringAttribute minor)
 		{
-			this.major = mimeMajor;
-			this.prefix = mimeMajor + '/';
-			this.minor = mimeMinor;
+			this.major = major;
+			this.prefix = major + '/';
+			this.minor = minor;
 			
-			if(mimeMajor==null)
+			if(major==null)
 				throw new NullPointerException("fixedMimeMajor must not be null");
-			if(mimeMajor==null)
+			if(minor==null)
 				throw new NullPointerException("mimeMinor must not be null");
 			
 			registerSource(this.minor);
@@ -622,14 +622,14 @@ public final class Media extends MediaPath
 		private final StringAttribute major;
 		private final StringAttribute minor;
 		
-		StoredContentType(final StringAttribute mimeMajor, final StringAttribute mimeMinor)
+		StoredContentType(final StringAttribute major, final StringAttribute minor)
 		{
-			this.major = mimeMajor;
-			this.minor = mimeMinor;
+			this.major = major;
+			this.minor = minor;
 			
-			if(mimeMajor==null)
+			if(major==null)
 				throw new NullPointerException("mimeMajor must not be null");
-			if(mimeMajor==null)
+			if(minor==null)
 				throw new NullPointerException("mimeMinor must not be null");
 
 			registerSource(this.major);
