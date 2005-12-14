@@ -560,12 +560,12 @@ public final class Media extends MediaPath
 	final class HalfFixedContentType extends ContentType
 	{
 		// TODO save string with slash
-		final String mimeMajor;
+		final String major;
 		final StringAttribute mimeMinor;
 		
 		HalfFixedContentType(final String mimeMajor, final StringAttribute mimeMinor)
 		{
-			this.mimeMajor = mimeMajor;
+			this.major = mimeMajor;
 			this.mimeMinor = mimeMinor;
 			
 			if(mimeMajor==null)
@@ -578,7 +578,7 @@ public final class Media extends MediaPath
 		
 		String getFixedMimeMajor()
 		{
-			return mimeMajor;
+			return major;
 		}
 		
 		String getFixedMimeMinor()
@@ -604,12 +604,12 @@ public final class Media extends MediaPath
 		
 		String getContentType(final Item item)
 		{
-			return mimeMajor + '/' + mimeMinor.get(item);
+			return major + '/' + mimeMinor.get(item);
 		}
 		
 		void map(final ArrayList values, final String contentType)
 		{
-			if(contentType!=null && !mimeMajor.equals(toMajor(contentType)))
+			if(contentType!=null && !major.equals(toMajor(contentType)))
 				throw new IllegalContentTypeException(contentType);
 			
 			values.add(this.mimeMinor.map(toMinor(contentType)));
