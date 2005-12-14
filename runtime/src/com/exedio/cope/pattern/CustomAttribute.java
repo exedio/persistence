@@ -59,14 +59,12 @@ public final class CustomAttribute extends Pattern
 			name.length()==1
 			? Character.toString(Character.toUpperCase(name.charAt(0)))
 			: (Character.toUpperCase(name.charAt(0)) + name.substring(1));
-		final String nameGetter = "get" + nameUpper;
-		final String nameSetter = "set" + nameUpper;
 		
 		final Class javaClass = getType().getJavaClass();
 		final Method getter; 
 		try
 		{
-			getter = javaClass.getDeclaredMethod(nameGetter, (Class[])null); 
+			getter = javaClass.getDeclaredMethod("get"+nameUpper, (Class[])null); 
 		}
 		catch(NoSuchMethodException e)
 		{
@@ -78,7 +76,7 @@ public final class CustomAttribute extends Pattern
 		final Method setter;
 		try
 		{
-			setter = javaClass.getDeclaredMethod(nameSetter, new Class[]{valueType});
+			setter = javaClass.getDeclaredMethod("set"+nameUpper, new Class[]{valueType});
 		}
 		catch(NoSuchMethodException e)
 		{
