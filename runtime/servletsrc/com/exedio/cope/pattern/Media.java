@@ -559,13 +559,14 @@ public final class Media extends MediaPath
 
 	final class HalfFixedContentType extends ContentType
 	{
-		// TODO save string with slash
-		final String major;
-		final StringAttribute minor;
+		private final String major;
+		private final String prefix;
+		private final StringAttribute minor;
 		
 		HalfFixedContentType(final String mimeMajor, final StringAttribute mimeMinor)
 		{
 			this.major = mimeMajor;
+			this.prefix = mimeMajor + '/';
 			this.minor = mimeMinor;
 			
 			if(mimeMajor==null)
@@ -604,12 +605,12 @@ public final class Media extends MediaPath
 		
 		String getContentType(final Item item)
 		{
-			return major + '/' + minor.get(item);
+			return prefix + minor.get(item);
 		}
 		
 		void map(final ArrayList values, final String contentType)
 		{
-			if(contentType!=null && !major.equals(toMajor(contentType)))
+			if(contentType!=null && !contentType.startsWith(prefix))
 				throw new IllegalContentTypeException(contentType);
 			
 			values.add(this.minor.map(toMinor(contentType)));
