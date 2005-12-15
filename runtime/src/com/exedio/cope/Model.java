@@ -15,6 +15,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
+
 package com.exedio.cope;
 
 import java.io.File;
@@ -252,7 +253,7 @@ public final class Model
 		for(Iterator i = type.getAttributes().iterator(); i.hasNext(); )
 		{
 			final Attribute attribute = (Attribute)i.next();
-			if((attribute instanceof DataAttribute) && !((DataAttribute)attribute).blob)
+			if((attribute instanceof DataAttribute) && !((DataAttribute)attribute).impl.blob)
 			{
 				if(typeDirectory==null)
 				{
@@ -273,7 +274,7 @@ public final class Model
 		for(Iterator i = type.getAttributes().iterator(); i.hasNext(); )
 		{
 			final Attribute attribute = (Attribute)i.next();
-			if(attribute instanceof DataAttribute && !((DataAttribute)attribute).blob)
+			if(attribute instanceof DataAttribute && !((DataAttribute)attribute).impl.blob)
 			{
 				if(typeDirectory==null)
 				{
