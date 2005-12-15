@@ -211,6 +211,8 @@ public final class Type
 		
 		if(own.isEmpty())
 			return inherited;
+		else if(inherited.isEmpty())
+			return own;
 		else
 		{
 			final ArrayList result = new ArrayList(inherited);
