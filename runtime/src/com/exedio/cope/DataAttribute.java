@@ -149,12 +149,12 @@ public final class DataAttribute extends Attribute
 		}
 		
 		abstract Column getColumn();
-		abstract boolean isNull(final Item item);
-		abstract InputStream get(final Item item);
-		abstract long getLength(final Item item);
-		abstract void set(final Item item, final InputStream data) throws MandatoryViolationException, IOException;
-		abstract void get(final Item item, final File data) throws IOException;
-		abstract void set(final Item item, final File data) throws MandatoryViolationException, IOException;
+		abstract boolean isNull(Item item);
+		abstract InputStream get(Item item);
+		abstract long getLength(Item item);
+		abstract void set(Item item, InputStream data) throws MandatoryViolationException, IOException;
+		abstract void get(Item item, File data) throws IOException;
+		abstract void set(Item item, File data) throws MandatoryViolationException, IOException;
 		
 	}
 	
