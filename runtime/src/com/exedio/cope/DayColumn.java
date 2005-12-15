@@ -15,6 +15,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
+
 package com.exedio.cope;
 
 import java.sql.Date;
@@ -37,7 +38,7 @@ final class DayColumn extends Column
 	
 	final String getDatabaseType()
 	{
-		return table.database.getDayType(); 
+		return table.database.getDayType();
 	}
 
 	final String getCheckConstraintIfNotNull()
