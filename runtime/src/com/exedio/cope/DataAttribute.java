@@ -42,28 +42,21 @@ public final class DataAttribute extends Attribute
 			throw new RuntimeException("DataAttribute cannot be read-only");
 	}
 	
-	// TODO put into FileImpl
-	String filePath = null;
-	
-	void initialize(final Type type, final String name)
-	{
-		super.initialize(type, name);
-
-		filePath = type.id + '/' + name + '/';
-	}
-
 	// second initialization phase ---------------------------------------------------
 	
 	Impl impl;
 
 	Column createColumn(final Table table, final String name, final boolean notNull)
 	{
-		final Model model = getType().getModel();
+		final Type type = getType();
+		final Model model = type.getModel();
 		final Properties properties = model.getProperties();
 		
 		if(properties.hasDatadirPath())
 		{
-			impl = new FileImpl(properties.getDatadirPath(), filePath);
+			final File typeDir = new File(properties.getDatadirPath(), type.id);
+			final File attributeDir = new File(typeDir, name);
+			impl = new FileImpl(attributeDir);
 			return null;
 		}
 		else
@@ -250,18 +243,16 @@ public final class DataAttribute extends Attribute
 	static final class FileImpl extends Impl
 	{
 		final File directory;
-		final String filePath;
 		
-		FileImpl(final File directory, final String filePath)
+		FileImpl(final File directory)
 		{
 			super(false);
 			this.directory = directory;
-			this.filePath = filePath;
 		}
 		
 		private final File getPrivateStorageFile(final Item item)
 		{
-			return new File(directory, filePath + item.type.getPkSource().pk2id(item.pk));
+			return new File(directory, String.valueOf(item.type.getPkSource().pk2id(item.pk)));
 		}
 		
 		boolean isNull(final Item item)
