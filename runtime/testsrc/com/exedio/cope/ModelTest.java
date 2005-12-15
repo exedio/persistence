@@ -422,8 +422,8 @@ public class ModelTest extends TestmodelTest
 		assertEqualsUnmodifiable(Arrays.asList(features), item.TYPE.getFeatures());
 		assertEqualsUnmodifiable(Arrays.asList(features), item.TYPE.getDeclaredFeatures());
 		
-		assertEquals(item.someString, item.TYPE.getFeature("someString"));
-		assertEquals(item.someStringUpperCase, item.TYPE.getFeature("someStringUpperCase"));
+		assertEquals(item.someString, item.TYPE.getDeclaredFeature("someString"));
+		assertEquals(item.someStringUpperCase, item.TYPE.getDeclaredFeature("someStringUpperCase"));
 		
 		try
 		{

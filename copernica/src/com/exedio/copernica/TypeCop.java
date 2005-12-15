@@ -195,7 +195,7 @@ final class TypeCop extends CopernicaCop
 		final String orderDescendingID = request.getParameter(ORDER_DESCENDING);
 		final boolean orderAscending = orderAscendingID!=null;
 		final String orderID = orderAscending ? orderAscendingID : orderDescendingID;
-		final Function orderBy = (orderID==null) ? null : (Function)type.getFeature(orderID);
+		final Function orderBy = (orderID==null) ? null : (Function)type.getDeclaredFeature(orderID);
 
 		final String startString = request.getParameter(START);
 		final String countString = request.getParameter(COUNT);

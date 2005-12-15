@@ -486,7 +486,7 @@ public final class Type
 		return features;
 	}
 	
-	public final Feature getFeature(final String name)
+	public final Feature getDeclaredFeature(final String name)
 	{
 		return (Feature)featuresByName.get(name);
 	}
