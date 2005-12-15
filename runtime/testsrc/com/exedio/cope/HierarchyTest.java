@@ -57,6 +57,10 @@ public class HierarchyTest extends AbstractLibTest
 				HierarchySuper.superString,
 				HierarchySuper.superStringUpper
 			), HierarchySuper.TYPE.getFeatures());
+		assertEquals(HierarchySuper.superInt, HierarchySuper.TYPE.getDeclaredFeature("superInt"));
+		assertEquals(HierarchySuper.superString, HierarchySuper.TYPE.getDeclaredFeature("superString"));
+		assertEquals(null, HierarchySuper.TYPE.getDeclaredFeature("firstSubString"));
+		assertEquals(null, HierarchySuper.TYPE.getDeclaredFeature("zack"));
 		assertTrue(HierarchySuper.TYPE.isAbstract());
 		assertEquals(HierarchySuper.TYPE, HierarchySuper.superInt.getType());
 		
@@ -91,6 +95,10 @@ public class HierarchyTest extends AbstractLibTest
 				HierarchyFirstSub.firstSubString.getSingleUniqueConstraint(),
 				HierarchyFirstSub.firstSubStringUpper
 			), HierarchyFirstSub.TYPE.getFeatures());
+		assertEquals(null, HierarchyFirstSub.TYPE.getDeclaredFeature("superInt"));
+		assertEquals(null, HierarchyFirstSub.TYPE.getDeclaredFeature("superString"));
+		assertEquals(HierarchyFirstSub.firstSubString, HierarchyFirstSub.TYPE.getDeclaredFeature("firstSubString"));
+		assertEquals(null, HierarchyFirstSub.TYPE.getDeclaredFeature("zack"));
 		assertFalse(HierarchyFirstSub.TYPE.isAbstract());
 		assertEquals(HierarchyFirstSub.TYPE, HierarchyFirstSub.firstSubString.getType());
 
