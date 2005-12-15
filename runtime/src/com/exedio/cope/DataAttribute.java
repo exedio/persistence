@@ -70,7 +70,7 @@ public final class DataAttribute extends Attribute
 	/**
 	 * Returns, whether there is no data for this attribute.
 	 */
-	public final boolean isNull(final Item item)
+	public boolean isNull(final Item item)
 	{
 		return impl.isNull(item);
 	}
@@ -80,7 +80,7 @@ public final class DataAttribute extends Attribute
 	 * <b>You are responsible for closing the stream, when you are finished!</b>
 	 * Returns null, if there is no data for this attribute.
 	 */
-	public final InputStream get(final Item item)
+	public InputStream get(final Item item)
 	{
 		return impl.get(item);
 	}
@@ -89,7 +89,7 @@ public final class DataAttribute extends Attribute
 	 * Returns the length of the data of this persistent data attribute.
 	 * Returns -1, if there is no data for this attribute.
 	 */
-	public final long getLength(final Item item)
+	public long getLength(final Item item)
 	{
 		return impl.getLength(item);
 	}
@@ -102,7 +102,7 @@ public final class DataAttribute extends Attribute
 	 *         if data is null and attribute is {@link Attribute#isMandatory() mandatory}.
 	 * @throws IOException if reading data throws an IOException.
 	 */
-	public final void set(final Item item, final InputStream data)
+	public void set(final Item item, final InputStream data)
 	throws MandatoryViolationException, IOException
 	{
 		impl.set(item, data);
@@ -116,7 +116,7 @@ public final class DataAttribute extends Attribute
 	 *         if data is null.
 	 * @throws IOException if writing data throws an IOException.
 	 */
-	public final void get(final Item item, final File data) throws IOException
+	public void get(final Item item, final File data) throws IOException
 	{
 		if(data==null)
 			throw new NullPointerException();
@@ -131,7 +131,7 @@ public final class DataAttribute extends Attribute
 	 *         if data is null and attribute is {@link Attribute#isMandatory() mandatory}.
 	 * @throws IOException if reading data throws an IOException.
 	 */
-	public final void set(final Item item, final File data)
+	public void set(final Item item, final File data)
 	throws MandatoryViolationException, IOException
 	{
 		impl.set(item, data);
