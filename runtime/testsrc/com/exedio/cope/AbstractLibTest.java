@@ -137,7 +137,8 @@ public abstract class AbstractLibTest extends CopeTest
 		try
 		{
 			final byte[] actualDataArray = new byte[2*expectedData.length];
-			final int actualLength = actualData.read(actualDataArray);
+			final int actualLengthRead = actualData.read(actualDataArray);
+			final int actualLength = actualLengthRead<0 ? 0 : actualLengthRead;
 			actualData.close();
 			assertEquals(expectedData.length, actualLength);
 			for(int i = 0; i<actualLength; i++)

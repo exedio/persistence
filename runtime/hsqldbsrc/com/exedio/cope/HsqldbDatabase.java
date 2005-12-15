@@ -69,6 +69,11 @@ final class HsqldbDatabase extends AbstractDatabase
 		return "timestamp";
 	}
 
+	public String getBlobType()
+	{
+		return "binary";
+	}
+	
 	int getLimitSupport()
 	{
 		return LIMIT_SUPPORT_CLAUSE_AFTER_SELECT;

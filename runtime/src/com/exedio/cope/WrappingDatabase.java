@@ -19,6 +19,9 @@
 package com.exedio.cope;
 
 import bak.pcj.list.IntList;
+
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -172,6 +175,22 @@ class WrappingDatabase implements Database
 		nested.store( connection, state, param );
 	}
 
+	public final InputStream load(final Connection connection, final BlobColumn column, final Item item)
+	{
+		return nested.load(connection, column, item);
+	}
+	
+	public final long loadLength(final Connection connection, final BlobColumn column, final Item item)
+	{
+		return nested.loadLength(connection, column, item);
+	}
+	
+	public final void store(final Connection connection, final BlobColumn column, final Item item, final InputStream data)
+	throws IOException
+	{
+		nested.store(connection, column, item, data);
+	}
+	
 	public boolean supportsCheckConstraints()
 	{
 		return nested.supportsCheckConstraints();
@@ -210,5 +229,10 @@ class WrappingDatabase implements Database
 	public String getDateTimestampType()
 	{
 		return nested.getDateTimestampType();
+	}
+	
+	public String getBlobType()
+	{
+		return nested.getBlobType();
 	}
 }

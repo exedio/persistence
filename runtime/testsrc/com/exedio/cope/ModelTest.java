@@ -269,6 +269,7 @@ public class ModelTest extends TestmodelTest
 						" expected an integer greater 0, but got >88x<.", e.getMessage());
 			}
 		}
+		if(model.getProperties().hasDatadirPath())
 		{
 			final char SEP = File.separatorChar;
 			final java.util.Properties props = (java.util.Properties)newProps.clone();

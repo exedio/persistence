@@ -18,12 +18,16 @@
 
 package com.exedio.cope;
 
-import bak.pcj.list.IntList;
-import com.exedio.dsmf.Driver;
-import com.exedio.dsmf.Schema;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import bak.pcj.list.IntList;
+
+import com.exedio.dsmf.Driver;
+import com.exedio.dsmf.Schema;
 
 interface Database
 {
@@ -57,6 +61,9 @@ interface Database
 	 * The framework will then fall back to store the number of milliseconds.
 	 */
 	String getDateTimestampType();
+	
+	String getBlobType();
+	
 	boolean supportsEmptyStrings();
 	boolean supportsRightOuterJoins();
 
@@ -83,6 +90,10 @@ interface Database
 	void store(Connection connection, State state, boolean present) throws UniqueViolationException;
 	void delete(Connection connection, Item item);
 	
+	InputStream load(Connection connection, BlobColumn column, Item item);
+	long loadLength(Connection connection, BlobColumn column, Item item);
+	void store(Connection connection, BlobColumn column, Item item, InputStream data) throws IOException;
+
 	Schema makeSchema();
 
 	void defineColumnTypes(IntList columnTypes, java.sql.Statement statement) throws SQLException;

@@ -101,6 +101,12 @@ public final class MysqlDatabase extends AbstractDatabase
 		return null;
 	}
 	
+	// TODO check if there is a suitable column type
+	public String getBlobType()
+	{
+		return null;
+	}
+	
 	int getLimitSupport()
 	{
 		return LIMIT_SUPPORT_CLAUSE_AFTER_WHERE;

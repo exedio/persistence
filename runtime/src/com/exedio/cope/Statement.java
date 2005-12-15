@@ -18,6 +18,10 @@
 
 package com.exedio.cope;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -174,6 +178,30 @@ public final class Statement
 			final Column column = attribute.getColumn();
 			appendParameter(column, dummyRow.get(column));
 		}
+		return this;
+	}
+	
+	private static final void copy(final InputStream source, final OutputStream target) throws IOException
+	{
+		final byte[] b = new byte[1024*1024];
+		//System.out.println("-------------- "+length+" ----- "+b.length);
+		for(int len = source.read(b); len>=0; len = source.read(b))
+			target.write(b, 0, len);
+	}
+	
+	private static final byte[] toArray(final InputStream source) throws IOException
+	{
+		final ByteArrayOutputStream target = new ByteArrayOutputStream();
+		copy(source, target);
+		final byte[] result = target.toByteArray();
+		target.close();
+		return result;
+	}
+	
+	Statement appendParameterBlob(final BlobColumn function, final InputStream data) throws IOException
+	{
+		this.text.append(QUESTION_MARK);
+		this.parameters.add(toArray(data)); // TODO
 		return this;
 	}
 	

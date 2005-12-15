@@ -18,6 +18,9 @@
 
 package com.exedio.cope;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -191,9 +194,16 @@ abstract class AbstractDatabase implements Database
 			{
 				final Column column = (Column)j.next();
 				bf.append(" and ").
-					append(column, null).
-					append('=').
-					appendParameter(column, column.getCheckValue());
+					append(column, null);
+				if(column instanceof BlobColumn)
+				{
+					bf.append("is not null");
+				}
+				else
+				{
+					bf.append('=').
+						appendParameter(column, column.getCheckValue());
+				}
 			}
 		}
 		
@@ -537,13 +547,16 @@ abstract class AbstractDatabase implements Database
 		{
 			for(Iterator i = type.getTable().getColumns().iterator(); i.hasNext(); )
 			{
-				if(first)
-					first = false;
-				else
-					bf.append(',');
-
 				final Column column = (Column)i.next();
-				bf.append(column, (Join)null).defineColumn(column);
+				if(!(column instanceof BlobColumn))
+				{
+					if(first)
+						first = false;
+					else
+						bf.append(',');
+
+					bf.append(column, (Join)null).defineColumn(column);
+				}
 			}
 		}
 		
@@ -613,15 +626,18 @@ abstract class AbstractDatabase implements Database
 			boolean first = true;
 			for(Iterator i = columns.iterator(); i.hasNext(); )
 			{
-				if(first)
-					first = false;
-				else
-					bf.append(',');
-
 				final Column column = (Column)i.next();
-				bf.append(column.protectedID).
-					append('=').
-					appendParameter(column, state.store(column));
+				if(!(column instanceof BlobColumn))
+				{
+					if(first)
+						first = false;
+					else
+						bf.append(',');
+					
+					bf.append(column.protectedID).
+						append('=').
+						appendParameter(column, state.store(column));
+				}
 			}
 			bf.append(" where ").
 				append(table.primaryKey.protectedID).
@@ -655,9 +671,12 @@ abstract class AbstractDatabase implements Database
 
 			for(Iterator i = columns.iterator(); i.hasNext(); )
 			{
-				bf.append(',');
 				final Column column = (Column)i.next();
-				bf.append(column.protectedID);
+				if(!(column instanceof BlobColumn))
+				{
+					bf.append(',').
+						append(column.protectedID);
+				}
 			}
 
 			bf.append(")values(").
@@ -672,8 +691,11 @@ abstract class AbstractDatabase implements Database
 			for(Iterator i = columns.iterator(); i.hasNext(); )
 			{
 				final Column column = (Column)i.next();
-				bf.append(',').
-				   appendParameter(column, state.store(column));
+				if(!(column instanceof BlobColumn))
+				{
+					bf.append(',').
+					   appendParameter(column, state.store(column));
+				}
 			}
 			bf.append(')');
 		}
@@ -713,6 +735,146 @@ abstract class AbstractDatabase implements Database
 		}
 	}
 
+	public final InputStream load(final Connection connection, final BlobColumn column, final Item item)
+	{
+		buildStage = false;
+
+		final Table table = column.table;
+		final Statement bf = createStatement();
+		bf.append("select ").
+			append(column.protectedID).defineColumn(column).
+			append(" from ").
+			append(table.protectedID).
+			append(" where ").
+			append(table.primaryKey.protectedID).
+			append('=').
+			appendParameter(item.pk);
+			
+		// Additionally check correctness of type column
+		// If type column is inconsistent, the database
+		// will return no rows and the result set handler
+		// will fail
+		final StringColumn typeColumn = table.typeColumn;
+		if(typeColumn!=null)
+		{
+			bf.append(" and ").
+				append(typeColumn.protectedID).
+				append('=').
+				appendParameter(item.type.id);
+		}
+		
+		final LoadBlobResultSetHandler handler = new LoadBlobResultSetHandler();
+		executeSQLQuery(connection, bf, handler, false);
+		return handler.result;
+	}
+	
+	private static class LoadBlobResultSetHandler implements ResultSetHandler
+	{
+		InputStream result;
+
+		public void run(final ResultSet resultSet) throws SQLException
+		{
+			if(!resultSet.next())
+				throw new RuntimeException();
+			final Blob blob = resultSet.getBlob(1);
+			if(blob!=null)
+				result = blob.getBinaryStream();
+		}
+	}
+	
+	public final long loadLength(final Connection connection, final BlobColumn column, final Item item)
+	{
+		buildStage = false;
+
+		// TODO should check whether there is some kind of "length" function for binary 
+		final Table table = column.table;
+		final Statement bf = createStatement();
+		bf.append("select ").
+			append(column.protectedID).defineColumn(column).
+			append(" from ").
+			append(table.protectedID).
+			append(" where ").
+			append(table.primaryKey.protectedID).
+			append('=').
+			appendParameter(item.pk);
+			
+		// Additionally check correctness of type column
+		// If type column is inconsistent, the database
+		// will return no rows and the result set handler
+		// will fail
+		final StringColumn typeColumn = table.typeColumn;
+		if(typeColumn!=null)
+		{
+			bf.append(" and ").
+				append(typeColumn.protectedID).
+				append('=').
+				appendParameter(item.type.id);
+		}
+		
+		final LoadBlobLengthResultSetHandler handler = new LoadBlobLengthResultSetHandler();
+		executeSQLQuery(connection, bf, handler, false);
+		return handler.result;
+	}
+	
+	private static class LoadBlobLengthResultSetHandler implements ResultSetHandler
+	{
+		long result;
+
+		public void run(final ResultSet resultSet) throws SQLException
+		{
+			if(!resultSet.next())
+				throw new RuntimeException();
+			final Blob blob = resultSet.getBlob(1);
+			result = (blob!=null) ? blob.length() : -1;
+		}
+	}
+	
+	public final void store(final Connection connection, final BlobColumn column, final Item item, final InputStream data) throws IOException
+	{
+		buildStage = false;
+
+		final Table table = column.table;
+		final Statement bf = createStatement();
+		bf.append("update ").
+			append(table.protectedID).
+			append(" set ").
+			append(column.protectedID).
+			append('=');
+		
+		if(data!=null)
+			bf.appendParameterBlob(column, data);
+		else
+			bf.append("NULL");
+		
+		bf.append(" where ").
+			append(table.primaryKey.protectedID).
+			append('=').
+			appendParameter(item.pk);
+		
+		// Additionally check correctness of type column
+		// If type column is inconsistent, the database
+		// will return "0 rows affected" and executeSQLUpdate
+		// will fail
+		final StringColumn typeColumn = table.typeColumn;
+		if(typeColumn!=null)
+		{
+			bf.append(" and ").
+				append(typeColumn.protectedID).
+				append('=').
+				appendParameter(item.type.id);
+		}
+
+		//System.out.println("storing "+bf.toString());
+		try
+		{
+			executeSQLUpdate(connection, bf, 1, null);
+		}
+		catch(UniqueViolationException e)
+		{
+			throw new RuntimeException(e);
+		}
+	}
+	
 	static interface ResultSetHandler
 	{
 		public void run(ResultSet resultSet) throws SQLException;

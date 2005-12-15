@@ -52,17 +52,26 @@ public final class DataAttribute extends Attribute
 	}
 
 	// second initialization phase ---------------------------------------------------
+	
+	boolean blob;
 
 	Column createColumn(final Table table, final String name, final boolean notNull)
 	{
-		// make sure, data configuration properties are set
-		getType().getModel().getProperties().getDatadirPath();
-		// TODO on some fine day, the BLOB column will be created here
-		return null;
+		if(getType().getModel().getProperties().hasDatadirPath())
+		{
+			blob = false;
+			return null;
+		}
+		else
+		{
+			blob = true;
+			return new BlobColumn(table, name, notNull);
+		}
 	}
 	
 	private final File getPrivateStorageFile(final Item item)
 	{
+		assert !blob;
 		final File directory = item.type.getModel().getProperties().getDatadirPath();
 		return new File(directory, filePath + item.type.getPkSource().pk2id(item.pk));
 	}
@@ -74,16 +83,38 @@ public final class DataAttribute extends Attribute
 	 */
 	public final boolean isNull(final Item item)
 	{
+		return blob ? isNull_blob(item) : isNull_file(item);
+	}
+
+	private boolean isNull_blob(final Item item)
+	{
+		// TODO make this more efficient !!!
+		return getLength_blob(item)<0;
+	}
+	
+	private boolean isNull_file(final Item item)
+	{
 		final File file = getPrivateStorageFile(item);
 		return !file.exists();
 	}
-
+	
 	/**
 	 * Returns a stream for fetching the data of this persistent data attribute.
 	 * <b>You are responsible for closing the stream, when you are finished!</b>
 	 * Returns null, if there is no data for this attribute.
 	 */
 	public final InputStream get(final Item item)
+	{
+		return blob ? get_blob(item) : get_file(item);
+	}
+	
+	private InputStream get_blob(final Item item)
+	{
+		final BlobColumn column = (BlobColumn)getColumn();
+		return column.table.database.load(getType().getModel().getCurrentTransaction().getConnection(), column, item);
+	}
+	
+	private InputStream get_file(final Item item)
 	{
 		final File file = getPrivateStorageFile(item);
 		try
@@ -102,6 +133,17 @@ public final class DataAttribute extends Attribute
 	 */
 	public final long getLength(final Item item)
 	{
+		return blob ? getLength_blob(item) : getLength_file(item);
+	}
+	
+	private long getLength_blob(final Item item)
+	{
+		final BlobColumn column = (BlobColumn)getColumn();
+		return column.table.database.loadLength(getType().getModel().getCurrentTransaction().getConnection(), column, item);
+	}
+	
+	private long getLength_file(final Item item)
+	{
 		final File file = getPrivateStorageFile(item);
 
 		return file.exists() ? file.length() : -1l;
@@ -116,6 +158,22 @@ public final class DataAttribute extends Attribute
 	 * @throws IOException if reading data throws an IOException.
 	 */
 	public final void set(final Item item, final InputStream data)
+	throws MandatoryViolationException, IOException
+	{
+		if(blob)
+			set_blob(item, data);
+		else
+			set_file(item, data);
+	}
+	
+	private final void set_blob(final Item item, final InputStream data)
+	throws MandatoryViolationException, IOException
+	{
+		final BlobColumn column = (BlobColumn)getColumn();
+		column.table.database.store(getType().getModel().getCurrentTransaction().getConnection(), column, item, data);
+	}
+	
+	private final void set_file(final Item item, final InputStream data)
 	throws MandatoryViolationException, IOException
 	{
 		OutputStream out = null;
@@ -212,9 +270,49 @@ public final class DataAttribute extends Attribute
 		if(data==null)
 			throw new NullPointerException();
 		
+		if(blob)
+			get_blob(item, data);
+		else
+			get_file(item, data);
+	}
+	
+	private void get_blob(final Item item, final File data) throws IOException
+	{
+		InputStream source = null;
+		FileOutputStream target = null;
+		try
+		{
+			source = get_blob(item);
+			if(source!=null)
+			{
+				target = new FileOutputStream(data);
+				copy(source, target);
+			}
+			// TODO maybe file should be deleted when result is null?, same in file mode
+		}
+		finally
+		{
+			if(source!=null)
+				source.close();
+			if(target!=null)
+				target.close();
+		}
+	}
+	
+	private static final void copy(final InputStream source, final OutputStream target) throws IOException
+	{
+		final byte[] b = new byte[1024*1024];
+		//System.out.println("-------------- "+length+" ----- "+b.length);
+		for(int len = source.read(b); len>=0; len = source.read(b))
+			target.write(b, 0, len);
+	}
+	
+	private void get_file(final Item item, final File data) throws IOException
+	{
 		final File file = getPrivateStorageFile(item);
 		if(file.exists())
 			copy(file, data);
+		// TODO maybe file should be deleted when result is null?, same in blob mode
 	}
 	
 	/**
@@ -225,6 +323,31 @@ public final class DataAttribute extends Attribute
 	 * @throws IOException if reading data throws an IOException.
 	 */
 	public final void set(final Item item, final File data)
+	throws MandatoryViolationException, IOException
+	{
+		if(blob)
+			set_blob(item, data);
+		else
+			set_file(item, data);
+	}
+	
+	private void set_blob(final Item item, final File data)
+	throws MandatoryViolationException, IOException
+	{
+		InputStream source = null;
+		try
+		{
+			source = data!=null ? new FileInputStream(data) : null;
+			set_blob(item, source);
+		}
+		finally
+		{
+			if(source!=null)
+				source.close();
+		}
+	}
+	
+	private void set_file(final Item item, final File data)
 	throws MandatoryViolationException, IOException
 	{
 		final File file = getPrivateStorageFile(item);

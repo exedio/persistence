@@ -91,7 +91,11 @@ final class PersistentState extends State implements AbstractDatabase.ResultSetH
 			for(Type itype = type; itype!=null; itype = itype.getSupertype())
 			{
 				for(Iterator i = itype.getTable().getColumns().iterator(); i.hasNext(); )
-					((Column)i.next()).load(resultSet, columnIndex++, row);
+				{
+					final Column column = (Column)i.next();
+					if(!(column instanceof BlobColumn))
+						column.load(resultSet, columnIndex++, row);
+				}
 			}
 		}
 	}
