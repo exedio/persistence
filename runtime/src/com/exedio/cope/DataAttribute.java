@@ -57,14 +57,12 @@ public final class DataAttribute extends Attribute
 			final File typeDir = new File(properties.getDatadirPath(), type.id);
 			final File attributeDir = new File(typeDir, name);
 			impl = new FileImpl(attributeDir);
-			return null;
 		}
 		else
 		{
-			final BlobImpl impl = new BlobImpl(model, table, name, notNull);
-			this.impl = impl;
-			return impl.column;
+			this.impl = new BlobImpl(model, table, name, notNull);
 		}
+		return impl.getColumn();
 	}
 	
 	// public methods ---------------------------------------------------------------
@@ -150,6 +148,7 @@ public final class DataAttribute extends Attribute
 			this.blob = blob;
 		}
 		
+		abstract Column getColumn();
 		abstract boolean isNull(final Item item);
 		abstract InputStream get(final Item item);
 		abstract long getLength(final Item item);
@@ -169,6 +168,11 @@ public final class DataAttribute extends Attribute
 			super(true);
 			this.model = model;
 			this.column = new BlobColumn(table, name, notNull);
+		}
+		
+		Column getColumn()
+		{
+			return column;
 		}
 		
 		boolean isNull(final Item item)
@@ -248,6 +252,11 @@ public final class DataAttribute extends Attribute
 		{
 			super(false);
 			this.directory = directory;
+		}
+		
+		Column getColumn()
+		{
+			return null;
 		}
 		
 		private final File getPrivateStorageFile(final Item item)
