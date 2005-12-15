@@ -44,7 +44,7 @@ public final class Type
 	
 	private final List declaredFeatures;
 	private final List features;
-	private final HashMap featuresByName = new HashMap();
+	private final HashMap declaredFeaturesByName = new HashMap();
 
 	private final List declaredAttributes;
 	private final List attributes;
@@ -214,7 +214,7 @@ public final class Type
 	final void registerInitialization(final Feature feature)
 	{
 		featuresWhileConstruction.add(feature);
-		if(featuresByName.put(feature.getName(), feature)!=null)
+		if(declaredFeaturesByName.put(feature.getName(), feature)!=null)
 			throw new RuntimeException("duplicate feature "+feature.getName()+" for type "+javaClass.getName());
 	}
 
@@ -488,7 +488,7 @@ public final class Type
 	
 	public final Feature getDeclaredFeature(final String name)
 	{
-		return (Feature)featuresByName.get(name);
+		return (Feature)declaredFeaturesByName.get(name);
 	}
 
 	public final List getDeclaredUniqueConstraints()
