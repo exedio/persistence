@@ -40,11 +40,6 @@ public class DataItem extends Item
 		return data.getLength(this);
 	}
 	
-	public long getDataLastModified() // TODO generate this
-	{
-		return data.getLastModified(this);
-	}
-	
 	public void getData(final File data) // TODO generate this
 	throws IOException
 	{

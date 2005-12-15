@@ -37,6 +37,7 @@ import com.exedio.cope.AttributeValue;
 import com.exedio.cope.BooleanAttribute;
 import com.exedio.cope.ConstraintViolationException;
 import com.exedio.cope.DataAttribute;
+import com.exedio.cope.DateAttribute;
 import com.exedio.cope.Item;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.ObjectAttribute;
@@ -49,6 +50,7 @@ public final class Media extends MediaPath
 	final boolean notNull;
 	final DataAttribute data;
 	final ContentType contentType;
+	final DateAttribute lastModified;
 	final BooleanAttribute exists;
 	final ObjectAttribute isNull;
 
@@ -60,6 +62,7 @@ public final class Media extends MediaPath
 		this.notNull = option.mandatory;
 		registerSource(this.data = new DataAttribute(option));
 		this.contentType = new FixedContentType(fixedMimeMajor, fixedMimeMinor);
+		registerSource(this.lastModified = new DateAttribute(option));
 		this.exists = option.mandatory ? null : new BooleanAttribute(Item.OPTIONAL);
 		this.isNull = exists;
 		if(this.exists!=null)
@@ -75,6 +78,7 @@ public final class Media extends MediaPath
 		registerSource(this.data = new DataAttribute(option));
 		final StringAttribute mimeMinor = new StringAttribute(option, 1, 30);
 		this.contentType = new HalfFixedContentType(fixedMimeMajor, mimeMinor);
+		registerSource(this.lastModified = new DateAttribute(option));
 		this.exists = null;
 		this.isNull = mimeMinor;
 	}
@@ -89,6 +93,7 @@ public final class Media extends MediaPath
 		final StringAttribute mimeMajor = new StringAttribute(option, 1, 30);
 		final StringAttribute mimeMinor = new StringAttribute(option, 1, 30);
 		this.contentType = new StoredContentType(mimeMajor, mimeMinor);
+		registerSource(this.lastModified = new DateAttribute(option));
 		this.exists = null;
 		this.isNull = mimeMajor;
 	}
@@ -118,6 +123,11 @@ public final class Media extends MediaPath
 		return contentType.getMimeMinor();
 	}
 	
+	public final DateAttribute getLastModified()
+	{
+		return lastModified;
+	}
+	
 	public final BooleanAttribute getExists()
 	{
 		return exists;
@@ -136,6 +146,7 @@ public final class Media extends MediaPath
 		if(data!=null && !data.isInitialized())
 			initialize(data, name+"Data");
 		contentType.initialize(name);
+		initialize(lastModified, name+"LastModified");
 		if(exists!=null && !exists.isInitialized())
 			initialize(exists, name+"Exists");
 	}
@@ -239,11 +250,7 @@ public final class Media extends MediaPath
 		if(isNull(item))
 			return -1;
 
-		final long result = data.getLastModified(item);
-		if(result<=0)
-			throw newNoDataException(item);
-
-		return result;
+		return lastModified.get(item).getTime();
 	}
 
 	/**
@@ -325,8 +332,9 @@ public final class Media extends MediaPath
 					throw new RuntimeException("if data is null, content type must also be null");
 			}
 	
-			final ArrayList values = new ArrayList(3);
+			final ArrayList values = new ArrayList(4);
 			this.contentType.map(values, contentType);
+			values.add(this.lastModified.map(data!=null ? new Date() : null));
 			if(this.exists!=null)
 				values.add(this.exists.map((data!=null) ? Boolean.TRUE : null));
 			item.set((AttributeValue[])values.toArray(new AttributeValue[values.size()]));
@@ -431,11 +439,8 @@ public final class Media extends MediaPath
 		response.setContentType(contentType);
 
 		// NOTE:
-		//
 		// Last Modification Date must be rounded to full seconds,
-		// otherwise comparison for SC_NOT_MODIFIED doesn't work
-		// correctly on systems, where file timestamps
-		// have a resolution more precise than seconds.
+		// otherwise comparison for SC_NOT_MODIFIED doesn't work.
 		final long lastModified = (getLastModified(item) / 1000) * 1000;
 		//System.out.println("lastModified="+lastModified+"("+getLastModified(item)+")");
 		response.setDateHeader(RESPONSE_LAST_MODIFIED, lastModified);

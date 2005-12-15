@@ -108,18 +108,6 @@ public final class DataAttribute extends Attribute
 	}
 
 	/**
-	 * Returns the date of the last modification
-	 * of the data of this persistent data attribute.
-	 * Returns -1, if there is no data for this attribute.
-	 */
-	public final long getLastModified(final Item item)
-	{
-		final File file = getPrivateStorageFile(item);
-
-		return file.exists() ? file.lastModified() : -1l;
-	}
-
-	/**
 	 * Provides data for this persistent data attribute.
 	 * Closes <data>data</data> after reading the contents of the stream.
 	 * @param data give null to remove data.

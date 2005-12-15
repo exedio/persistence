@@ -385,6 +385,7 @@ public class ModelTest extends TestmodelTest
 			item.someData.getData(),
 			item.someData.getMimeMajor(),
 			item.someData.getMimeMinor(),
+			item.someData.getLastModified(),
 		};
 		assertEqualsUnmodifiable(Arrays.asList(attributes), item.TYPE.getAttributes());
 		assertEqualsUnmodifiable(Arrays.asList(attributes), item.TYPE.getDeclaredAttributes());
@@ -414,6 +415,7 @@ public class ModelTest extends TestmodelTest
 			item.someData.getData(),
 			item.someData.getMimeMajor(),
 			item.someData.getMimeMinor(),
+			item.someData.getLastModified(),
 			item.emptyItem,
 		};
 		assertEqualsUnmodifiable(Arrays.asList(features), item.TYPE.getFeatures());

@@ -26,6 +26,7 @@ import java.util.Date;
 
 import com.exedio.cope.BooleanAttribute;
 import com.exedio.cope.DataAttribute;
+import com.exedio.cope.DateAttribute;
 import com.exedio.cope.Feature;
 import com.exedio.cope.StringAttribute;
 import com.exedio.cope.TestmodelTest;
@@ -63,11 +64,14 @@ public class MediaTest extends TestmodelTest
 				item.file.getData(),
 				item.file.getMimeMajor(),
 				item.file.getMimeMinor(),
+				item.file.getLastModified(),
 				item.image,
 				item.image.getData(),
 				item.image.getMimeMinor(),
+				item.image.getLastModified(),
 				item.photo,
 				item.photo.getData(),
+				item.photo.getLastModified(),
 				item.photo.getExists(),
 				item.foto,
 				item.nameServer,
@@ -89,6 +93,10 @@ public class MediaTest extends TestmodelTest
 		assertSame(item.TYPE, fileMinor.getType());
 		assertEquals("fileMinor", fileMinor.getName());
 		assertEqualsUnmodifiable(list(item.file), fileMinor.getPatterns());
+		final DateAttribute fileLastModified = item.file.getLastModified();
+		assertSame(item.TYPE, fileLastModified.getType());
+		assertEquals("fileLastModified", fileLastModified.getName());
+		assertEqualsUnmodifiable(list(item.file), fileLastModified.getPatterns());
 		assertEquals(null, item.file.getExists());
 		assertSame(fileMajor, item.file.getIsNull());
 		
@@ -100,7 +108,6 @@ public class MediaTest extends TestmodelTest
 		assertEquals(null, item.getFileContentType());
 		assertEquals(null, item.getFileURL());
 		{
-			sleepForFileLastModified();
 			final Date before = new Date();
 			item.setFile(stream(data), "fileMajor/fileMinor");
 			final Date after = new Date();
@@ -108,12 +115,11 @@ public class MediaTest extends TestmodelTest
 			assertData(data, item.getFileData());
 			assertDataFile(data);
 			assertEquals(data.length, item.getFileLength());
-			assertWithinFileLastModified(before, after, new Date(item.getFileLastModified()));
+			assertWithin(before, after, new Date(item.getFileLastModified()));
 			assertEquals("fileMajor/fileMinor", item.getFileContentType());
 			assertTrue(item.getFileURL().endsWith(".fileMajor.fileMinor"));
 		}
 		{
-			sleepForFileLastModified();
 			final Date before = new Date();
 			item.setFile(stream(data2), "fileMajor2/fileMinor2");
 			final Date after = new Date();
@@ -121,7 +127,7 @@ public class MediaTest extends TestmodelTest
 			assertData(data2, item.getFileData());
 			assertDataFile(data2);
 			assertEquals(data2.length, item.getFileLength());
-			assertWithinFileLastModified(before, after, new Date(item.getFileLastModified()));
+			assertWithin(before, after, new Date(item.getFileLastModified()));
 			assertEquals("fileMajor2/fileMinor2", item.getFileContentType());
 			assertTrue(item.getFileURL().endsWith(".fileMajor2.fileMinor2"));
 
@@ -137,7 +143,7 @@ public class MediaTest extends TestmodelTest
 				assertData(data2, item.getFileData());
 				assertDataFile(data2);
 				assertEquals(data2.length, item.getFileLength());
-				assertWithinFileLastModified(before, after, new Date(item.getFileLastModified()));
+				assertWithin(before, after, new Date(item.getFileLastModified()));
 				assertEquals("fileMajor2/fileMinor2", item.getFileContentType());
 				assertTrue(item.getFileURL().endsWith(".fileMajor2.fileMinor2"));
 			}
@@ -150,7 +156,6 @@ public class MediaTest extends TestmodelTest
 		assertExtension("text/plain", ".txt");
 		assertExtension("text/css", ".css");
 		{
-			sleepForFileLastModified();
 			final Date before = new Date();
 			item.setFile(stream(dataEmpty), "emptyMajor/emptyMinor");
 			final Date after = new Date();
@@ -158,7 +163,7 @@ public class MediaTest extends TestmodelTest
 			assertData(dataEmpty, item.getFileData());
 			assertDataFile(dataEmpty);
 			assertEquals(0, item.getFileLength());
-			assertWithinFileLastModified(before, after, new Date(item.getFileLastModified()));
+			assertWithin(before, after, new Date(item.getFileLastModified()));
 			assertEquals("emptyMajor/emptyMinor", item.getFileContentType());
 			assertTrue(item.getFileURL().endsWith(".emptyMajor.emptyMinor"));
 		}
@@ -171,7 +176,6 @@ public class MediaTest extends TestmodelTest
 		assertEquals(null, item.getFileContentType());
 		assertEquals(null, item.getFileURL());
 		{
-			sleepForFileLastModified();
 			final Date before = new Date();
 			item.setFile(file(dataFile), "emptyMajor/emptyMinor");
 			final Date after = new Date();
@@ -179,7 +183,7 @@ public class MediaTest extends TestmodelTest
 			assertData(dataFile, item.getFileData());
 			assertDataFile(dataFile);
 			assertEquals(dataFile.length, item.getFileLength());
-			assertWithinFileLastModified(before, after, new Date(item.getFileLastModified()));
+			assertWithin(before, after, new Date(item.getFileLastModified()));
 			assertEquals("emptyMajor/emptyMinor", item.getFileContentType());
 			assertTrue(item.getFileURL().endsWith(".emptyMajor.emptyMinor"));
 		}
@@ -206,6 +210,10 @@ public class MediaTest extends TestmodelTest
 		assertSame(item.TYPE, imageMinor.getType());
 		assertEquals("imageMinor", imageMinor.getName());
 		assertEqualsUnmodifiable(list(item.image), imageMinor.getPatterns());
+		final DateAttribute imageLastModified = item.image.getLastModified();
+		assertSame(item.TYPE, imageLastModified.getType());
+		assertEquals("imageLastModified", imageLastModified.getName());
+		assertEqualsUnmodifiable(list(item.image), imageLastModified.getPatterns());
 		assertEquals(null, item.image.getExists());
 		assertSame(imageMinor, item.image.getIsNull());
 
@@ -279,6 +287,10 @@ public class MediaTest extends TestmodelTest
 		assertSame(item.photo, Media.get(photoData));
 		assertEquals(null, item.photo.getMimeMajor());
 		assertEquals(null, item.photo.getMimeMinor());
+		final DateAttribute photoLastModified = item.photo.getLastModified();
+		assertSame(item.TYPE, photoLastModified.getType());
+		assertEquals("photoLastModified", photoLastModified.getName());
+		assertEqualsUnmodifiable(list(item.photo), photoLastModified.getPatterns());
 		final BooleanAttribute photoExists = item.photo.getExists();
 		assertSame(item.TYPE, photoExists.getType());
 		assertSame("photoExists", photoExists.getName());
