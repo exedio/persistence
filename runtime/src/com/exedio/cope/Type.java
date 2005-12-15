@@ -44,7 +44,7 @@ public final class Type
 	
 	private final List declaredFeatures;
 	private final List features;
-	private final HashMap declaredFeaturesByName = new HashMap();
+	private final HashMap declaredFeaturesByName;
 
 	private final List declaredAttributes;
 	private final List attributes;
@@ -146,6 +146,7 @@ public final class Type
 		{
 			final ArrayList declaredAttributes = new ArrayList(declaredFeatures.size());
 			final ArrayList declaredUniqueConstraints = new ArrayList(declaredFeatures.size());
+			final HashMap declaredFeaturesByName = new HashMap();
 			for(Iterator i = declaredFeatures.iterator(); i.hasNext(); )
 			{
 				final Feature feature = (Feature)i.next();
@@ -153,11 +154,14 @@ public final class Type
 					declaredAttributes.add(feature);
 				if(feature instanceof UniqueConstraint)
 					declaredUniqueConstraints.add(feature);
+				if(declaredFeaturesByName.put(feature.getName(), feature)!=null)
+					throw new RuntimeException("duplicate feature "+feature.getName()+" for type "+javaClass.getName());
 			}
 			declaredAttributes.trimToSize();
 			declaredUniqueConstraints.trimToSize();
 			this.declaredAttributes = Collections.unmodifiableList(declaredAttributes);
 			this.declaredUniqueConstraints = Collections.unmodifiableList(declaredUniqueConstraints);
+			this.declaredFeaturesByName = declaredFeaturesByName;
 		}
 
 		// inherit features / attributes
@@ -214,8 +218,6 @@ public final class Type
 	final void registerInitialization(final Feature feature)
 	{
 		featuresWhileConstruction.add(feature);
-		if(declaredFeaturesByName.put(feature.getName(), feature)!=null)
-			throw new RuntimeException("duplicate feature "+feature.getName()+" for type "+javaClass.getName());
 	}
 
 	final void registerSubType(final Type subType)
