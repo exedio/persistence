@@ -26,7 +26,7 @@ import com.exedio.cope.UniqueConstraint;
 /**
  *	@cope.persistent
  */
-public abstract class Input extends Item
+public class Input extends Item
 {
 	public static final StringAttribute string = new StringAttribute( READ_ONLY );
 	public static final IntegerAttribute integer = new IntegerAttribute( READ_ONLY );

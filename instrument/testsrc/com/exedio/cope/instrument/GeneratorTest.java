@@ -33,7 +33,9 @@ import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueViolationException;
+import com.exedio.cope.instrument.testmodel.DefaultTextInput;
 import com.exedio.cope.instrument.testmodel.DoubleUnique;
+import com.exedio.cope.instrument.testmodel.Input;
 import com.exedio.cope.instrument.testmodel.Qualified;
 import com.exedio.cope.instrument.testmodel.QualifiedName;
 import com.exedio.cope.instrument.testmodel.Standard;
@@ -71,6 +73,8 @@ public class GeneratorTest extends InstrumentorTest
 	final static Class QUALIFIED_NAME = QualifiedName.class;
 	final static Class SUPER = Super.class;
 	final static Class SUB = Sub.class;
+	final static Class INPUT = Input.class;
+	final static Class INPUT_SUB = DefaultTextInput.class;
 
 	public void testStandard() throws ClassNotFoundException
 	{
@@ -300,6 +304,12 @@ public class GeneratorTest extends InstrumentorTest
 			});
 		assertConstructor(SUB, new Class[]{ATTRIBUTE_VALUE_ARRAY}, PRIVATE);
 		assertConstructor(SUB, new Class[]{REACTIVATION_DUMMY, int.class}, PRIVATE);
+
+		// test protected constructors on non-abstract types
+		assertConstructor(INPUT, new Class[]{ATTRIBUTE_VALUE_ARRAY}, PROTECTED);
+		assertConstructor(INPUT, new Class[]{REACTIVATION_DUMMY, int.class}, PROTECTED);
+		assertConstructor(INPUT_SUB, new Class[]{ATTRIBUTE_VALUE_ARRAY}, PRIVATE);
+		assertConstructor(INPUT_SUB, new Class[]{REACTIVATION_DUMMY, int.class}, PRIVATE);
 	}
 	
 	void assertField(
