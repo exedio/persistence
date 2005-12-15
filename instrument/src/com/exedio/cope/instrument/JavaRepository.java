@@ -20,6 +20,7 @@ package com.exedio.cope.instrument;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 final class JavaRepository
@@ -31,12 +32,21 @@ final class JavaRepository
 	 */
 	private boolean buildStage = true;
 	
+	private boolean generateStage = false;
+	
 	private final ArrayList files = new ArrayList();
 	private final HashMap copeTypeByShortClassName = new HashMap();
 	
 	void endBuildStage()
 	{
 		assert buildStage;
+		assert !generateStage;
+		
+		generateStage = true;
+		
+		for(Iterator i = copeTypeByShortClassName.values().iterator(); i.hasNext(); )
+			((CopeType)i.next()).endBuildStage();
+		
 		buildStage = false;
 	}
 	
@@ -59,7 +69,7 @@ final class JavaRepository
 	
 	void add(final CopeType copeType)
 	{
-		assert buildStage;
+		assert buildStage && !generateStage;
 		final String name = JavaFile.extractClassName(copeType.javaClass.name);
 		if(copeTypeByShortClassName.put(name, copeType)!=null)
 			throw new RuntimeException(name);
@@ -68,7 +78,7 @@ final class JavaRepository
 	
 	CopeType getCopeType(final String className)
 	{
-		assert !buildStage;
+		assert generateStage;
 		final CopeType result = (CopeType)copeTypeByShortClassName.get(className);
 		if(result==null)
 			throw new RuntimeException("no cope type for "+className);

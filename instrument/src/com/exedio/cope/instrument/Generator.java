@@ -356,7 +356,7 @@ final class Generator
 		o.write(format(CONSTRUCTOR_GENERIC_CALLED, "{@link " + Type.class.getName() + "#newItem Type.newItem}"));
 		o.write(lineSeparator);
 		writeCommentFooter(CONSTRUCTOR_GENERIC_CUSTOMIZE);
-		o.write( Modifier.toString( option.getModifier(type.isAbstract() ? Modifier.PROTECTED : Modifier.PRIVATE) ) );
+		o.write( Modifier.toString( option.getModifier(type.allowSubTypes() ? Modifier.PROTECTED : Modifier.PRIVATE) ) );
 		o.write(' ');
 		o.write(type.getName());
 		o.write("(final "+AttributeValue.class.getName()+"[] initialAttributes)");
@@ -379,7 +379,7 @@ final class Generator
 			+ ReactivationConstructorDummy.class.getName() + ",int)");
 		o.write(lineSeparator);
 		writeCommentFooter();
-		o.write( type.isAbstract() ? "protected " : "private " );
+		o.write( type.allowSubTypes() ? "protected " : "private " );
 		o.write(type.getName());
 		o.write("("+ReactivationConstructorDummy.class.getName()+" d,final int pk)");
 		o.write(lineSeparator);

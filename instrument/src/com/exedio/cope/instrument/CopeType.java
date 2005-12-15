@@ -83,31 +83,67 @@ final class CopeType
 		return javaClass.isInterface();
 	}
 	
-	public CopeType getSuperclass()
+	private CopeType supertype;
+	private ArrayList subtypes = new ArrayList();
+	
+	void endBuildStage()
 	{
+		assert javaClass.file.repository.isBuildStage();
+		
 		final List exts = javaClass.classExtends;
 		switch(exts.size())
 		{
 			case 0:
-				return null;
+				supertype = null;
+				break;
 			case 1:
 			{
 				final String extname = (String)exts.iterator().next();
 				try
 				{
-					return javaClass.file.repository.getCopeType(extname);
+					supertype = javaClass.file.repository.getCopeType(extname);
+					supertype.addSubtype(this);
 				}
 				catch(RuntimeException e)
 				{
 					if(!e.getMessage().startsWith("no cope type for ")) // TODO better exception
 						throw new RuntimeException("bad exception", e);
 					else
-						return null;
+						supertype = null;
 				}
+				break;
 			}
 			default:
 				throw new RuntimeException(exts.toString());
 		}
+	}
+
+	void addSubtype(final CopeType subtype)
+	{
+		assert javaClass.file.repository.isBuildStage();
+		
+		subtypes.add(subtype);
+	}
+	
+	public CopeType getSuperclass()
+	{
+		assert !javaClass.file.repository.isBuildStage();
+		
+		return supertype;
+	}
+	
+	public List getSubtypes()
+	{
+		assert !javaClass.file.repository.isBuildStage();
+		
+		return subtypes;
+	}
+	
+	boolean allowSubTypes()
+	{
+		assert !javaClass.file.repository.isBuildStage();
+
+		return isAbstract() || !getSubtypes().isEmpty();
 	}
 
 	public void register(final CopeFeature feature)
