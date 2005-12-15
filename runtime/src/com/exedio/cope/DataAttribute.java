@@ -259,20 +259,20 @@ public final class DataAttribute extends Attribute
 			return null;
 		}
 		
-		private final File getPrivateStorageFile(final Item item)
+		private File getStorage(final Item item)
 		{
 			return new File(directory, String.valueOf(item.type.getPkSource().pk2id(item.pk)));
 		}
 		
 		boolean isNull(final Item item)
 		{
-			final File file = getPrivateStorageFile(item);
+			final File file = getStorage(item);
 			return !file.exists();
 		}
 		
 		InputStream get(final Item item)
 		{
-			final File file = getPrivateStorageFile(item);
+			final File file = getStorage(item);
 			try
 			{
 				return new FileInputStream(file);
@@ -285,7 +285,7 @@ public final class DataAttribute extends Attribute
 
 		long getLength(final Item item)
 		{
-			final File file = getPrivateStorageFile(item);
+			final File file = getStorage(item);
 
 			return file.exists() ? file.length() : -1l;
 		}
@@ -295,7 +295,7 @@ public final class DataAttribute extends Attribute
 			OutputStream out = null;
 			try
 			{
-				final File file = getPrivateStorageFile(item);
+				final File file = getStorage(item);
 
 				if(data!=null)
 				{
@@ -372,7 +372,7 @@ public final class DataAttribute extends Attribute
 		
 		void get(final Item item, final File data) throws IOException
 		{
-			final File file = getPrivateStorageFile(item);
+			final File file = getStorage(item);
 			if(file.exists())
 				copy(file, data);
 			// TODO maybe file should be deleted when result is null?, same in blob mode
@@ -380,7 +380,7 @@ public final class DataAttribute extends Attribute
 		
 		void set(final Item item, final File data) throws MandatoryViolationException, IOException
 		{
-			final File file = getPrivateStorageFile(item);
+			final File file = getStorage(item);
 
 			if(data!=null)
 				copy(data, file);
