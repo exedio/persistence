@@ -45,6 +45,7 @@ public final class Type
 	private final List declaredFeatures;
 	private final List features;
 	private final HashMap declaredFeaturesByName;
+	private final HashMap featuresByName;
 
 	private final List declaredAttributes;
 	private final List attributes;
@@ -168,12 +169,30 @@ public final class Type
 		if(supertype==null)
 		{
 			this.features = this.declaredFeatures;
+			this.featuresByName = this.declaredFeaturesByName;
 			this.attributes = this.declaredAttributes;
 			this.uniqueConstraints = this.declaredUniqueConstraints;
 		}
 		else
 		{
 			this.features = inherit(supertype.getFeatures(), this.declaredFeatures);
+			{
+				final HashMap inherited = supertype.featuresByName;
+				final HashMap own = this.declaredFeaturesByName;
+				if(own.isEmpty())
+					this.featuresByName = inherited;
+				else
+				{
+					final HashMap result = new HashMap(inherited);
+					for(Iterator i = own.values().iterator(); i.hasNext(); )
+					{
+						final Feature f = (Feature)i.next();
+						if(result.put(f.getName(), f)!=null)
+							throw new RuntimeException("cannot override inherited feature "+f.getName()+" in type "+id);
+					}
+					this.featuresByName = result;
+				}
+			}
 			this.attributes = inherit(supertype.getAttributes(), this.declaredAttributes);
 			this.uniqueConstraints = inherit(supertype.getUniqueConstraints(), this.declaredUniqueConstraints);
 		}
@@ -491,6 +510,11 @@ public final class Type
 	public final Feature getDeclaredFeature(final String name)
 	{
 		return (Feature)declaredFeaturesByName.get(name);
+	}
+
+	public final Feature getFeature(final String name)
+	{
+		return (Feature)featuresByName.get(name);
 	}
 
 	public final List getDeclaredUniqueConstraints()
