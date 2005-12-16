@@ -158,6 +158,21 @@ public final class Media extends MediaPath
 	}
 
 	/**
+	 * Returns a URL pointing to the data of this media.
+	 * Returns null, if there is no data for this media.
+	 */
+	public final String getURL(final Item item)
+	{
+		if(isNull(item))
+			return null;
+
+		final StringBuffer bf = new StringBuffer(getMediaRootUrl());
+		appendDataPath(item, bf);
+		appendExtension(item, bf);
+		return bf.toString();
+	}
+
+	/**
 	 * Returns the major mime type for the given content type.
 	 * Returns null, if content type is null.
 	 */
@@ -203,6 +218,35 @@ public final class Media extends MediaPath
 		return contentType.getContentType(item);
 	}
 	
+	/**
+	 * Returns the date of the last modification
+	 * of the data of this media.
+	 * Returns -1, if there is no data for this media.
+	 */
+	public final long getLastModified(final Item item)
+	{
+		if(isNull(item))
+			return -1;
+
+		return lastModified.get(item).getTime();
+	}
+
+	/**
+	 * Returns the length of the data of this media.
+	 * Returns -1, if there is no data for this media.
+	 */
+	public final long getLength(final Item item)
+	{
+		if(isNull(item))
+			return -1;
+		
+		final long result = data.getLength(item);
+		if(result<0)
+			throw newNoDataException(item);
+
+		return result;
+	}
+
 	private final RuntimeException newNoDataException(final Item item)
 	{
 		return new RuntimeException("missing data for "+this.toString()+" on "+item.toString());
@@ -230,63 +274,6 @@ public final class Media extends MediaPath
 	}
 
 	/**
-	 * Returns the length of the data of this media.
-	 * Returns -1, if there is no data for this media.
-	 */
-	public final long getLength(final Item item)
-	{
-		if(isNull(item))
-			return -1;
-		
-		final long result = data.getLength(item);
-		if(result<0)
-			throw newNoDataException(item);
-
-		return result;
-	}
-
-	/**
-	 * Returns the date of the last modification
-	 * of the data of this media.
-	 * Returns -1, if there is no data for this media.
-	 */
-	public final long getLastModified(final Item item)
-	{
-		if(isNull(item))
-			return -1;
-
-		return lastModified.get(item).getTime();
-	}
-
-	/**
-	 * Reads data of this media
-	 * and writes it into the given file.
-	 * Does nothing, if there is no data for this media.
-	 * @throws NullPointerException
-	 *         if data is null.
-	 * @throws IOException if writing data throws an IOException.
-	 */
-	public final void getData(final Item item, final File data) throws IOException
-	{
-		this.data.get(item, data);
-	}
-
-	/**
-	 * Returns a URL pointing to the data of this media.
-	 * Returns null, if there is no data for this media.
-	 */
-	public final String getURL(final Item item)
-	{
-		if(isNull(item))
-			return null;
-
-		final StringBuffer bf = new StringBuffer(getMediaRootUrl());
-		appendDataPath(item, bf);
-		appendExtension(item, bf);
-		return bf.toString();
-	}
-
-	/**
 	 * Provides data for this persistent media.
 	 * Closes <data>data</data> after reading the contents of the stream.
 	 * @param data give null to remove data.
@@ -308,6 +295,19 @@ public final class Media extends MediaPath
 		}
 	}
 	
+	/**
+	 * Reads data of this media
+	 * and writes it into the given file.
+	 * Does nothing, if there is no data for this media.
+	 * @throws NullPointerException
+	 *         if data is null.
+	 * @throws IOException if writing data throws an IOException.
+	 */
+	public final void getData(final Item item, final File data) throws IOException
+	{
+		this.data.get(item, data);
+	}
+
 	/**
 	 * Provides data for this persistent media.
 	 * @param data give null to remove data.
