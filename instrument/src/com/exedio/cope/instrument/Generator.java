@@ -516,8 +516,7 @@ final class Generator
 	private void writeMediaGetter(final CopeMedia media,
 											final Class returnType,
 											final String part,
-											final String commentPattern,
-											final int getterModifier)
+											final String commentPattern)
 	throws IOException
 	{
 		final String prefix = (boolean.class==returnType) ? "is" : "get";
@@ -527,7 +526,7 @@ final class Generator
 		o.write(lineSeparator);
 		writeStreamWarning(returnType.getName());
 		writeCommentFooter();
-		o.write(Modifier.toString(getterModifier|Modifier.FINAL));
+		o.write(Modifier.toString(media.getGeneratedGetterModifier()));
 		o.write(' ');
 		o.write(returnType.getName());
 		if(returnType==byte.class)
@@ -571,7 +570,7 @@ final class Generator
 		o.write(format(SETTER_MEDIA_IOEXCEPTION, "<code>data</code>"));
 		o.write(lineSeparator);
 		writeCommentFooter();
-		o.write(Modifier.toString(media.getGeneratedGetterModifier()|Modifier.FINAL));
+		o.write(Modifier.toString(media.getGeneratedGetterModifier()));
 		o.write(" void get");
 		o.write(toCamelCase(media.getName()));
 		o.write("Data(final " + dataType.getName() + " data)");
@@ -632,18 +631,15 @@ final class Generator
 	private void writeMedia(final CopeMedia media)
 	throws IOException
 	{
-		// getters
-		final int getterModifier = media.getGeneratedGetterModifier();
-		writeMediaGetter(media, boolean.class,     "Null",         GETTER_MEDIA_IS_NULL,           getterModifier);
-		writeMediaGetter(media, String.class,      "URL",          GETTER_MEDIA_URL,               getterModifier);
-		writeMediaGetter(media, String.class,      "ContentType",  GETTER_MEDIA_CONTENT_TYPE,      getterModifier);
-		writeMediaGetter(media, long.class,        "Length",       GETTER_MEDIA_LENGTH_TYPE,       getterModifier);
-		writeMediaGetter(media, long.class,        "LastModified", GETTER_MEDIA_LASTMODIFIED_TYPE, getterModifier);
-		writeMediaGetter(media, byte.class,        "Data",         GETTER_MEDIA_DATA_BYTE,         getterModifier);
+		writeMediaGetter(media, boolean.class,     "Null",         GETTER_MEDIA_IS_NULL);
+		writeMediaGetter(media, String.class,      "URL",          GETTER_MEDIA_URL);
+		writeMediaGetter(media, String.class,      "ContentType",  GETTER_MEDIA_CONTENT_TYPE);
+		writeMediaGetter(media, long.class,        "Length",       GETTER_MEDIA_LENGTH_TYPE);
+		writeMediaGetter(media, long.class,        "LastModified", GETTER_MEDIA_LASTMODIFIED_TYPE);
+		writeMediaGetter(media, byte.class,        "Data",         GETTER_MEDIA_DATA_BYTE);
 		writeMediaGetter(media, OutputStream.class,                GETTER_MEDIA_DATA_STREAM);
 		writeMediaGetter(media, File.class,                        GETTER_MEDIA_DATA_FILE);
 
-		// setters
 		if(media.setterOption.exists)
 		{
 			writeMediaSetter(media, InputStream.class);

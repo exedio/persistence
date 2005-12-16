@@ -54,7 +54,7 @@ final class CopeMedia extends CopeFeature
 
 	final int getGeneratedGetterModifier()
 	{
-		return modifier & (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE);
+		return modifier & (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE) | Modifier.FINAL;
 	}
 
 	final int getGeneratedSetterModifier()
