@@ -638,9 +638,8 @@ final class Generator
 		writeMediaGetter(media, boolean.class,     "Null",         GETTER_MEDIA_IS_NULL);
 		writeMediaGetter(media, String.class,      "URL",          GETTER_MEDIA_URL);
 		writeMediaGetter(media, String.class,      "ContentType",  GETTER_MEDIA_CONTENT_TYPE);
-		// TODO change order
-		writeMediaGetter(media, long.class,        "Length",       GETTER_MEDIA_LENGTH);
 		writeMediaGetter(media, long.class,        "LastModified", GETTER_MEDIA_LASTMODIFIED);
+		writeMediaGetter(media, long.class,        "Length",       GETTER_MEDIA_LENGTH);
 		writeMediaGetter(media, byte.class,        "Data",         GETTER_MEDIA_DATA_BYTE);
 		writeMediaGetter(media, OutputStream.class,                GETTER_MEDIA_DATA_STREAM);
 		writeMediaGetter(media, File.class,                        GETTER_MEDIA_DATA_FILE);
