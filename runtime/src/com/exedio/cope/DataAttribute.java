@@ -90,7 +90,6 @@ public final class DataAttribute extends Attribute
 	 */
 	public byte[] get(final Item item)
 	{
-		// TODO implement corresponding setter
 		return impl.get(item);
 	}
 	
