@@ -243,8 +243,9 @@ public final class Type
 
 	final void registerSubType(final Type subType)
 	{
+		assert subType!=null : id;
 		if(this.model!=null)
-			throw new RuntimeException();
+			throw new RuntimeException(id+'-'+subType.id);
 
 		if(subTypes==null)
 			subTypes = new ArrayList();
