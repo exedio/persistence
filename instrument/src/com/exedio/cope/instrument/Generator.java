@@ -176,7 +176,7 @@ final class Generator
 		}
 	}
 
-	private final void writeCommentHeader()
+	private void writeCommentHeader()
 	throws IOException
 	{
 		o.write("/**");
@@ -186,13 +186,13 @@ final class Generator
 		o.write(lineSeparator);
 	}
 
-	private final void writeCommentFooter()
+	private void writeCommentFooter()
 	throws IOException
 	{
 		writeCommentFooter(null);
 	}
 	
-	private final void writeCommentFooter(final String extraComment)
+	private void writeCommentFooter(final String extraComment)
 	throws IOException
 	{
 		o.write("\t * @"+Instrumentor.GENERATED+' ');
@@ -965,7 +965,7 @@ final class Generator
 		o.write("\t}");
 	}
 
-	private final void writeType(final CopeType type)
+	private void writeType(final CopeType type)
 	throws IOException
 	{
 		final Option option = type.typeOption;
