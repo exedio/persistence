@@ -66,7 +66,6 @@ public final class DataAttribute extends Attribute
 	
 	// public methods ---------------------------------------------------------------
 	
-	// TODO nicify order of public methods
 	/**
 	 * Returns, whether there is no data for this attribute.
 	 */
@@ -76,11 +75,21 @@ public final class DataAttribute extends Attribute
 	}
 
 	/**
+	 * Returns the length of the data of this persistent data attribute.
+	 * Returns -1, if there is no data for this attribute.
+	 */
+	public long getLength(final Item item)
+	{
+		return impl.getLength(item);
+	}
+	
+	/**
 	 * Returns the data of this persistent data attribute.
 	 * Returns null, if there is no data for this attribute.
 	 */
 	public byte[] get(final Item item)
 	{
+		// TODO implement corresponding setter
 		return impl.get(item);
 	}
 	
@@ -98,15 +107,6 @@ public final class DataAttribute extends Attribute
 			throw new NullPointerException();
 		
 		impl.get(item, data);
-	}
-	
-	/**
-	 * Returns the length of the data of this persistent data attribute.
-	 * Returns -1, if there is no data for this attribute.
-	 */
-	public long getLength(final Item item)
-	{
-		return impl.getLength(item);
 	}
 	
 	/**
@@ -165,9 +165,9 @@ public final class DataAttribute extends Attribute
 		
 		abstract Column getColumn();
 		abstract boolean isNull(Item item);
+		abstract long getLength(Item item);
 		abstract byte[] get(Item item);
 		abstract void get(Item item, OutputStream data) throws IOException;
-		abstract long getLength(Item item);
 		abstract void set(Item item, InputStream data) throws MandatoryViolationException, IOException;
 		abstract void get(Item item, File data) throws IOException;
 		abstract void set(Item item, File data) throws MandatoryViolationException, IOException;
@@ -197,6 +197,11 @@ public final class DataAttribute extends Attribute
 			return getLength(item)<0;
 		}
 		
+		long getLength(final Item item)
+		{
+			return column.table.database.loadLength(model.getCurrentTransaction().getConnection(), column, item);
+		}
+		
 		byte[] get(final Item item)
 		{
 			return column.table.database.load(model.getCurrentTransaction().getConnection(), column, item);
@@ -205,11 +210,6 @@ public final class DataAttribute extends Attribute
 		void get(final Item item, final OutputStream data)
 		{
 			column.table.database.load(model.getCurrentTransaction().getConnection(), column, item, data);
-		}
-		
-		long getLength(final Item item)
-		{
-			return column.table.database.loadLength(model.getCurrentTransaction().getConnection(), column, item);
 		}
 		
 		void set(final Item item, final InputStream data)
@@ -279,6 +279,13 @@ public final class DataAttribute extends Attribute
 			return !file.exists();
 		}
 		
+		long getLength(final Item item)
+		{
+			final File file = getStorage(item);
+
+			return file.exists() ? file.length() : -1l;
+		}
+
 		byte[] get(final Item item)
 		{
 			final File file = getStorage(item);
@@ -350,13 +357,6 @@ public final class DataAttribute extends Attribute
 						in.close();
 				}
 			}
-		}
-
-		long getLength(final Item item)
-		{
-			final File file = getStorage(item);
-
-			return file.exists() ? file.length() : -1l;
 		}
 
 		void set(final Item item, final InputStream data) throws MandatoryViolationException, IOException
