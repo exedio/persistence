@@ -36,10 +36,18 @@ public class DataTest extends AbstractLibTest
 	private final byte[] data2 = new byte[]{-97,35,-126,86,19,-8};
 	private final byte[] dataFile = new byte[]{-54,104,-63,23,19,-45,71,-23};
 	private final byte[] dataEmpty = new byte[]{};
+	private byte[] dataBig;
 	
 	public void setUp() throws Exception
 	{
 		super.setUp();
+		
+		final int dataFileLength = dataFile.length;
+		final int dataBigLength = (1024*1024) + 77;
+		dataBig = new byte[dataBigLength];
+		for(int i = 0; i<dataBigLength; i++)
+			dataBig[i] = dataFile[i % dataFileLength];
+		
 		deleteOnTearDown(item = new DataItem());
 	}
 	
@@ -94,6 +102,9 @@ public class DataTest extends AbstractLibTest
 		item.setData(dataEmpty);
 		assertIt(dataEmpty);
 
+		item.setData(dataBig);
+		assertIt(dataBig);
+
 		item.setData((byte[])null);
 		assertIt(null);
 
@@ -108,6 +119,9 @@ public class DataTest extends AbstractLibTest
 		item.setData(stream(dataEmpty));
 		assertIt(dataEmpty);
 
+		item.setData(stream(dataBig));
+		assertIt(dataBig);
+
 		item.setData((InputStream)null);
 		assertIt(null);
 
@@ -118,6 +132,9 @@ public class DataTest extends AbstractLibTest
 
 		item.setData(file(dataEmpty));
 		assertIt(dataEmpty);
+
+		item.setData(file(dataBig));
+		assertIt(dataBig);
 
 		item.setData((File)null);
 		assertIt(null);
