@@ -552,6 +552,44 @@ final class Generator
 		o.write("\t}");
 	}
 	
+	private void writeMediaGetter(
+			final CopeMedia media,
+			final Class dataType,
+			final String comment)
+	throws IOException
+	{
+		writeCommentHeader();
+		o.write("\t * ");
+		o.write(format(comment, link(media.getName())));
+		o.write(lineSeparator);
+		o.write("\t * ");
+		o.write(GETTER_MEDIA_DATA_EXTRA);
+		o.write(lineSeparator);
+		o.write("\t * @throws ");
+		o.write(IOException.class.getName());
+		o.write(' ');
+		o.write(format(SETTER_MEDIA_IOEXCEPTION, "<code>data</code>"));
+		o.write(lineSeparator);
+		writeCommentFooter();
+		o.write(Modifier.toString(media.getGeneratedGetterModifier()|Modifier.FINAL));
+		o.write(" void get");
+		o.write(toCamelCase(media.getName()));
+		o.write("Data(final " + dataType.getName() + " data)");
+		o.write(lineSeparator);
+		final SortedSet setterExceptions = new TreeSet();
+		setterExceptions.addAll(Arrays.asList(new Class[]{IOException.class})); // TODO
+		writeThrowsClause(setterExceptions);
+		o.write("\t{");
+		o.write(lineSeparator);
+		o.write("\t\t");
+		o.write(media.type.getName());
+		o.write('.');
+		o.write(media.getName());
+		o.write(".getData(this,data);");
+		o.write(lineSeparator);
+		o.write("\t}");
+	}
+	
 	private void writeMediaSetter(final CopeMedia media, final Class dataType)
 	throws IOException
 	{
@@ -602,74 +640,8 @@ final class Generator
 		writeMediaGetter(media, long.class,        "Length",       GETTER_MEDIA_LENGTH_TYPE,       getterModifier);
 		writeMediaGetter(media, long.class,        "LastModified", GETTER_MEDIA_LASTMODIFIED_TYPE, getterModifier);
 		writeMediaGetter(media, byte.class,        "Data",         GETTER_MEDIA_DATA_BYTE,         getterModifier);
-		
-		// stream getter
-		{
-			writeCommentHeader();
-			o.write("\t * ");
-			o.write(format(GETTER_MEDIA_DATA_STREAM, link(media.getName())));
-			o.write(lineSeparator);
-			o.write("\t * ");
-			o.write(GETTER_MEDIA_DATA_EXTRA);
-			o.write(lineSeparator);
-			o.write("\t * @throws ");
-			o.write(IOException.class.getName());
-			o.write(' ');
-			o.write(format(SETTER_MEDIA_IOEXCEPTION, "<code>data</code>"));
-			o.write(lineSeparator);
-			writeCommentFooter();
-			o.write(Modifier.toString(media.getGeneratedGetterModifier()|Modifier.FINAL));
-			o.write(" void get");
-			o.write(toCamelCase(media.getName()));
-			o.write("Data(final " + OutputStream.class.getName() + " data)");
-			o.write(lineSeparator);
-			final SortedSet setterExceptions = new TreeSet();
-			setterExceptions.addAll(Arrays.asList(new Class[]{IOException.class})); // TODO
-			writeThrowsClause(setterExceptions);
-			o.write("\t{");
-			o.write(lineSeparator);
-			o.write("\t\t");
-			o.write(media.type.getName());
-			o.write('.');
-			o.write(media.getName());
-			o.write(".getData(this,data);");
-			o.write(lineSeparator);
-			o.write("\t}");
-		}
-		// TODO reuse code
-		// file getter
-		{
-			writeCommentHeader();
-			o.write("\t * ");
-			o.write(format(GETTER_MEDIA_DATA_FILE, link(media.getName())));
-			o.write(lineSeparator);
-			o.write("\t * ");
-			o.write(GETTER_MEDIA_DATA_EXTRA);
-			o.write(lineSeparator);
-			o.write("\t * @throws ");
-			o.write(IOException.class.getName());
-			o.write(' ');
-			o.write(format(SETTER_MEDIA_IOEXCEPTION, "<code>data</code>"));
-			o.write(lineSeparator);
-			writeCommentFooter();
-			o.write(Modifier.toString(media.getGeneratedGetterModifier()|Modifier.FINAL));
-			o.write(" void get");
-			o.write(toCamelCase(media.getName()));
-			o.write("Data(final " + File.class.getName() + " data)");
-			o.write(lineSeparator);
-			final SortedSet setterExceptions = new TreeSet();
-			setterExceptions.addAll(Arrays.asList(new Class[]{IOException.class})); // TODO
-			writeThrowsClause(setterExceptions);
-			o.write("\t{");
-			o.write(lineSeparator);
-			o.write("\t\t");
-			o.write(media.type.getName());
-			o.write('.');
-			o.write(media.getName());
-			o.write(".getData(this,data);");
-			o.write(lineSeparator);
-			o.write("\t}");
-		}
+		writeMediaGetter(media, OutputStream.class,                GETTER_MEDIA_DATA_STREAM);
+		writeMediaGetter(media, File.class,                        GETTER_MEDIA_DATA_FILE);
 
 		// setters
 		if(media.setterOption.exists)
