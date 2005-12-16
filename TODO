@@ -34,9 +34,6 @@
 		* redundantly maintain width/height for images
 	- move Item#touch into separate pattern Timestamp
 	- as in dsmf: check data directories
-	- add/drop constraints:
-		* alter table "SumItem" add constraint schnappel check ("num2" is not null)
-		* alter table "ItemWithDoubleUnique" drop constraint "ItemWithDoublUniqu_str_Nn"
 	- relation pattern
 	- Vector: allow length terminated instead of null terminated as well
 	- allow (fulltext) indexes to be declared in java source code,
