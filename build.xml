@@ -360,6 +360,7 @@
 						<pathelement location="runtime/build/testclasses" />
 						<pathelement location="lib/pcj.jar" />
 						<pathelement location="lib/commons-collections.jar" />
+						<pathelement location="lib/servlet-api.jar" />
 						<pathelement location="lib/@{db.driver}" />
 					</classpath>
 					<sysproperty key="com.exedio.cope.properties"

@@ -308,7 +308,7 @@ public final class Model
 		for(Iterator i = type.getAttributes().iterator(); i.hasNext(); )
 		{
 			final Attribute attribute = (Attribute)i.next();
-			if(attribute instanceof DataAttribute)
+			if(attribute instanceof DataAttribute && !((DataAttribute)attribute).impl.blob)
 			{
 				if(typeDirectory==null)
 				{
