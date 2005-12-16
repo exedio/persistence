@@ -241,15 +241,9 @@ public final class Media extends MediaPath
 			return -1;
 		
 		final long result = data.getLength(item);
-		if(result<0)
-			throw newNoDataException(item);
-
+		
+		assert result>=0 : item.getCopeID();
 		return result;
-	}
-
-	private final RuntimeException newNoDataException(final Item item)
-	{
-		return new RuntimeException("missing data for "+this.toString()+" on "+item.toString());
 	}
 
 	/**
