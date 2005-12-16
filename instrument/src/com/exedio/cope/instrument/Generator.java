@@ -554,12 +554,12 @@ final class Generator
 	private void writeMediaGetter(
 			final CopeMedia media,
 			final Class dataType,
-			final String comment)
+			final String commentPattern)
 	throws IOException
 	{
 		writeCommentHeader();
 		o.write("\t * ");
-		o.write(format(comment, link(media.getName())));
+		o.write(format(commentPattern, link(media.getName())));
 		o.write(lineSeparator);
 		o.write("\t * ");
 		o.write(GETTER_MEDIA_DATA_EXTRA);
