@@ -513,11 +513,11 @@ final class Generator
 		o.write("\t}");
 	}
 	
-	private void writeDataGetterMethod(final CopeMedia media,
-													final Class returnType,
-													final String part,
-													final String commentPattern,
-													final int getterModifier)
+	private void writeMediaGetter(final CopeMedia media,
+											final Class returnType,
+											final String part,
+											final String commentPattern,
+											final int getterModifier)
 	throws IOException
 	{
 		final String prefix = (boolean.class==returnType) ? "is" : "get";
@@ -596,12 +596,12 @@ final class Generator
 	{
 		// getters
 		final int getterModifier = media.getGeneratedGetterModifier();
-		writeDataGetterMethod(media, boolean.class,     "Null",        GETTER_MEDIA_IS_NULL,      getterModifier);
-		writeDataGetterMethod(media, String.class,      "URL",         GETTER_MEDIA_URL,          getterModifier);
-		writeDataGetterMethod(media, String.class,      "ContentType", GETTER_MEDIA_CONTENT_TYPE, getterModifier);
-		writeDataGetterMethod(media, long.class,        "Length",      GETTER_MEDIA_LENGTH_TYPE, getterModifier);
-		writeDataGetterMethod(media, long.class,        "LastModified",GETTER_MEDIA_LASTMODIFIED_TYPE, getterModifier);
-		writeDataGetterMethod(media, byte.class,        "Data",        GETTER_MEDIA_DATA_BYTE,    getterModifier);
+		writeMediaGetter(media, boolean.class,     "Null",         GETTER_MEDIA_IS_NULL,           getterModifier);
+		writeMediaGetter(media, String.class,      "URL",          GETTER_MEDIA_URL,               getterModifier);
+		writeMediaGetter(media, String.class,      "ContentType",  GETTER_MEDIA_CONTENT_TYPE,      getterModifier);
+		writeMediaGetter(media, long.class,        "Length",       GETTER_MEDIA_LENGTH_TYPE,       getterModifier);
+		writeMediaGetter(media, long.class,        "LastModified", GETTER_MEDIA_LASTMODIFIED_TYPE, getterModifier);
+		writeMediaGetter(media, byte.class,        "Data",         GETTER_MEDIA_DATA_BYTE,         getterModifier);
 		
 		// stream getter
 		{
