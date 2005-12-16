@@ -232,12 +232,7 @@ public class MediaTest extends TestmodelTest
 		assertEqualsUnmodifiable(list(item.photo), photoExists.getPatterns());
 		assertSame(photoExists, item.photo.getIsNull());
 
-		assertTrue(item.photo.isNull(item));
-		assertTrue(item.isPhotoNull());
-		assertEquals(null, item.getPhotoData());
-		assertEquals(-1, item.getPhotoLength());
-		assertEquals(null, item.getPhotoContentType());
-		assertEquals(null, item.getPhotoURL());
+		assertPhotoNull();
 
 		item.setPhoto(stream(data), "image/jpeg");
 		assertTrue(!item.isPhotoNull());
@@ -286,11 +281,7 @@ public class MediaTest extends TestmodelTest
 		}
 
 		item.setPhoto((InputStream)null, null);
-		assertTrue(item.isPhotoNull());
-		assertEquals(null, item.getPhotoData());
-		assertEquals(-1, item.getPhotoLength());
-		assertEquals(null, item.getPhotoContentType());
-		assertEquals(null, item.getPhotoURL());
+		assertPhotoNull();
 		
 		
 		// foto
@@ -383,6 +374,16 @@ public class MediaTest extends TestmodelTest
 		assertEquals(expectedData.length, item.getImageLength());
 		assertEquals(expectedContentType, item.getImageContentType());
 		assertTrue(item.getImageURL().endsWith(expectedExtension));
+	}
+	
+	private void assertPhotoNull() throws IOException
+	{
+		assertTrue(item.photo.isNull(item));
+		assertTrue(item.isPhotoNull());
+		assertEquals(null, item.getPhotoData());
+		assertEquals(-1, item.getPhotoLength());
+		assertEquals(null, item.getPhotoContentType());
+		assertEquals(null, item.getPhotoURL());
 	}
 	
 }
