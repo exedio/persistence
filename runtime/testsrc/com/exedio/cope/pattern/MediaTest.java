@@ -181,20 +181,10 @@ public class MediaTest extends TestmodelTest
 		assertImageNull();
 
 		item.setImage(stream(data), "image/imageMinor");
-		assertTrue(!item.isImageNull());
-		assertData(data, item.getImageData());
-		assertEquals(data.length, item.getImageLength());
-		assertEquals("image/imageMinor", item.getImageContentType());
-		//System.out.println(item.getImageURL());
-		assertTrue(item.getImageURL().endsWith(".image.imageMinor"));
+		assertImage(data, "image/imageMinor", ".image.imageMinor");
 
 		item.setImage(stream(data2), "image/jpeg");
-		assertTrue(!item.isImageNull());
-		assertData(data2, item.getImageData());
-		assertEquals(data2.length, item.getImageLength());
-		assertEquals("image/jpeg", item.getImageContentType());
-		//System.out.println(item.getImageURL());
-		assertTrue(item.getImageURL().endsWith(".jpg"));
+		assertImage(data2, "image/jpeg", ".jpg");
 
 		try
 		{
@@ -204,11 +194,7 @@ public class MediaTest extends TestmodelTest
 		catch(IllegalContentTypeException e)
 		{
 			assertEquals("illegalContentType", e.getMessage());
-			assertTrue(!item.isImageNull());
-			assertData(data2, item.getImageData());
-			assertEquals(data2.length, item.getImageLength());
-			assertEquals("image/jpeg", item.getImageContentType());
-			assertTrue(item.getImageURL().endsWith(".jpg"));
+			assertImage(data2, "image/jpeg", ".jpg");
 		}
 
 		try
@@ -219,11 +205,7 @@ public class MediaTest extends TestmodelTest
 		catch(IllegalContentTypeException e)
 		{
 			assertEquals("text/html", e.getMessage());
-			assertTrue(!item.isImageNull());
-			assertData(data2, item.getImageData());
-			assertEquals(data2.length, item.getImageLength());
-			assertEquals("image/jpeg", item.getImageContentType());
-			assertTrue(item.getImageURL().endsWith(".jpg"));
+			assertImage(data2, "image/jpeg", ".jpg");
 		}
 
 		item.setImage((InputStream)null, null);
@@ -389,6 +371,18 @@ public class MediaTest extends TestmodelTest
 		assertEquals(-1, item.getImageLength());
 		assertEquals(null, item.getImageContentType());
 		assertEquals(null, item.getImageURL());
+	}
+	
+	private void assertImage(
+			final byte[] expectedData,
+			final String expectedContentType, final String expectedExtension)
+	throws IOException
+	{
+		assertTrue(!item.isImageNull());
+		assertData(expectedData, item.getImageData());
+		assertEquals(expectedData.length, item.getImageLength());
+		assertEquals(expectedContentType, item.getImageContentType());
+		assertTrue(item.getImageURL().endsWith(expectedExtension));
 	}
 	
 }
