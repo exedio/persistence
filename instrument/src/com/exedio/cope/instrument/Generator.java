@@ -77,8 +77,8 @@ final class Generator
 	private static final String GETTER_MEDIA_IS_NULL = "Returns whether this media {0} has data available.";
 	private static final String GETTER_MEDIA_URL   = "Returns a URL the data of the media {0} is available under.";
 	private static final String GETTER_MEDIA_CONTENT_TYPE = "Returns the content type of the media {0}.";
-	private static final String GETTER_MEDIA_LENGTH_TYPE = "Returns the data length of the media {0}.";
-	private static final String GETTER_MEDIA_LASTMODIFIED_TYPE = "Returns the last modification date of the media {0}.";
+	private static final String GETTER_MEDIA_LENGTH = "Returns the data length of the media {0}.";
+	private static final String GETTER_MEDIA_LASTMODIFIED = "Returns the last modification date of the media {0}.";
 	private static final String GETTER_MEDIA_DATA_BYTE  = "Returns the data of the media {0}.";
 	private static final String GETTER_MEDIA_DATA_STREAM  = "Reads data of media {0}, and writes it into the given stream.";
 	private static final String GETTER_MEDIA_DATA_FILE = "Reads data of media {0}, and writes it into the given file.";
@@ -634,8 +634,8 @@ final class Generator
 		writeMediaGetter(media, boolean.class,     "Null",         GETTER_MEDIA_IS_NULL);
 		writeMediaGetter(media, String.class,      "URL",          GETTER_MEDIA_URL);
 		writeMediaGetter(media, String.class,      "ContentType",  GETTER_MEDIA_CONTENT_TYPE);
-		writeMediaGetter(media, long.class,        "Length",       GETTER_MEDIA_LENGTH_TYPE);
-		writeMediaGetter(media, long.class,        "LastModified", GETTER_MEDIA_LASTMODIFIED_TYPE);
+		writeMediaGetter(media, long.class,        "Length",       GETTER_MEDIA_LENGTH);
+		writeMediaGetter(media, long.class,        "LastModified", GETTER_MEDIA_LASTMODIFIED);
 		writeMediaGetter(media, byte.class,        "Data",         GETTER_MEDIA_DATA_BYTE);
 		writeMediaGetter(media, OutputStream.class,                GETTER_MEDIA_DATA_STREAM);
 		writeMediaGetter(media, File.class,                        GETTER_MEDIA_DATA_FILE);
