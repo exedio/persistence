@@ -23,6 +23,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.lang.reflect.Modifier;
@@ -78,9 +79,10 @@ final class Generator
 	private static final String GETTER_MEDIA_CONTENT_TYPE = "Returns the content type of the media {0}.";
 	private static final String GETTER_MEDIA_LENGTH_TYPE = "Returns the data length of the media {0}.";
 	private static final String GETTER_MEDIA_LASTMODIFIED_TYPE = "Returns the last modification date of the media {0}.";
-	private static final String GETTER_MEDIA_DATA  = "Returns the data of the media {0}.";
+	private static final String GETTER_MEDIA_DATA_BYTE  = "Returns the data of the media {0}.";
+	private static final String GETTER_MEDIA_DATA_STREAM  = "Reads data of media {0}, and writes it into the given stream.";
 	private static final String GETTER_MEDIA_DATA_FILE = "Reads data of media {0}, and writes it into the given file.";
-	private static final String GETTER_MEDIA_DATA_FILE2 = "Does nothing, if there is no data for the media.";
+	private static final String GETTER_MEDIA_DATA_EXTRA = "Does nothing, if there is no data for the media.";
 	private static final String GETTER_STREAM_WARNING  = "<b>You are responsible for closing the stream, when you are finished!</b>";
 	private static final String TOUCHER = "Sets the current date for the date attribute {0}.";
 	private static final String FINDER_UNIQUE = "Finds a {0} by it''s unique attributes.";
@@ -396,7 +398,7 @@ final class Generator
 		final String type = attribute.getBoxedType();
 
 		// getter
-		if(attribute.getterOption.exists)
+		if(attribute.getterOption.exists && !(attribute instanceof CopeDataAttribute))
 		{
 			writeCommentHeader();
 			o.write("\t * ");
@@ -528,6 +530,8 @@ final class Generator
 		o.write(Modifier.toString(getterModifier|Modifier.FINAL));
 		o.write(' ');
 		o.write(returnType.getName());
+		if(returnType==byte.class)
+			o.write("[]");
 		o.write(' ');
 		o.write(prefix);
 		o.write(toCamelCase(media.getName()));
@@ -587,6 +591,7 @@ final class Generator
 		o.write("\t}");
 	}
 	
+	// TODO rename to media
 	private void writeDataAccessMethods(final CopeMedia media)
 	throws IOException
 	{
@@ -597,8 +602,42 @@ final class Generator
 		writeDataGetterMethod(media, String.class,      "ContentType", GETTER_MEDIA_CONTENT_TYPE, getterModifier);
 		writeDataGetterMethod(media, long.class,        "Length",      GETTER_MEDIA_LENGTH_TYPE, getterModifier);
 		writeDataGetterMethod(media, long.class,        "LastModified",GETTER_MEDIA_LASTMODIFIED_TYPE, getterModifier);
-		writeDataGetterMethod(media, InputStream.class, "Data",        GETTER_MEDIA_DATA,         getterModifier);
+		writeDataGetterMethod(media, byte.class,        "Data",        GETTER_MEDIA_DATA_BYTE,    getterModifier);
 		
+		// stream getter
+		{
+			writeCommentHeader();
+			o.write("\t * ");
+			o.write(format(GETTER_MEDIA_DATA_STREAM, link(media.getName())));
+			o.write(lineSeparator);
+			o.write("\t * ");
+			o.write(GETTER_MEDIA_DATA_EXTRA);
+			o.write(lineSeparator);
+			o.write("\t * @throws ");
+			o.write(IOException.class.getName());
+			o.write(' ');
+			o.write(format(SETTER_MEDIA_IOEXCEPTION, "<code>data</code>"));
+			o.write(lineSeparator);
+			writeCommentFooter();
+			o.write(Modifier.toString(media.getGeneratedGetterModifier()|Modifier.FINAL));
+			o.write(" void get");
+			o.write(toCamelCase(media.getName()));
+			o.write("Data(final " + OutputStream.class.getName() + " data)");
+			o.write(lineSeparator);
+			final SortedSet setterExceptions = new TreeSet();
+			setterExceptions.addAll(Arrays.asList(new Class[]{IOException.class})); // TODO
+			writeThrowsClause(setterExceptions);
+			o.write("\t{");
+			o.write(lineSeparator);
+			o.write("\t\t");
+			o.write(media.type.getName());
+			o.write('.');
+			o.write(media.getName());
+			o.write(".getData(this,data);");
+			o.write(lineSeparator);
+			o.write("\t}");
+		}
+		// TODO reuse code
 		// file getter
 		{
 			writeCommentHeader();
@@ -606,7 +645,7 @@ final class Generator
 			o.write(format(GETTER_MEDIA_DATA_FILE, link(media.getName())));
 			o.write(lineSeparator);
 			o.write("\t * ");
-			o.write(GETTER_MEDIA_DATA_FILE2);
+			o.write(GETTER_MEDIA_DATA_EXTRA);
 			o.write(lineSeparator);
 			o.write("\t * @throws ");
 			o.write(IOException.class.getName());

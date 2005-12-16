@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -90,7 +91,8 @@ interface Database
 	void store(Connection connection, State state, boolean present) throws UniqueViolationException;
 	void delete(Connection connection, Item item);
 	
-	InputStream load(Connection connection, BlobColumn column, Item item);
+	byte[] load(Connection connection, BlobColumn column, Item item);
+	void load(Connection connection, BlobColumn column, Item item, OutputStream data);
 	long loadLength(Connection connection, BlobColumn column, Item item);
 	void store(Connection connection, BlobColumn column, Item item, InputStream data) throws IOException;
 

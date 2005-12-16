@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -738,8 +739,9 @@ abstract class AbstractDatabase implements Database
 		}
 	}
 
-	public final InputStream load(final Connection connection, final BlobColumn column, final Item item)
+	public final byte[] load(final Connection connection, final BlobColumn column, final Item item)
 	{
+		// TODO reuse code in load blob methods
 		buildStage = false;
 
 		final Table table = column.table;
@@ -773,16 +775,68 @@ abstract class AbstractDatabase implements Database
 	
 	private static class LoadBlobResultSetHandler implements ResultSetHandler
 	{
-		InputStream result;
+		byte[] result;
 
 		public void run(final ResultSet resultSet) throws SQLException
 		{
 			if(!resultSet.next())
 				throw new RuntimeException();
-			final Blob blob = resultSet.getBlob(1);
-			if(blob!=null)
-				result = blob.getBinaryStream();
+			result = resultSet.getBytes(1);
 		}
+	}
+	
+	public final void load(final Connection connection, final BlobColumn column, final Item item, final OutputStream data)
+	{
+		buildStage = false;
+
+		final Table table = column.table;
+		final Statement bf = createStatement();
+		bf.append("select ").
+			append(column.protectedID).defineColumn(column).
+			append(" from ").
+			append(table.protectedID).
+			append(" where ").
+			append(table.primaryKey.protectedID).
+			append('=').
+			appendParameter(item.pk);
+			
+		// Additionally check correctness of type column
+		// If type column is inconsistent, the database
+		// will return no rows and the result set handler
+		// will fail
+		final StringColumn typeColumn = table.typeColumn;
+		if(typeColumn!=null)
+		{
+			bf.append(" and ").
+				append(typeColumn.protectedID).
+				append('=').
+				appendParameter(item.type.id);
+		}
+		
+		executeSQLQuery(connection, bf, new ResultSetHandler(){
+			
+			public void run(final ResultSet resultSet) throws SQLException
+			{
+				if(!resultSet.next())
+					throw new RuntimeException();
+				final Blob blob = resultSet.getBlob(1);
+				if(blob!=null)
+				{
+					try
+					{
+						final InputStream source = blob.getBinaryStream();
+						final byte[] b = new byte[Math.min(50*1024, (int)blob.length())];
+						for(int len = source.read(b); len>=0; len = source.read(b))
+							data.write(b, 0, len);
+					}
+					catch(IOException e)
+					{
+						throw new RuntimeException(e);
+					}
+				}
+			}
+			
+		}, false);
 	}
 	
 	public final long loadLength(final Connection connection, final BlobColumn column, final Item item)

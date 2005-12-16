@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -208,20 +209,24 @@ public final class Media extends MediaPath
 	}
 
 	/**
-	 * Returns a stream for fetching the data of this media.
-	 * <b>You are responsible for closing the stream, when you are finished!</b>
+	 * Returns the data of this media.
 	 * Returns null, if there is no data for this media.
 	 */
-	public final InputStream getData(final Item item)
+	public final byte[] getData(final Item item)
 	{
-		if(isNull(item))
-			return null;
+		return this.data.get(item);
+	}
 
-		final InputStream result = data.get(item);
-		if(result==null)
-			throw newNoDataException(item);
-		
-		return result;
+	/**
+	 * Reads data for this media and writes it into the given steam.
+	 * Does nothing, if there is no data for this media.
+	 * @throws NullPointerException
+	 *         if data is null.
+	 * @throws IOException if writing data throws an IOException.
+	 */
+	public final void getData(final Item item, final OutputStream data) throws IOException
+	{
+		this.data.get(item, data);
 	}
 
 	/**
@@ -475,22 +480,14 @@ public final class Media extends MediaPath
 			System.out.println(request.getMethod()+' '+request.getProtocol()+" IMS="+format(ifModifiedSince)+"  LM="+format(lastModified)+"  modified: "+contentLength);
 
 			ServletOutputStream out = null;
-			InputStream in = null;
 			try
 			{
 				out = response.getOutputStream();
-				in = getData(item);
-
-				final byte[] buffer = new byte[Math.min(contentLength, 50*1024)];
-				for(int len = in.read(buffer); len != -1; len = in.read(buffer))
-					out.write(buffer, 0, len);
-
+				getData(item, out);
 				return delivered;
 			}
 			finally
 			{
-				if(in!=null)
-					in.close();
 				if(out!=null)
 					out.close();
 			}

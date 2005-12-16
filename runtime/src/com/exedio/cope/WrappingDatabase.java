@@ -18,13 +18,14 @@
 
 package com.exedio.cope;
 
-import bak.pcj.list.IntList;
-
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import bak.pcj.list.IntList;
 
 class WrappingDatabase implements Database
 {
@@ -175,9 +176,14 @@ class WrappingDatabase implements Database
 		nested.store( connection, state, param );
 	}
 
-	public final InputStream load(final Connection connection, final BlobColumn column, final Item item)
+	public final byte[] load(final Connection connection, final BlobColumn column, final Item item)
 	{
 		return nested.load(connection, column, item);
+	}
+	
+	public final void load(final Connection connection, final BlobColumn column, final Item item, final OutputStream data)
+	{
+		nested.load(connection, column, item, data);
 	}
 	
 	public final long loadLength(final Connection connection, final BlobColumn column, final Item item)

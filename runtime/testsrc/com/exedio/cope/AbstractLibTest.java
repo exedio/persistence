@@ -132,6 +132,13 @@ public abstract class AbstractLibTest extends CopeTest
 		return result;
 	}
 	
+	protected void assertData(final byte[] expectedData, final byte[] actualData)
+	{
+		assertEquals(expectedData.length, actualData.length);
+		for(int i = 0; i<actualData.length; i++)
+			assertEquals(expectedData[i], actualData[i]);
+	}
+	
 	protected void assertData(final byte[] expectedData, final InputStream actualData)
 	{
 		try
@@ -140,6 +147,7 @@ public abstract class AbstractLibTest extends CopeTest
 			final int actualLengthRead = actualData.read(actualDataArray);
 			final int actualLength = actualLengthRead<0 ? 0 : actualLengthRead;
 			actualData.close();
+			// TODO reuse code from assertData(byte[], byte[])
 			assertEquals(expectedData.length, actualLength);
 			for(int i = 0; i<actualLength; i++)
 				assertEquals(expectedData[i], actualDataArray[i]);
