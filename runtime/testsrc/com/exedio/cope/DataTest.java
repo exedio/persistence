@@ -58,48 +58,42 @@ public class DataTest extends AbstractLibTest
 		assertDataFile(null);
 		assertEquals(-1, item.getDataLength());
 
-		{
-			item.setData(data);
-			assertIt(data);
-		}
-		{
-			item.setData(data2);
-			assertIt(data2);
-		}
-		{
-			item.setData(dataEmpty);
-			assertIt(dataEmpty);
-		}
+		item.setData(data);
+		assertIt(data);
+
+		item.setData(data2);
+		assertIt(data2);
+
+		item.setData(dataEmpty);
+		assertIt(dataEmpty);
+
 		item.setData((byte[])null);
 		assertTrue(item.isDataNull());
 		assertEquals(-1, item.getDataLength());
 		assertEquals(null, item.getData());
 		assertDataFile(null);
-		{
-			item.setData(stream(data));
-			assertIt(data);
-		}
-		{
-			item.setData(stream(data2));
-			assertIt(data2);
-		}
-		{
-			item.setData(stream(dataEmpty));
-			assertIt(dataEmpty);
-		}
+
+		item.setData(stream(data));
+		assertIt(data);
+
+		item.setData(stream(data2));
+		assertIt(data2);
+
+		item.setData(stream(dataEmpty));
+		assertIt(dataEmpty);
+
 		item.setData((InputStream)null);
 		assertTrue(item.isDataNull());
 		assertEquals(-1, item.getDataLength());
 		assertEquals(null, item.getData());
 		assertDataFile(null);
-		{
-			item.setData(file(dataFile));
-			assertIt(dataFile);
-		}
-		{
-			item.setData(file(dataEmpty));
-			assertIt(dataEmpty);
-		}
+
+		item.setData(file(dataFile));
+		assertIt(dataFile);
+
+		item.setData(file(dataEmpty));
+		assertIt(dataEmpty);
+
 		item.setData((File)null);
 		assertTrue(item.isDataNull());
 		assertEquals(-1, item.getDataLength());
