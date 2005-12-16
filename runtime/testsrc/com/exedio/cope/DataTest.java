@@ -48,16 +48,35 @@ public class DataTest extends AbstractLibTest
 		if(expectedData!=null)
 		{
 			assertTrue(!item.isDataNull());
-			assertData(expectedData, item.getData());
-			assertDataFile(expectedData);
 			assertEquals(expectedData.length, item.getDataLength());
+			assertData(expectedData, item.getData());
+
+			final ByteArrayOutputStream tempStream = new ByteArrayOutputStream();
+			item.getData(tempStream);
+			assertData(expectedData, tempStream.toByteArray());
+			
+			final File tempFile = File.createTempFile("cope-DataTest.", ".tmp");
+			assertTrue(tempFile.delete());
+			assertFalse(tempFile.exists());
+			item.getData(tempFile);
+			assertTrue(tempFile.exists());
+			assertEqualContent(expectedData, tempFile);
 		}
 		else
 		{
 			assertTrue(item.isDataNull());
-			assertEquals(null, item.getData());
-			assertDataFile(null);
 			assertEquals(-1, item.getDataLength());
+			assertEquals(null, item.getData());
+			
+			final ByteArrayOutputStream tempStream = new ByteArrayOutputStream();
+			item.getData(tempStream);
+			assertEquals(0, tempStream.toByteArray().length);
+			
+			final File tempFile = File.createTempFile("cope-DataTest.", ".tmp");
+			assertTrue(tempFile.delete());
+			assertFalse(tempFile.exists());
+			item.getData(tempFile);
+			assertFalse(tempFile.exists());
 		}
 	}
 	
@@ -122,25 +141,6 @@ public class DataTest extends AbstractLibTest
 		{
 			assertEquals(null, e.getMessage());
 		}
-	}
-	
-	// TODO rename to assertData
-	private final void assertDataFile(final byte[] expectedData) throws IOException
-	{
-		final File tempFile = File.createTempFile("cope-DataTest.", ".tmp");
-		assertTrue(tempFile.delete());
-		assertFalse(tempFile.exists());
-		
-		item.getData(tempFile);
-		assertEqualContent(expectedData, tempFile);
-
-		final ByteArrayOutputStream out = new ByteArrayOutputStream();
-		item.getData(out);
-		final byte[] actualData = out.toByteArray();
-		if(expectedData!=null)
-			assertData(expectedData, actualData);
-		else
-			assertEquals(0, actualData.length);
 	}
 	
 }
