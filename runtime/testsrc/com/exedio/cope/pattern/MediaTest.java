@@ -51,9 +51,10 @@ public class MediaTest extends TestmodelTest
 	private void assertExtension(final String contentType, final String extension)
 		throws IOException
 	{
+		final Date before = new Date();
 		item.setFile(stream(data2), contentType);
-		assertEquals(contentType, item.getFileContentType());
-		assertTrue(item.getFileURL().endsWith(extension));
+		final Date after = new Date();
+		assertFile(data2, before, after, contentType, extension);
 	}
 	
 	public void testData() throws IOException
@@ -105,25 +106,13 @@ public class MediaTest extends TestmodelTest
 			final Date before = new Date();
 			item.setFile(stream(data), "fileMajor/fileMinor");
 			final Date after = new Date();
-			assertTrue(!item.isFileNull());
-			assertData(data, item.getFileData());
-			assertDataFile(data);
-			assertEquals(data.length, item.getFileLength());
-			assertWithin(before, after, new Date(item.getFileLastModified()));
-			assertEquals("fileMajor/fileMinor", item.getFileContentType());
-			assertTrue(item.getFileURL().endsWith(".fileMajor.fileMinor"));
+			assertFile(data, before, after, "fileMajor/fileMinor", ".fileMajor.fileMinor");
 		}
 		{
 			final Date before = new Date();
 			item.setFile(stream(data2), "fileMajor2/fileMinor2");
 			final Date after = new Date();
-			assertTrue(!item.isFileNull());
-			assertData(data2, item.getFileData());
-			assertDataFile(data2);
-			assertEquals(data2.length, item.getFileLength());
-			assertWithin(before, after, new Date(item.getFileLastModified()));
-			assertEquals("fileMajor2/fileMinor2", item.getFileContentType());
-			assertTrue(item.getFileURL().endsWith(".fileMajor2.fileMinor2"));
+			assertFile(data2, before, after, "fileMajor2/fileMinor2", ".fileMajor2.fileMinor2");
 
 			try
 			{
@@ -133,13 +122,7 @@ public class MediaTest extends TestmodelTest
 			catch(IllegalContentTypeException e)
 			{
 				assertEquals("illegalContentType", e.getMessage());
-				assertTrue(!item.isFileNull());
-				assertData(data2, item.getFileData());
-				assertDataFile(data2);
-				assertEquals(data2.length, item.getFileLength());
-				assertWithin(before, after, new Date(item.getFileLastModified()));
-				assertEquals("fileMajor2/fileMinor2", item.getFileContentType());
-				assertTrue(item.getFileURL().endsWith(".fileMajor2.fileMinor2"));
+				assertFile(data2, before, after, "fileMajor2/fileMinor2", ".fileMajor2.fileMinor2");
 			}
 		}
 		assertExtension("image/jpeg", ".jpg");
@@ -153,13 +136,7 @@ public class MediaTest extends TestmodelTest
 			final Date before = new Date();
 			item.setFile(stream(dataEmpty), "emptyMajor/emptyMinor");
 			final Date after = new Date();
-			assertTrue(!item.isFileNull());
-			assertData(dataEmpty, item.getFileData());
-			assertDataFile(dataEmpty);
-			assertEquals(0, item.getFileLength());
-			assertWithin(before, after, new Date(item.getFileLastModified()));
-			assertEquals("emptyMajor/emptyMinor", item.getFileContentType());
-			assertTrue(item.getFileURL().endsWith(".emptyMajor.emptyMinor"));
+			assertFile(dataEmpty, before, after, "emptyMajor/emptyMinor", ".emptyMajor.emptyMinor");
 		}
 		item.setFile((InputStream)null, null);
 		assertFileNull();
@@ -167,13 +144,7 @@ public class MediaTest extends TestmodelTest
 			final Date before = new Date();
 			item.setFile(file(dataFile), "emptyMajor/emptyMinor");
 			final Date after = new Date();
-			assertTrue(!item.isFileNull());
-			assertData(dataFile, item.getFileData());
-			assertDataFile(dataFile);
-			assertEquals(dataFile.length, item.getFileLength());
-			assertWithin(before, after, new Date(item.getFileLastModified()));
-			assertEquals("emptyMajor/emptyMinor", item.getFileContentType());
-			assertTrue(item.getFileURL().endsWith(".emptyMajor.emptyMinor"));
+			assertFile(dataFile, before, after, "emptyMajor/emptyMinor", ".emptyMajor.emptyMinor");
 		}
 		item.setFile((File)null, null);
 		assertFileNull();
@@ -181,13 +152,7 @@ public class MediaTest extends TestmodelTest
 			final Date before = new Date();
 			item.setFile(dataFile, "emptyMajor/emptyMinor");
 			final Date after = new Date();
-			assertTrue(!item.isFileNull());
-			assertData(dataFile, item.getFileData());
-			assertDataFile(dataFile);
-			assertEquals(dataFile.length, item.getFileLength());
-			assertWithin(before, after, new Date(item.getFileLastModified()));
-			assertEquals("emptyMajor/emptyMinor", item.getFileContentType());
-			assertTrue(item.getFileURL().endsWith(".emptyMajor.emptyMinor"));
+			assertFile(dataFile, before, after, "emptyMajor/emptyMinor", ".emptyMajor.emptyMinor");
 		}
 		item.setFile((byte[])null, null);
 		assertFileNull();
@@ -398,6 +363,21 @@ public class MediaTest extends TestmodelTest
 		assertEquals(-1, item.getFileLastModified());
 		assertEquals(null, item.getFileContentType());
 		assertEquals(null, item.getFileURL());
+	}
+	
+	private void assertFile(
+			final byte[] expectedData,
+			final Date before, final Date after,
+			final String expectedContentType, final String expectedExtension)
+	throws IOException
+	{
+		assertTrue(!item.isFileNull());
+		assertData(expectedData, item.getFileData());
+		assertDataFile(expectedData);
+		assertEquals(expectedData.length, item.getFileLength());
+		assertWithin(before, after, new Date(item.getFileLastModified()));
+		assertEquals(expectedContentType, item.getFileContentType());
+		assertTrue(item.getFileURL().endsWith(expectedExtension));
 	}
 	
 	private final void assertDataFile(final byte[] expectedData) throws IOException
