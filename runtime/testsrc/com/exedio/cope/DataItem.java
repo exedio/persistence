@@ -59,6 +59,19 @@ public class DataItem extends Item
 		DataItem.data.get(this, data);
 	}
 	
+	public void setData(final byte[] data) // TODO generate this
+	throws IOException
+	{
+		try
+		{
+			DataItem.data.set(this, data);
+		}
+		catch(MandatoryViolationException e)
+		{
+			throw new RuntimeException(e);
+		}
+	}
+	
 	public void setData(final File data) // TODO generate this
 	throws IOException
 	{

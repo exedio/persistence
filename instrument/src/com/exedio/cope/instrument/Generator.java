@@ -605,7 +605,11 @@ final class Generator
 		o.write(Modifier.toString(media.getGeneratedSetterModifier()));
 		o.write(" void set");
 		o.write(toCamelCase(media.getName()));
-		o.write("(final " + dataType.getName() + " data,final "+String.class.getName()+" contentType");
+		o.write("(final ");
+		o.write(dataType.getName());
+		if(dataType==byte.class)
+			o.write("[]");
+		o.write(" data,final "+String.class.getName()+" contentType");
 		o.write(')');
 		final SortedSet setterExceptions = new TreeSet();
 		setterExceptions.addAll(Arrays.asList(new Class[]{IOException.class})); // TODO
@@ -634,6 +638,7 @@ final class Generator
 		writeMediaGetter(media, boolean.class,     "Null",         GETTER_MEDIA_IS_NULL);
 		writeMediaGetter(media, String.class,      "URL",          GETTER_MEDIA_URL);
 		writeMediaGetter(media, String.class,      "ContentType",  GETTER_MEDIA_CONTENT_TYPE);
+		// TODO change order
 		writeMediaGetter(media, long.class,        "Length",       GETTER_MEDIA_LENGTH);
 		writeMediaGetter(media, long.class,        "LastModified", GETTER_MEDIA_LASTMODIFIED);
 		writeMediaGetter(media, byte.class,        "Data",         GETTER_MEDIA_DATA_BYTE);
@@ -642,6 +647,7 @@ final class Generator
 
 		if(media.setterOption.exists)
 		{
+			writeMediaSetter(media, byte.class);
 			writeMediaSetter(media, InputStream.class);
 			writeMediaSetter(media, File.class);
 		}

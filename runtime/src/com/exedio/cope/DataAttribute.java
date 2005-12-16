@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -94,6 +95,17 @@ public final class DataAttribute extends Attribute
 	}
 	
 	/**
+	 * Provides data for this persistent data attribute.
+	 * @param data give null to remove data.
+	 * @throws MandatoryViolationException
+	 *         if data is null and attribute is {@link Attribute#isMandatory() mandatory}.
+	 */
+	public void set(final Item item, final byte[] data) throws MandatoryViolationException
+	{
+		impl.set(item, data);
+	}
+	
+	/**
 	 * Reads data for this persistent data attribute
 	 * and writes it into the given steam.
 	 * Does nothing, if there is no data for this attribute.
@@ -167,6 +179,7 @@ public final class DataAttribute extends Attribute
 		abstract boolean isNull(Item item);
 		abstract long getLength(Item item);
 		abstract byte[] get(Item item);
+		abstract void set(Item item, byte[] data);
 		abstract void get(Item item, OutputStream data) throws IOException;
 		abstract void set(Item item, InputStream data) throws MandatoryViolationException, IOException;
 		abstract void get(Item item, File data) throws IOException;
@@ -205,6 +218,19 @@ public final class DataAttribute extends Attribute
 		byte[] get(final Item item)
 		{
 			return column.table.database.load(model.getCurrentTransaction().getConnection(), column, item);
+		}
+		
+		void set(final Item item, final byte[] data)
+		{
+			try
+			{
+				// TODO make more efficient implementation
+				column.table.database.store(model.getCurrentTransaction().getConnection(), column, item, data!=null ? new ByteArrayInputStream(data) : null);
+			}
+			catch(IOException e)
+			{
+				throw new RuntimeException(e);
+			}
 		}
 		
 		void get(final Item item, final OutputStream data)
@@ -321,6 +347,48 @@ public final class DataAttribute extends Attribute
 			}
 			else
 				return null;
+		}
+		
+		void set(final Item item, final byte[] data)
+		{
+			OutputStream out = null;
+			try
+			{
+				final File file = getStorage(item);
+
+				if(data!=null)
+				{
+					out = new FileOutputStream(file);
+					out.write(data, 0, data.length);
+					out.close();
+				}
+				else
+				{
+					if(file.exists())
+					{
+						if(!file.delete())
+							throw new RuntimeException("deleting "+file+" failed.");
+					}
+				}
+			}
+			catch(IOException e)
+			{
+				throw new RuntimeException(e);
+			}
+			finally
+			{
+				if(out!=null)
+				{
+					try
+					{
+						out.close();
+					}
+					catch(IOException e)
+					{
+						throw new RuntimeException(e);
+					}
+				}
+			}
 		}
 		
 		void get(final Item item, final OutputStream data) throws IOException

@@ -256,6 +256,24 @@ public final class Media extends MediaPath
 	}
 
 	/**
+	 * Provides data for this persistent media.
+	 * @param data give null to remove data.
+	 * @throws MandatoryViolationException
+	 *         if data is null and attribute is {@link Attribute#isMandatory() mandatory}.
+	 */
+	public final void set(final Item item, final byte[] data, final String contentType)
+	{
+		try
+		{
+			set(item, (Object)data, contentType);
+		}
+		catch(IOException e)
+		{
+			throw new RuntimeException(e);
+		}
+	}
+	
+	/**
 	 * Reads data for this media and writes it into the given steam.
 	 * Does nothing, if there is no data for this media.
 	 * @throws NullPointerException
@@ -339,7 +357,9 @@ public final class Media extends MediaPath
 			item.set((AttributeValue[])values.toArray(new AttributeValue[values.size()]));
 			
 			// TODO set this via Item.set(AttributeValue[]) as well
-			if(data instanceof InputStream)
+			if(data instanceof byte[])
+				this.data.set(item, (byte[])data);
+			else if(data instanceof InputStream)
 				this.data.set(item, (InputStream)data);
 			else
 				this.data.set(item, (File)data);

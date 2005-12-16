@@ -195,6 +195,26 @@ public class MediaTest extends TestmodelTest
 		assertDataFile(null);
 		assertEquals(null, item.getFileContentType());
 		assertEquals(null, item.getFileURL());
+		{
+			final Date before = new Date();
+			item.setFile(dataFile, "emptyMajor/emptyMinor");
+			final Date after = new Date();
+			assertTrue(!item.isFileNull());
+			assertData(dataFile, item.getFileData());
+			assertDataFile(dataFile);
+			assertEquals(dataFile.length, item.getFileLength());
+			assertWithin(before, after, new Date(item.getFileLastModified()));
+			assertEquals("emptyMajor/emptyMinor", item.getFileContentType());
+			assertTrue(item.getFileURL().endsWith(".emptyMajor.emptyMinor"));
+		}
+		item.setFile((byte[])null, null);
+		assertTrue(item.isFileNull());
+		assertEquals(-1, item.getFileLength());
+		assertEquals(-1, item.getFileLastModified());
+		assertEquals(null, item.getFileData());
+		assertDataFile(null);
+		assertEquals(null, item.getFileContentType());
+		assertEquals(null, item.getFileURL());
 
 
 		// image
