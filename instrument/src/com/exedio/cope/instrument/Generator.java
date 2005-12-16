@@ -552,7 +552,7 @@ final class Generator
 		o.write("\t}");
 	}
 	
-	private void writeDataSetterMethod(final CopeMedia media, final Class dataType)
+	private void writeMediaSetter(final CopeMedia media, final Class dataType)
 	throws IOException
 	{
 		writeCommentHeader();
@@ -674,8 +674,8 @@ final class Generator
 		// setters
 		if(media.setterOption.exists)
 		{
-			writeDataSetterMethod(media, InputStream.class);
-			writeDataSetterMethod(media, File.class);
+			writeMediaSetter(media, InputStream.class);
+			writeMediaSetter(media, File.class);
 		}
 	}
 	
