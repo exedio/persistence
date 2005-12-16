@@ -591,8 +591,7 @@ final class Generator
 		o.write("\t}");
 	}
 	
-	// TODO rename to media
-	private void writeDataAccessMethods(final CopeMedia media)
+	private void writeMedia(final CopeMedia media)
 	throws IOException
 	{
 		// getters
@@ -1062,7 +1061,7 @@ final class Generator
 				else if(feature instanceof CopeVector)
 					writeVector((CopeVector)feature);
 				else if(feature instanceof CopeMedia)
-					writeDataAccessMethods((CopeMedia)feature);
+					writeMedia((CopeMedia)feature);
 				else if(feature instanceof CopeHash)
 					writeHash((CopeHash)feature);
 				else
