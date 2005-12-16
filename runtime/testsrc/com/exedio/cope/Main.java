@@ -48,6 +48,7 @@ public class Main
 			HierarchySingleSuper.TYPE,
 			HierarchySingleSub.TYPE,
 		});
+	public static final Model hierarchyEmptyModel = new Model(new Type[] { HierarchyEmptySub.TYPE, HierarchyEmptySuper.TYPE });
 
 	private static final void tearDown(final Model model)
 	{
@@ -88,6 +89,8 @@ public class Main
 		tearDown(cacheIsolationModel);
 		tearDown(nameModel);
 		tearDown(matchModel);
+		tearDown(hierarchyModel);
+		tearDown(hierarchyEmptyModel);
 	}
 
 }

@@ -639,6 +639,9 @@ abstract class AbstractDatabase implements Database
 						appendParameter(column, state.store(column));
 				}
 			}
+			if(first) // no columns in table
+				return;
+			
 			bf.append(" where ").
 				append(table.primaryKey.protectedID).
 				append('=').
