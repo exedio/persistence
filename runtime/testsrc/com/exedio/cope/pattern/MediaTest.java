@@ -235,20 +235,10 @@ public class MediaTest extends TestmodelTest
 		assertPhotoNull();
 
 		item.setPhoto(stream(data), "image/jpeg");
-		assertTrue(!item.isPhotoNull());
-		assertData(data, item.getPhotoData());
-		assertEquals(data.length, item.getPhotoLength());
-		assertEquals("image/jpeg", item.getPhotoContentType());
-		//System.out.println(item.getPhotoURL());
-		assertTrue(item.getPhotoURL().endsWith(".jpg"));
+		assertPhoto(data);
 
 		item.setPhoto(stream(data2), "image/jpeg");
-		assertTrue(!item.isPhotoNull());
-		assertData(data2, item.getPhotoData());
-		assertEquals(data2.length, item.getPhotoLength());
-		assertEquals("image/jpeg", item.getPhotoContentType());
-		//System.out.println(item.getPhotoURL());
-		assertTrue(item.getPhotoURL().endsWith(".jpg"));
+		assertPhoto(data2);
 		
 		try
 		{
@@ -258,11 +248,7 @@ public class MediaTest extends TestmodelTest
 		catch(IllegalContentTypeException e)
 		{
 			assertEquals("illegalContentType", e.getMessage());
-			assertTrue(!item.isPhotoNull());
-			assertData(data2, item.getPhotoData());
-			assertEquals(data2.length, item.getPhotoLength());
-			assertEquals("image/jpeg", item.getPhotoContentType());
-			assertTrue(item.getPhotoURL().endsWith(".jpg"));
+			assertPhoto(data2);
 		}
 
 		try
@@ -273,11 +259,7 @@ public class MediaTest extends TestmodelTest
 		catch(IllegalContentTypeException e)
 		{
 			assertEquals("image/png", e.getMessage());
-			assertTrue(!item.isPhotoNull());
-			assertData(data2, item.getPhotoData());
-			assertEquals(data2.length, item.getPhotoLength());
-			assertEquals("image/jpeg", item.getPhotoContentType());
-			assertTrue(item.getPhotoURL().endsWith(".jpg"));
+			assertPhoto(data2);
 		}
 
 		item.setPhoto((InputStream)null, null);
@@ -384,6 +366,16 @@ public class MediaTest extends TestmodelTest
 		assertEquals(-1, item.getPhotoLength());
 		assertEquals(null, item.getPhotoContentType());
 		assertEquals(null, item.getPhotoURL());
+	}
+	
+	private void assertPhoto(final byte[] expectedData)
+	throws IOException
+	{
+		assertTrue(!item.isPhotoNull());
+		assertData(expectedData, item.getPhotoData());
+		assertEquals(expectedData.length, item.getPhotoLength());
+		assertEquals("image/jpeg", item.getPhotoContentType());
+		assertTrue(item.getPhotoURL().endsWith(".jpg"));
 	}
 	
 }
