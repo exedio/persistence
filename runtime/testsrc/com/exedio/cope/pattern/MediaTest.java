@@ -132,6 +132,7 @@ public class MediaTest extends TestmodelTest
 		assertExtension("text/html", ".html");
 		assertExtension("text/plain", ".txt");
 		assertExtension("text/css", ".css");
+		assertExtension("application/java-archive", ".jar");
 		if(!oracle)
 		{
 			final Date before = new Date();

@@ -407,6 +407,7 @@ public final class Media extends MediaPath
 		compactExtensions.put("text/html", ".html");
 		compactExtensions.put("text/plain", ".txt");
 		compactExtensions.put("text/css", ".css");
+		compactExtensions.put("application/java-archive", ".jar");
 	}
 
 	private static final String getCompactExtension(final String contentType)
