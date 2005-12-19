@@ -26,11 +26,3 @@ database=mysql
 database.url=jdbc:mysql://yourdatabase.yoursite.com/yourDB?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8
 database.user=youruser
 database.password=yourpassword
-
-
-# Example property for the data directory
-#
-# Is needed only if the project uses DataAttribute,
-# otherwise you may remove this property.
-#
-datadir.path=the/path/to/your/directory/for/data/files
