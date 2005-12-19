@@ -167,7 +167,14 @@ public final class Media extends MediaPath
 			return null;
 
 		final StringBuffer bf = new StringBuffer(getMediaRootUrl());
-		appendDataPath(item, bf);
+
+		final String id = item.getCopeID();
+		final int dot = id.indexOf('.');
+		if(dot<0)
+			throw new RuntimeException(id);
+			
+		bf.append(getUrlPath()).
+			append(id.substring(dot+1));
 
 		final String contentType = getContentType(item);
 
@@ -382,17 +389,6 @@ public final class Media extends MediaPath
 		}
 	}
 	
-	private final void appendDataPath(final Item item, final StringBuffer bf)
-	{
-		final String id = item.getCopeID();
-		final int dot = id.indexOf('.');
-		if(dot<0)
-			throw new RuntimeException(id);
-		
-		bf.append(getUrlPath()).
-			append(id.substring(dot+1));
-	}
-
 	private static final HashMap compactExtensions = new HashMap();
 	
 	static
