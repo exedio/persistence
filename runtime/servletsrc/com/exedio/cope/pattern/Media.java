@@ -168,7 +168,18 @@ public final class Media extends MediaPath
 
 		final StringBuffer bf = new StringBuffer(getMediaRootUrl());
 		appendDataPath(item, bf);
-		appendExtension(item, bf);
+
+		final String contentType = getContentType(item);
+
+		final String compactExtension = getCompactExtension(contentType);
+		if(compactExtension==null)
+		{
+			bf.append('.').
+				append(contentType.replace('/', '.'));
+		}
+		else
+			bf.append(compactExtension);
+		
 		return bf.toString();
 	}
 
@@ -382,20 +393,6 @@ public final class Media extends MediaPath
 			append(id.substring(dot+1));
 	}
 
-	private final void appendExtension(final Item item, final StringBuffer bf)
-	{
-		final String contentType = getContentType(item);
-
-		final String compactExtension = getCompactExtension(contentType);
-		if(compactExtension==null)
-		{
-			bf.append('.').
-				append(contentType.replace('/', '.'));
-		}
-		else
-			bf.append(compactExtension);
-	}
-	
 	private static final HashMap compactExtensions = new HashMap();
 	
 	static
