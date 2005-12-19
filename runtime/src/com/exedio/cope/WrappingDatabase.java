@@ -202,6 +202,11 @@ class WrappingDatabase implements Database
 		return nested.supportsCheckConstraints();
 	}
 
+	public boolean supportsGetBytes()
+	{
+		return nested.supportsGetBytes();
+	}
+
 	public boolean supportsEmptyStrings()
 	{
 		return nested.supportsEmptyStrings();

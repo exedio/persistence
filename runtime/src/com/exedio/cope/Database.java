@@ -48,6 +48,7 @@ interface Database
 	java.util.Properties getTableOptions();
 
 	boolean supportsCheckConstraints();
+	boolean supportsGetBytes();
 	
 	String getIntegerType(int precision);
 	String getDoubleType(int precision);

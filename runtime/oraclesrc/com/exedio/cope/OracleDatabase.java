@@ -138,6 +138,11 @@ final class OracleDatabase extends AbstractDatabase
 		return false;
 	}
 
+	public boolean supportsGetBytes()
+	{
+		return false;
+	}
+
 	private String extractConstraintName(final SQLException e, final int vendorCode, final String start, final String end)
 	{
 		if(e.getErrorCode()!=vendorCode)

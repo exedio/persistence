@@ -768,8 +768,7 @@ abstract class AbstractDatabase implements Database
 				appendParameter(item.type.id);
 		}
 		
-		// TODO introduce Database#supportsGetBytes()
-		final LoadBlobResultSetHandler handler = new LoadBlobResultSetHandler(!"com.exedio.cope.OracleDatabase".equals(getClass().getName()));
+		final LoadBlobResultSetHandler handler = new LoadBlobResultSetHandler(supportsGetBytes());
 		executeSQLQuery(connection, bf, handler, false);
 		return handler.result;
 	}
@@ -1301,6 +1300,11 @@ abstract class AbstractDatabase implements Database
 	}
 
 	public boolean supportsCheckConstraints()
+	{
+		return true;
+	}
+	
+	public boolean supportsGetBytes()
 	{
 		return true;
 	}
