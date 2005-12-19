@@ -177,7 +177,9 @@ public final class Media extends MediaPath
 	 */
 	public final String getURL(final Item item)
 	{
-		if(isNull(item))
+		final String contentType = getContentType(item);
+
+		if(contentType==null)
 			return null;
 
 		final StringBuffer bf = new StringBuffer(getMediaRootUrl());
@@ -189,8 +191,6 @@ public final class Media extends MediaPath
 			
 		bf.append(getUrlPath()).
 			append(id.substring(dot+1));
-
-		final String contentType = getContentType(item);
 
 		final String compactExtension = (String)compactExtensions.get(contentType);
 		if(compactExtension==null)
