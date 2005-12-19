@@ -45,7 +45,8 @@ public abstract class SchemaTest extends TestCase
 		super.setUp();
 		
 		final Properties config = new Properties();
-		config.load(new FileInputStream(System.getProperty("com.exedio.cope.properties")));
+		final String propertiesProperty = System.getProperty("com.exedio.cope.properties");
+		config.load(new FileInputStream(propertiesProperty!=null ? propertiesProperty : "cope.properties"));
 		database = config.getProperty("database");
 		if ( database.equals("log") )
 		{
