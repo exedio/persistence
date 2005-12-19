@@ -22,10 +22,9 @@
 		* optionally put strings in DB
 	- DataAttribute:
 		* write tests for up/downloading data in copernica
-		* implement data attribute in database (BLOB)
-			and make it the default for most test configurations and the demoshop
-		* make data transaction aware, allow rollback
-		* protect data against error when reading the stream
+		* file tree implementation:
+			* make data transaction aware, allow rollback
+			* protect data against error when reading the stream
 	- Media:
 		* allow Content-Type specified by EnumAttribute
 		* maintain charset in Content-Type for texts
