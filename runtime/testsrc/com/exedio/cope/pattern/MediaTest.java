@@ -132,6 +132,7 @@ public class MediaTest extends TestmodelTest
 		assertExtension("text/html", ".html");
 		assertExtension("text/plain", ".txt");
 		assertExtension("text/css", ".css");
+		if(!oracle)
 		{
 			final Date before = new Date();
 			item.setFile(stream(dataEmpty), "emptyMajor/emptyMinor");

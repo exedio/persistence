@@ -51,9 +51,17 @@ public class DataTest extends AbstractLibTest
 		deleteOnTearDown(item = new DataItem());
 	}
 	
+	public void tearDown() throws Exception
+	{
+		// release memory
+		dataBig = null;
+		
+		super.tearDown();
+	}
+	
 	private void assertIt(final byte[] expectedData) throws IOException
 	{
-		if(expectedData!=null)
+		if(expectedData!=null && !(oracle && !model.getProperties().hasDatadirPath() && expectedData.length==0))
 		{
 			assertTrue(!item.isDataNull());
 			assertEquals(expectedData.length, item.getDataLength());

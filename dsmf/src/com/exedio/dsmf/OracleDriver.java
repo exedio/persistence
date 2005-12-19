@@ -68,6 +68,8 @@ public final class OracleDriver extends Driver
 				return "DATE";
 			case Types.LONGVARCHAR:
 				return "LONG";
+			case Types.BLOB:
+				return "BLOB";
 			default:
 				return null;
 		}

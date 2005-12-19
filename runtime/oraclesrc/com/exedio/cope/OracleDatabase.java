@@ -88,10 +88,9 @@ final class OracleDatabase extends AbstractDatabase
 		return "TIMESTAMP(3)";
 	}
 	
-	// TODO check if there is a suitable column type
 	public String getBlobType()
 	{
-		return null;
+		return "BLOB";
 	}
 	
 	int getLimitSupport()

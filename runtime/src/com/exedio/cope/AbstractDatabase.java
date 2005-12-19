@@ -768,20 +768,68 @@ abstract class AbstractDatabase implements Database
 				appendParameter(item.type.id);
 		}
 		
-		final LoadBlobResultSetHandler handler = new LoadBlobResultSetHandler();
+		// TODO introduce Database#supportsGetBytes()
+		final LoadBlobResultSetHandler handler = new LoadBlobResultSetHandler(!"com.exedio.cope.OracleDatabase".equals(getClass().getName()));
 		executeSQLQuery(connection, bf, handler, false);
 		return handler.result;
 	}
 	
 	private static class LoadBlobResultSetHandler implements ResultSetHandler
 	{
+		final boolean supportsGetBytes;
+		
+		LoadBlobResultSetHandler(final boolean supportsGetBytes)
+		{
+			this.supportsGetBytes = supportsGetBytes;
+		}
+		
 		byte[] result;
 
 		public void run(final ResultSet resultSet) throws SQLException
 		{
 			if(!resultSet.next())
 				throw new RuntimeException();
-			result = resultSet.getBytes(1);
+			
+			if(supportsGetBytes)
+			{
+				result = resultSet.getBytes(1);
+			}
+			else
+			{
+				final Blob blob = resultSet.getBlob(1);
+				if(blob!=null)
+				{
+					result = new byte[(int)blob.length()];
+					InputStream stream = null;
+					try
+					{
+						stream = blob.getBinaryStream();
+						stream.read(result);
+					}
+					catch(IOException e)
+					{
+						throw new RuntimeException(e);
+					}
+					finally
+					{
+						if(stream!=null)
+						{
+							try
+							{
+								stream.close();
+							}
+							catch(IOException e)
+							{
+								throw new RuntimeException(e);
+							}
+						}
+					}
+				}
+				else
+				{
+					result = null;
+				}
+			}
 		}
 	}
 	

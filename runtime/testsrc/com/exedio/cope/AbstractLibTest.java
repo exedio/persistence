@@ -54,6 +54,7 @@ public abstract class AbstractLibTest extends CopeTest
 	
 	protected boolean hsqldb;
 	protected boolean mysql;
+	protected boolean oracle;
 	protected boolean cache;
 	
 	final ArrayList files = new ArrayList();
@@ -68,6 +69,7 @@ public abstract class AbstractLibTest extends CopeTest
 		}
 		hsqldb = "com.exedio.cope.HsqldbDatabase".equals(realDatabase.getClass().getName()); 
 		mysql  = "com.exedio.cope.MysqlDatabase".equals(realDatabase.getClass().getName());
+		oracle  = "com.exedio.cope.OracleDatabase".equals(realDatabase.getClass().getName());
 		cache = model.getProperties().getCacheLimit()>0;
 		files.clear();
 	}
