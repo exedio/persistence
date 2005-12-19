@@ -101,10 +101,10 @@ public final class MysqlDatabase extends AbstractDatabase
 		return null;
 	}
 	
-	// TODO check if there is a suitable column type
 	public String getBlobType()
 	{
-		return null;
+		// TODO could use MEDIUMBLOB/BLOB/TINYBLOB if the was a maximum size specified
+		return "LONGBLOB";
 	}
 	
 	int getLimitSupport()
