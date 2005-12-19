@@ -157,6 +157,20 @@ public final class Media extends MediaPath
 		return notNull ? false : (item.get(isNull)==null);
 	}
 
+	private static final HashMap compactExtensions = new HashMap();
+	
+	static
+	{
+		compactExtensions.put("image/jpeg", ".jpg");
+		compactExtensions.put("image/pjpeg", ".jpg");
+		compactExtensions.put("image/gif", ".gif");
+		compactExtensions.put("image/png", ".png");
+		compactExtensions.put("text/html", ".html");
+		compactExtensions.put("text/plain", ".txt");
+		compactExtensions.put("text/css", ".css");
+		compactExtensions.put("application/java-archive", ".jar");
+	}
+
 	/**
 	 * Returns a URL pointing to the data of this media.
 	 * Returns null, if there is no data for this media.
@@ -389,20 +403,6 @@ public final class Media extends MediaPath
 		}
 	}
 	
-	private static final HashMap compactExtensions = new HashMap();
-	
-	static
-	{
-		compactExtensions.put("image/jpeg", ".jpg");
-		compactExtensions.put("image/pjpeg", ".jpg");
-		compactExtensions.put("image/gif", ".gif");
-		compactExtensions.put("image/png", ".png");
-		compactExtensions.put("text/html", ".html");
-		compactExtensions.put("text/plain", ".txt");
-		compactExtensions.put("text/css", ".css");
-		compactExtensions.put("application/java-archive", ".jar");
-	}
-
 	public final static Media get(final DataAttribute attribute)
 	{
 		for(Iterator i = attribute.getPatterns().iterator(); i.hasNext(); )
