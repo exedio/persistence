@@ -178,7 +178,7 @@ public final class Media extends MediaPath
 
 		final String contentType = getContentType(item);
 
-		final String compactExtension = getCompactExtension(contentType);
+		final String compactExtension = (String)compactExtensions.get(contentType);
 		if(compactExtension==null)
 		{
 			bf.append('.').
@@ -403,11 +403,6 @@ public final class Media extends MediaPath
 		compactExtensions.put("application/java-archive", ".jar");
 	}
 
-	private static final String getCompactExtension(final String contentType)
-	{
-		return (String)compactExtensions.get(contentType);
-	}
-	
 	public final static Media get(final DataAttribute attribute)
 	{
 		for(Iterator i = attribute.getPatterns().iterator(); i.hasNext(); )
