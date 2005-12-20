@@ -1318,6 +1318,11 @@ abstract class AbstractDatabase implements Database
 	{
 		return true;
 	}
+	
+	public boolean fakesSupportReadCommitted()
+	{
+		return false;
+	}
 
 	public abstract String getIntegerType(int precision);
 	public abstract String getDoubleType(int precision);

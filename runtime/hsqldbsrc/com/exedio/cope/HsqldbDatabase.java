@@ -105,6 +105,11 @@ final class HsqldbDatabase extends AbstractDatabase
 		return false;
 	}
 
+	public boolean fakesSupportReadCommitted()
+	{
+		return true;
+	}
+
 	private final String extractConstraintName(final SQLException e, final int vendorCode, final String start)
 	{
 		//System.out.println("-u-"+e.getClass()+" "+e.getCause()+" "+e.getErrorCode()+" "+e.getLocalizedMessage()+" "+e.getSQLState()+" "+e.getNextException());

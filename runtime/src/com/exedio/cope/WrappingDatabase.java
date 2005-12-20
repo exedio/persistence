@@ -217,6 +217,11 @@ class WrappingDatabase implements Database
 		return nested.supportsRightOuterJoins();
 	}
 
+	public boolean fakesSupportReadCommitted()
+	{
+		return nested.fakesSupportReadCommitted();
+	}
+
 	public void tearDownDatabase()
 	{
 		nested.tearDownDatabase();

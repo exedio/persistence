@@ -624,9 +624,11 @@ public final class Model
 	{
 		try
 		{
-			return getCurrentTransaction().getConnection().getMetaData().supportsTransactionIsolationLevel( 
-				Connection.TRANSACTION_READ_COMMITTED 
-			);
+			return
+				!database.fakesSupportReadCommitted() &&
+				getCurrentTransaction().getConnection().getMetaData().supportsTransactionIsolationLevel( 
+					Connection.TRANSACTION_READ_COMMITTED
+				);
 		}
 		catch (SQLException e)
 		{

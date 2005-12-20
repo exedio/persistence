@@ -49,6 +49,7 @@ interface Database
 
 	boolean supportsCheckConstraints();
 	boolean supportsGetBytes();
+	boolean fakesSupportReadCommitted();
 	
 	String getIntegerType(int precision);
 	String getDoubleType(int precision);

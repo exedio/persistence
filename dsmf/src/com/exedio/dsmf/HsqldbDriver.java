@@ -54,6 +54,10 @@ public final class HsqldbDriver extends Driver
 				return null;
 		}
 	}
+	
+	private static final String SYSTEM_TABLE_CONSTRAINTS = "INFORMATION_SCHEMA.SYSTEM_TABLE_CONSTRAINTS";
+	private static final String SYSTEM_CHECK_CONSTRAINTS = "INFORMATION_SCHEMA.SYSTEM_CHECK_CONSTRAINTS";
+	private static final String SYSTEM_INDEXINFO = "INFORMATION_SCHEMA.SYSTEM_INDEXINFO";
 
 	void verify(final Schema schema)
 	{
@@ -61,8 +65,8 @@ public final class HsqldbDriver extends Driver
 
 		schema.querySQL(
 				"select stc.CONSTRAINT_NAME, stc.CONSTRAINT_TYPE, stc.TABLE_NAME, scc.CHECK_CLAUSE " +
-				"from SYSTEM_TABLE_CONSTRAINTS stc " +
-				"left outer join SYSTEM_CHECK_CONSTRAINTS scc on stc.CONSTRAINT_NAME = scc.CONSTRAINT_NAME",
+				"from " + SYSTEM_TABLE_CONSTRAINTS + " stc " +
+				"left outer join " + SYSTEM_CHECK_CONSTRAINTS + " scc on stc.CONSTRAINT_NAME = scc.CONSTRAINT_NAME",
 			new Node.ResultSetHandler()
 			{
 				public void run(final ResultSet resultSet) throws SQLException
@@ -93,7 +97,7 @@ public final class HsqldbDriver extends Driver
 							//printRow(resultSet);
 							final StringBuffer clause = new StringBuffer();
 							final StringBuffer bf = new StringBuffer();
-							bf.append("select COLUMN_NAME from SYSTEM_INDEXINFO where INDEX_NAME like 'SYS_IDX_").
+							bf.append("select COLUMN_NAME from " + SYSTEM_INDEXINFO + " where INDEX_NAME like 'SYS_IDX_").
 								append(constraintName).
 								append("_%' and NON_UNIQUE=false order by ORDINAL_POSITION");
 							
