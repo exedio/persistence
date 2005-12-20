@@ -33,15 +33,6 @@ import com.mysql.jdbc.Driver;
  * @author Ralf Wiebicke
  */
 public final class MysqlDatabase extends AbstractDatabase
-
-// TODO
-//	implements DatabaseTimestampCapable
-// would require type "timestamp(14,3) null default null"
-// but (14,3) is not yet supported
-// "null default null" is needed to allow null and
-// make null the default value
-// This works with 4.1.6 and higher only
-
 {
 	static
 	{
@@ -98,6 +89,12 @@ public final class MysqlDatabase extends AbstractDatabase
 	
 	public String getDateTimestampType()
 	{
+		// TODO
+		// would require type "timestamp(14,3) null default null"
+		// but (14,3) is not yet supported
+		// "null default null" is needed to allow null and
+		// make null the default value
+		// This works with 4.1.6 and higher only
 		return null;
 	}
 	
