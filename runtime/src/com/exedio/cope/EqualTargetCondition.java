@@ -15,6 +15,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
+
 package com.exedio.cope;
 
 
@@ -42,14 +43,14 @@ public final class EqualTargetCondition extends Condition
 			throw new RuntimeException("invalid type of join, expected "+targetJoin.getType()+" but was "+attribute.getTargetType());
 	}
 
-	public final void appendStatement(final Statement bf)
+	void appendStatement(final Statement bf)
 	{
 		bf.append(attribute, (Join)null).
 			append('=').
 			appendPK(attribute.getTargetType(), targetJoin);
 	}
 
-	public final void check(final Query query)
+	void check(final Query query)
 	{
 		check(attribute, query);
 		check(attribute.getTargetType(), query);
@@ -70,7 +71,7 @@ public final class EqualTargetCondition extends Condition
 		return attribute.hashCode() ^ hashCode(targetJoin) ^ 283471239;
 	}
 
-	public final String toString()
+	public String toString()
 	{
 		return attribute.getName() + "=" + attribute.getTargetType().getJavaClass().getName() + ".PK";
 	}

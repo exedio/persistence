@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 
-public class NotCondition extends Condition
+public final class NotCondition extends Condition
 {
 	private final Condition argument; 
 
@@ -38,14 +38,14 @@ public class NotCondition extends Condition
 		this.argument = argument;
 	}
 	
-	public final void appendStatement(final Statement bf)
+	void appendStatement(final Statement bf)
 	{
 		bf.append("not(");
 		argument.appendStatement(bf);
 		bf.append(')');
 	}
 
-	public final void check(final Query query)
+	void check(final Query query)
 	{
 		argument.check(query);
 	}

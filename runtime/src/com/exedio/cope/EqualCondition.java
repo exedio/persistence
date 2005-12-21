@@ -55,7 +55,7 @@ public final class EqualCondition extends Condition
 		this.value = value;
 	}
 	
-	public final void appendStatement(final Statement bf)
+	void appendStatement(final Statement bf)
 	{
 		bf.append(function, join);
 		if(value!=null)
@@ -65,7 +65,7 @@ public final class EqualCondition extends Condition
 			bf.append(" is null");
 	}
 
-	public final void check(final Query query)
+	void check(final Query query)
 	{
 		check(function, query);
 	}
@@ -85,7 +85,7 @@ public final class EqualCondition extends Condition
 		return hashCode(join) ^ function.hashCode() ^ hashCode(value);
 	}
 
-	public final String toString()
+	public String toString()
 	{
 		return function.getName() + "='" + value + '\'';
 	}

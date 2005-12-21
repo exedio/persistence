@@ -39,7 +39,7 @@ public abstract class LiteralCondition extends Condition
 			throw new NullPointerException();
 	}
 	
-	public final void appendStatement(final Statement bf)
+	final void appendStatement(final Statement bf)
 	{
 		bf.append(attribute, (Join)null);
 		if(value!=null)
@@ -49,7 +49,7 @@ public abstract class LiteralCondition extends Condition
 			bf.append(" is null");
 	}
 
-	public final void check(final Query query)
+	final void check(final Query query)
 	{
 		check(attribute, query);
 	}

@@ -41,7 +41,7 @@ public abstract class CompositeCondition extends Condition
 		this.conditions = conditions;
 	}
 
-	public final void appendStatement(final Statement bf)
+	final void appendStatement(final Statement bf)
 	{
 		bf.append('(');
 		conditions[0].appendStatement(bf);
@@ -53,7 +53,7 @@ public abstract class CompositeCondition extends Condition
 		bf.append(')');
 	}
 
-	public final void check(final Query query)
+	final void check(final Query query)
 	{
 		for(int i = 0; i<conditions.length; i++)
 			conditions[i].check(query);

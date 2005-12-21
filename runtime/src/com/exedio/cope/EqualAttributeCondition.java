@@ -15,6 +15,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
+
 package com.exedio.cope;
 
 
@@ -42,14 +43,14 @@ public final class EqualAttributeCondition extends Condition
 		this.attribute2 = attribute2;
 	}
 
-	public final void appendStatement(final Statement bf)
+	void appendStatement(final Statement bf)
 	{
 		bf.append(attribute1, (Join)null).
 			append('=').
 			append(attribute2, (Join)null);
 	}
 
-	public final void check(final Query query)
+	void check(final Query query)
 	{
 		check(attribute1, query);
 		check(attribute2, query);
@@ -70,7 +71,7 @@ public final class EqualAttributeCondition extends Condition
 		return attribute1.hashCode() ^ attribute2.hashCode();
 	}
 
-	public final String toString()
+	public String toString()
 	{
 		return attribute1.getName() + "=" + attribute2.getName();
 	}

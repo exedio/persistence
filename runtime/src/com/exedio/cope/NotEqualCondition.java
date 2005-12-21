@@ -53,7 +53,7 @@ public final class NotEqualCondition extends Condition
 		this.value = value;
 	}
 	
-	public final void appendStatement(final Statement bf)
+	void appendStatement(final Statement bf)
 	{
 		if(value!=null)
 		{
@@ -73,7 +73,7 @@ public final class NotEqualCondition extends Condition
 				append(" is not null");
 	}
 
-	public final void check(final Query query)
+	void check(final Query query)
 	{
 		check(function, query);
 	}

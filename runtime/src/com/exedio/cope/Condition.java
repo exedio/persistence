@@ -26,11 +26,11 @@ import com.exedio.cope.search.OrCondition;
 
 public abstract class Condition
 {
-	public abstract void appendStatement(Statement statment);
+	abstract void appendStatement(Statement statment);
 	
-	public abstract void check(Query query);
+	abstract void check(Query query);
 
-	public final void check(final Function function, final Query query)
+	final void check(final Function function, final Query query)
 	{
 		final Type functionType = function.getType();
 
@@ -60,7 +60,7 @@ public abstract class Condition
 				+ queryJoins);
 	}
 
-	public final void check(final Type type, final Query query)
+	final void check(final Type type, final Query query)
 	{
 		final Type queryType = query.getType();
 		if(type==queryType)
