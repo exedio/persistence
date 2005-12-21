@@ -25,6 +25,4 @@ public interface Function extends Selectable
 	void appendParameter(Statement bf, Object value);
 	
 	Type getType();
-
-	String getName();
 }

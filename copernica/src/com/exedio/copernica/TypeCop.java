@@ -24,6 +24,7 @@ import java.util.Collection;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.exedio.cope.Feature;
 import com.exedio.cope.Function;
 import com.exedio.cope.Query;
 import com.exedio.cope.StatementInfo;
@@ -62,8 +63,9 @@ final class TypeCop extends CopernicaCop
 		this.limitCount = limitCount;
 
 		addParameter(TYPE, type.getID());
+		// orderBy must be a feature
 		if(orderBy!=null)
-			addParameter(orderAscending ? ORDER_ASCENDING : ORDER_DESCENDING, orderBy.getName());
+			addParameter(orderAscending ? ORDER_ASCENDING : ORDER_DESCENDING, ((Feature)orderBy).getName());
 		if(limitStart!=0)
 			addParameter(START, String.valueOf(limitStart));
 		if(limitCount!=10)

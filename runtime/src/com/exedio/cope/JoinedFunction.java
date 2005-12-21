@@ -48,11 +48,6 @@ public final class JoinedFunction implements Function
 		return function.getType();
 	}
 	
-	public String getName()
-	{
-		return function.getName();
-	}
-	
 	public boolean equals(final Object other)
 	{
 		if(!(other instanceof JoinedFunction))
