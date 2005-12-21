@@ -123,25 +123,25 @@ final class Statement
 		this.columnTypes = defineColumnTypes ? new IntArrayList() : null;
 	}
 
-	public Statement append(final String text)
+	Statement append(final String text)
 	{
 		this.text.append(text);
 		return this;
 	}
 		
-	public Statement append(final char text)
+	Statement append(final char text)
 	{
 		this.text.append(text);
 		return this;
 	}
 	
-	public Statement append(final Function function, final Join join)
+	Statement append(final Function function, final Join join)
 	{
 		function.append(this, join);
 		return this;
 	}
 
-	public Statement appendPK(final Type type, final Join join)
+	Statement appendPK(final Type type, final Join join)
 	{
 		return append(type.getTable().primaryKey, join);
 	}
@@ -160,7 +160,7 @@ final class Statement
 		return this;
 	}
 		
-	public Statement appendParameter(final Function function, final Object value)
+	Statement appendParameter(final Function function, final Object value)
 	{
 		function.appendParameter(this, value);
 		return this;
@@ -240,7 +240,7 @@ final class Statement
 		return this;
 	}
 	
-	public void appendMatch(final StringFunction function, final String value)
+	void appendMatch(final StringFunction function, final String value)
 	{
 		database.appendMatchClause(this, function, value);
 	}
