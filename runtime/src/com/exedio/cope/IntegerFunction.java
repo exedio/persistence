@@ -26,12 +26,8 @@ public interface IntegerFunction extends Function
 	Integer get(Item item);
 	
 	EqualCondition equal(Integer value);
-	
 	EqualCondition equal(int value);
-
 	NotEqualCondition notEqual(Integer value);
-	
 	NotEqualCondition notEqual(int value);
-	
 	SumFunction sum(IntegerFunction other);
 }
