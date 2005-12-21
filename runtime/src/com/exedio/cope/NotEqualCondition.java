@@ -95,7 +95,7 @@ public final class NotEqualCondition extends Condition
 
 	public final String toString()
 	{
-		return function.getName() + "!='" + value + '\'';
+		return function.toString() + "!='" + value + '\'';
 	}
 	
 }

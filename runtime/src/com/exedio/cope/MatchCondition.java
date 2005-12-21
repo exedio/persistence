@@ -77,7 +77,7 @@ public final class MatchCondition extends Condition
 
 	public final String toString()
 	{
-		return function.getName() + " matches '" + value + '\'';
+		return function.toString() + " matches '" + value + '\'';
 	}
 	
 }

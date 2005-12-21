@@ -89,7 +89,7 @@ public abstract class ComputedFunction extends Feature implements Function
 		{
 			if(i>0)
 				buf.append(',');
-			buf.append(sources[i].getName());
+			buf.append(sources[i].toString());
 		}
 		buf.append(')');
 		

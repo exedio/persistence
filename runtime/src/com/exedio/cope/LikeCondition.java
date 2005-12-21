@@ -73,7 +73,7 @@ public final class LikeCondition extends Condition
 
 	public final String toString()
 	{
-		return function.getName() + " like '" + value + '\'';
+		return function.toString() + " like '" + value + '\'';
 	}
 	
 }
