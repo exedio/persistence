@@ -30,7 +30,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
-import com.exedio.cope.search.Condition;
 import com.exedio.cope.util.ReactivationConstructorDummy;
 
 public final class Type

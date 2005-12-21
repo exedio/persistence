@@ -20,14 +20,10 @@ package com.exedio.cope;
 
 import com.exedio.cope.function.LengthFunction;
 import com.exedio.cope.function.UppercaseFunction;
-import com.exedio.cope.search.EqualAttributeCondition;
-import com.exedio.cope.search.EqualCondition;
 import com.exedio.cope.search.GreaterCondition;
 import com.exedio.cope.search.GreaterEqualCondition;
 import com.exedio.cope.search.LessCondition;
 import com.exedio.cope.search.LessEqualCondition;
-import com.exedio.cope.search.LikeCondition;
-import com.exedio.cope.search.NotEqualCondition;
 
 public final class StringAttribute extends ObjectAttribute implements StringFunction
 {

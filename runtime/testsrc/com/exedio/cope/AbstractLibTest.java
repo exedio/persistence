@@ -28,7 +28,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import com.exedio.cope.junit.CopeTest;
-import com.exedio.cope.search.Condition;
 
 public abstract class AbstractLibTest extends CopeTest
 {

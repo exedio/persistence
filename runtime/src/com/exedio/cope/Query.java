@@ -24,7 +24,6 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import com.exedio.cope.search.Condition;
 
 public final class Query
 {

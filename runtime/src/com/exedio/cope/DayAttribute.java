@@ -18,12 +18,10 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.search.EqualCondition;
 import com.exedio.cope.search.GreaterCondition;
 import com.exedio.cope.search.GreaterEqualCondition;
 import com.exedio.cope.search.LessCondition;
 import com.exedio.cope.search.LessEqualCondition;
-import com.exedio.cope.search.NotEqualCondition;
 import com.exedio.cope.util.Day;
 
 public final class DayAttribute extends ObjectAttribute

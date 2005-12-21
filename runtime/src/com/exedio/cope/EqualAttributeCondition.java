@@ -15,61 +15,64 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
+package com.exedio.cope;
 
-package com.exedio.cope.search;
 
-import com.exedio.cope.Query;
-import com.exedio.cope.Statement;
-
-public class NotCondition extends Condition
+public final class EqualAttributeCondition extends Condition
 {
-	private final Condition argument; 
+	public final ObjectAttribute attribute1;
+	public final ObjectAttribute attribute2;
 
 	/**
-	 * Creates a new NotCondition.
+	 * Creates a new EqualAttributeCondition.
 	 * Instead of using this constructor directly,
-	 * you may want to use the more type-safe wrapper method.
-	 * @see Condition#not()
-	 * @throws NullPointerException if <code>argument</code> is null.
+	 * you may want to use the more type-safe wrapper methods.
+	 * @see StringAttribute#equal(StringAttribute)
 	 */
-	public NotCondition(final Condition argument)
+	public EqualAttributeCondition(
+				final ObjectAttribute attribute1,
+				final ObjectAttribute attribute2)
 	{
-		if(argument==null)
-			throw new NullPointerException();
-		
-		this.argument = argument;
+		if(attribute1==null)
+			throw new NullPointerException("attribute1 must not be null");
+		if(attribute2==null)
+			throw new NullPointerException("attribute2 must not be null");
+
+		this.attribute1 = attribute1;
+		this.attribute2 = attribute2;
 	}
-	
+
 	public final void appendStatement(final Statement bf)
 	{
-		bf.append("not(");
-		argument.appendStatement(bf);
-		bf.append(')');
+		bf.append(attribute1, (Join)null).
+			append('=').
+			append(attribute2, (Join)null);
 	}
 
 	public final void check(final Query query)
 	{
-		argument.check(query);
+		check(attribute1, query);
+		check(attribute2, query);
 	}
 
 	public boolean equals(final Object other)
 	{
-		if(!(other instanceof NotCondition))
+		if(!(other instanceof EqualAttributeCondition))
 			return false;
 		
-		final NotCondition o = (NotCondition)other;
+		final EqualAttributeCondition o = (EqualAttributeCondition)other;
 		
-		return argument.equals(o.argument);
+		return attribute1.equals(o.attribute1) && attribute2.equals(o.attribute2);
 	}
 	
 	public int hashCode()
 	{
-		return argument.hashCode() ^ 8432756;
+		return attribute1.hashCode() ^ attribute2.hashCode();
 	}
 
 	public final String toString()
 	{
-		return "!(" + argument + ')';
+		return attribute1.getName() + "=" + attribute2.getName();
 	}
 
 }

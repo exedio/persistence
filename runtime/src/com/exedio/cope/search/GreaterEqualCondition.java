@@ -25,6 +25,7 @@ import com.exedio.cope.DoubleAttribute;
 import com.exedio.cope.EnumAttribute;
 import com.exedio.cope.EnumValue;
 import com.exedio.cope.IntegerAttribute;
+import com.exedio.cope.LiteralCondition;
 import com.exedio.cope.LongAttribute;
 import com.exedio.cope.ObjectAttribute;
 import com.exedio.cope.StringAttribute;

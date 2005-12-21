@@ -16,17 +16,15 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.search;
+package com.exedio.cope;
 
-import com.exedio.cope.Query;
-import com.exedio.cope.Statement;
 
 public abstract class CompositeCondition extends Condition
 {
 	private final String operator;
 	public final Condition[] conditions;
 
-	CompositeCondition(final String operator, final Condition[] conditions)
+	public CompositeCondition(final String operator, final Condition[] conditions)
 	{
 		if(operator==null)
 			throw new NullPointerException("operator must not be null");

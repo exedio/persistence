@@ -18,17 +18,17 @@
 
 package com.exedio.cope.pattern;
 
+import com.exedio.cope.EqualCondition;
 import com.exedio.cope.Item;
 import com.exedio.cope.Join;
 import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.MandatoryViolationException;
+import com.exedio.cope.NotEqualCondition;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.ReadOnlyViolationException;
 import com.exedio.cope.StringAttribute;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.Attribute.Option;
-import com.exedio.cope.search.EqualCondition;
-import com.exedio.cope.search.NotEqualCondition;
 
 public abstract class Hash extends Pattern
 {

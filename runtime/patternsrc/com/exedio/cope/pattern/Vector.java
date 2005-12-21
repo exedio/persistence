@@ -26,17 +26,17 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.exedio.cope.AttributeValue;
+import com.exedio.cope.EqualCondition;
 import com.exedio.cope.Item;
 import com.exedio.cope.Join;
 import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.MandatoryViolationException;
+import com.exedio.cope.NotEqualCondition;
 import com.exedio.cope.ObjectAttribute;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.ReadOnlyViolationException;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.search.AndCondition;
-import com.exedio.cope.search.EqualCondition;
-import com.exedio.cope.search.NotEqualCondition;
 import com.exedio.cope.search.OrCondition;
 
 public final class Vector extends Pattern

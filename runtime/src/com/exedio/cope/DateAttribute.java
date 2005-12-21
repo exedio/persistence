@@ -20,12 +20,10 @@ package com.exedio.cope;
 
 import java.util.Date;
 
-import com.exedio.cope.search.EqualCondition;
 import com.exedio.cope.search.GreaterCondition;
 import com.exedio.cope.search.GreaterEqualCondition;
 import com.exedio.cope.search.LessCondition;
 import com.exedio.cope.search.LessEqualCondition;
-import com.exedio.cope.search.NotEqualCondition;
 
 public final class DateAttribute extends ObjectAttribute
 {

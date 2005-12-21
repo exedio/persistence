@@ -38,7 +38,6 @@ import java.util.List;
 
 import bak.pcj.list.IntList;
 
-import com.exedio.cope.search.Condition;
 import com.exedio.dsmf.Driver;
 import com.exedio.dsmf.SQLRuntimeException;
 import com.exedio.dsmf.Schema;

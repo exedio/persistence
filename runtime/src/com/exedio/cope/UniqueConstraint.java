@@ -24,8 +24,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.exedio.cope.search.AndCondition;
-import com.exedio.cope.search.Condition;
-import com.exedio.cope.search.EqualCondition;
 import com.exedio.dsmf.Table;
 
 public final class UniqueConstraint extends Feature

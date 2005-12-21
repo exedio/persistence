@@ -21,8 +21,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.exedio.cope.search.EqualCondition;
-import com.exedio.cope.search.NotEqualCondition;
 
 
 public abstract class ObjectAttribute

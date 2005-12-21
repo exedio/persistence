@@ -16,25 +16,10 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.search;
+package com.exedio.cope;
 
 import java.util.Date;
 
-import com.exedio.cope.BooleanAttribute;
-import com.exedio.cope.DateAttribute;
-import com.exedio.cope.DoubleAttribute;
-import com.exedio.cope.EnumAttribute;
-import com.exedio.cope.EnumValue;
-import com.exedio.cope.Function;
-import com.exedio.cope.IntegerFunction;
-import com.exedio.cope.Item;
-import com.exedio.cope.ItemAttribute;
-import com.exedio.cope.Join;
-import com.exedio.cope.LongAttribute;
-import com.exedio.cope.ObjectAttribute;
-import com.exedio.cope.Query;
-import com.exedio.cope.Statement;
-import com.exedio.cope.StringFunction;
 
 public final class EqualCondition extends Condition
 {

@@ -18,9 +18,6 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.search.EqualCondition;
-import com.exedio.cope.search.EqualTargetCondition;
-import com.exedio.cope.search.NotEqualCondition;
 
 public final class ItemAttribute extends ObjectAttribute
 {

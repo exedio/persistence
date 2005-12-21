@@ -16,11 +16,8 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.search;
+package com.exedio.cope;
 
-import com.exedio.cope.Query;
-import com.exedio.cope.Statement;
-import com.exedio.cope.StringFunction;
 
 /**
  * A condition matching a fulltext index. EXPERIMENTAL!!!

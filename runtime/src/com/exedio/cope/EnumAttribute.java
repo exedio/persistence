@@ -25,12 +25,10 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
-import com.exedio.cope.search.EqualCondition;
 import com.exedio.cope.search.GreaterCondition;
 import com.exedio.cope.search.GreaterEqualCondition;
 import com.exedio.cope.search.LessCondition;
 import com.exedio.cope.search.LessEqualCondition;
-import com.exedio.cope.search.NotEqualCondition;
 
 import bak.pcj.map.IntKeyOpenHashMap;
 

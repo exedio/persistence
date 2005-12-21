@@ -18,7 +18,6 @@
 package com.exedio.cope;
 
 import com.exedio.cope.search.AndCondition;
-import com.exedio.cope.search.Condition;
 import com.exedio.cope.search.OrCondition;
 import com.exedio.cope.testmodel.AttributeItem;
 import com.exedio.cope.testmodel.EmptyItem;

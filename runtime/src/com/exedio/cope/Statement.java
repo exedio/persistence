@@ -29,7 +29,7 @@ import java.util.Map;
 
 import bak.pcj.list.IntArrayList;
 
-public final class Statement
+final class Statement
 {
 	private final Database database;
 	final StringBuffer text = new StringBuffer();

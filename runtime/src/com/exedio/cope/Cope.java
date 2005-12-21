@@ -20,7 +20,6 @@ package com.exedio.cope;
 
 import com.exedio.cope.function.SumFunction;
 import com.exedio.cope.search.AndCondition;
-import com.exedio.cope.search.Condition;
 import com.exedio.cope.search.OrCondition;
 
 /**

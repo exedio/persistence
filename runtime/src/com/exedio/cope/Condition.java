@@ -16,16 +16,13 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.search;
+package com.exedio.cope;
 
 import java.util.Iterator;
 import java.util.List;
 
-import com.exedio.cope.Function;
-import com.exedio.cope.Join;
-import com.exedio.cope.Query;
-import com.exedio.cope.Statement;
-import com.exedio.cope.Type;
+import com.exedio.cope.search.AndCondition;
+import com.exedio.cope.search.OrCondition;
 
 public abstract class Condition
 {

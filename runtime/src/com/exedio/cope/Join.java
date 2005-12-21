@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.search.Condition;
 
 public final class Join
 {

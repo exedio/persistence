@@ -23,8 +23,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.exedio.cope.function.SumFunction;
-import com.exedio.cope.search.EqualCondition;
-import com.exedio.cope.search.NotEqualCondition;
 
 public abstract class ComputedIntegerFunction
 	extends ComputedFunction

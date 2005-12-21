@@ -18,6 +18,9 @@
 
 package com.exedio.cope.search;
 
+import com.exedio.cope.CompositeCondition;
+import com.exedio.cope.Condition;
+
 public final class OrCondition extends CompositeCondition
 {
 	/**

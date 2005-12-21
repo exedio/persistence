@@ -22,9 +22,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.exedio.cope.function.LengthFunction;
-import com.exedio.cope.search.EqualCondition;
-import com.exedio.cope.search.LikeCondition;
-import com.exedio.cope.search.NotEqualCondition;
 
 public abstract class ComputedStringFunction
 	extends ComputedFunction

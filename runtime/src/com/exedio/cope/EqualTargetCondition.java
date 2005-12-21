@@ -15,12 +15,8 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-package com.exedio.cope.search;
+package com.exedio.cope;
 
-import com.exedio.cope.ItemAttribute;
-import com.exedio.cope.Join;
-import com.exedio.cope.Query;
-import com.exedio.cope.Statement;
 
 public final class EqualTargetCondition extends Condition
 {

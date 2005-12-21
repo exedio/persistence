@@ -19,7 +19,6 @@ package com.exedio.cope;
 
 import java.util.Collection;
 
-import com.exedio.cope.search.Condition;
 import com.exedio.cope.util.Day;
 
 

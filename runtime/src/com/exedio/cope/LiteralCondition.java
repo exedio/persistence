@@ -16,12 +16,8 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.search;
+package com.exedio.cope;
 
-import com.exedio.cope.Join;
-import com.exedio.cope.ObjectAttribute;
-import com.exedio.cope.Query;
-import com.exedio.cope.Statement;
 
 public abstract class LiteralCondition extends Condition
 {

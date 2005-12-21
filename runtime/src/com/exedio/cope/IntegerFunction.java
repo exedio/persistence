@@ -18,8 +18,6 @@
 package com.exedio.cope;
 
 import com.exedio.cope.function.SumFunction;
-import com.exedio.cope.search.EqualCondition;
-import com.exedio.cope.search.NotEqualCondition;
 
 
 public interface IntegerFunction extends Function
