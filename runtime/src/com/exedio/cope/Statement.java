@@ -162,27 +162,7 @@ final class Statement
 		
 	public Statement appendParameter(final Function function, final Object value)
 	{
-		if(function instanceof ComputedFunction)
-		{
-			final ComputedFunction computedFunction = ((ComputedFunction)function);
-			if(parameters==null)
-				this.text.append(computedFunction.surface2Database(value));
-			else
-				computedFunction.surface2DatabasePrepared(this, value);
-		}
-		else if(function instanceof JoinedFunction) // TODO use polymorphics
-		{
-			final JoinedFunction joinedFunction = ((JoinedFunction)function);
-			appendParameter(joinedFunction.function, value);
-		}
-		else
-		{
-			final ObjectAttribute attribute = (ObjectAttribute)function;
-			final Row dummyRow = new Row();
-			attribute.set(dummyRow, value);
-			final Column column = attribute.getColumn();
-			appendParameter(column, dummyRow.get(column));
-		}
+		function.appendParameter(this, value);
 		return this;
 	}
 	

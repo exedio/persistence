@@ -81,6 +81,14 @@ public abstract class ComputedFunction extends Feature implements Function
 		bf.append(sqlFragments[sqlFragments.length-1]);
 	}
 
+	public void appendParameter(final Statement bf, final Object value)
+	{
+		if(bf.parameters==null)
+			bf.append(surface2Database(value));
+		else
+			surface2DatabasePrepared(bf, value);
+	}
+	
 	final String toStringNonInitialized()
 	{
 		final StringBuffer buf = new StringBuffer(functionName);

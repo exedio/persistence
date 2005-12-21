@@ -121,6 +121,14 @@ public abstract class ObjectAttribute
 		bf.append(getColumn(), join);
 	}
 		
+	public void appendParameter(final Statement bf, final Object value)
+	{
+		final Row dummyRow = new Row();
+		set(dummyRow, value);
+		final Column column = getColumn();
+		bf.appendParameter(column, dummyRow.get(column));
+	}
+	
 	/**
 	 * Returns the unique constraint of this attribute,
 	 * if there is a unique constraint covering this attribute and this attribute only.

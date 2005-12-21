@@ -38,6 +38,11 @@ public final class JoinedFunction implements Function
 		function.append(bf, this.join);
 	}
 	
+	public void appendParameter(final Statement bf, final Object value)
+	{
+		bf.appendParameter(function, value);
+	}
+	
 	public Type getType()
 	{
 		return function.getType();
