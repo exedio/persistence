@@ -108,7 +108,7 @@ public abstract class Condition
 		return o1==null ? o2==null : o1.equals(o2);
 	}
 	
-	static int hashCode(final Object o)
+	static final int hashCode(final Object o)
 	{
 		return o==null ? 0 : o.hashCode();
 	}
