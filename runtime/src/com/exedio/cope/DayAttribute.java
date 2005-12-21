@@ -80,7 +80,7 @@ public final class DayAttribute extends ObjectAttribute
 	
 	public final EqualCondition equal(final Day value)
 	{
-		return new EqualCondition(null, this, value);
+		return new EqualCondition(this, value);
 	}
 	
 	public final NotEqualCondition notEqual(final Day value)

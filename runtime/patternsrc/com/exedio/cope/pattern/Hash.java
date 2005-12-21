@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import com.exedio.cope.EqualCondition;
 import com.exedio.cope.Item;
 import com.exedio.cope.Join;
+import com.exedio.cope.JoinedFunction;
 import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.NotEqualCondition;
@@ -82,12 +83,12 @@ public abstract class Hash extends Pattern
 	
 	public final EqualCondition equal(final String value)
 	{
-		return new EqualCondition(null, storage, hash(value));
+		return new EqualCondition(storage, hash(value));
 	}
 	
 	public final EqualCondition equal(final Join join, final String value)
 	{
-		return new EqualCondition(join, storage, hash(value));
+		return new EqualCondition(new JoinedFunction(storage, join), hash(value));
 	}
 
 	public final NotEqualCondition notEqual(final String value)

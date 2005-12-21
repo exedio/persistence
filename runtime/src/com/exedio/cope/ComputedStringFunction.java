@@ -58,12 +58,12 @@ public abstract class ComputedStringFunction
 	
 	public final EqualCondition equal(final String value)
 	{
-		return new EqualCondition(null, this, value);
+		return new EqualCondition(this, value);
 	}
 	
 	public final EqualCondition equal(final Join join, final String value)
 	{
-		return new EqualCondition(join, this, value);
+		return new EqualCondition(new JoinedFunction(this, join), value);
 	}
 	
 	public final NotEqualCondition notEqual(final String value)

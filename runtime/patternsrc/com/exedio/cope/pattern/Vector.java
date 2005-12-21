@@ -28,7 +28,6 @@ import java.util.List;
 import com.exedio.cope.AttributeValue;
 import com.exedio.cope.EqualCondition;
 import com.exedio.cope.Item;
-import com.exedio.cope.Join;
 import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.NotEqualCondition;
@@ -122,10 +121,10 @@ public final class Vector extends Pattern
 		final EqualCondition[] conditions = new EqualCondition[sources.length];
 		
 		for(Iterator it = values.iterator(); it.hasNext(); i++)
-			conditions[i] = new EqualCondition((Join)null, sources[i], it.next());
+			conditions[i] = new EqualCondition(sources[i], it.next());
 
 		for(; i<sources.length; i++)
-			conditions[i] = new EqualCondition((Join)null, sources[i], null);
+			conditions[i] = new EqualCondition(sources[i], null);
 
 		return new AndCondition(conditions);
 	}
@@ -149,7 +148,7 @@ public final class Vector extends Pattern
 		final EqualCondition[] conditions = new EqualCondition[sources.length];
 		
 		for(int i = 0; i<sources.length; i++)
-			conditions[i] = new EqualCondition((Join)null, sources[i], value);
+			conditions[i] = new EqualCondition(sources[i], value);
 
 		return new OrCondition(conditions);
 	}

@@ -170,6 +170,11 @@ final class Statement
 			else
 				computedFunction.surface2DatabasePrepared(this, value);
 		}
+		else if(function instanceof JoinedFunction) // TODO use polymorphics
+		{
+			final JoinedFunction joinedFunction = ((JoinedFunction)function);
+			appendParameter(joinedFunction.function, value);
+		}
 		else
 		{
 			final ObjectAttribute attribute = (ObjectAttribute)function;

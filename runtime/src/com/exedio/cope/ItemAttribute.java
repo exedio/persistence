@@ -192,12 +192,12 @@ public final class ItemAttribute extends ObjectAttribute
 	
 	public final EqualCondition equal(final Item value)
 	{
-		return new EqualCondition(null, this, value);
+		return new EqualCondition(this, value);
 	}
 	
 	public final EqualCondition equal(final Item value, final Join join)
 	{
-		return new EqualCondition(join, this, value);
+		return new EqualCondition(new JoinedFunction(this, join), value);
 	}
 	
 	public final EqualTargetCondition equalTarget()

@@ -111,12 +111,12 @@ public final class IntegerAttribute extends ObjectAttribute implements IntegerFu
 	
 	public final EqualCondition equal(final Integer value)
 	{
-		return new EqualCondition(null, this, value);
+		return new EqualCondition(this, value);
 	}
 	
 	public final EqualCondition equal(final int value)
 	{
-		return new EqualCondition(null, this, new Integer(value));
+		return new EqualCondition(this, new Integer(value));
 	}
 	
 	public final NotEqualCondition notEqual(final Integer value)

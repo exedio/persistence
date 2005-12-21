@@ -124,12 +124,12 @@ public final class BooleanAttribute extends ObjectAttribute
 	
 	public final EqualCondition equal(final Boolean value)
 	{
-		return new EqualCondition(null, this, value);
+		return new EqualCondition(this, value);
 	}
 	
 	public final EqualCondition equal(final boolean value)
 	{
-		return new EqualCondition(null, this, value ? Boolean.TRUE : Boolean.FALSE);
+		return new EqualCondition(this, value ? Boolean.TRUE : Boolean.FALSE);
 	}
 	
 	public final NotEqualCondition notEqual(final Boolean value)

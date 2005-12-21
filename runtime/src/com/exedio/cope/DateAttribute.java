@@ -108,7 +108,7 @@ public final class DateAttribute extends ObjectAttribute
 	
 	public final EqualCondition equal(final Date value)
 	{
-		return new EqualCondition(null, this, value);
+		return new EqualCondition(this, value);
 	}
 	
 	public final NotEqualCondition notEqual(final Date value)

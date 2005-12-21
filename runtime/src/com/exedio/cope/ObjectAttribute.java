@@ -171,12 +171,12 @@ public abstract class ObjectAttribute
 	public final Item searchUnique(final Object value)
 	{
 		// TODO: search nativly for unique constraints
-		return getType().searchUnique(new EqualCondition(null, this, value));
+		return getType().searchUnique(new EqualCondition(this, value));
 	}
 
 	public final EqualCondition isNull()
 	{
-		return new EqualCondition(null, this, null);
+		return new EqualCondition(this, null);
 	}
 	
 	public final NotEqualCondition isNotNull()

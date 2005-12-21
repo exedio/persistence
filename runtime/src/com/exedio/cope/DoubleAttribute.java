@@ -110,12 +110,12 @@ public final class DoubleAttribute extends ObjectAttribute
 	
 	public final EqualCondition equal(final Double value)
 	{
-		return new EqualCondition(null, this, value);
+		return new EqualCondition(this, value);
 	}
 	
 	public final EqualCondition equal(final double value)
 	{
-		return new EqualCondition(null, this, new Double(value));
+		return new EqualCondition(this, new Double(value));
 	}
 	
 	public final NotEqualCondition notEqual(final Double value)

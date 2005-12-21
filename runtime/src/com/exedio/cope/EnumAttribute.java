@@ -184,7 +184,7 @@ public final class EnumAttribute extends ObjectAttribute
 	
 	public final EqualCondition equal(final EnumValue value)
 	{
-		return new EqualCondition(null, this, value);
+		return new EqualCondition(this, value);
 	}
 	
 	public final NotEqualCondition notEqual(final EnumValue value)

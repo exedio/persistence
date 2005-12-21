@@ -23,7 +23,6 @@ import java.util.Date;
 
 public final class EqualCondition extends Condition
 {
-	public final Join join;
 	public final Function function;
 	public final Object value;
 
@@ -45,19 +44,18 @@ public final class EqualCondition extends Condition
 	 * @see EnumAttribute#equal(EnumValue)
 	 * @see ItemAttribute#equal(Item)
 	 */
-	public EqualCondition(final Join join, final Function function, final Object value)
+	public EqualCondition(final Function function, final Object value)
 	{
 		if(function==null)
 			throw new NullPointerException("function must not be null");
 
-		this.join = join;
 		this.function = function;
 		this.value = value;
 	}
 	
 	void appendStatement(final Statement bf)
 	{
-		bf.append(function, join);
+		function.append(bf, null);
 		if(value!=null)
 			bf.append('=').
 				appendParameter(function, value);
@@ -77,17 +75,17 @@ public final class EqualCondition extends Condition
 		
 		final EqualCondition o = (EqualCondition)other;
 		
-		return equals(join, o.join) && function.equals(o.function) && equals(value, o.value);
+		return function.equals(o.function) && equals(value, o.value);
 	}
 	
 	public int hashCode()
 	{
-		return hashCode(join) ^ function.hashCode() ^ hashCode(value);
+		return function.hashCode() ^ hashCode(value);
 	}
 
 	public String toString()
 	{
-		return function.getName() + "='" + value + '\'';
+		return function.toString() + "='" + value + '\'';
 	}
 	
 }

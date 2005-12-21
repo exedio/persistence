@@ -110,12 +110,12 @@ public final class LongAttribute extends ObjectAttribute
 	
 	public final EqualCondition equal(final Long value)
 	{
-		return new EqualCondition(null, this, value);
+		return new EqualCondition(this, value);
 	}
 	
 	public final EqualCondition equal(final long value)
 	{
-		return new EqualCondition(null, this, new Long(value));
+		return new EqualCondition(this, new Long(value));
 	}
 	
 	public final NotEqualCondition notEqual(final Long value)
