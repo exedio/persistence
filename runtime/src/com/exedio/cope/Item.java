@@ -249,6 +249,9 @@ public abstract class Item extends Cope
 			ReadOnlyViolationException,
 			ClassCastException
 	{
+		if(!attribute.getType().isAssignableFrom(type))
+			throw new RuntimeException("attribute "+attribute+" does not belong to type "+type.toString());
+		
 		if(attribute.isReadOnly())
 			throw new ReadOnlyViolationException(this, attribute);
 
@@ -281,6 +284,9 @@ public abstract class Item extends Cope
 			final AttributeValue attributeValue = attributeValues[i];
 			final FunctionAttribute attribute = attributeValue.attribute;
 
+			if(!attribute.getType().isAssignableFrom(type))
+				throw new RuntimeException("attribute "+attribute+" does not belong to type "+type.toString());
+			
 			if(attribute.isReadOnly())
 				throw new ReadOnlyViolationException(this, attribute);
 	

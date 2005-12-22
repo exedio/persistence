@@ -30,7 +30,7 @@ public class HierarchyTest extends AbstractLibTest
 	}
 	
 	public void testHierarchy()
-			throws IntegrityViolationException, UniqueViolationException
+			throws ConstraintViolationException
 	{
 		// model HierarchySuper
 		assertEquals(null, HierarchySuper.TYPE.getSupertype());
@@ -201,6 +201,44 @@ public class HierarchyTest extends AbstractLibTest
 		restartTransaction();
 		assertEquals(null, singleSub1a.getHierarchySuper());
 		assertEquals(list(null), new Query(singleSub1a.hierarchySuper, singleSub1a.TYPE, singleSub1a.superInt.equal(1).and(singleSub1a.subString.equal("a"))).search());
+		
+		// test wrong attributes
+		try
+		{
+			firstItem.get(secondItem.firstSubString);
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals("attribute "+secondItem.firstSubString+" does not belong to type "+firstItem.TYPE, e.getMessage());
+		}
+		try
+		{
+			secondItem.firstSubString.get(firstItem);
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals("attribute "+secondItem.firstSubString+" does not belong to type "+firstItem.TYPE, e.getMessage());
+		}
+		try
+		{
+			firstItem.set(secondItem.firstSubString, "zack");
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals("attribute "+secondItem.firstSubString+" does not belong to type "+firstItem.TYPE, e.getMessage());
+		}
+		try
+		{
+			firstItem.set(new AttributeValue[]{secondItem.firstSubString.map("zack")});
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals("attribute "+secondItem.firstSubString+" does not belong to type "+firstItem.TYPE, e.getMessage());
+		}
 	}
 	
 	public void testPolymorphicQueryInvalidation() throws UniqueViolationException

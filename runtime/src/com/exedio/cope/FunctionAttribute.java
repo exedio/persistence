@@ -128,6 +128,9 @@ public abstract class FunctionAttribute
 
 	public final Object getObject(final Item item)
 	{
+		if(!getType().isAssignableFrom(item.type))
+			throw new RuntimeException("attribute "+toString()+" does not belong to type "+item.type.toString());
+		
 		return getEntity(item).get(this);
 	}
 
