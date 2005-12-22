@@ -116,9 +116,19 @@ public abstract class ObjectAttribute
 	{
 	}
 	
+	private static final Entity getEntity(final Item item)
+	{
+		return getEntity(item, true);
+	}
+
+	private static final Entity getEntity(final Item item, final boolean present)
+	{
+		return item.type.getModel().getCurrentTransaction().getEntity(item, present);
+	}
+
 	public final Object getObject(final Item item)
 	{
-		return item.getEntity().get(this);
+		return getEntity(item).get(this);
 	}
 
 	public final void append(final Statement bf, final Join join)

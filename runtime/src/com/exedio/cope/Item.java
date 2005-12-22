@@ -427,7 +427,7 @@ public abstract class Item extends Cope
 	
 	// activation/deactivation -----------------------------------------------------
 	
-	final Entity getEntity()
+	private final Entity getEntity()
 	{
 		return getEntity(true);
 	}
