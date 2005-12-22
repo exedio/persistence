@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 
-public final class BooleanAttribute extends ObjectAttribute
+public final class BooleanAttribute extends FunctionAttribute
 {
 	static final int[] ALLOWED_VALUES = new int[]{0, 1};
 
@@ -28,7 +28,7 @@ public final class BooleanAttribute extends ObjectAttribute
 		super(option, Boolean.class, "boolean");
 	}
 	
-	public ObjectAttribute copyAsTemplate()
+	public FunctionAttribute copyAsTemplate()
 	{
 		return new BooleanAttribute(getTemplateOption());
 	}

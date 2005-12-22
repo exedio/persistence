@@ -30,7 +30,7 @@ public final class NotEqualCondition extends Condition
 	 * Creates a new NotEqualCondition.
 	 * Instead of using this constructor directly,
 	 * you may want to use the more type-safe wrapper methods.
-	 * @see ObjectAttribute#isNotNull()
+	 * @see FunctionAttribute#isNotNull()
 	 * @see StringFunction#notEqual(String)
 	 * @see IntegerFunction#notEqual(int)
 	 * @see IntegerFunction#notEqual(Integer)

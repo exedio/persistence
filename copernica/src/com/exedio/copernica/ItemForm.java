@@ -47,7 +47,7 @@ import com.exedio.cope.LongAttribute;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.NoSuchIDException;
-import com.exedio.cope.ObjectAttribute;
+import com.exedio.cope.FunctionAttribute;
 import com.exedio.cope.ReadOnlyViolationException;
 import com.exedio.cope.StringAttribute;
 import com.exedio.cope.Type;
@@ -175,9 +175,9 @@ final class ItemForm extends Form
 			final Attribute anyAttribute = (Attribute)j.next();
 			if(!anyAttribute.isReadOnly())
 			{
-				if(anyAttribute instanceof ObjectAttribute)
+				if(anyAttribute instanceof FunctionAttribute)
 				{
-					final Field field = createField((ObjectAttribute)anyAttribute, post, cop, model);
+					final Field field = createField((FunctionAttribute)anyAttribute, post, cop, model);
 					toSave = true;
 					if(displayedAttributes.contains(anyAttribute))
 						visibleFields.add(field);
@@ -196,14 +196,14 @@ final class ItemForm extends Form
 	}
 	
 	private final Field createField(
-			final ObjectAttribute attribute,
+			final FunctionAttribute attribute,
 			final boolean post, final ItemCop cop, final Model model)
 	{
 		return createField(attribute, this.item, attribute.getName(), post, cop, model);
 	}
 	
 	private final Field createField(
-			final ObjectAttribute attribute, final Item item, final String name,
+			final FunctionAttribute attribute, final Item item, final String name,
 			final boolean post, final ItemCop cop, final Model model)
 	{
 		if(attribute.isReadOnly())
@@ -491,7 +491,7 @@ final class ItemForm extends Form
 			}
 			if(field.error==null)
 			{
-				final ObjectAttribute attribute = (ObjectAttribute)field.key;
+				final FunctionAttribute attribute = (FunctionAttribute)field.key;
 				attributeValues.add(new AttributeValue(attribute, field.getContent()));
 			}
 		}
@@ -510,7 +510,7 @@ final class ItemForm extends Form
 		}
 		catch(UniqueViolationException e)
 		{
-			final Field field = getFieldByKey((ObjectAttribute)e.getConstraint().getUniqueAttributes().iterator().next());
+			final Field field = getFieldByKey((FunctionAttribute)e.getConstraint().getUniqueAttributes().iterator().next());
 			field.error = e.getClass().getName();
 		}
 		catch(LengthViolationException e)

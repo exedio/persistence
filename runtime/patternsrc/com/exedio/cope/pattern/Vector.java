@@ -31,7 +31,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.NotEqualCondition;
-import com.exedio.cope.ObjectAttribute;
+import com.exedio.cope.FunctionAttribute;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.ReadOnlyViolationException;
 import com.exedio.cope.UniqueViolationException;
@@ -40,9 +40,9 @@ import com.exedio.cope.search.OrCondition;
 
 public final class Vector extends Pattern
 {
-	private final ObjectAttribute[] sources;
+	private final FunctionAttribute[] sources;
 
-	public Vector(final ObjectAttribute[] sources)
+	public Vector(final FunctionAttribute[] sources)
 	{
 		this.sources = sources;
 
@@ -50,14 +50,14 @@ public final class Vector extends Pattern
 			registerSource(sources[i]);
 	}
 	
-	public Vector(final ObjectAttribute template, final int length)
+	public Vector(final FunctionAttribute template, final int length)
 	{
 		this(template2Sources(template, length));
 	}
 	
-	private static final ObjectAttribute[] template2Sources(final ObjectAttribute template, final int length)
+	private static final FunctionAttribute[] template2Sources(final FunctionAttribute template, final int length)
 	{
-		final ObjectAttribute[] result = new ObjectAttribute[length];
+		final FunctionAttribute[] result = new FunctionAttribute[length];
 		
 		for(int i = 0; i<length; i++)
 			result[i] = template.copyAsTemplate();
@@ -71,7 +71,7 @@ public final class Vector extends Pattern
 		
 		for(int i = 0; i<sources.length; i++)
 		{
-			final ObjectAttribute source = sources[i];
+			final FunctionAttribute source = sources[i];
 			if(!source.isInitialized())
 				initialize(source, name+(i+1/*TODO: make this '1' customizable*/));
 		}

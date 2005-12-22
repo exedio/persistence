@@ -45,12 +45,12 @@ final class PersistentState extends State implements AbstractDatabase.ResultSetH
 		lastUsageMillis = System.currentTimeMillis();
 	}
 	
-	Object get(ObjectAttribute attribute)
+	Object get(FunctionAttribute attribute)
 	{
 		return attribute.get(row);
 	}
 
-	public final State put(final Transaction transaction, final ObjectAttribute attribute, final Object value)
+	public final State put(final Transaction transaction, final FunctionAttribute attribute, final Object value)
 	{
 		return new ModifiedState( transaction, this ).put(transaction, attribute, value);
 	}

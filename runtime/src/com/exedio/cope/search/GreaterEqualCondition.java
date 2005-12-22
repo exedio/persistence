@@ -27,7 +27,7 @@ import com.exedio.cope.EnumValue;
 import com.exedio.cope.IntegerAttribute;
 import com.exedio.cope.LiteralCondition;
 import com.exedio.cope.LongAttribute;
-import com.exedio.cope.ObjectAttribute;
+import com.exedio.cope.FunctionAttribute;
 import com.exedio.cope.StringAttribute;
 
 public class GreaterEqualCondition extends LiteralCondition
@@ -43,7 +43,7 @@ public class GreaterEqualCondition extends LiteralCondition
 	 * @see DateAttribute#greaterOrEqual(Date)
 	 * @see EnumAttribute#greaterOrEqual(EnumValue)
 	 */
-	public GreaterEqualCondition(final ObjectAttribute attribute, final Object value)
+	public GreaterEqualCondition(final FunctionAttribute attribute, final Object value)
 	{
 		super(">=", attribute, value);
 	}

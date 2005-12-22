@@ -31,7 +31,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.exedio.cope.EnumValue;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
-import com.exedio.cope.ObjectAttribute;
+import com.exedio.cope.FunctionAttribute;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.util.ServletUtil;
@@ -209,7 +209,7 @@ public abstract class TransientCopernicaProvider implements CopernicaProvider
 				else
 					result.append(" - ");
 
-				final ObjectAttribute attribute = (ObjectAttribute)i.next();
+				final FunctionAttribute attribute = (FunctionAttribute)i.next();
 				final Object value = item.get(attribute);
 
 				final String valueString;

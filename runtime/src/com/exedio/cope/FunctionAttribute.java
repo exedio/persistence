@@ -24,7 +24,7 @@ import java.util.List;
 
 
 
-public abstract class ObjectAttribute
+public abstract class FunctionAttribute
 	extends Attribute
 	implements Function
 {
@@ -33,14 +33,14 @@ public abstract class ObjectAttribute
 	private final UniqueConstraint singleUniqueConstraint;
 	private ArrayList uniqueConstraints;
 	
-	protected ObjectAttribute(final Option option, final Class valueClass, final String valueClassName)
+	protected FunctionAttribute(final Option option, final Class valueClass, final String valueClassName)
 	{
 		super(option);
 		this.valueClass = valueClass;
 		this.valueClassName = valueClassName;
 		this.singleUniqueConstraint =
 			option.unique ?
-				new UniqueConstraint((ObjectAttribute)this) :
+				new UniqueConstraint((FunctionAttribute)this) :
 				null;
 	}
 	
@@ -52,7 +52,7 @@ public abstract class ObjectAttribute
 			singleUniqueConstraint.initialize(type, name + UniqueConstraint.SINGLE_UNIQUE_SUFFIX);
 	}
 	
-	public abstract ObjectAttribute copyAsTemplate();
+	public abstract FunctionAttribute copyAsTemplate();
 	abstract Object get(Row row);
 	abstract void set(Row row, Object surface);
 	
@@ -72,8 +72,8 @@ public abstract class ObjectAttribute
 	
 	/**
 	 * Checks attribute values set by
-	 * {@link Item#setAttribute(ObjectAttribute,Object)} (for <code>initial==false</code>)
-	 * and {@link Item(ObjectAttribute[])} (for <code>initial==true</code>)
+	 * {@link Item#setAttribute(FunctionAttribute,Object)} (for <code>initial==false</code>)
+	 * and {@link Item(FunctionAttribute[])} (for <code>initial==true</code>)
 	 * and throws the exception specified there.
 	 */
 	final void checkValue(final Object value, final Item item)

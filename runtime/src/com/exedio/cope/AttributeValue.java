@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 public final class AttributeValue
 {
-	public final ObjectAttribute attribute;
+	public final FunctionAttribute attribute;
 	public final Object value;
 	
 	/**
@@ -29,7 +29,7 @@ public final class AttributeValue
 	 * you may want to use the more type-safe wrapper methods
 	 * {@link StringAttribute#map(String)}.
 	 */
-	public AttributeValue(final ObjectAttribute attribute, final Object value)
+	public AttributeValue(final FunctionAttribute attribute, final Object value)
 	{
 		this.attribute = attribute;
 		this.value = value;

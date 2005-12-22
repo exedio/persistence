@@ -22,7 +22,7 @@ import com.exedio.cope.AttributeValue;
 import com.exedio.cope.DateAttribute;
 import com.exedio.cope.IntegerAttribute;
 import com.exedio.cope.Item;
-import com.exedio.cope.ObjectAttribute;
+import com.exedio.cope.FunctionAttribute;
 import com.exedio.cope.StringAttribute;
 import com.exedio.cope.pattern.Vector;
 
@@ -40,11 +40,11 @@ public class VectorItem extends Item
 
 	public static final IntegerAttribute num3 = new IntegerAttribute(OPTIONAL);
 	
-	public static final Vector nums = new Vector(new ObjectAttribute[]{num1, num2, num3});
+	public static final Vector nums = new Vector(new FunctionAttribute[]{num1, num2, num3});
 
 	// implicit external source
 
-	public static final Vector dates = new Vector(new ObjectAttribute[]{new DateAttribute(OPTIONAL), new DateAttribute(OPTIONAL)});
+	public static final Vector dates = new Vector(new FunctionAttribute[]{new DateAttribute(OPTIONAL), new DateAttribute(OPTIONAL)});
 
 	// internal source
 

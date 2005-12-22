@@ -31,12 +31,12 @@ final class ModifiedState extends State
 		transaction.addInvalidation( item.type, item.pk );
 	}
 
-	Object get(ObjectAttribute attribute)
+	Object get(FunctionAttribute attribute)
 	{
 		return attribute.get(row);
 	}
 
-	public final State put(Transaction transaction, ObjectAttribute attribute, Object value)
+	public final State put(Transaction transaction, FunctionAttribute attribute, Object value)
 	{
 		attribute.set(row, value);
 		return this;

@@ -29,11 +29,11 @@ import com.exedio.dsmf.Table;
 public final class UniqueConstraint extends Feature
 {
 	
-	private final ObjectAttribute[] uniqueAttributes;
+	private final FunctionAttribute[] uniqueAttributes;
 	private final List uniqueAttributeList;
 	private String databaseID;
 
-	private UniqueConstraint(final ObjectAttribute[] uniqueAttributes)
+	private UniqueConstraint(final FunctionAttribute[] uniqueAttributes)
 	{
 		this.uniqueAttributes = uniqueAttributes;
 		this.uniqueAttributeList = Collections.unmodifiableList(Arrays.asList(uniqueAttributes));
@@ -44,23 +44,23 @@ public final class UniqueConstraint extends Feature
 	/**
 	 * Is not public, because one should use {@link Item#UNIQUE} etc.
 	 */
-	UniqueConstraint(final ObjectAttribute uniqueAttribute)
+	UniqueConstraint(final FunctionAttribute uniqueAttribute)
 	{
-		this(new ObjectAttribute[]{uniqueAttribute});
+		this(new FunctionAttribute[]{uniqueAttribute});
 	}
 	
-	public UniqueConstraint(final ObjectAttribute uniqueAttribute1, final ObjectAttribute uniqueAttribute2)
+	public UniqueConstraint(final FunctionAttribute uniqueAttribute1, final FunctionAttribute uniqueAttribute2)
 	{
-		this(new ObjectAttribute[]{uniqueAttribute1, uniqueAttribute2});
+		this(new FunctionAttribute[]{uniqueAttribute1, uniqueAttribute2});
 	}
 	
-	public UniqueConstraint(final ObjectAttribute uniqueAttribute1, final ObjectAttribute uniqueAttribute2, final ObjectAttribute uniqueAttribute3)
+	public UniqueConstraint(final FunctionAttribute uniqueAttribute1, final FunctionAttribute uniqueAttribute2, final FunctionAttribute uniqueAttribute3)
 	{
-		this(new ObjectAttribute[]{uniqueAttribute1, uniqueAttribute2, uniqueAttribute3});
+		this(new FunctionAttribute[]{uniqueAttribute1, uniqueAttribute2, uniqueAttribute3});
 	}
 	
 	/**
-	 * @return a list of {@link ObjectAttribute}s.
+	 * @return a list of {@link FunctionAttribute}s.
 	 */
 	public final List getUniqueAttributes()
 	{
@@ -137,7 +137,7 @@ public final class UniqueConstraint extends Feature
 		final Iterator attributeIterator = attributes.iterator();
 		final Condition[] conditions = new Condition[attributes.size()];
 		for(int j = 0; attributeIterator.hasNext(); j++)
-			conditions[j] = new EqualCondition((ObjectAttribute)attributeIterator.next(), values[j]);
+			conditions[j] = new EqualCondition((FunctionAttribute)attributeIterator.next(), values[j]);
 
 		return getType().searchUnique(new AndCondition(conditions));
 	}

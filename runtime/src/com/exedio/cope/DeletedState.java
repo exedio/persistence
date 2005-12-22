@@ -28,12 +28,12 @@ final class DeletedState extends State
 		transaction.addInvalidation( item.type, item.pk );
 	}
 	
-	Object get(final ObjectAttribute attribute)
+	Object get(final FunctionAttribute attribute)
 	{
 		throw new NoSuchItemException(item);		
 	}
 
-	State put(Transaction transaction, ObjectAttribute attribute, Object value)
+	State put(Transaction transaction, FunctionAttribute attribute, Object value)
 	{
 		throw new NoSuchItemException(item);
 	}

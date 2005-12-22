@@ -29,12 +29,12 @@ final class Entity
 		this.state = state;
 	}
 	
-	Object get(final ObjectAttribute attribute)
+	Object get(final FunctionAttribute attribute)
 	{
 		return state.get( attribute );
 	}
 	
-	void put(final ObjectAttribute attribute, final Object value)
+	void put(final FunctionAttribute attribute, final Object value)
 	{
 		state = state.put( transaction, attribute, value );
 	}

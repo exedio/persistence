@@ -311,10 +311,10 @@ abstract class AbstractDatabase implements Database
 					if(selectableIndex>0)
 						bf.append(',');
 					
-					if(selectable instanceof ObjectAttribute)
+					if(selectable instanceof FunctionAttribute)
 					{
-						selectColumn = ((ObjectAttribute)selectAttribute).getColumn();
-						bf.append((ObjectAttribute)selectable, (Join)null).defineColumn(selectColumn);
+						selectColumn = ((FunctionAttribute)selectAttribute).getColumn();
+						bf.append((FunctionAttribute)selectable, (Join)null).defineColumn(selectColumn);
 						if(selectable instanceof ItemAttribute)
 						{
 							final StringColumn typeColumn = ((ItemAttribute)selectAttribute).getTypeColumn();
@@ -472,10 +472,10 @@ abstract class AbstractDatabase implements Database
 						{
 							final Selectable selectable = selectables[selectableIndex];
 							final Object resultCell;
-							if(selectable instanceof ObjectAttribute)
+							if(selectable instanceof FunctionAttribute)
 							{
 								selectColumns[selectableIndex].load(resultSet, columnIndex++, dummyRow);
-								final ObjectAttribute selectAttribute = (ObjectAttribute)selectable;
+								final FunctionAttribute selectAttribute = (FunctionAttribute)selectable;
 								if(selectable instanceof ItemAttribute)
 								{
 									final StringColumn typeColumn = ((ItemAttribute)selectAttribute).getTypeColumn();

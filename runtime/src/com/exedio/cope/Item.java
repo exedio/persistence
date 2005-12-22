@@ -241,7 +241,7 @@ public abstract class Item extends Cope
 	 * @throws ClassCastException
 	 *         if <code>value</code> is not compatible to <code>attribute</code>.
 	 */
-	public final void set(final ObjectAttribute attribute, final Object value)
+	public final void set(final FunctionAttribute attribute, final Object value)
 		throws
 			UniqueViolationException,
 			MandatoryViolationException,
@@ -279,7 +279,7 @@ public abstract class Item extends Cope
 		for(int i = 0; i<attributeValues.length; i++)
 		{
 			final AttributeValue attributeValue = attributeValues[i];
-			final ObjectAttribute attribute = attributeValue.attribute;
+			final FunctionAttribute attribute = attributeValue.attribute;
 
 			if(attribute.isReadOnly())
 				throw new ReadOnlyViolationException(this, attribute);

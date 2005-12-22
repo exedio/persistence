@@ -30,7 +30,7 @@ public final class EqualCondition extends Condition
 	 * Creates a new EqualCondition.
 	 * Instead of using this constructor directly,
 	 * you may want to use the more type-safe wrapper methods.
-	 * @see ObjectAttribute#isNull()
+	 * @see FunctionAttribute#isNull()
 	 * @see StringFunction#equal(String)
 	 * @see IntegerFunction#equal(int)
 	 * @see IntegerFunction#equal(Integer)

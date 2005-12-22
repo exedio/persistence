@@ -34,7 +34,7 @@ import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
 import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.MandatoryViolationException;
-import com.exedio.cope.ObjectAttribute;
+import com.exedio.cope.FunctionAttribute;
 import com.exedio.cope.ReadOnlyViolationException;
 import com.exedio.cope.StringAttribute;
 import com.exedio.cope.UniqueViolationException;
@@ -223,7 +223,7 @@ abstract class CopeAttribute extends CopeFeature
 		final boolean readOnly = instance instanceof Attribute && ((Attribute)instance).isReadOnly();
 		final boolean notNull = (instance instanceof Attribute && ((Attribute)instance).isMandatory()) ||
 										(instance instanceof Hash && ((Hash)instance).getStorage().isMandatory());
-		final boolean unique = instance instanceof ObjectAttribute && !((ObjectAttribute)instance).getUniqueConstraints().isEmpty();
+		final boolean unique = instance instanceof FunctionAttribute && !((FunctionAttribute)instance).getUniqueConstraints().isEmpty();
 		final boolean isLengthConstrained = instance instanceof StringAttribute && ((StringAttribute)instance).isLengthConstrained();
 
 		if(unique)
@@ -241,7 +241,7 @@ abstract class CopeAttribute extends CopeFeature
 
 	/**
 	 * Compute exceptions to be caught in the setter.
-	 * These are just those thrown by {@link com.exedio.cope.Item#setAttribute(ObjectAttribute,Object)}
+	 * These are just those thrown by {@link com.exedio.cope.Item#setAttribute(FunctionAttribute,Object)}
 	 * which are not in the setters throws clause.
 	 * (see {@link #getSetterExceptions()})
 	 */
@@ -272,7 +272,7 @@ abstract class CopeAttribute extends CopeFeature
 	{
 		final Feature instance = getInstance();
 		final boolean readOnly = instance instanceof Attribute && ((Attribute)instance).isReadOnly();
-		final boolean unique = instance instanceof ObjectAttribute && !((ObjectAttribute)instance).getUniqueConstraints().isEmpty();
+		final boolean unique = instance instanceof FunctionAttribute && !((FunctionAttribute)instance).getUniqueConstraints().isEmpty();
 
 		if(toucherExceptions!=null)
 			return toucherExceptions;

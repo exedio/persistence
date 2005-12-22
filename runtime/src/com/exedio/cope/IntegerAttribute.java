@@ -24,7 +24,7 @@ import com.exedio.cope.search.GreaterEqualCondition;
 import com.exedio.cope.search.LessCondition;
 import com.exedio.cope.search.LessEqualCondition;
 
-public final class IntegerAttribute extends ObjectAttribute implements IntegerFunction
+public final class IntegerAttribute extends FunctionAttribute implements IntegerFunction
 {
 
 	public IntegerAttribute(final Option option)
@@ -32,7 +32,7 @@ public final class IntegerAttribute extends ObjectAttribute implements IntegerFu
 		super(option, Integer.class, "integer");
 	}
 	
-	public ObjectAttribute copyAsTemplate()
+	public FunctionAttribute copyAsTemplate()
 	{
 		return new IntegerAttribute(getTemplateOption());
 	}

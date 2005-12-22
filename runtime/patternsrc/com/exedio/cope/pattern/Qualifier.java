@@ -28,7 +28,7 @@ import com.exedio.cope.Attribute;
 import com.exedio.cope.AttributeValue;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemAttribute;
-import com.exedio.cope.ObjectAttribute;
+import com.exedio.cope.FunctionAttribute;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
@@ -36,7 +36,7 @@ import com.exedio.cope.UniqueConstraint;
 public final class Qualifier extends Pattern
 {
 	private final ItemAttribute parent;
-	private final ObjectAttribute[] keys;
+	private final FunctionAttribute[] keys;
 	private final List keyList;
 	private final UniqueConstraint qualifyUnique;
 	private List attributes;
@@ -53,9 +53,9 @@ public final class Qualifier extends Pattern
 			throw new RuntimeException(attributes.toString());
 
 		this.parent = (ItemAttribute)attributes.get(0);
-		this.keys = new ObjectAttribute[attributes.size()-1];
+		this.keys = new FunctionAttribute[attributes.size()-1];
 		for(int i = 0; i<this.keys.length; i++)
-			this.keys[i] = (ObjectAttribute)attributes.get(i+1);
+			this.keys[i] = (FunctionAttribute)attributes.get(i+1);
 		this.keyList = Collections.unmodifiableList(Arrays.asList(this.keys));
 		this.qualifyUnique = qualifyUnique;
 	}
@@ -70,7 +70,7 @@ public final class Qualifier extends Pattern
 	}
 
 	/**
-	 * @return a list of {@link ObjectAttribute}s.
+	 * @return a list of {@link FunctionAttribute}s.
 	 */
 	public final List getKeys()
 	{
@@ -113,7 +113,7 @@ public final class Qualifier extends Pattern
 		return qualifyUnique.searchUnique(values);
 	}
 	
-	public final Object get(final Object[] values, final ObjectAttribute attribute)
+	public final Object get(final Object[] values, final FunctionAttribute attribute)
 	{
 		final Item item = qualifyUnique.searchUnique(values);
 		if(item!=null)
@@ -131,7 +131,7 @@ public final class Qualifier extends Pattern
 			int j = 0;
 			for(Iterator i = qualifyUnique.getUniqueAttributes().iterator(); i.hasNext(); j++)
 			{
-				final ObjectAttribute uniqueAttribute = (ObjectAttribute)i.next();
+				final FunctionAttribute uniqueAttribute = (FunctionAttribute)i.next();
 				initialAttributeValues[j] = new AttributeValue(uniqueAttribute, values[j]);
 			}
 			item = qualifyUnique.getType().newItem(initialAttributeValues);

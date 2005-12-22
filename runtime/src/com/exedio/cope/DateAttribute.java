@@ -25,7 +25,7 @@ import com.exedio.cope.search.GreaterEqualCondition;
 import com.exedio.cope.search.LessCondition;
 import com.exedio.cope.search.LessEqualCondition;
 
-public final class DateAttribute extends ObjectAttribute
+public final class DateAttribute extends FunctionAttribute
 {
 
 	public DateAttribute(final Option option)
@@ -33,7 +33,7 @@ public final class DateAttribute extends ObjectAttribute
 		super(option, Date.class, "date");
 	}
 	
-	public ObjectAttribute copyAsTemplate()
+	public FunctionAttribute copyAsTemplate()
 	{
 		return new DateAttribute(getTemplateOption());
 	}

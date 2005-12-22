@@ -33,7 +33,7 @@ import com.exedio.cope.search.LessEqualCondition;
 
 import bak.pcj.map.IntKeyOpenHashMap;
 
-public final class EnumAttribute extends ObjectAttribute
+public final class EnumAttribute extends FunctionAttribute
 {
 	private final Class enumClass;
 	private final List values;
@@ -111,7 +111,7 @@ public final class EnumAttribute extends ObjectAttribute
 		}
 	}
 	
-	public ObjectAttribute copyAsTemplate()
+	public FunctionAttribute copyAsTemplate()
 	{
 		return new EnumAttribute(getTemplateOption(), enumClass);
 	}

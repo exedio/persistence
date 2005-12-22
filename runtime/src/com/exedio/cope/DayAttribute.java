@@ -24,14 +24,14 @@ import com.exedio.cope.search.LessCondition;
 import com.exedio.cope.search.LessEqualCondition;
 import com.exedio.cope.util.Day;
 
-public final class DayAttribute extends ObjectAttribute
+public final class DayAttribute extends FunctionAttribute
 {
 	public DayAttribute(final Option option)
 	{
 		super(option, Day.class, "day");
 	}
 	
-	public ObjectAttribute copyAsTemplate()
+	public FunctionAttribute copyAsTemplate()
 	{
 		return new DayAttribute(getTemplateOption());
 	}

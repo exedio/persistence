@@ -23,7 +23,7 @@ import com.exedio.cope.search.GreaterEqualCondition;
 import com.exedio.cope.search.LessCondition;
 import com.exedio.cope.search.LessEqualCondition;
 
-public final class LongAttribute extends ObjectAttribute
+public final class LongAttribute extends FunctionAttribute
 {
 
 	public LongAttribute(final Option option)
@@ -31,7 +31,7 @@ public final class LongAttribute extends ObjectAttribute
 		super(option, Long.class, "long");
 	}
 	
-	public ObjectAttribute copyAsTemplate()
+	public FunctionAttribute copyAsTemplate()
 	{
 		return new LongAttribute(getTemplateOption());
 	}

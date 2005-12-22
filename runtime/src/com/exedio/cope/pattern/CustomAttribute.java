@@ -24,19 +24,19 @@ import java.lang.reflect.Method;
 import com.exedio.cope.Item;
 import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.MandatoryViolationException;
-import com.exedio.cope.ObjectAttribute;
+import com.exedio.cope.FunctionAttribute;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.ReadOnlyViolationException;
 import com.exedio.cope.UniqueViolationException;
 
 public final class CustomAttribute extends Pattern
 {
-	private final ObjectAttribute storage;
+	private final FunctionAttribute storage;
 	private Method getter;
 	private Method setter;
 	private Class valueType;
 	
-	public CustomAttribute(final ObjectAttribute storage)
+	public CustomAttribute(final FunctionAttribute storage)
 	{
 		this.storage = storage;
 		if(storage==null)
@@ -44,7 +44,7 @@ public final class CustomAttribute extends Pattern
 		registerSource(storage);
 	}
 	
-	public ObjectAttribute getStorage()
+	public FunctionAttribute getStorage()
 	{
 		return storage;
 	}

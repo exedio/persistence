@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 
-public final class ItemAttribute extends ObjectAttribute
+public final class ItemAttribute extends FunctionAttribute
 {
 
 	private final Class targetTypeClass;
@@ -54,7 +54,7 @@ public final class ItemAttribute extends ObjectAttribute
 	private Type onlyPossibleTargetType = null;
 	private StringColumn typeColumn = null;
 
-	public ObjectAttribute copyAsTemplate()
+	public FunctionAttribute copyAsTemplate()
 	{
 		return new ItemAttribute(getTemplateOption(), targetTypeClass, policy);
 	}

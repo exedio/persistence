@@ -36,9 +36,9 @@ abstract class State
 			throw new RuntimeException();
 	}
 	
-	abstract Object get(ObjectAttribute attribute);
+	abstract Object get(FunctionAttribute attribute);
 	
-	abstract State put(Transaction transaction, ObjectAttribute attribute, Object value);
+	abstract State put(Transaction transaction, FunctionAttribute attribute, Object value);
 	
 	abstract State write( Transaction transaction ) throws UniqueViolationException;
 	

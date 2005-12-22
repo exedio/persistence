@@ -25,7 +25,7 @@ import com.exedio.cope.search.GreaterEqualCondition;
 import com.exedio.cope.search.LessCondition;
 import com.exedio.cope.search.LessEqualCondition;
 
-public final class StringAttribute extends ObjectAttribute implements StringFunction
+public final class StringAttribute extends FunctionAttribute implements StringFunction
 {
 	private final int minimumLength;
 	private final int maximumLength;
@@ -51,7 +51,7 @@ public final class StringAttribute extends ObjectAttribute implements StringFunc
 			throw new RuntimeException("maximum length must be greater or equal mimimum length.");
 	}
 	
-	public ObjectAttribute copyAsTemplate()
+	public FunctionAttribute copyAsTemplate()
 	{
 		return new StringAttribute(getTemplateOption(), minimumLength, maximumLength);
 	}

@@ -21,8 +21,8 @@ package com.exedio.cope;
 
 public final class EqualAttributeCondition extends Condition
 {
-	public final ObjectAttribute attribute1;
-	public final ObjectAttribute attribute2;
+	public final FunctionAttribute attribute1;
+	public final FunctionAttribute attribute2;
 
 	/**
 	 * Creates a new EqualAttributeCondition.
@@ -31,8 +31,8 @@ public final class EqualAttributeCondition extends Condition
 	 * @see StringAttribute#equal(StringAttribute)
 	 */
 	public EqualAttributeCondition(
-				final ObjectAttribute attribute1,
-				final ObjectAttribute attribute2)
+				final FunctionAttribute attribute1,
+				final FunctionAttribute attribute2)
 	{
 		if(attribute1==null)
 			throw new NullPointerException("attribute1 must not be null");
