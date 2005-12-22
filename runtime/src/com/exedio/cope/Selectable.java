@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 /**
- * Marks an object so be usable in the select clause of a cope search.
+ * Marks an object to be usable in the select clause of a cope search.
  * 
  * @author Ralf Wiebicke
  */
