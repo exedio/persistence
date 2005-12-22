@@ -35,7 +35,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.exedio.cope.Attribute;
 import com.exedio.cope.AttributeValue;
-import com.exedio.cope.BooleanAttribute;
 import com.exedio.cope.ConstraintViolationException;
 import com.exedio.cope.DataAttribute;
 import com.exedio.cope.DateAttribute;
@@ -52,8 +51,6 @@ public final class Media extends MediaPath
 	final DataAttribute data;
 	final ContentType contentType;
 	final DateAttribute lastModified;
-	final BooleanAttribute exists;
-	final ObjectAttribute isNull;
 
 	public Media(final Option option, final String fixedMimeMajor, final String fixedMimeMinor)
 	{
@@ -64,10 +61,6 @@ public final class Media extends MediaPath
 		registerSource(this.data = new DataAttribute(option));
 		this.contentType = new FixedContentType(fixedMimeMajor, fixedMimeMinor);
 		registerSource(this.lastModified = new DateAttribute(option));
-		this.exists = option.mandatory ? null : new BooleanAttribute(Item.OPTIONAL);
-		this.isNull = exists;
-		if(this.exists!=null)
-			registerSource(this.exists);
 	}
 	
 	public Media(final Option option, final String fixedMimeMajor)
@@ -80,8 +73,6 @@ public final class Media extends MediaPath
 		final StringAttribute mimeMinor = new StringAttribute(option, 1, 30);
 		this.contentType = new HalfFixedContentType(fixedMimeMajor, mimeMinor);
 		registerSource(this.lastModified = new DateAttribute(option));
-		this.exists = null;
-		this.isNull = mimeMinor;
 	}
 	
 	public Media(final Option option)
@@ -95,8 +86,6 @@ public final class Media extends MediaPath
 		final StringAttribute mimeMinor = new StringAttribute(option, 1, 30);
 		this.contentType = new StoredContentType(mimeMajor, mimeMinor);
 		registerSource(this.lastModified = new DateAttribute(option));
-		this.exists = null;
-		this.isNull = mimeMajor;
 	}
 	
 	public final String getFixedMimeMajor()
@@ -129,14 +118,9 @@ public final class Media extends MediaPath
 		return lastModified;
 	}
 	
-	public final BooleanAttribute getExists()
-	{
-		return exists;
-	}
-	
 	public final ObjectAttribute getIsNull()
 	{
-		return isNull;
+		return lastModified;
 	}
 	
 	public void initialize()
@@ -148,13 +132,11 @@ public final class Media extends MediaPath
 			initialize(data, name+"Data");
 		contentType.initialize(name);
 		initialize(lastModified, name+"LastModified");
-		if(exists!=null && !exists.isInitialized())
-			initialize(exists, name+"Exists");
 	}
 	
 	public boolean isNull(final Item item)
 	{
-		return notNull ? false : (isNull.getObject(item)==null);
+		return notNull ? false : (lastModified.getObject(item)==null);
 	}
 
 	private static final HashMap compactExtensions = new HashMap();
@@ -381,11 +363,9 @@ public final class Media extends MediaPath
 					throw new RuntimeException("if data is null, content type must also be null");
 			}
 	
-			final ArrayList values = new ArrayList(4);
+			final ArrayList values = new ArrayList(3);
 			this.contentType.map(values, contentType);
 			values.add(this.lastModified.map(data!=null ? new Date() : null));
-			if(this.exists!=null)
-				values.add(this.exists.map((data!=null) ? Boolean.TRUE : null));
 			item.set((AttributeValue[])values.toArray(new AttributeValue[values.size()]));
 			
 			// TODO set this via Item.set(AttributeValue[]) as well

@@ -24,7 +24,6 @@ import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Date;
 
-import com.exedio.cope.BooleanAttribute;
 import com.exedio.cope.DataAttribute;
 import com.exedio.cope.DateAttribute;
 import com.exedio.cope.Feature;
@@ -73,7 +72,6 @@ public class MediaTest extends TestmodelTest
 				item.photo,
 				item.photo.getData(),
 				item.photo.getLastModified(),
-				item.photo.getExists(),
 				item.foto,
 				item.nameServer,
 			}), item.TYPE.getFeatures());
@@ -98,8 +96,7 @@ public class MediaTest extends TestmodelTest
 		assertSame(item.TYPE, fileLastModified.getType());
 		assertEquals("fileLastModified", fileLastModified.getName());
 		assertEqualsUnmodifiable(list(item.file), fileLastModified.getPatterns());
-		assertEquals(null, item.file.getExists());
-		assertSame(fileMajor, item.file.getIsNull());
+		assertSame(fileLastModified, item.file.getIsNull());
 		
 		assertFileNull();
 		{
@@ -177,8 +174,7 @@ public class MediaTest extends TestmodelTest
 		assertSame(item.TYPE, imageLastModified.getType());
 		assertEquals("imageLastModified", imageLastModified.getName());
 		assertEqualsUnmodifiable(list(item.image), imageLastModified.getPatterns());
-		assertEquals(null, item.image.getExists());
-		assertSame(imageMinor, item.image.getIsNull());
+		assertSame(imageLastModified, item.image.getIsNull());
 
 		assertImageNull();
 
@@ -228,11 +224,7 @@ public class MediaTest extends TestmodelTest
 		assertSame(item.TYPE, photoLastModified.getType());
 		assertEquals("photoLastModified", photoLastModified.getName());
 		assertEqualsUnmodifiable(list(item.photo), photoLastModified.getPatterns());
-		final BooleanAttribute photoExists = item.photo.getExists();
-		assertSame(item.TYPE, photoExists.getType());
-		assertSame("photoExists", photoExists.getName());
-		assertEqualsUnmodifiable(list(item.photo), photoExists.getPatterns());
-		assertSame(photoExists, item.photo.getIsNull());
+		assertSame(photoLastModified, item.photo.getIsNull());
 
 		assertPhotoNull();
 
