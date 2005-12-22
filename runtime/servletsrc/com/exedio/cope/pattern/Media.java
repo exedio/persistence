@@ -47,7 +47,7 @@ import com.exedio.cope.Attribute.Option;
 
 public final class Media extends MediaPath
 {
-	final boolean notNull;
+	final boolean mandatory;
 	final DataAttribute data;
 	final ContentType contentType;
 	final DateAttribute lastModified;
@@ -57,7 +57,7 @@ public final class Media extends MediaPath
 		if(option==null)
 			throw new NullPointerException("option must not be null");
 		
-		this.notNull = option.mandatory;
+		this.mandatory = option.mandatory;
 		registerSource(this.data = new DataAttribute(option));
 		this.contentType = new FixedContentType(fixedMimeMajor, fixedMimeMinor);
 		registerSource(this.lastModified = new DateAttribute(option));
@@ -68,7 +68,7 @@ public final class Media extends MediaPath
 		if(option==null)
 			throw new NullPointerException("option must not be null");
 
-		this.notNull = option.mandatory;
+		this.mandatory = option.mandatory;
 		registerSource(this.data = new DataAttribute(option));
 		final StringAttribute mimeMinor = new StringAttribute(option, 1, 30);
 		this.contentType = new HalfFixedContentType(fixedMimeMajor, mimeMinor);
@@ -80,7 +80,7 @@ public final class Media extends MediaPath
 		if(option==null)
 			throw new NullPointerException("option must not be null");
 
-		this.notNull = option.mandatory;
+		this.mandatory = option.mandatory;
 		registerSource(this.data = new DataAttribute(option));
 		final StringAttribute mimeMajor = new StringAttribute(option, 1, 30);
 		final StringAttribute mimeMinor = new StringAttribute(option, 1, 30);
@@ -136,7 +136,7 @@ public final class Media extends MediaPath
 	
 	public boolean isNull(final Item item)
 	{
-		return notNull ? false : (lastModified.getObject(item)==null);
+		return mandatory ? false : (lastModified.getObject(item)==null);
 	}
 
 	private static final HashMap compactExtensions = new HashMap();
