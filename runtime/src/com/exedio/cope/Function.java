@@ -21,6 +21,8 @@ package com.exedio.cope;
 
 public interface Function extends Selectable
 {
+	Object getObject(Item item);
+	
 	void append(Statement bf, Join join);
 	void appendParameter(Statement bf, Object value);
 	

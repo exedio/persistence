@@ -21,7 +21,6 @@ package com.exedio.cope;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
 
 import com.exedio.cope.util.ReactivationConstructorDummy;
 
@@ -230,28 +229,9 @@ public abstract class Item extends Cope
 	
 	public final Object get(final Function function)
 	{
-		if(function instanceof ObjectAttribute)
-			return get((ObjectAttribute)function);
-		else
-			return get((ComputedFunction)function);
+		return function.getObject(this);
 	}
 
-	public final Object get(final ObjectAttribute attribute)
-	{
-		return getEntity().get(attribute);
-	}
-	
-	public final Object get(final ComputedFunction function)
-	{
-		final List sources = function.getSources();
-		final Object[] values = new Object[sources.size()];
-		int pos = 0;
-		for(Iterator i = sources.iterator(); i.hasNext(); )
-			values[pos++] = get((Function)i.next());
-	
-		return function.mapJava(values);
-	}
-	
 	/**
 	 * @throws MandatoryViolationException
 	 *         if <code>value</code> is null and <code>attribute</code>
@@ -447,7 +427,7 @@ public abstract class Item extends Cope
 	
 	// activation/deactivation -----------------------------------------------------
 	
-	private final Entity getEntity()
+	final Entity getEntity()
 	{
 		return getEntity(true);
 	}

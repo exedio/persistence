@@ -115,13 +115,18 @@ public abstract class ObjectAttribute
 			LengthViolationException
 	{
 	}
+	
+	public final Object getObject(final Item item)
+	{
+		return item.getEntity().get(this);
+	}
 
-	public void append(final Statement bf, final Join join)
+	public final void append(final Statement bf, final Join join)
 	{
 		bf.append(getColumn(), join);
 	}
 		
-	public void appendParameter(final Statement bf, final Object value)
+	public final void appendParameter(final Statement bf, final Object value)
 	{
 		final Row dummyRow = new Row();
 		set(dummyRow, value);

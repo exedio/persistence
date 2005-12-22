@@ -32,6 +32,11 @@ public final class JoinedFunction implements Function
 		this.function = function;
 		this.join = join;
 	}
+	
+	public Object getObject(final Item item)
+	{
+		return function.getObject(item);
+	}
 
 	public void append(final Statement bf, final Join join)
 	{

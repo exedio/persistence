@@ -22,6 +22,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 public abstract class ComputedFunction extends Feature implements Function
@@ -63,13 +64,24 @@ public abstract class ComputedFunction extends Feature implements Function
 		return sourceList;
 	}
 
-	public abstract Object mapJava(Object[] sourceValues);
+	protected abstract Object mapJava(Object[] sourceValues);
 
 	abstract Object load(ResultSet resultSet, int columnIndex) throws SQLException;
 
 	abstract String surface2Database(Object value);
 	
 	abstract void surface2DatabasePrepared(Statement bf, Object value);
+	
+	public final Object getObject(final Item item)
+	{
+		final List sources = getSources();
+		final Object[] values = new Object[sources.size()];
+		int pos = 0;
+		for(Iterator i = sources.iterator(); i.hasNext(); )
+			values[pos++] = ((Function)i.next()).getObject(item);
+	
+		return mapJava(values);
+	}
 	
 	public final void append(final Statement bf, final Join join)
 	{
