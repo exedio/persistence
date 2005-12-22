@@ -63,7 +63,7 @@ public final class DateAttribute extends ObjectAttribute
 	
 	public final Date get(final Item item)
 	{
-		return (Date)item.get(this);
+		return (Date)getObject(item);
 	}
 	
 	public final void set(final Item item, final Date value)

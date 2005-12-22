@@ -53,7 +53,7 @@ public final class LongAttribute extends ObjectAttribute
 	
 	public final Long get(final Item item)
 	{
-		return (Long)item.get(this);
+		return (Long)getObject(item);
 	}
 	
 	/**

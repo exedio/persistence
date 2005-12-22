@@ -109,7 +109,7 @@ public final class StringAttribute extends ObjectAttribute implements StringFunc
 	
 	public final String get(final Item item)
 	{
-		return (String)item.get(this);
+		return (String)getObject(item);
 	}
 	
 	public final void set(final Item item, final String value)

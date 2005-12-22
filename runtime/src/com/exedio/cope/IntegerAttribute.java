@@ -54,7 +54,7 @@ public final class IntegerAttribute extends ObjectAttribute implements IntegerFu
 	
 	public final Integer get(final Item item)
 	{
-		return (Integer)item.get(this);
+		return (Integer)getObject(item);
 	}
 	
 	/**

@@ -53,7 +53,7 @@ public abstract class ComputedStringFunction
 	
 	public final String get(final Item item)
 	{
-		return (String)item.get(this);
+		return (String)getObject(item);
 	}
 	
 	public final EqualCondition equal(final String value)

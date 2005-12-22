@@ -158,7 +158,7 @@ public final class EnumAttribute extends ObjectAttribute
 	
 	public final EnumValue get(final Item item)
 	{
-		return (EnumValue)item.get(this);
+		return (EnumValue)getObject(item);
 	}
 	
 	public final void set(final Item item, final EnumValue value)

@@ -67,7 +67,7 @@ public final class BooleanAttribute extends ObjectAttribute
 	
 	public final Boolean get(final Item item)
 	{
-		return (Boolean)item.get(this);
+		return (Boolean)getObject(item);
 	}
 	
 	/**

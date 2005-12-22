@@ -154,7 +154,7 @@ public final class Media extends MediaPath
 	
 	public boolean isNull(final Item item)
 	{
-		return notNull ? false : (item.get(isNull)==null);
+		return notNull ? false : (isNull.getObject(item)==null);
 	}
 
 	private static final HashMap compactExtensions = new HashMap();

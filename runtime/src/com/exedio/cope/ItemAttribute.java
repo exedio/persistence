@@ -166,7 +166,7 @@ public final class ItemAttribute extends ObjectAttribute
 	
 	public final Item get(final Item item)
 	{
-		return (Item)item.get(this);
+		return (Item)getObject(item);
 	}
 	
 	public final void set(final Item item, final Item value)

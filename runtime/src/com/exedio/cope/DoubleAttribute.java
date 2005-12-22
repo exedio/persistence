@@ -53,7 +53,7 @@ public final class DoubleAttribute extends ObjectAttribute
 	
 	public final Double get(final Item item)
 	{
-		return (Double)item.get(this);
+		return (Double)getObject(item);
 	}
 	
 	/**

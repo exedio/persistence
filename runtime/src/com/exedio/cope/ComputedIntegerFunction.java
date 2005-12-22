@@ -69,7 +69,7 @@ public abstract class ComputedIntegerFunction
 	
 	public final Integer get(final Item item)
 	{
-		return (Integer)item.get(this);
+		return (Integer)getObject(item);
 	}
 	
 	public final EqualCondition equal(final Integer value)

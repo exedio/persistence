@@ -54,7 +54,7 @@ public final class DayAttribute extends ObjectAttribute
 	
 	public final Day get(final Item item)
 	{
-		return (Day)item.get(this);
+		return (Day)getObject(item);
 	}
 	
 	public final void set(final Item item, final Day value)
