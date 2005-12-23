@@ -95,6 +95,7 @@ class IntegerColumn extends Column
 	{
 		final Object loadedInteger = resultSet.getObject(columnIndex);
 		//System.out.println("IntegerColumn.load "+trimmedName+" "+loadedInteger);
+		// TODO: should have small numbers (or even bits) in cache instead of full integers if allowedValues!=null
 		row.put(this, (loadedInteger!=null) ? convertSQLResult(loadedInteger) : null);
 	}
 
