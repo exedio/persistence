@@ -149,11 +149,9 @@ public abstract class FunctionAttribute
 	
 	/**
 	 * Returns the unique constraint of this attribute,
-	 * if there is a unique constraint covering this attribute and this attribute only.
-	 * Does return null, if there is no such unique constraint,
-	 * i.e. this attribute is not covered by any unique constraint,
-	 * or this attribute is covered by a unique constraint covering more
-	 * attributes than this attribute.
+	 * that has been created implicitly when creating this attribute.
+	 * Does return null, if there is no such unique constraint.
+	 * @see #getUniqueConstraints()
 	 */
 	public UniqueConstraint getImplicitUniqueConstraint()
 	{
@@ -165,7 +163,6 @@ public abstract class FunctionAttribute
 	 * This includes an
 	 * {@link #getImplicitUniqueConstraint() implicit unique constraint},
 	 * if there is one for this attribute.
-	 * 
 	 */
 	public List getUniqueConstraints()
 	{
