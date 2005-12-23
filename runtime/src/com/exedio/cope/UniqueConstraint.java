@@ -67,7 +67,7 @@ public final class UniqueConstraint extends Feature
 		return uniqueAttributeList;
 	}
 	
-	static final String SINGLE_UNIQUE_SUFFIX = "SingleUnique";
+	static final String IMPLICIT_UNIQUE_SUFFIX = "SingleUnique";
 	
 	final void materialize(final Database database)
 	{
@@ -76,8 +76,8 @@ public final class UniqueConstraint extends Feature
 
 		final String featureName = getName();
 		final String databaseName =
-			featureName.endsWith(SINGLE_UNIQUE_SUFFIX)
-			? featureName.substring(0, featureName.length()-SINGLE_UNIQUE_SUFFIX.length())
+			featureName.endsWith(IMPLICIT_UNIQUE_SUFFIX)
+			? featureName.substring(0, featureName.length()-IMPLICIT_UNIQUE_SUFFIX.length())
 			: featureName;
 		this.databaseID = database.makeName(getType().id + '_' + databaseName + "_Unq").intern();
 		database.addUniqueConstraint(databaseID, this);

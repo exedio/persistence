@@ -49,7 +49,7 @@ public abstract class FunctionAttribute
 		super.initialize(type, name);
 		
 		if(implicitUniqueConstraint!=null)
-			implicitUniqueConstraint.initialize(type, name + UniqueConstraint.SINGLE_UNIQUE_SUFFIX);
+			implicitUniqueConstraint.initialize(type, name + UniqueConstraint.IMPLICIT_UNIQUE_SUFFIX);
 	}
 	
 	public abstract FunctionAttribute copyAsTemplate();
