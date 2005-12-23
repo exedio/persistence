@@ -41,18 +41,18 @@ public class HierarchyEmptyTest extends AbstractLibTest
 		assertEqualsUnmodifiable(list(HierarchyEmptySuper.superInt), HierarchyEmptySuper.TYPE.getDeclaredAttributes());
 		assertEqualsUnmodifiable(list(HierarchyEmptySuper.superInt), HierarchyEmptySuper.TYPE.getAttributes());
 		assertEqualsUnmodifiable(list(
-				HierarchyEmptySuper.superInt.getSingleUniqueConstraint()
+				HierarchyEmptySuper.superInt.getImplicitUniqueConstraint()
 			), HierarchyEmptySuper.TYPE.getDeclaredUniqueConstraints());
 		assertEqualsUnmodifiable(list(
-				HierarchyEmptySuper.superInt.getSingleUniqueConstraint()
+				HierarchyEmptySuper.superInt.getImplicitUniqueConstraint()
 			), HierarchyEmptySuper.TYPE.getUniqueConstraints());
 		assertEqualsUnmodifiable(list(
 				HierarchyEmptySuper.superInt,
-				HierarchyEmptySuper.superInt.getSingleUniqueConstraint()
+				HierarchyEmptySuper.superInt.getImplicitUniqueConstraint()
 			), HierarchyEmptySuper.TYPE.getDeclaredFeatures());
 		assertEqualsUnmodifiable(list(
 				HierarchyEmptySuper.superInt,
-				HierarchyEmptySuper.superInt.getSingleUniqueConstraint()
+				HierarchyEmptySuper.superInt.getImplicitUniqueConstraint()
 			), HierarchyEmptySuper.TYPE.getFeatures());
 		assertEquals(HierarchyEmptySuper.superInt, HierarchyEmptySuper.TYPE.getDeclaredFeature("superInt"));
 		assertEquals(null, HierarchyEmptySuper.TYPE.getDeclaredFeature("zack"));
@@ -72,11 +72,11 @@ public class HierarchyEmptyTest extends AbstractLibTest
 		assertEqualsUnmodifiable(list(), HierarchyEmptySub.TYPE.getDeclaredAttributes());
 		assertEqualsUnmodifiable(list(HierarchyEmptySuper.superInt), HierarchyEmptySub.TYPE.getAttributes());
 		assertEqualsUnmodifiable(list(), HierarchyEmptySub.TYPE.getDeclaredUniqueConstraints());
-		assertEqualsUnmodifiable(list(HierarchyEmptySub.superInt.getSingleUniqueConstraint()), HierarchyEmptySub.TYPE.getUniqueConstraints());
+		assertEqualsUnmodifiable(list(HierarchyEmptySub.superInt.getImplicitUniqueConstraint()), HierarchyEmptySub.TYPE.getUniqueConstraints());
 		assertEqualsUnmodifiable(list(), HierarchyEmptySub.TYPE.getDeclaredFeatures());
 		assertEqualsUnmodifiable(list(
 				HierarchyEmptySuper.superInt,
-				HierarchyEmptySuper.superInt.getSingleUniqueConstraint()
+				HierarchyEmptySuper.superInt.getImplicitUniqueConstraint()
 			), HierarchyEmptySub.TYPE.getFeatures());
 		assertEquals(null, HierarchyEmptySub.TYPE.getDeclaredFeature("superInt"));
 		assertEquals(null, HierarchyEmptySub.TYPE.getDeclaredFeature("superString"));

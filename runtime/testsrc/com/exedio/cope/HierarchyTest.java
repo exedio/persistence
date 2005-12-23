@@ -41,20 +41,20 @@ public class HierarchyTest extends AbstractLibTest
 		assertEqualsUnmodifiable(list(HierarchySuper.superInt, HierarchySuper.superString), HierarchySuper.TYPE.getDeclaredAttributes());
 		assertEqualsUnmodifiable(list(HierarchySuper.superInt, HierarchySuper.superString), HierarchySuper.TYPE.getAttributes());
 		assertEqualsUnmodifiable(list(
-				HierarchySuper.superInt.getSingleUniqueConstraint()
+				HierarchySuper.superInt.getImplicitUniqueConstraint()
 			), HierarchySuper.TYPE.getDeclaredUniqueConstraints());
 		assertEqualsUnmodifiable(list(
-				HierarchySuper.superInt.getSingleUniqueConstraint()
+				HierarchySuper.superInt.getImplicitUniqueConstraint()
 			), HierarchySuper.TYPE.getUniqueConstraints());
 		assertEqualsUnmodifiable(list(
 				HierarchySuper.superInt,
-				HierarchySuper.superInt.getSingleUniqueConstraint(),
+				HierarchySuper.superInt.getImplicitUniqueConstraint(),
 				HierarchySuper.superString,
 				HierarchySuper.superStringUpper
 			), HierarchySuper.TYPE.getDeclaredFeatures());
 		assertEqualsUnmodifiable(list(
 				HierarchySuper.superInt,
-				HierarchySuper.superInt.getSingleUniqueConstraint(),
+				HierarchySuper.superInt.getImplicitUniqueConstraint(),
 				HierarchySuper.superString,
 				HierarchySuper.superStringUpper
 			), HierarchySuper.TYPE.getFeatures());
@@ -80,24 +80,24 @@ public class HierarchyTest extends AbstractLibTest
 		assertEqualsUnmodifiable(list(HierarchyFirstSub.firstSubString), HierarchyFirstSub.TYPE.getDeclaredAttributes());
 		assertEqualsUnmodifiable(list(HierarchySuper.superInt, HierarchySuper.superString, HierarchyFirstSub.firstSubString), HierarchyFirstSub.TYPE.getAttributes());
 		assertEqualsUnmodifiable(list(
-				HierarchyFirstSub.firstSubString.getSingleUniqueConstraint()
+				HierarchyFirstSub.firstSubString.getImplicitUniqueConstraint()
 			), HierarchyFirstSub.TYPE.getDeclaredUniqueConstraints());
 		assertEqualsUnmodifiable(list(
-				HierarchyFirstSub.superInt.getSingleUniqueConstraint(),
-				HierarchyFirstSub.firstSubString.getSingleUniqueConstraint()
+				HierarchyFirstSub.superInt.getImplicitUniqueConstraint(),
+				HierarchyFirstSub.firstSubString.getImplicitUniqueConstraint()
 			), HierarchyFirstSub.TYPE.getUniqueConstraints());
 		assertEqualsUnmodifiable(list(
 				HierarchyFirstSub.firstSubString,
-				HierarchyFirstSub.firstSubString.getSingleUniqueConstraint(),
+				HierarchyFirstSub.firstSubString.getImplicitUniqueConstraint(),
 				HierarchyFirstSub.firstSubStringUpper
 			), HierarchyFirstSub.TYPE.getDeclaredFeatures());
 		assertEqualsUnmodifiable(list(
 				HierarchySuper.superInt,
-				HierarchySuper.superInt.getSingleUniqueConstraint(),
+				HierarchySuper.superInt.getImplicitUniqueConstraint(),
 				HierarchySuper.superString,
 				HierarchySuper.superStringUpper,
 				HierarchyFirstSub.firstSubString,
-				HierarchyFirstSub.firstSubString.getSingleUniqueConstraint(),
+				HierarchyFirstSub.firstSubString.getImplicitUniqueConstraint(),
 				HierarchyFirstSub.firstSubStringUpper
 			), HierarchyFirstSub.TYPE.getFeatures());
 		assertEquals(null, HierarchyFirstSub.TYPE.getDeclaredFeature("superInt"));

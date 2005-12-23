@@ -33,36 +33,36 @@ public class UniqueItemTest extends TestmodelTest
 		assertEqualsUnmodifiable(
 			list(
 				ItemWithSingleUnique.uniqueString,
-				ItemWithSingleUnique.uniqueString.getSingleUniqueConstraint(),
+				ItemWithSingleUnique.uniqueString.getImplicitUniqueConstraint(),
 				ItemWithSingleUnique.otherString
 			),
 			ItemWithSingleUnique.TYPE.getDeclaredFeatures());
 		assertEqualsUnmodifiable(
 			list(
 				ItemWithSingleUnique.uniqueString,
-				ItemWithSingleUnique.uniqueString.getSingleUniqueConstraint(),
+				ItemWithSingleUnique.uniqueString.getImplicitUniqueConstraint(),
 				ItemWithSingleUnique.otherString
 			),
 			ItemWithSingleUnique.TYPE.getFeatures());
 		assertEqualsUnmodifiable(
 			list(ItemWithSingleUnique.uniqueString),
-			ItemWithSingleUnique.uniqueString.getSingleUniqueConstraint().getUniqueAttributes());
+			ItemWithSingleUnique.uniqueString.getImplicitUniqueConstraint().getUniqueAttributes());
 		assertEqualsUnmodifiable(
-			list(ItemWithSingleUnique.uniqueString.getSingleUniqueConstraint()),
+			list(ItemWithSingleUnique.uniqueString.getImplicitUniqueConstraint()),
 			ItemWithSingleUnique.uniqueString.getUniqueConstraints());
 		
 		assertEqualsUnmodifiable(
 			list(ItemWithSingleUniqueReadOnly.uniqueReadOnlyString),
-			ItemWithSingleUniqueReadOnly.uniqueReadOnlyString.getSingleUniqueConstraint().getUniqueAttributes());
+			ItemWithSingleUniqueReadOnly.uniqueReadOnlyString.getImplicitUniqueConstraint().getUniqueAttributes());
 		assertEqualsUnmodifiable(
-			list(ItemWithSingleUniqueReadOnly.uniqueReadOnlyString.getSingleUniqueConstraint()),
+			list(ItemWithSingleUniqueReadOnly.uniqueReadOnlyString.getImplicitUniqueConstraint()),
 			ItemWithSingleUniqueReadOnly.uniqueReadOnlyString.getUniqueConstraints());
 		
 		assertEqualsUnmodifiable(
 			list(ItemWithSingleUniqueNotNull.uniqueNotNullString),
-			ItemWithSingleUniqueNotNull.uniqueNotNullString.getSingleUniqueConstraint().getUniqueAttributes());
+			ItemWithSingleUniqueNotNull.uniqueNotNullString.getImplicitUniqueConstraint().getUniqueAttributes());
 		assertEqualsUnmodifiable(
-			list(ItemWithSingleUniqueNotNull.uniqueNotNullString.getSingleUniqueConstraint()),
+			list(ItemWithSingleUniqueNotNull.uniqueNotNullString.getImplicitUniqueConstraint()),
 			ItemWithSingleUniqueNotNull.uniqueNotNullString.getUniqueConstraints());
 
 		assertEquals(null, ItemWithSingleUnique.findByUniqueString("uniqueString"));
@@ -86,8 +86,8 @@ public class UniqueItemTest extends TestmodelTest
 			}
 			catch(UniqueViolationException e)
 			{
-				assertEquals(item2.uniqueString.getSingleUniqueConstraint(), e.getConstraint());
-				assertEquals("unique violation for "+item2.uniqueString.getSingleUniqueConstraint().toString(), e.getMessage());
+				assertEquals(item2.uniqueString.getImplicitUniqueConstraint(), e.getConstraint());
+				assertEquals("unique violation for "+item2.uniqueString.getImplicitUniqueConstraint().toString(), e.getMessage());
 			}
 			assertEquals("uniqueString2", item2.getUniqueString());
 			assertEquals(item2, ItemWithSingleUnique.findByUniqueString("uniqueString2"));
@@ -189,8 +189,8 @@ public class UniqueItemTest extends TestmodelTest
 		}
 		catch(UniqueViolationException e)
 		{
-			assertEquals(item2.uniqueString.getSingleUniqueConstraint(), e.getConstraint());
-			assertEquals("unique violation for "+item2.uniqueString.getSingleUniqueConstraint().toString(), e.getMessage());
+			assertEquals(item2.uniqueString.getImplicitUniqueConstraint(), e.getConstraint());
+			assertEquals("unique violation for "+item2.uniqueString.getImplicitUniqueConstraint().toString(), e.getMessage());
 		}
 		assertEquals("uniqueString2", item2.getUniqueString());
 		assertEquals("otherString2", item2.getOtherString());

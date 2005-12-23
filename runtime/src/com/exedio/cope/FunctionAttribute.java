@@ -155,15 +155,15 @@ public abstract class FunctionAttribute
 	 * or this attribute is covered by a unique constraint covering more
 	 * attributes than this attribute.
 	 */
-	public UniqueConstraint getSingleUniqueConstraint()
+	public UniqueConstraint getImplicitUniqueConstraint()
 	{
 		return singleUniqueConstraint;
 	}
 
 	/**
 	 * Returns a list of unique constraints this attribute is part of.
-	 * This includes a
-	 * {@link #getSingleUniqueConstraint() single unique constraint},
+	 * This includes an
+	 * {@link #getImplicitUniqueConstraint() implicit unique constraint},
 	 * if there is one for this attribute.
 	 * 
 	 */
