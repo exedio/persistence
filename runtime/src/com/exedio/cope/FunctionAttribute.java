@@ -30,7 +30,7 @@ public abstract class FunctionAttribute
 {
 	private final Class valueClass;
 	private final String valueClassName;
-	private final UniqueConstraint singleUniqueConstraint;
+	private final UniqueConstraint implicitUniqueConstraint;
 	private ArrayList uniqueConstraints;
 	
 	protected FunctionAttribute(final Option option, final Class valueClass, final String valueClassName)
@@ -38,7 +38,7 @@ public abstract class FunctionAttribute
 		super(option);
 		this.valueClass = valueClass;
 		this.valueClassName = valueClassName;
-		this.singleUniqueConstraint =
+		this.implicitUniqueConstraint =
 			option.unique ?
 				new UniqueConstraint((FunctionAttribute)this) :
 				null;
@@ -48,8 +48,8 @@ public abstract class FunctionAttribute
 	{
 		super.initialize(type, name);
 		
-		if(singleUniqueConstraint!=null)
-			singleUniqueConstraint.initialize(type, name + UniqueConstraint.SINGLE_UNIQUE_SUFFIX);
+		if(implicitUniqueConstraint!=null)
+			implicitUniqueConstraint.initialize(type, name + UniqueConstraint.SINGLE_UNIQUE_SUFFIX);
 	}
 	
 	public abstract FunctionAttribute copyAsTemplate();
@@ -155,7 +155,7 @@ public abstract class FunctionAttribute
 	 */
 	public UniqueConstraint getImplicitUniqueConstraint()
 	{
-		return singleUniqueConstraint;
+		return implicitUniqueConstraint;
 	}
 
 	/**
