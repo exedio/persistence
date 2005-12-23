@@ -67,7 +67,7 @@ public final class UniqueConstraint extends Feature
 		return uniqueAttributeList;
 	}
 	
-	static final String IMPLICIT_UNIQUE_SUFFIX = "SingleUnique";
+	static final String IMPLICIT_UNIQUE_SUFFIX = "ImplicitUnique";
 	
 	final void materialize(final Database database)
 	{
