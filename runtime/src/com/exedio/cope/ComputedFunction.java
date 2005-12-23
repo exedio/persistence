@@ -29,21 +29,14 @@ public abstract class ComputedFunction extends Feature implements Function
 {
 	private final Function[] sources;
 	private final List sourceList;
-	private final String[] sqlFragments;
 	private final String functionName;
 	final int jdbcType;
 	final Type sourceType;
 
-	public ComputedFunction(final Function[] sources,
-									final String[] sqlFragments,
-									final String functionName,
-									final int jdbcType)
+	public ComputedFunction(final Function[] sources, final String functionName, final int jdbcType)
 	{
 		this.sources = sources;
 		this.sourceList = Collections.unmodifiableList(Arrays.asList(sources));
-		this.sqlFragments = sqlFragments;
-		if(sources.length+1!=sqlFragments.length)
-			throw new RuntimeException("length "+sources.length+" "+sqlFragments.length);
 		this.functionName = functionName;
 		this.jdbcType = jdbcType;
 		
@@ -65,7 +58,7 @@ public abstract class ComputedFunction extends Feature implements Function
 	}
 
 	protected abstract Object mapJava(Object[] sourceValues);
-
+	
 	abstract Object load(ResultSet resultSet, int columnIndex) throws SQLException;
 
 	abstract String surface2Database(Object value);
@@ -83,16 +76,6 @@ public abstract class ComputedFunction extends Feature implements Function
 		return mapJava(values);
 	}
 	
-	public final void append(final Statement bf, final Join join)
-	{
-		for(int i = 0; i<sources.length; i++)
-		{
-			bf.append(sqlFragments[i]).
-				append(sources[i], join);
-		}
-		bf.append(sqlFragments[sqlFragments.length-1]);
-	}
-
 	public final void appendParameter(final Statement bf, final Object value)
 	{
 		if(bf.parameters==null)

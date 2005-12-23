@@ -25,7 +25,7 @@ import java.sql.SQLException;
 import com.exedio.cope.function.SumFunction;
 
 public abstract class ComputedIntegerFunction
-	extends ComputedFunction
+	extends ComputedStaticFunction
 	implements IntegerFunction
 {
 	public ComputedIntegerFunction(

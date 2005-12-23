@@ -24,7 +24,7 @@ import java.sql.SQLException;
 import com.exedio.cope.function.LengthFunction;
 
 public abstract class ComputedStringFunction
-	extends ComputedFunction
+	extends ComputedStaticFunction
 	implements StringFunction
 {
 	public ComputedStringFunction(
