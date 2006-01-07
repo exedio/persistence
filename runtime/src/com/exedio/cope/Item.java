@@ -347,7 +347,6 @@ public abstract class Item extends Cope
 				if(attribute.getDeletePolicy().nullify)
 				{
 					final Query q = new Query(attribute.getType(), attribute.equal(this));
-					q.setDeterministicOrder(true); // TODO deterministic order needed only for DeleteTest#testAtomicy until atomicy has been fixed
 					for(Iterator j = q.search().iterator(); j.hasNext(); )
 					{
 						final Item item = (Item)j.next();
@@ -358,7 +357,6 @@ public abstract class Item extends Cope
 				if(attribute.getDeletePolicy().cascade)
 				{
 					final Query q = new Query(attribute.getType(), attribute.equal(this));
-					q.setDeterministicOrder(true); // TODO deterministic order needed only for DeleteTest#testAtomicy until atomicy has been fixed
 					for(Iterator j = q.search().iterator(); j.hasNext(); )
 					{
 						final Item item = (Item)j.next();
