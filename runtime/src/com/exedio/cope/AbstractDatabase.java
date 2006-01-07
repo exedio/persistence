@@ -788,44 +788,38 @@ abstract class AbstractDatabase implements Database
 			if(!resultSet.next())
 				throw new RuntimeException();
 			
-			if(supportsGetBytes)
+			result = supportsGetBytes ? resultSet.getBytes(1) : loadBlob(resultSet.getBlob(1));
+		}
+		
+		private static final byte[] loadBlob(final Blob blob) throws SQLException
+		{
+			if(blob==null)
+				return null;
+			
+			final byte[] result = new byte[(int)blob.length()];
+			InputStream stream = null;
+			try
 			{
-				result = resultSet.getBytes(1);
+				stream = blob.getBinaryStream();
+				stream.read(result);
+				return result;
 			}
-			else
+			catch(IOException e)
 			{
-				final Blob blob = resultSet.getBlob(1);
-				if(blob!=null)
+				throw new RuntimeException(e);
+			}
+			finally
+			{
+				if(stream!=null)
 				{
-					result = new byte[(int)blob.length()];
-					InputStream stream = null;
 					try
 					{
-						stream = blob.getBinaryStream();
-						stream.read(result);
+						stream.close();
 					}
 					catch(IOException e)
 					{
 						throw new RuntimeException(e);
 					}
-					finally
-					{
-						if(stream!=null)
-						{
-							try
-							{
-								stream.close();
-							}
-							catch(IOException e)
-							{
-								throw new RuntimeException(e);
-							}
-						}
-					}
-				}
-				else
-				{
-					result = null;
 				}
 			}
 		}
