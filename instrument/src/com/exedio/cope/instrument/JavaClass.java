@@ -488,11 +488,11 @@ class JavaClass extends JavaFeature
 					}
 					catch(IllegalAccessException e2)
 					{
-						throw new RuntimeException(e2);
+						throw new RuntimeException(s, e2);
 					}
 					catch(InvocationTargetException e2)
 					{
-						throw new RuntimeException(e2.getTargetException());
+						throw new RuntimeException(s, e2.getTargetException());
 					}
 				}
 				else
@@ -510,11 +510,11 @@ class JavaClass extends JavaFeature
 					}
 					catch(NoSuchFieldException e)
 					{
-						throw new RuntimeException(e);
+						throw new RuntimeException(s, e);
 					}
 					catch(IllegalAccessException e)
 					{
-						throw new RuntimeException(e);
+						throw new RuntimeException(s, e);
 					}
 				}
 			}
