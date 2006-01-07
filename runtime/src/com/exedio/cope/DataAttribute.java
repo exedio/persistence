@@ -401,9 +401,7 @@ public final class DataAttribute extends Attribute
 					if(data!=null)
 					{
 						in = new FileInputStream(file);
-						final byte[] b = new byte[20*1024];
-						for(int len = in.read(b); len>=0; len = in.read(b))
-							data.write(b, 0, len);
+						DataAttribute.copy(in, data, file.length());
 						in.close();
 						data.close();
 					}
@@ -436,9 +434,7 @@ public final class DataAttribute extends Attribute
 				if(data!=null)
 				{
 					out = new FileOutputStream(file);
-					final byte[] b = new byte[20*1024];
-					for(int len = data.read(b); len>=0; len = data.read(b))
-						out.write(b, 0, len);
+					DataAttribute.copy(data, out);
 					out.close();
 					data.close();
 				}
@@ -471,10 +467,7 @@ public final class DataAttribute extends Attribute
 				{
 					sourceS = new FileInputStream(source);
 					targetS = new FileOutputStream(target);
-					final byte[] b = new byte[Math.min(1024*1024, (int)Math.min((long)Integer.MAX_VALUE, length))];
-					//System.out.println("-------------- "+length+" ----- "+b.length);
-					for(int len = sourceS.read(b); len>=0; len = sourceS.read(b))
-						targetS.write(b, 0, len);
+					DataAttribute.copy(sourceS, targetS, length);
 				}
 				finally
 				{
@@ -530,6 +523,32 @@ public final class DataAttribute extends Attribute
 			}
 		}
 		
+	}
+	
+	static final void copy(final InputStream in, final OutputStream out) throws IOException
+	{
+		copy(in, out, 20*1024); // TODO make this configurable as default buffer length, must not be greater than maximum buffer length
+	}
+	
+	static final void copy(final InputStream in, final OutputStream out, final long length) throws IOException
+	{
+		if(length==0)
+			return;
+		
+		assert length>0;
+		
+		final byte[] b = new byte[
+		Math.min(
+				1024*1024, // TODO make this configurable as maximum buffer length
+				(int)Math.min(
+						(long)Integer.MAX_VALUE,
+						length
+				)
+		)];
+		//System.out.println("-------------- "+length+" ----- "+b.length);
+		
+		for(int len = in.read(b); len>=0; len = in.read(b))
+			out.write(b, 0, len);
 	}
 	
 }

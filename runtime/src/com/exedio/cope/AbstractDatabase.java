@@ -795,7 +795,7 @@ abstract class AbstractDatabase implements Database
 		{
 			if(blob==null)
 				return null;
-			
+
 			final byte[] result = new byte[(int)blob.length()];
 			InputStream stream = null;
 			try
@@ -865,9 +865,7 @@ abstract class AbstractDatabase implements Database
 					try
 					{
 						final InputStream source = blob.getBinaryStream();
-						final byte[] b = new byte[Math.min(50*1024, (int)blob.length())];
-						for(int len = source.read(b); len>=0; len = source.read(b))
-							data.write(b, 0, len);
+						DataAttribute.copy(source, data, blob.length());
 					}
 					catch(IOException e)
 					{
