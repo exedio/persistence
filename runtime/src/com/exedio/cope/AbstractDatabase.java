@@ -796,32 +796,7 @@ abstract class AbstractDatabase implements Database
 			if(blob==null)
 				return null;
 
-			final byte[] result = new byte[(int)blob.length()];
-			InputStream stream = null;
-			try
-			{
-				stream = blob.getBinaryStream();
-				stream.read(result);
-				return result;
-			}
-			catch(IOException e)
-			{
-				throw new RuntimeException(e);
-			}
-			finally
-			{
-				if(stream!=null)
-				{
-					try
-					{
-						stream.close();
-					}
-					catch(IOException e)
-					{
-						throw new RuntimeException(e);
-					}
-				}
-			}
+			return DataAttribute.copy(blob.getBinaryStream(), blob.length());
 		}
 	}
 	

@@ -21,6 +21,7 @@ package com.exedio.cope;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -316,32 +317,13 @@ public final class DataAttribute extends Attribute
 			final File file = getStorage(item);
 			if(file.exists())
 			{
-				FileInputStream in = null;
 				try
 				{
-					in = new FileInputStream(file);
-					final byte[] result = new byte[(int)file.length()];
-					in.read(result);
-					in.close();
-					return result;
+					return DataAttribute.copy(new FileInputStream(file), file.length());
 				}
-				catch(IOException e)
+				catch(FileNotFoundException e)
 				{
-					throw new RuntimeException(e);
-				}
-				finally
-				{
-					if(in!=null)
-					{
-						try
-						{
-							in.close();
-						}
-						catch(IOException e)
-						{
-							throw new RuntimeException(e);
-						}
-					}
+					throw new RuntimeException(file.getAbsolutePath(), e);
 				}
 			}
 			else
@@ -549,6 +531,38 @@ public final class DataAttribute extends Attribute
 		
 		for(int len = in.read(b); len>=0; len = in.read(b))
 			out.write(b, 0, len);
+	}
+	
+	static final byte[] copy(final InputStream in, final long length)
+	{
+		try
+		{
+			if(length==0)
+				return new byte[]{};
+			
+			assert length>0;
+			
+			// TODO deal with length greater Integer.MAX_VALUE
+			final byte[] result = new byte[(int)length];
+			in.read(result);
+			in.close();
+			return result;
+		}
+		catch(IOException e)
+		{
+			throw new RuntimeException(e);
+		}
+		finally
+		{
+			try
+			{
+				in.close();
+			}
+			catch(IOException e)
+			{
+				throw new RuntimeException(e);
+			}
+		}
 	}
 	
 }
