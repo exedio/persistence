@@ -540,9 +540,11 @@ public final class DataAttribute extends Attribute
 			if(length==0)
 				return new byte[]{};
 			
+			if(length>((long)Integer.MAX_VALUE))
+				throw new RuntimeException("byte array cannot be longer than int");
+			
 			assert length>0;
 			
-			// TODO deal with length greater Integer.MAX_VALUE
 			final byte[] result = new byte[(int)length];
 			in.read(result);
 			in.close();
