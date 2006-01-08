@@ -119,15 +119,19 @@ public class DataTest extends AbstractLibTest
 
 		// set InputStream
 		item.setData(stream(data));
+		assertStreamClosed();
 		assertIt(data);
 
 		item.setData(stream(data2));
+		assertStreamClosed();
 		assertIt(data2);
 
 		item.setData(stream(dataEmpty));
+		assertStreamClosed();
 		assertIt(dataEmpty);
 
 		item.setData(stream(dataBig));
+		assertStreamClosed();
 		assertIt(dataBig);
 
 		item.setData((InputStream)null);

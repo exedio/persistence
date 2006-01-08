@@ -169,6 +169,7 @@ final class Statement
 	{
 		final ByteArrayOutputStream target = new ByteArrayOutputStream();
 		DataAttribute.copy(source, target);
+		source.close();
 		final byte[] result = target.toByteArray();
 		target.close();
 		return result;

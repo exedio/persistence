@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -56,7 +55,8 @@ public abstract class AbstractLibTest extends CopeTest
 	protected boolean oracle;
 	protected boolean cache;
 	
-	final ArrayList files = new ArrayList();
+	private final ArrayList files = new ArrayList();
+	private TestByteArrayInputStream testStream;
 	
 	protected void setUp() throws Exception
 	{
@@ -96,9 +96,19 @@ public abstract class AbstractLibTest extends CopeTest
 		return String.valueOf(item.getCopeType().getPkSource().pk2id(((Item)item).pk));
 	}
 
-	protected static final InputStream stream(final byte[] data)
+	protected final TestByteArrayInputStream stream(final byte[] data)
 	{
-		return new ByteArrayInputStream(data);
+		assertNull(testStream);
+		final TestByteArrayInputStream result = new TestByteArrayInputStream(data);
+		testStream = result;
+		return result;
+	}
+	
+	protected final void assertStreamClosed()
+	{
+		assertNotNull(testStream);
+		testStream.assertClosed();
+		testStream = null;
 	}
 	
 	protected final File file(final byte[] data)

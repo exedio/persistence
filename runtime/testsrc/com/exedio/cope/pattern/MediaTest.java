@@ -53,6 +53,7 @@ public class MediaTest extends TestmodelTest
 		final Date before = new Date();
 		item.setFile(stream(data2), contentType);
 		final Date after = new Date();
+		assertStreamClosed();
 		assertFile(data2, before, after, contentType, extension);
 	}
 	
@@ -103,12 +104,14 @@ public class MediaTest extends TestmodelTest
 			final Date before = new Date();
 			item.setFile(stream(data), "fileMajor/fileMinor");
 			final Date after = new Date();
+			assertStreamClosed();
 			assertFile(data, before, after, "fileMajor/fileMinor", ".fileMajor.fileMinor");
 		}
 		{
 			final Date before = new Date();
 			item.setFile(stream(data2), "fileMajor2/fileMinor2");
 			final Date after = new Date();
+			assertStreamClosed();
 			assertFile(data2, before, after, "fileMajor2/fileMinor2", ".fileMajor2.fileMinor2");
 
 			try
@@ -118,6 +121,7 @@ public class MediaTest extends TestmodelTest
 			}
 			catch(IllegalContentTypeException e)
 			{
+				assertStreamClosed();
 				assertEquals("illegalContentType", e.getMessage());
 				assertFile(data2, before, after, "fileMajor2/fileMinor2", ".fileMajor2.fileMinor2");
 			}
@@ -135,6 +139,7 @@ public class MediaTest extends TestmodelTest
 			final Date before = new Date();
 			item.setFile(stream(dataEmpty), "emptyMajor/emptyMinor");
 			final Date after = new Date();
+			assertStreamClosed();
 			assertFile(dataEmpty, before, after, "emptyMajor/emptyMinor", ".emptyMajor.emptyMinor");
 		}
 		item.setFile((InputStream)null, null);
@@ -179,9 +184,11 @@ public class MediaTest extends TestmodelTest
 		assertImageNull();
 
 		item.setImage(stream(data), "image/imageMinor");
+		assertStreamClosed();
 		assertImage(data, "image/imageMinor", ".image.imageMinor");
 
 		item.setImage(stream(data2), "image/jpeg");
+		assertStreamClosed();
 		assertImage(data2, "image/jpeg", ".jpg");
 
 		try
@@ -191,6 +198,7 @@ public class MediaTest extends TestmodelTest
 		}
 		catch(IllegalContentTypeException e)
 		{
+			assertStreamClosed();
 			assertEquals("illegalContentType", e.getMessage());
 			assertImage(data2, "image/jpeg", ".jpg");
 		}
@@ -202,6 +210,7 @@ public class MediaTest extends TestmodelTest
 		}
 		catch(IllegalContentTypeException e)
 		{
+			assertStreamClosed();
 			assertEquals("text/html", e.getMessage());
 			assertImage(data2, "image/jpeg", ".jpg");
 		}
@@ -229,9 +238,11 @@ public class MediaTest extends TestmodelTest
 		assertPhotoNull();
 
 		item.setPhoto(stream(data), "image/jpeg");
+		assertStreamClosed();
 		assertPhoto(data);
 
 		item.setPhoto(stream(data2), "image/jpeg");
+		assertStreamClosed();
 		assertPhoto(data2);
 		
 		try
@@ -241,6 +252,7 @@ public class MediaTest extends TestmodelTest
 		}
 		catch(IllegalContentTypeException e)
 		{
+			assertStreamClosed();
 			assertEquals("illegalContentType", e.getMessage());
 			assertPhoto(data2);
 		}
@@ -252,6 +264,7 @@ public class MediaTest extends TestmodelTest
 		}
 		catch(IllegalContentTypeException e)
 		{
+			assertStreamClosed();
 			assertEquals("image/png", e.getMessage());
 			assertPhoto(data2);
 		}

@@ -38,6 +38,7 @@ public class AttributeDataTest extends AttributeTest
 
 		final byte[] bytes = new byte[]{3,7,1,4};
 		item.setSomeData(stream(bytes), "someMimeMajor/someMimeMinor");
+		assertStreamClosed();
 
 		final String prefix =
 			model.getProperties().getMediaRootUrl() + "AttributeItem/someData/";
@@ -68,6 +69,7 @@ public class AttributeDataTest extends AttributeTest
 			//System.out.print(manyBytes[i]+", ");
 		}
 		item.setSomeData(stream(manyBytes),"someMimeMajor/someMimeMinor");
+		assertStreamClosed();
 		assertData(manyBytes, item.getSomeDataData());
 
 		item.setSomeData((InputStream)null, null);
