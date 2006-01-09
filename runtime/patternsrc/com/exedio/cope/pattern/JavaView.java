@@ -49,7 +49,7 @@ public final class JavaView extends Pattern
 		}
 		catch(NoSuchMethodException e)
 		{
-			throw new RuntimeException("no suitable getter method found for custom attribute "+name, e);
+			throw new RuntimeException("no suitable getter method found for java view "+name, e);
 		}
 
 		this.getter = getter;
