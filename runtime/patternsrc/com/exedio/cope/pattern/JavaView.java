@@ -30,8 +30,7 @@ public final class JavaView extends Pattern
 	private Class valueType;
 	
 	public JavaView()
-	{
-	}
+	{}
 	
 	public void initialize()
 	{
@@ -57,7 +56,7 @@ public final class JavaView extends Pattern
 		this.valueType = getter.getReturnType();
 	}
 	
-	Class getValueType()
+	public Class getValueType()
 	{
 		assert valueType!=null;
 		return valueType;

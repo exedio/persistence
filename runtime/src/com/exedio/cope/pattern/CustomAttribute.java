@@ -88,13 +88,13 @@ public final class CustomAttribute extends Pattern
 		this.valueType = valueType;
 	}
 	
-	final Class getValueType()
+	public Class getValueType()
 	{
 		assert valueType!=null;
 		return valueType;
 	}
 	
-	public final Object get(final Item item)
+	public Object get(final Item item)
 	{
 		try
 		{
@@ -114,7 +114,7 @@ public final class CustomAttribute extends Pattern
 		}
 	}
 
-	public final void set(final Item item, final Object value)
+	public void set(final Item item, final Object value)
 	throws
 		UniqueViolationException,
 		MandatoryViolationException,
