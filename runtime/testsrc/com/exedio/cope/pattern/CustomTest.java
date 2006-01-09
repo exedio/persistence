@@ -40,7 +40,6 @@ public class CustomTest extends AbstractLibTest
 		deleteOnTearDown(item = new CustomItem());
 	}
 	
-	static final Integer i2 = new Integer(2);
 	static final Integer i20 = new Integer(20);
 	static final Integer i44 = new Integer(44);
 	
