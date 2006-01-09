@@ -88,37 +88,37 @@ public final class Media extends MediaPath
 		registerSource(this.lastModified = new DateAttribute(option));
 	}
 	
-	public final String getFixedMimeMajor()
+	public String getFixedMimeMajor()
 	{
 		return contentType.getFixedMimeMajor();
 	}
 	
-	public final String getFixedMimeMinor()
+	public String getFixedMimeMinor()
 	{
 		return contentType.getFixedMimeMinor();
 	}
 	
-	public final DataAttribute getData()
+	public DataAttribute getData()
 	{
 		return data;
 	}
 	
-	public final StringAttribute getMimeMajor()
+	public StringAttribute getMimeMajor()
 	{
 		return contentType.getMimeMajor();
 	}
 	
-	public final StringAttribute getMimeMinor()
+	public StringAttribute getMimeMinor()
 	{
 		return contentType.getMimeMinor();
 	}
 	
-	public final DateAttribute getLastModified()
+	public DateAttribute getLastModified()
 	{
 		return lastModified;
 	}
 	
-	public final FunctionAttribute getIsNull()
+	public FunctionAttribute getIsNull()
 	{
 		return lastModified;
 	}
@@ -157,7 +157,7 @@ public final class Media extends MediaPath
 	 * Returns a URL pointing to the data of this media.
 	 * Returns null, if there is no data for this media.
 	 */
-	public final String getURL(final Item item)
+	public String getURL(final Item item)
 	{
 		final String contentType = getContentType(item);
 
@@ -224,7 +224,7 @@ public final class Media extends MediaPath
 	 * Returns the content type of this media.
 	 * Returns null, if there is no data for this media.
 	 */
-	public final String getContentType(final Item item)
+	public String getContentType(final Item item)
 	{
 		if(isNull(item))
 			return null;
@@ -237,7 +237,7 @@ public final class Media extends MediaPath
 	 * of the data of this media.
 	 * Returns -1, if there is no data for this media.
 	 */
-	public final long getLastModified(final Item item)
+	public long getLastModified(final Item item)
 	{
 		if(isNull(item))
 			return -1;
@@ -249,7 +249,7 @@ public final class Media extends MediaPath
 	 * Returns the length of the data of this media.
 	 * Returns -1, if there is no data for this media.
 	 */
-	public final long getLength(final Item item)
+	public long getLength(final Item item)
 	{
 		if(isNull(item))
 			return -1;
@@ -264,7 +264,7 @@ public final class Media extends MediaPath
 	 * Returns the data of this media.
 	 * Returns null, if there is no data for this media.
 	 */
-	public final byte[] getData(final Item item)
+	public byte[] getData(final Item item)
 	{
 		return this.data.get(item);
 	}
@@ -275,7 +275,7 @@ public final class Media extends MediaPath
 	 * @throws MandatoryViolationException
 	 *         if data is null and attribute is {@link Attribute#isMandatory() mandatory}.
 	 */
-	public final void set(final Item item, final byte[] data, final String contentType)
+	public void set(final Item item, final byte[] data, final String contentType)
 	{
 		try
 		{
@@ -294,7 +294,7 @@ public final class Media extends MediaPath
 	 *         if data is null.
 	 * @throws IOException if writing data throws an IOException.
 	 */
-	public final void getData(final Item item, final OutputStream data) throws IOException
+	public void getData(final Item item, final OutputStream data) throws IOException
 	{
 		this.data.get(item, data);
 	}
@@ -307,7 +307,7 @@ public final class Media extends MediaPath
 	 *         if data is null and attribute is {@link Attribute#isMandatory() mandatory}.
 	 * @throws IOException if reading data throws an IOException.
 	 */
-	public final void set(final Item item, final InputStream data, final String contentType)
+	public void set(final Item item, final InputStream data, final String contentType)
 		throws IOException
 	{
 		try
@@ -329,7 +329,7 @@ public final class Media extends MediaPath
 	 *         if data is null.
 	 * @throws IOException if writing data throws an IOException.
 	 */
-	public final void getData(final Item item, final File data) throws IOException
+	public void getData(final Item item, final File data) throws IOException
 	{
 		this.data.get(item, data);
 	}
@@ -341,13 +341,13 @@ public final class Media extends MediaPath
 	 *         if data is null and attribute is {@link Attribute#isMandatory() mandatory}.
 	 * @throws IOException if reading data throws an IOException.
 	 */
-	public final void set(final Item item, final File data, final String contentType)
+	public void set(final Item item, final File data, final String contentType)
 		throws IOException
 	{
 		set(item, (Object)data, contentType);
 	}
 	
-	private final void set(final Item item, final Object data, final String contentType)
+	private void set(final Item item, final Object data, final String contentType)
 		throws IOException
 	{
 		try
@@ -402,7 +402,7 @@ public final class Media extends MediaPath
 	
 	private long start = System.currentTimeMillis();
 	
-	public final Date getStart()
+	public Date getStart()
 	{
 		return new Date(start);
 	}
@@ -414,7 +414,7 @@ public final class Media extends MediaPath
 	private static final String RESPONSE_EXPIRES = "Expires";
 	private static final String RESPONSE_LAST_MODIFIED = "Last-Modified";
 	
-	public final Media.Log doGet(
+	public Media.Log doGet(
 			final HttpServletRequest request, final HttpServletResponse response,
 			final Item item, final String extension)
 		throws ServletException, IOException
