@@ -1,304 +1,358 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<XMI xmlns:UML="org.omg/standards/UML" verified="false" timestamp="" xmi.version="1.2" >
+<XMI xmlns:UML="http://schema.omg.org/spec/UML/1.3" verified="false" timestamp="2006-01-09T12:13:14" xmi.version="1.2" >
  <XMI.header>
   <XMI.documentation>
    <XMI.exporter>umbrello uml modeller http://uml.sf.net</XMI.exporter>
-   <XMI.exporterVersion>1.2.90</XMI.exporterVersion>
+   <XMI.exporterVersion>1.4</XMI.exporterVersion>
    <XMI.exporterEncoding>UnicodeUTF8</XMI.exporterEncoding>
   </XMI.documentation>
-  <XMI.model xmi.name="umbrello4G42Bb" href="/tmp/kde-rw7/umbrello4G42Bb.tmp" />
   <XMI.metamodel xmi.name="UML" href="UML.xml" xmi.version="1.3" />
  </XMI.header>
  <XMI.content>
-  <UML:Model>
-   <UML:Stereotype visibility="public" xmi.id="267" name="Datentyp" />
-   <UML:Stereotype visibility="public" xmi.id="268" name="Klasse" />
-   <UML:Stereotype visibility="public" xmi.id="269" name="Schnittstelle" />
-   <UML:DataType stereotype="267" visibility="public" xmi.id="192" name="int" />
-   <UML:DataType stereotype="267" visibility="public" xmi.id="193" name="char" />
-   <UML:DataType stereotype="267" visibility="public" xmi.id="194" name="bool" />
-   <UML:DataType stereotype="267" visibility="public" xmi.id="195" name="float" />
-   <UML:DataType stereotype="267" visibility="public" xmi.id="196" name="double" />
-   <UML:DataType stereotype="267" visibility="public" xmi.id="197" name="long" />
-   <UML:DataType stereotype="267" visibility="public" xmi.id="198" name="short" />
-   <UML:DataType stereotype="267" visibility="public" xmi.id="199" name="string" />
-   <UML:Class stereotype="268" visibility="public" xmi.id="200" name="Attribute" >
-    <UML:Attribute visibility="private" xmi.id="225" value="" type="string" name="code" />
-   </UML:Class>
-   <UML:Class stereotype="268" visibility="public" xmi.id="201" name="ObjectAttribute" />
-   <UML:Class stereotype="268" visibility="public" xmi.id="202" name="StringAttribute" >
-    <UML:Attribute visibility="private" xmi.id="232" value="" type="int" name="minimumLength" />
-    <UML:Attribute visibility="private" xmi.id="233" value="" type="int" name="maximumLength" />
-   </UML:Class>
-   <UML:Class stereotype="268" visibility="public" xmi.id="203" name="LongAttribute" />
-   <UML:Class stereotype="268" visibility="public" xmi.id="204" name="IntegerAttribute" />
-   <UML:Class stereotype="268" visibility="public" xmi.id="205" name="DataAttribute" >
-    <UML:Attribute visibility="private" xmi.id="230" value="" type="string" name="fixedMimeMajor" />
-    <UML:Attribute visibility="private" xmi.id="231" value="" type="string" name="fixedMimeMinor" />
-   </UML:Class>
-   <UML:Interface stereotype="269" visibility="public" xmi.id="206" isAbstract="true" name="Function" />
-   <UML:Interface stereotype="269" visibility="public" xmi.id="207" isAbstract="true" name="IntegerFunction" />
-   <UML:Interface stereotype="269" visibility="public" xmi.id="213" isAbstract="true" name="StringFunction" />
-   <UML:Class stereotype="268" visibility="public" xmi.id="218" name="BooleanAttribute" />
-   <UML:Class stereotype="268" visibility="public" xmi.id="219" name="DoubleAttribute" />
-   <UML:Class stereotype="268" visibility="public" xmi.id="223" name="Type" />
-   <UML:Class stereotype="268" visibility="public" xmi.id="226" name="EnumerationAttribute" />
-   <UML:Class stereotype="268" visibility="public" xmi.id="227" name="ItemAttribute" />
-   <UML:Class stereotype="268" visibility="public" xmi.id="234" name="EnumerationValue" >
-    <UML:Attribute visibility="private" xmi.id="236" value="" type="string" name="code" />
-    <UML:Attribute visibility="private" xmi.id="237" value="" type="int" name="number" />
-   </UML:Class>
-   <UML:Class stereotype="268" visibility="public" xmi.id="239" name="ComputedFunction" />
-   <UML:Class stereotype="268" visibility="public" xmi.id="241" name="SumFunction" />
-   <UML:Class stereotype="268" visibility="public" xmi.id="242" name="UppercaseFunction" />
-   <UML:Interface stereotype="269" visibility="public" xmi.id="263" isAbstract="true" name="Feature" />
-   <UML:Generalization child="201" visibility="public" xmi.id="208" parent="200" />
-   <UML:Generalization child="201" visibility="public" xmi.id="209" parent="206" />
-   <UML:Generalization child="207" visibility="public" xmi.id="210" parent="206" />
-   <UML:Generalization child="204" visibility="public" xmi.id="211" parent="201" />
-   <UML:Generalization child="204" visibility="public" xmi.id="212" parent="207" />
-   <UML:Generalization child="202" visibility="public" xmi.id="214" parent="213" />
-   <UML:Generalization child="213" visibility="public" xmi.id="215" parent="206" />
-   <UML:Generalization child="202" visibility="public" xmi.id="216" parent="201" />
-   <UML:Generalization child="203" visibility="public" xmi.id="217" parent="201" />
-   <UML:Generalization child="205" visibility="public" xmi.id="220" parent="200" />
-   <UML:Generalization child="219" visibility="public" xmi.id="221" parent="201" />
-   <UML:Generalization child="218" visibility="public" xmi.id="222" parent="201" />
-   <UML:Association visibility="public" xmi.id="224" >
-    <UML:Association.connection>
-     <UML:AssociationEndRole visibility="public" aggregation="composite" type="223" />
-     <UML:AssociationEndRole visibility="public" type="200" multiplicity="*" />
-    </UML:Association.connection>
-   </UML:Association>
-   <UML:Generalization child="227" visibility="public" xmi.id="228" parent="201" />
-   <UML:Generalization child="226" visibility="public" xmi.id="229" parent="201" />
-   <UML:Association visibility="public" xmi.id="235" >
-    <UML:Association.connection>
-     <UML:AssociationEndRole visibility="public" aggregation="composite" type="226" />
-     <UML:AssociationEndRole visibility="public" type="234" multiplicity="*" />
-    </UML:Association.connection>
-   </UML:Association>
-   <UML:Generalization child="239" visibility="public" xmi.id="240" parent="206" />
-   <UML:Generalization child="242" visibility="public" xmi.id="243" parent="213" />
-   <UML:Generalization child="241" visibility="public" xmi.id="244" parent="207" />
-   <UML:Generalization child="241" visibility="public" xmi.id="245" parent="239" />
-   <UML:Generalization child="242" visibility="public" xmi.id="246" parent="239" />
-   <UML:Generalization child="200" visibility="public" xmi.id="264" parent="263" />
-   <UML:Generalization child="206" visibility="public" xmi.id="265" parent="263" />
-   <UML:Generalization child="201" visibility="public" xmi.id="266" parent="206" />
+  <UML:Model isSpecification="false" isLeaf="false" isRoot="false" isAbstract="false" >
+   <UML:Namespace.ownedElement>
+    <UML:Stereotype isSpecification="false" isLeaf="false" visibility="public" xmi.id="267" isRoot="false" isAbstract="false" name="Datentyp" />
+    <UML:Stereotype isSpecification="false" isLeaf="false" visibility="public" xmi.id="268" isRoot="false" isAbstract="false" name="Klasse" />
+    <UML:Stereotype isSpecification="false" isLeaf="false" visibility="public" xmi.id="269" isRoot="false" isAbstract="false" name="Schnittstelle" />
+    <UML:DataType stereotype="267" isSpecification="false" isLeaf="false" visibility="public" xmi.id="192" isRoot="false" isAbstract="false" name="int" />
+    <UML:DataType stereotype="267" isSpecification="false" isLeaf="false" visibility="public" xmi.id="193" isRoot="false" isAbstract="false" name="char" />
+    <UML:DataType stereotype="267" isSpecification="false" isLeaf="false" visibility="public" xmi.id="194" isRoot="false" isAbstract="false" name="bool" />
+    <UML:DataType stereotype="267" isSpecification="false" isLeaf="false" visibility="public" xmi.id="195" isRoot="false" isAbstract="false" name="float" />
+    <UML:DataType stereotype="267" isSpecification="false" isLeaf="false" visibility="public" xmi.id="196" isRoot="false" isAbstract="false" name="double" />
+    <UML:DataType stereotype="267" isSpecification="false" isLeaf="false" visibility="public" xmi.id="197" isRoot="false" isAbstract="false" name="long" />
+    <UML:DataType stereotype="267" isSpecification="false" isLeaf="false" visibility="public" xmi.id="198" isRoot="false" isAbstract="false" name="short" />
+    <UML:DataType stereotype="267" isSpecification="false" isLeaf="false" visibility="public" xmi.id="199" isRoot="false" isAbstract="false" name="string" />
+    <UML:Class stereotype="268" isSpecification="false" isLeaf="false" visibility="public" xmi.id="200" isRoot="false" isAbstract="false" name="Attribute" >
+     <UML:Classifier.feature>
+      <UML:Attribute isSpecification="false" isLeaf="false" visibility="private" xmi.id="225" isRoot="false" initialValue="" type="199" isAbstract="false" name="code" />
+     </UML:Classifier.feature>
+    </UML:Class>
+    <UML:Class stereotype="268" isSpecification="false" isLeaf="false" visibility="public" xmi.id="201" isRoot="false" isAbstract="false" name="ObjectAttribute" >
+     <UML:GeneralizableElement.generalization>
+      <UML:Generalization xmi.idref="208" />
+     </UML:GeneralizableElement.generalization>
+    </UML:Class>
+    <UML:Class stereotype="268" isSpecification="false" isLeaf="false" visibility="public" xmi.id="202" isRoot="false" isAbstract="false" name="StringAttribute" >
+     <UML:GeneralizableElement.generalization>
+      <UML:Generalization xmi.idref="216" />
+     </UML:GeneralizableElement.generalization>
+     <UML:Classifier.feature>
+      <UML:Attribute isSpecification="false" isLeaf="false" visibility="private" xmi.id="232" isRoot="false" initialValue="" type="192" isAbstract="false" name="minimumLength" />
+      <UML:Attribute isSpecification="false" isLeaf="false" visibility="private" xmi.id="233" isRoot="false" initialValue="" type="192" isAbstract="false" name="maximumLength" />
+     </UML:Classifier.feature>
+    </UML:Class>
+    <UML:Class stereotype="268" isSpecification="false" isLeaf="false" visibility="public" xmi.id="203" isRoot="false" isAbstract="false" name="LongAttribute" >
+     <UML:GeneralizableElement.generalization>
+      <UML:Generalization xmi.idref="217" />
+     </UML:GeneralizableElement.generalization>
+    </UML:Class>
+    <UML:Class stereotype="268" isSpecification="false" isLeaf="false" visibility="public" xmi.id="204" isRoot="false" isAbstract="false" name="IntegerAttribute" >
+     <UML:GeneralizableElement.generalization>
+      <UML:Generalization xmi.idref="211" />
+     </UML:GeneralizableElement.generalization>
+    </UML:Class>
+    <UML:Class stereotype="268" isSpecification="false" isLeaf="false" visibility="public" xmi.id="205" isRoot="false" isAbstract="false" name="DataAttribute" >
+     <UML:GeneralizableElement.generalization>
+      <UML:Generalization xmi.idref="220" />
+     </UML:GeneralizableElement.generalization>
+     <UML:Classifier.feature>
+      <UML:Attribute isSpecification="false" isLeaf="false" visibility="private" xmi.id="230" isRoot="false" initialValue="" type="199" isAbstract="false" name="fixedMimeMajor" />
+      <UML:Attribute isSpecification="false" isLeaf="false" visibility="private" xmi.id="231" isRoot="false" initialValue="" type="199" isAbstract="false" name="fixedMimeMinor" />
+     </UML:Classifier.feature>
+    </UML:Class>
+    <UML:Interface stereotype="269" isSpecification="false" isLeaf="false" visibility="public" xmi.id="206" isRoot="false" isAbstract="true" name="Function" />
+    <UML:Interface stereotype="269" isSpecification="false" isLeaf="false" visibility="public" xmi.id="207" isRoot="false" isAbstract="true" name="IntegerFunction" />
+    <UML:Interface stereotype="269" isSpecification="false" isLeaf="false" visibility="public" xmi.id="213" isRoot="false" isAbstract="true" name="StringFunction" />
+    <UML:Class stereotype="268" isSpecification="false" isLeaf="false" visibility="public" xmi.id="218" isRoot="false" isAbstract="false" name="BooleanAttribute" >
+     <UML:GeneralizableElement.generalization>
+      <UML:Generalization xmi.idref="222" />
+     </UML:GeneralizableElement.generalization>
+    </UML:Class>
+    <UML:Class stereotype="268" isSpecification="false" isLeaf="false" visibility="public" xmi.id="219" isRoot="false" isAbstract="false" name="DoubleAttribute" >
+     <UML:GeneralizableElement.generalization>
+      <UML:Generalization xmi.idref="221" />
+     </UML:GeneralizableElement.generalization>
+    </UML:Class>
+    <UML:Class stereotype="268" isSpecification="false" isLeaf="false" visibility="public" xmi.id="223" isRoot="false" isAbstract="false" name="Type" />
+    <UML:Class stereotype="268" isSpecification="false" isLeaf="false" visibility="public" xmi.id="226" isRoot="false" isAbstract="false" name="EnumerationAttribute" >
+     <UML:GeneralizableElement.generalization>
+      <UML:Generalization xmi.idref="229" />
+     </UML:GeneralizableElement.generalization>
+    </UML:Class>
+    <UML:Class stereotype="268" isSpecification="false" isLeaf="false" visibility="public" xmi.id="227" isRoot="false" isAbstract="false" name="ItemAttribute" >
+     <UML:GeneralizableElement.generalization>
+      <UML:Generalization xmi.idref="228" />
+     </UML:GeneralizableElement.generalization>
+    </UML:Class>
+    <UML:Class stereotype="268" isSpecification="false" isLeaf="false" visibility="public" xmi.id="234" isRoot="false" isAbstract="false" name="EnumerationValue" >
+     <UML:Classifier.feature>
+      <UML:Attribute isSpecification="false" isLeaf="false" visibility="private" xmi.id="236" isRoot="false" initialValue="" type="199" isAbstract="false" name="code" />
+      <UML:Attribute isSpecification="false" isLeaf="false" visibility="private" xmi.id="237" isRoot="false" initialValue="" type="192" isAbstract="false" name="number" />
+     </UML:Classifier.feature>
+    </UML:Class>
+    <UML:Class stereotype="268" isSpecification="false" isLeaf="false" visibility="public" xmi.id="239" isRoot="false" isAbstract="false" name="ComputedFunction" />
+    <UML:Class stereotype="268" isSpecification="false" isLeaf="false" visibility="public" xmi.id="241" isRoot="false" isAbstract="false" name="SumFunction" >
+     <UML:GeneralizableElement.generalization>
+      <UML:Generalization xmi.idref="245" />
+     </UML:GeneralizableElement.generalization>
+    </UML:Class>
+    <UML:Class stereotype="268" isSpecification="false" isLeaf="false" visibility="public" xmi.id="242" isRoot="false" isAbstract="false" name="UppercaseFunction" >
+     <UML:GeneralizableElement.generalization>
+      <UML:Generalization xmi.idref="246" />
+     </UML:GeneralizableElement.generalization>
+    </UML:Class>
+    <UML:Interface stereotype="269" isSpecification="false" isLeaf="false" visibility="public" xmi.id="263" isRoot="false" isAbstract="true" name="Feature" />
+    <UML:Generalization isSpecification="false" child="201" visibility="public" xmi.id="208" parent="200" discriminator="" name="" />
+    <UML:Generalization isSpecification="false" child="201" visibility="public" xmi.id="209" parent="206" discriminator="" name="" />
+    <UML:Generalization isSpecification="false" child="207" visibility="public" xmi.id="210" parent="206" discriminator="" name="" />
+    <UML:Generalization isSpecification="false" child="204" visibility="public" xmi.id="211" parent="201" discriminator="" name="" />
+    <UML:Generalization isSpecification="false" child="204" visibility="public" xmi.id="212" parent="207" discriminator="" name="" />
+    <UML:Generalization isSpecification="false" child="202" visibility="public" xmi.id="214" parent="213" discriminator="" name="" />
+    <UML:Generalization isSpecification="false" child="213" visibility="public" xmi.id="215" parent="206" discriminator="" name="" />
+    <UML:Generalization isSpecification="false" child="202" visibility="public" xmi.id="216" parent="201" discriminator="" name="" />
+    <UML:Generalization isSpecification="false" child="203" visibility="public" xmi.id="217" parent="201" discriminator="" name="" />
+    <UML:Generalization isSpecification="false" child="205" visibility="public" xmi.id="220" parent="200" discriminator="" name="" />
+    <UML:Generalization isSpecification="false" child="219" visibility="public" xmi.id="221" parent="201" discriminator="" name="" />
+    <UML:Generalization isSpecification="false" child="218" visibility="public" xmi.id="222" parent="201" discriminator="" name="" />
+    <UML:Association isSpecification="false" visibility="public" xmi.id="224" name="" >
+     <UML:Association.connection>
+      <UML:AssociationEnd isSpecification="false" visibility="public" changeability="changeable" isNavigable="true" xmi.id="31" aggregation="composite" type="223" name="" />
+      <UML:AssociationEnd isSpecification="false" visibility="public" changeability="changeable" isNavigable="true" xmi.id="32" aggregation="none" type="200" name="" multiplicity="*" />
+     </UML:Association.connection>
+    </UML:Association>
+    <UML:Generalization isSpecification="false" child="227" visibility="public" xmi.id="228" parent="201" discriminator="" name="" />
+    <UML:Generalization isSpecification="false" child="226" visibility="public" xmi.id="229" parent="201" discriminator="" name="" />
+    <UML:Association isSpecification="false" visibility="public" xmi.id="235" name="" >
+     <UML:Association.connection>
+      <UML:AssociationEnd isSpecification="false" visibility="public" changeability="changeable" isNavigable="true" xmi.id="33" aggregation="composite" type="226" name="" />
+      <UML:AssociationEnd isSpecification="false" visibility="public" changeability="changeable" isNavigable="true" xmi.id="34" aggregation="none" type="234" name="" multiplicity="*" />
+     </UML:Association.connection>
+    </UML:Association>
+    <UML:Generalization isSpecification="false" child="239" visibility="public" xmi.id="240" parent="206" discriminator="" name="" />
+    <UML:Generalization isSpecification="false" child="242" visibility="public" xmi.id="243" parent="213" discriminator="" name="" />
+    <UML:Generalization isSpecification="false" child="241" visibility="public" xmi.id="244" parent="207" discriminator="" name="" />
+    <UML:Generalization isSpecification="false" child="241" visibility="public" xmi.id="245" parent="239" discriminator="" name="" />
+    <UML:Generalization isSpecification="false" child="242" visibility="public" xmi.id="246" parent="239" discriminator="" name="" />
+    <UML:Generalization isSpecification="false" child="200" visibility="public" xmi.id="264" parent="263" discriminator="" name="" />
+    <UML:Generalization isSpecification="false" child="206" visibility="public" xmi.id="265" parent="263" discriminator="" name="" />
+    <UML:Generalization isSpecification="false" child="201" visibility="public" xmi.id="266" parent="206" discriminator="" name="" />
+    <UML:Generalization isSpecification="false" child="239" visibility="public" xmi.id="296" parent="206" discriminator="" name="" />
+   </UML:Namespace.ownedElement>
   </UML:Model>
  </XMI.content>
  <XMI.extensions xmi.extender="umbrello" >
-  <docsettings viewid="191" documentation="" uniqueid="289" />
+  <docsettings viewid="191" documentation="" uniqueid="302" />
   <diagrams>
-   <diagram snapgrid="0" showattsig="1" fillcolor="#ffffc0" linewidth="0" zoom="100" showgrid="0" showopsig="1" usefillcolor="1" snapx="10" canvaswidth="1107" snapy="10" showatts="1" xmi.id="191" documentation="" type="402" showops="1" showpackage="0" name="attributes" localid="30000" showstereotype="0" showscope="0" snapcsgrid="0" font="Adobe Courier,9,-1,5,50,0,0,0,0,0" linecolor="#ff0000" canvasheight="1069" >
+   <diagram snapgrid="0" showattsig="1" fillcolor="#ffffc0" linewidth="0" zoom="100" showgrid="0" showopsig="1" usefillcolor="1" snapx="10" canvaswidth="1243" snapy="10" showatts="1" xmi.id="191" documentation="" type="402" showops="1" showpackage="0" name="attributes" localid="30000" showstereotype="0" showscope="0" snapcsgrid="0" font="Adobe Courier,9,-1,5,50,0,0,0,0,0" linecolor="#ff0000" canvasheight="1038" >
     <widgets>
-     <classwidget usesdiagramfillcolour="0" width="90" showattsigs="603" usesdiagramusefillcolour="0" x="474" linecolour="#ff0000" y="132" showopsigs="602" linewidth="none" usesdiagramlinewidth="1" usesdiagramlinecolour="0" fillcolour="#ffffc0" height="40" usefillcolor="1" showpubliconly="0" showattributes="1" isinstance="0" xmi.id="200" showoperations="1" showpackage="0" showscope="0" showstereotype="0" font="Adobe Courier,9,-1,5,75,0,0,0,0,0" />
-     <classwidget usesdiagramfillcolour="1" width="144" showattsigs="603" usesdiagramusefillcolour="1" x="175" linecolour="none" y="336" showopsigs="602" linewidth="none" usesdiagramlinewidth="1" usesdiagramlinecolour="1" fillcolour="none" height="32" usefillcolor="1" showpubliconly="0" showattributes="1" isinstance="0" xmi.id="201" showoperations="1" showpackage="0" showscope="0" showstereotype="0" font="Adobe Courier,9,-1,5,75,0,0,0,0,0" />
-     <classwidget usesdiagramfillcolour="1" width="143" showattsigs="603" usesdiagramusefillcolour="1" x="433" linecolour="none" y="484" showopsigs="602" linewidth="none" usesdiagramlinewidth="1" usesdiagramlinecolour="1" fillcolour="none" height="56" usefillcolor="1" showpubliconly="0" showattributes="1" isinstance="0" xmi.id="202" showoperations="1" showpackage="0" showscope="0" showstereotype="0" font="Adobe Courier,9,-1,5,75,0,0,0,0,0" />
-     <classwidget usesdiagramfillcolour="1" width="126" showattsigs="603" usesdiagramusefillcolour="1" x="273" linecolour="none" y="711" showopsigs="602" linewidth="none" usesdiagramlinewidth="1" usesdiagramlinecolour="1" fillcolour="none" height="32" usefillcolor="1" showpubliconly="0" showattributes="1" isinstance="0" xmi.id="203" showoperations="1" showpackage="0" showscope="0" showstereotype="0" font="Adobe Courier,9,-1,5,75,0,0,0,0,0" />
-     <classwidget usesdiagramfillcolour="1" width="152" showattsigs="603" usesdiagramusefillcolour="1" x="332" linecolour="none" y="642" showopsigs="602" linewidth="none" usesdiagramlinewidth="1" usesdiagramlinecolour="1" fillcolour="none" height="32" usefillcolor="1" showpubliconly="0" showattributes="1" isinstance="0" xmi.id="204" showoperations="1" showpackage="0" showscope="0" showstereotype="0" font="Adobe Courier,9,-1,5,75,0,0,0,0,0" />
-     <classwidget usesdiagramfillcolour="0" width="136" showattsigs="603" usesdiagramusefillcolour="0" x="540" linecolour="#ff0000" y="235" showopsigs="602" linewidth="none" usesdiagramlinewidth="1" usesdiagramlinecolour="0" fillcolour="#ffffc0" height="56" usefillcolor="1" showpubliconly="0" showattributes="1" isinstance="0" xmi.id="205" showoperations="1" showpackage="0" showscope="0" showstereotype="0" font="Adobe Courier,9,-1,5,75,0,0,0,0,0" />
-     <interfacewidget usesdiagramfillcolour="1" width="144" usesdiagramusefillcolour="1" x="871" linecolour="none" y="290" drawascircle="0" showopsigs="602" linewidth="none" usesdiagramlinewidth="1" usesdiagramlinecolour="1" fillcolour="none" height="40" usefillcolor="1" isinstance="0" xmi.id="206" showoperations="1" showpackage="0" showscope="0" font="Adobe Courier,9,-1,5,75,1,0,0,0,0" />
-     <interfacewidget usesdiagramfillcolour="1" width="145" usesdiagramusefillcolour="1" x="703" linecolour="none" y="637" drawascircle="0" showopsigs="602" linewidth="none" usesdiagramlinewidth="1" usesdiagramlinecolour="1" fillcolour="none" height="40" usefillcolor="1" isinstance="0" xmi.id="207" showoperations="1" showpackage="0" showscope="0" font="Adobe Courier,9,-1,5,75,1,0,0,0,0" />
-     <interfacewidget usesdiagramfillcolour="1" width="144" usesdiagramusefillcolour="1" x="658" linecolour="none" y="491" drawascircle="0" showopsigs="602" linewidth="none" usesdiagramlinewidth="1" usesdiagramlinecolour="1" fillcolour="none" height="40" usefillcolor="1" isinstance="0" xmi.id="213" showoperations="1" showpackage="0" showscope="0" font="Adobe Courier,9,-1,5,75,1,0,0,0,0" />
-     <classwidget usesdiagramfillcolour="1" width="153" showattsigs="603" usesdiagramusefillcolour="1" x="373" linecolour="none" y="564" showopsigs="602" linewidth="none" usesdiagramlinewidth="1" usesdiagramlinecolour="1" fillcolour="none" height="32" usefillcolor="1" showpubliconly="0" showattributes="1" isinstance="0" xmi.id="218" showoperations="1" showpackage="0" showscope="0" showstereotype="0" font="Adobe Courier,9,-1,5,75,0,0,0,0,0" />
-     <classwidget usesdiagramfillcolour="1" width="144" showattsigs="603" usesdiagramusefillcolour="1" x="199" linecolour="none" y="776" showopsigs="602" linewidth="none" usesdiagramlinewidth="1" usesdiagramlinecolour="1" fillcolour="none" height="32" usefillcolor="1" showpubliconly="0" showattributes="1" isinstance="0" xmi.id="219" showoperations="1" showpackage="0" showscope="0" showstereotype="0" font="Adobe Courier,9,-1,5,75,0,0,0,0,0" />
-     <classwidget usesdiagramfillcolour="1" width="80" showattsigs="603" usesdiagramusefillcolour="1" x="496" linecolour="none" y="24" showopsigs="602" linewidth="none" usesdiagramlinewidth="1" usesdiagramlinecolour="1" fillcolour="none" height="32" usefillcolor="1" showpubliconly="0" showattributes="1" isinstance="0" xmi.id="223" showoperations="1" showpackage="0" showscope="0" showstereotype="0" font="Adobe Courier,9,-1,5,75,0,0,0,0,0" />
-     <classwidget usesdiagramfillcolour="1" width="189" showattsigs="603" usesdiagramusefillcolour="1" x="123" linecolour="none" y="845" showopsigs="602" linewidth="none" usesdiagramlinewidth="1" usesdiagramlinecolour="1" fillcolour="none" height="32" usefillcolor="1" showpubliconly="0" showattributes="1" isinstance="0" xmi.id="226" showoperations="1" showpackage="0" showscope="0" showstereotype="0" font="Adobe Courier,9,-1,5,75,0,0,0,0,0" />
-     <classwidget usesdiagramfillcolour="1" width="125" showattsigs="603" usesdiagramusefillcolour="1" x="72" linecolour="none" y="919" showopsigs="602" linewidth="none" usesdiagramlinewidth="1" usesdiagramlinecolour="1" fillcolour="none" height="32" usefillcolor="1" showpubliconly="0" showattributes="1" isinstance="0" xmi.id="227" showoperations="1" showpackage="0" showscope="0" showstereotype="0" font="Adobe Courier,9,-1,5,75,0,0,0,0,0" />
-     <classwidget usesdiagramfillcolour="0" width="153" showattsigs="603" usesdiagramusefillcolour="0" x="440" linecolour="#ff0000" y="832" showopsigs="602" linewidth="none" usesdiagramlinewidth="1" usesdiagramlinecolour="0" fillcolour="#ffffc0" height="56" usefillcolor="1" showpubliconly="0" showattributes="1" isinstance="0" xmi.id="234" showoperations="1" showpackage="0" showscope="0" showstereotype="0" font="Adobe Courier,9,-1,5,75,0,0,0,0,0" />
-     <interfacewidget usesdiagramfillcolour="1" width="144" usesdiagramusefillcolour="1" x="788" linecolour="none" y="86" drawascircle="0" showopsigs="602" linewidth="none" usesdiagramlinewidth="1" usesdiagramlinecolour="1" fillcolour="none" height="40" usefillcolor="1" isinstance="0" xmi.id="263" showoperations="1" showpackage="0" showscope="0" font="Adobe Courier,9,-1,5,75,1,0,0,0,0" />
+     <classwidget usesdiagramfillcolour="0" width="73" showattsigs="603" usesdiagramusefillcolour="0" x="474" linecolour="#ff0000" y="132" showopsigs="602" linewidth="none" usesdiagramlinewidth="1" usesdiagramlinecolour="0" fillcolour="#ffffc0" height="35" usefillcolor="1" showpubliconly="0" showattributes="1" isinstance="0" xmi.id="200" showoperations="1" showpackage="0" showscope="0" showstereotype="0" font="Adobe Courier,9,-1,5,75,0,0,0,0,0" />
+     <classwidget usesdiagramfillcolour="1" width="114" showattsigs="603" usesdiagramusefillcolour="1" x="175" linecolour="none" y="336" showopsigs="602" linewidth="none" usesdiagramlinewidth="1" usesdiagramlinecolour="1" fillcolour="none" height="28" usefillcolor="1" showpubliconly="0" showattributes="1" isinstance="0" xmi.id="201" showoperations="1" showpackage="0" showscope="0" showstereotype="0" font="Adobe Courier,9,-1,5,75,0,0,0,0,0" />
+     <classwidget usesdiagramfillcolour="1" width="114" showattsigs="603" usesdiagramusefillcolour="1" x="433" linecolour="none" y="484" showopsigs="602" linewidth="none" usesdiagramlinewidth="1" usesdiagramlinecolour="1" fillcolour="none" height="49" usefillcolor="1" showpubliconly="0" showattributes="1" isinstance="0" xmi.id="202" showoperations="1" showpackage="0" showscope="0" showstereotype="0" font="Adobe Courier,9,-1,5,75,0,0,0,0,0" />
+     <classwidget usesdiagramfillcolour="1" width="101" showattsigs="603" usesdiagramusefillcolour="1" x="273" linecolour="none" y="711" showopsigs="602" linewidth="none" usesdiagramlinewidth="1" usesdiagramlinecolour="1" fillcolour="none" height="28" usefillcolor="1" showpubliconly="0" showattributes="1" isinstance="0" xmi.id="203" showoperations="1" showpackage="0" showscope="0" showstereotype="0" font="Adobe Courier,9,-1,5,75,0,0,0,0,0" />
+     <classwidget usesdiagramfillcolour="1" width="121" showattsigs="603" usesdiagramusefillcolour="1" x="332" linecolour="none" y="642" showopsigs="602" linewidth="none" usesdiagramlinewidth="1" usesdiagramlinecolour="1" fillcolour="none" height="28" usefillcolor="1" showpubliconly="0" showattributes="1" isinstance="0" xmi.id="204" showoperations="1" showpackage="0" showscope="0" showstereotype="0" font="Adobe Courier,9,-1,5,75,0,0,0,0,0" />
+     <classwidget usesdiagramfillcolour="0" width="101" showattsigs="603" usesdiagramusefillcolour="0" x="540" linecolour="#ff0000" y="235" showopsigs="602" linewidth="none" usesdiagramlinewidth="1" usesdiagramlinecolour="0" fillcolour="#ffffc0" height="49" usefillcolor="1" showpubliconly="0" showattributes="1" isinstance="0" xmi.id="205" showoperations="1" showpackage="0" showscope="0" showstereotype="0" font="Adobe Courier,9,-1,5,75,0,0,0,0,0" />
+     <interfacewidget usesdiagramfillcolour="1" width="115" usesdiagramusefillcolour="1" x="871" linecolour="none" y="290" drawascircle="0" showopsigs="602" linewidth="none" usesdiagramlinewidth="1" usesdiagramlinecolour="1" fillcolour="none" height="35" usefillcolor="1" isinstance="0" xmi.id="206" showoperations="1" showpackage="0" showscope="0" font="Adobe Courier,9,-1,5,75,1,0,0,0,0" />
+     <interfacewidget usesdiagramfillcolour="1" width="115" usesdiagramusefillcolour="1" x="703" linecolour="none" y="637" drawascircle="0" showopsigs="602" linewidth="none" usesdiagramlinewidth="1" usesdiagramlinecolour="1" fillcolour="none" height="35" usefillcolor="1" isinstance="0" xmi.id="207" showoperations="1" showpackage="0" showscope="0" font="Adobe Courier,9,-1,5,75,1,0,0,0,0" />
+     <interfacewidget usesdiagramfillcolour="1" width="115" usesdiagramusefillcolour="1" x="658" linecolour="none" y="491" drawascircle="0" showopsigs="602" linewidth="none" usesdiagramlinewidth="1" usesdiagramlinecolour="1" fillcolour="none" height="35" usefillcolor="1" isinstance="0" xmi.id="213" showoperations="1" showpackage="0" showscope="0" font="Adobe Courier,9,-1,5,75,1,0,0,0,0" />
+     <classwidget usesdiagramfillcolour="1" width="122" showattsigs="603" usesdiagramusefillcolour="1" x="373" linecolour="none" y="564" showopsigs="602" linewidth="none" usesdiagramlinewidth="1" usesdiagramlinecolour="1" fillcolour="none" height="28" usefillcolor="1" showpubliconly="0" showattributes="1" isinstance="0" xmi.id="218" showoperations="1" showpackage="0" showscope="0" showstereotype="0" font="Adobe Courier,9,-1,5,75,0,0,0,0,0" />
+     <classwidget usesdiagramfillcolour="1" width="115" showattsigs="603" usesdiagramusefillcolour="1" x="199" linecolour="none" y="776" showopsigs="602" linewidth="none" usesdiagramlinewidth="1" usesdiagramlinecolour="1" fillcolour="none" height="28" usefillcolor="1" showpubliconly="0" showattributes="1" isinstance="0" xmi.id="219" showoperations="1" showpackage="0" showscope="0" showstereotype="0" font="Adobe Courier,9,-1,5,75,0,0,0,0,0" />
+     <classwidget usesdiagramfillcolour="1" width="37" showattsigs="603" usesdiagramusefillcolour="1" x="496" linecolour="none" y="24" showopsigs="602" linewidth="none" usesdiagramlinewidth="1" usesdiagramlinecolour="1" fillcolour="none" height="28" usefillcolor="1" showpubliconly="0" showattributes="1" isinstance="0" xmi.id="223" showoperations="1" showpackage="0" showscope="0" showstereotype="0" font="Adobe Courier,9,-1,5,75,0,0,0,0,0" />
+     <classwidget usesdiagramfillcolour="1" width="149" showattsigs="603" usesdiagramusefillcolour="1" x="123" linecolour="none" y="845" showopsigs="602" linewidth="none" usesdiagramlinewidth="1" usesdiagramlinecolour="1" fillcolour="none" height="28" usefillcolor="1" showpubliconly="0" showattributes="1" isinstance="0" xmi.id="226" showoperations="1" showpackage="0" showscope="0" showstereotype="0" font="Adobe Courier,9,-1,5,75,0,0,0,0,0" />
+     <classwidget usesdiagramfillcolour="1" width="100" showattsigs="603" usesdiagramusefillcolour="1" x="72" linecolour="none" y="919" showopsigs="602" linewidth="none" usesdiagramlinewidth="1" usesdiagramlinecolour="1" fillcolour="none" height="28" usefillcolor="1" showpubliconly="0" showattributes="1" isinstance="0" xmi.id="227" showoperations="1" showpackage="0" showscope="0" showstereotype="0" font="Adobe Courier,9,-1,5,75,0,0,0,0,0" />
+     <classwidget usesdiagramfillcolour="0" width="121" showattsigs="603" usesdiagramusefillcolour="0" x="440" linecolour="#ff0000" y="832" showopsigs="602" linewidth="none" usesdiagramlinewidth="1" usesdiagramlinecolour="0" fillcolour="#ffffc0" height="49" usefillcolor="1" showpubliconly="0" showattributes="1" isinstance="0" xmi.id="234" showoperations="1" showpackage="0" showscope="0" showstereotype="0" font="Adobe Courier,9,-1,5,75,0,0,0,0,0" />
+     <interfacewidget usesdiagramfillcolour="1" width="115" usesdiagramusefillcolour="1" x="788" linecolour="none" y="86" drawascircle="0" showopsigs="602" linewidth="none" usesdiagramlinewidth="1" usesdiagramlinecolour="1" fillcolour="none" height="35" usefillcolor="1" isinstance="0" xmi.id="263" showoperations="1" showpackage="0" showscope="0" font="Adobe Courier,9,-1,5,75,1,0,0,0,0" />
     </widgets>
     <messages/>
     <associations>
      <assocwidget totalcounta="2" indexa="1" totalcountb="3" indexb="1" widgetbid="200" widgetaid="201" xmi.id="208" >
       <linepath>
-       <startpoint startx="247" starty="336" />
-       <endpoint endx="504" endy="172" />
+       <startpoint startx="232" starty="336" />
+       <endpoint endx="498" endy="167" />
       </linepath>
      </assocwidget>
      <assocwidget totalcounta="2" indexa="1" totalcountb="2" indexb="1" widgetbid="206" widgetaid="201" xmi.id="209" >
       <linepath>
-       <startpoint startx="319" starty="352" />
-       <endpoint endx="871" endy="310" />
+       <startpoint startx="289" starty="350" />
+       <endpoint endx="871" endy="307" />
       </linepath>
      </assocwidget>
      <assocwidget totalcounta="2" indexa="1" totalcountb="3" indexb="2" widgetbid="206" widgetaid="207" xmi.id="210" >
       <linepath>
-       <startpoint startx="775" starty="637" />
-       <endpoint endx="967" endy="330" />
+       <startpoint startx="760" starty="637" />
+       <endpoint endx="947" endy="325" />
       </linepath>
      </assocwidget>
      <assocwidget totalcounta="2" indexa="1" totalcountb="8" indexb="5" widgetbid="201" widgetaid="204" xmi.id="211" >
       <linepath>
-       <startpoint startx="408" starty="642" />
-       <endpoint endx="265" endy="368" />
+       <startpoint startx="392" starty="642" />
+       <endpoint endx="246" endy="364" />
       </linepath>
      </assocwidget>
      <assocwidget totalcounta="2" indexa="1" totalcountb="2" indexb="1" widgetbid="207" widgetaid="204" xmi.id="212" >
       <linepath>
-       <startpoint startx="484" starty="658" />
-       <endpoint endx="703" endy="657" />
+       <startpoint startx="453" starty="656" />
+       <endpoint endx="703" endy="654" />
       </linepath>
      </assocwidget>
      <assocwidget totalcounta="2" indexa="1" totalcountb="2" indexb="1" widgetbid="213" widgetaid="202" xmi.id="214" >
       <linepath>
-       <startpoint startx="576" starty="512" />
-       <endpoint endx="658" endy="511" />
+       <startpoint startx="547" starty="508" />
+       <endpoint endx="658" endy="508" />
       </linepath>
      </assocwidget>
      <assocwidget totalcounta="2" indexa="1" totalcountb="3" indexb="1" widgetbid="206" widgetaid="213" xmi.id="215" >
       <linepath>
-       <startpoint startx="730" starty="491" />
-       <endpoint endx="919" endy="330" />
+       <startpoint startx="715" starty="491" />
+       <endpoint endx="909" endy="325" />
       </linepath>
      </assocwidget>
      <assocwidget totalcounta="2" indexa="1" totalcountb="8" indexb="7" widgetbid="201" widgetaid="202" xmi.id="216" >
       <linepath>
-       <startpoint startx="504" starty="484" />
-       <endpoint endx="301" endy="368" />
+       <startpoint startx="490" starty="484" />
+       <endpoint endx="274" endy="364" />
       </linepath>
      </assocwidget>
      <assocwidget totalcounta="2" indexa="1" totalcountb="8" indexb="4" widgetbid="201" widgetaid="203" xmi.id="217" >
       <linepath>
-       <startpoint startx="336" starty="711" />
-       <endpoint endx="247" endy="368" />
+       <startpoint startx="323" starty="711" />
+       <endpoint endx="232" endy="364" />
       </linepath>
      </assocwidget>
      <assocwidget totalcounta="2" indexa="1" totalcountb="3" indexb="2" widgetbid="200" widgetaid="205" xmi.id="220" >
       <linepath>
-       <startpoint startx="608" starty="235" />
-       <endpoint endx="534" endy="172" />
+       <startpoint startx="590" starty="235" />
+       <endpoint endx="522" endy="167" />
       </linepath>
      </assocwidget>
      <assocwidget totalcounta="2" indexa="1" totalcountb="8" indexb="2" widgetbid="201" widgetaid="219" xmi.id="221" >
       <linepath>
-       <startpoint startx="271" starty="776" />
-       <endpoint endx="211" endy="368" />
+       <startpoint startx="256" starty="776" />
+       <endpoint endx="203" endy="364" />
       </linepath>
      </assocwidget>
      <assocwidget totalcounta="2" indexa="1" totalcountb="8" indexb="6" widgetbid="201" widgetaid="218" xmi.id="222" >
       <linepath>
-       <startpoint startx="449" starty="564" />
-       <endpoint endx="283" endy="368" />
+       <startpoint startx="434" starty="564" />
+       <endpoint endx="260" endy="364" />
       </linepath>
      </assocwidget>
      <assocwidget totalcounta="2" indexa="1" totalcountb="2" indexb="1" widgetbid="200" widgetaid="223" xmi.id="224" >
       <linepath>
-       <startpoint startx="536" starty="56" />
-       <endpoint endx="519" endy="132" />
+       <startpoint startx="514" starty="52" />
+       <endpoint endx="510" endy="132" />
       </linepath>
-      <floatingtext usesdiagramfillcolour="1" width="17" usesdiagramusefillcolour="1" x="539" linecolour="none" y="110" linewidth="none" usesdiagramlinewidth="1" posttext="" usesdiagramlinecolour="1" role="702" fillcolour="none" height="20" usefillcolor="1" pretext="" isinstance="0" xmi.id="282" text="*" font="Adobe Courier,9,-1,5,50,0,0,0,0,0" />
-      <floatingtext usesdiagramfillcolour="1" width="17" usesdiagramusefillcolour="1" x="517" linecolour="none" y="58" linewidth="none" usesdiagramlinewidth="1" posttext="" usesdiagramlinecolour="1" role="709" fillcolour="none" height="20" usefillcolor="1" pretext="+" isinstance="0" xmi.id="280" text="" font="Adobe Courier,9,-1,5,50,0,0,0,0,0" />
-      <floatingtext usesdiagramfillcolour="1" width="17" usesdiagramusefillcolour="1" x="521" linecolour="none" y="110" linewidth="none" usesdiagramlinewidth="1" posttext="" usesdiagramlinecolour="1" role="710" fillcolour="none" height="20" usefillcolor="1" pretext="+" isinstance="0" xmi.id="281" text="" font="Adobe Courier,9,-1,5,50,0,0,0,0,0" />
+      <floatingtext usesdiagramfillcolour="1" width="15" usesdiagramusefillcolour="1" x="539" linecolour="none" y="110" linewidth="none" usesdiagramlinewidth="1" posttext="" usesdiagramlinecolour="1" role="702" fillcolour="none" height="18" usefillcolor="1" pretext="" isinstance="0" xmi.id="292" text="*" font="Adobe Courier,9,-1,5,50,0,0,0,0,0" />
+      <floatingtext usesdiagramfillcolour="1" width="15" usesdiagramusefillcolour="1" x="519" linecolour="none" y="58" linewidth="none" usesdiagramlinewidth="1" posttext="" usesdiagramlinecolour="1" role="709" fillcolour="none" height="18" usefillcolor="1" pretext="+" isinstance="0" xmi.id="290" text="" font="Adobe Courier,9,-1,5,50,0,0,0,0,0" />
+      <floatingtext usesdiagramfillcolour="1" width="15" usesdiagramusefillcolour="1" x="521" linecolour="none" y="112" linewidth="none" usesdiagramlinewidth="1" posttext="" usesdiagramlinecolour="1" role="710" fillcolour="none" height="18" usefillcolor="1" pretext="+" isinstance="0" xmi.id="291" text="" font="Adobe Courier,9,-1,5,50,0,0,0,0,0" />
      </assocwidget>
      <assocwidget totalcounta="2" indexa="1" totalcountb="8" indexb="1" widgetbid="201" widgetaid="227" xmi.id="228" >
       <linepath>
-       <startpoint startx="134" starty="919" />
-       <endpoint endx="193" endy="368" />
+       <startpoint startx="122" starty="919" />
+       <endpoint endx="189" endy="364" />
       </linepath>
      </assocwidget>
      <assocwidget totalcounta="2" indexa="1" totalcountb="8" indexb="3" widgetbid="201" widgetaid="226" xmi.id="229" >
       <linepath>
-       <startpoint startx="217" starty="845" />
-       <endpoint endx="229" endy="368" />
+       <startpoint startx="197" starty="845" />
+       <endpoint endx="217" endy="364" />
       </linepath>
      </assocwidget>
      <assocwidget totalcounta="2" indexa="1" totalcountb="2" indexb="1" widgetbid="234" widgetaid="226" xmi.id="235" >
       <linepath>
-       <startpoint startx="312" starty="861" />
-       <endpoint endx="440" endy="860" />
+       <startpoint startx="272" starty="859" />
+       <endpoint endx="440" endy="856" />
       </linepath>
-      <floatingtext usesdiagramfillcolour="1" width="17" usesdiagramusefillcolour="1" x="434" linecolour="none" y="839" linewidth="none" usesdiagramlinewidth="1" posttext="" usesdiagramlinecolour="1" role="702" fillcolour="none" height="20" usefillcolor="1" pretext="" isinstance="0" xmi.id="285" text="*" font="Adobe Courier,9,-1,5,50,0,0,0,0,0" />
-      <floatingtext usesdiagramfillcolour="1" width="17" usesdiagramusefillcolour="1" x="314" linecolour="none" y="839" linewidth="none" usesdiagramlinewidth="1" posttext="" usesdiagramlinecolour="1" role="709" fillcolour="none" height="20" usefillcolor="1" pretext="+" isinstance="0" xmi.id="283" text="" font="Adobe Courier,9,-1,5,50,0,0,0,0,0" />
-      <floatingtext usesdiagramfillcolour="1" width="17" usesdiagramusefillcolour="1" x="421" linecolour="none" y="862" linewidth="none" usesdiagramlinewidth="1" posttext="" usesdiagramlinecolour="1" role="710" fillcolour="none" height="20" usefillcolor="1" pretext="+" isinstance="0" xmi.id="284" text="" font="Adobe Courier,9,-1,5,50,0,0,0,0,0" />
+      <floatingtext usesdiagramfillcolour="1" width="15" usesdiagramusefillcolour="1" x="434" linecolour="none" y="839" linewidth="none" usesdiagramlinewidth="1" posttext="" usesdiagramlinecolour="1" role="702" fillcolour="none" height="18" usefillcolor="1" pretext="" isinstance="0" xmi.id="295" text="*" font="Adobe Courier,9,-1,5,50,0,0,0,0,0" />
+      <floatingtext usesdiagramfillcolour="1" width="15" usesdiagramusefillcolour="1" x="314" linecolour="none" y="841" linewidth="none" usesdiagramlinewidth="1" posttext="" usesdiagramlinecolour="1" role="709" fillcolour="none" height="18" usefillcolor="1" pretext="+" isinstance="0" xmi.id="293" text="" font="Adobe Courier,9,-1,5,50,0,0,0,0,0" />
+      <floatingtext usesdiagramfillcolour="1" width="15" usesdiagramusefillcolour="1" x="423" linecolour="none" y="862" linewidth="none" usesdiagramlinewidth="1" posttext="" usesdiagramlinecolour="1" role="710" fillcolour="none" height="18" usefillcolor="1" pretext="+" isinstance="0" xmi.id="294" text="" font="Adobe Courier,9,-1,5,50,0,0,0,0,0" />
      </assocwidget>
      <assocwidget totalcounta="2" indexa="1" totalcountb="2" indexb="1" widgetbid="263" widgetaid="200" xmi.id="264" >
       <linepath>
-       <startpoint startx="564" starty="152" />
-       <endpoint endx="788" endy="106" />
+       <startpoint startx="547" starty="149" />
+       <endpoint endx="788" endy="103" />
       </linepath>
      </assocwidget>
      <assocwidget totalcounta="2" indexa="1" totalcountb="2" indexb="1" widgetbid="263" widgetaid="206" xmi.id="265" >
       <linepath>
-       <startpoint startx="943" starty="290" />
-       <endpoint endx="860" endy="126" />
+       <startpoint startx="928" starty="290" />
+       <endpoint endx="845" endy="121" />
       </linepath>
      </assocwidget>
     </associations>
    </diagram>
-   <diagram snapgrid="0" showattsig="1" fillcolor="#ffffc0" linewidth="0" zoom="100" showgrid="0" showopsig="1" usefillcolor="1" snapx="10" canvaswidth="1149" snapy="10" showatts="1" xmi.id="238" documentation="" type="402" showops="1" showpackage="0" name="functions" localid="30000" showstereotype="0" showscope="0" snapcsgrid="0" font="Adobe Courier,9,-1,5,50,0,0,0,0,0" linecolor="#ff0000" canvasheight="1069" >
+   <diagram snapgrid="0" showattsig="1" fillcolor="#ffffc0" linewidth="0" zoom="100" showgrid="0" showopsig="1" usefillcolor="1" snapx="10" canvaswidth="1243" snapy="10" showatts="1" xmi.id="238" documentation="" type="402" showops="1" showpackage="0" name="functions" localid="30000" showstereotype="0" showscope="0" snapcsgrid="0" font="Adobe Courier,9,-1,5,50,0,0,0,0,0" linecolor="#ff0000" canvasheight="1038" >
     <widgets>
-     <interfacewidget usesdiagramfillcolour="1" width="144" usesdiagramusefillcolour="1" x="284" linecolour="none" y="85" drawascircle="0" showopsigs="602" linewidth="none" usesdiagramlinewidth="1" usesdiagramlinecolour="1" fillcolour="none" height="40" usefillcolor="1" isinstance="0" xmi.id="206" showoperations="1" showpackage="0" showscope="0" font="Adobe Courier,9,-1,5,75,1,0,0,0,0" />
-     <classwidget usesdiagramfillcolour="1" width="153" showattsigs="602" usesdiagramusefillcolour="1" x="406" linecolour="none" y="316" showopsigs="602" linewidth="none" usesdiagramlinewidth="1" usesdiagramlinecolour="1" fillcolour="none" height="32" usefillcolor="1" showpubliconly="0" showattributes="1" isinstance="0" xmi.id="239" showoperations="1" showpackage="0" showscope="0" showstereotype="0" font="Adobe Courier,9,-1,5,75,0,0,0,0,0" />
-     <interfacewidget usesdiagramfillcolour="1" width="145" usesdiagramusefillcolour="1" x="664" linecolour="none" y="456" drawascircle="0" showopsigs="602" linewidth="none" usesdiagramlinewidth="1" usesdiagramlinecolour="1" fillcolour="none" height="40" usefillcolor="1" isinstance="0" xmi.id="207" showoperations="1" showpackage="0" showscope="0" font="Adobe Courier,9,-1,5,75,1,0,0,0,0" />
-     <classwidget usesdiagramfillcolour="1" width="108" showattsigs="602" usesdiagramusefillcolour="1" x="391" linecolour="none" y="459" showopsigs="602" linewidth="none" usesdiagramlinewidth="1" usesdiagramlinecolour="1" fillcolour="none" height="32" usefillcolor="1" showpubliconly="0" showattributes="1" isinstance="0" xmi.id="241" showoperations="1" showpackage="0" showscope="0" showstereotype="0" font="Adobe Courier,9,-1,5,75,0,0,0,0,0" />
-     <classwidget usesdiagramfillcolour="1" width="163" showattsigs="602" usesdiagramusefillcolour="1" x="436" linecolour="none" y="626" showopsigs="602" linewidth="none" usesdiagramlinewidth="1" usesdiagramlinecolour="1" fillcolour="none" height="32" usefillcolor="1" showpubliconly="0" showattributes="1" isinstance="0" xmi.id="242" showoperations="1" showpackage="0" showscope="0" showstereotype="0" font="Adobe Courier,9,-1,5,75,0,0,0,0,0" />
-     <interfacewidget usesdiagramfillcolour="1" width="144" usesdiagramusefillcolour="1" x="977" linecolour="none" y="620" drawascircle="0" showopsigs="602" linewidth="none" usesdiagramlinewidth="1" usesdiagramlinecolour="1" fillcolour="none" height="40" usefillcolor="1" isinstance="0" xmi.id="213" showoperations="1" showpackage="0" showscope="0" font="Adobe Courier,9,-1,5,75,1,0,0,0,0" />
-     <classwidget usesdiagramfillcolour="0" width="144" showattsigs="602" usesdiagramusefillcolour="0" x="63" linecolour="#ff0000" y="314" showopsigs="602" linewidth="none" usesdiagramlinewidth="1" usesdiagramlinecolour="0" fillcolour="#ffffc0" height="32" usefillcolor="1" showpubliconly="0" showattributes="1" isinstance="0" xmi.id="201" showoperations="1" showpackage="0" showscope="0" showstereotype="0" font="Adobe Courier,9,-1,5,75,0,0,0,0,0" />
+     <interfacewidget usesdiagramfillcolour="1" width="115" usesdiagramusefillcolour="1" x="284" linecolour="none" y="85" drawascircle="0" showopsigs="602" linewidth="none" usesdiagramlinewidth="1" usesdiagramlinecolour="1" fillcolour="none" height="35" usefillcolor="1" isinstance="0" xmi.id="206" showoperations="1" showpackage="0" showscope="0" font="Adobe Courier,9,-1,5,75,1,0,0,0,0" />
+     <classwidget usesdiagramfillcolour="1" width="121" showattsigs="602" usesdiagramusefillcolour="1" x="406" linecolour="none" y="316" showopsigs="602" linewidth="none" usesdiagramlinewidth="1" usesdiagramlinecolour="1" fillcolour="none" height="28" usefillcolor="1" showpubliconly="0" showattributes="1" isinstance="0" xmi.id="239" showoperations="1" showpackage="0" showscope="0" showstereotype="0" font="Adobe Courier,9,-1,5,75,0,0,0,0,0" />
+     <interfacewidget usesdiagramfillcolour="1" width="115" usesdiagramusefillcolour="1" x="664" linecolour="none" y="456" drawascircle="0" showopsigs="602" linewidth="none" usesdiagramlinewidth="1" usesdiagramlinecolour="1" fillcolour="none" height="35" usefillcolor="1" isinstance="0" xmi.id="207" showoperations="1" showpackage="0" showscope="0" font="Adobe Courier,9,-1,5,75,1,0,0,0,0" />
+     <classwidget usesdiagramfillcolour="1" width="86" showattsigs="602" usesdiagramusefillcolour="1" x="391" linecolour="none" y="459" showopsigs="602" linewidth="none" usesdiagramlinewidth="1" usesdiagramlinecolour="1" fillcolour="none" height="28" usefillcolor="1" showpubliconly="0" showattributes="1" isinstance="0" xmi.id="241" showoperations="1" showpackage="0" showscope="0" showstereotype="0" font="Adobe Courier,9,-1,5,75,0,0,0,0,0" />
+     <classwidget usesdiagramfillcolour="1" width="129" showattsigs="602" usesdiagramusefillcolour="1" x="436" linecolour="none" y="626" showopsigs="602" linewidth="none" usesdiagramlinewidth="1" usesdiagramlinecolour="1" fillcolour="none" height="28" usefillcolor="1" showpubliconly="0" showattributes="1" isinstance="0" xmi.id="242" showoperations="1" showpackage="0" showscope="0" showstereotype="0" font="Adobe Courier,9,-1,5,75,0,0,0,0,0" />
+     <interfacewidget usesdiagramfillcolour="1" width="115" usesdiagramusefillcolour="1" x="977" linecolour="none" y="620" drawascircle="0" showopsigs="602" linewidth="none" usesdiagramlinewidth="1" usesdiagramlinecolour="1" fillcolour="none" height="35" usefillcolor="1" isinstance="0" xmi.id="213" showoperations="1" showpackage="0" showscope="0" font="Adobe Courier,9,-1,5,75,1,0,0,0,0" />
+     <classwidget usesdiagramfillcolour="0" width="114" showattsigs="602" usesdiagramusefillcolour="0" x="63" linecolour="#ff0000" y="314" showopsigs="602" linewidth="none" usesdiagramlinewidth="1" usesdiagramlinecolour="0" fillcolour="#ffffc0" height="28" usefillcolor="1" showpubliconly="0" showattributes="1" isinstance="0" xmi.id="201" showoperations="1" showpackage="0" showscope="0" showstereotype="0" font="Adobe Courier,9,-1,5,75,0,0,0,0,0" />
     </widgets>
     <messages/>
     <associations>
      <assocwidget totalcounta="2" indexa="1" totalcountb="4" indexb="3" widgetbid="206" widgetaid="239" xmi.id="240" >
       <linepath>
-       <startpoint startx="482" starty="316" />
-       <endpoint endx="392" endy="125" />
+       <startpoint startx="466" starty="316" />
+       <endpoint endx="370" endy="120" />
       </linepath>
      </assocwidget>
      <assocwidget totalcounta="2" indexa="1" totalcountb="2" indexb="1" widgetbid="213" widgetaid="242" xmi.id="243" >
       <linepath>
-       <startpoint startx="599" starty="642" />
-       <endpoint endx="977" endy="640" />
+       <startpoint startx="565" starty="640" />
+       <endpoint endx="977" endy="637" />
       </linepath>
      </assocwidget>
      <assocwidget totalcounta="2" indexa="1" totalcountb="2" indexb="1" widgetbid="207" widgetaid="241" xmi.id="244" >
       <linepath>
-       <startpoint startx="499" starty="475" />
-       <endpoint endx="664" endy="476" />
+       <startpoint startx="477" starty="473" />
+       <endpoint endx="664" endy="473" />
       </linepath>
      </assocwidget>
      <assocwidget totalcounta="2" indexa="1" totalcountb="3" indexb="1" widgetbid="239" widgetaid="241" xmi.id="245" >
       <linepath>
-       <startpoint startx="445" starty="459" />
-       <endpoint endx="457" endy="348" />
+       <startpoint startx="434" starty="459" />
+       <endpoint endx="446" endy="344" />
       </linepath>
      </assocwidget>
      <assocwidget totalcounta="2" indexa="1" totalcountb="3" indexb="2" widgetbid="239" widgetaid="242" xmi.id="246" >
       <linepath>
-       <startpoint startx="517" starty="626" />
-       <endpoint endx="508" endy="348" />
+       <startpoint startx="500" starty="626" />
+       <endpoint endx="486" endy="344" />
       </linepath>
      </assocwidget>
-     <assocwidget totalcounta="2" indexa="1" visibilityB="200" totalcountb="4" indexb="2" widgetbid="206" widgetaid="239" roleBdoc="" documentation="" roleAdoc="" type="503" changeabilityA="900" changeabilityB="900" visibilityA="200" >
+     <assocwidget totalcounta="2" indexa="1" totalcountb="4" indexb="2" widgetbid="206" widgetaid="239" xmi.id="296" >
       <linepath>
-       <startpoint startx="406" starty="332" />
-       <endpoint endx="356" endy="125" />
+       <startpoint startx="406" starty="330" />
+       <endpoint endx="341" endy="120" />
        <point x="333" y="335" />
       </linepath>
-      <floatingtext usesdiagramfillcolour="1" width="17" usesdiagramusefillcolour="1" x="382" linecolour="none" y="127" linewidth="none" usesdiagramlinewidth="1" posttext="" usesdiagramlinecolour="1" role="702" fillcolour="none" height="20" usefillcolor="1" pretext="" isinstance="0" xmi.id="288" text="*" font="Adobe Courier,9,-1,5,50,0,0,0,0,0" />
-      <floatingtext usesdiagramfillcolour="1" width="17" usesdiagramusefillcolour="1" x="387" linecolour="none" y="334" linewidth="none" usesdiagramlinewidth="1" posttext="" usesdiagramlinecolour="1" role="709" fillcolour="none" height="20" usefillcolor="1" pretext="+" isinstance="0" xmi.id="286" text="" font="Adobe Courier,9,-1,5,50,0,0,0,0,0" />
-      <floatingtext usesdiagramfillcolour="1" width="80" usesdiagramusefillcolour="1" x="298" linecolour="none" y="127" linewidth="none" usesdiagramlinewidth="1" posttext="" usesdiagramlinecolour="1" role="710" fillcolour="none" height="20" usefillcolor="1" pretext="+" isinstance="0" xmi.id="287" text="sources" font="Adobe Courier,9,-1,5,50,0,0,0,0,0" />
+      <floatingtext usesdiagramfillcolour="1" width="15" usesdiagramusefillcolour="1" x="382" linecolour="none" y="127" linewidth="none" usesdiagramlinewidth="1" posttext="" usesdiagramlinecolour="1" role="702" fillcolour="none" height="18" usefillcolor="1" pretext="" isinstance="0" xmi.id="301" text="*" font="Adobe Courier,9,-1,5,50,0,0,0,0,0" />
+      <floatingtext usesdiagramfillcolour="1" width="15" usesdiagramusefillcolour="1" x="389" linecolour="none" y="334" linewidth="none" usesdiagramlinewidth="1" posttext="" usesdiagramlinecolour="1" role="709" fillcolour="none" height="18" usefillcolor="1" pretext="+" isinstance="0" xmi.id="299" text="" font="Adobe Courier,9,-1,5,50,0,0,0,0,0" />
+      <floatingtext usesdiagramfillcolour="1" width="64" usesdiagramusefillcolour="1" x="298" linecolour="none" y="127" linewidth="none" usesdiagramlinewidth="1" posttext="" usesdiagramlinecolour="1" role="710" fillcolour="none" height="18" usefillcolor="1" pretext="+" isinstance="0" xmi.id="300" text="sources" font="Adobe Courier,9,-1,5,50,0,0,0,0,0" />
      </assocwidget>
      <assocwidget totalcounta="2" indexa="1" totalcountb="4" indexb="1" widgetbid="206" widgetaid="201" xmi.id="266" >
       <linepath>
-       <startpoint startx="135" starty="314" />
-       <endpoint endx="320" endy="125" />
+       <startpoint startx="120" starty="314" />
+       <endpoint endx="312" endy="120" />
       </linepath>
      </assocwidget>
     </associations>
    </diagram>
   </diagrams>
   <listview>
-   <listitem open="1" type="800" id="-1" label="Ansichten" >
-    <listitem open="1" type="801" id="-1" label="Logische Ansicht" >
-     <listitem open="0" type="807" id="191" label="attributes" />
-     <listitem open="0" type="807" id="238" label="functions" />
+   <listitem open="1" type="800" label="Ansichten" >
+    <listitem open="1" type="801" label="Logische Ansicht" >
      <listitem open="1" type="813" id="200" >
       <listitem open="0" type="814" id="225" />
      </listitem>
      <listitem open="1" type="813" id="218" />
      <listitem open="1" type="813" id="239" />
+     <listitem open="1" type="813" id="205" >
+      <listitem open="0" type="814" id="230" />
+      <listitem open="0" type="814" id="231" />
+     </listitem>
      <listitem open="1" type="813" id="219" />
      <listitem open="1" type="813" id="226" />
      <listitem open="1" type="813" id="234" >
@@ -308,14 +362,10 @@
      <listitem open="1" type="813" id="204" />
      <listitem open="1" type="813" id="227" />
      <listitem open="1" type="813" id="203" />
-     <listitem open="1" type="813" id="205" >
-      <listitem open="0" type="814" id="230" />
-      <listitem open="0" type="814" id="231" />
-     </listitem>
      <listitem open="1" type="813" id="201" />
      <listitem open="1" type="813" id="202" >
-      <listitem open="0" type="814" id="233" />
       <listitem open="0" type="814" id="232" />
+      <listitem open="0" type="814" id="233" />
      </listitem>
      <listitem open="1" type="813" id="241" />
      <listitem open="1" type="813" id="223" />
@@ -324,7 +374,7 @@
      <listitem open="1" type="817" id="206" />
      <listitem open="1" type="817" id="207" />
      <listitem open="1" type="817" id="213" />
-     <listitem open="0" type="830" id="-1" label="Datentypen" >
+     <listitem open="0" type="830" label="Datentypen" >
       <listitem open="1" type="829" id="194" />
       <listitem open="1" type="829" id="193" />
       <listitem open="1" type="829" id="196" />
@@ -335,9 +385,10 @@
       <listitem open="1" type="829" id="199" />
      </listitem>
     </listitem>
-    <listitem open="1" type="802" id="-1" label="Anwendungsfallansicht" />
-    <listitem open="1" type="821" id="-1" label="Komponentenansicht" />
-    <listitem open="1" type="827" id="-1" label="Verteilungsansicht" />
+    <listitem open="1" type="802" label="Anwendungsfallansicht" />
+    <listitem open="1" type="821" label="Komponentenansicht" />
+    <listitem open="1" type="827" label="Verteilungsansicht" />
+    <listitem open="1" type="836" label="Entity Relationship Modell" />
    </listitem>
   </listview>
   <codegeneration>
@@ -349,12 +400,12 @@
         <codecomment tag="" writeOutText="false" />
        </header>
       </codeblockwithcomments>
-      <codeblockwithcomments tag="imports" writeOutText="false" >
+      <codeblockwithcomments tag="imports" text="&amp;#010;import Feature;" >
        <header>
         <codecomment tag="" writeOutText="false" />
        </header>
       </codeblockwithcomments>
-      <javaclassdeclarationblock parent_id="200" tag="ClassDeclBlock" canDelete="false" role_id="-1" >
+      <javaclassdeclarationblock parent_id="200" tag="ClassDeclBlock" canDelete="false" >
        <header>
         <javacodedocumentation tag="" text="Class Attribute&amp;#010;" />
        </header>
@@ -364,7 +415,7 @@
           <codecomment tag="" indentLevel="1" text="Fields" />
          </header>
          <textblocks>
-          <ccfdeclarationcodeblock parent_id="225" tag="tblock_0" canDelete="false" indentLevel="1" role_id="-1" text="private String code;" >
+          <ccfdeclarationcodeblock parent_id="225" tag="tblock_0" canDelete="false" indentLevel="1" text="private String code;" >
            <header>
             <codecomment tag="" indentLevel="1" />
            </header>
@@ -403,12 +454,12 @@
               <codecomment tag="" writeOutText="false" indentLevel="1" />
              </header>
              <textblocks>
-              <codeaccessormethod accessType="0" parent_id="225" tag="hblock_tag_0" canDelete="false" indentLevel="1" classfield_id="225" role_id="-1" text="return code;" >
+              <codeaccessormethod accessType="0" parent_id="225" tag="hblock_tag_0" canDelete="false" indentLevel="1" classfield_id="225" text="return code;" >
                <header>
                 <javacodedocumentation tag="" indentLevel="1" text="Get the value of code&amp;#010;&amp;#010;@return the value of code" />
                </header>
               </codeaccessormethod>
-              <codeaccessormethod accessType="1" parent_id="225" tag="hblock_tag_2" canDelete="false" indentLevel="1" classfield_id="225" role_id="-1" text="code = value;" >
+              <codeaccessormethod accessType="1" parent_id="225" tag="hblock_tag_2" canDelete="false" indentLevel="1" classfield_id="225" text="code = value;" >
                <header>
                 <javacodedocumentation tag="" indentLevel="1" text="Set the value of code&amp;#010;&amp;#010;" />
                </header>
@@ -461,30 +512,30 @@
       </javaclassdeclarationblock>
      </textblocks>
      <header>
-      <codecomment tag="" text="/************************************************************************&amp;#010;  			Attribute.java - Copyright rw7&amp;#010;&amp;#010;Here you can write a license for your code, some comments or any other&amp;#010;information you want to have in your generated code. To to this simply&amp;#010;configure the &quot;headings&quot; directory in uml to point to a directory&amp;#010;where you have your heading files.&amp;#010;&amp;#010;or you can just replace the contents of this file with your own.&amp;#010;If you want to do this, this file is located at&amp;#010;&amp;#010;/opt/kde3/share/apps/umbrello/headings/heading.java&amp;#010;&amp;#010;-->Code Generators searches for heading files based on the file extension&amp;#010;   i.e. it will look for a file name ending in &quot;.h&quot; to include in C++ header&amp;#010;   files, and for a file name ending in &quot;.java&quot; to include in all generated&amp;#010;   java code.&amp;#010;   If you name the file &quot;heading.&lt;extension>&quot;, Code Generator will always&amp;#010;   choose this file even if there are other files with the same extension in the&amp;#010;   directory. If you name the file something else, it must be the only one with that&amp;#010;   extension in the directory to guarantee that Code Generator will choose it.&amp;#010;&amp;#010;you can use variables in your heading files which are replaced at generation&amp;#010;time. possible variables are : author, date, time, filename and filepath.&amp;#010;just write %variable_name%&amp;#010;&amp;#010;This file was generated on Thu May 12 2005 at 16:32:28&amp;#010;The original location of this file is &amp;#010;**************************************************************************/&amp;#010;" />
+      <codecomment tag="" writeOutText="false" />
      </header>
      <classfields>
       <codeclassfield parent_id="225" field_type="0" initialValue="" role_id="-1" writeOutMethods="true" listClassName="" >
        <header>
         <codecomment tag="" />
        </header>
-       <ccfdeclarationcodeblock parent_id="225" tag="tblock_0" canDelete="false" indentLevel="1" role_id="-1" text="private String code;" >
+       <ccfdeclarationcodeblock parent_id="225" tag="tblock_0" canDelete="false" indentLevel="1" text="private String code;" >
         <header>
          <codecomment tag="" indentLevel="1" />
         </header>
        </ccfdeclarationcodeblock>
-       <codeaccessormethod accessType="0" parent_id="225" tag="hblock_tag_0" canDelete="false" indentLevel="1" classfield_id="225" role_id="-1" text="return code;" >
+       <codeaccessormethod accessType="0" parent_id="225" tag="hblock_tag_0" canDelete="false" indentLevel="1" classfield_id="225" text="return code;" >
         <header>
          <javacodedocumentation tag="" indentLevel="1" text="Get the value of code&amp;#010;&amp;#010;@return the value of code" />
         </header>
        </codeaccessormethod>
-       <codeaccessormethod accessType="1" parent_id="225" tag="hblock_tag_2" canDelete="false" indentLevel="1" classfield_id="225" role_id="-1" text="code = value;" >
+       <codeaccessormethod accessType="1" parent_id="225" tag="hblock_tag_2" canDelete="false" indentLevel="1" classfield_id="225" text="code = value;" >
         <header>
          <javacodedocumentation tag="" indentLevel="1" text="Set the value of code&amp;#010;&amp;#010;" />
         </header>
        </codeaccessormethod>
       </codeclassfield>
-      <codeclassfield parent_id="224" field_type="4" initialValue="" role_id="1" writeOutMethods="true" listClassName="" >
+      <codeclassfield parent_id="224" field_type="4" initialValue="" role_id="0" writeOutMethods="true" listClassName="" >
        <header>
         <codecomment tag="" />
        </header>
@@ -528,12 +579,12 @@
         <codecomment tag="" writeOutText="false" />
        </header>
       </codeblockwithcomments>
-      <codeblockwithcomments tag="imports" text="&amp;#010;import Function;" >
+      <codeblockwithcomments tag="imports" text="&amp;#010;import Attribute;&amp;#010;import Function;" >
        <header>
         <codecomment tag="" writeOutText="false" />
        </header>
       </codeblockwithcomments>
-      <javaclassdeclarationblock parent_id="201" tag="ClassDeclBlock" canDelete="false" role_id="-1" >
+      <javaclassdeclarationblock parent_id="201" tag="ClassDeclBlock" canDelete="false" >
        <header>
         <javacodedocumentation tag="" writeOutText="false" text="Class ObjectAttribute&amp;#010;" />
        </header>
@@ -592,7 +643,7 @@
       </javaclassdeclarationblock>
      </textblocks>
      <header>
-      <codecomment tag="" text="/************************************************************************&amp;#010;  			ObjectAttribute.java - Copyright rw7&amp;#010;&amp;#010;Here you can write a license for your code, some comments or any other&amp;#010;information you want to have in your generated code. To to this simply&amp;#010;configure the &quot;headings&quot; directory in uml to point to a directory&amp;#010;where you have your heading files.&amp;#010;&amp;#010;or you can just replace the contents of this file with your own.&amp;#010;If you want to do this, this file is located at&amp;#010;&amp;#010;/opt/kde3/share/apps/umbrello/headings/heading.java&amp;#010;&amp;#010;-->Code Generators searches for heading files based on the file extension&amp;#010;   i.e. it will look for a file name ending in &quot;.h&quot; to include in C++ header&amp;#010;   files, and for a file name ending in &quot;.java&quot; to include in all generated&amp;#010;   java code.&amp;#010;   If you name the file &quot;heading.&lt;extension>&quot;, Code Generator will always&amp;#010;   choose this file even if there are other files with the same extension in the&amp;#010;   directory. If you name the file something else, it must be the only one with that&amp;#010;   extension in the directory to guarantee that Code Generator will choose it.&amp;#010;&amp;#010;you can use variables in your heading files which are replaced at generation&amp;#010;time. possible variables are : author, date, time, filename and filepath.&amp;#010;just write %variable_name%&amp;#010;&amp;#010;This file was generated on Thu May 12 2005 at 16:32:28&amp;#010;The original location of this file is &amp;#010;**************************************************************************/&amp;#010;" />
+      <codecomment tag="" writeOutText="false" />
      </header>
      <classfields/>
     </classifiercodedocument>
@@ -603,12 +654,12 @@
         <codecomment tag="" writeOutText="false" />
        </header>
       </codeblockwithcomments>
-      <codeblockwithcomments tag="imports" writeOutText="false" >
+      <codeblockwithcomments tag="imports" text="&amp;#010;import StringFunction;&amp;#010;import ObjectAttribute;" >
        <header>
         <codecomment tag="" writeOutText="false" />
        </header>
       </codeblockwithcomments>
-      <javaclassdeclarationblock parent_id="202" tag="ClassDeclBlock" canDelete="false" role_id="-1" >
+      <javaclassdeclarationblock parent_id="202" tag="ClassDeclBlock" canDelete="false" >
        <header>
         <javacodedocumentation tag="" text="Class StringAttribute&amp;#010;" />
        </header>
@@ -618,12 +669,12 @@
           <codecomment tag="" indentLevel="1" text="Fields" />
          </header>
          <textblocks>
-          <ccfdeclarationcodeblock parent_id="232" tag="tblock_0" canDelete="false" indentLevel="1" role_id="-1" text="private int minimumLength;" >
+          <ccfdeclarationcodeblock parent_id="232" tag="tblock_0" canDelete="false" indentLevel="1" text="private int minimumLength;" >
            <header>
             <codecomment tag="" indentLevel="1" />
            </header>
           </ccfdeclarationcodeblock>
-          <ccfdeclarationcodeblock parent_id="233" tag="tblock_1" canDelete="false" indentLevel="1" role_id="-1" text="private int maximumLength;" >
+          <ccfdeclarationcodeblock parent_id="233" tag="tblock_1" canDelete="false" indentLevel="1" text="private int maximumLength;" >
            <header>
             <codecomment tag="" indentLevel="1" />
            </header>
@@ -657,22 +708,22 @@
               <codecomment tag="" writeOutText="false" indentLevel="1" />
              </header>
              <textblocks>
-              <codeaccessormethod accessType="0" parent_id="232" tag="hblock_tag_0" canDelete="false" indentLevel="1" classfield_id="232" role_id="-1" text="return minimumLength;" >
+              <codeaccessormethod accessType="0" parent_id="232" tag="hblock_tag_0" canDelete="false" indentLevel="1" classfield_id="232" text="return minimumLength;" >
                <header>
                 <javacodedocumentation tag="" indentLevel="1" text="Get the value of minimumLength&amp;#010;&amp;#010;@return the value of minimumLength" />
                </header>
               </codeaccessormethod>
-              <codeaccessormethod accessType="1" parent_id="232" tag="hblock_tag_2" canDelete="false" indentLevel="1" classfield_id="232" role_id="-1" text="minimumLength = value;" >
+              <codeaccessormethod accessType="1" parent_id="232" tag="hblock_tag_2" canDelete="false" indentLevel="1" classfield_id="232" text="minimumLength = value;" >
                <header>
                 <javacodedocumentation tag="" indentLevel="1" text="Set the value of minimumLength&amp;#010;&amp;#010;" />
                </header>
               </codeaccessormethod>
-              <codeaccessormethod accessType="0" parent_id="233" tag="hblock_tag_3" canDelete="false" indentLevel="1" classfield_id="233" role_id="-1" text="return maximumLength;" >
+              <codeaccessormethod accessType="0" parent_id="233" tag="hblock_tag_3" canDelete="false" indentLevel="1" classfield_id="233" text="return maximumLength;" >
                <header>
                 <javacodedocumentation tag="" indentLevel="1" text="Get the value of maximumLength&amp;#010;&amp;#010;@return the value of maximumLength" />
                </header>
               </codeaccessormethod>
-              <codeaccessormethod accessType="1" parent_id="233" tag="hblock_tag_4" canDelete="false" indentLevel="1" classfield_id="233" role_id="-1" text="maximumLength = value;" >
+              <codeaccessormethod accessType="1" parent_id="233" tag="hblock_tag_4" canDelete="false" indentLevel="1" classfield_id="233" text="maximumLength = value;" >
                <header>
                 <javacodedocumentation tag="" indentLevel="1" text="Set the value of maximumLength&amp;#010;&amp;#010;" />
                </header>
@@ -699,24 +750,24 @@
       </javaclassdeclarationblock>
      </textblocks>
      <header>
-      <codecomment tag="" text="/************************************************************************&amp;#010;  			StringAttribute.java - Copyright rw7&amp;#010;&amp;#010;Here you can write a license for your code, some comments or any other&amp;#010;information you want to have in your generated code. To to this simply&amp;#010;configure the &quot;headings&quot; directory in uml to point to a directory&amp;#010;where you have your heading files.&amp;#010;&amp;#010;or you can just replace the contents of this file with your own.&amp;#010;If you want to do this, this file is located at&amp;#010;&amp;#010;/opt/kde3/share/apps/umbrello/headings/heading.java&amp;#010;&amp;#010;-->Code Generators searches for heading files based on the file extension&amp;#010;   i.e. it will look for a file name ending in &quot;.h&quot; to include in C++ header&amp;#010;   files, and for a file name ending in &quot;.java&quot; to include in all generated&amp;#010;   java code.&amp;#010;   If you name the file &quot;heading.&lt;extension>&quot;, Code Generator will always&amp;#010;   choose this file even if there are other files with the same extension in the&amp;#010;   directory. If you name the file something else, it must be the only one with that&amp;#010;   extension in the directory to guarantee that Code Generator will choose it.&amp;#010;&amp;#010;you can use variables in your heading files which are replaced at generation&amp;#010;time. possible variables are : author, date, time, filename and filepath.&amp;#010;just write %variable_name%&amp;#010;&amp;#010;This file was generated on Thu May 12 2005 at 16:32:28&amp;#010;The original location of this file is &amp;#010;**************************************************************************/&amp;#010;" />
+      <codecomment tag="" writeOutText="false" />
      </header>
      <classfields>
       <codeclassfield parent_id="232" field_type="0" initialValue="" role_id="-1" writeOutMethods="true" listClassName="" >
        <header>
         <codecomment tag="" />
        </header>
-       <ccfdeclarationcodeblock parent_id="232" tag="tblock_0" canDelete="false" indentLevel="1" role_id="-1" text="private int minimumLength;" >
+       <ccfdeclarationcodeblock parent_id="232" tag="tblock_0" canDelete="false" indentLevel="1" text="private int minimumLength;" >
         <header>
          <codecomment tag="" indentLevel="1" />
         </header>
        </ccfdeclarationcodeblock>
-       <codeaccessormethod accessType="0" parent_id="232" tag="hblock_tag_0" canDelete="false" indentLevel="1" classfield_id="232" role_id="-1" text="return minimumLength;" >
+       <codeaccessormethod accessType="0" parent_id="232" tag="hblock_tag_0" canDelete="false" indentLevel="1" classfield_id="232" text="return minimumLength;" >
         <header>
          <javacodedocumentation tag="" indentLevel="1" text="Get the value of minimumLength&amp;#010;&amp;#010;@return the value of minimumLength" />
         </header>
        </codeaccessormethod>
-       <codeaccessormethod accessType="1" parent_id="232" tag="hblock_tag_2" canDelete="false" indentLevel="1" classfield_id="232" role_id="-1" text="minimumLength = value;" >
+       <codeaccessormethod accessType="1" parent_id="232" tag="hblock_tag_2" canDelete="false" indentLevel="1" classfield_id="232" text="minimumLength = value;" >
         <header>
          <javacodedocumentation tag="" indentLevel="1" text="Set the value of minimumLength&amp;#010;&amp;#010;" />
         </header>
@@ -726,17 +777,17 @@
        <header>
         <codecomment tag="" />
        </header>
-       <ccfdeclarationcodeblock parent_id="233" tag="tblock_1" canDelete="false" indentLevel="1" role_id="-1" text="private int maximumLength;" >
+       <ccfdeclarationcodeblock parent_id="233" tag="tblock_1" canDelete="false" indentLevel="1" text="private int maximumLength;" >
         <header>
          <codecomment tag="" indentLevel="1" />
         </header>
        </ccfdeclarationcodeblock>
-       <codeaccessormethod accessType="0" parent_id="233" tag="hblock_tag_3" canDelete="false" indentLevel="1" classfield_id="233" role_id="-1" text="return maximumLength;" >
+       <codeaccessormethod accessType="0" parent_id="233" tag="hblock_tag_3" canDelete="false" indentLevel="1" classfield_id="233" text="return maximumLength;" >
         <header>
          <javacodedocumentation tag="" indentLevel="1" text="Get the value of maximumLength&amp;#010;&amp;#010;@return the value of maximumLength" />
         </header>
        </codeaccessormethod>
-       <codeaccessormethod accessType="1" parent_id="233" tag="hblock_tag_4" canDelete="false" indentLevel="1" classfield_id="233" role_id="-1" text="maximumLength = value;" >
+       <codeaccessormethod accessType="1" parent_id="233" tag="hblock_tag_4" canDelete="false" indentLevel="1" classfield_id="233" text="maximumLength = value;" >
         <header>
          <javacodedocumentation tag="" indentLevel="1" text="Set the value of maximumLength&amp;#010;&amp;#010;" />
         </header>
@@ -751,12 +802,12 @@
         <codecomment tag="" writeOutText="false" />
        </header>
       </codeblockwithcomments>
-      <codeblockwithcomments tag="imports" writeOutText="false" >
+      <codeblockwithcomments tag="imports" text="&amp;#010;import ObjectAttribute;" >
        <header>
         <codecomment tag="" writeOutText="false" />
        </header>
       </codeblockwithcomments>
-      <javaclassdeclarationblock parent_id="203" tag="ClassDeclBlock" canDelete="false" role_id="-1" >
+      <javaclassdeclarationblock parent_id="203" tag="ClassDeclBlock" canDelete="false" >
        <header>
         <javacodedocumentation tag="" text="Class LongAttribute&amp;#010;" />
        </header>
@@ -815,7 +866,7 @@
       </javaclassdeclarationblock>
      </textblocks>
      <header>
-      <codecomment tag="" text="/************************************************************************&amp;#010;  			LongAttribute.java - Copyright rw7&amp;#010;&amp;#010;Here you can write a license for your code, some comments or any other&amp;#010;information you want to have in your generated code. To to this simply&amp;#010;configure the &quot;headings&quot; directory in uml to point to a directory&amp;#010;where you have your heading files.&amp;#010;&amp;#010;or you can just replace the contents of this file with your own.&amp;#010;If you want to do this, this file is located at&amp;#010;&amp;#010;/opt/kde3/share/apps/umbrello/headings/heading.java&amp;#010;&amp;#010;-->Code Generators searches for heading files based on the file extension&amp;#010;   i.e. it will look for a file name ending in &quot;.h&quot; to include in C++ header&amp;#010;   files, and for a file name ending in &quot;.java&quot; to include in all generated&amp;#010;   java code.&amp;#010;   If you name the file &quot;heading.&lt;extension>&quot;, Code Generator will always&amp;#010;   choose this file even if there are other files with the same extension in the&amp;#010;   directory. If you name the file something else, it must be the only one with that&amp;#010;   extension in the directory to guarantee that Code Generator will choose it.&amp;#010;&amp;#010;you can use variables in your heading files which are replaced at generation&amp;#010;time. possible variables are : author, date, time, filename and filepath.&amp;#010;just write %variable_name%&amp;#010;&amp;#010;This file was generated on Thu May 12 2005 at 16:32:28&amp;#010;The original location of this file is &amp;#010;**************************************************************************/&amp;#010;" />
+      <codecomment tag="" writeOutText="false" />
      </header>
      <classfields/>
     </classifiercodedocument>
@@ -826,12 +877,12 @@
         <codecomment tag="" writeOutText="false" />
        </header>
       </codeblockwithcomments>
-      <codeblockwithcomments tag="imports" writeOutText="false" >
+      <codeblockwithcomments tag="imports" text="&amp;#010;import ObjectAttribute;&amp;#010;import IntegerFunction;" >
        <header>
         <codecomment tag="" writeOutText="false" />
        </header>
       </codeblockwithcomments>
-      <javaclassdeclarationblock parent_id="204" tag="ClassDeclBlock" canDelete="false" role_id="-1" >
+      <javaclassdeclarationblock parent_id="204" tag="ClassDeclBlock" canDelete="false" >
        <header>
         <javacodedocumentation tag="" text="Class IntegerAttribute&amp;#010;" />
        </header>
@@ -890,7 +941,7 @@
       </javaclassdeclarationblock>
      </textblocks>
      <header>
-      <codecomment tag="" text="/************************************************************************&amp;#010;  			IntegerAttribute.java - Copyright rw7&amp;#010;&amp;#010;Here you can write a license for your code, some comments or any other&amp;#010;information you want to have in your generated code. To to this simply&amp;#010;configure the &quot;headings&quot; directory in uml to point to a directory&amp;#010;where you have your heading files.&amp;#010;&amp;#010;or you can just replace the contents of this file with your own.&amp;#010;If you want to do this, this file is located at&amp;#010;&amp;#010;/opt/kde3/share/apps/umbrello/headings/heading.java&amp;#010;&amp;#010;-->Code Generators searches for heading files based on the file extension&amp;#010;   i.e. it will look for a file name ending in &quot;.h&quot; to include in C++ header&amp;#010;   files, and for a file name ending in &quot;.java&quot; to include in all generated&amp;#010;   java code.&amp;#010;   If you name the file &quot;heading.&lt;extension>&quot;, Code Generator will always&amp;#010;   choose this file even if there are other files with the same extension in the&amp;#010;   directory. If you name the file something else, it must be the only one with that&amp;#010;   extension in the directory to guarantee that Code Generator will choose it.&amp;#010;&amp;#010;you can use variables in your heading files which are replaced at generation&amp;#010;time. possible variables are : author, date, time, filename and filepath.&amp;#010;just write %variable_name%&amp;#010;&amp;#010;This file was generated on Thu May 12 2005 at 16:32:28&amp;#010;The original location of this file is &amp;#010;**************************************************************************/&amp;#010;" />
+      <codecomment tag="" writeOutText="false" />
      </header>
      <classfields/>
     </classifiercodedocument>
@@ -906,7 +957,7 @@
         <codecomment tag="" writeOutText="false" />
        </header>
       </codeblockwithcomments>
-      <javaclassdeclarationblock parent_id="205" tag="ClassDeclBlock" canDelete="false" role_id="-1" >
+      <javaclassdeclarationblock parent_id="205" tag="ClassDeclBlock" canDelete="false" >
        <header>
         <javacodedocumentation tag="" writeOutText="false" text="Class DataAttribute&amp;#010;" />
        </header>
@@ -916,12 +967,12 @@
           <codecomment tag="" indentLevel="1" text="Fields" />
          </header>
          <textblocks>
-          <ccfdeclarationcodeblock parent_id="230" tag="tblock_0" canDelete="false" indentLevel="1" role_id="-1" text="private String fixedMimeMajor;" >
+          <ccfdeclarationcodeblock parent_id="230" tag="tblock_0" canDelete="false" indentLevel="1" text="private String fixedMimeMajor;" >
            <header>
             <codecomment tag="" indentLevel="1" />
            </header>
           </ccfdeclarationcodeblock>
-          <ccfdeclarationcodeblock parent_id="231" tag="tblock_1" canDelete="false" indentLevel="1" role_id="-1" text="private String fixedMimeMinor;" >
+          <ccfdeclarationcodeblock parent_id="231" tag="tblock_1" canDelete="false" indentLevel="1" text="private String fixedMimeMinor;" >
            <header>
             <codecomment tag="" indentLevel="1" />
            </header>
@@ -955,22 +1006,22 @@
               <codecomment tag="" writeOutText="false" indentLevel="1" />
              </header>
              <textblocks>
-              <codeaccessormethod accessType="0" parent_id="230" tag="hblock_tag_0" canDelete="false" indentLevel="1" classfield_id="230" role_id="-1" text="return fixedMimeMajor;" >
+              <codeaccessormethod accessType="0" parent_id="230" tag="hblock_tag_0" canDelete="false" indentLevel="1" classfield_id="230" text="return fixedMimeMajor;" >
                <header>
                 <javacodedocumentation tag="" indentLevel="1" text="Get the value of fixedMimeMajor&amp;#010;&amp;#010;@return the value of fixedMimeMajor" />
                </header>
               </codeaccessormethod>
-              <codeaccessormethod accessType="1" parent_id="230" tag="hblock_tag_2" canDelete="false" indentLevel="1" classfield_id="230" role_id="-1" text="fixedMimeMajor = value;" >
+              <codeaccessormethod accessType="1" parent_id="230" tag="hblock_tag_2" canDelete="false" indentLevel="1" classfield_id="230" text="fixedMimeMajor = value;" >
                <header>
                 <javacodedocumentation tag="" indentLevel="1" text="Set the value of fixedMimeMajor&amp;#010;&amp;#010;" />
                </header>
               </codeaccessormethod>
-              <codeaccessormethod accessType="0" parent_id="231" tag="hblock_tag_3" canDelete="false" indentLevel="1" classfield_id="231" role_id="-1" text="return fixedMimeMinor;" >
+              <codeaccessormethod accessType="0" parent_id="231" tag="hblock_tag_3" canDelete="false" indentLevel="1" classfield_id="231" text="return fixedMimeMinor;" >
                <header>
                 <javacodedocumentation tag="" indentLevel="1" text="Get the value of fixedMimeMinor&amp;#010;&amp;#010;@return the value of fixedMimeMinor" />
                </header>
               </codeaccessormethod>
-              <codeaccessormethod accessType="1" parent_id="231" tag="hblock_tag_4" canDelete="false" indentLevel="1" classfield_id="231" role_id="-1" text="fixedMimeMinor = value;" >
+              <codeaccessormethod accessType="1" parent_id="231" tag="hblock_tag_4" canDelete="false" indentLevel="1" classfield_id="231" text="fixedMimeMinor = value;" >
                <header>
                 <javacodedocumentation tag="" indentLevel="1" text="Set the value of fixedMimeMinor&amp;#010;&amp;#010;" />
                </header>
@@ -997,24 +1048,24 @@
       </javaclassdeclarationblock>
      </textblocks>
      <header>
-      <codecomment tag="" text="/************************************************************************&amp;#010;  			DataAttribute.java - Copyright rw7&amp;#010;&amp;#010;Here you can write a license for your code, some comments or any other&amp;#010;information you want to have in your generated code. To to this simply&amp;#010;configure the &quot;headings&quot; directory in uml to point to a directory&amp;#010;where you have your heading files.&amp;#010;&amp;#010;or you can just replace the contents of this file with your own.&amp;#010;If you want to do this, this file is located at&amp;#010;&amp;#010;/opt/kde3/share/apps/umbrello/headings/heading.java&amp;#010;&amp;#010;-->Code Generators searches for heading files based on the file extension&amp;#010;   i.e. it will look for a file name ending in &quot;.h&quot; to include in C++ header&amp;#010;   files, and for a file name ending in &quot;.java&quot; to include in all generated&amp;#010;   java code.&amp;#010;   If you name the file &quot;heading.&lt;extension>&quot;, Code Generator will always&amp;#010;   choose this file even if there are other files with the same extension in the&amp;#010;   directory. If you name the file something else, it must be the only one with that&amp;#010;   extension in the directory to guarantee that Code Generator will choose it.&amp;#010;&amp;#010;you can use variables in your heading files which are replaced at generation&amp;#010;time. possible variables are : author, date, time, filename and filepath.&amp;#010;just write %variable_name%&amp;#010;&amp;#010;This file was generated on Thu May 12 2005 at 16:32:46&amp;#010;The original location of this file is &amp;#010;**************************************************************************/&amp;#010;" />
+      <codecomment tag="" writeOutText="false" />
      </header>
      <classfields>
       <codeclassfield parent_id="230" field_type="0" initialValue="" role_id="-1" writeOutMethods="true" listClassName="" >
        <header>
         <codecomment tag="" />
        </header>
-       <ccfdeclarationcodeblock parent_id="230" tag="tblock_0" canDelete="false" indentLevel="1" role_id="-1" text="private String fixedMimeMajor;" >
+       <ccfdeclarationcodeblock parent_id="230" tag="tblock_0" canDelete="false" indentLevel="1" text="private String fixedMimeMajor;" >
         <header>
          <codecomment tag="" indentLevel="1" />
         </header>
        </ccfdeclarationcodeblock>
-       <codeaccessormethod accessType="0" parent_id="230" tag="hblock_tag_0" canDelete="false" indentLevel="1" classfield_id="230" role_id="-1" text="return fixedMimeMajor;" >
+       <codeaccessormethod accessType="0" parent_id="230" tag="hblock_tag_0" canDelete="false" indentLevel="1" classfield_id="230" text="return fixedMimeMajor;" >
         <header>
          <javacodedocumentation tag="" indentLevel="1" text="Get the value of fixedMimeMajor&amp;#010;&amp;#010;@return the value of fixedMimeMajor" />
         </header>
        </codeaccessormethod>
-       <codeaccessormethod accessType="1" parent_id="230" tag="hblock_tag_2" canDelete="false" indentLevel="1" classfield_id="230" role_id="-1" text="fixedMimeMajor = value;" >
+       <codeaccessormethod accessType="1" parent_id="230" tag="hblock_tag_2" canDelete="false" indentLevel="1" classfield_id="230" text="fixedMimeMajor = value;" >
         <header>
          <javacodedocumentation tag="" indentLevel="1" text="Set the value of fixedMimeMajor&amp;#010;&amp;#010;" />
         </header>
@@ -1024,17 +1075,17 @@
        <header>
         <codecomment tag="" />
        </header>
-       <ccfdeclarationcodeblock parent_id="231" tag="tblock_1" canDelete="false" indentLevel="1" role_id="-1" text="private String fixedMimeMinor;" >
+       <ccfdeclarationcodeblock parent_id="231" tag="tblock_1" canDelete="false" indentLevel="1" text="private String fixedMimeMinor;" >
         <header>
          <codecomment tag="" indentLevel="1" />
         </header>
        </ccfdeclarationcodeblock>
-       <codeaccessormethod accessType="0" parent_id="231" tag="hblock_tag_3" canDelete="false" indentLevel="1" classfield_id="231" role_id="-1" text="return fixedMimeMinor;" >
+       <codeaccessormethod accessType="0" parent_id="231" tag="hblock_tag_3" canDelete="false" indentLevel="1" classfield_id="231" text="return fixedMimeMinor;" >
         <header>
          <javacodedocumentation tag="" indentLevel="1" text="Get the value of fixedMimeMinor&amp;#010;&amp;#010;@return the value of fixedMimeMinor" />
         </header>
        </codeaccessormethod>
-       <codeaccessormethod accessType="1" parent_id="231" tag="hblock_tag_4" canDelete="false" indentLevel="1" classfield_id="231" role_id="-1" text="fixedMimeMinor = value;" >
+       <codeaccessormethod accessType="1" parent_id="231" tag="hblock_tag_4" canDelete="false" indentLevel="1" classfield_id="231" text="fixedMimeMinor = value;" >
         <header>
          <javacodedocumentation tag="" indentLevel="1" text="Set the value of fixedMimeMinor&amp;#010;&amp;#010;" />
         </header>
@@ -1049,12 +1100,12 @@
         <codecomment tag="" writeOutText="false" />
        </header>
       </codeblockwithcomments>
-      <codeblockwithcomments tag="imports" writeOutText="false" >
+      <codeblockwithcomments tag="imports" text="&amp;#010;import Feature;" >
        <header>
         <codecomment tag="" writeOutText="false" />
        </header>
       </codeblockwithcomments>
-      <javaclassdeclarationblock parent_id="206" tag="ClassDeclBlock" canDelete="false" role_id="-1" >
+      <javaclassdeclarationblock parent_id="206" tag="ClassDeclBlock" canDelete="false" >
        <header>
         <javacodedocumentation tag="" text="Interface Function&amp;#010;" />
        </header>
@@ -1113,7 +1164,7 @@
       </javaclassdeclarationblock>
      </textblocks>
      <header>
-      <codecomment tag="" text="/************************************************************************&amp;#010;  			Function.java - Copyright rw7&amp;#010;&amp;#010;Here you can write a license for your code, some comments or any other&amp;#010;information you want to have in your generated code. To to this simply&amp;#010;configure the &quot;headings&quot; directory in uml to point to a directory&amp;#010;where you have your heading files.&amp;#010;&amp;#010;or you can just replace the contents of this file with your own.&amp;#010;If you want to do this, this file is located at&amp;#010;&amp;#010;/opt/kde3/share/apps/umbrello/headings/heading.java&amp;#010;&amp;#010;-->Code Generators searches for heading files based on the file extension&amp;#010;   i.e. it will look for a file name ending in &quot;.h&quot; to include in C++ header&amp;#010;   files, and for a file name ending in &quot;.java&quot; to include in all generated&amp;#010;   java code.&amp;#010;   If you name the file &quot;heading.&lt;extension>&quot;, Code Generator will always&amp;#010;   choose this file even if there are other files with the same extension in the&amp;#010;   directory. If you name the file something else, it must be the only one with that&amp;#010;   extension in the directory to guarantee that Code Generator will choose it.&amp;#010;&amp;#010;you can use variables in your heading files which are replaced at generation&amp;#010;time. possible variables are : author, date, time, filename and filepath.&amp;#010;just write %variable_name%&amp;#010;&amp;#010;This file was generated on Thu May 12 2005 at 16:32:28&amp;#010;The original location of this file is &amp;#010;**************************************************************************/&amp;#010;" />
+      <codecomment tag="" writeOutText="false" />
      </header>
      <classfields/>
     </classifiercodedocument>
@@ -1124,12 +1175,12 @@
         <codecomment tag="" writeOutText="false" />
        </header>
       </codeblockwithcomments>
-      <codeblockwithcomments tag="imports" writeOutText="false" >
+      <codeblockwithcomments tag="imports" text="&amp;#010;import Function;" >
        <header>
         <codecomment tag="" writeOutText="false" />
        </header>
       </codeblockwithcomments>
-      <javaclassdeclarationblock parent_id="207" tag="ClassDeclBlock" canDelete="false" role_id="-1" >
+      <javaclassdeclarationblock parent_id="207" tag="ClassDeclBlock" canDelete="false" >
        <header>
         <javacodedocumentation tag="" text="Interface IntegerFunction&amp;#010;" />
        </header>
@@ -1188,7 +1239,7 @@
       </javaclassdeclarationblock>
      </textblocks>
      <header>
-      <codecomment tag="" text="/************************************************************************&amp;#010;  			IntegerFunction.java - Copyright rw7&amp;#010;&amp;#010;Here you can write a license for your code, some comments or any other&amp;#010;information you want to have in your generated code. To to this simply&amp;#010;configure the &quot;headings&quot; directory in uml to point to a directory&amp;#010;where you have your heading files.&amp;#010;&amp;#010;or you can just replace the contents of this file with your own.&amp;#010;If you want to do this, this file is located at&amp;#010;&amp;#010;/opt/kde3/share/apps/umbrello/headings/heading.java&amp;#010;&amp;#010;-->Code Generators searches for heading files based on the file extension&amp;#010;   i.e. it will look for a file name ending in &quot;.h&quot; to include in C++ header&amp;#010;   files, and for a file name ending in &quot;.java&quot; to include in all generated&amp;#010;   java code.&amp;#010;   If you name the file &quot;heading.&lt;extension>&quot;, Code Generator will always&amp;#010;   choose this file even if there are other files with the same extension in the&amp;#010;   directory. If you name the file something else, it must be the only one with that&amp;#010;   extension in the directory to guarantee that Code Generator will choose it.&amp;#010;&amp;#010;you can use variables in your heading files which are replaced at generation&amp;#010;time. possible variables are : author, date, time, filename and filepath.&amp;#010;just write %variable_name%&amp;#010;&amp;#010;This file was generated on Thu May 12 2005 at 16:32:28&amp;#010;The original location of this file is &amp;#010;**************************************************************************/&amp;#010;" />
+      <codecomment tag="" writeOutText="false" />
      </header>
      <classfields/>
     </classifiercodedocument>
@@ -1199,12 +1250,12 @@
         <codecomment tag="" writeOutText="false" />
        </header>
       </codeblockwithcomments>
-      <codeblockwithcomments tag="imports" writeOutText="false" >
+      <codeblockwithcomments tag="imports" text="&amp;#010;import Function;" >
        <header>
         <codecomment tag="" writeOutText="false" />
        </header>
       </codeblockwithcomments>
-      <javaclassdeclarationblock parent_id="213" tag="ClassDeclBlock" canDelete="false" role_id="-1" >
+      <javaclassdeclarationblock parent_id="213" tag="ClassDeclBlock" canDelete="false" >
        <header>
         <javacodedocumentation tag="" text="Interface StringFunction&amp;#010;" />
        </header>
@@ -1263,7 +1314,7 @@
       </javaclassdeclarationblock>
      </textblocks>
      <header>
-      <codecomment tag="" text="/************************************************************************&amp;#010;  			StringFunction.java - Copyright rw7&amp;#010;&amp;#010;Here you can write a license for your code, some comments or any other&amp;#010;information you want to have in your generated code. To to this simply&amp;#010;configure the &quot;headings&quot; directory in uml to point to a directory&amp;#010;where you have your heading files.&amp;#010;&amp;#010;or you can just replace the contents of this file with your own.&amp;#010;If you want to do this, this file is located at&amp;#010;&amp;#010;/opt/kde3/share/apps/umbrello/headings/heading.java&amp;#010;&amp;#010;-->Code Generators searches for heading files based on the file extension&amp;#010;   i.e. it will look for a file name ending in &quot;.h&quot; to include in C++ header&amp;#010;   files, and for a file name ending in &quot;.java&quot; to include in all generated&amp;#010;   java code.&amp;#010;   If you name the file &quot;heading.&lt;extension>&quot;, Code Generator will always&amp;#010;   choose this file even if there are other files with the same extension in the&amp;#010;   directory. If you name the file something else, it must be the only one with that&amp;#010;   extension in the directory to guarantee that Code Generator will choose it.&amp;#010;&amp;#010;you can use variables in your heading files which are replaced at generation&amp;#010;time. possible variables are : author, date, time, filename and filepath.&amp;#010;just write %variable_name%&amp;#010;&amp;#010;This file was generated on Thu May 12 2005 at 16:32:28&amp;#010;The original location of this file is &amp;#010;**************************************************************************/&amp;#010;" />
+      <codecomment tag="" writeOutText="false" />
      </header>
      <classfields/>
     </classifiercodedocument>
@@ -1274,12 +1325,12 @@
         <codecomment tag="" writeOutText="false" />
        </header>
       </codeblockwithcomments>
-      <codeblockwithcomments tag="imports" writeOutText="false" >
+      <codeblockwithcomments tag="imports" text="&amp;#010;import ObjectAttribute;" >
        <header>
         <codecomment tag="" writeOutText="false" />
        </header>
       </codeblockwithcomments>
-      <javaclassdeclarationblock parent_id="218" tag="ClassDeclBlock" canDelete="false" role_id="-1" >
+      <javaclassdeclarationblock parent_id="218" tag="ClassDeclBlock" canDelete="false" >
        <header>
         <javacodedocumentation tag="" text="Class BooleanAttribute&amp;#010;" />
        </header>
@@ -1338,7 +1389,7 @@
       </javaclassdeclarationblock>
      </textblocks>
      <header>
-      <codecomment tag="" text="/************************************************************************&amp;#010;  			BooleanAttribute.java - Copyright rw7&amp;#010;&amp;#010;Here you can write a license for your code, some comments or any other&amp;#010;information you want to have in your generated code. To to this simply&amp;#010;configure the &quot;headings&quot; directory in uml to point to a directory&amp;#010;where you have your heading files.&amp;#010;&amp;#010;or you can just replace the contents of this file with your own.&amp;#010;If you want to do this, this file is located at&amp;#010;&amp;#010;/opt/kde3/share/apps/umbrello/headings/heading.java&amp;#010;&amp;#010;-->Code Generators searches for heading files based on the file extension&amp;#010;   i.e. it will look for a file name ending in &quot;.h&quot; to include in C++ header&amp;#010;   files, and for a file name ending in &quot;.java&quot; to include in all generated&amp;#010;   java code.&amp;#010;   If you name the file &quot;heading.&lt;extension>&quot;, Code Generator will always&amp;#010;   choose this file even if there are other files with the same extension in the&amp;#010;   directory. If you name the file something else, it must be the only one with that&amp;#010;   extension in the directory to guarantee that Code Generator will choose it.&amp;#010;&amp;#010;you can use variables in your heading files which are replaced at generation&amp;#010;time. possible variables are : author, date, time, filename and filepath.&amp;#010;just write %variable_name%&amp;#010;&amp;#010;This file was generated on Thu May 12 2005 at 16:32:28&amp;#010;The original location of this file is &amp;#010;**************************************************************************/&amp;#010;" />
+      <codecomment tag="" writeOutText="false" />
      </header>
      <classfields/>
     </classifiercodedocument>
@@ -1349,12 +1400,12 @@
         <codecomment tag="" writeOutText="false" />
        </header>
       </codeblockwithcomments>
-      <codeblockwithcomments tag="imports" writeOutText="false" >
+      <codeblockwithcomments tag="imports" text="&amp;#010;import ObjectAttribute;" >
        <header>
         <codecomment tag="" writeOutText="false" />
        </header>
       </codeblockwithcomments>
-      <javaclassdeclarationblock parent_id="219" tag="ClassDeclBlock" canDelete="false" role_id="-1" >
+      <javaclassdeclarationblock parent_id="219" tag="ClassDeclBlock" canDelete="false" >
        <header>
         <javacodedocumentation tag="" text="Class DoubleAttribute&amp;#010;" />
        </header>
@@ -1413,7 +1464,7 @@
       </javaclassdeclarationblock>
      </textblocks>
      <header>
-      <codecomment tag="" text="/************************************************************************&amp;#010;  			DoubleAttribute.java - Copyright rw7&amp;#010;&amp;#010;Here you can write a license for your code, some comments or any other&amp;#010;information you want to have in your generated code. To to this simply&amp;#010;configure the &quot;headings&quot; directory in uml to point to a directory&amp;#010;where you have your heading files.&amp;#010;&amp;#010;or you can just replace the contents of this file with your own.&amp;#010;If you want to do this, this file is located at&amp;#010;&amp;#010;/opt/kde3/share/apps/umbrello/headings/heading.java&amp;#010;&amp;#010;-->Code Generators searches for heading files based on the file extension&amp;#010;   i.e. it will look for a file name ending in &quot;.h&quot; to include in C++ header&amp;#010;   files, and for a file name ending in &quot;.java&quot; to include in all generated&amp;#010;   java code.&amp;#010;   If you name the file &quot;heading.&lt;extension>&quot;, Code Generator will always&amp;#010;   choose this file even if there are other files with the same extension in the&amp;#010;   directory. If you name the file something else, it must be the only one with that&amp;#010;   extension in the directory to guarantee that Code Generator will choose it.&amp;#010;&amp;#010;you can use variables in your heading files which are replaced at generation&amp;#010;time. possible variables are : author, date, time, filename and filepath.&amp;#010;just write %variable_name%&amp;#010;&amp;#010;This file was generated on Thu May 12 2005 at 16:32:28&amp;#010;The original location of this file is &amp;#010;**************************************************************************/&amp;#010;" />
+      <codecomment tag="" writeOutText="false" />
      </header>
      <classfields/>
     </classifiercodedocument>
@@ -1429,7 +1480,7 @@
         <codecomment tag="" writeOutText="false" />
        </header>
       </codeblockwithcomments>
-      <javaclassdeclarationblock parent_id="223" tag="ClassDeclBlock" canDelete="false" role_id="-1" >
+      <javaclassdeclarationblock parent_id="223" tag="ClassDeclBlock" canDelete="false" >
        <header>
         <javacodedocumentation tag="" text="Class Type&amp;#010;" />
        </header>
@@ -1520,10 +1571,10 @@
       </javaclassdeclarationblock>
      </textblocks>
      <header>
-      <codecomment tag="" text="/************************************************************************&amp;#010;  			Type.java - Copyright rw7&amp;#010;&amp;#010;Here you can write a license for your code, some comments or any other&amp;#010;information you want to have in your generated code. To to this simply&amp;#010;configure the &quot;headings&quot; directory in uml to point to a directory&amp;#010;where you have your heading files.&amp;#010;&amp;#010;or you can just replace the contents of this file with your own.&amp;#010;If you want to do this, this file is located at&amp;#010;&amp;#010;/opt/kde3/share/apps/umbrello/headings/heading.java&amp;#010;&amp;#010;-->Code Generators searches for heading files based on the file extension&amp;#010;   i.e. it will look for a file name ending in &quot;.h&quot; to include in C++ header&amp;#010;   files, and for a file name ending in &quot;.java&quot; to include in all generated&amp;#010;   java code.&amp;#010;   If you name the file &quot;heading.&lt;extension>&quot;, Code Generator will always&amp;#010;   choose this file even if there are other files with the same extension in the&amp;#010;   directory. If you name the file something else, it must be the only one with that&amp;#010;   extension in the directory to guarantee that Code Generator will choose it.&amp;#010;&amp;#010;you can use variables in your heading files which are replaced at generation&amp;#010;time. possible variables are : author, date, time, filename and filepath.&amp;#010;just write %variable_name%&amp;#010;&amp;#010;This file was generated on Thu May 12 2005 at 16:32:28&amp;#010;The original location of this file is &amp;#010;**************************************************************************/&amp;#010;" />
+      <codecomment tag="" writeOutText="false" />
      </header>
      <classfields>
-      <codeclassfield parent_id="224" field_type="4" initialValue=" new Vector( )" role_id="0" writeOutMethods="true" listClassName="" >
+      <codeclassfield parent_id="224" field_type="4" initialValue=" new Vector( )" role_id="1" writeOutMethods="true" listClassName="" >
        <header>
         <codecomment tag="" />
        </header>
@@ -1567,12 +1618,12 @@
         <codecomment tag="" writeOutText="false" />
        </header>
       </codeblockwithcomments>
-      <codeblockwithcomments tag="imports" text="import java.util.*;" >
+      <codeblockwithcomments tag="imports" text="import java.util.*;&amp;#010;import ObjectAttribute;" >
        <header>
         <codecomment tag="" writeOutText="false" />
        </header>
       </codeblockwithcomments>
-      <javaclassdeclarationblock parent_id="226" tag="ClassDeclBlock" canDelete="false" role_id="-1" >
+      <javaclassdeclarationblock parent_id="226" tag="ClassDeclBlock" canDelete="false" >
        <header>
         <javacodedocumentation tag="" text="Class EnumerationAttribute&amp;#010;" />
        </header>
@@ -1663,10 +1714,10 @@
       </javaclassdeclarationblock>
      </textblocks>
      <header>
-      <codecomment tag="" text="/************************************************************************&amp;#010;  			EnumerationAttribute.java - Copyright rw7&amp;#010;&amp;#010;Here you can write a license for your code, some comments or any other&amp;#010;information you want to have in your generated code. To to this simply&amp;#010;configure the &quot;headings&quot; directory in uml to point to a directory&amp;#010;where you have your heading files.&amp;#010;&amp;#010;or you can just replace the contents of this file with your own.&amp;#010;If you want to do this, this file is located at&amp;#010;&amp;#010;/opt/kde3/share/apps/umbrello/headings/heading.java&amp;#010;&amp;#010;-->Code Generators searches for heading files based on the file extension&amp;#010;   i.e. it will look for a file name ending in &quot;.h&quot; to include in C++ header&amp;#010;   files, and for a file name ending in &quot;.java&quot; to include in all generated&amp;#010;   java code.&amp;#010;   If you name the file &quot;heading.&lt;extension>&quot;, Code Generator will always&amp;#010;   choose this file even if there are other files with the same extension in the&amp;#010;   directory. If you name the file something else, it must be the only one with that&amp;#010;   extension in the directory to guarantee that Code Generator will choose it.&amp;#010;&amp;#010;you can use variables in your heading files which are replaced at generation&amp;#010;time. possible variables are : author, date, time, filename and filepath.&amp;#010;just write %variable_name%&amp;#010;&amp;#010;This file was generated on Thu May 12 2005 at 16:32:28&amp;#010;The original location of this file is &amp;#010;**************************************************************************/&amp;#010;" />
+      <codecomment tag="" writeOutText="false" />
      </header>
      <classfields>
-      <codeclassfield parent_id="235" field_type="4" initialValue=" new Vector( )" role_id="0" writeOutMethods="true" listClassName="" >
+      <codeclassfield parent_id="235" field_type="4" initialValue=" new Vector( )" role_id="1" writeOutMethods="true" listClassName="" >
        <header>
         <codecomment tag="" />
        </header>
@@ -1710,12 +1761,12 @@
         <codecomment tag="" writeOutText="false" />
        </header>
       </codeblockwithcomments>
-      <codeblockwithcomments tag="imports" writeOutText="false" >
+      <codeblockwithcomments tag="imports" text="&amp;#010;import ObjectAttribute;" >
        <header>
         <codecomment tag="" writeOutText="false" />
        </header>
       </codeblockwithcomments>
-      <javaclassdeclarationblock parent_id="227" tag="ClassDeclBlock" canDelete="false" role_id="-1" >
+      <javaclassdeclarationblock parent_id="227" tag="ClassDeclBlock" canDelete="false" >
        <header>
         <javacodedocumentation tag="" text="Class ItemAttribute&amp;#010;" />
        </header>
@@ -1774,7 +1825,7 @@
       </javaclassdeclarationblock>
      </textblocks>
      <header>
-      <codecomment tag="" text="/************************************************************************&amp;#010;  			ItemAttribute.java - Copyright rw7&amp;#010;&amp;#010;Here you can write a license for your code, some comments or any other&amp;#010;information you want to have in your generated code. To to this simply&amp;#010;configure the &quot;headings&quot; directory in uml to point to a directory&amp;#010;where you have your heading files.&amp;#010;&amp;#010;or you can just replace the contents of this file with your own.&amp;#010;If you want to do this, this file is located at&amp;#010;&amp;#010;/opt/kde3/share/apps/umbrello/headings/heading.java&amp;#010;&amp;#010;-->Code Generators searches for heading files based on the file extension&amp;#010;   i.e. it will look for a file name ending in &quot;.h&quot; to include in C++ header&amp;#010;   files, and for a file name ending in &quot;.java&quot; to include in all generated&amp;#010;   java code.&amp;#010;   If you name the file &quot;heading.&lt;extension>&quot;, Code Generator will always&amp;#010;   choose this file even if there are other files with the same extension in the&amp;#010;   directory. If you name the file something else, it must be the only one with that&amp;#010;   extension in the directory to guarantee that Code Generator will choose it.&amp;#010;&amp;#010;you can use variables in your heading files which are replaced at generation&amp;#010;time. possible variables are : author, date, time, filename and filepath.&amp;#010;just write %variable_name%&amp;#010;&amp;#010;This file was generated on Thu May 12 2005 at 16:32:28&amp;#010;The original location of this file is &amp;#010;**************************************************************************/&amp;#010;" />
+      <codecomment tag="" writeOutText="false" />
      </header>
      <classfields/>
     </classifiercodedocument>
@@ -1790,7 +1841,7 @@
         <codecomment tag="" writeOutText="false" />
        </header>
       </codeblockwithcomments>
-      <javaclassdeclarationblock parent_id="234" tag="ClassDeclBlock" canDelete="false" role_id="-1" >
+      <javaclassdeclarationblock parent_id="234" tag="ClassDeclBlock" canDelete="false" >
        <header>
         <javacodedocumentation tag="" text="Class EnumerationValue&amp;#010;" />
        </header>
@@ -1800,12 +1851,12 @@
           <codecomment tag="" indentLevel="1" text="Fields" />
          </header>
          <textblocks>
-          <ccfdeclarationcodeblock parent_id="236" tag="tblock_0" canDelete="false" indentLevel="1" role_id="-1" text="private String code;" >
+          <ccfdeclarationcodeblock parent_id="236" tag="tblock_0" canDelete="false" indentLevel="1" text="private String code;" >
            <header>
             <codecomment tag="" indentLevel="1" />
            </header>
           </ccfdeclarationcodeblock>
-          <ccfdeclarationcodeblock parent_id="237" tag="tblock_1" canDelete="false" indentLevel="1" role_id="-1" text="private int number;" >
+          <ccfdeclarationcodeblock parent_id="237" tag="tblock_1" canDelete="false" indentLevel="1" text="private int number;" >
            <header>
             <codecomment tag="" indentLevel="1" />
            </header>
@@ -1844,22 +1895,22 @@
               <codecomment tag="" writeOutText="false" indentLevel="1" />
              </header>
              <textblocks>
-              <codeaccessormethod accessType="0" parent_id="236" tag="hblock_tag_0" canDelete="false" indentLevel="1" classfield_id="236" role_id="-1" text="return code;" >
+              <codeaccessormethod accessType="0" parent_id="236" tag="hblock_tag_0" canDelete="false" indentLevel="1" classfield_id="236" text="return code;" >
                <header>
                 <javacodedocumentation tag="" indentLevel="1" text="Get the value of code&amp;#010;&amp;#010;@return the value of code" />
                </header>
               </codeaccessormethod>
-              <codeaccessormethod accessType="1" parent_id="236" tag="hblock_tag_3" canDelete="false" indentLevel="1" classfield_id="236" role_id="-1" text="code = value;" >
+              <codeaccessormethod accessType="1" parent_id="236" tag="hblock_tag_3" canDelete="false" indentLevel="1" classfield_id="236" text="code = value;" >
                <header>
                 <javacodedocumentation tag="" indentLevel="1" text="Set the value of code&amp;#010;&amp;#010;" />
                </header>
               </codeaccessormethod>
-              <codeaccessormethod accessType="0" parent_id="237" tag="hblock_tag_4" canDelete="false" indentLevel="1" classfield_id="237" role_id="-1" text="return number;" >
+              <codeaccessormethod accessType="0" parent_id="237" tag="hblock_tag_4" canDelete="false" indentLevel="1" classfield_id="237" text="return number;" >
                <header>
                 <javacodedocumentation tag="" indentLevel="1" text="Get the value of number&amp;#010;&amp;#010;@return the value of number" />
                </header>
               </codeaccessormethod>
-              <codeaccessormethod accessType="1" parent_id="237" tag="hblock_tag_5" canDelete="false" indentLevel="1" classfield_id="237" role_id="-1" text="number = value;" >
+              <codeaccessormethod accessType="1" parent_id="237" tag="hblock_tag_5" canDelete="false" indentLevel="1" classfield_id="237" text="number = value;" >
                <header>
                 <javacodedocumentation tag="" indentLevel="1" text="Set the value of number&amp;#010;&amp;#010;" />
                </header>
@@ -1912,24 +1963,24 @@
       </javaclassdeclarationblock>
      </textblocks>
      <header>
-      <codecomment tag="" text="/************************************************************************&amp;#010;  			EnumerationValue.java - Copyright rw7&amp;#010;&amp;#010;Here you can write a license for your code, some comments or any other&amp;#010;information you want to have in your generated code. To to this simply&amp;#010;configure the &quot;headings&quot; directory in uml to point to a directory&amp;#010;where you have your heading files.&amp;#010;&amp;#010;or you can just replace the contents of this file with your own.&amp;#010;If you want to do this, this file is located at&amp;#010;&amp;#010;/opt/kde3/share/apps/umbrello/headings/heading.java&amp;#010;&amp;#010;-->Code Generators searches for heading files based on the file extension&amp;#010;   i.e. it will look for a file name ending in &quot;.h&quot; to include in C++ header&amp;#010;   files, and for a file name ending in &quot;.java&quot; to include in all generated&amp;#010;   java code.&amp;#010;   If you name the file &quot;heading.&lt;extension>&quot;, Code Generator will always&amp;#010;   choose this file even if there are other files with the same extension in the&amp;#010;   directory. If you name the file something else, it must be the only one with that&amp;#010;   extension in the directory to guarantee that Code Generator will choose it.&amp;#010;&amp;#010;you can use variables in your heading files which are replaced at generation&amp;#010;time. possible variables are : author, date, time, filename and filepath.&amp;#010;just write %variable_name%&amp;#010;&amp;#010;This file was generated on Thu May 12 2005 at 16:32:28&amp;#010;The original location of this file is &amp;#010;**************************************************************************/&amp;#010;" />
+      <codecomment tag="" writeOutText="false" />
      </header>
      <classfields>
       <codeclassfield parent_id="236" field_type="0" initialValue="" role_id="-1" writeOutMethods="true" listClassName="" >
        <header>
         <codecomment tag="" />
        </header>
-       <ccfdeclarationcodeblock parent_id="236" tag="tblock_0" canDelete="false" indentLevel="1" role_id="-1" text="private String code;" >
+       <ccfdeclarationcodeblock parent_id="236" tag="tblock_0" canDelete="false" indentLevel="1" text="private String code;" >
         <header>
          <codecomment tag="" indentLevel="1" />
         </header>
        </ccfdeclarationcodeblock>
-       <codeaccessormethod accessType="0" parent_id="236" tag="hblock_tag_0" canDelete="false" indentLevel="1" classfield_id="236" role_id="-1" text="return code;" >
+       <codeaccessormethod accessType="0" parent_id="236" tag="hblock_tag_0" canDelete="false" indentLevel="1" classfield_id="236" text="return code;" >
         <header>
          <javacodedocumentation tag="" indentLevel="1" text="Get the value of code&amp;#010;&amp;#010;@return the value of code" />
         </header>
        </codeaccessormethod>
-       <codeaccessormethod accessType="1" parent_id="236" tag="hblock_tag_3" canDelete="false" indentLevel="1" classfield_id="236" role_id="-1" text="code = value;" >
+       <codeaccessormethod accessType="1" parent_id="236" tag="hblock_tag_3" canDelete="false" indentLevel="1" classfield_id="236" text="code = value;" >
         <header>
          <javacodedocumentation tag="" indentLevel="1" text="Set the value of code&amp;#010;&amp;#010;" />
         </header>
@@ -1939,23 +1990,23 @@
        <header>
         <codecomment tag="" />
        </header>
-       <ccfdeclarationcodeblock parent_id="237" tag="tblock_1" canDelete="false" indentLevel="1" role_id="-1" text="private int number;" >
+       <ccfdeclarationcodeblock parent_id="237" tag="tblock_1" canDelete="false" indentLevel="1" text="private int number;" >
         <header>
          <codecomment tag="" indentLevel="1" />
         </header>
        </ccfdeclarationcodeblock>
-       <codeaccessormethod accessType="0" parent_id="237" tag="hblock_tag_4" canDelete="false" indentLevel="1" classfield_id="237" role_id="-1" text="return number;" >
+       <codeaccessormethod accessType="0" parent_id="237" tag="hblock_tag_4" canDelete="false" indentLevel="1" classfield_id="237" text="return number;" >
         <header>
          <javacodedocumentation tag="" indentLevel="1" text="Get the value of number&amp;#010;&amp;#010;@return the value of number" />
         </header>
        </codeaccessormethod>
-       <codeaccessormethod accessType="1" parent_id="237" tag="hblock_tag_5" canDelete="false" indentLevel="1" classfield_id="237" role_id="-1" text="number = value;" >
+       <codeaccessormethod accessType="1" parent_id="237" tag="hblock_tag_5" canDelete="false" indentLevel="1" classfield_id="237" text="number = value;" >
         <header>
          <javacodedocumentation tag="" indentLevel="1" text="Set the value of number&amp;#010;&amp;#010;" />
         </header>
        </codeaccessormethod>
       </codeclassfield>
-      <codeclassfield parent_id="235" field_type="4" initialValue="" role_id="1" writeOutMethods="true" listClassName="" >
+      <codeclassfield parent_id="235" field_type="4" initialValue="" role_id="0" writeOutMethods="true" listClassName="" >
        <header>
         <codecomment tag="" />
        </header>
@@ -1999,12 +2050,12 @@
         <codecomment tag="" writeOutText="false" />
        </header>
       </codeblockwithcomments>
-      <codeblockwithcomments tag="imports" text="&amp;#010;import Function;" >
+      <codeblockwithcomments tag="imports" writeOutText="false" >
        <header>
         <codecomment tag="" writeOutText="false" />
        </header>
       </codeblockwithcomments>
-      <javaclassdeclarationblock parent_id="239" tag="ClassDeclBlock" canDelete="false" role_id="-1" >
+      <javaclassdeclarationblock parent_id="239" tag="ClassDeclBlock" canDelete="false" >
        <header>
         <javacodedocumentation tag="" text="Class ComputedFunction&amp;#010;" />
        </header>
@@ -2063,7 +2114,7 @@
       </javaclassdeclarationblock>
      </textblocks>
      <header>
-      <codecomment tag="" text="/************************************************************************&amp;#010;  			ComputedFunction.java - Copyright rw7&amp;#010;&amp;#010;Here you can write a license for your code, some comments or any other&amp;#010;information you want to have in your generated code. To to this simply&amp;#010;configure the &quot;headings&quot; directory in uml to point to a directory&amp;#010;where you have your heading files.&amp;#010;&amp;#010;or you can just replace the contents of this file with your own.&amp;#010;If you want to do this, this file is located at&amp;#010;&amp;#010;/opt/kde3/share/apps/umbrello/headings/heading.java&amp;#010;&amp;#010;-->Code Generators searches for heading files based on the file extension&amp;#010;   i.e. it will look for a file name ending in &quot;.h&quot; to include in C++ header&amp;#010;   files, and for a file name ending in &quot;.java&quot; to include in all generated&amp;#010;   java code.&amp;#010;   If you name the file &quot;heading.&lt;extension>&quot;, Code Generator will always&amp;#010;   choose this file even if there are other files with the same extension in the&amp;#010;   directory. If you name the file something else, it must be the only one with that&amp;#010;   extension in the directory to guarantee that Code Generator will choose it.&amp;#010;&amp;#010;you can use variables in your heading files which are replaced at generation&amp;#010;time. possible variables are : author, date, time, filename and filepath.&amp;#010;just write %variable_name%&amp;#010;&amp;#010;This file was generated on Thu May 12 2005 at 16:32:28&amp;#010;The original location of this file is &amp;#010;**************************************************************************/&amp;#010;" />
+      <codecomment tag="" writeOutText="false" />
      </header>
      <classfields/>
     </classifiercodedocument>
@@ -2074,12 +2125,12 @@
         <codecomment tag="" writeOutText="false" />
        </header>
       </codeblockwithcomments>
-      <codeblockwithcomments tag="imports" text="&amp;#010;import IntegerFunction;&amp;#010;import ComputedFunction;" >
+      <codeblockwithcomments tag="imports" writeOutText="false" >
        <header>
         <codecomment tag="" writeOutText="false" />
        </header>
       </codeblockwithcomments>
-      <javaclassdeclarationblock parent_id="241" tag="ClassDeclBlock" canDelete="false" role_id="-1" >
+      <javaclassdeclarationblock parent_id="241" tag="ClassDeclBlock" canDelete="false" >
        <header>
         <javacodedocumentation tag="" text="Class SumFunction&amp;#010;" />
        </header>
@@ -2138,7 +2189,7 @@
       </javaclassdeclarationblock>
      </textblocks>
      <header>
-      <codecomment tag="" text="/************************************************************************&amp;#010;  			SumFunction.java - Copyright rw7&amp;#010;&amp;#010;Here you can write a license for your code, some comments or any other&amp;#010;information you want to have in your generated code. To to this simply&amp;#010;configure the &quot;headings&quot; directory in uml to point to a directory&amp;#010;where you have your heading files.&amp;#010;&amp;#010;or you can just replace the contents of this file with your own.&amp;#010;If you want to do this, this file is located at&amp;#010;&amp;#010;/opt/kde3/share/apps/umbrello/headings/heading.java&amp;#010;&amp;#010;-->Code Generators searches for heading files based on the file extension&amp;#010;   i.e. it will look for a file name ending in &quot;.h&quot; to include in C++ header&amp;#010;   files, and for a file name ending in &quot;.java&quot; to include in all generated&amp;#010;   java code.&amp;#010;   If you name the file &quot;heading.&lt;extension>&quot;, Code Generator will always&amp;#010;   choose this file even if there are other files with the same extension in the&amp;#010;   directory. If you name the file something else, it must be the only one with that&amp;#010;   extension in the directory to guarantee that Code Generator will choose it.&amp;#010;&amp;#010;you can use variables in your heading files which are replaced at generation&amp;#010;time. possible variables are : author, date, time, filename and filepath.&amp;#010;just write %variable_name%&amp;#010;&amp;#010;This file was generated on Thu May 12 2005 at 16:32:28&amp;#010;The original location of this file is &amp;#010;**************************************************************************/&amp;#010;" />
+      <codecomment tag="" writeOutText="false" />
      </header>
      <classfields/>
     </classifiercodedocument>
@@ -2149,12 +2200,12 @@
         <codecomment tag="" writeOutText="false" />
        </header>
       </codeblockwithcomments>
-      <codeblockwithcomments tag="imports" text="&amp;#010;import StringFunction;&amp;#010;import ComputedFunction;" >
+      <codeblockwithcomments tag="imports" writeOutText="false" >
        <header>
         <codecomment tag="" writeOutText="false" />
        </header>
       </codeblockwithcomments>
-      <javaclassdeclarationblock parent_id="242" tag="ClassDeclBlock" canDelete="false" role_id="-1" >
+      <javaclassdeclarationblock parent_id="242" tag="ClassDeclBlock" canDelete="false" >
        <header>
         <javacodedocumentation tag="" text="Class UppercaseFunction&amp;#010;" />
        </header>
@@ -2213,7 +2264,7 @@
       </javaclassdeclarationblock>
      </textblocks>
      <header>
-      <codecomment tag="" text="/************************************************************************&amp;#010;  			UppercaseFunction.java - Copyright rw7&amp;#010;&amp;#010;Here you can write a license for your code, some comments or any other&amp;#010;information you want to have in your generated code. To to this simply&amp;#010;configure the &quot;headings&quot; directory in uml to point to a directory&amp;#010;where you have your heading files.&amp;#010;&amp;#010;or you can just replace the contents of this file with your own.&amp;#010;If you want to do this, this file is located at&amp;#010;&amp;#010;/opt/kde3/share/apps/umbrello/headings/heading.java&amp;#010;&amp;#010;-->Code Generators searches for heading files based on the file extension&amp;#010;   i.e. it will look for a file name ending in &quot;.h&quot; to include in C++ header&amp;#010;   files, and for a file name ending in &quot;.java&quot; to include in all generated&amp;#010;   java code.&amp;#010;   If you name the file &quot;heading.&lt;extension>&quot;, Code Generator will always&amp;#010;   choose this file even if there are other files with the same extension in the&amp;#010;   directory. If you name the file something else, it must be the only one with that&amp;#010;   extension in the directory to guarantee that Code Generator will choose it.&amp;#010;&amp;#010;you can use variables in your heading files which are replaced at generation&amp;#010;time. possible variables are : author, date, time, filename and filepath.&amp;#010;just write %variable_name%&amp;#010;&amp;#010;This file was generated on Thu May 12 2005 at 16:32:28&amp;#010;The original location of this file is &amp;#010;**************************************************************************/&amp;#010;" />
+      <codecomment tag="" writeOutText="false" />
      </header>
      <classfields/>
     </classifiercodedocument>
@@ -2229,7 +2280,7 @@
         <codecomment tag="" writeOutText="false" />
        </header>
       </codeblockwithcomments>
-      <javaclassdeclarationblock parent_id="263" tag="ClassDeclBlock" canDelete="false" role_id="-1" >
+      <javaclassdeclarationblock parent_id="263" tag="ClassDeclBlock" canDelete="false" >
        <header>
         <javacodedocumentation tag="" writeOutText="false" text="Interface Feature&amp;#010;" />
        </header>
@@ -2288,7 +2339,7 @@
       </javaclassdeclarationblock>
      </textblocks>
      <header>
-      <codecomment tag="" text="/************************************************************************&amp;#010;  			Feature.java - Copyright rw7&amp;#010;&amp;#010;Here you can write a license for your code, some comments or any other&amp;#010;information you want to have in your generated code. To to this simply&amp;#010;configure the &quot;headings&quot; directory in uml to point to a directory&amp;#010;where you have your heading files.&amp;#010;&amp;#010;or you can just replace the contents of this file with your own.&amp;#010;If you want to do this, this file is located at&amp;#010;&amp;#010;/opt/kde3/share/apps/umbrello/headings/heading.java&amp;#010;&amp;#010;-->Code Generators searches for heading files based on the file extension&amp;#010;   i.e. it will look for a file name ending in &quot;.h&quot; to include in C++ header&amp;#010;   files, and for a file name ending in &quot;.java&quot; to include in all generated&amp;#010;   java code.&amp;#010;   If you name the file &quot;heading.&lt;extension>&quot;, Code Generator will always&amp;#010;   choose this file even if there are other files with the same extension in the&amp;#010;   directory. If you name the file something else, it must be the only one with that&amp;#010;   extension in the directory to guarantee that Code Generator will choose it.&amp;#010;&amp;#010;you can use variables in your heading files which are replaced at generation&amp;#010;time. possible variables are : author, date, time, filename and filepath.&amp;#010;just write %variable_name%&amp;#010;&amp;#010;This file was generated on Thu May 12 2005 at 16:32:28&amp;#010;The original location of this file is &amp;#010;**************************************************************************/&amp;#010;" />
+      <codecomment tag="" writeOutText="false" />
      </header>
      <classfields/>
     </classifiercodedocument>
@@ -2330,12 +2381,12 @@
         <cppcodedocumentation tag="" text="Methods" />
        </header>
        <textblocks>
-        <codeaccessormethod accessType="0" parent_id="224" tag="hblock_tag_0" canDelete="false" writeOutText="false" classfield_id="224" role_id="1" >
+        <codeaccessormethod accessType="0" parent_id="225" tag="hblock_tag_0" canDelete="false" classfield_id="225" >
          <header>
           <cppcodedocumentation tag="" />
          </header>
         </codeaccessormethod>
-        <codeaccessormethod accessType="1" parent_id="224" tag="hblock_tag_1" canDelete="false" writeOutText="false" classfield_id="224" role_id="1" >
+        <codeaccessormethod accessType="1" parent_id="225" tag="hblock_tag_1" canDelete="false" classfield_id="225" >
          <header>
           <cppcodedocumentation tag="" />
          </header>
@@ -2355,16 +2406,6 @@
           <cppcodedocumentation tag="" />
          </header>
         </codeaccessormethod>
-        <codeaccessormethod accessType="0" parent_id="225" tag="hblock_tag_5" canDelete="false" classfield_id="225" role_id="-1" >
-         <header>
-          <cppcodedocumentation tag="" />
-         </header>
-        </codeaccessormethod>
-        <codeaccessormethod accessType="1" parent_id="225" tag="hblock_tag_6" canDelete="false" classfield_id="225" role_id="-1" >
-         <header>
-          <cppcodedocumentation tag="" />
-         </header>
-        </codeaccessormethod>
        </textblocks>
       </hierarchicalcodeblock>
      </textblocks>
@@ -2376,23 +2417,23 @@
        <header>
         <cppcodedocumentation tag="" />
        </header>
-       <ccfdeclarationcodeblock parent_id="225" tag="" canDelete="false" indentLevel="1" role_id="-1" text="FIX ME;" >
+       <ccfdeclarationcodeblock parent_id="225" tag="" canDelete="false" indentLevel="1" text="FIX ME;" >
         <header>
          <cppcodedocumentation tag="" indentLevel="1" />
         </header>
        </ccfdeclarationcodeblock>
-       <codeaccessormethod accessType="0" parent_id="225" tag="hblock_tag_5" canDelete="false" classfield_id="225" role_id="-1" >
+       <codeaccessormethod accessType="0" parent_id="225" tag="hblock_tag_0" canDelete="false" classfield_id="225" >
         <header>
          <cppcodedocumentation tag="" />
         </header>
        </codeaccessormethod>
-       <codeaccessormethod accessType="1" parent_id="225" tag="hblock_tag_6" canDelete="false" classfield_id="225" role_id="-1" >
+       <codeaccessormethod accessType="1" parent_id="225" tag="hblock_tag_1" canDelete="false" classfield_id="225" >
         <header>
          <cppcodedocumentation tag="" />
         </header>
        </codeaccessormethod>
       </codeclassfield>
-      <codeclassfield parent_id="224" field_type="4" initialValue="" role_id="1" writeOutMethods="true" listClassName="" >
+      <codeclassfield parent_id="224" field_type="4" initialValue="" role_id="0" writeOutMethods="true" listClassName="" >
        <header>
         <cppcodedocumentation tag="" />
        </header>
@@ -2472,22 +2513,22 @@
         <cppcodedocumentation tag="" text="Methods" />
        </header>
        <textblocks>
-        <codeaccessormethod accessType="0" parent_id="232" tag="hblock_tag_0" canDelete="false" classfield_id="232" role_id="-1" >
+        <codeaccessormethod accessType="0" parent_id="232" tag="hblock_tag_0" canDelete="false" classfield_id="232" >
          <header>
           <cppcodedocumentation tag="" />
          </header>
         </codeaccessormethod>
-        <codeaccessormethod accessType="1" parent_id="232" tag="hblock_tag_1" canDelete="false" classfield_id="232" role_id="-1" >
+        <codeaccessormethod accessType="1" parent_id="232" tag="hblock_tag_1" canDelete="false" classfield_id="232" >
          <header>
           <cppcodedocumentation tag="" />
          </header>
         </codeaccessormethod>
-        <codeaccessormethod accessType="0" parent_id="233" tag="hblock_tag_2" canDelete="false" classfield_id="233" role_id="-1" >
+        <codeaccessormethod accessType="0" parent_id="233" tag="hblock_tag_2" canDelete="false" classfield_id="233" >
          <header>
           <cppcodedocumentation tag="" />
          </header>
         </codeaccessormethod>
-        <codeaccessormethod accessType="1" parent_id="233" tag="hblock_tag_3" canDelete="false" classfield_id="233" role_id="-1" >
+        <codeaccessormethod accessType="1" parent_id="233" tag="hblock_tag_3" canDelete="false" classfield_id="233" >
          <header>
           <cppcodedocumentation tag="" />
          </header>
@@ -2503,17 +2544,17 @@
        <header>
         <cppcodedocumentation tag="" />
        </header>
-       <ccfdeclarationcodeblock parent_id="232" tag="" canDelete="false" indentLevel="1" role_id="-1" text="FIX ME;" >
+       <ccfdeclarationcodeblock parent_id="232" tag="" canDelete="false" indentLevel="1" text="FIX ME;" >
         <header>
          <cppcodedocumentation tag="" indentLevel="1" />
         </header>
        </ccfdeclarationcodeblock>
-       <codeaccessormethod accessType="0" parent_id="232" tag="hblock_tag_0" canDelete="false" classfield_id="232" role_id="-1" >
+       <codeaccessormethod accessType="0" parent_id="232" tag="hblock_tag_0" canDelete="false" classfield_id="232" >
         <header>
          <cppcodedocumentation tag="" />
         </header>
        </codeaccessormethod>
-       <codeaccessormethod accessType="1" parent_id="232" tag="hblock_tag_1" canDelete="false" classfield_id="232" role_id="-1" >
+       <codeaccessormethod accessType="1" parent_id="232" tag="hblock_tag_1" canDelete="false" classfield_id="232" >
         <header>
          <cppcodedocumentation tag="" />
         </header>
@@ -2523,17 +2564,17 @@
        <header>
         <cppcodedocumentation tag="" />
        </header>
-       <ccfdeclarationcodeblock parent_id="233" tag="" canDelete="false" indentLevel="1" role_id="-1" text="FIX ME;" >
+       <ccfdeclarationcodeblock parent_id="233" tag="" canDelete="false" indentLevel="1" text="FIX ME;" >
         <header>
          <cppcodedocumentation tag="" indentLevel="1" />
         </header>
        </ccfdeclarationcodeblock>
-       <codeaccessormethod accessType="0" parent_id="233" tag="hblock_tag_2" canDelete="false" classfield_id="233" role_id="-1" >
+       <codeaccessormethod accessType="0" parent_id="233" tag="hblock_tag_2" canDelete="false" classfield_id="233" >
         <header>
          <cppcodedocumentation tag="" />
         </header>
        </codeaccessormethod>
-       <codeaccessormethod accessType="1" parent_id="233" tag="hblock_tag_3" canDelete="false" classfield_id="233" role_id="-1" >
+       <codeaccessormethod accessType="1" parent_id="233" tag="hblock_tag_3" canDelete="false" classfield_id="233" >
         <header>
          <cppcodedocumentation tag="" />
         </header>
@@ -2609,22 +2650,22 @@
         <cppcodedocumentation tag="" text="Methods" />
        </header>
        <textblocks>
-        <codeaccessormethod accessType="0" parent_id="230" tag="hblock_tag_0" canDelete="false" classfield_id="230" role_id="-1" >
+        <codeaccessormethod accessType="0" parent_id="230" tag="hblock_tag_0" canDelete="false" classfield_id="230" >
          <header>
           <cppcodedocumentation tag="" />
          </header>
         </codeaccessormethod>
-        <codeaccessormethod accessType="1" parent_id="230" tag="hblock_tag_1" canDelete="false" classfield_id="230" role_id="-1" >
+        <codeaccessormethod accessType="1" parent_id="230" tag="hblock_tag_1" canDelete="false" classfield_id="230" >
          <header>
           <cppcodedocumentation tag="" />
          </header>
         </codeaccessormethod>
-        <codeaccessormethod accessType="0" parent_id="231" tag="hblock_tag_2" canDelete="false" classfield_id="231" role_id="-1" >
+        <codeaccessormethod accessType="0" parent_id="231" tag="hblock_tag_2" canDelete="false" classfield_id="231" >
          <header>
           <cppcodedocumentation tag="" />
          </header>
         </codeaccessormethod>
-        <codeaccessormethod accessType="1" parent_id="231" tag="hblock_tag_3" canDelete="false" classfield_id="231" role_id="-1" >
+        <codeaccessormethod accessType="1" parent_id="231" tag="hblock_tag_3" canDelete="false" classfield_id="231" >
          <header>
           <cppcodedocumentation tag="" />
          </header>
@@ -2640,17 +2681,17 @@
        <header>
         <cppcodedocumentation tag="" />
        </header>
-       <ccfdeclarationcodeblock parent_id="230" tag="" canDelete="false" indentLevel="1" role_id="-1" text="FIX ME;" >
+       <ccfdeclarationcodeblock parent_id="230" tag="" canDelete="false" indentLevel="1" text="FIX ME;" >
         <header>
          <cppcodedocumentation tag="" indentLevel="1" />
         </header>
        </ccfdeclarationcodeblock>
-       <codeaccessormethod accessType="0" parent_id="230" tag="hblock_tag_0" canDelete="false" classfield_id="230" role_id="-1" >
+       <codeaccessormethod accessType="0" parent_id="230" tag="hblock_tag_0" canDelete="false" classfield_id="230" >
         <header>
          <cppcodedocumentation tag="" />
         </header>
        </codeaccessormethod>
-       <codeaccessormethod accessType="1" parent_id="230" tag="hblock_tag_1" canDelete="false" classfield_id="230" role_id="-1" >
+       <codeaccessormethod accessType="1" parent_id="230" tag="hblock_tag_1" canDelete="false" classfield_id="230" >
         <header>
          <cppcodedocumentation tag="" />
         </header>
@@ -2660,17 +2701,17 @@
        <header>
         <cppcodedocumentation tag="" />
        </header>
-       <ccfdeclarationcodeblock parent_id="231" tag="" canDelete="false" indentLevel="1" role_id="-1" text="FIX ME;" >
+       <ccfdeclarationcodeblock parent_id="231" tag="" canDelete="false" indentLevel="1" text="FIX ME;" >
         <header>
          <cppcodedocumentation tag="" indentLevel="1" />
         </header>
        </ccfdeclarationcodeblock>
-       <codeaccessormethod accessType="0" parent_id="231" tag="hblock_tag_2" canDelete="false" classfield_id="231" role_id="-1" >
+       <codeaccessormethod accessType="0" parent_id="231" tag="hblock_tag_2" canDelete="false" classfield_id="231" >
         <header>
          <cppcodedocumentation tag="" />
         </header>
        </codeaccessormethod>
-       <codeaccessormethod accessType="1" parent_id="231" tag="hblock_tag_3" canDelete="false" classfield_id="231" role_id="-1" >
+       <codeaccessormethod accessType="1" parent_id="231" tag="hblock_tag_3" canDelete="false" classfield_id="231" >
         <header>
          <cppcodedocumentation tag="" />
         </header>
@@ -2853,7 +2894,7 @@
       <codecomment tag="" text="/************************************************************************&amp;#010;  			type.cpp - Copyright rw7&amp;#010;&amp;#010;Here you can write a license for your code, some comments or any other&amp;#010;information you want to have in your generated code. To to this simply&amp;#010;configure the &quot;headings&quot; directory in uml to point to a directory&amp;#010;where you have your heading files.&amp;#010;&amp;#010;or you can just replace the contents of this file with your own.&amp;#010;If you want to do this, this file is located at&amp;#010;&amp;#010;/opt/kde3/share/apps/umbrello/headings/heading.cpp&amp;#010;&amp;#010;-->Code Generators searches for heading files based on the file extension&amp;#010;   i.e. it will look for a file name ending in &quot;.h&quot; to include in C++ header&amp;#010;   files, and for a file name ending in &quot;.java&quot; to include in all generated&amp;#010;   java code.&amp;#010;   If you name the file &quot;heading.&lt;extension>&quot;, Code Generator will always&amp;#010;   choose this file even if there are other files with the same extension in the&amp;#010;   directory. If you name the file something else, it must be the only one with that&amp;#010;   extension in the directory to guarantee that Code Generator will choose it.&amp;#010;&amp;#010;you can use variables in your heading files which are replaced at generation&amp;#010;time. possible variables are : author, date, time, filename and filepath.&amp;#010;just write %variable_name%&amp;#010;&amp;#010;This file was generated on Fri Jun 4 2004 at 11:59:07&amp;#010;The original location of this file is &amp;#010;**************************************************************************/&amp;#010;" />
      </header>
      <classfields>
-      <codeclassfield parent_id="224" field_type="4" initialValue=" new vector( )" role_id="0" writeOutMethods="true" listClassName="" >
+      <codeclassfield parent_id="224" field_type="4" initialValue=" new vector( )" role_id="1" writeOutMethods="true" listClassName="" >
        <header>
         <cppcodedocumentation tag="" />
        </header>
@@ -2940,7 +2981,7 @@
       <codecomment tag="" text="/************************************************************************&amp;#010;  			enumerationattribute.cpp - Copyright rw7&amp;#010;&amp;#010;Here you can write a license for your code, some comments or any other&amp;#010;information you want to have in your generated code. To to this simply&amp;#010;configure the &quot;headings&quot; directory in uml to point to a directory&amp;#010;where you have your heading files.&amp;#010;&amp;#010;or you can just replace the contents of this file with your own.&amp;#010;If you want to do this, this file is located at&amp;#010;&amp;#010;/opt/kde3/share/apps/umbrello/headings/heading.cpp&amp;#010;&amp;#010;-->Code Generators searches for heading files based on the file extension&amp;#010;   i.e. it will look for a file name ending in &quot;.h&quot; to include in C++ header&amp;#010;   files, and for a file name ending in &quot;.java&quot; to include in all generated&amp;#010;   java code.&amp;#010;   If you name the file &quot;heading.&lt;extension>&quot;, Code Generator will always&amp;#010;   choose this file even if there are other files with the same extension in the&amp;#010;   directory. If you name the file something else, it must be the only one with that&amp;#010;   extension in the directory to guarantee that Code Generator will choose it.&amp;#010;&amp;#010;you can use variables in your heading files which are replaced at generation&amp;#010;time. possible variables are : author, date, time, filename and filepath.&amp;#010;just write %variable_name%&amp;#010;&amp;#010;This file was generated on Fri Jun 4 2004 at 11:59:07&amp;#010;The original location of this file is &amp;#010;**************************************************************************/&amp;#010;" />
      </header>
      <classfields>
-      <codeclassfield parent_id="235" field_type="4" initialValue=" new vector( )" role_id="0" writeOutMethods="true" listClassName="" >
+      <codeclassfield parent_id="235" field_type="4" initialValue=" new vector( )" role_id="1" writeOutMethods="true" listClassName="" >
        <header>
         <cppcodedocumentation tag="" />
        </header>
@@ -3020,47 +3061,27 @@
         <cppcodedocumentation tag="" text="Methods" />
        </header>
        <textblocks>
-        <codeaccessormethod accessType="0" parent_id="235" tag="hblock_tag_0" canDelete="false" writeOutText="false" classfield_id="235" role_id="1" >
+        <codeaccessormethod accessType="0" parent_id="236" tag="hblock_tag_0" canDelete="false" classfield_id="236" >
          <header>
           <cppcodedocumentation tag="" />
          </header>
         </codeaccessormethod>
-        <codeaccessormethod accessType="1" parent_id="235" tag="hblock_tag_1" canDelete="false" writeOutText="false" classfield_id="235" role_id="1" >
+        <codeaccessormethod accessType="1" parent_id="236" tag="hblock_tag_1" canDelete="false" classfield_id="236" >
          <header>
           <cppcodedocumentation tag="" />
          </header>
         </codeaccessormethod>
-        <codeaccessormethod accessType="2" parent_id="235" tag="hblock_tag_2" canDelete="false" writeOutText="false" classfield_id="235" role_id="1" >
+        <codeaccessormethod accessType="0" parent_id="237" tag="hblock_tag_2" canDelete="false" classfield_id="237" >
          <header>
           <cppcodedocumentation tag="" />
          </header>
         </codeaccessormethod>
-        <codeaccessormethod accessType="3" parent_id="235" tag="hblock_tag_3" canDelete="false" writeOutText="false" classfield_id="235" role_id="1" >
+        <codeaccessormethod accessType="1" parent_id="237" tag="hblock_tag_3" canDelete="false" classfield_id="237" >
          <header>
           <cppcodedocumentation tag="" />
          </header>
         </codeaccessormethod>
         <codeaccessormethod accessType="4" parent_id="235" tag="hblock_tag_4" canDelete="false" writeOutText="false" classfield_id="235" role_id="1" >
-         <header>
-          <cppcodedocumentation tag="" />
-         </header>
-        </codeaccessormethod>
-        <codeaccessormethod accessType="0" parent_id="236" tag="hblock_tag_5" canDelete="false" classfield_id="236" role_id="-1" >
-         <header>
-          <cppcodedocumentation tag="" />
-         </header>
-        </codeaccessormethod>
-        <codeaccessormethod accessType="1" parent_id="236" tag="hblock_tag_6" canDelete="false" classfield_id="236" role_id="-1" >
-         <header>
-          <cppcodedocumentation tag="" />
-         </header>
-        </codeaccessormethod>
-        <codeaccessormethod accessType="0" parent_id="237" tag="hblock_tag_7" canDelete="false" classfield_id="237" role_id="-1" >
-         <header>
-          <cppcodedocumentation tag="" />
-         </header>
-        </codeaccessormethod>
-        <codeaccessormethod accessType="1" parent_id="237" tag="hblock_tag_8" canDelete="false" classfield_id="237" role_id="-1" >
          <header>
           <cppcodedocumentation tag="" />
          </header>
@@ -3076,17 +3097,17 @@
        <header>
         <cppcodedocumentation tag="" />
        </header>
-       <ccfdeclarationcodeblock parent_id="236" tag="" canDelete="false" indentLevel="1" role_id="-1" text="FIX ME;" >
+       <ccfdeclarationcodeblock parent_id="236" tag="" canDelete="false" indentLevel="1" text="FIX ME;" >
         <header>
          <cppcodedocumentation tag="" indentLevel="1" />
         </header>
        </ccfdeclarationcodeblock>
-       <codeaccessormethod accessType="0" parent_id="236" tag="hblock_tag_5" canDelete="false" classfield_id="236" role_id="-1" >
+       <codeaccessormethod accessType="0" parent_id="236" tag="hblock_tag_0" canDelete="false" classfield_id="236" >
         <header>
          <cppcodedocumentation tag="" />
         </header>
        </codeaccessormethod>
-       <codeaccessormethod accessType="1" parent_id="236" tag="hblock_tag_6" canDelete="false" classfield_id="236" role_id="-1" >
+       <codeaccessormethod accessType="1" parent_id="236" tag="hblock_tag_1" canDelete="false" classfield_id="236" >
         <header>
          <cppcodedocumentation tag="" />
         </header>
@@ -3096,23 +3117,23 @@
        <header>
         <cppcodedocumentation tag="" />
        </header>
-       <ccfdeclarationcodeblock parent_id="237" tag="" canDelete="false" indentLevel="1" role_id="-1" text="FIX ME;" >
+       <ccfdeclarationcodeblock parent_id="237" tag="" canDelete="false" indentLevel="1" text="FIX ME;" >
         <header>
          <cppcodedocumentation tag="" indentLevel="1" />
         </header>
        </ccfdeclarationcodeblock>
-       <codeaccessormethod accessType="0" parent_id="237" tag="hblock_tag_7" canDelete="false" classfield_id="237" role_id="-1" >
+       <codeaccessormethod accessType="0" parent_id="237" tag="hblock_tag_2" canDelete="false" classfield_id="237" >
         <header>
          <cppcodedocumentation tag="" />
         </header>
        </codeaccessormethod>
-       <codeaccessormethod accessType="1" parent_id="237" tag="hblock_tag_8" canDelete="false" classfield_id="237" role_id="-1" >
+       <codeaccessormethod accessType="1" parent_id="237" tag="hblock_tag_3" canDelete="false" classfield_id="237" >
         <header>
          <cppcodedocumentation tag="" />
         </header>
        </codeaccessormethod>
       </codeclassfield>
-      <codeclassfield parent_id="235" field_type="4" initialValue="" role_id="1" writeOutMethods="true" listClassName="" >
+      <codeclassfield parent_id="235" field_type="4" initialValue="" role_id="0" writeOutMethods="true" listClassName="" >
        <header>
         <cppcodedocumentation tag="" />
        </header>
@@ -3298,23 +3319,23 @@
        <header>
         <cppcodedocumentation tag="" />
        </header>
-       <ccfdeclarationcodeblock parent_id="225" tag="tblock_5" canDelete="false" indentLevel="1" role_id="-1" text=" string code;" >
+       <ccfdeclarationcodeblock parent_id="225" tag="tblock_1" canDelete="false" indentLevel="1" text=" string code;" >
         <header>
          <cppcodedocumentation tag="" writeOutText="false" indentLevel="1" />
         </header>
        </ccfdeclarationcodeblock>
-       <codeaccessormethod accessType="0" parent_id="225" tag="hblock_tag_6" canDelete="false" indentLevel="1" classfield_id="225" role_id="-1" >
+       <codeaccessormethod accessType="0" parent_id="225" tag="hblock_tag_6" canDelete="false" indentLevel="1" classfield_id="225" >
         <header>
          <cppcodedocumentation tag="" indentLevel="1" />
         </header>
        </codeaccessormethod>
-       <codeaccessormethod accessType="1" parent_id="225" tag="hblock_tag_7" canDelete="false" indentLevel="1" classfield_id="225" role_id="-1" >
+       <codeaccessormethod accessType="1" parent_id="225" tag="hblock_tag_7" canDelete="false" indentLevel="1" classfield_id="225" >
         <header>
          <cppcodedocumentation tag="" indentLevel="1" />
         </header>
        </codeaccessormethod>
       </codeclassfield>
-      <codeclassfield parent_id="224" field_type="4" initialValue="" role_id="1" writeOutMethods="true" listClassName="" >
+      <codeclassfield parent_id="224" field_type="4" initialValue="" role_id="0" writeOutMethods="true" listClassName="" >
        <header>
         <cppcodedocumentation tag="" />
        </header>
@@ -3434,17 +3455,17 @@
        <header>
         <cppcodedocumentation tag="" />
        </header>
-       <ccfdeclarationcodeblock parent_id="232" tag="tblock_0" canDelete="false" indentLevel="1" role_id="-1" text=" int minimumLength;" >
+       <ccfdeclarationcodeblock parent_id="232" tag="tblock_0" canDelete="false" indentLevel="1" text=" int minimumLength;" >
         <header>
          <cppcodedocumentation tag="" writeOutText="false" indentLevel="1" />
         </header>
        </ccfdeclarationcodeblock>
-       <codeaccessormethod accessType="0" parent_id="232" tag="hblock_tag_0" canDelete="false" indentLevel="1" classfield_id="232" role_id="-1" >
+       <codeaccessormethod accessType="0" parent_id="232" tag="hblock_tag_0" canDelete="false" indentLevel="1" classfield_id="232" >
         <header>
          <cppcodedocumentation tag="" indentLevel="1" />
         </header>
        </codeaccessormethod>
-       <codeaccessormethod accessType="1" parent_id="232" tag="hblock_tag_1" canDelete="false" indentLevel="1" classfield_id="232" role_id="-1" >
+       <codeaccessormethod accessType="1" parent_id="232" tag="hblock_tag_2" canDelete="false" indentLevel="1" classfield_id="232" >
         <header>
          <cppcodedocumentation tag="" indentLevel="1" />
         </header>
@@ -3454,17 +3475,17 @@
        <header>
         <cppcodedocumentation tag="" />
        </header>
-       <ccfdeclarationcodeblock parent_id="233" tag="tblock_2" canDelete="false" indentLevel="1" role_id="-1" text=" int maximumLength;" >
+       <ccfdeclarationcodeblock parent_id="233" tag="tblock_1" canDelete="false" indentLevel="1" text=" int maximumLength;" >
         <header>
          <cppcodedocumentation tag="" writeOutText="false" indentLevel="1" />
         </header>
        </ccfdeclarationcodeblock>
-       <codeaccessormethod accessType="0" parent_id="233" tag="hblock_tag_3" canDelete="false" indentLevel="1" classfield_id="233" role_id="-1" >
+       <codeaccessormethod accessType="0" parent_id="233" tag="hblock_tag_3" canDelete="false" indentLevel="1" classfield_id="233" >
         <header>
          <cppcodedocumentation tag="" indentLevel="1" />
         </header>
        </codeaccessormethod>
-       <codeaccessormethod accessType="1" parent_id="233" tag="hblock_tag_4" canDelete="false" indentLevel="1" classfield_id="233" role_id="-1" >
+       <codeaccessormethod accessType="1" parent_id="233" tag="hblock_tag_4" canDelete="false" indentLevel="1" classfield_id="233" >
         <header>
          <cppcodedocumentation tag="" indentLevel="1" />
         </header>
@@ -3579,204 +3600,6 @@
           <cppcodedocumentation tag="" writeOutText="false" />
          </header>
         </codeblockwithcomments>
-        <cppheaderclassdeclarationblock parent_id="205" tag="classDeclarationBlock" canDelete="false" role_id="-1" >
-         <header>
-          <cppcodedocumentation tag="" writeOutText="false" text="Class DataAttribute&amp;#010;" />
-         </header>
-         <textblocks>
-          <hierarchicalcodeblock tag="publicBlock" canDelete="false" >
-           <header>
-            <cppcodedocumentation tag="" text="Public stuff" />
-           </header>
-           <textblocks>
-            <hierarchicalcodeblock tag="publicFieldsDecl" canDelete="false" indentLevel="1" >
-             <header>
-              <cppcodedocumentation tag="" indentLevel="1" text="Fields" />
-             </header>
-             <textblocks/>
-            </hierarchicalcodeblock>
-            <hierarchicalcodeblock tag="pubMethodsBlock" canDelete="false" indentLevel="1" >
-             <header>
-              <cppcodedocumentation tag="" indentLevel="1" />
-             </header>
-             <textblocks>
-              <hierarchicalcodeblock tag="constructionMethods" canDelete="false" indentLevel="1" >
-               <header>
-                <cppcodedocumentation tag="" writeOutText="false" indentLevel="1" text="Constructors" />
-               </header>
-               <textblocks>
-                <codeblockwithcomments tag="emptyconstructor" writeOutText="false" indentLevel="1" text="MediaAttribute ( ) { }" >
-                 <header>
-                  <cppcodedocumentation tag="" indentLevel="1" text="Empty Constructor" />
-                 </header>
-                </codeblockwithcomments>
-               </textblocks>
-              </hierarchicalcodeblock>
-              <hierarchicalcodeblock tag="accessorMethods" canDelete="false" indentLevel="1" >
-               <header>
-                <cppcodedocumentation tag="" indentLevel="1" text="Accessor Methods" />
-               </header>
-               <textblocks>
-                <hierarchicalcodeblock tag="pubStaticAccessorMethods" canDelete="false" indentLevel="1" >
-                 <header>
-                  <cppcodedocumentation tag="" writeOutText="false" indentLevel="1" />
-                 </header>
-                 <textblocks/>
-                </hierarchicalcodeblock>
-                <hierarchicalcodeblock tag="pubRegularAccessorMethods" canDelete="false" indentLevel="1" >
-                 <header>
-                  <cppcodedocumentation tag="" writeOutText="false" indentLevel="1" />
-                 </header>
-                 <textblocks/>
-                </hierarchicalcodeblock>
-               </textblocks>
-              </hierarchicalcodeblock>
-              <hierarchicalcodeblock tag="operationMethods" canDelete="false" indentLevel="1" >
-               <header>
-                <cppcodedocumentation tag="" writeOutText="false" indentLevel="1" text="Operations" />
-               </header>
-               <textblocks/>
-              </hierarchicalcodeblock>
-             </textblocks>
-            </hierarchicalcodeblock>
-           </textblocks>
-          </hierarchicalcodeblock>
-          <hierarchicalcodeblock tag="protectedBlock" canDelete="false" >
-           <header>
-            <cppcodedocumentation tag="" text="Protected stuff" />
-           </header>
-           <textblocks>
-            <hierarchicalcodeblock tag="protectedFieldsDecl" canDelete="false" indentLevel="1" >
-             <header>
-              <cppcodedocumentation tag="" indentLevel="1" text="Fields" />
-             </header>
-             <textblocks/>
-            </hierarchicalcodeblock>
-            <hierarchicalcodeblock tag="protMethodsBlock" canDelete="false" indentLevel="1" >
-             <header>
-              <cppcodedocumentation tag="" indentLevel="1" />
-             </header>
-             <textblocks>
-              <hierarchicalcodeblock tag="constructionMethods" canDelete="false" indentLevel="1" >
-               <header>
-                <cppcodedocumentation tag="" writeOutText="false" indentLevel="1" text="Constructors" />
-               </header>
-               <textblocks/>
-              </hierarchicalcodeblock>
-              <hierarchicalcodeblock tag="accessorMethods" canDelete="false" indentLevel="1" >
-               <header>
-                <cppcodedocumentation tag="" indentLevel="1" text="Accessor Methods" />
-               </header>
-               <textblocks>
-                <hierarchicalcodeblock tag="protStaticAccessorMethods" canDelete="false" indentLevel="1" >
-                 <header>
-                  <cppcodedocumentation tag="" writeOutText="false" indentLevel="1" />
-                 </header>
-                 <textblocks/>
-                </hierarchicalcodeblock>
-                <hierarchicalcodeblock tag="protRegularAccessorMethods" canDelete="false" indentLevel="1" >
-                 <header>
-                  <cppcodedocumentation tag="" writeOutText="false" indentLevel="1" />
-                 </header>
-                 <textblocks/>
-                </hierarchicalcodeblock>
-               </textblocks>
-              </hierarchicalcodeblock>
-              <hierarchicalcodeblock tag="operationMethods" canDelete="false" indentLevel="1" >
-               <header>
-                <cppcodedocumentation tag="" writeOutText="false" indentLevel="1" text="Operations" />
-               </header>
-               <textblocks/>
-              </hierarchicalcodeblock>
-             </textblocks>
-            </hierarchicalcodeblock>
-           </textblocks>
-          </hierarchicalcodeblock>
-          <hierarchicalcodeblock tag="privateBlock" canDelete="false" >
-           <header>
-            <cppcodedocumentation tag="" text="Private stuff" />
-           </header>
-           <textblocks>
-            <hierarchicalcodeblock tag="privateFieldsDecl" canDelete="false" indentLevel="1" >
-             <header>
-              <cppcodedocumentation tag="" indentLevel="1" text="Fields" />
-             </header>
-             <textblocks>
-              <ccfdeclarationcodeblock parent_id="230" tag="tblock_0" canDelete="false" indentLevel="1" role_id="-1" text=" string fixedMimeMajor;" >
-               <header>
-                <cppcodedocumentation tag="" writeOutText="false" indentLevel="1" />
-               </header>
-              </ccfdeclarationcodeblock>
-              <ccfdeclarationcodeblock parent_id="231" tag="tblock_2" canDelete="false" indentLevel="1" role_id="-1" text=" string fixedMimeMinor;" >
-               <header>
-                <cppcodedocumentation tag="" writeOutText="false" indentLevel="1" />
-               </header>
-              </ccfdeclarationcodeblock>
-             </textblocks>
-            </hierarchicalcodeblock>
-            <hierarchicalcodeblock tag="privMethodsBlock" canDelete="false" indentLevel="1" >
-             <header>
-              <cppcodedocumentation tag="" indentLevel="1" />
-             </header>
-             <textblocks>
-              <hierarchicalcodeblock tag="constructionMethods" canDelete="false" indentLevel="1" >
-               <header>
-                <cppcodedocumentation tag="" writeOutText="false" indentLevel="1" text="Constructors" />
-               </header>
-               <textblocks/>
-              </hierarchicalcodeblock>
-              <hierarchicalcodeblock tag="accessorMethods" canDelete="false" indentLevel="1" >
-               <header>
-                <cppcodedocumentation tag="" indentLevel="1" text="Accessor Methods" />
-               </header>
-               <textblocks>
-                <hierarchicalcodeblock tag="privStaticAccessorMethods" canDelete="false" indentLevel="1" >
-                 <header>
-                  <cppcodedocumentation tag="" writeOutText="false" indentLevel="1" />
-                 </header>
-                 <textblocks/>
-                </hierarchicalcodeblock>
-                <hierarchicalcodeblock tag="privRegularAccessorMethods" canDelete="false" indentLevel="1" >
-                 <header>
-                  <cppcodedocumentation tag="" writeOutText="false" indentLevel="1" />
-                 </header>
-                 <textblocks>
-                  <codeaccessormethod accessType="0" parent_id="230" tag="hblock_tag_0" canDelete="false" indentLevel="1" classfield_id="230" role_id="-1" >
-                   <header>
-                    <cppcodedocumentation tag="" indentLevel="1" />
-                   </header>
-                  </codeaccessormethod>
-                  <codeaccessormethod accessType="1" parent_id="230" tag="hblock_tag_1" canDelete="false" indentLevel="1" classfield_id="230" role_id="-1" >
-                   <header>
-                    <cppcodedocumentation tag="" indentLevel="1" />
-                   </header>
-                  </codeaccessormethod>
-                  <codeaccessormethod accessType="0" parent_id="231" tag="hblock_tag_3" canDelete="false" indentLevel="1" classfield_id="231" role_id="-1" >
-                   <header>
-                    <cppcodedocumentation tag="" indentLevel="1" />
-                   </header>
-                  </codeaccessormethod>
-                  <codeaccessormethod accessType="1" parent_id="231" tag="hblock_tag_4" canDelete="false" indentLevel="1" classfield_id="231" role_id="-1" >
-                   <header>
-                    <cppcodedocumentation tag="" indentLevel="1" />
-                   </header>
-                  </codeaccessormethod>
-                 </textblocks>
-                </hierarchicalcodeblock>
-               </textblocks>
-              </hierarchicalcodeblock>
-              <hierarchicalcodeblock tag="operationMethods" canDelete="false" indentLevel="1" >
-               <header>
-                <cppcodedocumentation tag="" writeOutText="false" indentLevel="1" text="Operations" />
-               </header>
-               <textblocks/>
-              </hierarchicalcodeblock>
-             </textblocks>
-            </hierarchicalcodeblock>
-           </textblocks>
-          </hierarchicalcodeblock>
-         </textblocks>
-        </cppheaderclassdeclarationblock>
        </textblocks>
       </hierarchicalcodeblock>
       <codeblockwithcomments tag="hashDefBlockEnd" text="#endif //DATAATTRIBUTE_H" >
@@ -3793,17 +3616,17 @@
        <header>
         <cppcodedocumentation tag="" />
        </header>
-       <ccfdeclarationcodeblock parent_id="230" tag="tblock_0" canDelete="false" indentLevel="1" role_id="-1" text=" string fixedMimeMajor;" >
+       <ccfdeclarationcodeblock parent_id="230" tag="tblock_0" canDelete="false" indentLevel="1" text=" string fixedMimeMajor;" >
         <header>
          <cppcodedocumentation tag="" writeOutText="false" indentLevel="1" />
         </header>
        </ccfdeclarationcodeblock>
-       <codeaccessormethod accessType="0" parent_id="230" tag="hblock_tag_0" canDelete="false" indentLevel="1" classfield_id="230" role_id="-1" >
+       <codeaccessormethod accessType="0" parent_id="230" tag="hblock_tag_0" canDelete="false" indentLevel="1" classfield_id="230" >
         <header>
          <cppcodedocumentation tag="" indentLevel="1" />
         </header>
        </codeaccessormethod>
-       <codeaccessormethod accessType="1" parent_id="230" tag="hblock_tag_1" canDelete="false" indentLevel="1" classfield_id="230" role_id="-1" >
+       <codeaccessormethod accessType="1" parent_id="230" tag="hblock_tag_2" canDelete="false" indentLevel="1" classfield_id="230" >
         <header>
          <cppcodedocumentation tag="" indentLevel="1" />
         </header>
@@ -3813,17 +3636,17 @@
        <header>
         <cppcodedocumentation tag="" />
        </header>
-       <ccfdeclarationcodeblock parent_id="231" tag="tblock_2" canDelete="false" indentLevel="1" role_id="-1" text=" string fixedMimeMinor;" >
+       <ccfdeclarationcodeblock parent_id="231" tag="tblock_1" canDelete="false" indentLevel="1" text=" string fixedMimeMinor;" >
         <header>
          <cppcodedocumentation tag="" writeOutText="false" indentLevel="1" />
         </header>
        </ccfdeclarationcodeblock>
-       <codeaccessormethod accessType="0" parent_id="231" tag="hblock_tag_3" canDelete="false" indentLevel="1" classfield_id="231" role_id="-1" >
+       <codeaccessormethod accessType="0" parent_id="231" tag="hblock_tag_3" canDelete="false" indentLevel="1" classfield_id="231" >
         <header>
          <cppcodedocumentation tag="" indentLevel="1" />
         </header>
        </codeaccessormethod>
-       <codeaccessormethod accessType="1" parent_id="231" tag="hblock_tag_4" canDelete="false" indentLevel="1" classfield_id="231" role_id="-1" >
+       <codeaccessormethod accessType="1" parent_id="231" tag="hblock_tag_4" canDelete="false" indentLevel="1" classfield_id="231" >
         <header>
          <cppcodedocumentation tag="" indentLevel="1" />
         </header>
@@ -4052,7 +3875,7 @@
       <codecomment tag="" text="/************************************************************************&amp;#010;  			type.h - Copyright rw7&amp;#010;&amp;#010;Here you can write a license for your code, some comments or any other&amp;#010;information you want to have in your generated code. To to this simply&amp;#010;configure the &quot;headings&quot; directory in uml to point to a directory&amp;#010;where you have your heading files.&amp;#010;&amp;#010;or you can just replace the contents of this file with your own.&amp;#010;If you want to do this, this file is located at&amp;#010;&amp;#010;/opt/kde3/share/apps/umbrello/headings/heading.h&amp;#010;&amp;#010;-->Code Generators searches for heading files based on the file extension&amp;#010;   i.e. it will look for a file name ending in &quot;.h&quot; to include in C++ header&amp;#010;   files, and for a file name ending in &quot;.java&quot; to include in all generated&amp;#010;   java code.&amp;#010;   If you name the file &quot;heading.&lt;extension>&quot;, Code Generator will always&amp;#010;   choose this file even if there are other files with the same extension in the&amp;#010;   directory. If you name the file something else, it must be the only one with that&amp;#010;   extension in the directory to guarantee that Code Generator will choose it.&amp;#010;&amp;#010;you can use variables in your heading files which are replaced at generation&amp;#010;time. possible variables are : author, date, time, filename and filepath.&amp;#010;just write %variable_name%&amp;#010;&amp;#010;This file was generated on Fri Jun 4 2004 at 11:59:07&amp;#010;The original location of this file is &amp;#010;**************************************************************************/&amp;#010;" />
      </header>
      <classfields>
-      <codeclassfield parent_id="224" field_type="4" initialValue=" new vector( )" role_id="0" writeOutMethods="true" listClassName="" >
+      <codeclassfield parent_id="224" field_type="4" initialValue=" new vector( )" role_id="1" writeOutMethods="true" listClassName="" >
        <header>
         <cppcodedocumentation tag="" />
        </header>
@@ -4128,7 +3951,7 @@
       <codecomment tag="" text="/************************************************************************&amp;#010;  			enumerationattribute.h - Copyright rw7&amp;#010;&amp;#010;Here you can write a license for your code, some comments or any other&amp;#010;information you want to have in your generated code. To to this simply&amp;#010;configure the &quot;headings&quot; directory in uml to point to a directory&amp;#010;where you have your heading files.&amp;#010;&amp;#010;or you can just replace the contents of this file with your own.&amp;#010;If you want to do this, this file is located at&amp;#010;&amp;#010;/opt/kde3/share/apps/umbrello/headings/heading.h&amp;#010;&amp;#010;-->Code Generators searches for heading files based on the file extension&amp;#010;   i.e. it will look for a file name ending in &quot;.h&quot; to include in C++ header&amp;#010;   files, and for a file name ending in &quot;.java&quot; to include in all generated&amp;#010;   java code.&amp;#010;   If you name the file &quot;heading.&lt;extension>&quot;, Code Generator will always&amp;#010;   choose this file even if there are other files with the same extension in the&amp;#010;   directory. If you name the file something else, it must be the only one with that&amp;#010;   extension in the directory to guarantee that Code Generator will choose it.&amp;#010;&amp;#010;you can use variables in your heading files which are replaced at generation&amp;#010;time. possible variables are : author, date, time, filename and filepath.&amp;#010;just write %variable_name%&amp;#010;&amp;#010;This file was generated on Fri Jun 4 2004 at 11:59:07&amp;#010;The original location of this file is &amp;#010;**************************************************************************/&amp;#010;" />
      </header>
      <classfields>
-      <codeclassfield parent_id="235" field_type="4" initialValue=" new vector( )" role_id="0" writeOutMethods="true" listClassName="" >
+      <codeclassfield parent_id="235" field_type="4" initialValue=" new vector( )" role_id="1" writeOutMethods="true" listClassName="" >
        <header>
         <cppcodedocumentation tag="" />
        </header>
@@ -4248,17 +4071,17 @@
        <header>
         <cppcodedocumentation tag="" />
        </header>
-       <ccfdeclarationcodeblock parent_id="236" tag="tblock_5" canDelete="false" indentLevel="1" role_id="-1" text=" string code;" >
+       <ccfdeclarationcodeblock parent_id="236" tag="tblock_1" canDelete="false" indentLevel="1" text=" string code;" >
         <header>
          <cppcodedocumentation tag="" writeOutText="false" indentLevel="1" />
         </header>
        </ccfdeclarationcodeblock>
-       <codeaccessormethod accessType="0" parent_id="236" tag="hblock_tag_6" canDelete="false" indentLevel="1" classfield_id="236" role_id="-1" >
+       <codeaccessormethod accessType="0" parent_id="236" tag="hblock_tag_7" canDelete="false" indentLevel="1" classfield_id="236" >
         <header>
          <cppcodedocumentation tag="" indentLevel="1" />
         </header>
        </codeaccessormethod>
-       <codeaccessormethod accessType="1" parent_id="236" tag="hblock_tag_7" canDelete="false" indentLevel="1" classfield_id="236" role_id="-1" >
+       <codeaccessormethod accessType="1" parent_id="236" tag="hblock_tag_8" canDelete="false" indentLevel="1" classfield_id="236" >
         <header>
          <cppcodedocumentation tag="" indentLevel="1" />
         </header>
@@ -4268,23 +4091,23 @@
        <header>
         <cppcodedocumentation tag="" />
        </header>
-       <ccfdeclarationcodeblock parent_id="237" tag="tblock_8" canDelete="false" indentLevel="1" role_id="-1" text=" int number;" >
+       <ccfdeclarationcodeblock parent_id="237" tag="tblock_2" canDelete="false" indentLevel="1" text=" int number;" >
         <header>
          <cppcodedocumentation tag="" writeOutText="false" indentLevel="1" />
         </header>
        </ccfdeclarationcodeblock>
-       <codeaccessormethod accessType="0" parent_id="237" tag="hblock_tag_9" canDelete="false" indentLevel="1" classfield_id="237" role_id="-1" >
+       <codeaccessormethod accessType="0" parent_id="237" tag="hblock_tag_9" canDelete="false" indentLevel="1" classfield_id="237" >
         <header>
          <cppcodedocumentation tag="" indentLevel="1" />
         </header>
        </codeaccessormethod>
-       <codeaccessormethod accessType="1" parent_id="237" tag="hblock_tag_10" canDelete="false" indentLevel="1" classfield_id="237" role_id="-1" >
+       <codeaccessormethod accessType="1" parent_id="237" tag="hblock_tag_10" canDelete="false" indentLevel="1" classfield_id="237" >
         <header>
          <cppcodedocumentation tag="" indentLevel="1" />
         </header>
        </codeaccessormethod>
       </codeclassfield>
-      <codeclassfield parent_id="235" field_type="4" initialValue="" role_id="1" writeOutMethods="true" listClassName="" >
+      <codeclassfield parent_id="235" field_type="4" initialValue="" role_id="0" writeOutMethods="true" listClassName="" >
        <header>
         <cppcodedocumentation tag="" />
        </header>
