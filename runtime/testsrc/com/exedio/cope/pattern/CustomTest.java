@@ -48,12 +48,16 @@ public class CustomTest extends AbstractLibTest
 		assertEquals(Arrays.asList(new Feature[]{
 				item.numberString,
 				item.number,
+				item.element1,
+				item.element2,
+				item.element3,
+				item.elements,
 			}), item.TYPE.getDeclaredFeatures());
 		assertEquals(item.TYPE.getDeclaredFeatures(), item.TYPE.getFeatures());
 
 		assertEquals(item.TYPE, item.number.getType());
 		assertEquals("number", item.number.getName());
-		assertEquals(item.numberString, item.number.getStorage());
+		assertEqualsUnmodifiable(list(item.numberString), item.number.getStorages());
 		assertEqualsUnmodifiable(list(item.number), item.numberString.getPatterns());
 		assertEquals(Integer.class, item.number.getValueType());
 
@@ -80,6 +84,11 @@ public class CustomTest extends AbstractLibTest
 		assertNull(item.getNumberString());
 		assertNull(item.getNumber());
 		assertNull(item.number.get(item));
+		
+		assertEquals(list(null, null, null), item.getElements());
+		
+		item.setElements(list(i2, i4, i8));
+		assertEquals(list(i2, i4, i8), item.getElements());
 	}
 	
 }

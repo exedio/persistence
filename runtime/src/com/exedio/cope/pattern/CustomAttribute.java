@@ -20,40 +20,56 @@ package com.exedio.cope.pattern;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
+import com.exedio.cope.FunctionAttribute;
 import com.exedio.cope.Item;
 import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.MandatoryViolationException;
-import com.exedio.cope.FunctionAttribute;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.ReadOnlyViolationException;
 import com.exedio.cope.UniqueViolationException;
 
 public final class CustomAttribute extends Pattern
 {
-	private final FunctionAttribute storage;
+	private final FunctionAttribute[] storages;
+	private final List storageList;
 	private Method getter;
 	private Method setter;
 	private Class valueType;
 	
 	public CustomAttribute(final FunctionAttribute storage)
 	{
-		this.storage = storage;
-		if(storage==null)
-			throw new NullPointerException("storage must not be null");
-		registerSource(storage);
+		this(new FunctionAttribute[]{storage});
 	}
 	
-	public FunctionAttribute getStorage()
+	public CustomAttribute(final FunctionAttribute storage1, final FunctionAttribute storage2)
 	{
-		return storage;
+		this(new FunctionAttribute[]{storage1, storage2});
+	}
+	
+	public CustomAttribute(final FunctionAttribute[] storages)
+	{
+		this.storages = storages;
+		this.storageList = Collections.unmodifiableList(Arrays.asList(storages));
+		for(int i = 0; i<storages.length; i++)
+			registerSource(storages[i]);
+	}
+	
+	public List getStorages()
+	{
+		return storageList;
 	}
 	
 	public void initialize()
 	{
 		final String name = getName();
-		if(!storage.isInitialized())
-			initialize(storage, name+"Storage");
+
+		for(int i = 0; i<storages.length; i++)
+			if(!storages[i].isInitialized())
+				initialize(storages[i], name+"Storage"+i);
 		
 		final String nameUpper =
 			name.length()==1
