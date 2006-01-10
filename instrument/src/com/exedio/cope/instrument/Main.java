@@ -143,7 +143,7 @@ public final class Main
 						for(final Iterator k = type.getFeatures().iterator(); k.hasNext(); )
 						{
 							final CopeFeature feature = (CopeFeature)k.next();
-							if(!(feature instanceof CopeVector)) // TODO make it work for all
+							if(!(feature instanceof CopeQualifier)) // TODO make it work for all
 								feature.getInstance();
 						}
 					}

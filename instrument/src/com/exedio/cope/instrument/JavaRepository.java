@@ -23,8 +23,17 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+import bsh.UtilEvalError;
+
+import com.exedio.cope.EnumValue;
+import com.exedio.cope.Item;
+import com.exedio.cope.StringAttribute;
+import com.exedio.cope.pattern.Hash;
+
 final class JavaRepository
 {
+	final CopeNameSpace nameSpace = new NameSpace();
+	
 	/**
 	 * Distiguishes two stages in life cycle of this repository,
 	 * and its contents:
@@ -36,6 +45,8 @@ final class JavaRepository
 	
 	private final ArrayList files = new ArrayList();
 	private final HashMap copeTypeByShortClassName = new HashMap();
+	private final HashMap classOfCopeTypeByFullClassName = new HashMap();
+	private final HashMap enumValueClassByFullClassName = new HashMap();
 	
 	void endBuildStage()
 	{
@@ -73,6 +84,8 @@ final class JavaRepository
 		final String name = JavaFile.extractClassName(copeType.javaClass.name);
 		if(copeTypeByShortClassName.put(name, copeType)!=null)
 			throw new RuntimeException(name);
+		if(classOfCopeTypeByFullClassName.put(copeType.javaClass.name, copeType.javaClass)!=null)
+			throw new RuntimeException(name);
 		//System.out.println("--------- put cope type: "+name);
 	}
 	
@@ -85,4 +98,70 @@ final class JavaRepository
 		return result;
 	}
 
+	JavaClass getCopeTypeClass(final String fullClassName)
+	{
+		assert generateStage;
+		final JavaClass result = (JavaClass)classOfCopeTypeByFullClassName.get(fullClassName);
+		return result;
+	}
+	
+	void addEnumClass(final JavaClass javaClass)
+	{
+		assert buildStage && !generateStage;
+		final String name = javaClass.name;
+		if(enumValueClassByFullClassName.put(name, javaClass)!=null)
+			throw new RuntimeException(name);
+		//System.out.println("--------- put cope type: "+name);
+	}
+	
+	JavaClass getEnumValueClass(final String fullClassName)
+	{
+		assert generateStage;
+		final JavaClass result = (JavaClass)enumValueClassByFullClassName.get(fullClassName);
+		return result;
+	}
+
+	final class NameSpace extends CopeNameSpace
+	{
+		NameSpace()
+		{
+			super((CopeNameSpace)null);
+		}
+		
+		public Class getClass(final String name) throws UtilEvalError
+		{
+			final Class superResult = super.getClass(name);
+			if(superResult!=null)
+				return superResult;
+			
+			if(getCopeTypeClass(name)!=null)
+				return Item.class;
+			
+			if(getEnumValueClass(name)!=null)
+				return EnumValue.class;
+			
+			if(name.endsWith("Hash")) // TODO this is a hack
+				return DummyHash.class;
+			
+			return null;
+		}
+	}
+	
+	public static final class DummyHash extends Hash
+	{
+		public DummyHash(final StringAttribute storage)
+		{
+			super(storage);
+		}
+		
+		public DummyHash(final com.exedio.cope.Attribute.Option storageOption)
+		{
+			super(storageOption);
+		}
+		
+		public String hash(final String plainText)
+		{
+			throw new RuntimeException(); // should not happen
+		}
+	}
 }

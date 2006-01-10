@@ -163,6 +163,7 @@
 		<ljavac srcdir="instrument/src" destdir="instrument/build/classes" includeAntRuntime="true">
 			<classpath>
 				<pathelement location="runtime/build/classes" />
+				<pathelement location="lib/bsh-core.jar" />
 			</classpath>
 		</ljavac>
 	</target>
@@ -255,6 +256,7 @@
 			<classpath>
 				<pathelement location="lib/pcj.jar" />
 				<pathelement location="lib/servlet-api.jar" />
+				<pathelement location="lib/bsh-core.jar" />
 				<pathelement location="runtime/build/classes" />
 				<pathelement location="instrument/build/classes" />
 			</classpath>
@@ -455,6 +457,7 @@
 				<pathelement location="lib/junit.jar" />
 				<pathelement location="lib/pcj.jar" />
 				<pathelement location="lib/servlet-api.jar" />
+				<pathelement location="lib/bsh-core.jar" />
 			</classpath>
 			<arg value="com.exedio.cope.instrument.PackageTest" />
 			<assertions><enable/></assertions>
@@ -660,6 +663,7 @@
 				<pathelement location="lib/commons-collections.jar" />
 				<pathelement location="lib/junit.jar" />
 				<pathelement location="lib/ant.jar" />
+				<pathelement location="lib/bsh-core.jar" />
 				<pathelement location="lib/exedio-cops.jar" />
 				<pathelement location="lib/servlet-api.jar" />
 				<pathelement location="lib/commons-fileupload-1.0.jar" />

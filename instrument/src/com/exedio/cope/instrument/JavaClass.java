@@ -18,24 +18,15 @@
 
 package com.exedio.cope.instrument;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-import com.exedio.cope.EnumAttribute;
-import com.exedio.cope.EnumValue;
-import com.exedio.cope.Feature;
-import com.exedio.cope.Item;
-import com.exedio.cope.ItemAttribute;
-import com.exedio.cope.StringAttribute;
-import com.exedio.cope.Attribute.Option;
-import com.exedio.cope.pattern.Hash;
+import bsh.EvalError;
+import bsh.Interpreter;
+import bsh.Primitive;
+import bsh.UtilEvalError;
 
 /**
  * Represents a class parsed by the java parser.
@@ -44,8 +35,10 @@ import com.exedio.cope.pattern.Hash;
  * 
  * @author Ralf Wiebicke
  */
-class JavaClass extends JavaFeature
+final class JavaClass extends JavaFeature
 {
+	final CopeNameSpace nameSpace;
+	
 	private HashMap attributes = new HashMap();
 	final List classExtends;
 	final List classImplements;
@@ -61,8 +54,11 @@ class JavaClass extends JavaFeature
 	throws InjectorParseException
 	{
 		super(file, parent, modifiers, null, name);
+		this.nameSpace = new NameSpace(file.nameSpace);
 		this.classExtends = Collections.unmodifiableList(classExtends);
 		this.classImplements = Collections.unmodifiableList(classImplements);
+		if(classExtends.contains("EnumValue")) // TODO nicify
+			file.repository.addEnumClass(this);
 		file.add(this);
 	}
 	
@@ -173,440 +169,46 @@ class JavaClass extends JavaFeature
 		return classEndPosition;
 	}
 	
-
-	
-	private static final String NEW = "new ";
-	private static final String CLASS = ".class";
-	private static final Value ANY_CLASS = new Value(null, Class.class);
-	private static final Value TRUE = new Value(true);
-	private static final Value FALSE = new Value(false);
-	
-	final static class Value
-	{
-		final Object instance;
-		final Class clazz;
-		
-		Value(final Object instance, final Class clazz)
-		{
-			this.instance = instance;
-			this.clazz = clazz;
-		}
-		
-		Value(final boolean instance)
-		{
-			this.instance = instance ? Boolean.TRUE : Boolean.FALSE;
-			this.clazz = boolean.class;
-		}
-		
-		Value(final int instance)
-		{
-			this.instance = new Integer(instance);
-			this.clazz = int.class;
-		}
-		
-		Value(final String instance)
-		{
-			this.instance = instance;
-			this.clazz = String.class;
-		}
-	}
-	
-	boolean isInt(final String s)
-	{
-		try
-		{
-			Integer.parseInt(s);
-			return true;
-		}
-		catch(NumberFormatException e)
-		{
-			return false;
-		}
-	}
-	
-	boolean isString(final String s)
-	{
-		return s.length()>=2 && s.charAt(0)=='"' && s.charAt(s.length()-1)=='"';
-	}
-	
-	Value[] evaluateArgumentList(String s)
-	{
-		//System.out.println("++"+s);
-		final ArrayList result = new ArrayList();
-		int lastcomma = 0;
-		for(int comma = s.indexOf(','); comma>0; comma = s.indexOf(',', lastcomma))
-		{
-			final String si = s.substring(lastcomma, comma);
-			result.add(evaluate(si));
-			lastcomma = comma+1;
-		}
-		final String sl = s.substring(lastcomma).trim();
-		if(sl.length()==0)
-			return new Value[0];
-		
-		result.add(evaluate(sl));
-		//System.out.println("------"+arguments);
-		
-		return (Value[])result.toArray(new Value[result.size()]);
-	}
-	
-	Class[] toClasses(final Value[] values)
-	{
-		final Class[] result = new Class[values.length];
-		for(int i = 0; i<values.length; i++)
-			result[i] = values[i].clazz;
-		return result;
-	}
-			
-	Object[] toInstances(final Value[] values, final Class insteadOfAny)
-	{
-		final Object[] result = new Object[values.length];
-		for(int i = 0; i<values.length; i++)
-		{
-			if(values[i]==ANY_CLASS)
-			{
-				if(insteadOfAny==null)
-					throw new RuntimeException();
-				result[i] = insteadOfAny;
-			}
-			else
-				result[i] = values[i].instance;
-		}
-		return result;
-	}
-			
-	
-	Value evaluate(String s)
+	Object evaluate(final String s)
 	{
 		assert !file.repository.isBuildStage();
-		//System.out.println("--------------evaluate-"+name+"--"+s+"--");
-
-		s = s.trim();
-
-		if("true".equals(s))
-			return TRUE;
-		else if("false".equals(s))
-			return FALSE;
-		else if(isInt(s))
+		
+		final Interpreter ip = new Interpreter();
+		try
 		{
-			try
-			{
-				return new Value(Integer.parseInt(s));
-			}
-			catch(NumberFormatException e)
-			{
-				throw new RuntimeException(e);
-			}
+			final Object result = ip.eval(s, nameSpace);
+			//System.out.println("--------evaluate("+s+") == "+result);
+			return result;
 		}
-		else if(isString(s))
+		catch(EvalError e) // TODO method should throw this
 		{
-			return new Value(s.substring(1, s.length()-1));
-		}
-		else if(s.startsWith(NEW))
-		{
-			s = s.substring(NEW.length());
-			final int openParent = s.indexOf('(');
-			if(openParent<=0)
-				throw new RuntimeException(s);
-			final String newClassName = s.substring(0, openParent);
-			
-			// TODO make a function
-			Class newClass;
-			try
-			{
-				newClass = file.findType(newClassName.trim());
-			}
-			catch(InjectorParseException e)
-			{
-				if(newClassName.endsWith("Hash"))
-					newClass = AnyHash.class;
-				else
-					throw new RuntimeException(e);
-			}
-			
-			
-			if(!Feature.class.isAssignableFrom(newClass))
-				throw new RuntimeException(newClass.toString());
-			final int closeParent = s.lastIndexOf(')');
-			if(closeParent<=openParent)
-				throw new RuntimeException(s);
-			
-			final Value[] arguments = evaluateArgumentList(s.substring(openParent+1, closeParent));
-			
-			final Class insteadOfAny;
-			if(newClass==EnumAttribute.class)
-				insteadOfAny = EnumValue.class;
-			else if(newClass==ItemAttribute.class)
-				insteadOfAny = Item.class;
-			else
-				insteadOfAny = null;
-
-			final Object[] argumentInstances = toInstances(arguments, insteadOfAny);
-			final Class[] argumentClasses = toClasses(arguments);
-			
-			final Constructor constructor;
-			try
-			{
-				constructor = findConstructor(newClass, argumentClasses);
-			}
-			catch(NoSuchMethodException e)
-			{
-				throw new RuntimeException(e);
-			}
-			
-			try
-			{
-				return new Value(constructor.newInstance(argumentInstances), newClass);
-			}
-			catch(InstantiationException e)
-			{
-				throw new RuntimeException(e);
-			}
-			catch(InvocationTargetException e)
-			{
-				throw new RuntimeException(e.getTargetException());
-			}
-			catch(IllegalAccessException e)
-			{
-				throw new RuntimeException(e);
-			}
-		}
-		else if(getAttribute(s)!=null)
-		{
-			final JavaAttribute a = getAttribute(s);
-			if((a.modifier & (Modifier.STATIC|Modifier.FINAL))!=(Modifier.STATIC|Modifier.FINAL))
-				throw new RuntimeException(a.toString()+'-'+Modifier.toString(a.modifier));
-			//System.out.println("----------"+feature.toString());
-			return a.evaluate();
-		}
-		else if(s.endsWith(CLASS))
-		{
-			final String className = s.substring(0, s.length()-CLASS.length());
-			try
-			{
-				return new Value(file.findType(className.trim()), Class.class);
-			}
-			catch(InjectorParseException e)
-			{
-				return ANY_CLASS;
-			}
-		}
-		else
-		{
-			final int dot = s.indexOf('.');
-			if(dot>=0)
-			{
-				final String prefix = s.substring(0, dot);
-				final String postfix = s.substring(dot+1);
-				CopeType aClass = null;
-				try
-				{
-					aClass = file.repository.getCopeType(prefix);
-				}
-				catch(RuntimeException e)
-				{
-					if(!e.getMessage().startsWith("no cope type for ")) // TODO better exception
-						throw new RuntimeException("bad exception", e);
-				}
-
-				if(aClass!=null)
-				{
-					return aClass.javaClass.evaluate(postfix);
-				}
-				else
-				{
-					final Value left = evaluate(prefix);
-
-					int openParent = postfix.indexOf('(');
-					if(openParent<0)
-						throw new RuntimeException(postfix);
-					final String featureName = postfix.substring(0, openParent);
-					
-					final int closeParent = postfix.lastIndexOf(')');
-					if(closeParent<=openParent)
-						throw new RuntimeException(s);
-
-					final Value[] arguments = evaluateArgumentList(postfix.substring(openParent+1, closeParent));
-					
-					final Object[] argumentInstances = toInstances(arguments, null);
-					final Class[] argumentClasses = toClasses(arguments);
-					
-
-					final Method m;
-					try
-					{
-						m = findMethod(left.clazz, featureName, argumentClasses);
-					}
-					catch(NoSuchMethodException e2)
-					{
-						throw new RuntimeException(e2);
-					}
-					
-					try
-					{
-						return new Value(m.invoke(left.instance, argumentInstances), m.getReturnType());
-					}
-					catch(IllegalAccessException e2)
-					{
-						throw new RuntimeException(e2);
-					}
-					catch(InvocationTargetException e2)
-					{
-						throw new RuntimeException(e2.getTargetException());
-					}
-				}
-			}
-			else
-			{
-				int openParent = s.indexOf('(');
-				if(openParent>=0)
-				{
-					final String methodName = s.substring(0, openParent);
-					
-					final int closeParent = s.lastIndexOf(')');
-					if(closeParent<=openParent)
-						throw new RuntimeException(s);
-
-					final Value[] arguments = evaluateArgumentList(s.substring(openParent+1, closeParent));
-					
-					final Object[] argumentInstances = toInstances(arguments, null);
-					final Class[] argumentClasses = toClasses(arguments);
-					
-					final Method m;
-					try
-					{
-						m = findMethod(Item.class, methodName, argumentClasses);
-					}
-					catch(NoSuchMethodException e2)
-					{
-						throw new RuntimeException(e2);
-					}
-					
-					try
-					{
-						return new Value(m.invoke(null, argumentInstances), m.getReturnType());
-					}
-					catch(IllegalAccessException e2)
-					{
-						throw new RuntimeException(s, e2);
-					}
-					catch(InvocationTargetException e2)
-					{
-						throw new RuntimeException(s, e2.getTargetException());
-					}
-				}
-				else
-				{
-					try
-					{
-						final Field f = Item.class.getField(s);
-						final int m = f.getModifiers();
-						if((m & (Modifier.STATIC|Modifier.FINAL))!=(Modifier.STATIC|Modifier.FINAL))
-							throw new RuntimeException(f.toString()+'-'+Modifier.toString(m));
-						//System.out.println("----------"+f.getName());
-						final Object value = f.get(null);
-						//System.out.println("----------"+value.toString());
-						return new Value(value, f.getType());
-					}
-					catch(NoSuchFieldException e)
-					{
-						throw new RuntimeException(s, e);
-					}
-					catch(IllegalAccessException e)
-					{
-						throw new RuntimeException(s, e);
-					}
-				}
-			}
+			throw new RuntimeException(e);
 		}
 	}
 	
-	private static final Constructor findConstructor(final Class aClass, final Class[] params) throws NoSuchMethodException
+	final class NameSpace extends CopeNameSpace
 	{
-		final int paramsLength = params.length;
-		final Constructor[] all = aClass.getConstructors();
-		Constructor result = null;
-		
-		//System.out.println("------------"+params);
-		constructorloop:
-		for(int i = 0; i<all.length; i++)
+		NameSpace(final CopeNameSpace parent)
 		{
-			final Constructor c = all[i];
-			//System.out.println("--------------"+c);
-			final Class[] currentParams = c.getParameterTypes();
-			if(paramsLength!=currentParams.length)
-				continue;
-
-			for(int j = 0; j<paramsLength; j++)
+			super(parent);
+		}
+		
+	   public Object getVariable(final String name) throws UtilEvalError
+	   {
+			//System.out.println("++++++++++++++++1--------getVariable(\""+name+"\")");
+			final Object superResult = super.getVariable(name);
+			if(superResult!=Primitive.VOID)
 			{
-				if(!currentParams[j].isAssignableFrom(params[j]))
-					continue constructorloop;
+				//System.out.println("#####"+superResult+"--"+superResult.getClass());
+				return superResult;
 			}
-			if(result!=null)
-				throw new RuntimeException("ambigous constructor");
-			result = c;
-		}
-		if(result==null)
-		{
-			aClass.getConstructor(params);
-			throw new RuntimeException(); // must not happen
-		}
-		
-		return result;
-	}
-
-	private static final Method findMethod(final Class aClass, final String name, final Class[] params) throws NoSuchMethodException
-	{
-		final int paramsLength = params.length;
-		final Method[] all = aClass.getMethods();
-		Method result = null;
-		
-		//System.out.println("------------"+params);
-		constructorloop:
-		for(int i = 0; i<all.length; i++)
-		{
-			final Method m = all[i];
-			//System.out.println("--------------"+c);
-			if(!name.equals(m.getName()))
-				continue;
-					
-			final Class[] currentParams = m.getParameterTypes();
-			if(paramsLength!=currentParams.length)
-				continue;
-
-			for(int j = 0; j<paramsLength; j++)
-			{
-				if(!currentParams[j].isAssignableFrom(params[j]))
-					continue constructorloop;
-			}
-			if(result!=null)
-				throw new RuntimeException("ambigous constructor");
-			result = m;
-		}
-		if(result==null)
-		{
-			aClass.getConstructor(params);
-			throw new RuntimeException(); // must not happen
-		}
-		
-		return result;
-	}
-
-	static class AnyHash extends Hash
-	{
-		public AnyHash(final StringAttribute storage)
-		{
-			super(storage);
-		}
-
-		public AnyHash(final Option storageOption)
-		{
-			super(storageOption);
-		}
-
-		public String hash(final String plainText)
-		{
-			throw new RuntimeException(); // should not happen
-		}
+			
+			//System.out.println("++++++++++++++++2--------getVariable(\""+name+"\")");
+			final JavaAttribute ja = getAttribute(name);
+			if(ja!=null)
+				return ja.evaluate();
+			
+			return Primitive.VOID;
+	   }
 	}
 }

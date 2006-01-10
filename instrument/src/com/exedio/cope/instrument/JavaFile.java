@@ -36,6 +36,8 @@ import java.util.TreeSet;
  */
 final class JavaFile
 {
+	final CopeNameSpace nameSpace;
+	
 	private String packagename;
 	
 	/**
@@ -87,6 +89,8 @@ final class JavaFile
 
 	public JavaFile(final JavaRepository repository)
 	{
+		this.nameSpace = new CopeNameSpace(repository.nameSpace);
+		
 		// implements Java Language Specification 7.5.3. "Automatic Imports"
 		import_demand.add("java.lang.");
 		this.repository = repository;
@@ -120,6 +124,7 @@ final class JavaFile
 			throw new InjectorParseException("only one package statement allowed.");
 		
 		this.packagename=packagename;
+		nameSpace.importPackage(packagename);
 	}
 	
 	/**
@@ -142,7 +147,10 @@ final class JavaFile
 			throw new RuntimeException();
 		
 		if(importname.endsWith(".*"))
+		{
 			import_demand.add(importname.substring(0,importname.length()-1));
+			nameSpace.importPackage(importname.substring(0,importname.length()-2));
+		}
 		else
 		{
 			// implements Java Language Specification 7.5.1 "Single-Type-Import Declaration"
@@ -158,6 +166,7 @@ final class JavaFile
 					"Java Language Specification 7.5.1 'Single-Type-Import Declaration'");
 				// else this is a duplicate import statement and therefore ignored
 			}
+			nameSpace.importClass(importname);
 		}
 	}
 	
@@ -201,6 +210,8 @@ final class JavaFile
 		//System.out.println("findtype: >"+typename+"<");
 		
 		buildStageForImports=false;
+		
+		// TODO let nameSpace do the work
 		
 		final ClassLoader classLoader = getClass().getClassLoader();
 

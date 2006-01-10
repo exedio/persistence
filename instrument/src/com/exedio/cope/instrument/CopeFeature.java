@@ -28,7 +28,7 @@ class CopeFeature
 	final int modifier;
 	final int accessModifier;
 	final CopeType type;
-	private JavaClass.Value value;
+	private Feature value;
 	
 	CopeFeature(final JavaAttribute javaAttribute, final String name)
 	{
@@ -53,9 +53,9 @@ class CopeFeature
 	final Feature getInstance()
 	{
 		if(value==null)
-			value = javaAttribute.evaluate();
+			value = (Feature)javaAttribute.evaluate();
 		
-		return (Feature)value.instance;
+		return value;
 	}
 	
 }

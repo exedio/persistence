@@ -27,6 +27,7 @@ import java.util.SortedSet;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
+import com.exedio.cope.Item;
 import com.exedio.cope.ReadOnlyViolationException;
 import com.exedio.cope.util.ClassComparator;
 
@@ -65,6 +66,7 @@ final class CopeType
 		this.initialConstructorOption = new Option(initialConstructorOption, false);
 		this.genericConstructorOption = new Option(genericConstructorOption, false);
 		//System.out.println("copeTypeByJavaClass "+javaClass.getName());
+		javaClass.nameSpace.importStatic(Item.class);
 		javaClass.file.repository.add(this);
 	}
 	
