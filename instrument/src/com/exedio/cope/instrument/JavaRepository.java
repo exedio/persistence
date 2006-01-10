@@ -109,8 +109,9 @@ final class JavaRepository
 	{
 		assert buildStage && !generateStage;
 		final String name = javaClass.name;
-		if(enumValueClassByFullClassName.put(name, javaClass)!=null)
-			throw new RuntimeException(name);
+		Object oldValue = enumValueClassByFullClassName.put(name, javaClass);
+		if(oldValue!=null)
+			throw new RuntimeException("name clash on "+name+" between "+oldValue+" and "+javaClass);
 		//System.out.println("--------- put cope type: "+name);
 	}
 	
