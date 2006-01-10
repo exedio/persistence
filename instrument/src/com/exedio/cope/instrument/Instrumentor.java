@@ -285,14 +285,7 @@ final class Instrumentor implements InjectionConsumer
 
 			if(Modifier.isFinal(modifier) && Modifier.isStatic(modifier))
 			{
-				Class typeClass = null;
-				try
-				{
-					typeClass = ja.file.findType(ja.type);
-				}
-				catch(InjectorParseException e)
-				{
-				}
+				Class typeClass = ja.file.findType(ja.type);
 
 				if(typeClass!=null)
 				{

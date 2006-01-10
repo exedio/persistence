@@ -140,11 +140,9 @@ final class JavaFile
 	 * that at injection time the same classes are available
 	 * as at compile time of the modified user code.
 	 *
-	 * @throws InjectorParseException if no type could be found.
-	 *         Never returns null.
+	 * Returns null if no such type is found.
 	 */
 	public final Class findType(String typename)
-	throws InjectorParseException
 	{
 		//System.out.println("findtype: >"+typename+"<");
 		
@@ -152,10 +150,7 @@ final class JavaFile
 		
 		try
 		{
-			final Class result = importNameSpace.getClass(typename);
-			if(result==null)
-				throw new InjectorParseException("type "+typename+" not found.");
-			return result;
+			return importNameSpace.getClass(typename);
 		}
 		catch(UtilEvalError e)
 		{
