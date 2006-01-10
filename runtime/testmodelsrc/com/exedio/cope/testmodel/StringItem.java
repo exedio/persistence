@@ -36,13 +36,13 @@ public class StringItem extends Item
 
 	public static final StringAttribute mandatory = new StringAttribute(MANDATORY);
 	
-	public static final StringAttribute min4 = new StringAttribute(OPTIONAL, 4);
+	public static final StringAttribute min4 = new StringAttribute(OPTIONAL).lengthMin(4);
 
-	public static final StringAttribute max4 = new StringAttribute(OPTIONAL, 0, 4);
+	public static final StringAttribute max4 = new StringAttribute(OPTIONAL).lengthMax(4);
 
-	public static final StringAttribute min4Max8 = new StringAttribute(OPTIONAL, 4, 8);
+	public static final StringAttribute min4Max8 = new StringAttribute(OPTIONAL).lengthRange(4, 8);
 
-	public static final StringAttribute exact6 = new StringAttribute(OPTIONAL, 6, 6);
+	public static final StringAttribute exact6 = new StringAttribute(OPTIONAL).lengthExact(6);
 	
 	public static final UppercaseFunction min4Upper = min4.uppercase();
 	public static final UppercaseFunction max4Upper = max4.uppercase();

@@ -55,7 +55,7 @@ public class AttributeStringTest extends AttributeTest
 			assertEquals(Integer.MAX_VALUE, copy.getMaximumLength());
 		}
 		{
-			final StringAttribute orig = new StringAttribute(Item.READ_ONLY_OPTIONAL, 10);
+			final StringAttribute orig = new StringAttribute(Item.READ_ONLY_OPTIONAL).lengthMin(10);
 			assertEquals(true, orig.isReadOnly());
 			assertEquals(false, orig.isMandatory());
 			assertEquals(true, orig.isLengthConstrained());
@@ -70,7 +70,7 @@ public class AttributeStringTest extends AttributeTest
 			assertEquals(Integer.MAX_VALUE, copy.getMaximumLength());
 		}
 		{
-			final StringAttribute orig = new StringAttribute(Item.MANDATORY, 10, 20);
+			final StringAttribute orig = new StringAttribute(Item.MANDATORY).lengthRange(10, 20);
 			assertEquals(false, orig.isReadOnly());
 			assertEquals(true, orig.isMandatory());
 			assertEquals(true, orig.isLengthConstrained());
@@ -86,7 +86,7 @@ public class AttributeStringTest extends AttributeTest
 		}
 		try
 		{
-			new StringAttribute(Item.OPTIONAL, -1, 20);
+			new StringAttribute(Item.OPTIONAL).lengthRange(-1, 20);
 		}
 		catch(RuntimeException e)
 		{
@@ -94,7 +94,7 @@ public class AttributeStringTest extends AttributeTest
 		}
 		try
 		{
-			new StringAttribute(Item.OPTIONAL, 20, 10);
+			new StringAttribute(Item.OPTIONAL).lengthRange(20, 10);
 		}
 		catch(RuntimeException e)
 		{

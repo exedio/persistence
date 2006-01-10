@@ -28,7 +28,7 @@ import com.exedio.cope.StringAttribute;
  */
 public abstract class Super extends Item
 {
-	public static final StringAttribute superMandatory = new StringAttribute(MANDATORY, 5, 5);
+	public static final StringAttribute superMandatory = new StringAttribute(MANDATORY).lengthExact(5);
 	
 	/**
 	 * @cope.initial

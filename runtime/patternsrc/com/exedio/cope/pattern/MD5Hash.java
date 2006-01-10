@@ -37,7 +37,7 @@ public final class MD5Hash extends JavaHash
 
 	public MD5Hash(final Option storageOption)
 	{
-		this(new StringAttribute(storageOption, 32, 32));
+		this(new StringAttribute(storageOption).lengthExact(32));
 	}
 
 }

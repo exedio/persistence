@@ -30,17 +30,7 @@ public final class StringAttribute extends FunctionAttribute implements StringFu
 	private final int minimumLength;
 	private final int maximumLength;
 
-	public StringAttribute(final Option option)
-	{
-		this(option, 0, Integer.MAX_VALUE);
-	}
-	
-	public StringAttribute(final Option option, final int minimumLength)
-	{
-		this(option, minimumLength, Integer.MAX_VALUE);
-	}
-	
-	public StringAttribute(final Option option, final int minimumLength, final int maximumLength)
+	private StringAttribute(final Option option, final int minimumLength, final int maximumLength, final Long dummy)
 	{
 		super(option, String.class, "string");
 		this.minimumLength = minimumLength;
@@ -51,9 +41,50 @@ public final class StringAttribute extends FunctionAttribute implements StringFu
 			throw new RuntimeException("maximum length must be greater or equal mimimum length.");
 	}
 	
+	public StringAttribute(final Option option)
+	{
+		this(option, 0, Integer.MAX_VALUE, (Long)null);
+	}
+	
+	/**
+	 * @deprecated use {@link #lengthMin(int)} instead.
+	 */
+	public StringAttribute(final Option option, final int minimumLength)
+	{
+		this(option, minimumLength, Integer.MAX_VALUE, (Long)null);
+	}
+	
+	/**
+	 * @deprecated use {@link #lengthRange(int, int)} or {@link #lengthMax(int)} or {@link #lengthExact(int)} instead.
+	 */
+	public StringAttribute(final Option option, final int minimumLength, final int maximumLength)
+	{
+		this(option, minimumLength, maximumLength, (Long)null);
+	}
+	
 	public FunctionAttribute copyAsTemplate()
 	{
-		return new StringAttribute(getTemplateOption(), minimumLength, maximumLength);
+		return new StringAttribute(getTemplateOption(), minimumLength, maximumLength, (Long)null);
+	}
+	
+	public StringAttribute lengthRange(final int minimumLength, final int maximumLength)
+	{
+		return new StringAttribute(getTemplateOption(), minimumLength, maximumLength, (Long)null);
+	}
+	
+	public StringAttribute lengthMin(final int minimumLength)
+	{
+		return new StringAttribute(getTemplateOption(), minimumLength, Integer.MAX_VALUE, (Long)null);
+	}
+	
+	public StringAttribute lengthMax(final int maximumLength)
+	{
+		return new StringAttribute(getTemplateOption(), 0, maximumLength, (Long)null);
+	}
+	
+	public StringAttribute lengthExact(final int exactLength)
+	{
+		return new StringAttribute(getTemplateOption(), exactLength, exactLength, (Long)null);
 	}
 	
 	public final int getMinimumLength()

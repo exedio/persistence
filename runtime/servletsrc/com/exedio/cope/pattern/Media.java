@@ -70,7 +70,7 @@ public final class Media extends MediaPath
 
 		this.mandatory = option.mandatory;
 		registerSource(this.data = new DataAttribute(option));
-		final StringAttribute mimeMinor = new StringAttribute(option, 1, 30);
+		final StringAttribute mimeMinor = new StringAttribute(option).lengthRange(1, 30);
 		this.contentType = new HalfFixedContentType(fixedMimeMajor, mimeMinor);
 		registerSource(this.lastModified = new DateAttribute(option));
 	}
@@ -82,8 +82,8 @@ public final class Media extends MediaPath
 
 		this.mandatory = option.mandatory;
 		registerSource(this.data = new DataAttribute(option));
-		final StringAttribute mimeMajor = new StringAttribute(option, 1, 30);
-		final StringAttribute mimeMinor = new StringAttribute(option, 1, 30);
+		final StringAttribute mimeMajor = new StringAttribute(option).lengthRange(1, 30);
+		final StringAttribute mimeMinor = new StringAttribute(option).lengthRange(1, 30);
 		this.contentType = new StoredContentType(mimeMajor, mimeMinor);
 		registerSource(this.lastModified = new DateAttribute(option));
 	}
