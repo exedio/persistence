@@ -62,6 +62,12 @@ public final class JavaView extends Pattern
 		return valueType;
 	}
 	
+	public Method getValueGetterMethod()
+	{
+		assert getter!=null;
+		return getter;
+	}
+	
 	public Object get(final Item item)
 	{
 		try
