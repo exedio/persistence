@@ -63,22 +63,6 @@ final class JavaAttribute
 	}
 
 	/**
-	 * Return a fully qualified name of the attribute,
-	 * including class and package path.
-	 * Syntax follows the javadoc tags,
-	 * with a '#' between class and attribute name.
-	 * Is used for type tracing log files.
-	 */
-	final String getFullDocName()
-	{
-		return file.getPackageName()
-			+ '.'
-			+ parent.name
-			+ '#'
-			+ name;
-	}
-
-	/**
 	 * See Java Specification 8.3.1 &quot;Field Modifiers&quot;
 	 */
 	final int getAllowedModifiers()

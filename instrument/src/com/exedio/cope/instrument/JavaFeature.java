@@ -93,14 +93,6 @@ abstract class JavaFeature
 	}
 
 	/**
-	 * Returns the package of the file containing this feature.
-	 */
-	final String getPackageName()
-	{
-		return file.getPackageName();
-	}
-	
-	/**
 	 * Subclasses use this method to specify,
 	 * which modifiers are allowed for the specific kind
 	 * of feature.
