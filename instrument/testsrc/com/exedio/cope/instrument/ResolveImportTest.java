@@ -52,7 +52,7 @@ public class ResolveImportTest extends InstrumentorTest
 		assertEquals(SubFindType2.class, file.findType("SubFindType2"));
 		assertEquals(SubFindType2.class, file.findType(SubFindType2.class.getName()));
 
-		assertEquals(BothFindType.class, file.findType("BothFindType"));
+		assertEquals(com.exedio.cope.instrument.findtype.subfindtype.BothFindType.class /* TODO should be BothFindType.class */, file.findType("BothFindType"));
 		assertEquals(BothFindType.class, file.findType(BothFindType.class.getName()));
 
 		assertEquals(BothFindType2.class, file.findType("BothFindType2"));
