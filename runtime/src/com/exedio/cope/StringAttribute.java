@@ -30,7 +30,7 @@ public final class StringAttribute extends FunctionAttribute implements StringFu
 	private final int minimumLength;
 	private final int maximumLength;
 
-	private StringAttribute(final boolean readOnly, final boolean mandatory, final boolean unique, final int minimumLength, final int maximumLength, final Long dummy)
+	private StringAttribute(final boolean readOnly, final boolean mandatory, final boolean unique, final int minimumLength, final int maximumLength)
 	{
 		super(readOnly, mandatory, unique, String.class, "string");
 		this.minimumLength = minimumLength;
@@ -43,7 +43,7 @@ public final class StringAttribute extends FunctionAttribute implements StringFu
 	
 	public StringAttribute(final Option option)
 	{
-		this(option.readOnly, option.mandatory, option.unique, 0, Integer.MAX_VALUE, (Long)null);
+		this(option.readOnly, option.mandatory, option.unique, 0, Integer.MAX_VALUE);
 	}
 	
 	/**
@@ -51,7 +51,7 @@ public final class StringAttribute extends FunctionAttribute implements StringFu
 	 */
 	public StringAttribute(final Option option, final int minimumLength)
 	{
-		this(option.readOnly, option.mandatory, option.unique, minimumLength, Integer.MAX_VALUE, (Long)null);
+		this(option.readOnly, option.mandatory, option.unique, minimumLength, Integer.MAX_VALUE);
 	}
 	
 	/**
@@ -59,32 +59,32 @@ public final class StringAttribute extends FunctionAttribute implements StringFu
 	 */
 	public StringAttribute(final Option option, final int minimumLength, final int maximumLength)
 	{
-		this(option.readOnly, option.mandatory, option.unique, minimumLength, maximumLength, (Long)null);
+		this(option.readOnly, option.mandatory, option.unique, minimumLength, maximumLength);
 	}
 	
 	public FunctionAttribute copyAsTemplate()
 	{
-		return new StringAttribute(readOnly, mandatory, implicitUniqueConstraint!=null, minimumLength, maximumLength, (Long)null);
+		return new StringAttribute(readOnly, mandatory, implicitUniqueConstraint!=null, minimumLength, maximumLength);
 	}
 	
 	public StringAttribute lengthRange(final int minimumLength, final int maximumLength)
 	{
-		return new StringAttribute(readOnly, mandatory, implicitUniqueConstraint!=null, minimumLength, maximumLength, (Long)null);
+		return new StringAttribute(readOnly, mandatory, implicitUniqueConstraint!=null, minimumLength, maximumLength);
 	}
 	
 	public StringAttribute lengthMin(final int minimumLength)
 	{
-		return new StringAttribute(readOnly, mandatory, implicitUniqueConstraint!=null, minimumLength, Integer.MAX_VALUE, (Long)null);
+		return new StringAttribute(readOnly, mandatory, implicitUniqueConstraint!=null, minimumLength, Integer.MAX_VALUE);
 	}
 	
 	public StringAttribute lengthMax(final int maximumLength)
 	{
-		return new StringAttribute(readOnly, mandatory, implicitUniqueConstraint!=null, 0, maximumLength, (Long)null);
+		return new StringAttribute(readOnly, mandatory, implicitUniqueConstraint!=null, 0, maximumLength);
 	}
 	
 	public StringAttribute lengthExact(final int exactLength)
 	{
-		return new StringAttribute(readOnly, mandatory, implicitUniqueConstraint!=null, exactLength, exactLength, (Long)null);
+		return new StringAttribute(readOnly, mandatory, implicitUniqueConstraint!=null, exactLength, exactLength);
 	}
 	
 	public final int getMinimumLength()
