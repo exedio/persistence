@@ -42,7 +42,7 @@ public final class EnumAttribute extends FunctionAttribute
 	
 	private EnumAttribute(final boolean readOnly, final boolean mandatory, final boolean unique, final Class enumClass)
 	{
-		super(readOnly, mandatory, unique, enumClass, enumClass.getName());
+		super(readOnly, mandatory, unique, enumClass);
 		this.enumClass = enumClass;
 		if(!EnumValue.class.isAssignableFrom(enumClass))
 			throw new RuntimeException("is not an enumeration value class: "+enumClass.getName());

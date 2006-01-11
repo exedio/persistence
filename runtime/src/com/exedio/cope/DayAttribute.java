@@ -29,7 +29,7 @@ public final class DayAttribute extends FunctionAttribute
 	
 	private DayAttribute(final boolean readOnly, final boolean mandatory, final boolean unique)
 	{
-		super(readOnly, mandatory, unique, Day.class, "day");
+		super(readOnly, mandatory, unique, Day.class);
 	}
 	
 	public DayAttribute(final Option option)

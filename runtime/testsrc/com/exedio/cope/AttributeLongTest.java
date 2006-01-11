@@ -15,6 +15,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
+
 package com.exedio.cope;
 
 
@@ -78,7 +79,7 @@ public class AttributeLongTest extends AttributeTest
 		}
 		catch(ClassCastException e)
 		{
-			assertEquals("expected long, got " + Integer.class.getName() + " for someLong", e.getMessage());
+			assertEquals("expected " + Long.class.getName() + ", got " + Integer.class.getName() + " for someLong", e.getMessage());
 		}
 	}
 

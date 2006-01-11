@@ -27,7 +27,7 @@ public final class ItemAttribute extends FunctionAttribute
 
 	private ItemAttribute(final boolean readOnly, final boolean mandatory, final boolean unique, final Class targetTypeClass, final DeletePolicy policy)
 	{
-		super(readOnly, mandatory, unique, targetTypeClass, targetTypeClass.getName());
+		super(readOnly, mandatory, unique, targetTypeClass);
 		this.targetTypeClass = targetTypeClass;
 		this.policy = policy;
 		if(targetTypeClass==null)

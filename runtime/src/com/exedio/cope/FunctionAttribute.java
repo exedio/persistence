@@ -29,15 +29,13 @@ public abstract class FunctionAttribute
 	implements Function
 {
 	private final Class valueClass;
-	private final String valueClassName;
 	final UniqueConstraint implicitUniqueConstraint;
 	private ArrayList uniqueConstraints;
 	
-	FunctionAttribute(final boolean readOnly, final boolean mandatory, final boolean unique, final Class valueClass, final String valueClassName)
+	FunctionAttribute(final boolean readOnly, final boolean mandatory, final boolean unique, final Class valueClass)
 	{
 		super(readOnly, mandatory);
 		this.valueClass = valueClass;
-		this.valueClassName = valueClassName;
 		this.implicitUniqueConstraint =
 			unique ?
 				new UniqueConstraint((FunctionAttribute)this) :
@@ -82,7 +80,7 @@ public abstract class FunctionAttribute
 			if(!(valueClass.isAssignableFrom(value.getClass())))
 			{
 				throw new ClassCastException(
-						"expected " + valueClassName +
+						"expected " + valueClass.getName() +
 						", got " + value.getClass().getName() +
 						" for " + getName());
 			}

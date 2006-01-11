@@ -15,6 +15,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
+
 package com.exedio.cope;
 
 
@@ -77,7 +78,7 @@ public class AttributeIntegerTest extends AttributeTest
 		}
 		catch(ClassCastException e)
 		{
-			assertEquals("expected integer, got " + Long.class.getName() + " for someInteger", e.getMessage());
+			assertEquals("expected " + Integer.class.getName() + ", got " + Long.class.getName() + " for someInteger", e.getMessage());
 		}
 	}
 

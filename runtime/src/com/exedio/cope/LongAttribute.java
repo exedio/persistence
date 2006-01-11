@@ -28,7 +28,7 @@ public final class LongAttribute extends FunctionAttribute
 
 	private LongAttribute(final boolean readOnly, final boolean mandatory, final boolean unique)
 	{
-		super(readOnly, mandatory, unique, Long.class, "long");
+		super(readOnly, mandatory, unique, Long.class);
 	}
 	
 	public LongAttribute(final Option option)

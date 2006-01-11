@@ -30,7 +30,7 @@ public final class DateAttribute extends FunctionAttribute
 
 	private DateAttribute(final boolean readOnly, final boolean mandatory, final boolean unique)
 	{
-		super(readOnly, mandatory, unique, Date.class, "date");
+		super(readOnly, mandatory, unique, Date.class);
 	}
 	
 	public DateAttribute(final Option option)

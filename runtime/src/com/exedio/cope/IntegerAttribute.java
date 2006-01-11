@@ -29,7 +29,7 @@ public final class IntegerAttribute extends FunctionAttribute implements Integer
 
 	private IntegerAttribute(final boolean readOnly, final boolean mandatory, final boolean unique)
 	{
-		super(readOnly, mandatory, unique, Integer.class, "integer");
+		super(readOnly, mandatory, unique, Integer.class);
 	}
 	
 	public IntegerAttribute(final Option option)

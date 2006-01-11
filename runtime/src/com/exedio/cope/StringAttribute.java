@@ -32,7 +32,7 @@ public final class StringAttribute extends FunctionAttribute implements StringFu
 
 	private StringAttribute(final boolean readOnly, final boolean mandatory, final boolean unique, final int minimumLength, final int maximumLength)
 	{
-		super(readOnly, mandatory, unique, String.class, "string");
+		super(readOnly, mandatory, unique, String.class);
 		this.minimumLength = minimumLength;
 		this.maximumLength = maximumLength;
 		if(minimumLength<0)

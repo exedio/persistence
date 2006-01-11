@@ -25,7 +25,7 @@ public final class BooleanAttribute extends FunctionAttribute
 
 	private BooleanAttribute(final boolean readOnly, final boolean mandatory, final boolean unique)
 	{
-		super(readOnly, mandatory, unique, Boolean.class, "boolean");
+		super(readOnly, mandatory, unique, Boolean.class);
 	}
 	
 	public BooleanAttribute(final Option option)
