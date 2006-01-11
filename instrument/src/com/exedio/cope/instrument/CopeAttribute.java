@@ -63,9 +63,9 @@ abstract class CopeAttribute extends CopeFeature
 	{
 		super(javaAttribute, name);
 		this.persistentType = persistentType;
-		final boolean computed = View.class.isAssignableFrom(typeClass);
+		final boolean isView = View.class.isAssignableFrom(typeClass);
 		
-		if(!computed)
+		if(!isView)
 		{
 			if(initializerArguments.size()<1)
 				throw new InjectorParseException("attribute "+javaAttribute.name+" has no option.");
@@ -163,9 +163,9 @@ abstract class CopeAttribute extends CopeFeature
 		final Feature instance = getInstance();
 		final boolean readOnly = instance instanceof Attribute && ((Attribute)instance).isReadOnly();
 		final boolean notNull = instance instanceof Attribute && ((Attribute)instance).isMandatory();
-		final boolean computed = instance instanceof View;
+		final boolean isView = instance instanceof View;
 
-		return (readOnly || notNull) && !computed;
+		return (readOnly || notNull) && !isView;
 	}
 
 	// TODO: put into rtlib
@@ -173,9 +173,9 @@ abstract class CopeAttribute extends CopeFeature
 	{
 		final Feature instance = getInstance();
 		final boolean readOnly = instance instanceof Attribute && ((Attribute)instance).isReadOnly();
-		final boolean computed = instance instanceof View;
+		final boolean isView = instance instanceof View;
 
-		return !readOnly && !computed;
+		return !readOnly && !isView;
 	}
 	
 	final boolean isTouchable()

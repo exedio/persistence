@@ -325,8 +325,8 @@ abstract class AbstractDatabase implements Database
 					else
 					{
 						selectColumn = null;
-						final View computedFunction = (View)selectable;
-						bf.append(computedFunction, (Join)null).defineColumn(computedFunction);
+						final View view = (View)selectable;
+						bf.append(view, (Join)null).defineColumn(view);
 					}
 				}
 				else
