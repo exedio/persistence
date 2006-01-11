@@ -23,11 +23,11 @@ import java.sql.SQLException;
 
 import com.exedio.cope.function.LengthFunction;
 
-public abstract class ComputedStringFunction
+public abstract class StringView
 	extends StaticView
 	implements StringFunction
 {
-	public ComputedStringFunction(
+	public StringView(
 			final Function[] sources,
 			final String[] sqlFragments,
 			final String functionName)

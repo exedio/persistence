@@ -18,12 +18,12 @@
 
 package com.exedio.cope.function;
 
-import com.exedio.cope.ComputedStringFunction;
+import com.exedio.cope.StringView;
 import com.exedio.cope.StringAttribute;
 import com.exedio.cope.StringFunction;
 
 public final class UppercaseFunction
-	extends ComputedStringFunction
+	extends StringView
 	implements StringFunction
 {
 	private static final String[] sql = new String[]{"UPPER(", ")"};
