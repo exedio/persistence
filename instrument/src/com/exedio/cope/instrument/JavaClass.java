@@ -28,6 +28,8 @@ import bsh.Interpreter;
 import bsh.Primitive;
 import bsh.UtilEvalError;
 
+import com.exedio.cope.EnumValue;
+
 /**
  * Represents a class parsed by the java parser.
  * Is an inner class, if parent is not null.
@@ -40,6 +42,7 @@ final class JavaClass extends JavaFeature
 	final CopeNameSpace nameSpace;
 	
 	private HashMap attributes = new HashMap();
+	private final HashMap enumValueClassByName = new HashMap();
 	final List classExtends;
 	final List classImplements;
 	private int classEndPosition = -1;
@@ -58,7 +61,10 @@ final class JavaClass extends JavaFeature
 		this.classExtends = Collections.unmodifiableList(classExtends);
 		this.classImplements = Collections.unmodifiableList(classImplements);
 		if(classExtends.contains("EnumValue")) // TODO nicify
+		{
+			parent.addEnumClass(this);
 			file.repository.addEnumClass(this);
+		}
 		file.add(this);
 	}
 	
@@ -78,6 +84,45 @@ final class JavaClass extends JavaFeature
 		assert !file.repository.isBuildStage();
 		
 		return (JavaAttribute)attributes.get(name);
+	}
+	
+	void addEnumClass(final JavaClass javaClass)
+	{
+		assert file.repository.isBuildStage();
+		Object oldValue = enumValueClassByName.put(javaClass.name, javaClass);
+		if(oldValue!=null)
+			throw new RuntimeException("name clash on "+name+" between "+oldValue+" and "+javaClass);
+		//System.out.println("--------- put enum class into class "+name+": "+javaClass.name);
+	}
+	
+	JavaClass getEnumValueClass(final String fullClassName)
+	{
+		assert file.repository.isGenerateStage();
+		final JavaClass result = (JavaClass)enumValueClassByName.get(fullClassName);
+		return result;
+	}
+
+	/**
+	 * Constructs the fully qualified name of this class,
+	 * including package path.
+	 */
+	public String getFullName()
+	{
+		StringBuffer buf=new StringBuffer();
+		final String packagename = file.getPackageName();
+		if(packagename!=null)
+		{
+			buf.append(packagename);
+			buf.append('.');
+		}
+		int pos=buf.length();
+		for(JavaClass i=this; i!=null; i=i.parent)
+		{
+			if(i!=this)
+				buf.insert(pos, '$');
+			buf.insert(pos, i.name);
+		}
+		return buf.toString();
 	}
 	
 	public final boolean isInterface()
@@ -155,5 +200,17 @@ final class JavaClass extends JavaFeature
 			
 			return Primitive.VOID;
 	   }
+	   
+		public Class getClass(final String name) throws UtilEvalError
+		{
+			final Class superResult = super.getClass(name);
+			if(superResult!=null)
+				return superResult;
+			
+			if(getEnumValueClass(name)!=null)
+				return EnumValue.class;
+			
+			return null;
+		}
 	}
 }

@@ -66,6 +66,11 @@ final class JavaRepository
 		return buildStage;
 	}
 
+	boolean isGenerateStage()
+	{
+		return generateStage;
+	}
+
 	void add(final JavaFile file)
 	{
 		assert buildStage;
@@ -108,11 +113,11 @@ final class JavaRepository
 	void addEnumClass(final JavaClass javaClass)
 	{
 		assert buildStage && !generateStage;
-		final String name = javaClass.name;
+		final String name = javaClass.getFullName();
 		Object oldValue = enumValueClassByFullClassName.put(name, javaClass);
 		if(oldValue!=null)
 			throw new RuntimeException("name clash on "+name+" between "+oldValue+" and "+javaClass);
-		//System.out.println("--------- put cope type: "+name);
+		//System.out.println("--------- put enum class into repository: "+name);
 	}
 	
 	JavaClass getEnumValueClass(final String fullClassName)
