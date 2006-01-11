@@ -21,7 +21,7 @@ package com.exedio.cope;
 import com.exedio.cope.IntegerAttribute;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringAttribute;
-import com.exedio.cope.function.UppercaseFunction;
+import com.exedio.cope.function.UppercaseView;
 
 /**
  * @cope.persistent
@@ -33,7 +33,7 @@ public abstract class HierarchySuper extends Item
 	
 	public static final StringAttribute superString = new StringAttribute(OPTIONAL);
 
-	public static final UppercaseFunction superStringUpper = superString.uppercase();
+	public static final UppercaseView superStringUpper = superString.uppercase();
 	
 /**
 

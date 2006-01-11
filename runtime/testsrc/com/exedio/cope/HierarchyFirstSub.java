@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.StringAttribute;
-import com.exedio.cope.function.UppercaseFunction;
+import com.exedio.cope.function.UppercaseView;
 
 /**
  * @cope.persistent
@@ -31,7 +31,7 @@ public class HierarchyFirstSub extends HierarchySuper
 
 	public static final StringAttribute firstSubString = new StringAttribute(UNIQUE_OPTIONAL);
 	
-	public static final UppercaseFunction firstSubStringUpper = firstSubString.uppercase();
+	public static final UppercaseView firstSubStringUpper = firstSubString.uppercase();
 	
 	
 /**

@@ -22,19 +22,19 @@ import com.exedio.cope.StringView;
 import com.exedio.cope.StringAttribute;
 import com.exedio.cope.StringFunction;
 
-public final class UppercaseFunction
+public final class UppercaseView
 	extends StringView
 	implements StringFunction
 {
 	private static final String[] sql = new String[]{"UPPER(", ")"};
 
 	/**
-	 * Creates a new UppercaseFunction.
+	 * Creates a new UppercaseView.
 	 * Instead of using this constructor directly,
 	 * you may want to use the more convenient wrapper method
 	 * {@link StringAttribute#uppercase()}.
 	 */
-	public UppercaseFunction(final StringFunction source)
+	public UppercaseView(final StringFunction source)
 	{
 		super(new StringFunction[]{source}, sql, "upper");
 	}

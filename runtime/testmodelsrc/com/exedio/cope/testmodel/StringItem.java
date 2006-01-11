@@ -24,7 +24,7 @@ import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.StringAttribute;
 import com.exedio.cope.function.LengthFunction;
 import com.exedio.cope.function.SumFunction;
-import com.exedio.cope.function.UppercaseFunction;
+import com.exedio.cope.function.UppercaseView;
 
 /**
  * @cope.persistent
@@ -44,8 +44,8 @@ public class StringItem extends Item
 
 	public static final StringAttribute exact6 = new StringAttribute(OPTIONAL).lengthExact(6);
 	
-	public static final UppercaseFunction min4Upper = min4.uppercase();
-	public static final UppercaseFunction max4Upper = max4.uppercase();
+	public static final UppercaseView min4Upper = min4.uppercase();
+	public static final UppercaseView max4Upper = max4.uppercase();
 
 	public static final LengthFunction min4UpperLength = min4Upper.length();
 	public static final LengthFunction max4UpperLength = max4Upper.length();

@@ -30,7 +30,7 @@ import com.exedio.cope.ItemAttribute;
 import com.exedio.cope.LongAttribute;
 import com.exedio.cope.StringAttribute;
 import com.exedio.cope.function.LengthFunction;
-import com.exedio.cope.function.UppercaseFunction;
+import com.exedio.cope.function.UppercaseView;
 import com.exedio.cope.pattern.Media;
 import com.exedio.cope.pattern.Qualifier;
 
@@ -54,7 +54,7 @@ public class AttributeItem extends Item
 	/**
 	 * The code of the item in upper case.
 	 */
-	public static final UppercaseFunction someStringUpperCase = someString.uppercase();
+	public static final UppercaseView someStringUpperCase = someString.uppercase();
 
 	/**
 	 * The length of code of the item.
