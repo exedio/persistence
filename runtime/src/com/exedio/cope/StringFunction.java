@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.function.LengthFunction;
+import com.exedio.cope.function.LengthView;
 
 
 public interface StringFunction extends Function
@@ -29,5 +29,5 @@ public interface StringFunction extends Function
 	EqualCondition equal(Join join, String value);
 	NotEqualCondition notEqual(String value);
 	LikeCondition like(String value);
-	LengthFunction length();
+	LengthView length();
 }

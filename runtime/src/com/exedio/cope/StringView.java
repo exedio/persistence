@@ -21,7 +21,7 @@ package com.exedio.cope;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.exedio.cope.function.LengthFunction;
+import com.exedio.cope.function.LengthView;
 
 public abstract class StringView
 	extends StaticView
@@ -76,9 +76,9 @@ public abstract class StringView
 		return new LikeCondition(this, value);
 	}
 	
-	public final LengthFunction length()
+	public final LengthView length()
 	{
-		return new LengthFunction(this);
+		return new LengthView(this);
 	}
 	
 }

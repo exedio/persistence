@@ -29,7 +29,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.ItemAttribute;
 import com.exedio.cope.LongAttribute;
 import com.exedio.cope.StringAttribute;
-import com.exedio.cope.function.LengthFunction;
+import com.exedio.cope.function.LengthView;
 import com.exedio.cope.function.UppercaseView;
 import com.exedio.cope.pattern.Media;
 import com.exedio.cope.pattern.Qualifier;
@@ -59,7 +59,7 @@ public class AttributeItem extends Item
 	/**
 	 * The length of code of the item.
 	 */
-	public static final LengthFunction someStringLength = someString.length();
+	public static final LengthView someStringLength = someString.length();
 
 	/**
 	 * A mandatory string attribute.

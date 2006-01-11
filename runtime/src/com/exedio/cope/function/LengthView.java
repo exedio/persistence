@@ -22,19 +22,19 @@ import com.exedio.cope.IntegerView;
 import com.exedio.cope.IntegerFunction;
 import com.exedio.cope.StringFunction;
 
-public class LengthFunction
+public class LengthView
 	extends IntegerView
 	implements IntegerFunction
 {
 	private static final String[] sql = new String[]{"LENGTH(", ")"};
 
 	/**
-	 * Creates a new LengthFunction.
+	 * Creates a new LengthView.
 	 * Instead of using this constructor directly,
 	 * you may want to use the more convenient wrapper method
 	 * {@link StringFunction#length()}.
 	 */
-	public LengthFunction(final StringFunction source)
+	public LengthView(final StringFunction source)
 	{
 		super(new StringFunction[]{source}, sql, "length");
 	}

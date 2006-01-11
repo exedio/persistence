@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.function.LengthFunction;
+import com.exedio.cope.function.LengthView;
 import com.exedio.cope.function.UppercaseView;
 import com.exedio.cope.search.GreaterCondition;
 import com.exedio.cope.search.GreaterEqualCondition;
@@ -203,9 +203,9 @@ public final class StringAttribute extends FunctionAttribute implements StringFu
 		return new GreaterEqualCondition(this, value);
 	}
 	
-	public final LengthFunction length()
+	public final LengthView length()
 	{
-		return new LengthFunction(this);
+		return new LengthView(this);
 	}
 	
 	public final UppercaseView uppercase()
