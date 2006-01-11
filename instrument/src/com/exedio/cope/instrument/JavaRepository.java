@@ -35,6 +35,15 @@ final class JavaRepository
 	final CopeNameSpace nameSpace = new NameSpace();
 	
 	/**
+	 * Defines a name space, that does not depend on
+	 * information gathered by the instrumentor,
+	 * thus can be used in build stage.
+	 * Using this in JavaFile greatly reduces number of top name spaces,
+	 * for which a new BshClassManager must be created.
+	 */
+	final CopeNameSpace externalNameSpace = new CopeNameSpace(null);
+	
+	/**
 	 * Distiguishes two stages in life cycle of this repository,
 	 * and its contents:
 	 * building the repository and querying the repository.

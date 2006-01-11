@@ -61,7 +61,7 @@ final class JavaFile
 	public JavaFile(final JavaRepository repository)
 	{
 		this.nameSpace = new CopeNameSpace(repository.nameSpace);
-		this.externalNameSpace = new CopeNameSpace(null);
+		this.externalNameSpace = new CopeNameSpace(repository.externalNameSpace);
 		
 		this.repository = repository;
 		repository.add(this);
