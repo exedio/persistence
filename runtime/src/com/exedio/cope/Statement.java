@@ -237,7 +237,7 @@ final class Statement
 		database.appendMatchClause(this, function, value);
 	}
 	
-	Statement defineColumn(final ComputedFunction function)
+	Statement defineColumn(final View function)
 	{
 		if(columnTypes!=null)
 			columnTypes.add(function.jdbcType);

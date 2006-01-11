@@ -25,7 +25,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-public abstract class ComputedFunction extends Feature implements Function
+public abstract class View extends Feature implements Function
 {
 	private final Function[] sources;
 	private final List sourceList;
@@ -33,7 +33,7 @@ public abstract class ComputedFunction extends Feature implements Function
 	final int jdbcType;
 	final Type sourceType;
 
-	public ComputedFunction(final Function[] sources, final String functionName, final int jdbcType)
+	public View(final Function[] sources, final String functionName, final int jdbcType)
 	{
 		this.sources = sources;
 		this.sourceList = Collections.unmodifiableList(Arrays.asList(sources));
@@ -101,10 +101,10 @@ public abstract class ComputedFunction extends Feature implements Function
 	
 	public boolean equals(final Object other)
 	{
-		if(!(other instanceof ComputedFunction))
+		if(!(other instanceof View))
 			return false;
 		
-		final ComputedFunction o = (ComputedFunction)other;
+		final View o = (View)other;
 		
 		if(!functionName.equals(o.functionName) || sources.length!=o.sources.length)
 			return false;

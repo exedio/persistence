@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 
-abstract class ComputedStaticFunction extends ComputedFunction
+abstract class ComputedStaticFunction extends View
 {
 	private final Function[] sources;
 	private final String[] sqlFragments;

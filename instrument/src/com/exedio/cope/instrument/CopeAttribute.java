@@ -28,7 +28,7 @@ import java.util.TreeSet;
 
 import com.exedio.cope.Attribute;
 import com.exedio.cope.BooleanAttribute;
-import com.exedio.cope.ComputedFunction;
+import com.exedio.cope.View;
 import com.exedio.cope.DateAttribute;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
@@ -63,7 +63,7 @@ abstract class CopeAttribute extends CopeFeature
 	{
 		super(javaAttribute, name);
 		this.persistentType = persistentType;
-		final boolean computed = ComputedFunction.class.isAssignableFrom(typeClass);
+		final boolean computed = View.class.isAssignableFrom(typeClass);
 		
 		if(!computed)
 		{
@@ -163,7 +163,7 @@ abstract class CopeAttribute extends CopeFeature
 		final Feature instance = getInstance();
 		final boolean readOnly = instance instanceof Attribute && ((Attribute)instance).isReadOnly();
 		final boolean notNull = instance instanceof Attribute && ((Attribute)instance).isMandatory();
-		final boolean computed = instance instanceof ComputedFunction;
+		final boolean computed = instance instanceof View;
 
 		return (readOnly || notNull) && !computed;
 	}
@@ -173,7 +173,7 @@ abstract class CopeAttribute extends CopeFeature
 	{
 		final Feature instance = getInstance();
 		final boolean readOnly = instance instanceof Attribute && ((Attribute)instance).isReadOnly();
-		final boolean computed = instance instanceof ComputedFunction;
+		final boolean computed = instance instanceof View;
 
 		return !readOnly && !computed;
 	}

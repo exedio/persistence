@@ -325,7 +325,7 @@ abstract class AbstractDatabase implements Database
 					else
 					{
 						selectColumn = null;
-						final ComputedFunction computedFunction = (ComputedFunction)selectable;
+						final View computedFunction = (View)selectable;
 						bf.append(computedFunction, (Join)null).defineColumn(computedFunction);
 					}
 				}
@@ -484,9 +484,9 @@ abstract class AbstractDatabase implements Database
 								}
 								resultCell = selectAttribute.get(dummyRow);
 							}
-							else if(selectable instanceof ComputedFunction)
+							else if(selectable instanceof View)
 							{
-								final ComputedFunction selectFunction = (ComputedFunction)selectable;
+								final View selectFunction = (View)selectable;
 								resultCell = selectFunction.load(resultSet, columnIndex++);
 							}
 							else
