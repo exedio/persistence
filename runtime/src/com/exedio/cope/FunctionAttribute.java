@@ -60,14 +60,26 @@ public abstract class FunctionAttribute
 	{
 		if(isReadOnly())
 			if(isMandatory())
-				return Item.READ_ONLY;
+				if(implicitUniqueConstraint==null)
+					return Item.READ_ONLY;
+				else
+					return Item.READ_ONLY_UNIQUE;
 			else
-				return Item.READ_ONLY_OPTIONAL;
+				if(implicitUniqueConstraint==null)
+					return Item.READ_ONLY_OPTIONAL;
+				else
+					return Item.READ_ONLY_UNIQUE_OPTIONAL;
 		else
 			if(isMandatory())
-				return Item.MANDATORY;
+				if(implicitUniqueConstraint==null)
+					return Item.MANDATORY;
+				else
+					return Item.UNIQUE;
 			else
-				return Item.OPTIONAL;
+				if(implicitUniqueConstraint==null)
+					return Item.OPTIONAL;
+				else
+					return Item.UNIQUE_OPTIONAL;
 	}
 	
 	/**
