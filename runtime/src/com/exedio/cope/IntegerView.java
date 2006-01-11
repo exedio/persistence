@@ -24,11 +24,11 @@ import java.sql.SQLException;
 
 import com.exedio.cope.function.SumFunction;
 
-public abstract class ComputedIntegerFunction
+public abstract class IntegerView
 	extends StaticView
 	implements IntegerFunction
 {
-	public ComputedIntegerFunction(
+	public IntegerView(
 			final Function[] sources,
 			final String[] sqlFragments,
 			final String functionName)
@@ -40,7 +40,7 @@ public abstract class ComputedIntegerFunction
 	throws SQLException
 	{
 		final Object loadedInteger = resultSet.getObject(columnIndex);
-		//System.out.println("ComputedIntegerFunction.load "+functionName+" "+loadedInteger+" "+(loadedInteger==null?"null":loadedInteger.getClass().getName()));
+		//System.out.println("IntegerView.load "+functionName+" "+loadedInteger+" "+(loadedInteger==null?"null":loadedInteger.getClass().getName()));
 		if(loadedInteger!=null)
 		{
 			if(loadedInteger instanceof BigDecimal)

@@ -18,12 +18,12 @@
 
 package com.exedio.cope.function;
 
-import com.exedio.cope.ComputedIntegerFunction;
+import com.exedio.cope.IntegerView;
 import com.exedio.cope.IntegerFunction;
 import com.exedio.cope.StringFunction;
 
 public class LengthFunction
-	extends ComputedIntegerFunction
+	extends IntegerView
 	implements IntegerFunction
 {
 	private static final String[] sql = new String[]{"LENGTH(", ")"};

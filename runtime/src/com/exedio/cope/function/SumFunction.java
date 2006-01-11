@@ -18,12 +18,12 @@
 
 package com.exedio.cope.function;
 
-import com.exedio.cope.ComputedIntegerFunction;
+import com.exedio.cope.IntegerView;
 import com.exedio.cope.Cope;
 import com.exedio.cope.IntegerFunction;
 
 public final class SumFunction
-	extends ComputedIntegerFunction
+	extends IntegerView
 	implements IntegerFunction
 {
 
