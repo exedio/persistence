@@ -23,7 +23,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.StringAttribute;
 import com.exedio.cope.function.LengthFunction;
-import com.exedio.cope.function.SumFunction;
+import com.exedio.cope.function.SumView;
 import com.exedio.cope.function.UppercaseView;
 
 /**
@@ -50,7 +50,7 @@ public class StringItem extends Item
 	public static final LengthFunction min4UpperLength = min4Upper.length();
 	public static final LengthFunction max4UpperLength = max4Upper.length();
 	
-	public static final SumFunction min4AndMax4UpperLength = min4UpperLength.sum(max4UpperLength);
+	public static final SumView min4AndMax4UpperLength = min4UpperLength.sum(max4UpperLength);
 	
 	public StringItem(final String any, boolean dummy)
 	{

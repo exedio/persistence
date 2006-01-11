@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.function.SumFunction;
+import com.exedio.cope.function.SumView;
 import com.exedio.cope.search.GreaterCondition;
 import com.exedio.cope.search.GreaterEqualCondition;
 import com.exedio.cope.search.LessCondition;
@@ -154,9 +154,9 @@ public final class IntegerAttribute extends FunctionAttribute implements Integer
 		return new GreaterEqualCondition(this, new Integer(value));
 	}
 	
-	public final SumFunction sum(final IntegerFunction other)
+	public final SumView sum(final IntegerFunction other)
 	{
-		return new SumFunction(new IntegerFunction[]{this, other});
+		return new SumView(new IntegerFunction[]{this, other});
 	}
 
 }

@@ -21,7 +21,7 @@ package com.exedio.cope.testmodel;
 import com.exedio.cope.AttributeValue;
 import com.exedio.cope.IntegerAttribute;
 import com.exedio.cope.Item;
-import com.exedio.cope.function.SumFunction;
+import com.exedio.cope.function.SumView;
 
 /**
  * @cope.persistent
@@ -35,15 +35,15 @@ public class SumItem extends Item
 
 	public static final IntegerAttribute num3 = new IntegerAttribute(OPTIONAL);
 	
-	public static final SumFunction sum12 = num1.sum(num2);
+	public static final SumView sum12 = num1.sum(num2);
 
-	public static final SumFunction sum13 = num1.sum(num3);
+	public static final SumView sum13 = num1.sum(num3);
 
-	public static final SumFunction sum23 = num2.sum(num3);
+	public static final SumView sum23 = num2.sum(num3);
 
-	public static final SumFunction sum123 = sum(num1, num2, num3);
+	public static final SumView sum123 = sum(num1, num2, num3);
 
-	public static final SumFunction sum12a3 = sum12.sum(num3);
+	public static final SumView sum12a3 = sum12.sum(num3);
 	
 	public SumItem(final int initialNum1, final int initialNum2, final int initialNum3)
 	{

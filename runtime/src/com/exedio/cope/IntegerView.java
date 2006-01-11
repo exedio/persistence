@@ -22,7 +22,7 @@ import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.exedio.cope.function.SumFunction;
+import com.exedio.cope.function.SumView;
 
 public abstract class IntegerView
 	extends StaticView
@@ -92,9 +92,9 @@ public abstract class IntegerView
 		return new NotEqualCondition(this, new Integer(value));
 	}
 	
-	public final SumFunction sum(final IntegerFunction other)
+	public final SumView sum(final IntegerFunction other)
 	{
-		return new SumFunction(new IntegerFunction[]{this, other});
+		return new SumView(new IntegerFunction[]{this, other});
 	}
 
 }

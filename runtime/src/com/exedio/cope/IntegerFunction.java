@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.function.SumFunction;
+import com.exedio.cope.function.SumView;
 
 
 public interface IntegerFunction extends Function
@@ -29,5 +29,5 @@ public interface IntegerFunction extends Function
 	EqualCondition equal(int value);
 	NotEqualCondition notEqual(Integer value);
 	NotEqualCondition notEqual(int value);
-	SumFunction sum(IntegerFunction other);
+	SumView sum(IntegerFunction other);
 }
