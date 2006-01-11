@@ -4,8 +4,11 @@
 	- disable/different access modifier for all generated methods
 * Lib
 	- default values for attributes
-	- range (minimum/maximum) for integers/doubles
-	- precision (number of fractional digits) for doubles
+	- constraints
+		- range (minimum/maximum) for integers/doubles
+		- precision (number of fractional digits) for doubles
+		- length constraints (minimum/maximum) for data attributes
+		- arbitrary check constraints
 	- search API
 		- introduce Condition#TRUE/#FALSE and use it for:
 			+ empty composite conditions
