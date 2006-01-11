@@ -30,16 +30,16 @@ public abstract class FunctionAttribute
 {
 	private final Class valueClass;
 	private final String valueClassName;
-	private final UniqueConstraint implicitUniqueConstraint;
+	final UniqueConstraint implicitUniqueConstraint;
 	private ArrayList uniqueConstraints;
 	
-	protected FunctionAttribute(final Option option, final Class valueClass, final String valueClassName)
+	FunctionAttribute(final boolean readOnly, final boolean mandatory, final boolean unique, final Class valueClass, final String valueClassName)
 	{
-		super(option);
+		super(readOnly, mandatory);
 		this.valueClass = valueClass;
 		this.valueClassName = valueClassName;
 		this.implicitUniqueConstraint =
-			option.unique ?
+			unique ?
 				new UniqueConstraint((FunctionAttribute)this) :
 				null;
 	}
@@ -55,32 +55,6 @@ public abstract class FunctionAttribute
 	public abstract FunctionAttribute copyAsTemplate();
 	abstract Object get(Row row);
 	abstract void set(Row row, Object surface);
-	
-	final Option getTemplateOption()
-	{
-		if(isReadOnly())
-			if(isMandatory())
-				if(implicitUniqueConstraint==null)
-					return Item.READ_ONLY;
-				else
-					return Item.READ_ONLY_UNIQUE;
-			else
-				if(implicitUniqueConstraint==null)
-					return Item.READ_ONLY_OPTIONAL;
-				else
-					return Item.READ_ONLY_UNIQUE_OPTIONAL;
-		else
-			if(isMandatory())
-				if(implicitUniqueConstraint==null)
-					return Item.MANDATORY;
-				else
-					return Item.UNIQUE;
-			else
-				if(implicitUniqueConstraint==null)
-					return Item.OPTIONAL;
-				else
-					return Item.UNIQUE_OPTIONAL;
-	}
 	
 	/**
 	 * Checks attribute values set by

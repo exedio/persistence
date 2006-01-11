@@ -252,7 +252,7 @@ public abstract class Item extends Cope
 		if(!attribute.getType().isAssignableFrom(type))
 			throw new RuntimeException("attribute "+attribute+" does not belong to type "+type.toString());
 		
-		if(attribute.isReadOnly())
+		if(attribute.readOnly)
 			throw new ReadOnlyViolationException(this, attribute);
 
 		attribute.checkValue(value, this);
@@ -287,7 +287,7 @@ public abstract class Item extends Cope
 			if(!attribute.getType().isAssignableFrom(type))
 				throw new RuntimeException("attribute "+attribute+" does not belong to type "+type.toString());
 			
-			if(attribute.isReadOnly())
+			if(attribute.readOnly)
 				throw new ReadOnlyViolationException(this, attribute);
 	
 			attribute.checkValue(attributeValue.value, this);

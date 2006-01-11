@@ -27,14 +27,19 @@ import com.exedio.cope.search.LessEqualCondition;
 public final class IntegerAttribute extends FunctionAttribute implements IntegerFunction
 {
 
+	private IntegerAttribute(final boolean readOnly, final boolean mandatory, final boolean unique)
+	{
+		super(readOnly, mandatory, unique, Integer.class, "integer");
+	}
+	
 	public IntegerAttribute(final Option option)
 	{
-		super(option, Integer.class, "integer");
+		this(option.readOnly, option.mandatory, option.unique);
 	}
 	
 	public FunctionAttribute copyAsTemplate()
 	{
-		return new IntegerAttribute(getTemplateOption());
+		return new IntegerAttribute(readOnly, mandatory, implicitUniqueConstraint!=null);
 	}
 	
 	Column createColumn(final Table table, final String name, final boolean notNull)

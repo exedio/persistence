@@ -31,9 +31,14 @@ import java.io.OutputStream;
 public final class DataAttribute extends Attribute
 {
 
+	private DataAttribute(final boolean readOnly, final boolean mandatory)
+	{
+		super(readOnly, mandatory);
+	}
+	
 	public DataAttribute(final Option option)
 	{
-		super(option);
+		this(option.readOnly, option.mandatory);
 
 		if(option.unique)
 			throw new RuntimeException("DataAttribute cannot be unique");

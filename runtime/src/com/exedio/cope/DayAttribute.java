@@ -26,14 +26,20 @@ import com.exedio.cope.util.Day;
 
 public final class DayAttribute extends FunctionAttribute
 {
+	
+	private DayAttribute(final boolean readOnly, final boolean mandatory, final boolean unique)
+	{
+		super(readOnly, mandatory, unique, Day.class, "day");
+	}
+	
 	public DayAttribute(final Option option)
 	{
-		super(option, Day.class, "day");
+		this(option.readOnly, option.mandatory, option.unique);
 	}
 	
 	public FunctionAttribute copyAsTemplate()
 	{
-		return new DayAttribute(getTemplateOption());
+		return new DayAttribute(readOnly, mandatory, implicitUniqueConstraint!=null);
 	}
 	
 	Column createColumn(final Table table, final String name, final boolean notNull)

@@ -28,14 +28,19 @@ import com.exedio.cope.search.LessEqualCondition;
 public final class DateAttribute extends FunctionAttribute
 {
 
+	private DateAttribute(final boolean readOnly, final boolean mandatory, final boolean unique)
+	{
+		super(readOnly, mandatory, unique, Date.class, "date");
+	}
+	
 	public DateAttribute(final Option option)
 	{
-		super(option, Date.class, "date");
+		this(option.readOnly, option.mandatory, option.unique);
 	}
 	
 	public FunctionAttribute copyAsTemplate()
 	{
-		return new DateAttribute(getTemplateOption());
+		return new DateAttribute(readOnly, mandatory, implicitUniqueConstraint!=null);
 	}
 	
 	Column createColumn(final Table table, final String name, final boolean notNull)

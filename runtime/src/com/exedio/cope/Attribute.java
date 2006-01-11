@@ -15,6 +15,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
+
 package com.exedio.cope;
 
 import java.util.ArrayList;
@@ -25,13 +26,13 @@ import java.util.List;
 
 public abstract class Attribute extends Feature
 {
-	private final boolean readOnly;
+	final boolean readOnly;
 	final boolean mandatory;
 
-	protected Attribute(final Option option)
+	Attribute(final boolean readOnly, final boolean mandatory)
 	{
-		this.readOnly = option.readOnly;
-		this.mandatory = option.mandatory;
+		this.readOnly = readOnly;
+		this.mandatory = mandatory;
 	}
 	
 	public final boolean isReadOnly()

@@ -25,14 +25,9 @@ public final class ItemAttribute extends FunctionAttribute
 	private final Class targetTypeClass;
 	private final DeletePolicy policy;
 
-	public ItemAttribute(final Option option, final Class targetTypeClass)
+	private ItemAttribute(final boolean readOnly, final boolean mandatory, final boolean unique, final Class targetTypeClass, final DeletePolicy policy)
 	{
-		this(option, targetTypeClass, Item.FORBID);
-	}
-	
-	public ItemAttribute(final Option option, final Class targetTypeClass, final DeletePolicy policy)
-	{
-		super(option, targetTypeClass, targetTypeClass.getName());
+		super(readOnly, mandatory, unique, targetTypeClass, targetTypeClass.getName());
 		this.targetTypeClass = targetTypeClass;
 		this.policy = policy;
 		if(targetTypeClass==null)
@@ -43,21 +38,31 @@ public final class ItemAttribute extends FunctionAttribute
 			throw new RuntimeException("delete policy for attribute "+this+" must not be null");
 		if(policy.nullify)
 		{
-			if(option.mandatory)
+			if(mandatory)
 				throw new RuntimeException("mandatory attribute "+this+" cannot have delete policy nullify");
-			if(option.readOnly)
+			if(readOnly)
 				throw new RuntimeException("read-only attribute "+this+" cannot have delete policy nullify");
 		}
+	}
+	
+	public ItemAttribute(final Option option, final Class targetTypeClass)
+	{
+		this(option, targetTypeClass, Item.FORBID);
+	}
+	
+	public ItemAttribute(final Option option, final Class targetTypeClass, final DeletePolicy policy)
+	{
+		this(option.readOnly, option.mandatory, option.unique, targetTypeClass, policy);
+	}
+
+	public FunctionAttribute copyAsTemplate()
+	{
+		return new ItemAttribute(readOnly, mandatory, implicitUniqueConstraint!=null, targetTypeClass, policy);
 	}
 	
 	private Type targetType = null;
 	private Type onlyPossibleTargetType = null;
 	private StringColumn typeColumn = null;
-
-	public FunctionAttribute copyAsTemplate()
-	{
-		return new ItemAttribute(getTemplateOption(), targetTypeClass, policy);
-	}
 	
 	/**
 	 * Returns the type of items, this attribute accepts instances of.

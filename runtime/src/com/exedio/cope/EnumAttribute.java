@@ -40,9 +40,9 @@ public final class EnumAttribute extends FunctionAttribute
 	private final IntKeyOpenHashMap numbersToValues;
 	private final HashMap codesToValues;
 	
-	public EnumAttribute(final Option option, final Class enumClass)
+	private EnumAttribute(final boolean readOnly, final boolean mandatory, final boolean unique, final Class enumClass)
 	{
-		super(option, enumClass, enumClass.getName());
+		super(readOnly, mandatory, unique, enumClass, enumClass.getName());
 		this.enumClass = enumClass;
 		if(!EnumValue.class.isAssignableFrom(enumClass))
 			throw new RuntimeException("is not an enumeration value class: "+enumClass.getName());
@@ -111,9 +111,14 @@ public final class EnumAttribute extends FunctionAttribute
 		}
 	}
 	
+	public EnumAttribute(final Option option, final Class enumClass)
+	{
+		this(option.readOnly, option.mandatory, option.unique, enumClass);
+	}
+	
 	public FunctionAttribute copyAsTemplate()
 	{
-		return new EnumAttribute(getTemplateOption(), enumClass);
+		return new EnumAttribute(readOnly, mandatory, implicitUniqueConstraint!=null, enumClass);
 	}
 	
 	public List getValues()

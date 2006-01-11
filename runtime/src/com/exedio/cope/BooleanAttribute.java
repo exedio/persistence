@@ -23,14 +23,19 @@ public final class BooleanAttribute extends FunctionAttribute
 {
 	static final int[] ALLOWED_VALUES = new int[]{0, 1};
 
+	private BooleanAttribute(final boolean readOnly, final boolean mandatory, final boolean unique)
+	{
+		super(readOnly, mandatory, unique, Boolean.class, "boolean");
+	}
+	
 	public BooleanAttribute(final Option option)
 	{
-		super(option, Boolean.class, "boolean");
+		this(option.readOnly, option.mandatory, option.unique);
 	}
 	
 	public FunctionAttribute copyAsTemplate()
 	{
-		return new BooleanAttribute(getTemplateOption());
+		return new BooleanAttribute(readOnly, mandatory, implicitUniqueConstraint!=null);
 	}
 	
 	Column createColumn(final Table table, final String name, final boolean notNull)

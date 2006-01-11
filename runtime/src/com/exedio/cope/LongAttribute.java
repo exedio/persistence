@@ -26,14 +26,19 @@ import com.exedio.cope.search.LessEqualCondition;
 public final class LongAttribute extends FunctionAttribute
 {
 
+	private LongAttribute(final boolean readOnly, final boolean mandatory, final boolean unique)
+	{
+		super(readOnly, mandatory, unique, Long.class, "long");
+	}
+	
 	public LongAttribute(final Option option)
 	{
-		super(option, Long.class, "long");
+		this(option.readOnly, option.mandatory, option.unique);
 	}
 	
 	public FunctionAttribute copyAsTemplate()
 	{
-		return new LongAttribute(getTemplateOption());
+		return new LongAttribute(readOnly, mandatory, implicitUniqueConstraint!=null);
 	}
 	
 	Column createColumn(final Table table, final String name, final boolean notNull)

@@ -26,14 +26,19 @@ import com.exedio.cope.search.LessEqualCondition;
 public final class DoubleAttribute extends FunctionAttribute
 {
 
+	private DoubleAttribute(final boolean readOnly, final boolean mandatory, final boolean unique)
+	{
+		super(readOnly, mandatory, unique, Double.class, "double");
+	}
+	
 	public DoubleAttribute(final Option option)
 	{
-		super(option, Double.class, "double");
+		this(option.readOnly, option.mandatory, option.unique);
 	}
 
 	public FunctionAttribute copyAsTemplate()
 	{
-		return new DoubleAttribute(getTemplateOption());
+		return new DoubleAttribute(readOnly, mandatory, implicitUniqueConstraint!=null);
 	}
 	
 	Column createColumn(final Table table, final String name, final boolean notNull)
