@@ -55,7 +55,7 @@ public final class ItemAttribute extends FunctionAttribute
 		this(option.readOnly, option.mandatory, option.unique, targetTypeClass, policy);
 	}
 
-	public FunctionAttribute copyAsTemplate()
+	public FunctionAttribute copyFunctionAttribute()
 	{
 		return new ItemAttribute(readOnly, mandatory, implicitUniqueConstraint!=null, targetTypeClass, policy);
 	}

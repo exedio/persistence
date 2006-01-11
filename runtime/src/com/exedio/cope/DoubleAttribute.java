@@ -36,7 +36,7 @@ public final class DoubleAttribute extends FunctionAttribute
 		this(option.readOnly, option.mandatory, option.unique);
 	}
 
-	public FunctionAttribute copyAsTemplate()
+	public FunctionAttribute copyFunctionAttribute()
 	{
 		return new DoubleAttribute(readOnly, mandatory, implicitUniqueConstraint!=null);
 	}

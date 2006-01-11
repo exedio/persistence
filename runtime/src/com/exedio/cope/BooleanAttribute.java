@@ -33,7 +33,7 @@ public final class BooleanAttribute extends FunctionAttribute
 		this(option.readOnly, option.mandatory, option.unique);
 	}
 	
-	public FunctionAttribute copyAsTemplate()
+	public FunctionAttribute copyFunctionAttribute()
 	{
 		return new BooleanAttribute(readOnly, mandatory, implicitUniqueConstraint!=null);
 	}

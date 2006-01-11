@@ -60,7 +60,7 @@ public final class Vector extends Pattern
 		final FunctionAttribute[] result = new FunctionAttribute[length];
 		
 		for(int i = 0; i<length; i++)
-			result[i] = template.copyAsTemplate();
+			result[i] = template.copyFunctionAttribute();
 
 		return result;
 	}

@@ -62,7 +62,7 @@ public final class StringAttribute extends FunctionAttribute implements StringFu
 		this(option.readOnly, option.mandatory, option.unique, minimumLength, maximumLength);
 	}
 	
-	public FunctionAttribute copyAsTemplate()
+	public FunctionAttribute copyFunctionAttribute()
 	{
 		return new StringAttribute(readOnly, mandatory, implicitUniqueConstraint!=null, minimumLength, maximumLength);
 	}

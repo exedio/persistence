@@ -38,7 +38,7 @@ public final class DateAttribute extends FunctionAttribute
 		this(option.readOnly, option.mandatory, option.unique);
 	}
 	
-	public FunctionAttribute copyAsTemplate()
+	public FunctionAttribute copyFunctionAttribute()
 	{
 		return new DateAttribute(readOnly, mandatory, implicitUniqueConstraint!=null);
 	}

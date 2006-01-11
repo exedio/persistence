@@ -116,7 +116,7 @@ public final class EnumAttribute extends FunctionAttribute
 		this(option.readOnly, option.mandatory, option.unique, enumClass);
 	}
 	
-	public FunctionAttribute copyAsTemplate()
+	public FunctionAttribute copyFunctionAttribute()
 	{
 		return new EnumAttribute(readOnly, mandatory, implicitUniqueConstraint!=null, enumClass);
 	}

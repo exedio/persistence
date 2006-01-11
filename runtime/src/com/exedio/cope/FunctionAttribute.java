@@ -50,7 +50,7 @@ public abstract class FunctionAttribute
 			implicitUniqueConstraint.initialize(type, name + UniqueConstraint.IMPLICIT_UNIQUE_SUFFIX);
 	}
 	
-	public abstract FunctionAttribute copyAsTemplate();
+	public abstract FunctionAttribute copyFunctionAttribute();
 	abstract Object get(Row row);
 	abstract void set(Row row, Object surface);
 	

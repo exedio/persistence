@@ -36,7 +36,7 @@ public final class LongAttribute extends FunctionAttribute
 		this(option.readOnly, option.mandatory, option.unique);
 	}
 	
-	public FunctionAttribute copyAsTemplate()
+	public FunctionAttribute copyFunctionAttribute()
 	{
 		return new LongAttribute(readOnly, mandatory, implicitUniqueConstraint!=null);
 	}

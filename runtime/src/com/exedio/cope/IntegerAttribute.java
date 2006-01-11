@@ -37,7 +37,7 @@ public final class IntegerAttribute extends FunctionAttribute implements Integer
 		this(option.readOnly, option.mandatory, option.unique);
 	}
 	
-	public FunctionAttribute copyAsTemplate()
+	public FunctionAttribute copyFunctionAttribute()
 	{
 		return new IntegerAttribute(readOnly, mandatory, implicitUniqueConstraint!=null);
 	}

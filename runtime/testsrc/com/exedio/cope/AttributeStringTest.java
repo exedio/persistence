@@ -48,7 +48,7 @@ public class AttributeStringTest extends AttributeTest
 			assertEquals(0, orig.getMinimumLength());
 			assertEquals(Integer.MAX_VALUE, orig.getMaximumLength());
 
-			final StringAttribute copy = (StringAttribute)orig.copyAsTemplate();
+			final StringAttribute copy = (StringAttribute)orig.copyFunctionAttribute();
 			assertEquals(false, copy.isReadOnly());
 			assertEquals(false, copy.isMandatory());
 			assertEquals(false, copy.isLengthConstrained());
@@ -64,7 +64,7 @@ public class AttributeStringTest extends AttributeTest
 			assertEquals(10, orig.getMinimumLength());
 			assertEquals(Integer.MAX_VALUE, orig.getMaximumLength());
 			
-			final StringAttribute copy = (StringAttribute)orig.copyAsTemplate();
+			final StringAttribute copy = (StringAttribute)orig.copyFunctionAttribute();
 			assertEquals(true, copy.isReadOnly());
 			assertEquals(false, copy.isMandatory());
 			assertNull(copy.getImplicitUniqueConstraint());
@@ -81,7 +81,7 @@ public class AttributeStringTest extends AttributeTest
 			assertEquals(20, orig.getMinimumLength());
 			assertEquals(Integer.MAX_VALUE, orig.getMaximumLength());
 			
-			final StringAttribute copy = (StringAttribute)orig.copyAsTemplate();
+			final StringAttribute copy = (StringAttribute)orig.copyFunctionAttribute();
 			assertEquals(true, copy.isReadOnly());
 			assertEquals(false, copy.isMandatory());
 			assertNotNull(copy.getImplicitUniqueConstraint());
@@ -97,7 +97,7 @@ public class AttributeStringTest extends AttributeTest
 			assertEquals(10, orig.getMinimumLength());
 			assertEquals(20, orig.getMaximumLength());
 			
-			final StringAttribute copy = (StringAttribute)orig.copyAsTemplate();
+			final StringAttribute copy = (StringAttribute)orig.copyFunctionAttribute();
 			assertEquals(false, copy.isReadOnly());
 			assertEquals(true, copy.isMandatory());
 			assertEquals(true, copy.isLengthConstrained());
