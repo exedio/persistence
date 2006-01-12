@@ -23,7 +23,17 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-
+/**
+ * An <code>attribute</code> represents a persistently
+ * stored attribute of a {@link Type}.
+ * Subclasses specify the type of information to be stored
+ * in an attribute.
+ * <p>
+ * For an overview here is a
+ * <a href="attributes.png">UML diagram</a>.
+ * 
+ * @author Ralf Wiebicke
+ */
 public abstract class Attribute extends Feature
 {
 	final boolean readOnly;

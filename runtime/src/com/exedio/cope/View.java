@@ -25,6 +25,17 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * A <code>view</code> represents a value computed from the
+ * attributes of a {@link Type}.
+ * The computation is available both in Java and SQL,
+ * so you can use views in search conditions.
+ * <p>
+ * For an overview here is a
+ * <a href="functions.png">UML diagram</a>.
+ * 
+ * @author Ralf Wiebicke
+ */
 public abstract class View extends Feature implements Function
 {
 	private final Function[] sources;

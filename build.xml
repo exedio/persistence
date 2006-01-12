@@ -630,6 +630,12 @@
 		<delete dir="api" />
 		<mkdir  dir="api" />
 
+		<copy todir="api/com/exedio/cope">
+			<fileset dir="runtime/doc">
+				<include name="*.png" />
+			</fileset>
+		</copy>
+
 		<javadoc
 				destdir="api"
 				maxmemory="60m"
