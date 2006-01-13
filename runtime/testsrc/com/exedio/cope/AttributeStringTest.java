@@ -39,9 +39,6 @@ public class AttributeStringTest extends AttributeTest
 		assertNotEquals(item.someString.equal("hallo"), item.someString.like("hallo"));
 		assertEquals(item.someString.equal(item.someNotNullString), item.someString.equal(item.someNotNullString));
 		assertNotEquals(item.someString.equal(item.someNotNullString), item.someString.equal(item.someString));
-		
-		assertString(item, item2, item.someString);
-
 	}
 	
 	public void testSomeNotNullString()
