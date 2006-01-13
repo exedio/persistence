@@ -42,15 +42,6 @@ public class AttributeStringTest extends AttributeTest
 		
 		assertString(item, item2, item.someString);
 
-		try
-		{
-			item.set(item.someString, new Integer(10));
-			fail();
-		}
-		catch(ClassCastException e)
-		{
-			assertEquals("expected " + String.class.getName() + ", got " + Integer.class.getName() + " for someString", e.getMessage());
-		}
 	}
 	
 	public void testSomeNotNullString()

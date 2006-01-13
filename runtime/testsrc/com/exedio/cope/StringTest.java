@@ -139,6 +139,16 @@ public class StringTest extends TestmodelTest
 		assertString(item, item2, item.long1K);
 		assertString(item, item2, item.long1M);
 		
+		try
+		{
+			item.set(item.any, new Integer(10));
+			fail();
+		}
+		catch(ClassCastException e)
+		{
+			assertEquals("expected " + String.class.getName() + ", got " + Integer.class.getName() + " for any", e.getMessage());
+		}
+		
 		// min4
 		try
 		{
