@@ -27,11 +27,15 @@ import com.exedio.cope.testmodel.StringItem;
 
 public class StringTest extends TestmodelTest
 {
+	boolean supports;
+	String emptyString;
 	StringItem item, item2;
 	
 	public void setUp() throws Exception
 	{
 		super.setUp();
+		supports = model.supportsEmptyStrings();
+		emptyString = supports ? "" : null;
 		deleteOnTearDown(item = new StringItem("StringTest"));
 		deleteOnTearDown(item2 = new StringItem("StringTest2"));
 	}
@@ -446,9 +450,6 @@ public class StringTest extends TestmodelTest
 		assertEquals(new Integer(VALUE.length()), saln.get(item));
 		
 		{
-			final boolean supports = type.getModel().supportsEmptyStrings();
-			final String emptyString = supports ? "" : null;
-			
 			sa.set(item, "");
 			assertEquals(emptyString, sa.get(item));
 			restartTransaction();
