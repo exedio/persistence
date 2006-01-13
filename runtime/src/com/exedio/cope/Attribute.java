@@ -45,6 +45,7 @@ public abstract class Attribute extends Feature
 		this.mandatory = mandatory;
 	}
 	
+	// TODO rename to isFinal
 	public final boolean isReadOnly()
 	{
 		return readOnly;
