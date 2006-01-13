@@ -60,7 +60,7 @@ final class PostgresqlDatabase extends AbstractDatabase
 
 	public String getStringType(final int maxLength)
 	{
-		return "VARCHAR("+(maxLength!=Integer.MAX_VALUE ? maxLength : 2000)+')';
+		return "VARCHAR("+maxLength+')';
 	}
 	
 	public String getDayType()

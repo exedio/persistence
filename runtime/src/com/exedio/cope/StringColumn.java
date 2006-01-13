@@ -15,6 +15,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
+
 package com.exedio.cope;
 
 import java.sql.ResultSet;
@@ -45,13 +46,27 @@ final class StringColumn extends Column
 	{
 		super(table, id, false, notNull, JDBC_TYPE);
 		this.minimumLength = 0;
-		this.maximumLength = Integer.MAX_VALUE;
+		this.maximumLength = maxLength(allowedValues);
 		this.allowedValues = allowedValues;
 
 		if(allowedValues.length<2)
 			throw new RuntimeException(id);
 		for(int i = 0; i<allowedValues.length; i++)
 			allowedValues[i] = allowedValues[i].intern();
+	}
+	
+	private static final int maxLength(final String[] strings)
+	{
+		int result = 0;
+		
+		for(int i = 0; i<strings.length; i++)
+		{
+			final int length = strings[i].length();
+			if(result<length)
+				result = length;
+		}
+		
+		return result;
 	}
 	
 	final String getDatabaseType()
@@ -79,10 +94,9 @@ final class StringColumn extends Column
 			bf.append(')');
 			return bf.toString();
 		}
-		
-		if(minimumLength>0)
+		else
 		{
-			if(maximumLength!=Integer.MAX_VALUE)
+			if(minimumLength>0)
 			{
 				if(minimumLength==maximumLength)
 					bf.append("LENGTH(" + protectedID + ")="  + minimumLength );
@@ -90,12 +104,9 @@ final class StringColumn extends Column
 					bf.append("(LENGTH(" + protectedID + ")>=" + minimumLength + ") AND (LENGTH(" + protectedID + ")<=" + maximumLength + ')');
 			}
 			else
-				bf.append("LENGTH(" + protectedID + ")>=" + minimumLength);
-		}
-		else
-		{
-			if(maximumLength!=Integer.MAX_VALUE)
+			{
 				bf.append("LENGTH(" + protectedID + ")<=" + maximumLength);
+			}
 		}
 
 		return bf.length()==0 ? null : bf.toString();

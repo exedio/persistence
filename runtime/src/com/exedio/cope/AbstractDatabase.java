@@ -44,6 +44,10 @@ import com.exedio.dsmf.Schema;
 
 abstract class AbstractDatabase implements Database
 {
+	protected static final int TWOPOW8 = 1<<8;
+	protected static final int TWOPOW16 = 1<<16;
+	protected static final int TWOPOW24 = 1<<24;
+	
 	private final List tables = new ArrayList();
 	private final HashMap uniqueConstraintsByID = new HashMap();
 	private final HashMap itemColumnsByIntegrityConstraintName = new HashMap();
@@ -57,6 +61,7 @@ abstract class AbstractDatabase implements Database
 	private final java.util.Properties forcedNames;
 	final java.util.Properties tableOptions;
 	final int limitSupport;
+	final boolean oracle; // TODO remove
 	
 	protected AbstractDatabase(final Driver driver, final Properties properties)
 	{
@@ -69,6 +74,7 @@ abstract class AbstractDatabase implements Database
 		this.forcedNames = properties.getDatabaseForcedNames();
 		this.tableOptions = properties.getDatabaseTableOptions();
 		this.limitSupport = properties.getDatabaseDontSupportLimit() ? LIMIT_SUPPORT_NONE : getLimitSupport();
+		this.oracle = getClass().getName().equals("com.exedio.cope.OracleDatabase");
 
 		switch(limitSupport)
 		{
@@ -195,7 +201,7 @@ abstract class AbstractDatabase implements Database
 				final Column column = (Column)j.next();
 				bf.append(" and ").
 					append(column, null);
-				if(column instanceof BlobColumn)
+				if(column instanceof BlobColumn || (oracle && column instanceof StringColumn && ((StringColumn)column).maximumLength>=4000))
 				{
 					bf.append("is not null");
 				}

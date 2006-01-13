@@ -73,13 +73,24 @@ public final class MysqlDatabase extends AbstractDatabase
 
 	public String getStringType(final int maxLength)
 	{
+		assert TWOPOW8==256;
+		assert TWOPOW16==65536;
+
 		// TODO:
 		// 255 is needed for unique columns only,
 		// non-unique can have more,
 		// and for longer unique columns you may specify a shorter key length
 		
 		// IMPLEMENTATION NOTE: "binary" is needed to make string comparisions case sensitive
-		return "varchar("+(maxLength!=Integer.MAX_VALUE ? maxLength : 255)+") binary";
+		// TODO mysql 5.0.3 and later can have varchars up to 64k
+		if(maxLength<TWOPOW8)
+			return "varchar("+maxLength+") binary";
+		else if(maxLength<TWOPOW16)
+			return "text binary";
+		else if(maxLength<TWOPOW24)
+			return "mediumtext binary";
+		else
+			return "longtext binary";
 	}
 	
 	public String getDayType()

@@ -15,6 +15,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
+
 package com.exedio.cope;
 
 import java.sql.Connection;
@@ -57,10 +58,13 @@ final class OracleDatabase extends AbstractDatabase
 	 */
 	private final boolean varchar;
 
+	private final int varcharLength;
+
 	protected OracleDatabase(final Properties properties)
 	{
 		super(new OracleDriver(properties.getDatabaseUser().toUpperCase()), properties);
 		this.varchar = "true".equalsIgnoreCase(properties.getDatabaseCustomProperty(VARCHAR));
+		this.varcharLength = varchar ? 4000 : 2000;
 	}
 	
 	public String getIntegerType(final int precision)
@@ -75,7 +79,10 @@ final class OracleDatabase extends AbstractDatabase
 
 	public String getStringType(final int maxLength)
 	{
-		return (varchar?"VARCHAR2(":"NVARCHAR2(")+(maxLength!=Integer.MAX_VALUE ? maxLength : 2000)+')';
+		if(maxLength<=varcharLength)
+			return (varchar?"VARCHAR2(":"NVARCHAR2(")+maxLength+")";
+		else
+			return varchar?"CLOB":"NCLOB";
 	}
 	
 	public String getDayType()

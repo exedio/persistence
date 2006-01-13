@@ -29,21 +29,33 @@ public final class StringAttribute extends FunctionAttribute implements StringFu
 {
 	private final int minimumLength;
 	private final int maximumLength;
+	private final boolean checkedLengthException;
+	
+	public static final int DEFAULT_LENGTH = 100;
 
-	private StringAttribute(final boolean readOnly, final boolean mandatory, final boolean unique, final int minimumLength, final int maximumLength)
+	private StringAttribute(
+			final boolean readOnly, final boolean mandatory, final boolean unique,
+			final int minimumLength, final int maximumLength, final boolean checkedLengthException)
 	{
 		super(readOnly, mandatory, unique, String.class);
 		this.minimumLength = minimumLength;
 		this.maximumLength = maximumLength;
+		this.checkedLengthException = checkedLengthException;
+
+		// TODO include actual values in error messages
 		if(minimumLength<0)
 			throw new RuntimeException("mimimum length must be positive.");
+		if(maximumLength<=0)
+			throw new RuntimeException("maximum length must be greater zero.");
 		if(minimumLength>maximumLength)
 			throw new RuntimeException("maximum length must be greater or equal mimimum length.");
+		
+		assert checkedLengthException ? true : minimumLength==0;
 	}
 	
 	public StringAttribute(final Option option)
 	{
-		this(option.readOnly, option.mandatory, option.unique, 0, Integer.MAX_VALUE);
+		this(option.readOnly, option.mandatory, option.unique, 0, DEFAULT_LENGTH, false);
 	}
 	
 	/**
@@ -51,7 +63,7 @@ public final class StringAttribute extends FunctionAttribute implements StringFu
 	 */
 	public StringAttribute(final Option option, final int minimumLength)
 	{
-		this(option.readOnly, option.mandatory, option.unique, minimumLength, Integer.MAX_VALUE);
+		this(option.readOnly, option.mandatory, option.unique, minimumLength, DEFAULT_LENGTH, true);
 	}
 	
 	/**
@@ -59,32 +71,43 @@ public final class StringAttribute extends FunctionAttribute implements StringFu
 	 */
 	public StringAttribute(final Option option, final int minimumLength, final int maximumLength)
 	{
-		this(option.readOnly, option.mandatory, option.unique, minimumLength, maximumLength);
+		this(option.readOnly, option.mandatory, option.unique, minimumLength, maximumLength, true);
 	}
 	
 	public FunctionAttribute copyFunctionAttribute()
 	{
-		return new StringAttribute(readOnly, mandatory, implicitUniqueConstraint!=null, minimumLength, maximumLength);
+		return new StringAttribute(readOnly, mandatory, implicitUniqueConstraint!=null, minimumLength, maximumLength, checkedLengthException);
 	}
 	
 	public StringAttribute lengthRange(final int minimumLength, final int maximumLength)
 	{
-		return new StringAttribute(readOnly, mandatory, implicitUniqueConstraint!=null, minimumLength, maximumLength);
+		return new StringAttribute(readOnly, mandatory, implicitUniqueConstraint!=null, minimumLength, maximumLength, true);
 	}
 	
 	public StringAttribute lengthMin(final int minimumLength)
 	{
-		return new StringAttribute(readOnly, mandatory, implicitUniqueConstraint!=null, minimumLength, Integer.MAX_VALUE);
+		return new StringAttribute(readOnly, mandatory, implicitUniqueConstraint!=null, minimumLength, DEFAULT_LENGTH, true);
 	}
 	
+	/**
+	 * @see #lengthMaxUnchecked(int)
+	 */
 	public StringAttribute lengthMax(final int maximumLength)
 	{
-		return new StringAttribute(readOnly, mandatory, implicitUniqueConstraint!=null, 0, maximumLength);
+		return new StringAttribute(readOnly, mandatory, implicitUniqueConstraint!=null, 0, maximumLength, true);
+	}
+	
+	/**
+	 * @see #lengthMax(int)
+	 */
+	public StringAttribute lengthMaxUnchecked(final int maximumLength)
+	{
+		return new StringAttribute(readOnly, mandatory, implicitUniqueConstraint!=null, 0, maximumLength, false);
 	}
 	
 	public StringAttribute lengthExact(final int exactLength)
 	{
-		return new StringAttribute(readOnly, mandatory, implicitUniqueConstraint!=null, exactLength, exactLength);
+		return new StringAttribute(readOnly, mandatory, implicitUniqueConstraint!=null, exactLength, exactLength, true);
 	}
 	
 	public final int getMinimumLength()
@@ -97,9 +120,9 @@ public final class StringAttribute extends FunctionAttribute implements StringFu
 		return maximumLength;
 	}
 	
-	public final boolean isLengthConstrained()
+	public final boolean hasLengthConstraintCheckedException()
 	{
-		return minimumLength!=0 || maximumLength!=Integer.MAX_VALUE;
+		return checkedLengthException;
 	}
 	
 	Column createColumn(final Table table, final String name, final boolean notNull)
@@ -129,13 +152,19 @@ public final class StringAttribute extends FunctionAttribute implements StringFu
 	
 	void checkNotNullValue(final Object value, final Item item)
 		throws
-			LengthViolationException
+			LengthViolationException, LengthViolationRuntimeException
 	{
 		final String stringValue = (String)value;
 		if(stringValue.length()<minimumLength)
-			throw new LengthViolationException(item, this, stringValue, true);
+			if(checkedLengthException)
+				throw new LengthViolationException(item, this, stringValue, true);
+			else
+				throw new LengthViolationRuntimeException(item, this, stringValue, true);
 		if(stringValue.length()>maximumLength)
-			throw new LengthViolationException(item, this, stringValue, false);
+			if(checkedLengthException)
+				throw new LengthViolationException(item, this, stringValue, false);
+			else
+				throw new LengthViolationRuntimeException(item, this, stringValue, false);
 	}
 	
 	public final String get(final Item item)

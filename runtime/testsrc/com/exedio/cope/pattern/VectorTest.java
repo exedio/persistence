@@ -210,7 +210,7 @@ public class VectorTest extends AbstractLibTest
 		assertEquals("strings"+num, string.getName());
 		assertEquals(false, string.isMandatory());
 		assertEquals(false, string.isReadOnly());
-		assertEquals(true, string.isLengthConstrained());
+		assertEquals(true, string.hasLengthConstraintCheckedException());
 		assertEquals(1, string.getMinimumLength());
 		assertEquals(11, string.getMaximumLength());
 		return string;

@@ -25,27 +25,27 @@ package com.exedio.cope;
  * This exception will be thrown by {@link StringAttribute#set(Item,String)}
  * and item constructors
  * if for that attribute is
- * {@link StringAttribute#hasLengthConstraintCheckedException()}==true.
+ * {@link StringAttribute#hasLengthConstraintCheckedException()}==false.
  * 
- * @see LengthViolationRuntimeException
+ * @see LengthViolationException
  * @author Ralf Wiebicke
  */
-public final class LengthViolationException extends ConstraintViolationException
+public final class LengthViolationRuntimeException extends RuntimeException
 {
 	private final Item item;
 	private final Attribute stringAttribute;
 	private final String value;
-	private final boolean isTooShort;
+	private final boolean isTooShort; // TODO remove
 	
 	/**
-	 * Creates a new LengthViolationException with the neccessary information about the violation.
+	 * Creates a new LengthViolationRuntimeException with the neccessary information about the violation.
 	 * @param item initializes, what is returned by {@link #getItem()}.
 	 * @param stringAttribute initializes, what is returned by {@link #getStringAttribute()}.
 	 * @param value initializes, what is returned by {@link #getValue()}.
 	 */
-	public LengthViolationException(final Item item, final Attribute stringAttribute, final String value, final boolean isTooShort)
+	public LengthViolationRuntimeException(final Item item, final Attribute stringAttribute, final String value, final boolean isTooShort)
 	{
-		super(null);
+		super();
 		this.item = item;
 		this.stringAttribute = stringAttribute;
 		this.value = value;
@@ -84,6 +84,7 @@ public final class LengthViolationException extends ConstraintViolationException
 
 	public String getMessage()
 	{
+		// TODO reuse code from LengthViolationException
 		return
 			"length violation on " + item.getCopeID() +
 			", '" + value + "' is too " +

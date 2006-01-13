@@ -22,35 +22,40 @@ import com.exedio.cope.testmodel.StringItem;
 
 public class StringTest extends TestmodelTest
 {
-	StringItem item;
-
+	StringItem item, item2;
+	
 	public void setUp() throws Exception
 	{
 		super.setUp();
 		deleteOnTearDown(item = new StringItem("StringTest"));
+		deleteOnTearDown(item2 = new StringItem("StringTest2"));
 	}
 	
-	public void testStrings() throws LengthViolationException
+	public void testStrings() throws ConstraintViolationException
 	{
 		assertEquals(0, item.any.getMinimumLength());
-		assertEquals(Integer.MAX_VALUE, item.any.getMaximumLength());
-		assertEquals(false, item.any.isLengthConstrained());
+		assertEquals(StringAttribute.DEFAULT_LENGTH, item.any.getMaximumLength());
+		assertEquals(false, item.any.hasLengthConstraintCheckedException());
 
 		assertEquals(4, item.min4.getMinimumLength());
-		assertEquals(Integer.MAX_VALUE, item.min4.getMaximumLength());
-		assertEquals(true, item.min4.isLengthConstrained());
+		assertEquals(StringAttribute.DEFAULT_LENGTH, item.min4.getMaximumLength());
+		assertEquals(true, item.min4.hasLengthConstraintCheckedException());
 
 		assertEquals(0, item.max4.getMinimumLength());
 		assertEquals(4, item.max4.getMaximumLength());
-		assertEquals(true, item.max4.isLengthConstrained());
+		assertEquals(true, item.max4.hasLengthConstraintCheckedException());
+
+		assertEquals(0, item.max5Unchecked.getMinimumLength());
+		assertEquals(5, item.max5Unchecked.getMaximumLength());
+		assertEquals(false, item.max5Unchecked.hasLengthConstraintCheckedException());
 
 		assertEquals(4, item.min4Max8.getMinimumLength());
 		assertEquals(8, item.min4Max8.getMaximumLength());
-		assertEquals(true, item.min4Max8.isLengthConstrained());
+		assertEquals(true, item.min4Max8.hasLengthConstraintCheckedException());
 		
 		assertEquals(6, item.exact6.getMinimumLength());
 		assertEquals(6, item.exact6.getMaximumLength());
-		assertEquals(true, item.exact6.isLengthConstrained());
+		assertEquals(true, item.exact6.hasLengthConstraintCheckedException());
 		
 		// any
 		item.setAny("1234");
@@ -58,6 +63,7 @@ public class StringTest extends TestmodelTest
 		item.setAny("123");
 		assertEquals("123", item.getAny());
 		
+		// TODO copied to assertString - start
 		// test SQL injection
 		// if SQL injection is not prevented properly,
 		// the following line will throw a SQLException
@@ -89,6 +95,13 @@ public class StringTest extends TestmodelTest
 		assertEquals(unicodeString, item.getAny());
 		restartTransaction();
 		assertEquals(unicodeString, item.getAny());
+		// TODO copied to assertString - end
+
+		// standard tests
+		item.setAny(null);
+		assertString(item, item2, item.any);
+		assertString(item, item2, item.long1K);
+		assertString(item, item2, item.long1M);
 		
 		// min4
 		try
@@ -130,6 +143,26 @@ public class StringTest extends TestmodelTest
 		assertEquals("1234", item.getMax4());
 		restartTransaction();
 		assertEquals("1234", item.getMax4());
+
+		// max5Unchecked
+		item.setMax5Unchecked("12345");
+		assertEquals("12345", item.getMax5Unchecked());
+		try
+		{
+			item.setMax5Unchecked("123456");
+			fail("should have thrown LengthViolationException");
+		}
+		catch(LengthViolationRuntimeException e)
+		{
+			assertEquals(item, e.getItem());
+			assertEquals(item.max5Unchecked, e.getStringAttribute());
+			assertEquals("123456", e.getValue());
+			assertEquals(false, e.isTooShort());
+			assertEquals("length violation on StringItem.0, '123456' is too long for StringItem#max5Unchecked", e.getMessage());
+		}
+		assertEquals("12345", item.getMax5Unchecked());
+		restartTransaction();
+		assertEquals("12345", item.getMax5Unchecked());
 
 		// min4max8
 		try
