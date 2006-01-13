@@ -127,6 +127,14 @@ public class StringTest extends TestmodelTest
 		assertWrongLength( 0,  0, "maximum length must be greater zero, but was 0.");
 		assertWrongLength(20, 10, "maximum length must be greater or equal mimimum length, but was 10 and 20.");
 
+		// test conditions
+		assertEquals(item.any.equal("hallo"), item.any.equal("hallo"));
+		assertNotEquals(item.any.equal("hallo"), item.any.equal("bello"));
+		assertNotEquals(item.any.equal("hallo"), item.any.equal((String)null));
+		assertNotEquals(item.any.equal("hallo"), item.any.like("hallo"));
+		assertEquals(item.any.equal(item.mandatory), item.any.equal(item.mandatory));
+		assertNotEquals(item.any.equal(item.mandatory), item.any.equal(item.any));
+
 		// any
 		item.setAny("1234");
 		assertEquals("1234", item.getAny());
