@@ -305,7 +305,6 @@ public class StringTest extends TestmodelTest
 			assertEquals(item, e.getItem());
 			assertEquals(item.max5Unchecked, e.getStringAttribute());
 			assertEquals("123456", e.getValue());
-			assertEquals(false, e.isTooShort());
 			assertEquals("length violation on StringItem.0, '123456' is too long for StringItem#max5Unchecked", e.getMessage());
 		}
 		assertEquals("12345", item.getMax5Unchecked());

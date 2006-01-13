@@ -35,7 +35,6 @@ public final class LengthViolationRuntimeException extends RuntimeException
 	private final Item item;
 	private final Attribute stringAttribute;
 	private final String value;
-	private final boolean isTooShort; // TODO remove
 	
 	/**
 	 * Creates a new LengthViolationRuntimeException with the neccessary information about the violation.
@@ -43,13 +42,12 @@ public final class LengthViolationRuntimeException extends RuntimeException
 	 * @param stringAttribute initializes, what is returned by {@link #getStringAttribute()}.
 	 * @param value initializes, what is returned by {@link #getValue()}.
 	 */
-	public LengthViolationRuntimeException(final Item item, final Attribute stringAttribute, final String value, final boolean isTooShort)
+	public LengthViolationRuntimeException(final Item item, final Attribute stringAttribute, final String value)
 	{
 		super();
 		this.item = item;
 		this.stringAttribute = stringAttribute;
 		this.value = value;
-		this.isTooShort = isTooShort;
 	}
 	
 	/**
@@ -77,18 +75,11 @@ public final class LengthViolationRuntimeException extends RuntimeException
 		return value;
 	}
 	
-	public boolean isTooShort()
-	{
-		return isTooShort;
-	}
-
 	public String getMessage()
 	{
-		// TODO reuse code from LengthViolationException
 		return
 			"length violation on " + item.getCopeID() +
-			", '" + value + "' is too " +
-			(isTooShort?"short":"long") +
+			", '" + value + "' is too long" +
 			" for "+ stringAttribute;
 	}
 	
