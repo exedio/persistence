@@ -35,7 +35,7 @@ public final class DateAttribute extends FunctionAttribute
 	
 	public DateAttribute(final Option option)
 	{
-		this(option.readOnly, option.mandatory, option.unique);
+		this(option.isFinal, option.mandatory, option.unique);
 	}
 	
 	public FunctionAttribute copyFunctionAttribute()

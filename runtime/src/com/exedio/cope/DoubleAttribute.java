@@ -33,7 +33,7 @@ public final class DoubleAttribute extends FunctionAttribute
 	
 	public DoubleAttribute(final Option option)
 	{
-		this(option.readOnly, option.mandatory, option.unique);
+		this(option.isFinal, option.mandatory, option.unique);
 	}
 
 	public FunctionAttribute copyFunctionAttribute()

@@ -328,28 +328,28 @@ public class ModelTest extends TestmodelTest
 	{
 		final AttributeItem item = null;
 		
-		assertEquals(false, item.MANDATORY.readOnly);
+		assertEquals(false, item.MANDATORY.isFinal);
 		assertEquals(false, item.MANDATORY.unique);
 		assertEquals(true,  item.MANDATORY.mandatory);
-		assertEquals(false, item.OPTIONAL.readOnly);
+		assertEquals(false, item.OPTIONAL.isFinal);
 		assertEquals(false, item.OPTIONAL.unique);
 		assertEquals(false, item.OPTIONAL.mandatory);
-		assertEquals(false, item.UNIQUE.readOnly);
+		assertEquals(false, item.UNIQUE.isFinal);
 		assertEquals(true,  item.UNIQUE.unique);
 		assertEquals(true,  item.UNIQUE.mandatory);
-		assertEquals(false, item.UNIQUE_OPTIONAL.readOnly);
+		assertEquals(false, item.UNIQUE_OPTIONAL.isFinal);
 		assertEquals(true,  item.UNIQUE_OPTIONAL.unique);
 		assertEquals(false, item.UNIQUE_OPTIONAL.mandatory);
-		assertEquals(true,  item.FINAL.readOnly);
+		assertEquals(true,  item.FINAL.isFinal);
 		assertEquals(false, item.FINAL.unique);
 		assertEquals(true,  item.FINAL.mandatory);
-		assertEquals(true,  item.FINAL_OPTIONAL.readOnly);
+		assertEquals(true,  item.FINAL_OPTIONAL.isFinal);
 		assertEquals(false, item.FINAL_OPTIONAL.unique);
 		assertEquals(false, item.FINAL_OPTIONAL.mandatory);
-		assertEquals(true,  item.FINAL_UNIQUE.readOnly);
+		assertEquals(true,  item.FINAL_UNIQUE.isFinal);
 		assertEquals(true,  item.FINAL_UNIQUE.unique);
 		assertEquals(true,  item.FINAL_UNIQUE.mandatory);
-		assertEquals(true,  item.FINAL_UNIQUE_OPTIONAL.readOnly);
+		assertEquals(true,  item.FINAL_UNIQUE_OPTIONAL.isFinal);
 		assertEquals(true,  item.FINAL_UNIQUE_OPTIONAL.unique);
 		assertEquals(false, item.FINAL_UNIQUE_OPTIONAL.mandatory);
 

@@ -137,13 +137,13 @@ public abstract class Attribute extends Feature
 	
 	public static class Option
 	{
-		public final boolean readOnly;
+		public final boolean isFinal;
 		public final boolean unique;
 		public final boolean mandatory;
 
-		Option(final boolean readOnly, final boolean unique, final boolean mandatory)
+		Option(final boolean isFinal, final boolean unique, final boolean mandatory)
 		{
-			this.readOnly = readOnly;
+			this.isFinal = isFinal;
 			this.unique = unique;
 			this.mandatory = mandatory;
 		}

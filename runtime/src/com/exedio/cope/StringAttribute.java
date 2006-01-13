@@ -54,7 +54,7 @@ public final class StringAttribute extends FunctionAttribute implements StringFu
 	
 	public StringAttribute(final Option option)
 	{
-		this(option.readOnly, option.mandatory, option.unique, 0, DEFAULT_LENGTH, false);
+		this(option.isFinal, option.mandatory, option.unique, 0, DEFAULT_LENGTH, false);
 	}
 	
 	/**
@@ -62,7 +62,7 @@ public final class StringAttribute extends FunctionAttribute implements StringFu
 	 */
 	public StringAttribute(final Option option, final int minimumLength)
 	{
-		this(option.readOnly, option.mandatory, option.unique, minimumLength, DEFAULT_LENGTH, true);
+		this(option.isFinal, option.mandatory, option.unique, minimumLength, DEFAULT_LENGTH, true);
 	}
 	
 	/**
@@ -70,7 +70,7 @@ public final class StringAttribute extends FunctionAttribute implements StringFu
 	 */
 	public StringAttribute(final Option option, final int minimumLength, final int maximumLength)
 	{
-		this(option.readOnly, option.mandatory, option.unique, minimumLength, maximumLength, true);
+		this(option.isFinal, option.mandatory, option.unique, minimumLength, maximumLength, true);
 	}
 	
 	public FunctionAttribute copyFunctionAttribute()

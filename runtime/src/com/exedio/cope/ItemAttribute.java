@@ -52,7 +52,7 @@ public final class ItemAttribute extends FunctionAttribute
 	
 	public ItemAttribute(final Option option, final Class targetTypeClass, final DeletePolicy policy)
 	{
-		this(option.readOnly, option.mandatory, option.unique, targetTypeClass, policy);
+		this(option.isFinal, option.mandatory, option.unique, targetTypeClass, policy);
 	}
 
 	public FunctionAttribute copyFunctionAttribute()

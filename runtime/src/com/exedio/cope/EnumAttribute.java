@@ -113,7 +113,7 @@ public final class EnumAttribute extends FunctionAttribute
 	
 	public EnumAttribute(final Option option, final Class enumClass)
 	{
-		this(option.readOnly, option.mandatory, option.unique, enumClass);
+		this(option.isFinal, option.mandatory, option.unique, enumClass);
 	}
 	
 	public FunctionAttribute copyFunctionAttribute()

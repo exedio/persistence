@@ -16,7 +16,6 @@
 			+ skipping db searches at all
 		- oracle statistics
 		- group by / aggregates
-	- rename term "readOnly" on Attribute to "final"
 	- Transactions: introduce timestamp and use it in
 		* Item#touch
 		* timestamp of data files

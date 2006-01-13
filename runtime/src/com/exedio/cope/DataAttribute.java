@@ -38,14 +38,14 @@ public final class DataAttribute extends Attribute
 	
 	public DataAttribute(final Option option)
 	{
-		this(option.readOnly, option.mandatory);
+		this(option.isFinal, option.mandatory);
 
 		if(option.unique)
 			throw new RuntimeException("DataAttribute cannot be unique");
 		if(option.mandatory)
 			throw new RuntimeException("DataAttribute cannot be mandatory");
-		if(option.readOnly)
-			throw new RuntimeException("DataAttribute cannot be read-only");
+		if(option.isFinal)
+			throw new RuntimeException("DataAttribute cannot be final");
 	}
 	
 	// second initialization phase ---------------------------------------------------
