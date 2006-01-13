@@ -34,6 +34,9 @@ public class StringTest extends TestmodelTest
 	public void testStrings() throws ConstraintViolationException
 	{
 		// test model
+		assertEquals(item.TYPE, item.any.getType());
+		assertEquals("any", item.any.getName());
+		assertEqualsUnmodifiable(list(), item.any.getPatterns());
 		assertEquals(0, item.any.getMinimumLength());
 		assertEquals(StringAttribute.DEFAULT_LENGTH, item.any.getMaximumLength());
 		assertEquals(false, item.any.hasLengthConstraintCheckedException());
@@ -58,6 +61,8 @@ public class StringTest extends TestmodelTest
 		assertEquals(6, item.exact6.getMaximumLength());
 		assertEquals(true, item.exact6.hasLengthConstraintCheckedException());
 		
+		assertEquals(item.TYPE, item.min4Upper.getType());
+		assertEquals("min4Upper", item.min4Upper.getName());
 		{
 			final StringAttribute orig = new StringAttribute(Item.OPTIONAL);
 			assertEquals(false, orig.isReadOnly());

@@ -23,15 +23,6 @@ import com.exedio.cope.testmodel.AttributeItem;
 
 public class AttributeStringTest extends AttributeTest
 {
-	public void testSomeString() throws ConstraintViolationException
-	{
-		// test model
-		assertEquals(item.TYPE, item.someString.getType());
-		assertEquals(item.TYPE, item.someStringUpperCase.getType());
-		assertEquals("someString", item.someString.getName());
-		assertEqualsUnmodifiable(list(), item.someString.getPatterns());
-		assertEquals("someStringUpperCase", item.someStringUpperCase.getName());
-	}
 	
 	public void testSomeNotNullString()
 		throws MandatoryViolationException
