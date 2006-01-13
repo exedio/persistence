@@ -24,7 +24,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Iterator;
 
 import com.exedio.cope.junit.CopeTest;
@@ -266,16 +265,6 @@ public abstract class AbstractLibTest extends CopeTest
 			assertSame(o1, o2);
 		else
 			assertNotSame(o1, o2);
-	}
-	
-	protected static Collection search(final FunctionAttribute selectAttribute)
-	{
-		return search(selectAttribute, null);
-	}
-	
-	protected static Collection search(final FunctionAttribute selectAttribute, final Condition condition)
-	{
-		return new Query(selectAttribute, condition).search();
 	}
 	
 }

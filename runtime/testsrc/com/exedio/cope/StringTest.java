@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import java.util.Arrays;
+import java.util.Collection;
 
 import com.exedio.cope.function.LengthView;
 import com.exedio.cope.function.UppercaseView;
@@ -509,4 +510,15 @@ public class StringTest extends TestmodelTest
 			assertEquals(list(), type.search(sa.equal(value+"x")));
 		}
 	}
+	
+	protected static Collection search(final FunctionAttribute selectAttribute)
+	{
+		return search(selectAttribute, null);
+	}
+	
+	protected static Collection search(final FunctionAttribute selectAttribute, final Condition condition)
+	{
+		return new Query(selectAttribute, condition).search();
+	}
+	
 }
