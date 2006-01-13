@@ -105,34 +105,9 @@ public class AttributeStringTest extends AttributeTest
 			assertEquals(20, copy.getMaximumLength());
 		}
 		
-		// TODO reuse code
-		try
-		{
-			new StringAttribute(Item.OPTIONAL).lengthRange(-1, 20);
-			fail();
-		}
-		catch(RuntimeException e)
-		{
-			assertEquals("mimimum length must be positive.", e.getMessage());
-		}
-		try
-		{
-			new StringAttribute(Item.OPTIONAL).lengthRange(0, 0);
-			fail();
-		}
-		catch(RuntimeException e)
-		{
-			assertEquals("maximum length must be greater zero.", e.getMessage());
-		}
-		try
-		{
-			new StringAttribute(Item.OPTIONAL).lengthRange(20, 10);
-			fail();
-		}
-		catch(RuntimeException e)
-		{
-			assertEquals("maximum length must be greater or equal mimimum length.", e.getMessage());
-		}
+		assertWrongLength(-1, 20, "mimimum length must be positive.");
+		assertWrongLength( 0,  0, "maximum length must be greater zero.");
+		assertWrongLength(20, 10, "maximum length must be greater or equal mimimum length.");
 
 		assertString(item, item2, item.someString);
 
@@ -144,6 +119,19 @@ public class AttributeStringTest extends AttributeTest
 		catch(ClassCastException e)
 		{
 			assertEquals("expected " + String.class.getName() + ", got " + Integer.class.getName() + " for someString", e.getMessage());
+		}
+	}
+	
+	void assertWrongLength(final int minimumLength, final int maximumLength, final String message)
+	{
+		try
+		{
+			new StringAttribute(Item.OPTIONAL).lengthRange(minimumLength, maximumLength);
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals(message, e.getMessage());
 		}
 	}
 
