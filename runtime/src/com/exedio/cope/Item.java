@@ -420,7 +420,7 @@ public abstract class Item extends Cope
 	public static final Attribute.Option UNIQUE_OPTIONAL = new Attribute.Option(false, true, false);
 
 	public static final Attribute.Option FINAL = new Attribute.Option(true, false, true);
-	public static final Attribute.Option READ_ONLY_OPTIONAL = new Attribute.Option(true, false, false);
+	public static final Attribute.Option FINAL_OPTIONAL = new Attribute.Option(true, false, false);
 
 	public static final Attribute.Option READ_ONLY_UNIQUE = new Attribute.Option(true, true, true);
 	public static final Attribute.Option READ_ONLY_UNIQUE_OPTIONAL = new Attribute.Option(true, true, false);
@@ -429,6 +429,11 @@ public abstract class Item extends Cope
 	 * @deprecated use {@link FINAL}.
 	 */
 	public static final Attribute.Option READ_ONLY = FINAL;
+	
+	/**
+	 * @deprecated use {@link FINAL_OPTIONAL}.
+	 */
+	public static final Attribute.Option READ_ONLY_OPTIONAL = FINAL_OPTIONAL;
 	
 	public static final ItemAttribute.DeletePolicy FORBID = new ItemAttribute.DeletePolicy(0);
 	public static final ItemAttribute.DeletePolicy NULLIFY = new ItemAttribute.DeletePolicy(1);

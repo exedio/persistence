@@ -93,7 +93,7 @@ public class StringTest extends TestmodelTest
 			assertEquals(StringAttribute.DEFAULT_LENGTH, copy.getMaximumLength());
 		}
 		{
-			final StringAttribute orig = new StringAttribute(Item.READ_ONLY_OPTIONAL).lengthMin(10);
+			final StringAttribute orig = new StringAttribute(Item.FINAL_OPTIONAL).lengthMin(10);
 			assertEquals(true, orig.isReadOnly());
 			assertEquals(false, orig.isMandatory());
 			assertNull(orig.getImplicitUniqueConstraint());
