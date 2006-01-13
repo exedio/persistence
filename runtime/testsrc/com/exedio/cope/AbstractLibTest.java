@@ -306,8 +306,8 @@ public abstract class AbstractLibTest extends CopeTest
 	// TODO move into StringTest
 	void assertString(final Item item, final Item item2, final StringAttribute sa) throws ConstraintViolationException
 	{
-		final Type TYPE = item.getCopeType(); // TODO rename to type
-		assertEquals(TYPE, item2.getCopeType());
+		final Type type = item.getCopeType();
+		assertEquals(type, item2.getCopeType());
 
 		final String VALUE = "someString";
 		final String VALUE2 = VALUE+"2";
@@ -323,7 +323,7 @@ public abstract class AbstractLibTest extends CopeTest
 		assertEquals(null, sa.get(item2));
 		assertEquals(null, saup.get(item2));
 		assertEquals(null, saln.get(item2));
-		assertContains(item, item2, TYPE.search(sa.isNull()));
+		assertContains(item, item2, type.search(sa.isNull()));
 		
 		sa.set(item, VALUE);
 		assertEquals(VALUE, sa.get(item));
@@ -337,23 +337,23 @@ public abstract class AbstractLibTest extends CopeTest
 		
 		if(!oracle||sa.getMaximumLength()<4000)
 		{
-			assertContains(item, TYPE.search(sa.equal(VALUE)));
-			assertContains(item2, TYPE.search(sa.notEqual(VALUE)));
-			assertContains(TYPE.search(sa.equal(VALUE_UPPER)));
-			assertContains(item, TYPE.search(sa.like(VALUE)));
-			assertContains(item, item2, TYPE.search(sa.like(VALUE+"%")));
-			assertContains(item2, TYPE.search(sa.like(VALUE2+"%")));
+			assertContains(item, type.search(sa.equal(VALUE)));
+			assertContains(item2, type.search(sa.notEqual(VALUE)));
+			assertContains(type.search(sa.equal(VALUE_UPPER)));
+			assertContains(item, type.search(sa.like(VALUE)));
+			assertContains(item, item2, type.search(sa.like(VALUE+"%")));
+			assertContains(item2, type.search(sa.like(VALUE2+"%")));
 	
-			assertContains(item, TYPE.search(saup.equal(VALUE_UPPER)));
-			assertContains(item2, TYPE.search(saup.notEqual(VALUE_UPPER)));
-			assertContains(TYPE.search(saup.equal(VALUE)));
-			assertContains(item, TYPE.search(saup.like(VALUE_UPPER)));
-			assertContains(item, item2, TYPE.search(saup.like(VALUE_UPPER+"%")));
-			assertContains(item2, TYPE.search(saup.like(VALUE2_UPPER+"%")));
+			assertContains(item, type.search(saup.equal(VALUE_UPPER)));
+			assertContains(item2, type.search(saup.notEqual(VALUE_UPPER)));
+			assertContains(type.search(saup.equal(VALUE)));
+			assertContains(item, type.search(saup.like(VALUE_UPPER)));
+			assertContains(item, item2, type.search(saup.like(VALUE_UPPER+"%")));
+			assertContains(item2, type.search(saup.like(VALUE2_UPPER+"%")));
 			
-			assertContains(item, TYPE.search(saln.equal(VALUE.length())));
-			assertContains(item2, TYPE.search(saln.notEqual(VALUE.length())));
-			assertContains(TYPE.search(saln.equal(VALUE.length()+2)));
+			assertContains(item, type.search(saln.equal(VALUE.length())));
+			assertContains(item2, type.search(saln.notEqual(VALUE.length())));
+			assertContains(type.search(saln.equal(VALUE.length()+2)));
 	
 			assertContains(VALUE, VALUE2, search(sa));
 			assertContains(VALUE, search(sa, sa.equal(VALUE)));
@@ -367,18 +367,18 @@ public abstract class AbstractLibTest extends CopeTest
 		assertEquals(new Integer(VALUE.length()), saln.get(item));
 		
 		{
-			final boolean supports = TYPE.getModel().supportsEmptyStrings();
+			final boolean supports = type.getModel().supportsEmptyStrings();
 			final String emptyString = supports ? "" : null;
 			
 			sa.set(item, "");
 			assertEquals(emptyString, sa.get(item));
 			restartTransaction();
 			assertEquals(emptyString, sa.get(item));
-			assertEquals(list(item), TYPE.search(sa.equal(emptyString)));
+			assertEquals(list(item), type.search(sa.equal(emptyString)));
 			if(!oracle||sa.getMaximumLength()<4000)
 			{
-				assertEquals(list(), TYPE.search(sa.equal("x")));
-				assertEquals(supports ? list(item) : list(), TYPE.search(sa.equal("")));
+				assertEquals(list(), type.search(sa.equal("x")));
+				assertEquals(supports ? list(item) : list(), type.search(sa.equal("")));
 			}
 		}
 		
@@ -408,13 +408,13 @@ public abstract class AbstractLibTest extends CopeTest
 		assertEquals(null, sa.get(item));
 		assertEquals(null, saup.get(item));
 		assertEquals(null, saln.get(item));
-		assertContains(item, TYPE.search(sa.isNull()));
+		assertContains(item, type.search(sa.isNull()));
 
 		sa.set(item2, null);
 		assertEquals(null, sa.get(item2));
 		assertEquals(null, saup.get(item2));
 		assertEquals(null, saln.get(item2));
-		assertContains(item, item2, TYPE.search(sa.isNull()));
+		assertContains(item, item2, type.search(sa.isNull()));
 	}
 	
 	private void assertStringSet(final Item item, final StringAttribute sa, final String value) throws ConstraintViolationException
