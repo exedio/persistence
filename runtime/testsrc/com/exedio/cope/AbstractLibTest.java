@@ -419,7 +419,7 @@ public abstract class AbstractLibTest extends CopeTest
 	
 	private void assertStringSet(final Item item, final StringAttribute sa, final String value) throws ConstraintViolationException
 	{
-		final Type TYPE = item.getCopeType(); // TODO rename to type
+		final Type type = item.getCopeType();
 		sa.set(item, value);
 		assertEquals(value, sa.get(item));
 		restartTransaction();
@@ -427,8 +427,8 @@ public abstract class AbstractLibTest extends CopeTest
 		if(!oracle||sa.getMaximumLength()<4000)
 		{
 			if(!mysql || value.indexOf("Auml")<0) // TODO should work without condition
-				assertEquals(list(item), TYPE.search(sa.equal(value)));
-			assertEquals(list(), TYPE.search(sa.equal(value+"x")));
+				assertEquals(list(item), type.search(sa.equal(value)));
+			assertEquals(list(), type.search(sa.equal(value+"x")));
 		}
 	}
 	
