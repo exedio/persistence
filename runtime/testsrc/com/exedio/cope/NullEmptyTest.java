@@ -45,16 +45,6 @@ public class NullEmptyTest extends TestmodelTest
 	{
 		assertEquals(null, item.getAny());
 
-		item.setAny("");
-		assertEquals(emptyString, item.getAny());
-		restartTransaction();
-		assertEquals(emptyString, item.getAny());
-
-		item.setAny(null);
-		assertEquals(null, item.getAny());
-		restartTransaction();
-		assertEquals(null, item.getAny());
-		
 		final StringItem item2 = new StringItem("", false);
 		deleteOnTearDown(item2);
 		assertEquals(emptyString, item2.getAny());
