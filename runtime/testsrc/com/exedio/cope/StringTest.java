@@ -58,6 +58,71 @@ public class StringTest extends TestmodelTest
 		assertEquals(6, item.exact6.getMaximumLength());
 		assertEquals(true, item.exact6.hasLengthConstraintCheckedException());
 		
+		{
+			final StringAttribute orig = new StringAttribute(Item.OPTIONAL);
+			assertEquals(false, orig.isReadOnly());
+			assertEquals(false, orig.isMandatory());
+			assertEquals(false, orig.hasLengthConstraintCheckedException());
+			assertEquals(0, orig.getMinimumLength());
+			assertEquals(StringAttribute.DEFAULT_LENGTH, orig.getMaximumLength());
+
+			final StringAttribute copy = (StringAttribute)orig.copyFunctionAttribute();
+			assertEquals(false, copy.isReadOnly());
+			assertEquals(false, copy.isMandatory());
+			assertEquals(false, copy.hasLengthConstraintCheckedException());
+			assertEquals(0, copy.getMinimumLength());
+			assertEquals(StringAttribute.DEFAULT_LENGTH, copy.getMaximumLength());
+		}
+		{
+			final StringAttribute orig = new StringAttribute(Item.READ_ONLY_OPTIONAL).lengthMin(10);
+			assertEquals(true, orig.isReadOnly());
+			assertEquals(false, orig.isMandatory());
+			assertNull(orig.getImplicitUniqueConstraint());
+			assertEquals(true, orig.hasLengthConstraintCheckedException());
+			assertEquals(10, orig.getMinimumLength());
+			assertEquals(StringAttribute.DEFAULT_LENGTH, orig.getMaximumLength());
+			
+			final StringAttribute copy = (StringAttribute)orig.copyFunctionAttribute();
+			assertEquals(true, copy.isReadOnly());
+			assertEquals(false, copy.isMandatory());
+			assertNull(copy.getImplicitUniqueConstraint());
+			assertEquals(true, copy.hasLengthConstraintCheckedException());
+			assertEquals(10, copy.getMinimumLength());
+			assertEquals(StringAttribute.DEFAULT_LENGTH, copy.getMaximumLength());
+		}
+		{
+			final StringAttribute orig = new StringAttribute(Item.READ_ONLY_UNIQUE_OPTIONAL).lengthMin(20);
+			assertEquals(true, orig.isReadOnly());
+			assertEquals(false, orig.isMandatory());
+			assertNotNull(orig.getImplicitUniqueConstraint());
+			assertEquals(true, orig.hasLengthConstraintCheckedException());
+			assertEquals(20, orig.getMinimumLength());
+			assertEquals(StringAttribute.DEFAULT_LENGTH, orig.getMaximumLength());
+			
+			final StringAttribute copy = (StringAttribute)orig.copyFunctionAttribute();
+			assertEquals(true, copy.isReadOnly());
+			assertEquals(false, copy.isMandatory());
+			assertNotNull(copy.getImplicitUniqueConstraint());
+			assertEquals(true, copy.hasLengthConstraintCheckedException());
+			assertEquals(20, copy.getMinimumLength());
+			assertEquals(StringAttribute.DEFAULT_LENGTH, copy.getMaximumLength());
+		}
+		{
+			final StringAttribute orig = new StringAttribute(Item.MANDATORY).lengthRange(10, 20);
+			assertEquals(false, orig.isReadOnly());
+			assertEquals(true, orig.isMandatory());
+			assertEquals(true, orig.hasLengthConstraintCheckedException());
+			assertEquals(10, orig.getMinimumLength());
+			assertEquals(20, orig.getMaximumLength());
+			
+			final StringAttribute copy = (StringAttribute)orig.copyFunctionAttribute();
+			assertEquals(false, copy.isReadOnly());
+			assertEquals(true, copy.isMandatory());
+			assertEquals(true, copy.hasLengthConstraintCheckedException());
+			assertEquals(10, copy.getMinimumLength());
+			assertEquals(20, copy.getMaximumLength());
+		}
+		
 		assertWrongLength(-1, 20, "mimimum length must be positive, but was -1.");
 		assertWrongLength( 0,  0, "maximum length must be greater zero, but was 0.");
 		assertWrongLength(20, 10, "maximum length must be greater or equal mimimum length, but was 10 and 20.");
