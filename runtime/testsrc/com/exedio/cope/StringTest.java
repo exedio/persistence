@@ -36,12 +36,15 @@ public class StringTest extends TestmodelTest
 		// test model
 		assertEquals(item.TYPE, item.any.getType());
 		assertEquals("any", item.any.getName());
+		assertEquals(false, item.any.isMandatory());
 		assertEqualsUnmodifiable(list(), item.any.getPatterns());
 		assertEquals(0, item.any.getMinimumLength());
 		assertEquals(StringAttribute.DEFAULT_LENGTH, item.any.getMaximumLength());
 		assertEquals(false, item.any.hasLengthConstraintCheckedException());
 
 		assertEquals(item.TYPE, item.mandatory.getType());
+		assertEquals("mandatory", item.mandatory.getName());
+		assertEquals(true, item.mandatory.isMandatory());
 
 		assertEquals(4, item.min4.getMinimumLength());
 		assertEquals(StringAttribute.DEFAULT_LENGTH, item.min4.getMaximumLength());
