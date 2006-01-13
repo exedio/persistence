@@ -63,40 +63,6 @@ public class StringTest extends TestmodelTest
 		item.setAny("123");
 		assertEquals("123", item.getAny());
 		
-		// TODO copied to assertString - start
-		// test SQL injection
-		// if SQL injection is not prevented properly,
-		// the following line will throw a SQLException
-		// due to column "hijackedColumn" not found
-		final String BAD_STRING = "value',hijackedColumn='otherValue";
-		item.setAny(BAD_STRING);
-		assertEquals(BAD_STRING, item.getAny());
-		restartTransaction();
-		assertEquals(BAD_STRING, item.getAny());
-		assertEquals(list(item), item.TYPE.search(item.any.equal(BAD_STRING)));
-		assertEquals(list(), item.TYPE.search(item.any.equal(BAD_STRING+"x")));
-
-		// test full unicode support
-		final String unicodeString =
-			"Auml \u00c4; "
-			+ "Ouml \u00d6; "
-			+ "Uuml \u00dc; "
-			+ "auml \u00e4; "
-			+ "ouml \u00f6; "
-			+ "uuml \u00fc; "
-			+ "szlig \u00df; "
-			+ "paragraph \u00a7; "
-			+ "kringel \u00b0; "
-			//+ "abreve \u0102; "
-			//+ "hebrew \u05d8 "
-			+ "euro \u20ac";
-		//System.out.println(unicodeString);
-		item.setAny(unicodeString);
-		assertEquals(unicodeString, item.getAny());
-		restartTransaction();
-		assertEquals(unicodeString, item.getAny());
-		// TODO copied to assertString - end
-
 		// standard tests
 		item.setAny(null);
 		assertString(item, item2, item.any);
