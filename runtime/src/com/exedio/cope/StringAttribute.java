@@ -42,13 +42,12 @@ public final class StringAttribute extends FunctionAttribute implements StringFu
 		this.maximumLength = maximumLength;
 		this.checkedLengthException = checkedLengthException;
 
-		// TODO include actual values in error messages
 		if(minimumLength<0)
-			throw new RuntimeException("mimimum length must be positive.");
+			throw new RuntimeException("mimimum length must be positive, but was " + minimumLength + '.');
 		if(maximumLength<=0)
-			throw new RuntimeException("maximum length must be greater zero.");
+			throw new RuntimeException("maximum length must be greater zero, but was " + maximumLength + '.');
 		if(minimumLength>maximumLength)
-			throw new RuntimeException("maximum length must be greater or equal mimimum length.");
+			throw new RuntimeException("maximum length must be greater or equal mimimum length, but was " + maximumLength + " and " + minimumLength + '.');
 		
 		assert checkedLengthException ? true : minimumLength==0;
 	}
