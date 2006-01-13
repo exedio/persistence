@@ -346,9 +346,9 @@ public class ModelTest extends TestmodelTest
 		assertEquals(true,  item.FINAL_OPTIONAL.readOnly);
 		assertEquals(false, item.FINAL_OPTIONAL.unique);
 		assertEquals(false, item.FINAL_OPTIONAL.mandatory);
-		assertEquals(true,  item.READ_ONLY_UNIQUE.readOnly);
-		assertEquals(true,  item.READ_ONLY_UNIQUE.unique);
-		assertEquals(true,  item.READ_ONLY_UNIQUE.mandatory);
+		assertEquals(true,  item.FINAL_UNIQUE.readOnly);
+		assertEquals(true,  item.FINAL_UNIQUE.unique);
+		assertEquals(true,  item.FINAL_UNIQUE.mandatory);
 		assertEquals(true,  item.READ_ONLY_UNIQUE_OPTIONAL.readOnly);
 		assertEquals(true,  item.READ_ONLY_UNIQUE_OPTIONAL.unique);
 		assertEquals(false, item.READ_ONLY_UNIQUE_OPTIONAL.mandatory);
