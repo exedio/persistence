@@ -26,7 +26,7 @@ import com.exedio.cope.StringAttribute;
  */
 public class SubTarget extends Item
 {
-	public static final StringAttribute string = new StringAttribute(READ_ONLY);
+	public static final StringAttribute string = new StringAttribute(FINAL);
 
 /**
 

@@ -30,9 +30,9 @@ import com.exedio.cope.UniqueConstraint;
  */
 public class QualifiedStringQualifier extends Item
 {
-	public static final ItemAttribute parent = new ItemAttribute(READ_ONLY, QualifiedItem.class);
+	public static final ItemAttribute parent = new ItemAttribute(FINAL, QualifiedItem.class);
 	
-	public static final StringAttribute key = new StringAttribute(READ_ONLY);
+	public static final StringAttribute key = new StringAttribute(FINAL);
 	
 	public static final UniqueConstraint qualifyUnique = new UniqueConstraint(parent, key);
 	

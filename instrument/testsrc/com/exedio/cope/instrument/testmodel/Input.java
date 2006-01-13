@@ -28,8 +28,8 @@ import com.exedio.cope.UniqueConstraint;
  */
 public class Input extends Item
 {
-	public static final StringAttribute string = new StringAttribute( READ_ONLY );
-	public static final IntegerAttribute integer = new IntegerAttribute( READ_ONLY );
+	public static final StringAttribute string = new StringAttribute( FINAL );
+	public static final IntegerAttribute integer = new IntegerAttribute( FINAL );
 	public static final UniqueConstraint unique = new UniqueConstraint( string, integer );
 	
 /**
