@@ -41,6 +41,8 @@ public class StringTest extends TestmodelTest
 		assertEquals(StringAttribute.DEFAULT_LENGTH, item.any.getMaximumLength());
 		assertEquals(false, item.any.hasLengthConstraintCheckedException());
 
+		assertEquals(item.TYPE, item.mandatory.getType());
+
 		assertEquals(4, item.min4.getMinimumLength());
 		assertEquals(StringAttribute.DEFAULT_LENGTH, item.min4.getMaximumLength());
 		assertEquals(true, item.min4.hasLengthConstraintCheckedException());
@@ -160,6 +162,36 @@ public class StringTest extends TestmodelTest
 		catch(ClassCastException e)
 		{
 			assertEquals("expected " + String.class.getName() + ", got " + Integer.class.getName() + " for any", e.getMessage());
+		}
+		
+		// mandatory
+		assertEquals("StringTest", item.getMandatory());
+	
+		item.setMandatory("someOtherString");
+		assertEquals("someOtherString", item.getMandatory());
+	
+		try
+		{
+			item.setMandatory(null);
+			fail();
+		}
+		catch(MandatoryViolationException e)
+		{
+			assertEquals(item, e.getItem());
+			assertEquals(item.mandatory, e.getMandatoryAttribute());
+			assertEquals("mandatory violation on " + item + " for StringItem#mandatory", e.getMessage());
+		}
+	
+		try
+		{
+			new StringItem(null);
+			fail();
+		}
+		catch(MandatoryViolationException e)
+		{
+			assertEquals(null, e.getItem());
+			assertEquals(item.mandatory, e.getMandatoryAttribute());
+			assertEquals("mandatory violation on a newly created item for StringItem#mandatory", e.getMessage());
 		}
 		
 		// min4
@@ -307,39 +339,6 @@ public class StringTest extends TestmodelTest
 		assertEquals("123456", item.getExact6());
 		restartTransaction();
 		assertEquals("123456", item.getExact6());
-	}
-
-	public void testSomeNotNullString() throws MandatoryViolationException
-	{
-		assertEquals(item.TYPE, item.mandatory.getType());
-		assertEquals("StringTest", item.getMandatory());
-	
-		item.setMandatory("someOtherString");
-		assertEquals("someOtherString", item.getMandatory());
-	
-		try
-		{
-			item.setMandatory(null);
-			fail();
-		}
-		catch(MandatoryViolationException e)
-		{
-			assertEquals(item, e.getItem());
-			assertEquals(item.mandatory, e.getMandatoryAttribute());
-			assertEquals("mandatory violation on " + item + " for StringItem#mandatory", e.getMessage());
-		}
-	
-		try
-		{
-			new StringItem(null);
-			fail();
-		}
-		catch(MandatoryViolationException e)
-		{
-			assertEquals(null, e.getItem());
-			assertEquals(item.mandatory, e.getMandatoryAttribute());
-			assertEquals("mandatory violation on a newly created item for StringItem#mandatory", e.getMessage());
-		}
 	}
 
 	void assertWrongLength(final int minimumLength, final int maximumLength, final String message)
