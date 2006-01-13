@@ -193,6 +193,7 @@ public class StringTest extends TestmodelTest
 			assertEquals(item.mandatory, e.getMandatoryAttribute());
 			assertEquals("mandatory violation on " + item + " for StringItem#mandatory", e.getMessage());
 		}
+		assertEquals("someOtherString", item.getMandatory());
 	
 		try
 		{
@@ -222,6 +223,7 @@ public class StringTest extends TestmodelTest
 			assertEquals(item, e.getItem());
 			assertEquals("mandatory violation on " + item + " for StringItem#mandatory", e.getMessage());
 		}
+		assertEquals("someOtherString", item.getMandatory());
 		
 		StringItem item3 = null;
 		try
