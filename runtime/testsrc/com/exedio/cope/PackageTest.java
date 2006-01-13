@@ -35,7 +35,6 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( ModelTest.class );
 		suite.addTestSuite( ItemTest.class );
 		
-		suite.addTestSuite( AttributeStringTest.class );
 		suite.addTestSuite( AttributeIntegerTest.class );
 		suite.addTestSuite( AttributeLongTest.class );
 		suite.addTestSuite( AttributeDoubleTest.class );
