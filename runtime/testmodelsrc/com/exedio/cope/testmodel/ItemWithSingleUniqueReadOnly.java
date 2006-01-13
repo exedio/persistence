@@ -31,7 +31,7 @@ public class ItemWithSingleUniqueReadOnly extends Item
 	/**
 	 * An attribute that is unique and read-only.
 	 */
-	public static final StringAttribute uniqueReadOnlyString = new StringAttribute(READ_ONLY_UNIQUE_OPTIONAL);
+	public static final StringAttribute uniqueReadOnlyString = new StringAttribute(FINAL_UNIQUE_OPTIONAL);
 
 /**
 
