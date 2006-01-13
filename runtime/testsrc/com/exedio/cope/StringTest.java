@@ -206,6 +206,41 @@ public class StringTest extends TestmodelTest
 			assertEquals("mandatory violation on a newly created item for StringItem#mandatory", e.getMessage());
 		}
 		
+		// mandatory and empty string
+		try
+		{
+			item.setMandatory("");
+			if(supports)
+				assertEquals("", item.getMandatory());
+			else
+				fail();
+		}
+		catch(MandatoryViolationException e)
+		{
+			assertTrue(!supports);
+			assertEquals(item.mandatory, e.getMandatoryAttribute());
+			assertEquals(item, e.getItem());
+			assertEquals("mandatory violation on " + item + " for StringItem#mandatory", e.getMessage());
+		}
+		
+		StringItem item3 = null;
+		try
+		{
+			item3 = new StringItem("", 0.0);
+			deleteOnTearDown(item3);
+			if(supports)
+				assertEquals("", item3.getMandatory());
+			else
+				fail();
+		}
+		catch(MandatoryViolationException e)
+		{
+			assertTrue(!supports);
+			assertEquals(item3.mandatory, e.getMandatoryAttribute());
+			assertEquals(item3, e.getItem());
+			assertEquals("mandatory violation on a newly created item for StringItem#mandatory", e.getMessage());
+		}
+		
 		// min4
 		try
 		{

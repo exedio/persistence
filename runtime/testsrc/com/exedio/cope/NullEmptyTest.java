@@ -15,6 +15,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
+
 package com.exedio.cope;
 
 import com.exedio.cope.testmodel.StringItem;
@@ -54,45 +55,11 @@ public class NullEmptyTest extends TestmodelTest
 		restartTransaction();
 		assertEquals(null, item.getAny());
 		
-		try
-		{
-			item.setMandatory("");
-			if(supports)
-				assertEquals("", item.getMandatory());
-			else
-				fail();
-		}
-		catch(MandatoryViolationException e)
-		{
-			assertTrue(!supports);
-			assertEquals(item.mandatory, e.getMandatoryAttribute());
-			assertEquals(item, e.getItem());
-			assertEquals("mandatory violation on " + item + " for StringItem#mandatory", e.getMessage());
-		}
-		
 		final StringItem item2 = new StringItem("", false);
 		deleteOnTearDown(item2);
 		assertEquals(emptyString, item2.getAny());
 		restartTransaction();
 		assertEquals(emptyString, item2.getAny());
-		
-		StringItem item3 = null;
-		try
-		{
-			item3 = new StringItem("", 0.0);
-			deleteOnTearDown(item3);
-			if(supports)
-				assertEquals("", item3.getMandatory());
-			else
-				fail();
-		}
-		catch(MandatoryViolationException e)
-		{
-			assertTrue(!supports);
-			assertEquals(item3.mandatory, e.getMandatoryAttribute());
-			assertEquals(item3, e.getItem());
-			assertEquals("mandatory violation on a newly created item for StringItem#mandatory", e.getMessage());
-		}
 	}
 
 }
