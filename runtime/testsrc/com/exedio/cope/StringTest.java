@@ -33,6 +33,7 @@ public class StringTest extends TestmodelTest
 	
 	public void testStrings() throws ConstraintViolationException
 	{
+		// test model
 		assertEquals(0, item.any.getMinimumLength());
 		assertEquals(StringAttribute.DEFAULT_LENGTH, item.any.getMaximumLength());
 		assertEquals(false, item.any.hasLengthConstraintCheckedException());
@@ -57,6 +58,10 @@ public class StringTest extends TestmodelTest
 		assertEquals(6, item.exact6.getMaximumLength());
 		assertEquals(true, item.exact6.hasLengthConstraintCheckedException());
 		
+		assertWrongLength(-1, 20, "mimimum length must be positive, but was -1.");
+		assertWrongLength( 0,  0, "maximum length must be greater zero, but was 0.");
+		assertWrongLength(20, 10, "maximum length must be greater or equal mimimum length, but was 10 and 20.");
+
 		// any
 		item.setAny("1234");
 		assertEquals("1234", item.getAny());
@@ -214,6 +219,19 @@ public class StringTest extends TestmodelTest
 		assertEquals("123456", item.getExact6());
 		restartTransaction();
 		assertEquals("123456", item.getExact6());
+	}
+
+	void assertWrongLength(final int minimumLength, final int maximumLength, final String message)
+	{
+		try
+		{
+			new StringAttribute(Item.OPTIONAL).lengthRange(minimumLength, maximumLength);
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals(message, e.getMessage());
+		}
 	}
 
 }
