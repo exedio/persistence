@@ -166,6 +166,14 @@ public class StringTest extends TestmodelTest
 		assertString(item, item2, item.long1K);
 		assertString(item, item2, item.long1M);
 		
+		{
+			final StringItem itemEmptyInit = new StringItem("", false);
+			deleteOnTearDown(itemEmptyInit);
+			assertEquals(emptyString, itemEmptyInit.getAny());
+			restartTransaction();
+			assertEquals(emptyString, itemEmptyInit.getAny());
+		}
+		
 		try
 		{
 			item.set(item.any, new Integer(10));
@@ -222,8 +230,8 @@ public class StringTest extends TestmodelTest
 			assertEquals(item.mandatory, e.getMandatoryAttribute());
 			assertEquals(item, e.getItem());
 			assertEquals("mandatory violation on " + item + " for StringItem#mandatory", e.getMessage());
+			assertEquals("someOtherString", item.getMandatory());
 		}
-		assertEquals("someOtherString", item.getMandatory());
 		
 		StringItem item3 = null;
 		try

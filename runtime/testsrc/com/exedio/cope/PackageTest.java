@@ -52,7 +52,6 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( EnumTest.class );
 		suite.addTestSuite( MatchTest.class );
 		suite.addTestSuite( DataTest.class );
-		suite.addTestSuite( NullEmptyTest.class );
 		suite.addTestSuite( UniqueItemTest.class );
 		suite.addTestSuite( HierarchyTest.class );
 		suite.addTestSuite( HierarchyEmptyTest.class );
