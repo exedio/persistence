@@ -548,7 +548,7 @@ public class StringTest extends TestmodelTest
 		assertEquals(value, sa.get(item));
 		restartTransaction();
 		assertEquals(value, sa.get(item));
-		if(!oracle||sa.getMaximumLength()<4000)
+		if(!oracle||sa.getMaximumLength()<4000) // TODO should work without condition
 		{
 			if(!mysql || value.indexOf("Auml")<0) // TODO should work without condition
 				assertEquals(list(item), type.search(sa.equal(value)));
