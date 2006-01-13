@@ -134,46 +134,6 @@ public class AttributeStringTest extends AttributeTest
 			assertEquals("maximum length must be greater or equal mimimum length.", e.getMessage());
 		}
 
-		// TODO copied to assertString - start
-		assertEquals(null, item.getSomeString());
-		assertEquals(null, item.getSomeStringUpperCase());
-		assertEquals(null, item.getSomeStringLength());
-		item.setSomeString("someString");
-		assertEquals("someString", item.getSomeString());
-		assertEquals("SOMESTRING", item.getSomeStringUpperCase());
-		assertEquals(new Integer("someString".length()), item.getSomeStringLength());
-		assertContains(item, item.TYPE.search(item.someString.equal("someString")));
-		assertContains(item2, item.TYPE.search(item.someString.notEqual("someString")));
-		assertContains(item.TYPE.search(item.someString.equal("SOMESTRING")));
-		assertContains(item, item.TYPE.search(item.someNotNullString.like("someString")));
-		assertContains(item, item2, item.TYPE.search(item.someNotNullString.like("someString%")));
-		assertContains(item2, item.TYPE.search(item.someNotNullString.like("someString2%")));
-
-		assertContains(item, item.TYPE.search(item.someStringUpperCase.equal("SOMESTRING")));
-		assertContains(item, item.TYPE.search(item.someString.uppercase().equal("SOMESTRING")));
-		assertContains(item2, item.TYPE.search(item.someStringUpperCase.notEqual("SOMESTRING")));
-		assertContains(item2, item.TYPE.search(item.someString.uppercase().notEqual("SOMESTRING")));
-		assertContains(item.TYPE.search(item.someStringUpperCase.equal("someString")));
-		assertContains(item.TYPE.search(item.someString.uppercase().equal("someString")));
-		
-		assertContains(item, item.TYPE.search(item.someStringLength.equal("someString".length())));
-		assertContains(item2, item.TYPE.search(item.someStringLength.notEqual("someString".length())));
-		assertContains(item.TYPE.search(item.someStringLength.equal("someString".length()+1)));
-
-		assertContains("someString", null, search(item.someString));
-		assertContains("someString", search(item.someString, item.someString.equal("someString")));
-		// TODO allow functions for select
-		//assertContains("SOMESTRING", search(item.someStringUpperCase, item.someString.equal("someString")));
-
-		restartTransaction();
-		assertEquals("someString", item.getSomeString());
-		assertEquals("SOMESTRING", item.getSomeStringUpperCase());
-		assertEquals(new Integer("someString".length()), item.getSomeStringLength());
-		item.setSomeString(null);
-		assertEquals(null, item.getSomeString());
-		assertEquals(null, item.getSomeStringUpperCase());
-		assertEquals(null, item.getSomeStringLength());
-		// TODO copied to assertString - end
 		assertString(item, item2, item.someString);
 
 		try
