@@ -145,7 +145,7 @@ public class ModelTest extends TestmodelTest
 		{
 			final java.util.Properties props = (java.util.Properties)newProps.clone();
 			final String newValue = mp.getDatabaseDontSupportEmptyStrings()?"false":"true";
-			props.setProperty(Properties.DATABASE_DONT_SUPPORT_EMPTY_STRINGS, newValue);
+			props.setProperty(mp.databaseDontSupportEmptyStrings.key, newValue);
 			final String source = file.getAbsolutePath()+'/'+Properties.DATABASE_PASSWORD+"=zock";
 			try
 			{
@@ -154,13 +154,13 @@ public class ModelTest extends TestmodelTest
 			catch(RuntimeException e)
 			{
 				assertEquals(
-						"inconsistent initialization for " + Properties.DATABASE_DONT_SUPPORT_EMPTY_STRINGS +
+						"inconsistent initialization for " + mp.databaseDontSupportEmptyStrings.key +
 						" between " + mp.getSource() + " and " + source +
 						", expected " + mp.getDatabaseDontSupportEmptyStrings() +
 						" but got " + newValue + ".", e.getMessage());
 			}
 
-			props.setProperty(Properties.DATABASE_DONT_SUPPORT_EMPTY_STRINGS, "True");
+			props.setProperty(mp.databaseDontSupportEmptyStrings.key, "True");
 			try
 			{
 				new Properties(props, "sourceTrue");
@@ -168,11 +168,11 @@ public class ModelTest extends TestmodelTest
 			catch(RuntimeException e)
 			{
 				assertEquals(
-						"property " + Properties.DATABASE_DONT_SUPPORT_EMPTY_STRINGS + " in sourceTrue has invalid value," +
+						"property " + mp.databaseDontSupportEmptyStrings.key + " in sourceTrue has invalid value," +
 						" expected >true< or >false<, but got >True<.", e.getMessage());
 			}
 
-			props.setProperty(Properties.DATABASE_DONT_SUPPORT_EMPTY_STRINGS, "falsE");
+			props.setProperty(mp.databaseDontSupportEmptyStrings.key, "falsE");
 			try
 			{
 				new Properties(props, "sourcefalsE");
@@ -180,7 +180,7 @@ public class ModelTest extends TestmodelTest
 			catch(RuntimeException e)
 			{
 				assertEquals(
-						"property " + Properties.DATABASE_DONT_SUPPORT_EMPTY_STRINGS + " in sourcefalsE has invalid value," +
+						"property " + mp.databaseDontSupportEmptyStrings.key + " in sourcefalsE has invalid value," +
 						" expected >true< or >false<, but got >falsE<.", e.getMessage());
 			}
 		}
@@ -188,7 +188,7 @@ public class ModelTest extends TestmodelTest
 			// TODO: reuse code for boolean properties
 			final java.util.Properties props = (java.util.Properties)newProps.clone();
 			final String newValue = mp.getPkSourceButterfly()?"false":"true";
-			props.setProperty(Properties.PKSOURCE_BUTTERFLY, newValue);
+			props.setProperty(mp.pksourceButterfly.key, newValue);
 			final String source = file.getAbsolutePath()+'/'+Properties.DATABASE_PASSWORD+"=zock";
 			try
 			{
@@ -197,13 +197,13 @@ public class ModelTest extends TestmodelTest
 			catch(RuntimeException e)
 			{
 				assertEquals(
-						"inconsistent initialization for " + Properties.PKSOURCE_BUTTERFLY +
+						"inconsistent initialization for " + mp.pksourceButterfly.key +
 						" between " + mp.getSource() + " and " + source +
 						", expected " + mp.getPkSourceButterfly() +
 						" but got " + newValue + ".", e.getMessage());
 			}
 
-			props.setProperty(Properties.PKSOURCE_BUTTERFLY, "True");
+			props.setProperty(mp.pksourceButterfly.key, "True");
 			try
 			{
 				new Properties(props, "sourceTrue");
@@ -211,11 +211,11 @@ public class ModelTest extends TestmodelTest
 			catch(RuntimeException e)
 			{
 				assertEquals(
-						"property " + Properties.PKSOURCE_BUTTERFLY + " in sourceTrue has invalid value," +
+						"property " + mp.pksourceButterfly.key + " in sourceTrue has invalid value," +
 						" expected >true< or >false<, but got >True<.", e.getMessage());
 			}
 
-			props.setProperty(Properties.PKSOURCE_BUTTERFLY, "falsE");
+			props.setProperty(mp.pksourceButterfly.key, "falsE");
 			try
 			{
 				new Properties(props, "sourcefalsE");
@@ -223,15 +223,15 @@ public class ModelTest extends TestmodelTest
 			catch(RuntimeException e)
 			{
 				assertEquals(
-						"property " + Properties.PKSOURCE_BUTTERFLY + " in sourcefalsE has invalid value," +
+						"property " + mp.pksourceButterfly.key + " in sourcefalsE has invalid value," +
 						" expected >true< or >false<, but got >falsE<.", e.getMessage());
 			}
 		}
 		{
 			final java.util.Properties props = (java.util.Properties)newProps.clone();
 			final String newValue = "88";
-			props.setProperty(Properties.CONNECTION_POOL_MAX_IDLE, newValue);
-			final String source = file.getAbsolutePath()+'/'+Properties.CONNECTION_POOL_MAX_IDLE+"=88";
+			props.setProperty(mp.connectionPoolMaxIdle.key, newValue);
+			final String source = file.getAbsolutePath()+'/'+mp.connectionPoolMaxIdle.key+"=88";
 			try
 			{
 				model.setPropertiesInitially(new Properties(props, source));
@@ -239,13 +239,13 @@ public class ModelTest extends TestmodelTest
 			catch(RuntimeException e)
 			{
 				assertEquals(
-						"inconsistent initialization for " + Properties.CONNECTION_POOL_MAX_IDLE +
+						"inconsistent initialization for " + mp.connectionPoolMaxIdle.key +
 						" between " + mp.getSource() + " and " + source +
 						", expected " + mp.getConnectionPoolMaxIdle() +
 						" but got " + newValue + ".", e.getMessage());
 			}
 
-			props.setProperty(Properties.CONNECTION_POOL_MAX_IDLE, "-1");
+			props.setProperty(mp.connectionPoolMaxIdle.key, "-1");
 			try
 			{
 				new Properties(props, "minusOne");
@@ -253,11 +253,11 @@ public class ModelTest extends TestmodelTest
 			catch(RuntimeException e)
 			{
 				assertEquals(
-						"property " + Properties.CONNECTION_POOL_MAX_IDLE + " in minusOne has invalid value," +
+						"property " + mp.connectionPoolMaxIdle.key + " in minusOne has invalid value," +
 						" expected an integer greater 0, but got -1.", e.getMessage());
 			}
 
-			props.setProperty(Properties.CONNECTION_POOL_MAX_IDLE, "88x");
+			props.setProperty(mp.connectionPoolMaxIdle.key, "88x");
 			try
 			{
 				new Properties(props, "wrongInt");
@@ -265,7 +265,7 @@ public class ModelTest extends TestmodelTest
 			catch(RuntimeException e)
 			{
 				assertEquals(
-						"property " + Properties.CONNECTION_POOL_MAX_IDLE + " in wrongInt has invalid value," +
+						"property " + mp.connectionPoolMaxIdle.key + " in wrongInt has invalid value," +
 						" expected an integer greater 0, but got >88x<.", e.getMessage());
 			}
 		}
@@ -464,8 +464,8 @@ public class ModelTest extends TestmodelTest
 					prefixed.setProperty(prefix+'.'+name, databaseInfo.getProperty(name));
 				}
 				final Properties p = model.getProperties();
-				prefixed.setProperty(prefix+".cope."+p.DATABASE_DONT_SUPPORT_EMPTY_STRINGS, String.valueOf(p.getDatabaseDontSupportEmptyStrings()));
-				prefixed.setProperty(prefix+".cope."+p.PKSOURCE_BUTTERFLY, String.valueOf(p.getPkSourceButterfly()));
+				prefixed.setProperty(prefix+".cope."+p.databaseDontSupportEmptyStrings, String.valueOf(p.getDatabaseDontSupportEmptyStrings()));
+				prefixed.setProperty(prefix+".cope."+p.pksourceButterfly, String.valueOf(p.getPkSourceButterfly()));
 				final PrintStream out = new PrintStream(new FileOutputStream(file, true));
 				prefixed.store(out, null);
 				out.close();

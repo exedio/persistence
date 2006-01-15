@@ -68,43 +68,17 @@ final class Properties_Jspm
 			<tr>
 				<th><%=properties.DATABASE_USER%></th>
 				<td><%=properties.getDatabaseUser()%></td>
-			</tr>
+			</tr><%
+			for(Iterator i = properties.getFields().iterator(); i.hasNext(); )
+			{
+				final Properties.Field field = (Properties.Field)i.next();
+			%>
 			<tr>
-				<th><%=properties.DATABASE_LOG%></th>
-				<td><%=properties.getDatabaseLog()%></td>
-			</tr>
-			<tr>
-				<th><%=properties.DATABASE_DONT_SUPPORT_PREPARED_STATEMENTS%></th>
-				<td><%=properties.getDatabaseDontSupportPreparedStatements()%></td>
-			</tr>
-			<tr>
-				<th><%=properties.DATABASE_DONT_SUPPORT_EMPTY_STRINGS%></th>
-				<td><%=properties.getDatabaseDontSupportEmptyStrings()%></td>
-			</tr>
-			<tr>
-				<th><%=properties.DATABASE_DONT_SUPPORT_NATIVE_DATE%></th>
-				<td><%=properties.getDatabaseDontSupportNativeDate()%></td>
-			</tr>
-			<tr>
-				<th><%=properties.DATABASE_DONT_SUPPORT_LIMIT%></th>
-				<td><%=properties.getDatabaseDontSupportLimit()%></td>
-			</tr>
-			<tr>
-				<th><%=properties.PKSOURCE_BUTTERFLY%></th>
-				<td><%=properties.getPkSourceButterfly()%></td>
-			</tr>
-			<tr>
-				<th><%=properties.CONNECTION_POOL_MAX_IDLE%></th>
-				<td><%=properties.getConnectionPoolMaxIdle()%></td>
-			</tr>
-			<tr>
-				<th><%=properties.CACHE_LIMIT%></th>
-				<td><%=properties.getCacheLimit()%></td>
-			</tr>
-			<tr>
-				<th><%=properties.CACHE_QUERY_LIMIT%></th>
-				<td><%=properties.getCacheQueryLimit()%></td>
-			</tr>
+				<th><%=field.key%></th>
+				<td><%=field.getValue()%></td>
+			</tr><%
+			}
+			%>
 			<tr>
 				<th><%=properties.DATADIR_PATH%></th>
 				<td><%
@@ -136,10 +110,6 @@ final class Properties_Jspm
 					(default is &quot;<%=properties.MEDIA_ROOT_URL_DEFAULT%>&quot;)
 					</small>
 				</td>
-			</tr>
-			<tr>
-				<th><%=properties.MEDIA_OFFSET_EXPIRES%></th>
-				<td><%=properties.getMediaOffsetExpires()%></td>
 			</tr><%
 
 			if(sourceContent!=null)
