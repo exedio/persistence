@@ -63,7 +63,7 @@ public final class FinalViolationException extends ConstraintViolationException
 
 	public String getMessage()
 	{
-		return "read-only violation on " + item.getCopeID() + " for " + finalAttribute;
+		return "final violation on " + item.getCopeID() + " for " + finalAttribute;
 	}
 	
 }
