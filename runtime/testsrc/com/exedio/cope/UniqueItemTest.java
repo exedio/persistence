@@ -21,7 +21,7 @@ package com.exedio.cope;
 import com.exedio.cope.testmodel.ItemWithDoubleUnique;
 import com.exedio.cope.testmodel.ItemWithSingleUnique;
 import com.exedio.cope.testmodel.ItemWithSingleUniqueNotNull;
-import com.exedio.cope.testmodel.ItemWithSingleUniqueReadOnly;
+import com.exedio.cope.testmodel.UniqueFinal;
 
 
 public class UniqueItemTest extends TestmodelTest
@@ -52,11 +52,11 @@ public class UniqueItemTest extends TestmodelTest
 			ItemWithSingleUnique.uniqueString.getUniqueConstraints());
 		
 		assertEqualsUnmodifiable(
-			list(ItemWithSingleUniqueReadOnly.uniqueReadOnlyString),
-			ItemWithSingleUniqueReadOnly.uniqueReadOnlyString.getImplicitUniqueConstraint().getUniqueAttributes());
+			list(UniqueFinal.uniqueReadOnlyString),
+			UniqueFinal.uniqueReadOnlyString.getImplicitUniqueConstraint().getUniqueAttributes());
 		assertEqualsUnmodifiable(
-			list(ItemWithSingleUniqueReadOnly.uniqueReadOnlyString.getImplicitUniqueConstraint()),
-			ItemWithSingleUniqueReadOnly.uniqueReadOnlyString.getUniqueConstraints());
+			list(UniqueFinal.uniqueReadOnlyString.getImplicitUniqueConstraint()),
+			UniqueFinal.uniqueReadOnlyString.getUniqueConstraints());
 		
 		assertEqualsUnmodifiable(
 			list(ItemWithSingleUniqueNotNull.uniqueNotNullString),
@@ -199,11 +199,11 @@ public class UniqueItemTest extends TestmodelTest
 	public void testItemWithSingleUniqueReadOnly()
 			throws ConstraintViolationException
 	{
-		assertEquals(null, ItemWithSingleUniqueReadOnly.findByUniqueReadOnlyString("uniqueString"));
+		assertEquals(null, UniqueFinal.findByUniqueReadOnlyString("uniqueString"));
 
-		final ItemWithSingleUniqueReadOnly item = new ItemWithSingleUniqueReadOnly("uniqueString");
+		final UniqueFinal item = new UniqueFinal("uniqueString");
 		assertEquals("uniqueString", item.getUniqueReadOnlyString());
-		assertEquals(item, ItemWithSingleUniqueReadOnly.findByUniqueReadOnlyString("uniqueString"));
+		assertEquals(item, UniqueFinal.findByUniqueReadOnlyString("uniqueString"));
 
 		try
 		{
@@ -214,10 +214,10 @@ public class UniqueItemTest extends TestmodelTest
 		{
 			assertEquals(item.uniqueReadOnlyString, e.getFinalAttribute());
 			assertEquals(item, e.getItem());
-			assertEquals("final violation on " + item + " for ItemWithSingleUniqueReadOnly#uniqueReadOnlyString", e.getMessage());
+			assertEquals("final violation on " + item + " for UniqueFinal#uniqueReadOnlyString", e.getMessage());
 		}
 		assertEquals("uniqueString", item.getUniqueReadOnlyString());
-		assertEquals(item, ItemWithSingleUniqueReadOnly.findByUniqueReadOnlyString("uniqueString"));
+		assertEquals(item, UniqueFinal.findByUniqueReadOnlyString("uniqueString"));
 
 		assertDelete(item);
 	}

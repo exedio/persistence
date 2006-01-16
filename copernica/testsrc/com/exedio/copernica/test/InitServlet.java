@@ -35,7 +35,7 @@ import com.exedio.cope.testmodel.FinalItem;
 import com.exedio.cope.testmodel.ItemWithDoubleUnique;
 import com.exedio.cope.testmodel.ItemWithSingleUnique;
 import com.exedio.cope.testmodel.ItemWithSingleUniqueNotNull;
-import com.exedio.cope.testmodel.ItemWithSingleUniqueReadOnly;
+import com.exedio.cope.testmodel.UniqueFinal;
 import com.exedio.cope.testmodel.Main;
 import com.exedio.cope.testmodel.MediaItem;
 import com.exedio.cope.testmodel.PointerItem;
@@ -92,8 +92,8 @@ public class InitServlet extends CopsServlet
 				item2.setUniqueString("item2");
 			}
 			
-			new ItemWithSingleUniqueReadOnly("item1");
-			new ItemWithSingleUniqueReadOnly("item2");
+			new UniqueFinal("item1");
+			new UniqueFinal("item2");
 			
 			new ItemWithSingleUniqueNotNull("item1");
 			new ItemWithSingleUniqueNotNull("item2");

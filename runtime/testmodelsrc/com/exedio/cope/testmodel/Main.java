@@ -25,7 +25,7 @@ public class Main
 	public static final Type[] modelTypes = new Type[]
 	{
 		ItemWithSingleUnique.TYPE,
-		ItemWithSingleUniqueReadOnly.TYPE,
+		UniqueFinal.TYPE,
 		ItemWithSingleUniqueNotNull.TYPE,
 		ItemWithDoubleUnique.TYPE,
 		EmptyItem.TYPE,
