@@ -75,6 +75,8 @@ public final class MysqlDriver extends Driver
 			case Types.VARCHAR:
 				final int columnSize = resultSet.getInt("COLUMN_SIZE");
 				return "varchar("+columnSize+") binary";
+			case Types.LONGVARCHAR:
+				return "text binary";
 			default:
 				return null;
 		}

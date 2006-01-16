@@ -58,6 +58,8 @@ public final class OracleDriver extends Driver
 				}
 				else if("TIMESTAMP(3)".equals(typeName))
 					return "TIMESTAMP(3)";
+				else if("NCLOB".equals(typeName))
+					return "NCLOB";
 				
 				return "error: unknown TYPE_NAME for Types.OTHER: "+typeName;
 			}
@@ -70,6 +72,8 @@ public final class OracleDriver extends Driver
 				return "LONG";
 			case Types.BLOB:
 				return "BLOB";
+			case Types.CLOB:
+				return "CLOB";
 			default:
 				return null;
 		}
