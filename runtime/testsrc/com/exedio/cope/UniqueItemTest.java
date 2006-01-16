@@ -212,7 +212,7 @@ public class UniqueItemTest extends TestmodelTest
 		}
 		catch(FinalViolationException e)
 		{
-			assertEquals(item.uniqueReadOnlyString, e.getReadOnlyAttribute());
+			assertEquals(item.uniqueReadOnlyString, e.getFinalAttribute());
 			assertEquals(item, e.getItem());
 			assertEquals("read-only violation on " + item + " for ItemWithSingleUniqueReadOnly#uniqueReadOnlyString", e.getMessage());
 		}

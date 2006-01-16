@@ -36,7 +36,7 @@ public final class FinalViolationException extends ConstraintViolationException
 	/**
 	 * Creates a new FinalViolationException with the neccessary information about the violation.
 	 * @param item initializes, what is returned by {@link #getItem()}.
-	 * @param readOnlyAttribute initializes, what is returned by {@link #getReadOnlyAttribute()}.
+	 * @param readOnlyAttribute initializes, what is returned by {@link #getFinalAttribute()}.
 	 */
 	public FinalViolationException(final Item item, final Attribute readOnlyAttribute)
 	{
@@ -56,7 +56,7 @@ public final class FinalViolationException extends ConstraintViolationException
 	/**
 	 * Returns the attribute, that was attempted to be written.
 	 */
-	public Attribute getReadOnlyAttribute()
+	public Attribute getFinalAttribute()
 	{
 		return readOnlyAttribute;
 	}
