@@ -31,18 +31,18 @@ public final class FinalViolationException extends ConstraintViolationException
 {
 
 	private final Item item;
-	private final Attribute readOnlyAttribute;
+	private final Attribute finalAttribute;
 	
 	/**
 	 * Creates a new FinalViolationException with the neccessary information about the violation.
 	 * @param item initializes, what is returned by {@link #getItem()}.
-	 * @param readOnlyAttribute initializes, what is returned by {@link #getFinalAttribute()}.
+	 * @param finalAttribute initializes, what is returned by {@link #getFinalAttribute()}.
 	 */
-	public FinalViolationException(final Item item, final Attribute readOnlyAttribute)
+	public FinalViolationException(final Item item, final Attribute finalAttribute)
 	{
 		super(null);
 		this.item = item;
-		this.readOnlyAttribute = readOnlyAttribute;
+		this.finalAttribute = finalAttribute;
 	}
 	
 	/**
@@ -58,12 +58,12 @@ public final class FinalViolationException extends ConstraintViolationException
 	 */
 	public Attribute getFinalAttribute()
 	{
-		return readOnlyAttribute;
+		return finalAttribute;
 	}
 
 	public String getMessage()
 	{
-		return "read-only violation on " + item.getCopeID() + " for " + readOnlyAttribute;
+		return "read-only violation on " + item.getCopeID() + " for " + finalAttribute;
 	}
 	
 }
