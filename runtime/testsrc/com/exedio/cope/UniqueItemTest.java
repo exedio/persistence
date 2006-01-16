@@ -196,7 +196,7 @@ public class UniqueItemTest extends TestmodelTest
 		assertEquals("otherString2", item2.getOtherString());
 	}
 
-	public void testItemWithSingleUniqueReadOnly()
+	public void testUniqueFinal()
 			throws ConstraintViolationException
 	{
 		assertEquals(null, UniqueFinal.findByUniqueFinalString("uniqueString"));
