@@ -60,6 +60,7 @@ public final class MysqlDriver extends Driver
 
 	String getColumnType(final int dataType, final ResultSet resultSet) throws SQLException
 	{
+		final int columnSize = resultSet.getInt("COLUMN_SIZE");
 		switch(dataType)
 		{
 			case Types.INTEGER:
@@ -73,10 +74,14 @@ public final class MysqlDriver extends Driver
 			case Types.DATE:
 				return "DATE";
 			case Types.VARCHAR:
-				final int columnSize = resultSet.getInt("COLUMN_SIZE");
 				return "varchar("+columnSize+") binary";
 			case Types.LONGVARCHAR:
-				return "text binary";
+				switch(columnSize)
+				{
+					case 65535:    return "text binary";
+					case 16277215: return "mediumtext binary";
+					default:       return "text("+columnSize+") binary";
+				}
 			default:
 				return null;
 		}
