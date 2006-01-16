@@ -220,7 +220,7 @@ final class CopeType
 
 	/**
 	 * Return all initial attributes of this class.
-	 * Initial attributes are all attributes, which are read-only or mandatory.
+	 * Initial attributes are all attributes, which are final or mandatory.
 	 */
 	public final List getInitialAttributes()
 	{
@@ -234,7 +234,7 @@ final class CopeType
 	 * This is the unification of throws clauses of all the setters of the
 	 * {@link #getInitialAttributes() initial attributes},
 	 * but without the FinalViolationException,
-	 * because read-only attributes can only be written in the constructor.
+	 * because final attributes can only be written in the constructor.
 	 */
 	public final SortedSet getConstructorExceptions()
 	{
