@@ -29,7 +29,7 @@ import com.exedio.cope.StringAttribute;
 public class ItemWithSingleUniqueNotNull extends Item
 {
 	/**
-	 * An attribute that is unique and read-only.
+	 * An attribute that is unique and mandatory.
 	 */
 	public static final StringAttribute uniqueNotNullString = new StringAttribute(UNIQUE);
 
