@@ -23,9 +23,9 @@ public final class BooleanAttribute extends FunctionAttribute
 {
 	static final int[] ALLOWED_VALUES = new int[]{0, 1};
 
-	private BooleanAttribute(final boolean readOnly, final boolean mandatory, final boolean unique)
+	private BooleanAttribute(final boolean isfinal, final boolean mandatory, final boolean unique)
 	{
-		super(readOnly, mandatory, unique, Boolean.class);
+		super(isfinal, mandatory, unique, Boolean.class);
 	}
 	
 	public BooleanAttribute(final Option option)

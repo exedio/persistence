@@ -34,10 +34,10 @@ public final class StringAttribute extends FunctionAttribute implements StringFu
 	public static final int DEFAULT_LENGTH = 100;
 
 	private StringAttribute(
-			final boolean readOnly, final boolean mandatory, final boolean unique,
+			final boolean isfinal, final boolean mandatory, final boolean unique,
 			final int minimumLength, final int maximumLength, final boolean checkedLengthException)
 	{
-		super(readOnly, mandatory, unique, String.class);
+		super(isfinal, mandatory, unique, String.class);
 		this.minimumLength = minimumLength;
 		this.maximumLength = maximumLength;
 		this.checkedLengthException = checkedLengthException;

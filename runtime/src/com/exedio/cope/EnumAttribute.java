@@ -40,9 +40,9 @@ public final class EnumAttribute extends FunctionAttribute
 	private final IntKeyOpenHashMap numbersToValues;
 	private final HashMap codesToValues;
 	
-	private EnumAttribute(final boolean readOnly, final boolean mandatory, final boolean unique, final Class enumClass)
+	private EnumAttribute(final boolean isfinal, final boolean mandatory, final boolean unique, final Class enumClass)
 	{
-		super(readOnly, mandatory, unique, enumClass);
+		super(isfinal, mandatory, unique, enumClass);
 		this.enumClass = enumClass;
 		if(!EnumValue.class.isAssignableFrom(enumClass))
 			throw new RuntimeException("is not an enumeration value class: "+enumClass.getName());

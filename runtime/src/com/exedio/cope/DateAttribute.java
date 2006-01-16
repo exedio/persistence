@@ -28,9 +28,9 @@ import com.exedio.cope.search.LessEqualCondition;
 public final class DateAttribute extends FunctionAttribute
 {
 
-	private DateAttribute(final boolean readOnly, final boolean mandatory, final boolean unique)
+	private DateAttribute(final boolean isfinal, final boolean mandatory, final boolean unique)
 	{
-		super(readOnly, mandatory, unique, Date.class);
+		super(isfinal, mandatory, unique, Date.class);
 	}
 	
 	public DateAttribute(final Option option)

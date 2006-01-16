@@ -26,9 +26,9 @@ import com.exedio.cope.search.LessEqualCondition;
 public final class DoubleAttribute extends FunctionAttribute
 {
 
-	private DoubleAttribute(final boolean readOnly, final boolean mandatory, final boolean unique)
+	private DoubleAttribute(final boolean isfinal, final boolean mandatory, final boolean unique)
 	{
-		super(readOnly, mandatory, unique, Double.class);
+		super(isfinal, mandatory, unique, Double.class);
 	}
 	
 	public DoubleAttribute(final Option option)

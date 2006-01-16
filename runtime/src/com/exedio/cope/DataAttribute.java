@@ -31,9 +31,9 @@ import java.io.OutputStream;
 public final class DataAttribute extends Attribute
 {
 
-	private DataAttribute(final boolean readOnly, final boolean mandatory)
+	private DataAttribute(final boolean isfinal, final boolean mandatory)
 	{
-		super(readOnly, mandatory);
+		super(isfinal, mandatory);
 	}
 	
 	public DataAttribute(final Option option)

@@ -27,9 +27,9 @@ import com.exedio.cope.util.Day;
 public final class DayAttribute extends FunctionAttribute
 {
 	
-	private DayAttribute(final boolean readOnly, final boolean mandatory, final boolean unique)
+	private DayAttribute(final boolean isfinal, final boolean mandatory, final boolean unique)
 	{
-		super(readOnly, mandatory, unique, Day.class);
+		super(isfinal, mandatory, unique, Day.class);
 	}
 	
 	public DayAttribute(final Option option)

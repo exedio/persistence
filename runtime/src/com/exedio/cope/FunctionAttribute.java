@@ -32,9 +32,9 @@ public abstract class FunctionAttribute
 	final UniqueConstraint implicitUniqueConstraint;
 	private ArrayList uniqueConstraints;
 	
-	FunctionAttribute(final boolean readOnly, final boolean mandatory, final boolean unique, final Class valueClass)
+	FunctionAttribute(final boolean isfinal, final boolean mandatory, final boolean unique, final Class valueClass)
 	{
-		super(readOnly, mandatory);
+		super(isfinal, mandatory);
 		this.valueClass = valueClass;
 		this.implicitUniqueConstraint =
 			unique ?

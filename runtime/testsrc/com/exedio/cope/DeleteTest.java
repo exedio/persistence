@@ -111,7 +111,7 @@ public class DeleteTest extends AbstractLibTest
 		}
 		catch(RuntimeException e)
 		{
-			assertTrue(e.getMessage(), e.getMessage().startsWith("read-only attribute "+ItemAttribute.class.getName()+'@'));
+			assertTrue(e.getMessage(), e.getMessage().startsWith("final attribute "+ItemAttribute.class.getName()+'@'));
 			assertTrue(e.getMessage(), e.getMessage().endsWith(" cannot have delete policy nullify"));
 		}
 

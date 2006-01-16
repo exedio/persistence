@@ -27,9 +27,9 @@ import com.exedio.cope.search.LessEqualCondition;
 public final class IntegerAttribute extends FunctionAttribute implements IntegerFunction
 {
 
-	private IntegerAttribute(final boolean readOnly, final boolean mandatory, final boolean unique)
+	private IntegerAttribute(final boolean isfinal, final boolean mandatory, final boolean unique)
 	{
-		super(readOnly, mandatory, unique, Integer.class);
+		super(isfinal, mandatory, unique, Integer.class);
 	}
 	
 	public IntegerAttribute(final Option option)

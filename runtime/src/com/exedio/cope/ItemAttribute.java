@@ -25,9 +25,9 @@ public final class ItemAttribute extends FunctionAttribute
 	private final Class targetTypeClass;
 	private final DeletePolicy policy;
 
-	private ItemAttribute(final boolean readOnly, final boolean mandatory, final boolean unique, final Class targetTypeClass, final DeletePolicy policy)
+	private ItemAttribute(final boolean isfinal, final boolean mandatory, final boolean unique, final Class targetTypeClass, final DeletePolicy policy)
 	{
-		super(readOnly, mandatory, unique, targetTypeClass);
+		super(isfinal, mandatory, unique, targetTypeClass);
 		this.targetTypeClass = targetTypeClass;
 		this.policy = policy;
 		if(targetTypeClass==null)
@@ -40,8 +40,8 @@ public final class ItemAttribute extends FunctionAttribute
 		{
 			if(mandatory)
 				throw new RuntimeException("mandatory attribute "+this+" cannot have delete policy nullify");
-			if(readOnly)
-				throw new RuntimeException("read-only attribute "+this+" cannot have delete policy nullify");
+			if(isfinal)
+				throw new RuntimeException("final attribute "+this+" cannot have delete policy nullify");
 		}
 	}
 	
