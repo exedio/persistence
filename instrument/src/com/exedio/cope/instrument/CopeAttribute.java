@@ -161,21 +161,21 @@ abstract class CopeAttribute extends CopeFeature
 			return true;
 		
 		final Feature instance = getInstance();
-		final boolean readOnly = instance instanceof Attribute && ((Attribute)instance).isFinal();
+		final boolean isfinal = instance instanceof Attribute && ((Attribute)instance).isFinal();
 		final boolean notNull = instance instanceof Attribute && ((Attribute)instance).isMandatory();
 		final boolean isView = instance instanceof View;
 
-		return (readOnly || notNull) && !isView;
+		return (isfinal || notNull) && !isView;
 	}
 
 	// TODO: put into rtlib
 	private final boolean isWriteable()
 	{
 		final Feature instance = getInstance();
-		final boolean readOnly = instance instanceof Attribute && ((Attribute)instance).isFinal();
+		final boolean isfinal = instance instanceof Attribute && ((Attribute)instance).isFinal();
 		final boolean isView = instance instanceof View;
 
-		return !readOnly && !isView;
+		return !isfinal && !isView;
 	}
 	
 	final boolean isTouchable()
@@ -220,7 +220,7 @@ abstract class CopeAttribute extends CopeFeature
 	protected void fillSetterExceptions(final SortedSet result)
 	{
 		final Feature instance = getInstance();
-		final boolean readOnly = instance instanceof Attribute && ((Attribute)instance).isFinal();
+		final boolean isfinal = instance instanceof Attribute && ((Attribute)instance).isFinal();
 		final boolean notNull = (instance instanceof Attribute && ((Attribute)instance).isMandatory()) ||
 										(instance instanceof Hash && ((Hash)instance).getStorage().isMandatory());
 		final boolean unique = instance instanceof FunctionAttribute && !((FunctionAttribute)instance).getUniqueConstraints().isEmpty();
@@ -228,7 +228,7 @@ abstract class CopeAttribute extends CopeFeature
 
 		if(unique)
 			result.add(UniqueViolationException.class);
-		if(readOnly)
+		if(isfinal)
 			result.add(FinalViolationException.class);
 		if(notNull && !isBoxed())
 			result.add(MandatoryViolationException.class);
@@ -271,7 +271,7 @@ abstract class CopeAttribute extends CopeFeature
 	final SortedSet getToucherExceptions()
 	{
 		final Feature instance = getInstance();
-		final boolean readOnly = instance instanceof Attribute && ((Attribute)instance).isFinal();
+		final boolean isfinal = instance instanceof Attribute && ((Attribute)instance).isFinal();
 		final boolean unique = instance instanceof FunctionAttribute && !((FunctionAttribute)instance).getUniqueConstraints().isEmpty();
 
 		if(toucherExceptions!=null)
@@ -281,7 +281,7 @@ abstract class CopeAttribute extends CopeFeature
 		
 		if(unique)
 			modifyableToucherExceptions.add(UniqueViolationException.class);
-		if(readOnly)
+		if(isfinal)
 			modifyableToucherExceptions.add(FinalViolationException.class);
 
 		this.toucherExceptions = Collections.unmodifiableSortedSet(modifyableToucherExceptions);
