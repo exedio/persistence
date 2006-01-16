@@ -161,7 +161,7 @@ abstract class CopeAttribute extends CopeFeature
 			return true;
 		
 		final Feature instance = getInstance();
-		final boolean readOnly = instance instanceof Attribute && ((Attribute)instance).isReadOnly();
+		final boolean readOnly = instance instanceof Attribute && ((Attribute)instance).isFinal();
 		final boolean notNull = instance instanceof Attribute && ((Attribute)instance).isMandatory();
 		final boolean isView = instance instanceof View;
 
@@ -172,7 +172,7 @@ abstract class CopeAttribute extends CopeFeature
 	private final boolean isWriteable()
 	{
 		final Feature instance = getInstance();
-		final boolean readOnly = instance instanceof Attribute && ((Attribute)instance).isReadOnly();
+		final boolean readOnly = instance instanceof Attribute && ((Attribute)instance).isFinal();
 		final boolean isView = instance instanceof View;
 
 		return !readOnly && !isView;
@@ -220,7 +220,7 @@ abstract class CopeAttribute extends CopeFeature
 	protected void fillSetterExceptions(final SortedSet result)
 	{
 		final Feature instance = getInstance();
-		final boolean readOnly = instance instanceof Attribute && ((Attribute)instance).isReadOnly();
+		final boolean readOnly = instance instanceof Attribute && ((Attribute)instance).isFinal();
 		final boolean notNull = (instance instanceof Attribute && ((Attribute)instance).isMandatory()) ||
 										(instance instanceof Hash && ((Hash)instance).getStorage().isMandatory());
 		final boolean unique = instance instanceof FunctionAttribute && !((FunctionAttribute)instance).getUniqueConstraints().isEmpty();
@@ -271,7 +271,7 @@ abstract class CopeAttribute extends CopeFeature
 	final SortedSet getToucherExceptions()
 	{
 		final Feature instance = getInstance();
-		final boolean readOnly = instance instanceof Attribute && ((Attribute)instance).isReadOnly();
+		final boolean readOnly = instance instanceof Attribute && ((Attribute)instance).isFinal();
 		final boolean unique = instance instanceof FunctionAttribute && !((FunctionAttribute)instance).getUniqueConstraints().isEmpty();
 
 		if(toucherExceptions!=null)

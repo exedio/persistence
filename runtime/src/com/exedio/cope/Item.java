@@ -237,7 +237,7 @@ public abstract class Item extends Cope
 	 *         if <code>value</code> is null and <code>attribute</code>
 	 *         is {@link Attribute#isMandatory() mandatory}.
 	 * @throws ReadOnlyViolationException
-	 *         if <code>attribute</code> is {@link Attribute#isReadOnly() read-only}.
+	 *         if <code>attribute</code> is {@link Attribute#isFinal() final}.
 	 * @throws ClassCastException
 	 *         if <code>value</code> is not compatible to <code>attribute</code>.
 	 */
@@ -267,7 +267,7 @@ public abstract class Item extends Cope
 	 *         if <code>value</code> is null and <code>attribute</code>
 	 *         is {@link Attribute#isMandatory() mandatory}.
 	 * @throws ReadOnlyViolationException
-	 *         if <code>attribute</code> is {@link Attribute#isReadOnly() read-only}.
+	 *         if <code>attribute</code> is {@link Attribute#isFinal() final}.
 	 * @throws ClassCastException
 	 *         if <code>value</code> is not compatible to <code>attribute</code>.
 	 */
@@ -426,22 +426,22 @@ public abstract class Item extends Cope
 	public static final Attribute.Option FINAL_UNIQUE_OPTIONAL = new Attribute.Option(true, true, false);
 
 	/**
-	 * @deprecated use {@link FINAL}.
+	 * @deprecated use {@link #FINAL}.
 	 */
 	public static final Attribute.Option READ_ONLY = FINAL;
 	
 	/**
-	 * @deprecated use {@link FINAL_OPTIONAL}.
+	 * @deprecated use {@link #FINAL_OPTIONAL}.
 	 */
 	public static final Attribute.Option READ_ONLY_OPTIONAL = FINAL_OPTIONAL;
 	
 	/**
-	 * @deprecated use {@link FINAL_UNIQUE}.
+	 * @deprecated use {@link #FINAL_UNIQUE}.
 	 */
 	public static final Attribute.Option READ_ONLY_UNIQUE = FINAL_UNIQUE;
 
 	/**
-	 * @deprecated use {@link FINAL_UNIQUE_OPTIONAL}.
+	 * @deprecated use {@link #FINAL_UNIQUE_OPTIONAL}.
 	 */
 	public static final Attribute.Option READ_ONLY_UNIQUE_OPTIONAL = FINAL_UNIQUE_OPTIONAL;
 	

@@ -89,7 +89,7 @@ public final class DateAttribute extends FunctionAttribute
 
 	/**
 	 * @throws ReadOnlyViolationException
-	 *         if this attribute is {@link #isReadOnly() read-only}.
+	 *         if this attribute is {@link #isFinal() final}.
 	 */
 	public final void touch(final Item item)
 		throws

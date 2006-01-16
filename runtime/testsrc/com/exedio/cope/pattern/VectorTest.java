@@ -199,7 +199,7 @@ public class VectorTest extends AbstractLibTest
 		assertEquals(item.TYPE, date.getType());
 		assertEquals("dates"+num, date.getName());
 		assertEquals(false, date.isMandatory());
-		assertEquals(false, date.isReadOnly());
+		assertEquals(false, date.isFinal());
 		return date;
 	}
 
@@ -209,7 +209,7 @@ public class VectorTest extends AbstractLibTest
 		assertEquals(item.TYPE, string.getType());
 		assertEquals("strings"+num, string.getName());
 		assertEquals(false, string.isMandatory());
-		assertEquals(false, string.isReadOnly());
+		assertEquals(false, string.isFinal());
 		assertEquals(true, string.hasLengthConstraintCheckedException());
 		assertEquals(1, string.getMinimumLength());
 		assertEquals(11, string.getMaximumLength());

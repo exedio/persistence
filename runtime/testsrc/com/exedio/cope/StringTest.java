@@ -79,14 +79,14 @@ public class StringTest extends TestmodelTest
 		assertEquals("min4Upper", item.min4Upper.getName());
 		{
 			final StringAttribute orig = new StringAttribute(Item.OPTIONAL);
-			assertEquals(false, orig.isReadOnly());
+			assertEquals(false, orig.isFinal());
 			assertEquals(false, orig.isMandatory());
 			assertEquals(false, orig.hasLengthConstraintCheckedException());
 			assertEquals(0, orig.getMinimumLength());
 			assertEquals(StringAttribute.DEFAULT_LENGTH, orig.getMaximumLength());
 
 			final StringAttribute copy = (StringAttribute)orig.copyFunctionAttribute();
-			assertEquals(false, copy.isReadOnly());
+			assertEquals(false, copy.isFinal());
 			assertEquals(false, copy.isMandatory());
 			assertEquals(false, copy.hasLengthConstraintCheckedException());
 			assertEquals(0, copy.getMinimumLength());
@@ -94,7 +94,7 @@ public class StringTest extends TestmodelTest
 		}
 		{
 			final StringAttribute orig = new StringAttribute(Item.FINAL_OPTIONAL).lengthMin(10);
-			assertEquals(true, orig.isReadOnly());
+			assertEquals(true, orig.isFinal());
 			assertEquals(false, orig.isMandatory());
 			assertNull(orig.getImplicitUniqueConstraint());
 			assertEquals(true, orig.hasLengthConstraintCheckedException());
@@ -102,7 +102,7 @@ public class StringTest extends TestmodelTest
 			assertEquals(StringAttribute.DEFAULT_LENGTH, orig.getMaximumLength());
 			
 			final StringAttribute copy = (StringAttribute)orig.copyFunctionAttribute();
-			assertEquals(true, copy.isReadOnly());
+			assertEquals(true, copy.isFinal());
 			assertEquals(false, copy.isMandatory());
 			assertNull(copy.getImplicitUniqueConstraint());
 			assertEquals(true, copy.hasLengthConstraintCheckedException());
@@ -111,7 +111,7 @@ public class StringTest extends TestmodelTest
 		}
 		{
 			final StringAttribute orig = new StringAttribute(Item.FINAL_UNIQUE_OPTIONAL).lengthMin(20);
-			assertEquals(true, orig.isReadOnly());
+			assertEquals(true, orig.isFinal());
 			assertEquals(false, orig.isMandatory());
 			assertNotNull(orig.getImplicitUniqueConstraint());
 			assertEquals(true, orig.hasLengthConstraintCheckedException());
@@ -119,7 +119,7 @@ public class StringTest extends TestmodelTest
 			assertEquals(StringAttribute.DEFAULT_LENGTH, orig.getMaximumLength());
 			
 			final StringAttribute copy = (StringAttribute)orig.copyFunctionAttribute();
-			assertEquals(true, copy.isReadOnly());
+			assertEquals(true, copy.isFinal());
 			assertEquals(false, copy.isMandatory());
 			assertNotNull(copy.getImplicitUniqueConstraint());
 			assertEquals(true, copy.hasLengthConstraintCheckedException());
@@ -128,14 +128,14 @@ public class StringTest extends TestmodelTest
 		}
 		{
 			final StringAttribute orig = new StringAttribute(Item.MANDATORY).lengthRange(10, 20);
-			assertEquals(false, orig.isReadOnly());
+			assertEquals(false, orig.isFinal());
 			assertEquals(true, orig.isMandatory());
 			assertEquals(true, orig.hasLengthConstraintCheckedException());
 			assertEquals(10, orig.getMinimumLength());
 			assertEquals(20, orig.getMaximumLength());
 			
 			final StringAttribute copy = (StringAttribute)orig.copyFunctionAttribute();
-			assertEquals(false, copy.isReadOnly());
+			assertEquals(false, copy.isFinal());
 			assertEquals(true, copy.isMandatory());
 			assertEquals(true, copy.hasLengthConstraintCheckedException());
 			assertEquals(10, copy.getMinimumLength());

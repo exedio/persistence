@@ -23,11 +23,12 @@ package com.exedio.cope;
  * because it cannot be written with any value.
  *
  * This exception will be thrown by {@link Item#set(FunctionAttribute,Object) Item.set}
- * if that attribute is {@link Attribute#isReadOnly() read-only}.
+ * if that attribute is {@link Attribute#isFinal() final}.
  * 
  * @author Ralf Wiebicke
  */
 public final class ReadOnlyViolationException extends ConstraintViolationException
+// TODO rename to FinalViolationException
 {
 
 	private final Item item;

@@ -173,7 +173,7 @@ final class ItemForm extends Form
 		for(Iterator j = attributes.iterator(); j.hasNext(); )
 		{
 			final Attribute anyAttribute = (Attribute)j.next();
-			if(!anyAttribute.isReadOnly())
+			if(!anyAttribute.isFinal())
 			{
 				if(anyAttribute instanceof FunctionAttribute)
 				{
@@ -206,7 +206,7 @@ final class ItemForm extends Form
 			final FunctionAttribute attribute, final Item item, final String name,
 			final boolean post, final ItemCop cop, final Model model)
 	{
-		if(attribute.isReadOnly())
+		if(attribute.isFinal())
 			throw new RuntimeException(attribute.toString());
 		
 		if(attribute instanceof EnumAttribute)

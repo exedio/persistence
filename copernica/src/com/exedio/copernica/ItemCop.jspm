@@ -148,7 +148,7 @@ class ItemCop_Jspm
 							%>
 							<input type="file" name="<%=attributeName%>" size="20"><%
 						}
-						else if(attribute.isReadOnly() && attribute instanceof FunctionAttribute)
+						else if(attribute.isFinal() && attribute instanceof FunctionAttribute)
 						{
 							%><b><%=item.get((FunctionAttribute)attribute)%></b><%
 						}
