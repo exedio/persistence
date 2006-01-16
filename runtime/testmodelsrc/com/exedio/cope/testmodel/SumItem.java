@@ -109,11 +109,11 @@ public class SumItem extends Item
 		{
 			SumItem.num1.set(this,num1);
 		}
-		catch(com.exedio.cope.MandatoryViolationException e)
+		catch(com.exedio.cope.FinalViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
-		catch(com.exedio.cope.ReadOnlyViolationException e)
+		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
@@ -144,11 +144,11 @@ public class SumItem extends Item
 		{
 			SumItem.num2.set(this,num2);
 		}
-		catch(com.exedio.cope.MandatoryViolationException e)
+		catch(com.exedio.cope.FinalViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
-		catch(com.exedio.cope.ReadOnlyViolationException e)
+		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
@@ -179,11 +179,11 @@ public class SumItem extends Item
 		{
 			SumItem.num3.set(this,num3);
 		}
-		catch(com.exedio.cope.MandatoryViolationException e)
+		catch(com.exedio.cope.FinalViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
-		catch(com.exedio.cope.ReadOnlyViolationException e)
+		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}

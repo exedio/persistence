@@ -93,7 +93,7 @@ public class HierarchyEmptySuper extends Item
 		{
 			HierarchyEmptySuper.superInt.set(this,superInt);
 		}
-		catch(com.exedio.cope.ReadOnlyViolationException e)
+		catch(com.exedio.cope.FinalViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}

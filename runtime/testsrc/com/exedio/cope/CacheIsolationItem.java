@@ -91,15 +91,15 @@ public class CacheIsolationItem extends Item
 		{
 			CacheIsolationItem.uniqueString.set(this,uniqueString);
 		}
+		catch(com.exedio.cope.FinalViolationException e)
+		{
+			throw new java.lang.RuntimeException(e);
+		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
 		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.ReadOnlyViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
@@ -139,11 +139,11 @@ public class CacheIsolationItem extends Item
 		{
 			CacheIsolationItem.name.set(this,name);
 		}
-		catch(com.exedio.cope.LengthViolationException e)
+		catch(com.exedio.cope.FinalViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
-		catch(com.exedio.cope.ReadOnlyViolationException e)
+		catch(com.exedio.cope.LengthViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}

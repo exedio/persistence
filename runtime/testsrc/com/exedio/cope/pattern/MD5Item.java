@@ -92,15 +92,15 @@ public class MD5Item extends Item
 		{
 			MD5Item.password.set(this,password);
 		}
+		catch(com.exedio.cope.FinalViolationException e)
+		{
+			throw new java.lang.RuntimeException(e);
+		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
 		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.ReadOnlyViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
@@ -131,15 +131,15 @@ public class MD5Item extends Item
 		{
 			MD5Item.hashed1MD5.set(this,hashed1MD5);
 		}
+		catch(com.exedio.cope.FinalViolationException e)
+		{
+			throw new java.lang.RuntimeException(e);
+		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
 		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.ReadOnlyViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
@@ -168,15 +168,15 @@ public class MD5Item extends Item
 		{
 			MD5Item.hashed1.set(this,hashed1);
 		}
+		catch(com.exedio.cope.FinalViolationException e)
+		{
+			throw new java.lang.RuntimeException(e);
+		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
 		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.ReadOnlyViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
@@ -205,15 +205,15 @@ public class MD5Item extends Item
 		{
 			MD5Item.hashed1Latin.set(this,hashed1Latin);
 		}
+		catch(com.exedio.cope.FinalViolationException e)
+		{
+			throw new java.lang.RuntimeException(e);
+		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
 		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.ReadOnlyViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}

@@ -93,15 +93,15 @@ public class HierarchySingleSub extends HierarchySingleSuper
 		{
 			HierarchySingleSub.subString.set(this,subString);
 		}
+		catch(com.exedio.cope.FinalViolationException e)
+		{
+			throw new java.lang.RuntimeException(e);
+		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
 		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.ReadOnlyViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
@@ -132,11 +132,11 @@ public class HierarchySingleSub extends HierarchySingleSuper
 		{
 			HierarchySingleSub.hierarchySuper.set(this,hierarchySuper);
 		}
-		catch(com.exedio.cope.MandatoryViolationException e)
+		catch(com.exedio.cope.FinalViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
-		catch(com.exedio.cope.ReadOnlyViolationException e)
+		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}

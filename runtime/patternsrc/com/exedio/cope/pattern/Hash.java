@@ -26,7 +26,7 @@ import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.NotEqualCondition;
 import com.exedio.cope.Pattern;
-import com.exedio.cope.ReadOnlyViolationException;
+import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.StringAttribute;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.Attribute.Option;
@@ -66,7 +66,7 @@ public abstract class Hash extends Pattern
 			UniqueViolationException,
 			MandatoryViolationException,
 			LengthViolationException,
-			ReadOnlyViolationException
+			FinalViolationException
 	{
 		storage.set(item, hash(plainText));
 	}

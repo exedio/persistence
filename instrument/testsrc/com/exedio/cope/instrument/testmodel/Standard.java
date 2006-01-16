@@ -219,15 +219,15 @@ public class Standard extends Item
 		{
 			Standard.defaultString.set(this,defaultString);
 		}
+		catch(com.exedio.cope.FinalViolationException e)
+		{
+			throw new java.lang.RuntimeException(e);
+		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
 		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.ReadOnlyViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
@@ -260,11 +260,11 @@ public class Standard extends Item
 		{
 			Standard.notNullString.set(this,notNullString);
 		}
-		catch(com.exedio.cope.LengthViolationException e)
+		catch(com.exedio.cope.FinalViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
-		catch(com.exedio.cope.ReadOnlyViolationException e)
+		catch(com.exedio.cope.LengthViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
@@ -307,15 +307,15 @@ public class Standard extends Item
 		{
 			Standard.uniqueString.set(this,uniqueString);
 		}
+		catch(com.exedio.cope.FinalViolationException e)
+		{
+			throw new java.lang.RuntimeException(e);
+		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
 		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.ReadOnlyViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
@@ -353,15 +353,15 @@ public class Standard extends Item
 		{
 			Standard.initialString.set(this,initialString);
 		}
+		catch(com.exedio.cope.FinalViolationException e)
+		{
+			throw new java.lang.RuntimeException(e);
+		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
 		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.ReadOnlyViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
@@ -392,11 +392,11 @@ public class Standard extends Item
 		{
 			Standard.defaultInteger.set(this,defaultInteger);
 		}
-		catch(com.exedio.cope.MandatoryViolationException e)
+		catch(com.exedio.cope.FinalViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
-		catch(com.exedio.cope.ReadOnlyViolationException e)
+		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
@@ -427,7 +427,7 @@ public class Standard extends Item
 		{
 			Standard.nativeInteger.set(this,nativeInteger);
 		}
-		catch(com.exedio.cope.ReadOnlyViolationException e)
+		catch(com.exedio.cope.FinalViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
@@ -458,11 +458,11 @@ public class Standard extends Item
 		{
 			Standard.defaultLong.set(this,defaultLong);
 		}
-		catch(com.exedio.cope.MandatoryViolationException e)
+		catch(com.exedio.cope.FinalViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
-		catch(com.exedio.cope.ReadOnlyViolationException e)
+		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
@@ -493,7 +493,7 @@ public class Standard extends Item
 		{
 			Standard.nativeLong.set(this,nativeLong);
 		}
-		catch(com.exedio.cope.ReadOnlyViolationException e)
+		catch(com.exedio.cope.FinalViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
@@ -524,11 +524,11 @@ public class Standard extends Item
 		{
 			Standard.defaultDouble.set(this,defaultDouble);
 		}
-		catch(com.exedio.cope.MandatoryViolationException e)
+		catch(com.exedio.cope.FinalViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
-		catch(com.exedio.cope.ReadOnlyViolationException e)
+		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
@@ -559,7 +559,7 @@ public class Standard extends Item
 		{
 			Standard.nativeDouble.set(this,nativeDouble);
 		}
-		catch(com.exedio.cope.ReadOnlyViolationException e)
+		catch(com.exedio.cope.FinalViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
@@ -590,11 +590,11 @@ public class Standard extends Item
 		{
 			Standard.defaultBoolean.set(this,defaultBoolean);
 		}
-		catch(com.exedio.cope.MandatoryViolationException e)
+		catch(com.exedio.cope.FinalViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
-		catch(com.exedio.cope.ReadOnlyViolationException e)
+		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
@@ -625,7 +625,7 @@ public class Standard extends Item
 		{
 			Standard.nativeBoolean.set(this,nativeBoolean);
 		}
-		catch(com.exedio.cope.ReadOnlyViolationException e)
+		catch(com.exedio.cope.FinalViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
@@ -658,7 +658,7 @@ public class Standard extends Item
 		{
 			Standard.mandatoryDate.set(this,mandatoryDate);
 		}
-		catch(com.exedio.cope.ReadOnlyViolationException e)
+		catch(com.exedio.cope.FinalViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
@@ -678,7 +678,7 @@ public class Standard extends Item
 		{
 			Standard.mandatoryDate.touch(this);
 		}
-		catch(com.exedio.cope.ReadOnlyViolationException e)
+		catch(com.exedio.cope.FinalViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
@@ -709,11 +709,11 @@ public class Standard extends Item
 		{
 			Standard.privateDate.set(this,privateDate);
 		}
-		catch(com.exedio.cope.MandatoryViolationException e)
+		catch(com.exedio.cope.FinalViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
-		catch(com.exedio.cope.ReadOnlyViolationException e)
+		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
@@ -733,7 +733,7 @@ public class Standard extends Item
 		{
 			Standard.privateDate.touch(this);
 		}
-		catch(com.exedio.cope.ReadOnlyViolationException e)
+		catch(com.exedio.cope.FinalViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
@@ -764,15 +764,15 @@ public class Standard extends Item
 		{
 			Standard.privateString.set(this,privateString);
 		}
+		catch(com.exedio.cope.FinalViolationException e)
+		{
+			throw new java.lang.RuntimeException(e);
+		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
 		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.ReadOnlyViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
@@ -793,15 +793,15 @@ public class Standard extends Item
 		{
 			Standard.noneGetterString.set(this,noneGetterString);
 		}
+		catch(com.exedio.cope.FinalViolationException e)
+		{
+			throw new java.lang.RuntimeException(e);
+		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
 		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.ReadOnlyViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
@@ -832,15 +832,15 @@ public class Standard extends Item
 		{
 			Standard.privateGetterString.set(this,privateGetterString);
 		}
+		catch(com.exedio.cope.FinalViolationException e)
+		{
+			throw new java.lang.RuntimeException(e);
+		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
 		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.ReadOnlyViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
@@ -871,15 +871,15 @@ public class Standard extends Item
 		{
 			Standard.internalGetterString.set(this,internalGetterString);
 		}
+		catch(com.exedio.cope.FinalViolationException e)
+		{
+			throw new java.lang.RuntimeException(e);
+		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
 		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.ReadOnlyViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
@@ -920,15 +920,15 @@ public class Standard extends Item
 		{
 			Standard.privateSetterString.set(this,privateSetterString);
 		}
+		catch(com.exedio.cope.FinalViolationException e)
+		{
+			throw new java.lang.RuntimeException(e);
+		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
 		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.ReadOnlyViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
@@ -959,15 +959,15 @@ public class Standard extends Item
 		{
 			Standard.internalSetterString.set(this,internalSetterString);
 		}
+		catch(com.exedio.cope.FinalViolationException e)
+		{
+			throw new java.lang.RuntimeException(e);
+		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
 		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.ReadOnlyViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
@@ -998,15 +998,15 @@ public class Standard extends Item
 		{
 			Standard.nonfinalGetterString.set(this,nonfinalGetterString);
 		}
+		catch(com.exedio.cope.FinalViolationException e)
+		{
+			throw new java.lang.RuntimeException(e);
+		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
 		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.ReadOnlyViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
@@ -1037,15 +1037,15 @@ public class Standard extends Item
 		{
 			Standard.nonfinalSetterString.set(this,nonfinalSetterString);
 		}
+		catch(com.exedio.cope.FinalViolationException e)
+		{
+			throw new java.lang.RuntimeException(e);
+		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
 		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.ReadOnlyViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
@@ -1076,11 +1076,11 @@ public class Standard extends Item
 		{
 			Standard.asIsBoolean.set(this,asIsBoolean);
 		}
-		catch(com.exedio.cope.MandatoryViolationException e)
+		catch(com.exedio.cope.FinalViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
-		catch(com.exedio.cope.ReadOnlyViolationException e)
+		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
@@ -1113,15 +1113,15 @@ public class Standard extends Item
 		{
 			Standard.doubleUnique1.set(this,doubleUnique1);
 		}
+		catch(com.exedio.cope.FinalViolationException e)
+		{
+			throw new java.lang.RuntimeException(e);
+		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
 		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.ReadOnlyViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
@@ -1150,11 +1150,11 @@ public class Standard extends Item
 		{
 			Standard.doubleUnique2.set(this,doubleUnique2);
 		}
-		catch(com.exedio.cope.MandatoryViolationException e)
+		catch(com.exedio.cope.FinalViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
-		catch(com.exedio.cope.ReadOnlyViolationException e)
+		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
@@ -1735,15 +1735,15 @@ public class Standard extends Item
 		{
 			Standard.publicHash.set(this,publicHash);
 		}
+		catch(com.exedio.cope.FinalViolationException e)
+		{
+			throw new java.lang.RuntimeException(e);
+		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
 		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.ReadOnlyViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
@@ -1772,15 +1772,15 @@ public class Standard extends Item
 		{
 			Standard.privateHash.set(this,privateHash);
 		}
+		catch(com.exedio.cope.FinalViolationException e)
+		{
+			throw new java.lang.RuntimeException(e);
+		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
 		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.ReadOnlyViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
@@ -1811,11 +1811,11 @@ public class Standard extends Item
 		{
 			Standard.mandatoryHash.set(this,mandatoryHash);
 		}
-		catch(com.exedio.cope.LengthViolationException e)
+		catch(com.exedio.cope.FinalViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
-		catch(com.exedio.cope.ReadOnlyViolationException e)
+		catch(com.exedio.cope.LengthViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}

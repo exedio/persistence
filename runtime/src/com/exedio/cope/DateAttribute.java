@@ -75,7 +75,7 @@ public final class DateAttribute extends FunctionAttribute
 		throws
 			UniqueViolationException,
 			MandatoryViolationException,
-			ReadOnlyViolationException
+			FinalViolationException
 	{
 		try
 		{
@@ -88,13 +88,13 @@ public final class DateAttribute extends FunctionAttribute
 	}
 
 	/**
-	 * @throws ReadOnlyViolationException
+	 * @throws FinalViolationException
 	 *         if this attribute is {@link #isFinal() final}.
 	 */
 	public final void touch(final Item item)
 		throws
 			UniqueViolationException,
-			ReadOnlyViolationException
+			FinalViolationException
 	{
 		try
 		{

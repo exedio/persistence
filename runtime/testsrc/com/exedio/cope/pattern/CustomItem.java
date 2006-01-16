@@ -179,15 +179,15 @@ public final class CustomItem extends Item
 		{
 			CustomItem.numberString.set(this,numberString);
 		}
+		catch(com.exedio.cope.FinalViolationException e)
+		{
+			throw new java.lang.RuntimeException(e);
+		}
 		catch(com.exedio.cope.LengthViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
 		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.ReadOnlyViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
@@ -218,11 +218,11 @@ public final class CustomItem extends Item
 		{
 			CustomItem.element1.set(this,element1);
 		}
-		catch(com.exedio.cope.MandatoryViolationException e)
+		catch(com.exedio.cope.FinalViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
-		catch(com.exedio.cope.ReadOnlyViolationException e)
+		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
@@ -253,11 +253,11 @@ public final class CustomItem extends Item
 		{
 			CustomItem.element2.set(this,element2);
 		}
-		catch(com.exedio.cope.MandatoryViolationException e)
+		catch(com.exedio.cope.FinalViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
-		catch(com.exedio.cope.ReadOnlyViolationException e)
+		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
@@ -288,11 +288,11 @@ public final class CustomItem extends Item
 		{
 			CustomItem.element3.set(this,element3);
 		}
-		catch(com.exedio.cope.MandatoryViolationException e)
+		catch(com.exedio.cope.FinalViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
-		catch(com.exedio.cope.ReadOnlyViolationException e)
+		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}

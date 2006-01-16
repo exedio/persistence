@@ -140,11 +140,11 @@ public class QualifiedStringQualifier extends Item
 		{
 			QualifiedStringQualifier.qualifiedA.set(this,qualifiedA);
 		}
-		catch(com.exedio.cope.MandatoryViolationException e)
+		catch(com.exedio.cope.FinalViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
-		catch(com.exedio.cope.ReadOnlyViolationException e)
+		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
@@ -175,11 +175,11 @@ public class QualifiedStringQualifier extends Item
 		{
 			QualifiedStringQualifier.qualifiedB.set(this,qualifiedB);
 		}
-		catch(com.exedio.cope.MandatoryViolationException e)
+		catch(com.exedio.cope.FinalViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
-		catch(com.exedio.cope.ReadOnlyViolationException e)
+		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}

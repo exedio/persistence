@@ -33,7 +33,7 @@ import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.NotEqualCondition;
 import com.exedio.cope.FunctionAttribute;
 import com.exedio.cope.Pattern;
-import com.exedio.cope.ReadOnlyViolationException;
+import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.search.AndCondition;
 import com.exedio.cope.search.OrCondition;
@@ -100,7 +100,7 @@ public final class Vector extends Pattern
 			UniqueViolationException,
 			MandatoryViolationException,
 			LengthViolationException,
-			ReadOnlyViolationException,
+			FinalViolationException,
 			ClassCastException
 	{
 		int i = 0;

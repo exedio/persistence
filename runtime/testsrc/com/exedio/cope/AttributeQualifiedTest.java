@@ -24,7 +24,7 @@ import com.exedio.cope.testmodel.EmptyItem;
 public class AttributeQualifiedTest extends AttributeTest
 {
 	public void testSomeQualifiedAttribute()
-			throws IntegrityViolationException, MandatoryViolationException, LengthViolationException, ReadOnlyViolationException
+			throws IntegrityViolationException, MandatoryViolationException, LengthViolationException, FinalViolationException
 	{
 		assertEquals(AttributeEmptyItem.TYPE, AttributeEmptyItem.someQualifiedString.getType());
 		final EmptyItem someItem2 = new EmptyItem();

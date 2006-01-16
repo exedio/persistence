@@ -35,7 +35,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.FunctionAttribute;
-import com.exedio.cope.ReadOnlyViolationException;
+import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.StringAttribute;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.pattern.Hash;
@@ -229,7 +229,7 @@ abstract class CopeAttribute extends CopeFeature
 		if(unique)
 			result.add(UniqueViolationException.class);
 		if(readOnly)
-			result.add(ReadOnlyViolationException.class);
+			result.add(FinalViolationException.class);
 		if(notNull && !isBoxed())
 			result.add(MandatoryViolationException.class);
 		if(isLengthConstrained)
@@ -263,7 +263,7 @@ abstract class CopeAttribute extends CopeFeature
 		result.add(UniqueViolationException.class);
 		if(!isBoxed())
 			result.add(MandatoryViolationException.class);
-		result.add(ReadOnlyViolationException.class);
+		result.add(FinalViolationException.class);
 	}
 
 	private SortedSet toucherExceptions = null;
@@ -282,7 +282,7 @@ abstract class CopeAttribute extends CopeFeature
 		if(unique)
 			modifyableToucherExceptions.add(UniqueViolationException.class);
 		if(readOnly)
-			modifyableToucherExceptions.add(ReadOnlyViolationException.class);
+			modifyableToucherExceptions.add(FinalViolationException.class);
 
 		this.toucherExceptions = Collections.unmodifiableSortedSet(modifyableToucherExceptions);
 		return this.toucherExceptions;
@@ -303,7 +303,7 @@ abstract class CopeAttribute extends CopeFeature
 
 		final TreeSet result = new TreeSet(ClassComparator.getInstance());
 		result.add(UniqueViolationException.class);
-		result.add(ReadOnlyViolationException.class);
+		result.add(FinalViolationException.class);
 		result.removeAll(getSetterExceptions());
 		
 		this.exceptionsToCatchInToucher = Collections.unmodifiableSortedSet(result);

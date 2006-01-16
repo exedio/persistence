@@ -40,7 +40,7 @@ import java.util.zip.CheckedOutputStream;
 import com.exedio.cope.AttributeValue;
 import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.MandatoryViolationException;
-import com.exedio.cope.ReadOnlyViolationException;
+import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.util.ClassComparator;
@@ -948,7 +948,7 @@ final class Generator
 				UniqueViolationException.class,
 				MandatoryViolationException.class,
 				LengthViolationException.class,
-				ReadOnlyViolationException.class,
+				FinalViolationException.class,
 				ClassCastException.class}));
 
 		o.write("\t{");

@@ -107,11 +107,11 @@ public class ItemWithDoubleUnique extends Item
 		{
 			ItemWithDoubleUnique.string.set(this,string);
 		}
-		catch(com.exedio.cope.LengthViolationException e)
+		catch(com.exedio.cope.FinalViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
-		catch(com.exedio.cope.ReadOnlyViolationException e)
+		catch(com.exedio.cope.LengthViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
@@ -140,7 +140,7 @@ public class ItemWithDoubleUnique extends Item
 		{
 			ItemWithDoubleUnique.integer.set(this,integer);
 		}
-		catch(com.exedio.cope.ReadOnlyViolationException e)
+		catch(com.exedio.cope.FinalViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}

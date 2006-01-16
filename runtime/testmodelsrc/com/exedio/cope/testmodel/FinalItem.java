@@ -107,7 +107,7 @@ public class FinalItem extends Item
 		{
 			FinalItem.nonFinalInteger.set(this,nonFinalInteger);
 		}
-		catch(com.exedio.cope.ReadOnlyViolationException e)
+		catch(com.exedio.cope.FinalViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}

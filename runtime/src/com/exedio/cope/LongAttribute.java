@@ -76,7 +76,7 @@ public final class LongAttribute extends FunctionAttribute
 		throws
 			UniqueViolationException,
 			MandatoryViolationException,
-			ReadOnlyViolationException
+			FinalViolationException
 	{
 		try
 		{
@@ -91,7 +91,7 @@ public final class LongAttribute extends FunctionAttribute
 	public final void set(final Item item, final long value)
 		throws
 			UniqueViolationException,
-			ReadOnlyViolationException
+			FinalViolationException
 	{
 		try
 		{

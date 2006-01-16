@@ -178,7 +178,7 @@ public final class ItemAttribute extends FunctionAttribute
 		throws
 			UniqueViolationException,
 			MandatoryViolationException,
-			ReadOnlyViolationException
+			FinalViolationException
 	{
 		try
 		{

@@ -104,7 +104,7 @@ public class EnumItem extends Item
 		{
 			EnumItem.status.set(this,status);
 		}
-		catch(com.exedio.cope.ReadOnlyViolationException e)
+		catch(com.exedio.cope.FinalViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}

@@ -76,7 +76,7 @@ public final class DoubleAttribute extends FunctionAttribute
 		throws
 			UniqueViolationException,
 			MandatoryViolationException,
-			ReadOnlyViolationException
+			FinalViolationException
 	{
 		try
 		{
@@ -91,7 +91,7 @@ public final class DoubleAttribute extends FunctionAttribute
 	public final void set(final Item item, final double value)
 		throws
 			UniqueViolationException,
-			ReadOnlyViolationException
+			FinalViolationException
 	{
 		try
 		{

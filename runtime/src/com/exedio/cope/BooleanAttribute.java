@@ -90,7 +90,7 @@ public final class BooleanAttribute extends FunctionAttribute
 		throws
 			UniqueViolationException,
 			MandatoryViolationException,
-			ReadOnlyViolationException
+			FinalViolationException
 	{
 		try
 		{
@@ -105,7 +105,7 @@ public final class BooleanAttribute extends FunctionAttribute
 	public final void set(final Item item, final boolean value)
 		throws
 			UniqueViolationException,
-			ReadOnlyViolationException
+			FinalViolationException
 	{
 		try
 		{

@@ -176,7 +176,7 @@ public final class StringAttribute extends FunctionAttribute implements StringFu
 			UniqueViolationException,
 			MandatoryViolationException,
 			LengthViolationException,
-			ReadOnlyViolationException
+			FinalViolationException
 	{
 		item.set(this, value);
 	}

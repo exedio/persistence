@@ -101,11 +101,11 @@ public class ItemWithSingleUniqueNotNull extends Item
 		{
 			ItemWithSingleUniqueNotNull.uniqueNotNullString.set(this,uniqueNotNullString);
 		}
-		catch(com.exedio.cope.LengthViolationException e)
+		catch(com.exedio.cope.FinalViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
-		catch(com.exedio.cope.ReadOnlyViolationException e)
+		catch(com.exedio.cope.LengthViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}

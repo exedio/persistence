@@ -89,7 +89,7 @@ public class Qualified extends Item
 		{
 			QualifiedName.number.set(nameQualifier.getForSet(new Object[]{this,key}),number);
 		}
-		catch(com.exedio.cope.ReadOnlyViolationException e)
+		catch(com.exedio.cope.FinalViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
@@ -118,11 +118,11 @@ public class Qualified extends Item
 		{
 			QualifiedName.optionalNumber.set(nameQualifier.getForSet(new Object[]{this,key}),optionalNumber);
 		}
-		catch(com.exedio.cope.MandatoryViolationException e)
+		catch(com.exedio.cope.FinalViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
-		catch(com.exedio.cope.ReadOnlyViolationException e)
+		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
@@ -142,7 +142,7 @@ public class Qualified extends Item
 		{
 			QualifiedName.noneGetterNumber.set(nameQualifier.getForSet(new Object[]{this,key}),noneGetterNumber);
 		}
-		catch(com.exedio.cope.ReadOnlyViolationException e)
+		catch(com.exedio.cope.FinalViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
@@ -171,7 +171,7 @@ public class Qualified extends Item
 		{
 			QualifiedName.privateGetterNumber.set(nameQualifier.getForSet(new Object[]{this,key}),privateGetterNumber);
 		}
-		catch(com.exedio.cope.ReadOnlyViolationException e)
+		catch(com.exedio.cope.FinalViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
@@ -200,7 +200,7 @@ public class Qualified extends Item
 		{
 			QualifiedName.internalGetterNumber.set(nameQualifier.getForSet(new Object[]{this,key}),internalGetterNumber);
 		}
-		catch(com.exedio.cope.ReadOnlyViolationException e)
+		catch(com.exedio.cope.FinalViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
@@ -238,7 +238,7 @@ public class Qualified extends Item
 		{
 			QualifiedName.privateSetterNumber.set(nameQualifier.getForSet(new Object[]{this,key}),privateSetterNumber);
 		}
-		catch(com.exedio.cope.ReadOnlyViolationException e)
+		catch(com.exedio.cope.FinalViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
@@ -267,7 +267,7 @@ public class Qualified extends Item
 		{
 			QualifiedName.internalSetterNumber.set(nameQualifier.getForSet(new Object[]{this,key}),internalSetterNumber);
 		}
-		catch(com.exedio.cope.ReadOnlyViolationException e)
+		catch(com.exedio.cope.FinalViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}

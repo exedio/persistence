@@ -208,9 +208,9 @@ public class UniqueItemTest extends TestmodelTest
 		try
 		{
 			item.set(item.uniqueReadOnlyString, "zapp");
-			fail("should have thrown ReadOnlyViolationException");
+			fail("should have thrown FinalViolationException");
 		}
-		catch(ReadOnlyViolationException e)
+		catch(FinalViolationException e)
 		{
 			assertEquals(item.uniqueReadOnlyString, e.getReadOnlyAttribute());
 			assertEquals(item, e.getItem());

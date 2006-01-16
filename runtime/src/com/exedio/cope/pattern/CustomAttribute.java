@@ -30,7 +30,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Pattern;
-import com.exedio.cope.ReadOnlyViolationException;
+import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.UniqueViolationException;
 
 public abstract class CustomAttribute extends Pattern
@@ -186,7 +186,7 @@ public abstract class CustomAttribute extends Pattern
 		{
 			throw new CustomAttributeException(this, e);
 		}
-		catch(ReadOnlyViolationException e)
+		catch(FinalViolationException e)
 		{
 			throw new CustomAttributeException(this, e);
 		}

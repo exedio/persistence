@@ -114,11 +114,11 @@ public class VectorItem extends Item
 		{
 			VectorItem.num1.set(this,num1);
 		}
-		catch(com.exedio.cope.MandatoryViolationException e)
+		catch(com.exedio.cope.FinalViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
-		catch(com.exedio.cope.ReadOnlyViolationException e)
+		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
@@ -149,11 +149,11 @@ public class VectorItem extends Item
 		{
 			VectorItem.num2.set(this,num2);
 		}
-		catch(com.exedio.cope.MandatoryViolationException e)
+		catch(com.exedio.cope.FinalViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
-		catch(com.exedio.cope.ReadOnlyViolationException e)
+		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
@@ -184,11 +184,11 @@ public class VectorItem extends Item
 		{
 			VectorItem.num3.set(this,num3);
 		}
-		catch(com.exedio.cope.MandatoryViolationException e)
+		catch(com.exedio.cope.FinalViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
-		catch(com.exedio.cope.ReadOnlyViolationException e)
+		catch(com.exedio.cope.MandatoryViolationException e)
 		{
 			throw new java.lang.RuntimeException(e);
 		}
@@ -216,7 +216,7 @@ public class VectorItem extends Item
 				com.exedio.cope.UniqueViolationException,
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.LengthViolationException,
-				com.exedio.cope.ReadOnlyViolationException,
+				com.exedio.cope.FinalViolationException,
 				java.lang.ClassCastException
 	{
 		VectorItem.nums.set(this,nums);
@@ -240,7 +240,7 @@ public class VectorItem extends Item
 				com.exedio.cope.UniqueViolationException,
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.LengthViolationException,
-				com.exedio.cope.ReadOnlyViolationException,
+				com.exedio.cope.FinalViolationException,
 				java.lang.ClassCastException
 	{
 		VectorItem.dates.set(this,dates);
@@ -264,7 +264,7 @@ public class VectorItem extends Item
 				com.exedio.cope.UniqueViolationException,
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.LengthViolationException,
-				com.exedio.cope.ReadOnlyViolationException,
+				com.exedio.cope.FinalViolationException,
 				java.lang.ClassCastException
 	{
 		VectorItem.strings.set(this,strings);

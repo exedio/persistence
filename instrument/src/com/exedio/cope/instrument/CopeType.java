@@ -28,7 +28,7 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 
 import com.exedio.cope.Item;
-import com.exedio.cope.ReadOnlyViolationException;
+import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.util.ClassComparator;
 
 final class CopeType
@@ -215,7 +215,7 @@ final class CopeType
 				}
 			}
 		}
-		constructorExceptions.remove(ReadOnlyViolationException.class);
+		constructorExceptions.remove(FinalViolationException.class);
 	}
 
 	/**
@@ -233,7 +233,7 @@ final class CopeType
 	 * Returns all exceptions, the generated constructor of this class should throw.
 	 * This is the unification of throws clauses of all the setters of the
 	 * {@link #getInitialAttributes() initial attributes},
-	 * but without the ReadOnlyViolationException,
+	 * but without the FinalViolationException,
 	 * because read-only attributes can only be written in the constructor.
 	 */
 	public final SortedSet getConstructorExceptions()

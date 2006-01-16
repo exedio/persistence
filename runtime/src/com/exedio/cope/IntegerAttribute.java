@@ -77,7 +77,7 @@ public final class IntegerAttribute extends FunctionAttribute implements Integer
 		throws
 			UniqueViolationException,
 			MandatoryViolationException,
-			ReadOnlyViolationException
+			FinalViolationException
 	{
 		try
 		{
@@ -92,7 +92,7 @@ public final class IntegerAttribute extends FunctionAttribute implements Integer
 	public final void set(final Item item, final int value)
 		throws
 			UniqueViolationException,
-			ReadOnlyViolationException
+			FinalViolationException
 	{
 		try
 		{

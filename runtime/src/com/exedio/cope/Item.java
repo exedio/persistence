@@ -236,7 +236,7 @@ public abstract class Item extends Cope
 	 * @throws MandatoryViolationException
 	 *         if <code>value</code> is null and <code>attribute</code>
 	 *         is {@link Attribute#isMandatory() mandatory}.
-	 * @throws ReadOnlyViolationException
+	 * @throws FinalViolationException
 	 *         if <code>attribute</code> is {@link Attribute#isFinal() final}.
 	 * @throws ClassCastException
 	 *         if <code>value</code> is not compatible to <code>attribute</code>.
@@ -246,14 +246,14 @@ public abstract class Item extends Cope
 			UniqueViolationException,
 			MandatoryViolationException,
 			LengthViolationException,
-			ReadOnlyViolationException,
+			FinalViolationException,
 			ClassCastException
 	{
 		if(!attribute.getType().isAssignableFrom(type))
 			throw new RuntimeException("attribute "+attribute+" does not belong to type "+type.toString());
 		
 		if(attribute.readOnly)
-			throw new ReadOnlyViolationException(this, attribute);
+			throw new FinalViolationException(this, attribute);
 
 		attribute.checkValue(value, this);
 
@@ -266,7 +266,7 @@ public abstract class Item extends Cope
 	 * @throws MandatoryViolationException
 	 *         if <code>value</code> is null and <code>attribute</code>
 	 *         is {@link Attribute#isMandatory() mandatory}.
-	 * @throws ReadOnlyViolationException
+	 * @throws FinalViolationException
 	 *         if <code>attribute</code> is {@link Attribute#isFinal() final}.
 	 * @throws ClassCastException
 	 *         if <code>value</code> is not compatible to <code>attribute</code>.
@@ -276,7 +276,7 @@ public abstract class Item extends Cope
 			UniqueViolationException,
 			MandatoryViolationException,
 			LengthViolationException,
-			ReadOnlyViolationException,
+			FinalViolationException,
 			ClassCastException
 	{
 		for(int i = 0; i<attributeValues.length; i++)
@@ -288,7 +288,7 @@ public abstract class Item extends Cope
 				throw new RuntimeException("attribute "+attribute+" does not belong to type "+type.toString());
 			
 			if(attribute.readOnly)
-				throw new ReadOnlyViolationException(this, attribute);
+				throw new FinalViolationException(this, attribute);
 	
 			attribute.checkValue(attributeValue.value, this);
 		}
@@ -385,7 +385,7 @@ public abstract class Item extends Cope
 			// cannot happen, since there are no StringAttributes written
 			throw new RuntimeException(e);
 		}
-		catch(ReadOnlyViolationException e)
+		catch(FinalViolationException e)
 		{
 			// cannot happen, since nullify ItemAttributes cannot be readonly
 			throw new RuntimeException(e);

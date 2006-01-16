@@ -48,7 +48,7 @@ import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.NoSuchIDException;
 import com.exedio.cope.FunctionAttribute;
-import com.exedio.cope.ReadOnlyViolationException;
+import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.StringAttribute;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueViolationException;
@@ -504,7 +504,7 @@ final class ItemForm extends Form
 			final Field field = getFieldByKey(e.getMandatoryAttribute());
 			field.error = "error.notnull:"+e.getMandatoryAttribute().toString();
 		}
-		catch(ReadOnlyViolationException e)
+		catch(FinalViolationException e)
 		{
 			throw new RuntimeException(e);
 		}

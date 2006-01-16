@@ -27,19 +27,18 @@ package com.exedio.cope;
  * 
  * @author Ralf Wiebicke
  */
-public final class ReadOnlyViolationException extends ConstraintViolationException
-// TODO rename to FinalViolationException
+public final class FinalViolationException extends ConstraintViolationException
 {
 
 	private final Item item;
 	private final Attribute readOnlyAttribute;
 	
 	/**
-	 * Creates a new ReadOnlyViolationException with the neccessary information about the violation.
+	 * Creates a new FinalViolationException with the neccessary information about the violation.
 	 * @param item initializes, what is returned by {@link #getItem()}.
 	 * @param readOnlyAttribute initializes, what is returned by {@link #getReadOnlyAttribute()}.
 	 */
-	public ReadOnlyViolationException(final Item item, final Attribute readOnlyAttribute)
+	public FinalViolationException(final Item item, final Attribute readOnlyAttribute)
 	{
 		super(null);
 		this.item = item;
