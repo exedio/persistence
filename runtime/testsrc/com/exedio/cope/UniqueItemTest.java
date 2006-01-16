@@ -52,11 +52,11 @@ public class UniqueItemTest extends TestmodelTest
 			ItemWithSingleUnique.uniqueString.getUniqueConstraints());
 		
 		assertEqualsUnmodifiable(
-			list(UniqueFinal.uniqueReadOnlyString),
-			UniqueFinal.uniqueReadOnlyString.getImplicitUniqueConstraint().getUniqueAttributes());
+			list(UniqueFinal.uniqueFinalString),
+			UniqueFinal.uniqueFinalString.getImplicitUniqueConstraint().getUniqueAttributes());
 		assertEqualsUnmodifiable(
-			list(UniqueFinal.uniqueReadOnlyString.getImplicitUniqueConstraint()),
-			UniqueFinal.uniqueReadOnlyString.getUniqueConstraints());
+			list(UniqueFinal.uniqueFinalString.getImplicitUniqueConstraint()),
+			UniqueFinal.uniqueFinalString.getUniqueConstraints());
 		
 		assertEqualsUnmodifiable(
 			list(ItemWithSingleUniqueNotNull.uniqueNotNullString),
@@ -199,25 +199,25 @@ public class UniqueItemTest extends TestmodelTest
 	public void testItemWithSingleUniqueReadOnly()
 			throws ConstraintViolationException
 	{
-		assertEquals(null, UniqueFinal.findByUniqueReadOnlyString("uniqueString"));
+		assertEquals(null, UniqueFinal.findByUniqueFinalString("uniqueString"));
 
 		final UniqueFinal item = new UniqueFinal("uniqueString");
-		assertEquals("uniqueString", item.getUniqueReadOnlyString());
-		assertEquals(item, UniqueFinal.findByUniqueReadOnlyString("uniqueString"));
+		assertEquals("uniqueString", item.getUniqueFinalString());
+		assertEquals(item, UniqueFinal.findByUniqueFinalString("uniqueString"));
 
 		try
 		{
-			item.set(item.uniqueReadOnlyString, "zapp");
+			item.set(item.uniqueFinalString, "zapp");
 			fail("should have thrown FinalViolationException");
 		}
 		catch(FinalViolationException e)
 		{
-			assertEquals(item.uniqueReadOnlyString, e.getFinalAttribute());
+			assertEquals(item.uniqueFinalString, e.getFinalAttribute());
 			assertEquals(item, e.getItem());
-			assertEquals("final violation on " + item + " for UniqueFinal#uniqueReadOnlyString", e.getMessage());
+			assertEquals("final violation on " + item + " for UniqueFinal#uniqueFinalString", e.getMessage());
 		}
-		assertEquals("uniqueString", item.getUniqueReadOnlyString());
-		assertEquals(item, UniqueFinal.findByUniqueReadOnlyString("uniqueString"));
+		assertEquals("uniqueString", item.getUniqueFinalString());
+		assertEquals(item, UniqueFinal.findByUniqueFinalString("uniqueString"));
 
 		assertDelete(item);
 	}
