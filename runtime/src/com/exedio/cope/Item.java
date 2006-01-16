@@ -387,7 +387,7 @@ public abstract class Item extends Cope
 		}
 		catch(FinalViolationException e)
 		{
-			// cannot happen, since nullify ItemAttributes cannot be readonly
+			// cannot happen, since nullify ItemAttributes cannot be final
 			throw new RuntimeException(e);
 		}
 	}
