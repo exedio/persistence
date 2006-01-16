@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import java.io.IOException;
 import java.util.Arrays;
 
 import com.exedio.cope.AbstractLibTest;
@@ -42,8 +43,9 @@ public class CustomTest extends AbstractLibTest
 	
 	static final Integer i20 = new Integer(20);
 	static final Integer i44 = new Integer(44);
+	static final Integer im2 = new Integer(-2);
 	
-	public void testNumber() throws ConstraintViolationException
+	public void testNumber() throws ConstraintViolationException, IOException, CustomAttributeException
 	{
 		assertEquals(Arrays.asList(new Feature[]{
 				item.numberString,
@@ -80,11 +82,34 @@ public class CustomTest extends AbstractLibTest
 		assertEquals(i44, item.getNumber());
 		assertEquals(i44, item.number.get(item));
 		
+		try
+		{
+			item.setNumber(im2);
+			fail();
+		}
+		catch(IOException e)
+		{
+			assertEquals("test exception:-2", e.getMessage());
+		}
+		assertEquals("44", item.getNumberString());
+		
+		try
+		{
+			item.number.set(item, im2);
+			fail();
+		}
+		catch(CustomAttributeException e)
+		{
+			assertSame(item.number, e.getAttribute());
+			assertEquals("test exception:-2", e.getCause().getMessage());
+			assertEquals(IOException.class, e.getCause().getClass());
+		}
+		assertEquals("44", item.getNumberString());
+		
 		item.setNumber(null);
 		assertNull(item.getNumberString());
 		assertNull(item.getNumber());
 		assertNull(item.number.get(item));
-		
 		assertEquals(list(null, null, null), item.getElements());
 		
 		item.setElements(list(i2, i4, i8));

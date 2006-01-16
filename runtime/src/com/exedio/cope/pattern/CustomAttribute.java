@@ -24,6 +24,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import com.exedio.cope.AttributeValue;
 import com.exedio.cope.FunctionAttribute;
 import com.exedio.cope.Item;
 import com.exedio.cope.LengthViolationException;
@@ -32,13 +33,13 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.ReadOnlyViolationException;
 import com.exedio.cope.UniqueViolationException;
 
-public final class CustomAttribute extends Pattern
+public abstract class CustomAttribute extends Pattern
 {
 	private final FunctionAttribute[] storages;
 	private final List storageList;
-	private Method getter;
-	private Method setter;
-	private Class valueType;
+	private final Method getter;
+	private final Method setter;
+	private final Class valueType;
 	
 	public CustomAttribute(final FunctionAttribute storage)
 	{
@@ -56,65 +57,76 @@ public final class CustomAttribute extends Pattern
 		this.storageList = Collections.unmodifiableList(Arrays.asList(storages));
 		for(int i = 0; i<storages.length; i++)
 			registerSource(storages[i]);
+		
+		final Method[] methods = getClass().getDeclaredMethods();
+		Method getter = null; 
+		Method setter = null;
+		for(int i = 0; i<methods.length; i++)
+		{
+			final Method m = methods[i];
+			final String methodName = m.getName();
+			if("get".equals(methodName))
+			{
+				// TODO test all the exceptions
+				if(getter!=null)
+					throw new RuntimeException("more than one getter method:"+getter+" and "+m);
+				if(m.getParameterTypes().length!=storages.length)
+					throw new RuntimeException("number of parameters of getter method must be equal to number of storages");
+				getter = m;
+			}
+			else if("set".equals(methodName))
+			{
+				if(setter!=null)
+					throw new RuntimeException("more than one setter method:"+setter+" and "+m);
+				if(m.getParameterTypes().length!=1)
+					throw new RuntimeException("number of parameters of setter method must be 1");
+				if(m.getReturnType()!=(new AttributeValue[0]).getClass() && storages.length!=1)
+					throw new RuntimeException("oops");
+				setter = m;
+			}
+		}
+		if(getter==null)
+			throw new RuntimeException("no suitable getter method found for custom attribute");
+		if(setter==null)
+			throw new RuntimeException("no suitable setter method found for custom attribute");
+		
+		getter.setAccessible(true);
+		setter.setAccessible(true);
+		
+		this.getter = getter;
+		this.setter = setter;
+		this.valueType = getter.getReturnType();
 	}
 	
-	public List getStorages()
+	public final List getStorages()
 	{
 		return storageList;
 	}
 	
-	public void initialize()
+	public final void initialize()
 	{
 		final String name = getName();
 
 		for(int i = 0; i<storages.length; i++)
 			if(!storages[i].isInitialized())
 				initialize(storages[i], name+"Storage"+i);
-		
-		final String nameUpper =
-			name.length()==1
-			? Character.toString(Character.toUpperCase(name.charAt(0)))
-			: (Character.toUpperCase(name.charAt(0)) + name.substring(1));
-		
-		final Class javaClass = getType().getJavaClass();
-		final Method getter; 
-		try
-		{
-			getter = javaClass.getDeclaredMethod("get"+nameUpper, (Class[])null); 
-		}
-		catch(NoSuchMethodException e)
-		{
-			throw new RuntimeException("no suitable getter method found for custom attribute "+name, e);
-		}
-		
-		final Class valueType = getter.getReturnType();
-		
-		final Method setter;
-		try
-		{
-			setter = javaClass.getDeclaredMethod("set"+nameUpper, new Class[]{valueType});
-		}
-		catch(NoSuchMethodException e)
-		{
-			throw new RuntimeException("no suitable setter method found for custom attribute "+name, e);
-		}
-
-		this.getter = getter;
-		this.setter = setter;
-		this.valueType = valueType;
 	}
 	
-	public Class getValueType()
+	public final Class getValueType()
 	{
 		assert valueType!=null;
 		return valueType;
 	}
 	
-	public Object get(final Item item)
+	public final Object get(final Item item)
 	{
+		final Object[] params = new Object[storages.length];
+		for(int i = 0; i<params.length; i++)
+			params[i] = storages[i].getObject(item);
+		
 		try
 		{
-			return getter.invoke(item, (Object[])null);
+			return getter.invoke(this, params);
 		}
 		catch(IllegalArgumentException e)
 		{
@@ -130,16 +142,12 @@ public final class CustomAttribute extends Pattern
 		}
 	}
 
-	public void set(final Item item, final Object value)
-	throws
-		UniqueViolationException,
-		MandatoryViolationException,
-		LengthViolationException,
-		ReadOnlyViolationException
+	public final void set(final Item item, final Object value) throws CustomAttributeException
 	{
+		final Object result;
 		try
 		{
-			setter.invoke(item, new Object[]{value});
+			result = setter.invoke(this, new Object[]{value});
 		}
 		catch(IllegalArgumentException e)
 		{
@@ -151,7 +159,36 @@ public final class CustomAttribute extends Pattern
 		}
 		catch(InvocationTargetException e)
 		{
-			throw new RuntimeException(e);
+			throw new CustomAttributeException(this, e.getCause());
+		}
+		
+		try
+		{
+			if(storages.length==1)
+			{
+				item.set(storages[0], result);
+			}
+			else
+			{
+				final AttributeValue[] values = (AttributeValue[])result;
+				item.set(values);
+			}
+		}
+		catch(UniqueViolationException e)
+		{
+			throw new CustomAttributeException(this, e);
+		}
+		catch(MandatoryViolationException e)
+		{
+			throw new CustomAttributeException(this, e);
+		}
+		catch(LengthViolationException e)
+		{
+			throw new CustomAttributeException(this, e);
+		}
+		catch(ReadOnlyViolationException e)
+		{
+			throw new CustomAttributeException(this, e);
 		}
 	}
 	
