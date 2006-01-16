@@ -36,18 +36,18 @@ import java.util.List;
  */
 public abstract class Attribute extends Feature
 {
-	final boolean readOnly;
+	final boolean isfinal;
 	final boolean mandatory;
 
-	Attribute(final boolean readOnly, final boolean mandatory)
+	Attribute(final boolean isfinal, final boolean mandatory)
 	{
-		this.readOnly = readOnly;
+		this.isfinal = isfinal;
 		this.mandatory = mandatory;
 	}
 	
 	public final boolean isFinal()
 	{
-		return readOnly;
+		return isfinal;
 	}
 	
 	public final boolean isMandatory()

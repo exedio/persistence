@@ -57,7 +57,7 @@ public final class ItemAttribute extends FunctionAttribute
 
 	public FunctionAttribute copyFunctionAttribute()
 	{
-		return new ItemAttribute(readOnly, mandatory, implicitUniqueConstraint!=null, targetTypeClass, policy);
+		return new ItemAttribute(isfinal, mandatory, implicitUniqueConstraint!=null, targetTypeClass, policy);
 	}
 	
 	private Type targetType = null;

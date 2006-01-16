@@ -38,7 +38,7 @@ public final class DoubleAttribute extends FunctionAttribute
 
 	public FunctionAttribute copyFunctionAttribute()
 	{
-		return new DoubleAttribute(readOnly, mandatory, implicitUniqueConstraint!=null);
+		return new DoubleAttribute(isfinal, mandatory, implicitUniqueConstraint!=null);
 	}
 	
 	Column createColumn(final Table table, final String name, final boolean notNull)

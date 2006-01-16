@@ -39,7 +39,7 @@ public final class IntegerAttribute extends FunctionAttribute implements Integer
 	
 	public FunctionAttribute copyFunctionAttribute()
 	{
-		return new IntegerAttribute(readOnly, mandatory, implicitUniqueConstraint!=null);
+		return new IntegerAttribute(isfinal, mandatory, implicitUniqueConstraint!=null);
 	}
 	
 	Column createColumn(final Table table, final String name, final boolean notNull)

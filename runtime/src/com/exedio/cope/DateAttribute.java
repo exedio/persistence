@@ -40,7 +40,7 @@ public final class DateAttribute extends FunctionAttribute
 	
 	public FunctionAttribute copyFunctionAttribute()
 	{
-		return new DateAttribute(readOnly, mandatory, implicitUniqueConstraint!=null);
+		return new DateAttribute(isfinal, mandatory, implicitUniqueConstraint!=null);
 	}
 	
 	Column createColumn(final Table table, final String name, final boolean notNull)

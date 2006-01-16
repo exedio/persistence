@@ -75,17 +75,17 @@ public final class StringAttribute extends FunctionAttribute implements StringFu
 	
 	public FunctionAttribute copyFunctionAttribute()
 	{
-		return new StringAttribute(readOnly, mandatory, implicitUniqueConstraint!=null, minimumLength, maximumLength, checkedLengthException);
+		return new StringAttribute(isfinal, mandatory, implicitUniqueConstraint!=null, minimumLength, maximumLength, checkedLengthException);
 	}
 	
 	public StringAttribute lengthRange(final int minimumLength, final int maximumLength)
 	{
-		return new StringAttribute(readOnly, mandatory, implicitUniqueConstraint!=null, minimumLength, maximumLength, true);
+		return new StringAttribute(isfinal, mandatory, implicitUniqueConstraint!=null, minimumLength, maximumLength, true);
 	}
 	
 	public StringAttribute lengthMin(final int minimumLength)
 	{
-		return new StringAttribute(readOnly, mandatory, implicitUniqueConstraint!=null, minimumLength, DEFAULT_LENGTH, true);
+		return new StringAttribute(isfinal, mandatory, implicitUniqueConstraint!=null, minimumLength, DEFAULT_LENGTH, true);
 	}
 	
 	/**
@@ -93,7 +93,7 @@ public final class StringAttribute extends FunctionAttribute implements StringFu
 	 */
 	public StringAttribute lengthMax(final int maximumLength)
 	{
-		return new StringAttribute(readOnly, mandatory, implicitUniqueConstraint!=null, 0, maximumLength, true);
+		return new StringAttribute(isfinal, mandatory, implicitUniqueConstraint!=null, 0, maximumLength, true);
 	}
 	
 	/**
@@ -101,12 +101,12 @@ public final class StringAttribute extends FunctionAttribute implements StringFu
 	 */
 	public StringAttribute lengthMaxUnchecked(final int maximumLength)
 	{
-		return new StringAttribute(readOnly, mandatory, implicitUniqueConstraint!=null, 0, maximumLength, false);
+		return new StringAttribute(isfinal, mandatory, implicitUniqueConstraint!=null, 0, maximumLength, false);
 	}
 	
 	public StringAttribute lengthExact(final int exactLength)
 	{
-		return new StringAttribute(readOnly, mandatory, implicitUniqueConstraint!=null, exactLength, exactLength, true);
+		return new StringAttribute(isfinal, mandatory, implicitUniqueConstraint!=null, exactLength, exactLength, true);
 	}
 	
 	public final int getMinimumLength()

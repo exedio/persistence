@@ -38,7 +38,7 @@ public final class LongAttribute extends FunctionAttribute
 	
 	public FunctionAttribute copyFunctionAttribute()
 	{
-		return new LongAttribute(readOnly, mandatory, implicitUniqueConstraint!=null);
+		return new LongAttribute(isfinal, mandatory, implicitUniqueConstraint!=null);
 	}
 	
 	Column createColumn(final Table table, final String name, final boolean notNull)

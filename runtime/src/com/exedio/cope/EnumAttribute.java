@@ -118,7 +118,7 @@ public final class EnumAttribute extends FunctionAttribute
 	
 	public FunctionAttribute copyFunctionAttribute()
 	{
-		return new EnumAttribute(readOnly, mandatory, implicitUniqueConstraint!=null, enumClass);
+		return new EnumAttribute(isfinal, mandatory, implicitUniqueConstraint!=null, enumClass);
 	}
 	
 	public List getValues()
