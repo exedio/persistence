@@ -22,14 +22,14 @@ import com.exedio.cope.Item;
 import com.exedio.cope.StringAttribute;
 
 /**
- * An item having a unique read-only attribute.
+ * An item having a unique final attribute.
  * @cope.persistent
  * @author Ralf Wiebicke
  */
 public class UniqueFinal extends Item
 {
 	/**
-	 * An attribute that is unique and read-only.
+	 * An attribute that is unique and final.
 	 */
 	public static final StringAttribute uniqueFinalString = new StringAttribute(FINAL_UNIQUE_OPTIONAL);
 
