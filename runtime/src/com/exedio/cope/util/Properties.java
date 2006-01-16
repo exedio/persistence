@@ -130,7 +130,8 @@ public class Properties
 		
 		public Object getValue()
 		{
-			return Integer.valueOf(value);
+			//return Integer.valueOf(value); recommended for JDK 1.5 and later
+			return new Integer(value);
 		}
 	}
 
