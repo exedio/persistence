@@ -143,14 +143,14 @@ public abstract class AbstractLibTest extends CopeTest
 		return result;
 	}
 	
-	protected void assertData(final byte[] expectedData, final byte[] actualData)
+	protected static void assertData(final byte[] expectedData, final byte[] actualData)
 	{
 		assertEquals(expectedData.length, actualData.length);
 		for(int i = 0; i<actualData.length; i++)
 			assertEquals(expectedData[i], actualData[i]);
 	}
 	
-	protected void assertData(final byte[] expectedData, final InputStream actualData)
+	protected static void assertData(final byte[] expectedData, final InputStream actualData)
 	{
 		try
 		{

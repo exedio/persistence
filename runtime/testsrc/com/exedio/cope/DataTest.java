@@ -59,7 +59,19 @@ public class DataTest extends AbstractLibTest
 		super.tearDown();
 	}
 	
-	private void assertIt(final byte[] expectedData) throws IOException
+	private void assertIt(final byte[] expectedData) throws MandatoryViolationException, IOException
+	{
+		assertIt(expectedData, item);
+	}
+	
+	private void assertIt(final byte[] expectedData, final DataItem item)
+		throws MandatoryViolationException, IOException
+	{
+		assertIt(expectedData, item, oracle, model);
+	}
+	
+	private static final void assertIt(final byte[] expectedData, final DataItem item, final boolean oracle, final Model model)
+		throws MandatoryViolationException, IOException
 	{
 		if(expectedData!=null && !(oracle && !model.getProperties().hasDatadirPath() && expectedData.length==0))
 		{
@@ -96,7 +108,7 @@ public class DataTest extends AbstractLibTest
 		}
 	}
 	
-	public void testData() throws IOException
+	public void testData() throws MandatoryViolationException, IOException
 	{
 		assertIt(null);
 
@@ -170,6 +182,14 @@ public class DataTest extends AbstractLibTest
 		{
 			assertEquals(null, e.getMessage());
 		}
+		
+		final DataSubItem subItem = new DataSubItem();
+		deleteOnTearDown(subItem);
+		
+		subItem.setData(stream(data));
+		assertStreamClosed();
+		assertIt(data, subItem);
+		assertEquals(data.length, subItem.getDataLength());
 	}
 	
 }

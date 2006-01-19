@@ -32,7 +32,7 @@ public class Main
 	public static final Model deleteModel = new Model(new Type[]{DeleteItem.TYPE, DeleteOtherItem.TYPE});
 	public static final Model enumModel = new Model(new Type[] { EnumItem.TYPE, EnumItem2.TYPE });
 	public static final Model dayModel = new Model(new Type[] { DayItem.TYPE });
-	public static final Model dataModel = new Model(new Type[]{DataItem.TYPE});
+	public static final Model dataModel = new Model(new Type[]{ DataItem.TYPE, DataSubItem.TYPE });
 	public static final Model hashModel = new Model(new Type[] { HashItem.TYPE });
 	public static final Model md5Model = new Model(new Type[] { MD5Item.TYPE });
 	public static final Model vectorModel = new Model(new Type[] { VectorItem.TYPE });
