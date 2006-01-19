@@ -30,7 +30,7 @@ public class HierarchyEmptyTest extends AbstractLibTest
 	}
 	
 	public void testHierarchy()
-			throws IntegrityViolationException, UniqueViolationException
+			throws IntegrityViolationException, UniqueViolationException, NoSuchIDException
 	{
 		// model HierarchyEmptySuper
 		assertEquals(null, HierarchyEmptySuper.TYPE.getSupertype());
@@ -109,6 +109,11 @@ public class HierarchyEmptyTest extends AbstractLibTest
 		assertEquals(list(subItem), superItem.TYPE.search(superItem.superInt.equal(2)));
 		assertContains(superItem, subItem, superItem.TYPE.search(null));
 		assertEquals(list(), superItem.TYPE.search(superItem.superInt.equal(1)));
+		
+		assertSame(subItem, model.findByID("HierarchyEmptySub.0"));
+		assertSame(superItem.TYPE, model.findByID("HierarchyEmptySuper.0").getCopeType()); // TODO this is a bug, should fail !!!
+		assertSame(superItem, model.findByID("HierarchyEmptySuper.1"));
+		assertIDFails("HierarchyEmptySub.1", "no such id <HierarchyEmptySub.1>, item <1> does not exist", false);
 	}
 	
 	public void testModel()
