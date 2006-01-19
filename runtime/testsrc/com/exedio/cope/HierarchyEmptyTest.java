@@ -112,10 +112,9 @@ public class HierarchyEmptyTest extends AbstractLibTest
 		
 		// test findByID
 		assertSame(subItem, model.findByID("HierarchyEmptySub.0"));
-		assertIDFails("HierarchyEmptySuper.0", "no such id <HierarchyEmptySuper.0>, item <0> does not exist", false);
 		assertSame(superItem, model.findByID("HierarchyEmptySuper.1"));
+		assertIDFails("HierarchyEmptySuper.0", "no such id <HierarchyEmptySuper.0>, item <0> does not exist", false);
 		assertIDFails("HierarchyEmptySub.1", "no such id <HierarchyEmptySub.1>, item <1> does not exist", false);
-
 		assertIDFails("noDotInThisString", "no such id <noDotInThisString>, no dot in id", true);
 		assertIDFails("noSuchType.x", "no such id <noSuchType.x>, no such type noSuchType", true);
 		assertIDFails("HierarchyEmptySuper.x", "no such id <HierarchyEmptySuper.x>, wrong number format <x>", true);
