@@ -239,6 +239,7 @@ public final class Model
 			createDataDirectories(types[i]);
 
 		database.createDatabase();
+		clearCache();
 	}
 
 	public void createDatabaseConstraints()
@@ -364,6 +365,8 @@ public final class Model
 
 		for(int i = 0; i<this.types.length; i++)
 			dropDataDirectories(this.types[i]);
+		
+		clearCache();
 	}
 
 	public void dropDatabaseConstraints()
@@ -377,6 +380,8 @@ public final class Model
 
 		for(int i = 0; i<this.types.length; i++)
 			tearDownDataDirectories(this.types[i]);
+
+		clearCache();
 	}
 	
 	public void tearDownDatabaseConstraints()
