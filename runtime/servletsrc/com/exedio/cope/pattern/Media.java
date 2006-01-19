@@ -166,13 +166,8 @@ public final class Media extends MediaPath
 
 		final StringBuffer bf = new StringBuffer(getMediaRootUrl());
 
-		final String id = item.getCopeID();
-		final int dot = id.indexOf('.');
-		if(dot<0)
-			throw new RuntimeException(id);
-			
 		bf.append(getUrlPath()).
-			append(id.substring(dot+1));
+			append(item.getCopeID());
 
 		final String compactExtension = (String)compactExtensions.get(contentType);
 		if(compactExtension==null)

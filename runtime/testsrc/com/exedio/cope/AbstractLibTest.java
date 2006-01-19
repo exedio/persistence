@@ -91,11 +91,6 @@ public abstract class AbstractLibTest extends CopeTest
 		super.tearDown();
 	}
 
-	final String pkString(final Item item)
-	{
-		return String.valueOf(item.getCopeType().getPkSource().pk2id(((Item)item).pk));
-	}
-
 	protected final TestByteArrayInputStream stream(final byte[] data)
 	{
 		assertNull(testStream);

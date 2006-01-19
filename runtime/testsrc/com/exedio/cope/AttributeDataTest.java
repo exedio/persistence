@@ -42,9 +42,8 @@ public class AttributeDataTest extends AttributeTest
 
 		final String prefix =
 			model.getProperties().getMediaRootUrl() + "AttributeItem/someData/";
-		final String pkString = pkString(item);
 		final String expectedURL =
-			prefix + pkString + ".someMimeMajor.someMimeMinor";
+			prefix + item.getCopeID() + ".someMimeMajor.someMimeMinor";
 		//System.out.println(expectedURL);
 		//System.out.println(item.getSomeDataURL());
 		assertEquals(expectedURL, item.getSomeDataURL());

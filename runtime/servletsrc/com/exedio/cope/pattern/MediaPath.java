@@ -71,25 +71,23 @@ public abstract class MediaPath extends Pattern
 			final String subPath)
 		throws ServletException, IOException
 	{
-		final int dot = subPath.indexOf('.');
+		final int firstDot = subPath.indexOf('.');
+		final int dot = (firstDot>=0) ? subPath.indexOf('.', firstDot+1) : firstDot;
 		//System.out.println("trailingDot="+trailingDot);
 
-		final String pkString;
+		final String id;
 		final String extension;
 		if(dot>=0)
 		{
-			pkString = subPath.substring(0, dot);
+			id = subPath.substring(0, dot);
 			extension = subPath.substring(dot);
 		}
 		else
 		{
-			pkString = subPath;
+			id = subPath;
 			extension = "";
 		}
 		
-		//System.out.println("pkString="+pkString);
-
-		final String id = getType().getID() + '.' + pkString;
 		//System.out.println("ID="+id);
 		final Model model = getType().getModel();
 		try
