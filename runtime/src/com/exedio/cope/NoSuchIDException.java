@@ -29,7 +29,7 @@ package com.exedio.cope;
  */
 public class NoSuchIDException extends Exception
 {
-	final boolean notAnID;
+	private final boolean notAnID;
 	
 	NoSuchIDException(final String id, final boolean notAnID, final String detail)
 	{
