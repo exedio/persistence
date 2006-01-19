@@ -238,6 +238,13 @@ final class Cache
 				}
 			}
 		}
+		if(queryCaches!=null)
+		{
+			synchronized(queryCaches)
+			{
+				queryCaches.clear();
+			}
+		}
 	}
 
 	CacheInfo[] getInfo(final Type[] concreteTypes)
