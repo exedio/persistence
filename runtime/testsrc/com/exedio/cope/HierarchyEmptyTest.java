@@ -113,15 +113,15 @@ public class HierarchyEmptyTest extends AbstractLibTest
 		// test findByID
 		assertSame(subItem, model.findByID("HierarchyEmptySub.0"));
 		assertSame(superItem, model.findByID("HierarchyEmptySuper.1"));
-		assertIDFails("HierarchyEmptySuper.0",  "no such id <HierarchyEmptySuper.0>, item <0> does not exist", false);
-		assertIDFails("HierarchyEmptySub.1",    "no such id <HierarchyEmptySub.1>, item <1> does not exist", false);
-		assertIDFails("noDotInThisString",      "no such id <noDotInThisString>, no dot in id", true);
-		assertIDFails("noSuchType.x",           "no such id <noSuchType.x>, no such type noSuchType", true);
-		assertIDFails("HierarchyEmptySuper.x",  "no such id <HierarchyEmptySuper.x>, wrong number format <x>", true);
+		assertIDFails("HierarchyEmptySuper.0",  "item <0> does not exist", false);
+		assertIDFails("HierarchyEmptySub.1",    "item <1> does not exist", false);
+		assertIDFails("noDotInThisString",      "no dot in id", true);
+		assertIDFails("noSuchType.x",           "no such type noSuchType", true);
+		assertIDFails("HierarchyEmptySuper.x",  "wrong number format <x>", true);
 		assertIDFails("HierarchyEmptySuper.92386591832651832659213865193456293456",
-															 "no such id <HierarchyEmptySuper.92386591832651832659213865193456293456>, wrong number format <92386591832651832659213865193456293456>", true);
-		assertIDFails("HierarchyEmptySuper.-1", "no such id <HierarchyEmptySuper.-1>, must be positive", true);
-		assertIDFails("HierarchyEmptySuper.50", "no such id <HierarchyEmptySuper.50>, item <50> does not exist", false);
+															 "wrong number format <92386591832651832659213865193456293456>", true);
+		assertIDFails("HierarchyEmptySuper.-1", "must be positive", true);
+		assertIDFails("HierarchyEmptySuper.50", "item <50> does not exist", false);
 	}
 	
 	public void testModel()

@@ -248,7 +248,7 @@ public abstract class AbstractLibTest extends CopeTest
 		assertTrue(item.getCopeID()+"/"+id, item.getCopeID().endsWith("."+id));
 	}
 
-	protected void assertIDFails(final String id, final String message, final boolean notAnID)
+	protected void assertIDFails(final String id, final String detail, final boolean notAnID)
 	{
 		try
 		{
@@ -257,7 +257,7 @@ public abstract class AbstractLibTest extends CopeTest
 		}
 		catch(NoSuchIDException e)
 		{
-			assertEquals(message, e.getMessage());
+			assertEquals("no such id <" + id + ">, " + detail, e.getMessage());
 			assertEquals(notAnID, e.notAnID());
 		}
 	}

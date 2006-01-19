@@ -95,7 +95,7 @@ public class AttributeDateTest extends AttributeTest
 		}
 		
 		// special test of Model#findByID for items without any attributes
-		assertIDFails("EmptyItem.51", "no such id <EmptyItem.51>, item <51> does not exist", false);
+		assertIDFails("EmptyItem.51", "item <51> does not exist", false);
 	}
 	
 	public void testOrder() throws MandatoryViolationException
