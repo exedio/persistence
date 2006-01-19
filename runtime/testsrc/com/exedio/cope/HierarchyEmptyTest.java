@@ -118,7 +118,8 @@ public class HierarchyEmptyTest extends AbstractLibTest
 		assertIDFails("noDotInThisString",      "no such id <noDotInThisString>, no dot in id", true);
 		assertIDFails("noSuchType.x",           "no such id <noSuchType.x>, no such type noSuchType", true);
 		assertIDFails("HierarchyEmptySuper.x",  "no such id <HierarchyEmptySuper.x>, wrong number format <x>", true);
-		assertIDFails("HierarchyEmptySuper.92386591832651832659213865193456293456", "no such id <HierarchyEmptySuper.92386591832651832659213865193456293456>, wrong number format <92386591832651832659213865193456293456>", true);
+		assertIDFails("HierarchyEmptySuper.92386591832651832659213865193456293456",
+															 "no such id <HierarchyEmptySuper.92386591832651832659213865193456293456>, wrong number format <92386591832651832659213865193456293456>", true);
 		assertIDFails("HierarchyEmptySuper.-1", "no such id number <-1>, must be positive", true);
 		assertIDFails("HierarchyEmptySuper.50", "no such id <HierarchyEmptySuper.50>, item <50> does not exist", false);
 	}
