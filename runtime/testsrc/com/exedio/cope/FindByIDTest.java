@@ -22,16 +22,7 @@ public class FindByIDTest extends TestmodelTest
 {
 	private void assertFail(final String id, final String message, final boolean notAnID)
 	{
-		try
-		{
-			model.findByID(id);
-			fail("should have thrown NoSuchIDException");
-		}
-		catch(NoSuchIDException e)
-		{
-			assertEquals(message, e.getMessage());
-			assertEquals(notAnID, e.notAnID());
-		}
+		assertIDFails(id, message, notAnID);
 	}
 
 	public void testFindbyID()

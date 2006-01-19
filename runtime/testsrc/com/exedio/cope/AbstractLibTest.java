@@ -253,6 +253,20 @@ public abstract class AbstractLibTest extends CopeTest
 		assertTrue(item.getCopeID()+"/"+id, item.getCopeID().endsWith("."+id));
 	}
 
+	protected void assertIDFails(final String id, final String message, final boolean notAnID)
+	{
+		try
+		{
+			model.findByID(id);
+			fail("should have thrown NoSuchIDException");
+		}
+		catch(NoSuchIDException e)
+		{
+			assertEquals(message, e.getMessage());
+			assertEquals(notAnID, e.notAnID());
+		}
+	}
+
 	protected void activate(final Transaction transaction)
 	{
 		model.leaveTransaction();

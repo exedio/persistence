@@ -422,6 +422,8 @@ public final class Model
 		final Type type = findTypeByID(typeID);
 		if(type==null)
 			throw new NoSuchIDException(id, true, "no such type "+typeID);
+		if(type.isAbstract())
+			throw new NoSuchIDException(id, true, "type is abstract");
 		
 		final String idString = id.substring(pos+1);
 

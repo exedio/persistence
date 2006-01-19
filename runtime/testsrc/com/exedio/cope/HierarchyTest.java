@@ -30,7 +30,7 @@ public class HierarchyTest extends AbstractLibTest
 	}
 	
 	public void testHierarchy()
-			throws ConstraintViolationException
+			throws ConstraintViolationException, NoSuchIDException
 	{
 		// model HierarchySuper
 		assertEquals(null, HierarchySuper.TYPE.getSupertype());
@@ -116,6 +116,8 @@ public class HierarchyTest extends AbstractLibTest
 		assertID(0, firstItem);
 		assertEquals(0, firstItem.getSuperInt());
 		assertEquals(null, firstItem.getFirstSubString());
+		assertSame(firstItem, model.findByID(HierarchyFirstSub.TYPE.getID()+".0"));
+		assertIDFails("HierarchySuper.0", "no such id <HierarchySuper.0>, type is abstract", true);
 		
 		firstItem.setSuperInt(2);
 		assertEquals(2, firstItem.getSuperInt());
