@@ -93,6 +93,9 @@ public class AttributeDateTest extends AttributeTest
 		{
 			assertEquals("expected " + Date.class.getName() + ", got " + Integer.class.getName() + " for someDate", e.getMessage());
 		}
+		
+		// special test of Model#findByID for items without any attributes
+		assertIDFails("EmptyItem.51", "no such id <EmptyItem.51>, item <51> does not exist", false);
 	}
 	
 	public void testOrder() throws MandatoryViolationException
