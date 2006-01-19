@@ -48,6 +48,8 @@ abstract class AbstractDatabase implements Database
 	protected static final int TWOPOW16 = 1<<16;
 	protected static final int TWOPOW24 = 1<<24;
 	
+	private static final String NO_SUCH_ROW = "no such row";
+	
 	private final List tables = new ArrayList();
 	private final HashMap uniqueConstraintsByID = new HashMap();
 	private final HashMap itemColumnsByIntegrityConstraintName = new HashMap();
@@ -219,7 +221,7 @@ abstract class AbstractDatabase implements Database
 				public void run(final ResultSet resultSet) throws SQLException
 				{
 					if(!resultSet.next())
-						throw new RuntimeException();
+						throw new SQLException(NO_SUCH_ROW);
 				}
 			},
 			false
@@ -792,7 +794,7 @@ abstract class AbstractDatabase implements Database
 		public void run(final ResultSet resultSet) throws SQLException
 		{
 			if(!resultSet.next())
-				throw new RuntimeException();
+				throw new SQLException(NO_SUCH_ROW);
 			
 			result = supportsGetBytes ? resultSet.getBytes(1) : loadBlob(resultSet.getBlob(1));
 		}
@@ -839,7 +841,8 @@ abstract class AbstractDatabase implements Database
 			public void run(final ResultSet resultSet) throws SQLException
 			{
 				if(!resultSet.next())
-					throw new RuntimeException();
+					throw new SQLException(NO_SUCH_ROW);
+
 				final Blob blob = resultSet.getBlob(1);
 				if(blob!=null)
 				{
@@ -899,7 +902,8 @@ abstract class AbstractDatabase implements Database
 		public void run(final ResultSet resultSet) throws SQLException
 		{
 			if(!resultSet.next())
-				throw new RuntimeException();
+				throw new SQLException(NO_SUCH_ROW);
+
 			final Blob blob = resultSet.getBlob(1);
 			result = (blob!=null) ? blob.length() : -1;
 		}
@@ -1365,7 +1369,7 @@ abstract class AbstractDatabase implements Database
 		public void run(final ResultSet resultSet) throws SQLException
 		{
 			if(!resultSet.next())
-				throw new RuntimeException();
+				throw new SQLException(NO_SUCH_ROW);
 
 			result = convertSQLResult(resultSet.getObject(1));
 		}
@@ -1402,7 +1406,8 @@ abstract class AbstractDatabase implements Database
 		public void run(final ResultSet resultSet) throws SQLException
 		{
 			if(!resultSet.next())
-				throw new RuntimeException();
+				throw new SQLException(NO_SUCH_ROW);
+			
 			final Object oLo = resultSet.getObject(1);
 			if(oLo!=null)
 			{
