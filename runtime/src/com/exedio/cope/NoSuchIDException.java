@@ -35,7 +35,6 @@ public final class NoSuchIDException extends Exception
 	
 	NoSuchIDException(final String id, final boolean notAnID, final String detail)
 	{
-		super("no such id <"+id+">, "+detail);
 		this.id = id;
 		this.notAnID = notAnID;
 		this.detail = detail;
