@@ -598,6 +598,21 @@ abstract class AbstractDatabase implements Database
 			bf.appendPK(type, (Join)null).
 				append('=').
 				appendParameter(state.pk);
+			
+			// Additionally check correctness of type column
+			// If type column is inconsistent, the database
+			// will return no rows and the result set handler
+			// will fail
+			// Here this also checks for Model#findByID,
+			// that the item has the type given in the ID.
+			final StringColumn typeColumn = type.getTable().typeColumn;
+			if(typeColumn!=null)
+			{
+				bf.append(" and ").
+					append(typeColumn.protectedID).
+					append('=').
+					appendParameter(state.type.id);
+			}
 		}
 
 		//System.out.println(bf.toString());

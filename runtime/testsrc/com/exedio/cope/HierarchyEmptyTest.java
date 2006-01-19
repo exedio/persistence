@@ -111,7 +111,7 @@ public class HierarchyEmptyTest extends AbstractLibTest
 		assertEquals(list(), superItem.TYPE.search(superItem.superInt.equal(1)));
 		
 		assertSame(subItem, model.findByID("HierarchyEmptySub.0"));
-		assertSame(superItem.TYPE, model.findByID("HierarchyEmptySuper.0").getCopeType()); // TODO this is a bug, should fail !!!
+		assertIDFails("HierarchyEmptySuper.0", "no such id <HierarchyEmptySuper.0>, item <0> does not exist", false);
 		assertSame(superItem, model.findByID("HierarchyEmptySuper.1"));
 		assertIDFails("HierarchyEmptySub.1", "no such id <HierarchyEmptySub.1>, item <1> does not exist", false);
 	}
