@@ -84,16 +84,16 @@ final class SequentialPkSource extends PkSource
 		return (long)pk;
 	}
 
-	int id2pk(final long id)
+	int id2pk(final long id, final String idString)
 			throws NoSuchIDException
 	{
 		// needs no synchronized, since this method
 		// does not use any member variables.
 
 		if(id<0)
-			throw new NoSuchIDException(id, "must be positive");
+			throw new NoSuchIDException(idString, true, "must be positive");
 		if(id>=2147483648l)
-			throw new NoSuchIDException(id, "does not fit in 31 bit");
+			throw new NoSuchIDException(idString, true, "does not fit in 31 bit");
 
 		return (int)id;
 	}

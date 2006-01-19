@@ -32,7 +32,7 @@ public abstract class PkSourceAbstractTest extends TestCase
 	void assertIdPk(final long id, final int pk)
 			throws NoSuchIDException
 	{
-		assertEquals(pk, i.id2pk(id));
+		assertEquals(pk, i.id2pk(id, "idString"+id));
 		assertEquals(id, i.pk2id(pk));
 	}
 	
@@ -40,12 +40,12 @@ public abstract class PkSourceAbstractTest extends TestCase
 	{
 		try
 		{
-			i.id2pk(id);
+			i.id2pk(id, "idString"+id);
 			fail("should have thrown NoSuchIDException");
 		}
 		catch(NoSuchIDException e)
 		{
-			assertEquals("no such id number <"+id+">, "+detail, e.getMessage());
+			assertEquals("no such id <idString"+id+">, "+detail, e.getMessage());
 		}
 	}
 	

@@ -32,7 +32,7 @@ abstract class PkSource
 	abstract void flushPK();
 	abstract int nextPK(Connection connection);
 	abstract long pk2id(int pk);
-	abstract int id2pk(long id) throws NoSuchIDException;
+	abstract int id2pk(long id, String idString) throws NoSuchIDException;
 
 	/**
 	 * There may be one PkSource for many tables (in a inheritance tree),

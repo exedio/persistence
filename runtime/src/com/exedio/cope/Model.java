@@ -437,7 +437,7 @@ public final class Model
 			throw new NoSuchIDException(id, e, idString);
 		}
 
-		final int pk = type.getPkSource().id2pk(idNumber);
+		final int pk = type.getPkSource().id2pk(idNumber, id);
 		
 		final Item result = type.getItemObject(pk);
 		if ( ! result.existsCopeItem() )

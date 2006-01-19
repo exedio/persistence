@@ -93,16 +93,16 @@ final class ButterflyPkSource extends PkSource
 				-((longPk<<1)|1l); // -(2*pk + 1)
 	}
 
-	int id2pk(final long id)
+	int id2pk(final long id, final String idString)
 			throws NoSuchIDException
 	{
 		// needs no synchronized, since this method
 		// does not use any member variables.
 
 		if(id<0)
-			throw new NoSuchIDException(id, "must be positive");
+			throw new NoSuchIDException(idString, true, "must be positive");
 		if(id>=4294967296l)
-			throw new NoSuchIDException(id, "does not fit in 32 bit");
+			throw new NoSuchIDException(idString, true, "does not fit in 32 bit");
 
 		final long result =
 			((id&1l)>0) ? // odd id ?
@@ -111,7 +111,7 @@ final class ButterflyPkSource extends PkSource
 
 		//System.out.println("id2pk: "+id+" -> "+result);
 		if(result==(long)Type.NOT_A_PK)
-			throw new NoSuchIDException(id, "is a NOT_A_PK");
+			throw new NoSuchIDException(idString, true, "is a NOT_A_PK");
 
 		return (int)result;
 	}
