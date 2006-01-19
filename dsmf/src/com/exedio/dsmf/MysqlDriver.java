@@ -82,6 +82,8 @@ public final class MysqlDriver extends Driver
 					case 16277215: return "mediumtext binary";
 					default:       return "text("+columnSize+") binary";
 				}
+			case Types.LONGVARBINARY:
+				return "LONGBLOB";
 			default:
 				return null;
 		}
