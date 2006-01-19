@@ -27,26 +27,28 @@ package com.exedio.cope;
  * 
  * @author Ralf Wiebicke
  */
-public class NoSuchIDException extends Exception
+public final class NoSuchIDException extends Exception
 {
+	private final String id;
 	private final boolean notAnID;
+	private final String detail;
 	
 	NoSuchIDException(final String id, final boolean notAnID, final String detail)
 	{
 		super("no such id <"+id+">, "+detail);
+		this.id = id;
 		this.notAnID = notAnID;
+		this.detail = detail;
 	}
 
 	NoSuchIDException(final String id, final NumberFormatException cause, final String numberString)
 	{
-		super("no such id <"+id+">, wrong number format <"+numberString+">");
-		this.notAnID = true;
+		this(id, true, "wrong number format <"+numberString+">");
 	}
 
-	NoSuchIDException(final long id, final String detail)
+	public String getMessage()
 	{
-		super("no such id number <"+id+">, "+detail);
-		this.notAnID = true;
+		return "no such id <" + id + ">, " + detail;
 	}
 
 	/**
@@ -55,7 +57,7 @@ public class NoSuchIDException extends Exception
 	 * this means, the will never be and has never been an
 	 * item for this id.
 	 */
-	public final boolean notAnID()
+	public boolean notAnID()
 	{
 		return notAnID;
 	}
