@@ -265,7 +265,27 @@ final class Statement
 
 	public String toString()
 	{
-		return text.toString();
+		if(parameters==null)
+			return text.toString();
+		else
+		{
+			final String text = this.text.toString();
+			final StringBuffer result = new StringBuffer();
+			
+			int lastPos = 0;
+			final Iterator pi = parameters.iterator();
+			for(int pos = text.indexOf(QUESTION_MARK); pos>=0&&pi.hasNext(); pos = text.indexOf(QUESTION_MARK, lastPos))
+			{
+				result.append(text.substring(lastPos, pos));
+				result.append(QUESTION_MARK);
+				result.append(pi.next());
+				result.append(QUESTION_MARK);
+				lastPos = pos+1;
+			}
+			result.append(text.substring(lastPos));
+			
+			return result.toString();
+		}
 	}
 	
 	// join aliases
