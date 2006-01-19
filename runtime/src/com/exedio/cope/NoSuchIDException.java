@@ -42,7 +42,10 @@ public final class NoSuchIDException extends Exception
 
 	NoSuchIDException(final String id, final NumberFormatException cause, final String numberString)
 	{
-		this(id, true, "wrong number format <"+numberString+">");
+		super(cause);
+		this.id = id;
+		this.notAnID = true;
+		this.detail = "wrong number format <"+numberString+">";
 	}
 
 	public String getMessage()
