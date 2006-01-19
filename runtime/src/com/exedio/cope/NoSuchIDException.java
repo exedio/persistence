@@ -54,7 +54,7 @@ public final class NoSuchIDException extends Exception
 	/**
 	 * Returns, whether the id is invalid on principle
 	 * within the currently deployed model,
-	 * this means, the will never be and has never been an
+	 * this means, there will never be and has never been an
 	 * item for this id.
 	 */
 	public boolean notAnID()
