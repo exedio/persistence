@@ -28,6 +28,12 @@ public class Example15
 	public HashSet<Date> dates;
 	HashMap<Integer, Boolean> primes = new HashMap();
 
+	public Example15(final HashSet<Date> dates, HashMap<Integer, Boolean> primes)
+	{
+		this.dates = dates;
+		this.primes = primes;
+	}
+	
 	public void set(HashSet<Date> dates, final HashMap<Integer, Boolean> primes)
 	{
 		this.dates = dates;

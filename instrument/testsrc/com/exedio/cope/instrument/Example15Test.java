@@ -55,6 +55,10 @@ public class Example15Test extends InjectorTest
 			assertAttributeHeader("primes", "HashMap<Integer, Boolean>", 0);
 		assertAttribute("primes", null, primes);
 
+		final JavaBehaviour constructor =
+			assertBehaviourHeader("Example15", null, Modifier.PUBLIC);
+		assertMethod("Example15", null, constructor);
+		
 		final JavaBehaviour setter =
 			assertBehaviourHeader("set", "void", Modifier.PUBLIC);
 		assertMethod("set", null, setter);
