@@ -327,7 +327,7 @@ abstract class AbstractDatabase implements Database
 						{
 							final StringColumn typeColumn = ((ItemAttribute)selectAttribute).getTypeColumn();
 							if(typeColumn!=null)
-								bf.append(',').	append(typeColumn, (Join)null).defineColumn(typeColumn);
+								bf.append(',').append(typeColumn, (Join)null).defineColumn(typeColumn);
 						}
 					}
 					else
@@ -609,7 +609,7 @@ abstract class AbstractDatabase implements Database
 			if(typeColumn!=null)
 			{
 				bf.append(" and ").
-					append(typeColumn.protectedID).
+					append(typeColumn, (Join)null).
 					append('=').
 					appendParameter(state.type.id);
 			}
