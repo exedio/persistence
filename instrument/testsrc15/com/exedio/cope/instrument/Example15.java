@@ -18,21 +18,30 @@
 
 package com.exedio.cope.instrument;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
 
-public class PackageTest extends TestCase
+public class Example15
 {
+	private String name;
+	public HashSet<Date> dates;
+	HashMap<Integer, Boolean> primes = new HashMap();
 
-	public static Test suite()
+	public void set(HashSet<Date> dates, final HashMap<Integer, Boolean> primes)
 	{
-		TestSuite suite = new TestSuite();
-		suite.addTestSuite(ExampleTest.class);
-		suite.addTestSuite(Example15Test.class);
-		suite.addTestSuite(ResolveImportTest.class);
-		suite.addTestSuite(GeneratorTest.class);
-		return suite;
+		this.dates = dates;
+		this.primes = primes;
+	}
+
+	private HashSet<Date> getDates()
+	{
+		return dates;
+	}
+
+	HashMap<Integer, Boolean> getPrimes()
+	{
+		return primes;
 	}
 
 }

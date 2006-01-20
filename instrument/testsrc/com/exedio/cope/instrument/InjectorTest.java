@@ -29,11 +29,13 @@ import junit.framework.AssertionFailedError;
 public abstract class InjectorTest extends InstrumentorTest
 {
 	private final String resourceName;
+	private final boolean assertText;
 	private final String lineSeparator;
 
-	protected InjectorTest(final String resourceName)
+	protected InjectorTest(final String resourceName, final boolean assertText)
 	{
 		this.resourceName = resourceName;
+		this.assertText = assertText;
 		this.lineSeparator = System.getProperty("line.separator");
 	}
 
@@ -51,7 +53,8 @@ public abstract class InjectorTest extends InstrumentorTest
 		testInjectionConsumer = new TestInjectionConsumer();
 		final JavaRepository repository = new JavaRepository();
 		final Injector injector = new Injector(inputFile, testInjectionConsumer, repository);
-		testInjectionConsumer.output = injector.javaFile.buffer;
+		if(assertText)
+			testInjectionConsumer.output = injector.javaFile.buffer;
 		injector.parseFile();
 		injector.close();
 		
@@ -94,6 +97,9 @@ public abstract class InjectorTest extends InstrumentorTest
 
 	protected void assertText(final String text)
 	{
+		if(!assertText)
+			throw new RuntimeException("assertText is false");
+		
 		final InjectionEvent event = fetchEvent();
 		if(!(event instanceof TextEvent))
 			throw new AssertionFailedError("expected text event >"+text+"<, but was "+event);
@@ -400,7 +406,7 @@ public abstract class InjectorTest extends InstrumentorTest
 
 		private void flushOutput()
 		{
-			if(output.length()>0)
+			if(assertText && output.length()>0)
 			{
 				injectionEvents.add(new TextEvent(output.toString()));
 				output.setLength(0);

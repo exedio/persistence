@@ -445,6 +445,9 @@
 		<copy
 			file="instrument/testsrc/com/exedio/cope/instrument/Example.java"
 			todir="instrument/build/testclasses/com/exedio/cope/instrument" />
+		<copy
+			file="instrument/testsrc15/com/exedio/cope/instrument/Example15.java"
+			todir="instrument/build/testclasses/com/exedio/cope/instrument" />
 	</target>
 	
 	<target name="instrument.test.run"

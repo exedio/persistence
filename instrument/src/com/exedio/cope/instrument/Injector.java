@@ -310,6 +310,16 @@ final class Injector
 					}
 					//System.out.println("<<"+c+">>");
 					return c;
+				case '<' :
+					buf.append(c);
+					while(true)
+					{
+						c = read();
+						buf.append(c);
+						if(c=='>')
+							break;
+					}
+					break;
 				default :
 					if (!do_block && start_block)
 						do_block = true;

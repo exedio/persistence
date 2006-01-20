@@ -25,17 +25,7 @@ public class ExampleTest extends InjectorTest
 
 	public ExampleTest()
 	{
-		super("Example.java");
-	}
-
-	protected void setUp() throws Exception
-	{
-		super.setUp();
-	}
-
-	protected void tearDown() throws Exception
-	{
-		super.tearDown();
+		super("Example.java", true);
 	}
 
 	public void assertInjection()
