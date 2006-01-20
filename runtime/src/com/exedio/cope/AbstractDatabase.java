@@ -194,7 +194,7 @@ abstract class AbstractDatabase implements Database
 			final Table table = (Table)i.next();
 
 			final Column primaryKey = table.primaryKey;
-			bf.append(primaryKey, null).
+			bf.append(primaryKey).
 				append('=').
 				appendParameter(Type.NOT_A_PK);
 			
@@ -202,7 +202,8 @@ abstract class AbstractDatabase implements Database
 			{
 				final Column column = (Column)j.next();
 				bf.append(" and ").
-					append(column, null);
+					append(column);
+				
 				if(column instanceof BlobColumn || (oracle && column instanceof StringColumn && ((StringColumn)column).maximumLength>=4000))
 				{
 					bf.append("is not null");
@@ -327,7 +328,7 @@ abstract class AbstractDatabase implements Database
 						{
 							final StringColumn typeColumn = ((ItemAttribute)selectAttribute).getTypeColumn();
 							if(typeColumn!=null)
-								bf.append(',').append(typeColumn, (Join)null).defineColumn(typeColumn);
+								bf.append(',').append(typeColumn).defineColumn(typeColumn);
 						}
 					}
 					else
@@ -355,7 +356,7 @@ abstract class AbstractDatabase implements Database
 						if(selectTypeColumn!=null)
 						{
 							bf.append(',').
-								append(selectTypeColumn, (Join)null).defineColumn(selectTypeColumn);
+								append(selectTypeColumn).defineColumn(selectTypeColumn);
 						}
 						else
 							selectTypes[selectableIndex] = selectType.getOnlyPossibleTypeOfInstances();
@@ -563,7 +564,7 @@ abstract class AbstractDatabase implements Database
 					else
 						bf.append(',');
 
-					bf.append(column, (Join)null).defineColumn(column);
+					bf.append(column).defineColumn(column);
 				}
 			}
 		}
@@ -609,7 +610,7 @@ abstract class AbstractDatabase implements Database
 			if(typeColumn!=null)
 			{
 				bf.append(" and ").
-					append(typeColumn, (Join)null).
+					append(typeColumn).
 					append('=').
 					appendParameter(state.type.id);
 			}

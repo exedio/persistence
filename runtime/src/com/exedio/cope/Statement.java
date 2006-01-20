@@ -145,6 +145,11 @@ final class Statement
 		return append(type.getTable().primaryKey, join);
 	}
 		
+	Statement append(final Column column)
+	{
+		return append(column, (Join)null);
+	}
+	
 	Statement append(final Column column, final Join join)
 	{
 		if(qualifyTable)
