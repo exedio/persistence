@@ -81,11 +81,21 @@ public class PropertiesTest extends CopeAssert
 		final TestProperties minimal = new TestProperties(pminimal, "minimal");
 		minimal.assertIt();
 		assertEquals("minimal", minimal.getSource());
+		
 		assertEquals(false, minimal.boolFalse.value);
 		assertEquals(true, minimal.boolTrue.value);
 		assertEquals(10, minimal.int10.value);
 		assertEquals("stringMandatory.minimalValue", minimal.stringMandatory.value);
 		assertEquals("stringOptional.defaultValue", minimal.stringOptional.value);
+		assertEquals("stringHidden.minimalValue", minimal.stringHidden.value);
+		
+		assertEquals(false, minimal.boolFalse.isSpecified());
+		assertEquals(false, minimal.boolTrue.isSpecified());
+		assertEquals(false, minimal.int10.isSpecified());
+		assertEquals(true, minimal.stringMandatory.isSpecified());
+		assertEquals(false, minimal.stringOptional.isSpecified());
+		assertEquals(true, minimal.stringHidden.isSpecified());
+		
 		minimal.ensureEquality(minimal);
 		
 		{
@@ -101,12 +111,23 @@ public class PropertiesTest extends CopeAssert
 			p.setProperty("int10", "20");
 			p.setProperty("stringMandatory", "stringMandatory.explicitValue");
 			p.setProperty("stringOptional", "stringOptional.explicitValue");
+			p.setProperty("stringHidden", "stringHidden.explicitValue");
 			final TestProperties tp = new TestProperties(p, "maximal");
+			assertEquals("maximal", tp.getSource());
+			
 			assertEquals(true, tp.boolFalse.value);
 			assertEquals(false, tp.boolTrue.value);
 			assertEquals(20, tp.int10.value);
 			assertEquals("stringMandatory.explicitValue", tp.stringMandatory.value);
 			assertEquals("stringOptional.explicitValue", tp.stringOptional.value);
+			assertEquals("stringHidden.explicitValue", tp.stringHidden.value);
+
+			assertEquals(true, tp.boolFalse.isSpecified());
+			assertEquals(true, tp.boolTrue.isSpecified());
+			assertEquals(true, tp.int10.isSpecified());
+			assertEquals(true, tp.stringMandatory.isSpecified());
+			assertEquals(true, tp.stringOptional.isSpecified());
+			assertEquals(true, tp.stringHidden.isSpecified());
 		}
 		
 		// boolean

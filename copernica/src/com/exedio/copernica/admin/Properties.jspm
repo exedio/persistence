@@ -48,22 +48,33 @@ final class Properties_Jspm
 	
 	final static void write(
 				final PrintStream out,
+				final PropertiesCop cop,
 				final Properties properties,
 				final String sourceContent)
 		throws IOException
 	{
+		final boolean showUnspecified = cop.showUnspecified;
 		%>
 		<table class="properties">
+			<tr>
+				<th colspan="2"><a href="<%=cop.toToggleUnspecified()%>"><%if(showUnspecified){%>hide<%}else{%>show<%}%> unspecified properties</a></th>
+			</tr>
 			<tr>
 				<th colspan="2"><%=properties.getSource()%></th>
 			</tr><%
 			for(Iterator i = properties.getFields().iterator(); i.hasNext(); )
 			{
 				final Properties.Field field = (Properties.Field)i.next();
-				if(!field.hasHiddenValue())
+				final boolean fieldSpecified = field.isSpecified();
+				if(!field.hasHiddenValue() && (showUnspecified||fieldSpecified))
 				{
 			%>
-			<tr>
+			<tr<%
+				if(!fieldSpecified)
+				{
+					%> class="unspecified"<%
+				}
+				%>>
 				<th><%=field.key%></th><%
 				if(field instanceof Properties.StringField &&
 					((Properties.StringField)field).defaultValue!=null)

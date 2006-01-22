@@ -33,11 +33,29 @@ import com.exedio.cope.Properties;
 
 final class PropertiesCop extends AdminCop
 {
-	PropertiesCop()
+	static final String SHOW_UNSPECIFIED = "up";
+	
+	final boolean showUnspecified;
+
+	PropertiesCop(final boolean showUnspecified)
 	{
 		super("properties");
+		this.showUnspecified = showUnspecified;
+		
+		if(showUnspecified)
+			addParameter(SHOW_UNSPECIFIED, "t");
 	}
-
+	
+	static final PropertiesCop getPropertiesCop(final HttpServletRequest request)
+	{
+		return new PropertiesCop(request.getParameter(SHOW_UNSPECIFIED)!=null);
+	}
+	
+	PropertiesCop toToggleUnspecified()
+	{
+		return new PropertiesCop(!showUnspecified);
+	}
+	
 	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request) throws IOException
 	{
 		final Properties props = model.getProperties();
@@ -73,7 +91,7 @@ final class PropertiesCop extends AdminCop
 			throw new RuntimeException(e);
 		}
 		
-		Properties_Jspm.write(out, props, sourceContent);
+		Properties_Jspm.write(out, this, props, sourceContent);
 	}
 	
 }

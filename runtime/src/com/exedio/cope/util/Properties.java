@@ -51,10 +51,12 @@ public class Properties
 	{
 		// TODO make private
 		public final String key;
+		private final boolean specified;
 		
 		Field(final String key)
 		{
 			this.key = key;
+			this.specified = properties.containsKey(key);
 
 			if(key==null)
 				throw new NullPointerException("key must not be null.");
@@ -65,6 +67,11 @@ public class Properties
 		}
 		
 		public abstract Object getValue();
+
+		public final boolean isSpecified()
+		{
+			return specified;
+		}
 		
 		public boolean hasHiddenValue()
 		{

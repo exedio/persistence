@@ -62,6 +62,16 @@ table.statistics tr.inconsistent td
 	background:#C00;
 }
 
+table.properties tr.unspecified th
+{
+	background:#CCB;
+}
+
+table.properties tr.unspecified td
+{
+	background:#FFE;
+}
+
 table.statistics th.colored1 { background:#fcf; text-align:left; padding-left:0.3em; }
 table.statistics th.colored2 { background:#cff; text-align:left; padding-left:0.3em; }
 table.statistics th.colored3 { background:#fcc; text-align:left; padding-left:0.3em; }

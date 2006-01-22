@@ -50,7 +50,7 @@ abstract class AdminCop extends Cop
 	final AdminCop[] getTabs()
 	{
 		return new AdminCop[]{
-				new PropertiesCop(),
+				new PropertiesCop(false),
 				new SchemaCop(null, false, false),
 				new ConnectionStatsCop(),
 				new CacheStatsCop(),
@@ -124,7 +124,7 @@ abstract class AdminCop extends Cop
 		if(schemaID!=null)
 			return SchemaCop.getCop(schemaID, request);
 		
-		return new PropertiesCop();
+		return PropertiesCop.getPropertiesCop(request);
 	}
 
 }
