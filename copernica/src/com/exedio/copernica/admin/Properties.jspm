@@ -56,27 +56,35 @@ final class Properties_Jspm
 		<table class="properties">
 			<tr>
 				<th colspan="2"><%=properties.getSource()%></th>
-			</tr>
-			<tr>
-				<th><%=properties.DATABASE%></th>
-				<td><%=properties.getDatabase()%></td>
-			</tr>
-			<tr>
-				<th><%=properties.DATABASE_URL%></th>
-				<td><%=properties.getDatabaseUrl()%></td>
-			</tr>
-			<tr>
-				<th><%=properties.DATABASE_USER%></th>
-				<td><%=properties.getDatabaseUser()%></td>
 			</tr><%
 			for(Iterator i = properties.getFields().iterator(); i.hasNext(); )
 			{
 				final Properties.Field field = (Properties.Field)i.next();
+				if(!field.hasHiddenValue())
+				{
 			%>
 			<tr>
-				<th><%=field.key%></th>
-				<td><%=field.getValue()%></td>
+				<th><%=field.key%></th><%
+				if(field instanceof Properties.StringField &&
+					((Properties.StringField)field).defaultValue!=null)
+				{
+				%>
+				<td>
+					<%=field.getValue()%>
+					<br>
+					<small>
+					(default is &quot;<%=((Properties.StringField)field).defaultValue%>&quot;)
+					</small>
+				</td><%
+				}
+				else
+				{
+				%>
+				<td><%=field.getValue()%></td><%
+				}
+				%>
 			</tr><%
+				}
 			}
 			%>
 			<tr>
@@ -100,16 +108,6 @@ final class Properties_Jspm
 					%><b>n/a</b><%
 				}
 				%></td>
-			</tr>
-			<tr>
-				<th><%=properties.MEDIA_ROOT_URL%></th>
-				<td>
-					<%=properties.getMediaRootUrl()%>
-					<br>
-					<small>
-					(default is &quot;<%=properties.MEDIA_ROOT_URL_DEFAULT%>&quot;)
-					</small>
-				</td>
 			</tr><%
 
 			if(sourceContent!=null)

@@ -49,20 +49,34 @@ public class Properties
 	
 	public abstract class Field
 	{
+		// TODO make private
 		public final String key;
 		
 		Field(final String key)
 		{
 			this.key = key;
+
+			if(key==null)
+				throw new NullPointerException("key must not be null.");
+			if(key.length()==0)
+				throw new RuntimeException("key must not be empty.");
+			
 			fields.add(this);
 		}
 		
 		public abstract Object getValue();
+		
+		public boolean hasHiddenValue()
+		{
+			return false;
+		}
 	}
 	
 	public final class BooleanField extends Field
 	{
+		// TODO make private
 		final boolean defaultValue;
+		// TODO make private
 		public final boolean value;
 		
 		public BooleanField(final String key, final boolean defaultValue)
@@ -92,7 +106,9 @@ public class Properties
 
 	public final class IntField extends Field
 	{
+		// TODO make private
 		final int defaultValue;
+		// TODO make private
 		public final int value;
 		
 		public IntField(final String key, final int defaultValue, final int minimumValue)
@@ -135,6 +151,69 @@ public class Properties
 		}
 	}
 
+	public final class StringField extends Field
+	{
+		// TODO make private
+		public final String defaultValue;
+		private final boolean hideValue;
+		// TODO make private
+		public final String value;
+		
+		/**
+		 * Creates a mandatory string field.
+		 */
+		public StringField(final String key)
+		{
+			this(key, null, false);
+		}
+		
+		public StringField(final String key, final String defaultValue)
+		{
+			this(key, defaultValue, false);
+
+			if(defaultValue==null)
+				throw new NullPointerException("defaultValue must not be null.");
+		}
+		
+		/**
+		 * Creates a mandatory string field.
+		 */
+		public StringField(final String key, final boolean hideValue)
+		{
+			this(key, null, hideValue);
+		}
+		
+		private StringField(final String key, final String defaultValue, final boolean hideValue)
+		{
+			super(key);
+			this.defaultValue = defaultValue;
+			this.hideValue = hideValue;
+			
+			assert !(defaultValue!=null && hideValue); 
+			
+			final String s = properties.getProperty(key);
+			if(s==null)
+			{
+				if(defaultValue==null)
+					throw new RuntimeException("property " + key + " in " + source + " not set."); // TODO mention default values
+				else
+					this.value = defaultValue;
+			}
+			else
+				this.value = s;
+		}
+		
+		public Object getValue()
+		{
+			return value;
+		}
+		
+		public boolean hasHiddenValue()
+		{
+			return hideValue;
+		}
+	}
+
 	public void ensureEquality(final Properties other)
 	{
 		final Iterator j = other.fields.iterator();
@@ -142,9 +221,13 @@ public class Properties
 		{
 			final Field thisField = (Field)i.next();
 			final Field otherField = (Field)j.next();
+			final boolean thisHideValue = thisField.hasHiddenValue();
+			final boolean otherHideValue = otherField.hasHiddenValue();
 			
 			if(!thisField.key.equals(otherField.key))
 				throw new RuntimeException("inconsistent fields");
+			if(thisHideValue!=otherHideValue)
+				throw new RuntimeException("inconsistent fields with hide value");
 			
 			final Object thisValue = thisField.getValue();
 			final Object otherValue = otherField.getValue();
@@ -154,7 +237,7 @@ public class Properties
 				throw new RuntimeException(
 						"inconsistent initialization for " + thisField.key +
 						" between " + source + " and " + other.source +
-						(false/*TODO hideValues*/ ? "." : "," + " expected " + thisValue + " but got " + otherValue + '.'));
+						(thisHideValue ? "." : "," + " expected " + thisValue + " but got " + otherValue + '.'));
 		}
 		
 	}

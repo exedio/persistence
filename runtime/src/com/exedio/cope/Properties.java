@@ -33,10 +33,10 @@ public final class Properties extends com.exedio.cope.util.Properties
 	private static final String FILE_NAME_PROPERTY = "com.exedio.cope.properties";
 	private static final String DEFAULT_FILE_NAME = "cope.properties";
 	
-	public static final String DATABASE = "database";
-	public static final String DATABASE_URL = "database.url";
-	public static final String DATABASE_USER = "database.user";
-	public static final String DATABASE_PASSWORD = "database.password";
+	private final StringField databaseCode = new StringField("database");
+	final StringField databaseUrl =  new StringField("database.url");
+	final StringField databaseUser =  new StringField("database.user");
+	final StringField databasePassword =  new StringField("database.password", true);
 	final BooleanField databaseLog = new BooleanField("database.log", false);
 	
 	final BooleanField databaseDontSupportPreparedStatements = new BooleanField("database.dontSupport.preparedStatements", false);
@@ -57,8 +57,7 @@ public final class Properties extends com.exedio.cope.util.Properties
 	final BooleanField cacheQueryLogging = new BooleanField("cache.queryLogging", false);
 	
 	public static final String DATADIR_PATH = "datadir.path";
-	public static final String MEDIA_ROOT_URL = "media.rooturl";
-	public static final String MEDIA_ROOT_URL_DEFAULT = "media/";
+	final StringField mediaRooturl =  new StringField("media.rooturl", "media/");
 	final IntField mediaOffsetExpires = new IntField("media.offsetExpires", 1000 * 5, 0);
 	
 	private final String source;
@@ -68,15 +67,11 @@ public final class Properties extends com.exedio.cope.util.Properties
 	// you probably have to add another
 	// test to ensureEquality as well.
 	private final Constructor database;
-	private final String databaseUrl;
-	private final String databaseUser;
-	private final String databasePassword;
 	private final java.util.Properties databaseForcedNames;
 	private final java.util.Properties databaseTableOptions;
 	private final java.util.Properties databaseCustomProperties;
 	
 	private final File datadirPath;
-	private final String mediaRootUrl;
 
 	public Properties()
 	{
@@ -136,7 +131,7 @@ public final class Properties extends com.exedio.cope.util.Properties
 
 		final String databaseCustomPropertiesPrefix;
 		{
-			final String databaseCode = getPropertyNotNull(properties, DATABASE);
+			final String databaseCode = this.databaseCode.value;
 			if(databaseCode.length()<=2)
 				throw new RuntimeException("database from "+source+" must have at least two characters, but was "+databaseCode);
 
@@ -148,9 +143,6 @@ public final class Properties extends com.exedio.cope.util.Properties
 		databaseForcedNames = getPropertyMap(properties, DATABASE_FORCE_NAME);
 		databaseCustomProperties = getPropertyMap(properties, databaseCustomPropertiesPrefix);
 		databaseTableOptions = getPropertyMap(properties, DATABASE_TABLE_OPTION);
-		databaseUrl = getPropertyNotNull(properties, DATABASE_URL);
-		databaseUser = getPropertyNotNull(properties, DATABASE_USER);
-		databasePassword = getPropertyNotNull(properties, DATABASE_PASSWORD);
 		
 		final String datadirPathString  = properties.getProperty(DATADIR_PATH);
 		if(datadirPathString!=null)
@@ -179,15 +171,12 @@ public final class Properties extends com.exedio.cope.util.Properties
 			datadirPath = null;
 		}
 
-		final String explicitMediaRootUrl = properties.getProperty(MEDIA_ROOT_URL);
-		mediaRootUrl = explicitMediaRootUrl!=null ? explicitMediaRootUrl : MEDIA_ROOT_URL_DEFAULT;
-		
 		{
 			final HashSet allowedValues = new HashSet(Arrays.asList(new String[]{
-					DATABASE,
-					DATABASE_URL,
-					DATABASE_USER,
-					DATABASE_PASSWORD,
+					databaseCode.key,
+					databaseUrl.key,
+					databaseUser.key,
+					databasePassword.key,
 					databaseLog.key,
 					databaseDontSupportPreparedStatements.key,
 					databaseDontSupportEmptyStrings.key,
@@ -200,7 +189,7 @@ public final class Properties extends com.exedio.cope.util.Properties
 					cacheQueryLimit.key,
 					cacheQueryLogging.key,
 					DATADIR_PATH,
-					MEDIA_ROOT_URL,
+					mediaRooturl.key,
 					mediaOffsetExpires.key,
 				}));
 			for(Iterator i = properties.keySet().iterator(); i.hasNext(); )
@@ -254,15 +243,6 @@ public final class Properties extends com.exedio.cope.util.Properties
 		return new RuntimeException("property "+key+" in "+source+" not set.");
 	}
 	
-	private String getPropertyNotNull(final java.util.Properties properties, final String key)
-	{
-		final String result = properties.getProperty(key);
-		if(result==null)
-			throw newNotSetException(key);
-
-		return result;
-	}
-
 	private java.util.Properties getPropertyMap(final java.util.Properties properties, String prefix)
 	{
 		final java.util.Properties result = new java.util.Properties();
@@ -315,17 +295,17 @@ public final class Properties extends com.exedio.cope.util.Properties
 
 	public String getDatabaseUrl()
 	{
-		return databaseUrl;
+		return databaseUrl.value;
 	}
 
 	public String getDatabaseUser()
 	{
-		return databaseUser;
+		return databaseUser.value;
 	}
 
 	public String getDatabasePassword()
 	{
-		return databasePassword;
+		return databasePassword.value;
 	}
 	
 	public boolean getDatabaseLog()
@@ -413,7 +393,7 @@ public final class Properties extends com.exedio.cope.util.Properties
 	
 	public String getMediaRootUrl()
 	{
-		return mediaRootUrl;
+		return mediaRooturl.value;
 	}
 	
 	/**
@@ -435,34 +415,21 @@ public final class Properties extends com.exedio.cope.util.Properties
 	{
 		super.ensureEquality(other);
 		
-		ensureEquality(other, DATABASE, this.getDatabase(), other.getDatabase());
-		ensureEquality(other, DATABASE_URL, this.databaseUrl, other.databaseUrl);
-		ensureEquality(other, DATABASE_USER, this.databaseUser, other.databaseUser);
-		ensureEquality(other, DATABASE_PASSWORD, this.databasePassword, other.databasePassword, true);
+		ensureEquality(other, databaseCode.key, this.getDatabase(), other.getDatabase());
 		ensureEquality(other, DATABASE_FORCE_NAME, this.databaseForcedNames, other.databaseForcedNames);
 		ensureEquality(other, "database.DATABASE.*", this.databaseCustomProperties, other.databaseCustomProperties);
-		
 		ensureEquality(other, DATADIR_PATH, this.datadirPath, other.datadirPath);
-		ensureEquality(other, MEDIA_ROOT_URL, this.mediaRootUrl, other.mediaRootUrl);
 	}
 	
 	private final void ensureEquality(
 			final Properties other, final String name,
 			final Object thisValue, final Object otherValue)
 	{
-		ensureEquality(other, name, thisValue, otherValue, false);
-	}
-	
-	private final void ensureEquality(
-			final Properties other, final String name,
-			final Object thisValue, final Object otherValue,
-			final boolean hideValues)
-	{
 		if((thisValue!=null && !thisValue.equals(otherValue)) ||
 			(thisValue==null && otherValue!=null))
 			throw new RuntimeException(
 					"inconsistent initialization for " + name +
 					" between " + source + " and " + other.source +
-					(hideValues ? "." : "," + " expected " + thisValue + " but got " + otherValue + '.'));
+					"," + " expected " + thisValue + " but got " + otherValue + '.');
 	}
 }

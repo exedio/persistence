@@ -23,6 +23,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.Iterator;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -53,7 +54,15 @@ final class PropertiesCop extends AdminCop
 				bf.append(b, 0, len);
 
 			sourceContent = bf.toString();
-			sourceContent = sourceContent.replaceAll(props.DATABASE_PASSWORD+".*", props.DATABASE_PASSWORD+"=<i>hidden</i>");
+			for(Iterator i = props.getFields().iterator(); i.hasNext(); )
+			{
+				final Properties.Field field = (Properties.Field)i.next();
+				if(field.hasHiddenValue())
+				{
+					final String key = field.key;
+					sourceContent = sourceContent.replaceAll(key+".*", key+"=<i>hidden</i>");
+				}
+			}
 		}
 		catch(FileNotFoundException e)
 		{

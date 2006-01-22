@@ -96,8 +96,8 @@ public class ModelTest extends TestmodelTest
 		
 		{
 			final java.util.Properties props = (java.util.Properties)newProps.clone();
-			props.setProperty(Properties.DATABASE_URL, "zack");
-			final String source = file.getAbsolutePath()+'/'+Properties.DATABASE_URL+"=zack";
+			props.setProperty(mp.databaseUrl.key, "zack");
+			final String source = file.getAbsolutePath()+'/'+mp.databaseUrl.key+"=zack";
 			try
 			{
 				model.setPropertiesInitially(new Properties(props, source));
@@ -105,7 +105,7 @@ public class ModelTest extends TestmodelTest
 			catch(RuntimeException e)
 			{
 				assertEquals(
-						"inconsistent initialization for " + Properties.DATABASE_URL +
+						"inconsistent initialization for " + mp.databaseUrl.key +
 						" between " + mp.getSource() + " and " + source +
 						", expected " + mp.getDatabaseUrl() +
 						" but got zack.", e.getMessage());
@@ -113,8 +113,8 @@ public class ModelTest extends TestmodelTest
 		}
 		{
 			final java.util.Properties props = (java.util.Properties)newProps.clone();
-			props.setProperty(Properties.DATABASE_USER, "zick");
-			final String source = file.getAbsolutePath()+'/'+Properties.DATABASE_USER+"=zick";
+			props.setProperty(mp.databaseUser.key, "zick");
+			final String source = file.getAbsolutePath()+'/'+mp.databaseUser.key+"=zick";
 			try
 			{
 				model.setPropertiesInitially(new Properties(props, source));
@@ -122,15 +122,15 @@ public class ModelTest extends TestmodelTest
 			catch(RuntimeException e)
 			{
 				assertEquals(
-						"inconsistent initialization for " + Properties.DATABASE_USER +
+						"inconsistent initialization for " + mp.databaseUser.key +
 						" between " + mp.getSource() + " and " + source +
 						", expected "+mp.getDatabaseUser()+" but got zick.", e.getMessage());
 			}
 		}
 		{
 			final java.util.Properties props = (java.util.Properties)newProps.clone();
-			props.setProperty(Properties.DATABASE_PASSWORD, "zock");
-			final String source = file.getAbsolutePath()+'/'+Properties.DATABASE_PASSWORD+"=zock";
+			props.setProperty(mp.databasePassword.key, "zock");
+			final String source = file.getAbsolutePath()+'/'+mp.databasePassword.key+"=zock";
 			try
 			{
 				model.setPropertiesInitially(new Properties(props, source));
@@ -138,7 +138,7 @@ public class ModelTest extends TestmodelTest
 			catch(RuntimeException e)
 			{
 				assertEquals(
-						"inconsistent initialization for " + Properties.DATABASE_PASSWORD +
+						"inconsistent initialization for " + mp.databasePassword.key +
 						" between " + mp.getSource() + " and " + source + ".", e.getMessage());
 			}
 		}
@@ -146,7 +146,7 @@ public class ModelTest extends TestmodelTest
 			final java.util.Properties props = (java.util.Properties)newProps.clone();
 			final String newValue = mp.getDatabaseDontSupportEmptyStrings()?"false":"true";
 			props.setProperty(mp.databaseDontSupportEmptyStrings.key, newValue);
-			final String source = file.getAbsolutePath()+'/'+Properties.DATABASE_PASSWORD+"=zock";
+			final String source = file.getAbsolutePath()+'/'+mp.databasePassword.key+"=zock";
 			try
 			{
 				model.setPropertiesInitially(new Properties(props, source));
@@ -189,7 +189,7 @@ public class ModelTest extends TestmodelTest
 			final java.util.Properties props = (java.util.Properties)newProps.clone();
 			final String newValue = mp.getPkSourceButterfly()?"false":"true";
 			props.setProperty(mp.pksourceButterfly.key, newValue);
-			final String source = file.getAbsolutePath()+'/'+Properties.DATABASE_PASSWORD+"=zock";
+			final String source = file.getAbsolutePath()+'/'+mp.databasePassword.key+"=zock";
 			try
 			{
 				model.setPropertiesInitially(new Properties(props, source));
@@ -289,8 +289,8 @@ public class ModelTest extends TestmodelTest
 		}
 		{
 			final java.util.Properties props = (java.util.Properties)newProps.clone();
-			props.setProperty(Properties.MEDIA_ROOT_URL, "zosch");
-			final String source = file.getAbsolutePath()+'/'+Properties.MEDIA_ROOT_URL+"=zosch";
+			props.setProperty(mp.mediaRooturl.key, "zosch");
+			final String source = file.getAbsolutePath()+'/'+mp.mediaRooturl.key+"=zosch";
 			try
 			{
 				model.setPropertiesInitially(new Properties(props, source));
@@ -298,16 +298,16 @@ public class ModelTest extends TestmodelTest
 			catch(RuntimeException e)
 			{
 				assertEquals(
-						"inconsistent initialization for " + Properties.MEDIA_ROOT_URL +
+						"inconsistent initialization for " + mp.mediaRooturl.key +
 						" between " + mp.getSource() + " and " + source +
 						", expected " + mp.getMediaRootUrl() +
 						" but got zosch.", e.getMessage());
 			}
 
-			props.remove(Properties.MEDIA_ROOT_URL);
-			assertEquals(Properties.MEDIA_ROOT_URL_DEFAULT, new Properties(props, "source").getMediaRootUrl());
+			props.remove(mp.mediaRooturl.key);
+			assertEquals(mp.mediaRooturl.defaultValue, new Properties(props, "source").getMediaRootUrl());
 
-			props.setProperty(Properties.MEDIA_ROOT_URL, "klack");
+			props.setProperty(mp.mediaRooturl.key, "klack");
 			assertEquals("klack", new Properties(props, "source").getMediaRootUrl());
 		}
 		{

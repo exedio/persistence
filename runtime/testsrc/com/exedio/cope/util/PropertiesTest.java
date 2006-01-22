@@ -29,6 +29,9 @@ public class PropertiesTest extends CopeAssert
 		final BooleanField boolFalse = new BooleanField("boolFalse", false);
 		final BooleanField boolTrue = new BooleanField("boolTrue", true);
 		final IntField int10 = new IntField("int10", 10, 5);
+		final StringField stringMandatory = new StringField("stringMandatory");
+		final StringField stringOptional = new StringField("stringOptional", "stringOptional.defaultValue");
+		final StringField stringHidden = new StringField("stringHidden", true);
 		
 		public TestProperties(final java.util.Properties properties, final String source)
 		{
@@ -41,21 +44,39 @@ public class PropertiesTest extends CopeAssert
 					boolFalse,
 					boolTrue,
 					int10,
+					stringMandatory,
+					stringOptional,
+					stringHidden,
 			}), getFields());
 			
 			assertEquals("boolFalse", boolFalse.key);
 			assertEquals("boolTrue", boolTrue.key);
 			assertEquals("int10", int10.key);
+			assertEquals("stringMandatory", stringMandatory.key);
+			assertEquals("stringOptional", stringOptional.key);
+			assertEquals("stringHidden", stringHidden.key);
 			
 			assertEquals(false, boolFalse.defaultValue);
 			assertEquals(true, boolTrue.defaultValue);
 			assertEquals(10, int10.defaultValue);
+			assertEquals(null, stringMandatory.defaultValue);
+			assertEquals("stringOptional.defaultValue", stringOptional.defaultValue);
+			assertEquals(null, stringHidden.defaultValue);
+
+			assertEquals(false, boolFalse.hasHiddenValue());
+			assertEquals(false, boolTrue.hasHiddenValue());
+			assertEquals(false, int10.hasHiddenValue());
+			assertEquals(false, stringMandatory.hasHiddenValue());
+			assertEquals(false, stringOptional.hasHiddenValue());
+			assertEquals(true, stringHidden.hasHiddenValue());
 		}
 	}
 	
 	public void testIt()
 	{
 		final java.util.Properties pminimal = new java.util.Properties();
+		pminimal.setProperty("stringMandatory", "stringMandatory.minimalValue");
+		pminimal.setProperty("stringHidden", "stringHidden.minimalValue");
 		
 		final TestProperties minimal = new TestProperties(pminimal, "minimal");
 		minimal.assertIt();
@@ -63,6 +84,8 @@ public class PropertiesTest extends CopeAssert
 		assertEquals(false, minimal.boolFalse.value);
 		assertEquals(true, minimal.boolTrue.value);
 		assertEquals(10, minimal.int10.value);
+		assertEquals("stringMandatory.minimalValue", minimal.stringMandatory.value);
+		assertEquals("stringOptional.defaultValue", minimal.stringOptional.value);
 		minimal.ensureEquality(minimal);
 		
 		{
@@ -72,14 +95,18 @@ public class PropertiesTest extends CopeAssert
 			minimal1.ensureEquality(minimal);
 		}
 		{
-			final java.util.Properties p = new java.util.Properties(pminimal);
+			final java.util.Properties p = copy(pminimal);
 			p.setProperty("boolFalse", "true");
 			p.setProperty("boolTrue", "false");
 			p.setProperty("int10", "20");
+			p.setProperty("stringMandatory", "stringMandatory.explicitValue");
+			p.setProperty("stringOptional", "stringOptional.explicitValue");
 			final TestProperties tp = new TestProperties(p, "maximal");
 			assertEquals(true, tp.boolFalse.value);
 			assertEquals(false, tp.boolTrue.value);
 			assertEquals(20, tp.int10.value);
+			assertEquals("stringMandatory.explicitValue", tp.stringMandatory.value);
+			assertEquals("stringOptional.explicitValue", tp.stringOptional.value);
 		}
 		
 		// boolean
@@ -104,7 +131,7 @@ public class PropertiesTest extends CopeAssert
 		// int
 		{
 			// test lowest value
-			final java.util.Properties p = new java.util.Properties(pminimal);
+			final java.util.Properties p = copy(pminimal);
 			p.setProperty("int10", "5");
 			final TestProperties tp = new TestProperties(p, "int.border");
 			assertEquals(5, tp.int10.value);
@@ -126,6 +153,35 @@ public class PropertiesTest extends CopeAssert
 					" expected 10 but got 88.",
 				"inconsistent initialization for int10 between inconsistent.int and minimal," +
 					" expected 88 but got 10."	);
+
+		// String
+		assertWrong(pminimal,
+				"wrong.stringMandatory.missing",
+				"stringMandatory", null,
+				"property stringMandatory in wrong.stringMandatory.missing not set.");
+		assertWrong(pminimal,
+				"wrong.stringHidden.missing",
+				"stringHidden", null,
+				"property stringHidden in wrong.stringHidden.missing not set.");
+		assertInconsistent(pminimal,
+				"inconsistent.stringMandatory",
+				"stringMandatory", "stringMandatory.inconsistentValue",
+				"inconsistent initialization for stringMandatory between minimal and inconsistent.stringMandatory," +
+					" expected stringMandatory.minimalValue but got stringMandatory.inconsistentValue.",
+				"inconsistent initialization for stringMandatory between inconsistent.stringMandatory and minimal," +
+					" expected stringMandatory.inconsistentValue but got stringMandatory.minimalValue."	);
+		assertInconsistent(pminimal,
+				"inconsistent.stringOptional",
+				"stringOptional", "stringOptional.inconsistentValue",
+				"inconsistent initialization for stringOptional between minimal and inconsistent.stringOptional," +
+					" expected stringOptional.defaultValue but got stringOptional.inconsistentValue.",
+				"inconsistent initialization for stringOptional between inconsistent.stringOptional and minimal," +
+					" expected stringOptional.inconsistentValue but got stringOptional.defaultValue."	);
+		assertInconsistent(pminimal,
+				"inconsistent.stringHidden",
+				"stringHidden", "stringHidden.inconsistentValue",
+				"inconsistent initialization for stringHidden between minimal and inconsistent.stringHidden.",
+				"inconsistent initialization for stringHidden between inconsistent.stringHidden and minimal."	);
 	}
 	
 	private void assertWrong(
@@ -135,8 +191,12 @@ public class PropertiesTest extends CopeAssert
 			final String value,
 			final String message)
 	{
-		final java.util.Properties wrongProps = new java.util.Properties(template);
-		wrongProps.setProperty(key, value);
+		final java.util.Properties wrongProps = copy(template);
+		if(value!=null)
+			wrongProps.setProperty(key, value);
+		else
+			wrongProps.remove(key);
+		
 		try
 		{
 			new TestProperties(wrongProps, source);
@@ -158,7 +218,7 @@ public class PropertiesTest extends CopeAssert
 		final TestProperties templateProps = new TestProperties(template, "minimal");
 		templateProps.assertIt();
 		
-		final java.util.Properties p = new java.util.Properties(template);
+		final java.util.Properties p = copy(template);
 		p.setProperty(key, value);
 		final TestProperties inconsistentProps = new TestProperties(p, source);
 		try
@@ -179,5 +239,10 @@ public class PropertiesTest extends CopeAssert
 		{
 			assertEquals(message2, 	e.getMessage());
 		}
+	}
+	
+	private static final java.util.Properties copy(final java.util.Properties source)
+	{
+		return (java.util.Properties)source.clone();
 	}
 }
