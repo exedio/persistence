@@ -76,15 +76,15 @@ final class Properties_Jspm
 				}
 				%>>
 				<th><%=field.key%></th><%
-				if(field instanceof Properties.StringField &&
-					((Properties.StringField)field).defaultValue!=null)
+				final Object defaultValue = field.getDefaultValue();
+				if(defaultValue!=null && fieldSpecified)
 				{
 				%>
 				<td>
 					<%=field.getValue()%>
 					<br>
 					<small>
-					(default is &quot;<%=((Properties.StringField)field).defaultValue%>&quot;)
+					(default is &quot;<%=defaultValue%>&quot;)
 					</small>
 				</td><%
 				}

@@ -56,12 +56,12 @@ public class PropertiesTest extends CopeAssert
 			assertEquals("stringOptional", stringOptional.key);
 			assertEquals("stringHidden", stringHidden.key);
 			
-			assertEquals(false, boolFalse.defaultValue);
-			assertEquals(true, boolTrue.defaultValue);
-			assertEquals(10, int10.defaultValue);
-			assertEquals(null, stringMandatory.defaultValue);
-			assertEquals("stringOptional.defaultValue", stringOptional.defaultValue);
-			assertEquals(null, stringHidden.defaultValue);
+			assertEquals(Boolean.FALSE, boolFalse.getDefaultValue());
+			assertEquals(Boolean.TRUE, boolTrue.getDefaultValue());
+			assertEquals(new Integer(10), int10.getDefaultValue());
+			assertEquals(null, stringMandatory.getDefaultValue());
+			assertEquals("stringOptional.defaultValue", stringOptional.getDefaultValue());
+			assertEquals(null, stringHidden.getDefaultValue());
 
 			assertEquals(false, boolFalse.hasHiddenValue());
 			assertEquals(false, boolTrue.hasHiddenValue());

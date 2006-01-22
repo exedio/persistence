@@ -305,7 +305,7 @@ public class ModelTest extends TestmodelTest
 			}
 
 			props.remove(mp.mediaRooturl.key);
-			assertEquals(mp.mediaRooturl.defaultValue, new Properties(props, "source").getMediaRootUrl());
+			assertEquals(mp.mediaRooturl.getDefaultValue(), new Properties(props, "source").getMediaRootUrl());
 
 			props.setProperty(mp.mediaRooturl.key, "klack");
 			assertEquals("klack", new Properties(props, "source").getMediaRootUrl());

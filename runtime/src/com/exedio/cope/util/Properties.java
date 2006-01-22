@@ -66,6 +66,7 @@ public class Properties
 			fields.add(this);
 		}
 		
+		public abstract Object getDefaultValue();
 		public abstract Object getValue();
 
 		public final boolean isSpecified()
@@ -81,8 +82,7 @@ public class Properties
 	
 	public final class BooleanField extends Field
 	{
-		// TODO make private
-		final boolean defaultValue;
+		private final boolean defaultValue;
 		// TODO make private
 		public final boolean value;
 		
@@ -105,6 +105,11 @@ public class Properties
 			}
 		}
 		
+		public Object getDefaultValue()
+		{
+			return Boolean.valueOf(defaultValue);
+		}
+		
 		public Object getValue()
 		{
 			return Boolean.valueOf(value);
@@ -113,8 +118,7 @@ public class Properties
 
 	public final class IntField extends Field
 	{
-		// TODO make private
-		final int defaultValue;
+		private final int defaultValue;
 		// TODO make private
 		public final int value;
 		
@@ -151,6 +155,12 @@ public class Properties
 			}
 		}
 		
+		public Object getDefaultValue()
+		{
+			//return Integer.valueOf(defaultValue); recommended for JDK 1.5 and later
+			return new Integer(defaultValue);
+		}
+		
 		public Object getValue()
 		{
 			//return Integer.valueOf(value); recommended for JDK 1.5 and later
@@ -160,8 +170,7 @@ public class Properties
 
 	public final class StringField extends Field
 	{
-		// TODO make private
-		public final String defaultValue;
+		private final String defaultValue;
 		private final boolean hideValue;
 		// TODO make private
 		public final String value;
@@ -208,6 +217,11 @@ public class Properties
 			}
 			else
 				this.value = s;
+		}
+		
+		public Object getDefaultValue()
+		{
+			return defaultValue;
 		}
 		
 		public Object getValue()
