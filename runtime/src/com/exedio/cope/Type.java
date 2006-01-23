@@ -90,7 +90,7 @@ public final class Type
 	{
 		this.javaClass = javaClass;
 		if(!Item.class.isAssignableFrom(javaClass))
-			throw new IllegalArgumentException(javaClass.toString()+" is not a subclass of Item");
+			throw new IllegalArgumentException(javaClass.getName()+" is not a subclass of Item");
 		typesByClass.put(javaClass, this);
 
 		{

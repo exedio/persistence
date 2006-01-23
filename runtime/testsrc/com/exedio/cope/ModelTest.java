@@ -234,7 +234,7 @@ public class ModelTest extends TestmodelTest
 		}
 		catch(RuntimeException e)
 		{
-			assertEquals("class " + NoItem.class.getName() + " is not a subclass of Item", e.getMessage());
+			assertEquals(NoItem.class.getName() + " is not a subclass of Item", e.getMessage());
 		}
 		try
 		{
