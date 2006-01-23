@@ -292,27 +292,27 @@ public final class Properties extends com.exedio.cope.util.Properties
 	
 	public boolean getDatabaseLog()
 	{
-		return databaseLog.value;
+		return databaseLog.getBooleanValue();
 	}
 	
 	public boolean getDatabaseDontSupportPreparedStatements()
 	{
-		return databaseDontSupportPreparedStatements.value;
+		return databaseDontSupportPreparedStatements.getBooleanValue();
 	}
 	
 	public boolean getDatabaseDontSupportEmptyStrings()
 	{
-		return databaseDontSupportEmptyStrings.value;
+		return databaseDontSupportEmptyStrings.getBooleanValue();
 	}
 	
 	public boolean getDatabaseDontSupportLimit()
 	{
-		return databaseDontSupportLimit.value;
+		return databaseDontSupportLimit.getBooleanValue();
 	}
 	
 	public boolean getDatabaseDontSupportNativeDate()
 	{
-		return databaseDontSupportNativeDate.value;
+		return databaseDontSupportNativeDate.getBooleanValue();
 	}
 	
 	java.util.Properties getDatabaseForcedNames()
@@ -332,12 +332,12 @@ public final class Properties extends com.exedio.cope.util.Properties
 	
 	public boolean getPkSourceButterfly()
 	{
-		return pksourceButterfly.value;
+		return pksourceButterfly.getBooleanValue();
 	}
 	
 	public boolean getFulltextIndex()
 	{
-		return fulltextIndex.value;
+		return fulltextIndex.getBooleanValue();
 	}
 	
 	public int getConnectionPoolMaxIdle()
@@ -357,7 +357,7 @@ public final class Properties extends com.exedio.cope.util.Properties
 	
 	public boolean getCacheQueryLogging()
 	{
-		return cacheQueryLogging.value;
+		return cacheQueryLogging.getBooleanValue();
 	}
 	
 	public boolean hasDatadirPath()

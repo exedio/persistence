@@ -87,8 +87,10 @@ public class PropertiesTest extends CopeAssert
 		minimal.assertIt();
 		assertEquals("minimal", minimal.getSource());
 		
-		assertEquals(false, minimal.boolFalse.value);
-		assertEquals(true, minimal.boolTrue.value);
+		assertEquals(false, minimal.boolFalse.getBooleanValue());
+		assertEquals(true, minimal.boolTrue.getBooleanValue());
+		assertEquals(Boolean.FALSE, minimal.boolFalse.getValue());
+		assertEquals(Boolean.TRUE, minimal.boolTrue.getValue());
 		assertEquals(10, minimal.int10.value);
 		assertEquals("stringMandatory.minimalValue", minimal.stringMandatory.value);
 		assertEquals("stringOptional.defaultValue", minimal.stringOptional.value);
@@ -125,8 +127,10 @@ public class PropertiesTest extends CopeAssert
 			final TestProperties tp = new TestProperties(p, "maximal");
 			assertEquals("maximal", tp.getSource());
 			
-			assertEquals(true, tp.boolFalse.value);
-			assertEquals(false, tp.boolTrue.value);
+			assertEquals(true, tp.boolFalse.getBooleanValue());
+			assertEquals(false, tp.boolTrue.getBooleanValue());
+			assertEquals(Boolean.TRUE, tp.boolFalse.getValue());
+			assertEquals(Boolean.FALSE, tp.boolTrue.getValue());
 			assertEquals(20, tp.int10.value);
 			assertEquals("stringMandatory.explicitValue", tp.stringMandatory.value);
 			assertEquals("stringOptional.explicitValue", tp.stringOptional.value);

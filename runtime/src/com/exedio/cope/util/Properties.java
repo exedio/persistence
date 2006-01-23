@@ -87,8 +87,7 @@ public class Properties
 	public final class BooleanField extends Field
 	{
 		private final boolean defaultValue;
-		// TODO make private
-		public final boolean value;
+		private final boolean value;
 		
 		public BooleanField(final String key, final boolean defaultValue)
 		{
@@ -117,6 +116,11 @@ public class Properties
 		public Object getValue()
 		{
 			return Boolean.valueOf(value);
+		}
+		
+		public boolean getBooleanValue()
+		{
+			return value;
 		}
 	}
 
