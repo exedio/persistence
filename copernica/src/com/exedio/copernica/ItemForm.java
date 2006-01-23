@@ -52,6 +52,7 @@ import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.StringAttribute;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueViolationException;
+import com.exedio.cope.pattern.CustomAttributeException;
 import com.exedio.cope.pattern.Media;
 import com.exedio.cops.CheckboxField;
 import com.exedio.cops.DateField;
@@ -516,6 +517,11 @@ final class ItemForm extends Form
 		catch(LengthViolationException e)
 		{
 			final Field field = getFieldByKey(e.getStringAttribute());
+			field.error = e.getClass().getName();
+		}
+		catch(CustomAttributeException e)
+		{
+			final Field field = getFieldByKey(e.getAttribute());
 			field.error = e.getClass().getName();
 		}
 	}

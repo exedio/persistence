@@ -361,7 +361,15 @@ public final class Media extends MediaPath
 			final ArrayList values = new ArrayList(3);
 			this.contentType.map(values, contentType);
 			values.add(this.lastModified.map(data!=null ? new Date() : null));
-			item.set((AttributeValue[])values.toArray(new AttributeValue[values.size()]));
+			try
+			{
+				item.set((AttributeValue[])values.toArray(new AttributeValue[values.size()]));
+			}
+			catch(CustomAttributeException e)
+			{
+				// cannot happen, since FunctionAttribute only are allowed for source
+				throw new RuntimeException(e);
+			}
 			
 			// TODO set this via Item.set(AttributeValue[]) as well
 			if(data instanceof byte[])

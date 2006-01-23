@@ -44,7 +44,7 @@ final class Entity
 		for ( int i=0; i<attributeValues.length; i++ )
 		{
 			final AttributeValue nextAttributeValue = attributeValues[i];
-			put( nextAttributeValue.attribute, nextAttributeValue.value );
+			put((FunctionAttribute)nextAttributeValue.attribute, nextAttributeValue.value);
 		}	
 	}
 	

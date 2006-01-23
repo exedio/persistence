@@ -25,15 +25,18 @@ import java.util.Collections;
 import java.util.List;
 
 import com.exedio.cope.AttributeValue;
+import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.FunctionAttribute;
 import com.exedio.cope.Item;
 import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Pattern;
-import com.exedio.cope.FinalViolationException;
+import com.exedio.cope.Settable;
 import com.exedio.cope.UniqueViolationException;
 
-public abstract class CustomAttribute extends Pattern
+public abstract class CustomAttribute
+	extends Pattern
+	implements Settable
 {
 	private final FunctionAttribute[] storages;
 	private final List storageList;
@@ -144,35 +147,9 @@ public abstract class CustomAttribute extends Pattern
 
 	public final void set(final Item item, final Object value) throws CustomAttributeException
 	{
-		final Object result;
 		try
 		{
-			result = setter.invoke(this, new Object[]{value});
-		}
-		catch(IllegalArgumentException e)
-		{
-			throw new RuntimeException(e);
-		}
-		catch(IllegalAccessException e)
-		{
-			throw new RuntimeException(e);
-		}
-		catch(InvocationTargetException e)
-		{
-			throw new CustomAttributeException(this, e.getCause());
-		}
-		
-		try
-		{
-			if(storages.length==1)
-			{
-				item.set(storages[0], result);
-			}
-			else
-			{
-				final AttributeValue[] values = (AttributeValue[])result;
-				item.set(values);
-			}
+			item.set(execute(value));
 		}
 		catch(UniqueViolationException e)
 		{
@@ -192,4 +169,35 @@ public abstract class CustomAttribute extends Pattern
 		}
 	}
 	
+	public final AttributeValue[] execute(final Object value) throws CustomAttributeException
+	{
+		final Object result;
+		try
+		{
+			result = setter.invoke(this, new Object[]{value});
+		}
+		catch(IllegalArgumentException e)
+		{
+			throw new RuntimeException(e);
+		}
+		catch(IllegalAccessException e)
+		{
+			throw new RuntimeException(e);
+		}
+		catch(InvocationTargetException e)
+		{
+			throw new CustomAttributeException(this, e.getCause());
+		}
+		
+		if(storages.length==1)
+			return new AttributeValue[]{new AttributeValue(storages[0], result)};
+		else
+			return (AttributeValue[])result;
+	}
+	
+	public final AttributeValue map(final Object value)
+	{
+		return new AttributeValue(this, value);
+	}
+
 }

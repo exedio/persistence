@@ -26,7 +26,7 @@ import java.util.List;
 
 public abstract class FunctionAttribute
 	extends Attribute
-	implements Function
+	implements Function, Settable
 {
 	private final Class valueClass;
 	final UniqueConstraint implicitUniqueConstraint;

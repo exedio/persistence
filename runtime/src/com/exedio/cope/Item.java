@@ -19,9 +19,12 @@
 package com.exedio.cope;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 
+import com.exedio.cope.pattern.CustomAttribute;
+import com.exedio.cope.pattern.CustomAttributeException;
 import com.exedio.cope.util.ReactivationConstructorDummy;
 
 /**
@@ -126,7 +129,7 @@ public abstract class Item extends Cope
 	 *         if one of the values in <code>initialAttributeValues</code>
 	 *         is not compatible to it's attribute.
 	 */
-	protected Item(final AttributeValue[] initialAttributeValues)
+	protected Item(AttributeValue[] initialAttributeValues)
 		throws ClassCastException
 	{
 		this.type = Type.findByJavaClass(getClass());
@@ -137,10 +140,19 @@ public abstract class Item extends Cope
 		
 		try
 		{
+			initialAttributeValues = executeCustomAttributes(initialAttributeValues);
+		}
+		catch(CustomAttributeException e)
+		{
+			initialCustomAttributeException = e;
+			return;
+		}
+		try
+		{
 			for(int i = 0; i<initialAttributeValues.length; i++)
 			{
 				final AttributeValue av = initialAttributeValues[i];
-				av.attribute.checkValue(av.value, null);
+				((FunctionAttribute)av.attribute).checkValue(av.value, null);
 			}
 		}
 		catch(MandatoryViolationException e)
@@ -186,7 +198,23 @@ public abstract class Item extends Cope
 		if(pk==Type.NOT_A_PK)
 			throw new RuntimeException();
 	}
+
+	private CustomAttributeException initialCustomAttributeException = null;
 	
+	/**
+	 * Throws a {@link MandatoryViolationException}, if a mandatory violation occured in the constructor.
+	 * @throws MandatoryViolationException
+	 *         if one of the values in <code>initialAttributeValues</code>
+	 *         is either null or not specified
+	 *         and it's attribute is {@link Attribute#isMandatory() mandatory}.
+	 */
+	protected final void throwInitialCustomAttributeException() throws CustomAttributeException
+	{
+		if(initialCustomAttributeException!=null)
+			throw initialCustomAttributeException;
+	}
+	
+	// TODO rename to initialMandatoryViolationException
 	private MandatoryViolationException initialNotNullViolationException = null;
 
 	/**
@@ -271,18 +299,20 @@ public abstract class Item extends Cope
 	 * @throws ClassCastException
 	 *         if <code>value</code> is not compatible to <code>attribute</code>.
 	 */
-	public final void set(final AttributeValue[] attributeValues)
+	public final void set(AttributeValue[] attributeValues)
 		throws
 			UniqueViolationException,
 			MandatoryViolationException,
 			LengthViolationException,
 			FinalViolationException,
+			CustomAttributeException,
 			ClassCastException
 	{
+		attributeValues = executeCustomAttributes(attributeValues);
 		for(int i = 0; i<attributeValues.length; i++)
 		{
 			final AttributeValue attributeValue = attributeValues[i];
-			final FunctionAttribute attribute = attributeValue.attribute;
+			final FunctionAttribute attribute = (FunctionAttribute)attributeValue.attribute;
 
 			if(!attribute.getType().isAssignableFrom(type))
 				throw new RuntimeException("attribute "+attribute+" does not belong to type "+type.toString());
@@ -464,6 +494,45 @@ public abstract class Item extends Cope
 	private final Entity getEntityIfActive()
 	{
 		return type.getModel().getCurrentTransaction().getEntityIfActive(type, pk);
+	}
+	
+	private static final AttributeValue[] executeCustomAttributes(final AttributeValue[] source)
+		throws CustomAttributeException
+	{
+		final HashMap result = new HashMap();
+		boolean customAttributeOccured = false;
+		for(int i = 0; i<source.length; i++)
+		{
+			final AttributeValue av = source[i];
+			final Settable settable = av.attribute;
+			if(settable instanceof FunctionAttribute)
+			{
+				if(result.put(settable, av)!=null)
+					throw new RuntimeException("duplicate settable "+settable.toString());
+			}
+			else
+			{
+				customAttributeOccured = true;
+				final CustomAttribute ca = (CustomAttribute)av.attribute;
+				final AttributeValue[] caav = ca.execute(av.value);
+				for(int j = 0; j<caav.length; j++)
+				{
+					if(result.put(caav[j].attribute, caav[j])!=null)
+						throw new RuntimeException("duplicate settable "+caav[j].attribute.toString());
+				}
+			}
+		}
+		if(!customAttributeOccured)
+			return source;
+		
+		final AttributeValue[] resultArray = new AttributeValue[result.size()];
+		int n = 0;
+		for(Iterator i = result.values().iterator(); i.hasNext(); n++)
+		{
+			resultArray[n] = (AttributeValue)i.next();
+			assert resultArray[n].attribute instanceof FunctionAttribute;
+		}
+		return resultArray;
 	}
 
 }

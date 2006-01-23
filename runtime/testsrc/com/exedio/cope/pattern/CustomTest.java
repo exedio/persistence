@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.util.Arrays;
 
 import com.exedio.cope.AbstractLibTest;
+import com.exedio.cope.AttributeValue;
 import com.exedio.cope.ConstraintViolationException;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Main;
@@ -43,6 +44,8 @@ public class CustomTest extends AbstractLibTest
 	
 	static final Integer i20 = new Integer(20);
 	static final Integer i44 = new Integer(44);
+	static final Integer i55 = new Integer(55);
+	static final Integer i56 = new Integer(56);
 	static final Integer im2 = new Integer(-2);
 	
 	public void testNumber() throws ConstraintViolationException, IOException, CustomAttributeException
@@ -111,9 +114,48 @@ public class CustomTest extends AbstractLibTest
 		assertNull(item.getNumber());
 		assertNull(item.number.get(item));
 		assertEquals(list(null, null, null), item.getElements());
+
+		{
+			final CustomItem numberItem55 = new CustomItem(i55);
+			deleteOnTearDown(numberItem55);
+			assertEquals("55", numberItem55.getNumberString());
+			assertEquals(i55, numberItem55.getNumber());
+			assertEquals(i55, numberItem55.number.get(numberItem55));
+		}
+		{
+			final CustomItem numberItem56 =
+				(CustomItem)CustomItem.TYPE.newItem(new AttributeValue[]{CustomItem.number.map(i56)});
+			deleteOnTearDown(numberItem56);
+			assertEquals("56", numberItem56.getNumberString());
+			assertEquals(i56, numberItem56.getNumber());
+			assertEquals(i56, numberItem56.number.get(numberItem56));
+		}
 		
 		item.setElements(list(i2, i4, i8));
 		assertEquals(list(i2, i4, i8), item.getElements());
+		assertEquals(i2, item.getElement1());
+		assertEquals(i4, item.getElement2());
+		assertEquals(i8, item.getElement3());
+		
+		{
+			final CustomItem elementsItem3 = new CustomItem(list(i3, i4, i5));
+			deleteOnTearDown(elementsItem3);
+			assertEquals(list(i3, i4, i5), elementsItem3.getElements());
+			assertEquals(list(i3, i4, i5), elementsItem3.elements.get(elementsItem3));
+			assertEquals(i3, elementsItem3.getElement1());
+			assertEquals(i4, elementsItem3.getElement2());
+			assertEquals(i5, elementsItem3.getElement3());
+		}
+		{
+			final CustomItem elementsItem7 =
+				(CustomItem)CustomItem.TYPE.newItem(new AttributeValue[]{CustomItem.elements.map(list(i7, i8, i9))});
+			deleteOnTearDown(elementsItem7);
+			assertEquals(list(i7, i8, i9), elementsItem7.getElements());
+			assertEquals(list(i7, i8, i9), elementsItem7.elements.get(elementsItem7));
+			assertEquals(i7, elementsItem7.getElement1());
+			assertEquals(i8, elementsItem7.getElement2());
+			assertEquals(i9, elementsItem7.getElement3());
+		}
 	}
 	
 }

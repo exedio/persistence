@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.pattern.CustomAttributeException;
 import com.exedio.cope.testmodel.ItemWithDoubleUnique;
 import com.exedio.cope.testmodel.ItemWithSingleUnique;
 import com.exedio.cope.testmodel.ItemWithSingleUniqueNotNull;
@@ -157,7 +158,7 @@ public class UniqueItemTest extends TestmodelTest
 		assertDelete(item);
 	}
 	
-	public void testMultipleSet() throws ConstraintViolationException
+	public void testMultipleSet() throws ConstraintViolationException, CustomAttributeException
 	{
 		final ItemWithSingleUnique item1 = new ItemWithSingleUnique();
 		deleteOnTearDown(item1);

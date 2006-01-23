@@ -49,6 +49,7 @@ public abstract class AbstractLibTest extends CopeTest
 	protected final static Integer i6 = new Integer(6);
 	protected final static Integer i7 = new Integer(7);
 	protected final static Integer i8 = new Integer(8);
+	protected final static Integer i9 = new Integer(9);
 	
 	protected boolean hsqldb;
 	protected boolean mysql;

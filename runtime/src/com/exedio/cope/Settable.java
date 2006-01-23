@@ -18,21 +18,7 @@
 
 package com.exedio.cope;
 
-public final class AttributeValue
+public interface Settable
 {
-	public final Settable attribute;
-	public final Object value;
-	
-	/**
-	 * Creates a new AttributeValue.
-	 * Instead of using this constructor directly,
-	 * you may want to use the more type-safe wrapper methods
-	 * {@link StringAttribute#map(String)}.
-	 */
-	public AttributeValue(final Settable attribute, final Object value)
-	{
-		this.attribute = attribute;
-		this.value = value;
-	}
-	
+
 }

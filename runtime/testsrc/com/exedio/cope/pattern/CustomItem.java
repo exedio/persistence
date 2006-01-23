@@ -77,6 +77,13 @@ public final class CustomItem extends Item
 			}
 		}
 	}
+	
+	public CustomItem(final Integer number)
+	{
+		this(new com.exedio.cope.AttributeValue[]{
+			CustomItem.number.map(number),
+		});
+	}
 
 	public static final IntegerAttribute element1 = new IntegerAttribute(OPTIONAL);
 	public static final IntegerAttribute element2 = new IntegerAttribute(OPTIONAL);
@@ -122,6 +129,13 @@ public final class CustomItem extends Item
 		{
 			throw new RuntimeException(e);
 		}
+	}
+
+	public CustomItem(final List elements)
+	{
+		this(new com.exedio.cope.AttributeValue[]{
+			CustomItem.elements.map(elements),
+		});
 	}
 
 /**

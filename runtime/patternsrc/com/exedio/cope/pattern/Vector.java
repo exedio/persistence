@@ -112,7 +112,15 @@ public final class Vector extends Pattern
 		for(; i<sources.length; i++)
 			attributeValues[i] = new AttributeValue(sources[i], null);
 		
-		item.set(attributeValues);
+		try
+		{
+			item.set(attributeValues);
+		}
+		catch(CustomAttributeException e)
+		{
+			// cannot happen, since FunctionAttribute only are allowed for source
+			throw new RuntimeException(e);
+		}
 	}
 	
 	public final AndCondition equal(final Collection values)
