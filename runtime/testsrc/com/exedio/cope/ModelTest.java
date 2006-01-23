@@ -94,48 +94,6 @@ public class ModelTest extends TestmodelTest
 		newProps.setProperty("database.forcename.UNIQUE_ITEMS.otherString", "OTHER_STRING");
 		newProps.setProperty("database.forcename.ItemWithSingleUnique_uniqueString_Unq", "IX_ITEMWSU_US");
 		
-		{
-			final java.util.Properties props = (java.util.Properties)newProps.clone();
-			final String newValue = "88";
-			props.setProperty(mp.connectionPoolMaxIdle.key, newValue);
-			final String source = file.getAbsolutePath()+'/'+mp.connectionPoolMaxIdle.key+"=88";
-			try
-			{
-				model.setPropertiesInitially(new Properties(props, source));
-			}
-			catch(RuntimeException e)
-			{
-				assertEquals(
-						"inconsistent initialization for " + mp.connectionPoolMaxIdle.key +
-						" between " + mp.getSource() + " and " + source +
-						", expected " + mp.getConnectionPoolMaxIdle() +
-						" but got " + newValue + ".", e.getMessage());
-			}
-
-			props.setProperty(mp.connectionPoolMaxIdle.key, "-1");
-			try
-			{
-				new Properties(props, "minusOne");
-			}
-			catch(RuntimeException e)
-			{
-				assertEquals(
-						"property " + mp.connectionPoolMaxIdle.key + " in minusOne has invalid value," +
-						" expected an integer greater 0, but got -1.", e.getMessage());
-			}
-
-			props.setProperty(mp.connectionPoolMaxIdle.key, "88x");
-			try
-			{
-				new Properties(props, "wrongInt");
-			}
-			catch(RuntimeException e)
-			{
-				assertEquals(
-						"property " + mp.connectionPoolMaxIdle.key + " in wrongInt has invalid value," +
-						" expected an integer greater 0, but got >88x<.", e.getMessage());
-			}
-		}
 		if(model.getProperties().hasDatadirPath())
 		{
 			final char SEP = File.separatorChar;
