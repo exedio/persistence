@@ -194,12 +194,12 @@ public class PropertiesTest extends CopeAssert
 				"wrong.int.tooSmall",
 				"int10", "4",
 				"property int10 in wrong.int.tooSmall has invalid value," +
-				" expected an integer greater 5, but got 4.");
+				" expected an integer greater or equal 5, but got 4.");
 		assertWrong(pminimal,
 				"wrong.int.noNumber",
 				"int10", "10x",
 				"property int10 in wrong.int.noNumber has invalid value," +
-				" expected an integer greater 5, but got >10x<.");
+				" expected an integer greater or equal 5, but got >10x<.");
 		assertInconsistent(pminimal,
 				"inconsistent.int",
 				"int10", "88",

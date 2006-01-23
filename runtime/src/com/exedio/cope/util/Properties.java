@@ -148,17 +148,15 @@ public class Properties
 				}
 				catch(NumberFormatException e)
 				{
-					// TODO wrong text: must read "greater or equal"
 					throw new RuntimeException(
 							"property " + key + " in " + source + " has invalid value, " +
-							"expected an integer greater " + minimumValue + ", but got >" + s + "<.", e);
+							"expected an integer greater or equal " + minimumValue + ", but got >" + s + "<.", e);
 				}
 
-				// TODO wrong text: must read "greater or equal"
 				if(value<minimumValue)
 					throw new RuntimeException(
 							"property " + key + " in " + source + " has invalid value, " +
-							"expected an integer greater " + minimumValue + ", but got " + value + '.');
+							"expected an integer greater or equal " + minimumValue + ", but got " + value + '.');
 			}
 		}
 		
