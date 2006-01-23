@@ -274,8 +274,8 @@ public class ModelTest extends TestmodelTest
 					prefixed.setProperty(prefix+'.'+name, databaseInfo.getProperty(name));
 				}
 				final Properties p = model.getProperties();
-				prefixed.setProperty(prefix+".cope."+p.databaseDontSupportEmptyStrings, String.valueOf(p.getDatabaseDontSupportEmptyStrings()));
-				prefixed.setProperty(prefix+".cope."+p.pksourceButterfly, String.valueOf(p.getPkSourceButterfly()));
+				prefixed.setProperty(prefix+".cope."+p.databaseDontSupportEmptyStrings.getKey(), String.valueOf(p.getDatabaseDontSupportEmptyStrings()));
+				prefixed.setProperty(prefix+".cope."+p.pksourceButterfly.getKey(), String.valueOf(p.getPkSourceButterfly()));
 				final PrintStream out = new PrintStream(new FileOutputStream(file, true));
 				prefixed.store(out, null);
 				out.close();
