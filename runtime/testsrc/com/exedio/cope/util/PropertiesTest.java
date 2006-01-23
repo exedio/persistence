@@ -93,9 +93,12 @@ public class PropertiesTest extends CopeAssert
 		assertEquals(Boolean.TRUE, minimal.boolTrue.getValue());
 		assertEquals(10, minimal.int10.getIntValue());
 		assertEquals(new Integer(10), minimal.int10.getValue());
-		assertEquals("stringMandatory.minimalValue", minimal.stringMandatory.value);
-		assertEquals("stringOptional.defaultValue", minimal.stringOptional.value);
-		assertEquals("stringHidden.minimalValue", minimal.stringHidden.value);
+		assertEquals("stringMandatory.minimalValue", minimal.stringMandatory.getStringValue());
+		assertEquals("stringOptional.defaultValue", minimal.stringOptional.getStringValue());
+		assertEquals("stringHidden.minimalValue", minimal.stringHidden.getStringValue());
+		assertEquals("stringMandatory.minimalValue", minimal.stringMandatory.getValue());
+		assertEquals("stringOptional.defaultValue", minimal.stringOptional.getValue());
+		assertEquals("stringHidden.minimalValue", minimal.stringHidden.getValue());
 		assertEquals(new java.util.Properties(), minimal.map.getValue());
 		assertEquals(null, minimal.map.getValue("explicitKey1"));
 		
@@ -134,9 +137,12 @@ public class PropertiesTest extends CopeAssert
 			assertEquals(Boolean.FALSE, tp.boolTrue.getValue());
 			assertEquals(20, tp.int10.getIntValue());
 			assertEquals(new Integer(20), tp.int10.getValue());
-			assertEquals("stringMandatory.explicitValue", tp.stringMandatory.value);
-			assertEquals("stringOptional.explicitValue", tp.stringOptional.value);
-			assertEquals("stringHidden.explicitValue", tp.stringHidden.value);
+			assertEquals("stringMandatory.explicitValue", tp.stringMandatory.getStringValue());
+			assertEquals("stringOptional.explicitValue", tp.stringOptional.getStringValue());
+			assertEquals("stringHidden.explicitValue", tp.stringHidden.getStringValue());
+			assertEquals("stringMandatory.explicitValue", tp.stringMandatory.getValue());
+			assertEquals("stringOptional.explicitValue", tp.stringOptional.getValue());
+			assertEquals("stringHidden.explicitValue", tp.stringHidden.getValue());
 			java.util.Properties mapExpected = new java.util.Properties();
 			mapExpected.setProperty("explicitKey1", "map.explicitValue1");
 			mapExpected.setProperty("explicitKey2", "map.explicitValue2");

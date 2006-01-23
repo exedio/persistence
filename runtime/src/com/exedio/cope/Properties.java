@@ -128,7 +128,7 @@ public final class Properties extends com.exedio.cope.util.Properties
 
 		final String databaseCustomPropertiesPrefix;
 		{
-			final String databaseCode = this.databaseCode.value;
+			final String databaseCode = this.databaseCode.getStringValue();
 			if(databaseCode.length()<=2)
 				throw new RuntimeException("database from "+source+" must have at least two characters, but was "+databaseCode);
 
@@ -277,17 +277,17 @@ public final class Properties extends com.exedio.cope.util.Properties
 
 	public String getDatabaseUrl()
 	{
-		return databaseUrl.value;
+		return databaseUrl.getStringValue();
 	}
 
 	public String getDatabaseUser()
 	{
-		return databaseUser.value;
+		return databaseUser.getStringValue();
 	}
 
 	public String getDatabasePassword()
 	{
-		return databasePassword.value;
+		return databasePassword.getStringValue();
 	}
 	
 	public boolean getDatabaseLog()
@@ -375,7 +375,7 @@ public final class Properties extends com.exedio.cope.util.Properties
 	
 	public String getMediaRootUrl()
 	{
-		return mediaRooturl.value;
+		return mediaRooturl.getStringValue();
 	}
 	
 	/**

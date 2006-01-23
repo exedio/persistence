@@ -184,8 +184,7 @@ public class Properties
 	{
 		private final String defaultValue;
 		private final boolean hideValue;
-		// TODO make private
-		public final String value;
+		private final String value;
 		
 		/**
 		 * Creates a mandatory string field.
@@ -237,6 +236,11 @@ public class Properties
 		}
 		
 		public Object getValue()
+		{
+			return value;
+		}
+		
+		public String getStringValue()
 		{
 			return value;
 		}
