@@ -239,6 +239,44 @@ public class Properties
 		}
 	}
 
+	public final class MapField extends Field
+	{
+		// TODO make private
+		public final java.util.Properties value;
+		
+		public MapField(final String key)
+		{
+			super(key);
+			
+			final String prefix = key + '.';
+			final int prefixLength = prefix.length();
+
+			value = new java.util.Properties();
+			for(Iterator i = properties.keySet().iterator(); i.hasNext(); )
+			{
+				final String currentKey = (String)i.next();
+				if(currentKey.startsWith(prefix))
+					value.put(currentKey.substring(prefixLength), properties.getProperty(currentKey));
+			}
+		}
+		
+		public Object getDefaultValue()
+		{
+			return null;
+		}
+		
+		public Object getValue()
+		{
+			return value;
+		}
+		
+		public String getValue(final String key)
+		{
+			return value.getProperty(key);
+		}
+		
+	}
+
 	public void ensureEquality(final Properties other)
 	{
 		final Iterator j = other.fields.iterator();

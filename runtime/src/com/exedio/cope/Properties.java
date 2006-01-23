@@ -23,6 +23,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 
@@ -43,8 +44,9 @@ public final class Properties extends com.exedio.cope.util.Properties
 	final BooleanField databaseDontSupportNativeDate = new BooleanField("database.dontSupport.nativeDate", false);
 	final BooleanField databaseDontSupportLimit = new BooleanField("database.dontSupport.limit", false);
 	
-	static final String DATABASE_FORCE_NAME = "database.forcename";
-	static final String DATABASE_TABLE_OPTION = "database.tableOption";
+	private final MapField databaseForcedNames = new MapField("database.forcename");
+	private final MapField databaseTableOptions = new MapField("database.tableOption");
+	private final MapField databaseCustomProperties;
 	
 	static final String PKSOURCE_BUTTERFLY = "pksource.butterfly";
 	final BooleanField pksourceButterfly = new BooleanField(PKSOURCE_BUTTERFLY, false);
@@ -66,10 +68,6 @@ public final class Properties extends com.exedio.cope.util.Properties
 	// you probably have to add another
 	// test to ensureEquality as well.
 	private final Constructor database;
-	private final java.util.Properties databaseForcedNames;
-	private final java.util.Properties databaseTableOptions;
-	private final java.util.Properties databaseCustomProperties;
-	
 	private final File datadirPath;
 
 	public Properties()
@@ -139,9 +137,7 @@ public final class Properties extends com.exedio.cope.util.Properties
 			database = getDatabaseConstructor( databaseCode, source );
 		}
 
-		databaseForcedNames = getPropertyMap(properties, DATABASE_FORCE_NAME);
-		databaseCustomProperties = getPropertyMap(properties, databaseCustomPropertiesPrefix);
-		databaseTableOptions = getPropertyMap(properties, DATABASE_TABLE_OPTION);
+		databaseCustomProperties = new MapField(databaseCustomPropertiesPrefix);
 		
 		final String datadirPathString  = properties.getProperty(DATADIR_PATH);
 		if(datadirPathString!=null)
@@ -172,24 +168,39 @@ public final class Properties extends com.exedio.cope.util.Properties
 
 		{
 			final HashSet allowedValues = new HashSet();
+			final ArrayList allowedPrefixes = new ArrayList();
 			
 			for(Iterator i = getFields().iterator(); i.hasNext(); )
-				allowedValues.add(((Field)i.next()).getKey());
+			{
+				final Field field = (Field)i.next();
+				if(field instanceof MapField)
+					allowedPrefixes.add(field.getKey()+'.');
+				else
+					allowedValues.add(field.getKey());
+			}
 			
+			allowedPrefixes.add("x-build.");
 			allowedValues.add(DATADIR_PATH);
 			
 			for(Iterator i = properties.keySet().iterator(); i.hasNext(); )
 			{
 				final String key = (String)i.next();
-				if(!allowedValues.contains(key)
-					&&	!key.startsWith(databaseCustomPropertiesPrefix+'.')
-					&&	!key.startsWith(DATABASE_FORCE_NAME+'.')
-					&&	!key.startsWith(DATABASE_TABLE_OPTION+'.')
-					&&	!key.startsWith("x-build."))
-					throw new RuntimeException("property "+key+" in "+source+" is not allowed.");
+				if(!allowedValues.contains(key))
+				{
+					boolean error = true;
+					for(Iterator j = allowedPrefixes.iterator(); j.hasNext(); )
+					{
+						if(key.startsWith((String)j.next()))
+						{
+							error = false;
+							break;
+						}
+					}
+					if(error)
+						throw new RuntimeException("property "+key+" in "+source+" is not allowed.");
+				}
 			}
 		}
-
 	}
 	
 	private static Constructor getDatabaseConstructor( String databaseCode, String source )
@@ -229,21 +240,6 @@ public final class Properties extends com.exedio.cope.util.Properties
 		return new RuntimeException("property "+key+" in "+source+" not set.");
 	}
 	
-	private java.util.Properties getPropertyMap(final java.util.Properties properties, String prefix)
-	{
-		final java.util.Properties result = new java.util.Properties();
-		prefix = prefix + '.';
-		final int length = prefix.length();
-
-		for(Iterator i = properties.keySet().iterator(); i.hasNext(); )
-		{
-			final String key = (String)i.next();
-			if(key.startsWith(prefix))
-				result.put(key.substring(length), properties.getProperty(key));
-		}
-		return result;
-	}
-
 	Database createDatabase()
 	{
 		return createDatabase( database );
@@ -321,17 +317,17 @@ public final class Properties extends com.exedio.cope.util.Properties
 	
 	java.util.Properties getDatabaseForcedNames()
 	{
-		return databaseForcedNames;
+		return databaseForcedNames.value;
 	}
 	
 	java.util.Properties getDatabaseTableOptions()
 	{
-		return databaseTableOptions;
+		return databaseTableOptions.value;
 	}
 	
 	String getDatabaseCustomProperty(final String key)
 	{
-		return databaseCustomProperties.getProperty(key);
+		return databaseCustomProperties.getValue(key);
 	}
 	
 	public boolean getPkSourceButterfly()
@@ -402,8 +398,6 @@ public final class Properties extends com.exedio.cope.util.Properties
 		super.ensureEquality(other);
 		
 		ensureEquality(other, databaseCode.getKey(), this.getDatabase(), other.getDatabase());
-		ensureEquality(other, DATABASE_FORCE_NAME, this.databaseForcedNames, other.databaseForcedNames);
-		ensureEquality(other, "database.DATABASE.*", this.databaseCustomProperties, other.databaseCustomProperties);
 		ensureEquality(other, DATADIR_PATH, this.datadirPath, other.datadirPath);
 	}
 	

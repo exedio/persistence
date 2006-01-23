@@ -32,6 +32,7 @@ public class PropertiesTest extends CopeAssert
 		final StringField stringMandatory = new StringField("stringMandatory");
 		final StringField stringOptional = new StringField("stringOptional", "stringOptional.defaultValue");
 		final StringField stringHidden = new StringField("stringHidden", true);
+		final MapField map = new MapField("map");
 		
 		public TestProperties(final java.util.Properties properties, final String source)
 		{
@@ -47,6 +48,7 @@ public class PropertiesTest extends CopeAssert
 					stringMandatory,
 					stringOptional,
 					stringHidden,
+					map,
 			}), getFields());
 			
 			assertEquals("boolFalse", boolFalse.getKey());
@@ -55,6 +57,7 @@ public class PropertiesTest extends CopeAssert
 			assertEquals("stringMandatory", stringMandatory.getKey());
 			assertEquals("stringOptional", stringOptional.getKey());
 			assertEquals("stringHidden", stringHidden.getKey());
+			assertEquals("map", map.getKey());
 			
 			assertEquals(Boolean.FALSE, boolFalse.getDefaultValue());
 			assertEquals(Boolean.TRUE, boolTrue.getDefaultValue());
@@ -62,6 +65,7 @@ public class PropertiesTest extends CopeAssert
 			assertEquals(null, stringMandatory.getDefaultValue());
 			assertEquals("stringOptional.defaultValue", stringOptional.getDefaultValue());
 			assertEquals(null, stringHidden.getDefaultValue());
+			assertEquals(null, map.getDefaultValue());
 
 			assertEquals(false, boolFalse.hasHiddenValue());
 			assertEquals(false, boolTrue.hasHiddenValue());
@@ -69,6 +73,7 @@ public class PropertiesTest extends CopeAssert
 			assertEquals(false, stringMandatory.hasHiddenValue());
 			assertEquals(false, stringOptional.hasHiddenValue());
 			assertEquals(true, stringHidden.hasHiddenValue());
+			assertEquals(false, map.hasHiddenValue());
 		}
 	}
 	
@@ -88,6 +93,8 @@ public class PropertiesTest extends CopeAssert
 		assertEquals("stringMandatory.minimalValue", minimal.stringMandatory.value);
 		assertEquals("stringOptional.defaultValue", minimal.stringOptional.value);
 		assertEquals("stringHidden.minimalValue", minimal.stringHidden.value);
+		assertEquals(new java.util.Properties(), minimal.map.getValue());
+		assertEquals(null, minimal.map.getValue("explicitKey1"));
 		
 		assertEquals(false, minimal.boolFalse.isSpecified());
 		assertEquals(false, minimal.boolTrue.isSpecified());
@@ -95,6 +102,7 @@ public class PropertiesTest extends CopeAssert
 		assertEquals(true, minimal.stringMandatory.isSpecified());
 		assertEquals(false, minimal.stringOptional.isSpecified());
 		assertEquals(true, minimal.stringHidden.isSpecified());
+		assertEquals(false, minimal.map.isSpecified());
 		
 		minimal.ensureEquality(minimal);
 		
@@ -112,6 +120,8 @@ public class PropertiesTest extends CopeAssert
 			p.setProperty("stringMandatory", "stringMandatory.explicitValue");
 			p.setProperty("stringOptional", "stringOptional.explicitValue");
 			p.setProperty("stringHidden", "stringHidden.explicitValue");
+			p.setProperty("map.explicitKey1", "map.explicitValue1");
+			p.setProperty("map.explicitKey2", "map.explicitValue2");
 			final TestProperties tp = new TestProperties(p, "maximal");
 			assertEquals("maximal", tp.getSource());
 			
@@ -121,6 +131,13 @@ public class PropertiesTest extends CopeAssert
 			assertEquals("stringMandatory.explicitValue", tp.stringMandatory.value);
 			assertEquals("stringOptional.explicitValue", tp.stringOptional.value);
 			assertEquals("stringHidden.explicitValue", tp.stringHidden.value);
+			java.util.Properties mapExpected = new java.util.Properties();
+			mapExpected.setProperty("explicitKey1", "map.explicitValue1");
+			mapExpected.setProperty("explicitKey2", "map.explicitValue2");
+			assertEquals(mapExpected, tp.map.getValue());
+			assertEquals("map.explicitValue1", tp.map.getValue("explicitKey1"));
+			assertEquals("map.explicitValue2", tp.map.getValue("explicitKey2"));
+			assertEquals(null, tp.map.getValue("explicitKeyNone"));
 
 			assertEquals(true, tp.boolFalse.isSpecified());
 			assertEquals(true, tp.boolTrue.isSpecified());
@@ -128,6 +145,7 @@ public class PropertiesTest extends CopeAssert
 			assertEquals(true, tp.stringMandatory.isSpecified());
 			assertEquals(true, tp.stringOptional.isSpecified());
 			assertEquals(true, tp.stringHidden.isSpecified());
+			assertEquals(false, tp.map.isSpecified()); // TODO
 		}
 		
 		// boolean
@@ -173,7 +191,7 @@ public class PropertiesTest extends CopeAssert
 				"inconsistent initialization for int10 between minimal and inconsistent.int," +
 					" expected 10 but got 88.",
 				"inconsistent initialization for int10 between inconsistent.int and minimal," +
-					" expected 88 but got 10."	);
+					" expected 88 but got 10.");
 
 		// String
 		assertWrong(pminimal,
@@ -190,19 +208,28 @@ public class PropertiesTest extends CopeAssert
 				"inconsistent initialization for stringMandatory between minimal and inconsistent.stringMandatory," +
 					" expected stringMandatory.minimalValue but got stringMandatory.inconsistentValue.",
 				"inconsistent initialization for stringMandatory between inconsistent.stringMandatory and minimal," +
-					" expected stringMandatory.inconsistentValue but got stringMandatory.minimalValue."	);
+					" expected stringMandatory.inconsistentValue but got stringMandatory.minimalValue.");
 		assertInconsistent(pminimal,
 				"inconsistent.stringOptional",
 				"stringOptional", "stringOptional.inconsistentValue",
 				"inconsistent initialization for stringOptional between minimal and inconsistent.stringOptional," +
 					" expected stringOptional.defaultValue but got stringOptional.inconsistentValue.",
 				"inconsistent initialization for stringOptional between inconsistent.stringOptional and minimal," +
-					" expected stringOptional.inconsistentValue but got stringOptional.defaultValue."	);
+					" expected stringOptional.inconsistentValue but got stringOptional.defaultValue.");
 		assertInconsistent(pminimal,
 				"inconsistent.stringHidden",
 				"stringHidden", "stringHidden.inconsistentValue",
 				"inconsistent initialization for stringHidden between minimal and inconsistent.stringHidden.",
-				"inconsistent initialization for stringHidden between inconsistent.stringHidden and minimal."	);
+				"inconsistent initialization for stringHidden between inconsistent.stringHidden and minimal.");
+		
+		// Map
+		assertInconsistent(pminimal,
+				"inconsistent.map",
+				"map.inconsistentKey", "map.inconsistentValue",
+				"inconsistent initialization for map between minimal and inconsistent.map," +
+					" expected {} but got {inconsistentKey=map.inconsistentValue}.",
+				"inconsistent initialization for map between inconsistent.map and minimal," +
+					" expected {inconsistentKey=map.inconsistentValue} but got {}.");
 	}
 	
 	private void assertWrong(
