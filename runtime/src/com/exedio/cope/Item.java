@@ -157,7 +157,7 @@ public abstract class Item extends Cope
 		}
 		catch(MandatoryViolationException e)
 		{
-			initialNotNullViolationException = e;
+			initialMandatoryViolationException = e;
 			return;
 		}
 		catch(LengthViolationException e)
@@ -214,8 +214,7 @@ public abstract class Item extends Cope
 			throw initialCustomAttributeException;
 	}
 	
-	// TODO rename to initialMandatoryViolationException
-	private MandatoryViolationException initialNotNullViolationException = null;
+	private MandatoryViolationException initialMandatoryViolationException = null;
 
 	/**
 	 * Throws a {@link MandatoryViolationException}, if a mandatory violation occured in the constructor.
@@ -226,8 +225,8 @@ public abstract class Item extends Cope
 	 */
 	protected final void throwInitialMandatoryViolationException() throws MandatoryViolationException
 	{
-		if(initialNotNullViolationException!=null)
-			throw initialNotNullViolationException;
+		if(initialMandatoryViolationException!=null)
+			throw initialMandatoryViolationException;
 	}
 	
 	private LengthViolationException initialLengthViolationException = null;
