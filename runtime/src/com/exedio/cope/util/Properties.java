@@ -220,7 +220,7 @@ public class Properties
 			if(s==null)
 			{
 				if(defaultValue==null)
-					throw new RuntimeException("property " + key + " in " + source + " not set."); // TODO mention default values
+					throw new RuntimeException("property " + key + " in " + source + " not set and not default value specified.");
 				else
 					this.value = defaultValue;
 			}

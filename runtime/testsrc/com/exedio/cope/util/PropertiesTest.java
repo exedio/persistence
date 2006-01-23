@@ -212,11 +212,11 @@ public class PropertiesTest extends CopeAssert
 		assertWrong(pminimal,
 				"wrong.stringMandatory.missing",
 				"stringMandatory", null,
-				"property stringMandatory in wrong.stringMandatory.missing not set.");
+				"property stringMandatory in wrong.stringMandatory.missing not set and not default value specified.");
 		assertWrong(pminimal,
 				"wrong.stringHidden.missing",
 				"stringHidden", null,
-				"property stringHidden in wrong.stringHidden.missing not set.");
+				"property stringHidden in wrong.stringHidden.missing not set and not default value specified.");
 		assertInconsistent(pminimal,
 				"inconsistent.stringMandatory",
 				"stringMandatory", "stringMandatory.inconsistentValue",
