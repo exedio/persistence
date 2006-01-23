@@ -229,6 +229,15 @@ public class ModelTest extends TestmodelTest
 		
 		try
 		{
+			new Type(NoItem.class);
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals("class " + NoItem.class.getName() + " is not a subclass of Item", e.getMessage());
+		}
+		try
+		{
 			new Type(NoCreationConstructor.class);
 			fail();
 		}
@@ -239,7 +248,6 @@ public class ModelTest extends TestmodelTest
 					" does not have a creation constructor", e.getMessage());
 			assertEquals(NoSuchMethodException.class, e.getCause().getClass());
 		}
-
 		try
 		{
 			new Type(NoReactivationConstructor.class);
@@ -275,6 +283,13 @@ public class ModelTest extends TestmodelTest
 		}
 	}
 	
+	static class NoItem
+	{
+		NoItem()
+		{
+		}
+	}
+
 	static class NoCreationConstructor extends Item
 	{
 		NoCreationConstructor()
