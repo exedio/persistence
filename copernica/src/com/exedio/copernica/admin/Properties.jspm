@@ -75,7 +75,7 @@ final class Properties_Jspm
 					%> class="unspecified"<%
 				}
 				%>>
-				<th><%=field.key%></th><%
+				<th><%=field.getKey()%></th><%
 				final Object defaultValue = field.getDefaultValue();
 				if(defaultValue!=null && fieldSpecified)
 				{

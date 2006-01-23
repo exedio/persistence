@@ -49,8 +49,7 @@ public class Properties
 	
 	public abstract class Field
 	{
-		// TODO make private
-		public final String key;
+		private final String key;
 		private final boolean specified;
 		
 		Field(final String key)
@@ -64,6 +63,11 @@ public class Properties
 				throw new RuntimeException("key must not be empty.");
 			
 			fields.add(this);
+		}
+		
+		public final String getKey()
+		{
+			return key;
 		}
 		
 		public abstract Object getDefaultValue();

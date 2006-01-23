@@ -49,12 +49,12 @@ public class PropertiesTest extends CopeAssert
 					stringHidden,
 			}), getFields());
 			
-			assertEquals("boolFalse", boolFalse.key);
-			assertEquals("boolTrue", boolTrue.key);
-			assertEquals("int10", int10.key);
-			assertEquals("stringMandatory", stringMandatory.key);
-			assertEquals("stringOptional", stringOptional.key);
-			assertEquals("stringHidden", stringHidden.key);
+			assertEquals("boolFalse", boolFalse.getKey());
+			assertEquals("boolTrue", boolTrue.getKey());
+			assertEquals("int10", int10.getKey());
+			assertEquals("stringMandatory", stringMandatory.getKey());
+			assertEquals("stringOptional", stringOptional.getKey());
+			assertEquals("stringHidden", stringHidden.getKey());
 			
 			assertEquals(Boolean.FALSE, boolFalse.getDefaultValue());
 			assertEquals(Boolean.TRUE, boolTrue.getDefaultValue());

@@ -23,7 +23,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
 
@@ -172,26 +171,13 @@ public final class Properties extends com.exedio.cope.util.Properties
 		}
 
 		{
-			final HashSet allowedValues = new HashSet(Arrays.asList(new String[]{
-					databaseCode.key,
-					databaseUrl.key,
-					databaseUser.key,
-					databasePassword.key,
-					databaseLog.key,
-					databaseDontSupportPreparedStatements.key,
-					databaseDontSupportEmptyStrings.key,
-					databaseDontSupportNativeDate.key,
-					databaseDontSupportLimit.key,
-					pksourceButterfly.key,
-					fulltextIndex.key,
-					connectionPoolMaxIdle.key,
-					cacheLimit.key,
-					cacheQueryLimit.key,
-					cacheQueryLogging.key,
-					DATADIR_PATH,
-					mediaRooturl.key,
-					mediaOffsetExpires.key,
-				}));
+			final HashSet allowedValues = new HashSet();
+			
+			for(Iterator i = getFields().iterator(); i.hasNext(); )
+				allowedValues.add(((Field)i.next()).getKey());
+			
+			allowedValues.add(DATADIR_PATH);
+			
 			for(Iterator i = properties.keySet().iterator(); i.hasNext(); )
 			{
 				final String key = (String)i.next();
@@ -415,7 +401,7 @@ public final class Properties extends com.exedio.cope.util.Properties
 	{
 		super.ensureEquality(other);
 		
-		ensureEquality(other, databaseCode.key, this.getDatabase(), other.getDatabase());
+		ensureEquality(other, databaseCode.getKey(), this.getDatabase(), other.getDatabase());
 		ensureEquality(other, DATABASE_FORCE_NAME, this.databaseForcedNames, other.databaseForcedNames);
 		ensureEquality(other, "database.DATABASE.*", this.databaseCustomProperties, other.databaseCustomProperties);
 		ensureEquality(other, DATADIR_PATH, this.datadirPath, other.datadirPath);

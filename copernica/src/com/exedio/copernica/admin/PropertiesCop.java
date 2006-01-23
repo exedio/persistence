@@ -77,7 +77,7 @@ final class PropertiesCop extends AdminCop
 				final Properties.Field field = (Properties.Field)i.next();
 				if(field.hasHiddenValue())
 				{
-					final String key = field.key;
+					final String key = field.getKey();
 					sourceContent = sourceContent.replaceAll(key+".*", key+"=<i>hidden</i>");
 				}
 			}
