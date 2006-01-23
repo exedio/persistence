@@ -274,8 +274,15 @@ public class ModelTest extends TestmodelTest
 					prefixed.setProperty(prefix+'.'+name, databaseInfo.getProperty(name));
 				}
 				final Properties p = model.getProperties();
-				prefixed.setProperty(prefix+".cope."+p.databaseDontSupportEmptyStrings.getKey(), String.valueOf(p.getDatabaseDontSupportEmptyStrings()));
-				prefixed.setProperty(prefix+".cope."+p.pksourceButterfly.getKey(), String.valueOf(p.getPkSourceButterfly()));
+				for(Iterator i = p.getFields().iterator(); i.hasNext(); )
+				{
+					final Properties.Field field = (Properties.Field)i.next();
+					if(field.getDefaultValue()!=null
+						&& !field.hasHiddenValue()
+						&& field.isSpecified()
+						&& field.getValue()!=null)
+						prefixed.setProperty(prefix+".cope."+field.getKey(), field.getValue().toString());
+				}
 				final PrintStream out = new PrintStream(new FileOutputStream(file, true));
 				prefixed.store(out, null);
 				out.close();
