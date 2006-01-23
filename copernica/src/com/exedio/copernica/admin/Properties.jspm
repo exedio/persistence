@@ -196,7 +196,9 @@ final class Properties_Jspm
 				for(int j = 0; j<TEST_INFO_KEYS.length; j++)
 				{
 					final String key = TEST_INFO_KEYS[j];
-					final String value = (String)db.get(key);
+					String value = (String)db.get(key);
+					if(value==null)
+						value = "";
 					int rowspan = properties.length - i;
 					for(int k = i+1; k<properties.length; k++)
 					{
