@@ -99,6 +99,7 @@ public class PropertiesTest extends CopeAssert
 		assertEquals("stringMandatory.minimalValue", minimal.stringMandatory.getValue());
 		assertEquals("stringOptional.defaultValue", minimal.stringOptional.getValue());
 		assertEquals("stringHidden.minimalValue", minimal.stringHidden.getValue());
+		assertEquals(new java.util.Properties(), minimal.map.getMapValue());
 		assertEquals(new java.util.Properties(), minimal.map.getValue());
 		assertEquals(null, minimal.map.getValue("explicitKey1"));
 		
@@ -146,6 +147,7 @@ public class PropertiesTest extends CopeAssert
 			java.util.Properties mapExpected = new java.util.Properties();
 			mapExpected.setProperty("explicitKey1", "map.explicitValue1");
 			mapExpected.setProperty("explicitKey2", "map.explicitValue2");
+			assertEquals(mapExpected, tp.map.getMapValue());
 			assertEquals(mapExpected, tp.map.getValue());
 			assertEquals("map.explicitValue1", tp.map.getValue("explicitKey1"));
 			assertEquals("map.explicitValue2", tp.map.getValue("explicitKey2"));

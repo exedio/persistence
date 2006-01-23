@@ -253,8 +253,7 @@ public class Properties
 
 	public final class MapField extends Field
 	{
-		// TODO make private
-		public final java.util.Properties value;
+		private final java.util.Properties value;
 		
 		public MapField(final String key)
 		{
@@ -278,6 +277,11 @@ public class Properties
 		}
 		
 		public Object getValue()
+		{
+			return value;
+		}
+		
+		public java.util.Properties getMapValue()
 		{
 			return value;
 		}

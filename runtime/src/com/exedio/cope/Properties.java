@@ -317,12 +317,12 @@ public final class Properties extends com.exedio.cope.util.Properties
 	
 	java.util.Properties getDatabaseForcedNames()
 	{
-		return databaseForcedNames.value;
+		return databaseForcedNames.getMapValue();
 	}
 	
 	java.util.Properties getDatabaseTableOptions()
 	{
-		return databaseTableOptions.value;
+		return databaseTableOptions.getMapValue();
 	}
 	
 	String getDatabaseCustomProperty(final String key)
