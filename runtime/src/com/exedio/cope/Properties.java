@@ -342,17 +342,17 @@ public final class Properties extends com.exedio.cope.util.Properties
 	
 	public int getConnectionPoolMaxIdle()
 	{
-		return connectionPoolMaxIdle.value;
+		return connectionPoolMaxIdle.getIntValue();
 	}
 	
 	public int getCacheLimit()
 	{
-		return cacheLimit.value;
+		return cacheLimit.getIntValue();
 	}
 	
 	public int getCacheQueryLimit()
 	{
-		return cacheQueryLimit.value;
+		return cacheQueryLimit.getIntValue();
 	}
 	
 	public boolean getCacheQueryLogging()
@@ -390,7 +390,7 @@ public final class Properties extends com.exedio.cope.util.Properties
 	 */
 	public int getMediaOffsetExpires()
 	{
-		return mediaOffsetExpires.value;
+		return mediaOffsetExpires.getIntValue();
 	}
 	
 	final void ensureEquality(final Properties other)

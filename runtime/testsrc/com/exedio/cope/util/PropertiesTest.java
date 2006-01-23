@@ -91,7 +91,8 @@ public class PropertiesTest extends CopeAssert
 		assertEquals(true, minimal.boolTrue.getBooleanValue());
 		assertEquals(Boolean.FALSE, minimal.boolFalse.getValue());
 		assertEquals(Boolean.TRUE, minimal.boolTrue.getValue());
-		assertEquals(10, minimal.int10.value);
+		assertEquals(10, minimal.int10.getIntValue());
+		assertEquals(new Integer(10), minimal.int10.getValue());
 		assertEquals("stringMandatory.minimalValue", minimal.stringMandatory.value);
 		assertEquals("stringOptional.defaultValue", minimal.stringOptional.value);
 		assertEquals("stringHidden.minimalValue", minimal.stringHidden.value);
@@ -131,7 +132,8 @@ public class PropertiesTest extends CopeAssert
 			assertEquals(false, tp.boolTrue.getBooleanValue());
 			assertEquals(Boolean.TRUE, tp.boolFalse.getValue());
 			assertEquals(Boolean.FALSE, tp.boolTrue.getValue());
-			assertEquals(20, tp.int10.value);
+			assertEquals(20, tp.int10.getIntValue());
+			assertEquals(new Integer(20), tp.int10.getValue());
 			assertEquals("stringMandatory.explicitValue", tp.stringMandatory.value);
 			assertEquals("stringOptional.explicitValue", tp.stringOptional.value);
 			assertEquals("stringHidden.explicitValue", tp.stringHidden.value);
@@ -177,7 +179,8 @@ public class PropertiesTest extends CopeAssert
 			final java.util.Properties p = copy(pminimal);
 			p.setProperty("int10", "5");
 			final TestProperties tp = new TestProperties(p, "int.border");
-			assertEquals(5, tp.int10.value);
+			assertEquals(5, tp.int10.getIntValue());
+			assertEquals(new Integer(5), tp.int10.getValue());
 		}
 		assertWrong(pminimal,
 				"wrong.int.tooSmall",

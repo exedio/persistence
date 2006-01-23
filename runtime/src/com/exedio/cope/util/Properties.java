@@ -127,8 +127,7 @@ public class Properties
 	public final class IntField extends Field
 	{
 		private final int defaultValue;
-		// TODO make private
-		public final int value;
+		private final int value;
 		
 		public IntField(final String key, final int defaultValue, final int minimumValue)
 		{
@@ -173,6 +172,11 @@ public class Properties
 		{
 			//return Integer.valueOf(value); recommended for JDK 1.5 and later
 			return new Integer(value);
+		}
+		
+		public int getIntValue()
+		{
+			return value;
 		}
 	}
 
