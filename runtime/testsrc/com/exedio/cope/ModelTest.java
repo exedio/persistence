@@ -96,54 +96,6 @@ public class ModelTest extends TestmodelTest
 		
 		{
 			final java.util.Properties props = (java.util.Properties)newProps.clone();
-			props.setProperty(mp.databaseUrl.key, "zack");
-			final String source = file.getAbsolutePath()+'/'+mp.databaseUrl.key+"=zack";
-			try
-			{
-				model.setPropertiesInitially(new Properties(props, source));
-			}
-			catch(RuntimeException e)
-			{
-				assertEquals(
-						"inconsistent initialization for " + mp.databaseUrl.key +
-						" between " + mp.getSource() + " and " + source +
-						", expected " + mp.getDatabaseUrl() +
-						" but got zack.", e.getMessage());
-			}
-		}
-		{
-			final java.util.Properties props = (java.util.Properties)newProps.clone();
-			props.setProperty(mp.databaseUser.key, "zick");
-			final String source = file.getAbsolutePath()+'/'+mp.databaseUser.key+"=zick";
-			try
-			{
-				model.setPropertiesInitially(new Properties(props, source));
-			}
-			catch(RuntimeException e)
-			{
-				assertEquals(
-						"inconsistent initialization for " + mp.databaseUser.key +
-						" between " + mp.getSource() + " and " + source +
-						", expected "+mp.getDatabaseUser()+" but got zick.", e.getMessage());
-			}
-		}
-		{
-			final java.util.Properties props = (java.util.Properties)newProps.clone();
-			props.setProperty(mp.databasePassword.key, "zock");
-			final String source = file.getAbsolutePath()+'/'+mp.databasePassword.key+"=zock";
-			try
-			{
-				model.setPropertiesInitially(new Properties(props, source));
-			}
-			catch(RuntimeException e)
-			{
-				assertEquals(
-						"inconsistent initialization for " + mp.databasePassword.key +
-						" between " + mp.getSource() + " and " + source + ".", e.getMessage());
-			}
-		}
-		{
-			final java.util.Properties props = (java.util.Properties)newProps.clone();
 			final String newValue = mp.getDatabaseDontSupportEmptyStrings()?"false":"true";
 			props.setProperty(mp.databaseDontSupportEmptyStrings.key, newValue);
 			final String source = file.getAbsolutePath()+'/'+mp.databasePassword.key+"=zock";
