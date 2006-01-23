@@ -114,29 +114,6 @@ public class ModelTest extends TestmodelTest
 		}
 		{
 			final java.util.Properties props = (java.util.Properties)newProps.clone();
-			props.setProperty(mp.mediaRooturl.key, "zosch");
-			final String source = file.getAbsolutePath()+'/'+mp.mediaRooturl.key+"=zosch";
-			try
-			{
-				model.setPropertiesInitially(new Properties(props, source));
-			}
-			catch(RuntimeException e)
-			{
-				assertEquals(
-						"inconsistent initialization for " + mp.mediaRooturl.key +
-						" between " + mp.getSource() + " and " + source +
-						", expected " + mp.getMediaRootUrl() +
-						" but got zosch.", e.getMessage());
-			}
-
-			props.remove(mp.mediaRooturl.key);
-			assertEquals(mp.mediaRooturl.getDefaultValue(), new Properties(props, "source").getMediaRootUrl());
-
-			props.setProperty(mp.mediaRooturl.key, "klack");
-			assertEquals("klack", new Properties(props, "source").getMediaRootUrl());
-		}
-		{
-			final java.util.Properties props = (java.util.Properties)newProps.clone();
 			props.setProperty("zack", "zosch");
 			try
 			{
