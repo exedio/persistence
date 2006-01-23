@@ -1283,7 +1283,7 @@ abstract class AbstractDatabase implements Database
 	public String makeName(final String prefix, final String longName)
 	{
 		final String query = prefix==null ? longName : prefix+'.'+longName;
-		final String forcedName = (String)forcedNames.get(query);
+		final String forcedName = forcedNames.getProperty(query);
 		//System.out.println("---------"+query+"--"+forcedName);
 		if(forcedName!=null)
 			return forcedName;
