@@ -23,6 +23,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Iterator;
 import java.util.TreeSet;
 
@@ -196,7 +197,7 @@ final class Properties_Jspm
 				for(int j = 0; j<TEST_INFO_KEYS.length; j++)
 				{
 					final String key = TEST_INFO_KEYS[j];
-					String value = (String)db.get(key);
+					Object value = db.get(key);
 					if(value==null)
 						value = "";
 					int rowspan = properties.length - i;
@@ -217,7 +218,22 @@ final class Properties_Jspm
 				<td<% 
 					if(rowspan!=1){ %> rowspan="<%=rowspan%>"<% }
 					if(value.equals(current.get(key))){ %> bgcolor="#cff"<% }
-					%>><%=value%></td><%
+					%>><%
+					if(value instanceof Map)
+					{
+						final Map valueMap = (Map)value;
+						for(Iterator k = valueMap.keySet().iterator(); k.hasNext(); )
+						{
+							final Object mapKey = k.next();
+							final Object mapValue = valueMap.get(mapKey);
+							%><%=mapKey%>=<%=mapValue%><br><%
+						}
+					}
+					else
+					{
+						%><%=value%><%
+					}
+					%></td><%
 					}
 				}
 				%>

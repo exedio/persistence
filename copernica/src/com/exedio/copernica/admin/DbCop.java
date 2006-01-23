@@ -114,9 +114,13 @@ final class DbCop extends AdminCop
 			final String key = name.substring(nameDot+1);
 			if(key.startsWith("cope."))
 			{
-				final String copeValue = key.substring("cope.".length())+"="+value;
-				final String previousValue = (String)database.get("cope.properties");
-				database.put("cope.properties", (previousValue==null) ? copeValue : (previousValue + "<br>" + copeValue));
+				TreeMap previousValue = (TreeMap)database.get("cope.properties");
+				if(previousValue==null)
+				{
+					previousValue = new TreeMap();
+					database.put("cope.properties", previousValue);
+				}
+				previousValue.put(key.substring("cope.".length()), value);
 			}
 			else
 				database.put(key, value);
