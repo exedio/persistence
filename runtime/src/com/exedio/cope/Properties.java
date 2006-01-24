@@ -98,16 +98,16 @@ public final class Properties extends com.exedio.cope.util.Properties
 		
 		if(datadirPath.getFileValue()!=null)
 		{
-			final File datadirPathTest = datadirPath.getFileValue();
+			final File value = datadirPath.getFileValue();
 
-			if(!datadirPathTest.exists())
-				throw new RuntimeException(datadirPath.getKey() + ' ' + datadirPathTest.getAbsolutePath() + " does not exist.");
-			if(!datadirPathTest.isDirectory())
-				throw new RuntimeException(datadirPath.getKey() + ' ' + datadirPathTest.getAbsolutePath() + " is not a directory.");
-			if(!datadirPathTest.canRead())
-				throw new RuntimeException(datadirPath.getKey() + ' ' + datadirPathTest.getAbsolutePath() + " is not readable.");
-			if(!datadirPathTest.canWrite())
-				throw new RuntimeException(datadirPath.getKey() + ' ' + datadirPathTest.getAbsolutePath() + " is not writable.");
+			if(!value.exists())
+				throw new RuntimeException(datadirPath.getKey() + ' ' + value.getAbsolutePath() + " does not exist.");
+			if(!value.isDirectory())
+				throw new RuntimeException(datadirPath.getKey() + ' ' + value.getAbsolutePath() + " is not a directory.");
+			if(!value.canRead())
+				throw new RuntimeException(datadirPath.getKey() + ' ' + value.getAbsolutePath() + " is not readable.");
+			if(!value.canWrite())
+				throw new RuntimeException(datadirPath.getKey() + ' ' + value.getAbsolutePath() + " is not writable.");
 		}
 		
 		ensureValidity(new String[]{"x-build"});
