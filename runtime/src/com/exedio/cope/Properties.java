@@ -73,9 +73,9 @@ public final class Properties extends com.exedio.cope.util.Properties
 		return new File(result);
 	}
 
-	public Properties(final File propertyFile)
+	public Properties(final File file)
 	{
-		this(loadProperties(propertyFile), propertyFile.getAbsolutePath());
+		this(loadProperties(file), file.getAbsolutePath());
 	}
 
 	public Properties(final java.util.Properties properties, final String source)
