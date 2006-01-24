@@ -83,8 +83,6 @@ public final class Properties extends com.exedio.cope.util.Properties
 		super(properties, source);
 
 		final String databaseCode = this.databaseCode.getStringValue();
-		if(databaseCode.length()<=2)
-			throw new RuntimeException("database from "+source+" must have at least two characters, but was "+databaseCode);
 		database = getDatabaseConstructor( databaseCode, source );
 
 		databaseCustomProperties = new MapField("database." + databaseCode);
@@ -106,8 +104,11 @@ public final class Properties extends com.exedio.cope.util.Properties
 		ensureValidity(new String[]{"x-build"});
 	}
 	
-	private static Constructor getDatabaseConstructor( String databaseCode, String source )
+	private static final Constructor getDatabaseConstructor(final String databaseCode, final String source)
 	{
+		if(databaseCode.length()<=2)
+			throw new RuntimeException("database from " + source + " must have at least two characters, but was " + databaseCode);
+		
 		final String databaseName =
 			"com.exedio.cope." +
 			Character.toUpperCase(databaseCode.charAt(0)) +
