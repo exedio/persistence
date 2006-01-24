@@ -26,10 +26,10 @@ import java.util.List;
 
 import com.exedio.cope.Attribute;
 import com.exedio.cope.AttributeValue;
+import com.exedio.cope.ConstraintViolationException;
+import com.exedio.cope.FunctionAttribute;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemAttribute;
-import com.exedio.cope.FunctionAttribute;
-import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
@@ -139,7 +139,7 @@ public final class Qualifier extends Pattern
 			{
 				item = qualifyUnique.getType().newItem(initialAttributeValues);
 			}
-			catch(MandatoryViolationException e)
+			catch(ConstraintViolationException e)
 			{
 				// cannot happen, since all qualifying values  should be given
 				throw new RuntimeException(e);

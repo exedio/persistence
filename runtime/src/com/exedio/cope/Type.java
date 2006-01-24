@@ -532,7 +532,7 @@ public final class Type
 	private static final AttributeValue[] EMPTY_ATTRIBUTE_VALUES = new AttributeValue[]{};
 	
 	public final Item newItem(final AttributeValue[] initialAttributeValues)
-		throws MandatoryViolationException
+		throws MandatoryViolationException, UniqueViolationException
 	{
 		final Item result;
 		try
@@ -560,6 +560,7 @@ public final class Type
 		}
 		
 		result.throwInitialMandatoryViolationException();
+		result.throwInitialUniqueViolationException();
 		return result;
 	}
 

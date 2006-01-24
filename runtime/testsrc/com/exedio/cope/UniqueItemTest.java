@@ -326,9 +326,25 @@ public class UniqueItemTest extends TestmodelTest
 		final ItemWithDoubleUnique b2 = new ItemWithDoubleUnique("b", 2);
 		assertEquals(b2, ItemWithDoubleUnique.findByDoubleUnique("b", 2));
 
+		assertEquals(b1, ItemWithDoubleUnique.findByDoubleUnique("b", 1));
 		try
 		{		
 			new ItemWithDoubleUnique("b", 1);
+			fail();
+		}
+		catch(UniqueViolationException e)
+		{
+			assertEquals(a1.doubleUnique, e.getConstraint());
+			assertEquals(null, e.getItem());
+			assertEquals("unique violation for ItemWithDoubleUnique#doubleUnique", e.getMessage());
+		}
+		assertEquals(b1, ItemWithDoubleUnique.findByDoubleUnique("b", 1));
+		try
+		{		
+			ItemWithDoubleUnique.TYPE.newItem(new AttributeValue[]{
+					ItemWithDoubleUnique.string.map("b"),
+					ItemWithDoubleUnique.integer.map(1),
+				});
 			fail();
 		}
 		catch(UniqueViolationException e)
