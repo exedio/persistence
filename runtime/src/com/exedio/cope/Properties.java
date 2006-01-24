@@ -21,9 +21,6 @@ package com.exedio.cope;
 import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
 
 public final class Properties extends com.exedio.cope.util.Properties
 {
@@ -59,6 +56,7 @@ public final class Properties extends com.exedio.cope.util.Properties
 	final StringField mediaRooturl =  new StringField("media.rooturl", "media/");
 	final IntField mediaOffsetExpires = new IntField("media.offsetExpires", 1000 * 5, 0);
 	
+	// TODO remove
 	private final String source;
 
 	// NOTE:
@@ -118,41 +116,8 @@ public final class Properties extends com.exedio.cope.util.Properties
 			if(!datadirPathTest.canWrite())
 				throw new RuntimeException(datadirPath.getKey() + ' ' + datadirPathTest.getAbsolutePath() + " is not writable.");
 		}
-
-		{
-			final HashSet allowedValues = new HashSet();
-			final ArrayList allowedPrefixes = new ArrayList();
-			
-			for(Iterator i = getFields().iterator(); i.hasNext(); )
-			{
-				final Field field = (Field)i.next();
-				if(field instanceof MapField)
-					allowedPrefixes.add(field.getKey()+'.');
-				else
-					allowedValues.add(field.getKey());
-			}
-			
-			allowedPrefixes.add("x-build.");
-			
-			for(Iterator i = properties.keySet().iterator(); i.hasNext(); )
-			{
-				final String key = (String)i.next();
-				if(!allowedValues.contains(key))
-				{
-					boolean error = true;
-					for(Iterator j = allowedPrefixes.iterator(); j.hasNext(); )
-					{
-						if(key.startsWith((String)j.next()))
-						{
-							error = false;
-							break;
-						}
-					}
-					if(error)
-						throw new RuntimeException("property "+key+" in "+source+" is not allowed.");
-				}
-			}
-		}
+		
+		ensureValidity(new String[]{"x-build"});
 	}
 	
 	private static Constructor getDatabaseConstructor( String databaseCode, String source )

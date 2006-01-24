@@ -22,7 +22,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
@@ -327,6 +329,48 @@ public class Properties
 		
 	}
 
+	public final void ensureValidity()
+	{
+		ensureValidity(null);
+	}
+	
+	public final void ensureValidity(final String[] prefixes)
+	{
+		final HashSet allowedValues = new HashSet();
+		final ArrayList allowedPrefixes = new ArrayList();
+		
+		for(Iterator i = fields.iterator(); i.hasNext(); )
+		{
+			final Field field = (Field)i.next();
+			if(field instanceof MapField)
+				allowedPrefixes.add(field.key+'.');
+			else
+				allowedValues.add(field.key);
+		}
+		
+		if(prefixes!=null)
+			allowedPrefixes.addAll(Arrays.asList(prefixes));
+		
+		for(Iterator i = properties.keySet().iterator(); i.hasNext(); )
+		{
+			final String key = (String)i.next();
+			if(!allowedValues.contains(key))
+			{
+				boolean error = true;
+				for(Iterator j = allowedPrefixes.iterator(); j.hasNext(); )
+				{
+					if(key.startsWith((String)j.next()))
+					{
+						error = false;
+						break;
+					}
+				}
+				if(error)
+					throw new RuntimeException("property "+key+" in "+source+" is not allowed.");
+			}
+		}
+	}
+	
 	public void ensureEquality(final Properties other)
 	{
 		final Iterator j = other.fields.iterator();

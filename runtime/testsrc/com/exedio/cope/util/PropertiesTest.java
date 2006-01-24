@@ -178,6 +178,22 @@ public class PropertiesTest extends CopeAssert
 			assertEquals(true, tp.file.isSpecified());
 			assertEquals(false, tp.map.isSpecified()); // TODO
 		}
+		{
+			final java.util.Properties p = copy(pminimal);
+			p.setProperty("wrongKey.zack", "somethingZack");
+			final TestProperties tp = new TestProperties(p, "wrongkey");
+			assertEquals("wrongkey", tp.getSource());
+			tp.ensureValidity(new String[]{"wrongKey"});
+			try
+			{
+				tp.ensureValidity();
+				fail();
+			}
+			catch(RuntimeException e)
+			{
+				assertEquals("property wrongKey.zack in wrongkey is not allowed.", e.getMessage());
+			}
+		}
 		
 		// boolean
 		assertWrong(pminimal,
