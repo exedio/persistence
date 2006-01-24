@@ -267,6 +267,18 @@ public class UniqueItemTest extends TestmodelTest
 			assertEquals("mandatory violation on a newly created item for ItemWithSingleUniqueNotNull#uniqueNotNullString", e.getMessage());
 		}
 		assertContains(item, item.TYPE.search(null));
+		try
+		{
+			ItemWithSingleUniqueNotNull.TYPE.newItem(new AttributeValue[]{item.uniqueNotNullString.map(null)});
+			fail();
+		}
+		catch(MandatoryViolationException e)
+		{
+			assertEquals(item.uniqueNotNullString, e.getMandatoryAttribute());
+			assertEquals(null, e.getItem());
+			assertEquals("mandatory violation on a newly created item for ItemWithSingleUniqueNotNull#uniqueNotNullString", e.getMessage());
+		}
+		assertContains(item, item.TYPE.search(null));
 
 		assertDelete(item);
 	}

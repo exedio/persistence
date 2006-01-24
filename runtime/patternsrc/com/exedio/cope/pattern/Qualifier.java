@@ -29,6 +29,7 @@ import com.exedio.cope.AttributeValue;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemAttribute;
 import com.exedio.cope.FunctionAttribute;
+import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
@@ -134,7 +135,15 @@ public final class Qualifier extends Pattern
 				final FunctionAttribute uniqueAttribute = (FunctionAttribute)i.next();
 				initialAttributeValues[j] = new AttributeValue(uniqueAttribute, values[j]);
 			}
-			item = qualifyUnique.getType().newItem(initialAttributeValues);
+			try
+			{
+				item = qualifyUnique.getType().newItem(initialAttributeValues);
+			}
+			catch(MandatoryViolationException e)
+			{
+				// cannot happen, since all qualifying values  should be given
+				throw new RuntimeException(e);
+			}
 		}
 		return item;
 	}

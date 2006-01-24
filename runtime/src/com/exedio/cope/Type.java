@@ -532,10 +532,12 @@ public final class Type
 	private static final AttributeValue[] EMPTY_ATTRIBUTE_VALUES = new AttributeValue[]{};
 	
 	public final Item newItem(final AttributeValue[] initialAttributeValues)
+		throws MandatoryViolationException
 	{
+		final Item result;
 		try
 		{
-			return 
+			result =
 				(Item)creationConstructor.newInstance(
 					new Object[]{
 						initialAttributeValues!=null
@@ -556,6 +558,9 @@ public final class Type
 		{
 			throw new RuntimeException(e);
 		}
+		
+		result.throwInitialMandatoryViolationException();
+		return result;
 	}
 
 	/**
