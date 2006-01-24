@@ -19,7 +19,6 @@
 package com.exedio.cope;
 
 import java.io.File;
-import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -56,7 +55,7 @@ public final class Properties extends com.exedio.cope.util.Properties
 	final IntField cacheQueryLimit = new IntField("cache.queryLimit", 10000, 0);
 	final BooleanField cacheQueryLogging = new BooleanField("cache.queryLogging", false);
 	
-	public static final String DATADIR_PATH = "datadir.path";
+	final FileField datadirPath = new FileField("datadir.path");
 	final StringField mediaRooturl =  new StringField("media.rooturl", "media/");
 	final IntField mediaOffsetExpires = new IntField("media.offsetExpires", 1000 * 5, 0);
 	
@@ -67,7 +66,6 @@ public final class Properties extends com.exedio.cope.util.Properties
 	// you probably have to add another
 	// test to ensureEquality as well.
 	private final Constructor database;
-	private final File datadirPath;
 
 	public Properties()
 	{
@@ -106,31 +104,19 @@ public final class Properties extends com.exedio.cope.util.Properties
 
 		databaseCustomProperties = new MapField(databaseCustomPropertiesPrefix);
 		
-		final String datadirPathString  = properties.getProperty(DATADIR_PATH);
-		if(datadirPathString!=null)
+		
+		if(datadirPath.getFileValue()!=null)
 		{
-			final File datadirPathTest = new File(datadirPathString);
+			final File datadirPathTest = datadirPath.getFileValue();
 
 			if(!datadirPathTest.exists())
-				throw new RuntimeException(DATADIR_PATH + ' ' + datadirPathTest.getAbsolutePath() + " does not exist.");
+				throw new RuntimeException(datadirPath.getKey() + ' ' + datadirPathTest.getAbsolutePath() + " does not exist.");
 			if(!datadirPathTest.isDirectory())
-				throw new RuntimeException(DATADIR_PATH + ' ' + datadirPathTest.getAbsolutePath() + " is not a directory.");
+				throw new RuntimeException(datadirPath.getKey() + ' ' + datadirPathTest.getAbsolutePath() + " is not a directory.");
 			if(!datadirPathTest.canRead())
-				throw new RuntimeException(DATADIR_PATH + ' ' + datadirPathTest.getAbsolutePath() + " is not readable.");
+				throw new RuntimeException(datadirPath.getKey() + ' ' + datadirPathTest.getAbsolutePath() + " is not readable.");
 			if(!datadirPathTest.canWrite())
-				throw new RuntimeException(DATADIR_PATH + ' ' + datadirPathTest.getAbsolutePath() + " is not writable.");
-			try
-			{
-				datadirPath = datadirPathTest.getCanonicalFile();
-			}
-			catch(IOException e)
-			{
-				throw new RuntimeException(e);
-			}
-		}
-		else
-		{
-			datadirPath = null;
+				throw new RuntimeException(datadirPath.getKey() + ' ' + datadirPathTest.getAbsolutePath() + " is not writable.");
 		}
 
 		{
@@ -147,7 +133,6 @@ public final class Properties extends com.exedio.cope.util.Properties
 			}
 			
 			allowedPrefixes.add("x-build.");
-			allowedValues.add(DATADIR_PATH);
 			
 			for(Iterator i = properties.keySet().iterator(); i.hasNext(); )
 			{
@@ -329,15 +314,17 @@ public final class Properties extends com.exedio.cope.util.Properties
 	
 	public boolean hasDatadirPath()
 	{
-		return datadirPath!=null;
+		return datadirPath.getFileValue()!=null;
 	}
 	
 	public File getDatadirPath()
 	{
-		if(datadirPath==null)
-			throw newNotSetException(DATADIR_PATH);
+		final File result = datadirPath.getFileValue();
+		
+		if(result==null)
+			throw newNotSetException(datadirPath.getKey());
 
-		return datadirPath;
+		return result;
 	}
 	
 	public String getMediaRootUrl()
@@ -363,9 +350,7 @@ public final class Properties extends com.exedio.cope.util.Properties
 	final void ensureEquality(final Properties other)
 	{
 		super.ensureEquality(other);
-		
 		ensureEquality(other, databaseCode.getKey(), this.getDatabase(), other.getDatabase());
-		ensureEquality(other, DATADIR_PATH, this.datadirPath, other.datadirPath);
 	}
 	
 	private final void ensureEquality(

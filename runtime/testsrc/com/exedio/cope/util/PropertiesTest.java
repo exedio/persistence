@@ -18,6 +18,8 @@
 
 package com.exedio.cope.util;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 
 import com.exedio.cope.junit.CopeAssert;
@@ -32,6 +34,7 @@ public class PropertiesTest extends CopeAssert
 		final StringField stringMandatory = new StringField("stringMandatory");
 		final StringField stringOptional = new StringField("stringOptional", "stringOptional.defaultValue");
 		final StringField stringHidden = new StringField("stringHidden", true);
+		final FileField file = new FileField("file");
 		final MapField map = new MapField("map");
 		
 		public TestProperties(final java.util.Properties properties, final String source)
@@ -48,6 +51,7 @@ public class PropertiesTest extends CopeAssert
 					stringMandatory,
 					stringOptional,
 					stringHidden,
+					file,
 					map,
 			}), getFields());
 			
@@ -57,6 +61,7 @@ public class PropertiesTest extends CopeAssert
 			assertEquals("stringMandatory", stringMandatory.getKey());
 			assertEquals("stringOptional", stringOptional.getKey());
 			assertEquals("stringHidden", stringHidden.getKey());
+			assertEquals("file", file.getKey());
 			assertEquals("map", map.getKey());
 			
 			assertEquals(Boolean.FALSE, boolFalse.getDefaultValue());
@@ -65,6 +70,7 @@ public class PropertiesTest extends CopeAssert
 			assertEquals(null, stringMandatory.getDefaultValue());
 			assertEquals("stringOptional.defaultValue", stringOptional.getDefaultValue());
 			assertEquals(null, stringHidden.getDefaultValue());
+			assertEquals(null, file.getDefaultValue());
 			assertEquals(null, map.getDefaultValue());
 
 			assertEquals(false, boolFalse.hasHiddenValue());
@@ -73,12 +79,16 @@ public class PropertiesTest extends CopeAssert
 			assertEquals(false, stringMandatory.hasHiddenValue());
 			assertEquals(false, stringOptional.hasHiddenValue());
 			assertEquals(true, stringHidden.hasHiddenValue());
+			assertEquals(false, file.hasHiddenValue());
 			assertEquals(false, map.hasHiddenValue());
 		}
 	}
 	
-	public void testIt()
+	public void testIt() throws IOException
 	{
+		final File file1 = File.createTempFile("PropertiesTest-", ".tmp");
+		final File file2 = File.createTempFile("PropertiesTest-", ".tmp");
+		
 		final java.util.Properties pminimal = new java.util.Properties();
 		pminimal.setProperty("stringMandatory", "stringMandatory.minimalValue");
 		pminimal.setProperty("stringHidden", "stringHidden.minimalValue");
@@ -99,6 +109,8 @@ public class PropertiesTest extends CopeAssert
 		assertEquals("stringMandatory.minimalValue", minimal.stringMandatory.getValue());
 		assertEquals("stringOptional.defaultValue", minimal.stringOptional.getValue());
 		assertEquals("stringHidden.minimalValue", minimal.stringHidden.getValue());
+		assertEquals(null, minimal.file.getFileValue());
+		assertEquals(null, minimal.file.getValue());
 		assertEquals(new java.util.Properties(), minimal.map.getMapValue());
 		assertEquals(new java.util.Properties(), minimal.map.getValue());
 		assertEquals(null, minimal.map.getValue("explicitKey1"));
@@ -109,6 +121,7 @@ public class PropertiesTest extends CopeAssert
 		assertEquals(true, minimal.stringMandatory.isSpecified());
 		assertEquals(false, minimal.stringOptional.isSpecified());
 		assertEquals(true, minimal.stringHidden.isSpecified());
+		assertEquals(false, minimal.file.isSpecified());
 		assertEquals(false, minimal.map.isSpecified());
 		
 		minimal.ensureEquality(minimal);
@@ -127,6 +140,7 @@ public class PropertiesTest extends CopeAssert
 			p.setProperty("stringMandatory", "stringMandatory.explicitValue");
 			p.setProperty("stringOptional", "stringOptional.explicitValue");
 			p.setProperty("stringHidden", "stringHidden.explicitValue");
+			p.setProperty("file", file1.getPath());
 			p.setProperty("map.explicitKey1", "map.explicitValue1");
 			p.setProperty("map.explicitKey2", "map.explicitValue2");
 			final TestProperties tp = new TestProperties(p, "maximal");
@@ -144,6 +158,8 @@ public class PropertiesTest extends CopeAssert
 			assertEquals("stringMandatory.explicitValue", tp.stringMandatory.getValue());
 			assertEquals("stringOptional.explicitValue", tp.stringOptional.getValue());
 			assertEquals("stringHidden.explicitValue", tp.stringHidden.getValue());
+			assertEquals(file1, tp.file.getFileValue());
+			assertEquals(file1, tp.file.getValue());
 			java.util.Properties mapExpected = new java.util.Properties();
 			mapExpected.setProperty("explicitKey1", "map.explicitValue1");
 			mapExpected.setProperty("explicitKey2", "map.explicitValue2");
@@ -159,6 +175,7 @@ public class PropertiesTest extends CopeAssert
 			assertEquals(true, tp.stringMandatory.isSpecified());
 			assertEquals(true, tp.stringOptional.isSpecified());
 			assertEquals(true, tp.stringHidden.isSpecified());
+			assertEquals(true, tp.file.isSpecified());
 			assertEquals(false, tp.map.isSpecified()); // TODO
 		}
 		
@@ -236,6 +253,25 @@ public class PropertiesTest extends CopeAssert
 				"stringHidden", "stringHidden.inconsistentValue",
 				"inconsistent initialization for stringHidden between minimal and inconsistent.stringHidden.",
 				"inconsistent initialization for stringHidden between inconsistent.stringHidden and minimal.");
+		
+		// File
+		assertInconsistent(pminimal,
+				"inconsistent.file",
+				"file", file2.getPath(),
+				"inconsistent initialization for file between minimal and inconsistent.file," +
+					" expected null but got " + file2.getPath() + ".",
+				"inconsistent initialization for file between inconsistent.file and minimal," +
+					" expected " + file2.getPath() + " but got null.");
+		
+		final java.util.Properties fileInconsistency = copy(pminimal);
+		fileInconsistency.setProperty("file", file1.getPath());
+		assertInconsistent(fileInconsistency,
+				"inconsistent.file",
+				"file", file2.getPath(),
+				"inconsistent initialization for file between minimal and inconsistent.file," +
+					" expected " + file1.getPath() + " but got " + file2.getPath() + ".",
+				"inconsistent initialization for file between inconsistent.file and minimal," +
+					" expected " + file2.getPath() + " but got " + file1.getPath() + ".");
 		
 		// Map
 		assertInconsistent(pminimal,

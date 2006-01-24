@@ -89,6 +89,27 @@ final class Properties_Jspm
 					</small>
 				</td><%
 				}
+				else if(field instanceof Properties.FileField)
+				{
+					final File file = ((Properties.FileField)field).getFileValue();
+					if(file!=null)
+					{
+					%>
+				<td>
+					<a href="<%=
+							file.toURL().toString()%>"><%=
+							file.getAbsolutePath()%></a>
+					<br>
+					<small>
+					(link works only if the server is running locally).
+					</small>
+				</td><%
+					}
+					else
+					{
+					%><td><b>n/a</b></td><%
+					}
+				}
 				else
 				{
 				%>
@@ -98,29 +119,6 @@ final class Properties_Jspm
 			</tr><%
 				}
 			}
-			%>
-			<tr>
-				<th><%=properties.DATADIR_PATH%></th>
-				<td><%
-				if(properties.hasDatadirPath())
-				{
-					final File datadir = properties.getDatadirPath();
-					%>
-					<a href="<%=
-							datadir.toURL().toString()%>"><%=
-							datadir.getAbsolutePath()%></a>
-					<br>
-					<small>
-					(link works only if the server is running locally).
-					</small>
-				<%
-				}
-				else
-				{
-					%><b>n/a</b><%
-				}
-				%></td>
-			</tr><%
 
 			if(sourceContent!=null)
 			{

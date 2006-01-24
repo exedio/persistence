@@ -252,6 +252,39 @@ public class Properties
 		}
 	}
 
+	public final class FileField extends Field
+	{
+		private final File value;
+		
+		public FileField(final String key)
+		{
+			super(key);
+
+			final String valueString = properties.getProperty(key);
+			this.value = (valueString==null) ? null : new File(valueString);
+		}
+		
+		public Object getDefaultValue()
+		{
+			return null;
+		}
+		
+		public Object getValue()
+		{
+			return value;
+		}
+		
+		public File getFileValue()
+		{
+			return value;
+		}
+		
+		public boolean hasHiddenValue()
+		{
+			return false;
+		}
+	}
+
 	public final class MapField extends Field
 	{
 		private final java.util.Properties value;

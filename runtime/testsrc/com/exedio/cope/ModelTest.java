@@ -98,16 +98,17 @@ public class ModelTest extends TestmodelTest
 		{
 			final char SEP = File.separatorChar;
 			final java.util.Properties props = (java.util.Properties)newProps.clone();
-			props.setProperty(Properties.DATADIR_PATH, props.getProperty(Properties.DATADIR_PATH)+SEP+"AttributeItem");
-			final String source = file.getAbsolutePath()+'/'+Properties.DATADIR_PATH+"=/AttributeItem";
+			props.setProperty(mp.datadirPath.getKey(), props.getProperty(mp.datadirPath.getKey())+SEP+"AttributeItem");
+			final String source = file.getAbsolutePath()+'/'+mp.datadirPath.getKey()+"=/AttributeItem";
 			try
 			{
 				model.setPropertiesInitially(new Properties(props, source));
+				fail();
 			}
 			catch(RuntimeException e)
 			{
 				assertEquals(
-						"inconsistent initialization for " + Properties.DATADIR_PATH +
+						"inconsistent initialization for " + mp.datadirPath.getKey() +
 						" between " + mp.getSource() + " and " + source +
 						", expected " + mp.getDatadirPath() + " but got " + mp.getDatadirPath() + SEP + "AttributeItem.", e.getMessage());
 			}
