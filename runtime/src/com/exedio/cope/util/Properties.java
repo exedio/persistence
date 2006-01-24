@@ -324,13 +324,13 @@ public class Properties
 	
 	public static final java.util.Properties loadProperties(final File file)
 	{
-		final java.util.Properties properties = new java.util.Properties();
+		final java.util.Properties result = new java.util.Properties();
 		FileInputStream stream = null;
 		try
 		{
 			stream = new FileInputStream(file);
-			properties.load(stream);
-			return properties;
+			result.load(stream);
+			return result;
 		}
 		catch(IOException e)
 		{
