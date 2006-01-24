@@ -78,41 +78,35 @@ final class Properties_Jspm
 				%>>
 				<th><%=field.getKey()%></th>
 				<td><%
-				final Object defaultValue = field.getDefaultValue();
-				if(defaultValue!=null && fieldSpecified)
-				{
-				%>
-					<%=field.getValue()%>
-					<br>
-					<small>
-					(default is &quot;<%=defaultValue%>&quot;)
-					</small>
-				<%
-				}
-				else if(field instanceof Properties.FileField)
-				{
-					final File file = ((Properties.FileField)field).getFileValue();
-					if(file!=null)
+					final Object defaultValue = field.getDefaultValue();
+					if(defaultValue!=null && fieldSpecified)
 					{
-					%>
-					<a href="<%=
-							file.toURL().toString()%>"><%=
-							file.getAbsolutePath()%></a>
-					<br>
-					<small>
-					(link works only if the server is running locally).
-					</small>
-				<%
+						%><%=
+							field.getValue()
+							%><br><small>(default is &quot;<%=
+							defaultValue
+							%>&quot;)</small><%
+					}
+					else if(field instanceof Properties.FileField)
+					{
+						final File file = ((Properties.FileField)field).getFileValue();
+						if(file!=null)
+						{
+							%><a href="<%=
+								file.toURL().toString()
+								%>"><%=
+								file.getAbsolutePath()
+								%></a><br><small>(link works only if the server is running locally).</small><%
+						}
+						else
+						{
+							%><b>n/a</b><%
+						}
 					}
 					else
 					{
-					%><b>n/a</b><%
+						%><%=field.getValue()%><%
 					}
-				}
-				else
-				{
-				%><%=field.getValue()%><%
-				}
 				%></td>
 			</tr><%
 				}
