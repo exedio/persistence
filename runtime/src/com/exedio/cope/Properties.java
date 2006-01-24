@@ -26,32 +26,32 @@ public final class Properties extends com.exedio.cope.util.Properties
 {
 	
 	private final StringField databaseCode = new StringField("database");
-	final StringField databaseUrl =  new StringField("database.url");
-	final StringField databaseUser =  new StringField("database.user");
-	final StringField databasePassword =  new StringField("database.password", true);
-	final BooleanField databaseLog = new BooleanField("database.log", false);
+	private final StringField databaseUrl =  new StringField("database.url");
+	private final StringField databaseUser =  new StringField("database.user");
+	private final StringField databasePassword =  new StringField("database.password", true);
+	private final BooleanField databaseLog = new BooleanField("database.log", false);
 	
-	final BooleanField databaseDontSupportPreparedStatements = new BooleanField("database.dontSupport.preparedStatements", false);
-	final BooleanField databaseDontSupportEmptyStrings = new BooleanField("database.dontSupport.emptyStrings", false);
-	final BooleanField databaseDontSupportNativeDate = new BooleanField("database.dontSupport.nativeDate", false);
-	final BooleanField databaseDontSupportLimit = new BooleanField("database.dontSupport.limit", false);
+	private final BooleanField databaseDontSupportPreparedStatements = new BooleanField("database.dontSupport.preparedStatements", false);
+	private final BooleanField databaseDontSupportEmptyStrings = new BooleanField("database.dontSupport.emptyStrings", false);
+	private final BooleanField databaseDontSupportNativeDate = new BooleanField("database.dontSupport.nativeDate", false);
+	private final BooleanField databaseDontSupportLimit = new BooleanField("database.dontSupport.limit", false);
 	
 	private final MapField databaseForcedNames = new MapField("database.forcename");
 	private final MapField databaseTableOptions = new MapField("database.tableOption");
 	private final MapField databaseCustomProperties;
 	
 	static final String PKSOURCE_BUTTERFLY = "pksource.butterfly";
-	final BooleanField pksourceButterfly = new BooleanField(PKSOURCE_BUTTERFLY, false);
-	final BooleanField fulltextIndex = new BooleanField("fulltextIndex", false);
-	final IntField connectionPoolMaxIdle = new IntField("connectionPool.maxIdle", 10, 0);
+	private final BooleanField pksourceButterfly = new BooleanField(PKSOURCE_BUTTERFLY, false);
+	private final BooleanField fulltextIndex = new BooleanField("fulltextIndex", false);
+	private final IntField connectionPoolMaxIdle = new IntField("connectionPool.maxIdle", 10, 0);
 	
-	final IntField cacheLimit = new IntField("cache.limit", 10000, 0);
-	final IntField cacheQueryLimit = new IntField("cache.queryLimit", 10000, 0);
-	final BooleanField cacheQueryLogging = new BooleanField("cache.queryLogging", false);
+	private final IntField cacheLimit = new IntField("cache.limit", 10000, 0);
+	private final IntField cacheQueryLimit = new IntField("cache.queryLimit", 10000, 0);
+	private final BooleanField cacheQueryLogging = new BooleanField("cache.queryLogging", false);
 	
 	final FileField datadirPath = new FileField("datadir.path");
-	final StringField mediaRooturl =  new StringField("media.rooturl", "media/");
-	final IntField mediaOffsetExpires = new IntField("media.offsetExpires", 1000 * 5, 0);
+	private final StringField mediaRooturl =  new StringField("media.rooturl", "media/");
+	private final IntField mediaOffsetExpires = new IntField("media.offsetExpires", 1000 * 5, 0);
 	
 	// NOTE:
 	// If you another attributes here,
