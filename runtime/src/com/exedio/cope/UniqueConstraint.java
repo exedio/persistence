@@ -132,7 +132,7 @@ public final class UniqueConstraint extends Feature
 		// TODO: search nativly for unique constraints
 		final List attributes = getUniqueAttributes();
 		if(attributes.size()!=values.length)
-			throw new RuntimeException();
+			throw new RuntimeException("-"+attributes.size()+'-'+values.length);
 
 		final Iterator attributeIterator = attributes.iterator();
 		final Condition[] conditions = new Condition[attributes.size()];
