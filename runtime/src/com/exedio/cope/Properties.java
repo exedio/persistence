@@ -25,7 +25,6 @@ import java.lang.reflect.InvocationTargetException;
 public final class Properties extends com.exedio.cope.util.Properties
 {
 
-	private static final String FILE_NAME_PROPERTY = "com.exedio.cope.properties";
 	private static final String DEFAULT_FILE_NAME = "cope.properties";
 	
 	private final StringField databaseCode = new StringField("database");
@@ -69,7 +68,7 @@ public final class Properties extends com.exedio.cope.util.Properties
 	
 	public static final File getDefaultPropertyFile()
 	{
-		String filename = System.getProperty(FILE_NAME_PROPERTY);
+		String filename = System.getProperty("com.exedio.cope.properties");
 		if(filename==null)
 			filename = DEFAULT_FILE_NAME;
 
