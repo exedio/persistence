@@ -154,7 +154,7 @@ public final class Properties extends com.exedio.cope.util.Properties
 		return createDatabase( getDatabaseConstructor(databaseCode, getSource()) );
 	}
 	
-	private Database createDatabase( Constructor constructor )
+	private Database createDatabase(final Constructor constructor)
 	{
 		try
 		{
