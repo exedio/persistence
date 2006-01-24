@@ -74,24 +74,10 @@ public class ModelTest extends TestmodelTest
 		final Properties defaultProps = getProperties();
 		model.setPropertiesInitially(defaultProps);
 
-		// TODO: use an extra model for the model test, then the following code can be removed
 		final String defaultSource = defaultProps.getSource();
 		final int defaultSourceSpace = defaultSource.indexOf(' ');
 		final File file = new File(defaultSource.substring(0, defaultSourceSpace));
 		final java.util.Properties newProps = Properties.loadProperties(file);
-		newProps.setProperty("database.forcename.StringItem", "STRINGITEMS");
-		newProps.setProperty("database.forcename.STRINGITEMS.this", "STRINGITEM_ID");
-		newProps.setProperty("database.forcename.STRINGITEMS.any", "ANY");
-		newProps.setProperty("database.forcename.STRINGITEMS.mandatory", "MANDATORY");
-		newProps.setProperty("database.forcename.STRINGITEMS.min4", "MIN_4");
-		newProps.setProperty("database.forcename.STRINGITEMS.max4", "MAX_4");
-		newProps.setProperty("database.forcename.STRINGITEMS.min4Max8", "MIN4_MAX8");
-		newProps.setProperty("database.forcename.STRINGITEMS.exact6", "EXACT_6");
-		newProps.setProperty("database.forcename.ItemWithSingleUnique", "UNIQUE_ITEMS");
-		newProps.setProperty("database.forcename.UNIQUE_ITEMS.this", "UNIQUE_ITEM_ID");
-		newProps.setProperty("database.forcename.UNIQUE_ITEMS.uniqueString", "UNIQUE_STRING");
-		newProps.setProperty("database.forcename.UNIQUE_ITEMS.otherString", "OTHER_STRING");
-		newProps.setProperty("database.forcename.ItemWithSingleUnique_uniqueString_Unq", "IX_ITEMWSU_US");
 		
 		{
 			final java.util.Properties props = (java.util.Properties)newProps.clone();
