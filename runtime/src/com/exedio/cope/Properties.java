@@ -56,9 +56,6 @@ public final class Properties extends com.exedio.cope.util.Properties
 	final StringField mediaRooturl =  new StringField("media.rooturl", "media/");
 	final IntField mediaOffsetExpires = new IntField("media.offsetExpires", 1000 * 5, 0);
 	
-	// TODO remove
-	private final String source;
-
 	// NOTE:
 	// If you another attributes here,
 	// you probably have to add another
@@ -87,7 +84,6 @@ public final class Properties extends com.exedio.cope.util.Properties
 	public Properties(final java.util.Properties properties, final String source)
 	{
 		super(properties, source);
-		this.source = source;
 
 		final String databaseCustomPropertiesPrefix;
 		{
@@ -154,7 +150,7 @@ public final class Properties extends com.exedio.cope.util.Properties
 	
 	private final RuntimeException newNotSetException(final String key)
 	{
-		return new RuntimeException("property "+key+" in "+source+" not set.");
+		return new RuntimeException("property " + key + " in "  +getSource() + " not set.");
 	}
 	
 	Database createDatabase()
@@ -164,7 +160,7 @@ public final class Properties extends com.exedio.cope.util.Properties
 	
 	Database createDatabase( String databaseCode )
 	{
-		return createDatabase( getDatabaseConstructor(databaseCode, source) );
+		return createDatabase( getDatabaseConstructor(databaseCode, getSource()) );
 	}
 	
 	private Database createDatabase( Constructor constructor )
@@ -326,7 +322,7 @@ public final class Properties extends com.exedio.cope.util.Properties
 			(thisValue==null && otherValue!=null))
 			throw new RuntimeException(
 					"inconsistent initialization for " + name +
-					" between " + source + " and " + other.source +
+					" between " + getSource() + " and " + other.getSource() +
 					"," + " expected " + thisValue + " but got " + otherValue + '.');
 	}
 }
