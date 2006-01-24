@@ -54,6 +54,7 @@ public abstract class Item extends Cope
 	 */
 	public final String getCopeID()
 	{
+		assertValid();
 		return type.id + '.' + type.getPkSource().pk2id(pk);
 	}
 	
@@ -63,6 +64,7 @@ public abstract class Item extends Cope
 	 */
 	public final Type getCopeType()
 	{
+		assertValid();
 		return type;
 	}
 
@@ -74,6 +76,7 @@ public abstract class Item extends Cope
 	 */
 	public final boolean equals(final Object o)
 	{
+		assertValid();
 		return (o!=null) && (getClass()==o.getClass()) && (pk==((Item)o).pk);
 	}
 
@@ -84,11 +87,13 @@ public abstract class Item extends Cope
 	 */
 	public final int hashCode()
 	{
+		assertValid();
 		return getClass().hashCode() ^ pk;
 	}
 	
 	public String toString()
 	{
+		assertValid();
 		return getCopeID();
 	}
 
@@ -254,8 +259,21 @@ public abstract class Item extends Cope
 			throw initialUniqueViolationException;
 	}
 	
+	private final void assertValid()
+	{
+		if(initialCustomAttributeException!=null)
+			throw new RuntimeException("item is not valid", initialCustomAttributeException);
+		if(initialMandatoryViolationException!=null)
+			throw new RuntimeException("item is not valid", initialMandatoryViolationException);
+		if(initialLengthViolationException!=null)
+			throw new RuntimeException("item is not valid", initialLengthViolationException);
+		if(initialUniqueViolationException!=null)
+			throw new RuntimeException("item is not valid", initialUniqueViolationException);
+	}
+	
 	public final Object get(final Function function)
 	{
+		assertValid();
 		return function.getObject(this);
 	}
 
@@ -363,6 +381,7 @@ public abstract class Item extends Cope
 		
 	private final void deleteCopeItem(final HashSet toDelete)
 	{
+		assertValid();
 		toDelete.add(this);
 		
 		//final String tostring = toString();
@@ -482,16 +501,19 @@ public abstract class Item extends Cope
 	
 	private final Entity getEntity()
 	{
+		assertValid();
 		return getEntity(true);
 	}
 
 	private final Entity getEntity(final boolean present)
 	{
+		assertValid();
 		return type.getModel().getCurrentTransaction().getEntity(this, present);
 	}
 
 	private final Entity getEntityIfActive()
 	{
+		assertValid();
 		return type.getModel().getCurrentTransaction().getEntityIfActive(type, pk);
 	}
 	
