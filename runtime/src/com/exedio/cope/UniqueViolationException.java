@@ -44,10 +44,12 @@ public final class UniqueViolationException extends ConstraintViolationException
 	UniqueViolationException(final SQLException cause, final Item item, final UniqueConstraint constraint)
 	{
 		super(cause);
+		
 		if(cause==null)
 			throw new NullPointerException();
 		if(constraint==null)
 			throw new NullPointerException();
+		
 		this.constraint = constraint;
 	}
 	
