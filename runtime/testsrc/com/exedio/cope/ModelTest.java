@@ -99,6 +99,7 @@ public class ModelTest extends TestmodelTest
 			try
 			{
 				new Properties(props, "wrongKey");
+				fail();
 			}
 			catch(RuntimeException e)
 			{
