@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Date;
 
 import com.exedio.cope.function.LengthView;
 import com.exedio.cope.function.UppercaseView;
@@ -30,6 +31,7 @@ public class StringTest extends TestmodelTest
 	boolean supports;
 	String emptyString;
 	StringItem item, item2;
+	int numberOfItems;
 	
 	public void setUp() throws Exception
 	{
@@ -38,6 +40,7 @@ public class StringTest extends TestmodelTest
 		emptyString = supports ? "" : null;
 		deleteOnTearDown(item = new StringItem("StringTest"));
 		deleteOnTearDown(item2 = new StringItem("StringTest2"));
+		numberOfItems = 2;
 	}
 	
 	public void testStrings() throws ConstraintViolationException
@@ -169,6 +172,7 @@ public class StringTest extends TestmodelTest
 		{
 			final StringItem itemEmptyInit = new StringItem("", false);
 			deleteOnTearDown(itemEmptyInit);
+			numberOfItems++;
 			assertEquals(emptyString, itemEmptyInit.getAny());
 			restartTransaction();
 			assertEquals(emptyString, itemEmptyInit.getAny());
@@ -203,6 +207,7 @@ public class StringTest extends TestmodelTest
 		}
 		assertEquals("someOtherString", item.getMandatory());
 	
+		assertEquals(numberOfItems, item.TYPE.search(null).size());
 		try
 		{
 			new StringItem(null);
@@ -214,6 +219,7 @@ public class StringTest extends TestmodelTest
 			assertEquals(item.mandatory, e.getMandatoryAttribute());
 			assertEquals("mandatory violation on a newly created item for StringItem#mandatory", e.getMessage());
 		}
+		assertEquals(numberOfItems, item.TYPE.search(null).size());
 		
 		// mandatory and empty string
 		try
@@ -234,10 +240,12 @@ public class StringTest extends TestmodelTest
 		}
 		
 		StringItem item3 = null;
+		assertEquals(numberOfItems, item.TYPE.search(null).size());
 		try
 		{
 			item3 = new StringItem("", 0.0);
 			deleteOnTearDown(item3);
+			numberOfItems++;
 			if(supports)
 				assertEquals("", item3.getMandatory());
 			else
@@ -250,6 +258,7 @@ public class StringTest extends TestmodelTest
 			assertEquals(item3, e.getItem());
 			assertEquals("mandatory violation on a newly created item for StringItem#mandatory", e.getMessage());
 		}
+		assertEquals(numberOfItems, item.TYPE.search(null).size());
 		
 		// min4
 		try
@@ -310,6 +319,34 @@ public class StringTest extends TestmodelTest
 		assertEquals("12345", item.getMax5Unchecked());
 		restartTransaction();
 		assertEquals("12345", item.getMax5Unchecked());
+
+		assertEquals(numberOfItems, item.TYPE.search(null).size());
+		try
+		{
+			new StringItem("123456", (Date)null);
+			fail();
+		}
+		catch(LengthViolationRuntimeException e)
+		{
+			assertEquals(null, e.getItem());
+			assertEquals(item.max5Unchecked, e.getStringAttribute());
+			assertEquals("123456", e.getValue());
+			assertEquals("length violation on a newly created item, '123456' is too long for StringItem#max5Unchecked", e.getMessage());
+		}
+		assertEquals(numberOfItems, item.TYPE.search(null).size());
+		try
+		{
+			StringItem.TYPE.newItem(new AttributeValue[]{item.max5Unchecked.map("123456")});
+			fail();
+		}
+		catch(LengthViolationRuntimeException e)
+		{
+			assertEquals(null, e.getItem());
+			assertEquals(item.max5Unchecked, e.getStringAttribute());
+			assertEquals("123456", e.getValue());
+			assertEquals("length violation on a newly created item, '123456' is too long for StringItem#max5Unchecked", e.getMessage());
+		}
+		assertEquals(numberOfItems, item.TYPE.search(null).size());
 
 		// min4max8
 		try
@@ -395,6 +432,36 @@ public class StringTest extends TestmodelTest
 		assertEquals("123456", item.getExact6());
 		restartTransaction();
 		assertEquals("123456", item.getExact6());
+		
+		assertEquals(numberOfItems, item.TYPE.search(null).size());
+		try
+		{
+			new StringItem("1234567", 40);
+			fail();
+		}
+		catch(LengthViolationException e)
+		{
+			assertEquals(null, e.getItem());
+			assertEquals(item.exact6, e.getStringAttribute());
+			assertEquals("1234567", e.getValue());
+			assertEquals(false, e.isTooShort());
+			assertEquals("length violation on a newly created item, '1234567' is too long for StringItem#exact6", e.getMessage());
+		}
+		assertEquals(numberOfItems, item.TYPE.search(null).size());
+		try
+		{
+			StringItem.TYPE.newItem(new AttributeValue[]{item.exact6.map("1234567")});
+			fail();
+		}
+		catch(LengthViolationException e)
+		{
+			assertEquals(null, e.getItem());
+			assertEquals(item.exact6, e.getStringAttribute());
+			assertEquals("1234567", e.getValue());
+			assertEquals(false, e.isTooShort());
+			assertEquals("length violation on a newly created item, '1234567' is too long for StringItem#exact6", e.getMessage());
+		}
+		assertEquals(numberOfItems, item.TYPE.search(null).size());
 	}
 
 	void assertWrongLength(final int minimumLength, final int maximumLength, final String message)

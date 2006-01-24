@@ -532,7 +532,7 @@ public final class Type
 	private static final AttributeValue[] EMPTY_ATTRIBUTE_VALUES = new AttributeValue[]{};
 	
 	public final Item newItem(final AttributeValue[] initialAttributeValues)
-		throws MandatoryViolationException, UniqueViolationException
+		throws MandatoryViolationException, LengthViolationException, UniqueViolationException
 	{
 		final Item result;
 		try
@@ -556,10 +556,15 @@ public final class Type
 		}
 		catch(InvocationTargetException e)
 		{
-			throw new RuntimeException(e);
+			final Throwable t = e.getCause();
+			if(t instanceof LengthViolationRuntimeException) // TODO introduce ConstraintViolationRuntimeException
+				throw (LengthViolationRuntimeException)t;
+			else
+				throw new RuntimeException(e);
 		}
 		
 		result.throwInitialMandatoryViolationException();
+		result.throwInitialLengthViolationException();
 		result.throwInitialUniqueViolationException();
 		return result;
 	}

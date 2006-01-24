@@ -62,5 +62,10 @@ public abstract class Cope
 	{
 		return new SumView(new IntegerFunction[]{addend1, addend2, addend3});
 	}
+	
+	static final String getCopeID(final Item item)
+	{
+		return item!=null ? item.getCopeID() : "a newly created item";
+	}
 
 }

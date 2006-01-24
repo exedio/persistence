@@ -18,8 +18,12 @@
 
 package com.exedio.cope.testmodel;
 
+import java.util.Date;
+
 import com.exedio.cope.AttributeValue;
 import com.exedio.cope.Item;
+import com.exedio.cope.LengthViolationException;
+import com.exedio.cope.LengthViolationRuntimeException;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.StringAttribute;
 import com.exedio.cope.function.LengthView;
@@ -70,6 +74,21 @@ public class StringItem extends Item
 				new AttributeValue(StringItem.mandatory, mandatory),
 		});
 		throwInitialMandatoryViolationException();
+	}
+	
+	public StringItem(final String exact6, int dummy) throws LengthViolationException
+	{
+		this(new AttributeValue[]{
+				new AttributeValue(StringItem.exact6, exact6),
+		});
+		throwInitialLengthViolationException();
+	}
+	
+	public StringItem(final String max5Unchecked, Date dummy) throws LengthViolationRuntimeException
+	{
+		this(new AttributeValue[]{
+				new AttributeValue(StringItem.max5Unchecked, max5Unchecked),
+		});
 	}
 	
 /**

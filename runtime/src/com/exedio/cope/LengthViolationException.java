@@ -85,7 +85,7 @@ public final class LengthViolationException extends ConstraintViolationException
 	public String getMessage()
 	{
 		return
-			"length violation on " + item.getCopeID() +
+			"length violation on " + Cope.getCopeID(item) +
 			", '" + value + "' is too " +
 			(isTooShort?"short":"long") +
 			" for "+ stringAttribute;

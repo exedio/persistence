@@ -223,8 +223,7 @@ public class UniqueItemTest extends TestmodelTest
 		assertDelete(item);
 	}
 
-	public void testItemWithSingleUniqueNotNull()
-			throws IntegrityViolationException, UniqueViolationException, MandatoryViolationException
+	public void testItemWithSingleUniqueNotNull() throws ConstraintViolationException
 	{
 		assertEquals(null, ItemWithSingleUniqueNotNull.findByUniqueNotNullString("uniqueString"));
 		assertEquals(null, ItemWithSingleUniqueNotNull.findByUniqueNotNullString("uniqueString2"));

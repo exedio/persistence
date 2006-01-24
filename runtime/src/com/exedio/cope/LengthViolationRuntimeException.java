@@ -78,7 +78,7 @@ public final class LengthViolationRuntimeException extends RuntimeException
 	public String getMessage()
 	{
 		return
-			"length violation on " + item.getCopeID() +
+			"length violation on " + Cope.getCopeID(item) +
 			", '" + value + "' is too long" +
 			" for "+ stringAttribute;
 	}
