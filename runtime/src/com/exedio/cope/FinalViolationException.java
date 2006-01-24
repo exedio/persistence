@@ -41,6 +41,12 @@ public final class FinalViolationException extends ConstraintViolationException
 	public FinalViolationException(final Item item, final Attribute finalAttribute)
 	{
 		super(null);
+		
+		if(item==null)
+			throw new NullPointerException();
+		if(finalAttribute==null)
+			throw new NullPointerException();
+		
 		this.item = item;
 		this.finalAttribute = finalAttribute;
 	}

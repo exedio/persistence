@@ -44,6 +44,10 @@ public final class MandatoryViolationException extends ConstraintViolationExcept
 	MandatoryViolationException(final Item item, final Attribute mandatoryAttribute)
 	{
 		super(null);
+
+		if(mandatoryAttribute==null)
+			throw new NullPointerException();
+		
 		this.item = item;
 		this.mandatoryAttribute = mandatoryAttribute;
 	}
@@ -67,7 +71,7 @@ public final class MandatoryViolationException extends ConstraintViolationExcept
 
 	public String getMessage()
 	{
-		return "mandatory violation on " + (item!=null ? item.getCopeID() : "a newly created item") + " for " + mandatoryAttribute;
+		return "mandatory violation on " + Cope.getCopeID(item) + " for " + mandatoryAttribute;
 	}
 	
 }
