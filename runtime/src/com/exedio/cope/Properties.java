@@ -66,11 +66,11 @@ public final class Properties extends com.exedio.cope.util.Properties
 	
 	public static final File getDefaultPropertyFile()
 	{
-		String filename = System.getProperty("com.exedio.cope.properties");
-		if(filename==null)
-			filename = "cope.properties";
+		String result = System.getProperty("com.exedio.cope.properties");
+		if(result==null)
+			result = "cope.properties";
 
-		return new File(filename);
+		return new File(result);
 	}
 
 	public Properties(final File propertyFile)
