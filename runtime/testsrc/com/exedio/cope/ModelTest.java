@@ -71,7 +71,6 @@ public class ModelTest extends TestmodelTest
 	
 	public void testSetPropertiesInitially()
 	{
-		final Properties mp = model.getProperties();
 		final Properties defaultProps = getProperties();
 		model.setPropertiesInitially(defaultProps);
 
@@ -94,25 +93,6 @@ public class ModelTest extends TestmodelTest
 		newProps.setProperty("database.forcename.UNIQUE_ITEMS.otherString", "OTHER_STRING");
 		newProps.setProperty("database.forcename.ItemWithSingleUnique_uniqueString_Unq", "IX_ITEMWSU_US");
 		
-		if(model.getProperties().hasDatadirPath())
-		{
-			final char SEP = File.separatorChar;
-			final java.util.Properties props = (java.util.Properties)newProps.clone();
-			props.setProperty(mp.datadirPath.getKey(), props.getProperty(mp.datadirPath.getKey())+SEP+"AttributeItem");
-			final String source = file.getAbsolutePath()+'/'+mp.datadirPath.getKey()+"=/AttributeItem";
-			try
-			{
-				model.setPropertiesInitially(new Properties(props, source));
-				fail();
-			}
-			catch(RuntimeException e)
-			{
-				assertEquals(
-						"inconsistent initialization for " + mp.datadirPath.getKey() +
-						" between " + mp.getSource() + " and " + source +
-						", expected " + mp.getDatadirPath() + " but got " + mp.getDatadirPath() + SEP + "AttributeItem.", e.getMessage());
-			}
-		}
 		{
 			final java.util.Properties props = (java.util.Properties)newProps.clone();
 			props.setProperty("zack", "zosch");

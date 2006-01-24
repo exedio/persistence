@@ -49,7 +49,7 @@ public final class Properties extends com.exedio.cope.util.Properties
 	private final IntField cacheQueryLimit = new IntField("cache.queryLimit", 10000, 0);
 	private final BooleanField cacheQueryLogging = new BooleanField("cache.queryLogging", false);
 	
-	final FileField datadirPath = new FileField("datadir.path");
+	private final FileField datadirPath = new FileField("datadir.path");
 	private final StringField mediaRooturl =  new StringField("media.rooturl", "media/");
 	private final IntField mediaOffsetExpires = new IntField("media.offsetExpires", 1000 * 5, 0);
 	
