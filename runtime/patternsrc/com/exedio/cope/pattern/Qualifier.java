@@ -123,6 +123,7 @@ public final class Qualifier extends Pattern
 			return null;
 	}
 	
+	// TODO rename values to keys
 	public Item getForSet(final Object[] values)
 	{
 		Item item = qualifyUnique.searchUnique(values);
@@ -148,4 +149,49 @@ public final class Qualifier extends Pattern
 		return item;
 	}
 
+	public Item set(final Object[] keys, final AttributeValue[] values)
+	{
+		Item item = qualifyUnique.searchUnique(keys);
+		
+		if(item==null)
+		{
+			final AttributeValue[] initialAttributeValues = new AttributeValue[values.length + keys.length];
+			System.arraycopy(values, 0, initialAttributeValues, 0, values.length);
+			
+			int j = 0;
+			for(Iterator i = qualifyUnique.getUniqueAttributes().iterator(); i.hasNext(); j++)
+			{
+				final FunctionAttribute uniqueAttribute = (FunctionAttribute)i.next();
+				initialAttributeValues[j + values.length] = new AttributeValue(uniqueAttribute, keys[j]);
+			}
+			try
+			{
+				item = qualifyUnique.getType().newItem(initialAttributeValues);
+			}
+			catch(ConstraintViolationException e)
+			{
+				// cannot happen, since all qualifying values  should be given
+				throw new RuntimeException(e);
+			}
+		}
+		else
+		{
+			try
+			{
+				item.set(values);
+			}
+			catch(ConstraintViolationException e)
+			{
+				// cannot happen, since all qualifying values  should be given
+				throw new RuntimeException(e);
+			}
+			catch(CustomAttributeException e)
+			{
+				// cannot happen, since all qualifying values  should be given
+				throw new RuntimeException(e);
+			}
+		}
+		
+		return item;
+	}
 }

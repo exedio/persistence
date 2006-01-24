@@ -20,12 +20,13 @@ package com.exedio.cope.pattern;
 
 import java.util.Arrays;
 
+import com.exedio.cope.AttributeValue;
 import com.exedio.cope.Feature;
-import com.exedio.cope.TestmodelTest;
+import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.IntegrityViolationException;
 import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.MandatoryViolationException;
-import com.exedio.cope.FinalViolationException;
+import com.exedio.cope.TestmodelTest;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.testmodel.EmptyItem;
 import com.exedio.cope.testmodel.QualifiedEmptyQualifier;
@@ -186,6 +187,26 @@ public class QualifierTest extends TestmodelTest
 		QualifiedIntegerEnumQualifier.findByQualifyUnique(item, 20, QualifiedIntegerEnumQualifier.KeyEnum.key1).deleteCopeItem();
 		QualifiedIntegerEnumQualifier.findByQualifyUnique(item, 21, QualifiedIntegerEnumQualifier.KeyEnum.key1).deleteCopeItem();
 		QualifiedIntegerEnumQualifier.findByQualifyUnique(item, 20, QualifiedIntegerEnumQualifier.KeyEnum.key2).deleteCopeItem();
+
+		assertEquals(null, item.getIntEnumQualifier(new Integer(20), QualifiedIntegerEnumQualifier.KeyEnum.key1));
+		assertEquals(null, item.getQualifiedA(new Integer(20), QualifiedIntegerEnumQualifier.KeyEnum.key1));
+		assertEquals(null, item.getQualifiedB(new Integer(20), QualifiedIntegerEnumQualifier.KeyEnum.key1));
+		
+		item.intEnumQualifier.set(
+				new Object[]{item, new Integer(20), QualifiedIntegerEnumQualifier.KeyEnum.key1},
+				new AttributeValue[]{QualifiedIntegerEnumQualifier.qualifiedA.map("A-20-key1"), QualifiedIntegerEnumQualifier.qualifiedB.map("B-20-key1")});
+		final QualifiedIntegerEnumQualifier setterItem =
+			item.getIntEnumQualifier(new Integer(20), QualifiedIntegerEnumQualifier.KeyEnum.key1);
+		assertNotNull(setterItem);
+		assertEquals("A-20-key1", item.getQualifiedA(new Integer(20), QualifiedIntegerEnumQualifier.KeyEnum.key1));
+		assertEquals("B-20-key1", item.getQualifiedB(new Integer(20), QualifiedIntegerEnumQualifier.KeyEnum.key1));
+		
+		item.intEnumQualifier.set(
+				new Object[]{item, new Integer(20), QualifiedIntegerEnumQualifier.KeyEnum.key1},
+				new AttributeValue[]{QualifiedIntegerEnumQualifier.qualifiedA.map("A-20-key1-c"), QualifiedIntegerEnumQualifier.qualifiedB.map("B-20-key1-c")});
+		assertEquals(setterItem,
+				item.getIntEnumQualifier(new Integer(20), QualifiedIntegerEnumQualifier.KeyEnum.key1));
+		assertEquals("A-20-key1-c", item.getQualifiedA(new Integer(20), QualifiedIntegerEnumQualifier.KeyEnum.key1));
+		assertEquals("B-20-key1-c", item.getQualifiedB(new Integer(20), QualifiedIntegerEnumQualifier.KeyEnum.key1));
 	}
-	
 }
