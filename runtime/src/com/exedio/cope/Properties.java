@@ -19,7 +19,6 @@
 package com.exedio.cope;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -89,33 +88,6 @@ public final class Properties extends com.exedio.cope.util.Properties
 		this(new File(propertyFileName));
 	}
 	
-	public static final java.util.Properties loadProperties(final File propertyFile)
-	{
-		final java.util.Properties properties = new java.util.Properties();
-		FileInputStream stream = null;
-		try
-		{
-			stream = new FileInputStream(propertyFile);
-			properties.load(stream);
-			return properties;
-		}
-		catch(IOException e)
-		{
-			throw new RuntimeException("property file "+propertyFile.getAbsolutePath()+" not found.", e);
-		}
-		finally
-		{
-			if(stream!=null)
-			{
-				try
-				{
-					stream.close();
-				}
-				catch(IOException e) {}
-			}
-		}
-	}
-
 	public Properties(final File propertyFile)
 	{
 		this(loadProperties(propertyFile), propertyFile.getAbsolutePath());
