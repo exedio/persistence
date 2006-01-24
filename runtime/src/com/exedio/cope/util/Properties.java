@@ -322,19 +322,19 @@ public class Properties
 		
 	}
 	
-	public static final java.util.Properties loadProperties(final File propertyFile)
+	public static final java.util.Properties loadProperties(final File file)
 	{
 		final java.util.Properties properties = new java.util.Properties();
 		FileInputStream stream = null;
 		try
 		{
-			stream = new FileInputStream(propertyFile);
+			stream = new FileInputStream(file);
 			properties.load(stream);
 			return properties;
 		}
 		catch(IOException e)
 		{
-			throw new RuntimeException("property file "+propertyFile.getAbsolutePath()+" not found.", e);
+			throw new RuntimeException("property file "+file.getAbsolutePath()+" not found.", e);
 		}
 		finally
 		{
