@@ -83,11 +83,6 @@ public final class Properties extends com.exedio.cope.util.Properties
 		return new File(filename);
 	}
 
-	public Properties(final String propertyFileName)
-	{
-		this(new File(propertyFileName));
-	}
-	
 	public Properties(final File propertyFile)
 	{
 		this(loadProperties(propertyFile), propertyFile.getAbsolutePath());
