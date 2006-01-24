@@ -82,19 +82,12 @@ public final class Properties extends com.exedio.cope.util.Properties
 	{
 		super(properties, source);
 
-		final String databaseCustomPropertiesPrefix;
-		{
-			final String databaseCode = this.databaseCode.getStringValue();
-			if(databaseCode.length()<=2)
-				throw new RuntimeException("database from "+source+" must have at least two characters, but was "+databaseCode);
+		final String databaseCode = this.databaseCode.getStringValue();
+		if(databaseCode.length()<=2)
+			throw new RuntimeException("database from "+source+" must have at least two characters, but was "+databaseCode);
+		database = getDatabaseConstructor( databaseCode, source );
 
-			databaseCustomPropertiesPrefix = "database." + databaseCode;
-
-			database = getDatabaseConstructor( databaseCode, source );
-		}
-
-		databaseCustomProperties = new MapField(databaseCustomPropertiesPrefix);
-		
+		databaseCustomProperties = new MapField("database." + databaseCode);
 		
 		if(datadirPath.getFileValue()!=null)
 		{
