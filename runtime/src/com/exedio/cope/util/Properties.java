@@ -371,7 +371,7 @@ public class Properties
 		}
 	}
 	
-	public void ensureEquality(final Properties other)
+	public final void ensureEquality(final Properties other)
 	{
 		final Iterator j = other.fields.iterator();
 		for(Iterator i = fields.iterator(); i.hasNext()&&j.hasNext(); )

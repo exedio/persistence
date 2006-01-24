@@ -298,22 +298,4 @@ public final class Properties extends com.exedio.cope.util.Properties
 	{
 		return mediaOffsetExpires.getIntValue();
 	}
-	
-	final void ensureEquality(final Properties other)
-	{
-		super.ensureEquality(other);
-		ensureEquality(other, databaseCode.getKey(), this.getDatabase(), other.getDatabase());
-	}
-	
-	private final void ensureEquality(
-			final Properties other, final String name,
-			final Object thisValue, final Object otherValue)
-	{
-		if((thisValue!=null && !thisValue.equals(otherValue)) ||
-			(thisValue==null && otherValue!=null))
-			throw new RuntimeException(
-					"inconsistent initialization for " + name +
-					" between " + getSource() + " and " + other.getSource() +
-					"," + " expected " + thisValue + " but got " + otherValue + '.');
-	}
 }
