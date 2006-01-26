@@ -45,7 +45,9 @@ public class DataTest extends AbstractLibTest
 		super.setUp();
 		
 		final int data8Length = data8.length;
-		final int dataBigLength = (1024*1024) + 77;
+		// must be substantially larger than
+		// dataAttribute.bufferSize* values in cope.properties
+		final int dataBigLength = (50*1024) + 77;
 		dataBig = new byte[dataBigLength];
 		for(int i = 0; i<dataBigLength; i++)
 			dataBig[i] = data8[i % data8Length];

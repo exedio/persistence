@@ -48,6 +48,9 @@ public final class Properties extends com.exedio.cope.util.Properties
 	private final IntField cacheLimit = new IntField("cache.limit", 10000, 0);
 	private final IntField cacheQueryLimit = new IntField("cache.queryLimit", 10000, 0);
 	private final BooleanField cacheQueryLogging = new BooleanField("cache.queryLogging", false);
+
+	final IntField dataAttributeBufferSizeDefault = new IntField("dataAttribute.bufferSizeDefault", 20*1024, 1);
+	final IntField dataAttributeBufferSizeLimit = new IntField("dataAttribute.bufferSizeLimit", 1024*1024, 1);
 	
 	private final FileField datadirPath = new FileField("datadir.path");
 	private final StringField mediaRooturl =  new StringField("media.rooturl", "media/");

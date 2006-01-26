@@ -68,6 +68,8 @@ public final class DataAttribute extends Attribute
 	// second initialization phase ---------------------------------------------------
 	
 	Impl impl;
+	int bufferSizeDefault = -1;
+	int bufferSizeLimit = -1;
 
 	Column createColumn(final Table table, final String name, final boolean notNull)
 	{
@@ -85,6 +87,10 @@ public final class DataAttribute extends Attribute
 		{
 			this.impl = new BlobImpl(model, table, name, notNull);
 		}
+		
+		bufferSizeDefault = properties.dataAttributeBufferSizeDefault.getIntValue();
+		bufferSizeLimit = properties.dataAttributeBufferSizeLimit.getIntValue();
+		
 		return impl.getColumn();
 	}
 	
@@ -551,7 +557,7 @@ public final class DataAttribute extends Attribute
 	
 	final void copy(final InputStream in, final OutputStream out, final Item item) throws IOException
 	{
-		copy(in, out, 20*1024, item); // TODO make this configurable as default buffer length, must not be greater than maximum buffer length
+		copy(in, out, bufferSizeDefault, item);
 	}
 	
 	final void copy(final InputStream in, final OutputStream out, final long length, final Item item) throws IOException
@@ -563,7 +569,7 @@ public final class DataAttribute extends Attribute
 		
 		final byte[] b = new byte[
 		Math.min(
-				1024*1024, // TODO make this configurable as maximum buffer length
+				bufferSizeLimit,
 				(int)Math.min(
 						(long)Integer.MAX_VALUE,
 						length
