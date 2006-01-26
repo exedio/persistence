@@ -45,11 +45,11 @@ public class DataTest extends AbstractLibTest
 	{
 		super.setUp();
 		
-		final int dataFileLength = data8.length;
+		final int data8Length = data8.length;
 		final int dataBigLength = (1024*1024) + 77;
 		dataBig = new byte[dataBigLength];
 		for(int i = 0; i<dataBigLength; i++)
-			dataBig[i] = data8[i % dataFileLength];
+			dataBig[i] = data8[i % data8Length];
 		
 		deleteOnTearDown(item = new DataItem());
 	}
