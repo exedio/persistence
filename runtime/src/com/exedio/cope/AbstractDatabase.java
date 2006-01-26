@@ -63,6 +63,7 @@ abstract class AbstractDatabase implements Database
 	private final java.util.Properties forcedNames;
 	final java.util.Properties tableOptions;
 	final int limitSupport;
+	final long blobLengthFactor;
 	final boolean oracle; // TODO remove
 	
 	protected AbstractDatabase(final Driver driver, final Properties properties)
@@ -76,6 +77,7 @@ abstract class AbstractDatabase implements Database
 		this.forcedNames = properties.getDatabaseForcedNames();
 		this.tableOptions = properties.getDatabaseTableOptions();
 		this.limitSupport = properties.getDatabaseDontSupportLimit() ? LIMIT_SUPPORT_NONE : getLimitSupport();
+		this.blobLengthFactor = getBlobLengthFactor();
 		this.oracle = getClass().getName().equals("com.exedio.cope.OracleDatabase");
 
 		switch(limitSupport)
@@ -880,12 +882,11 @@ abstract class AbstractDatabase implements Database
 	{
 		buildStage = false;
 
-		// TODO should check whether there is some kind of "length" function for binary 
 		final Table table = column.table;
 		final Statement bf = createStatement();
-		bf.append("select ").
-			append(column.protectedID).defineColumn(column).
-			append(" from ").
+		bf.append("select length(").
+			append(column.protectedID).defineColumnInteger().
+			append(") from ").
 			append(table.protectedID).
 			append(" where ").
 			append(table.primaryKey.protectedID).
@@ -910,7 +911,7 @@ abstract class AbstractDatabase implements Database
 		return handler.result;
 	}
 	
-	private static class LoadBlobLengthResultSetHandler implements ResultSetHandler
+	private class LoadBlobLengthResultSetHandler implements ResultSetHandler
 	{
 		long result;
 
@@ -919,8 +920,21 @@ abstract class AbstractDatabase implements Database
 			if(!resultSet.next())
 				throw new SQLException(NO_SUCH_ROW);
 
-			final Blob blob = resultSet.getBlob(1);
-			result = (blob!=null) ? blob.length() : -1;
+			final Object o = resultSet.getObject(1);
+			if(o!=null)
+			{
+				long value = ((Number)o).longValue();
+				final long factor = blobLengthFactor;
+				if(factor!=1)
+				{
+					if(value%factor!=0)
+						throw new RuntimeException("not dividable "+value+'/'+factor);
+					value /= factor;
+				}
+				result = value;
+			}
+			else
+				result = -1;
 		}
 	}
 	
