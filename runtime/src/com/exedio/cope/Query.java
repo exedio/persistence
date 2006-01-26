@@ -35,9 +35,9 @@ public final class Query
 	ArrayList joins = null;
 	Condition condition;
 
-	Function orderBy = null;
+	Function[] orderBy = null;
+	boolean[] orderAscending;
 	
-	boolean orderAscending;
 	boolean deterministicOrder = false;
 
 	int limitStart = 0;
@@ -135,6 +135,18 @@ public final class Query
 	
 	public void setOrderBy(final Function orderBy, final boolean ascending)
 	{
+		this.orderBy = new Function[]{orderBy};
+		this.orderAscending = new boolean[]{ascending};
+	}
+	
+	/**
+	 * @throws RuntimeException if <code>orderBy.length!=ascending.length</code>
+	 */
+	public void setOrderBy(final Function[] orderBy, final boolean[] ascending)
+	{
+		if(orderBy.length!=ascending.length)
+			throw new RuntimeException("orderBy and ascending must have same length, but was "+orderBy.length+" and "+ascending.length);
+		
 		this.orderBy = orderBy;
 		this.orderAscending = ascending;
 	}
@@ -389,11 +401,16 @@ public final class Query
 
 		if(orderBy!=null)
 		{
-			bf.append(" order by ").
-				append(orderBy);
-			
-			if(orderAscending)
-				bf.append(" desc");
+			bf.append(" order by ");
+			for(int i = 0; i<orderBy.length; i++)
+			{
+				if(i>0)
+					bf.append(", ");
+				
+				bf.append(orderBy[i]);
+				if(!orderAscending[i])
+					bf.append(" desc");
+			}
 		}
 		
 		if(deterministicOrder)
@@ -418,9 +435,9 @@ public final class Query
 		final ArrayList joins;
 		final Condition condition;
 
-		final Function orderBy;
+		final Function[] orderBy;
 
-		final boolean orderAscending;
+		final boolean[] orderAscending;
 		final boolean deterministicOrder;
 
 		final int limitStart;
@@ -481,7 +498,7 @@ public final class Query
 			return b ? 1 : 0;
 		}
 		
-		private static int hashCode( Selectable[] selectables )
+		private static int hashCode( Object[] selectables )
 		{
 			if ( selectables==null )
 			{
@@ -506,7 +523,7 @@ public final class Query
 					^ hashCode(joins)
 					^ hashCode(condition)
 					^ hashCode(orderBy)
-					^ hashCode(orderAscending)
+					^ Arrays.hashCode(orderAscending)
 					^ hashCode(deterministicOrder)
 					^ limitStart
 					^ limitCount

@@ -134,6 +134,21 @@ final class Statement
 		return this;
 	}
 	
+	private boolean firstOrderBy = true;
+	
+	Statement appendOrderBy()
+	{
+		if(firstOrderBy)
+		{
+			text.append(" order by ");
+			firstOrderBy = false;
+		}
+		else
+			text.append(',');
+		
+		return this;
+	}
+		
 	Statement append(final Function function, final Join join)
 	{
 		function.append(this, join);

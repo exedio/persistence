@@ -402,24 +402,23 @@ abstract class AbstractDatabase implements Database
 		
 		if(!doCountOnly)
 		{
-			boolean firstOrderBy = true;		
-			if(query.orderBy!=null || query.deterministicOrder)
-				bf.append(" order by ");
-	
-			if(query.orderBy!=null)
+			final Function[] orderBy = query.orderBy;
+			
+			if(orderBy!=null)
 			{
-				firstOrderBy = false;
-	
-				bf.append(query.orderBy, (Join)null);
-				if(!query.orderAscending)
-					bf.append(" desc");
+				final boolean[] orderAscending = query.orderAscending;
+				for(int i = 0; i<orderBy.length; i++)
+				{
+					bf.appendOrderBy().
+						append(orderBy[i], (Join)null);
+					if(!orderAscending[i])
+						bf.append(" desc");
+				}
 			}
 			
-			if(query.deterministicOrder) // TODO skip this, if orderBy already orders by some unique condition
+			if(query.deterministicOrder) // TODO skip this, if orderBy already orders by some unique function
 			{
-				if(!firstOrderBy)
-					bf.append(',');
-				
+				bf.appendOrderBy();
 				query.type.getPkSource().appendDeterministicOrderByExpression(bf, query.type);
 			}
 
