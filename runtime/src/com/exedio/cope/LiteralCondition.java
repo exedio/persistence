@@ -22,18 +22,18 @@ package com.exedio.cope;
 public abstract class LiteralCondition extends Condition
 {
 	private final String operator; 
-	public final Function attribute; // TODO rename to function
+	public final Function function;
 	public final Object value;
 
-	protected LiteralCondition(final String operator, final Function attribute, final Object value)
+	protected LiteralCondition(final String operator, final Function function, final Object value)
 	{
 		this.operator = operator;
-		this.attribute = attribute;
+		this.function = function;
 		this.value = value;
 
 		if(operator==null)
 			throw new NullPointerException();
-		if(attribute==null)
+		if(function==null)
 			throw new NullPointerException();
 		if(value==null)
 			throw new NullPointerException();
@@ -41,17 +41,17 @@ public abstract class LiteralCondition extends Condition
 	
 	final void append(final Statement bf)
 	{
-		bf.append(attribute, (Join)null);
+		bf.append(function, (Join)null);
 		if(value!=null)
 			bf.append(operator).
-				appendParameter(attribute, value);
+				appendParameter(function, value);
 		else
 			bf.append(" is null");
 	}
 
 	final void check(final Query query)
 	{
-		check(attribute, query);
+		check(function, query);
 	}
 
 	public boolean equals(final Object other)
@@ -61,17 +61,17 @@ public abstract class LiteralCondition extends Condition
 		
 		final LiteralCondition o = (LiteralCondition)other;
 		
-		return operator.equals(o.operator) && attribute.equals(o.attribute) && value.equals(o.value);
+		return operator.equals(o.operator) && function.equals(o.function) && value.equals(o.value);
 	}
 	
 	public int hashCode()
 	{
-		return operator.hashCode() ^ attribute.hashCode() ^ value.hashCode() ^ 918276;
+		return operator.hashCode() ^ function.hashCode() ^ value.hashCode() ^ 918276;
 	}
 
 	public final String toString()
 	{
-		return attribute.toString() + operator + '\'' + value + '\'';
+		return function.toString() + operator + '\'' + value + '\'';
 	}
 
 }
