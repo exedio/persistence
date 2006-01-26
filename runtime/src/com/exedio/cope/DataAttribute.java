@@ -227,7 +227,7 @@ public final class DataAttribute extends Attribute
 		{
 			super(true);
 			this.model = model;
-			this.column = new BlobColumn(table, name, notNull);
+			this.column = new BlobColumn(table, name, notNull, DataAttribute.this.maximumLength);
 		}
 		
 		Column getColumn()

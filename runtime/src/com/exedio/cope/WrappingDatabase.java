@@ -251,4 +251,10 @@ class WrappingDatabase implements Database
 	{
 		return nested.getBlobType();
 	}
+	
+	public int getBlobLengthFactor()
+	{
+		return nested.getBlobLengthFactor();
+	}
+
 }

@@ -74,6 +74,11 @@ final class HsqldbDatabase extends AbstractDatabase
 		return "binary";
 	}
 	
+	public int getBlobLengthFactor()
+	{
+		return 2;
+	}
+
 	int getLimitSupport()
 	{
 		return LIMIT_SUPPORT_CLAUSE_AFTER_SELECT;

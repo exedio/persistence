@@ -230,6 +230,10 @@ public class DataTest extends AbstractLibTest
 		assertEquals(data4.length, subItem.getDataLength());
 		
 		// test maximum length
+		item.setData10(data0);
+		item.setData10(data4);
+		item.setData10(data6);
+		item.setData10(data8);
 		item.setData10(data10);
 		assertData(data10, item.getData10());
 		

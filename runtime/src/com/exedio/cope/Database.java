@@ -67,6 +67,8 @@ interface Database
 	
 	String getBlobType();
 	
+	int getBlobLengthFactor();
+	
 	boolean supportsEmptyStrings();
 	boolean supportsRightOuterJoins();
 

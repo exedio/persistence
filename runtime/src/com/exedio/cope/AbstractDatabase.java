@@ -1318,6 +1318,11 @@ abstract class AbstractDatabase implements Database
 		return false;
 	}
 
+	public int getBlobLengthFactor()
+	{
+		return 1;
+	}
+
 	public abstract String getIntegerType(int precision);
 	public abstract String getDoubleType(int precision);
 	public abstract String getStringType(int maxLength);
