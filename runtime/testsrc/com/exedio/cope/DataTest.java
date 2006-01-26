@@ -34,7 +34,7 @@ public class DataTest extends AbstractLibTest
 	private DataItem item;
 	// TODO rename by length
 	private final byte[] data = new byte[]{-86,122,-8,23};
-	private final byte[] data2 = new byte[]{-97,35,-126,86,19,-8};
+	private final byte[] data6 = new byte[]{-97,35,-126,86,19,-8};
 	private final byte[] data8 = new byte[]{-54,104,-63,23,19,-45,71,-23};
 	private final byte[] data10 = new byte[]{-97,19,-8,35,-126,-86,122,86,19,-8};
 	private final byte[] data11 = new byte[]{22,-97,19,-8,35,-126,-86,122,86,19,-8};
@@ -155,8 +155,8 @@ public class DataTest extends AbstractLibTest
 		item.setData(data);
 		assertIt(data);
 
-		item.setData(data2);
-		assertIt(data2);
+		item.setData(data6);
+		assertIt(data6);
 
 		item.setData(dataEmpty);
 		assertIt(dataEmpty);
@@ -173,9 +173,9 @@ public class DataTest extends AbstractLibTest
 		assertStreamClosed();
 		assertIt(data);
 
-		item.setData(stream(data2));
+		item.setData(stream(data6));
 		assertStreamClosed();
-		assertIt(data2);
+		assertIt(data6);
 
 		item.setData(stream(dataEmpty));
 		assertStreamClosed();
