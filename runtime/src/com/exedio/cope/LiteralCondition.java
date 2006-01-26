@@ -22,8 +22,8 @@ package com.exedio.cope;
 public abstract class LiteralCondition extends Condition
 {
 	private final String operator;
-	public final Function function;
-	public final Object value;
+	private final Function function;
+	private final Object value;
 
 	protected LiteralCondition(final String operator, final Function function, final Object value)
 	{
