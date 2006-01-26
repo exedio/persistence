@@ -51,6 +51,7 @@ public class Main
 			HierarchySingleSub.TYPE,
 		});
 	public static final Model hierarchyEmptyModel = new Model(new Type[] { HierarchyEmptySub.TYPE, HierarchyEmptySuper.TYPE });
+	public static final Model joinFunctionModel = new Model(new Type[] { JoinFunctionItem.TYPE, JoinFunctionItemSingle.TYPE });
 
 	private static final void tearDown(final Model model)
 	{
@@ -94,6 +95,7 @@ public class Main
 		tearDown(matchModel);
 		tearDown(hierarchyModel);
 		tearDown(hierarchyEmptyModel);
+		tearDown(joinFunctionModel);
 	}
 
 }

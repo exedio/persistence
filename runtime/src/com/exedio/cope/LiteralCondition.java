@@ -22,10 +22,10 @@ package com.exedio.cope;
 public abstract class LiteralCondition extends Condition
 {
 	private final String operator; 
-	public final FunctionAttribute attribute;
+	public final Function attribute; // TODO rename to function
 	public final Object value;
 
-	protected LiteralCondition(final String operator, final FunctionAttribute attribute, final Object value)
+	protected LiteralCondition(final String operator, final Function attribute, final Object value)
 	{
 		this.operator = operator;
 		this.attribute = attribute;
@@ -71,7 +71,7 @@ public abstract class LiteralCondition extends Condition
 
 	public final String toString()
 	{
-		return attribute.getName() + operator + '\'' + value + '\'';
+		return attribute.toString() + operator + '\'' + value + '\'';
 	}
 
 }

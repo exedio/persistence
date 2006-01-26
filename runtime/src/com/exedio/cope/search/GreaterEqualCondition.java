@@ -18,17 +18,8 @@
 
 package com.exedio.cope.search;
 
-import java.util.Date;
-
-import com.exedio.cope.DateAttribute;
-import com.exedio.cope.DoubleAttribute;
-import com.exedio.cope.EnumAttribute;
-import com.exedio.cope.EnumValue;
-import com.exedio.cope.IntegerAttribute;
+import com.exedio.cope.Function;
 import com.exedio.cope.LiteralCondition;
-import com.exedio.cope.LongAttribute;
-import com.exedio.cope.FunctionAttribute;
-import com.exedio.cope.StringAttribute;
 
 public class GreaterEqualCondition extends LiteralCondition
 {
@@ -43,9 +34,9 @@ public class GreaterEqualCondition extends LiteralCondition
 	 * @see DateAttribute#greaterOrEqual(Date)
 	 * @see EnumAttribute#greaterOrEqual(EnumValue)
 	 */
-	public GreaterEqualCondition(final FunctionAttribute attribute, final Object value)
+	public GreaterEqualCondition(final Function function, final Object value)
 	{
-		super(">=", attribute, value);
+		super(">=", function, value);
 	}
 	
 }

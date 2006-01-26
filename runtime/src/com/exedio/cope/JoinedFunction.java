@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 
-public final class JoinedFunction implements Function
+public class JoinedFunction implements Function
 {
 	final Function function;
 	final Join join;
@@ -33,27 +33,27 @@ public final class JoinedFunction implements Function
 		this.join = join;
 	}
 	
-	public Object getObject(final Item item)
+	public final Object getObject(final Item item)
 	{
 		return function.getObject(item);
 	}
 
-	public void append(final Statement bf, final Join join)
+	public final void append(final Statement bf, final Join join)
 	{
 		function.append(bf, this.join);
 	}
 	
-	public void appendParameter(final Statement bf, final Object value)
+	public final void appendParameter(final Statement bf, final Object value)
 	{
 		bf.appendParameter(function, value);
 	}
 	
-	public Type getType()
+	public final Type getType()
 	{
 		return function.getType();
 	}
 	
-	public boolean equals(final Object other)
+	public final boolean equals(final Object other)
 	{
 		if(!(other instanceof JoinedFunction))
 			return false;
@@ -63,12 +63,12 @@ public final class JoinedFunction implements Function
 		return function.equals(o.function) && join.equals(o.join);
 	}
 	
-	public int hashCode()
+	public final int hashCode()
 	{
 		return function.hashCode() ^ join.hashCode();
 	}
 
-	public String toString()
+	public final String toString()
 	{
 		return function.toString();
 	}

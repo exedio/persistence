@@ -19,6 +19,10 @@
 package com.exedio.cope;
 
 import com.exedio.cope.function.SumView;
+import com.exedio.cope.search.GreaterCondition;
+import com.exedio.cope.search.GreaterEqualCondition;
+import com.exedio.cope.search.LessCondition;
+import com.exedio.cope.search.LessEqualCondition;
 
 
 public interface IntegerFunction extends Function
@@ -29,5 +33,9 @@ public interface IntegerFunction extends Function
 	EqualCondition equal(int value);
 	NotEqualCondition notEqual(Integer value);
 	NotEqualCondition notEqual(int value);
+	LessCondition less(int value);
+	LessEqualCondition lessOrEqual(int value);
+	GreaterCondition greater(int value);
+	GreaterEqualCondition greaterOrEqual(int value);
 	SumView sum(IntegerFunction other);
 }

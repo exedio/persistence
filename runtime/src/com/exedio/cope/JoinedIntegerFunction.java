@@ -18,57 +18,18 @@
 
 package com.exedio.cope;
 
-import java.math.BigDecimal;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
 import com.exedio.cope.function.SumView;
 import com.exedio.cope.search.GreaterCondition;
 import com.exedio.cope.search.GreaterEqualCondition;
 import com.exedio.cope.search.LessCondition;
 import com.exedio.cope.search.LessEqualCondition;
 
-public abstract class IntegerView
-	extends StaticView
-	implements IntegerFunction
+
+public final class JoinedIntegerFunction extends JoinedFunction implements IntegerFunction
 {
-	public IntegerView(
-			final Function[] sources,
-			final String[] sqlFragments,
-			final String functionName)
+	public JoinedIntegerFunction(final IntegerFunction function, final Join join)
 	{
-		super(sources, sqlFragments, functionName, IntegerColumn.JDBC_TYPE_INT);
-	}
-
-	final Object load(final ResultSet resultSet, final int columnIndex)
-	throws SQLException
-	{
-		final Object loadedInteger = resultSet.getObject(columnIndex);
-		//System.out.println("IntegerView.load "+functionName+" "+loadedInteger+" "+(loadedInteger==null?"null":loadedInteger.getClass().getName()));
-		if(loadedInteger!=null)
-		{
-			if(loadedInteger instanceof BigDecimal)
-				return new Integer(((BigDecimal)loadedInteger).intValue());
-			else if(loadedInteger instanceof Long)
-				return new Integer(((Long)loadedInteger).intValue());
-			else
-				return (Integer)loadedInteger;
-		}
-		else
-			return null;
-	}
-
-	final String surface2Database(final Object value)
-	{
-		if(value==null)
-			return "NULL";
-		else
-			return ((Integer)value).toString();
-	}
-	
-	final void surface2DatabasePrepared(final Statement bf, final Object value)
-	{
-		bf.appendParameter(((Integer)value).intValue());
+		super(function, join);
 	}
 	
 	public final Integer get(final Item item)
