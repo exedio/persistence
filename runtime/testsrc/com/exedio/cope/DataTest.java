@@ -33,7 +33,7 @@ public class DataTest extends AbstractLibTest
 	
 	private DataItem item;
 	// TODO rename by length
-	private final byte[] data = new byte[]{-86,122,-8,23};
+	private final byte[] data4 = new byte[]{-86,122,-8,23};
 	private final byte[] data6 = new byte[]{-97,35,-126,86,19,-8};
 	private final byte[] data8 = new byte[]{-54,104,-63,23,19,-45,71,-23};
 	private final byte[] data10 = new byte[]{-97,19,-8,35,-126,-86,122,86,19,-8};
@@ -152,8 +152,8 @@ public class DataTest extends AbstractLibTest
 		assertIt(null);
 
 		// set byte[]
-		item.setData(data);
-		assertIt(data);
+		item.setData(data4);
+		assertIt(data4);
 
 		item.setData(data6);
 		assertIt(data6);
@@ -169,9 +169,9 @@ public class DataTest extends AbstractLibTest
 
 
 		// set InputStream
-		item.setData(stream(data));
+		item.setData(stream(data4));
 		assertStreamClosed();
-		assertIt(data);
+		assertIt(data4);
 
 		item.setData(stream(data6));
 		assertStreamClosed();
@@ -225,10 +225,10 @@ public class DataTest extends AbstractLibTest
 		final DataSubItem subItem = new DataSubItem();
 		deleteOnTearDown(subItem);
 		
-		subItem.setData(stream(data));
+		subItem.setData(stream(data4));
 		assertStreamClosed();
-		assertIt(data, subItem);
-		assertEquals(data.length, subItem.getDataLength());
+		assertIt(data4, subItem);
+		assertEquals(data4.length, subItem.getDataLength());
 		
 		// test maximum length
 		item.setData10(data10);
