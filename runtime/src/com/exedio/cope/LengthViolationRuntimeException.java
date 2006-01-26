@@ -33,7 +33,7 @@ package com.exedio.cope;
 public final class LengthViolationRuntimeException extends RuntimeException
 {
 	private final Item item;
-	private final Attribute stringAttribute;
+	private final StringAttribute stringAttribute;
 	private final String value;
 	
 	/**
@@ -42,7 +42,7 @@ public final class LengthViolationRuntimeException extends RuntimeException
 	 * @param stringAttribute initializes, what is returned by {@link #getStringAttribute()}.
 	 * @param value initializes, what is returned by {@link #getValue()}.
 	 */
-	public LengthViolationRuntimeException(final Item item, final Attribute stringAttribute, final String value)
+	public LengthViolationRuntimeException(final Item item, final StringAttribute stringAttribute, final String value)
 	{
 		super();
 		this.item = item;
@@ -62,7 +62,7 @@ public final class LengthViolationRuntimeException extends RuntimeException
 	/**
 	 * Returns the attribute, that was attempted to be written.
 	 */
-	public Attribute getStringAttribute()
+	public StringAttribute getStringAttribute()
 	{
 		return stringAttribute;
 	}

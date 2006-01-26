@@ -33,7 +33,7 @@ package com.exedio.cope;
 public final class LengthViolationException extends ConstraintViolationException
 {
 	private final Item item;
-	private final Attribute stringAttribute;
+	private final StringAttribute stringAttribute;
 	private final String value;
 	private final boolean isTooShort;
 	
@@ -43,7 +43,7 @@ public final class LengthViolationException extends ConstraintViolationException
 	 * @param stringAttribute initializes, what is returned by {@link #getStringAttribute()}.
 	 * @param value initializes, what is returned by {@link #getValue()}.
 	 */
-	public LengthViolationException(final Item item, final Attribute stringAttribute, final String value, final boolean isTooShort)
+	public LengthViolationException(final Item item, final StringAttribute stringAttribute, final String value, final boolean isTooShort)
 	{
 		super(null);
 		
@@ -68,7 +68,7 @@ public final class LengthViolationException extends ConstraintViolationException
 	/**
 	 * Returns the attribute, that was attempted to be written.
 	 */
-	public Attribute getStringAttribute()
+	public StringAttribute getStringAttribute()
 	{
 		return stringAttribute;
 	}
