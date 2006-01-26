@@ -32,9 +32,12 @@ public class DataTest extends AbstractLibTest
 	}
 	
 	private DataItem item;
+	// TODO rename by length
 	private final byte[] data = new byte[]{-86,122,-8,23};
 	private final byte[] data2 = new byte[]{-97,35,-126,86,19,-8};
 	private final byte[] dataFile = new byte[]{-54,104,-63,23,19,-45,71,-23};
+	private final byte[] data10 = new byte[]{-97,19,-8,35,-126,-86,122,86,19,-8};
+	private final byte[] data11 = new byte[]{22,-97,19,-8,35,-126,-86,122,86,19,-8};
 	private final byte[] dataEmpty = new byte[]{};
 	private byte[] dataBig;
 	
@@ -110,6 +113,42 @@ public class DataTest extends AbstractLibTest
 	
 	public void testData() throws MandatoryViolationException, IOException
 	{
+		assertEquals(10, data10.length);
+		assertEquals(11, data11.length);
+		
+		// test model
+		assertEquals(item.TYPE, item.data.getType());
+		assertEquals("data", item.data.getName());
+		assertEquals(false, item.data.isMandatory());
+		assertEqualsUnmodifiable(list(), item.data.getPatterns());
+		assertEquals(item.data.DEFAULT_LENGTH, item.data.getMaximumLength());
+		
+		assertEquals(item.TYPE, item.data10.getType());
+		assertEquals("data10", item.data10.getName());
+		assertEquals(false, item.data10.isMandatory());
+		assertEqualsUnmodifiable(list(), item.data10.getPatterns());
+		assertEquals(10, item.data10.getMaximumLength());
+		
+		try
+		{
+			new DataAttribute(Item.OPTIONAL).lengthMax(0);
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals("maximum length must be greater zero, but was 0.", e.getMessage());
+		}
+		try
+		{
+			new DataAttribute(Item.OPTIONAL).lengthMax(-10);
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals("maximum length must be greater zero, but was -10.", e.getMessage());
+		}
+
+		// test data
 		assertIt(null);
 
 		// set byte[]
@@ -190,6 +229,52 @@ public class DataTest extends AbstractLibTest
 		assertStreamClosed();
 		assertIt(data, subItem);
 		assertEquals(data.length, subItem.getDataLength());
+		
+		// test maximum length
+		item.setData10(data10);
+		assertData(data10, item.getData10());
+		
+		try
+		{
+			item.setData10(data11);
+			fail();
+		}
+		catch(DataLengthViolationException e)
+		{
+			assertEquals(item, e.getItem());
+			assertEquals(item.data10, e.getDataAttribute());
+			assertEquals(11, e.getLength());
+			assertEquals("length violation on DataItem.0, 11 bytes is too long for DataItem#data10", e.getMessage());
+		}
+		assertData(data10, item.getData10());
+		try
+		{
+			item.setData10(stream(data11));
+			fail();
+		}
+		catch(DataLengthViolationException e)
+		{
+			assertEquals(item, e.getItem());
+			assertEquals(item.data10, e.getDataAttribute());
+			assertEquals(-1, e.getLength());
+			assertEquals(e.getMessage(), "length violation on DataItem.0, is too long for DataItem#data10", e.getMessage());
+		}
+		if(model.getProperties().hasDatadirPath()) // TODO should not be needed
+			item.setData10(data10);
+		assertData(data10, item.getData10());
+		try
+		{
+			item.setData10(file(data11));
+			fail();
+		}
+		catch(DataLengthViolationException e)
+		{
+			assertEquals(item, e.getItem());
+			assertEquals(item.data10, e.getDataAttribute());
+			assertEquals(11, e.getLength());
+			assertEquals("length violation on DataItem.0, 11 bytes is too long for DataItem#data10", e.getMessage());
+		}
+		assertData(data10, item.getData10());
 	}
 	
 }

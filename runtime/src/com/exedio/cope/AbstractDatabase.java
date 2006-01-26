@@ -823,7 +823,7 @@ abstract class AbstractDatabase implements Database
 		}
 	}
 	
-	public final void load(final Connection connection, final BlobColumn column, final Item item, final OutputStream data)
+	public final void load(final Connection connection, final BlobColumn column, final Item item, final OutputStream data, final DataAttribute attribute)
 	{
 		buildStage = false;
 
@@ -864,7 +864,7 @@ abstract class AbstractDatabase implements Database
 					try
 					{
 						final InputStream source = blob.getBinaryStream();
-						DataAttribute.copy(source, data, blob.length());
+						attribute.copy(source, data, blob.length(), item);
 					}
 					catch(IOException e)
 					{
@@ -924,7 +924,10 @@ abstract class AbstractDatabase implements Database
 		}
 	}
 	
-	public final void store(final Connection connection, final BlobColumn column, final Item item, final InputStream data) throws IOException
+	public final void store(
+			final Connection connection, final BlobColumn column, final Item item,
+			final InputStream data, final DataAttribute attribute)
+		throws IOException
 	{
 		buildStage = false;
 
@@ -937,7 +940,7 @@ abstract class AbstractDatabase implements Database
 			append('=');
 		
 		if(data!=null)
-			bf.appendParameterBlob(column, data);
+			bf.appendParameterBlob(column, data, attribute, item);
 		else
 			bf.append("NULL");
 		

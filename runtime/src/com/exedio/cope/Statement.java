@@ -185,20 +185,20 @@ final class Statement
 		return this;
 	}
 	
-	private static final byte[] toArray(final InputStream source) throws IOException
+	private static final byte[] toArray(final InputStream source, final DataAttribute attribute, final Item item) throws IOException
 	{
 		final ByteArrayOutputStream target = new ByteArrayOutputStream();
-		DataAttribute.copy(source, target);
+		attribute.copy(source, target, item);
 		source.close();
 		final byte[] result = target.toByteArray();
 		target.close();
 		return result;
 	}
 	
-	Statement appendParameterBlob(final BlobColumn function, final InputStream data) throws IOException
+	Statement appendParameterBlob(final BlobColumn function, final InputStream data, final DataAttribute attribute, final Item item) throws IOException
 	{
 		this.text.append(QUESTION_MARK);
-		this.parameters.add(toArray(data)); // TODO
+		this.parameters.add(toArray(data, attribute, item)); // TODO
 		return this;
 	}
 	

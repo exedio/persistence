@@ -94,9 +94,9 @@ interface Database
 	void delete(Connection connection, Item item);
 	
 	byte[] load(Connection connection, BlobColumn column, Item item);
-	void load(Connection connection, BlobColumn column, Item item, OutputStream data);
+	void load(Connection connection, BlobColumn column, Item item, OutputStream data, DataAttribute attribute);
 	long loadLength(Connection connection, BlobColumn column, Item item);
-	void store(Connection connection, BlobColumn column, Item item, InputStream data) throws IOException;
+	void store(Connection connection, BlobColumn column, Item item, InputStream data, DataAttribute attribute) throws IOException;
 
 	Schema makeSchema();
 

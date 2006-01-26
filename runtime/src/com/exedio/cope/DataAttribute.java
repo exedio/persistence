@@ -30,15 +30,22 @@ import java.io.OutputStream;
 
 public final class DataAttribute extends Attribute
 {
+	private final long maximumLength;
 
-	private DataAttribute(final boolean isfinal, final boolean mandatory)
+	public static final long DEFAULT_LENGTH = 10*1000*1000;
+	
+	private DataAttribute(final boolean isfinal, final boolean mandatory, final long maximumLength)
 	{
 		super(isfinal, mandatory);
+		this.maximumLength = maximumLength;
+		
+		if(maximumLength<=0)
+			throw new RuntimeException("maximum length must be greater zero, but was " + maximumLength + '.');
 	}
 	
 	public DataAttribute(final Option option)
 	{
-		this(option.isFinal, option.mandatory);
+		this(option.isFinal, option.mandatory, DEFAULT_LENGTH);
 
 		if(option.unique)
 			throw new RuntimeException("DataAttribute cannot be unique");
@@ -46,6 +53,16 @@ public final class DataAttribute extends Attribute
 			throw new RuntimeException("DataAttribute cannot be mandatory");
 		if(option.isFinal)
 			throw new RuntimeException("DataAttribute cannot be final");
+	}
+	
+	public DataAttribute lengthMax(final long maximumLength)
+	{
+		return new DataAttribute(isfinal, mandatory, maximumLength);
+	}
+	
+	public long getMaximumLength()
+	{
+		return maximumLength;
 	}
 	
 	// second initialization phase ---------------------------------------------------
@@ -104,9 +121,14 @@ public final class DataAttribute extends Attribute
 	 * @param data give null to remove data.
 	 * @throws MandatoryViolationException
 	 *         if data is null and attribute is {@link Attribute#isMandatory() mandatory}.
+	 * @throws DataLengthViolationException
+	 *         if data is longer than {@link #getMaximumLength()}
 	 */
-	public void set(final Item item, final byte[] data) throws MandatoryViolationException
+	public void set(final Item item, final byte[] data) throws MandatoryViolationException, DataLengthViolationException
 	{
+		if(data!=null && data.length>maximumLength)
+			throw new DataLengthViolationException(item, this, data.length);
+		
 		impl.set(item, data);
 	}
 	
@@ -132,10 +154,12 @@ public final class DataAttribute extends Attribute
 	 * @param data give null to remove data.
 	 * @throws MandatoryViolationException
 	 *         if data is null and attribute is {@link Attribute#isMandatory() mandatory}.
+	 * @throws DataLengthViolationException
+	 *         if data is longer than {@link #getMaximumLength()}
 	 * @throws IOException if reading data throws an IOException.
 	 */
 	public void set(final Item item, final InputStream data)
-	throws MandatoryViolationException, IOException
+	throws MandatoryViolationException, DataLengthViolationException, IOException
 	{
 		impl.set(item, data);
 	}
@@ -161,16 +185,18 @@ public final class DataAttribute extends Attribute
 	 * @param data give null to remove data.
 	 * @throws MandatoryViolationException
 	 *         if data is null and attribute is {@link Attribute#isMandatory() mandatory}.
+	 * @throws DataLengthViolationException
+	 *         if data is longer than {@link #getMaximumLength()}
 	 * @throws IOException if reading data throws an IOException.
 	 */
 	public void set(final Item item, final File data)
-	throws MandatoryViolationException, IOException
+	throws MandatoryViolationException, DataLengthViolationException, IOException
 	{
 		impl.set(item, data);
 	}
 	
 	
-	abstract static class Impl
+	abstract class Impl
 	{
 		// TODO remove
 		final boolean blob;
@@ -192,7 +218,7 @@ public final class DataAttribute extends Attribute
 		
 	}
 	
-	static final class BlobImpl extends Impl
+	final class BlobImpl extends Impl
 	{
 		final Model model;
 		final BlobColumn column;
@@ -230,7 +256,7 @@ public final class DataAttribute extends Attribute
 			try
 			{
 				// TODO make more efficient implementation
-				column.table.database.store(model.getCurrentTransaction().getConnection(), column, item, data!=null ? new ByteArrayInputStream(data) : null);
+				column.table.database.store(model.getCurrentTransaction().getConnection(), column, item, data!=null ? new ByteArrayInputStream(data) : null, DataAttribute.this);
 			}
 			catch(IOException e)
 			{
@@ -240,13 +266,13 @@ public final class DataAttribute extends Attribute
 		
 		void get(final Item item, final OutputStream data)
 		{
-			column.table.database.load(model.getCurrentTransaction().getConnection(), column, item, data);
+			column.table.database.load(model.getCurrentTransaction().getConnection(), column, item, data, DataAttribute.this);
 		}
 		
 		void set(final Item item, final InputStream data)
 		throws MandatoryViolationException, IOException
 		{
-			column.table.database.store(model.getCurrentTransaction().getConnection(), column, item, data);
+			column.table.database.store(model.getCurrentTransaction().getConnection(), column, item, data, DataAttribute.this);
 		}
 		
 		void get(final Item item, final File data) throws IOException
@@ -273,7 +299,15 @@ public final class DataAttribute extends Attribute
 			InputStream source = null;
 			try
 			{
-				source = data!=null ? new FileInputStream(data) : null;
+				if(data!=null)
+				{
+					final long length = data.length();
+					if(length>maximumLength)
+						throw new DataLengthViolationException(item, DataAttribute.this, length);
+					
+					source =  new FileInputStream(data);
+				}
+				
 				set(item, source);
 			}
 			finally
@@ -284,7 +318,7 @@ public final class DataAttribute extends Attribute
 		}
 	}
 	
-	static final class FileImpl extends Impl
+	final class FileImpl extends Impl
 	{
 		final File directory;
 		
@@ -388,7 +422,7 @@ public final class DataAttribute extends Attribute
 					if(data!=null)
 					{
 						in = new FileInputStream(file);
-						DataAttribute.copy(in, data, file.length());
+						DataAttribute.this.copy(in, data, file.length(), item);
 						in.close();
 						data.close();
 					}
@@ -421,7 +455,7 @@ public final class DataAttribute extends Attribute
 				if(data!=null)
 				{
 					out = new FileOutputStream(file);
-					DataAttribute.copy(data, out);
+					DataAttribute.this.copy(data, out, item);
 					out.close();
 					data.close();
 				}
@@ -443,18 +477,21 @@ public final class DataAttribute extends Attribute
 			}
 		}
 		
-		private static final void copy(final File source, final File target) throws IOException
+		private final void copy(final File source, final File target, final Item item) throws IOException
 		{
 			final long length = source.length();
 			if(length>0)
 			{
+				if(length>maximumLength)
+					throw new DataLengthViolationException(item, DataAttribute.this, length);
+				
 				InputStream sourceS = null;
 				OutputStream targetS = null;
 				try
 				{
 					sourceS = new FileInputStream(source);
 					targetS = new FileOutputStream(target);
-					DataAttribute.copy(sourceS, targetS, length);
+					DataAttribute.this.copy(sourceS, targetS, length, item);
 				}
 				finally
 				{
@@ -490,7 +527,7 @@ public final class DataAttribute extends Attribute
 		{
 			final File file = getStorage(item);
 			if(file.exists())
-				copy(file, data);
+				copy(file, data, item);
 			// TODO maybe file should be deleted when result is null?, same in blob mode
 		}
 		
@@ -499,7 +536,7 @@ public final class DataAttribute extends Attribute
 			final File file = getStorage(item);
 
 			if(data!=null)
-				copy(data, file);
+				copy(data, file, item);
 			else
 			{
 				if(file.exists())
@@ -512,12 +549,12 @@ public final class DataAttribute extends Attribute
 		
 	}
 	
-	static final void copy(final InputStream in, final OutputStream out) throws IOException
+	final void copy(final InputStream in, final OutputStream out, final Item item) throws IOException
 	{
-		copy(in, out, 20*1024); // TODO make this configurable as default buffer length, must not be greater than maximum buffer length
+		copy(in, out, 20*1024, item); // TODO make this configurable as default buffer length, must not be greater than maximum buffer length
 	}
 	
-	static final void copy(final InputStream in, final OutputStream out, final long length) throws IOException
+	final void copy(final InputStream in, final OutputStream out, final long length, final Item item) throws IOException
 	{
 		if(length==0)
 			return;
@@ -534,8 +571,16 @@ public final class DataAttribute extends Attribute
 		)];
 		//System.out.println("-------------- "+length+" ----- "+b.length);
 		
+		final long maximumLength = this.maximumLength;
+		long dataTransferred = 0;
 		for(int len = in.read(b); len>=0; len = in.read(b))
+		{
+			dataTransferred += len;
+			if(dataTransferred>maximumLength)
+				throw new DataLengthViolationException(item, this, -1);
+			
 			out.write(b, 0, len);
+		}
 	}
 	
 	static final byte[] copy(final InputStream in, final long length)

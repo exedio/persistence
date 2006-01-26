@@ -181,9 +181,9 @@ class WrappingDatabase implements Database
 		return nested.load(connection, column, item);
 	}
 	
-	public final void load(final Connection connection, final BlobColumn column, final Item item, final OutputStream data)
+	public final void load(final Connection connection, final BlobColumn column, final Item item, final OutputStream data, final DataAttribute attribute)
 	{
-		nested.load(connection, column, item, data);
+		nested.load(connection, column, item, data, attribute);
 	}
 	
 	public final long loadLength(final Connection connection, final BlobColumn column, final Item item)
@@ -191,10 +191,10 @@ class WrappingDatabase implements Database
 		return nested.loadLength(connection, column, item);
 	}
 	
-	public final void store(final Connection connection, final BlobColumn column, final Item item, final InputStream data)
+	public final void store(final Connection connection, final BlobColumn column, final Item item, final InputStream data, final DataAttribute attribute)
 	throws IOException
 	{
-		nested.store(connection, column, item, data);
+		nested.store(connection, column, item, data, attribute);
 	}
 	
 	public boolean supportsCheckConstraints()

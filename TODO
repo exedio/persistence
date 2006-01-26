@@ -7,7 +7,6 @@
 	- constraints
 		- range (minimum/maximum) for integers/doubles
 		- precision (number of fractional digits) for doubles
-		- length constraint (maximum only) for data attributes
 		- arbitrary check constraints
 	- search API
 		- introduce Condition#TRUE/#FALSE and use it for:
