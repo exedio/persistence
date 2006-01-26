@@ -147,11 +147,11 @@ public class OrderByTest extends TestmodelTest
 		assertOrder(list(), list(), item.someNotNullInteger, 0, 0);
 	}
 	
-	private void assertOrder(final List expectedOrder, final FunctionAttribute searchAttribute)
+	private void assertOrder(final List expectedOrder, final FunctionAttribute orderFunction)
 	{
 		final List expectedReverseOrder = new ArrayList(expectedOrder);
 		Collections.reverse(expectedReverseOrder);
-		assertOrder(expectedOrder, expectedReverseOrder, searchAttribute, 0, -1);
+		assertOrder(expectedOrder, expectedReverseOrder, orderFunction, 0, -1);
 	}
 	
 	private void assertOrder(final List expectedOrder, final List expectedReverseOrder,
