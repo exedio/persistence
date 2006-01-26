@@ -35,7 +35,7 @@ public class DataTest extends AbstractLibTest
 	// TODO rename by length
 	private final byte[] data = new byte[]{-86,122,-8,23};
 	private final byte[] data2 = new byte[]{-97,35,-126,86,19,-8};
-	private final byte[] dataFile = new byte[]{-54,104,-63,23,19,-45,71,-23};
+	private final byte[] data8 = new byte[]{-54,104,-63,23,19,-45,71,-23};
 	private final byte[] data10 = new byte[]{-97,19,-8,35,-126,-86,122,86,19,-8};
 	private final byte[] data11 = new byte[]{22,-97,19,-8,35,-126,-86,122,86,19,-8};
 	private final byte[] dataEmpty = new byte[]{};
@@ -45,11 +45,11 @@ public class DataTest extends AbstractLibTest
 	{
 		super.setUp();
 		
-		final int dataFileLength = dataFile.length;
+		final int dataFileLength = data8.length;
 		final int dataBigLength = (1024*1024) + 77;
 		dataBig = new byte[dataBigLength];
 		for(int i = 0; i<dataBigLength; i++)
-			dataBig[i] = dataFile[i % dataFileLength];
+			dataBig[i] = data8[i % dataFileLength];
 		
 		deleteOnTearDown(item = new DataItem());
 	}
@@ -190,8 +190,8 @@ public class DataTest extends AbstractLibTest
 
 		
 		// set File
-		item.setData(file(dataFile));
-		assertIt(dataFile);
+		item.setData(file(data8));
+		assertIt(data8);
 
 		item.setData(file(dataEmpty));
 		assertIt(dataEmpty);
