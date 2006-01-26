@@ -41,14 +41,14 @@ public abstract class CompositeCondition extends Condition
 		this.conditions = conditions;
 	}
 
-	final void appendStatement(final Statement bf)
+	final void append(final Statement bf)
 	{
 		bf.append('(');
-		conditions[0].appendStatement(bf);
+		conditions[0].append(bf);
 		for(int i = 1; i<conditions.length; i++)
 		{
 			bf.append(operator);
-			conditions[i].appendStatement(bf);
+			conditions[i].append(bf);
 		}
 		bf.append(')');
 	}

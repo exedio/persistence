@@ -53,7 +53,7 @@ public final class EqualCondition extends Condition
 		this.value = value;
 	}
 	
-	void appendStatement(final Statement bf)
+	void append(final Statement bf)
 	{
 		function.append(bf, null);
 		if(value!=null)

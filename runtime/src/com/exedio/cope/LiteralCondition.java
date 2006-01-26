@@ -39,7 +39,7 @@ public abstract class LiteralCondition extends Condition
 			throw new NullPointerException();
 	}
 	
-	final void appendStatement(final Statement bf)
+	final void append(final Statement bf)
 	{
 		bf.append(attribute, (Join)null);
 		if(value!=null)

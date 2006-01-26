@@ -26,7 +26,7 @@ import com.exedio.cope.search.OrCondition;
 
 public abstract class Condition
 {
-	abstract void appendStatement(Statement statment);
+	abstract void append(Statement statment);
 	
 	abstract void check(Query query);
 

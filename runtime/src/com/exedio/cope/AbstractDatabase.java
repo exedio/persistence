@@ -387,7 +387,7 @@ abstract class AbstractDatabase implements Database
 				if(joinCondition!=null)
 				{
 					bf.append(" on ");
-					joinCondition.appendStatement(bf);
+					joinCondition.append(bf);
 				}
 				bf.appendTypeJoinCondition(joinCondition!=null ? " and " : " on ", join, join.type);
 			}
@@ -396,7 +396,7 @@ abstract class AbstractDatabase implements Database
 		if(query.condition!=null)
 		{
 			bf.append(" where ");
-			query.condition.appendStatement(bf);
+			query.condition.append(bf);
 		}
 		bf.appendTypeJoinCondition(query.condition!=null ? " and " : " where ", (Join)null, query.type);
 		

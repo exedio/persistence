@@ -43,7 +43,7 @@ public final class EqualAttributeCondition extends Condition
 		this.attribute2 = attribute2;
 	}
 
-	void appendStatement(final Statement bf)
+	void append(final Statement bf)
 	{
 		bf.append(attribute1, (Join)null).
 			append('=').

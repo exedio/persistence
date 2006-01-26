@@ -38,10 +38,10 @@ public final class NotCondition extends Condition
 		this.argument = argument;
 	}
 	
-	void appendStatement(final Statement bf)
+	void append(final Statement bf)
 	{
 		bf.append("not(");
-		argument.appendStatement(bf);
+		argument.append(bf);
 		bf.append(')');
 	}
 

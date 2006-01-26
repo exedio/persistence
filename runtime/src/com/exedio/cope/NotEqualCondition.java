@@ -53,7 +53,7 @@ public final class NotEqualCondition extends Condition
 		this.value = value;
 	}
 	
-	void appendStatement(final Statement bf)
+	void append(final Statement bf)
 	{
 		if(value!=null)
 		{

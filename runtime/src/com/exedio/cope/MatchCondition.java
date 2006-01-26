@@ -50,7 +50,7 @@ public final class MatchCondition extends Condition
 			throw new NullPointerException("value must ot be null");
 	}
 	
-	void appendStatement(final Statement bf)
+	void append(final Statement bf)
 	{
 		bf.appendMatch(function, value);
 	}
