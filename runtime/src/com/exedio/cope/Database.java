@@ -65,7 +65,7 @@ interface Database
 	 */
 	String getDateTimestampType();
 	
-	String getBlobType();
+	String getBlobType(long maximumLength);
 	
 	int getBlobLengthFactor();
 	

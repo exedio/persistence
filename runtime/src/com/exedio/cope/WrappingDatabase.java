@@ -247,9 +247,9 @@ class WrappingDatabase implements Database
 		return nested.getDateTimestampType();
 	}
 	
-	public String getBlobType()
+	public String getBlobType(final long maximumLength)
 	{
-		return nested.getBlobType();
+		return nested.getBlobType(maximumLength);
 	}
 	
 	public int getBlobLengthFactor()

@@ -95,7 +95,7 @@ final class OracleDatabase extends AbstractDatabase
 		return "TIMESTAMP(3)";
 	}
 	
-	public String getBlobType()
+	public String getBlobType(final long maximumLength)
 	{
 		return "BLOB";
 	}

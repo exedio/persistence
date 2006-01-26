@@ -69,7 +69,7 @@ final class HsqldbDatabase extends AbstractDatabase
 		return "timestamp";
 	}
 
-	public String getBlobType()
+	public String getBlobType(final long maximumLength)
 	{
 		return "binary";
 	}

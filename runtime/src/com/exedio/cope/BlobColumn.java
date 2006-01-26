@@ -33,13 +33,13 @@ final class BlobColumn extends Column
 		super(table, id, false, notNull, JDBC_TYPE);
 		this.maximumLength = maximumLength;
 		
-		if(table.database.getBlobType()==null)
+		if(table.database.getBlobType(maximumLength)==null)
 			throw new RuntimeException("database does not support BLOBs for "+table.id+'.'+id+'.');
 	}
 	
 	final String getDatabaseType()
 	{
-		return table.database.getBlobType();
+		return table.database.getBlobType(maximumLength);
 	}
 
 	final String getCheckConstraintIfNotNull()

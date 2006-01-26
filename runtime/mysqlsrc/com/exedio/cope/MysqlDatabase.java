@@ -109,10 +109,16 @@ public final class MysqlDatabase extends AbstractDatabase
 		return null;
 	}
 	
-	public String getBlobType()
+	public String getBlobType(final long maximumLength)
 	{
-		// TODO could use MEDIUMBLOB/BLOB/TINYBLOB if the was a maximum size specified
-		return "LONGBLOB";
+		if(maximumLength<TWOPOW8)
+			return "TINYBLOB";
+		else if(maximumLength<TWOPOW16)
+			return "BLOB";
+		else if(maximumLength<TWOPOW24)
+			return "MEDIUMBLOB";
+		else
+			return "LONGBLOB";
 	}
 	
 	int getLimitSupport()

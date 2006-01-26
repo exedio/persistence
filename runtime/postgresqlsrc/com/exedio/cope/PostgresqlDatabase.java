@@ -75,7 +75,7 @@ final class PostgresqlDatabase extends AbstractDatabase
 	}
 	
 	// TODO check if there is a suitable column type
-	public String getBlobType()
+	public String getBlobType(final long maximumLength)
 	{
 		return null;
 	}
