@@ -43,7 +43,7 @@ public final class IntegrityViolationException extends ConstraintViolationExcept
 	 */
 	IntegrityViolationException(final Item item, final ItemAttribute attribute)
 	{
-		super(null);
+		super(attribute, null);
 		
 		if(item==null)
 			throw new NullPointerException();

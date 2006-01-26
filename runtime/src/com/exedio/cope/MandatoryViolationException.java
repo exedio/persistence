@@ -43,7 +43,7 @@ public final class MandatoryViolationException extends ConstraintViolationExcept
 	 */
 	MandatoryViolationException(final Item item, final Attribute mandatoryAttribute)
 	{
-		super(null);
+		super(mandatoryAttribute, null);
 
 		if(mandatoryAttribute==null)
 			throw new NullPointerException();

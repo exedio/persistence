@@ -88,6 +88,7 @@ public class UniqueItemTest extends TestmodelTest
 			catch(UniqueViolationException e)
 			{
 				assertEquals(item2.uniqueString.getImplicitUniqueConstraint(), e.getConstraint());
+				assertEquals(item2.uniqueString.getImplicitUniqueConstraint(), e.getFeature());
 				assertEquals("unique violation for "+item2.uniqueString.getImplicitUniqueConstraint().toString(), e.getMessage());
 			}
 			assertEquals("uniqueString2", item2.getUniqueString());
@@ -214,6 +215,7 @@ public class UniqueItemTest extends TestmodelTest
 		catch(FinalViolationException e)
 		{
 			assertEquals(item.uniqueFinalString, e.getFinalAttribute());
+			assertEquals(item.uniqueFinalString, e.getFeature());
 			assertEquals(item, e.getItem());
 			assertEquals("final violation on " + item + " for UniqueFinal#uniqueFinalString", e.getMessage());
 		}
@@ -334,6 +336,7 @@ public class UniqueItemTest extends TestmodelTest
 		catch(UniqueViolationException e)
 		{
 			assertEquals(a1.doubleUnique, e.getConstraint());
+			assertEquals(a1.doubleUnique, e.getFeature());
 			assertEquals(null, e.getItem());
 			assertEquals("unique violation for ItemWithDoubleUnique#doubleUnique", e.getMessage());
 		}
@@ -349,6 +352,7 @@ public class UniqueItemTest extends TestmodelTest
 		catch(UniqueViolationException e)
 		{
 			assertEquals(a1.doubleUnique, e.getConstraint());
+			assertEquals(a1.doubleUnique, e.getFeature());
 			assertEquals(null, e.getItem());
 			assertEquals("unique violation for ItemWithDoubleUnique#doubleUnique", e.getMessage());
 		}

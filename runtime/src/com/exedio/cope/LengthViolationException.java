@@ -45,7 +45,7 @@ public final class LengthViolationException extends ConstraintViolationException
 	 */
 	public LengthViolationException(final Item item, final StringAttribute stringAttribute, final String value, final boolean isTooShort)
 	{
-		super(null);
+		super(stringAttribute, null);
 		
 		if(stringAttribute==null)
 			throw new NullPointerException();

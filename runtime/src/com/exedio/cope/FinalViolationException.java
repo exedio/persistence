@@ -40,7 +40,7 @@ public final class FinalViolationException extends ConstraintViolationException
 	 */
 	public FinalViolationException(final Item item, final Attribute finalAttribute)
 	{
-		super(null);
+		super(finalAttribute, null);
 		
 		if(item==null)
 			throw new NullPointerException();

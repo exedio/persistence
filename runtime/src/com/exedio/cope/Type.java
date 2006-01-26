@@ -557,8 +557,8 @@ public final class Type
 		catch(InvocationTargetException e)
 		{
 			final Throwable t = e.getCause();
-			if(t instanceof LengthViolationRuntimeException) // TODO introduce ConstraintViolationRuntimeException
-				throw (LengthViolationRuntimeException)t;
+			if(t instanceof ConstraintViolationRuntimeException)
+				throw (ConstraintViolationRuntimeException)t;
 			else
 				throw new RuntimeException(e);
 		}

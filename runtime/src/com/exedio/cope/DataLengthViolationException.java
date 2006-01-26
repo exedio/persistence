@@ -27,9 +27,8 @@ package com.exedio.cope;
  * 
  * @author Ralf Wiebicke
  */
-public final class DataLengthViolationException extends RuntimeException
+public final class DataLengthViolationException extends ConstraintViolationRuntimeException
 {
-	// TODO introduce ConstraintRuntimeException
 	private final Item item;
 	private final DataAttribute dataAttribute;
 	private final long length;
@@ -42,7 +41,7 @@ public final class DataLengthViolationException extends RuntimeException
 	 */
 	public DataLengthViolationException(final Item item, final DataAttribute dataAttribute, final long length)
 	{
-		super();
+		super(dataAttribute);
 		this.item = item;
 		this.dataAttribute = dataAttribute;
 		this.length = length;

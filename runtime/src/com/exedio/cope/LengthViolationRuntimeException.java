@@ -30,7 +30,7 @@ package com.exedio.cope;
  * @see LengthViolationException
  * @author Ralf Wiebicke
  */
-public final class LengthViolationRuntimeException extends RuntimeException
+public final class LengthViolationRuntimeException extends ConstraintViolationRuntimeException
 {
 	private final Item item;
 	private final StringAttribute stringAttribute;
@@ -44,7 +44,7 @@ public final class LengthViolationRuntimeException extends RuntimeException
 	 */
 	public LengthViolationRuntimeException(final Item item, final StringAttribute stringAttribute, final String value)
 	{
-		super();
+		super(stringAttribute);
 		this.item = item;
 		this.stringAttribute = stringAttribute;
 		this.value = value;

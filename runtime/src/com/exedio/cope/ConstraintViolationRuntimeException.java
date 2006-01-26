@@ -18,20 +18,18 @@
 
 package com.exedio.cope;
 
-import java.sql.SQLException;
 
 /**
  * Is thrown, when a persistent modification violates a constraint.
  * 
  * @author Ralf Wiebicke
  */
-public abstract class ConstraintViolationException extends Exception
+public abstract class ConstraintViolationRuntimeException extends RuntimeException
 {
 	private final Feature feature;
 
-	public ConstraintViolationException(final Feature feature, final SQLException cause)
+	public ConstraintViolationRuntimeException(final Feature feature)
 	{
-		super(cause);
 		this.feature = feature;
 	}
 	

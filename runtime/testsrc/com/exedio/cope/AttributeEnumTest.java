@@ -259,6 +259,7 @@ public class AttributeEnumTest extends AttributeTest
 		{
 			assertEquals(item, e.getItem());
 			assertEquals(item.someNotNullEnum, e.getMandatoryAttribute());
+			assertEquals(item.someNotNullEnum, e.getFeature());
 			assertEquals("mandatory violation on " + item + " for AttributeItem#someNotNullEnum", e.getMessage());
 		}
 		assertEquals(
@@ -274,6 +275,7 @@ public class AttributeEnumTest extends AttributeTest
 		{
 			assertEquals(null, e.getItem());
 			assertEquals(item.someNotNullEnum, e.getMandatoryAttribute());
+			assertEquals(item.someNotNullEnum, e.getFeature());
 			assertEquals("mandatory violation on a newly created item for AttributeItem#someNotNullEnum", e.getMessage());
 		}
 	}
