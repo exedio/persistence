@@ -155,12 +155,12 @@ public class OrderByTest extends TestmodelTest
 	}
 	
 	private void assertOrder(final List expectedOrder, final List expectedReverseOrder,
-													final FunctionAttribute searchAttribute,
+													final FunctionAttribute orderFunction,
 													final int limitStart, final int limitCount)
 	{
 		{
 			final Query query = new Query(item1.TYPE, null);
-			query.setOrderBy(searchAttribute, true);
+			query.setOrderBy(orderFunction, true);
 			query.setDeterministicOrder(true);
 	
 			if(limitCount==-1)
@@ -173,7 +173,7 @@ public class OrderByTest extends TestmodelTest
 		}
 		{
 			final Query query = new Query(item1.TYPE, null);
-			query.setOrderBy(searchAttribute, false);
+			query.setOrderBy(orderFunction, false);
 			query.setDeterministicOrder(true);
 	
 			if(limitCount==-1)
@@ -185,7 +185,7 @@ public class OrderByTest extends TestmodelTest
 		}
 		{
 			final Query query2 = new Query(item.someNotNullString, item1.TYPE, null);
-			query2.setOrderBy(searchAttribute, true);
+			query2.setOrderBy(orderFunction, true);
 			query2.setDeterministicOrder(true);
 
 			if(limitCount==-1)
@@ -201,7 +201,7 @@ public class OrderByTest extends TestmodelTest
 		}
 		{
 			final Query query = new Query(item1.TYPE, null);
-			query.setOrderBy(searchAttribute, true);
+			query.setOrderBy(orderFunction, true);
 			query.setDeterministicOrder(true);
 	
 			if(limitCount==-1)
