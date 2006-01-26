@@ -54,7 +54,7 @@ public abstract class LiteralCondition extends Condition
 		check(function, query);
 	}
 
-	public boolean equals(final Object other)
+	public final boolean equals(final Object other)
 	{
 		if(!(other instanceof LiteralCondition))
 			return false;
@@ -64,7 +64,7 @@ public abstract class LiteralCondition extends Condition
 		return operator.equals(o.operator) && function.equals(o.function) && value.equals(o.value);
 	}
 	
-	public int hashCode()
+	public final int hashCode()
 	{
 		return operator.hashCode() ^ function.hashCode() ^ value.hashCode() ^ 918276;
 	}
