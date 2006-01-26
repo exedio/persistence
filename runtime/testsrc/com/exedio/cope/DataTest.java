@@ -38,7 +38,7 @@ public class DataTest extends AbstractLibTest
 	private final byte[] data8 = new byte[]{-54,104,-63,23,19,-45,71,-23};
 	private final byte[] data10 = new byte[]{-97,19,-8,35,-126,-86,122,86,19,-8};
 	private final byte[] data11 = new byte[]{22,-97,19,-8,35,-126,-86,122,86,19,-8};
-	private final byte[] dataEmpty = new byte[]{};
+	private final byte[] data0 = new byte[]{};
 	private byte[] dataBig;
 	
 	public void setUp() throws Exception
@@ -158,8 +158,8 @@ public class DataTest extends AbstractLibTest
 		item.setData(data6);
 		assertIt(data6);
 
-		item.setData(dataEmpty);
-		assertIt(dataEmpty);
+		item.setData(data0);
+		assertIt(data0);
 
 		item.setData(dataBig);
 		assertIt(dataBig);
@@ -177,9 +177,9 @@ public class DataTest extends AbstractLibTest
 		assertStreamClosed();
 		assertIt(data6);
 
-		item.setData(stream(dataEmpty));
+		item.setData(stream(data0));
 		assertStreamClosed();
-		assertIt(dataEmpty);
+		assertIt(data0);
 
 		item.setData(stream(dataBig));
 		assertStreamClosed();
@@ -193,8 +193,8 @@ public class DataTest extends AbstractLibTest
 		item.setData(file(data8));
 		assertIt(data8);
 
-		item.setData(file(dataEmpty));
-		assertIt(dataEmpty);
+		item.setData(file(data0));
+		assertIt(data0);
 
 		item.setData(file(dataBig));
 		assertIt(dataBig);
