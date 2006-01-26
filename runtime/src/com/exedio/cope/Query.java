@@ -15,6 +15,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
+
 package com.exedio.cope;
 
 import java.util.ArrayList;
@@ -515,6 +516,24 @@ public final class Query
 			}
 		}
 		
+		private static int hashCode( boolean[] array )
+		{
+			// use Arrays.hashCode() in JDK 1.5
+			if ( array==null )
+			{
+				return 0;
+			}
+			else
+			{
+				int hash = 0;
+				for ( int i=0; i<array.length; i++ )
+				{
+					hash = 3*hash + hashCode( array[i] );
+				}
+				return hash;
+			}
+		}
+		
 		public int hashCode()
 		{
 			return hashCode(model) 
@@ -523,7 +542,7 @@ public final class Query
 					^ hashCode(joins)
 					^ hashCode(condition)
 					^ hashCode(orderBy)
-					^ Arrays.hashCode(orderAscending)
+					^ hashCode(orderAscending)
 					^ hashCode(deterministicOrder)
 					^ limitStart
 					^ limitCount
