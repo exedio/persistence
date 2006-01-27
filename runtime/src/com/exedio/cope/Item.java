@@ -282,7 +282,7 @@ public abstract class Item extends Cope
 			throw new RuntimeException("attribute "+attribute+" does not belong to type "+type.toString());
 		
 		if(attribute.isfinal)
-			throw new FinalViolationException(this, attribute);
+			throw new FinalViolationException(attribute, this);
 
 		attribute.checkValue(value, this);
 
@@ -319,7 +319,7 @@ public abstract class Item extends Cope
 				throw new RuntimeException("attribute "+attribute+" does not belong to type "+type.toString());
 			
 			if(attribute.isfinal)
-				throw new FinalViolationException(this, attribute);
+				throw new FinalViolationException(attribute, this);
 	
 			attribute.checkValue(attributeValue.value, this);
 		}

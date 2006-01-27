@@ -36,7 +36,7 @@ public final class FinalViolationException extends ConstraintViolationException
 	 * @param item initializes, what is returned by {@link #getItem()}.
 	 * @param finalAttribute initializes, what is returned by {@link #getFinalAttribute()}.
 	 */
-	public FinalViolationException(final Item item, final Attribute finalAttribute)
+	public FinalViolationException(final Attribute finalAttribute, final Item item)
 	{
 		super(finalAttribute, item, null);
 		
