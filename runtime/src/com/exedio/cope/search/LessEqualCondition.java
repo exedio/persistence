@@ -27,12 +27,12 @@ public class LessEqualCondition extends LiteralCondition
 	 * Creates a new LessEqualCondition.
 	 * Instead of using this constructor directly,
 	 * you may want to use the more type-safe wrapper methods.
-	 * @see StringAttribute#lessOrEqual(String)
-	 * @see IntegerAttribute#lessOrEqual(int)
-	 * @see LongAttribute#lessOrEqual(long)
-	 * @see DoubleAttribute#lessOrEqual(double)
-	 * @see DateAttribute#lessOrEqual(Date)
-	 * @see EnumAttribute#lessOrEqual(EnumValue)
+	 * @see com.exedio.cope.StringAttribute#lessOrEqual(String)
+	 * @see com.exedio.cope.IntegerAttribute#lessOrEqual(int)
+	 * @see com.exedio.cope.LongAttribute#lessOrEqual(long)
+	 * @see com.exedio.cope.DoubleAttribute#lessOrEqual(double)
+	 * @see com.exedio.cope.DateAttribute#lessOrEqual(Date)
+	 * @see com.exedio.cope.EnumAttribute#lessOrEqual(EnumValue)
 	 */
 	public LessEqualCondition(final Function function, final Object value)
 	{

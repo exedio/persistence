@@ -27,12 +27,12 @@ public class GreaterCondition extends LiteralCondition
 	 * Creates a new GreaterCondition.
 	 * Instead of using this constructor directly,
 	 * you may want to use the more type-safe wrapper methods.
-	 * @see StringAttribute#greater(String)
-	 * @see IntegerAttribute#greater(int)
-	 * @see LongAttribute#greater(long)
-	 * @see DoubleAttribute#greater(double)
-	 * @see DateAttribute#greater(Date)
-	 * @see EnumAttribute#greater(EnumValue)
+	 * @see com.exedio.cope.StringAttribute#greater(String)
+	 * @see com.exedio.cope.IntegerAttribute#greater(int)
+	 * @see com.exedio.cope.LongAttribute#greater(long)
+	 * @see com.exedio.cope.DoubleAttribute#greater(double)
+	 * @see com.exedio.cope.DateAttribute#greater(Date)
+	 * @see com.exedio.cope.EnumAttribute#greater(EnumValue)
 	 */
 	public GreaterCondition(final Function function, final Object value)
 	{

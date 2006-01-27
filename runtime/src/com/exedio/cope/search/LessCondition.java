@@ -27,12 +27,12 @@ public class LessCondition extends LiteralCondition
 	 * Creates a new LessCondition.
 	 * Instead of using this constructor directly,
 	 * you may want to use the more type-safe wrapper methods.
-	 * @see StringAttribute#less(String)
-	 * @see IntegerAttribute#less(int)
-	 * @see LongAttribute#less(long)
-	 * @see DoubleAttribute#less(double)
-	 * @see DateAttribute#less(Date)
-	 * @see EnumAttribute#less(EnumValue)
+	 * @see com.exedio.cope.StringAttribute#less(String)
+	 * @see com.exedio.cope.IntegerAttribute#less(int)
+	 * @see com.exedio.cope.LongAttribute#less(long)
+	 * @see com.exedio.cope.DoubleAttribute#less(double)
+	 * @see com.exedio.cope.DateAttribute#less(Date)
+	 * @see com.exedio.cope.EnumAttribute#less(EnumValue)
 	 */
 	public LessCondition(final Function function, final Object value)
 	{

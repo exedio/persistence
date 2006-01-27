@@ -36,7 +36,7 @@ public final class DataLengthViolationException extends ConstraintViolationRunti
 	 * Creates a new LengthViolationRuntimeException with the neccessary information about the violation.
 	 * @param item initializes, what is returned by {@link #getItem()}.
 	 * @param dataAttribute initializes, what is returned by {@link #getDataAttribute()}.
-	 * @param value initializes, what is returned by {@link #getValue()}.
+	 * @param length initializes, what is returned by {@link #getLength()}.
 	 */
 	public DataLengthViolationException(final Item item, final DataAttribute dataAttribute, final long length)
 	{
