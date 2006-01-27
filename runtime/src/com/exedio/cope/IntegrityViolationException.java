@@ -40,7 +40,7 @@ public final class IntegrityViolationException extends ConstraintViolationExcept
 	 * @param attribute initializes, what is returned by {@link #getAttribute()}.
 	 * @throws NullPointerException if <code>item</code> or <code>attribute</code> is null.
 	 */
-	IntegrityViolationException(final Item item, final ItemAttribute attribute)
+	IntegrityViolationException(final ItemAttribute attribute, final Item item)
 	{
 		super(attribute, item, null);
 		

@@ -348,7 +348,7 @@ public abstract class Item extends Cope
 			{
 				final Collection s = attribute.getType().search(attribute.equal(this));
 				if(!s.isEmpty())
-					throw new IntegrityViolationException(this, attribute);
+					throw new IntegrityViolationException(attribute, this);
 			}
 			if(attribute.getDeletePolicy().cascade)
 			{
