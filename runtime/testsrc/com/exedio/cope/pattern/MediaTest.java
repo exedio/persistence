@@ -39,7 +39,7 @@ public class MediaTest extends TestmodelTest
 	private final byte[] data4 = new byte[]{-86,122,-8,23};
 	private final byte[] data6 = new byte[]{-97,35,-126,86,19,-8};
 	private final byte[] data8 = new byte[]{-54,104,-63,23,19,-45,71,-23};
-	private final byte[] dataEmpty = new byte[]{};
+	private final byte[] data0 = new byte[]{};
 	
 	public void setUp() throws Exception
 	{
@@ -137,10 +137,10 @@ public class MediaTest extends TestmodelTest
 		if(!oracle)
 		{
 			final Date before = new Date();
-			item.setFile(stream(dataEmpty), "emptyMajor/emptyMinor");
+			item.setFile(stream(data0), "emptyMajor/emptyMinor");
 			final Date after = new Date();
 			assertStreamClosed();
-			assertFile(dataEmpty, before, after, "emptyMajor/emptyMinor", ".emptyMajor.emptyMinor");
+			assertFile(data0, before, after, "emptyMajor/emptyMinor", ".emptyMajor.emptyMinor");
 		}
 		item.setFile((InputStream)null, null);
 		assertFileNull();
