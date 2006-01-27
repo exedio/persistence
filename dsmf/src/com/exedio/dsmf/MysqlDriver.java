@@ -82,8 +82,20 @@ public final class MysqlDriver extends Driver
 					case 16277215: return "mediumtext binary";
 					default:       return "text("+columnSize+") binary";
 				}
+			case Types.BINARY:
+				switch(columnSize)
+				{
+					case 255:      return "TINYBLOB";
+					default:       return "BINARY("+columnSize+")";
+				}
 			case Types.LONGVARBINARY:
-				return "LONGBLOB";
+				switch(columnSize)
+				{
+					case 65535:      return "BLOB";
+					case 16277215:   return "MEDIUMBLOB";
+					case 2147483647: return "LONGBLOB";
+					default:         return "LONGVARBINARY("+columnSize+")";
+				}
 			default:
 				return null;
 		}
