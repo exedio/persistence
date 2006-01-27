@@ -36,7 +36,7 @@ public class MediaTest extends TestmodelTest
 	// TODO test various combinations of internal, external implicit, and external explicit source
 
 	private MediaItem item;
-	private final byte[] data = new byte[]{-86,122,-8,23};
+	private final byte[] data4 = new byte[]{-86,122,-8,23};
 	private final byte[] data2 = new byte[]{-97,35,-126,86,19,-8};
 	private final byte[] dataFile = new byte[]{-54,104,-63,23,19,-45,71,-23};
 	private final byte[] dataEmpty = new byte[]{};
@@ -102,10 +102,10 @@ public class MediaTest extends TestmodelTest
 		assertFileNull();
 		{
 			final Date before = new Date();
-			item.setFile(stream(data), "fileMajor/fileMinor");
+			item.setFile(stream(data4), "fileMajor/fileMinor");
 			final Date after = new Date();
 			assertStreamClosed();
-			assertFile(data, before, after, "fileMajor/fileMinor", ".fileMajor.fileMinor");
+			assertFile(data4, before, after, "fileMajor/fileMinor", ".fileMajor.fileMinor");
 		}
 		{
 			final Date before = new Date();
@@ -116,7 +116,7 @@ public class MediaTest extends TestmodelTest
 
 			try
 			{
-				item.setFile(stream(data), "illegalContentType");
+				item.setFile(stream(data4), "illegalContentType");
 				fail();
 			}
 			catch(IllegalContentTypeException e)
@@ -183,9 +183,9 @@ public class MediaTest extends TestmodelTest
 
 		assertImageNull();
 
-		item.setImage(stream(data), "image/imageMinor");
+		item.setImage(stream(data4), "image/imageMinor");
 		assertStreamClosed();
-		assertImage(data, "image/imageMinor", ".image.imageMinor");
+		assertImage(data4, "image/imageMinor", ".image.imageMinor");
 
 		item.setImage(stream(data2), "image/jpeg");
 		assertStreamClosed();
@@ -193,7 +193,7 @@ public class MediaTest extends TestmodelTest
 
 		try
 		{
-			item.setImage(stream(data), "illegalContentType");
+			item.setImage(stream(data4), "illegalContentType");
 			fail();
 		}
 		catch(IllegalContentTypeException e)
@@ -205,7 +205,7 @@ public class MediaTest extends TestmodelTest
 
 		try
 		{
-			item.setImage(stream(data), "text/html");
+			item.setImage(stream(data4), "text/html");
 			fail();
 		}
 		catch(IllegalContentTypeException e)
@@ -237,9 +237,9 @@ public class MediaTest extends TestmodelTest
 
 		assertPhotoNull();
 
-		item.setPhoto(stream(data), "image/jpeg");
+		item.setPhoto(stream(data4), "image/jpeg");
 		assertStreamClosed();
-		assertPhoto(data);
+		assertPhoto(data4);
 
 		item.setPhoto(stream(data2), "image/jpeg");
 		assertStreamClosed();
@@ -247,7 +247,7 @@ public class MediaTest extends TestmodelTest
 		
 		try
 		{
-			item.setPhoto(stream(data), "illegalContentType");
+			item.setPhoto(stream(data4), "illegalContentType");
 			fail();
 		}
 		catch(IllegalContentTypeException e)
@@ -259,7 +259,7 @@ public class MediaTest extends TestmodelTest
 
 		try
 		{
-			item.setPhoto(stream(data), "image/png");
+			item.setPhoto(stream(data4), "image/png");
 			fail();
 		}
 		catch(IllegalContentTypeException e)
