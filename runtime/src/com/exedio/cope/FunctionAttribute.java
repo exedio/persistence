@@ -68,14 +68,14 @@ public abstract class FunctionAttribute
 		if(value == null)
 		{
 			if(isMandatory())
-				throw new MandatoryViolationException(item, this);
+				throw new MandatoryViolationException(this, item);
 		}
 		else
 		{
 			if(value.equals("") &&
 					isMandatory() &&
 					!getType().getModel().supportsEmptyStrings()) // TODO dont call supportsEmptyStrings that often
-				throw new MandatoryViolationException(item, this);
+				throw new MandatoryViolationException(this, item);
 				
 			if(!(valueClass.isAssignableFrom(value.getClass())))
 			{

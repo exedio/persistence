@@ -40,7 +40,7 @@ public final class MandatoryViolationException extends ConstraintViolationExcept
 	 * @param item initializes, what is returned by {@link #getItem()}.
 	 * @param mandatoryAttribute initializes, what is returned by {@link #getMandatoryAttribute()}.
 	 */
-	MandatoryViolationException(final Item item, final Attribute mandatoryAttribute)
+	MandatoryViolationException(final Attribute mandatoryAttribute, final Item item)
 	{
 		super(mandatoryAttribute, item, null);
 		this.mandatoryAttribute = mandatoryAttribute;
