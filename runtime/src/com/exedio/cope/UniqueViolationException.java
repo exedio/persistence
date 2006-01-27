@@ -41,7 +41,7 @@ public final class UniqueViolationException extends ConstraintViolationException
 	 * @param constraint initializes, what is returned by {@link #getConstraint()}.
 	 * @throws NullPointerException if <code>constraint</code> is null.
 	 */
-	UniqueViolationException(final SQLException cause, final Item item, final UniqueConstraint constraint)
+	UniqueViolationException(final UniqueConstraint constraint, final Item item, final SQLException cause)
 	{
 		super(constraint, item, cause);
 		

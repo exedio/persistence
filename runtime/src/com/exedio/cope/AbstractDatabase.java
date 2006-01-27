@@ -1205,7 +1205,7 @@ abstract class AbstractDatabase implements Database
 					throw new SQLRuntimeException(e, "no unique constraint found for >"+uniqueConstraintID
 																			+"<, has only "+uniqueConstraintsByID.keySet());
 			}
-			return new UniqueViolationException(e, null, constraint);
+			return new UniqueViolationException(constraint, null, e);
 		}
 		return null;
 	}
