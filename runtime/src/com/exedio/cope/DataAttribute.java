@@ -133,7 +133,7 @@ public final class DataAttribute extends Attribute
 	public void set(final Item item, final byte[] data) throws MandatoryViolationException, DataLengthViolationException
 	{
 		if(data!=null && data.length>maximumLength)
-			throw new DataLengthViolationException(item, this, data.length, true);
+			throw new DataLengthViolationException(this, item, data.length, true);
 		
 		impl.set(item, data);
 	}
@@ -309,7 +309,7 @@ public final class DataAttribute extends Attribute
 				{
 					final long length = data.length();
 					if(length>maximumLength)
-						throw new DataLengthViolationException(item, DataAttribute.this, length, true);
+						throw new DataLengthViolationException(DataAttribute.this, item, length, true);
 					
 					source =  new FileInputStream(data);
 				}
@@ -489,7 +489,7 @@ public final class DataAttribute extends Attribute
 			if(length>0)
 			{
 				if(length>maximumLength)
-					throw new DataLengthViolationException(item, DataAttribute.this, length, true);
+					throw new DataLengthViolationException(DataAttribute.this, item, length, true);
 				
 				InputStream sourceS = null;
 				OutputStream targetS = null;
@@ -583,7 +583,7 @@ public final class DataAttribute extends Attribute
 		{
 			dataTransferred += len;
 			if(dataTransferred>maximumLength)
-				throw new DataLengthViolationException(item, this, dataTransferred, false);
+				throw new DataLengthViolationException(this, item, dataTransferred, false);
 			
 			out.write(b, 0, len);
 		}

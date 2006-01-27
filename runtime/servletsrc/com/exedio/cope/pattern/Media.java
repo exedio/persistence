@@ -391,7 +391,7 @@ public final class Media extends MediaPath
 					length = ((File)data).length();
 				
 				if(length>this.data.getMaximumLength())
-					throw new DataLengthViolationException(item, this.data, length, true);
+					throw new DataLengthViolationException(this.data, item, length, true);
 			}
 			else
 			{
