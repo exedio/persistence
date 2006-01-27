@@ -81,7 +81,7 @@ public final class MysqlDriver extends Driver
 					case 65535:      return "text binary";
 					case 16277215:   return "mediumtext binary";
 					case 2147483647: return "longtext binary";
-					default:         return "text("+columnSize+") binary";
+					default:         return "LONGVARCHAR("+columnSize+")";
 				}
 			case Types.BINARY:
 				switch(columnSize)
