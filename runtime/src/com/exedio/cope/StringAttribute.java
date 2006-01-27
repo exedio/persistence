@@ -157,11 +157,11 @@ public final class StringAttribute extends FunctionAttribute implements StringFu
 		if(stringValue.length()<minimumLength)
 		{
 			assert checkedLengthException; // see equivalent assertion in constructor
-			throw new LengthViolationException(item, this, stringValue, true);
+			throw new LengthViolationException(this, item, stringValue, true);
 		}
 		if(stringValue.length()>maximumLength)
 			if(checkedLengthException)
-				throw new LengthViolationException(item, this, stringValue, false);
+				throw new LengthViolationException(this, item, stringValue, false);
 			else
 				throw new LengthViolationRuntimeException(this, item, stringValue);
 	}

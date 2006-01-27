@@ -42,7 +42,7 @@ public final class LengthViolationException extends ConstraintViolationException
 	 * @param stringAttribute initializes, what is returned by {@link #getStringAttribute()}.
 	 * @param value initializes, what is returned by {@link #getValue()}.
 	 */
-	public LengthViolationException(final Item item, final StringAttribute stringAttribute, final String value, final boolean isTooShort)
+	public LengthViolationException(final StringAttribute stringAttribute, final Item item, final String value, final boolean isTooShort)
 	{
 		super(stringAttribute, item, null);
 		this.stringAttribute = stringAttribute;
