@@ -37,6 +37,7 @@ import com.exedio.cope.Attribute;
 import com.exedio.cope.AttributeValue;
 import com.exedio.cope.ConstraintViolationException;
 import com.exedio.cope.DataAttribute;
+import com.exedio.cope.DataLengthViolationException;
 import com.exedio.cope.DateAttribute;
 import com.exedio.cope.Item;
 import com.exedio.cope.MandatoryViolationException;
@@ -47,45 +48,62 @@ import com.exedio.cope.Attribute.Option;
 
 public final class Media extends MediaPath
 {
+	private final Option option;
 	final boolean mandatory;
 	final DataAttribute data;
 	final ContentType contentType;
 	final DateAttribute lastModified;
 
-	public Media(final Option option, final String fixedMimeMajor, final String fixedMimeMinor)
+	public static final long DEFAULT_LENGTH = DataAttribute.DEFAULT_LENGTH;
+	
+	private Media(final Option option, final String fixedMimeMajor, final String fixedMimeMinor, final long dataMaximumLength)
 	{
 		if(option==null)
 			throw new NullPointerException("option must not be null");
 		
+		this.option = option;
 		this.mandatory = option.mandatory;
-		registerSource(this.data = new DataAttribute(option));
-		this.contentType = new FixedContentType(fixedMimeMajor, fixedMimeMinor);
+		registerSource(this.data = new DataAttribute(option).lengthMax(dataMaximumLength));
+		
+		if(fixedMimeMajor!=null && fixedMimeMinor!=null)
+		{
+			this.contentType = new FixedContentType(fixedMimeMajor, fixedMimeMinor);
+		}
+		else if(fixedMimeMajor!=null && fixedMimeMinor==null)
+		{
+			final StringAttribute mimeMinor = new StringAttribute(option).lengthRange(1, 30);
+			this.contentType = new HalfFixedContentType(fixedMimeMajor, mimeMinor);
+		}
+		else if(fixedMimeMajor==null && fixedMimeMinor==null)
+		{
+			final StringAttribute mimeMajor = new StringAttribute(option).lengthRange(1, 30);
+			final StringAttribute mimeMinor = new StringAttribute(option).lengthRange(1, 30);
+			this.contentType = new StoredContentType(mimeMajor, mimeMinor);
+		}
+		else
+			throw new RuntimeException();
+		
 		registerSource(this.lastModified = new DateAttribute(option));
+	}
+	
+	public Media(final Option option, final String fixedMimeMajor, final String fixedMimeMinor)
+	{
+		this(option, fixedMimeMajor, fixedMimeMinor, DEFAULT_LENGTH);
 	}
 	
 	public Media(final Option option, final String fixedMimeMajor)
 	{
-		if(option==null)
-			throw new NullPointerException("option must not be null");
-
-		this.mandatory = option.mandatory;
-		registerSource(this.data = new DataAttribute(option));
-		final StringAttribute mimeMinor = new StringAttribute(option).lengthRange(1, 30);
-		this.contentType = new HalfFixedContentType(fixedMimeMajor, mimeMinor);
-		registerSource(this.lastModified = new DateAttribute(option));
+		this(option, fixedMimeMajor, null, DEFAULT_LENGTH);
 	}
 	
 	public Media(final Option option)
 	{
-		if(option==null)
-			throw new NullPointerException("option must not be null");
-
-		this.mandatory = option.mandatory;
-		registerSource(this.data = new DataAttribute(option));
-		final StringAttribute mimeMajor = new StringAttribute(option).lengthRange(1, 30);
-		final StringAttribute mimeMinor = new StringAttribute(option).lengthRange(1, 30);
-		this.contentType = new StoredContentType(mimeMajor, mimeMinor);
-		registerSource(this.lastModified = new DateAttribute(option));
+		this(option, null, null, DEFAULT_LENGTH);
+	}
+	
+	public Media lengthMax(final long maximumLength)
+	{
+		return new Media(option, getFixedMimeMajor(), getFixedMimeMinor(), maximumLength);
 	}
 	
 	public String getFixedMimeMajor()
@@ -96,6 +114,11 @@ public final class Media extends MediaPath
 	public String getFixedMimeMinor()
 	{
 		return contentType.getFixedMimeMinor();
+	}
+	
+	public long getMaximumLength()
+	{
+		return data.getMaximumLength();
 	}
 	
 	public DataAttribute getData()
@@ -351,6 +374,17 @@ public final class Media extends MediaPath
 			{
 				if(contentType==null)
 					throw new RuntimeException("if data is not null, content type must also be not null");
+				
+				final long length;
+				if(data instanceof byte[])
+					length = ((byte[])data).length;
+				else if(data instanceof InputStream)
+					length = -1;
+				else
+					length = ((File)data).length();
+				
+				if(length>this.data.getMaximumLength())
+					throw new DataLengthViolationException(item, this.data, length);
 			}
 			else
 			{

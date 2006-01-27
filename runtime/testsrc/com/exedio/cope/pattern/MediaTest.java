@@ -25,6 +25,7 @@ import java.util.Arrays;
 import java.util.Date;
 
 import com.exedio.cope.DataAttribute;
+import com.exedio.cope.DataLengthViolationException;
 import com.exedio.cope.DateAttribute;
 import com.exedio.cope.Feature;
 import com.exedio.cope.StringAttribute;
@@ -40,6 +41,8 @@ public class MediaTest extends TestmodelTest
 	private final byte[] data4 = new byte[]{-86,122,-8,23};
 	private final byte[] data6 = new byte[]{-97,35,-126,86,19,-8};
 	private final byte[] data8 = new byte[]{-54,104,-63,23,19,-45,71,-23};
+	private final byte[] data20 = new byte[]{-54,71,-86,122,-8,23,-23,104,-63,23,19,-45,-63,23,71,-23,19,-45,71,-23};
+	private final byte[] data21 = new byte[]{-54,71,-86,122,-8,23,-23,104,-63,44,23,19,-45,-63,23,71,-23,19,-45,71,-23};
 	
 	public void setUp() throws Exception
 	{
@@ -59,6 +62,13 @@ public class MediaTest extends TestmodelTest
 	
 	public void testData() throws IOException
 	{
+		assertEquals(0, data0.length);
+		assertEquals(4, data4.length);
+		assertEquals(6, data6.length);
+		assertEquals(8, data8.length);
+		assertEquals(20, data20.length);
+		assertEquals(21, data21.length);
+		
 		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
 				item.name,
 				item.file,
@@ -80,9 +90,11 @@ public class MediaTest extends TestmodelTest
 		// file
 		assertEquals(null, item.file.getFixedMimeMajor());
 		assertEquals(null, item.file.getFixedMimeMinor());
+		assertEquals(20, item.file.getMaximumLength());
 		final DataAttribute fileData = item.file.getData();
 		assertSame(item.TYPE, fileData.getType());
 		assertSame("fileData", fileData.getName());
+		assertEquals(20, fileData.getMaximumLength());
 		assertEqualsUnmodifiable(list(item.file), fileData.getPatterns());
 		assertSame(item.file, Media.get(fileData));
 		final StringAttribute fileMajor = item.file.getMimeMajor();
@@ -160,14 +172,64 @@ public class MediaTest extends TestmodelTest
 		}
 		item.setFile((byte[])null, null);
 		assertFileNull();
+		{
+			final Date before = new Date();
+			item.setFile(data20, "emptyMajor/emptyMinor");
+			final Date after = new Date();
+			assertFile(data20, before, after, "emptyMajor/emptyMinor", ".emptyMajor.emptyMinor");
+			try
+			{
+				item.setFile(data21, "emptyMajorLong/emptyMinorLong");
+				fail();
+			}
+			catch(DataLengthViolationException e)
+			{
+				assertSame(fileData, e.getDataAttribute());
+				assertSame(fileData, e.getFeature());
+				assertSame(item, e.getItem());
+				assertEquals("length violation on MediaItem.0, 21 bytes is too long for MediaItem#fileData", e.getMessage());
+			}
+			assertFile(data20, before, after, "emptyMajor/emptyMinor", ".emptyMajor.emptyMinor");
+			try
+			{
+				item.setFile(file(data21), "emptyMajorLong/emptyMinorLong");
+				fail();
+			}
+			catch(DataLengthViolationException e)
+			{
+				assertSame(fileData, e.getDataAttribute());
+				assertSame(fileData, e.getFeature());
+				assertSame(item, e.getItem());
+				assertEquals("length violation on MediaItem.0, 21 bytes is too long for MediaItem#fileData", e.getMessage());
+			}
+			assertFile(data20, before, after, "emptyMajor/emptyMinor", ".emptyMajor.emptyMinor");
+			try
+			{
+				item.setFile(stream(data21), "emptyMajorLong/emptyMinorLong");
+				fail();
+			}
+			catch(DataLengthViolationException e)
+			{
+				assertSame(fileData, e.getDataAttribute());
+				assertSame(fileData, e.getFeature());
+				assertSame(item, e.getItem());
+				assertEquals("length violation on MediaItem.0, is too long for MediaItem#fileData", e.getMessage());
+			}
+			assertStreamClosed();
+			//assertFile(data20, before, after, "emptyMajorLong/emptyMinorLong", ".emptyMajorLong.emptyMinorLong"); TODO
+		}
+		item.setFile((byte[])null, null);
+		assertFileNull();
 
 
 		// image
 		assertEquals("image", item.image.getFixedMimeMajor());
 		assertEquals(null, item.image.getFixedMimeMinor());
+		assertEquals(Media.DEFAULT_LENGTH, item.image.getMaximumLength());
 		final DataAttribute imageData = item.image.getData();
 		assertSame(item.TYPE, imageData.getType());
 		assertSame("imageData", imageData.getName());
+		assertEquals(Media.DEFAULT_LENGTH, imageData.getMaximumLength());
 		assertEqualsUnmodifiable(list(item.image), imageData.getPatterns());
 		assertSame(item.image, Media.get(imageData));
 		assertEquals(null, item.image.getMimeMajor());
@@ -222,9 +284,11 @@ public class MediaTest extends TestmodelTest
 		// photo
 		assertEquals("image", item.photo.getFixedMimeMajor());
 		assertEquals("jpeg", item.photo.getFixedMimeMinor());
+		assertEquals(2000, item.photo.getMaximumLength());
 		final DataAttribute photoData = item.photo.getData();
 		assertSame(item.TYPE, photoData.getType());
 		assertSame("photoData", photoData.getName());
+		assertEquals(2000, photoData.getMaximumLength());
 		assertEqualsUnmodifiable(list(item.photo), photoData.getPatterns());
 		assertSame(item.photo, Media.get(photoData));
 		assertEquals(null, item.photo.getMimeMajor());

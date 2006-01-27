@@ -32,11 +32,11 @@ public class MediaItem extends Item
 	
 	public static final StringAttribute name = new StringAttribute(OPTIONAL);
 
-	public static final Media file = new Media(OPTIONAL);
+	public static final Media file = new Media(OPTIONAL).lengthMax(20);
 
 	public static final Media image = new Media(OPTIONAL, "image");
 	
-	public static final Media photo = new Media(OPTIONAL, "image", "jpeg");
+	public static final Media photo = new Media(OPTIONAL, "image", "jpeg").lengthMax(2000);
 
 	public static final MediaRedirect foto = new MediaRedirect(photo);
 	
