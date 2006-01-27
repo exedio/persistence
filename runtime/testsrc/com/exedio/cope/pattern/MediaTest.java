@@ -38,7 +38,7 @@ public class MediaTest extends TestmodelTest
 	private MediaItem item;
 	private final byte[] data4 = new byte[]{-86,122,-8,23};
 	private final byte[] data6 = new byte[]{-97,35,-126,86,19,-8};
-	private final byte[] dataFile = new byte[]{-54,104,-63,23,19,-45,71,-23};
+	private final byte[] data8 = new byte[]{-54,104,-63,23,19,-45,71,-23};
 	private final byte[] dataEmpty = new byte[]{};
 	
 	public void setUp() throws Exception
@@ -146,17 +146,17 @@ public class MediaTest extends TestmodelTest
 		assertFileNull();
 		{
 			final Date before = new Date();
-			item.setFile(file(dataFile), "emptyMajor/emptyMinor");
+			item.setFile(file(data8), "emptyMajor/emptyMinor");
 			final Date after = new Date();
-			assertFile(dataFile, before, after, "emptyMajor/emptyMinor", ".emptyMajor.emptyMinor");
+			assertFile(data8, before, after, "emptyMajor/emptyMinor", ".emptyMajor.emptyMinor");
 		}
 		item.setFile((File)null, null);
 		assertFileNull();
 		{
 			final Date before = new Date();
-			item.setFile(dataFile, "emptyMajor/emptyMinor");
+			item.setFile(data8, "emptyMajor/emptyMinor");
 			final Date after = new Date();
-			assertFile(dataFile, before, after, "emptyMajor/emptyMinor", ".emptyMajor.emptyMinor");
+			assertFile(data8, before, after, "emptyMajor/emptyMinor", ".emptyMajor.emptyMinor");
 		}
 		item.setFile((byte[])null, null);
 		assertFileNull();
