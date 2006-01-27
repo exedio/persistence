@@ -149,7 +149,7 @@ public abstract class Item extends Cope
 		}
 		catch(CustomAttributeException e)
 		{
-			initialCustomAttributeException = e;
+			initialConstraintViolationException = e;
 			return;
 		}
 		try
@@ -162,12 +162,12 @@ public abstract class Item extends Cope
 		}
 		catch(MandatoryViolationException e)
 		{
-			initialMandatoryViolationException = e;
+			initialConstraintViolationException = e;
 			return;
 		}
 		catch(LengthViolationException e)
 		{
-			initialLengthViolationException = e;
+			initialConstraintViolationException = e;
 			return;
 		}
 
@@ -179,7 +179,7 @@ public abstract class Item extends Cope
 		}
 		catch(UniqueViolationException e)
 		{
-			initialUniqueViolationException = e;
+			initialConstraintViolationException = e;
 			return;
 		}
 	}
@@ -204,23 +204,17 @@ public abstract class Item extends Cope
 			throw new RuntimeException();
 	}
 
-	private CustomAttributeException initialCustomAttributeException = null;
+	private ConstraintViolationException initialConstraintViolationException = null;
 	
 	/**
-	 * Throws a {@link MandatoryViolationException}, if a mandatory violation occured in the constructor.
-	 * @throws MandatoryViolationException
-	 *         if one of the values in <code>initialAttributeValues</code>
-	 *         is either null or not specified
-	 *         and it's attribute is {@link Attribute#isMandatory() mandatory}.
+	 * Throws a {@link CustomAttributeException}, if such an exception occured in the constructor.
 	 */
 	protected final void throwInitialCustomAttributeException() throws CustomAttributeException
 	{
-		if(initialCustomAttributeException!=null)
-			throw initialCustomAttributeException;
+		if(initialConstraintViolationException!=null && initialConstraintViolationException instanceof CustomAttributeException)
+			throw (CustomAttributeException)initialConstraintViolationException;
 	}
 	
-	private MandatoryViolationException initialMandatoryViolationException = null;
-
 	/**
 	 * Throws a {@link MandatoryViolationException}, if a mandatory violation occured in the constructor.
 	 * @throws MandatoryViolationException
@@ -230,12 +224,10 @@ public abstract class Item extends Cope
 	 */
 	protected final void throwInitialMandatoryViolationException() throws MandatoryViolationException
 	{
-		if(initialMandatoryViolationException!=null)
-			throw initialMandatoryViolationException;
+		if(initialConstraintViolationException!=null && initialConstraintViolationException instanceof MandatoryViolationException)
+			throw (MandatoryViolationException)initialConstraintViolationException;
 	}
 	
-	private LengthViolationException initialLengthViolationException = null;
-
 	/**
 	 * Throws a {@link LengthViolationException}, if a length violation occured in the constructor.
 	 * @throws LengthViolationException
@@ -244,31 +236,23 @@ public abstract class Item extends Cope
 	 */
 	protected final void throwInitialLengthViolationException() throws LengthViolationException
 	{
-		if(initialLengthViolationException!=null)
-			throw initialLengthViolationException;
+		if(initialConstraintViolationException!=null && initialConstraintViolationException instanceof LengthViolationException)
+			throw (LengthViolationException)initialConstraintViolationException;
 	}
-	
-	private UniqueViolationException initialUniqueViolationException = null;
 	
 	/**
 	 * Throws a {@link UniqueViolationException}, if a unique violation occured in the constructor.
 	 */
 	protected final void throwInitialUniqueViolationException() throws UniqueViolationException
 	{
-		if(initialUniqueViolationException!=null)
-			throw initialUniqueViolationException;
+		if(initialConstraintViolationException!=null && initialConstraintViolationException instanceof UniqueViolationException)
+			throw (UniqueViolationException)initialConstraintViolationException;
 	}
 	
 	private final void assertValid()
 	{
-		if(initialCustomAttributeException!=null)
-			throw new RuntimeException("item is not valid", initialCustomAttributeException);
-		if(initialMandatoryViolationException!=null)
-			throw new RuntimeException("item is not valid", initialMandatoryViolationException);
-		if(initialLengthViolationException!=null)
-			throw new RuntimeException("item is not valid", initialLengthViolationException);
-		if(initialUniqueViolationException!=null)
-			throw new RuntimeException("item is not valid", initialUniqueViolationException);
+		if(initialConstraintViolationException!=null)
+			throw new RuntimeException("item is not valid", initialConstraintViolationException);
 	}
 	
 	public final Object get(final Function function)
