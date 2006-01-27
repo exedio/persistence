@@ -109,6 +109,30 @@ public class CustomTest extends AbstractLibTest
 		}
 		assertEquals("44", item.getNumberString());
 		
+		assertContains(item, item.TYPE.search(null));
+		try
+		{
+			new CustomItem(im2);
+			fail();
+		}
+		catch(IOException e)
+		{
+			assertEquals("test exception:-2", e.getMessage());
+		}
+		assertContains(item, item.TYPE.search(null));
+		try
+		{
+			CustomItem.TYPE.newItem(new AttributeValue[]{new AttributeValue(item.number, im2)});
+			fail();
+		}
+		catch(CustomAttributeException e)
+		{
+			assertSame(item.number, e.getAttribute());
+			assertEquals("test exception:-2", e.getCause().getMessage());
+			assertEquals(IOException.class, e.getCause().getClass());
+		}
+		assertContains(item, item.TYPE.search(null));
+		
 		item.setNumber(null);
 		assertNull(item.getNumberString());
 		assertNull(item.getNumber());

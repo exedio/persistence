@@ -30,6 +30,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+import com.exedio.cope.pattern.CustomAttributeException;
 import com.exedio.cope.util.ReactivationConstructorDummy;
 
 public final class Type
@@ -532,7 +533,7 @@ public final class Type
 	private static final AttributeValue[] EMPTY_ATTRIBUTE_VALUES = new AttributeValue[]{};
 	
 	public final Item newItem(final AttributeValue[] initialAttributeValues)
-		throws MandatoryViolationException, LengthViolationException, UniqueViolationException
+		throws MandatoryViolationException, LengthViolationException, UniqueViolationException, CustomAttributeException
 	{
 		final Item result;
 		try
@@ -566,6 +567,7 @@ public final class Type
 		result.throwInitialMandatoryViolationException();
 		result.throwInitialLengthViolationException();
 		result.throwInitialUniqueViolationException();
+		result.throwInitialCustomAttributeException();
 		return result;
 	}
 
