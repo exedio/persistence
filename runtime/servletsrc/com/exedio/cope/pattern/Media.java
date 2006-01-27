@@ -292,8 +292,11 @@ public final class Media extends MediaPath
 	 * @param data give null to remove data.
 	 * @throws MandatoryViolationException
 	 *         if data is null and attribute is {@link Attribute#isMandatory() mandatory}.
+	 * @throws DataLengthViolationException
+	 *         if data is longer than {@link #getMaximumLength()}
 	 */
 	public void set(final Item item, final byte[] data, final String contentType)
+		throws DataLengthViolationException
 	{
 		try
 		{
@@ -323,10 +326,12 @@ public final class Media extends MediaPath
 	 * @param data give null to remove data.
 	 * @throws MandatoryViolationException
 	 *         if data is null and attribute is {@link Attribute#isMandatory() mandatory}.
+	 * @throws DataLengthViolationException
+	 *         if data is longer than {@link #getMaximumLength()}
 	 * @throws IOException if reading data throws an IOException.
 	 */
 	public void set(final Item item, final InputStream data, final String contentType)
-		throws IOException
+		throws DataLengthViolationException, IOException
 	{
 		try
 		{
@@ -357,16 +362,18 @@ public final class Media extends MediaPath
 	 * @param data give null to remove data.
 	 * @throws MandatoryViolationException
 	 *         if data is null and attribute is {@link Attribute#isMandatory() mandatory}.
+	 * @throws DataLengthViolationException
+	 *         if data is longer than {@link #getMaximumLength()}
 	 * @throws IOException if reading data throws an IOException.
 	 */
 	public void set(final Item item, final File data, final String contentType)
-		throws IOException
+		throws DataLengthViolationException, IOException
 	{
 		set(item, (Object)data, contentType);
 	}
 	
 	private void set(final Item item, final Object data, final String contentType)
-		throws IOException
+		throws DataLengthViolationException, IOException
 	{
 		try
 		{
