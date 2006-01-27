@@ -86,19 +86,26 @@ public final class Type
 	}
 	
 	private ArrayList featuresWhileConstruction;
+	
+	private static final String classToId(final Class javaClass)
+	{
+		final String className = javaClass.getName();
+		final int pos = className.lastIndexOf('.');
+		return className.substring(pos+1).intern();
+	}
 
 	public Type(final Class javaClass)
 	{
+		this(javaClass, classToId(javaClass));
+	}
+	
+	public Type(final Class javaClass, final String id)
+	{
 		this.javaClass = javaClass;
+		this.id = id;
 		if(!Item.class.isAssignableFrom(javaClass))
 			throw new IllegalArgumentException(javaClass.getName()+" is not a subclass of Item");
 		typesByClass.put(javaClass, this);
-
-		{
-			final String className = javaClass.getName();
-			final int pos = className.lastIndexOf('.');
-			this.id = className.substring(pos+1).intern();
-		}
 
 		// supertype
 		final Class superClass = javaClass.getSuperclass();

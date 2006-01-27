@@ -24,16 +24,21 @@ import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Date;
 
+import com.exedio.cope.AbstractLibTest;
 import com.exedio.cope.DataAttribute;
 import com.exedio.cope.DataLengthViolationException;
 import com.exedio.cope.DateAttribute;
 import com.exedio.cope.Feature;
+import com.exedio.cope.Main;
 import com.exedio.cope.StringAttribute;
-import com.exedio.cope.TestmodelTest;
-import com.exedio.cope.testmodel.MediaItem;
 
-public class MediaTest extends TestmodelTest
+public class MediaTest extends AbstractLibTest
 {
+	public MediaTest()
+	{
+		super(Main.mediaModel);
+	}
+	
 	// TODO test various combinations of internal, external implicit, and external explicit source
 
 	private MediaItem item;
@@ -187,7 +192,7 @@ public class MediaTest extends TestmodelTest
 				assertSame(fileData, e.getDataAttribute());
 				assertSame(fileData, e.getFeature());
 				assertSame(item, e.getItem());
-				assertEquals("length violation on MediaItem.0, 21 bytes is too long for MediaItem#fileData", e.getMessage());
+				assertEquals("length violation on MediaTestItem.0, 21 bytes is too long for MediaTestItem#fileData", e.getMessage());
 			}
 			assertFile(data20, before, after, "emptyMajor/emptyMinor", ".emptyMajor.emptyMinor");
 			try
@@ -200,7 +205,7 @@ public class MediaTest extends TestmodelTest
 				assertSame(fileData, e.getDataAttribute());
 				assertSame(fileData, e.getFeature());
 				assertSame(item, e.getItem());
-				assertEquals("length violation on MediaItem.0, 21 bytes is too long for MediaItem#fileData", e.getMessage());
+				assertEquals("length violation on MediaTestItem.0, 21 bytes is too long for MediaTestItem#fileData", e.getMessage());
 			}
 			assertFile(data20, before, after, "emptyMajor/emptyMinor", ".emptyMajor.emptyMinor");
 			try
@@ -213,7 +218,7 @@ public class MediaTest extends TestmodelTest
 				assertSame(fileData, e.getDataAttribute());
 				assertSame(fileData, e.getFeature());
 				assertSame(item, e.getItem());
-				assertEquals("length violation on MediaItem.0, is too long for MediaItem#fileData", e.getMessage());
+				assertEquals("length violation on MediaTestItem.0, is too long for MediaTestItem#fileData", e.getMessage());
 			}
 			assertStreamClosed();
 			//assertFile(data20, before, after, "emptyMajorLong/emptyMinorLong", ".emptyMajorLong.emptyMinorLong"); TODO
