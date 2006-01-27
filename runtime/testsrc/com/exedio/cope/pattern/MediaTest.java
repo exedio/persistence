@@ -37,7 +37,7 @@ public class MediaTest extends TestmodelTest
 
 	private MediaItem item;
 	private final byte[] data4 = new byte[]{-86,122,-8,23};
-	private final byte[] data2 = new byte[]{-97,35,-126,86,19,-8};
+	private final byte[] data6 = new byte[]{-97,35,-126,86,19,-8};
 	private final byte[] dataFile = new byte[]{-54,104,-63,23,19,-45,71,-23};
 	private final byte[] dataEmpty = new byte[]{};
 	
@@ -51,10 +51,10 @@ public class MediaTest extends TestmodelTest
 		throws IOException
 	{
 		final Date before = new Date();
-		item.setFile(stream(data2), contentType);
+		item.setFile(stream(data6), contentType);
 		final Date after = new Date();
 		assertStreamClosed();
-		assertFile(data2, before, after, contentType, extension);
+		assertFile(data6, before, after, contentType, extension);
 	}
 	
 	public void testData() throws IOException
@@ -109,10 +109,10 @@ public class MediaTest extends TestmodelTest
 		}
 		{
 			final Date before = new Date();
-			item.setFile(stream(data2), "fileMajor2/fileMinor2");
+			item.setFile(stream(data6), "fileMajor2/fileMinor2");
 			final Date after = new Date();
 			assertStreamClosed();
-			assertFile(data2, before, after, "fileMajor2/fileMinor2", ".fileMajor2.fileMinor2");
+			assertFile(data6, before, after, "fileMajor2/fileMinor2", ".fileMajor2.fileMinor2");
 
 			try
 			{
@@ -123,7 +123,7 @@ public class MediaTest extends TestmodelTest
 			{
 				assertStreamClosed();
 				assertEquals("illegalContentType", e.getMessage());
-				assertFile(data2, before, after, "fileMajor2/fileMinor2", ".fileMajor2.fileMinor2");
+				assertFile(data6, before, after, "fileMajor2/fileMinor2", ".fileMajor2.fileMinor2");
 			}
 		}
 		assertExtension("image/jpeg", ".jpg");
@@ -187,9 +187,9 @@ public class MediaTest extends TestmodelTest
 		assertStreamClosed();
 		assertImage(data4, "image/imageMinor", ".image.imageMinor");
 
-		item.setImage(stream(data2), "image/jpeg");
+		item.setImage(stream(data6), "image/jpeg");
 		assertStreamClosed();
-		assertImage(data2, "image/jpeg", ".jpg");
+		assertImage(data6, "image/jpeg", ".jpg");
 
 		try
 		{
@@ -200,7 +200,7 @@ public class MediaTest extends TestmodelTest
 		{
 			assertStreamClosed();
 			assertEquals("illegalContentType", e.getMessage());
-			assertImage(data2, "image/jpeg", ".jpg");
+			assertImage(data6, "image/jpeg", ".jpg");
 		}
 
 		try
@@ -212,7 +212,7 @@ public class MediaTest extends TestmodelTest
 		{
 			assertStreamClosed();
 			assertEquals("text/html", e.getMessage());
-			assertImage(data2, "image/jpeg", ".jpg");
+			assertImage(data6, "image/jpeg", ".jpg");
 		}
 
 		item.setImage((InputStream)null, null);
@@ -241,9 +241,9 @@ public class MediaTest extends TestmodelTest
 		assertStreamClosed();
 		assertPhoto(data4);
 
-		item.setPhoto(stream(data2), "image/jpeg");
+		item.setPhoto(stream(data6), "image/jpeg");
 		assertStreamClosed();
-		assertPhoto(data2);
+		assertPhoto(data6);
 		
 		try
 		{
@@ -254,7 +254,7 @@ public class MediaTest extends TestmodelTest
 		{
 			assertStreamClosed();
 			assertEquals("illegalContentType", e.getMessage());
-			assertPhoto(data2);
+			assertPhoto(data6);
 		}
 
 		try
@@ -266,7 +266,7 @@ public class MediaTest extends TestmodelTest
 		{
 			assertStreamClosed();
 			assertEquals("image/png", e.getMessage());
-			assertPhoto(data2);
+			assertPhoto(data6);
 		}
 
 		item.setPhoto((InputStream)null, null);
