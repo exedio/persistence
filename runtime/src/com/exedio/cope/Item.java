@@ -145,7 +145,7 @@ public abstract class Item extends Cope
 		
 		try
 		{
-			initialAttributeValues = executeCustomAttributes(initialAttributeValues);
+			initialAttributeValues = executeCustomAttributes(initialAttributeValues, null);
 		}
 		catch(CustomAttributeException e)
 		{
@@ -325,7 +325,7 @@ public abstract class Item extends Cope
 			CustomAttributeException,
 			ClassCastException
 	{
-		attributeValues = executeCustomAttributes(attributeValues);
+		attributeValues = executeCustomAttributes(attributeValues, this);
 		for(int i = 0; i<attributeValues.length; i++)
 		{
 			final AttributeValue attributeValue = attributeValues[i];
@@ -517,7 +517,7 @@ public abstract class Item extends Cope
 		return type.getModel().getCurrentTransaction().getEntityIfActive(type, pk);
 	}
 	
-	private static final AttributeValue[] executeCustomAttributes(final AttributeValue[] source)
+	private static final AttributeValue[] executeCustomAttributes(final AttributeValue[] source, final Item exceptionItem)
 		throws CustomAttributeException
 	{
 		final HashMap result = new HashMap();
@@ -535,7 +535,7 @@ public abstract class Item extends Cope
 			{
 				customAttributeOccured = true;
 				final CustomAttribute ca = (CustomAttribute)av.attribute;
-				final AttributeValue[] caav = ca.execute(av.value);
+				final AttributeValue[] caav = ca.execute(av.value, exceptionItem);
 				for(int j = 0; j<caav.length; j++)
 				{
 					if(result.put(caav[j].attribute, caav[j])!=null)

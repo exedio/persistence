@@ -33,7 +33,6 @@ package com.exedio.cope;
 public final class IntegrityViolationException extends ConstraintViolationException
 {
 	private final ItemAttribute attribute;
-	private final Item item;
 
 	/**
 	 * Creates a new UniqueViolationException with the neccessary information about the violation.
@@ -43,23 +42,12 @@ public final class IntegrityViolationException extends ConstraintViolationExcept
 	 */
 	IntegrityViolationException(final Item item, final ItemAttribute attribute)
 	{
-		super(attribute, null);
+		super(attribute, item, null);
 		
 		if(item==null)
 			throw new NullPointerException();
-		if(attribute==null)
-			throw new NullPointerException();
 		
 		this.attribute = attribute;
-		this.item = item;
-	}
-
-	/**
-	 * Returns the item that was attempted to be deleted.
-	 */
-	public final Item getItem()
-	{
-		return item;
 	}
 
 	/**
@@ -73,7 +61,7 @@ public final class IntegrityViolationException extends ConstraintViolationExcept
 	
 	public String getMessage()
 	{
-		return "integrity violation on deletion of " + item.getCopeID() + " because of " + attribute;
+		return "integrity violation on deletion of " + getItem().getCopeID() + " because of " + attribute;
 	}
 	
 }

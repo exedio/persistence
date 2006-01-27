@@ -19,15 +19,16 @@
 package com.exedio.cope.pattern;
 
 import com.exedio.cope.ConstraintViolationException;
+import com.exedio.cope.Item;
 
 
 public final class CustomAttributeException extends ConstraintViolationException
 {
 	final CustomAttribute attribute;
 	
-	public CustomAttributeException(final CustomAttribute attribute, final Throwable cause)
+	public CustomAttributeException(final CustomAttribute attribute, final Item item, final Throwable cause)
 	{
-		super(attribute, cause);
+		super(attribute, item, cause);
 		this.attribute = attribute;
 	}
 	

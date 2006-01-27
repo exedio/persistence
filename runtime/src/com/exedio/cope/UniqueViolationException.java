@@ -43,25 +43,14 @@ public final class UniqueViolationException extends ConstraintViolationException
 	 */
 	UniqueViolationException(final SQLException cause, final Item item, final UniqueConstraint constraint)
 	{
-		super(constraint, cause);
+		super(constraint, item, cause);
 		
 		if(cause==null)
-			throw new NullPointerException();
-		if(constraint==null)
 			throw new NullPointerException();
 		
 		this.constraint = constraint;
 	}
 	
-	/**
-	 * Returns the item that was attempted to be modified.
-	 * Returns null, if the violation occured on the creation of an item.
-	 */
-	public final Item getItem()
-	{
-		return null;
-	}
-
 	/**
 	 * Returns the violated constraint.
 	 */

@@ -29,8 +29,6 @@ package com.exedio.cope;
  */
 public final class FinalViolationException extends ConstraintViolationException
 {
-
-	private final Item item;
 	private final Attribute finalAttribute;
 	
 	/**
@@ -40,25 +38,14 @@ public final class FinalViolationException extends ConstraintViolationException
 	 */
 	public FinalViolationException(final Item item, final Attribute finalAttribute)
 	{
-		super(finalAttribute, null);
+		super(finalAttribute, item, null);
 		
 		if(item==null)
 			throw new NullPointerException();
-		if(finalAttribute==null)
-			throw new NullPointerException();
 		
-		this.item = item;
 		this.finalAttribute = finalAttribute;
 	}
 	
-	/**
-	 * Returns the item that was attempted to be modified.
-	 */
-	public final Item getItem()
-	{
-		return item;
-	}
-
 	/**
 	 * Returns the attribute, that was attempted to be written.
 	 */
@@ -69,7 +56,7 @@ public final class FinalViolationException extends ConstraintViolationException
 
 	public String getMessage()
 	{
-		return "final violation on " + item.getCopeID() + " for " + finalAttribute;
+		return "final violation on " + getItem().getCopeID() + " for " + finalAttribute;
 	}
 	
 }

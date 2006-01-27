@@ -33,7 +33,6 @@ package com.exedio.cope;
  */
 public final class MandatoryViolationException extends ConstraintViolationException
 {
-	private final Item item;
 	private final Attribute mandatoryAttribute;
 	
 	/**
@@ -43,24 +42,10 @@ public final class MandatoryViolationException extends ConstraintViolationExcept
 	 */
 	MandatoryViolationException(final Item item, final Attribute mandatoryAttribute)
 	{
-		super(mandatoryAttribute, null);
-
-		if(mandatoryAttribute==null)
-			throw new NullPointerException();
-		
-		this.item = item;
+		super(mandatoryAttribute, item, null);
 		this.mandatoryAttribute = mandatoryAttribute;
 	}
 	
-	/**
-	 * Returns the item that was attempted to be modified.
-	 * Returns null, if the mandatory violation occured on the creation of an item.
-	 */
-	public final Item getItem()
-	{
-		return item;
-	}
-
 	/**
 	 * Returns the attribute, that was attempted to be written.
 	 */
@@ -71,7 +56,7 @@ public final class MandatoryViolationException extends ConstraintViolationExcept
 
 	public String getMessage()
 	{
-		return "mandatory violation on " + Cope.getCopeID(item) + " for " + mandatoryAttribute;
+		return "mandatory violation on " + Cope.getCopeID(getItem()) + " for " + mandatoryAttribute;
 	}
 	
 }

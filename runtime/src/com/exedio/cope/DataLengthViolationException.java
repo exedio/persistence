@@ -29,7 +29,6 @@ package com.exedio.cope;
  */
 public final class DataLengthViolationException extends ConstraintViolationRuntimeException
 {
-	private final Item item;
 	private final DataAttribute dataAttribute;
 	private final long length;
 	
@@ -41,21 +40,11 @@ public final class DataLengthViolationException extends ConstraintViolationRunti
 	 */
 	public DataLengthViolationException(final Item item, final DataAttribute dataAttribute, final long length)
 	{
-		super(dataAttribute);
-		this.item = item;
+		super(dataAttribute, item);
 		this.dataAttribute = dataAttribute;
 		this.length = length;
 	}
 	
-	/**
-	 * Returns the item that was attempted to be modified.
-	 * Returns null, if the violation occured on the creation of an item.
-	 */
-	public final Item getItem()
-	{
-		return item;
-	}
-
 	/**
 	 * Returns the attribute, that was attempted to be written.
 	 */
@@ -76,7 +65,7 @@ public final class DataLengthViolationException extends ConstraintViolationRunti
 	public String getMessage()
 	{
 		return
-			"length violation on " + Cope.getCopeID(item) +
+			"length violation on " + Cope.getCopeID(getItem()) +
 			", " + (length>=0 ? String.valueOf(length) + " bytes " : "") +
 			"is too long for "+ dataAttribute;
 	}

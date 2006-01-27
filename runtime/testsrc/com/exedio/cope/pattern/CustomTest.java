@@ -105,6 +105,7 @@ public class CustomTest extends AbstractLibTest
 		{
 			assertSame(item.number, e.getAttribute());
 			assertSame(item.number, e.getFeature());
+			assertEquals(item, e.getItem());
 			assertEquals("test exception:-2", e.getCause().getMessage());
 			assertEquals(IOException.class, e.getCause().getClass());
 		}
@@ -130,6 +131,7 @@ public class CustomTest extends AbstractLibTest
 		{
 			assertSame(item.number, e.getAttribute());
 			assertSame(item.number, e.getFeature());
+			assertEquals(null, e.getItem());
 			assertEquals("test exception:-2", e.getCause().getMessage());
 			assertEquals(IOException.class, e.getCause().getClass());
 		}

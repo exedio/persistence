@@ -32,7 +32,6 @@ package com.exedio.cope;
  */
 public final class LengthViolationException extends ConstraintViolationException
 {
-	private final Item item;
 	private final StringAttribute stringAttribute;
 	private final String value;
 	private final boolean isTooShort;
@@ -45,26 +44,12 @@ public final class LengthViolationException extends ConstraintViolationException
 	 */
 	public LengthViolationException(final Item item, final StringAttribute stringAttribute, final String value, final boolean isTooShort)
 	{
-		super(stringAttribute, null);
-		
-		if(stringAttribute==null)
-			throw new NullPointerException();
-
-		this.item = item;
+		super(stringAttribute, item, null);
 		this.stringAttribute = stringAttribute;
 		this.value = value;
 		this.isTooShort = isTooShort;
 	}
 	
-	/**
-	 * Returns the item that was attempted to be modified.
-	 * Returns null, if the violation occured on the creation of an item.
-	 */
-	public final Item getItem()
-	{
-		return item;
-	}
-
 	/**
 	 * Returns the attribute, that was attempted to be written.
 	 */
@@ -89,7 +74,7 @@ public final class LengthViolationException extends ConstraintViolationException
 	public String getMessage()
 	{
 		return
-			"length violation on " + Cope.getCopeID(item) +
+			"length violation on " + Cope.getCopeID(getItem()) +
 			", '" + value + "' is too " +
 			(isTooShort?"short":"long") +
 			" for "+ stringAttribute;

@@ -149,27 +149,27 @@ public abstract class CustomAttribute
 	{
 		try
 		{
-			item.set(execute(value));
+			item.set(execute(value, item));
 		}
 		catch(UniqueViolationException e)
 		{
-			throw new CustomAttributeException(this, e);
+			throw new CustomAttributeException(this, item, e);
 		}
 		catch(MandatoryViolationException e)
 		{
-			throw new CustomAttributeException(this, e);
+			throw new CustomAttributeException(this, item, e);
 		}
 		catch(LengthViolationException e)
 		{
-			throw new CustomAttributeException(this, e);
+			throw new CustomAttributeException(this, item, e);
 		}
 		catch(FinalViolationException e)
 		{
-			throw new CustomAttributeException(this, e);
+			throw new CustomAttributeException(this, item, e);
 		}
 	}
 	
-	public final AttributeValue[] execute(final Object value) throws CustomAttributeException
+	public final AttributeValue[] execute(final Object value, final Item exceptionItem) throws CustomAttributeException
 	{
 		final Object result;
 		try
@@ -186,7 +186,7 @@ public abstract class CustomAttribute
 		}
 		catch(InvocationTargetException e)
 		{
-			throw new CustomAttributeException(this, e.getCause());
+			throw new CustomAttributeException(this, exceptionItem, e.getCause());
 		}
 		
 		if(storages.length==1)

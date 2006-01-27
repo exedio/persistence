@@ -22,15 +22,21 @@ package com.exedio.cope;
 /**
  * Is thrown, when a persistent modification violates a constraint.
  * 
+ * @see ConstraintViolationRuntimeException
  * @author Ralf Wiebicke
  */
 public abstract class ConstraintViolationRuntimeException extends RuntimeException
 {
 	private final Feature feature;
+	private final Item item;
 
-	public ConstraintViolationRuntimeException(final Feature feature)
+	public ConstraintViolationRuntimeException(final Feature feature, final Item item)
 	{
+		if(feature==null)
+			throw new NullPointerException();
+
 		this.feature = feature;
+		this.item = item;
 	}
 	
 	public final Feature getFeature()
@@ -38,4 +44,13 @@ public abstract class ConstraintViolationRuntimeException extends RuntimeExcepti
 		return feature;
 	}
 	
+	/**
+	 * Returns the item that was attempted to be modified.
+	 * Returns null, if the constraint violation occured on the creation of an item.
+	 */
+	public final Item getItem()
+	{
+		return item;
+	}
+
 }

@@ -32,7 +32,6 @@ package com.exedio.cope;
  */
 public final class LengthViolationRuntimeException extends ConstraintViolationRuntimeException
 {
-	private final Item item;
 	private final StringAttribute stringAttribute;
 	private final String value;
 	
@@ -44,21 +43,11 @@ public final class LengthViolationRuntimeException extends ConstraintViolationRu
 	 */
 	public LengthViolationRuntimeException(final Item item, final StringAttribute stringAttribute, final String value)
 	{
-		super(stringAttribute);
-		this.item = item;
+		super(stringAttribute, item);
 		this.stringAttribute = stringAttribute;
 		this.value = value;
 	}
 	
-	/**
-	 * Returns the item that was attempted to be modified.
-	 * Returns null, if the violation occured on the creation of an item.
-	 */
-	public final Item getItem()
-	{
-		return item;
-	}
-
 	/**
 	 * Returns the attribute, that was attempted to be written.
 	 */
@@ -78,7 +67,7 @@ public final class LengthViolationRuntimeException extends ConstraintViolationRu
 	public String getMessage()
 	{
 		return
-			"length violation on " + Cope.getCopeID(item) +
+			"length violation on " + Cope.getCopeID(getItem()) +
 			", '" + value + "' is too long" +
 			" for "+ stringAttribute;
 	}
