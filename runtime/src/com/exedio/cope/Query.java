@@ -136,6 +136,9 @@ public final class Query
 	
 	public void setOrderBy(final Function orderBy, final boolean ascending)
 	{
+		if(orderBy==null)
+			throw new NullPointerException("orderBy is null");
+		
 		this.orderBy = new Function[]{orderBy};
 		this.orderAscending = new boolean[]{ascending};
 	}
@@ -147,6 +150,9 @@ public final class Query
 	{
 		if(orderBy.length!=ascending.length)
 			throw new RuntimeException("orderBy and ascending must have same length, but was "+orderBy.length+" and "+ascending.length);
+		for(int i = 0; i<orderBy.length; i++)
+			if(orderBy[i]==null)
+				throw new NullPointerException("orderBy contains null at index "+i);
 		
 		this.orderBy = orderBy;
 		this.orderAscending = ascending;

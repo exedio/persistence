@@ -90,25 +90,23 @@ public class OrderByTest extends TestmodelTest
 			{
 				assertEquals("orderBy and ascending must have same length, but was 2 and 1", e.getMessage());
 			}
-			query.setOrderBy(new Function[]{item1.someNotNullBoolean,null}, new boolean[]{true, true});
 			try
 			{
-				query.search();
+				query.setOrderBy(new Function[]{item1.someNotNullBoolean,null}, new boolean[]{true, true});
 				fail();
 			}
 			catch(NullPointerException e)
 			{
 				assertEquals("orderBy contains null at index 1", e.getMessage());
 			}
-			query.setOrderBy(null, true);
 			try
 			{
-				query.search();
+				query.setOrderBy(null, true);
 				fail();
 			}
 			catch(NullPointerException e)
 			{
-				assertEquals("orderBy contains null at index 0", e.getMessage());
+				assertEquals("orderBy is null", e.getMessage());
 			}
 		}
 
