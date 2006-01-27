@@ -31,6 +31,7 @@ public final class DataLengthViolationException extends ConstraintViolationRunti
 {
 	private final DataAttribute dataAttribute;
 	private final long length;
+	private final boolean lengthExact;
 	
 	/**
 	 * Creates a new LengthViolationRuntimeException with the neccessary information about the violation.
@@ -38,11 +39,16 @@ public final class DataLengthViolationException extends ConstraintViolationRunti
 	 * @param dataAttribute initializes, what is returned by {@link #getDataAttribute()}.
 	 * @param length initializes, what is returned by {@link #getLength()}.
 	 */
-	public DataLengthViolationException(final Item item, final DataAttribute dataAttribute, final long length)
+	public DataLengthViolationException(final Item item, final DataAttribute dataAttribute, final long length, final boolean lengthExact)
 	{
 		super(dataAttribute, item);
+		
+		if(length<dataAttribute.getMaximumLength())
+			throw new RuntimeException(dataAttribute.toString()+'/'+length+'/'+dataAttribute.getMaximumLength());
+		
 		this.dataAttribute = dataAttribute;
 		this.length = length;
+		this.lengthExact = lengthExact;
 	}
 	
 	/**
@@ -62,12 +68,18 @@ public final class DataLengthViolationException extends ConstraintViolationRunti
 		return length;
 	}
 	
+	public boolean isLengthExact()
+	{
+		return lengthExact;
+	}
+	
 	public String getMessage()
 	{
 		return
 			"length violation on " + Cope.getCopeID(getItem()) +
-			", " + (length>=0 ? String.valueOf(length) + " bytes " : "") +
-			"is too long for "+ dataAttribute;
+			", " + length + " bytes " +
+			(lengthExact ? "" : "or more ") +
+			"is too long for " + dataAttribute;
 	}
 	
 }
