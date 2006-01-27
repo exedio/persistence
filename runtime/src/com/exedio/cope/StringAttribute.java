@@ -163,7 +163,7 @@ public final class StringAttribute extends FunctionAttribute implements StringFu
 			if(checkedLengthException)
 				throw new LengthViolationException(item, this, stringValue, false);
 			else
-				throw new LengthViolationRuntimeException(item, this, stringValue);
+				throw new LengthViolationRuntimeException(this, item, stringValue);
 	}
 	
 	public final String get(final Item item)
