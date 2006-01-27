@@ -15,6 +15,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
+
 package com.exedio.cope;
 
 import java.util.ArrayList;
@@ -79,6 +80,7 @@ public class OrderByTest extends TestmodelTest
 			query.setOrderBy(new Function[]{item1.someNotNullEnum,item1.someNotNullString}, new boolean[]{true, true});
 			assertEquals(list(item1, item4, item2, item5, item3), query.search());
 			
+			// bad queries
 			try
 			{
 				query.setOrderBy(new Function[]{item1.someNotNullBoolean,item1.someNotNullInteger}, new boolean[]{true});
@@ -87,6 +89,26 @@ public class OrderByTest extends TestmodelTest
 			catch(RuntimeException e)
 			{
 				assertEquals("orderBy and ascending must have same length, but was 2 and 1", e.getMessage());
+			}
+			query.setOrderBy(new Function[]{item1.someNotNullBoolean,null}, new boolean[]{true, true});
+			try
+			{
+				query.search();
+				fail();
+			}
+			catch(NullPointerException e)
+			{
+				assertEquals("orderBy contains null at index 1", e.getMessage());
+			}
+			query.setOrderBy(null, true);
+			try
+			{
+				query.search();
+				fail();
+			}
+			catch(NullPointerException e)
+			{
+				assertEquals("orderBy contains null at index 0", e.getMessage());
 			}
 		}
 
