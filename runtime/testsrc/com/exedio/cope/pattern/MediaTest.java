@@ -36,10 +36,10 @@ public class MediaTest extends TestmodelTest
 	// TODO test various combinations of internal, external implicit, and external explicit source
 
 	private MediaItem item;
+	private final byte[] data0 = new byte[]{};
 	private final byte[] data4 = new byte[]{-86,122,-8,23};
 	private final byte[] data6 = new byte[]{-97,35,-126,86,19,-8};
 	private final byte[] data8 = new byte[]{-54,104,-63,23,19,-45,71,-23};
-	private final byte[] data0 = new byte[]{};
 	
 	public void setUp() throws Exception
 	{
