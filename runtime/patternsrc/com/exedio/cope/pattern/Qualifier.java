@@ -182,12 +182,7 @@ public final class Qualifier extends Pattern
 			}
 			catch(ConstraintViolationException e)
 			{
-				// cannot happen, since all qualifying values  should be given
-				throw new RuntimeException(e);
-			}
-			catch(CustomAttributeException e)
-			{
-				// cannot happen, since all qualifying values  should be given
+				// cannot happen, since all qualifying values should be given
 				throw new RuntimeException(e);
 			}
 		}

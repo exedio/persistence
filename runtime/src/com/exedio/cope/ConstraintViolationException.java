@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-import java.sql.SQLException;
 
 /**
  * Is thrown, when a persistent modification violates a constraint.
@@ -29,7 +28,7 @@ public abstract class ConstraintViolationException extends Exception
 {
 	private final Feature feature;
 
-	public ConstraintViolationException(final Feature feature, final SQLException cause)
+	public ConstraintViolationException(final Feature feature, final Throwable cause)
 	{
 		super(cause);
 		this.feature = feature;
