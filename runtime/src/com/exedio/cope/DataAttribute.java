@@ -88,10 +88,16 @@ public final class DataAttribute extends Attribute
 			this.impl = new BlobImpl(model, table, name, notNull);
 		}
 		
-		bufferSizeDefault = properties.dataAttributeBufferSizeDefault.getIntValue();
-		bufferSizeLimit = properties.dataAttributeBufferSizeLimit.getIntValue();
+		final int maximumLengthInt = toInt(maximumLength);
+		bufferSizeDefault = Math.min(properties.dataAttributeBufferSizeDefault.getIntValue(), maximumLengthInt);
+		bufferSizeLimit = Math.min(properties.dataAttributeBufferSizeLimit.getIntValue(), maximumLengthInt);
 		
 		return impl.getColumn();
+	}
+	
+	private static final int toInt(final long l)
+	{
+		return (int)Math.min(l, (long)Integer.MAX_VALUE);
 	}
 	
 	// public methods ---------------------------------------------------------------
@@ -570,10 +576,7 @@ public final class DataAttribute extends Attribute
 		final byte[] b = new byte[
 		Math.min(
 				bufferSizeLimit,
-				(int)Math.min(
-						(long)Integer.MAX_VALUE,
-						length
-				)
+				toInt(length)
 		)];
 		//System.out.println("-------------- "+length+" ----- "+b.length);
 		
@@ -601,7 +604,7 @@ public final class DataAttribute extends Attribute
 			
 			assert length>0;
 			
-			final byte[] result = new byte[(int)length];
+			final byte[] result = new byte[toInt(length)];
 			in.read(result);
 			in.close();
 			return result;
