@@ -601,7 +601,14 @@ public final class DataAttribute extends Attribute
 			assert length>0;
 			
 			final byte[] result = new byte[toInt(length)];
-			in.read(result);
+			final int readBytes = in.read(result);
+			if(readBytes!=length)
+				throw new RuntimeException("expected " + length + " bytes, but got " + readBytes);
+				
+			final int tooManyBytes = in.read(new byte[1]);
+			if(tooManyBytes!=-1)
+				throw new RuntimeException("expected " + length + " bytes, but got more.");
+			
 			in.close();
 			return result;
 		}
