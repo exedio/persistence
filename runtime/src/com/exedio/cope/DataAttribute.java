@@ -578,12 +578,12 @@ public final class DataAttribute extends Attribute
 		//System.out.println("-------------- "+length+" ----- "+b.length);
 		
 		final long maximumLength = this.maximumLength;
-		long dataTransferred = 0;
+		long transferredLength = 0;
 		for(int len = in.read(b); len>=0; len = in.read(b))
 		{
-			dataTransferred += len;
-			if(dataTransferred>maximumLength)
-				throw new DataLengthViolationException(this, item, dataTransferred, false);
+			transferredLength += len;
+			if(transferredLength>maximumLength)
+				throw new DataLengthViolationException(this, item, transferredLength, false);
 			
 			out.write(b, 0, len);
 		}
