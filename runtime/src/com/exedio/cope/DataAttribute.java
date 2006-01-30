@@ -573,11 +573,7 @@ public final class DataAttribute extends Attribute
 		
 		assert length>0;
 		
-		final byte[] b = new byte[
-		Math.min(
-				bufferSizeLimit,
-				toInt(length)
-		)];
+		final byte[] b = new byte[Math.min(bufferSizeLimit, toInt(length))];
 		//System.out.println("-------------- "+length+" ----- "+b.length);
 		
 		final long maximumLength = this.maximumLength;
