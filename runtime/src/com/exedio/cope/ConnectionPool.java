@@ -46,7 +46,7 @@ final class ConnectionPool implements ConnectionProvider
 	//       maybe then no ring buffer is needed.
 	
 	private final Connection[] idle;
-	private int idleCount = 0;
+	private int idleCount;
 	private int activeCount = 0;
 	private final Object lock = new Object();
 
@@ -65,6 +65,22 @@ final class ConnectionPool implements ConnectionProvider
 		this.activeLimit = properties.getConnectionPoolActiveLimit();
 		final int idleLimit = properties.getConnectionPoolIdleLimit();
 		this.idle = idleLimit>0 ? new Connection[idleLimit] : null;
+		
+		final int idleInitial = properties.getConnectionPoolIdleInitial();
+		assert idleInitial<=idleLimit;
+		this.idleCount = idleInitial;
+		if(idleInitial>0)
+		{
+			try
+			{
+				for(int i = 0; i<idleInitial; i++)
+					idle[i] = DriverManager.getConnection(url, user, password);
+			}
+			catch(SQLException e)
+			{
+				throw new RuntimeException(e);
+			}
+		}
 		
 		// TODO: make this customizable and disableable
 		this.counter = new PoolCounter(new int[]{0,1,2,3,4,5,6,7,8,9,10,12,15,16,18,20,25,30,35,40,45,50,60,70,80,90,100,120,140,160,180,200,250,300,350,400,450,500,600,700,800,900,1000});

@@ -46,6 +46,7 @@ public final class Properties extends com.exedio.cope.util.Properties
 
 	static final String CONNECTION_POOL_ACTIVE_LIMIT = "connectionPool.activeLimit";
 	private final IntField connectionPoolActiveLimit = new IntField(CONNECTION_POOL_ACTIVE_LIMIT, 100, 1);
+	private final IntField connectionPoolIdleInitial = new IntField("connectionPool.idleInitial", 0, 0);
 	private final IntField connectionPoolIdleLimit = new IntField("connectionPool.idleLimit", 10, 0);
 	
 	private final IntField cacheLimit = new IntField("cache.limit", 10000, 0);
@@ -92,6 +93,9 @@ public final class Properties extends com.exedio.cope.util.Properties
 		database = getDatabaseConstructor( databaseCode, source );
 
 		databaseCustomProperties = new MapField("database." + databaseCode);
+		
+		if(connectionPoolIdleInitial.getIntValue()>connectionPoolIdleLimit.getIntValue())
+			throw new RuntimeException("value for " + connectionPoolIdleInitial.getKey() + " must not be greater than " + connectionPoolIdleLimit.getKey());
 		
 		if(datadirPath.getFileValue()!=null)
 		{
@@ -253,6 +257,11 @@ public final class Properties extends com.exedio.cope.util.Properties
 	public int getConnectionPoolActiveLimit()
 	{
 		return connectionPoolActiveLimit.getIntValue();
+	}
+	
+	public int getConnectionPoolIdleInitial()
+	{
+		return connectionPoolIdleInitial.getIntValue();
 	}
 	
 	public int getConnectionPoolIdleLimit()
