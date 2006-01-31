@@ -53,6 +53,7 @@ final class ConnectionPool implements ConnectionProvider
 	private final String url;
 	private final String user;
 	private final String password;
+	private final int activeLimit;
 	
 	private final PoolCounter counter;
 
@@ -61,6 +62,7 @@ final class ConnectionPool implements ConnectionProvider
 		this.url = properties.getDatabaseUrl();
 		this.user = properties.getDatabaseUser();
 		this.password = properties.getDatabasePassword();
+		this.activeLimit = properties.getConnectionPoolActiveLimit();
 		final int idleLimit = properties.getConnectionPoolIdleLimit();
 		this.idle = idleLimit>0 ? new Connection[idleLimit] : null;
 		
@@ -72,9 +74,9 @@ final class ConnectionPool implements ConnectionProvider
 	{
 		counter.get();
 
-		if(idle!=null)
+		synchronized(lock)
 		{
-			synchronized(lock)
+			if(idle!=null)
 			{
 				activeCount++;
 				
@@ -86,9 +88,14 @@ final class ConnectionPool implements ConnectionProvider
 					return result;
 				}
 			}
+			else
+			{
+				if(activeCount>=activeLimit)
+					throw new RuntimeException(Properties.CONNECTION_POOL_ACTIVE_LIMIT + " reached: " + activeCount);
+				
+				activeCount++;
+			}
 		}
-		else
-			activeCount++;
 		//System.out.println("connection pool: CREATE");
 
 		// Important to do this outside the synchronized block!
@@ -107,9 +114,9 @@ final class ConnectionPool implements ConnectionProvider
 
 		counter.put();
 		
-		if(idle!=null)
+		synchronized(lock)
 		{
-			synchronized(lock)
+			if(idle!=null)
 			{
 				activeCount--;
 	
@@ -120,9 +127,9 @@ final class ConnectionPool implements ConnectionProvider
 					return;
 				}
 			}
+			else
+				activeCount--;
 		}
-		else
-			activeCount--;
 		
 		//System.out.println("connection pool: CLOSE ");
 
