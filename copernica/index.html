@@ -11,18 +11,18 @@
 	<body>
 		<h1>Copernica testwebapp on @DATABASE@</h1>
 		<ul>
-			<li><a href="http://localhost:8080/copetest-@DATABASE@/copernica.jsp">copernica</a></li>
-			<li><a href="http://localhost:8080/copetest-@DATABASE@/copernica-pure.jsp">copernica-pure</a></li>
+			<li><a href="@HOST@copetest-@DATABASE@/copernica.jsp">copernica</a></li>
+			<li><a href="@HOST@copetest-@DATABASE@/copernica-pure.jsp">copernica-pure</a></li>
 			<li>
-				<form action="http://localhost:8080/copetest-@DATABASE@/console?schema=" method="POST">
-					<a href="http://localhost:8080/copetest-@DATABASE@/console">console</a>
+				<form action="@HOST@copetest-@DATABASE@/console?schema=" method="POST">
+					<a href="@HOST@copetest-@DATABASE@/console">console</a>
 					<input type="submit" name="CREATE" value="create" />
 					<input type="submit" name="DROP" value="drop" />
 				</form>
 			</li>
 			<li>
-				<form action="http://localhost:8080/copetest-@DATABASE@/init.jsp" method="POST">
-					<a href="http://localhost:8080/copetest-@DATABASE@/init.jsp">init</a>
+				<form action="@HOST@copetest-@DATABASE@/init.jsp" method="POST">
+					<a href="@HOST@copetest-@DATABASE@/init.jsp">init</a>
 					<input type="submit" name="INIT" value="init" />
 				</form>
 			</li>
@@ -30,16 +30,16 @@
 				For several models of the runtime test,
 				a cope console is mounted here:
 				<ul>
-					<li><a href="http://localhost:8080/copelibtest-@DATABASE@/delete/console">delete</a></li>
-					<li><a href="http://localhost:8080/copelibtest-@DATABASE@/day/console">day</a></li>
-					<li><a href="http://localhost:8080/copelibtest-@DATABASE@/data/console">data</a></li>
-					<li><a href="http://localhost:8080/copelibtest-@DATABASE@/hash/console">hash</a></li>
-					<li><a href="http://localhost:8080/copelibtest-@DATABASE@/md5/console">md5</a></li>
-					<li><a href="http://localhost:8080/copelibtest-@DATABASE@/vector/console">vector</a></li>
-					<li><a href="http://localhost:8080/copelibtest-@DATABASE@/cacheIsolation/console">cacheIsolation</a></li>
-					<li><a href="http://localhost:8080/copelibtest-@DATABASE@/name/console">name</a></li>
-					<li><a href="http://localhost:8080/copelibtest-@DATABASE@/match/console">match</a></li>
-					<li><a href="http://localhost:8080/copelibtest-@DATABASE@/hierarchy/console">hierarchy</a></li>
+					<li><a href="@HOST@copelibtest-@DATABASE@/delete/console">delete</a></li>
+					<li><a href="@HOST@copelibtest-@DATABASE@/day/console">day</a></li>
+					<li><a href="@HOST@copelibtest-@DATABASE@/data/console">data</a></li>
+					<li><a href="@HOST@copelibtest-@DATABASE@/hash/console">hash</a></li>
+					<li><a href="@HOST@copelibtest-@DATABASE@/md5/console">md5</a></li>
+					<li><a href="@HOST@copelibtest-@DATABASE@/vector/console">vector</a></li>
+					<li><a href="@HOST@copelibtest-@DATABASE@/cacheIsolation/console">cacheIsolation</a></li>
+					<li><a href="@HOST@copelibtest-@DATABASE@/name/console">name</a></li>
+					<li><a href="@HOST@copelibtest-@DATABASE@/match/console">match</a></li>
+					<li><a href="@HOST@copelibtest-@DATABASE@/hierarchy/console">hierarchy</a></li>
 				</ul>
 			</li>
 		</ul>

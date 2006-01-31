@@ -642,6 +642,7 @@
 				<mkdir dir="build/copernica/index" />
 				<copy file="copernica/index.html" tofile="build/copernica/index/@{db}.html">
 					<filterset>
+						<filter token="HOST" value="http://localhost:8080/" />
 						<filter token="DATABASE" value="@{db}" />
 					</filterset>
 				</copy>
