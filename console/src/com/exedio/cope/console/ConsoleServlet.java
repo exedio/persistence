@@ -16,7 +16,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.copernica.admin;
+package com.exedio.cope.console;
 
 
 import java.io.IOException;
@@ -42,7 +42,7 @@ import com.exedio.cops.ResourceSet;
  * <pre>
  * &lt;servlet&gt;
  *    &lt;servlet-name&gt;admin&lt;/servlet-name&gt;
- *    &lt;servlet-class&gt;com.exedio.copernica.admin.AdminServlet&lt;/servlet-class&gt;
+ *    &lt;servlet-class&gt;com.exedio.cope.console.ConsoleServlet&lt;/servlet-class&gt;
  *    &lt;init-param&gt;
  *       &lt;param-name&gt;model&lt;/param-name&gt;
  *       &lt;param-value&gt;{@link com.exedio.cope.Model com.bigbusiness.shop.Main#model}&lt;/param-value&gt;
@@ -56,13 +56,13 @@ import com.exedio.cops.ResourceSet;
  * 
  * @author Ralf Wiebicke
  */
-public final class AdminServlet extends CopsServlet
+public final class ConsoleServlet extends CopsServlet
 {
 	final static String ENCODING = "utf-8";
 
 	Model model = null;
 	
-	private static final ResourceSet resources = new ResourceSet(AdminServlet.class);
+	private static final ResourceSet resources = new ResourceSet(ConsoleServlet.class);
 	static final Resource stylesheet = new Resource(resources, "admin.css");
 	static final Resource reportScript = new Resource(resources, "admin-report.js");
 	static final Resource logo = new Resource(resources, "logo.png");

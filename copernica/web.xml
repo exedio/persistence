@@ -20,7 +20,7 @@
 
 	<servlet>
 		<servlet-name>admin</servlet-name>
-		<servlet-class>com.exedio.copernica.admin.AdminServlet</servlet-class>
+		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
 		<init-param>
 			<param-name>model</param-name>
 			<param-value>com.exedio.cope.testmodel.Main#model</param-value>

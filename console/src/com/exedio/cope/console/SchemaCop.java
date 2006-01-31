@@ -16,7 +16,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.copernica.admin;
+package com.exedio.cope.console;
 
 import java.io.IOException;
 import java.io.PrintStream;

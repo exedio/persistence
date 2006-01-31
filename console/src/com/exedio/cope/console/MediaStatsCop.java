@@ -16,28 +16,48 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.copernica.admin;
+package com.exedio.cope.console;
 
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
+import com.exedio.cope.Type;
+import com.exedio.cope.pattern.MediaPath;
 
 
-final class ConnectionStatsCop extends AdminCop
+final class MediaStatsCop extends AdminCop
 {
 
-	ConnectionStatsCop()
+	MediaStatsCop()
 	{
-		super("connection pool");
-		addParameter(TAB, TAB_CONNECTION_STATS);
+		super("media");
+		addParameter(TAB, TAB_MEDIA_STATS);
 	}
 
 	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request) throws IOException
 	{
-		Admin_Jspm.write(out, model.getConnectionPoolInfo(), this);
+		final ArrayList medias = new ArrayList();
+
+		for(Iterator i = model.getTypes().iterator(); i.hasNext(); )
+		{
+			final Type type = (Type)i.next();
+			for(Iterator j = type.getDeclaredFeatures().iterator(); j.hasNext(); )
+			{
+				final Feature feature = (Feature)j.next();
+				if(feature instanceof MediaPath)
+				{
+					medias.add(feature);
+				}
+			}
+		}
+
+		Admin_Jspm.writeMediaStats(out, medias, model.getProperties().getMediaRootUrl(), this);
 	}
 	
 }

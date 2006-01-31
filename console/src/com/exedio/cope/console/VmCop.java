@@ -16,28 +16,46 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.copernica.admin;
+package com.exedio.cope.console;
 
 import java.io.IOException;
 import java.io.PrintStream;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.exedio.cope.Cope;
 import com.exedio.cope.Model;
 
 
-final class CacheStatsCop extends AdminCop
+final class VmCop extends AdminCop
 {
+	static final String ALL_PACKAGES = "ap";
+	
+	final boolean allPackages;
 
-	CacheStatsCop()
+	VmCop(final boolean allPackages)
 	{
-		super("cache");
-		addParameter(TAB, TAB_CACHE_STATS);
+		super("vm");
+		this.allPackages = allPackages;
+		
+		addParameter(TAB, TAB_VM);
+		if(allPackages)
+			addParameter(ALL_PACKAGES, "t");
 	}
-
+	
+	static final VmCop getVmCop(final HttpServletRequest request)
+	{
+		return new VmCop(request.getParameter(ALL_PACKAGES)!=null);
+	}
+	
+	VmCop toToggleAllPackages()
+	{
+		return new VmCop(!allPackages);
+	}
+	
 	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request) throws IOException
 	{
-		Admin_Jspm.write(out, model.getCacheInfo(), model.getCacheQueryInfo(), model.getCacheQueryHistogram(), this);
+		Properties_Jspm.writeVm(out, this, allPackages ? Package.getPackages() : new Package[]{Cope.class.getPackage(), VmCop.class.getPackage()});
 	}
 	
 }

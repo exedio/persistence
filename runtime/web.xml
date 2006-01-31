@@ -7,7 +7,7 @@
 
 	<servlet>
 		<servlet-name>deleteAdmin</servlet-name>
-		<servlet-class>com.exedio.copernica.admin.AdminServlet</servlet-class>
+		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
 		<init-param>
 			<param-name>model</param-name>
 			<param-value>com.exedio.cope.Main#deleteModel</param-value>
@@ -20,7 +20,7 @@
 	
 	<servlet>
 		<servlet-name>dayAdmin</servlet-name>
-		<servlet-class>com.exedio.copernica.admin.AdminServlet</servlet-class>
+		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
 		<init-param>
 			<param-name>model</param-name>
 			<param-value>com.exedio.cope.Main#dayModel</param-value>
@@ -33,7 +33,7 @@
 	
 	<servlet>
 		<servlet-name>dataAdmin</servlet-name>
-		<servlet-class>com.exedio.copernica.admin.AdminServlet</servlet-class>
+		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
 		<init-param>
 			<param-name>model</param-name>
 			<param-value>com.exedio.cope.Main#dataModel</param-value>
@@ -46,7 +46,7 @@
 	
 	<servlet>
 		<servlet-name>hashAdmin</servlet-name>
-		<servlet-class>com.exedio.copernica.admin.AdminServlet</servlet-class>
+		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
 		<init-param>
 			<param-name>model</param-name>
 			<param-value>com.exedio.cope.Main#hashModel</param-value>
@@ -59,7 +59,7 @@
 	
 	<servlet>
 		<servlet-name>md5Admin</servlet-name>
-		<servlet-class>com.exedio.copernica.admin.AdminServlet</servlet-class>
+		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
 		<init-param>
 			<param-name>model</param-name>
 			<param-value>com.exedio.cope.Main#md5Model</param-value>
@@ -72,7 +72,7 @@
 	
 	<servlet>
 		<servlet-name>vectorAdmin</servlet-name>
-		<servlet-class>com.exedio.copernica.admin.AdminServlet</servlet-class>
+		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
 		<init-param>
 			<param-name>model</param-name>
 			<param-value>com.exedio.cope.Main#vectorModel</param-value>
@@ -85,7 +85,7 @@
 	
 	<servlet>
 		<servlet-name>cacheIsolationAdmin</servlet-name>
-		<servlet-class>com.exedio.copernica.admin.AdminServlet</servlet-class>
+		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
 		<init-param>
 			<param-name>model</param-name>
 			<param-value>com.exedio.cope.Main#cacheIsolationModel</param-value>
@@ -98,7 +98,7 @@
 	
 	<servlet>
 		<servlet-name>nameAdmin</servlet-name>
-		<servlet-class>com.exedio.copernica.admin.AdminServlet</servlet-class>
+		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
 		<init-param>
 			<param-name>model</param-name>
 			<param-value>com.exedio.cope.Main#nameModel</param-value>
@@ -111,7 +111,7 @@
 	
 	<servlet>
 		<servlet-name>matchAdmin</servlet-name>
-		<servlet-class>com.exedio.copernica.admin.AdminServlet</servlet-class>
+		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
 		<init-param>
 			<param-name>model</param-name>
 			<param-value>com.exedio.cope.Main#matchModel</param-value>
@@ -124,7 +124,7 @@
 	
 	<servlet>
 		<servlet-name>hierarchyAdmin</servlet-name>
-		<servlet-class>com.exedio.copernica.admin.AdminServlet</servlet-class>
+		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
 		<init-param>
 			<param-name>model</param-name>
 			<param-value>com.exedio.cope.Main#hierarchyModel</param-value>

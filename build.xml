@@ -189,6 +189,7 @@
 	<target name="compile"
 				depends="runtime.compile,
 							instrument.compile,
+							console.compile,
 							copernica.compile, copernica.test.compile" />
 	
 	<target name="runtime.jar" depends="runtime.compile">
@@ -220,7 +221,7 @@
 		</ljar>
 	</target>
 	
-	<target name="jar" depends="runtime.jar, runtime.test.jar, instrument.jar, copernica.jar" />
+	<target name="jar" depends="runtime.jar, runtime.test.jar, instrument.jar, console.jar, copernica.jar" />
 	
 	<target name="dsmf.test.compile" depends="dsmf.compile, runtime.compile">
 		<ljavac srcdir="dsmf/testsrc" destdir="dsmf/build/testclasses">
@@ -387,6 +388,7 @@
 					<fileset dir="runtime/build/classes" />
 					<fileset dir="runtime/build/testclasses" />
 					<fileset dir="runtime/build/testmodelclasses" />
+					<fileset dir="console/build/classes" />
 					<fileset dir="copernica/build/classes" />
 				</copy>
 				
@@ -475,6 +477,45 @@
 	<target name="test" depends="dsmf.test, runtime.test, instrument.test" />
 	
 	
+	<target name="console.jspm" depends="jspm.taskdef">
+		<jspm>
+			<fileset dir="console/src" includes="**/*.jspm" />
+		</jspm>
+	</target>
+	
+	<target name="console.compile" depends="runtime.compile, console.jspm">
+		<ljavac srcdir="console/src" destdir="console/build/classes">
+			<classpath>
+				<pathelement location="runtime/build/classes" />
+				<pathelement location="lib/exedio-cops.jar" />
+				<pathelement location="lib/servlet-api.jar" />
+			</classpath>
+		</ljavac>
+		<copy todir="console/build/classes">
+			<fileset dir="console/src">
+				<include name="**/*.css" />
+				<include name="**/*.js" />
+				<include name="**/*.png" />
+			</fileset>
+		</copy>
+	</target>
+	
+	<target name="console.jar" depends="console.compile">
+		<ljar name="cope console" jarfile="console/build/exedio-cope-console.jar">
+			<fileset dir="console/build/classes" />
+		</ljar>
+	</target>
+	
+	<target name="console.clean" depends="catalina.home">
+		<delete dir="console/build" />
+		<delete>
+			<fileset dir="console/src">
+				<include name="**/*_Jspm.java" />
+			</fileset>
+		</delete>
+	</target>
+	
+	
 	<target name="copernica.jspm" depends="jspm.taskdef">
 		<jspm>
 			<fileset dir="copernica/src" includes="**/*.jspm" />
@@ -512,6 +553,7 @@
 				<copy todir="copernica/build/testwebapp-@{db}/WEB-INF/classes">
 					<fileset dir="runtime/build/classes" />
 					<fileset dir="runtime/build/testmodelclasses" />
+					<fileset dir="console/build/classes" />
 					<fileset dir="copernica/build/classes" />
 					<fileset dir="copernica/build/testclasses" />
 				</copy>
@@ -621,7 +663,7 @@
 		</delete>
 	</target>
 
-	<target name="clean" depends="dsmf.clean, runtime.clean, instrument.clean, copernica.clean" />
+	<target name="clean" depends="dsmf.clean, runtime.clean, instrument.clean, console.clean, copernica.clean" />
 	
 	
 	<target name="api">
@@ -669,6 +711,7 @@
 			<fileset file="runtime/servletsrc/com" includes="**/*.java" />
 			<fileset file="runtime/junitsrc/com" includes="**/*.java" />
 			<fileset file="instrument/src/com" includes="**/*.java" />
+			<fileset file="console/src/com" includes="**/*.java" />
 			<fileset file="copernica/src/com" includes="**/*.java" />
 			<classpath>
 				<pathelement location="lib/pcj.jar" />
@@ -695,7 +738,7 @@
 		</tar>
 	</target>
 	
-	<target name="jspm" depends="copernica.jspm, copernica.test.jspm" />
+	<target name="jspm" depends="console.jspm, copernica.jspm, copernica.test.jspm" />
 	
 	<target name="build"
 			depends="compile, test, jar, api,
