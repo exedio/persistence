@@ -390,7 +390,7 @@
 	<!-- instrument -->
 	
 	<target name="instrument.compile" depends="runtime.compile">
-		<ljavac srcdir="instrument/src" destdir="instrument/build/classes" includeAntRuntime="true">
+		<ljavac srcdir="instrument/src" destdir="build/instrument/classes" includeAntRuntime="true">
 			<classpath>
 				<pathelement location="build/runtime/classes" />
 				<pathelement location="lib/bsh-core.jar" />
@@ -399,8 +399,8 @@
 	</target>
 	
 	<target name="instrument.jar" depends="instrument.compile">
-		<ljar name="cope instrumentor" jarfile="instrument/build/exedio-cope-instrument.jar">
-			<fileset dir="instrument/build/classes" />
+		<ljar name="cope instrumentor" jarfile="build/instrument/exedio-cope-instrument.jar">
+			<fileset dir="build/instrument/classes" />
 		</ljar>
 	</target>
 	
@@ -411,7 +411,7 @@
 				<pathelement location="lib/servlet-api.jar" />
 				<pathelement location="lib/bsh-core.jar" />
 				<pathelement location="build/runtime/classes" />
-				<pathelement location="instrument/build/classes" />
+				<pathelement location="build/instrument/classes" />
 			</classpath>
 		</taskdef>
 	</target>
@@ -425,19 +425,19 @@
 	</target>
 	
 	<target name="instrument.test.compile" depends="instrument.test.instrument, runtime.compile, instrument.compile">
-		<ljavac srcdir="instrument/testsrc" destdir="instrument/build/testclasses">
+		<ljavac srcdir="instrument/testsrc" destdir="build/instrument/testclasses">
 			<classpath>
 				<pathelement location="build/runtime/classes" />
-				<pathelement location="instrument/build/classes" />
+				<pathelement location="build/instrument/classes" />
 				<pathelement location="lib/junit.jar" />
 			</classpath>
 		</ljavac>
 		<copy
 			file="instrument/testsrc/com/exedio/cope/instrument/Example.java"
-			todir="instrument/build/testclasses/com/exedio/cope/instrument" />
+			todir="build/instrument/testclasses/com/exedio/cope/instrument" />
 		<copy
 			file="instrument/testsrc15/com/exedio/cope/instrument/Example15.java"
-			todir="instrument/build/testclasses/com/exedio/cope/instrument" />
+			todir="build/instrument/testclasses/com/exedio/cope/instrument" />
 	</target>
 	
 	<target name="instrument.test.run"
@@ -445,8 +445,8 @@
 		<java classname="junit.textui.TestRunner" taskname="junit" fork="yes" failonerror="yes">
 			<classpath>
 				<pathelement location="build/runtime/classes" />
-				<pathelement location="instrument/build/classes" />
-				<pathelement location="instrument/build/testclasses" />
+				<pathelement location="build/instrument/classes" />
+				<pathelement location="build/instrument/testclasses" />
 				<pathelement location="lib/junit.jar" />
 				<pathelement location="lib/pcj.jar" />
 				<pathelement location="lib/servlet-api.jar" />
@@ -460,7 +460,7 @@
 	<target name="instrument.test" depends="instrument.test.run" />
 	
 	<target name="instrument.clean">
-		<delete dir="instrument/build" />
+		<delete dir="build/instrument" />
 	</target>
 	
 	<!-- console -->
@@ -764,7 +764,6 @@
 			<tarfileset file="${basedir}/build/runtime/build.number" />
 			<tarfileset dir="${basedir}">
 				<exclude name="build/**" />
-				<exclude name="instrument/build/**" />
 				<exclude name="copernica/build/**" />
 				<exclude name="api/**" />
 				<exclude name="**/*_Jspm.java" />
