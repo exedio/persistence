@@ -31,7 +31,7 @@ public class ResourceTest extends AbstractWebTest
 
 	public void testError() throws Exception
 	{
-		final String prefix = "http://localhost:8080/copetest-hsqldb/admin.jsp/";
+		final String prefix = "http://localhost:8080/copetest-hsqldb/console/";
 		final URL stylesheet = new URL(prefix + "admin.css");
 
 		final long stylesheetLastModified = assertURL(stylesheet);
