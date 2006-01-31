@@ -6,7 +6,7 @@
 	version="2.4">
 
 	<servlet>
-		<servlet-name>deleteAdmin</servlet-name>
+		<servlet-name>deleteConsole</servlet-name>
 		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
 		<init-param>
 			<param-name>model</param-name>
@@ -14,12 +14,12 @@
 		</init-param>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>deleteAdmin</servlet-name>
-		<url-pattern>/delete/admin/*</url-pattern>
+		<servlet-name>deleteConsole</servlet-name>
+		<url-pattern>/delete/console/*</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>
-		<servlet-name>dayAdmin</servlet-name>
+		<servlet-name>dayConsole</servlet-name>
 		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
 		<init-param>
 			<param-name>model</param-name>
@@ -27,12 +27,12 @@
 		</init-param>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>dayAdmin</servlet-name>
-		<url-pattern>/day/admin/*</url-pattern>
+		<servlet-name>dayConsole</servlet-name>
+		<url-pattern>/day/console/*</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>
-		<servlet-name>dataAdmin</servlet-name>
+		<servlet-name>dataConsole</servlet-name>
 		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
 		<init-param>
 			<param-name>model</param-name>
@@ -40,12 +40,12 @@
 		</init-param>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>dataAdmin</servlet-name>
-		<url-pattern>/data/admin/*</url-pattern>
+		<servlet-name>dataConsole</servlet-name>
+		<url-pattern>/data/console/*</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>
-		<servlet-name>hashAdmin</servlet-name>
+		<servlet-name>hashConsole</servlet-name>
 		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
 		<init-param>
 			<param-name>model</param-name>
@@ -53,12 +53,12 @@
 		</init-param>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>hashAdmin</servlet-name>
-		<url-pattern>/hash/admin/*</url-pattern>
+		<servlet-name>hashConsole</servlet-name>
+		<url-pattern>/hash/console/*</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>
-		<servlet-name>md5Admin</servlet-name>
+		<servlet-name>md5Console</servlet-name>
 		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
 		<init-param>
 			<param-name>model</param-name>
@@ -66,12 +66,12 @@
 		</init-param>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>md5Admin</servlet-name>
-		<url-pattern>/md5/admin/*</url-pattern>
+		<servlet-name>md5Console</servlet-name>
+		<url-pattern>/md5/console/*</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>
-		<servlet-name>vectorAdmin</servlet-name>
+		<servlet-name>vectorConsole</servlet-name>
 		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
 		<init-param>
 			<param-name>model</param-name>
@@ -79,12 +79,12 @@
 		</init-param>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>vectorAdmin</servlet-name>
-		<url-pattern>/vector/admin/*</url-pattern>
+		<servlet-name>vectorConsole</servlet-name>
+		<url-pattern>/vector/console/*</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>
-		<servlet-name>cacheIsolationAdmin</servlet-name>
+		<servlet-name>cacheIsolationConsole</servlet-name>
 		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
 		<init-param>
 			<param-name>model</param-name>
@@ -92,12 +92,12 @@
 		</init-param>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>cacheIsolationAdmin</servlet-name>
-		<url-pattern>/cacheIsolation/admin/*</url-pattern>
+		<servlet-name>cacheIsolationConsole</servlet-name>
+		<url-pattern>/cacheIsolation/console/*</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>
-		<servlet-name>nameAdmin</servlet-name>
+		<servlet-name>nameConsole</servlet-name>
 		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
 		<init-param>
 			<param-name>model</param-name>
@@ -105,12 +105,12 @@
 		</init-param>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>nameAdmin</servlet-name>
-		<url-pattern>/name/admin/*</url-pattern>
+		<servlet-name>nameConsole</servlet-name>
+		<url-pattern>/name/console/*</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>
-		<servlet-name>matchAdmin</servlet-name>
+		<servlet-name>matchConsole</servlet-name>
 		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
 		<init-param>
 			<param-name>model</param-name>
@@ -118,12 +118,12 @@
 		</init-param>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>matchAdmin</servlet-name>
-		<url-pattern>/match/admin/*</url-pattern>
+		<servlet-name>matchConsole</servlet-name>
+		<url-pattern>/match/console/*</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>
-		<servlet-name>hierarchyAdmin</servlet-name>
+		<servlet-name>hierarchyConsole</servlet-name>
 		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
 		<init-param>
 			<param-name>model</param-name>
@@ -131,8 +131,8 @@
 		</init-param>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>hierarchyAdmin</servlet-name>
-		<url-pattern>/hierarchy/admin/*</url-pattern>
+		<servlet-name>hierarchyConsole</servlet-name>
+		<url-pattern>/hierarchy/console/*</url-pattern>
 	</servlet-mapping>
 	
 	<description>Cope Test Application</description>
