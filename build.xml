@@ -336,7 +336,7 @@
 					<fileset dir="build/runtime/testclasses" />
 					<fileset dir="build/runtime/testmodelclasses" />
 					<fileset dir="build/console/classes" />
-					<fileset dir="copernica/build/classes" />
+					<fileset dir="build/copernica/classes" />
 				</copy>
 				
 				<copy todir="build/runtime/testwebapp-@{db}/WEB-INF/lib">
@@ -512,7 +512,7 @@
 	</target>
 	
 	<target name="copernica.compile" depends="runtime.compile, copernica.jspm">
-		<ljavac srcdir="copernica/src" destdir="copernica/build/classes">
+		<ljavac srcdir="copernica/src" destdir="build/copernica/classes">
 			<classpath>
 				<pathelement location="build/runtime/classes" />
 				<pathelement location="lib/exedio-cops.jar" />
@@ -520,7 +520,7 @@
 				<pathelement location="lib/commons-fileupload-1.0.jar" />
 			</classpath>
 		</ljavac>
-		<copy todir="copernica/build/classes">
+		<copy todir="build/copernica/classes">
 			<fileset dir="copernica/src">
 				<include name="**/*.css" />
 				<include name="**/*.js" />
@@ -530,8 +530,8 @@
 	</target>
 	
 	<target name="copernica.jar" depends="copernica.compile">
-		<ljar name="copernica" jarfile="copernica/build/exedio-copernica.jar">
-			<fileset dir="copernica/build/classes" />
+		<ljar name="copernica" jarfile="build/copernica/exedio-copernica.jar">
+			<fileset dir="build/copernica/classes" />
 		</ljar>
 	</target>
 	
@@ -543,17 +543,17 @@
 	
 	<target name="copernica.test.compile"
 				depends="runtime.compile, runtime.test.compile, copernica.compile, copernica.test.jspm">
-		<ljavac srcdir="copernica/testsrc" destdir="copernica/build/testclasses">
+		<ljavac srcdir="copernica/testsrc" destdir="build/copernica/testclasses">
 			<classpath>
 				<pathelement location="build/runtime/classes" />
 				<pathelement location="build/runtime/testmodelclasses" />
-				<pathelement location="copernica/build/classes" />
+				<pathelement location="build/copernica/classes" />
 				<pathelement location="lib/exedio-cops.jar" />
 				<pathelement location="lib/junit.jar" />
 				<pathelement location="lib/servlet-api.jar" />
 			</classpath>
 		</ljavac>
-		<copy todir="copernica/build/testclasses/com/exedio/copernica">
+		<copy todir="build/copernica/testclasses/com/exedio/copernica">
 			<fileset dir="copernica/testresources" />
 		</copy>
 	</target>
@@ -561,17 +561,17 @@
 	<target name="copernica.testwebapp" depends="copernica.compile, copernica.test.compile">
 		<foreachdb message="Using" skipSwitch="copernica.testwebapp">
 			<body>
-				<mkdir dir="copernica/build/testwebapp-@{db}" />
+				<mkdir dir="build/copernica/testwebapp-@{db}" />
 				
-				<copy todir="copernica/build/testwebapp-@{db}/WEB-INF/classes">
+				<copy todir="build/copernica/testwebapp-@{db}/WEB-INF/classes">
 					<fileset dir="build/runtime/classes" />
 					<fileset dir="build/runtime/testmodelclasses" />
 					<fileset dir="build/console/classes" />
-					<fileset dir="copernica/build/classes" />
-					<fileset dir="copernica/build/testclasses" />
+					<fileset dir="build/copernica/classes" />
+					<fileset dir="build/copernica/testclasses" />
 				</copy>
 				
-				<copy todir="copernica/build/testwebapp-@{db}/WEB-INF/lib">
+				<copy todir="build/copernica/testwebapp-@{db}/WEB-INF/lib">
 					<fileset file="lib/pcj.jar" />
 					<fileset file="lib/commons-collections.jar" />
 					<fileset file="lib/exedio-cops.jar" />
@@ -579,20 +579,20 @@
 				</copy>
 				
 				<path id="copernica.webdatadir.@{db.file}.path">
-					<pathelement location="copernica/build/testwebapp-@{db}-data" />
+					<pathelement location="build/copernica/testwebapp-@{db}-data" />
 				</path>
 				<pathconvert targetos="unix" property="copernica.webdatadir.@{db.file}" refid="copernica.webdatadir.@{db.file}.path" />
 				
-				<copy tofile="copernica/build/testwebapp-@{db}/WEB-INF/cope.properties"
+				<copy tofile="build/copernica/testwebapp-@{db}/WEB-INF/cope.properties"
 						file="@{db.file}">
 					<filterset>
 						<filter token="DATADIR_PATH" value="${copernica.webdatadir.@{db.file}}" />
 					</filterset>
 				</copy>
-				<copy todir="copernica/build/testwebapp-@{db}/WEB-INF/"
+				<copy todir="build/copernica/testwebapp-@{db}/WEB-INF/"
 						file="copernica/web.xml" />
-				<mkdir dir="copernica/build/testwebapp-@{db}-data" />
-				<touch file="copernica/build/testwebapp-@{db}/WEB-INF/web.xml" />
+				<mkdir dir="build/copernica/testwebapp-@{db}-data" />
+				<touch file="build/copernica/testwebapp-@{db}/WEB-INF/web.xml" />
 			</body>
 		</foreachdb>
 	</target>
@@ -611,7 +611,7 @@
 	</target>
 	
 	<target name="copernica.webtest.compile">
-		<ljavac srcdir="copernica/webtestsrc" destdir="copernica/build/webtestclasses">
+		<ljavac srcdir="copernica/webtestsrc" destdir="build/copernica/webtestclasses">
 			<classpath>
 				<fileset dir="lib/jwebunit">
 					<include name="*.jar" />
@@ -624,7 +624,7 @@
 		<java classname="junit.textui.TestRunner" taskname="jwebunit"
 				failonerror="yes" fork="yes">
 			<classpath>
-				<pathelement location="copernica/build/webtestclasses" />
+				<pathelement location="build/copernica/webtestclasses" />
 				<fileset dir="lib/jwebunit">
 					<include name="*.jar" />
 				</fileset> 
@@ -635,7 +635,7 @@
 	</target>
 
 	<target name="copernica.clean" depends="catalina.home">
-		<delete dir="copernica/build" />
+		<delete dir="build/copernica" />
 		<delete>
 			<fileset dir="copernica/src">
 				<include name="**/*_Jspm.java" />
@@ -764,7 +764,6 @@
 			<tarfileset file="${basedir}/build/runtime/build.number" />
 			<tarfileset dir="${basedir}">
 				<exclude name="build/**" />
-				<exclude name="copernica/build/**" />
 				<exclude name="api/**" />
 				<exclude name="**/*_Jspm.java" />
 				
