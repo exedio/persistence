@@ -196,39 +196,6 @@
 							runtime.servlet.compile,
 							runtime.junit.compile" />
 	
-	<target name="instrument.compile" depends="runtime.compile">
-		<ljavac srcdir="instrument/src" destdir="instrument/build/classes" includeAntRuntime="true">
-			<classpath>
-				<pathelement location="runtime/build/classes" />
-				<pathelement location="lib/bsh-core.jar" />
-			</classpath>
-		</ljavac>
-	</target>
-	
-	<target name="copernica.compile" depends="runtime.compile, copernica.jspm">
-		<ljavac srcdir="copernica/src" destdir="copernica/build/classes">
-			<classpath>
-				<pathelement location="runtime/build/classes" />
-				<pathelement location="lib/exedio-cops.jar" />
-				<pathelement location="lib/servlet-api.jar" />
-				<pathelement location="lib/commons-fileupload-1.0.jar" />
-			</classpath>
-		</ljavac>
-		<copy todir="copernica/build/classes">
-			<fileset dir="copernica/src">
-				<include name="**/*.css" />
-				<include name="**/*.js" />
-				<include name="**/*.png" />
-			</fileset>
-		</copy>
-	</target>
-	
-	<target name="compile"
-				depends="runtime.compile,
-							instrument.compile,
-							console.compile,
-							copernica.compile, copernica.test.compile" />
-	
 	<target name="runtime.jar" depends="runtime.compile">
 		<copy file="runtime/build/testprotocol.properties"
 				todir="runtime/build/classes/com/exedio/cope"
@@ -236,40 +203,6 @@
 		<ljar name="cope" jarfile="runtime/build/exedio-cope.jar">
 			<fileset dir="runtime/build/classes" />
 		</ljar>
-	</target>
-	
-	<target name="runtime.test.jar" depends="dsmf.test.compile, runtime.test.compile">
-		<ljar name="cope test" jarfile="runtime/build/exedio-cope-test.jar">
-			<fileset dir="dsmf/build/testclasses" />
-			<fileset dir="runtime/build/testclasses" />
-			<fileset dir="runtime/build/testmodelclasses" />
-		</ljar>
-	</target>
-	
-	<target name="instrument.jar" depends="instrument.compile">
-		<ljar name="cope instrumentor" jarfile="instrument/build/exedio-cope-instrument.jar">
-			<fileset dir="instrument/build/classes" />
-		</ljar>
-	</target>
-	
-	<target name="copernica.jar" depends="copernica.compile">
-		<ljar name="copernica" jarfile="copernica/build/exedio-copernica.jar">
-			<fileset dir="copernica/build/classes" />
-		</ljar>
-	</target>
-	
-	<target name="jar" depends="runtime.jar, runtime.test.jar, instrument.jar, console.jar, copernica.jar" />
-	
-	<target name="instrument.taskdef" depends="runtime.compile, instrument.compile">
-		<taskdef name="instrument" classname="com.exedio.cope.instrument.AntTask">
-			<classpath>
-				<pathelement location="lib/pcj.jar" />
-				<pathelement location="lib/servlet-api.jar" />
-				<pathelement location="lib/bsh-core.jar" />
-				<pathelement location="runtime/build/classes" />
-				<pathelement location="instrument/build/classes" />
-			</classpath>
-		</taskdef>
 	</target>
 	
 	<target name="runtime.testmodel.instrument" depends="instrument.taskdef">
@@ -295,7 +228,7 @@
 	</target>
 	
 	<target name="runtime.test.compile"
-				depends="runtime.testmodel.compile, runtime.junit.compile">
+			depends="runtime.testmodel.compile, runtime.junit.compile">
 		<ljavac srcdir="runtime/testsrc" destdir="runtime/build/testclasses">
 			<classpath>
 				<pathelement location="runtime/build/classes" />
@@ -304,6 +237,14 @@
 				<pathelement location="lib/junit.jar" />
 			</classpath>
 		</ljavac>
+	</target>
+	
+	<target name="runtime.test.jar" depends="dsmf.test.compile, runtime.test.compile">
+		<ljar name="cope test" jarfile="runtime/build/exedio-cope-test.jar">
+			<fileset dir="dsmf/build/testclasses" />
+			<fileset dir="runtime/build/testclasses" />
+			<fileset dir="runtime/build/testmodelclasses" />
+		</ljar>
 	</target>
 	
 	<target name="runtime.test.run" depends="runtime.test.compile">
@@ -354,7 +295,7 @@
 	</target>
 	
 	<target name="runtime.test" depends="runtime.test.run" />
-
+	
 	<target name="runtime.test.teardown" depends="runtime.compile, runtime.test.compile">
 		<foreachdb message="Tearing down" skipSwitch="runtime.teardown">
 			<body>
@@ -363,7 +304,7 @@
 						tofile="runtime/build/teardown.@{db}/cope.properties">
 					<filterset>
 						<filter token="DATADIR_PATH"
-								  value="runtime/build/teardown.@{db}/data" />
+								value="runtime/build/teardown.@{db}/data" />
 					</filterset>
 				</copy>
 				<java classname="com.exedio.cope.Main" taskname="tear down @{db}"
@@ -378,14 +319,12 @@
 						<pathelement location="lib/@{db.driver}" />
 					</classpath>
 					<sysproperty key="com.exedio.cope.properties"
-									 file="runtime/build/teardown.@{db}/cope.properties" />
+									file="runtime/build/teardown.@{db}/cope.properties" />
 					<assertions><enable/></assertions>
 				</java>
 			</body>
 		</foreachdb>
 	</target>
-
-	<target name="teardown" depends="runtime.test.teardown" />
 
 	<target name="runtime.testwebapp" depends="runtime.compile, runtime.test.compile, runtime.testmodel.compile, copernica.compile">
 		<foreachdb message="Using" skipSwitch="runtime.testwebapp">
@@ -425,7 +364,7 @@
 			</body>
 		</foreachdb>
 	</target>
-
+	
 	<target name="runtime.tomcat" depends="runtime.testwebapp, catalina.home">
 		<foreachdb message="Using" skipSwitch="runtime.tomcat">
 			<body>
@@ -439,6 +378,78 @@
 		</foreachdb>
 	</target>
 	
+	<target name="runtime.clean" depends="catalina.home">
+		<delete dir="runtime/build" />
+		<delete>
+			<fileset dir="${catalina.home}">
+				<include name="conf/Catalina/localhost/copelibtest-*.xml" />
+			</fileset>
+		</delete>
+	</target>
+	
+	<!-- instrument -->
+	
+	<target name="instrument.compile" depends="runtime.compile">
+		<ljavac srcdir="instrument/src" destdir="instrument/build/classes" includeAntRuntime="true">
+			<classpath>
+				<pathelement location="runtime/build/classes" />
+				<pathelement location="lib/bsh-core.jar" />
+			</classpath>
+		</ljavac>
+	</target>
+	
+	<target name="copernica.compile" depends="runtime.compile, copernica.jspm">
+		<ljavac srcdir="copernica/src" destdir="copernica/build/classes">
+			<classpath>
+				<pathelement location="runtime/build/classes" />
+				<pathelement location="lib/exedio-cops.jar" />
+				<pathelement location="lib/servlet-api.jar" />
+				<pathelement location="lib/commons-fileupload-1.0.jar" />
+			</classpath>
+		</ljavac>
+		<copy todir="copernica/build/classes">
+			<fileset dir="copernica/src">
+				<include name="**/*.css" />
+				<include name="**/*.js" />
+				<include name="**/*.png" />
+			</fileset>
+		</copy>
+	</target>
+	
+	<target name="compile"
+				depends="runtime.compile,
+							instrument.compile,
+							console.compile,
+							copernica.compile, copernica.test.compile" />
+	
+	<target name="instrument.jar" depends="instrument.compile">
+		<ljar name="cope instrumentor" jarfile="instrument/build/exedio-cope-instrument.jar">
+			<fileset dir="instrument/build/classes" />
+		</ljar>
+	</target>
+	
+	<target name="copernica.jar" depends="copernica.compile">
+		<ljar name="copernica" jarfile="copernica/build/exedio-copernica.jar">
+			<fileset dir="copernica/build/classes" />
+		</ljar>
+	</target>
+	
+	<target name="jar" depends="runtime.jar, runtime.test.jar, instrument.jar, console.jar, copernica.jar" />
+	
+	<target name="instrument.taskdef" depends="runtime.compile, instrument.compile">
+		<taskdef name="instrument" classname="com.exedio.cope.instrument.AntTask">
+			<classpath>
+				<pathelement location="lib/pcj.jar" />
+				<pathelement location="lib/servlet-api.jar" />
+				<pathelement location="lib/bsh-core.jar" />
+				<pathelement location="runtime/build/classes" />
+				<pathelement location="instrument/build/classes" />
+			</classpath>
+		</taskdef>
+	</target>
+	
+	<target name="teardown" depends="runtime.test.teardown" />
+
 	<target name="instrument.test.instrument" depends="instrument.taskdef">
 		<instrument verbose="false">
 			<fileset dir="instrument/testsrc/com/exedio/cope/instrument/testmodel">
@@ -639,15 +650,6 @@
 	
 	<target name="tomcat" depends="runtime.tomcat, copernica.tomcat" />
 	
-	<target name="runtime.clean" depends="catalina.home">
-		<delete dir="runtime/build" />
-		<delete>
-			<fileset dir="${catalina.home}">
-				<include name="conf/Catalina/localhost/copelibtest-*.xml" />
-			</fileset>
-		</delete>
-	</target>
-
 	<target name="instrument.clean">
 		<delete dir="instrument/build" />
 	</target>
