@@ -102,13 +102,13 @@
 	<!-- dsmf -->
 	
 	<target name="dsmf.compile">
-		<ljavac srcdir="dsmf/src" destdir="runtime/build/classes" />
+		<ljavac srcdir="dsmf/src" destdir="build/runtime/classes" />
 	</target>
 	
 	<target name="dsmf.test.compile" depends="dsmf.compile, runtime.compile">
 		<ljavac srcdir="dsmf/testsrc" destdir="dsmf/build/testclasses">
 			<classpath>
-				<pathelement location="runtime/build/classes" />
+				<pathelement location="build/runtime/classes" />
 				<pathelement location="lib/junit.jar" />
 			</classpath>
 		</ljavac>
@@ -119,7 +119,7 @@
 			<body>
 				<java classname="junit.textui.TestRunner" taskname="junit @{db}" fork="yes" failonerror="yes">
 					<classpath>
-						<pathelement location="runtime/build/classes" />
+						<pathelement location="build/runtime/classes" />
 						<pathelement location="dsmf/build/testclasses" />
 						<pathelement location="lib/junit.jar" />
 						<pathelement location="lib/@{db.driver}" />
@@ -141,7 +141,7 @@
 	<!-- runtime -->
 	
 	<target name="runtime.core.compile" depends="dsmf.compile">
-		<ljavac srcdir="runtime/src" destdir="runtime/build/classes">
+		<ljavac srcdir="runtime/src" destdir="build/runtime/classes">
 			<classpath>
 				<pathelement location="lib/pcj.jar" />
 				<pathelement location="lib/commons-collections.jar" />
@@ -159,7 +159,7 @@
 				<property file="@{driver.file}" prefix="@{driver.file}." />
 				<echo message="compiling driver ${@{driver.file}.name} with ${@{driver.file}.jar}." />
 				<!--echo message="file=@{driver.file},driver=${@{driver.file}.name},jar=${@{driver.file}.jar}." /-->
-				<ljavac srcdir="runtime/${@{driver.file}.name}src" destdir="runtime/build/classes">
+				<ljavac srcdir="runtime/${@{driver.file}.name}src" destdir="build/runtime/classes">
 					<classpath>
 						<pathelement location="lib/pcj.jar" />
 						<pathelement location="lib/${@{driver.file}.jar}" />
@@ -170,11 +170,11 @@
 	</target>
 
 	<target name="runtime.pattern.compile" depends="runtime.core.compile">
-		<ljavac srcdir="runtime/patternsrc" destdir="runtime/build/classes" />
+		<ljavac srcdir="runtime/patternsrc" destdir="build/runtime/classes" />
 	</target>
 	
 	<target name="runtime.servlet.compile" depends="runtime.core.compile">
-		<ljavac srcdir="runtime/servletsrc" destdir="runtime/build/classes">
+		<ljavac srcdir="runtime/servletsrc" destdir="build/runtime/classes">
 			<classpath>
 				<pathelement location="lib/servlet-api.jar" />
 			</classpath>
@@ -182,7 +182,7 @@
 	</target>
 	
 	<target name="runtime.junit.compile" depends="runtime.core.compile">
-		<ljavac srcdir="runtime/junitsrc" destdir="runtime/build/classes">
+		<ljavac srcdir="runtime/junitsrc" destdir="build/runtime/classes">
 			<classpath>
 				<pathelement location="lib/junit.jar" />
 			</classpath>
@@ -197,11 +197,11 @@
 							runtime.junit.compile" />
 	
 	<target name="runtime.jar" depends="runtime.compile">
-		<copy file="runtime/build/testprotocol.properties"
-				todir="runtime/build/classes/com/exedio/cope"
+		<copy file="build/runtime/testprotocol.properties"
+				todir="build/runtime/classes/com/exedio/cope"
 				failonerror="false" />
-		<ljar name="cope" jarfile="runtime/build/exedio-cope.jar">
-			<fileset dir="runtime/build/classes" />
+		<ljar name="cope" jarfile="build/runtime/exedio-cope.jar">
+			<fileset dir="build/runtime/classes" />
 		</ljar>
 	</target>
 	
@@ -219,9 +219,9 @@
 	</target>
 	
 	<target name="runtime.testmodel.compile" depends="runtime.testmodel.instrument">
-		<ljavac srcdir="runtime/testmodelsrc" destdir="runtime/build/testmodelclasses">
+		<ljavac srcdir="runtime/testmodelsrc" destdir="build/runtime/testmodelclasses">
 			<classpath>
-				<pathelement location="runtime/build/classes" />
+				<pathelement location="build/runtime/classes" />
 				<pathelement location="lib/servlet-api.jar" />
 			</classpath>
 		</ljavac>
@@ -229,10 +229,10 @@
 	
 	<target name="runtime.test.compile"
 			depends="runtime.testmodel.compile, runtime.junit.compile">
-		<ljavac srcdir="runtime/testsrc" destdir="runtime/build/testclasses">
+		<ljavac srcdir="runtime/testsrc" destdir="build/runtime/testclasses">
 			<classpath>
-				<pathelement location="runtime/build/classes" />
-				<pathelement location="runtime/build/testmodelclasses" />
+				<pathelement location="build/runtime/classes" />
+				<pathelement location="build/runtime/testmodelclasses" />
 				<pathelement location="lib/servlet-api.jar" />
 				<pathelement location="lib/junit.jar" />
 			</classpath>
@@ -240,29 +240,29 @@
 	</target>
 	
 	<target name="runtime.test.jar" depends="dsmf.test.compile, runtime.test.compile">
-		<ljar name="cope test" jarfile="runtime/build/exedio-cope-test.jar">
+		<ljar name="cope test" jarfile="build/runtime/exedio-cope-test.jar">
 			<fileset dir="dsmf/build/testclasses" />
-			<fileset dir="runtime/build/testclasses" />
-			<fileset dir="runtime/build/testmodelclasses" />
+			<fileset dir="build/runtime/testclasses" />
+			<fileset dir="build/runtime/testmodelclasses" />
 		</ljar>
 	</target>
 	
 	<target name="runtime.test.run" depends="runtime.test.compile">
-		<delete file="runtime/build/testprotocol.properties" />
+		<delete file="build/runtime/testprotocol.properties" />
 		<foreachdb message="Testing" skipSwitch="runtime.test">
 			<body>
-				<mkdir dir="runtime/build/test.@{db}/data" />
+				<mkdir dir="build/runtime/test.@{db}/data" />
 				<copy file="@{db.file}"
-						tofile="runtime/build/test.@{db}/cope.properties">
+						tofile="build/runtime/test.@{db}/cope.properties">
 					<filterset>
-						<filter token="DATADIR_PATH" value="runtime/build/test.@{db}/data" />
+						<filter token="DATADIR_PATH" value="build/runtime/test.@{db}/data" />
 					</filterset>
 				</copy>
 				<!--nbjpdastart addressproperty="jpda.address" name="cope" transport="dt_socket">
 					<classpath>
-						<pathelement location="runtime/build/classes" />
-						<pathelement location="runtime/build/testmodelclasses" />
-						<pathelement location="runtime/build/testclasses" />
+						<pathelement location="build/runtime/classes" />
+						<pathelement location="build/runtime/testmodelclasses" />
+						<pathelement location="build/runtime/testclasses" />
 						<pathelement location="lib/junit.jar" />
 						<pathelement location="lib/pcj.jar" />
 						<pathelement location="lib/commons-collections.jar" />
@@ -271,9 +271,9 @@
 				</nbjpdastart-->
 				<java classname="junit.textui.TestRunner" taskname="junit @{db}" fork="yes" failonerror="yes">
 					<classpath>
-						<pathelement location="runtime/build/classes" />
-						<pathelement location="runtime/build/testmodelclasses" />
-						<pathelement location="runtime/build/testclasses" />
+						<pathelement location="build/runtime/classes" />
+						<pathelement location="build/runtime/testmodelclasses" />
+						<pathelement location="build/runtime/testclasses" />
 						<pathelement location="lib/junit.jar" />
 						<pathelement location="lib/pcj.jar" />
 						<pathelement location="lib/commons-collections.jar" />
@@ -281,8 +281,8 @@
 						<pathelement location="lib/@{db.driver}" />
 					</classpath>
 					<arg value="com.exedio.cope.PackageTest" />
-					<sysproperty key="com.exedio.cope.properties" file="runtime/build/test.@{db}/cope.properties" />
-					<sysproperty key="com.exedio.cope.testprotocol.file" file="runtime/build/testprotocol.properties" />
+					<sysproperty key="com.exedio.cope.properties" file="build/runtime/test.@{db}/cope.properties" />
+					<sysproperty key="com.exedio.cope.testprotocol.file" file="build/runtime/testprotocol.properties" />
 					<sysproperty key="com.exedio.cope.testprotocol.prefix" value="@{db}" />
 					<!--jvmarg value="-Xdebug"/>
 					<jvmarg value="-Xnoagent"/>
@@ -299,27 +299,27 @@
 	<target name="runtime.test.teardown" depends="runtime.compile, runtime.test.compile">
 		<foreachdb message="Tearing down" skipSwitch="runtime.teardown">
 			<body>
-				<mkdir dir="runtime/build/teardown.@{db}/data" />
+				<mkdir dir="build/runtime/teardown.@{db}/data" />
 				<copy file="@{db.file}"
-						tofile="runtime/build/teardown.@{db}/cope.properties">
+						tofile="build/runtime/teardown.@{db}/cope.properties">
 					<filterset>
 						<filter token="DATADIR_PATH"
-								value="runtime/build/teardown.@{db}/data" />
+								value="build/runtime/teardown.@{db}/data" />
 					</filterset>
 				</copy>
 				<java classname="com.exedio.cope.Main" taskname="tear down @{db}"
 						fork="yes" failonerror="yes">
 					<classpath>
-						<pathelement location="runtime/build/classes" />
-						<pathelement location="runtime/build/testmodelclasses" />
-						<pathelement location="runtime/build/testclasses" />
+						<pathelement location="build/runtime/classes" />
+						<pathelement location="build/runtime/testmodelclasses" />
+						<pathelement location="build/runtime/testclasses" />
 						<pathelement location="lib/pcj.jar" />
 						<pathelement location="lib/commons-collections.jar" />
 						<pathelement location="lib/servlet-api.jar" />
 						<pathelement location="lib/@{db.driver}" />
 					</classpath>
 					<sysproperty key="com.exedio.cope.properties"
-									file="runtime/build/teardown.@{db}/cope.properties" />
+									file="build/runtime/teardown.@{db}/cope.properties" />
 					<assertions><enable/></assertions>
 				</java>
 			</body>
@@ -329,17 +329,17 @@
 	<target name="runtime.testwebapp" depends="runtime.compile, runtime.test.compile, runtime.testmodel.compile, copernica.compile">
 		<foreachdb message="Using" skipSwitch="runtime.testwebapp">
 			<body>
-				<mkdir dir="runtime/build/testwebapp-@{db}" />
+				<mkdir dir="build/runtime/testwebapp-@{db}" />
 				
-				<copy todir="runtime/build/testwebapp-@{db}/WEB-INF/classes">
-					<fileset dir="runtime/build/classes" />
-					<fileset dir="runtime/build/testclasses" />
-					<fileset dir="runtime/build/testmodelclasses" />
+				<copy todir="build/runtime/testwebapp-@{db}/WEB-INF/classes">
+					<fileset dir="build/runtime/classes" />
+					<fileset dir="build/runtime/testclasses" />
+					<fileset dir="build/runtime/testmodelclasses" />
 					<fileset dir="console/build/classes" />
 					<fileset dir="copernica/build/classes" />
 				</copy>
 				
-				<copy todir="runtime/build/testwebapp-@{db}/WEB-INF/lib">
+				<copy todir="build/runtime/testwebapp-@{db}/WEB-INF/lib">
 					<fileset file="lib/pcj.jar" />
 					<fileset file="lib/commons-collections.jar" />
 					<fileset file="lib/exedio-cops.jar" />
@@ -347,20 +347,20 @@
 				</copy>
 				
 				<path id="runtime.webdatadir.@{db.file}.path">
-					<pathelement location="runtime/build/testwebapp-@{db}-data" />
+					<pathelement location="build/runtime/testwebapp-@{db}-data" />
 				</path>
 				<pathconvert targetos="unix" property="runtime.webdatadir.@{db.file}" refid="runtime.webdatadir.@{db.file}.path" />
 				
-				<copy tofile="runtime/build/testwebapp-@{db}/WEB-INF/cope.properties"
+				<copy tofile="build/runtime/testwebapp-@{db}/WEB-INF/cope.properties"
 						file="@{db.file}">
 					<filterset>
 						<filter token="DATADIR_PATH" value="${runtime.webdatadir.@{db.file}}" />
 					</filterset>
 				</copy>
-				<copy todir="runtime/build/testwebapp-@{db}/WEB-INF/"
+				<copy todir="build/runtime/testwebapp-@{db}/WEB-INF/"
 						file="runtime/web.xml" />
-				<mkdir dir="runtime/build/testwebapp-@{db}-data" />
-				<touch file="runtime/build/testwebapp-@{db}/WEB-INF/web.xml" />
+				<mkdir dir="build/runtime/testwebapp-@{db}-data" />
+				<touch file="build/runtime/testwebapp-@{db}/WEB-INF/web.xml" />
 			</body>
 		</foreachdb>
 	</target>
@@ -379,7 +379,7 @@
 	</target>
 	
 	<target name="runtime.clean" depends="catalina.home">
-		<delete dir="runtime/build" />
+		<delete dir="build/runtime" />
 		<delete>
 			<fileset dir="${catalina.home}">
 				<include name="conf/Catalina/localhost/copelibtest-*.xml" />
@@ -392,7 +392,7 @@
 	<target name="instrument.compile" depends="runtime.compile">
 		<ljavac srcdir="instrument/src" destdir="instrument/build/classes" includeAntRuntime="true">
 			<classpath>
-				<pathelement location="runtime/build/classes" />
+				<pathelement location="build/runtime/classes" />
 				<pathelement location="lib/bsh-core.jar" />
 			</classpath>
 		</ljavac>
@@ -410,7 +410,7 @@
 				<pathelement location="lib/pcj.jar" />
 				<pathelement location="lib/servlet-api.jar" />
 				<pathelement location="lib/bsh-core.jar" />
-				<pathelement location="runtime/build/classes" />
+				<pathelement location="build/runtime/classes" />
 				<pathelement location="instrument/build/classes" />
 			</classpath>
 		</taskdef>
@@ -427,7 +427,7 @@
 	<target name="instrument.test.compile" depends="instrument.test.instrument, runtime.compile, instrument.compile">
 		<ljavac srcdir="instrument/testsrc" destdir="instrument/build/testclasses">
 			<classpath>
-				<pathelement location="runtime/build/classes" />
+				<pathelement location="build/runtime/classes" />
 				<pathelement location="instrument/build/classes" />
 				<pathelement location="lib/junit.jar" />
 			</classpath>
@@ -444,7 +444,7 @@
 				depends="runtime.compile, instrument.compile, instrument.test.compile">
 		<java classname="junit.textui.TestRunner" taskname="junit" fork="yes" failonerror="yes">
 			<classpath>
-				<pathelement location="runtime/build/classes" />
+				<pathelement location="build/runtime/classes" />
 				<pathelement location="instrument/build/classes" />
 				<pathelement location="instrument/build/testclasses" />
 				<pathelement location="lib/junit.jar" />
@@ -474,7 +474,7 @@
 	<target name="console.compile" depends="runtime.compile, console.jspm">
 		<ljavac srcdir="console/src" destdir="console/build/classes">
 			<classpath>
-				<pathelement location="runtime/build/classes" />
+				<pathelement location="build/runtime/classes" />
 				<pathelement location="lib/exedio-cops.jar" />
 				<pathelement location="lib/servlet-api.jar" />
 			</classpath>
@@ -514,7 +514,7 @@
 	<target name="copernica.compile" depends="runtime.compile, copernica.jspm">
 		<ljavac srcdir="copernica/src" destdir="copernica/build/classes">
 			<classpath>
-				<pathelement location="runtime/build/classes" />
+				<pathelement location="build/runtime/classes" />
 				<pathelement location="lib/exedio-cops.jar" />
 				<pathelement location="lib/servlet-api.jar" />
 				<pathelement location="lib/commons-fileupload-1.0.jar" />
@@ -545,8 +545,8 @@
 				depends="runtime.compile, runtime.test.compile, copernica.compile, copernica.test.jspm">
 		<ljavac srcdir="copernica/testsrc" destdir="copernica/build/testclasses">
 			<classpath>
-				<pathelement location="runtime/build/classes" />
-				<pathelement location="runtime/build/testmodelclasses" />
+				<pathelement location="build/runtime/classes" />
+				<pathelement location="build/runtime/testmodelclasses" />
 				<pathelement location="copernica/build/classes" />
 				<pathelement location="lib/exedio-cops.jar" />
 				<pathelement location="lib/junit.jar" />
@@ -564,8 +564,8 @@
 				<mkdir dir="copernica/build/testwebapp-@{db}" />
 				
 				<copy todir="copernica/build/testwebapp-@{db}/WEB-INF/classes">
-					<fileset dir="runtime/build/classes" />
-					<fileset dir="runtime/build/testmodelclasses" />
+					<fileset dir="build/runtime/classes" />
+					<fileset dir="build/runtime/testmodelclasses" />
 					<fileset dir="console/build/classes" />
 					<fileset dir="copernica/build/classes" />
 					<fileset dir="copernica/build/testclasses" />
@@ -675,7 +675,9 @@
 	
 	<target name="webtest" depends="copernica.webtest" />
 	
-	<target name="clean" depends="dsmf.clean, runtime.clean, instrument.clean, console.clean, copernica.clean" />
+	<target name="clean" depends="dsmf.clean, runtime.clean, instrument.clean, console.clean, copernica.clean">
+		<delete dir="build" />
+	</target>
 	
 	<target name="api">
 
@@ -742,8 +744,8 @@
 	</target>
 
 	<target name="api.zip" depends="api">
-		<mkdir dir="runtime/build" />
-		<tar destfile="runtime/build/exedio-cope-api.tar.gz"
+		<mkdir dir="build/runtime" />
+		<tar destfile="build/runtime/exedio-cope-api.tar.gz"
 			  compression="gzip">
 			<tarfileset dir="${basedir}/api" />
 		</tar>
@@ -755,14 +757,14 @@
 						copernica.webtest.compile" />
 	
 	<target name="dist.tar">
-		<mkdir dir="runtime/build" />
-		<echo file="runtime/build/build.number" message="${build.tag}" />
-		<tar destfile="runtime/build/exedio-cope-src.tar.gz"
+		<mkdir dir="build/runtime" />
+		<echo file="build/runtime/build.number" message="${build.tag}" />
+		<tar destfile="build/runtime/exedio-cope-src.tar.gz"
 			  compression="gzip">
-			<tarfileset file="${basedir}/runtime/build/build.number" />
+			<tarfileset file="${basedir}/build/runtime/build.number" />
 			<tarfileset dir="${basedir}">
 				<exclude name="dsmf/build/**" />
-				<exclude name="runtime/build/**" />
+				<exclude name="build/runtime/**" />
 				<exclude name="instrument/build/**" />
 				<exclude name="copernica/build/**" />
 				<exclude name="api/**" />
@@ -786,12 +788,12 @@
 	</target>
 	
 	<target name="dist.test" depends="dist.tar">
-		<delete dir="runtime/build/dist-test" />
-		<mkdir dir="runtime/build/dist-test" />
-		<untar src="runtime/build/exedio-cope-src.tar.gz"
-				 dest="runtime/build/dist-test"
+		<delete dir="build/runtime/dist-test" />
+		<mkdir dir="build/runtime/dist-test" />
+		<untar src="build/runtime/exedio-cope-src.tar.gz"
+				 dest="build/runtime/dist-test"
 				 compression="gzip" />
-		<ant dir="runtime/build/dist-test" target="build" />
+		<ant dir="build/runtime/dist-test" target="build" />
 	</target>
 	
 	<target name="dist" depends="dist.tar, dist.test" />
