@@ -106,7 +106,7 @@
 	</target>
 	
 	<target name="dsmf.test.compile" depends="dsmf.compile, runtime.compile">
-		<ljavac srcdir="dsmf/testsrc" destdir="dsmf/build/testclasses">
+		<ljavac srcdir="dsmf/testsrc" destdir="build/dsmf/testclasses">
 			<classpath>
 				<pathelement location="build/runtime/classes" />
 				<pathelement location="lib/junit.jar" />
@@ -120,7 +120,7 @@
 				<java classname="junit.textui.TestRunner" taskname="junit @{db}" fork="yes" failonerror="yes">
 					<classpath>
 						<pathelement location="build/runtime/classes" />
-						<pathelement location="dsmf/build/testclasses" />
+						<pathelement location="build/dsmf/testclasses" />
 						<pathelement location="lib/junit.jar" />
 						<pathelement location="lib/@{db.driver}" />
 					</classpath>
@@ -135,7 +135,7 @@
 	<target name="dsmf.test" depends="dsmf.test.run" />
 	
 	<target name="dsmf.clean">
-		<delete dir="dsmf/build" />
+		<delete dir="build/dsmf" />
 	</target>
 	
 	<!-- runtime -->
@@ -241,7 +241,7 @@
 	
 	<target name="runtime.test.jar" depends="dsmf.test.compile, runtime.test.compile">
 		<ljar name="cope test" jarfile="build/runtime/exedio-cope-test.jar">
-			<fileset dir="dsmf/build/testclasses" />
+			<fileset dir="build/dsmf/testclasses" />
 			<fileset dir="build/runtime/testclasses" />
 			<fileset dir="build/runtime/testmodelclasses" />
 		</ljar>
@@ -763,8 +763,7 @@
 			  compression="gzip">
 			<tarfileset file="${basedir}/build/runtime/build.number" />
 			<tarfileset dir="${basedir}">
-				<exclude name="dsmf/build/**" />
-				<exclude name="build/runtime/**" />
+				<exclude name="build/**" />
 				<exclude name="instrument/build/**" />
 				<exclude name="copernica/build/**" />
 				<exclude name="api/**" />
