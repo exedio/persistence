@@ -92,24 +92,17 @@ final class ConnectionPool implements ConnectionProvider
 
 		synchronized(lock)
 		{
-			if(idle!=null)
+			if(activeCount>=activeLimit && idleCount==0)
+				throw new RuntimeException(Properties.CONNECTION_POOL_ACTIVE_LIMIT + " reached: " + activeCount);
+
+			activeCount++;
+
+			if(idle!=null && idleCount>0)
 			{
-				activeCount++;
-				
-				if(idleCount>0)
-				{
-					//System.out.println("connection pool: fetch "+(size-1));
-					final Connection result = idle[--idleCount];
-					idle[idleCount] = null; // do not reference active connections
-					return result;
-				}
-			}
-			else
-			{
-				if(activeCount>=activeLimit)
-					throw new RuntimeException(Properties.CONNECTION_POOL_ACTIVE_LIMIT + " reached: " + activeCount);
-				
-				activeCount++;
+				//System.out.println("connection pool: fetch "+(size-1));
+				final Connection result = idle[--idleCount];
+				idle[idleCount] = null; // do not reference active connections
+				return result;
 			}
 		}
 		//System.out.println("connection pool: CREATE");
