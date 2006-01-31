@@ -785,12 +785,12 @@
 	</target>
 	
 	<target name="dist.test" depends="dist.tar">
-		<delete dir="build/runtime/dist-test" />
-		<mkdir dir="build/runtime/dist-test" />
+		<delete dir="build/dist-test" />
+		<mkdir dir="build/dist-test" />
 		<untar src="build/runtime/exedio-cope-src.tar.gz"
-				 dest="build/runtime/dist-test"
+				 dest="build/dist-test"
 				 compression="gzip" />
-		<ant dir="build/runtime/dist-test" target="build" />
+		<ant dir="build/dist-test" target="build" />
 	</target>
 	
 	<target name="dist" depends="dist.tar, dist.test" />
