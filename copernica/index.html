@@ -1,6 +1,12 @@
 <html>
 	<head>
 		<title>Copernica - @DATABASE@</title>
+		<style language="text/css">
+			input
+			{
+				font-size:7pt;
+			}
+		</style>
 	</head>
 	<body>
 		<h1>Copernica testwebapp on @DATABASE@</h1>
@@ -8,15 +14,15 @@
 			<li><a href="http://localhost:8080/copetest-@DATABASE@/copernica.jsp">copernica</a></li>
 			<li><a href="http://localhost:8080/copetest-@DATABASE@/copernica-pure.jsp">copernica-pure</a></li>
 			<li>
-				<a href="http://localhost:8080/copetest-@DATABASE@/admin.jsp">console</a>
 				<form action="http://localhost:8080/copetest-@DATABASE@/admin.jsp?schema=" method="POST">
+					<a href="http://localhost:8080/copetest-@DATABASE@/admin.jsp">console</a>
 					<input type="submit" name="CREATE" value="create" />
-					<input type="submit" name="DROP" value="drop"/>
+					<input type="submit" name="DROP" value="drop" />
 				</form>
 			</li>
 			<li>
-				<a href="http://localhost:8080/copetest-@DATABASE@/init.jsp">init</a>
 				<form action="http://localhost:8080/copetest-@DATABASE@/init.jsp" method="POST">
+					<a href="http://localhost:8080/copetest-@DATABASE@/init.jsp">init</a>
 					<input type="submit" name="INIT" value="init" />
 				</form>
 			</li>
