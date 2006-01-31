@@ -99,9 +99,46 @@
 		<echo message="assuming tomcat in directory ${catalina.home}" />
 	</target>
 	
+	<!-- dsmf -->
+	
 	<target name="dsmf.compile">
 		<ljavac srcdir="dsmf/src" destdir="runtime/build/classes" />
 	</target>
+	
+	<target name="dsmf.test.compile" depends="dsmf.compile, runtime.compile">
+		<ljavac srcdir="dsmf/testsrc" destdir="dsmf/build/testclasses">
+			<classpath>
+				<pathelement location="runtime/build/classes" />
+				<pathelement location="lib/junit.jar" />
+			</classpath>
+		</ljavac>
+	</target>
+	
+	<target name="dsmf.test.run" depends="dsmf.test.compile">
+		<foreachdb message="Testing" skipSwitch="dsmf.test">
+			<body>
+				<java classname="junit.textui.TestRunner" taskname="junit @{db}" fork="yes" failonerror="yes">
+					<classpath>
+						<pathelement location="runtime/build/classes" />
+						<pathelement location="dsmf/build/testclasses" />
+						<pathelement location="lib/junit.jar" />
+						<pathelement location="lib/@{db.driver}" />
+					</classpath>
+					<arg value="com.exedio.dsmf.PackageTest" />
+					<sysproperty key="com.exedio.cope.properties" file="@{db.file}" />
+					<assertions><enable/></assertions>
+				</java>
+			</body>
+		</foreachdb>
+	</target>
+	
+	<target name="dsmf.test" depends="dsmf.test.run" />
+	
+	<target name="dsmf.clean">
+		<delete dir="dsmf/build" />
+	</target>
+	
+	<!-- runtime -->
 	
 	<target name="runtime.core.compile" depends="dsmf.compile">
 		<ljavac srcdir="runtime/src" destdir="runtime/build/classes">
@@ -222,35 +259,6 @@
 	</target>
 	
 	<target name="jar" depends="runtime.jar, runtime.test.jar, instrument.jar, console.jar, copernica.jar" />
-	
-	<target name="dsmf.test.compile" depends="dsmf.compile, runtime.compile">
-		<ljavac srcdir="dsmf/testsrc" destdir="dsmf/build/testclasses">
-			<classpath>
-				<pathelement location="runtime/build/classes" />
-				<pathelement location="lib/junit.jar" />
-			</classpath>
-		</ljavac>
-	</target>
-	
-	<target name="dsmf.test.run" depends="dsmf.test.compile">
-		<foreachdb message="Testing" skipSwitch="dsmf.test">
-			<body>
-				<java classname="junit.textui.TestRunner" taskname="junit @{db}" fork="yes" failonerror="yes">
-					<classpath>
-						<pathelement location="runtime/build/classes" />
-						<pathelement location="dsmf/build/testclasses" />
-						<pathelement location="lib/junit.jar" />
-						<pathelement location="lib/@{db.driver}" />
-					</classpath>
-					<arg value="com.exedio.dsmf.PackageTest" />
-					<sysproperty key="com.exedio.cope.properties" file="@{db.file}" />
-					<assertions><enable/></assertions>
-				</java>
-			</body>
-		</foreachdb>
-	</target>
-	
-	<target name="dsmf.test" depends="dsmf.test.run" />
 	
 	<target name="instrument.taskdef" depends="runtime.compile, instrument.compile">
 		<taskdef name="instrument" classname="com.exedio.cope.instrument.AntTask">
@@ -630,10 +638,6 @@
 	<target name="testwebapp" depends="runtime.testwebapp, copernica.testwebapp" />
 	
 	<target name="tomcat" depends="runtime.tomcat, copernica.tomcat" />
-	
-	<target name="dsmf.clean">
-		<delete dir="dsmf/build" />
-	</target>
 	
 	<target name="runtime.clean" depends="catalina.home">
 		<delete dir="runtime/build" />
