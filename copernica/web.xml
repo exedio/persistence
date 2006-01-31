@@ -19,7 +19,7 @@
 	</servlet-mapping>
 
 	<servlet>
-		<servlet-name>admin</servlet-name>
+		<servlet-name>console</servlet-name>
 		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
 		<init-param>
 			<param-name>model</param-name>
@@ -27,8 +27,8 @@
 		</init-param>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>admin</servlet-name>
-		<url-pattern>/admin.jsp/*</url-pattern>
+		<servlet-name>console</servlet-name>
+		<url-pattern>/console/*</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
