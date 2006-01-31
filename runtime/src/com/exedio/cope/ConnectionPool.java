@@ -132,19 +132,14 @@ final class ConnectionPool implements ConnectionProvider
 		
 		synchronized(lock)
 		{
-			if(idle!=null)
+			activeCount--;
+			
+			if(idle!=null && idleCount<idle.length)
 			{
-				activeCount--;
-	
-				if(idleCount<idle.length)
-				{
-					//System.out.println("connection pool: store "+size);
-					idle[idleCount++] = connection;
-					return;
-				}
+				//System.out.println("connection pool: store "+size);
+				idle[idleCount++] = connection;
+				return;
 			}
-			else
-				activeCount--;
 		}
 		
 		//System.out.println("connection pool: CLOSE ");
