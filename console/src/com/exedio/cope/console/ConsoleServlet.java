@@ -41,7 +41,7 @@ import com.exedio.cops.ResourceSet;
  *  
  * <pre>
  * &lt;servlet&gt;
- *    &lt;servlet-name&gt;admin&lt;/servlet-name&gt;
+ *    &lt;servlet-name&gt;console&lt;/servlet-name&gt;
  *    &lt;servlet-class&gt;com.exedio.cope.console.ConsoleServlet&lt;/servlet-class&gt;
  *    &lt;init-param&gt;
  *       &lt;param-name&gt;model&lt;/param-name&gt;
@@ -49,8 +49,8 @@ import com.exedio.cops.ResourceSet;
  *    &lt;/init-param&gt;
  * &lt;/servlet&gt;
  * &lt;servlet-mapping&gt;
- *    &lt;servlet-name&gt;admin&lt;/servlet-name&gt;
- *    &lt;url-pattern&gt;/admin.jsp/*&lt;/url-pattern&gt;
+ *    &lt;servlet-name&gt;console&lt;/servlet-name&gt;
+ *    &lt;url-pattern&gt;/console/*&lt;/url-pattern&gt;
  * &lt;/servlet-mapping&gt;
  * </pre>
  * 
