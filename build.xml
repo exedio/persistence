@@ -398,24 +398,6 @@
 		</ljavac>
 	</target>
 	
-	<target name="copernica.compile" depends="runtime.compile, copernica.jspm">
-		<ljavac srcdir="copernica/src" destdir="copernica/build/classes">
-			<classpath>
-				<pathelement location="runtime/build/classes" />
-				<pathelement location="lib/exedio-cops.jar" />
-				<pathelement location="lib/servlet-api.jar" />
-				<pathelement location="lib/commons-fileupload-1.0.jar" />
-			</classpath>
-		</ljavac>
-		<copy todir="copernica/build/classes">
-			<fileset dir="copernica/src">
-				<include name="**/*.css" />
-				<include name="**/*.js" />
-				<include name="**/*.png" />
-			</fileset>
-		</copy>
-	</target>
-	
 	<target name="compile"
 				depends="runtime.compile,
 							instrument.compile,
@@ -425,12 +407,6 @@
 	<target name="instrument.jar" depends="instrument.compile">
 		<ljar name="cope instrumentor" jarfile="instrument/build/exedio-cope-instrument.jar">
 			<fileset dir="instrument/build/classes" />
-		</ljar>
-	</target>
-	
-	<target name="copernica.jar" depends="copernica.compile">
-		<ljar name="copernica" jarfile="copernica/build/exedio-copernica.jar">
-			<fileset dir="copernica/build/classes" />
 		</ljar>
 	</target>
 	
@@ -495,6 +471,7 @@
 	
 	<target name="test" depends="dsmf.test, runtime.test, instrument.test" />
 	
+	<!-- console -->
 	
 	<target name="console.jspm" depends="jspm.taskdef">
 		<jspm>
@@ -534,11 +511,36 @@
 		</delete>
 	</target>
 	
+	<!-- copernica -->
 	
 	<target name="copernica.jspm" depends="jspm.taskdef">
 		<jspm>
 			<fileset dir="copernica/src" includes="**/*.jspm" />
 		</jspm>
+	</target>
+	
+	<target name="copernica.compile" depends="runtime.compile, copernica.jspm">
+		<ljavac srcdir="copernica/src" destdir="copernica/build/classes">
+			<classpath>
+				<pathelement location="runtime/build/classes" />
+				<pathelement location="lib/exedio-cops.jar" />
+				<pathelement location="lib/servlet-api.jar" />
+				<pathelement location="lib/commons-fileupload-1.0.jar" />
+			</classpath>
+		</ljavac>
+		<copy todir="copernica/build/classes">
+			<fileset dir="copernica/src">
+				<include name="**/*.css" />
+				<include name="**/*.js" />
+				<include name="**/*.png" />
+			</fileset>
+		</copy>
+	</target>
+	
+	<target name="copernica.jar" depends="copernica.compile">
+		<ljar name="copernica" jarfile="copernica/build/exedio-copernica.jar">
+			<fileset dir="copernica/build/classes" />
+		</ljar>
 	</target>
 	
 	<target name="copernica.test.jspm" depends="jspm.taskdef">
