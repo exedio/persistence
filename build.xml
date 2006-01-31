@@ -326,7 +326,9 @@
 		</foreachdb>
 	</target>
 
-	<target name="runtime.testwebapp" depends="runtime.compile, runtime.test.compile, runtime.testmodel.compile, copernica.compile">
+	<target name="runtime.testwebapp"
+			  depends="runtime.compile, runtime.test.compile, runtime.testmodel.compile,
+							console.compile, copernica.compile">
 		<foreachdb message="Using" skipSwitch="runtime.testwebapp">
 			<body>
 				<mkdir dir="build/runtime/testwebapp-@{db}" />
@@ -634,6 +636,19 @@
 		</java>
 	</target>
 
+	<target name="copernica.index">
+		<foreachdb message="Indexing" skipSwitch="copernica.db">
+			<body>
+				<mkdir dir="build/copernica/index" />
+				<copy file="copernica/index.html" tofile="build/copernica/index/@{db}.html">
+					<filterset>
+						<filter token="DATABASE" value="@{db}" />
+					</filterset>
+				</copy>
+			</body>
+		</foreachdb>
+	</target>
+	
 	<target name="copernica.clean" depends="catalina.home">
 		<delete dir="build/copernica" />
 		<delete>
@@ -674,6 +689,8 @@
 	<target name="tomcat" depends="runtime.tomcat, copernica.tomcat" />
 	
 	<target name="webtest" depends="copernica.webtest" />
+	
+	<target name="index" depends="copernica.index" />
 	
 	<target name="clean" depends="dsmf.clean, runtime.clean, instrument.clean, console.clean, copernica.clean">
 		<delete dir="build" />
