@@ -6,7 +6,7 @@
 # see http://hsqldb.sourceforge.net/
 #
 database=hsqldb
-database.url=jdbc:hsqldb:.
+database.url=jdbc:hsqldb:mem:copeexample
 database.user=sa
 database.password=
 
