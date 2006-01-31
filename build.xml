@@ -335,7 +335,7 @@
 					<fileset dir="build/runtime/classes" />
 					<fileset dir="build/runtime/testclasses" />
 					<fileset dir="build/runtime/testmodelclasses" />
-					<fileset dir="console/build/classes" />
+					<fileset dir="build/console/classes" />
 					<fileset dir="copernica/build/classes" />
 				</copy>
 				
@@ -472,14 +472,14 @@
 	</target>
 	
 	<target name="console.compile" depends="runtime.compile, console.jspm">
-		<ljavac srcdir="console/src" destdir="console/build/classes">
+		<ljavac srcdir="console/src" destdir="build/console/classes">
 			<classpath>
 				<pathelement location="build/runtime/classes" />
 				<pathelement location="lib/exedio-cops.jar" />
 				<pathelement location="lib/servlet-api.jar" />
 			</classpath>
 		</ljavac>
-		<copy todir="console/build/classes">
+		<copy todir="build/console/classes">
 			<fileset dir="console/src">
 				<include name="**/*.css" />
 				<include name="**/*.js" />
@@ -489,13 +489,13 @@
 	</target>
 	
 	<target name="console.jar" depends="console.compile">
-		<ljar name="cope console" jarfile="console/build/exedio-cope-console.jar">
-			<fileset dir="console/build/classes" />
+		<ljar name="cope console" jarfile="build/console/exedio-cope-console.jar">
+			<fileset dir="build/console/classes" />
 		</ljar>
 	</target>
 	
 	<target name="console.clean" depends="catalina.home">
-		<delete dir="console/build" />
+		<delete dir="build/console" />
 		<delete>
 			<fileset dir="console/src">
 				<include name="**/*_Jspm.java" />
@@ -566,7 +566,7 @@
 				<copy todir="copernica/build/testwebapp-@{db}/WEB-INF/classes">
 					<fileset dir="build/runtime/classes" />
 					<fileset dir="build/runtime/testmodelclasses" />
-					<fileset dir="console/build/classes" />
+					<fileset dir="build/console/classes" />
 					<fileset dir="copernica/build/classes" />
 					<fileset dir="copernica/build/testclasses" />
 				</copy>
