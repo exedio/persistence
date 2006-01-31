@@ -9,12 +9,16 @@
 			<li><a href="http://localhost:8080/copetest-@DATABASE@/copernica-pure.jsp">copernica-pure</a></li>
 			<li>
 				<a href="http://localhost:8080/copetest-@DATABASE@/admin.jsp">console</a>
-				[<a href="http://localhost:8080/copetest-@DATABASE@/admin.jsp?schema=&CREATE=create">CREATE</a>]
-				[<a href="http://localhost:8080/copetest-@DATABASE@/admin.jsp?schema=&DROP=drop">DROP</a>]
+				<form action="http://localhost:8080/copetest-@DATABASE@/admin.jsp?schema=" method="POST">
+					<input type="submit" name="CREATE" value="create" />
+					<input type="submit" name="DROP" value="drop"/>
+				</form>
 			</li>
 			<li>
 				<a href="http://localhost:8080/copetest-@DATABASE@/init.jsp">init</a>
-				[<a href="http://localhost:8080/copetest-@DATABASE@/init.jsp?INIT=init">NOW</a>]
+				<form action="http://localhost:8080/copetest-@DATABASE@/init.jsp" method="POST">
+					<input type="submit" name="INIT" value="init" />
+				</form>
 			</li>
 		</ul>
 	</body>
