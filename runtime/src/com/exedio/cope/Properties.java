@@ -43,7 +43,7 @@ public final class Properties extends com.exedio.cope.util.Properties
 	static final String PKSOURCE_BUTTERFLY = "pksource.butterfly";
 	private final BooleanField pksourceButterfly = new BooleanField(PKSOURCE_BUTTERFLY, false);
 	private final BooleanField fulltextIndex = new BooleanField("fulltextIndex", false);
-	private final IntField connectionPoolMaxIdle = new IntField("connectionPool.idleLimit", 10, 0);
+	private final IntField connectionPoolIdleLimit = new IntField("connectionPool.idleLimit", 10, 0);
 	
 	private final IntField cacheLimit = new IntField("cache.limit", 10000, 0);
 	private final IntField cacheQueryLimit = new IntField("cache.queryLimit", 10000, 0);
@@ -247,9 +247,9 @@ public final class Properties extends com.exedio.cope.util.Properties
 		return fulltextIndex.getBooleanValue();
 	}
 	
-	public int getConnectionPoolMaxIdle()
+	public int getConnectionPoolIdleLimit()
 	{
-		return connectionPoolMaxIdle.getIntValue();
+		return connectionPoolIdleLimit.getIntValue();
 	}
 	
 	public int getCacheLimit()

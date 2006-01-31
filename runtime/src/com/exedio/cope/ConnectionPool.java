@@ -61,7 +61,7 @@ final class ConnectionPool implements ConnectionProvider
 		this.url = properties.getDatabaseUrl();
 		this.user = properties.getDatabaseUser();
 		this.password = properties.getDatabasePassword();
-		final int idleLength = properties.getConnectionPoolMaxIdle();
+		final int idleLength = properties.getConnectionPoolIdleLimit();
 		this.idle = idleLength>0 ? new Connection[idleLength] : null;
 		
 		// TODO: make this customizable and disableable
