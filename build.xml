@@ -398,19 +398,11 @@
 		</ljavac>
 	</target>
 	
-	<target name="compile"
-				depends="runtime.compile,
-							instrument.compile,
-							console.compile,
-							copernica.compile, copernica.test.compile" />
-	
 	<target name="instrument.jar" depends="instrument.compile">
 		<ljar name="cope instrumentor" jarfile="instrument/build/exedio-cope-instrument.jar">
 			<fileset dir="instrument/build/classes" />
 		</ljar>
 	</target>
-	
-	<target name="jar" depends="runtime.jar, runtime.test.jar, instrument.jar, console.jar, copernica.jar" />
 	
 	<target name="instrument.taskdef" depends="runtime.compile, instrument.compile">
 		<taskdef name="instrument" classname="com.exedio.cope.instrument.AntTask">
@@ -424,8 +416,6 @@
 		</taskdef>
 	</target>
 	
-	<target name="teardown" depends="runtime.test.teardown" />
-
 	<target name="instrument.test.instrument" depends="instrument.taskdef">
 		<instrument verbose="false">
 			<fileset dir="instrument/testsrc/com/exedio/cope/instrument/testmodel">
@@ -469,7 +459,9 @@
 	
 	<target name="instrument.test" depends="instrument.test.run" />
 	
-	<target name="test" depends="dsmf.test, runtime.test, instrument.test" />
+	<target name="instrument.clean">
+		<delete dir="instrument/build" />
+	</target>
 	
 	<!-- console -->
 	
@@ -642,20 +634,6 @@
 		</java>
 	</target>
 
-	<target name="webtest" depends="copernica.webtest" />
-	
-	<target name="copernica" depends="copernica.compile" />
-	
-	<target name="instrument" depends="instrument.test.instrument, runtime.testmodel.instrument" />
-	
-	<target name="testwebapp" depends="runtime.testwebapp, copernica.testwebapp" />
-	
-	<target name="tomcat" depends="runtime.tomcat, copernica.tomcat" />
-	
-	<target name="instrument.clean">
-		<delete dir="instrument/build" />
-	</target>
-
 	<target name="copernica.clean" depends="catalina.home">
 		<delete dir="copernica/build" />
 		<delete>
@@ -670,9 +648,34 @@
 			</fileset>
 		</delete>
 	</target>
-
-	<target name="clean" depends="dsmf.clean, runtime.clean, instrument.clean, console.clean, copernica.clean" />
 	
+	<target name="copernica" depends="copernica.compile" />
+	
+	<!-- common -->
+	
+	<target name="jspm" depends="console.jspm, copernica.jspm, copernica.test.jspm" />
+	
+	<target name="instrument" depends="instrument.test.instrument, runtime.testmodel.instrument" />
+	
+	<target name="compile"
+			  depends="runtime.compile,
+			  instrument.compile,
+			  console.compile,
+			  copernica.compile, copernica.test.compile" />
+	
+	<target name="jar" depends="runtime.jar, runtime.test.jar, instrument.jar, console.jar, copernica.jar" />
+	
+	<target name="teardown" depends="runtime.test.teardown" />
+	
+	<target name="test" depends="dsmf.test, runtime.test, instrument.test" />
+	
+	<target name="testwebapp" depends="runtime.testwebapp, copernica.testwebapp" />
+	
+	<target name="tomcat" depends="runtime.tomcat, copernica.tomcat" />
+	
+	<target name="webtest" depends="copernica.webtest" />
+	
+	<target name="clean" depends="dsmf.clean, runtime.clean, instrument.clean, console.clean, copernica.clean" />
 	
 	<target name="api">
 
@@ -745,8 +748,6 @@
 			<tarfileset dir="${basedir}/api" />
 		</tar>
 	</target>
-	
-	<target name="jspm" depends="console.jspm, copernica.jspm, copernica.test.jspm" />
 	
 	<target name="build"
 			depends="compile, test, jar, api,
