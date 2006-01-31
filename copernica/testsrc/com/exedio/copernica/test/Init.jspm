@@ -40,12 +40,12 @@ final class Init_Jspm
 		<form action="init.jsp" method="POST">
 			Database:
 			<br>
-			<input type="submit" name="INIT" value="init" />
-			<%
-				if(initialized)
-				{
-					%><div class="message">Example system successfully created!</div><%
-				}
+			<input type="submit" name="INIT" value="init" /><%
+			if(initialized)
+			{
+			%>
+			<div class="message">Example system successfully created!</div><%
+			}
 			%>
 		</form>
 	</body>
