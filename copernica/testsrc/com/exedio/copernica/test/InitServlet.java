@@ -61,7 +61,7 @@ public class InitServlet extends CopsServlet
 		request.setCharacterEncoding(ENCODING);
 		response.setContentType("text/html; charset="+ENCODING);
 
-		final boolean initialize = (request.getParameter("INIT")!=null);
+		final boolean initialize = (request.getParameter("INIT")!=null) && "POST".equals(request.getMethod());
 		if(initialize)
 		{
 			try

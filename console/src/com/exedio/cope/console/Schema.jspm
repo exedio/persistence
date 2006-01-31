@@ -86,6 +86,8 @@ final class Schema_Jspm
 			<hr>
 			<h4>Details</h4>
 			<%
+			if("POST".equals(request.getMethod()))
+			{
 				if(request.getParameter("CREATE")!=null)
 				{
 					model.createDatabase();
@@ -129,6 +131,7 @@ final class Schema_Jspm
 					<a href="<%=cop%>">flush log</a>
 					<hr><%
 				}
+			}
 
 		final Schema schema = model.getVerifiedSchema();
 		final String schemaColor = color(schema.getCumulativeColor());
