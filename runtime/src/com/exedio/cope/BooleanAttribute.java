@@ -67,7 +67,7 @@ public final class BooleanAttribute extends FunctionAttribute
 		
 	void set(final Row row, final Object surface)
 	{
-		row.put(getColumn(), 	surface==null ? 	null : 	((Boolean)surface).booleanValue() ? TRUE : FALSE);
+		row.put(getColumn(), surface==null ? null : ((Boolean)surface).booleanValue() ? TRUE : FALSE);
 	}
 	
 	public final Boolean get(final Item item)
