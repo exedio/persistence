@@ -74,13 +74,13 @@ public final class MysqlDriver extends Driver
 			case Types.DATE:
 				return "DATE";
 			case Types.VARCHAR:
-				return "varchar("+columnSize+") binary";
+				return "varchar("+columnSize+") character set utf8 binary";
 			case Types.LONGVARCHAR:
 				switch(columnSize)
 				{
-					case 65535:      return "text binary";
-					case 16277215:   return "mediumtext binary";
-					case 2147483647: return "longtext binary";
+					case 65535:      return "text character set utf8 binary";
+					case 16277215:   return "mediumtext character set utf8 binary";
+					case 2147483647: return "longtext character set utf8 binary";
 					default:         return "LONGVARCHAR("+columnSize+")";
 				}
 			case Types.BINARY:

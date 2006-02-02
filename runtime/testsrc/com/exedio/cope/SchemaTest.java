@@ -315,7 +315,7 @@ public class SchemaTest extends TestmodelTest
 			if(hsqldb)
 				string8 = "varchar(8)";
 			else if(mysql)
-				string8 = "varchar(8) binary";
+				string8 = "varchar(8) character set utf8 binary";
 			else
 			{
 				if(model.getProperties().getDatabaseCustomProperty("varchar")!=null)

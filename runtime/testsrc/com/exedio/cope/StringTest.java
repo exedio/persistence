@@ -602,6 +602,16 @@ public class StringTest extends TestmodelTest
 			//+ "hebrew \u05d8 "
 			+ "euro \u20ac");
 		
+		// byte C5 in several encodings
+		assertStringSet(item, sa,
+			"Aringabove \u00c5;"       // ISO-8859-1/4/9/10 (Latin1/4/5/6)
+			+ "Lacute \u0139;"         // ISO-8859-2 (Latin2)
+			+ "Cdotabove \u010a;"      // ISO-8859-3 (Latin3)
+			+ "ha \u0425;"             // ISO-8859-5 (Cyrillic)
+			+ "AlefHamzaBelow \u0625;" // ISO-8859-6 (Arabic)
+			+ "Epsilon \u0395;"        // ISO-8859-7 (Greek)
+			);
+		
 		// test SQL injection
 		// if SQL injection is not prevented properly,
 		// the following lines will throw a SQLException
@@ -625,6 +635,8 @@ public class StringTest extends TestmodelTest
 	
 	private void assertStringSet(final Item item, final StringAttribute sa, final String value) throws ConstraintViolationException
 	{
+		//if(value.length()<=100) System.out.println("---------"+value+"------------");
+		
 		final Type type = item.getCopeType();
 		sa.set(item, value);
 		assertEquals(value, sa.get(item));
@@ -632,8 +644,7 @@ public class StringTest extends TestmodelTest
 		assertEquals(value, sa.get(item));
 		if(!oracle||sa.getMaximumLength()<4000) // TODO should work without condition
 		{
-			if(!mysql || value.indexOf("Auml")<0) // TODO should work without condition
-				assertEquals(list(item), type.search(sa.equal(value)));
+			assertEquals(list(item), type.search(sa.equal(value)));
 			assertEquals(list(), type.search(sa.equal(value+"x")));
 		}
 	}

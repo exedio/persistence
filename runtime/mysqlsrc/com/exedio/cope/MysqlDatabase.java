@@ -84,13 +84,13 @@ public final class MysqlDatabase extends AbstractDatabase
 		// IMPLEMENTATION NOTE: "binary" is needed to make string comparisions case sensitive
 		// TODO mysql 5.0.3 and later can have varchars up to 64k
 		if(maxLength<TWOPOW8)
-			return "varchar("+maxLength+") binary";
+			return "varchar("+maxLength+") character set utf8 binary";
 		else if(maxLength<TWOPOW16)
-			return "text binary";
+			return "text character set utf8 binary";
 		else if(maxLength<TWOPOW24)
-			return "mediumtext binary";
+			return "mediumtext character set utf8 binary";
 		else
-			return "longtext binary";
+			return "longtext character set utf8 binary";
 	}
 	
 	public String getDayType()
