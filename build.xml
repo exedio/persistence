@@ -763,8 +763,8 @@
 
 	<target name="api.zip" depends="api">
 		<mkdir dir="build/runtime" />
-		<tar destfile="build/exedio-cope-api.tar.gz"
-			  compression="gzip">
+		<tar destfile="build/exedio-cope-api.tar.bz2"
+			  compression="bzip2">
 			<tarfileset dir="${basedir}/api" />
 		</tar>
 	</target>
