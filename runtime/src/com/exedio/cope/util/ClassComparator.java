@@ -15,6 +15,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
+
 package com.exedio.cope.util;
 
 import java.util.Comparator;
@@ -37,5 +38,5 @@ public final class ClassComparator implements Comparator
 		final Class c1 = (Class)o1;
 		final Class c2 = (Class)o2;
 		return c1.getName().compareTo(c2.getName());
-	}	
+	}
 }
