@@ -40,7 +40,7 @@ public class EnumTest extends AbstractLibTest
 		deleteOnTearDown(item2 = new EnumItem2(EnumItem2.Status.state1));
 	}
 
-	public void testIt() throws ConstraintViolationException
+	public void testIt()
 	{
 		assertEquals(status1, item.getStatus());
 		assertEquals(state1, item2.getStatus());

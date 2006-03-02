@@ -104,22 +104,7 @@ public class DeleteItem extends Item
 	 */
 	public final void setSelfForbid(final DeleteItem selfForbid)
 	{
-		try
-		{
-			DeleteItem.selfForbid.set(this,selfForbid);
-		}
-		catch(com.exedio.cope.FinalViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.UniqueViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
+		DeleteItem.selfForbid.set(this,selfForbid);
 	}/**
 
 	 **
@@ -139,22 +124,7 @@ public class DeleteItem extends Item
 	 */
 	public final void setSelfNullify(final DeleteItem selfNullify)
 	{
-		try
-		{
-			DeleteItem.selfNullify.set(this,selfNullify);
-		}
-		catch(com.exedio.cope.FinalViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.UniqueViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
+		DeleteItem.selfNullify.set(this,selfNullify);
 	}/**
 
 	 **
@@ -174,22 +144,7 @@ public class DeleteItem extends Item
 	 */
 	public final void setSelfCascade(final DeleteItem selfCascade)
 	{
-		try
-		{
-			DeleteItem.selfCascade.set(this,selfCascade);
-		}
-		catch(com.exedio.cope.FinalViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.UniqueViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
+		DeleteItem.selfCascade.set(this,selfCascade);
 	}/**
 
 	 **
@@ -209,22 +164,7 @@ public class DeleteItem extends Item
 	 */
 	public final void setSelfCascade2(final DeleteItem selfCascade2)
 	{
-		try
-		{
-			DeleteItem.selfCascade2.set(this,selfCascade2);
-		}
-		catch(com.exedio.cope.FinalViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.UniqueViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
+		DeleteItem.selfCascade2.set(this,selfCascade2);
 	}/**
 
 	 **
@@ -244,22 +184,7 @@ public class DeleteItem extends Item
 	 */
 	public final void setOtherForbid(final DeleteOtherItem otherForbid)
 	{
-		try
-		{
-			DeleteItem.otherForbid.set(this,otherForbid);
-		}
-		catch(com.exedio.cope.FinalViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.UniqueViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
+		DeleteItem.otherForbid.set(this,otherForbid);
 	}/**
 
 	 **
@@ -279,22 +204,7 @@ public class DeleteItem extends Item
 	 */
 	public final void setOtherNullify(final DeleteOtherItem otherNullify)
 	{
-		try
-		{
-			DeleteItem.otherNullify.set(this,otherNullify);
-		}
-		catch(com.exedio.cope.FinalViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.UniqueViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
+		DeleteItem.otherNullify.set(this,otherNullify);
 	}/**
 
 	 **
@@ -314,22 +224,7 @@ public class DeleteItem extends Item
 	 */
 	public final void setOtherCascade(final DeleteOtherItem otherCascade)
 	{
-		try
-		{
-			DeleteItem.otherCascade.set(this,otherCascade);
-		}
-		catch(com.exedio.cope.FinalViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.UniqueViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
+		DeleteItem.otherCascade.set(this,otherCascade);
 	}/**
 
 	 **

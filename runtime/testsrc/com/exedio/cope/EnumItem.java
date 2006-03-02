@@ -57,7 +57,6 @@ public class EnumItem extends Item
 		this(new com.exedio.cope.AttributeValue[]{
 			EnumItem.status.map(status),
 		});
-		throwInitialMandatoryViolationException();
 	}/**
 
 	 **
@@ -100,18 +99,7 @@ public class EnumItem extends Item
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
-		try
-		{
-			EnumItem.status.set(this,status);
-		}
-		catch(com.exedio.cope.FinalViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.UniqueViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
+		EnumItem.status.set(this,status);
 	}/**
 
 	 **

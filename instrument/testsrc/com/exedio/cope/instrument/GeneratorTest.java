@@ -65,6 +65,7 @@ public class GeneratorTest extends InstrumentorTest
 	final static Class ATTRIBUTE_VALUE_ARRAY = (new AttributeValue[0]).getClass();
 	final static Class MANDATORY_VIOLATION = MandatoryViolationException.class;
 	final static Class UNIQUE_VIOLATION = UniqueViolationException.class;
+	final static Class LENGTH_VIOLATION = LengthViolationException.class;
 	final static Class REACTIVATION_DUMMY = ReactivationConstructorDummy.class;
 	
 	final static Class STANDARD = Standard.class;
@@ -92,22 +93,23 @@ public class GeneratorTest extends InstrumentorTest
 				Date.class, // mandatoryDate
 			}, PUBLIC,
 			new Class[]{
+				LENGTH_VIOLATION,
 				MANDATORY_VIOLATION,
 			});
 		assertConstructor(STANDARD, new Class[]{ATTRIBUTE_VALUE_ARRAY}, PRIVATE);
 		assertConstructor(STANDARD, new Class[]{REACTIVATION_DUMMY, int.class}, PRIVATE);
 
 		assertMethod(STANDARD, "getDefaultString", STRING, PUBLIC|FINAL);
-		assertMethod(STANDARD, "setDefaultString", new Class[]{STRING}, PUBLIC|FINAL);
+		assertMethod(STANDARD, "setDefaultString", new Class[]{STRING}, PUBLIC|FINAL, new Class[]{LENGTH_VIOLATION});
 		assertMethod(STANDARD, "getNotNullString", STRING, PUBLIC|FINAL);
-		assertMethod(STANDARD, "setNotNullString", new Class[]{STRING}, PUBLIC|FINAL, new Class[]{MANDATORY_VIOLATION});
+		assertMethod(STANDARD, "setNotNullString", new Class[]{STRING}, PUBLIC|FINAL, new Class[]{LENGTH_VIOLATION, MANDATORY_VIOLATION});
 		assertMethod(STANDARD, "getFinalString", STRING, PUBLIC|FINAL);
 		assertNoMethod(STANDARD, "setFinalString", new Class[]{STRING});
 		assertMethod(STANDARD, "getUniqueString", STRING, PUBLIC|FINAL);
-		assertMethod(STANDARD, "setUniqueString", new Class[]{STRING}, PUBLIC|FINAL, new Class[]{UNIQUE_VIOLATION});
+		assertMethod(STANDARD, "setUniqueString", new Class[]{STRING}, PUBLIC|FINAL, new Class[]{LENGTH_VIOLATION, UNIQUE_VIOLATION});
 		assertMethod(STANDARD, "findByUniqueString", new Class[]{STRING}, STANDARD, PUBLIC|STATIC|FINAL);
 		assertMethod(STANDARD, "getInitialString", STRING, PUBLIC|FINAL);
-		assertMethod(STANDARD, "setInitialString", new Class[]{STRING}, PUBLIC|FINAL);
+		assertMethod(STANDARD, "setInitialString", new Class[]{STRING}, PUBLIC|FINAL, new Class[]{LENGTH_VIOLATION});
 
 		assertMethod(STANDARD, "getDefaultInteger", Integer.class, PUBLIC|FINAL);
 		assertMethod(STANDARD, "setDefaultInteger", new Class[]{Integer.class}, PUBLIC|FINAL);
@@ -138,35 +140,35 @@ public class GeneratorTest extends InstrumentorTest
 		assertMethod(STANDARD, "touchPrivateDate", new Class[]{}, PRIVATE|FINAL);
 
 		assertMethod(STANDARD, "getPrivateString", STRING, PRIVATE|FINAL);
-		assertMethod(STANDARD, "setPrivateString", new Class[]{STRING}, PRIVATE|FINAL);
+		assertMethod(STANDARD, "setPrivateString", new Class[]{STRING}, PRIVATE|FINAL, new Class[]{LENGTH_VIOLATION});
 
 		assertNoMethod(STANDARD, "getNoneGetterString");
-		assertMethod(STANDARD, "setNoneGetterString", new Class[]{STRING}, PUBLIC|FINAL);
+		assertMethod(STANDARD, "setNoneGetterString", new Class[]{STRING}, PUBLIC|FINAL, new Class[]{LENGTH_VIOLATION});
 		assertMethod(STANDARD, "getPrivateGetterString", STRING, PRIVATE|FINAL);
-		assertMethod(STANDARD, "setPrivateGetterString", new Class[]{STRING}, PUBLIC|FINAL);
+		assertMethod(STANDARD, "setPrivateGetterString", new Class[]{STRING}, PUBLIC|FINAL, new Class[]{LENGTH_VIOLATION});
 		assertMethod(STANDARD, "getInternalGetterStringInternal", STRING, PRIVATE|FINAL);
-		assertMethod(STANDARD, "setInternalGetterString", new Class[]{STRING}, PUBLIC|FINAL);
+		assertMethod(STANDARD, "setInternalGetterString", new Class[]{STRING}, PUBLIC|FINAL, new Class[]{LENGTH_VIOLATION});
 		assertNoMethod(STANDARD, "getInternalGetterString");
 
 		assertMethod(STANDARD, "getNoneSetterString", STRING, PUBLIC|FINAL);
 		assertNoMethod(STANDARD, "setNoneSetterString", new Class[]{STRING});
 		assertMethod(STANDARD, "getPrivateSetterString", STRING, PUBLIC|FINAL);
-		assertMethod(STANDARD, "setPrivateSetterString", new Class[]{STRING}, PRIVATE|FINAL);
+		assertMethod(STANDARD, "setPrivateSetterString", new Class[]{STRING}, PRIVATE|FINAL, new Class[]{LENGTH_VIOLATION});
 		assertMethod(STANDARD, "getInternalSetterString", STRING, PUBLIC|FINAL);
-		assertMethod(STANDARD, "setInternalSetterStringInternal", new Class[]{STRING}, PRIVATE|FINAL);
+		assertMethod(STANDARD, "setInternalSetterStringInternal", new Class[]{STRING}, PRIVATE|FINAL, new Class[]{LENGTH_VIOLATION});
 		assertNoMethod(STANDARD, "setInternalSetterString", new Class[]{STRING});
 
 		assertMethod(STANDARD, "getNonfinalGetterString", STRING, PUBLIC);
-		assertMethod(STANDARD, "setNonfinalGetterString", new Class[]{STRING}, PROTECTED|FINAL);
+		assertMethod(STANDARD, "setNonfinalGetterString", new Class[]{STRING}, PROTECTED|FINAL, new Class[]{LENGTH_VIOLATION});
 		assertMethod(STANDARD, "getNonfinalSetterString", STRING, PROTECTED|FINAL);
-		assertMethod(STANDARD, "setNonfinalSetterString", new Class[]{STRING}, PUBLIC);
+		assertMethod(STANDARD, "setNonfinalSetterString", new Class[]{STRING}, PUBLIC, new Class[]{LENGTH_VIOLATION});
 
 		assertMethod(STANDARD, "isAsIsBoolean", Boolean.class, PUBLIC|FINAL);
 		assertNoMethod(STANDARD, "getAsIsBoolean");
 		assertMethod(STANDARD, "setAsIsBoolean", new Class[]{Boolean.class}, PUBLIC|FINAL);
 		
 		assertMethod(STANDARD, "getDoubleUnique1", STRING, PUBLIC|FINAL);
-		assertMethod(STANDARD, "setDoubleUnique1", new Class[]{STRING}, PUBLIC|FINAL, new Class[]{UNIQUE_VIOLATION});
+		assertMethod(STANDARD, "setDoubleUnique1", new Class[]{STRING}, PUBLIC|FINAL, new Class[]{LENGTH_VIOLATION, UNIQUE_VIOLATION});
 		assertMethod(STANDARD, "getDoubleUnique2", Integer.class, PUBLIC|FINAL);
 		assertMethod(STANDARD, "setDoubleUnique2", new Class[]{Integer.class}, PUBLIC|FINAL, new Class[]{UNIQUE_VIOLATION});
 		assertMethod(STANDARD, "findByDoubleUnique", new Class[]{STRING, Integer.class}, STANDARD, PUBLIC|STATIC|FINAL);
@@ -233,8 +235,8 @@ public class GeneratorTest extends InstrumentorTest
 		assertMethod(STANDARD, "checkPublicHash", new Class[]{STRING}, Boolean.TYPE, PUBLIC|FINAL);
 		assertMethod(STANDARD, "checkPrivateHash", new Class[]{STRING}, Boolean.TYPE, PRIVATE|FINAL);
 		assertMethod(STANDARD, "checkMandatoryHash", new Class[]{STRING}, Boolean.TYPE, PUBLIC|FINAL);
-		assertMethod(STANDARD, "setPublicHash", new Class[]{STRING}, PUBLIC|FINAL);
-		assertMethod(STANDARD, "setPrivateHash", new Class[]{STRING}, PRIVATE|FINAL);
+		assertMethod(STANDARD, "setPublicHash", new Class[]{STRING}, PUBLIC|FINAL, new Class[]{LENGTH_VIOLATION});
+		assertMethod(STANDARD, "setPrivateHash", new Class[]{STRING}, PRIVATE|FINAL, new Class[]{LENGTH_VIOLATION});
 		assertMethod(STANDARD, "setMandatoryHash", new Class[]{STRING}, PUBLIC|FINAL, new Class[]{MANDATORY_VIOLATION});
 		assertNoMethod(STANDARD, "getPublicHash");
 		assertNoMethod(STANDARD, "getPrivateHash");
@@ -246,20 +248,20 @@ public class GeneratorTest extends InstrumentorTest
 		assertConstructor(TYPE_NONE, new Class[]{ATTRIBUTE_VALUE_ARRAY}, PUBLIC); // @cope.generic.constructor public
 		assertConstructor(TYPE_NONE, new Class[]{REACTIVATION_DUMMY, int.class}, PRIVATE);
 		assertMethod(TYPE_NONE, "getDefaultString", STRING, PUBLIC|FINAL);
-		assertMethod(TYPE_NONE, "setDefaultString", new Class[]{STRING}, PUBLIC|FINAL);
+		assertMethod(TYPE_NONE, "setDefaultString", new Class[]{STRING}, PUBLIC|FINAL, new Class[]{LENGTH_VIOLATION});
 		assertNoField(TYPE_NONE, "TYPE");
 
 		assertConstructor(TYPE_PRIVATE, new Class[]{}, PUBLIC);
 		assertConstructor(TYPE_PRIVATE, new Class[]{ATTRIBUTE_VALUE_ARRAY}, PRIVATE);
 		assertConstructor(TYPE_PRIVATE, new Class[]{REACTIVATION_DUMMY, int.class}, PRIVATE);
 		assertMethod(TYPE_PRIVATE, "getDefaultString", STRING, PUBLIC|FINAL);
-		assertMethod(TYPE_PRIVATE, "setDefaultString", new Class[]{STRING}, PUBLIC|FINAL);
+		assertMethod(TYPE_PRIVATE, "setDefaultString", new Class[]{STRING}, PUBLIC|FINAL, new Class[]{LENGTH_VIOLATION});
 		assertField(TYPE_PRIVATE, "TYPE", Type.class, PRIVATE|STATIC|FINAL);
 	}
 
 	public void testDoubleUnique() throws ClassNotFoundException
 	{
-		assertConstructor(DOUBLE_UNIQUE, new Class[]{STRING, SUB_TARGET}, PUBLIC, new Class[]{MANDATORY_VIOLATION, UNIQUE_VIOLATION});
+		assertConstructor(DOUBLE_UNIQUE, new Class[]{STRING, SUB_TARGET}, PUBLIC, new Class[]{LENGTH_VIOLATION, MANDATORY_VIOLATION, UNIQUE_VIOLATION});
 		assertMethod(DOUBLE_UNIQUE, "getString", STRING, PUBLIC|FINAL);
 		assertMethod(DOUBLE_UNIQUE, "getItem", SUB_TARGET, PUBLIC|FINAL);
 		assertMethod(DOUBLE_UNIQUE, "findByUnique", new Class[]{STRING, SUB_TARGET}, DOUBLE_UNIQUE, PUBLIC|STATIC|FINAL);

@@ -27,7 +27,7 @@ public class TransactionTest extends TestmodelTest
 	protected EmptyItem someItem;
 	protected AttributeItem item;
 
-	private final AttributeItem newItem(final String code) throws ConstraintViolationException
+	private final AttributeItem newItem(final String code)
 	{
 		return new AttributeItem(code, 5, 6l, 2.2, true, someItem, AttributeItem.SomeEnum.enumValue1);
 	}
@@ -66,7 +66,7 @@ public class TransactionTest extends TestmodelTest
 		assertSomeString(item, someString);
 	}
 	
-	private void assertNotExists(final AttributeItem actualItem) throws MandatoryViolationException, IntegrityViolationException
+	private void assertNotExists(final AttributeItem actualItem)
 	{
 		assertTrue(!actualItem.existsCopeItem());
 		try
@@ -101,7 +101,7 @@ public class TransactionTest extends TestmodelTest
 		actualItem.hashCode(); // test, that hashCode works
 	}
 	
-	public void testCommitChange() throws ConstraintViolationException
+	public void testCommitChange()
 	{
 		assertSomeString(null);
 		item.setSomeString("someString");
@@ -119,7 +119,7 @@ public class TransactionTest extends TestmodelTest
 		assertSomeString(null);
 	}
 	
-	public void testCommitCreate() throws ConstraintViolationException
+	public void testCommitCreate()
 	{
 		item.setSomeString("someString");
 		final AttributeItem itemx = newItem("someStringX");
@@ -149,7 +149,7 @@ public class TransactionTest extends TestmodelTest
 		assertTrue(itemy.existsCopeItem());
 	}
 	
-	public void testCommitDelete() throws ConstraintViolationException
+	public void testCommitDelete()
 	{
 		final AttributeItem itemx = newItem("someStringX");
 		assertTrue(itemx.existsCopeItem());
@@ -178,7 +178,7 @@ public class TransactionTest extends TestmodelTest
 		assertNotExists(itemy);
 	}
 	
-	public void testRollbackChange() throws ConstraintViolationException
+	public void testRollbackChange()
 	{
 		commit();
 
@@ -204,7 +204,7 @@ public class TransactionTest extends TestmodelTest
 		assertSomeString("someString2");
 	}
 
-	public void testRollbackCreate() throws ConstraintViolationException
+	public void testRollbackCreate()
 	{
 		commit();
 		
@@ -242,7 +242,7 @@ public class TransactionTest extends TestmodelTest
 		assertTrue(!itemy.existsCopeItem());
 	}
 
-	public void testRollbackDelete() throws ConstraintViolationException
+	public void testRollbackDelete()
 	{
 		final AttributeItem itemx = newItem("someStringX");
 		commit();
@@ -270,7 +270,7 @@ public class TransactionTest extends TestmodelTest
 		assertEquals("someString", item.getSomeNotNullString());
 	}
 	
-	public void xxtestIsolation() throws ConstraintViolationException // TODO enable testIsolation
+	public void xxtestIsolation() // TODO enable testIsolation
 	{
 		if ( ! model.supportsReadCommitted() ) return;
 		model.commit();

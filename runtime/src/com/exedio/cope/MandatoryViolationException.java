@@ -31,7 +31,7 @@ package com.exedio.cope;
  * 
  * @author Ralf Wiebicke
  */
-public final class MandatoryViolationException extends ConstraintViolationException
+public final class MandatoryViolationException extends ConstraintViolationRuntimeException
 {
 	private final Attribute mandatoryAttribute;
 	

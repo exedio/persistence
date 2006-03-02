@@ -26,7 +26,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.exedio.cope.ConstraintViolationException;
 import com.exedio.cope.testmodel.AttributeItem;
 import com.exedio.cope.testmodel.CollisionItem1;
 import com.exedio.cope.testmodel.CollisionItem2;
@@ -199,10 +198,6 @@ public class InitServlet extends CopsServlet
 			new CollisionItem1(emptyItem2);
 			new CollisionItem2(emptyItem1);
 			new CollisionItem2(emptyItem2);
-		}
-		catch(ConstraintViolationException e)
-		{
-			throw new RuntimeException(e);
 		}
 		catch(IOException e)
 		{

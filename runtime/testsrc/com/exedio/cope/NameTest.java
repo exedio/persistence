@@ -52,7 +52,7 @@ public class NameTest extends AbstractLibTest
 		deleteOnTearDown(itemcb = new NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem("collision B"));
 	}
 	
-	public void test() throws ConstraintViolationException
+	public void test()
 	{
 		assertEquals("long name item", item.getCode());
 		assertEquals(null, item.getPointerLoooooooooooooooooooooooooooooooooooooooooooooooooooongName());

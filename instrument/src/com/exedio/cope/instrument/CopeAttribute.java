@@ -224,7 +224,7 @@ abstract class CopeAttribute extends CopeFeature
 		final boolean notNull = (instance instanceof Attribute && ((Attribute)instance).isMandatory()) ||
 										(instance instanceof Hash && ((Hash)instance).getStorage().isMandatory());
 		final boolean unique = instance instanceof FunctionAttribute && !((FunctionAttribute)instance).getUniqueConstraints().isEmpty();
-		final boolean isLengthConstrained = instance instanceof StringAttribute && ((StringAttribute)instance).hasLengthConstraintCheckedException();
+		final boolean isLengthConstrained = instance instanceof StringAttribute;
 
 		if(unique)
 			result.add(UniqueViolationException.class);

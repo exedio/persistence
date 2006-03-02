@@ -88,27 +88,10 @@ public class HierarchySingleSub extends HierarchySingleSuper
 	 *       It can be customized with the tag <code>@cope.setter public|package|protected|private|none|non-final</code> in the comment of the attribute.
 	 */
 	public final void setSubString(final java.lang.String subString)
+			throws
+				com.exedio.cope.LengthViolationException
 	{
-		try
-		{
-			HierarchySingleSub.subString.set(this,subString);
-		}
-		catch(com.exedio.cope.FinalViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.LengthViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.UniqueViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
+		HierarchySingleSub.subString.set(this,subString);
 	}/**
 
 	 **
@@ -128,22 +111,7 @@ public class HierarchySingleSub extends HierarchySingleSuper
 	 */
 	public final void setHierarchySuper(final HierarchySuper hierarchySuper)
 	{
-		try
-		{
-			HierarchySingleSub.hierarchySuper.set(this,hierarchySuper);
-		}
-		catch(com.exedio.cope.FinalViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.UniqueViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
+		HierarchySingleSub.hierarchySuper.set(this,hierarchySuper);
 	}/**
 
 	 **

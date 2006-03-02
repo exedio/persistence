@@ -164,14 +164,7 @@ public class DataItem extends Item
 			throws
 				java.io.IOException
 	{
-		try
-		{
-			DataItem.data.set(this,data);
-		}
-		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
+		DataItem.data.set(this,data);
 	}/**
 
 	 **
@@ -183,14 +176,7 @@ public class DataItem extends Item
 			throws
 				java.io.IOException
 	{
-		try
-		{
-			DataItem.data10.set(this,data10);
-		}
-		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
+		DataItem.data10.set(this,data10);
 	}/**
 
 	 **
@@ -202,14 +188,7 @@ public class DataItem extends Item
 			throws
 				java.io.IOException
 	{
-		try
-		{
-			DataItem.data10k.set(this,data10k);
-		}
-		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
+		DataItem.data10k.set(this,data10k);
 	}/**
 
 	 **
@@ -221,14 +200,7 @@ public class DataItem extends Item
 			throws
 				java.io.IOException
 	{
-		try
-		{
-			DataItem.data100M.set(this,data100M);
-		}
-		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
+		DataItem.data100M.set(this,data100M);
 	}/**
 
 	 **

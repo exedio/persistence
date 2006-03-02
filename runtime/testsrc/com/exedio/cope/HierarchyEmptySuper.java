@@ -46,7 +46,6 @@ public class HierarchyEmptySuper extends Item
 		this(new com.exedio.cope.AttributeValue[]{
 			HierarchyEmptySuper.superInt.map(superInt),
 		});
-		throwInitialUniqueViolationException();
 	}/**
 
 	 **
@@ -89,14 +88,7 @@ public class HierarchyEmptySuper extends Item
 			throws
 				com.exedio.cope.UniqueViolationException
 	{
-		try
-		{
-			HierarchyEmptySuper.superInt.set(this,superInt);
-		}
-		catch(com.exedio.cope.FinalViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
+		HierarchyEmptySuper.superInt.set(this,superInt);
 	}/**
 
 	 **

@@ -41,7 +41,7 @@ public class DayAttributeTest extends AbstractLibTest
 		deleteOnTearDown(item2 = new DayItem(DEFAULT2));
 	}
 
-	public void testIt() throws ConstraintViolationException
+	public void testIt()
 	{
 		final Day day = new Day(2005, 9, 23);
 		final Day beforeDay = new Day(2005, 9, 22);

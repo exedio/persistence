@@ -43,7 +43,6 @@ import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueViolationException;
-import com.exedio.cope.util.ClassComparator;
 import com.exedio.cope.util.ReactivationConstructorDummy;
 
 final class Generator
@@ -332,14 +331,6 @@ final class Generator
 		}
 		o.write("\t\t});");
 		o.write(lineSeparator);
-		for(Iterator i = type.getConstructorExceptions().iterator(); i.hasNext(); )
-		{
-			final Class exception = (Class)i.next();
-			o.write("\t\tthrowInitial");
-			o.write(getShortName(exception));
-			o.write("();");
-			o.write(lineSeparator);
-		}
 		o.write("\t}");
 	}
 	
@@ -618,17 +609,12 @@ final class Generator
 		o.write("\t{");
 		o.write(lineSeparator);
 		
-		final SortedSet exceptionsToCatch = new TreeSet(ClassComparator.getInstance());
-		exceptionsToCatch.addAll(setterExceptions); // TODO
-		exceptionsToCatch.remove(IOException.class);
-		writeTryCatchClausePrefix(exceptionsToCatch);
 		o.write("\t\t");
 		o.write(media.type.getName());
 		o.write('.');
 		o.write(media.getName());
 		o.write(".set(this,data,contentType);");
 		o.write(lineSeparator);
-		writeTryCatchClausePostfix(exceptionsToCatch);
 		o.write("\t}");
 	}
 	
@@ -882,8 +868,6 @@ final class Generator
 			o.write("\t{");
 			o.write(lineSeparator);
 	
-			final SortedSet exceptionsToCatch = attribute.getExceptionsToCatchInSetter();
-			writeTryCatchClausePrefix(exceptionsToCatch);
 			o.write("\t\t");
 			o.write(qualifier.qualifierClassString);
 			o.write('.');
@@ -896,7 +880,6 @@ final class Generator
 			o.write(attribute.getName());
 			o.write(");");
 			o.write(lineSeparator);
-			writeTryCatchClausePostfix(exceptionsToCatch);
 			o.write("\t}");
 		}
 	}
@@ -1081,8 +1064,6 @@ final class Generator
 	private void writeSetterBody(final CopeAttribute attribute)
 	throws IOException
 	{
-		final SortedSet exceptionsToCatch = attribute.getExceptionsToCatchInSetter();
-		writeTryCatchClausePrefix(exceptionsToCatch);
 		o.write("\t\t");
 		o.write(attribute.type.getName());
 		o.write('.');
@@ -1091,7 +1072,6 @@ final class Generator
 		o.write(attribute.getName());
 		o.write(");");
 		o.write(lineSeparator);
-		writeTryCatchClausePostfix(exceptionsToCatch);
 	}
 	
 	/**
@@ -1103,15 +1083,12 @@ final class Generator
 	private void writeToucherBody(final CopeAttribute attribute)
 	throws IOException
 	{
-		final SortedSet exceptionsToCatch = attribute.getExceptionsToCatchInToucher();
-		writeTryCatchClausePrefix(exceptionsToCatch);
 		o.write("\t\t");
 		o.write(attribute.type.getName());
 		o.write('.');
 		o.write(attribute.getName());
 		o.write(".touch(this);");
 		o.write(lineSeparator);
-		writeTryCatchClausePostfix(exceptionsToCatch);
 	}
 	
 	/**
@@ -1142,9 +1119,6 @@ final class Generator
 	private void writeSetterBody(final CopeHash hash)
 	throws IOException, InjectorParseException
 	{
-		final CopeAttribute storage = hash.getStorageAttribute();
-		final SortedSet exceptionsToCatch = storage.getExceptionsToCatchInSetter();
-		writeTryCatchClausePrefix(exceptionsToCatch);
 		o.write("\t\t");
 		o.write(hash.type.getName());
 		o.write('.');
@@ -1153,43 +1127,6 @@ final class Generator
 		o.write(hash.name);
 		o.write(");");
 		o.write(lineSeparator);
-		writeTryCatchClausePostfix(exceptionsToCatch);
-	}
-	
-	private void writeTryCatchClausePrefix(final SortedSet exceptionsToCatch)
-	throws IOException
-	{
-		if(!exceptionsToCatch.isEmpty())
-		{
-			o.write("\t\ttry");
-			o.write(lineSeparator);
-			o.write("\t\t{");
-			o.write(lineSeparator);
-			o.write('\t');
-		}
-	}
-	
-	private void writeTryCatchClausePostfix(final SortedSet exceptionsToCatch)
-	throws IOException
-	{
-		if(!exceptionsToCatch.isEmpty())
-		{
-			o.write("\t\t}");
-			o.write(lineSeparator);
-			
-			for(Iterator i = exceptionsToCatch.iterator(); i.hasNext(); )
-			{
-				final Class exceptionClass = (Class)i.next();
-				o.write("\t\tcatch("+exceptionClass.getName()+" e)");
-				o.write(lineSeparator);
-				o.write("\t\t{");
-				o.write(lineSeparator);
-				o.write("\t\t\tthrow new "+RuntimeException.class.getName()+"(e);");
-				o.write(lineSeparator);
-				o.write("\t\t}");
-				o.write(lineSeparator);
-			}
-		}
 	}
 	
 	private void writeStreamWarning(final String type) throws IOException

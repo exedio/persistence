@@ -80,27 +80,10 @@ public class TypePrivate extends Item
 	 *       It can be customized with the tag <code>@cope.setter public|package|protected|private|none|non-final</code> in the comment of the attribute.
 	 */
 	public final void setDefaultString(final java.lang.String defaultString)
+			throws
+				com.exedio.cope.LengthViolationException
 	{
-		try
-		{
-			TypePrivate.defaultString.set(this,defaultString);
-		}
-		catch(com.exedio.cope.FinalViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.LengthViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.UniqueViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
+		TypePrivate.defaultString.set(this,defaultString);
 	}/**
 
 	 **

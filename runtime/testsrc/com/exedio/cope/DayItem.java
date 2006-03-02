@@ -46,7 +46,6 @@ public class DayItem extends Item
 		this(new com.exedio.cope.AttributeValue[]{
 			DayItem.day.map(day),
 		});
-		throwInitialMandatoryViolationException();
 	}/**
 
 	 **
@@ -89,18 +88,7 @@ public class DayItem extends Item
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
-		try
-		{
-			DayItem.day.set(this,day);
-		}
-		catch(com.exedio.cope.FinalViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.UniqueViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
+		DayItem.day.set(this,day);
 	}/**
 
 	 **
@@ -120,22 +108,7 @@ public class DayItem extends Item
 	 */
 	public final void setOptionalDay(final com.exedio.cope.util.Day optionalDay)
 	{
-		try
-		{
-			DayItem.optionalDay.set(this,optionalDay);
-		}
-		catch(com.exedio.cope.FinalViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.UniqueViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
+		DayItem.optionalDay.set(this,optionalDay);
 	}/**
 
 	 **

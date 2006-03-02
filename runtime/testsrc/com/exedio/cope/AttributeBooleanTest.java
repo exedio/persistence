@@ -21,7 +21,7 @@ package com.exedio.cope;
 
 public class AttributeBooleanTest extends AttributeTest 
 {
-	public void testSomeBoolean() throws ConstraintViolationException
+	public void testSomeBoolean()
 	{
 		assertEquals(item.TYPE, item.someBoolean.getType());
 		assertEquals(null, item.getSomeBoolean());
@@ -88,7 +88,7 @@ public class AttributeBooleanTest extends AttributeTest
 		}
 	}
 
-	public void testSomeNotNullBoolean() throws ConstraintViolationException
+	public void testSomeNotNullBoolean()
 	{
 		assertEquals(item.TYPE, item.someNotNullBoolean.getType());
 		assertEquals(true, item.getSomeNotNullBoolean());

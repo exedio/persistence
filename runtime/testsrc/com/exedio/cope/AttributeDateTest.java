@@ -29,7 +29,7 @@ import com.exedio.cope.testmodel.AttributeItem;
 public class AttributeDateTest extends AttributeTest
 {
 
-	public void testSomeDate() throws ConstraintViolationException
+	public void testSomeDate()
 	{
 		final Date date = new Date(1087365298214l);
 		final Date beforeDate = new Date(date.getTime()-1l);

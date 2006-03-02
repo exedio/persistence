@@ -43,7 +43,7 @@ public class JoinFunctionTest extends AbstractLibTest
 		deleteOnTearDown(b3 = new JoinFunctionItem("b3", new Integer(3)));
 	}
 	
-	public void testIt() throws ConstraintViolationException
+	public void testIt()
 	{
 		{
 			final Query q = new Query(single.TYPE, null);

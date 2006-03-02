@@ -78,22 +78,7 @@ public abstract class HierarchySingleSuper extends Item
 	 */
 	public final void setSuperInt(final java.lang.Integer superInt)
 	{
-		try
-		{
-			HierarchySingleSuper.superInt.set(this,superInt);
-		}
-		catch(com.exedio.cope.FinalViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.UniqueViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
+		HierarchySingleSuper.superInt.set(this,superInt);
 	}/**
 
 	 **

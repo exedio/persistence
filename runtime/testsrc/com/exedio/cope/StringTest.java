@@ -43,7 +43,7 @@ public class StringTest extends TestmodelTest
 		numberOfItems = 2;
 	}
 	
-	public void testStrings() throws ConstraintViolationException
+	public void testStrings()
 	{
 		// test model
 		assertEquals(item.TYPE, item.any.getType());
@@ -52,7 +52,6 @@ public class StringTest extends TestmodelTest
 		assertEqualsUnmodifiable(list(), item.any.getPatterns());
 		assertEquals(0, item.any.getMinimumLength());
 		assertEquals(StringAttribute.DEFAULT_LENGTH, item.any.getMaximumLength());
-		assertEquals(false, item.any.hasLengthConstraintCheckedException());
 
 		assertEquals(item.TYPE, item.mandatory.getType());
 		assertEquals("mandatory", item.mandatory.getName());
@@ -60,23 +59,18 @@ public class StringTest extends TestmodelTest
 
 		assertEquals(4, item.min4.getMinimumLength());
 		assertEquals(StringAttribute.DEFAULT_LENGTH, item.min4.getMaximumLength());
-		assertEquals(true, item.min4.hasLengthConstraintCheckedException());
 
 		assertEquals(0, item.max4.getMinimumLength());
 		assertEquals(4, item.max4.getMaximumLength());
-		assertEquals(true, item.max4.hasLengthConstraintCheckedException());
 
 		assertEquals(0, item.max5Unchecked.getMinimumLength());
 		assertEquals(5, item.max5Unchecked.getMaximumLength());
-		assertEquals(false, item.max5Unchecked.hasLengthConstraintCheckedException());
 
 		assertEquals(4, item.min4Max8.getMinimumLength());
 		assertEquals(8, item.min4Max8.getMaximumLength());
-		assertEquals(true, item.min4Max8.hasLengthConstraintCheckedException());
 		
 		assertEquals(6, item.exact6.getMinimumLength());
 		assertEquals(6, item.exact6.getMaximumLength());
-		assertEquals(true, item.exact6.hasLengthConstraintCheckedException());
 		
 		assertEquals(item.TYPE, item.min4Upper.getType());
 		assertEquals("min4Upper", item.min4Upper.getName());
@@ -84,14 +78,12 @@ public class StringTest extends TestmodelTest
 			final StringAttribute orig = new StringAttribute(Item.OPTIONAL);
 			assertEquals(false, orig.isFinal());
 			assertEquals(false, orig.isMandatory());
-			assertEquals(false, orig.hasLengthConstraintCheckedException());
 			assertEquals(0, orig.getMinimumLength());
 			assertEquals(StringAttribute.DEFAULT_LENGTH, orig.getMaximumLength());
 
 			final StringAttribute copy = (StringAttribute)orig.copyFunctionAttribute();
 			assertEquals(false, copy.isFinal());
 			assertEquals(false, copy.isMandatory());
-			assertEquals(false, copy.hasLengthConstraintCheckedException());
 			assertEquals(0, copy.getMinimumLength());
 			assertEquals(StringAttribute.DEFAULT_LENGTH, copy.getMaximumLength());
 		}
@@ -100,7 +92,6 @@ public class StringTest extends TestmodelTest
 			assertEquals(true, orig.isFinal());
 			assertEquals(false, orig.isMandatory());
 			assertNull(orig.getImplicitUniqueConstraint());
-			assertEquals(true, orig.hasLengthConstraintCheckedException());
 			assertEquals(10, orig.getMinimumLength());
 			assertEquals(StringAttribute.DEFAULT_LENGTH, orig.getMaximumLength());
 			
@@ -108,7 +99,6 @@ public class StringTest extends TestmodelTest
 			assertEquals(true, copy.isFinal());
 			assertEquals(false, copy.isMandatory());
 			assertNull(copy.getImplicitUniqueConstraint());
-			assertEquals(true, copy.hasLengthConstraintCheckedException());
 			assertEquals(10, copy.getMinimumLength());
 			assertEquals(StringAttribute.DEFAULT_LENGTH, copy.getMaximumLength());
 		}
@@ -117,7 +107,6 @@ public class StringTest extends TestmodelTest
 			assertEquals(true, orig.isFinal());
 			assertEquals(false, orig.isMandatory());
 			assertNotNull(orig.getImplicitUniqueConstraint());
-			assertEquals(true, orig.hasLengthConstraintCheckedException());
 			assertEquals(20, orig.getMinimumLength());
 			assertEquals(StringAttribute.DEFAULT_LENGTH, orig.getMaximumLength());
 			
@@ -125,7 +114,6 @@ public class StringTest extends TestmodelTest
 			assertEquals(true, copy.isFinal());
 			assertEquals(false, copy.isMandatory());
 			assertNotNull(copy.getImplicitUniqueConstraint());
-			assertEquals(true, copy.hasLengthConstraintCheckedException());
 			assertEquals(20, copy.getMinimumLength());
 			assertEquals(StringAttribute.DEFAULT_LENGTH, copy.getMaximumLength());
 		}
@@ -133,14 +121,12 @@ public class StringTest extends TestmodelTest
 			final StringAttribute orig = new StringAttribute(Item.MANDATORY).lengthRange(10, 20);
 			assertEquals(false, orig.isFinal());
 			assertEquals(true, orig.isMandatory());
-			assertEquals(true, orig.hasLengthConstraintCheckedException());
 			assertEquals(10, orig.getMinimumLength());
 			assertEquals(20, orig.getMaximumLength());
 			
 			final StringAttribute copy = (StringAttribute)orig.copyFunctionAttribute();
 			assertEquals(false, copy.isFinal());
 			assertEquals(true, copy.isMandatory());
-			assertEquals(true, copy.hasLengthConstraintCheckedException());
 			assertEquals(10, copy.getMinimumLength());
 			assertEquals(20, copy.getMaximumLength());
 		}
@@ -315,7 +301,7 @@ public class StringTest extends TestmodelTest
 			item.setMax5Unchecked("123456");
 			fail("should have thrown LengthViolationException");
 		}
-		catch(LengthViolationRuntimeException e)
+		catch(LengthViolationException e)
 		{
 			assertEquals(item, e.getItem());
 			assertEquals(item.max5Unchecked, e.getStringAttribute());
@@ -333,7 +319,7 @@ public class StringTest extends TestmodelTest
 			new StringItem("123456", (Date)null);
 			fail();
 		}
-		catch(LengthViolationRuntimeException e)
+		catch(LengthViolationException e)
 		{
 			assertEquals(null, e.getItem());
 			assertEquals(item.max5Unchecked, e.getStringAttribute());
@@ -347,7 +333,7 @@ public class StringTest extends TestmodelTest
 			StringItem.TYPE.newItem(new AttributeValue[]{item.max5Unchecked.map("123456")});
 			fail();
 		}
-		catch(LengthViolationRuntimeException e)
+		catch(LengthViolationException e)
 		{
 			assertEquals(null, e.getItem());
 			assertEquals(item.max5Unchecked, e.getStringAttribute());
@@ -513,7 +499,7 @@ public class StringTest extends TestmodelTest
 		return result;
 	}
 
-	void assertString(final Item item, final Item item2, final StringAttribute sa) throws ConstraintViolationException
+	void assertString(final Item item, final Item item2, final StringAttribute sa)
 	{
 		final Type type = item.getCopeType();
 		assertEquals(type, item2.getCopeType());
@@ -633,7 +619,7 @@ public class StringTest extends TestmodelTest
 		assertContains(item, item2, type.search(sa.isNull()));
 	}
 	
-	private void assertStringSet(final Item item, final StringAttribute sa, final String value) throws ConstraintViolationException
+	private void assertStringSet(final Item item, final StringAttribute sa, final String value)
 	{
 		//if(value.length()<=100) System.out.println("---------"+value+"------------");
 		

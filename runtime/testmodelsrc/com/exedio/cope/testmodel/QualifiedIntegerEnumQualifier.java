@@ -77,8 +77,6 @@ public class QualifiedIntegerEnumQualifier extends Item
 			QualifiedIntegerEnumQualifier.keyX.map(keyX),
 			QualifiedIntegerEnumQualifier.keyY.map(keyY),
 		});
-		throwInitialMandatoryViolationException();
-		throwInitialUniqueViolationException();
 	}/**
 
 	 **
@@ -161,27 +159,10 @@ public class QualifiedIntegerEnumQualifier extends Item
 	 *       It can be customized with the tag <code>@cope.setter public|package|protected|private|none|non-final</code> in the comment of the attribute.
 	 */
 	public final void setQualifiedA(final java.lang.String qualifiedA)
+			throws
+				com.exedio.cope.LengthViolationException
 	{
-		try
-		{
-			QualifiedIntegerEnumQualifier.qualifiedA.set(this,qualifiedA);
-		}
-		catch(com.exedio.cope.FinalViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.LengthViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.UniqueViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
+		QualifiedIntegerEnumQualifier.qualifiedA.set(this,qualifiedA);
 	}/**
 
 	 **
@@ -200,27 +181,10 @@ public class QualifiedIntegerEnumQualifier extends Item
 	 *       It can be customized with the tag <code>@cope.setter public|package|protected|private|none|non-final</code> in the comment of the attribute.
 	 */
 	public final void setQualifiedB(final java.lang.String qualifiedB)
+			throws
+				com.exedio.cope.LengthViolationException
 	{
-		try
-		{
-			QualifiedIntegerEnumQualifier.qualifiedB.set(this,qualifiedB);
-		}
-		catch(com.exedio.cope.FinalViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.LengthViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.UniqueViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
+		QualifiedIntegerEnumQualifier.qualifiedB.set(this,qualifiedB);
 	}/**
 
 	 **

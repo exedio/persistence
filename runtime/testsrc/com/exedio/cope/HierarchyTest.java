@@ -18,9 +18,7 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.pattern.CustomAttributeException;
 import com.exedio.cope.util.CacheInfo;
-
 
 
 public class HierarchyTest extends AbstractLibTest
@@ -31,7 +29,7 @@ public class HierarchyTest extends AbstractLibTest
 	}
 	
 	public void testHierarchy()
-			throws ConstraintViolationException, NoSuchIDException, CustomAttributeException
+			throws NoSuchIDException
 	{
 		// model HierarchySuper
 		assertEquals(null, HierarchySuper.TYPE.getSupertype());

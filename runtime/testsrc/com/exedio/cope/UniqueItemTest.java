@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.pattern.CustomAttributeException;
 import com.exedio.cope.testmodel.ItemWithDoubleUnique;
 import com.exedio.cope.testmodel.ItemWithSingleUnique;
 import com.exedio.cope.testmodel.ItemWithSingleUniqueNotNull;
@@ -159,7 +158,7 @@ public class UniqueItemTest extends TestmodelTest
 		assertDelete(item);
 	}
 	
-	public void testMultipleSet() throws ConstraintViolationException, CustomAttributeException
+	public void testMultipleSet()
 	{
 		final ItemWithSingleUnique item1 = new ItemWithSingleUnique();
 		deleteOnTearDown(item1);
@@ -199,7 +198,6 @@ public class UniqueItemTest extends TestmodelTest
 	}
 
 	public void testUniqueFinal()
-			throws ConstraintViolationException
 	{
 		assertEquals(null, UniqueFinal.findByUniqueFinalString("uniqueString"));
 
@@ -225,7 +223,7 @@ public class UniqueItemTest extends TestmodelTest
 		assertDelete(item);
 	}
 
-	public void testItemWithSingleUniqueNotNull() throws ConstraintViolationException
+	public void testItemWithSingleUniqueNotNull()
 	{
 		assertEquals(null, ItemWithSingleUniqueNotNull.findByUniqueNotNullString("uniqueString"));
 		assertEquals(null, ItemWithSingleUniqueNotNull.findByUniqueNotNullString("uniqueString2"));
@@ -285,7 +283,6 @@ public class UniqueItemTest extends TestmodelTest
 	}
 	
 	public void testDoubleUnique()
-		throws ConstraintViolationException
 	{
 		assertEqualsUnmodifiable(
 			list(

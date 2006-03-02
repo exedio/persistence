@@ -21,7 +21,7 @@ package com.exedio.cope;
 
 public class AttributeDoubleTest extends AttributeTest
 {
-	public void testSomeDouble() throws ConstraintViolationException
+	public void testSomeDouble()
 	{
 		assertEquals(item.TYPE, item.someDouble.getType());
 		assertEquals(null, item.getSomeDouble());
@@ -82,7 +82,7 @@ public class AttributeDoubleTest extends AttributeTest
 		}
 	}
 
-	public void testSomeNotNullDouble() throws ConstraintViolationException
+	public void testSomeNotNullDouble()
 	{
 		assertEquals(item.TYPE, item.someNotNullDouble.getType());
 		assertEquals(2.2, item.getSomeNotNullDouble(), 0.0);

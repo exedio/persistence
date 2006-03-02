@@ -21,7 +21,7 @@ package com.exedio.cope;
 
 public class AttributeLongTest extends AttributeTest
 {
-	public void testSomeLong() throws ConstraintViolationException
+	public void testSomeLong()
 	{
 		assertEquals(item.TYPE, item.someLong.getType());
 		assertEquals(null, item.getSomeLong());
@@ -83,7 +83,7 @@ public class AttributeLongTest extends AttributeTest
 		}
 	}
 
-	public void testSomeNotNullLong() throws ConstraintViolationException
+	public void testSomeNotNullLong()
 	{
 		assertEquals(item.TYPE, item.someNotNullLong.getType());
 		assertEquals(6l, item.getSomeNotNullLong());

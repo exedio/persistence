@@ -141,18 +141,7 @@ public class QualifiedName extends Item
 			throws
 				com.exedio.cope.UniqueViolationException
 	{
-		try
-		{
-			QualifiedName.parent.set(this,parent);
-		}
-		catch(com.exedio.cope.FinalViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
+		QualifiedName.parent.set(this,parent);
 	}/**
 
 	 **
@@ -172,24 +161,10 @@ public class QualifiedName extends Item
 	 */
 	public final void setKey(final java.lang.String key)
 			throws
+				com.exedio.cope.LengthViolationException,
 				com.exedio.cope.UniqueViolationException
 	{
-		try
-		{
-			QualifiedName.key.set(this,key);
-		}
-		catch(com.exedio.cope.FinalViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.LengthViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
+		QualifiedName.key.set(this,key);
 	}/**
 
 	 **
@@ -221,18 +196,7 @@ public class QualifiedName extends Item
 	 */
 	public final void setNumber(final int number)
 	{
-		try
-		{
-			QualifiedName.number.set(this,number);
-		}
-		catch(com.exedio.cope.FinalViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.UniqueViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
+		QualifiedName.number.set(this,number);
 	}/**
 
 	 **
@@ -252,22 +216,7 @@ public class QualifiedName extends Item
 	 */
 	public final void setOptionalNumber(final java.lang.Integer optionalNumber)
 	{
-		try
-		{
-			QualifiedName.optionalNumber.set(this,optionalNumber);
-		}
-		catch(com.exedio.cope.FinalViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.UniqueViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
+		QualifiedName.optionalNumber.set(this,optionalNumber);
 	}/**
 
 	 **
@@ -277,18 +226,7 @@ public class QualifiedName extends Item
 	 */
 	public final void setNoneGetterNumber(final int noneGetterNumber)
 	{
-		try
-		{
-			QualifiedName.noneGetterNumber.set(this,noneGetterNumber);
-		}
-		catch(com.exedio.cope.FinalViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.UniqueViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
+		QualifiedName.noneGetterNumber.set(this,noneGetterNumber);
 	}/**
 
 	 **
@@ -308,18 +246,7 @@ public class QualifiedName extends Item
 	 */
 	public final void setPrivateGetterNumber(final int privateGetterNumber)
 	{
-		try
-		{
-			QualifiedName.privateGetterNumber.set(this,privateGetterNumber);
-		}
-		catch(com.exedio.cope.FinalViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.UniqueViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
+		QualifiedName.privateGetterNumber.set(this,privateGetterNumber);
 	}/**
 
 	 **
@@ -339,18 +266,7 @@ public class QualifiedName extends Item
 	 */
 	public final void setInternalGetterNumber(final int internalGetterNumber)
 	{
-		try
-		{
-			QualifiedName.internalGetterNumber.set(this,internalGetterNumber);
-		}
-		catch(com.exedio.cope.FinalViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.UniqueViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
+		QualifiedName.internalGetterNumber.set(this,internalGetterNumber);
 	}/**
 
 	 **
@@ -380,18 +296,7 @@ public class QualifiedName extends Item
 	 */
 	private final void setPrivateSetterNumber(final int privateSetterNumber)
 	{
-		try
-		{
-			QualifiedName.privateSetterNumber.set(this,privateSetterNumber);
-		}
-		catch(com.exedio.cope.FinalViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.UniqueViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
+		QualifiedName.privateSetterNumber.set(this,privateSetterNumber);
 	}/**
 
 	 **
@@ -411,18 +316,7 @@ public class QualifiedName extends Item
 	 */
 	private final void setInternalSetterNumberInternal(final int internalSetterNumber)
 	{
-		try
-		{
-			QualifiedName.internalSetterNumber.set(this,internalSetterNumber);
-		}
-		catch(com.exedio.cope.FinalViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.UniqueViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
+		QualifiedName.internalSetterNumber.set(this,internalSetterNumber);
 	}/**
 
 	 **

@@ -91,18 +91,7 @@ public class AttributeEmptyItem extends Item
 			throws
 				com.exedio.cope.UniqueViolationException
 	{
-		try
-		{
-			AttributeEmptyItem.parent.set(this,parent);
-		}
-		catch(com.exedio.cope.FinalViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
+		AttributeEmptyItem.parent.set(this,parent);
 	}/**
 
 	 **
@@ -124,18 +113,7 @@ public class AttributeEmptyItem extends Item
 			throws
 				com.exedio.cope.UniqueViolationException
 	{
-		try
-		{
-			AttributeEmptyItem.key.set(this,key);
-		}
-		catch(com.exedio.cope.FinalViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
+		AttributeEmptyItem.key.set(this,key);
 	}/**
 
 	 **
@@ -166,27 +144,10 @@ public class AttributeEmptyItem extends Item
 	 *       It can be customized with the tag <code>@cope.setter public|package|protected|private|none|non-final</code> in the comment of the attribute.
 	 */
 	public final void setSomeQualifiedString(final java.lang.String someQualifiedString)
+			throws
+				com.exedio.cope.LengthViolationException
 	{
-		try
-		{
-			AttributeEmptyItem.someQualifiedString.set(this,someQualifiedString);
-		}
-		catch(com.exedio.cope.FinalViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.LengthViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.UniqueViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
+		AttributeEmptyItem.someQualifiedString.set(this,someQualifiedString);
 	}/**
 
 	 **

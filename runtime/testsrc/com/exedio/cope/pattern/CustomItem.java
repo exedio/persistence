@@ -84,22 +84,6 @@ public final class CustomItem extends Item
 		this(new com.exedio.cope.AttributeValue[]{
 			CustomItem.number.map(number),
 		});
-		try
-		{
-			throwInitialCustomAttributeException();
-		}
-		catch(CustomAttributeException e)
-		{
-			final Throwable cause = e.getCause();
-			if(cause instanceof IOException)
-			{
-				throw (IOException)cause;
-			}
-			else
-			{
-				throw new RuntimeException(e);
-			}
-		}
 	}
 
 	public static final IntegerAttribute element1 = new IntegerAttribute(OPTIONAL);
@@ -205,27 +189,10 @@ public final class CustomItem extends Item
 	 *       It can be customized with the tag <code>@cope.setter public|package|protected|private|none|non-final</code> in the comment of the attribute.
 	 */
 	public final void setNumberString(final java.lang.String numberString)
+			throws
+				com.exedio.cope.LengthViolationException
 	{
-		try
-		{
-			CustomItem.numberString.set(this,numberString);
-		}
-		catch(com.exedio.cope.FinalViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.LengthViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.UniqueViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
+		CustomItem.numberString.set(this,numberString);
 	}/**
 
 	 **
@@ -245,22 +212,7 @@ public final class CustomItem extends Item
 	 */
 	public final void setElement1(final java.lang.Integer element1)
 	{
-		try
-		{
-			CustomItem.element1.set(this,element1);
-		}
-		catch(com.exedio.cope.FinalViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.UniqueViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
+		CustomItem.element1.set(this,element1);
 	}/**
 
 	 **
@@ -280,22 +232,7 @@ public final class CustomItem extends Item
 	 */
 	public final void setElement2(final java.lang.Integer element2)
 	{
-		try
-		{
-			CustomItem.element2.set(this,element2);
-		}
-		catch(com.exedio.cope.FinalViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.UniqueViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
+		CustomItem.element2.set(this,element2);
 	}/**
 
 	 **
@@ -315,22 +252,7 @@ public final class CustomItem extends Item
 	 */
 	public final void setElement3(final java.lang.Integer element3)
 	{
-		try
-		{
-			CustomItem.element3.set(this,element3);
-		}
-		catch(com.exedio.cope.FinalViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.UniqueViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
+		CustomItem.element3.set(this,element3);
 	}/**
 
 	 **

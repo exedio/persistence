@@ -21,7 +21,7 @@ package com.exedio.cope;
 
 public class AttributeIntegerTest extends AttributeTest
 {
-	public void testSomeInteger() throws ConstraintViolationException
+	public void testSomeInteger()
 	{
 		assertEquals(item.TYPE, item.someInteger.getType());
 		assertEquals(null, item.getSomeInteger());
@@ -82,7 +82,7 @@ public class AttributeIntegerTest extends AttributeTest
 		}
 	}
 
-	public void testSomeNotNullInteger() throws ConstraintViolationException
+	public void testSomeNotNullInteger()
 	{
 		assertEquals(item.TYPE, item.someNotNullInteger.getType());
 		assertEquals(5, item.getSomeNotNullInteger());

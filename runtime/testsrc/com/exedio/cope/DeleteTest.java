@@ -37,7 +37,7 @@ public class DeleteTest extends AbstractLibTest
 		super.setUp();
 	}
 	
-	public void testForbid() throws ConstraintViolationException
+	public void testForbid()
 	{
 		assertTrue(Item.FORBID.forbid);
 		assertTrue(!Item.FORBID.nullify);
@@ -92,7 +92,7 @@ public class DeleteTest extends AbstractLibTest
 		assertDelete(item);
 	}
 	
-	public void testNullify() throws ConstraintViolationException
+	public void testNullify()
 	{
 		assertSame(Item.NULLIFY, item.selfNullify.getDeletePolicy());
 		assertSame(Item.NULLIFY, item.otherNullify.getDeletePolicy());
@@ -149,7 +149,7 @@ public class DeleteTest extends AbstractLibTest
 		assertDelete(item3);
 	}
 	
-	public void testCascade() throws ConstraintViolationException
+	public void testCascade()
 	{
 		assertSame(Item.CASCADE, item.selfCascade.getDeletePolicy());
 		assertSame(Item.CASCADE, item.otherCascade.getDeletePolicy());

@@ -105,22 +105,7 @@ public class SumItem extends Item
 	 */
 	public final void setNum1(final java.lang.Integer num1)
 	{
-		try
-		{
-			SumItem.num1.set(this,num1);
-		}
-		catch(com.exedio.cope.FinalViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.UniqueViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
+		SumItem.num1.set(this,num1);
 	}/**
 
 	 **
@@ -140,22 +125,7 @@ public class SumItem extends Item
 	 */
 	public final void setNum2(final java.lang.Integer num2)
 	{
-		try
-		{
-			SumItem.num2.set(this,num2);
-		}
-		catch(com.exedio.cope.FinalViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.UniqueViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
+		SumItem.num2.set(this,num2);
 	}/**
 
 	 **
@@ -175,22 +145,7 @@ public class SumItem extends Item
 	 */
 	public final void setNum3(final java.lang.Integer num3)
 	{
-		try
-		{
-			SumItem.num3.set(this,num3);
-		}
-		catch(com.exedio.cope.FinalViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.UniqueViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
+		SumItem.num3.set(this,num3);
 	}/**
 
 	 **

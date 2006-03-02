@@ -35,7 +35,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.exedio.cope.Attribute;
 import com.exedio.cope.AttributeValue;
-import com.exedio.cope.ConstraintViolationException;
 import com.exedio.cope.DataAttribute;
 import com.exedio.cope.DataLengthViolationException;
 import com.exedio.cope.DateAttribute;
@@ -375,56 +374,48 @@ public final class Media extends MediaPath
 	private void set(final Item item, final Object data, final String contentType)
 		throws DataLengthViolationException, IOException
 	{
+		if(data!=null)
+		{
+			if(contentType==null)
+				throw new RuntimeException("if data is not null, content type must also be not null");
+			
+			final long length;
+			if(data instanceof byte[])
+				length = ((byte[])data).length;
+			else if(data instanceof InputStream)
+				length = -1;
+			else
+				length = ((File)data).length();
+			
+			if(length>this.data.getMaximumLength())
+				throw new DataLengthViolationException(this.data, item, length, true);
+		}
+		else
+		{
+			if(contentType!=null)
+				throw new RuntimeException("if data is null, content type must also be null");
+		}
+
+		final ArrayList values = new ArrayList(3);
+		this.contentType.map(values, contentType);
+		values.add(this.lastModified.map(data!=null ? new Date() : null));
 		try
 		{
-			if(data!=null)
-			{
-				if(contentType==null)
-					throw new RuntimeException("if data is not null, content type must also be not null");
-				
-				final long length;
-				if(data instanceof byte[])
-					length = ((byte[])data).length;
-				else if(data instanceof InputStream)
-					length = -1;
-				else
-					length = ((File)data).length();
-				
-				if(length>this.data.getMaximumLength())
-					throw new DataLengthViolationException(this.data, item, length, true);
-			}
-			else
-			{
-				if(contentType!=null)
-					throw new RuntimeException("if data is null, content type must also be null");
-			}
-	
-			final ArrayList values = new ArrayList(3);
-			this.contentType.map(values, contentType);
-			values.add(this.lastModified.map(data!=null ? new Date() : null));
-			try
-			{
-				item.set((AttributeValue[])values.toArray(new AttributeValue[values.size()]));
-			}
-			catch(CustomAttributeException e)
-			{
-				// cannot happen, since FunctionAttribute only are allowed for source
-				throw new RuntimeException(e);
-			}
-			
-			// TODO set this via Item.set(AttributeValue[]) as well
-			if(data instanceof byte[])
-				this.data.set(item, (byte[])data);
-			else if(data instanceof InputStream)
-				this.data.set(item, (InputStream)data);
-			else
-				this.data.set(item, (File)data);
-	
+			item.set((AttributeValue[])values.toArray(new AttributeValue[values.size()]));
 		}
-		catch(ConstraintViolationException e)
+		catch(CustomAttributeException e)
 		{
+			// cannot happen, since FunctionAttribute only are allowed for source
 			throw new RuntimeException(e);
 		}
+		
+		// TODO set this via Item.set(AttributeValue[]) as well
+		if(data instanceof byte[])
+			this.data.set(item, (byte[])data);
+		else if(data instanceof InputStream)
+			this.data.set(item, (InputStream)data);
+		else
+			this.data.set(item, (File)data);
 	}
 	
 	public final static Media get(final DataAttribute attribute)

@@ -103,7 +103,6 @@ public class ItemTest extends TestmodelTest
 	}
 	
 	public void testItemCreation()
-			throws ConstraintViolationException
 	{
 		final EmptyItem item1 = (EmptyItem)EmptyItem.TYPE.newItem(null);
 		final AttributeItem item2 = (AttributeItem)AttributeItem.TYPE.newItem(new AttributeValue[]{

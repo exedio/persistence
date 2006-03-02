@@ -47,7 +47,6 @@ public class HierarchySecondSub extends HierarchySuper
 		this(new com.exedio.cope.AttributeValue[]{
 			HierarchySecondSub.superInt.map(superInt),
 		});
-		throwInitialUniqueViolationException();
 	}/**
 
 	 **
@@ -87,27 +86,10 @@ public class HierarchySecondSub extends HierarchySuper
 	 *       It can be customized with the tag <code>@cope.setter public|package|protected|private|none|non-final</code> in the comment of the attribute.
 	 */
 	public final void setFirstSubString(final java.lang.String firstSubString)
+			throws
+				com.exedio.cope.LengthViolationException
 	{
-		try
-		{
-			HierarchySecondSub.firstSubString.set(this,firstSubString);
-		}
-		catch(com.exedio.cope.FinalViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.LengthViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.UniqueViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
+		HierarchySecondSub.firstSubString.set(this,firstSubString);
 	}/**
 
 	 **

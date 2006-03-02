@@ -59,8 +59,6 @@ public abstract class Super extends Item
 			Super.superMandatory.map(superMandatory),
 			Super.superInitial.map(superInitial),
 		});
-		throwInitialLengthViolationException();
-		throwInitialMandatoryViolationException();
 	}/**
 
 	 **
@@ -104,18 +102,7 @@ public abstract class Super extends Item
 				com.exedio.cope.LengthViolationException,
 				com.exedio.cope.MandatoryViolationException
 	{
-		try
-		{
-			Super.superMandatory.set(this,superMandatory);
-		}
-		catch(com.exedio.cope.FinalViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.UniqueViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
+		Super.superMandatory.set(this,superMandatory);
 	}/**
 
 	 **
@@ -135,22 +122,7 @@ public abstract class Super extends Item
 	 */
 	public final void setSuperInitial(final java.lang.Integer superInitial)
 	{
-		try
-		{
-			Super.superInitial.set(this,superInitial);
-		}
-		catch(com.exedio.cope.FinalViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.UniqueViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
+		Super.superInitial.set(this,superInitial);
 	}/**
 
 	 **
@@ -170,22 +142,7 @@ public abstract class Super extends Item
 	 */
 	public final void setSuperNonInitial(final com.exedio.cope.util.Day superNonInitial)
 	{
-		try
-		{
-			Super.superNonInitial.set(this,superNonInitial);
-		}
-		catch(com.exedio.cope.FinalViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.UniqueViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
+		Super.superNonInitial.set(this,superNonInitial);
 	}/**
 
 	 **

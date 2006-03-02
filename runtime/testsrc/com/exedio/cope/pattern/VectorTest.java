@@ -24,7 +24,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.exedio.cope.AbstractLibTest;
-import com.exedio.cope.ConstraintViolationException;
 import com.exedio.cope.DateAttribute;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Main;
@@ -46,7 +45,7 @@ public class VectorTest extends AbstractLibTest
 		deleteOnTearDown(item = new VectorItem(1, 2, 3));
 	}
 	
-	public void testVector() throws ConstraintViolationException
+	public void testVector()
 	{
 		// test model
 		assertEquals(Arrays.asList(new Feature[]{
@@ -210,7 +209,6 @@ public class VectorTest extends AbstractLibTest
 		assertEquals("strings"+num, string.getName());
 		assertEquals(false, string.isMandatory());
 		assertEquals(false, string.isFinal());
-		assertEquals(true, string.hasLengthConstraintCheckedException());
 		assertEquals(1, string.getMinimumLength());
 		assertEquals(11, string.getMaximumLength());
 		return string;

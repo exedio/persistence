@@ -52,7 +52,6 @@ public abstract class HierarchySuper extends Item
 		this(new com.exedio.cope.AttributeValue[]{
 			HierarchySuper.superInt.map(superInt),
 		});
-		throwInitialUniqueViolationException();
 	}/**
 
 	 **
@@ -95,14 +94,7 @@ public abstract class HierarchySuper extends Item
 			throws
 				com.exedio.cope.UniqueViolationException
 	{
-		try
-		{
-			HierarchySuper.superInt.set(this,superInt);
-		}
-		catch(com.exedio.cope.FinalViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
+		HierarchySuper.superInt.set(this,superInt);
 	}/**
 
 	 **
@@ -132,27 +124,10 @@ public abstract class HierarchySuper extends Item
 	 *       It can be customized with the tag <code>@cope.setter public|package|protected|private|none|non-final</code> in the comment of the attribute.
 	 */
 	public final void setSuperString(final java.lang.String superString)
+			throws
+				com.exedio.cope.LengthViolationException
 	{
-		try
-		{
-			HierarchySuper.superString.set(this,superString);
-		}
-		catch(com.exedio.cope.FinalViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.LengthViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.UniqueViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
+		HierarchySuper.superString.set(this,superString);
 	}/**
 
 	 **

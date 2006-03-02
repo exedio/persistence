@@ -22,7 +22,6 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 
 import com.exedio.cope.AbstractLibTest;
-import com.exedio.cope.ConstraintViolationException;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Main;
 
@@ -43,7 +42,7 @@ public class JavaViewTest extends AbstractLibTest
 		deleteOnTearDown(item = new JavaViewItem());
 	}
 	
-	public void testNumber() throws ConstraintViolationException, NoSuchMethodException
+	public void testNumber() throws NoSuchMethodException
 	{
 		final Method getterMethod = item.getClass().getMethod("getNumber", (Class[])null);
 		

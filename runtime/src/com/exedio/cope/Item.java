@@ -54,7 +54,6 @@ public abstract class Item extends Cope
 	 */
 	public final String getCopeID()
 	{
-		assertValid();
 		return type.id + '.' + type.getPkSource().pk2id(pk);
 	}
 	
@@ -64,7 +63,6 @@ public abstract class Item extends Cope
 	 */
 	public final Type getCopeType()
 	{
-		assertValid();
 		return type;
 	}
 
@@ -76,7 +74,6 @@ public abstract class Item extends Cope
 	 */
 	public final boolean equals(final Object o)
 	{
-		assertValid();
 		return (o!=null) && (getClass()==o.getClass()) && (pk==((Item)o).pk);
 	}
 
@@ -87,13 +84,11 @@ public abstract class Item extends Cope
 	 */
 	public final int hashCode()
 	{
-		assertValid();
 		return getClass().hashCode() ^ pk;
 	}
 	
 	public String toString()
 	{
-		assertValid();
 		return getCopeID();
 	}
 
@@ -124,18 +119,18 @@ public abstract class Item extends Cope
 	}
 
 	/**
-	 * Must never be public, since it does not throw exceptions for constraint violations.
-	 * Subclasses (usually generated) must care about throwing these exception by calling
-	 * {@link #throwInitialMandatoryViolationException} and/or 
-	 * {@link #throwInitialUniqueViolationException}.
-	 * All this fiddling is needed, because one cannot wrap a <code>super()</code> call into a
-	 * try-catch statement.
+	 * @throws MandatoryViolationException
+	 *         if <code>value</code> is null and <code>attribute</code>
+	 *         is {@link Attribute#isMandatory() mandatory}.
 	 * @throws ClassCastException
-	 *         if one of the values in <code>initialAttributeValues</code>
-	 *         is not compatible to it's attribute.
+	 *         if <code>value</code> is not compatible to <code>attribute</code>.
 	 */
 	protected Item(AttributeValue[] initialAttributeValues)
-		throws ClassCastException
+		throws
+			UniqueViolationException,
+			MandatoryViolationException,
+			LengthViolationException,
+			ClassCastException
 	{
 		this.type = Type.findByJavaClass(getClass());
 		this.pk = type.getPkSource().nextPK(type.getModel().getCurrentTransaction().getConnection());
@@ -143,45 +138,16 @@ public abstract class Item extends Cope
 			throw new RuntimeException();
 		//System.out.println("create item "+type+" "+pk);
 		
-		try
+		initialAttributeValues = executeCustomAttributes(initialAttributeValues, null);
+		for(int i = 0; i<initialAttributeValues.length; i++)
 		{
-			initialAttributeValues = executeCustomAttributes(initialAttributeValues, null);
-		}
-		catch(CustomAttributeException e)
-		{
-			initialConstraintViolationException = e;
-			return;
-		}
-		try
-		{
-			for(int i = 0; i<initialAttributeValues.length; i++)
-			{
-				final AttributeValue av = initialAttributeValues[i];
-				((FunctionAttribute)av.attribute).checkValue(av.value, null);
-			}
-		}
-		catch(MandatoryViolationException e)
-		{
-			initialConstraintViolationException = e;
-			return;
-		}
-		catch(LengthViolationException e)
-		{
-			initialConstraintViolationException = e;
-			return;
+			final AttributeValue av = initialAttributeValues[i];
+			((FunctionAttribute)av.attribute).checkValue(av.value, null);
 		}
 
 		final Entity entity = getEntity(false);
 		entity.put( initialAttributeValues );
-		try
-		{
-			entity.write();
-		}
-		catch(UniqueViolationException e)
-		{
-			initialConstraintViolationException = e;
-			return;
-		}
+		entity.write();
 	}
 	
 	/**
@@ -204,60 +170,8 @@ public abstract class Item extends Cope
 			throw new RuntimeException();
 	}
 
-	private ConstraintViolationException initialConstraintViolationException = null;
-	
-	/**
-	 * Throws a {@link CustomAttributeException}, if such an exception occured in the constructor.
-	 */
-	protected final void throwInitialCustomAttributeException() throws CustomAttributeException
-	{
-		if(initialConstraintViolationException!=null && initialConstraintViolationException instanceof CustomAttributeException)
-			throw (CustomAttributeException)initialConstraintViolationException;
-	}
-	
-	/**
-	 * Throws a {@link MandatoryViolationException}, if a mandatory violation occured in the constructor.
-	 * @throws MandatoryViolationException
-	 *         if one of the values in <code>initialAttributeValues</code>
-	 *         is either null or not specified
-	 *         and it's attribute is {@link Attribute#isMandatory() mandatory}.
-	 */
-	protected final void throwInitialMandatoryViolationException() throws MandatoryViolationException
-	{
-		if(initialConstraintViolationException!=null && initialConstraintViolationException instanceof MandatoryViolationException)
-			throw (MandatoryViolationException)initialConstraintViolationException;
-	}
-	
-	/**
-	 * Throws a {@link LengthViolationException}, if a length violation occured in the constructor.
-	 * @throws LengthViolationException
-	 *         if one of the values in <code>initialAttributeValues</code>
-	 *         violated the length constraint of it's attribute.
-	 */
-	protected final void throwInitialLengthViolationException() throws LengthViolationException
-	{
-		if(initialConstraintViolationException!=null && initialConstraintViolationException instanceof LengthViolationException)
-			throw (LengthViolationException)initialConstraintViolationException;
-	}
-	
-	/**
-	 * Throws a {@link UniqueViolationException}, if a unique violation occured in the constructor.
-	 */
-	protected final void throwInitialUniqueViolationException() throws UniqueViolationException
-	{
-		if(initialConstraintViolationException!=null && initialConstraintViolationException instanceof UniqueViolationException)
-			throw (UniqueViolationException)initialConstraintViolationException;
-	}
-	
-	private final void assertValid()
-	{
-		if(initialConstraintViolationException!=null)
-			throw new RuntimeException("item is not valid", initialConstraintViolationException);
-	}
-	
 	public final Object get(final Function function)
 	{
-		assertValid();
 		return function.getObject(this);
 	}
 
@@ -365,7 +279,6 @@ public abstract class Item extends Cope
 		
 	private final void deleteCopeItem(final HashSet toDelete)
 	{
-		assertValid();
 		toDelete.add(this);
 		
 		//final String tostring = toString();
@@ -485,19 +398,16 @@ public abstract class Item extends Cope
 	
 	private final Entity getEntity()
 	{
-		assertValid();
 		return getEntity(true);
 	}
 
 	private final Entity getEntity(final boolean present)
 	{
-		assertValid();
 		return type.getModel().getCurrentTransaction().getEntity(this, present);
 	}
 
 	private final Entity getEntityIfActive()
 	{
-		assertValid();
 		return type.getModel().getCurrentTransaction().getEntityIfActive(type, pk);
 	}
 	

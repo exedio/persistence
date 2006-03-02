@@ -61,8 +61,6 @@ public class QualifiedEmptyQualifier extends Item
 			QualifiedEmptyQualifier.parent.map(parent),
 			QualifiedEmptyQualifier.key.map(key),
 		});
-		throwInitialMandatoryViolationException();
-		throwInitialUniqueViolationException();
 	}/**
 
 	 **
@@ -134,27 +132,10 @@ public class QualifiedEmptyQualifier extends Item
 	 *       It can be customized with the tag <code>@cope.setter public|package|protected|private|none|non-final</code> in the comment of the attribute.
 	 */
 	public final void setQualifiedA(final java.lang.String qualifiedA)
+			throws
+				com.exedio.cope.LengthViolationException
 	{
-		try
-		{
-			QualifiedEmptyQualifier.qualifiedA.set(this,qualifiedA);
-		}
-		catch(com.exedio.cope.FinalViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.LengthViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.UniqueViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
+		QualifiedEmptyQualifier.qualifiedA.set(this,qualifiedA);
 	}/**
 
 	 **
@@ -173,27 +154,10 @@ public class QualifiedEmptyQualifier extends Item
 	 *       It can be customized with the tag <code>@cope.setter public|package|protected|private|none|non-final</code> in the comment of the attribute.
 	 */
 	public final void setQualifiedB(final java.lang.String qualifiedB)
+			throws
+				com.exedio.cope.LengthViolationException
 	{
-		try
-		{
-			QualifiedEmptyQualifier.qualifiedB.set(this,qualifiedB);
-		}
-		catch(com.exedio.cope.FinalViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.LengthViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.UniqueViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
+		QualifiedEmptyQualifier.qualifiedB.set(this,qualifiedB);
 	}/**
 
 	 **

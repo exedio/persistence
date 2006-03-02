@@ -86,24 +86,10 @@ public class ItemWithSingleUnique extends Item
 	 */
 	public final void setUniqueString(final java.lang.String uniqueString)
 			throws
+				com.exedio.cope.LengthViolationException,
 				com.exedio.cope.UniqueViolationException
 	{
-		try
-		{
-			ItemWithSingleUnique.uniqueString.set(this,uniqueString);
-		}
-		catch(com.exedio.cope.FinalViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.LengthViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
+		ItemWithSingleUnique.uniqueString.set(this,uniqueString);
 	}/**
 
 	 **
@@ -133,27 +119,10 @@ public class ItemWithSingleUnique extends Item
 	 *       It can be customized with the tag <code>@cope.setter public|package|protected|private|none|non-final</code> in the comment of the attribute.
 	 */
 	public final void setOtherString(final java.lang.String otherString)
+			throws
+				com.exedio.cope.LengthViolationException
 	{
-		try
-		{
-			ItemWithSingleUnique.otherString.set(this,otherString);
-		}
-		catch(com.exedio.cope.FinalViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.LengthViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.UniqueViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
+		ItemWithSingleUnique.otherString.set(this,otherString);
 	}/**
 
 	 **

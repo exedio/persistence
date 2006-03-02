@@ -44,7 +44,6 @@ public class HierarchyEmptySub extends HierarchyEmptySuper
 		this(new com.exedio.cope.AttributeValue[]{
 			HierarchyEmptySub.superInt.map(superInt),
 		});
-		throwInitialUniqueViolationException();
 	}/**
 
 	 **

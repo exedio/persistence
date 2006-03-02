@@ -49,8 +49,6 @@ public class CollisionItem2 extends Item
 		this(new com.exedio.cope.AttributeValue[]{
 			CollisionItem2.collisionAttribute.map(collisionAttribute),
 		});
-		throwInitialMandatoryViolationException();
-		throwInitialUniqueViolationException();
 	}/**
 
 	 **

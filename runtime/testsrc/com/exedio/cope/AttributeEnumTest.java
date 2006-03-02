@@ -51,7 +51,7 @@ public class AttributeEnumTest extends AttributeTest
 		public static final SomeEnum2 enumValue2 = new SomeEnum2();
 	}
 
-	public void testSomeEnum() throws ConstraintViolationException
+	public void testSomeEnum()
 	{
 		// model
 		assertEquals(item.TYPE, item.someEnum.getType());

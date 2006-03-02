@@ -41,7 +41,7 @@ public final class DataLengthViolationException extends ConstraintViolationRunti
 	 */
 	public DataLengthViolationException(final DataAttribute dataAttribute, final Item item, final long length, final boolean lengthExact)
 	{
-		super(dataAttribute, item);
+		super(dataAttribute, item, null);
 		
 		if(length<dataAttribute.getMaximumLength())
 			throw new RuntimeException(dataAttribute.toString()+'/'+length+'/'+dataAttribute.getMaximumLength());

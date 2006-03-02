@@ -26,7 +26,6 @@ import java.util.List;
 
 import com.exedio.cope.Attribute;
 import com.exedio.cope.AttributeValue;
-import com.exedio.cope.ConstraintViolationException;
 import com.exedio.cope.FunctionAttribute;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemAttribute;
@@ -136,15 +135,7 @@ public final class Qualifier extends Pattern
 				final FunctionAttribute uniqueAttribute = (FunctionAttribute)i.next();
 				initialAttributeValues[j] = new AttributeValue(uniqueAttribute, values[j]);
 			}
-			try
-			{
-				item = qualifyUnique.getType().newItem(initialAttributeValues);
-			}
-			catch(ConstraintViolationException e)
-			{
-				// cannot happen, since all qualifying values  should be given
-				throw new RuntimeException(e);
-			}
+			item = qualifyUnique.getType().newItem(initialAttributeValues);
 		}
 		return item;
 	}
@@ -164,27 +155,11 @@ public final class Qualifier extends Pattern
 				final FunctionAttribute uniqueAttribute = (FunctionAttribute)i.next();
 				initialAttributeValues[j + values.length] = new AttributeValue(uniqueAttribute, keys[j]);
 			}
-			try
-			{
-				item = qualifyUnique.getType().newItem(initialAttributeValues);
-			}
-			catch(ConstraintViolationException e)
-			{
-				// cannot happen, since all qualifying values  should be given
-				throw new RuntimeException(e);
-			}
+			item = qualifyUnique.getType().newItem(initialAttributeValues);
 		}
 		else
 		{
-			try
-			{
-				item.set(values);
-			}
-			catch(ConstraintViolationException e)
-			{
-				// cannot happen, since all qualifying values should be given
-				throw new RuntimeException(e);
-			}
+			item.set(values);
 		}
 		
 		return item;

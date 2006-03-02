@@ -28,7 +28,7 @@ import com.exedio.cope.testmodel.SumItem;
 
 public class AttributeItemTest extends AttributeTest
 {
-	public void testSomeItem() throws ConstraintViolationException
+	public void testSomeItem()
 	{
 		assertEquals(item.TYPE, item.someItem.getType());
 		assertEquals(EmptyItem.TYPE, item.someItem.getTargetType());
@@ -124,7 +124,7 @@ public class AttributeItemTest extends AttributeTest
 		}
 	}
 	
-	public void testIntegrity() throws ConstraintViolationException
+	public void testIntegrity()
 	{
 		final EmptyItem2 target = new EmptyItem2();
 		deleteOnTearDown(target);

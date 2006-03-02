@@ -23,7 +23,6 @@ import java.util.Arrays;
 
 import com.exedio.cope.AbstractLibTest;
 import com.exedio.cope.AttributeValue;
-import com.exedio.cope.ConstraintViolationException;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Main;
 
@@ -48,7 +47,7 @@ public class CustomTest extends AbstractLibTest
 	static final Integer i56 = new Integer(56);
 	static final Integer im2 = new Integer(-2);
 	
-	public void testNumber() throws ConstraintViolationException, IOException, CustomAttributeException
+	public void testNumber() throws IOException
 	{
 		assertEquals(Arrays.asList(new Feature[]{
 				item.numberString,
@@ -117,9 +116,14 @@ public class CustomTest extends AbstractLibTest
 			new CustomItem(im2);
 			fail();
 		}
-		catch(IOException e)
+		catch(CustomAttributeException e)
 		{
-			assertEquals("test exception:-2", e.getMessage());
+			assertSame(item.number, e.getAttribute());
+			assertSame(item.number, e.getFeature());
+			assertEquals(null, e.getItem());
+			assertEquals("java.io.IOException: test exception:-2", e.getMessage());
+			assertEquals("test exception:-2", e.getCause().getMessage());
+			assertEquals(IOException.class, e.getCause().getClass());
 		}
 		assertContains(item, item.TYPE.search(null));
 		try

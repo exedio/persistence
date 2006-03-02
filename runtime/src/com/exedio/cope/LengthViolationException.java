@@ -23,14 +23,11 @@ package com.exedio.cope;
  * because value to be written violated the length constraint on that attribute.
  *
  * This exception will be thrown by {@link StringAttribute#set(Item,String)}
- * and item constructors
- * if for that attribute is
- * {@link StringAttribute#hasLengthConstraintCheckedException()}==true.
+ * and item constructors.
  * 
- * @see LengthViolationRuntimeException
  * @author Ralf Wiebicke
  */
-public final class LengthViolationException extends ConstraintViolationException
+public final class LengthViolationException extends ConstraintViolationRuntimeException
 {
 	private final StringAttribute stringAttribute;
 	private final String value;

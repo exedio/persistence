@@ -65,8 +65,6 @@ public class Sub extends Super
 			Sub.subMandatory.map(subMandatory),
 			Sub.subInitial.map(subInitial),
 		});
-		throwInitialLengthViolationException();
-		throwInitialMandatoryViolationException();
 	}/**
 
 	 **
@@ -107,18 +105,7 @@ public class Sub extends Super
 	 */
 	public final void setSubMandatory(final boolean subMandatory)
 	{
-		try
-		{
-			Sub.subMandatory.set(this,subMandatory);
-		}
-		catch(com.exedio.cope.FinalViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.UniqueViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
+		Sub.subMandatory.set(this,subMandatory);
 	}/**
 
 	 **
@@ -138,22 +125,7 @@ public class Sub extends Super
 	 */
 	public final void setSubInitial(final java.lang.Long subInitial)
 	{
-		try
-		{
-			Sub.subInitial.set(this,subInitial);
-		}
-		catch(com.exedio.cope.FinalViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.UniqueViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
+		Sub.subInitial.set(this,subInitial);
 	}/**
 
 	 **
@@ -173,22 +145,7 @@ public class Sub extends Super
 	 */
 	public final void setSubNonInitial(final java.util.Date subNonInitial)
 	{
-		try
-		{
-			Sub.subNonInitial.set(this,subNonInitial);
-		}
-		catch(com.exedio.cope.FinalViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.MandatoryViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.UniqueViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
+		Sub.subNonInitial.set(this,subNonInitial);
 	}/**
 
 	 **
@@ -197,18 +154,7 @@ public class Sub extends Super
 	 */
 	public final void touchSubNonInitial()
 	{
-		try
-		{
-			Sub.subNonInitial.touch(this);
-		}
-		catch(com.exedio.cope.FinalViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
-		catch(com.exedio.cope.UniqueViolationException e)
-		{
-			throw new java.lang.RuntimeException(e);
-		}
+		Sub.subNonInitial.touch(this);
 	}/**
 
 	 **

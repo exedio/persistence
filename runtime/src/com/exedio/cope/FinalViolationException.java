@@ -27,7 +27,7 @@ package com.exedio.cope;
  * 
  * @author Ralf Wiebicke
  */
-public final class FinalViolationException extends ConstraintViolationException
+public final class FinalViolationException extends ConstraintViolationRuntimeException
 {
 	private final Attribute finalAttribute;
 	
