@@ -27,7 +27,7 @@ package com.exedio.cope;
  * 
  * @author Ralf Wiebicke
  */
-public final class DataLengthViolationException extends ConstraintViolationRuntimeException
+public final class DataLengthViolationException extends ConstraintViolationException
 {
 	private final DataAttribute dataAttribute;
 	private final long length;

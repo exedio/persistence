@@ -539,7 +539,7 @@ public final class Type
 	private static final AttributeValue[] EMPTY_ATTRIBUTE_VALUES = new AttributeValue[]{};
 	
 	public final Item newItem(final AttributeValue[] initialAttributeValues)
-		throws ConstraintViolationRuntimeException
+		throws ConstraintViolationException
 	{
 		final Item result;
 		try
@@ -564,8 +564,8 @@ public final class Type
 		catch(InvocationTargetException e)
 		{
 			final Throwable t = e.getCause();
-			if(t instanceof ConstraintViolationRuntimeException)
-				throw (ConstraintViolationRuntimeException)t;
+			if(t instanceof ConstraintViolationException)
+				throw (ConstraintViolationException)t;
 			else
 				throw new RuntimeException(e);
 		}

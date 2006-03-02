@@ -31,7 +31,7 @@ import java.sql.SQLException;
  * 
  * @author Ralf Wiebicke
  */
-public final class UniqueViolationException extends ConstraintViolationRuntimeException
+public final class UniqueViolationException extends ConstraintViolationException
 {
 	private final UniqueConstraint constraint;
 	

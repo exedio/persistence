@@ -24,12 +24,12 @@ package com.exedio.cope;
  * 
  * @author Ralf Wiebicke
  */
-public abstract class ConstraintViolationRuntimeException extends RuntimeException
+public abstract class ConstraintViolationException extends RuntimeException
 {
 	private final Feature feature;
 	private final Item item;
 
-	public ConstraintViolationRuntimeException(final Feature feature, final Item item, final Throwable cause)
+	public ConstraintViolationException(final Feature feature, final Item item, final Throwable cause)
 	{
 		super(cause);
 		

@@ -30,7 +30,7 @@ package com.exedio.cope;
  * 
  * @author Ralf Wiebicke
  */
-public final class IntegrityViolationException extends ConstraintViolationRuntimeException
+public final class IntegrityViolationException extends ConstraintViolationException
 {
 	private final ItemAttribute attribute;
 

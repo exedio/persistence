@@ -27,7 +27,7 @@ package com.exedio.cope;
  * 
  * @author Ralf Wiebicke
  */
-public final class LengthViolationException extends ConstraintViolationRuntimeException
+public final class LengthViolationException extends ConstraintViolationException
 {
 	private final StringAttribute stringAttribute;
 	private final String value;

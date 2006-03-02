@@ -18,11 +18,11 @@
 
 package com.exedio.cope.pattern;
 
-import com.exedio.cope.ConstraintViolationRuntimeException;
+import com.exedio.cope.ConstraintViolationException;
 import com.exedio.cope.Item;
 
 
-public final class CustomAttributeException extends ConstraintViolationRuntimeException
+public final class CustomAttributeException extends ConstraintViolationException
 {
 	final CustomAttribute attribute;
 	
