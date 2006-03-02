@@ -167,14 +167,12 @@ public class Properties
 		
 		public Object getDefaultValue()
 		{
-			//return Integer.valueOf(defaultValue); recommended for JDK 1.5 and later
-			return new Integer(defaultValue);
+			return Integer.valueOf(defaultValue);
 		}
 		
 		public Object getValue()
 		{
-			//return Integer.valueOf(value); recommended for JDK 1.5 and later
-			return new Integer(value);
+			return Integer.valueOf(value);
 		}
 		
 		public int getIntValue()
