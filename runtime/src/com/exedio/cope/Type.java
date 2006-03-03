@@ -41,7 +41,7 @@ public final class Type
 	final String id;
 	private final Type supertype;
 	
-	private final List declaredFeatures;
+	private final List<Feature> declaredFeatures;
 	private final List features;
 	private final HashMap declaredFeaturesByName;
 	private final HashMap featuresByName;
@@ -84,7 +84,7 @@ public final class Type
 		return result;
 	}
 	
-	private ArrayList featuresWhileConstruction;
+	private ArrayList<Feature> featuresWhileConstruction;
 	
 	private static final String classToId(final Class javaClass)
 	{
@@ -154,9 +154,8 @@ public final class Type
 			final ArrayList declaredAttributes = new ArrayList(declaredFeatures.size());
 			final ArrayList declaredUniqueConstraints = new ArrayList(declaredFeatures.size());
 			final HashMap declaredFeaturesByName = new HashMap();
-			for(Iterator i = declaredFeatures.iterator(); i.hasNext(); )
+			for(final Feature feature : declaredFeatures)
 			{
-				final Feature feature = (Feature)i.next();
 				if(feature instanceof Attribute)
 					declaredAttributes.add(feature);
 				if(feature instanceof UniqueConstraint)
@@ -506,7 +505,7 @@ public final class Type
 		return attributes;
 	}
 	
-	public final List getDeclaredFeatures()
+	public final List<Feature> getDeclaredFeatures()
 	{
 		return declaredFeatures;
 	}

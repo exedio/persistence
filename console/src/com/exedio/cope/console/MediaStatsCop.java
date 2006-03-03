@@ -47,9 +47,8 @@ final class MediaStatsCop extends AdminCop
 		for(Iterator i = model.getTypes().iterator(); i.hasNext(); )
 		{
 			final Type type = (Type)i.next();
-			for(Iterator j = type.getDeclaredFeatures().iterator(); j.hasNext(); )
+			for(final Feature feature : type.getDeclaredFeatures())
 			{
-				final Feature feature = (Feature)j.next();
 				if(feature instanceof MediaPath)
 				{
 					medias.add(feature);
