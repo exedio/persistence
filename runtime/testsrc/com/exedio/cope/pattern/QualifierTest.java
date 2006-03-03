@@ -126,23 +126,23 @@ public class QualifierTest extends TestmodelTest
 		assertEquals(null, item.getQualifiedA("key2"));
 		assertEquals(null, item.getQualifiedB("key2"));
 
-		item.setQualifiedB("key1", new Integer(4));
+		item.setQualifiedB("key1", Integer.valueOf(4));
 		assertEquals(null, item.getQualifiedA("key1"));
-		assertEquals(new Integer(4), item.getQualifiedB("key1"));
+		assertEquals(Integer.valueOf(4), item.getQualifiedB("key1"));
 		assertEquals(null, item.getQualifiedA("key2"));
 		assertEquals(null, item.getQualifiedB("key2"));
 
-		item.setQualifiedA("key1", new Integer(8));
-		assertEquals(new Integer(8), item.getQualifiedA("key1"));
-		assertEquals(new Integer(4), item.getQualifiedB("key1"));
+		item.setQualifiedA("key1", Integer.valueOf(8));
+		assertEquals(Integer.valueOf(8), item.getQualifiedA("key1"));
+		assertEquals(Integer.valueOf(4), item.getQualifiedB("key1"));
 		assertEquals(null, item.getQualifiedA("key2"));
 		assertEquals(null, item.getQualifiedB("key2"));
 
-		item.setQualifiedB("key2", new Integer(10));
-		assertEquals(new Integer(8), item.getQualifiedA("key1"));
-		assertEquals(new Integer(4), item.getQualifiedB("key1"));
+		item.setQualifiedB("key2", Integer.valueOf(10));
+		assertEquals(Integer.valueOf(8), item.getQualifiedA("key1"));
+		assertEquals(Integer.valueOf(4), item.getQualifiedB("key1"));
 		assertEquals(null, item.getQualifiedA("key2"));
-		assertEquals(new Integer(10), item.getQualifiedB("key2"));
+		assertEquals(Integer.valueOf(10), item.getQualifiedB("key2"));
 		
 		QualifiedStringQualifier.findByQualifyUnique(item, "key1").deleteCopeItem();
 		QualifiedStringQualifier.findByQualifyUnique(item, "key2").deleteCopeItem();
@@ -153,34 +153,34 @@ public class QualifierTest extends TestmodelTest
 				QualifiedItem.intEnumQualifier.getKeys());
 		assertEquals(QualifiedIntegerEnumQualifier.qualifyUnique, QualifiedItem.intEnumQualifier.getQualifyUnique());
 		
-		assertEquals(null, item.getQualifiedB(new Integer(20), QualifiedIntegerEnumQualifier.KeyEnum.key1));
-		assertEquals(null, item.getQualifiedA(new Integer(20), QualifiedIntegerEnumQualifier.KeyEnum.key1));
-		assertEquals(null, item.getQualifiedB(new Integer(21), QualifiedIntegerEnumQualifier.KeyEnum.key1));
-		assertEquals(null, item.getQualifiedB(new Integer(20), QualifiedIntegerEnumQualifier.KeyEnum.key2));
+		assertEquals(null, item.getQualifiedB(Integer.valueOf(20), QualifiedIntegerEnumQualifier.KeyEnum.key1));
+		assertEquals(null, item.getQualifiedA(Integer.valueOf(20), QualifiedIntegerEnumQualifier.KeyEnum.key1));
+		assertEquals(null, item.getQualifiedB(Integer.valueOf(21), QualifiedIntegerEnumQualifier.KeyEnum.key1));
+		assertEquals(null, item.getQualifiedB(Integer.valueOf(20), QualifiedIntegerEnumQualifier.KeyEnum.key2));
 		
-		item.setQualifiedB(new Integer(20), QualifiedIntegerEnumQualifier.KeyEnum.key1, "B-20-key1");
-		assertEquals("B-20-key1", item.getQualifiedB(new Integer(20), QualifiedIntegerEnumQualifier.KeyEnum.key1));
-		assertEquals(null,        item.getQualifiedA(new Integer(20), QualifiedIntegerEnumQualifier.KeyEnum.key1));
-		assertEquals(null,        item.getQualifiedB(new Integer(21), QualifiedIntegerEnumQualifier.KeyEnum.key1));
-		assertEquals(null,        item.getQualifiedB(new Integer(20), QualifiedIntegerEnumQualifier.KeyEnum.key2));
+		item.setQualifiedB(Integer.valueOf(20), QualifiedIntegerEnumQualifier.KeyEnum.key1, "B-20-key1");
+		assertEquals("B-20-key1", item.getQualifiedB(Integer.valueOf(20), QualifiedIntegerEnumQualifier.KeyEnum.key1));
+		assertEquals(null,        item.getQualifiedA(Integer.valueOf(20), QualifiedIntegerEnumQualifier.KeyEnum.key1));
+		assertEquals(null,        item.getQualifiedB(Integer.valueOf(21), QualifiedIntegerEnumQualifier.KeyEnum.key1));
+		assertEquals(null,        item.getQualifiedB(Integer.valueOf(20), QualifiedIntegerEnumQualifier.KeyEnum.key2));
 	
-		item.setQualifiedA(new Integer(20), QualifiedIntegerEnumQualifier.KeyEnum.key1, "A-20-key1");
-		assertEquals("B-20-key1", item.getQualifiedB(new Integer(20), QualifiedIntegerEnumQualifier.KeyEnum.key1));
-		assertEquals("A-20-key1", item.getQualifiedA(new Integer(20), QualifiedIntegerEnumQualifier.KeyEnum.key1));
-		assertEquals(null,        item.getQualifiedB(new Integer(21), QualifiedIntegerEnumQualifier.KeyEnum.key1));
-		assertEquals(null,        item.getQualifiedB(new Integer(20), QualifiedIntegerEnumQualifier.KeyEnum.key2));
+		item.setQualifiedA(Integer.valueOf(20), QualifiedIntegerEnumQualifier.KeyEnum.key1, "A-20-key1");
+		assertEquals("B-20-key1", item.getQualifiedB(Integer.valueOf(20), QualifiedIntegerEnumQualifier.KeyEnum.key1));
+		assertEquals("A-20-key1", item.getQualifiedA(Integer.valueOf(20), QualifiedIntegerEnumQualifier.KeyEnum.key1));
+		assertEquals(null,        item.getQualifiedB(Integer.valueOf(21), QualifiedIntegerEnumQualifier.KeyEnum.key1));
+		assertEquals(null,        item.getQualifiedB(Integer.valueOf(20), QualifiedIntegerEnumQualifier.KeyEnum.key2));
 	
-		item.setQualifiedB(new Integer(21), QualifiedIntegerEnumQualifier.KeyEnum.key1, "A-21-key1");
-		assertEquals("B-20-key1", item.getQualifiedB(new Integer(20), QualifiedIntegerEnumQualifier.KeyEnum.key1));
-		assertEquals("A-20-key1", item.getQualifiedA(new Integer(20), QualifiedIntegerEnumQualifier.KeyEnum.key1));
-		assertEquals("A-21-key1", item.getQualifiedB(new Integer(21), QualifiedIntegerEnumQualifier.KeyEnum.key1));
-		assertEquals(null,        item.getQualifiedB(new Integer(20), QualifiedIntegerEnumQualifier.KeyEnum.key2));
+		item.setQualifiedB(Integer.valueOf(21), QualifiedIntegerEnumQualifier.KeyEnum.key1, "A-21-key1");
+		assertEquals("B-20-key1", item.getQualifiedB(Integer.valueOf(20), QualifiedIntegerEnumQualifier.KeyEnum.key1));
+		assertEquals("A-20-key1", item.getQualifiedA(Integer.valueOf(20), QualifiedIntegerEnumQualifier.KeyEnum.key1));
+		assertEquals("A-21-key1", item.getQualifiedB(Integer.valueOf(21), QualifiedIntegerEnumQualifier.KeyEnum.key1));
+		assertEquals(null,        item.getQualifiedB(Integer.valueOf(20), QualifiedIntegerEnumQualifier.KeyEnum.key2));
 	
-		item.setQualifiedB(new Integer(20), QualifiedIntegerEnumQualifier.KeyEnum.key2, "A-20-key2");
-		assertEquals("B-20-key1", item.getQualifiedB(new Integer(20), QualifiedIntegerEnumQualifier.KeyEnum.key1));
-		assertEquals("A-20-key1", item.getQualifiedA(new Integer(20), QualifiedIntegerEnumQualifier.KeyEnum.key1));
-		assertEquals("A-21-key1", item.getQualifiedB(new Integer(21), QualifiedIntegerEnumQualifier.KeyEnum.key1));
-		assertEquals("A-20-key2", item.getQualifiedB(new Integer(20), QualifiedIntegerEnumQualifier.KeyEnum.key2));
+		item.setQualifiedB(Integer.valueOf(20), QualifiedIntegerEnumQualifier.KeyEnum.key2, "A-20-key2");
+		assertEquals("B-20-key1", item.getQualifiedB(Integer.valueOf(20), QualifiedIntegerEnumQualifier.KeyEnum.key1));
+		assertEquals("A-20-key1", item.getQualifiedA(Integer.valueOf(20), QualifiedIntegerEnumQualifier.KeyEnum.key1));
+		assertEquals("A-21-key1", item.getQualifiedB(Integer.valueOf(21), QualifiedIntegerEnumQualifier.KeyEnum.key1));
+		assertEquals("A-20-key2", item.getQualifiedB(Integer.valueOf(20), QualifiedIntegerEnumQualifier.KeyEnum.key2));
 	
 		assertEquals(null, QualifiedIntegerEnumQualifier.findByQualifyUnique(item, 21, QualifiedIntegerEnumQualifier.KeyEnum.key2));
 
@@ -188,25 +188,25 @@ public class QualifierTest extends TestmodelTest
 		QualifiedIntegerEnumQualifier.findByQualifyUnique(item, 21, QualifiedIntegerEnumQualifier.KeyEnum.key1).deleteCopeItem();
 		QualifiedIntegerEnumQualifier.findByQualifyUnique(item, 20, QualifiedIntegerEnumQualifier.KeyEnum.key2).deleteCopeItem();
 
-		assertEquals(null, item.getIntEnumQualifier(new Integer(20), QualifiedIntegerEnumQualifier.KeyEnum.key1));
-		assertEquals(null, item.getQualifiedA(new Integer(20), QualifiedIntegerEnumQualifier.KeyEnum.key1));
-		assertEquals(null, item.getQualifiedB(new Integer(20), QualifiedIntegerEnumQualifier.KeyEnum.key1));
+		assertEquals(null, item.getIntEnumQualifier(Integer.valueOf(20), QualifiedIntegerEnumQualifier.KeyEnum.key1));
+		assertEquals(null, item.getQualifiedA(Integer.valueOf(20), QualifiedIntegerEnumQualifier.KeyEnum.key1));
+		assertEquals(null, item.getQualifiedB(Integer.valueOf(20), QualifiedIntegerEnumQualifier.KeyEnum.key1));
 		
 		item.intEnumQualifier.set(
-				new Object[]{item, new Integer(20), QualifiedIntegerEnumQualifier.KeyEnum.key1},
+				new Object[]{item, Integer.valueOf(20), QualifiedIntegerEnumQualifier.KeyEnum.key1},
 				new AttributeValue[]{QualifiedIntegerEnumQualifier.qualifiedA.map("A-20-key1"), QualifiedIntegerEnumQualifier.qualifiedB.map("B-20-key1")});
 		final QualifiedIntegerEnumQualifier setterItem =
-			item.getIntEnumQualifier(new Integer(20), QualifiedIntegerEnumQualifier.KeyEnum.key1);
+			item.getIntEnumQualifier(Integer.valueOf(20), QualifiedIntegerEnumQualifier.KeyEnum.key1);
 		assertNotNull(setterItem);
-		assertEquals("A-20-key1", item.getQualifiedA(new Integer(20), QualifiedIntegerEnumQualifier.KeyEnum.key1));
-		assertEquals("B-20-key1", item.getQualifiedB(new Integer(20), QualifiedIntegerEnumQualifier.KeyEnum.key1));
+		assertEquals("A-20-key1", item.getQualifiedA(Integer.valueOf(20), QualifiedIntegerEnumQualifier.KeyEnum.key1));
+		assertEquals("B-20-key1", item.getQualifiedB(Integer.valueOf(20), QualifiedIntegerEnumQualifier.KeyEnum.key1));
 		
 		item.intEnumQualifier.set(
-				new Object[]{item, new Integer(20), QualifiedIntegerEnumQualifier.KeyEnum.key1},
+				new Object[]{item, Integer.valueOf(20), QualifiedIntegerEnumQualifier.KeyEnum.key1},
 				new AttributeValue[]{QualifiedIntegerEnumQualifier.qualifiedA.map("A-20-key1-c"), QualifiedIntegerEnumQualifier.qualifiedB.map("B-20-key1-c")});
 		assertEquals(setterItem,
-				item.getIntEnumQualifier(new Integer(20), QualifiedIntegerEnumQualifier.KeyEnum.key1));
-		assertEquals("A-20-key1-c", item.getQualifiedA(new Integer(20), QualifiedIntegerEnumQualifier.KeyEnum.key1));
-		assertEquals("B-20-key1-c", item.getQualifiedB(new Integer(20), QualifiedIntegerEnumQualifier.KeyEnum.key1));
+				item.getIntEnumQualifier(Integer.valueOf(20), QualifiedIntegerEnumQualifier.KeyEnum.key1));
+		assertEquals("A-20-key1-c", item.getQualifiedA(Integer.valueOf(20), QualifiedIntegerEnumQualifier.KeyEnum.key1));
+		assertEquals("B-20-key1-c", item.getQualifiedB(Integer.valueOf(20), QualifiedIntegerEnumQualifier.KeyEnum.key1));
 	}
 }

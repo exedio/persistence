@@ -48,9 +48,9 @@ public abstract class IntegerView
 		if(loadedInteger!=null)
 		{
 			if(loadedInteger instanceof BigDecimal)
-				return new Integer(((BigDecimal)loadedInteger).intValue());
+				return Integer.valueOf(((BigDecimal)loadedInteger).intValue());
 			else if(loadedInteger instanceof Long)
-				return new Integer(((Long)loadedInteger).intValue());
+				return Integer.valueOf(((Long)loadedInteger).intValue());
 			else
 				return (Integer)loadedInteger;
 		}
@@ -83,7 +83,7 @@ public abstract class IntegerView
 	
 	public final EqualCondition equal(final int value)
 	{
-		return new EqualCondition(this, new Integer(value));
+		return new EqualCondition(this, Integer.valueOf(value));
 	}
 	
 	public final NotEqualCondition notEqual(final Integer value)
@@ -93,27 +93,27 @@ public abstract class IntegerView
 	
 	public final NotEqualCondition notEqual(final int value)
 	{
-		return new NotEqualCondition(this, new Integer(value));
+		return new NotEqualCondition(this, Integer.valueOf(value));
 	}
 	
 	public final LessCondition less(final int value)
 	{
-		return new LessCondition(this, new Integer(value));
+		return new LessCondition(this, Integer.valueOf(value));
 	}
 	
 	public final LessEqualCondition lessOrEqual(final int value)
 	{
-		return new LessEqualCondition(this, new Integer(value));
+		return new LessEqualCondition(this, Integer.valueOf(value));
 	}
 	
 	public final GreaterCondition greater(final int value)
 	{
-		return new GreaterCondition(this, new Integer(value));
+		return new GreaterCondition(this, Integer.valueOf(value));
 	}
 	
 	public final GreaterEqualCondition greaterOrEqual(final int value)
 	{
-		return new GreaterEqualCondition(this, new Integer(value));
+		return new GreaterEqualCondition(this, Integer.valueOf(value));
 	}
 	
 	public final SumView sum(final IntegerFunction other)

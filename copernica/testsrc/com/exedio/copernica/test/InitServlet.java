@@ -166,20 +166,20 @@ public class InitServlet extends CopsServlet
 			{
 				final QualifiedItem qualifiedItem1 = new QualifiedItem();
 				final QualifiedItem qualifiedItem2 = new QualifiedItem();
-				qualifiedItem1.setNumber(new Integer(1));
-				qualifiedItem2.setNumber(new Integer(2));
+				qualifiedItem1.setNumber(Integer.valueOf(1));
+				qualifiedItem2.setNumber(Integer.valueOf(2));
 				qualifiedItem1.setQualifiedA(emptyItem1, "1A1");
 				qualifiedItem1.setQualifiedA(emptyItem2, "1A2");
 				qualifiedItem1.setQualifiedB(emptyItem1, "1B1");
-				qualifiedItem1.setQualifiedA("key1", new Integer(1));
-				qualifiedItem1.setQualifiedA("key2", new Integer(2));
-				qualifiedItem1.setQualifiedA("key3", new Integer(3));
-				qualifiedItem1.setQualifiedA("key4", new Integer(4));
-				qualifiedItem1.setQualifiedB("key4", new Integer(14));
-				qualifiedItem1.setQualifiedA(new Integer(8), QualifiedIntegerEnumQualifier.KeyEnum.key1, "1-A-8-key1");
-				qualifiedItem1.setQualifiedA(new Integer(6), QualifiedIntegerEnumQualifier.KeyEnum.key1, "1-A-6-key1");
-				qualifiedItem1.setQualifiedA(new Integer(8), QualifiedIntegerEnumQualifier.KeyEnum.key2, "1-A-8-key2");
-				qualifiedItem1.setQualifiedB(new Integer(8), QualifiedIntegerEnumQualifier.KeyEnum.key1, "1-B-8-key1");
+				qualifiedItem1.setQualifiedA("key1", Integer.valueOf(1));
+				qualifiedItem1.setQualifiedA("key2", Integer.valueOf(2));
+				qualifiedItem1.setQualifiedA("key3", Integer.valueOf(3));
+				qualifiedItem1.setQualifiedA("key4", Integer.valueOf(4));
+				qualifiedItem1.setQualifiedB("key4", Integer.valueOf(14));
+				qualifiedItem1.setQualifiedA(Integer.valueOf(8), QualifiedIntegerEnumQualifier.KeyEnum.key1, "1-A-8-key1");
+				qualifiedItem1.setQualifiedA(Integer.valueOf(6), QualifiedIntegerEnumQualifier.KeyEnum.key1, "1-A-6-key1");
+				qualifiedItem1.setQualifiedA(Integer.valueOf(8), QualifiedIntegerEnumQualifier.KeyEnum.key2, "1-A-8-key2");
+				qualifiedItem1.setQualifiedB(Integer.valueOf(8), QualifiedIntegerEnumQualifier.KeyEnum.key1, "1-B-8-key1");
 			}
 
 			{

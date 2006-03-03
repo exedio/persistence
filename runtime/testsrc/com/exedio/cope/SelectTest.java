@@ -98,8 +98,8 @@ public class SelectTest extends TestmodelTest
 			final SomeEnum someNotNullEnumeration)
 	{
 		assertEqualsUnmodifiable(list(
-				someString, someStringUppercase, new Integer(someStringLength),
-				someNotNullString, new Integer(someNotNullInteger), Long.valueOf(someNotNullLong),
+				someString, someStringUppercase, Integer.valueOf(someStringLength),
+				someNotNullString, Integer.valueOf(someNotNullInteger), Long.valueOf(someNotNullLong),
 				new Double(someNotNullDouble), new Boolean(someNotNullBoolean), someNotNullItem, someNotNullEnumeration),
 			(List)i.next());
 	}

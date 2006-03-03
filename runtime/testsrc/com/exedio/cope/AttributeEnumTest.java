@@ -106,11 +106,11 @@ public class AttributeEnumTest extends AttributeTest
 		assertEquals(300,
 			AttributeItem.SomeEnum.enumValue3.getNumber());
 
-		assertEquals(new Integer(100),
+		assertEquals(Integer.valueOf(100),
 			AttributeItem.SomeEnum.enumValue1.getNumberObject());
-		assertEquals(new Integer(200),
+		assertEquals(Integer.valueOf(200),
 			AttributeItem.SomeEnum.enumValue2.getNumberObject());
-		assertEquals(new Integer(300),
+		assertEquals(Integer.valueOf(300),
 			AttributeItem.SomeEnum.enumValue3.getNumberObject());
 
 		assertTrue(!
@@ -214,7 +214,7 @@ public class AttributeEnumTest extends AttributeTest
 		
 		try
 		{
-			item.set(item.someEnum, new Integer(10));
+			item.set(item.someEnum, Integer.valueOf(10));
 			fail();
 		}
 		catch(ClassCastException e)

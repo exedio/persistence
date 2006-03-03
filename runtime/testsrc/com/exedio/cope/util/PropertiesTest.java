@@ -66,7 +66,7 @@ public class PropertiesTest extends CopeAssert
 			
 			assertEquals(Boolean.FALSE, boolFalse.getDefaultValue());
 			assertEquals(Boolean.TRUE, boolTrue.getDefaultValue());
-			assertEquals(new Integer(10), int10.getDefaultValue());
+			assertEquals(Integer.valueOf(10), int10.getDefaultValue());
 			assertEquals(null, stringMandatory.getDefaultValue());
 			assertEquals("stringOptional.defaultValue", stringOptional.getDefaultValue());
 			assertEquals(null, stringHidden.getDefaultValue());
@@ -102,7 +102,7 @@ public class PropertiesTest extends CopeAssert
 		assertEquals(Boolean.FALSE, minimal.boolFalse.getValue());
 		assertEquals(Boolean.TRUE, minimal.boolTrue.getValue());
 		assertEquals(10, minimal.int10.getIntValue());
-		assertEquals(new Integer(10), minimal.int10.getValue());
+		assertEquals(Integer.valueOf(10), minimal.int10.getValue());
 		assertEquals("stringMandatory.minimalValue", minimal.stringMandatory.getStringValue());
 		assertEquals("stringOptional.defaultValue", minimal.stringOptional.getStringValue());
 		assertEquals("stringHidden.minimalValue", minimal.stringHidden.getStringValue());
@@ -151,7 +151,7 @@ public class PropertiesTest extends CopeAssert
 			assertEquals(Boolean.TRUE, tp.boolFalse.getValue());
 			assertEquals(Boolean.FALSE, tp.boolTrue.getValue());
 			assertEquals(20, tp.int10.getIntValue());
-			assertEquals(new Integer(20), tp.int10.getValue());
+			assertEquals(Integer.valueOf(20), tp.int10.getValue());
 			assertEquals("stringMandatory.explicitValue", tp.stringMandatory.getStringValue());
 			assertEquals("stringOptional.explicitValue", tp.stringOptional.getStringValue());
 			assertEquals("stringHidden.explicitValue", tp.stringHidden.getStringValue());
@@ -221,7 +221,7 @@ public class PropertiesTest extends CopeAssert
 			p.setProperty("int10", "5");
 			final TestProperties tp = new TestProperties(p, "int.border");
 			assertEquals(5, tp.int10.getIntValue());
-			assertEquals(new Integer(5), tp.int10.getValue());
+			assertEquals(Integer.valueOf(5), tp.int10.getValue());
 		}
 		assertWrong(pminimal,
 				"wrong.int.tooSmall",

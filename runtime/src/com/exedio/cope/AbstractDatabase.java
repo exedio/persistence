@@ -451,7 +451,7 @@ abstract class AbstractDatabase implements Database
 					if(doCountOnly)
 					{
 						resultSet.next();
-						result.add(new Integer(resultSet.getInt(1)));
+						result.add(Integer.valueOf(resultSet.getInt(1)));
 						if(resultSet.next())
 							throw new RuntimeException();
 						return;

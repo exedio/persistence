@@ -59,7 +59,7 @@ public class AttributeItemTest extends AttributeTest
 		
 		try
 		{
-			item.set(item.someItem, new Integer(10));
+			item.set(item.someItem, Integer.valueOf(10));
 			fail();
 		}
 		catch(ClassCastException e)

@@ -160,7 +160,7 @@ public class HierarchyTest extends AbstractLibTest
 		final HierarchySingleSub singleSub1a = new HierarchySingleSub();
 		deleteOnTearDown(singleSub1a);
 		singleSub1a.setSubString("a");
-		singleSub1a.setSuperInt(new Integer(1));
+		singleSub1a.setSuperInt(Integer.valueOf(1));
 		final HierarchySingleSub singleSub1b = new HierarchySingleSub(1, "b");
 		deleteOnTearDown(singleSub1b);
 		final HierarchySingleSub singleSub2a = new HierarchySingleSub(2, "a");
@@ -173,7 +173,7 @@ public class HierarchyTest extends AbstractLibTest
 		restartTransaction();
 		assertContains(singleSub1a, singleSub1a.TYPE.search(HierarchySingleSuper.superInt.equal(1).and(singleSub1a.subString.equal("a"))));
 		assertEquals("a", singleSub2a.getSubString());
-		assertEquals(new Integer(1), singleSub1b.getSuperInt());
+		assertEquals(Integer.valueOf(1), singleSub1b.getSuperInt());
 		
 		// test polymorphic pointers
 		assertEquals(null, singleSub1a.getHierarchySuper());

@@ -41,15 +41,15 @@ public abstract class AbstractLibTest extends CopeTest
 		super(model, exclusive);
 	}
 	
-	protected final static Integer i1 = new Integer(1);
-	protected final static Integer i2 = new Integer(2);
-	protected final static Integer i3 = new Integer(3);
-	protected final static Integer i4 = new Integer(4);
-	protected final static Integer i5 = new Integer(5);
-	protected final static Integer i6 = new Integer(6);
-	protected final static Integer i7 = new Integer(7);
-	protected final static Integer i8 = new Integer(8);
-	protected final static Integer i9 = new Integer(9);
+	protected final static Integer i1 = Integer.valueOf(1);
+	protected final static Integer i2 = Integer.valueOf(2);
+	protected final static Integer i3 = Integer.valueOf(3);
+	protected final static Integer i4 = Integer.valueOf(4);
+	protected final static Integer i5 = Integer.valueOf(5);
+	protected final static Integer i6 = Integer.valueOf(6);
+	protected final static Integer i7 = Integer.valueOf(7);
+	protected final static Integer i8 = Integer.valueOf(8);
+	protected final static Integer i9 = Integer.valueOf(9);
 	
 	protected boolean hsqldb;
 	protected boolean mysql;

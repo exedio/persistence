@@ -163,7 +163,7 @@ public final class ItemAttribute extends FunctionAttribute
 		else
 		{
 			final Item valueItem = (Item)surface;
-			row.put(getColumn(), new Integer(valueItem.pk));
+			row.put(getColumn(), Integer.valueOf(valueItem.pk));
 			if(typeColumn!=null)
 				row.put(typeColumn, valueItem.type.id);
 		}

@@ -55,7 +55,7 @@ public final class DayAttribute extends FunctionAttribute
 		
 	void set(final Row row, final Object surface)
 	{
-		row.put(getColumn(), surface==null ? null : new Integer(DayColumn.getTransientNumber((Day)surface)));
+		row.put(getColumn(), surface==null ? null : Integer.valueOf(DayColumn.getTransientNumber((Day)surface)));
 	}
 	
 	public final Day get(final Item item)

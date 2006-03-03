@@ -44,7 +44,7 @@ public final class JoinedIntegerFunction extends JoinedFunction implements Integ
 	
 	public final EqualCondition equal(final int value)
 	{
-		return new EqualCondition(this, new Integer(value));
+		return new EqualCondition(this, Integer.valueOf(value));
 	}
 	
 	public final NotEqualCondition notEqual(final Integer value)
@@ -54,27 +54,27 @@ public final class JoinedIntegerFunction extends JoinedFunction implements Integ
 	
 	public final NotEqualCondition notEqual(final int value)
 	{
-		return new NotEqualCondition(this, new Integer(value));
+		return new NotEqualCondition(this, Integer.valueOf(value));
 	}
 	
 	public final LessCondition less(final int value)
 	{
-		return new LessCondition(this, new Integer(value));
+		return new LessCondition(this, Integer.valueOf(value));
 	}
 	
 	public final LessEqualCondition lessOrEqual(final int value)
 	{
-		return new LessEqualCondition(this, new Integer(value));
+		return new LessEqualCondition(this, Integer.valueOf(value));
 	}
 	
 	public final GreaterCondition greater(final int value)
 	{
-		return new GreaterCondition(this, new Integer(value));
+		return new GreaterCondition(this, Integer.valueOf(value));
 	}
 	
 	public final GreaterEqualCondition greaterOrEqual(final int value)
 	{
-		return new GreaterEqualCondition(this, new Integer(value));
+		return new GreaterEqualCondition(this, Integer.valueOf(value));
 	}
 	
 	public final SumView sum(final IntegerFunction other)

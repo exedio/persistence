@@ -41,11 +41,11 @@ public class CustomTest extends AbstractLibTest
 		deleteOnTearDown(item = new CustomItem());
 	}
 	
-	static final Integer i20 = new Integer(20);
-	static final Integer i44 = new Integer(44);
-	static final Integer i55 = new Integer(55);
-	static final Integer i56 = new Integer(56);
-	static final Integer im2 = new Integer(-2);
+	static final Integer i20 = Integer.valueOf(20);
+	static final Integer i44 = Integer.valueOf(44);
+	static final Integer i55 = Integer.valueOf(55);
+	static final Integer i56 = Integer.valueOf(56);
+	static final Integer im2 = Integer.valueOf(-2);
 	
 	public void testNumber() throws IOException
 	{

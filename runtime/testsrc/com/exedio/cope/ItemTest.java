@@ -66,7 +66,7 @@ public class ItemTest extends TestmodelTest
 		assertNotEquals(item2, item3);
 
 		assertFalse(item1.equals("hello"));
-		assertFalse(item1.equals(new Integer(1)));
+		assertFalse(item1.equals(Integer.valueOf(1)));
 		assertFalse(item1.equals(Boolean.TRUE));
 
 		final EmptyItem item4 = new EmptyItem();

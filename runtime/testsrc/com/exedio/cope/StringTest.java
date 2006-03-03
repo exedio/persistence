@@ -166,7 +166,7 @@ public class StringTest extends TestmodelTest
 		
 		try
 		{
-			item.set(item.any, new Integer(10));
+			item.set(item.any, Integer.valueOf(10));
 			fail();
 		}
 		catch(ClassCastException e)
@@ -523,12 +523,12 @@ public class StringTest extends TestmodelTest
 		sa.set(item, VALUE);
 		assertEquals(VALUE, sa.get(item));
 		assertEquals(VALUE_UPPER, saup.get(item));
-		assertEquals(new Integer(VALUE.length()), saln.get(item));
+		assertEquals(Integer.valueOf(VALUE.length()), saln.get(item));
 
 		sa.set(item2, VALUE2);
 		assertEquals(VALUE2, sa.get(item2));
 		assertEquals(VALUE2_UPPER, saup.get(item2));
-		assertEquals(new Integer(VALUE2.length()), saln.get(item2));
+		assertEquals(Integer.valueOf(VALUE2.length()), saln.get(item2));
 		
 		if(!oracle||sa.getMaximumLength()<4000)
 		{
@@ -559,7 +559,7 @@ public class StringTest extends TestmodelTest
 		restartTransaction();
 		assertEquals(VALUE, sa.get(item));
 		assertEquals(VALUE_UPPER, saup.get(item));
-		assertEquals(new Integer(VALUE.length()), saln.get(item));
+		assertEquals(Integer.valueOf(VALUE.length()), saln.get(item));
 		
 		{
 			sa.set(item, "");

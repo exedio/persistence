@@ -96,7 +96,7 @@ public final class IntegerAttribute extends FunctionAttribute implements Integer
 	{
 		try
 		{
-			set(item, new Integer(value));
+			set(item, Integer.valueOf(value));
 		}
 		catch(MandatoryViolationException e)
 		{
@@ -111,7 +111,7 @@ public final class IntegerAttribute extends FunctionAttribute implements Integer
 	
 	public final AttributeValue map(final int value)
 	{
-		return new AttributeValue(this, new Integer(value));
+		return new AttributeValue(this, Integer.valueOf(value));
 	}
 	
 	public final EqualCondition equal(final Integer value)
@@ -121,7 +121,7 @@ public final class IntegerAttribute extends FunctionAttribute implements Integer
 	
 	public final EqualCondition equal(final int value)
 	{
-		return new EqualCondition(this, new Integer(value));
+		return new EqualCondition(this, Integer.valueOf(value));
 	}
 	
 	public final NotEqualCondition notEqual(final Integer value)
@@ -131,27 +131,27 @@ public final class IntegerAttribute extends FunctionAttribute implements Integer
 	
 	public final NotEqualCondition notEqual(final int value)
 	{
-		return new NotEqualCondition(this, new Integer(value));
+		return new NotEqualCondition(this, Integer.valueOf(value));
 	}
 	
 	public final LessCondition less(final int value)
 	{
-		return new LessCondition(this, new Integer(value));
+		return new LessCondition(this, Integer.valueOf(value));
 	}
 	
 	public final LessEqualCondition lessOrEqual(final int value)
 	{
-		return new LessEqualCondition(this, new Integer(value));
+		return new LessEqualCondition(this, Integer.valueOf(value));
 	}
 	
 	public final GreaterCondition greater(final int value)
 	{
-		return new GreaterCondition(this, new Integer(value));
+		return new GreaterCondition(this, Integer.valueOf(value));
 	}
 	
 	public final GreaterEqualCondition greaterOrEqual(final int value)
 	{
-		return new GreaterEqualCondition(this, new Integer(value));
+		return new GreaterEqualCondition(this, Integer.valueOf(value));
 	}
 	
 	public final SumView sum(final IntegerFunction other)

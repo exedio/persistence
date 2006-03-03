@@ -48,9 +48,9 @@ public class SumItem extends Item
 	public SumItem(final int initialNum1, final int initialNum2, final int initialNum3)
 	{
 		super(new AttributeValue[]{
-			new AttributeValue(num1,new Integer(initialNum1)),
-			new AttributeValue(num2,new Integer(initialNum2)),
-			new AttributeValue(num3,new Integer(initialNum3)),
+			new AttributeValue(num1,Integer.valueOf(initialNum1)),
+			new AttributeValue(num2,Integer.valueOf(initialNum2)),
+			new AttributeValue(num3,Integer.valueOf(initialNum3)),
 		});
 	}
 

@@ -62,8 +62,8 @@ public final class BooleanAttribute extends FunctionAttribute
 		}
 	}
 	
-	static final Integer FALSE = new Integer(0);
-	static final Integer TRUE = new Integer(1);
+	static final Integer FALSE = Integer.valueOf(0);
+	static final Integer TRUE = Integer.valueOf(1);
 		
 	void set(final Row row, final Object surface)
 	{

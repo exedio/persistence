@@ -30,15 +30,15 @@ public class AttributeIntegerTest extends AttributeTest
 		assertContains(item.TYPE.search(item.someInteger.notEqual(null)));
 		assertContains(item.TYPE.search(item.someInteger.isNotNull()));
 
-		item.someInteger.set(item, new Integer(14));
-		assertEquals(new Integer(14), item.getSomeInteger());
+		item.someInteger.set(item, Integer.valueOf(14));
+		assertEquals(Integer.valueOf(14), item.getSomeInteger());
 
 		item.someInteger.set(item, 12);
-		assertEquals(new Integer(12), item.getSomeInteger());
+		assertEquals(Integer.valueOf(12), item.getSomeInteger());
 
-		item.setSomeInteger(new Integer(10));
-		assertEquals(new Integer(10), item.getSomeInteger());
-		assertEquals(new Integer(10), item.someInteger.get(item));
+		item.setSomeInteger(Integer.valueOf(10));
+		assertEquals(Integer.valueOf(10), item.getSomeInteger());
+		assertEquals(Integer.valueOf(10), item.someInteger.get(item));
 		try
 		{
 			item.someInteger.getMandatory(item);
@@ -50,7 +50,7 @@ public class AttributeIntegerTest extends AttributeTest
 		}
 
 		restartTransaction();
-		assertEquals(new Integer(10), item.getSomeInteger());
+		assertEquals(Integer.valueOf(10), item.getSomeInteger());
 		assertEquals(
 			list(item),
 			item.TYPE.search(item.someInteger.equal(10)));
@@ -62,8 +62,8 @@ public class AttributeIntegerTest extends AttributeTest
 		assertEquals(list(item), item.TYPE.search(item.someInteger.notEqual(null)));
 		assertEquals(list(item), item.TYPE.search(item.someInteger.isNotNull()));
 
-		assertContains(new Integer(10), null, search(item.someInteger));
-		assertContains(new Integer(10), search(item.someInteger, item.someInteger.equal(new Integer(10))));
+		assertContains(Integer.valueOf(10), null, search(item.someInteger));
+		assertContains(Integer.valueOf(10), search(item.someInteger, item.someInteger.equal(Integer.valueOf(10))));
 
 		item.setSomeInteger(null);
 		assertEquals(null, item.getSomeInteger());
@@ -87,7 +87,7 @@ public class AttributeIntegerTest extends AttributeTest
 		assertEquals(item.TYPE, item.someNotNullInteger.getType());
 		assertEquals(5, item.getSomeNotNullInteger());
 		
-		item.someNotNullInteger.set(item, new Integer(24));
+		item.someNotNullInteger.set(item, Integer.valueOf(24));
 		assertEquals(24, item.getSomeNotNullInteger());
 		
 		item.someNotNullInteger.set(item, 22);
@@ -95,7 +95,7 @@ public class AttributeIntegerTest extends AttributeTest
 
 		item.setSomeNotNullInteger(20);
 		assertEquals(20, item.getSomeNotNullInteger());
-		assertEquals(new Integer(20), item.someNotNullInteger.get(item));
+		assertEquals(Integer.valueOf(20), item.someNotNullInteger.get(item));
 		assertEquals(20, item.someNotNullInteger.getMandatory(item));
 
 		item.setSomeNotNullInteger(0);

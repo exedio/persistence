@@ -649,7 +649,7 @@ public final class Type
 				(Item)reactivationConstructor.newInstance(
 					new Object[]{
 						REACTIVATION_DUMMY,
-						new Integer(pk)
+						Integer.valueOf(pk)
 					}
 				);
 		}

@@ -61,7 +61,7 @@ public final class SumView
 				return null;
 			result += ((Integer)sourceValues[i]).intValue();
 		}
-		return new Integer(result);
+		return Integer.valueOf(result);
 	}
 
 }

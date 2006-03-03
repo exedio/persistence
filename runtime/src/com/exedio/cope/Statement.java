@@ -223,7 +223,7 @@ final class Statement
 		else
 		{
 			this.text.append(QUESTION_MARK);
-			this.parameters.add(new Integer(value));
+			this.parameters.add(Integer.valueOf(value));
 		}
 		return this;
 	}

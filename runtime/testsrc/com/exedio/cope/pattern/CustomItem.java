@@ -39,7 +39,7 @@ public final class CustomItem extends Item
 	{
 		Integer get(final String numberString)
 		{
-			return numberString!=null ? new Integer(Integer.parseInt(numberString)) : null;
+			return numberString!=null ? Integer.valueOf(Integer.parseInt(numberString)) : null;
 		}
 		
 		String set(final Integer value) throws IOException

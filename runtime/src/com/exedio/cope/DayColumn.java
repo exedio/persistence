@@ -77,7 +77,7 @@ final class DayColumn extends Column
 	{
 		final java.sql.Date loadedDate = resultSet.getDate(columnIndex);
 		//System.out.println("DayColumn.load "+columnIndex+" "+loadedDate);
-		row.put(this, (loadedDate!=null) ? new Integer(getTransientNumber(loadedDate)) : null);
+		row.put(this, (loadedDate!=null) ? Integer.valueOf(getTransientNumber(loadedDate)) : null);
 	}
 	
 	final String cacheToDatabase(final Object cache)
@@ -98,7 +98,7 @@ final class DayColumn extends Column
 
 	Object getCheckValue()
 	{
-		return new Integer(DayColumn.getTransientNumber(new Day(2005, 9, 26)));
+		return Integer.valueOf(DayColumn.getTransientNumber(new Day(2005, 9, 26)));
 	}
 	
 }

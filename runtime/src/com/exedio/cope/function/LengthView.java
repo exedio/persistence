@@ -42,7 +42,7 @@ public class LengthView
 	public final Object mapJava(final Object[] sourceValues)
 	{
 		final Object sourceValue = sourceValues[0];
-		return sourceValue==null ? null : new Integer(((String)sourceValue).length());
+		return sourceValue==null ? null : Integer.valueOf(((String)sourceValue).length());
 	}
 
 }

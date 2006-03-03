@@ -46,7 +46,7 @@ public abstract class EnumValue
 		this.enumerationClass = enumerationClass;
 		this.code = code.intern();
 		this.number = number;
-		this.numberObject = new Integer(number);
+		this.numberObject = Integer.valueOf(number);
 		initialized = true;
 	}
 	
