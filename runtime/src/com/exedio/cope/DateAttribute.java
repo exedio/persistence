@@ -63,7 +63,7 @@ public final class DateAttribute extends FunctionAttribute
 		
 	void set(final Row row, final Object surface)
 	{
-		row.put(getColumn(), surface==null ? null : new Long(((Date)surface).getTime()));
+		row.put(getColumn(), surface==null ? null : Long.valueOf(((Date)surface).getTime()));
 	}
 	
 	public final Date get(final Item item)

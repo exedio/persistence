@@ -95,7 +95,7 @@ public final class LongAttribute extends FunctionAttribute
 	{
 		try
 		{
-			set(item, new Long(value));
+			set(item, Long.valueOf(value));
 		}
 		catch(MandatoryViolationException e)
 		{
@@ -110,7 +110,7 @@ public final class LongAttribute extends FunctionAttribute
 	
 	public final AttributeValue map(final long value)
 	{
-		return new AttributeValue(this, new Long(value));
+		return new AttributeValue(this, Long.valueOf(value));
 	}
 	
 	public final EqualCondition equal(final Long value)
@@ -120,7 +120,7 @@ public final class LongAttribute extends FunctionAttribute
 	
 	public final EqualCondition equal(final long value)
 	{
-		return new EqualCondition(this, new Long(value));
+		return new EqualCondition(this, Long.valueOf(value));
 	}
 	
 	public final NotEqualCondition notEqual(final Long value)
@@ -130,27 +130,27 @@ public final class LongAttribute extends FunctionAttribute
 	
 	public final NotEqualCondition notEqual(final long value)
 	{
-		return new NotEqualCondition(this, new Long(value));
+		return new NotEqualCondition(this, Long.valueOf(value));
 	}
 	
 	public final LessCondition less(final long value)
 	{
-		return new LessCondition(this, new Long(value));
+		return new LessCondition(this, Long.valueOf(value));
 	}
 	
 	public final LessEqualCondition lessOrEqual(final long value)
 	{
-		return new LessEqualCondition(this, new Long(value));
+		return new LessEqualCondition(this, Long.valueOf(value));
 	}
 	
 	public final GreaterCondition greater(final long value)
 	{
-		return new GreaterCondition(this, new Long(value));
+		return new GreaterCondition(this, Long.valueOf(value));
 	}
 	
 	public final GreaterEqualCondition greaterOrEqual(final long value)
 	{
-		return new GreaterEqualCondition(this, new Long(value));
+		return new GreaterEqualCondition(this, Long.valueOf(value));
 	}
 	
 }

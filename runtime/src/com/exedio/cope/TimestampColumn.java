@@ -49,7 +49,7 @@ final class TimestampColumn extends Column
 	{
 		final Object loadedTimestamp = resultSet.getObject(columnIndex);
 		//System.out.println("TimestampColumn.load "+columnIndex+" "+loadedTimestamp);
-		row.put(this, (loadedTimestamp!=null) ? new Long(((Date)loadedTimestamp).getTime()) : null);
+		row.put(this, (loadedTimestamp!=null) ? Long.valueOf(((Date)loadedTimestamp).getTime()) : null);
 	}
 	
 	final String cacheToDatabase(final Object cache)
@@ -73,7 +73,7 @@ final class TimestampColumn extends Column
 
 	Object getCheckValue()
 	{
-		return new Long(System.currentTimeMillis());
+		return Long.valueOf(System.currentTimeMillis());
 	}
 	
 }

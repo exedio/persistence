@@ -30,15 +30,15 @@ public class AttributeLongTest extends AttributeTest
 		assertContains(item.TYPE.search(item.someLong.notEqual(null)));
 		assertContains(item.TYPE.search(item.someLong.isNotNull()));
 
-		item.someLong.set(item, new Long(22));
-		assertEquals(new Long(22), item.getSomeLong());
+		item.someLong.set(item, Long.valueOf(22));
+		assertEquals(Long.valueOf(22), item.getSomeLong());
 		
 		item.someLong.set(item, 22l);
-		assertEquals(new Long(22), item.getSomeLong());
+		assertEquals(Long.valueOf(22), item.getSomeLong());
 		
-		item.setSomeLong(new Long(11));
-		assertEquals(new Long(11), item.getSomeLong());
-		assertEquals(new Long(11), item.someLong.get(item));
+		item.setSomeLong(Long.valueOf(11));
+		assertEquals(Long.valueOf(11), item.getSomeLong());
+		assertEquals(Long.valueOf(11), item.someLong.get(item));
 		try
 		{
 			item.someLong.getMandatory(item);
@@ -50,7 +50,7 @@ public class AttributeLongTest extends AttributeTest
 		}
 
 		restartTransaction();
-		assertEquals(new Long(11), item.getSomeLong());
+		assertEquals(Long.valueOf(11), item.getSomeLong());
 		assertEquals(
 			list(item),
 			item.TYPE.search(item.someLong.equal(11)));
@@ -63,8 +63,8 @@ public class AttributeLongTest extends AttributeTest
 		assertEquals(list(item), item.TYPE.search(item.someLong.notEqual(null)));
 		assertEquals(list(item), item.TYPE.search(item.someLong.isNotNull()));
 
-		assertContains(new Long(11), null, search(item.someLong));
-		assertContains(new Long(11), search(item.someLong, item.someLong.equal(new Long(11))));
+		assertContains(Long.valueOf(11), null, search(item.someLong));
+		assertContains(Long.valueOf(11), search(item.someLong, item.someLong.equal(Long.valueOf(11))));
 
 		item.setSomeLong(null);
 		assertEquals(null, item.getSomeLong());
@@ -91,12 +91,12 @@ public class AttributeLongTest extends AttributeTest
 		item.someNotNullLong.set(item, 27l);
 		assertEquals(27l, item.getSomeNotNullLong());
 
-		item.someNotNullLong.set(item, new Long(24));
+		item.someNotNullLong.set(item, Long.valueOf(24));
 		assertEquals(24l, item.getSomeNotNullLong());
 
 		item.setSomeNotNullLong(21l);
 		assertEquals(21l, item.getSomeNotNullLong());
-		assertEquals(new Long(21), item.someNotNullLong.get(item));
+		assertEquals(Long.valueOf(21), item.someNotNullLong.get(item));
 		assertEquals(21l, item.someNotNullLong.getMandatory(item));
 
 		item.setSomeNotNullLong(0l);

@@ -119,7 +119,7 @@ class IntegerColumn extends Column
 	
 	final Object getCheckValue()
 	{
-		return longInsteadOfInt ? (Object)new Long(1) : new Integer(1);
+		return longInsteadOfInt ? (Object)Long.valueOf(1) : new Integer(1);
 	}
 	
 	private final Number convertSQLResult(final Object sqlInteger)
@@ -131,7 +131,7 @@ class IntegerColumn extends Column
 		if(sqlInteger instanceof BigDecimal)
 		{
 			if (longInsteadOfInt)
-				return new Long(((BigDecimal)sqlInteger).longValue());
+				return Long.valueOf(((BigDecimal)sqlInteger).longValue());
 			else
 				return new Integer(((BigDecimal)sqlInteger).intValue());
 		}
