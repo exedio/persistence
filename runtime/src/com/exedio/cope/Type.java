@@ -35,7 +35,7 @@ import com.exedio.cope.util.ReactivationConstructorDummy;
 public final class Type
 	implements Selectable
 {
-	private static final HashMap typesByClass = new HashMap();
+	private static final HashMap<Class, Type> typesByClass = new HashMap<Class, Type>();
 
 	final Class javaClass;
 	final String id;
@@ -78,7 +78,7 @@ public final class Type
 	 */
 	public static final Type findByJavaClass(final Class javaClass)
 	{
-		final Type result = (Type)typesByClass.get(javaClass);
+		final Type result = typesByClass.get(javaClass);
 		if(result==null)
 			throw new RuntimeException("there is no type for "+javaClass);
 		return result;
