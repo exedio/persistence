@@ -3,6 +3,11 @@
 	- instrumentation for modified files only
 	- disable/different access modifier for all generated methods
 * Lib
+	- JDK 1.5
+		- generics for all collections and maps
+		- enums for DeletePolicy
+		- generics for Item/Enum-Attribute
+		- use integer database version of JDBC connection
 	- default values for attributes
 	- constraints
 		- range (minimum/maximum) for integers/doubles
