@@ -28,7 +28,6 @@ import java.util.List;
 import javax.servlet.ServletConfig;
 import javax.servlet.http.HttpServletRequest;
 
-import com.exedio.cope.EnumValue;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
 import com.exedio.cope.FunctionAttribute;
@@ -226,12 +225,12 @@ public abstract class TransientCopernicaProvider implements CopernicaProvider
 		}
 	}
 	
-	protected final void putDisplayName(final TransientLanguage transientLanguage, final EnumValue value, final String name)
+	protected final void putDisplayName(final TransientLanguage transientLanguage, final Enum value, final String name)
 	{
 		transientLanguage.enumerationValueNames.put(value, name);
 	}
 	
-	public String getDisplayName(final CopernicaLanguage displayLanguage, final EnumValue value)
+	public String getDisplayName(final CopernicaLanguage displayLanguage, final Enum value)
 	{
 		if(displayLanguage instanceof TransientLanguage)
 		{
@@ -241,7 +240,7 @@ public abstract class TransientCopernicaProvider implements CopernicaProvider
 				return name;
 		}
 
-		return value.getCode();
+		return value.name();
 	}
 
 	public String getIconURL(final Type type)

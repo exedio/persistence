@@ -41,7 +41,7 @@ public final class NotEqualCondition extends Condition
 	 * @see DoubleAttribute#notEqual(double)
 	 * @see DoubleAttribute#notEqual(Double)
 	 * @see DateAttribute#notEqual(Date)
-	 * @see EnumAttribute#notEqual(EnumValue)
+	 * @see EnumAttribute#notEqual(Enum)
 	 * @see ItemAttribute#notEqual(Item)
 	 */
 	public NotEqualCondition(final Function function, final Object value)

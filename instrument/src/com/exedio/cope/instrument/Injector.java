@@ -26,6 +26,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.zip.CRC32;
 import java.util.zip.CheckedInputStream;
 
@@ -515,6 +516,28 @@ final class Injector
 				JavaClass[] jcarray = { parseClass(parent, modifiers)};
 				return jcarray;
 			}
+			else if ("enum".equals(bufs))
+			{
+				if(readToken()!='\0')
+					throw new ParseException("enum name expected");
+				final String enumName = buf.toString();
+				if(readToken()!='{')
+					throw new ParseException("'{' expected");
+				parseBody(false, null);
+				final JavaClass result = new JavaClass(javaFile, parent, modifiers, true, enumName, Collections.EMPTY_LIST, Collections.EMPTY_LIST);
+				
+				consumer.onClass(result);
+				consumer.onClassEnd(result);
+
+				discardNextFeature=false;
+				
+				if (collect_when_blocking)
+					write(getCollector());
+				if (do_block)
+					getCollector();
+				
+				return new JavaFeature[]{result};
+			}
 			else
 			{
 				if (parent == null)
@@ -780,7 +803,7 @@ final class Injector
 			}
 		}
 
-		JavaClass jc = new JavaClass(javaFile, parent, modifiers, classname, classExtends, classImplements);
+		JavaClass jc = new JavaClass(javaFile, parent, modifiers, false, classname, classExtends, classImplements);
 		//cc.print(System.out);
 
 		consumer.onClass(jc);

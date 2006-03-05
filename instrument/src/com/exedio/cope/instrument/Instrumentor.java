@@ -276,7 +276,7 @@ final class Instrumentor implements InjectionConsumer
 	public void onClassFeature(final JavaFeature jf, final String docComment)
 	throws InjectorParseException
 	{
-		//System.out.println("onClassFeature("+jf.getName()+" "+docComment+")");
+		//System.out.println("onClassFeature("+jf.name+" "+docComment+")");
 		if(!class_state.isInterface() &&
 			jf instanceof JavaAttribute)
 		{

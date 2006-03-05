@@ -384,6 +384,7 @@ public abstract class InjectorTest extends InstrumentorTest
 
 		public void onClassFeature(final JavaFeature cf, final String doccomment)
 		{
+			//System.out.println("onClassFeature("+cf.name+" "+doccomment+")");
 			addInjectionEvent(new ClassFeatureEvent(cf, doccomment));
 		}
 

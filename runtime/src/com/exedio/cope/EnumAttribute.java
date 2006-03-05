@@ -18,97 +18,59 @@
 
 package com.exedio.cope;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
+
+import bak.pcj.map.IntKeyOpenHashMap;
 
 import com.exedio.cope.search.GreaterCondition;
 import com.exedio.cope.search.GreaterEqualCondition;
 import com.exedio.cope.search.LessCondition;
 import com.exedio.cope.search.LessEqualCondition;
 
-import bak.pcj.map.IntKeyOpenHashMap;
-
 public final class EnumAttribute extends FunctionAttribute
 {
 	private final Class enumClass;
-	private final List values;
+	private final List<Enum> values;
 	private final IntKeyOpenHashMap numbersToValues;
-	private final HashMap codesToValues;
+	private final HashMap<Enum, Integer> valuesToNumbers;
+	private final HashMap<String, Enum> codesToValues;
 	
 	private EnumAttribute(final boolean isfinal, final boolean mandatory, final boolean unique, final Class enumClass)
 	{
 		super(isfinal, mandatory, unique, enumClass);
 		this.enumClass = enumClass;
-		if(!EnumValue.class.isAssignableFrom(enumClass))
-			throw new RuntimeException("is not an enumeration value class: "+enumClass.getName());
+		if(!Enum.class.isAssignableFrom(enumClass))
+			throw new RuntimeException("is not a subclass of " + Enum.class.getName() + ": "+enumClass.getName());
 
-		try
+		final ArrayList<Enum> values = new ArrayList<Enum>();
+		final IntKeyOpenHashMap numbersToValues = new IntKeyOpenHashMap();
+		final HashMap<Enum, Integer> valuesToNumbers = new HashMap();
+		final HashMap codesToValues = new HashMap();
+		final Object[] enumConstants = enumClass.getEnumConstants();
+		for(int j = 0; j<enumConstants.length; j++)
 		{
-			final ArrayList values = new ArrayList();
-			final IntKeyOpenHashMap numbersToValues = new IntKeyOpenHashMap();
-			final HashMap codesToValues = new HashMap();
-			final Field[] fields = enumClass.getDeclaredFields();
-			for(int j = 0; j<fields.length; j++)
-			{
-				final Field field = fields[j];
-				final int mandatoryModifiers = Modifier.STATIC | Modifier.FINAL;
-				//System.out.println("-----------field:"+field.getName());
-				if(EnumValue.class.isAssignableFrom(field.getType()) &&
-					(field.getModifiers()&mandatoryModifiers) == mandatoryModifiers)
-				{
-					final EnumValue value = (EnumValue)field.get(null);
-					if(value==null)
-						throw new NullPointerException("is null: "+field);
-					//System.out.println("-------------value:"+value);
-					if(!value.isInitialized())
-					{
-						final String code = field.getName(); 
-						final String numName = code+"NUM";
-						final int number;
-						try
-						{
-							final Field numField = enumClass.getDeclaredField(numName);
-							if((numField.getModifiers()&Modifier.STATIC)==0)
-								throw new RuntimeException("field "+enumClass.getName()+"#"+numName+" must be static");
-							if((numField.getModifiers()&Modifier.FINAL)==0)
-								throw new RuntimeException("field "+enumClass.getName()+"#"+numName+" must be final");
-							if(numField.getType()!=int.class)
-								throw new RuntimeException("field "+enumClass.getName()+"#"+numName+" must have type int, but has "+numField.getClass());
-							
-							number = ((Integer)numField.get(null)).intValue();
-						}
-						catch(NoSuchFieldException e)
-						{
-							throw new RuntimeException("no such field "+enumClass.getName()+"#"+numName);
-						}
-						value.initialize(enumClass, code, number);
-					}
-					values.add(value);
+			final Enum enumConstant = (Enum)enumConstants[j];
+			final String code = enumConstant.name();
+			final int number = (enumConstant.ordinal() + 1) * 100; // TODO factor 10 is sufficient
+			values.add(enumConstant);
 
-					final int number = value.getNumber();
-					if(numbersToValues.put(number, value)!=null)
-						throw new RuntimeException("duplicate number " + number + " for enum attribute on "+enumClass.toString());
-					
-					final String code = value.getCode();
-					if(codesToValues.put(code, value)!=null)
-						throw new RuntimeException("duplicate code " + code + " for enum attribute on "+enumClass.toString());
-				}
-			}
-			values.trimToSize();
-			numbersToValues.trimToSize();
-			this.values = Collections.unmodifiableList(values);
-			this.numbersToValues = numbersToValues;
-			this.codesToValues = codesToValues;
+			if(numbersToValues.put(number, enumConstant)!=null)
+				throw new RuntimeException("duplicate number " + number + " for enum attribute on "+enumClass.toString());
+			if(valuesToNumbers.put(enumConstant, number)!=null)
+				throw new RuntimeException("duplicate value " + enumConstant + " for enum attribute on "+enumClass.toString());
+				
+			if(codesToValues.put(code, enumConstant)!=null)
+				throw new RuntimeException("duplicate code " + code + " for enum attribute on "+enumClass.toString());
 		}
-		catch(IllegalAccessException e)
-		{
-			throw new RuntimeException(e);
-		}
+		values.trimToSize();
+		numbersToValues.trimToSize();
+		this.values = Collections.unmodifiableList(values);
+		this.numbersToValues = numbersToValues;
+		this.valuesToNumbers = valuesToNumbers;
+		this.codesToValues = codesToValues;
 	}
 	
 	public EnumAttribute(final Option option, final Class enumClass)
@@ -121,28 +83,37 @@ public final class EnumAttribute extends FunctionAttribute
 		return new EnumAttribute(isfinal, mandatory, implicitUniqueConstraint!=null, enumClass);
 	}
 	
-	public List getValues()
+	public List<Enum> getValues()
 	{
 		return values;
 	}
 	
-	public EnumValue getValue(final int number)
+	private Enum getValue(final int number)
 	{
-		return (EnumValue)numbersToValues.get(number);
+		final Enum result = (Enum)numbersToValues.get(number);
+		assert result!=null : toString() + number;
+		return result;
 	}
 
-	public EnumValue getValue(final String code)
+	private Integer getNumber(final Enum value)
+	{
+		final Integer result = valuesToNumbers.get(value);
+		assert result!=null : toString() + value;
+		return result;
+	}
+
+	public Enum getValue(final String code)
 	{
 		//System.out.println("EnumerationValue#getValue("+code+") from "+codesToValues);
-		return (EnumValue)codesToValues.get(code);
+		return codesToValues.get(code);
 	}
 
 	Column createColumn(final Table table, final String name, final boolean notNull)
 	{
 		final int[] allowedValues = new int[values.size()];
 		int in = 0;
-		for(Iterator i = values.iterator(); i.hasNext(); in++)
-			allowedValues[in] = ((EnumValue)i.next()).getNumber();
+		for(Enum value : values)
+			allowedValues[in++] = getNumber(value).intValue();
 
 		return new IntegerColumn(table, name, notNull, 10, false, allowedValues);
 	}
@@ -158,15 +129,15 @@ public final class EnumAttribute extends FunctionAttribute
 		
 	void set(final Row row, final Object surface)
 	{
-		row.put(getColumn(), surface==null ? null : ((EnumValue)surface).getNumberObject());
+		row.put(getColumn(), surface==null ? null : getNumber((Enum)surface));
 	}
 	
-	public final EnumValue get(final Item item)
+	public final Enum get(final Item item)
 	{
-		return (EnumValue)getObject(item);
+		return (Enum)getObject(item);
 	}
 	
-	public final void set(final Item item, final EnumValue value)
+	public final void set(final Item item, final Enum value)
 		throws
 			UniqueViolationException,
 			MandatoryViolationException,
@@ -182,37 +153,37 @@ public final class EnumAttribute extends FunctionAttribute
 		}
 	}
 
-	public final AttributeValue map(final EnumValue value)
+	public final AttributeValue map(final Enum value)
 	{
 		return new AttributeValue(this, value);
 	}
 	
-	public final EqualCondition equal(final EnumValue value)
+	public final EqualCondition equal(final Enum value)
 	{
 		return new EqualCondition(this, value);
 	}
 	
-	public final NotEqualCondition notEqual(final EnumValue value)
+	public final NotEqualCondition notEqual(final Enum value)
 	{
 		return new NotEqualCondition(this, value);
 	}
 	
-	public final LessCondition less(final EnumValue value)
+	public final LessCondition less(final Enum value)
 	{
 		return new LessCondition(this, value);
 	}
 	
-	public final LessEqualCondition lessOrEqual(final EnumValue value)
+	public final LessEqualCondition lessOrEqual(final Enum value)
 	{
 		return new LessEqualCondition(this, value);
 	}
 	
-	public final GreaterCondition greater(final EnumValue value)
+	public final GreaterCondition greater(final Enum value)
 	{
 		return new GreaterCondition(this, value);
 	}
 	
-	public final GreaterEqualCondition greaterOrEqual(final EnumValue value)
+	public final GreaterEqualCondition greaterOrEqual(final Enum value)
 	{
 		return new GreaterEqualCondition(this, value);
 	}

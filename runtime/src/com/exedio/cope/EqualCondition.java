@@ -41,7 +41,7 @@ public final class EqualCondition extends Condition
 	 * @see DoubleAttribute#equal(double)
 	 * @see DoubleAttribute#equal(Double)
 	 * @see DateAttribute#equal(Date)
-	 * @see EnumAttribute#equal(EnumValue)
+	 * @see EnumAttribute#equal(Enum)
 	 * @see ItemAttribute#equal(Item)
 	 */
 	public EqualCondition(final Function function, final Object value)

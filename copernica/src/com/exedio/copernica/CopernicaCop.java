@@ -15,6 +15,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
+
 package com.exedio.copernica;
 
 import java.io.IOException;
@@ -23,7 +24,6 @@ import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.exedio.cope.EnumValue;
 import com.exedio.cope.Item;
 import com.exedio.cope.Type;
 import com.exedio.cops.Cop;
@@ -182,7 +182,7 @@ abstract class CopernicaCop extends Cop implements RequestCache
 	//private int enumDisplayNamesHits = 0;
 	//private int enumDisplayNamesMisses = 0;
 	
-	public String getDisplayName(final EnumValue enumerationValue)
+	public String getDisplayName(final Enum enumerationValue)
 	{
 		if(enumDisplayNames==null)
 		{

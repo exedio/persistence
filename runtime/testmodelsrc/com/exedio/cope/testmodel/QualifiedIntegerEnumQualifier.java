@@ -15,10 +15,10 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
+
 package com.exedio.cope.testmodel;
 
 import com.exedio.cope.EnumAttribute;
-import com.exedio.cope.EnumValue;
 import com.exedio.cope.IntegerAttribute;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemAttribute;
@@ -41,16 +41,11 @@ public class QualifiedIntegerEnumQualifier extends Item
 	public static final StringAttribute qualifiedA = new StringAttribute(OPTIONAL);
 	public static final StringAttribute qualifiedB = new StringAttribute(OPTIONAL);
 
-	public static final class KeyEnum extends EnumValue
+	public static enum KeyEnum
 	{
-		public static final int key1NUM = 100;
-		public static final KeyEnum key1 = new KeyEnum();
-
-		public static final int key2NUM = 200;
-		public static final KeyEnum key2 = new KeyEnum();
-
-		public static final int key3NUM = 300;
-		public static final KeyEnum key3 = new KeyEnum();
+		key1,
+		key2,
+		key3;
 	}
 /**
 

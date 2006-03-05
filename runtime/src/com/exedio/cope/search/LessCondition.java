@@ -32,7 +32,7 @@ public class LessCondition extends LiteralCondition
 	 * @see com.exedio.cope.LongAttribute#less(long)
 	 * @see com.exedio.cope.DoubleAttribute#less(double)
 	 * @see com.exedio.cope.DateAttribute#less(Date)
-	 * @see com.exedio.cope.EnumAttribute#less(EnumValue)
+	 * @see com.exedio.cope.EnumAttribute#less(Enum)
 	 */
 	public LessCondition(final Function function, final Object value)
 	{

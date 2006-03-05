@@ -25,7 +25,6 @@ import java.util.Collection;
 import javax.servlet.ServletConfig;
 import javax.servlet.http.HttpServletRequest;
 
-import com.exedio.cope.EnumValue;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
@@ -73,7 +72,7 @@ public interface CopernicaProvider
 	
 	String getDisplayName(RequestCache cache, CopernicaLanguage displayLanguage, Item item);
 
-	String getDisplayName(CopernicaLanguage displayLanguage, EnumValue value);
+	String getDisplayName(CopernicaLanguage displayLanguage, Enum value);
 
 	String getIconURL(Type type);
 

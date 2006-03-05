@@ -28,8 +28,6 @@ import bsh.Interpreter;
 import bsh.Primitive;
 import bsh.UtilEvalError;
 
-import com.exedio.cope.EnumValue;
-
 /**
  * Represents a class parsed by the java parser.
  * Is an inner class, if parent is not null.
@@ -52,7 +50,7 @@ final class JavaClass extends JavaFeature
 	 */
 	public JavaClass(
 			final JavaFile file, final JavaClass parent,
-			final int modifiers, final String name,
+			final int modifiers, final boolean isenum, final String name,
 			final List classExtends, final List classImplements)
 	throws InjectorParseException
 	{
@@ -60,7 +58,7 @@ final class JavaClass extends JavaFeature
 		this.nameSpace = new NameSpace(file.nameSpace);
 		this.classExtends = Collections.unmodifiableList(classExtends);
 		this.classImplements = Collections.unmodifiableList(classImplements);
-		if(classExtends.contains("EnumValue")) // TODO nicify
+		if(isenum)
 		{
 			parent.addEnumClass(this);
 			file.repository.addEnumClass(this);
@@ -208,9 +206,14 @@ final class JavaClass extends JavaFeature
 				return superResult;
 			
 			if(getEnumValueClass(name)!=null)
-				return EnumValue.class;
+				return AnyEnum.class;
 			
 			return null;
 		}
+	}
+	
+	enum AnyEnum
+	{
+		zack;
 	}
 }

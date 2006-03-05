@@ -23,7 +23,6 @@ import com.exedio.cope.DateAttribute;
 import com.exedio.cope.DayAttribute;
 import com.exedio.cope.DoubleAttribute;
 import com.exedio.cope.EnumAttribute;
-import com.exedio.cope.EnumValue;
 import com.exedio.cope.IntegerAttribute;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemAttribute;
@@ -138,18 +137,13 @@ public class AttributeItem extends Item
 	public static final Qualifier emptyItem = new Qualifier(AttributeEmptyItem.parentKey);
 
 	/**
-	 * A class representing the possible states of the persistent enumeration attribute {@link #someEnum}.
+	 * An enum for the persistent enumeration attribute {@link #someEnum}.
 	 */
-	public static final class SomeEnum extends EnumValue
+	public static enum SomeEnum
 	{
-		public static final int enumValue1NUM = 100;
-		public static final SomeEnum enumValue1 = new SomeEnum();
-
-		public static final int enumValue2NUM = 200;
-		public static final SomeEnum enumValue2 = new SomeEnum();
-
-		public static final int enumValue3NUM = 300;
-		public static final SomeEnum enumValue3 = new SomeEnum();
+		enumValue1,
+		enumValue2,
+		enumValue3;
 	}
 
 

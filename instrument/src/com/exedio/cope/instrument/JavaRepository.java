@@ -25,7 +25,6 @@ import java.util.List;
 
 import bsh.UtilEvalError;
 
-import com.exedio.cope.EnumValue;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringAttribute;
 import com.exedio.cope.pattern.Hash;
@@ -153,7 +152,7 @@ final class JavaRepository
 				return Item.class;
 			
 			if(getEnumValueClass(name)!=null)
-				return EnumValue.class;
+				return JavaClass.AnyEnum.class;
 			
 			if(name.endsWith("Hash")) // TODO this is a hack
 				return DummyHash.class;

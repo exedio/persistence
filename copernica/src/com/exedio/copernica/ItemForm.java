@@ -15,6 +15,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
+
 package com.exedio.copernica;
 
 import java.io.IOException;
@@ -37,7 +38,6 @@ import com.exedio.cope.DataAttribute;
 import com.exedio.cope.DateAttribute;
 import com.exedio.cope.DoubleAttribute;
 import com.exedio.cope.EnumAttribute;
-import com.exedio.cope.EnumValue;
 import com.exedio.cope.IntegerAttribute;
 import com.exedio.cope.IntegrityViolationException;
 import com.exedio.cope.Item;
@@ -347,14 +347,14 @@ final class ItemForm extends Form
 		private static final String VALUE_NULL = "null";
 
 		final EnumAttribute attribute;
-		final EnumValue content;
+		final Enum content;
 
 		/**
 		 * Constructs a form field with an initial value.
 		 */
-		EnumField(final EnumAttribute attribute, final EnumValue value, final ItemCop cop)
+		EnumField(final EnumAttribute attribute, final Enum value, final ItemCop cop)
 		{
-			super(ItemForm.this, attribute, attribute.getName(), (value==null) ? VALUE_NULL : value.getCode());
+			super(ItemForm.this, attribute, attribute.getName(), (value==null) ? VALUE_NULL : value.name());
 			
 			this.attribute = attribute;
 			this.content = value;
@@ -388,10 +388,9 @@ final class ItemForm extends Form
 			{
 				addOption(VALUE_NULL, cop.getDisplayNameNull());
 			}
-			for(Iterator k = attribute.getValues().iterator(); k.hasNext(); )
+			for(final Enum currentValue : attribute.getValues())
 			{
-				final EnumValue currentValue = (EnumValue)k.next();
-				final String currentCode = currentValue.getCode();
+				final String currentCode = currentValue.name();
 				final String currentName = cop.getDisplayName(currentValue);
 				addOption(currentCode, currentName);
 			}

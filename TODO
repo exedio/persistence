@@ -24,7 +24,7 @@
 		* Item#touch
 		* timestamp of data files
 	- EnumAttribute:
-		* support JDK1.5-enum
+		* allow modification of integers in DB via cope.properties
 		* optionally put strings in DB
 	- DataAttribute:
 		* write tests for up/downloading data in copernica

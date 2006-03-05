@@ -24,31 +24,10 @@ import com.exedio.cope.testmodel.AttributeItem.SomeEnum;
 
 public class AttributeEnumTest extends AttributeTest
 {
-	public static final class DuplicateNumberEnum extends EnumValue
+	public static enum SomeEnum2
 	{
-		public static final int enumValue1NUM = 100;
-		public static final DuplicateNumberEnum enumValue1 = new DuplicateNumberEnum();
-
-		public static final int enumValue2NUM = 100;
-		public static final DuplicateNumberEnum enumValue2 = new DuplicateNumberEnum();
-	}
-
-	public static final class NullEnum extends EnumValue
-	{
-		public static final int enumValue1NUM = 100;
-		public static final NullEnum enumValue1 = null;
-
-		public static final int enumValue2NUM = 100;
-		public static final NullEnum enumValue2 = new NullEnum();
-	}
-
-	public static final class SomeEnum2 extends EnumValue
-	{
-		public static final int enumValue1NUM = 150;
-		public static final SomeEnum2 enumValue1 = new SomeEnum2();
-
-		public static final int enumValue2NUM = 250;
-		public static final SomeEnum2 enumValue2 = new SomeEnum2();
+		enumValue1,
+		enumValue2;
 	}
 
 	public void testSomeEnum()
@@ -64,19 +43,6 @@ public class AttributeEnumTest extends AttributeTest
 
 		assertEquals(
 			AttributeItem.SomeEnum.enumValue1,
-			item.someEnum.getValue(
-				AttributeItem.SomeEnum.enumValue1NUM));
-		assertEquals(
-			AttributeItem.SomeEnum.enumValue2,
-			item.someEnum.getValue(
-				AttributeItem.SomeEnum.enumValue2NUM));
-		assertEquals(
-			AttributeItem.SomeEnum.enumValue3,
-			item.someEnum.getValue(
-				AttributeItem.SomeEnum.enumValue3NUM));
-
-		assertEquals(
-			AttributeItem.SomeEnum.enumValue1,
 			item.someEnum.getValue("enumValue1"));
 		assertEquals(
 			AttributeItem.SomeEnum.enumValue2,
@@ -86,32 +52,18 @@ public class AttributeEnumTest extends AttributeTest
 			item.someEnum.getValue("enumValue3"));
 
 		assertEquals(AttributeItem.SomeEnum.class,
-			AttributeItem.SomeEnum.enumValue1.getEnumerationClass());
+			AttributeItem.SomeEnum.enumValue1.getClass());
 		assertEquals(AttributeItem.SomeEnum.class,
-			AttributeItem.SomeEnum.enumValue2.getEnumerationClass());
+			AttributeItem.SomeEnum.enumValue2.getClass());
 		assertEquals(AttributeItem.SomeEnum.class,
-			AttributeItem.SomeEnum.enumValue3.getEnumerationClass());
+			AttributeItem.SomeEnum.enumValue3.getClass());
 
 		assertEquals("enumValue1",
-			AttributeItem.SomeEnum.enumValue1.getCode());
+			AttributeItem.SomeEnum.enumValue1.name());
 		assertEquals("enumValue2",
-			AttributeItem.SomeEnum.enumValue2.getCode());
+			AttributeItem.SomeEnum.enumValue2.name());
 		assertEquals("enumValue3",
-			AttributeItem.SomeEnum.enumValue3.getCode());
-
-		assertEquals(100,
-			AttributeItem.SomeEnum.enumValue1.getNumber());
-		assertEquals(200,
-			AttributeItem.SomeEnum.enumValue2.getNumber());
-		assertEquals(300,
-			AttributeItem.SomeEnum.enumValue3.getNumber());
-
-		assertEquals(Integer.valueOf(100),
-			AttributeItem.SomeEnum.enumValue1.getNumberObject());
-		assertEquals(Integer.valueOf(200),
-			AttributeItem.SomeEnum.enumValue2.getNumberObject());
-		assertEquals(Integer.valueOf(300),
-			AttributeItem.SomeEnum.enumValue3.getNumberObject());
+			AttributeItem.SomeEnum.enumValue3.name());
 
 		assertTrue(!
 			AttributeItem.SomeEnum.enumValue1.equals(
@@ -124,15 +76,15 @@ public class AttributeEnumTest extends AttributeTest
 			AttributeItem.SomeEnum.enumValue1));
 
 		AttributeItem.SomeEnum someEnumeration = AttributeItem.SomeEnum.enumValue1;
-		switch (someEnumeration.getNumber())
+		switch(someEnumeration)
 		{
-			case AttributeItem.SomeEnum.enumValue1NUM :
+			case enumValue1:
 				someEnumeration = AttributeItem.SomeEnum.enumValue2;
 				break;
-			case AttributeItem.SomeEnum.enumValue2NUM :
+			case enumValue2:
 				someEnumeration = AttributeItem.SomeEnum.enumValue3;
 				break;
-			case AttributeItem.SomeEnum.enumValue3NUM :
+			case enumValue3:
 				someEnumeration = AttributeItem.SomeEnum.enumValue1;
 				break;
 			default :
@@ -156,27 +108,7 @@ public class AttributeEnumTest extends AttributeTest
 		}
 		catch(RuntimeException e)
 		{
-			assertEquals("is not an enumeration value class: "+getClass().getName(), e.getMessage());
-		}
-		try
-		{
-			new EnumAttribute(Item.OPTIONAL, NullEnum.class);
-			fail();
-		}
-		catch(RuntimeException e)
-		{
-			assertEquals("is null: public static final " + NullEnum.class.getName() + " " + NullEnum.class.getName() + ".enumValue1", e.getMessage());
-		}
-		try
-		{
-			new EnumAttribute(Item.OPTIONAL, DuplicateNumberEnum.class);
-			fail();
-		}
-		catch(RuntimeException e)
-		{
-			assertEquals(
-					"duplicate number " + DuplicateNumberEnum.enumValue1NUM + " for enum attribute on class " + DuplicateNumberEnum.class.getName(),
-					e.getMessage());
+			assertEquals("is not a subclass of java.lang.Enum: "+getClass().getName(), e.getMessage());
 		}
 
 

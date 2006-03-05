@@ -71,6 +71,14 @@ public class Example15Test extends InjectorTest
 			assertBehaviourHeader("getPrimes", "HashMap<Integer, Boolean>", 0);
 		assertMethod("getPrimes", null, getPrimes);
 
+		final JavaClass colorClass = assertClass("Color", null, null);
+		assertClassEnd("Color", colorClass);
+		assertInnerClassAttribute("Color", null);
+		
+		final JavaClass weekdayClass = assertClass("Weekday", null, null);
+		assertClassEnd("Weekday", weekdayClass);
+		assertInnerClassAttribute("Weekday", null);
+		
 		assertClassEnd("Example15", exampleClass);
 	}
 

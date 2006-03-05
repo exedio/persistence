@@ -25,13 +25,10 @@ package com.exedio.cope;
  */
 public class EnumItem2 extends Item
 {
-	public static final class Status extends EnumValue
+	public static enum Status
 	{
-		public static final int state1NUM = 40;
-		public static final Status state1 = new Status();
-
-		public static final int state2NUM = 50;
-		public static final Status state2 = new Status();
+		state1,
+		state2;
 	}
 	
 	public static final EnumAttribute status = new EnumAttribute(MANDATORY, Status.class);

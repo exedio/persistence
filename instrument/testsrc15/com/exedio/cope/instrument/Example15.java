@@ -49,5 +49,24 @@ public class Example15
 	{
 		return primes;
 	}
+	
+	static enum Color
+	{
+		blue,
+		green;
+	}
+
+	static enum Weekday
+	{
+		monday("mon"),
+		tuesday("tue");
+		
+		final String shortName;
+		
+		Weekday(final String shortName)
+		{
+			this.shortName = shortName;
+		}
+	}
 
 }

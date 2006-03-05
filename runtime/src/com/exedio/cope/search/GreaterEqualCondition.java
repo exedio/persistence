@@ -32,7 +32,7 @@ public class GreaterEqualCondition extends LiteralCondition
 	 * @see com.exedio.cope.LongAttribute#greaterOrEqual(long)
 	 * @see com.exedio.cope.DoubleAttribute#greaterOrEqual(double)
 	 * @see com.exedio.cope.DateAttribute#greaterOrEqual(Date)
-	 * @see com.exedio.cope.EnumAttribute#greaterOrEqual(EnumValue)
+	 * @see com.exedio.cope.EnumAttribute#greaterOrEqual(Enum)
 	 */
 	public GreaterEqualCondition(final Function function, final Object value)
 	{

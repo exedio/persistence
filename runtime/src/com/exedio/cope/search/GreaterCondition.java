@@ -32,7 +32,7 @@ public class GreaterCondition extends LiteralCondition
 	 * @see com.exedio.cope.LongAttribute#greater(long)
 	 * @see com.exedio.cope.DoubleAttribute#greater(double)
 	 * @see com.exedio.cope.DateAttribute#greater(Date)
-	 * @see com.exedio.cope.EnumAttribute#greater(EnumValue)
+	 * @see com.exedio.cope.EnumAttribute#greater(Enum)
 	 */
 	public GreaterCondition(final Function function, final Object value)
 	{
