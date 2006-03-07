@@ -54,7 +54,7 @@ public final class EnumAttribute extends FunctionAttribute
 		{
 			final Enum enumConstant = (Enum)enumConstants[j];
 			final String code = enumConstant.name();
-			final int number = (enumConstant.ordinal() + 1) * 100; // TODO factor 10 is sufficient
+			final int number = (enumConstant.ordinal() + 1) * 10;
 			values.add(enumConstant);
 
 			if(numbersToValues.put(number, enumConstant)!=null)

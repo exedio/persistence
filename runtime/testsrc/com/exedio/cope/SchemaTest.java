@@ -280,8 +280,8 @@ public class SchemaTest extends TestmodelTest
 			assertCheckConstraint(attributeItem, "AttrItem_somNotNullStr_Ck", "("+protect(AttributeItem.someNotNullString)+" IS NOT NULL) AND (LENGTH("+protect(AttributeItem.someNotNullString)+")<="+StringAttribute.DEFAULT_LENGTH+")");
 			assertCheckConstraint(attributeItem, "AttribuItem_someBoolea_Ck", "("+protect(AttributeItem.someBoolean)+" IN (0,1)) OR ("+protect(AttributeItem.someBoolean)+" IS NULL)");
 			assertCheckConstraint(attributeItem, "AttrItem_somNotNullBoo_Ck", "("+protect(AttributeItem.someNotNullBoolean)+" IS NOT NULL) AND ("+protect(AttributeItem.someNotNullBoolean)+" IN (0,1))");
-			assertCheckConstraint(attributeItem, "AttributeItem_someEnum_Ck", "("+protect(AttributeItem.someEnum)+" IN (100,200,300)) OR ("+protect(AttributeItem.someEnum)+" IS NULL)");
-			assertCheckConstraint(attributeItem, "AttrItem_somNotNullEnu_Ck", "("+protect(AttributeItem.someNotNullEnum)+" IS NOT NULL) AND ("+protect(AttributeItem.someNotNullEnum)+" IN (100,200,300))");
+			assertCheckConstraint(attributeItem, "AttributeItem_someEnum_Ck", "("+protect(AttributeItem.someEnum)+" IN (10,20,30)) OR ("+protect(AttributeItem.someEnum)+" IS NULL)");
+			assertCheckConstraint(attributeItem, "AttrItem_somNotNullEnu_Ck", "("+protect(AttributeItem.someNotNullEnum)+" IS NOT NULL) AND ("+protect(AttributeItem.someNotNullEnum)+" IN (10,20,30))");
 			assertCheckConstraint(attributeItem, "AttriItem_someDataMajo_Ck", "((LENGTH("+protect(AttributeItem.someData.getMimeMajor())+")>=1) AND (LENGTH("+protect(AttributeItem.someData.getMimeMajor())+")<=30)) OR ("+protect(AttributeItem.someData.getMimeMajor())+" IS NULL)");
 
 			assertPkConstraint(attributeItem, "AttributeItem_Pk", null, Table.PK_COLUMN_NAME);
