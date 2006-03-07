@@ -40,8 +40,20 @@ class IntegerColumn extends Column
 		this.longInsteadOfInt = longInsteadOfInt;
 		this.allowedValues = allowedValues;
 
-		if(allowedValues!=null && allowedValues.length<2)
-			throw new RuntimeException(id);
+		if(allowedValues!=null)
+		{
+		 	if(allowedValues.length<2)
+				throw new RuntimeException(id);
+			
+			// ensure, that allowedValues are unique and ordered
+			int current = Integer.MIN_VALUE;
+			for(int i = 0; i<allowedValues.length; i++)
+			{
+				if(current>=allowedValues[i])
+					throw new RuntimeException();
+				current = allowedValues[i];
+			}
+		}
 	}
 
 	/**
