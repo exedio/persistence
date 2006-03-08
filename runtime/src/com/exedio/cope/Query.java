@@ -129,9 +129,9 @@ public final class Query
 		return join(new Join(Join.KIND_OUTER_RIGHT, type, condition));
 	}
 	
-	public List getJoins()
+	public List<Join> getJoins()
 	{
-		return joins==null ? Collections.EMPTY_LIST : joins;
+		return joins==null ? Collections.<Join>emptyList() : joins;
 	}
 	
 	public void setOrderBy(final Function orderBy, final boolean ascending)

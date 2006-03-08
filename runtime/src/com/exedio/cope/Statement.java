@@ -32,8 +32,8 @@ final class Statement
 {
 	private final Database database;
 	final StringBuffer text = new StringBuffer();
-	final ArrayList parameters;
-	private final HashMap joinTables;
+	final ArrayList<Object> parameters;
+	private final HashMap<JoinTable, JoinTable> joinTables;
 	private final boolean qualifyTable;
 	final IntArrayList columnTypes;
 	
@@ -43,7 +43,7 @@ final class Statement
 			throw new NullPointerException();
 
 		this.database = database;
-		this.parameters = prepare ? new ArrayList() : null;
+		this.parameters = prepare ? new ArrayList<Object>() : null;
 		this.joinTables = null;
 		this.qualifyTable = qualifyTable;
 		this.columnTypes = defineColumnTypes ? new IntArrayList() : null;
@@ -55,22 +55,19 @@ final class Statement
 			throw new NullPointerException();
 
 		this.database = database;
-		this.parameters = prepare ? new ArrayList() : null;
+		this.parameters = prepare ? new ArrayList<Object>() : null;
 		
 		// TODO: implementation is far from optimal
 		// TODO: all tables for each type are joined, also tables with no columns used
 		
-		final ArrayList types = new ArrayList();
+		final ArrayList<JoinType> types = new ArrayList<JoinType>();
 		
 		types.add(new JoinType(null, query.type));
-		for(Iterator i = query.getJoins().iterator(); i.hasNext(); )
-		{
-			final Join join = (Join)i.next();
+		for(final Join join : query.getJoins())
 			types.add(new JoinType(join, join.type));
-		}
 
-		final HashMap joinTypeTableByTable = new HashMap();
-		this.joinTables = new HashMap();
+		final HashMap<Table, Object> joinTypeTableByTable = new HashMap<Table, Object>();
+		this.joinTables = new HashMap<JoinTable, JoinTable>();
 		for(Iterator i = types.iterator(); i.hasNext(); )
 		{
 			final JoinType joinType = (JoinType)i.next();
@@ -88,14 +85,14 @@ final class Statement
 					if(table!=((JoinTable)previous).table)
 						throw new RuntimeException();
 
-					final ArrayList list = new ArrayList(2);
-					list.add(previous);
+					final ArrayList<JoinTable> list = new ArrayList<JoinTable>(2);
+					list.add((JoinTable)previous);
 					list.add(current);
 					joinTypeTableByTable.put(table, list);
 				}
 				else
 				{
-					((ArrayList)previous).add(current);
+					((ArrayList<JoinTable>)previous).add(current);
 				}
 			}
 		}
@@ -399,7 +396,7 @@ final class Statement
 	
 	private String getAlias(final Join join, final Table table)
 	{
-		return ((JoinTable)joinTables.get(new JoinTable(join, table))).alias;
+		return (joinTables.get(new JoinTable(join, table))).alias;
 	}
 
 	private String getName(final Join join, final Table table)
