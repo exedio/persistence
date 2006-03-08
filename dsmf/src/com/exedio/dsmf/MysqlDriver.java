@@ -21,11 +21,9 @@ package com.exedio.dsmf;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
-import java.util.Iterator;
 import java.util.StringTokenizer;
 
 import com.exedio.dsmf.Node.ResultSetHandler;
-
 
 public final class MysqlDriver extends Driver
 {
@@ -119,9 +117,8 @@ public final class MysqlDriver extends Driver
 	{
 		super.verify(schema);
 		{
-			for(Iterator i = schema.getTables().iterator(); i.hasNext(); )
+			for(final Table table : schema.getTables())
 			{
-				final Table table = (Table)i.next();
 				if(!table.exists())
 					continue;
 				

@@ -166,9 +166,9 @@ supports right outer joins: <i><%if(model.supportsRightOuterJoins()){%>yes<%}els
 <ul class="<%=schemaColor%>"><%
 
 int tableCount = 1;
-for(Iterator i = schema.getTables().iterator(); i.hasNext(); tableCount++)
+for(Iterator<Table> i = schema.getTables().iterator(); i.hasNext(); tableCount++)
 {
-	final Table table = (Table)i.next();
+	final Table table = i.next();
 	
 	if(cop.skipTable(table))
 		continue;
