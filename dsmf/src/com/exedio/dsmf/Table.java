@@ -40,7 +40,7 @@ public final class Table extends Node
 	private final HashMap<String, Column> columnMap = new HashMap<String, Column>();
 	private final ArrayList<Column> columnList = new ArrayList<Column>();
 
-	private final HashMap constraintMap = new HashMap();
+	private final HashMap<String, Constraint> constraintMap = new HashMap<String, Constraint>();
 	private final ArrayList constraintList = new ArrayList();
 
 	public Table(final Schema schema, final String name, final String options)
@@ -126,7 +126,7 @@ public final class Table extends Node
 	
 	final Constraint notifyExistentCheckConstraint(final String constraintName, final String condition)
 	{
-		Constraint result = (Constraint)constraintMap.get(constraintName);
+		Constraint result = constraintMap.get(constraintName);
 		
 		if(result==null)
 			result = new CheckConstraint(this, constraintName, false, condition);
@@ -138,7 +138,7 @@ public final class Table extends Node
 	
 	final Constraint notifyExistentPrimaryKeyConstraint(final String constraintName)
 	{
-		Constraint result = (Constraint)constraintMap.get(constraintName);
+		Constraint result = constraintMap.get(constraintName);
 
 		if(result==null)
 			result = new PrimaryKeyConstraint(this, constraintName, false, null);
@@ -150,7 +150,7 @@ public final class Table extends Node
 	
 	final Constraint notifyExistentForeignKeyConstraint(final String constraintName)
 	{
-		Constraint result = (Constraint)constraintMap.get(constraintName);
+		Constraint result = constraintMap.get(constraintName);
 		
 		if(result==null)
 			result = new ForeignKeyConstraint(this, constraintName, false, null, null, null);
@@ -162,7 +162,7 @@ public final class Table extends Node
 	
 	final Constraint notifyExistentUniqueConstraint(final String constraintName, final String condition)
 	{
-		Constraint result = (Constraint)constraintMap.get(constraintName);
+		Constraint result = constraintMap.get(constraintName);
 		
 		if(result==null)
 			result = new UniqueConstraint(this, constraintName, false, condition);
@@ -204,7 +204,7 @@ public final class Table extends Node
 		
 	public final Constraint getConstraint(final String constraintName)
 	{
-		return (Constraint)constraintMap.get(constraintName);
+		return constraintMap.get(constraintName);
 	}
 		
 	void finish()
