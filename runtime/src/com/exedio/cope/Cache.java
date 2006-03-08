@@ -314,7 +314,7 @@ final class Cache
 		if(!logQueryCache)
 			return null;
 		
-		final TreeSet result = new TreeSet();
+		final TreeSet<CacheQueryInfo> result = new TreeSet<CacheQueryInfo>();
 		
 		if(queryCaches!=null)
 		{
