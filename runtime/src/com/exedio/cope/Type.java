@@ -42,20 +42,20 @@ public final class Type
 	private final Type supertype;
 	
 	private final List<Feature> declaredFeatures;
-	private final List features;
-	private final HashMap declaredFeaturesByName;
-	private final HashMap featuresByName;
+	private final List<Feature> features;
+	private final HashMap<String, Feature> declaredFeaturesByName;
+	private final HashMap<String, Feature> featuresByName;
 
-	private final List declaredAttributes;
-	private final List attributes;
-	final List declaredUniqueConstraints;
-	private final List uniqueConstraints;
+	private final List<Attribute> declaredAttributes;
+	private final List<Attribute> attributes;
+	final List<UniqueConstraint> declaredUniqueConstraints;
+	private final List<UniqueConstraint> uniqueConstraints;
 
-	private ArrayList subTypes = null;
-	private ArrayList references = null;
+	private ArrayList<Type> subTypes = null;
+	private ArrayList<ItemAttribute> references = null;
 	
 	private Model model;
-	private ArrayList typesOfInstances;
+	private ArrayList<Type> typesOfInstances;
 	private Type onlyPossibleTypeOfInstances;
 	private String[] typesOfInstancesColumnValues;
 	
@@ -119,7 +119,7 @@ public final class Type
 
 		// declared features
 		final Field[] fields = javaClass.getDeclaredFields();
-		this.featuresWhileConstruction = new ArrayList(fields.length);
+		this.featuresWhileConstruction = new ArrayList<Feature>(fields.length);
 		final int expectedModifier = Modifier.STATIC | Modifier.FINAL;
 		try
 		{
@@ -151,15 +151,15 @@ public final class Type
 
 		// declared attributes / unique constraints
 		{
-			final ArrayList declaredAttributes = new ArrayList(declaredFeatures.size());
-			final ArrayList declaredUniqueConstraints = new ArrayList(declaredFeatures.size());
-			final HashMap declaredFeaturesByName = new HashMap();
+			final ArrayList<Attribute> declaredAttributes = new ArrayList<Attribute>(declaredFeatures.size());
+			final ArrayList<UniqueConstraint> declaredUniqueConstraints = new ArrayList<UniqueConstraint>(declaredFeatures.size());
+			final HashMap<String, Feature> declaredFeaturesByName = new HashMap<String, Feature>();
 			for(final Feature feature : declaredFeatures)
 			{
 				if(feature instanceof Attribute)
-					declaredAttributes.add(feature);
+					declaredAttributes.add((Attribute)feature);
 				if(feature instanceof UniqueConstraint)
-					declaredUniqueConstraints.add(feature);
+					declaredUniqueConstraints.add((UniqueConstraint)feature);
 				if(declaredFeaturesByName.put(feature.getName(), feature)!=null)
 					throw new RuntimeException("duplicate feature "+feature.getName()+" for type "+javaClass.getName());
 			}
@@ -182,16 +182,15 @@ public final class Type
 		{
 			this.features = inherit(supertype.getFeatures(), this.declaredFeatures);
 			{
-				final HashMap inherited = supertype.featuresByName;
-				final HashMap own = this.declaredFeaturesByName;
+				final HashMap<String, Feature> inherited = supertype.featuresByName;
+				final HashMap<String, Feature> own = this.declaredFeaturesByName;
 				if(own.isEmpty())
 					this.featuresByName = inherited;
 				else
 				{
-					final HashMap result = new HashMap(inherited);
-					for(Iterator i = own.values().iterator(); i.hasNext(); )
+					final HashMap<String, Feature> result = new HashMap<String, Feature>(inherited);
+					for(final Feature f : own.values())
 					{
-						final Feature f = (Feature)i.next();
 						if(result.put(f.getName(), f)!=null)
 							throw new RuntimeException("cannot override inherited feature "+f.getName()+" in type "+id);
 					}
@@ -210,7 +209,7 @@ public final class Type
 		this.reactivationConstructor = getConstructor(new Class[]{ReactivationConstructorDummy.class, int.class}, "reactivation");
 	}
 	
-	private static final List inherit(final List inherited, final List own)
+	private static final <T extends Feature> List<T> inherit(final List<T> inherited, final List<T> own)
 	{
 		assert inherited!=null;
 		
@@ -220,10 +219,10 @@ public final class Type
 			return own;
 		else
 		{
-			final ArrayList result = new ArrayList(inherited);
+			final ArrayList<T> result = new ArrayList<T>(inherited);
 			result.addAll(own);
 			result.trimToSize();
-			return Collections.unmodifiableList(result);
+			return Collections.<T>unmodifiableList(result);
 		}
 	}
 	
@@ -253,7 +252,7 @@ public final class Type
 			throw new RuntimeException(id+'-'+subType.id);
 
 		if(subTypes==null)
-			subTypes = new ArrayList();
+			subTypes = new ArrayList<Type>();
 		subTypes.add(subType);
 	}
 	
@@ -263,7 +262,7 @@ public final class Type
 			throw new RuntimeException();
 
 		if(references==null)
-			references = new ArrayList();
+			references = new ArrayList<ItemAttribute>();
 			
 		references.add(reference);
 	}
@@ -292,7 +291,7 @@ public final class Type
 		this.model = model;
 		this.transientNumber = transientNumber;
 		
-		typesOfInstances = new ArrayList();
+		typesOfInstances = new ArrayList<Type>();
 		collectTypesOfInstances(typesOfInstances, 15);
 		switch(typesOfInstances.size())
 		{
@@ -310,7 +309,7 @@ public final class Type
 		}
 	}
 	
-	private final void collectTypesOfInstances(final ArrayList result, int levelLimit)
+	private final void collectTypesOfInstances(final ArrayList<Type> result, int levelLimit)
 	{
 		if(levelLimit<=0)
 			throw new RuntimeException(result.toString());
@@ -319,8 +318,8 @@ public final class Type
 		if(!isAbstract())
 			result.add(this);
 		
-		for(Iterator i = getSubTypes().iterator(); i.hasNext(); )
-			((Type)i.next()).collectTypesOfInstances(result, levelLimit);
+		for(final Type t : getSubTypes())
+			t.collectTypesOfInstances(result, levelLimit);
 	}
 	
 	final void materialize(final Database database)
@@ -446,9 +445,9 @@ public final class Type
 	/**
 	 * @return a list of {@link Type}s.
 	 */
-	public final List getSubTypes()
+	public final List<Type> getSubTypes()
 	{
-		return subTypes==null ? Collections.EMPTY_LIST : Collections.unmodifiableList(subTypes);
+		return subTypes==null ? Collections.<Type>emptyList() : Collections.unmodifiableList(subTypes);
 	}
 	
 	public boolean isAssignableFrom(final Type type)
@@ -500,7 +499,7 @@ public final class Type
 	 * excluding attributes inherited from super types,
 	 * use {@link #getDeclaredAttributes}.
 	 */
-	public final List getAttributes()
+	public final List<Attribute> getAttributes()
 	{
 		return attributes;
 	}
@@ -510,7 +509,7 @@ public final class Type
 		return declaredFeatures;
 	}
 
-	public final List getFeatures()
+	public final List<Feature> getFeatures()
 	{
 		return features;
 	}
@@ -530,7 +529,7 @@ public final class Type
 		return declaredUniqueConstraints;
 	}
 	
-	public final List getUniqueConstraints()
+	public final List<UniqueConstraint> getUniqueConstraints()
 	{
 		return uniqueConstraints;
 	}
