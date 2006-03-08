@@ -373,21 +373,25 @@ public abstract class Item extends Cope
 	/**
 	 * @deprecated Has been renamed to {@link #FINAL}.
 	 */
+	@Deprecated
 	public static final Attribute.Option READ_ONLY = FINAL;
 	
 	/**
 	 * @deprecated Has been renamed to {@link #FINAL_OPTIONAL}.
 	 */
+	@Deprecated
 	public static final Attribute.Option READ_ONLY_OPTIONAL = FINAL_OPTIONAL;
 	
 	/**
 	 * @deprecated Has been renamed to {@link #FINAL_UNIQUE}.
 	 */
+	@Deprecated
 	public static final Attribute.Option READ_ONLY_UNIQUE = FINAL_UNIQUE;
 
 	/**
 	 * @deprecated Has been renamed to {@link #FINAL_UNIQUE_OPTIONAL}.
 	 */
+	@Deprecated
 	public static final Attribute.Option READ_ONLY_UNIQUE_OPTIONAL = FINAL_UNIQUE_OPTIONAL;
 	
 	public static final ItemAttribute.DeletePolicy FORBID = new ItemAttribute.DeletePolicy(0);
