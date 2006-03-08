@@ -47,7 +47,7 @@ public final class Model
 	final int numberOfConcreteTypes;
 	private final List typeList;
 	private final List concreteTypeList;
-	private final HashMap typesByID = new HashMap();
+	private final HashMap<String, Type> typesByID = new HashMap<String, Type>();
 
 	// set by setPropertiesInitially
 	private Properties properties;
@@ -65,7 +65,7 @@ public final class Model
 
 		int numberOfConcreteTypes = 0;
 		int numberOfAbstractTypes = -1;
-		final ArrayList concreteTypes = new ArrayList();
+		final ArrayList<Type> concreteTypes = new ArrayList<Type>();
 		for(int i = 0; i<types.length; i++)
 		{
 			final Type type = types[i];
@@ -75,7 +75,7 @@ public final class Model
 				concreteTypes.add(type);
 		}
 		this.numberOfConcreteTypes = numberOfConcreteTypes;
-		this.concreteTypes = (Type[])concreteTypes.toArray(new Type[numberOfConcreteTypes]);
+		this.concreteTypes = concreteTypes.toArray(new Type[numberOfConcreteTypes]);
 		this.concreteTypeList = Collections.unmodifiableList(Arrays.asList(this.concreteTypes));
 		
 		assert this.numberOfConcreteTypes==this.concreteTypes.length;
@@ -109,12 +109,12 @@ public final class Model
 				this.properties = properties;
 				this.database = properties.createDatabase();
 				
-				final HashSet typeSet = new HashSet(Arrays.asList(types));
-				final HashSet materialized = new HashSet();
+				final HashSet<Type> typeSet = new HashSet<Type>(Arrays.asList(types));
+				final HashSet<Type> materialized = new HashSet<Type>();
 		
 				for(int i = 0; i<types.length; i++)
 				{
-					final ArrayList stack = new ArrayList();
+					final ArrayList<Type> stack = new ArrayList<Type>();
 	
 					//System.out.println("------------------------------ "+types[i].getID());
 	
@@ -126,9 +126,9 @@ public final class Model
 						stack.add(type);
 					}
 					
-					for(ListIterator j = stack.listIterator(stack.size()); j.hasPrevious(); )
+					for(ListIterator<Type> j = stack.listIterator(stack.size()); j.hasPrevious(); )
 					{
-						final Type type = (Type)j.previous();
+						final Type type = j.previous();
 						//System.out.println("-------------------------------) "+type.getID());
 	
 						if(!materialized.contains(type))
