@@ -15,6 +15,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
+
 package com.exedio.dsmf;
 
 import java.util.ArrayList;
@@ -36,7 +37,7 @@ public final class Table extends Node
 	
 	private boolean defensive = false;
 
-	private final HashMap columnMap = new HashMap();
+	private final HashMap<String, Column> columnMap = new HashMap<String, Column>();
 	private final ArrayList columnList = new ArrayList();
 
 	private final HashMap constraintMap = new HashMap();
@@ -114,7 +115,7 @@ public final class Table extends Node
 	
 	final Column notifyExistentColumn(final String columnName, final String existingType)
 	{
-		Column result = (Column)columnMap.get(columnName);
+		Column result = columnMap.get(columnName);
 		if(result==null)
 			result = new Column(this, columnName, existingType, false);
 		else
@@ -193,7 +194,7 @@ public final class Table extends Node
 		
 	public final Column getColumn(final String columnName)
 	{
-		return (Column)columnMap.get(columnName);
+		return columnMap.get(columnName);
 	}
 		
 	public final Collection getConstraints()

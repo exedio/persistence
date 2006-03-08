@@ -28,6 +28,7 @@
 					 debug="on"
 					 optimize="off">
 				<classpath />
+				<compilerarg value="-Xlint" />
 			</javac>
 		</sequential>
 	</macrodef>
