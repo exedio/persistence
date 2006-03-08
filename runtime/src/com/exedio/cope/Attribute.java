@@ -57,8 +57,8 @@ public abstract class Attribute extends Feature
 	
 	// patterns ---------------------------------------------------------------------
 	
-	private ArrayList patternsWhileTypeInitialization = null;
-	private List patterns = null;
+	private ArrayList<Pattern> patternsWhileTypeInitialization = null;
+	private List<Pattern> patterns = null;
 	
 	void registerPattern(final Pattern pattern)
 	{
@@ -68,12 +68,12 @@ public abstract class Attribute extends Feature
 			throw new NullPointerException();
 		
 		if(patternsWhileTypeInitialization==null)
-			patternsWhileTypeInitialization = new ArrayList();
+			patternsWhileTypeInitialization = new ArrayList<Pattern>();
 		
 		patternsWhileTypeInitialization.add(pattern);
 	}
 	
-	public List getPatterns()
+	public List<Pattern> getPatterns()
 	{
 		if(!isInitialized())
 			throw new RuntimeException("getPatterns cannot be called before initialization of the attribute.");
@@ -95,8 +95,8 @@ public abstract class Attribute extends Feature
 		patternsWhileTypeInitialization = null;
 		this.patterns =
 			patterns==null
-			? Collections.EMPTY_LIST
-			: Collections.unmodifiableList(Arrays.asList(patterns.toArray(new Pattern[patterns.size()])));
+			? Collections.<Pattern>emptyList()
+			: Collections.<Pattern>unmodifiableList(Arrays.<Pattern>asList((Pattern[])patterns.toArray(new Pattern[patterns.size()])));
 	}
 	
 	final void materialize(final Table table)

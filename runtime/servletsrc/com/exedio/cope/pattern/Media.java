@@ -420,9 +420,8 @@ public final class Media extends MediaPath
 	
 	public final static Media get(final DataAttribute attribute)
 	{
-		for(Iterator i = attribute.getPatterns().iterator(); i.hasNext(); )
+		for(final Pattern pattern : attribute.getPatterns())
 		{
-			final Pattern pattern = (Pattern)i.next();
 			if(pattern instanceof Media)
 			{
 				final Media media = (Media)pattern;
