@@ -460,7 +460,7 @@ public final class Query
 			model = query.model;
 			selectables = query.selectables;
 			type = query.type;
-			joins = query.joins==null ? null : new ArrayList( query.joins );
+			joins = query.joins==null ? null : new ArrayList<Join>(query.joins);
 			condition = query.condition;
 			orderBy = query.orderBy;
 			orderAscending = query.orderAscending;
