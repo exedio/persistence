@@ -166,7 +166,7 @@ class WrappingDatabase implements Database
 		return nested.makeVerifiedSchema();
 	}
 
-	public ArrayList search(Connection connection, Query query, boolean doCountOnly)
+	public ArrayList<Object> search(Connection connection, Query query, boolean doCountOnly)
 	{
 		return nested.search( connection, query, doCountOnly );
 	}

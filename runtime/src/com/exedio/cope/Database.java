@@ -74,7 +74,7 @@ interface Database
 
 	void appendMatchClause(Statement bf, StringFunction function, String value);
 	
-	ArrayList search(Connection connection, Query query, boolean doCountOnly);
+	ArrayList<Object> search(Connection connection, Query query, boolean doCountOnly);
 	
 	PkSource makePkSource(Table table);
 	

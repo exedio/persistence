@@ -87,7 +87,7 @@ class LogDatabase extends WrappingDatabase
 		super.store( connection, state, present );
 	}
 	
-	public ArrayList search( Connection connection, Query query, boolean doCountOnly )
+	public ArrayList<Object> search(Connection connection, Query query, boolean doCountOnly)
 	{
 		if ( ! disable )
 		{
