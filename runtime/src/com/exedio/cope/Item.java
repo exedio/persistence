@@ -414,7 +414,7 @@ public abstract class Item extends Cope
 	private static final AttributeValue[] executeCustomAttributes(final AttributeValue[] source, final Item exceptionItem)
 		throws CustomAttributeException
 	{
-		final HashMap result = new HashMap();
+		final HashMap<Settable, AttributeValue> result = new HashMap<Settable, AttributeValue>();
 		boolean customAttributeOccured = false;
 		for(int i = 0; i<source.length; i++)
 		{
