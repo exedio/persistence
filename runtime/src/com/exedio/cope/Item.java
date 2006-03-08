@@ -246,11 +246,11 @@ public abstract class Item extends Cope
 	public final void deleteCopeItem()
 			throws IntegrityViolationException
 	{
-		checkDeleteCopeItem(new HashSet());
-		deleteCopeItem(new HashSet());
+		checkDeleteCopeItem(new HashSet<Item>());
+		deleteCopeItem(new HashSet<Item>());
 	}
 
-	private final void checkDeleteCopeItem(final HashSet toDelete)
+	private final void checkDeleteCopeItem(final HashSet<Item> toDelete)
 			throws IntegrityViolationException
 	{
 		toDelete.add(this);
@@ -277,7 +277,7 @@ public abstract class Item extends Cope
 		}
 	}
 		
-	private final void deleteCopeItem(final HashSet toDelete)
+	private final void deleteCopeItem(final HashSet<Item> toDelete)
 	{
 		toDelete.add(this);
 		
