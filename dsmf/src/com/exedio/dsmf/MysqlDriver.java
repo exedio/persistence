@@ -144,9 +144,8 @@ public final class MysqlDriver extends Driver
 										final String field = resultSet.getString("Field");
 										if(primaryKeyColumnName.equals(field) && table.required())
 										{
-											for(Iterator j = table.getConstraints().iterator(); j.hasNext(); )
+											for(final Constraint c : table.getConstraints())
 											{
-												final Constraint c = (Constraint)j.next();
 												if(c instanceof PrimaryKeyConstraint)
 												{
 													table.notifyExistentPrimaryKeyConstraint(c.name);

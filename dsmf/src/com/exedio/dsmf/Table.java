@@ -41,7 +41,7 @@ public final class Table extends Node
 	private final ArrayList<Column> columnList = new ArrayList<Column>();
 
 	private final HashMap<String, Constraint> constraintMap = new HashMap<String, Constraint>();
-	private final ArrayList constraintList = new ArrayList();
+	private final ArrayList<Constraint> constraintList = new ArrayList<Constraint>();
 
 	public Table(final Schema schema, final String name, final String options)
 	{
@@ -197,7 +197,7 @@ public final class Table extends Node
 		return columnMap.get(columnName);
 	}
 		
-	public final Collection getConstraints()
+	public final Collection<Constraint> getConstraints()
 	{
 		return constraintList;
 	}
@@ -246,9 +246,8 @@ public final class Table extends Node
 			cumulativeColor = Math.max(cumulativeColor, column.cumulativeColor);
 		}
 
-		for(Iterator i = constraintList.iterator(); i.hasNext(); )
+		for(final Constraint constraint : constraintList)
 		{
-			final Constraint constraint = (Constraint)i.next();
 			constraint.finish();
 			cumulativeColor = Math.max(cumulativeColor, constraint.cumulativeColor);
 		}
@@ -275,9 +274,8 @@ public final class Table extends Node
 				append(column.getType());
 		}
 		
-		for(Iterator i = constraintList.iterator(); i.hasNext(); )
+		for(final Constraint c : constraintList)
 		{
-			final Constraint c = (Constraint)i.next();
 			if(!c.secondPhase)
 				c.createInTable(bf);
 		}
@@ -334,9 +332,8 @@ public final class Table extends Node
 	
 	final void createConstraints(final boolean secondPhase)
 	{
-		for(Iterator i = constraintList.iterator(); i.hasNext(); )
+		for(final Constraint constraint : constraintList)
 		{
-			final Constraint constraint = (Constraint)i.next();
 			if(constraint.secondPhase==secondPhase)
 				constraint.create();
 		}
@@ -344,9 +341,8 @@ public final class Table extends Node
 	
 	final void dropConstraints(final boolean secondPhase)
 	{
-		for(Iterator i = constraintList.iterator(); i.hasNext(); )
+		for(final Constraint constraint : constraintList)
 		{
-			final Constraint constraint = (Constraint)i.next();
 			if(constraint.secondPhase==secondPhase)
 				constraint.drop();
 		}
@@ -354,9 +350,8 @@ public final class Table extends Node
 	
 	final void tearDownConstraints(final boolean secondPhase)
 	{
-		for(Iterator i = constraintList.iterator(); i.hasNext(); )
+		for(final Constraint constraint : constraintList)
 		{
-			final Constraint constraint = (Constraint)i.next();
 			if(constraint.secondPhase==secondPhase)
 			{
 				try
