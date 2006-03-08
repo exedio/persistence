@@ -132,7 +132,7 @@ public final class OracleDriver extends Driver
 			{
 				String uniqueConstraintName = null;
 				Table uniqueConstraintTable = null;
-				final ArrayList uniqueColumns = new ArrayList();
+				final ArrayList<String> uniqueColumns = new ArrayList<String>();
 				public void run(final ResultSet resultSet) throws SQLException
 				{
 					while(resultSet.next())
