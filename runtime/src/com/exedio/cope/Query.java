@@ -33,7 +33,7 @@ public final class Query
 	final Model model;
 	final Selectable[] selectables;
 	final Type type;
-	ArrayList joins = null;
+	ArrayList<Join> joins = null;
 	Condition condition;
 
 	Function[] orderBy = null;
@@ -96,7 +96,7 @@ public final class Query
 	private final Join join(final Join join)
 	{
 		if(joins==null)
-			joins = new ArrayList();
+			joins = new ArrayList<Join>();
 		
 		joins.add(join);
 
