@@ -56,6 +56,7 @@ public final class StringAttribute extends FunctionAttribute implements StringFu
 	/**
 	 * @deprecated use {@link #lengthMin(int)} instead.
 	 */
+	@Deprecated
 	public StringAttribute(final Option option, final int minimumLength)
 	{
 		this(option.isFinal, option.mandatory, option.unique, minimumLength, DEFAULT_LENGTH);
@@ -64,6 +65,7 @@ public final class StringAttribute extends FunctionAttribute implements StringFu
 	/**
 	 * @deprecated use {@link #lengthRange(int, int)} or {@link #lengthMax(int)} or {@link #lengthExact(int)} instead.
 	 */
+	@Deprecated
 	public StringAttribute(final Option option, final int minimumLength, final int maximumLength)
 	{
 		this(option.isFinal, option.mandatory, option.unique, minimumLength, maximumLength);
@@ -92,6 +94,7 @@ public final class StringAttribute extends FunctionAttribute implements StringFu
 	/**
 	 * @deprecated use {@link #lengthMax(int)}.
 	 */
+	@Deprecated
 	public StringAttribute lengthMaxUnchecked(final int maximumLength)
 	{
 		return lengthMax(maximumLength);
