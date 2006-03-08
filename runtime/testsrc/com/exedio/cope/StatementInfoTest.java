@@ -47,48 +47,48 @@ public class StatementInfoTest extends TestmodelTest
 		final String timePrefix = "timing ";
 		if(database.indexOf("HsqldbDatabase")>=0)
 		{
-			final Iterator rootChilds = root.getChilds().iterator();
+			final Iterator<StatementInfo> rootChilds = root.getChilds().iterator();
 			{
-				final StatementInfo time = (StatementInfo)rootChilds.next();
+				final StatementInfo time = rootChilds.next();
 				assertTrue(time.getText(), time.getText().startsWith(timePrefix));
 			}
 			assertTrue(!rootChilds.hasNext());
 		}
 		else if(database.indexOf("MysqlDatabase")>=0)
 		{
-			final Iterator rootChilds = root.getChilds().iterator();
+			final Iterator<StatementInfo> rootChilds = root.getChilds().iterator();
 			{
-				final StatementInfo time = (StatementInfo)rootChilds.next();
+				final StatementInfo time = rootChilds.next();
 				assertTrue(time.getText(), time.getText().startsWith(timePrefix));
 			}
 			{
-				final StatementInfo plan = (StatementInfo)rootChilds.next();
+				final StatementInfo plan = rootChilds.next();
 				assertEquals("explain plan", plan.getText());
 			}
 			assertTrue(!rootChilds.hasNext());
 		}
 		else if(database.indexOf("OracleDatabase")>=0)
 		{
-			final Iterator rootChilds = root.getChilds().iterator();
+			final Iterator<StatementInfo> rootChilds = root.getChilds().iterator();
 			{
-				final StatementInfo time = (StatementInfo)rootChilds.next();
+				final StatementInfo time = rootChilds.next();
 				assertTrue(time.getText(), time.getText().startsWith(timePrefix));
-				final StatementInfo planId = (StatementInfo)rootChilds.next();
+				final StatementInfo planId = rootChilds.next();
 				assertTrue(planId.getText(), planId.getText().startsWith("explain plan statement_id=cope"));
 				{
-					final Iterator planIdChilds = planId.getChilds().iterator();
+					final Iterator<StatementInfo> planIdChilds = planId.getChilds().iterator();
 					{
-						final StatementInfo planSelect = (StatementInfo)planIdChilds.next();
+						final StatementInfo planSelect = planIdChilds.next();
 						assertEquals("SELECT STATEMENT optimizer=CHOOSE", planSelect.getText());
 						{
-							final Iterator planSelectChilds = planSelect.getChilds().iterator();
+							final Iterator<StatementInfo> planSelectChilds = planSelect.getChilds().iterator();
 							{
-								final StatementInfo planTableAccess = (StatementInfo)planSelectChilds.next();
+								final StatementInfo planTableAccess = planSelectChilds.next();
 								assertEquals("TABLE ACCESS (BY INDEX ROWID) on UNIQUE_ITEMS[1]", planTableAccess.getText());
 								{
-									final Iterator planTableAccessChilds = planTableAccess.getChilds().iterator();
+									final Iterator<StatementInfo> planTableAccessChilds = planTableAccess.getChilds().iterator();
 									{
-										final StatementInfo planUnique = (StatementInfo)planTableAccessChilds.next();
+										final StatementInfo planUnique = planTableAccessChilds.next();
 										assertEquals("INDEX (UNIQUE SCAN) on IX_ITEMWSU_US[UNIQUE] search_columns=1", planUnique.getText());
 										assertEquals(list(), planUnique.getChilds());
 									}
@@ -117,10 +117,10 @@ public class StatementInfoTest extends TestmodelTest
 		final StatementInfo rootOrdered = query.getStatementInfo();
 		//rootOrdered.print(System.out);
 		assertEquals("--- multiple statements ---", rootOrdered.getText());
-		final Iterator rootOrderedIterator = rootOrdered.getChilds().iterator();
-		final StatementInfo ordered1 = (StatementInfo)rootOrderedIterator.next();
+		final Iterator<StatementInfo> rootOrderedIterator = rootOrdered.getChilds().iterator();
+		final StatementInfo ordered1 = rootOrderedIterator.next();
 		assertEquals(firstStatementText, ordered1.getText());
-		final StatementInfo ordered2 = (StatementInfo)rootOrderedIterator.next();
+		final StatementInfo ordered2 = rootOrderedIterator.next();
 		assertTrue(!firstStatementText.equals(ordered2.getText()));
 		assertTrue(ordered2.getText(), ordered2.getText().startsWith("select "));
 		assertTrue(!rootOrderedIterator.hasNext());
