@@ -38,7 +38,7 @@ public final class Table extends Node
 	private boolean defensive = false;
 
 	private final HashMap<String, Column> columnMap = new HashMap<String, Column>();
-	private final ArrayList columnList = new ArrayList();
+	private final ArrayList<Column> columnList = new ArrayList<Column>();
 
 	private final HashMap constraintMap = new HashMap();
 	private final ArrayList constraintList = new ArrayList();
@@ -187,7 +187,7 @@ public final class Table extends Node
 		return lastAnalyzed;
 	}
 		
-	public final Collection getColumns()
+	public final Collection<Column> getColumns()
 	{
 		return columnList;
 	}
@@ -240,9 +240,8 @@ public final class Table extends Node
 			cumulativeColor = Math.max(cumulativeColor, lastAnalyzed.cumulativeColor);
 		}
 			
-		for(Iterator i = columnList.iterator(); i.hasNext(); )
+		for(final Column column : columnList)
 		{
-			final Column column = (Column)i.next();
 			column.finish();
 			cumulativeColor = Math.max(cumulativeColor, column.cumulativeColor);
 		}
@@ -264,14 +263,13 @@ public final class Table extends Node
 			append('(');
 
 		boolean firstColumn = true;
-		for(Iterator i = columnList.iterator(); i.hasNext(); )
+		for(final Column column : columnList)
 		{
 			if(firstColumn)
 				firstColumn = false;
 			else
 				bf.append(',');
 			
-			final Column column = (Column)i.next();
 			bf.append(protectName(column.name)).
 				append(' ').
 				append(column.getType());
