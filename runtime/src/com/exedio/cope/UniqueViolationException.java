@@ -33,6 +33,8 @@ import java.sql.SQLException;
  */
 public final class UniqueViolationException extends ConstraintViolationException
 {
+	private static final long serialVersionUID = 2834521945195l;
+	
 	private final UniqueConstraint constraint;
 	
 	/**
