@@ -28,16 +28,16 @@ final class Row
 {
 	
 	// TODO: use arrays for String/int/double instead of the HashMap
-	private final HashMap impl;
+	private final HashMap<Column, Object> impl;
 	
 	Row()
 	{
-		impl = new HashMap();
+		impl = new HashMap<Column, Object>();
 	}
 	
 	Row(final Row row)
 	{
-		impl = new HashMap(row.impl);
+		impl = new HashMap<Column, Object>(row.impl);
 	}
 	
 	Object get(final Column column)
