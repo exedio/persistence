@@ -26,7 +26,7 @@ import java.util.ListIterator;
 
 public final class Schema extends Node
 {
-	private final HashMap tableMap = new HashMap();
+	private final HashMap<String, Table> tableMap = new HashMap<String, Table>();
 	private final ArrayList tableList = new ArrayList();
 	private boolean verified = false;
 	
@@ -44,7 +44,7 @@ public final class Schema extends Node
 	
 	final Table notifyExistentTable(final String tableName)
 	{
-		Table result = (Table)tableMap.get(driver.canonizeTableName(tableName));
+		Table result = tableMap.get(driver.canonizeTableName(tableName));
 		if(result==null)
 			result = new Table(this, tableName, null, false);
 		else
@@ -55,7 +55,7 @@ public final class Schema extends Node
 	
 	public Table getTable(final String name)
 	{
-		return (Table)tableMap.get(driver.canonizeTableName(name));
+		return tableMap.get(driver.canonizeTableName(name));
 	}
 	
 	public List getTables()
