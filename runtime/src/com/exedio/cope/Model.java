@@ -56,7 +56,7 @@ public final class Model
 	private Cache cache;
 
 	private final ThreadLocal transactionThreads = new ThreadLocal();
-	private final Set openTransactions = Collections.synchronizedSet( new HashSet() );
+	private final Set<Transaction> openTransactions = Collections.synchronizedSet(new HashSet<Transaction>());
 	
 	public Model(final Type[] types)
 	{
@@ -652,7 +652,7 @@ public final class Model
 	 * {@link java.util.ConcurrentModificationException}s.
 	 * For such cases you may want to create a copy of the collection first.
 	 */
-	public Collection getOpenTransactions()
+	public Collection<Transaction> getOpenTransactions()
 	{
 		return Collections.unmodifiableCollection( openTransactions );
 	}

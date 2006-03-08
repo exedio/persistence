@@ -164,9 +164,8 @@ public abstract class CopeTest extends CopeAssert
 		}
 		Transaction current = model.getCurrentTransaction();
 		Collection openTransactions = null;
-		for ( Iterator iter = new HashSet(model.getOpenTransactions()).iterator(); iter.hasNext(); )
+		for(Transaction nextTransaction : new HashSet<Transaction>(model.getOpenTransactions()))
 		{
-			Transaction nextTransaction = (Transaction)iter.next();
 			if ( ! nextTransaction.equals(current) )
 			{
 				if ( openTransactions==null ) openTransactions = new ArrayList();
