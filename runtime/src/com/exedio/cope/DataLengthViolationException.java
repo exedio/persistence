@@ -29,6 +29,8 @@ package com.exedio.cope;
  */
 public final class DataLengthViolationException extends ConstraintViolationException
 {
+	private static final long serialVersionUID = 1982536426881212456l;
+	
 	private final DataAttribute dataAttribute;
 	private final long length;
 	private final boolean lengthExact;

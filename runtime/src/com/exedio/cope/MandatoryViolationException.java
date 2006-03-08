@@ -33,6 +33,8 @@ package com.exedio.cope;
  */
 public final class MandatoryViolationException extends ConstraintViolationException
 {
+	private static final long serialVersionUID = 37264512124982l;
+	
 	private final Attribute mandatoryAttribute;
 	
 	/**

@@ -333,6 +333,8 @@ final class Cache
 	
 	private static final class MyLRUMap extends LRUMap
 	{
+		private static final long serialVersionUID = 19641264861283476l;
+		
 		MyLRUMap(final int maxSize)
 		{
 			super(maxSize);

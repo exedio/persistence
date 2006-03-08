@@ -29,6 +29,8 @@ package com.exedio.cope;
  */
 public final class LengthViolationException extends ConstraintViolationException
 {
+	private static final long serialVersionUID = 21864323501623l;
+	
 	private final StringAttribute stringAttribute;
 	private final String value;
 	private final boolean isTooShort;

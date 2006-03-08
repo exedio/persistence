@@ -32,6 +32,8 @@ package com.exedio.cope;
  */
 public final class IntegrityViolationException extends ConstraintViolationException
 {
+	private static final long serialVersionUID = 217658164836512l;
+	
 	private final ItemAttribute attribute;
 
 	/**

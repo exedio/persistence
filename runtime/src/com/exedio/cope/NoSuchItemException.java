@@ -21,6 +21,8 @@ package com.exedio.cope;
 
 public class NoSuchItemException extends RuntimeException
 {
+	private static final long serialVersionUID = 23645364528592154l;
+	
 	private final Item item;
 	
 	NoSuchItemException(final Item item)

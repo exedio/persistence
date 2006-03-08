@@ -24,6 +24,8 @@ import com.exedio.cope.Item;
 
 public final class CustomAttributeException extends ConstraintViolationException
 {
+	private static final long serialVersionUID = 182648164823110l;
+	
 	final CustomAttribute attribute;
 	
 	public CustomAttributeException(final CustomAttribute attribute, final Item item, final Throwable cause)

@@ -29,6 +29,8 @@ package com.exedio.cope;
  */
 public final class NoSuchIDException extends Exception
 {
+	private static final long serialVersionUID = 125423534465823l;
+	
 	private final String id;
 	private final boolean notAnID;
 	private final String detail;
