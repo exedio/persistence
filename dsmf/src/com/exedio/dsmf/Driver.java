@@ -136,6 +136,7 @@ public abstract class Driver
 	/**
 	 * @deprecated for debugging only, should never be used in committed code
 	 */
+	@Deprecated
 	protected static final void printMeta(final ResultSet resultSet) throws SQLException
 	{
 		final ResultSetMetaData metaData = resultSet.getMetaData();;
@@ -147,6 +148,7 @@ public abstract class Driver
 	/**
 	 * @deprecated for debugging only, should never be used in committed code
 	 */
+	@Deprecated
 	protected static final void printRow(final ResultSet resultSet) throws SQLException
 	{
 		final ResultSetMetaData metaData = resultSet.getMetaData();;
