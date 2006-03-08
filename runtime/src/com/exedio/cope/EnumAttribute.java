@@ -47,8 +47,8 @@ public final class EnumAttribute extends FunctionAttribute
 
 		final ArrayList<Enum> values = new ArrayList<Enum>();
 		final IntKeyOpenHashMap numbersToValues = new IntKeyOpenHashMap();
-		final HashMap<Enum, Integer> valuesToNumbers = new HashMap();
-		final HashMap codesToValues = new HashMap();
+		final HashMap<Enum, Integer> valuesToNumbers = new HashMap<Enum, Integer>();
+		final HashMap<String, Enum> codesToValues = new HashMap<String, Enum>();
 		final Object[] enumConstants = enumClass.getEnumConstants();
 		for(int j = 0; j<enumConstants.length; j++)
 		{
