@@ -30,7 +30,7 @@ public abstract class FunctionAttribute
 {
 	private final Class valueClass;
 	final UniqueConstraint implicitUniqueConstraint;
-	private ArrayList uniqueConstraints;
+	private ArrayList<UniqueConstraint> uniqueConstraints;
 	
 	FunctionAttribute(final boolean isfinal, final boolean mandatory, final boolean unique, final Class valueClass)
 	{
@@ -148,9 +148,9 @@ public abstract class FunctionAttribute
 	 * {@link #getImplicitUniqueConstraint() implicit unique constraint},
 	 * if there is one for this attribute.
 	 */
-	public List getUniqueConstraints()
+	public List<UniqueConstraint> getUniqueConstraints()
 	{
-		return uniqueConstraints!=null ? Collections.unmodifiableList(uniqueConstraints) : Collections.EMPTY_LIST;
+		return uniqueConstraints!=null ? Collections.unmodifiableList(uniqueConstraints) : Collections.<UniqueConstraint>emptyList();
 	}
 	
 	final void registerUniqueConstraint(final UniqueConstraint constraint)
@@ -160,7 +160,7 @@ public abstract class FunctionAttribute
 		
 		if(uniqueConstraints==null)
 		{
-			uniqueConstraints = new ArrayList();
+			uniqueConstraints = new ArrayList<UniqueConstraint>();
 		}
 		else
 		{
