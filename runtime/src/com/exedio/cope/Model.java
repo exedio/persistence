@@ -55,7 +55,7 @@ public final class Model
 	private Database database;
 	private Cache cache;
 
-	private final ThreadLocal transactionThreads = new ThreadLocal();
+	private final ThreadLocal<Transaction> transactionThreads = new ThreadLocal<Transaction>();
 	private final Set<Transaction> openTransactions = Collections.synchronizedSet(new HashSet<Transaction>());
 	
 	public Model(final Type[] types)
