@@ -121,9 +121,14 @@ final class ConnectionPool implements ConnectionProvider
 	{
 		if(connection==null)
 			throw new NullPointerException();
-
-		counter.put();
 		
+		counter.put();
+
+		// IMPORTANT:
+		// Do not let a closed connection be put back into the pool.
+		if(connection.isClosed())
+			throw new RuntimeException("unexpected closed connection");
+			
 		synchronized(lock)
 		{
 			activeCount--;
