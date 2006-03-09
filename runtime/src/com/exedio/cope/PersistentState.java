@@ -21,7 +21,6 @@ package com.exedio.cope;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Iterator;
 
 final class PersistentState extends State implements AbstractDatabase.ResultSetHandler
 {
@@ -90,9 +89,8 @@ final class PersistentState extends State implements AbstractDatabase.ResultSetH
 			int columnIndex = 1;
 			for(Type itype = type; itype!=null; itype = itype.getSupertype())
 			{
-				for(Iterator i = itype.getTable().getColumns().iterator(); i.hasNext(); )
+				for(final Column column : itype.getTable().getColumns())
 				{
-					final Column column = (Column)i.next();
 					if(!(column instanceof BlobColumn))
 						column.load(resultSet, columnIndex++, row);
 				}

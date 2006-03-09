@@ -200,9 +200,8 @@ abstract class AbstractDatabase implements Database
 				append('=').
 				appendParameter(Type.NOT_A_PK);
 			
-			for(Iterator j = table.getColumns().iterator(); j.hasNext(); )
+			for(final Column column : table.getColumns())
 			{
-				final Column column = (Column)j.next();
 				bf.append(" and ").
 					append(column);
 				
@@ -555,9 +554,8 @@ abstract class AbstractDatabase implements Database
 		boolean first = true;
 		for(Type type = state.type; type!=null; type = type.getSupertype())
 		{
-			for(Iterator i = type.getTable().getColumns().iterator(); i.hasNext(); )
+			for(final Column column : type.getTable().getColumns())
 			{
-				final Column column = (Column)i.next();
 				if(!(column instanceof BlobColumn))
 				{
 					if(first)
@@ -638,7 +636,7 @@ abstract class AbstractDatabase implements Database
 			
 		final Table table = type.getTable();
 
-		final List columns = table.getColumns();
+		final List<Column> columns = table.getColumns();
 
 		final Statement bf = createStatement();
 		final StringColumn typeColumn = table.typeColumn;
@@ -649,9 +647,8 @@ abstract class AbstractDatabase implements Database
 				append(" set ");
 
 			boolean first = true;
-			for(Iterator i = columns.iterator(); i.hasNext(); )
+			for(final Column column : columns)
 			{
-				final Column column = (Column)i.next();
 				if(!(column instanceof BlobColumn))
 				{
 					if(first)
@@ -697,9 +694,8 @@ abstract class AbstractDatabase implements Database
 					append(typeColumn.protectedID);
 			}
 
-			for(Iterator i = columns.iterator(); i.hasNext(); )
+			for(final Column column : columns)
 			{
-				final Column column = (Column)i.next();
 				if(!(column instanceof BlobColumn))
 				{
 					bf.append(',').
@@ -716,9 +712,8 @@ abstract class AbstractDatabase implements Database
 					appendParameter(state.type.id);
 			}
 
-			for(Iterator i = columns.iterator(); i.hasNext(); )
+			for(final Column column : columns)
 			{
-				final Column column = (Column)i.next();
 				if(!(column instanceof BlobColumn))
 				{
 					bf.append(',').

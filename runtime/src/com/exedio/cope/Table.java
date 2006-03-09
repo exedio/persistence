@@ -20,7 +20,6 @@ package com.exedio.cope;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 import com.exedio.dsmf.Schema;
@@ -44,13 +43,13 @@ final class Table
 		database.addTable(this);
 	}
 	
-	private ArrayList columnsModifiable = new ArrayList();
-	private List columns = null;
+	private ArrayList<Column> columnsModifiable = new ArrayList<Column>();
+	private List<Column> columns = null;
 	
-	private List allColumnsModifiable = new ArrayList();
-	private List allColumns = null;
+	private List<Column> allColumnsModifiable = new ArrayList<Column>();
+	private List<Column> allColumns = null;
 
-	private List uniqueConstraints = null;
+	private List<UniqueConstraint> uniqueConstraints = null;
 	
 	/**
 	 * The column name for the primary key.
@@ -104,7 +103,7 @@ final class Table
 	 * @see #getAllColumns()
 	 * @see #getPrimaryKey()
 	 */
-	List getColumns()
+	List<Column> getColumns()
 	{
 		if(columns==null)
 			throw new RuntimeException();
@@ -118,7 +117,7 @@ final class Table
 	 * @see #getColumns()
 	 * @see #getPrimaryKey()
 	 */
-	List getAllColumns()
+	List<Column> getAllColumns()
 	{
 		if(allColumns==null)
 			throw new RuntimeException();
@@ -126,7 +125,7 @@ final class Table
 		return allColumns;
 	}
 	
-	void setUniqueConstraints(final List uniqueConstraints)
+	void setUniqueConstraints(final List<UniqueConstraint> uniqueConstraints)
 	{
 		if(uniqueConstraints==null)
 			throw new IllegalArgumentException();
@@ -138,7 +137,7 @@ final class Table
 		this.uniqueConstraints = uniqueConstraints;
 	}
 	
-	List getUniqueConstraints()
+	List<UniqueConstraint> getUniqueConstraints()
 	{
 		if(uniqueConstraints==null)
 			throw new RuntimeException();
@@ -163,11 +162,11 @@ final class Table
 	{
 		final com.exedio.dsmf.Table result = new com.exedio.dsmf.Table(schema, id, database.getTableOptions().getProperty(id));
 		
-		for(Iterator i = getAllColumns().iterator(); i.hasNext(); )
-			((Column)i.next()).makeSchema(result);
+		for(final Column c : getAllColumns())
+			c.makeSchema(result);
 
-		for(Iterator i = getUniqueConstraints().iterator(); i.hasNext(); )
-			((UniqueConstraint)i.next()).makeSchema(result);
+		for(final UniqueConstraint uc : getUniqueConstraints())
+			uc.makeSchema(result);
 	}
 
 }
