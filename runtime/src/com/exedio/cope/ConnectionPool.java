@@ -148,7 +148,7 @@ final class ConnectionPool implements ConnectionProvider
 		{
 			// make a copy of idle to avoid closing idle connections
 			// inside the synchronized block
-			final ArrayList copyOfIdle = new ArrayList(idle.length);
+			final ArrayList<Connection> copyOfIdle = new ArrayList<Connection>(idle.length);
 	
 			synchronized(lock)
 			{
