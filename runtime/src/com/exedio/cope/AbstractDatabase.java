@@ -1485,6 +1485,7 @@ abstract class AbstractDatabase implements Database
 	/**
 	 * @deprecated for debugging only, should never be used in committed code
 	 */
+	@Deprecated
 	protected static final void printMeta(final ResultSet resultSet) throws SQLException
 	{
 		final ResultSetMetaData metaData = resultSet.getMetaData();;
@@ -1496,6 +1497,7 @@ abstract class AbstractDatabase implements Database
 	/**
 	 * @deprecated for debugging only, should never be used in committed code
 	 */
+	@Deprecated
 	protected static final void printRow(final ResultSet resultSet) throws SQLException
 	{
 		final ResultSetMetaData metaData = resultSet.getMetaData();;
@@ -1507,6 +1509,7 @@ abstract class AbstractDatabase implements Database
 	/**
 	 * @deprecated for debugging only, should never be used in committed code
 	 */
+	@Deprecated
 	static final ResultSetHandler logHandler = new ResultSetHandler()
 	{
 		public void run(final ResultSet resultSet) throws SQLException
