@@ -20,7 +20,6 @@ package com.exedio.cope.junit;
 
 import com.exedio.cope.IntegrityViolationException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.ListIterator;
@@ -37,15 +36,15 @@ import com.exedio.cope.util.PoolCounter;
  */
 public abstract class CopeTest extends CopeAssert
 {
-	private static HashSet createdDatabase = new HashSet();
-	private static HashSet registeredDropDatabaseHook = new HashSet();
+	private static HashSet<Model> createdDatabase = new HashSet<Model>();
+	private static HashSet<Model> registeredDropDatabaseHook = new HashSet<Model>();
 	private static Object lock = new Object();
 
 	public final Model model;
 	public final boolean exclusive;
 	
 	private boolean testMethodFinished = false;
-	private ArrayList deleteOnTearDown = null;
+	private ArrayList<Item> deleteOnTearDown = null;
 	
 	
 	protected CopeTest(final Model model)
@@ -148,7 +147,7 @@ public abstract class CopeTest extends CopeAssert
 		model.setPropertiesInitially(getProperties());
 
 		super.setUp();
-		deleteOnTearDown = new ArrayList();
+		deleteOnTearDown = new ArrayList<Item>();
 		createDatabase();
 
 		model.startTransaction("CopeTest");
@@ -163,12 +162,13 @@ public abstract class CopeTest extends CopeAssert
 			model.startTransaction( "started by tearDown" );
 		}
 		Transaction current = model.getCurrentTransaction();
-		Collection openTransactions = null;
+		ArrayList<Transaction> openTransactions = null;
 		for(Transaction nextTransaction : new HashSet<Transaction>(model.getOpenTransactions()))
 		{
 			if ( ! nextTransaction.equals(current) )
 			{
-				if ( openTransactions==null ) openTransactions = new ArrayList();
+				if(openTransactions==null)
+					openTransactions = new ArrayList<Transaction>();
 				openTransactions.add( nextTransaction );
 				model.leaveTransaction();
 				model.joinTransaction( nextTransaction );
@@ -183,11 +183,11 @@ public abstract class CopeTest extends CopeAssert
 				if(!deleteOnTearDown.isEmpty())
 				{
 					IntegrityViolationException ive = null;
-					for(ListIterator i = deleteOnTearDown.listIterator(deleteOnTearDown.size()); i.hasPrevious(); )
+					for(ListIterator<Item> i = deleteOnTearDown.listIterator(deleteOnTearDown.size()); i.hasPrevious(); )
 					{
 						try
 						{
-							((Item)i.previous()).deleteCopeItem();
+							i.previous().deleteCopeItem();
 						}
 						catch ( IntegrityViolationException e )
 						{
