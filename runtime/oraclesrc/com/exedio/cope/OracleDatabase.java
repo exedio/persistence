@@ -241,7 +241,7 @@ final class OracleDatabase extends AbstractDatabase
 
 	private static final String STATEMENT_ID_PREFIX = "cope";
 
-	private static final HashSet skippedColumnNames = new HashSet(Arrays.asList(new String[]{
+	private static final HashSet<String> skippedColumnNames = new HashSet<String>(Arrays.asList(new String[]{
 			STATEMENT_ID,
 			OPERATION,
 			OPTIONS,
