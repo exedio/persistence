@@ -242,9 +242,8 @@ public class ModelTest extends TestmodelTest
 					prefixed.setProperty(prefix+'.'+name, databaseInfo.getProperty(name));
 				}
 				final Properties p = model.getProperties();
-				for(Iterator i = p.getFields().iterator(); i.hasNext(); )
+				for(final Properties.Field field : p.getFields())
 				{
-					final Properties.Field field = (Properties.Field)i.next();
 					if(field.getDefaultValue()!=null
 						&& !field.hasHiddenValue()
 						&& field.isSpecified()

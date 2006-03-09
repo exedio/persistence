@@ -63,9 +63,8 @@ final class Properties_Jspm
 			<tr>
 				<th colspan="2"><%=properties.getSource()%></th>
 			</tr><%
-			for(Iterator i = properties.getFields().iterator(); i.hasNext(); )
+			for(final Properties.Field field : properties.getFields())
 			{
-				final Properties.Field field = (Properties.Field)i.next();
 				final boolean fieldSpecified = field.isSpecified();
 				if(!field.hasHiddenValue() && (showUnspecified||fieldSpecified))
 				{

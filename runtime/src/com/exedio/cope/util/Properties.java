@@ -32,7 +32,7 @@ public class Properties
 {
 	private final java.util.Properties properties;
 	private final String source;
-	private final ArrayList fields = new ArrayList();
+	private final ArrayList<Field> fields = new ArrayList<Field>();
 	
 	public Properties(final java.util.Properties properties, final String source)
 	{
@@ -47,7 +47,7 @@ public class Properties
 		return source;
 	}
 
-	public final List getFields()
+	public final List<Field> getFields()
 	{
 		return Collections.unmodifiableList(fields);
 	}
@@ -334,12 +334,11 @@ public class Properties
 	
 	public final void ensureValidity(final String[] prefixes)
 	{
-		final HashSet allowedValues = new HashSet();
-		final ArrayList allowedPrefixes = new ArrayList();
+		final HashSet<String> allowedValues = new HashSet<String>();
+		final ArrayList<String> allowedPrefixes = new ArrayList<String>();
 		
-		for(Iterator i = fields.iterator(); i.hasNext(); )
+		for(final Field field : fields)
 		{
-			final Field field = (Field)i.next();
 			if(field instanceof MapField)
 				allowedPrefixes.add(field.key+'.');
 			else
@@ -371,11 +370,11 @@ public class Properties
 	
 	public final void ensureEquality(final Properties other)
 	{
-		final Iterator j = other.fields.iterator();
-		for(Iterator i = fields.iterator(); i.hasNext()&&j.hasNext(); )
+		final Iterator<Field> j = other.fields.iterator();
+		for(Iterator<Field> i = fields.iterator(); i.hasNext()&&j.hasNext(); )
 		{
-			final Field thisField = (Field)i.next();
-			final Field otherField = (Field)j.next();
+			final Field thisField = i.next();
+			final Field otherField = j.next();
 			final boolean thisHideValue = thisField.hasHiddenValue();
 			final boolean otherHideValue = otherField.hasHiddenValue();
 			

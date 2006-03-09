@@ -72,9 +72,8 @@ final class PropertiesCop extends AdminCop
 				bf.append(b, 0, len);
 
 			sourceContent = bf.toString();
-			for(Iterator i = props.getFields().iterator(); i.hasNext(); )
+			for(final Properties.Field field : props.getFields())
 			{
-				final Properties.Field field = (Properties.Field)i.next();
 				if(field.hasHiddenValue())
 				{
 					final String key = field.getKey();
