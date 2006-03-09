@@ -50,9 +50,10 @@ abstract class AbstractDatabase implements Database
 	
 	private static final String NO_SUCH_ROW = "no such row";
 	
-	private final List tables = new ArrayList();
-	private final HashMap uniqueConstraintsByID = new HashMap();
-	private final HashMap itemColumnsByIntegrityConstraintName = new HashMap();
+	private final ArrayList<Table> tables = new ArrayList<Table>();
+	private final HashMap<String, UniqueConstraint> uniqueConstraintsByID = new HashMap<String, UniqueConstraint>();
+	// TODO remove
+	private final HashMap<String, ItemColumn> itemColumnsByIntegrityConstraintName = new HashMap<String, ItemColumn>();
 	private boolean buildStage = true;
 	final Driver driver;
 	private final boolean prepare;
@@ -173,27 +174,24 @@ abstract class AbstractDatabase implements Database
 		bf.append("select count(*) from ").defineColumnInteger();
 		boolean first = true;
 
-		for(Iterator i = tables.iterator(); i.hasNext(); )
+		for(final Table table : tables)
 		{
 			if(first)
 				first = false;
 			else
 				bf.append(',');
 
-			final Table table = (Table)i.next();
 			bf.append(table.protectedID);
 		}
 		
 		bf.append(" where ");
 		first = true;
-		for(Iterator i = tables.iterator(); i.hasNext(); )
+		for(final Table table : tables)
 		{
 			if(first)
 				first = false;
 			else
 				bf.append(" and ");
-
-			final Table table = (Table)i.next();
 
 			final Column primaryKey = table.primaryKey;
 			bf.append(primaryKey).
@@ -263,9 +261,8 @@ abstract class AbstractDatabase implements Database
 		buildStage = false;
 
 		//final long time = System.currentTimeMillis();
-		for(Iterator i = tables.iterator(); i.hasNext(); )
+		for(final Table table : tables)
 		{
-			final Table table = (Table)i.next();
 			final int count = countTable(connection, table);
 			if(count>0)
 				throw new RuntimeException("there are "+count+" items left for table "+table.id);
@@ -275,7 +272,7 @@ abstract class AbstractDatabase implements Database
 		//System.out.println("CHECK EMPTY TABLES "+amount+"ms  accumulated "+checkEmptyTableTime);
 	}
 	
-	public final ArrayList search(final Connection connection, final Query query, final boolean doCountOnly)
+	public final ArrayList<Object> search(final Connection connection, final Query query, final boolean doCountOnly)
 	{
 		buildStage = false;
 
@@ -432,7 +429,7 @@ abstract class AbstractDatabase implements Database
 		
 		final Type[] types = selectTypes;
 		final Model model = query.model;
-		final ArrayList result = new ArrayList();
+		final ArrayList<Object> result = new ArrayList<Object>();
 
 		if(limitStart<0)
 			throw new RuntimeException();
@@ -1208,7 +1205,7 @@ abstract class AbstractDatabase implements Database
 				constraint = onlyThreatenedUniqueConstraint;
 			else
 			{
-				constraint = (UniqueConstraint)uniqueConstraintsByID.get(uniqueConstraintID);
+				constraint = uniqueConstraintsByID.get(uniqueConstraintID);
 				if(constraint==null)
 					throw new SQLRuntimeException(e, "no unique constraint found for >"+uniqueConstraintID
 																			+"<, has only "+uniqueConstraintsByID.keySet());
@@ -1234,7 +1231,7 @@ abstract class AbstractDatabase implements Database
 
 		int longStringLength = longString.length();
 		final int[] trimPotential = new int[maxLength];
-		final ArrayList words = new ArrayList();
+		final ArrayList<String> words = new ArrayList<String>();
 		{
 			final StringBuffer buf = new StringBuffer();
 			for(int i=0; i<longString.length(); i++)
@@ -1277,9 +1274,8 @@ abstract class AbstractDatabase implements Database
 		}
 		
 		final StringBuffer result = new StringBuffer(longStringLength);
-		for(Iterator i = words.iterator(); i.hasNext(); )
+		for(final String word : words)
 		{
-			final String word = (String)i.next();
 			//System.out.println("word "+word+" remainder:"+remainder);
 			if((word.length()>wordLength) && remainder>0)
 			{
@@ -1467,8 +1463,8 @@ abstract class AbstractDatabase implements Database
 	public final Schema makeSchema()
 	{
 		final Schema result = new Schema(driver, connectionPool);
-		for(Iterator i = tables.iterator(); i.hasNext(); )
-			((Table)i.next()).makeSchema(result);
+		for(final Table t : tables)
+			t.makeSchema(result);
 		completeSchema(result);
 		return result;
 	}
