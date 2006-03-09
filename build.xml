@@ -784,6 +784,7 @@
 			<tarfileset dir="${basedir}">
 				<exclude name="build/**" />
 				<exclude name="api/**" />
+				<exclude name="cruise/**" />
 				<exclude name="**/*_Jspm.java" />
 				
 				<exclude name="*.driver.properties" />
