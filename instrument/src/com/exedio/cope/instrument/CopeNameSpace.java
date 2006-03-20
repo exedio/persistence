@@ -28,6 +28,7 @@ import bsh.NameSpace;
  */
 class CopeNameSpace extends NameSpace
 {
+	private static final long serialVersionUID = 38746582365432l;
 	
 	CopeNameSpace(final CopeNameSpace parent)
 	{
