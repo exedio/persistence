@@ -962,6 +962,8 @@ final class Injector
 
 	private class EndException extends Exception
 	{
+		private static final long serialVersionUID = 298765358236485l;
+		
 		public EndException()
 		{
 		}
@@ -969,6 +971,8 @@ final class Injector
 
 	private class ParseException extends InjectorParseException
 	{
+		private static final long serialVersionUID = 2938658236582l;
+		
 		final int line;
 		final int column;
 
