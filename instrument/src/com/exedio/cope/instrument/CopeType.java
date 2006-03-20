@@ -92,7 +92,7 @@ final class CopeType
 	{
 		assert javaClass.file.repository.isBuildStage();
 		
-		final List exts = javaClass.classExtends;
+		final List<String> exts = javaClass.classExtends;
 		switch(exts.size())
 		{
 			case 0:
@@ -100,7 +100,7 @@ final class CopeType
 				break;
 			case 1:
 			{
-				final String extname = (String)exts.iterator().next();
+				final String extname = exts.iterator().next();
 				try
 				{
 					supertype = javaClass.file.repository.getCopeType(extname);

@@ -41,8 +41,8 @@ final class JavaClass extends JavaFeature
 	
 	private HashMap attributes = new HashMap();
 	private final HashMap enumValueClassByName = new HashMap();
-	final List classExtends;
-	final List classImplements;
+	final List<String> classExtends;
+	final List<String> classImplements;
 	private int classEndPosition = -1;
 
 	/**
@@ -51,7 +51,7 @@ final class JavaClass extends JavaFeature
 	public JavaClass(
 			final JavaFile file, final JavaClass parent,
 			final int modifiers, final boolean isenum, final String name,
-			final List classExtends, final List classImplements)
+			final List<String> classExtends, final List<String> classImplements)
 	throws InjectorParseException
 	{
 		super(file, parent, modifiers, null, name);
