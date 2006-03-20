@@ -136,6 +136,8 @@ final class JavaRepository
 
 	final class NameSpace extends CopeNameSpace
 	{
+		private static final long serialVersionUID = 8362587526354862l;
+		
 		NameSpace()
 		{
 			super((CopeNameSpace)null);
