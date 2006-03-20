@@ -100,7 +100,7 @@ public final class Main
 			throw new IllegalParameterException("nothing to do.");
 		
 		final JavaRepository repository = new JavaRepository();
-		final ArrayList injectors = new ArrayList(inputFiles.size());
+		final ArrayList<Injector> injectors = new ArrayList<Injector>(inputFiles.size());
 
 		this.verbose = verbose;
 		instrumented = 0;
