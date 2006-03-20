@@ -181,7 +181,7 @@ final class CopeNativeAttribute extends CopeAttribute
 		return (String)toUnboxingPostfixMapping.get(typeClass);
 	}
 	
-	protected void fillExceptionsThrownByGenericSetter(final SortedSet result)
+	protected void fillExceptionsThrownByGenericSetter(final SortedSet<Class> result)
 	{
 		super.fillExceptionsThrownByGenericSetter(result);
 		if(typeClass==StringFunction.class)

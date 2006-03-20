@@ -258,7 +258,7 @@ abstract class CopeAttribute extends CopeFeature
 		return this.exceptionsToCatchInSetter;
 	}
 
-	protected void fillExceptionsThrownByGenericSetter(final SortedSet result)
+	protected void fillExceptionsThrownByGenericSetter(final SortedSet<Class> result)
 	{
 		result.add(UniqueViolationException.class);
 		if(!isBoxed())

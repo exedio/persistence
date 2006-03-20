@@ -50,7 +50,7 @@ final class CopeDataAttribute extends CopeAttribute
 			result.add(MandatoryViolationException.class);
 	}
 
-	protected void fillExceptionsThrownByGenericSetter(final SortedSet result)
+	protected void fillExceptionsThrownByGenericSetter(final SortedSet<Class> result)
 	{
 		result.add(IOException.class);
 		result.add(MandatoryViolationException.class);
