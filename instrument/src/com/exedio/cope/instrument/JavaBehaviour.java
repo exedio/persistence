@@ -35,14 +35,14 @@ abstract class JavaBehaviour extends JavaFeature
 	/**
 	 * Contains subsequently parameter types and names.
 	 */
-	protected final ArrayList parameters=new ArrayList();
+	protected final ArrayList<String> parameters=new ArrayList<String>();
 	
-	protected final List unmodifiableParameters=Collections.unmodifiableList(parameters);
+	protected final List<String> unmodifiableParameters=Collections.unmodifiableList(parameters);
 	
 	/**
 	 * Contains all names given in the &quot;throws&quot; clause.
 	 */
-	private final ArrayList throwables=new ArrayList();
+	private final ArrayList<String> throwables = new ArrayList<String>();
 	
 	JavaBehaviour(
 						final JavaClass parent,
@@ -61,7 +61,7 @@ abstract class JavaBehaviour extends JavaFeature
 		parameters.add(paramname);
 	}
 	
-	final List getParameters()
+	final List<String> getParameters()
 	{
 		return unmodifiableParameters;
 	}
