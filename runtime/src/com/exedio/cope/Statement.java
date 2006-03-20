@@ -92,7 +92,7 @@ final class Statement
 				}
 				else
 				{
-					((ArrayList<JoinTable>)previous).add(current);
+					castJoinTable(previous).add(current);
 				}
 			}
 		}
@@ -117,6 +117,12 @@ final class Statement
 		
 		this.qualifyTable = joinTables.size()>1;
 		this.columnTypes = defineColumnTypes ? new IntArrayList() : null;
+	}
+	
+	@SuppressWarnings("unchecked")
+	private static final ArrayList<JoinTable> castJoinTable(final Object o)
+	{
+		return (ArrayList<JoinTable>)o;
 	}
 
 	Statement append(final String text)
