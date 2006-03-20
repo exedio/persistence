@@ -341,6 +341,7 @@ final class Injector
 	 * the delimiter, which terminated the attribute initializer
 	 * (';' or ',') or '}' for methods.
 	 */
+	@SuppressWarnings("fallthrough")
 	private char parseBody(final boolean attribute, final TokenConsumer tokenConsumer)
 		throws IOException, EndException, ParseException
 	{
