@@ -53,7 +53,7 @@ final class JavaRepository
 	private final ArrayList<JavaFile> files = new ArrayList<JavaFile>();
 	private final HashMap<String, CopeType> copeTypeByShortClassName = new HashMap<String, CopeType>();
 	private final HashMap<String, JavaClass> classOfCopeTypeByFullClassName = new HashMap<String, JavaClass>();
-	private final HashMap enumValueClassByFullClassName = new HashMap();
+	private final HashMap<String, JavaClass> enumValueClassByFullClassName = new HashMap<String, JavaClass>();
 	
 	void endBuildStage()
 	{
@@ -130,7 +130,7 @@ final class JavaRepository
 	JavaClass getEnumValueClass(final String fullClassName)
 	{
 		assert generateStage;
-		final JavaClass result = (JavaClass)enumValueClassByFullClassName.get(fullClassName);
+		final JavaClass result = enumValueClassByFullClassName.get(fullClassName);
 		return result;
 	}
 
