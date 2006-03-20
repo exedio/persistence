@@ -90,10 +90,10 @@ public final class Qualifier extends Pattern
 			throw new RuntimeException();
 
 		final Type type = qualifyUnique.getType();
-		final ArrayList attributesModifiyable = new ArrayList(type.getAttributes().size());
-		for(Iterator i = type.getAttributes().iterator(); i.hasNext(); )
+		final List<Attribute> typeAttributes = type.getAttributes();
+		final ArrayList<Attribute> attributesModifiyable = new ArrayList<Attribute>(typeAttributes.size());
+		for(final Attribute attribute : type.getAttributes())
 		{
-			final Attribute attribute = (Attribute)i.next();
 			if(attribute!=parent && !keyList.contains(attribute))
 				attributesModifiyable.add(attribute);
 		}
