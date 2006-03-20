@@ -91,12 +91,12 @@ public abstract class Attribute extends Feature
 	{
 		super.initialize(type, name);
 		
-		final ArrayList patterns = patternsWhileTypeInitialization;
+		final ArrayList<Pattern> patterns = patternsWhileTypeInitialization;
 		patternsWhileTypeInitialization = null;
 		this.patterns =
 			patterns==null
 			? Collections.<Pattern>emptyList()
-			: Collections.<Pattern>unmodifiableList(Arrays.<Pattern>asList((Pattern[])patterns.toArray(new Pattern[patterns.size()])));
+			: Collections.unmodifiableList(Arrays.asList(patterns.toArray(new Pattern[patterns.size()])));
 	}
 	
 	final void materialize(final Table table)
