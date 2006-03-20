@@ -20,7 +20,7 @@ package com.exedio.cope.util;
 
 import java.util.Comparator;
 
-public final class ClassComparator implements Comparator
+public final class ClassComparator implements Comparator<Class>
 {
 	private static final ClassComparator instance = new ClassComparator();
 
@@ -33,10 +33,8 @@ public final class ClassComparator implements Comparator
 	{
 	}
 
-	public int compare(Object o1, Object o2)
+	public int compare(final Class c1, final Class c2)
 	{
-		final Class c1 = (Class)o1;
-		final Class c2 = (Class)o2;
 		return c1.getName().compareTo(c2.getName());
 	}
 }
