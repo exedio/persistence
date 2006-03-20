@@ -525,7 +525,7 @@ final class Injector
 				if(readToken()!='{')
 					throw new ParseException("'{' expected");
 				parseBody(false, null);
-				final JavaClass result = new JavaClass(javaFile, parent, modifiers, true, enumName, Collections.EMPTY_LIST, Collections.EMPTY_LIST);
+				final JavaClass result = new JavaClass(javaFile, parent, modifiers, true, enumName, Collections.<String>emptyList(), Collections.<String>emptyList());
 				
 				consumer.onClass(result);
 				consumer.onClassEnd(result);
