@@ -86,7 +86,7 @@ final class CopeType
 	}
 	
 	private CopeType supertype;
-	private ArrayList subtypes = new ArrayList();
+	private ArrayList<CopeType> subtypes = new ArrayList<CopeType>();
 	
 	void endBuildStage()
 	{
@@ -134,7 +134,7 @@ final class CopeType
 		return supertype;
 	}
 	
-	public List getSubtypes()
+	public List<CopeType> getSubtypes()
 	{
 		assert !javaClass.file.repository.isBuildStage();
 		
