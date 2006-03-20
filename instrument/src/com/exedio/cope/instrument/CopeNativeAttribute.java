@@ -51,7 +51,7 @@ final class CopeNativeAttribute extends CopeAttribute
 		super(javaAttribute, name, typeClass, getPersistentType(typeClass), initializerArguments, docComment);
 		
 		this.typeClass = normalizeTypeClass(typeClass);
-		this.nativeType = (String)toNativeTypeMapping.get(this.typeClass);
+		this.nativeType = toNativeTypeMapping.get(this.typeClass);
 	}
 	
 	public CopeNativeAttribute(
@@ -76,7 +76,7 @@ final class CopeNativeAttribute extends CopeAttribute
 
 	private static final String getPersistentType(final Class typeClass)
 	{
-		final String result = (String)toPersistentTypeMapping.get(normalizeTypeClass(typeClass));
+		final String result = toPersistentTypeMapping.get(normalizeTypeClass(typeClass));
 
 		if(result==null)
 			throw new RuntimeException(typeClass.toString());
@@ -84,12 +84,12 @@ final class CopeNativeAttribute extends CopeAttribute
 		return result;
 	}
 
-	private static final HashMap toPersistentTypeMapping = new HashMap(3);
-	private static final HashMap toNativeTypeMapping = new HashMap(3);
-	private static final HashMap toBoxingPrefixMapping = new HashMap(3);
-	private static final HashMap toBoxingPostfixMapping = new HashMap(3);
-	private static final HashMap toUnboxingPrefixMapping = new HashMap(3);
-	private static final HashMap toUnboxingPostfixMapping = new HashMap(3);
+	private static final HashMap<Class, String> toPersistentTypeMapping = new HashMap<Class, String>(3);
+	private static final HashMap<Class, String> toNativeTypeMapping = new HashMap<Class, String>(3);
+	private static final HashMap<Class, String> toBoxingPrefixMapping = new HashMap<Class, String>(3);
+	private static final HashMap<Class, String> toBoxingPostfixMapping = new HashMap<Class, String>(3);
+	private static final HashMap<Class, String> toUnboxingPrefixMapping = new HashMap<Class, String>(3);
+	private static final HashMap<Class, String> toUnboxingPostfixMapping = new HashMap<Class, String>(3);
 	
 	private static final void fillNativeTypeMap(final Class typeClass, final Class persistentType, final Class nativeType,
 															  final String boxingPrefix, final String boxingPostfix,
@@ -154,7 +154,7 @@ final class CopeNativeAttribute extends CopeAttribute
 		if(!isBoxed())
 			throw new RuntimeException();
 
-		return (String)toBoxingPrefixMapping.get(typeClass);
+		return toBoxingPrefixMapping.get(typeClass);
 	}
 	
 	public final String getBoxingPostfix()
@@ -162,7 +162,7 @@ final class CopeNativeAttribute extends CopeAttribute
 		if(!isBoxed())
 			throw new RuntimeException();
 
-		return (String)toBoxingPostfixMapping.get(typeClass);
+		return toBoxingPostfixMapping.get(typeClass);
 	}
 	
 	public final String getUnBoxingPrefix()
@@ -170,7 +170,7 @@ final class CopeNativeAttribute extends CopeAttribute
 		if(!isBoxed())
 			throw new RuntimeException();
 
-		return (String)toUnboxingPrefixMapping.get(typeClass);
+		return toUnboxingPrefixMapping.get(typeClass);
 	}
 	
 	public final String getUnBoxingPostfix()
@@ -178,7 +178,7 @@ final class CopeNativeAttribute extends CopeAttribute
 		if(!isBoxed())
 			throw new RuntimeException();
 
-		return (String)toUnboxingPostfixMapping.get(typeClass);
+		return toUnboxingPostfixMapping.get(typeClass);
 	}
 	
 	protected void fillExceptionsThrownByGenericSetter(final SortedSet<Class> result)
