@@ -234,16 +234,15 @@ final class Generator
 		if(!type.hasInitialConstructor())
 			return;
 
-		final List initialAttributes = type.getInitialAttributes();
+		final List<CopeAttribute> initialAttributes = type.getInitialAttributes();
 		final SortedSet<Class> constructorExceptions = type.getConstructorExceptions();
 		
 		writeCommentHeader();
 		o.write("\t * ");
 		o.write(format(CONSTRUCTOR_INITIAL, type.getName()));
 		o.write(lineSeparator);
-		for(Iterator i = initialAttributes.iterator(); i.hasNext(); )
+		for(final CopeAttribute initialAttribute : initialAttributes)
 		{
-			final CopeAttribute initialAttribute = (CopeAttribute)i.next();
 			o.write("\t * @param ");
 			o.write(initialAttribute.getName());
 			o.write(' ');
@@ -259,9 +258,8 @@ final class Generator
 
 			boolean first = true;
 			final StringBuffer initialAttributesBuf = new StringBuffer();
-			for(Iterator j = initialAttributes.iterator(); j.hasNext(); )
+			for(final CopeAttribute initialAttribute : initialAttributes)
 			{
-				final CopeAttribute initialAttribute = (CopeAttribute)j.next();
 				if(!initialAttribute.getSetterExceptions().contains(constructorException))
 					continue;
 
@@ -296,13 +294,13 @@ final class Generator
 		o.write('(');
 		
 		boolean first = true;
-		for(Iterator i = initialAttributes.iterator(); i.hasNext(); )
+		for(final CopeAttribute initialAttribute : initialAttributes)
 		{
 			if(first)
 				first = false;
 			else
 				o.write(',');
-			final CopeAttribute initialAttribute = (CopeAttribute)i.next();
+			
 			o.write(lineSeparator);
 			o.write("\t\t\t\tfinal ");
 			o.write(initialAttribute.getBoxedType());
@@ -317,9 +315,8 @@ final class Generator
 		o.write(lineSeparator);
 		o.write("\t\tthis(new "+AttributeValue.class.getName()+"[]{");
 		o.write(lineSeparator);
-		for(Iterator i = initialAttributes.iterator(); i.hasNext(); )
+		for(final CopeAttribute initialAttribute : initialAttributes)
 		{
-			final CopeAttribute initialAttribute = (CopeAttribute)i.next();
 			o.write("\t\t\t");
 			o.write(type.getName());
 			o.write('.');

@@ -187,12 +187,12 @@ final class CopeType
 		return initialConstructorOption.getModifier(JavaFeature.toReflectionModifier(inheritedModifier));
 	}
 	
-	private ArrayList initialAttributes = null;
+	private ArrayList<CopeAttribute> initialAttributes = null;
 	private TreeSet<Class> constructorExceptions = null;
 	
 	private final void makeInitialAttributesAndConstructorExceptions()
 	{
-		initialAttributes = new ArrayList();
+		initialAttributes = new ArrayList<CopeAttribute>();
 		constructorExceptions = new TreeSet<Class>(ClassComparator.getInstance());
 		
 		final CopeType superclass = getSuperclass();
@@ -221,7 +221,7 @@ final class CopeType
 	 * Return all initial attributes of this class.
 	 * Initial attributes are all attributes, which are final or mandatory.
 	 */
-	public final List getInitialAttributes()
+	public final List<CopeAttribute> getInitialAttributes()
 	{
 		if(initialAttributes == null)
 			makeInitialAttributesAndConstructorExceptions();
