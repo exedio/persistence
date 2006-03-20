@@ -34,7 +34,7 @@ import com.exedio.cope.StatementInfo;
 
 public abstract class CopeAssert extends TestCase
 {
-	public final static void assertContainsList(final List<Object> expected, final Collection<Object> actual)
+	public final static void assertContainsList(final List<? extends Object> expected, final Collection<? extends Object> actual)
 	{
 		if(expected.size()!=actual.size() ||
 				!expected.containsAll(actual) ||
@@ -42,120 +42,120 @@ public abstract class CopeAssert extends TestCase
 			fail("expected "+expected+", but was "+actual);
 	}
 
-	public final static void assertContains(final Collection<Object> actual)
+	public final static void assertContains(final Collection<? extends Object> actual)
 	{
 		assertContainsList(Collections.<Object>emptyList(), actual);
 	}
 
-	public final static void assertContains(final Object o, final Collection<Object> actual)
+	public final static void assertContains(final Object o, final Collection<? extends Object> actual)
 	{
 		assertContainsList(Collections.singletonList(o), actual);
 	}
 
-	public final static void assertContains(final Object o1, final Object o2, final Collection<Object> actual)
+	public final static void assertContains(final Object o1, final Object o2, final Collection<? extends Object> actual)
 	{
 		assertContainsList(Arrays.asList(new Object[]{o1, o2}), actual);
 	}
 
-	public final static void assertContains(final Object o1, final Object o2, final Object o3, final Collection<Object> actual)
+	public final static void assertContains(final Object o1, final Object o2, final Object o3, final Collection<? extends Object> actual)
 	{
 		assertContainsList(Arrays.asList(new Object[]{o1, o2, o3}), actual);
 	}
 
-	public final static void assertContains(final Object o1, final Object o2, final Object o3, final Object o4, final Collection<Object> actual)
+	public final static void assertContains(final Object o1, final Object o2, final Object o3, final Object o4, final Collection<? extends Object> actual)
 	{
 		assertContainsList(Arrays.asList(new Object[]{o1, o2, o3, o4}), actual);
 	}
 
-	public final static void assertContains(final Object o1, final Object o2, final Object o3, final Object o4, final Object o5, final Collection<Object> actual)
+	public final static void assertContains(final Object o1, final Object o2, final Object o3, final Object o4, final Object o5, final Collection<? extends Object> actual)
 	{
 		assertContainsList(Arrays.asList(new Object[]{o1, o2, o3, o4, o5}), actual);
 	}
 
-	public final static void assertContainsUnmodifiable(final Collection<Object> actual)
+	public final static void assertContainsUnmodifiable(final Collection<? extends Object> actual)
 	{
 		assertUnmodifiable(actual);
 		assertContains(actual);
 	}
 
-	public final static void assertContainsUnmodifiable(final Object o, final Collection<Object> actual)
+	public final static void assertContainsUnmodifiable(final Object o, final Collection<? extends Object> actual)
 	{
 		assertUnmodifiable(actual);
 		assertContains(o, actual);
 	}
 
-	public final static void assertContainsUnmodifiable(final Object o1, final Object o2, final Collection<Object> actual)
+	public final static void assertContainsUnmodifiable(final Object o1, final Object o2, final Collection<? extends Object> actual)
 	{
 		assertUnmodifiable(actual);
 		assertContains(o1, o2, actual);
 	}
 
-	public final static List list()
+	public final static List<? extends Object> list()
 	{
-		return Collections.EMPTY_LIST;
+		return Collections.<Object>emptyList();
 	}
 
-	public final static List list(final Object o)
+	public final static List<? extends Object> list(final Object o)
 	{
 		return Collections.singletonList(o);
 	}
 	
-	public final static List list(final Object o1, final Object o2)
+	public final static List<? extends Object> list(final Object o1, final Object o2)
 	{
 		return Arrays.asList(new Object[]{o1, o2});
 	}
 	
-	public final static List list(final Object o1, final Object o2, final Object o3)
+	public final static List<? extends Object> list(final Object o1, final Object o2, final Object o3)
 	{
 		return Arrays.asList(new Object[]{o1, o2, o3});
 	}
 	
-	public final static List list(final Object o1, final Object o2, final Object o3, final Object o4)
+	public final static List<? extends Object> list(final Object o1, final Object o2, final Object o3, final Object o4)
 	{
 		return Arrays.asList(new Object[]{o1, o2, o3, o4});
 	}
 	
-	public final static List list(final Object o1, final Object o2, final Object o3, final Object o4, final Object o5)
+	public final static List<? extends Object> list(final Object o1, final Object o2, final Object o3, final Object o4, final Object o5)
 	{
 		return Arrays.asList(new Object[]{o1, o2, o3, o4, o5});
 	}
 	
-	public final static List list(final Object o1, final Object o2, final Object o3, final Object o4, final Object o5, final Object o6)
+	public final static List<? extends Object> list(final Object o1, final Object o2, final Object o3, final Object o4, final Object o5, final Object o6)
 	{
 		return Arrays.asList(new Object[]{o1, o2, o3, o4, o5, o6});
 	}
 	
-	public final static List list(final Object o1, final Object o2, final Object o3, final Object o4, final Object o5, final Object o6, final Object o7)
+	public final static List<? extends Object> list(final Object o1, final Object o2, final Object o3, final Object o4, final Object o5, final Object o6, final Object o7)
 	{
 		return Arrays.asList(new Object[]{o1, o2, o3, o4, o5, o6, o7});
 	}
 	
-	public final static List list(final Object o1, final Object o2, final Object o3, final Object o4, final Object o5, final Object o6, final Object o7, final Object o8)
+	public final static List<? extends Object> list(final Object o1, final Object o2, final Object o3, final Object o4, final Object o5, final Object o6, final Object o7, final Object o8)
 	{
 		return Arrays.asList(new Object[]{o1, o2, o3, o4, o5, o6, o7, o8});
 	}
 	
-	public final static List list(final Object o1, final Object o2, final Object o3, final Object o4, final Object o5, final Object o6, final Object o7, final Object o8, final Object o9)
+	public final static List<? extends Object> list(final Object o1, final Object o2, final Object o3, final Object o4, final Object o5, final Object o6, final Object o7, final Object o8, final Object o9)
 	{
 		return Arrays.asList(new Object[]{o1, o2, o3, o4, o5, o6, o7, o8, o9});
 	}
 	
-	public final static List list(final Object o1, final Object o2, final Object o3, final Object o4, final Object o5, final Object o6, final Object o7, final Object o8, final Object o9, final Object o10)
+	public final static List<? extends Object> list(final Object o1, final Object o2, final Object o3, final Object o4, final Object o5, final Object o6, final Object o7, final Object o8, final Object o9, final Object o10)
 	{
 		return Arrays.asList(new Object[]{o1, o2, o3, o4, o5, o6, o7, o8, o9, o10});
 	}
 	
-	public final static void assertUnmodifiable(final Collection<Object> c)
+	public final static <T extends Object> void assertUnmodifiable(final Collection<T> c)
 	{
 		try
 		{
-			c.add(new Object());
+			c.add((T)null);
 			fail("should have thrown UnsupportedOperationException");
 		}
 		catch(UnsupportedOperationException e) {}
 		try
 		{
-			c.addAll(Collections.singleton(new Object()));
+			c.addAll(Collections.singleton((T)null));
 			fail("should have thrown UnsupportedOperationException");
 		}
 		catch(UnsupportedOperationException e) {}
@@ -198,7 +198,7 @@ public abstract class CopeAssert extends TestCase
 		}
 	}
 	
-	public final static void assertEqualsUnmodifiable(final List<Object> expected, final Collection<Object> actual)
+	public final static void assertEqualsUnmodifiable(final List<? extends Object> expected, final Collection<? extends Object> actual)
 	{
 		assertUnmodifiable(actual);
 		assertEquals(expected, actual);
