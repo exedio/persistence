@@ -25,7 +25,7 @@ final class CopeObjectAttribute extends CopeAttribute
 	public CopeObjectAttribute(
 			final JavaAttribute javaAttribute,
 			final Class typeClass,
-			final List initializerArguments,
+			final List<String> initializerArguments,
 			final String docComment)
 		throws InjectorParseException
 	{

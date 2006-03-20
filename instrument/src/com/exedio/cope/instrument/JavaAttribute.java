@@ -76,7 +76,7 @@ final class JavaAttribute
 			| Modifier.VOLATILE;
 	}
 	
-	private final ArrayList initializerArguments = new ArrayList();
+	private final ArrayList<String> initializerArguments = new ArrayList<String>();
 	private final StringBuffer currentArgument = new StringBuffer();
 	private int bracketLevel = 0;
 	
@@ -124,7 +124,7 @@ final class JavaAttribute
 		}
 	}
 	
-	List getInitializerArguments()
+	List<String> getInitializerArguments()
 	{
 		return initializerArguments;
 	}

@@ -28,6 +28,8 @@ package com.exedio.cope.instrument;
  */
 class InjectorParseException extends Exception
 {
+	private static final long serialVersionUID = 3874562896345l;
+	
 	protected InjectorParseException(String message)
 	{
 		super(message);

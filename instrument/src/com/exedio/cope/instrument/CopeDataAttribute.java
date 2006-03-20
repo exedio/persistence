@@ -33,7 +33,7 @@ final class CopeDataAttribute extends CopeAttribute
 	public CopeDataAttribute(
 			final JavaAttribute javaAttribute,
 			final Class typeClass,
-			final List initializerArguments,
+			final List<String> initializerArguments,
 			final String docComment)
 		throws InjectorParseException
 	{

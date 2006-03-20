@@ -21,7 +21,6 @@ package com.exedio.cope.instrument;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 import com.exedio.cope.Attribute;
@@ -164,7 +163,7 @@ final class Instrumentor implements InjectionConsumer
 	private final void handleAttribute(final JavaAttribute ja, final Class typeClass, final String docComment)
 		throws InjectorParseException
 	{
-		final List initializerArguments = ja.getInitializerArguments();
+		final List<String> initializerArguments = ja.getInitializerArguments();
 		//System.out.println(initializerArguments);
 					
 		if(
@@ -201,12 +200,12 @@ final class Instrumentor implements InjectionConsumer
 	private final void handleUniqueConstraint(final JavaAttribute ja, final Class typeClass)
 		throws InjectorParseException
 	{
-		final List initializerArguments = ja.getInitializerArguments();
+		final List<String> initializerArguments = ja.getInitializerArguments();
 		//System.out.println(initializerArguments);
 		final ArrayList<String> copeAttributes = new ArrayList<String>(initializerArguments.size());
 		
-		for(Iterator i = initializerArguments.iterator(); i.hasNext(); )
-			copeAttributes.add((String)i.next());
+		for(final String ia : initializerArguments)
+			copeAttributes.add(ia);
 
 		new CopeUniqueConstraint(ja,
 			copeAttributes.toArray(new String[copeAttributes.size()]));
@@ -215,7 +214,7 @@ final class Instrumentor implements InjectionConsumer
 	private final void handleQualifier(final JavaAttribute ja, final Class typeClass)
 		throws InjectorParseException
 	{
-		final List initializerArguments = ja.getInitializerArguments();
+		final List<String> initializerArguments = ja.getInitializerArguments();
 		//System.out.println("---------"+initializerArguments);
 		new CopeQualifier(ja, initializerArguments);
 	}
@@ -223,11 +222,11 @@ final class Instrumentor implements InjectionConsumer
 	private final void handleHash(final JavaAttribute ja, final Class typeClass)
 		throws InjectorParseException
 	{
-		final List initializerArguments = ja.getInitializerArguments();
+		final List<String> initializerArguments = ja.getInitializerArguments();
 		if(initializerArguments.size()<1)
 			throw new InjectorParseException("attribute >"+ja.name+"< has invalid initializer arguments: "+initializerArguments);
 		//System.out.println("---------"+initializerArguments);
-		final String initializerArgument = (String)initializerArguments.get(0);
+		final String initializerArgument = initializerArguments.get(0);
 		final CopeAttribute storageAttribute;
 		if("newStringAttribute".equals(initializerArgument))
 		{

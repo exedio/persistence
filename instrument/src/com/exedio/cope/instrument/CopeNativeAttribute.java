@@ -57,7 +57,7 @@ final class CopeNativeAttribute extends CopeAttribute
 	public CopeNativeAttribute(
 			final JavaAttribute javaAttribute,
 			Class typeClass,
-			final List initializerArguments,
+			final List<String> initializerArguments,
 			final String docComment)
 		throws InjectorParseException
 	{
