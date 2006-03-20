@@ -22,10 +22,10 @@ package com.exedio.cope;
 public final class ItemAttribute extends FunctionAttribute
 {
 
-	private final Class targetTypeClass;
+	private final Class<? extends Item> targetTypeClass;
 	private final DeletePolicy policy;
 
-	private ItemAttribute(final boolean isfinal, final boolean mandatory, final boolean unique, final Class targetTypeClass, final DeletePolicy policy)
+	private ItemAttribute(final boolean isfinal, final boolean mandatory, final boolean unique, final Class<? extends Item> targetTypeClass, final DeletePolicy policy)
 	{
 		super(isfinal, mandatory, unique, targetTypeClass);
 		this.targetTypeClass = targetTypeClass;
@@ -45,12 +45,12 @@ public final class ItemAttribute extends FunctionAttribute
 		}
 	}
 	
-	public ItemAttribute(final Option option, final Class targetTypeClass)
+	public ItemAttribute(final Option option, final Class<? extends Item> targetTypeClass)
 	{
 		this(option, targetTypeClass, Item.FORBID);
 	}
 	
-	public ItemAttribute(final Option option, final Class targetTypeClass, final DeletePolicy policy)
+	public ItemAttribute(final Option option, final Class<? extends Item> targetTypeClass, final DeletePolicy policy)
 	{
 		this(option.isFinal, option.mandatory, option.unique, targetTypeClass, policy);
 	}

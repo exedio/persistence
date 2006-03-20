@@ -127,12 +127,12 @@ public class ModelTest extends TestmodelTest
 		assertEquals(item.TYPE, Type.findByJavaClass(AttributeItem.class));
 		try
 		{
-			Type.findByJavaClass(ModelTest.class);
-			fail("should have thrown RuntimeException");
+			Type.findByJavaClass(Item.class);
+			fail();
 		}
 		catch(RuntimeException e)
 		{
-			assertEquals("there is no type for class com.exedio.cope.ModelTest", e.getMessage());
+			assertEquals("there is no type for class com.exedio.cope.Item", e.getMessage());
 		}
 		assertEquals(item.TYPE, model.findTypeByID(item.TYPE.getID()));
 		
@@ -197,12 +197,12 @@ public class ModelTest extends TestmodelTest
 		
 		try
 		{
-			new Type(NoItem.class);
+			new Type(Item.class);
 			fail();
 		}
 		catch(RuntimeException e)
 		{
-			assertEquals(NoItem.class.getName() + " is not a subclass of Item", e.getMessage());
+			assertEquals("Cannot make a type for " + Item.class + " itself, but only for subclasses.", e.getMessage());
 		}
 		try
 		{
@@ -257,13 +257,6 @@ public class ModelTest extends TestmodelTest
 		}
 	}
 	
-	static class NoItem
-	{
-		NoItem()
-		{
-		}
-	}
-
 	static class NoCreationConstructor extends Item
 	{
 		NoCreationConstructor()

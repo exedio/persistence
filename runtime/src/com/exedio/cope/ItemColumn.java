@@ -24,13 +24,13 @@ final class ItemColumn extends IntegerColumn
 {
 	static final int SYNTETIC_PRIMARY_KEY_PRECISION = 10;
 
-	final Class targetTypeClass;
+	final Class<? extends Item> targetTypeClass;
 	final String integrityConstraintName;
 	final ItemAttribute attribute;
 
 	ItemColumn(final Table table, final String id,
 					  final boolean notNull,
-					  final Class targetTypeClass, final ItemAttribute attribute)
+					  final Class<? extends Item> targetTypeClass, final ItemAttribute attribute)
 	{
 		super(table, id, notNull, SYNTETIC_PRIMARY_KEY_PRECISION, false, null);
 		if(targetTypeClass==null)
@@ -44,7 +44,7 @@ final class ItemColumn extends IntegerColumn
 	/**
 	 * Creates a primary key column with a foreign key contraint.
 	 */	
-	ItemColumn(final Table table, final Class targetTypeClass)
+	ItemColumn(final Table table, final Class<? extends Item> targetTypeClass)
 	{
 		super(table);
 		if(targetTypeClass==null)

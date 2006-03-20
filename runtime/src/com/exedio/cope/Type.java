@@ -35,9 +35,9 @@ import com.exedio.cope.util.ReactivationConstructorDummy;
 public final class Type
 	implements Selectable
 {
-	private static final HashMap<Class, Type> typesByClass = new HashMap<Class, Type>();
+	private static final HashMap<Class<? extends Item>, Type> typesByClass = new HashMap<Class<? extends Item>, Type>();
 
-	final Class javaClass;
+	final Class<? extends Item> javaClass;
 	final String id;
 	private final Type supertype;
 	
@@ -76,7 +76,7 @@ public final class Type
 	/**
 	 * @throws RuntimeException if there is no type for the given java class.
 	 */
-	public static final Type findByJavaClass(final Class javaClass)
+	public static final Type findByJavaClass(final Class<? extends Item> javaClass)
 	{
 		final Type result = typesByClass.get(javaClass);
 		if(result==null)
@@ -93,17 +93,17 @@ public final class Type
 		return className.substring(pos+1).intern();
 	}
 
-	public Type(final Class javaClass)
+	public Type(final Class<? extends Item> javaClass)
 	{
 		this(javaClass, classToId(javaClass));
 	}
 	
-	public Type(final Class javaClass, final String id)
+	public Type(final Class<? extends Item> javaClass, final String id)
 	{
 		this.javaClass = javaClass;
 		this.id = id;
-		if(!Item.class.isAssignableFrom(javaClass))
-			throw new IllegalArgumentException(javaClass.getName()+" is not a subclass of Item");
+		if(Item.class.equals(javaClass))
+			throw new IllegalArgumentException("Cannot make a type for " + javaClass + " itself, but only for subclasses.");
 		typesByClass.put(javaClass, this);
 
 		// supertype
@@ -349,7 +349,7 @@ public final class Type
 		this.table.finish();
 	}
 	
-	public final Class getJavaClass()
+	public final Class<? extends Item> getJavaClass()
 	{
 		return javaClass;
 	}
