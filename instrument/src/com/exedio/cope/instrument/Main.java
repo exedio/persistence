@@ -72,7 +72,7 @@ public final class Main
 	
 	final void run(final File dir, final String[] args, final boolean verbose) throws IllegalParameterException, InjectorParseException, IOException
 	{
-		final ArrayList sourcefiles = new ArrayList();
+		final ArrayList<File> sourcefiles = new ArrayList<File>();
 		
 		for(int i=0; i<args.length; i++)
 			sourcefiles.add(new File(dir, args[i]));
@@ -80,7 +80,7 @@ public final class Main
 		run(sourcefiles, verbose);
 	}
 		
-	final void run(final ArrayList inputFiles, final boolean verbose) throws IllegalParameterException, InjectorParseException, IOException
+	final void run(final ArrayList<File> inputFiles, final boolean verbose) throws IllegalParameterException, InjectorParseException, IOException
 	{
 		{
 			final Package runtimePackage = Cope.class.getPackage();
@@ -105,10 +105,8 @@ public final class Main
 		this.verbose = verbose;
 		instrumented = 0;
 		skipped = 0;
-		for(Iterator i = inputFiles.iterator(); i.hasNext(); )
+		for(final File inputFile : inputFiles)
 		{
-			final File inputFile = (File)i.next();
-
 			if(!inputFile.exists())
 				throw new RuntimeException("error: input file " + inputFile.getAbsolutePath() + " does not exist.");
 			if(!inputFile.isFile())
