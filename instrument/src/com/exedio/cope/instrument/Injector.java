@@ -721,7 +721,7 @@ final class Injector
 	{
 		consumer.onAttributeHeader(ja);
 
-		final ArrayList commaSeparatedAttributes = new ArrayList();
+		final ArrayList<JavaAttribute> commaSeparatedAttributes = new ArrayList<JavaAttribute>();
 		commaSeparatedAttributes.add(ja);
 		//if(!do_block) ja.print(System.out);
 
