@@ -50,7 +50,7 @@ final class CopeType
 	final Option genericConstructorOption;
 
 	private final ArrayList<CopeFeature> features = new ArrayList<CopeFeature>();
-	private final TreeMap featureMap = new TreeMap();
+	private final TreeMap<String, CopeFeature> featureMap = new TreeMap<String, CopeFeature>();
 	
 	public CopeType(
 			final JavaClass javaClass,
@@ -159,7 +159,7 @@ final class CopeType
 	public CopeFeature getFeature(final String name)
 	{
 		assert !javaClass.file.repository.isBuildStage();
-		return (CopeFeature)featureMap.get(name);
+		return featureMap.get(name);
 	}
 	
 	public List<CopeFeature> getFeatures()
