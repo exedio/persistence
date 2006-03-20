@@ -40,7 +40,7 @@ final class CopeDataAttribute extends CopeAttribute
 		super(javaAttribute, typeClass, InputStream.class.getName(), initializerArguments, docComment);
 	}
 	
-	protected void fillSetterExceptions(final SortedSet result)
+	protected void fillSetterExceptions(final SortedSet<Class> result)
 	{
 		final Feature instance = getInstance();
 		final boolean notNull = instance instanceof Attribute && ((Attribute)instance).isMandatory();
