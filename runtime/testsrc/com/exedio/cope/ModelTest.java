@@ -197,6 +197,14 @@ public class ModelTest extends TestmodelTest
 		
 		try
 		{
+			new Type(null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+		}
+		try
+		{
 			new Type(Item.class);
 			fail();
 		}
