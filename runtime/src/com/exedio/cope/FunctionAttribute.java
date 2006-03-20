@@ -28,7 +28,7 @@ public abstract class FunctionAttribute
 	extends Attribute
 	implements Function, Settable
 {
-	private final Class valueClass;
+	private final Class<?> valueClass;
 	final UniqueConstraint implicitUniqueConstraint;
 	private ArrayList<UniqueConstraint> uniqueConstraints;
 	
