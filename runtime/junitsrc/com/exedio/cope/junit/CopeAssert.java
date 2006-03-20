@@ -34,7 +34,7 @@ import com.exedio.cope.StatementInfo;
 
 public abstract class CopeAssert extends TestCase
 {
-	public final static void assertContainsList(final List expected, final Collection actual)
+	public final static void assertContainsList(final List<Object> expected, final Collection<Object> actual)
 	{
 		if(expected.size()!=actual.size() ||
 				!expected.containsAll(actual) ||
@@ -42,49 +42,49 @@ public abstract class CopeAssert extends TestCase
 			fail("expected "+expected+", but was "+actual);
 	}
 
-	public final static void assertContains(final Collection actual)
+	public final static void assertContains(final Collection<Object> actual)
 	{
-		assertContainsList(Collections.EMPTY_LIST, actual);
+		assertContainsList(Collections.<Object>emptyList(), actual);
 	}
 
-	public final static void assertContains(final Object o, final Collection actual)
+	public final static void assertContains(final Object o, final Collection<Object> actual)
 	{
 		assertContainsList(Collections.singletonList(o), actual);
 	}
 
-	public final static void assertContains(final Object o1, final Object o2, final Collection actual)
+	public final static void assertContains(final Object o1, final Object o2, final Collection<Object> actual)
 	{
 		assertContainsList(Arrays.asList(new Object[]{o1, o2}), actual);
 	}
 
-	public final static void assertContains(final Object o1, final Object o2, final Object o3, final Collection actual)
+	public final static void assertContains(final Object o1, final Object o2, final Object o3, final Collection<Object> actual)
 	{
 		assertContainsList(Arrays.asList(new Object[]{o1, o2, o3}), actual);
 	}
 
-	public final static void assertContains(final Object o1, final Object o2, final Object o3, final Object o4, final Collection actual)
+	public final static void assertContains(final Object o1, final Object o2, final Object o3, final Object o4, final Collection<Object> actual)
 	{
 		assertContainsList(Arrays.asList(new Object[]{o1, o2, o3, o4}), actual);
 	}
 
-	public final static void assertContains(final Object o1, final Object o2, final Object o3, final Object o4, final Object o5, final Collection actual)
+	public final static void assertContains(final Object o1, final Object o2, final Object o3, final Object o4, final Object o5, final Collection<Object> actual)
 	{
 		assertContainsList(Arrays.asList(new Object[]{o1, o2, o3, o4, o5}), actual);
 	}
 
-	public final static void assertContainsUnmodifiable(final Collection actual)
+	public final static void assertContainsUnmodifiable(final Collection<Object> actual)
 	{
 		assertUnmodifiable(actual);
 		assertContains(actual);
 	}
 
-	public final static void assertContainsUnmodifiable(final Object o, final Collection actual)
+	public final static void assertContainsUnmodifiable(final Object o, final Collection<Object> actual)
 	{
 		assertUnmodifiable(actual);
 		assertContains(o, actual);
 	}
 
-	public final static void assertContainsUnmodifiable(final Object o1, final Object o2, final Collection actual)
+	public final static void assertContainsUnmodifiable(final Object o1, final Object o2, final Collection<Object> actual)
 	{
 		assertUnmodifiable(actual);
 		assertContains(o1, o2, actual);
@@ -145,7 +145,7 @@ public abstract class CopeAssert extends TestCase
 		return Arrays.asList(new Object[]{o1, o2, o3, o4, o5, o6, o7, o8, o9, o10});
 	}
 	
-	public final static void assertUnmodifiable(final Collection c)
+	public final static void assertUnmodifiable(final Collection<Object> c)
 	{
 		try
 		{
@@ -198,7 +198,7 @@ public abstract class CopeAssert extends TestCase
 		}
 	}
 	
-	public final static void assertEqualsUnmodifiable(final List expected, final Collection actual)
+	public final static void assertEqualsUnmodifiable(final List<Object> expected, final Collection<Object> actual)
 	{
 		assertUnmodifiable(actual);
 		assertEquals(expected, actual);
