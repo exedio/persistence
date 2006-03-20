@@ -82,9 +82,9 @@ public final class Vector extends Pattern
 		return Collections.unmodifiableList(Arrays.asList(sources));
 	}
 	
-	public List get(final Item item)
+	public List<Object> get(final Item item)
 	{
-		final ArrayList result = new ArrayList(sources.length);
+		final ArrayList<Object> result = new ArrayList<Object>(sources.length);
 
 		for(int i = 0; i<sources.length; i++)
 		{
