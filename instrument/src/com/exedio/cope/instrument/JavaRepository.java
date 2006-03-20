@@ -20,7 +20,6 @@ package com.exedio.cope.instrument;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 
 import bsh.UtilEvalError;
@@ -52,7 +51,7 @@ final class JavaRepository
 	private boolean generateStage = false;
 	
 	private final ArrayList<JavaFile> files = new ArrayList<JavaFile>();
-	private final HashMap copeTypeByShortClassName = new HashMap();
+	private final HashMap<String, CopeType> copeTypeByShortClassName = new HashMap<String, CopeType>();
 	private final HashMap classOfCopeTypeByFullClassName = new HashMap();
 	private final HashMap enumValueClassByFullClassName = new HashMap();
 	
@@ -63,8 +62,8 @@ final class JavaRepository
 		
 		generateStage = true;
 		
-		for(Iterator i = copeTypeByShortClassName.values().iterator(); i.hasNext(); )
-			((CopeType)i.next()).endBuildStage();
+		for(final CopeType ct : copeTypeByShortClassName.values())
+			ct.endBuildStage();
 		
 		buildStage = false;
 	}
@@ -105,7 +104,7 @@ final class JavaRepository
 	CopeType getCopeType(final String className)
 	{
 		assert generateStage;
-		final CopeType result = (CopeType)copeTypeByShortClassName.get(className);
+		final CopeType result = copeTypeByShortClassName.get(className);
 		if(result==null)
 			throw new RuntimeException("no cope type for "+className);
 		return result;
