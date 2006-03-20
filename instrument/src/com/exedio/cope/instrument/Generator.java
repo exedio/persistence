@@ -154,14 +154,14 @@ final class Generator
 		return name.substring(pos+1);
 	}
 
-	private void writeThrowsClause(final Collection exceptions)
+	private void writeThrowsClause(final Collection<Class> exceptions)
 	throws IOException
 	{
 		if(!exceptions.isEmpty())
 		{
 			o.write("\t\t\tthrows");
 			boolean first = true;
-			for(final Iterator i = exceptions.iterator(); i.hasNext(); )
+			for(final Class e : exceptions)
 			{
 				if(first)
 					first = false;
@@ -169,7 +169,7 @@ final class Generator
 					o.write(',');
 				o.write(lineSeparator);
 				o.write("\t\t\t\t");
-				o.write(((Class)i.next()).getName());
+				o.write(e.getName());
 			}
 			o.write(lineSeparator);
 		}
@@ -235,7 +235,7 @@ final class Generator
 			return;
 
 		final List initialAttributes = type.getInitialAttributes();
-		final SortedSet constructorExceptions = type.getConstructorExceptions();
+		final SortedSet<Class> constructorExceptions = type.getConstructorExceptions();
 		
 		writeCommentHeader();
 		o.write("\t * ");
@@ -566,7 +566,7 @@ final class Generator
 		o.write(toCamelCase(media.getName()));
 		o.write("Data(final " + dataType.getName() + " data)");
 		o.write(lineSeparator);
-		final SortedSet setterExceptions = new TreeSet();
+		final TreeSet<Class> setterExceptions = new TreeSet<Class>();
 		setterExceptions.addAll(Arrays.asList(new Class[]{IOException.class})); // TODO
 		writeThrowsClause(setterExceptions);
 		o.write("\t{");
@@ -602,7 +602,7 @@ final class Generator
 			o.write("[]");
 		o.write(" data,final "+String.class.getName()+" contentType");
 		o.write(')');
-		final SortedSet setterExceptions = new TreeSet();
+		final SortedSet<Class> setterExceptions = new TreeSet<Class>();
 		setterExceptions.addAll(Arrays.asList(new Class[]{IOException.class})); // TODO
 		o.write(lineSeparator);
 		writeThrowsClause(setterExceptions);

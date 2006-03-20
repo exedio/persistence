@@ -205,19 +205,19 @@ abstract class CopeAttribute extends CopeFeature
 	
 	private SortedSet setterExceptions = null;
 
-	final SortedSet getSetterExceptions()
+	final SortedSet<Class> getSetterExceptions()
 	{
 		if(setterExceptions!=null)
 			return setterExceptions;
 		
-		final TreeSet result = new TreeSet(ClassComparator.getInstance());
+		final TreeSet<Class> result = new TreeSet<Class>(ClassComparator.getInstance());
 		fillSetterExceptions(result);
 		this.setterExceptions = Collections.unmodifiableSortedSet(result);
 		return this.setterExceptions;
 	}
 	
 	// TODO put this into rtlib
-	protected void fillSetterExceptions(final SortedSet result)
+	protected void fillSetterExceptions(final SortedSet<Class> result)
 	{
 		final Feature instance = getInstance();
 		final boolean isfinal = instance instanceof Attribute && ((Attribute)instance).isFinal();
@@ -268,7 +268,7 @@ abstract class CopeAttribute extends CopeFeature
 
 	private SortedSet toucherExceptions = null;
 
-	final SortedSet getToucherExceptions()
+	final SortedSet<Class> getToucherExceptions()
 	{
 		final Feature instance = getInstance();
 		final boolean isfinal = instance instanceof Attribute && ((Attribute)instance).isFinal();
