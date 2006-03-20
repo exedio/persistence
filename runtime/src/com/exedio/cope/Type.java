@@ -102,7 +102,7 @@ public final class Type
 	{
 		this.javaClass = javaClass;
 		this.id = id;
-		if(Item.class.equals(javaClass))
+		if(javaClass.equals(Item.class))
 			throw new IllegalArgumentException("Cannot make a type for " + javaClass + " itself, but only for subclasses.");
 		typesByClass.put(javaClass, this);
 
