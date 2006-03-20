@@ -113,7 +113,7 @@ public final class Type
 			supertype = null;
 		else
 		{
-			supertype = findByJavaClass(superClass);
+			supertype = findByJavaClass(castSuperType(superClass));
 			supertype.registerSubType(this);
 		}
 
@@ -209,6 +209,12 @@ public final class Type
 		this.reactivationConstructor = getConstructor(new Class[]{ReactivationConstructorDummy.class, int.class}, "reactivation");
 	}
 	
+	@SuppressWarnings("unchecked")
+	private static final Class<Item> castSuperType(final Class o)
+	{
+		return (Class<Item>)o;
+	}
+
 	private static final <T extends Feature> List<T> inherit(final List<T> inherited, final List<T> own)
 	{
 		assert inherited!=null;
