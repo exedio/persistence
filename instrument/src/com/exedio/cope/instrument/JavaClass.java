@@ -39,8 +39,8 @@ final class JavaClass extends JavaFeature
 {
 	final CopeNameSpace nameSpace;
 	
-	private HashMap attributes = new HashMap();
-	private final HashMap enumValueClassByName = new HashMap();
+	private HashMap<String, JavaAttribute> attributes = new HashMap<String, JavaAttribute>();
+	private final HashMap<String, JavaClass> enumValueClassByName = new HashMap<String, JavaClass>();
 	final List<String> classExtends;
 	final List<String> classImplements;
 	private int classEndPosition = -1;
@@ -73,7 +73,7 @@ final class JavaClass extends JavaFeature
 		if(!(f instanceof JavaAttribute))
 			return;
 		
-		if(attributes.put(f.name, f)!=null)
+		if(attributes.put(f.name, (JavaAttribute)f)!=null)
 			throw new RuntimeException(name+'/'+f.name);
 	}
 	
@@ -81,7 +81,7 @@ final class JavaClass extends JavaFeature
 	{
 		assert !file.repository.isBuildStage();
 		
-		return (JavaAttribute)attributes.get(name);
+		return attributes.get(name);
 	}
 	
 	void addEnumClass(final JavaClass javaClass)
@@ -96,7 +96,7 @@ final class JavaClass extends JavaFeature
 	JavaClass getEnumValueClass(final String fullClassName)
 	{
 		assert file.repository.isGenerateStage();
-		final JavaClass result = (JavaClass)enumValueClassByName.get(fullClassName);
+		final JavaClass result = enumValueClassByName.get(fullClassName);
 		return result;
 	}
 
