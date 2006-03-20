@@ -978,9 +978,8 @@ final class Generator
 	{
 		final String buffer = javaFile.buffer.toString();
 		int previousClassEndPosition = 0;
-		for(Iterator i = javaFile.getClasses().iterator(); i.hasNext(); )
+		for(final JavaClass javaClass : javaFile.getClasses())
 		{
-			final JavaClass javaClass = (JavaClass)i.next();
 			final CopeType type = CopeType.getCopeType(javaClass);
 			final int classEndPosition = javaClass.getClassEndPosition();
 			if(type!=null)

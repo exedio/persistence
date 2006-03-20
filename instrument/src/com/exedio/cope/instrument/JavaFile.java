@@ -54,7 +54,7 @@ final class JavaFile
 	private boolean buildStageForImports = true;
 	
 	final JavaRepository repository;
-	final ArrayList classes = new ArrayList();
+	final ArrayList<JavaClass> classes = new ArrayList<JavaClass>();
 	
 	final StringBuffer buffer = new StringBuffer();
 
@@ -73,7 +73,7 @@ final class JavaFile
 		classes.add(javaClass);
 	}
 	
-	List getClasses()
+	List<JavaClass> getClasses()
 	{
 		assert !repository.isBuildStage();
 		return Collections.unmodifiableList(classes);

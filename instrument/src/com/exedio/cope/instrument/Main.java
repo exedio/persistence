@@ -129,9 +129,8 @@ public final class Main
 		for(Iterator i = injectors.iterator(); i.hasNext(); )
 		{
 			final JavaFile javaFile = ((Injector)i.next()).javaFile;
-			for(Iterator j = javaFile.getClasses().iterator(); j.hasNext(); )
+			for(final JavaClass javaClass : javaFile.getClasses())
 			{
-				final JavaClass javaClass = (JavaClass)j.next();
 				final CopeType type = CopeType.getCopeType(javaClass);
 				if(type!=null)
 				{
