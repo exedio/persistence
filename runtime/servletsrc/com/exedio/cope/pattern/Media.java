@@ -160,7 +160,7 @@ public final class Media extends MediaPath
 		return mandatory ? false : (lastModified.getObject(item)==null);
 	}
 
-	private static final HashMap compactExtensions = new HashMap();
+	private static final HashMap<String, String> compactExtensions = new HashMap<String, String>();
 	
 	static
 	{
@@ -190,7 +190,7 @@ public final class Media extends MediaPath
 		bf.append(getUrlPath()).
 			append(item.getCopeID());
 
-		final String compactExtension = (String)compactExtensions.get(contentType);
+		final String compactExtension = compactExtensions.get(contentType);
 		if(compactExtension==null)
 		{
 			bf.append('.').

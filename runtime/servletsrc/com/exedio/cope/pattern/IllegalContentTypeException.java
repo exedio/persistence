@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 public class IllegalContentTypeException extends RuntimeException
 {
+	private static final long serialVersionUID = 2386518376582l;
 	
 	IllegalContentTypeException(final String message)
 	{

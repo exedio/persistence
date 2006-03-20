@@ -60,6 +60,7 @@ import com.exedio.cope.util.ServletUtil;
  */
 public final class MediaServlet extends HttpServlet
 {
+	private static final long serialVersionUID = 45666286198643245l;
 	
 	private final HashMap pathes = new HashMap();
 	
