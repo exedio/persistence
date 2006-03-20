@@ -395,7 +395,7 @@ public final class Media extends MediaPath
 				throw new RuntimeException("if data is null, content type must also be null");
 		}
 
-		final ArrayList values = new ArrayList(3);
+		final ArrayList<AttributeValue> values = new ArrayList<AttributeValue>(3);
 		this.contentType.map(values, contentType);
 		values.add(this.lastModified.map(data!=null ? new Date() : null));
 		try
@@ -518,7 +518,7 @@ public final class Media extends MediaPath
 		abstract StringAttribute getMimeMinor();
 		abstract void initialize(String name);
 		abstract String getContentType(Item item);
-		abstract void map(ArrayList values, String contentType);
+		abstract void map(ArrayList<AttributeValue> values, String contentType);
 	}
 	
 	final class FixedContentType extends ContentType
@@ -568,7 +568,7 @@ public final class Media extends MediaPath
 			return full;
 		}
 		
-		void map(final ArrayList values, final String contentType)
+		void map(final ArrayList<AttributeValue> values, final String contentType)
 		{
 			if(contentType!=null && !full.equals(contentType))
 				throw new IllegalContentTypeException(contentType);
@@ -626,7 +626,7 @@ public final class Media extends MediaPath
 			return prefix + minor.get(item);
 		}
 		
-		void map(final ArrayList values, final String contentType)
+		void map(final ArrayList<AttributeValue> values, final String contentType)
 		{
 			if(contentType!=null && !contentType.startsWith(prefix))
 				throw new IllegalContentTypeException(contentType);
@@ -687,7 +687,7 @@ public final class Media extends MediaPath
 			return major.get(item) + '/' + minor.get(item);
 		}
 		
-		void map(final ArrayList values, final String contentType)
+		void map(final ArrayList<AttributeValue> values, final String contentType)
 		{
 			values.add(this.major.map(toMajor(contentType)));
 			values.add(this.minor.map(toMinor(contentType)));

@@ -62,7 +62,7 @@ public final class MediaServlet extends HttpServlet
 {
 	private static final long serialVersionUID = 45666286198643245l;
 	
-	private final HashMap pathes = new HashMap();
+	private final HashMap<String, MediaPath> pathes = new HashMap<String, MediaPath>();
 	
 	public final void init() throws ServletException
 	{
