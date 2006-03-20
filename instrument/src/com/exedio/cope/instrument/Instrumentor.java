@@ -58,7 +58,7 @@ final class Instrumentor implements InjectionConsumer
 	 * @see #class_state
 	 * @element-type InstrumentorClass
 	 */
-	private ArrayList class_state_stack=new ArrayList();
+	private ArrayList<JavaClass> class_state_stack = new ArrayList<JavaClass>();
 	
 	/**
 	 * The last file level doccomment that was read.
