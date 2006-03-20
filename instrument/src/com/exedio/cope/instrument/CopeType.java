@@ -33,11 +33,11 @@ import com.exedio.cope.util.ClassComparator;
 
 final class CopeType
 {
-	private static final HashMap copeTypeByJavaClass = new HashMap();
+	private static final HashMap<JavaClass, CopeType> copeTypeByJavaClass = new HashMap<JavaClass, CopeType>();
 	
 	static final CopeType getCopeType(final JavaClass javaClass)
 	{
-		final CopeType result = (CopeType)copeTypeByJavaClass.get(javaClass);
+		final CopeType result = copeTypeByJavaClass.get(javaClass);
 		//System.out.println("getCopeClass "+javaClass.getFullName()+" "+(result==null?"NULL":result.getName()));
 		return result;
 	}
