@@ -49,7 +49,7 @@ final class CopeType
 	final Option initialConstructorOption;
 	final Option genericConstructorOption;
 
-	private final ArrayList features = new ArrayList();
+	private final ArrayList<CopeFeature> features = new ArrayList<CopeFeature>();
 	private final TreeMap featureMap = new TreeMap();
 	
 	public CopeType(
@@ -162,7 +162,7 @@ final class CopeType
 		return (CopeFeature)featureMap.get(name);
 	}
 	
-	public List getFeatures()
+	public List<CopeFeature> getFeatures()
 	{
 		assert !javaClass.file.repository.isBuildStage();
 		return Collections.unmodifiableList(features);
@@ -202,9 +202,8 @@ final class CopeType
 			constructorExceptions.addAll(superclass.getConstructorExceptions());
 		}
 		
-		for(Iterator i = getFeatures().iterator(); i.hasNext(); )
+		for(final CopeFeature feature : getFeatures())
 		{
-			final CopeFeature feature = (CopeFeature)i.next();
 			if(feature instanceof CopeAttribute)
 			{
 				final CopeAttribute attribute = (CopeAttribute)feature;
