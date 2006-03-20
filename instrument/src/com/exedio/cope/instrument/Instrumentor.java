@@ -203,13 +203,13 @@ final class Instrumentor implements InjectionConsumer
 	{
 		final List initializerArguments = ja.getInitializerArguments();
 		//System.out.println(initializerArguments);
-		final ArrayList copeAttributes = new ArrayList(initializerArguments.size());
+		final ArrayList<String> copeAttributes = new ArrayList<String>(initializerArguments.size());
 		
 		for(Iterator i = initializerArguments.iterator(); i.hasNext(); )
 			copeAttributes.add((String)i.next());
 
 		new CopeUniqueConstraint(ja,
-			(String[])copeAttributes.toArray(new String[copeAttributes.size()]));
+			copeAttributes.toArray(new String[copeAttributes.size()]));
 	}
 	
 	private final void handleQualifier(final JavaAttribute ja, final Class typeClass)
