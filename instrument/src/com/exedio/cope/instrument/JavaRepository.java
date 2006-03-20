@@ -51,7 +51,7 @@ final class JavaRepository
 	
 	private boolean generateStage = false;
 	
-	private final ArrayList files = new ArrayList();
+	private final ArrayList<JavaFile> files = new ArrayList<JavaFile>();
 	private final HashMap copeTypeByShortClassName = new HashMap();
 	private final HashMap classOfCopeTypeByFullClassName = new HashMap();
 	private final HashMap enumValueClassByFullClassName = new HashMap();
@@ -85,7 +85,7 @@ final class JavaRepository
 		files.add(file);
 	}
 	
-	final List getFiles()
+	final List<JavaFile> getFiles()
 	{
 		assert !buildStage;
 		return files;
