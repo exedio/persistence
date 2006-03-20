@@ -771,8 +771,8 @@ final class Injector
 		
 		char imc;
 		char extendsOrImplements = '-';
-		final ArrayList classExtends = new ArrayList();
-		final ArrayList classImplements = new ArrayList();
+		final ArrayList<String> classExtends = new ArrayList<String>();
+		final ArrayList<String> classImplements = new ArrayList<String>();
 		while((imc=readToken()) != '{')
 		{
 			if(imc=='\0')
