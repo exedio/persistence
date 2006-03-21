@@ -37,9 +37,9 @@ public final class Qualifier extends Pattern
 {
 	private final ItemAttribute parent;
 	private final FunctionAttribute[] keys;
-	private final List keyList;
+	private final List<FunctionAttribute> keyList;
 	private final UniqueConstraint qualifyUnique;
-	private List attributes;
+	private List<Attribute> attributes;
 
 	public Qualifier(final UniqueConstraint qualifyUnique)
 	{
@@ -69,10 +69,7 @@ public final class Qualifier extends Pattern
 		return parent;
 	}
 
-	/**
-	 * @return a list of {@link FunctionAttribute}s.
-	 */
-	public final List getKeys()
+	public final List<FunctionAttribute> getKeys()
 	{
 		return keyList;
 	}
@@ -100,7 +97,7 @@ public final class Qualifier extends Pattern
 		this.attributes = Collections.unmodifiableList(attributesModifiyable);
 	}
 
-	public final List getAttributes()
+	public final List<Attribute> getAttributes()
 	{
 		if(this.attributes==null)
 			throw new RuntimeException();

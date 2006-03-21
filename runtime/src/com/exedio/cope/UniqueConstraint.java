@@ -30,7 +30,7 @@ public final class UniqueConstraint extends Feature
 {
 	
 	private final FunctionAttribute[] uniqueAttributes;
-	private final List uniqueAttributeList;
+	private final List<FunctionAttribute> uniqueAttributeList;
 	private String databaseID;
 
 	private UniqueConstraint(final FunctionAttribute[] uniqueAttributes)
@@ -59,10 +59,7 @@ public final class UniqueConstraint extends Feature
 		this(new FunctionAttribute[]{uniqueAttribute1, uniqueAttribute2, uniqueAttribute3});
 	}
 	
-	/**
-	 * @return a list of {@link FunctionAttribute}s.
-	 */
-	public final List getUniqueAttributes()
+	public final List<FunctionAttribute> getUniqueAttributes()
 	{
 		return uniqueAttributeList;
 	}
