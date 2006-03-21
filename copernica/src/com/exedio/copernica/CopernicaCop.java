@@ -144,7 +144,7 @@ abstract class CopernicaCop extends Cop implements RequestCache
 		return offName;
 	}
 
-	private HashMap itemDisplayNames = null;
+	private HashMap<Item, String> itemDisplayNames = null;
 	//private int itemDisplayNamesHits = 0;
 	//private int itemDisplayNamesMisses = 0;
 	
@@ -154,11 +154,11 @@ abstract class CopernicaCop extends Cop implements RequestCache
 		{
 			if(itemDisplayNames==null)
 			{
-				itemDisplayNames = new HashMap();
+				itemDisplayNames = new HashMap<Item, String>();
 			}
 			else
 			{
-				final String cachedResult = (String)itemDisplayNames.get(item);
+				final String cachedResult = itemDisplayNames.get(item);
 				if(cachedResult!=null)
 				{
 					//itemDisplayNamesHits++;
@@ -178,7 +178,7 @@ abstract class CopernicaCop extends Cop implements RequestCache
 		}
 	}
 	
-	private HashMap enumDisplayNames = null;
+	private HashMap<Enum, String> enumDisplayNames = null;
 	//private int enumDisplayNamesHits = 0;
 	//private int enumDisplayNamesMisses = 0;
 	
@@ -186,11 +186,11 @@ abstract class CopernicaCop extends Cop implements RequestCache
 	{
 		if(enumDisplayNames==null)
 		{
-			enumDisplayNames = new HashMap();
+			enumDisplayNames = new HashMap<Enum, String>();
 		}
 		else
 		{
-			final String cachedResult = (String)enumDisplayNames.get(enumerationValue);
+			final String cachedResult = enumDisplayNames.get(enumerationValue);
 			if(cachedResult!=null)
 			{
 				//enumDisplayNamesHits++;
