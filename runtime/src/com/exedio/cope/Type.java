@@ -381,7 +381,7 @@ public final class Type
 	 * and including this type itself,
 	 * which are not abstract.
 	 */
-	final List getTypesOfInstances()
+	final List<Type> getTypesOfInstances()
 	{
 		if(typesOfInstances==null)
 			throw new RuntimeException();
@@ -485,7 +485,7 @@ public final class Type
 	 * Naming of this method is inspired by Java Reflection API
 	 * method {@link Class#getDeclaredFields() getDeclaredFields}.
 	 */
-	public final List getDeclaredAttributes()
+	public final List<Attribute> getDeclaredAttributes()
 	{
 		return declaredAttributes;
 	}
@@ -527,7 +527,7 @@ public final class Type
 		return (Feature)featuresByName.get(name);
 	}
 
-	public final List getDeclaredUniqueConstraints()
+	public final List<UniqueConstraint> getDeclaredUniqueConstraints()
 	{
 		return declaredUniqueConstraints;
 	}
