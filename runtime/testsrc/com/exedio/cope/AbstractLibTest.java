@@ -56,7 +56,7 @@ public abstract class AbstractLibTest extends CopeTest
 	protected boolean oracle;
 	protected boolean cache;
 	
-	private final ArrayList files = new ArrayList();
+	private final ArrayList<File> files = new ArrayList<File>();
 	private TestByteArrayInputStream testStream;
 	
 	protected void setUp() throws Exception
