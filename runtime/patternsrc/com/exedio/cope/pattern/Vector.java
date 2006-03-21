@@ -77,7 +77,7 @@ public final class Vector extends Pattern
 		}
 	}
 	
-	public final List getSources()
+	public final List<FunctionAttribute> getSources()
 	{
 		return Collections.unmodifiableList(Arrays.asList(sources));
 	}
