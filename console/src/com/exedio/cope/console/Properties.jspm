@@ -25,6 +25,7 @@ import java.io.PrintStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Iterator;
+import java.util.Set;
 import java.util.TreeSet;
 
 import com.exedio.cope.Properties;
@@ -135,9 +136,8 @@ final class Properties_Jspm
 				<th colspan="2">Connection.getMetaData()</th>
 			</tr><%
 
-			for(Iterator i = new TreeSet(properties.keySet()).iterator(); i.hasNext(); )
+			for(final String name : new TreeSet<String>(castTreeSet(properties.keySet())))
 			{
-				final String name = (String)i.next();
 			%>
 			<tr>
 				<th><%=name%></th>
@@ -146,6 +146,12 @@ final class Properties_Jspm
 			}
 			%>
 		</table><%
+	}
+	
+	@SuppressWarnings("unchecked")
+	private static final Set<String> castTreeSet(final Set o)
+	{
+		return (Set<String>)o;
 	}
 
 	private static final String[] TEST_INFO_KEYS = new String[] {
