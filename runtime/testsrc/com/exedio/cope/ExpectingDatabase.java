@@ -47,7 +47,7 @@ public class ExpectingDatabase extends WrappingDatabase
 		super.load( connection, state );
 	}
 
-	public ArrayList search(Connection connection, Query query, boolean doCountOnly)
+	public ArrayList<Object> search(Connection connection, Query query, boolean doCountOnly)
 	{
 		nextExpectedCall().checkSearch( connection, query );
 		return super.search( connection, query, doCountOnly );
