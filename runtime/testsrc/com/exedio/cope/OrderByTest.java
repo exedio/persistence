@@ -167,14 +167,14 @@ public class OrderByTest extends TestmodelTest
 		assertOrder(list(), list(), item.someNotNullInteger, 0, 0);
 	}
 	
-	private void assertOrder(final List expectedOrder, final FunctionAttribute orderFunction)
+	private void assertOrder(final List<? extends Object> expectedOrder, final FunctionAttribute orderFunction)
 	{
-		final List expectedReverseOrder = new ArrayList(expectedOrder);
+		final List<? extends Object> expectedReverseOrder = new ArrayList<Object>(expectedOrder);
 		Collections.reverse(expectedReverseOrder);
 		assertOrder(expectedOrder, expectedReverseOrder, orderFunction, 0, -1);
 	}
 	
-	private void assertOrder(final List expectedOrder, final List expectedReverseOrder,
+	private void assertOrder(final List<? extends Object> expectedOrder, final List<? extends Object> expectedReverseOrder,
 													final FunctionAttribute orderFunction,
 													final int limitStart, final int limitCount)
 	{
@@ -213,8 +213,8 @@ public class OrderByTest extends TestmodelTest
 			else
 				query2.setLimit(limitStart, limitCount);
 			
-			final ArrayList expected = new ArrayList(expectedOrder.size());
-			for(Iterator i = expectedOrder.iterator(); i.hasNext(); )
+			final ArrayList<String> expected = new ArrayList<String>(expectedOrder.size());
+			for(Iterator<? extends Object> i = expectedOrder.iterator(); i.hasNext(); )
 				expected.add(((AttributeItem)i.next()).getSomeNotNullString());
 
 			assertEquals(expected, query2.search());
