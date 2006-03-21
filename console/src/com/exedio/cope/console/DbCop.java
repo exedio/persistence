@@ -61,7 +61,7 @@ final class DbCop extends AdminCop
 	
 	private final HashMap[] makeTestedDatabases()
 	{
-		final java.util.Properties p = new Properties();
+		final Properties p = new Properties();
 		InputStream in = null;
 		try
 		{
@@ -92,7 +92,7 @@ final class DbCop extends AdminCop
 			}
 		}
 		
-		final TreeMap testedDatabases = new TreeMap();
+		final TreeMap<String, HashMap<String, Object>> testedDatabases = new TreeMap<String, HashMap<String, Object>>();
 		for(Iterator i = p.keySet().iterator(); i.hasNext(); )
 		{
 			final String name = (String)i.next();
@@ -103,10 +103,10 @@ final class DbCop extends AdminCop
 				throw new RuntimeException(name);
 			
 			final String databaseName = name.substring(0, nameDot);
-			HashMap database = (HashMap)testedDatabases.get(databaseName);
+			HashMap<String, Object> database = testedDatabases.get(databaseName);
 			if(database==null)
 			{
-				database = new HashMap();
+				database = new HashMap<String, Object>();
 				database.put("name", databaseName);
 				testedDatabases.put(databaseName, database);
 			}
@@ -114,10 +114,10 @@ final class DbCop extends AdminCop
 			final String key = name.substring(nameDot+1);
 			if(key.startsWith("cope."))
 			{
-				TreeMap previousValue = (TreeMap)database.get("cope.properties");
+				TreeMap<String, String> previousValue = castTreeMap(database.get("cope.properties"));
 				if(previousValue==null)
 				{
-					previousValue = new TreeMap();
+					previousValue = new TreeMap<String, String>();
 					database.put("cope.properties", previousValue);
 				}
 				previousValue.put(key.substring("cope.".length()), value);
@@ -126,7 +126,14 @@ final class DbCop extends AdminCop
 				database.put(key, value);
 		}
 		
-		return (HashMap[])testedDatabases.values().toArray(new HashMap[0]);
+		return testedDatabases.values().toArray(new HashMap[0]);
 	}
+	
+	@SuppressWarnings("unchecked")
+	private static final TreeMap<String, String> castTreeMap(final Object o)
+	{
+		return (TreeMap<String, String>)o;
+	}
+	
 	
 }
