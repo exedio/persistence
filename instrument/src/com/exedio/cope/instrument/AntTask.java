@@ -26,12 +26,13 @@ import java.util.Iterator;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Task;
+import org.apache.tools.ant.types.DataType;
 import org.apache.tools.ant.types.FileList;
 import org.apache.tools.ant.types.FileSet;
 
 public final class AntTask extends Task
 {
-	private final ArrayList fileSetsOrLists = new ArrayList();
+	private final ArrayList<DataType> fileSetsOrLists = new ArrayList<DataType>();
 	private boolean verbose = true;
 
 	public void addFileset(final FileSet fileSet)
@@ -54,8 +55,8 @@ public final class AntTask extends Task
 		try
 		{
 			final Project project = getProject();
-			final ArrayList sourcefiles = new ArrayList();
-			final HashSet sourcefileSet = new HashSet();
+			final ArrayList<File> sourcefiles = new ArrayList<File>();
+			final HashSet<File> sourcefileSet = new HashSet<File>();
 			
 			for(final Iterator i = fileSetsOrLists.iterator(); i.hasNext(); )
 			{
