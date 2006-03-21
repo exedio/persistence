@@ -467,12 +467,9 @@ public final class Type
 	}
 	
 
-	/**
-	 * @return a list of {@link ItemAttribute}s.
-	 */
-	public final List getReferences()
+	public final List<ItemAttribute> getReferences()
 	{
-		return references==null ? Collections.EMPTY_LIST : Collections.unmodifiableList(references);
+		return references==null ? Collections.<ItemAttribute>emptyList() : Collections.unmodifiableList(references);
 	}
 
 	/**
