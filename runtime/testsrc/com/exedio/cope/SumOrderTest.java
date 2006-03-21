@@ -49,13 +49,13 @@ public class SumOrderTest extends TestmodelTest
 		assertOrder(list(item2, item1, item3), item1.sum12);
 	}
 
-	private void assertOrder(final List expectedOrder, final Function searchFunction)
+	private void assertOrder(final List<? extends Object> expectedOrder, final Function searchFunction)
 	{
 		final Query query = new Query(item1.TYPE, null);
 		query.setOrderBy(searchFunction, true);
 		assertEquals(expectedOrder, query.search());
 
-		final List expectedReverseOrder = new ArrayList(expectedOrder);
+		final List<? extends Object> expectedReverseOrder = new ArrayList<Object>(expectedOrder);
 		Collections.reverse(expectedReverseOrder);
 		query.setOrderBy(searchFunction, false);
 		assertEquals(expectedReverseOrder, query.search());
