@@ -15,15 +15,15 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
+
 package com.exedio.copernica;
 
 import java.util.Collection;
 
+import com.exedio.cope.Attribute;
+
 public interface CopernicaSection extends Component
 {
-	/**
-	 * @return a collection of {@link com.exedio.cope.Attribute attributes}.
-	 */
-	Collection getCopernicaAttributes();
+	Collection<? extends Attribute> getCopernicaAttributes();
 	
 }

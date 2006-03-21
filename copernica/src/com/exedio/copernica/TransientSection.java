@@ -15,6 +15,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
+
 package com.exedio.copernica;
 
 import java.util.Arrays;
@@ -29,7 +30,7 @@ public class TransientSection
 	extends TransientComponent
 	implements CopernicaSection
 {
-	private final List attributes;
+	private final List<? extends Attribute> attributes;
 	private final HashMap names = new HashMap();
 	
 	public TransientSection(final String id, final Attribute[] attributes)
@@ -38,7 +39,7 @@ public class TransientSection
 		this.attributes = Collections.unmodifiableList(Arrays.asList(attributes));
 	}
 	
-	public Collection getCopernicaAttributes()
+	public Collection<? extends Attribute> getCopernicaAttributes()
 	{
 		return attributes;
 	}

@@ -77,7 +77,7 @@ final class ItemForm extends Form
 	/*TODO final*/ boolean hasFiles;
 	boolean toSave = false;
 	final CopernicaSection currentSection;
-	final List displayedAttributes;
+	final List<Attribute> displayedAttributes;
 	boolean deleted = false;
 	String deletedName = null;
 	String deletedError = null;
@@ -90,7 +90,7 @@ final class ItemForm extends Form
 		this.type = item.getCopeType();
 		final CopernicaProvider provider = cop.provider;
 		final Model model = provider.getModel();
-		final List hiddenAttributes;
+		final List<Attribute> hiddenAttributes;
 		final Collection sections = provider.getSections(type);
 		final ArrayList visibleFields = new ArrayList();
 
@@ -128,13 +128,13 @@ final class ItemForm extends Form
 					currentSection = firstSection;
 			}
 
-			displayedAttributes = new ArrayList(provider.getMainAttributes(type));
-			hiddenAttributes = new ArrayList();
+			displayedAttributes = new ArrayList<Attribute>(provider.getMainAttributes(type));
+			hiddenAttributes = new ArrayList<Attribute>();
 			for(Iterator i = sections.iterator(); i.hasNext(); )
 			{
 				final CopernicaSection section = (CopernicaSection)i.next();
 				new Section(section.getCopernicaID(), section.getCopernicaName(cop.language));
-				final Collection sectionAttributes = section.getCopernicaAttributes();
+				final Collection<? extends Attribute> sectionAttributes = section.getCopernicaAttributes();
 				if(section.equals(currentSection))
 					displayedAttributes.addAll(sectionAttributes);
 				else
@@ -145,9 +145,9 @@ final class ItemForm extends Form
 		{
 			currentSection = null;
 			displayedAttributes = type.getAttributes();
-			hiddenAttributes = Collections.EMPTY_LIST;
+			hiddenAttributes = Collections.<Attribute>emptyList();
 		}
-		final ArrayList attributes = new ArrayList(displayedAttributes.size()+hiddenAttributes.size());
+		final ArrayList<Attribute> attributes = new ArrayList<Attribute>(displayedAttributes.size()+hiddenAttributes.size());
 		attributes.addAll(displayedAttributes);
 		attributes.addAll(hiddenAttributes);
 
@@ -457,7 +457,7 @@ final class ItemForm extends Form
 
 	private void save()
 	{
-		final ArrayList attributeValues = new ArrayList();
+		final ArrayList<AttributeValue> attributeValues = new ArrayList<AttributeValue>();
 		
 		for(Iterator i = getFields().iterator(); i.hasNext(); )
 		{
@@ -497,7 +497,7 @@ final class ItemForm extends Form
 		}
 		try
 		{
-			item.set((AttributeValue[])attributeValues.toArray(new AttributeValue[attributeValues.size()]));
+			item.set(attributeValues.toArray(new AttributeValue[attributeValues.size()]));
 		}
 		catch(MandatoryViolationException e)
 		{

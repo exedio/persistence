@@ -15,20 +15,17 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
+
 package com.exedio.copernica;
 
 import java.util.Collection;
 
+import com.exedio.cope.Type;
+
 public interface CopernicaCategory extends Component
 {
-	/**
-	 * @return a collection of {@link CopernicaCategory categories}.
-	 */
-	public Collection getCopernicaSubCategories();
+	public Collection<? extends CopernicaCategory> getCopernicaSubCategories();
 	
-	/**
-	 * @return a collection of {@link com.exedio.cope.Type types}.
-	 */
-	public Collection getCopernicaTypes();
+	public Collection<Type> getCopernicaTypes();
 	
 }

@@ -25,6 +25,7 @@ import java.util.Collection;
 import javax.servlet.ServletConfig;
 import javax.servlet.http.HttpServletRequest;
 
+import com.exedio.cope.Attribute;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
@@ -40,25 +41,13 @@ public interface CopernicaProvider
 	 */
 	void initialize(ServletConfig config);
 	
-	/**
-	 * @return a collection of {@link CopernicaLanguage languages}.
-	 */
-	Collection getDisplayLanguages();
+	Collection<? extends CopernicaLanguage> getDisplayLanguages();
 	
-	/**
-	 * @return a collection of {@link CopernicaCategory categories}.
-	 */
-	Collection getRootCategories();
+	Collection<? extends CopernicaCategory> getRootCategories();
 	
-	/**
-	 * @return a collection of {@link com.exedio.cope.Attribute attributes}.
-	 */
-	Collection getMainAttributes(Type type);
+	Collection<? extends Attribute> getMainAttributes(Type type);
 
-	/**
-	 * @return a collection of {@link CopernicaSection sections}.
-	 */
-	Collection getSections(Type type);
+	Collection<? extends CopernicaSection> getSections(Type type);
 	
 	String getDisplayNameNull(CopernicaLanguage displayLanguage);
 

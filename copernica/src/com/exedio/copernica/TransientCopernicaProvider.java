@@ -29,9 +29,10 @@ import java.util.List;
 import javax.servlet.ServletConfig;
 import javax.servlet.http.HttpServletRequest;
 
+import com.exedio.cope.Attribute;
 import com.exedio.cope.Feature;
-import com.exedio.cope.Item;
 import com.exedio.cope.FunctionAttribute;
+import com.exedio.cope.Item;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.util.ServletUtil;
@@ -59,11 +60,11 @@ public abstract class TransientCopernicaProvider implements CopernicaProvider
 		transientLanguages = result;
 	}
 
-	public Collection getDisplayLanguages()
+	public Collection<? extends CopernicaLanguage> getDisplayLanguages()
 	{
 		return
 			transientLanguages == null
-				? Collections.EMPTY_LIST
+				? Collections.<TransientLanguage>emptyList()
 				: transientLanguages.values();
 	}
 	
@@ -97,34 +98,34 @@ public abstract class TransientCopernicaProvider implements CopernicaProvider
 				: transientUsers.get(copernicaID);
 	}
 	
-	public Collection getRootCategories()
+	public Collection<CopernicaCategory> getRootCategories()
 	{
-		return Collections.EMPTY_LIST;
+		return Collections.<CopernicaCategory>emptyList();
 	}
 	
 	// Transient Sections
 	
-	private HashMap<Type, Collection> transientMainAttributes = null;
-	private HashMap<Type, Collection> transientSections = null;
+	private HashMap<Type, Collection<? extends Attribute>> transientMainAttributes = null;
+	private HashMap<Type, Collection<? extends CopernicaSection>> transientSections = null;
 	
-	protected final void setSections(final Type type, final Collection mainAttributes, final Collection sections)
+	protected final void setSections(final Type type, final Collection<? extends Attribute> mainAttributes, final Collection<? extends CopernicaSection> sections)
 	{
 		if(transientMainAttributes==null)
 		{
-			transientMainAttributes = new HashMap<Type, Collection>();
-			transientSections = new HashMap<Type, Collection>();
+			transientMainAttributes = new HashMap<Type, Collection<? extends Attribute>>();
+			transientSections = new HashMap<Type, Collection<? extends CopernicaSection>>();
 		}
 
 		transientMainAttributes.put(type, mainAttributes);
 		transientSections.put(type, sections);
 	}
 	
-	public Collection getMainAttributes(final Type type)
+	public Collection<? extends Attribute> getMainAttributes(final Type type)
 	{
 		return transientMainAttributes==null ? null : transientMainAttributes.get(type);
 	}
 	
-	public Collection getSections(final Type type)
+	public Collection<? extends CopernicaSection> getSections(final Type type)
 	{
 		return transientSections==null ? null : transientSections.get(type);
 	}
