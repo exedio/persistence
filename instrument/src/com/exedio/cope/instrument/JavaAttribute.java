@@ -80,6 +80,7 @@ final class JavaAttribute
 	private final StringBuffer currentArgument = new StringBuffer();
 	private int bracketLevel = 0;
 	
+	@SuppressWarnings("fallthrough")
 	public void addToken(final char token)
 	{
 		switch(token)

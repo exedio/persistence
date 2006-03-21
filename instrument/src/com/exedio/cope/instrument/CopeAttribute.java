@@ -203,7 +203,7 @@ abstract class CopeAttribute extends CopeFeature
 		writeGeneratedModifier(o, setterOption.getModifier(modifier));
 	}
 	
-	private SortedSet setterExceptions = null;
+	private SortedSet<Class> setterExceptions = null;
 
 	final SortedSet<Class> getSetterExceptions()
 	{
@@ -237,7 +237,7 @@ abstract class CopeAttribute extends CopeFeature
 	}
 
 
-	private SortedSet exceptionsToCatchInSetter = null;
+	private SortedSet<Class> exceptionsToCatchInSetter = null;
 
 	/**
 	 * Compute exceptions to be caught in the setter.
@@ -250,7 +250,7 @@ abstract class CopeAttribute extends CopeFeature
 		if(exceptionsToCatchInSetter!=null)
 			return exceptionsToCatchInSetter;
 
-		final TreeSet result = new TreeSet(ClassComparator.getInstance());
+		final TreeSet<Class> result = new TreeSet<Class>(ClassComparator.getInstance());
 		fillExceptionsThrownByGenericSetter(result);
 		result.removeAll(getSetterExceptions());
 		
@@ -266,18 +266,18 @@ abstract class CopeAttribute extends CopeFeature
 		result.add(FinalViolationException.class);
 	}
 
-	private SortedSet toucherExceptions = null;
+	private SortedSet<Class> toucherExceptions = null;
 
 	final SortedSet<Class> getToucherExceptions()
 	{
+		if(toucherExceptions!=null)
+			return toucherExceptions;
+		
 		final Feature instance = getInstance();
 		final boolean isfinal = instance instanceof Attribute && ((Attribute)instance).isFinal();
 		final boolean unique = instance instanceof FunctionAttribute && !((FunctionAttribute)instance).getUniqueConstraints().isEmpty();
 
-		if(toucherExceptions!=null)
-			return toucherExceptions;
-		
-		final TreeSet modifyableToucherExceptions = new TreeSet(ClassComparator.getInstance());
+		final TreeSet<Class> modifyableToucherExceptions = new TreeSet<Class>(ClassComparator.getInstance());
 		
 		if(unique)
 			modifyableToucherExceptions.add(UniqueViolationException.class);
@@ -288,7 +288,7 @@ abstract class CopeAttribute extends CopeFeature
 		return this.toucherExceptions;
 	}
 
-	private SortedSet exceptionsToCatchInToucher = null;
+	private SortedSet<Class> exceptionsToCatchInToucher = null;
 
 	/**
 	 * Compute exceptions to be caught in the toucher.
@@ -301,7 +301,7 @@ abstract class CopeAttribute extends CopeFeature
 		if(exceptionsToCatchInToucher!=null)
 			return exceptionsToCatchInToucher;
 
-		final TreeSet result = new TreeSet(ClassComparator.getInstance());
+		final TreeSet<Class> result = new TreeSet<Class>(ClassComparator.getInstance());
 		result.add(UniqueViolationException.class);
 		result.add(FinalViolationException.class);
 		result.removeAll(getSetterExceptions());
