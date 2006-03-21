@@ -243,7 +243,7 @@ public final class Query
 	 * Any attempts to modify the returned collection, whether direct or via its iterator,
 	 * result in an <code>UnsupportedOperationException</code>.
 	 */
-	public final Collection search()
+	public final Collection<? extends Object> search()
 	{
 		check();
 		
@@ -251,7 +251,7 @@ public final class Query
 		{
 			if(makeStatementInfo)
 				addStatementInfo(new StatementInfo("skipped search because limitCount==0"));
-			return Collections.EMPTY_LIST;
+			return Collections.<Object>emptyList();
 		}
 		
 		return model.getCurrentTransaction().search(
@@ -259,7 +259,7 @@ public final class Query
 		);
 	}
 	
-	Collection searchUncached()
+	Collection<? extends Object> searchUncached()
 	{
 		return Collections.unmodifiableList(model.getDatabase().search(model.getCurrentTransaction().getConnection(), this, false));
 	}

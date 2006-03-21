@@ -154,7 +154,7 @@ public final class Transaction
 		}		
 	}
 	
-	final Collection search( Query query )
+	final Collection<? extends Object> search( Query query )
 	{
 		if ( !model.getCache().supportsQueryCaching() || isInvalidated(query) )
 		{

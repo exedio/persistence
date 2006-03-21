@@ -145,17 +145,17 @@ final class Cache
 		return queryCaches!=null;
 	}
 	
-	Collection search( Query query )
+	Collection<? extends Object> search(final Query query)
 	{
 		if ( queryCaches==null )
 		{
 			throw new RuntimeException( "search in cache must not be called if query caching is disabled" );
 		}
 		Query.Key key = new Query.Key( query );
-		Collection result;
+		Collection<? extends Object> result;
 		synchronized ( queryCaches )
 		{
-			result = (Collection)queryCaches.get( key );
+			result = castQC(queryCaches.get(key));
 		}
 		if ( result==null )
 		{
@@ -184,6 +184,12 @@ final class Cache
 		}
 		
 		return result;		
+	}
+	
+	@SuppressWarnings("unchecked")
+	private static final Collection<? extends Object> castQC(final Object o)
+	{
+		return (Collection<? extends Object>)o;
 	}
 	
 	void invalidate( int transientTypeNumber, IntOpenHashSet invalidatedPKs )

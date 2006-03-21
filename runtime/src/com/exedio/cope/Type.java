@@ -582,12 +582,12 @@ public final class Type
 	 * result in an <code>UnsupportedOperationException</code>.
 	 * @param condition the condition the searched items must match.
 	 */
-	public final Collection search(final Condition condition)
+	public final Collection<? extends Object> search(final Condition condition)
 	{
 		return new Query(this, condition).search();
 	}
 	
-	public final Collection search(final Condition condition, final Function orderBy, final boolean ascending)
+	public final Collection<? extends Object> search(final Condition condition, final Function orderBy, final boolean ascending)
 	{
 		final Query query = new Query(this, condition);
 		query.setOrderBy(orderBy, ascending);
