@@ -50,6 +50,8 @@ import com.exedio.cops.CopsServlet;
 
 public class InitServlet extends CopsServlet
 {
+	private static final long serialVersionUID = 328658236589653l;
+	
 	final static String ENCODING = "utf-8";
 
 	protected void doRequest(
