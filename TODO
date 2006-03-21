@@ -21,6 +21,7 @@
 			+ skipping db searches at all
 		- oracle statistics
 		- group by / aggregates
+		- virtual attribute for this (pk), useful for searching/sorting etc.
 	- Transactions: introduce timestamp and use it in
 		* Item#touch
 		* timestamp of data files
