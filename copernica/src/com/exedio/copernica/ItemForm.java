@@ -92,7 +92,7 @@ final class ItemForm extends Form
 		final Model model = provider.getModel();
 		final List<Attribute> hiddenAttributes;
 		final Collection sections = provider.getSections(type);
-		final ArrayList visibleFields = new ArrayList();
+		final ArrayList<Field> visibleFields = new ArrayList<Field>();
 
 		boolean sectionButton = false;
 		if(sections!=null)
