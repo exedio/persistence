@@ -39,7 +39,7 @@ import java.util.List;
 public abstract class View extends Feature implements Function
 {
 	private final Function[] sources;
-	private final List sourceList;
+	private final List<Function> sourceList;
 	private final String functionName;
 	final int jdbcType;
 	final Type sourceType;
@@ -63,7 +63,7 @@ public abstract class View extends Feature implements Function
 		this.sourceType = sourceType;
 	}
 	
-	public final List getSources()
+	public final List<Function> getSources()
 	{
 		return sourceList;
 	}
