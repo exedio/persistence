@@ -635,12 +635,12 @@ public class StringTest extends TestmodelTest
 		}
 	}
 	
-	protected static Collection search(final FunctionAttribute selectAttribute)
+	protected static Collection<? extends Object> search(final FunctionAttribute selectAttribute)
 	{
 		return search(selectAttribute, null);
 	}
 	
-	protected static Collection search(final FunctionAttribute selectAttribute, final Condition condition)
+	protected static Collection<? extends Object> search(final FunctionAttribute selectAttribute, final Condition condition)
 	{
 		return new Query(selectAttribute, condition).search();
 	}
