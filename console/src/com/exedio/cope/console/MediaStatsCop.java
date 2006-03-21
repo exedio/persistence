@@ -42,7 +42,7 @@ final class MediaStatsCop extends AdminCop
 
 	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request) throws IOException
 	{
-		final ArrayList medias = new ArrayList();
+		final ArrayList<MediaPath> medias = new ArrayList<MediaPath>();
 
 		for(Iterator i = model.getTypes().iterator(); i.hasNext(); )
 		{
@@ -50,9 +50,7 @@ final class MediaStatsCop extends AdminCop
 			for(final Feature feature : type.getDeclaredFeatures())
 			{
 				if(feature instanceof MediaPath)
-				{
-					medias.add(feature);
-				}
+					medias.add((MediaPath)feature);
 			}
 		}
 

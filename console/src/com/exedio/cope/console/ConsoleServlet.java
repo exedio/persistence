@@ -58,6 +58,8 @@ import com.exedio.cops.ResourceSet;
  */
 public final class ConsoleServlet extends CopsServlet
 {
+	private static final long serialVersionUID = 2386582365846l;
+	
 	final static String ENCODING = "utf-8";
 
 	Model model = null;
