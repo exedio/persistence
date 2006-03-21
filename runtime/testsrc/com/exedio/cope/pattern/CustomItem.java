@@ -94,7 +94,7 @@ public final class CustomItem extends Item
 	{
 		List get(final Integer element1, final Integer element2, final Integer element3)
 		{
-			final ArrayList result = new ArrayList(3);
+			final ArrayList<Integer> result = new ArrayList<Integer>(3);
 			result.add(element1);
 			result.add(element2);
 			result.add(element3);

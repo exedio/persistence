@@ -39,7 +39,7 @@ public abstract class CustomAttribute
 	implements Settable
 {
 	private final FunctionAttribute[] storages;
-	private final List storageList;
+	private final List<FunctionAttribute> storageList;
 	private final Method getter;
 	private final Method setter;
 	private final Class valueType;
@@ -101,7 +101,7 @@ public abstract class CustomAttribute
 		this.valueType = getter.getReturnType();
 	}
 	
-	public final List getStorages()
+	public final List<FunctionAttribute> getStorages()
 	{
 		return storageList;
 	}
