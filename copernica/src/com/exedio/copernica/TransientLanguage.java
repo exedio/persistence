@@ -27,7 +27,7 @@ public class TransientLanguage
 	final String onName;
 	final String offName;
 
-	final HashMap enumerationValueNames = new HashMap();
+	final HashMap<Enum, String> enumerationValueNames = new HashMap<Enum, String>();
 	
 	public TransientLanguage(final String id, final String nullName, final String onName, final String offName)
 	{

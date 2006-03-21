@@ -15,6 +15,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
+
 package com.exedio.copernica;
 
 import java.util.HashMap;
@@ -22,7 +23,7 @@ import java.util.HashMap;
 public class TransientComponent implements Component
 {
 	private final String id;
-	private final HashMap names = new HashMap();
+	private final HashMap<TransientLanguage, String> names = new HashMap<TransientLanguage, String>();
 	
 	TransientComponent(final String id)
 	{
@@ -42,12 +43,12 @@ public class TransientComponent implements Component
 	public String getCopernicaName(final CopernicaLanguage displayLanguage)
 	{
 		{
-			final String name = (String)names.get(displayLanguage);
+			final String name = names.get(displayLanguage);
 			if(name!=null)
 				return name;
 		}
 		{
-			final String name = (String)names.get(this);
+			final String name = names.get(this);
 			if(name!=null)
 				return name;
 		}

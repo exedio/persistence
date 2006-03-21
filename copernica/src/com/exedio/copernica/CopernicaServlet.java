@@ -72,6 +72,8 @@ import com.exedio.cops.ResourceSet;
  */
 public final class CopernicaServlet extends CopsServlet
 {
+	private static final long serialVersionUID = 8236598236451l;
+	
 	final static String ENCODING = "utf-8";
 
 	CopernicaProvider provider = null;

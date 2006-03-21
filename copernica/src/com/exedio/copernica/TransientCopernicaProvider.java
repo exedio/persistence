@@ -15,6 +15,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
+
 package com.exedio.copernica;
 
 import java.io.IOException;
@@ -46,11 +47,11 @@ public abstract class TransientCopernicaProvider implements CopernicaProvider
 	
 	// Transient Languages
 	
-	private HashMap transientLanguages = null;
+	private HashMap<String, TransientLanguage> transientLanguages = null;
 	
 	protected final void setTransientLanguages(final TransientLanguage[] languages)
 	{
-		final HashMap result = new HashMap(languages.length);
+		final HashMap<String, TransientLanguage> result = new HashMap<String, TransientLanguage>(languages.length);
 		
 		for(int i = 0; i<languages.length; i++)
 			result.put(languages[i].getCopernicaID(), languages[i]);
@@ -71,16 +72,16 @@ public abstract class TransientCopernicaProvider implements CopernicaProvider
 		return
 			transientLanguages == null
 				? null
-				: (TransientLanguage)transientLanguages.get(copernicaID);
+				: transientLanguages.get(copernicaID);
 	}
 	
 	// Transient Users
 	
-	private HashMap transientUsers = null;
+	private HashMap<String, TransientUser> transientUsers = null;
 	
 	protected final void setTransientUsers(final TransientUser[] users)
 	{
-		final HashMap result = new HashMap(users.length);
+		final HashMap<String, TransientUser> result = new HashMap<String, TransientUser>(users.length);
 		
 		for(int i = 0; i<users.length; i++)
 			result.put(users[i].id, users[i]);
@@ -93,7 +94,7 @@ public abstract class TransientCopernicaProvider implements CopernicaProvider
 		return
 			transientUsers == null
 				? null
-				: (TransientUser)transientUsers.get(copernicaID);
+				: transientUsers.get(copernicaID);
 	}
 	
 	public Collection getRootCategories()
@@ -103,15 +104,15 @@ public abstract class TransientCopernicaProvider implements CopernicaProvider
 	
 	// Transient Sections
 	
-	private HashMap transientMainAttributes = null;
-	private HashMap transientSections = null;
+	private HashMap<Type, Collection> transientMainAttributes = null;
+	private HashMap<Type, Collection> transientSections = null;
 	
 	protected final void setSections(final Type type, final Collection mainAttributes, final Collection sections)
 	{
 		if(transientMainAttributes==null)
 		{
-			transientMainAttributes = new HashMap();
-			transientSections = new HashMap();
+			transientMainAttributes = new HashMap<Type, Collection>();
+			transientSections = new HashMap<Type, Collection>();
 		}
 
 		transientMainAttributes.put(type, mainAttributes);
@@ -120,12 +121,12 @@ public abstract class TransientCopernicaProvider implements CopernicaProvider
 	
 	public Collection getMainAttributes(final Type type)
 	{
-		return transientMainAttributes==null ? null : (Collection)transientMainAttributes.get(type);
+		return transientMainAttributes==null ? null : transientMainAttributes.get(type);
 	}
 	
 	public Collection getSections(final Type type)
 	{
-		return transientSections==null ? null : (Collection)transientSections.get(type);
+		return transientSections==null ? null : transientSections.get(type);
 	}
 	
 	public static final String breakupName(final String name)
@@ -235,7 +236,7 @@ public abstract class TransientCopernicaProvider implements CopernicaProvider
 		if(displayLanguage instanceof TransientLanguage)
 		{
 			final TransientLanguage transientLanguage = (TransientLanguage)displayLanguage;
-			final String name = (String)transientLanguage.enumerationValueNames.get(value);
+			final String name = transientLanguage.enumerationValueNames.get(value);
 			if(name!=null)
 				return name;
 		}
