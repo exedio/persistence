@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class ExpectingDatabase extends WrappingDatabase
 {
-	private List expectedCalls = null;
+	private List<Call> expectedCalls = null;
 	
 	public ExpectingDatabase( Database nested )
 	{
@@ -53,11 +53,11 @@ public class ExpectingDatabase extends WrappingDatabase
 		return super.search( connection, query, doCountOnly );
 	}
 
-	private List getExpectedCalls()
+	private List<Call> getExpectedCalls()
 	{
 		if ( expectedCalls==null ) 
 		{
-			expectedCalls = new LinkedList();
+			expectedCalls = new LinkedList<Call>();
 		}
 		return expectedCalls;
 	}
@@ -65,7 +65,7 @@ public class ExpectingDatabase extends WrappingDatabase
 	public void expectNoCall()
 	{
 		if ( expectedCalls!=null ) throw new RuntimeException( expectedCalls.toString() );
-		expectedCalls = Collections.EMPTY_LIST;
+		expectedCalls = Collections.<Call>emptyList();
 	}
 	
 	public void expectLoad( Transaction tx, Item item )
@@ -94,7 +94,7 @@ public class ExpectingDatabase extends WrappingDatabase
 		{
 			throw new RuntimeException( "no more calls expected" );
 		}
-		return (Call)expectedCalls.remove(0);
+		return expectedCalls.remove(0);
 	}
 	
 	/**
