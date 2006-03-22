@@ -6,7 +6,6 @@
 	- JDK 1.5
 		- generics for all collections and maps
 		- enums for DeletePolicy
-		- generics for Item/Enum-Attribute
 		- use integer database version of JDBC connection
 	- default values for attributes
 	- constraints
