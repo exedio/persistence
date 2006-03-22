@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -32,20 +33,15 @@ import com.exedio.cope.search.LessEqualCondition;
 
 public final class EnumAttribute<E extends Enum> extends FunctionAttribute
 {
-	private final Class<E> enumClass;
 	
-	private EnumAttribute(final boolean isfinal, final boolean mandatory, final boolean unique, final Class<E> enumClass)
+	private EnumAttribute(final boolean isfinal, final boolean mandatory, final boolean unique)
 	{
-		super(isfinal, mandatory, unique, enumClass);
-		this.enumClass = enumClass;
-		if(!Enum.class.isAssignableFrom(enumClass))
-			throw new RuntimeException("is not a subclass of " + Enum.class.getName() + ": "+enumClass.getName());
-
+		super(isfinal, mandatory, unique);
 	}
 	
-	public EnumAttribute(final Option option, final Class<E> enumClass)
+	public EnumAttribute(final Option option)
 	{
-		this(option.isFinal, option.mandatory, option.unique, enumClass);
+		this(option.isFinal, option.mandatory, option.unique);
 	}
 	
 	private List<E> values = null;
@@ -53,15 +49,21 @@ public final class EnumAttribute<E extends Enum> extends FunctionAttribute
 	private HashMap<E, Integer> valuesToNumbers = null;
 	private HashMap<String, E> codesToValues = null;
 	
-	void initialize(final Type type, final String name)
+	@Override
+	Class initialize(final java.lang.reflect.Type genericType)
 	{
-		super.initialize(type, name);
+		final java.lang.reflect.Type[] enumClasses = ((ParameterizedType)genericType).getActualTypeArguments();
+		if(enumClasses.length!=1)
+			throw new RuntimeException("not a valid type for EnumAttribute: " + genericType);
+		final Class enumClass = (Class)enumClasses[0];
+		if(!Enum.class.isAssignableFrom(enumClass))
+			throw new RuntimeException("is not a subclass of " + Enum.class.getName() + ": "+enumClass.getName());
 		
 		final ArrayList<E> values = new ArrayList<E>();
 		final IntKeyOpenHashMap numbersToValues = new IntKeyOpenHashMap();
 		final HashMap<E, Integer> valuesToNumbers = new HashMap<E, Integer>();
 		final HashMap<String, E> codesToValues = new HashMap<String, E>();
-		final E[] enumConstants = enumClass.getEnumConstants();
+		final E[] enumConstants = (E[])enumClass.getEnumConstants();
 		for(int j = 0; j<enumConstants.length; j++)
 		{
 			final E enumConstant = enumConstants[j];
@@ -83,11 +85,13 @@ public final class EnumAttribute<E extends Enum> extends FunctionAttribute
 		this.numbersToValues = numbersToValues;
 		this.valuesToNumbers = valuesToNumbers;
 		this.codesToValues = codesToValues;
+		
+		return enumClass;
 	}
 	
 	public FunctionAttribute copyFunctionAttribute()
 	{
-		return new EnumAttribute<E>(isfinal, mandatory, implicitUniqueConstraint!=null, enumClass);
+		return new EnumAttribute<E>(isfinal, mandatory, implicitUniqueConstraint!=null);
 	}
 	
 	public List<E> getValues()

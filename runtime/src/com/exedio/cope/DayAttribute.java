@@ -29,7 +29,7 @@ public final class DayAttribute extends FunctionAttribute
 	
 	private DayAttribute(final boolean isfinal, final boolean mandatory, final boolean unique)
 	{
-		super(isfinal, mandatory, unique, Day.class);
+		super(isfinal, mandatory, unique);
 	}
 	
 	public DayAttribute(final Option option)
@@ -40,6 +40,12 @@ public final class DayAttribute extends FunctionAttribute
 	public FunctionAttribute copyFunctionAttribute()
 	{
 		return new DayAttribute(isfinal, mandatory, implicitUniqueConstraint!=null);
+	}
+	
+	@Override
+	Class initialize(final java.lang.reflect.Type genericType)
+	{
+		return Day.class;
 	}
 	
 	Column createColumn(final Table table, final String name, final boolean notNull)

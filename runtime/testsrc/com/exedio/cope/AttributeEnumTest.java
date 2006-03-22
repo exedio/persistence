@@ -91,25 +91,6 @@ public class AttributeEnumTest extends AttributeTest
 				throw new RuntimeException("Ooooops");
 		}
 		assertEquals(someEnumeration, AttributeItem.SomeEnum.enumValue2);
-		
-		try
-		{
-			new EnumAttribute(Item.OPTIONAL, null);
-			fail();
-		}
-		catch(NullPointerException e)
-		{
-			// fine
-		}
-		try
-		{
-			new EnumAttribute(Item.OPTIONAL, getClass());
-			fail();
-		}
-		catch(RuntimeException e)
-		{
-			assertEquals("is not a subclass of java.lang.Enum: "+getClass().getName(), e.getMessage());
-		}
 
 
 		assertEquals(null, item.getSomeEnum());

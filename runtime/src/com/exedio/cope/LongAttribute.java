@@ -28,7 +28,7 @@ public final class LongAttribute extends FunctionAttribute
 
 	private LongAttribute(final boolean isfinal, final boolean mandatory, final boolean unique)
 	{
-		super(isfinal, mandatory, unique, Long.class);
+		super(isfinal, mandatory, unique);
 	}
 	
 	public LongAttribute(final Option option)
@@ -39,6 +39,12 @@ public final class LongAttribute extends FunctionAttribute
 	public FunctionAttribute copyFunctionAttribute()
 	{
 		return new LongAttribute(isfinal, mandatory, implicitUniqueConstraint!=null);
+	}
+	
+	@Override
+	Class initialize(final java.lang.reflect.Type genericType)
+	{
+		return Long.class;
 	}
 	
 	Column createColumn(final Table table, final String name, final boolean notNull)

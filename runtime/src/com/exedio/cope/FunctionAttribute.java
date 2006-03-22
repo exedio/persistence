@@ -28,27 +28,32 @@ public abstract class FunctionAttribute
 	extends Attribute
 	implements Function, Settable
 {
-	private final Class<?> valueClass;
 	final UniqueConstraint implicitUniqueConstraint;
 	private ArrayList<UniqueConstraint> uniqueConstraints;
 	
-	FunctionAttribute(final boolean isfinal, final boolean mandatory, final boolean unique, final Class valueClass)
+	FunctionAttribute(final boolean isfinal, final boolean mandatory, final boolean unique)
 	{
 		super(isfinal, mandatory);
-		this.valueClass = valueClass;
 		this.implicitUniqueConstraint =
 			unique ?
 				new UniqueConstraint((FunctionAttribute)this) :
 				null;
 	}
 	
-	void initialize(final Type type, final String name)
+	private Class<?> valueClass;
+	
+	@Override
+	final void initialize(final Type type, final String name, final java.lang.reflect.Type genericType)
 	{
-		super.initialize(type, name);
+		super.initialize(type, name, genericType);
 		
 		if(implicitUniqueConstraint!=null)
-			implicitUniqueConstraint.initialize(type, name + UniqueConstraint.IMPLICIT_UNIQUE_SUFFIX);
+			implicitUniqueConstraint.initialize(type, name + UniqueConstraint.IMPLICIT_UNIQUE_SUFFIX, genericType);
+		
+		valueClass = initialize(genericType);
 	}
+	
+	abstract Class initialize(java.lang.reflect.Type genericType);
 	
 	public abstract FunctionAttribute copyFunctionAttribute();
 	abstract Object get(Row row);

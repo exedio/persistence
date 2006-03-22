@@ -32,7 +32,7 @@ public class EnumItem extends Item
 		status3;
 	}
 	
-	public static final EnumAttribute<Status> status = new EnumAttribute<Status>(MANDATORY, Status.class);
+	public static final EnumAttribute<Status> status = new EnumAttribute<Status>(MANDATORY);
 
 	
 /**

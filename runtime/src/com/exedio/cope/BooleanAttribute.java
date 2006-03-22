@@ -25,7 +25,7 @@ public final class BooleanAttribute extends FunctionAttribute
 
 	private BooleanAttribute(final boolean isfinal, final boolean mandatory, final boolean unique)
 	{
-		super(isfinal, mandatory, unique, Boolean.class);
+		super(isfinal, mandatory, unique);
 	}
 	
 	public BooleanAttribute(final Option option)
@@ -36,6 +36,12 @@ public final class BooleanAttribute extends FunctionAttribute
 	public FunctionAttribute copyFunctionAttribute()
 	{
 		return new BooleanAttribute(isfinal, mandatory, implicitUniqueConstraint!=null);
+	}
+	
+	@Override
+	Class initialize(final java.lang.reflect.Type genericType)
+	{
+		return Boolean.class;
 	}
 	
 	Column createColumn(final Table table, final String name, final boolean notNull)

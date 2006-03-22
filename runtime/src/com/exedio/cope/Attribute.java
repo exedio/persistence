@@ -87,9 +87,9 @@ public abstract class Attribute extends Feature
 
 	private Column column;
 	
-	void initialize(final Type type, final String name)
+	void initialize(final Type type, final String name, final java.lang.reflect.Type genericType)
 	{
-		super.initialize(type, name);
+		super.initialize(type, name, genericType);
 		
 		final ArrayList<Pattern> patterns = patternsWhileTypeInitialization;
 		patternsWhileTypeInitialization = null;

@@ -142,12 +142,13 @@ public abstract class View extends Feature implements Function
 
 	// second initialization phase ---------------------------------------------------
 
-	final void initialize(final Type type, final String name)
+	@Override
+	final void initialize(final Type type, final String name, final java.lang.reflect.Type genericType)
 	{
 		if(sourceType!=null && type!=sourceType)
 			throw new RuntimeException();
 			
-		super.initialize(type, name);
+		super.initialize(type, name, genericType);
 	}
 	
 	public final Type getType()

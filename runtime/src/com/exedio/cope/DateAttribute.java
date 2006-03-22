@@ -30,7 +30,7 @@ public final class DateAttribute extends FunctionAttribute
 
 	private DateAttribute(final boolean isfinal, final boolean mandatory, final boolean unique)
 	{
-		super(isfinal, mandatory, unique, Date.class);
+		super(isfinal, mandatory, unique);
 	}
 	
 	public DateAttribute(final Option option)
@@ -41,6 +41,12 @@ public final class DateAttribute extends FunctionAttribute
 	public FunctionAttribute copyFunctionAttribute()
 	{
 		return new DateAttribute(isfinal, mandatory, implicitUniqueConstraint!=null);
+	}
+	
+	@Override
+	Class initialize(final java.lang.reflect.Type genericType)
+	{
+		return Date.class;
 	}
 	
 	Column createColumn(final Table table, final String name, final boolean notNull)

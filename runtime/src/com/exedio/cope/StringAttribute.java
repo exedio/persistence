@@ -36,7 +36,7 @@ public final class StringAttribute extends FunctionAttribute implements StringFu
 			final boolean isfinal, final boolean mandatory, final boolean unique,
 			final int minimumLength, final int maximumLength)
 	{
-		super(isfinal, mandatory, unique, String.class);
+		super(isfinal, mandatory, unique);
 		this.minimumLength = minimumLength;
 		this.maximumLength = maximumLength;
 
@@ -74,6 +74,12 @@ public final class StringAttribute extends FunctionAttribute implements StringFu
 	public FunctionAttribute copyFunctionAttribute()
 	{
 		return new StringAttribute(isfinal, mandatory, implicitUniqueConstraint!=null, minimumLength, maximumLength);
+	}
+	
+	@Override
+	Class initialize(final java.lang.reflect.Type genericType)
+	{
+		return String.class;
 	}
 	
 	public StringAttribute lengthRange(final int minimumLength, final int maximumLength)

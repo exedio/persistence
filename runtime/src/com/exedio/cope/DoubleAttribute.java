@@ -28,7 +28,7 @@ public final class DoubleAttribute extends FunctionAttribute
 
 	private DoubleAttribute(final boolean isfinal, final boolean mandatory, final boolean unique)
 	{
-		super(isfinal, mandatory, unique, Double.class);
+		super(isfinal, mandatory, unique);
 	}
 	
 	public DoubleAttribute(final Option option)
@@ -39,6 +39,12 @@ public final class DoubleAttribute extends FunctionAttribute
 	public FunctionAttribute copyFunctionAttribute()
 	{
 		return new DoubleAttribute(isfinal, mandatory, implicitUniqueConstraint!=null);
+	}
+	
+	@Override
+	Class initialize(final java.lang.reflect.Type genericType)
+	{
+		return Double.class;
 	}
 	
 	Column createColumn(final Table table, final String name, final boolean notNull)

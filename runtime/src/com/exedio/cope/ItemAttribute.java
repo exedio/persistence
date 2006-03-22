@@ -27,7 +27,7 @@ public final class ItemAttribute extends FunctionAttribute
 
 	private ItemAttribute(final boolean isfinal, final boolean mandatory, final boolean unique, final Class<? extends Item> targetTypeClass, final DeletePolicy policy)
 	{
-		super(isfinal, mandatory, unique, targetTypeClass);
+		super(isfinal, mandatory, unique);
 		this.targetTypeClass = targetTypeClass;
 		this.policy = policy;
 		if(targetTypeClass==null)
@@ -58,6 +58,12 @@ public final class ItemAttribute extends FunctionAttribute
 	public FunctionAttribute copyFunctionAttribute()
 	{
 		return new ItemAttribute(isfinal, mandatory, implicitUniqueConstraint!=null, targetTypeClass, policy);
+	}
+	
+	@Override
+	Class initialize(final java.lang.reflect.Type genericType)
+	{
+		return targetTypeClass;
 	}
 	
 	private Type targetType = null;
