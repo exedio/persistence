@@ -346,13 +346,13 @@ final class ItemForm extends Form
 	{
 		private static final String VALUE_NULL = "null";
 
-		final EnumAttribute attribute;
+		final EnumAttribute<? extends Enum> attribute;
 		final Enum content;
 
 		/**
 		 * Constructs a form field with an initial value.
 		 */
-		EnumField(final EnumAttribute attribute, final Enum value, final ItemCop cop)
+		EnumField(final EnumAttribute<? extends Enum> attribute, final Enum value, final ItemCop cop)
 		{
 			super(ItemForm.this, attribute, attribute.getName(), (value==null) ? VALUE_NULL : value.name());
 			

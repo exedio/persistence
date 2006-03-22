@@ -34,7 +34,7 @@ public class QualifiedIntegerEnumQualifier extends Item
 	public static final ItemAttribute up = new ItemAttribute(FINAL, QualifiedItem.class, CASCADE);
 	
 	public static final IntegerAttribute keyX = new IntegerAttribute(FINAL);
-	public static final EnumAttribute keyY = new EnumAttribute(FINAL, KeyEnum.class);
+	public static final EnumAttribute<KeyEnum> keyY = new EnumAttribute<KeyEnum>(FINAL, KeyEnum.class);
 	
 	public static final UniqueConstraint qualifyUnique = new UniqueConstraint(up, keyX, keyY);
 	
@@ -122,7 +122,7 @@ public class QualifiedIntegerEnumQualifier extends Item
 	 */
 	public final KeyEnum getKeyY()
 	{
-		return (KeyEnum)QualifiedIntegerEnumQualifier.keyY.get(this);
+		return QualifiedIntegerEnumQualifier.keyY.get(this);
 	}/**
 
 	 **

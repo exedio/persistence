@@ -22,14 +22,18 @@ import java.util.List;
 
 final class CopeObjectAttribute extends CopeAttribute
 {
+	final boolean cast;
+	
 	public CopeObjectAttribute(
 			final JavaAttribute javaAttribute,
 			final Class typeClass,
 			final List<String> initializerArguments,
-			final String docComment)
+			final String docComment,
+			final boolean cast)
 		throws InjectorParseException
 	{
 		super(javaAttribute, typeClass, getPersistentType(initializerArguments), initializerArguments, docComment);
+		this.cast = cast;
 	}
 	
 	private static final String getPersistentType(final List initializerArguments)

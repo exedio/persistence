@@ -185,7 +185,7 @@ final class Instrumentor implements InjectionConsumer
 		{
 			new CopeObjectAttribute(
 				ja, typeClass,
-				initializerArguments, docComment);
+				initializerArguments, docComment, !EnumAttribute.class.equals(typeClass));
 		}
 		else if(DataAttribute.class.equals(typeClass))
 		{

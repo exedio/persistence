@@ -1032,7 +1032,7 @@ final class Generator
 	throws IOException
 	{
 		o.write("\t\treturn ");
-		if(attribute instanceof CopeObjectAttribute)
+		if(attribute instanceof CopeObjectAttribute && ((CopeObjectAttribute)attribute).cast)
 		{
 			o.write('(');
 			o.write(attribute.persistentType);

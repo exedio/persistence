@@ -122,12 +122,12 @@ public class AttributeItem extends Item
 	/**
 	 * An enumeration attribute
 	 */
-	public static final EnumAttribute someEnum = new EnumAttribute(OPTIONAL, SomeEnum.class);
+	public static final EnumAttribute<SomeEnum> someEnum = new EnumAttribute<SomeEnum>(OPTIONAL, SomeEnum.class);
 
 	/**
 	 * A mandatory enumeration attribute
 	 */
-	public static final EnumAttribute someNotNullEnum = new EnumAttribute(MANDATORY, SomeEnum.class);
+	public static final EnumAttribute<SomeEnum> someNotNullEnum = new EnumAttribute<SomeEnum>(MANDATORY, SomeEnum.class);
 
 	/**
 	 * A data attribute.
@@ -530,7 +530,7 @@ public class AttributeItem extends Item
 	 */
 	public final SomeEnum getSomeEnum()
 	{
-		return (SomeEnum)AttributeItem.someEnum.get(this);
+		return AttributeItem.someEnum.get(this);
 	}/**
 
 	 **
@@ -550,7 +550,7 @@ public class AttributeItem extends Item
 	 */
 	public final SomeEnum getSomeNotNullEnum()
 	{
-		return (SomeEnum)AttributeItem.someNotNullEnum.get(this);
+		return AttributeItem.someNotNullEnum.get(this);
 	}/**
 
 	 **

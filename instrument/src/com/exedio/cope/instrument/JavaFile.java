@@ -154,6 +154,10 @@ final class JavaFile
 		
 		buildStageForImports=false;
 		
+		final int lt = typename.indexOf('<');
+		if(lt>=0)
+			typename = typename.substring(0, lt);
+			
 		try
 		{
 			return externalNameSpace.getClass(typename);

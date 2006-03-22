@@ -30,29 +30,29 @@ import com.exedio.cope.search.GreaterEqualCondition;
 import com.exedio.cope.search.LessCondition;
 import com.exedio.cope.search.LessEqualCondition;
 
-public final class EnumAttribute extends FunctionAttribute
+public final class EnumAttribute<E extends Enum> extends FunctionAttribute
 {
 	private final Class enumClass;
-	private final List<Enum> values;
+	private final List<E> values;
 	private final IntKeyOpenHashMap numbersToValues;
-	private final HashMap<Enum, Integer> valuesToNumbers;
-	private final HashMap<String, Enum> codesToValues;
+	private final HashMap<E, Integer> valuesToNumbers;
+	private final HashMap<String, E> codesToValues;
 	
-	private EnumAttribute(final boolean isfinal, final boolean mandatory, final boolean unique, final Class enumClass)
+	private EnumAttribute(final boolean isfinal, final boolean mandatory, final boolean unique, final Class<E> enumClass)
 	{
 		super(isfinal, mandatory, unique, enumClass);
 		this.enumClass = enumClass;
 		if(!Enum.class.isAssignableFrom(enumClass))
 			throw new RuntimeException("is not a subclass of " + Enum.class.getName() + ": "+enumClass.getName());
 
-		final ArrayList<Enum> values = new ArrayList<Enum>();
+		final ArrayList<E> values = new ArrayList<E>();
 		final IntKeyOpenHashMap numbersToValues = new IntKeyOpenHashMap();
-		final HashMap<Enum, Integer> valuesToNumbers = new HashMap<Enum, Integer>();
-		final HashMap<String, Enum> codesToValues = new HashMap<String, Enum>();
-		final Object[] enumConstants = enumClass.getEnumConstants();
+		final HashMap<E, Integer> valuesToNumbers = new HashMap<E, Integer>();
+		final HashMap<String, E> codesToValues = new HashMap<String, E>();
+		final E[] enumConstants = enumClass.getEnumConstants();
 		for(int j = 0; j<enumConstants.length; j++)
 		{
-			final Enum enumConstant = (Enum)enumConstants[j];
+			final E enumConstant = enumConstants[j];
 			final String code = enumConstant.name();
 			final int number = (enumConstant.ordinal() + 1) * 10;
 			values.add(enumConstant);
@@ -73,36 +73,37 @@ public final class EnumAttribute extends FunctionAttribute
 		this.codesToValues = codesToValues;
 	}
 	
-	public EnumAttribute(final Option option, final Class enumClass)
+	public EnumAttribute(final Option option, final Class<E> enumClass)
 	{
 		this(option.isFinal, option.mandatory, option.unique, enumClass);
 	}
 	
 	public FunctionAttribute copyFunctionAttribute()
 	{
-		return new EnumAttribute(isfinal, mandatory, implicitUniqueConstraint!=null, enumClass);
+		return new EnumAttribute<E>(isfinal, mandatory, implicitUniqueConstraint!=null, enumClass);
 	}
 	
-	public List<Enum> getValues()
+	public List<E> getValues()
 	{
 		return values;
 	}
 	
-	private Enum getValue(final int number)
+	@SuppressWarnings("unchecked")
+	private E getValue(final int number)
 	{
-		final Enum result = (Enum)numbersToValues.get(number);
+		final E result = (E)numbersToValues.get(number);
 		assert result!=null : toString() + number;
 		return result;
 	}
 
-	private Integer getNumber(final Enum value)
+	private Integer getNumber(final E value)
 	{
 		final Integer result = valuesToNumbers.get(value);
 		assert result!=null : toString() + value;
 		return result;
 	}
 
-	public Enum getValue(final String code)
+	public E getValue(final String code)
 	{
 		//System.out.println("EnumerationValue#getValue("+code+") from "+codesToValues);
 		return codesToValues.get(code);
@@ -112,7 +113,7 @@ public final class EnumAttribute extends FunctionAttribute
 	{
 		final int[] allowedValues = new int[values.size()];
 		int in = 0;
-		for(Enum value : values)
+		for(E value : values)
 			allowedValues[in++] = getNumber(value).intValue();
 
 		return new IntegerColumn(table, name, notNull, 10, false, allowedValues);
@@ -127,17 +128,19 @@ public final class EnumAttribute extends FunctionAttribute
 				getValue(((Integer)cell).intValue());
 	}
 		
+	@SuppressWarnings("unchecked")
 	void set(final Row row, final Object surface)
 	{
-		row.put(getColumn(), surface==null ? null : getNumber((Enum)surface));
+		row.put(getColumn(), surface==null ? null : getNumber((E)surface));
 	}
 	
-	public final Enum get(final Item item)
+	@SuppressWarnings("unchecked")
+	public final E get(final Item item)
 	{
-		return (Enum)getObject(item);
+		return (E)getObject(item);
 	}
 	
-	public final void set(final Item item, final Enum value)
+	public final void set(final Item item, final E value)
 		throws
 			UniqueViolationException,
 			MandatoryViolationException,
@@ -153,37 +156,37 @@ public final class EnumAttribute extends FunctionAttribute
 		}
 	}
 
-	public final AttributeValue map(final Enum value)
+	public final AttributeValue map(final E value)
 	{
 		return new AttributeValue(this, value);
 	}
 	
-	public final EqualCondition equal(final Enum value)
+	public final EqualCondition equal(final E value)
 	{
 		return new EqualCondition(this, value);
 	}
 	
-	public final NotEqualCondition notEqual(final Enum value)
+	public final NotEqualCondition notEqual(final E value)
 	{
 		return new NotEqualCondition(this, value);
 	}
 	
-	public final LessCondition less(final Enum value)
+	public final LessCondition less(final E value)
 	{
 		return new LessCondition(this, value);
 	}
 	
-	public final LessEqualCondition lessOrEqual(final Enum value)
+	public final LessEqualCondition lessOrEqual(final E value)
 	{
 		return new LessEqualCondition(this, value);
 	}
 	
-	public final GreaterCondition greater(final Enum value)
+	public final GreaterCondition greater(final E value)
 	{
 		return new GreaterCondition(this, value);
 	}
 	
-	public final GreaterEqualCondition greaterOrEqual(final Enum value)
+	public final GreaterEqualCondition greaterOrEqual(final E value)
 	{
 		return new GreaterEqualCondition(this, value);
 	}

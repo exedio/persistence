@@ -32,7 +32,7 @@ public class EnumItem extends Item
 		status3;
 	}
 	
-	public static final EnumAttribute status = new EnumAttribute(MANDATORY, Status.class);
+	public static final EnumAttribute<Status> status = new EnumAttribute<Status>(MANDATORY, Status.class);
 
 	
 /**
@@ -82,7 +82,7 @@ public class EnumItem extends Item
 	 */
 	public final Status getStatus()
 	{
-		return (Status)EnumItem.status.get(this);
+		return EnumItem.status.get(this);
 	}/**
 
 	 **
