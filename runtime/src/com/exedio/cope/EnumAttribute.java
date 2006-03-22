@@ -32,11 +32,7 @@ import com.exedio.cope.search.LessEqualCondition;
 
 public final class EnumAttribute<E extends Enum> extends FunctionAttribute
 {
-	private final Class enumClass;
-	private final List<E> values;
-	private final IntKeyOpenHashMap numbersToValues;
-	private final HashMap<E, Integer> valuesToNumbers;
-	private final HashMap<String, E> codesToValues;
+	private final Class<E> enumClass;
 	
 	private EnumAttribute(final boolean isfinal, final boolean mandatory, final boolean unique, final Class<E> enumClass)
 	{
@@ -45,6 +41,22 @@ public final class EnumAttribute<E extends Enum> extends FunctionAttribute
 		if(!Enum.class.isAssignableFrom(enumClass))
 			throw new RuntimeException("is not a subclass of " + Enum.class.getName() + ": "+enumClass.getName());
 
+	}
+	
+	public EnumAttribute(final Option option, final Class<E> enumClass)
+	{
+		this(option.isFinal, option.mandatory, option.unique, enumClass);
+	}
+	
+	private List<E> values = null;
+	private IntKeyOpenHashMap numbersToValues = null;
+	private HashMap<E, Integer> valuesToNumbers = null;
+	private HashMap<String, E> codesToValues = null;
+	
+	void initialize(final Type type, final String name)
+	{
+		super.initialize(type, name);
+		
 		final ArrayList<E> values = new ArrayList<E>();
 		final IntKeyOpenHashMap numbersToValues = new IntKeyOpenHashMap();
 		final HashMap<E, Integer> valuesToNumbers = new HashMap<E, Integer>();
@@ -73,11 +85,6 @@ public final class EnumAttribute<E extends Enum> extends FunctionAttribute
 		this.codesToValues = codesToValues;
 	}
 	
-	public EnumAttribute(final Option option, final Class<E> enumClass)
-	{
-		this(option.isFinal, option.mandatory, option.unique, enumClass);
-	}
-	
 	public FunctionAttribute copyFunctionAttribute()
 	{
 		return new EnumAttribute<E>(isfinal, mandatory, implicitUniqueConstraint!=null, enumClass);
@@ -85,6 +92,7 @@ public final class EnumAttribute<E extends Enum> extends FunctionAttribute
 	
 	public List<E> getValues()
 	{
+		assert values!=null;
 		return values;
 	}
 	

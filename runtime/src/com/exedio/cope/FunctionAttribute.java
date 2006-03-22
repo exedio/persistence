@@ -42,7 +42,7 @@ public abstract class FunctionAttribute
 				null;
 	}
 	
-	final void initialize(final Type type, final String name)
+	void initialize(final Type type, final String name)
 	{
 		super.initialize(type, name);
 		
