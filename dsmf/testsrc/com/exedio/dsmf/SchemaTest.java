@@ -114,8 +114,7 @@ public abstract class SchemaTest extends TestCase
 
 		public Connection getConnection() throws SQLException
 		{
-			final Connection result =	connections.get(connections.size()-1);
-			connections.remove(connections.size()-1);
+			final Connection result = connections.remove(connections.size()-1);
 			return result;
 		}
 
