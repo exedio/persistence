@@ -28,6 +28,7 @@ public final class JavaView extends Pattern
 {
 	private Method getter;
 	private Class valueType;
+	private java.lang.reflect.Type valueGenericType;
 	
 	public JavaView()
 	{}
@@ -54,6 +55,7 @@ public final class JavaView extends Pattern
 
 		this.getter = getter;
 		this.valueType = getter.getReturnType();
+		this.valueGenericType = getter.getGenericReturnType();
 	}
 	
 	public Class getValueType()
@@ -62,10 +64,10 @@ public final class JavaView extends Pattern
 		return valueType;
 	}
 	
-	public Method getValueGetterMethod()
+	public java.lang.reflect.Type getValueGenericType()
 	{
-		assert getter!=null;
-		return getter;
+		assert valueGenericType!=null;
+		return valueGenericType;
 	}
 	
 	public Object get(final Item item)

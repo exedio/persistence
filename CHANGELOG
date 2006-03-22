@@ -1,0 +1,9 @@
+CURRENT
+
+API CHANGE
+	replaced JavaView#getValueGetterMethod by getValueGenericType
+	this was a hack to make generics available in projects using JDK 1.5
+	without making cope require JDK 1.5. This obsolete, since cope now
+	requires JDK 1.5 anyway.
+
+build 1777

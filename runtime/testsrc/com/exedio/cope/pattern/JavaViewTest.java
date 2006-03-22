@@ -18,7 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import java.lang.reflect.Method;
 import java.util.Arrays;
 
 import com.exedio.cope.AbstractLibTest;
@@ -44,8 +43,6 @@ public class JavaViewTest extends AbstractLibTest
 	
 	public void testNumber() throws NoSuchMethodException
 	{
-		final Method getterMethod = item.getClass().getMethod("getNumber", (Class[])null);
-		
 		assertEquals(Arrays.asList(new Feature[]{
 				item.numberString,
 				item.number,
@@ -56,7 +53,7 @@ public class JavaViewTest extends AbstractLibTest
 		assertEquals("number", item.number.getName());
 		assertEqualsUnmodifiable(list(), item.numberString.getPatterns());
 		assertEquals(Double.class, item.number.getValueType());
-		assertEquals(getterMethod, item.number.getValueGetterMethod());
+		assertEquals(Double.class, item.number.getValueGenericType());
 
 		assertNull(item.getNumberString());
 		assertNull(item.getNumber());
