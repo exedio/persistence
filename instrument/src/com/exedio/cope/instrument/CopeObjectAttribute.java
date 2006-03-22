@@ -22,43 +22,28 @@ import java.util.List;
 
 final class CopeObjectAttribute extends CopeAttribute
 {
-	final boolean cast;
 	
 	public CopeObjectAttribute(
 			final JavaAttribute javaAttribute,
 			final Class typeClass,
 			final List<String> initializerArguments,
-			final String docComment,
-			final boolean cast)
+			final String docComment)
 		throws InjectorParseException
 	{
-		super(javaAttribute, typeClass, getPersistentType(cast, initializerArguments, javaAttribute), initializerArguments, docComment);
-		this.cast = cast;
+		super(javaAttribute, typeClass, getPersistentType(javaAttribute), initializerArguments, docComment);
 	}
 	
-	private static final String getPersistentType(final boolean cast, final List initializerArguments, final JavaAttribute javaAttribute)
+	private static final String getPersistentType(final JavaAttribute javaAttribute)
 	{
-		if(cast)
-		{
-			if(initializerArguments.size()<=1)
-				throw new RuntimeException("second argument required");
-			final String secondArgument =  (String)initializerArguments.get(1);
-			if(!secondArgument.endsWith(".class"))
-				throw new RuntimeException("second argument must end with .class: \'"+secondArgument+'\'');
-			return secondArgument.substring(0, secondArgument.length()-".class".length());
-		}
-		else
-		{
-			final String type = javaAttribute.type;
-			final int lt = type.indexOf('<');
-			if(lt<0)
-				throw new RuntimeException("type " + type + " does not contain '<'");
-			final int gt = type.indexOf('>', lt);
-			if(gt<0)
-				throw new RuntimeException("type " + type + " does not contain '<'");
-			
-			return type.substring(lt+1, gt);
-		}
+		final String type = javaAttribute.type;
+		final int lt = type.indexOf('<');
+		if(lt<0)
+			throw new RuntimeException("type " + type + " does not contain '<'");
+		final int gt = type.indexOf('>', lt);
+		if(gt<0)
+			throw new RuntimeException("type " + type + " does not contain '<'");
+		
+		return type.substring(lt+1, gt);
 	}
 
 }
