@@ -105,16 +105,16 @@ public abstract class SchemaTest extends TestCase
 	
 	private static final class SimpleConnectionProvider implements ConnectionProvider
 	{
-		final ArrayList connections;
+		final ArrayList<Connection> connections;
 		
-		SimpleConnectionProvider(final List connections)
+		SimpleConnectionProvider(final List<Connection> connections)
 		{
-			this.connections = new ArrayList(connections);
+			this.connections = new ArrayList<Connection>(connections);
 		}
 
 		public Connection getConnection() throws SQLException
 		{
-			final Connection result =  (Connection)connections.get(connections.size()-1);
+			final Connection result =	connections.get(connections.size()-1);
 			connections.remove(connections.size()-1);
 			return result;
 		}
