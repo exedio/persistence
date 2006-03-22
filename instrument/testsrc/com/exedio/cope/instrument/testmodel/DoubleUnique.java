@@ -30,7 +30,7 @@ import com.exedio.cope.instrument.testmodel.sub.SubTarget;
 public class DoubleUnique extends Item
 {
 	public static final StringAttribute string = new StringAttribute(FINAL);
-	public static final ItemAttribute item = new ItemAttribute(FINAL, SubTarget.class, CASCADE);
+	public static final ItemAttribute<SubTarget> item = new ItemAttribute<SubTarget>(FINAL, CASCADE);
 	public static final UniqueConstraint unique = new UniqueConstraint(string, item);
 	
 
@@ -98,7 +98,7 @@ public class DoubleUnique extends Item
 	 */
 	public final SubTarget getItem()
 	{
-		return (SubTarget)DoubleUnique.item.get(this);
+		return DoubleUnique.item.get(this);
 	}/**
 
 	 **

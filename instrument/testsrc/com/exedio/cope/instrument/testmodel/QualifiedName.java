@@ -29,7 +29,7 @@ import com.exedio.cope.UniqueConstraint;
  */
 public class QualifiedName extends Item
 {
-	public static final ItemAttribute parent = new ItemAttribute(OPTIONAL, Qualified.class, CASCADE);
+	public static final ItemAttribute<Qualified> parent = new ItemAttribute<Qualified>(OPTIONAL, CASCADE);
 	public static final StringAttribute key = new StringAttribute(OPTIONAL);
 	public static final UniqueConstraint parentKey = new UniqueConstraint(parent, key);
 
@@ -129,7 +129,7 @@ public class QualifiedName extends Item
 	 */
 	public final Qualified getParent()
 	{
-		return (Qualified)QualifiedName.parent.get(this);
+		return QualifiedName.parent.get(this);
 	}/**
 
 	 **

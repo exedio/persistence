@@ -30,7 +30,7 @@ import com.exedio.cope.UniqueConstraint;
  */
 public class QualifiedStringQualifier extends Item
 {
-	public static final ItemAttribute parent = new ItemAttribute(FINAL, QualifiedItem.class);
+	public static final ItemAttribute<QualifiedItem> parent = new ItemAttribute<QualifiedItem>(FINAL);
 	
 	public static final StringAttribute key = new StringAttribute(FINAL);
 	
@@ -94,7 +94,7 @@ public class QualifiedStringQualifier extends Item
 	 */
 	public final QualifiedItem getParent()
 	{
-		return (QualifiedItem)QualifiedStringQualifier.parent.get(this);
+		return QualifiedStringQualifier.parent.get(this);
 	}/**
 
 	 **

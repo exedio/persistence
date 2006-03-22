@@ -18,22 +18,18 @@
 
 package com.exedio.cope;
 
+import java.lang.reflect.ParameterizedType;
 
-public final class ItemAttribute extends FunctionAttribute
+
+public final class ItemAttribute<E extends Item> extends FunctionAttribute
 {
 
-	private final Class<? extends Item> targetTypeClass;
 	private final DeletePolicy policy;
 
-	private ItemAttribute(final boolean isfinal, final boolean mandatory, final boolean unique, final Class<? extends Item> targetTypeClass, final DeletePolicy policy)
+	private ItemAttribute(final boolean isfinal, final boolean mandatory, final boolean unique, final DeletePolicy policy)
 	{
 		super(isfinal, mandatory, unique);
-		this.targetTypeClass = targetTypeClass;
 		this.policy = policy;
-		if(targetTypeClass==null)
-			throw new RuntimeException("target type class for attribute "+this+" must not be null");
-		if(!Item.class.isAssignableFrom(targetTypeClass))
-			throw new RuntimeException("target type class "+targetTypeClass+" for attribute "+this+" must be a sub class of item");
 		if(policy==null)
 			throw new RuntimeException("delete policy for attribute "+this+" must not be null");
 		if(policy.nullify)
@@ -45,24 +41,34 @@ public final class ItemAttribute extends FunctionAttribute
 		}
 	}
 	
-	public ItemAttribute(final Option option, final Class<? extends Item> targetTypeClass)
+	public ItemAttribute(final Option option)
 	{
-		this(option, targetTypeClass, Item.FORBID);
+		this(option, Item.FORBID);
 	}
 	
-	public ItemAttribute(final Option option, final Class<? extends Item> targetTypeClass, final DeletePolicy policy)
+	public ItemAttribute(final Option option, final DeletePolicy policy)
 	{
-		this(option.isFinal, option.mandatory, option.unique, targetTypeClass, policy);
+		this(option.isFinal, option.mandatory, option.unique, policy);
 	}
 
 	public FunctionAttribute copyFunctionAttribute()
 	{
-		return new ItemAttribute(isfinal, mandatory, implicitUniqueConstraint!=null, targetTypeClass, policy);
+		return new ItemAttribute(isfinal, mandatory, implicitUniqueConstraint!=null, policy);
 	}
+	
+	private Class<? extends Item> targetTypeClass = null;
 	
 	@Override
 	Class initialize(final java.lang.reflect.Type genericType)
 	{
+		final java.lang.reflect.Type[] targetClasses = ((ParameterizedType)genericType).getActualTypeArguments();
+		if(targetClasses.length!=1)
+			throw new RuntimeException("not a valid type for ItemAttribute: " + genericType);
+		final Class targetClass = (Class)targetClasses[0];
+		if(!Item.class.isAssignableFrom(targetClass))
+			throw new RuntimeException("is not a subclass of " + Item.class.getName() + ": "+targetClass.getName());
+		
+		this.targetTypeClass = targetClass;
 		return targetTypeClass;
 	}
 	
@@ -175,12 +181,12 @@ public final class ItemAttribute extends FunctionAttribute
 		}
 	}
 	
-	public final Item get(final Item item)
+	public final E get(final Item item)
 	{
-		return (Item)getObject(item);
+		return (E)getObject(item);
 	}
 	
-	public final void set(final Item item, final Item value)
+	public final void set(final Item item, final E value)
 		throws
 			UniqueViolationException,
 			MandatoryViolationException,
@@ -196,17 +202,17 @@ public final class ItemAttribute extends FunctionAttribute
 		}
 	}
 
-	public final AttributeValue map(final Item value)
+	public final AttributeValue map(final E value)
 	{
 		return new AttributeValue(this, value);
 	}
 	
-	public final EqualCondition equal(final Item value)
+	public final EqualCondition equal(final E value)
 	{
 		return new EqualCondition(this, value);
 	}
 	
-	public final EqualCondition equal(final Item value, final Join join)
+	public final EqualCondition equal(final E value, final Join join)
 	{
 		return new EqualCondition(new JoinedFunction(this, join), value);
 	}
@@ -221,7 +227,7 @@ public final class ItemAttribute extends FunctionAttribute
 		return new EqualTargetCondition(this, targetJoin);
 	}
 	
-	public final NotEqualCondition notEqual(final Item value)
+	public final NotEqualCondition notEqual(final E value)
 	{
 		return new NotEqualCondition(this, value);
 	}

@@ -28,7 +28,7 @@ import com.exedio.cope.ItemAttribute;
 public class CollisionItem2 extends Item
 {
 
-	public static final ItemAttribute collisionAttribute = new ItemAttribute(FINAL_UNIQUE, EmptyItem.class); 
+	public static final ItemAttribute<EmptyItem> collisionAttribute = new ItemAttribute<EmptyItem>(FINAL_UNIQUE); 
 
 /**
 
@@ -79,7 +79,7 @@ public class CollisionItem2 extends Item
 	 */
 	public final EmptyItem getCollisionAttribute()
 	{
-		return (EmptyItem)CollisionItem2.collisionAttribute.get(this);
+		return CollisionItem2.collisionAttribute.get(this);
 	}/**
 
 	 **

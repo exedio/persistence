@@ -30,8 +30,8 @@ public class NameLongNameLongNameLongNameLongNameLongNameLongItem extends Item
 	public static final StringAttribute codeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName =
 		new StringAttribute(UNIQUE_OPTIONAL);
 
-	public static final ItemAttribute pointerLoooooooooooooooooooooooooooooooooooooooooooooooooooongName =
-		new ItemAttribute(OPTIONAL, NameLongNameLongNameLongNameLongNameLongNameLongItem.class, NULLIFY);
+	public static final ItemAttribute<NameLongNameLongNameLongNameLongNameLongNameLongItem> pointerLoooooooooooooooooooooooooooooooooooooooooooooooooooongName =
+		new ItemAttribute<NameLongNameLongNameLongNameLongNameLongNameLongItem>(OPTIONAL, NULLIFY);
 	
 /**
 
@@ -153,7 +153,7 @@ public class NameLongNameLongNameLongNameLongNameLongNameLongItem extends Item
 	 */
 	public final NameLongNameLongNameLongNameLongNameLongNameLongItem getPointerLoooooooooooooooooooooooooooooooooooooooooooooooooooongName()
 	{
-		return (NameLongNameLongNameLongNameLongNameLongNameLongItem)NameLongNameLongNameLongNameLongNameLongNameLongItem.pointerLoooooooooooooooooooooooooooooooooooooooooooooooooooongName.get(this);
+		return NameLongNameLongNameLongNameLongNameLongNameLongItem.pointerLoooooooooooooooooooooooooooooooooooooooooooooooooooongName.get(this);
 	}/**
 
 	 **

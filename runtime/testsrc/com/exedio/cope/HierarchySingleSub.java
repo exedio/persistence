@@ -27,7 +27,7 @@ public class HierarchySingleSub extends HierarchySingleSuper
 {
 
 	public static final StringAttribute subString = new StringAttribute(OPTIONAL);
-	public static final ItemAttribute hierarchySuper = new ItemAttribute( OPTIONAL, HierarchySuper.class );
+	public static final ItemAttribute<HierarchySuper> hierarchySuper = new ItemAttribute<HierarchySuper>(OPTIONAL);
 	
 	
 	public HierarchySingleSub(final int initialSuperInt, final String subString)
@@ -101,7 +101,7 @@ public class HierarchySingleSub extends HierarchySingleSuper
 	 */
 	public final HierarchySuper getHierarchySuper()
 	{
-		return (HierarchySuper)HierarchySingleSub.hierarchySuper.get(this);
+		return HierarchySingleSub.hierarchySuper.get(this);
 	}/**
 
 	 **

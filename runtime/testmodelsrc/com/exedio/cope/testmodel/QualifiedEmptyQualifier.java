@@ -29,9 +29,9 @@ import com.exedio.cope.UniqueConstraint;
  */
 public class QualifiedEmptyQualifier extends Item
 {
-	public static final ItemAttribute parent = new ItemAttribute(FINAL, QualifiedItem.class, CASCADE);
+	public static final ItemAttribute<QualifiedItem> parent = new ItemAttribute<QualifiedItem>(FINAL, CASCADE);
 	
-	public static final ItemAttribute key = new ItemAttribute(FINAL, EmptyItem.class);
+	public static final ItemAttribute<EmptyItem> key = new ItemAttribute<EmptyItem>(FINAL);
 	
 	public static final UniqueConstraint qualifyUnique = new UniqueConstraint(parent, key);
 	
@@ -91,7 +91,7 @@ public class QualifiedEmptyQualifier extends Item
 	 */
 	public final QualifiedItem getParent()
 	{
-		return (QualifiedItem)QualifiedEmptyQualifier.parent.get(this);
+		return QualifiedEmptyQualifier.parent.get(this);
 	}/**
 
 	 **
@@ -101,7 +101,7 @@ public class QualifiedEmptyQualifier extends Item
 	 */
 	public final EmptyItem getKey()
 	{
-		return (EmptyItem)QualifiedEmptyQualifier.key.get(this);
+		return QualifiedEmptyQualifier.key.get(this);
 	}/**
 
 	 **

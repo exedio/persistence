@@ -25,18 +25,18 @@ package com.exedio.cope;
 public class DeleteItem extends Item
 {
 
-	public static final ItemAttribute selfForbid = new ItemAttribute(OPTIONAL, DeleteItem.class);
+	public static final ItemAttribute<DeleteItem> selfForbid = new ItemAttribute<DeleteItem>(OPTIONAL);
 
-	public static final ItemAttribute selfNullify = new ItemAttribute(OPTIONAL, DeleteItem.class, NULLIFY);
+	public static final ItemAttribute<DeleteItem> selfNullify = new ItemAttribute<DeleteItem>(OPTIONAL, NULLIFY);
 
-	public static final ItemAttribute selfCascade = new ItemAttribute(OPTIONAL, DeleteItem.class, CASCADE);
-	public static final ItemAttribute selfCascade2 = new ItemAttribute(OPTIONAL, DeleteItem.class, CASCADE);
+	public static final ItemAttribute<DeleteItem> selfCascade = new ItemAttribute<DeleteItem>(OPTIONAL, CASCADE);
+	public static final ItemAttribute<DeleteItem> selfCascade2 = new ItemAttribute<DeleteItem>(OPTIONAL, CASCADE);
 	
-	public static final ItemAttribute otherForbid = new ItemAttribute(OPTIONAL, DeleteOtherItem.class);
+	public static final ItemAttribute<DeleteOtherItem> otherForbid = new ItemAttribute<DeleteOtherItem>(OPTIONAL);
 
-	public static final ItemAttribute otherNullify = new ItemAttribute(OPTIONAL, DeleteOtherItem.class, NULLIFY);
+	public static final ItemAttribute<DeleteOtherItem> otherNullify = new ItemAttribute<DeleteOtherItem>(OPTIONAL, NULLIFY);
 
-	public static final ItemAttribute otherCascade = new ItemAttribute(OPTIONAL, DeleteOtherItem.class, CASCADE);
+	public static final ItemAttribute<DeleteOtherItem> otherCascade = new ItemAttribute<DeleteOtherItem>(OPTIONAL, CASCADE);
 	
 
 	public String name = null;
@@ -94,7 +94,7 @@ public class DeleteItem extends Item
 	 */
 	public final DeleteItem getSelfForbid()
 	{
-		return (DeleteItem)DeleteItem.selfForbid.get(this);
+		return DeleteItem.selfForbid.get(this);
 	}/**
 
 	 **
@@ -114,7 +114,7 @@ public class DeleteItem extends Item
 	 */
 	public final DeleteItem getSelfNullify()
 	{
-		return (DeleteItem)DeleteItem.selfNullify.get(this);
+		return DeleteItem.selfNullify.get(this);
 	}/**
 
 	 **
@@ -134,7 +134,7 @@ public class DeleteItem extends Item
 	 */
 	public final DeleteItem getSelfCascade()
 	{
-		return (DeleteItem)DeleteItem.selfCascade.get(this);
+		return DeleteItem.selfCascade.get(this);
 	}/**
 
 	 **
@@ -154,7 +154,7 @@ public class DeleteItem extends Item
 	 */
 	public final DeleteItem getSelfCascade2()
 	{
-		return (DeleteItem)DeleteItem.selfCascade2.get(this);
+		return DeleteItem.selfCascade2.get(this);
 	}/**
 
 	 **
@@ -174,7 +174,7 @@ public class DeleteItem extends Item
 	 */
 	public final DeleteOtherItem getOtherForbid()
 	{
-		return (DeleteOtherItem)DeleteItem.otherForbid.get(this);
+		return DeleteItem.otherForbid.get(this);
 	}/**
 
 	 **
@@ -194,7 +194,7 @@ public class DeleteItem extends Item
 	 */
 	public final DeleteOtherItem getOtherNullify()
 	{
-		return (DeleteOtherItem)DeleteItem.otherNullify.get(this);
+		return DeleteItem.otherNullify.get(this);
 	}/**
 
 	 **
@@ -214,7 +214,7 @@ public class DeleteItem extends Item
 	 */
 	public final DeleteOtherItem getOtherCascade()
 	{
-		return (DeleteOtherItem)DeleteItem.otherCascade.get(this);
+		return DeleteItem.otherCascade.get(this);
 	}/**
 
 	 **

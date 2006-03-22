@@ -112,12 +112,12 @@ public class AttributeItem extends Item
 	/**
 	 * An attribute referencing another persistent item
 	 */
-	public static final ItemAttribute someItem = new ItemAttribute(OPTIONAL, EmptyItem.class);
+	public static final ItemAttribute<EmptyItem> someItem = new ItemAttribute<EmptyItem>(OPTIONAL);
 
 	/**
 	 * An mandatory attribute referencing another persistent item
 	 */
-	public static final ItemAttribute someNotNullItem = new ItemAttribute(MANDATORY, EmptyItem.class);
+	public static final ItemAttribute<EmptyItem> someNotNullItem = new ItemAttribute<EmptyItem>(MANDATORY);
 
 	/**
 	 * An enumeration attribute
@@ -488,7 +488,7 @@ public class AttributeItem extends Item
 	 */
 	public final EmptyItem getSomeItem()
 	{
-		return (EmptyItem)AttributeItem.someItem.get(this);
+		return AttributeItem.someItem.get(this);
 	}/**
 
 	 **
@@ -508,7 +508,7 @@ public class AttributeItem extends Item
 	 */
 	public final EmptyItem getSomeNotNullItem()
 	{
-		return (EmptyItem)AttributeItem.someNotNullItem.get(this);
+		return AttributeItem.someNotNullItem.get(this);
 	}/**
 
 	 **
