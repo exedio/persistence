@@ -39,7 +39,7 @@ public abstract class InjectorTest extends InstrumentorTest
 		this.lineSeparator = System.getProperty("line.separator");
 	}
 
-	private LinkedList injectionEvents;
+	private LinkedList<InjectionEvent> injectionEvents;
 	private TestInjectionConsumer testInjectionConsumer;
 
 	public abstract void assertInjection();
@@ -49,7 +49,7 @@ public abstract class InjectorTest extends InstrumentorTest
 	{	
 		final File inputFile = new File(InjectorTest.class.getResource(resourceName).getFile());
 
-		injectionEvents = new LinkedList();
+		injectionEvents = new LinkedList<InjectionEvent>();
 		testInjectionConsumer = new TestInjectionConsumer();
 		final JavaRepository repository = new JavaRepository();
 		final Injector injector = new Injector(inputFile, testInjectionConsumer, repository);
@@ -64,7 +64,7 @@ public abstract class InjectorTest extends InstrumentorTest
 	
 	private InjectionEvent fetchEvent()
 	{
-		return (InjectionEvent)injectionEvents.removeFirst();
+		return injectionEvents.removeFirst();
 	}
 
 	private String format(final String s)
