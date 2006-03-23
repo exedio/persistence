@@ -135,13 +135,22 @@ public abstract class Attribute extends Feature
 	
 	abstract Column createColumn(Table table, String name, boolean notNull);
 	
-	public static class Option
+	public static enum Option
 	{
+		MANDATORY(false, false, true),
+		OPTIONAL(false, false, false),
+		UNIQUE(false, true, true),
+		UNIQUE_OPTIONAL(false, true, false),
+		FINAL(true, false, true),
+		FINAL_OPTIONAL(true, false, false),
+		FINAL_UNIQUE(true, true, true),
+		FINAL_UNIQUE_OPTIONAL(true, true, false);
+		
 		public final boolean isFinal;
 		public final boolean unique;
 		public final boolean mandatory;
 
-		Option(final boolean isFinal, final boolean unique, final boolean mandatory)
+		private Option(final boolean isFinal, final boolean unique, final boolean mandatory)
 		{
 			this.isFinal = isFinal;
 			this.unique = unique;

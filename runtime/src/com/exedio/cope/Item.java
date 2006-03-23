@@ -366,17 +366,14 @@ public abstract class Item extends Cope
 		}
 	}
 
-	public static final Attribute.Option MANDATORY = new Attribute.Option(false, false, true);
-	public static final Attribute.Option OPTIONAL = new Attribute.Option(false, false, false);
-
-	public static final Attribute.Option UNIQUE = new Attribute.Option(false, true, true);
-	public static final Attribute.Option UNIQUE_OPTIONAL = new Attribute.Option(false, true, false);
-
-	public static final Attribute.Option FINAL = new Attribute.Option(true, false, true);
-	public static final Attribute.Option FINAL_OPTIONAL = new Attribute.Option(true, false, false);
-
-	public static final Attribute.Option FINAL_UNIQUE = new Attribute.Option(true, true, true);
-	public static final Attribute.Option FINAL_UNIQUE_OPTIONAL = new Attribute.Option(true, true, false);
+	public static final Attribute.Option MANDATORY = Attribute.Option.MANDATORY;
+	public static final Attribute.Option OPTIONAL = Attribute.Option.OPTIONAL;
+	public static final Attribute.Option UNIQUE = Attribute.Option.UNIQUE;
+	public static final Attribute.Option UNIQUE_OPTIONAL = Attribute.Option.UNIQUE_OPTIONAL;
+	public static final Attribute.Option FINAL = Attribute.Option.FINAL;
+	public static final Attribute.Option FINAL_OPTIONAL = Attribute.Option.FINAL_OPTIONAL;
+	public static final Attribute.Option FINAL_UNIQUE = Attribute.Option.FINAL_UNIQUE;
+	public static final Attribute.Option FINAL_UNIQUE_OPTIONAL = Attribute.Option.FINAL_UNIQUE_OPTIONAL;
 
 	/**
 	 * @deprecated Has been renamed to {@link #FINAL}.
