@@ -18,7 +18,9 @@
 			+ skipping db searches at all
 		- oracle statistics
 		- group by / aggregates
-		- virtual attribute for this (pk), useful for searching/sorting etc.
+		- make self reference available as an ItemFunction,
+			useful for searching and sorting,
+			makes interface Selectable and Query#setDeterministicOrder obsolete
 	- Transactions: introduce timestamp and use it in
 		* Item#touch
 		* timestamp of data files
