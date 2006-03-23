@@ -32,7 +32,7 @@ public final class ItemAttribute<E extends Item> extends FunctionAttribute
 		this.policy = policy;
 		if(policy==null)
 			throw new RuntimeException("delete policy for attribute "+this+" must not be null");
-		if(policy.nullify)
+		if(policy==DeletePolicy.NULLIFY)
 		{
 			if(mandatory)
 				throw new RuntimeException("mandatory attribute "+this+" cannot have delete policy nullify");
@@ -234,21 +234,9 @@ public final class ItemAttribute<E extends Item> extends FunctionAttribute
 	
 	public static enum DeletePolicy
 	{
-		FORBID(true, false, false),
-		NULLIFY(false, true, false),
-		CASCADE(false, false, true);
-
-		final boolean forbid;
-		final boolean nullify;
-		final boolean cascade;
-
-		private DeletePolicy(final boolean forbid, final boolean nullify, final boolean cascade)
-		{
-			this.forbid = forbid;
-			this.nullify = nullify;
-			this.cascade = cascade;
-		}
-		
+		FORBID(),
+		NULLIFY(),
+		CASCADE();
 	}
 	
 }

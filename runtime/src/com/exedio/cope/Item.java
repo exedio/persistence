@@ -255,23 +255,27 @@ public abstract class Item extends Cope
 	{
 		toDelete.add(this);
 		
-		for(Iterator i = type.getReferences().iterator(); i.hasNext(); )
+		for(final ItemAttribute attribute : type.getReferences())
 		{
-			final ItemAttribute attribute = (ItemAttribute)i.next();
-			if(attribute.getDeletePolicy().forbid)
+			switch(attribute.getDeletePolicy())
 			{
-				final Collection s = attribute.getType().search(attribute.equal(this));
-				if(!s.isEmpty())
-					throw new IntegrityViolationException(attribute, this);
-			}
-			if(attribute.getDeletePolicy().cascade)
-			{
-				for(Iterator j = attribute.getType().search(attribute.equal(this)).iterator(); j.hasNext(); )
+				case FORBID:
 				{
-					final Item item = (Item)j.next();
-					//System.out.println("------------check:"+item.toString());
-					if(!toDelete.contains(item))
-						item.checkDeleteCopeItem(toDelete);
+					final Collection s = attribute.getType().search(attribute.equal(this));
+					if(!s.isEmpty())
+						throw new IntegrityViolationException(attribute, this);
+					break;
+				}
+				case CASCADE:
+				{
+					for(Iterator j = attribute.getType().search(attribute.equal(this)).iterator(); j.hasNext(); )
+					{
+						final Item item = (Item)j.next();
+						//System.out.println("------------check:"+item.toString());
+						if(!toDelete.contains(item))
+							item.checkDeleteCopeItem(toDelete);
+					}
+					break;
 				}
 			}
 		}
@@ -286,28 +290,32 @@ public abstract class Item extends Cope
 		try
 		{
 			// TODO make sure, no item is deleted twice
-			for(Iterator i = type.getReferences().iterator(); i.hasNext(); )
+			for(final ItemAttribute attribute : type.getReferences())
 			{
-				final ItemAttribute attribute = (ItemAttribute)i.next();
-				if(attribute.getDeletePolicy().nullify)
+				switch(attribute.getDeletePolicy())
 				{
-					final Query q = new Query(attribute.getType(), attribute.equal(this));
-					for(Iterator j = q.search().iterator(); j.hasNext(); )
+					case NULLIFY:
 					{
-						final Item item = (Item)j.next();
-						//System.out.println("------------nullify:"+item.toString());
-						item.set(attribute, null);
+						final Query q = new Query(attribute.getType(), attribute.equal(this));
+						for(Iterator j = q.search().iterator(); j.hasNext(); )
+						{
+							final Item item = (Item)j.next();
+							//System.out.println("------------nullify:"+item.toString());
+							item.set(attribute, null);
+						}
+						break;
 					}
-				}
-				if(attribute.getDeletePolicy().cascade)
-				{
-					final Query q = new Query(attribute.getType(), attribute.equal(this));
-					for(Iterator j = q.search().iterator(); j.hasNext(); )
+					case CASCADE:
 					{
-						final Item item = (Item)j.next();
-						//System.out.println("------------check:"+item.toString());
-						if(!toDelete.contains(item))
-							item.deleteCopeItem(toDelete);
+						final Query q = new Query(attribute.getType(), attribute.equal(this));
+						for(Iterator j = q.search().iterator(); j.hasNext(); )
+						{
+							final Item item = (Item)j.next();
+							//System.out.println("------------check:"+item.toString());
+							if(!toDelete.contains(item))
+								item.deleteCopeItem(toDelete);
+						}
+						break;
 					}
 				}
 			}

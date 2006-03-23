@@ -39,15 +39,6 @@ public class DeleteTest extends AbstractLibTest
 	
 	public void testForbid()
 	{
-		assertTrue(Item.FORBID.forbid);
-		assertTrue(!Item.FORBID.nullify);
-		assertTrue(!Item.FORBID.cascade);
-		assertTrue(!Item.NULLIFY.forbid);
-		assertTrue(Item.NULLIFY.nullify);
-		assertTrue(!Item.NULLIFY.cascade);
-		assertTrue(!Item.CASCADE.forbid);
-		assertTrue(!Item.CASCADE.nullify);
-		assertTrue(Item.CASCADE.cascade);
 		assertEquals("FORBID",  Item.FORBID.toString());
 		assertEquals("NULLIFY", Item.NULLIFY.toString());
 		assertEquals("CASCADE", Item.CASCADE.toString());
