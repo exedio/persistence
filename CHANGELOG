@@ -1,6 +1,8 @@
 CURRENT
 
 API CHANGE
+	converted ItemAttribute#DeletePolicy to an enum.
+API CHANGE
 	use generics for defining the type of ItemAttributes and
 	EnumAttributes.
 API CHANGE

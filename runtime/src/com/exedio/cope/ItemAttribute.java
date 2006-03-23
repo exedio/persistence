@@ -232,40 +232,23 @@ public final class ItemAttribute<E extends Item> extends FunctionAttribute
 		return new NotEqualCondition(this, value);
 	}
 	
-	public static final class DeletePolicy
+	public static enum DeletePolicy
 	{
-		public final boolean forbid;
-		public final boolean nullify;
-		public final boolean cascade;
+		FORBID(true, false, false),
+		NULLIFY(false, true, false),
+		CASCADE(false, false, true);
 
-		DeletePolicy(final int policy)
+		final boolean forbid;
+		final boolean nullify;
+		final boolean cascade;
+
+		private DeletePolicy(final boolean forbid, final boolean nullify, final boolean cascade)
 		{
-			switch(policy)
-			{
-				case 0:
-					this.forbid = true;
-					this.nullify = false;
-					this.cascade = false;
-					break;
-				case 1:
-					this.forbid = false;
-					this.nullify = true;
-					this.cascade = false;
-					break;
-				case 2:
-					this.forbid = false;
-					this.nullify = false;
-					this.cascade = true;
-					break;
-				default:
-					throw new RuntimeException(String.valueOf(policy));
-			}
+			this.forbid = forbid;
+			this.nullify = nullify;
+			this.cascade = cascade;
 		}
 		
-		public final String toString()
-		{
-			return forbid ? "FORBID" : (nullify ? "NULLIFY" : "CASCADE");
-		}
 	}
 	
 }

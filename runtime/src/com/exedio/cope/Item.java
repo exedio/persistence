@@ -394,9 +394,9 @@ public abstract class Item extends Cope
 	@Deprecated
 	public static final Attribute.Option READ_ONLY_UNIQUE_OPTIONAL = FINAL_UNIQUE_OPTIONAL;
 	
-	public static final ItemAttribute.DeletePolicy FORBID = new ItemAttribute.DeletePolicy(0);
-	public static final ItemAttribute.DeletePolicy NULLIFY = new ItemAttribute.DeletePolicy(1);
-	public static final ItemAttribute.DeletePolicy CASCADE = new ItemAttribute.DeletePolicy(2);
+	public static final ItemAttribute.DeletePolicy FORBID = ItemAttribute.DeletePolicy.FORBID;
+	public static final ItemAttribute.DeletePolicy NULLIFY = ItemAttribute.DeletePolicy.NULLIFY;
+	public static final ItemAttribute.DeletePolicy CASCADE = ItemAttribute.DeletePolicy.CASCADE;
 	
 	// activation/deactivation -----------------------------------------------------
 	
