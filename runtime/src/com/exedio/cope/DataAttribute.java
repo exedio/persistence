@@ -34,9 +34,9 @@ public final class DataAttribute extends Attribute
 
 	public static final long DEFAULT_LENGTH = 10*1000*1000;
 	
-	private DataAttribute(final boolean isfinal, final boolean mandatory, final long maximumLength)
+	private DataAttribute(final boolean isfinal, final boolean optional, final long maximumLength)
 	{
-		super(isfinal, mandatory);
+		super(isfinal, optional);
 		this.maximumLength = maximumLength;
 		
 		if(maximumLength<=0)
@@ -45,11 +45,11 @@ public final class DataAttribute extends Attribute
 	
 	public DataAttribute(final Option option)
 	{
-		this(option.isFinal, option.mandatory, DEFAULT_LENGTH);
+		this(option.isFinal, option.optional, DEFAULT_LENGTH);
 
 		if(option.unique)
 			throw new RuntimeException("DataAttribute cannot be unique");
-		if(option.mandatory)
+		if(!option.optional)
 			throw new RuntimeException("DataAttribute cannot be mandatory");
 		if(option.isFinal)
 			throw new RuntimeException("DataAttribute cannot be final");
@@ -57,7 +57,7 @@ public final class DataAttribute extends Attribute
 	
 	public DataAttribute lengthMax(final long maximumLength)
 	{
-		return new DataAttribute(isfinal, mandatory, maximumLength);
+		return new DataAttribute(isfinal, optional, maximumLength);
 	}
 	
 	public long getMaximumLength()
@@ -71,7 +71,7 @@ public final class DataAttribute extends Attribute
 	int bufferSizeDefault = -1;
 	int bufferSizeLimit = -1;
 
-	Column createColumn(final Table table, final String name, final boolean notNull)
+	Column createColumn(final Table table, final String name, final boolean optional)
 	{
 		final Type type = getType();
 		final Model model = type.getModel();
@@ -85,7 +85,7 @@ public final class DataAttribute extends Attribute
 		}
 		else
 		{
-			this.impl = new BlobImpl(model, table, name, notNull);
+			this.impl = new BlobImpl(model, table, name, optional);
 		}
 		
 		final int maximumLengthInt = toInt(maximumLength);
@@ -235,11 +235,11 @@ public final class DataAttribute extends Attribute
 		final Model model;
 		final BlobColumn column;
 		
-		BlobImpl(final Model model, final Table table, final String name, final boolean notNull)
+		BlobImpl(final Model model, final Table table, final String name, final boolean optional)
 		{
 			super(true);
 			this.model = model;
-			this.column = new BlobColumn(table, name, notNull, DataAttribute.this.maximumLength);
+			this.column = new BlobColumn(table, name, optional, DataAttribute.this.maximumLength);
 		}
 		
 		Column getColumn()

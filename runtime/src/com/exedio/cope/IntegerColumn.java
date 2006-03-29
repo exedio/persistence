@@ -32,10 +32,10 @@ class IntegerColumn extends Column
 	final int[] allowedValues;
 
 	IntegerColumn(final Table table, final String id, 
-					  final boolean notNull, final int precision,
+					  final boolean optional, final int precision,
 					  final boolean longInsteadOfInt, final int[] allowedValues)
 	{
-		super(table, id, false, notNull, longInsteadOfInt ? JDBC_TYPE_LONG : JDBC_TYPE_INT);
+		super(table, id, false, optional, longInsteadOfInt ? JDBC_TYPE_LONG : JDBC_TYPE_INT);
 		this.precision = precision;
 		this.longInsteadOfInt = longInsteadOfInt;
 		this.allowedValues = allowedValues;

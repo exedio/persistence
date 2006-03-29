@@ -26,15 +26,15 @@ public final class ItemAttribute<E extends Item> extends FunctionAttribute<E>
 
 	private final DeletePolicy policy;
 
-	private ItemAttribute(final boolean isfinal, final boolean mandatory, final boolean unique, final DeletePolicy policy)
+	private ItemAttribute(final boolean isfinal, final boolean optional, final boolean unique, final DeletePolicy policy)
 	{
-		super(isfinal, mandatory, unique);
+		super(isfinal, optional, unique);
 		this.policy = policy;
 		if(policy==null)
 			throw new RuntimeException("delete policy for attribute "+this+" must not be null");
 		if(policy==DeletePolicy.NULLIFY)
 		{
-			if(mandatory)
+			if(!optional)
 				throw new RuntimeException("mandatory attribute "+this+" cannot have delete policy nullify");
 			if(isfinal)
 				throw new RuntimeException("final attribute "+this+" cannot have delete policy nullify");
@@ -48,12 +48,12 @@ public final class ItemAttribute<E extends Item> extends FunctionAttribute<E>
 	
 	public ItemAttribute(final Option option, final DeletePolicy policy)
 	{
-		this(option.isFinal, option.mandatory, option.unique, policy);
+		this(option.isFinal, option.optional, option.unique, policy);
 	}
 
 	public FunctionAttribute copyFunctionAttribute()
 	{
-		return new ItemAttribute(isfinal, mandatory, implicitUniqueConstraint!=null, policy);
+		return new ItemAttribute(isfinal, optional, implicitUniqueConstraint!=null, policy);
 	}
 	
 	private Class<? extends Item> targetTypeClass = null;
@@ -95,7 +95,7 @@ public final class ItemAttribute<E extends Item> extends FunctionAttribute<E>
 		return policy;
 	}
 	
-	Column createColumn(final Table table, final String name, final boolean notNull)
+	Column createColumn(final Table table, final String name, final boolean optional)
 	{
 		if(targetType!=null)
 			throw new RuntimeException();
@@ -107,13 +107,13 @@ public final class ItemAttribute<E extends Item> extends FunctionAttribute<E>
 		targetType = Type.findByJavaClass(targetTypeClass);
 		targetType.registerReference(this);
 		
-		final ItemColumn result = new ItemColumn(table, name, notNull, targetTypeClass, this);
+		final ItemColumn result = new ItemColumn(table, name, optional, targetTypeClass, this);
 		
 		final String[] typeColumnValues = targetType.getTypesOfInstancesColumnValues();
 		if(typeColumnValues==null)
 			onlyPossibleTargetType = targetType.getOnlyPossibleTypeOfInstances();
 		else
-			typeColumn = new StringColumn(table, name+"Type", notNull, typeColumnValues);
+			typeColumn = new StringColumn(table, name+"Type", optional, typeColumnValues);
 
 		return result;
 	}

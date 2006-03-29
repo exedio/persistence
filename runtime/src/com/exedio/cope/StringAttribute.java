@@ -29,10 +29,10 @@ public final class StringAttribute extends FunctionAttribute<String> implements 
 	public static final int DEFAULT_LENGTH = 100;
 
 	private StringAttribute(
-			final boolean isfinal, final boolean mandatory, final boolean unique,
+			final boolean isfinal, final boolean optional, final boolean unique,
 			final int minimumLength, final int maximumLength)
 	{
-		super(isfinal, mandatory, unique);
+		super(isfinal, optional, unique);
 		this.minimumLength = minimumLength;
 		this.maximumLength = maximumLength;
 
@@ -46,7 +46,7 @@ public final class StringAttribute extends FunctionAttribute<String> implements 
 	
 	public StringAttribute(final Option option)
 	{
-		this(option.isFinal, option.mandatory, option.unique, 0, DEFAULT_LENGTH);
+		this(option.isFinal, option.optional, option.unique, 0, DEFAULT_LENGTH);
 	}
 	
 	/**
@@ -55,7 +55,7 @@ public final class StringAttribute extends FunctionAttribute<String> implements 
 	@Deprecated
 	public StringAttribute(final Option option, final int minimumLength)
 	{
-		this(option.isFinal, option.mandatory, option.unique, minimumLength, DEFAULT_LENGTH);
+		this(option.isFinal, option.optional, option.unique, minimumLength, DEFAULT_LENGTH);
 	}
 	
 	/**
@@ -64,12 +64,12 @@ public final class StringAttribute extends FunctionAttribute<String> implements 
 	@Deprecated
 	public StringAttribute(final Option option, final int minimumLength, final int maximumLength)
 	{
-		this(option.isFinal, option.mandatory, option.unique, minimumLength, maximumLength);
+		this(option.isFinal, option.optional, option.unique, minimumLength, maximumLength);
 	}
 	
 	public FunctionAttribute copyFunctionAttribute()
 	{
-		return new StringAttribute(isfinal, mandatory, implicitUniqueConstraint!=null, minimumLength, maximumLength);
+		return new StringAttribute(isfinal, optional, implicitUniqueConstraint!=null, minimumLength, maximumLength);
 	}
 	
 	@Override
@@ -80,17 +80,17 @@ public final class StringAttribute extends FunctionAttribute<String> implements 
 	
 	public StringAttribute lengthRange(final int minimumLength, final int maximumLength)
 	{
-		return new StringAttribute(isfinal, mandatory, implicitUniqueConstraint!=null, minimumLength, maximumLength);
+		return new StringAttribute(isfinal, optional, implicitUniqueConstraint!=null, minimumLength, maximumLength);
 	}
 	
 	public StringAttribute lengthMin(final int minimumLength)
 	{
-		return new StringAttribute(isfinal, mandatory, implicitUniqueConstraint!=null, minimumLength, DEFAULT_LENGTH);
+		return new StringAttribute(isfinal, optional, implicitUniqueConstraint!=null, minimumLength, DEFAULT_LENGTH);
 	}
 	
 	public StringAttribute lengthMax(final int maximumLength)
 	{
-		return new StringAttribute(isfinal, mandatory, implicitUniqueConstraint!=null, 0, maximumLength);
+		return new StringAttribute(isfinal, optional, implicitUniqueConstraint!=null, 0, maximumLength);
 	}
 	
 	/**
@@ -104,7 +104,7 @@ public final class StringAttribute extends FunctionAttribute<String> implements 
 	
 	public StringAttribute lengthExact(final int exactLength)
 	{
-		return new StringAttribute(isfinal, mandatory, implicitUniqueConstraint!=null, exactLength, exactLength);
+		return new StringAttribute(isfinal, optional, implicitUniqueConstraint!=null, exactLength, exactLength);
 	}
 	
 	public final int getMinimumLength()
@@ -117,9 +117,9 @@ public final class StringAttribute extends FunctionAttribute<String> implements 
 		return maximumLength;
 	}
 	
-	Column createColumn(final Table table, final String name, final boolean notNull)
+	Column createColumn(final Table table, final String name, final boolean optional)
 	{
-		return new StringColumn(table, name, notNull, minimumLength, maximumLength);
+		return new StringColumn(table, name, optional, minimumLength, maximumLength);
 	}
 	
 	String get(final Row row)

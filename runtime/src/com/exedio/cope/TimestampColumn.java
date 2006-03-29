@@ -28,9 +28,9 @@ final class TimestampColumn extends Column
 {
 	static final int JDBC_TYPE = Types.TIMESTAMP;
 	
-	TimestampColumn(final Table table, final String id, final boolean notNull)
+	TimestampColumn(final Table table, final String id, final boolean optional)
 	{
-		super(table, id, false, notNull, JDBC_TYPE);
+		super(table, id, false, optional, JDBC_TYPE);
 		assert table.database.getDateTimestampType()!=null;
 	}
 	

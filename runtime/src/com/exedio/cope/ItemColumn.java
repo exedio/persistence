@@ -29,10 +29,10 @@ final class ItemColumn extends IntegerColumn
 	final ItemAttribute attribute;
 
 	ItemColumn(final Table table, final String id,
-					  final boolean notNull,
+					  final boolean optional,
 					  final Class<? extends Item> targetTypeClass, final ItemAttribute attribute)
 	{
-		super(table, id, notNull, SYNTETIC_PRIMARY_KEY_PRECISION, false, null);
+		super(table, id, optional, SYNTETIC_PRIMARY_KEY_PRECISION, false, null);
 		if(targetTypeClass==null)
 			throw new RuntimeException();
 		this.targetTypeClass = targetTypeClass;

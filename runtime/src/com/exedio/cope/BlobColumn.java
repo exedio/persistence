@@ -28,9 +28,9 @@ final class BlobColumn extends Column
 	
 	final long maximumLength;
 	
-	BlobColumn(final Table table, final String id, final boolean notNull, final long maximumLength)
+	BlobColumn(final Table table, final String id, final boolean optional, final long maximumLength)
 	{
-		super(table, id, false, notNull, JDBC_TYPE);
+		super(table, id, false, optional, JDBC_TYPE);
 		this.maximumLength = maximumLength;
 		
 		if(table.database.getBlobType(maximumLength)==null)

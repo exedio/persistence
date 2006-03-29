@@ -100,28 +100,28 @@ public class ModelTest extends TestmodelTest
 		
 		assertEquals(false, item.MANDATORY.isFinal);
 		assertEquals(false, item.MANDATORY.unique);
-		assertEquals(true,  item.MANDATORY.mandatory);
+		assertEquals(false, item.MANDATORY.optional);
 		assertEquals(false, item.OPTIONAL.isFinal);
 		assertEquals(false, item.OPTIONAL.unique);
-		assertEquals(false, item.OPTIONAL.mandatory);
+		assertEquals(true,  item.OPTIONAL.optional);
 		assertEquals(false, item.UNIQUE.isFinal);
 		assertEquals(true,  item.UNIQUE.unique);
-		assertEquals(true,  item.UNIQUE.mandatory);
+		assertEquals(false, item.UNIQUE.optional);
 		assertEquals(false, item.UNIQUE_OPTIONAL.isFinal);
 		assertEquals(true,  item.UNIQUE_OPTIONAL.unique);
-		assertEquals(false, item.UNIQUE_OPTIONAL.mandatory);
+		assertEquals(true,  item.UNIQUE_OPTIONAL.optional);
 		assertEquals(true,  item.FINAL.isFinal);
 		assertEquals(false, item.FINAL.unique);
-		assertEquals(true,  item.FINAL.mandatory);
+		assertEquals(false, item.FINAL.optional);
 		assertEquals(true,  item.FINAL_OPTIONAL.isFinal);
 		assertEquals(false, item.FINAL_OPTIONAL.unique);
-		assertEquals(false, item.FINAL_OPTIONAL.mandatory);
+		assertEquals(true,  item.FINAL_OPTIONAL.optional);
 		assertEquals(true,  item.FINAL_UNIQUE.isFinal);
 		assertEquals(true,  item.FINAL_UNIQUE.unique);
-		assertEquals(true,  item.FINAL_UNIQUE.mandatory);
+		assertEquals(false, item.FINAL_UNIQUE.optional);
 		assertEquals(true,  item.FINAL_UNIQUE_OPTIONAL.isFinal);
 		assertEquals(true,  item.FINAL_UNIQUE_OPTIONAL.unique);
-		assertEquals(false, item.FINAL_UNIQUE_OPTIONAL.mandatory);
+		assertEquals(true,  item.FINAL_UNIQUE_OPTIONAL.optional);
 
 		assertEquals(AttributeItem.class, item.TYPE.getJavaClass());
 		assertEquals(item.TYPE, Type.findByJavaClass(AttributeItem.class));

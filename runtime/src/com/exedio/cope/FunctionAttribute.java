@@ -34,9 +34,9 @@ public abstract class FunctionAttribute<E extends Object>
 	final UniqueConstraint implicitUniqueConstraint;
 	private ArrayList<UniqueConstraint> uniqueConstraints;
 	
-	FunctionAttribute(final boolean isfinal, final boolean mandatory, final boolean unique)
+	FunctionAttribute(final boolean isfinal, final boolean optional, final boolean unique)
 	{
-		super(isfinal, mandatory);
+		super(isfinal, optional);
 		this.implicitUniqueConstraint =
 			unique ?
 				new UniqueConstraint((FunctionAttribute)this) :

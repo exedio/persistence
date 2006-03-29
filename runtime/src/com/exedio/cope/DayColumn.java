@@ -31,9 +31,9 @@ final class DayColumn extends Column
 {
 	static final int JDBC_TYPE = Types.DATE;
 	
-	DayColumn(final Table table, final String id, final boolean notNull)
+	DayColumn(final Table table, final String id, final boolean optional)
 	{
-		super(table, id, false, notNull, JDBC_TYPE);
+		super(table, id, false, optional, JDBC_TYPE);
 	}
 	
 	final String getDatabaseType()

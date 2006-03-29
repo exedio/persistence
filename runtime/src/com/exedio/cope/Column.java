@@ -30,19 +30,19 @@ abstract class Column
 	final String id;
 	final String protectedID;
 	final boolean primaryKey;
-	final boolean notNull;
+	final boolean optional;
 	final int jdbcType;
 	
 	Column(
 			final Table table, final String id,
-			final boolean primaryKey, final boolean notNull,
+			final boolean primaryKey, final boolean optional,
 			final int jdbcType)
 	{
 		this.table = table;
 		this.id = table.database.makeName(table.id, id).intern();
 		this.protectedID = table.database.getDriver().protectName(this.id).intern();
 		this.primaryKey = primaryKey;
-		this.notNull = notNull;
+		this.optional = optional;
 		this.jdbcType = jdbcType;
 		table.addColumn(this);
 	}
@@ -87,19 +87,19 @@ abstract class Column
 				final String ccinn = getCheckConstraintIfNotNull();
 				final String checkConstraint;
 				
-				if(notNull)
-				{
-					if(ccinn!=null)
-						checkConstraint = "(" + protectedID + " IS NOT NULL) AND (" + ccinn + ')';
-					else
-						checkConstraint = protectedID + " IS NOT NULL";
-				}
-				else
+				if(optional)
 				{
 					if(ccinn!=null)
 						checkConstraint = "(" + ccinn + ") OR (" + protectedID + " IS NULL)";
 					else
 						checkConstraint = null;
+				}
+				else
+				{
+					if(ccinn!=null)
+						checkConstraint = "(" + protectedID + " IS NOT NULL) AND (" + ccinn + ')';
+					else
+						checkConstraint = protectedID + " IS NOT NULL";
 				}
 	
 				if(checkConstraint!=null)

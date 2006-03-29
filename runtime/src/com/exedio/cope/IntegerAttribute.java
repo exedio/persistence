@@ -27,19 +27,19 @@ import com.exedio.cope.search.LessEqualCondition;
 public final class IntegerAttribute extends FunctionAttribute<Integer> implements IntegerFunction
 {
 
-	private IntegerAttribute(final boolean isfinal, final boolean mandatory, final boolean unique)
+	private IntegerAttribute(final boolean isfinal, final boolean optional, final boolean unique)
 	{
-		super(isfinal, mandatory, unique);
+		super(isfinal, optional, unique);
 	}
 	
 	public IntegerAttribute(final Option option)
 	{
-		this(option.isFinal, option.mandatory, option.unique);
+		this(option.isFinal, option.optional, option.unique);
 	}
 	
 	public FunctionAttribute copyFunctionAttribute()
 	{
-		return new IntegerAttribute(isfinal, mandatory, implicitUniqueConstraint!=null);
+		return new IntegerAttribute(isfinal, optional, implicitUniqueConstraint!=null);
 	}
 
 	@Override
@@ -48,9 +48,9 @@ public final class IntegerAttribute extends FunctionAttribute<Integer> implement
 		return Integer.class;
 	}
 	
-	Column createColumn(final Table table, final String name, final boolean notNull)
+	Column createColumn(final Table table, final String name, final boolean optional)
 	{
-		return new IntegerColumn(table, name, notNull, 10, false, null);
+		return new IntegerColumn(table, name, optional, 10, false, null);
 	}
 	
 	Integer get(final Row row)
@@ -68,7 +68,7 @@ public final class IntegerAttribute extends FunctionAttribute<Integer> implement
 	 */
 	public final int getMandatory(final Item item)
 	{
-		if(!mandatory)
+		if(optional)
 			throw new RuntimeException("attribute " + toString() + " is not mandatory");
 		
 		return get(item).intValue();

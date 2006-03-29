@@ -23,19 +23,19 @@ import com.exedio.cope.util.Day;
 public final class DayAttribute extends FunctionAttribute<Day>
 {
 	
-	private DayAttribute(final boolean isfinal, final boolean mandatory, final boolean unique)
+	private DayAttribute(final boolean isfinal, final boolean optional, final boolean unique)
 	{
-		super(isfinal, mandatory, unique);
+		super(isfinal, optional, unique);
 	}
 	
 	public DayAttribute(final Option option)
 	{
-		this(option.isFinal, option.mandatory, option.unique);
+		this(option.isFinal, option.optional, option.unique);
 	}
 	
 	public FunctionAttribute copyFunctionAttribute()
 	{
-		return new DayAttribute(isfinal, mandatory, implicitUniqueConstraint!=null);
+		return new DayAttribute(isfinal, optional, implicitUniqueConstraint!=null);
 	}
 	
 	@Override
@@ -44,9 +44,9 @@ public final class DayAttribute extends FunctionAttribute<Day>
 		return Day.class;
 	}
 	
-	Column createColumn(final Table table, final String name, final boolean notNull)
+	Column createColumn(final Table table, final String name, final boolean optional)
 	{
-		return new DayColumn(table, name, notNull);
+		return new DayColumn(table, name, optional);
 	}
 	
 	Day get(final Row row)

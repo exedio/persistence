@@ -31,20 +31,20 @@ final class StringColumn extends Column
 	final String[] allowedValues;
 
 	StringColumn(
-			final Table table, final String id, final boolean notNull,
+			final Table table, final String id, final boolean optional,
 			final int minimumLength, final int maximumLength)
 	{
-		super(table, id, false, notNull, JDBC_TYPE);
+		super(table, id, false, optional, JDBC_TYPE);
 		this.minimumLength = minimumLength;
 		this.maximumLength = maximumLength;
 		this.allowedValues = null;
 	}
 	
 	StringColumn(
-			final Table table, final String id, final boolean notNull,
+			final Table table, final String id, final boolean optional,
 			final String[] allowedValues)
 	{
-		super(table, id, false, notNull, JDBC_TYPE);
+		super(table, id, false, optional, JDBC_TYPE);
 		this.minimumLength = 0;
 		this.maximumLength = maxLength(allowedValues);
 		this.allowedValues = allowedValues;

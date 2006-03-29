@@ -28,9 +28,9 @@ final class DoubleColumn extends Column
 	final int precision;
 
 	DoubleColumn(final Table table, final String id, 
-					  final boolean notNull, final int precision)
+					  final boolean optional, final int precision)
 	{
-		super(table, id, false, notNull, JDBC_TYPE);
+		super(table, id, false, optional, JDBC_TYPE);
 		this.precision = precision;
 	}
 	

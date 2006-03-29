@@ -37,12 +37,12 @@ import java.util.List;
 public abstract class Attribute extends Feature
 {
 	final boolean isfinal;
-	final boolean mandatory;
+	final boolean optional;
 
-	Attribute(final boolean isfinal, final boolean mandatory)
+	Attribute(final boolean isfinal, final boolean optional)
 	{
 		this.isfinal = isfinal;
-		this.mandatory = mandatory;
+		this.optional = optional;
 	}
 	
 	public final boolean isFinal()
@@ -52,7 +52,7 @@ public abstract class Attribute extends Feature
 	
 	public final boolean isMandatory()
 	{
-		return mandatory;
+		return !optional;
 	}
 	
 	// patterns ---------------------------------------------------------------------
@@ -106,7 +106,7 @@ public abstract class Attribute extends Feature
 		if(this.column!=null)
 			throw new RuntimeException();
 
-		this.column = createColumn(table, getName(), mandatory);
+		this.column = createColumn(table, getName(), optional);
 	}
 	
 	final Column getColumn()
@@ -133,28 +133,28 @@ public abstract class Attribute extends Feature
 		return column.id;
 	}
 	
-	abstract Column createColumn(Table table, String name, boolean notNull);
+	abstract Column createColumn(Table table, String name, boolean optional);
 	
 	public static enum Option
 	{
-		MANDATORY            (false, false, true),
-		OPTIONAL             (false, false, false),
-		UNIQUE               (false, true,  true),
-		UNIQUE_OPTIONAL      (false, true,  false),
-		FINAL                (true,  false, true),
-		FINAL_OPTIONAL       (true,  false, false),
-		FINAL_UNIQUE         (true,  true,  true),
-		FINAL_UNIQUE_OPTIONAL(true,  true,  false);
+		MANDATORY            (false, false, false),
+		OPTIONAL             (false, false, true),
+		UNIQUE               (false, true,  false),
+		UNIQUE_OPTIONAL      (false, true,  true),
+		FINAL                (true,  false, false),
+		FINAL_OPTIONAL       (true,  false, true),
+		FINAL_UNIQUE         (true,  true,  false),
+		FINAL_UNIQUE_OPTIONAL(true,  true,  true);
 		
 		public final boolean isFinal;
 		public final boolean unique;
-		public final boolean mandatory;
+		public final boolean optional;
 
-		private Option(final boolean isFinal, final boolean unique, final boolean mandatory)
+		private Option(final boolean isFinal, final boolean unique, final boolean optional)
 		{
 			this.isFinal = isFinal;
 			this.unique = unique;
-			this.mandatory = mandatory;
+			this.optional = optional;
 		}
 	}
 	

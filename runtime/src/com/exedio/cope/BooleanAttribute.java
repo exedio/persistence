@@ -23,19 +23,19 @@ public final class BooleanAttribute extends FunctionAttribute<Boolean>
 {
 	static final int[] ALLOWED_VALUES = new int[]{0, 1};
 
-	private BooleanAttribute(final boolean isfinal, final boolean mandatory, final boolean unique)
+	private BooleanAttribute(final boolean isfinal, final boolean optional, final boolean unique)
 	{
-		super(isfinal, mandatory, unique);
+		super(isfinal, optional, unique);
 	}
 	
 	public BooleanAttribute(final Option option)
 	{
-		this(option.isFinal, option.mandatory, option.unique);
+		this(option.isFinal, option.optional, option.unique);
 	}
 	
 	public FunctionAttribute copyFunctionAttribute()
 	{
-		return new BooleanAttribute(isfinal, mandatory, implicitUniqueConstraint!=null);
+		return new BooleanAttribute(isfinal, optional, implicitUniqueConstraint!=null);
 	}
 	
 	@Override
@@ -44,9 +44,9 @@ public final class BooleanAttribute extends FunctionAttribute<Boolean>
 		return Boolean.class;
 	}
 	
-	Column createColumn(final Table table, final String name, final boolean notNull)
+	Column createColumn(final Table table, final String name, final boolean optional)
 	{
-		return new IntegerColumn(table, name, notNull, 1, false, ALLOWED_VALUES);
+		return new IntegerColumn(table, name, optional, 1, false, ALLOWED_VALUES);
 	}
 	
 	Boolean get(final Row row)
@@ -81,7 +81,7 @@ public final class BooleanAttribute extends FunctionAttribute<Boolean>
 	 */
 	public final boolean getMandatory(final Item item)
 	{
-		if(!mandatory)
+		if(optional)
 			throw new RuntimeException("attribute " + toString() + " is not mandatory");
 		
 		return get(item).booleanValue();

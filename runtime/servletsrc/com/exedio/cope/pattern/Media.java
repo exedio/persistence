@@ -47,7 +47,7 @@ import com.exedio.cope.Attribute.Option;
 public final class Media extends MediaPath
 {
 	private final Option option;
-	final boolean mandatory;
+	final boolean optional;
 	final DataAttribute data;
 	final ContentType contentType;
 	final DateAttribute lastModified;
@@ -60,7 +60,7 @@ public final class Media extends MediaPath
 			throw new NullPointerException("option must not be null");
 		
 		this.option = option;
-		this.mandatory = option.mandatory;
+		this.optional = option.optional;
 		registerSource(this.data = new DataAttribute(option).lengthMax(dataMaximumLength));
 		
 		if(fixedMimeMajor!=null && fixedMimeMinor!=null)
@@ -157,7 +157,7 @@ public final class Media extends MediaPath
 	
 	public boolean isNull(final Item item)
 	{
-		return mandatory ? false : (lastModified.get(item)==null);
+		return optional ? (lastModified.get(item)==null) : false;
 	}
 
 	private static final HashMap<String, String> compactExtensions = new HashMap<String, String>();

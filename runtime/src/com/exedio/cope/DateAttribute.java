@@ -23,19 +23,19 @@ import java.util.Date;
 public final class DateAttribute extends FunctionAttribute<Date>
 {
 
-	private DateAttribute(final boolean isfinal, final boolean mandatory, final boolean unique)
+	private DateAttribute(final boolean isfinal, final boolean optional, final boolean unique)
 	{
-		super(isfinal, mandatory, unique);
+		super(isfinal, optional, unique);
 	}
 	
 	public DateAttribute(final Option option)
 	{
-		this(option.isFinal, option.mandatory, option.unique);
+		this(option.isFinal, option.optional, option.unique);
 	}
 	
 	public FunctionAttribute copyFunctionAttribute()
 	{
-		return new DateAttribute(isfinal, mandatory, implicitUniqueConstraint!=null);
+		return new DateAttribute(isfinal, optional, implicitUniqueConstraint!=null);
 	}
 	
 	@Override
@@ -44,7 +44,7 @@ public final class DateAttribute extends FunctionAttribute<Date>
 		return Date.class;
 	}
 	
-	Column createColumn(final Table table, final String name, final boolean notNull)
+	Column createColumn(final Table table, final String name, final boolean optional)
 	{
 		final boolean useLong =
 			getType().getModel().getProperties().getDatabaseDontSupportNativeDate() ||
@@ -52,8 +52,8 @@ public final class DateAttribute extends FunctionAttribute<Date>
 		
 		return
 				useLong
-				? (Column)new IntegerColumn(table, name, notNull, 20, true, null)
-				: (Column)new TimestampColumn(table, name, notNull);
+				? (Column)new IntegerColumn(table, name, optional, 20, true, null)
+				: (Column)new TimestampColumn(table, name, optional);
 	}
 	
 	Date get(final Row row)

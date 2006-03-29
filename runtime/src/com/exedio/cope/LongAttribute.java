@@ -26,19 +26,19 @@ import com.exedio.cope.search.LessEqualCondition;
 public final class LongAttribute extends FunctionAttribute<Long>
 {
 
-	private LongAttribute(final boolean isfinal, final boolean mandatory, final boolean unique)
+	private LongAttribute(final boolean isfinal, final boolean optional, final boolean unique)
 	{
-		super(isfinal, mandatory, unique);
+		super(isfinal, optional, unique);
 	}
 	
 	public LongAttribute(final Option option)
 	{
-		this(option.isFinal, option.mandatory, option.unique);
+		this(option.isFinal, option.optional, option.unique);
 	}
 	
 	public FunctionAttribute copyFunctionAttribute()
 	{
-		return new LongAttribute(isfinal, mandatory, implicitUniqueConstraint!=null);
+		return new LongAttribute(isfinal, optional, implicitUniqueConstraint!=null);
 	}
 	
 	@Override
@@ -47,9 +47,9 @@ public final class LongAttribute extends FunctionAttribute<Long>
 		return Long.class;
 	}
 	
-	Column createColumn(final Table table, final String name, final boolean notNull)
+	Column createColumn(final Table table, final String name, final boolean optional)
 	{
-		return new IntegerColumn(table, name, notNull, 20, true, null);
+		return new IntegerColumn(table, name, optional, 20, true, null);
 	}
 	
 	Long get(final Row row)
@@ -67,7 +67,7 @@ public final class LongAttribute extends FunctionAttribute<Long>
 	 */
 	public final long getMandatory(final Item item)
 	{
-		if(!mandatory)
+		if(optional)
 			throw new RuntimeException("attribute " + toString() + " is not mandatory");
 		
 		return get(item).longValue();

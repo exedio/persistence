@@ -29,14 +29,14 @@ import bak.pcj.map.IntKeyOpenHashMap;
 public final class EnumAttribute<E extends Enum> extends FunctionAttribute<E>
 {
 	
-	private EnumAttribute(final boolean isfinal, final boolean mandatory, final boolean unique)
+	private EnumAttribute(final boolean isfinal, final boolean optional, final boolean unique)
 	{
-		super(isfinal, mandatory, unique);
+		super(isfinal, optional, unique);
 	}
 	
 	public EnumAttribute(final Option option)
 	{
-		this(option.isFinal, option.mandatory, option.unique);
+		this(option.isFinal, option.optional, option.unique);
 	}
 	
 	private List<E> values = null;
@@ -86,7 +86,7 @@ public final class EnumAttribute<E extends Enum> extends FunctionAttribute<E>
 	
 	public FunctionAttribute copyFunctionAttribute()
 	{
-		return new EnumAttribute<E>(isfinal, mandatory, implicitUniqueConstraint!=null);
+		return new EnumAttribute<E>(isfinal, optional, implicitUniqueConstraint!=null);
 	}
 	
 	public List<E> getValues()
@@ -116,14 +116,14 @@ public final class EnumAttribute<E extends Enum> extends FunctionAttribute<E>
 		return codesToValues.get(code);
 	}
 
-	Column createColumn(final Table table, final String name, final boolean notNull)
+	Column createColumn(final Table table, final String name, final boolean optional)
 	{
 		final int[] allowedValues = new int[values.size()];
 		int in = 0;
 		for(E value : values)
 			allowedValues[in++] = getNumber(value).intValue();
 
-		return new IntegerColumn(table, name, notNull, 10, false, allowedValues);
+		return new IntegerColumn(table, name, optional, 10, false, allowedValues);
 	}
 	
 	E get(final Row row)
