@@ -137,14 +137,14 @@ public abstract class Attribute extends Feature
 	
 	public static enum Option
 	{
-		MANDATORY(false, false, true),
-		OPTIONAL(false, false, false),
-		UNIQUE(false, true, true),
-		UNIQUE_OPTIONAL(false, true, false),
-		FINAL(true, false, true),
-		FINAL_OPTIONAL(true, false, false),
-		FINAL_UNIQUE(true, true, true),
-		FINAL_UNIQUE_OPTIONAL(true, true, false);
+		MANDATORY            (false, false, true),
+		OPTIONAL             (false, false, false),
+		UNIQUE               (false, true,  true),
+		UNIQUE_OPTIONAL      (false, true,  false),
+		FINAL                (true,  false, true),
+		FINAL_OPTIONAL       (true,  false, false),
+		FINAL_UNIQUE         (true,  true,  true),
+		FINAL_UNIQUE_OPTIONAL(true,  true,  false);
 		
 		public final boolean isFinal;
 		public final boolean unique;
