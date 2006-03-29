@@ -20,12 +20,7 @@ package com.exedio.cope;
 
 import java.util.Date;
 
-import com.exedio.cope.search.GreaterCondition;
-import com.exedio.cope.search.GreaterEqualCondition;
-import com.exedio.cope.search.LessCondition;
-import com.exedio.cope.search.LessEqualCondition;
-
-public final class DateAttribute extends FunctionAttribute
+public final class DateAttribute extends FunctionAttribute<Date>
 {
 
 	private DateAttribute(final boolean isfinal, final boolean mandatory, final boolean unique)
@@ -61,38 +56,17 @@ public final class DateAttribute extends FunctionAttribute
 				: (Column)new TimestampColumn(table, name, notNull);
 	}
 	
-	Object get(final Row row)
+	Date get(final Row row)
 	{
 		final Object cell = row.get(getColumn());
 		return cell==null ? null : new Date(((Long)cell).longValue());
 	}
 		
-	void set(final Row row, final Object surface)
+	void set(final Row row, final Date surface)
 	{
-		row.put(getColumn(), surface==null ? null : Long.valueOf(((Date)surface).getTime()));
+		row.put(getColumn(), surface==null ? null : Long.valueOf(surface.getTime()));
 	}
 	
-	public final Date get(final Item item)
-	{
-		return (Date)getObject(item);
-	}
-	
-	public final void set(final Item item, final Date value)
-		throws
-			UniqueViolationException,
-			MandatoryViolationException,
-			FinalViolationException
-	{
-		try
-		{
-			item.set(this, value);
-		}
-		catch(LengthViolationException e)
-		{
-			throw new RuntimeException(e);
-		}
-	}
-
 	/**
 	 * @throws FinalViolationException
 	 *         if this attribute is {@link #isFinal() final}.
@@ -112,39 +86,4 @@ public final class DateAttribute extends FunctionAttribute
 		}
 	}
 
-	public final AttributeValue map(final Date value)
-	{
-		return new AttributeValue(this, value);
-	}
-	
-	public final EqualCondition equal(final Date value)
-	{
-		return new EqualCondition(this, value);
-	}
-	
-	public final NotEqualCondition notEqual(final Date value)
-	{
-		return new NotEqualCondition(this, value);
-	}
-	
-	public final LessCondition less(final Date value)
-	{
-		return new LessCondition(this, value);
-	}
-	
-	public final LessEqualCondition lessOrEqual(final Date value)
-	{
-		return new LessEqualCondition(this, value);
-	}
-	
-	public final GreaterCondition greater(final Date value)
-	{
-		return new GreaterCondition(this, value);
-	}
-	
-	public final GreaterEqualCondition greaterOrEqual(final Date value)
-	{
-		return new GreaterEqualCondition(this, value);
-	}
-	
 }

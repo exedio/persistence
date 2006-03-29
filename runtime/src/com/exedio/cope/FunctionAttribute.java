@@ -22,11 +22,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.exedio.cope.search.GreaterCondition;
+import com.exedio.cope.search.GreaterEqualCondition;
+import com.exedio.cope.search.LessCondition;
+import com.exedio.cope.search.LessEqualCondition;
 
-
-public abstract class FunctionAttribute
+public abstract class FunctionAttribute<E extends Object>
 	extends Attribute
-	implements Function, Settable
+	implements Function<E>, Settable
 {
 	final UniqueConstraint implicitUniqueConstraint;
 	private ArrayList<UniqueConstraint> uniqueConstraints;
@@ -56,8 +59,9 @@ public abstract class FunctionAttribute
 	abstract Class initialize(java.lang.reflect.Type genericType);
 	
 	public abstract FunctionAttribute copyFunctionAttribute();
-	abstract Object get(Row row);
-	abstract void set(Row row, Object surface);
+
+	abstract E get(final Row row);
+	abstract void set(final Row row, final E surface);
 	
 	/**
 	 * Checks attribute values set by
@@ -115,20 +119,25 @@ public abstract class FunctionAttribute
 		return item.type.getModel().getCurrentTransaction().getEntity(item, present);
 	}
 
-	public final Object getObject(final Item item)
+	public final E get(final Item item)
 	{
 		if(!getType().isAssignableFrom(item.type))
 			throw new RuntimeException("attribute "+toString()+" does not belong to type "+item.type.toString());
 		
-		return getEntity(item).get(this);
+		return (E)getEntity(item).get(this);
+	}
+
+	public final void set(final Item item, final E value)
+	{
+		item.set(this, value);
 	}
 
 	public final void append(final Statement bf, final Join join)
 	{
 		bf.append(getColumn(), join);
 	}
-		
-	public final void appendParameter(final Statement bf, final Object value)
+	
+	public final void appendParameter(final Statement bf, final E value)
 	{
 		final Row dummyRow = new Row();
 		set(dummyRow, value);
@@ -186,6 +195,11 @@ public abstract class FunctionAttribute
 		return getType().searchUnique(new EqualCondition(this, value));
 	}
 
+	public final AttributeValue map(final E value)
+	{
+		return new AttributeValue(this, value);
+	}
+	
 	public final EqualCondition isNull()
 	{
 		return new EqualCondition(this, null);
@@ -194,6 +208,36 @@ public abstract class FunctionAttribute
 	public final NotEqualCondition isNotNull()
 	{
 		return new NotEqualCondition(this, null);
+	}
+	
+	public final EqualCondition equal(final E value)
+	{
+		return new EqualCondition(this, value);
+	}
+	
+	public final NotEqualCondition notEqual(final E value)
+	{
+		return new NotEqualCondition(this, value);
+	}
+	
+	public final LessCondition less(final E value)
+	{
+		return new LessCondition(this, value);
+	}
+	
+	public final LessEqualCondition lessOrEqual(final E value)
+	{
+		return new LessEqualCondition(this, value);
+	}
+	
+	public final GreaterCondition greater(final E value)
+	{
+		return new GreaterCondition(this, value);
+	}
+	
+	public final GreaterEqualCondition greaterOrEqual(final E value)
+	{
+		return new GreaterEqualCondition(this, value);
 	}
 	
 }

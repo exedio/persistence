@@ -172,7 +172,7 @@ public abstract class Item extends Cope
 
 	public final Object get(final Function function)
 	{
-		return function.getObject(this);
+		return function.get(this);
 	}
 
 	/**

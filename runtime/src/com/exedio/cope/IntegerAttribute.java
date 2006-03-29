@@ -24,7 +24,7 @@ import com.exedio.cope.search.GreaterEqualCondition;
 import com.exedio.cope.search.LessCondition;
 import com.exedio.cope.search.LessEqualCondition;
 
-public final class IntegerAttribute extends FunctionAttribute implements IntegerFunction
+public final class IntegerAttribute extends FunctionAttribute<Integer> implements IntegerFunction
 {
 
 	private IntegerAttribute(final boolean isfinal, final boolean mandatory, final boolean unique)
@@ -53,19 +53,14 @@ public final class IntegerAttribute extends FunctionAttribute implements Integer
 		return new IntegerColumn(table, name, notNull, 10, false, null);
 	}
 	
-	Object get(final Row row)
+	Integer get(final Row row)
 	{
 		return (Integer)row.get(getColumn());
 	}
-		
-	void set(final Row row, final Object surface)
-	{
-		row.put(getColumn(), (Integer)surface);
-	}
 	
-	public final Integer get(final Item item)
+	void set(final Row row, final Integer surface)
 	{
-		return (Integer)getObject(item);
+		row.put(getColumn(), surface);
 	}
 	
 	/**
@@ -79,60 +74,22 @@ public final class IntegerAttribute extends FunctionAttribute implements Integer
 		return get(item).intValue();
 	}
 	
-	public final void set(final Item item, final Integer value)
-		throws
-			UniqueViolationException,
-			MandatoryViolationException,
-			FinalViolationException
-	{
-		try
-		{
-			item.set(this, value);
-		}
-		catch(LengthViolationException e)
-		{
-			throw new RuntimeException(e);
-		}
-	}
-
 	public final void set(final Item item, final int value)
 		throws
 			UniqueViolationException,
 			FinalViolationException
 	{
-		try
-		{
-			set(item, Integer.valueOf(value));
-		}
-		catch(MandatoryViolationException e)
-		{
-			throw new RuntimeException(e);
-		}
+		set(item, Integer.valueOf(value));
 	}
 
-	public final AttributeValue map(final Integer value)
-	{
-		return new AttributeValue(this, value);
-	}
-	
 	public final AttributeValue map(final int value)
 	{
 		return new AttributeValue(this, Integer.valueOf(value));
 	}
 	
-	public final EqualCondition equal(final Integer value)
-	{
-		return new EqualCondition(this, value);
-	}
-	
 	public final EqualCondition equal(final int value)
 	{
 		return new EqualCondition(this, Integer.valueOf(value));
-	}
-	
-	public final NotEqualCondition notEqual(final Integer value)
-	{
-		return new NotEqualCondition(this, value);
 	}
 	
 	public final NotEqualCondition notEqual(final int value)

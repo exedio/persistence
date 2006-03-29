@@ -36,7 +36,7 @@ import java.util.List;
  * 
  * @author Ralf Wiebicke
  */
-public abstract class View extends Feature implements Function
+public abstract class View<E> extends Feature implements Function<E>
 {
 	private final Function[] sources;
 	private final List<Function> sourceList;
@@ -82,12 +82,12 @@ public abstract class View extends Feature implements Function
 		final Object[] values = new Object[sources.size()];
 		int pos = 0;
 		for(Iterator i = sources.iterator(); i.hasNext(); )
-			values[pos++] = ((Function)i.next()).getObject(item);
+			values[pos++] = ((Function)i.next()).get(item);
 	
 		return mapJava(values);
 	}
 	
-	public final void appendParameter(final Statement bf, final Object value)
+	public final void appendParameter(final Statement bf, final E value)
 	{
 		if(bf.parameters==null)
 			bf.append(surface2Database(value));

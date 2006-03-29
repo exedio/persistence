@@ -19,12 +19,12 @@
 package com.exedio.cope;
 
 
-public interface Function extends Selectable
+public interface Function<E extends Object> extends Selectable
 {
-	Object getObject(Item item);
+	E get(Item item);
 	
 	void append(Statement bf, Join join);
-	void appendParameter(Statement bf, Object value);
+	void appendParameter(Statement bf, E value);
 	
 	Type getType();
 }

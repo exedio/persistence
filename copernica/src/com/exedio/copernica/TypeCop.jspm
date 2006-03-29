@@ -201,7 +201,7 @@ final class TypeCop_Jspm
 						}
 						else if(feature instanceof ItemAttribute)
 						{
-							final Item value = ((ItemAttribute)feature).get(item);
+							final Item value = ((ItemAttribute<Item>)feature).get(item);
 							if(value==null)
 							{
 								%><%=cop.getDisplayNameNull()%><%
@@ -227,7 +227,7 @@ final class TypeCop_Jspm
 						}
 						else if(feature instanceof EnumAttribute)
 						{
-							final Enum value = ((EnumAttribute)feature).get(item);
+							final Enum value = ((EnumAttribute<Enum>)feature).get(item);
 							if(value==null)
 							{
 								%><%=cop.getDisplayNameNull()%><%

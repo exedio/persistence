@@ -23,7 +23,7 @@ import com.exedio.cope.search.GreaterEqualCondition;
 import com.exedio.cope.search.LessCondition;
 import com.exedio.cope.search.LessEqualCondition;
 
-public final class DoubleAttribute extends FunctionAttribute
+public final class DoubleAttribute extends FunctionAttribute<Double>
 {
 
 	private DoubleAttribute(final boolean isfinal, final boolean mandatory, final boolean unique)
@@ -52,19 +52,14 @@ public final class DoubleAttribute extends FunctionAttribute
 		return new DoubleColumn(table, name, notNull, 30);
 	}
 
-	Object get(final Row row)
+	Double get(final Row row)
 	{
 		return (Double)row.get(getColumn());
 	}
 	
-	void set(final Row row, final Object surface)
+	void set(final Row row, final Double surface)
 	{
-		row.put(getColumn(), (Double)surface);
-	}
-	
-	public final Double get(final Item item)
-	{
-		return (Double)getObject(item);
+		row.put(getColumn(), surface);
 	}
 	
 	/**
@@ -78,22 +73,6 @@ public final class DoubleAttribute extends FunctionAttribute
 		return get(item).doubleValue();
 	}
 	
-	public final void set(final Item item, final Double value)
-		throws
-			UniqueViolationException,
-			MandatoryViolationException,
-			FinalViolationException
-	{
-		try
-		{
-			item.set(this, value);
-		}
-		catch(LengthViolationException e)
-		{
-			throw new RuntimeException(e);
-		}
-	}
-
 	public final void set(final Item item, final double value)
 		throws
 			UniqueViolationException,
@@ -109,29 +88,14 @@ public final class DoubleAttribute extends FunctionAttribute
 		}
 	}
 	
-	public final AttributeValue map(final Double value)
-	{
-		return new AttributeValue(this, value);
-	}
-	
 	public final AttributeValue map(final double value)
 	{
 		return new AttributeValue(this, new Double(value));
 	}
 	
-	public final EqualCondition equal(final Double value)
-	{
-		return new EqualCondition(this, value);
-	}
-	
 	public final EqualCondition equal(final double value)
 	{
 		return new EqualCondition(this, new Double(value));
-	}
-	
-	public final NotEqualCondition notEqual(final Double value)
-	{
-		return new NotEqualCondition(this, value);
 	}
 	
 	public final NotEqualCondition notEqual(final double value)

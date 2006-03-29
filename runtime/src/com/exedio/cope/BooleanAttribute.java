@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 
-public final class BooleanAttribute extends FunctionAttribute
+public final class BooleanAttribute extends FunctionAttribute<Boolean>
 {
 	static final int[] ALLOWED_VALUES = new int[]{0, 1};
 
@@ -49,7 +49,7 @@ public final class BooleanAttribute extends FunctionAttribute
 		return new IntegerColumn(table, name, notNull, 1, false, ALLOWED_VALUES);
 	}
 	
-	Object get(final Row row)
+	Boolean get(final Row row)
 	{
 		final Object cell = row.get(getColumn());
 		if(cell==null)
@@ -71,14 +71,9 @@ public final class BooleanAttribute extends FunctionAttribute
 	static final Integer FALSE = Integer.valueOf(0);
 	static final Integer TRUE = Integer.valueOf(1);
 		
-	void set(final Row row, final Object surface)
+	void set(final Row row, final Boolean surface)
 	{
-		row.put(getColumn(), surface==null ? null : ((Boolean)surface).booleanValue() ? TRUE : FALSE);
-	}
-	
-	public final Boolean get(final Item item)
-	{
-		return (Boolean)getObject(item);
+		row.put(getColumn(), surface==null ? null : surface.booleanValue() ? TRUE : FALSE);
 	}
 	
 	/**
@@ -92,40 +87,12 @@ public final class BooleanAttribute extends FunctionAttribute
 		return get(item).booleanValue();
 	}
 	
-	public final void set(final Item item, final Boolean value)
-		throws
-			UniqueViolationException,
-			MandatoryViolationException,
-			FinalViolationException
-	{
-		try
-		{
-			item.set(this, value);
-		}
-		catch(LengthViolationException e)
-		{
-			throw new RuntimeException(e);
-		}
-	}
-
 	public final void set(final Item item, final boolean value)
 		throws
 			UniqueViolationException,
 			FinalViolationException
 	{
-		try
-		{
-			set(item, new Boolean(value));
-		}
-		catch(MandatoryViolationException e)
-		{
-			throw new RuntimeException(e);
-		}
-	}
-	
-	public final AttributeValue map(final Boolean value)
-	{
-		return new AttributeValue(this, value);
+		set(item, new Boolean(value));
 	}
 	
 	public final AttributeValue map(final boolean value)
@@ -133,19 +100,9 @@ public final class BooleanAttribute extends FunctionAttribute
 		return new AttributeValue(this, value ? Boolean.TRUE : Boolean.FALSE);
 	}
 	
-	public final EqualCondition equal(final Boolean value)
-	{
-		return new EqualCondition(this, value);
-	}
-	
 	public final EqualCondition equal(final boolean value)
 	{
 		return new EqualCondition(this, value ? Boolean.TRUE : Boolean.FALSE);
-	}
-	
-	public final NotEqualCondition notEqual(final Boolean value)
-	{
-		return new NotEqualCondition(this, value);
 	}
 	
 	public final NotEqualCondition notEqual(final boolean value)

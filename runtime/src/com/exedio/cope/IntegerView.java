@@ -29,7 +29,7 @@ import com.exedio.cope.search.LessCondition;
 import com.exedio.cope.search.LessEqualCondition;
 
 public abstract class IntegerView
-	extends StaticView
+	extends StaticView<Integer>
 	implements IntegerFunction
 {
 	public IntegerView(

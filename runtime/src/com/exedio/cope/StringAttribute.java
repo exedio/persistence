@@ -20,12 +20,8 @@ package com.exedio.cope;
 
 import com.exedio.cope.function.LengthView;
 import com.exedio.cope.function.UppercaseView;
-import com.exedio.cope.search.GreaterCondition;
-import com.exedio.cope.search.GreaterEqualCondition;
-import com.exedio.cope.search.LessCondition;
-import com.exedio.cope.search.LessEqualCondition;
 
-public final class StringAttribute extends FunctionAttribute implements StringFunction
+public final class StringAttribute extends FunctionAttribute<String> implements StringFunction
 {
 	private final int minimumLength;
 	private final int maximumLength;
@@ -126,22 +122,22 @@ public final class StringAttribute extends FunctionAttribute implements StringFu
 		return new StringColumn(table, name, notNull, minimumLength, maximumLength);
 	}
 	
-	Object get(final Row row)
+	String get(final Row row)
 	{
 		return (String)row.get(getColumn());
 	}
 		
-	void set(final Row row, final Object surface)
+	void set(final Row row, final String surface)
 	{
 		final String cell;
 		if(getType().getModel().supportsEmptyStrings()) // TODO dont fetch this that often
-			cell = (String)surface;
+			cell = surface;
 		else
 		{
-			if(surface!=null && ((String)surface).length()==0)
+			if(surface!=null && surface.length()==0)
 				cell = null;
 			else
-				cell = (String)surface;
+				cell = surface;
 		}
 		row.put(getColumn(), cell);
 	}
@@ -158,31 +154,6 @@ public final class StringAttribute extends FunctionAttribute implements StringFu
 			throw new LengthViolationException(this, item, stringValue, false);
 	}
 	
-	public final String get(final Item item)
-	{
-		return (String)getObject(item);
-	}
-	
-	public final void set(final Item item, final String value)
-		throws
-			UniqueViolationException,
-			MandatoryViolationException,
-			LengthViolationException,
-			FinalViolationException
-	{
-		item.set(this, value);
-	}
-
-	public final AttributeValue map(final String value)
-	{
-		return new AttributeValue(this, value);
-	}
-	
-	public final EqualCondition equal(final String value)
-	{
-		return new EqualCondition(this, value);
-	}
-	
 	public final EqualCondition equal(final Join join, final String value)
 	{
 		return new EqualCondition(new JoinedFunction(this, join), value);
@@ -193,34 +164,9 @@ public final class StringAttribute extends FunctionAttribute implements StringFu
 		return new EqualAttributeCondition(this, other);
 	}
 	
-	public final NotEqualCondition notEqual(final String value)
-	{
-		return new NotEqualCondition(this, value);
-	}
-	
 	public final LikeCondition like(final String value)
 	{
 		return new LikeCondition(this, value);
-	}
-	
-	public final LessCondition less(final String value)
-	{
-		return new LessCondition(this, value);
-	}
-	
-	public final LessEqualCondition lessOrEqual(final String value)
-	{
-		return new LessEqualCondition(this, value);
-	}
-	
-	public final GreaterCondition greater(final String value)
-	{
-		return new GreaterCondition(this, value);
-	}
-	
-	public final GreaterEqualCondition greaterOrEqual(final String value)
-	{
-		return new GreaterEqualCondition(this, value);
 	}
 	
 	public final LengthView length()

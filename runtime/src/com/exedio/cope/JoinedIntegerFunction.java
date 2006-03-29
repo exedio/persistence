@@ -25,16 +25,11 @@ import com.exedio.cope.search.LessCondition;
 import com.exedio.cope.search.LessEqualCondition;
 
 
-public final class JoinedIntegerFunction extends JoinedFunction implements IntegerFunction
+public final class JoinedIntegerFunction extends JoinedFunction<Integer> implements IntegerFunction
 {
 	public JoinedIntegerFunction(final IntegerFunction function, final Join join)
 	{
 		super(function, join);
-	}
-	
-	public final Integer get(final Item item)
-	{
-		return (Integer)getObject(item);
 	}
 	
 	public final EqualCondition equal(final Integer value)

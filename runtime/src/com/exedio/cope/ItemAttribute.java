@@ -21,7 +21,7 @@ package com.exedio.cope;
 import java.lang.reflect.ParameterizedType;
 
 
-public final class ItemAttribute<E extends Item> extends FunctionAttribute
+public final class ItemAttribute<E extends Item> extends FunctionAttribute<E>
 {
 
 	private final DeletePolicy policy;
@@ -126,7 +126,7 @@ public final class ItemAttribute<E extends Item> extends FunctionAttribute
 		return typeColumn;
 	}
 	
-	Object get(final Row row)
+	E get(final Row row)
 	{
 		final Object cell = row.get(getColumn());
 
@@ -160,11 +160,11 @@ public final class ItemAttribute<E extends Item> extends FunctionAttribute
 					throw new RuntimeException();
 			}
 			
-			return cellType.getItemObject(((Integer)cell).intValue());
+			return (E)cellType.getItemObject(((Integer)cell).intValue());
 		}
 	}
 		
-	void set(final Row row, final Object surface)
+	void set(final Row row, final E surface)
 	{
 		if(surface==null)
 		{
@@ -174,42 +174,11 @@ public final class ItemAttribute<E extends Item> extends FunctionAttribute
 		}
 		else
 		{
-			final Item valueItem = (Item)surface;
+			final Item valueItem = surface;
 			row.put(getColumn(), Integer.valueOf(valueItem.pk));
 			if(typeColumn!=null)
 				row.put(typeColumn, valueItem.type.id);
 		}
-	}
-	
-	public final E get(final Item item)
-	{
-		return (E)getObject(item);
-	}
-	
-	public final void set(final Item item, final E value)
-		throws
-			UniqueViolationException,
-			MandatoryViolationException,
-			FinalViolationException
-	{
-		try
-		{
-			item.set(this, value);
-		}
-		catch(LengthViolationException e)
-		{
-			throw new RuntimeException(e);
-		}
-	}
-
-	public final AttributeValue map(final E value)
-	{
-		return new AttributeValue(this, value);
-	}
-	
-	public final EqualCondition equal(final E value)
-	{
-		return new EqualCondition(this, value);
 	}
 	
 	public final EqualCondition equal(final E value, final Join join)
@@ -225,11 +194,6 @@ public final class ItemAttribute<E extends Item> extends FunctionAttribute
 	public final EqualTargetCondition equalTarget(final Join targetJoin)
 	{
 		return new EqualTargetCondition(this, targetJoin);
-	}
-	
-	public final NotEqualCondition notEqual(final E value)
-	{
-		return new NotEqualCondition(this, value);
 	}
 	
 	public static enum DeletePolicy

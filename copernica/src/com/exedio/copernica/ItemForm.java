@@ -212,7 +212,7 @@ final class ItemForm extends Form
 		
 		if(attribute instanceof EnumAttribute)
 		{
-			final EnumAttribute enumAttribute = (EnumAttribute)attribute;
+			final EnumAttribute<Enum> enumAttribute = (EnumAttribute)attribute;
 			if(post)
 				return new EnumField(enumAttribute, cop);
 			else
@@ -276,7 +276,7 @@ final class ItemForm extends Form
 			if(post)
 				return new ItemField(attribute, name, model, cop);
 			else
-				return new ItemField(attribute, name, ((ItemAttribute)attribute).get(item), model, cop);
+				return new ItemField(attribute, name, ((ItemAttribute<Item>)attribute).get(item), model, cop);
 		}
 		else
 		{

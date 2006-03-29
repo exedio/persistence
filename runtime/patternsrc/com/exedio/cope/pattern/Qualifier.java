@@ -114,7 +114,7 @@ public final class Qualifier extends Pattern
 	{
 		final Item item = qualifyUnique.searchUnique(values);
 		if(item!=null)
-			return attribute.getObject(item);
+			return attribute.get(item);
 		else
 			return null;
 	}

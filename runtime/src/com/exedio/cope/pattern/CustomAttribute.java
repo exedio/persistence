@@ -125,7 +125,7 @@ public abstract class CustomAttribute
 	{
 		final Object[] params = new Object[storages.length];
 		for(int i = 0; i<params.length; i++)
-			params[i] = storages[i].getObject(item);
+			params[i] = storages[i].get(item);
 		
 		try
 		{

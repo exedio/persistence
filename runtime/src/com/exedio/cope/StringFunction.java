@@ -21,7 +21,7 @@ package com.exedio.cope;
 import com.exedio.cope.function.LengthView;
 
 
-public interface StringFunction extends Function
+public interface StringFunction extends Function<String>
 {
 	String get(Item item);
 	

@@ -88,7 +88,7 @@ public final class Vector extends Pattern
 
 		for(int i = 0; i<sources.length; i++)
 		{
-			final Object value = sources[i].getObject(item);
+			final Object value = sources[i].get(item);
 			if(value!=null)
 				result.add(value);
 		}

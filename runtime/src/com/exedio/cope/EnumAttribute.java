@@ -26,12 +26,7 @@ import java.util.List;
 
 import bak.pcj.map.IntKeyOpenHashMap;
 
-import com.exedio.cope.search.GreaterCondition;
-import com.exedio.cope.search.GreaterEqualCondition;
-import com.exedio.cope.search.LessCondition;
-import com.exedio.cope.search.LessEqualCondition;
-
-public final class EnumAttribute<E extends Enum> extends FunctionAttribute
+public final class EnumAttribute<E extends Enum> extends FunctionAttribute<E>
 {
 	
 	private EnumAttribute(final boolean isfinal, final boolean mandatory, final boolean unique)
@@ -131,7 +126,7 @@ public final class EnumAttribute<E extends Enum> extends FunctionAttribute
 		return new IntegerColumn(table, name, notNull, 10, false, allowedValues);
 	}
 	
-	Object get(final Row row)
+	E get(final Row row)
 	{
 		final Object cell = row.get(getColumn());
 		return
@@ -141,66 +136,9 @@ public final class EnumAttribute<E extends Enum> extends FunctionAttribute
 	}
 		
 	@SuppressWarnings("unchecked")
-	void set(final Row row, final Object surface)
+	void set(final Row row, final E surface)
 	{
-		row.put(getColumn(), surface==null ? null : getNumber((E)surface));
-	}
-	
-	@SuppressWarnings("unchecked")
-	public final E get(final Item item)
-	{
-		return (E)getObject(item);
-	}
-	
-	public final void set(final Item item, final E value)
-		throws
-			UniqueViolationException,
-			MandatoryViolationException,
-			FinalViolationException
-	{
-		try
-		{
-			item.set(this, value);
-		}
-		catch(LengthViolationException e)
-		{
-			throw new RuntimeException(e);
-		}
-	}
-
-	public final AttributeValue map(final E value)
-	{
-		return new AttributeValue(this, value);
-	}
-	
-	public final EqualCondition equal(final E value)
-	{
-		return new EqualCondition(this, value);
-	}
-	
-	public final NotEqualCondition notEqual(final E value)
-	{
-		return new NotEqualCondition(this, value);
-	}
-	
-	public final LessCondition less(final E value)
-	{
-		return new LessCondition(this, value);
-	}
-	
-	public final LessEqualCondition lessOrEqual(final E value)
-	{
-		return new LessEqualCondition(this, value);
-	}
-	
-	public final GreaterCondition greater(final E value)
-	{
-		return new GreaterCondition(this, value);
-	}
-	
-	public final GreaterEqualCondition greaterOrEqual(final E value)
-	{
-		return new GreaterEqualCondition(this, value);
+		row.put(getColumn(), surface==null ? null : getNumber(surface));
 	}
 	
 }

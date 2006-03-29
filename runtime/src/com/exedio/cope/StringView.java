@@ -24,7 +24,7 @@ import java.sql.SQLException;
 import com.exedio.cope.function.LengthView;
 
 public abstract class StringView
-	extends StaticView
+	extends StaticView<String>
 	implements StringFunction
 {
 	public StringView(

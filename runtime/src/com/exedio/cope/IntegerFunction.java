@@ -24,11 +24,8 @@ import com.exedio.cope.search.GreaterEqualCondition;
 import com.exedio.cope.search.LessCondition;
 import com.exedio.cope.search.LessEqualCondition;
 
-
-public interface IntegerFunction extends Function
+public interface IntegerFunction extends Function<Integer>
 {
-	Integer get(Item item);
-	
 	EqualCondition equal(Integer value);
 	EqualCondition equal(int value);
 	NotEqualCondition notEqual(Integer value);

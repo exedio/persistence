@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 
-abstract class StaticView extends View
+abstract class StaticView<E> extends View<E>
 {
 	private final Function[] sources;
 	private final String[] sqlFragments;

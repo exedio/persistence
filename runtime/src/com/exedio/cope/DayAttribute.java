@@ -18,13 +18,9 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.search.GreaterCondition;
-import com.exedio.cope.search.GreaterEqualCondition;
-import com.exedio.cope.search.LessCondition;
-import com.exedio.cope.search.LessEqualCondition;
 import com.exedio.cope.util.Day;
 
-public final class DayAttribute extends FunctionAttribute
+public final class DayAttribute extends FunctionAttribute<Day>
 {
 	
 	private DayAttribute(final boolean isfinal, final boolean mandatory, final boolean unique)
@@ -53,71 +49,15 @@ public final class DayAttribute extends FunctionAttribute
 		return new DayColumn(table, name, notNull);
 	}
 	
-	Object get(final Row row)
+	Day get(final Row row)
 	{
 		final Object cell = row.get(getColumn());
 		return cell==null ? null : DayColumn.getDay(((Integer)cell).intValue());
 	}
 		
-	void set(final Row row, final Object surface)
+	void set(final Row row, final Day surface)
 	{
-		row.put(getColumn(), surface==null ? null : Integer.valueOf(DayColumn.getTransientNumber((Day)surface)));
-	}
-	
-	public final Day get(final Item item)
-	{
-		return (Day)getObject(item);
-	}
-	
-	public final void set(final Item item, final Day value)
-		throws
-			UniqueViolationException,
-			MandatoryViolationException,
-			FinalViolationException
-	{
-		try
-		{
-			item.set(this, value);
-		}
-		catch(LengthViolationException e)
-		{
-			throw new RuntimeException(e);
-		}
-	}
-
-	public final AttributeValue map(final Day value)
-	{
-		return new AttributeValue(this, value);
-	}
-	
-	public final EqualCondition equal(final Day value)
-	{
-		return new EqualCondition(this, value);
-	}
-	
-	public final NotEqualCondition notEqual(final Day value)
-	{
-		return new NotEqualCondition(this, value);
-	}
-	
-	public final LessCondition less(final Day value)
-	{
-		return new LessCondition(this, value);
-	}
-	
-	public final LessEqualCondition lessOrEqual(final Day value)
-	{
-		return new LessEqualCondition(this, value);
-	}
-	
-	public final GreaterCondition greater(final Day value)
-	{
-		return new GreaterCondition(this, value);
-	}
-	
-	public final GreaterEqualCondition greaterOrEqual(final Day value)
-	{
-		return new GreaterEqualCondition(this, value);
+		row.put(getColumn(), surface==null ? null : Integer.valueOf(DayColumn.getTransientNumber(surface)));
 	}
 	
 }

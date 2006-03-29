@@ -19,12 +19,12 @@
 package com.exedio.cope;
 
 
-public class JoinedFunction implements Function
+public class JoinedFunction<E> implements Function<E>
 {
-	final Function function;
+	final Function<E> function;
 	final Join join;
 	
-	public JoinedFunction(final Function function, final Join join)
+	public JoinedFunction(final Function<E> function, final Join join)
 	{
 		assert function!=null;
 		assert join!=null;
@@ -33,9 +33,9 @@ public class JoinedFunction implements Function
 		this.join = join;
 	}
 	
-	public final Object getObject(final Item item)
+	public final E get(final Item item)
 	{
-		return function.getObject(item);
+		return function.get(item);
 	}
 
 	public final void append(final Statement bf, final Join join)
@@ -43,7 +43,7 @@ public class JoinedFunction implements Function
 		function.append(bf, this.join);
 	}
 	
-	public final void appendParameter(final Statement bf, final Object value)
+	public final void appendParameter(final Statement bf, final E value)
 	{
 		bf.appendParameter(function, value);
 	}
