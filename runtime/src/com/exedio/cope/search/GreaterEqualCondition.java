@@ -27,12 +27,7 @@ public class GreaterEqualCondition extends LiteralCondition
 	 * Creates a new GreaterEqualCondition.
 	 * Instead of using this constructor directly,
 	 * you may want to use the more type-safe wrapper methods.
-	 * @see com.exedio.cope.StringAttribute#greaterOrEqual(String)
-	 * @see com.exedio.cope.IntegerAttribute#greaterOrEqual(int)
-	 * @see com.exedio.cope.LongAttribute#greaterOrEqual(long)
-	 * @see com.exedio.cope.DoubleAttribute#greaterOrEqual(double)
-	 * @see com.exedio.cope.DateAttribute#greaterOrEqual(Date)
-	 * @see com.exedio.cope.EnumAttribute#greaterOrEqual(Enum)
+	 * @see com.exedio.cope.FunctionAttribute#greaterOrEqual(Object)
 	 */
 	public GreaterEqualCondition(final Function function, final Object value)
 	{

@@ -18,9 +18,6 @@
 
 package com.exedio.cope;
 
-import java.util.Date;
-
-
 public final class EqualCondition extends Condition
 {
 	public final Function function;
@@ -31,18 +28,7 @@ public final class EqualCondition extends Condition
 	 * Instead of using this constructor directly,
 	 * you may want to use the more type-safe wrapper methods.
 	 * @see FunctionAttribute#isNull()
-	 * @see StringFunction#equal(String)
-	 * @see IntegerFunction#equal(int)
-	 * @see IntegerFunction#equal(Integer)
-	 * @see BooleanAttribute#equal(boolean)
-	 * @see BooleanAttribute#equal(Boolean)
-	 * @see LongAttribute#equal(long)
-	 * @see LongAttribute#equal(Long)
-	 * @see DoubleAttribute#equal(double)
-	 * @see DoubleAttribute#equal(Double)
-	 * @see DateAttribute#equal(Date)
-	 * @see EnumAttribute#equal(Enum)
-	 * @see ItemAttribute#equal(Item)
+	 * @see FunctionAttribute#equal(Object)
 	 */
 	public EqualCondition(final Function function, final Object value)
 	{

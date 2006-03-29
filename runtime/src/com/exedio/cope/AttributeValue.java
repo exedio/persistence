@@ -27,7 +27,7 @@ public final class AttributeValue
 	 * Creates a new AttributeValue.
 	 * Instead of using this constructor directly,
 	 * you may want to use the more type-safe wrapper methods
-	 * {@link StringAttribute#map(String)}.
+	 * {@link FunctionAttribute#map(Object)}.
 	 */
 	public AttributeValue(final Settable attribute, final Object value)
 	{

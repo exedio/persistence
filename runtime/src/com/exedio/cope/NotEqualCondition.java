@@ -18,9 +18,6 @@
 
 package com.exedio.cope;
 
-import java.util.Date;
-
-
 public final class NotEqualCondition extends Condition
 {
 	public final Function function;
@@ -31,18 +28,7 @@ public final class NotEqualCondition extends Condition
 	 * Instead of using this constructor directly,
 	 * you may want to use the more type-safe wrapper methods.
 	 * @see FunctionAttribute#isNotNull()
-	 * @see StringFunction#notEqual(String)
-	 * @see IntegerFunction#notEqual(int)
-	 * @see IntegerFunction#notEqual(Integer)
-	 * @see BooleanAttribute#notEqual(boolean)
-	 * @see BooleanAttribute#notEqual(Boolean)
-	 * @see LongAttribute#notEqual(long)
-	 * @see LongAttribute#notEqual(Long)
-	 * @see DoubleAttribute#notEqual(double)
-	 * @see DoubleAttribute#notEqual(Double)
-	 * @see DateAttribute#notEqual(Date)
-	 * @see EnumAttribute#notEqual(Enum)
-	 * @see ItemAttribute#notEqual(Item)
+	 * @see FunctionAttribute#notEqual(Object)
 	 */
 	public NotEqualCondition(final Function function, final Object value)
 	{
