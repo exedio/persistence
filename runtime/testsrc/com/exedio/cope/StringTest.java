@@ -63,9 +63,6 @@ public class StringTest extends TestmodelTest
 		assertEquals(0, item.max4.getMinimumLength());
 		assertEquals(4, item.max4.getMaximumLength());
 
-		assertEquals(0, item.max5Unchecked.getMinimumLength());
-		assertEquals(5, item.max5Unchecked.getMaximumLength());
-
 		assertEquals(4, item.min4Max8.getMinimumLength());
 		assertEquals(8, item.min4Max8.getMaximumLength());
 		
@@ -293,53 +290,33 @@ public class StringTest extends TestmodelTest
 		restartTransaction();
 		assertEquals("1234", item.getMax4());
 
-		// max5Unchecked
-		item.setMax5Unchecked("12345");
-		assertEquals("12345", item.getMax5Unchecked());
-		try
-		{
-			item.setMax5Unchecked("123456");
-			fail("should have thrown LengthViolationException");
-		}
-		catch(LengthViolationException e)
-		{
-			assertEquals(item, e.getItem());
-			assertEquals(item.max5Unchecked, e.getStringAttribute());
-			assertEquals(item.max5Unchecked, e.getFeature());
-			assertEquals("123456", e.getValue());
-			assertEquals("length violation on StringItem.0, '123456' is too long for StringItem#max5Unchecked", e.getMessage());
-		}
-		assertEquals("12345", item.getMax5Unchecked());
-		restartTransaction();
-		assertEquals("12345", item.getMax5Unchecked());
-
 		assertEquals(numberOfItems, item.TYPE.search(null).size());
 		try
 		{
-			new StringItem("123456", (Date)null);
+			new StringItem("12345", (Date)null);
 			fail();
 		}
 		catch(LengthViolationException e)
 		{
 			assertEquals(null, e.getItem());
-			assertEquals(item.max5Unchecked, e.getStringAttribute());
-			assertEquals(item.max5Unchecked, e.getFeature());
-			assertEquals("123456", e.getValue());
-			assertEquals("length violation on a newly created item, '123456' is too long for StringItem#max5Unchecked", e.getMessage());
+			assertEquals(item.max4, e.getStringAttribute());
+			assertEquals(item.max4, e.getFeature());
+			assertEquals("12345", e.getValue());
+			assertEquals("length violation on a newly created item, '12345' is too long for StringItem#max4", e.getMessage());
 		}
 		assertEquals(numberOfItems, item.TYPE.search(null).size());
 		try
 		{
-			StringItem.TYPE.newItem(new AttributeValue[]{item.max5Unchecked.map("123456")});
+			StringItem.TYPE.newItem(new AttributeValue[]{item.max4.map("12345")});
 			fail();
 		}
 		catch(LengthViolationException e)
 		{
 			assertEquals(null, e.getItem());
-			assertEquals(item.max5Unchecked, e.getStringAttribute());
-			assertEquals(item.max5Unchecked, e.getFeature());
-			assertEquals("123456", e.getValue());
-			assertEquals("length violation on a newly created item, '123456' is too long for StringItem#max5Unchecked", e.getMessage());
+			assertEquals(item.max4, e.getStringAttribute());
+			assertEquals(item.max4, e.getFeature());
+			assertEquals("12345", e.getValue());
+			assertEquals("length violation on a newly created item, '12345' is too long for StringItem#max4", e.getMessage());
 		}
 		assertEquals(numberOfItems, item.TYPE.search(null).size());
 
