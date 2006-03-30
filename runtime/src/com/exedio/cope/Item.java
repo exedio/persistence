@@ -24,7 +24,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 
-import com.exedio.cope.pattern.CustomAttributeException;
 import com.exedio.cope.util.ReactivationConstructorDummy;
 
 /**
@@ -220,7 +219,6 @@ public abstract class Item extends Cope
 			MandatoryViolationException,
 			LengthViolationException,
 			FinalViolationException,
-			CustomAttributeException,
 			ClassCastException
 	{
 		attributeValues = executeCustomAttributes(attributeValues, this);
@@ -422,7 +420,6 @@ public abstract class Item extends Cope
 	
 	// TODO result type should be HashMap<FunctionAttribute, Object>
 	private static final AttributeValue[] executeCustomAttributes(final AttributeValue[] source, final Item exceptionItem)
-		throws CustomAttributeException
 	{
 		final HashMap<FunctionAttribute, Object> result = new HashMap<FunctionAttribute, Object>();
 		for(int i = 0; i<source.length; i++)
