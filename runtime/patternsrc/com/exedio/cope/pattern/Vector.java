@@ -22,23 +22,26 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import com.exedio.cope.AttributeValue;
 import com.exedio.cope.EqualCondition;
+import com.exedio.cope.FinalViolationException;
+import com.exedio.cope.FunctionAttribute;
 import com.exedio.cope.Item;
 import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.NotEqualCondition;
-import com.exedio.cope.FunctionAttribute;
 import com.exedio.cope.Pattern;
-import com.exedio.cope.FinalViolationException;
+import com.exedio.cope.Settable;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.search.AndCondition;
 import com.exedio.cope.search.OrCondition;
 
-public final class Vector extends Pattern
+public final class Vector extends Pattern implements Settable<Collection>
 {
 	private final FunctionAttribute[] sources;
 
@@ -121,6 +124,25 @@ public final class Vector extends Pattern
 			// cannot happen, since FunctionAttribute only are allowed for source
 			throw new RuntimeException(e);
 		}
+	}
+	
+	public AttributeValue map(final Collection value)
+	{
+		return new AttributeValue(this, value);
+	}
+	
+	public Map<? extends FunctionAttribute, ? extends Object> execute(final Collection value, final Item exceptionItem)
+	{
+		int i = 0;
+		final HashMap<FunctionAttribute, Object> result = new HashMap<FunctionAttribute, Object>();
+
+		for(final Object v : value)
+			result.put(sources[i++], v);
+
+		for(; i<sources.length; i++)
+			result.put(sources[i], null);
+		
+		return result;
 	}
 	
 	public final AndCondition equal(final Collection values)
