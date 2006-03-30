@@ -21,6 +21,7 @@ package com.exedio.cope;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import com.exedio.cope.search.GreaterCondition;
 import com.exedio.cope.search.GreaterEqualCondition;
@@ -29,7 +30,7 @@ import com.exedio.cope.search.LessEqualCondition;
 
 public abstract class FunctionAttribute<E extends Object>
 	extends Attribute
-	implements Function<E>, Settable
+	implements Function<E>, Settable<E>
 {
 	final UniqueConstraint implicitUniqueConstraint;
 	private ArrayList<UniqueConstraint> uniqueConstraints;
@@ -198,6 +199,11 @@ public abstract class FunctionAttribute<E extends Object>
 	public final AttributeValue map(final E value)
 	{
 		return new AttributeValue(this, value);
+	}
+	
+	public final Map<? extends FunctionAttribute, ? extends Object> execute(final E value, final Item exceptionItem)
+	{
+		return Collections.singletonMap(this, value);
 	}
 	
 	public final EqualCondition isNull()

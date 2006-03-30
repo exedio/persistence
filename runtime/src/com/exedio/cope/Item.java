@@ -22,8 +22,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Map;
 
-import com.exedio.cope.pattern.CustomAttribute;
 import com.exedio.cope.pattern.CustomAttributeException;
 import com.exedio.cope.util.ReactivationConstructorDummy;
 
@@ -420,43 +420,43 @@ public abstract class Item extends Cope
 		return type.getModel().getCurrentTransaction().getEntityIfActive(type, pk);
 	}
 	
+	// TODO result type should be HashMap<FunctionAttribute, Object>
 	private static final AttributeValue[] executeCustomAttributes(final AttributeValue[] source, final Item exceptionItem)
 		throws CustomAttributeException
 	{
-		final HashMap<Settable, AttributeValue> result = new HashMap<Settable, AttributeValue>();
-		boolean customAttributeOccured = false;
+		final HashMap<FunctionAttribute, Object> result = new HashMap<FunctionAttribute, Object>();
 		for(int i = 0; i<source.length; i++)
 		{
 			final AttributeValue av = source[i];
 			final Settable settable = av.attribute;
+			
 			if(settable instanceof FunctionAttribute)
 			{
-				if(result.put(settable, av)!=null)
-					throw new RuntimeException("duplicate settable "+settable.toString());
+				if(result.put((FunctionAttribute)settable, av.value)!=null)
+					throw new RuntimeException("duplicate function attribute "+settable.toString());
 			}
 			else
 			{
-				customAttributeOccured = true;
-				final CustomAttribute ca = (CustomAttribute)av.attribute;
-				final AttributeValue[] caav = ca.execute(av.value, exceptionItem);
-				for(int j = 0; j<caav.length; j++)
+				final Map<FunctionAttribute, Object> part = settable.execute(av.value, exceptionItem);
+				
+				for(FunctionAttribute attribute : part.keySet())
 				{
-					if(result.put(caav[j].attribute, caav[j])!=null)
-						throw new RuntimeException("duplicate settable "+caav[j].attribute.toString());
+					if(result.put(attribute, part.get(attribute))!=null)
+						throw new RuntimeException("duplicate function attribute "+attribute.toString());
 				}
 			}
 		}
-		if(!customAttributeOccured)
-			return source;
-		
-		final AttributeValue[] resultArray = new AttributeValue[result.size()];
+		return convert(result);
+	}
+	
+	public static final AttributeValue[] convert(Map<? extends FunctionAttribute, ? extends Object> map)
+	{
+		final AttributeValue[] result = new AttributeValue[map.size()];
 		int n = 0;
-		for(Iterator i = result.values().iterator(); i.hasNext(); n++)
-		{
-			resultArray[n] = (AttributeValue)i.next();
-			assert resultArray[n].attribute instanceof FunctionAttribute;
-		}
-		return resultArray;
+		for(FunctionAttribute attribute : map.keySet())
+			result[n++] = new AttributeValue(attribute, map.get(attribute));
+		
+		return result;
 	}
 
 }

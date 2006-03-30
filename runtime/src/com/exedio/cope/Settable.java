@@ -18,7 +18,10 @@
 
 package com.exedio.cope;
 
-public interface Settable
-{
+import java.util.Map;
 
+public interface Settable<E>
+{
+	AttributeValue map(E value);
+	Map<? extends FunctionAttribute, ? extends Object> execute(E value, Item exceptionItem);
 }

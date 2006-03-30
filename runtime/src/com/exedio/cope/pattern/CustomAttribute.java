@@ -22,7 +22,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.exedio.cope.AttributeValue;
 import com.exedio.cope.FinalViolationException;
@@ -34,9 +36,9 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.Settable;
 import com.exedio.cope.UniqueViolationException;
 
-public abstract class CustomAttribute
+public abstract class CustomAttribute<E>
 	extends Pattern
-	implements Settable
+	implements Settable<E>
 {
 	private final FunctionAttribute[] storages;
 	private final List<FunctionAttribute> storageList;
@@ -145,11 +147,11 @@ public abstract class CustomAttribute
 		}
 	}
 
-	public final void set(final Item item, final Object value) throws CustomAttributeException
+	public final void set(final Item item, final E value) throws CustomAttributeException
 	{
 		try
 		{
-			item.set(execute(value, item));
+			item.set(Item.convert(execute(value, item)));
 		}
 		catch(UniqueViolationException e)
 		{
@@ -169,7 +171,7 @@ public abstract class CustomAttribute
 		}
 	}
 	
-	public final AttributeValue[] execute(final Object value, final Item exceptionItem) throws CustomAttributeException
+	public final Map<? extends FunctionAttribute, ? extends Object> execute(final E value, final Item exceptionItem) throws CustomAttributeException
 	{
 		final Object result;
 		try
@@ -190,12 +192,18 @@ public abstract class CustomAttribute
 		}
 		
 		if(storages.length==1)
-			return new AttributeValue[]{new AttributeValue(storages[0], result)};
+			return Collections.singletonMap(storages[0], result);
 		else
-			return (AttributeValue[])result;
+		{
+			final AttributeValue[] resultArray = (AttributeValue[])result;
+			final HashMap<FunctionAttribute, Object> resultMap = new HashMap<FunctionAttribute, Object>();
+			for(int i = 0; i<resultArray.length; i++)
+				resultMap.put((FunctionAttribute)resultArray[i].attribute, resultArray[i].value);
+			return resultMap;
+		}
 	}
 	
-	public final AttributeValue map(final Object value)
+	public final AttributeValue map(final E value)
 	{
 		return new AttributeValue(this, value);
 	}

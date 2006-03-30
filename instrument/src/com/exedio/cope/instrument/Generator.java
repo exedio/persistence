@@ -346,8 +346,7 @@ final class Generator
 		o.write(format(CONSTRUCTOR_GENERIC_CALLED, "{@link " + Type.class.getName() + "#newItem Type.newItem}"));
 		o.write(lineSeparator);
 		writeCommentFooter(CONSTRUCTOR_GENERIC_CUSTOMIZE);
-		o.write( Modifier.toString( option.getModifier(type.allowSubTypes() ? Modifier.PROTECTED : Modifier.PRIVATE) ) );
-		o.write(' ');
+		CopeAttribute.writeGeneratedModifier(o, option.getModifier(type.allowSubTypes() ? Modifier.PROTECTED : Modifier.PRIVATE));
 		o.write(type.getName());
 		o.write("(final "+AttributeValue.class.getName()+"[] initialAttributes)");
 		o.write(lineSeparator);

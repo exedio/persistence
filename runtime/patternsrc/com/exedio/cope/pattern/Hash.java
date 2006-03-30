@@ -18,7 +18,13 @@
 
 package com.exedio.cope.pattern;
 
+import java.util.Collections;
+import java.util.Map;
+
+import com.exedio.cope.AttributeValue;
 import com.exedio.cope.EqualCondition;
+import com.exedio.cope.FinalViolationException;
+import com.exedio.cope.FunctionAttribute;
 import com.exedio.cope.Item;
 import com.exedio.cope.Join;
 import com.exedio.cope.JoinedFunction;
@@ -26,12 +32,12 @@ import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.NotEqualCondition;
 import com.exedio.cope.Pattern;
-import com.exedio.cope.FinalViolationException;
+import com.exedio.cope.Settable;
 import com.exedio.cope.StringAttribute;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.Attribute.Option;
 
-public abstract class Hash extends Pattern
+public abstract class Hash extends Pattern implements Settable<String>
 {
 	private final StringAttribute storage;
 
@@ -79,6 +85,16 @@ public abstract class Hash extends Pattern
 			return actualHash==null;
 		else
 			return expectedHash.equals(actualHash);
+	}
+	
+	public final AttributeValue map(final String value)
+	{
+		return new AttributeValue(this, value);
+	}
+	
+	public final Map<? extends FunctionAttribute, ? extends Object> execute(final String value, final Item exceptionItem)
+	{
+		return Collections.singletonMap(storage, hash(value));
 	}
 	
 	public final EqualCondition equal(final String value)

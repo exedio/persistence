@@ -98,7 +98,7 @@ abstract class CopeAttribute extends CopeFeature
 		return name;
 	}
 	
-	private final void writeGeneratedModifier(final Writer o, final int modifier) throws IOException
+	final static void writeGeneratedModifier(final Writer o, final int modifier) throws IOException
 	{
 		final String modifierString = Modifier.toString(modifier);
 		if(modifierString.length()>0)
