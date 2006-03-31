@@ -246,7 +246,7 @@ public class GeneratorTest extends InstrumentorTest
 
 		assertConstructor(TYPE_NONE, new Class[]{}, PRIVATE);
 		assertConstructor(TYPE_NONE, new Class[]{ATTRIBUTE_VALUE_ARRAY}, PUBLIC); // @cope.generic.constructor public
-		assertConstructor(TYPE_NONE, new Class[]{REACTIVATION_DUMMY, int.class}, PRIVATE);
+		assertConstructor(TYPE_NONE, new Class[]{REACTIVATION_DUMMY, int.class}, 0); // @cope.reactivation.constructor package
 		assertMethod(TYPE_NONE, "getDefaultString", STRING, PUBLIC|FINAL);
 		assertMethod(TYPE_NONE, "setDefaultString", new Class[]{STRING}, PUBLIC|FINAL, new Class[]{LENGTH_VIOLATION});
 		assertNoField(TYPE_NONE, "TYPE");
