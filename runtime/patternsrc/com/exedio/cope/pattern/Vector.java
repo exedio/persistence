@@ -80,7 +80,7 @@ public final class Vector extends Pattern implements Settable<Collection>
 		}
 	}
 	
-	public final List<FunctionAttribute> getSources()
+	public List<FunctionAttribute> getSources()
 	{
 		return Collections.unmodifiableList(Arrays.asList(sources));
 	}
@@ -98,7 +98,7 @@ public final class Vector extends Pattern implements Settable<Collection>
 		return result;
 	}
 	
-	public void set(final Item item, final Collection values)
+	public void set(final Item item, final Collection value)
 		throws
 			UniqueViolationException,
 			MandatoryViolationException,
@@ -109,7 +109,7 @@ public final class Vector extends Pattern implements Settable<Collection>
 		int i = 0;
 		final AttributeValue[] attributeValues = new AttributeValue[sources.length];
 
-		for(Iterator it = values.iterator(); it.hasNext(); i++)
+		for(Iterator it = value.iterator(); it.hasNext(); i++)
 			attributeValues[i] = new AttributeValue(sources[i], it.next());
 
 		for(; i<sources.length; i++)
@@ -145,12 +145,12 @@ public final class Vector extends Pattern implements Settable<Collection>
 		return result;
 	}
 	
-	public final AndCondition equal(final Collection values)
+	public AndCondition equal(final Collection value)
 	{
 		int i = 0;
 		final EqualCondition[] conditions = new EqualCondition[sources.length];
 		
-		for(Iterator it = values.iterator(); it.hasNext(); i++)
+		for(Iterator it = value.iterator(); it.hasNext(); i++)
 			conditions[i] = new EqualCondition(sources[i], it.next());
 
 		for(; i<sources.length; i++)
@@ -159,12 +159,12 @@ public final class Vector extends Pattern implements Settable<Collection>
 		return new AndCondition(conditions);
 	}
 	
-	public final OrCondition notEqual(final Collection values)
+	public OrCondition notEqual(final Collection value)
 	{
 		int i = 0;
 		final NotEqualCondition[] conditions = new NotEqualCondition[sources.length];
 		
-		for(Iterator it = values.iterator(); it.hasNext(); i++)
+		for(Iterator it = value.iterator(); it.hasNext(); i++)
 			conditions[i] = new NotEqualCondition(sources[i], it.next());
 
 		for(; i<sources.length; i++)
@@ -173,7 +173,7 @@ public final class Vector extends Pattern implements Settable<Collection>
 		return new OrCondition(conditions);
 	}
 
-	public final OrCondition contains(final Object value)
+	public OrCondition contains(final Object value)
 	{
 		final EqualCondition[] conditions = new EqualCondition[sources.length];
 		
