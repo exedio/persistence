@@ -400,7 +400,7 @@ public final class Media extends MediaPath
 		values.add(this.lastModified.map(data!=null ? new Date() : null));
 		try
 		{
-			item.set((AttributeValue[])values.toArray(new AttributeValue[values.size()]));
+			item.set(values.toArray(new AttributeValue[values.size()]));
 		}
 		catch(CustomAttributeException e)
 		{
@@ -561,6 +561,7 @@ public final class Media extends MediaPath
 		
 		void initialize(final String name)
 		{
+			// no attributes to be initialized
 		}
 		
 		String getContentType(final Item item)

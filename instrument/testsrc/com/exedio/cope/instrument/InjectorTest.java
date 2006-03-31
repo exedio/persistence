@@ -221,6 +221,7 @@ public abstract class InjectorTest extends InstrumentorTest
 
 	private static class InjectionEvent
 	{
+		// just a common super class
 	}
 
 	private static class TextEvent extends InjectionEvent

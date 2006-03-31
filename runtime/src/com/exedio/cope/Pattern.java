@@ -67,6 +67,7 @@ public abstract class Pattern extends Feature
 	 */
 	public void initialize()
 	{
+		// empty default implementation
 	}
 	
 	protected final void initialize(final Attribute attribute, final String name)

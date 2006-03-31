@@ -30,9 +30,6 @@ public final class JavaView extends Pattern
 	private Class valueType;
 	private java.lang.reflect.Type valueGenericType;
 	
-	public JavaView()
-	{}
-	
 	public void initialize()
 	{
 		final String name = getName();

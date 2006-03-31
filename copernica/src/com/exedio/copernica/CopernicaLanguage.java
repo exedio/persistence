@@ -20,4 +20,5 @@ package com.exedio.copernica;
 
 public interface CopernicaLanguage extends Component
 {
+	// adds no methods to the Component interface
 }

@@ -40,7 +40,7 @@ public abstract class FunctionAttribute<E extends Object>
 		super(isfinal, optional);
 		this.implicitUniqueConstraint =
 			unique ?
-				new UniqueConstraint((FunctionAttribute)this) :
+				new UniqueConstraint(this) :
 				null;
 	}
 	
@@ -108,6 +108,7 @@ public abstract class FunctionAttribute<E extends Object>
 		throws
 			LengthViolationException
 	{
+		// empty default implementation
 	}
 	
 	private static final Entity getEntity(final Item item)

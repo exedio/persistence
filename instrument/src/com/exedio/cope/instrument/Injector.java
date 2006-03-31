@@ -220,7 +220,7 @@ final class Injector
 				while (read() != '\n');
 				break;
 			default :
-				return (int)x;
+				return x;
 		}
 		return -1;
 	}
@@ -964,9 +964,6 @@ final class Injector
 	{
 		private static final long serialVersionUID = 298765358236485l;
 		
-		public EndException()
-		{
-		}
 	}
 
 	private class ParseException extends InjectorParseException

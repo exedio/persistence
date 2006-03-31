@@ -334,7 +334,7 @@ final class Cache
 			}
 		}
 		
-		return (CacheQueryInfo[])result.toArray(new CacheQueryInfo[result.size()]);
+		return result.toArray(new CacheQueryInfo[result.size()]);
 	}
 	
 	private static final class MyLRUMap extends LRUMap

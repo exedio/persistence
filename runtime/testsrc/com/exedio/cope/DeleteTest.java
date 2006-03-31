@@ -86,7 +86,7 @@ public class DeleteTest extends AbstractLibTest
 
 		try
 		{
-			new ItemAttribute(Item.MANDATORY, Item.NULLIFY);
+			new ItemAttribute<DeleteItem>(Item.MANDATORY, Item.NULLIFY);
 		}
 		catch(RuntimeException e)
 		{
@@ -95,7 +95,7 @@ public class DeleteTest extends AbstractLibTest
 		}
 		try
 		{
-			new ItemAttribute(Item.FINAL_OPTIONAL, Item.NULLIFY);
+			new ItemAttribute<DeleteItem>(Item.FINAL_OPTIONAL, Item.NULLIFY);
 		}
 		catch(RuntimeException e)
 		{

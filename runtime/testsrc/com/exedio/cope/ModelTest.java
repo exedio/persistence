@@ -201,8 +201,7 @@ public class ModelTest extends TestmodelTest
 			fail();
 		}
 		catch(NullPointerException e)
-		{
-		}
+		{/*OK*/}
 		try
 		{
 			new Type(Item.class);

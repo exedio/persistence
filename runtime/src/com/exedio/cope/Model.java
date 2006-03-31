@@ -173,7 +173,7 @@ public final class Model
 		if(this.properties==null)
 			throw newNotInitializedException();
 
-		return (Type)typesByID.get(id);
+		return typesByID.get(id);
 	}
 	
 	private final RuntimeException newNotInitializedException()
@@ -580,7 +580,7 @@ public final class Model
 	
 	private final Transaction getCurrentTransactionIfAvailable()
 	{
-		final Transaction result = (Transaction)transactionThreads.get();
+		final Transaction result = transactionThreads.get();
 		
 		if( result!=null )
 		{

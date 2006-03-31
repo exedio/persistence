@@ -22,8 +22,4 @@ class FeatureNotInitializedException extends RuntimeException
 {
 	private static final long serialVersionUID = 483353862125215l;
 	
-	FeatureNotInitializedException()
-	{
-	}
-
 }

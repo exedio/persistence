@@ -24,8 +24,5 @@ package com.exedio.cope.util;
  */
 public final class ReactivationConstructorDummy
 {
-
-	public ReactivationConstructorDummy()
-	{}
-
+	// no features needed for this class
 }

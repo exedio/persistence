@@ -874,7 +874,7 @@ abstract class AbstractDatabase implements Database
 								source.close();
 							}
 							catch(IOException e)
-							{}
+							{/*IGNORE*/}
 						}
 					}
 				}
@@ -1471,6 +1471,7 @@ abstract class AbstractDatabase implements Database
 	
 	protected void completeSchema(final Schema schema)
 	{
+		// empty default implementation
 	}
 	
 	public final Schema makeVerifiedSchema()

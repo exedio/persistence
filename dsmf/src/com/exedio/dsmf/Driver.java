@@ -102,6 +102,7 @@ public abstract class Driver
 	
 	void appendTableCreateStatement(final StringBuffer bf)
 	{
+		// empty default implementation
 	}
 	
 	boolean needsTargetColumnName()

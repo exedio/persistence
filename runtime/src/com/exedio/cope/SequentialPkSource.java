@@ -81,7 +81,7 @@ final class SequentialPkSource extends PkSource
 		if(pk==Type.NOT_A_PK)
 			throw new RuntimeException("not a pk");
 
-		return (long)pk;
+		return pk;
 	}
 
 	int id2pk(final long id, final String idString)

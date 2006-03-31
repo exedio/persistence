@@ -20,7 +20,6 @@ package com.exedio.copernica;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -135,7 +134,7 @@ public class MediaServletTest extends AbstractWebTest
 		assertWithin(new Date(date+4000), new Date(date+6000), new Date(conn.getExpiration()));
 		assertEquals(expectNotModified ? -1 : 66, conn.getContentLength());
 		
-		final BufferedReader is = new BufferedReader(new InputStreamReader((InputStream)conn.getInputStream()));
+		final BufferedReader is = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 		if(!expectNotModified)
 		{
 			assertEquals("This is an example file", is.readLine());
@@ -174,7 +173,7 @@ public class MediaServletTest extends AbstractWebTest
 		assertEquals("Not Found", conn.getResponseMessage());
 		assertEquals("text/html", conn.getContentType());
 		
-		final BufferedReader is = new BufferedReader(new InputStreamReader((InputStream)conn.getErrorStream()));
+		final BufferedReader is = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
 		assertEquals("<html>", is.readLine());
 		assertEquals("<head>", is.readLine());
 		assertEquals("<title>Not Found</title>", is.readLine());
@@ -204,7 +203,7 @@ public class MediaServletTest extends AbstractWebTest
 		assertEquals("Internal Server Error", conn.getResponseMessage());
 		assertEquals("text/html", conn.getContentType());
 		
-		final BufferedReader is = new BufferedReader(new InputStreamReader((InputStream)conn.getErrorStream()));
+		final BufferedReader is = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
 		assertEquals("<html>", is.readLine());
 		assertEquals("<head>", is.readLine());
 		assertEquals("<title>Internal Server Error</title>", is.readLine());
@@ -233,7 +232,7 @@ public class MediaServletTest extends AbstractWebTest
 		assertEquals("text/plain", conn.getContentType());
 		assertEquals(12, conn.getContentLength());
 		
-		final BufferedReader is = new BufferedReader(new InputStreamReader((InputStream)conn.getInputStream()));
+		final BufferedReader is = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 		assertEquals("media item 1", is.readLine());
 		assertEquals(null, is.readLine());
 		is.close();

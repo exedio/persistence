@@ -31,7 +31,7 @@ import com.exedio.cope.search.OrCondition;
 public abstract class Cope
 {
 	Cope()
-	{}
+	{/* do not allow class to be subclasses by public */}
 
 	public static final AndCondition and(final Condition condition1, final Condition condition2)
 	{

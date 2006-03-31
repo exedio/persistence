@@ -67,10 +67,12 @@ final class Instrumentor implements InjectionConsumer
 	public void onPackage(JavaFile javafile)
 	throws InjectorParseException
 	{
+		// nothing to do here
 	}
 	
 	public void onImport(String importname)
 	{
+		// nothing to do here
 	}
 	
 	private static final String TAG_PREFIX = "cope.";
@@ -149,15 +151,17 @@ final class Instrumentor implements InjectionConsumer
 		javaClass.notifyClassEnd();
 		if(class_state!=javaClass)
 			throw new RuntimeException();
-		class_state=(JavaClass)(class_state_stack.remove(class_state_stack.size()-1));
+		class_state = class_state_stack.remove(class_state_stack.size()-1);
 	}
 
 	public void onBehaviourHeader(JavaBehaviour jb)
 	{
+		// nothing to do here
 	}
 	
 	public void onAttributeHeader(JavaAttribute ja)
 	{
+		// nothing to do here
 	}
 	
 	private final void handleAttribute(final JavaAttribute ja, final Class typeClass, final String docComment)
@@ -244,6 +248,7 @@ final class Instrumentor implements InjectionConsumer
 			}
 			catch(RuntimeException e)
 			{
+				// then internal is false
 			}
 			
 			if(internal)

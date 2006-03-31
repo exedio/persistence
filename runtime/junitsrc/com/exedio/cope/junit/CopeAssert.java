@@ -152,13 +152,13 @@ public abstract class CopeAssert extends TestCase
 			c.add((T)null);
 			fail("should have thrown UnsupportedOperationException");
 		}
-		catch(UnsupportedOperationException e) {}
+		catch(UnsupportedOperationException e) {/*OK*/}
 		try
 		{
 			c.addAll(Collections.singleton((T)null));
 			fail("should have thrown UnsupportedOperationException");
 		}
-		catch(UnsupportedOperationException e) {}
+		catch(UnsupportedOperationException e) {/*OK*/}
 		
 		if(!c.isEmpty())
 		{
@@ -168,25 +168,25 @@ public abstract class CopeAssert extends TestCase
 				c.clear();
 				fail("should have thrown UnsupportedOperationException");
 			}
-			catch(UnsupportedOperationException e) {}
+			catch(UnsupportedOperationException e) {/*OK*/}
 			try
 			{
 				c.remove(o);
 				fail("should have thrown UnsupportedOperationException");
 			}
-			catch(UnsupportedOperationException e) {}
+			catch(UnsupportedOperationException e) {/*OK*/}
 			try
 			{
 				c.removeAll(Collections.singleton(o));
 				fail("should have thrown UnsupportedOperationException");
 			}
-			catch(UnsupportedOperationException e) {}
+			catch(UnsupportedOperationException e) {/*OK*/}
 			try
 			{
 				c.retainAll(Collections.EMPTY_LIST);
 				fail("should have thrown UnsupportedOperationException");
 			}
-			catch(UnsupportedOperationException e) {}
+			catch(UnsupportedOperationException e) {/*OK*/}
 
 			final Iterator iterator = c.iterator();
 			try
@@ -194,7 +194,7 @@ public abstract class CopeAssert extends TestCase
 				iterator.remove();
 				fail("should have thrown UnsupportedOperationException");
 			}
-			catch(UnsupportedOperationException e) {}
+			catch(UnsupportedOperationException e) {/*OK*/}
 		}
 	}
 	

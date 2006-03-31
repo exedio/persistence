@@ -86,7 +86,7 @@ final class ButterflyPkSource extends PkSource
 		if(pk==Type.NOT_A_PK)
 			throw new RuntimeException("not a pk");
 
-		final long longPk = (long)pk;
+		final long longPk = pk;
 		return
 			(pk>=0) ?
 				(longPk<<1) : // 2*pk
@@ -110,7 +110,7 @@ final class ButterflyPkSource extends PkSource
 				id>>1; // id/2
 
 		//System.out.println("id2pk: "+id+" -> "+result);
-		if(result==(long)Type.NOT_A_PK)
+		if(result==Type.NOT_A_PK)
 			throw new NoSuchIDException(idString, true, "is a NOT_A_PK");
 
 		return (int)result;

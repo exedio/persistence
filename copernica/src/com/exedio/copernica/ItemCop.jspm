@@ -115,7 +115,7 @@ class ItemCop_Jspm
 				for(Iterator j = form.displayedAttributes.iterator(); j.hasNext(); )
 				{
 					final Attribute attribute = (Attribute)j.next();
-					final Field field = (Field)form.getFieldByKey(attribute);
+					final Field field = form.getFieldByKey(attribute);
 					%>
 					<tr>
 						<td><%=provider.getDisplayName(null, attribute)%></td>

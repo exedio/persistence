@@ -25,4 +25,5 @@ package com.exedio.cope;
  */
 public interface Selectable
 {
+	// just a marker interface, no methods needed here
 }

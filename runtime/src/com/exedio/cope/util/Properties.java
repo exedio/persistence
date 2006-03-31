@@ -418,7 +418,7 @@ public class Properties
 				{
 					stream.close();
 				}
-				catch(IOException e) {}
+				catch(IOException e) {/*IGNORE*/}
 			}
 		}
 	}

@@ -73,6 +73,7 @@ class TestByteArrayInputStream extends InputStream
 
 	public void mark(int readAheadLimit)
 	{
+		throw new RuntimeException();
 	}
 
 	public void reset() throws IOException

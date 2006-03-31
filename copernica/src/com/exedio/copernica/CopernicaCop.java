@@ -55,6 +55,7 @@ abstract class CopernicaCop extends Cop implements RequestCache
 	
 	void init(final HttpServletRequest request)
 	{
+		// empty default implementation
 	}
 	
 	abstract CopernicaCop switchLanguage(CopernicaLanguage newLanguage);

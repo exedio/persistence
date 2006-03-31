@@ -20,7 +20,6 @@ package com.exedio.copernica;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -79,7 +78,7 @@ public class ResourceTest extends AbstractWebTest
 		assertWithin(new Date(date+(4*60*1000)), new Date(date+(6*60*1000)), new Date(conn.getExpiration()));
 		assertEquals(expectNotModified ? -1 : 2828, conn.getContentLength());
 		
-		final BufferedReader is = new BufferedReader(new InputStreamReader((InputStream)conn.getInputStream()));
+		final BufferedReader is = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 		if(!expectNotModified)
 		{
 			assertEquals("/*", is.readLine());

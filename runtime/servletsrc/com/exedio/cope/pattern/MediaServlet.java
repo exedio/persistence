@@ -177,7 +177,7 @@ public final class MediaServlet extends HttpServlet
 		final String attributeString = pathInfo.substring(0, trailingSlash+1);
 		//System.out.println("attributeString="+attributeString);
 
-		final MediaPath path = (MediaPath)pathes.get(attributeString);
+		final MediaPath path = pathes.get(attributeString);
 		if(path==null)
 			return MediaPath.noSuchPath;
 		

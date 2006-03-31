@@ -97,7 +97,7 @@ public final class DataAttribute extends Attribute
 	
 	private static final int toInt(final long l)
 	{
-		return (int)Math.min(l, (long)Integer.MAX_VALUE);
+		return (int)Math.min(l, Integer.MAX_VALUE);
 	}
 	
 	// public methods ---------------------------------------------------------------
@@ -595,7 +595,7 @@ public final class DataAttribute extends Attribute
 			if(length==0)
 				return new byte[]{};
 			
-			if(length>((long)Integer.MAX_VALUE))
+			if(length>Integer.MAX_VALUE)
 				throw new RuntimeException("byte array cannot be longer than int");
 			
 			assert length>0;

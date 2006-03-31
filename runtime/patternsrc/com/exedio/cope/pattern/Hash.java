@@ -104,7 +104,7 @@ public abstract class Hash extends Pattern implements Settable<String>
 	
 	public final EqualCondition equal(final Join join, final String value)
 	{
-		return new EqualCondition(new JoinedFunction(storage, join), hash(value));
+		return new EqualCondition(new JoinedFunction<String>(storage, join), hash(value));
 	}
 
 	public final NotEqualCondition notEqual(final String value)

@@ -60,7 +60,7 @@ public final class Main
 	}
 	
 	Main()
-	{}
+	{/* do not allow instantiation by public */}
 	
 	private void printUsage(PrintStream o)
 	{
@@ -193,7 +193,7 @@ public final class Main
 		}
 
 		if(verbose || instrumented>0)
-			System.out.println("Instrumented " + instrumented + ' ' + (instrumented==1 ? "file" : "files") + ", skipped " + skipped + " in " + ((File)inputFiles.iterator().next()).getParentFile().getAbsolutePath());
+			System.out.println("Instrumented " + instrumented + ' ' + (instrumented==1 ? "file" : "files") + ", skipped " + skipped + " in " + inputFiles.iterator().next().getParentFile().getAbsolutePath());
 	}
 
 	boolean verbose;

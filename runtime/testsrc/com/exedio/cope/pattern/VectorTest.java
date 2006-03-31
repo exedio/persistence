@@ -56,13 +56,13 @@ public class VectorTest extends AbstractLibTest
 				item.num3,
 				item.nums,
 				item.dates,
-				(Feature)item.dates.getSources().get(0),
-				(Feature)item.dates.getSources().get(1),
+				item.dates.getSources().get(0),
+				item.dates.getSources().get(1),
 				item.strings,
-				(Feature)item.strings.getSources().get(0),
-				(Feature)item.strings.getSources().get(1),
-				(Feature)item.strings.getSources().get(2),
-				(Feature)item.strings.getSources().get(3),
+				item.strings.getSources().get(0),
+				item.strings.getSources().get(1),
+				item.strings.getSources().get(2),
+				item.strings.getSources().get(3),
 			}), item.TYPE.getFeatures());
 
 		assertEquals(item.TYPE, item.num1.getType());

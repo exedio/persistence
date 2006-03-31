@@ -75,7 +75,7 @@ public final class CacheInfo
 	
 	public long getAgeAverageMillis()
 	{
-		return (numberOfItemsInCache!=0) ? (ageSum / ((long)numberOfItemsInCache)) : 0l;
+		return (numberOfItemsInCache!=0) ? (ageSum / numberOfItemsInCache) : 0l;
 	}
 	
 	public long getAgeMinMillis()

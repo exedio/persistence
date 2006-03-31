@@ -103,7 +103,7 @@ public final class CustomItem extends Item
 		
 		AttributeValue[] set(final List value)
 		{
-			final Iterator i = ((List)value).iterator();
+			final Iterator i = value.iterator();
 			
 			return new AttributeValue[]{
 					element1.map((Integer)i.next()),

@@ -304,7 +304,7 @@ public final class Type
 			case 0:
 				throw new RuntimeException("type "+id+" is abstract and has no non-abstract (even indirect) subtypes");
 			case 1:
-				onlyPossibleTypeOfInstances = (Type)typesOfInstances.iterator().next();
+				onlyPossibleTypeOfInstances = typesOfInstances.iterator().next();
 				break;
 			default:
 				typesOfInstancesColumnValues = new String[typesOfInstances.size()];
@@ -519,12 +519,12 @@ public final class Type
 	
 	public final Feature getDeclaredFeature(final String name)
 	{
-		return (Feature)declaredFeaturesByName.get(name);
+		return declaredFeaturesByName.get(name);
 	}
 
 	public final Feature getFeature(final String name)
 	{
-		return (Feature)featuresByName.get(name);
+		return featuresByName.get(name);
 	}
 
 	public final List<UniqueConstraint> getDeclaredUniqueConstraints()

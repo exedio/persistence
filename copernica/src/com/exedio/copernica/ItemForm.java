@@ -212,7 +212,7 @@ final class ItemForm extends Form
 		
 		if(attribute instanceof EnumAttribute)
 		{
-			final EnumAttribute<Enum> enumAttribute = (EnumAttribute)attribute;
+			final EnumAttribute<? extends Enum> enumAttribute = (EnumAttribute<? extends Enum>)attribute;
 			if(post)
 				return new EnumField(enumAttribute, cop);
 			else
@@ -276,7 +276,7 @@ final class ItemForm extends Form
 			if(post)
 				return new ItemField(attribute, name, model, cop);
 			else
-				return new ItemField(attribute, name, ((ItemAttribute<Item>)attribute).get(item), model, cop);
+				return new ItemField(attribute, name, ((ItemAttribute<? extends Item>)attribute).get(item), model, cop);
 		}
 		else
 		{
@@ -364,7 +364,7 @@ final class ItemForm extends Form
 		/**
 		 * Constructs a form field with a value obtained from the submitted form.
 		 */
-		EnumField(final EnumAttribute attribute, final ItemCop cop)
+		EnumField(final EnumAttribute<? extends Enum> attribute, final ItemCop cop)
 		{
 			super(ItemForm.this, attribute, attribute.getName());
 			
@@ -510,7 +510,7 @@ final class ItemForm extends Form
 		}
 		catch(UniqueViolationException e)
 		{
-			final Field field = getFieldByKey((FunctionAttribute)e.getConstraint().getUniqueAttributes().iterator().next());
+			final Field field = getFieldByKey(e.getConstraint().getUniqueAttributes().iterator().next());
 			field.error = e.getClass().getName();
 		}
 		catch(LengthViolationException e)
