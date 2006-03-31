@@ -108,6 +108,11 @@ final class Instrumentor implements InjectionConsumer
 	static final String CLASS_GENERIC_CONSTRUCTOR = TAG_PREFIX + "generic.constructor";
 	
 	/**
+	 * Tag name for the generated reactivation constructor option.
+	 */
+	static final String CLASS_REACTIVATION_CONSTRUCTOR = TAG_PREFIX + "reactivation.constructor";
+	
+	/**
 	 * Tag name for the generated type option.
 	 */
 	static final String CLASS_TYPE = TAG_PREFIX + "type";
@@ -124,9 +129,10 @@ final class Instrumentor implements InjectionConsumer
 		if(containsTag(docComment, PERSISTENT_CLASS))
 		{
 			final String typeOption = Injector.findDocTagLine(docComment, CLASS_TYPE);
-			final String initialConstructorOption = Injector.findDocTagLine(docComment, CLASS_INITIAL_CONSTRUCTOR);
-			final String genericConstructorOption = Injector.findDocTagLine(docComment, CLASS_GENERIC_CONSTRUCTOR);
-			new CopeType(jc, typeOption, initialConstructorOption, genericConstructorOption);
+			final String initialConstructorOption      = Injector.findDocTagLine(docComment, CLASS_INITIAL_CONSTRUCTOR);
+			final String genericConstructorOption      = Injector.findDocTagLine(docComment, CLASS_GENERIC_CONSTRUCTOR);
+			final String reactivationConstructorOption = Injector.findDocTagLine(docComment, CLASS_REACTIVATION_CONSTRUCTOR);
+			new CopeType(jc, typeOption, initialConstructorOption, genericConstructorOption, reactivationConstructorOption);
 		}
 	}
 	

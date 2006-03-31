@@ -360,6 +360,10 @@ final class Generator
 	private void writeReactivationConstructor(final CopeType type)
 	throws IOException
 	{
+		final Option option = type.reactivationConstructorOption;
+		if(!option.exists)
+			return;
+
 		writeCommentHeader();
 		o.write("\t * ");
 		o.write(CONSTRUCTOR_REACTIVATION);
@@ -368,7 +372,7 @@ final class Generator
 			+ ReactivationConstructorDummy.class.getName() + ",int)");
 		o.write(lineSeparator);
 		writeCommentFooter();
-		o.write( type.allowSubTypes() ? "protected " : "private " );
+		CopeAttribute.writeGeneratedModifier(o, option.getModifier(type.allowSubTypes() ? Modifier.PROTECTED : Modifier.PRIVATE));
 		o.write(type.getName());
 		o.write("("+ReactivationConstructorDummy.class.getName()+" d,final int pk)");
 		o.write(lineSeparator);
