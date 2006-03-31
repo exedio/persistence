@@ -236,7 +236,7 @@ public abstract class Item extends Cope
 			attribute.checkValue(attributeValue.value, this);
 		}
 
-		final Entity entity = getEntity();		
+		final Entity entity = getEntity();
 		entity.put(attributeValues);
 		entity.write();
 	}
