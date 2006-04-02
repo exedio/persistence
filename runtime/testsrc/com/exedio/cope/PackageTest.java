@@ -34,6 +34,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( PkSourceButterflyTest.class );
 		suite.addTestSuite( ModelTest.class );
 		suite.addTestSuite( ItemTest.class );
+		suite.addTestSuite( ItemSerializationTest.class );
 		
 		suite.addTestSuite( AttributeIntegerTest.class );
 		suite.addTestSuite( AttributeLongTest.class );

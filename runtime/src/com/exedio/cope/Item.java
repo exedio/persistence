@@ -29,12 +29,15 @@ import com.exedio.cope.util.ReactivationConstructorDummy;
 /**
  * This is the super class for all classes,
  * that want to store their data persistently with COPE.
+ * <p>
+ * To enable serialization for subclasses of <code>Item</code>,
+ * see {@link #Item()}.
  * 
  * @author Ralf Wiebicke
  */
 public abstract class Item extends Cope
 {
-	final Type type;
+	final transient Type type = Type.findByJavaClass(getClass());
 
 	/**
 	 * The primary key of the item,
@@ -131,7 +134,6 @@ public abstract class Item extends Cope
 			LengthViolationException,
 			ClassCastException
 	{
-		this.type = Type.findByJavaClass(getClass());
 		this.pk = type.getPkSource().nextPK(type.getModel().getCurrentTransaction().getConnection());
 		if(pk==Type.NOT_A_PK)
 			throw new RuntimeException();
@@ -159,7 +161,6 @@ public abstract class Item extends Cope
 		final ReactivationConstructorDummy reactivationDummy,
 		final int pk)
 	{
-		this.type = Type.findByJavaClass(getClass());
 		this.pk = pk;
 		//System.out.println("reactivate item:"+type+" "+pk);
 
@@ -167,6 +168,29 @@ public abstract class Item extends Cope
 			throw new RuntimeException("reactivation constructor is for internal purposes only, don't use it in your application!");
 		if(pk==Type.NOT_A_PK)
 			throw new RuntimeException();
+	}
+	
+	/**
+	 * Empty constructor for deserialization.
+	 * <p>
+	 * To enable serialization for subclasses of <code>Item</code>,
+	 * let these classes implement {@link java.io.Serializable}
+	 * and make sure, there is a no-arg constructor
+	 * calling this deserialization constructor.
+	 * <p>
+	 * Serialization of instances of <code>Item</code>
+	 * is guaranteed to be light-weigth -
+	 * there are no non-static, non-transient object reference
+	 * fields in this class or its supertypes.
+	 */
+	protected Item()
+	{
+		pk = suppressWarning(this.pk);
+	}
+	
+	private static final int suppressWarning(final int pk)
+	{
+		return pk;
 	}
 
 	public final Object get(final Function function)
