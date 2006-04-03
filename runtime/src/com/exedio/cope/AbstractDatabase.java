@@ -52,8 +52,6 @@ abstract class AbstractDatabase implements Database
 	
 	private final ArrayList<Table> tables = new ArrayList<Table>();
 	private final HashMap<String, UniqueConstraint> uniqueConstraintsByID = new HashMap<String, UniqueConstraint>();
-	// TODO remove
-	private final HashMap<String, ItemColumn> itemColumnsByIntegrityConstraintName = new HashMap<String, ItemColumn>();
 	private boolean buildStage = true;
 	final Driver driver;
 	private final boolean prepare;
@@ -124,14 +122,6 @@ abstract class AbstractDatabase implements Database
 		final Object collision = uniqueConstraintsByID.put(constraintID, constraint);
 		if(collision!=null)
 			throw new RuntimeException("ambiguous unique constraint "+constraint+" trimmed to >"+constraintID+"< colliding with "+collision);
-	}
-	
-	public final void addIntegrityConstraint(final ItemColumn column)
-	{
-		if(!buildStage)
-			throw new RuntimeException();
-		if(itemColumnsByIntegrityConstraintName.put(column.integrityConstraintName, column)!=null)
-			throw new RuntimeException("there is more than one integrity constraint with name "+column.integrityConstraintName);
 	}
 	
 	protected final Statement createStatement()

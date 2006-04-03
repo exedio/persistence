@@ -43,7 +43,6 @@ interface Database
 	
 	void addTable( Table table );
 	void addUniqueConstraint( String databaseID, UniqueConstraint constraint );
-	void addIntegrityConstraint(ItemColumn column);
 	
 	java.util.Properties getTableOptions();
 

@@ -38,7 +38,6 @@ final class ItemColumn extends IntegerColumn
 		this.targetTypeClass = targetTypeClass;
 		this.integrityConstraintName = table.database.makeName(table.id+"_"+id+"_Fk").intern();
 		this.attribute = attribute;
-		table.database.addIntegrityConstraint(this);
 	}
 
 	/**

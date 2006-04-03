@@ -41,11 +41,6 @@ class WrappingDatabase implements Database
 		return nested;
 	}
 
-	public void addIntegrityConstraint(ItemColumn itemColumn)
-	{
-		nested.addIntegrityConstraint( itemColumn );
-	}
-
 	public void addTable(Table table)
 	{
 		nested.addTable( table );
