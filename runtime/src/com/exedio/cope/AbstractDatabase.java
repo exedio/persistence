@@ -619,17 +619,17 @@ abstract class AbstractDatabase implements Database
 	public void store(final Connection connection, final State state, final boolean present)
 			throws UniqueViolationException
 	{
-		store(connection, state, state.type, present);
+		store(connection, state, present, state.type);
 	}
 
-	private void store(final Connection connection, final State state, final Type type, final boolean present)
+	private void store(final Connection connection, final State state, final boolean present, final Type type)
 			throws UniqueViolationException
 	{
 		buildStage = false;
 
 		final Type supertype = type.getSupertype();
 		if(supertype!=null)
-			store(connection, state, supertype, present);
+			store(connection, state, present, supertype);
 			
 		final Table table = type.getTable();
 
