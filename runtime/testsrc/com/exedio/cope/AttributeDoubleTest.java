@@ -78,7 +78,7 @@ public class AttributeDoubleTest extends AttributeTest
 		}
 		catch(ClassCastException e)
 		{
-			assertEquals("expected " + Double.class.getName() + ", got " + Integer.class.getName() + " for someDouble", e.getMessage());
+			assertEquals("expected a " + Double.class.getName() + ", but was a " + Integer.class.getName() + " for someDouble", e.getMessage());
 		}
 	}
 

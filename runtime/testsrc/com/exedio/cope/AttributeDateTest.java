@@ -91,7 +91,7 @@ public class AttributeDateTest extends AttributeTest
 		}
 		catch(ClassCastException e)
 		{
-			assertEquals("expected " + Date.class.getName() + ", got " + Integer.class.getName() + " for someDate", e.getMessage());
+			assertEquals("expected a " + Date.class.getName() + ", but was a " + Integer.class.getName() + " for someDate", e.getMessage());
 		}
 		
 		// special test of Model#findByID for items without any attributes

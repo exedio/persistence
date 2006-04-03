@@ -90,8 +90,8 @@ public abstract class FunctionAttribute<E extends Object>
 			if(!(valueClass.isAssignableFrom(value.getClass())))
 			{
 				throw new ClassCastException(
-						"expected " + valueClass.getName() +
-						", got " + value.getClass().getName() +
+						"expected a " + valueClass.getName() +
+						", but was a " + value.getClass().getName() +
 						" for " + getName());
 			}
 			checkNotNullValue(value, item);

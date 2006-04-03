@@ -15,6 +15,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
+
 package com.exedio.cope;
 
 import com.exedio.cope.testmodel.AttributeEmptyItem;
@@ -64,7 +65,7 @@ public class AttributeItemTest extends AttributeTest
 		}
 		catch(ClassCastException e)
 		{
-			assertEquals("expected " + EmptyItem.class.getName() + ", got " + Integer.class.getName() + " for someItem", e.getMessage());
+			assertEquals("expected a " + EmptyItem.class.getName() + ", but was a " + Integer.class.getName() + " for someItem", e.getMessage());
 		}
 		
 		final EmptyItem2 wrongItem = new EmptyItem2();
@@ -76,7 +77,7 @@ public class AttributeItemTest extends AttributeTest
 		}
 		catch(ClassCastException e)
 		{
-			assertEquals("expected " + EmptyItem.class.getName() + ", got " + EmptyItem2.class.getName() + " for someItem", e.getMessage());
+			assertEquals("expected a " + EmptyItem.class.getName() + ", but was a " + EmptyItem2.class.getName() + " for someItem", e.getMessage());
 		}
 	}
 
