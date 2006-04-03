@@ -40,6 +40,7 @@ public final class DataLengthViolationException extends ConstraintViolationExcep
 	 * @param item initializes, what is returned by {@link #getItem()}.
 	 * @param dataAttribute initializes, what is returned by {@link #getDataAttribute()}.
 	 * @param length initializes, what is returned by {@link #getLength()}.
+	 * @param lengthExact initializes, what is returned by {@link #isLengthExact()}.
 	 */
 	public DataLengthViolationException(final DataAttribute dataAttribute, final Item item, final long length, final boolean lengthExact)
 	{
@@ -64,12 +65,18 @@ public final class DataLengthViolationException extends ConstraintViolationExcep
 	/**
 	 * Returns the length of the data, that was attempted to be written.
 	 * Returns -1, if that length is unknown.
+	 * @see #isLengthExact()
 	 */	
 	public long getLength()
 	{
 		return length;
 	}
 	
+	/**
+	 * Returns, whether the value returned by {@link #getLength()}
+	 * is the exact length of the data attempted to be written (true)
+	 * or just a lower bound of that length (false).
+	 */
 	public boolean isLengthExact()
 	{
 		return lengthExact;
