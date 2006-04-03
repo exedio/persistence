@@ -58,7 +58,7 @@ public final class FinalViolationException extends ConstraintViolationException
 
 	public String getMessage()
 	{
-		return "final violation on " + getItem().getCopeID() + " for " + finalAttribute;
+		return "final violation on " + getItemID() + " for " + finalAttribute;
 	}
 	
 }

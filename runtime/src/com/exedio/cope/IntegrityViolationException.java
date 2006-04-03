@@ -63,7 +63,7 @@ public final class IntegrityViolationException extends ConstraintViolationExcept
 	
 	public String getMessage()
 	{
-		return "integrity violation on deletion of " + getItem().getCopeID() + " because of " + attribute;
+		return "integrity violation on deletion of " + getItemID() + " because of " + attribute;
 	}
 	
 }

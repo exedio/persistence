@@ -85,7 +85,7 @@ public final class DataLengthViolationException extends ConstraintViolationExcep
 	public String getMessage()
 	{
 		return
-			"length violation on " + Cope.getCopeID(getItem()) +
+			"length violation on " + getItemID() +
 			", " + length + " bytes " +
 			(lengthExact ? "" : "or more ") +
 			"is too long for " + dataAttribute;
