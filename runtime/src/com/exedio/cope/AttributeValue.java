@@ -18,8 +18,10 @@
 
 package com.exedio.cope;
 
+// TODO rename to SetValue
 public final class AttributeValue
 {
+	// TODO rename to settable
 	public final Settable attribute;
 	public final Object value;
 	
