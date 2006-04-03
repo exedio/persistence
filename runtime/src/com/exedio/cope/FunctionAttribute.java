@@ -92,7 +92,7 @@ public abstract class FunctionAttribute<E extends Object>
 				throw new ClassCastException(
 						"expected a " + valueClass.getName() +
 						", but was a " + value.getClass().getName() +
-						" for " + getName());
+						" for " + toString() + '.');
 			}
 			checkNotNullValue(value, item);
 		}

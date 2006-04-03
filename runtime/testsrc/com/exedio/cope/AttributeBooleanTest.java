@@ -84,7 +84,7 @@ public class AttributeBooleanTest extends AttributeTest
 		}
 		catch(ClassCastException e)
 		{
-			assertEquals("expected a " + Boolean.class.getName() + ", but was a " + Integer.class.getName() + " for someBoolean", e.getMessage());
+			assertEquals("expected a " + Boolean.class.getName() + ", but was a " + Integer.class.getName() + " for " + item.someBoolean + '.', e.getMessage());
 		}
 	}
 
