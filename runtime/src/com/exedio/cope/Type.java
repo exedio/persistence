@@ -25,7 +25,6 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -232,7 +231,7 @@ public final class Type
 		}
 	}
 	
-	private final Constructor getConstructor(final Class[] params, final String name)
+	private Constructor getConstructor(final Class[] params, final String name)
 	{
 		try
 		{
@@ -246,12 +245,12 @@ public final class Type
 		}
 	}
 	
-	final void registerInitialization(final Feature feature)
+	void registerInitialization(final Feature feature)
 	{
 		featuresWhileConstruction.add(feature);
 	}
 
-	final void registerSubType(final Type subType)
+	void registerSubType(final Type subType)
 	{
 		assert subType!=null : id;
 		if(this.model!=null)
@@ -262,7 +261,7 @@ public final class Type
 		subTypes.add(subType);
 	}
 	
-	final void registerReference(final ItemAttribute reference)
+	void registerReference(final ItemAttribute reference)
 	{
 		if(this.model==null)
 			throw new RuntimeException();
@@ -273,7 +272,7 @@ public final class Type
 		references.add(reference);
 	}
 	
-	final void initialize(final Model model, final int transientNumber)
+	void initialize(final Model model, final int transientNumber)
 	{
 		if(model==null)
 			throw new RuntimeException();
@@ -302,20 +301,20 @@ public final class Type
 		switch(typesOfInstances.size())
 		{
 			case 0:
-				throw new RuntimeException("type "+id+" is abstract and has no non-abstract (even indirect) subtypes");
+				throw new RuntimeException("type " + id + " is abstract and has no non-abstract (even indirect) subtypes");
 			case 1:
 				onlyPossibleTypeOfInstances = typesOfInstances.iterator().next();
 				break;
 			default:
 				typesOfInstancesColumnValues = new String[typesOfInstances.size()];
 				int i = 0;
-				for(Iterator iter = typesOfInstances.iterator(); iter.hasNext(); i++)
-					typesOfInstancesColumnValues[i] = ((Type)iter.next()).id;
+				for(final Type t : typesOfInstances)
+					typesOfInstancesColumnValues[i++] = t.id;
 				break;
 		}
 	}
 	
-	private final void collectTypesOfInstances(final ArrayList<Type> result, int levelLimit)
+	private void collectTypesOfInstances(final ArrayList<Type> result, int levelLimit)
 	{
 		if(levelLimit<=0)
 			throw new RuntimeException(result.toString());
@@ -328,7 +327,7 @@ public final class Type
 			t.collectTypesOfInstances(result, levelLimit);
 	}
 	
-	final void materialize(final Database database)
+	void materialize(final Database database)
 	{
 		if(database==null)
 			throw new RuntimeException();
@@ -347,28 +346,28 @@ public final class Type
 		else
 			pkSource = database.makePkSource(table);
 		
-		for(Iterator i = declaredAttributes.iterator(); i.hasNext(); )
-			((Attribute)i.next()).materialize(table);
-		for(Iterator i = declaredUniqueConstraints.iterator(); i.hasNext(); )
-			((UniqueConstraint)i.next()).materialize(database);
+		for(final Attribute a : declaredAttributes)
+			a.materialize(table);
+		for(final UniqueConstraint uc : declaredUniqueConstraints)
+			uc.materialize(database);
 		this.table.setUniqueConstraints(this.declaredUniqueConstraints);
 		this.table.finish();
 	}
 	
-	public final Class<? extends Item> getJavaClass()
+	public Class<? extends Item> getJavaClass()
 	{
 		return javaClass;
 	}
 	
-	public final String getID()
+	public String getID()
 	{
 		return id;
 	}
 	
-	public final Model getModel()
+	public Model getModel()
 	{
 		if(model==null)
-			throw new RuntimeException("model not set for type "+id+", probably you forgot to put this type into the model.");
+			throw new RuntimeException("model not set for type " + id + ", probably you forgot to put this type into the model.");
 
 		return model;
 	}
@@ -381,7 +380,7 @@ public final class Type
 	 * and including this type itself,
 	 * which are not abstract.
 	 */
-	final List<Type> getTypesOfInstances()
+	List<Type> getTypesOfInstances()
 	{
 		if(typesOfInstances==null)
 			throw new RuntimeException();
@@ -389,7 +388,7 @@ public final class Type
 		return Collections.unmodifiableList(typesOfInstances);
 	}
 	
-	final Type getOnlyPossibleTypeOfInstances()
+	Type getOnlyPossibleTypeOfInstances()
 	{
 		if(typesOfInstances==null)
 			throw new RuntimeException();
@@ -397,7 +396,7 @@ public final class Type
 		return onlyPossibleTypeOfInstances;
 	}
 	
-	final String[] getTypesOfInstancesColumnValues()
+	String[] getTypesOfInstancesColumnValues()
 	{
 		if(typesOfInstances==null)
 			throw new RuntimeException();
@@ -412,7 +411,7 @@ public final class Type
 		}
 	}
 	
-	final Table getTable()
+	Table getTable()
 	{
 		if(model==null)
 			throw new RuntimeException();
@@ -431,7 +430,7 @@ public final class Type
 	 * 
 	 * @see Attribute#getColumnName()
 	 */
-	public final String getTableName()
+	public String getTableName()
 	{
 		return table.id;
 	}
@@ -443,15 +442,12 @@ public final class Type
 	 * (i.e. the superclass of this type's java class is {@link Item}),
 	 * then null is returned.
 	 */
-	public final Type getSupertype()
+	public Type getSupertype()
 	{
 		return supertype;
 	}
 	
-	/**
-	 * @return a list of {@link Type}s.
-	 */
-	public final List<Type> getSubTypes()
+	public List<Type> getSubTypes()
 	{
 		return subTypes==null ? Collections.<Type>emptyList() : Collections.unmodifiableList(subTypes);
 	}
@@ -467,7 +463,7 @@ public final class Type
 	}
 	
 
-	public final List<ItemAttribute> getReferences()
+	public List<ItemAttribute> getReferences()
 	{
 		return references==null ? Collections.<ItemAttribute>emptyList() : Collections.unmodifiableList(references);
 	}
@@ -485,7 +481,7 @@ public final class Type
 	 * Naming of this method is inspired by Java Reflection API
 	 * method {@link Class#getDeclaredFields() getDeclaredFields}.
 	 */
-	public final List<Attribute> getDeclaredAttributes()
+	public List<Attribute> getDeclaredAttributes()
 	{
 		return declaredAttributes;
 	}
@@ -502,44 +498,44 @@ public final class Type
 	 * excluding attributes inherited from super types,
 	 * use {@link #getDeclaredAttributes}.
 	 */
-	public final List<Attribute> getAttributes()
+	public List<Attribute> getAttributes()
 	{
 		return attributes;
 	}
 	
-	public final List<Feature> getDeclaredFeatures()
+	public List<Feature> getDeclaredFeatures()
 	{
 		return declaredFeatures;
 	}
 
-	public final List<Feature> getFeatures()
+	public List<Feature> getFeatures()
 	{
 		return features;
 	}
 	
-	public final Feature getDeclaredFeature(final String name)
+	public Feature getDeclaredFeature(final String name)
 	{
 		return declaredFeaturesByName.get(name);
 	}
 
-	public final Feature getFeature(final String name)
+	public Feature getFeature(final String name)
 	{
 		return featuresByName.get(name);
 	}
 
-	public final List<UniqueConstraint> getDeclaredUniqueConstraints()
+	public List<UniqueConstraint> getDeclaredUniqueConstraints()
 	{
 		return declaredUniqueConstraints;
 	}
 	
-	public final List<UniqueConstraint> getUniqueConstraints()
+	public List<UniqueConstraint> getUniqueConstraints()
 	{
 		return uniqueConstraints;
 	}
 	
 	private static final AttributeValue[] EMPTY_ATTRIBUTE_VALUES = new AttributeValue[]{};
 	
-	public final Item newItem(final AttributeValue[] initialAttributeValues)
+	public Item newItem(final AttributeValue[] initialAttributeValues)
 		throws ConstraintViolationException
 	{
 		final Item result;
@@ -582,12 +578,12 @@ public final class Type
 	 * result in an <code>UnsupportedOperationException</code>.
 	 * @param condition the condition the searched items must match.
 	 */
-	public final Collection<? extends Object> search(final Condition condition)
+	public Collection<? extends Object> search(final Condition condition)
 	{
 		return new Query(this, condition).search();
 	}
 	
-	public final Collection<? extends Object> search(final Condition condition, final Function orderBy, final boolean ascending)
+	public Collection<? extends Object> search(final Condition condition, final Function orderBy, final boolean ascending)
 	{
 		final Query query = new Query(this, condition);
 		query.setOrderBy(orderBy, ascending);
@@ -602,7 +598,7 @@ public final class Type
 	 * returns the only element of the search result, if the result {@link Collection#size() size} is exactly one.
 	 * @throws RuntimeException if the search result size is greater than one.
 	 */
-	public final Item searchUnique(final Condition condition)
+	public Item searchUnique(final Condition condition)
 	{
 		final Iterator searchResult = search(condition).iterator();
 		if(searchResult.hasNext())
@@ -617,7 +613,7 @@ public final class Type
 			return null;
 	}
 	
-	public final String toString()
+	public String toString()
 	{
 		return id;
 	}
@@ -625,7 +621,7 @@ public final class Type
 	PkSource getPkSource()
 	{
 		if(pkSource==null)
-			throw new RuntimeException( "no primary key source in "+id+"; maybe you have to initialize the model first" );
+			throw new RuntimeException("no primary key source in " + id + "; maybe you have to initialize the model first");
 		
 		return pkSource;
 	}
@@ -667,16 +663,6 @@ public final class Type
 			throw new RuntimeException(id, e);
 		}
 	}
-
-	static final Comparator COMPARATOR = new Comparator()
-	{
-		public int compare(final Object o1, final Object o2)
-		{
-			final String t1 = ((Type)o1).id;
-			final String t2 = ((Type)o2).id;
-			return t1.compareTo(t2);
-		}
-	};
 
 	static final int NOT_A_PK = Integer.MIN_VALUE;	
 
