@@ -481,13 +481,13 @@ public abstract class Item extends Cope
 		return result;
 	}
 	
-	private final HashMap<BlobColumn, byte[]> toBlobs(final SetValue[] attributeValues)
+	private final HashMap<BlobColumn, byte[]> toBlobs(final SetValue[] setValues)
 	{
 		final HashMap<BlobColumn, byte[]> result = new HashMap<BlobColumn, byte[]>();
 		
-		for(int i = 0; i<attributeValues.length; i++)
+		for(int i = 0; i<setValues.length; i++)
 		{
-			final SetValue attributeValue = attributeValues[i];
+			final SetValue attributeValue = setValues[i];
 			final Settable settable = attributeValue.settable;
 			if(!(settable instanceof DataAttribute))
 				continue;
