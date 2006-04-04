@@ -535,7 +535,7 @@ public final class Type
 	
 	private static final SetValue[] EMPTY_ATTRIBUTE_VALUES = new SetValue[]{};
 	
-	public Item newItem(final SetValue[] initialAttributeValues)
+	public Item newItem(final SetValue[] setValues)
 		throws ConstraintViolationException
 	{
 		final Item result;
@@ -544,8 +544,8 @@ public final class Type
 			result =
 				(Item)creationConstructor.newInstance(
 					new Object[]{
-						initialAttributeValues!=null
-						? initialAttributeValues
+						setValues!=null
+						? setValues
 						: EMPTY_ATTRIBUTE_VALUES
 					}
 				);
