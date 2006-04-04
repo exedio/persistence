@@ -26,9 +26,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 
-public final class DataAttribute extends Attribute
+public final class DataAttribute extends Attribute<byte[]>
 {
 	private final long maximumLength;
 
@@ -207,7 +210,38 @@ public final class DataAttribute extends Attribute
 		impl.set(item, data);
 	}
 	
+	public final AttributeValue map(final byte[] value)
+	{
+		return new AttributeValue(this, value);
+	}
 	
+	public final Map<? extends Attribute, ? extends Object> execute(final byte[] value, final Item exceptionItem)
+	{
+		return Collections.singletonMap(this, value);
+	}
+	
+	final void checkValue(final Object value, final Item item) throws MandatoryViolationException
+	{
+		if(value == null)
+		{
+			if(!optional)
+				throw new MandatoryViolationException(this, item);
+		}
+		else
+		{
+			if(!(value instanceof byte[]))
+			{
+				throw new ClassCastException(
+						"expected a byte[], but was a " + value.getClass().getName() +
+						" for " + toString() + '.');
+			}
+			
+			final byte[] valueBytes = (byte[])value;
+			if(valueBytes.length>maximumLength)
+				throw new DataLengthViolationException(this, item, valueBytes.length, true);
+		}
+	}
+
 	abstract class Impl
 	{
 		// TODO remove
@@ -227,7 +261,7 @@ public final class DataAttribute extends Attribute
 		abstract void set(Item item, InputStream data) throws MandatoryViolationException, IOException;
 		abstract void get(Item item, File data) throws IOException;
 		abstract void set(Item item, File data) throws MandatoryViolationException, IOException;
-		
+		abstract void fillBlob(byte[] value, HashMap<BlobColumn, byte[]> blobs, Item item);
 	}
 	
 	final class BlobImpl extends Impl
@@ -327,6 +361,11 @@ public final class DataAttribute extends Attribute
 				if(source!=null)
 					source.close();
 			}
+		}
+		
+		void fillBlob(final byte[] value, final HashMap<BlobColumn, byte[]> blobs, final Item item)
+		{
+			blobs.put(column, value);
 		}
 	}
 	
@@ -559,6 +598,10 @@ public final class DataAttribute extends Attribute
 			}
 		}
 		
+		void fillBlob(final byte[] value, final HashMap<BlobColumn, byte[]> blobs, final Item item)
+		{
+			set(item, value);
+		}
 	}
 	
 	final void copy(final InputStream in, final OutputStream out, final Item item) throws IOException

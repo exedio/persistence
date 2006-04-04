@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import java.util.Map;
+
 
 final class ModifiedState extends State
 {
@@ -47,17 +49,12 @@ final class ModifiedState extends State
 		return new DeletedState( transaction, this );
 	}
 
-	State write(Transaction transaction) throws UniqueViolationException
+	State write(final Transaction transaction, final Map<BlobColumn, byte[]> blobs)
 	{
 		try
 		{
-			type.getModel().getDatabase().store( transaction.getConnection(), this, true );
+			type.getModel().getDatabase().store(transaction.getConnection(), this, true, blobs);
 			return new PersistentState( this );
-		}
-		catch ( UniqueViolationException e )
-		{
-			discard( transaction );
-			throw e;
 		}
 		catch ( RuntimeException e )
 		{

@@ -35,6 +35,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import bak.pcj.list.IntList;
 
@@ -606,20 +607,27 @@ abstract class AbstractDatabase implements Database
 		executeSQLQuery(connection, bf, state, false);
 	}
 
-	public void store(final Connection connection, final State state, final boolean present)
-			throws UniqueViolationException
+	public void store(
+			final Connection connection,
+			final State state,
+			final boolean present,
+			final Map<BlobColumn, byte[]> blobs)
 	{
-		store(connection, state, present, state.type);
+		store(connection, state, present, blobs, state.type);
 	}
 
-	private void store(final Connection connection, final State state, final boolean present, final Type type)
-			throws UniqueViolationException
+	private void store(
+			final Connection connection,
+			final State state,
+			final boolean present,
+			final Map<BlobColumn, byte[]> blobs,
+			final Type type)
 	{
 		buildStage = false;
 
 		final Type supertype = type.getSupertype();
 		if(supertype!=null)
-			store(connection, state, present, supertype);
+			store(connection, state, present, blobs, supertype);
 			
 		final Table table = type.getTable();
 
@@ -636,7 +644,7 @@ abstract class AbstractDatabase implements Database
 			boolean first = true;
 			for(final Column column : columns)
 			{
-				if(!(column instanceof BlobColumn))
+				if(!(column instanceof BlobColumn) || blobs.containsKey(column))
 				{
 					if(first)
 						first = false;
@@ -644,8 +652,12 @@ abstract class AbstractDatabase implements Database
 						bf.append(',');
 					
 					bf.append(column.protectedID).
-						append('=').
-						appendParameter(column, state.store(column));
+						append('=');
+					
+					if(column instanceof BlobColumn)
+						bf.appendParameterBlob((BlobColumn)column, blobs.get(column));
+					else
+						bf.appendParameter(column, state.store(column));
 				}
 			}
 			if(first) // no columns in table
@@ -683,7 +695,7 @@ abstract class AbstractDatabase implements Database
 
 			for(final Column column : columns)
 			{
-				if(!(column instanceof BlobColumn))
+				if(!(column instanceof BlobColumn) || blobs.containsKey(column))
 				{
 					bf.append(',').
 						append(column.protectedID);
@@ -701,10 +713,18 @@ abstract class AbstractDatabase implements Database
 
 			for(final Column column : columns)
 			{
-				if(!(column instanceof BlobColumn))
+				if(column instanceof BlobColumn)
+				{
+					if(blobs.containsKey(column))
+					{
+						bf.append(',').
+							appendParameterBlob((BlobColumn)column, blobs.get(column));
+					}
+				}
+				else
 				{
 					bf.append(',').
-					   appendParameter(column, state.store(column));
+						appendParameter(column, state.store(column));
 				}
 			}
 			bf.append(')');

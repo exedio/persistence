@@ -24,6 +24,7 @@ import java.io.OutputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Map;
 
 import bak.pcj.list.IntList;
 
@@ -91,7 +92,7 @@ interface Database
 	
 	int[] getMinMaxPK(Connection connection, Table table);
 	
-	void store(Connection connection, State state, boolean present) throws UniqueViolationException;
+	void store(Connection connection, State state, boolean present, Map<BlobColumn, byte[]> blobs);
 	void delete(Connection connection, Item item);
 	
 	byte[] load(Connection connection, BlobColumn column, Item item);

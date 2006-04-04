@@ -21,6 +21,7 @@ package com.exedio.cope;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Map;
 
 final class PersistentState extends State implements AbstractDatabase.ResultSetHandler
 {
@@ -54,8 +55,11 @@ final class PersistentState extends State implements AbstractDatabase.ResultSetH
 		return new ModifiedState( transaction, this ).put(transaction, attribute, value);
 	}
 
-	State write( final Transaction transaction ) throws UniqueViolationException
+	State write(final Transaction transaction, final Map<BlobColumn, byte[]> blobs)
 	{
+		if(blobs!=null && !blobs.isEmpty())
+			throw new RuntimeException("not yet implemented");
+		
 		return this;
 	}
 

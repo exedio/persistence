@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import java.util.Map;
+
 final class Entity
 {
 	private final Transaction transaction;
@@ -44,13 +46,17 @@ final class Entity
 		for ( int i=0; i<attributeValues.length; i++ )
 		{
 			final AttributeValue nextAttributeValue = attributeValues[i];
-			put((FunctionAttribute)nextAttributeValue.attribute, nextAttributeValue.value);
+			final Attribute attribute = (Attribute)nextAttributeValue.attribute;
+			if(attribute instanceof FunctionAttribute)
+				put((FunctionAttribute)attribute, nextAttributeValue.value);
+			else
+				assert attribute instanceof DataAttribute;
 		}	
 	}
 	
-	void write() throws UniqueViolationException
+	void write(final Map<BlobColumn, byte[]> blobs) throws UniqueViolationException
 	{
-		state = state.write( transaction );
+		state = state.write(transaction, blobs);
 	}
 	
 	void delete()

@@ -24,6 +24,7 @@ import java.io.OutputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Map;
 
 import bak.pcj.list.IntList;
 
@@ -166,9 +167,13 @@ class WrappingDatabase implements Database
 		return nested.search( connection, query, doCountOnly );
 	}
 
-	public void store(Connection connection, State state, boolean param) throws UniqueViolationException
+	public void store(
+			final Connection connection,
+			final State state,
+			final boolean present,
+			final Map<BlobColumn, byte[]> blobs)
 	{
-		nested.store( connection, state, param );
+		nested.store(connection, state, present, blobs);
 	}
 
 	public final byte[] load(final Connection connection, final BlobColumn column, final Item item)

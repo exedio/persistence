@@ -205,6 +205,13 @@ final class Statement
 		return this;
 	}
 	
+	Statement appendParameterBlob(final BlobColumn function, final byte[] data)
+	{
+		this.text.append(QUESTION_MARK);
+		this.parameters.add(data);
+		return this;
+	}
+	
 	private static final char QUESTION_MARK = '?';
 	
 	Statement appendParameter(final Column column, final Object value)

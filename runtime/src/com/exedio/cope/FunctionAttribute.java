@@ -29,8 +29,8 @@ import com.exedio.cope.search.LessCondition;
 import com.exedio.cope.search.LessEqualCondition;
 
 public abstract class FunctionAttribute<E extends Object>
-	extends Attribute
-	implements Function<E>, Settable<E>
+	extends Attribute<E>
+	implements Function<E>
 {
 	final UniqueConstraint implicitUniqueConstraint;
 	private ArrayList<UniqueConstraint> uniqueConstraints;
@@ -86,7 +86,7 @@ public abstract class FunctionAttribute<E extends Object>
 					isMandatory() &&
 					!getType().getModel().supportsEmptyStrings()) // TODO dont call supportsEmptyStrings that often
 				throw new MandatoryViolationException(this, item);
-				
+			
 			if(!(valueClass.isAssignableFrom(value.getClass())))
 			{
 				throw new ClassCastException(
@@ -202,7 +202,7 @@ public abstract class FunctionAttribute<E extends Object>
 		return new AttributeValue(this, value);
 	}
 	
-	public final Map<? extends FunctionAttribute, ? extends Object> execute(final E value, final Item exceptionItem)
+	public final Map<? extends Attribute, ? extends Object> execute(final E value, final Item exceptionItem)
 	{
 		return Collections.singletonMap(this, value);
 	}

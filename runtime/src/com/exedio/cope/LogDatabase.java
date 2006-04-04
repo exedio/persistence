@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 class LogDatabase extends WrappingDatabase
 {
@@ -78,13 +79,18 @@ class LogDatabase extends WrappingDatabase
 		super.load( connection, state );
 	}
 	
-	public void store( Connection connection, State state, boolean present ) throws UniqueViolationException
+	public void store(
+			final Connection connection,
+			final State state,
+			final boolean present,
+			final HashMap<BlobColumn, byte[]> blobs)
+		throws UniqueViolationException
 	{
 		if ( ! disable )
 		{
 			writer.println( "store("+(present?"update":"insert")+"): "+state.toStringWithValues() );
 		}
-		super.store( connection, state, present );
+		super.store(connection, state, present, blobs);
 	}
 	
 	public ArrayList<Object> search(Connection connection, Query query, boolean doCountOnly)

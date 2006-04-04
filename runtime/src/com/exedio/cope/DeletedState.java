@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-
+import java.util.Map;
 
 final class DeletedState extends State
 {
@@ -38,8 +38,9 @@ final class DeletedState extends State
 		throw new NoSuchItemException(item);
 	}
 	
-	State write( Transaction transaction )
+	State write(final Transaction transaction, final Map<BlobColumn, byte[]> blobs)
 	{
+		assert blobs==null;
 		try
 		{
 			type.getModel().getDatabase().delete( transaction.getConnection(), item );

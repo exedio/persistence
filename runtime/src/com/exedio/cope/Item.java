@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -143,12 +144,12 @@ public abstract class Item extends Cope
 		for(int i = 0; i<initialAttributeValues.length; i++)
 		{
 			final AttributeValue av = initialAttributeValues[i];
-			((FunctionAttribute)av.attribute).checkValue(av.value, null);
+			((Attribute)av.attribute).checkValue(av.value, null);
 		}
 
 		final Entity entity = getEntity(false);
 		entity.put( initialAttributeValues );
-		entity.write();
+		entity.write(toBlobs(initialAttributeValues));
 	}
 	
 	/**
@@ -225,7 +226,7 @@ public abstract class Item extends Cope
 
 		final Entity entity = getEntity();
 		entity.put(attribute, value);
-		entity.write();
+		entity.write(Collections.<BlobColumn, byte[]>emptyMap());
 	}
 
 	/**
@@ -249,20 +250,20 @@ public abstract class Item extends Cope
 		for(int i = 0; i<attributeValues.length; i++)
 		{
 			final AttributeValue attributeValue = attributeValues[i];
-			final FunctionAttribute attribute = (FunctionAttribute)attributeValue.attribute;
+			final Attribute attribute = (Attribute)attributeValue.attribute;
 
 			if(!attribute.getType().isAssignableFrom(type))
 				throw new RuntimeException("attribute "+attribute+" does not belong to type "+type.toString());
 			
 			if(attribute.isfinal)
 				throw new FinalViolationException(attribute, this);
-	
+
 			attribute.checkValue(attributeValue.value, this);
 		}
 
 		final Entity entity = getEntity();
 		entity.put(attributeValues);
-		entity.write();
+		entity.write(toBlobs(attributeValues));
 	}
 
 	public final void deleteCopeItem()
@@ -343,7 +344,7 @@ public abstract class Item extends Cope
 			}
 			Entity entity = getEntity();
 			entity.delete();
-			entity.write();
+			entity.write(null);
 		}
 		catch(UniqueViolationException e)
 		{
@@ -445,22 +446,22 @@ public abstract class Item extends Cope
 	// TODO result type should be HashMap<FunctionAttribute, Object>
 	private static final AttributeValue[] executeCustomAttributes(final AttributeValue[] source, final Item exceptionItem)
 	{
-		final HashMap<FunctionAttribute, Object> result = new HashMap<FunctionAttribute, Object>();
+		final HashMap<Attribute, Object> result = new HashMap<Attribute, Object>();
 		for(int i = 0; i<source.length; i++)
 		{
 			final AttributeValue av = source[i];
 			final Settable settable = av.attribute;
 			
-			if(settable instanceof FunctionAttribute)
+			if(settable instanceof Attribute)
 			{
-				if(result.put((FunctionAttribute)settable, av.value)!=null)
-					throw new RuntimeException("duplicate function attribute "+settable.toString());
+				if(result.put((Attribute)settable, av.value)!=null)
+					throw new RuntimeException("duplicate attribute "+settable.toString());
 			}
 			else
 			{
-				final Map<FunctionAttribute, Object> part = settable.execute(av.value, exceptionItem);
+				final Map<Attribute, Object> part = settable.execute(av.value, exceptionItem);
 				
-				for(FunctionAttribute attribute : part.keySet())
+				for(Attribute attribute : part.keySet())
 				{
 					if(result.put(attribute, part.get(attribute))!=null)
 						throw new RuntimeException("duplicate function attribute "+attribute.toString());
@@ -470,13 +471,30 @@ public abstract class Item extends Cope
 		return convert(result);
 	}
 	
-	public static final AttributeValue[] convert(Map<? extends FunctionAttribute, ? extends Object> map)
+	public static final AttributeValue[] convert(Map<? extends Attribute, ? extends Object> map)
 	{
 		final AttributeValue[] result = new AttributeValue[map.size()];
 		int n = 0;
-		for(FunctionAttribute attribute : map.keySet())
+		for(Attribute attribute : map.keySet())
 			result[n++] = new AttributeValue(attribute, map.get(attribute));
 		
+		return result;
+	}
+	
+	private final HashMap<BlobColumn, byte[]> toBlobs(final AttributeValue[] attributeValues)
+	{
+		final HashMap<BlobColumn, byte[]> result = new HashMap<BlobColumn, byte[]>();
+		
+		for(int i = 0; i<attributeValues.length; i++)
+		{
+			final AttributeValue attributeValue = attributeValues[i];
+			final Settable settable = attributeValue.attribute;
+			if(!(settable instanceof DataAttribute))
+				continue;
+			
+			final DataAttribute da = (DataAttribute)settable;
+			da.impl.fillBlob((byte[])attributeValue.value, result, this);
+		}
 		return result;
 	}
 

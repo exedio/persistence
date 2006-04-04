@@ -34,7 +34,7 @@ import java.util.List;
  * 
  * @author Ralf Wiebicke
  */
-public abstract class Attribute extends Feature
+public abstract class Attribute<E> extends Feature implements Settable<E>
 {
 	final boolean isfinal;
 	final boolean optional;
@@ -55,6 +55,8 @@ public abstract class Attribute extends Feature
 		return !optional;
 	}
 	
+	abstract void checkValue(final Object value, final Item item);
+		
 	// patterns ---------------------------------------------------------------------
 	
 	private ArrayList<Pattern> patternsWhileTypeInitialization = null;

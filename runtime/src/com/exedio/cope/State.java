@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import java.util.Map;
+
 
 abstract class State
 {
@@ -40,7 +42,7 @@ abstract class State
 	
 	abstract State put(Transaction transaction, FunctionAttribute attribute, Object value);
 	
-	abstract State write( Transaction transaction ) throws UniqueViolationException;
+	abstract State write(Transaction transaction, Map<BlobColumn, byte[]> blobs);
 	
 	
 	abstract Object store(final Column column);

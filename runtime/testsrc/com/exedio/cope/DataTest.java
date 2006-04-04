@@ -286,6 +286,110 @@ public class DataTest extends AbstractLibTest
 			assertEquals("length violation on DataItem.0, 11 bytes is too long for DataItem#data10", e.getMessage());
 		}
 		assertData(data10, item.getData10());
+		
+
+		// implements Settable
+		assertNull(item.getName());
+		item.set(new AttributeValue[]{
+				DataItem.data.map(data8),
+				DataItem.data10.map(data10),
+				DataItem.name.map("eins"),
+		});
+		assertData(data8, item.getData());
+		assertData(data10, item.getData10());
+		assertEquals("eins", item.getName());
+
+		// TODO remove
+		final boolean blobMode = !model.getProperties().hasDatadirPath();
+		try
+		{
+			item.set(new AttributeValue[]{
+					DataItem.data.map(data11),
+					DataItem.data10.map(data10),
+			});
+			
+			// TODO should not happen
+			if(blobMode)
+				fail();
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals("not yet implemented", e.getMessage());
+		}
+		assertData(blobMode ? data8/*TODO this is a bug, should be: data11*/ : data11, item.getData());
+		assertData(data10, item.getData10());
+		assertEquals("eins", item.getName());
+		
+		{
+			final DataItem item2 = new DataItem(data4, data10);
+			deleteOnTearDown(item2);
+			assertData(data4, item2.getData());
+			assertData(data10, item2.getData10());
+		}
+		{
+			final DataItem item3 = (DataItem)DataItem.TYPE.newItem(new AttributeValue[]{
+					DataItem.data.map(data6),
+					DataItem.data10.map(data10),
+			});
+			deleteOnTearDown(item3);
+			assertData(data6, item3.getData());
+			assertData(data10, item3.getData10());
+		}
+
+		item.data.set(item, data8);
+		assertData(data8, item.getData());
+		try
+		{
+			item.set(new AttributeValue[]{
+					new AttributeValue(DataItem.data, "zack"),
+			});
+		}
+		catch(ClassCastException e)
+		{
+			assertEquals("expected a byte[], but was a java.lang.String for " + item.data + '.', e.getMessage());
+		}
+		assertData(data8, item.getData());
+		
+		try
+		{
+			DataItem.TYPE.newItem(new AttributeValue[]{
+					new AttributeValue(DataItem.data, new Integer(1)),
+			});
+		}
+		catch(RuntimeException e) // TODO should be ClassCastException
+		{
+			assertEquals("expected a byte[], but was a java.lang.Integer for " + item.data + '.', e.getCause().getCause().getMessage());
+		}
+
+		assertData(data10, item.getData10());
+		try
+		{
+			item.set(new AttributeValue[]{DataItem.data10.map(data11)});
+		}
+		catch(DataLengthViolationException e)
+		{
+			assertEquals(item, e.getItem());
+			assertEquals(item.data10, e.getDataAttribute());
+			assertEquals(item.data10, e.getFeature());
+			assertEquals(11, e.getLength());
+			assertEquals(true, e.isLengthExact());
+			assertEquals("length violation on DataItem.0, 11 bytes is too long for DataItem#data10", e.getMessage());
+		}
+		assertData(data10, item.getData10());
+
+		try
+		{
+			DataItem.TYPE.newItem(new AttributeValue[]{DataItem.data10.map(data11)});
+		}
+		catch(DataLengthViolationException e)
+		{
+			assertEquals(null, e.getItem());
+			assertEquals(item.data10, e.getDataAttribute());
+			assertEquals(item.data10, e.getFeature());
+			assertEquals(11, e.getLength());
+			assertEquals(true, e.isLengthExact());
+			assertEquals("length violation on a newly created item, 11 bytes is too long for DataItem#data10", e.getMessage());
+		}
 	}
 	
 }
