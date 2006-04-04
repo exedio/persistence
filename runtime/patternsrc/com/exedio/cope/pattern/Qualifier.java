@@ -126,11 +126,9 @@ public final class Qualifier extends Pattern
 		{
 			final SetValue[] keySetValues = new SetValue[keys.length];
 			int j = 0;
-			for(Iterator i = qualifyUnique.getUniqueAttributes().iterator(); i.hasNext(); j++)
-			{
-				final FunctionAttribute uniqueAttribute = (FunctionAttribute)i.next();
-				keySetValues[j] = new SetValue(uniqueAttribute, keys[j]);
-			}
+			for(final FunctionAttribute uniqueAttribute : qualifyUnique.getUniqueAttributes())
+				keySetValues[j] = new SetValue(uniqueAttribute, keys[j++]);
+			
 			item = qualifyUnique.getType().newItem(keySetValues);
 		}
 		return item;
@@ -146,11 +144,9 @@ public final class Qualifier extends Pattern
 			System.arraycopy(values, 0, keyValues, 0, values.length);
 			
 			int j = 0;
-			for(Iterator i = qualifyUnique.getUniqueAttributes().iterator(); i.hasNext(); j++)
-			{
-				final FunctionAttribute uniqueAttribute = (FunctionAttribute)i.next();
-				keyValues[j + values.length] = new SetValue(uniqueAttribute, keys[j]);
-			}
+			for(final FunctionAttribute uniqueAttribute : qualifyUnique.getUniqueAttributes())
+				keyValues[j + values.length] = new SetValue(uniqueAttribute, keys[j++]);
+			
 			item = qualifyUnique.getType().newItem(keyValues);
 		}
 		else
