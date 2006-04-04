@@ -198,7 +198,7 @@ public abstract class CustomAttribute<E>
 			final AttributeValue[] resultArray = (AttributeValue[])result;
 			final HashMap<FunctionAttribute, Object> resultMap = new HashMap<FunctionAttribute, Object>();
 			for(int i = 0; i<resultArray.length; i++)
-				resultMap.put((FunctionAttribute)resultArray[i].attribute, resultArray[i].value);
+				resultMap.put((FunctionAttribute)resultArray[i].settable, resultArray[i].value);
 			return resultMap;
 		}
 	}

@@ -21,19 +21,18 @@ package com.exedio.cope;
 // TODO rename to SetValue
 public final class AttributeValue
 {
-	// TODO rename to settable
-	public final Settable attribute;
+	public final Settable settable;
 	public final Object value;
 	
 	/**
 	 * Creates a new AttributeValue.
 	 * Instead of using this constructor directly,
-	 * you may want to use the more type-safe wrapper methods
-	 * {@link FunctionAttribute#map(Object)}.
+	 * you may want to use the more type-safe implementations of
+	 * {@link Settable#map(Object)}.
 	 */
-	public AttributeValue(final Settable attribute, final Object value)
+	public AttributeValue(final Settable settable, final Object value)
 	{
-		this.attribute = attribute;
+		this.settable = settable;
 		this.value = value;
 	}
 	

@@ -144,7 +144,7 @@ public abstract class Item extends Cope
 		for(int i = 0; i<initialAttributeValues.length; i++)
 		{
 			final AttributeValue av = initialAttributeValues[i];
-			((Attribute)av.attribute).checkValue(av.value, null);
+			((Attribute)av.settable).checkValue(av.value, null);
 		}
 
 		final Entity entity = getEntity(false);
@@ -250,7 +250,7 @@ public abstract class Item extends Cope
 		for(int i = 0; i<attributeValues.length; i++)
 		{
 			final AttributeValue attributeValue = attributeValues[i];
-			final Attribute attribute = (Attribute)attributeValue.attribute;
+			final Attribute attribute = (Attribute)attributeValue.settable;
 
 			if(!attribute.getType().isAssignableFrom(type))
 				throw new RuntimeException("attribute "+attribute+" does not belong to type "+type.toString());
@@ -450,7 +450,7 @@ public abstract class Item extends Cope
 		for(int i = 0; i<source.length; i++)
 		{
 			final AttributeValue av = source[i];
-			final Settable settable = av.attribute;
+			final Settable settable = av.settable;
 			
 			if(settable instanceof Attribute)
 			{
@@ -488,7 +488,7 @@ public abstract class Item extends Cope
 		for(int i = 0; i<attributeValues.length; i++)
 		{
 			final AttributeValue attributeValue = attributeValues[i];
-			final Settable settable = attributeValue.attribute;
+			final Settable settable = attributeValue.settable;
 			if(!(settable instanceof DataAttribute))
 				continue;
 			

@@ -46,7 +46,7 @@ final class Entity
 		for ( int i=0; i<attributeValues.length; i++ )
 		{
 			final AttributeValue nextAttributeValue = attributeValues[i];
-			final Attribute attribute = (Attribute)nextAttributeValue.attribute;
+			final Attribute attribute = (Attribute)nextAttributeValue.settable;
 			if(attribute instanceof FunctionAttribute)
 				put((FunctionAttribute)attribute, nextAttributeValue.value);
 			else
