@@ -107,17 +107,17 @@ public final class Vector extends Pattern implements Settable<Collection>
 			ClassCastException
 	{
 		int i = 0;
-		final SetValue[] attributeValues = new SetValue[sources.length];
+		final SetValue[] setValues = new SetValue[sources.length];
 
 		for(Iterator it = value.iterator(); it.hasNext(); i++)
-			attributeValues[i] = new SetValue(sources[i], it.next());
+			setValues[i] = new SetValue(sources[i], it.next());
 
 		for(; i<sources.length; i++)
-			attributeValues[i] = new SetValue(sources[i], null);
+			setValues[i] = new SetValue(sources[i], null);
 		
 		try
 		{
-			item.set(attributeValues);
+			item.set(setValues);
 		}
 		catch(CustomAttributeException e)
 		{
