@@ -45,10 +45,10 @@ final class Entity
 	{
 		for(int i=0; i<setValues.length; i++)
 		{
-			final SetValue nextAttributeValue = setValues[i];
-			final Attribute attribute = (Attribute)nextAttributeValue.settable;
+			final SetValue setValue = setValues[i];
+			final Attribute attribute = (Attribute)setValue.settable;
 			if(attribute instanceof FunctionAttribute)
-				put((FunctionAttribute)attribute, nextAttributeValue.value);
+				put((FunctionAttribute)attribute, setValue.value);
 			else
 				assert attribute instanceof DataAttribute;
 		}	
