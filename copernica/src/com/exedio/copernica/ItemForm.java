@@ -457,7 +457,7 @@ final class ItemForm extends Form
 
 	private void save()
 	{
-		final ArrayList<SetValue> attributeValues = new ArrayList<SetValue>();
+		final ArrayList<SetValue> setValues = new ArrayList<SetValue>();
 		
 		for(Iterator i = getFields().iterator(); i.hasNext(); )
 		{
@@ -492,12 +492,12 @@ final class ItemForm extends Form
 			if(field.error==null)
 			{
 				final FunctionAttribute attribute = (FunctionAttribute)field.key;
-				attributeValues.add(new SetValue(attribute, field.getContent()));
+				setValues.add(new SetValue(attribute, field.getContent()));
 			}
 		}
 		try
 		{
-			item.set(attributeValues.toArray(new SetValue[attributeValues.size()]));
+			item.set(setValues.toArray(new SetValue[setValues.size()]));
 		}
 		catch(MandatoryViolationException e)
 		{
