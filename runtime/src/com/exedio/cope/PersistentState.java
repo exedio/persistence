@@ -58,7 +58,7 @@ final class PersistentState extends State implements AbstractDatabase.ResultSetH
 	State write(final Transaction transaction, final Map<BlobColumn, byte[]> blobs)
 	{
 		if(blobs!=null && !blobs.isEmpty())
-			throw new RuntimeException("not yet implemented");
+			type.getModel().getDatabase().store(transaction.getConnection(), this, true, blobs);
 		
 		return this;
 	}
@@ -70,7 +70,9 @@ final class PersistentState extends State implements AbstractDatabase.ResultSetH
 
 	Object store(final Column column)
 	{
-		throw new RuntimeException();
+		//throw new RuntimeException();
+		// needed for blobs
+		return row.get(column);
 	}
 
 	Row stealValues()

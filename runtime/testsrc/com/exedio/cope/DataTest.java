@@ -299,24 +299,11 @@ public class DataTest extends AbstractLibTest
 		assertData(data10, item.getData10());
 		assertEquals("eins", item.getName());
 
-		// TODO remove
-		final boolean blobMode = !model.getProperties().hasDatadirPath();
-		try
-		{
-			item.set(new SetValue[]{
-					DataItem.data.map(data11),
-					DataItem.data10.map(data10),
-			});
-			
-			// TODO should not happen
-			if(blobMode)
-				fail();
-		}
-		catch(RuntimeException e)
-		{
-			assertEquals("not yet implemented", e.getMessage());
-		}
-		assertData(blobMode ? data8/*TODO this is a bug, should be: data11*/ : data11, item.getData());
+		item.set(new SetValue[]{
+				DataItem.data.map(data11),
+				DataItem.data10.map(data10),
+		});
+		assertData(data11, item.getData());
 		assertData(data10, item.getData10());
 		assertEquals("eins", item.getName());
 		
