@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import java.io.IOException;
+
 import com.exedio.cope.util.CacheInfo;
 
 
@@ -234,6 +236,15 @@ public class HierarchyTest extends AbstractLibTest
 		try
 		{
 			firstItem.set(new SetValue[]{secondItem.firstSubString.map("zack")});
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals("attribute "+secondItem.firstSubString+" does not belong to type "+firstItem.TYPE, e.getMessage());
+		}
+		try
+		{
+			firstItem.TYPE.newItem(new SetValue[]{secondItem.firstSubString.map("zack")});
 			fail();
 		}
 		catch(RuntimeException e)

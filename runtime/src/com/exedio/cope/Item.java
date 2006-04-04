@@ -144,7 +144,12 @@ public abstract class Item extends Cope
 		for(int i = 0; i<setValues.length; i++)
 		{
 			final SetValue setValue = setValues[i];
-			((Attribute)setValue.settable).checkValue(setValue.value, null);
+			final Attribute attribute = (Attribute)setValue.settable;
+			
+			if(!attribute.getType().isAssignableFrom(type))
+				throw new RuntimeException("attribute " + attribute + " does not belong to type " + type.toString());
+			
+			attribute.checkValue(setValue.value, null);
 		}
 
 		final Entity entity = getEntity(false);
