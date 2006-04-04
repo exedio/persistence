@@ -249,8 +249,8 @@ public abstract class Item extends Cope
 		setValues = executeSetValues(setValues, this);
 		for(int i = 0; i<setValues.length; i++)
 		{
-			final SetValue attributeValue = setValues[i];
-			final Attribute attribute = (Attribute)attributeValue.settable;
+			final SetValue setValue = setValues[i];
+			final Attribute attribute = (Attribute)setValue.settable;
 
 			if(!attribute.getType().isAssignableFrom(type))
 				throw new RuntimeException("attribute "+attribute+" does not belong to type "+type.toString());
@@ -258,7 +258,7 @@ public abstract class Item extends Cope
 			if(attribute.isfinal)
 				throw new FinalViolationException(attribute, this);
 
-			attribute.checkValue(attributeValue.value, this);
+			attribute.checkValue(setValue.value, this);
 		}
 
 		final Entity entity = getEntity();
