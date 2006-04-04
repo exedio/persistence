@@ -238,7 +238,7 @@ public abstract class Item extends Cope
 	 * @throws ClassCastException
 	 *         if <code>value</code> is not compatible to <code>attribute</code>.
 	 */
-	public final void set(SetValue[] attributeValues)
+	public final void set(SetValue[] setValues)
 		throws
 			UniqueViolationException,
 			MandatoryViolationException,
@@ -246,10 +246,10 @@ public abstract class Item extends Cope
 			FinalViolationException,
 			ClassCastException
 	{
-		attributeValues = executeSetValues(attributeValues, this);
-		for(int i = 0; i<attributeValues.length; i++)
+		setValues = executeSetValues(setValues, this);
+		for(int i = 0; i<setValues.length; i++)
 		{
-			final SetValue attributeValue = attributeValues[i];
+			final SetValue attributeValue = setValues[i];
 			final Attribute attribute = (Attribute)attributeValue.settable;
 
 			if(!attribute.getType().isAssignableFrom(type))
@@ -262,8 +262,8 @@ public abstract class Item extends Cope
 		}
 
 		final Entity entity = getEntity();
-		entity.put(attributeValues);
-		entity.write(toBlobs(attributeValues));
+		entity.put(setValues);
+		entity.write(toBlobs(setValues));
 	}
 
 	public final void deleteCopeItem()
