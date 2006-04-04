@@ -142,16 +142,16 @@ public final class Qualifier extends Pattern
 		
 		if(item==null)
 		{
-			final SetValue[] initialAttributeValues = new SetValue[values.length + keys.length];
-			System.arraycopy(values, 0, initialAttributeValues, 0, values.length);
+			final SetValue[] keyValues = new SetValue[values.length + keys.length];
+			System.arraycopy(values, 0, keyValues, 0, values.length);
 			
 			int j = 0;
 			for(Iterator i = qualifyUnique.getUniqueAttributes().iterator(); i.hasNext(); j++)
 			{
 				final FunctionAttribute uniqueAttribute = (FunctionAttribute)i.next();
-				initialAttributeValues[j + values.length] = new SetValue(uniqueAttribute, keys[j]);
+				keyValues[j + values.length] = new SetValue(uniqueAttribute, keys[j]);
 			}
-			item = qualifyUnique.getType().newItem(initialAttributeValues);
+			item = qualifyUnique.getType().newItem(keyValues);
 		}
 		else
 		{
