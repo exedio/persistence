@@ -140,7 +140,7 @@ public abstract class Item extends Cope
 			throw new RuntimeException();
 		//System.out.println("create item "+type+" "+pk);
 		
-		initialAttributeValues = executeCustomAttributes(initialAttributeValues, null);
+		initialAttributeValues = executeSetValues(initialAttributeValues, null);
 		for(int i = 0; i<initialAttributeValues.length; i++)
 		{
 			final SetValue av = initialAttributeValues[i];
@@ -246,7 +246,7 @@ public abstract class Item extends Cope
 			FinalViolationException,
 			ClassCastException
 	{
-		attributeValues = executeCustomAttributes(attributeValues, this);
+		attributeValues = executeSetValues(attributeValues, this);
 		for(int i = 0; i<attributeValues.length; i++)
 		{
 			final SetValue attributeValue = attributeValues[i];
@@ -443,8 +443,8 @@ public abstract class Item extends Cope
 		return type.getModel().getCurrentTransaction().getEntityIfActive(type, pk);
 	}
 	
-	// TODO result type should be HashMap<FunctionAttribute, Object>
-	private static final SetValue[] executeCustomAttributes(final SetValue[] source, final Item exceptionItem)
+	// TODO result type should be HashMap<Attribute, Object>
+	private static final SetValue[] executeSetValues(final SetValue[] source, final Item exceptionItem)
 	{
 		final HashMap<Attribute, Object> result = new HashMap<Attribute, Object>();
 		for(int i = 0; i<source.length; i++)
