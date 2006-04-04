@@ -561,8 +561,8 @@ public final class Type
 		catch(InvocationTargetException e)
 		{
 			final Throwable t = e.getCause();
-			if(t instanceof ConstraintViolationException)
-				throw (ConstraintViolationException)t;
+			if(t instanceof RuntimeException)
+				throw (RuntimeException)t;
 			else
 				throw new RuntimeException(e);
 		}

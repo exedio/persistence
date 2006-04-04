@@ -358,7 +358,7 @@ public class DataTest extends AbstractLibTest
 		}
 		catch(RuntimeException e) // TODO should be ClassCastException
 		{
-			assertEquals("expected a byte[], but was a java.lang.Integer for " + item.data + '.', e.getCause().getCause().getMessage());
+			assertEquals("expected a byte[], but was a java.lang.Integer for " + item.data + '.', e.getMessage());
 		}
 
 		assertData(data10, item.getData10());
