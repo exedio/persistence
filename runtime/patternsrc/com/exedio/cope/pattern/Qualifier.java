@@ -119,18 +119,17 @@ public final class Qualifier extends Pattern
 			return null;
 	}
 	
-	// TODO rename values to keys
-	public Item getForSet(final Object[] values)
+	public Item getForSet(final Object[] keys)
 	{
-		Item item = qualifyUnique.searchUnique(values);
+		Item item = qualifyUnique.searchUnique(keys);
 		if(item==null)
 		{
-			final SetValue[] initialAttributeValues = new SetValue[values.length];
+			final SetValue[] initialAttributeValues = new SetValue[keys.length];
 			int j = 0;
 			for(Iterator i = qualifyUnique.getUniqueAttributes().iterator(); i.hasNext(); j++)
 			{
 				final FunctionAttribute uniqueAttribute = (FunctionAttribute)i.next();
-				initialAttributeValues[j] = new SetValue(uniqueAttribute, values[j]);
+				initialAttributeValues[j] = new SetValue(uniqueAttribute, keys[j]);
 			}
 			item = qualifyUnique.getType().newItem(initialAttributeValues);
 		}
