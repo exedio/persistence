@@ -24,7 +24,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.exedio.cope.AbstractLibTest;
-import com.exedio.cope.AttributeValue;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.DateAttribute;
 import com.exedio.cope.Feature;
 import com.exedio.cope.FunctionAttribute;
@@ -193,14 +193,14 @@ public class VectorTest extends AbstractLibTest
 		assertContains(item, item.TYPE.search(item.strings.contains(null)));
 		assertContains(item.TYPE.search(item.strings.contains("zollo")));
 		
-		item.set(new AttributeValue[]{item.strings.map(list("zicko", "zacko", "zocko"))});
+		item.set(new SetValue[]{item.strings.map(list("zicko", "zacko", "zocko"))});
 		assertEquals(list("zicko", "zacko", "zocko"), item.getStrings());
 		assertEquals("zicko", item.get(string1));
 		assertEquals("zacko", item.get(string2));
 		assertEquals("zocko", item.get(string3));
 		assertEquals(null, item.get(string4));
 		
-		final VectorItem item2 = new VectorItem(new AttributeValue[]{item.strings.map(list("lets1", "lets2", "lets3", "lets4"))});
+		final VectorItem item2 = new VectorItem(new SetValue[]{item.strings.map(list("lets1", "lets2", "lets3", "lets4"))});
 		deleteOnTearDown(item2);
 		assertEquals(list("lets1", "lets2", "lets3", "lets4"), item2.getStrings());
 		assertEquals("lets1", item2.get(string1));
@@ -208,7 +208,7 @@ public class VectorTest extends AbstractLibTest
 		assertEquals("lets3", item2.get(string3));
 		assertEquals("lets4", item2.get(string4));
 		
-		final VectorItem item3 = (VectorItem)VectorItem.TYPE.newItem(new AttributeValue[]{item.strings.map(list("fetz1", null, null, null))});
+		final VectorItem item3 = (VectorItem)VectorItem.TYPE.newItem(new SetValue[]{item.strings.map(list("fetz1", null, null, null))});
 		deleteOnTearDown(item3);
 		assertEquals(list("fetz1"), item3.getStrings());
 		assertEquals("fetz1", item3.get(string1));

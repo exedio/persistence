@@ -22,6 +22,6 @@ import java.util.Map;
 
 public interface Settable<E>
 {
-	AttributeValue map(E value);
+	SetValue map(E value);
 	Map<? extends Attribute, ? extends Object> execute(E value, Item exceptionItem);
 }

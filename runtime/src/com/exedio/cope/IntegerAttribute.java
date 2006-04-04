@@ -82,9 +82,9 @@ public final class IntegerAttribute extends FunctionAttribute<Integer> implement
 		set(item, Integer.valueOf(value));
 	}
 
-	public final AttributeValue map(final int value)
+	public final SetValue map(final int value)
 	{
-		return new AttributeValue(this, Integer.valueOf(value));
+		return new SetValue(this, Integer.valueOf(value));
 	}
 	
 	public final EqualCondition equal(final int value)

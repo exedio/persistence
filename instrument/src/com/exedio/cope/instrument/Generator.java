@@ -37,7 +37,7 @@ import java.util.TreeSet;
 import java.util.zip.CRC32;
 import java.util.zip.CheckedOutputStream;
 
-import com.exedio.cope.AttributeValue;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.FinalViolationException;
@@ -313,7 +313,7 @@ final class Generator
 		writeThrowsClause(constructorExceptions);
 		o.write("\t{");
 		o.write(lineSeparator);
-		o.write("\t\tthis(new "+AttributeValue.class.getName()+"[]{");
+		o.write("\t\tthis(new "+SetValue.class.getName()+"[]{");
 		o.write(lineSeparator);
 		for(final CopeAttribute initialAttribute : initialAttributes)
 		{
@@ -348,7 +348,7 @@ final class Generator
 		writeCommentFooter(CONSTRUCTOR_GENERIC_CUSTOMIZE);
 		CopeAttribute.writeGeneratedModifier(o, option.getModifier(type.allowSubTypes() ? Modifier.PROTECTED : Modifier.PRIVATE));
 		o.write(type.getName());
-		o.write("(final "+AttributeValue.class.getName()+"[] initialAttributes)");
+		o.write("(final "+SetValue.class.getName()+"[] initialAttributes)");
 		o.write(lineSeparator);
 		o.write("\t{");
 		o.write(lineSeparator);

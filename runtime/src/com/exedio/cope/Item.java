@@ -128,7 +128,7 @@ public abstract class Item extends Cope
 	 * @throws ClassCastException
 	 *         if <code>value</code> is not compatible to <code>attribute</code>.
 	 */
-	protected Item(AttributeValue[] initialAttributeValues)
+	protected Item(SetValue[] initialAttributeValues)
 		throws
 			UniqueViolationException,
 			MandatoryViolationException,
@@ -143,7 +143,7 @@ public abstract class Item extends Cope
 		initialAttributeValues = executeCustomAttributes(initialAttributeValues, null);
 		for(int i = 0; i<initialAttributeValues.length; i++)
 		{
-			final AttributeValue av = initialAttributeValues[i];
+			final SetValue av = initialAttributeValues[i];
 			((Attribute)av.settable).checkValue(av.value, null);
 		}
 
@@ -238,7 +238,7 @@ public abstract class Item extends Cope
 	 * @throws ClassCastException
 	 *         if <code>value</code> is not compatible to <code>attribute</code>.
 	 */
-	public final void set(AttributeValue[] attributeValues)
+	public final void set(SetValue[] attributeValues)
 		throws
 			UniqueViolationException,
 			MandatoryViolationException,
@@ -249,7 +249,7 @@ public abstract class Item extends Cope
 		attributeValues = executeCustomAttributes(attributeValues, this);
 		for(int i = 0; i<attributeValues.length; i++)
 		{
-			final AttributeValue attributeValue = attributeValues[i];
+			final SetValue attributeValue = attributeValues[i];
 			final Attribute attribute = (Attribute)attributeValue.settable;
 
 			if(!attribute.getType().isAssignableFrom(type))
@@ -444,12 +444,12 @@ public abstract class Item extends Cope
 	}
 	
 	// TODO result type should be HashMap<FunctionAttribute, Object>
-	private static final AttributeValue[] executeCustomAttributes(final AttributeValue[] source, final Item exceptionItem)
+	private static final SetValue[] executeCustomAttributes(final SetValue[] source, final Item exceptionItem)
 	{
 		final HashMap<Attribute, Object> result = new HashMap<Attribute, Object>();
 		for(int i = 0; i<source.length; i++)
 		{
-			final AttributeValue av = source[i];
+			final SetValue av = source[i];
 			final Settable settable = av.settable;
 			
 			if(settable instanceof Attribute)
@@ -471,23 +471,23 @@ public abstract class Item extends Cope
 		return convert(result);
 	}
 	
-	public static final AttributeValue[] convert(Map<? extends Attribute, ? extends Object> map)
+	public static final SetValue[] convert(Map<? extends Attribute, ? extends Object> map)
 	{
-		final AttributeValue[] result = new AttributeValue[map.size()];
+		final SetValue[] result = new SetValue[map.size()];
 		int n = 0;
 		for(Attribute attribute : map.keySet())
-			result[n++] = new AttributeValue(attribute, map.get(attribute));
+			result[n++] = new SetValue(attribute, map.get(attribute));
 		
 		return result;
 	}
 	
-	private final HashMap<BlobColumn, byte[]> toBlobs(final AttributeValue[] attributeValues)
+	private final HashMap<BlobColumn, byte[]> toBlobs(final SetValue[] attributeValues)
 	{
 		final HashMap<BlobColumn, byte[]> result = new HashMap<BlobColumn, byte[]>();
 		
 		for(int i = 0; i<attributeValues.length; i++)
 		{
-			final AttributeValue attributeValue = attributeValues[i];
+			final SetValue attributeValue = attributeValues[i];
 			final Settable settable = attributeValue.settable;
 			if(!(settable instanceof DataAttribute))
 				continue;

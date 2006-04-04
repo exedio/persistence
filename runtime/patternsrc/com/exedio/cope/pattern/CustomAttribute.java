@@ -26,7 +26,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.exedio.cope.AttributeValue;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.FunctionAttribute;
 import com.exedio.cope.Item;
@@ -85,7 +85,7 @@ public abstract class CustomAttribute<E>
 					throw new RuntimeException("more than one setter method:"+setter+" and "+m);
 				if(m.getParameterTypes().length!=1)
 					throw new RuntimeException("number of parameters of setter method must be 1");
-				if(m.getReturnType()!=(new AttributeValue[0]).getClass() && storages.length!=1)
+				if(m.getReturnType()!=(new SetValue[0]).getClass() && storages.length!=1)
 					throw new RuntimeException("oops");
 				setter = m;
 			}
@@ -195,7 +195,7 @@ public abstract class CustomAttribute<E>
 			return Collections.singletonMap(storages[0], result);
 		else
 		{
-			final AttributeValue[] resultArray = (AttributeValue[])result;
+			final SetValue[] resultArray = (SetValue[])result;
 			final HashMap<FunctionAttribute, Object> resultMap = new HashMap<FunctionAttribute, Object>();
 			for(int i = 0; i<resultArray.length; i++)
 				resultMap.put((FunctionAttribute)resultArray[i].settable, resultArray[i].value);
@@ -203,9 +203,9 @@ public abstract class CustomAttribute<E>
 		}
 	}
 	
-	public final AttributeValue map(final E value)
+	public final SetValue map(final E value)
 	{
-		return new AttributeValue(this, value);
+		return new SetValue(this, value);
 	}
 
 }

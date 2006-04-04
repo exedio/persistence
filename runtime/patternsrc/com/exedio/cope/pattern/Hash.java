@@ -21,7 +21,7 @@ package com.exedio.cope.pattern;
 import java.util.Collections;
 import java.util.Map;
 
-import com.exedio.cope.AttributeValue;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.EqualCondition;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.FunctionAttribute;
@@ -87,9 +87,9 @@ public abstract class Hash extends Pattern implements Settable<String>
 			return expectedHash.equals(actualHash);
 	}
 	
-	public final AttributeValue map(final String value)
+	public final SetValue map(final String value)
 	{
-		return new AttributeValue(this, value);
+		return new SetValue(this, value);
 	}
 	
 	public final Map<? extends FunctionAttribute, ? extends Object> execute(final String value, final Item exceptionItem)

@@ -1,6 +1,8 @@
 CURRENT
 
 API CHANGE
+	renamed AttributeValue to SetValue
+API CHANGE
 	converted Attribute#Option to an enum.
 API CHANGE
 	converted ItemAttribute#DeletePolicy to an enum.

@@ -274,7 +274,7 @@ public class ModelTest extends TestmodelTest
 
 	static class NoReactivationConstructor extends Item
 	{
-		NoReactivationConstructor(final AttributeValue[] initialAttributes)
+		NoReactivationConstructor(final SetValue[] initialAttributes)
 		{
 			super(null);
 		}

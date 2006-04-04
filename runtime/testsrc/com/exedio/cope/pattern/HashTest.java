@@ -21,7 +21,7 @@ package com.exedio.cope.pattern;
 import java.util.Arrays;
 
 import com.exedio.cope.AbstractLibTest;
-import com.exedio.cope.AttributeValue;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Main;
 
@@ -125,21 +125,21 @@ public class HashTest extends AbstractLibTest
 		assertFalse(item.checkInternal(""));
 		assertTrue(item.checkInternal("zack"));
 
-		item.set(new AttributeValue[]{item.internal.map("zosch")});
+		item.set(new SetValue[]{item.internal.map("zosch")});
 		assertEquals("[zosch]", item.get(item.internal.getStorage()));
 		assertFalse(item.checkInternal(null));
 		assertFalse(item.checkInternal(""));
 		assertFalse(item.checkInternal("zack"));
 		assertTrue(item.checkInternal("zosch"));
 		
-		final HashItem item2 = new HashItem(new AttributeValue[]{item.internal.map("lets")});
+		final HashItem item2 = new HashItem(new SetValue[]{item.internal.map("lets")});
 		deleteOnTearDown(item2);
 		assertEquals("[lets]", item2.get(item2.internal.getStorage()));
 		assertFalse(item2.checkInternal(null));
 		assertFalse(item2.checkInternal(""));
 		assertTrue(item2.checkInternal("lets"));
 		
-		final HashItem item3 = (HashItem)HashItem.TYPE.newItem(new AttributeValue[]{item.internal.map("fetz")});
+		final HashItem item3 = (HashItem)HashItem.TYPE.newItem(new SetValue[]{item.internal.map("fetz")});
 		deleteOnTearDown(item3);
 		assertEquals("[fetz]", item3.get(item3.internal.getStorage()));
 		assertFalse(item3.checkInternal(null));

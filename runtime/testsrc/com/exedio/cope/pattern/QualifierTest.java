@@ -20,7 +20,7 @@ package com.exedio.cope.pattern;
 
 import java.util.Arrays;
 
-import com.exedio.cope.AttributeValue;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.Feature;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.IntegrityViolationException;
@@ -194,7 +194,7 @@ public class QualifierTest extends TestmodelTest
 		
 		item.intEnumQualifier.set(
 				new Object[]{item, Integer.valueOf(20), QualifiedIntegerEnumQualifier.KeyEnum.key1},
-				new AttributeValue[]{QualifiedIntegerEnumQualifier.qualifiedA.map("A-20-key1"), QualifiedIntegerEnumQualifier.qualifiedB.map("B-20-key1")});
+				new SetValue[]{QualifiedIntegerEnumQualifier.qualifiedA.map("A-20-key1"), QualifiedIntegerEnumQualifier.qualifiedB.map("B-20-key1")});
 		final QualifiedIntegerEnumQualifier setterItem =
 			item.getIntEnumQualifier(Integer.valueOf(20), QualifiedIntegerEnumQualifier.KeyEnum.key1);
 		assertNotNull(setterItem);
@@ -203,7 +203,7 @@ public class QualifierTest extends TestmodelTest
 		
 		item.intEnumQualifier.set(
 				new Object[]{item, Integer.valueOf(20), QualifiedIntegerEnumQualifier.KeyEnum.key1},
-				new AttributeValue[]{QualifiedIntegerEnumQualifier.qualifiedA.map("A-20-key1-c"), QualifiedIntegerEnumQualifier.qualifiedB.map("B-20-key1-c")});
+				new SetValue[]{QualifiedIntegerEnumQualifier.qualifiedA.map("A-20-key1-c"), QualifiedIntegerEnumQualifier.qualifiedB.map("B-20-key1-c")});
 		assertEquals(setterItem,
 				item.getIntEnumQualifier(Integer.valueOf(20), QualifiedIntegerEnumQualifier.KeyEnum.key1));
 		assertEquals("A-20-key1-c", item.getQualifiedA(Integer.valueOf(20), QualifiedIntegerEnumQualifier.KeyEnum.key1));

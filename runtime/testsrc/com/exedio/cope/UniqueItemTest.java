@@ -165,16 +165,16 @@ public class UniqueItemTest extends TestmodelTest
 		final ItemWithSingleUnique item2 = new ItemWithSingleUnique();
 		deleteOnTearDown(item2);
 
-		item1.set(new AttributeValue[]{
-				new AttributeValue(item1.uniqueString, "uniqueString1"),
-				new AttributeValue(item1.otherString, "otherString1"),
+		item1.set(new SetValue[]{
+				new SetValue(item1.uniqueString, "uniqueString1"),
+				new SetValue(item1.otherString, "otherString1"),
 		});
 		assertEquals("uniqueString1", item1.getUniqueString());
 		assertEquals("otherString1", item1.getOtherString());
 
-		item2.set(new AttributeValue[]{
-				new AttributeValue(item1.uniqueString, "uniqueString2"),
-				new AttributeValue(item1.otherString, "otherString2"),
+		item2.set(new SetValue[]{
+				new SetValue(item1.uniqueString, "uniqueString2"),
+				new SetValue(item1.otherString, "otherString2"),
 		});
 		assertEquals("uniqueString2", item2.getUniqueString());
 		assertEquals("otherString2", item2.getOtherString());
@@ -182,9 +182,9 @@ public class UniqueItemTest extends TestmodelTest
 		// test unique violation
 		try
 		{
-			item2.set(new AttributeValue[]{
-					new AttributeValue(item1.uniqueString, "uniqueString1"),
-					new AttributeValue(item1.otherString, "otherString1"),
+			item2.set(new SetValue[]{
+					new SetValue(item1.uniqueString, "uniqueString1"),
+					new SetValue(item1.otherString, "otherString1"),
 			});
 			fail();
 		}
@@ -268,7 +268,7 @@ public class UniqueItemTest extends TestmodelTest
 		assertContains(item, item.TYPE.search(null));
 		try
 		{
-			ItemWithSingleUniqueNotNull.TYPE.newItem(new AttributeValue[]{item.uniqueNotNullString.map(null)});
+			ItemWithSingleUniqueNotNull.TYPE.newItem(new SetValue[]{item.uniqueNotNullString.map(null)});
 			fail();
 		}
 		catch(MandatoryViolationException e)
@@ -340,7 +340,7 @@ public class UniqueItemTest extends TestmodelTest
 		assertEquals(b1, ItemWithDoubleUnique.findByDoubleUnique("b", 1));
 		try
 		{		
-			ItemWithDoubleUnique.TYPE.newItem(new AttributeValue[]{
+			ItemWithDoubleUnique.TYPE.newItem(new SetValue[]{
 					ItemWithDoubleUnique.string.map("b"),
 					ItemWithDoubleUnique.integer.map(1),
 				});

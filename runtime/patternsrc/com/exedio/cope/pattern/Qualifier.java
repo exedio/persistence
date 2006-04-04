@@ -25,7 +25,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.exedio.cope.Attribute;
-import com.exedio.cope.AttributeValue;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.FunctionAttribute;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemAttribute;
@@ -125,32 +125,32 @@ public final class Qualifier extends Pattern
 		Item item = qualifyUnique.searchUnique(values);
 		if(item==null)
 		{
-			final AttributeValue[] initialAttributeValues = new AttributeValue[values.length];
+			final SetValue[] initialAttributeValues = new SetValue[values.length];
 			int j = 0;
 			for(Iterator i = qualifyUnique.getUniqueAttributes().iterator(); i.hasNext(); j++)
 			{
 				final FunctionAttribute uniqueAttribute = (FunctionAttribute)i.next();
-				initialAttributeValues[j] = new AttributeValue(uniqueAttribute, values[j]);
+				initialAttributeValues[j] = new SetValue(uniqueAttribute, values[j]);
 			}
 			item = qualifyUnique.getType().newItem(initialAttributeValues);
 		}
 		return item;
 	}
 
-	public Item set(final Object[] keys, final AttributeValue[] values)
+	public Item set(final Object[] keys, final SetValue[] values)
 	{
 		Item item = qualifyUnique.searchUnique(keys);
 		
 		if(item==null)
 		{
-			final AttributeValue[] initialAttributeValues = new AttributeValue[values.length + keys.length];
+			final SetValue[] initialAttributeValues = new SetValue[values.length + keys.length];
 			System.arraycopy(values, 0, initialAttributeValues, 0, values.length);
 			
 			int j = 0;
 			for(Iterator i = qualifyUnique.getUniqueAttributes().iterator(); i.hasNext(); j++)
 			{
 				final FunctionAttribute uniqueAttribute = (FunctionAttribute)i.next();
-				initialAttributeValues[j + values.length] = new AttributeValue(uniqueAttribute, keys[j]);
+				initialAttributeValues[j + values.length] = new SetValue(uniqueAttribute, keys[j]);
 			}
 			item = qualifyUnique.getType().newItem(initialAttributeValues);
 		}

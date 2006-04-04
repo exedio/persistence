@@ -32,7 +32,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.fileupload.FileItem;
 
 import com.exedio.cope.Attribute;
-import com.exedio.cope.AttributeValue;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.BooleanAttribute;
 import com.exedio.cope.DataAttribute;
 import com.exedio.cope.DateAttribute;
@@ -457,7 +457,7 @@ final class ItemForm extends Form
 
 	private void save()
 	{
-		final ArrayList<AttributeValue> attributeValues = new ArrayList<AttributeValue>();
+		final ArrayList<SetValue> attributeValues = new ArrayList<SetValue>();
 		
 		for(Iterator i = getFields().iterator(); i.hasNext(); )
 		{
@@ -492,12 +492,12 @@ final class ItemForm extends Form
 			if(field.error==null)
 			{
 				final FunctionAttribute attribute = (FunctionAttribute)field.key;
-				attributeValues.add(new AttributeValue(attribute, field.getContent()));
+				attributeValues.add(new SetValue(attribute, field.getContent()));
 			}
 		}
 		try
 		{
-			item.set(attributeValues.toArray(new AttributeValue[attributeValues.size()]));
+			item.set(attributeValues.toArray(new SetValue[attributeValues.size()]));
 		}
 		catch(MandatoryViolationException e)
 		{

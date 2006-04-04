@@ -18,19 +18,18 @@
 
 package com.exedio.cope;
 
-// TODO rename to SetValue
-public final class AttributeValue
+public final class SetValue
 {
 	public final Settable settable;
 	public final Object value;
 	
 	/**
-	 * Creates a new AttributeValue.
+	 * Creates a new SetValue.
 	 * Instead of using this constructor directly,
 	 * you may want to use the more type-safe implementations of
 	 * {@link Settable#map(Object)}.
 	 */
-	public AttributeValue(final Settable settable, final Object value)
+	public SetValue(final Settable settable, final Object value)
 	{
 		this.settable = settable;
 		this.value = value;

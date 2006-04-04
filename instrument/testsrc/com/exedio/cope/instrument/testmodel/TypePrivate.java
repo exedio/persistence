@@ -18,7 +18,7 @@
 
 package com.exedio.cope.instrument.testmodel;
 
-import com.exedio.cope.AttributeValue;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringAttribute;
 
@@ -35,7 +35,7 @@ public class TypePrivate extends Item
 	 * Creates a new TypeNone and sets the given attributes initially.
 	 * This constructor is called by {@link com.exedio.cope.Type#newItem Type.newItem}.
 	 */
-	private TypePrivate(final AttributeValue[] initialAttributes)
+	private TypePrivate(final SetValue[] initialAttributes)
 	{
 		super(initialAttributes);
 		// here one could do additional things
@@ -50,7 +50,7 @@ public class TypePrivate extends Item
 	 */
 	public TypePrivate()
 	{
-		this(new com.exedio.cope.AttributeValue[]{
+		this(new com.exedio.cope.SetValue[]{
 		});
 	}/**
 

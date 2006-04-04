@@ -290,7 +290,7 @@ public class DataTest extends AbstractLibTest
 
 		// implements Settable
 		assertNull(item.getName());
-		item.set(new AttributeValue[]{
+		item.set(new SetValue[]{
 				DataItem.data.map(data8),
 				DataItem.data10.map(data10),
 				DataItem.name.map("eins"),
@@ -303,7 +303,7 @@ public class DataTest extends AbstractLibTest
 		final boolean blobMode = !model.getProperties().hasDatadirPath();
 		try
 		{
-			item.set(new AttributeValue[]{
+			item.set(new SetValue[]{
 					DataItem.data.map(data11),
 					DataItem.data10.map(data10),
 			});
@@ -327,7 +327,7 @@ public class DataTest extends AbstractLibTest
 			assertData(data10, item2.getData10());
 		}
 		{
-			final DataItem item3 = (DataItem)DataItem.TYPE.newItem(new AttributeValue[]{
+			final DataItem item3 = (DataItem)DataItem.TYPE.newItem(new SetValue[]{
 					DataItem.data.map(data6),
 					DataItem.data10.map(data10),
 			});
@@ -340,8 +340,8 @@ public class DataTest extends AbstractLibTest
 		assertData(data8, item.getData());
 		try
 		{
-			item.set(new AttributeValue[]{
-					new AttributeValue(DataItem.data, "zack"),
+			item.set(new SetValue[]{
+					new SetValue(DataItem.data, "zack"),
 			});
 		}
 		catch(ClassCastException e)
@@ -352,8 +352,8 @@ public class DataTest extends AbstractLibTest
 		
 		try
 		{
-			DataItem.TYPE.newItem(new AttributeValue[]{
-					new AttributeValue(DataItem.data, new Integer(1)),
+			DataItem.TYPE.newItem(new SetValue[]{
+					new SetValue(DataItem.data, new Integer(1)),
 			});
 		}
 		catch(RuntimeException e) // TODO should be ClassCastException
@@ -364,7 +364,7 @@ public class DataTest extends AbstractLibTest
 		assertData(data10, item.getData10());
 		try
 		{
-			item.set(new AttributeValue[]{DataItem.data10.map(data11)});
+			item.set(new SetValue[]{DataItem.data10.map(data11)});
 		}
 		catch(DataLengthViolationException e)
 		{
@@ -379,7 +379,7 @@ public class DataTest extends AbstractLibTest
 
 		try
 		{
-			DataItem.TYPE.newItem(new AttributeValue[]{DataItem.data10.map(data11)});
+			DataItem.TYPE.newItem(new SetValue[]{DataItem.data10.map(data11)});
 		}
 		catch(DataLengthViolationException e)
 		{

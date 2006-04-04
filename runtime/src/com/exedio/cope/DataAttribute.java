@@ -210,9 +210,9 @@ public final class DataAttribute extends Attribute<byte[]>
 		impl.set(item, data);
 	}
 	
-	public final AttributeValue map(final byte[] value)
+	public final SetValue map(final byte[] value)
 	{
-		return new AttributeValue(this, value);
+		return new SetValue(this, value);
 	}
 	
 	public final Map<? extends Attribute, ? extends Object> execute(final byte[] value, final Item exceptionItem)

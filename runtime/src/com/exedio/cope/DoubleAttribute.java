@@ -88,9 +88,9 @@ public final class DoubleAttribute extends FunctionAttribute<Double>
 		}
 	}
 	
-	public final AttributeValue map(final double value)
+	public final SetValue map(final double value)
 	{
-		return new AttributeValue(this, new Double(value));
+		return new SetValue(this, new Double(value));
 	}
 	
 	public final EqualCondition equal(final double value)

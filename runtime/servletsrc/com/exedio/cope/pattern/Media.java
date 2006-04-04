@@ -33,7 +33,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.exedio.cope.Attribute;
-import com.exedio.cope.AttributeValue;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.DataAttribute;
 import com.exedio.cope.DataLengthViolationException;
 import com.exedio.cope.DateAttribute;
@@ -395,12 +395,12 @@ public final class Media extends MediaPath
 				throw new RuntimeException("if data is null, content type must also be null");
 		}
 
-		final ArrayList<AttributeValue> values = new ArrayList<AttributeValue>(3);
+		final ArrayList<SetValue> values = new ArrayList<SetValue>(3);
 		this.contentType.map(values, contentType);
 		values.add(this.lastModified.map(data!=null ? new Date() : null));
 		try
 		{
-			item.set(values.toArray(new AttributeValue[values.size()]));
+			item.set(values.toArray(new SetValue[values.size()]));
 		}
 		catch(CustomAttributeException e)
 		{
@@ -408,7 +408,7 @@ public final class Media extends MediaPath
 			throw new RuntimeException(e);
 		}
 		
-		// TODO set this via Item.set(AttributeValue[]) as well
+		// TODO set this via Item.set(SetValue[]) as well
 		if(data instanceof byte[])
 			this.data.set(item, (byte[])data);
 		else if(data instanceof InputStream)
@@ -518,7 +518,7 @@ public final class Media extends MediaPath
 		abstract StringAttribute getMimeMinor();
 		abstract void initialize(String name);
 		abstract String getContentType(Item item);
-		abstract void map(ArrayList<AttributeValue> values, String contentType);
+		abstract void map(ArrayList<SetValue> values, String contentType);
 	}
 	
 	final class FixedContentType extends ContentType
@@ -569,7 +569,7 @@ public final class Media extends MediaPath
 			return full;
 		}
 		
-		void map(final ArrayList<AttributeValue> values, final String contentType)
+		void map(final ArrayList<SetValue> values, final String contentType)
 		{
 			if(contentType!=null && !full.equals(contentType))
 				throw new IllegalContentTypeException(contentType);
@@ -627,7 +627,7 @@ public final class Media extends MediaPath
 			return prefix + minor.get(item);
 		}
 		
-		void map(final ArrayList<AttributeValue> values, final String contentType)
+		void map(final ArrayList<SetValue> values, final String contentType)
 		{
 			if(contentType!=null && !contentType.startsWith(prefix))
 				throw new IllegalContentTypeException(contentType);
@@ -688,7 +688,7 @@ public final class Media extends MediaPath
 			return major.get(item) + '/' + minor.get(item);
 		}
 		
-		void map(final ArrayList<AttributeValue> values, final String contentType)
+		void map(final ArrayList<SetValue> values, final String contentType)
 		{
 			values.add(this.major.map(toMajor(contentType)));
 			values.add(this.minor.map(toMinor(contentType)));

@@ -22,7 +22,7 @@ import java.io.IOException;
 import java.util.Arrays;
 
 import com.exedio.cope.AbstractLibTest;
-import com.exedio.cope.AttributeValue;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Main;
 
@@ -128,7 +128,7 @@ public class CustomTest extends AbstractLibTest
 		assertContains(item, item.TYPE.search(null));
 		try
 		{
-			CustomItem.TYPE.newItem(new AttributeValue[]{new AttributeValue(item.number, im2)});
+			CustomItem.TYPE.newItem(new SetValue[]{new SetValue(item.number, im2)});
 			fail();
 		}
 		catch(CustomAttributeException e)
@@ -156,7 +156,7 @@ public class CustomTest extends AbstractLibTest
 		}
 		{
 			final CustomItem numberItem56 =
-				(CustomItem)CustomItem.TYPE.newItem(new AttributeValue[]{CustomItem.number.map(i56)});
+				(CustomItem)CustomItem.TYPE.newItem(new SetValue[]{CustomItem.number.map(i56)});
 			deleteOnTearDown(numberItem56);
 			assertEquals("56", numberItem56.getNumberString());
 			assertEquals(i56, numberItem56.getNumber());
@@ -180,7 +180,7 @@ public class CustomTest extends AbstractLibTest
 		}
 		{
 			final CustomItem elementsItem7 =
-				(CustomItem)CustomItem.TYPE.newItem(new AttributeValue[]{CustomItem.elements.map(list(i7, i8, i9))});
+				(CustomItem)CustomItem.TYPE.newItem(new SetValue[]{CustomItem.elements.map(list(i7, i8, i9))});
 			deleteOnTearDown(elementsItem7);
 			assertEquals(list(i7, i8, i9), elementsItem7.getElements());
 			assertEquals(list(i7, i8, i9), elementsItem7.elements.get(elementsItem7));

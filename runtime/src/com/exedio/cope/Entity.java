@@ -41,11 +41,11 @@ final class Entity
 		state = state.put( transaction, attribute, value );
 	}
 	
-	final void put( AttributeValue[] attributeValues )
+	final void put( SetValue[] attributeValues )
 	{
 		for ( int i=0; i<attributeValues.length; i++ )
 		{
-			final AttributeValue nextAttributeValue = attributeValues[i];
+			final SetValue nextAttributeValue = attributeValues[i];
 			final Attribute attribute = (Attribute)nextAttributeValue.settable;
 			if(attribute instanceof FunctionAttribute)
 				put((FunctionAttribute)attribute, nextAttributeValue.value);

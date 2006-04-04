@@ -204,7 +204,7 @@ public final class Type
 		// Here we don't precompute the constructor parameters
 		// because they are needed in the initialization phase
 		// only.
-		this.creationConstructor = getConstructor(new Class[]{(new AttributeValue[0]).getClass()}, "creation");
+		this.creationConstructor = getConstructor(new Class[]{(new SetValue[0]).getClass()}, "creation");
 		this.reactivationConstructor = getConstructor(new Class[]{ReactivationConstructorDummy.class, int.class}, "reactivation");
 	}
 	
@@ -533,9 +533,9 @@ public final class Type
 		return uniqueConstraints;
 	}
 	
-	private static final AttributeValue[] EMPTY_ATTRIBUTE_VALUES = new AttributeValue[]{};
+	private static final SetValue[] EMPTY_ATTRIBUTE_VALUES = new SetValue[]{};
 	
-	public Item newItem(final AttributeValue[] initialAttributeValues)
+	public Item newItem(final SetValue[] initialAttributeValues)
 		throws ConstraintViolationException
 	{
 		final Item result;

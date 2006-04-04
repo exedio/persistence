@@ -197,9 +197,9 @@ public abstract class FunctionAttribute<E extends Object>
 		return getType().searchUnique(new EqualCondition(this, value));
 	}
 
-	public final AttributeValue map(final E value)
+	public final SetValue map(final E value)
 	{
-		return new AttributeValue(this, value);
+		return new SetValue(this, value);
 	}
 	
 	public final Map<? extends Attribute, ? extends Object> execute(final E value, final Item exceptionItem)

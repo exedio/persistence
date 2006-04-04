@@ -95,9 +95,9 @@ public final class BooleanAttribute extends FunctionAttribute<Boolean>
 		set(item, new Boolean(value));
 	}
 	
-	public final AttributeValue map(final boolean value)
+	public final SetValue map(final boolean value)
 	{
-		return new AttributeValue(this, value ? Boolean.TRUE : Boolean.FALSE);
+		return new SetValue(this, value ? Boolean.TRUE : Boolean.FALSE);
 	}
 	
 	public final EqualCondition equal(final boolean value)

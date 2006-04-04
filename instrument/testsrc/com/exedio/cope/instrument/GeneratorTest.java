@@ -29,7 +29,7 @@ import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.Date;
 
-import com.exedio.cope.AttributeValue;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Type;
@@ -62,7 +62,7 @@ public class GeneratorTest extends InstrumentorTest
 	final static Class OUTPUT_STREAM = OutputStream.class;
 	final static Class IO_EXCEPTION = IOException.class;
 	
-	final static Class ATTRIBUTE_VALUE_ARRAY = (new AttributeValue[0]).getClass();
+	final static Class ATTRIBUTE_VALUE_ARRAY = (new SetValue[0]).getClass();
 	final static Class MANDATORY_VIOLATION = MandatoryViolationException.class;
 	final static Class UNIQUE_VIOLATION = UniqueViolationException.class;
 	final static Class LENGTH_VIOLATION = LengthViolationException.class;

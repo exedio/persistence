@@ -307,7 +307,7 @@ public class StringTest extends TestmodelTest
 		assertEquals(numberOfItems, item.TYPE.search(null).size());
 		try
 		{
-			StringItem.TYPE.newItem(new AttributeValue[]{item.max4.map("12345")});
+			StringItem.TYPE.newItem(new SetValue[]{item.max4.map("12345")});
 			fail();
 		}
 		catch(LengthViolationException e)
@@ -427,7 +427,7 @@ public class StringTest extends TestmodelTest
 		assertEquals(numberOfItems, item.TYPE.search(null).size());
 		try
 		{
-			StringItem.TYPE.newItem(new AttributeValue[]{item.exact6.map("1234567")});
+			StringItem.TYPE.newItem(new SetValue[]{item.exact6.map("1234567")});
 			fail();
 		}
 		catch(LengthViolationException e)

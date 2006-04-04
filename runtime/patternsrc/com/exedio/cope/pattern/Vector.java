@@ -27,7 +27,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import com.exedio.cope.AttributeValue;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.EqualCondition;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.FunctionAttribute;
@@ -107,13 +107,13 @@ public final class Vector extends Pattern implements Settable<Collection>
 			ClassCastException
 	{
 		int i = 0;
-		final AttributeValue[] attributeValues = new AttributeValue[sources.length];
+		final SetValue[] attributeValues = new SetValue[sources.length];
 
 		for(Iterator it = value.iterator(); it.hasNext(); i++)
-			attributeValues[i] = new AttributeValue(sources[i], it.next());
+			attributeValues[i] = new SetValue(sources[i], it.next());
 
 		for(; i<sources.length; i++)
-			attributeValues[i] = new AttributeValue(sources[i], null);
+			attributeValues[i] = new SetValue(sources[i], null);
 		
 		try
 		{
@@ -126,9 +126,9 @@ public final class Vector extends Pattern implements Settable<Collection>
 		}
 	}
 	
-	public AttributeValue map(final Collection value)
+	public SetValue map(final Collection value)
 	{
-		return new AttributeValue(this, value);
+		return new SetValue(this, value);
 	}
 	
 	public Map<? extends FunctionAttribute, ? extends Object> execute(final Collection value, final Item exceptionItem)
