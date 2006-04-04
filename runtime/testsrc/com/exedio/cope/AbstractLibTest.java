@@ -24,6 +24,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 
 import com.exedio.cope.junit.CopeTest;
@@ -141,6 +142,9 @@ public abstract class AbstractLibTest extends CopeTest
 	
 	protected static void assertData(final byte[] expectedData, final byte[] actualData)
 	{
+		if(!Arrays.equals(expectedData, actualData))
+			fail("expected " + Arrays.toString(expectedData) + ", but was " + Arrays.toString(actualData));
+		
 		assertEquals(expectedData.length, actualData.length);
 		for(int i = 0; i<actualData.length; i++)
 			assertEquals(expectedData[i], actualData[i]);
@@ -154,7 +158,8 @@ public abstract class AbstractLibTest extends CopeTest
 			final int actualLengthRead = actualData.read(actualDataArray);
 			final int actualLength = actualLengthRead<0 ? 0 : actualLengthRead;
 			actualData.close();
-			// TODO reuse code from assertData(byte[], byte[])
+			assertData(expectedData, actualData);
+			// TODO remove
 			assertEquals(expectedData.length, actualLength);
 			for(int i = 0; i<actualLength; i++)
 				assertEquals(expectedData[i], actualDataArray[i]);
