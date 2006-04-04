@@ -487,13 +487,13 @@ public abstract class Item extends Cope
 		
 		for(int i = 0; i<setValues.length; i++)
 		{
-			final SetValue attributeValue = setValues[i];
-			final Settable settable = attributeValue.settable;
+			final SetValue setValue = setValues[i];
+			final Settable settable = setValue.settable;
 			if(!(settable instanceof DataAttribute))
 				continue;
 			
 			final DataAttribute da = (DataAttribute)settable;
-			da.impl.fillBlob((byte[])attributeValue.value, result, this);
+			da.impl.fillBlob((byte[])setValue.value, result, this);
 		}
 		return result;
 	}
