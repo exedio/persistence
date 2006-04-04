@@ -128,7 +128,7 @@ public abstract class Item extends Cope
 	 * @throws ClassCastException
 	 *         if <code>value</code> is not compatible to <code>attribute</code>.
 	 */
-	protected Item(SetValue[] initialAttributeValues)
+	protected Item(SetValue[] setValues)
 		throws
 			UniqueViolationException,
 			MandatoryViolationException,
@@ -140,16 +140,16 @@ public abstract class Item extends Cope
 			throw new RuntimeException();
 		//System.out.println("create item "+type+" "+pk);
 		
-		initialAttributeValues = executeSetValues(initialAttributeValues, null);
-		for(int i = 0; i<initialAttributeValues.length; i++)
+		setValues = executeSetValues(setValues, null);
+		for(int i = 0; i<setValues.length; i++)
 		{
-			final SetValue av = initialAttributeValues[i];
+			final SetValue av = setValues[i];
 			((Attribute)av.settable).checkValue(av.value, null);
 		}
 
 		final Entity entity = getEntity(false);
-		entity.put( initialAttributeValues );
-		entity.write(toBlobs(initialAttributeValues));
+		entity.put(setValues);
+		entity.write(toBlobs(setValues));
 	}
 	
 	/**
