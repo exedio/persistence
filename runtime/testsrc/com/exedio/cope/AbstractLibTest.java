@@ -144,30 +144,6 @@ public abstract class AbstractLibTest extends CopeTest
 	{
 		if(!Arrays.equals(expectedData, actualData))
 			fail("expected " + Arrays.toString(expectedData) + ", but was " + Arrays.toString(actualData));
-		
-		assertEquals(expectedData.length, actualData.length);
-		for(int i = 0; i<actualData.length; i++)
-			assertEquals(expectedData[i], actualData[i]);
-	}
-	
-	protected static void assertData(final byte[] expectedData, final InputStream actualData)
-	{
-		try
-		{
-			final byte[] actualDataArray = new byte[2*expectedData.length];
-			final int actualLengthRead = actualData.read(actualDataArray);
-			final int actualLength = actualLengthRead<0 ? 0 : actualLengthRead;
-			actualData.close();
-			assertData(expectedData, actualData);
-			// TODO remove
-			assertEquals(expectedData.length, actualLength);
-			for(int i = 0; i<actualLength; i++)
-				assertEquals(expectedData[i], actualDataArray[i]);
-		}
-		catch(IOException e)
-		{
-			throw new RuntimeException(e);
-		}
 	}
 	
 	protected static void assertEquals(final Function f1, final Function f2)
