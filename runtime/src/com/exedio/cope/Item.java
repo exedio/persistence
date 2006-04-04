@@ -143,8 +143,8 @@ public abstract class Item extends Cope
 		setValues = executeSetValues(setValues, null);
 		for(int i = 0; i<setValues.length; i++)
 		{
-			final SetValue av = setValues[i];
-			((Attribute)av.settable).checkValue(av.value, null);
+			final SetValue setValue = setValues[i];
+			((Attribute)setValue.settable).checkValue(setValue.value, null);
 		}
 
 		final Entity entity = getEntity(false);
