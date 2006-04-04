@@ -533,7 +533,7 @@ public final class Type
 		return uniqueConstraints;
 	}
 	
-	private static final SetValue[] EMPTY_ATTRIBUTE_VALUES = new SetValue[]{};
+	private static final SetValue[] EMPTY_SET_VALUES = new SetValue[]{};
 	
 	public Item newItem(final SetValue[] setValues)
 		throws ConstraintViolationException
@@ -546,7 +546,7 @@ public final class Type
 					new Object[]{
 						setValues!=null
 						? setValues
-						: EMPTY_ATTRIBUTE_VALUES
+						: EMPTY_SET_VALUES
 					}
 				);
 		}
