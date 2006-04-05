@@ -277,6 +277,7 @@
 				</nbjpdastart-->
 				<junit taskname="junit @{db}" fork="yes"
 						 haltonerror="true" haltonfailure="true"
+						 dir="${basedir}"
 						 showoutput="true" printsummary="true">
 					<formatter type="brief" usefile="false" />
 					<formatter type="xml" />
