@@ -90,6 +90,12 @@ public final class EnumAttribute<E extends Enum> extends FunctionAttribute<E>
 		return (Class<E>)type;
 	}
 	
+	@SuppressWarnings("unchecked")
+	private E cast(final Object o)
+	{
+		return (E)o;
+	}
+	
 	public FunctionAttribute<E> copyFunctionAttribute()
 	{
 		return new EnumAttribute<E>(isfinal, optional, implicitUniqueConstraint!=null);
@@ -101,10 +107,9 @@ public final class EnumAttribute<E extends Enum> extends FunctionAttribute<E>
 		return values;
 	}
 	
-	@SuppressWarnings("unchecked")
 	private E getValue(final int number)
 	{
-		final E result = (E)numbersToValues.get(number);
+		final E result = cast(numbersToValues.get(number));
 		assert result!=null : toString() + number;
 		return result;
 	}
@@ -141,7 +146,6 @@ public final class EnumAttribute<E extends Enum> extends FunctionAttribute<E>
 				getValue(((Integer)cell).intValue());
 	}
 		
-	@SuppressWarnings("unchecked")
 	void set(final Row row, final E surface)
 	{
 		row.put(getColumn(), surface==null ? null : getNumber(surface));
