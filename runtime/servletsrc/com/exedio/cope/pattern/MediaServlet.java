@@ -35,7 +35,8 @@ import com.exedio.cope.util.ServletUtil;
 
 
 /**
- * A servlet providing access to the data of cope {@link Media media}.
+ * A servlet providing access to the data of {@link MediaPath}
+ * and its subclasses.
  *
  * In order to use it, you have to deploy the servlet in your <code>web.xml</code>,
  * providing the name of the cope model via an init-parameter.
