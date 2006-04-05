@@ -66,9 +66,8 @@ public final class Model
 		int numberOfConcreteTypes = 0;
 		int numberOfAbstractTypes = -1;
 		final ArrayList<Type> concreteTypes = new ArrayList<Type>();
-		for(int i = 0; i<types.length; i++)
+		for(final Type type : types)
 		{
-			final Type type = types[i];
 			final boolean isAbstract = type.isAbstract();
 			type.initialize(this, isAbstract ? numberOfAbstractTypes-- : numberOfConcreteTypes++);
 			if(!isAbstract)
