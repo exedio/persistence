@@ -129,7 +129,7 @@
 						<pathelement location="build/dsmf/testclasses" />
 						<pathelement location="lib/@{db.driver}" />
 					</classpath>
-					<test name="com.exedio.dsmf.PackageTest" todir="build/testresults" outfile="dsmf" />
+					<test name="com.exedio.dsmf.PackageTest" todir="build/testresults" outfile="dsmf-@{db}" />
 					<sysproperty key="com.exedio.cope.properties" file="@{db.file}" />
 					<assertions><enable/></assertions>
 				</junit>
@@ -274,7 +274,11 @@
 						<pathelement location="lib/@{db.driver}" />
 					</classpath>
 				</nbjpdastart-->
-				<java classname="junit.textui.TestRunner" taskname="junit @{db}" fork="yes" failonerror="yes">
+				<junit taskname="junit @{db}" fork="yes"
+						 haltonerror="true" haltonfailure="true"
+						 showoutput="true" printsummary="true">
+					<formatter type="brief" usefile="false" />
+					<formatter type="xml" />
 					<classpath>
 						<pathelement location="build/runtime/classes" />
 						<pathelement location="build/runtime/testmodelclasses" />
@@ -285,7 +289,7 @@
 						<pathelement location="lib/servlet-api.jar" />
 						<pathelement location="lib/@{db.driver}" />
 					</classpath>
-					<arg value="com.exedio.cope.PackageTest" />
+					<test name="com.exedio.cope.PackageTest" todir="build/testresults" outfile="runtime-@{db}" />
 					<sysproperty key="com.exedio.cope.properties" file="build/runtime/test.@{db}/cope.properties" />
 					<sysproperty key="com.exedio.cope.testprotocol.file" file="build/runtime/testprotocol.properties" />
 					<sysproperty key="com.exedio.cope.testprotocol.prefix" value="@{db}" />
@@ -294,7 +298,7 @@
 					<jvmarg value="-Djava.compiler=none"/>
 					<jvmarg value="-Xrunjdwp:transport=dt_socket,address=${jpda.address}"/-->
 					<assertions><enable/></assertions>
-				</java>
+				</junit>
 			</body>
 		</foreachdb>
 	</target>
