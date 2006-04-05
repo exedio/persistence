@@ -636,17 +636,21 @@
 	</target>
 	
 	<target name="copernica.webtest" depends="copernica.webtest.compile">
-		<java classname="junit.textui.TestRunner" taskname="jwebunit"
-				failonerror="yes" fork="yes">
+		<mkdir dir="build/testresults" />
+		<junit fork="yes"
+				 haltonerror="true" haltonfailure="true"
+				 showoutput="true" printsummary="true">
+			<formatter type="brief" usefile="false" />
+			<formatter type="xml" />
 			<classpath>
 				<pathelement location="build/copernica/webtestclasses" />
 				<fileset dir="lib/jwebunit">
 					<include name="*.jar" />
-				</fileset> 
+				</fileset>
 			</classpath>
-			<arg value="com.exedio.copernica.PackageTest" />
+			<test name="com.exedio.copernica.PackageTest" todir="build/testresults" outfile="copernica" />
 			<assertions><enable/></assertions>
-		</java>
+		</junit>
 	</target>
 
 	<target name="copernica.index">
