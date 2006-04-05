@@ -60,7 +60,8 @@ final class JavaClass extends JavaFeature
 		this.classImplements = Collections.unmodifiableList(classImplements);
 		if(isenum)
 		{
-			parent.addEnumClass(this);
+			if(parent!=null)
+				parent.addEnumClass(this);
 			file.repository.addEnumClass(this);
 		}
 		file.add(this);
