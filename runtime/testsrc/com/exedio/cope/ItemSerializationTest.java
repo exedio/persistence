@@ -51,7 +51,7 @@ public class ItemSerializationTest extends AbstractLibTest
 			final ByteArrayOutputStream bos = new ByteArrayOutputStream();
 			final ObjectOutputStream oos = new ObjectOutputStream(bos);
 			oos.writeObject(item);
-			bos.close();
+			oos.close();
 			buf = bos.toByteArray();
 		}
 		
@@ -60,7 +60,7 @@ public class ItemSerializationTest extends AbstractLibTest
 			final ByteArrayInputStream bis = new ByteArrayInputStream(buf);
 			final ObjectInputStream ois = new ObjectInputStream(bis);
 			readItem = (ItemSerializationItem)ois.readObject();
-			bis.close();
+			ois.close();
 		}
 		
 		assertEquals(id, readItem.getCopeID());
