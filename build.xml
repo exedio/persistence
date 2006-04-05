@@ -254,6 +254,7 @@
 	
 	<target name="runtime.test.run" depends="runtime.test.compile">
 		<delete file="build/runtime/testprotocol.properties" />
+		<mkdir dir="build/testresults" />
 		<foreachdb message="Testing" skipSwitch="runtime.test">
 			<body>
 				<mkdir dir="build/runtime/test.@{db}/data" />
@@ -452,6 +453,7 @@
 	
 	<target name="instrument.test.run"
 				depends="runtime.compile, instrument.compile, instrument.test.compile">
+		<mkdir dir="build/testresults" />
 		<junit fork="yes"
 				 haltonerror="true" haltonfailure="true"
 				 showoutput="true" printsummary="true">
