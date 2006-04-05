@@ -28,6 +28,7 @@ import java.util.Map;
 
 import com.exedio.cope.Attribute;
 import com.exedio.cope.DataAttribute;
+import com.exedio.cope.DateAttribute;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.Item;
 import com.exedio.cope.LengthViolationException;
@@ -35,9 +36,22 @@ import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
+import com.exedio.cope.StringAttribute;
 import com.exedio.cope.UniqueViolationException;
 
-// TODO javadoc for BEWARE
+/**
+ * Stores a java object by serialization - use with care!
+ * <p>
+ * Stores serializable objects into a backing
+ * {@link DataAttribute}.
+ * BEWARE:
+ * Generally this is not a good idea.
+ * In contrast to normal attributes, such as
+ * {@link StringAttribute}, {@link DateAttribute},
+ * etc. there is no searching, order by or caching.
+ * The main purpose is to maintain database compatibility
+ * to legacy systems.
+ */
 public final class Serializer<E> extends Pattern implements Settable<E>
 {
 	private final DataAttribute source;
