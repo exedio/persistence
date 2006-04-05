@@ -80,7 +80,7 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 		{
 			final ByteArrayInputStream bis = new ByteArrayInputStream(buf);
 			ois = new ObjectInputStream(bis);
-			result = (E)ois.readObject();
+			result = cast(ois.readObject());
 			ois.close();
 			ois = null;
 		}
@@ -129,6 +129,12 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 	public final Map<? extends Attribute, ? extends Object> execute(final E value, final Item exceptionItem)
 	{
 		return Collections.singletonMap(source, serialize(value));
+	}
+	
+	@SuppressWarnings("unchecked")
+	private final E cast(final Object o)
+	{
+		return (E)o;
 	}
 	
 	private final byte[] serialize(final E value)
