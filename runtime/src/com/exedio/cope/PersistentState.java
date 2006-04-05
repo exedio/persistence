@@ -50,7 +50,7 @@ final class PersistentState extends State implements AbstractDatabase.ResultSetH
 		return attribute.get(row);
 	}
 
-	public final State put(final Transaction transaction, final FunctionAttribute attribute, final Object value)
+	<E> State put(final Transaction transaction, final FunctionAttribute<E> attribute, final E value)
 	{
 		return new ModifiedState( transaction, this ).put(transaction, attribute, value);
 	}

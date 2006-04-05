@@ -40,7 +40,7 @@ abstract class State
 	
 	abstract Object get(FunctionAttribute attribute);
 	
-	abstract State put(Transaction transaction, FunctionAttribute attribute, Object value);
+	abstract <E> State put(Transaction transaction, FunctionAttribute<E> attribute, E value);
 	
 	abstract State write(Transaction transaction, Map<BlobColumn, byte[]> blobs);
 	

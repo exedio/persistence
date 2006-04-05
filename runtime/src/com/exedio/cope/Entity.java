@@ -36,7 +36,7 @@ final class Entity
 		return state.get( attribute );
 	}
 	
-	void put(final FunctionAttribute attribute, final Object value)
+	<E> void put(final FunctionAttribute<E> attribute, final E value)
 	{
 		state = state.put( transaction, attribute, value );
 	}

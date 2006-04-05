@@ -38,7 +38,7 @@ final class ModifiedState extends State
 		return attribute.get(row);
 	}
 
-	public final State put(Transaction transaction, FunctionAttribute attribute, Object value)
+	<E> State put(final Transaction transaction, final FunctionAttribute<E> attribute, final E value)
 	{
 		attribute.set(row, value);
 		return this;
