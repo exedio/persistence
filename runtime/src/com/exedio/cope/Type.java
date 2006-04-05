@@ -122,9 +122,8 @@ public final class Type
 		final int expectedModifier = Modifier.STATIC | Modifier.FINAL;
 		try
 		{
-			for(int i = 0; i<fields.length; i++)
+			for(final Field field : fields)
 			{
-				final Field field = fields[i];
 				if((field.getModifiers()&expectedModifier)==expectedModifier)
 				{
 					final Class fieldType = field.getType();
