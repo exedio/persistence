@@ -29,13 +29,14 @@ import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.Date;
 
-import com.exedio.cope.SetValue;
 import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.MandatoryViolationException;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.instrument.testmodel.DefaultTextInput;
 import com.exedio.cope.instrument.testmodel.DoubleUnique;
+import com.exedio.cope.instrument.testmodel.Enum2;
 import com.exedio.cope.instrument.testmodel.Input;
 import com.exedio.cope.instrument.testmodel.Qualified;
 import com.exedio.cope.instrument.testmodel.QualifiedName;
@@ -91,6 +92,7 @@ public class GeneratorTest extends InstrumentorTest
 				double.class, // nativeDouble
 				boolean.class, // nativeBoolean
 				Date.class, // mandatoryDate
+				Standard.Enum1.class, // mandatoryEnum
 			}, PUBLIC,
 			new Class[]{
 				LENGTH_VIOLATION,
@@ -138,6 +140,11 @@ public class GeneratorTest extends InstrumentorTest
 		assertMethod(STANDARD, "getPrivateDate", Date.class, PRIVATE|FINAL);
 		assertMethod(STANDARD, "setPrivateDate", new Class[]{Date.class}, PRIVATE|FINAL);
 		assertMethod(STANDARD, "touchPrivateDate", new Class[]{}, PRIVATE|FINAL);
+
+		assertMethod(STANDARD, "getMandatoryEnum", Standard.Enum1.class, PUBLIC|FINAL);
+		assertMethod(STANDARD, "setMandatoryEnum", new Class[]{Standard.Enum1.class}, PUBLIC|FINAL, new Class[]{MANDATORY_VIOLATION});
+		assertMethod(STANDARD, "getProtectedEnum", Enum2.class, PROTECTED|FINAL);
+		assertMethod(STANDARD, "setProtectedEnum", new Class[]{Enum2.class}, PROTECTED|FINAL);
 
 		assertMethod(STANDARD, "getPrivateString", STRING, PRIVATE|FINAL);
 		assertMethod(STANDARD, "setPrivateString", new Class[]{STRING}, PRIVATE|FINAL, new Class[]{LENGTH_VIOLATION});
