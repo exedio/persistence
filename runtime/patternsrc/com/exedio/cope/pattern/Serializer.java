@@ -126,18 +126,18 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 		return new SetValue(this, value);
 	}
 	
-	public final Map<? extends Attribute, ? extends Object> execute(final E value, final Item exceptionItem)
+	public Map<? extends Attribute, ? extends Object> execute(final E value, final Item exceptionItem)
 	{
 		return Collections.singletonMap(source, serialize(value));
 	}
 	
 	@SuppressWarnings("unchecked")
-	private final E cast(final Object o)
+	private E cast(final Object o)
 	{
 		return (E)o;
 	}
 	
-	private final byte[] serialize(final E value)
+	private byte[] serialize(final E value)
 	{
 		if(value==null)
 			return null;
