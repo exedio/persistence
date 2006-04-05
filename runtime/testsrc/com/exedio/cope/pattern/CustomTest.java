@@ -163,14 +163,14 @@ public class CustomTest extends AbstractLibTest
 			assertEquals(i56, numberItem56.number.get(numberItem56));
 		}
 		
-		item.setElements(list(i2, i4, i8));
+		item.setElements(listg(i2, i4, i8));
 		assertEquals(list(i2, i4, i8), item.getElements());
 		assertEquals(i2, item.getElement1());
 		assertEquals(i4, item.getElement2());
 		assertEquals(i8, item.getElement3());
 		
 		{
-			final CustomItem elementsItem3 = new CustomItem(list(i3, i4, i5));
+			final CustomItem elementsItem3 = new CustomItem(listg(i3, i4, i5));
 			deleteOnTearDown(elementsItem3);
 			assertEquals(list(i3, i4, i5), elementsItem3.getElements());
 			assertEquals(list(i3, i4, i5), elementsItem3.elements.get(elementsItem3));
@@ -180,7 +180,7 @@ public class CustomTest extends AbstractLibTest
 		}
 		{
 			final CustomItem elementsItem7 =
-				(CustomItem)CustomItem.TYPE.newItem(new SetValue[]{CustomItem.elements.map(list(i7, i8, i9))});
+				(CustomItem)CustomItem.TYPE.newItem(new SetValue[]{CustomItem.elements.map(listg(i7, i8, i9))});
 			deleteOnTearDown(elementsItem7);
 			assertEquals(list(i7, i8, i9), elementsItem7.getElements());
 			assertEquals(list(i7, i8, i9), elementsItem7.elements.get(elementsItem7));

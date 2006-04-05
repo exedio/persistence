@@ -122,8 +122,14 @@ public abstract class CustomAttribute<E>
 		assert valueType!=null;
 		return valueType;
 	}
+
+	@SuppressWarnings("unchecked")
+	private E cast(final Object o)
+	{
+		return (E)o;
+	}
 	
-	public final Object get(final Item item)
+	public final E get(final Item item)
 	{
 		final Object[] params = new Object[storages.length];
 		for(int i = 0; i<params.length; i++)
@@ -131,7 +137,7 @@ public abstract class CustomAttribute<E>
 		
 		try
 		{
-			return getter.invoke(this, params);
+			return cast(getter.invoke(this, params));
 		}
 		catch(IllegalArgumentException e)
 		{
