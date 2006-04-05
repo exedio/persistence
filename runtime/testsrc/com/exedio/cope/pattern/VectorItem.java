@@ -18,13 +18,13 @@
 
 package com.exedio.cope.pattern;
 
-import com.exedio.cope.SetValue;
+import java.util.Date;
+
 import com.exedio.cope.DateAttribute;
 import com.exedio.cope.IntegerAttribute;
 import com.exedio.cope.Item;
-import com.exedio.cope.FunctionAttribute;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.StringAttribute;
-import com.exedio.cope.pattern.Vector;
 
 /**
  * @cope.persistent
@@ -41,15 +41,15 @@ public class VectorItem extends Item
 
 	public static final IntegerAttribute num3 = new IntegerAttribute(OPTIONAL);
 	
-	public static final Vector nums = new Vector(new FunctionAttribute[]{num1, num2, num3});
+	public static final Vector<Integer> nums = new Vector<Integer>(num1, num2, num3);
 
 	// implicit external source
 
-	public static final Vector dates = new Vector(new FunctionAttribute[]{new DateAttribute(OPTIONAL), new DateAttribute(OPTIONAL)});
+	public static final Vector<Date> dates = new Vector<Date>(new DateAttribute(OPTIONAL), new DateAttribute(OPTIONAL));
 
 	// internal source
 
-	public static final Vector strings = new Vector(new StringAttribute(OPTIONAL).lengthRange(1, 11), 4);
+	public static final Vector<String> strings = new Vector<String>(new StringAttribute(OPTIONAL).lengthRange(1, 11), 4);
 
 	public VectorItem(final int initialNum1, final int initialNum2, final int initialNum3)
 	{

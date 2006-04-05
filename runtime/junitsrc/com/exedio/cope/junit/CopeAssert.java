@@ -145,6 +145,28 @@ public abstract class CopeAssert extends TestCase
 		return Arrays.asList(new Object[]{o1, o2, o3, o4, o5, o6, o7, o8, o9, o10});
 	}
 	
+	public final static <T> List<T> listg()
+	{
+		return Collections.<T>emptyList();
+	}
+
+	public final static <T> List<T> listg(final T o)
+	{
+		return Collections.singletonList(o);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public final static <T> List<T> listg(final T o1, final T o2)
+	{
+		return Arrays.asList((T[])new Object[]{o1, o2});
+	}
+	
+	@SuppressWarnings("unchecked")
+	public final static <T> List<T> listg(final T o1, final T o2, final T o3)
+	{
+		return Arrays.asList((T[])new Object[]{o1, o2, o3});
+	}
+	
 	public final static <T extends Object> void assertUnmodifiable(final Collection<T> c)
 	{
 		try

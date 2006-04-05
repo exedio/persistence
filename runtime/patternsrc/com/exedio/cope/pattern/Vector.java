@@ -41,11 +41,11 @@ import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.search.AndCondition;
 import com.exedio.cope.search.OrCondition;
 
-public final class Vector extends Pattern implements Settable<Collection>
+public final class Vector<T> extends Pattern implements Settable<Collection<T>>
 {
-	private final FunctionAttribute[] sources;
+	private final FunctionAttribute<T>[] sources;
 
-	public Vector(final FunctionAttribute[] sources)
+	public Vector(final FunctionAttribute<T>[] sources)
 	{
 		this.sources = sources;
 
@@ -53,14 +53,35 @@ public final class Vector extends Pattern implements Settable<Collection>
 			registerSource(sources[i]);
 	}
 	
-	public Vector(final FunctionAttribute template, final int length)
+	public Vector(final FunctionAttribute<T> source1)
+	{
+		this(Vector.<T>cast(new FunctionAttribute[]{source1}));
+	}
+	
+	public Vector(final FunctionAttribute<T> source1, final FunctionAttribute<T> source2)
+	{
+		this(Vector.<T>cast(new FunctionAttribute[]{source1, source2}));
+	}
+	
+	public Vector(final FunctionAttribute<T> source1, final FunctionAttribute<T> source2, final FunctionAttribute<T> source3)
+	{
+		this(Vector.<T>cast(new FunctionAttribute[]{source1, source2, source3}));
+	}
+	
+	public Vector(final FunctionAttribute<T> template, final int length)
 	{
 		this(template2Sources(template, length));
 	}
 	
-	private static final FunctionAttribute[] template2Sources(final FunctionAttribute template, final int length)
+	@SuppressWarnings("unchecked")
+	private final static <X> FunctionAttribute<X>[] cast(final FunctionAttribute[] o)
 	{
-		final FunctionAttribute[] result = new FunctionAttribute[length];
+		return (FunctionAttribute<X>[])o;
+	}
+	
+	private final static <Y> FunctionAttribute<Y>[] template2Sources(final FunctionAttribute<Y> template, final int length)
+	{
+		final FunctionAttribute<Y>[] result = cast(new FunctionAttribute[length]);
 		
 		for(int i = 0; i<length; i++)
 			result[i] = template.copyFunctionAttribute();
@@ -80,7 +101,7 @@ public final class Vector extends Pattern implements Settable<Collection>
 		}
 	}
 	
-	public List<FunctionAttribute> getSources()
+	public List<FunctionAttribute<T>> getSources()
 	{
 		return Collections.unmodifiableList(Arrays.asList(sources));
 	}
@@ -145,40 +166,40 @@ public final class Vector extends Pattern implements Settable<Collection>
 		return result;
 	}
 	
-	public AndCondition equal(final Collection value)
+	public AndCondition equal(final Collection<T> value)
 	{
 		int i = 0;
 		final EqualCondition[] conditions = new EqualCondition[sources.length];
 		
-		for(Iterator it = value.iterator(); it.hasNext(); i++)
-			conditions[i] = new EqualCondition(sources[i], it.next());
+		for(Iterator<T> it = value.iterator(); it.hasNext(); i++)
+			conditions[i] = new EqualCondition<T>(sources[i], it.next());
 
 		for(; i<sources.length; i++)
-			conditions[i] = new EqualCondition(sources[i], null);
+			conditions[i] = new EqualCondition<T>(sources[i], null);
 
 		return new AndCondition(conditions);
 	}
 	
-	public OrCondition notEqual(final Collection value)
+	public OrCondition notEqual(final Collection<T> value)
 	{
 		int i = 0;
 		final NotEqualCondition[] conditions = new NotEqualCondition[sources.length];
 		
-		for(Iterator it = value.iterator(); it.hasNext(); i++)
-			conditions[i] = new NotEqualCondition(sources[i], it.next());
+		for(Iterator<T> it = value.iterator(); it.hasNext(); i++)
+			conditions[i] = new NotEqualCondition<T>(sources[i], it.next());
 
 		for(; i<sources.length; i++)
-			conditions[i] = new NotEqualCondition(sources[i], null);
+			conditions[i] = new NotEqualCondition<T>(sources[i], null);
 
 		return new OrCondition(conditions);
 	}
 
-	public OrCondition contains(final Object value)
+	public OrCondition contains(final T value)
 	{
 		final EqualCondition[] conditions = new EqualCondition[sources.length];
 		
 		for(int i = 0; i<sources.length; i++)
-			conditions[i] = new EqualCondition(sources[i], value);
+			conditions[i] = new EqualCondition<T>(sources[i], value);
 
 		return new OrCondition(conditions);
 	}
