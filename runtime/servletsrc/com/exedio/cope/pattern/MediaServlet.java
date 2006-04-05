@@ -72,9 +72,8 @@ public final class MediaServlet extends HttpServlet
 		try
 		{
 			final Model model = ServletUtil.getModel(getServletConfig());
-			for(Iterator i = model.getTypes().iterator(); i.hasNext(); )
+			for(final Type type : model.getTypes())
 			{
-				final Type type = (Type)i.next();
 				for(final Feature feature : type.getDeclaredFeatures())
 				{
 					if(feature instanceof MediaPath)

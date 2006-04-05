@@ -173,9 +173,8 @@ public final class Copernica_Jspm
 		final CopernicaLanguage language = cop.language;
 %>
 		<ul id="typelist"><%
-		for(Iterator i = provider.getModel().getTypes().iterator(); i.hasNext(); )
+		for(final Type type : provider.getModel().getTypes())
 		{
-			final Type type = (Type)i.next();
 			final String name = provider.getDisplayName(language, type);
 			final boolean active = cop.isType(type);
 			%>

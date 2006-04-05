@@ -45,8 +45,8 @@ public final class Model
 	private final Type[] types;
 	private final Type[] concreteTypes;
 	final int numberOfConcreteTypes;
-	private final List typeList;
-	private final List concreteTypeList;
+	private final List<Type> typeList;
+	private final List<Type> concreteTypeList;
 	private final HashMap<String, Type> typesByID = new HashMap<String, Type>();
 
 	// set by setPropertiesInitially
@@ -158,12 +158,12 @@ public final class Model
 		this.properties.ensureEquality(properties);
 	}
 
-	public final List getTypes()
+	public final List<Type> getTypes()
 	{
 		return typeList;
 	}
 	
-	public final List getConcreteTypes()
+	public final List<Type> getConcreteTypes()
 	{
 		return concreteTypeList;
 	}
@@ -357,9 +357,9 @@ public final class Model
 	public void dropDatabase()
 	{
 		// TODO: rework this method
-		final List types = typeList;
-		for(ListIterator i = types.listIterator(types.size()); i.hasPrevious(); )
-			((Type)i.previous()).onDropTable();
+		final List<Type> types = typeList;
+		for(ListIterator<Type> i = types.listIterator(types.size()); i.hasPrevious(); )
+			i.previous().onDropTable();
 
 		database.dropDatabase();
 
