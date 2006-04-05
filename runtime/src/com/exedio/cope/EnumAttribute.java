@@ -50,7 +50,7 @@ public final class EnumAttribute<E extends Enum> extends FunctionAttribute<E>
 		final java.lang.reflect.Type[] enumClasses = ((ParameterizedType)genericType).getActualTypeArguments();
 		if(enumClasses.length!=1)
 			throw new RuntimeException("not a valid type for EnumAttribute: " + genericType);
-		final Class enumClass = (Class)enumClasses[0];
+		final Class<E> enumClass = (Class<E>)enumClasses[0];
 		if(!Enum.class.isAssignableFrom(enumClass))
 			throw new RuntimeException("is not a subclass of " + Enum.class.getName() + ": "+enumClass.getName());
 		
@@ -58,7 +58,7 @@ public final class EnumAttribute<E extends Enum> extends FunctionAttribute<E>
 		final IntKeyOpenHashMap numbersToValues = new IntKeyOpenHashMap();
 		final HashMap<E, Integer> valuesToNumbers = new HashMap<E, Integer>();
 		final HashMap<String, E> codesToValues = new HashMap<String, E>();
-		final E[] enumConstants = (E[])enumClass.getEnumConstants();
+		final E[] enumConstants = enumClass.getEnumConstants();
 		for(int j = 0; j<enumConstants.length; j++)
 		{
 			final E enumConstant = enumConstants[j];
