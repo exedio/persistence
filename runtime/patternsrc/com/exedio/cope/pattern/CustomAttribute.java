@@ -26,15 +26,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.exedio.cope.SetValue;
-import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.FunctionAttribute;
 import com.exedio.cope.Item;
-import com.exedio.cope.LengthViolationException;
-import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Pattern;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
-import com.exedio.cope.UniqueViolationException;
 
 public abstract class CustomAttribute<E>
 	extends Pattern
@@ -155,26 +151,7 @@ public abstract class CustomAttribute<E>
 
 	public final void set(final Item item, final E value) throws CustomAttributeException
 	{
-		try
-		{
-			item.set(Item.convert(execute(value, item)));
-		}
-		catch(UniqueViolationException e)
-		{
-			throw new CustomAttributeException(this, item, e);
-		}
-		catch(MandatoryViolationException e)
-		{
-			throw new CustomAttributeException(this, item, e);
-		}
-		catch(LengthViolationException e)
-		{
-			throw new CustomAttributeException(this, item, e);
-		}
-		catch(FinalViolationException e)
-		{
-			throw new CustomAttributeException(this, item, e);
-		}
+		item.set(Item.convert(execute(value, item)));
 	}
 	
 	public final Map<? extends FunctionAttribute, ? extends Object> execute(final E value, final Item exceptionItem) throws CustomAttributeException
@@ -194,7 +171,11 @@ public abstract class CustomAttribute<E>
 		}
 		catch(InvocationTargetException e)
 		{
-			throw new CustomAttributeException(this, exceptionItem, e.getCause());
+			final Throwable t = e.getCause();
+			if(t instanceof RuntimeException)
+				throw (RuntimeException)t;
+			else
+				throw new CustomAttributeException(this, exceptionItem, e.getCause());
 		}
 		
 		if(storages.length==1)
