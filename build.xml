@@ -116,19 +116,23 @@
 	</target>
 	
 	<target name="dsmf.test.run" depends="dsmf.test.compile">
+		<mkdir dir="build/testresults" />
 		<foreachdb message="Testing" skipSwitch="dsmf.test">
 			<body>
-				<java classname="junit.textui.TestRunner" taskname="junit @{db}" fork="yes" failonerror="yes">
+				<junit taskname="junit @{db}" fork="yes"
+						 haltonerror="true" haltonfailure="true"
+						 showoutput="true" printsummary="true">
+					<formatter type="brief" usefile="false" />
+					<formatter type="xml" />
 					<classpath>
 						<pathelement location="build/runtime/classes" />
 						<pathelement location="build/dsmf/testclasses" />
-						<pathelement location="lib/junit.jar" />
 						<pathelement location="lib/@{db.driver}" />
 					</classpath>
-					<arg value="com.exedio.dsmf.PackageTest" />
+					<test name="com.exedio.dsmf.PackageTest" todir="build/testresults" outfile="dsmf" />
 					<sysproperty key="com.exedio.cope.properties" file="@{db.file}" />
 					<assertions><enable/></assertions>
-				</java>
+				</junit>
 			</body>
 		</foreachdb>
 	</target>
