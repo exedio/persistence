@@ -97,19 +97,19 @@ public abstract class Hash extends Pattern implements Settable<String>
 		return Collections.singletonMap(storage, hash(value));
 	}
 	
-	public final EqualCondition equal(final String value)
+	public final EqualCondition<String> equal(final String value)
 	{
-		return new EqualCondition(storage, hash(value));
+		return new EqualCondition<String>(storage, hash(value));
 	}
 	
-	public final EqualCondition equal(final Join join, final String value)
+	public final EqualCondition<String> equal(final Join join, final String value)
 	{
-		return new EqualCondition(new JoinedFunction<String>(storage, join), hash(value));
+		return new EqualCondition<String>(new JoinedFunction<String>(storage, join), hash(value));
 	}
 
-	public final NotEqualCondition notEqual(final String value)
+	public final NotEqualCondition<String> notEqual(final String value)
 	{
-		return new NotEqualCondition(storage, hash(value));
+		return new NotEqualCondition<String>(storage, hash(value));
 	}
 	
 }
