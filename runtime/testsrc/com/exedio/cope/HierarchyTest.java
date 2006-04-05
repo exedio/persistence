@@ -18,10 +18,7 @@
 
 package com.exedio.cope;
 
-import java.io.IOException;
-
 import com.exedio.cope.util.CacheInfo;
-
 
 public class HierarchyTest extends AbstractLibTest
 {

@@ -21,7 +21,6 @@ package com.exedio.cope.pattern;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.HashMap;
-import java.util.Iterator;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -32,7 +31,6 @@ import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 import com.exedio.cope.util.ServletUtil;
-
 
 /**
  * A servlet providing access to the data of {@link MediaPath}

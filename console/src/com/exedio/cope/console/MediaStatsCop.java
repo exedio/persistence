@@ -21,7 +21,6 @@ package com.exedio.cope.console;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -29,7 +28,6 @@ import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 import com.exedio.cope.pattern.MediaPath;
-
 
 final class MediaStatsCop extends AdminCop
 {
