@@ -33,7 +33,7 @@ public final class DayAttribute extends FunctionAttribute<Day>
 		this(option.isFinal, option.optional, option.unique);
 	}
 	
-	public FunctionAttribute copyFunctionAttribute()
+	public FunctionAttribute<Day> copyFunctionAttribute()
 	{
 		return new DayAttribute(isfinal, optional, implicitUniqueConstraint!=null);
 	}

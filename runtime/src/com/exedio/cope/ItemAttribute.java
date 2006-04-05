@@ -51,9 +51,9 @@ public final class ItemAttribute<E extends Item> extends FunctionAttribute<E>
 		this(option.isFinal, option.optional, option.unique, policy);
 	}
 
-	public FunctionAttribute copyFunctionAttribute()
+	public FunctionAttribute<E> copyFunctionAttribute()
 	{
-		return new ItemAttribute(isfinal, optional, implicitUniqueConstraint!=null, policy);
+		return new ItemAttribute<E>(isfinal, optional, implicitUniqueConstraint!=null, policy);
 	}
 	
 	private Class<? extends Item> targetTypeClass = null;

@@ -36,7 +36,7 @@ public final class LongAttribute extends FunctionAttribute<Long>
 		this(option.isFinal, option.optional, option.unique);
 	}
 	
-	public FunctionAttribute copyFunctionAttribute()
+	public FunctionAttribute<Long> copyFunctionAttribute()
 	{
 		return new LongAttribute(isfinal, optional, implicitUniqueConstraint!=null);
 	}

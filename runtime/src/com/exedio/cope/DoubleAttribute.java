@@ -36,7 +36,7 @@ public final class DoubleAttribute extends FunctionAttribute<Double>
 		this(option.isFinal, option.optional, option.unique);
 	}
 
-	public FunctionAttribute copyFunctionAttribute()
+	public FunctionAttribute<Double> copyFunctionAttribute()
 	{
 		return new DoubleAttribute(isfinal, optional, implicitUniqueConstraint!=null);
 	}

@@ -33,7 +33,7 @@ public final class BooleanAttribute extends FunctionAttribute<Boolean>
 		this(option.isFinal, option.optional, option.unique);
 	}
 	
-	public FunctionAttribute copyFunctionAttribute()
+	public FunctionAttribute<Boolean> copyFunctionAttribute()
 	{
 		return new BooleanAttribute(isfinal, optional, implicitUniqueConstraint!=null);
 	}

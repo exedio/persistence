@@ -84,7 +84,7 @@ public final class EnumAttribute<E extends Enum> extends FunctionAttribute<E>
 		return enumClass;
 	}
 	
-	public FunctionAttribute copyFunctionAttribute()
+	public FunctionAttribute<E> copyFunctionAttribute()
 	{
 		return new EnumAttribute<E>(isfinal, optional, implicitUniqueConstraint!=null);
 	}

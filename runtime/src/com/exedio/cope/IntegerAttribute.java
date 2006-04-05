@@ -37,7 +37,7 @@ public final class IntegerAttribute extends FunctionAttribute<Integer> implement
 		this(option.isFinal, option.optional, option.unique);
 	}
 	
-	public FunctionAttribute copyFunctionAttribute()
+	public FunctionAttribute<Integer> copyFunctionAttribute()
 	{
 		return new IntegerAttribute(isfinal, optional, implicitUniqueConstraint!=null);
 	}

@@ -67,7 +67,7 @@ public final class StringAttribute extends FunctionAttribute<String> implements 
 		this(option.isFinal, option.optional, option.unique, minimumLength, maximumLength);
 	}
 	
-	public FunctionAttribute copyFunctionAttribute()
+	public FunctionAttribute<String> copyFunctionAttribute()
 	{
 		return new StringAttribute(isfinal, optional, implicitUniqueConstraint!=null, minimumLength, maximumLength);
 	}

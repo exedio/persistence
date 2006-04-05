@@ -59,7 +59,7 @@ public abstract class FunctionAttribute<E extends Object>
 	
 	abstract Class initialize(java.lang.reflect.Type genericType);
 	
-	public abstract FunctionAttribute copyFunctionAttribute();
+	public abstract FunctionAttribute<E> copyFunctionAttribute();
 
 	abstract E get(final Row row);
 	abstract void set(final Row row, final E surface);

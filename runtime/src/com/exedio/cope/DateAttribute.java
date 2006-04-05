@@ -33,7 +33,7 @@ public final class DateAttribute extends FunctionAttribute<Date>
 		this(option.isFinal, option.optional, option.unique);
 	}
 	
-	public FunctionAttribute copyFunctionAttribute()
+	public FunctionAttribute<Date> copyFunctionAttribute()
 	{
 		return new DateAttribute(isfinal, optional, implicitUniqueConstraint!=null);
 	}
