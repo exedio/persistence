@@ -19,13 +19,13 @@
 package com.exedio.cope;
 
 
-public abstract class LiteralCondition extends Condition
+public abstract class LiteralCondition<E> extends Condition
 {
 	private final String operator;
-	private final Function function;
-	private final Object value;
+	private final Function<E> function;
+	private final E value;
 
-	protected LiteralCondition(final String operator, final Function function, final Object value)
+	protected LiteralCondition(final String operator, final Function<E> function, final E value)
 	{
 		this.operator = operator;
 		this.function = function;

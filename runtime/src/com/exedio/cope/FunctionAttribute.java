@@ -191,10 +191,10 @@ public abstract class FunctionAttribute<E extends Object>
 	 * Finds an item by it's unique attributes.
 	 * @return null if there is no matching item.
 	 */
-	public final Item searchUnique(final Object value)
+	public final Item searchUnique(final E value)
 	{
 		// TODO: search nativly for unique constraints
-		return getType().searchUnique(new EqualCondition(this, value));
+		return getType().searchUnique(new EqualCondition<E>(this, value));
 	}
 
 	public final SetValue map(final E value)
@@ -209,42 +209,42 @@ public abstract class FunctionAttribute<E extends Object>
 	
 	public final EqualCondition isNull()
 	{
-		return new EqualCondition(this, null);
+		return new EqualCondition<E>(this, null);
 	}
 	
 	public final NotEqualCondition isNotNull()
 	{
-		return new NotEqualCondition(this, null);
+		return new NotEqualCondition<E>(this, null);
 	}
 	
-	public final EqualCondition equal(final E value)
+	public final EqualCondition<E> equal(final E value)
 	{
-		return new EqualCondition(this, value);
+		return new EqualCondition<E>(this, value);
 	}
 	
 	public final NotEqualCondition notEqual(final E value)
 	{
-		return new NotEqualCondition(this, value);
+		return new NotEqualCondition<E>(this, value);
 	}
 	
 	public final LessCondition less(final E value)
 	{
-		return new LessCondition(this, value);
+		return new LessCondition<E>(this, value);
 	}
 	
 	public final LessEqualCondition lessOrEqual(final E value)
 	{
-		return new LessEqualCondition(this, value);
+		return new LessEqualCondition<E>(this, value);
 	}
 	
 	public final GreaterCondition greater(final E value)
 	{
-		return new GreaterCondition(this, value);
+		return new GreaterCondition<E>(this, value);
 	}
 	
 	public final GreaterEqualCondition greaterOrEqual(final E value)
 	{
-		return new GreaterEqualCondition(this, value);
+		return new GreaterEqualCondition<E>(this, value);
 	}
 	
 }

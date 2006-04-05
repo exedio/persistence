@@ -127,14 +127,14 @@ public final class UniqueConstraint extends Feature
 	public final Item searchUnique(final Object[] values)
 	{
 		// TODO: search nativly for unique constraints
-		final List attributes = getUniqueAttributes();
+		final List<FunctionAttribute> attributes = getUniqueAttributes();
 		if(attributes.size()!=values.length)
 			throw new RuntimeException("-"+attributes.size()+'-'+values.length);
 
-		final Iterator attributeIterator = attributes.iterator();
+		final Iterator<FunctionAttribute> attributeIterator = attributes.iterator();
 		final Condition[] conditions = new Condition[attributes.size()];
 		for(int j = 0; attributeIterator.hasNext(); j++)
-			conditions[j] = new EqualCondition((FunctionAttribute)attributeIterator.next(), values[j]);
+			conditions[j] = new EqualCondition(attributeIterator.next(), values[j]);
 
 		return getType().searchUnique(new AndCondition(conditions));
 	}

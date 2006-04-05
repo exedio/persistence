@@ -183,7 +183,7 @@ public final class ItemAttribute<E extends Item> extends FunctionAttribute<E>
 	
 	public final EqualCondition equal(final E value, final Join join)
 	{
-		return new EqualCondition(new JoinedFunction(this, join), value);
+		return new EqualCondition<E>(new JoinedFunction<E>(this, join), value);
 	}
 	
 	public final EqualTargetCondition equalTarget()

@@ -95,32 +95,32 @@ public final class DoubleAttribute extends FunctionAttribute<Double>
 	
 	public final EqualCondition equal(final double value)
 	{
-		return new EqualCondition(this, new Double(value));
+		return new EqualCondition<Double>(this, new Double(value));
 	}
 	
 	public final NotEqualCondition notEqual(final double value)
 	{
-		return new NotEqualCondition(this, new Double(value));
+		return new NotEqualCondition<Double>(this, new Double(value));
 	}
 	
 	public final LessCondition less(final double value)
 	{
-		return new LessCondition(this, new Double(value));
+		return new LessCondition<Double>(this, new Double(value));
 	}
 	
 	public final LessEqualCondition lessOrEqual(final double value)
 	{
-		return new LessEqualCondition(this, new Double(value));
+		return new LessEqualCondition<Double>(this, new Double(value));
 	}
 	
 	public final GreaterCondition greater(final double value)
 	{
-		return new GreaterCondition(this, new Double(value));
+		return new GreaterCondition<Double>(this, new Double(value));
 	}
 	
 	public final GreaterEqualCondition greaterOrEqual(final double value)
 	{
-		return new GreaterEqualCondition(this, new Double(value));
+		return new GreaterEqualCondition<Double>(this, new Double(value));
 	}
 	
 }

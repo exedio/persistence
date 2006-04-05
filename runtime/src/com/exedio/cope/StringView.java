@@ -58,17 +58,17 @@ public abstract class StringView
 	
 	public final EqualCondition equal(final String value)
 	{
-		return new EqualCondition(this, value);
+		return new EqualCondition<String>(this, value);
 	}
 	
 	public final EqualCondition equal(final Join join, final String value)
 	{
-		return new EqualCondition(new JoinedFunction(this, join), value);
+		return new EqualCondition<String>(new JoinedFunction<String>(this, join), value);
 	}
 	
 	public final NotEqualCondition notEqual(final String value)
 	{
-		return new NotEqualCondition(this, value);
+		return new NotEqualCondition<String>(this, value);
 	}
 	
 	public final LikeCondition like(final String value)

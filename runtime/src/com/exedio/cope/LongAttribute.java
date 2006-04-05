@@ -88,32 +88,32 @@ public final class LongAttribute extends FunctionAttribute<Long>
 	
 	public final EqualCondition equal(final long value)
 	{
-		return new EqualCondition(this, Long.valueOf(value));
+		return new EqualCondition<Long>(this, Long.valueOf(value));
 	}
 	
 	public final NotEqualCondition notEqual(final long value)
 	{
-		return new NotEqualCondition(this, Long.valueOf(value));
+		return new NotEqualCondition<Long>(this, Long.valueOf(value));
 	}
 	
 	public final LessCondition less(final long value)
 	{
-		return new LessCondition(this, Long.valueOf(value));
+		return new LessCondition<Long>(this, Long.valueOf(value));
 	}
 	
 	public final LessEqualCondition lessOrEqual(final long value)
 	{
-		return new LessEqualCondition(this, Long.valueOf(value));
+		return new LessEqualCondition<Long>(this, Long.valueOf(value));
 	}
 	
 	public final GreaterCondition greater(final long value)
 	{
-		return new GreaterCondition(this, Long.valueOf(value));
+		return new GreaterCondition<Long>(this, Long.valueOf(value));
 	}
 	
 	public final GreaterEqualCondition greaterOrEqual(final long value)
 	{
-		return new GreaterEqualCondition(this, Long.valueOf(value));
+		return new GreaterEqualCondition<Long>(this, Long.valueOf(value));
 	}
 	
 }

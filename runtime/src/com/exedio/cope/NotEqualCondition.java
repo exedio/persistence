@@ -18,10 +18,10 @@
 
 package com.exedio.cope;
 
-public final class NotEqualCondition extends Condition
+public final class NotEqualCondition<E> extends Condition
 {
-	public final Function function;
-	public final Object value;
+	public final Function<E> function;
+	public final E value;
 
 	/**
 	 * Creates a new NotEqualCondition.
@@ -30,7 +30,7 @@ public final class NotEqualCondition extends Condition
 	 * @see FunctionAttribute#isNotNull()
 	 * @see FunctionAttribute#notEqual(Object)
 	 */
-	public NotEqualCondition(final Function function, final Object value)
+	public NotEqualCondition(final Function<E> function, final E value)
 	{
 		if(function==null)
 			throw new NullPointerException("function must ot be null");

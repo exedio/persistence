@@ -182,7 +182,7 @@ final class Statement
 		return this;
 	}
 		
-	Statement appendParameter(final Function function, final Object value)
+	<E> Statement appendParameter(final Function<E> function, final E value)
 	{
 		function.appendParameter(this, value);
 		return this;

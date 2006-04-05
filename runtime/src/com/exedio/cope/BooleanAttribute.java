@@ -102,12 +102,12 @@ public final class BooleanAttribute extends FunctionAttribute<Boolean>
 	
 	public final EqualCondition equal(final boolean value)
 	{
-		return new EqualCondition(this, value ? Boolean.TRUE : Boolean.FALSE);
+		return new EqualCondition<Boolean>(this, value ? Boolean.TRUE : Boolean.FALSE);
 	}
 	
 	public final NotEqualCondition notEqual(final boolean value)
 	{
-		return new NotEqualCondition(this, value ? Boolean.TRUE : Boolean.FALSE);
+		return new NotEqualCondition<Boolean>(this, value ? Boolean.TRUE : Boolean.FALSE);
 	}
 	
 }

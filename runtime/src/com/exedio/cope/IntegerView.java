@@ -78,42 +78,42 @@ public abstract class IntegerView
 	
 	public final EqualCondition equal(final Integer value)
 	{
-		return new EqualCondition(this, value);
+		return new EqualCondition<Integer>(this, value);
 	}
 	
 	public final EqualCondition equal(final int value)
 	{
-		return new EqualCondition(this, Integer.valueOf(value));
+		return new EqualCondition<Integer>(this, Integer.valueOf(value));
 	}
 	
 	public final NotEqualCondition notEqual(final Integer value)
 	{
-		return new NotEqualCondition(this, value);
+		return new NotEqualCondition<Integer>(this, value);
 	}
 	
 	public final NotEqualCondition notEqual(final int value)
 	{
-		return new NotEqualCondition(this, Integer.valueOf(value));
+		return new NotEqualCondition<Integer>(this, Integer.valueOf(value));
 	}
 	
 	public final LessCondition less(final int value)
 	{
-		return new LessCondition(this, Integer.valueOf(value));
+		return new LessCondition<Integer>(this, Integer.valueOf(value));
 	}
 	
 	public final LessEqualCondition lessOrEqual(final int value)
 	{
-		return new LessEqualCondition(this, Integer.valueOf(value));
+		return new LessEqualCondition<Integer>(this, Integer.valueOf(value));
 	}
 	
 	public final GreaterCondition greater(final int value)
 	{
-		return new GreaterCondition(this, Integer.valueOf(value));
+		return new GreaterCondition<Integer>(this, Integer.valueOf(value));
 	}
 	
 	public final GreaterEqualCondition greaterOrEqual(final int value)
 	{
-		return new GreaterEqualCondition(this, Integer.valueOf(value));
+		return new GreaterEqualCondition<Integer>(this, Integer.valueOf(value));
 	}
 	
 	public final SumView sum(final IntegerFunction other)

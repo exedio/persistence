@@ -156,7 +156,7 @@ public final class StringAttribute extends FunctionAttribute<String> implements 
 	
 	public final EqualCondition equal(final Join join, final String value)
 	{
-		return new EqualCondition(new JoinedFunction(this, join), value);
+		return new EqualCondition<String>(new JoinedFunction<String>(this, join), value);
 	}
 	
 	public final EqualAttributeCondition equal(final StringAttribute other)

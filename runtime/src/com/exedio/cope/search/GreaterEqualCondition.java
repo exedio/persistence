@@ -21,7 +21,7 @@ package com.exedio.cope.search;
 import com.exedio.cope.Function;
 import com.exedio.cope.LiteralCondition;
 
-public class GreaterEqualCondition extends LiteralCondition
+public class GreaterEqualCondition<E> extends LiteralCondition<E>
 {
 	/**
 	 * Creates a new GreaterEqualCondition.
@@ -29,7 +29,7 @@ public class GreaterEqualCondition extends LiteralCondition
 	 * you may want to use the more type-safe wrapper methods.
 	 * @see com.exedio.cope.FunctionAttribute#greaterOrEqual(Object)
 	 */
-	public GreaterEqualCondition(final Function function, final Object value)
+	public GreaterEqualCondition(final Function<E> function, final E value)
 	{
 		super(">=", function, value);
 	}

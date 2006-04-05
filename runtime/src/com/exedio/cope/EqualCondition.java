@@ -18,10 +18,10 @@
 
 package com.exedio.cope;
 
-public final class EqualCondition extends Condition
+public final class EqualCondition<E> extends Condition
 {
-	public final Function function;
-	public final Object value;
+	public final Function<E> function;
+	public final E value;
 
 	/**
 	 * Creates a new EqualCondition.
@@ -30,7 +30,7 @@ public final class EqualCondition extends Condition
 	 * @see FunctionAttribute#isNull()
 	 * @see FunctionAttribute#equal(Object)
 	 */
-	public EqualCondition(final Function function, final Object value)
+	public EqualCondition(final Function<E> function, final E value)
 	{
 		if(function==null)
 			throw new NullPointerException("function must not be null");
