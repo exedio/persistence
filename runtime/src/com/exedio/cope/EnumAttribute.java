@@ -50,7 +50,7 @@ public final class EnumAttribute<E extends Enum> extends FunctionAttribute<E>
 		final java.lang.reflect.Type[] enumClasses = ((ParameterizedType)genericType).getActualTypeArguments();
 		if(enumClasses.length!=1)
 			throw new RuntimeException("not a valid type for EnumAttribute: " + genericType);
-		final Class<E> enumClass = (Class<E>)enumClasses[0];
+		final Class<E> enumClass = castClass(enumClasses[0]);
 		if(!Enum.class.isAssignableFrom(enumClass))
 			throw new RuntimeException("is not a subclass of " + Enum.class.getName() + ": "+enumClass.getName());
 		
@@ -82,6 +82,12 @@ public final class EnumAttribute<E extends Enum> extends FunctionAttribute<E>
 		this.codesToValues = codesToValues;
 		
 		return enumClass;
+	}
+	
+	@SuppressWarnings("unchecked")
+	private Class<E> castClass(final java.lang.reflect.Type type)
+	{
+		return (Class<E>)type;
 	}
 	
 	public FunctionAttribute<E> copyFunctionAttribute()
