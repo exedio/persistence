@@ -63,17 +63,17 @@ public final class Qualifier extends Pattern
 	// TODO internal source: new Qualifier(stringAttribute(OPTIONAL))
 	// TODO use registerPattern on sources
 
-	public final ItemAttribute getParent()
+	public ItemAttribute getParent()
 	{
 		return parent;
 	}
 
-	public final List<FunctionAttribute> getKeys()
+	public List<FunctionAttribute> getKeys()
 	{
 		return keyList;
 	}
 
-	public final UniqueConstraint getQualifyUnique()
+	public UniqueConstraint getQualifyUnique()
 	{
 		return qualifyUnique;
 	}
@@ -96,7 +96,7 @@ public final class Qualifier extends Pattern
 		this.attributes = Collections.unmodifiableList(attributesModifiyable);
 	}
 
-	public final List<Attribute> getAttributes()
+	public List<Attribute> getAttributes()
 	{
 		if(this.attributes==null)
 			throw new RuntimeException();
@@ -104,12 +104,12 @@ public final class Qualifier extends Pattern
 		return attributes;
 	}
 
-	public final Item getQualifier(final Object[] values)
+	public Item getQualifier(final Object[] values)
 	{
 		return qualifyUnique.searchUnique(values);
 	}
 	
-	public final Object get(final Object[] values, final FunctionAttribute attribute)
+	public Object get(final Object[] values, final FunctionAttribute attribute)
 	{
 		final Item item = qualifyUnique.searchUnique(values);
 		if(item!=null)
