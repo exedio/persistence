@@ -35,6 +35,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite(JavaViewTest.class);
 		suite.addTestSuite(MediaTest.class);
 		suite.addTestSuite(QualifierTest.class);
+		suite.addTestSuite(RelationTest.class);
 		return suite;
 	}
 

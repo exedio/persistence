@@ -75,6 +75,11 @@ public abstract class Pattern extends Feature
 		attribute.initialize(getType(), name, (java.lang.reflect.Type)null);
 	}
 	
+	protected final void initialize(final UniqueConstraint uniqueConstraint, final String name)
+	{
+		uniqueConstraint.initialize(getType(), name, (java.lang.reflect.Type)null);
+	}
+	
 	// Make non-final method from super class final
 	public final Type getType()
 	{

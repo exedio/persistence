@@ -292,7 +292,7 @@ final class Injector
 				case '\r' :
 					if (buf.length() > 0)
 					{
-						//System.out.println("<"+buf+">");
+						//System.out.println("ws||"+buf+"|| ("+positionLine+':'+positionColumn+')');
 						return '\0';
 					}
 					break;
@@ -306,7 +306,7 @@ final class Injector
 					if (buf.length() > 0)
 					{
 						tokenBuf = c;
-						//System.out.println("<"+buf+">");
+						//System.out.println("se||"+buf+"|| ("+positionLine+':'+positionColumn+')');
 						return '\0';
 					}
 					//System.out.println("<<"+c+">>");
@@ -320,11 +320,13 @@ final class Injector
 						if(c=='>')
 							break;
 					}
+					//System.out.println("gn||"+buf+"|| ("+positionLine+':'+positionColumn+')');
 					break;
 				default :
 					if (!do_block && start_block)
 						do_block = true;
 					buf.append(c);
+					//System.out.println("df||"+buf+"|| ("+positionLine+':'+positionColumn+')');
 					break;
 			}
 		}
@@ -447,6 +449,31 @@ final class Injector
 						}
 					}
 					c = read();
+					break;
+				case '<' :
+					if(bracketdepth>0)
+					{
+						if (tokenConsumer!=null && curlyBracketDepth==0)
+							tokenConsumer.addToken(c);
+						if(tokenConsumer!=null)
+							tokenConsumer.addChar(c);
+						c = read();
+					}
+					else
+					{
+						buf.append(c);
+						while(true)
+						{
+							if (tokenConsumer!=null && curlyBracketDepth==0)
+								tokenConsumer.addToken(c);
+							if(tokenConsumer!=null)
+								tokenConsumer.addChar(c);
+							c = read();
+							if(c=='>')
+								break;
+						}
+						//System.out.println("gb||"+buf+"|| ("+positionLine+':'+positionColumn+')');
+					}
 					break;
 				default :
 					if (tokenConsumer!=null && curlyBracketDepth==0)
@@ -756,7 +783,7 @@ final class Injector
 					flushOutbuf();
 					break;
 				default :
-					throw new ParseException("';', '=' or ',' expected.");
+					throw new ParseException("';', '=' or ',' expected, but was '" + c + '\'');
 			}
 		}
 	}

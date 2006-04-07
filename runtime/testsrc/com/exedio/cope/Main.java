@@ -25,6 +25,9 @@ import com.exedio.cope.pattern.HashItem;
 import com.exedio.cope.pattern.JavaViewItem;
 import com.exedio.cope.pattern.MD5Item;
 import com.exedio.cope.pattern.MediaItem;
+import com.exedio.cope.pattern.RelationItem;
+import com.exedio.cope.pattern.RelationSourceItem;
+import com.exedio.cope.pattern.RelationTargetItem;
 import com.exedio.cope.pattern.SerializerItem;
 import com.exedio.cope.pattern.VectorItem;
 
@@ -43,6 +46,7 @@ public class Main
 	public static final Model serializerModel = new Model(new Type[] { SerializerItem.TYPE });
 	public static final Model customModel = new Model(new Type[] { CustomItem.TYPE, JavaViewItem.TYPE });
 	public static final Model cacheIsolationModel = new Model(new Type[] { CacheIsolationItem.TYPE });
+	public static final Model relationModel = new Model(new Type[] { RelationItem.TYPE, RelationSourceItem.TYPE, RelationTargetItem.TYPE });
 	public static final Model nameModel = new Model(new Type[] {
 			NameLongNameLongNameLongNameLongNameLongNameLongItem.TYPE,
 			NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem.TYPE,
@@ -96,6 +100,7 @@ public class Main
 		tearDown(md5Model);
 		tearDown(vectorModel);
 		tearDown(serializerModel);
+		tearDown(relationModel);
 		tearDown(customModel);
 		tearDown(cacheIsolationModel);
 		tearDown(nameModel);
