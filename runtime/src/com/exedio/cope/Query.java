@@ -144,7 +144,7 @@ public final class Query
 	}
 	
 	/**
-	 * @throws RuntimeException if <code>orderBy.length!=ascending.length</code>
+	 * @throws RuntimeException if <tt>orderBy.length!=ascending.length</tt>
 	 */
 	public void setOrderBy(final Function[] orderBy, final boolean[] ascending)
 	{
@@ -241,7 +241,7 @@ public final class Query
 	 * <p>
 	 * Returns an unmodifiable collection.
 	 * Any attempts to modify the returned collection, whether direct or via its iterator,
-	 * result in an <code>UnsupportedOperationException</code>.
+	 * result in an <tt>UnsupportedOperationException</tt>.
 	 */
 	public final Collection<? extends Object> search()
 	{
@@ -270,7 +270,7 @@ public final class Query
 	 * Returns the
 	 * {@link Collection#size() size} of what
 	 * {@link #search()} would have returned for this query with
-	 * {@link #setLimit(int)} reset set to <code>(0)</code>.
+	 * {@link #setLimit(int)} reset set to <tt>(0)</tt>.
 	 */
 	public final int countWithoutLimit()
 	{

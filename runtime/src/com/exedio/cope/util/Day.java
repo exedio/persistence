@@ -22,7 +22,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 /**
- * The class <code>Day</code> represents a specific day.
+ * The class <tt>Day</tt> represents a specific day.
  * It is similar to {@link java.util.Date},
  * but with &quot;day precision&quot; instead of millisecond precision.
  * Like {@link java.util.Date} its immutable,
@@ -40,7 +40,7 @@ public final class Day // TODO implement Comparable
 	private final int day;
 	
    /**
-    * Creates a new <code>Day</code> object,
+    * Creates a new <tt>Day</tt> object,
     * that represents today.
     */
 	public Day()

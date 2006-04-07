@@ -31,7 +31,7 @@ import com.exedio.cope.util.ReactivationConstructorDummy;
  * This is the super class for all classes,
  * that want to store their data persistently with COPE.
  * <p>
- * To enable serialization for subclasses of <code>Item</code>,
+ * To enable serialization for subclasses of <tt>Item</tt>,
  * see {@link #Item()}.
  * 
  * @author Ralf Wiebicke
@@ -48,9 +48,9 @@ public abstract class Item extends Cope
 	
 	/**
 	 * Returns a string unique for this item in all other items of the model.
-	 * For any item <code>a</code> in its model <code>m</code>
+	 * For any item <tt>a</tt> in its model <tt>m</tt>
 	 * the following holds true:
-	 * <code>a.equals(m.findByID(a.getCopeID()).</code>
+	 * <tt>a.equals(m.findByID(a.getCopeID()).</tt>
 	 * Does not activate this item, if it's not already active.
 	 * Never returns null.
 	 * @see Model#findByID(String)
@@ -70,7 +70,7 @@ public abstract class Item extends Cope
 	}
 
 	/**
-	 * Returns true, if <code>o</code> represents the same item as this item.
+	 * Returns true, if <tt>o</tt> represents the same item as this item.
 	 * Is equivalent to
 	 * <pre>(o != null) && (o instanceof Item) && getCopeID().equals(((Item)o).getCopeID())</pre>
 	 * Does not activate this item, if it's not already active.
@@ -82,7 +82,7 @@ public abstract class Item extends Cope
 
 	/**
 	 * Returns a hash code, that is consistent with {@link #equals(Object)}.
-	 * Note, that this is not neccessarily equivalent to <code>getCopeID().hashCode()</code>.
+	 * Note, that this is not neccessarily equivalent to <tt>getCopeID().hashCode()</tt>.
 	 * Does not activate this item, if it's not already active.
 	 */
 	public final int hashCode()
@@ -106,14 +106,14 @@ public abstract class Item extends Cope
 
 	/**
 	 * Returns the active item object representing the same item as this item object.
-	 * For any two item objects <code>a</code>, <code>b</code> the following holds true:
+	 * For any two item objects <tt>a</tt>, <tt>b</tt> the following holds true:
 	 * <p>
-	 * If and only if <code>a.equals(b)</code> then <code>a.activeCopeItem() == b.activeCopeItem()</code>.
+	 * If and only if <tt>a.equals(b)</tt> then <tt>a.activeCopeItem() == b.activeCopeItem()</tt>.
 	 * <p>
 	 * So it does for items, what {@link String#intern} does for strings.
 	 * Does activate this item, if it's not already active.
 	 * Is guaranteed to be very cheap, if this item object is already active, which means
-	 * this method returns <code>this</code>.
+	 * this method returns <tt>this</tt>.
 	 * Never returns null.
 	 */
 	public final Item activeCopeItem()
@@ -123,10 +123,10 @@ public abstract class Item extends Cope
 
 	/**
 	 * @throws MandatoryViolationException
-	 *         if <code>value</code> is null and <code>attribute</code>
+	 *         if <tt>value</tt> is null and <tt>attribute</tt>
 	 *         is {@link Attribute#isMandatory() mandatory}.
 	 * @throws ClassCastException
-	 *         if <code>value</code> is not compatible to <code>attribute</code>.
+	 *         if <tt>value</tt> is not compatible to <tt>attribute</tt>.
 	 */
 	protected Item(SetValue[] setValues)
 		throws
@@ -179,12 +179,12 @@ public abstract class Item extends Cope
 	/**
 	 * Empty constructor for deserialization.
 	 * <p>
-	 * To enable serialization for subclasses of <code>Item</code>,
+	 * To enable serialization for subclasses of <tt>Item</tt>,
 	 * let these classes implement {@link java.io.Serializable}
 	 * and make sure, there is a no-arg constructor
 	 * calling this deserialization constructor.
 	 * <p>
-	 * Serialization of instances of <code>Item</code>
+	 * Serialization of instances of <tt>Item</tt>
 	 * is guaranteed to be light-weigth -
 	 * there are no non-static, non-transient object reference
 	 * fields in this class or its supertypes.
@@ -206,12 +206,12 @@ public abstract class Item extends Cope
 
 	/**
 	 * @throws MandatoryViolationException
-	 *         if <code>value</code> is null and <code>attribute</code>
+	 *         if <tt>value</tt> is null and <tt>attribute</tt>
 	 *         is {@link Attribute#isMandatory() mandatory}.
 	 * @throws FinalViolationException
-	 *         if <code>attribute</code> is {@link Attribute#isFinal() final}.
+	 *         if <tt>attribute</tt> is {@link Attribute#isFinal() final}.
 	 * @throws ClassCastException
-	 *         if <code>value</code> is not compatible to <code>attribute</code>.
+	 *         if <tt>value</tt> is not compatible to <tt>attribute</tt>.
 	 */
 	public final void set(final FunctionAttribute attribute, final Object value)
 		throws
@@ -236,12 +236,12 @@ public abstract class Item extends Cope
 
 	/**
 	 * @throws MandatoryViolationException
-	 *         if <code>value</code> is null and <code>attribute</code>
+	 *         if <tt>value</tt> is null and <tt>attribute</tt>
 	 *         is {@link Attribute#isMandatory() mandatory}.
 	 * @throws FinalViolationException
-	 *         if <code>attribute</code> is {@link Attribute#isFinal() final}.
+	 *         if <tt>attribute</tt> is {@link Attribute#isFinal() final}.
 	 * @throws ClassCastException
-	 *         if <code>value</code> is not compatible to <code>attribute</code>.
+	 *         if <tt>value</tt> is not compatible to <tt>attribute</tt>.
 	 */
 	public final void set(SetValue[] setValues)
 		throws

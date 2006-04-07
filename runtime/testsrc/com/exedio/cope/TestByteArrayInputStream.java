@@ -26,8 +26,8 @@ import junit.framework.Assert;
 
 /**
  * An input stream suitable for testing stream related code.
- * Makes the <code>ByteArrayInputStream</code> close-sensitive,
- * i.e. all methods except <code>close</code> throw an <code>IOException</code>,
+ * Makes the <tt>ByteArrayInputStream</tt> close-sensitive,
+ * i.e. all methods except <tt>close</tt> throw an <tt>IOException</tt>,
  * if the stream has already been closed.
  * 
  * @author Ralf Wiebicke

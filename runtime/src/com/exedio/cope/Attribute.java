@@ -24,7 +24,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * An <code>attribute</code> represents a persistently
+ * An <tt>attribute</tt> represents a persistently
  * stored attribute of a {@link Type}.
  * Subclasses specify the type of information to be stored
  * in an attribute.

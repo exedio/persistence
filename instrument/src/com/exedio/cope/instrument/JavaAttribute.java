@@ -52,7 +52,7 @@ final class JavaAttribute
 
 	/**
 	 * Constructs a java attribute with the same
-	 * <code>parent</code>, <code>modifiers</code> and <code>type</code>
+	 * <tt>parent</tt>, <tt>modifiers</tt> and <tt>type</tt>
 	 * but the given name.
 	 * Needed for comma separated attributes.
 	 */

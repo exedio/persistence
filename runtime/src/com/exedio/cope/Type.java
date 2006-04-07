@@ -574,7 +574,7 @@ public final class Type
 	 * <p>
 	 * Returns an unmodifiable collection.
 	 * Any attempts to modify the returned collection, whether direct or via its iterator,
-	 * result in an <code>UnsupportedOperationException</code>.
+	 * result in an <tt>UnsupportedOperationException</tt>.
 	 * @param condition the condition the searched items must match.
 	 */
 	public Collection<? extends Object> search(final Condition condition)

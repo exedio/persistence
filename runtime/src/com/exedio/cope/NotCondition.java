@@ -28,7 +28,7 @@ public final class NotCondition extends Condition
 	 * Instead of using this constructor directly,
 	 * you may want to use the more type-safe wrapper method.
 	 * @see Condition#not()
-	 * @throws NullPointerException if <code>argument</code> is null.
+	 * @throws NullPointerException if <tt>argument</tt> is null.
 	 */
 	public NotCondition(final Condition argument)
 	{

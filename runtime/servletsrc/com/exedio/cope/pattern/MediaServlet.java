@@ -36,9 +36,9 @@ import com.exedio.cope.util.ServletUtil;
  * A servlet providing access to the data of {@link MediaPath}
  * and its subclasses.
  *
- * In order to use it, you have to deploy the servlet in your <code>web.xml</code>,
+ * In order to use it, you have to deploy the servlet in your <tt>web.xml</tt>,
  * providing the name of the cope model via an init-parameter.
- * Typically, your <code>web.xml</code> would contain a snippet like this:  
+ * Typically, your <tt>web.xml</tt> would contain a snippet like this:  
  *
  * <pre>
  * &lt;servlet&gt;

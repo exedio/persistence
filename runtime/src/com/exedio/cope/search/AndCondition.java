@@ -24,8 +24,8 @@ import com.exedio.cope.Condition;
 public final class AndCondition extends CompositeCondition
 {
 	/**
-	 * @throws NullPointerException if <code>conditions==null</code>
-	 * @throws RuntimeException if <code>conditions.length==0</code>
+	 * @throws NullPointerException if <tt>conditions==null</tt>
+	 * @throws RuntimeException if <tt>conditions.length==0</tt>
 	 */
 	public AndCondition(final Condition[] conditions)
 	{

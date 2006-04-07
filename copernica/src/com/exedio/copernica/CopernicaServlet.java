@@ -36,9 +36,9 @@ import com.exedio.cops.ResourceSet;
 /**
  * The servlet providing Copernica, the Generic Backoffice for COPE.
  * 
- * In order to use it, you have to deploy the servlet in your <code>web.xml</code>,
+ * In order to use it, you have to deploy the servlet in your <tt>web.xml</tt>,
  * providing the name of the copernica provider via an init-parameter.
- * Typically, your <code>web.xml</code> would contain a snippet like this:  
+ * Typically, your <tt>web.xml</tt> would contain a snippet like this:  
  *  
  * <pre>
  * &lt;servlet&gt;
@@ -58,7 +58,7 @@ import com.exedio.cops.ResourceSet;
  * If you want to use copernica &quot;purely&quot;,
  * without any customizations,
  * you may just configure the model to be used.
- * Then replace the init-param <code>provider</code> by
+ * Then replace the init-param <tt>provider</tt> by
  * the following snippet.
  * 
  * <pre>

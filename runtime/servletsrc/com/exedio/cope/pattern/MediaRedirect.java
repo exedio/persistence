@@ -32,17 +32,17 @@ import com.exedio.cope.Item;
  * a {@link Media}.
  * <p>
  * Common usage is to maintain old urls after renaming a {@link Media}.
- * For instance, if there is a media <code>picture</code>:
+ * For instance, if there is a media <tt>picture</tt>:
  * 
  * <pre>
  * static final Media picture = new Media(OPTIONAL);
  * </pre>
- * and this media is renamed to <code>image</code>:
+ * and this media is renamed to <tt>image</tt>:
  * 
  * <pre>
  * static final Media image = new Media(OPTIONAL);
  * </pre>
- * then old urls created by <code>picture</code>
+ * then old urls created by <tt>picture</tt>
  * can be supported with an additional:
  * 
  * <pre>

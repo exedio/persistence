@@ -1364,7 +1364,7 @@ abstract class AbstractDatabase implements Database
 
 	/**
 	 * Appends a clause to the statement causing the database limiting the query result.
-	 * This method is never called for <code>start==0 && count=={@link Query#UNLIMITED_COUNT}</code>.
+	 * This method is never called for <tt>start==0 && count=={@link Query#UNLIMITED_COUNT}</tt>.
 	 * NOTE: Don't forget the space before the keyword 'limit'!
 	 * @param start the number of rows to be skipped
 	 *        or zero, if no rows to be skipped.

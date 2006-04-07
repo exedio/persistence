@@ -26,7 +26,7 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * A <code>view</code> represents a value computed from the
+ * A <tt>view</tt> represents a value computed from the
  * attributes of a {@link Type}.
  * The computation is available both in Java and SQL,
  * so you can use views in search conditions.
