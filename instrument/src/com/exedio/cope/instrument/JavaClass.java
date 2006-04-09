@@ -238,4 +238,18 @@ final class JavaClass extends JavaFeature
 	{
 		zack;
 	}
+	
+	final HashMap<Object, JavaAttribute> javaAttributesByInstance = new HashMap<Object, JavaAttribute>();
+	
+	void registerInstance(final JavaAttribute attribute, final Object instance)
+	{
+		javaAttributesByInstance.put(instance, attribute);
+	}
+	
+	final JavaAttribute getAttributeByInstance(final Object instance)
+	{
+		final JavaAttribute result = javaAttributesByInstance.get(instance);
+		assert result!=null;
+		return result;
+	}
 }

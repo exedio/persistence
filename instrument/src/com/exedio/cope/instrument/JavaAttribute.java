@@ -152,6 +152,7 @@ final class JavaAttribute
 		{
 			rtvalue = parent.evaluate(getInitializer());
 			assert rtvalue!=null;
+			parent.registerInstance(this, rtvalue);
 		}
 		
 		return rtvalue;

@@ -18,21 +18,31 @@
 
 package com.exedio.cope.instrument;
 
+import java.util.ArrayList;
+
+import com.exedio.cope.FunctionAttribute;
+import com.exedio.cope.UniqueConstraint;
+
 
 final class CopeUniqueConstraint extends CopeFeature
 {
-	static final String SINGLE_UNIQUE_SUFFIX = "SingleUnique";
 	private final String[] attributes;
 	final String nameForOutput;
 	
 	/**
 	 * For constraints covering more than one attribute.
 	 */
-	CopeUniqueConstraint(final JavaAttribute javaAttribute, final String[] attributes)
+	CopeUniqueConstraint(final JavaAttribute javaAttribute)
 	{
 		super(javaAttribute);
+		
+		final ArrayList<String> attributes = new ArrayList<String>();
+		final UniqueConstraint instance = (UniqueConstraint)getInstance();
+		for(final FunctionAttribute attributeInstance : instance.getUniqueAttributes())
+			attributes.add(javaAttribute.parent.getAttributeByInstance(attributeInstance).name);
+
 		this.nameForOutput = javaAttribute.name;
-		this.attributes = attributes;
+		this.attributes = attributes.toArray(new String[attributes.size()]);
 	}
 	
 	/**
@@ -40,7 +50,7 @@ final class CopeUniqueConstraint extends CopeFeature
 	 */
 	CopeUniqueConstraint(final JavaAttribute javaAttribute, final String attribute)
 	{
-		super(javaAttribute, javaAttribute.name+SINGLE_UNIQUE_SUFFIX);
+		super(javaAttribute, javaAttribute.name + "ImplicitUnique");
 		this.nameForOutput = javaAttribute.name;
 		this.attributes = new String[]{attribute};
 	}

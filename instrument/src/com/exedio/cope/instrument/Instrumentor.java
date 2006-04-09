@@ -206,15 +206,7 @@ final class Instrumentor implements InjectionConsumer
 	private final void handleUniqueConstraint(final JavaAttribute ja, final Class typeClass)
 		throws InjectorParseException
 	{
-		final List<String> initializerArguments = ja.getInitializerArguments();
-		//System.out.println(initializerArguments);
-		final ArrayList<String> copeAttributes = new ArrayList<String>(initializerArguments.size());
-		
-		for(final String ia : initializerArguments)
-			copeAttributes.add(ia);
-
-		new CopeUniqueConstraint(ja,
-			copeAttributes.toArray(new String[copeAttributes.size()]));
+		new CopeUniqueConstraint(ja);
 	}
 	
 	private final void handleQualifier(final JavaAttribute ja, final Class typeClass)
