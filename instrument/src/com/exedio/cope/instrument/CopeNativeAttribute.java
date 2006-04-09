@@ -20,7 +20,6 @@ package com.exedio.cope.instrument;
 
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.SortedSet;
 
 import com.exedio.cope.Attribute;
@@ -44,11 +43,10 @@ final class CopeNativeAttribute extends CopeAttribute
 			final JavaAttribute javaAttribute,
 			final String name,
 			Class typeClass,
-			final List initializerArguments,
 			final String docComment)
 		throws InjectorParseException
 	{
-		super(javaAttribute, name, typeClass, getPersistentType(typeClass), initializerArguments, docComment);
+		super(javaAttribute, name, typeClass, getPersistentType(typeClass), docComment);
 		
 		this.typeClass = normalizeTypeClass(typeClass);
 		this.nativeType = toNativeTypeMapping.get(this.typeClass);
@@ -57,11 +55,10 @@ final class CopeNativeAttribute extends CopeAttribute
 	public CopeNativeAttribute(
 			final JavaAttribute javaAttribute,
 			Class typeClass,
-			final List<String> initializerArguments,
 			final String docComment)
 		throws InjectorParseException
 	{
-		this(javaAttribute, javaAttribute.name, typeClass, initializerArguments, docComment);
+		this(javaAttribute, javaAttribute.name, typeClass, docComment);
 	}
 	
 	private static final Class normalizeTypeClass(final Class typeClass)

@@ -18,19 +18,16 @@
 
 package com.exedio.cope.instrument;
 
-import java.util.List;
-
 final class CopeObjectAttribute extends CopeAttribute
 {
 	
 	public CopeObjectAttribute(
 			final JavaAttribute javaAttribute,
 			final Class typeClass,
-			final List<String> initializerArguments,
 			final String docComment)
 		throws InjectorParseException
 	{
-		super(javaAttribute, typeClass, getPersistentType(javaAttribute), initializerArguments, docComment);
+		super(javaAttribute, typeClass, getPersistentType(javaAttribute), docComment);
 	}
 	
 	private static final String getPersistentType(final JavaAttribute javaAttribute)

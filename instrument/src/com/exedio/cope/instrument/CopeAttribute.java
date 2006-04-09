@@ -22,22 +22,21 @@ import java.io.IOException;
 import java.io.Writer;
 import java.lang.reflect.Modifier;
 import java.util.Collections;
-import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
 import com.exedio.cope.Attribute;
 import com.exedio.cope.BooleanAttribute;
-import com.exedio.cope.View;
 import com.exedio.cope.DateAttribute;
 import com.exedio.cope.Feature;
+import com.exedio.cope.FinalViolationException;
+import com.exedio.cope.FunctionAttribute;
 import com.exedio.cope.Item;
 import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.MandatoryViolationException;
-import com.exedio.cope.FunctionAttribute;
-import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.StringAttribute;
 import com.exedio.cope.UniqueViolationException;
+import com.exedio.cope.View;
 import com.exedio.cope.pattern.Hash;
 import com.exedio.cope.util.ClassComparator;
 
@@ -57,25 +56,14 @@ abstract class CopeAttribute extends CopeFeature
 			final String name,
 			final Class typeClass,
 			final String persistentType,
-			final List initializerArguments,
 			final String docComment)
 		throws InjectorParseException
 	{
 		super(javaAttribute, name);
 		this.persistentType = persistentType;
-		final boolean isView = View.class.isAssignableFrom(typeClass);
 		
-		if(!isView)
-		{
-			if(initializerArguments.size()<1)
-				throw new InjectorParseException("attribute "+javaAttribute.name+" has no option.");
-			final String optionString = (String)initializerArguments.get(0);
-			//System.out.println(optionString);
-			final Attribute.Option option = getOption(optionString); 
-	
-			if(option.unique)
-				new CopeUniqueConstraint(javaAttribute, name);
-		}
+		if(isImplicitlyUnique())
+			new CopeUniqueConstraint(javaAttribute, name);
 		
 		this.getterOption = new Option(Injector.findDocTagLine(docComment, Instrumentor.ATTRIBUTE_GETTER), true);
 		this.setterOption = new Option(Injector.findDocTagLine(docComment, Instrumentor.ATTRIBUTE_SETTER), true);
@@ -86,11 +74,10 @@ abstract class CopeAttribute extends CopeFeature
 			final JavaAttribute javaAttribute,
 			final Class typeClass,
 			final String persistentType,
-			final List initializerArguments,
 			final String docComment)
 		throws InjectorParseException
 	{
-		this(javaAttribute, javaAttribute.name, typeClass, persistentType, initializerArguments, docComment);
+		this(javaAttribute, javaAttribute.name, typeClass, persistentType, docComment);
 	}
 	
 	final String getName()
@@ -178,6 +165,12 @@ abstract class CopeAttribute extends CopeFeature
 		return !isfinal && !isView;
 	}
 	
+	private final boolean isImplicitlyUnique()
+	{
+		final Feature instance = getInstance();
+		return instance instanceof FunctionAttribute && ((FunctionAttribute)instance).getImplicitUniqueConstraint()!=null;
+	}
+
 	final boolean isTouchable()
 	{
 		final Object instance = getInstance();

@@ -20,7 +20,6 @@ package com.exedio.cope.instrument;
 
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import com.exedio.cope.Attribute;
@@ -173,9 +172,6 @@ final class Instrumentor implements InjectionConsumer
 	private final void handleAttribute(final JavaAttribute ja, final Class typeClass, final String docComment)
 		throws InjectorParseException
 	{
-		final List<String> initializerArguments = ja.getInitializerArguments();
-		//System.out.println(initializerArguments);
-					
 		if(
 			IntegerFunction.class.isAssignableFrom(typeClass) ||
 			LongAttribute.class.equals(typeClass) ||
@@ -187,7 +183,7 @@ final class Instrumentor implements InjectionConsumer
 		{
 			new CopeNativeAttribute(
 				ja, typeClass,
-				initializerArguments, docComment);
+				docComment);
 		}
 		else if(
 			EnumAttribute.class.equals(typeClass)||
@@ -195,13 +191,13 @@ final class Instrumentor implements InjectionConsumer
 		{
 			new CopeObjectAttribute(
 				ja, typeClass,
-				initializerArguments, docComment);
+				docComment);
 		}
 		else if(DataAttribute.class.equals(typeClass))
 		{
 			new CopeDataAttribute(
 				ja, typeClass,
-				initializerArguments, docComment);
+				docComment);
 		}
 		else
 			throw new RuntimeException(typeClass.toString());
@@ -241,7 +237,7 @@ final class Instrumentor implements InjectionConsumer
 		if("newStringAttribute".equals(initializerArgument))
 		{
 			// implicitExternal
-			storageAttribute = new CopeNativeAttribute(ja, ja.name+"Hash", StringAttribute.class, Collections.singletonList("OPTIONAL"), "/** @"+ATTRIBUTE_GETTER+" none @"+ATTRIBUTE_SETTER+" none */"); // TODO make some useful assumption about option
+			storageAttribute = new CopeNativeAttribute(ja, ja.name+"Hash", StringAttribute.class, "/** @"+ATTRIBUTE_GETTER+" none @"+ATTRIBUTE_SETTER+" none */"); // TODO make some useful assumption about docComment
 			new CopeHash(ja, storageAttribute);
 		}
 		else
@@ -260,7 +256,7 @@ final class Instrumentor implements InjectionConsumer
 			if(internal)
 			{
 				// internal
-				storageAttribute = new CopeNativeAttribute(ja, ja.name+"Hash", StringAttribute.class, Collections.singletonList(initializerArgument), "/** @"+ATTRIBUTE_GETTER+" none @"+ATTRIBUTE_SETTER+" none */");
+				storageAttribute = new CopeNativeAttribute(ja, ja.name+"Hash", StringAttribute.class, "/** @"+ATTRIBUTE_GETTER+" none @"+ATTRIBUTE_SETTER+" none */");
 				new CopeHash(ja, storageAttribute);
 			}
 			else

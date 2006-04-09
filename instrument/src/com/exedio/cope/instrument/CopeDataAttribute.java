@@ -20,7 +20,6 @@ package com.exedio.cope.instrument;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
 import java.util.SortedSet;
 
 import com.exedio.cope.Attribute;
@@ -33,11 +32,10 @@ final class CopeDataAttribute extends CopeAttribute
 	public CopeDataAttribute(
 			final JavaAttribute javaAttribute,
 			final Class typeClass,
-			final List<String> initializerArguments,
 			final String docComment)
 		throws InjectorParseException
 	{
-		super(javaAttribute, typeClass, InputStream.class.getName(), initializerArguments, docComment);
+		super(javaAttribute, typeClass, InputStream.class.getName(), docComment);
 	}
 	
 	protected void fillSetterExceptions(final SortedSet<Class> result)
