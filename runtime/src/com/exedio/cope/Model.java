@@ -44,7 +44,7 @@ public final class Model
 {
 	private final Type[] types;
 	private final Type[] concreteTypes;
-	final int numberOfConcreteTypes;
+	final int concreteTypeCount;
 	private final List<Type> typeList;
 	private final List<Type> concreteTypeList;
 	private final HashMap<String, Type> typesByID = new HashMap<String, Type>();
@@ -63,21 +63,21 @@ public final class Model
 		this.types = types;
 		this.typeList = Collections.unmodifiableList(Arrays.asList(types));
 
-		int numberOfConcreteTypes = 0;
-		int numberOfAbstractTypes = -1;
+		int concreteTypeCount = 0;
+		int abstractTypeCount = -1;
 		final ArrayList<Type> concreteTypes = new ArrayList<Type>();
 		for(final Type type : types)
 		{
 			final boolean isAbstract = type.isAbstract();
-			type.initialize(this, isAbstract ? numberOfAbstractTypes-- : numberOfConcreteTypes++);
+			type.initialize(this, isAbstract ? abstractTypeCount-- : concreteTypeCount++);
 			if(!isAbstract)
 				concreteTypes.add(type);
 		}
-		this.numberOfConcreteTypes = numberOfConcreteTypes;
-		this.concreteTypes = concreteTypes.toArray(new Type[numberOfConcreteTypes]);
+		this.concreteTypeCount = concreteTypeCount;
+		this.concreteTypes = concreteTypes.toArray(new Type[concreteTypeCount]);
 		this.concreteTypeList = Collections.unmodifiableList(Arrays.asList(this.concreteTypes));
 		
-		assert this.numberOfConcreteTypes==this.concreteTypes.length;
+		assert this.concreteTypeCount==this.concreteTypes.length;
 	}
 	
 	/**
@@ -143,8 +143,8 @@ public final class Model
 				if(!materialized.equals(typeSet))
 					throw new RuntimeException(materialized.toString()+"<->"+typeSet.toString());
 				
-				final int[] cacheMapSizeLimits = new int[numberOfConcreteTypes];
-				final int cacheMapSizeLimit = properties.getCacheLimit() / numberOfConcreteTypes;
+				final int[] cacheMapSizeLimits = new int[concreteTypeCount];
+				final int cacheMapSizeLimit = properties.getCacheLimit() / concreteTypeCount;
 				Arrays.fill(cacheMapSizeLimits, cacheMapSizeLimit);
 				final Properties p = getProperties();
 				this.cache = new Cache(cacheMapSizeLimits, p.getCacheQueryLimit(), p.getCacheQueryLogging());
