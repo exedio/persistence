@@ -123,4 +123,11 @@ final class ButterflyPkSource extends PkSource
 			append("*4+1)");
 	}
 
+	void appendOrderByExpression(final Statement bf, final ItemAttribute orderBy)
+	{
+		bf.append("abs(").
+			append(orderBy, (Join)null).
+			append("*4+1)");
+	}
+
 }

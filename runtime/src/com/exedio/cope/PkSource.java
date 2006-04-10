@@ -40,4 +40,6 @@ abstract class PkSource
 	 * since orderByType.getTable() may not be equal to this.table.
 	 */
 	abstract void appendDeterministicOrderByExpression(Statement bf, Type orderBy);
+	
+	abstract void appendOrderByExpression(Statement bf, ItemAttribute orderBy);
 }

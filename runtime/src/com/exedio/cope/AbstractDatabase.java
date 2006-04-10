@@ -398,8 +398,16 @@ abstract class AbstractDatabase implements Database
 				final boolean[] orderAscending = query.orderAscending;
 				for(int i = 0; i<orderBy.length; i++)
 				{
-					bf.appendOrderBy().
-						append(orderBy[i], (Join)null);
+					bf.appendOrderBy();
+					
+					if(orderBy[i] instanceof ItemAttribute)
+					{
+						final ItemAttribute<Item> itemOrderBy = (ItemAttribute<Item>)orderBy[i];
+						itemOrderBy.getTargetType().getPkSource().appendOrderByExpression(bf, itemOrderBy);
+					}
+					else
+						bf.append(orderBy[i], (Join)null);
+					
 					if(!orderAscending[i])
 						bf.append(" desc");
 				}
