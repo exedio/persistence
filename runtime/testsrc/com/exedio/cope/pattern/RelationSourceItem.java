@@ -50,6 +50,18 @@ public class RelationSourceItem extends Item
 		return RelationItem.relation.removeFromTargets(this, target);
 	}
 	
+	// TODO should be generated
+	public final Collection<RelationTargetItem> getVectorTarget()
+	{
+		return VectorRelationItem.relation.getTargets(this);
+	}
+	
+	// TODO should be generated
+	public final void setVectorTarget(final Collection<RelationTargetItem> target)
+	{
+		VectorRelationItem.relation.setTargets(this, target);
+	}
+	
 	/**
 
 	 **
