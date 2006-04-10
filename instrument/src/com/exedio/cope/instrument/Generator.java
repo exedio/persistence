@@ -718,7 +718,7 @@ final class Generator
 		o.write(' ');
 		o.write(className);
 		o.write(" findBy");
-		o.write(toCamelCase(constraint.nameForOutput));
+		o.write(toCamelCase(constraint.name));
 		
 		o.write('(');
 		for(int i=0; i<attributes.length; i++)

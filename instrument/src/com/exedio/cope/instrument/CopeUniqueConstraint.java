@@ -27,8 +27,6 @@ import com.exedio.cope.UniqueConstraint;
 final class CopeUniqueConstraint extends CopeFeature
 {
 	private final JavaAttribute javaAttribute;
-	// TODO remove
-	final String nameForOutput;
 	
 	/**
 	 * For constraints covering more than one attribute.
@@ -37,7 +35,6 @@ final class CopeUniqueConstraint extends CopeFeature
 	{
 		super(javaAttribute);
 		this.javaAttribute = javaAttribute;
-		this.nameForOutput = javaAttribute.name;
 	}
 	
 	CopeAttribute[] getAttributes() throws InjectorParseException
