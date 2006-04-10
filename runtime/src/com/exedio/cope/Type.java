@@ -69,6 +69,9 @@ public final class Type
 	 * However, this number is not stable across JVM restarts.
 	 * So never put this number into any persistent storage,
 	 * nor otherwise make this number accessible outside the library.
+	 * <p>
+	 * This number is negative for abstract types and positive
+	 * (inluding zero) for non-abstract types.
 	 */
 	int transientNumber = -1;
 
