@@ -284,12 +284,7 @@ final class Generator
 			o.write(lineSeparator);
 		}
 		writeCommentFooter(CONSTRUCTOR_INITIAL_CUSTOMIZE);
-		final String modifier = Modifier.toString(type.getInitialConstructorModifier());
-		if(modifier.length()>0)
-		{
-			o.write(modifier);
-			o.write(' ');
-		}
+		writeModifier(type.getInitialConstructorModifier());
 		o.write(type.name);
 		o.write('(');
 		
@@ -470,8 +465,8 @@ final class Generator
 		o.write(format(CHECKER, link(hash.name)));
 		o.write(lineSeparator);
 		writeCommentFooter();
-		o.write(Modifier.toString(hash.getGeneratedCheckerModifier()));
-		o.write(" boolean check");
+		writeModifier(hash.getGeneratedCheckerModifier());
+		o.write("boolean check");
 		o.write(toCamelCase(hash.name));
 		o.write("(final ");
 		o.write(String.class.getName());
@@ -490,8 +485,8 @@ final class Generator
 		o.write(format(SETTER, link(hash.name)));
 		o.write(lineSeparator);
 		writeCommentFooter();
-		o.write(Modifier.toString(hash.getGeneratedSetterModifier()));
-		o.write(" void set");
+		writeModifier(hash.getGeneratedSetterModifier());
+		o.write("void set");
 		o.write(toCamelCase(hash.name));
 		o.write("(final ");
 		o.write(String.class.getName());
@@ -519,8 +514,7 @@ final class Generator
 		o.write(lineSeparator);
 		writeStreamWarning(returnType.getName());
 		writeCommentFooter();
-		o.write(Modifier.toString(media.getGeneratedGetterModifier()));
-		o.write(' ');
+		writeModifier(media.getGeneratedGetterModifier());
 		o.write(returnType.getName());
 		if(returnType==byte.class)
 			o.write("[]");
@@ -563,8 +557,8 @@ final class Generator
 		o.write(format(SETTER_MEDIA_IOEXCEPTION, "<tt>data</tt>"));
 		o.write(lineSeparator);
 		writeCommentFooter();
-		o.write(Modifier.toString(media.getGeneratedGetterModifier()));
-		o.write(" void get");
+		writeModifier(media.getGeneratedGetterModifier());
+		o.write("void get");
 		o.write(toCamelCase(media.name));
 		o.write("Data(final " + dataType.getName() + " data)");
 		o.write(lineSeparator);
@@ -595,8 +589,8 @@ final class Generator
 		o.write(format(SETTER_MEDIA_IOEXCEPTION, "<tt>data</tt>"));
 		o.write(lineSeparator);
 		writeCommentFooter();
-		o.write(Modifier.toString(media.getGeneratedSetterModifier()));
-		o.write(" void set");
+		writeModifier(media.getGeneratedSetterModifier());
+		o.write("void set");
 		o.write(toCamelCase(media.name));
 		o.write("(final ");
 		o.write(dataType.getName());
@@ -662,8 +656,7 @@ final class Generator
 		o.write(lineSeparator);
 
 		writeCommentFooter();
-		o.write(Modifier.toString((attribute.modifier & (Modifier.PRIVATE|Modifier.PROTECTED|Modifier.PUBLIC)) | (Modifier.STATIC|Modifier.FINAL) ));
-		o.write(' ');
+		writeModifier((attribute.modifier & (Modifier.PRIVATE|Modifier.PROTECTED|Modifier.PUBLIC)) | (Modifier.STATIC|Modifier.FINAL) );
 		o.write(className);
 		o.write(" findBy");
 		o.write(toCamelCase(attribute.name));
@@ -714,8 +707,7 @@ final class Generator
 		o.write(lineSeparator);
 
 		writeCommentFooter();
-		o.write(Modifier.toString((constraint.modifier & (Modifier.PRIVATE|Modifier.PROTECTED|Modifier.PUBLIC)) | (Modifier.STATIC|Modifier.FINAL) ));
-		o.write(' ');
+		writeModifier((constraint.modifier & (Modifier.PRIVATE|Modifier.PROTECTED|Modifier.PUBLIC)) | (Modifier.STATIC|Modifier.FINAL) );
 		o.write(className);
 		o.write(" findBy");
 		o.write(toCamelCase(constraint.name));
@@ -1000,8 +992,8 @@ final class Generator
 			o.write(lineSeparator);
 			writeCommentFooter(TYPE_CUSTOMIZE);
 			
-			o.write(Modifier.toString(option.getModifier(Modifier.PUBLIC) | Modifier.STATIC | Modifier.FINAL)); // TODO obey class visibility
-			o.write(" "+Type.class.getName()+" TYPE =");
+			writeModifier(option.getModifier(Modifier.PUBLIC) | Modifier.STATIC | Modifier.FINAL); // TODO obey class visibility
+			o.write(Type.class.getName()+" TYPE =");
 			o.write(lineSeparator);
 	
 			o.write("\t\tnew "+Type.class.getName()+"(");
