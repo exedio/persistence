@@ -47,11 +47,6 @@ final class CopeMedia extends CopeFeature
 			return null;
 	}
 	
-	final String getName()
-	{
-		return name;
-	}
-
 	final int getGeneratedGetterModifier()
 	{
 		return modifier & (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE) | Modifier.FINAL;

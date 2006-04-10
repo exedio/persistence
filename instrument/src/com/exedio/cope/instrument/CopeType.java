@@ -44,6 +44,7 @@ final class CopeType
 
 
 	final JavaClass javaClass;
+	final String name;
 	final int accessModifier;
 	final Option typeOption;
 	final Option initialConstructorOption;
@@ -62,6 +63,7 @@ final class CopeType
 		throws InjectorParseException
 	{
 		this.javaClass = javaClass;
+		this.name = javaClass.name;
 		this.accessModifier = javaClass.getAccessModifier();
 		copeTypeByJavaClass.put(javaClass, this);	
 		this.typeOption = new Option(typeOption, false);
@@ -71,11 +73,6 @@ final class CopeType
 		//System.out.println("copeTypeByJavaClass "+javaClass.getName());
 		javaClass.nameSpace.importStatic(Item.class);
 		javaClass.file.repository.add(this);
-	}
-	
-	public String getName()
-	{
-		return javaClass.name;
 	}
 	
 	public boolean isAbstract()

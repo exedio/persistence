@@ -77,11 +77,6 @@ abstract class CopeAttribute extends CopeFeature
 		this(javaAttribute, javaAttribute.name, typeClass, persistentType, docComment);
 	}
 	
-	final String getName()
-	{
-		return name;
-	}
-	
 	final static void writeGeneratedModifier(final Writer o, final int modifier) throws IOException
 	{
 		final String modifierString = Modifier.toString(modifier);

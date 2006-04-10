@@ -239,14 +239,14 @@ final class Generator
 		
 		writeCommentHeader();
 		o.write("\t * ");
-		o.write(format(CONSTRUCTOR_INITIAL, type.getName()));
+		o.write(format(CONSTRUCTOR_INITIAL, type.name));
 		o.write(lineSeparator);
 		for(final CopeAttribute initialAttribute : initialAttributes)
 		{
 			o.write("\t * @param ");
-			o.write(initialAttribute.getName());
+			o.write(initialAttribute.name);
 			o.write(' ');
-			o.write(format(CONSTRUCTOR_INITIAL_PARAMETER, link(initialAttribute.getName())));
+			o.write(format(CONSTRUCTOR_INITIAL_PARAMETER, link(initialAttribute.name)));
 			o.write(lineSeparator);
 		}
 		for(Iterator i = constructorExceptions.iterator(); i.hasNext(); )
@@ -267,7 +267,7 @@ final class Generator
 					first = false;
 				else
 					initialAttributesBuf.append(", ");
-				initialAttributesBuf.append(initialAttribute.getName());
+				initialAttributesBuf.append(initialAttribute.name);
 			}
 
 			final String pattern;
@@ -290,7 +290,7 @@ final class Generator
 			o.write(modifier);
 			o.write(' ');
 		}
-		o.write(type.getName());
+		o.write(type.name);
 		o.write('(');
 		
 		boolean first = true;
@@ -305,7 +305,7 @@ final class Generator
 			o.write("\t\t\t\tfinal ");
 			o.write(initialAttribute.getBoxedType());
 			o.write(' ');
-			o.write(initialAttribute.getName());
+			o.write(initialAttribute.name);
 		}
 		
 		o.write(')');
@@ -318,11 +318,11 @@ final class Generator
 		for(final CopeAttribute initialAttribute : initialAttributes)
 		{
 			o.write("\t\t\t");
-			o.write(type.getName());
+			o.write(type.name);
 			o.write('.');
-			o.write(initialAttribute.getName());
+			o.write(initialAttribute.name);
 			o.write(".map(");
-			o.write(initialAttribute.getName());
+			o.write(initialAttribute.name);
 			o.write("),");
 			o.write(lineSeparator);
 		}
@@ -340,14 +340,14 @@ final class Generator
 
 		writeCommentHeader();
 		o.write("\t * ");
-		o.write(format(CONSTRUCTOR_GENERIC, type.getName()));
+		o.write(format(CONSTRUCTOR_GENERIC, type.name));
 		o.write(lineSeparator);
 		o.write("\t * ");
 		o.write(format(CONSTRUCTOR_GENERIC_CALLED, "{@link " + Type.class.getName() + "#newItem Type.newItem}"));
 		o.write(lineSeparator);
 		writeCommentFooter(CONSTRUCTOR_GENERIC_CUSTOMIZE);
 		CopeAttribute.writeGeneratedModifier(o, option.getModifier(type.allowSubTypes() ? Modifier.PROTECTED : Modifier.PRIVATE));
-		o.write(type.getName());
+		o.write(type.name);
 		o.write("(final "+SetValue.class.getName()+"[] initialAttributes)");
 		o.write(lineSeparator);
 		o.write("\t{");
@@ -373,7 +373,7 @@ final class Generator
 		o.write(lineSeparator);
 		writeCommentFooter();
 		CopeAttribute.writeGeneratedModifier(o, option.getModifier(type.allowSubTypes() ? Modifier.PROTECTED : Modifier.PRIVATE));
-		o.write(type.getName());
+		o.write(type.name);
 		o.write("("+ReactivationConstructorDummy.class.getName()+" d,final int pk)");
 		o.write(lineSeparator);
 		o.write("\t{");
@@ -393,7 +393,7 @@ final class Generator
 		{
 			writeCommentHeader();
 			o.write("\t * ");
-			o.write(format(GETTER, link(attribute.getName())));
+			o.write(format(GETTER, link(attribute.name)));
 			o.write(lineSeparator);
 			writeStreamWarning(type);
 			writeCommentFooter(GETTER_CUSTOMIZE);
@@ -403,7 +403,7 @@ final class Generator
 				o.write(" is");
 			else
 				o.write(" get");
-			o.write(toCamelCase(attribute.getName()));
+			o.write(toCamelCase(attribute.name));
 			o.write(attribute.getterOption.suffix);
 			o.write("()");
 			o.write(lineSeparator);
@@ -418,17 +418,17 @@ final class Generator
 		{
 			writeCommentHeader();
 			o.write("\t * ");
-			o.write(format(SETTER, link(attribute.getName())));
+			o.write(format(SETTER, link(attribute.name)));
 			o.write(lineSeparator);
 			writeCommentFooter(SETTER_CUSTOMIZE);
 			attribute.writeGeneratedSetterModifier(o);
 			o.write("void set");
-			o.write(toCamelCase(attribute.getName()));
+			o.write(toCamelCase(attribute.name));
 			o.write(attribute.setterOption.suffix);
 			o.write("(final ");
 			o.write(type);
 			o.write(' ');
-			o.write(attribute.getName());
+			o.write(attribute.name);
 			o.write(')');
 			o.write(lineSeparator);
 			writeThrowsClause(attribute.getSetterExceptions());
@@ -442,12 +442,12 @@ final class Generator
 			{
 				writeCommentHeader();
 				o.write("\t * ");
-				o.write(format(TOUCHER, link(attribute.getName())));
+				o.write(format(TOUCHER, link(attribute.name)));
 				o.write(lineSeparator);
 				writeCommentFooter();
 				attribute.writeGeneratedSetterModifier(o);
 				o.write("void touch");
-				o.write(toCamelCase(attribute.getName()));
+				o.write(toCamelCase(attribute.name));
 				o.write("()");
 				o.write(lineSeparator);
 				writeThrowsClause(attribute.getToucherExceptions());
@@ -515,7 +515,7 @@ final class Generator
 		final String prefix = (boolean.class==returnType) ? "is" : "get";
 		writeCommentHeader();
 		o.write("\t * ");
-		o.write(format(commentPattern, link(media.getName())));
+		o.write(format(commentPattern, link(media.name)));
 		o.write(lineSeparator);
 		writeStreamWarning(returnType.getName());
 		writeCommentFooter();
@@ -526,16 +526,16 @@ final class Generator
 			o.write("[]");
 		o.write(' ');
 		o.write(prefix);
-		o.write(toCamelCase(media.getName()));
+		o.write(toCamelCase(media.name));
 		o.write(part);
 		o.write("()");
 		o.write(lineSeparator);
 		o.write("\t{");
 		o.write(lineSeparator);
 		o.write("\t\treturn ");
-		o.write(media.type.getName());
+		o.write(media.type.name);
 		o.write('.');
-		o.write(media.getName());
+		o.write(media.name);
 		o.write('.');
 		o.write(prefix);
 		o.write(part);
@@ -552,7 +552,7 @@ final class Generator
 	{
 		writeCommentHeader();
 		o.write("\t * ");
-		o.write(format(commentPattern, link(media.getName())));
+		o.write(format(commentPattern, link(media.name)));
 		o.write(lineSeparator);
 		o.write("\t * ");
 		o.write(GETTER_MEDIA_DATA_EXTRA);
@@ -565,7 +565,7 @@ final class Generator
 		writeCommentFooter();
 		o.write(Modifier.toString(media.getGeneratedGetterModifier()));
 		o.write(" void get");
-		o.write(toCamelCase(media.getName()));
+		o.write(toCamelCase(media.name));
 		o.write("Data(final " + dataType.getName() + " data)");
 		o.write(lineSeparator);
 		final TreeSet<Class> setterExceptions = new TreeSet<Class>();
@@ -574,9 +574,9 @@ final class Generator
 		o.write("\t{");
 		o.write(lineSeparator);
 		o.write("\t\t");
-		o.write(media.type.getName());
+		o.write(media.type.name);
 		o.write('.');
-		o.write(media.getName());
+		o.write(media.name);
 		o.write(".getData(this,data);");
 		o.write(lineSeparator);
 		o.write("\t}");
@@ -587,7 +587,7 @@ final class Generator
 	{
 		writeCommentHeader();
 		o.write("\t * ");
-		o.write(format(SETTER_MEDIA, link(media.getName())));
+		o.write(format(SETTER_MEDIA, link(media.name)));
 		o.write(lineSeparator);
 		o.write("\t * @throws ");
 		o.write(IOException.class.getName());
@@ -597,7 +597,7 @@ final class Generator
 		writeCommentFooter();
 		o.write(Modifier.toString(media.getGeneratedSetterModifier()));
 		o.write(" void set");
-		o.write(toCamelCase(media.getName()));
+		o.write(toCamelCase(media.name));
 		o.write("(final ");
 		o.write(dataType.getName());
 		if(dataType==byte.class)
@@ -612,9 +612,9 @@ final class Generator
 		o.write(lineSeparator);
 		
 		o.write("\t\t");
-		o.write(media.type.getName());
+		o.write(media.type.name);
 		o.write('.');
-		o.write(media.getName());
+		o.write(media.name);
 		o.write(".set(this,data,contentType);");
 		o.write(lineSeparator);
 		o.write("\t}");
@@ -653,9 +653,9 @@ final class Generator
 		o.write(format(FINDER_UNIQUE, lowerCamelCase(className)));
 		o.write(lineSeparator);
 		o.write("\t * @param ");
-		o.write(attribute.getName());
+		o.write(attribute.name);
 		o.write(' ');
-		o.write(format(FINDER_UNIQUE_PARAMETER, link(attribute.getName())));
+		o.write(format(FINDER_UNIQUE_PARAMETER, link(attribute.name)));
 		o.write(lineSeparator);
 		o.write("\t * @return ");
 		o.write(FINDER_UNIQUE_RETURN);
@@ -671,7 +671,7 @@ final class Generator
 		o.write("(final ");
 		o.write(attribute.getBoxedType());
 		o.write(' ');
-		o.write(attribute.getName());
+		o.write(attribute.name);
 		o.write(')');
 		o.write(lineSeparator);
 		o.write("\t{");
@@ -680,9 +680,9 @@ final class Generator
 		o.write(className);
 		o.write(')');
 
-		o.write(attribute.type.getName());
+		o.write(attribute.type.name);
 		o.write('.');
-		o.write(attribute.getName());
+		o.write(attribute.name);
 		o.write(".searchUnique(");
 		writeAttribute(attribute);
 		
@@ -704,9 +704,9 @@ final class Generator
 		for(int i=0; i<attributes.length; i++)
 		{
 			o.write("\t * @param ");
-			o.write(attributes[i].getName());
+			o.write(attributes[i].name);
 			o.write(' ');
-			o.write(format(FINDER_UNIQUE_PARAMETER, link(attributes[i].getName())));
+			o.write(format(FINDER_UNIQUE_PARAMETER, link(attributes[i].name)));
 			o.write(lineSeparator);
 		}
 		o.write("\t * @return ");
@@ -729,7 +729,7 @@ final class Generator
 			o.write("final ");
 			o.write(attribute.getBoxedType());
 			o.write(' ');
-			o.write(attribute.getName());
+			o.write(attribute.name);
 		}
 		o.write(')');
 		o.write(lineSeparator);
@@ -739,7 +739,7 @@ final class Generator
 		o.write(className);
 		o.write(')');
 
-		o.write(attributes[0].type.getName());
+		o.write(attributes[0].type.name);
 		o.write('.');
 		o.write(constraint.name);
 		o.write(".searchUnique(new Object[]{");
@@ -759,7 +759,7 @@ final class Generator
 	{
 		if(attribute.isBoxed())
 			o.write(attribute.getBoxingPrefix());
-		o.write(attribute.getName());
+		o.write(attribute.name);
 		if(attribute.isBoxed())
 			o.write(attribute.getBoxingPostfix());
 	}
@@ -851,7 +851,7 @@ final class Generator
 			attribute.writeGeneratedGetterModifier(o);
 			o.write(resultType);
 			o.write(" get");
-			o.write(toCamelCase(attribute.getName()));
+			o.write(toCamelCase(attribute.name));
 			o.write(attribute.getterOption.suffix);
 			o.write('(');
 			writeQualifierParameters(qualifier);
@@ -870,7 +870,7 @@ final class Generator
 			o.write("},");
 			o.write(qualifier.qualifierClassString);
 			o.write('.');
-			o.write(attribute.getName());
+			o.write(attribute.name);
 			o.write(");");
 			o.write(lineSeparator);
 	
@@ -891,14 +891,14 @@ final class Generator
 	
 			attribute.writeGeneratedSetterModifier(o);
 			o.write("void set");
-			o.write(toCamelCase(attribute.getName()));
+			o.write(toCamelCase(attribute.name));
 			o.write(attribute.setterOption.suffix);
 			o.write('(');
 			writeQualifierParameters(qualifier);
 			o.write(",final ");
 			o.write(attribute.getBoxedType());
 			o.write(' ');
-			o.write(attribute.getName());
+			o.write(attribute.name);
 			o.write(')');
 			o.write(lineSeparator);
 			
@@ -910,13 +910,13 @@ final class Generator
 			o.write("\t\t");
 			o.write(qualifier.qualifierClassString);
 			o.write('.');
-			o.write(attribute.getName());
+			o.write(attribute.name);
 			o.write(".set(");
 			o.write(qualifier.name);
 			o.write(".getForSet(new Object[]{this");
 			writeQualifierCall(qualifier);
 			o.write("}),");
-			o.write(attribute.getName());
+			o.write(attribute.name);
 			o.write(");");
 			o.write(lineSeparator);
 			o.write("\t}");
@@ -943,7 +943,7 @@ final class Generator
 		o.write(lineSeparator);
 
 		o.write("\t\treturn ");
-		o.write(vector.type.getName());
+		o.write(vector.type.name);
 		o.write('.');
 		o.write(vector.name);
 		o.write(".get(this);");
@@ -977,7 +977,7 @@ final class Generator
 		o.write(lineSeparator);
 
 		o.write("\t\t");
-		o.write(vector.type.getName());
+		o.write(vector.type.name);
 		o.write('.');
 		o.write(vector.name);
 		o.write(".set(this,");
@@ -996,7 +996,7 @@ final class Generator
 		{
 			writeCommentHeader();
 			o.write("\t * ");
-			o.write(format(TYPE, lowerCamelCase(type.getName())));
+			o.write(format(TYPE, lowerCamelCase(type.name)));
 			o.write(lineSeparator);
 			writeCommentFooter(TYPE_CUSTOMIZE);
 			
@@ -1005,7 +1005,7 @@ final class Generator
 			o.write(lineSeparator);
 	
 			o.write("\t\tnew "+Type.class.getName()+"(");
-			o.write(type.getName());
+			o.write(type.name);
 			o.write(".class)");
 			o.write(lineSeparator);
 	
@@ -1075,9 +1075,9 @@ final class Generator
 	throws IOException
 	{
 		o.write("\t\treturn ");
-		o.write(attribute.type.getName());
+		o.write(attribute.type.name);
 		o.write('.');
-		o.write(attribute.getName());
+		o.write(attribute.name);
 		o.write(".get");
 		if(attribute.isBoxed())
 			o.write("Mandatory");
@@ -1096,11 +1096,11 @@ final class Generator
 	throws IOException
 	{
 		o.write("\t\t");
-		o.write(attribute.type.getName());
+		o.write(attribute.type.name);
 		o.write('.');
-		o.write(attribute.getName());
+		o.write(attribute.name);
 		o.write(".set(this,");
-		o.write(attribute.getName());
+		o.write(attribute.name);
 		o.write(");");
 		o.write(lineSeparator);
 	}
@@ -1115,9 +1115,9 @@ final class Generator
 	throws IOException
 	{
 		o.write("\t\t");
-		o.write(attribute.type.getName());
+		o.write(attribute.type.name);
 		o.write('.');
-		o.write(attribute.getName());
+		o.write(attribute.name);
 		o.write(".touch(this);");
 		o.write(lineSeparator);
 	}
@@ -1132,7 +1132,7 @@ final class Generator
 	throws IOException
 	{
 		o.write("\t\treturn ");
-		o.write(hash.type.getName());
+		o.write(hash.type.name);
 		o.write('.');
 		o.write(hash.name);
 		o.write(".check(this,");
@@ -1151,7 +1151,7 @@ final class Generator
 	throws IOException, InjectorParseException
 	{
 		o.write("\t\t");
-		o.write(hash.type.getName());
+		o.write(hash.type.name);
 		o.write('.');
 		o.write(hash.name);
 		o.write(".set(this,");
