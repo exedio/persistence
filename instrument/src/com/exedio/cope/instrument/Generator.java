@@ -384,7 +384,7 @@ final class Generator
 	}
 	
 	private void writeAccessMethods(final CopeAttribute attribute)
-	throws IOException
+	throws InjectorParseException, IOException
 	{
 		final String type = attribute.getBoxedType();
 
@@ -457,6 +457,8 @@ final class Generator
 				o.write("\t}");
 			}
 		}
+		
+		writeUniqueFinder(attribute);
 	}
 	
 	private void writeHash(final CopeHash hash)
@@ -638,6 +640,57 @@ final class Generator
 		}
 	}
 	
+	private void writeUniqueFinder(final CopeAttribute attribute)
+	throws IOException, InjectorParseException
+	{
+		if(!attribute.isImplicitlyUnique())
+			return;
+		
+		final String className = attribute.getParent().name;
+		
+		writeCommentHeader();
+		o.write("\t * ");
+		o.write(format(FINDER_UNIQUE, lowerCamelCase(className)));
+		o.write(lineSeparator);
+		o.write("\t * @param ");
+		o.write(attribute.getName());
+		o.write(' ');
+		o.write(format(FINDER_UNIQUE_PARAMETER, link(attribute.getName())));
+		o.write(lineSeparator);
+		o.write("\t * @return ");
+		o.write(FINDER_UNIQUE_RETURN);
+		o.write(lineSeparator);
+
+		writeCommentFooter();
+		o.write(Modifier.toString((attribute.modifier & (Modifier.PRIVATE|Modifier.PROTECTED|Modifier.PUBLIC)) | (Modifier.STATIC|Modifier.FINAL) ));
+		o.write(' ');
+		o.write(className);
+		o.write(" findBy");
+		o.write(toCamelCase(attribute.name));
+		
+		o.write("(final ");
+		o.write(attribute.getBoxedType());
+		o.write(' ');
+		o.write(attribute.getName());
+		o.write(')');
+		o.write(lineSeparator);
+		o.write("\t{");
+		o.write(lineSeparator);
+		o.write("\t\treturn (");
+		o.write(className);
+		o.write(')');
+
+		o.write(attribute.type.getName());
+		o.write('.');
+		o.write(attribute.getName());
+		o.write(".searchUnique(");
+		writeAttribute(attribute);
+		
+		o.write(");");
+		o.write(lineSeparator);
+		o.write("\t}");
+	}
+	
 	private void writeUniqueFinder(final CopeUniqueConstraint constraint)
 	throws IOException, InjectorParseException
 	{
@@ -686,30 +739,17 @@ final class Generator
 		o.write(className);
 		o.write(')');
 
-		if(attributes.length==1)
+		o.write(attributes[0].type.getName());
+		o.write('.');
+		o.write(constraint.name);
+		o.write(".searchUnique(new Object[]{");
+		writeAttribute(attributes[0]);
+		for(int i = 1; i<attributes.length; i++)
 		{
-			o.write(attributes[0].type.getName());
-			o.write('.');
-			o.write(attributes[0].getName());
-			o.write(".searchUnique(");
-			writeAttribute(attributes[0]);
+			o.write(',');
+			writeAttribute(attributes[i]);
 		}
-		else
-		{
-			o.write(attributes[0].type.getName());
-			o.write('.');
-			o.write(constraint.name);
-			o.write(".searchUnique(new Object[]{");
-			writeAttribute(attributes[0]);
-			for(int i = 1; i<attributes.length; i++)
-			{
-				o.write(',');
-				writeAttribute(attributes[i]);
-			}
-			o.write('}');
-		}
-		
-		o.write(");");
+		o.write("});");
 		o.write(lineSeparator);
 		o.write("\t}");
 	}

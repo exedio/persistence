@@ -62,9 +62,6 @@ abstract class CopeAttribute extends CopeFeature
 		super(javaAttribute, name);
 		this.persistentType = persistentType;
 		
-		if(isImplicitlyUnique())
-			new CopeUniqueConstraint(javaAttribute, name);
-		
 		this.getterOption = new Option(Injector.findDocTagLine(docComment, Instrumentor.ATTRIBUTE_GETTER), true);
 		this.setterOption = new Option(Injector.findDocTagLine(docComment, Instrumentor.ATTRIBUTE_SETTER), true);
 		this.initial = Injector.hasTag(docComment, Instrumentor.ATTRIBUTE_INITIAL);
@@ -165,7 +162,7 @@ abstract class CopeAttribute extends CopeFeature
 		return !isfinal && !isView;
 	}
 	
-	private final boolean isImplicitlyUnique()
+	final boolean isImplicitlyUnique()
 	{
 		final Feature instance = getInstance();
 		return instance instanceof FunctionAttribute && ((FunctionAttribute)instance).getImplicitUniqueConstraint()!=null;

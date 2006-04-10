@@ -26,7 +26,8 @@ import com.exedio.cope.UniqueConstraint;
 
 final class CopeUniqueConstraint extends CopeFeature
 {
-	private final String[] attributes;
+	private final JavaAttribute javaAttribute;
+	// TODO remove
 	final String nameForOutput;
 	
 	/**
@@ -35,28 +36,20 @@ final class CopeUniqueConstraint extends CopeFeature
 	CopeUniqueConstraint(final JavaAttribute javaAttribute)
 	{
 		super(javaAttribute);
-		
-		final ArrayList<String> attributes = new ArrayList<String>();
-		final UniqueConstraint instance = (UniqueConstraint)getInstance();
-		for(final FunctionAttribute attributeInstance : instance.getUniqueAttributes())
-			attributes.add(javaAttribute.parent.getAttributeByInstance(attributeInstance).name);
-
+		this.javaAttribute = javaAttribute;
 		this.nameForOutput = javaAttribute.name;
-		this.attributes = attributes.toArray(new String[attributes.size()]);
-	}
-	
-	/**
-	 * For constraints covering exactly one attribute.
-	 */
-	CopeUniqueConstraint(final JavaAttribute javaAttribute, final String attribute)
-	{
-		super(javaAttribute, javaAttribute.name + "ImplicitUnique");
-		this.nameForOutput = javaAttribute.name;
-		this.attributes = new String[]{attribute};
 	}
 	
 	CopeAttribute[] getAttributes() throws InjectorParseException
 	{
+		final ArrayList<String> attributeList = new ArrayList<String>();
+		
+		final UniqueConstraint instance = (UniqueConstraint)getInstance();
+		for(final FunctionAttribute attributeInstance : instance.getUniqueAttributes())
+			attributeList.add(javaAttribute.parent.getAttributeByInstance(attributeInstance).name);
+		
+		final String[] attributes = attributeList.toArray(new String[attributeList.size()]);
+		
 		final CopeAttribute[] result = new CopeAttribute[attributes.length];
 		for(int i = 0; i<attributes.length; i++ )
 		{
