@@ -346,7 +346,7 @@ final class Generator
 		o.write(format(CONSTRUCTOR_GENERIC_CALLED, "{@link " + Type.class.getName() + "#newItem Type.newItem}"));
 		o.write(lineSeparator);
 		writeCommentFooter(CONSTRUCTOR_GENERIC_CUSTOMIZE);
-		CopeAttribute.writeGeneratedModifier(o, option.getModifier(type.allowSubTypes() ? Modifier.PROTECTED : Modifier.PRIVATE));
+		writeModifier(option.getModifier(type.allowSubTypes() ? Modifier.PROTECTED : Modifier.PRIVATE));
 		o.write(type.name);
 		o.write("(final "+SetValue.class.getName()+"[] initialAttributes)");
 		o.write(lineSeparator);
@@ -372,7 +372,7 @@ final class Generator
 			+ ReactivationConstructorDummy.class.getName() + ",int)");
 		o.write(lineSeparator);
 		writeCommentFooter();
-		CopeAttribute.writeGeneratedModifier(o, option.getModifier(type.allowSubTypes() ? Modifier.PROTECTED : Modifier.PRIVATE));
+		writeModifier(option.getModifier(type.allowSubTypes() ? Modifier.PROTECTED : Modifier.PRIVATE));
 		o.write(type.name);
 		o.write("("+ReactivationConstructorDummy.class.getName()+" d,final int pk)");
 		o.write(lineSeparator);
@@ -397,7 +397,7 @@ final class Generator
 			o.write(lineSeparator);
 			writeStreamWarning(type);
 			writeCommentFooter(GETTER_CUSTOMIZE);
-			attribute.writeGeneratedGetterModifier(o);
+			writeModifier(attribute.getGeneratedGetterModifier());
 			o.write(type);
 			if(attribute.hasIsGetter())
 				o.write(" is");
@@ -421,7 +421,7 @@ final class Generator
 			o.write(format(SETTER, link(attribute.name)));
 			o.write(lineSeparator);
 			writeCommentFooter(SETTER_CUSTOMIZE);
-			attribute.writeGeneratedSetterModifier(o);
+			writeModifier(attribute.getGeneratedSetterModifier());
 			o.write("void set");
 			o.write(toCamelCase(attribute.name));
 			o.write(attribute.setterOption.suffix);
@@ -445,7 +445,7 @@ final class Generator
 				o.write(format(TOUCHER, link(attribute.name)));
 				o.write(lineSeparator);
 				writeCommentFooter();
-				attribute.writeGeneratedSetterModifier(o);
+				writeModifier(attribute.getGeneratedSetterModifier());
 				o.write("void touch");
 				o.write(toCamelCase(attribute.name));
 				o.write("()");
@@ -848,7 +848,7 @@ final class Generator
 			writeCommentFooter();
 	
 			final String resultType = attribute.persistentType;
-			attribute.writeGeneratedGetterModifier(o);
+			writeModifier(attribute.getGeneratedGetterModifier());
 			o.write(resultType);
 			o.write(" get");
 			o.write(toCamelCase(attribute.name));
@@ -889,7 +889,7 @@ final class Generator
 			o.write(lineSeparator);
 			writeCommentFooter();
 	
-			attribute.writeGeneratedSetterModifier(o);
+			writeModifier(attribute.getGeneratedSetterModifier());
 			o.write("void set");
 			o.write(toCamelCase(attribute.name));
 			o.write(attribute.setterOption.suffix);
@@ -1167,6 +1167,16 @@ final class Generator
 			o.write("\t * ");
 			o.write(GETTER_STREAM_WARNING);
 			o.write(lineSeparator);
+		}
+	}
+
+	private void writeModifier(final int modifier) throws IOException
+	{
+		final String modifierString = Modifier.toString(modifier);
+		if(modifierString.length()>0)
+		{
+			o.write(modifierString);
+			o.write(' ');
 		}
 	}
 

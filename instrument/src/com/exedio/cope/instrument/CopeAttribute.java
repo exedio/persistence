@@ -77,19 +77,9 @@ abstract class CopeAttribute extends CopeFeature
 		this(javaAttribute, javaAttribute.name, typeClass, persistentType, docComment);
 	}
 	
-	final static void writeGeneratedModifier(final Writer o, final int modifier) throws IOException
+	final int getGeneratedGetterModifier()
 	{
-		final String modifierString = Modifier.toString(modifier);
-		if(modifierString.length()>0)
-		{
-			o.write(modifierString);
-			o.write(' ');
-		}
-	}
-
-	final void writeGeneratedGetterModifier(final Writer o) throws IOException
-	{
-		writeGeneratedModifier(o, getterOption.getModifier(modifier));
+		return getterOption.getModifier(modifier);
 	}
 
 	/**
@@ -183,9 +173,9 @@ abstract class CopeAttribute extends CopeFeature
 		return isWriteable() && setterOption.exists;
 	}
 	
-	final void writeGeneratedSetterModifier(final Writer o) throws IOException
+	final int getGeneratedSetterModifier()
 	{
-		writeGeneratedModifier(o, setterOption.getModifier(modifier));
+		return setterOption.getModifier(modifier);
 	}
 	
 	private SortedSet<Class> setterExceptions = null;
