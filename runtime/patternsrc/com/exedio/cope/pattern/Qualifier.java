@@ -45,7 +45,7 @@ public final class Qualifier extends Pattern
 		if(qualifyUnique==null)
 			throw new RuntimeException(
 				"argument of qualifier constructor is null, " +
-				"may happen due to bad class intialization order.");
+				"may happen due to bad class initialization order.");
 		
 		final List attributes = qualifyUnique.getUniqueAttributes();
 		if(attributes.size()<2)
