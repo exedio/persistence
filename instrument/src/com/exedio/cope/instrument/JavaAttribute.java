@@ -139,8 +139,10 @@ final class JavaAttribute
 		initializer.append(c);
 	}
 	
-	String getInitializer()
+	private String getInitializer()
 	{
+		assert !file.repository.isBuildStage();
+		
 		return initializer.toString();
 	}
 	
