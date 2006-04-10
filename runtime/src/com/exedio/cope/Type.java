@@ -213,18 +213,18 @@ public final class Type
 		return (Class<Item>)o;
 	}
 
-	private static final <F extends Feature> List<F> inherit(final List<F> inherited, final List<F> own)
+	private static final <F extends Feature> List<F> inherit(final List<F> inherited, final List<F> declared)
 	{
 		assert inherited!=null;
 		
-		if(own.isEmpty())
+		if(declared.isEmpty())
 			return inherited;
 		else if(inherited.isEmpty())
-			return own;
+			return declared;
 		else
 		{
 			final ArrayList<F> result = new ArrayList<F>(inherited);
-			result.addAll(own);
+			result.addAll(declared);
 			result.trimToSize();
 			return Collections.<F>unmodifiableList(result);
 		}
