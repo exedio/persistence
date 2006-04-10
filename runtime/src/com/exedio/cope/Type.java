@@ -71,7 +71,7 @@ public final class Type
 	 * nor otherwise make this number accessible outside the library.
 	 * <p>
 	 * This number is negative for abstract types and positive
-	 * (inluding zero) for non-abstract types.
+	 * (including zero) for non-abstract types.
 	 */
 	int transientNumber = -1;
 
