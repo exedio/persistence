@@ -213,7 +213,7 @@ public final class Type
 		return (Class<Item>)o;
 	}
 
-	private static final <T extends Feature> List<T> inherit(final List<T> inherited, final List<T> own)
+	private static final <F extends Feature> List<F> inherit(final List<F> inherited, final List<F> own)
 	{
 		assert inherited!=null;
 		
@@ -223,10 +223,10 @@ public final class Type
 			return own;
 		else
 		{
-			final ArrayList<T> result = new ArrayList<T>(inherited);
+			final ArrayList<F> result = new ArrayList<F>(inherited);
 			result.addAll(own);
 			result.trimToSize();
-			return Collections.<T>unmodifiableList(result);
+			return Collections.<F>unmodifiableList(result);
 		}
 	}
 	
