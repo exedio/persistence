@@ -24,13 +24,13 @@ import com.exedio.cope.FunctionAttribute;
 import com.exedio.cope.UniqueConstraint;
 
 
+/**
+ * For constraints covering more than one attribute only.
+ */
 final class CopeUniqueConstraint extends CopeFeature
 {
 	private final JavaAttribute javaAttribute;
 	
-	/**
-	 * For constraints covering more than one attribute.
-	 */
 	CopeUniqueConstraint(final JavaAttribute javaAttribute)
 	{
 		super(javaAttribute);
