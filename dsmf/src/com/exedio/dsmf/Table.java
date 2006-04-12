@@ -93,7 +93,7 @@ public final class Table extends Node
 	final void register(final Constraint constraint)
 	{
 		if(constraintMap.put(constraint.name, constraint)!=null)
-			throw new RuntimeException("duplicate column name in table " + name + ": " + constraint.name);
+			throw new RuntimeException("duplicate constraint name in table " + name + ": " + constraint.name);
 		constraintList.add(constraint);
 	}
 	
