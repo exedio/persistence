@@ -26,6 +26,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.exedio.cope.Attribute;
 import com.exedio.cope.FunctionAttribute;
 import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
@@ -151,7 +152,17 @@ public abstract class CustomAttribute<E>
 
 	public final void set(final Item item, final E value) throws CustomAttributeException
 	{
-		item.set(Item.convert(execute(value, item)));
+		item.set(convert(execute(value, item)));
+	}
+	
+	private static final SetValue[] convert(Map<? extends Attribute, ? extends Object> map)
+	{
+		final SetValue[] result = new SetValue[map.size()];
+		int n = 0;
+		for(Attribute attribute : map.keySet())
+			result[n++] = new SetValue(attribute, map.get(attribute));
+		
+		return result;
 	}
 	
 	public final Map<? extends FunctionAttribute, ? extends Object> execute(final E value, final Item exceptionItem) throws CustomAttributeException

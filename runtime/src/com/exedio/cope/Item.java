@@ -128,7 +128,7 @@ public abstract class Item extends Cope
 	 * @throws ClassCastException
 	 *         if <tt>value</tt> is not compatible to <tt>attribute</tt>.
 	 */
-	protected Item(SetValue[] setValues)
+	protected Item(final SetValue[] setValues)
 		throws
 			UniqueViolationException,
 			MandatoryViolationException,
@@ -140,21 +140,18 @@ public abstract class Item extends Cope
 			throw new RuntimeException();
 		//System.out.println("create item "+type+" "+pk);
 		
-		setValues = executeSetValues(setValues, null);
-		for(int i = 0; i<setValues.length; i++)
+		final Map<Attribute, Object> attributeValues = executeSetValues(setValues, null);
+		for(final Attribute attribute : attributeValues.keySet())
 		{
-			final SetValue setValue = setValues[i];
-			final Attribute attribute = (Attribute)setValue.settable;
-			
 			if(!attribute.getType().isAssignableFrom(type))
 				throw new RuntimeException("attribute " + attribute + " does not belong to type " + type.toString());
 			
-			attribute.checkValue(setValue.value, null);
+			attribute.checkValue(attributeValues.get(attribute), null);
 		}
 
 		final Entity entity = getEntity(false);
-		entity.put(setValues);
-		entity.write(toBlobs(setValues));
+		entity.put(attributeValues);
+		entity.write(toBlobs(attributeValues));
 	}
 	
 	/**
@@ -243,7 +240,7 @@ public abstract class Item extends Cope
 	 * @throws ClassCastException
 	 *         if <tt>value</tt> is not compatible to <tt>attribute</tt>.
 	 */
-	public final void set(SetValue[] setValues)
+	public final void set(final SetValue[] setValues)
 		throws
 			UniqueViolationException,
 			MandatoryViolationException,
@@ -251,24 +248,21 @@ public abstract class Item extends Cope
 			FinalViolationException,
 			ClassCastException
 	{
-		setValues = executeSetValues(setValues, this);
-		for(int i = 0; i<setValues.length; i++)
+		final Map<Attribute, Object> attributeValues = executeSetValues(setValues, this);
+		for(final Attribute attribute : attributeValues.keySet())
 		{
-			final SetValue setValue = setValues[i];
-			final Attribute attribute = (Attribute)setValue.settable;
-
 			if(!attribute.getType().isAssignableFrom(type))
 				throw new RuntimeException("attribute "+attribute+" does not belong to type "+type.toString());
 			
 			if(attribute.isfinal)
 				throw new FinalViolationException(attribute, this);
 
-			attribute.checkValue(setValue.value, this);
+			attribute.checkValue(attributeValues.get(attribute), this);
 		}
 
 		final Entity entity = getEntity();
-		entity.put(setValues);
-		entity.write(toBlobs(setValues));
+		entity.put(attributeValues);
+		entity.write(toBlobs(attributeValues));
 	}
 
 	public final void deleteCopeItem()
@@ -448,8 +442,7 @@ public abstract class Item extends Cope
 		return type.getModel().getCurrentTransaction().getEntityIfActive(type, pk);
 	}
 	
-	// TODO result type should be HashMap<Attribute, Object>
-	private static final SetValue[] executeSetValues(final SetValue[] source, final Item exceptionItem)
+	private static final Map<Attribute, Object> executeSetValues(final SetValue[] source, final Item exceptionItem)
 	{
 		final HashMap<Attribute, Object> result = new HashMap<Attribute, Object>();
 		for(int i = 0; i<source.length; i++)
@@ -473,32 +466,20 @@ public abstract class Item extends Cope
 				}
 			}
 		}
-		return convert(result);
-	}
-	
-	public static final SetValue[] convert(Map<? extends Attribute, ? extends Object> map)
-	{
-		final SetValue[] result = new SetValue[map.size()];
-		int n = 0;
-		for(Attribute attribute : map.keySet())
-			result[n++] = new SetValue(attribute, map.get(attribute));
-		
 		return result;
 	}
 	
-	private final HashMap<BlobColumn, byte[]> toBlobs(final SetValue[] setValues)
+	private final HashMap<BlobColumn, byte[]> toBlobs(final Map<Attribute, Object> attributeValues)
 	{
 		final HashMap<BlobColumn, byte[]> result = new HashMap<BlobColumn, byte[]>();
 		
-		for(int i = 0; i<setValues.length; i++)
+		for(final Attribute attribute : attributeValues.keySet())
 		{
-			final SetValue setValue = setValues[i];
-			final Settable settable = setValue.settable;
-			if(!(settable instanceof DataAttribute))
+			if(!(attribute instanceof DataAttribute))
 				continue;
 			
-			final DataAttribute da = (DataAttribute)settable;
-			da.impl.fillBlob((byte[])setValue.value, result, this);
+			final DataAttribute da = (DataAttribute)attribute;
+			da.impl.fillBlob((byte[])attributeValues.get(attribute), result, this);
 		}
 		return result;
 	}

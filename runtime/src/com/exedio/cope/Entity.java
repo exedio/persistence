@@ -41,14 +41,12 @@ final class Entity
 		state = state.put( transaction, attribute, value );
 	}
 	
-	final void put(final SetValue[] setValues)
+	final void put(final Map<Attribute, Object> attributeValues)
 	{
-		for(int i=0; i<setValues.length; i++)
+		for(final Attribute attribute : attributeValues.keySet())
 		{
-			final SetValue setValue = setValues[i];
-			final Attribute attribute = (Attribute)setValue.settable;
 			if(attribute instanceof FunctionAttribute)
-				put((FunctionAttribute)attribute, setValue.value);
+				put((FunctionAttribute)attribute, attributeValues.get(attribute));
 			else
 				assert attribute instanceof DataAttribute;
 		}	
