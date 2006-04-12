@@ -130,19 +130,15 @@ final class JavaFile
 		}
 	}
 	
-	public final Class findTypeExternally(String typename)
+	public final Class findTypeExternally(final String typename)
 	{
 		//System.out.println("findtype: >"+typename+"<");
 		
 		buildStageForImports=false;
 		
-		final int lt = typename.indexOf('<');
-		if(lt>=0)
-			typename = typename.substring(0, lt);
-			
 		try
 		{
-			return externalNameSpace.getClass(typename);
+			return externalNameSpace.getClass(Injector.removeGenerics(typename));
 		}
 		catch(UtilEvalError e)
 		{

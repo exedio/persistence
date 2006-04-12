@@ -1076,5 +1076,25 @@ final class Injector
 		//System.out.println("doctag:>"+tagname+"< >"+docComment.substring(start, end)+"<");
 		return result;
 	}
+	
+	public static final String removeGenerics(final String s)
+	{
+		final int lt = s.indexOf('<');
+		//System.out.println("--------evaluate("+s+")"+lt);
+		if(lt>=0)
+		{
+			final int gt = s.indexOf('>', lt);
+			if(gt<0)
+				throw new RuntimeException(s);
+				
+			//System.out.println("--------evaluate("+s+")"+gt);
+			if(gt<s.length())
+				return s.substring(0, lt) + s.substring(gt+1);
+			else
+				return s.substring(0, lt);
+		}
+		else
+			return s;
+	}
 
 }

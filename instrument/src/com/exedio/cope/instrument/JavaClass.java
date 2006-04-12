@@ -135,7 +135,7 @@ final class JavaClass extends JavaFeature
 		return classEndPosition;
 	}
 	
-	Object evaluate(String s)
+	Object evaluate(final String s)
 	{
 		assert !file.repository.isBuildStage();
 		
@@ -143,25 +143,7 @@ final class JavaClass extends JavaFeature
 		try
 		{
 			//System.out.println("--------evaluate("+s+")");
-
-			final int lt = s.indexOf('<');
-			//System.out.println("--------evaluate("+s+")"+lt);
-			if(lt>=0)
-			{
-				final int gt = s.indexOf('>', lt);
-				//System.out.println("--------evaluate("+s+")"+gt);
-				if(gt>=0)
-				{
-					if(gt<s.length())
-						s = s.substring(0, lt) + s.substring(gt+1);
-					else
-						s = s.substring(0, lt);
-				}
-			}
-			
-			//System.out.println("-------+evaluate("+s+")");
-			
-			final Object result = ip.eval(s, nameSpace);
+			final Object result = ip.eval(Injector.removeGenerics(s), nameSpace);
 			//System.out.println("--------evaluate("+s+") == "+result);
 			return result;
 		}
