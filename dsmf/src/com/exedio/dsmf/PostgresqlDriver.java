@@ -24,7 +24,6 @@ import java.sql.Types;
 
 import com.exedio.dsmf.Node.ResultSetHandler;
 
-
 public final class PostgresqlDriver extends Driver
 {
 	public PostgresqlDriver()

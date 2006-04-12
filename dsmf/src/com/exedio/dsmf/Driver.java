@@ -22,8 +22,6 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
-
-
 public abstract class Driver
 {
 	final String schema;

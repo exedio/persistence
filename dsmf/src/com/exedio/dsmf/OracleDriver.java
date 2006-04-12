@@ -27,7 +27,6 @@ import java.util.Iterator;
 
 import com.exedio.dsmf.Node.ResultSetHandler;
 
-
 public final class OracleDriver extends Driver
 {
 	public OracleDriver(final String schema)

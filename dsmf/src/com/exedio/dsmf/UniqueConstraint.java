@@ -18,8 +18,6 @@
 
 package com.exedio.dsmf;
 
-
-
 public class UniqueConstraint extends Constraint
 {
 	final String clause;
