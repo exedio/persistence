@@ -168,19 +168,6 @@ final class JavaFile
 		}
 	}
 	
-	/**
-	 * Extracts the class name from a fully qualified class name
-	 * (including package path.)
-	 */
-	public static String extractClassName(String fullclassname)
-	{
-		int pos=fullclassname.lastIndexOf('.');
-		if(pos>=0)
-			return fullclassname.substring(pos+1, fullclassname.length());
-		else
-			return fullclassname;
-	}
-	
 	int getBufferPosition()
 	{
 		assert repository.isBuildStage();
