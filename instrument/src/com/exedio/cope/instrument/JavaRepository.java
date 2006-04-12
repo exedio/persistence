@@ -24,7 +24,6 @@ import java.util.List;
 
 import bsh.UtilEvalError;
 
-import com.exedio.cope.Item;
 import com.exedio.cope.StringAttribute;
 import com.exedio.cope.pattern.Hash;
 
@@ -53,8 +52,6 @@ final class JavaRepository
 	private final ArrayList<JavaFile> files = new ArrayList<JavaFile>();
 	private final HashMap<String, CopeType> copeTypeByShortClassName = new HashMap<String, CopeType>();
 	private final HashMap<String, CopeType> copeTypeByFullClassName = new HashMap<String, CopeType>();
-	private final HashMap<String, JavaClass> classOfCopeTypeByFullClassName = new HashMap<String, JavaClass>();
-	private final HashMap<String, JavaClass> enumValueClassByFullClassName = new HashMap<String, JavaClass>();
 	
 	void endBuildStage()
 	{
@@ -98,8 +95,6 @@ final class JavaRepository
 			throw new RuntimeException(copeType.javaClass.name);
 		if(copeTypeByFullClassName.put(copeType.javaClass.getFullName(), copeType)!=null)
 			throw new RuntimeException(copeType.javaClass.getFullName());
-		if(classOfCopeTypeByFullClassName.put(copeType.javaClass.name, copeType.javaClass)!=null)
-			throw new RuntimeException(copeType.javaClass.name);
 		//System.out.println("--------- put cope type: "+name);
 	}
 	
@@ -109,30 +104,6 @@ final class JavaRepository
 		final CopeType result = (className.indexOf('.')<0) ? copeTypeByShortClassName.get(className) : copeTypeByFullClassName.get(className);
 		if(result==null)
 			throw new RuntimeException("no cope type for "+className);
-		return result;
-	}
-
-	JavaClass getCopeTypeClass(final String fullClassName)
-	{
-		assert generateStage;
-		final JavaClass result = classOfCopeTypeByFullClassName.get(fullClassName);
-		return result;
-	}
-	
-	void addEnumClass(final JavaClass javaClass)
-	{
-		assert buildStage && !generateStage;
-		final String name = javaClass.getFullName();
-		Object oldValue = enumValueClassByFullClassName.put(name, javaClass);
-		if(oldValue!=null)
-			throw new RuntimeException("name clash on "+name+" between "+oldValue+" and "+javaClass);
-		//System.out.println("--------- put enum class into repository: "+name);
-	}
-	
-	JavaClass getEnumValueClass(final String fullClassName)
-	{
-		assert generateStage;
-		final JavaClass result = enumValueClassByFullClassName.get(fullClassName);
 		return result;
 	}
 
@@ -152,12 +123,6 @@ final class JavaRepository
 			final Class superResult = super.getClass(name);
 			if(superResult!=null)
 				return superResult;
-			
-			if(getCopeTypeClass(name)!=null)
-				return Item.class;
-			
-			if(getEnumValueClass(name)!=null)
-				return JavaClass.AnyEnum.class;
 			
 			if(name.endsWith("Hash")) // TODO this is a hack
 				return DummyHash.class;

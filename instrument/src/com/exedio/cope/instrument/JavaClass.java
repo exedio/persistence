@@ -40,7 +40,6 @@ final class JavaClass extends JavaFeature
 	final CopeNameSpace nameSpace;
 	
 	private HashMap<String, JavaAttribute> attributes = new HashMap<String, JavaAttribute>();
-	private final HashMap<String, JavaClass> enumValueClassByName = new HashMap<String, JavaClass>();
 	final List<String> classExtends;
 	final List<String> classImplements;
 	private int classEndPosition = -1;
@@ -50,7 +49,7 @@ final class JavaClass extends JavaFeature
 	 */
 	public JavaClass(
 			final JavaFile file, final JavaClass parent,
-			final int modifiers, final boolean isenum, final String name,
+			final int modifiers, final String name,
 			final List<String> classExtends, final List<String> classImplements)
 	throws InjectorParseException
 	{
@@ -58,12 +57,6 @@ final class JavaClass extends JavaFeature
 		this.nameSpace = new NameSpace(file.nameSpace);
 		this.classExtends = Collections.unmodifiableList(classExtends);
 		this.classImplements = Collections.unmodifiableList(classImplements);
-		if(isenum)
-		{
-			if(parent!=null)
-				parent.addEnumClass(this);
-			file.repository.addEnumClass(this);
-		}
 		file.add(this);
 	}
 	
@@ -85,22 +78,6 @@ final class JavaClass extends JavaFeature
 		return attributes.get(name);
 	}
 	
-	void addEnumClass(final JavaClass javaClass)
-	{
-		assert file.repository.isBuildStage();
-		Object oldValue = enumValueClassByName.put(javaClass.name, javaClass);
-		if(oldValue!=null)
-			throw new RuntimeException("name clash on "+name+" between "+oldValue+" and "+javaClass);
-		//System.out.println("--------- put enum class into class "+name+": "+javaClass.name);
-	}
-	
-	JavaClass getEnumValueClass(final String fullClassName)
-	{
-		assert file.repository.isGenerateStage();
-		final JavaClass result = enumValueClassByName.get(fullClassName);
-		return result;
-	}
-
 	/**
 	 * Constructs the fully qualified name of this class,
 	 * including package path.
@@ -221,22 +198,6 @@ final class JavaClass extends JavaFeature
 			return Primitive.VOID;
 	   }
 	   
-		public Class getClass(final String name) throws UtilEvalError
-		{
-			final Class superResult = super.getClass(name);
-			if(superResult!=null)
-				return superResult;
-			
-			if(getEnumValueClass(name)!=null)
-				return AnyEnum.class;
-			
-			return null;
-		}
-	}
-	
-	enum AnyEnum
-	{
-		zack;
 	}
 	
 	final HashMap<Object, JavaAttribute> javaAttributesByInstance = new HashMap<Object, JavaAttribute>();
