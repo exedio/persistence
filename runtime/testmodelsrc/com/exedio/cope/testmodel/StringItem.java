@@ -60,15 +60,15 @@ public class StringItem extends Item
 	public StringItem(final String any, boolean dummy)
 	{
 		this(new SetValue[]{
-				new SetValue(StringItem.any, any),
-				new SetValue(StringItem.mandatory, "dummy"),
+				StringItem.mandatory.map("defaultByAny"),
+				StringItem.any.map(any),
 		});
 	}
 	
 	public StringItem(final String mandatory, double dummy) throws MandatoryViolationException
 	{
 		this(new SetValue[]{
-				new SetValue(StringItem.mandatory, mandatory),
+				StringItem.mandatory.map(mandatory),
 		});
 	}
 	
@@ -76,7 +76,7 @@ public class StringItem extends Item
 	{
 		this(new SetValue[]{
 				StringItem.mandatory.map("defaultByExact6"),
-				new SetValue(StringItem.exact6, exact6),
+				StringItem.exact6.map(exact6),
 		});
 	}
 	
@@ -84,7 +84,7 @@ public class StringItem extends Item
 	{
 		this(new SetValue[]{
 				StringItem.mandatory.map("defaultByMax4"),
-				new SetValue(StringItem.max4, max4),
+				StringItem.max4.map(max4),
 		});
 	}
 	
