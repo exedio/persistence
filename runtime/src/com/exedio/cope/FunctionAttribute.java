@@ -77,13 +77,13 @@ public abstract class FunctionAttribute<E extends Object>
 	{
 		if(value == null)
 		{
-			if(isMandatory())
+			if(!optional)
 				throw new MandatoryViolationException(this, item);
 		}
 		else
 		{
 			if(value.equals("") &&
-					isMandatory() &&
+					!optional &&
 					!getType().getModel().supportsEmptyStrings()) // TODO dont call supportsEmptyStrings that often
 				throw new MandatoryViolationException(this, item);
 			
