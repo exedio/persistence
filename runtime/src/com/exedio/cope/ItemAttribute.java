@@ -113,7 +113,7 @@ public final class ItemAttribute<E extends Item> extends FunctionAttribute<E>
 		if(typeColumnValues==null)
 			onlyPossibleTargetType = targetType.getOnlyPossibleTypeOfInstances();
 		else
-			typeColumn = new StringColumn(table, name+"Type", optional, typeColumnValues);
+			typeColumn = new StringColumn(table, result.id + "Type"/* not equal to "name"! */, optional, typeColumnValues);
 
 		return result;
 	}
