@@ -147,6 +147,8 @@ final class JavaRepository
 		
 		public Class getClass(final String name) throws UtilEvalError
 		{
+			assert generateStage;
+			
 			final Class superResult = super.getClass(name);
 			if(superResult!=null)
 				return superResult;
