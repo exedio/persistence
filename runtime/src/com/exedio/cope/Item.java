@@ -145,7 +145,9 @@ public abstract class Item extends Cope
 		{
 			if(!attribute.getType().isAssignableFrom(type))
 				throw new RuntimeException("attribute " + attribute + " does not belong to type " + type.toString());
-			
+		}
+		for(final Attribute attribute : type.getAttributes())
+		{
 			attribute.checkValue(attributeValues.get(attribute), null);
 		}
 

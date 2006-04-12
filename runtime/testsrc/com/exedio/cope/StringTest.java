@@ -194,7 +194,22 @@ public class StringTest extends TestmodelTest
 		assertEquals(numberOfItems, item.TYPE.search(null).size());
 		try
 		{
-			new StringItem(null);
+			new StringItem((String)null);
+			fail();
+		}
+		catch(MandatoryViolationException e)
+		{
+			assertEquals(null, e.getItem());
+			assertEquals(item.mandatory, e.getMandatoryAttribute());
+			assertEquals(item.mandatory, e.getFeature());
+			assertEquals("mandatory violation on a newly created item for StringItem#mandatory", e.getMessage());
+		}
+		assertEquals(numberOfItems, item.TYPE.search(null).size());
+		
+		assertEquals(numberOfItems, item.TYPE.search(null).size());
+		try
+		{
+			new StringItem(new SetValue[]{});
 			fail();
 		}
 		catch(MandatoryViolationException e)
@@ -307,7 +322,10 @@ public class StringTest extends TestmodelTest
 		assertEquals(numberOfItems, item.TYPE.search(null).size());
 		try
 		{
-			StringItem.TYPE.newItem(new SetValue[]{item.max4.map("12345")});
+			StringItem.TYPE.newItem(new SetValue[]{
+					item.mandatory.map("defaultByMax4"),
+					item.max4.map("12345")
+			});
 			fail();
 		}
 		catch(LengthViolationException e)
@@ -427,7 +445,10 @@ public class StringTest extends TestmodelTest
 		assertEquals(numberOfItems, item.TYPE.search(null).size());
 		try
 		{
-			StringItem.TYPE.newItem(new SetValue[]{item.exact6.map("1234567")});
+			StringItem.TYPE.newItem(new SetValue[]{
+					item.mandatory.map("defaultByExact6"),
+					item.exact6.map("1234567")
+			});
 			fail();
 		}
 		catch(LengthViolationException e)
