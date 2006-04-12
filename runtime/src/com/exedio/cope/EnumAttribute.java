@@ -58,7 +58,11 @@ public final class EnumAttribute<E extends Enum> extends FunctionAttribute<E>
 		final IntKeyOpenHashMap numbersToValues = new IntKeyOpenHashMap();
 		final HashMap<E, Integer> valuesToNumbers = new HashMap<E, Integer>();
 		final HashMap<String, E> codesToValues = new HashMap<String, E>();
+		
 		final E[] enumConstants = enumClass.getEnumConstants();
+		if(enumConstants==null)
+			throw new RuntimeException("must have at least one enum value: " + toString());
+		
 		for(int j = 0; j<enumConstants.length; j++)
 		{
 			final E enumConstant = enumConstants[j];
