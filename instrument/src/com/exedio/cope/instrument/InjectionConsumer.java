@@ -43,7 +43,7 @@ interface InjectionConsumer
 	 * Encountered an import statement.
 	 * Imports are also saved in JavaFile.imports.
 	 * This information may be used for mapping type names to types.
-	 * @see JavaFile#findType(String)
+	 * @see JavaFile#findTypeExternally(String)
 	 */
 	void onImport(String importname);
 	

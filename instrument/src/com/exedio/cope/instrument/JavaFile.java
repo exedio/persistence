@@ -130,25 +130,7 @@ final class JavaFile
 		}
 	}
 	
-	/**
-	 * Maps type names to types.
-	 * This mapping depends on the import statements encountered
-	 * in this java file.
-	 *
-	 * Nearly (TODO) implements
-	 * Java Language Specification 6.5.4 &quot;Meaning of Type Names&quot;
-	 * and
-	 * Java Language Specification 7.5 &quot;Import Declarations&quot;
-	 *
-	 * Note, that the result depends also on the classes that are
-	 * available (in the CLASSPATH) when running this method.
-	 * Using this method in the ocl injector assumes,
-	 * that at injection time the same classes are available
-	 * as at compile time of the modified user code.
-	 *
-	 * Returns null if no such type is found.
-	 */
-	public final Class findType(String typename)
+	public final Class findTypeExternally(String typename)
 	{
 		//System.out.println("findtype: >"+typename+"<");
 		

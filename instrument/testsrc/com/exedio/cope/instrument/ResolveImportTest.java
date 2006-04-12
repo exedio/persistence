@@ -43,33 +43,33 @@ public class ResolveImportTest extends InstrumentorTest
 		
 		assertEquals(list(file), repository.getFiles());
 		
-		assertEquals(FindType.class, file.findType("FindType"));
-		assertEquals(FindType.class, file.findType(FindType.class.getName()));
+		assertEquals(FindType.class, file.findTypeExternally("FindType"));
+		assertEquals(FindType.class, file.findTypeExternally(FindType.class.getName()));
 
-		assertEquals(SubFindType.class, file.findType("SubFindType"));
-		assertEquals(SubFindType.class, file.findType(SubFindType.class.getName()));
+		assertEquals(SubFindType.class, file.findTypeExternally("SubFindType"));
+		assertEquals(SubFindType.class, file.findTypeExternally(SubFindType.class.getName()));
 
-		assertEquals(SubFindType2.class, file.findType("SubFindType2"));
-		assertEquals(SubFindType2.class, file.findType(SubFindType2.class.getName()));
+		assertEquals(SubFindType2.class, file.findTypeExternally("SubFindType2"));
+		assertEquals(SubFindType2.class, file.findTypeExternally(SubFindType2.class.getName()));
 
-		assertEquals(com.exedio.cope.instrument.findtype.subfindtype.BothFindType.class /* TODO should be BothFindType.class */, file.findType("BothFindType"));
-		assertEquals(BothFindType.class, file.findType(BothFindType.class.getName()));
+		assertEquals(com.exedio.cope.instrument.findtype.subfindtype.BothFindType.class /* TODO should be BothFindType.class */, file.findTypeExternally("BothFindType"));
+		assertEquals(BothFindType.class, file.findTypeExternally(BothFindType.class.getName()));
 
-		assertEquals(BothFindType2.class, file.findType("BothFindType2"));
-		assertEquals(BothFindType2.class, file.findType(BothFindType2.class.getName()));
+		assertEquals(BothFindType2.class, file.findTypeExternally("BothFindType2"));
+		assertEquals(BothFindType2.class, file.findTypeExternally(BothFindType2.class.getName()));
 
-		assertEquals(null, file.findType("SubFindType3Non"));
-		assertEquals(SubFindType3Non.class, file.findType(SubFindType3Non.class.getName()));
+		assertEquals(null, file.findTypeExternally("SubFindType3Non"));
+		assertEquals(SubFindType3Non.class, file.findTypeExternally(SubFindType3Non.class.getName()));
 
 		assertEquals(
 			com.exedio.cope.instrument.findtype.subfindtype.CollideType.class,
-			file.findType(com.exedio.cope.instrument.findtype.subfindtype.CollideType.class.getName()));
+			file.findTypeExternally(com.exedio.cope.instrument.findtype.subfindtype.CollideType.class.getName()));
 		assertEquals(
 			com.exedio.cope.instrument.findtype.collide.CollideType.class,
-			file.findType(com.exedio.cope.instrument.findtype.collide.CollideType.class.getName()));
+			file.findTypeExternally(com.exedio.cope.instrument.findtype.collide.CollideType.class.getName()));
 		assertEquals(
 			com.exedio.cope.instrument.findtype.collide.CollideType.class/* TODO should be null, because of collision */,
-			file.findType("CollideType"));
+			file.findTypeExternally("CollideType"));
 	}
 
 }
