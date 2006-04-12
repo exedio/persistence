@@ -52,6 +52,7 @@ final class JavaRepository
 	
 	private final ArrayList<JavaFile> files = new ArrayList<JavaFile>();
 	private final HashMap<String, CopeType> copeTypeByShortClassName = new HashMap<String, CopeType>();
+	private final HashMap<String, CopeType> copeTypeByFullClassName = new HashMap<String, CopeType>();
 	private final HashMap<String, JavaClass> classOfCopeTypeByFullClassName = new HashMap<String, JavaClass>();
 	private final HashMap<String, JavaClass> enumValueClassByFullClassName = new HashMap<String, JavaClass>();
 	
@@ -93,18 +94,19 @@ final class JavaRepository
 	void add(final CopeType copeType)
 	{
 		assert buildStage && !generateStage;
-		final String name = JavaFile.extractClassName(copeType.javaClass.name);
-		if(copeTypeByShortClassName.put(name, copeType)!=null)
-			throw new RuntimeException(name);
+		if(copeTypeByShortClassName.put(copeType.javaClass.name, copeType)!=null)
+			throw new RuntimeException(copeType.javaClass.name);
+		if(copeTypeByFullClassName.put(copeType.javaClass.getFullName(), copeType)!=null)
+			throw new RuntimeException(copeType.javaClass.getFullName());
 		if(classOfCopeTypeByFullClassName.put(copeType.javaClass.name, copeType.javaClass)!=null)
-			throw new RuntimeException(name);
+			throw new RuntimeException(copeType.javaClass.name);
 		//System.out.println("--------- put cope type: "+name);
 	}
 	
 	CopeType getCopeType(final String className)
 	{
 		assert generateStage;
-		final CopeType result = copeTypeByShortClassName.get(className);
+		final CopeType result = (className.indexOf('.')<0) ? copeTypeByShortClassName.get(className) : copeTypeByFullClassName.get(className);
 		if(result==null)
 			throw new RuntimeException("no cope type for "+className);
 		return result;
