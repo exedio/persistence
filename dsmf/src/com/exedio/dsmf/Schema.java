@@ -38,7 +38,7 @@ public final class Schema extends Node
 	final void register(final Table table)
 	{
 		if(tableMap.put(driver.canonizeTableName(table.name), table)!=null)
-			throw new RuntimeException(table.name);
+			throw new RuntimeException("duplicate table name in schema: " + table.name);
 		tableList.add(table);
 	}
 	
