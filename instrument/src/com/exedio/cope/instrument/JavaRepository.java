@@ -38,7 +38,8 @@ final class JavaRepository
 	 */
 	final CopeNameSpace externalNameSpace = new CopeNameSpace(null);
 	
-	final CopeNameSpace nameSpace = new NameSpace();
+	// reusing externalNameSpace is more efficient than another root nameSpace
+	final CopeNameSpace nameSpace = new NameSpace(externalNameSpace);
 	
 	/**
 	 * Distiguishes two stages in life cycle of this repository,
@@ -130,9 +131,9 @@ final class JavaRepository
 	{
 		private static final long serialVersionUID = 8362587526354862l;
 		
-		NameSpace()
+		NameSpace(final CopeNameSpace parent)
 		{
-			super((CopeNameSpace)null);
+			super(parent);
 		}
 		
 		public Class getClass(final String name) throws UtilEvalError
