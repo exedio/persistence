@@ -101,6 +101,7 @@ final class CopeType
 			case 1:
 			{
 				final String extname = exts.iterator().next();
+				// TODO check whther its com.exedio.cope.Item itself
 				try
 				{
 					supertype = javaClass.file.repository.getCopeType(extname);
@@ -108,10 +109,13 @@ final class CopeType
 				}
 				catch(RuntimeException e)
 				{
-					if(!e.getMessage().startsWith("no cope type for ")) // TODO better exception
+					if(!e.getMessage().startsWith("no java class for ")) // TODO better exception
 						throw new RuntimeException("bad exception", e);
 					else
+					{
+						//System.out.println("no super type for "+javaClass.getFullName()+'('+extname+')');
 						supertype = null;
+					}
 				}
 				break;
 			}

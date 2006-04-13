@@ -50,8 +50,10 @@ final class JavaRepository
 	private boolean generateStage = false;
 	
 	private final ArrayList<JavaFile> files = new ArrayList<JavaFile>();
-	private final HashMap<String, CopeType> copeTypeByShortClassName = new HashMap<String, CopeType>();
-	private final HashMap<String, CopeType> copeTypeByFullClassName = new HashMap<String, CopeType>();
+	private final HashMap<String, JavaClass> javaClassByShortName = new HashMap<String, JavaClass>();
+	private final HashMap<String, JavaClass> javaClassByFullName = new HashMap<String, JavaClass>();
+	
+	private final HashMap<JavaClass, CopeType> copeTypeByJavaClass = new HashMap<JavaClass, CopeType>();
 	
 	void endBuildStage()
 	{
@@ -60,7 +62,7 @@ final class JavaRepository
 		
 		generateStage = true;
 		
-		for(final CopeType ct : copeTypeByShortClassName.values())
+		for(final CopeType ct : copeTypeByJavaClass.values())
 			ct.endBuildStage();
 		
 		buildStage = false;
@@ -88,12 +90,23 @@ final class JavaRepository
 		return files;
 	}
 	
+	void add(final JavaClass javaClass)
+	{
+		assert buildStage && !generateStage;
+		
+		//final JavaClass previous =
+		javaClassByShortName.put(javaClass.name, javaClass);
+		
+		//if(previous!=null) System.out.println("collision:"+previous.getFullName()+','+javaClass.getFullName());
+		
+		if(javaClassByFullName.put(javaClass.getFullName(), javaClass)!=null)
+			throw new RuntimeException(javaClass.getFullName());
+	}
+	
 	void add(final CopeType copeType)
 	{
 		assert buildStage && !generateStage;
-		if(copeTypeByShortClassName.put(copeType.javaClass.name, copeType)!=null)
-			throw new RuntimeException(copeType.javaClass.name);
-		if(copeTypeByFullClassName.put(copeType.javaClass.getFullName(), copeType)!=null)
+		if(copeTypeByJavaClass.put(copeType.javaClass, copeType)!=null)
 			throw new RuntimeException(copeType.javaClass.getFullName());
 		//System.out.println("--------- put cope type: "+name);
 	}
@@ -101,9 +114,15 @@ final class JavaRepository
 	CopeType getCopeType(final String className)
 	{
 		assert generateStage;
-		final CopeType result = (className.indexOf('.')<0) ? copeTypeByShortClassName.get(className) : copeTypeByFullClassName.get(className);
+		
+		final JavaClass javaClass = (className.indexOf('.')<0) ? javaClassByShortName.get(className) : javaClassByFullName.get(className);
+		if(javaClass==null)
+			throw new RuntimeException("no java class for "+className);
+		
+		final CopeType result = copeTypeByJavaClass.get(javaClass);
 		if(result==null)
 			throw new RuntimeException("no cope type for "+className);
+		
 		return result;
 	}
 

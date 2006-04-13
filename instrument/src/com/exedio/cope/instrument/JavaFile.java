@@ -71,6 +71,7 @@ final class JavaFile
 	{
 		assert repository.isBuildStage();
 		classes.add(javaClass);
+		repository.add(javaClass);
 	}
 	
 	List<JavaClass> getClasses()
