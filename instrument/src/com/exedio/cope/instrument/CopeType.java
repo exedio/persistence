@@ -101,21 +101,16 @@ final class CopeType
 			case 1:
 			{
 				final String extname = exts.iterator().next();
-				// TODO check whther its com.exedio.cope.Item itself
-				try
+				
+				final Class externalType = javaClass.file.findTypeExternally(extname);
+				if(externalType==Item.class)
+				{
+					supertype = null;
+				}
+				else
 				{
 					supertype = javaClass.file.repository.getCopeType(extname);
 					supertype.addSubtype(this);
-				}
-				catch(RuntimeException e)
-				{
-					if(!e.getMessage().startsWith("no java class for ")) // TODO better exception
-						throw new RuntimeException("bad exception", e);
-					else
-					{
-						//System.out.println("no super type for "+javaClass.getFullName()+'('+extname+')');
-						supertype = null;
-					}
 				}
 				break;
 			}
