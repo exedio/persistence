@@ -34,14 +34,14 @@ import bsh.UtilEvalError;
  */
 final class JavaFile
 {
-	final CopeNameSpace nameSpace;
-	
 	/**
 	 * Defines a name space, that does not depend on
 	 * information gathered by the instrumentor,
 	 * thus can be used in build stage.
 	 */
 	private final CopeNameSpace externalNameSpace;
+	
+	final CopeNameSpace nameSpace;
 	
 	private String packagename;
 	
@@ -60,8 +60,8 @@ final class JavaFile
 
 	public JavaFile(final JavaRepository repository)
 	{
-		this.nameSpace = new CopeNameSpace(repository.nameSpace);
 		this.externalNameSpace = new CopeNameSpace(repository.externalNameSpace);
+		this.nameSpace = new CopeNameSpace(repository.nameSpace);
 		
 		this.repository = repository;
 		repository.add(this);

@@ -29,8 +29,6 @@ import com.exedio.cope.pattern.Hash;
 
 final class JavaRepository
 {
-	final CopeNameSpace nameSpace = new NameSpace();
-	
 	/**
 	 * Defines a name space, that does not depend on
 	 * information gathered by the instrumentor,
@@ -39,6 +37,8 @@ final class JavaRepository
 	 * for which a new BshClassManager must be created.
 	 */
 	final CopeNameSpace externalNameSpace = new CopeNameSpace(null);
+	
+	final CopeNameSpace nameSpace = new NameSpace();
 	
 	/**
 	 * Distiguishes two stages in life cycle of this repository,
