@@ -19,24 +19,24 @@
 package com.exedio.cope.instrument;
 
 import java.lang.reflect.Modifier;
+import java.util.Collection;
+import java.util.Collections;
 
 
 final class CopeHash extends CopeFeature
 {
-	private final CopeAttribute storageAttribute;
 	private final String initializerArgument;
 
-	public CopeHash(final JavaAttribute javaAttribute, final CopeAttribute storageAttribute)
+	public CopeHash(final JavaAttribute javaAttribute)
 	{
 		super(javaAttribute);
-		this.storageAttribute = storageAttribute;
 		this.initializerArgument = null;
 	}
 
 	public CopeHash(final JavaAttribute javaAttribute, final String initializerArgument)
 	{
 		super(javaAttribute);
-		this.storageAttribute = null;
+		assert initializerArgument!=null;
 		this.initializerArgument = initializerArgument;
 	}
 
@@ -52,16 +52,16 @@ final class CopeHash extends CopeFeature
 		// TODO: implement getter option: return setterOption.getModifier(javaAttribute.modifier);
 	}
 	
-	CopeAttribute getStorageAttribute() throws InjectorParseException
+	Collection<Class> getSetterExceptions() throws InjectorParseException
 	{
-		if(storageAttribute!=null)
-			return storageAttribute;
+		if(initializerArgument==null)
+			return Collections.<Class>emptyList();
 		else
 		{
 			final CopeAttribute result = (CopeAttribute)type.getFeature(initializerArgument);
 			if(result==null)
 				throw new InjectorParseException("attribute >"+initializerArgument+"< in hash "+name+" not found.");
-			return result;
+			return result.getSetterExceptions();
 		}
 	}
 	

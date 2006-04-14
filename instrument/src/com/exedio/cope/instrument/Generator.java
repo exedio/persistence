@@ -494,7 +494,7 @@ final class Generator
 		o.write(hash.name);
 		o.write(')');
 		o.write(lineSeparator);
-		writeThrowsClause(hash.getStorageAttribute().getSetterExceptions());
+		writeThrowsClause(hash.getSetterExceptions());
 		o.write("\t{");
 		o.write(lineSeparator);
 		writeSetterBody(hash);

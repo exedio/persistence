@@ -18,14 +18,21 @@
 
 package com.exedio.cope.instrument;
 
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import bsh.UtilEvalError;
 
+import com.exedio.cope.Attribute;
+import com.exedio.cope.Function;
 import com.exedio.cope.StringAttribute;
+import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.pattern.Hash;
+import com.exedio.cope.pattern.Media;
+import com.exedio.cope.pattern.Qualifier;
+import com.exedio.cope.pattern.Vector;
 
 final class JavaRepository
 {
@@ -62,6 +69,51 @@ final class JavaRepository
 		assert !generateStage;
 		
 		generateStage = true;
+		
+		// TODO put this into a new class CopeType
+		for(final JavaClass javaClass : javaClassByFullName.values())
+		{
+			if(javaClass.isInterface())
+				continue;
+			
+			final String docComment = javaClass.getDocComment();
+			if(Instrumentor.containsTag(docComment, Instrumentor.PERSISTENT_CLASS))
+			{
+				final String typeOption = Injector.findDocTagLine(docComment, Instrumentor.CLASS_TYPE);
+				final String initialConstructorOption      = Injector.findDocTagLine(docComment, Instrumentor.CLASS_INITIAL_CONSTRUCTOR);
+				final String genericConstructorOption      = Injector.findDocTagLine(docComment, Instrumentor.CLASS_GENERIC_CONSTRUCTOR);
+				final String reactivationConstructorOption = Injector.findDocTagLine(docComment, Instrumentor.CLASS_REACTIVATION_CONSTRUCTOR);
+
+				// TODO directly put type into copeFeatures
+				new CopeType(javaClass, typeOption, initialConstructorOption, genericConstructorOption, reactivationConstructorOption);
+
+				for(final JavaAttribute javaAttribute : javaClass.getAttributes())
+				{
+					final int modifier = javaAttribute.modifier;
+
+					if(Modifier.isFinal(modifier) && Modifier.isStatic(modifier))
+					{
+						final Class typeClass = javaAttribute.file.findTypeExternally(javaAttribute.type);
+
+						if(typeClass!=null)
+						{
+							if(Function.class.isAssignableFrom(typeClass)||Attribute.class.isAssignableFrom(typeClass))
+								Instrumentor.handleAttribute(javaAttribute, typeClass);
+							else if(UniqueConstraint.class.isAssignableFrom(typeClass))
+								Instrumentor.handleUniqueConstraint(javaAttribute);
+							else if(Qualifier.class.isAssignableFrom(typeClass))
+								Instrumentor.handleQualifier(javaAttribute);
+							else if(Hash.class.isAssignableFrom(typeClass))
+								Instrumentor.handleHash(javaAttribute);
+							else if(Vector.class.isAssignableFrom(typeClass))
+								Instrumentor.handleVector(javaAttribute);
+							else if(Media.class.isAssignableFrom(typeClass))
+								Instrumentor.handleMedia(javaAttribute);
+						}
+					}
+				}
+			}
+		}
 		
 		for(final CopeType ct : copeTypeByJavaClass.values())
 			ct.endBuildStage();

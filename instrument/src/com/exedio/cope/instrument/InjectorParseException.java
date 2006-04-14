@@ -26,7 +26,7 @@ package com.exedio.cope.instrument;
  * 
  * @author Ralf Wiebicke
  */
-class InjectorParseException extends Exception
+class InjectorParseException extends RuntimeException
 {
 	private static final long serialVersionUID = 3874562896345l;
 	

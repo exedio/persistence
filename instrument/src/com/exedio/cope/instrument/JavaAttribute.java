@@ -35,6 +35,8 @@ final class JavaAttribute
 	extends JavaFeature
 	implements TokenConsumer
 {
+	private String docComment;
+	
 	private Object rtvalue = null;
 
 	JavaAttribute(
@@ -74,6 +76,17 @@ final class JavaAttribute
 			| Modifier.STATIC
 			| Modifier.TRANSIENT
 			| Modifier.VOLATILE;
+	}
+	
+	void setDocComment(final String docComment)
+	{
+		assert this.docComment==null;
+		this.docComment = docComment;
+	}
+	
+	String getDocComment()
+	{
+		return docComment;
 	}
 	
 	private final ArrayList<String> initializerArguments = new ArrayList<String>();

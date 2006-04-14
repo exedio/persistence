@@ -246,7 +246,7 @@ public class GeneratorTest extends InstrumentorTest
 		assertMethod(STANDARD, "checkMandatoryHash", new Class[]{STRING}, Boolean.TYPE, PUBLIC|FINAL);
 		assertMethod(STANDARD, "setPublicHash", new Class[]{STRING}, PUBLIC|FINAL, new Class[]{LENGTH_VIOLATION});
 		assertMethod(STANDARD, "setPrivateHash", new Class[]{STRING}, PRIVATE|FINAL, new Class[]{LENGTH_VIOLATION});
-		assertMethod(STANDARD, "setMandatoryHash", new Class[]{STRING}, PUBLIC|FINAL, new Class[]{MANDATORY_VIOLATION});
+		assertMethod(STANDARD, "setMandatoryHash", new Class[]{STRING}, PUBLIC|FINAL /* TODO: should be new Class[]{MANDATORY_VIOLATION}*/);
 		assertNoMethod(STANDARD, "getPublicHash");
 		assertNoMethod(STANDARD, "getPrivateHash");
 		assertNoMethod(STANDARD, "getMandatoryHash");

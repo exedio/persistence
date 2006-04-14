@@ -18,9 +18,6 @@
 
 package com.exedio.cope.instrument;
 
-import java.io.IOException;
-import java.io.Writer;
-import java.lang.reflect.Modifier;
 import java.util.Collections;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -55,13 +52,13 @@ abstract class CopeAttribute extends CopeFeature
 			final JavaAttribute javaAttribute,
 			final String name,
 			final Class typeClass,
-			final String persistentType,
-			final String docComment)
+			final String persistentType)
 		throws InjectorParseException
 	{
 		super(javaAttribute, name);
 		this.persistentType = persistentType;
 		
+		final String docComment = javaAttribute.getDocComment();
 		this.getterOption = new Option(Injector.findDocTagLine(docComment, Instrumentor.ATTRIBUTE_GETTER), true);
 		this.setterOption = new Option(Injector.findDocTagLine(docComment, Instrumentor.ATTRIBUTE_SETTER), true);
 		this.initial = Injector.hasTag(docComment, Instrumentor.ATTRIBUTE_INITIAL);
@@ -70,11 +67,10 @@ abstract class CopeAttribute extends CopeFeature
 	CopeAttribute(
 			final JavaAttribute javaAttribute,
 			final Class typeClass,
-			final String persistentType,
-			final String docComment)
+			final String persistentType)
 		throws InjectorParseException
 	{
-		this(javaAttribute, javaAttribute.name, typeClass, persistentType, docComment);
+		this(javaAttribute, javaAttribute.name, typeClass, persistentType);
 	}
 	
 	final int getGeneratedGetterModifier()

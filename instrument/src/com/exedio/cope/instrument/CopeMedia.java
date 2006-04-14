@@ -26,10 +26,10 @@ final class CopeMedia extends CopeFeature
 {
 	public final Option setterOption;
 
-	public CopeMedia(final JavaAttribute javaAttribute, final String docComment)
+	public CopeMedia(final JavaAttribute javaAttribute)
 	{
 		super(javaAttribute);
-		this.setterOption = new Option(Injector.findDocTagLine(docComment, Instrumentor.ATTRIBUTE_SETTER), true);
+		this.setterOption = new Option(Injector.findDocTagLine(javaAttribute.getDocComment(), Instrumentor.ATTRIBUTE_SETTER), true);
 	}
 
 	private static String getString(final List initializerArguments, final int pos)

@@ -18,28 +18,19 @@
 
 package com.exedio.cope.instrument;
 
-import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.exedio.cope.Attribute;
 import com.exedio.cope.BooleanAttribute;
 import com.exedio.cope.DataAttribute;
 import com.exedio.cope.DateAttribute;
 import com.exedio.cope.DayAttribute;
 import com.exedio.cope.DoubleAttribute;
 import com.exedio.cope.EnumAttribute;
-import com.exedio.cope.Function;
 import com.exedio.cope.IntegerFunction;
 import com.exedio.cope.ItemAttribute;
 import com.exedio.cope.LongAttribute;
-import com.exedio.cope.StringAttribute;
 import com.exedio.cope.StringFunction;
-import com.exedio.cope.UniqueConstraint;
-import com.exedio.cope.pattern.Hash;
-import com.exedio.cope.pattern.Media;
-import com.exedio.cope.pattern.Qualifier;
-import com.exedio.cope.pattern.Vector;
 
 final class Instrumentor implements InjectionConsumer
 {
@@ -74,65 +65,68 @@ final class Instrumentor implements InjectionConsumer
 		// nothing to do here
 	}
 	
+	// TODO move to CopeModel
 	private static final String TAG_PREFIX = "cope.";
 
 	/**
 	 * Tag name for persistent classes.
 	 */
-	private static final String PERSISTENT_CLASS = TAG_PREFIX + "persistent";
+	// TODO move to CopeModel
+	static final String PERSISTENT_CLASS = TAG_PREFIX + "persistent";
 
 	/**
 	 * Tag name for the generated getter option.
 	 */
+	// TODO move to CopeModel
 	static final String ATTRIBUTE_GETTER = TAG_PREFIX + "getter";
 
 	/**
 	 * Tag name for the generated setter option.
 	 */
+	// TODO move to CopeModel
 	static final String ATTRIBUTE_SETTER = TAG_PREFIX + "setter";
 
 	/**
 	 * Tag name for the generated initial option.
 	 */
+	// TODO move to CopeModel
 	static final String ATTRIBUTE_INITIAL = TAG_PREFIX + "initial";
 
 	/**
 	 * Tag name for the generated initial constructor option.
 	 */
+	// TODO move to CopeModel
 	static final String CLASS_INITIAL_CONSTRUCTOR = TAG_PREFIX + "constructor";
 	
 	/**
 	 * Tag name for the generated generic constructor option.
 	 */
+	// TODO move to CopeModel
 	static final String CLASS_GENERIC_CONSTRUCTOR = TAG_PREFIX + "generic.constructor";
 	
 	/**
 	 * Tag name for the generated reactivation constructor option.
 	 */
+	// TODO move to CopeModel
 	static final String CLASS_REACTIVATION_CONSTRUCTOR = TAG_PREFIX + "reactivation.constructor";
 	
 	/**
 	 * Tag name for the generated type option.
 	 */
+	// TODO move to CopeModel
 	static final String CLASS_TYPE = TAG_PREFIX + "type";
 	
 	/**
 	 * All generated class features get this doccomment tag.
 	 */
+	// TODO move to CopeModel
 	static final String GENERATED = TAG_PREFIX + "generated";
 	
 
 	private void handleClassComment(final JavaClass jc, final String docComment)
 			throws InjectorParseException
 	{
-		if(containsTag(docComment, PERSISTENT_CLASS))
-		{
-			final String typeOption = Injector.findDocTagLine(docComment, CLASS_TYPE);
-			final String initialConstructorOption      = Injector.findDocTagLine(docComment, CLASS_INITIAL_CONSTRUCTOR);
-			final String genericConstructorOption      = Injector.findDocTagLine(docComment, CLASS_GENERIC_CONSTRUCTOR);
-			final String reactivationConstructorOption = Injector.findDocTagLine(docComment, CLASS_REACTIVATION_CONSTRUCTOR);
-			new CopeType(jc, typeOption, initialConstructorOption, genericConstructorOption, reactivationConstructorOption);
-		}
+		jc.setDocComment(docComment);
 	}
 	
 	public void onClass(final JavaClass jc)
@@ -169,7 +163,8 @@ final class Instrumentor implements InjectionConsumer
 		// nothing to do here
 	}
 	
-	private final void handleAttribute(final JavaAttribute ja, final Class typeClass, final String docComment)
+	// TODO move to CopeModel
+	static final void handleAttribute(final JavaAttribute ja, final Class typeClass)
 		throws InjectorParseException
 	{
 		if(
@@ -182,34 +177,33 @@ final class Instrumentor implements InjectionConsumer
 			StringFunction.class.isAssignableFrom(typeClass))
 		{
 			new CopeNativeAttribute(
-				ja, typeClass,
-				docComment);
+				ja, typeClass);
 		}
 		else if(
 			EnumAttribute.class.equals(typeClass)||
 			ItemAttribute.class.equals(typeClass))
 		{
 			new CopeObjectAttribute(
-				ja, typeClass,
-				docComment);
+				ja, typeClass);
 		}
 		else if(DataAttribute.class.equals(typeClass))
 		{
 			new CopeDataAttribute(
-				ja, typeClass,
-				docComment);
+				ja, typeClass);
 		}
 		else
 			throw new RuntimeException(typeClass.toString());
 	}
 	
-	private final void handleUniqueConstraint(final JavaAttribute ja, final Class typeClass)
+	// TODO move to CopeModel
+	static final void handleUniqueConstraint(final JavaAttribute ja)
 		throws InjectorParseException
 	{
 		new CopeUniqueConstraint(ja);
 	}
 	
-	private final void handleQualifier(final JavaAttribute ja, final Class typeClass)
+	// TODO move to CopeModel
+	static final void handleQualifier(final JavaAttribute ja)
 		throws InjectorParseException
 	{
 		final List<String> initializerArguments = ja.getInitializerArguments();
@@ -217,7 +211,8 @@ final class Instrumentor implements InjectionConsumer
 		new CopeQualifier(ja, initializerArguments);
 	}
 
-	private final void handleHash(final JavaAttribute ja, final Class typeClass)
+	// TODO move to CopeModel
+	static final void handleHash(final JavaAttribute ja)
 		throws InjectorParseException
 	{
 		final List<String> initializerArguments = ja.getInitializerArguments();
@@ -225,12 +220,10 @@ final class Instrumentor implements InjectionConsumer
 			throw new InjectorParseException("attribute >"+ja.name+"< has invalid initializer arguments: "+initializerArguments);
 		//System.out.println("---------"+initializerArguments);
 		final String initializerArgument = initializerArguments.get(0);
-		final CopeAttribute storageAttribute;
 		if("newStringAttribute".equals(initializerArgument))
 		{
 			// implicitExternal
-			storageAttribute = new CopeNativeAttribute(ja, ja.name+"Hash", StringAttribute.class, "/** @"+ATTRIBUTE_GETTER+" none @"+ATTRIBUTE_SETTER+" none */"); // TODO make some useful assumption about docComment
-			new CopeHash(ja, storageAttribute);
+			new CopeHash(ja);
 		}
 		else
 		{
@@ -248,8 +241,7 @@ final class Instrumentor implements InjectionConsumer
 			if(internal)
 			{
 				// internal
-				storageAttribute = new CopeNativeAttribute(ja, ja.name+"Hash", StringAttribute.class, "/** @"+ATTRIBUTE_GETTER+" none @"+ATTRIBUTE_SETTER+" none */");
-				new CopeHash(ja, storageAttribute);
+				new CopeHash(ja);
 			}
 			else
 			{
@@ -259,49 +251,26 @@ final class Instrumentor implements InjectionConsumer
 		}
 	}
 
-	private final void handleVector(final JavaAttribute ja, final Class typeClass)
+	// TODO move to CopeModel
+	static final void handleVector(final JavaAttribute ja)
 		throws InjectorParseException
 	{
 		new CopeVector(ja);
 	}
 	
-	private final void handleMedia(final JavaAttribute ja, final String docComment)
+	// TODO move to CopeModel
+	static final void handleMedia(final JavaAttribute ja)
 		throws InjectorParseException
 	{
-		new CopeMedia(ja, docComment);
+		new CopeMedia(ja);
 	}
 
 	public void onClassFeature(final JavaFeature jf, final String docComment)
 	throws InjectorParseException
 	{
 		//System.out.println("onClassFeature("+jf.name+" "+docComment+")");
-		if(!class_state.isInterface() &&
-			jf instanceof JavaAttribute)
-		{
-			final JavaAttribute ja = (JavaAttribute)jf;
-			final int modifier = ja.modifier;
-
-			if(Modifier.isFinal(modifier) && Modifier.isStatic(modifier))
-			{
-				Class typeClass = ja.file.findTypeExternally(ja.type);
-
-				if(typeClass!=null)
-				{
-					if(Function.class.isAssignableFrom(typeClass)||Attribute.class.isAssignableFrom(typeClass))
-						handleAttribute(ja, typeClass, docComment);
-					else if(UniqueConstraint.class.isAssignableFrom(typeClass))
-						handleUniqueConstraint(ja, typeClass);
-					else if(Qualifier.class.isAssignableFrom(typeClass))
-						handleQualifier(ja, typeClass);
-					else if(Hash.class.isAssignableFrom(typeClass))
-						handleHash(ja, typeClass);
-					else if(Vector.class.isAssignableFrom(typeClass))
-						handleVector(ja, typeClass);
-					else if(Media.class.isAssignableFrom(typeClass))
-						handleMedia(ja, docComment);
-				}
-			}
-		}
+		if(jf instanceof JavaAttribute)
+			((JavaAttribute)jf).setDocComment(docComment);
 	}
 	
 	public boolean onDocComment(final String docComment)
@@ -330,7 +299,8 @@ final class Instrumentor implements InjectionConsumer
 		}
 	}
 	
-	private static final boolean containsTag(final String docComment, final String tagName)
+	// TODO move to CopeModel
+	static final boolean containsTag(final String docComment, final String tagName)
 	{
 		return docComment!=null && docComment.indexOf('@'+tagName)>=0 ;
 	}

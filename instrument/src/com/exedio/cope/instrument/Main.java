@@ -47,11 +47,6 @@ public final class Main
 			e.printStackTrace();
 			throw new RuntimeException(e);
 		}
-		catch(InjectorParseException e)
-		{
-			e.printStackTrace();
-			throw new RuntimeException(e);
-		}
 		catch(IOException e)
 		{
 			e.printStackTrace();

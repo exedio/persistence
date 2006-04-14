@@ -31,11 +31,10 @@ final class CopeDataAttribute extends CopeAttribute
 
 	public CopeDataAttribute(
 			final JavaAttribute javaAttribute,
-			final Class typeClass,
-			final String docComment)
+			final Class typeClass)
 		throws InjectorParseException
 	{
-		super(javaAttribute, typeClass, InputStream.class.getName(), docComment);
+		super(javaAttribute, typeClass, InputStream.class.getName());
 	}
 	
 	protected void fillSetterExceptions(final SortedSet<Class> result)

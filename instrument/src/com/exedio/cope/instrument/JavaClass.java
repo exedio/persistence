@@ -19,6 +19,7 @@
 package com.exedio.cope.instrument;
 
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -39,9 +40,11 @@ final class JavaClass extends JavaFeature
 {
 	final CopeNameSpace nameSpace;
 	
-	private HashMap<String, JavaAttribute> attributes = new HashMap<String, JavaAttribute>();
+	private final HashMap<String, JavaAttribute> attributes = new HashMap<String, JavaAttribute>();
+	private final ArrayList<JavaAttribute> attributeList = new ArrayList<JavaAttribute>();
 	final List<String> classExtends;
 	final List<String> classImplements;
+	private String docComment;
 	private int classEndPosition = -1;
 
 	/**
@@ -60,6 +63,7 @@ final class JavaClass extends JavaFeature
 		file.add(this);
 	}
 	
+	// TODO take JavaAttribute
 	void add(final JavaFeature f)
 	{
 		assert file.repository.isBuildStage();
@@ -67,8 +71,11 @@ final class JavaClass extends JavaFeature
 		if(!(f instanceof JavaAttribute))
 			return;
 		
-		if(attributes.put(f.name, (JavaAttribute)f)!=null)
-			throw new RuntimeException(name+'/'+f.name);
+		final JavaAttribute a = (JavaAttribute)f;
+		
+		if(attributes.put(f.name, a)!=null)
+			throw new RuntimeException(name+'/'+a.name);
+		attributeList.add(a);
 	}
 	
 	JavaAttribute getAttribute(final String name)
@@ -76,6 +83,13 @@ final class JavaClass extends JavaFeature
 		assert !file.repository.isBuildStage();
 		
 		return attributes.get(name);
+	}
+	
+	List<JavaAttribute> getAttributes()
+	{
+		assert !file.repository.isBuildStage();
+		
+		return Collections.unmodifiableList(attributeList);
 	}
 	
 	/**
@@ -116,6 +130,17 @@ final class JavaClass extends JavaFeature
 		Modifier.FINAL |
 		Modifier.STATIC |
 		Modifier.ABSTRACT;
+	}
+	
+	void setDocComment(final String docComment)
+	{
+		assert this.docComment==null;
+		this.docComment = docComment;
+	}
+	
+	String getDocComment()
+	{
+		return docComment;
 	}
 	
 	void notifyClassEnd()
