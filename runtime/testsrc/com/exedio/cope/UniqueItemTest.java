@@ -166,15 +166,15 @@ public class UniqueItemTest extends TestmodelTest
 		deleteOnTearDown(item2);
 
 		item1.set(new SetValue[]{
-				new SetValue(item1.uniqueString, "uniqueString1"),
-				new SetValue(item1.otherString, "otherString1"),
+				item1.uniqueString.map("uniqueString1"),
+				item1.otherString.map("otherString1"),
 		});
 		assertEquals("uniqueString1", item1.getUniqueString());
 		assertEquals("otherString1", item1.getOtherString());
 
 		item2.set(new SetValue[]{
-				new SetValue(item1.uniqueString, "uniqueString2"),
-				new SetValue(item1.otherString, "otherString2"),
+				item1.uniqueString.map("uniqueString2"),
+				item1.otherString.map("otherString2"),
 		});
 		assertEquals("uniqueString2", item2.getUniqueString());
 		assertEquals("otherString2", item2.getOtherString());
@@ -183,8 +183,8 @@ public class UniqueItemTest extends TestmodelTest
 		try
 		{
 			item2.set(new SetValue[]{
-					new SetValue(item1.uniqueString, "uniqueString1"),
-					new SetValue(item1.otherString, "otherString1"),
+					item1.uniqueString.map("uniqueString1"),
+					item1.otherString.map("otherString1"),
 			});
 			fail();
 		}

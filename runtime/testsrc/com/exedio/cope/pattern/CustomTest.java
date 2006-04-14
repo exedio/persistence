@@ -128,7 +128,7 @@ public class CustomTest extends AbstractLibTest
 		assertContains(item, item.TYPE.search(null));
 		try
 		{
-			CustomItem.TYPE.newItem(new SetValue[]{new SetValue(item.number, im2)});
+			CustomItem.TYPE.newItem(new SetValue[]{item.number.map(im2)});
 			fail();
 		}
 		catch(CustomAttributeException e)

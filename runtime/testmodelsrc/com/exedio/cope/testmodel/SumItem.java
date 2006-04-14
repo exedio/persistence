@@ -48,9 +48,9 @@ public class SumItem extends Item
 	public SumItem(final int initialNum1, final int initialNum2, final int initialNum3)
 	{
 		super(new SetValue[]{
-			new SetValue(num1,Integer.valueOf(initialNum1)),
-			new SetValue(num2,Integer.valueOf(initialNum2)),
-			new SetValue(num3,Integer.valueOf(initialNum3)),
+			num1.map(initialNum1),
+			num2.map(initialNum2),
+			num3.map(initialNum3),
 		});
 	}
 

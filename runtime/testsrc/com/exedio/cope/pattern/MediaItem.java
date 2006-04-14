@@ -47,7 +47,7 @@ public class MediaItem extends Item
 	public MediaItem(final String name)
 	{
 		this(new com.exedio.cope.SetValue[]{
-			new com.exedio.cope.SetValue(MediaItem.name,name),
+			MediaItem.name.map(name),
 		});
 	}
 	
