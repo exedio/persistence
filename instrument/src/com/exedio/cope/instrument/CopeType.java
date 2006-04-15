@@ -92,30 +92,24 @@ final class CopeType
 	{
 		assert javaClass.file.repository.isBuildStage();
 		
-		final List<String> exts = javaClass.classExtends;
-		switch(exts.size())
+		final String extname = javaClass.classExtends;
+		
+		if(extname==null)
 		{
-			case 0:
-				supertype = null;
-				break;
-			case 1:
+			supertype = null;
+		}
+		else
+		{
+			final Class externalType = javaClass.file.findTypeExternally(extname);
+			if(externalType==Item.class)
 			{
-				final String extname = exts.iterator().next();
-				
-				final Class externalType = javaClass.file.findTypeExternally(extname);
-				if(externalType==Item.class)
-				{
-					supertype = null;
-				}
-				else
-				{
-					supertype = javaClass.file.repository.getCopeType(extname);
-					supertype.addSubtype(this);
-				}
-				break;
+				supertype = null;
 			}
-			default:
-				throw new RuntimeException(exts.toString());
+			else
+			{
+				supertype = javaClass.file.repository.getCopeType(extname);
+				supertype.addSubtype(this);
+			}
 		}
 	}
 

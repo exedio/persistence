@@ -140,7 +140,7 @@ public abstract class InjectorTest extends InstrumentorTest
 			throw new RuntimeException(event.toString());
 		final JavaClass javaClass = ((ClassEvent)event).javaClass;
 		assertEquals(className, javaClass.name);
-		assertEquals(classExtends==null ? Collections.EMPTY_LIST : Collections.singletonList(classExtends), javaClass.classExtends);
+		assertEquals(classExtends, javaClass.classExtends);
 		assertEquals(classImplements==null ? Collections.EMPTY_LIST : Arrays.asList(classImplements), javaClass.classImplements);
 		return javaClass;
 	}

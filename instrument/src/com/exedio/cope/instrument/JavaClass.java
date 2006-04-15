@@ -42,7 +42,7 @@ final class JavaClass extends JavaFeature
 	
 	private final HashMap<String, JavaAttribute> attributes = new HashMap<String, JavaAttribute>();
 	private final ArrayList<JavaAttribute> attributeList = new ArrayList<JavaAttribute>();
-	final List<String> classExtends;
+	final String classExtends;
 	final List<String> classImplements;
 	private String docComment;
 	private int classEndPosition = -1;
@@ -53,12 +53,12 @@ final class JavaClass extends JavaFeature
 	public JavaClass(
 			final JavaFile file, final JavaClass parent,
 			final int modifiers, final String name,
-			final List<String> classExtends, final List<String> classImplements)
+			final String classExtends, final List<String> classImplements)
 	throws InjectorParseException
 	{
 		super(file, parent, modifiers, null, name);
 		this.nameSpace = new NameSpace(file.nameSpace);
-		this.classExtends = Collections.unmodifiableList(classExtends);
+		this.classExtends = classExtends;
 		this.classImplements = Collections.unmodifiableList(classImplements);
 		file.add(this);
 	}

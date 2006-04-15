@@ -552,7 +552,7 @@ final class Injector
 				if(readToken()!='{')
 					throw new ParseException("'{' expected");
 				parseBody(false, null);
-				final JavaClass result = new JavaClass(javaFile, parent, modifiers, enumName, Collections.<String>emptyList(), Collections.<String>emptyList());
+				final JavaClass result = new JavaClass(javaFile, parent, modifiers, enumName, null, Collections.<String>emptyList());
 				
 				consumer.onClass(result);
 				consumer.onClassEnd(result);
@@ -798,7 +798,7 @@ final class Injector
 		
 		char imc;
 		char extendsOrImplements = '-';
-		final ArrayList<String> classExtends = new ArrayList<String>();
+		String classExtends = null;
 		final ArrayList<String> classImplements = new ArrayList<String>();
 		while((imc=readToken()) != '{')
 		{
@@ -817,7 +817,9 @@ final class Injector
 						case '-':
 							throw new ParseException("expected extends or implements");
 						case 'e':
-							classExtends.add(s);
+							if(classExtends!=null)
+								throw new ParseException("more than one type in extends clause");
+							classExtends = s;
 							break;
 						case 'i':
 							classImplements.add(s);
@@ -830,8 +832,8 @@ final class Injector
 				//System.out.println("---------------"+s+"---"+extendsOrImplements+"---------------"+classExtends+"--------"+classImplements);
 			}
 		}
-
-		JavaClass jc = new JavaClass(javaFile, parent, modifiers, classname, classExtends, classImplements);
+		
+		final JavaClass jc = new JavaClass(javaFile, parent, modifiers, classname, classExtends, classImplements);
 		//cc.print(System.out);
 
 		consumer.onClass(jc);
