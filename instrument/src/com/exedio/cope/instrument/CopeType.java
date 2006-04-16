@@ -65,7 +65,7 @@ final class CopeType
 		this.javaClass = javaClass;
 		this.name = javaClass.name;
 		this.accessModifier = javaClass.getAccessModifier();
-		copeTypeByJavaClass.put(javaClass, this);	
+		copeTypeByJavaClass.put(javaClass, this);
 		this.typeOption = new Option(typeOption, false);
 		this.initialConstructorOption      = new Option(initialConstructorOption,      false);
 		this.genericConstructorOption      = new Option(genericConstructorOption,      false);
