@@ -27,6 +27,7 @@ import bsh.UtilEvalError;
 
 import com.exedio.cope.Attribute;
 import com.exedio.cope.Function;
+import com.exedio.cope.Item;
 import com.exedio.cope.StringAttribute;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.pattern.Hash;
@@ -76,15 +77,16 @@ final class JavaRepository
 			if(javaClass.isInterface())
 				continue;
 			
-			final String docComment = javaClass.getDocComment();
-			if(Instrumentor.containsTag(docComment, Instrumentor.PERSISTENT_CLASS))
+			if(isItem(javaClass))
 			{
+				final String docComment = javaClass.getDocComment();
 				final String typeOption = Injector.findDocTagLine(docComment, Instrumentor.CLASS_TYPE);
 				final String initialConstructorOption      = Injector.findDocTagLine(docComment, Instrumentor.CLASS_INITIAL_CONSTRUCTOR);
 				final String genericConstructorOption      = Injector.findDocTagLine(docComment, Instrumentor.CLASS_GENERIC_CONSTRUCTOR);
 				final String reactivationConstructorOption = Injector.findDocTagLine(docComment, Instrumentor.CLASS_REACTIVATION_CONSTRUCTOR);
 
 				// TODO directly put type into copeFeatures
+				// TODO parse docComment in CopeType constructor
 				new CopeType(javaClass, typeOption, initialConstructorOption, genericConstructorOption, reactivationConstructorOption);
 
 				for(final JavaAttribute javaAttribute : javaClass.getAttributes())
@@ -129,6 +131,45 @@ final class JavaRepository
 	boolean isGenerateStage()
 	{
 		return generateStage;
+	}
+	
+	boolean isItem(JavaClass javaClass)
+	{
+		//System.out.println("--------------"+javaClass.getFullName());
+		while(true)
+		{
+			final String classExtends = javaClass.classExtends;
+			if(classExtends==null)
+				return false;
+			
+			//System.out.println("--------------**"+javaClass.getFullName());
+			{
+				final Class extendsClass = javaClass.file.findTypeExternally(classExtends);
+				//System.out.println("--------------*1"+extendsClass);
+				if(extendsClass!=null)
+					return Item.class.isAssignableFrom(extendsClass);
+			}
+			{
+				final JavaClass byFullName = javaClassByFullName.get(classExtends);
+				//System.out.println("--------------*2"+byFullName);
+				if(byFullName!=null)
+				{
+					javaClass = byFullName;
+					continue;
+				}
+			}
+			{
+				final JavaClass byShortName = javaClassByShortName.get(classExtends);
+				//System.out.println("--------------*3"+byShortName);
+				if(byShortName!=null)
+				{
+					javaClass = byShortName;
+					continue;
+				}
+			}
+			System.out.println("unknown type " + classExtends + " in " + javaClass);
+			return false;
+		}
 	}
 
 	void add(final JavaFile file)

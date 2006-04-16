@@ -69,12 +69,6 @@ final class Instrumentor implements InjectionConsumer
 	private static final String TAG_PREFIX = "cope.";
 
 	/**
-	 * Tag name for persistent classes.
-	 */
-	// TODO move to CopeModel
-	static final String PERSISTENT_CLASS = TAG_PREFIX + "persistent";
-
-	/**
 	 * Tag name for the generated getter option.
 	 */
 	// TODO move to CopeModel

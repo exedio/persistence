@@ -219,6 +219,7 @@
 		<instrument verbose="false">
 			<fileset dir="runtime/testsrc/com/exedio/cope">
 				<include name="**/*.java" />
+				<exclude name="ModelTest.java" /><!-- TODO remove -->
 			</fileset>
 		</instrument>
 	</target>
