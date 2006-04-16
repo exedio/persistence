@@ -220,4 +220,9 @@ final class JavaClass extends JavaFeature
 		assert result!=null;
 		return result;
 	}
+	
+	public String toString()
+	{
+		return getFullName();
+	}
 }
