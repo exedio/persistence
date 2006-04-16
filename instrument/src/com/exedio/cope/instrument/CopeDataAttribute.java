@@ -18,13 +18,6 @@
 
 package com.exedio.cope.instrument;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.SortedSet;
-
-import com.exedio.cope.Attribute;
-import com.exedio.cope.Feature;
-import com.exedio.cope.MandatoryViolationException;
 
 final class CopeDataAttribute extends CopeAttribute
 {
@@ -34,14 +27,7 @@ final class CopeDataAttribute extends CopeAttribute
 			final Class typeClass)
 		throws InjectorParseException
 	{
-		super(javaAttribute, typeClass, InputStream.class.getName());
+		super(javaAttribute, typeClass, "byte[]");
 	}
 	
-	SortedSet<Class> getSetterExceptions()
-	{
-		final SortedSet<Class> result = super.getSetterExceptions();
-		result.add(IOException.class);
-		return result;
-	}
-
 }

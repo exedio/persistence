@@ -173,7 +173,7 @@ abstract class CopeAttribute extends CopeFeature
 		return setterOption.getModifier(modifier);
 	}
 	
-	SortedSet<Class> getSetterExceptions()
+	final SortedSet<Class> getSetterExceptions()
 	{
 		final Feature instance = getInstance();
 
@@ -199,14 +199,6 @@ abstract class CopeAttribute extends CopeFeature
 		return result;
 	}
 	
-	protected void fillExceptionsThrownByGenericSetter(final SortedSet<Class> result)
-	{
-		result.add(UniqueViolationException.class);
-		if(!isBoxed())
-			result.add(MandatoryViolationException.class);
-		result.add(FinalViolationException.class);
-	}
-
 	final SortedSet<Class> getToucherExceptions()
 	{
 		final Feature instance = getInstance();

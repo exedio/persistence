@@ -384,7 +384,7 @@ final class Generator
 		final String type = attribute.getBoxedType();
 
 		// getter
-		if(attribute.getterOption.exists && !(attribute instanceof CopeDataAttribute))
+		if(attribute.getterOption.exists)
 		{
 			writeCommentHeader();
 			o.write("\t * ");
