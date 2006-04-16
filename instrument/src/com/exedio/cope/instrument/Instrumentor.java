@@ -209,40 +209,7 @@ final class Instrumentor implements InjectionConsumer
 	static final void handleHash(final JavaAttribute ja)
 		throws InjectorParseException
 	{
-		final List<String> initializerArguments = ja.getInitializerArguments();
-		if(initializerArguments.size()<1)
-			throw new InjectorParseException("attribute >"+ja.name+"< has invalid initializer arguments: "+initializerArguments);
-		//System.out.println("---------"+initializerArguments);
-		final String initializerArgument = initializerArguments.get(0);
-		if("newStringAttribute".equals(initializerArgument))
-		{
-			// implicitExternal
-			new CopeHash(ja);
-		}
-		else
-		{
-			boolean internal = false;
-			try
-			{
-				CopeAttribute.getOption(initializerArgument);
-				internal = true;
-			}
-			catch(RuntimeException e)
-			{
-				// then internal is false
-			}
-			
-			if(internal)
-			{
-				// internal
-				new CopeHash(ja);
-			}
-			else
-			{
-				// explicitExternal
-				new CopeHash(ja, initializerArgument);
-			}
-		}
+		new CopeHash(ja);
 	}
 
 	// TODO move to CopeModel

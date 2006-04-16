@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.SortedSet;
 
 import com.exedio.cope.search.GreaterCondition;
 import com.exedio.cope.search.GreaterEqualCondition;
@@ -167,6 +168,14 @@ public abstract class FunctionAttribute<E extends Object>
 	public List<UniqueConstraint> getUniqueConstraints()
 	{
 		return uniqueConstraints!=null ? Collections.unmodifiableList(uniqueConstraints) : Collections.<UniqueConstraint>emptyList();
+	}
+	
+	public SortedSet<Class> getSetterExceptions()
+	{
+		final SortedSet<Class> result = super.getSetterExceptions();
+		if(uniqueConstraints!=null)
+			result.add(UniqueViolationException.class);
+		return result;
 	}
 	
 	final void registerUniqueConstraint(final UniqueConstraint constraint)

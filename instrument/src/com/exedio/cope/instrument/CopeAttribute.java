@@ -19,22 +19,16 @@
 package com.exedio.cope.instrument;
 
 import java.util.SortedSet;
-import java.util.TreeSet;
 
 import com.exedio.cope.Attribute;
 import com.exedio.cope.BooleanAttribute;
 import com.exedio.cope.DateAttribute;
 import com.exedio.cope.Feature;
-import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.FunctionAttribute;
 import com.exedio.cope.Item;
-import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.MandatoryViolationException;
-import com.exedio.cope.StringAttribute;
-import com.exedio.cope.UniqueViolationException;
+import com.exedio.cope.Settable;
 import com.exedio.cope.View;
-import com.exedio.cope.pattern.Hash;
-import com.exedio.cope.util.ClassComparator;
 
 abstract class CopeAttribute extends CopeFeature
 {
@@ -176,24 +170,7 @@ abstract class CopeAttribute extends CopeFeature
 	final SortedSet<Class> getSetterExceptions()
 	{
 		final Feature instance = getInstance();
-
-		// TODO put this into rtlib
-		final boolean isfinal = instance instanceof Attribute && ((Attribute)instance).isFinal();
-		final boolean notNull = (instance instanceof Attribute && ((Attribute)instance).isMandatory()) ||
-										(instance instanceof Hash && ((Hash)instance).getStorage().isMandatory());
-		final boolean unique = instance instanceof FunctionAttribute && !((FunctionAttribute)instance).getUniqueConstraints().isEmpty();
-		final boolean isLengthConstrained = instance instanceof StringAttribute;
-		
-		final TreeSet<Class> result = new TreeSet<Class>(ClassComparator.getInstance());
-		if(unique)
-			result.add(UniqueViolationException.class);
-		if(isfinal)
-			result.add(FinalViolationException.class);
-		if(notNull)
-			result.add(MandatoryViolationException.class);
-		if(isLengthConstrained)
-			result.add(LengthViolationException.class);
-
+		final SortedSet<Class> result = ((Settable)instance).getSetterExceptions();
 		if(isBoxed())
 			result.remove(MandatoryViolationException.class);
 		return result;
@@ -201,17 +178,8 @@ abstract class CopeAttribute extends CopeFeature
 	
 	final SortedSet<Class> getToucherExceptions()
 	{
-		final Feature instance = getInstance();
-
-		// TODO put this into rtlib
-		final boolean isfinal = instance instanceof Attribute && ((Attribute)instance).isFinal();
-		final boolean unique = instance instanceof FunctionAttribute && !((FunctionAttribute)instance).getUniqueConstraints().isEmpty();
-		final TreeSet<Class> result = new TreeSet<Class>(ClassComparator.getInstance());
-		if(unique)
-			result.add(UniqueViolationException.class);
-		if(isfinal)
-			result.add(FinalViolationException.class);
-
+		final SortedSet<Class> result = getSetterExceptions();
+		result.remove(MandatoryViolationException.class);
 		return result;
 	}
 

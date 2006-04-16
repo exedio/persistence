@@ -25,6 +25,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Collections;
 import java.util.Map;
+import java.util.SortedSet;
 
 import com.exedio.cope.Attribute;
 import com.exedio.cope.DataAttribute;
@@ -79,6 +80,11 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 	public DataAttribute getSource()
 	{
 		return source;
+	}
+	
+	public final SortedSet<Class> getSetterExceptions()
+	{
+		return source.getSetterExceptions();
 	}
 	
 	public E get(final Item item)

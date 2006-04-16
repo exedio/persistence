@@ -20,24 +20,15 @@ package com.exedio.cope.instrument;
 
 import java.lang.reflect.Modifier;
 import java.util.Collection;
-import java.util.Collections;
+
+import com.exedio.cope.pattern.Hash;
 
 
 final class CopeHash extends CopeFeature
 {
-	private final String initializerArgument;
-
 	public CopeHash(final JavaAttribute javaAttribute)
 	{
 		super(javaAttribute);
-		this.initializerArgument = null;
-	}
-
-	public CopeHash(final JavaAttribute javaAttribute, final String initializerArgument)
-	{
-		super(javaAttribute);
-		assert initializerArgument!=null;
-		this.initializerArgument = initializerArgument;
 	}
 
 	final int getGeneratedCheckerModifier()
@@ -54,15 +45,8 @@ final class CopeHash extends CopeFeature
 	
 	Collection<Class> getSetterExceptions() throws InjectorParseException
 	{
-		if(initializerArgument==null)
-			return Collections.<Class>emptyList();
-		else
-		{
-			final CopeAttribute result = (CopeAttribute)type.getFeature(initializerArgument);
-			if(result==null)
-				throw new InjectorParseException("attribute >"+initializerArgument+"< in hash "+name+" not found.");
-			return result.getSetterExceptions();
-		}
+		final Hash instance = (Hash)getInstance();
+		return instance.getSetterExceptions();
 	}
 	
 }

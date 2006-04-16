@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import java.util.SortedSet;
+
 import com.exedio.cope.function.LengthView;
 import com.exedio.cope.function.UppercaseView;
 
@@ -115,6 +117,13 @@ public final class StringAttribute extends FunctionAttribute<String> implements 
 	public final int getMaximumLength()
 	{
 		return maximumLength;
+	}
+	
+	public SortedSet<Class> getSetterExceptions()
+	{
+		final SortedSet<Class> result = super.getSetterExceptions();
+		result.add(LengthViolationException.class);
+		return result;
 	}
 	
 	Column createColumn(final Table table, final String name, final boolean optional)

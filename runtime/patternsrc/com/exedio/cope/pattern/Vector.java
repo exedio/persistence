@@ -26,8 +26,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.SortedSet;
 
-import com.exedio.cope.SetValue;
 import com.exedio.cope.EqualCondition;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.FunctionAttribute;
@@ -36,6 +36,7 @@ import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.NotEqualCondition;
 import com.exedio.cope.Pattern;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.search.AndCondition;
@@ -104,6 +105,14 @@ public final class Vector<T> extends Pattern implements Settable<Collection<T>>
 	public List<FunctionAttribute<T>> getSources()
 	{
 		return Collections.unmodifiableList(Arrays.asList(sources));
+	}
+	
+	public final SortedSet<Class> getSetterExceptions()
+	{
+		final SortedSet<Class> result = sources[0].getSetterExceptions();
+		for(int i = 1; i<sources.length; i++)
+			result.addAll(sources[i].getSetterExceptions());
+		return result;
 	}
 	
 	public List<Object> get(final Item item)

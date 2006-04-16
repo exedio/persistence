@@ -22,6 +22,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
+
+import com.exedio.cope.util.ClassComparator;
 
 /**
  * An <tt>attribute</tt> represents a persistently
@@ -53,6 +57,16 @@ public abstract class Attribute<E> extends Feature implements Settable<E>
 	public final boolean isMandatory()
 	{
 		return !optional;
+	}
+	
+	public SortedSet<Class> getSetterExceptions()
+	{
+		final TreeSet<Class> result = new TreeSet<Class>(ClassComparator.getInstance());
+		if(isfinal)
+			result.add(FinalViolationException.class);
+		if(!optional)
+			result.add(MandatoryViolationException.class);
+		return result;
 	}
 	
 	abstract void checkValue(final Object value, final Item item);

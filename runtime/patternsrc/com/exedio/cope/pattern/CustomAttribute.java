@@ -25,6 +25,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.SortedSet;
 
 import com.exedio.cope.Attribute;
 import com.exedio.cope.FunctionAttribute;
@@ -103,6 +104,14 @@ public abstract class CustomAttribute<E>
 	public final List<FunctionAttribute> getStorages()
 	{
 		return storageList;
+	}
+	
+	public final SortedSet<Class> getSetterExceptions()
+	{
+		final SortedSet<Class> result = storages[0].getSetterExceptions();
+		for(int i = 1; i<storages.length; i++)
+			result.addAll(storages[i].getSetterExceptions());
+		return result;
 	}
 	
 	public final void initialize()

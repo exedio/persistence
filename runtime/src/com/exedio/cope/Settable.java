@@ -19,9 +19,16 @@
 package com.exedio.cope;
 
 import java.util.Map;
+import java.util.SortedSet;
 
 public interface Settable<E>
 {
 	SetValue map(E value);
 	Map<? extends Attribute, ? extends Object> execute(E value, Item exceptionItem);
+	
+	/**
+	 * Returns the exceptions possibly thrown,
+	 * when setting a value for this settable.
+	 */
+	SortedSet<Class> getSetterExceptions();
 }

@@ -18,12 +18,16 @@
 
 package com.exedio.cope.pattern;
 
+import java.util.SortedSet;
+
+import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.StringAttribute;
 import com.exedio.cope.Attribute.Option;
 
 public final class MD5Hash extends JavaHash
 {
 	private static final String HASH = "MD5";
+	private static final int LENGTH = 32;
 
 	public MD5Hash(final StringAttribute storage)
 	{
@@ -37,7 +41,16 @@ public final class MD5Hash extends JavaHash
 
 	public MD5Hash(final Option storageOption)
 	{
-		this(new StringAttribute(storageOption).lengthExact(32));
+		this(new StringAttribute(storageOption).lengthExact(LENGTH));
 	}
 
+	public SortedSet<Class> getSetterExceptions()
+	{
+		final SortedSet<Class> result = super.getSetterExceptions();
+		final StringAttribute storage = getStorage();
+		if(storage.getMinimumLength()<=LENGTH && storage.getMaximumLength()>=LENGTH)
+			result.remove(LengthViolationException.class);
+		return result;
+	}
+	
 }

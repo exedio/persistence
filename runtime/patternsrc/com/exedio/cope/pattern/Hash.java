@@ -20,8 +20,8 @@ package com.exedio.cope.pattern;
 
 import java.util.Collections;
 import java.util.Map;
+import java.util.SortedSet;
 
-import com.exedio.cope.SetValue;
 import com.exedio.cope.EqualCondition;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.FunctionAttribute;
@@ -32,6 +32,7 @@ import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.NotEqualCondition;
 import com.exedio.cope.Pattern;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.StringAttribute;
 import com.exedio.cope.UniqueViolationException;
@@ -63,6 +64,11 @@ public abstract class Hash extends Pattern implements Settable<String>
 	public final StringAttribute getStorage()
 	{
 		return storage;
+	}
+	
+	public SortedSet<Class> getSetterExceptions()
+	{
+		return storage.getSetterExceptions();
 	}
 	
 	public abstract String hash(String plainText);
