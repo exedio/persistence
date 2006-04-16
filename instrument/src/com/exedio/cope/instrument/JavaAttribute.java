@@ -145,18 +145,24 @@ final class JavaAttribute
 	
 	// --------------------
 	
-	private StringBuffer initializer = new StringBuffer();
+	private StringBuffer initializerBuf = new StringBuffer();
+	private String initializer = null;
 
 	public void addChar(char c)
 	{
-		initializer.append(c);
+		initializerBuf.append(c);
 	}
 	
-	private String getInitializer()
+	String getInitializer()
 	{
-		assert !file.repository.isBuildStage();
+		if(initializerBuf!=null)
+		{
+			assert initializer==null;
+			initializer = initializerBuf.length()>0 ? initializerBuf.toString() : null;
+			initializerBuf = null;
+		}
 		
-		return initializer.toString();
+		return initializer;
 	}
 	
 	Object evaluate()

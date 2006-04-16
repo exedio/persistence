@@ -56,6 +56,7 @@ public class ExampleTest extends InjectorTest
 			assertAttributeHeader("name", "String", Modifier.PRIVATE);
 		assertText("private String name;");
 		assertAttribute("name", null, name);
+		assertEquals(null, name.getInitializer());
 		assertText("\n  ");
 
 		final JavaAttribute type =
@@ -63,6 +64,7 @@ public class ExampleTest extends InjectorTest
 		assertText("private Integer type=new Integer(5);");
 		assertAttribute("type", null, type);
 		assertEquals(list("5"), type.getInitializerArguments());
+		assertEquals("new Integer(5)", type.getInitializer());
 		assertText("\n  ");
 
 		final JavaAttribute qualifiers =
@@ -72,11 +74,13 @@ public class ExampleTest extends InjectorTest
 				Modifier.PRIVATE | Modifier.VOLATILE);
 		assertText("private volatile Integer[] qualifiers;");
 		assertAttribute("qualifiers", null, qualifiers);
+		assertEquals(null, qualifiers.getInitializer());
 		assertText("\n  ");
 
 		final JavaAttribute hallo = assertAttributeHeader("hallo", "String", 0);
 		assertText("String hallo=\"hallo\";");
 		assertAttribute("hallo", null, hallo);
+		assertEquals("\"hallo\"", hallo.getInitializer());
 		assertText("\n  \n  ");
 
 		assertDocComment("/**TestCommentCommaSeparated123*/");
@@ -88,6 +92,7 @@ public class ExampleTest extends InjectorTest
 			"commaSeparated1",
 			"/**TestCommentCommaSeparated123*/",
 			commaSeparated1);
+		assertEquals(null, commaSeparated1.getInitializer());
 		assertAttributeCommaSeparated(
 			"commaSeparated2",
 			"/**TestCommentCommaSeparated123*/");
@@ -105,6 +110,7 @@ public class ExampleTest extends InjectorTest
 			"commaSeparated4",
 			"/**TestCommentCommaSeparated456*/",
 			commaSeparated4);
+		assertEquals("80", commaSeparated4.getInitializer());
 		assertAttributeCommaSeparated(
 			"commaSeparated5",
 			"/**TestCommentCommaSeparated456*/");
@@ -119,30 +125,35 @@ public class ExampleTest extends InjectorTest
 			assertAttributeHeader("uglyAttribute1", "String", 0);
 		assertText("String   uglyAttribute1=\"some'Thing{some\\\"Thing;Else\";");
 		assertAttribute("uglyAttribute1", null, uglyAttribute1);
+		assertEquals("\"some'Thing{some\\\"Thing;Else\"", uglyAttribute1.getInitializer());
 		assertText("\n  ");
 
 		final JavaAttribute uglyAttribute2 =
 			assertAttributeHeader("uglyAttribute2", "char", 0);
 		assertText("char     uglyAttribute2=';';");
 		assertAttribute("uglyAttribute2", null, uglyAttribute2);
+		assertEquals("';'", uglyAttribute2.getInitializer());
 		assertText("\n  ");
 
 		final JavaAttribute uglyAttribute3 =
 			assertAttributeHeader("uglyAttribute3", "char", 0);
 		assertText("char     uglyAttribute3='{';");
 		assertAttribute("uglyAttribute3", null, uglyAttribute3);
+		assertEquals("'{'", uglyAttribute3.getInitializer());
 		assertText("\n  ");
 
 		final JavaAttribute uglyAttribute4 =
 			assertAttributeHeader("uglyAttribute4", "char", 0);
 		assertText("char     uglyAttribute4='\"';");
 		assertAttribute("uglyAttribute4", null, uglyAttribute4);
+		assertEquals("'\"'", uglyAttribute4.getInitializer());
 		assertText("\n  ");
 
 		final JavaAttribute uglyAttribute5 =
 			assertAttributeHeader("uglyAttribute5", "char", 0);
 		assertText("char     uglyAttribute5='\\\'';");
 		assertAttribute("uglyAttribute5", null, uglyAttribute5);
+		assertEquals("'\\\''", uglyAttribute5.getInitializer());
 		assertText("\n  ");
 
 		final JavaAttribute uglyAttribute6 =
@@ -154,6 +165,7 @@ public class ExampleTest extends InjectorTest
 				+ "	 \"some'Thing{some\\\"Thing;Else\"\n"
 				+ "  };");
 		assertAttribute("uglyAttribute6", null, uglyAttribute6);
+		assertEquals("'\\\''", uglyAttribute5.getInitializer());
 		assertText("\n  ");
 
 		final JavaAttribute uglyAttribute7 =
