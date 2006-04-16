@@ -20,7 +20,6 @@ package com.exedio.cope.instrument;
 
 import java.util.Date;
 import java.util.HashMap;
-import java.util.SortedSet;
 
 import com.exedio.cope.Attribute;
 import com.exedio.cope.BooleanAttribute;
@@ -29,7 +28,6 @@ import com.exedio.cope.DayAttribute;
 import com.exedio.cope.DoubleAttribute;
 import com.exedio.cope.Feature;
 import com.exedio.cope.IntegerFunction;
-import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.LongAttribute;
 import com.exedio.cope.StringFunction;
 import com.exedio.cope.util.Day;
