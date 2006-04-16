@@ -37,20 +37,11 @@ final class CopeDataAttribute extends CopeAttribute
 		super(javaAttribute, typeClass, InputStream.class.getName());
 	}
 	
-	protected void fillSetterExceptions(final SortedSet<Class> result)
+	SortedSet<Class> getSetterExceptions()
 	{
-		final Feature instance = getInstance();
-		final boolean notNull = instance instanceof Attribute && ((Attribute)instance).isMandatory();
-
+		final SortedSet<Class> result = super.getSetterExceptions();
 		result.add(IOException.class);
-		if(notNull)
-			result.add(MandatoryViolationException.class);
-	}
-
-	protected void fillExceptionsThrownByGenericSetter(final SortedSet<Class> result)
-	{
-		result.add(IOException.class);
-		result.add(MandatoryViolationException.class);
+		return result;
 	}
 
 }

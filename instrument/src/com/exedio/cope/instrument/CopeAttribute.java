@@ -18,7 +18,6 @@
 
 package com.exedio.cope.instrument;
 
-import java.util.Collections;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -174,61 +173,32 @@ abstract class CopeAttribute extends CopeFeature
 		return setterOption.getModifier(modifier);
 	}
 	
-	private SortedSet<Class> setterExceptions = null;
-
-	final SortedSet<Class> getSetterExceptions()
-	{
-		if(setterExceptions!=null)
-			return setterExceptions;
-		
-		final TreeSet<Class> result = new TreeSet<Class>(ClassComparator.getInstance());
-		fillSetterExceptions(result);
-		this.setterExceptions = Collections.unmodifiableSortedSet(result);
-		return this.setterExceptions;
-	}
-	
-	// TODO put this into rtlib
-	protected void fillSetterExceptions(final SortedSet<Class> result)
+	SortedSet<Class> getSetterExceptions()
 	{
 		final Feature instance = getInstance();
+
+		// TODO put this into rtlib
 		final boolean isfinal = instance instanceof Attribute && ((Attribute)instance).isFinal();
 		final boolean notNull = (instance instanceof Attribute && ((Attribute)instance).isMandatory()) ||
 										(instance instanceof Hash && ((Hash)instance).getStorage().isMandatory());
 		final boolean unique = instance instanceof FunctionAttribute && !((FunctionAttribute)instance).getUniqueConstraints().isEmpty();
 		final boolean isLengthConstrained = instance instanceof StringAttribute;
-
+		
+		final TreeSet<Class> result = new TreeSet<Class>(ClassComparator.getInstance());
 		if(unique)
 			result.add(UniqueViolationException.class);
 		if(isfinal)
 			result.add(FinalViolationException.class);
-		if(notNull && !isBoxed())
+		if(notNull)
 			result.add(MandatoryViolationException.class);
 		if(isLengthConstrained)
 			result.add(LengthViolationException.class);
+
+		if(isBoxed())
+			result.remove(MandatoryViolationException.class);
+		return result;
 	}
-
-
-	private SortedSet<Class> exceptionsToCatchInSetter = null;
-
-	/**
-	 * Compute exceptions to be caught in the setter.
-	 * These are just those thrown by {@link com.exedio.cope.Item#setAttribute(FunctionAttribute,Object)}
-	 * which are not in the setters throws clause.
-	 * (see {@link #getSetterExceptions()})
-	 */
-	final SortedSet getExceptionsToCatchInSetter()
-	{
-		if(exceptionsToCatchInSetter!=null)
-			return exceptionsToCatchInSetter;
-
-		final TreeSet<Class> result = new TreeSet<Class>(ClassComparator.getInstance());
-		fillExceptionsThrownByGenericSetter(result);
-		result.removeAll(getSetterExceptions());
-		
-		this.exceptionsToCatchInSetter = Collections.unmodifiableSortedSet(result);
-		return this.exceptionsToCatchInSetter;
-	}
-
+	
 	protected void fillExceptionsThrownByGenericSetter(final SortedSet<Class> result)
 	{
 		result.add(UniqueViolationException.class);
@@ -237,50 +207,22 @@ abstract class CopeAttribute extends CopeFeature
 		result.add(FinalViolationException.class);
 	}
 
-	private SortedSet<Class> toucherExceptions = null;
-
 	final SortedSet<Class> getToucherExceptions()
 	{
-		if(toucherExceptions!=null)
-			return toucherExceptions;
-		
 		final Feature instance = getInstance();
+
+		// TODO put this into rtlib
 		final boolean isfinal = instance instanceof Attribute && ((Attribute)instance).isFinal();
 		final boolean unique = instance instanceof FunctionAttribute && !((FunctionAttribute)instance).getUniqueConstraints().isEmpty();
-
-		final TreeSet<Class> modifyableToucherExceptions = new TreeSet<Class>(ClassComparator.getInstance());
-		
-		if(unique)
-			modifyableToucherExceptions.add(UniqueViolationException.class);
-		if(isfinal)
-			modifyableToucherExceptions.add(FinalViolationException.class);
-
-		this.toucherExceptions = Collections.unmodifiableSortedSet(modifyableToucherExceptions);
-		return this.toucherExceptions;
-	}
-
-	private SortedSet<Class> exceptionsToCatchInToucher = null;
-
-	/**
-	 * Compute exceptions to be caught in the toucher.
-	 * These are just those thrown by {@link com.exedio.cope.Item#touchAttribute(DateAttribute)}
-	 * which are not in the touchers throws clause.
-	 * (see {@link #getToucherExceptions()})
-	 */
-	final SortedSet getExceptionsToCatchInToucher()
-	{
-		if(exceptionsToCatchInToucher!=null)
-			return exceptionsToCatchInToucher;
-
 		final TreeSet<Class> result = new TreeSet<Class>(ClassComparator.getInstance());
-		result.add(UniqueViolationException.class);
-		result.add(FinalViolationException.class);
-		result.removeAll(getSetterExceptions());
-		
-		this.exceptionsToCatchInToucher = Collections.unmodifiableSortedSet(result);
-		return this.exceptionsToCatchInToucher;
+		if(unique)
+			result.add(UniqueViolationException.class);
+		if(isfinal)
+			result.add(FinalViolationException.class);
+
+		return result;
 	}
-	
+
 	final static Attribute.Option getOption(final String optionString)	
 	{
 		try
