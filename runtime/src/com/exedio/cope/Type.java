@@ -535,7 +535,7 @@ public final class Type
 		return uniqueConstraints;
 	}
 	
-	private static final SetValue[] EMPTY_SET_VALUES = new SetValue[]{};
+	private static final SetValue[] EMPTY_SET_VALUES = {};
 	
 	public Item newItem(final SetValue[] setValues)
 		throws ConstraintViolationException

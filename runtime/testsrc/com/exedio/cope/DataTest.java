@@ -32,12 +32,12 @@ public class DataTest extends AbstractLibTest
 	}
 	
 	private DataItem item;
-	private final byte[] data0 = new byte[]{};
-	private final byte[] data4 = new byte[]{-86,122,-8,23};
-	private final byte[] data6 = new byte[]{-97,35,-126,86,19,-8};
-	private final byte[] data8 = new byte[]{-54,104,-63,23,19,-45,71,-23};
-	private final byte[] data10 = new byte[]{-97,19,-8,35,-126,-86,122,86,19,-8};
-	private final byte[] data11 = new byte[]{22,-97,19,-8,35,-126,-86,122,86,19,-8};
+	private final byte[] data0  = {};
+	private final byte[] data4  = {-86,122,-8,23};
+	private final byte[] data6  = {-97,35,-126,86,19,-8};
+	private final byte[] data8  = {-54,104,-63,23,19,-45,71,-23};
+	private final byte[] data10 = {-97,19,-8,35,-126,-86,122,86,19,-8};
+	private final byte[] data11 = {22,-97,19,-8,35,-126,-86,122,86,19,-8};
 	private byte[] dataBig;
 	
 	public void setUp() throws Exception
