@@ -90,7 +90,8 @@ final class CopeType
 	
 	void endBuildStage()
 	{
-		assert javaClass.file.repository.isBuildStage();
+		assert !javaClass.file.repository.isBuildStage();
+		assert !javaClass.file.repository.isGenerateStage();
 		
 		final String extname = javaClass.classExtends;
 		
@@ -115,7 +116,8 @@ final class CopeType
 
 	void addSubtype(final CopeType subtype)
 	{
-		assert javaClass.file.repository.isBuildStage();
+		assert !javaClass.file.repository.isBuildStage();
+		assert !javaClass.file.repository.isGenerateStage();
 		
 		subtypes.add(subtype);
 	}
@@ -143,7 +145,9 @@ final class CopeType
 
 	public void register(final CopeFeature feature)
 	{
-		assert javaClass.file.repository.isBuildStage();
+		assert !javaClass.file.repository.isBuildStage();
+		assert !javaClass.file.repository.isGenerateStage();
+		
 		features.add(feature);
 		final Object collision = featureMap.put(feature.name, feature);
 		assert collision==null : feature.name;

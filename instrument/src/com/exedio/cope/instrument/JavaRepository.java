@@ -69,7 +69,7 @@ final class JavaRepository
 		assert buildStage;
 		assert !generateStage;
 		
-		generateStage = true;
+		buildStage = false;
 		
 		// TODO put this into a new class CopeType
 		for(final JavaClass javaClass : javaClassByFullName.values())
@@ -120,7 +120,7 @@ final class JavaRepository
 		for(final CopeType ct : copeTypeByJavaClass.values())
 			ct.endBuildStage();
 		
-		buildStage = false;
+		generateStage = true;
 	}
 	
 	boolean isBuildStage()
@@ -199,7 +199,9 @@ final class JavaRepository
 	
 	void add(final CopeType copeType)
 	{
-		assert buildStage && !generateStage;
+		assert !buildStage;
+		assert !generateStage;
+		
 		if(copeTypeByJavaClass.put(copeType.javaClass, copeType)!=null)
 			throw new RuntimeException(copeType.javaClass.getFullName());
 		//System.out.println("--------- put cope type: "+name);
@@ -207,7 +209,7 @@ final class JavaRepository
 	
 	CopeType getCopeType(final String className)
 	{
-		assert generateStage;
+		assert !buildStage;
 		
 		final JavaClass javaClass = (className.indexOf('.')<0) ? javaClassByShortName.get(className) : javaClassByFullName.get(className);
 		if(javaClass==null)
