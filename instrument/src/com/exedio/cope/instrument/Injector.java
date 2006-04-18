@@ -425,27 +425,43 @@ final class Injector
 									tokenConsumer.addChar(c);
 								break il;
 							case '\\' :
-								read();
-								break; // ignore escaped characters
+								if(tokenConsumer!=null)
+									tokenConsumer.addChar(c);
+								final char escapedChar = read();
+								if(tokenConsumer!=null)
+									tokenConsumer.addChar(escapedChar);
+								break; // ignore escaped characters for tokenConsumer.addToken()
+							default:
+								if (tokenConsumer!=null && curlyBracketDepth==0)
+									tokenConsumer.addToken(c);
+								if(tokenConsumer!=null)
+									tokenConsumer.addChar(c);
 						}
-						if (tokenConsumer!=null && curlyBracketDepth==0)
-							tokenConsumer.addToken(c);
-						if(tokenConsumer!=null)
-							tokenConsumer.addChar(c);
 					}
 					c = read();
 					break;
 					// ignore brackets inside of literal characters
 				case '\'' :
+					if(tokenConsumer!=null)
+						tokenConsumer.addChar(c);
 					il : while (true)
 					{
-						switch (read())
+						switch(c = read())
 						{
 							case '\'' :
+								if(tokenConsumer!=null)
+									tokenConsumer.addChar(c);
 								break il;
 							case '\\' :
-								read();
-								break; // ignore escaped characters
+								if(tokenConsumer!=null)
+									tokenConsumer.addChar(c);
+								final char escapedChar = read();
+								if(tokenConsumer!=null)
+									tokenConsumer.addChar(escapedChar);
+								break; // ignore escaped characters for tokenConsumer.addToken()
+							default:
+								if(tokenConsumer!=null)
+									tokenConsumer.addChar(c);
 						}
 					}
 					c = read();
