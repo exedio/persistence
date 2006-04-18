@@ -395,9 +395,12 @@ public final class Media extends MediaPath
 				throw new RuntimeException("if data is null, content type must also be null");
 		}
 
-		final ArrayList<SetValue> values = new ArrayList<SetValue>(3);
+		final ArrayList<SetValue> values = new ArrayList<SetValue>(4);
 		this.contentType.map(values, contentType);
 		values.add(this.lastModified.map(data!=null ? new Date() : null));
+		if(data instanceof byte[])
+			values.add(this.data.map((byte[])data));
+		
 		try
 		{
 			item.set(values.toArray(new SetValue[values.size()]));
@@ -408,9 +411,9 @@ public final class Media extends MediaPath
 			throw new RuntimeException(e);
 		}
 		
-		// TODO set this via Item.set(SetValue[]) as well
+		// TODO set InputStream/File via Item.set(SetValue[]) as well
 		if(data instanceof byte[])
-			this.data.set(item, (byte[])data);
+			/* already set above */;
 		else if(data instanceof InputStream)
 			this.data.set(item, (InputStream)data);
 		else
