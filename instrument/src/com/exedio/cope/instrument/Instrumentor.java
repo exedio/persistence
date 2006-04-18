@@ -19,18 +19,6 @@
 package com.exedio.cope.instrument;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import com.exedio.cope.BooleanAttribute;
-import com.exedio.cope.DataAttribute;
-import com.exedio.cope.DateAttribute;
-import com.exedio.cope.DayAttribute;
-import com.exedio.cope.DoubleAttribute;
-import com.exedio.cope.EnumAttribute;
-import com.exedio.cope.IntegerFunction;
-import com.exedio.cope.ItemAttribute;
-import com.exedio.cope.LongAttribute;
-import com.exedio.cope.StringFunction;
 
 final class Instrumentor implements InjectionConsumer
 {
