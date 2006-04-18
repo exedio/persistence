@@ -527,7 +527,7 @@ final class Generator
 		o.write("\t{");
 		o.write(lineSeparator);
 		o.write("\t\treturn ");
-		o.write(media.type.name);
+		o.write(media.parent.name);
 		o.write('.');
 		o.write(media.name);
 		o.write('.');
@@ -568,7 +568,7 @@ final class Generator
 		o.write("\t{");
 		o.write(lineSeparator);
 		o.write("\t\t");
-		o.write(media.type.name);
+		o.write(media.parent.name);
 		o.write('.');
 		o.write(media.name);
 		o.write(".getData(this,data);");
@@ -606,7 +606,7 @@ final class Generator
 		o.write(lineSeparator);
 		
 		o.write("\t\t");
-		o.write(media.type.name);
+		o.write(media.parent.name);
 		o.write('.');
 		o.write(media.name);
 		o.write(".set(this,data,contentType);");
@@ -673,7 +673,7 @@ final class Generator
 		o.write(className);
 		o.write(')');
 
-		o.write(attribute.type.name);
+		o.write(attribute.parent.name);
 		o.write('.');
 		o.write(attribute.name);
 		o.write(".searchUnique(");
@@ -731,7 +731,7 @@ final class Generator
 		o.write(className);
 		o.write(')');
 
-		o.write(attributes[0].type.name);
+		o.write(attributes[0].parent.name);
 		o.write('.');
 		o.write(constraint.name);
 		o.write(".searchUnique(new Object[]{");
@@ -935,7 +935,7 @@ final class Generator
 		o.write(lineSeparator);
 
 		o.write("\t\treturn ");
-		o.write(vector.type.name);
+		o.write(vector.parent.name);
 		o.write('.');
 		o.write(vector.name);
 		o.write(".get(this);");
@@ -969,7 +969,7 @@ final class Generator
 		o.write(lineSeparator);
 
 		o.write("\t\t");
-		o.write(vector.type.name);
+		o.write(vector.parent.name);
 		o.write('.');
 		o.write(vector.name);
 		o.write(".set(this,");
@@ -1067,7 +1067,7 @@ final class Generator
 	throws IOException
 	{
 		o.write("\t\treturn ");
-		o.write(attribute.type.name);
+		o.write(attribute.parent.name);
 		o.write('.');
 		o.write(attribute.name);
 		o.write(".get");
@@ -1088,7 +1088,7 @@ final class Generator
 	throws IOException
 	{
 		o.write("\t\t");
-		o.write(attribute.type.name);
+		o.write(attribute.parent.name);
 		o.write('.');
 		o.write(attribute.name);
 		o.write(".set(this,");
@@ -1107,7 +1107,7 @@ final class Generator
 	throws IOException
 	{
 		o.write("\t\t");
-		o.write(attribute.type.name);
+		o.write(attribute.parent.name);
 		o.write('.');
 		o.write(attribute.name);
 		o.write(".touch(this);");
@@ -1124,7 +1124,7 @@ final class Generator
 	throws IOException
 	{
 		o.write("\t\treturn ");
-		o.write(hash.type.name);
+		o.write(hash.parent.name);
 		o.write('.');
 		o.write(hash.name);
 		o.write(".check(this,");
@@ -1143,7 +1143,7 @@ final class Generator
 	throws IOException, InjectorParseException
 	{
 		o.write("\t\t");
-		o.write(hash.type.name);
+		o.write(hash.parent.name);
 		o.write('.');
 		o.write(hash.name);
 		o.write(".set(this,");
