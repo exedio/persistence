@@ -26,10 +26,10 @@ final class CopeQualifier extends CopeFeature
 	final String uniqueConstraintString;
 	final String constraintName;
 
-	public CopeQualifier(final JavaAttribute javaAttribute)
+	public CopeQualifier(final CopeType parent, final JavaAttribute javaAttribute)
 		throws InjectorParseException
 	{
-		super(javaAttribute);
+		super(parent, javaAttribute);
 		
 		final List<String> initializerArguments = javaAttribute.getInitializerArguments();
 		if(initializerArguments.size()!=1)

@@ -31,9 +31,9 @@ final class CopeUniqueConstraint extends CopeFeature
 {
 	private final JavaAttribute javaAttribute;
 	
-	CopeUniqueConstraint(final JavaAttribute javaAttribute)
+	CopeUniqueConstraint(final CopeType parent, final JavaAttribute javaAttribute)
 	{
-		super(javaAttribute);
+		super(parent, javaAttribute);
 		this.javaAttribute = javaAttribute;
 	}
 	

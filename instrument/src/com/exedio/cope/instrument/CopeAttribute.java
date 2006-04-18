@@ -42,13 +42,14 @@ abstract class CopeAttribute extends CopeFeature
 	final boolean initial;
 	
 	CopeAttribute(
+			final CopeType parent,
 			final JavaAttribute javaAttribute,
 			final String name,
 			final Class typeClass,
 			final String persistentType)
 		throws InjectorParseException
 	{
-		super(javaAttribute, name);
+		super(parent, javaAttribute, name);
 		this.persistentType = persistentType;
 		
 		final String docComment = javaAttribute.getDocComment();
@@ -58,12 +59,13 @@ abstract class CopeAttribute extends CopeFeature
 	}
 	
 	CopeAttribute(
+			final CopeType parent,
 			final JavaAttribute javaAttribute,
 			final Class typeClass,
 			final String persistentType)
 		throws InjectorParseException
 	{
-		this(javaAttribute, javaAttribute.name, typeClass, persistentType);
+		this(parent, javaAttribute, javaAttribute.name, typeClass, persistentType);
 	}
 	
 	final int getGeneratedGetterModifier()

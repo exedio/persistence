@@ -19,34 +19,18 @@
 package com.exedio.cope.instrument;
 
 import java.lang.reflect.Modifier;
-import java.util.List;
 
 
 final class CopeMedia extends CopeFeature
 {
 	public final Option setterOption;
 
-	public CopeMedia(final JavaAttribute javaAttribute)
+	public CopeMedia(final CopeType parent, final JavaAttribute javaAttribute)
 	{
-		super(javaAttribute);
+		super(parent, javaAttribute);
 		this.setterOption = new Option(Injector.findDocTagLine(javaAttribute.getDocComment(), Instrumentor.ATTRIBUTE_SETTER), true);
 	}
 
-	private static String getString(final List initializerArguments, final int pos)
-	{
-		if(initializerArguments.size()>pos)
-		{
-			final String s = (String)initializerArguments.get(pos);
-			if(!s.startsWith("\""))
-				return null;
-			if(!s.endsWith("\""))
-				return null;
-			return s.substring(1, s.length()-1);
-		}
-		else
-			return null;
-	}
-	
 	final int getGeneratedGetterModifier()
 	{
 		return modifier & (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE) | Modifier.FINAL;

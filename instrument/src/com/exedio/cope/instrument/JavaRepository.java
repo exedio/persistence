@@ -89,8 +89,7 @@ final class JavaRepository
 			
 			if(isItem(javaClass))
 			{
-				// TODO directly put type into copeFeatures
-				new CopeType(javaClass);
+				final CopeType type = new CopeType(javaClass);
 
 				for(final JavaAttribute javaAttribute : javaClass.getAttributes())
 				{
@@ -113,31 +112,31 @@ final class JavaRepository
 									DayAttribute.class.equals(typeClass) ||
 									StringFunction.class.isAssignableFrom(typeClass))
 								{
-									new CopeNativeAttribute(javaAttribute, typeClass);
+									new CopeNativeAttribute(type, javaAttribute, typeClass);
 								}
 								else if(
 									EnumAttribute.class.equals(typeClass)||
 									ItemAttribute.class.equals(typeClass))
 								{
-									new CopeObjectAttribute(javaAttribute, typeClass);
+									new CopeObjectAttribute(type, javaAttribute, typeClass);
 								}
 								else if(DataAttribute.class.equals(typeClass))
 								{
-									new CopeDataAttribute(javaAttribute, typeClass);
+									new CopeDataAttribute(type, javaAttribute, typeClass);
 								}
 								else
 									throw new RuntimeException(typeClass.toString());
 							}
 							else if(UniqueConstraint.class.isAssignableFrom(typeClass))
-								new CopeUniqueConstraint(javaAttribute);
+								new CopeUniqueConstraint(type, javaAttribute);
 							else if(Qualifier.class.isAssignableFrom(typeClass))
-								new CopeQualifier(javaAttribute);
+								new CopeQualifier(type, javaAttribute);
 							else if(Hash.class.isAssignableFrom(typeClass))
-								new CopeHash(javaAttribute);
+								new CopeHash(type, javaAttribute);
 							else if(Vector.class.isAssignableFrom(typeClass))
-								new CopeVector(javaAttribute);
+								new CopeVector(type, javaAttribute);
 							else if(Media.class.isAssignableFrom(typeClass))
-								new CopeMedia(javaAttribute);
+								new CopeMedia(type, javaAttribute);
 						}
 					}
 				}

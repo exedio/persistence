@@ -26,9 +26,9 @@ import com.exedio.cope.pattern.Hash;
 
 final class CopeHash extends CopeFeature
 {
-	public CopeHash(final JavaAttribute javaAttribute)
+	public CopeHash(final CopeType parent, final JavaAttribute javaAttribute)
 	{
-		super(javaAttribute);
+		super(parent, javaAttribute);
 	}
 
 	final int getGeneratedCheckerModifier()

@@ -22,9 +22,9 @@ package com.exedio.cope.instrument;
 final class CopeVector extends CopeFeature
 {
 
-	public CopeVector(final JavaAttribute javaAttribute)
+	public CopeVector(final CopeType parent, final JavaAttribute javaAttribute)
 	{
-		super(javaAttribute);
+		super(parent, javaAttribute);
 	}
 
 }

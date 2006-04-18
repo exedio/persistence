@@ -22,11 +22,12 @@ final class CopeObjectAttribute extends CopeAttribute
 {
 	
 	public CopeObjectAttribute(
+			final CopeType parent,
 			final JavaAttribute javaAttribute,
 			final Class typeClass)
 		throws InjectorParseException
 	{
-		super(javaAttribute, typeClass, getPersistentType(javaAttribute));
+		super(parent, javaAttribute, typeClass, getPersistentType(javaAttribute));
 	}
 	
 	private static final String getPersistentType(final JavaAttribute javaAttribute)

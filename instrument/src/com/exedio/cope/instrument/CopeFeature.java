@@ -27,22 +27,23 @@ class CopeFeature
 	final String name;
 	final int modifier;
 	final int accessModifier;
+	// TODO rename to parent
 	final CopeType type;
 	private Feature value;
 	
-	CopeFeature(final JavaAttribute javaAttribute, final String name)
+	CopeFeature(final CopeType parent, final JavaAttribute javaAttribute, final String name)
 	{
 		this.javaAttribute = javaAttribute;
 		this.name = name;
 		this.modifier = javaAttribute.modifier;
 		this.accessModifier = javaAttribute.getAccessModifier();
-		this.type = CopeType.getCopeType(javaAttribute.parent);
+		this.type = parent;
 		type.register(this);
 	}
 	
-	CopeFeature(final JavaAttribute javaAttribute)
+	CopeFeature(final CopeType type, final JavaAttribute javaAttribute)
 	{
-		this(javaAttribute, javaAttribute.name);
+		this(type, javaAttribute, javaAttribute.name);
 	}
 	
 	final JavaClass getParent()
