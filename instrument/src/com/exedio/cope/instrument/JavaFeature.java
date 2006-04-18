@@ -87,9 +87,6 @@ abstract class JavaFeature
 			"modifier(s) "+java.lang.reflect.Modifier.toString(over)+
 			" not allowed for class feature "+name+
 			" of type "+getClass().getName()+'.');
-		
-		if(parent!=null)
-			parent.add(this);
 	}
 
 	/**

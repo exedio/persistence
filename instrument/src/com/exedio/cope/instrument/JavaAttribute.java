@@ -50,6 +50,8 @@ final class JavaAttribute
 		super(parent.file, parent, modifiers, type, name);
 		if (type == null)
 			throw new RuntimeException();
+		
+		parent.add(this);
 	}
 
 	/**

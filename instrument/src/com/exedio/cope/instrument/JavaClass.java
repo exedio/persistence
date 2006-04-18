@@ -63,17 +63,11 @@ final class JavaClass extends JavaFeature
 		file.add(this);
 	}
 	
-	// TODO take JavaAttribute
-	void add(final JavaFeature f)
+	void add(final JavaAttribute a)
 	{
 		assert file.repository.isBuildStage();
 		
-		if(!(f instanceof JavaAttribute))
-			return;
-		
-		final JavaAttribute a = (JavaAttribute)f;
-		
-		if(attributes.put(f.name, a)!=null)
+		if(attributes.put(a.name, a)!=null)
 			throw new RuntimeException(name+'/'+a.name);
 		attributeList.add(a);
 	}
