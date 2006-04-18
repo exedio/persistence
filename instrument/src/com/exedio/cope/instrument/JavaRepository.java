@@ -79,15 +79,8 @@ final class JavaRepository
 			
 			if(isItem(javaClass))
 			{
-				final String docComment = javaClass.getDocComment();
-				final String typeOption = Injector.findDocTagLine(docComment, Instrumentor.CLASS_TYPE);
-				final String initialConstructorOption      = Injector.findDocTagLine(docComment, Instrumentor.CLASS_INITIAL_CONSTRUCTOR);
-				final String genericConstructorOption      = Injector.findDocTagLine(docComment, Instrumentor.CLASS_GENERIC_CONSTRUCTOR);
-				final String reactivationConstructorOption = Injector.findDocTagLine(docComment, Instrumentor.CLASS_REACTIVATION_CONSTRUCTOR);
-
 				// TODO directly put type into copeFeatures
-				// TODO parse docComment in CopeType constructor
-				new CopeType(javaClass, typeOption, initialConstructorOption, genericConstructorOption, reactivationConstructorOption);
+				new CopeType(javaClass);
 
 				for(final JavaAttribute javaAttribute : javaClass.getAttributes())
 				{

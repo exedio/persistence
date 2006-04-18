@@ -54,22 +54,19 @@ final class CopeType
 	private final ArrayList<CopeFeature> features = new ArrayList<CopeFeature>();
 	private final TreeMap<String, CopeFeature> featureMap = new TreeMap<String, CopeFeature>();
 	
-	public CopeType(
-			final JavaClass javaClass,
-			final String typeOption,
-			final String initialConstructorOption,
-			final String genericConstructorOption,
-			final String reactivationConstructorOption)
+	public CopeType(final JavaClass javaClass)
 		throws InjectorParseException
 	{
 		this.javaClass = javaClass;
 		this.name = javaClass.name;
 		this.accessModifier = javaClass.getAccessModifier();
 		copeTypeByJavaClass.put(javaClass, this);
-		this.typeOption = new Option(typeOption, false);
-		this.initialConstructorOption      = new Option(initialConstructorOption,      false);
-		this.genericConstructorOption      = new Option(genericConstructorOption,      false);
-		this.reactivationConstructorOption = new Option(reactivationConstructorOption, false);
+		
+		final String docComment = javaClass.getDocComment();
+		this.typeOption                    = new Option(Injector.findDocTagLine(docComment, Instrumentor.CLASS_TYPE),                     false);
+		this.initialConstructorOption      = new Option(Injector.findDocTagLine(docComment, Instrumentor.CLASS_INITIAL_CONSTRUCTOR),      false);
+		this.genericConstructorOption      = new Option(Injector.findDocTagLine(docComment, Instrumentor.CLASS_GENERIC_CONSTRUCTOR),      false);
+		this.reactivationConstructorOption = new Option(Injector.findDocTagLine(docComment, Instrumentor.CLASS_REACTIVATION_CONSTRUCTOR), false);
 		//System.out.println("copeTypeByJavaClass "+javaClass.getName());
 		javaClass.nameSpace.importStatic(Item.class);
 		javaClass.file.repository.add(this);
