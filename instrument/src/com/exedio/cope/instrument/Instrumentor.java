@@ -71,7 +71,6 @@ final class Instrumentor implements InjectionConsumer
 	public void onClassEnd(final JavaClass javaClass)
 	throws InjectorParseException
 	{
-		javaClass.notifyClassEnd();
 		if(class_state!=javaClass)
 			throw new RuntimeException();
 		class_state = class_state_stack.remove(class_state_stack.size()-1);

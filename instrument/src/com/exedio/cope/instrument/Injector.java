@@ -571,6 +571,7 @@ final class Injector
 				final JavaClass result = new JavaClass(javaFile, parent, modifiers, enumName, null, Collections.<String>emptyList());
 				
 				consumer.onClass(result);
+				result.setClassEndPosition(output.length());
 				consumer.onClassEnd(result);
 
 				discardNextFeature=false;
@@ -913,6 +914,7 @@ final class Injector
 			}
 		}
 
+		jc.setClassEndPosition(output.length());
 		consumer.onClassEnd(jc);
 		return jc;
 	}

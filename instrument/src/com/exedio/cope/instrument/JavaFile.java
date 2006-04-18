@@ -147,10 +147,4 @@ final class JavaFile
 		}
 	}
 	
-	int getBufferPosition()
-	{
-		assert repository.isBuildStage();
-		return buffer.length();
-	}
-	
 }

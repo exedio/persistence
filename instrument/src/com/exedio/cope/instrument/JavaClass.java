@@ -137,14 +137,13 @@ final class JavaClass extends JavaFeature
 		return docComment;
 	}
 	
-	void notifyClassEnd()
+	void setClassEndPosition(final int classEndPosition)
 	{
 		assert file.repository.isBuildStage();
-		assert classEndPosition==-1;
-		
-		classEndPosition = file.getBufferPosition();
-		
+		assert this.classEndPosition==-1;
 		assert classEndPosition>=0;
+		
+		this.classEndPosition = classEndPosition;
 	}
 	
 	int getClassEndPosition()
