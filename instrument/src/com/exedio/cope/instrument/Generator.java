@@ -37,10 +37,11 @@ import java.util.TreeSet;
 import java.util.zip.CRC32;
 import java.util.zip.CheckedOutputStream;
 
-import com.exedio.cope.SetValue;
+import com.exedio.cope.FinalViolationException;
+import com.exedio.cope.Item;
 import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.MandatoryViolationException;
-import com.exedio.cope.FinalViolationException;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.util.ReactivationConstructorDummy;
@@ -363,7 +364,7 @@ final class Generator
 		o.write("\t * ");
 		o.write(CONSTRUCTOR_REACTIVATION);
 		o.write(lineSeparator);
-		o.write("\t * @see Item#Item("
+		o.write("\t * @see " + Item.class.getName() + "#Item("
 			+ ReactivationConstructorDummy.class.getName() + ",int)");
 		o.write(lineSeparator);
 		writeCommentFooter();
