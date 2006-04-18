@@ -26,10 +26,12 @@ final class CopeQualifier extends CopeFeature
 	final String uniqueConstraintString;
 	final String constraintName;
 
-	public CopeQualifier(final JavaAttribute javaAttribute, final List<String> initializerArguments)
+	public CopeQualifier(final JavaAttribute javaAttribute)
 		throws InjectorParseException
 	{
 		super(javaAttribute);
+		
+		final List<String> initializerArguments = javaAttribute.getInitializerArguments();
 		if(initializerArguments.size()!=1)
 			throw new InjectorParseException("Qualifier must have 1 argument, but has "+initializerArguments);
 		uniqueConstraintString = initializerArguments.get(0);

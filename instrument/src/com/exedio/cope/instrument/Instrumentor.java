@@ -189,43 +189,6 @@ final class Instrumentor implements InjectionConsumer
 			throw new RuntimeException(typeClass.toString());
 	}
 	
-	// TODO move to CopeModel
-	static final void handleUniqueConstraint(final JavaAttribute ja)
-		throws InjectorParseException
-	{
-		new CopeUniqueConstraint(ja);
-	}
-	
-	// TODO move to CopeModel
-	static final void handleQualifier(final JavaAttribute ja)
-		throws InjectorParseException
-	{
-		final List<String> initializerArguments = ja.getInitializerArguments();
-		//System.out.println("---------"+initializerArguments);
-		new CopeQualifier(ja, initializerArguments);
-	}
-
-	// TODO move to CopeModel
-	static final void handleHash(final JavaAttribute ja)
-		throws InjectorParseException
-	{
-		new CopeHash(ja);
-	}
-
-	// TODO move to CopeModel
-	static final void handleVector(final JavaAttribute ja)
-		throws InjectorParseException
-	{
-		new CopeVector(ja);
-	}
-	
-	// TODO move to CopeModel
-	static final void handleMedia(final JavaAttribute ja)
-		throws InjectorParseException
-	{
-		new CopeMedia(ja);
-	}
-
 	public void onClassFeature(final JavaFeature jf, final String docComment)
 	throws InjectorParseException
 	{

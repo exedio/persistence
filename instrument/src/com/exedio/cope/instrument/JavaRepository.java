@@ -95,15 +95,15 @@ final class JavaRepository
 							if(Function.class.isAssignableFrom(typeClass)||Attribute.class.isAssignableFrom(typeClass))
 								Instrumentor.handleAttribute(javaAttribute, typeClass);
 							else if(UniqueConstraint.class.isAssignableFrom(typeClass))
-								Instrumentor.handleUniqueConstraint(javaAttribute);
+								new CopeUniqueConstraint(javaAttribute);
 							else if(Qualifier.class.isAssignableFrom(typeClass))
-								Instrumentor.handleQualifier(javaAttribute);
+								new CopeQualifier(javaAttribute);
 							else if(Hash.class.isAssignableFrom(typeClass))
-								Instrumentor.handleHash(javaAttribute);
+								new CopeHash(javaAttribute);
 							else if(Vector.class.isAssignableFrom(typeClass))
-								Instrumentor.handleVector(javaAttribute);
+								new CopeVector(javaAttribute);
 							else if(Media.class.isAssignableFrom(typeClass))
-								Instrumentor.handleMedia(javaAttribute);
+								new CopeMedia(javaAttribute);
 						}
 					}
 				}
