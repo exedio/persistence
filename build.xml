@@ -12,6 +12,13 @@
 					classpath="lib/exedio-jspm.jar" />
 	</target>
 	
+	<path id="emma.lib">
+		<pathelement location="lib/emma.jar" />
+		<pathelement location="lib/emma_ant.jar" />
+	</path>
+	
+	<taskdef resource="emma_ant.properties" classpathref="emma.lib" />
+	
 	<macrodef name="ljavac">
 		<attribute name="srcdir" />
 		<attribute name="destdir" />
@@ -333,6 +340,50 @@
 									file="build/runtime/teardown.@{db}/cope.properties" />
 					<assertions><enable/></assertions>
 				</java>
+			</body>
+		</foreachdb>
+	</target>
+
+	<target name="runtime.emma" depends="runtime.test.compile">
+		<!-- TODO does not yet work -->
+		
+		<delete file="metadata.emma" />
+		<emma>
+			<instr destdir="build/runtime/classes.emma" metadatafile="metadata.emma" merge="no">
+				<instrpath>
+					<fileset dir="build/runtime/classes" />
+				</instrpath>
+			</instr>
+		</emma>
+		
+		<foreachdb message="Checking Test Coverage" skipSwitch="runtime.test">
+			<body>
+				<mkdir dir="build/runtime/emma.@{db}/data" />
+				<copy file="@{db.file}"
+						tofile="build/runtime/emma.@{db}/cope.properties">
+					<filterset>
+						<filter token="DATADIR_PATH" value="build/runtime/emma.@{db}/data" />
+					</filterset>
+				</copy>
+				<junit taskname="emma @{db}" fork="yes"
+						haltonerror="true" haltonfailure="true"
+						dir="${basedir}"
+						showoutput="true" printsummary="true">
+					<formatter type="brief" usefile="false" />
+					<classpath>
+						<pathelement location="build/runtime/classes.emma" />
+						<pathelement location="build/runtime/testmodelclasses" />
+						<pathelement location="build/runtime/testclasses" />
+						<pathelement location="lib/pcj.jar" />
+						<pathelement location="lib/commons-collections.jar" />
+						<pathelement location="lib/servlet-api.jar" />
+						<pathelement location="lib/@{db.driver}" />
+						<pathelement location="lib/servlet-api.jar" />
+					</classpath>
+					<test name="com.exedio.cope.PackageTest" />
+					<sysproperty key="com.exedio.cope.properties" file="build/runtime/emma.@{db}/cope.properties" />
+					<assertions><enable/></assertions>
+				</junit>
 			</body>
 		</foreachdb>
 	</target>
