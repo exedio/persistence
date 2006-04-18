@@ -185,25 +185,4 @@ abstract class CopeAttribute extends CopeFeature
 		return result;
 	}
 
-	final static Attribute.Option getOption(final String optionString)	
-	{
-		try
-		{
-			//System.out.println(optionString);
-			final Attribute.Option result = 
-				(Attribute.Option)Item.class.getDeclaredField(optionString).get(null);
-			if(result==null)
-				throw new NullPointerException(optionString);
-			return result;
-		}
-		catch(NoSuchFieldException e)
-		{
-			throw new RuntimeException(optionString, e);
-		}
-		catch(IllegalAccessException e)
-		{
-			throw new RuntimeException(optionString, e);
-		}
-	}
-	
 }
