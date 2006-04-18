@@ -191,12 +191,4 @@ final class Instrumentor implements InjectionConsumer
 		}
 	}
 	
-	// TODO use Injector#hasTag
-	static final boolean containsTag(final String docComment, final String tagName)
-	{
-		return docComment!=null && docComment.indexOf('@'+tagName)>=0 ;
-	}
-
 }
-
-
