@@ -23,7 +23,6 @@ import com.exedio.cope.StringAttribute;
 
 /**
  * An item having a unique attribute.
- * @cope.persistent
  * @author Ralf Wiebicke
  */
 public class ItemWithSingleUnique extends Item

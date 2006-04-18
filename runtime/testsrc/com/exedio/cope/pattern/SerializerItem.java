@@ -23,7 +23,6 @@ import java.util.Map;
 import com.exedio.cope.Item;
 
 /**
- * @cope.persistent
  * @cope.generic.constructor package
  * @author Ralf Wiebicke
  */

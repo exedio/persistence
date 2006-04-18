@@ -24,7 +24,6 @@ import com.exedio.cope.Item;
 import com.exedio.cope.function.SumView;
 
 /**
- * @cope.persistent
  * @author Ralf Wiebicke
  */
 public class SumItem extends Item

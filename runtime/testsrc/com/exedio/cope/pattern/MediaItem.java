@@ -24,7 +24,6 @@ import com.exedio.cope.pattern.Media;
 import com.exedio.cope.pattern.MediaRedirect;
 
 /**
- * @cope.persistent
  * @author Ralf Wiebicke
  * @cope.type none
  */

@@ -22,7 +22,6 @@ import com.exedio.cope.Item;
 import com.exedio.cope.pattern.Qualifier;
 
 /**
- * @cope.persistent
  */
 public class Qualified extends Item
 {

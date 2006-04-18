@@ -25,7 +25,6 @@ import com.exedio.cope.UniqueConstraint;
 
 /**
  * An item having two attributes and a unique constraint over these attributes.
- * @cope.persistent
  * @author Ralf Wiebicke
  */
 public class ItemWithDoubleUnique extends Item

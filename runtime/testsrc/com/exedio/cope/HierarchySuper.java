@@ -24,7 +24,6 @@ import com.exedio.cope.StringAttribute;
 import com.exedio.cope.function.UppercaseView;
 
 /**
- * @cope.persistent
  * @author Ralf Wiebicke
  */
 public abstract class HierarchySuper extends Item

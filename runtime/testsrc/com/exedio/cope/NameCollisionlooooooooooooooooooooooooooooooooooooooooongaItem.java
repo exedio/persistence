@@ -23,7 +23,6 @@ package com.exedio.cope;
  * {@link NameCollisionlooooooooooooooooooooooooooooooooooooooooongbItem},
  * after trimming of database names
  * 
- * @cope.persistent
  * @author Ralf Wiebicke
  */
 public class NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem extends Item

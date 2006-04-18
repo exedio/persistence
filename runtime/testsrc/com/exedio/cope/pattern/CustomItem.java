@@ -29,7 +29,6 @@ import com.exedio.cope.Item;
 import com.exedio.cope.StringAttribute;
 
 /**
- * @cope.persistent
  */
 public final class CustomItem extends Item
 {

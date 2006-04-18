@@ -27,7 +27,6 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.StringAttribute;
 
 /**
- * @cope.persistent
  * @cope.generic.constructor package
  * @author Ralf Wiebicke
  */

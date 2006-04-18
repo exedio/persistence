@@ -22,7 +22,6 @@ import com.exedio.cope.Item;
 import com.exedio.cope.ItemAttribute;
 
 /**
- * @cope.persistent
  * @author Ralf Wiebicke
  */
 public class VectorRelationItem extends Item

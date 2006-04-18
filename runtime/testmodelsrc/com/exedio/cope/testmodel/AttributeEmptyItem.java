@@ -25,7 +25,6 @@ import com.exedio.cope.UniqueConstraint;
 
 
 /**
- * @cope.persistent
  * @author Ralf Wiebicke
  */
 public class AttributeEmptyItem extends Item

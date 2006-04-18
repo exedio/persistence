@@ -19,7 +19,6 @@
 package com.exedio.cope;
 
 /**
- *	@cope.persistent
  */
 public class CacheIsolationItem extends Item
 {

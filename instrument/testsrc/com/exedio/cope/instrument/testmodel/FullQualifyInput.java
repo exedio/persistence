@@ -21,7 +21,6 @@ package com.exedio.cope.instrument.testmodel;
 import com.exedio.cope.Item;
 
 /**
- *	@cope.persistent
  */
 public class FullQualifyInput extends com.exedio.cope.instrument.testmodel.Input
 {

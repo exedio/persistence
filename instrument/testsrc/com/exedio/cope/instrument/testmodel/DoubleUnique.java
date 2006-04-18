@@ -25,7 +25,6 @@ import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.instrument.testmodel.sub.SubTarget;
 
 /**
- * @cope.persistent
  */
 public class DoubleUnique extends Item
 {

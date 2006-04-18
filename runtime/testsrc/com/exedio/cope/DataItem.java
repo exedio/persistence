@@ -24,7 +24,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 /**
- * @cope.persistent
  * @author Ralf Wiebicke
  */
 public class DataItem extends Item

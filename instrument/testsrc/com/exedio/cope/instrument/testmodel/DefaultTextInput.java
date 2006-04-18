@@ -21,7 +21,6 @@ package com.exedio.cope.instrument.testmodel;
 import com.exedio.cope.Item;
 
 /**
- *	@cope.persistent
  */
 public class DefaultTextInput extends Input
 {

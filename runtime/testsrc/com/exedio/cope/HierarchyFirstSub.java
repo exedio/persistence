@@ -23,7 +23,6 @@ import com.exedio.cope.StringAttribute;
 import com.exedio.cope.function.UppercaseView;
 
 /**
- * @cope.persistent
  * @author Ralf Wiebicke
  */
 public class HierarchyFirstSub extends HierarchySuper

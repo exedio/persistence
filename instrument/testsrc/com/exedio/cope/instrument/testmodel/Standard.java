@@ -32,7 +32,6 @@ import com.exedio.cope.pattern.MD5Hash;
 import com.exedio.cope.pattern.Media;
 
 /**
- * @cope.persistent
  * TODO: length constraint
  * TODO: unique with multiple attributes
  * TODO: item attributes

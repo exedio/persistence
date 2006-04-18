@@ -24,7 +24,6 @@ import com.exedio.cope.Item;
 import com.exedio.cope.StringAttribute;
 
 /**
- * @cope.persistent
  * @cope.generic.constructor package
  * @author Ralf Wiebicke
  */

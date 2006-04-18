@@ -21,7 +21,6 @@ package com.exedio.cope;
 import java.io.Serializable;
 
 /**
- * @cope.persistent
  * @author Ralf Wiebicke
  */
 public class ItemSerializationItem extends Item implements Serializable

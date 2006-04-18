@@ -19,7 +19,6 @@
 package com.exedio.cope;
 
 /**
- * @cope.persistent
  * @author Ralf Wiebicke
  */
 public class DeleteOtherItem extends Item

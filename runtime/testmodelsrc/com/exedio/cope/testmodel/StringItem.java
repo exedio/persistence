@@ -30,7 +30,6 @@ import com.exedio.cope.function.SumView;
 import com.exedio.cope.function.UppercaseView;
 
 /**
- * @cope.persistent
  * @cope.generic.constructor public
  * @author Ralf Wiebicke
  */

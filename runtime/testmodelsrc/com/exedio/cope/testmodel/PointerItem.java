@@ -23,7 +23,6 @@ import com.exedio.cope.ItemAttribute;
 import com.exedio.cope.StringAttribute;
 
 /**
- * @cope.persistent
  * @author Ralf Wiebicke
  */
 public class PointerItem extends Item

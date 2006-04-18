@@ -21,7 +21,6 @@ package com.exedio.cope;
 
 /**
  * Tests a sub type without any declared attributes but with inherited attributes.
- * @cope.persistent
  * @author Ralf Wiebicke
  */
 public class HierarchyEmptySuper extends Item

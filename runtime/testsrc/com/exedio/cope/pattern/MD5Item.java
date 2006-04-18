@@ -23,7 +23,6 @@ import com.exedio.cope.StringAttribute;
 import com.exedio.cope.pattern.MD5Hash;
 
 /**
- * @cope.persistent
  * @author Ralf Wiebicke
  */
 public class MD5Item extends Item

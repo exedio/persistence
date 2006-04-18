@@ -24,7 +24,6 @@ import com.exedio.cope.pattern.Qualifier;
 import com.exedio.cope.testmodel.QualifiedIntegerEnumQualifier.KeyEnum;
 
 /**
- * @cope.persistent
  * @author Ralf Wiebicke
  */
 public class QualifiedItem extends Item

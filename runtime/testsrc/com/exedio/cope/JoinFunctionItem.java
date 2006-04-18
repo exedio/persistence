@@ -20,7 +20,6 @@ package com.exedio.cope;
 
 
 /**
- * @cope.persistent
  * @author Ralf Wiebicke
  */
 public class JoinFunctionItem extends Item

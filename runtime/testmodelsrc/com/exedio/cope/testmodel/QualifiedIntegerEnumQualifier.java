@@ -26,7 +26,6 @@ import com.exedio.cope.StringAttribute;
 import com.exedio.cope.UniqueConstraint;
 
 /**
- * @cope.persistent
  * @author Ralf Wiebicke
  */
 public class QualifiedIntegerEnumQualifier extends Item

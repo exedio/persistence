@@ -25,7 +25,6 @@ import com.exedio.cope.StringAttribute;
 import com.exedio.cope.UniqueConstraint;
 
 /**
- * @cope.persistent
  */
 public class QualifiedName extends Item
 {

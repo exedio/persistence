@@ -24,7 +24,6 @@ import com.exedio.cope.Item;
 import com.exedio.cope.LongAttribute;
 
 /**
- * @cope.persistent
  */
 public class Sub extends Super
 {

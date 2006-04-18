@@ -22,7 +22,6 @@ import com.exedio.cope.Item;
 import com.exedio.cope.StringAttribute;
 
 /**
- * @cope.persistent
  * @author Ralf Wiebicke
  */
 public class HierarchySecondSub extends HierarchySuper

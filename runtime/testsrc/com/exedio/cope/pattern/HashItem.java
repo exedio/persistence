@@ -24,7 +24,6 @@ import com.exedio.cope.pattern.Hash;
 import com.exedio.cope.testmodel.WrapHash;
 
 /**
- * @cope.persistent
  * @cope.generic.constructor package
  * @author Ralf Wiebicke
  */
