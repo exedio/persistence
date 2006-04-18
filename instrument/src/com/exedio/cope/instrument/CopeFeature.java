@@ -23,20 +23,20 @@ import com.exedio.cope.Feature;
 
 class CopeFeature
 {
+	final CopeType parent;
 	private final JavaAttribute javaAttribute;
 	final String name;
 	final int modifier;
 	final int accessModifier;
-	final CopeType parent;
 	private Feature value;
 	
 	CopeFeature(final CopeType parent, final JavaAttribute javaAttribute, final String name)
 	{
+		this.parent = parent;
 		this.javaAttribute = javaAttribute;
 		this.name = name;
 		this.modifier = javaAttribute.modifier;
 		this.accessModifier = javaAttribute.getAccessModifier();
-		this.parent = parent;
 		parent.register(this);
 	}
 	
