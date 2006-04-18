@@ -25,7 +25,6 @@ import com.exedio.cope.BooleanAttribute;
 import com.exedio.cope.DateAttribute;
 import com.exedio.cope.Feature;
 import com.exedio.cope.FunctionAttribute;
-import com.exedio.cope.Item;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Settable;
 import com.exedio.cope.View;
@@ -53,9 +52,9 @@ abstract class CopeAttribute extends CopeFeature
 		this.persistentType = persistentType;
 		
 		final String docComment = javaAttribute.getDocComment();
-		this.getterOption = new Option(Injector.findDocTagLine(docComment, Instrumentor.ATTRIBUTE_GETTER), true);
-		this.setterOption = new Option(Injector.findDocTagLine(docComment, Instrumentor.ATTRIBUTE_SETTER), true);
-		this.initial = Injector.hasTag(docComment, Instrumentor.ATTRIBUTE_INITIAL);
+		this.getterOption = new Option(Injector.findDocTagLine(docComment, TAG_GETTER), true);
+		this.setterOption = new Option(Injector.findDocTagLine(docComment, TAG_SETTER), true);
+		this.initial = Injector.hasTag(docComment, TAG_INITIAL);
 	}
 	
 	CopeAttribute(

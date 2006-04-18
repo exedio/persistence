@@ -28,7 +28,7 @@ final class CopeMedia extends CopeFeature
 	public CopeMedia(final CopeType parent, final JavaAttribute javaAttribute)
 	{
 		super(parent, javaAttribute);
-		this.setterOption = new Option(Injector.findDocTagLine(javaAttribute.getDocComment(), Instrumentor.ATTRIBUTE_SETTER), true);
+		this.setterOption = new Option(Injector.findDocTagLine(javaAttribute.getDocComment(), TAG_SETTER), true);
 	}
 
 	final int getGeneratedGetterModifier()

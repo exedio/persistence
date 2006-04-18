@@ -23,6 +23,11 @@ import com.exedio.cope.Feature;
 
 class CopeFeature
 {
+	static final String TAG_PREFIX = "cope.";
+	static final String TAG_GETTER  = TAG_PREFIX + "getter";
+	static final String TAG_SETTER  = TAG_PREFIX + "setter";
+	static final String TAG_INITIAL = TAG_PREFIX + "initial";
+
 	final CopeType parent;
 	private final JavaAttribute javaAttribute;
 	final String name;
