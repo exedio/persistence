@@ -53,12 +53,6 @@ final class Instrumentor implements InjectionConsumer
 		// nothing to do here
 	}
 	
-	private void handleClassComment(final JavaClass jc, final String docComment)
-			throws InjectorParseException
-	{
-		jc.setDocComment(docComment);
-	}
-	
 	public void onClass(final JavaClass jc)
 			throws InjectorParseException
 	{
@@ -69,7 +63,7 @@ final class Instrumentor implements InjectionConsumer
 		
 		if(lastFileDocComment != null)
 		{
-			handleClassComment(jc, lastFileDocComment);
+			jc.setDocComment(lastFileDocComment);
 			lastFileDocComment = null;
 		}
 	}
@@ -118,7 +112,7 @@ final class Instrumentor implements InjectionConsumer
 		if (class_state != null)
 		{
 			// handle doccomment immediately
-			handleClassComment(class_state, docComment);
+			class_state.setDocComment(docComment);
 		}
 		else
 		{
