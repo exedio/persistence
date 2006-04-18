@@ -26,9 +26,19 @@ import java.util.List;
 import bsh.UtilEvalError;
 
 import com.exedio.cope.Attribute;
+import com.exedio.cope.BooleanAttribute;
+import com.exedio.cope.DataAttribute;
+import com.exedio.cope.DateAttribute;
+import com.exedio.cope.DayAttribute;
+import com.exedio.cope.DoubleAttribute;
+import com.exedio.cope.EnumAttribute;
 import com.exedio.cope.Function;
+import com.exedio.cope.IntegerFunction;
 import com.exedio.cope.Item;
+import com.exedio.cope.ItemAttribute;
+import com.exedio.cope.LongAttribute;
 import com.exedio.cope.StringAttribute;
+import com.exedio.cope.StringFunction;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.pattern.Hash;
 import com.exedio.cope.pattern.Media;
@@ -93,7 +103,31 @@ final class JavaRepository
 						if(typeClass!=null)
 						{
 							if(Function.class.isAssignableFrom(typeClass)||Attribute.class.isAssignableFrom(typeClass))
-								Instrumentor.handleAttribute(javaAttribute, typeClass);
+							{
+								if(
+									IntegerFunction.class.isAssignableFrom(typeClass) ||
+									LongAttribute.class.equals(typeClass) ||
+									DoubleAttribute.class.equals(typeClass) ||
+									BooleanAttribute.class.equals(typeClass) ||
+									DateAttribute.class.equals(typeClass) ||
+									DayAttribute.class.equals(typeClass) ||
+									StringFunction.class.isAssignableFrom(typeClass))
+								{
+									new CopeNativeAttribute(javaAttribute, typeClass);
+								}
+								else if(
+									EnumAttribute.class.equals(typeClass)||
+									ItemAttribute.class.equals(typeClass))
+								{
+									new CopeObjectAttribute(javaAttribute, typeClass);
+								}
+								else if(DataAttribute.class.equals(typeClass))
+								{
+									new CopeDataAttribute(javaAttribute, typeClass);
+								}
+								else
+									throw new RuntimeException(typeClass.toString());
+							}
 							else if(UniqueConstraint.class.isAssignableFrom(typeClass))
 								new CopeUniqueConstraint(javaAttribute);
 							else if(Qualifier.class.isAssignableFrom(typeClass))

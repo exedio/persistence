@@ -157,38 +157,6 @@ final class Instrumentor implements InjectionConsumer
 		// nothing to do here
 	}
 	
-	// TODO move to CopeModel
-	static final void handleAttribute(final JavaAttribute ja, final Class typeClass)
-		throws InjectorParseException
-	{
-		if(
-			IntegerFunction.class.isAssignableFrom(typeClass) ||
-			LongAttribute.class.equals(typeClass) ||
-			DoubleAttribute.class.equals(typeClass) ||
-			BooleanAttribute.class.equals(typeClass) ||
-			DateAttribute.class.equals(typeClass) ||
-			DayAttribute.class.equals(typeClass) ||
-			StringFunction.class.isAssignableFrom(typeClass))
-		{
-			new CopeNativeAttribute(
-				ja, typeClass);
-		}
-		else if(
-			EnumAttribute.class.equals(typeClass)||
-			ItemAttribute.class.equals(typeClass))
-		{
-			new CopeObjectAttribute(
-				ja, typeClass);
-		}
-		else if(DataAttribute.class.equals(typeClass))
-		{
-			new CopeDataAttribute(
-				ja, typeClass);
-		}
-		else
-			throw new RuntimeException(typeClass.toString());
-	}
-	
 	public void onClassFeature(final JavaFeature jf, final String docComment)
 	throws InjectorParseException
 	{
