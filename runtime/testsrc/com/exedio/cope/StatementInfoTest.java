@@ -87,12 +87,18 @@ public class StatementInfoTest extends TestmodelTest
 							final Iterator<StatementInfo> planSelectChilds = planSelect.getChilds().iterator();
 							{
 								final StatementInfo planTableAccess = planSelectChilds.next();
-								assertEquals("TABLE ACCESS (BY INDEX ROWID) on UNIQUE_ITEMS[1]", planTableAccess.getText());
+								assertTrue(
+										planTableAccess.getText(),
+										"TABLE ACCESS (BY INDEX ROWID) on UNIQUE_ITEMS[1]".equals(planTableAccess.getText()) ||
+										"TABLE ACCESS (BY INDEX ROWID) on UNIQUE_ITEMS[1][TABLE] cost=1 cardinality=1 bytes=115".equals(planTableAccess.getText()));
 								{
 									final Iterator<StatementInfo> planTableAccessChilds = planTableAccess.getChilds().iterator();
 									{
 										final StatementInfo planUnique = planTableAccessChilds.next();
-										assertEquals("INDEX (UNIQUE SCAN) on IX_ITEMWSU_US[UNIQUE] search_columns=1", planUnique.getText());
+										assertTrue(
+												planUnique.getText(),
+												"INDEX (UNIQUE SCAN) on IX_ITEMWSU_US[UNIQUE] search_columns=1".equals(planUnique.getText()) ||
+												"INDEX (UNIQUE SCAN) on IX_ITEMWSU_US[INDEX (UNIQUE)] search_columns=1 cost=1 cardinality=1".equals(planUnique.getText()));
 										assertEquals(list(), planUnique.getChilds());
 									}
 									assertTrue(!planTableAccessChilds.hasNext());
