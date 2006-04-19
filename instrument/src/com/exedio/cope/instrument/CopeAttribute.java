@@ -43,28 +43,17 @@ abstract class CopeAttribute extends CopeFeature
 	CopeAttribute(
 			final CopeType parent,
 			final JavaAttribute javaAttribute,
-			final String name,
 			final Class typeClass,
 			final String persistentType)
 		throws InjectorParseException
 	{
-		super(parent, javaAttribute, name);
+		super(parent, javaAttribute);
 		this.persistentType = persistentType;
 		
 		final String docComment = javaAttribute.getDocComment();
 		this.getterOption = new Option(Injector.findDocTagLine(docComment, TAG_GETTER), true);
 		this.setterOption = new Option(Injector.findDocTagLine(docComment, TAG_SETTER), true);
 		this.initial = Injector.hasTag(docComment, TAG_INITIAL);
-	}
-	
-	CopeAttribute(
-			final CopeType parent,
-			final JavaAttribute javaAttribute,
-			final Class typeClass,
-			final String persistentType)
-		throws InjectorParseException
-	{
-		this(parent, javaAttribute, javaAttribute.name, typeClass, persistentType);
 	}
 	
 	final int getGeneratedGetterModifier()

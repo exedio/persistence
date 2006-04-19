@@ -40,23 +40,13 @@ final class CopeNativeAttribute extends CopeAttribute
 	public CopeNativeAttribute(
 			final CopeType parent,
 			final JavaAttribute javaAttribute,
-			final String name,
 			final Class typeClass)
 		throws InjectorParseException
 	{
-		super(parent, javaAttribute, name, typeClass, getPersistentType(typeClass));
+		super(parent, javaAttribute, typeClass, getPersistentType(typeClass));
 		
 		this.typeClass = normalizeTypeClass(typeClass);
 		this.nativeType = toNativeTypeMapping.get(this.typeClass);
-	}
-	
-	public CopeNativeAttribute(
-			final CopeType parent,
-			final JavaAttribute javaAttribute,
-			final Class typeClass)
-		throws InjectorParseException
-	{
-		this(parent, javaAttribute, javaAttribute.name, typeClass);
 	}
 	
 	private static final Class normalizeTypeClass(final Class typeClass)
