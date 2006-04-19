@@ -996,32 +996,35 @@ final class Generator
 		final String className = relation.parent.javaClass.getFullName();
 		
 		// getter
-		writeCommentHeader();
-		o.write("\t * ");
-		o.write(RELATION_GETTER);
-		o.write(lineSeparator);
-		writeCommentFooter();
-
-		o.write("public final " + Collection.class.getName() + '<'); // TODO: obey attribute visibility
-		o.write(endType);
-		o.write("> get");
-		o.write(endNameCamel);
-		o.write("()");
-		o.write(lineSeparator);
-
-		o.write("\t{");
-		o.write(lineSeparator);
-
-		o.write("\t\treturn ");
-		o.write(className);
-		o.write('.');
-		o.write(relation.name);
-		o.write(".get");
-		o.write(methodName);
-		o.write("(this);");
-		o.write(lineSeparator);
-
-		o.write("\t}");
+		if(!vector || !source)
+		{
+			writeCommentHeader();
+			o.write("\t * ");
+			o.write(RELATION_GETTER);
+			o.write(lineSeparator);
+			writeCommentFooter();
+	
+			o.write("public final " + Collection.class.getName() + '<'); // TODO: obey attribute visibility
+			o.write(endType);
+			o.write("> get");
+			o.write(endNameCamel);
+			o.write("()");
+			o.write(lineSeparator);
+	
+			o.write("\t{");
+			o.write(lineSeparator);
+	
+			o.write("\t\treturn ");
+			o.write(className);
+			o.write('.');
+			o.write(relation.name);
+			o.write(".get");
+			o.write(methodName);
+			o.write("(this);");
+			o.write(lineSeparator);
+	
+			o.write("\t}");
+		}
 
 		// adder
 		if(!vector)
