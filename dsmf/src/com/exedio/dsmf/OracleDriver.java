@@ -128,7 +128,7 @@ public final class OracleDriver extends Driver
 				"left outer join user_cons_columns ucc " +
 					"on uc.CONSTRAINT_NAME=ucc.CONSTRAINT_NAME " +
 					"and uc.TABLE_NAME=ucc.TABLE_NAME " +
-				"order by uc.TABLE_NAME, ucc.POSITION",
+				"order by uc.TABLE_NAME, uc.CONSTRAINT_NAME, ucc.POSITION",
 			new ResultSetHandler()
 			{
 				String uniqueConstraintName = null;
