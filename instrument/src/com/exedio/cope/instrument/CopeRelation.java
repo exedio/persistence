@@ -23,15 +23,18 @@ import java.util.List;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemAttribute;
 import com.exedio.cope.pattern.Relation;
+import com.exedio.cope.pattern.VectorRelation;
 
 final class CopeRelation extends CopeFeature
 {
+	final boolean vector;
 	final String sourceTypeString;
 	final String targetTypeString;
 	
-	public CopeRelation(final CopeType parent, final JavaAttribute javaAttribute)
+	public CopeRelation(final CopeType parent, final JavaAttribute javaAttribute, final boolean vector)
 	{
 		super(parent, javaAttribute);
+		this.vector = vector;
 
 		final List<String> ends = Injector.getGenerics(javaAttribute.type);
 		if(ends.size()!=2)
@@ -59,8 +62,18 @@ final class CopeRelation extends CopeFeature
 	
 	String getEndName(final boolean source)
 	{
-		final Relation<? extends Item,? extends Item> instance = (Relation<? extends Item,? extends Item>)getInstance();
-		final ItemAttribute<? extends Item> endAttribute = source ? instance.getSource() : instance.getTarget();
+		final ItemAttribute<? extends Item> endAttribute;
+		if(vector)
+		{
+			final VectorRelation<? extends Item,? extends Item> instance = (VectorRelation<? extends Item,? extends Item>)getInstance();
+			endAttribute = source ? instance.getSource() : instance.getTarget();
+		}
+		else
+		{
+			final Relation<? extends Item,? extends Item> instance = (Relation<? extends Item,? extends Item>)getInstance();
+			endAttribute = source ? instance.getSource() : instance.getTarget();
+		}
+		
 		for(final CopeFeature feature : parent.getFeatures())
 		{
 			if(endAttribute==feature.getInstance())

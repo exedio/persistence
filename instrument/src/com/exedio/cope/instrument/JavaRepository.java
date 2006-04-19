@@ -45,6 +45,7 @@ import com.exedio.cope.pattern.Media;
 import com.exedio.cope.pattern.Qualifier;
 import com.exedio.cope.pattern.Relation;
 import com.exedio.cope.pattern.Vector;
+import com.exedio.cope.pattern.VectorRelation;
 
 final class JavaRepository
 {
@@ -139,7 +140,9 @@ final class JavaRepository
 							else if(Media.class.isAssignableFrom(typeClass))
 								new CopeMedia(type, javaAttribute);
 							else if(Relation.class.isAssignableFrom(typeClass))
-								new CopeRelation(type, javaAttribute);
+								new CopeRelation(type, javaAttribute, false);
+							else if(VectorRelation.class.isAssignableFrom(typeClass))
+								new CopeRelation(type, javaAttribute, true);
 						}
 					}
 				}

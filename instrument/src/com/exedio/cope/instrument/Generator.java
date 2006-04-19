@@ -993,6 +993,7 @@ final class Generator
 	private void writeRelation(final CopeRelation relation, final boolean source)
 	throws IOException
 	{
+		final boolean vector = relation.vector;
 		final String endType = relation.getEndType(source);
 		final String endName = relation.getEndName(source);
 		final String endNameCamel = toCamelCase(endName);
@@ -1027,68 +1028,74 @@ final class Generator
 		o.write("\t}");
 
 		// adder
-		writeCommentHeader();
-		o.write("\t * ");
-		o.write(RELATION_ADDER);
-		o.write(lineSeparator);
-		writeCommentFooter();
-
-		o.write("public final boolean addTo"); // TODO: obey attribute visibility
-		o.write(endNameCamel);
-		o.write("(final ");
-		o.write(endType);
-		o.write(' ');
-		o.write(endName);
-		o.write(')');
-		o.write(lineSeparator);
-
-		o.write("\t{");
-		o.write(lineSeparator);
-
-		o.write("\t\treturn ");
-		o.write(relation.parent.name);
-		o.write('.');
-		o.write(relation.name);
-		o.write(".addTo");
-		o.write(methodName);
-		o.write("(this,");
-		o.write(endName);
-		o.write(");");
-		o.write(lineSeparator);
-
-		o.write("\t}");
+		if(!vector)
+		{
+			writeCommentHeader();
+			o.write("\t * ");
+			o.write(RELATION_ADDER);
+			o.write(lineSeparator);
+			writeCommentFooter();
+	
+			o.write("public final boolean addTo"); // TODO: obey attribute visibility
+			o.write(endNameCamel);
+			o.write("(final ");
+			o.write(endType);
+			o.write(' ');
+			o.write(endName);
+			o.write(')');
+			o.write(lineSeparator);
+	
+			o.write("\t{");
+			o.write(lineSeparator);
+	
+			o.write("\t\treturn ");
+			o.write(relation.parent.name);
+			o.write('.');
+			o.write(relation.name);
+			o.write(".addTo");
+			o.write(methodName);
+			o.write("(this,");
+			o.write(endName);
+			o.write(");");
+			o.write(lineSeparator);
+	
+			o.write("\t}");
+		}
 
 		// remover
-		writeCommentHeader();
-		o.write("\t * ");
-		o.write(RELATION_REMOVER);
-		o.write(lineSeparator);
-		writeCommentFooter();
-
-		o.write("public final boolean removeFrom"); // TODO: obey attribute visibility
-		o.write(endNameCamel);
-		o.write("(final ");
-		o.write(endType);
-		o.write(' ');
-		o.write(endName);
-		o.write(')');
-		o.write(lineSeparator);
-
-		o.write("\t{");
-		o.write(lineSeparator);
-
-		o.write("\t\treturn ");
-		o.write(relation.parent.name);
-		o.write('.');
-		o.write(relation.name);
-		o.write(".removeFrom");
-		o.write(methodName);
-		o.write("(this,");
-		o.write(endName);
-		o.write(");");
-		o.write(lineSeparator);
-
-		o.write("\t}");
+		if(!vector)
+		{
+			writeCommentHeader();
+			o.write("\t * ");
+			o.write(RELATION_REMOVER);
+			o.write(lineSeparator);
+			writeCommentFooter();
+	
+			o.write("public final boolean removeFrom"); // TODO: obey attribute visibility
+			o.write(endNameCamel);
+			o.write("(final ");
+			o.write(endType);
+			o.write(' ');
+			o.write(endName);
+			o.write(')');
+			o.write(lineSeparator);
+	
+			o.write("\t{");
+			o.write(lineSeparator);
+	
+			o.write("\t\treturn ");
+			o.write(relation.parent.name);
+			o.write('.');
+			o.write(relation.name);
+			o.write(".removeFrom");
+			o.write(methodName);
+			o.write("(this,");
+			o.write(endName);
+			o.write(");");
+			o.write(lineSeparator);
+	
+			o.write("\t}");
+		}
 	}
 
 	private void writeType(final CopeType type)
