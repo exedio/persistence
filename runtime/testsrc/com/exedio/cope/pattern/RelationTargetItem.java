@@ -113,7 +113,7 @@ public class RelationTargetItem extends Item
 	 */
 	public final java.util.Collection<com.exedio.cope.pattern.RelationSourceItem> getVectorSource()
 	{
-		return VectorRelationItem.relation.getSources(this);
+		return com.exedio.cope.pattern.VectorRelationItem.relation.getSources(this);
 	}/**
 
 	 **
@@ -122,7 +122,7 @@ public class RelationTargetItem extends Item
 	 */
 	public final java.util.Collection<com.exedio.cope.pattern.RelationSourceItem> getSource()
 	{
-		return RelationItem.relation.getSources(this);
+		return com.exedio.cope.pattern.RelationItem.relation.getSources(this);
 	}/**
 
 	 **
@@ -131,7 +131,7 @@ public class RelationTargetItem extends Item
 	 */
 	public final boolean addToSource(final com.exedio.cope.pattern.RelationSourceItem source)
 	{
-		return RelationItem.relation.addToSources(this,source);
+		return com.exedio.cope.pattern.RelationItem.relation.addToSources(this,source);
 	}/**
 
 	 **
@@ -140,7 +140,7 @@ public class RelationTargetItem extends Item
 	 */
 	public final boolean removeFromSource(final com.exedio.cope.pattern.RelationSourceItem source)
 	{
-		return RelationItem.relation.removeFromSources(this,source);
+		return com.exedio.cope.pattern.RelationItem.relation.removeFromSources(this,source);
 	}/**
 
 	 **

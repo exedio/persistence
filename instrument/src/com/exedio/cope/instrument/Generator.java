@@ -998,6 +998,7 @@ final class Generator
 		final String endName = relation.getEndName(source);
 		final String endNameCamel = toCamelCase(endName);
 		final String methodName = source ? "Sources" : "Targets";
+		final String className = relation.parent.javaClass.getFullName();
 		
 		// getter
 		writeCommentHeader();
@@ -1017,7 +1018,7 @@ final class Generator
 		o.write(lineSeparator);
 
 		o.write("\t\treturn ");
-		o.write(relation.parent.name);
+		o.write(className);
 		o.write('.');
 		o.write(relation.name);
 		o.write(".get");
@@ -1049,7 +1050,7 @@ final class Generator
 			o.write(lineSeparator);
 	
 			o.write("\t\treturn ");
-			o.write(relation.parent.name);
+			o.write(className);
 			o.write('.');
 			o.write(relation.name);
 			o.write(".addTo");
@@ -1084,7 +1085,7 @@ final class Generator
 			o.write(lineSeparator);
 	
 			o.write("\t\treturn ");
-			o.write(relation.parent.name);
+			o.write(className);
 			o.write('.');
 			o.write(relation.name);
 			o.write(".removeFrom");
