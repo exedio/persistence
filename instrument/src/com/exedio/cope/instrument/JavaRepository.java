@@ -43,6 +43,7 @@ import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.pattern.Hash;
 import com.exedio.cope.pattern.Media;
 import com.exedio.cope.pattern.Qualifier;
+import com.exedio.cope.pattern.Relation;
 import com.exedio.cope.pattern.Vector;
 
 final class JavaRepository
@@ -137,6 +138,8 @@ final class JavaRepository
 								new CopeVector(type, javaAttribute);
 							else if(Media.class.isAssignableFrom(typeClass))
 								new CopeMedia(type, javaAttribute);
+							else if(Relation.class.isAssignableFrom(typeClass))
+								new CopeRelation(type, javaAttribute);
 						}
 					}
 				}

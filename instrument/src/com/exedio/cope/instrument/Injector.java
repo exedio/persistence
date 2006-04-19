@@ -27,6 +27,7 @@ import java.io.Reader;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.zip.CRC32;
 import java.util.zip.CheckedInputStream;
 
@@ -1115,6 +1116,31 @@ final class Injector
 		}
 		else
 			return s;
+	}
+
+	public static final List<String> getGenerics(final String s)
+	{
+		final int lt = s.indexOf('<');
+		if(lt>=0)
+		{
+			final ArrayList<String> result = new ArrayList<String>();
+			
+			final int gt = s.indexOf('>', lt);
+			if(gt<0)
+				throw new RuntimeException(s);
+			
+			int lastcomma = lt;
+			for(int comma = s.indexOf(',', lt); comma>=0&&comma<gt; comma = s.indexOf(',', comma+1))
+			{
+				result.add(s.substring(lastcomma+1, comma).trim());
+				lastcomma = comma;
+			}
+			result.add(s.substring(lastcomma+1, gt).trim());
+			
+			return result;
+		}
+		else
+			return Collections.emptyList();
 	}
 
 }

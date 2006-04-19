@@ -29,7 +29,7 @@ class CopeFeature
 	static final String TAG_INITIAL = TAG_PREFIX + "initial";
 
 	final CopeType parent;
-	private final JavaAttribute javaAttribute;
+	final JavaAttribute javaAttribute;
 	final String name;
 	final int modifier;
 	final int accessModifier;
@@ -48,6 +48,11 @@ class CopeFeature
 	final JavaClass getParent()
 	{
 		return javaAttribute.parent;
+	}
+	
+	void endBuildStage()
+	{
+		// empty default implementation
 	}
 	
 	final Feature getInstance()

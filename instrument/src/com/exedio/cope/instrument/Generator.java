@@ -93,6 +93,7 @@ final class Generator
 	private static final String QUALIFIER_SETTER = "Sets the qualifier.";
 	private static final String VECTOR_GETTER = "Returns the value of the vector.";
 	private static final String VECTOR_SETTER = "Sets the vector.";
+	private static final String RELATION_GETTER = "Returns the items associated to this item by the relation.";
 	private static final String TYPE = "The persistent type information for {0}.";
 	private static final String TYPE_CUSTOMIZE = "It can be customized with the tag " +
 																"<tt>@" + CopeType.TAG_TYPE + " public|package|protected|private|none</tt> " +
@@ -986,6 +987,37 @@ final class Generator
 
 		o.write("\t}");
 	}
+	
+	private void writeRelation(final CopeRelation relation, final boolean source)
+	throws IOException
+	{
+		writeCommentHeader();
+		o.write("\t * ");
+		o.write(RELATION_GETTER);
+		o.write(lineSeparator);
+		writeCommentFooter();
+
+		o.write("public final " + Collection.class.getName() + '<'); // TODO: obey attribute visibility
+		o.write(relation.getEndType(source));
+		o.write("> get");
+		o.write(toCamelCase(relation.getEndName(source)));
+		o.write("()");
+		o.write(lineSeparator);
+
+		o.write("\t{");
+		o.write(lineSeparator);
+
+		o.write("\t\treturn ");
+		o.write(relation.parent.name);
+		o.write('.');
+		o.write(relation.name);
+		o.write(".get");
+		o.write(source ? "Sources" : "Targets");
+		o.write("(this);");
+		o.write(lineSeparator);
+
+		o.write("\t}");
+	}
 
 	private void writeType(final CopeType type)
 	throws IOException
@@ -1056,9 +1088,15 @@ final class Generator
 					writeMedia((CopeMedia)feature);
 				else if(feature instanceof CopeHash)
 					writeHash((CopeHash)feature);
+				else if(feature instanceof CopeRelation)
+					; // is handled below
 				else
 					throw new RuntimeException(feature.getClass().getName());
 			}
+			for(final CopeRelation relation : type.getRelations(true))
+				writeRelation(relation, false);
+			for(final CopeRelation relation : type.getRelations(false))
+				writeRelation(relation, true);
 			
 			writeType(type);
 		}

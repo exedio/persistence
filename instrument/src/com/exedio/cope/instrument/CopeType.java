@@ -115,6 +115,9 @@ final class CopeType
 				supertype.addSubtype(this);
 			}
 		}
+		
+		for(final CopeFeature feature : getFeatures())
+			feature.endBuildStage();
 	}
 
 	void addSubtype(final CopeType subtype)
@@ -144,6 +147,25 @@ final class CopeType
 		assert !javaClass.file.repository.isBuildStage();
 
 		return isAbstract() || !getSubtypes().isEmpty();
+	}
+	
+	private final ArrayList<CopeRelation> sourceRelations = new ArrayList<CopeRelation>();
+	private final ArrayList<CopeRelation> targetRelations = new ArrayList<CopeRelation>();
+	
+	void addRelation(final CopeRelation relation, final boolean source)
+	{
+		assert !javaClass.file.repository.isBuildStage();
+		assert !javaClass.file.repository.isGenerateStage();
+		
+		(source ? sourceRelations : targetRelations).add(relation);
+	}
+	
+	List<CopeRelation> getRelations(final boolean source)
+	{
+		assert !javaClass.file.repository.isBuildStage();
+		assert javaClass.file.repository.isGenerateStage();
+		
+		return Collections.unmodifiableList(source ? sourceRelations : targetRelations);
 	}
 
 	public void register(final CopeFeature feature)
