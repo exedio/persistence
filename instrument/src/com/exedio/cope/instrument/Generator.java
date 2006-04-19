@@ -96,6 +96,7 @@ final class Generator
 	private static final String RELATION_GETTER  = "Returns the items associated to this item by the relation.";
 	private static final String RELATION_ADDER   = "Adds an item to the items associated to this item by the relation.";
 	private static final String RELATION_REMOVER = "Removes an item from the items associated to this item by the relation.";
+	private static final String RELATION_SETTER  = "Sets the items associated to this item by the relation.";
 	private static final String TYPE = "The persistent type information for {0}.";
 	private static final String TYPE_CUSTOMIZE = "It can be customized with the tag " +
 																"<tt>@" + CopeType.TAG_TYPE + " public|package|protected|private|none</tt> " +
@@ -157,13 +158,6 @@ final class Generator
 			return Character.toLowerCase(first) + s.substring(1);
 	}
 	
-	private static final String getShortName(final Class aClass)
-	{
-		final String name = aClass.getName();
-		final int pos = name.lastIndexOf('.');
-		return name.substring(pos+1);
-	}
-
 	private void writeThrowsClause(final Collection<Class> exceptions)
 	throws IOException
 	{
@@ -1089,6 +1083,42 @@ final class Generator
 			o.write('.');
 			o.write(relation.name);
 			o.write(".removeFrom");
+			o.write(methodName);
+			o.write("(this,");
+			o.write(endName);
+			o.write(");");
+			o.write(lineSeparator);
+	
+			o.write("\t}");
+		}
+
+		// setter
+		if(vector && !source)
+		{
+			writeCommentHeader();
+			o.write("\t * ");
+			o.write(RELATION_SETTER);
+			o.write(lineSeparator);
+			writeCommentFooter();
+	
+			o.write("public final void set"); // TODO: obey attribute visibility
+			o.write(endNameCamel);
+			o.write("(final ");
+			o.write(Collection.class.getName() + '<');
+			o.write(endType);
+			o.write("> ");
+			o.write(endName);
+			o.write(')');
+			o.write(lineSeparator);
+	
+			o.write("\t{");
+			o.write(lineSeparator);
+	
+			o.write("\t\t");
+			o.write(className);
+			o.write('.');
+			o.write(relation.name);
+			o.write(".set");
 			o.write(methodName);
 			o.write("(this,");
 			o.write(endName);
