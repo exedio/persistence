@@ -111,17 +111,17 @@ public abstract class Constraint extends Node
 			if(requiredCondition!=null && existingCondition!=null &&
 				!requiredCondition.equals(existingCondition))
 			{
-				error = "different condition in database: >"+existingCondition+"<";
+				error = "different condition in database: expected ---" + requiredCondition + "---, but was ---" + existingCondition + "---";
 				particularColor = COLOR_ERROR;
 			}
 			else if(requiredCondition==null && existingCondition!=null)
 			{
-				error = "surplus condition in database: >"+existingCondition+"<";
+				error = "surplus condition in database: ---" + existingCondition + "---";
 				particularColor = COLOR_ERROR;
 			}
 			else if(requiredCondition!=null && existingCondition==null)
 			{
-				error = "missing condition in database";
+				error = "missing condition in database: ---" + requiredCondition + "---";
 				particularColor = COLOR_ERROR;
 			}
 			else
