@@ -79,26 +79,17 @@ public class StatementInfoTest extends TestmodelTest
 					final Iterator<StatementInfo> planIdChilds = planId.getChilds().iterator();
 					{
 						final StatementInfo planSelect = planIdChilds.next();
-						assertTrue(
-								planSelect.getText(),
-								"SELECT STATEMENT optimizer=CHOOSE".equals(planSelect.getText()) || // Oracle 9
-								"SELECT STATEMENT optimizer=ALL_ROWS cost=1 cardinality=1 bytes=115".equals(planSelect.getText())); // Oracle 10
+						assertTrue(planSelect.getText(), planSelect.getText().startsWith("SELECT STATEMENT optimizer="));
 						{
 							final Iterator<StatementInfo> planSelectChilds = planSelect.getChilds().iterator();
 							{
 								final StatementInfo planTableAccess = planSelectChilds.next();
-								assertTrue(
-										planTableAccess.getText(),
-										"TABLE ACCESS (BY INDEX ROWID) on UNIQUE_ITEMS[1]".equals(planTableAccess.getText()) ||
-										"TABLE ACCESS (BY INDEX ROWID) on UNIQUE_ITEMS[1][TABLE] cost=1 cardinality=1 bytes=115".equals(planTableAccess.getText()));
+								assertTrue(planTableAccess.getText(), planTableAccess.getText().startsWith("TABLE ACCESS (BY INDEX ROWID) on UNIQUE_ITEMS[1]"));
 								{
 									final Iterator<StatementInfo> planTableAccessChilds = planTableAccess.getChilds().iterator();
 									{
 										final StatementInfo planUnique = planTableAccessChilds.next();
-										assertTrue(
-												planUnique.getText(),
-												"INDEX (UNIQUE SCAN) on IX_ITEMWSU_US[UNIQUE] search_columns=1".equals(planUnique.getText()) ||
-												"INDEX (UNIQUE SCAN) on IX_ITEMWSU_US[INDEX (UNIQUE)] search_columns=1 cost=1 cardinality=1".equals(planUnique.getText()));
+										assertTrue(planUnique.getText(), planUnique.getText().startsWith("INDEX (UNIQUE SCAN) on IX_ITEMWSU_US"));
 										assertEquals(list(), planUnique.getChilds());
 									}
 									assertTrue(!planTableAccessChilds.hasNext());
