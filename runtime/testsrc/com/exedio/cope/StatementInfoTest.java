@@ -79,7 +79,10 @@ public class StatementInfoTest extends TestmodelTest
 					final Iterator<StatementInfo> planIdChilds = planId.getChilds().iterator();
 					{
 						final StatementInfo planSelect = planIdChilds.next();
-						assertEquals("SELECT STATEMENT optimizer=CHOOSE", planSelect.getText());
+						assertTrue(
+								planSelect.getText(),
+								"SELECT STATEMENT optimizer=CHOOSE".equals(planSelect.getText()) || // Oracle 9
+								"SELECT STATEMENT optimizer=ALL_ROWS cost=1 cardinality=1 bytes=115".equals(planSelect.getText())); // Oracle 10
 						{
 							final Iterator<StatementInfo> planSelectChilds = planSelect.getChilds().iterator();
 							{

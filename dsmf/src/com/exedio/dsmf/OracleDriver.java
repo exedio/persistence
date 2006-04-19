@@ -29,9 +29,11 @@ import com.exedio.dsmf.Node.ResultSetHandler;
 
 public final class OracleDriver extends Driver
 {
+	private static final String SYSTEM_TABLE_PREFIX = "BIN$"; // for Oracle 10
+	
 	public OracleDriver(final String schema)
 	{
-		super(schema, null);
+		super(schema, SYSTEM_TABLE_PREFIX);
 	}
 
 	String getColumnType(final int dataType, final ResultSet resultSet) throws SQLException
@@ -138,6 +140,9 @@ public final class OracleDriver extends Driver
 					{
 						//printRow(resultSet);
 						final String tableName = resultSet.getString(1);
+						if(tableName.startsWith(SYSTEM_TABLE_PREFIX))
+							continue;
+						
 						final String constraintName = resultSet.getString(2);
 						final String constraintType = resultSet.getString(3);
 						final Table table = schema.notifyExistentTable(tableName);
