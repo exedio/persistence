@@ -119,7 +119,6 @@ public final class Schema extends Node
 	
 	public final void tearDown()
 	{
-		System.err.println("TEAR DOWN SCHEMA");
 		for(final Table table : tableList)
 		{
 			try
