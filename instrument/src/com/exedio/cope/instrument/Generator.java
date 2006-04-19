@@ -30,6 +30,7 @@ import java.lang.reflect.Modifier;
 import java.text.MessageFormat;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.SortedSet;
@@ -1203,13 +1204,26 @@ final class Generator
 				else
 					throw new RuntimeException(feature.getClass().getName());
 			}
-			for(final CopeRelation relation : type.getRelations(true))
+			for(final CopeRelation relation : sort(type.getRelations(true)))
 				writeRelation(relation, false);
-			for(final CopeRelation relation : type.getRelations(false))
+			for(final CopeRelation relation : sort(type.getRelations(false)))
 				writeRelation(relation, true);
 			
 			writeType(type);
 		}
+	}
+	
+	private static final List<CopeRelation> sort(final List<CopeRelation> l)
+	{
+		final CopeRelation[] a = l.toArray(new CopeRelation[l.size()]);
+		Arrays.sort(a, new Comparator<CopeRelation>()
+				{
+					public int compare(final CopeRelation a, final CopeRelation b)
+					{
+						return a.parent.javaClass.getFullName().compareTo(b.parent.javaClass.getFullName());
+					}
+				});
+		return Arrays.asList(a);
 	}
 
 	/**
