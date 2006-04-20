@@ -237,7 +237,7 @@ public class AttributeDateTest extends AttributeTest
 	
 	public static void assertEquals(final Date expectedDate, final Date actualDate)
 	{
-		assertEquals("ts: "+toString(expectedDate)+" "+toString(actualDate), (Object)expectedDate, (Object)actualDate);
+		assertEquals("ts: "+toString(expectedDate)+" "+toString(actualDate), expectedDate, actualDate);
 	}
 
 }
