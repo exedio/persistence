@@ -491,9 +491,9 @@ public final class Model
 			final DatabaseMetaData dmd = c.getMetaData();
 			final java.util.Properties result = new java.util.Properties();
 			result.setProperty("database.name", dmd.getDatabaseProductName());
-			result.setProperty("database.version", dmd.getDatabaseProductVersion());
+			result.setProperty("database.version", dmd.getDatabaseProductVersion() + ' ' + '(' + dmd.getDatabaseMajorVersion() + '.' + dmd.getDatabaseMinorVersion() + ')');
 			result.setProperty("driver.name", dmd.getDriverName());
-			result.setProperty("driver.version", dmd.getDriverVersion());
+			result.setProperty("driver.version", dmd.getDriverVersion() + ' ' + '(' + dmd.getDriverMajorVersion() + '.' + dmd.getDriverMinorVersion() + ')');
 			return result;
 		}
 		catch(SQLException e)
