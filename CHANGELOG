@@ -1,6 +1,9 @@
 CURRENT
 
 API CHANGE
+	For the instrumentor to work it is not required anymore to have a
+	@cope.persistent tag in all persistent classes.
+API CHANGE
 	renamed AttributeValue to SetValue
 API CHANGE
 	converted Attribute#Option to an enum.
