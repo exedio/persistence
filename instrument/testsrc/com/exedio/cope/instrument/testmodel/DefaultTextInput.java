@@ -18,10 +18,7 @@
 
 package com.exedio.cope.instrument.testmodel;
 
-import com.exedio.cope.Item;
 
-/**
- */
 public class DefaultTextInput extends Input
 {
 	

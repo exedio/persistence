@@ -18,8 +18,6 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.Item;
-import com.exedio.cope.StringAttribute;
 
 /**
  * @author Ralf Wiebicke

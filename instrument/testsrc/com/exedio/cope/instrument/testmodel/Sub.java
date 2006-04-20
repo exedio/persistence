@@ -20,11 +20,8 @@ package com.exedio.cope.instrument.testmodel;
 
 import com.exedio.cope.BooleanAttribute;
 import com.exedio.cope.DateAttribute;
-import com.exedio.cope.Item;
 import com.exedio.cope.LongAttribute;
 
-/**
- */
 public class Sub extends Super
 {
 	public static final BooleanAttribute subMandatory = new BooleanAttribute(MANDATORY);
