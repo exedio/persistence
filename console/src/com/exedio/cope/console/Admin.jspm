@@ -88,7 +88,7 @@ final class Admin_Jspm
 		throws IOException
 	{
 		final PoolCounter poolCounter = info.getCounter();
-		final String[] names = new String[]{
+		final String[] names = {
 			"Loss = 100 * Destroy / Get",
 			"Idle",
 			"Idle Max",
@@ -132,7 +132,7 @@ final class Admin_Jspm
 			{
 				final PoolCounter.Pool pool = (PoolCounter.Pool)i.next();
 				final boolean inconsistent = !pool.isConsistent();
-				final int[] data = new int[]{
+				final int[] data = {
 						pool.getLoss(),
 						pool.getIdleCount(),
 						pool.getIdleCountMax(),
@@ -157,7 +157,7 @@ final class Admin_Jspm
 									final CacheStatsCop cop)
 		throws IOException
 	{
-		final String[] names = new String[]{
+		final String[] names = {
 			"Max Number Of Items In Cache",
 			"Number Of Items In Cache",
 			"Hits",
@@ -189,7 +189,7 @@ final class Admin_Jspm
 			for(int i = 0; i<infos.length; i++)
 			{
 				final CacheInfo info = infos[i];
-				final int[] data = new int[]{
+				final int[] data = {
 						info.getMapSizeLimit(),
 						info.getNumberOfItemsInCache(),
 						info.getHits(),
@@ -230,7 +230,7 @@ final class Admin_Jspm
 	final static void writeMediaStats(final PrintStream out, final Collection media, final String prefix, final MediaStatsCop cop)
 		throws IOException
 	{
-		final String[] names = new String[]{
+		final String[] names = {
 			"Exception (500)",
 			"Not An Item (404)",
 			"No Such Item (404)",
@@ -258,7 +258,7 @@ final class Admin_Jspm
 				final MediaPath path = (MediaPath)i.next();
 				final String type = path.getType().getID();
 				final String name = path.getName();
-				final int[] data = new int[]{
+				final int[] data = {
 					path.exception.get(),
 					path.notAnItem.get(),
 					path.noSuchItem.get(),

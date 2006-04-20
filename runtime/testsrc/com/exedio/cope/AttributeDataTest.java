@@ -36,7 +36,7 @@ public class AttributeDataTest extends AttributeTest
 		assertEquals(null, item.getSomeDataData());
 		assertEquals(null, item.getSomeDataContentType());
 
-		final byte[] bytes = new byte[]{3,7,1,4};
+		final byte[] bytes = {3,7,1,4};
 		item.setSomeData(stream(bytes), "someMimeMajor/someMimeMinor");
 		assertStreamClosed();
 

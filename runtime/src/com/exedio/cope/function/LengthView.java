@@ -26,7 +26,7 @@ public class LengthView
 	extends IntegerView
 	implements IntegerFunction
 {
-	private static final String[] sql = new String[]{"LENGTH(", ")"};
+	private static final String[] sql = {"LENGTH(", ")"};
 
 	/**
 	 * Creates a new LengthView.

@@ -21,7 +21,7 @@ package com.exedio.cope;
 
 public final class BooleanAttribute extends FunctionAttribute<Boolean>
 {
-	static final int[] ALLOWED_VALUES = new int[]{0, 1};
+	static final int[] ALLOWED_VALUES = {0, 1};
 
 	private BooleanAttribute(final boolean isfinal, final boolean optional, final boolean unique)
 	{

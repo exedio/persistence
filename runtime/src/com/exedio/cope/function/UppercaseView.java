@@ -26,7 +26,7 @@ public final class UppercaseView
 	extends StringView
 	implements StringFunction
 {
-	private static final String[] sql = new String[]{"UPPER(", ")"};
+	private static final String[] sql = {"UPPER(", ")"};
 
 	/**
 	 * Creates a new UppercaseView.

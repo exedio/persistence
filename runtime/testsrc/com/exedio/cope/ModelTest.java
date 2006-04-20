@@ -136,7 +136,7 @@ public class ModelTest extends TestmodelTest
 		}
 		assertEquals(item.TYPE, model.findTypeByID(item.TYPE.getID()));
 		
-		final Attribute[] attributes = new Attribute[]{
+		final Attribute[] attributes = {
 			item.someString,
 			item.someNotNullString,
 			item.someInteger,
@@ -163,7 +163,7 @@ public class ModelTest extends TestmodelTest
 		assertEqualsUnmodifiable(list(), item.TYPE.getUniqueConstraints());
 		assertEqualsUnmodifiable(list(), item.TYPE.getDeclaredUniqueConstraints());
 
-		final Feature[] features = new Feature[]{
+		final Feature[] features = {
 			item.someString,
 			item.someStringUpperCase,
 			item.someStringLength,

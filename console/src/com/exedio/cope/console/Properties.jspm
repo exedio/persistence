@@ -32,7 +32,7 @@ import com.exedio.cope.Properties;
 
 final class Properties_Jspm
 {
-	private static final String[] systemProperties = new String[]{
+	private static final String[] systemProperties = {
 			"java.runtime.version",
 			"java.class.path",
 			"java.version",
