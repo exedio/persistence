@@ -184,13 +184,13 @@ public final class Type
 			this.features = inherit(supertype.getFeatures(), this.declaredFeatures);
 			{
 				final HashMap<String, Feature> inherited = supertype.featuresByName;
-				final HashMap<String, Feature> own = this.declaredFeaturesByName;
-				if(own.isEmpty())
+				final HashMap<String, Feature> declared = this.declaredFeaturesByName;
+				if(declared.isEmpty())
 					this.featuresByName = inherited;
 				else
 				{
 					final HashMap<String, Feature> result = new HashMap<String, Feature>(inherited);
-					for(final Feature f : own.values())
+					for(final Feature f : declared.values())
 					{
 						if(result.put(f.getName(), f)!=null)
 							throw new RuntimeException("cannot override inherited feature "+f.getName()+" in type "+id);
