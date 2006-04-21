@@ -73,7 +73,7 @@ final class ItemForm extends Form
 	static final String SECTION = "section";
 	
 	final Item item;
-	final Type type;
+	final Type<? extends Item> type;
 	/*TODO final*/ boolean hasFiles;
 	boolean toSave = false;
 	final CopernicaSection currentSection;

@@ -31,14 +31,14 @@ import java.util.List;
 
 import com.exedio.cope.util.ReactivationConstructorDummy;
 
-public final class Type
+public final class Type<C extends Item>
 	implements Selectable
 {
-	private static final HashMap<Class<? extends Item>, Type> typesByClass = new HashMap<Class<? extends Item>, Type>();
+	private static final HashMap<Class<? extends Item>, Type<? extends Item>> typesByClass = new HashMap<Class<? extends Item>, Type<? extends Item>>();
 
-	final Class<? extends Item> javaClass;
+	final Class<C> javaClass;
 	final String id;
-	private final Type supertype;
+	private final Type<? extends Item> supertype;
 	
 	private final List<Feature> declaredFeatures;
 	private final List<Feature> features;
@@ -50,12 +50,12 @@ public final class Type
 	final List<UniqueConstraint> declaredUniqueConstraints;
 	private final List<UniqueConstraint> uniqueConstraints;
 
-	private ArrayList<Type> subTypes = null;
+	private ArrayList<Type<? extends C>> subTypes = null;
 	private ArrayList<ItemAttribute> references = null;
 	
 	private Model model;
-	private ArrayList<Type> typesOfInstances;
-	private Type onlyPossibleTypeOfInstances;
+	private ArrayList<Type<? extends C>> typesOfInstances;
+	private Type<? extends C> onlyPossibleTypeOfInstances;
 	private String[] typesOfInstancesColumnValues;
 	
 	private Table table;
@@ -78,12 +78,18 @@ public final class Type
 	/**
 	 * @throws RuntimeException if there is no type for the given java class.
 	 */
-	public static final Type findByJavaClass(final Class<? extends Item> javaClass)
+	public static final <X extends Item> Type<X> findByJavaClass(final Class<X> javaClass)
 	{
-		final Type result = typesByClass.get(javaClass);
+		final Type<X> result = castType(typesByClass.get(javaClass));
 		if(result==null)
 			throw new RuntimeException("there is no type for "+javaClass);
 		return result;
+	}
+	
+	@SuppressWarnings("unchecked")
+	private static final <X extends Item> Type<X> castType(final Type t)
+	{
+		return (Type<X>)t;
 	}
 	
 	private ArrayList<Feature> featuresWhileConstruction;
@@ -95,12 +101,12 @@ public final class Type
 		return className.substring(pos+1).intern();
 	}
 
-	public Type(final Class<? extends Item> javaClass)
+	public Type(final Class<C> javaClass)
 	{
 		this(javaClass, classToId(javaClass));
 	}
 	
-	public Type(final Class<? extends Item> javaClass, final String id)
+	public Type(final Class<C> javaClass, final String id)
 	{
 		this.javaClass = javaClass;
 		this.id = id;
@@ -259,7 +265,7 @@ public final class Type
 			throw new RuntimeException(id+'-'+subType.id);
 
 		if(subTypes==null)
-			subTypes = new ArrayList<Type>();
+			subTypes = new ArrayList<Type<? extends C>>();
 		subTypes.add(subType);
 	}
 	
@@ -298,7 +304,7 @@ public final class Type
 		this.model = model;
 		this.transientNumber = transientNumber;
 		
-		typesOfInstances = new ArrayList<Type>();
+		final ArrayList<Type> typesOfInstances = new ArrayList<Type>();
 		collectTypesOfInstances(typesOfInstances, 15);
 		switch(typesOfInstances.size())
 		{
@@ -314,6 +320,7 @@ public final class Type
 					typesOfInstancesColumnValues[i++] = t.id;
 				break;
 		}
+		this.typesOfInstances = (ArrayList<Type<? extends C>>)((ArrayList)typesOfInstances);
 	}
 	
 	private void collectTypesOfInstances(final ArrayList<Type> result, int levelLimit)
@@ -325,7 +332,7 @@ public final class Type
 		if(!isAbstract())
 			result.add(this);
 		
-		for(final Type t : getSubTypes())
+		for(final Type<? extends C> t : getSubTypes())
 			t.collectTypesOfInstances(result, levelLimit);
 	}
 	
@@ -356,7 +363,7 @@ public final class Type
 		this.table.finish();
 	}
 	
-	public Class<? extends Item> getJavaClass()
+	public Class<C> getJavaClass()
 	{
 		return javaClass;
 	}
@@ -382,7 +389,7 @@ public final class Type
 	 * and including this type itself,
 	 * which are not abstract.
 	 */
-	List<Type> getTypesOfInstances()
+	List<Type<? extends C>> getTypesOfInstances()
 	{
 		if(typesOfInstances==null)
 			throw new RuntimeException();
@@ -390,7 +397,7 @@ public final class Type
 		return Collections.unmodifiableList(typesOfInstances);
 	}
 	
-	Type getOnlyPossibleTypeOfInstances()
+	Type<? extends C> getOnlyPossibleTypeOfInstances()
 	{
 		if(typesOfInstances==null)
 			throw new RuntimeException();
@@ -449,9 +456,9 @@ public final class Type
 		return supertype;
 	}
 	
-	public List<Type> getSubTypes()
+	public List<Type<? extends C>> getSubTypes()
 	{
-		return subTypes==null ? Collections.<Type>emptyList() : Collections.unmodifiableList(subTypes);
+		return subTypes==null ? Collections.<Type<? extends C>>emptyList() : Collections.unmodifiableList(subTypes);
 	}
 	
 	public boolean isAssignableFrom(final Type type)
@@ -537,20 +544,20 @@ public final class Type
 	
 	private static final SetValue[] EMPTY_SET_VALUES = {};
 	
-	public Item newItem(final SetValue[] setValues)
+	public C newItem(final SetValue[] setValues)
 		throws ConstraintViolationException
 	{
-		final Item result;
+		final C result;
 		try
 		{
 			result =
-				(Item)creationConstructor.newInstance(
+				cast(creationConstructor.newInstance(
 					new Object[]{
 						setValues!=null
 						? setValues
 						: EMPTY_SET_VALUES
 					}
-				);
+				));
 		}
 		catch(InstantiationException e)
 		{
@@ -571,6 +578,12 @@ public final class Type
 		
 		return result;
 	}
+	
+	@SuppressWarnings("unchecked")
+	private C cast(final Object o)
+	{
+		return (C)o;
+	}
 
 	/**
 	 * Searches for items of this type, that match the given condition.
@@ -580,18 +593,24 @@ public final class Type
 	 * result in an <tt>UnsupportedOperationException</tt>.
 	 * @param condition the condition the searched items must match.
 	 */
-	public Collection<? extends Object> search(final Condition condition)
+	public Collection<? extends C> search(final Condition condition)
 	{
-		return new Query(this, condition).search();
+		return castCollection(new Query(this, condition).search());
 	}
 	
-	public Collection<? extends Object> search(final Condition condition, final Function orderBy, final boolean ascending)
+	public Collection<? extends C> search(final Condition condition, final Function orderBy, final boolean ascending)
 	{
 		final Query query = new Query(this, condition);
 		query.setOrderBy(orderBy, ascending);
-		return query.search();
+		return castCollection(query.search());
 	}
 	
+	@SuppressWarnings("unchecked") // TODO make Query use generics
+	private Collection<? extends C> castCollection(final Collection o)
+	{
+		return o;
+	}
+
 	/**
 	 * Searches equivalently to {@link #search(Condition)},
 	 * but assumes that the condition forces the search result to have at most one element.
@@ -600,12 +619,12 @@ public final class Type
 	 * returns the only element of the search result, if the result {@link Collection#size() size} is exactly one.
 	 * @throws RuntimeException if the search result size is greater than one.
 	 */
-	public Item searchUnique(final Condition condition)
+	public C searchUnique(final Condition condition)
 	{
-		final Iterator searchResult = search(condition).iterator();
+		final Iterator<? extends C> searchResult = search(condition).iterator();
 		if(searchResult.hasNext())
 		{
-			final Item result = (Item)searchResult.next();
+			final C result = searchResult.next();
 			if(searchResult.hasNext())
 				throw new RuntimeException(condition.toString());
 			else
@@ -636,21 +655,21 @@ public final class Type
 	
 	static final ReactivationConstructorDummy REACTIVATION_DUMMY = new ReactivationConstructorDummy();
 
-	Item getItemObject(final int pk)
+	C getItemObject(final int pk)
 	{
 		final Entity entity = getModel().getCurrentTransaction().getEntityIfActive(this, pk);
 		if(entity!=null)
-			return entity.getItem();
+			return cast(entity.getItem());
 
 		try
 		{
 			return
-				(Item)reactivationConstructor.newInstance(
+				cast(reactivationConstructor.newInstance(
 					new Object[]{
 						REACTIVATION_DUMMY,
 						Integer.valueOf(pk)
 					}
-				);
+				));
 		}
 		catch(InstantiationException e)
 		{

@@ -21,13 +21,13 @@ package com.exedio.cope;
 
 public abstract class Feature
 {
-	private Type type;
+	private Type<? extends Item> type;
 	private String name;
 
 	/**
 	 * Is called in the constructor of the containing type.
 	 */
-	void initialize(final Type type, final String name, final java.lang.reflect.Type genericType)
+	void initialize(final Type<? extends Item> type, final String name, final java.lang.reflect.Type genericType)
 	{
 		if(type==null)
 			throw new RuntimeException();
@@ -50,7 +50,7 @@ public abstract class Feature
 		return type!=null;
 	}
 	
-	public Type getType()
+	public Type<? extends Item> getType()
 	{
 		if(this.type==null)
 			throw new FeatureNotInitializedException();

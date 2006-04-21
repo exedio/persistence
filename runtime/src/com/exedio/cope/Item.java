@@ -38,7 +38,7 @@ import com.exedio.cope.util.ReactivationConstructorDummy;
  */
 public abstract class Item extends Cope
 {
-	final transient Type type = Type.findByJavaClass(getClass());
+	final transient Type<? extends Item> type = Type.findByJavaClass(getClass());
 
 	/**
 	 * The primary key of the item,
@@ -64,7 +64,7 @@ public abstract class Item extends Cope
 	 * Returns the type of this item.
 	 * Never returns null.
 	 */
-	public final Type getCopeType()
+	public final Type<? extends Item> getCopeType()
 	{
 		return type;
 	}

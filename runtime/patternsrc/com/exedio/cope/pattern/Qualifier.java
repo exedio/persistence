@@ -85,7 +85,7 @@ public final class Qualifier extends Pattern
 		if(this.attributes!=null)
 			throw new RuntimeException();
 
-		final Type type = qualifyUnique.getType();
+		final Type<? extends Item> type = qualifyUnique.getType();
 		final List<Attribute> typeAttributes = type.getAttributes();
 		final ArrayList<Attribute> attributesModifiyable = new ArrayList<Attribute>(typeAttributes.size());
 		for(final Attribute attribute : type.getAttributes())

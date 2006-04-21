@@ -314,7 +314,7 @@ public class DataTest extends AbstractLibTest
 			assertData(data10, item2.getData10());
 		}
 		{
-			final DataItem item3 = (DataItem)DataItem.TYPE.newItem(new SetValue[]{
+			final DataItem item3 = DataItem.TYPE.newItem(new SetValue[]{
 					DataItem.data.map(data6),
 					DataItem.data10.map(data10),
 			});

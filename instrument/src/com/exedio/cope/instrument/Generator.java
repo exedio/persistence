@@ -1146,10 +1146,14 @@ final class Generator
 			writeCommentFooter(TYPE_CUSTOMIZE);
 			
 			writeModifier(option.getModifier(Modifier.PUBLIC) | Modifier.STATIC | Modifier.FINAL); // TODO obey class visibility
-			o.write(Type.class.getName()+" TYPE =");
+			o.write(Type.class.getName()+'<');
+			o.write(type.name);
+			o.write("> TYPE =");
 			o.write(lineSeparator);
 	
-			o.write("\t\tnew "+Type.class.getName()+"(");
+			o.write("\t\tnew "+Type.class.getName()+'<');
+			o.write(type.name);
+			o.write(">(");
 			o.write(type.name);
 			o.write(".class)");
 			o.write(lineSeparator);

@@ -112,7 +112,7 @@ public class SerializerTest extends AbstractLibTest
 		assertEquals(map1, item2.getMap());
 		assertNotSame(map1, item2.getMap());
 		
-		final SerializerItem item3 = (SerializerItem)SerializerItem.TYPE.newItem(new SetValue[]{
+		final SerializerItem item3 = SerializerItem.TYPE.newItem(new SetValue[]{
 				item.integer.map(44),
 				item.map.map(map2),
 		});

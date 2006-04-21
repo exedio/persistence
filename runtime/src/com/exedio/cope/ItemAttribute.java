@@ -56,7 +56,7 @@ public final class ItemAttribute<E extends Item> extends FunctionAttribute<E>
 		return new ItemAttribute<E>(isfinal, optional, implicitUniqueConstraint!=null, policy);
 	}
 	
-	private Class<? extends Item> targetTypeClass = null;
+	private Class<? extends E> targetTypeClass = null;
 	
 	@Override
 	Class initialize(final java.lang.reflect.Type genericType)
@@ -68,18 +68,24 @@ public final class ItemAttribute<E extends Item> extends FunctionAttribute<E>
 		if(!Item.class.isAssignableFrom(targetClass))
 			throw new RuntimeException("is not a subclass of " + Item.class.getName() + ": "+targetClass.getName());
 		
-		this.targetTypeClass = targetClass;
+		this.targetTypeClass = castClass(targetClass);
 		return targetTypeClass;
 	}
 	
-	private Type targetType = null;
-	private Type onlyPossibleTargetType = null;
+	@SuppressWarnings("unchecked")
+	private Class<? extends E> castClass(final Class c)
+	{
+		return c;
+	}
+	
+	private Type<? extends E> targetType = null;
+	private Type<? extends E> onlyPossibleTargetType = null;
 	private StringColumn typeColumn = null;
 	
 	/**
 	 * Returns the type of items, this attribute accepts instances of.
 	 */
-	public Type getTargetType()
+	public Type<? extends E> getTargetType()
 	{
 		if(targetType==null)
 			throw new RuntimeException();
@@ -139,7 +145,7 @@ public final class ItemAttribute<E extends Item> extends FunctionAttribute<E>
 		}
 		else
 		{
-			final Type cellType;
+			final Type<? extends E> cellType;
 			if(typeColumn!=null)
 			{
 				final String cellTypeID = (String)row.get(typeColumn);
@@ -160,7 +166,7 @@ public final class ItemAttribute<E extends Item> extends FunctionAttribute<E>
 					throw new RuntimeException();
 			}
 			
-			return (E)cellType.getItemObject(((Integer)cell).intValue());
+			return cellType.getItemObject(((Integer)cell).intValue());
 		}
 	}
 		

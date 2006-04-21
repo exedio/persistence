@@ -104,8 +104,8 @@ public class ItemTest extends TestmodelTest
 	
 	public void testItemCreation()
 	{
-		final EmptyItem item1 = (EmptyItem)EmptyItem.TYPE.newItem(null);
-		final AttributeItem item2 = (AttributeItem)AttributeItem.TYPE.newItem(new SetValue[]{
+		final EmptyItem item1 = EmptyItem.TYPE.newItem(null);
+		final AttributeItem item2 = AttributeItem.TYPE.newItem(new SetValue[]{
 			AttributeItem.someNotNullString.map("someGenericString"),
 			AttributeItem.someNotNullInteger.map(50),
 			AttributeItem.someNotNullLong.map(60l),

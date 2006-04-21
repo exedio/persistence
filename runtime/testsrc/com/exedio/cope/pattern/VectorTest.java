@@ -208,7 +208,7 @@ public class VectorTest extends AbstractLibTest
 		assertEquals("lets3", item2.get(string3));
 		assertEquals("lets4", item2.get(string4));
 		
-		final VectorItem item3 = (VectorItem)VectorItem.TYPE.newItem(new SetValue[]{item.strings.map(list("fetz1", null, null, null))});
+		final VectorItem item3 = VectorItem.TYPE.newItem(new SetValue[]{item.strings.map(list("fetz1", null, null, null))});
 		deleteOnTearDown(item3);
 		assertEquals(list("fetz1"), item3.getStrings());
 		assertEquals("fetz1", item3.get(string1));

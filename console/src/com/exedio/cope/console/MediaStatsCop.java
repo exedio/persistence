@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 
 import com.exedio.cope.Feature;
+import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 import com.exedio.cope.pattern.MediaPath;
@@ -42,7 +43,7 @@ final class MediaStatsCop extends AdminCop
 	{
 		final ArrayList<MediaPath> medias = new ArrayList<MediaPath>();
 
-		for(final Type type : model.getTypes())
+		for(final Type<Item> type : model.getTypes())
 		{
 			for(final Feature feature : type.getDeclaredFeatures())
 			{
