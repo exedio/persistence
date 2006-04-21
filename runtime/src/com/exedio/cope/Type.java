@@ -330,7 +330,13 @@ public final class Type<C extends Item>
 					typesOfInstancesColumnValues[i++] = t.id;
 				break;
 		}
-		this.typesOfInstances = (ArrayList<Type<? extends C>>)((ArrayList)typesOfInstances);
+		this.typesOfInstances = castTypeInstanceArrayList(typesOfInstances);
+	}
+	
+	@SuppressWarnings("unchecked")
+	private ArrayList<Type<? extends C>> castTypeInstanceArrayList(final ArrayList l)
+	{
+		return l;
 	}
 	
 	private void collectTypesOfInstances(final ArrayList<Type> result, int levelLimit)
