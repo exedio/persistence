@@ -303,7 +303,7 @@ abstract class AbstractDatabase implements Database
 				final Column selectPrimaryKey;
 				if(selectable instanceof Function)
 				{
-					final Function selectAttribute = (Function)selectable;
+					final Function<? extends Object> selectAttribute = (Function<? extends Object>)selectable;
 					selectType = selectAttribute.getType();
 	
 					if(selectableIndex>0)
@@ -402,7 +402,7 @@ abstract class AbstractDatabase implements Database
 					
 					if(orderBy[i] instanceof ItemAttribute)
 					{
-						final ItemAttribute<Item> itemOrderBy = (ItemAttribute<Item>)orderBy[i];
+						final ItemAttribute<? extends Item> itemOrderBy = (ItemAttribute<? extends Item>)orderBy[i];
 						itemOrderBy.getTargetType().getPkSource().appendOrderByExpression(bf, itemOrderBy);
 					}
 					else
