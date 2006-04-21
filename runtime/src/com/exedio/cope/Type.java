@@ -321,7 +321,7 @@ public final class Type<C extends Item>
 			case 0:
 				throw new RuntimeException("type " + id + " is abstract and has no non-abstract (even indirect) subtypes");
 			case 1:
-				onlyPossibleTypeOfInstances = typesOfInstances.iterator().next();
+				onlyPossibleTypeOfInstances = castTypeInstance(typesOfInstances.iterator().next());
 				break;
 			default:
 				typesOfInstancesColumnValues = new String[typesOfInstances.size()];
