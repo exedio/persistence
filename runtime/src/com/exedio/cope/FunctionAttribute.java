@@ -127,7 +127,13 @@ public abstract class FunctionAttribute<E extends Object>
 		if(!getType().isAssignableFrom(item.type))
 			throw new RuntimeException("attribute "+toString()+" does not belong to type "+item.type.toString());
 		
-		return (E)getEntity(item).get(this);
+		return cast(getEntity(item).get(this));
+	}
+	
+	@SuppressWarnings("unchecked")
+	private E cast(final Object o)
+	{
+		return (E)o;
 	}
 
 	public final void set(final Item item, final E value)
