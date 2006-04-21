@@ -33,7 +33,7 @@ final class Table
 	final IntegerColumn primaryKey;
 	final StringColumn typeColumn;
 
-	Table(final Database database, final String id, final Type supertype, final String[] typesOfInstancesColumnValues)
+	Table(final Database database, final String id, final Type<? extends Item> supertype, final String[] typesOfInstancesColumnValues)
 	{
 		this.database = database;
 		this.id = database.makeName(id).intern();
