@@ -96,7 +96,7 @@ public final class Vector<T> extends Pattern implements Settable<Collection<T>>
 		
 		for(int i = 0; i<sources.length; i++)
 		{
-			final FunctionAttribute source = sources[i];
+			final FunctionAttribute<T> source = sources[i];
 			if(!source.isInitialized())
 				initialize(source, name+(i+1/*TODO: make this '1' customizable*/));
 		}
