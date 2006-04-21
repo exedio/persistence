@@ -360,6 +360,30 @@ public final class Query
 		}
 	}
 	
+	/**
+	 * Searches equivalently to {@link #search()},
+	 * but assumes that the search result has at most one element.
+	 * <p>
+	 * Returns null, if the search result is {@link Collection#isEmpty() empty},
+	 * returns the only element of the search result, if the result {@link Collection#size() size} is exactly one.
+	 * @throws RuntimeException if the search result size is greater than one.
+	 * @see Type#searchUnique()
+	 */
+	public Object searchUnique()
+	{
+		final Iterator searchResult = search().iterator();
+		if(searchResult.hasNext())
+		{
+			final Object result = searchResult.next();
+			if(searchResult.hasNext())
+				throw new RuntimeException(toString());
+			else
+				return result;
+		}
+		else
+			return null;
+	}
+	
 	public String toString()
 	{
 		final StringBuffer bf = new StringBuffer();

@@ -26,7 +26,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 
 import com.exedio.cope.util.ReactivationConstructorDummy;
@@ -634,20 +633,11 @@ public final class Type<C extends Item>
 	 * Returns null, if the search result is {@link Collection#isEmpty() empty},
 	 * returns the only element of the search result, if the result {@link Collection#size() size} is exactly one.
 	 * @throws RuntimeException if the search result size is greater than one.
+	 * @see Query#searchUnique()
 	 */
 	public C searchUnique(final Condition condition)
 	{
-		final Iterator<? extends C> searchResult = search(condition).iterator();
-		if(searchResult.hasNext())
-		{
-			final C result = searchResult.next();
-			if(searchResult.hasNext())
-				throw new RuntimeException(condition.toString());
-			else
-				return result;
-		}
-		else
-			return null;
+		return cast(new Query(this, condition).searchUnique());
 	}
 	
 	public String toString()
