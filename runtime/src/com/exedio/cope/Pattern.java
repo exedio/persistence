@@ -70,7 +70,7 @@ public abstract class Pattern extends Feature
 		// empty default implementation
 	}
 	
-	protected final void initialize(final Attribute<Object> attribute, final String name)
+	protected final void initialize(final Attribute<? extends Object> attribute, final String name)
 	{
 		attribute.initialize(getType(), name, (java.lang.reflect.Type)null);
 	}
