@@ -213,6 +213,15 @@ public class ModelTest extends TestmodelTest
 		}
 		try
 		{
+			new Type(NoItem.class);
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals(NoItem.class.toString() + " is not a subclass of Item", e.getMessage());
+		}
+		try
+		{
 			new Type(NoCreationConstructor.class);
 			fail();
 		}
@@ -261,6 +270,14 @@ public class ModelTest extends TestmodelTest
 				prefixed.store(out, null);
 				out.close();
 			}
+		}
+	}
+	
+	static class NoItem
+	{
+		NoItem()
+		{
+			// just a dummy constructor
 		}
 	}
 	

@@ -110,8 +110,12 @@ public final class Type<C extends Item>
 	{
 		this.javaClass = javaClass;
 		this.id = id;
+		
+		if(!Item.class.isAssignableFrom(javaClass))
+			throw new IllegalArgumentException(javaClass + " is not a subclass of Item");
 		if(javaClass.equals(Item.class))
 			throw new IllegalArgumentException("Cannot make a type for " + javaClass + " itself, but only for subclasses.");
+		
 		typesByClass.put(javaClass, this);
 
 		// supertype
