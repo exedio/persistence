@@ -197,14 +197,14 @@ public class ModelTest extends TestmodelTest
 		
 		try
 		{
-			new Type(null);
+			new Type<Item>(null);
 			fail();
 		}
 		catch(NullPointerException e)
 		{/*OK*/}
 		try
 		{
-			new Type(Item.class);
+			new Type<Item>(Item.class);
 			fail();
 		}
 		catch(RuntimeException e)
@@ -222,7 +222,7 @@ public class ModelTest extends TestmodelTest
 		}
 		try
 		{
-			new Type(NoCreationConstructor.class);
+			new Type<NoCreationConstructor>(NoCreationConstructor.class);
 			fail();
 		}
 		catch(RuntimeException e)
@@ -234,7 +234,7 @@ public class ModelTest extends TestmodelTest
 		}
 		try
 		{
-			new Type(NoReactivationConstructor.class);
+			new Type<NoReactivationConstructor>(NoReactivationConstructor.class);
 			fail();
 		}
 		catch(RuntimeException e)
