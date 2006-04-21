@@ -496,12 +496,11 @@
 				<pathelement location="lib/junit.jar" />
 			</classpath>
 		</ljavac>
-		<copy
-			file="instrument/testsrc/com/exedio/cope/instrument/Example.java"
-			todir="build/instrument/testclasses/com/exedio/cope/instrument" />
-		<copy
-			file="instrument/testsrc/com/exedio/cope/instrument/Example15.java"
-			todir="build/instrument/testclasses/com/exedio/cope/instrument" />
+		<copy todir="build/instrument/testclasses">
+			<fileset dir="instrument/examplesrc">
+				<include name="**/*.java" />
+			</fileset>
+		</copy>
 	</target>
 	
 	<target name="instrument.test.run"
