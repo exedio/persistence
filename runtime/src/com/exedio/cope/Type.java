@@ -270,7 +270,13 @@ public final class Type<C extends Item>
 
 		if(subTypes==null)
 			subTypes = new ArrayList<Type<? extends C>>();
-		subTypes.add(subType);
+		subTypes.add(castTypeInstance(subType));
+	}
+	
+	@SuppressWarnings("unchecked")
+	private Type<? extends C> castTypeInstance(final Type t)
+	{
+		return t;
 	}
 	
 	void registerReference(final ItemAttribute reference)
