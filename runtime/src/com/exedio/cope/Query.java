@@ -367,7 +367,7 @@ public final class Query
 	 * Returns null, if the search result is {@link Collection#isEmpty() empty},
 	 * returns the only element of the search result, if the result {@link Collection#size() size} is exactly one.
 	 * @throws RuntimeException if the search result size is greater than one.
-	 * @see Type#searchUnique()
+	 * @see Type#searchUnique(Condition)
 	 */
 	public Object searchUnique()
 	{
