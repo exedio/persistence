@@ -200,7 +200,7 @@ public final class Model
 	 * like any other string via {@link FunctionAttribute#set(Item,Object)}.
 	 * A subsequent retrieval of that string via {@link FunctionAttribute#get(Item)}
 	 * returns an empty string.
-	 * If false, an empty string stored into a {@link StringAttribute}
+	 * If false, an empty string stored into a {@link StringAttribute} is
 	 * converted to null, thus a subsequent retrieval of that string returns
 	 * null.
 	 * <p>
