@@ -41,7 +41,7 @@ final class Entity
 		state = state.put( transaction, attribute, value );
 	}
 	
-	final void put(final Map<Attribute, Object> attributeValues)
+	void put(final Map<Attribute, Object> attributeValues)
 	{
 		for(final Attribute attribute : attributeValues.keySet())
 		{
