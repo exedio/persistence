@@ -48,7 +48,7 @@ public abstract class FunctionAttribute<E extends Object>
 	private Class<?> valueClass;
 	
 	@Override
-	final void initialize(final Type type, final String name, final java.lang.reflect.Type genericType)
+	final void initialize(final Type<? extends Item> type, final String name, final java.lang.reflect.Type genericType)
 	{
 		super.initialize(type, name, genericType);
 		
