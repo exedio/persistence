@@ -145,11 +145,10 @@ public abstract class InjectorTest extends InstrumentorTest
 		return javaClass;
 	}
 	
-	protected void assertClassEnd(final String className, final JavaClass expectedJavaClass)
+	protected void assertClassEnd(final JavaClass expectedJavaClass)
 	{
 		final InjectionEvent event = fetchEvent();
 		final JavaClass javaClass = ((ClassEndEvent)event).javaClass;
-		assertEquals(className, javaClass.name);
 		assertSame(expectedJavaClass, javaClass);
 	}
 	

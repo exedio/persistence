@@ -72,18 +72,18 @@ public class Example15Test extends InjectorTest
 		assertMethod("getPrimes", null, getPrimes);
 
 		final JavaClass colorClass = assertClass("Color", null, null);
-		assertClassEnd("Color", colorClass);
+		assertClassEnd(colorClass);
 		assertInnerClassAttribute("Color", null);
 		
 		final JavaClass weekdayClass = assertClass("Weekday", null, null);
-		assertClassEnd("Weekday", weekdayClass);
+		assertClassEnd(weekdayClass);
 		assertInnerClassAttribute("Weekday", null);
 		
 		final JavaBehaviour equalsMethod =
 			assertBehaviourHeader("equals", "boolean", 0 /* TODO should be Modifier.PUBLIC */);
 		assertMethod("equals", null, equalsMethod);
 
-		assertClassEnd("Example15", exampleClass);
+		assertClassEnd(exampleClass);
 	}
 
 }

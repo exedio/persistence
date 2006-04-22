@@ -232,7 +232,7 @@ public class ExampleTest extends InjectorTest
 		assertMethod("run", null, drinnerRunMethod);
 		assertText("\n\t ");
 
-		assertClassEnd("Drinner", drinnerClass);
+		assertClassEnd(drinnerClass);
 		assertInnerClassAttribute("Drinner", null);
 		assertText("}\n\n\t ");
 
@@ -251,13 +251,13 @@ public class ExampleTest extends InjectorTest
 		assertMethod("run", null, innerRunMethod);
 		assertText("\n  ");
 
-		assertClassEnd("Inner", innerClass);
+		assertClassEnd(innerClass);
 		assertInnerClassAttribute("Inner", null);
 
 		assertText("}  \n\n  ");
 		final JavaClass subClass = assertClass("InnerSub", "ExampleTest", new String[]{"java.io.Serializable", "Cloneable"});
 		assertText("static class InnerSub extends ExampleTest implements java.io.Serializable, Cloneable\n  {\n  ");
-		assertClassEnd("InnerSub", subClass);
+		assertClassEnd(subClass);
 		assertInnerClassAttribute("InnerSub", null);
 		assertText("}\n\n  public Example()\n  ");
 
@@ -435,7 +435,7 @@ public class ExampleTest extends InjectorTest
 		assertMethod("main", null, main);
 		assertText("\n\n");
 		
-		assertClassEnd("Example", exampleClass);
+		assertClassEnd(exampleClass);
 		assertText("}\n\nclass SecondExample extends Example");
 		final JavaClass secondExampleClass = assertClass("SecondExample", "Example", null);
 		assertText("{"+"void abstractMethod()");
@@ -448,7 +448,7 @@ public class ExampleTest extends InjectorTest
 		assertText("{}");
 		assertMethod("abstractMethod", null, abstractMethod2);
 
-		assertClassEnd("SecondExample", secondExampleClass);
+		assertClassEnd(secondExampleClass);
 		//assertText("}\n\n");
 	}
 
