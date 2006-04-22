@@ -304,6 +304,7 @@ final class Injector
 				case ';' :
 				case '=' :
 				case ',' :
+				case '@' :
 					if (buf.length() > 0)
 					{
 						tokenBuf = c;
@@ -910,6 +911,21 @@ final class Injector
 					parseBody(false, null);
 					scheduleBlock(true);
 					break;
+				case '@':
+				{
+					final char nameToken = readToken();
+					if(nameToken!='\0')
+						throw new ParseException("expected name of annotation");
+					//System.out.println("---------name of annotation-------"+buf);
+
+					final char bracketToken = readToken();
+					if(bracketToken!='(')
+						break; // TODO this is a bug, should push back the token
+					
+					while(readToken()!=')')
+						;
+					break;
+				}
 				default :
 					throw new ParseException("class member expected.");
 			}
