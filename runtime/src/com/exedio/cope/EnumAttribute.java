@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -47,13 +46,7 @@ public final class EnumAttribute<E extends Enum> extends FunctionAttribute<E>
 	@Override
 	Class initialize(final java.lang.reflect.Type genericType)
 	{
-		final java.lang.reflect.Type[] enumClasses = ((ParameterizedType)genericType).getActualTypeArguments();
-		if(enumClasses.length!=1)
-			throw new RuntimeException("not a valid type for EnumAttribute: " + genericType);
-		final Class<E> enumClass = castClass(enumClasses[0]);
-		if(!Enum.class.isAssignableFrom(enumClass))
-			throw new RuntimeException("is not a subclass of " + Enum.class.getName() + ": "+enumClass.getName());
-		
+		final Class<E> enumClass = getClass(genericType, Enum.class);
 		final ArrayList<E> values = new ArrayList<E>();
 		final IntKeyOpenHashMap numbersToValues = new IntKeyOpenHashMap();
 		final HashMap<E, Integer> valuesToNumbers = new HashMap<E, Integer>();
@@ -86,12 +79,6 @@ public final class EnumAttribute<E extends Enum> extends FunctionAttribute<E>
 		this.codesToValues = codesToValues;
 		
 		return enumClass;
-	}
-	
-	@SuppressWarnings("unchecked")
-	private Class<E> castClass(final java.lang.reflect.Type type)
-	{
-		return (Class<E>)type;
 	}
 	
 	@SuppressWarnings("unchecked")

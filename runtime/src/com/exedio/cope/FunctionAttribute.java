@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -59,6 +60,26 @@ public abstract class FunctionAttribute<E extends Object>
 	}
 	
 	abstract Class initialize(java.lang.reflect.Type genericType);
+	
+	final Class<E> getClass(final java.lang.reflect.Type genericType, final Class superClass)
+	{
+		final java.lang.reflect.Type[] results = ((ParameterizedType)genericType).getActualTypeArguments();
+		if(results.length!=1)
+			throw new RuntimeException("not a valid type for " + getClass().getSimpleName() + ": " + genericType);
+
+		final Class<E> result = castClass(results[0]);
+
+		if(!superClass.isAssignableFrom(result))
+			throw new RuntimeException("is not a subclass of " + superClass.getName() + ": "+result.getName());
+		
+		return result;
+	}
+	
+	@SuppressWarnings("unchecked")
+	private final Class<E> castClass(final java.lang.reflect.Type type)
+	{
+		return (Class<E>)type;
+	}
 	
 	public abstract FunctionAttribute<E> copyFunctionAttribute();
 

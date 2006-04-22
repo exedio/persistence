@@ -18,8 +18,6 @@
 
 package com.exedio.cope;
 
-import java.lang.reflect.ParameterizedType;
-
 
 public final class ItemAttribute<E extends Item> extends FunctionAttribute<E>
 {
@@ -56,26 +54,13 @@ public final class ItemAttribute<E extends Item> extends FunctionAttribute<E>
 		return new ItemAttribute<E>(isfinal, optional, implicitUniqueConstraint!=null, policy);
 	}
 	
-	private Class<? extends E> targetTypeClass = null;
+	private Class<E> targetTypeClass = null;
 	
 	@Override
 	Class initialize(final java.lang.reflect.Type genericType)
 	{
-		final java.lang.reflect.Type[] targetClasses = ((ParameterizedType)genericType).getActualTypeArguments();
-		if(targetClasses.length!=1)
-			throw new RuntimeException("not a valid type for ItemAttribute: " + genericType);
-		final Class targetClass = (Class)targetClasses[0];
-		if(!Item.class.isAssignableFrom(targetClass))
-			throw new RuntimeException("is not a subclass of " + Item.class.getName() + ": "+targetClass.getName());
-		
-		this.targetTypeClass = castClass(targetClass);
+		targetTypeClass = getClass(genericType, Item.class);
 		return targetTypeClass;
-	}
-	
-	@SuppressWarnings("unchecked")
-	private Class<? extends E> castClass(final Class c)
-	{
-		return c;
 	}
 	
 	private Type<? extends E> targetType = null;
