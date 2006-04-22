@@ -81,7 +81,7 @@ public final class EnumAttribute<E extends Enum> extends FunctionAttribute<E>
 		return enumClass;
 	}
 	
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked") // TODO pcj.IntKeyOpenHashMap does not support generics
 	private E cast(final Object o)
 	{
 		return (E)o;

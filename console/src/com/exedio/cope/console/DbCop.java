@@ -129,7 +129,7 @@ final class DbCop extends AdminCop
 		return testedDatabases.values().toArray(new HashMap[0]);
 	}
 	
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked") // TODO testedDatabases contains Strings and Maps
 	private static final TreeMap<String, String> castTreeMap(final Object o)
 	{
 		return (TreeMap<String, String>)o;
