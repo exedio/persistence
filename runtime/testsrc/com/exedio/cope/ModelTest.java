@@ -213,7 +213,7 @@ public class ModelTest extends TestmodelTest
 		}
 		try
 		{
-			new Type(NoItem.class);
+			new Type<Item>(castItemClass(NoItem.class));
 			fail();
 		}
 		catch(RuntimeException e)
@@ -295,6 +295,12 @@ public class ModelTest extends TestmodelTest
 		{
 			super(null);
 		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	private static final Class<Item> castItemClass(Class c)
+	{
+		return (Class<Item>)c;
 	}
 
 }

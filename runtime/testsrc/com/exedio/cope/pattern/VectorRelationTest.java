@@ -131,7 +131,7 @@ public class VectorRelationTest extends AbstractLibTest
 		final ArrayList<RelationTargetItem> actualTargets = new ArrayList<RelationTargetItem>();
 		final ArrayList<Integer> actualOrders = new ArrayList<Integer>();
 		
-		final Collection<VectorRelationItem> actualTupels = (Collection<VectorRelationItem>)q.search();
+		final Collection<VectorRelationItem> actualTupels = cast(q.search());
 		for(final VectorRelationItem actualTupel : actualTupels)
 		{
 			actualSources.add(actualTupel.getVectorSource());
@@ -145,6 +145,12 @@ public class VectorRelationTest extends AbstractLibTest
 		assertEquals(Arrays.asList(expectedSources), actualSources);
 		assertEquals(Arrays.asList(expectedTargets), actualTargets);
 		assertEquals(expectedOrderList, actualOrders);
+	}
+	
+	@SuppressWarnings("unchecked")
+	private static final Collection<VectorRelationItem> cast(final Collection c)
+	{
+		return (Collection<VectorRelationItem>)c;
 	}
 	
 }
