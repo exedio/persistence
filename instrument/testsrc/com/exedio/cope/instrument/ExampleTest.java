@@ -211,10 +211,10 @@ public class ExampleTest extends InjectorTest
 		assertAttribute("uglyAttribute8", null, uglyAttribute8);
 		assertText("\n  // end of ugly attributes\n  \n\n  ");
 
-		final JavaClass innerClass = assertClass("Inner", null, new String[]{"Runnable"});
+		final JavaClass innerClass = assertClass("Inner", null, new String[]{"Runnable"}, exampleClass);
 		assertText("class Inner implements Runnable\n  {\n\t ");
 
-		final JavaClass drinnerClass = assertClass("Drinner", null, new String[]{"Runnable"});
+		final JavaClass drinnerClass = assertClass("Drinner", null, new String[]{"Runnable"}, innerClass);
 		assertText("class Drinner implements Runnable\n\t {\n\t\t");
 
 		final JavaAttribute someDrinnerBoolean =
@@ -255,7 +255,7 @@ public class ExampleTest extends InjectorTest
 		assertInnerClassAttribute("Inner", null);
 
 		assertText("}  \n\n  ");
-		final JavaClass subClass = assertClass("InnerSub", "ExampleTest", new String[]{"java.io.Serializable", "Cloneable"});
+		final JavaClass subClass = assertClass("InnerSub", "ExampleTest", new String[]{"java.io.Serializable", "Cloneable"}, exampleClass);
 		assertText("static class InnerSub extends ExampleTest implements java.io.Serializable, Cloneable\n  {\n  ");
 		assertClassEnd(subClass);
 		assertInnerClassAttribute("InnerSub", null);

@@ -135,6 +135,11 @@ public abstract class InjectorTest extends InstrumentorTest
 
 	protected JavaClass assertClass(final String className, final String classExtends, final String[] classImplements)
 	{
+		return assertClass(className, classExtends, classImplements, null);
+	}
+	
+	protected JavaClass assertClass(final String className, final String classExtends, final String[] classImplements, final JavaClass parent)
+	{
 		final InjectionEvent event = fetchEvent();
 		if(!(event instanceof ClassEvent))
 			throw new RuntimeException(event.toString());
@@ -142,6 +147,7 @@ public abstract class InjectorTest extends InstrumentorTest
 		assertEquals(className, javaClass.name);
 		assertEquals(classExtends, javaClass.classExtends);
 		assertEquals(classImplements==null ? Collections.EMPTY_LIST : Arrays.asList(classImplements), javaClass.classImplements);
+		assertSame(parent, javaClass.parent);
 		return javaClass;
 	}
 	
