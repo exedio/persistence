@@ -119,7 +119,7 @@ final class Statement
 		this.columnTypes = defineColumnTypes ? new IntArrayList() : null;
 	}
 	
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked") // OK: joinTypeTableByTable contains both JoinTable and List<JoinTable>
 	private static final ArrayList<JoinTable> castJoinTable(final Object o)
 	{
 		return (ArrayList<JoinTable>)o;

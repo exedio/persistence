@@ -120,19 +120,19 @@ public final class VectorRelation<S extends Item, T extends Item> extends Patter
 		}
 	}
 	
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked") // TODO Query does not support generics
 	private Collection<S> castSource(final Collection c)
 	{
 		return (Collection<S>)c;
 	}
 	
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked") // TODO Query does not support generics
 	private Collection<T> castTarget(final Collection c)
 	{
 		return (Collection<T>)c;
 	}
 	
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked") // TODO Query does not support generics
 	private Collection<Item> castRelation(final Collection c)
 	{
 		return (Collection<Item>)c;

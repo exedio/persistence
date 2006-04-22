@@ -147,7 +147,7 @@ public class VectorRelationTest extends AbstractLibTest
 		assertEquals(expectedOrderList, actualOrders);
 	}
 	
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked") // TODO Query does not support generics
 	private static final Collection<VectorRelationItem> cast(final Collection c)
 	{
 		return (Collection<VectorRelationItem>)c;

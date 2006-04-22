@@ -136,13 +136,13 @@ public final class Relation<S extends Item, T extends Item> extends Pattern
 		return removeFromTargets(source, target);
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked") // TODO Query does not support generics
 	private Collection<S> castSource(final Collection c)
 	{
 		return (Collection<S>)c;
 	}
 	
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked") // TODO Query does not support generics
 	private Collection<T> castTarget(final Collection c)
 	{
 		return (Collection<T>)c;

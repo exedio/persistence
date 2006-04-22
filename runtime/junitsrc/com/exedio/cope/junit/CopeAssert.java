@@ -155,13 +155,13 @@ public abstract class CopeAssert extends TestCase
 		return Collections.singletonList(o);
 	}
 	
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked") // OK: no generic array creation
 	public final static <T> List<T> listg(final T o1, final T o2)
 	{
 		return Arrays.asList((T[])new Object[]{o1, o2});
 	}
 	
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked") // OK: no generic array creation
 	public final static <T> List<T> listg(final T o1, final T o2, final T o3)
 	{
 		return Arrays.asList((T[])new Object[]{o1, o2, o3});

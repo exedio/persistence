@@ -44,13 +44,13 @@ public abstract class CustomAttribute<E>
 	private final Method setter;
 	private final Class valueType;
 	
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked") // OK: no generic array creation
 	public CustomAttribute(final FunctionAttribute storage)
 	{
 		this(new FunctionAttribute[]{storage});
 	}
 	
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked") // OK: no generic array creation
 	public CustomAttribute(final FunctionAttribute storage1, final FunctionAttribute storage2)
 	{
 		this(new FunctionAttribute[]{storage1, storage2});
@@ -131,7 +131,7 @@ public abstract class CustomAttribute<E>
 		return valueType;
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked") // OK: reflection does not support generics
 	private E cast(final Object o)
 	{
 		return (E)o;

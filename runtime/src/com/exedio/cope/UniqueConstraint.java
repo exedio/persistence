@@ -44,19 +44,19 @@ public final class UniqueConstraint extends Feature
 	/**
 	 * Is not public, because one should use {@link Item#UNIQUE} etc.
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked") // OK: no generic array creation
 	UniqueConstraint(final FunctionAttribute uniqueAttribute)
 	{
 		this(new FunctionAttribute[]{uniqueAttribute});
 	}
 	
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked") // OK: no generic array creation
 	public UniqueConstraint(final FunctionAttribute uniqueAttribute1, final FunctionAttribute uniqueAttribute2)
 	{
 		this(new FunctionAttribute[]{uniqueAttribute1, uniqueAttribute2});
 	}
 	
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked") // OK: no generic array creation
 	public UniqueConstraint(final FunctionAttribute uniqueAttribute1, final FunctionAttribute uniqueAttribute2, final FunctionAttribute uniqueAttribute3)
 	{
 		this(new FunctionAttribute[]{uniqueAttribute1, uniqueAttribute2, uniqueAttribute3});

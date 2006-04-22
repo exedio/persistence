@@ -74,7 +74,7 @@ public final class Vector<T> extends Pattern implements Settable<Collection<T>>
 		this(template2Sources(template, length));
 	}
 	
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked") // OK: no generic array creation
 	private final static <X> FunctionAttribute<X>[] cast(final FunctionAttribute[] o)
 	{
 		return (FunctionAttribute<X>[])o;

@@ -219,7 +219,7 @@ public final class Type<C extends Item>
 		this.reactivationConstructor = getConstructor(new Class[]{ReactivationConstructorDummy.class, int.class}, "reactivation");
 	}
 	
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked") // OK: Class.getSuperclass() does not support generics
 	private static final Class<Item> castSuperType(final Class o)
 	{
 		return (Class<Item>)o;
@@ -594,7 +594,7 @@ public final class Type<C extends Item>
 		return result;
 	}
 	
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked") // TODO Transaction.getEntityIfActive and Query and reflection do not support generics
 	private C cast(final Object o)
 	{
 		return (C)o;
@@ -620,7 +620,7 @@ public final class Type<C extends Item>
 		return castCollection(query.search());
 	}
 	
-	@SuppressWarnings("unchecked") // TODO make Query use generics
+	@SuppressWarnings("unchecked") // TODO Query does not support generics
 	private Collection<? extends C> castCollection(final Collection o)
 	{
 		return o;

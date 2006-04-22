@@ -151,7 +151,7 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 		return Collections.singletonMap(source, serialize(value));
 	}
 	
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked") // OK: deserialization does not support generics
 	private E cast(final Object o)
 	{
 		return (E)o;

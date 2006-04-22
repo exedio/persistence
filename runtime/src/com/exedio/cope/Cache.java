@@ -186,7 +186,7 @@ final class Cache
 		return result;		
 	}
 	
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked") // TODO apache.LRUMap does not support generics
 	private static final Collection<? extends Object> castQC(final Object o)
 	{
 		return (Collection<? extends Object>)o;
