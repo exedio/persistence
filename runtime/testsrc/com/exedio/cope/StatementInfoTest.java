@@ -38,11 +38,7 @@ public class StatementInfoTest extends TestmodelTest
 		final String firstStatementText = root.getText();
 		assertTrue(firstStatementText, firstStatementText.startsWith("select "));
 		
-		Database realDatabase = model.getDatabase();
-		if ( realDatabase instanceof WrappingDatabase )
-		{
-			realDatabase = ((WrappingDatabase)realDatabase).getWrappedDatabase();
-		}
+		final Database realDatabase = model.getDatabase(); // TODO rename
 		final String database = realDatabase.getClass().getName();
 		final String timePrefix = "timing ";
 		if(database.indexOf("HsqldbDatabase")>=0)

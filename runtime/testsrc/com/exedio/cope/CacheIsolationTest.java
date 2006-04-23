@@ -63,8 +63,8 @@ public class CacheIsolationTest extends AbstractLibTest
 			// fine
 		}
 		assertEquals( null, txChangeItem.getEntityIfActive(item.type, item.pk) );
-		ExpectingDatabase expectingDB = new ExpectingDatabase( model.getDatabase() );
-		model.replaceDatabase( expectingDB );
+		final ExpectingDatabase expectingDB = new ExpectingDatabase(); // TODO rename
+		assertNull(model.setDatabaseListener(expectingDB));
 		expectingDB.expectLoad( txChangeItem, item );
 		assertEquals( "collision", collisionItem.getName() );
 		assertEquals( "blub", item.getName() );
@@ -77,7 +77,7 @@ public class CacheIsolationTest extends AbstractLibTest
 		model.joinTransaction( txChangeCollisionItem );
 		model.commit();
 		model.startTransaction("just for tearDown");
-		model.replaceDatabase( expectingDB.getWrappedDatabase() );
+		assertSame(expectingDB, model.setDatabaseListener(null));
 	}
 	
 	public void testRollback() throws MandatoryViolationException
@@ -88,8 +88,8 @@ public class CacheIsolationTest extends AbstractLibTest
 		model.leaveTransaction();
 		model.clearCache();
 		final Transaction txLoadCache = model.startTransaction("loadcache");
-		ExpectingDatabase expectingDB = new ExpectingDatabase( model.getDatabase() );
-		model.replaceDatabase( expectingDB );
+		final ExpectingDatabase expectingDB = new ExpectingDatabase();
+		assertNull(model.setDatabaseListener(expectingDB));
 		expectingDB.expectLoad( txLoadCache, item );
 		if ( model.supportsReadCommitted() )
 		{
@@ -114,7 +114,7 @@ public class CacheIsolationTest extends AbstractLibTest
 		}
 		assertEquals( "blub", item.getName() );
 		expectingDB.verifyExpectations();
-		model.replaceDatabase( expectingDB.getWrappedDatabase() );
+		assertSame(expectingDB, model.setDatabaseListener(null));
 	}
 
 	public void testSearch() throws MandatoryViolationException
@@ -125,8 +125,8 @@ public class CacheIsolationTest extends AbstractLibTest
 		model.commit();
 		Transaction txChange = model.startTransaction("change");
 		item.setName("notblub");
-		ExpectingDatabase expectingDB = new ExpectingDatabase( model.getDatabase() );
-		model.replaceDatabase( expectingDB );		
+		final ExpectingDatabase expectingDB = new ExpectingDatabase();
+		assertNull(model.setDatabaseListener(expectingDB));		
 		expectingDB.expectSearch( txChange, CacheIsolationItem.TYPE );
 		assertContains( CacheIsolationItem.TYPE.search(CacheIsolationItem.name.equal("blub")) );
 		expectingDB.verifyExpectations();
@@ -145,6 +145,6 @@ public class CacheIsolationTest extends AbstractLibTest
 		expectingDB.verifyExpectations();
 		model.commit();
 		model.joinTransaction( txChange );
-		model.replaceDatabase( expectingDB.getWrappedDatabase() );
+		assertSame(expectingDB, model.setDatabaseListener(null));
 	}
 }

@@ -43,7 +43,7 @@ import com.exedio.dsmf.Driver;
 import com.exedio.dsmf.SQLRuntimeException;
 import com.exedio.dsmf.Schema;
 
-abstract class AbstractDatabase implements Database
+abstract class AbstractDatabase implements Database // TODO rename
 {
 	protected static final int TWOPOW8 = 1<<8;
 	protected static final int TWOPOW16 = 1<<16;
@@ -267,6 +267,8 @@ abstract class AbstractDatabase implements Database
 	{
 		buildStage = false;
 
+		listener.search(connection, query, doCountOnly);
+		
 		final int limitStart = query.limitStart;
 		final int limitCount = query.limitCount;
 		final boolean limitActive = limitStart>0 || limitCount!=Query.UNLIMITED_COUNT;
@@ -544,6 +546,8 @@ abstract class AbstractDatabase implements Database
 	{
 		buildStage = false;
 
+		listener.load(connection, state);
+		
 		final Statement bf = createStatement(state.type.getSupertype()!=null);
 		bf.append("select ");
 
@@ -1559,5 +1563,37 @@ abstract class AbstractDatabase implements Database
 			throws SQLException
 	{
 		// default implementation does nothing, may be overwritten by subclasses
+	}
+	
+	
+	// listeners ------------------
+	
+	private static final DatabaseListener noopListener = new DatabaseListener()
+	{
+		public void load(Connection connection, PersistentState state)
+		{/* DOES NOTHING */}
+		
+		public void search(Connection connection, Query query, boolean doCountOnly)
+		{/* DOES NOTHING */}
+	};
+
+	private DatabaseListener listener = noopListener;
+	private final Object listenerLock = new Object();
+	
+	public DatabaseListener setListener(DatabaseListener listener)
+	{
+		if(listener==null)
+			listener = noopListener;
+		DatabaseListener result;
+
+		synchronized(listenerLock)
+		{
+			result = this.listener;
+			this.listener = listener;
+		}
+		
+		if(result==noopListener)
+			result = null;
+		return result;
 	}
 }

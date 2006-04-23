@@ -19,24 +19,18 @@
 package com.exedio.cope;
 
 import java.sql.Connection;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
 /**
- *	An implementation of database that can be used to expect load and search calls 
+ *	An implementation of <tt>DatabaseListener</tt> that can be used to expect load and search calls 
  * in unit tests, and to verify that all these and no other calls have been made 
  * to the wrapped database.
  */
-public class ExpectingDatabase extends WrappingDatabase
+public class ExpectingDatabase implements DatabaseListener // TODO rename
 {
 	private List<Call> expectedCalls = null;
-	
-	public ExpectingDatabase( Database nested )
-	{
-		super( nested );
-	}
 	
 	public void load(Connection connection, PersistentState state)
 	{
@@ -44,13 +38,11 @@ public class ExpectingDatabase extends WrappingDatabase
 		{
 			nextExpectedCall().checkLoad( connection, state );
 		}
-		super.load( connection, state );
 	}
 
-	public ArrayList<Object> search(Connection connection, Query query, boolean doCountOnly)
+	public void search(Connection connection, Query query, boolean doCountOnly)
 	{
 		nextExpectedCall().checkSearch( connection, query );
-		return super.search( connection, query, doCountOnly );
 	}
 
 	private List<Call> getExpectedCalls()

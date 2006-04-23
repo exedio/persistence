@@ -104,4 +104,5 @@ interface Database
 
 	void defineColumnTypes(IntList columnTypes, java.sql.Statement statement) throws SQLException;
 	boolean isDefiningColumnTypes();
+	DatabaseListener setListener(DatabaseListener listener);
 }

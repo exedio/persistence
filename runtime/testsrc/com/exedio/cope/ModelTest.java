@@ -37,11 +37,7 @@ public class ModelTest extends TestmodelTest
 	public void testSupportsReadCommitted()
 	{
 		assertEquals( true, model.hasCurrentTransaction() );
-		Database realDatabase = model.getDatabase();
-		if ( realDatabase instanceof WrappingDatabase )
-		{
-			realDatabase = ((WrappingDatabase)realDatabase).getWrappedDatabase();
-		}
+		final Database realDatabase = model.getDatabase(); // TODO rename
 		if ( realDatabase.getClass().getName().equals("com.exedio.cope.HsqldbDatabase") )
 		{
 			assertEquals( false, model.supportsReadCommitted() );

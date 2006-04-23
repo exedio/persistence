@@ -62,11 +62,7 @@ public abstract class AbstractLibTest extends CopeTest
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		Database realDatabase = model.getDatabase();
-		if ( realDatabase instanceof WrappingDatabase )
-		{
-			realDatabase = ((WrappingDatabase)realDatabase).getWrappedDatabase();
-		}
+		final Database realDatabase = model.getDatabase(); // TODO rename
 		hsqldb = "com.exedio.cope.HsqldbDatabase".equals(realDatabase.getClass().getName()); 
 		mysql  = "com.exedio.cope.MysqlDatabase".equals(realDatabase.getClass().getName());
 		oracle  = "com.exedio.cope.OracleDatabase".equals(realDatabase.getClass().getName());
@@ -79,16 +75,12 @@ public abstract class AbstractLibTest extends CopeTest
 		for(Iterator i = files.iterator(); i.hasNext(); )
 			((File)i.next()).delete();
 		files.clear();
+
+		final DatabaseListener listener = model.setDatabaseListener(null);
 		
-		if ( model.getDatabase() instanceof ExpectingDatabase )
-		{
-			ExpectingDatabase expectingDB = (ExpectingDatabase)model.getDatabase();
-			model.replaceDatabase( expectingDB.getWrappedDatabase() );
-			if ( testCompletedSuccessfully() )
-			{
-				fail( "test didn't un-install ExpectingDatabase" );
-			}
-		}
+		if(testCompletedSuccessfully())
+			assertNull("test didn't un-install ExpectingDatabase", listener);
+		
 		super.tearDown();
 	}
 

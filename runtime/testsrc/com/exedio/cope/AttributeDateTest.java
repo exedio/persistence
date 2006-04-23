@@ -197,11 +197,7 @@ public class AttributeDateTest extends AttributeTest
 	
 	public void testDateColumnType()
 	{
-		Database realDatabase = model.getDatabase();
-		if ( realDatabase instanceof WrappingDatabase )
-		{
-			realDatabase = ((WrappingDatabase)realDatabase).getWrappedDatabase();
-		}
+		final Database realDatabase = model.getDatabase(); // TODO rename
 		final String expectedColumnType;
 		if ( realDatabase.getClass().getName().endsWith("OracleDatabase") )
 		{
@@ -225,8 +221,6 @@ public class AttributeDateTest extends AttributeTest
 		}
 		assertEquals(expectedColumnType, model.getDatabase().getDateTimestampType());
 		assertEquals(expectedColumnType, realDatabase.getDateTimestampType());
-		LogDatabase wrapping = new LogDatabase( model.getDatabase(), "out", "true" );
-		assertEquals(expectedColumnType, wrapping.getDateTimestampType());
 	}
 	
 	public static String toString(final Date date)

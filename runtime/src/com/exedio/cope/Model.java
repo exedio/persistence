@@ -225,11 +225,11 @@ public final class Model
 	}
 	
 	/**
-	 *	This method should only be used to (un-)install an ExpectingDatabase.
+	 * @return the listener previously registered for this model
 	 */
-	void replaceDatabase( Database newDatabase )
+	DatabaseListener setDatabaseListener(final DatabaseListener listener)
 	{
-		database = newDatabase;
+		return database.setListener(listener);
 	}
 	
 	public void createDatabase()
