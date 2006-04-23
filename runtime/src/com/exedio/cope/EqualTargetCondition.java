@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 
-public final class EqualTargetCondition extends Condition
+public final class EqualTargetCondition extends Condition // TODO replace by EqualAttributeCondition
 {
 	public final ItemAttribute attribute;
 	final Join targetJoin;

@@ -57,7 +57,7 @@ public class OrderByTest extends TestmodelTest
 			final Query query = new Query(item1.TYPE, null);
 			query.setDeterministicOrder(true);
 			assertEquals(list(item1, item2, item3, item4, item5), query.search());
-			assertEquals("select AttributeItem.PK from AttributeItem order deterministically", query.toString());
+			assertEquals("select AttributeItem#this from AttributeItem order deterministically", query.toString());
 		}
 		
 		// simple order
@@ -71,11 +71,11 @@ public class OrderByTest extends TestmodelTest
 			final Query query = new Query(item1.TYPE, null);
 			query.setOrderBy(new Function[]{item1.someNotNullBoolean,item1.someNotNullInteger}, new boolean[]{true, true});
 			assertEquals(list(item5, item4, item3, item1, item2), query.search());
-			assertEquals("select AttributeItem.PK from AttributeItem order by AttributeItem#someNotNullBoolean, AttributeItem#someNotNullInteger", query.toString());
+			assertEquals("select AttributeItem#this from AttributeItem order by AttributeItem#someNotNullBoolean, AttributeItem#someNotNullInteger", query.toString());
 			
 			query.setOrderBy(new Function[]{item1.someNotNullBoolean,item1.someNotNullInteger}, new boolean[]{false, true});
 			assertEquals(list(item1, item2, item5, item4, item3), query.search());
-			assertEquals("select AttributeItem.PK from AttributeItem order by AttributeItem#someNotNullBoolean desc, AttributeItem#someNotNullInteger", query.toString());
+			assertEquals("select AttributeItem#this from AttributeItem order by AttributeItem#someNotNullBoolean desc, AttributeItem#someNotNullInteger", query.toString());
 			
 			query.setOrderBy(new Function[]{item1.someNotNullEnum,item1.someNotNullString}, new boolean[]{true, true});
 			assertEquals(list(item1, item4, item2, item5, item3), query.search());

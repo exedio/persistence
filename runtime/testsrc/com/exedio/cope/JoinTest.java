@@ -79,7 +79,7 @@ public class JoinTest extends TestmodelTest
 			assertEquals(list(item1a, item1b), query.search());
 		}
 		{
-			final Query query = new Query(new Selectable[]{PointerTargetItem.code, PointerItem.TYPE, PointerItem.code}, PointerTargetItem.TYPE, null);
+			final Query query = new Query(new Function[]{PointerTargetItem.code, PointerItem.TYPE.getThis(), PointerItem.code}, PointerTargetItem.TYPE, null);
 			query.join(PointerItem.TYPE, PointerItem.pointer.equalTarget());
 			assertContains(
 					list("item1a2b", item1b, "item1b"),

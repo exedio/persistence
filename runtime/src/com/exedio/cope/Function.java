@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 
-public interface Function<E extends Object> extends Selectable
+public interface Function<E extends Object>
 {
 	E get(Item item);
 	

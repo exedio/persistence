@@ -286,7 +286,7 @@ abstract class AbstractDatabase implements Database // TODO rename
 		
 		bf.append(' ');
 
-		final Selectable[] selectables = query.selectables;
+		final Function[] selectables = query.selectables;
 		final Column[] selectColumns = new Column[selectables.length];
 		final Type[] selectTypes = new Type[selectables.length];
 
@@ -298,47 +298,34 @@ abstract class AbstractDatabase implements Database // TODO rename
 		{
 			for(int selectableIndex = 0; selectableIndex<selectables.length; selectableIndex++)
 			{
-				final Selectable selectable = selectables[selectableIndex];
+				final Function selectable = selectables[selectableIndex];
 				final Column selectColumn;
 				final Type selectType;
 				final Table selectTable;
 				final Column selectPrimaryKey;
-				if(selectable instanceof Function)
+				final Function<? extends Object> selectAttribute = (Function<? extends Object>)selectable; // TODO rename
+				selectType = selectAttribute.getType();
+
+				if(selectableIndex>0)
+					bf.append(',');
+				
+				if(selectable instanceof FunctionAttribute)
 				{
-					final Function<? extends Object> selectAttribute = (Function<? extends Object>)selectable;
-					selectType = selectAttribute.getType();
-	
-					if(selectableIndex>0)
-						bf.append(',');
-					
-					if(selectable instanceof FunctionAttribute)
+					selectColumn = ((FunctionAttribute)selectAttribute).getColumn();
+					bf.append((FunctionAttribute)selectable, (Join)null).defineColumn(selectColumn);
+					if(selectable instanceof ItemAttribute)
 					{
-						selectColumn = ((FunctionAttribute)selectAttribute).getColumn();
-						bf.append((FunctionAttribute)selectable, (Join)null).defineColumn(selectColumn);
-						if(selectable instanceof ItemAttribute)
-						{
-							final StringColumn typeColumn = ((ItemAttribute)selectAttribute).getTypeColumn();
-							if(typeColumn!=null)
-								bf.append(',').append(typeColumn).defineColumn(typeColumn);
-						}
-					}
-					else
-					{
-						selectColumn = null;
-						final View view = (View)selectable;
-						bf.append(view, (Join)null).defineColumn(view);
+						final StringColumn typeColumn = ((ItemAttribute)selectAttribute).getTypeColumn();
+						if(typeColumn!=null)
+							bf.append(',').append(typeColumn).defineColumn(typeColumn);
 					}
 				}
-				else
+				else if(selectable instanceof Type.This)
 				{
-					selectType = (Type)selectable;
 					selectTable = selectType.getTable();
 					selectPrimaryKey = selectTable.primaryKey;
 					selectColumn = selectPrimaryKey;
 	
-					if(selectableIndex>0)
-						bf.append(',');
-					
 					bf.appendPK(selectType, (Join)null).defineColumn(selectColumn);
 	
 					if(selectColumn.primaryKey)
@@ -354,6 +341,12 @@ abstract class AbstractDatabase implements Database // TODO rename
 					}
 					else
 						selectTypes[selectableIndex] = selectType.getOnlyPossibleTypeOfInstances();
+				}
+				else
+				{
+					selectColumn = null;
+					final View view = (View)selectable;
+					bf.append(view, (Join)null).defineColumn(view);
 				}
 	
 				selectColumns[selectableIndex] = selectColumn;
@@ -477,7 +470,7 @@ abstract class AbstractDatabase implements Database // TODO rename
 							
 						for(int selectableIndex = 0; selectableIndex<selectables.length; selectableIndex++)
 						{
-							final Selectable selectable = selectables[selectableIndex];
+							final Function selectable = selectables[selectableIndex];
 							final Object resultCell;
 							if(selectable instanceof FunctionAttribute)
 							{

@@ -31,14 +31,14 @@ import java.util.List;
 import com.exedio.cope.util.ReactivationConstructorDummy;
 
 public final class Type<C extends Item>
-	implements Selectable
 {
 	private static final HashMap<Class<? extends Item>, Type<? extends Item>> typesByClass = new HashMap<Class<? extends Item>, Type<? extends Item>>();
 
 	final Class<C> javaClass;
 	final String id;
-	private final Type<? extends Item> supertype;
+	private final Type<? extends Item> supertype; // TODO make package private and use in in the core
 	
+	final Function<C> thisFunction = new This(this);
 	private final List<Feature> declaredFeatures;
 	private final List<Feature> features;
 	private final HashMap<String, Feature> declaredFeaturesByName;
@@ -486,6 +486,10 @@ public final class Type<C extends Item>
 		return ( javaClass.getModifiers() & Modifier.ABSTRACT ) > 0;
 	}
 	
+	public Function<C> getThis()
+	{
+		return thisFunction;
+	}
 
 	public List<ItemAttribute> getReferences()
 	{
@@ -693,4 +697,39 @@ public final class Type<C extends Item>
 
 	static final int NOT_A_PK = Integer.MIN_VALUE;	
 
+	static final class This<E extends Item> implements Function<E>
+	{
+		final Type<E> type;
+		
+		This(final Type<E> type)
+		{
+			assert type!=null;
+			this.type = type;
+		}
+		
+		public Type getType()
+		{
+			return type;
+		}
+		
+		public E get(final Item item)
+		{
+			return (E)item;
+		}
+		
+		public void append(Statement bf, Join join)
+		{
+			bf.appendPK(type, join);
+		}
+		
+		public void appendParameter(Statement bf, E value)
+		{
+			throw new RuntimeException(); // TODO
+		}
+
+		public String toString()
+		{
+			return type.id + "#this";
+		}
+	}
 }

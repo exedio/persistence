@@ -66,7 +66,7 @@ public class SelectTest extends TestmodelTest
 	public void testSelect()
 	{
 		final Query query = new Query(
-				new Selectable[]{
+				new Function[]{
 						item.someString, item.someStringUpperCase, item.someStringLength, item.someNotNullString,
 						item.someNotNullInteger, item.someNotNullLong, item.someNotNullDouble,
 						item.someNotNullBoolean, item.someNotNullItem, item.someNotNullEnum},

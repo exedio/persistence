@@ -31,7 +31,7 @@ public final class Query
 	final static int UNLIMITED_COUNT = -66;
 	
 	final Model model;
-	final Selectable[] selectables;
+	final Function[] selectables; // TODO rename to selects
 	final Type type;
 	ArrayList<Join> joins = null;
 	Condition condition;
@@ -50,32 +50,36 @@ public final class Query
 	public Query(final Type type, final Condition condition)
 	{
 		this.model = type.getModel();
-		this.selectables = new Type[]{type};
+		this.selectables = new Function[]{type.thisFunction};
 		this.type = type;
 		this.condition = condition;
 	}
 	
-	public Query(final Selectable selectable, final Condition condition)
+	public Query(final Function selectable, final Condition condition)
 	{
-		this.selectables = new Selectable[]{selectable};
-		if(selectable instanceof Function)
-			this.type = ((Function)selectable).getType();
-		else
-			this.type = (Type)selectable;
-
+		this.selectables = new Function[]{selectable};
+		this.type = selectable.getType();
 		this.model = this.type.getModel();
 		this.condition = condition;
 	}
 	
-	public Query(final Selectable selectable, final Type type, final Condition condition)
+	public Query(final Function selectable, final Type type, final Condition condition)
 	{
 		this.model = type.getModel();
-		this.selectables = new Selectable[]{selectable};
+		this.selectables = new Function[]{selectable};
 		this.type = type;
 		this.condition = condition;
 	}
 	
-	public Query(final Selectable[] selectables, final Type type, final Condition condition)
+	public Query(final Type selectable, final Type type, final Condition condition)
+	{
+		this.model = type.getModel();
+		this.selectables = new Function[]{selectable.thisFunction};
+		this.type = type;
+		this.condition = condition;
+	}
+	
+	public Query(final Function[] selectables, final Type type, final Condition condition)
 	{
 		this.model = type.getModel();
 		this.selectables = selectables;
@@ -395,10 +399,8 @@ public final class Query
 			if(i>0)
 				bf.append(',');
 
-			final Selectable selectable = selectables[i];
+			final Function selectable = selectables[i];
 			bf.append(selectable);
-			if(selectable instanceof Type)
-				bf.append(".PK");
 		}
 
 		bf.append(" from ").
@@ -461,7 +463,7 @@ public final class Query
 	static final class Key
 	{
 		final Model model;
-		final Selectable[] selectables;
+		final Function[] selectables;
 		final Type type;
 		final ArrayList joins;
 		final Condition condition;
