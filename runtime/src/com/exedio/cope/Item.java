@@ -434,6 +434,11 @@ public abstract class Item extends Cope
 		return new Type<C>(javaClass);
 	}
 	
+	protected static final <C extends Item> Type<C> newType(final Class<C> javaClass, final String id)
+	{
+		return new Type<C>(javaClass, id);
+	}
+	
 	// activation/deactivation -----------------------------------------------------
 	
 	private final Entity getEntity()

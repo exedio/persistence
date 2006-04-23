@@ -100,12 +100,12 @@ public final class Type<C extends Item>
 		return className.substring(pos+1).intern();
 	}
 
-	public Type(final Class<C> javaClass)
+	Type(final Class<C> javaClass)
 	{
 		this(javaClass, classToId(javaClass));
 	}
 	
-	public Type(final Class<C> javaClass, final String id)
+	Type(final Class<C> javaClass, final String id)
 	{
 		this.javaClass = javaClass;
 		this.id = id;
