@@ -106,5 +106,5 @@ public class ItemSerializationItem extends Item implements Serializable
 	 *       It can be customized with the tag <tt>@cope.type public|package|protected|private|none</tt> in the class comment.
 	 */
 	public static final com.exedio.cope.Type<ItemSerializationItem> TYPE =
-		new com.exedio.cope.Type<ItemSerializationItem>(ItemSerializationItem.class)
+		newType(ItemSerializationItem.class)
 ;}

@@ -1150,15 +1150,13 @@ final class Generator
 			o.write(type.name);
 			o.write("> TYPE =");
 			o.write(lineSeparator);
-	
-			o.write("\t\tnew "+Type.class.getName()+'<');
-			o.write(type.name);
-			o.write(">(");
+			
+			o.write("\t\tnewType(");
 			o.write(type.name);
 			o.write(".class)");
 			o.write(lineSeparator);
 	
-			o.write(";");
+			o.write(';');
 		}
 	}
 	

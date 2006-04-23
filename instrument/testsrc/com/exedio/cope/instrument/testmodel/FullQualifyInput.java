@@ -75,5 +75,5 @@ public class FullQualifyInput extends com.exedio.cope.instrument.testmodel.Input
 	 *       It can be customized with the tag <tt>@cope.type public|package|protected|private|none</tt> in the class comment.
 	 */
 	public static final com.exedio.cope.Type<FullQualifyInput> TYPE =
-		new com.exedio.cope.Type<FullQualifyInput>(FullQualifyInput.class)
+		newType(FullQualifyInput.class)
 ;}

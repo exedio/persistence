@@ -91,5 +91,5 @@ public class TypePrivate extends Item
 	 *       It can be customized with the tag <tt>@cope.type public|package|protected|private|none</tt> in the class comment.
 	 */
 	private static final com.exedio.cope.Type<TypePrivate> TYPE =
-		new com.exedio.cope.Type<TypePrivate>(TypePrivate.class)
+		newType(TypePrivate.class)
 ;}

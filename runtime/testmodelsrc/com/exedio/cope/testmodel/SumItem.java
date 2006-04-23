@@ -203,5 +203,5 @@ public class SumItem extends Item
 	 *       It can be customized with the tag <tt>@cope.type public|package|protected|private|none</tt> in the class comment.
 	 */
 	public static final com.exedio.cope.Type<SumItem> TYPE =
-		new com.exedio.cope.Type<SumItem>(SumItem.class)
+		newType(SumItem.class)
 ;}

@@ -150,5 +150,5 @@ public abstract class Super extends Item
 	 *       It can be customized with the tag <tt>@cope.type public|package|protected|private|none</tt> in the class comment.
 	 */
 	public static final com.exedio.cope.Type<Super> TYPE =
-		new com.exedio.cope.Type<Super>(Super.class)
+		newType(Super.class)
 ;}

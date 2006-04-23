@@ -131,5 +131,5 @@ public class CacheIsolationItem extends Item
 	 *       It can be customized with the tag <tt>@cope.type public|package|protected|private|none</tt> in the class comment.
 	 */
 	public static final com.exedio.cope.Type<CacheIsolationItem> TYPE =
-		new com.exedio.cope.Type<CacheIsolationItem>(CacheIsolationItem.class)
+		newType(CacheIsolationItem.class)
 ;}

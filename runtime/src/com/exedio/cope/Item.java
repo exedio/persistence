@@ -390,6 +390,8 @@ public abstract class Item extends Cope
 		}
 	}
 
+	// convenience for subclasses --------------------------------------------------
+	
 	public static final Attribute.Option MANDATORY = Attribute.Option.MANDATORY;
 	public static final Attribute.Option OPTIONAL = Attribute.Option.OPTIONAL;
 	public static final Attribute.Option UNIQUE = Attribute.Option.UNIQUE;
@@ -426,6 +428,11 @@ public abstract class Item extends Cope
 	public static final ItemAttribute.DeletePolicy FORBID = ItemAttribute.DeletePolicy.FORBID;
 	public static final ItemAttribute.DeletePolicy NULLIFY = ItemAttribute.DeletePolicy.NULLIFY;
 	public static final ItemAttribute.DeletePolicy CASCADE = ItemAttribute.DeletePolicy.CASCADE;
+	
+	protected static final <C extends Item> Type<C> newType(final Class<C> javaClass)
+	{
+		return new Type<C>(javaClass);
+	}
 	
 	// activation/deactivation -----------------------------------------------------
 	

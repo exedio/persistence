@@ -126,5 +126,5 @@ public class JoinFunctionItem extends Item
 	 *       It can be customized with the tag <tt>@cope.type public|package|protected|private|none</tt> in the class comment.
 	 */
 	public static final com.exedio.cope.Type<JoinFunctionItem> TYPE =
-		new com.exedio.cope.Type<JoinFunctionItem>(JoinFunctionItem.class)
+		newType(JoinFunctionItem.class)
 ;}

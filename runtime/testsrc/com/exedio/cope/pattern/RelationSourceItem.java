@@ -159,5 +159,5 @@ public class RelationSourceItem extends Item
 	 *       It can be customized with the tag <tt>@cope.type public|package|protected|private|none</tt> in the class comment.
 	 */
 	public static final com.exedio.cope.Type<RelationSourceItem> TYPE =
-		new com.exedio.cope.Type<RelationSourceItem>(RelationSourceItem.class)
+		newType(RelationSourceItem.class)
 ;}
