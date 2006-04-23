@@ -52,12 +52,18 @@ public class OrderByTest extends TestmodelTest
 		// no order at all
 		assertContains(item4, item2, item1, item3, item5, new Query(item1.TYPE, null).search());
 
-		// deterministic order only
+		// order by this only
 		{
 			final Query query = new Query(item1.TYPE, null);
-			query.setDeterministicOrder(true);
+			query.setOrderByThis(true);
 			assertEquals(list(item1, item2, item3, item4, item5), query.search());
-			assertEquals("select AttributeItem#this from AttributeItem order deterministically", query.toString());
+			assertEquals("select AttributeItem#this from AttributeItem order by AttributeItem#this", query.toString());
+		}
+		{
+			final Query query = new Query(item1.TYPE, null);
+			query.setOrderByThis(false);
+			assertEquals(list(item5, item4, item3, item2, item1), query.search());
+			assertEquals("select AttributeItem#this from AttributeItem order by AttributeItem#this desc", query.toString());
 		}
 		
 		// simple order
@@ -180,8 +186,7 @@ public class OrderByTest extends TestmodelTest
 	{
 		{
 			final Query query = new Query(item1.TYPE, null);
-			query.setOrderBy(orderFunction, true);
-			query.setDeterministicOrder(true);
+			query.setOrderByAndThis(orderFunction, true);
 	
 			if(limitCount==-1)
 				query.setLimit(limitStart);
@@ -193,8 +198,7 @@ public class OrderByTest extends TestmodelTest
 		}
 		{
 			final Query query = new Query(item1.TYPE, null);
-			query.setOrderBy(orderFunction, false);
-			query.setDeterministicOrder(true);
+			query.setOrderByAndThis(orderFunction, false);
 	
 			if(limitCount==-1)
 				query.setLimit(limitStart);
@@ -205,8 +209,7 @@ public class OrderByTest extends TestmodelTest
 		}
 		{
 			final Query query2 = new Query(item.someNotNullString, item1.TYPE, null);
-			query2.setOrderBy(orderFunction, true);
-			query2.setDeterministicOrder(true);
+			query2.setOrderByAndThis(orderFunction, true);
 
 			if(limitCount==-1)
 				query2.setLimit(limitStart);
@@ -221,8 +224,7 @@ public class OrderByTest extends TestmodelTest
 		}
 		{
 			final Query query = new Query(item1.TYPE, null);
-			query.setOrderBy(orderFunction, true);
-			query.setDeterministicOrder(true);
+			query.setOrderByAndThis(orderFunction, true);
 	
 			if(limitCount==-1)
 				query.setLimit(limitStart);

@@ -39,8 +39,6 @@ public final class Query
 	Function[] orderBy = null;
 	boolean[] orderAscending;
 	
-	boolean deterministicOrder = false;
-
 	int limitStart = 0;
 	int limitCount = UNLIMITED_COUNT;
 	
@@ -138,6 +136,12 @@ public final class Query
 		return joins==null ? Collections.<Join>emptyList() : joins;
 	}
 	
+	public void setOrderByThis(final boolean ascending)
+	{
+		this.orderBy = new Function[]{type.getThis()};
+		this.orderAscending = new boolean[]{ascending};
+	}
+	
 	public void setOrderBy(final Function orderBy, final boolean ascending)
 	{
 		if(orderBy==null)
@@ -145,6 +149,15 @@ public final class Query
 		
 		this.orderBy = new Function[]{orderBy};
 		this.orderAscending = new boolean[]{ascending};
+	}
+	
+	public void setOrderByAndThis(final Function orderBy, final boolean ascending)
+	{
+		if(orderBy==null)
+			throw new NullPointerException("orderBy is null");
+		
+		this.orderBy = new Function[]{orderBy, type.getThis()};
+		this.orderAscending = new boolean[]{ascending, true};
 	}
 	
 	/**
@@ -160,11 +173,6 @@ public final class Query
 		
 		this.orderBy = orderBy;
 		this.orderAscending = ascending;
-	}
-
-	public void setDeterministicOrder(final boolean deterministicOrder)
-	{
-		this.deterministicOrder = deterministicOrder;
 	}
 
 	/**
@@ -446,9 +454,6 @@ public final class Query
 			}
 		}
 		
-		if(deterministicOrder)
-			bf.append(" order deterministically");
-
 		if(limitStart>0 || limitCount!=UNLIMITED_COUNT)
 		{
 			bf.append(" limit ").
@@ -469,9 +474,7 @@ public final class Query
 		final Condition condition;
 
 		final Function[] orderBy;
-
 		final boolean[] orderAscending;
-		final boolean deterministicOrder;
 
 		final int limitStart;
 		final int limitCount;
@@ -490,7 +493,6 @@ public final class Query
 			condition = query.condition;
 			orderBy = query.orderBy;
 			orderAscending = query.orderAscending;
-			deterministicOrder = query.deterministicOrder;
 			limitStart = query.limitStart;
 			limitCount = query.limitCount;
 			makeStatementInfo = query.makeStatementInfo;
@@ -510,7 +512,6 @@ public final class Query
 				&& equals( condition, other.condition )
 				&& equals( orderBy, other.orderBy )
 				&& orderAscending==other.orderAscending
-				&& deterministicOrder==other.deterministicOrder
 				&& limitStart == other.limitStart
 				&& limitCount == other.limitCount
 				&& makeStatementInfo == other.makeStatementInfo;
@@ -575,7 +576,6 @@ public final class Query
 					^ hashCode(condition)
 					^ hashCode(orderBy)
 					^ hashCode(orderAscending)
-					^ hashCode(deterministicOrder)
 					^ limitStart
 					^ limitCount
 					^ hashCode(makeStatementInfo);

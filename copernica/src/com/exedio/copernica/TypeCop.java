@@ -169,8 +169,9 @@ final class TypeCop extends CopernicaCop
 		
 		final Query query = new Query(type, null);
 		if(orderBy!=null)
-			query.setOrderBy(orderBy, orderAscending);
-		query.setDeterministicOrder(true);
+			query.setOrderByAndThis(orderBy, orderAscending);
+		else
+			query.setOrderByThis(true);
 		query.setLimit(limitStart, limitCount);
 		query.enableMakeStatementInfo();
 		

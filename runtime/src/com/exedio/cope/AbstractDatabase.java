@@ -400,20 +400,21 @@ abstract class AbstractDatabase implements Database // TODO rename
 						final ItemAttribute<? extends Item> itemOrderBy = (ItemAttribute<? extends Item>)orderBy[i];
 						itemOrderBy.getTargetType().getPkSource().appendOrderByExpression(bf, itemOrderBy);
 					}
+					else if(orderBy[i] instanceof Type.This)
+					{
+						final Type.This<? extends Item> itemOrderBy = (Type.This<? extends Item>)orderBy[i];
+						itemOrderBy.type.getPkSource().appendOrderByExpression(bf, itemOrderBy);
+					}
 					else
 						bf.append(orderBy[i], (Join)null);
 					
 					if(!orderAscending[i])
 						bf.append(" desc");
+
+					// TODO break here, if already ordered by some unique function
 				}
 			}
 			
-			if(query.deterministicOrder) // TODO skip this, if orderBy already orders by some unique function
-			{
-				bf.appendOrderBy();
-				query.type.getPkSource().appendDeterministicOrderByExpression(bf, query.type);
-			}
-
 			if(limitActive && limitSupport==LIMIT_SUPPORT_CLAUSE_AFTER_WHERE)
 				appendLimitClause(bf, limitStart, limitCount);
 		}

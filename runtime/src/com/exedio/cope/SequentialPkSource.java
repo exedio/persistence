@@ -103,7 +103,7 @@ final class SequentialPkSource extends PkSource
 		bf.appendPK(orderBy, (Join)null);
 	}
 
-	void appendOrderByExpression(final Statement bf, final ItemAttribute orderBy)
+	void appendOrderByExpression(final Statement bf, final Function orderBy)
 	{
 		bf.append(orderBy, (Join)null);
 	}
