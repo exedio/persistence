@@ -53,9 +53,9 @@ public class MediaItem extends Item
 	/**
 	 * The persistent type information for mediaItem.
 	 */
-	public static final com.exedio.cope.Type<MediaItem> TYPE = newType(MediaItem.class, "MediaTestItem")
+	public static final com.exedio.cope.Type<MediaItem> TYPE = newType(MediaItem.class, "MediaTestItem");
 
-;/**
+	/**
 
 	 **
 	 * Creates a new MediaItem with all the attributes initially needed.
