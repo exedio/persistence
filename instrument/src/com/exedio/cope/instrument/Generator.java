@@ -1148,10 +1148,7 @@ final class Generator
 			writeModifier(option.getModifier(Modifier.PUBLIC) | Modifier.STATIC | Modifier.FINAL); // TODO obey class visibility
 			o.write(Type.class.getName()+'<');
 			o.write(type.name);
-			o.write("> TYPE =");
-			o.write(lineSeparator);
-			
-			o.write("\t\tnewType(");
+			o.write("> TYPE = newType(");
 			o.write(type.name);
 			o.write(".class)");
 			o.write(lineSeparator);
