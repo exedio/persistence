@@ -38,7 +38,7 @@ public final class Type<C extends Item>
 	final String id;
 	private final Type<? extends Item> supertype; // TODO make package private and use in in the core
 	
-	final Function<C> thisFunction = new This(this);
+	final Function<C> thisFunction = new This<C>(this);
 	private final List<Feature> declaredFeatures;
 	private final List<Feature> features;
 	private final HashMap<String, Feature> declaredFeaturesByName;
@@ -701,7 +701,7 @@ public final class Type<C extends Item>
 	{
 		final Type<E> type;
 		
-		This(final Type<E> type)
+		private This(final Type<E> type)
 		{
 			assert type!=null;
 			this.type = type;
