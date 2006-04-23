@@ -93,7 +93,7 @@ public final class Model
 	 * @throws RuntimeException if a subsequent call provides properties different
 	 * 									to the first call.
 	 */
-	public final void setPropertiesInitially(final Properties properties)
+	public void setPropertiesInitially(final Properties properties)
 	{
 		if(properties==null)
 			throw new NullPointerException();
@@ -157,17 +157,17 @@ public final class Model
 		this.properties.ensureEquality(properties);
 	}
 
-	public final List<Type> getTypes()
+	public List<Type> getTypes()
 	{
 		return typeList;
 	}
 	
-	public final List<Type> getConcreteTypes()
+	public List<Type> getConcreteTypes()
 	{
 		return concreteTypeList;
 	}
 	
-	public final Type findTypeByID(final String id)
+	public Type findTypeByID(final String id)
 	{
 		if(this.properties==null)
 			throw newNotInitializedException();
@@ -175,12 +175,12 @@ public final class Model
 		return typesByID.get(id);
 	}
 	
-	private final RuntimeException newNotInitializedException()
+	private RuntimeException newNotInitializedException()
 	{
 		throw new RuntimeException("model not yet initialized, use setPropertiesInitially");
 	}
 	
-	public final Properties getProperties()
+	public Properties getProperties()
 	{
 		if(properties==null)
 			throw newNotInitializedException();
@@ -188,7 +188,7 @@ public final class Model
 		return properties;
 	}
 	
-	public final boolean supportsCheckConstraints()
+	public boolean supportsCheckConstraints()
 	{
 		return database.supportsCheckConstraints();
 	}
@@ -204,19 +204,19 @@ public final class Model
 	 * converted to null, thus a subsequent retrieval of that string returns
 	 * null.
 	 * <p>
-	 * Up to now, only Oracle does not support empty strings,
+	 * Up to now, only Oracle does not support empty strings.
 	 */
-	public final boolean supportsEmptyStrings()
+	public boolean supportsEmptyStrings()
 	{
 		return !getProperties().getDatabaseDontSupportEmptyStrings() && database.supportsEmptyStrings();
 	}
 
-	public final boolean supportsRightOuterJoins()
+	public boolean supportsRightOuterJoins()
 	{
 		return database.supportsRightOuterJoins();
 	}
 
-	final Database getDatabase()
+	Database getDatabase()
 	{
 		if(database==null)
 			throw newNotInitializedException();
@@ -227,7 +227,7 @@ public final class Model
 	/**
 	 *	This method should only be used to (un-)install an ExpectingDatabase.
 	 */
-	final void replaceDatabase( Database newDatabase )
+	void replaceDatabase( Database newDatabase )
 	{
 		database = newDatabase;
 	}
@@ -410,7 +410,7 @@ public final class Model
 	 * @see Item#getCopeID()
 	 * @throws NoSuchIDException if there is no item with the given id.
 	 */
-	public final Item findByID(final String id)
+	public Item findByID(final String id)
 			throws NoSuchIDException
 	{
 		final int pos = id.lastIndexOf('.');
@@ -567,7 +567,7 @@ public final class Model
 	 * that is bound to the currently running thread.
 	 * @see Thread#currentThread()
 	 */
-	public final Transaction getCurrentTransaction()
+	public Transaction getCurrentTransaction()
 	{
 		final Transaction result = getCurrentTransactionIfAvailable();
 		if(result==null)
@@ -577,7 +577,7 @@ public final class Model
 		return result;
 	}
 	
-	private final Transaction getCurrentTransactionIfAvailable()
+	private Transaction getCurrentTransactionIfAvailable()
 	{
 		final Transaction result = transactionThreads.get();
 		
@@ -589,7 +589,7 @@ public final class Model
 		return result;
 	}
 	
-	private final void setTransaction(final Transaction transaction)
+	private void setTransaction(final Transaction transaction)
 	{
 		if(transaction!=null)
 		{
