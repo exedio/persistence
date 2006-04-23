@@ -105,7 +105,7 @@ public final class Transaction
 		final Type type = item.type;
 		final int pk = item.pk;
 
-		IntKeyOpenHashMap rowMap = rowMaps[type.transientNumber];
+		IntKeyOpenHashMap rowMap = rowMaps[type.transientNumber]; // TODO rename to entityMap
 		if(rowMap==null)
 		{
 			rowMap = new IntKeyOpenHashMap();
@@ -147,7 +147,7 @@ public final class Transaction
 	
 	final void removeEntity(final Item item)
 	{
-		IntKeyOpenHashMap rowMap = rowMaps[item.type.transientNumber];
+		IntKeyOpenHashMap rowMap = rowMaps[item.type.transientNumber]; // TODO rename to entityMap
 		if(rowMap!=null)
 		{
 			rowMap.remove( item.pk );
@@ -224,7 +224,7 @@ public final class Transaction
 	{
 		assertNotClosed();
 
-		final IntKeyOpenHashMap rowMap = rowMaps[type.transientNumber];
+		final IntKeyOpenHashMap rowMap = rowMaps[type.transientNumber]; // TODO rename to entityMap
 		if(rowMap==null)
 			return null;
 		return (Entity)rowMap.get(pk);
