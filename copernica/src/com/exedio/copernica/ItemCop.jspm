@@ -32,7 +32,6 @@ import com.exedio.cope.FunctionAttribute;
 import com.exedio.cope.Type;
 import com.exedio.cope.pattern.Media;
 import com.exedio.cope.pattern.Qualifier;
-import com.exedio.cope.EqualCondition;
 import com.exedio.cops.CheckboxField;
 import com.exedio.cops.Field;
 import com.exedio.cops.Form;
