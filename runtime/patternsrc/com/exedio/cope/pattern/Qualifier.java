@@ -34,7 +34,7 @@ import com.exedio.cope.UniqueConstraint;
 
 public final class Qualifier extends Pattern
 {
-	private final ItemAttribute parent;
+	private final ItemAttribute<Item> parent;
 	private final FunctionAttribute[] keys;
 	private final List<FunctionAttribute> keyList;
 	private final UniqueConstraint qualifyUnique;
@@ -47,23 +47,29 @@ public final class Qualifier extends Pattern
 				"argument of qualifier constructor is null, " +
 				"may happen due to bad class initialization order.");
 		
-		final List attributes = qualifyUnique.getUniqueAttributes();
+		final List<FunctionAttribute<Object>> attributes = qualifyUnique.getUniqueAttributes();
 		if(attributes.size()<2)
 			throw new RuntimeException(attributes.toString());
 
-		this.parent = (ItemAttribute)attributes.get(0);
+		this.parent = castItemAttribute(attributes.get(0));
 		this.keys = new FunctionAttribute[attributes.size()-1];
 		for(int i = 0; i<this.keys.length; i++)
-			this.keys[i] = (FunctionAttribute)attributes.get(i+1);
+			this.keys[i] = attributes.get(i+1);
 		this.keyList = Collections.unmodifiableList(Arrays.asList(this.keys));
 		this.qualifyUnique = qualifyUnique;
+	}
+
+	@SuppressWarnings("unchecked") // OK: UniqueConstraint looses type information
+	private static final ItemAttribute<Item> castItemAttribute(final Attribute a)
+	{
+		return (ItemAttribute<Item>)a;
 	}
 	
 	// TODO implicit external source: new Qualifier(QualifiedStringQualifier.key))
 	// TODO internal source: new Qualifier(stringAttribute(OPTIONAL))
 	// TODO use registerPattern on sources
 
-	public ItemAttribute getParent()
+	public ItemAttribute<Item> getParent()
 	{
 		return parent;
 	}
