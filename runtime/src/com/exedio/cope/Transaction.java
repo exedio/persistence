@@ -223,10 +223,10 @@ public final class Transaction
 	{
 		assertNotClosed();
 
-		final IntKeyOpenHashMap rowMap = entityMaps[type.transientNumber]; // TODO rename to entityMap
-		if(rowMap==null)
+		final IntKeyOpenHashMap entityMap = entityMaps[type.transientNumber];
+		if(entityMap==null)
 			return null;
-		return (Entity)rowMap.get(pk);
+		return (Entity)entityMap.get(pk);
 	}
 	
 	Connection getConnection()
