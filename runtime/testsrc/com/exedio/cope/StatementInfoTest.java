@@ -38,10 +38,9 @@ public class StatementInfoTest extends TestmodelTest
 		final String firstStatementText = root.getText();
 		assertTrue(firstStatementText, firstStatementText.startsWith("select "));
 		
-		final Database realDatabase = model.getDatabase(); // TODO rename
-		final String database = realDatabase.getClass().getName();
+		final String database = model.getDatabase().getClass().getName();
 		final String timePrefix = "timing ";
-		if(database.indexOf("HsqldbDatabase")>=0)
+		if(database.endsWith("HsqldbDatabase"))
 		{
 			final Iterator<StatementInfo> rootChilds = root.getChilds().iterator();
 			{
@@ -50,7 +49,7 @@ public class StatementInfoTest extends TestmodelTest
 			}
 			assertTrue(!rootChilds.hasNext());
 		}
-		else if(database.indexOf("MysqlDatabase")>=0)
+		else if(database.endsWith("MysqlDatabase"))
 		{
 			final Iterator<StatementInfo> rootChilds = root.getChilds().iterator();
 			{
@@ -63,7 +62,7 @@ public class StatementInfoTest extends TestmodelTest
 			}
 			assertTrue(!rootChilds.hasNext());
 		}
-		else if(database.indexOf("OracleDatabase")>=0)
+		else if(database.endsWith("OracleDatabase"))
 		{
 			final Iterator<StatementInfo> rootChilds = root.getChilds().iterator();
 			{
@@ -98,10 +97,6 @@ public class StatementInfoTest extends TestmodelTest
 				}
 			}
 			assertTrue(!rootChilds.hasNext());
-		}
-		else if(database.indexOf("P6spyDatabase")>=0)
-		{
-			// is delegated
 		}
 		else
 			fail(database);
