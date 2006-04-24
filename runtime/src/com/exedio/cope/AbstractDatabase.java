@@ -300,22 +300,20 @@ abstract class AbstractDatabase implements Database // TODO rename
 			{
 				final Function select = selects[selectIndex];
 				final Column selectColumn;
-				final Type selectType;
+				final Type selectType = select.getType();
 				final Table selectTable;
 				final Column selectPrimaryKey;
-				final Function<? extends Object> selectAttribute = (Function<? extends Object>)select; // TODO rename
-				selectType = selectAttribute.getType();
 
 				if(selectIndex>0)
 					bf.append(',');
 				
 				if(select instanceof FunctionAttribute)
 				{
-					selectColumn = ((FunctionAttribute)selectAttribute).getColumn();
+					selectColumn = ((FunctionAttribute)select).getColumn();
 					bf.append((FunctionAttribute)select, (Join)null).defineColumn(selectColumn);
 					if(select instanceof ItemAttribute)
 					{
-						final StringColumn typeColumn = ((ItemAttribute)selectAttribute).getTypeColumn();
+						final StringColumn typeColumn = ((ItemAttribute)select).getTypeColumn();
 						if(typeColumn!=null)
 							bf.append(',').append(typeColumn).defineColumn(typeColumn);
 					}
