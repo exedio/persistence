@@ -37,26 +37,26 @@ public class ModelTest extends TestmodelTest
 	public void testSupportsReadCommitted()
 	{
 		assertEquals( true, model.hasCurrentTransaction() );
-		final Database realDatabase = model.getDatabase(); // TODO rename
-		if ( realDatabase.getClass().getName().equals("com.exedio.cope.HsqldbDatabase") )
+		final String database = model.getDatabase().getClass().getName();
+		if(database.equals("com.exedio.cope.HsqldbDatabase"))
 		{
 			assertEquals( false, model.supportsReadCommitted() );
 		}
-		else if ( realDatabase.getClass().getName().equals("com.exedio.cope.OracleDatabase") )
+		else if(database.equals("com.exedio.cope.OracleDatabase"))
 		{
 			assertEquals( true, model.supportsReadCommitted() );
 		}
-		else if ( realDatabase.getClass().getName().equals("com.exedio.cope.MysqlDatabase") )
+		else if(database.equals("com.exedio.cope.MysqlDatabase"))
 		{
 			assertEquals( true, model.supportsReadCommitted() );
 		}
-		else if ( realDatabase.getClass().getName().equals("com.exedio.cope.PostgresqlDatabase") )
+		else if(database.equals("com.exedio.cope.PostgresqlDatabase"))
 		{
 			assertEquals( true, model.supportsReadCommitted() );
 		}
 		else
 		{
-			fail( realDatabase.getClass().getName() );
+			fail(database);
 		}
 	}
 	
