@@ -41,6 +41,7 @@ final class Entity
 		state = state.put( transaction, attribute, value );
 	}
 	
+	@SuppressWarnings("unchecked") // TODO dont know how
 	void put(final Map<Attribute, Object> attributeValues)
 	{
 		for(final Attribute attribute : attributeValues.keySet())
