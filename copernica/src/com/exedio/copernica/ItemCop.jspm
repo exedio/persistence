@@ -48,7 +48,7 @@ class ItemCop_Jspm
 		throws IOException
 	{
 		final Item item = cop.item;
-		final Type type = item.getCopeType();
+		final Type<? extends Item> type = item.getCopeType();
 		final ItemForm form = cop.form;
 		final CopernicaProvider provider = cop.provider;
 		final CopernicaLanguage language = cop.language;
@@ -166,19 +166,16 @@ class ItemCop_Jspm
 					</tr><%
 				}
 				// qualified attributes
-				for(Iterator j = type.getFeatures().iterator(); j.hasNext(); )
+				for(final Feature feature : type.getFeatures())
 				{
-					final Feature feature = (Feature)j.next();
 					if(feature instanceof Qualifier)
 					{
 						final Qualifier qualifier = (Qualifier)feature;
-						final Collection values = qualifier.getQualifyUnique().getType().search(new EqualCondition(qualifier.getParent(), item));
-						for(Iterator k = qualifier.getAttributes().iterator(); k.hasNext(); )
+						final Collection<? extends Item> values = qualifier.getQualifyUnique().getType().search(new EqualCondition(qualifier.getParent(), item));
+						for(final Attribute anyAttribute : qualifier.getAttributes())
 						{
-							final Attribute anyAttribute = (Attribute)k.next();
-							for(Iterator l = values.iterator(); l.hasNext(); )
+							for(final Item value : values)
 							{
-								final Item value = (Item)l.next();
 								if(anyAttribute instanceof FunctionAttribute)
 								{
 									final FunctionAttribute attribute = (FunctionAttribute)anyAttribute;
