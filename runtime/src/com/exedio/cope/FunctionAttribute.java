@@ -61,7 +61,7 @@ public abstract class FunctionAttribute<E extends Object>
 	
 	abstract Class initialize(java.lang.reflect.Type genericType);
 	
-	final Class<E> getClass(final java.lang.reflect.Type genericType, final Class superClass)
+	final Class<E> getClass(final java.lang.reflect.Type genericType, final Class<? extends Object> superClass)
 	{
 		final java.lang.reflect.Type[] results = ((ParameterizedType)genericType).getActualTypeArguments();
 		if(results.length!=1)
