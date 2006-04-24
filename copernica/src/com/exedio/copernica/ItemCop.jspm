@@ -171,7 +171,8 @@ class ItemCop_Jspm
 					if(feature instanceof Qualifier)
 					{
 						final Qualifier qualifier = (Qualifier)feature;
-						final Collection<? extends Item> values = qualifier.getQualifyUnique().getType().search(new EqualCondition(qualifier.getParent(), item));
+						final Collection<? extends Item> values =
+							qualifier.getQualifyUnique().getType().search(new EqualCondition(qualifier.getParent(), item));
 						for(final Attribute anyAttribute : qualifier.getAttributes())
 						{
 							for(final Item value : values)
