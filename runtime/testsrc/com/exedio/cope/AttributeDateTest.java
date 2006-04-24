@@ -197,7 +197,7 @@ public class AttributeDateTest extends AttributeTest
 	
 	public void testDateColumnType()
 	{
-		final Database database = model.getDatabase();
+		final AbstractDatabase database = model.getDatabase();
 		final String databaseClassName = database.getClass().getName();
 		final String expectedColumnType;
 

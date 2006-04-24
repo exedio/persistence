@@ -27,13 +27,13 @@ import com.exedio.dsmf.Schema;
 
 final class Table
 {
-	final Database database;
+	final AbstractDatabase database;
 	final String id;
 	final String protectedID;
 	final IntegerColumn primaryKey;
 	final StringColumn typeColumn;
 
-	Table(final Database database, final String id, final Type<? extends Item> supertype, final String[] typesOfInstancesColumnValues)
+	Table(final AbstractDatabase database, final String id, final Type<? extends Item> supertype, final String[] typesOfInstancesColumnValues)
 	{
 		this.database = database;
 		this.id = database.makeName(id).intern();

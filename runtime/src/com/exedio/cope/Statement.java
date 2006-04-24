@@ -30,14 +30,14 @@ import bak.pcj.list.IntArrayList;
 
 final class Statement
 {
-	private final Database database;
+	private final AbstractDatabase database;
 	final StringBuffer text = new StringBuffer();
 	final ArrayList<Object> parameters;
 	private final HashMap<JoinTable, JoinTable> joinTables;
 	private final boolean qualifyTable;
 	final IntArrayList columnTypes;
 	
-	Statement(final Database database, final boolean prepare, final boolean qualifyTable, final boolean defineColumnTypes)
+	Statement(final AbstractDatabase database, final boolean prepare, final boolean qualifyTable, final boolean defineColumnTypes)
 	{
 		if(database==null)
 			throw new NullPointerException();
@@ -49,7 +49,7 @@ final class Statement
 		this.columnTypes = defineColumnTypes ? new IntArrayList() : null;
 	}
 
-	Statement(final Database database, final boolean prepare, final Query query, final boolean defineColumnTypes)
+	Statement(final AbstractDatabase database, final boolean prepare, final Query query, final boolean defineColumnTypes)
 	{
 		if(database==null)
 			throw new NullPointerException();

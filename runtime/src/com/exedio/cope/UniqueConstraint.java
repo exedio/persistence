@@ -69,7 +69,7 @@ public final class UniqueConstraint extends Feature
 	
 	static final String IMPLICIT_UNIQUE_SUFFIX = "ImplicitUnique";
 	
-	final void materialize(final Database database)
+	final void materialize(final AbstractDatabase database)
 	{
 		if(this.databaseID!=null)
 			throw new RuntimeException();

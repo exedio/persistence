@@ -43,7 +43,7 @@ import com.exedio.dsmf.Driver;
 import com.exedio.dsmf.SQLRuntimeException;
 import com.exedio.dsmf.Schema;
 
-abstract class AbstractDatabase implements Database // TODO rename
+abstract class AbstractDatabase // TODO rename
 {
 	protected static final int TWOPOW8 = 1<<8;
 	protected static final int TWOPOW16 = 1<<16;
@@ -1359,6 +1359,17 @@ abstract class AbstractDatabase implements Database // TODO rename
 	public abstract String getDoubleType(int precision);
 	public abstract String getStringType(int maxLength);
 	public abstract String getDayType();
+	
+	/**
+	 * Returns a column type suitable for storing timestamps
+	 * with milliseconds resolution.
+	 * This method may return null,
+	 * if the database does not support such a column type.
+	 * The framework will then fall back to store the number of milliseconds.
+	 */
+	public abstract String getDateTimestampType();
+	public abstract String getBlobType(long maximumLength);
+	
 	abstract int getLimitSupport();
 	
 	protected static final int LIMIT_SUPPORT_NONE = 26;
