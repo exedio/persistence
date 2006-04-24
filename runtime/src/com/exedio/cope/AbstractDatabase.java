@@ -296,31 +296,31 @@ abstract class AbstractDatabase implements Database // TODO rename
 		}
 		else
 		{
-			for(int selectableIndex = 0; selectableIndex<selects.length; selectableIndex++)
+			for(int selectIndex = 0; selectIndex<selects.length; selectIndex++)
 			{
-				final Function selectable = selects[selectableIndex];
+				final Function select = selects[selectIndex];
 				final Column selectColumn;
 				final Type selectType;
 				final Table selectTable;
 				final Column selectPrimaryKey;
-				final Function<? extends Object> selectAttribute = (Function<? extends Object>)selectable; // TODO rename
+				final Function<? extends Object> selectAttribute = (Function<? extends Object>)select; // TODO rename
 				selectType = selectAttribute.getType();
 
-				if(selectableIndex>0)
+				if(selectIndex>0)
 					bf.append(',');
 				
-				if(selectable instanceof FunctionAttribute)
+				if(select instanceof FunctionAttribute)
 				{
 					selectColumn = ((FunctionAttribute)selectAttribute).getColumn();
-					bf.append((FunctionAttribute)selectable, (Join)null).defineColumn(selectColumn);
-					if(selectable instanceof ItemAttribute)
+					bf.append((FunctionAttribute)select, (Join)null).defineColumn(selectColumn);
+					if(select instanceof ItemAttribute)
 					{
 						final StringColumn typeColumn = ((ItemAttribute)selectAttribute).getTypeColumn();
 						if(typeColumn!=null)
 							bf.append(',').append(typeColumn).defineColumn(typeColumn);
 					}
 				}
-				else if(selectable instanceof Type.This)
+				else if(select instanceof Type.This)
 				{
 					selectTable = selectType.getTable();
 					selectPrimaryKey = selectTable.primaryKey;
@@ -337,19 +337,19 @@ abstract class AbstractDatabase implements Database // TODO rename
 								append(selectTypeColumn).defineColumn(selectTypeColumn);
 						}
 						else
-							selectTypes[selectableIndex] = selectType.getOnlyPossibleTypeOfInstances();
+							selectTypes[selectIndex] = selectType.getOnlyPossibleTypeOfInstances();
 					}
 					else
-						selectTypes[selectableIndex] = selectType.getOnlyPossibleTypeOfInstances();
+						selectTypes[selectIndex] = selectType.getOnlyPossibleTypeOfInstances();
 				}
 				else
 				{
 					selectColumn = null;
-					final View view = (View)selectable;
+					final View view = (View)select;
 					bf.append(view, (Join)null).defineColumn(view);
 				}
 	
-				selectColumns[selectableIndex] = selectColumn;
+				selectColumns[selectIndex] = selectColumn;
 			}
 		}
 
@@ -469,15 +469,15 @@ abstract class AbstractDatabase implements Database // TODO rename
 						final Object[] resultRow = (selects.length > 1) ? new Object[selects.length] : null;
 						final Row dummyRow = new Row();
 							
-						for(int selectableIndex = 0; selectableIndex<selects.length; selectableIndex++)
+						for(int selectIndex = 0; selectIndex<selects.length; selectIndex++)
 						{
-							final Function selectable = selects[selectableIndex];
+							final Function select = selects[selectIndex];
 							final Object resultCell;
-							if(selectable instanceof FunctionAttribute)
+							if(select instanceof FunctionAttribute)
 							{
-								selectColumns[selectableIndex].load(resultSet, columnIndex++, dummyRow);
-								final FunctionAttribute selectAttribute = (FunctionAttribute)selectable;
-								if(selectable instanceof ItemAttribute)
+								selectColumns[selectIndex].load(resultSet, columnIndex++, dummyRow);
+								final FunctionAttribute selectAttribute = (FunctionAttribute)select;
+								if(select instanceof ItemAttribute)
 								{
 									final StringColumn typeColumn = ((ItemAttribute)selectAttribute).getTypeColumn();
 									if(typeColumn!=null)
@@ -485,9 +485,9 @@ abstract class AbstractDatabase implements Database // TODO rename
 								}
 								resultCell = selectAttribute.get(dummyRow);
 							}
-							else if(selectable instanceof View)
+							else if(select instanceof View)
 							{
-								final View selectFunction = (View)selectable;
+								final View selectFunction = (View)select;
 								resultCell = selectFunction.load(resultSet, columnIndex++);
 							}
 							else
@@ -501,7 +501,7 @@ abstract class AbstractDatabase implements Database // TODO rename
 								}
 								else
 								{
-									final Type type = types[selectableIndex];
+									final Type type = types[selectIndex];
 									final Type currentType;
 									if(type==null)
 									{
@@ -517,7 +517,7 @@ abstract class AbstractDatabase implements Database // TODO rename
 								}
 							}
 							if(resultRow!=null)
-								resultRow[selectableIndex] = resultCell;
+								resultRow[selectIndex] = resultCell;
 							else
 								result.add(resultCell);
 						}
