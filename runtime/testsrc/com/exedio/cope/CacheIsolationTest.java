@@ -63,7 +63,7 @@ public class CacheIsolationTest extends AbstractLibTest
 			// fine
 		}
 		assertEquals( null, txChangeItem.getEntityIfActive(item.type, item.pk) );
-		final ExpectingDatabase listener = new ExpectingDatabase();
+		final ExpectingDatabaseListener listener = new ExpectingDatabaseListener();
 		assertNull(model.setDatabaseListener(listener));
 		listener.expectLoad( txChangeItem, item );
 		assertEquals( "collision", collisionItem.getName() );
@@ -88,7 +88,7 @@ public class CacheIsolationTest extends AbstractLibTest
 		model.leaveTransaction();
 		model.clearCache();
 		final Transaction txLoadCache = model.startTransaction("loadcache");
-		final ExpectingDatabase listener = new ExpectingDatabase();
+		final ExpectingDatabaseListener listener = new ExpectingDatabaseListener();
 		assertNull(model.setDatabaseListener(listener));
 		listener.expectLoad( txLoadCache, item );
 		if ( model.supportsReadCommitted() )
@@ -125,7 +125,7 @@ public class CacheIsolationTest extends AbstractLibTest
 		model.commit();
 		Transaction txChange = model.startTransaction("change");
 		item.setName("notblub");
-		final ExpectingDatabase listener = new ExpectingDatabase();
+		final ExpectingDatabaseListener listener = new ExpectingDatabaseListener();
 		assertNull(model.setDatabaseListener(listener));		
 		listener.expectSearch( txChange, CacheIsolationItem.TYPE );
 		assertContains( CacheIsolationItem.TYPE.search(CacheIsolationItem.name.equal("blub")) );
