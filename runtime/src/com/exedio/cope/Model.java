@@ -52,7 +52,7 @@ public final class Model
 	// set by setPropertiesInitially
 	private Properties properties;
 	private Object propertiesLock = new Object();
-	private AbstractDatabase database;
+	private Database database;
 	private Cache cache;
 
 	private final ThreadLocal<Transaction> transactionThreads = new ThreadLocal<Transaction>();
@@ -216,7 +216,7 @@ public final class Model
 		return database.supportsRightOuterJoins();
 	}
 
-	AbstractDatabase getDatabase()
+	Database getDatabase()
 	{
 		if(database==null)
 			throw newNotInitializedException();

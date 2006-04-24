@@ -351,7 +351,7 @@ public final class Type<C extends Item>
 			t.collectTypesOfInstances(result, levelLimit);
 	}
 	
-	void materialize(final AbstractDatabase database)
+	void materialize(final Database database)
 	{
 		if(database==null)
 			throw new RuntimeException();

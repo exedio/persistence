@@ -24,7 +24,7 @@ import org.hsqldb.jdbcDriver;
 
 import com.exedio.dsmf.HsqldbDriver;
 
-final class HsqldbDatabase extends AbstractDatabase
+final class HsqldbDatabase extends Database
 {
 	static
 	{

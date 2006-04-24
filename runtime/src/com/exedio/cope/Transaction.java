@@ -32,7 +32,7 @@ import java.util.Iterator;
 public final class Transaction
 {
 	final Model model;
-	final AbstractDatabase database;
+	final Database database;
 	final String name;
 	private Thread boundThread = null;
 	

@@ -23,7 +23,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Map;
 
-final class PersistentState extends State implements AbstractDatabase.ResultSetHandler
+final class PersistentState extends State implements Database.ResultSetHandler
 {
 	
 	private final Row row;

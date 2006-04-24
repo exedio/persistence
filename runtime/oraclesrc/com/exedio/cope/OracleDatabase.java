@@ -37,7 +37,7 @@ import com.exedio.dsmf.SQLRuntimeException;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Table;
 
-final class OracleDatabase extends AbstractDatabase
+final class OracleDatabase extends Database
 {
 	static
 	{

@@ -43,7 +43,7 @@ import com.exedio.dsmf.Driver;
 import com.exedio.dsmf.SQLRuntimeException;
 import com.exedio.dsmf.Schema;
 
-abstract class AbstractDatabase // TODO rename
+abstract class Database
 {
 	protected static final int TWOPOW8 = 1<<8;
 	protected static final int TWOPOW16 = 1<<16;
@@ -66,7 +66,7 @@ abstract class AbstractDatabase // TODO rename
 	final long blobLengthFactor;
 	final boolean oracle; // TODO remove
 	
-	protected AbstractDatabase(final Driver driver, final Properties properties)
+	protected Database(final Driver driver, final Properties properties)
 	{
 		this.driver = driver;
 		this.prepare = !properties.getDatabaseDontSupportPreparedStatements();

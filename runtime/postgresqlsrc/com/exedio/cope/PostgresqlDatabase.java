@@ -29,7 +29,7 @@ import com.exedio.dsmf.PostgresqlDriver;
 /**
  * Still does not work.
  */
-final class PostgresqlDatabase extends AbstractDatabase
+final class PostgresqlDatabase extends Database
 {
 	static
 	{

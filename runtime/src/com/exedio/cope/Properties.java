@@ -135,9 +135,9 @@ public final class Properties extends com.exedio.cope.util.Properties
 			throw new RuntimeException("class "+databaseName+" from "+source+" not found.");
 		}
 
-		if(!AbstractDatabase.class.isAssignableFrom(databaseClass))
+		if(!Database.class.isAssignableFrom(databaseClass))
 		{
-			throw new RuntimeException("class "+databaseName+" from "+source+" not a subclass of "+AbstractDatabase.class.getName()+".");
+			throw new RuntimeException("class "+databaseName+" from "+source+" not a subclass of "+Database.class.getName()+".");
 		}
 		try
 		{
@@ -154,21 +154,21 @@ public final class Properties extends com.exedio.cope.util.Properties
 		return new RuntimeException("property " + key + " in "  +getSource() + " not set.");
 	}
 	
-	AbstractDatabase createDatabase()
+	Database createDatabase()
 	{
 		return createDatabase( database );
 	}
 	
-	AbstractDatabase createDatabase( String databaseCode )
+	Database createDatabase( String databaseCode )
 	{
 		return createDatabase( getDatabaseConstructor(databaseCode, getSource()) );
 	}
 	
-	private AbstractDatabase createDatabase(final Constructor constructor)
+	private Database createDatabase(final Constructor constructor)
 	{
 		try
 		{
-			return (AbstractDatabase)constructor.newInstance(new Object[]{this});
+			return (Database)constructor.newInstance(new Object[]{this});
 		}
 		catch(InstantiationException e)
 		{
