@@ -42,7 +42,7 @@ public abstract class View<E> extends Feature implements Function<E>
 	private final List<Function> sourceList;
 	private final String functionName;
 	final int jdbcType;
-	final Type sourceType;
+	final Type<Item> sourceType;
 
 	public View(final Function[] sources, final String functionName, final int jdbcType)
 	{
@@ -51,7 +51,7 @@ public abstract class View<E> extends Feature implements Function<E>
 		this.functionName = functionName;
 		this.jdbcType = jdbcType;
 		
-		Type sourceType;
+		Type<Item> sourceType;
 		try
 		{
 			sourceType = sources[0].getType();
@@ -143,7 +143,7 @@ public abstract class View<E> extends Feature implements Function<E>
 	// second initialization phase ---------------------------------------------------
 
 	@Override
-	final void initialize(final Type type, final String name, final java.lang.reflect.Type genericType)
+	final void initialize(final Type<? extends Item> type, final String name, final java.lang.reflect.Type genericType)
 	{
 		if(sourceType!=null && type!=sourceType)
 			throw new RuntimeException();
@@ -151,7 +151,7 @@ public abstract class View<E> extends Feature implements Function<E>
 		super.initialize(type, name, genericType);
 	}
 	
-	public final Type getType()
+	public final Type<? extends Item> getType()
 	{
 		return (sourceType!=null) ? sourceType : super.getType();
 	}
