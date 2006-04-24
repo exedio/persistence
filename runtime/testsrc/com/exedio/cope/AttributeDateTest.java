@@ -83,7 +83,14 @@ public class AttributeDateTest extends AttributeTest
 		item.touchSomeDate();
 		final Date afterTouch = new Date();
 		assertWithin(beforeTouch, afterTouch, item.getSomeDate());
+		
+		// special test of Model#findByID for items without any attributes
+		assertIDFails("EmptyItem.51", "item <51> does not exist", false);
+	}
 
+	@SuppressWarnings("unchecked") // OK: test bad API usage
+	public void testUnchecked()
+	{
 		try
 		{
 			item.set((FunctionAttribute)item.someDate, Integer.valueOf(10));
@@ -93,9 +100,6 @@ public class AttributeDateTest extends AttributeTest
 		{
 			assertEquals("expected a " + Date.class.getName() + ", but was a " + Integer.class.getName() + " for " + item.someDate + '.', e.getMessage());
 		}
-		
-		// special test of Model#findByID for items without any attributes
-		assertIDFails("EmptyItem.51", "item <51> does not exist", false);
 	}
 	
 	public void testOrder() throws MandatoryViolationException

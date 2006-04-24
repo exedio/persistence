@@ -70,7 +70,11 @@ public class AttributeDoubleTest extends AttributeTest
 
 		restartTransaction();
 		assertEquals(null, item.getSomeDouble());
+	}
 
+	@SuppressWarnings("unchecked") // OK: test bad API usage
+	public void testUnchecked()
+	{
 		try
 		{
 			item.set((FunctionAttribute)item.someDouble, Integer.valueOf(10));

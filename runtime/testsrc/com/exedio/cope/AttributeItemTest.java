@@ -57,7 +57,11 @@ public class AttributeItemTest extends AttributeTest
 		assertEquals(someItem, item.getSomeItem());
 		item.setSomeItem(null);
 		assertEquals(null, item.getSomeItem());
-		
+	}
+
+	@SuppressWarnings("unchecked") // OK: test bad API usage
+	public void testUnchecked()
+	{
 		try
 		{
 			item.set((FunctionAttribute)item.someItem, Integer.valueOf(10));
@@ -80,7 +84,7 @@ public class AttributeItemTest extends AttributeTest
 			assertEquals("expected a " + EmptyItem.class.getName() + ", but was a " + EmptyItem2.class.getName() + " for " + item.someItem + '.', e.getMessage());
 		}
 	}
-
+	
 	public void testSomeNotNullItem()
 		throws MandatoryViolationException
 	{

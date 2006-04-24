@@ -161,16 +161,6 @@ public class StringTest extends TestmodelTest
 			assertEquals(emptyString, itemEmptyInit.getAny());
 		}
 		
-		try
-		{
-			item.set((FunctionAttribute)item.any, Integer.valueOf(10));
-			fail();
-		}
-		catch(ClassCastException e)
-		{
-			assertEquals("expected a " + String.class.getName() + ", but was a " + Integer.class.getName() + " for " + item.any + '.', e.getMessage());
-		}
-		
 		// mandatory
 		assertEquals("StringTest", item.getMandatory());
 	
@@ -463,6 +453,20 @@ public class StringTest extends TestmodelTest
 		assertEquals(numberOfItems, item.TYPE.search(null).size());
 	}
 
+	@SuppressWarnings("unchecked") // OK: test bad API usage
+	public void testUnchecked()
+	{
+		try
+		{
+			item.set((FunctionAttribute)item.any, Integer.valueOf(10));
+			fail();
+		}
+		catch(ClassCastException e)
+		{
+			assertEquals("expected a " + String.class.getName() + ", but was a " + Integer.class.getName() + " for " + item.any + '.', e.getMessage());
+		}
+	}
+	
 	void assertWrongLength(final int minimumLength, final int maximumLength, final String message)
 	{
 		try
@@ -642,5 +646,5 @@ public class StringTest extends TestmodelTest
 	{
 		return new Query(selectAttribute, condition).search();
 	}
-	
+
 }

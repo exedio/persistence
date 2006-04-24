@@ -70,7 +70,11 @@ public class AttributeIntegerTest extends AttributeTest
 		
 		restartTransaction();
 		assertEquals(null, item.getSomeInteger());
+	}
 
+	@SuppressWarnings("unchecked") // OK: test bad API usage
+	public void testUnchecked()
+	{
 		try
 		{
 			item.set((FunctionAttribute)item.someInteger, Long.valueOf(10l));
@@ -81,7 +85,7 @@ public class AttributeIntegerTest extends AttributeTest
 			assertEquals("expected a " + Integer.class.getName() + ", but was a " + Long.class.getName() + " for " + item.someInteger + '.', e.getMessage());
 		}
 	}
-
+	
 	public void testSomeNotNullInteger()
 	{
 		assertEquals(item.TYPE, item.someNotNullInteger.getType());

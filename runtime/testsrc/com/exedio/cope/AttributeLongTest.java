@@ -71,7 +71,11 @@ public class AttributeLongTest extends AttributeTest
 		
 		restartTransaction();
 		assertEquals(null, item.getSomeLong());
+	}
 
+	@SuppressWarnings("unchecked") // OK: test bad API usage
+	public void testUnchecked()
+	{
 		try
 		{
 			item.set((FunctionAttribute)item.someLong, Integer.valueOf(10));
@@ -82,7 +86,7 @@ public class AttributeLongTest extends AttributeTest
 			assertEquals("expected a " + Long.class.getName() + ", but was a " + Integer.class.getName() + " for " + item.someLong + '.', e.getMessage());
 		}
 	}
-
+	
 	public void testSomeNotNullLong()
 	{
 		assertEquals(item.TYPE, item.someNotNullLong.getType());

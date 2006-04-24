@@ -111,7 +111,11 @@ public class DayAttributeTest extends AbstractLibTest
 		assertEquals(null, item.getOptionalDay());
 		restartTransaction();
 		assertEquals(null, item.getOptionalDay());
-		
+	}
+	
+	@SuppressWarnings("unchecked") // OK: test bad API usage
+	public void testUnchecked()
+	{
 		try
 		{
 			item.set((FunctionAttribute)item.day, Integer.valueOf(10));

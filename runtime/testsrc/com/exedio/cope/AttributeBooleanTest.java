@@ -76,7 +76,11 @@ public class AttributeBooleanTest extends AttributeTest
 		assertContains(item, item2, item.TYPE.search(item.someBoolean.isNull()));
 		assertContains(item.TYPE.search(item.someBoolean.notEqual(null)));
 		assertContains(item.TYPE.search(item.someBoolean.isNotNull()));
+	}
 
+	@SuppressWarnings("unchecked") // OK: test bad API usage
+	public void testUnchecked()
+	{
 		try
 		{
 			item.set((FunctionAttribute)item.someBoolean, Integer.valueOf(10));
@@ -87,7 +91,7 @@ public class AttributeBooleanTest extends AttributeTest
 			assertEquals("expected a " + Boolean.class.getName() + ", but was a " + Integer.class.getName() + " for " + item.someBoolean + '.', e.getMessage());
 		}
 	}
-
+	
 	public void testSomeNotNullBoolean()
 	{
 		assertEquals(item.TYPE, item.someNotNullBoolean.getType());

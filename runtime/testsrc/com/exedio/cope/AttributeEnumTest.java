@@ -124,7 +124,11 @@ public class AttributeEnumTest extends AttributeTest
 			item.getSomeEnum());
 		item.setSomeEnum(null);
 		assertEquals(null, item.getSomeEnum());
-		
+	}
+
+	@SuppressWarnings("unchecked") // OK: test bad API usage
+	public void testUnchecked()
+	{
 		try
 		{
 			item.set((FunctionAttribute)item.someEnum, Integer.valueOf(10));
@@ -145,7 +149,7 @@ public class AttributeEnumTest extends AttributeTest
 			assertEquals("expected a " + SomeEnum.class.getName() + ", but was a " + SomeEnum2.class.getName() + " for " + item.someEnum + '.', e.getMessage());
 		}
 	}
-
+	
 	public void testNotNullSomeEnum()
 			throws MandatoryViolationException
 	{
