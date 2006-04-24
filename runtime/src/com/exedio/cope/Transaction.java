@@ -146,10 +146,10 @@ public final class Transaction
 	
 	final void removeEntity(final Item item)
 	{
-		IntKeyOpenHashMap rowMap = entityMaps[item.type.transientNumber]; // TODO rename to entityMap
-		if(rowMap!=null)
+		final IntKeyOpenHashMap entityMap = entityMaps[item.type.transientNumber];
+		if(entityMap!=null)
 		{
-			rowMap.remove( item.pk );
+			entityMap.remove( item.pk );
 		}		
 	}
 	
