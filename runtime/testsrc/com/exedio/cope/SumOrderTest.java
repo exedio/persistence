@@ -51,7 +51,7 @@ public class SumOrderTest extends TestmodelTest
 
 	private void assertOrder(final List<? extends Object> expectedOrder, final Function searchFunction)
 	{
-		final Query query = new Query(item1.TYPE, null);
+		final Query query = item1.TYPE.newQuery(null);
 		query.setOrderBy(searchFunction, true);
 		assertEquals(expectedOrder, query.search());
 

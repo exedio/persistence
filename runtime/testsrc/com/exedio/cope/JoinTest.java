@@ -43,14 +43,14 @@ public class JoinTest extends TestmodelTest
 		assertNotEquals(PointerItem.pointer.equalTarget(), PointerItem.pointer2.equalTarget());
 		
 		{
-			final Query query = new Query(PointerTargetItem.TYPE, null);
+			final Query query = PointerTargetItem.TYPE.newQuery(null);
 			assertEquals(list(), query.getJoins());
 			final Join join = query.join(PointerItem.TYPE, PointerItem.code.isNotNull());
 			assertEquals(list(join), query.getJoins());
 			assertContains(item2b, item2a, item2b, item2a, query.search());
 		}
 		{
-			final Query query = new Query(PointerTargetItem.TYPE, null);
+			final Query query = PointerTargetItem.TYPE.newQuery(null);
 			query.join(PointerItem.TYPE, PointerItem.pointer.equalTarget());
 			assertContains(item2b, item2a, query.search());
 		}
@@ -60,18 +60,18 @@ public class JoinTest extends TestmodelTest
 			assertContains(item1b, item1a, query.search());
 		}
 		{
-			final Query query = new Query(PointerTargetItem.TYPE, null);
+			final Query query = PointerTargetItem.TYPE.newQuery(null);
 			query.join(PointerItem.TYPE, PointerItem.code.equal(PointerTargetItem.code));
 			assertContains(item2b, query.search());
 		}
 		{
-			final Query query = new Query(PointerItem.TYPE, PointerTargetItem.code.equal("item2a"));
+			final Query query = PointerItem.TYPE.newQuery(PointerTargetItem.code.equal("item2a"));
 			query.join(PointerTargetItem.TYPE, PointerItem.pointer.equalTarget());
 			assertContains(item1a, query.search());
 		}
 		{
 			// test join needed for orderby only
-			final Query query = new Query(PointerItem.TYPE, null);
+			final Query query = PointerItem.TYPE.newQuery(null);
 			query.join(PointerTargetItem.TYPE, PointerItem.pointer.equalTarget());
 			query.setOrderBy(PointerTargetItem.code, true);
 			assertEquals(list(item1b, item1a), query.search());

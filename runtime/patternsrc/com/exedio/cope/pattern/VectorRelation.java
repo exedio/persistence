@@ -101,7 +101,7 @@ public final class VectorRelation<S extends Item, T extends Item> extends Patter
 	public void setTargets(final S source, final Collection<T> targets)
 	{
 		final Type type = getType();
-		final Query q = new Query(type, this.source.equal(source));
+		final Query q = type.newQuery(this.source.equal(source));
 		q.setOrderBy(order, true);
 		final Collection<Item> oldTupels = castRelation(q.search());
 

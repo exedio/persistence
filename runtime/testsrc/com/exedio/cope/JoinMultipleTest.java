@@ -38,7 +38,7 @@ public class JoinMultipleTest extends TestmodelTest
 	public void testMultipleJoin()
 	{
 		{
-			final Query query = new Query(source.TYPE, null);
+			final Query query = source.TYPE.newQuery(null);
 			assertEquals(list(), query.getJoins());
 
 			final Join join1 = query.join(target1.TYPE);

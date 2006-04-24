@@ -50,17 +50,17 @@ public class OrderByTest extends TestmodelTest
 	public void testOrderBy()
 	{
 		// no order at all
-		assertContains(item4, item2, item1, item3, item5, new Query(item1.TYPE, null).search());
+		assertContains(item4, item2, item1, item3, item5, item1.TYPE.newQuery(null).search());
 
 		// order by this only
 		{
-			final Query query = new Query(item1.TYPE, null);
+			final Query query = item1.TYPE.newQuery(null);
 			query.setOrderByThis(true);
 			assertEquals(list(item1, item2, item3, item4, item5), query.search());
 			assertEquals("select AttributeItem#this from AttributeItem order by AttributeItem#this", query.toString());
 		}
 		{
-			final Query query = new Query(item1.TYPE, null);
+			final Query query = item1.TYPE.newQuery(null);
 			query.setOrderByThis(false);
 			assertEquals(list(item5, item4, item3, item2, item1), query.search());
 			assertEquals("select AttributeItem#this from AttributeItem order by AttributeItem#this desc", query.toString());
@@ -74,7 +74,7 @@ public class OrderByTest extends TestmodelTest
 		
 		// order with multiple functions
 		{
-			final Query query = new Query(item1.TYPE, null);
+			final Query query = item1.TYPE.newQuery(null);
 			query.setOrderBy(new Function[]{item1.someNotNullBoolean,item1.someNotNullInteger}, new boolean[]{true, true});
 			assertEquals(list(item5, item4, item3, item1, item2), query.search());
 			assertEquals("select AttributeItem#this from AttributeItem order by AttributeItem#someNotNullBoolean, AttributeItem#someNotNullInteger", query.toString());
@@ -118,7 +118,7 @@ public class OrderByTest extends TestmodelTest
 
 		// limit
 		{
-			final Query q = new Query(item1.TYPE, null);
+			final Query q = item1.TYPE.newQuery(null);
 			try
 			{
 				q.setLimit(-1, 10);
@@ -185,7 +185,7 @@ public class OrderByTest extends TestmodelTest
 													final int limitStart, final int limitCount)
 	{
 		{
-			final Query query = new Query(item1.TYPE, null);
+			final Query query = item1.TYPE.newQuery(null);
 			query.setOrderByAndThis(orderFunction, true);
 	
 			if(limitCount==-1)
@@ -197,7 +197,7 @@ public class OrderByTest extends TestmodelTest
 			assertNotNull(query.toString());
 		}
 		{
-			final Query query = new Query(item1.TYPE, null);
+			final Query query = item1.TYPE.newQuery(null);
 			query.setOrderByAndThis(orderFunction, false);
 	
 			if(limitCount==-1)
@@ -223,7 +223,7 @@ public class OrderByTest extends TestmodelTest
 			assertEquals(expected, query2.search());
 		}
 		{
-			final Query query = new Query(item1.TYPE, null);
+			final Query query = item1.TYPE.newQuery(null);
 			query.setOrderByAndThis(orderFunction, true);
 	
 			if(limitCount==-1)

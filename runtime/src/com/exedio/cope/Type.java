@@ -614,12 +614,12 @@ public final class Type<C extends Item>
 	 */
 	public Collection<? extends C> search(final Condition condition)
 	{
-		return castCollection(new Query(this, condition).search());
+		return castCollection(newQuery(condition).search());
 	}
 	
 	public Collection<? extends C> search(final Condition condition, final Function orderBy, final boolean ascending)
 	{
-		final Query query = new Query(this, condition);
+		final Query query = newQuery(condition);
 		query.setOrderBy(orderBy, ascending);
 		return castCollection(query.search());
 	}
@@ -641,7 +641,12 @@ public final class Type<C extends Item>
 	 */
 	public C searchUnique(final Condition condition)
 	{
-		return cast(new Query(this, condition).searchUnique());
+		return cast(newQuery(condition).searchUnique());
+	}
+	
+	public Query newQuery(final Condition condition)
+	{
+		return new Query(thisFunction, this, condition);
 	}
 	
 	public String toString()

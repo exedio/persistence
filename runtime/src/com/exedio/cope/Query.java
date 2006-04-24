@@ -45,14 +45,6 @@ public final class Query
 	boolean makeStatementInfo = false;
 	private StatementInfo statementInfo = null;
 	
-	public Query(final Type type, final Condition condition)
-	{
-		this.model = type.getModel();
-		this.selects = new Function[]{type.thisFunction};
-		this.type = type;
-		this.condition = condition;
-	}
-	
 	public Query(final Function select, final Condition condition)
 	{
 		this.selects = new Function[]{select};

@@ -320,7 +320,7 @@ public abstract class Item extends Cope
 				{
 					case NULLIFY:
 					{
-						final Query q = new Query(attribute.getType(), attribute.equal(this));
+						final Query q = attribute.getType().newQuery(attribute.equal(this));
 						for(Iterator j = q.search().iterator(); j.hasNext(); )
 						{
 							final Item item = (Item)j.next();
@@ -331,7 +331,7 @@ public abstract class Item extends Cope
 					}
 					case CASCADE:
 					{
-						final Query q = new Query(attribute.getType(), attribute.equal(this));
+						final Query q = attribute.getType().newQuery(attribute.equal(this));
 						for(Iterator j = q.search().iterator(); j.hasNext(); )
 						{
 							final Item item = (Item)j.next();

@@ -46,7 +46,7 @@ public class JoinFunctionTest extends AbstractLibTest
 	public void testIt()
 	{
 		{
-			final Query q = new Query(single.TYPE, null);
+			final Query q = single.TYPE.newQuery(null);
 			final Join j1 = q.join(a1.TYPE, single.name.equal("single"));
 			final Join j2 = q.join(a1.TYPE, single.name.equal("single"));
 			q.setCondition(

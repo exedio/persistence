@@ -122,7 +122,7 @@ public class VectorRelationTest extends AbstractLibTest
 			final RelationTargetItem[] expectedTargets,
 			final int[] expectedOrders)
 	{
-		final Query q = new Query(VectorRelationItem.TYPE, null);
+		final Query q = VectorRelationItem.TYPE.newQuery(null);
 		q.setOrderBy(
 				new Function[]{VectorRelationItem.vectorSource, VectorRelationItem.vectorTarget, VectorRelationItem.relation.getOrder()},
 				new boolean[]{true, true, true});

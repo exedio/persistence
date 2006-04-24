@@ -39,21 +39,21 @@ public class JoinOuterTest extends TestmodelTest
 	public void testJoin()
 	{
 		{
-			final Query query = new Query(PointerItem.TYPE, null);
+			final Query query = PointerItem.TYPE.newQuery(null);
 			assertEquals(list(), query.getJoins());
 			final Join join = query.join(PointerTargetItem.TYPE, PointerItem.code.equal(PointerTargetItem.code));
 			assertEquals(list(join), query.getJoins());
 			assertContains(leftJoined, query.search());
 		}
 		{
-			final Query query = new Query(PointerItem.TYPE, null);
+			final Query query = PointerItem.TYPE.newQuery(null);
 			assertEquals(list(), query.getJoins());
 			final Join join = query.joinOuterLeft(PointerTargetItem.TYPE, PointerItem.code.equal(PointerTargetItem.code));
 			assertEquals(list(join), query.getJoins());
 			assertContains(leftJoined, leftLonely, query.search());
 		}
 		{
-			final Query query = new Query(PointerItem.TYPE, null);
+			final Query query = PointerItem.TYPE.newQuery(null);
 			assertEquals(list(), query.getJoins());
 			final Join join = query.joinOuterRight(PointerTargetItem.TYPE, PointerItem.code.equal(PointerTargetItem.code));
 			assertEquals(list(join), query.getJoins());

@@ -28,7 +28,7 @@ public class StatementInfoTest extends TestmodelTest
 	
 	public void testExecutionPlan()
 	{
-		final Query query = new Query(ItemWithSingleUnique.TYPE, ItemWithSingleUnique.uniqueString.equal("zack"));
+		final Query query = ItemWithSingleUnique.TYPE.newQuery(ItemWithSingleUnique.uniqueString.equal("zack"));
 		query.enableMakeStatementInfo();
 		query.search();
 		final StatementInfo root = query.getStatementInfo();

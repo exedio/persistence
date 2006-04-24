@@ -167,7 +167,7 @@ final class TypeCop extends CopernicaCop
 		if(queryResult!=null)
 			return;
 		
-		final Query query = new Query(type, null);
+		final Query query = type.newQuery(null);
 		if(orderBy!=null)
 			query.setOrderByAndThis(orderBy, orderAscending);
 		else
