@@ -53,10 +53,10 @@ public final class Query
 		this.condition = condition;
 	}
 	
-	public Query(final Function selectable, final Condition condition)
+	public Query(final Function select, final Condition condition)
 	{
-		this.selects = new Function[]{selectable};
-		this.type = selectable.getType();
+		this.selects = new Function[]{select};
+		this.type = select.getType();
 		this.model = this.type.getModel();
 		this.condition = condition;
 	}
@@ -407,8 +407,7 @@ public final class Query
 			if(i>0)
 				bf.append(',');
 
-			final Function selectable = selects[i];
-			bf.append(selectable);
+			bf.append(selects[i]);
 		}
 
 		bf.append(" from ").
@@ -468,7 +467,7 @@ public final class Query
 	static final class Key
 	{
 		final Model model;
-		final Function[] selectables;
+		final Function[] selects;
 		final Type type;
 		final ArrayList joins;
 		final Condition condition;
@@ -487,7 +486,7 @@ public final class Query
 		Key( final Query query )
 		{
 			model = query.model;
-			selectables = query.selects;
+			selects = query.selects;
 			type = query.type;
 			joins = query.joins==null ? null : new ArrayList<Join>(query.joins);
 			condition = query.condition;
@@ -506,7 +505,7 @@ public final class Query
 			}
 			Key other = (Key)obj;
 			return equals( model, other.model )
-				&& Arrays.equals( selectables, other.selectables )
+				&& Arrays.equals( selects, other.selects )
 				&& equals( type, other.type )
 				&& equals( joins, other.joins )
 				&& equals( condition, other.condition )
@@ -532,18 +531,18 @@ public final class Query
 			return b ? 1 : 0;
 		}
 		
-		private static int hashCode( Object[] selectables )
+		private static int hashCode( Object[] selects )
 		{
-			if ( selectables==null )
+			if ( selects==null )
 			{
 				return 0;
 			}
 			else
 			{
 				int hash = 0;
-				for ( int i=0; i<selectables.length; i++ )
+				for ( int i=0; i<selects.length; i++ )
 				{
-					hash ^= hashCode( selectables[i] );
+					hash ^= hashCode( selects[i] );
 				}
 				return hash;
 			}
@@ -570,7 +569,7 @@ public final class Query
 		public int hashCode()
 		{
 			return hashCode(model) 
-					^ hashCode(selectables)
+					^ hashCode(selects)
 					^ hashCode(type)
 					^ hashCode(joins)
 					^ hashCode(condition)

@@ -274,7 +274,7 @@ public class DeleteTest extends AbstractLibTest
 		assertEquals(list(item, item2), searchResult1);
 		assertSame(item, searchResult1.iterator().next());
 
-		// test Query.search with selectables
+		// test Query.search with selects
 		final Query query2 = new Query(item.selfNullify, null);
 		query2.setOrderByThis(true);
 		final Collection searchResult2 = query2.search();
