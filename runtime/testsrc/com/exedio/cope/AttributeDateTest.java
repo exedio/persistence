@@ -200,26 +200,18 @@ public class AttributeDateTest extends AttributeTest
 		final Database database = model.getDatabase();
 		final String databaseClassName = database.getClass().getName();
 		final String expectedColumnType;
+
 		if(databaseClassName.endsWith("OracleDatabase"))
-		{
 			expectedColumnType = "TIMESTAMP(3)";
-		}
 		else if(databaseClassName.endsWith("MysqlDatabase"))
-		{
 			expectedColumnType = null;
-		}
 		else if(databaseClassName.endsWith("HsqldbDatabase"))
-		{
 			expectedColumnType = "timestamp";
-		}
 		else if(databaseClassName.endsWith("PostgresqlDatabase"))
-		{
 			expectedColumnType = null;
-		}
 		else
-		{
-			throw new RuntimeException( databaseClassName );
-		}
+			throw new RuntimeException(databaseClassName);
+		
 		assertEquals(expectedColumnType, database.getDateTimestampType());
 	}
 	
