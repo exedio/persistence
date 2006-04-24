@@ -286,9 +286,9 @@ abstract class AbstractDatabase implements Database // TODO rename
 		
 		bf.append(' ');
 
-		final Function[] selectables = query.selects;
-		final Column[] selectColumns = new Column[selectables.length];
-		final Type[] selectTypes = new Type[selectables.length];
+		final Function[] selects = query.selects;
+		final Column[] selectColumns = new Column[selects.length];
+		final Type[] selectTypes = new Type[selects.length];
 
 		if(doCountOnly)
 		{
@@ -296,9 +296,9 @@ abstract class AbstractDatabase implements Database // TODO rename
 		}
 		else
 		{
-			for(int selectableIndex = 0; selectableIndex<selectables.length; selectableIndex++)
+			for(int selectableIndex = 0; selectableIndex<selects.length; selectableIndex++)
 			{
-				final Function selectable = selectables[selectableIndex];
+				final Function selectable = selects[selectableIndex];
 				final Column selectColumn;
 				final Type selectType;
 				final Table selectTable;
@@ -428,9 +428,9 @@ abstract class AbstractDatabase implements Database // TODO rename
 
 		if(limitStart<0)
 			throw new RuntimeException();
-		if(selectables.length!=selectColumns.length)
+		if(selects.length!=selectColumns.length)
 			throw new RuntimeException();
-		if(selectables.length!=types.length)
+		if(selects.length!=types.length)
 			throw new RuntimeException();
 		
 		//System.out.println(bf.toString());
@@ -466,12 +466,12 @@ abstract class AbstractDatabase implements Database // TODO rename
 					while(resultSet.next() && (--i)>=0)
 					{
 						int columnIndex = 1;
-						final Object[] resultRow = (selectables.length > 1) ? new Object[selectables.length] : null;
+						final Object[] resultRow = (selects.length > 1) ? new Object[selects.length] : null;
 						final Row dummyRow = new Row();
 							
-						for(int selectableIndex = 0; selectableIndex<selectables.length; selectableIndex++)
+						for(int selectableIndex = 0; selectableIndex<selects.length; selectableIndex++)
 						{
-							final Function selectable = selectables[selectableIndex];
+							final Function selectable = selects[selectableIndex];
 							final Object resultCell;
 							if(selectable instanceof FunctionAttribute)
 							{
