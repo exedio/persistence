@@ -42,11 +42,11 @@ import com.exedio.dsmf.Schema;
 
 public final class Model
 {
-	private final Type[] types;
-	private final Type[] concreteTypes;
+	private final Type<Item>[] types;
+	private final Type<Item>[] concreteTypes;
 	final int concreteTypeCount;
-	private final List<Type> typeList;
-	private final List<Type> concreteTypeList;
+	private final List<Type<Item>> typeList;
+	private final List<Type<Item>> concreteTypeList;
 	private final HashMap<String, Type> typesByID = new HashMap<String, Type>();
 
 	// set by setPropertiesInitially
@@ -60,13 +60,13 @@ public final class Model
 	
 	public Model(final Type[] types)
 	{
-		this.types = types;
-		this.typeList = Collections.unmodifiableList(Arrays.asList(types));
+		this.types = castTypeArray(types);
+		this.typeList = Collections.unmodifiableList(Arrays.asList(this.types));
 
 		int concreteTypeCount = 0;
 		int abstractTypeCount = -1;
-		final ArrayList<Type> concreteTypes = new ArrayList<Type>();
-		for(final Type type : types)
+		final ArrayList<Type<Item>> concreteTypes = new ArrayList<Type<Item>>();
+		for(final Type<Item> type : this.types)
 		{
 			final boolean isAbstract = type.isAbstract();
 			type.initialize(this, isAbstract ? abstractTypeCount-- : concreteTypeCount++);
@@ -74,10 +74,16 @@ public final class Model
 				concreteTypes.add(type);
 		}
 		this.concreteTypeCount = concreteTypeCount;
-		this.concreteTypes = concreteTypes.toArray(new Type[concreteTypeCount]);
+		this.concreteTypes = castTypeArray(concreteTypes.toArray(new Type[concreteTypeCount]));
 		this.concreteTypeList = Collections.unmodifiableList(Arrays.asList(this.concreteTypes));
 		
 		assert this.concreteTypeCount==this.concreteTypes.length;
+	}
+	
+	@SuppressWarnings("unchecked") // OK: no generic array creation
+	private static final Type<Item>[] castTypeArray(final Type[] ts)
+	{
+		return (Type<Item>[])ts;
 	}
 	
 	/**
@@ -157,12 +163,12 @@ public final class Model
 		this.properties.ensureEquality(properties);
 	}
 
-	public List<Type> getTypes()
+	public List<Type<Item>> getTypes()
 	{
 		return typeList;
 	}
 	
-	public List<Type> getConcreteTypes()
+	public List<Type<Item>> getConcreteTypes()
 	{
 		return concreteTypeList;
 	}
@@ -356,8 +362,8 @@ public final class Model
 	public void dropDatabase()
 	{
 		// TODO: rework this method
-		final List<Type> types = typeList;
-		for(ListIterator<Type> i = types.listIterator(types.size()); i.hasPrevious(); )
+		final List<Type<Item>> types = typeList;
+		for(ListIterator<Type<Item>> i = types.listIterator(types.size()); i.hasPrevious(); )
 			i.previous().onDropTable();
 
 		database.dropDatabase();
