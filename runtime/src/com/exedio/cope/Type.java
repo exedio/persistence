@@ -707,14 +707,20 @@ public final class Type<C extends Item>
 			this.type = type;
 		}
 		
-		public Type getType()
+		public Type<E> getType()
 		{
 			return type;
 		}
 		
 		public E get(final Item item)
 		{
-			return (E)item;
+			return cast(item);
+		}
+		
+		@SuppressWarnings("unchecked") // items not covered by generics
+		private E cast(final Object o)
+		{
+			return (E)o;
 		}
 		
 		public void append(Statement bf, Join join)
