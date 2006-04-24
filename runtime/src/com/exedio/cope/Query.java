@@ -31,7 +31,7 @@ public final class Query
 	final static int UNLIMITED_COUNT = -66;
 	
 	final Model model;
-	final Function[] selectables; // TODO rename to selects
+	final Function[] selects;
 	final Type type;
 	ArrayList<Join> joins = null;
 	Condition condition;
@@ -48,39 +48,39 @@ public final class Query
 	public Query(final Type type, final Condition condition)
 	{
 		this.model = type.getModel();
-		this.selectables = new Function[]{type.thisFunction};
+		this.selects = new Function[]{type.thisFunction};
 		this.type = type;
 		this.condition = condition;
 	}
 	
 	public Query(final Function selectable, final Condition condition)
 	{
-		this.selectables = new Function[]{selectable};
+		this.selects = new Function[]{selectable};
 		this.type = selectable.getType();
 		this.model = this.type.getModel();
 		this.condition = condition;
 	}
 	
-	public Query(final Function selectable, final Type type, final Condition condition)
+	public Query(final Function select, final Type type, final Condition condition)
 	{
 		this.model = type.getModel();
-		this.selectables = new Function[]{selectable};
+		this.selects = new Function[]{select};
 		this.type = type;
 		this.condition = condition;
 	}
 	
-	public Query(final Type selectable, final Type type, final Condition condition)
+	public Query(final Type select, final Type type, final Condition condition)
 	{
 		this.model = type.getModel();
-		this.selectables = new Function[]{selectable.thisFunction};
+		this.selects = new Function[]{select.thisFunction};
 		this.type = type;
 		this.condition = condition;
 	}
 	
-	public Query(final Function[] selectables, final Type type, final Condition condition)
+	public Query(final Function[] selects, final Type type, final Condition condition)
 	{
 		this.model = type.getModel();
-		this.selectables = selectables;
+		this.selects = selects;
 		this.type = type;
 		this.condition = condition;
 	}
@@ -402,12 +402,12 @@ public final class Query
 		
 		bf.append("select ");
 		
-		for(int i = 0; i<selectables.length; i++)
+		for(int i = 0; i<selects.length; i++)
 		{
 			if(i>0)
 				bf.append(',');
 
-			final Function selectable = selectables[i];
+			final Function selectable = selects[i];
 			bf.append(selectable);
 		}
 
@@ -487,7 +487,7 @@ public final class Query
 		Key( final Query query )
 		{
 			model = query.model;
-			selectables = query.selectables;
+			selectables = query.selects;
 			type = query.type;
 			joins = query.joins==null ? null : new ArrayList<Join>(query.joins);
 			condition = query.condition;

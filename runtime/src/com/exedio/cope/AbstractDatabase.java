@@ -286,7 +286,7 @@ abstract class AbstractDatabase implements Database // TODO rename
 		
 		bf.append(' ');
 
-		final Function[] selectables = query.selectables;
+		final Function[] selectables = query.selects;
 		final Column[] selectColumns = new Column[selectables.length];
 		final Type[] selectTypes = new Type[selectables.length];
 
