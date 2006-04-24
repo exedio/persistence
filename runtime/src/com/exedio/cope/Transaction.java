@@ -104,14 +104,14 @@ public final class Transaction
 		final Type type = item.type;
 		final int pk = item.pk;
 
-		IntKeyOpenHashMap rowMap = entityMaps[type.transientNumber]; // TODO rename to entityMap
-		if(rowMap==null)
+		IntKeyOpenHashMap entityMap = entityMaps[type.transientNumber];
+		if(entityMap==null)
 		{
-			rowMap = new IntKeyOpenHashMap();
-			entityMaps[type.transientNumber] = rowMap;
+			entityMap = new IntKeyOpenHashMap();
+			entityMaps[type.transientNumber] = entityMap;
 		}
 
-		Entity result = (Entity)rowMap.get(pk);
+		Entity result = (Entity)entityMap.get(pk);
 		if(result==null)
 		{
 			final State state;
@@ -131,7 +131,7 @@ public final class Transaction
 				state = new CreatedState( this, item );
 			}
 			result = new Entity(this, state);
-			rowMap.put(pk, result);
+			entityMap.put(pk, result);
 			return result;
 		}
 		else
