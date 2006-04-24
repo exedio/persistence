@@ -48,7 +48,7 @@ public class JoinedFunction<E> implements Function<E>
 		bf.appendParameter(function, value);
 	}
 	
-	public final Type getType()
+	public final Type<? extends Item> getType()
 	{
 		return function.getType();
 	}

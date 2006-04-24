@@ -26,5 +26,5 @@ public interface Function<E extends Object>
 	void append(Statement bf, Join join);
 	void appendParameter(Statement bf, E value);
 	
-	Type getType();
+	Type<? extends Item> getType();
 }

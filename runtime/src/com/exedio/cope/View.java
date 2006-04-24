@@ -42,7 +42,7 @@ public abstract class View<E> extends Feature implements Function<E>
 	private final List<Function> sourceList;
 	private final String functionName;
 	final int jdbcType;
-	final Type<Item> sourceType;
+	final Type<? extends Item> sourceType;
 
 	public View(final Function[] sources, final String functionName, final int jdbcType)
 	{
@@ -51,7 +51,7 @@ public abstract class View<E> extends Feature implements Function<E>
 		this.functionName = functionName;
 		this.jdbcType = jdbcType;
 		
-		Type<Item> sourceType;
+		Type<? extends Item> sourceType;
 		try
 		{
 			sourceType = sources[0].getType();
