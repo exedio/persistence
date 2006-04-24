@@ -41,7 +41,7 @@ public final class Transaction
 		this.model = model;
 		this.database = model.getDatabase();
 		this.name = name;
-		rowMaps = new IntKeyOpenHashMap[model.concreteTypeCount];
+		entityMaps = new IntKeyOpenHashMap[model.concreteTypeCount];
 		invalidations = new IntOpenHashSet[model.concreteTypeCount];
 	}
 	
@@ -85,9 +85,8 @@ public final class Transaction
 	 *	index in array is {@link Type#transientNumber transient type number};
 	 * value in array is a map, where the keys are {@link Item#pk item pks} 
 	 * and the values are {@link Entity}s
-	 *	TODO rename to entityMaps
 	 */
-	final IntKeyOpenHashMap[] rowMaps;
+	final IntKeyOpenHashMap[] entityMaps;
 	private Connection connection = null;
 	private ConnectionPool connectionPool = null;
 	private boolean closed = false;
@@ -105,11 +104,11 @@ public final class Transaction
 		final Type type = item.type;
 		final int pk = item.pk;
 
-		IntKeyOpenHashMap rowMap = rowMaps[type.transientNumber]; // TODO rename to entityMap
+		IntKeyOpenHashMap rowMap = entityMaps[type.transientNumber]; // TODO rename to entityMap
 		if(rowMap==null)
 		{
 			rowMap = new IntKeyOpenHashMap();
-			rowMaps[type.transientNumber] = rowMap;
+			entityMaps[type.transientNumber] = rowMap;
 		}
 
 		Entity result = (Entity)rowMap.get(pk);
@@ -147,7 +146,7 @@ public final class Transaction
 	
 	final void removeEntity(final Item item)
 	{
-		IntKeyOpenHashMap rowMap = rowMaps[item.type.transientNumber]; // TODO rename to entityMap
+		IntKeyOpenHashMap rowMap = entityMaps[item.type.transientNumber]; // TODO rename to entityMap
 		if(rowMap!=null)
 		{
 			rowMap.remove( item.pk );
@@ -224,7 +223,7 @@ public final class Transaction
 	{
 		assertNotClosed();
 
-		final IntKeyOpenHashMap rowMap = rowMaps[type.transientNumber]; // TODO rename to entityMap
+		final IntKeyOpenHashMap rowMap = entityMaps[type.transientNumber]; // TODO rename to entityMap
 		if(rowMap==null)
 			return null;
 		return (Entity)rowMap.get(pk);
@@ -331,9 +330,9 @@ public final class Transaction
 				connection = null;
 				connectionPool = null;
 			}
-			for(int i = 0; i<rowMaps.length; i++)
-				if(rowMaps[i]!=null)
-					rowMaps[i].clear();
+			for(int i = 0; i<entityMaps.length; i++)
+				if(entityMaps[i]!=null)
+					entityMaps[i].clear();
 			closed = true;
 		}
 	}
