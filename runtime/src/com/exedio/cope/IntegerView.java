@@ -33,7 +33,7 @@ public abstract class IntegerView
 	implements IntegerFunction
 {
 	public IntegerView(
-			final Function[] sources,
+			final Function<? extends Object>[] sources,
 			final String[] sqlFragments,
 			final String functionName)
 	{

@@ -38,13 +38,13 @@ import java.util.List;
  */
 public abstract class View<E> extends Feature implements Function<E>
 {
-	private final Function[] sources;
-	private final List<Function> sourceList;
+	private final Function<? extends Object>[] sources;
+	private final List<Function<? extends Object>> sourceList;
 	private final String functionName;
 	final int jdbcType;
 	final Type<? extends Item> sourceType;
 
-	public View(final Function[] sources, final String functionName, final int jdbcType)
+	public View(final Function<? extends Object>[] sources, final String functionName, final int jdbcType)
 	{
 		this.sources = sources;
 		this.sourceList = Collections.unmodifiableList(Arrays.asList(sources));
@@ -63,7 +63,7 @@ public abstract class View<E> extends Feature implements Function<E>
 		this.sourceType = sourceType;
 	}
 	
-	public final List<Function> getSources()
+	public final List<Function<? extends Object>> getSources()
 	{
 		return sourceList;
 	}
