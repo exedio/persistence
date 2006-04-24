@@ -212,7 +212,7 @@ public abstract class Item extends Cope
 	 * @throws ClassCastException
 	 *         if <tt>value</tt> is not compatible to <tt>attribute</tt>.
 	 */
-	public final void set(final FunctionAttribute attribute, final Object value)
+	public final <E> void set(final FunctionAttribute<E> attribute, final E value)
 		throws
 			UniqueViolationException,
 			MandatoryViolationException,

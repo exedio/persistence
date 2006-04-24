@@ -73,7 +73,7 @@ public class AttributeDoubleTest extends AttributeTest
 
 		try
 		{
-			item.set(item.someDouble, Integer.valueOf(10));
+			item.set((FunctionAttribute)item.someDouble, Integer.valueOf(10));
 			fail();
 		}
 		catch(ClassCastException e)

@@ -163,7 +163,7 @@ public class StringTest extends TestmodelTest
 		
 		try
 		{
-			item.set(item.any, Integer.valueOf(10));
+			item.set((FunctionAttribute)item.any, Integer.valueOf(10));
 			fail();
 		}
 		catch(ClassCastException e)

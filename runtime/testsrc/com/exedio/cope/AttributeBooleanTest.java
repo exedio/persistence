@@ -79,7 +79,7 @@ public class AttributeBooleanTest extends AttributeTest
 
 		try
 		{
-			item.set(item.someBoolean, Integer.valueOf(10));
+			item.set((FunctionAttribute)item.someBoolean, Integer.valueOf(10));
 			fail();
 		}
 		catch(ClassCastException e)
