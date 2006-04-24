@@ -310,7 +310,7 @@ abstract class Database
 				if(select instanceof FunctionAttribute)
 				{
 					selectColumn = ((FunctionAttribute)select).getColumn();
-					bf.append((FunctionAttribute)select, (Join)null).defineColumn(selectColumn);
+					bf.append(select, (Join)null).defineColumn(selectColumn);
 					if(select instanceof ItemAttribute)
 					{
 						final StringColumn typeColumn = ((ItemAttribute)select).getTypeColumn();
