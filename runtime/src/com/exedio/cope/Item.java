@@ -279,7 +279,7 @@ public abstract class Item extends Cope
 	{
 		toDelete.add(this);
 		
-		for(final ItemAttribute<Item> attribute : type.getReferences())
+		for(final ItemAttribute<Item> attribute : type.getReferences()) // TODO warning
 		{
 			switch(attribute.getDeletePolicy())
 			{
@@ -314,7 +314,7 @@ public abstract class Item extends Cope
 		try
 		{
 			// TODO make sure, no item is deleted twice
-			for(final ItemAttribute<Item> attribute : type.getReferences())
+			for(final ItemAttribute<Item> attribute : type.getReferences()) // TODO warning
 			{
 				switch(attribute.getDeletePolicy())
 				{
@@ -471,7 +471,7 @@ public abstract class Item extends Cope
 			}
 			else
 			{
-				final Map<Attribute, Object> part = settable.execute(av.value, exceptionItem);
+				final Map<Attribute, Object> part = settable.execute(av.value, exceptionItem); // TODO warning
 				
 				for(Attribute attribute : part.keySet())
 				{
