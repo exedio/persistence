@@ -61,14 +61,6 @@ public final class Query
 		this.condition = condition;
 	}
 	
-	public Query(final Type select, final Type type, final Condition condition)
-	{
-		this.model = type.getModel();
-		this.selects = new Function[]{select.thisFunction};
-		this.type = type;
-		this.condition = condition;
-	}
-	
 	public Query(final Function[] selects, final Type type, final Condition condition)
 	{
 		this.model = type.getModel();
