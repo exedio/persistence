@@ -56,7 +56,7 @@ public abstract class FunctionAttribute<E extends Object>
 		if(implicitUniqueConstraint!=null)
 			implicitUniqueConstraint.initialize(type, name + UniqueConstraint.IMPLICIT_UNIQUE_SUFFIX, genericType);
 		
-		valueClass = initialize(genericType);
+		valueClass = initialize(genericType); // TODO get valueClass in constructor
 	}
 	
 	abstract Class initialize(java.lang.reflect.Type genericType);

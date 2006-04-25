@@ -59,7 +59,7 @@ public final class ItemAttribute<E extends Item> extends FunctionAttribute<E>
 	@Override
 	Class initialize(final java.lang.reflect.Type genericType)
 	{
-		targetTypeClass = getClass(genericType, Item.class);
+		targetTypeClass = getClass(genericType, Item.class); // TODO get targetTypeClass in constructor
 		return targetTypeClass;
 	}
 	

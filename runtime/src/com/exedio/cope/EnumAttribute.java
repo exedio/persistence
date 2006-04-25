@@ -46,7 +46,7 @@ public final class EnumAttribute<E extends Enum> extends FunctionAttribute<E>
 	@Override
 	Class initialize(final java.lang.reflect.Type genericType)
 	{
-		final Class<E> enumClass = getClass(genericType, Enum.class);
+		final Class<E> enumClass = getClass(genericType, Enum.class); // TODO get enumClass in constructor
 		final ArrayList<E> values = new ArrayList<E>();
 		final IntKeyOpenHashMap numbersToValues = new IntKeyOpenHashMap();
 		final HashMap<E, Integer> valuesToNumbers = new HashMap<E, Integer>();

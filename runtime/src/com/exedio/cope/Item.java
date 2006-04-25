@@ -25,6 +25,8 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 
+import com.exedio.cope.Attribute.Option;
+import com.exedio.cope.ItemAttribute.DeletePolicy;
 import com.exedio.cope.util.ReactivationConstructorDummy;
 
 /**
@@ -437,6 +439,21 @@ public abstract class Item extends Cope
 	protected static final <C extends Item> Type<C> newType(final Class<C> javaClass, final String id)
 	{
 		return new Type<C>(javaClass, id);
+	}
+	
+	protected static final <E extends Enum> EnumAttribute<E> newEnumAttribute(final Option option, final Class<E> javaClass)
+	{
+		return new EnumAttribute<E>(option);
+	}
+	
+	protected static final <E extends Item> ItemAttribute<E> newItemAttribute(final Option option, final Class<E> javaClass)
+	{
+		return new ItemAttribute<E>(option);
+	}
+	
+	protected static final <E extends Item> ItemAttribute<E> newItemAttribute(final Option option, final Class<E> javaClass, final DeletePolicy policy)
+	{
+		return new ItemAttribute<E>(option, policy);
 	}
 	
 	// activation/deactivation -----------------------------------------------------
