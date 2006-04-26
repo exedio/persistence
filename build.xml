@@ -122,7 +122,7 @@
 		</ljavac>
 	</target>
 	
-	<target name="dsmf.test.run" depends="dsmf.test.compile">
+	<target name="dsmf.test" depends="dsmf.test.compile">
 		<mkdir dir="build/testresults" />
 		<foreachdb message="Testing" skipSwitch="dsmf.test">
 			<body>
@@ -143,8 +143,6 @@
 			</body>
 		</foreachdb>
 	</target>
-	
-	<target name="dsmf.test" depends="dsmf.test.run" />
 	
 	<target name="dsmf.clean">
 		<delete dir="build/dsmf" />
@@ -260,7 +258,7 @@
 		</ljar>
 	</target>
 	
-	<target name="runtime.test.run" depends="runtime.test.compile">
+	<target name="runtime.test" depends="runtime.test.compile">
 		<delete file="build/runtime/testprotocol.properties" />
 		<mkdir dir="build/testresults" />
 		<foreachdb message="Testing" skipSwitch="runtime.test">
@@ -311,8 +309,6 @@
 			</body>
 		</foreachdb>
 	</target>
-	
-	<target name="runtime.test" depends="runtime.test.run" />
 	
 	<target name="runtime.test.teardown" depends="runtime.compile, runtime.test.compile">
 		<foreachdb message="Tearing down" skipSwitch="runtime.teardown">
@@ -503,7 +499,7 @@
 		</copy>
 	</target>
 	
-	<target name="instrument.test.run"
+	<target name="instrument.test"
 				depends="runtime.compile, instrument.compile, instrument.test.compile">
 		<mkdir dir="build/testresults" />
 		<junit fork="yes"
@@ -523,8 +519,6 @@
 			<assertions><enable/></assertions>
 		</junit>
 	</target>
-	
-	<target name="instrument.test" depends="instrument.test.run" />
 	
 	<target name="instrument.clean">
 		<delete dir="build/instrument" />
