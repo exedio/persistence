@@ -32,11 +32,6 @@ public class DeleteTest extends AbstractLibTest
 	private DeleteItem item;
 	private DeleteOtherItem other;
 
-	public void setUp() throws Exception
-	{
-		super.setUp();
-	}
-	
 	public void testForbid()
 	{
 		assertEqualsUnmodifiable(list(item.selfForbid, item.selfNullify, item.selfCascade, item.selfCascade2), item.TYPE.getReferences());
