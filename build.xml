@@ -82,7 +82,7 @@
 									<echo level="warning" message="@{message} @{db} skipped because skip switch." />
 								</then>
 								<else>
-									<echo message="@{message} @{db}" />
+									<echo level="info" message="@{message} @{db}" />
 									<!-- this is a dummy loop to create the attribute @{db.driver} -->
 									<for param="db.driver" list="${@{db.file}.x-build.driver}">
 										<sequential>
